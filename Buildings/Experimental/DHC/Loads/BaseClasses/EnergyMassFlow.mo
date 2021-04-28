@@ -198,6 +198,8 @@ equation
       Documentation(info="<html>
 <p>
 TODO:
+Add TSup_nominal parameter and use it to compute QCap_flow
+and QSet_flow.
 Document enable signal for zero flow rate at zero load.
 Effectiveness approximation and plot.
 </p>
@@ -259,7 +261,7 @@ is practically challenging and likely irrelevant here, considering the modeling
 uncertainty introduced by the heat exchanger approximation.
 So we rather adopt the following simplified formulation (with a straightforward 
 inverse) using a shape factor <i>k</i> to approximate a typical emission/flow 
-rate characteristic for variable flow systems.
+rate characteristic for variable flow systems, given a fixed supply temperature.
 </p>
 <p>
 <i>Q&#775; / Q&#775;_nominal = (1 - exp(-k * m&#775; / m&#775;_nominal)) / (1 - exp(-k))</i>.
@@ -344,7 +346,8 @@ f<sup>-1</sup>(Q&#775;Pre / Q&#775;_nominal))</i>.
 </ul>
 <p>
 The mass flow rate is then filtered to approximate the
-response time of the terminal actuators and the distribution pump.
+response time of the terminal actuators and the distribution pump 
+or main control valve.
 This also provides a means to break the algebraic loop between the
 mass flow rate and the supply temperature.
 See

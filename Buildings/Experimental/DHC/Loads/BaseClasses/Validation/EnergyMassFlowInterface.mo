@@ -161,7 +161,7 @@ model EnergyMassFlowInterface
       m_flow_nominal=m_flow_nominal)
     annotation (Placement(transformation(extent={{-68,-110},{-48,-90}})));
 protected
-  parameter Modelica.SIunits.TemperatureDifference dT1_nominal = 20
+  parameter Modelica.SIunits.TemperatureDifference dT1_nominal = 10
     "Nominal Delta-T: change default btw cooling and heating applications";
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal=
     abs(Q_flow_nominal / dT1_nominal / cpWatLiq)
