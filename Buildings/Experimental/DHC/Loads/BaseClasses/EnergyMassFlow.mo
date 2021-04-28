@@ -119,7 +119,7 @@ protected
     output Real fra_Q_flow
       "Fraction heat flow rate";
   algorithm
-    fra_Q_flow := (1 - exp(-k * fra_m_flow)) / (1 - exp(-k));
+    fra_Q_flow := fra_m_flow * (1 - exp(-k * fra_m_flow)) / (1 - exp(-k));
     annotation (
       inverse(
         fra_m_flow=inverseCharacteristic(fra_Q_flow, have_masFlo, k)));
@@ -162,17 +162,7 @@ equation
   fra_m_flow =
     if uEna then (
       if have_masFlo then max(0, min(1,
-        m_flow_internal / m_flow_nominal *
-        inverseCharacteristic(max(0, min(1,
-          fra_QPre_flow * (TSupSet - TLoa_nominal) / TLoa_nominal *
-            Utilities.Math.Functions.inverseXRegularized(
-              (TSup_actual - TLoa_nominal) / TLoa_nominal,
-              kReg))),
-          have_masFlo,
-          k) *
-        Utilities.Math.Functions.inverseXRegularized(
-          inverseCharacteristic(fra_QPreBou_flow, have_masFlo, k),
-          kReg)))
+        m_flow_internal / m_flow_nominal))
       elseif not have_varFlo then
         1
       else
@@ -267,7 +257,7 @@ Identifying the proper heat exchanger configuration and parameters
 is practically challenging and likely irrelevant here, considering the modeling
 uncertainty introduced by the heat exchanger approximation.
 So we rather adopt the following simplified formulation (which also provides
-a straightforward inverse) using a shape factor <i>k</i> to approximate a typical
+an explicit inverse) using a shape factor <i>k</i> to approximate a typical
 emission/flow rate characteristic for variable flow systems, given a fixed supply
 temperature.
 </p>

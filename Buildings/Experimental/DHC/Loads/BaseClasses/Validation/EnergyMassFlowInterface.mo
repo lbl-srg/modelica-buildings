@@ -60,7 +60,7 @@ model EnergyMassFlowInterface
     redeclare package Medium = Medium,
     p=Medium.p_default + 10E4,
     T=TSupSer_nominal - 30,
-    nPorts=2) "Service supply"
+    nPorts=1) "Service supply"
     annotation (Placement(transformation(extent={{-240,70},{-220,90}})));
   Fluid.Actuators.Valves.TwoWayEqualPercentage val(
     redeclare package Medium=Medium,
@@ -168,7 +168,6 @@ model EnergyMassFlowInterface
     dp1_nominal=0,
     dp2_nominal=dp_nominal,
     configuration=Buildings.Fluid.Types.HeatExchangerConfiguration.CounterFlow,
-
     Q_flow_nominal=Q_flow_nominal,
     T_a1_nominal=TSupSer_nominal,
     T_a2_nominal=TSupSet_nominal - dT1_nominal) "ETS HX"
@@ -177,6 +176,7 @@ model EnergyMassFlowInterface
         extent={{10,-10},{-10,10}},
         rotation=90,
         origin={-56,-144})));
+
   Fluid.Actuators.Valves.TwoWayEqualPercentage val1(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
@@ -211,6 +211,12 @@ model EnergyMassFlowInterface
         /Q_flow_nominal*(exp(-2.5) - 1) + 1)/(-2.5))
     "Prescribed mass flow rate"
     annotation (Placement(transformation(extent={{-240,-170},{-220,-150}})));
+  Fluid.Sources.Boundary_pT serSup2(
+    redeclare package Medium = Medium,
+    p=Medium.p_default + 10E4,
+    T=TSupSer_nominal,
+    nPorts=1) "Service supply"
+    annotation (Placement(transformation(extent={{-240,-132},{-220,-112}})));
 protected
   parameter Modelica.SIunits.TemperatureDifference dT1_nominal = 10
     "Nominal Delta-T: change default btw cooling and heating applications";
@@ -298,7 +304,7 @@ equation
   connect(serRet1.ports[1], senTRet1.port_b)
     annotation (Line(points={{-222,-340},{-72,-340}}, color={0,127,255}));
   connect(serSup.ports[1], val.port_a)
-    annotation (Line(points={{-220,82},{-176,82},{-176,80},{-130,80}},
+    annotation (Line(points={{-220,80},{-176,80},{-176,80},{-130,80}},
                                                    color={0,127,255}));
   connect(serRet.ports[1], hex.port_b1) annotation (Line(points={{-220,42},{
           -100,42},{-100,50}}, color={0,127,255}));
@@ -310,8 +316,8 @@ equation
           -124},{-62,-134}}, color={0,127,255}));
   connect(conPID1.y, val1.y) annotation (Line(points={{-110,-84},{-82,-84},{-82,
           -112}}, color={0,0,127}));
-  connect(temSupSet.y, conPID1.u_s) annotation (Line(points={{-218,-60},{-162,
-          -60},{-162,-84},{-134,-84}}, color={0,0,127}));
+  connect(temSupSet.y, conPID1.u_s) annotation (Line(points={{-218,-60},{-160,
+          -60},{-160,-84},{-134,-84}}, color={0,0,127}));
   connect(loa.y[2], eneMasFlo2.QPre_flow) annotation (Line(points={{-219,-20},{
           38,-20},{38,-117},{46,-117}}, color={0,0,127}));
   connect(hex1.port_a2, senTRet2.port_b) annotation (Line(points={{-50,-154},{
@@ -347,11 +353,10 @@ equation
           36,-20},{36,-293},{6,-293}},color={0,0,127}));
   connect(masFloPre.y, eneMasFlo2.mPre_flow) annotation (Line(points={{-219,
           -160},{20,-160},{20,-119},{46,-119}}, color={0,0,127}));
-  connect(serSup.ports[2], val1.port_a) annotation (Line(points={{-220,78},{
-          -200,78},{-200,76},{-182,76},{-182,-124},{-92,-124}}, color={0,127,
-          255}));
   connect(hex1.port_b1, serRet.ports[2]) annotation (Line(points={{-62,-154},{
           -62,-172},{-190,-172},{-190,38},{-220,38}}, color={0,127,255}));
+  connect(serSup2.ports[1], val1.port_a) annotation (Line(points={{-220,-122},{
+          -158,-122},{-158,-124},{-92,-124}}, color={0,127,255}));
   annotation (Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-260,-380},{260,240}})),
       experiment(
