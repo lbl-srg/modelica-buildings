@@ -246,5 +246,19 @@
     },
     "model_name": "Buildings.Experimental.DHC.Examples.Combined.Generation5.Examples.SeriesVariableFlow",
     "comment": "See https://github.com/lbl-srg/modelica-buildings/issues/2435 and https://github.com/lbl-srg/modelica-buildings/issues/2436"
+  },
+  {
+    "optimica": {
+        "simulate": false,
+        "comment": "This causes a timeout on travis, but works locally. See https://travis-ci.com/github/lbl-srg/modelica-buildings/jobs/501193509#L635"
+    },
+    "model_name": "Buildings.ThermalZones.EnergyPlus.Examples.SmallOffice.ASHRAE2006Summer"
+  },
+  {
+    "optimica": {
+        "simulate": false,
+        "comment": "This causes a timeout on travis, but works locally. See https://travis-ci.com/github/lbl-srg/modelica-buildings/jobs/501193509#L635"
+    },
+    "model_name": "Buildings.ThermalZones.EnergyPlus.Examples.SmallOffice.ASHRAE2006Winter"
   }
 ]
