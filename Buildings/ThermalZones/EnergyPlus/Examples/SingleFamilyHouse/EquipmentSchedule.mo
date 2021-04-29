@@ -2,7 +2,6 @@ within Buildings.ThermalZones.EnergyPlus.Examples.SingleFamilyHouse;
 model EquipmentSchedule
   "Example model with a schedule that overrides a schedule in EnergyPlus"
   extends Buildings.ThermalZones.EnergyPlus.Examples.SingleFamilyHouse.Unconditioned;
-
   Buildings.ThermalZones.EnergyPlus.Schedule schInt(
     name="INTERMITTENT",
     unit=Buildings.ThermalZones.EnergyPlus.Types.Units.Normalized)
@@ -15,6 +14,7 @@ model EquipmentSchedule
       displayUnit="d")=86400)
     "Schedule for fraction of internal loads"
     annotation (Placement(transformation(extent={{-80,70},{-60,90}})));
+
 equation
   connect(schInt.u,intLoaFra.y)
     annotation (Line(points={{-42,80},{-58,80}},color={0,0,127}));

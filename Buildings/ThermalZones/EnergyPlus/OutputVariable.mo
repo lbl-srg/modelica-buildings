@@ -3,7 +3,6 @@ model OutputVariable
   "Block to read an EnergyPlus output variable"
   extends Buildings.ThermalZones.EnergyPlus.BaseClasses.PartialEnergyPlusObject;
   extends Buildings.ThermalZones.EnergyPlus.BaseClasses.Synchronize.ObjectSynchronizer;
-
   parameter String name
     "EnergyPlus name of the output variable as in the EnergyPlus .rdd or .mdd file";
   parameter String key
@@ -16,20 +15,27 @@ model OutputVariable
   discrete Modelica.Blocks.Interfaces.RealOutput y
     "Output received from EnergyPlus"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
+
 protected
   final parameter Boolean printUnit=building.printUnits
     "Set to true to print unit of OutputVariable objects to log file"
     annotation (Dialog(group="Diagnostics"));
   Modelica.Blocks.Interfaces.RealInput directDependency_in_internal
     "Needed to connect to conditional connector";
-
-  constant Integer nParOut = 0 "Number of parameter values retrieved from EnergyPlus";
-  constant Integer nInp = 0 "Number of inputs";
-  constant Integer nOut = 1 "Number of outputs";
-  constant Integer nDer = 0 "Number of derivatives";
-  constant Integer nY = nOut + nDer + 1 "Size of output vector of exchange function";
-  parameter Integer nObj(fixed=false, start=0) "Total number of Spawn objects in building";
-
+  constant Integer nParOut=0
+    "Number of parameter values retrieved from EnergyPlus";
+  constant Integer nInp=0
+    "Number of inputs";
+  constant Integer nOut=1
+    "Number of outputs";
+  constant Integer nDer=0
+    "Number of derivatives";
+  constant Integer nY=nOut+nDer+1
+    "Size of output vector of exchange function";
+  parameter Integer nObj(
+    fixed=false,
+    start=0)
+    "Total number of Spawn objects in building";
   Buildings.ThermalZones.EnergyPlus.BaseClasses.SpawnExternalObject adapter=Buildings.ThermalZones.EnergyPlus.BaseClasses.SpawnExternalObject(
     objectType=4,
     startTime=startTime,
@@ -37,54 +43,44 @@ protected
     modelicaInstanceName=modelicaInstanceName,
     idfName=idfName,
     weaName=weaName,
+    relativeSurfaceTolerance=relativeSurfaceTolerance,
     epName=name,
     usePrecompiledFMU=usePrecompiledFMU,
     fmuName=fmuName,
     buildingsLibraryRoot=Buildings.ThermalZones.EnergyPlus.BaseClasses.buildingsLibraryRoot,
     logLevel=logLevel,
     printUnit=printUnit,
-    jsonName = "outputVariables",
-    jsonKeysValues=
-        "        \"name\": \"" + name + "\",
-        \"key\": \"" + key + "\",
-        \"fmiName\": \"" + name + "_" + key + "\"",
-    parOutNames = fill("", nParOut),
-    parOutUnits = fill("", nParOut),
-    nParOut = nParOut,
-    inpNames = fill("", nInp),
-    inpUnits = fill("", nInp),
-    nInp = 0,
-    outNames = {key},
-    outUnits = fill("", nOut),
-    nOut = nOut,
-    derivatives_structure = fill( fill(nDer, 2), nDer),
-    nDer = nDer,
-    derivatives_delta = fill(0, nDer))
+    jsonName="outputVariables",
+    jsonKeysValues="        \"name\": \""+name+"\",
+        \"key\": \""+key+"\",
+        \"fmiName\": \""+name+"_"+key+"\"",
+    parOutNames=fill("",nParOut),
+    parOutUnits=fill("",nParOut),
+    nParOut=nParOut,
+    inpNames=fill("",nInp),
+    inpUnits=fill("",nInp),
+    nInp=0,
+    outNames={key},
+    outUnits=fill("",nOut),
+    nOut=nOut,
+    derivatives_structure=fill(fill(nDer,2),nDer),
+    nDer=nDer,
+    derivatives_delta=fill(0,nDer))
     "Class to communicate with EnergyPlus";
-
-  Real yEP[nY] "Output of exchange function";
-
+  Real yEP[nY]
+    "Output of exchange function";
   Modelica.SIunits.Time tNext(
     start=startTime,
     fixed=true)
     "Next sampling time";
+
 initial equation
   assert(
     not usePrecompiledFMU,
     "Use of pre-compiled FMU is not supported for block OutputVariable.");
-
   nObj=Buildings.ThermalZones.EnergyPlus.BaseClasses.initialize(
     adapter=adapter,
     isSynchronized=building.isSynchronized);
-
-  /* The last argument of u will be ignored as the C code only processes 1 element of u,
-     but Modelica is tricked into thinking that there is a dependency on directDependency_in_internal */
-//   Buildings.ThermalZones.EnergyPlus.BaseClasses.exchange(
-//     adapter = adapter,
-//     initialCall = true,
-//     nY = nY,
-//     u = {round(time, 1E-3), directDependency_in_internal},
-//     dummy = dummy);
 
 equation
   if isDirectDependent then
@@ -92,21 +88,17 @@ equation
   else
     directDependency_in_internal=0;
   end if;
-
-  when {initial(), time >= pre(tNext)} then
-    yEP = Buildings.ThermalZones.EnergyPlus.BaseClasses.exchange(
-      adapter = adapter,
-      initialCall = false,
-      nY = nY,
-      u = {round(time, 1E-3), directDependency_in_internal},
-      dummy = nObj);
-
-    y = yEP[1];
-    tNext = yEP[2];
+  when {initial(),time >= pre(tNext)} then
+    yEP=Buildings.ThermalZones.EnergyPlus.BaseClasses.exchange(
+      adapter=adapter,
+      initialCall=false,
+      nY=nY,
+      u={round(time,1E-3),directDependency_in_internal},
+      dummy=nObj);
+    y=yEP[1];
+    tNext=yEP[2];
   end when;
-
-  nObj =synBui.synchronize.done;
-
+  nObj=synBui.synchronize.done;
   annotation (
     defaultComponentName="out",
     Icon(
