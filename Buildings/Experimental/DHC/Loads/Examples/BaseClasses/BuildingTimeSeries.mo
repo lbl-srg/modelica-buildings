@@ -15,9 +15,6 @@ model BuildingTimeSeries
   parameter Boolean have_secPum = true
     "Set to true in case of in-building secondary pumps"
     annotation (Evaluate=true, Dialog(group="Configuration"));
-  parameter Types.TimeSeriesType typTimSer = Types.TimeSeriesType.Load
-    "Type of time series"
-    annotation (Evaluate=true, Dialog(group="Configuration"));
 
   parameter Real fra_m_flow_min = if have_pum then 0.1 else 0
     "Minimum flow rate (ratio to nominal)"
@@ -106,14 +103,12 @@ model BuildingTimeSeries
       iconTransformation(extent={{-40,-40},{40,40}},rotation=-90,origin={240,-340})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TChiWatSupSet(
     final k=T_aChiWat_nominal,
-    y(final unit="K", displayUnit="degC")) if
-      typTimSer <> Types.TimeSeriesType.LoadFlowTemperature
+    y(final unit="K", displayUnit="degC"))
     "Chilled water supply temperature set point"
     annotation (Placement(transformation(extent={{-280,170},{-260,190}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant THeaWatSupSet(
     final k=T_aHeaWat_nominal,
-    y(final unit="K", displayUnit="degC")) if
-      typTimSer <> Types.TimeSeriesType.LoadFlowTemperature
+    y(final unit="K", displayUnit="degC"))
     "Heating hot water supply temperature set point"
     annotation (Placement(transformation(extent={{-280,210},{-260,230}})));
   Buildings.Controls.OBC.CDL.Continuous.Gain mulQReqHea_flow(
@@ -132,38 +127,11 @@ model BuildingTimeSeries
     y(each unit="W"),
     offset={0,0,0},
     columns=2:4,
-    smoothness=Modelica.Blocks.Types.Smoothness.MonotoneContinuousDerivative1) if
-    typTimSer == Types.TimeSeriesType.Load
+    smoothness=Modelica.Blocks.Types.Smoothness.MonotoneContinuousDerivative1)
     "Reader for thermal loads: y[1] cooling load, y[2] heating load, y[3] SHW load"
     annotation (Placement(transformation(extent={{-280,130},{-260,150}})));
-  Modelica.Blocks.Sources.CombiTimeTable loaFlo(
-    tableOnFile=true,
-    tableName="tab1",
-    fileName=Modelica.Utilities.Files.loadResource(filNam),
-    extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic,
-    y(each unit="W"),
-    offset={0,0,0},
-    columns=2:6,
-    smoothness=Modelica.Blocks.Types.Smoothness.MonotoneContinuousDerivative1) if
-    typTimSer == Types.TimeSeriesType.LoadFlow
-    "y[1] cooling load, y[2] heating load, y[3] SHW load, y[4] CHW flow rate, y[5] HHW flow rate"
-    annotation (Placement(transformation(extent={{-280,90},{-260,110}})));
-  Modelica.Blocks.Sources.CombiTimeTable loaFloTem(
-    tableOnFile=true,
-    tableName="tab1",
-    fileName=Modelica.Utilities.Files.loadResource(filNam),
-    extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic,
-    y(each unit="W"),
-    offset={0,0,0},
-    columns=2:8,
-    smoothness=Modelica.Blocks.Types.Smoothness.MonotoneContinuousDerivative1) if
-    typTimSer == Types.TimeSeriesType.LoadFlowTemperature
-    "y[1] cooling load, y[2] heating load, y[3] SHW load, y[4] CHW flow rate, y[5] HHW flow rate, y[6] CHWST, y[7] HHWST"
-    annotation (Placement(transformation(extent={{-280,50},{-260,70}})));
   DHC.Loads.BaseClasses.EnergyMassFlowInterface eneMasFloHea(
     redeclare final package Medium=Medium,
-    final have_masFlo=typTimSer==Types.TimeSeriesType.LoadFlow or
-      typTimSer==Types.TimeSeriesType.LoadFlowTemperature,
     final have_pum=have_secPum,
     final Q_flow_nominal=QHea_flow_nominal,
     final m_flow_nominal=mHeaWat_flow_nominal,
@@ -174,8 +142,6 @@ model BuildingTimeSeries
 
   DHC.Loads.BaseClasses.EnergyMassFlowInterface eneMasFloCoo(
     redeclare final package Medium=Medium,
-    final have_masFlo=typTimSer==Types.TimeSeriesType.LoadFlow or
-      typTimSer==Types.TimeSeriesType.LoadFlowTemperature,
     final have_pum=have_secPum,
     final Q_flow_nominal=QCoo_flow_nominal,
     final m_flow_nominal=mChiWat_flow_nominal,
@@ -189,19 +155,6 @@ model BuildingTimeSeries
     final extract=1:3)
     "Extract loads: y[1] cooling load, y[2] heating load, y[3] SHW load"
     annotation (Placement(transformation(extent={{-200,130},{-180,150}})));
-  Buildings.Controls.OBC.CDL.Routing.RealExtractSignal extFlo(
-    final nin=5,
-    final nout=2,
-    final extract=4:5) if typTimSer == Types.TimeSeriesType.LoadFlowTemperature or
-      typTimSer == Types.TimeSeriesType.LoadFlow
-    "Extract flow rates: y[1] CHW flow rate, y[2] HHW flow rate"
-    annotation (Placement(transformation(extent={{-200,90},{-180,110}})));
-  Buildings.Controls.OBC.CDL.Routing.RealExtractSignal extTem(
-    final nin=7,
-    final nout=2,
-    final extract=6:7) if typTimSer == Types.TimeSeriesType.LoadFlowTemperature
-    "Extract supply temperatures: y[1] CHWST, y[2] HHWST"
-    annotation (Placement(transformation(extent={{-200,50},{-180,70}})));
   Buildings.Controls.OBC.CDL.Logical.TrueHoldWithReset uEna[2](
     each duration=15*60)
     "Hold enable signal"
@@ -230,16 +183,6 @@ equation
     annotation (Line(points={{10,-260},{260,-260}}, color={0,127,255}));
   connect(loa.y, extLoa.u)
     annotation (Line(points={{-259,140},{-202,140}}, color={0,0,127}));
-  connect(loaFlo.y, extLoa.u) annotation (Line(points={{-259,100},{-240,100},{-240,
-          140},{-202,140}}, color={0,0,127}));
-  connect(loaFloTem.y, extLoa.u) annotation (Line(points={{-259,60},{-240,60},{-240,
-          140},{-202,140}}, color={0,0,127}));
-  connect(loaFlo.y, extFlo.u)
-    annotation (Line(points={{-259,100},{-202,100}}, color={0,0,127}));
-  connect(loaFloTem.y, extFlo.u) annotation (Line(points={{-259,60},{-220,60},{-220,
-          100},{-202,100}}, color={0,0,127}));
-  connect(loaFloTem.y, extTem.u)
-    annotation (Line(points={{-259,60},{-202,60}}, color={0,0,127}));
   connect(ena.u, norLoa.y)
     annotation (Line(points={{-122,140},{-126,140}}, color={0,0,127}));
   connect(extLoa.y[1:2], norLoa.u)
@@ -250,18 +193,10 @@ equation
           {-20,-51},{-12,-51}}, color={255,0,255}));
   connect(uEna[1].y, eneMasFloCoo.ena) annotation (Line(points={{-68,140},{-20,140},
           {-20,-251},{-12,-251}}, color={255,0,255}));
-  connect(extFlo.y[2], eneMasFloHea.mPre_flow) annotation (Line(points={{-178,101},
-          {-178,100},{-40,100},{-40,-55},{-12,-55}}, color={0,0,127}));
-  connect(extFlo.y[1], eneMasFloCoo.mPre_flow) annotation (Line(points={{-178,99},
-          {-178,100},{-40,100},{-40,-255},{-12,-255}}, color={0,0,127}));
-  connect(extTem.y[2], eneMasFloHea.TSupSet) annotation (Line(points={{-178,61},
-          {-178,60},{-60,60},{-60,-57},{-12,-57}}, color={0,0,127}));
-  connect(extTem.y[1], eneMasFloCoo.TSupSet) annotation (Line(points={{-178,59},
-          {-178,60},{-60,60},{-60,-257},{-12,-257}}, color={0,0,127}));
   connect(extLoa.y[2], eneMasFloHea.QPre_flow) annotation (Line(points={{-178,140},
-          {-160,140},{-160,-53},{-12,-53}}, color={0,0,127}));
+          {-160,140},{-160,-54},{-12,-54}}, color={0,0,127}));
   connect(extLoa.y[1], eneMasFloCoo.QPre_flow) annotation (Line(points={{-178,
-          138.667},{-178,140},{-160,140},{-160,-253},{-12,-253}},
+          138.667},{-178,140},{-160,140},{-160,-254},{-12,-254}},
                                                          color={0,0,127}));
   connect(THeaWatSupSet.y, eneMasFloHea.TSupSet) annotation (Line(points={{-258,
           220},{-60,220},{-60,-57},{-12,-57}}, color={0,0,127}));

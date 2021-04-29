@@ -136,62 +136,6 @@ First implementation.
 </li>
 </ul>
 </html>"));
-  type TimeSeriesType = enumeration(
-      Load
-    "Load only",
-      LoadFlow
-    "Load and mass flow rate",
-      LoadFlowTemperature
-    "Load, mass flow rate and supply temperature")
-    "Enumeration for the type of time series"
-    annotation (Documentation(info="<html>
-<p>
-Enumeration to define the type of time series.
-<br/>
-</p>
-<table border=\"1\" summary=\"Explanation of the enumeration\">
-<tr>
-  <th>
-  Enumeration
-  </th>
-  <th>
-  Description
-  </th>
-</tr>
-<tr>
-  <td>
-  Load
-  </td>
-  <td>
-  Use this setting if the time series only provides thermal loads.
-  </td>
-</tr>
-<tr>
-  <td>
-  LoadFlow
-  </td>
-  <td>
-  Use this setting if the time series provides thermal loads and mass flow rates.
-  </td>
-</tr>
-<tr>
-  <td>
-  LoadFlowTemperature
-  </td>
-  <td>
-  Use this setting if the time series provides thermal loads,
-  mass flow rates and supply temperatures.
-  </td>
-</tr>
-</table>
-</html>",revisions="<html>
-<ul>
-<li>
-April 21, 2021, by Antoine Gautier:<br/>
-First implementation.
-</li>
-</ul>
-</html>"));
   annotation (
     preferredView="info",
     Documentation(

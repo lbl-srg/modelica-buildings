@@ -2,12 +2,9 @@
 block EnergyMassFlow
   extends Modelica.Blocks.Icons.Block;
 
-  parameter Boolean have_masFlo = false
-    "Set to true in case of prescribed mass flow rate"
-    annotation(Evaluate=true);
   parameter Boolean have_varFlo = true
     "Set to true in case of variable flow system"
-    annotation(Evaluate=true, Dialog(enable=not have_masFlo));
+    annotation(Evaluate=true);
   parameter Boolean have_pum
     "Set to true if the system has a pump"
     annotation(Evaluate=true);
@@ -27,41 +24,36 @@ block EnergyMassFlow
     annotation (Dialog(group="Nominal condition"));
   parameter Real fra_m_flow_min = if have_pum then 0.1 else 0
     "Minimum flow rate (ratio to nominal)"
-    annotation(Dialog(enable=have_pum and not have_masFlo and have_varFlo));
+    annotation(Dialog(enable=have_pum and have_varFlo));
   parameter Real k = 2.5
     "Shape factor of emission/flow rate characteristic";
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uEna "Enable signal"
-    annotation (Placement(transformation(extent={{-140,60},{-100,100}}),
-        iconTransformation(extent={{-140,60},{-100,100}})));
+    annotation (Placement(transformation(extent={{-140,40},{-100,80}}),
+        iconTransformation(extent={{-140,40},{-100,80}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput QPre_flow(
     final unit="W") "Prescribed load"
-    annotation (Placement(transformation(extent={{-140,30},{-100,70}}),
-              iconTransformation(extent={{-140,30},{-100,70}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput mPre_flow(
-    final unit="kg/s") if have_masFlo
-    "Prescribed mass flow rate"
-    annotation (Placement(transformation(extent={{-140,0},{-100,40}}),
-      iconTransformation(extent={{-140,0},{-100,40}})));
+    annotation (Placement(transformation(extent={{-140,10},{-100,50}}),
+              iconTransformation(extent={{-140,10},{-100,50}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TSupSet(
     final unit="K",
     displayUnit="degC")
     "Supply temperature set point"
-    annotation (Placement(transformation(extent={{-140,-30},{-100,10}}),
-      iconTransformation(extent={{-140,-30},{-100,10}})));
+    annotation (Placement(transformation(extent={{-140,-20},{-100,20}}),
+      iconTransformation(extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TSup_actual(
     final unit="K",
     displayUnit="degC")
     "Actual supply temperature"
     annotation (Placement(transformation(
-      extent={{-140,-60},{-100,-20}}), iconTransformation(extent={{-140,-60},{-100,
-            -20}})));
+      extent={{-140,-50},{-100,-10}}), iconTransformation(extent={{-140,-50},{-100,
+            -10}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput m_flow_actual(
     final unit="kg/s")
     "Actual mass flow rate"
     annotation (Placement(transformation(
-      extent={{-140,-90},{-100,-50}}),  iconTransformation(extent={{-140,-90},{-100,
-            -50}})));
+      extent={{-140,-80},{-100,-40}}),  iconTransformation(extent={{-140,-80},{-100,
+            -40}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput m_flow(
     final unit="kg/s")
     "Mass flow rate required to meet prescribed load"
@@ -103,53 +95,36 @@ protected
     "Bounded ratio of prescribed heat flow rate to actual capacity";
   Real fra_Q_flow(final unit="1")
     "Heat flow rate correction factor for mass flow rate mismatch";
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput m_flow_internal(
-    final unit="kg/s")
-    "Mass flow rate for internal use when mPre_flow is removed";
 
   function characteristic "m_flow -> Q_flow characteristic"
-    /* FE: implement exponential characteristic based on OS load data for
-    the case where have_masFlo is false.
-    */
     extends Modelica.Icons.Function;
     input Real fra_m_flow
       "Fraction mass flow rate";
-    input Boolean have_masFlo = false;
     input Real k = 2.5 "Shape factor of typical characteristic";
     output Real fra_Q_flow
       "Fraction heat flow rate";
   algorithm
-    fra_Q_flow := fra_m_flow * (1 - exp(-k * fra_m_flow)) / (1 - exp(-k));
+    fra_Q_flow := (1 - exp(-k * fra_m_flow)) / (1 - exp(-k));
     annotation (
       inverse(
-        fra_m_flow=inverseCharacteristic(fra_Q_flow, have_masFlo, k)));
+        fra_m_flow=inverseCharacteristic(fra_Q_flow, k)));
   end characteristic;
 
   function inverseCharacteristic "Inverse of m_flow -> Q_flow characteristic"
-    /* FE: implement exponential characteristic based on OS load data for
-    the case where have_masFlo is false.
-    */
     extends Modelica.Icons.Function;
     input Real fra_Q_flow
       "Fraction heat flow rate";
-    input Boolean have_masFlo = false;
     input Real k = 2.5 "Shape factor of typical characteristic";
     output Real fra_m_flow
       "Fraction mass flow rate";
   algorithm
     fra_m_flow := log(fra_Q_flow * (exp(-k) -1) + 1) / (-k);
     annotation (
-      inverse(fra_Q_flow=characteristic(fra_m_flow, have_masFlo, k)));
+      inverse(fra_Q_flow=characteristic(fra_m_flow, k)));
   end inverseCharacteristic;
 
 equation
-  if have_masFlo then
-    connect(mPre_flow, m_flow_internal);
-  else
-    m_flow_internal = m_flow_nominal;
-  end if;
-
-  // Correction for supply temperature mismatch.
+  // Computation of actual capacity and part load ratio.
   fra_QCap_flow = (TSup_actual - TLoa_nominal) / (TSup_nominal - TLoa_nominal);
 
   fra_QPre_flow = QPre_flow / Q_flow_nominal *
@@ -161,9 +136,7 @@ equation
   // Computation of prescribed mass flow rate.
   fra_m_flow =
     if uEna then (
-      if have_masFlo then max(0, min(1,
-        m_flow_internal / m_flow_nominal))
-      elseif not have_varFlo then
+      if not have_varFlo then
         1
       else
         max(fra_m_flow_min, inverseCharacteristic(fra_QPreBou_flow)))
@@ -173,9 +146,9 @@ equation
 
   // Correction for mass flow rate shortage.
   fra_Q_flow = if have_pum then 1 else Utilities.Math.Functions.smoothLimit(
-    characteristic(m_flow_actual / m_flow_nominal, have_masFlo, k) *
+    characteristic(m_flow_actual / m_flow_nominal, k) *
       Utilities.Math.Functions.inverseXRegularized(
-        characteristic(m_flow / m_flow_nominal, have_masFlo, k),
+        characteristic(m_flow / m_flow_nominal, k),
         kReg),
     l=0,
     u=1,
@@ -318,27 +291,15 @@ the part load ratio corresponding to the prescribed heat flow rate:
 <b>Computation of the prescribed mass flow rate</b>
 </p>
 <p>
-For constant flow systems, the prescribed mass flow rate is set to
-the nominal value.
-For variable flow systems,
-</p>
-<ul>
-<li>
-if the mass flow rate is not provided as an input, it is computed by
+For constant flow systems, the prescribed mass flow rate is set to its
+nominal value.
+For variable flow systems, the prescribed mass flow rate is computed by
 applying the inverse of the emission/flow rate characteristic and
 considering the minimum value given by the recirculation flow rate
 at minimum pump speed:
 <i>m&#775; / m&#775;_nominal = min(1, max(m&#775;Min / m&#775;_nominal,
-f<sup>-1</sup>(fra_Q&#775;Pre)))</i>,
-</li>
-<li>
-if the mass flow rate is provided as an input (<i>m&#775;Pre</i>), it still needs
-to be corrected in case of a supply temperature mismatch:
-<i>m&#775; / m&#775;_nominal = min(1, m&#775;Pre / m&#775;_nominal *
-f<sup>-1</sup>(fra_Q&#775;Pre * (TSupSet - TLoa) / (TSup_actual - TLoa)) /
-f<sup>-1</sup>(fra_Q&#775;Pre))</i>.
-</li>
-</ul>
+f<sup>-1</sup>(fra_Q&#775;Pre)))</i>.
+</p>
 <p>
 The mass flow rate is then filtered to approximate the
 response time of the terminal actuators and the distribution pump
@@ -397,5 +358,9 @@ R. Petitjean.
 <i>Total Hydronic Balancing</i>.
 Tour and Andersson AB, Ljung, Sweden, 1994.
 </p>
-</html>"));
+</html>"),
+    experiment(
+      StopTime=31536000,
+      Tolerance=1e-06,
+      __Dymola_Algorithm="Cvode"));
 end EnergyMassFlow;

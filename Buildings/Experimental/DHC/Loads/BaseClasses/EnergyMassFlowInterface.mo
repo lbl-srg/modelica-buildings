@@ -2,12 +2,9 @@
 model EnergyMassFlowInterface
   extends Buildings.Fluid.Interfaces.PartialTwoPortInterface;
 
-  parameter Boolean have_masFlo = false
-    "Set to true in case of prescribed mass flow rate"
-    annotation(Evaluate=true);
   parameter Boolean have_varFlo = true
     "Set to true in case of variable flow system"
-    annotation(Evaluate=true, Dialog(enable=not have_masFlo));
+    annotation(Evaluate=true);
   parameter Boolean have_pum
     "Set to true if the system has a pump"
     annotation(Evaluate=true);
@@ -38,13 +35,8 @@ model EnergyMassFlowInterface
         iconTransformation(extent={{-140,70},{-100,110}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput QPre_flow(final unit="W")
     "Prescribed load"
-    annotation (Placement(transformation(extent={{-140,50},{-100,90}}),
-              iconTransformation(extent={{-140,50},{-100,90}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput mPre_flow(
-    final unit="kg/s") if have_masFlo
-    "Prescribed mass flow rate"
-    annotation (Placement(transformation(extent={{-140,30},{-100,70}}),
-      iconTransformation(extent={{-140,30},{-100,70}})));
+    annotation (Placement(transformation(extent={{-140,40},{-100,80}}),
+              iconTransformation(extent={{-140,40},{-100,80}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TSupSet(
     final unit="K",
     displayUnit="degC")
@@ -94,7 +86,6 @@ model EnergyMassFlowInterface
     "Valve (optional)"
     annotation (Placement(transformation(extent={{-10,-70},{10,-50}})));
   BaseClasses.EnergyMassFlow eneMasFlo(
-    final have_masFlo=have_masFlo,
     final have_varFlo=have_varFlo,
     final have_pum=have_pum,
     final Q_flow_nominal=Q_flow_nominal,
@@ -149,15 +140,13 @@ equation
   connect(heaFlo.port, del.heatPort)
     annotation (Line(points={{20,40},{20,10},{30,10}}, color={191,0,0}));
   connect(senTSup.T, eneMasFlo.TSup_actual)
-    annotation (Line(points={{-80,11},{-80,76},{-52,76}}, color={0,0,127}));
+    annotation (Line(points={{-80,11},{-80,77},{-52,77}}, color={0,0,127}));
   connect(ena, eneMasFlo.uEna) annotation (Line(points={{-120,90},{-94,90},{-94,
-          88},{-52,88}}, color={255,0,255}));
-  connect(QPre_flow, eneMasFlo.QPre_flow) annotation (Line(points={{-120,70},{-94,
-          70},{-94,85},{-52,85}}, color={0,0,127}));
-  connect(mPre_flow, eneMasFlo.mPre_flow) annotation (Line(points={{-120,50},{-90,
-          50},{-90,82},{-52,82}}, color={0,0,127}));
+          86},{-52,86}}, color={255,0,255}));
+  connect(QPre_flow, eneMasFlo.QPre_flow) annotation (Line(points={{-120,60},{-94,
+          60},{-94,83},{-52,83}}, color={0,0,127}));
   connect(TSupSet, eneMasFlo.TSupSet) annotation (Line(points={{-120,30},{-86,30},
-          {-86,79},{-52,79}}, color={0,0,127}));
+          {-86,80},{-52,80}}, color={0,0,127}));
   connect(senTSup.port_b, senDifEntFlo.port_a1) annotation (Line(points={{-70,0},
           {-66,0},{-66,-60},{-60,-60}}, color={0,127,255}));
   connect(senDifEntFlo.port_b1, pum.port_a) annotation (Line(points={{-40,-60},{
@@ -175,7 +164,7 @@ equation
   connect(senDifEntFlo.dH_flow, dH_flow) annotation (Line(points={{-38,-63},{
           -30,-63},{-30,-68},{40,-68},{40,-60},{120,-60}}, color={0,0,127}));
   connect(senDifEntFlo.m_flow1, eneMasFlo.m_flow_actual) annotation (Line(
-        points={{-38,-57},{-30,-57},{-30,-48},{-60,-48},{-60,73},{-52,73}},
+        points={{-38,-57},{-30,-57},{-30,-48},{-60,-48},{-60,74},{-52,74}},
         color={0,0,127}));
   annotation (
     defaultComponentName="eneMasFlo",
