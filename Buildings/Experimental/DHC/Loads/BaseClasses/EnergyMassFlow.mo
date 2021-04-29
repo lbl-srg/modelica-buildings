@@ -2,9 +2,12 @@
 block EnergyMassFlow
   extends Modelica.Blocks.Icons.Block;
 
+  parameter Boolean have_masFlo = false
+    "Set to true in case of prescribed mass flow rate"
+    annotation(Evaluate=true);
   parameter Boolean have_varFlo = true
     "Set to true in case of variable flow system"
-    annotation(Evaluate=true);
+    annotation(Evaluate=true, Dialog(enable=not have_masFlo));
   parameter Boolean have_pum
     "Set to true if the system has a pump"
     annotation(Evaluate=true);
@@ -24,17 +27,22 @@ block EnergyMassFlow
     annotation (Dialog(group="Nominal condition"));
   parameter Real fra_m_flow_min = if have_pum then 0.1 else 0
     "Minimum flow rate (ratio to nominal)"
-    annotation(Dialog(enable=have_pum and have_varFlo));
+    annotation(Dialog(enable=have_pum and not have_masFlo and have_varFlo));
   parameter Real k = 2.5
     "Shape factor of emission/flow rate characteristic";
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uEna "Enable signal"
-    annotation (Placement(transformation(extent={{-140,40},{-100,80}}),
-        iconTransformation(extent={{-140,40},{-100,80}})));
+    annotation (Placement(transformation(extent={{-140,68},{-100,108}}),
+        iconTransformation(extent={{-140,68},{-100,108}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput QPre_flow(
     final unit="W") "Prescribed load"
+    annotation (Placement(transformation(extent={{-140,40},{-100,80}}),
+              iconTransformation(extent={{-140,40},{-100,80}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput mPre_flow(
+    final unit="kg/s") if have_masFlo
+    "Prescribed mass flow rate"
     annotation (Placement(transformation(extent={{-140,10},{-100,50}}),
-              iconTransformation(extent={{-140,10},{-100,50}})));
+      iconTransformation(extent={{-140,10},{-100,50}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TSupSet(
     final unit="K",
     displayUnit="degC")
@@ -85,6 +93,11 @@ block EnergyMassFlow
 protected
   parameter Real kReg(final unit="1") = 1E-4
     "Regularization parameter";
+
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput m_flow_internal(
+    final unit="kg/s")
+    "Mass flow rate for internal use when mPre_flow is removed";
+
   Real fra_m_flow
     "Mass flow rate (ratio to nominal) corrected for supply temperature mismatch";
   Real fra_QCap_flow
@@ -124,8 +137,19 @@ protected
   end inverseCharacteristic;
 
 equation
+  if have_masFlo then
+    connect(mPre_flow, m_flow_internal);
+  else
+    m_flow_internal = m_flow_nominal;
+  end if;
+
   // Computation of actual capacity and part load ratio.
-  fra_QCap_flow = (TSup_actual - TLoa_nominal) / (TSup_nominal - TLoa_nominal);
+  fra_QCap_flow = if have_masFlo then QPre_flow / Q_flow_nominal *
+    (TSup_actual - TLoa_nominal) / TLoa_nominal *
+    Utilities.Math.Functions.inverseXRegularized(
+      (TSupSet - TLoa_nominal) / TLoa_nominal,
+      kReg)
+    else (TSup_actual - TLoa_nominal) / (TSup_nominal - TLoa_nominal);
 
   fra_QPre_flow = QPre_flow / Q_flow_nominal *
     Utilities.Math.Functions.inverseXRegularized(
@@ -136,7 +160,8 @@ equation
   // Computation of prescribed mass flow rate.
   fra_m_flow =
     if uEna then (
-      if not have_varFlo then
+      if have_masFlo then m_flow_internal / m_flow_nominal
+      elseif not have_varFlo then
         1
       else
         max(fra_m_flow_min, inverseCharacteristic(fra_QPreBou_flow)))
@@ -271,16 +296,30 @@ Based on those general principles, the calculations are performed as
 follows.
 </p>
 <p>
-<b>Correction for supply temperature mismatch</b>
+<b>Computation of the actual capacity</b>
 </p>
 <p>
 First, we compute
 </p>
 <ul>
 <li>
-the system heating or cooling capacity <i>Q&#775;Cap</i> (at nominal mass flow rate)
-given the actual supply temperature:
+the system heating or cooling capacity <i>Q&#775;Cap</i> given the actual supply temperature:
+<ul>
+<li>
+in the case where the mass flow rate is not provided as an input, the capacity 
+is the maximum heat flow rate at nominal mass flow rate:
 <i>Q&#775;Cap / Q&#775;_nominal = (TSup_actual - TLoa) / (TSup_nominal - TLoa)</i>,
+</li>
+<li>
+in the case where the mass flow rate is provided as an input, the capacity is the 
+prescribed heat flow rate <i>Q&#775;Pre</i> corrected to account for any supply 
+temperature mismatch with the set point 
+(we consider that the prescribed mass flow rate must be met and 
+that any supply temperature mismatch will impact the heat flow rate):
+<i>Q&#775;Cap / Q&#775;_nominal = Q&#775;Pre / Q&#775;_nominal * 
+(TSup_actual - TLoa) / (TSupSet - TLoa)</i>,
+</li>
+</ul>
 </li>
 <li>
 the part load ratio corresponding to the prescribed heat flow rate:
@@ -293,13 +332,22 @@ the part load ratio corresponding to the prescribed heat flow rate:
 <p>
 For constant flow systems, the prescribed mass flow rate is set to its
 nominal value.
-For variable flow systems, the prescribed mass flow rate is computed by
+For variable flow systems, 
+</p>
+<ul>
+<li>
+if the mass flow rate is not provided as an input, it is computed by
 applying the inverse of the emission/flow rate characteristic and
 considering the minimum value given by the recirculation flow rate
 at minimum pump speed:
 <i>m&#775; / m&#775;_nominal = min(1, max(m&#775;Min / m&#775;_nominal,
-f<sup>-1</sup>(fra_Q&#775;Pre)))</i>.
-</p>
+f<sup>-1</sup>(fra_Q&#775;Pre)))</i>,
+</li>
+<li>
+if the mass flow rate is provided as an input (<i>m&#775;Pre</i>), it 
+is used directly.
+</li>
+</ul>
 <p>
 The mass flow rate is then filtered to approximate the
 response time of the terminal actuators and the distribution pump
