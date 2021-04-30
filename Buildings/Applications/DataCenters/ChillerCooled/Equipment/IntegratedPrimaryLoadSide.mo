@@ -85,38 +85,22 @@ model IntegratedPrimaryLoadSide
     final homotopyInitialization=homotopyInitialization,
     final linearizeFlowResistance=linearizeFlowResistance2)
     "Pumps"
-    annotation (Placement(transformation(extent={{20,-70},{0,-50}})));
+    annotation (Placement(transformation(extent={{0,-30},{-20,-10}})));
 
-  Fluid.FixedResistances.Junction jun3(
-    redeclare package Medium = Medium2,
-    m_flow_nominal={numChi*m2_flow_chi_nominal,-numChi*m2_flow_chi_nominal,-
-        m2_flow_wse_nominal},
-    dp_nominal={0,0,0}) "Junction"
-    annotation (Placement(transformation(extent={{28,-10},{8,-30}})));
-  Fluid.FixedResistances.Junction spl3(
-    redeclare package Medium = Medium2,
-    m_flow_nominal={numChi*m2_flow_chi_nominal,-m2_flow_wse_nominal,-numChi*
-        m2_flow_chi_nominal},
-    dp_nominal={0,0,0}) "Splitter"
-    annotation (Placement(transformation(extent={{-10,-50},{-30,-70}})));
 equation
   connect(yPum, pum.u)
-    annotation (Line(points={{-120,-40},{30,-40},{30,-56},{22,-56}},
+    annotation (Line(points={{-120,-40},{10,-40},{10,-16},{2,-16}},
                                       color={0,0,127}));
-  connect(pum.P, powPum) annotation (Line(points={{-1,-56},{-6,-56},{-6,-80},{
-          50,-80},{50,-40},{110,-40}},color={0,0,127}));
-  connect(val5.port_b, jun3.port_1)
-    annotation (Line(points={{40,-20},{28,-20}}, color={0,127,255}));
-  connect(senTem.port_b, jun3.port_3) annotation (Line(points={{8,24},{0,24},{0,
-          -4},{18,-4},{18,-10}}, color={0,127,255}));
-  connect(jun3.port_2, pum.port_a) annotation (Line(points={{8,-20},{0,-20},{0,
-          -36},{40,-36},{40,-60},{20,-60}}, color={0,127,255}));
-  connect(pum.port_b, spl3.port_1) annotation (Line(points={{0,-60},{-6,-60},{
-          -6,-60},{-10,-60}}, color={0,127,255}));
-  connect(chiPar.port_a2, spl3.port_3)
-    annotation (Line(points={{-40,24},{-20,24},{-20,-50}}, color={0,127,255}));
-  connect(val6.port_a, spl3.port_2) annotation (Line(points={{-30,-20},{-26,-20},
-          {-26,-36},{-40,-36},{-40,-60},{-30,-60}}, color={0,127,255}));
+  connect(pum.P, powPum) annotation (Line(points={{-21,-16},{-22,-16},{-22,-2},
+          {90,-2},{90,-40},{110,-40}},color={0,0,127}));
+  connect(val5.port_b, pum.port_a)
+    annotation (Line(points={{40,-20},{0,-20}}, color={0,127,255}));
+  connect(pum.port_b, val6.port_a)
+    annotation (Line(points={{-20,-20},{-30,-20}}, color={0,127,255}));
+  connect(chiPar.port_a2, val6.port_a) annotation (Line(points={{-40,24},{-26,
+          24},{-26,-20},{-30,-20}}, color={0,127,255}));
+  connect(senTem.port_b, pum.port_a) annotation (Line(points={{8,24},{6,24},{6,
+          -20},{0,-20}}, color={0,127,255}));
   annotation (Documentation(revisions="<html>
 <ul>
 <li>
