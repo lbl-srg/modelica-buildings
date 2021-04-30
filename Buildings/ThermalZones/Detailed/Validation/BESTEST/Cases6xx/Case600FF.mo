@@ -125,7 +125,8 @@ model Case600FF
                                           annotation (Placement(transformation(
         extent={{0,0},{-8,8}},
         origin={72,-52})));
-  parameter Buildings.HeatTransfer.Data.OpaqueConstructions.Generic roof(nLay=3,
+  parameter Buildings.HeatTransfer.Data.OpaqueConstructions.Generic roof(
+    nLay=3,
     absIR_a=0.9,
     absIR_b=0.9,
     absSol_a=0.6,
@@ -147,8 +148,7 @@ model Case600FF
         d=950,
         nStaRef=nStaRef)}) "Roof"
     annotation (Placement(transformation(extent={{60,84},{74,98}})));
-  Buildings.ThermalZones.Detailed.Validation.BESTEST.Data.Win600
-         window600(
+  Buildings.ThermalZones.Detailed.Validation.BESTEST.Data.Win600 window600(
     UFra=3,
     haveExteriorShade=false,
     haveInteriorShade=false) "Window"
