@@ -107,6 +107,7 @@ model Case600FF
   Modelica.Blocks.Sources.Constant qRadGai_flow(k=120/48) "Radiative heat gain"
     annotation (Placement(transformation(extent={{-44,72},{-36,80}})));
   Modelica.Blocks.Routing.Multiplex3 multiplex3_1
+    "Multiplex for internal gains"
     annotation (Placement(transformation(extent={{-18,64},{-10,72}})));
   Modelica.Blocks.Sources.Constant qLatGai_flow(k=0) "Latent heat gain"
     annotation (Placement(transformation(extent={{-44,56},{-36,64}})));
