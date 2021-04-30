@@ -14,6 +14,7 @@ model IntegratedPrimaryPlantSide
 
   Fluid.FixedResistances.Junction jun3(
     redeclare package Medium = Medium2,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     m_flow_nominal={numChi*m2_flow_chi_nominal,-numChi*m2_flow_chi_nominal,
         m2_flow_wse_nominal},
     dp_nominal={0,0,0}) "Junction"

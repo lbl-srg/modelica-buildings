@@ -259,12 +259,14 @@ partial model PartialChillerWSE
 
   Fluid.FixedResistances.Junction spl1(
     redeclare package Medium = Medium1,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     m_flow_nominal={numChi*m1_flow_chi_nominal,-m1_flow_wse_nominal,-numChi*
         m1_flow_chi_nominal},
     dp_nominal={0,0,0}) "Splitter"
     annotation (Placement(transformation(extent={{-80,46},{-60,66}})));
   Fluid.FixedResistances.Junction jun1(
     redeclare package Medium = Medium1,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     m_flow_nominal={numChi*m1_flow_chi_nominal,-numChi*m1_flow_chi_nominal,
         m1_flow_wse_nominal},
     dp_nominal={0,0,0}) "Junction"
