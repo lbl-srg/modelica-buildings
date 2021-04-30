@@ -15,10 +15,10 @@ model Case950FF
                                       18*3600, -1703.16/3600;
                                       24*3600, -1703.16/3600])
     "Ventilation air flow rate"
-    annotation (Placement(transformation(extent={{-88,-68},{-80,-60}})));
+    annotation (Placement(transformation(extent={{-94,-60},{-86,-52}})));
 equation
   connect(multiSum.u[2],vent.y[1]) annotation (Line(
-      points={{-72,-44},{-76,-44},{-76,-64},{-79.6,-64}},
+      points={{-78,-74},{-82,-74},{-82,-56},{-85.2,-56}},
       color={0,0,127},
       smooth=Smooth.None));
 
