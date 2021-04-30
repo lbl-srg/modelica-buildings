@@ -189,6 +189,7 @@ model Case600FF
     "Air density inside the building"
     annotation (Placement(transformation(extent={{-40,-76},{-50,-66}})));
   Buildings.BoundaryConditions.WeatherData.Bus weaBus
+   "Weather data bus"
     annotation (Placement(transformation(extent={{-4,-96},{12,-80}})));
   Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor TRooAir
     "Room air temperature"
