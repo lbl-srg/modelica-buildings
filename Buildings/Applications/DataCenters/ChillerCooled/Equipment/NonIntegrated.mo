@@ -1,8 +1,7 @@
 within Buildings.Applications.DataCenters.ChillerCooled.Equipment;
 model NonIntegrated
   "Non-integrated waterside economizer in chilled water system"
-  extends
-    Buildings.Applications.DataCenters.ChillerCooled.Equipment.BaseClasses.PartialChillerWSE(
+  extends Buildings.Applications.DataCenters.ChillerCooled.Equipment.BaseClasses.PartialChillerWSE(
     final numVal=4,
     final m_flow_nominal={m1_flow_chi_nominal,m2_flow_chi_nominal,m1_flow_wse_nominal,
       m2_flow_wse_nominal},
