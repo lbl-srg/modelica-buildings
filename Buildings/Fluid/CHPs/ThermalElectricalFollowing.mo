@@ -144,13 +144,14 @@ model ThermalElectricalFollowing
     "Heat transfer to the surrounding"
     annotation (Placement(transformation(extent={{-10,10},{10,-10}},
       rotation=180, origin={-60,-140})));
-  Buildings.Controls.OBC.CDL.Continuous.PIDWithReset cooWatCon(
+  Buildings.Controls.OBC.CDL.Continuous.LimPID cooWatCon(
     final controllerType=watOutCon,
     final k=k,
     final Ti=Ti,
     final Td=Td,
     final yMax=1,
-    final yMin=0) if switchThermalElectricalFollowing
+    final yMin=0,
+    final reset=Buildings.Controls.OBC.CDL.Types.Reset.Parameter) if switchThermalElectricalFollowing
     "Cooling water outplet controller"
     annotation (Placement(transformation(extent={{-60,340},{-40,360}})));
   Buildings.Controls.OBC.CDL.Continuous.Gain elePowDem(
