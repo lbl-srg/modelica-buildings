@@ -3,6 +3,9 @@ model ASHRAE2006
   "Variable air volume flow system with terminal reheat and five thermal zones"
   extends Modelica.Icons.Example;
   extends Buildings.Examples.VAVReheat.BaseClasses.PartialOpenLoop(
+   redeclare replaceable Buildings.Examples.VAVReheat.BaseClasses.Floor flo(
+      final lat=lat,
+      final sampleModel=sampleModel),
     amb(nPorts=3));
 
   parameter Real ratVMinCor_flow(final unit="1")=

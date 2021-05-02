@@ -3,8 +3,7 @@ model ASHRAE2006Winter
   "Variable air volume flow system with terminal reheat and five thermal zones using a control sequence published by ASHRAE in 2006"
   extends Buildings.Examples.VAVReheat.ASHRAE2006(
     redeclare replaceable Buildings.ThermalZones.EnergyPlus.Examples.SmallOffice.BaseClasses.Floor flo
-      constrainedby
-      Buildings.ThermalZones.EnergyPlus.Examples.SmallOffice.BaseClasses.Floor,
+      constrainedby Buildings.ThermalZones.EnergyPlus.Examples.SmallOffice.BaseClasses.Floor,
     ACHCor=4,
     ACHSou=4,
     ACHEas=6,

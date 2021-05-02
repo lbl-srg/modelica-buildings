@@ -3,6 +3,9 @@ model Guideline36
   "Variable air volume flow system with terminal reheat and five thermal zones"
   extends Modelica.Icons.Example;
   extends Buildings.Examples.VAVReheat.BaseClasses.PartialOpenLoop(
+    redeclare replaceable Buildings.Examples.VAVReheat.BaseClasses.Floor flo(
+      final lat=lat,
+      final sampleModel=sampleModel),
     amb(nPorts=3),
     damOut(
       dpDamper_nominal=10,
