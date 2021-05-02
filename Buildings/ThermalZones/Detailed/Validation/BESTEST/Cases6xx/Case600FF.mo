@@ -184,8 +184,7 @@ model Case600FF
     "Product to compute infiltration mass flow rate"
     annotation (Placement(transformation(extent={{-50,-60},{-40,-50}})));
   Buildings.Fluid.Sensors.Density density(
-    redeclare package Medium = MediumA,
-    warnAboutOnePortConnection=false)
+    redeclare package Medium = MediumA)
     "Air density inside the building"
     annotation (Placement(transformation(extent={{-40,-76},{-50,-66}})));
   Buildings.BoundaryConditions.WeatherData.Bus weaBus
