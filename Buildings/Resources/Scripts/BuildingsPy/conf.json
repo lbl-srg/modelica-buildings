@@ -215,6 +215,9 @@
        "jmodelica": {
          "rtol": 1E-8
     },
+       "optimica": {
+         "rtol": 1E-8
+    },
     "model_name": "Buildings.Examples.DualFanDualDuct.ClosedLoop"
   },
   {
