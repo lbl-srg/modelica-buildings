@@ -3,11 +3,9 @@ model Guideline36
   "Variable air volume flow system with terminal reheat and five thermal zones"
   extends Modelica.Icons.Example;
   extends Buildings.Examples.VAVReheat.BaseClasses.PartialOpenLoop(
-    cor(ratVFloHea=ratVFloHea),
-    sou(ratVFloHea=ratVFloHea),
-    eas(ratVFloHea=ratVFloHea),
-    nor(ratVFloHea=ratVFloHea),
-    wes(ratVFloHea=ratVFloHea),
+    redeclare replaceable Buildings.Examples.VAVReheat.BaseClasses.Floor flo(
+      final lat=lat,
+      final sampleModel=sampleModel),
     amb(nPorts=3),
     damOut(
       dpDamper_nominal=10,
@@ -577,6 +575,12 @@ its input.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+April 30, 2021, by Michael Wetter:<br/>
+Reformulated replaceable class and introduced floor areas in base class
+to avoid access of components that are not in the constraining type.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2471\">issue #2471</a>.
+</li>
 <li>
 April 16, 2021, by Michael Wetter:<br/>
 Refactored model to implement the economizer dampers directly in

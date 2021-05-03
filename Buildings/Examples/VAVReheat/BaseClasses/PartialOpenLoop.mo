@@ -18,14 +18,14 @@ partial model PartialOpenLoop
   parameter Modelica.SIunits.Volume VRooWes=flo.VRooWes
     "Room volume west";
 
-  parameter Modelica.SIunits.Area AFloCor=flo.cor.AFlo "Floor area corridor";
-  parameter Modelica.SIunits.Area AFloSou=flo.sou.AFlo "Floor area south";
-  parameter Modelica.SIunits.Area AFloNor=flo.nor.AFlo "Floor area north";
-  parameter Modelica.SIunits.Area AFloEas=flo.eas.AFlo "Floor area east";
-  parameter Modelica.SIunits.Area AFloWes=flo.wes.AFlo "Floor area west";
+  parameter Modelica.SIunits.Area AFloCor=flo.AFloCor "Floor area corridor";
+  parameter Modelica.SIunits.Area AFloSou=flo.AFloSou "Floor area south";
+  parameter Modelica.SIunits.Area AFloNor=flo.AFloNor "Floor area north";
+  parameter Modelica.SIunits.Area AFloEas=flo.AFloEas "Floor area east";
+  parameter Modelica.SIunits.Area AFloWes=flo.AFloWes "Floor area west";
 
-  parameter Modelica.SIunits.Area AFlo[numZon]={flo.cor.AFlo,flo.sou.AFlo,flo.eas.AFlo,
-      flo.nor.AFlo,flo.wes.AFlo} "Floor area of each zone";
+  parameter Modelica.SIunits.Area AFlo[numZon]={flo.AFloCor,flo.AFloSou,flo.AFloEas,
+      flo.AFloNor,flo.AFloWes} "Floor area of each zone";
   final parameter Modelica.SIunits.Area ATot=sum(AFlo) "Total floor area";
 
   constant Real conv=1.2/3600 "Conversion factor for nominal mass flow rate";
@@ -128,12 +128,10 @@ partial model PartialOpenLoop
       nPorts=2) "Ambient conditions"
     annotation (Placement(transformation(extent={{-136,-56},{-114,-34}})));
 
-  replaceable Buildings.Examples.VAVReheat.BaseClasses.Floor flo(
-    final lat=lat,
-    final use_windPressure=use_windPressure,
-    final sampleModel=sampleModel) constrainedby
-    Buildings.Examples.VAVReheat.BaseClasses.PartialFloor(
-      redeclare final package Medium = MediumA)
+  replaceable Buildings.Examples.VAVReheat.BaseClasses.PartialFloor flo
+    constrainedby Buildings.Examples.VAVReheat.BaseClasses.PartialFloor(
+      redeclare final package Medium = MediumA,
+      final use_windPressure=use_windPressure)
     "Model of a floor of the building that is served by this VAV system"
     annotation (Placement(transformation(extent={{772,396},{1100,616}})), choicesAllMatching=true);
 
@@ -951,6 +949,12 @@ shading devices, Technical Report, Oct. 17, 2006.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+April 30, 2021, by Michael Wetter:<br/>
+Reformulated replaceable class and introduced floor areas in base class
+to avoid access of components that are not in the constraining type.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2471\">issue #2471</a>.
+</li>
 <li>
 April 16, 2021, by Michael Wetter:<br/>
 Refactored model to implement the economizer dampers directly in
