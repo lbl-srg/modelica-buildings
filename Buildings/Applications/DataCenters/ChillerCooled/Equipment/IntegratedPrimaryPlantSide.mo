@@ -11,9 +11,23 @@ model IntegratedPrimaryPlantSide
             Medium2.density_pTX(101325, 273.15+4, Medium2.X_default),
             Medium2.density_pTX(101325, 273.15+4, Medium2.X_default)});
 
+  Fluid.FixedResistances.Junction jun3(
+    redeclare package Medium = Medium2,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
+    m_flow_nominal={numChi*m2_flow_chi_nominal,-numChi*m2_flow_chi_nominal,
+        m2_flow_wse_nominal},
+    dp_nominal={0,0,0}) "Junction"
+    annotation (Placement(transformation(extent={{10,-10},{-10,-30}})));
 equation
-  connect(val5.port_b,val6.port_a)
-    annotation (Line(points={{40,-20},{0,-20},{-40,-20}}, color={0,127,255}));
+  connect(val5.port_b, jun3.port_1)
+    annotation (Line(points={{40,-20},{10,-20}}, color={0,127,255}));
+  connect(senTem.port_b, jun3.port_3)
+    annotation (Line(points={{8,24},{0,24},{0,-10}},
+        color={0,127,255}));
+  connect(jun3.port_2, val6.port_a)
+    annotation (Line(points={{-10,-20},{-30,-20}}, color={0,127,255}));
+  connect(chiPar.port_a2, val6.port_a) annotation (Line(points={{-40,24},{-20,
+          24},{-20,-20},{-30,-20}}, color={0,127,255}));
   annotation (Documentation(info="<html>
 <p>
 This model implements an integrated water-side economizer (WSE)
@@ -73,6 +87,10 @@ The details about how to switch among different cooling modes are shown as:
 </ul>
 </html>", revisions="<html>
 <ul>
+<li>
+April 13, 2021, by Kathryn Hinkelman:<br/>
+Added junctions.
+</li>
 <li>
 July 1, 2017, by Yangyang Fu:<br/>
 First implementation.

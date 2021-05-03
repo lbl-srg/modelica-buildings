@@ -14,6 +14,7 @@ model ThreeRoomsContamDiscretizedDoor
     hB=3/2,
     dp_turbulent(displayUnit="Pa") = 0.01));
   Modelica.Blocks.Sources.Constant open1(k=1)
+    "Constant signal for door opening"
     annotation (Placement(
         transformation(extent={{-40,-30},{-20,-10}})));
 equation

@@ -91,7 +91,8 @@ model ReverseBuoyancy3Zones
     vZer=0.01,
     dp_turbulent=0.1) "Discretized door"
     annotation (Placement(transformation(extent={{-61,-55},{-41,-35}})));
-  Modelica.Blocks.Sources.Constant ope(k=1) annotation (Placement(
+  Modelica.Blocks.Sources.Constant ope(k=1) "Constant signal for door opening"
+    annotation (Placement(
         transformation(extent={{-102,-23},{-82,-3}})));
   Buildings.Airflow.Multizone.MediumColumn col1EasBot(
     redeclare package Medium = Medium,

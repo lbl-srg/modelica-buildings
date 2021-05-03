@@ -17,10 +17,6 @@ model PrescribedOutlet
     "Maximum water mass flow rate removal (negative)"
     annotation (Evaluate=true, Dialog(enable=use_X_wSet));
 
-  parameter Modelica.SIunits.MassFlowRate m_flow_nominal
-    "Nominal mass flow rate, used for regularization near zero flow"
-    annotation(Dialog(group = "Nominal condition"));
-
   parameter Modelica.SIunits.Time tau(min=0) = 10
     "Time constant at nominal flow rate (used if energyDynamics or massDynamics not equal Modelica.Fluid.Types.Dynamics.SteadyState)"
     annotation(Dialog(tab = "Dynamics"));
@@ -467,6 +463,11 @@ properties as the fluid that enters <code>port_b</code>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+April 29, 2021, by Michael Wetter:<br/>
+Removed duplicate declaration of <code>m_flow_nominal</code> which is already
+declared in the base class.<br/>
+</li>
 <li>
 March 19, 2018, by Michael Wetter:<br/>
 Added bugfix as the old model did not track <code>TSet</code> and <code>X_wSet</code>

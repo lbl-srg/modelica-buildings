@@ -13,7 +13,7 @@ compareVars :=
     "eas.vav.y_actual",
     "nor.vav.y_actual",
     "wes.vav.y_actual",
-    "eco.yOut",
+    "damOut.y",
     "sou.TSup",
     "eas.TSup",
     "nor.TSup",

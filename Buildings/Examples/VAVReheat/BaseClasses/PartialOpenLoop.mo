@@ -18,14 +18,14 @@ partial model PartialOpenLoop
   parameter Modelica.SIunits.Volume VRooWes=flo.VRooWes
     "Room volume west";
 
-  parameter Modelica.SIunits.Area AFloCor=flo.cor.AFlo "Floor area corridor";
-  parameter Modelica.SIunits.Area AFloSou=flo.sou.AFlo "Floor area south";
-  parameter Modelica.SIunits.Area AFloNor=flo.nor.AFlo "Floor area north";
-  parameter Modelica.SIunits.Area AFloEas=flo.eas.AFlo "Floor area east";
-  parameter Modelica.SIunits.Area AFloWes=flo.wes.AFlo "Floor area west";
+  parameter Modelica.SIunits.Area AFloCor=flo.AFloCor "Floor area corridor";
+  parameter Modelica.SIunits.Area AFloSou=flo.AFloSou "Floor area south";
+  parameter Modelica.SIunits.Area AFloNor=flo.AFloNor "Floor area north";
+  parameter Modelica.SIunits.Area AFloEas=flo.AFloEas "Floor area east";
+  parameter Modelica.SIunits.Area AFloWes=flo.AFloWes "Floor area west";
 
-  parameter Modelica.SIunits.Area AFlo[numZon]={flo.cor.AFlo,flo.sou.AFlo,flo.eas.AFlo,
-      flo.nor.AFlo,flo.wes.AFlo} "Floor area of each zone";
+  parameter Modelica.SIunits.Area AFlo[numZon]={flo.AFloCor,flo.AFloSou,flo.AFloEas,
+      flo.AFloNor,flo.AFloWes} "Floor area of each zone";
   final parameter Modelica.SIunits.Area ATot=sum(AFlo) "Total floor area";
 
   constant Real conv=1.2/3600 "Conversion factor for nominal mass flow rate";
@@ -125,15 +125,13 @@ partial model PartialOpenLoop
     "Experimental (may be changed in future releases)"));
 
   Buildings.Fluid.Sources.Outside amb(redeclare package Medium = MediumA,
-      nPorts=3) "Ambient conditions"
+      nPorts=2) "Ambient conditions"
     annotation (Placement(transformation(extent={{-136,-56},{-114,-34}})));
 
-  replaceable Buildings.Examples.VAVReheat.BaseClasses.Floor flo(
-    final lat=lat,
-    final use_windPressure=use_windPressure,
-    final sampleModel=sampleModel) constrainedby
-    Buildings.Examples.VAVReheat.BaseClasses.PartialFloor(
-      redeclare final package Medium = MediumA)
+  replaceable Buildings.Examples.VAVReheat.BaseClasses.PartialFloor flo
+    constrainedby Buildings.Examples.VAVReheat.BaseClasses.PartialFloor(
+      redeclare final package Medium = MediumA,
+      final use_windPressure=use_windPressure)
     "Model of a floor of the building that is served by this VAV system"
     annotation (Placement(transformation(extent={{772,396},{1100,616}})), choicesAllMatching=true);
 
@@ -267,7 +265,7 @@ partial model PartialOpenLoop
         origin={132,-120})));
   Buildings.Fluid.Sensors.VolumeFlowRate VOut1(redeclare package Medium =
         MediumA, m_flow_nominal=m_flow_nominal) "Outside air volume flow rate"
-    annotation (Placement(transformation(extent={{-72,-44},{-50,-22}})));
+    annotation (Placement(transformation(extent={{-90,-50},{-70,-30}})));
 
   Buildings.Examples.VAVReheat.BaseClasses.VAVReheatBox cor(
     redeclare package MediumA = MediumA,
@@ -478,19 +476,6 @@ partial model PartialOpenLoop
         rotation=270,
         origin={488,286})));
 
-  Buildings.Examples.VAVReheat.BaseClasses.MixingBox eco(
-    redeclare package Medium = MediumA,
-    mOut_flow_nominal=m_flow_nominal,
-    dpOut_nominal=10,
-    mRec_flow_nominal=m_flow_nominal,
-    dpRec_nominal=10,
-    mExh_flow_nominal=m_flow_nominal,
-    dpExh_nominal=10,
-    from_dp=false) "Economizer" annotation (Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=0,
-        origin={-10,-46})));
-
   Results res(
     final A=ATot,
     PFan=fanSup.P + 0,
@@ -511,12 +496,9 @@ public
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=90,
         origin={222,-174})));
-  Buildings.Controls.OBC.CDL.Logical.OnOffController freSta(bandwidth=1)
+  FreezeStat freSta
     "Freeze stat for heating coil"
-    annotation (Placement(transformation(extent={{0,-100},{20,-80}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant freStaTSetPoi(k=273.15
-         + 3) "Freeze stat set point for heating coil"
-    annotation (Placement(transformation(extent={{-40,-100},{-20,-80}})));
+    annotation (Placement(transformation(extent={{-60,-100},{-40,-80}})));
   Fluid.Sources.MassFlowSource_T souHeaCor(
     redeclare package Medium = MediumW,
     T=THotWatInl_nominal,
@@ -593,6 +575,24 @@ public
         rotation=0,
         origin={1218,44})));
 
+  Fluid.Actuators.Dampers.Exponential damRet(
+    redeclare package Medium = MediumA,
+    m_flow_nominal=m_flow_nominal,
+    riseTime=15,
+    dpDamper_nominal=5,
+    dpFixed_nominal=5)
+    "Return air damper" annotation (Placement(transformation(
+        origin={0,-10},
+        extent={{10,-10},{-10,10}},
+        rotation=90)));
+  Fluid.Actuators.Dampers.Exponential damOut(
+    redeclare package Medium = MediumA,
+    m_flow_nominal=m_flow_nominal,
+    from_dp=true,
+    riseTime=15,
+    dpDamper_nominal=5,
+    dpFixed_nominal=5)   "Outdoor air damper"
+    annotation (Placement(transformation(extent={{-50,-50},{-30,-30}})));
 protected
   constant Modelica.SIunits.SpecificHeatCapacity cpAir=
     Buildings.Utilities.Psychrometrics.Constants.cpAir
@@ -649,7 +649,7 @@ equation
       smooth=Smooth.None,
       thickness=0.5));
   connect(amb.ports[1], VOut1.port_a) annotation (Line(
-      points={{-114,-42.0667},{-94,-42.0667},{-94,-33},{-72,-33}},
+      points={{-114,-42.8},{-94,-42.8},{-94,-40},{-90,-40}},
       color={0,127,255},
       smooth=Smooth.None,
       thickness=0.5));
@@ -805,22 +805,6 @@ equation
       thickness=0.5));
 
 
-  connect(VOut1.port_b, eco.port_Out) annotation (Line(
-      points={{-50,-33},{-42,-33},{-42,-40},{-20,-40}},
-      color={0,127,255},
-      thickness=0.5));
-  connect(eco.port_Sup, TMix.port_a) annotation (Line(
-      points={{0,-40},{30,-40}},
-      color={0,127,255},
-      thickness=0.5));
-  connect(eco.port_Exh, amb.ports[2]) annotation (Line(
-      points={{-20,-52},{-96,-52},{-96,-45},{-114,-45}},
-      color={0,127,255},
-      thickness=0.5));
-  connect(eco.port_Ret, TRet.port_b) annotation (Line(
-      points={{0,-52},{10,-52},{10,140},{90,140}},
-      color={0,127,255},
-      thickness=0.5));
   connect(senRetFlo.port_a, dpRetDuc.port_b)
     annotation (Line(points={{360,140},{380,140}}, color={0,127,255}));
   connect(TSup.port_b, senSupFlo.port_a)
@@ -835,17 +819,16 @@ equation
           124,-132}},            color={0,0,127}));
   connect(gaiCooCoi.y, souCoo.m_flow_in) annotation (Line(points={{222,-162},{
           222,-132}},            color={0,0,127}));
-  connect(dpDisSupFan.port_b, amb.ports[3]) annotation (Line(
-      points={{320,10},{320,14},{-88,14},{-88,-47.9333},{-114,-47.9333}},
+  connect(dpDisSupFan.port_b, amb.ports[2]) annotation (Line(
+      points={{320,10},{320,14},{-106,14},{-106,-48},{-110,-48},{-110,-47.2},{-114,
+          -47.2}},
       color={0,0,0},
       pattern=LinePattern.Dot));
   connect(senRetFlo.port_b, TRet.port_a) annotation (Line(points={{340,140},{
           226,140},{110,140}}, color={0,127,255}));
-  connect(freStaTSetPoi.y, freSta.reference)
-    annotation (Line(points={{-18,-90},{-10,-90},{-10,-84},{-2,-84}},
-                                                  color={0,0,127}));
-  connect(freSta.u, TMix.T) annotation (Line(points={{-2,-96},{-6,-96},{-6,-68},
-          {20,-68},{20,-20},{40,-20},{40,-29}}, color={0,0,127}));
+  connect(freSta.u, TMix.T) annotation (Line(points={{-62,-90},{-70,-90},{-70,
+          -68},{20,-68},{20,-20},{40,-20},{40,-29}},
+                                                color={0,0,127}));
   connect(TMix.port_b, heaCoi.port_a2) annotation (Line(
       points={{50,-40},{98,-40}},
       color={0,127,255},
@@ -895,6 +878,14 @@ equation
           {1080,36},{1080,40},{1090,40}},         color={0,127,255}));
   connect(souHeaWes.ports[1], wes.port_aHotWat) annotation (Line(points={{1262,36},
           {1280,36},{1280,40},{1290,40}},         color={0,127,255}));
+  connect(VOut1.port_b, damOut.port_a)
+    annotation (Line(points={{-70,-40},{-50,-40}}, color={0,127,255}));
+  connect(damOut.port_b, TMix.port_a)
+    annotation (Line(points={{-30,-40},{30,-40}}, color={0,127,255}));
+  connect(damRet.port_a, TRet.port_b)
+    annotation (Line(points={{0,0},{0,140},{90,140}}, color={0,127,255}));
+  connect(damRet.port_b, TMix.port_a)
+    annotation (Line(points={{0,-20},{0,-40},{30,-40}}, color={0,127,255}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-380,
             -400},{1420,660}})), Documentation(info="<html>
 <p>
@@ -958,6 +949,20 @@ shading devices, Technical Report, Oct. 17, 2006.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+April 30, 2021, by Michael Wetter:<br/>
+Reformulated replaceable class and introduced floor areas in base class
+to avoid access of components that are not in the constraining type.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2471\">issue #2471</a>.
+</li>
+<li>
+April 16, 2021, by Michael Wetter:<br/>
+Refactored model to implement the economizer dampers directly in
+<code>Buildings.Examples.VAVReheat.BaseClasses.PartialOpenLoop</code> rather than through the
+model of a mixing box. Since the version of the Guideline 36 model has no exhaust air damper,
+this leads to simpler equations.
+<br/> This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2454\">issue #2454</a>.
+</li>
 <li>
 March 11, 2021, by Michael Wetter:<br/>
 Set parameter in weather data reader to avoid computation of wet bulb temperature which is need needed for this model.

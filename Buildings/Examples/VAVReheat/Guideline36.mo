@@ -3,11 +3,14 @@ model Guideline36
   "Variable air volume flow system with terminal reheat and five thermal zones"
   extends Modelica.Icons.Example;
   extends Buildings.Examples.VAVReheat.BaseClasses.PartialOpenLoop(
-    cor(ratVFloHea=ratVFloHea),
-    sou(ratVFloHea=ratVFloHea),
-    eas(ratVFloHea=ratVFloHea),
-    nor(ratVFloHea=ratVFloHea),
-    wes(ratVFloHea=ratVFloHea));
+    redeclare replaceable Buildings.Examples.VAVReheat.BaseClasses.Floor flo(
+      final lat=lat,
+      final sampleModel=sampleModel),
+    amb(nPorts=3),
+    damOut(
+      dpDamper_nominal=10,
+      dpFixed_nominal=10),
+    freSta(lockoutTime=3600));
 
   parameter Modelica.SIunits.VolumeFlowRate VPriSysMax_flow=m_flow_nominal/1.2
     "Maximum expected system primary airflow rate at design stage";
@@ -72,9 +75,6 @@ model Guideline36
   Buildings.Controls.OBC.CDL.Integers.MultiSum PZonResReq(nin=5)
     "Number of zone pressure requests"
     annotation (Placement(transformation(extent={{300,320},{320,340}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant yExhDam(k=1)
-    "Exhaust air damper control signal"
-    annotation (Placement(transformation(extent={{-40,-20},{-20,0}})));
   Buildings.Controls.OBC.CDL.Logical.Switch swiFreSta "Switch for freeze stat"
     annotation (Placement(transformation(extent={{60,-202},{80,-182}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant yFreHeaCoi(final k=1)
@@ -279,12 +279,8 @@ equation
           {986,-20},{986,86},{1036,86}},   color={0,0,127}));
   connect(TSup.T, conVAVWes.TSupAHU) annotation (Line(points={{340,-29},{340,-20},
           {1168,-20},{1168,86},{1238,86}}, color={0,0,127}));
-  connect(yExhDam.y, eco.yExh)
-    annotation (Line(points={{-18,-10},{-3,-10},{-3,-34}}, color={0,0,127}));
   connect(swiFreSta.y, gaiHeaCoi.u) annotation (Line(points={{82,-192},{88,-192},
           {88,-184},{124,-184}},color={0,0,127}));
-  connect(freSta.y, swiFreSta.u2) annotation (Line(points={{22,-90},{40,-90},{
-          40,-192},{58,-192}}, color={255,0,255}));
   connect(yFreHeaCoi.y, swiFreSta.u1) annotation (Line(points={{22,-182},{40,-182},
           {40,-184},{58,-184}}, color={0,0,127}));
   connect(zonToSys.ySumDesZonPop, conAHU.sumDesZonPop) annotation (Line(points={{302,589},
@@ -358,16 +354,17 @@ equation
   connect(TRet.T, conAHU.TOutCut) annotation (Line(points={{100,151},{100,
           561.778},{336,561.778}},
                           color={0,0,127}));
-  connect(VOut1.V_flow, conAHU.VOut_flow) annotation (Line(points={{-61,-20.9},
-          {-61,545.778},{336,545.778}},color={0,0,127}));
+  connect(VOut1.V_flow, conAHU.VOut_flow) annotation (Line(points={{-80,-29},{
+          -80,-20},{-60,-20},{-60,546},{138,546},{138,545.778},{336,545.778}},
+                                       color={0,0,127}));
   connect(TMix.T, conAHU.TMix) annotation (Line(points={{40,-29},{40,538.667},{
           336,538.667}},
                      color={0,0,127}));
-  connect(conAHU.yOutDamPos, eco.yOut) annotation (Line(points={{424,522.667},{
-          448,522.667},{448,36},{-10,36},{-10,-34}},
+  connect(conAHU.yOutDamPos, damOut.y) annotation (Line(points={{424,522.667},{
+          448,522.667},{448,36},{-40,36},{-40,-28}},
                                                  color={0,0,127}));
-  connect(conAHU.yRetDamPos, eco.yRet) annotation (Line(points={{424,533.333},{
-          442,533.333},{442,40},{-16.8,40},{-16.8,-34}},
+  connect(conAHU.yRetDamPos, damRet.y) annotation (Line(points={{424,533.333},{
+          442,533.333},{442,40},{-20,40},{-20,-10},{-12,-10}},
                                                      color={0,0,127}));
   connect(conAHU.yCoo, gaiCooCoi.u) annotation (Line(points={{424,544},{452,544},
           {452,-274},{222,-274},{222,-186}},         color={0,0,127}));
@@ -530,6 +527,10 @@ equation
   connect(conVAVWes.yVal, gaiHeaCoiWes.u) annotation (Line(points={{1262,95},{1262,
           82},{1196,82},{1196,44},{1206,44}},
                                     color={0,0,127}));
+  connect(amb.ports[3], TRet.port_b) annotation (Line(points={{-114,-45},{-100,
+          -45},{-100,140},{90,140}}, color={0,127,255}));
+  connect(freSta.y, swiFreSta.u2) annotation (Line(points={{-38,-90},{40,-90},{
+          40,-192},{58,-192}}, color={255,0,255}));
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-380,-320},{1400,
             680}})),
@@ -574,6 +575,20 @@ its input.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+April 30, 2021, by Michael Wetter:<br/>
+Reformulated replaceable class and introduced floor areas in base class
+to avoid access of components that are not in the constraining type.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2471\">issue #2471</a>.
+</li>
+<li>
+April 16, 2021, by Michael Wetter:<br/>
+Refactored model to implement the economizer dampers directly in
+<code>Buildings.Examples.VAVReheat.BaseClasses.PartialOpenLoop</code> rather than through the
+model of a mixing box. Since the version of the Guideline 36 model has no exhaust air damper,
+this leads to simpler equations.
+<br/> This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2454\">issue #2454</a>.
+</li>
 <li>
 March 15, 2021, by David Blum:<br/>
 Change component name <code>yOutDam</code> to <code>yExhDam</code>
