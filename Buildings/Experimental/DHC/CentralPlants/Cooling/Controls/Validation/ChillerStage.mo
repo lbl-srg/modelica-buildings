@@ -11,18 +11,25 @@ model ChillerStage
     table(
       each displayUnit="s")={300,900})
     "On signal of the cooling plant"
-    annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
-  Modelica.Blocks.Sources.Sine QTot(
-    amplitude=0.5*chiStaCon.QChi_nominal,
+    annotation (Placement(transformation(extent={{-60,40},{-40,60}})));
+  Modelica.Blocks.Sources.Sine mFlo(
+    amplitude=0.5*chiStaCon.QChi_nominal/(-10)/4200,
     freqHz=1/300,
-    offset=0.5*chiStaCon.QChi_nominal)
-    "Total cooling load"
-    annotation (Placement(transformation(extent={{-60,-40},{-40,-20}})));
+    offset=0.5*chiStaCon.QChi_nominal/(-10)/4200) "Total mass flow rate"
+    annotation (Placement(transformation(extent={{-60,-50},{-40,-30}})));
+  Modelica.Blocks.Sources.Constant TRet(k=18) "Return temperature"
+    annotation (Placement(transformation(extent={{-60,10},{-40,30}})));
+  Modelica.Blocks.Sources.Constant TSup(k=8) "Supply temperature"
+    annotation (Placement(transformation(extent={{-60,-20},{-40,0}})));
 equation
   connect(on.y,chiStaCon.on)
-    annotation (Line(points={{-39,30},{-28,30},{-28,4},{-12,4}},color={255,0,255}));
-  connect(QTot.y,chiStaCon.QLoa)
-    annotation (Line(points={{-39,-30},{-28,-30},{-28,-4},{-12,-4}},color={0,0,127}));
+    annotation (Line(points={{-39,50},{-28,50},{-28,6},{-12,6}},color={255,0,255}));
+  connect(mFlo.y, chiStaCon.mFloChiWat) annotation (Line(points={{-39,-40},{-28,
+          -40},{-28,-6},{-12,-6}}, color={0,0,127}));
+  connect(TRet.y, chiStaCon.TChiWatRet) annotation (Line(points={{-39,20},{-34,
+          20},{-34,2},{-12,2}}, color={0,0,127}));
+  connect(TSup.y, chiStaCon.TChiWatSup) annotation (Line(points={{-39,-10},{-34,
+          -10},{-34,-2},{-12,-2}}, color={0,0,127}));
   annotation (
     Icon(
       coordinateSystem(
@@ -33,8 +40,9 @@ equation
     experiment(
       StopTime=1200,
       Tolerance=1e-06),
-    __Dymola_Commands(
-      file="Resources/Scripts/Dymola/Experimental/DHC/CentralPlants/Cooling/Controls/Validation/ChillerStage.mos" "Simulate and Plot"),
+    __Dymola_Commands(file=
+          "Resources/Scripts/Dymola/Experimental/DHC/CentralPlants/Cooling/Controls/Validation/ChillerStage.mos"
+        "Simulate and Plot"),
     Documentation(
       revisions="<html>
 <ul>
