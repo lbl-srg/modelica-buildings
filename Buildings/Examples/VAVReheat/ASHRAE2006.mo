@@ -3,13 +3,9 @@ model ASHRAE2006
   "Variable air volume flow system with terminal reheat and five thermal zones"
   extends Modelica.Icons.Example;
   extends Buildings.Examples.VAVReheat.BaseClasses.PartialOpenLoop(
-    heaCoi(show_T=true),
-    cooCoi(show_T=true),
-    cor(ratVFloHea=ratVFloHea),
-    sou(ratVFloHea=ratVFloHea),
-    eas(ratVFloHea=ratVFloHea),
-    nor(ratVFloHea=ratVFloHea),
-    wes(ratVFloHea=ratVFloHea),
+   redeclare replaceable Buildings.Examples.VAVReheat.BaseClasses.Floor flo(
+      final lat=lat,
+      final sampleModel=sampleModel),
     amb(nPorts=3));
 
   parameter Real ratVMinCor_flow(final unit="1")=
@@ -372,12 +368,18 @@ ASHRAE, Atlanta, GA, 2006.
 </html>", revisions="<html>
 <ul>
 <li>
+April 30, 2021, by Michael Wetter:<br/>
+Reformulated replaceable class and introduced floor areas in base class
+to avoid access of components that are not in the constraining type.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2471\">issue #2471</a>.
+</li>
+<li>
 April 16, 2021, by Michael Wetter:<br/>
 Refactored model to implement the economizer dampers directly in
 <code>Buildings.Examples.VAVReheat.BaseClasses.PartialOpenLoop</code> rather than through the
 model of a mixing box. Since the version of the Guideline 36 model has no exhaust air damper,
-this leads to simpler equations.
-<br/> This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2454\">issue #2454</a>.
+this leads to simpler equations.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2454\">issue #2454</a>.
 </li>
 <li>
 March 15, 2021, by David Blum:<br/>

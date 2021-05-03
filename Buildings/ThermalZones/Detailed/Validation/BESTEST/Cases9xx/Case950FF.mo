@@ -34,6 +34,17 @@ heating and no cooling.
 </html>", revisions="<html>
 <ul>
 <li>
+April 30, 2021, by Michael Wetter:<br/>
+Reformulated replaceable class to avoid access of components that are not in the constraining type.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2471\">issue #2471</a>.
+</li>
+<li>
+April 30, 2021, by Michael Wetter:<br/>
+Added redeclaration to avoid access of component that is not in constraining type.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2471\">#2471</a>.
+</li>
+<li>
 July 16, 2012, by Michael Wetter:<br/>
 Revised implementation to extend from base case to avoid duplicate code.
 Merged model into the Buildings library.
