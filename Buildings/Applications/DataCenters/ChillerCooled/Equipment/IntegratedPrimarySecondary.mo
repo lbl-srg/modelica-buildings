@@ -140,28 +140,25 @@ model IntegratedPrimarySecondary
     annotation (Placement(transformation(extent={{-40,-70},{-20,-50}})));
   Fluid.FixedResistances.Junction jun2(
     redeclare package Medium = Medium2,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     m_flow_nominal={m2_flow_wse_nominal,-numChi*m2_flow_chi_nominal,numChi*
         m2_flow_chi_nominal},
     dp_nominal={0,0,0}) "Junction"
     annotation (Placement(transformation(extent={{-60,-50},{-80,-70}})));
   Fluid.FixedResistances.Junction spl2(
     redeclare package Medium = Medium2,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     m_flow_nominal={numChi*m2_flow_chi_nominal,-numChi*m2_flow_chi_nominal,-
         m2_flow_wse_nominal},
     dp_nominal={0,0,0}) "Splitter"
     annotation (Placement(transformation(extent={{90,-50},{70,-70}})));
   Fluid.FixedResistances.Junction jun3(
     redeclare package Medium = Medium2,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     m_flow_nominal={numChi*m2_flow_chi_nominal,-numChi*m2_flow_chi_nominal,
         m2_flow_wse_nominal},
     dp_nominal={0,0,0}) "Junction"
-    annotation (Placement(transformation(extent={{36,-10},{16,-30}})));
-  Fluid.FixedResistances.Junction spl3(
-    redeclare package Medium = Medium2,
-    m_flow_nominal={numChi*m2_flow_chi_nominal,-numChi*m2_flow_chi_nominal,-
-        m2_flow_wse_nominal},
-    dp_nominal={0,0,0}) "Splitter"
-    annotation (Placement(transformation(extent={{10,-30},{-10,-10}})));
+    annotation (Placement(transformation(extent={{28,-10},{8,-30}})));
 equation
   connect(pum.port_b, chiPar.port_a2)
     annotation (Line(points={{-40,-20},{-54,-20},{-54,16},{-30,16},{-30,24},
@@ -190,16 +187,14 @@ equation
     annotation (Line(points={{70,-60},{64,-60},{64,-20},{60,-20}},
         color={0,127,255}));
   connect(val5.port_b, jun3.port_1)
-    annotation (Line(points={{40,-20},{36,-20}}, color={0,127,255}));
+    annotation (Line(points={{40,-20},{28,-20}}, color={0,127,255}));
   connect(senTem.port_b, jun3.port_3)
-    annotation (Line(points={{8,24},{0,24},{0,0},{26,0},{26,-10}},
+    annotation (Line(points={{8,24},{0,24},{0,0},{18,0},{18,-10}},
         color={0,127,255}));
-  connect(jun3.port_2, spl3.port_1)
-    annotation (Line(points={{16,-20},{10,-20}}, color={0,127,255}));
-  connect(spl3.port_2, pum.port_a)
-    annotation (Line(points={{-10,-20},{-20,-20}}, color={0,127,255}));
-  connect(spl3.port_3, bypFlo.port_b)
-    annotation (Line(points={{0,-30},{0,-60},{-20,-60}}, color={0,127,255}));
+  connect(jun3.port_2, pum.port_a)
+    annotation (Line(points={{8,-20},{-20,-20}}, color={0,127,255}));
+  connect(bypFlo.port_b, pum.port_a) annotation (Line(points={{-20,-60},{0,-60},
+          {0,-20},{-20,-20}}, color={0,127,255}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Ellipse(
           extent={{-14,-30},{8,-52}},
