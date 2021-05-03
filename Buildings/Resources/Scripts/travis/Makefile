@@ -9,7 +9,7 @@ ROOT = $(TRAVIS_BUILD_DIR)
 # The target below excludes run.sh in ThermalZones as they are using a more recent
 # version of EnergyPlus that has not yet been released.
 test-energyplus-validations:
-	@find $(ROOT)/Buildings/Resources/Data -type d \( -name ThermalZones \) -prune -false -o -name run.sh | xargs -I {} sh -c \
+	@find $(ROOT)/Buildings/Resources/Data -name run.sh | xargs -I {} sh -c \
 	  'cd `dirname {}` && \
 	   echo "*********************************************************" && \
 	   echo "*** Testing `pwd`/run.sh" && \

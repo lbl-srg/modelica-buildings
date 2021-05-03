@@ -7,6 +7,11 @@ model Floor
     final VRooNor=346.022,
     final VRooEas=205.265,
     final VRooWes=205.265,
+    final AFloCor=cor.AFlo,
+    final AFloSou=sou.AFlo,
+    final AFloNor=nor.AFlo,
+    final AFloEas=eas.AFlo,
+    final AFloWes=wes.AFlo,
     opeWesCor(
       wOpe=4),
     opeSouCor(
@@ -23,16 +28,7 @@ model Floor
       s=27.69/18.46),
     leaEas(
       s=18.46/27.69));
-  final parameter Modelica.SIunits.Area AFloCor=cor.AFlo
-    "Floor area corridor";
-  final parameter Modelica.SIunits.Area AFloSou=sou.AFlo
-    "Floor area south";
-  final parameter Modelica.SIunits.Area AFloNor=nor.AFlo
-    "Floor area north";
-  final parameter Modelica.SIunits.Area AFloEas=eas.AFlo
-    "Floor area east";
-  final parameter Modelica.SIunits.Area AFloWes=wes.AFlo
-    "Floor area west";
+
   final parameter Modelica.SIunits.Area AFlo=AFloCor+AFloSou+AFloNor+AFloEas+AFloWes
     "Total floor area";
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heaPorSou
@@ -364,6 +360,12 @@ for a description of the differences in these buildings.
 </html>",
       revisions="<html>
 <ul>
+<li>
+April 30, 2021, by Michael Wetter:<br/>
+Reformulated replaceable class and introduced floor areas in base class
+to avoid access of components that are not in the constraining type.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2471\">issue #2471</a>.
+</li>
 <li>
 November 15, 2019, by Milica Grahovac:<br/>
 Added extend from a partial floor model.

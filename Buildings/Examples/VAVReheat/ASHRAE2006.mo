@@ -3,13 +3,10 @@ model ASHRAE2006
   "Variable air volume flow system with terminal reheat and five thermal zones"
   extends Modelica.Icons.Example;
   extends Buildings.Examples.VAVReheat.BaseClasses.PartialOpenLoop(
-    heaCoi(show_T=true),
-    cooCoi(show_T=true),
-    cor(ratVFloHea=ratVFloHea),
-    sou(ratVFloHea=ratVFloHea),
-    eas(ratVFloHea=ratVFloHea),
-    nor(ratVFloHea=ratVFloHea),
-    wes(ratVFloHea=ratVFloHea));
+   redeclare replaceable Buildings.Examples.VAVReheat.BaseClasses.Floor flo(
+      final lat=lat,
+      final sampleModel=sampleModel),
+    amb(nPorts=3));
 
   parameter Real ratVMinCor_flow(final unit="1")=
     max(1.5*VCorOA_flow_nominal, 0.15*mCor_flow_nominal/1.2) /
@@ -44,9 +41,8 @@ model ASHRAE2006
   Controls.Economizer conEco(
     have_reset=true,
     have_frePro=true,
-    VOut_flow_min=Vot_flow_nominal,
-    Ti=120,
-    k=0.1) "Controller for economizer"
+    VOut_flow_min=Vot_flow_nominal)
+           "Controller for economizer"
     annotation (Placement(transformation(extent={{-80,140},{-60,160}})));
   Controls.RoomTemperatureSetpoint TSetRoo(
     final THeaOn=THeaOn,
@@ -75,12 +71,21 @@ model ASHRAE2006
     annotation (Placement(transformation(extent={{1186,-124},{1206,-104}})));
 
   Buildings.Controls.OBC.CDL.Logical.Or or2
-    annotation (Placement(transformation(extent={{-60,-250},{-40,-230}})));
-  Controls.SupplyAirTemperature conTSup "Supply air temperature controller"
+    annotation (Placement(transformation(extent={{-10,-250},{10,-230}})));
+  Controls.SupplyAirTemperature conTSup
+    "Supply air temperature and economizer controller"
     annotation (Placement(transformation(extent={{30,-230},{50,-210}})));
   Controls.SupplyAirTemperatureSetpoint TSupSet
     "Supply air temperature set point"
     annotation (Placement(transformation(extent={{-200,-230},{-180,-210}})));
+  Buildings.Fluid.Actuators.Dampers.Exponential damExh(
+    from_dp=true,
+    riseTime=15,
+    dpFixed_nominal=5,
+    redeclare package Medium = MediumA,
+    m_flow_nominal=m_flow_nominal,
+    dpDamper_nominal=5)  "Exhaust air damper"
+    annotation (Placement(transformation(extent={{-30,-20},{-50,0}})));
 equation
   connect(controlBus, modeSelector.cb) annotation (Line(
       points={{-240,-342},{-152,-342},{-152,-303.182},{-196.818,-303.182}},
@@ -107,7 +112,7 @@ equation
       index=1,
       extent={{6,3},{6,3}}));
   connect(TRet.T, conEco.TRet) annotation (Line(
-      points={{100,151},{100,172},{-94,172},{-94,153.333},{-81.3333,153.333}},
+      points={{100,151},{100,174},{-94,174},{-94,153.333},{-81.3333,153.333}},
       color={0,0,127},
       smooth=Smooth.None,
       pattern=LinePattern.Dash));
@@ -128,12 +133,7 @@ equation
       smooth=Smooth.None,
       pattern=LinePattern.Dash));
   connect(conEco.VOut_flow, VOut1.V_flow) annotation (Line(
-      points={{-81.3333,142.667},{-90,142.667},{-90,80},{-61,80},{-61,-20.9}},
-      color={0,0,127},
-      smooth=Smooth.None,
-      pattern=LinePattern.Dash));
-  connect(conEco.yOA, eco.yOut) annotation (Line(
-      points={{-58.6667,152},{-10,152},{-10,-34}},
+      points={{-81.3333,142.667},{-90,142.667},{-90,80},{-80,80},{-80,-29}},
       color={0,0,127},
       smooth=Smooth.None,
       pattern=LinePattern.Dash));
@@ -225,18 +225,8 @@ equation
           255}));
   connect(conFanSup.y, fanSup.y) annotation (Line(points={{261,0},{280,0},{280,
           -20},{310,-20},{310,-28}}, color={0,0,127}));
-  connect(eco.yExh, conEco.yOA) annotation (Line(
-      points={{-3,-34},{-2,-34},{-2,152},{-58.6667,152}},
-      color={0,0,127},
-      pattern=LinePattern.Dash));
-  connect(eco.yRet, conEco.yRet) annotation (Line(
-      points={{-16.8,-34},{-16.8,146.667},{-58.6667,146.667}},
-      color={0,0,127},
-      pattern=LinePattern.Dash));
-  connect(freSta.y, or2.u1) annotation (Line(points={{22,-90},{40,-90},{40,-160},
-          {-80,-160},{-80,-240},{-62,-240}},                 color={255,0,255}));
-  connect(or2.u2, modeSelector.yFan) annotation (Line(points={{-62,-248},{-80,
-          -248},{-80,-305.455},{-179.091,-305.455}},
+  connect(or2.u2, modeSelector.yFan) annotation (Line(points={{-12,-248},{-30,
+          -248},{-30,-305.455},{-179.091,-305.455}},
                                      color={255,0,255}));
   connect(cor.y_actual, pSetDuc.u[1]) annotation (Line(points={{612,42},{620,42},
           {620,74},{140,74},{140,-7.6},{158,-7.6}}, color={0,0,127}));
@@ -249,7 +239,7 @@ equation
   connect(wes.y_actual, pSetDuc.u[5]) annotation (Line(points={{1332,40},{1338,
           40},{1338,74},{140,74},{140,-4.4},{158,-4.4}}, color={0,0,127}));
   connect(TSup.T, conTSup.TSup) annotation (Line(
-      points={{340,-29},{340,-20},{360,-20},{360,-280},{0,-280},{0,-214},{28,
+      points={{340,-29},{340,-20},{360,-20},{360,-280},{16,-280},{16,-214},{28,
           -214}},
       color={0,0,127},
       pattern=LinePattern.Dash));
@@ -262,12 +252,12 @@ equation
       color={0,0,127},
       pattern=LinePattern.Dash));
   connect(conTSup.yOA, conEco.uOATSup) annotation (Line(
-      points={{52,-220},{60,-220},{60,180},{-86,180},{-86,158.667},{-81.3333,
+      points={{52,-220},{60,-220},{60,170},{-86,170},{-86,158.667},{-81.3333,
           158.667}},
       color={0,0,127},
       pattern=LinePattern.Dash));
-  connect(or2.y, conTSup.uEna) annotation (Line(points={{-38,-240},{20,-240},{
-          20,-226},{28,-226}}, color={255,0,255}));
+  connect(or2.y, conTSup.uEna) annotation (Line(points={{12,-240},{20,-240},{20,
+          -226},{28,-226}},    color={255,0,255}));
   connect(modeSelector.yEco, conEco.uEna) annotation (Line(points={{-179.091,
           -314.545},{-160,-314.545},{-160,100},{-73.3333,100},{-73.3333,137.333}},
         color={255,0,255}));
@@ -295,6 +285,21 @@ equation
           {1017,-37.5},{1016,-37.5},{1016,44}}, color={0,0,127}));
   connect(conVAVWes.yVal, gaiHeaCoiWes.u) annotation (Line(points={{1207,-119},
           {1207,-37.5},{1206,-37.5},{1206,44}}, color={0,0,127}));
+  connect(damRet.y, conEco.yRet) annotation (Line(points={{-12,-10},{-18,-10},{
+          -18,146.667},{-58.6667,146.667}},
+                                        color={0,0,127}));
+  connect(damExh.y, conEco.yOA) annotation (Line(points={{-40,2},{-40,152},{
+          -58.6667,152}},
+                 color={0,0,127}));
+  connect(damOut.y, conEco.yOA) annotation (Line(points={{-40,-28},{-40,-20},{
+          -22,-20},{-22,152},{-58.6667,152}},
+                                          color={0,0,127}));
+  connect(damExh.port_a, TRet.port_b) annotation (Line(points={{-30,-10},{-26,-10},
+          {-26,140},{90,140}}, color={0,127,255}));
+  connect(damExh.port_b, amb.ports[3]) annotation (Line(points={{-50,-10},{-100,
+          -10},{-100,-45},{-114,-45}}, color={0,127,255}));
+  connect(freSta.y, or2.u1) annotation (Line(points={{-38,-90},{-30,-90},{-30,
+          -240},{-12,-240}}, color={255,0,255}));
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-380,-400},{1440,
             660}})),
@@ -362,6 +367,20 @@ ASHRAE, Atlanta, GA, 2006.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+April 30, 2021, by Michael Wetter:<br/>
+Reformulated replaceable class and introduced floor areas in base class
+to avoid access of components that are not in the constraining type.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2471\">issue #2471</a>.
+</li>
+<li>
+April 16, 2021, by Michael Wetter:<br/>
+Refactored model to implement the economizer dampers directly in
+<code>Buildings.Examples.VAVReheat.BaseClasses.PartialOpenLoop</code> rather than through the
+model of a mixing box. Since the version of the Guideline 36 model has no exhaust air damper,
+this leads to simpler equations.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2454\">issue #2454</a>.
+</li>
 <li>
 March 15, 2021, by David Blum:<br/>
 Update documentation graphic to include relief damper.<br/>
