@@ -217,7 +217,7 @@ First implementation.
 </html>",
       info="<html>
 <p>
-This model implements staging control logic (shown in the state graph below) of 
+This model implements the staging control logic (shown in the state graph below) of 
 two chillers according to the measured total cooling load. 
 The control logic is as follows:
 </p>

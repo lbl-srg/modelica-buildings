@@ -27,5 +27,18 @@ equation
         coordinateSystem(preserveAspectRatio=false)),
     __Dymola_Commands(file=
           "Resources/Scripts/Dymola/Experimental/DHC/CentralPlants/Cooling/Controls/Validation/ChilledWaterBypass.mos"
-        "Simulate and Plot"));
+        "Simulate and Plot"),
+    Documentation(revisions="<html>
+<ul>
+<li>
+May 3, 2021 by Jing Wang:<br/>
+First implementation. 
+</li>
+</ul>
+</html>", info="<html>
+<p>This model validates the chilled water bypass valve control logic implemented in
+<a href=\"modelica://Buildings.Experimental.DHC.CentralPlants.Cooling.Controls.ChilledWaterBypass\">
+Buildings.Experimental.DHC.CentralPlants.Cooling.Controls.ChilledWaterBypass</a>.
+</p>
+</html>"));
 end ChilledWaterBypass;

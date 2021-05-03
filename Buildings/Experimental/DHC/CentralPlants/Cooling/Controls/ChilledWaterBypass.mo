@@ -51,14 +51,28 @@ equation
           {18,-16}}, color={0,0,127}));
   connect(valSetSca.y, bypValCon.u_s) annotation (Line(points={{-39,30},{38,30}},
                             color={0,0,127}));
-  connect(chiOn[1], valSetSca.u) annotation (Line(points={{-120,20},{-80,20},{
-          -80,30},{-62,30}}, color={255,0,255}));
-  connect(chiOn[1], bypValCon.trigger) annotation (Line(points={{-120,20},{-100,
-          20},{-100,20},{-80,20},{-80,12},{42,12},{42,18}}, color={255,0,255}));
-  connect(chiOn[2], mFloSet.u2) annotation (Line(points={{-120,40},{-88,40},{
-          -88,-50},{-22,-50}}, color={255,0,255}));
+  connect(chiOn[1], valSetSca.u) annotation (Line(points={{-120,20},{-92,20},{
+          -92,30},{-62,30}}, color={255,0,255}));
+  connect(chiOn[1], bypValCon.trigger) annotation (Line(points={{-120,20},{-92,
+          20},{-92,10},{42,10},{42,18}}, color={255,0,255}));
+  connect(chiOn[2], mFloSet.u2) annotation (Line(points={{-120,40},{-92,40},{
+          -92,-50},{-22,-50}}, color={255,0,255}));
   annotation (
   defaultComponentName="chiBypCon",
   Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
-        coordinateSystem(preserveAspectRatio=false)));
+        coordinateSystem(preserveAspectRatio=false)),
+    Documentation(revisions="<html>
+<ul>
+<li>
+May 3, 2021 by Jing Wang:<br/>
+First implementation. 
+</li>
+</ul>
+</html>", info="<html>
+<p>This model implements the chilled water loop bypass valve control logic as follows: </p>
+<p>When the plant is on, the PID controller controls the valve opening ratio to reach the scaled mass flow rate setpoint. 
+The setpoint is determined based on the number of chillers that are operating. 
+If one chiller is on, then the setpoint equals <code>mMin_flow</code>, which is the minimum mass flow rate required by the chiller.
+If two chillers are on, the setpoint is twice as much. </p>
+</html>"));
 end ChilledWaterBypass;
