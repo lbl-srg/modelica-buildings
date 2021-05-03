@@ -5,6 +5,9 @@ clear
 
 convertClear();
 
+convertModifiers("Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.VAV.Economizers.Subsequences.Modulation",
+                {"samplePeriod"}, fill("",0), true);
+
 // Conversion for https://github.com/lbl-srg/modelica-buildings/issues/2355
 convertClass("Buildings.Controls.OBC.CDL.SetPoints.SupplyReturnTemperatureReset",
              "Buildings.Controls.OBC.Utilities.SetPoints.SupplyReturnTemperatureReset");

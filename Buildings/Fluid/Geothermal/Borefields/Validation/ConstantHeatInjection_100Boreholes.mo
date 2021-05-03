@@ -99,6 +99,11 @@ Buildings.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.ThermalResponseFa
 </html>", revisions="<html>
 <ul>
 <li>
+April 8, 2021, by Michael Wetter:<br/>
+Added missing <code>parameter</code> keyword.<br/>
+For <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1464\">IBPSA, issue 1464</a>.
+</li>
+<li>
 June 24, 2019, by Michael Wetter:<br/>
 Changed <code>StopTime</code> from integer to floating point.<br/>
 This is for
