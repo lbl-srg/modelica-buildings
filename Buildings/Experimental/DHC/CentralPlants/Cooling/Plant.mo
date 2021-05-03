@@ -203,7 +203,7 @@ model Plant "District cooling plant model"
     final tWai=tWai,
     final QChi_nominal=QChi_nominal)
     "Chiller staging controller"
-    annotation (Placement(transformation(extent={{-240,186},{-220,206}})));
+    annotation (Placement(transformation(extent={{-240,184},{-220,204}})));
   Modelica.Blocks.Sources.RealExpression mPum_flow(
     final y=pumCHW.port_a.m_flow)
     "Total chilled water pump mass flow rate"
@@ -229,18 +229,6 @@ model Plant "District cooling plant model"
     final m_flow_nominal=mCHW_flow_nominal)
     "Chilled water return temperature"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},rotation=0,origin={-240,-90})));
-  Modelica.Blocks.Math.Add dT(
-    final k1=-1,
-    final k2=+1)
-    "Temperature difference"
-    annotation (Placement(transformation(extent={{-210,40},{-190,60}})));
-  Modelica.Blocks.Math.Product pro
-    "Product"
-    annotation (Placement(transformation(extent={{-170,40},{-150,60}})));
-  Modelica.Blocks.Math.Gain cp(
-    final k=cp_default)
-    "Specific heat multiplier to calculate heat flow rate"
-    annotation (Placement(transformation(extent={{-140,40},{-120,60}})));
   Buildings.Fluid.Sources.Boundary_pT expTanCW(
     redeclare final package Medium=Medium,
     nPorts=1)
@@ -317,17 +305,6 @@ equation
   connect(mValByp_flow.y,bypValCon.u_m)
     annotation (Line(points={{-99,-200},{-70,-200},{-70,-172}},
                                                             color={0,0,127}));
-  connect(senTCHWSup.T,dT.u2)
-    annotation (Line(points={{210,-101},{210,-120},{-220,-120},{-220,44},{-212,44}},
-                                                                             color={0,0,127}));
-  connect(senTCHWRet.T,dT.u1)
-    annotation (Line(points={{-240,-79},{-240,56},{-212,56}},           color={0,0,127}));
-  connect(dT.y,pro.u1)
-    annotation (Line(points={{-189,50},{-180,50},{-180,56},{-172,56}},
-                                                              color={0,0,127}));
-  connect(cp.u,pro.y)
-    annotation (Line(points={{-142,50},{-149,50}},
-                                             color={0,0,127}));
   connect(pumCHW.port_b,mulChiSys.port_a2)
     annotation (Line(points={{-30,-6},{-10,-6}},                  color={0,127,255}));
   connect(pumCW.port_b,mulChiSys.port_a1)
@@ -339,23 +316,20 @@ equation
   connect(senTCHWRet.port_b,senMasFlo.port_a)
     annotation (Line(points={{-230,-90},{-190,-90}},
                                                color={0,127,255}));
-  connect(senMasFlo.m_flow,pro.u2)
-    annotation (Line(points={{-180,-79},{-180,44},{-172,44}},         color={0,0,127}));
   connect(mSetSca_flow.y,bypValCon.u_s)
     annotation (Line(points={{-99,-160},{-82,-160}},            color={0,0,127}));
   connect(chiStaCon.y,mulChiSys.on)
-    annotation (Line(points={{-219,196},{-160,196},{-160,160},{100,160},{100,4},
+    annotation (Line(points={{-219,194},{-160,194},{-160,160},{100,160},{100,4},
           {12,4}},                                                             color={255,0,255}));
   connect(chiStaCon.y[1],bypValCon.trigger)
-    annotation (Line(points={{-219,195.5},{-160,195.5},{-160,160},{-260,160},{-260,
-          -180},{-78,-180},{-78,-172}},                                                           color={255,0,255}));
+    annotation (Line(points={{-219,193.5},{-160,193.5},{-160,160},{-260,160},{
+          -260,-180},{-78,-180},{-78,-172}},                                                      color={255,0,255}));
   connect(chiStaCon.y,chiOn.u)
-    annotation (Line(points={{-219,196},{-160,196},{-160,194},{-42,194}},
-                                                                  color={255,0,255}));
+    annotation (Line(points={{-219,194},{-42,194}},               color={255,0,255}));
   connect(chiOn.y,pumCW.u)
     annotation (Line(points={{-18,194},{8,194},{8,94},{18,94}},     color={0,0,127}));
   connect(chiStaCon.y,cooTowWitByp.on)
-    annotation (Line(points={{-219,196},{-160,196},{-160,94},{-42,94}},
+    annotation (Line(points={{-219,194},{-160,194},{-160,94},{-42,94}},
                                                                     color={255,0,255}));
   connect(weaBus.TWetBul, cooTowWitByp.TWetBul) annotation (Line(
       points={{1,266},{0,266},{0,238},{-50,238},{-50,88},{-42,88}},
@@ -371,8 +345,6 @@ equation
           -90},{280,-40},{300,-40}}, color={0,127,255}));
   connect(TCHWSupSet, mulChiSys.TSet) annotation (Line(points={{-320,140},{-280,
           140},{-280,180},{120,180},{120,0},{12,0}}, color={0,0,127}));
-  connect(cp.y, chiStaCon.QLoa) annotation (Line(points={{-119,50},{-112,50},{-112,
-          80},{-252,80},{-252,192},{-242,192}}, color={0,0,127}));
   connect(totPPum.y, PPum)
     annotation (Line(points={{282,160},{320,160}}, color={0,0,127}));
   connect(pumCW.P, totPPum.u[1:2]) annotation (Line(points={{41,94},{80,94},{80,
@@ -402,6 +374,14 @@ equation
     annotation (Line(points={{-70,-90},{-40,-90}}, color={0,127,255}));
   connect(expTanCHW.ports[1], pumCHW.port_a) annotation (Line(points={{-90,-30},
           {-80,-30},{-80,-6},{-50,-6}}, color={0,127,255}));
+  connect(senTCHWRet.T, chiStaCon.TChiWatRet) annotation (Line(points={{-240,
+          -79},{-240,172},{-260,172},{-260,196},{-242,196}}, color={0,0,127}));
+  connect(senTCHWSup.T, chiStaCon.TChiWatSup) annotation (Line(points={{210,
+          -101},{210,-120},{-220,-120},{-220,172},{-252,172},{-252,192},{-242,
+          192}}, color={0,0,127}));
+  connect(senMasFlo.m_flow, chiStaCon.mFloChiWat) annotation (Line(points={{
+          -180,-79},{-180,172},{-246,172},{-246,188},{-242,188}}, color={0,0,
+          127}));
   annotation (
     defaultComponentName="pla",
     Documentation(
