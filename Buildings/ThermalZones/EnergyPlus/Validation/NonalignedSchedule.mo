@@ -5,12 +5,15 @@ model NonalignedSchedule
 
 
   model Zone "Model of a thermal zone"
-    extends Buildings.ThermalZones.EnergyPlus.Validation.OneZoneEquipmentScheduleNonSampled(intLoaFra(
+    extends Buildings.ThermalZones.EnergyPlus.Validation.Schedule.EquipmentScheduleOutputVariable(
+      intLoaFra(
         amplitude=amplitude,
         width=width,
-        period(displayUnit="min") = 1200,
-        startTime(displayUnit="min") = startTime), schInt(useSamplePeriod=true,
-          samplePeriod=60));
+        period(displayUnit="min") = 1200),
+        assEqu(threShold=1E100));
+        // fixme: above, the assignment assEqu(threShold=1E100)
+        // should be removed for the release. It has been added for
+        // https://github.com/lbl-srg/modelica-buildings/issues/2000
     extends Modelica.Blocks.Icons.Block;
     Controls.OBC.CDL.Interfaces.RealOutput movMeaSch
       "Moving mean of schedule value over past day" annotation (Placement(
@@ -18,7 +21,7 @@ model NonalignedSchedule
               {140,62}})));
     Controls.OBC.CDL.Continuous.MovingMean movMea(delta=1200)
       "Moving mean of schedule value over past day"
-      annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
+      annotation (Placement(transformation(extent={{0,100},{20,120}})));
     Modelica.Blocks.Interfaces.RealOutput TAir(unit="K", displayUnit="degC") "Air temperature of the zone"
       annotation (Placement(transformation(extent={{100,-10},{120,10}}),
           iconTransformation(extent={{100,-10},{120,10}})));
@@ -27,16 +30,19 @@ model NonalignedSchedule
       "Output = offset for time < startTime";
     parameter Real width=0.5 "Width of pulse in fraction of period";
     Controls.OBC.CDL.Discrete.Sampler sam(samplePeriod=120) "Time sampler"
-      annotation (Placement(transformation(extent={{0,40},{20,60}})));
+      annotation (Placement(transformation(extent={{40,100},{60,120}})));
   equation
     connect(zon.TAir, TAir) annotation (Line(points={{41,13.8},{80,13.8},{80,0},
             {110,0}}, color={0,0,127}));
-    connect(movMea.u, intLoaFra.y) annotation (Line(points={{-42,50},{-50,50},{-50,
+    connect(movMea.u, intLoaFra.y) annotation (Line(points={{-2,110},{-50,110},{-50,
             80},{-58,80}}, color={0,0,127}));
     connect(movMea.y, sam.u)
-      annotation (Line(points={{-18,50},{-2,50}}, color={0,0,127}));
-    connect(sam.y, movMeaSch) annotation (Line(points={{22,50},{46,50},{46,40},{120,
-            40}}, color={0,0,127}));
+      annotation (Line(points={{22,110},{38,110}},color={0,0,127}));
+    connect(sam.y, movMeaSch) annotation (Line(points={{62,110},{80,110},{80,40},{
+            120,40}},
+                  color={0,0,127}));
+    annotation (Diagram(coordinateSystem(extent={{-100,-100},{100,140}})), Icon(
+          coordinateSystem(extent={{-100,-100},{100,100}})));
   end Zone;
 
   Zone zonAli "Zone with schedule aligned with EnergyPlus time step"
