@@ -165,7 +165,6 @@ of this model.
 <p>
 For the front surface, this heat flow rate consists of
 </p>
-<p>
 <ul>
 <li>
 convective heat flow rate,
@@ -177,7 +176,6 @@ absorbed solar radiation,
 absorbed infrared radiation minus emitted infrared radiation.
 </li>
 </ul>
-</p>
 <p>
 For the back-side surface, the above quanties, but now for the back-side of the construction,
 are also returned if the back-side faces another thermal zone or the outside.

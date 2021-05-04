@@ -66,13 +66,13 @@ Buildings.ThermalZones.EnergyPlus.OutputVariable</a> models.
 <li>
 Optionally, to model an opaque construction such as a radiant slab in Modelica and interface
 it to EnergyPlus, instantiate any number of
-<a href\"modelica://Buildings.ThermalZones.EnergyPlus.OpaqueConstruction\">
+<a href=\"modelica://Buildings.ThermalZones.EnergyPlus.OpaqueConstruction\">
 Buildings.ThermalZones.EnergyPlus.OpaqueConstruction</a> models.
 </li>
 <li>
 Optionally, to set individual surface temperatures in EnergyPlus and retrieve their room-side
 heat gains, instantiate any number of
-<a href\"modelica://Buildings.ThermalZones.EnergyPlus.ZoneSurface\">
+<a href=\"modelica://Buildings.ThermalZones.EnergyPlus.ZoneSurface\">
 Buildings.ThermalZones.EnergyPlus.ZoneSurface</a> models.
 </li>
 </ol>
@@ -88,7 +88,7 @@ for how to combine two buildings in one Modelica model.
 For details of how to configure these models, see the information section of these models,
 and look at the example models below.
 </p>
-<!-- ----------- -->
+<!-- Examples -->
 <h4>Example models</h4>
 <p>
 To get started, we recommend to look at the simple examples in
@@ -103,7 +103,6 @@ Buildings.ThermalZones.EnergyPlus</a>.
 We suggest looking at the examples in the following order which
 starts with the simplest example and moves to more comprehensive ones.
 </p>
-<p>
 <ol>
 <li>
 <a href=\"modelica://Buildings.ThermalZones.EnergyPlus.Examples.SingleFamilyHouse.Unconditioned\">
@@ -150,7 +149,6 @@ two surfaces in EnergyPlus: The floor that connects the slab to the zone above, 
 that connects the slab to the zone below.
 </li>
 </ol>
-</p>
 </html>"));
   end GettingStarted;
   class Conventions
@@ -387,7 +385,8 @@ multiple buildings are simulated in EnergyPlus.
     Documentation(
       info="<html>
 <p>
-<img alt=\"Spawn logo\" src=\"modelica://Buildings/Resources/Images/ThermalZones/EnergyPlus/spawn_icon_darkbluetxlowres.png\"  style=\"float:right;height=203px;width:587px;\"/>
+<img alt=\"Spawn logo\" src=\"modelica://Buildings/Resources/Images/ThermalZones/EnergyPlus/spawn_icon_darkbluetxlowres.png\"
+     style=\"float:right;height=203px;width:587px;\"/>
 <p>
 This user guide describes how to use the EnergyPlus building envelope model
 and exchange data during simulation between Modelica and EnergyPlus.
@@ -402,7 +401,7 @@ EnergyPlus.
 <p>
 <img alt=\"Spawn coupling\"
 src=\"modelica://Buildings/Resources/Images/ThermalZones/EnergyPlus/envelope-room-hvac-1600.png\"/>
-<p>
+</p>
 <p>
 The figure above shows an overview of the exchanged coupling variables.
 The coupling variables connect Modelica thermal zone model and the EnergyPlus envelope model, or EnergyPlus

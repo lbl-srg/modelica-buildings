@@ -323,7 +323,7 @@ for how to configure a radiant slab.)
 In this example, the surfaces <code>slaCei.surf_a</code> (upward-facing) and
 <code>slaCei.surf_a</code> (downward-facing)
 are connected to the instance <code>attFlo</code>.
-Because <code>attFlo</code> models the <emph>floor</emph> of the attic, rather than the ceiling
+Because <code>attFlo</code> models the <em>floor</em> of the attic, rather than the ceiling
 of the living room,
 the heat port <code>slaCei.surf_a</code> is connected to <code>attFlo.heaPorFro</code>, which is the
 front-facing surface, e.g., the floor.
