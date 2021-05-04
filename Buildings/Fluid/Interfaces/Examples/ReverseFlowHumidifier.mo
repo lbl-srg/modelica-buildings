@@ -51,22 +51,28 @@ package Medium = Buildings.Media.Air;
         transformation(
         extent={{10,-10},{-10,10}},
         origin={40,28})));
-  Sensors.SpecificEnthalpy senEnt1(redeclare package Medium = Medium)
+  Sensors.SpecificEnthalpy senEnt1(redeclare package Medium = Medium,
+      warnAboutOnePortConnection=false)
     "Specific enthalpy sensor"
     annotation (Placement(transformation(extent={{10,70},{30,90}})));
-  Sensors.Temperature senTem1(redeclare package Medium = Medium)
+  Buildings.Fluid.Sensors.Temperature senTem1(redeclare package Medium = Medium,
+      warnAboutOnePortConnection=false)
     "Temperature sensor"
     annotation (Placement(transformation(extent={{-30,70},{-10,90}})));
-  Sensors.MassFraction senMas1(redeclare package Medium = Medium)
+  Sensors.MassFraction senMas1(redeclare package Medium = Medium,
+      warnAboutOnePortConnection=false)
     "Mass fraction sensor"
     annotation (Placement(transformation(extent={{50,70},{70,90}})));
-  Sensors.Temperature senTem2(redeclare package Medium = Medium)
+  Buildings.Fluid.Sensors.Temperature senTem2(redeclare package Medium = Medium,
+      warnAboutOnePortConnection=false)
     "Temperature sensor"
     annotation (Placement(transformation(extent={{-60,-60},{-40,-40}})));
-  Sensors.SpecificEnthalpy senEnt2(redeclare package Medium = Medium)
+  Sensors.SpecificEnthalpy senEnt2(redeclare package Medium = Medium,
+      warnAboutOnePortConnection=false)
     "Specific enthalpy sensor"
     annotation (Placement(transformation(extent={{-20,-60},{0,-40}})));
-  Sensors.MassFraction senMas2(redeclare package Medium = Medium)
+  Sensors.MassFraction senMas2(redeclare package Medium = Medium,
+      warnAboutOnePortConnection=false)
     "Mass fraction sensor"
     annotation (Placement(transformation(extent={{20,-60},{40,-40}})));
   FixedResistances.PressureDrop res1(
@@ -167,8 +173,14 @@ identical for forward flow and reverse flow.
 </html>", revisions="<html>
 <ul>
 <li>
+September 20, 2020, by Michael Wetter:<br/>
+Updated model to use one port temperature sensor from Modelica Standard Library.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1399\"> #1399</a>.
+</li>
+<li>
 May 2, 2019, by Jianjun Hu:<br/>
-Replaced fluid source. This is for 
+Replaced fluid source. This is for
 <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1072\"> #1072</a>.
 </li>
 <li>

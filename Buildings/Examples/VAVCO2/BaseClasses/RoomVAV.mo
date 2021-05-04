@@ -32,7 +32,8 @@ model RoomVAV "Model for CO2 emitted by people"
     annotation (Placement(
         transformation(extent={{-10,0},{10,20}})));
   Buildings.Fluid.Sensors.TraceSubstances senCO2(
-    redeclare package Medium = Medium) "Sensor at volume"
+    redeclare package Medium = Medium, warnAboutOnePortConnection=false)
+                                       "Sensor at volume"
     annotation (Placement(transformation(extent={{16,20}, {36,40}})));
   Buildings.Fluid.MixingVolumes.MixingVolume ple(
     redeclare package Medium = Medium,

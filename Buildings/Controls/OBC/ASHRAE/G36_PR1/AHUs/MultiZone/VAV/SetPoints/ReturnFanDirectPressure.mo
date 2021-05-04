@@ -52,10 +52,11 @@ block ReturnFanDirectPressure
     "Average building static pressure measurement"
     annotation (Placement(transformation(extent={{-130,70},{-110,90}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.LimPID conP(
+  Buildings.Controls.OBC.CDL.Continuous.PID conP(
     final controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.P,
     final k=k,
-    reverseAction=true) "Building static pressure controller"
+    r=dpBuiSet,
+    reverseActing=false) "Building static pressure controller"
     annotation (Placement(transformation(extent={{-40,100},{-20,120}})));
   Buildings.Controls.OBC.CDL.Continuous.Line linExhAirDam
     "Exhaust air damper position"
@@ -69,13 +70,11 @@ block ReturnFanDirectPressure
   Buildings.Controls.OBC.CDL.Logical.Switch swi
     "Return fan discharge static pressure setpoint"
     annotation (Placement(transformation(extent={{80,-100},{100,-80}})));
-  Buildings.Controls.OBC.CDL.Continuous.Division div "Normalized the control error"
-    annotation (Placement(transformation(extent={{-80,70},{-60,90}})));
 
 protected
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant dpBuiSetPoi(
     final k=dpBuiSet) "Building pressure setpoint"
-    annotation (Placement(transformation(extent={{-130,40},{-110,60}})));
+    annotation (Placement(transformation(extent={{-80,100},{-60,120}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant retFanDisPreMin(
     final k=dpDisMin) "Return fan discharge static pressure minimum setpoint"
     annotation (Placement(transformation(extent={{0,-30},{20,-10}})));
@@ -94,9 +93,6 @@ protected
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant one(final k=1)
     "Constant one"
     annotation (Placement(transformation(extent={{0,26},{20,46}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant conOne(final k=1)
-    "Constant one"
-    annotation (Placement(transformation(extent={{-80,100},{-60,120}})));
 
 equation
   connect(movMea.u, dpBui)
@@ -144,15 +140,11 @@ equation
     annotation (Line(points={{-18,110},{58,110}}, color={0,0,127}));
   connect(conP.y, linRetFanStaPre.u)
     annotation (Line(points={{-18,110},{-10,110},{-10,-40},{58,-40}}, color={0,0,127}));
-  connect(dpBuiSetPoi.y, div.u2) annotation (Line(points={{-108,50},{-90,50},{-90,
-          74},{-82,74}}, color={0,0,127}));
-  connect(movMea.y, div.u1) annotation (Line(points={{-108,80},{-100,80},{-100,86},
-          {-82,86}}, color={0,0,127}));
-  connect(conOne.y, conP.u_s)
-    annotation (Line(points={{-58,110},{-42,110}}, color={0,0,127}));
-  connect(div.y, conP.u_m)
-    annotation (Line(points={{-58,80},{-30,80},{-30,98}}, color={0,0,127}));
 
+  connect(dpBuiSetPoi.y, conP.u_s) annotation (Line(points={{-58,110},{-50,110},
+          {-50,110},{-42,110}}, color={0,0,127}));
+  connect(movMea.y, conP.u_m)
+    annotation (Line(points={{-108,80},{-30,80},{-30,98}}, color={0,0,127}));
 annotation (
   defaultComponentName="buiPreCon",
   Icon(graphics={
@@ -262,6 +254,12 @@ src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/G36_PR1/AHUs/Mul
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+October 15, 2020, by Michael Wetter:<br/>
+Moved normalization of control error to PID controller.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2182\">#2182</a>.
+</li>
 <li>
 October 16, 2017, by Michael Wetter:<br/>
 Revised implementation, normalized control input

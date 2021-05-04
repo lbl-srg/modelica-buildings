@@ -54,25 +54,30 @@ block Supply "Supply air set point for single zone VAV system"
 
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput TSupHeaEco(unit="K", displayUnit="degC")
     "Temperature setpoint for heating coil and for economizer"
-    annotation (Placement(transformation(extent={{100,80},{140,120}}),
+    annotation (Placement(transformation(extent={{160,80},{200,120}}),
         iconTransformation(extent={{100,40},{140,80}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput TSupCoo(unit="K", displayUnit="degC")
     "Cooling supply air temperature setpoint"
-    annotation (Placement(transformation(extent={{100,20},{140,60}}),
+    annotation (Placement(transformation(extent={{160,20},{200,60}}),
         iconTransformation(extent={{100,-20},{140,20}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput y(min=0, max=1, unit="1") "Fan speed"
-  annotation (Placement(transformation(extent={{100,-80},{140,-40}})));
+  annotation (Placement(transformation(extent={{160,-80},{200,-40}}),
+        iconTransformation(extent={{100,-80},{140,-40}})));
 
   CDL.Interfaces.BooleanInput uFan "Supply fan status"
     annotation (Placement(transformation(extent={{-140,-160},{-100,-120}}),
       iconTransformation(extent={{-140,-120},{-100,-80}})));
   CDL.Logical.Switch switch "Switch to assign control signal"
-    annotation (Placement(transformation(extent={{72,-30},{92,-10}})));
+    annotation (Placement(transformation(extent={{120,-70},{140,-50}})));
   CDL.Continuous.Sources.Constant fanOff(k=0) "Fan off status"
-    annotation (Placement(transformation(extent={{40,-20},{60,0}})));
+    annotation (Placement(transformation(extent={{40,10},{60,30}})));
+  CDL.Continuous.Min yFanHeaCoo "Fan speed due to heating or cooling"
+    annotation (Placement(transformation(extent={{90,-40},{110,-20}})));
 protected
+  CDL.Continuous.Sources.Constant one(final k=1) "Maximum fan speed"
+    annotation (Placement(transformation(extent={{40,-30},{60,-10}})));
   Buildings.Controls.OBC.CDL.Continuous.Line TSetCooHig
     "Table to compute the setpoint for cooling for uCoo = 0...1"
     annotation (Placement(transformation(extent={{0,130},{20,150}})));
@@ -179,7 +184,7 @@ protected
     final k1=1,
     final k2=1)
     "Add heating control signal and offset due to cooling"
-    annotation (Placement(transformation(extent={{40,-66},{60,-46}})));
+    annotation (Placement(transformation(extent={{40,-70},{60,-50}})));
   Buildings.Controls.OBC.CDL.Continuous.Add offCoo(
     final k1=1,
     final k2=1)
@@ -206,7 +211,7 @@ equation
     annotation (Line(points={{22,180},{40,180},{40,194},{58,194}},
       color={0,0,127}));
   connect(addTHe.y, TSupHeaEco)
-    annotation (Line(points={{82,200},{92,200},{92,100},{120,100}},
+    annotation (Line(points={{82,200},{92,200},{92,100},{180,100}},
       color={0,0,127}));
   connect(TSetCooHig.y, addTSupCoo.u1)
     annotation (Line(points={{22,140},{40,140},{40,126},{58,126}},
@@ -221,7 +226,7 @@ equation
     annotation (Line(points={{-2,100},{-88,100},{-88,110},{-120,110}},
                            color={0,0,127}));
   connect(addTSupCoo.y, TSupCoo)
-    annotation (Line(points={{82,120},{84,120},{84,40},{120,40}},
+    annotation (Line(points={{82,120},{84,120},{84,40},{180,40}},
       color={0,0,127}));
   connect(dT.u1, TZon)
     annotation (Line(points={{-72,-112},{-86,-112},{-86,-10},{-120,-10}},
@@ -321,7 +326,7 @@ equation
   connect(offCoo.u2, lin075.y) annotation (Line(points={{38,-198},{34,-198},{34,
           -256},{60,-256},{60,-284},{56,-284}}, color={0,0,127}));
   connect(offCoo.y, addHeaCoo.u2) annotation (Line(points={{62,-192},{90,-192},{
-          90,-80},{30,-80},{30,-62},{38,-62}}, color={0,0,127}));
+          90,-80},{30,-80},{30,-66},{38,-66}}, color={0,0,127}));
   connect(lin050.x2, con1.y) annotation (Line(points={{-22,-196},{-46,-196},{-46,
           -222},{-58,-222}}, color={0,0,127}));
   connect(con025.y, lin050.x1) annotation (Line(points={{-58,-166},{-52,-166},{-52,
@@ -348,19 +353,23 @@ equation
   connect(maxHeaSpe.y, yHea.f2) annotation (Line(points={{-18,-70},{-6,-70},{-6,
           -58},{2,-58}},
                      color={0,0,127}));
-  connect(yHea.y, addHeaCoo.u1) annotation (Line(points={{26,-50},{38,-50}},
-                     color={0,0,127}));
+  connect(yHea.y, addHeaCoo.u1) annotation (Line(points={{26,-50},{32,-50},{32,-54},
+          {38,-54}}, color={0,0,127}));
 
-  connect(uFan, switch.u2) annotation (Line(points={{-120,-140},{84,-140},{84,-42},
-          {68,-42},{68,-20},{70,-20}},
+  connect(uFan, switch.u2) annotation (Line(points={{-120,-140},{106,-140},{106,
+          -60},{118,-60}},
                      color={255,0,255}));
-  connect(addHeaCoo.y, switch.u1) annotation (Line(points={{62,-56},{64,-56},{64,
-          -12},{70,-12}}, color={0,0,127}));
   connect(fanOff.y, switch.u3)
-    annotation (Line(points={{62,-10},{66,-10},{66,-28},{70,-28}},
+    annotation (Line(points={{62,20},{74,20},{74,-68},{118,-68}},
                                                           color={0,0,127}));
-  connect(switch.y, y) annotation (Line(points={{94,-20},{96,-20},{96,-60},{120,
-          -60}}, color={0,0,127}));
+  connect(switch.y, y) annotation (Line(points={{142,-60},{180,-60}},
+                 color={0,0,127}));
+  connect(one.y, yFanHeaCoo.u1) annotation (Line(points={{62,-20},{80,-20},{80,-24},
+          {88,-24}}, color={0,0,127}));
+  connect(addHeaCoo.y, yFanHeaCoo.u2) annotation (Line(points={{62,-60},{80,-60},
+          {80,-36},{88,-36}}, color={0,0,127}));
+  connect(yFanHeaCoo.y, switch.u1) annotation (Line(points={{112,-30},{116,-30},
+          {116,-52},{118,-52}}, color={0,0,127}));
 annotation (
   defaultComponentName = "setPoiVAV",
  Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-120},{100,120}}),
@@ -478,7 +487,7 @@ annotation (
           textString="uFan")}),
         Diagram(
         coordinateSystem(preserveAspectRatio=false,
-        extent={{-100,-380},{100,240}}), graphics={
+        extent={{-100,-360},{160,240}}), graphics={
         Rectangle(
           extent={{-82,-152},{84,-248}},
           lineColor={0,0,0},
@@ -579,13 +588,19 @@ based on the same temperature sensors and control loops.
 </html>", revisions="<html>
 <ul>
 <li>
+April 30, 2021, by Michael Wetter:<br/>
+Added limiter to fan signal.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2475\">issue 2475</a>.
+</li>
+<li>
 August 1, 2019, by Kun Zhang:<br/>
 Added a switch for fan control.
 </li>
 <li>
 March 21, 2019, by Jianjun Hu:<br/>
-Used line block to avoid use block that is not in CDL.
-This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1389\">issue 1389</a>.
+Used line block to avoid use of block that is not in CDL.
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1389\">issue 1389</a>.
 </li>
 <li>
 March 25, 2018, by Michael Wetter:<br/>

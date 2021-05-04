@@ -1,18 +1,24 @@
 within Buildings.Media;
 package Water "Package with model for liquid water with constant density"
    extends Modelica.Media.Water.ConstantPropertyLiquidWater(
-     final cv_const=cp_const,
      p_default=300000,
      reference_p=300000,
      reference_T=273.15,
      reference_X={1},
      AbsolutePressure(start=p_default),
      Temperature(start=T_default),
-     Density(start=d_const));
+     Density(start=d_const),
+     final cv_const=cp_const);
   // cp_const and cv_const have been made final because the model sets u=h.
   extends Modelica.Icons.Package;
 
-  redeclare model BaseProperties "Base properties"
+  redeclare replaceable model BaseProperties "Base properties (p, d, T, h, u, R, MM and X and Xi) of a medium"
+    parameter Boolean preferredMediumStates=false
+      "= true if StateSelect.prefer shall be used for the independent property variables of the medium"
+      annotation (Evaluate=true, Dialog(tab="Advanced"));
+    final parameter Boolean standardOrderComponents=true
+      "If true, and reducedX = true, the last element of X will be computed from the other ones";
+    Modelica.SIunits.Density d=d_const "Density of medium";
     Temperature T(stateSelect=
       if preferredMediumStates then StateSelect.prefer else StateSelect.default)
       "Temperature of medium";
@@ -22,7 +28,7 @@ package Water "Package with model for liquid water with constant density"
     InputSpecificEnthalpy h "Specific enthalpy of medium";
     Modelica.SIunits.SpecificInternalEnergy u
       "Specific internal energy of medium";
-    Modelica.SIunits.Density d=d_const "Density of medium";
+
     Modelica.SIunits.MassFraction[nX] X={1}
       "Mass fractions (= (component mass)/total mass  m_i/m)";
     final Modelica.SIunits.SpecificHeatCapacity R=0
@@ -31,11 +37,8 @@ package Water "Package with model for liquid water with constant density"
       "Molar mass (of mixture or single fluid)";
     ThermodynamicState state
       "Thermodynamic state record for optional functions";
-    parameter Boolean preferredMediumStates=false
-      "= true if StateSelect.prefer shall be used for the independent property variables of the medium"
-      annotation(Evaluate=true, Dialog(tab="Advanced"));
-    final parameter Boolean standardOrderComponents=true
-      "If true, and reducedX = true, the last element of X will be computed from the other ones";
+
+
     Modelica.SIunits.Conversions.NonSIunits.Temperature_degC T_degC=
         Modelica.SIunits.Conversions.to_degC(T)
       "Temperature of medium in [degC]";
@@ -52,29 +55,65 @@ package Water "Package with model for liquid water with constant density"
       "Mass fraction as input signal connector";
 
   equation
-assert(T >= T_min, "
-  In " + getInstanceName() + ": Temperature T = " + String(T) + " K exceeded its minimum allowed value of " +
-  String(T_min-273.15) + " degC (" + String(T_min) + " Kelvin)
-as required from medium model \"" + mediumName + "\".");
-assert(T <= T_max, "
-  In " + getInstanceName() + ": Temperature T = " + String(T) + " K exceeded its maximum allowed value of " +
-  String(T_max-273.15) + " degC (" + String(T_max) + " Kelvin)
-as required from medium model \"" + mediumName + "\".");
-
     h = cp_const*(T-reference_T);
     u = h;
     state.T = T;
     state.p = p;
+
+    // Assertions to test for bounds
+    assert(noEvent(T >= T_min), "In " + getInstanceName() + ": Temperature T = " + String(T) + " K exceeded its minimum allowed value of " +
+  String(T_min-273.15) + " degC (" + String(T_min) + " Kelvin) as required from medium model \"Buildings.Media.Water\".");
+
+    assert(noEvent(T <= T_max), "In " + getInstanceName() + ": Temperature T = " + String(T) + " K exceeded its maximum allowed value of " +
+  String(T_max-273.15) + " degC (" + String(T_max) + " Kelvin) as required from medium model \"Buildings.Media.Water\".");
+
+    assert(noEvent(p >= 0.0), "Pressure (= " + String(p) + " Pa) of medium \"Buildings.Media.Water\" is negative\n(Temperature = " + String(T) + " K)");
+
     annotation(Documentation(info="<html>
-    <p>
-    This base properties model is identical to
-    <a href=\"modelica://Modelica.Media.Water.ConstantPropertyLiquidWater\">
-    Modelica.Media.Water.ConstantPropertyLiquidWater</a>,
-    except that the equation
-    <code>u = cv_const*(T - reference_T)</code>
-    has been replaced by <code>u=h</code> because
-    <code>cp_const=cv_const</code>.
-    </p>
+<p>
+Model with basic thermodynamic properties.
+</p>
+<p>
+This base properties model is identical to
+<a href=\"modelica://Modelica.Media.Water.ConstantPropertyLiquidWater\">
+Modelica.Media.Water.ConstantPropertyLiquidWater</a>,
+except that the equation
+<code>u = cv_const*(T - reference_T)</code>
+has been replaced by <code>u=h</code> because
+<code>cp_const=cv_const</code>.
+</p>
+<p>
+This model provides equation for the following thermodynamic properties:
+</p>
+<table border=\"1\" cellspacing=\"0\" cellpadding=\"2\" summary=\"Thermodynamic properties\">
+  <tr><td><strong>Variable</strong></td>
+      <td><strong>Unit</strong></td>
+      <td><strong>Description</strong></td></tr>
+  <tr><td>T</td>
+      <td>K</td>
+      <td>temperature</td></tr>
+  <tr><td>p</td>
+      <td>Pa</td>
+      <td>absolute pressure</td></tr>
+  <tr><td>d</td>
+      <td>kg/m3</td>
+      <td>density</td></tr>
+  <tr><td>h</td>
+      <td>J/kg</td>
+      <td>specific enthalpy</td></tr>
+  <tr><td>u</td>
+      <td>J/kg</td>
+      <td>specific internal energy</td></tr>
+  <tr><td>Xi[nXi]</td>
+      <td>kg/kg</td>
+      <td>independent mass fractions m_i/m</td></tr>
+  <tr><td>R</td>
+      <td>J/kg.K</td>
+      <td>gas constant</td></tr>
+  <tr><td>M</td>
+      <td>kg/mol</td>
+      <td>molar mass</td></tr>
+</table>
 </html>"));
   end BaseProperties;
 
@@ -103,7 +142,7 @@ Buildings.Fluid.MixingVolumes.MixingVolumeMoistAir</a>.
 </ul>
 </html>"));
 end enthalpyOfLiquid;
-  annotation(preferredView="info", Documentation(info="<html>
+  annotation(Documentation(info="<html>
 <p>
 This medium package models liquid water.
 </p>
@@ -136,6 +175,12 @@ There are no phase changes.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+September 28, 2020, by Michael Wetter:<br/>
+Reformulated <code>BaseProperties</code> to avoid event-triggering assertions.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1401\">#1401</a>.
+</li>
 <li>
 October 26, 2018, by Filip Jorissen and Michael Wetter:<br/>
 Now printing different messages if temperature is above or below its limit,

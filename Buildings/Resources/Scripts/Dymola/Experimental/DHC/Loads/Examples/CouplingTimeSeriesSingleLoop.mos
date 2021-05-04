@@ -1,0 +1,68 @@
+simulateModel("Buildings.Experimental.DHC.Loads.Examples.CouplingTimeSeriesSingleLoop",
+    method="cvode",
+    tolerance=1e-6,
+    numberOfIntervals=500,
+    stopTime=604800.0,
+    resultFile="CouplingTimeSeriesSingleLoop");
+createPlot(
+    id=1,
+    position={10, 10, 500, 500},
+    y={"buiCoo.maxTSet.y", "buiCoo.minTSet.y", "buiCoo.terUniCoo.TLoaODE.TAir", "buiHea.terUniHea.TLoaODE.TAir"},
+    autoscale=true,
+    grid=true,
+    filename="CouplingTimeSeriesSingleLoop.mat");
+createPlot(
+    id=2,
+    position={520, 10, 500, 1000},
+    y={"supChiWat.T_in", "buiCoo.terUniCoo.T_aChiWat_nominal"},
+    autoscale=true,
+    grid=true);
+createPlot(
+    id=2,
+    y={"buiCoo.terUniCoo.QReqCoo_flow", "buiCoo.terUniCoo.QActCoo_flow"},
+    grid=true,
+    subPlot=2);
+createPlot(
+    id=2,
+    y={"buiCoo.disFloCoo.mReq_flow[1]", "buiCoo.disFloCoo.mAct_flow[1].y", "buiCoo.disFloCoo.m_flow_nominal"},
+    grid=true,
+    subPlot=3);
+createPlot(
+    id=2,
+    y={"buiCoo.terUniCoo.QActCoo_flow", "buiCoo.loa.y[1]", "buiCoo.QCoo_flow_nominal"},
+    grid=true,
+    subPlot=4);
+createPlot(
+    id=3,
+    position={1030, 10, 500, 1000},
+    y={"supHeaWat.T_in", "buiHea.terUniHea.T_aHeaWat_nominal"},
+    autoscale=true,
+    grid=true);
+createPlot(
+    id=3,
+    y={"buiHea.terUniHea.QReqHea_flow", "buiHea.terUniHea.QActHea_flow"},
+    grid=true,
+    subPlot=2);
+createPlot(
+    id=3,
+    y={"buiHea.disFloHea.mReq_flow[1]", "buiHea.disFloHea.mAct_flow[1].y", "buiHea.disFloHea.m_flow_nominal"},
+    grid=true,
+    subPlot=3
+);
+createPlot(
+    id=3,
+    y={"buiHea.terUniHea.QActHea_flow", "buiHea.loa.y[2]", "buiHea.QHea_flow_nominal"},
+    grid=true,
+    subPlot=4);
+createPlot(
+    id=4,
+    position={1540, 10, 500, 500},
+    y={"EHeaReq.y", "EHeaAct.y", "ECooReq.y", "ECooAct.y"},
+    autoscale=true,
+    grid=true);
+createPlot(
+    id=4,
+    y={"QAveHeaReq_flow.y", "QAveHeaAct_flow.y", "QAveCooReq_flow.y", "QAveCooAct_flow.y"},
+    autoscale=true,
+    grid=true,
+    subPlot=2);

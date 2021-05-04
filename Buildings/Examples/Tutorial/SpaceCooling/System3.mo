@@ -60,8 +60,7 @@ model System3
     QCoiC_flow_nominal/(TWRet_nominal-TWSup_nominal)/4200
     "Nominal water mass flow rate";
 
-  Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature
-                                                         TOut
+  Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature TOut
     "Outside temperature"
     annotation (Placement(transformation(extent={{-20,40},{0,60}})));
   Modelica.Thermal.HeatTransfer.Sources.FixedHeatFlow preHea(Q_flow=
@@ -80,21 +79,22 @@ model System3
     dp2_nominal=200,
     eps=eps) "Heat recovery"
     annotation (Placement(transformation(extent={{-110,-36},{-90,-16}})));
-  Buildings.Fluid.HeatExchangers.WetCoilCounterFlow cooCoi(redeclare package Medium1 =
-        MediumW, redeclare package Medium2 = MediumA,
+  Buildings.Fluid.HeatExchangers.WetCoilEffectivenessNTU cooCoi(
+    redeclare package Medium1 = MediumW,
+    redeclare package Medium2 = MediumA,
     m1_flow_nominal=mW_flow_nominal,
     m2_flow_nominal=mA_flow_nominal,
     dp1_nominal=6000,
+    dp2_nominal=200,
     UA_nominal=-QCoiC_flow_nominal/
         Buildings.Fluid.HeatExchangers.BaseClasses.lmtd(
         T_a1=THeaRecLvg,
         T_b1=TASup_nominal,
         T_a2=TWSup_nominal,
         T_b2=TWRet_nominal),
-    dp2_nominal=200,
     show_T=true,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial) "Cooling coil"
-                                                               annotation (Placement(
+   annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=180,
@@ -198,7 +198,7 @@ equation
       index=-1,
       extent={{-6,3},{-6,3}}));
   connect(fan.m_flow_in, mAir_flow.y) annotation (Line(
-      points={{49.8,-8},{49.8,10},{21,10}},
+      points={{50,-8},{50,10},{22,10}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(hex.port_b1, senTemHXOut.port_a) annotation (Line(
@@ -222,7 +222,7 @@ equation
       color={191,0,0},
       smooth=Smooth.None));
   connect(TRooSetPoi.y, con.reference) annotation (Line(
-      points={{-149,-80},{-136,-80},{-136,-94},{-122,-94}},
+      points={{-148,-80},{-136,-80},{-136,-94},{-122,-94}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(vol.heatPort, senTemRoo.port) annotation (Line(
@@ -234,11 +234,11 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(con.y, mWat_flow.u) annotation (Line(
-      points={{-99,-100},{-82,-100}},
+      points={{-98,-100},{-82,-100}},
       color={255,0,255},
       smooth=Smooth.None));
   connect(mWat_flow.y, souWat.m_flow_in) annotation (Line(
-      points={{-59,-100},{-50,-100},{-50,-92},{-40,-92}},
+      points={{-58,-100},{-50,-100},{-50,-92},{-42,-92}},
       color={0,0,127},
       smooth=Smooth.None));
   annotation (Documentation(info="<html>
@@ -348,8 +348,8 @@ When simulating the model, the response shown below should be seen.
 <h4>Notes</h4>
 <p>
 To add a continuous controller for the coil water flow rate, we could have used the model
-<a href=\"modelica://Buildings.Controls.OBC.CDL.Continuous.LimPID\">
-Buildings.Controls.OBC.CDL.Continuous.LimPID</a>.
+<a href=\"modelica://Buildings.Controls.OBC.CDL.Continuous.PID\">
+Buildings.Controls.OBC.CDL.Continuous.PID</a>.
 </p>
 </html>", revisions="<html>
 <ul>

@@ -1,4 +1,4 @@
-simulateModel("Buildings.Fluid.FixedResistances.Validation.PlugFlowPipes.MSLAIT2Nodes", stopTime=603900, tolerance=1e-6, method="dassl", resultFile="MSLAIT2Nodes");
+simulateModel("Buildings.Fluid.FixedResistances.Validation.PlugFlowPipes.MSLAIT2Nodes", stopTime=603900, tolerance=1e-6, method="CVode", resultFile="MSLAIT2Nodes");
 createPlot(id = 5,
  position = {50, 50, 500, 500},
  x = "time",

@@ -39,6 +39,14 @@ model CoolingCoil "Controller for cooling coil valve"
     annotation (Placement(transformation(extent={{100,-10},{120,10}}),
         iconTransformation(extent={{100,-20},{140,20}})));
 
+  Buildings.Controls.OBC.CDL.Continuous.PIDWithReset cooCoiPI(
+    final reverseActing=false,
+    final controllerType=controllerTypeCooCoi,
+    final k=kCooCoi,
+    final Ti=TiCooCoi,
+    final Td=TdCooCoi) "Cooling coil control signal"
+    annotation (Placement(transformation(extent={{-10,70},{10,90}})));
+
 protected
   Buildings.Controls.OBC.CDL.Integers.Equal intEqu
     "Logical block to check if zone is in cooling state"
@@ -47,14 +55,6 @@ protected
     final k=Buildings.Controls.OBC.ASHRAE.G36_PR1.Types.ZoneStates.cooling)
     "Cooling state value"
     annotation (Placement(transformation(extent={{-80,-30},{-60,-10}})));
-  Buildings.Controls.OBC.CDL.Continuous.LimPID cooCoiPI(
-    reverseAction=true,
-    reset=Buildings.Controls.OBC.CDL.Types.Reset.Parameter,
-    controllerType=controllerTypeCooCoi,
-    k=kCooCoi,
-    Ti=TiCooCoi,
-    Td=TdCooCoi) "Cooling coil control signal"
-    annotation (Placement(transformation(extent={{-10,70},{10,90}})));
   Buildings.Controls.OBC.CDL.Logical.Switch switch "Switch to assign cooling coil control signal"
     annotation (Placement(transformation(extent={{72,-10},{92,10}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant const(k=0) "Cooling off mode"
@@ -65,8 +65,8 @@ protected
 equation
   connect(const.y, switch.u3) annotation (Line(points={{62,-20},{66,-20},{66,-8},
           {70,-8}}, color={0,0,127}));
-  connect(cooCoiPI.trigger, uSupFan) annotation (Line(points={{-8,68},{-8,-80},
-          {-120,-80}},                     color={255,0,255}));
+  connect(cooCoiPI.trigger, uSupFan) annotation (Line(points={{-6,68},{-6,-80},{
+          -120,-80}},                      color={255,0,255}));
   connect(cooCoiPI.u_s, TSupCoo) annotation (Line(points={{-12,80},{-120,80}},
                       color={0,0,127}));
   connect(cooCoiPI.u_m, TSup)
@@ -106,6 +106,13 @@ Otherwise, the control signal for the coil is set to <code>0</code>.
 </p>
 </html>",revisions="<html>
 <ul>
+<li>
+May 1, 2021, by Michael Wetter:<br/>
+Changed model to have the PI controller public rather than protected.
+PI controllers should be public, allowing their variables to be inspected.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2477\">#2477</a>.
+</li>
 <li>
 March 13, 2020, by Jianjun Hu:<br/>
 Moved interfaces instances to be right after parameter section.

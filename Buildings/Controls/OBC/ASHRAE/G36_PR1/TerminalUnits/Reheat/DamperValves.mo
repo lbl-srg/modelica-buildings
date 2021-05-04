@@ -209,7 +209,7 @@ block DamperValves
   Buildings.Controls.OBC.CDL.Continuous.Line lin3
     "Active airflow setpoint for heating"
     annotation (Placement(transformation(extent={{-80,-310},{-60,-290}})));
-  Buildings.Controls.OBC.CDL.Continuous.LimPID conVal(
+  Buildings.Controls.OBC.CDL.Continuous.PIDWithReset conVal(
     final controllerType=controllerTypeVal,
     final k=kVal,
     final Ti=TiVal,
@@ -217,18 +217,16 @@ block DamperValves
     final yMax=1,
     final yMin=0,
     u_s(final unit="K", displayUnit="degC"),
-    u_m(final unit="K", displayUnit="degC"),
-    reset=Buildings.Controls.OBC.CDL.Types.Reset.Parameter)
+    u_m(final unit="K", displayUnit="degC"))
     "Hot water valve controller"
     annotation (Placement(transformation(extent={{34,-90},{54,-70}})));
-  Buildings.Controls.OBC.CDL.Continuous.LimPID conDam(
+  Buildings.Controls.OBC.CDL.Continuous.PIDWithReset conDam(
     final controllerType=controllerTypeDam,
     final k=kDam,
     final Ti=TiDam,
     final Td=TdDam,
     final yMax=1,
     final yMin=0,
-    final reset=Buildings.Controls.OBC.CDL.Types.Reset.Parameter,
     final y_reset=0) if not have_pressureIndependentDamper
     "Damper position controller"
     annotation (Placement(transformation(extent={{280,220},{300,240}})));
@@ -372,7 +370,7 @@ protected
   Buildings.Controls.OBC.CDL.Continuous.Gain gai(
     final k=1) if have_pressureIndependentDamper
     "Block that can be disabled so remove the connection"
-    annotation (Placement(transformation(extent={{220,120},{240,140}})));
+    annotation (Placement(transformation(extent={{240,120},{260,140}})));
 
 equation
   connect(uCoo, lin.u)
@@ -540,7 +538,7 @@ equation
   connect(isUno.y, not5.u) annotation (Line(points={{242,-312},{266,-312},{266,-280},
           {180,-280},{180,-250},{198,-250}}, color={255,0,255}));
   connect(not5.y, conDam.trigger) annotation (Line(points={{222,-250},{232,-250},
-          {232,170},{284,170},{284,178}}, color={255,0,255}));
+          {232,176},{284,176},{284,218}}, color={255,0,255}));
   connect(truHol2.y, or2.u2) annotation (Line(points={{-200,-210},{-88,-210},{-88,
           -62},{-70,-62}},     color={255,0,255}));
   connect(truDel3.y, not3.u)
@@ -596,9 +594,10 @@ equation
   connect(VDisSet_flowNor.y, conDam.u_s)
     annotation (Line(points={{262,230},{278,230}}, color={0,0,127}));
   connect(VDisSet_flowNor.y, gai.u) annotation (Line(points={{262,230},{270,230},
-          {270,180},{210,180},{210,130},{218,130}}, color={0,0,127}));
-  connect(gai.y, damPosUno.u3) annotation (Line(points={{242,130},{272,130},{272,
-          62},{278,62}}, color={0,0,127}));
+          {270,180},{210,180},{210,130},{238,130}}, color={0,0,127}));
+  connect(gai.y, damPosUno.u3) annotation (Line(points={{262,130},{272,130},{
+          272,62},{278,62}},
+                         color={0,0,127}));
 
 annotation (
   defaultComponentName="damVal",

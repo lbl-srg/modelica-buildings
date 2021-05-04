@@ -15,10 +15,10 @@ model Case950FF
                                       18*3600, -1703.16/3600;
                                       24*3600, -1703.16/3600])
     "Ventilation air flow rate"
-    annotation (Placement(transformation(extent={{-88,-68},{-80,-60}})));
+    annotation (Placement(transformation(extent={{-94,-60},{-86,-52}})));
 equation
   connect(multiSum.u[2],vent.y[1]) annotation (Line(
-      points={{-72,-44},{-76,-44},{-76,-64},{-79.6,-64}},
+      points={{-78,-74},{-82,-74},{-82,-56},{-85.2,-56}},
       color={0,0,127},
       smooth=Smooth.None));
 
@@ -33,6 +33,17 @@ heating and no cooling.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+April 30, 2021, by Michael Wetter:<br/>
+Reformulated replaceable class to avoid access of components that are not in the constraining type.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2471\">issue #2471</a>.
+</li>
+<li>
+April 30, 2021, by Michael Wetter:<br/>
+Added redeclaration to avoid access of component that is not in constraining type.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2471\">#2471</a>.
+</li>
 <li>
 July 16, 2012, by Michael Wetter:<br/>
 Revised implementation to extend from base case to avoid duplicate code.

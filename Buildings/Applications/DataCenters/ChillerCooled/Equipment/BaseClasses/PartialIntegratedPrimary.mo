@@ -62,7 +62,6 @@ model PartialIntegratedPrimary
     final dpFixed_nominal=0,
     final dpValve_nominal=dpValve_nominal[5],
     final l=lVal5,
-    final kFixed=0,
     final rhoStd=rhoStd[5],
     final y_start=yVal5_start)
     "Bypass valve: closed when fully mechanic cooling is activated;
@@ -84,44 +83,55 @@ model PartialIntegratedPrimary
     final dpFixed_nominal=0,
     final dpValve_nominal=dpValve_nominal[6],
     final l=lVal6,
-    final kFixed=0,
     final rhoStd=rhoStd[6],
     final y_start=yVal6_start)
     "Bypass valve: closed when free cooling mode is deactivated;
     open when free cooling is activated"
-    annotation (Placement(transformation(extent={{-40,-30},{-60,-10}})));
+    annotation (Placement(transformation(extent={{-30,-30},{-50,-10}})));
 
+  Fluid.FixedResistances.Junction spl2(
+    redeclare package Medium = Medium2,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
+    m_flow_nominal={numChi*m2_flow_chi_nominal,-numChi*m2_flow_chi_nominal,
+        -m2_flow_wse_nominal},
+    dp_nominal={0,0,0}) "Splitter"
+    annotation (Placement(transformation(extent={{90,-50},{70,-70}})));
+  Fluid.FixedResistances.Junction jun2(
+    redeclare package Medium = Medium2,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
+    m_flow_nominal={m2_flow_wse_nominal,-numChi*m2_flow_chi_nominal,numChi*
+        m2_flow_chi_nominal},
+    dp_nominal={0,0,0}) "Junction"
+    annotation (Placement(transformation(extent={{-60,-50},{-80,-70}})));
 equation
-  connect(port_a2,val5. port_a)
-    annotation (Line(points={{100,-60},{80,-60},{80,-20},{60,-20}},
-      color={0,127,255}));
-  connect(port_a2, wse.port_a2)
-    annotation (Line(points={{100,-60},{88,-60},{80,-60},{80,24},{60,24}},
-      color={0,127,255}));
-  connect(val6.port_a, chiPar.port_a2)
-    annotation (Line(points={{-40,-20},{-20,-20},{-20,24},{-40,24}},
-      color={0,127,255}));
-  connect(chiPar.port_b2, port_b2)
-    annotation (Line(points={{-60,24},{-80,24},{-80,-60},{-100,-60}},
-      color={0,127,255}));
-  connect(val6.port_b, port_b2)
-    annotation (Line(points={{-60,-20},{-80,-20},{-80,-60},{-100,-60}},
-      color={0,127,255}));
   connect(val5.y, yVal5)
     annotation (Line(points={{50,-8},{50,0},{50,0},{-94,0},{-94,20},{-120,20}},
       color={0,0,127}));
   connect(yVal6, val6.y)
-    annotation (Line(points={{-120,-10},{-94,-10},{-94,0},{-50,0},{-50,-8}},
+    annotation (Line(points={{-120,-10},{-94,-10},{-94,0},{-40,0},{-40,-8}},
       color={0,0,127}));
-  connect(senTem.port_b, val5.port_b)
-    annotation (Line(points={{8,24},{0,24},{0,-20},{40,-20}},
-      color={0,127,255}));
+  connect(port_a2, spl2.port_1)
+    annotation (Line(points={{100,-60},{90,-60}}, color={0,127,255}));
+  connect(spl2.port_3, wse.port_a2)
+    annotation (Line(points={{80,-50},{80,24},{60,24}}, color={0,127,255}));
+  connect(spl2.port_2, val5.port_a) annotation (Line(points={{70,-60},{64,-60},
+          {64,-20},{60,-20}}, color={0,127,255}));
+  connect(val6.port_b, jun2.port_1) annotation (Line(points={{-50,-20},{-56,-20},
+          {-56,-60},{-60,-60}}, color={0,127,255}));
+  connect(jun2.port_2, port_b2)
+    annotation (Line(points={{-80,-60},{-100,-60}}, color={0,127,255}));
+  connect(chiPar.port_b2, jun2.port_3)
+    annotation (Line(points={{-60,24},{-70,24},{-70,-50}}, color={0,127,255}));
   annotation (Documentation(info="<html>
 <p>
 Partial model that implements integrated waterside economizer in primary-ony chilled water system.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+April 13, 2021, by Kathryn Hinkelman:<br/>
+Added junctions.
+</li>
 <li>
 July 1, 2017, by Yangyang Fu:<br/>
 First implementation.

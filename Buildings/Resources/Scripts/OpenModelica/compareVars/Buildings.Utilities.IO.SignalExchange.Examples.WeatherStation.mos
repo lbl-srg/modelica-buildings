@@ -1,0 +1,9 @@
+compareVars :=
+  {
+    "weaSta.reaWeaTDryBul.y",
+    "weaSta.reaWeaTDewPoi.y",
+    "weaSta.reaWeaTBlaSky.y",
+    "weaSta.reaWeaHGloHor.y",
+    "weaSta.reaWeaHDifHor.y",
+    "weaSta.reaWeaHDirNor.y"
+  };

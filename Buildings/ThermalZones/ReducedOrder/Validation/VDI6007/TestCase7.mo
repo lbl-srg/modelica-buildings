@@ -95,7 +95,6 @@ model TestCase7 "VDI 6007 Test Case 7 model"
     "Convert set temperature from degC to Kelvin"
     annotation (Placement(transformation(extent={{-38,-42},{-26,-30}})));
   Controls.Continuous.LimPID conHeaCoo(
-    controllerType=Modelica.Blocks.Types.SimpleController.PI,
     yMax=1,
     yMin=-1,
     k=0.1,

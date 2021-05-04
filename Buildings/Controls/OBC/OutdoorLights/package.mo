@@ -1,15 +1,16 @@
 within Buildings.Controls.OBC;
-package OutdoorLights "Package with models for outdoor lighting controls"
+package OutdoorLights
+  "Package with models for outdoor lighting controls"
   extends Modelica.Icons.Package;
-
-annotation (
-Documentation(
-info="<html>
+  annotation (
+    Documentation(
+      info="<html>
 <p>
 This package contains outdoor lighting controllers.
 </p>
 </html>"),
-Icon(graphics={
+    Icon(
+      graphics={
         Rectangle(
           lineColor={200,200,200},
           fillColor={248,248,248},
@@ -22,8 +23,12 @@ Icon(graphics={
           fillColor={135,135,135},
           fillPattern=FillPattern.Solid,
           pattern=LinePattern.None),
-        Line(points={{-8,46},{10,46}},color={0,0,0}),
-        Line(points={{-16,70},{18,70}},color={0,0,0}),
+        Line(
+          points={{-8,46},{10,46}},
+          color={0,0,0}),
+        Line(
+          points={{-16,70},{18,70}},
+          color={0,0,0}),
         Rectangle(
           extent={{-14,-96},{18,-98}},
           fillColor={135,135,135},

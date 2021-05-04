@@ -833,6 +833,7 @@ Enabled transfer of C and X information.
 Added initial value of shade.
 </li>
 </ul>
+</li>
 <li>
 July 17, 2013, by Michael Wetter:<br/>
 First implementation.

@@ -134,7 +134,7 @@ model SpaceCooling "Space cooling with DX coils"
     mA_flow_nominal=mA_flow_nominal) "Room model connected to multi stage coil"
      annotation (Placement(transformation(extent={{180,40},{200,60}})));
 
-  Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.Data.Generic.DXCoil datCoi(
+  parameter Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.Data.Generic.DXCoil datCoi(
       sta={Data.Generic.BaseClasses.Stage(
         spe=1800/60,
         nomVal=Data.Generic.BaseClasses.NominalValues(
@@ -220,7 +220,7 @@ model SpaceCooling "Space cooling with DX coils"
     controllerType=Modelica.Blocks.Types.SimpleController.P,
     Ti=1,
     Td=1,
-    reverseAction=true) "Controller for variable speed DX coil"
+    reverseActing=false) "Controller for variable speed DX coil"
     annotation (Placement(transformation(extent={{-60,-220},{-40,-200}})));
 equation
   connect(out.ports[1], hex.port_a1) annotation (Line(

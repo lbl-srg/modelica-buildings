@@ -213,14 +213,14 @@ model System7
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TSetBoiRet(k=TBoiRet_min)
     "Temperature setpoint for boiler return"
     annotation (Placement(transformation(extent={{120,-270},{140,-250}})));
-  Buildings.Controls.OBC.CDL.Continuous.LimPID conPIDBoi(
+  Buildings.Controls.OBC.CDL.Continuous.PID conPIDBoi(
     Td=1,
     controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
     k=0.1,
     Ti=120,
-    reverseAction=true) "Controller for valve in boiler loop"
+    reverseActing=false) "Controller for valve in boiler loop"
     annotation (Placement(transformation(extent={{160,-270},{180,-250}})));
-  Buildings.Controls.OBC.CDL.Continuous.LimPID conPIDRad(
+  Buildings.Controls.OBC.CDL.Continuous.PID conPIDRad(
     Td=1,
     controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
     k=0.1,
@@ -268,8 +268,8 @@ model System7
     annotation (Placement(transformation(extent={{-228,-200},{-208,-180}})));
   Modelica.StateGraph.TransitionWithSignal T2 "Transition to boiler on"
     annotation (Placement(transformation(extent={{-258,-200},{-238,-180}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThrBoi(threshold=273.15 + 90)
-    "Threshold for boiler control"
+  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThrBoi(t=273.15 +
+        90) "Threshold for boiler control"
     annotation (Placement(transformation(extent={{-420,-320},{-400,-300}})));
   Modelica.StateGraph.TransitionWithSignal T3(
     waitTime=10, enableTimer=true) "Transition to switch boiler off"
@@ -280,20 +280,22 @@ model System7
   Modelica.StateGraph.Step pumpsOn(nIn=1, nOut=1) "Pumps are on"
     annotation (Placement(transformation(extent={{-320,-180},{-300,-160}})));
 //--------------------------------------------------------------------------------------//
-  Buildings.Controls.OBC.CDL.Continuous.LessThreshold lessThreshold(threshold=273.15 + 19)
+  Buildings.Controls.OBC.CDL.Continuous.LessThreshold lessThreshold(t=273.15 +
+        19)
     annotation (Placement(transformation(extent={{-420,-210},{-400,-190}})));
-  Buildings.Controls.OBC.CDL.Continuous.LessThreshold lessThreshold1(threshold=273.15 + 16)
+  Buildings.Controls.OBC.CDL.Continuous.LessThreshold lessThreshold1(t=273.15
+         + 16)
     annotation (Placement(transformation(extent={{-420,-240},{-400,-220}})));
   Buildings.Controls.OBC.CDL.Logical.And and3
     annotation (Placement(transformation(extent={{-380,-232},{-360,-212}})));
-  Buildings.Controls.OBC.CDL.Continuous.LessThreshold lessThreshold2(threshold=273.15 + 70)
-    "Threshold for boiler control"
+  Buildings.Controls.OBC.CDL.Continuous.LessThreshold lessThreshold2(t=273.15
+         + 70) "Threshold for boiler control"
     annotation (Placement(transformation(extent={{-420,-290},{-400,-270}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThrTRoo(threshold=273.15 + 21)
-    "Threshold for room temperature"
+  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThrTRoo(t=273.15 +
+        21) "Threshold for room temperature"
     annotation (Placement(transformation(extent={{-420,-130},{-400,-110}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThrTROut(threshold=273.15 + 17)
-    "Threshold for room temperature"
+  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThrTROut(t=273.15
+         + 17) "Threshold for room temperature"
     annotation (Placement(transformation(extent={{-420,-160},{-400,-140}})));
   Buildings.Controls.OBC.CDL.Logical.And and1
     annotation (Placement(transformation(extent={{-380,-152},{-360,-132}})));
@@ -673,7 +675,7 @@ This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/504\"
 <li>
 July 2, 2015, by Michael Wetter:<br/>
 Changed control input for <code>conPIDBoi</code> and set
-<code>reverseAction=true</code>
+<code>reverseActing=false</code>
 to address issue
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/436\">#436</a>.
 </li>
