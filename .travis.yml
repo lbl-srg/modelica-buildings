@@ -37,13 +37,14 @@ addons:
 
 env:
   global:
-    - ENERGYPLUS_VERSION=EnergyPlus-9.3.0-baff08990c-Linux-x86_64
+    - ENERGYPLUS_VERSION=EnergyPlus-9.5.0-de239b2e5f-Linux-Ubuntu18.04-x86_64
     - MODELICA_JSON_VERSION=6d950c3592fa021aa914ba4ff34a67cbb69962c6
     - MODELICA_JSON_HOME=${TRAVIS_BUILD_DIR}/modelica-json
 
   jobs:
     - TEST_ARG="make test-cdl-conformance"
     - TEST_ARG="make test-energyplus-validations"
+    - TEST_ARG="make test-bestest"
     - TEST_ARG="make test-dymola    PACKAGE=\"Buildings.{Air,Examples}\""
     - TEST_ARG="make test-optimica  PACKAGE=\"Buildings.{Air,Examples}\""
     - TEST_ARG="make test-jmodelica PACKAGE=\"Buildings.{Air,Examples}\""
@@ -100,7 +101,7 @@ env:
 before_install:
   - sudo apt-get -y install python3.6-minimal  # Provides /usr/bin/python3.6m
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-  - if [[ "$TEST_ARG" == *test-dymola* ]]; then
+  - if [[ "$TEST_ARG" == *test-dymola* || "$TEST_ARG" == *test-bestest* ]]; then
        docker pull "$DOCKER_USERNAME"/travis_ubuntu-1804_dymola:2021-x86_64;
        cp Buildings/Resources/Scripts/travis/dymola/dymola $HOME/bin/;
     fi;
@@ -113,12 +114,9 @@ before_install:
        cp Buildings/Resources/Scripts/travis/jmodelica/jm_ipython.sh $HOME/bin/jm_ipython.sh;
     fi;
   - if [[ "$TEST_ARG" == *test-energyplus* ]]; then
-      wget --no-verbose https://github.com/NREL/EnergyPlus/releases/download/v9.3.0/${ENERGYPLUS_VERSION}.tar.gz;
+      wget --no-verbose https://github.com/NREL/EnergyPlus/releases/download/v9.5.0/${ENERGYPLUS_VERSION}.tar.gz;
       tar xzf ${ENERGYPLUS_VERSION}.tar.gz;
       rm ${ENERGYPLUS_VERSION}.tar.gz;
-      mv -v ${ENERGYPLUS_VERSION}/energyplus ${ENERGYPLUS_VERSION}/EnergyPlus;
-      file ${ENERGYPLUS_VERSION}/EnergyPlus
-      ls -l ${ENERGYPLUS_VERSION}
       echo "Installed EnergyPlus in ${PWD}/${ENERGYPLUS_VERSION}";
     fi;
   - if [[ "$TEST_ARG" == *test-cdl-conformance* ]]; then

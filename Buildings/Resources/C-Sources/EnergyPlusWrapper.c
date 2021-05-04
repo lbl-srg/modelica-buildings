@@ -35,6 +35,7 @@ void* ModelicaSpawnAllocate(
   const char* modelicaNameThermalZone,
   const char* idfName,
   const char* weaName,
+  double relativeSurfaceTolerance,
   const char* epName,
   int usePrecompiledFMU,
   const char* fmuName,
@@ -68,6 +69,7 @@ void* ModelicaSpawnAllocate(
       modelicaNameThermalZone,
       idfName,
       weaName,
+      relativeSurfaceTolerance,
       epName,
       usePrecompiledFMU,
       fmuName,
@@ -99,11 +101,11 @@ void* ModelicaSpawnAllocate(
       ModelicaFormatError);
   }
 
-void ModelicaSpawnInstantiate(
+void ModelicaSpawnInitialize(
     void* object,
     double isSynchronized,
     int *nObj){
-      EnergyPlusSpawnInstantiate(object, nObj);
+      EnergyPlusSpawnInitialize(object, nObj);
 }
 
 void ModelicaSpawnGetParameters(

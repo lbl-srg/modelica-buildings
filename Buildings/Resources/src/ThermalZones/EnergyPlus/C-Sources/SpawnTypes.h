@@ -64,7 +64,7 @@ to not export all symbols but only the needed ones */
 typedef enum {instantiationMode, initializationMode, eventMode, continuousTimeMode} FMUMode;
 
 enum logLevels {ERRORS = 1, WARNINGS = 2, QUIET = 3, MEDIUM = 4, TIMESTEP = 5};
-enum objectTypes {THERMALZONE = 1, SCHEDULE = 2, ACTUATOR = 3, OUTPUT = 4, SURFACE = 5};
+enum objectTypes {THERMALZONE = 1, SCHEDULE = 2, ACTUATOR = 3, OUTPUT = 4, SURFACE = 5, DETAILEDSURFACE = 6};
 
 
 typedef struct FMUBuilding
@@ -76,6 +76,7 @@ typedef struct FMUBuilding
   char* modelicaNameBuilding; /* Name of the Modelica instance of this zone */
   fmi2Byte* idfName; /* if usePrecompiledFMU == true, the user-specified fmu name, else the idf name */
   fmi2Byte* weather;
+  double relativeSurfaceTolerance; /* Relative surface tolerance for heat balance calculations */
   size_t nExcObj; /* Number of exc that use this FMU */
   void** exchange; /* Pointers to all exchange objects*/
 

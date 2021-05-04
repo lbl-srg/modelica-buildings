@@ -5,13 +5,12 @@ model Floor "Model of a floor of the building"
     final VRooSou=sou.AFlo * hRoo,
     final VRooNor=nor.AFlo * hRoo,
     final VRooEas=eas.AFlo * hRoo,
-    final VRooWes=wes.AFlo * hRoo);
-
-  parameter Modelica.SIunits.Area AFloCor = 2698/hRoo "Core zone floor area";
-  parameter Modelica.SIunits.Area AFloSou = 568.77/hRoo "South zone floor area";
-  parameter Modelica.SIunits.Area AFloNor = 568.77/hRoo "North zone floor area";
-  parameter Modelica.SIunits.Area AFloEas = 360.0785/hRoo "East zone floor area";
-  parameter Modelica.SIunits.Area AFloWes = 360.0785/hRoo "West zone floor area";
+    final VRooWes=wes.AFlo * hRoo,
+    AFloCor = 2698/hRoo,
+    AFloSou = 568.77/hRoo,
+    AFloNor = 568.77/hRoo,
+    AFloEas = 360.0785/hRoo,
+    AFloWes = 360.0785/hRoo);
 
   parameter HeatTransfer.Types.InteriorConvection intConMod=Buildings.HeatTransfer.Types.InteriorConvection.Temperature
     "Convective heat transfer model for room-facing surfaces of opaque constructions";
@@ -401,7 +400,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None,
       pattern=LinePattern.Dash));
-  connect(temAirPer5.T, multiplex5_1.u5[1]) annotation (Line(
+  connect(temAirCor.T, multiplex5_1.u5[1]) annotation (Line(
       points={{314,228},{322,228},{322,228},{332,228},{332,280},{338,280}},
       color={0,0,127},
       smooth=Smooth.None,
@@ -422,7 +421,7 @@ equation
       points={{31,56},{70,56},{70,114},{186,114},{186,258},{292,258}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(cor.heaPorAir, temAirPer5.port) annotation (Line(
+  connect(cor.heaPorAir, temAirCor.port) annotation (Line(
       points={{163,56},{162,56},{162,228},{294,228}},
       color={191,0,0},
       smooth=Smooth.None));
@@ -700,6 +699,12 @@ equation
           fillPattern=FillPattern.Solid)}),
     Documentation(revisions="<html>
     <ul>
+<li>
+April 30, 2021, by Michael Wetter:<br/>
+Reformulated replaceable class and introduced floor areas in base class
+to avoid access of components that are not in the constraining type.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2471\">issue #2471</a>.
+</li>
 <li>
 January 23, 2020, by Milica Grahovac:<br/>
 Updated core zone geometry parameters related to

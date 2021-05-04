@@ -94,29 +94,30 @@ protected
    tNext :=min(tOcc, tNonOcc);
   end getOutput;
 
-encapsulated function switchInteger
+encapsulated function switchInteger "Switch two Integer arguments"
   import Modelica;
   extends Modelica.Icons.Function;
-  input Integer x1;
-  input Integer x2;
-  output Integer y1;
-  output Integer y2;
+  input Integer x1 "First argument";
+  input Integer x2 "Second argument";
+  output Integer y1 "Output = x2";
+  output Integer y2 "Output = x1";
 algorithm
   y1:=x2;
   y2:=x1;
 end switchInteger;
 
-encapsulated function switchReal
+encapsulated function switchReal "Switch two Real arguments"
   import Modelica;
   extends Modelica.Icons.Function;
-  input Real x1;
-  input Real x2;
-  output Real y1;
-  output Real y2;
+  input Real x1 "First argument";
+  input Real x2 "Second argument";
+  output Real y1 "Output = x2";
+  output Real y2 "Output = x1";
 algorithm
   y1:=x2;
   y2:=x1;
 end switchReal;
+
 
 initial equation
   // Check parameters for correctness
@@ -196,10 +197,15 @@ The period always starts at <i>t=0</i> seconds.
 </html>", revisions="<html>
 <ul>
 <li>
+March 25, 2021, by Michael Wetter:<br/>
+Integrated changes from Buildings for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1454\">IBPSA, #1454</a>.
+</li>
+<li>
 February 26, 2021, by Michael Wetter:<br/>
 Refactored implementation to use a function to compute the next time events.<br/>
 This is a work-around for
-<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/2369\">issue 2369</a>.
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2369\">Buildings, issue 2369</a>.
 </li>
 <li>
 October 30, 2017, by Michael Wetter:<br/>

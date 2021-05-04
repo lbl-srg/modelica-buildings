@@ -2,25 +2,30 @@ within Buildings.ThermalZones.EnergyPlus.Examples.SmallOffice;
 model ASHRAE2006Winter
   "Variable air volume flow system with terminal reheat and five thermal zones using a control sequence published by ASHRAE in 2006"
   extends Buildings.Examples.VAVReheat.ASHRAE2006(
-    redeclare replaceable Buildings.ThermalZones.EnergyPlus.Examples.SmallOffice.BaseClasses.Floor flo,
-     ACHCor=4,
-     ACHSou=4,
-     ACHEas=6,
-     ACHNor=4,
-     ACHWes=6);
-
+    redeclare replaceable Buildings.ThermalZones.EnergyPlus.Examples.SmallOffice.BaseClasses.Floor flo
+      constrainedby Buildings.ThermalZones.EnergyPlus.Examples.SmallOffice.BaseClasses.Floor,
+    ACHCor=4,
+    ACHSou=4,
+    ACHEas=6,
+    ACHNor=4,
+    ACHWes=6);
   annotation (
-    __Dymola_Commands(file=
-          "modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/EnergyPlus/Examples/SmallOffice/ASHRAE2006Winter.mos"
-        "Simulate and plot"),
+    __Dymola_Commands(
+      file="modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/EnergyPlus/Examples/SmallOffice/ASHRAE2006Winter.mos" "Simulate and plot"),
     experiment(
       StartTime=432000,
       StopTime=864000,
       Tolerance=1e-07),
-    Icon(coordinateSystem(extent={{-100,-100},{100,100}}, preserveAspectRatio=true)),
-    Diagram(coordinateSystem(preserveAspectRatio=true,extent={{-380,-400},{1420,
-            660}})),
-    Documentation(info="<html>
+    Icon(
+      coordinateSystem(
+        extent={{-100,-100},{100,100}},
+        preserveAspectRatio=true)),
+    Diagram(
+      coordinateSystem(
+        preserveAspectRatio=true,
+        extent={{-380,-400},{1420,660}})),
+    Documentation(
+      info="<html>
 <p>
 This model consist of an HVAC system, a building envelope model and a model
 for air flow through building leakage and through open doors.
@@ -75,7 +80,8 @@ ASHRAE.
 <i>Sequences of Operation for Common HVAC Systems</i>.
 ASHRAE, Atlanta, GA, 2006.
 </p>
-</html>", revisions="<html>
+</html>",
+      revisions="<html>
 <ul>
 <li>
 November 25, 2019, by Milica Grahovac:<br/>

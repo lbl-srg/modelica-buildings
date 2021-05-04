@@ -51,9 +51,6 @@ partial model PartialCoolingCoilHumidifyingHeating "Partial AHU model "
   parameter Real l(min=1e-10, max=1) = 0.0001
     "Valve leakage, l=Kv(y=0)/Kv(y=1)"
     annotation(Dialog(group="Valve"));
-  parameter Real kFixed(unit="", min=0) = m1_flow_nominal / sqrt(dp1_nominal)
-    "Flow coefficient of fixed resistance that may be in series with valve, k=m_flow/sqrt(dp), with unit=(kg.m)^(1/2)"
-    annotation(Dialog(group="Valve"));
 
   parameter Boolean use_inputFilterValve=true
     "= true, if opening is filtered with a 2nd order CriticalDamping filter for the water-side valve"
@@ -173,7 +170,6 @@ partial model PartialCoolingCoilHumidifyingHeating "Partial AHU model "
       final allowFlowReversal=allowFlowReversal1,
       final show_T=show_T,
       final l=l,
-      final kFixed=kFixed,
       final CvData=Buildings.Fluid.Types.CvTypes.OpPoint,
       final from_dp=from_dp1,
       final homotopyInitialization=homotopyInitialization,
@@ -240,6 +236,11 @@ The valve and fan are partial models, and should be redeclared when used in the 
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+April 9, 2021, by Kathryn Hinkelman:<br/>
+Removed <code>kFixed</code> redundancies. See
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1472\">IBPSA, #1472</a>.
+</li>
 <li>
 April 14, 2020, by Michael Wetter:<br/>
 Changed <code>homotopyInitialization</code> to a constant.<br/>

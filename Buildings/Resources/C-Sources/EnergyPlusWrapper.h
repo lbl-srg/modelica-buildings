@@ -38,6 +38,7 @@ extern void* EnergyPlusSpawnAllocate(
   const char* modelicaNameThermalZone,
   const char* idfName,
   const char* weaName,
+  double relativeSurfaceTolerance,
   const char* epName,
   int usePrecompiledFMU,
   const char* fmuName,
@@ -68,7 +69,7 @@ extern void* EnergyPlusSpawnAllocate(
   void (*SpawnFormatMessage)(const char *string, ...),
   void (*SpawnFormatError)(const char *string, ...));
 
-extern void EnergyPlusSpawnInstantiate(void* object, int *nObj);
+extern void EnergyPlusSpawnInitialize(void* object, int *nObj);
 
 extern void EnergyPlusSpawnGetParameters(void* object, double *parOut);
 

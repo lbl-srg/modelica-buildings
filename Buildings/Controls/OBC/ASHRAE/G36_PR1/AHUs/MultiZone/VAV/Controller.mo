@@ -109,7 +109,7 @@ block Controller
     "Type of controller"
     annotation(Dialog(group="Economizer freeze protection", enable=use_TMix));
 
-  parameter Real kFre(final unit="1/K") = 0.1
+  parameter Real kFre(final unit="1/K") = 0.05
     "Gain for mixed air temperature tracking for freeze protection, used if use_TMix=true"
      annotation(Dialog(group="Economizer freeze protection", enable=use_TMix));
 

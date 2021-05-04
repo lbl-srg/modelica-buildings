@@ -1,14 +1,14 @@
 within Buildings.ThermalZones.EnergyPlus.Examples;
-package SmallOffice "Package with VAV models for small office buildings"
+package SmallOffice
+  "Package with VAV models for a small office building"
   extends Modelica.Icons.ExamplesPackage;
-
   annotation (
     preferredView="info",
     Documentation(
       info="<html>
 <p>
 This package contains variable air volume flow models
-for office buildings.
+for a office building.
 </p>
 <h4>Note</h4>
 <p>

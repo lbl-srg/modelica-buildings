@@ -1,7 +1,7 @@
 within Buildings.ThermalZones.EnergyPlus.Validation.ThermalZone;
 model OneZoneCompareZoneTemperatureOutput
   "This example tests whether the zone mean air temperature is reported correctly as an EnergyPlus output"
-  extends Buildings.ThermalZones.EnergyPlus.Validation.ThermalZone.OneZone;
+  extends Buildings.ThermalZones.EnergyPlus.Examples.SingleFamilyHouse.Unconditioned;
   Buildings.ThermalZones.EnergyPlus.OutputVariable zonMeaAirTem(
     name="Zone Mean Air Temperature",
     key="LIVING ZONE",

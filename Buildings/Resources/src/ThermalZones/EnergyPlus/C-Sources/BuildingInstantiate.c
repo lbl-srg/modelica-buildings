@@ -14,7 +14,8 @@
 #include <stdio.h>
 #include <stdbool.h>
 
-void buildJSONKeyValue(
+
+void buildJSONKeyLiteralValue(
   char* *buffer, size_t level, const char* key, const char* value, bool addComma, size_t* size,
   void (*SpawnFormatError)(const char *string, ...)){
   size_t i;
@@ -22,12 +23,43 @@ void buildJSONKeyValue(
     saveAppend(buffer, "  ", size, SpawnFormatError);
   saveAppend(buffer, "\"", size, SpawnFormatError);
   saveAppend(buffer, key, size, SpawnFormatError);
-  saveAppend(buffer, "\": \"", size, SpawnFormatError);
+  saveAppend(buffer, "\": ", size, SpawnFormatError);
   saveAppend(buffer, value, size, SpawnFormatError);
   if (addComma)
-    saveAppend(buffer, "\",\n", size, SpawnFormatError);
+    saveAppend(buffer, ",\n", size, SpawnFormatError);
   else
-    saveAppend(buffer, "\"\n", size, SpawnFormatError);
+    saveAppend(buffer, "\n", size, SpawnFormatError);
+}
+
+void buildJSONKeyStringValue(
+  char* *buffer, size_t level, const char* key, const char* value, bool addComma, size_t* size,
+  void (*SpawnFormatError)(const char *string, ...)){
+
+  char* litVal;
+  const char quote[] = "\""  ;
+
+  /* Allocate memory for string with quotes */
+  const size_t len = strlen(value) + 2;
+  mallocString(len+1, "Failed to allocate memory json key.", &litVal, SpawnFormatError);
+  memset(litVal, '\0', len+1);
+  /* Add quotes before and after string */
+  strcpy(litVal, quote);
+  strcat(litVal, value);
+  strcat(litVal, quote);
+
+  /* Build json snippet */
+  buildJSONKeyLiteralValue(buffer, level, key, litVal, addComma, size, SpawnFormatError);
+}
+
+void buildJSONKeyDoubleValue(
+  char* *buffer, size_t level, const char* key, double value, bool addComma, size_t* size,
+  void (*SpawnFormatError)(const char *string, ...)){
+
+  char litVal[20];
+  sprintf(litVal, "%4.2e", value);
+
+  /* Build json snippet */
+  buildJSONKeyLiteralValue(buffer, level, key, litVal, addComma, size, SpawnFormatError);
 }
 
 void openJSONModelBracket(char* *buffer, size_t* size, void (*SpawnFormatError)(const char *string, ...)){
@@ -66,7 +98,8 @@ void buildJSONModelStructureForEnergyPlus(
   /* Number of models written to json so far */
   size_t iMod = 0;
   int objectType;
-  size_t objectCount[5] = {0, 0, 0, 0, 0};
+  size_t objectCount[6];
+  const int nObjectTypes = sizeof(objectCount)/sizeof(objectCount[0]);
 
   void (*SpawnFormatError)(const char *string, ...) = bui->SpawnFormatError;
 
@@ -74,31 +107,37 @@ void buildJSONModelStructureForEnergyPlus(
   const size_t nMod = bui->nExcObj;
 
   /* Count number of objects */
-  for(objectType = THERMALZONE; objectType < SURFACE; objectType++){
+  for(objectType = 0; objectType < nObjectTypes; objectType++){
+    objectCount[objectType] = 0;
     for(i = 0; i < bui->nExcObj; i++){
-        if ( ptrSpaObj[i]->objectType == objectType ){
+        if ( ptrSpaObj[i]->objectType == (objectType+1) ){ /* Modelica uses 1-based objectType */
           objectCount[objectType]++;
         }
     }
   }
 
   saveAppend(buffer, "{\n", size, SpawnFormatError);
-  buildJSONKeyValue(buffer, 1, "version", "0.1", true, size, SpawnFormatError);
+  buildJSONKeyStringValue(buffer, 1, "version", "0.1", true, size, SpawnFormatError);
   saveAppend(buffer, "  \"EnergyPlus\": {\n", size, SpawnFormatError);
   /* idf name */
-  buildJSONKeyValue(buffer, 2, "idf", bui->idfName, true, size, SpawnFormatError);
+  buildJSONKeyStringValue(buffer, 2, "idf", bui->idfName, true, size, SpawnFormatError);
 
   /* weather file */
-  buildJSONKeyValue(buffer, 2, "weather", bui->weather, false, size, SpawnFormatError);
+  buildJSONKeyStringValue(buffer, 2, "weather", bui->weather, true, size, SpawnFormatError);
+
+  /* Tolerance of solver for surface heat balance */
+  buildJSONKeyDoubleValue(buffer, 2, "relativeSurfaceTolerance", bui->relativeSurfaceTolerance,
+    false, size, SpawnFormatError);
+
   saveAppend(buffer, "  },\n", size, SpawnFormatError);
 
   /* model information */
   saveAppend(buffer, "  \"model\": {\n", size, SpawnFormatError);
 
   /* Write all json objects (thermal zones, actuators, etc.) */
-  for(objectType = THERMALZONE; objectType < SURFACE; objectType++){
+  for(objectType = 0; objectType < nObjectTypes; objectType++){
     for(i = 0, iWri = 0; i < bui->nExcObj; i++){
-      if ( ptrSpaObj[i]->objectType == objectType ) {
+      if ( ptrSpaObj[i]->objectType == (objectType+1) ) { /* Modelica uses 1-based objectType */
         /* Check if json keyword needs to be written */
         if (iWri == 0){
           saveAppend(buffer, "    \"", size, SpawnFormatError);
@@ -126,9 +165,9 @@ void buildJSONModelStructureForEnergyPlus(
 
     /* fmu */
   saveAppend(buffer, "  \"fmu\": {\n", size, SpawnFormatError);
-  buildJSONKeyValue(buffer, 3, "name", bui->fmuAbsPat, true, size, SpawnFormatError);
-  buildJSONKeyValue(buffer, 3, "version", "2.0", true, size, SpawnFormatError);
-  buildJSONKeyValue(buffer, 3, "kind", "ME", false, size, SpawnFormatError);
+  buildJSONKeyStringValue(buffer, 3, "name", bui->fmuAbsPat, true, size, SpawnFormatError);
+  buildJSONKeyStringValue(buffer, 3, "version", "2.0", true, size, SpawnFormatError);
+  buildJSONKeyStringValue(buffer, 3, "kind", "ME", false, size, SpawnFormatError);
   saveAppend(buffer, "  }\n", size, SpawnFormatError);
 
   /* Close json structure */
@@ -460,6 +499,8 @@ void importSpawnFMU(FMUBuilding* bui){
 
   /* Set callback functions */
   callbacks = jm_get_default_callbacks();
+  /* Set the log level for the fmi-library */
+  callbacks->log_level = (bui->logLevel >= TIMESTEP) ? jm_log_level_debug : jm_log_level_warning;
 
   if (bui->logLevel >= MEDIUM)
     SpawnFormatMessage("%.3f %s: Calling fmi_import_allocate_context(callbacks = %p)\n", bui->time, bui->modelicaNameBuilding, callbacks);
