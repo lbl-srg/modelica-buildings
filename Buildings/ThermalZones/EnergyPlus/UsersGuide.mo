@@ -166,13 +166,11 @@ The following conventions are made:
 </p>
 <ul>
 <li>
-All zones in the idf file must have a zone model in Modelica. Otherwise
-the simulation stops with an error.
+If a zone is in the idf file but not modeled in Modelica, EnergyPlus will
+simulate the zone as free floating.
 </li>
 <li>
-If there is an HVAC system in the idf file, then EnergyPlus issues a warning,
-the EnergyPlus HVAC system is not simulated, but the coupled EnergyPlus/Modelica
-simulation proceeds.
+If there is an HVAC system in the idf file, then EnergyPlus will remove it.
 </li>
 <li>
 For the EnergyPlus envelope, either the CTF transfer function or the finite difference
