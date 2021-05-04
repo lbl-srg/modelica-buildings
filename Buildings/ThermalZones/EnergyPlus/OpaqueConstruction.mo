@@ -198,21 +198,14 @@ then the model
 Buildings.ThermalZones.EnergyPlus.ZoneSurface</a>
 can be used, as shown for the floor slab
 in
-<a href=\"modelica://Buildings.ThermalZones.EnergyPlus.Examples.SingleFamilyHouse.RadiantHeatingCooling\">
-Buildings.ThermalZones.EnergyPlus.Examples.SingleFamilyHouse.RadiantHeatingCooling</a>.
+<a href=\"modelica://Buildings.ThermalZones.EnergyPlus.Examples.SingleFamilyHouse.RadiantHeatingWithGroundHeatTransfer\">
+Buildings.ThermalZones.EnergyPlus.Examples.SingleFamilyHouse.RadiantHeatingWithGroundHeatTransfer</a>.
 </p>
 <p>
-<b>fixme: Verify this sign convention once the binaries are available for testing.</b>
-By convention, <code>heaPorFro.Q_flow &gt; 0</code> if there is net heat flow rate from the thermal zone to the front-side surface,
-e.g., if the surface cools the thermal zone.
-Similarly,
-<code>heaPorBac.Q_flow &gt; 0</code> if there is net heat flow rate from exterior boundary condition to the back-side surface.
-For example, if a floor and ceiling slab is very cold, such as after night ventilation,
-then
-<code>heaPorFro.Q_flow &gt; 0</code>
-and
-<code>heaPorBac.Q_flow &gt; 0</code>.
-
+By convention, if a surface cools the thermal zone,
+then <code>heaPorFro.Q_flow &lt; 0</code> for a front surface and <code>heaPorBac.Q_flow &lt; 0</code> for a back surface.
+</p>
+<p>
 The variable <code>qFro_flow</code> is equal to <code>qFro_flow = heaPorFor.Q_flow/A</code>, where
 <code>A</code> is the area of the heat transfer surface as obtained from EnergyPlus.
 Similarly, use <code>qBac_flow</code> to check the back side heat flux.
