@@ -46,7 +46,7 @@ model Unconditioned
     annotation (Placement(transformation(extent={{-40,-50},{-20,-30}})));
   Modelica.Blocks.Sources.Constant qIntGai[3](
     each k=0)
-    "Internal heat gains, set to zero because these are modelled in EnergyPlus"
+    "Internal heat gains, set to zero because these are modeled in EnergyPlus"
     annotation (Placement(transformation(extent={{-40,0},{-20,20}})));
 
 equation

@@ -214,7 +214,7 @@ per unit area of the surface.
 The model
 <a href=\"modelica://Buildings.ThermalZones.EnergyPlus.Examples.SingleFamilyHouse.RadiantHeatingWithGroundHeatTransfer\">
 Buildings.ThermalZones.EnergyPlus.Examples.SingleFamilyHouse.RadiantHeatingWithGroundHeatTransfer</a>
-illustrates this use. Note that if the ground heat transfer were modelled in EnergyPlus, then
+illustrates this use. Note that if the ground heat transfer were modeled in EnergyPlus, then
 <a href=\"modelica://Buildings.ThermalZones.EnergyPlus.OpaqueConstruction\">
 Buildings.ThermalZones.EnergyPlus.OpaqueConstruction</a>
 should have been used, which is simpler to setup.

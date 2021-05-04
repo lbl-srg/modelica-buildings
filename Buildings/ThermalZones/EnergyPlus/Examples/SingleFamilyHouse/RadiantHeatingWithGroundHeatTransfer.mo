@@ -202,7 +202,7 @@ The next section explains how the radiant floor is configured.
 </p>
 <h4>Coupling of radiant floor to EnergyPlus model</h4>
 <p>
-The radiant floor is modelled in the instance <code>slaFlo</code> at the bottom of the schematic model view,
+The radiant floor is modeled in the instance <code>slaFlo</code> at the bottom of the schematic model view,
 using the model
 <a href=\"modelica://Buildings.Fluid.HeatExchangers.RadiantSlabs.ParallelCircuitsSlab\">
 Buildings.Fluid.HeatExchangers.RadiantSlabs.ParallelCircuitsSlab</a>.
