@@ -129,7 +129,13 @@ equation
           -40,-60},{-11,-60}}, color={0,0,127}));
   connect(hex.port_b2, port_b)
     annotation (Line(points={{10,0},{100,0}}, color={0,127,255}));
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
+  annotation (
+    Icon(
+      graphics={
+      Bitmap(
+        extent={{-80,-80},{80,80}},
+        fileName="modelica://Buildings/Resources/Images/Templates/BaseClasses/Coils/WaterBasedCooling.svg")},
+      coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
     Documentation(revisions="<html>
 <p>

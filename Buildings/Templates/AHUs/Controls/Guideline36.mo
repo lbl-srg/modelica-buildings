@@ -885,7 +885,7 @@ equation
           {-48,30},{-44,30}}, color={255,127,0}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false), graphics={Text(
-          extent={{218,-12},{424,-66}},
+          extent={{216,-12},{422,-66}},
           lineColor={238,46,47},
           textString="Todo: subset indices for different Boolean values (such as have_occSen)"),
                                                                Text(
