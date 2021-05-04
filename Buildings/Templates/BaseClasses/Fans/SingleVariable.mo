@@ -143,6 +143,11 @@ equation
       extent={{-6,3},{-6,3}},
       horizontalAlignment=TextAlignment.Right));
   annotation (Placement(transformation(extent={{-10,-10},{10,10}})),
-              Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
+    Icon(
+      graphics={Bitmap(
+        extent={{-80,-80},{80,80}},
+        fileName="modelica://Buildings/Resources/Images/Templates/BaseClasses/Fans/SingleVariable.svg")},
+      coordinateSystem(preserveAspectRatio=false)),
+    Diagram(
         coordinateSystem(preserveAspectRatio=false)));
 end SingleVariable;
