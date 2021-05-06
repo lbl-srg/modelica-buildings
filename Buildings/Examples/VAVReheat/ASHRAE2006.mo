@@ -368,6 +368,11 @@ ASHRAE, Atlanta, GA, 2006.
 </html>", revisions="<html>
 <ul>
 <li>
+May 6, 2021, by David Blum:<br/>
+Change to <code>from_dp=false</code> for exhaust air damper.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2485\">issue #2485</a>.
+</li>
+<li>
 April 30, 2021, by Michael Wetter:<br/>
 Reformulated replaceable class and introduced floor areas in base class
 to avoid access of components that are not in the constraining type.<br/>
