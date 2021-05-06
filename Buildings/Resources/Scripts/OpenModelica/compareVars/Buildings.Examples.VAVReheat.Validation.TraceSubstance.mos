@@ -1,0 +1,5 @@
+compareVars :=
+  {
+    "VOut1.V_flow",
+    "senSupFlo.V_flow"
+  };
