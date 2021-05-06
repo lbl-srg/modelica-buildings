@@ -79,7 +79,7 @@ model ASHRAE2006
     "Supply air temperature set point"
     annotation (Placement(transformation(extent={{-200,-230},{-180,-210}})));
   Buildings.Fluid.Actuators.Dampers.Exponential damExh(
-    from_dp=true,
+    from_dp=false,
     riseTime=15,
     dpFixed_nominal=5,
     redeclare package Medium = MediumA,
