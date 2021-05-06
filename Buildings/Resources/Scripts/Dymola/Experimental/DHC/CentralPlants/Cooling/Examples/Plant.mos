@@ -9,10 +9,13 @@ removePlots(false);
 createPlot(
     id=1, 
     position={24, 10, 831, 511}, 
-    y={"pla.chiStaCon.QChi_nominal", "pla.chiStaCon.QLoa"}, 
-    range={0.0, 90000.0, -4000000.0, 2000000.0}, 
+    y={"pla.chiStaCon.QChi_nominal", "pla.chiStaCon.cp.y"}, 
+    range={0.0, 90000.0, -4000000.0, 3000000.0}, 
     grid=true, 
     filename="Plant.mat", 
+    legends={"", "pla.chiStaCon.QLoa [W]"}, 
+    leftTitleType=2, 
+    leftTitle="[W]",
     colors={{28,108,200}, {238,46,47}}, 
     timeUnit="h",
     displayUnits={"W", "W"});
