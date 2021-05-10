@@ -18,9 +18,9 @@ model TraceSubstance
       Documentation(info="<html>
 <p>
 This model validates that the detailed model of multiple rooms and an HVAC system
-with a trace substance simulates properly.  CO2 is used as the trace substance.
+with a trace substance simulates properly.  CO<sub>2</sub> is used as the trace substance.
 A concentration of 400ppm is assumed for the ambient air.  For assumptions
-about zone CO2 sources, see the model
+about zone CO<sub>2</sub> sources, see the model
 <a href=\"modelica://Buildings.Examples.VAVReheat.Validation.BaseClasses.Floor\">
 Buildings.Examples.VAVReheat.Validation.BaseClasses.Floor</a>.
 </p>

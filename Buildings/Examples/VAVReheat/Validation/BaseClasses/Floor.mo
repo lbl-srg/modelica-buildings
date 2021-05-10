@@ -1,4 +1,4 @@
-within Buildings.Examples.VAVReheat.Validation.BaseClasses;
+﻿within Buildings.Examples.VAVReheat.Validation.BaseClasses;
 model Floor
   "Extends Buildings.Examples.VAVReheat.BaseClasses.Floor with CO2 generation from people and CO2 from outside air."
   extends Buildings.Examples.VAVReheat.BaseClasses.Floor(
@@ -59,13 +59,13 @@ This model is used in the model
 <a href=\"modelica://Buildings.Examples.VAVReheat.Validation.TraceSubstance\">
 Buildings.Examples.VAVReheat.Validation.TraceSubstance</a>.  It extends
 <a href=\"modelica://Buildings.Examples.VAVReheat.BaseClasses.Floor\">
-Buildings.Examples.VAVReheat.BaseClasses.Floor</a> with CO2 generation
-from people and CO2 from outside air infiltration.  Calculation of the
+Buildings.Examples.VAVReheat.BaseClasses.Floor</a> with CO<sub>2</sub> generation
+from people and CO<sub>2</sub> from outside air infiltration.  Calculation of the
 generation from people uses the gain schedule for latent load and assumes
 80 W per person latent load to calculate the number of people.  Then, it assumes
-CO2 generation is 0.0048 l/s per person (Table 5, Persily and De Jonge 2017)
-and density of CO<sub>2</sub> to be 1.8 kg/m<sup>3</sup>, making CO2 generation equal to
-8.64e-6 kg/s per person. Outside air CO2 concentration is assumed 400 ppm.
+CO<sub>2</sub> generation is 0.0048 l/s per person (Table 5, Persily and De Jonge 2017)
+and density of CO<sub>2</sub> to be 1.8 kg/m<sup>3</sup>, making CO<sub>2</sub> generation equal to
+8.64e-6 kg/s per person. Outside air CO<sub>2</sub> concentration is assumed 400 ppm.
 </p>
 <h4>References</h4>
 <p>
