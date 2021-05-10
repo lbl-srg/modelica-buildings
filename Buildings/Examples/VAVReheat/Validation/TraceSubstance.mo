@@ -9,8 +9,8 @@ model TraceSubstance
     amb(nPorts=3, C=fill(400e-6*Modelica.Media.IdealGases.Common.SingleGasesData.CO2.MM
                          /Modelica.Media.IdealGases.Common.SingleGasesData.Air.MM, MediumA.nC)));
   annotation (experiment(
-      StartTime=3500000,
-      StopTime=4650000,
+      StartTime=4492800,
+      StopTime=4665600,
       Interval=900,
       Tolerance=1e-06),
       __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Examples/VAVReheat/Validation/TraceSubstance.mos"
