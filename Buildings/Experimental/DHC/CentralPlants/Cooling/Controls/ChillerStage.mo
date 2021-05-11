@@ -84,12 +84,11 @@ model ChillerStage
     final t=1)
     "On signal of chiller two"
     annotation (Placement(transformation(extent={{120,-20},{140,0}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold
-                                                      thrOneToTwo(
+  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold thrOneToTwo(
     final t=criPoiLoa+dQ)
     "Threshold of turning two chillers on"
     annotation (Placement(transformation(extent={{-30,-50},{-10,-30}})));
-  Buildings.Controls.OBC.CDL.Continuous.LessThreshold    thrTwoToOne(
+  Buildings.Controls.OBC.CDL.Continuous.LessThreshold thrTwoToOne(
     final t=criPoiLoa-dQ)
     "Threshold of turning off the second chiller"
     annotation (Placement(transformation(extent={{-30,-80},{-10,-60}})));
@@ -104,7 +103,8 @@ model ChillerStage
   Modelica.Blocks.Math.Product pro
     "Product"
     annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
-  Modelica.Blocks.Math.Gain cp(final k=-cp_default)
+  Modelica.Blocks.Math.Gain cp(
+    final k=-cp_default)
     "Specific heat multiplier to calculate heat flow rate"
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
 protected
@@ -198,16 +198,16 @@ First implementation.
 </ul>
 </html>",
       info="<html>
-<p>This model implements the staging control logic (shown in the state graph below) of two chillers according to the measured total cooling load. The control logic is as follows: </p>
+<p>This model implements the staging control logic as follows: </p>
 <ul>
-<li>When the plant enabling signal <span style=\"font-family: Courier New;\">on</span> changes from <span style=\"font-family: Courier New;\">false</span> to <span style=\"font-family: Courier New;\">true</span>, one chiller is enabled. </li>
-<li>When the total cooling load <span style=\"font-family: Courier New;\">QLoa</span> exceeds 80 percent (adjustable) of one chiller&apos;s nominal capacity <span style=\"font-family: Courier New;\">QChi_nominal</span>, a second chiller is enabled. </li>
-<li>When the total cooling load <span style=\"font-family: Courier New;\">QLoa</span> drops below 60 percent (adjustable) of one chiller&apos;s nominal capacity <span style=\"font-family: Courier New;\">QChi_nominal </span>(i.e., 30 percent each chiller), the second chiller is disabled. </li>
-<li>When the plant enabling signal <span style=\"font-family: Courier New;\">on</span> changes from <span style=\"font-family: Courier New;\">true</span> to <span style=\"font-family: Courier New;\">false</span>, the operating chiller is disabled.</li>
-<li>Parameter <span style=\"font-family: Courier New;\">tWai</span> assures a transitional time is kept between each operation. </li>
+<li>When the plant enabling signal <code>on</code> changes from <code>false</code> to <code>true</code>, one chiller is enabled. </li>
+<li>When the total cooling load <code>QLoa</code> exceeds 80 percent (adjustable) of one chiller&apos;s nominal capacity <code>QChi_nominal</code>, a second chiller is enabled. </li>
+<li>When the total cooling load <code>QLoa</code> drops below 60 percent (adjustable) of one chiller&apos;s nominal capacity <code>QChi_nominal</code>(i.e., 30 percent each chiller), the second chiller is disabled. </li>
+<li>When the plant enabling signal <code>on</code> changes from <code>true</code> to <code>false</code>, the operating chiller is disabled.</li>
+<li>Parameter <code>tWai</code> assures a transitional time is kept between each operation. </li>
 </ul>
-<p><br>It is assumed that both chillers have the same capacity of <span style=\"font-family: Courier New;\">QChi_nominal</span>. </p>
+<p><br>It is assumed that both chillers have the same capacity of <code>QChi_nominal</code>. </p>
 <p>Note: This model can be used for plants with two chillers with or without waterside econimizer (WSE). For plants with WSE, extra control logic on top of this model needs to be added. </p>
-<p><img src=\"C:/Users/17206/Desktop/Stage control.tif\"/>. </p>
+<p><img src=\"modelica://Buildings/Resources/Images/Experimental/DHC/CentralPlants/Cooling/Controls/ChillerStage.tif\"/>. </p>
 </html>"));
 end ChillerStage;

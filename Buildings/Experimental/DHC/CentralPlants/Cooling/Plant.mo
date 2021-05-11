@@ -87,7 +87,8 @@ model Plant
     "Type of mass balance: dynamic (3 initialization options) or steady state"
     annotation (Evaluate=true,Dialog(tab="Dynamics",group="Equations"));
   Medium.ThermodynamicState sta_a(
-    T(start=273.15+16))=Medium.setState_phX(
+    T(
+      start=273.15+16))=Medium.setState_phX(
     port_a.p,
     noEvent(
       actualStream(
@@ -97,7 +98,8 @@ model Plant
         port_a.Xi_outflow))) if show_T
     "Medium properties in port_a";
   Medium.ThermodynamicState sta_b(
-    T(start=273.15+7))=Medium.setState_phX(
+    T(
+      start=273.15+7))=Medium.setState_phX(
     port_b.p,
     noEvent(
       actualStream(
@@ -346,9 +348,9 @@ equation
 <ul>
 <li>The cooling is provided by two parallel chillers instantiated from <a href=\"modelica://Buildings.Applications.DataCenters.ChillerCooled.Equipment.ElectricChillerParallel\">Buildings.Applications.DataCenters.ChillerCooled.Equipment.ElectricChillerParallel</a>. The chilled water bypass loop is controlled to ensure a minimum flow of chilled water is running through the chillers all the time. The condenser water is cooled by two parallel cooling towers with a bypass loop. See <a href=\"modelica://Buildings.Experimental.DHC.CentralPlants.Cooling.Subsystems.CoolingTowerWithBypass\">Buildings.Experimental.DHC.CentralPlants.Cooling.Subsystems.CoolingTowerWithBypass</a> for the details of the modeling of the cooling towers. </li>
 <li>The chilled water loop is equiped with two parallel variable speed pumps, which are controlled to maitain a use-determined pressure difference setpoint at the demand side. The condenser water pumps are constant speed with prescribed mass flow rates. </li>
-<li>The plant operates when it receives an <span style=\"font-family: Courier New;\">on</span> signal from the external control. The staging of the chillers is based on the calculated cooling load. See <a href=\"modelica://Buildings.Experimental.DHC.CentralPlants.Cooling.Controls.ChillerStage\">Buildings.Experimental.DHC.CentralPlants.Cooling.Controls.ChillerStage</a> for the detailed control logic. </li>
+<li>The plant operates when it receives an <code>on</code> signal from the external control. The staging of the chillers is based on the calculated cooling load. See <a href=\"modelica://Buildings.Experimental.DHC.CentralPlants.Cooling.Controls.ChillerStage\">Buildings.Experimental.DHC.CentralPlants.Cooling.Controls.ChillerStage</a> for the detailed control logic. </li>
 </ul>
-<p><img src=\"C:/Users/17206/Desktop/plant.tif\"/>. </p>
+<p><img src=\"modelica://Buildings/Resources/Images/Experimental/DHC/CentralPlants/Cooling/Plant.tif\"/>. </p>
 </html>",
       revisions="<html>
 <ul>
