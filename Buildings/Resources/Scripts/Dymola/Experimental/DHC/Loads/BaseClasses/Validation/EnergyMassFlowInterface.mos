@@ -5,7 +5,7 @@ simulateModel("Buildings.Experimental.DHC.Loads.BaseClasses.Validation.EnergyMas
     resultFile="EnergyMassFlowInterface");
 createPlot(
     id=1,
-    position={23, 29, 694, 886},
+    position={20, 7, 396, 381},
     y={"temSupSet.y", "senTSup.T", "senTRet.T"},
     grid=true);
 createPlot(
@@ -15,12 +15,12 @@ createPlot(
     subPlot=102);
 createPlot(
     id=2,
-    position={729, 27, 760, 888},
+    position={406, 3, 398, 381},
     y={"loa.y[2]", "eneMasFlo.dH_flow", "movMea.y", "Q_flow_nominal"},
     grid=true);
 createPlot(
     id=3,
-    position={1499, 27, 714, 890},
+    position={813, 1, 364, 383},
     range={0, 360000, -0.05, 0.05},
     autoscale=false,
     y={"NMBE.y"},
@@ -34,7 +34,7 @@ plotExpression(apply( -EnergyMassFlowInterface.eneMasFlo.eneMasFlo.Q_flow_actual
 plotExpression(apply( -EnergyMassFlowInterface.eneMasFlo.eneMasFlo.Q_flow_residual), false, "-Q_flow_residual", 3);
 createPlot(
     id=4,
-    position={23, 947, 694, 886},
+    position={47, 42, 390, 364},
     y={"temSupSet.y", "senTSup1.T", "senTRet1.T"},
     grid=true);
 createPlot(
@@ -44,12 +44,12 @@ createPlot(
     subPlot=2);
 createPlot(
     id=5,
-    position={729, 947, 760, 888},
+    position={431, 42, 424, 374},
     y={"loa.y[2]", "eneMasFlo1.dH_flow", "movMea1.y", "Q_flow_nominal"},
     grid=true);
 createPlot(
     id=6,
-    position={1495, 947, 714, 890},
+    position={841, 43, 414, 383},
     range={0, 360000, -0.05, 0.05},
     autoscale=false,
     y={"NMBE1.y"},
@@ -61,3 +61,32 @@ createPlot(
     subPlot=2);
 plotExpression(apply( -EnergyMassFlowInterface.eneMasFlo1.eneMasFlo.Q_flow_actual), false, "-Q_flow_actual", 6);
 plotExpression(apply( -EnergyMassFlowInterface.eneMasFlo1.eneMasFlo.Q_flow_residual), false, "-Q_flow_residual", 6);
+createPlot(
+    id=7,
+    position={92, 84, 392, 384},
+    y={"temSupSet.y", "senTSup2.T", "senTRet2.T"},
+    grid=true);
+createPlot(
+    id=7,
+    y={"eneMasFlo2.eneMasFlo.m_flow_nominal", "eneMasFlo2.eneMasFlo.m_flow", "eneMasFlo2.eneMasFlo.m_flow_actual"},
+    grid=true,
+    subPlot=2);
+createPlot(
+    id=8,
+    position={479, 87, 454, 383},
+    y={"loa.y[2]", "eneMasFlo2.dH_flow", "movMea2.y", "Q_flow_nominal"},
+    grid=true);
+createPlot(
+    id=9,
+    position={929, 85, 414, 383},
+    range={0, 360000, -0.05, 0.05},
+    autoscale=false,
+    y={"NMBE2.y"},
+    grid=true);
+createPlot(
+    id=9,
+    y={"Q_flow_nominal", "eneMasFlo2.QPre_flow"},
+    grid=true,
+    subPlot=2);
+plotExpression(apply( -EnergyMassFlowInterface.eneMasFlo2.eneMasFlo.Q_flow_actual), false, "-Q_flow_actual", 9);
+plotExpression(apply( -EnergyMassFlowInterface.eneMasFlo2.eneMasFlo.Q_flow_residual), false, "-Q_flow_residual", 9);

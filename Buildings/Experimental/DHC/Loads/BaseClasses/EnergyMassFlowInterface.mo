@@ -28,15 +28,17 @@ model EnergyMassFlowInterface
   parameter Real fra_m_flow_min = if have_pum then 0.1 else 0
     "Minimum flow rate (ratio to nominal)"
     annotation(Dialog(enable=have_pum and not have_masFlo and have_varFlo));
+  parameter Real tol(min=0, max=1) = 1E-2
+    "Tolerance on heat flow rate";
   parameter Modelica.SIunits.Time tau = 600
     "Time constant at nominal flow"
     annotation (Dialog(tab="Dynamics", group="Nominal condition"));
-
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput ena
     "Enable signal"
     annotation (Placement(transformation(extent={{-140,70},{-100,110}}),
         iconTransformation(extent={{-140,70},{-100,110}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput QPre_flow(final unit="W")
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput QPre_flow(
+    final unit="W")
     "Prescribed load"
     annotation (Placement(transformation(extent={{-140,50},{-100,90}}),
               iconTransformation(extent={{-140,50},{-100,90}})));
@@ -46,7 +48,27 @@ model EnergyMassFlowInterface
     "Supply temperature set point"
     annotation (Placement(transformation(extent={{-140,10},{-100,50}}),
       iconTransformation(extent={{-140,10},{-100,50}})));
-
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput mPre_flow(
+    final unit="kg/s") if have_masFlo
+    "Prescribed mass flow rate"
+    annotation (Placement(transformation(extent={{-140,30},{-100,70}}),
+      iconTransformation(extent={{-140,30},{-100,70}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput dH_flow(
+    final unit="W")
+    "Difference in enthalpy flow rate between stream 1 and 2"
+    annotation (Placement(transformation(origin={120,-60},
+                                                         extent={{-20,-20},{20,20}},rotation=0),
+      iconTransformation(extent={{-20,-20},{20,20}},rotation=0,origin={120,-50})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yTol(
+    final unit="1")
+    "FRaction of time where tolerance on heat flow rate is violated"
+    annotation (Placement(transformation(
+        origin={120,60},
+        extent={{-20,-20},{20,20}},
+        rotation=0), iconTransformation(
+        extent={{-20,-20},{20,20}},
+        rotation=0,
+        origin={120,50})));
   Fluid.Sensors.TemperatureTwoPort senTSup(
     redeclare final package Medium = Medium,
     final m_flow_nominal=m_flow_nominal)
@@ -76,7 +98,7 @@ model EnergyMassFlowInterface
     final m_flow_nominal=m_flow_nominal,
     final dp_nominal=if not have_pum then 0 else dp_nominal,
     final energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
-    final Q_flow_nominal=1)
+    final Q_flow_nominal=-1)
     "Actual load on the fluid stream"
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
   Fluid.Actuators.Valves.TwoWayPressureIndependent valPreInd(
@@ -105,7 +127,7 @@ model EnergyMassFlowInterface
       Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
-        origin={20,50})));
+        origin={20,30})));
   Buildings.Controls.OBC.CDL.Continuous.Gain gai(
     final k=1/m_flow_nominal)
     "Normalize mass flow rate"
@@ -113,7 +135,6 @@ model EnergyMassFlowInterface
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={-40,-20})));
-
   Networks.BaseClasses.DifferenceEnthalpyFlowRate senDifEntFlo(
     redeclare final package Medium1 = Medium,
     redeclare final package Medium2 = Medium,
@@ -121,16 +142,19 @@ model EnergyMassFlowInterface
     final m_flow_nominal=m_flow_nominal)
     "Change in enthalpy flow rate"
     annotation (Placement(transformation(extent={{-60,-76},{-40,-56}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput dH_flow(final unit="W")
-                    "Difference in enthalpy flow rate between stream 1 and 2"
-    annotation (Placement(transformation(origin={120,-60},
-                                                         extent={{-20,-20},{20,20}},rotation=0),
-      iconTransformation(extent={{-20,-20},{20,20}},rotation=0,origin={120,60})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput mPre_flow(final unit="kg/s") if
-                          have_masFlo
-    "Prescribed mass flow rate"
-    annotation (Placement(transformation(extent={{-140,30},{-100,70}}),
-      iconTransformation(extent={{-140,30},{-100,70}})));
+  ConstraintViolation conVio(have_inpCon=true,
+    nu=1) "Compute the fraction of time where residual exceeds tolerance"
+    annotation (Placement(transformation(extent={{70,50},{90,70}})));
+
+  Modelica.Blocks.Sources.RealExpression uMin(y=if Q_flow_nominal <= 0 then tol*QPre_flow else 0)
+    "Minimum value for tolerance check" annotation (Placement(transformation(extent={{30,78},{50,98}})));
+  Modelica.Blocks.Sources.RealExpression uMax(y=if Q_flow_nominal >= 0 then tol*QPre_flow else 0)
+    "Maximum value for tolerance check" annotation (Placement(transformation(extent={{90,78},{70,98}})));
+  Buildings.Controls.OBC.CDL.Continuous.Gain opp(k=-1) "Opposite of residual heat flow rate"
+    annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=-90,
+        origin={20,58})));
 equation
   connect(port_a, senTSup.port_a)
     annotation (Line(points={{-100,0},{-90,0}}, color={0,127,255}));
@@ -144,19 +168,16 @@ equation
           86},{-20,20},{0,20},{0,12}}, color={0,0,127}));
   connect(eneMasFlo.Q_flow_actual, hea.u) annotation (Line(points={{-28,80},{52,
           80},{52,6},{58,6}}, color={0,0,127}));
-  connect(eneMasFlo.Q_flow_residual, heaFlo.Q_flow)
-    annotation (Line(points={{-28,74},{20,74},{20,60}}, color={0,0,127}));
   connect(heaFlo.port, del.heatPort)
-    annotation (Line(points={{20,40},{20,10},{30,10}}, color={191,0,0}));
+    annotation (Line(points={{20,20},{20,10},{30,10}}, color={191,0,0}));
   connect(senTSup.T, eneMasFlo.TSup_actual)
     annotation (Line(points={{-80,11},{-80,77},{-52,77}}, color={0,0,127}));
-  connect(ena, eneMasFlo.uEna) annotation (Line(points={{-120,90},{-94,90},{-94,
-          88.8},{-52,88.8}},
+  connect(ena, eneMasFlo.uEna) annotation (Line(points={{-120,90},{-92,90},{-92,88.8},{-52,88.8}},
                          color={255,0,255}));
-  connect(QPre_flow, eneMasFlo.QPre_flow) annotation (Line(points={{-120,70},{-94,
-          70},{-94,86},{-52,86}}, color={0,0,127}));
-  connect(TSupSet, eneMasFlo.TSupSet) annotation (Line(points={{-120,30},{-86,30},
-          {-86,80},{-52,80}}, color={0,0,127}));
+  connect(QPre_flow, eneMasFlo.QPre_flow) annotation (Line(points={{-120,70},{-92,70},{-92,86},{-52,86}},
+                                  color={0,0,127}));
+  connect(TSupSet, eneMasFlo.TSupSet) annotation (Line(points={{-120,30},{-84,30},{-84,80},{-52,80}},
+                              color={0,0,127}));
   connect(senTSup.port_b, senDifEntFlo.port_a1) annotation (Line(points={{-70,0},
           {-66,0},{-66,-60},{-60,-60}}, color={0,127,255}));
   connect(senDifEntFlo.port_b1, pum.port_a) annotation (Line(points={{-40,-60},{
@@ -176,8 +197,15 @@ equation
   connect(senDifEntFlo.m_flow1, eneMasFlo.m_flow_actual) annotation (Line(
         points={{-38,-57},{-30,-57},{-30,-48},{-60,-48},{-60,74},{-52,74}},
         color={0,0,127}));
-  connect(mPre_flow, eneMasFlo.mPre_flow) annotation (Line(points={{-120,50},{-90,
-          50},{-90,83},{-52,83}}, color={0,0,127}));
+  connect(mPre_flow, eneMasFlo.mPre_flow) annotation (Line(points={{-120,50},{-88,50},{-88,83},{-52,83}},
+                                  color={0,0,127}));
+  connect(eneMasFlo.Q_flow_residual, conVio.u[1])
+    annotation (Line(points={{-28,74},{60,74},{60,60},{68,60}}, color={0,0,127}));
+  connect(conVio.y, yTol) annotation (Line(points={{92,60},{120,60}}, color={0,0,127}));
+  connect(uMin.y, conVio.uMin1) annotation (Line(points={{51,88},{56,88},{56,54},{68,54}}, color={0,0,127}));
+  connect(uMax.y, conVio.uMax1) annotation (Line(points={{69,88},{64,88},{64,66},{68,66}}, color={0,0,127}));
+  connect(eneMasFlo.Q_flow_residual, opp.u) annotation (Line(points={{-28,74},{20,74},{20,70}}, color={0,0,127}));
+  connect(heaFlo.Q_flow, opp.y) annotation (Line(points={{20,40},{20,46}}, color={0,0,127}));
   annotation (
     defaultComponentName="eneMasFlo",
     Icon(graphics={   Rectangle(

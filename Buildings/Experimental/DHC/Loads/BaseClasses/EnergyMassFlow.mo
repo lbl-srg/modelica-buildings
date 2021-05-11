@@ -170,21 +170,22 @@ equation
   m_flow = filter.y * m_flow_nominal;
 
   // Correction for mass flow rate shortage.
-  fra_Q_flow = if have_pum then 1 else Utilities.Math.Functions.smoothLimit(
-    characteristic(m_flow_actual / m_flow_nominal, k) *
-      Utilities.Math.Functions.inverseXRegularized(
-        characteristic(m_flow / m_flow_nominal, k),
-        kReg),
-    l=0,
-    u=1,
-    deltaX=kReg);
+  fra_Q_flow = if have_pum then 1 else
+    Utilities.Math.Functions.smoothLimit(
+      characteristic(m_flow_actual / m_flow_nominal, k) *
+        Utilities.Math.Functions.inverseXRegularized(
+          characteristic(m_flow / m_flow_nominal, k),
+          kReg),
+      l=0,
+      u=1,
+      deltaX=kReg);
   Q_flow_actual = if uEna then
-    -Q_flow_nominal * fra_Q_flow * Utilities.Math.Functions.smoothMin(
+    Q_flow_nominal * fra_Q_flow * Utilities.Math.Functions.smoothMin(
       x1=QPre_flow / Q_flow_nominal,
       x2=fra_QCap_flow,
       deltaX=kReg)
     else 0;
-  Q_flow_residual = if uEna then -QPre_flow - Q_flow_actual else 0;
+  Q_flow_residual = if uEna then QPre_flow - Q_flow_actual else 0;
 
   annotation (
     defaultComponentName="eneMasFlo",
@@ -253,7 +254,7 @@ where <i>U</i> is the overall uniform heat transfer coefficient, and
 <i>A</i> is the area associated with the coefficient <i>U</i>.
 Identifying the proper heat exchanger configuration and parameters
 is practically challenging and likely irrelevant here, considering the modeling
-uncertainty introduced by the heat exchanger approximation.
+uncertainty introduced by the unique heat exchanger approximation.
 So we rather adopt the following simplified formulation (which also provides
 an explicit inverse) using a shape factor <i>k</i> to approximate a typical
 emission/flow rate characteristic for variable flow systems, given a fixed supply
@@ -290,6 +291,11 @@ room air at <code>20</code> degC.
 <p>
 <img alt=\"image\"
 src=\"modelica://Buildings/Resources/Images/Experimental/DHC/Loads/BaseClasses/EnergyMassFlow.png\"/>
+</p>
+<p>
+Note that the approximation used for the emission/flow rate characteristic becomes
+largely erroneous for large values of mass flow rate exceeding the nominal value.
+In addition, it does not guard against the violation of the Second Law. 
 </p>
 <p>
 Based on those general principles, the calculations are performed as

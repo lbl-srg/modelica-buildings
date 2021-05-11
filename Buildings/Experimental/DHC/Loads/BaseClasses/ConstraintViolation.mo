@@ -2,8 +2,13 @@ within Buildings.Experimental.DHC.Loads.BaseClasses;
 block ConstraintViolation
   "Block that outputs the fraction of time when a constraint is violated"
 
-  parameter Real uMin "Minimum value for input";
-  parameter Real uMax "Maximum value for input";
+  parameter Boolean have_inpCon = false
+    "Set to true to use input connectors for minimum and maximum values"
+    annotation(Evaluate=true);
+  parameter Real uMin = 0
+    "Minimum value for input";
+  parameter Real uMax = 1
+    "Maximum value for input";
   parameter Integer nu(min=0) = 0
     "Number of input connections"
     annotation (Dialog(connectorSizing=true));
@@ -11,6 +16,14 @@ block ConstraintViolation
     "Variables of interest"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}}),
     iconTransformation(extent={{-140,-20},{-100,20}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput uMin1 if have_inpCon
+    "Minimum value for input"
+    annotation (Placement(transformation(extent={{-140,-80},{-100,-40}}),
+    iconTransformation(extent={{-140,-80},{-100,-40}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput uMax1 if have_inpCon
+    "Maximum value for input"
+    annotation (Placement(transformation(extent={{-140,40},{-100,80}}),
+    iconTransformation(extent={{-140,40},{-100,80}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput y(
     final unit="1",
     start=0,
@@ -21,6 +34,10 @@ block ConstraintViolation
   Modelica.SIunits.Time t(final start=0, final fixed=true)
     "Integral of violated time";
 protected
+  Modelica.Blocks.Interfaces.RealOutput uMin_internal
+    "Output connector for internal use";
+  Modelica.Blocks.Interfaces.RealOutput uMax_internal
+    "Output connector for internal use";
   parameter Modelica.SIunits.Time t0(fixed=false)
     "First sample time instant";
   Boolean vioMin "Flag, true if minimum is violated";
@@ -28,8 +45,15 @@ protected
 initial equation
   t0 = time - 1E-6;
 equation
-  vioMin = Modelica.Math.BooleanVectors.anyTrue({u[i] < uMin for i in 1:nu});
-  vioMax = Modelica.Math.BooleanVectors.anyTrue({u[i] > uMax for i in 1:nu});
+  if have_inpCon then
+    connect(uMin1, uMin_internal);
+    connect(uMax1, uMax_internal);
+  else
+    uMin_internal = uMin;
+    uMax_internal = uMax;
+  end if;
+  vioMin = Modelica.Math.BooleanVectors.anyTrue({u[i] < uMin_internal for i in 1:nu});
+  vioMax = Modelica.Math.BooleanVectors.anyTrue({u[i] > uMax_internal for i in 1:nu});
   if vioMin or vioMax then
     der(t) = 1;
   else

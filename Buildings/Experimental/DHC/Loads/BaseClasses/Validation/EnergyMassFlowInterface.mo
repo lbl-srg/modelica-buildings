@@ -318,10 +318,10 @@ equation
                                                    color={0,127,255}));
   connect(serRet.ports[1], hex.port_b1) annotation (Line(points={{-220,102},{-100,
           102},{-100,110}},    color={0,127,255}));
-  connect(eneMasFlo.dH_flow, add2.u2) annotation (Line(points={{32,146},{80,146},
-          {80,154},{88,154}}, color={0,0,127}));
-  connect(eneMasFlo1.dH_flow, add1.u2) annotation (Line(points={{32,-154},{80,-154},
-          {80,-146},{88,-146}},  color={0,0,127}));
+  connect(eneMasFlo.dH_flow, add2.u2) annotation (Line(points={{32,135},{80,135},{80,154},{88,154}},
+                              color={0,0,127}));
+  connect(eneMasFlo1.dH_flow, add1.u2) annotation (Line(points={{32,-165},{80,-165},{80,-146},{88,-146}},
+                                 color={0,0,127}));
   connect(loa.y[2], eneMasFlo1.QPre_flow) annotation (Line(points={{-219,40},{0,
           40},{0,-153},{8,-153}},     color={0,0,127}));
   connect(val1.port_b, hex1.port_a1) annotation (Line(points={{-110,-20},{-100,-20},
@@ -366,8 +366,8 @@ equation
           0},{-160,8}}, color={0,0,127}));
   connect(ena.y, eneMasFlo1.ena) annotation (Line(points={{-218,220},{-28,220},{
           -28,-151},{8,-151}}, color={255,0,255}));
-  connect(eneMasFlo2.dH_flow, add3.u2) annotation (Line(points={{32,-14},{80,-14},
-          {80,-6},{88,-6}}, color={0,0,127}));
+  connect(eneMasFlo2.dH_flow, add3.u2) annotation (Line(points={{32,-25},{80,-25},{80,-6},{88,-6}},
+                            color={0,0,127}));
   connect(masFloPre.y, eneMasFlo2.mPre_flow) annotation (Line(points={{-79,20},{
           -20,20},{-20,-15},{8,-15}}, color={0,0,127}));
   connect(serSup.ports[2], val1.port_a) annotation (Line(points={{-220,136},{-140,
