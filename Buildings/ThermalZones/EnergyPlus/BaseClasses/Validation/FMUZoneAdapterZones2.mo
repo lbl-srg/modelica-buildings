@@ -18,7 +18,6 @@ model FMUZoneAdapterZones2
     weaName=Modelica.Utilities.Files.loadResource(
       "modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"),
     usePrecompiledFMU=false,
-    logLevel=Buildings.ThermalZones.EnergyPlus.Types.LogLevels.Debug,
     showWeatherData=false)
     "Building model"
     annotation (Placement(transformation(extent={{-80,70},{-60,90}})));

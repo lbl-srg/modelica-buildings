@@ -284,8 +284,8 @@ feedback from the district heating and cooling loop.
 </p>
 <p>
 For a typical usage of this controller, see
-<a href=\"modelica://Buildings.Experimental.DHC.Examples.Combined.Generation5.Unidirectional.Examples.SeriesVariableFlow\">
-Buildings.Experimental.DHC.Examples.Combined.Generation5.Unidirectional.Examples.SeriesVariableFlow</a>.
+<a href=\"modelica://Buildings.Experimental.DHC.Examples.Combined.Generation5.Examples.SeriesVariableFlow\">
+Buildings.Experimental.DHC.Examples.Combined.Generation5.Examples.SeriesVariableFlow</a>.
 </p>
 </html>"));
   end MainPump;
