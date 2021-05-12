@@ -578,6 +578,7 @@ public
   Fluid.Actuators.Dampers.Exponential damRet(
     redeclare package Medium = MediumA,
     m_flow_nominal=m_flow_nominal,
+    from_dp=false,
     riseTime=15,
     dpDamper_nominal=5,
     dpFixed_nominal=5)
@@ -588,7 +589,7 @@ public
   Fluid.Actuators.Dampers.Exponential damOut(
     redeclare package Medium = MediumA,
     m_flow_nominal=m_flow_nominal,
-    from_dp=true,
+    from_dp=false,
     riseTime=15,
     dpDamper_nominal=5,
     dpFixed_nominal=5)   "Outdoor air damper"
@@ -732,44 +733,44 @@ equation
       thickness=0.5,
       smooth=Smooth.None));
   connect(splRetRoo1.port_3, flo.portsCor[2]) annotation (Line(
-      points={{640,10},{640,118},{892,118},{892,472},{898,472},{898,504.308},{
-          906.052,504.308}},
+      points={{640,10},{640,118},{892,118},{892,472},{898,472},{898,513.333},{
+          906.052,513.333}},
       color={0,127,255},
       thickness=0.5));
   connect(splRetSou.port_3, flo.portsSou[2]) annotation (Line(
-      points={{822,10},{822,152},{900,152},{900,443.385},{906.052,443.385}},
+      points={{822,10},{822,152},{900,152},{900,447.333},{906.052,447.333}},
       color={0,127,255},
       thickness=0.5));
   connect(splRetEas.port_3, flo.portsEas[2]) annotation (Line(
-      points={{1002,10},{1002,120},{1068.63,120},{1068.63,504.308}},
+      points={{1002,10},{1002,120},{1068.63,120},{1068.63,513.333}},
       color={0,127,255},
       thickness=0.5));
   connect(splRetNor.port_3, flo.portsNor[2]) annotation (Line(
-      points={{1152,10},{1152,214},{906.052,214},{906.052,561.846}},
+      points={{1152,10},{1152,214},{906.052,214},{906.052,575.667}},
       color={0,127,255},
       thickness=0.5));
   connect(splRetNor.port_2, flo.portsWes[2]) annotation (Line(
       points={{1162,0},{1188,0},{1188,346},{818,346},{818,484},{817.635,484},{
-          817.635,504.308}},
+          817.635,513.333}},
       color={0,127,255},
       thickness=0.5));
   connect(weaBus, flo.weaBus) annotation (Line(
-      points={{-320,180},{-320,632.923},{978.783,632.923}},
+      points={{-320,180},{-320,652.667},{978.783,652.667}},
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None));
   connect(flo.TRooAir, min.u) annotation (Line(
-      points={{1107.13,506},{1164.7,506},{1164.7,450},{1198,450}},
+      points={{1107.13,515.167},{1164.7,515.167},{1164.7,450},{1198,450}},
       color={0,0,127},
       smooth=Smooth.None,
       pattern=LinePattern.Dash));
   connect(flo.TRooAir, ave.u) annotation (Line(
-      points={{1107.13,506},{1166,506},{1166,420},{1198,420}},
+      points={{1107.13,515.167},{1166,515.167},{1166,420},{1198,420}},
       color={0,0,127},
       smooth=Smooth.None,
       pattern=LinePattern.Dash));
   connect(TRooAir.u, flo.TRooAir) annotation (Line(
-      points={{488,298},{488,538},{1164,538},{1164,506},{1107.13,506}},
+      points={{488,298},{488,538},{1164,538},{1164,515.167},{1107.13,515.167}},
       color={0,0,127},
       smooth=Smooth.None,
       pattern=LinePattern.Dash));
@@ -781,26 +782,26 @@ equation
       thickness=0.5));
 
   connect(cor.port_bAir, flo.portsCor[1]) annotation (Line(
-      points={{590,62},{590,120},{891.791,120},{891.791,504.308}},
+      points={{590,62},{590,120},{891.791,120},{891.791,513.333}},
       color={0,127,255},
       thickness=0.5));
   connect(sou.port_bAir, flo.portsSou[1]) annotation (Line(
-      points={{770,60},{770,152},{891.791,152},{891.791,443.385}},
+      points={{770,60},{770,152},{891.791,152},{891.791,447.333}},
       color={0,127,255},
       thickness=0.5));
   connect(eas.port_bAir, flo.portsEas[1]) annotation (Line(
       points={{950,60},{950,120},{1054,120},{1054,506},{1054.37,506},{1054.37,
-          504.308}},
+          513.333}},
       color={0,127,255},
       thickness=0.5));
   connect(nor.port_bAir, flo.portsNor[1]) annotation (Line(
       points={{1110,60},{1110,214},{926,214},{926,326},{891.791,326},{891.791,
-          561.846}},
+          575.667}},
       color={0,127,255},
       thickness=0.5));
   connect(wes.port_bAir, flo.portsWes[1]) annotation (Line(
       points={{1310,60},{1310,344},{804,344},{804,424},{803.374,424},{803.374,
-          504.308}},
+          513.333}},
       color={0,127,255},
       thickness=0.5));
 
@@ -949,6 +950,11 @@ shading devices, Technical Report, Oct. 17, 2006.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+May 6, 2021, by David Blum:<br/>
+Change to <code>from_dp=false</code> for all mixing box dampers.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2485\">issue #2485</a>.
+</li>
 <li>
 April 30, 2021, by Michael Wetter:<br/>
 Reformulated replaceable class and introduced floor areas in base class
