@@ -25,10 +25,10 @@ partial model PartialPlant
         transformation(
         extent={{10,-10},{-10,10}},
         origin={80,-4})));
-  Buildings.Fluid.Sources.MassFlowSource_T sou1(
+  Fluid.Sources.Boundary_pT                sou1(
+    p=MediumCW.p_default + 45E3,
     use_T_in=true,
     redeclare package Medium = MediumCW,
-    m_flow=mCW_flow_nominal,
     T=298.15)
     "Source on medium 1 side"
     annotation (Placement(transformation(extent={{-60,-14},{-40,6}})));
