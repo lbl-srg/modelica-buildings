@@ -1,0 +1,5 @@
+simulateModel("Buildings.ThermalZones.EnergyPlus.Examples.SingleFamilyHouse.RadiantHeatingWithGroundHeatTransfer", stopTime=432000, method="Cvode", tolerance=1e-06, resultFile="RadiantHeatingWithGroundHeatTransfer");
+createPlot(id=1, position={15, 15, 1380, 1145}, y={"livFlo.T", "zon.TAir", "TSetRooHea.y"}, range={0.0, 5.0, 15.0, 30.0}, grid=true, colors={{28,108,200}, {238,46,47}, {0,140,72}}, timeUnit="d", displayUnits={"degC", "degC", "degC"});
+createPlot(id=1, position={15, 15, 1380, 1145}, y={"conHea.y"}, range={0.0, 5.0, -0.5, 1.5}, grid=true, subPlot=102, colors={{28,108,200}}, timeUnit="d");
+createPlot(id=1, position={15, 15, 1380, 1145}, y={"livFlo.q_flow"}, range={0.0, 5.0, -60.0, 0.0}, grid=true, subPlot=103, colors={{28,108,200}}, timeUnit="d", displayUnits={"W/m2"});
+createPlot(id=1, position={15, 15, 1380, 1145}, y={"slaFlo.surf_a.Q_flow", "hea.Q_flow"}, range={0.0, 5.0, -20000.0, 20000.0}, grid=true, subPlot=104, colors={{28,108,200}, {0,140,72}}, timeUnit="d", displayUnits={"W", "W"});
