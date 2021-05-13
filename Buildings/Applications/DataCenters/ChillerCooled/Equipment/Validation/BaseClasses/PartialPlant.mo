@@ -25,7 +25,7 @@ partial model PartialPlant
         transformation(
         extent={{10,-10},{-10,10}},
         origin={80,-4})));
-  Fluid.Sources.Boundary_pT                sou1(
+  Fluid.Sources.Boundary_pT sou1(
     p=MediumCW.p_default + 45E3,
     use_T_in=true,
     redeclare package Medium = MediumCW,
@@ -82,6 +82,14 @@ Buildings.Applications.DataCenters.ChillerCooled.Equipment.Validation</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+May 13, 2021, by Michael Wetter:<br/>
+Changed boundary condition model to prescribed pressure rather than prescribed mass flow rate.
+Prescribing the mass flow rate caused
+unreasonably large pressure drop because the mass flow rate was forced through a closed valve.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2488\">#2488</a>.
+</li>
 <li>
 September 11, 2017, by Michael Wetter:<br/>
 Corrected wrong use of replaceable model.<br/>
