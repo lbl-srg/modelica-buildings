@@ -127,23 +127,13 @@ partial model PartialTerminalUnit
     iconTransformation(extent={{-10,-10},{10,10}},rotation=0,origin={-130,40})));
   Modelica.Blocks.Interfaces.RealInput QReqHea_flow(
     final quantity="HeatFlowRate",
-<<<<<<< HEAD
-    final unit="W") if have_QReq_flow and
-                                         (have_watHea or have_chaOve or have_eleHea)
-=======
     final unit="W") if have_QReq_flow and (have_heaWat or have_chaOve or have_eleHea)
->>>>>>> master
     "Required heat flow rate to meet heating set point (>=0)"
     annotation (Placement(transformation(extent={{-20,-20},{20,20}},rotation=0,origin={-220,100}),
     iconTransformation(extent={{-10,-10},{10,10}},rotation=0,origin={-130,-20})));
   Modelica.Blocks.Interfaces.RealInput QReqCoo_flow(
     final quantity="HeatFlowRate",
-<<<<<<< HEAD
-    final unit="W") if have_QReq_flow and
-                                         (have_watCoo or have_eleCoo)
-=======
     final unit="W") if have_QReq_flow and (have_chiWat or have_eleCoo)
->>>>>>> master
     "Required heat flow rate to meet cooling set point (<=0)"
     annotation (Placement(transformation(extent={{-20,-20},{20,20}},rotation=0,origin={-220,60}),
     iconTransformation(extent={{-10,-10},{10,10}},rotation=0,origin={-130,-42})));
@@ -296,16 +286,6 @@ partial model PartialTerminalUnit
     "Chilled water outlet port"
     annotation (Placement(transformation(extent={{210,-190},{190,-170}}),iconTransformation(extent={{130,-90},{110,-70}})));
   // COMPONENTS
-<<<<<<< HEAD
-  Buildings.Controls.OBC.CDL.Continuous.Gain scaQReqHea_flow(
-    k=1/facSca) if have_QReq_flow and
-                                     (have_watHea or have_chaOve or have_eleHea)
-    "Scaling"
-    annotation (Placement(transformation(extent={{-180,90},{-160,110}})));
-  Buildings.Controls.OBC.CDL.Continuous.Gain scaQReqCoo_flow(
-    k=1/facSca) if have_QReq_flow and
-                                     (have_watCoo or have_eleCoo)
-=======
   Buildings.Controls.OBC.CDL.Continuous.Gain mulQReqHea_flow(
     u(final unit="W"),
     final k=1/facMul) if have_QReq_flow and (have_heaWat or have_chaOve or have_eleHea)
@@ -314,7 +294,6 @@ partial model PartialTerminalUnit
   Buildings.Controls.OBC.CDL.Continuous.Gain mulQReqCoo_flow(
     u(final unit="W"),
     final k=1/facMul) if have_QReq_flow and (have_chiWat or have_eleCoo)
->>>>>>> master
     "Scaling"
     annotation (Placement(transformation(extent={{-180,50},{-160,70}})));
   Buildings.Controls.OBC.CDL.Continuous.Gain mulQActHea_flow(
@@ -393,27 +372,11 @@ partial model PartialTerminalUnit
     final allowFlowReversal=allowFlowReversalLoa) if have_fluPor
     "Load side mass flow rate multiplier"
     annotation (Placement(transformation(extent={{180,-10},{160,10}})));
-<<<<<<< HEAD
-  Fluid.HeatExchangers.RadiantSlabs.BaseClasses.HeatFlowRateMultiplier scaHeaFloCon(
-    k=if have_scaLoa then
-        facSca
-      else
-        1) if have_heaPor
-    "Convective heat flow rate scaling"
-    annotation (Placement(transformation(extent={{160,30},{180,50}})));
-  Fluid.HeatExchangers.RadiantSlabs.BaseClasses.HeatFlowRateMultiplier scaHeaFloRad(
-    k=if have_scaLoa then
-        facSca
-      else
-        1) if have_heaPor
-    "Radiative heat flow rate scaling"
-=======
   Fluid.HeatExchangers.RadiantSlabs.BaseClasses.HeatFlowRateMultiplier mulHeaFloCon(final k=
         facMul) if     have_heaPor "Convective heat flow rate multiplier"
     annotation (Placement(transformation(extent={{160,30},{180,50}})));
   Fluid.HeatExchangers.RadiantSlabs.BaseClasses.HeatFlowRateMultiplier mulHeaFloRad(final k=
         facMul) if     have_heaPor "Radiative heat flow rate multiplier"
->>>>>>> master
     annotation (Placement(transformation(extent={{160,-50},{180,-30}})));
 protected
   parameter Modelica.SIunits.SpecificHeatCapacity cpHeaWat_nominal=

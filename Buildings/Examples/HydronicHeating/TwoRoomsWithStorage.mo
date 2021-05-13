@@ -27,7 +27,7 @@ model TwoRoomsWithStorage
     "Nominal mass flow rate of boiler loop";
  parameter Modelica.SIunits.PressureDifference dpPip_nominal = 10000
     "Pressure difference of pipe (without valve)";
- parameter Modelica.SIunits.PressureDifference dpVal_nominal = 1000
+ parameter Modelica.SIunits.PressureDifference dpVal_nominal = 6000
     "Pressure difference of valve";
  parameter Modelica.SIunits.PressureDifference dpRoo_nominal = 6000
     "Pressure difference of flow leg that serves a room";
@@ -369,6 +369,7 @@ model TwoRoomsWithStorage
     redeclare package Medium = MediumA,
     m_flow_nominal=2*VRoo*1.2*0.37/3600,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
+    nominalValuesDefineDefaultPressureCurve=true,
     use_inputFilter=false) "Supply air fan"
     annotation (Placement(transformation(extent={{70,490},{90,510}})));
   Modelica.Blocks.Sources.Constant m_flow_out(k=2*VRoo*1.2*0.37/3600)
@@ -378,6 +379,7 @@ model TwoRoomsWithStorage
     redeclare package Medium = MediumA,
     m_flow_nominal=2*VRoo*1.2*0.37/3600,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
+    nominalValuesDefineDefaultPressureCurve=true,
     use_inputFilter=false) "Return air fan"
     annotation (Placement(transformation(extent={{90,450},{70,470}})));
   Airflow.Multizone.Orifice lea1(redeclare package Medium = MediumA, A=0.01^2)
@@ -1204,6 +1206,11 @@ Buildings.Examples.HydronicHeating.TwoRoomsWithStorage.CoolingControl</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+March 4, 2021, by David Blum:<br/>
+Changed <code>dpVal_nominal</code> to 6 kPa.
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2378\">issue 2378</a>.
+</li>
 <li>
 April 6, 2016, by Michael Wetter:<br/>
 Replaced <code>Modelica_StateGraph2</code> with <code>Modelica.StateGraph</code>.

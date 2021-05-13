@@ -10,16 +10,18 @@ package Solids
                                                                final LHea=0,
                                                                final phasechange=false);
     annotation (
-      defaultComponentPrefixes="parameter",
-      defaultComponentName="datSol",
-      Documentation(info="<html>
+defaultComponentPrefixes="parameter",
+defaultComponentName="datSol",
+Documentation(info=
+"<html>
 <p>
 Generic record for solid materials.
 The material is characterized by its
 thermal conductivity, mass density and specific
 heat capacity.
 </p>
-</html>", revisions="<html>
+</html>", revisions=
+"<html>
 <ul>
 <li>
 September 9, 2010, by Michael Wetter:<br/>
@@ -33,7 +35,7 @@ First implementation.
       k=0.89,
       d=1920,
       c=790) "Brick (k=0.89)"
-    annotation (
+    annotation(
       defaultComponentPrefixes="parameter",
       defaultComponentName="datSol");
 
@@ -41,7 +43,7 @@ First implementation.
       k=1.4,
       d=2240,
       c=840) "Concrete (k=1.4)"
-    annotation (
+    annotation(
       defaultComponentPrefixes="parameter",
       defaultComponentName="datSol");
 
@@ -49,7 +51,7 @@ First implementation.
       k=0.03,
       d=40,
       c=1200) "Insulation board (k=0.03)"
-    annotation (
+    annotation(
       defaultComponentPrefixes="parameter",
       defaultComponentName="datSol");
 
@@ -57,7 +59,7 @@ First implementation.
       k=1.0,
       d=2500,
       c=700) "Glass"
-    annotation (
+    annotation(
       defaultComponentPrefixes="parameter",
       defaultComponentName="datSol");
 
@@ -65,7 +67,7 @@ First implementation.
       k=0.16,
       d=800,
       c=1090) "Gypsum board (k=0.58)"
-    annotation (
+    annotation(
       defaultComponentPrefixes="parameter",
       defaultComponentName="datSol");
 
@@ -73,7 +75,7 @@ First implementation.
       k=0.12,
       d=540,
       c=1210) "Plywood (k=0.12)"
-    annotation (
+    annotation(
       defaultComponentPrefixes="parameter",
       defaultComponentName="datSol");
 
@@ -82,7 +84,7 @@ First implementation.
       d=7850,
       c=450,
       steadyState=true) "Steel (k=50.2)"
-    annotation (
+    annotation(
       defaultComponentPrefixes="parameter",
       defaultComponentName="datSol");
 

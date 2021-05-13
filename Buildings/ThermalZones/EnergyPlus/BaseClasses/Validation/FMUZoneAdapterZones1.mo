@@ -5,7 +5,7 @@ model FMUZoneAdapterZones1
   constant String modelicaNameBuilding=getInstanceName()
     "Name of the building";
   parameter String idfName=Modelica.Utilities.Files.loadResource(
-    "modelica://Buildings/Resources/Data/ThermalZones/EnergyPlus/Validation/RefBldgSmallOffice/RefBldgSmallOfficeNew2004_Chicago.idf")
+    "modelica://Buildings/Resources/Data/ThermalZones/EnergyPlus/Examples/RefBldgSmallOffice/RefBldgSmallOfficeNew2004_Chicago.idf")
     "Name of the IDF file";
   parameter String weaName=Modelica.Utilities.Files.loadResource(
     "modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos")
@@ -14,23 +14,23 @@ model FMUZoneAdapterZones1
     "Heat capacity of zone air";
   inner Building building(
     idfName=Modelica.Utilities.Files.loadResource(
-      "modelica://Buildings/Resources/Data/ThermalZones/EnergyPlus/Validation/SingleFamilyHouse_TwoSpeed_ZoneAirBalance/SingleFamilyHouse_TwoSpeed_ZoneAirBalance.idf"),
+      "modelica://Buildings/Resources/Data/ThermalZones/EnergyPlus/Examples/SingleFamilyHouse_TwoSpeed_ZoneAirBalance/SingleFamilyHouse_TwoSpeed_ZoneAirBalance.idf"),
     weaName=Modelica.Utilities.Files.loadResource(
       "modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"),
     usePrecompiledFMU=false,
     showWeatherData=false)
     "Building model"
     annotation (Placement(transformation(extent={{-80,70},{-60,90}})));
-  Buildings.ThermalZones.EnergyPlus.BaseClasses.FMUZoneAdapter fmuZonCor(
-    buildingsLibraryRoot=Buildings.ThermalZones.EnergyPlus.BaseClasses.buildingsLibraryRoot,
+  Buildings.ThermalZones.EnergyPlus.BaseClasses.ThermalZoneAdapter fmuZonCor(
     modelicaNameBuilding=modelicaNameBuilding,
     final idfName=idfName,
     final weaName=weaName,
+    relativeSurfaceTolerance=building.relativeSurfaceTolerance,
     final zoneName="Core_ZN",
     usePrecompiledFMU=true,
     final fmuName=Modelica.Utilities.Files.loadResource(
       "modelica://Buildings/Resources/src/ThermalZones/EnergyPlus/FMUs/Zones1.fmu"),
-    logLevel=Buildings.ThermalZones.EnergyPlus.Types.LogLevels.Verbose,
+    logLevel=building.logLevel,
     final nFluPor=2)
     "Adapter to EnergyPlus"
     annotation (Placement(transformation(extent={{20,20},{40,40}})));
@@ -62,6 +62,7 @@ model FMUZoneAdapterZones1
       displayUnit="degC"))
     "Zone air temperature"
     annotation (Placement(transformation(extent={{60,20},{80,40}})));
+
 equation
   connect(X_w.y,fmuZonCor.X_w)
     annotation (Line(points={{-69,50},{0,50},{0,34},{18,34}},color={0,0,127}));

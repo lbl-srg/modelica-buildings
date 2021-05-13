@@ -126,14 +126,12 @@ initial equation
 This model calculates the <i>UA/c<sub>p</sub></i> value and the bypass factor
 of the coil from the nominal inlet and outlet
 air properties.
-The nominal conditions are calculated using
-<a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.NominalCondition\">
-Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.NominalCondition</a>.</p>
+</p>
 <p>
 For a heat exchanger where one medium changes phase, the <i>NTU-&epsilon;</i> relation
 is
 <p align=\"center\" style=\"font-style:italic;\">
-  &epsilon; = 1 - exp(-NTU) = 1-exp(-UA &frasl; c<sub>p</sub> &frasl; m&#775;)
+  &epsilon; = 1 - exp(-NTU) = 1-exp(-UA &frasl; c<sub>p</sub> &frasl; m&#775;).
 </p>
 <p>
 Since the bypass factor <i>b</i> is defined as <i>b=1-&epsilon;</i>,
@@ -145,7 +143,7 @@ one can write
 <p>
 and, hence,
 <p align=\"center\" style=\"font-style:italic;\">
- UA &frasl; c<sub>p</sub> = - m&#775; log(b)
+ UA &frasl; c<sub>p</sub> = - m&#775; log(b).
 </p>
 </html>",
 revisions="<html>

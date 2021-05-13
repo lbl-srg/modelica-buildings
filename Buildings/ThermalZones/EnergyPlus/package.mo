@@ -1,7 +1,7 @@
 within Buildings.ThermalZones;
-package EnergyPlus "Package with models to connect to the EnergyPlus SOEP thermal zone model"
+package EnergyPlus
+  "Package with models to connect to the EnergyPlus SOEP thermal zone model"
   extends Modelica.Icons.Package;
-
   annotation (
     Icon(
       graphics={
@@ -16,7 +16,7 @@ package EnergyPlus "Package with models to connect to the EnergyPlus SOEP therma
 <p>
 Package for Spawn of EnergyPlus that couples Modelica directly
 to the EnergyPlus envelope model.<br/>
-This allows simulating the envelope heat transfer
+The models in this package allow simulating the envelope heat transfer
 of one or several buildings in EnergyPlus, and simulating HVAC and controls
 in Modelica. EnergyPlus objects are represented graphically as any other Modelica
 models, and the coupling and co-simulation is done automatically based on these models.

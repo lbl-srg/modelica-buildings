@@ -17,7 +17,10 @@ partial model PartialFourPortInterface
   // Diagnostics
   parameter Boolean show_T = false
     "= true, if actual temperature at port is computed"
-    annotation(Dialog(tab="Advanced",group="Diagnostics"));
+    annotation(
+      Dialog(tab="Advanced", group="Diagnostics"),
+      HideResult=true);
+
 
   Medium1.MassFlowRate m1_flow = port_a1.m_flow
     "Mass flow rate from port_a1 to port_b1 (m1_flow > 0 is design flow direction)";
@@ -80,6 +83,12 @@ mass transfer and pressure drop equations.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+March 30, 2021, by Michael Wetter:<br/>
+Added annotation <code>HideResult=true</code>.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1459\">IBPSA, #1459</a>.
+</li>
 <li>
 November 3, 2016, by Michael Wetter:<br/>
 Moved computation of pressure drop to variable assignment so that

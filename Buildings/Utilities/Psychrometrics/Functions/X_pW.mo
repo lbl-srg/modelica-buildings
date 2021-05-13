@@ -1,5 +1,5 @@
 within Buildings.Utilities.Psychrometrics.Functions;
-function X_pW "Humidity ratio for given water vapor pressure"
+function X_pW "Mass fraction for given water vapor pressure"
   extends Modelica.Icons.Function;
   input Modelica.SIunits.Pressure p_w(displayUnit="Pa",
                                       min=0.003,
@@ -21,10 +21,14 @@ algorithm
     Inline=true,
     Documentation(info="<html>
 <p>
-Function to compute the humidity ratio for a given water vapor partial pressure.
+Function to compute the mass fraction for a given water vapor partial pressure.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+February 14, 2021 by Ettore Zanetti:<br/>
+Updated description.
+</li>
 <li>
 September 16, 2013 by Michael Wetter:<br/>
 Added attributes to variable <code>p_w</code>.

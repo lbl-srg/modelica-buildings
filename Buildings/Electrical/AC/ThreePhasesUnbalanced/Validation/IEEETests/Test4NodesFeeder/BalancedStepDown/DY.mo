@@ -22,7 +22,8 @@ model DY
     final Theta2_ref=Modelica.Constants.pi/180.0*{29.7,-90.4,149.6},
     final Theta3_ref=Modelica.Constants.pi/180.0*{-33.7,-153.4,86.4},
     final Theta4_ref=Modelica.Constants.pi/180.0*{-39.1,-158.3,80.9},
-    loadRL(use_pf_in=false));
+    loadRL(use_pf_in=false,
+    load1(v(start={1500, 1200}))));
   Modelica.Blocks.Sources.Constant load(k=-1800e3)
     annotation (Placement(transformation(extent={{54,62},{74,82}})));
   Buildings.Electrical.AC.ThreePhasesUnbalanced.Conversion.ACACTransformerStepDownDY
@@ -75,6 +76,14 @@ equation
           "modelica://Buildings/Resources/Scripts/Dymola/Electrical/AC/ThreePhasesUnbalanced/Validation/IEEETests/Test4NodesFeeder/BalancedStepDown/DY.mos"
         "Simulate and plot"),
  Documentation(revisions="<html><ul>
+<li>
+April 7, 2021, by Michael Wetter:<br/>
+Set start values
+<code>loadRL(load1(v(start = {1500, 1200})))</code>
+as the model seems to have more than one solution.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2432\">#2432</a>.
+</li>
 <li>
 October 9, 2014, by Marco Bonvini:<br/>
 Added documentation.

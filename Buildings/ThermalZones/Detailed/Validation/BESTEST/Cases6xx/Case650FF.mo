@@ -2,7 +2,7 @@ within Buildings.ThermalZones.Detailed.Validation.BESTEST.Cases6xx;
 model Case650FF
   "Case 600, no heating, no cooling, and ventilation as in case 650"
   extends Case600FF(
-  staRes(
+  redeclare Buildings.ThermalZones.Detailed.Validation.BESTEST.Data.StandardResultsFreeFloating staRes(
       minT( Min=-23.0+273.15, Max=-21.6+273.15, Mean=-22.7+273.15),
       maxT( Min=63.2+273.15, Max=68.2+273.15, Mean=64.7+273.15),
       meanT(Min=18.0+273.15, Max=19.6+273.15, Mean=18.7+273.15)),
@@ -32,6 +32,12 @@ heating and no cooling.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+April 30, 2021, by Michael Wetter:<br/>
+Added redeclaration to avoid access of component that is not in constraining type.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2471\">#2471</a>.
+</li>
 <li>
 July 15, 2012, by Michael Wetter:<br/>
 Revised implementation to extend from base case to avoid duplicate code.

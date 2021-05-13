@@ -50,7 +50,7 @@ model Sandbox "Validation of BorefieldOneUTube based on the experiment of Beier 
     tau=0)
     "Outlet temperature of the borefield"
     annotation (Placement(transformation(extent={{70,-30},{90,-10}})));
-  Buildings.Fluid.Geothermal.Borefields.Validation.BaseClasses.SandBox_Borefield borFieDat "Borefield data"
+  parameter Buildings.Fluid.Geothermal.Borefields.Validation.BaseClasses.SandBox_Borefield borFieDat "Borefield data"
     annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
   Buildings.Fluid.Sources.Boundary_ph sin(
     redeclare package Medium = Medium,
@@ -129,6 +129,11 @@ spectral method to simulate borehole heat exchanger</i>. Geothermics 51:
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+April 8, 2021, by Michael Wetter:<br/>
+Added missing <code>parameter</code> keyword.<br/>
+For <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1464\">IBPSA, issue 1464</a>.
+</li>
 <li>
 July 18, 2018, by Massimo Cimmino:<br/>
 First implementation.

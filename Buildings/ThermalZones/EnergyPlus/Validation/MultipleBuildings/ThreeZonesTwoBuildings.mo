@@ -6,7 +6,7 @@ model ThreeZonesTwoBuildings
     "Medium model";
   model OneZoneBuilding
     "Model with a building with one zone"
-    extends Buildings.ThermalZones.EnergyPlus.Validation.ThermalZone.OneZone;
+    extends Buildings.ThermalZones.EnergyPlus.Examples.SingleFamilyHouse.Unconditioned;
     extends Modelica.Blocks.Icons.Block;
     annotation (
       Icon(
@@ -16,7 +16,6 @@ model ThreeZonesTwoBuildings
             lineColor={0,0,0},
             textString="1 zone")}));
   end OneZoneBuilding;
-
   model TwoZoneBuilding
     "Model with a building with two zones"
     extends Buildings.ThermalZones.EnergyPlus.Validation.ThermalZone.TwoIdenticalZones;

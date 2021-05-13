@@ -1,7 +1,6 @@
 within Buildings.Fluid;
 package MixingVolumes "Package with mixing volumes"
   extends Modelica.Icons.VariantsPackage;
-
 annotation (Documentation(info="<html>
 <p>
 This package contains models for completely mixed volumes.

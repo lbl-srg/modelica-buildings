@@ -1,20 +1,23 @@
 within Buildings.ThermalZones.EnergyPlus.BaseClasses;
-partial model PartialEnergyPlusObject
+partial block PartialEnergyPlusObject
   "Partial definitions of an EnergyPlus object"
   extends Modelica.Blocks.Icons.Block;
   outer Buildings.ThermalZones.EnergyPlus.Building building
     "Building-level declarations";
+
 protected
   constant String modelicaNameBuilding=building.modelicaNameBuilding
     "Name of the building to which this output variable belongs to"
     annotation (HideResult=true);
-  constant String modelicaNameOutputVariable=getInstanceName()
+  constant String modelicaInstanceName=getInstanceName()
     "Name of this instance"
     annotation (HideResult=true);
   final parameter String idfName=building.idfName
     "Name of the IDF file that contains this zone";
   final parameter String weaName=building.weaName
     "Name of the EnergyPlus weather file (but with mos extension)";
+  final parameter Real relativeSurfaceTolerance=building.relativeSurfaceTolerance
+    "Relative tolerance of surface temperature calculations";
   final parameter Boolean usePrecompiledFMU=building.usePrecompiledFMU
     "Set to true to use pre-compiled FMU with name specified by fmuName"
     annotation (Dialog(tab="Debug"));
@@ -31,6 +34,7 @@ protected
     input Real u;
     input Real accuracy;
     output Real y;
+
   algorithm
     y :=
       if
@@ -41,6 +45,7 @@ protected
         ceil(
           u/accuracy-0.5)*accuracy;
   end round;
+
 initial equation
   startTime=time;
   annotation (
@@ -58,6 +63,11 @@ Partial model for an EnergyPlus object.
 </html>",
       revisions="<html>
 <ul>
+<li>
+February 18, 2021, by Michael Wetter:<br/>
+Refactor synchronization of constructors.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2360\">#2360</a>.
+</li>
 <li>
 April 04, 2018, by Thierry S. Nouidui:<br/>
 Added additional parameters for parametrizing
