@@ -39,11 +39,11 @@ model HeatExchanger_ResetController
         transformation(
         extent={{10,-10},{-10,10}},
         origin={78,70})));
-  Buildings.Fluid.Sources.MassFlowSource_T sou1(
+  Fluid.Sources.Boundary_pT sou1(
+    p=MediumW.p_default + 60E3,
     use_T_in=true,
     nPorts=3,
     redeclare package Medium = MediumW,
-    m_flow=3*m1_flow_nominal,
     T=298.15)
     "Source on medium 1 side"
     annotation (Placement(transformation(extent={{-60,66},{-40,86}})));
@@ -79,11 +79,11 @@ model HeatExchanger_ResetController
     k(unit="K",displayUnit="degC")=273.15+16.56)
     "Leaving chilled water temperature setpoint"
     annotation (Placement(transformation(extent={{-90,40},{-70,60}})));
-  Buildings.Fluid.Sources.MassFlowSource_T sou2_1(
+  Fluid.Sources.Boundary_pT sou2_1(
+    p=MediumW.p_default + 50E3,
     nPorts=3,
     redeclare package Medium = MediumW,
-    use_T_in=true,
-    m_flow=3*m2_flow_nominal)
+    use_T_in=true)
     "Source on medium 2 side"
     annotation (Placement(transformation(extent={{60,14},{40,34}})));
   Modelica.Blocks.Sources.Constant TEva_in(k=273.15 + 25.28)
@@ -158,16 +158,18 @@ equation
     annotation (Line(points={{79,28},{62,28}}, color={0,0,127}));
   connect(TSen2.port_a, hex2.port_b2)
     annotation (Line(points={{-40,-70},{-12,-70}}, color={0,127,255}));
-  connect(sou1.ports[2], hex2.port_a1) annotation (Line(points={{-40,76},{-22,76},
-          {-22,-58},{-12,-58}}, color={0,127,255}));
+  connect(sou1.ports[2], hex2.port_a1) annotation (Line(points={{-40,76},{-22,
+          76},{-22,-58},{-12,-58}},
+                                color={0,127,255}));
   connect(hex2.port_b1, sin1.ports[2]) annotation (Line(points={{8,-58},{20,-58},
           {20,70},{68,70}}, color={0,127,255}));
   connect(TSet.y, hex2.TSet) annotation (Line(points={{-69,50},{-62,50},{-62,60},
           {-20,60},{-20,-60},{-14,-60}}, color={0,0,127}));
   connect(tri.y, hex1.trigger)
     annotation (Line(points={{-69,10},{-8,10},{-8,46}}, color={255,0,255}));
-  connect(sou2_1.ports[2], hex2.port_a2) annotation (Line(points={{40,24},{28,24},
-          {28,-70},{8,-70}}, color={0,127,255}));
+  connect(sou2_1.ports[2], hex2.port_a2) annotation (Line(points={{40,24},{28,
+          24},{28,-70},{8,-70}},
+                             color={0,127,255}));
   connect(sin2.ports[3], TSen3.port_b) annotation (Line(points={{-72,-44.6667},
           {-66,-44.6667},{-66,-156},{-50,-156}},color={0,127,255}));
   connect(TSen3.port_a, hex3.port_b2)
@@ -195,6 +197,14 @@ This example demonstrates how the PID controller in the heat exchanger model can
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+May 13, 2021, by Michael Wetter:<br/>
+Changed boundary condition model to prescribed pressure rather than prescribed mass flow rate.
+Prescribing the mass flow rate caused
+unreasonably large pressure drop because the mass flow rate was forced through a closed valve.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2488\">#2488</a>.
+</li>
 <li>
 January 28, 2019, by Yangyang Fu:<br/>
 First implementation.
