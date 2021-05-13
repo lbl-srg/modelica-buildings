@@ -33,23 +33,20 @@ The <code>.epw</code> file will be used by the EnergyPlus envelope model, and th
 file will be used by the Modelica model, and must be specified by the parameter <code>weaName</code>
 in the instance <code>building</code>.
 </li>
+</ol>
+The following coupling objects can then be integrated in the model that contains the instance 
+<code>building</code>, or in any model instantiated by that model
+<ul>
 <li>
-In the model that contains the instance <code>building</code>,
-or in any model instantiated by that model, instantiate
-for each thermal zone an instance of
-<a href=\"modelica://Buildings.ThermalZones.EnergyPlus.ThermalZone\">
-Buildings.ThermalZones.EnergyPlus.ThermalZone</a>.
-These thermal zones will automatically be assigned the name of the
-EnergyPlus input data file and weather file, as well as the other parameters
-that are declared in the instance <code>building</code>.
-In these instances, specify the name of the thermal zone, as it is entered
-in the EnergyPlus input data file, and also assign the medium of the thermal zone,
+To connect Modelica zone models with the equivalent EnergyPlus zone envelopes,
+instantiate any number of <a href=\"modelica://Buildings.ThermalZones.EnergyPlus.ThermalZone\">
+Buildings.ThermalZones.EnergyPlus.ThermalZone</a> models and parameterize them with the name
+of the thermal zones as they are entered in the EnergyPlus input data file.
+Each model should also be assigned the medium of heat transfer (typically air),
 as is done for any other fluid flow component.
-This instance will then connect the Modelica zone model with the
-EnergyPlus zone model.
 </li>
 <li>
-Optionally, to write to EnergyPlus actuators or schedules during the simulation,
+To write to EnergyPlus actuators or schedules during the simulation,
 instantiate any number of
 <a href=\"modelica://Buildings.ThermalZones.EnergyPlus.Actuator\">
 Buildings.ThermalZones.EnergyPlus.Actuator</a>
@@ -58,26 +55,26 @@ or
 Buildings.ThermalZones.EnergyPlus.Schedule</a> models.
 </li>
 <li>
-Optionally, to retrieve the current values of output variables from EnergyPlus,
+To retrieve the current values of output variables from EnergyPlus,
 instantiate any number of
 <a href=\"modelica://Buildings.ThermalZones.EnergyPlus.OutputVariable\">
 Buildings.ThermalZones.EnergyPlus.OutputVariable</a> models.
 </li>
 <li>
-Optionally, to model an opaque construction such as a radiant slab in Modelica and interface
+To model an opaque construction such as a radiant slab in Modelica and interface
 it to EnergyPlus, instantiate any number of
 <a href=\"modelica://Buildings.ThermalZones.EnergyPlus.OpaqueConstruction\">
 Buildings.ThermalZones.EnergyPlus.OpaqueConstruction</a> models.
 </li>
 <li>
-Optionally, to set individual surface temperatures in EnergyPlus and retrieve their room-side
+To set individual surface temperatures in EnergyPlus and retrieve their room-side
 heat gains, instantiate any number of
 <a href=\"modelica://Buildings.ThermalZones.EnergyPlus.ZoneSurface\">
 Buildings.ThermalZones.EnergyPlus.ZoneSurface</a> models.
 </li>
-</ol>
+</ul>
 <p>
-If you have more than one building, then repeat the above steps for each building and combine
+If you have more than one building, you can repeat the above steps for each building and combine
 these building models in a top-level model.
 See for example
 <a href=\"modelica://Buildings.ThermalZones.EnergyPlus.Validation.MultipleBuildings.ThreeZonesTwoBuildings\">
@@ -168,8 +165,7 @@ If a zone is in the idf file but not modeled in Modelica, EnergyPlus will
 simulate the zone as free floating.
 </li>
 <li>
-If there is an HVAC system in the idf file, then EnergyPlus will remove it.
-</li>
+All EnergyPlus HVAC objects that are present in the idf file are removed when coupled to Spawn</li>
 <li>
 For the EnergyPlus envelope, either the CTF transfer function or the finite difference
 method can be used.
@@ -404,15 +400,12 @@ src=\"modelica://Buildings/Resources/Images/ThermalZones/EnergyPlus/envelope-roo
 </p>
 <p>
 The figure above shows an overview of the exchanged coupling variables.
-The coupling variables connect Modelica thermal zone model and the EnergyPlus envelope model, or EnergyPlus
-surfaces that are connected to heat transfer models
-in Modelica, for example to model a radiant floor.
+The coupling variables can connect Modelica thermal zone model with EnergyPlus envelope model, or Modelica
+heat transfer models to EnergyPlus surfaces, for example to model a radiant floor.
 They also allow reading the value of EnergyPlus output variables for use in Modelica-implemented
-controllers, and
-they allow writing to EnergyPlus schedules and EnergyPlus Energy Management System actuators.
-The latter two can be used, for example,
-to send supervisory control signals to EnergyPlus, such as for
-active facade control, and they also allow the control of lights or equipment schedules that contribute
+controllers, and writing to EnergyPlus schedules and EnergyPlus Energy Management System actuators.
+This can be used, for instance, to send supervisory control signals to EnergyPlus, such as for
+active facade control, or to control lights and equipment schedules that contribute
 to heat gains in the room and its surfaces.
 </p>
 <p>
