@@ -77,7 +77,7 @@ block Down "Generates a stage down signal"
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TChiWatSup(
     final unit="K",
     final quantity="ThermodynamicTemperature")
-    "Chilled water return temperature"
+    "Chilled water supply temperature"
     annotation (Placement(transformation(extent={{-220,10},{-180,50}}),
     iconTransformation(extent={{-140,-40},{-100,0}})));
 
@@ -111,7 +111,7 @@ block Down "Generates a stage down signal"
     annotation (Placement(transformation(extent={{180,-10},{200,10}}),
         iconTransformation(extent={{100,-20},{140,20}})));
 
-protected
+//protected
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.SetPoints.Subsequences.FailsafeCondition faiSafCon(
     final have_serChi=have_serChi,
     final faiSafTruDelay=faiSafTruDelay,

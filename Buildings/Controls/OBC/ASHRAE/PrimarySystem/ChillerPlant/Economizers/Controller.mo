@@ -60,7 +60,7 @@ block Controller "Waterside economizer (WSE) enable/disable status"
     final unit="m3/s",
     final quantity="VolumeFlowRate",
     displayUnit="m3/s")=0.015
-      "Desing heat exchanger chilled water volume flow rate"
+      "Design heat exchanger chilled water volume flow rate"
     annotation(Dialog(group="Design parameters"));
 
   parameter Real step(
@@ -92,14 +92,14 @@ block Controller "Waterside economizer (WSE) enable/disable status"
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TChiWatRet(
     final unit="K",
     final quantity="ThermodynamicTemperature")
-    "Chiller water return temperature upstream of the WSE"
+    "Chilled water return temperature upstream of the WSE"
     annotation (Placement(transformation(extent={{-220,40},{-180,80}}),
         iconTransformation(extent={{-140,20},{-100,60}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TChiWatRetDow(
     final unit="K",
     final quantity="ThermodynamicTemperature")
-    "Chiller water return temperature downstream of the WSE"
+    "Chilled water return temperature downstream of the WSE"
     annotation (Placement(transformation(extent={{-220,0},{-180,40}}),
         iconTransformation(extent={{-140,-20},{-100,20}})));
 
@@ -139,7 +139,12 @@ block Controller "Waterside economizer (WSE) enable/disable status"
     "Enable condition based on the outdoor wet bulb temperature"
     annotation (Placement(transformation(extent={{20,40},{40,60}})));
 
-protected
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput TChiWatRetDowPre
+    "Predicted downstream WSE chilled water temperature" annotation (Placement(
+        transformation(extent={{180,-118},{200,-98}}), iconTransformation(
+          extent={{100,-100},{120,-80}})));
+
+//protected
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Economizers.Subsequences.Tuning wseTun(
     final step=step,
     final wseOnTimDec=wseOnTimDec,
@@ -186,7 +191,17 @@ protected
     "Measures the disable condition satisfied time "
     annotation (Placement(transformation(extent={{20,-20},{40,0}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Not not1 "Logical not"
+  Buildings.Controls.OBC.CDL.Logical.FallingEdge falEdg
+    "Falling edge to indicate the moment of disable"
+    annotation (Placement(transformation(extent={{-100,-60},{-80,-40}})));
+
+  Buildings.Controls.OBC.CDL.Logical.TrueHoldWithReset truHol(
+    final duration=holdPeriod)
+    "Holds a true signal for a period of time right after disable"
+    annotation (Placement(transformation(extent={{-60,-60},{-40,-40}})));
+
+  Buildings.Controls.OBC.CDL.Logical.Nor nor
+    "Not either of the inputs"
     annotation (Placement(transformation(extent={{-20,-20},{0,0}})));
 
 equation
@@ -221,10 +236,6 @@ equation
     color={0,0,127}));
   connect(add1.y, hys.u)
     annotation (Line(points={{-78,-10},{-62,-10}},color={0,0,127}));
-  connect(hys.y, not1.u)
-    annotation (Line(points={{-38,-10},{-22,-10}}, color={255,0,255}));
-  connect(not1.y, timer.u)
-    annotation (Line(points={{2,-10},{18,-10}}, color={255,0,255}));
   connect(enaTChiWatRet.y, and2.u2) annotation (Line(points={{82,-10},{90,-10},{
           90,42},{98,42}}, color={255,0,255}));
   connect(wseTun.y, wseTOut.uTunPar) annotation (Line(points={{-119,-90},{-110,-90},
@@ -237,6 +248,18 @@ equation
     annotation (Line(points={{2,50},{18,50}}, color={0,0,127}));
   connect(wseTun.y, yTunPar)
     annotation (Line(points={{-119,-90},{190,-90}}, color={0,0,127}));
+  connect(wseTOut.y, TChiWatRetDowPre) annotation (Line(points={{-78,50},{-70,
+          50},{-70,-108},{190,-108}}, color={0,0,127}));
+  connect(nor.y, timer.u)
+    annotation (Line(points={{2,-10},{18,-10}}, color={255,0,255}));
+  connect(hys.y, nor.u1)
+    annotation (Line(points={{-38,-10},{-22,-10}}, color={255,0,255}));
+  connect(truHol.y, nor.u2) annotation (Line(points={{-38,-50},{-30,-50},{-30,
+          -18},{-22,-18}}, color={255,0,255}));
+  connect(falEdg.y, truHol.u)
+    annotation (Line(points={{-78,-50},{-62,-50}}, color={255,0,255}));
+  connect(pre.y, falEdg.u) annotation (Line(points={{162,-50},{170,-50},{170,
+          -70},{-120,-70},{-120,-50},{-102,-50}}, color={255,0,255}));
   annotation (defaultComponentName = "wseSta",
         Icon(graphics={
         Rectangle(
@@ -271,6 +294,13 @@ for <code>delDis</code> time period.
 </li>
 </ul>
 <p>
+The following state machine chart illustrates the transitions between WSE enabled and disabled state:
+</p>
+<p align=\"center\">
+<img alt=\"Image of WSE enable-disable state machine chart\"
+src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/PrimarySystem/ChillerPlant/Economizer/WaterSideEconomizerEnableDisableStateGraph.png\"/>
+</p>
+<p>
 The WSE control sequence uses the following subsequences:
 </p>
 <ul>
@@ -288,6 +318,10 @@ Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Economizers.Subsequence
 </html>",
 revisions="<html>
 <ul>
+<li>
+January 19, 2021, by Milica Grahovac:<br/>
+Added state chart illustration.
+</li>
 <li>
 October 13, 2018, by Milica Grahovac:<br/>
 First implementation.

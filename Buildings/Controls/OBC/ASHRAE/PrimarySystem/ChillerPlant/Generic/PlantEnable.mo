@@ -1,4 +1,4 @@
-within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic;
+﻿within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic;
 block PlantEnable "Sequence to enable and disable plant"
 
   parameter Boolean have_WSE = true
@@ -54,7 +54,7 @@ block PlantEnable "Sequence to enable and disable plant"
     "Plant enabling schedule allowing operators to lock out the plant during off-hour"
     annotation (Placement(transformation(extent={{-140,40},{-120,60}})));
 
-protected
+//protected
   final parameter Buildings.Controls.OBC.CDL.Types.Smoothness tabSmo=
     Buildings.Controls.OBC.CDL.Types.Smoothness.ConstantSegments
     "Smoothness of table interpolation";
@@ -231,8 +231,8 @@ annotation (
           textString="STOP")}),
  Documentation(info="<html>
 <p>
-Block that generates chiller plant enable signals and output the initial plant stage,
-according to ASHRAE RP-1711 Advanced Sequences of Operatoin for HVAC Systems Phase II -
+Block that generate chiller plant enable signals and output the initial plant stage,
+according to ASHRAE RP-1711 Advanced Sequences of Operation for HVAC Systems Phase II –
 Central Plants and Hydronic Systems (Draft 4 on January 7, 2019), section 5.2.2 and
 5.2.4.13 Table 2.
 </p>
@@ -279,9 +279,20 @@ The chiller enable schedule is inactive.
 </ul>
 </li>
 </ol>
+<p>
+The following state machine chart illustrates the transitions between plant enable and plant disable:
+</p>
+<p align=\"center\">
+<img alt=\"Image of chiller plant enable-disable state machine chart\"
+src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/PrimarySystem/ChillerPlant/Generic/PlantEnableStateGraph.png\"/>
+</p>
 </html>",
 revisions="<html>
 <ul>
+<li>
+January 19, 2021, by Milica Grahovac:<br/>
+Added state chart illustration.
+</li>
 <li>
 March 12, 2020, by Milica Grahovac:<br/>
 Removed initial stage determination as it is imlemented as a separate sequence. This is for

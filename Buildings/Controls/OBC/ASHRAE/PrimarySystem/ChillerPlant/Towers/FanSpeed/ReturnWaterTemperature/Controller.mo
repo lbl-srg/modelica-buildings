@@ -232,7 +232,7 @@ block Controller
     "Tower fan speed control when the plant is not closed coupled"
     annotation (Placement(transformation(extent={{40,-220},{60,-200}})));
 
-protected
+//protected
   Buildings.Controls.OBC.CDL.Logical.MultiOr mulOr(
     final nu=nChi) "Check if any chiller is enabled"
     annotation (Placement(transformation(extent={{-120,200},{-100,220}})));

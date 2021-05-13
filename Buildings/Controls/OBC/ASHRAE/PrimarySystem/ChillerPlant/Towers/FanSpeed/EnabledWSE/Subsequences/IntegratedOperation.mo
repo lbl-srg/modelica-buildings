@@ -54,7 +54,7 @@ block IntegratedOperation
     annotation (Placement(transformation(extent={{160,-100},{200,-60}}),
       iconTransformation(extent={{100,-20},{140,20}})));
 
-protected
+//protected
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant chiMinCycLoa[nChi](
     final k=chiMinCap)
     "Minimum cycling load of each chiller"
@@ -71,6 +71,7 @@ protected
     final Td=Td,
     final yMax=yMax,
     final yMin=yMin,
+    reverseActing=false,
     final y_reset=yMax)
     "Controller to maintain chiller load at the sum of minimum cycling load of operating chillers"
     annotation (Placement(transformation(extent={{80,90},{100,110}})));

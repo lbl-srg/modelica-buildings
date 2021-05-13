@@ -232,6 +232,7 @@ block Controller "Tower fan speed control"
     final fanSpeMin=fanSpeMin,
     final LIFT_min=LIFT_min,
     final TConWatRet_nominal=TConWatRet_nominal,
+    final TConWatSup_nominal=TConWatSup_nominal,
     final TChiWatSupMin=TChiWatSupMin,
     final cheMinFanSpe=cheMinFanSpe,
     final cheMaxTowSpe=cheMaxTowSpe,

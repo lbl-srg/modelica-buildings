@@ -53,7 +53,7 @@ protected
     final amplitude=7,
     final offset=273.15 + 15,
     final freqHz=1/21600)
-    "Chiller water return temeprature"
+    "Chilled water return temeprature"
     annotation (Placement(transformation(extent={{-200,140},{-180,160}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Sine chiWatFlow(
@@ -127,7 +127,7 @@ protected
     final amplitude=7,
     final offset=273.15 + 15,
     final freqHz=1/21600)
-    "Chiller water return temeprature"
+    "Chilled water return temeprature"
     annotation (Placement(transformation(extent={{-200,-100},{-180,-80}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Sine chiWatFlow1(

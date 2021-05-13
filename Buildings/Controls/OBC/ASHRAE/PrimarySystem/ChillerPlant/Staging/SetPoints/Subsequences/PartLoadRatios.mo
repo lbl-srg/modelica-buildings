@@ -41,6 +41,12 @@ block PartLoadRatios
     "Maximum stage up or down part load ratio for variable speed centrifugal stage types"
     annotation(Evaluate=true, Dialog(enable=anyVsdCen));
 
+  parameter Real avePer(
+    final unit="s",
+    final quantity="Time")=300
+    "Moving mean time period for staging multiplier calculation for variable speed centrifugal stage types"
+    annotation(Evaluate=true, Dialog(enable=anyVsdCen));
+
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput u(
     final min=0,
     final max=nSta) "Chiller stage"
@@ -301,7 +307,7 @@ protected
   Buildings.Controls.OBC.CDL.Continuous.Product mult3 if anyVsdCen "Multiplier"
     annotation (Placement(transformation(extent={{100,-510},{120,-490}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Add add3 if anyVsdCen "Subtract"
+  Buildings.Controls.OBC.CDL.Continuous.Add add3 if anyVsdCen "Add"
     annotation (Placement(transformation(extent={{160,-482},{180,-462}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant const3(
@@ -410,6 +416,10 @@ protected
   Buildings.Controls.OBC.CDL.Continuous.Max max3
     "Maximum output to avoid zero denominator in downstream"
     annotation (Placement(transformation(extent={{-300,-170},{-280,-150}})));
+
+  Buildings.Controls.OBC.CDL.Continuous.MovingMean movMea(
+    final delta=avePer) if anyVsdCen
+    annotation (Placement(transformation(extent={{300,-330},{320,-310}})));
 
 equation
   connect(extCurTyp.y, curStaTyp.u)
@@ -555,10 +565,6 @@ equation
           {258,-376}}, color={0,0,127}));
   connect(maxLim.y, min.u1) annotation (Line(points={{182,-350},{220,-350},{220,
           -364},{258,-364}}, color={0,0,127}));
-  connect(min.y, swi3.u3) annotation (Line(points={{282,-370},{300,-370},{300,-300},
-          {50,-300},{50,-238},{58,-238}}, color={0,0,127}));
-  connect(min.y, swi1.u3) annotation (Line(points={{282,-370},{300,-370},{300,-70},
-          {150,-70},{150,62},{158,62}}, color={0,0,127}));
   connect(swi4.y, greThr1.u) annotation (Line(points={{182,-160},{192,-160},{192,
           -100},{198,-100}},     color={0,0,127}));
   connect(swi.y, swi5.u1) annotation (Line(points={{222,150},{240,150},{240,238},
@@ -609,6 +615,13 @@ equation
           {-228,-74},{-202,-74}}, color={0,0,127}));
   connect(uCapReq, opePlrUp.u1) annotation (Line(points={{-400,-10},{-228,-10},
           {-228,-134},{-202,-134}}, color={0,0,127}));
+  connect(min.y, movMea.u) annotation (Line(points={{282,-370},{290,-370},{290,-320},
+          {298,-320}}, color={0,0,127}));
+  connect(movMea.y, swi3.u3) annotation (Line(points={{322,-320},{340,-320},{340,
+          -300},{50,-300},{50,-238},{58,-238}}, color={0,0,127}));
+  connect(movMea.y, swi1.u3) annotation (Line(points={{322,-320},{340,-320},{340,
+          -260},{150,-260},{150,62},{158,62}},
+                         color={0,0,127}));
   annotation (defaultComponentName = "PLRs",
         Icon(graphics={
         Text(

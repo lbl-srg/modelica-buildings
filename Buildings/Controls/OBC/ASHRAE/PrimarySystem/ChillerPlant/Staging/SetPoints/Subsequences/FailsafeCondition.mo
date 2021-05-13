@@ -60,7 +60,7 @@ block FailsafeCondition
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TChiWatSup(
     final unit="K",
     final quantity="ThermodynamicTemperature")
-    "Chilled water return temperature"
+    "Chilled water supply temperature"
     annotation (Placement(transformation(extent={{-180,0},{-140,40}}),
         iconTransformation(extent={{-140,0},{-100,40}})));
 
