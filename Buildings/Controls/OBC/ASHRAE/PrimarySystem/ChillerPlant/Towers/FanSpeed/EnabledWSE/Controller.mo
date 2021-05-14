@@ -1,4 +1,4 @@
-within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Towers.FanSpeed.EnabledWSE;
+﻿within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Towers.FanSpeed.EnabledWSE;
 block Controller "Tower fan speed control when waterside economizer is enabled"
 
   parameter Integer nChi=2 "Total number of chillers";
@@ -83,7 +83,7 @@ block Controller "Tower fan speed control when waterside economizer is enabled"
     annotation (Placement(transformation(extent={{100,-20},{140,20}}),
       iconTransformation(extent={{100,-20},{140,20}})));
 
-//protected
+protected
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Towers.FanSpeed.EnabledWSE.Subsequences.IntegratedOperation
     intOpe(
     final nChi=nChi,

@@ -1,4 +1,4 @@
-within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Towers.FanSpeed.EnabledWSE.Subsequences;
+﻿within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Towers.FanSpeed.EnabledWSE.Subsequences;
 block WSEOperation
   "Tower fan speed control when the waterside economizer is running alone"
 
@@ -60,7 +60,7 @@ block WSEOperation
     annotation (Placement(transformation(extent={{140,40},{180,80}}),
       iconTransformation(extent={{100,-20},{140,20}})));
 
-//protected
+protected
   Buildings.Controls.OBC.CDL.Logical.And and2 "Logical and"
     annotation (Placement(transformation(extent={{40,130},{60,150}})));
   Buildings.Controls.OBC.CDL.Logical.Timer tim(
@@ -84,7 +84,8 @@ block WSEOperation
     "Difference between chilled water supply temperature and its setpoint"
     annotation (Placement(transformation(extent={{-110,-50},{-90,-30}})));
   Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys1(
-    final uLow=-0.1, final uHigh=0.1)
+    final uLow=-0.1,
+    final uHigh=0.1)
     "Check if chilled water supply temperature is greater than setpoint"
     annotation (Placement(transformation(extent={{-40,130},{-20,150}})));
   Buildings.Controls.OBC.CDL.Logical.Not not1 "Logical not"
@@ -109,7 +110,7 @@ block WSEOperation
     final Td=Td,
     final yMax=yMax,
     final yMin=yMin,
-    reverseActing=false,
+    final reverseActing=false,
     final y_reset=0)
     "Controller to maintain chilled water supply temperature at setpoint"
     annotation (Placement(transformation(extent={{-60,-130},{-40,-110}})));

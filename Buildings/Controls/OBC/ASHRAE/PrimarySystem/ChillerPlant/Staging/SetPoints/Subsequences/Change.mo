@@ -70,7 +70,7 @@ block Change "Calculates the chiller stage signal"
         transformation(extent={{440,140},{480,180}}),  iconTransformation(
           extent={{100,20},{140,60}})));
 
-//protected
+protected
   Buildings.Controls.OBC.CDL.Logical.Or or2 "Logical or"
     annotation (Placement(transformation(extent={{-360,-100},{-340,-80}})));
 

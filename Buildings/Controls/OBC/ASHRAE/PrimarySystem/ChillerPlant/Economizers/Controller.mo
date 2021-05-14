@@ -144,7 +144,7 @@ block Controller "Waterside economizer (WSE) enable/disable status"
         transformation(extent={{180,-118},{200,-98}}), iconTransformation(
           extent={{100,-100},{120,-80}})));
 
-//protected
+protected
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Economizers.Subsequences.Tuning wseTun(
     final step=step,
     final wseOnTimDec=wseOnTimDec,

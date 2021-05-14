@@ -1,4 +1,4 @@
-within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Towers.FanSpeed.EnabledWSE.Subsequences;
+﻿within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Towers.FanSpeed.EnabledWSE.Subsequences;
 block IntegratedOperation
   "Tower fan speed control when the waterside economizer is enabled and the chillers are running"
 
@@ -54,7 +54,7 @@ block IntegratedOperation
     annotation (Placement(transformation(extent={{160,-100},{200,-60}}),
       iconTransformation(extent={{100,-20},{140,20}})));
 
-//protected
+protected
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant chiMinCycLoa[nChi](
     final k=chiMinCap)
     "Minimum cycling load of each chiller"
@@ -71,7 +71,7 @@ block IntegratedOperation
     final Td=Td,
     final yMax=yMax,
     final yMin=yMin,
-    reverseActing=false,
+    final reverseActing=false,
     final y_reset=yMax)
     "Controller to maintain chiller load at the sum of minimum cycling load of operating chillers"
     annotation (Placement(transformation(extent={{80,90},{100,110}})));
@@ -80,7 +80,8 @@ block IntegratedOperation
     final nin=nChi)
     "Sum of minimum cycling load for the operating chillers"
     annotation (Placement(transformation(extent={{-20,90},{0,110}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiSum totLoa(final nin=nChi) "Total load of operating chillers"
+  Buildings.Controls.OBC.CDL.Continuous.MultiSum totLoa(
+    final nin=nChi) "Total load of operating chillers"
     annotation (Placement(transformation(extent={{-20,50},{0,70}})));
   Buildings.Controls.OBC.CDL.Continuous.MultiSum minCycLoa(final nin=nChi)
     "Sum of minimum cycling load for all chillers"

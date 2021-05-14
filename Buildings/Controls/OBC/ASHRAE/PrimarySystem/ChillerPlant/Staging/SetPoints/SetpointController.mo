@@ -325,6 +325,16 @@ block SetpointController
     annotation (Placement(transformation(extent={{120,260},{160,300}}),
       iconTransformation(extent={{100,-130},{140,-90}})));
 
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yUp
+    "Stage up signal"
+    annotation (Placement(transformation(extent={{120,60},{160,100}}),
+      iconTransformation(extent={{100,160},{140,200}})));
+
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yDow
+    "Stage down signal"
+    annotation (Placement(transformation(extent={{120,22},{156,58}}),
+      iconTransformation(extent={{100,130},{140,170}})));
+
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yOpeParLoaRatMin(
     final unit="1",
     final min=0)
@@ -335,9 +345,9 @@ block SetpointController
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yCapReq(
     final quantity="Power",
     final unit="W")
-    "Chilled water cooling capacity requirement" annotation (Placement(
-        transformation(extent={{120,370},{160,410}}), iconTransformation(extent=
-           {{100,-230},{140,-190}})));
+    "Chilled water cooling capacity requirement"
+    annotation (Placement(transformation(extent={{120,370},{160,410}}),
+      iconTransformation(extent={{100,-230},{140,-190}})));
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.SetPoints.Subsequences.Up staUp(
     final have_WSE=have_WSE,
@@ -375,14 +385,7 @@ block SetpointController
     final nSta=nSta) "Design and minimum capacities for relevant chiller stages"
     annotation (Placement(transformation(extent={{-270,-180},{-250,-160}})));
 
-  CDL.Interfaces.BooleanOutput yUp "Stage up signal" annotation (Placement(
-        transformation(extent={{120,60},{160,100}}), iconTransformation(extent=
-            {{100,160},{140,200}})));
-  CDL.Interfaces.BooleanOutput yDow "Stage down signal" annotation (Placement(
-        transformation(extent={{120,22},{156,58}}), iconTransformation(extent={
-            {100,130},{140,170}})));
-
-//protected
+protected
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.SetPoints.Subsequences.Initial iniSta(
     final have_WSE=have_WSE)
     annotation (Placement(transformation(extent={{-80,100},{-60,120}})));
