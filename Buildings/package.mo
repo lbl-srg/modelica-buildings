@@ -298,7 +298,7 @@ The following <b style=\"color:blue\">new libraries</b> have been added:
     </td>
     <td valign=\"top\">Package for Spawn of EnergyPlus that couples Modelica directly
                      to the EnergyPlus envelope model.<br/>
-                     This allows simulating the envelope heat transfer
+                     The models in this package allow simulating the envelope heat transfer
                      of one or several buildings in EnergyPlus, and simulating HVAC and controls
                      in Modelica. EnergyPlus objects are represented graphically as any other Modelica
                      models, and the coupling and co-simulation is done automatically based on these models.

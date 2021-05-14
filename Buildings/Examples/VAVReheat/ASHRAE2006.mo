@@ -79,7 +79,7 @@ model ASHRAE2006
     "Supply air temperature set point"
     annotation (Placement(transformation(extent={{-200,-230},{-180,-210}})));
   Buildings.Fluid.Actuators.Dampers.Exponential damExh(
-    from_dp=true,
+    from_dp=false,
     riseTime=15,
     dpFixed_nominal=5,
     redeclare package Medium = MediumA,
@@ -367,6 +367,11 @@ ASHRAE, Atlanta, GA, 2006.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+May 6, 2021, by David Blum:<br/>
+Change to <code>from_dp=false</code> for exhaust air damper.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2485\">issue #2485</a>.
+</li>
 <li>
 April 30, 2021, by Michael Wetter:<br/>
 Reformulated replaceable class and introduced floor areas in base class
