@@ -14,13 +14,13 @@
    fill-rule="evenodd"
    xml:space="preserve"
    id="svg1496"
-   sodipodi:docname="Templates.svg"
+   sodipodi:docname="Icons.svg"
    inkscape:version="1.0.2 (394de47547, 2021-03-26)"
    width="506.83115"
    height="1000.0005"><metadata
    id="metadata1500"><rdf:RDF><cc:Work
        rdf:about=""><dc:format>image/svg+xml</dc:format><dc:type
-         rdf:resource="http://purl.org/dc/dcmitype/StillImage" /><dc:title></dc:title></cc:Work></rdf:RDF></metadata><sodipodi:namedview
+         rdf:resource="http://purl.org/dc/dcmitype/StillImage" /><dc:title /></cc:Work></rdf:RDF></metadata><sodipodi:namedview
    pagecolor="#ffffff"
    bordercolor="#666666"
    borderopacity="1"
@@ -29,13 +29,13 @@
    guidetolerance="10"
    inkscape:pageopacity="0"
    inkscape:pageshadow="2"
-   inkscape:window-width="1565"
-   inkscape:window-height="837"
+   inkscape:window-width="1645"
+   inkscape:window-height="987"
    id="namedview1498"
    showgrid="true"
-   inkscape:zoom="0.22627417"
-   inkscape:cx="181.07784"
-   inkscape:cy="536.68504"
+   inkscape:zoom="0.64"
+   inkscape:cx="-864.07658"
+   inkscape:cy="-258.76881"
    inkscape:window-x="35"
    inkscape:window-y="27"
    inkscape:window-maximized="1"
@@ -3710,11 +3710,11 @@
 </tspan></tspan><tspan
      x="-882.04297"
      y="-119.0874"><tspan
-       style="shape-inside:url(#rect1621)">. Lock width/height ratio an change height to 1000 px
+       style="shape-inside:url(#rect1621)">. Lock width/height ratio and change height to 1000 px
 </tspan></tspan><tspan
      x="-882.04297"
      y="-103.40665"><tspan
-       style="shape-inside:url(#rect1621)">. Change stoke width to 10 px. Reset height to 1000 px
+       style="shape-inside:url(#rect1621)">. Change stroke width to 10 px. Reset height to 1000 px
 </tspan></tspan><tspan
      x="-882.04297"
      y="-87.725905"><tspan
@@ -3726,7 +3726,7 @@
 </tspan></tspan><tspan
      x="-882.04297"
      y="-56.364409"><tspan
-       style="shape-inside:url(#rect1621)">. Text in sans-serif with font siwe of 100</tspan></tspan></text><text
+       style="shape-inside:url(#rect1621)">. Text in sans-serif with font size of 100</tspan></tspan></text><text
    xml:space="preserve"
    id="text1649"
    style="font-style:normal;font-weight:normal;font-size:40px;line-height:1.25;font-family:sans-serif;white-space:pre;shape-inside:url(#rect1651);fill:#000000;fill-opacity:1;stroke:none;"
