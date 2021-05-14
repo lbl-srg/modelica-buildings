@@ -8,14 +8,17 @@ model GroundCoupling "Thermal coupling between buried pipes and ground"
     Buildings.BoundaryConditions.GroundTemperature.ClimaticConstants.Generic
     cliCon "Surface temperature climatic conditions";
 
-  parameter Modelica.SIunits.Length len "Pipes length";
+  parameter Integer nSeg(min=1) = 1
+    "Number of axial segments (and number of heat ports for each pipe)";
+
+  parameter Modelica.SIunits.Length len[nSeg] "Pipes length";
 
   parameter Modelica.SIunits.Length dep[nPip] "Pipes buried depth";
   parameter Modelica.SIunits.Length pos[nPip]
     "Pipes horizontal coordinate (to an arbitrary reference point)";
   parameter Modelica.SIunits.Length rad[nPip] "Pipes external radius";
 
-  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a ports[nPip]
+  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a ports[nPip, nSeg]
     "Buried pipes heatports"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=90,
@@ -36,8 +39,10 @@ protected
       rad) "Thermal coupling geometric factors";
 
 equation
-  ports.T .- soi.port.T = P * ports.Q_flow /
-    (2 * Modelica.Constants.pi * soiDat.k * len);
+  for seg in 1:nSeg loop
+    ports[:,seg].T .- soi.port.T = P * ports[:,seg].Q_flow /
+        (2 * Modelica.Constants.pi * soiDat.k * len[seg]);
+  end for;
 
   annotation (Icon(graphics={
         Text(

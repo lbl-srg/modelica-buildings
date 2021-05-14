@@ -14,7 +14,8 @@ model TwoBuriedPipes "Example model of two buried pipes in close proximity"
     nPip=2,
     cliCon=cliCon,
     soiDat=soiDat,
-    len=1000,
+    nSeg=1,
+    len={1000},
     dep={1.5,2.5},
     pos={0,1},
     rad={0.09,0.09}) "Ground coupling" annotation (Placement(transformation(

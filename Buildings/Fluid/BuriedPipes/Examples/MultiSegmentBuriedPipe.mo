@@ -1,6 +1,13 @@
 ﻿within Buildings.Fluid.BuriedPipes.Examples;
-model SingleBuriedPipe "Example model of a single buried pipe"
+model MultiSegmentBuriedPipe
+  "Example model of a buried pipe with multiple segment"
   extends Modelica.Icons.Example;
+
+  parameter Integer nSeg=50;
+  parameter Modelica.SIunits.Length totLen=1000;
+  parameter Modelica.SIunits.Length segLen[nSeg] = fill(totLen/nSeg,nSeg);
+
+  parameter Modelica.SIunits.Length  dIns=0.0002;
 
   replaceable parameter
     Buildings.BoundaryConditions.GroundTemperature.ClimaticConstants.Boston
@@ -10,28 +17,30 @@ model SingleBuriedPipe "Example model of a single buried pipe"
   replaceable package Medium = Buildings.Media.Water "Medium in the pipe"
     annotation (choicesAllMatching=true);
 
-  FixedResistances.PlugFlowPipe pip(
+  MultiPlugFlowPipe             pip(
     redeclare package Medium=Medium,
-    dh=0.1,
-    length=1000,
+    nSeg=nSeg,
+    rInt=0.05,
+    length=segLen,
     m_flow_nominal=1,
-    dIns=0.01,
-    kIns=100,
+    dIns=dIns,
+    kIns=soiDat.k,
     cPip=500,
     rhoPip=8000,
-    thickness=0.0032,
-    nPorts=1) "Buried pipe"
+    dPip=0.0032)
+              "Buried pipe"
     annotation (Placement(transformation(extent={{-10,30},{10,50}})));
 
   Buildings.Fluid.BuriedPipes.GroundCoupling gro(
     nPip=1,
     cliCon=cliCon,
     soiDat=soiDat,
-    nSeg=1,
-    len={1000},
+    nSeg=nSeg,
+    len=segLen,
     dep={1.5},
     pos={0},
-    rad={0.05 + 0.032 + 0.01}) "Ground coupling" annotation (Placement(
+    rad={pip.rInt + pip.dPip + pip.dIns})
+                               "Ground coupling" annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
@@ -65,27 +74,29 @@ model SingleBuriedPipe "Example model of a single buried pipe"
     T_start=293.15) "Pipe outlet temperature sensor"
     annotation (Placement(transformation(extent={{30,30},{50,50}})));
 
-  FixedResistances.PlugFlowPipe pipRev(
+  MultiPlugFlowPipe             pipRev(
     redeclare package Medium = Medium,
-    dh=0.1,
-    length=1000,
+    nSeg=1,
+    rInt=0.05,
+    length={totLen},
     m_flow_nominal=1,
-    dIns=0.01,
-    kIns=100,
+    dIns=dIns,
+    kIns=soiDat.k,
     cPip=500,
     rhoPip=8000,
-    thickness=0.0032,
-    nPorts=1) "Buried pipe"
+    dPip=0.0032)
+              "Buried pipe"
     annotation (Placement(transformation(extent={{-10,-30},{10,-50}})));
   GroundCoupling groRev(
     nPip=1,
     cliCon=cliCon,
     soiDat=soiDat,
     nSeg=1,
-    len={1000},
+    len={totLen},
     dep={1.5},
     pos={0},
-    rad={0.05 + 0.032 + 0.01}) "Ground coupling" annotation (Placement(
+    rad={pip.rInt + pip.dPip + pip.dIns})
+                               "Ground coupling" annotation (Placement(
         transformation(
         extent={{-10,10},{10,-10}},
         rotation=0,
@@ -124,11 +135,9 @@ equation
   connect(senTemInl.port_b, pip.port_a)
     annotation (Line(points={{-30,40},{-10,40}},
                                                color={0,127,255}));
-  connect(pip.ports_b[1], senTemOut.port_a)
+  connect(pip.port_b, senTemOut.port_a)
     annotation (Line(points={{10,40},{30,40}},
                                              color={0,127,255}));
-  connect(pip.heatPort, gro.ports[1,1]) annotation (Line(points={{0,50},{0,80.1},
-          {-0.1,80.1}},    color={191,0,0}));
   connect(souRev.ports[1], senTemOutRev.port_a)
     annotation (Line(points={{-60,-40},{-50,-40}}, color={0,127,255}));
   connect(senTemInlRev.port_b, sinRev.ports[1])
@@ -136,13 +145,14 @@ equation
   connect(senTemOutRev.port_b, pipRev.port_a)
     annotation (Line(points={{-30,-40},{-10,-40}},
                                                  color={0,127,255}));
-  connect(pipRev.ports_b[1], senTemInlRev.port_a)
+  connect(pipRev.port_b, senTemInlRev.port_a)
     annotation (Line(points={{10,-40},{30,-40}}, color={0,127,255}));
-  connect(pipRev.heatPort, groRev.ports[1,1])
-    annotation (Line(points={{0,-50},{0,-80.1},{-0.1,-80.1}},
-                                                 color={191,0,0}));
   connect(Tin.y, sinRev.T_in) annotation (Line(points={{-99,0},{90,0},{90,-36},
           {82,-36}},       color={0,0,127}));
+  connect(pip.heatPorts, gro.ports[1, :]) annotation (Line(points={{0,50},{0,66},
+          {0,80.1},{-0.1,80.1}}, color={191,0,0}));
+  connect(pipRev.heatPorts, groRev.ports[1, :]) annotation (Line(points={{0,-50},
+          {0,-66},{0,-80.1},{-0.1,-80.1}}, color={191,0,0}));
   annotation (Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-120,-120},{120,
             120}})),
@@ -164,4 +174,4 @@ First implementation.
 </html>"),
     __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/BuriedPipes/Examples/SingleBuriedPipe.mos"
         "Simulate and plot"));
-end SingleBuriedPipe;
+end MultiSegmentBuriedPipe;
