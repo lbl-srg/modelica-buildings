@@ -1,0 +1,3 @@
+﻿simulateModel("Buildings.Examples.VAVReheat.Validation.TraceSubstance", startTime=4492800, stopTime=4665600, numberOfIntervals=0, outputInterval=900, method="Cvode", tolerance=1e-06, resultFile="TraceSubstance");
+createPlot(id=1, position={0, 0, 1537, 628}, y={"VOut1.V_flow", "senSupFlo.V_flow"}, range={3500000.0, 4650000.0, -0.5, 3.0}, grid=true, colors={{28,108,200}, {238,46,47}}, displayUnits={"m3/s", "m3/s"});
+createPlot(id=1, position={0, 0, 1537, 628}, y={"flo.cor.air.vol.C[1]", "flo.sou.air.vol.C[1]", "flo.eas.air.vol.C[1]", "flo.nor.air.vol.C[1]", "flo.wes.air.vol.C[1]"}, range={3500000.0, 4650000.0, -0.0005, 0.0015}, grid=true, subPlot=102, colors={{28,108,200}, {238,46,47}, {0,140,72}, {217,67,180}, {0,0,0}});

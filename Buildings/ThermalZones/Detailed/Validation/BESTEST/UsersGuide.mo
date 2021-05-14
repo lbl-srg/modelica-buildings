@@ -639,7 +639,7 @@ in the table after the plots below.
 <td>16-Oct:14</td>
 <td>6.812</td>
 <td>17-Oct:14</td>
-<td>6.597</td>
+<td>6.598</td>
 <td>17-Oct:13</td>
 </tr>
 <tr>
@@ -696,7 +696,7 @@ in the table after the plots below.
 <td>26-Jul:17</td>
 <td>0.000</td>
 <td>N/A</td>
-<td>3.548</td>
+<td>3.547</td>
 <td>26-Jul:17</td>
 </tr>
 <tr>
@@ -753,7 +753,7 @@ in the table after the plots below.
 <td>17-Oct:15</td>
 <td>3.457</td>
 <td>17-Oct:15</td>
-<td>3.124</td>
+<td>3.125</td>
 <td>17-Oct:15</td>
 </tr>
 <tr>

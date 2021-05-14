@@ -7,7 +7,7 @@ block SupplyAirTemperature
     annotation (Evaluate=true);
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerType=
          Buildings.Controls.OBC.CDL.Types.SimpleController.PI "Type of controller";
-  parameter Real k(min=0) = 0.05 "Gain of controller";
+  parameter Real k(min=0) = 0.01 "Gain of controller";
   parameter Modelica.SIunits.Time Ti(
     min=Buildings.Controls.OBC.CDL.Constants.small) = 120
     "Time constant of integrator block"
@@ -49,15 +49,20 @@ block SupplyAirTemperature
     "Control signal for cooling coil valve"
     annotation (Placement(transformation(extent={{120,-100},{160,-60}}),
         iconTransformation(extent={{100,-80},{140,-40}})));
-  Buildings.Controls.Continuous.LimPID con(
+  Buildings.Controls.OBC.CDL.Continuous.PIDWithReset con(
     final controllerType=controllerType,
     final k=k,
     final Ti=Ti,
     final Td=Td,
     final yMax=1,
     final yMin=if have_heating then -1 else 0,
-    final reset=Buildings.Types.Reset.Parameter,
-    y_reset=if have_heating then limSupHea.k else limInfOA.k)
+    y_reset=if have_heating then limSupHea.k else limInfOA.k,
+    u_s(
+    final unit="K",
+    displayUnit="degC"),
+    u_m(
+    final unit="K",
+    displayUnit="degC"))
     "Supply temperature controller"
     annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
   Buildings.Controls.OBC.CDL.Continuous.Line mapHea if have_heating
@@ -106,8 +111,6 @@ equation
                color={0,0,127}));
   connect(TSupSet, con.u_m) annotation (Line(points={{-160,-40},{-100,-40},{-100,
           -12}},                color={0,0,127}));
-  connect(uEna, con.trigger) annotation (Line(points={{-160,-100},{-108,-100},{-108,
-          -12}}, color={255,0,255}));
   connect(con.y, mapOA.u)
     annotation (Line(points={{-89,0},{8,0}}, color={0,0,127}));
   connect(con.y, mapCoo.u)
@@ -164,6 +167,8 @@ equation
                                                   color={0,0,127}));
   connect(limInfCoo.y, mapCoo.x1) annotation (Line(points={{-28,-80},{-4,-80},{
           -4,-72},{8,-72}}, color={0,0,127}));
+  connect(uEna, con.trigger) annotation (Line(points={{-160,-100},{-106,-100},{-106,
+          -12}}, color={255,0,255}));
   annotation (
   defaultComponentName="conTSup",
   Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(

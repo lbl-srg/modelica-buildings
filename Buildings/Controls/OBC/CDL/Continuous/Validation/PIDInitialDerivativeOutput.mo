@@ -1,6 +1,6 @@
 within Buildings.Controls.OBC.CDL.Continuous.Validation;
 model PIDInitialDerivativeOutput
-  "Test model for LimPID controller with initial output specified"
+  "Test model for LimPID controller with initial output of the derivative term specified"
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant ySet(
     k=0.75)
     "Set point"

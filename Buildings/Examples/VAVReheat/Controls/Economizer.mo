@@ -13,7 +13,9 @@ block Economizer "Controller for economizer"
     "Temperature difference between return and outdoor air for economizer lockout";
   parameter Modelica.SIunits.VolumeFlowRate VOut_flow_min(min=0)
     "Minimum outside air volume flow rate";
-  parameter Real k = 0.1 "Gain of controller";
+  parameter Modelica.Blocks.Types.SimpleController controllerType=Modelica.Blocks.Types.SimpleController.PI
+    "Type of controller";
+  parameter Real k = 0.05 "Gain of controller";
   parameter Modelica.SIunits.Time Ti = 120 "Time constant of integrator block";
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uEna
     "Enable signal for economizer"
@@ -51,6 +53,7 @@ block Economizer "Controller for economizer"
   Modelica.Blocks.Math.Gain gain(k=1/VOut_flow_min) "Normalize mass flow rate"
     annotation (Placement(transformation(extent={{-60,-70},{-40,-50}})));
   Buildings.Controls.Continuous.LimPID conV_flow(
+    controllerType=controllerType,
     k=k,
     Ti=Ti,
     yMax=1,
@@ -69,6 +72,7 @@ block Economizer "Controller for economizer"
     "Takes higher signal (maximum damper opening between cooling and OA requirement)"
     annotation (Placement(transformation(extent={{80,-10},{100,10}})));
   Buildings.Controls.Continuous.LimPID yOATFre(
+    controllerType=controllerType,
     k=k,
     Ti=Ti,
     Td=60,
