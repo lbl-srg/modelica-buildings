@@ -3,36 +3,32 @@ model MultiPlugFlowPipe
   "Pipe model using spatialDistribution for temperature delay"
   extends Buildings.Fluid.Interfaces.PartialTwoPort;
 
-//  constant Boolean homotopyInitialization = true "= true, use homotopy method"
-//    annotation(HideResult=true);
+  constant Boolean homotopyInitialization = true "= true, use homotopy method"
+    annotation(HideResult=true);
 
   parameter Integer nSeg(min=1) = 1 "Number of axial segment";
 
-//  parameter Boolean from_dp=false
-//    "= true, use m_flow = f(dp) else dp = f(m_flow)"
-//    annotation (Dialog(tab="Advanced"));
+  parameter Boolean from_dp=false
+    "= true, use m_flow = f(dp) else dp = f(m_flow)"
+    annotation (Dialog(tab="Advanced"));
 
   parameter Modelica.SIunits.Length rInt "Pipe interior radius";
 
-//  parameter Modelica.SIunits.Velocity v_nominal = 1.5
-//    "Velocity at m_flow_nominal (used to compute default value for hydraulic diameter dh)"
-//    annotation(Dialog(group="Nominal condition"));
+  parameter Real ReC=4000
+    "Reynolds number where transition to turbulent starts";
 
-//  parameter Real ReC=4000
-//    "Reynolds number where transition to turbulent starts";
-
-//  parameter Modelica.SIunits.Height roughness=2.5e-5
-//    "Average height of surface asperities (default: smooth steel pipe)"
-//    annotation (Dialog(group="Material"));
+  parameter Modelica.SIunits.Height roughness=2.5e-5
+    "Average height of surface asperities (default: smooth steel pipe)"
+    annotation (Dialog(group="Material"));
 
   parameter Modelica.SIunits.Length length[nSeg] "Pipe segment length";
 
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal
     "Nominal mass flow rate";
 
-//  parameter Modelica.SIunits.MassFlowRate m_flow_small = 1E-4*abs(
-//    m_flow_nominal) "Small mass flow rate for regularization of zero flow"
-//    annotation (Dialog(tab="Advanced"));
+  parameter Modelica.SIunits.MassFlowRate m_flow_small = 1E-4*abs(
+    m_flow_nominal) "Small mass flow rate for regularization of zero flow"
+    annotation (Dialog(tab="Advanced"));
 
   parameter Modelica.SIunits.Length dIns
     "Thickness of pipe insulation";
@@ -49,24 +45,22 @@ model MultiPlugFlowPipe
   parameter Modelica.SIunits.Length dPip = 0.0035
     "Pipe wall thickness";
 
-//  parameter Modelica.SIunits.Temperature T_start_in(start=Medium.T_default)=
-//    Medium.T_default "Initialization temperature at pipe inlet"
-//    annotation (Dialog(tab="Initialization"));
-//  parameter Modelica.SIunits.Temperature T_start_out(start=Medium.T_default)=
-//    T_start_in "Initialization temperature at pipe outlet"
-//    annotation (Dialog(tab="Initialization"));
-//  parameter Boolean initDelay(start=false) = false
-//    "Initialize delay for a constant mass flow rate if true, otherwise start from 0"
-//    annotation (Dialog(tab="Initialization"));
-//  parameter Modelica.SIunits.MassFlowRate m_flow_start=0 "Initial value of mass flow rate through pipe"
-//    annotation (Dialog(tab="Initialization", enable=initDelay));
+  parameter Modelica.SIunits.Temperature T_start_in(start=Medium.T_default)=
+    Medium.T_default "Initialization temperature at pipe inlet"
+    annotation (Dialog(tab="Initialization"));
+  parameter Modelica.SIunits.Temperature T_start_out(start=Medium.T_default)=
+    T_start_in "Initialization temperature at pipe outlet"
+    annotation (Dialog(tab="Initialization"));
+  parameter Boolean initDelay(start=false) = false
+    "Initialize delay for a constant mass flow rate if true, otherwise start from 0"
+    annotation (Dialog(tab="Initialization"));
 
-//  parameter Real fac=1
-//    "Factor to take into account flow resistance of bends etc., fac=dp_nominal/dpStraightPipe_nominal";
+  parameter Real fac=1
+    "Factor to take into account flow resistance of bends etc., fac=dp_nominal/dpStraightPipe_nominal";
 
-//  parameter Boolean linearized = false
-//    "= true, use linear relation between m_flow and dp for any flow rate"
-//    annotation(Evaluate=true, Dialog(tab="Advanced"));
+  parameter Boolean linearized = false
+    "= true, use linear relation between m_flow and dp for any flow rate"
+    annotation(Evaluate=true, Dialog(tab="Advanced"));
 
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heatPorts[nSeg]
     "Heat transfer to or from surroundings (heat loss from pipe results in a positive heat flow)"
@@ -74,40 +68,66 @@ model MultiPlugFlowPipe
 
   FixedResistances.PlugFlowPipe pipSeg[nSeg](
     length=length,
+    each final dh=rInt*2,
     redeclare final package Medium = Medium,
-    each from_dp=true,
-    each allowFlowReversal=allowFlowReversal,
-    each dh=rInt,
-    each m_flow_nominal=m_flow_nominal,
-    each cPip=cPip,
-    each rhoPip=rhoPip,
-    each thickness=dPip,
-    each dIns=dIns,
-    each kIns=kIns,
-    each nPorts=1)
+    cor(redeclare final FixedResistances.LosslessPipe res),
+    each final allowFlowReversal=allowFlowReversal,
+    each final m_flow_nominal=m_flow_nominal,
+    each final cPip=cPip,
+    each final rhoPip=rhoPip,
+    each final thickness=dPip,
+    each final dIns=dIns,
+    each final kIns=kIns,
+    each final m_flow_small=m_flow_small,
+    each final T_start_in=T_start_in,
+    each final T_start_out=T_start_out,
+    each final initDelay=initDelay,
+    each final nPorts=1)
+    "Pipe segments"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
-//    each show_T=show_T,
-//    each from_dp=from_dp,
-//    each v_nominal=v_nominal,
-//    each ReC=ReC,
-//    each roughness=roughness,
-//    each m_flow_small=m_flow_small,
-//    each T_start_in=T_start_in,
-//    each T_start_out=T_start_out,
-//    each initDelay=initDelay,
-//    each fac=fac,
-//    each linearized=linearized,
+
+  FixedResistances.HydraulicDiameter res(
+    redeclare final package Medium = Medium,
+    final m_flow_nominal=m_flow_nominal,
+    final dh=rInt*2,
+    final from_dp=false,
+    final length=totLen,
+    final roughness=roughness,
+    final fac=fac,
+    final ReC=ReC,
+    final v_nominal=v_nominal,
+    final allowFlowReversal=allowFlowReversal,
+    final show_T=false,
+    final homotopyInitialization=homotopyInitialization,
+    final linearized=linearized,
+    dp(nominal=fac*200*totLen))
+    "Pressure drop calculation for this pipe"
+    annotation (Placement(transformation(extent={{40,-10},{60,10}})));
+
+protected
+  parameter Modelica.SIunits.Velocity
+    v_nominal = m_flow_nominal / (Modelica.Constants.pi * rInt^2 * rho_default)
+    "Velocity at m_flow_nominal";
+  parameter Modelica.SIunits.Density rho_default=Medium.density_pTX(
+      p=Medium.p_default,
+      T=Medium.T_default,
+      X=Medium.X_default)
+    "Default density (e.g., rho_liquidWater = 995, rho_air = 1.2)";
+  parameter Modelica.SIunits.Length totLen = sum(length) "Total pipe length";
+
 
 equation
   connect(port_a, pipSeg[1].port_a)
     annotation (Line(points={{-100,0},{-10,0}}, color={0,127,255}));
-  connect(pipSeg[nSeg].ports_b[1], port_b)
-    annotation (Line(points={{10,0},{100,0}}, color={0,127,255}));
   for i in 2:nSeg loop
     connect(pipSeg[i-1].ports_b[1], pipSeg[i].port_a);
   end for;
   connect(pipSeg.heatPort, heatPorts)
     annotation (Line(points={{0,10},{0,100}}, color={191,0,0}));
+  connect(pipSeg[nSeg].ports_b[1], res.port_a)
+    annotation (Line(points={{10,0},{26,0},{26,0},{40,0}}, color={0,127,255}));
+  connect(res.port_b, port_b)
+    annotation (Line(points={{60,0},{100,0}}, color={0,127,255}));
   annotation (
     Line(points={{70,20},{72,20},{72,0},{100,0}}, color={0,127,255}),
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{

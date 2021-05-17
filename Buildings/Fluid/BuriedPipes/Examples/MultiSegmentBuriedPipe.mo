@@ -3,11 +3,18 @@ model MultiSegmentBuriedPipe
   "Example model of a buried pipe with multiple segment"
   extends Modelica.Icons.Example;
 
-  parameter Integer nSeg=50;
-  parameter Modelica.SIunits.Length totLen=1000;
-  parameter Modelica.SIunits.Length segLen[nSeg] = fill(totLen/nSeg,nSeg);
+  parameter Modelica.SIunits.Length totLen=1000 "Total pipe length";
 
-  parameter Modelica.SIunits.Length  dIns=0.0002;
+  parameter Integer nSeg=10 "Number of pipe segments";
+  parameter Modelica.SIunits.Length segLen[nSeg] = fill(totLen/nSeg,nSeg)
+    "Pipe segments length";
+
+  parameter Integer nSegRev=30 "Number of pipe segments";
+  parameter Modelica.SIunits.Length segLenRev[nSegRev] = fill(totLen/nSegRev,nSegRev)
+    "Pipe segments length";
+
+  parameter Modelica.SIunits.Length  dIns=0.2
+    "Virtual insulation layer thickness";
 
   replaceable parameter
     Buildings.BoundaryConditions.GroundTemperature.ClimaticConstants.Boston
@@ -35,8 +42,8 @@ model MultiSegmentBuriedPipe
     nPip=1,
     cliCon=cliCon,
     soiDat=soiDat,
-    nSeg=nSeg,
-    len=segLen,
+    nSeg=pip.nSeg,
+    len=pip.length,
     dep={1.5},
     pos={0},
     rad={pip.rInt + pip.dPip + pip.dIns})
@@ -76,9 +83,9 @@ model MultiSegmentBuriedPipe
 
   MultiPlugFlowPipe             pipRev(
     redeclare package Medium = Medium,
-    nSeg=1,
+    nSeg=nSegRev,
     rInt=0.05,
-    length={totLen},
+    length=segLenRev,
     m_flow_nominal=1,
     dIns=dIns,
     kIns=soiDat.k,
@@ -91,8 +98,8 @@ model MultiSegmentBuriedPipe
     nPip=1,
     cliCon=cliCon,
     soiDat=soiDat,
-    nSeg=1,
-    len={totLen},
+    nSeg=pipRev.nSeg,
+    len=pipRev.length,
     dep={1.5},
     pos={0},
     rad={pip.rInt + pip.dPip + pip.dIns})

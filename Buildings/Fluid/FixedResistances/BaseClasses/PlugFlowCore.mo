@@ -60,10 +60,8 @@ model PlugFlowCore
     "= true, use linear relation between m_flow and dp for any flow rate"
     annotation(Evaluate=true, Dialog(tab="Advanced"));
 
-  Buildings.Fluid.FixedResistances.HydraulicDiameter res(
-    redeclare final package Medium = Medium,
+  replaceable Buildings.Fluid.FixedResistances.HydraulicDiameter res(
     final dh=dh,
-    final m_flow_nominal=m_flow_nominal,
     final from_dp=from_dp,
     final length=length,
     final roughness=roughness,
@@ -74,7 +72,10 @@ model PlugFlowCore
     final show_T=false,
     final homotopyInitialization=homotopyInitialization,
     final linearized=linearized,
-    dp(nominal=fac*200*length))
+    dp(nominal=fac*200*length)) constrainedby
+    Buildings.Fluid.Interfaces.PartialTwoPortInterface(
+      redeclare final package Medium = Medium,
+      final m_flow_nominal=m_flow_nominal)
                  "Pressure drop calculation for this pipe"
     annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
 
@@ -206,6 +207,12 @@ equation
           fillColor={215,202,187})}),
     Documentation(revisions="<html>
 <ul>
+<li>
+May 17, 2021, by Baptiste Ravache:<br/>
+Make <code>res</code> instance replaceable, to allow pipe resistance
+aggregation in
+<a href=\"modelica://Buildings.Fluid.BuriedPipes.MultiPlugFlowPipe\">BuriedPipes.MultiPlugFlowPipe</a>
+</li>
 <li>
 April 14, 2020, by Michael Wetter:<br/>
 Changed <code>homotopyInitialization</code> to a constant.<br/>
