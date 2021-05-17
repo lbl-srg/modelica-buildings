@@ -208,6 +208,6 @@ First implementation.
 </ul>
 <p><br>It is assumed that both chillers have the same capacity of <code>QChi_nominal</code>. </p>
 <p>Note: This model can be used for plants with two chillers with or without waterside econimizer (WSE). For plants with WSE, extra control logic on top of this model needs to be added. </p>
-<p><img src=\"modelica://Buildings/Resources/Images/Experimental/DHC/CentralPlants/Cooling/Controls/ChillerStage.tif\"/>. </p>
+<p><img src=\"modelica://Buildings/Resources/Images/Experimental/DHC/CentralPlants/Cooling/Controls/ChillerStage.tif\" alt=\\\"State graph\"/>. </p>
 </html>"));
 end ChillerStage;
