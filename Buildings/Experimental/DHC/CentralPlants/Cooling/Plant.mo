@@ -350,7 +350,8 @@ equation
 <li>The chilled water loop is equiped with two parallel variable speed pumps, which are controlled to maitain a use-determined pressure difference setpoint at the demand side. The condenser water pumps are constant speed with prescribed mass flow rates. </li>
 <li>The plant operates when it receives an <span style=\"font-family: Courier New;\">on</span> signal from the external control. The staging of the chillers is based on the calculated cooling load. See <a href=\"modelica://Buildings.Experimental.DHC.CentralPlants.Cooling.Controls.ChillerStage\">Buildings.Experimental.DHC.CentralPlants.Cooling.Controls.ChillerStage</a> for the detailed control logic. </li>
 </ul>
-<p><img src=\"modelica://Buildings/Resources/Images/Experimental/DHC/CentralPlants/Cooling/Plant.tif\" alt=\\\"System schematics\\\"/>. </p>
+<p><img alt=\"System schematics\"
+src=\"modelica://Buildings/Resources/Images/Experimental/DHC/CentralPlants/Cooling/Plant.tif\"/>. </p>
 </html>",
       revisions="<html>
 <ul>
