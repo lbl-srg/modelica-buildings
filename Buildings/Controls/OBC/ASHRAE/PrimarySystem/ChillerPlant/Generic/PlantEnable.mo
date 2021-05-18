@@ -1,4 +1,4 @@
-within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic;
+﻿within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic;
 block PlantEnable "Sequence to enable and disable plant"
 
   parameter Boolean have_WSE = true
@@ -7,20 +7,17 @@ block PlantEnable "Sequence to enable and disable plant"
   parameter Real schTab[4,2] = [0,1; 6*3600,1; 19*3600,1; 24*3600,1]
     "Plant enabling schedule allowing operators to lock out the plant during off-hour";
 
-  parameter Real TChiLocOut(
-    final unit="K",
-    final quantity="ThermodynamicTemperature",
-    displayUnit="degC")=277.5
+  parameter Real TChiLocOut=277.5
       "Outdoor air lockout temperature below which the chiller plant should be disabled";
 
   parameter Real plaThrTim(
     final unit="s",
-    final quantity="Time")=15*60
+    final quantity="Time")=900
       "Threshold time to check status of chiller plant";
 
   parameter Real reqThrTim(
     final unit="s",
-    final quantity="Time")=3*60
+    final quantity="Time")=180
       "Threshold time to check current chiller plant request";
 
   parameter Integer ignReq = 0
@@ -47,13 +44,6 @@ block PlantEnable "Sequence to enable and disable plant"
     annotation (Placement(transformation(extent={{200,70},{220,90}}),
       iconTransformation(extent={{100,-10},{120,10}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.TimeTable enaSch(
-    final table=schTab,
-    final smoothness=tabSmo,
-    final extrapolation=extrapolation)
-    "Plant enabling schedule allowing operators to lock out the plant during off-hour"
-    annotation (Placement(transformation(extent={{-140,40},{-120,60}})));
-
 protected
   final parameter Buildings.Controls.OBC.CDL.Types.Smoothness tabSmo=
     Buildings.Controls.OBC.CDL.Types.Smoothness.ConstantSegments
@@ -62,6 +52,13 @@ protected
   final parameter Buildings.Controls.OBC.CDL.Types.Extrapolation extrapolation=
     Buildings.Controls.OBC.CDL.Types.Extrapolation.Periodic
     "Extrapolation of data outside the definition range";
+
+  Buildings.Controls.OBC.CDL.Continuous.Sources.TimeTable enaSch(
+    final table=schTab,
+    final smoothness=tabSmo,
+    final extrapolation=extrapolation)
+    "Plant enabling schedule allowing operators to lock out the plant during off-hour"
+    annotation (Placement(transformation(extent={{-140,40},{-120,60}})));
 
   Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold schOn(
     final t=0.5)
@@ -81,8 +78,8 @@ protected
     "Check if the number of chiller plant request is greater than the number of ignorable request"
     annotation (Placement(transformation(extent={{-140,80},{-120,100}})));
 
-  Buildings.Controls.OBC.CDL.Logical.MultiAnd mulAnd(
-    final nu=4) "Logical and receiving multiple input"
+  Buildings.Controls.OBC.CDL.Logical.MultiAnd enaPla(
+    final nu=4) "Enable chiller plant"
     annotation (Placement(transformation(extent={{40,70},{60,90}})));
 
   Buildings.Controls.OBC.CDL.Logical.Timer enaTim(
@@ -98,26 +95,29 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Not not2 "Logical not"
     annotation (Placement(transformation(extent={{-20,-60},{0,-40}})));
 
-  Buildings.Controls.OBC.CDL.Logical.And and2 "Logical and"
+  Buildings.Controls.OBC.CDL.Logical.And disPla
+    "Disable chiller plant"
     annotation (Placement(transformation(extent={{40,-20},{60,0}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Latch lat
-    "Maintains an on signal until conditions changes"
+  Buildings.Controls.OBC.CDL.Logical.Latch plaSta
+    "Chiller plant enabling status"
     annotation (Placement(transformation(extent={{100,70},{120,90}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys(
     final uLow=0,
     final uHigh=locDt)
-    "Check if outdoor temperature is higher than chiller lockout temperature"
+    "Check if outdoor temperature is lower than chiller lockout temperature"
     annotation (Placement(transformation(extent={{-100,-140},{-80,-120}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Or3 mulOr "Logical or"
+  Buildings.Controls.OBC.CDL.Logical.Or3 disPlaCon
+    "Disable chiller plant conditions"
     annotation (Placement(transformation(extent={{40,-80},{60,-60}})));
 
   Buildings.Controls.OBC.CDL.Logical.Not not3 "Logical not"
     annotation (Placement(transformation(extent={{-140,-80},{-120,-60}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Not not4 "Logical not"
+  Buildings.Controls.OBC.CDL.Logical.Not notLoc
+    "Check if outdoor temperature is higher than the chiller lockout temperature"
     annotation (Placement(transformation(extent={{-20,0},{0,20}})));
 
   Buildings.Controls.OBC.CDL.Logical.Pre pre1 "Pre"
@@ -128,7 +128,9 @@ protected
     "Outdoor air lockout temperature"
     annotation (Placement(transformation(extent={{-180,-120},{-160,-100}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Add add2(final k1=1, final k2=-1)
+  Buildings.Controls.OBC.CDL.Continuous.Add add2(
+    final k1=1,
+    final k2=-1)
     "Difference between chiller lockout temperature and outdoor temperature"
     annotation (Placement(transformation(extent={{-140,-140},{-120,-120}})));
 
@@ -139,35 +141,33 @@ equation
     annotation (Line(points={{-118,120},{-102,120}}, color={255,0,255}));
   connect(chiWatSupResReq, hasReq.u)
     annotation (Line(points={{-220,90},{-142,90}},   color={255,127,0}));
-  connect(disTim.passed, mulAnd.u[1])
+  connect(disTim.passed,enaPla. u[1])
     annotation (Line(points={{-78,112},{20,112},{20,85.25},{38,85.25}},
       color={255,0,255}));
-  connect(hasReq.y, mulAnd.u[2])
+  connect(hasReq.y,enaPla. u[2])
     annotation (Line(points={{-118,90},{-20,90},{-20,81.75},{38,81.75}},
       color={255,0,255}));
-  connect(schOn.y, mulAnd.u[3])
+  connect(schOn.y,enaPla. u[3])
     annotation (Line(points={{-78,50},{0,50},{0,78.25},{38,78.25}},
       color={255,0,255}));
   connect(schOn.y, not2.u)
     annotation (Line(points={{-78,50},{-40,50},{-40,-50},{-22,-50}},
       color={255,0,255}));
-  connect(mulAnd.y, lat.u)
-    annotation (Line(points={{62,80},{98,80}},     color={255,0,255}));
-  connect(lat.y, yPla)
-    annotation (Line(points={{122,80},{210,80}},   color={255,0,255}));
-  connect(mulOr.y, and2.u2)
-    annotation (Line(points={{62,-70},{80,-70},{80,-30},{20,-30},{20,-18},{38,-18}},
-      color={255,0,255}));
-  connect(not2.y, mulOr.u1)
-    annotation (Line(points={{2,-50},{20,-50},{20,-62},{38,-62}}, color={255,0,255}));
+  connect(enaPla.y, plaSta.u)
+    annotation (Line(points={{62,80},{98,80}}, color={255,0,255}));
+  connect(plaSta.y, yPla)
+    annotation (Line(points={{122,80},{210,80}}, color={255,0,255}));
+  connect(disPlaCon.y, disPla.u2) annotation (Line(points={{62,-70},{80,-70},{80,
+          -30},{20,-30},{20,-18},{38,-18}}, color={255,0,255}));
+  connect(not2.y, disPlaCon.u1) annotation (Line(points={{2,-50},{20,-50},{20,-62},
+          {38,-62}}, color={255,0,255}));
   connect(hasReq.y, not3.u)
     annotation (Line(points={{-118,90},{-20,90},{-20,70},{-180,70},{-180,-70},{-142,
           -70}},   color={255,0,255}));
   connect(not3.y, enaTim1.u)
     annotation (Line(points={{-118,-70},{-102,-70}}, color={255,0,255}));
-  connect(lat.y, pre1.u)
-    annotation (Line(points={{122,80},{140,80},{140,140},{-190,140},{-190,120},{
-          -182,120}}, color={255,0,255}));
+  connect(plaSta.y, pre1.u) annotation (Line(points={{122,80},{140,80},{140,140},
+          {-190,140},{-190,120},{-182,120}}, color={255,0,255}));
   connect(pre1.y, not1.u)
     annotation (Line(points={{-158,120},{-142,120}}, color={255,0,255}));
   connect(pre1.y, enaTim.u)
@@ -181,24 +181,18 @@ equation
       color={0,0,127}));
   connect(add2.y, hys.u)
     annotation (Line(points={{-118,-130},{-102,-130}}, color={0,0,127}));
-  connect(hys.y, mulOr.u3)
-    annotation (Line(points={{-78,-130},{20,-130},{20,-78},{38,-78}},
-      color={255,0,255}));
-  connect(hys.y, not4.u)
-    annotation (Line(points={{-78,-130},{-70,-130},{-70,10},{-22,10}},
-      color={255,0,255}));
-  connect(not4.y, mulAnd.u[4])
-    annotation (Line(points={{2,10},{20,10},{20,74.75},{38,74.75}},
-      color={255,0,255}));
-  connect(and2.y, lat.clr)
-    annotation (Line(points={{62,-10},{80,-10},{80,74},{98,74}},
-      color={255,0,255}));
-  connect(enaTim1.passed, mulOr.u2)
-    annotation (Line(points={{-78,-78},{-20,-78},{-20,-70},{38,-70}},
-      color={255,0,255}));
-  connect(enaTim.passed, and2.u1)
-    annotation (Line(points={{-118,-18},{-80,-18},{-80,-10},{38,-10}},
-      color={255,0,255}));
+  connect(hys.y, disPlaCon.u3) annotation (Line(points={{-78,-130},{20,-130},{20,
+          -78},{38,-78}}, color={255,0,255}));
+  connect(hys.y, notLoc.u) annotation (Line(points={{-78,-130},{-60,-130},{-60,10},
+          {-22,10}}, color={255,0,255}));
+  connect(notLoc.y, enaPla.u[4]) annotation (Line(points={{2,10},{20,10},{20,74.75},
+          {38,74.75}}, color={255,0,255}));
+  connect(disPla.y, plaSta.clr) annotation (Line(points={{62,-10},{80,-10},{80,74},
+          {98,74}}, color={255,0,255}));
+  connect(enaTim1.passed, disPlaCon.u2) annotation (Line(points={{-78,-78},{-20,
+          -78},{-20,-70},{38,-70}}, color={255,0,255}));
+  connect(enaTim.passed, disPla.u1) annotation (Line(points={{-118,-18},{-80,-18},
+          {-80,-10},{38,-10}}, color={255,0,255}));
 
 annotation (
   defaultComponentName = "plaEna",
@@ -233,8 +227,8 @@ annotation (
 <p>
 Block that generate chiller plant enable signals and output the initial plant stage,
 according to ASHRAE RP-1711 Advanced Sequences of Operation for HVAC Systems Phase II –
-Central Plants and Hydronic Systems (Draft 4 on January 7, 2019), section 5.2.2 and
-5.2.4.13 Table 2.
+Central Plants and Hydronic Systems (Draft on March 23, 2020), section 5.2.2.1,
+5.2.2.2 and 5.2.2.3.
 </p>
 <p>
 The chiller plant should be enabled and disabled according to following sequences:
