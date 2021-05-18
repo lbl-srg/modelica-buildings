@@ -1,6 +1,11 @@
-# Spawn
+# Spawn 
 
-This is the spawn executable.
+_Version: 0.0.1_
+
+_Build: 316d0c8c19_
+
+
+This is the spawn executable. 
 There are currently two capabilities provided by this program.
 1. Create an FMU given an EnergyPlus idf file
 2. Compile a given Modelica model
@@ -57,7 +62,7 @@ make -j
 
 ## Example Usage
 
-* Create a fmu. The .spawn file defines the resources that will be compiled into an EnergyPlus based FMU.
+* Create a fmu. The .spawn file defines the resources that will be compiled into an EnergyPlus based FMU. 
 The most important items are epw and idf files.
 
 
@@ -89,7 +94,7 @@ Compile C Code
 Model Compiled
 ```
 
-Resulting in the FMU directory, which includes a fully linked shared library,
+Resulting in the FMU directory, which includes a fully linked shared library, 
 `Buildings_Examples_Tutorial_Boiler_System1.so` corresponding to the compiled version
 of the given Modelica model
 
