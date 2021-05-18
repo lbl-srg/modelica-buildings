@@ -164,20 +164,32 @@ The following conventions are made:
 </p>
 <ul>
 <li>
-If a zone is in the idf file but not modeled in Modelica, EnergyPlus will
-simulate the zone as free floating.
+If a zone is in the idf file but not modeled in Modelica, then
+<ul>
+<li>
+EnergyPlus will simulate the zone as free floating, and
 </li>
 <li>
-EnergyPlus will remove all infiltration objects, even for zones that are not modeled
-with
+EnergyPlus will simulate the outside air infiltration if specified in the idf file.
+</li>
+</ul>
+This allows unconditioned zones such as a basement or an attic to simulate in EnergyPlus
+without having to use an instance of
 <a href=\"modelica://Buildings.ThermalZones.EnergyPlus.ThermalZone\">
 Buildings.ThermalZones.EnergyPlus.ThermalZone</a>.
-(This is expected to change in future releases so that unconditioned spaces, such as
-an attic, need not be modeled with
+</li>
+<li>
+If a zone is in the idf file and modeled in Modelica using
 <a href=\"modelica://Buildings.ThermalZones.EnergyPlus.ThermalZone\">
-Buildings.ThermalZones.EnergyPlus.ThermalZone</a>
-just to add infiltration.
-See <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2492\">issue 2492</a>)
+Buildings.ThermalZones.EnergyPlus.ThermalZone</a>,
+then EnergyPlus will remove all infiltration objects for this zone.
+This is done because Modelica computes the mass balance of the zone air, and infiltration
+depends on the static pressure of the HVAC system.
+Pressure-driven infiltration can be modeled using
+<a href=\"modelica://Buildings.Airflow.Multizone\">
+Buildings.Airflow.Multizone</a>, or a fixed infiltration rate can be imposed as is shown in
+<a href=\"modelica://Buildings.ThermalZones.EnergyPlus.Examples.SingleFamilyHouse.AirHeating\">
+Buildings.ThermalZones.EnergyPlus.Examples.SingleFamilyHouse.AirHeating</a>.
 </li>
 <li>
 All EnergyPlus HVAC objects that are present in the idf file are removed when coupled to Spawn.
