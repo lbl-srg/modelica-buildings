@@ -3,7 +3,7 @@ model IntegratedPrimaryPlantSide
   "Integrated WSE on the plant side in a primary-only chilled water system"
   extends Modelica.Icons.Example;
   extends Buildings.Applications.DataCenters.ChillerCooled.Equipment.Validation.BaseClasses.PartialPlant(
-    sou1(nPorts=2, m_flow=2*mCW_flow_nominal),
+    sou1(nPorts=2),
     sin1(nPorts=2),
     TSet(k=273.15 + 5.56),
     TEva_in(k=273.15 + 15.28),
@@ -40,12 +40,11 @@ model IntegratedPrimaryPlantSide
     y=if not onChi.y and onWSE.y then 1 else 0)
     "On/off signal for valve 6"
     annotation (Placement(transformation(extent={{40,60},{20,80}})));
-  Buildings.Fluid.Sources.MassFlowSource_T sou2(
+  Fluid.Sources.Boundary_pT sou2(
     redeclare package Medium = MediumCHW,
+    p=MediumCHW.p_default + 1E5,
     nPorts=2,
-    use_T_in=true,
-    m_flow=2*mCHW_flow_nominal)
-                   "Source on medium 2 side"
+    use_T_in=true) "Source on medium 2 side"
     annotation (Placement(
         transformation(
         extent={{10,-10},{-10,10}},
@@ -90,8 +89,8 @@ equation
           -20,-44},{-40,-44}}, color={0,127,255}));
   connect(intWSEPri1.port_b1, sin1.ports[1]) annotation (Line(points={{10,-32},{
           20,-32},{20,-4},{70,-4}}, color={0,127,255}));
-  connect(intWSEPri1.port_a2, sou2.ports[1]) annotation (Line(points={{10,-44},{
-          26,-44},{26,-72},{40,-72}},          color={0,127,255}));
+  connect(intWSEPri1.port_a2, sou2.ports[1]) annotation (Line(points={{10,-44},
+          {26,-44},{26,-72},{40,-72}},         color={0,127,255}));
   connect(TEva_in.y, sou2.T_in)
     annotation (Line(points={{69,-70},{62,-70}},          color={0,0,127}));
   connect(TSet.y, intWSEPri1.TSet) annotation (Line(points={{-79,30},{-16,30},{-16,
@@ -102,8 +101,8 @@ equation
           {-18,-30.4},{-11.6,-30.4}}, color={255,0,255}));
   connect(sou1.ports[2], intWSEPri2.port_a1) annotation (Line(points={{-40,-4},{
           -28,-4},{-28,-102},{-10,-102}}, color={0,127,255}));
-  connect(sou2.ports[2], intWSEPri2.port_a2) annotation (Line(points={{40,-76},{
-          26,-76},{26,-114},{10,-114}}, color={0,127,255}));
+  connect(sou2.ports[2], intWSEPri2.port_a2) annotation (Line(points={{40,-76},
+          {26,-76},{26,-114},{10,-114}},color={0,127,255}));
   connect(intWSEPri2.port_b1, sin1.ports[2]) annotation (Line(points={{10,-102},
           {20,-102},{20,-4},{70,-4}}, color={0,127,255}));
   connect(TSet.y, intWSEPri2.TSet) annotation (Line(points={{-79,30},{-16,30},{-16,
@@ -136,6 +135,14 @@ is reset every 1800s.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+May 13, 2021, by Michael Wetter:<br/>
+Changed boundary condition model to prescribed pressure rather than prescribed mass flow rate.
+Prescribing the mass flow rate caused
+unreasonably large pressure drop because the mass flow rate was forced through a closed valve.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2488\">#2488</a>.
+</li>
 <li>
 January 28, 2019, by Yangyang Fu:<br/>
 Added test case for PI controller reset.

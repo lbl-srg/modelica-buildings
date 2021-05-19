@@ -34,8 +34,10 @@ file will be used by the Modelica model, and must be specified by the parameter 
 in the instance <code>building</code>.
 </li>
 </ol>
+<p>
 The following coupling objects can then be integrated in the model that contains the instance 
-<code>building</code>, or in any model instantiated by that model
+<code>building</code>, or in any model instantiated by that model.
+</p>
 <ul>
 <li>
 To connect Modelica zone models with the equivalent EnergyPlus zone envelopes,
@@ -148,6 +150,7 @@ that connects the slab to the zone below.
 </ol>
 </html>"));
   end GettingStarted;
+
   class Conventions
     "Conventions"
     extends Modelica.Icons.Information;
@@ -165,7 +168,23 @@ If a zone is in the idf file but not modeled in Modelica, EnergyPlus will
 simulate the zone as free floating.
 </li>
 <li>
-All EnergyPlus HVAC objects that are present in the idf file are removed when coupled to Spawn</li>
+EnergyPlus will remove all infiltration objects, even for zones that are not modeled
+with
+<a href=\"modelica://Buildings.ThermalZones.EnergyPlus.ThermalZone\">
+Buildings.ThermalZones.EnergyPlus.ThermalZone</a>.
+(This is expected to change in future releases so that unconditioned spaces, such as
+an attic, need not be modeled with
+<a href=\"modelica://Buildings.ThermalZones.EnergyPlus.ThermalZone\">
+Buildings.ThermalZones.EnergyPlus.ThermalZone</a>
+just to add infiltration.
+See <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2492\">issue 2492</a>)
+</li>
+<li>
+All EnergyPlus HVAC objects that are present in the idf file are removed when coupled to Spawn.
+</li>
+<li>
+Output variables and EMS actuators need not be present in the idf file.
+</li>
 <li>
 For the EnergyPlus envelope, either the CTF transfer function or the finite difference
 method can be used.
@@ -177,6 +196,7 @@ as declared in the idf file.
 </ul>
 </html>"));
   end Conventions;
+
   class UnitConversion
     "Unit Conversion"
     extends Modelica.Icons.Information;
@@ -224,6 +244,7 @@ are reported to the Modelica log file.
 </p>
 </html>"));
   end UnitConversion;
+
   class EnergyPlusWarmUp
     "EnergyPlus warm-up"
     extends Modelica.Icons.Information;
@@ -335,6 +356,7 @@ the internal wall temperatures.
 </p>
 </html>"));
   end EnergyPlusWarmUp;
+
   class NotesForDymola
     "Notes for Dymola"
     extends Modelica.Icons.Information;

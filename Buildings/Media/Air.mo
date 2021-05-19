@@ -119,7 +119,7 @@ package Air
     X[2] = 1 - X[1];
 
     // Assertions to test for bounds
-    assert(noEvent(X[1] >= -1.e-5) and noEvent(X[1] <= 1 + 1.e-5), "Mass fraction X[1] = " + String(X[1]) + "of substance water"
+    assert(noEvent(X[1] >= -1.e-5) and noEvent(X[1] <= 1 + 1.e-5), "Mass fraction X[1] = " + String(X[1]) + " of substance water"
       + "\nof medium \"Buildings.Media.Air\" is not in the range 0..1");
 
     assert(noEvent(T >= 200.0), "In "   + getInstanceName() + ": Temperature T exceeded its minimum allowed value of -73.15 degC (200 Kelvin)
