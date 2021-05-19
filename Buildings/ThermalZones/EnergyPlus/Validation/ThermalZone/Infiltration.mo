@@ -5,7 +5,10 @@ model Infiltration
   package Medium=Buildings.Media.Air
     "Medium model";
 
-  Buildings.ThermalZones.EnergyPlus.Examples.SingleFamilyHouse.RadiantHeatingCooling defInf
+  Buildings.ThermalZones.EnergyPlus.Examples.SingleFamilyHouse.RadiantHeatingCooling defInf(
+    building(
+      idfName = Modelica.Utilities.Files.loadResource(
+        "modelica://Buildings/Resources/Data/ThermalZones/EnergyPlus/Examples/SingleFamilyHouse_TwoSpeed_ZoneAirBalance/SingleFamilyHouse_TwoSpeed_ZoneAirBalance_aboveSoil.idf")))
     "Model with default infiltration in attic"
     annotation (Placement(transformation(extent={{-10,20},{10,40}})));
   Buildings.ThermalZones.EnergyPlus.Examples.SingleFamilyHouse.RadiantHeatingCooling higInf(
