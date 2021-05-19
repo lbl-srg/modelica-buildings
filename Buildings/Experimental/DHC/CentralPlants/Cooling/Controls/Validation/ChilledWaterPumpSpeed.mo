@@ -12,10 +12,6 @@ model ChilledWaterPumpSpeed
     Td=0.1)
     "Chilled water pump speed controller"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
-  Modelica.Blocks.Sources.Constant dpMea(
-    k=0.6*chiWatPumSpe.dpSetPoi)
-    "Measured demand side pressure difference"
-    annotation (Placement(transformation(extent={{-60,-40},{-40,-20}})));
   Modelica.Blocks.Sources.Pulse mFloTot(
     amplitude=0.4*chiWatPumSpe.m_flow_nominal,
     period=300,
@@ -23,6 +19,10 @@ model ChilledWaterPumpSpeed
     startTime=150)
     "Total chilled water mass flow rate"
     annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
+  Modelica.Blocks.Sources.Constant dpMea(
+    k=0.6*chiWatPumSpe.dpSetPoi)
+    "Measured demand side pressure difference"
+    annotation (Placement(transformation(extent={{-60,-40},{-40,-20}})));
 equation
   connect(dpMea.y,chiWatPumSpe.dpMea)
     annotation (Line(points={{-39,-30},{-30,-30},{-30,-4},{-12,-4}},color={0,0,127}));
