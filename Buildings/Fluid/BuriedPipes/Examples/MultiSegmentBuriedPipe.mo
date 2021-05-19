@@ -3,13 +3,13 @@ model MultiSegmentBuriedPipe
   "Example model of a buried pipe with multiple segment"
   extends Modelica.Icons.Example;
 
-  parameter Modelica.SIunits.Length totLen=1000 "Total pipe length";
+  parameter Modelica.SIunits.Length totLen=10000 "Total pipe length";
 
-  parameter Integer nSeg=10 "Number of pipe segments";
+  parameter Integer nSeg=2 "Number of pipe segments";
   parameter Modelica.SIunits.Length segLen[nSeg] = fill(totLen/nSeg,nSeg)
     "Pipe segments length";
 
-  parameter Integer nSegRev=30 "Number of pipe segments";
+  parameter Integer nSegRev=10 "Number of pipe segments";
   parameter Modelica.SIunits.Length segLenRev[nSegRev] = fill(totLen/nSegRev,nSegRev)
     "Pipe segments length";
 
@@ -24,7 +24,7 @@ model MultiSegmentBuriedPipe
   replaceable package Medium = Buildings.Media.Water "Medium in the pipe"
     annotation (choicesAllMatching=true);
 
-  MultiPlugFlowPipe             pip(
+  MultiPlugFlowPipe pip(
     redeclare package Medium=Medium,
     nSeg=nSeg,
     rInt=0.05,
@@ -35,7 +35,7 @@ model MultiSegmentBuriedPipe
     cPip=500,
     rhoPip=8000,
     dPip=0.0032)
-              "Buried pipe"
+    "Buried pipe"
     annotation (Placement(transformation(extent={{-10,30},{10,50}})));
 
   Buildings.Fluid.BuriedPipes.GroundCoupling gro(
@@ -47,7 +47,7 @@ model MultiSegmentBuriedPipe
     dep={1.5},
     pos={0},
     rad={pip.rInt + pip.dPip + pip.dIns})
-                               "Ground coupling" annotation (Placement(
+    "Ground coupling" annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
@@ -81,7 +81,7 @@ model MultiSegmentBuriedPipe
     T_start=293.15) "Pipe outlet temperature sensor"
     annotation (Placement(transformation(extent={{30,30},{50,50}})));
 
-  MultiPlugFlowPipe             pipRev(
+  MultiPlugFlowPipe pipRev(
     redeclare package Medium = Medium,
     nSeg=nSegRev,
     rInt=0.05,
@@ -92,7 +92,7 @@ model MultiSegmentBuriedPipe
     cPip=500,
     rhoPip=8000,
     dPip=0.0032)
-              "Buried pipe"
+    "Buried pipe"
     annotation (Placement(transformation(extent={{-10,-30},{10,-50}})));
   GroundCoupling groRev(
     nPip=1,
@@ -103,33 +103,38 @@ model MultiSegmentBuriedPipe
     dep={1.5},
     pos={0},
     rad={pip.rInt + pip.dPip + pip.dIns})
-                               "Ground coupling" annotation (Placement(
+    "Ground coupling" annotation (Placement(
         transformation(
         extent={{-10,10},{10,-10}},
         rotation=0,
         origin={0,-90})));
-  Sources.MassFlowSource_T souRev(
-    nPorts=1,
-    redeclare package Medium = Medium,
-    m_flow=-3) "Flow source"
-    annotation (Placement(transformation(extent={{-80,-50},{-60,-30}})));
   Sensors.TemperatureTwoPort senTemOutRev(
     redeclare package Medium = Medium,
     m_flow_nominal=1,
     T_start=293.15) "Pipe outlet temperature sensor"
     annotation (Placement(transformation(extent={{-50,-50},{-30,-30}})));
-  Sources.Boundary_pT sinRev(
-    redeclare package Medium = Medium,
-    use_T_in=true,
-    T=273.15 + 10,
-    nPorts=1,
-    p(displayUnit="Pa") = 101325) "Boundary condition"
-    annotation (Placement(transformation(extent={{80,-50},{60,-30}})));
   Sensors.TemperatureTwoPort senTemInlRev(
     redeclare package Medium = Medium,
     m_flow_nominal=1,
     T_start=293.15) "Pipe outlet temperature sensor"
     annotation (Placement(transformation(extent={{30,-50},{50,-30}})));
+  Sources.MassFlowSource_T souRev(
+    nPorts=1,
+    redeclare package Medium = Medium,
+    use_T_in=true,
+    m_flow=3) "Flow source" annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=180,
+        origin={70,-40})));
+  Sources.Boundary_pT sinRev(
+    redeclare package Medium = Medium,
+    T=273.15 + 10,
+    nPorts=1,
+    p(displayUnit="Pa") = 101325) "Boundary condition" annotation (Placement(
+        transformation(
+        extent={{10,-10},{-10,10}},
+        rotation=180,
+        origin={-70,-40})));
 equation
   connect(Tin.y,sou. T_in)
     annotation (Line(points={{-99,0},{-90,0},{-90,44},{-82,44}},
@@ -145,21 +150,21 @@ equation
   connect(pip.port_b, senTemOut.port_a)
     annotation (Line(points={{10,40},{30,40}},
                                              color={0,127,255}));
-  connect(souRev.ports[1], senTemOutRev.port_a)
-    annotation (Line(points={{-60,-40},{-50,-40}}, color={0,127,255}));
-  connect(senTemInlRev.port_b, sinRev.ports[1])
-    annotation (Line(points={{50,-40},{60,-40}}, color={0,127,255}));
   connect(senTemOutRev.port_b, pipRev.port_a)
     annotation (Line(points={{-30,-40},{-10,-40}},
                                                  color={0,127,255}));
   connect(pipRev.port_b, senTemInlRev.port_a)
     annotation (Line(points={{10,-40},{30,-40}}, color={0,127,255}));
-  connect(Tin.y, sinRev.T_in) annotation (Line(points={{-99,0},{90,0},{90,-36},
-          {82,-36}},       color={0,0,127}));
   connect(pip.heatPorts, gro.ports[1, :]) annotation (Line(points={{0,50},{0,66},
           {0,80.1},{-0.1,80.1}}, color={191,0,0}));
   connect(pipRev.heatPorts, groRev.ports[1, :]) annotation (Line(points={{0,-50},
           {0,-66},{0,-80.1},{-0.1,-80.1}}, color={191,0,0}));
+  connect(souRev.ports[1], senTemInlRev.port_b)
+    annotation (Line(points={{60,-40},{50,-40}}, color={0,127,255}));
+  connect(senTemOutRev.port_a, sinRev.ports[1])
+    annotation (Line(points={{-50,-40},{-60,-40}}, color={0,127,255}));
+  connect(Tin.y, souRev.T_in) annotation (Line(points={{-99,0},{100,0},{100,-44},
+          {82,-44}}, color={0,0,127}));
   annotation (Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-120,-120},{120,
             120}})),
