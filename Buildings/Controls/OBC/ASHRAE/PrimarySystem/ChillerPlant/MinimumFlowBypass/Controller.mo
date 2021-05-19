@@ -55,13 +55,14 @@ block Controller
     annotation (Placement(transformation(extent={{100,60},{140,100}}),
       iconTransformation(extent={{100,-20},{140,20}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.PID valPos(
+  Buildings.Controls.OBC.CDL.Continuous.PIDWithReset valPos(
     final controllerType=controllerType,
     final k=k,
     final Ti=Ti,
     final Td=Td,
     final yMax=yMax,
-    final yMin=yMin)  "By pass valve position PI controller"
+    final yMin=yMin,
+    final y_reset=1) "Bypass valve position PI controller"
     annotation (Placement(transformation(extent={{40,20},{60,40}})));
 
 protected
@@ -88,29 +89,32 @@ equation
   connect(minFlo.y, mulSum.u)
     annotation (Line(points={{-58,-80},{-42,-80}},color={0,0,127}));
   connect(VChiWat_flow, div1.u1)
-    annotation (Line(points={{-120,10},{-20,10},{-20,-4},{18,-4}}, color={0,0,127}));
+    annotation (Line(points={{-120,10},{-80,10},{-80,-4},{18,-4}}, color={0,0,127}));
   connect(mulSum.y, div1.u2)
-    annotation (Line(points={{-18,-80},{8,-80},{8,-16},{18,-16}},
+    annotation (Line(points={{-18,-80},{10,-80},{10,-16},{18,-16}},
       color={0,0,127}));
   connect(mulSum.y, div.u2)
-    annotation (Line(points={{-18,-80},{8,-80},{8,-66},{18,-66}},
+    annotation (Line(points={{-18,-80},{10,-80},{10,-66},{18,-66}},
       color={0,0,127}));
   connect(div1.y, valPos.u_m)
     annotation (Line(points={{42,-10},{50,-10},{50,18}}, color={0,0,127}));
   connect(div.y, valPos.u_s)
-    annotation (Line(points={{42,-60},{60,-60},{60,-30},{0,-30},{0,30},{38,30}},
+    annotation (Line(points={{42,-60},{50,-60},{50,-40},{0,-40},{0,30},{38,30}},
       color={0,0,127}));
   connect(uChiWatPum, swi.u2)
     annotation (Line(points={{-120,80},{38,80}}, color={255,0,255}));
-  connect(valPos.y, swi.u1)
-    annotation (Line(points={{62,30},{80,30},{80,50},{20,50},{20,88},{38,88}},
-      color={0,0,127}));
   connect(opeVal.y, swi.u3)
     annotation (Line(points={{-18,60},{0,60},{0,72},{38,72}}, color={0,0,127}));
   connect(swi.y, yValPos)
     annotation (Line(points={{62,80},{120,80}}, color={0,0,127}));
   connect(div.u1, VChiWatSet_flow)
-    annotation (Line(points={{18,-54},{-20,-54},{-20,-40},{-120,-40}},
+    annotation (Line(points={{18,-54},{-80,-54},{-80,-40},{-120,-40}},
+      color={0,0,127}));
+  connect(uChiWatPum, valPos.trigger)
+    annotation (Line(points={{-120,80},{-60,80},{-60,10},{44,10},{44,18}},
+      color={255,0,255}));
+  connect(valPos.y, swi.u1)
+    annotation (Line(points={{62,30},{80,30},{80,60},{20,60},{20,88},{38,88}},
       color={0,0,127}));
 
 annotation (
@@ -163,7 +167,7 @@ annotation (
 Block that controls chilled water minimum flow for primary-only
 plants with a minimum flow bypass valve,
 according to ASHRAE RP-1711 Advanced Sequences of Operation for HVAC Systems Phase II –
-Central Plants and Hydronic Systems (Draft 4 on March 26, 2019),
+Central Plants and Hydronic Systems (Draft on March 23, 2020),
 section 5.2.8 Chilled water minimum flow bypass valve.
 </p>
 <p>

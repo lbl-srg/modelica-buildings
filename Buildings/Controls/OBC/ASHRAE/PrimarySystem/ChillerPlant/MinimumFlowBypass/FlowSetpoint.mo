@@ -1,5 +1,5 @@
 ﻿within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.MinimumFlowBypass;
-block FlowSetpoint "Chilled water minimum flow setpoint"
+block FlowSetpoint "Chilled water minimum flow setpoint for primary-only plants"
 
   parameter Integer nChi = 3
     "Total number of chillers";
@@ -829,7 +829,7 @@ annotation (
 Block that outputs chilled water minimum flow setpoint for primary-only
 plants with a minimum flow bypass valve,
 according to ASHRAE RP-1711 Advanced Sequences of Operation for HVAC Systems Phase II –
-Central Plants and Hydronic Systems (Draft 4 on March 26, 2019),
+Central Plants and Hydronic Systems (Draft on March 23, 2020),
 section 5.2.8 Chilled water minimum flow bypass valve.
 </p>
 <p>

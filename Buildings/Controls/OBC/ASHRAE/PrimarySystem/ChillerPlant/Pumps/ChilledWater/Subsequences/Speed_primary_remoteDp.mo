@@ -184,7 +184,7 @@ annotation (
 Block that output chilled water pump speed setpoint for primary-only plants where
 the remote pressure differential sensor is hardwired to the plant controller, 
 according to ASHRAE RP-1711 Advanced Sequences of Operation for HVAC Systems Phase II –
-Central Plants and Hydronic Systems (Draft 6 on July 25, 2019), 
+Central Plants and Hydronic Systems (Draft on March 23, 2020), 
 section 5.2.6 Primary chilled water pumps, part 5.2.6.7 and 5.2.6.8.
 </p>
 <ol>

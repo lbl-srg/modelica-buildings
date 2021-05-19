@@ -191,8 +191,8 @@ controls head pressure control valve position <code>yHeaPreConVal</code> or
 condenser water pump speed <code>yConWatPumSpeSet</code>
 for plants without water side economizers. The development follows
 ASHRAE RP-1711 Advanced Sequences of Operation for HVAC Systems Phase II –
-Central Plants and Hydronic Systems (Draft 4 on January 7, 2019), 
-section 5.2.10 Head pressure control, part 5.2.10.3 and 5.2.10.6.
+Central Plants and Hydronic Systems (Draft on March 23, 2020), 
+section 5.2.10 Head pressure control, part 5.2.10.3, part 5.2.10.4 and 5.2.10.7.
 </p>
 <p>
 1. For each chiller, map chiller head pressure control loop signal 

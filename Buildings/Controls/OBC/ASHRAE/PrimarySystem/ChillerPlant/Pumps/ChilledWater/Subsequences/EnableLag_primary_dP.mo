@@ -237,7 +237,7 @@ annotation (
 Block that enable and disable lag primary chilled water pump, for plants
 with headered primary chilled water pumps,
 according to ASHRAE RP-1711 Advanced Sequences of Operation for HVAC Systems Phase II –
-Central Plants and Hydronic Systems (Draft 6 on July 25, 2019),
+Central Plants and Hydronic Systems (Draft on March 23, 2020),
 section 5.2.6 Primary chilled water pumps, part 5.2.6.6.
 </p>
 <p>

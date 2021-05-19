@@ -4,7 +4,9 @@ package Subsequences "Chilled water pump control sequences"
 annotation (
 preferredView="info", Documentation(info="<html>
 <p>
-This package contains subsequences for chilled water pumps control.</p>
+This package contains subsequences for chilled water pumps control for plants with
+parallel chillers.
+</p>
 </html>"),
 Icon(graphics={
         Rectangle(

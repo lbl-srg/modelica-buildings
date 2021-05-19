@@ -196,7 +196,7 @@ annotation (
 <p>
 Block that generates control signals for chiller head pressure control,
 according to ASHRAE RP-1711 Advanced Sequences of Operation for HVAC Systems Phase II –
-Central Plants and Hydronic Systems (Draft 4 on January 7, 2019),
+Central Plants and Hydronic Systems (Draft on March 23, 2020),
 section 5.2.10 Head pressure control.
 </p>
 <p>
