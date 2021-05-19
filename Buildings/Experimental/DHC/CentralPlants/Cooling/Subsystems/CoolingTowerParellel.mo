@@ -93,7 +93,8 @@ model CoolingTowerParellel
     each final TWatIn_nominal=TWatIn_nominal,
     each final TWatOut_nominal=TWatIn_nominal-dT_nominal,
     each final PFan_nominal=PFan_nominal)
-    constrainedby Buildings.Fluid.HeatExchangers.CoolingTowers.BaseClasses.CoolingTower(
+    constrainedby
+    Buildings.Fluid.HeatExchangers.CoolingTowers.BaseClasses.CoolingTower(
       redeclare each final package Medium=Medium,
       each show_T=show_T,
       each final m_flow_nominal=m_flow_nominal,
@@ -289,8 +290,8 @@ First implementation.
 </ul>
 </html>",
       info="<html>
-<p>This model implements a parallel cooling tower system with <code>num</code> identical cooling towers. </p>
-<p>The cooling tower type is replacable. <a href=\"modelica://Buildings.Fluid.HeatExchangers.CoolingTowers.Merkel\">Buildings.Fluid.HeatExchangers.CoolingTowers.Merkel</a> is currently used in this model. </p>
+<p>This model implements a parallel cooling tower system with <span style=\"font-family: Courier New;\">num</span> identical cooling towers. </p>
+<p>The cooling tower type is replaceable. <a href=\"modelica://Buildings.Fluid.HeatExchangers.CoolingTowers.Merkel\">Buildings.Fluid.HeatExchangers.CoolingTowers.Merkel</a> is currently used in this model. </p>
 </html>"),
     __Dymola_Commands);
 end CoolingTowerParellel;
