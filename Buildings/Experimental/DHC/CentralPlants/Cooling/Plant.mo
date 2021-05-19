@@ -80,7 +80,8 @@ model Plant
     "Demand side pressure difference setpoint"
     annotation (Dialog(group="Control Settings"));
   // dynamics
-  parameter Modelica.Fluid.Types.Dynamics energyDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial
+  parameter Modelica.Fluid.Types.Dynamics energyDynamics=
+    Modelica.Fluid.Types.Dynamics.DynamicFreeInitial
     "Type of energy balance: dynamic (3 initialization options) or steady state"
     annotation (Evaluate=true,Dialog(tab="Dynamics",group="Equations"));
   parameter Modelica.Fluid.Types.Dynamics massDynamics=energyDynamics
