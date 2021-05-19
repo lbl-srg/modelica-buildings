@@ -74,7 +74,7 @@ protected
   // The derivative structure was:
   //  derivatives_structure={{1,1}},
   //  nDer=nDer,
-  //  derivatives_delta={0.1
+  //  derivatives_delta={0.1}
   // This has been removed due to numerical noise,
   // see https://github.com/lbl-srg/modelica-buildings/issues/2358#issuecomment-819578850
   //////////
@@ -168,8 +168,16 @@ e.g., if the surface cools the thermal zone.
 The output <code>q_flow</code> is equal to <code>q_flow = Q_flow/A</code>, where
 <code>A</code> is the area of the heat transfer surface as obtained from EnergyPlus.
 </p>
+<p>
+Note that for most applications that require interfacing the front-facing and back-side facing surface with the
+building model, the model
+<a href=\"modelica://Buildings.ThermalZones.EnergyPlus.OpaqueConstruction\">
+Buildings.ThermalZones.EnergyPlus.OpaqueConstruction</a>
+is easier to use.
+</p>
 <h4>Usage</h4>
 <p>
+This model is typically used for a radiant slab above soil if the ground heat transfer is also modeled in Modelica.
 Consider an EnergyPlus input data file that has the following entry:
 </p>
 <pre>
@@ -203,14 +211,13 @@ The output <code>q_flow = Q_flow / A</code> is the heat flux
 per unit area of the surface.
 </p>
 <p>
-If used to connect a radiant slab from Modelica to EnergyPlus, this Modelica
-model is used twice, once to model the upwards facing surface of the slab, e.g., the floor,
-and once to model the downward facing surface, e.g., the ceiling.
-If the slab is above soil, then only one of this model may be used, but the downward facing surface
-of the slab needs to be connected to a soil model.
-Both of these configurations are illustrated in the model
-<a href=\"modelica://Buildings.ThermalZones.EnergyPlus.Examples.SingleFamilyHouse.RadiantHeatingCooling\">
-Buildings.ThermalZones.EnergyPlus.Examples.SingleFamilyHouse.RadiantHeatingCooling</a>.
+The model
+<a href=\"modelica://Buildings.ThermalZones.EnergyPlus.Examples.SingleFamilyHouse.RadiantHeatingWithGroundHeatTransfer\">
+Buildings.ThermalZones.EnergyPlus.Examples.SingleFamilyHouse.RadiantHeatingWithGroundHeatTransfer</a>
+illustrates this use. Note that if the ground heat transfer were modeled in EnergyPlus, then
+<a href=\"modelica://Buildings.ThermalZones.EnergyPlus.OpaqueConstruction\">
+Buildings.ThermalZones.EnergyPlus.OpaqueConstruction</a>
+should have been used, which is simpler to setup.
 </p>
 </html>",
       revisions="<html>

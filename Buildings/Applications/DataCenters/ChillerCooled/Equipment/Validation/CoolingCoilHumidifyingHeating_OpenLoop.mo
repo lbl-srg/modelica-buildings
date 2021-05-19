@@ -19,7 +19,7 @@ model CoolingCoilHumidifyingHeating_OpenLoop
     allowFlowReversal1=true,
     allowFlowReversal2=true,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    yValve_start=0,
+    yValve_start=0.2,
     tauEleHea=1,
     tauHum=1,
     m1_flow_nominal=m1_flow_nominal,
@@ -88,6 +88,13 @@ for different inlet conditions.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+May 13, 2021, by Michael Wetter:<br/>
+Set start value of valve to avoid unreasonably large pressure drop due to prescribed mass flow
+rate that was forced through a closed valve.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2488\">#2488</a>.
+</li>
 <li>
 April 11, 2017, by Yangyang Fu:<br/>
 First implementation.

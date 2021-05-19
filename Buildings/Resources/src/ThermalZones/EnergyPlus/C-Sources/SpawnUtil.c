@@ -130,6 +130,16 @@ void setVariables(
     else
       ptrReals->valsEP[i] = ptrReals->valsSI[i];
   }
+
+  /* If debug mode, write exchanged values to log file */
+  if (bui->logLevel >= TIMESTEP){
+    for(i = 0; i < ptrReals->n; i++){
+      bui->SpawnFormatMessage("%.3f %s: Sending to EnergyPlus, %s = %.6g [%s].\n",
+        bui->time, modelicaInstanceName, ptrReals->fmiNames[i], ptrReals->valsEP[i],
+        fmi2_import_get_unit_name(ptrReals->units[i]));
+    }
+  }
+
   status = fmi2_import_set_real(bui->fmu, ptrReals->valRefs, ptrReals->n, ptrReals->valsEP);
   if (status != (fmi2_status_t)fmi2OK) {
     bui->SpawnFormatError("Failed to set variables for %s in FMU.\n",  modelicaInstanceName);
@@ -170,10 +180,11 @@ void getVariables(FMUBuilding* bui, const char* modelicaInstanceName, spawnReals
 {
   size_t i;
   fmi2_status_t status;
-/* fixme
+
   if (bui->logLevel >= TIMESTEP)
-    bui->SpawnFormatMessage("%.3f %s: Getting real variables from EnergyPlus, mode = %s.\n", bui->time, modelicaInstanceName, fmuModeToString(bui->mode));
-*/
+    bui->SpawnFormatMessage("%.3f %s: Getting real variables from EnergyPlus, mode = %s.\n",
+      bui->time, modelicaInstanceName, fmuModeToString(bui->mode));
+
   status = fmi2_import_get_real(bui->fmu, ptrReals->valRefs, ptrReals->n, ptrReals->valsEP);
   if (status != (fmi2_status_t)fmi2OK) {
     bui->SpawnFormatError("Failed to get variables for %s\n",
@@ -186,6 +197,15 @@ void getVariables(FMUBuilding* bui, const char* modelicaInstanceName, spawnReals
     else
       ptrReals->valsSI[i] = ptrReals->valsEP[i];
   }
+  /* If debug mode, write exchanged values to log file */
+  if (bui->logLevel >= TIMESTEP){
+    for(i = 0; i < ptrReals->n; i++){
+      bui->SpawnFormatMessage("%.3f %s: Received from EnergyPlus, %s = %.6g [%s].\n",
+        bui->time, modelicaInstanceName, ptrReals->fmiNames[i], ptrReals->valsEP[i],
+        fmi2_import_get_unit_name(ptrReals->units[i]));
+    }
+  }
+
   stopIfResultsAreNaN(bui, modelicaInstanceName, ptrReals);
 }
 

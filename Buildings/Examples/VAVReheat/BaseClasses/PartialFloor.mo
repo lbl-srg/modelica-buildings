@@ -16,6 +16,12 @@ partial model PartialFloor "Interface for a model of a floor of a building"
   parameter Modelica.SIunits.Volume VRooEas "Room volume east";
   parameter Modelica.SIunits.Volume VRooWes "Room volume west";
 
+  parameter Modelica.SIunits.Area AFloCor "Floor area corridor";
+  parameter Modelica.SIunits.Area AFloSou "Floor area south";
+  parameter Modelica.SIunits.Area AFloNor "Floor area north";
+  parameter Modelica.SIunits.Area AFloEas "Floor area east";
+  parameter Modelica.SIunits.Area AFloWes "Floor area west";
+
   Modelica.Fluid.Vessels.BaseClasses.VesselFluidPorts_b portsSou[2](
       redeclare package Medium = Medium) "Fluid inlets and outlets"
     annotation (Placement(transformation(extent={{70,-44},{110,-28}}),
