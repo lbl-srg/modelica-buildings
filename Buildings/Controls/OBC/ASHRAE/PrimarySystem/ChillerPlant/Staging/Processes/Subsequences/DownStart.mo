@@ -91,7 +91,7 @@ block DownStart "Sequence for starting stage-down process"
     annotation (Placement(transformation(extent={{-200,30},{-160,70}}),
       iconTransformation(extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uOnOff
-    "True: if the stage change require one chiller to be enabled while another is disabled"
+    "True: if the stage change require enabling one chiller and disable another one"
     annotation (Placement(transformation(extent={{-200,0},{-160,40}}),
       iconTransformation(extent={{-140,-40},{-100,0}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput nexEnaChi
@@ -505,7 +505,7 @@ Documentation(info="<html>
 <p>
 Block that controls devices at the first step of chiller staging down process.
 This development is based on ASHRAE RP-1711 Advanced Sequences of Operation for
-HVAC Systems Phase II – Central Plants and Hydronic Systems (Draft version, March 2020),
+HVAC Systems Phase II – Central Plants and Hydronic Systems (Draft on March 23, 2020),
 section 5.2.4.17, item 1 and 2. The sections specifies the first step of
 staging down process.
 </p>

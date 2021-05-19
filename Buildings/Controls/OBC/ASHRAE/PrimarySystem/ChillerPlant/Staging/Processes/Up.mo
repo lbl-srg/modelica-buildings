@@ -693,7 +693,7 @@ water-cooled primary-only parallel chiller plants with headered chilled water pu
 and headered condenser water pumps, or air-cooled primary-only parallel chiller
 plants with headered chilled water pumps.
 This development is based on ASHRAE RP-1711 Advanced Sequences of Operation for
-HVAC Systems Phase II – Central Plants and Hydronic Systems (Draft version, March 2020),
+HVAC Systems Phase II – Central Plants and Hydronic Systems (Draft on March 23, 2020),
 section 5.2.4.16, which specifies the step-by-step control of
 devices during chiller staging up process.
 </p>

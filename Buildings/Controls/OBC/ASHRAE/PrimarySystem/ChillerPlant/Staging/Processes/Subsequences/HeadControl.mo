@@ -292,8 +292,7 @@ Block that generates chiller head pressure control enabling status array when
 there is stage change command (<code>chaPro=true</code>). It also generates status 
 to indicate if the head pressure control status change process has finished.
 This development is based on ASHRAE RP-1711 Advanced Sequences of Operation for 
-HVAC Systems Phase II – Central Plants and Hydronic Systems (Draft version,
-March 2020):
+HVAC Systems Phase II – Central Plants and Hydronic Systems (Draft on March 23, 2020):
 </p>
 <p>
 In stage-up process, section 5.2.4.16, item 4: 

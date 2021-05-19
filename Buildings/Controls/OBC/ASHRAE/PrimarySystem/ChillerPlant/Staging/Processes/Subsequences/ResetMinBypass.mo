@@ -184,8 +184,8 @@ annotation (
 Block that generates minimum bypass flow reset status when there is 
 stage-change command.
 This development is based on ASHRAE RP-1711 Advanced Sequences of Operation for 
-HVAC Systems Phase II – Central Plants and Hydronic Systems (Draft version,
-March 2020), section 5.2.4.16, item 2.
+HVAC Systems Phase II – Central Plants and Hydronic Systems (Draft on March 23, 2020),
+section 5.2.4.16, item 2.
 </p>
 <p>
 When there is stage-change command (<code>chaPro</code> = true) and the upstream

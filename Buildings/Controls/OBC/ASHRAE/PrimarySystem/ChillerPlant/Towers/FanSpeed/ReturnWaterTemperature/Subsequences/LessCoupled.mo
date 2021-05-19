@@ -1,4 +1,4 @@
-within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Towers.FanSpeed.ReturnWaterTemperature.Subsequences;
+﻿within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Towers.FanSpeed.ReturnWaterTemperature.Subsequences;
 block LessCoupled
   "Sequence of defining cooling tower fan speed when the plant is not close coupled"
 
@@ -119,6 +119,7 @@ block LessCoupled
     final Td=TdSupCon,
     final yMax=ySupConMax,
     final yMin=ySupConMin,
+    final reverseActing=false,
     final y_reset=ySupConMin) "Condenser water supply temperature controller"
     annotation (Placement(transformation(extent={{-20,-40},{0,-20}})));
 
@@ -179,6 +180,7 @@ protected
     annotation (Placement(transformation(extent={{-20,40},{0,60}})));
   Buildings.Controls.OBC.CDL.Continuous.MultiMax multiMax(
     final nin=nChi)
+    "Difference of the design supply and return condenser water temperature of the enabled chiller"
     annotation (Placement(transformation(extent={{20,40},{40,60}})));
   Buildings.Controls.OBC.CDL.Logical.Timer tim(final t=iniPlaTim)
     "Count the time after plant being enabled"

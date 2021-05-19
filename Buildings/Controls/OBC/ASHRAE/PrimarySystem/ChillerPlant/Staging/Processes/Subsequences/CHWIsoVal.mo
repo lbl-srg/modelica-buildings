@@ -15,7 +15,7 @@ block CHWIsoVal "Sequence of enable or disable chilled water isolation valve"
 
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput nexChaChi
     "Index of next chiller that should change status"
-    annotation (Placement(transformation(extent={{-200,-10},{-160,30}}),
+    annotation (Placement(transformation(extent={{-200,-20},{-160,20}}),
       iconTransformation(extent={{-140,60},{-100,100}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uChiWatIsoVal[nChi](
     final unit=fill("1", nChi),
@@ -90,13 +90,13 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Switch swi1[nChi] "Logical switch"
     annotation (Placement(transformation(extent={{60,-70},{80,-50}})));
   Buildings.Controls.OBC.CDL.Logical.Switch swi2[nChi] "Logical switch"
-    annotation (Placement(transformation(extent={{60,0},{80,20}})));
+    annotation (Placement(transformation(extent={{60,-10},{80,10}})));
   Buildings.Controls.OBC.CDL.Integers.Equal intEqu[nChi]
     "Check next enabling isolation valve"
-    annotation (Placement(transformation(extent={{-20,0},{0,20}})));
+    annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
   Buildings.Controls.OBC.CDL.Routing.IntegerReplicator intRep(final nout=nChi)
     "Replicate integer input"
-    annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
+    annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
   Buildings.Controls.OBC.CDL.Routing.RealReplicator reaRep(final nout=nChi)
     "Replicate real input"
     annotation (Placement(transformation(extent={{80,70},{100,90}})));
@@ -126,7 +126,7 @@ protected
     annotation (Placement(transformation(extent={{140,130},{160,150}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt[nChi](
     final k=chiInd) "Chiller index array"
-    annotation (Placement(transformation(extent={{-80,-30},{-60,-10}})));
+    annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
 
 equation
   connect(uChiWatIsoVal, triSam.u)
@@ -188,24 +188,24 @@ equation
     annotation (Line(points={{-180,-100},{-140,-100},{-140,-52},{58,-52}},
       color={0,0,127}));
   connect(swi2.y, swi.u1)
-    annotation (Line(points={{82,10},{100,10},{100,-32},{118,-32}},
+    annotation (Line(points={{82,0},{100,0},{100,-32},{118,-32}},
       color={0,0,127}));
   connect(nexChaChi, intRep.u)
-    annotation (Line(points={{-180,10},{-82,10}}, color={255,127,0}));
+    annotation (Line(points={{-180,0},{-82,0}},   color={255,127,0}));
   connect(intRep.y, intEqu.u1)
-    annotation (Line(points={{-58,10},{-22,10}}, color={255,127,0}));
+    annotation (Line(points={{-58,0},{-22,0}},   color={255,127,0}));
   connect(intEqu.y, swi2.u2)
-    annotation (Line(points={{2,10},{58,10}}, color={255,0,255}));
+    annotation (Line(points={{2,0},{58,0}},   color={255,0,255}));
   connect(lin1.y, reaRep.u)
     annotation (Line(points={{62,80},{78,80}}, color={0,0,127}));
   connect(lat.y, tim.u)
     annotation (Line(points={{42,-170},{50,-170},{50,-220},{-120,-220},
       {-120,80},{-102,80}},  color={255,0,255}));
   connect(reaRep.y, swi2.u1)
-    annotation (Line(points={{102,80},{120,80},{120,50},{40,50},{40,18},{58,18}},
+    annotation (Line(points={{102,80},{120,80},{120,50},{40,50},{40,8},{58,8}},
       color={0,0,127}));
   connect(triSam.y, swi2.u3)
-    annotation (Line(points={{-58,-100},{40,-100},{40,2},{58,2}},
+    annotation (Line(points={{-58,-100},{40,-100},{40,-8},{58,-8}},
       color={0,0,127}));
   connect(uChiWatIsoVal, hys4.u)
     annotation (Line(points={{-180,-100},{-140,-100},{-140,160},{-122,160}},
@@ -241,7 +241,7 @@ equation
   connect(or2.y, mulAnd1.u)
     annotation (Line(points={{62,220},{78,220}}, color={255,0,255}));
   connect(conInt.y, intEqu.u2)
-    annotation (Line(points={{-58,-20},{-40,-20},{-40,2},{-22,2}},
+    annotation (Line(points={{-58,-30},{-40,-30},{-40,-8},{-22,-8}},
       color={255,127,0}));
   connect(uUpsDevSta, and5.u2)
     annotation (Line(points={{-180,-140},{-130,-140},{-130,140},{138,140}},
@@ -324,7 +324,7 @@ Block updates chiller chilled water isolation valve enabling-disabling status wh
 there is stage change command (<code>chaPro=true</code>). It will also generate 
 status to indicate if the valve reset process has finished.
 This development is based on ASHRAE RP-1711 Advanced Sequences of Operation for 
-HVAC Systems Phase II – Central Plants and Hydronic Systems (Draft version, March 2020), 
+HVAC Systems Phase II – Central Plants and Hydronic Systems (Draft on March 23, 2020), 
 section 5.2.4.16, item 5 and section 5.2.4.17, item 3, which specifies when 
 and how the isolation valve should be controlled when it is in stage changing process.
 </p>

@@ -293,7 +293,7 @@ annotation (
 <p>
 Block that reduces demand of current operating chillers when there is a stage-up
 command, according to ASHRAE RP-1711 Advanced Sequences of Operation for 
-HVAC Systems Phase II – Central Plants and Hydronic Systems (Draft version, March 2020),
+HVAC Systems Phase II – Central Plants and Hydronic Systems (Draft on March 23, 2020),
 section 5.2.4.16, item 1 which specifies how to start the stage-up
 process of the current operating chillers; and section 5.2.4.17, item 1.a which specifies
 how to start the stage-down process of the current operating chiller when the 

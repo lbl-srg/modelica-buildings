@@ -419,7 +419,7 @@ Documentation(info="<html>
 <p>
 Block that controlles chiller when there is staging down command <code>uStaDow=true</code>.
 This implementation is based on ASHRAE RP-1711 Advanced Sequences of Operation for HVAC Systems Phase II – 
-Central Plants and Hydronic Systems (Draft version, March 2020), section 5.2.4.17,
+Central Plants and Hydronic Systems (Draft on March 23, 2020), section 5.2.4.17,
 item 1.e and f. These two sections specify how to start the smaller chiller and shut
 off larger chiller when the stage change requires large chiller off and small chill on.
 In other stage change, when it does not require chiller on/off, the chiller will then

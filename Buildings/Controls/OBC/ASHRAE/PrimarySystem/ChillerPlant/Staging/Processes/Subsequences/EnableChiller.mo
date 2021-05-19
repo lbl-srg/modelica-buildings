@@ -372,7 +372,7 @@ Documentation(info="<html>
 Block that controlles chiller when there is staging up command <code>uStaUp=true</code>.
 
 This implementation is based on ASHRAE RP-1711 Advanced Sequences of Operation for HVAC Systems Phase II – 
-Central Plants and Hydronic Systems (Draft version, March 2020), section 5.2.4.16,
+Central Plants and Hydronic Systems (Draft on March 23, 2020), section 5.2.4.16,
 item 6 and item 7.a. These sections specify when the next chiller should be enabled
 and when the running smaller chiller should be diabled.
 </p>

@@ -8,7 +8,7 @@ block EnableLead_dedicated
     "Threshold to check lead chiller OFF time";
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uLeaChiEna
-    "Lead chiller enabling status"
+    "Lead chiller commanded on status"
     annotation (Placement(transformation(extent={{-140,50},{-100,90}}),
       iconTransformation(extent={{-140,60},{-100,100}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uLeaChiSta
@@ -35,9 +35,10 @@ protected
     annotation (Placement(transformation(extent={{60,60},{80,80}})));
   Buildings.Controls.OBC.CDL.Logical.Timer tim(
     final t=offTimThr)
-    "Check if the chiller has been OFF for more than threshold"
+    "Check if the chiller has been proven off for more than threshold time"
     annotation (Placement(transformation(extent={{-40,-30},{-20,-10}})));
-  Buildings.Controls.OBC.CDL.Logical.Not not3 "Logical not"
+  Buildings.Controls.OBC.CDL.Logical.Not not3
+    "Check if the lead chiller is disabled"
     annotation (Placement(transformation(extent={{-60,30},{-40,50}})));
   Buildings.Controls.OBC.CDL.Logical.And and2 "Logical and"
     annotation (Placement(transformation(extent={{0,30},{20,50}})));
@@ -108,14 +109,14 @@ annotation (
 Block that enable and disable lead condenser water pump, for plants
 with dedicated condenser water pumps,
 according to ASHRAE RP-1711 Advanced Sequences of Operation for HVAC Systems Phase II –
-Central Plants and Hydronic Systems (Draft on March 2020),
+Central Plants and Hydronic Systems (Draft on March 23, 2020),
 section 5.2.9 Condenser water pumps, part 5.2.9.4.
 </p>
 <p>
 The lead condenser water pump should be enabled when lead chiller is commanded
 to run (<code>uLeaChiEna</code> = true). It should be disabled when the lead
 chiller is disabled and either the lead chiller has been proven off
-(<code>uLeaChiSta</code> = false) for <code>offTimThr</code>, i.e. 3 minutes or
+(<code>uLeaChiSta</code> = false) for <code>offTimThr</code>, i.e. 3 minutes, or
 is not requesting condenser water flow (<code>uLeaConWatReq</code> = false).
 </p>
 </html>", revisions="<html>

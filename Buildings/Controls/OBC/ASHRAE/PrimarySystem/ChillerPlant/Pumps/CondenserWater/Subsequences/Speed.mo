@@ -5,7 +5,7 @@ block Speed
   parameter Boolean have_WSE = true
     "Flag to indicate if the plant has water side economizer";
   parameter Integer totSta = 6
-    "Total number of stages, including the stages with a WSE, if applicable";
+    "Total number of stages, including stage zero and the stages with a WSE, if applicable";
   parameter Real staVec[totSta] = {0, 0.5, 1, 1.5, 2, 2.5}
     "Chiller stage vector, element value like x.5 means chiller stage x plus WSE";
   parameter Real desConWatPumSpe[totSta] = {0, 0.5, 0.75, 0.6, 0.75, 0.9}
@@ -77,7 +77,8 @@ protected
   Buildings.Controls.OBC.CDL.Integers.MultiSum mulSumInt(
     final nin=totSta) "Current stage index"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con4(final k=0) if not have_WSE
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con4(
+    final k=0) if not have_WSE
     "Constant zero"
     annotation (Placement(transformation(extent={{-120,-10},{-100,10}})));
 
@@ -160,7 +161,7 @@ annotation (
 Block that outputs number of operating condenser water pumps and design pump speed 
 for current stage, 
 according to ASHRAE RP-1711 Advanced Sequences of Operation for HVAC Systems Phase II –
-Central Plants and Hydronic Systems (Draft on March 2020), 
+Central Plants and Hydronic Systems (Draft on March 23, 2020), 
 section 5.2.9 Condenser water pumps, part 5.2.9.6. This sequence is for plants
 have variable speed condenser water pumps.
 </p>

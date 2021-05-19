@@ -16,7 +16,7 @@ block ChilledWaterSupply
     "Maximum chilled water pump differential static pressure";
   parameter Modelica.SIunits.ThermodynamicTemperature TChiWatSupMin(
     displayUnit="K")
-    "Minimum chilled water supply temperature";
+    "Minimum chilled water supply temperature. This is the lowest minimum chilled water supply temperature of chillers in the plant";
   parameter Modelica.SIunits.ThermodynamicTemperature TChiWatSupMax(
     final min=TChiWatSupMin,
     displayUnit="K") = 288.706
@@ -205,7 +205,7 @@ primary-secondary systems serving differential pressure controlled pumps.
 The outputs include supply temperature setpoint <code>TChiWatSupSet</code>
 and pump differential pressure setpoint <code>dpChiWatPumSet</code>, according
 to ASHRAE RP-1711 Advanced Sequences of Operation for HVAC Systems Phase II –
-Central Plants and Hydronic Systems (Draft 6 on July 25, 2019), section 5.2.5.2.
+Central Plants and Hydronic Systems (Draft March 23, 2020), section 5.2.5.2.
 </p>
 <p>
 Chilled water supply temperature setpoint <code>TChiWatSupSet</code> and pump

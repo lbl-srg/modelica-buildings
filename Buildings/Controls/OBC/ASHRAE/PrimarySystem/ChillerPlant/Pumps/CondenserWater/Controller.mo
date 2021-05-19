@@ -71,7 +71,7 @@ block Controller "Condenser water pump controller"
     annotation (Placement(transformation(extent={{120,-20},{160,20}}),
       iconTransformation(extent={{100,-50},{140,-10}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yPumSpeChe
-    "Flag to indicate if pump speed achieve setpoint"
+    "Flag to indicate if pump speed achieves setpoint"
     annotation (Placement(transformation(extent={{120,-100},{160,-60}}),
       iconTransformation(extent={{100,-110},{140,-70}})));
   Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar(
@@ -244,7 +244,7 @@ annotation (
 <p>
 Block that generates control signals for condenser water pumps control, 
 according to ASHRAE RP-1711 Advanced Sequences of Operation for HVAC Systems Phase II –
-Central Plants and Hydronic Systems (Draft on March 2020), 
+Central Plants and Hydronic Systems (Draft on March 23, 2020), 
 section 5.2.9 Condenser water pumps. 
 </p>
 <p>

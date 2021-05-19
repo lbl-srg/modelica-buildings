@@ -619,8 +619,8 @@ Documentation(info="<html>
 <p>
 Block that controls devices at the ending step of chiller staging up process.
 This development is based on ASHRAE RP-1711 Advanced Sequences of Operation for
-HVAC Systems Phase II – Central Plants and Hydronic Systems (Draft version,
-March 2020), section 5.2.4.16, item 6 and 7. These sections specify the controls of
+HVAC Systems Phase II – Central Plants and Hydronic Systems (Draft on March 23,
+2020), section 5.2.4.16, item 6 and 7. These sections specify the controls of
 devices at the ending step of staging up process.
 </p>
 <p>
