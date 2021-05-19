@@ -1,4 +1,4 @@
-﻿within Buildings.Fluid.BuriedPipes.Examples;
+within Buildings.Fluid.BuriedPipes.Examples;
 model MultiSegmentBuriedPipe
   "Example model of a buried pipe with multiple segment"
   extends Modelica.Icons.Example;
