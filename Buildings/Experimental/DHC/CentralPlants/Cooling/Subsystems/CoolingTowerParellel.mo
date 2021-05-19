@@ -290,7 +290,7 @@ First implementation.
 </ul>
 </html>",
       info="<html>
-<p>This model implements a parallel cooling tower system with <span style=\"font-family: Courier New;\">num</span> identical cooling towers. </p>
+<p>This model implements a parallel cooling tower system with <code>num</code> identical cooling towers. </p>
 <p>The cooling tower type is replaceable. <a href=\"modelica://Buildings.Fluid.HeatExchangers.CoolingTowers.Merkel\">Buildings.Fluid.HeatExchangers.CoolingTowers.Merkel</a> is currently used in this model. </p>
 </html>"),
     __Dymola_Commands);
