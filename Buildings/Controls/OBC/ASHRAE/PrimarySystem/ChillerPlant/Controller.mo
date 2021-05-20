@@ -647,15 +647,15 @@ block Controller "Chiller plant controller"
     final unit="s",
     final quantity="Time")=0.5 "Time constant of integrator block"
     annotation (Dialog(tab="Cooling Towers", group="Fan speed controller with WSE enabled",
-                        enable=have_WSE and (chiWatCon==Buildings.Controls.OBC.CDL.Types.SimpleController.PI or
-                                             chiWatCon==Buildings.Controls.OBC.CDL.Types.SimpleController.PID)));
+                        enable=have_WSE and (chiWatConTowFan==Buildings.Controls.OBC.CDL.Types.SimpleController.PI or
+                                             chiWatConTowFan==Buildings.Controls.OBC.CDL.Types.SimpleController.PID)));
 
   parameter Real TdWSETowFan(
     final unit="s",
     final quantity="Time")=0.1 "Time constant of derivative block"
     annotation (Dialog(tab="Cooling Towers", group="Fan speed controller with WSE enabled",
-                       enable=have_WSE and (chiWatCon==Buildings.Controls.OBC.CDL.Types.SimpleController.PD or
-                                            chiWatCon==Buildings.Controls.OBC.CDL.Types.SimpleController.PID)));
+                       enable=have_WSE and (chiWatConTowFan==Buildings.Controls.OBC.CDL.Types.SimpleController.PD or
+                                            chiWatConTowFan==Buildings.Controls.OBC.CDL.Types.SimpleController.PID)));
 
   // Fan speed control: controlling condenser return water temperature when WSE is not enabled
   parameter Real LIFT_min[nChi](
@@ -1366,7 +1366,7 @@ equation
           -740,60},{-740,-48},{-168,-48}},                             color={0,
           0,127}));
   connect(staSetCon.TWsePre, wseSta.TWsePre) annotation(Line(points={{-168,-56},
-          {-280,-56},{-280,320},{-538,320}},
+          {-280,-56},{-280,320},{-536,320}},
         color={0,0,127}));
   connect(VChiWat_flow, staSetCon.VChiWat_flow) annotation(Line(points={{-820,
           -20},{-760,-20},{-760,-64},{-168,-64}},
@@ -1384,10 +1384,10 @@ equation
           127}));
   connect(uChi, towCon.uChi) annotation(Line(points={{-820,540},{-700,540},{-700,
           -572},{-208,-572}},           color={255,0,255}));
-  connect(wseSta.y, staSetCon.uWseSta) annotation(Line(points={{-538,330},{-500,
-          330},{-500,96},{-168,96}},            color={255,0,255}));
-  connect(wseSta.y, towCon.uWse) annotation(Line(points={{-538,330},{-500,330},
-          {-500,-580},{-208,-580}},     color={255,0,255}));
+  connect(wseSta.y, staSetCon.uWseSta) annotation(Line(points={{-536,336},{-500,
+          336},{-500,96},{-168,96}},            color={255,0,255}));
+  connect(wseSta.y, towCon.uWse) annotation(Line(points={{-536,336},{-500,336},{
+          -500,-580},{-208,-580}},      color={255,0,255}));
   connect(plaEna.yPla, towCon.uPla) annotation(Line(points={{-518,-460},{-480,
           -460},{-480,-636},{-208,-636}},     color={255,0,255}));
   connect(TOutWet, staSetCon.TOutWet) annotation(Line(points={{-820,130},{-720,130},
@@ -1453,14 +1453,14 @@ equation
   connect(uChiWatPum, mulOr.u) annotation(Line(points={{-820,340},{-670,340},{
           -670,-100},{-642,-100}},color={255,0,255}));
   connect(staSetCon.yOpeParLoaRatMin, dowProCon.yOpeParLoaRatMin) annotation (
-      Line(points={{-72,-44},{-60,-44},{-60,-168},{272,-168}},           color=
+      Line(points={{-72,-52.8},{-60,-52.8},{-60,-168},{272,-168}},       color=
           {0,0,127}));
   connect(uChi, upProCon.uChi) annotation(Line(points={{-820,540},{-700,540},{-700,
           400},{272,400}},color={255,0,255}));
-  connect(wseSta.y, upProCon.uWSE) annotation(Line(points={{-538,330},{0,330},{0,
+  connect(wseSta.y, upProCon.uWSE) annotation(Line(points={{-536,336},{0,336},{0,
           340},{272,340}},color={255,0,255}));
-  connect(wseSta.y, dowProCon.uWSE) annotation(Line(points={{-538,330},{-500,
-          330},{-500,-276},{272,-276}},color={255,0,255}));
+  connect(wseSta.y, dowProCon.uWSE) annotation(Line(points={{-536,336},{-500,336},
+          {-500,-276},{272,-276}},     color={255,0,255}));
   connect(dowProCon.VChiWat_flow, VChiWat_flow) annotation(Line(points={{272,-196},
           {-760,-196},{-760,-20},{-820,-20}},color={0,0,127}));
   connect(uChiIsoVal, chiWatPumCon.uChiIsoVal) annotation(Line(points={{-820,670},
@@ -1518,8 +1518,8 @@ equation
   connect(conWatPumSpe.y, upProCon.uConWatPumSpe) annotation (Line(points={{-538,
           -400},{-148,-400},{-148,-402},{252,-402},{252,316},{272,316}},
                                                       color={0,0,127}));
-  connect(wseSta.yTunPar, staSetCon.uTunPar) annotation (Line(points={{-538,310},
-          {-510,310},{-510,-28},{-168,-28}},         color={0,0,127}));
+  connect(wseSta.yTunPar, staSetCon.uTunPar) annotation (Line(points={{-536,304},
+          {-510,304},{-510,-28},{-168,-28}},         color={0,0,127}));
   connect(TChiWatRet, wseSta.TChiWatRet) annotation (Line(points={{-820,60},{
           -740,60},{-740,328},{-584,328}}, color={0,0,127}));
   connect(chaProUpDown.y, staSetCon.chaPro) annotation (Line(points={{522,-80},
@@ -1559,8 +1559,8 @@ equation
   connect(heaCon.y,heaPreCon.uChiHeaCon)  annotation (Line(points={{682,280},{
           700,280},{700,240},{-470,240},{-470,220},{-424,220}}, color={255,0,
           255}));
-  connect(wseSta.y, booRep.u) annotation (Line(points={{-538,330},{-500,330},{
-          -500,300},{-482,300}}, color={255,0,255}));
+  connect(wseSta.y, booRep.u) annotation (Line(points={{-536,336},{-500,336},{-500,
+          300},{-482,300}},      color={255,0,255}));
   connect(booRep.y, heaPreCon.uWSE) annotation (Line(points={{-458,300},{-450,
           300},{-450,188},{-424,188}}, color={255,0,255}));
   connect(TConWatRet, conWatRetTem.u) annotation (Line(points={{-820,-60},{-780,
