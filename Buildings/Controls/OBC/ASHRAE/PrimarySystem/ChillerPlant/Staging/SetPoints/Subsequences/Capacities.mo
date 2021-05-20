@@ -34,44 +34,44 @@ block Capacities
         iconTransformation(extent={{-140,-50},{-100,-10}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uDesCap[nSta](
-    final quantity=fill("Power", nSta),
+    final quantity=fill("HeatFlowRate", nSta),
     final unit=fill("W", nSta)) "Design stage capacities"
     annotation (Placement(transformation(extent={{-240,160},{-200,200}}),
         iconTransformation(extent={{-140,70},{-100,110}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uMinCap[nSta](
-    final quantity=fill("Power", nSta),
+    final quantity=fill("HeatFlowRate", nSta),
     final unit=fill("W", nSta)) "Unload stage capacities"
     annotation (Placement(transformation(extent={{-240,-200},{-200,-160}}),
         iconTransformation(extent={{-140,40},{-100,80}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yDes(
     final unit="W",
-    final quantity="Power") "Design capacity of the current stage"
+    final quantity="HeatFlowRate") "Design capacity of the current stage"
     annotation (Placement(transformation(extent={{200,130},{240,170}}),
         iconTransformation(extent={{100,60},{140,100}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yDowDes(
     final unit="W",
-    final quantity="Power") "Design capacity of the next available lower stage"
+    final quantity="HeatFlowRate") "Design capacity of the next available lower stage"
     annotation (Placement(transformation(extent={{200,0},{240,40}}),
         iconTransformation(extent={{100,-20},{140,20}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yUpDes(
     final unit="W",
-    final quantity="Power") "Design capacity of the next available higher stage"
+    final quantity="HeatFlowRate") "Design capacity of the next available higher stage"
     annotation (Placement(transformation(extent={{200,40},{240,80}}),
         iconTransformation(extent={{100,20},{140,60}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yMin(
     final unit="W",
-    final quantity="Power") "Minimum capacity of the current stage"
+    final quantity="HeatFlowRate") "Minimum capacity of the current stage"
     annotation (Placement(transformation(extent={{200,-40},{240,0}}),
         iconTransformation(extent={{100,-60},{140,-20}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yUpMin(
     final unit="W",
-    final quantity="Power") "Minimum capacity of the next available higher stage"
+    final quantity="HeatFlowRate") "Minimum capacity of the next available higher stage"
     annotation (Placement(transformation(extent={{200,-110},{240,-70}}),
         iconTransformation(extent={{100,-100},{140,-60}})));
 

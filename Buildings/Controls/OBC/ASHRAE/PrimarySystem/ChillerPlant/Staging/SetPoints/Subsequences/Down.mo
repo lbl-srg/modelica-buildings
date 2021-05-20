@@ -63,23 +63,22 @@ block Down "Generates a stage down signal"
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uStaDow(final unit="1")
     "Next available stage down staging part load ratio (SPLR)"
-    annotation (
-      Placement(transformation(extent={{-220,150},{-180,190}}),
-        iconTransformation(extent={{-140,60},{-100,100}})));
+    annotation (Placement(transformation(extent={{-220,150},{-180,190}}),
+      iconTransformation(extent={{-140,60},{-100,100}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TChiWatSupSet(
     final unit="K",
     final quantity="ThermodynamicTemperature")
     "Chilled water supply temperature setpoint"
     annotation (Placement(transformation(extent={{-220,-60},{-180,-20}}),
-    iconTransformation(extent={{-140,-20},{-100,20}})));
+      iconTransformation(extent={{-140,-20},{-100,20}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TChiWatSup(
     final unit="K",
     final quantity="ThermodynamicTemperature")
     "Chilled water supply temperature"
     annotation (Placement(transformation(extent={{-220,10},{-180,50}}),
-    iconTransformation(extent={{-140,-40},{-100,0}})));
+      iconTransformation(extent={{-140,-40},{-100,0}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput dpChiWatPumSet(
     final unit="Pa",
@@ -93,23 +92,24 @@ block Down "Generates a stage down signal"
     final quantity="PressureDifference") if not have_serChi
     "Chilled water pump differential static pressure"
     annotation (Placement(transformation(extent={{-220,50},{-180,90}}),
-    iconTransformation(extent={{-140,10},{-100,50}})));
+      iconTransformation(extent={{-140,10},{-100,50}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TWsePre(
-    final unit="1") if have_WSE
-    "Predicted WSE outlet temperature"
+    final quantity="ThermodynamicTemperature",
+    final unit="K") if have_WSE
+    "Predicted waterside economizer outlet temperaturePredicted WSE outlet temperature"
     annotation (Placement(transformation(extent={{-220,-90},{-180,-50}}),
-       iconTransformation(extent={{-140,-60},{-100,-20}})));
+      iconTransformation(extent={{-140,-60},{-100,-20}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uTowFanSpeMax if have_WSE
     "Maximum cooling tower fan speed"
     annotation (Placement(transformation(extent={{-220,-120},{-180,-80}}),
-        iconTransformation(extent={{-140,-80},{-100,-40}})));
+      iconTransformation(extent={{-140,-80},{-100,-40}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y
     "Stage down signal"
     annotation (Placement(transformation(extent={{180,-10},{200,10}}),
-        iconTransformation(extent={{100,-20},{140,20}})));
+      iconTransformation(extent={{100,-20},{140,20}})));
 
 protected
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.SetPoints.Subsequences.FailsafeCondition faiSafCon(

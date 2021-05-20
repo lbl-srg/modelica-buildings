@@ -53,7 +53,8 @@ protected
     final samplePeriod=fill(10, 2))
     "Output the input signal with a zero order hold"
     annotation (Placement(transformation(extent={{100,-180},{120,-160}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant wseSta1(final k=false)
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant wseSta1(
+    final k=false)
     "Waterside economizer status"
     annotation (Placement(transformation(extent={{-200,-300},{-180,-280}})));
   Buildings.Controls.OBC.CDL.Discrete.ZeroOrderHold zerOrdHol4(
@@ -75,7 +76,8 @@ protected
   Buildings.Controls.OBC.CDL.Discrete.ZeroOrderHold zerOrdHol6(
     final samplePeriod=10) "Output the input signal with a zero order hold"
     annotation (Placement(transformation(extent={{80,110},{100,130}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant chiLoa3(final k=1000)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant chiLoa3(
+    final k=1000)
     "Chiller load"
     annotation (Placement(transformation(extent={{80,150},{100,170}})));
   Buildings.Controls.OBC.CDL.Logical.Switch chiLoa2[2] "Chiller load"
@@ -84,10 +86,12 @@ protected
     final samplePeriod=10)
     "Output the input signal with a zero order hold"
     annotation (Placement(transformation(extent={{180,110},{200,130}})));
-  Buildings.Controls.OBC.CDL.Logical.Pre chiOneHea(final pre_u_start=false)
+  Buildings.Controls.OBC.CDL.Logical.Pre chiOneHea(
+    final pre_u_start=false)
     "Chiller one head pressure control"
     annotation (Placement(transformation(extent={{100,-100},{120,-80}})));
-  Buildings.Controls.OBC.CDL.Logical.Pre chiTwoHea(final pre_u_start=true)
+  Buildings.Controls.OBC.CDL.Logical.Pre chiTwoHea(
+    final pre_u_start=true)
     "Chiller two head pressure control"
     annotation (Placement(transformation(extent={{100,-140},{120,-120}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zerOpe2(
@@ -103,16 +107,19 @@ protected
     final k={true,false})
     "Vector of chillers status setpoint at stage one"
     annotation (Placement(transformation(extent={{-200,160},{-180,180}})));
-  Buildings.Controls.OBC.CDL.Routing.BooleanReplicator booRep2(final nout=2)
+  Buildings.Controls.OBC.CDL.Routing.BooleanReplicator booRep2(
+    final nout=2)
     "Replicate boolean input"
     annotation (Placement(transformation(extent={{-120,130},{-100,150}})));
   Buildings.Controls.OBC.CDL.Logical.LogicalSwitch chiSet2[2]
     "Chiller status setpoint"
     annotation (Placement(transformation(extent={{-80,130},{-60,150}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant upSta2(final k=2)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant upSta2(
+    final k=2)
     "Stage two"
     annotation (Placement(transformation(extent={{-200,190},{-180,210}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant dowSta2(final k=1)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant dowSta2(
+    final k=1)
     "Stage one"
     annotation (Placement(transformation(extent={{-200,230},{-180,250}})));
   Buildings.Controls.OBC.CDL.Logical.Switch swi2 "Logical switch"
@@ -120,16 +127,19 @@ protected
   Buildings.Controls.OBC.CDL.Conversions.RealToInteger staSet2
     "Stage setpoint index"
     annotation (Placement(transformation(extent={{-80,210},{-60,230}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant staOne(final k=1) "Stage one"
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant staOne(
+    final k=1) "Stage one"
     annotation (Placement(transformation(extent={{-200,-140},{-180,-120}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant staTwo(final k=2)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant staTwo(
+    final k=2)
     "Stage two"
     annotation (Placement(transformation(extent={{-200,-180},{-180,-160}})));
   Buildings.Controls.OBC.CDL.Logical.Switch chiSta "Current chiller stage"
     annotation (Placement(transformation(extent={{-120,-160},{-100,-140}})));
   Buildings.Controls.OBC.CDL.Conversions.RealToInteger sta "Current chiller stage"
     annotation (Placement(transformation(extent={{-80,-160},{-60,-140}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant fal(final k=false)
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant fal(
+    final k=false)
     "Logical false"
     annotation (Placement(transformation(extent={{80,180},{100,200}})));
   Buildings.Controls.OBC.CDL.Logical.FallingEdge falEdg
@@ -170,7 +180,7 @@ equation
     annotation (Line(points={{42,91},{60,91},{60,40},{98,40}},
       color={255,0,255}));
   connect(dowProCon.yChi[2], chiTwoSta.u)
-    annotation (Line(points={{42,93},{62,93},{62,0},{98,0}},     color={255,0,255}));
+    annotation (Line(points={{42,93},{62,93},{62,0},{98,0}}, color={255,0,255}));
   connect(chiOneSta.y, chiLoa2[1].u2)
     annotation (Line(points={{122,40},{130,40},{130,120},{138,120}},
       color={255,0,255}));
@@ -204,17 +214,17 @@ equation
     annotation (Line(points={{-178,-90},{-76,-90},{-76,86},{18,86}},
       color={0,0,127}));
   connect(dowProCon.yChiHeaCon[1], chiOneHea.u)
-    annotation (Line(points={{42,76},{66,76},{66,-90},{98,-90}},
+    annotation (Line(points={{42,76},{58,76},{58,-90},{98,-90}},
       color={255,0,255}));
   connect(dowProCon.yChiHeaCon[2], chiTwoHea.u)
-    annotation (Line(points={{42,78},{68,78},{68,-130},{98,-130}},
+    annotation (Line(points={{42,78},{56,78},{56,-130},{98,-130}},
       color={255,0,255}));
   connect(chiOneHea.y, dowProCon.uChiHeaCon[1])
-    annotation (Line(points={{122,-90},{140,-90},{140,-110},{-48,-110},{-48,79},
-          {18,79}}, color={255,0,255}));
+    annotation (Line(points={{122,-90},{140,-90},{140,-60},{-32,-60},{-32,79},
+      {18,79}}, color={255,0,255}));
   connect(chiTwoHea.y, dowProCon.uChiHeaCon[2])
-    annotation (Line(points={{122,-130},{140,-130},{140,-150},{-46,-150},{-46,81},
-          {18,81}}, color={255,0,255}));
+    annotation (Line(points={{122,-130},{140,-130},{140,-112},{-34,-112},{-34,81},
+      {18,81}}, color={255,0,255}));
   connect(zerOpe2.y, IsoValOne.u3)
     annotation (Line(points={{-178,-210},{-160,-210},{-160,-218},{-122,-218}},
       color={0,0,127}));

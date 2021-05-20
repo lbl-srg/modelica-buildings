@@ -29,13 +29,16 @@ protected
     annotation (Placement(transformation(extent={{-200,110},{-180,130}})));
   Buildings.Controls.OBC.CDL.Logical.Not staUp "Stage up command"
     annotation (Placement(transformation(extent={{-160,110},{-140,130}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant fulLoa(final k=1000)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant fulLoa(
+    final k=1000)
     "Full load"
     annotation (Placement(transformation(extent={{-200,10},{-180,30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zerLoa(final k=0)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zerLoa(
+    final k=0)
     "Zero load"
     annotation (Placement(transformation(extent={{-200,-30},{-180,-10}})));
-  Buildings.Controls.OBC.CDL.Logical.Pre chiOneSta(final pre_u_start=true)
+  Buildings.Controls.OBC.CDL.Logical.Pre chiOneSta(
+    final pre_u_start=true)
     "Break algebraic loop"
     annotation (Placement(transformation(extent={{80,60},{100,80}})));
   Buildings.Controls.OBC.CDL.Logical.Switch loaOne "Chiller load one"
@@ -44,7 +47,8 @@ protected
     final samplePeriod=fill(10, 2))
     "Output the input signal with a zero order hold"
     annotation (Placement(transformation(extent={{80,-190},{100,-170}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant wseSta(final k=false)
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant wseSta(
+    final k=false)
     "Waterside economizer status"
     annotation (Placement(transformation(extent={{-200,-190},{-180,-170}})));
   Buildings.Controls.OBC.CDL.Discrete.ZeroOrderHold conPumSpeSet(
@@ -61,7 +65,8 @@ protected
   Buildings.Controls.OBC.CDL.Discrete.ZeroOrderHold chiTwoDem(
     final samplePeriod=10) "Chiller two limited demand"
     annotation (Placement(transformation(extent={{80,130},{100,150}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant chiLoa3(final k=1000)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant chiLoa3(
+    final k=1000)
     "Chiller load"
     annotation (Placement(transformation(extent={{80,160},{100,180}})));
   Buildings.Controls.OBC.CDL.Logical.Switch chiLoa[2] "Limited chiller load"
@@ -82,10 +87,12 @@ protected
     annotation (Placement(transformation(extent={{-120,-230},{-100,-210}})));
   Buildings.Controls.OBC.CDL.Logical.Switch IsoValTwo "Logical switch"
     annotation (Placement(transformation(extent={{-120,-270},{-100,-250}})));
-  Buildings.Controls.OBC.CDL.Logical.Pre chiOneHea(final pre_u_start=true)
+  Buildings.Controls.OBC.CDL.Logical.Pre chiOneHea(
+    final pre_u_start=true)
     "Chiller one head pressure control"
     annotation (Placement(transformation(extent={{80,-110},{100,-90}})));
-  Buildings.Controls.OBC.CDL.Logical.Pre chiTwoHea(final pre_u_start=false)
+  Buildings.Controls.OBC.CDL.Logical.Pre chiTwoHea(
+    final pre_u_start=false)
     "Chiller two head pressure control"
     annotation (Placement(transformation(extent={{80,-150},{100,-130}})));
   Buildings.Controls.OBC.CDL.Discrete.ZeroOrderHold zerOrdHol3(
@@ -94,7 +101,8 @@ protected
     annotation (Placement(transformation(extent={{80,-230},{100,-210}})));
   Buildings.Controls.OBC.CDL.Logical.Switch chiWatFlo1 "Chilled water flow rate"
     annotation (Placement(transformation(extent={{-120,-70},{-100,-50}})));
-  Buildings.Controls.OBC.CDL.Logical.Pre  chiOneHea1(final pre_u_start=false)
+  Buildings.Controls.OBC.CDL.Logical.Pre  chiOneHea1(
+    final pre_u_start=false)
     "Chiller one head pressure control"
     annotation (Placement(transformation(extent={{0,-30},{20,-10}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant staOneChi[2](
@@ -105,16 +113,19 @@ protected
     final k={false,true})
     "Vector of chillers status setpoint at stage two"
     annotation (Placement(transformation(extent={{-200,150},{-180,170}})));
-  Buildings.Controls.OBC.CDL.Routing.BooleanReplicator booRep(final nout=2)
+  Buildings.Controls.OBC.CDL.Routing.BooleanReplicator booRep(
+    final nout=2)
     "Replicate boolean input"
     annotation (Placement(transformation(extent={{-120,110},{-100,130}})));
   Buildings.Controls.OBC.CDL.Logical.LogicalSwitch chiSet[2]
     "Chiller status setpoint"
     annotation (Placement(transformation(extent={{-80,130},{-60,150}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant dowSta(final k=1)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant dowSta(
+    final k=1)
     "Stage one"
     annotation (Placement(transformation(extent={{-200,190},{-180,210}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant upSta(final k=2)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant upSta(
+    final k=2)
     "Stage two"
     annotation (Placement(transformation(extent={{-200,220},{-180,240}})));
   Buildings.Controls.OBC.CDL.Logical.Switch swi "Logical switch"
@@ -122,16 +133,19 @@ protected
   Buildings.Controls.OBC.CDL.Conversions.RealToInteger staSet
     "Stage setpoint index"
     annotation (Placement(transformation(extent={{-80,200},{-60,220}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant staOne(final k=1) "Stage one"
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant staOne(
+    final k=1) "Stage one"
     annotation (Placement(transformation(extent={{-200,-150},{-180,-130}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant staTwo(final k=2)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant staTwo(
+    final k=2)
     "Stage two"
     annotation (Placement(transformation(extent={{-200,-110},{-180,-90}})));
   Buildings.Controls.OBC.CDL.Logical.Switch chiSta "Current chiller stage"
     annotation (Placement(transformation(extent={{-120,-130},{-100,-110}})));
   Buildings.Controls.OBC.CDL.Conversions.RealToInteger sta "Current chiller stage"
     annotation (Placement(transformation(extent={{-80,-130},{-60,-110}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant  fal(final k=false)
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant  fal(
+    final k=false)
     "Logical false"
     annotation (Placement(transformation(extent={{140,170},{160,190}})));
   Buildings.Controls.OBC.CDL.Logical.FallingEdge  falEdg
@@ -214,14 +228,14 @@ equation
           {120,-20},{120,-40},{-38,-40},{-38,92},{18,92}},      color={0,0,127}));
   connect(conPumSpe.y, upProCon.uConWatPumSpe) annotation (Line(points={{102,-60},
           {120,-60},{120,-80},{-36,-80},{-36,89},{18,89}},   color={0,0,127}));
-  connect(upProCon.yChiHeaCon[1], chiOneHea.u) annotation (Line(points={{42,90},
-          {52,90},{52,-100},{78,-100}},color={255,0,255}));
-  connect(upProCon.yChiHeaCon[2], chiTwoHea.u) annotation (Line(points={{42,92},
-          {50,92},{50,-140},{78,-140}},  color={255,0,255}));
   connect(chiOneHea.y, upProCon.uChiHeaCon[1]) annotation (Line(points={{102,-100},
-          {120,-100},{120,-120},{-34,-120},{-34,85},{18,85}},color={255,0,255}));
+          {120,-100},{120,-116},{-32,-116},{-32,85},{18,85}}, color={255,0,255}));
   connect(chiTwoHea.y, upProCon.uChiHeaCon[2]) annotation (Line(points={{102,-140},
-          {120,-140},{120,-160},{-32,-160},{-32,87},{18,87}},   color={255,0,255}));
+          {120,-140},{120,-124},{-34,-124},{-34,87},{18,87}}, color={255,0,255}));
+  connect(upProCon.yChiHeaCon[1], chiOneHea.u) annotation (Line(points={{42,90},
+          {50,90},{50,-100},{78,-100}}, color={255,0,255}));
+  connect(upProCon.yChiHeaCon[2], chiTwoHea.u) annotation (Line(points={{42,92},
+          {52,92},{52,-140},{78,-140}}, color={255,0,255}));
   connect(IsoValOne.y, upProCon.uChiWatIsoVal[1]) annotation (Line(points={{-98,
           -220},{-30,-220},{-30,82},{18,82}},   color={0,0,127}));
   connect(IsoValTwo.y, upProCon.uChiWatIsoVal[2]) annotation (Line(points={{-98,

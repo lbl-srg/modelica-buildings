@@ -20,14 +20,14 @@ block SetpointController
 
   parameter Real chiDesCap[nChi](
      final unit=fill("W",nChi),
-     final quantity=fill("Power",nChi),
+     final quantity=fill("HeatFlowRate",nChi),
      displayUnit=fill("W",nChi))
     "Design chiller capacities vector"
     annotation (Dialog(tab="General", group="Chiller configuration parameters"));
 
   parameter Real chiMinCap[nChi](
      final unit=fill("W",nChi),
-     final quantity=fill("Power",nChi),
+     final quantity=fill("HeatFlowRate",nChi),
      displayUnit=fill("W",nChi))
     "Chiller minimum cycling loads vector"
     annotation (Dialog(tab="General", group="Chiller configuration parameters"));
