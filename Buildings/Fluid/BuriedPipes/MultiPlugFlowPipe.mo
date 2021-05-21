@@ -219,7 +219,7 @@ d = %dh"),
     Documentation(revisions="<html>
 <ul>
 <li>
-March 17, 2021, by Baptiste Ravache:<br/>
+May 17, 2021, by Baptiste Ravache:<br/>
 First implementation.
 </li>
 </ul>

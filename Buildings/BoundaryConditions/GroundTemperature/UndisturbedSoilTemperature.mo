@@ -3,13 +3,14 @@ model UndisturbedSoilTemperature "Undisturbed soil temperature"
   parameter Modelica.SIunits.Length dep "Depth";
 
   parameter Boolean useNFac = false
-  "= true, use n-factors to correct climatic constants";
+    "= true, use n-factors to correct climatic constants";
   parameter Real nFacTha = 1 "Thawing n-factor (Tair > 0degC)";
   parameter Real nFacFre = 1 "Freezing n-factor (Tair <= 0degC)";
 
   parameter Boolean useCon = false
-  "= true, includes convection between air and surface coupling";
-  parameter Real hSur(unit="W/(m2.K)", min=0) = 25 "Surface convective heat transfer coefficient";
+    "= true, includes convection between air and surface coupling";
+  parameter Real hSur(unit="W/(m2.K)", min=0) = 25
+    "Surface convective heat transfer coefficient";
 
   replaceable parameter Buildings.HeatTransfer.Data.Soil.Generic
     soiDat "Soil thermal properties";
@@ -98,6 +99,29 @@ where: <br>
 <i>A<sub>s</sub></i> = temperature amplitude throughout the year (max - min), <br>
 <i>t<sub>lag</sub></i> = phase lag of the surface temperature sinusoid
 </p>
+
+<h4>Corrections</h4>
+
+<p>
+Without correction, this model assumes that the surface temperature (depth = 0) is
+equal to the air temperature, which is acceptable for most design calculations.<br>
+For more accurate calculation, this model provides methods to compensate for
+the convective thermal resistance and the impact of surface cover.
+</p>
+<p>
+The convective thermal resistance can be modeled as a virtual equivalent soil layer
+by setting the flag <i>useCon</i> to <code>true</code> and specifying the
+heat transfer coefficient <i>hSur</i>.
+</p>
+<p>
+The impact of surface cover can be modeled using n-factors by setting the flag
+<i>useNFac</i> to <code>true</code> and specifying the thawing and freezing
+n-factors at the surface. <br>
+More information about n-factors correction can be found in the documentation
+for <a href=\\\"modelica://Buildings.BoundaryConditions.GroundTemperature.BaseClasses.surfaceTemperature\\\">
+Buildings.BoundaryConditions.GroundTemperature.BaseClasses.surfaceTemperature</a>.
+</p>
+
 <h4>References</h4>
 <p>
 ASCE (1996). <i>Cold Regions Utilities Monograph</i>. D.W. Smith, Technical Editor.

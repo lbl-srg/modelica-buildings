@@ -1,4 +1,4 @@
-within Buildings.Fluid.BuriedPipes.Examples;
+﻿within Buildings.Fluid.BuriedPipes.Examples;
 model MultiSegmentBuriedPipe
   "Example model of a buried pipe with multiple segment"
   extends Modelica.Icons.Example;
@@ -171,15 +171,16 @@ equation
     experiment(StopTime=63072000, Tolerance=1e-06),
     Documentation(info="<html>
 <p>
-This example showcases the ground thermal coupling for a single uninsulated 
-buried pipe operating around ambient temperature (<i>20</i>°C).
+This example showcases the ground thermal coupling for two uninsulated 
+buried pipe operating around ambient temperature (<i>20</i>°C), and separated
+in 2 and 10 segments respectively.
 Both design flow direction and reverse flow direction 
 (components with suffix <code>Rev</code>) are simulated.
 </p>
 </html>", revisions="<html>
 <ul>
 <li>
-March 17, 2021, by Baptiste Ravache:<br/>
+May 17, 2021, by Baptiste Ravache:<br/>
 First implementation.
 </li>
 </ul>
