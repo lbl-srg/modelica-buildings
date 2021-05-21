@@ -25,8 +25,7 @@ model TwoIdenticalZones
     smoothness=Modelica.Blocks.Types.Smoothness.ConstantSegments,
     tableName="EnergyPlus",
     columns=2:5,
-    y(
-      each unit="K",
+    y(each unit="K",
       each displayUnit="degC"),
     extrapolation=Modelica.Blocks.Types.Extrapolation.HoldLastPoint)
     "Data reader with results from EnergyPlus"
@@ -38,6 +37,12 @@ model TwoIdenticalZones
     k=0.01)
     "Relative humidity in the room computed by EnergyPlus"
     annotation (Placement(transformation(extent={{0,20},{20,40}})));
+
+  Buildings.ThermalZones.EnergyPlus.OutputVariable inf1(
+    name="Zone Infiltration Current Density Volume Flow Rate",
+    key="Thermal Zone 1")
+    annotation (Placement(transformation(extent={{40,-40},{60,-20}})));
+
   model Zone
     "Model of a thermal zone"
     extends Modelica.Blocks.Icons.Block;
@@ -137,7 +142,6 @@ model TwoIdenticalZones
     connect(bou.weaBus,weaBus)
       annotation (Line(points={{-80,-79.8},{-86,-79.8},{-86,-80},{-94,-80},{-94,0},{-100,0}},color={255,204,51},thickness=0.5));
   end Zone;
-
 equation
   connect(TAirEnePlu.u,datRea.y[3])
     annotation (Line(points={{-2,70},{-39,70}},color={0,0,127}));
