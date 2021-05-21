@@ -1,7 +1,7 @@
 ﻿simulateModel("Buildings.BoundaryConditions.GroundTemperature.Examples.UndisturbedSoilTemperature", tolerance=1e-6, stopTime=31536000, method="Cvode", resultFile="UndisturbedSoilTemperature");
 createPlot(id=1, 
   position={16, 11, 592, 372}, 
-  y={"Tsoi0.port.T", "Tsoi2.port.T", "Tsoi5.port.T", "Tsoi9.port.T"}, 
+  y={"TSoi[1].port.T", "TSoi[2].port.T", "TSoi[3].port.T", "TSoi[4].port.T"},
   range={0.0, 380.0, -5.0, 25.0}, 
   grid=true, 
   legends={"Tsur", "Tdep2m", "Tdep5m", "Tdep9m"}, 

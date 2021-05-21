@@ -1,7 +1,7 @@
 compareVars :=
   {
-    "Tsoi0.port.T",
-    "Tsoi2.port.T",
-    "Tsoi5.port.T",
-    "Tsoi9.port.T"
+    "TSoi[1].port.T",
+    "TSoi[2].port.T",
+    "TSoi[3].port.T",
+    "TSoi[4].port.T"
   };

@@ -1,6 +1,16 @@
 within Buildings.BoundaryConditions.GroundTemperature;
 model UndisturbedSoilTemperature "Undisturbed soil temperature"
   parameter Modelica.SIunits.Length dep "Depth";
+
+  parameter Boolean useNFac = false
+  "= true, use n-factors to correct climatic constants";
+  parameter Real nFacTha = 1 "Thawing n-factor (Tair > 0degC)";
+  parameter Real nFacFre = 1 "Freezing n-factor (Tair <= 0degC)";
+
+  parameter Boolean useCon = false
+  "= true, includes convection between air and surface coupling";
+  parameter Real hSur(unit="W/(m2.K)", min=0) = 25 "Surface convective heat transfer coefficient";
+
   replaceable parameter Buildings.HeatTransfer.Data.Soil.Generic
     soiDat "Soil thermal properties";
   replaceable parameter ClimaticConstants.Generic
@@ -13,16 +23,26 @@ protected
   constant Modelica.SIunits.Duration Year = 365.2422*24*60*60
     "Annual period length";
 
+  parameter Modelica.SIunits.Length corDep = if useCon
+    then dep + soiDat.k / hSur
+    else dep
+    "Convection-corrected depth";
+  parameter ClimaticConstants.Generic corCliCon= if useNFac
+    then BaseClasses.surfaceTemperature(cliCon=cliCon, nFacTha=nFacTha, nFacFre=nFacFre)
+    else cliCon
+    "N-factor corrected climatic constants";
+
   parameter Modelica.SIunits.ThermalDiffusivity
     soiDif = soiDat.k / soiDat.c / soiDat.d "Soil diffusivity";
   parameter Modelica.SIunits.Duration
-    timLag = cliCon.sinPhaDay*24*60*60
+    timLag = corCliCon.sinPhaDay*24*60*60
     "Start time of surface temperature sinusoid";
-  parameter Real pha = - dep * (pi/soiDif/Year)^0.5
+  parameter Real pha = - corDep * (pi/soiDif/Year)^0.5
     "Phase angle of ground temperature sinusoid";
 
+
 equation
-  port.T = cliCon.TSurMea + cliCon.TSurAmp * exp(pha) *
+  port.T = corCliCon.TSurMea + corCliCon.TSurAmp * exp(pha) *
     sin(2*pi*(time-timLag)/Year + pha);
     annotation (Placement(transformation(extent={{-6,-104},{6,-92}}),
         iconTransformation(extent={{-6,-104},{6,-92}})),
@@ -74,8 +94,8 @@ where: <br>
 <i>&tau;</i> = annual period length (constant 365.25 days),<br>
 <i>&alpha;</i> = soil thermal diffusivity, <br>
 <i>t</i> = time, <br>
-<i>T<sub>ms</sub></i> = mean annual surface temperature<br>
-<i>A<sub>s</sub></i> = temperature amplitude throughout the year (max - min) 
+<i>T<sub>ms</sub></i> = mean annual surface temperature, <br>
+<i>A<sub>s</sub></i> = temperature amplitude throughout the year (max - min), <br>
 <i>t<sub>lag</sub></i> = phase lag of the surface temperature sinusoid
 </p>
 <h4>References</h4>
