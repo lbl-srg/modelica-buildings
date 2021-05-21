@@ -126,6 +126,88 @@ its class name ends with the string <code>Beta</code>.
   package ReleaseNotes "Release notes"
     extends Modelica.Icons.ReleaseNotes;
 
+
+    class Version_7_0_1 "Version 7.0.1"
+      extends Modelica.Icons.ReleaseNotes;
+        annotation (Documentation(info="<html>
+    <div class=\"release-summary\">
+    <p>
+    Version 7.0.1 is a bug fix release release.
+    The library has been tested with
+    Dymola 2020x and 2021,
+    JModelica (revision 14023), and
+    OPTIMICA (revision OCT-stable-r12473_JM-r14295).
+    </p>
+    <p>
+      The following changes have been done:
+    <ul>
+    <li>
+      xxx
+    </li>
+    </ul>
+    </div>
+    <!-- New libraries -->
+    <!-- New components for existing libraries -->
+    <!-- Backward compatible changes -->
+    <p>
+    The following <b style=\"color:blue\">existing components</b>
+    have been <b style=\"color:blue\">improved</b> in a
+    <b style=\"color:blue\">backward compatible</b> way:
+    </p>
+    <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+    <tr><td colspan=\"2\"><b>xxx</b>
+        </td>
+    </tr>
+    <tr><td valign=\"top\">xxx
+        </td>
+        <td valign=\"top\">xxx.<br/>
+                          This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1340\">IBPSA, #1340</a>.
+        </td>
+    </tr>
+    </table>
+    <!-- Non-backward compatible changes to existing components -->
+    <!-- Errors that have been fixed -->
+    <p>
+    The following <b style=\"color:red\">critical errors</b> have been fixed (i.e., errors
+    that can lead to wrong simulation results):
+    </p>
+    <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+    <tr><td colspan=\"2\"><b>Buildings.Controls.OBC.CDL</b>
+        </td>
+    </tr>
+    <tr><td colspan=\"2\"><b>xxx</b>
+        </td>
+    </tr>
+    <tr><td valign=\"top\">xxx
+        </td>
+        <td valign=\"top\">xxx.<br/>
+                           This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/xxx\">xxx</a>.
+        </td>
+    </tr>
+    </table>
+    <!-- Uncritical errors -->
+    <p>
+    The following <b style=\"color:red\">uncritical errors</b> have been fixed (i.e., errors
+    that do <b style=\"color:red\">not</b> lead to wrong simulation results, e.g.,
+    units are wrong or errors in documentation):
+    </p>
+    <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+    <tr><td colspan=\"2\"><b>xxx</b>
+        </td>
+    </tr>
+    <tr><td valign=\"top\">xxxx
+        </td>
+        <td valign=\"top\">xxx.<br/>
+                           This is for
+                           <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/xxx\">Buildings, #xxx</a>.
+        </td>
+    </tr>
+    </table>
+    <!-- Obsolete components -->
+     </html>"));
+    end Version_7_0_1;
+
+
     class Version_7_0_0 "Version 7.0.0"
       extends Modelica.Icons.ReleaseNotes;
         annotation (Documentation(info="<html>
@@ -7918,6 +8000,9 @@ on the Buildings library.
 </p>
 <ul>
 <li>
+<a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_7_0_1\">Version 7.0.1</a> (May 24, 2021)
+</li>
+<li>
 <a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_7_0_0\">Version 7.0.0</a> (May 28, 2020)
 </li>
 <li>
@@ -8396,11 +8481,12 @@ end UsersGuide;
 
 annotation (
 preferredView="info",
-version="7.0.0",
+version="7.0.1",
 versionDate="2020-05-28",
-dateModified="2020-05-28",
+dateModified="2021-05-24",
 uses(Modelica(version="3.2.3")),
 conversion(
+  noneFromVersion="7.0.0",
   from(version={"6.0.0"},
       script="modelica://Buildings/Resources/Scripts/Dymola/ConvertBuildings_from_6_to_7.0.0.mos")),
 preferredView="info",
