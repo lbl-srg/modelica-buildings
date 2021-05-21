@@ -86,26 +86,26 @@ model Plant
   parameter Modelica.Fluid.Types.Dynamics massDynamics=energyDynamics
     "Type of mass balance: dynamic (3 initialization options) or steady state"
     annotation (Evaluate=true,Dialog(tab="Dynamics",group="Equations"));
-  Medium.ThermodynamicState sta_a(
+  Medium.ThermodynamicState sta_aSerCoo(
     T(start=273.15+16))=Medium.setState_phX(
-    port_a.p,
+    port_aSerCoo.p,
     noEvent(
       actualStream(
-        port_a.h_outflow)),
+        port_aSerCoo.h_outflow)),
     noEvent(
       actualStream(
-        port_a.Xi_outflow))) if show_T
-    "Medium properties in port_a";
-  Medium.ThermodynamicState sta_b(
+        port_aSerCoo.Xi_outflow))) if show_T
+    "Medium properties in port_aSerCoo";
+  Medium.ThermodynamicState sta_bSerCoo(
     T(start=273.15+7))=Medium.setState_phX(
-    port_b.p,
+    port_bSerCoo.p,
     noEvent(
       actualStream(
-        port_b.h_outflow)),
+        port_bSerCoo.h_outflow)),
     noEvent(
       actualStream(
-        port_b.Xi_outflow))) if show_T
-    "Medium properties in port_b";
+        port_bSerCoo.Xi_outflow))) if show_T
+    "Medium properties in port_bSerCoo";
   Modelica.Blocks.Interfaces.BooleanInput on
     "On signal of the plant"
     annotation (Placement(transformation(extent={{-340,180},{-300,220}}),iconTransformation(extent={{-342,202},{-302,242}})));
