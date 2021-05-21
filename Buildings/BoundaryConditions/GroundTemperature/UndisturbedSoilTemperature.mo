@@ -118,7 +118,7 @@ The impact of surface cover can be modeled using n-factors by setting the flag
 <i>useNFac</i> to <code>true</code> and specifying the thawing and freezing
 n-factors at the surface. <br>
 More information about n-factors correction can be found in the documentation
-for <a href=\\\"modelica://Buildings.BoundaryConditions.GroundTemperature.BaseClasses.surfaceTemperature\\\">
+for <a href=\"modelica://Buildings.BoundaryConditions.GroundTemperature.BaseClasses.surfaceTemperature\">
 Buildings.BoundaryConditions.GroundTemperature.BaseClasses.surfaceTemperature</a>.
 </p>
 
