@@ -227,15 +227,8 @@ its class name ends with the string <code>Beta</code>.
         <td valign=\"top\">Added missing parameter keyword for data records.
         </td>
     </tr>
-    <tr><td valign=\"top\">Buildings.Fluid.HeatExchangers.BaseClasses.CoilRegister
-        </td>
-        <td valign=\"top\">Changed constant <code>simplify_mWat_flow</code> from protected to public because it is assigned by
-                           <a href=\"modelica://Buildings.Fluid.HeatExchangers.WetCoilCounterFlow\">
-                           Buildings.Fluid.HeatExchangers.WetCoilCounterFlow</a>.<br/>
-                           This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2387\">#2387</a>.
-        </td>
-    </tr>
-    <tr><td valign=\"top\">Buildings.Fluid.HeatExchangers.BaseClasses.HexElementLatent
+    <tr><td valign=\"top\">Buildings.Fluid.HeatExchangers.BaseClasses.CoilRegister<br/>
+                           Buildings.Fluid.HeatExchangers.BaseClasses.HexElementLatent
         </td>
         <td valign=\"top\">Changed constant <code>simplify_mWat_flow</code> from protected to public because it is assigned by
                            <a href=\"modelica://Buildings.Fluid.HeatExchangers.WetCoilCounterFlow\">
