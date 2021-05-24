@@ -249,7 +249,8 @@ def _simulate(spec):
     s = Simulator(spec["model"])
     # Add all necessary parameters from Case Dict
     s.addPreProcessingStatement("OutputCPUtime:= true;")
-    s.addPreProcessingStatement("eraseClasses({\"Modelica\"});")
+    s.addPreProcessingStatement("// For Dymola 2022 (or higher) unload MSL so that MSL from uses statement is loaded")
+    s.addPreProcessingStatement("if DymolaVersionNumber() <> 2021.0 then eraseClasses({\"Modelica\"}); end if;")
     s.setSolver(spec["solver"])
     if 'parameters' in spec:
         s.addParameters(spec['parameters'])
@@ -314,8 +315,7 @@ def _organize_cases(mat_dir,case_dict):
             case_list.append(temp)
     else:
         raise ValueError(
-            f"*** There is failed simulation, no result file was found. \
-                Check the simulations. len(CASES) = {len(CASES)}, len(mat_files) = {len(mat_files)}")
+            f"*** No result file was found. Check the simulations. len(CASES) = {len(CASES)}, len(mat_files) = {len(mat_files)}")
     return case_list
 
 
