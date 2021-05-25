@@ -46,7 +46,7 @@ model SingleSpeed "Test model for single speed DX coil"
     height=dp_nominal,
     offset=101325) "Pressure"
     annotation (Placement(transformation(extent={{-100,0},{-80,20}})));
-  Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.Data.Generic.DXCoil datCoi(
+  parameter Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.Data.Generic.DXCoil datCoi(
     sta={Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.Data.Generic.BaseClasses.Stage(
         spe=1800/60,
         nomVal=Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.Data.Generic.BaseClasses.NominalValues(

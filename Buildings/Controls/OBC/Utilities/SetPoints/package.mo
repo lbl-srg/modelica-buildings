@@ -1,12 +1,16 @@
 within Buildings.Controls.OBC.Utilities;
-package SetPoints "Package with blocks for setpoint resets"
-
-annotation (preferredView="info", Documentation(info="<html>
+package SetPoints
+  "Package with blocks for setpoint resets"
+  annotation (
+    preferredView="info",
+    Documentation(
+      info="<html>
 <p>
 This package contains components models to compute set points for control systems.
 </p>
 </html>"),
-  Icon(graphics={
+    Icon(
+      graphics={
         Rectangle(
           lineColor={200,200,200},
           fillColor={248,248,248},

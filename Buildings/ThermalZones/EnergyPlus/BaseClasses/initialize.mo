@@ -4,17 +4,16 @@ function initialize
   extends Modelica.Icons.Function;
   input Buildings.ThermalZones.EnergyPlus.BaseClasses.SpawnExternalObject adapter
     "External object";
-  input Real isSynchronized "Set to variable that is used to synchronize the objects";
+  input Real isSynchronized
+    "Set to variable that is used to synchronize the objects";
   output Integer nObj
     "Returns 1 from C, used to force synchronization";
 external "C" ModelicaSpawnInitialize(
-  adapter,
-  isSynchronized,
-  nObj)
+  adapter,isSynchronized,nObj)
   annotation (
-    Include="#include <EnergyPlusWrapper.c>",
-    IncludeDirectory="modelica://Buildings/Resources/C-Sources",
-    Library={"ModelicaBuildingsEnergyPlus", "fmilib_shared"});
+      Include="#include <EnergyPlusWrapper.c>",
+      IncludeDirectory="modelica://Buildings/Resources/C-Sources",
+      Library={"ModelicaBuildingsEnergyPlus","fmilib_shared"});
   annotation (
     Documentation(
       info="<html>

@@ -4,15 +4,15 @@ model ChillerBorefield
   extends BaseClasses.PartialParallel(
     final have_eleCoo=true,
     final have_fan=false,
-    redeclare replaceable Controls.Supervisory conSup(
+    redeclare replaceable Controls.Supervisory conSup
+      constrainedby Controls.Supervisory(
       final controllerType=controllerType,
       final kHot=kHot,
       final kCol=kCol,
       final TiHot=TiHot,
       final TiCol=TiCol,
       final THeaWatSupSetMin=THeaWatSupSetMin,
-      final TChiWatSupSetMin=TChiWatSupSetMin)
-      constrainedby Controls.BaseClasses.PartialSupervisory,
+      final TChiWatSupSetMin=TChiWatSupSetMin),
     nSysHea=1,
     nSouAmb=
       if have_borFie then
@@ -202,6 +202,11 @@ equation
       revisions="<html>
 <ul>
 <li>
+April 30, 2021, by Michael Wetter:<br/>
+Reformulated replaceable class to avoid access of components that are not in the constraining type.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2471\">issue #2471</a>.
+</li>
+<li>
 July 31, 2020, by Antoine Gautier:<br/>
 First implementation.
 </li>
@@ -246,7 +251,7 @@ Buildings.Experimental.DHC.EnergyTransferStations.Combined.Generation5.Controls.
 </p>
 <p>
 <img alt=\"System schematics\"
-src=\"modelica://Buildings/Resources/Images/Experimental/DHC/EnergyTransferStations/Combined/Generation5/ChillerBorefield.png\"/>.
+src=\"modelica://Buildings/Resources/Images/Experimental/DHC/EnergyTransferStations/Combined/Generation5/ChillerBorefield.png\"/>
 </p>
 </html>"));
 end ChillerBorefield;

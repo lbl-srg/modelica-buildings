@@ -5,13 +5,12 @@ model Floor "Model of a floor of the building"
     final VRooSou=sou.AFlo * hRoo,
     final VRooNor=nor.AFlo * hRoo,
     final VRooEas=eas.AFlo * hRoo,
-    final VRooWes=wes.AFlo * hRoo);
-
-  parameter Modelica.SIunits.Area AFloCor = 2698/hRoo "Core zone floor area";
-  parameter Modelica.SIunits.Area AFloSou = 568.77/hRoo "South zone floor area";
-  parameter Modelica.SIunits.Area AFloNor = 568.77/hRoo "North zone floor area";
-  parameter Modelica.SIunits.Area AFloEas = 360.0785/hRoo "East zone floor area";
-  parameter Modelica.SIunits.Area AFloWes = 360.0785/hRoo "West zone floor area";
+    final VRooWes=wes.AFlo * hRoo,
+    AFloCor = 2698/hRoo,
+    AFloSou = 568.77/hRoo,
+    AFloNor = 568.77/hRoo,
+    AFloEas = 360.0785/hRoo,
+    AFloWes = 360.0785/hRoo);
 
   parameter HeatTransfer.Types.InteriorConvection intConMod=Buildings.HeatTransfer.Types.InteriorConvection.Temperature
     "Convective heat transfer model for room-facing surfaces of opaque constructions";
@@ -700,6 +699,12 @@ equation
           fillPattern=FillPattern.Solid)}),
     Documentation(revisions="<html>
     <ul>
+<li>
+April 30, 2021, by Michael Wetter:<br/>
+Reformulated replaceable class and introduced floor areas in base class
+to avoid access of components that are not in the constraining type.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2471\">issue #2471</a>.
+</li>
 <li>
 January 23, 2020, by Milica Grahovac:<br/>
 Updated core zone geometry parameters related to

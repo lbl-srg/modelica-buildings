@@ -9,7 +9,7 @@ ROOT = $(TRAVIS_BUILD_DIR)
 # The target below excludes run.sh in ThermalZones as they are using a more recent
 # version of EnergyPlus that has not yet been released.
 test-energyplus-validations:
-	@find $(ROOT)/Buildings/Resources/Data -type d \( -name ThermalZones \) -prune -false -o -name run.sh | xargs -I {} sh -c \
+	@find $(ROOT)/Buildings/Resources/Data -name run.sh | xargs -I {} sh -c \
 	  'cd `dirname {}` && \
 	   echo "*********************************************************" && \
 	   echo "*** Testing `pwd`/run.sh" && \
@@ -24,6 +24,14 @@ test-cdl-conformance:
 	 export MODELICAPATH=`pwd` && \
 	 node $(MODELICA_JSON_HOME)/app.js -f Buildings/Controls/OBC -o json -m modelica -d out --strict true && \
 	 rm -rf out)
+
+test-bestest:
+	@echo "*** Check if BESTEST results are up to date"
+	(cd  $(ROOT)/Buildings && \
+	  rm -rf Resources/Data/BoundaryConditions/Validation/BESTEST/results && \
+	  python3 Resources/Data/BoundaryConditions/Validation/BESTEST/generateResults.py -c )
+	git status --porcelain $(ROOT)/Buildings/Resources/Data/BoundaryConditions/Validation/BESTEST
+	git diff --exit-code $(ROOT)/Buildings/Resources/Data/BoundaryConditions/Validation/BESTEST
 
 test-omc:
 	(cd $(ROOT) && $(TRAVIS_BUILD_DIR)/Buildings/Resources/Scripts/travis/omc/testOpenModelica.sh)

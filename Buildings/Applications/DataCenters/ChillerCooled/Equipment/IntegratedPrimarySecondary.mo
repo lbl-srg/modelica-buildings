@@ -49,10 +49,6 @@ model IntegratedPrimarySecondary
   parameter Real lValPum=0.0001
     "Valve leakage, l=Kv(y=0)/Kv(y=1)"
     annotation(Dialog(group="Pump"));
-  parameter Real kFixedValPum=pum.m_flow_nominal/sqrt(pum.dpValve_nominal)
-    "Flow coefficient of fixed resistance that may be in series with valve,
-    k=m_flow/sqrt(dp), with unit=(kg.m)^(1/2)."
-    annotation(Dialog(group="Pump"));
   parameter Modelica.SIunits.PressureDifference dpValPum_nominal = 6000
    "Nominal differential pressure of the shutoff valves for primary pumps"
    annotation(Dialog(group="Pump"));
@@ -102,7 +98,6 @@ model IntegratedPrimarySecondary
     final init=initValve,
     final dpFixed_nominal=0,
     final dpValve_nominal=dpValve_nominal[5],
-    final kFixed=0,
     final rhoStd=rhoStd[5],
     final y_start=yVal5_start,
     final l=lVal5)
@@ -130,7 +125,6 @@ model IntegratedPrimarySecondary
     final deltaM=deltaM2,
     final dpValve_nominal=dpValPum_nominal,
     final l=lValPum,
-    final kFixed=kFixedValPum,
     final riseTimeValve=riseTimeValve,
     final yValve_start=yValPum_start,
     final from_dp=from_dp2,
@@ -140,41 +134,67 @@ model IntegratedPrimarySecondary
     final riseTimePump=riseTimePump,
     final yPump_start=yPum_start)
     "Constant speed pumps"
-    annotation (Placement(transformation(extent={{10,-30},{-10,-10}})));
+    annotation (Placement(transformation(extent={{-20,-30},{-40,-10}})));
   Buildings.Fluid.Sensors.MassFlowRate bypFlo(redeclare package Medium = Medium2)
     "Bypass water mass flowrate"
     annotation (Placement(transformation(extent={{-40,-70},{-20,-50}})));
+  Fluid.FixedResistances.Junction jun2(
+    redeclare package Medium = Medium2,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
+    m_flow_nominal={m2_flow_wse_nominal,-numChi*m2_flow_chi_nominal,numChi*
+        m2_flow_chi_nominal},
+    dp_nominal={0,0,0}) "Junction"
+    annotation (Placement(transformation(extent={{-60,-50},{-80,-70}})));
+  Fluid.FixedResistances.Junction spl2(
+    redeclare package Medium = Medium2,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
+    m_flow_nominal={numChi*m2_flow_chi_nominal,-numChi*m2_flow_chi_nominal,-
+        m2_flow_wse_nominal},
+    dp_nominal={0,0,0}) "Splitter"
+    annotation (Placement(transformation(extent={{90,-50},{70,-70}})));
+  Fluid.FixedResistances.Junction jun3(
+    redeclare package Medium = Medium2,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
+    m_flow_nominal={numChi*m2_flow_chi_nominal,-numChi*m2_flow_chi_nominal,
+        m2_flow_wse_nominal},
+    dp_nominal={0,0,0}) "Junction"
+    annotation (Placement(transformation(extent={{28,-10},{8,-30}})));
 equation
-  connect(wse.port_a2, port_a2)
-    annotation (Line(points={{60,24},{80,24},{80,-60},
-          {100,-60}}, color={0,127,255}));
-  connect(port_a2,val5. port_a)
-    annotation (Line(points={{100,-60},{100,-60},{80,
-          -60},{80,-20},{60,-20}}, color={0,127,255}));
   connect(pum.port_b, chiPar.port_a2)
-    annotation (Line(points={{-10,-20},{-20,
-          -20},{-20,24},{-40,24}}, color={0,127,255}));
+    annotation (Line(points={{-40,-20},{-54,-20},{-54,16},{-30,16},{-30,24},
+        {-40,24}}, color={0,127,255}));
   connect(val5.y, yVal5)
-    annotation (Line(points={{50,-8},{50,6},{-94,6},{-94,
-          26},{-120,26}}, color={0,0,127}));
-  connect(chiPar.port_b2, port_b2)
-    annotation (Line(points={{-60,24},{-78,24},{
-          -78,-60},{-100,-60}}, color={0,127,255}));
-  connect(val5.port_b, bypFlo.port_b)
-    annotation (Line(points={{40,-20},{30,-20},
-          {30,-60},{-20,-60}}, color={0,127,255}));
-  connect(bypFlo.port_a, port_b2)
-    annotation (Line(points={{-40,-60},{-100,-60}}, color={0,127,255}));
-  connect(senTem.port_b, val5.port_b)
-    annotation (Line(points={{8,24},{2,24},{2,
-          0},{30,0},{30,-20},{40,-20}}, color={0,127,255}));
-  connect(yPum, pum.u) annotation (Line(points={{-120,-44},{-96,-44},{-40,-44},
-          {-40,-6},{16,-6},{16,-16},{12,-16}},color={0,0,127}));
-  connect(pum.port_a, val5.port_b)
-    annotation (Line(points={{10,-20},{25,-20},{40,-20}}, color={0,127,255}));
-  connect(pum.P, powPum) annotation (Line(points={{-11,-16},{-14,-16},{-14,50},
-          {88,50},{88,-40},{110,-40}},
-                                   color={0,0,127}));
+    annotation (Line(points={{50,-8},{50,6},{-94,6},{-94,26},{-120,26}},
+        color={0,0,127}));
+  connect(yPum, pum.u)
+    annotation (Line(points={{-120,-40},{-60,-40},{-60,-8},
+        {-14,-8},{-14,-16},{-18,-16}},
+        color={0,0,127}));
+  connect(pum.P, powPum)
+    annotation (Line(points={{-41,-16},{-48,-16},{-48,-40},{110,-40}},
+        color={0,0,127}));
+  connect(bypFlo.port_a, jun2.port_1)
+    annotation (Line(points={{-40,-60},{-60,-60}}, color={0,127,255}));
+  connect(chiPar.port_b2, jun2.port_3)
+    annotation (Line(points={{-60,24},{-70,24},{-70,-50}}, color={0,127,255}));
+  connect(jun2.port_2, port_b2)
+    annotation (Line(points={{-80,-60},{-100,-60}}, color={0,127,255}));
+  connect(port_a2, spl2.port_1)
+    annotation (Line(points={{100,-60},{90,-60}}, color={0,127,255}));
+  connect(spl2.port_3, wse.port_a2)
+    annotation (Line(points={{80,-50},{80,24},{60,24}}, color={0,127,255}));
+  connect(spl2.port_2, val5.port_a)
+    annotation (Line(points={{70,-60},{64,-60},{64,-20},{60,-20}},
+        color={0,127,255}));
+  connect(val5.port_b, jun3.port_1)
+    annotation (Line(points={{40,-20},{28,-20}}, color={0,127,255}));
+  connect(senTem.port_b, jun3.port_3)
+    annotation (Line(points={{8,24},{0,24},{0,0},{18,0},{18,-10}},
+        color={0,127,255}));
+  connect(jun3.port_2, pum.port_a)
+    annotation (Line(points={{8,-20},{-20,-20}}, color={0,127,255}));
+  connect(bypFlo.port_b, pum.port_a) annotation (Line(points={{-20,-60},{0,-60},
+          {0,-20},{-20,-20}}, color={0,127,255}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Ellipse(
           extent={{-14,-30},{8,-52}},
@@ -265,6 +285,12 @@ Otherwise, V5 is off.
 </ul>
 </html>", revisions="<html>
 <ul>
+<li>
+April 26, 2021, by Kathryn Hinkelman:<br/>
+Added junctions and removed <code>kFixed</code> redundancies.<br/>
+See
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1472\">IBPSA, #1472</a>.
+</li>
 <li>
 January 12, 2019, by Michael Wetter:<br/>
 Removed wrong <code>each</code>.

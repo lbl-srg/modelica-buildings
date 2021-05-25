@@ -237,6 +237,14 @@ The new media <code>Buildings.Media.Antifreeze.PropyleneGlycolWater</code> allow
 of propylene-glycol water mixtures.
 </li>
 <li>
+A new cooling coil model <code>Buildings.Fluid.HeatExchangers.WetCoilEffectivenessNTU</code>
+has been added. This model is applicable for fully-dry, partially-wet, and fully-wet regimes.
+In contrast to <code>Buildings.Fluid.HeatExchangers.WetCoilCounterFlow</code> and
+to <code>Buildings.Fluid.HeatExchangers.WetCoilDiscretized</code>,
+this model uses the epsilon-NTU relationship rather than a spatial discretization of the coil.
+This leads to fewer state variables and generally to a faster simulation.
+</li>
+<li>
 New simplified door models for bi-directional air exchange between thermal zones are
 implemented in <code>Buildings.Airflow.Multizone</code>.
 </li>
@@ -255,6 +263,15 @@ For more details, please see the release notes below.
 The following <b style=\"color:blue\">new libraries</b> have been added:
 </p>
 <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\">
+<tr><td colspan=\"2\"><b>Buildings.BoundaryConditions</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.BoundaryConditions.Validation.BESTEST
+    </td>
+    <td valign=\"top\">Packages with validation models for the weather data BESTEST.<br/>
+                     This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1314\">IBPSA, issue 1314</a>.
+    </td>
+</tr>
 <tr><td colspan=\"2\"><b>Buildings.Experimental</b>
     </td>
 </tr>
@@ -281,7 +298,7 @@ The following <b style=\"color:blue\">new libraries</b> have been added:
     </td>
     <td valign=\"top\">Package for Spawn of EnergyPlus that couples Modelica directly
                      to the EnergyPlus envelope model.<br/>
-                     This allows simulating the envelope heat transfer
+                     The models in this package allow simulating the envelope heat transfer
                      of one or several buildings in EnergyPlus, and simulating HVAC and controls
                      in Modelica. EnergyPlus objects are represented graphically as any other Modelica
                      models, and the coupling and co-simulation is done automatically based on these models.
@@ -382,6 +399,15 @@ to <b style=\"color:blue\">existing</b> libraries:
     </td>
     <td valign=\"top\">Two way valve with the flow characteristic of a butterfly valve.<br/>
                        This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/975\">IBPSA, issue 975</a>.</td>
+</tr>
+<tr><td valign=\"top\">Buildings.Fluid.HeatExchangers.WetCoilEffectivenessNTU
+    </td>
+    <td valign=\"top\">Cooling coil model applicable for fully-dry, partially-wet, and fully-wet regimes.
+                       In contrast to <code>Buildings.Fluid.HeatExchangers.WetCoilCounterFlow</code> and
+                       to <code>Buildings.Fluid.HeatExchangers.WetCoilDiscretized</code>,
+                       this model uses the epsilon-NTU relationship rather than a spatial discretization of the coil.
+                       This leads to fewer state variables and generally to a faster simulation.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/622\">issue 622</a>.</td>
 </tr>
 </table>
 <!-- Backward compatible changes -->
@@ -502,7 +528,7 @@ have been <b style=\"color:blue\">improved</b> in a
     <td valign=\"top\">Upgraded sequence of specifying operating mode according to G36 official release.<br/>
                        This is for
                        <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1893\">issue 1893</a>.
-    </td>               
+    </td>
 </tr>
 <tr><td valign=\"top\">Buildings.Examples.VAVReheat.Guideline36
     </td>
@@ -518,7 +544,7 @@ have been <b style=\"color:blue\">improved</b> in a
                        This is for
                        <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2399\">#2399</a>.
     </td>
-</tr>            
+</tr>
 <tr><td colspan=\"2\"><b>Buildings.Fluid</b>
     </td>
 </tr>
@@ -582,6 +608,15 @@ have been <b style=\"color:blue\">improved</b> in a
                        <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1414\">IBPSA, issue 1414</a>.
     </td>
 </tr>
+
+<tr><td colspan=\"2\"><b>Buildings.Utilities</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Utilities.Cryptographics.sha
+    </td>
+    <td valign=\"top\">Corrected memory leak.
+    </td>
+</tr>
 </table>
 <!-- Non-backward compatible changes to existing components -->
 <p>
@@ -629,6 +664,14 @@ have been <b style=\"color:blue\">improved</b> in a
                        For Dymola, a conversion script makes this change.</td>
 </tr>
 <tr><td colspan=\"2\"><b>Buildings.Controls.OBC.ASHRAE.G36_PR1</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.VAV.Economizers.Subsequences.Modulation
+    </td>
+    <td valign=\"top\">Removed parameter <code>samplePeriod</code> and removed delay on actuator signal
+                       to avoid a large delay in this feedback loop.<br/>
+                       This is for
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2454\">issue 2454</a>.
     </td>
 </tr>
 <tr><td valign=\"top\">Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.VAV.Controller
@@ -795,6 +838,17 @@ have been <b style=\"color:blue\">improved</b> in a
 <tr><td colspan=\"2\"><b>Buildings.Examples.VAVReheat</b>
     </td>
 </tr>
+<tr><td valign=\"top\">Buildings.Examples.VAVReheat.ASHRAE2006<br/>
+                     Buildings.Examples.VAVReheat.Guideline36<br/>
+                     Buildings.Examples.VAVReheat.BaseClasses.PartialOpenLoop
+    </td>
+    <td valign=\"top\">Refactored model to implement the economizer dampers directly in
+    <code>Buildings.Examples.VAVReheat.BaseClasses.PartialOpenLoop</code> rather than through the
+    model of a mixing box. Since the version of the Guideline 36 model has no exhaust air damper,
+    this leads to simpler equations.
+    <br/> This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2454\">issue #2454</a>.
+    </td>
+</tr>
 <tr><td valign=\"top\">Buildings.Examples.VAVReheat.BaseClasses.VAVBranch
     </td>
     <td valign=\"top\">Moved to <code>Buildings.Obsolete.Examples.VAVReheat.BaseClasses.VAVBranch</code>
@@ -833,6 +887,27 @@ The following <b style=\"color:red\">critical errors</b> have been fixed (i.e., 
 that can lead to wrong simulation results):
 </p>
 <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
+<tr><td colspan=\"2\"><b>Buildings.Applications.DataCenters.ChillerCooled.Equipment</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Applications.DataCenters.ChillerCooled.Equipment.BaseClasses.FourPortResistanceChillerWSE<br/>
+                        Buildings.Applications.DataCenters.ChillerCooled.Equipment.BaseClasses.PartialChillerWSE<br/>
+                        Buildings.Applications.DataCenters.ChillerCooled.Equipment.BaseClasses.PartialCoolingCoilHumidifyingHeating<br/>
+                        Buildings.Applications.DataCenters.ChillerCooled.Equipment.BaseClasses.PartialHeatExchanger<br/>
+                        Buildings.Applications.DataCenters.ChillerCooled.Equipment.BaseClasses.PartialIntegratedPrimary<br/>
+                        Buildings.Applications.DataCenters.ChillerCooled.Equipment.BaseClasses.PartialPlantParallel<br/>
+                        Buildings.Applications.DataCenters.ChillerCooled.Equipment.BaseClasses.PartialPumpParallel<br/>
+                        Buildings.Applications.DataCenters.ChillerCooled.Equipment.BaseClasses.ThreeWayValveParameters<br/>
+                        Buildings.Applications.DataCenters.ChillerCooled.Equipment.IntegratedPrimaryLoadSide<br/>
+                        Buildings.Applications.DataCenters.ChillerCooled.Equipment.IntegratedPrimaryPlantSide<br/>
+                        Buildings.Applications.DataCenters.ChillerCooled.Equipment.IntegratedPrimarySecondary<br/>
+                        Buildings.Applications.DataCenters.ChillerCooled.Equipment.NonIntegrated<br/>
+                        Buildings.Applications.DataCenters.ChillerCooled.Equipment.WatersideEconomizer
+    </td>
+    <td valign=\"top\">Corrected fixed flow resistance settings and added ideal mixing junctions.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2446\">issue 2446</a>.
+    </td>
+</tr>
 <tr><td colspan=\"2\"><b>Buildings.Controls.OBC.CDL.Integers</b>
     </td>
 </tr>

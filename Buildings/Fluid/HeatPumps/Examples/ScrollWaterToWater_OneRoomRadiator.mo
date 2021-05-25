@@ -17,7 +17,7 @@ model ScrollWaterToWater_OneRoomRadiator
     Q_flow_nominal/4200/5
     "Heat pump nominal mass flow rate";
   parameter Modelica.SIunits.Volume V=6*10*3 "Room volume";
-  parameter Modelica.SIunits.MassFlowRate mA_flow_nominal = V*6/3600
+  parameter Modelica.SIunits.MassFlowRate mA_flow_nominal = V*1.2*6/3600
     "Nominal mass flow rate";
   parameter Modelica.SIunits.HeatFlowRate QRooInt_flow = 4000
     "Internal heat gains of the room";
@@ -303,8 +303,14 @@ off when the room temperature rises above <i>21</i>&deg;C.
 </html>", revisions="<html>
 <ul>
 <li>
+April 21, 2021, by Michael Wetter:<br/>
+Corrected error in calculation of design mass flow rate.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2458\">#2458</a>.
+</li>
+<li>
 May 2, 2019, by Jianjun Hu:<br/>
-Replaced fluid source. This is for 
+Replaced fluid source. This is for
 <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1072\"> #1072</a>.
 </li>
 <li>
