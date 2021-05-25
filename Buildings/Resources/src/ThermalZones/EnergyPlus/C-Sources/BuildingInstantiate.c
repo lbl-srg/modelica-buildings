@@ -334,6 +334,10 @@ void generateFMU(FMUBuilding* bui, const char* modelicaBuildingsJsonFile){
     + strlen(outputFlag) + strlen("\"") + strlen(bui->fmuAbsPat) + strlen("\"")
     + strlen(createFlag) + strlen("\"") + strlen(modelicaBuildingsJsonFile) + strlen("\"")
     + 1;
+#ifdef _WIN32 /* Win32 or Win64 */
+  /* Windows needs double quotes in the system call, see https://stackoverflow.com/questions/2642551/windows-c-system-call-with-spaces-in-command */
+  len = len + 2 * strlen("\"");
+#endif
 
   mallocString(len-2, "Failed to allocate memory in generateFMU() for executable name.",
     &exe_name, SpawnFormatError);
@@ -362,7 +366,10 @@ void generateFMU(FMUBuilding* bui, const char* modelicaBuildingsJsonFile){
 #endif
 
   /* Build version of string with leading and trailing quotes, which is needed to invoke the command if the directory has empty spaces. */
-  strcpy(fulCmd, "\""); /* Add a quote to allow for spaces in directory, such as for Buildings 8.0.0 */
+  strcpy(fulCmd, "\""); /* For Linux, add a quote to allow for spaces in directory, such as for Buildings 8.0.0 */
+#ifdef _WIN32 /* Win32 or Win64, add leading quote */
+  strcat(fulCmd, "\"");
+#endif
   strcat(fulCmd, exe_name);
   strcat(fulCmd, "\"");
   /* Continue building the command line */
@@ -375,6 +382,10 @@ void generateFMU(FMUBuilding* bui, const char* modelicaBuildingsJsonFile){
   strcat(fulCmd, "\"");
   strcat(fulCmd, modelicaBuildingsJsonFile);
   strcat(fulCmd, "\"");
+#ifdef _WIN32 /* Win32 or Win64, add trailing quote */
+  strcat(fulCmd, "\"");
+#endif
+
 
   /* Generate the FMU */
   if (bui->logLevel >= MEDIUM)
