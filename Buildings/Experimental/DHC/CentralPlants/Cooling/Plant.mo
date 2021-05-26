@@ -343,7 +343,7 @@ equation
 </ul>
 <p>The staging of the chillers is based on the calculated cooling load. </p>
 <p>See <a href=\"modelica://Buildings.Experimental.DHC.CentralPlants.Cooling.Controls.ChillerStage\">Buildings.Experimental.DHC.CentralPlants.Cooling.Controls.ChillerStage</a> for the detailed control logic. </p>
-<p><img src=\"modelica://Buildings/Resources/Images/Experimental/DHC/CentralPlants/Cooling/Plant.tif\" alt=\"System schematics\"/>. </p>
+<p><img src=\"modelica://Buildings/Resources/Images/Experimental/DHC/CentralPlants/Cooling/Plant.png\" alt=\"System schematics\"/>. </p>
 </html>",
       revisions="<html>
 <ul>
