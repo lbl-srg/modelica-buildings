@@ -7,9 +7,6 @@ model Plant
     have_fan=true,
     have_weaBus=true,
     typ=Buildings.Experimental.DHC.Types.DistrictSystemType.Cooling);
-  parameter Boolean show_T=false
-    "= true, if actual temperature at port is computed"
-    annotation (Dialog(tab="Advanced",group="Diagnostics"));
   // chiller parameters
   parameter Integer numChi(
     min=1,
@@ -87,26 +84,6 @@ model Plant
   parameter Modelica.Fluid.Types.Dynamics massDynamics=energyDynamics
     "Type of mass balance: dynamic (3 initialization options) or steady state"
     annotation (Evaluate=true,Dialog(tab="Dynamics",group="Equations"));
-  Medium.ThermodynamicState sta_a(
-    T(start=273.15+16))=Medium.setState_phX(
-    port_a.p,
-    noEvent(
-      actualStream(
-        port_a.h_outflow)),
-    noEvent(
-      actualStream(
-        port_a.Xi_outflow))) if show_T
-    "Medium properties in port_a";
-  Medium.ThermodynamicState sta_b(
-    T(start=273.15+7))=Medium.setState_phX(
-    port_b.p,
-    noEvent(
-      actualStream(
-        port_b.h_outflow)),
-    noEvent(
-      actualStream(
-        port_b.Xi_outflow))) if show_T
-    "Medium properties in port_b";
   Modelica.Blocks.Interfaces.BooleanInput on
     "On signal of the plant"
     annotation (Placement(transformation(extent={{-340,180},{-300,220}}),iconTransformation(extent={{-342,202},{-302,242}})));
@@ -237,19 +214,24 @@ model Plant
     nin=2)
     "Total cooling power"
     annotation (Placement(transformation(extent={{260,230},{280,250}})));
-  Buildings.Experimental.DHC.EnergyTransferStations.BaseClasses.Junction joiCHWRet(
+  Fluid.FixedResistances.Junction joiCHWRet(
     redeclare final package Medium=Medium,
-    final m_flow_nominal=mCHW_flow_nominal .* {1,-1,1})
+    final m_flow_nominal=mCHW_flow_nominal .* {1,-1,1},
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
+    dp_nominal={0,0,0})
     "Flow joint for the chilled water return side"
     annotation (Placement(transformation(extent={{10,10},{-10,-10}},rotation=-90,origin={-80,-90})));
-  Buildings.Experimental.DHC.EnergyTransferStations.BaseClasses.Junction splCHWSup(
+  Fluid.FixedResistances.Junction splCHWSup(
     redeclare final package Medium=Medium,
-    final m_flow_nominal=mCHW_flow_nominal .* {1,-1,-1})
+    final m_flow_nominal=mCHW_flow_nominal .* {1,-1,-1},
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
+    dp_nominal={0,0,0})
     "Flow splitter for the chilled water supply side"
     annotation (Placement(transformation(extent={{10,-10},{-10,10}},rotation=90,origin={80,-90})));
-  Controls.ChilledWaterBypass chiBypCon(
+  Buildings.Experimental.DHC.CentralPlants.Cooling.Controls.ChilledWaterBypass chiBypCon(
     final numChi=numChi,
     final mMin_flow=mMin_flow)
+    "Chilled water bypass control"
     annotation (Placement(transformation(extent={{-80,-160},{-60,-140}})));
 protected
   final parameter Medium.ThermodynamicState sta_default=Medium.setState_pTX(
@@ -292,7 +274,9 @@ equation
   connect(chiStaCon.y,cooTowWitByp.on)
     annotation (Line(points={{-219,194},{-160,194},{-160,94},{-42,94}},color={255,0,255}));
   connect(weaBus.TWetBul,cooTowWitByp.TWetBul)
-    annotation (Line(points={{1,266},{0,266},{0,238},{-50,238},{-50,88},{-42,88}},color={255,204,51},thickness=0.5),Text(string="%first",index=-1,extent={{-6,3},{-6,3}},horizontalAlignment=TextAlignment.Right));
+    annotation (Line(points={{1,266},{0,266},{0,238},{-50,238},{-50,88},{-42,88}},
+    color={255,204,51},thickness=0.5),Text(string="%first",index=-1,
+    extent={{-6,3},{-6,3}},horizontalAlignment=TextAlignment.Right));
   connect(port_aSerCoo,senTCHWRet.port_a)
     annotation (Line(points={{-300,-40},{-280,-40},{-280,-90},{-250,-90}},color={0,127,255}));
   connect(senTCHWSup.port_b,port_bSerCoo)
@@ -345,12 +329,20 @@ equation
       info="<html>
 <p>This model showcases a generic district central cooling plant as illustrated in the schematics below. </p>
 <ul>
-<li>The cooling is provided by two parallel chillers instantiated from <a href=\"modelica://Buildings.Applications.DataCenters.ChillerCooled.Equipment.ElectricChillerParallel\">Buildings.Applications.DataCenters.ChillerCooled.Equipment.ElectricChillerParallel</a>. </li>
-<li>The chilled water bypass loop is controlled to ensure a minimum flow of chilled water running through the chillers all the time. </li>
-<li>The condenser water is cooled by two parallel cooling towers with a bypass loop. See <a href=\"modelica://Buildings.Experimental.DHC.CentralPlants.Cooling.Subsystems.CoolingTowerWithBypass\">Buildings.Experimental.DHC.CentralPlants.Cooling.Subsystems.CoolingTowerWithBypass</a> for the details of the modeling of the cooling towers. </li>
-<li>The chilled water loop is equipped with two parallel variable speed pumps, which are controlled to maitain a use-determined pressure difference setpoint at the demand side. The condenser water pumps are constant speed with prescribed mass flow rates. </li>
-<li>The plant operates when it receives an <span style=\"font-family: Courier New;\">on</span> signal from the external control. The staging of the chillers is based on the calculated cooling load. See <a href=\"modelica://Buildings.Experimental.DHC.CentralPlants.Cooling.Controls.ChillerStage\">Buildings.Experimental.DHC.CentralPlants.Cooling.Controls.ChillerStage</a> for the detailed control logic. </li>
+<li>The cooling is provided by two parallel chillers instantiated from </li>
+<p><a href=\"modelica://Buildings.Applications.DataCenters.ChillerCooled.Equipment.ElectricChillerParallel\">Buildings.Applications.DataCenters.ChillerCooled.Equipment.ElectricChillerParallel</a>. </p>
+<li>The chilled water bypass loop is controlled to ensure a minimum flow </li>
+<p>of chilled water running through the chillers all the time. </p>
+<li>The condenser water is cooled by two parallel cooling towers with a bypass loop. </li>
+<p>See <a href=\"modelica://Buildings.Experimental.DHC.CentralPlants.Cooling.Subsystems.CoolingTowerWithBypass\">Buildings.Experimental.DHC.CentralPlants.Cooling.Subsystems.CoolingTowerWithBypass</a> </p>
+<p>for the details of the modeling of the cooling towers. </p>
+<li>The chilled water loop is equipped with two parallel variable speed pumps, </li>
+<p>which are controlled to maitain a use-determined pressure difference setpoint at the demand side. </p>
+<p>The condenser water pumps are constant speed with prescribed mass flow rates. </p>
+<li>The plant operates when it receives an <span style=\"font-family: Courier New;\">on</span> signal from the external control. </li>
 </ul>
+<p>The staging of the chillers is based on the calculated cooling load. </p>
+<p>See <a href=\"modelica://Buildings.Experimental.DHC.CentralPlants.Cooling.Controls.ChillerStage\">Buildings.Experimental.DHC.CentralPlants.Cooling.Controls.ChillerStage</a> for the detailed control logic. </p>
 <p><img src=\"modelica://Buildings/Resources/Images/Experimental/DHC/CentralPlants/Cooling/Plant.tif\" alt=\"System schematics\"/>. </p>
 </html>",
       revisions="<html>
