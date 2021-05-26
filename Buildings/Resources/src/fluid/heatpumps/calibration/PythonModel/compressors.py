@@ -4,7 +4,7 @@ from __future__ import division, print_function, absolute_import
 class ReciprocatingCompressor(object):
     """ Object for reciprocating compressor model based on Jin (2002):
         H. Jin. Parameter estimation based models of water source heat pumps.
-        PhD Thesis. Oklahoma State University. Stillwater, Oklahoma, USA. 2012.
+        PhD Thesis. Oklahoma State University. Stillwater, Oklahoma, USA. 2002.
 
         :param pisDis: Piston displacement (m3/s).
         :param cleFac: Clearance factor (-).
@@ -243,7 +243,7 @@ class ReciprocatingCompressor(object):
 class ScrollCompressor(object):
     """ Object for scroll compressor model based on Jin (2002):
         H. Jin. Parameter estimation based models of water source heat pumps.
-        PhD Thesis. Oklahoma State University. Stillwater, Oklahoma, USA. 2012.
+        PhD Thesis. Oklahoma State University. Stillwater, Oklahoma, USA. 2002.
 
         :param volRat: Volume ratio (-).
         :param v_flow: Nominal Volume flow rate (m3/s).
