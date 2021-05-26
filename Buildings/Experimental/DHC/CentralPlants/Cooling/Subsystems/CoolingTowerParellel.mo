@@ -19,9 +19,11 @@ model CoolingTowerParellel
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal
     "Nominal mass flow rate of condenser water in each tower"
     annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.SIunits.Pressure dp_nominal
+  parameter Modelica.SIunits.PressureDifference dp_nominal
     "Nominal pressure difference of the tower"
     annotation (Dialog(group="Nominal condition"));
+  parameter Modelica.SIunits.PressureDifference dpValve_nominal=6000
+   "Nominal pressure difference of the valve";
   parameter Real ratWatAir_nominal(
     final min=0,
     final unit="1")=0.625
@@ -39,24 +41,6 @@ model CoolingTowerParellel
   parameter Modelica.SIunits.Power PFan_nominal
     "Fan power"
     annotation (Dialog(group="Fan"));
-  Medium.ThermodynamicState sta_a=Medium.setState_phX(
-    port_a.p,
-    noEvent(
-      actualStream(
-        port_a.h_outflow)),
-    noEvent(
-      actualStream(
-        port_a.Xi_outflow))) if show_T
-    "Medium properties in port_a";
-  Medium.ThermodynamicState sta_b=Medium.setState_phX(
-    port_b.p,
-    noEvent(
-      actualStream(
-        port_b.h_outflow)),
-    noEvent(
-      actualStream(
-        port_b.Xi_outflow))) if show_T
-    "Medium properties in port_b";
   Modelica.Fluid.Interfaces.FluidPort_a port_a(
     redeclare final package Medium=Medium)
     "Fluid connector a (positive design flow direction is from port_a to port_b)"
@@ -82,51 +66,72 @@ model CoolingTowerParellel
     each final unit="W")
     "Electric power consumed by fan"
     annotation (Placement(transformation(extent={{100,50},{120,70}})));
-  Modelica.Blocks.Interfaces.RealOutput TLvg[num](
-    each final unit="K",
-    each displayUnit="degC")
-    "Leaving water temperature"
+  Modelica.Blocks.Interfaces.RealOutput TLvg(each final unit="K", each
+      displayUnit="degC") "Leaving water temperature"
     annotation (Placement(transformation(extent={{100,20},{120,40}})));
   replaceable Buildings.Fluid.HeatExchangers.CoolingTowers.Merkel cooTow[num](
     each final ratWatAir_nominal=ratWatAir_nominal,
     each final TAirInWB_nominal=TAirInWB_nominal,
     each final TWatIn_nominal=TWatIn_nominal,
     each final TWatOut_nominal=TWatIn_nominal-dT_nominal,
-    each final PFan_nominal=PFan_nominal)
+    each final PFan_nominal=PFan_nominal,
+    each final dp_nominal=0)
     constrainedby
     Buildings.Fluid.HeatExchangers.CoolingTowers.BaseClasses.CoolingTower(
       redeclare each final package Medium=Medium,
-      each show_T=show_T,
+      each final show_T=show_T,
       each final m_flow_nominal=m_flow_nominal,
-      each final dp_nominal=dp_nominal,
       each final energyDynamics=energyDynamics)
     "Cooling tower type"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Buildings.Fluid.Actuators.Valves.TwoWayEqualPercentage val[num](
     redeclare each final package Medium=Medium,
     each final m_flow_nominal=m_flow_nominal,
-    each final dpValve_nominal=dp_nominal)
+    each final dpValve_nominal=dpValve_nominal,
+    each final dpFixed_nominal=dp_nominal)
     "Cooling tower valves"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea[num]
     "Boolean signal to real signal"
     annotation (Placement(transformation(extent={{-90,50},{-70,70}})));
+  Fluid.Sensors.TemperatureTwoPort senTem(
+    redeclare final package Medium=Medium,
+    final m_flow_nominal=m_flow_nominal,
+    final T_start=Medium.T_default)
+    annotation (Placement(transformation(extent={{40,-10},{60,10}})));
+protected
+    Medium.ThermodynamicState sta_a=Medium.setState_phX(
+    port_a.p,
+    noEvent(
+      actualStream(
+        port_a.h_outflow)),
+    noEvent(
+      actualStream(
+        port_a.Xi_outflow))) if show_T
+    "Medium properties in port_a";
+  Medium.ThermodynamicState sta_b=Medium.setState_phX(
+    port_b.p,
+    noEvent(
+      actualStream(
+        port_b.h_outflow)),
+    noEvent(
+      actualStream(
+        port_b.Xi_outflow))) if show_T
+    "Medium properties in port_b";
 equation
   for i in 1:num loop
     connect(port_a,val[i].port_a)
       annotation (Line(points={{-100,0},{-60,0}},color={0,127,255}));
     connect(val[i].port_b,cooTow[i].port_a)
       annotation (Line(points={{-40,0},{-10,0}},color={0,127,255}));
-    connect(cooTow[i].port_b,port_b)
-      annotation (Line(points={{10,0},{100,0}},color={0,127,255}));
     connect(uFanSpe,cooTow[i].y)
       annotation (Line(points={{-120,20},{-20,20},{-20,8},{-12,8}},color={0,0,127}));
     connect(TWetBul,cooTow[i].TAir)
       annotation (Line(points={{-120,-60},{-20,-60},{-20,4},{-12,4}},color={0,0,127}));
     connect(cooTow[i].PFan,PFan[i])
       annotation (Line(points={{11,8},{20,8},{20,60},{110,60}},color={0,0,127}));
-    connect(cooTow[i].TLvg,TLvg[i])
-      annotation (Line(points={{11,-6},{26,-6},{26,30},{110,30}},color={0,0,127}));
+    connect(cooTow[i].port_b, senTem.port_a)
+      annotation (Line(points={{10,0},{40,0}}, color={0,127,255}));
   end for;
   if use_inputFilter then
     connect(booToRea.y,filter.u)
@@ -139,6 +144,10 @@ equation
     annotation (Line(points={{-20,74},{-14,74},{-14,60},{-50,60},{-50,12}},color={0,0,127}));
   connect(on,booToRea.u)
     annotation (Line(points={{-120,60},{-92,60}},color={255,0,255}));
+  connect(senTem.port_b, port_b)
+    annotation (Line(points={{60,0},{100,0}}, color={0,127,255}));
+  connect(senTem.T, TLvg)
+    annotation (Line(points={{50,11},{50,30},{110,30}}, color={0,0,127}));
   annotation (
     defaultComponentName="cooTowPar",
     Diagram(
@@ -167,20 +176,16 @@ equation
           fillPattern=FillPattern.Solid),
         Line(
           points={{16,56},{22,44}},
-          color={255,0,0},
-          thickness=0.5),
+          color={255,0,0}),
         Line(
           points={{0,56},{6,44}},
-          color={255,0,0},
-          thickness=0.5),
+          color={255,0,0}),
         Line(
           points={{0,56},{-6,44}},
-          color={255,0,0},
-          thickness=0.5),
+          color={255,0,0}),
         Line(
           points={{16,56},{10,44}},
-          color={255,0,0},
-          thickness=0.5),
+          color={255,0,0}),
         Rectangle(
           extent={{-30,-6},{30,-80}},
           lineColor={95,95,95},
