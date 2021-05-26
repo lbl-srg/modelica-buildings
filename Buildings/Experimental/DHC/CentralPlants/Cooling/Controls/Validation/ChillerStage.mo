@@ -12,12 +12,10 @@ model ChillerStage
       each displayUnit="s")={300,900})
     "On signal of the cooling plant"
     annotation (Placement(transformation(extent={{-60,40},{-40,60}})));
-  Modelica.Blocks.Sources.Constant TRet(
-    k=18)
+  Modelica.Blocks.Sources.Constant TRet(k=18)
     "Return temperature"
     annotation (Placement(transformation(extent={{-60,10},{-40,30}})));
-  Modelica.Blocks.Sources.Constant TSup(
-    k=8)
+  Modelica.Blocks.Sources.Constant TSup(k=8)
     "Supply temperature"
     annotation (Placement(transformation(extent={{-60,-30},{-40,-10}})));
   Modelica.Blocks.Sources.Sine mFlo(
