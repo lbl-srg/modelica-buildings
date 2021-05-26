@@ -21,14 +21,14 @@ model ReturnFanDirectPressure
     annotation (Placement(transformation(extent={{20,-40},{40,-20}})));
 
 equation
-  connect(yFan.y, retFanPre.uFan) annotation (Line(points={{-59,70},{-20,70},{-20,
-          64},{18,64}}, color={255,0,255}));
+  connect(yFan.y, retFanPre.uSupFan) annotation (Line(points={{-59,70},{-20,70},
+          {-20,64},{18,64}}, color={255,0,255}));
   connect(dpBui.y, retFanPre.dpBui) annotation (Line(points={{-59,20},{0,20},{0,
           76},{18,76}}, color={0,0,127}));
-  connect(yFan.y, retFanPre1.uFan) annotation (Line(points={{-59,70},{-20,70},{
-          -20,14},{18,14}}, color={255,0,255}));
-  connect(yFan.y, retFanPre2.uFan) annotation (Line(points={{-59,70},{-20,70},{
-          -20,-36},{18,-36}}, color={255,0,255}));
+  connect(yFan.y, retFanPre1.uSupFan) annotation (Line(points={{-59,70},{-20,70},
+          {-20,14},{18,14}}, color={255,0,255}));
+  connect(yFan.y, retFanPre2.uSupFan) annotation (Line(points={{-59,70},{-20,70},
+          {-20,-36},{18,-36}}, color={255,0,255}));
   connect(dpBui.y, retFanPre1.dpBui) annotation (Line(points={{-59,20},{0,20},{0,
           26},{18,26}}, color={0,0,127}));
   connect(dpBui.y, retFanPre2.dpBui) annotation (Line(points={{-59,20},{0,20},{0,
