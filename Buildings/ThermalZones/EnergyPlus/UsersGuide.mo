@@ -35,7 +35,7 @@ in the instance <code>building</code>.
 </li>
 </ol>
 <p>
-The following coupling objects can then be integrated in the model that contains the instance 
+The following coupling objects can then be integrated in the model that contains the instance
 <code>building</code>, or in any model instantiated by that model.
 </p>
 <ul>
@@ -368,6 +368,52 @@ the internal wall temperatures.
 </p>
 </html>"));
   end EnergyPlusWarmUp;
+
+  class KnownIssues
+    "Known issues"
+    extends Modelica.Icons.Information;
+    annotation (
+      preferredView="info",
+      Documentation(
+        info="<html>
+<h4>Known issues</h4>
+<h5>EnergyPlus warnings</h5>
+<p>
+EnergyPlus may issue a warning such as
+</p>
+<pre>
+Calculated Relative Humidity out of range (PsyRhFnTdbWPb)
+</pre>
+<p>
+Such warnings can be ignored. The humidity balance of EnergyPlus is not used
+because Modelica computes the humidity balance.<br/>
+This will be addressed through
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2220\">issue 2220</a>.
+</p>
+<h5>Signals to time schedules and actuators</h5>
+<p>
+If Modelica overrides a time schedule or an actuator at a time instant that does not
+coincide with an EnergyPlus time step, the change in value may be ignored for the heat balance
+of the current EnergyPlus time step.<br/>
+This will be addressed through
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2000\">issue 2000</a>.
+</p>
+<h5>Simulation must not start at a negative time</h5>
+<p>
+If a simulation starts at a time smaller than <i>0</i>, then an error will be issued and
+the simulation won't start.<br/>
+This will be addressed through
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1938\">issue 1938</a>.
+</p><h5>FMUs generated with a Spawn model may still require a Buildings library installation</h5>
+<p>
+If an FMU is generated that contains a Spawn model and then simulated on another computer,
+the simulation may fail to start because of depedencies to the Buildings library and the Spawn binaries.
+.<br/>
+This will be addressed through
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2054\">issue 2054</a>.
+</p>
+</html>"));
+  end KnownIssues;
 
   class NotesForDymola
     "Notes for Dymola"
