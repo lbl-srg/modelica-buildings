@@ -1,7 +1,7 @@
 within Buildings.Experimental.DHC.CentralPlants.Cooling.Subsystems;
-package Examples
-  "Example models integrating multiple components"
+package Examples "Example models integrating multiple components"
   extends Modelica.Icons.ExamplesPackage;
+
   annotation (
     Documentation(
       info="<html>
