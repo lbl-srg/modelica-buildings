@@ -90,6 +90,7 @@ model Plant
     m_flow_nominal=pla.numChi*mCHW_flow_nominal,
     V=0.5,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    "Mixing volume"
     annotation (Placement(transformation(extent={{40,20},{60,40}})));
   Modelica.Thermal.HeatTransfer.Sources.FixedHeatFlow fixHeaFlo(
     Q_flow=pla.numChi*mCHW_flow_nominal*4200*10,
@@ -121,7 +122,8 @@ equation
     annotation (Line(points={{-39,30},{-32,30},{-32,17.4},{-10.7333,17.4}},color={255,0,255}));
   connect(weaDat.weaBus,pla.weaBus)
     annotation (Line(points={{-40,70},{-20,70},{-20,24},{0.0333333,24},{
-          0.0333333,18.8667}},                                                              color={255,204,51},thickness=0.5));
+          0.0333333,18.8667}},
+                    color={255,204,51}));
   annotation (
     Icon(
       coordinateSystem(
