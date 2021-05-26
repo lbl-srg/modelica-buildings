@@ -52,6 +52,7 @@ endif()
 if ( MSVC )
   add_compile_options("/wd4100")
   add_definitions(-D_CRT_SECURE_NO_WARNINGS)
+  add_compile_definitions(EXTERNAL_FUNCTION_EXPORT)
 endif()
 
 # Set target directories.
