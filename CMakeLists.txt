@@ -7,7 +7,6 @@
 cmake_policy(SET CMP0048 NEW)
 
 project( Modelica-Buildings
-  VERSION 8.0.0
   DESCRIPTION "Modelica Buildings Library"
   LANGUAGES C
 )
