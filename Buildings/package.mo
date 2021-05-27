@@ -134,7 +134,7 @@ its class name ends with the string <code>Beta</code>.
     <p>
     Version 7.0.1 is a bug fix release.
     The library has been tested with
-    Dymola 2020x and 2021,
+    Dymola 2021 and 2022,
     JModelica (revision 14023), and
     OPTIMICA (revision OCT-stable-r12473_JM-r14295).
     </p>
