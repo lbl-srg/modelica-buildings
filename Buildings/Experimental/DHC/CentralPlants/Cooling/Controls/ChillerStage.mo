@@ -25,8 +25,8 @@ model ChillerStage
   Modelica.Blocks.Interfaces.RealInput TChiWatSup
     "Chilled water supply temperature"
     annotation (Placement(transformation(extent={{-200,-40},{-160,0}}),
-    iconTransformation(extent={{-140,-40},{-100,0}})),
-    iconTransformation(extent={{-140,-40},{-100,0}}));
+      iconTransformation(extent={{-140,-40},{-100,0}})),
+      iconTransformation(extent={{-140,-40},{-100,0}}));
   Modelica.Blocks.Interfaces.RealInput mFloChiWat
     "Chilled water mass flow rate"
     annotation (Placement(transformation(extent={{-200,-80},{-160,-40}}),iconTransformation(extent={{-140,-80},{-100,-40}})));
@@ -88,11 +88,12 @@ model ChillerStage
     final t=1)
     "On signal of chiller two"
     annotation (Placement(transformation(extent={{120,-20},{140,0}})));
-  Buildings.Controls.OBC.CDL.Continuous.Hysteresis       thrOneToTwo(uLow=
-        criPoiLoa + dQ, uHigh=criPoiLoa + dQ + 100)
+  Buildings.Controls.OBC.CDL.Continuous.Hysteresis thrOneToTwo(
+    uLow=criPoiLoa+dQ,
+    uHigh=criPoiLoa+dQ+100)
     "Threshold of turning two chillers on"
     annotation (Placement(transformation(extent={{-36,-50},{-16,-30}})));
-  Modelica.Blocks.Logical.Not                         thrTwoToOne
+  Modelica.Blocks.Logical.Not thrTwoToOne
     "Threshold of turning off the second chiller"
     annotation (Placement(transformation(extent={{-36,-84},{-16,-64}})));
   Buildings.Controls.OBC.CDL.Logical.Not notOn
@@ -156,11 +157,9 @@ equation
   connect(on,offToOne.condition)
     annotation (Line(points={{-180,60},{-50,60},{-50,40},{-2,40}},color={255,0,255}));
   connect(oneToTwo.condition,thrOneToTwo.y)
-    annotation (Line(points={{-2,-40},{-14,-40}},
-                                                color={255,0,255}));
+    annotation (Line(points={{-2,-40},{-14,-40}},color={255,0,255}));
   connect(thrTwoToOne.y,twoToOne.condition)
-    annotation (Line(points={{-15,-74},{-6,-74},{-6,-56},{40,-56},{40,-40},{48,
-          -40}},                                                                    color={255,0,255}));
+    annotation (Line(points={{-15,-74},{-6,-74},{-6,-56},{40,-56},{40,-40},{48,-40}},color={255,0,255}));
   connect(on,notOn.u)
     annotation (Line(points={{-180,60},{-50,60},{-50,20},{-32,20}},color={255,0,255}));
   connect(notOn.y,oneToOff.condition)

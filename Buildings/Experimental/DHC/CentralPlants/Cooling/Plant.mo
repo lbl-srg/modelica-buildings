@@ -214,14 +214,14 @@ model Plant
     nin=2)
     "Total cooling power"
     annotation (Placement(transformation(extent={{260,230},{280,250}})));
-  Fluid.FixedResistances.Junction joiCHWRet(
+  Buildings.Fluid.FixedResistances.Junction joiCHWRet(
     redeclare final package Medium=Medium,
     final m_flow_nominal=mCHW_flow_nominal .* {1,-1,1},
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     dp_nominal={0,0,0})
     "Flow joint for the chilled water return side"
     annotation (Placement(transformation(extent={{10,10},{-10,-10}},rotation=-90,origin={-80,-90})));
-  Fluid.FixedResistances.Junction splCHWSup(
+  Buildings.Fluid.FixedResistances.Junction splCHWSup(
     redeclare final package Medium=Medium,
     final m_flow_nominal=mCHW_flow_nominal .* {1,-1,-1},
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,

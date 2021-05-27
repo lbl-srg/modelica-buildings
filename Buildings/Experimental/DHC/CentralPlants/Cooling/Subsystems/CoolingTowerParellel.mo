@@ -94,7 +94,7 @@ model CoolingTowerParellel
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea[num]
     "Boolean signal to real signal"
     annotation (Placement(transformation(extent={{-90,50},{-70,70}})));
-  Fluid.Sensors.TemperatureTwoPort senTem(
+  Buildings.Fluid.Sensors.TemperatureTwoPort senTem(
     redeclare final package Medium=Medium,
     final m_flow_nominal=m_flow_nominal,
     final T_start=Medium.T_default)

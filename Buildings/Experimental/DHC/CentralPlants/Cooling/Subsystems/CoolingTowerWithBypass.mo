@@ -101,8 +101,10 @@ model CoolingTowerWithBypass
     each final unit="W")
     "Electric power consumed by fan"
     annotation (Placement(transformation(extent={{100,50},{120,70}})));
-  Modelica.Blocks.Interfaces.RealOutput TLvg(each final unit="K", each
-      displayUnit="degC") "Leaving water temperature"
+  Modelica.Blocks.Interfaces.RealOutput TLvg(
+    each final unit="K",
+    each displayUnit="degC")
+    "Leaving water temperature"
     annotation (Placement(transformation(extent={{100,20},{120,40}})));
   Buildings.Experimental.DHC.CentralPlants.Cooling.Subsystems.CoolingTowerParellel cooTowSys(
     final use_inputFilter=use_inputFilter,
@@ -168,7 +170,8 @@ model CoolingTowerWithBypass
     "Output the input of higher value"
     annotation (Placement(transformation(extent={{-36,50},{-16,70}})));
   Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys(
-    uLow=TMin - 0.1, uHigh=TMin + 0.1)
+    uLow=TMin-0.1,
+    uHigh=TMin+0.1)
     "Compare if (TWetBul+dTApp) is greater than TMin"
     annotation (Placement(transformation(extent={{-70,50},{-50,70}})));
   Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar(
@@ -176,12 +179,12 @@ model CoolingTowerWithBypass
     k=1)
     "Add approach temperature on top of wetbulb temperature"
     annotation (Placement(transformation(extent={{-80,80},{-60,100}})));
-  Fluid.FixedResistances.Junction jun(
+  Buildings.Fluid.FixedResistances.Junction jun(
   redeclare final package Medium=Medium,
     m_flow_nominal=m_flow_nominal .* {1,-1,-1},
-  dp_nominal={0,0,0},
-  energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)
-  "Upstream mixing point of cooTowSys and valByp"
+    dp_nominal={0,0,0},
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)
+    "Upstream mixing point of cooTowSys and valByp"
     annotation (Placement(transformation(extent={{-34,-4},{-26,4}})));
 equation
   connect(cooTowSys.TWetBul,TWetBul)
@@ -197,8 +200,7 @@ equation
   connect(valByp.port_b,senTCWSup.port_a)
     annotation (Line(points={{10,-40},{30,-40},{30,0},{60,0}},color={0,127,255}));
   connect(cooTowSpeCon.y,cooTowSys.uFanSpe)
-    annotation (Line(points={{15,60},{20,60},{20,20},{-20,20},{-20,2},{-12,2}},
-                                                                              color={0,0,127}));
+    annotation (Line(points={{15,60},{20,60},{20,20},{-20,20},{-20,2},{-12,2}},color={0,0,127}));
   connect(cooTowSys.PFan,PFan)
     annotation (Line(points={{11,6},{40,6},{40,60},{110,60}},color={0,0,127}));
   connect(bypValCon.y,valByp.y)
@@ -211,12 +213,11 @@ equation
   connect(cooTowSpeCon.u_s,swi.y)
     annotation (Line(points={{-8,60},{-14,60}}, color={0,0,127}));
   connect(TSetByPas.y,swi.u3)
-    annotation (Line(points={{-69,-50},{-66,-50},{-66,45.8125},{-46,45.8125},{-46,
-          52},{-38,52}},                                                              color={0,0,127}));
+    annotation (Line(points={{-69,-50},{-66,-50},{-66,45.8125},{-46,45.8125},{-46,52},{-38,52}},color={0,0,127}));
   connect(TWetBul,addPar.u)
     annotation (Line(points={{-120,-20},{-86,-20},{-86,90},{-82,90}},color={0,0,127}));
   connect(addPar.y,swi.u1)
-    annotation (Line(points={{-58,90},{-46,90},{-46,68},{-38,68}},                  color={0,0,127}));
+    annotation (Line(points={{-58,90},{-46,90},{-46,68},{-38,68}},color={0,0,127}));
   connect(on,cooTowSys.on)
     annotation (Line(points={{-120,40},{-80,40},{-80,6},{-12,6}},color={255,0,255}));
   connect(on[1],bypValCon.trigger)
@@ -225,12 +226,12 @@ equation
     annotation (Line(points={{-100,0},{-34,0}}, color={0,127,255}));
   connect(cooTowSys.port_a, jun.port_2)
     annotation (Line(points={{-10,0},{-26,0}}, color={0,127,255}));
-  connect(valByp.port_a, jun.port_3) annotation (Line(points={{-10,-40},{-30,-40},
-          {-30,-4}}, color={0,127,255}));
-  connect(addPar.y, hys.u) annotation (Line(points={{-58,90},{-46,90},{-46,76},
-          {-78,76},{-78,60},{-72,60}}, color={0,0,127}));
-  connect(senTCWSup.T, TLvg) annotation (Line(points={{70,-11},{70,-20},{34,-20},
-          {34,30},{110,30}}, color={0,0,127}));
+  connect(valByp.port_a, jun.port_3)
+    annotation (Line(points={{-10,-40},{-30,-40},{-30,-4}}, color={0,127,255}));
+  connect(addPar.y, hys.u)
+    annotation (Line(points={{-58,90},{-46,90},{-46,76},{-78,76},{-78,60},{-72,60}}, color={0,0,127}));
+  connect(senTCWSup.T, TLvg)
+    annotation (Line(points={{70,-11},{70,-20},{34,-20},{34,30},{110,30}}, color={0,0,127}));
   annotation (
     defaultComponentName="cooTowWitByp",
     Diagram(
