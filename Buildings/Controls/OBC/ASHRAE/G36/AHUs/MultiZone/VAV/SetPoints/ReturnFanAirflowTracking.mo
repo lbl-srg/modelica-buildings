@@ -39,7 +39,7 @@ block ReturnFanAirflowTracking
     final quantity="VolumeFlowRate")
     "Measured AHU return airflow rate"
     annotation (Placement(transformation(extent={{-140,0},{-100,40}}),
-      iconTransformation(extent={{-140,40},{-100,80}})));
+      iconTransformation(extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uSupFan
     "Supply fan status"
     annotation (Placement(transformation(extent={{-140,-50},{-100,-10}}),
@@ -110,22 +110,25 @@ annotation (
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}})),
  Documentation(info="<html>
 <p>
-Sequence for controlling actuated relief damper <code>yRelDam</code> for AHUs using
-actuated relief damper without a fan.
-It is implemented according to Section 5.16.8 of ASHRAE Guideline G36, May 2020.
+Sequence for controlling return fan <code>yRetFan</code> for AHUs using return fan
+with airflow tracking.
+It is implemented according to Section 5.16.11 of ASHRAE Guideline G36, May 2020.
 </p>
 <ul>
 <li>
-Relief dampers shall be enabled when the associated supply fan is proven on
-(<code>uSupFan = true</code>), and disabled otherwise.
+Return fan operates whenever associated supply fan is proven on
+(<code>uSupFan = true</code>).
 </li>
 <li>
-When enabled, use a P-only control loop to modulate relief dampers to maintain building
-static pressure <code>dpBui</code> at its setpoint, which is by defaul
-<i>12</i> Pa (<i>0.05</i> inchWC).
+Return fan speed shall be controlled to maintain return airflow equal to supply
+airflow less differential <code>difFloSet</code>, as determined per section 3.2.1.5.
 </li>
 <li>
-Close damper when disabled.
+Relief or exhaust dampers shall be enabled when the associated supply and return
+fans are proven on and closed otherwise. Exhaust dampers shall modulate as the inverse
+of the return air damper per section 5.16.2.3. This is implemented in
+<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.Economizers.Subsequences.Modulations.ReturnFan\">
+Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.Economizers.Subsequences.Modulations.ReturnFan</a>
 </li>
 </ul>
 </html>", revisions="<html>
