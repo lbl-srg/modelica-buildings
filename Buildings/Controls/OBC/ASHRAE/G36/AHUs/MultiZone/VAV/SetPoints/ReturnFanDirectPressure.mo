@@ -19,8 +19,27 @@ block ReturnFanDirectPressure
     final min=0,
     final max=1000) = 40
     "Maximum return fan discharge static pressure setpoint";
+  parameter Buildings.Controls.OBC.CDL.Types.SimpleController conTyp=
+    Buildings.Controls.OBC.CDL.Types.SimpleController.PI
+    "Type of controller"
+    annotation (Dialog(group="Pressure controller"));
   parameter Real k(final unit="1") = 1
-    "Gain, normalized using dpBuiSet";
+    "Gain, normalized using dpBuiSet"
+    annotation (Dialog(group="Pressure controller"));
+  parameter Real Ti(
+    final unit="s",
+    final quantity="Time")=0.5
+    "Time constant of integrator block"
+    annotation (Dialog(group="Pressure controller",
+      enable=conTyp == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
+          or conTyp == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
+  parameter Real Td(
+    final unit="s",
+    final quantity="Time")=0.1
+    "Time constant of derivative block"
+    annotation (Dialog(group="Pressure controller",
+      enable=conTyp == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
+          or conTyp == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput dpBui(
     final unit="Pa",
@@ -45,27 +64,29 @@ block ReturnFanDirectPressure
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput dpDisSet(
      final unit="Pa",
      displayUnit="Pa",
-     min=0)
+     final min=0)
     "Return fan discharge static pressure setpoint"
     annotation (Placement(transformation(extent={{120,-110},{160,-70}}),
         iconTransformation(extent={{100,-80},{140,-40}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yExhDam(
      final unit="1",
-     min=0,
-     max=1)
+     final min=0,
+     final max=1)
     "Exhaust damper control signal (0: closed, 1: open)"
     annotation (Placement(transformation(extent={{120,0},{160,40}}),
         iconTransformation(extent={{100,40},{140,80}})));
 
   Buildings.Controls.OBC.CDL.Continuous.MovingMean movMea(
-    delta=300)
+    final delta=300)
     "Average building static pressure measurement"
     annotation (Placement(transformation(extent={{-130,60},{-110,80}})));
 
   Buildings.Controls.OBC.CDL.Continuous.PID conP(
-    final controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.P,
+    final controllerType=conTyp,
     final k=k,
-    reverseAction=true) "Building static pressure controller"
+    final Ti=Ti,
+    final Td=Td)
+    "Building static pressure controller"
     annotation (Placement(transformation(extent={{-40,100},{-20,120}})));
   Buildings.Controls.OBC.CDL.Continuous.Line linExhAirDam
     "Exhaust air damper position"
@@ -174,7 +195,7 @@ equation
     annotation (Line(points={{-18,20},{78,20}}, color={255,0,255}));
 
 annotation (
-  defaultComponentName="buiPreCon",
+  defaultComponentName="retFanDpCon",
   Icon(graphics={
         Text(extent={{-98,142},{102,102}},
           lineColor={0,0,255},
