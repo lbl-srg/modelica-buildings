@@ -166,7 +166,7 @@ its class name ends with the string <code>Beta</code>.
     have been <b style=\"color:blue\">improved</b> in a
     <b style=\"color:blue\">backward compatible</b> way:
     </p>
-    <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+    <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
     <tr><td colspan=\"2\"><b>Buildings.Applications</b>
         </td>
     </tr>
@@ -198,7 +198,7 @@ its class name ends with the string <code>Beta</code>.
     that do <b style=\"color:red\">not</b> lead to wrong simulation results, e.g.,
     units are wrong or errors in documentation):
     </p>
-    <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+    <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
     <tr><td colspan=\"2\"><b>Buildings.Fluid</b>
         </td>
     </tr>
@@ -353,7 +353,7 @@ its class name ends with the string <code>Beta</code>.
     <p>
     The following <b style=\"color:blue\">new libraries</b> have been added:
     </p>
-    <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2>
+    <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\">
     <tr><td valign=\"top\">Buildings.Controls.OBC.Utilities
         </td>
         <td valign=\"top\">Package with utility blocks, base classes and validation
@@ -382,7 +382,7 @@ its class name ends with the string <code>Beta</code>.
     The following <b style=\"color:blue\">new components</b> have been added
     to <b style=\"color:blue\">existing</b> libraries:
     </p>
-    <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+    <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
     <tr><td colspan=\"2\"><b>Buildings.Controls</b>
         </td>
     </tr>
@@ -464,7 +464,7 @@ its class name ends with the string <code>Beta</code>.
     have been <b style=\"color:blue\">improved</b> in a
     <b style=\"color:blue\">backward compatible</b> way:
     </p>
-    <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+    <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
     <tr><td colspan=\"2\"><b>Buildings.BoundaryConditions.WeatherData</b>
         </td>
     </tr>
@@ -754,7 +754,7 @@ its class name ends with the string <code>Beta</code>.
     have been <b style=\"color:blue\">improved</b> in a
     <b style=\"color:blue\">non-backward compatible</b> way:
     </p>
-    <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+    <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
     <tr><td colspan=\"2\"><b>Buildings.Airflow</b>
         </td>
     </tr>
@@ -949,7 +949,7 @@ its class name ends with the string <code>Beta</code>.
     The following <b style=\"color:red\">critical errors</b> have been fixed (i.e., errors
     that can lead to wrong simulation results):
     </p>
-    <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+    <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
     <tr><td colspan=\"2\"><b>Buildings.Controls.OBC.CDL</b>
         </td>
     </tr>
@@ -1041,7 +1041,7 @@ its class name ends with the string <code>Beta</code>.
     that do <b style=\"color:red\">not</b> lead to wrong simulation results, e.g.,
     units are wrong or errors in documentation):
     </p>
-    <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+    <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
     <tr><td colspan=\"2\"><b>Buildings.Controls.OBC.CDL</b>
         </td>
     </tr>
@@ -1095,7 +1095,7 @@ its class name ends with the string <code>Beta</code>.
     <p>
     The following components have become <b style=\"color:blue\">obsolete</b>:
     </p>
-    <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+    <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
     <tr><td colspan=\"2\"><b>Buildings.Obsolete</b>
         </td>
     </tr>
@@ -1160,7 +1160,7 @@ its class name ends with the string <code>Beta</code>.
     <p>
     The following <b style=\"color:blue\">new libraries</b> have been added:
     </p>
-    <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2>
+    <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\">
     <tr><td valign=\"top\">Buildings.Controls.OBC.OutdoorLights
         </td>
         <td valign=\"top\">Package with outdoor lighting controllers.
@@ -1224,7 +1224,7 @@ its class name ends with the string <code>Beta</code>.
     The following <b style=\"color:blue\">new components</b> have been added
     to <b style=\"color:blue\">existing</b> libraries:
     </p>
-    <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+    <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
     <tr><td colspan=\"2\"><b>Buildings.Controls.OBC.CDL</b>
         </td>
         </tr>
@@ -1304,7 +1304,7 @@ its class name ends with the string <code>Beta</code>.
     have been <b style=\"color:blue\">improved</b> in a
     <b style=\"color:blue\">backward compatible</b> way:
     </p>
-    <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+    <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
     <tr><td colspan=\"2\"><b>Buildings.BoundaryConditions</b>
         </td>
     </tr>
@@ -1378,7 +1378,7 @@ its class name ends with the string <code>Beta</code>.
     have been <b style=\"color:blue\">improved</b> in a
     <b style=\"color:blue\">non-backward compatible</b> way:
     </p>
-    <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+    <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
     <tr><td colspan=\"2\"><b>Buildings.Airflow.Multizone</b>
         </td>
     </tr>
@@ -1547,7 +1547,7 @@ its class name ends with the string <code>Beta</code>.
     The following <b style=\"color:red\">critical errors</b> have been fixed (i.e., errors
     that can lead to wrong simulation results):
     </p>
-    <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+    <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
     <tr><td colspan=\"2\"><b>Buildings.Controls.OBC.CDL</b>
         </td>
     </tr>
@@ -1616,7 +1616,7 @@ its class name ends with the string <code>Beta</code>.
     that do <b style=\"color:red\">not</b> lead to wrong simulation results, e.g.,
     units are wrong or errors in documentation):
     </p>
-    <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+    <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
     <tr><td colspan=\"2\"><b>Buildings.Controls.OBC.ASHRAE</b>
         </td>
     </tr>
@@ -1652,7 +1652,7 @@ its class name ends with the string <code>Beta</code>.
    <p>
    The following <b style=\"color:blue\">new libraries</b> have been added:
    </p>
-   <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2>
+   <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\">
    <tr><td valign=\"top\">Buildings.Media.Antifreeze.PropyleneGlycolWater
        </td>
        <td valign=\"top\">Package with medium model for propylene glycol - water mixture.
@@ -1666,7 +1666,7 @@ its class name ends with the string <code>Beta</code>.
    The following <b style=\"color:blue\">new components</b> have been added
    to <b style=\"color:blue\">existing</b> libraries:
    </p>
-   <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+   <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
    <tr><td colspan=\"2\"><b>Buildings.Fluid</b>
        </td>
    </tr>
@@ -1700,7 +1700,7 @@ its class name ends with the string <code>Beta</code>.
    have been <b style=\"color:blue\">improved</b> in a
    <b style=\"color:blue\">backward compatible</b> way:
    </p>
-   <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+   <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
    <tr><td colspan=\"2\"><b>Buildings.Airflow.Multizone</b>
        </td>
    </tr>
@@ -1822,7 +1822,7 @@ its class name ends with the string <code>Beta</code>.
    The following <b style=\"color:red\">critical errors</b> have been fixed (i.e., errors
    that can lead to wrong simulation results):
    </p>
-   <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+   <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
    <tr><td colspan=\"2\"><b>Buildings.Fluid.Interfaces</b>
        </td>
    </tr>
@@ -1857,7 +1857,7 @@ its class name ends with the string <code>Beta</code>.
    The following <b style=\"color:red\">critical errors</b> have been fixed (i.e., errors
    that can lead to wrong simulation results):
    </p>
-   <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+   <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
    <tr><td colspan=\"2\"><b>Buildings.Fluid.SolarCollectors</b>
        </td>
    </tr>
@@ -1915,7 +1915,7 @@ its class name ends with the string <code>Beta</code>.
    <p>
    The following <b style=\"color:blue\">new libraries</b> have been added:
    </p>
-   <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2>
+   <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\">
    <tr><td valign=\"top\">Buildings.Applications.DataCenter
        </td>
        <td valign=\"top\">Library with component models and pre-configured
@@ -1952,7 +1952,7 @@ its class name ends with the string <code>Beta</code>.
    The following <b style=\"color:blue\">new components</b> have been added
    to <b style=\"color:blue\">existing</b> libraries:
    </p>
-   <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+   <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
    <tr><td colspan=\"2\"><b>Buildings.Fluid.HeatExchangers</b>
        </td>
    </tr>
@@ -1995,7 +1995,7 @@ its class name ends with the string <code>Beta</code>.
    have been <b style=\"color:blue\">improved</b> in a
    <b style=\"color:blue\">backward compatible</b> way:
    </p>
-   <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+   <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
    <tr><td colspan=\"2\"><b>Buildings.Fluid.Chillers</b>
        </td>
    </tr>
@@ -2086,7 +2086,7 @@ its class name ends with the string <code>Beta</code>.
    have been <b style=\"color:blue\">improved</b> in a
    <b style=\"color:blue\">non-backward compatible</b> way:
    </p>
-   <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+   <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
     <tr><td colspan=\"2\"><b>Buildings.Fluid</b>
        </td>
    </tr>
@@ -2134,7 +2134,7 @@ its class name ends with the string <code>Beta</code>.
    The following <b style=\"color:red\">critical errors</b> have been fixed (i.e., errors
    that can lead to wrong simulation results):
    </p>
-   <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+   <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
    <tr><td colspan=\"2\"><b>Buildings.Airflow</b>
        </td>
    </tr>
@@ -2205,7 +2205,7 @@ its class name ends with the string <code>Beta</code>.
    that do <b style=\"color:red\">not</b> lead to wrong simulation results, e.g.,
    units are wrong or errors in documentation):
    </p>
-   <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+   <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
    <tr><td colspan=\"2\"><b>Buildings.HeatTransfer</b>
        </td>
    </tr>
