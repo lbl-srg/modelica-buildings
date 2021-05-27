@@ -989,7 +989,7 @@ as reported in <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1432\">I
     have been <b style=\"color:blue\">improved</b> in a
     <b style=\"color:blue\">backward compatible</b> way:
     </p>
-    <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+    <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
     <tr><td colspan=\"2\"><b>Buildings.Applications</b>
         </td>
     </tr>
@@ -1021,7 +1021,7 @@ as reported in <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1432\">I
     that do <b style=\"color:red\">not</b> lead to wrong simulation results, e.g.,
     units are wrong or errors in documentation):
     </p>
-    <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+    <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
     <tr><td colspan=\"2\"><b>Buildings.Fluid</b>
         </td>
     </tr>
