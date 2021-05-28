@@ -187,8 +187,15 @@ void getVariables(FMUBuilding* bui, const char* modelicaInstanceName, spawnReals
 
   status = fmi2_import_get_real(bui->fmu, ptrReals->valRefs, ptrReals->n, ptrReals->valsEP);
   if (status != (fmi2_status_t)fmi2OK) {
-    bui->SpawnFormatError("Failed to get variables for %s\n",
-    modelicaInstanceName);
+    if (bui->mode == initializationMode){
+      bui->SpawnFormatError(
+        "Failed to get parameter values for %s. This may be due to an error during the initialization or warm-up of EnergyPlus as the EnergyPlus FMU has been generated and loaded with no error.\n",
+      modelicaInstanceName, fmuModeToString(bui->mode));
+    }
+    else{
+      bui->SpawnFormatError("Failed to get variables for %s during mode = %s.\n",
+      modelicaInstanceName, fmuModeToString(bui->mode));
+    }
   }
   /* Set SI unit value */
   for(i = 0; i < ptrReals->n; i++){
