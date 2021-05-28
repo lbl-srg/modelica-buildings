@@ -5,8 +5,9 @@ model CoolingTowerWithBypass
   extends Buildings.Fluid.HeatExchangers.CoolingTowers.Examples.BaseClasses.PartialStaticTwoPortCoolingTower(
     redeclare Buildings.Experimental.DHC.CentralPlants.Cooling.Subsystems.CoolingTowerWithBypass tow(
       use_inputFilter=false,
-      TAirInWB_nominal=273.15+25.55,
-      TWatIn_nominal=273.15+35,
+      dp_nominal(displayUnit="Pa") = 6000,
+      TAirInWB_nominal=273.15 + 25.55,
+      TWatIn_nominal=273.15 + 35,
       dT_nominal=5.56,
       PFan_nominal=4800,
       TMin=TMin,

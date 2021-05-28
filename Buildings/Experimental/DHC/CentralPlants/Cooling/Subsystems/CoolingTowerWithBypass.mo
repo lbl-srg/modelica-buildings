@@ -1,8 +1,8 @@
 within Buildings.Experimental.DHC.CentralPlants.Cooling.Subsystems;
 model CoolingTowerWithBypass
   "Cooling tower system with bypass valve"
-  replaceable package Medium=Buildings.Media.Water
-    "Condenser water medium";
+  extends Buildings.Fluid.Interfaces.PartialTwoPortInterface(
+    redeclare replaceable package Medium=Buildings.Media.Water);
   parameter Integer num(
     final min=1)=2
     "Number of cooling towers";
@@ -12,15 +12,6 @@ model CoolingTowerWithBypass
   parameter Boolean use_inputFilter=true
     "= true, if opening is filtered with a 2nd order CriticalDamping filter"
     annotation (Dialog(tab="Dynamics",group="Filtered opening"));
-  parameter Boolean show_T=true
-    "= true, if actual temperature at port is computed"
-    annotation (Dialog(tab="Advanced",group="Diagnostics"));
-  parameter Boolean allowFlowReversal = true
-    "= false to simplify equations, assuming, but not enforcing, no flow reversal"
-    annotation(Dialog(tab="Assumptions"), Evaluate=true);
-  parameter Modelica.SIunits.MassFlowRate m_flow_nominal
-    "Total nominal mass flow rate of condenser water"
-    annotation (Dialog(group="Nominal condition"));
   parameter Modelica.SIunits.Pressure dp_nominal
     "Nominal pressure difference of the tower"
     annotation (Dialog(group="Nominal condition"));
@@ -65,32 +56,6 @@ model CoolingTowerWithBypass
     final min=0)=0.1
     "Derivative time constant of the tower PID controller"
     annotation (Dialog(enable=(controllerType == Modelica.Blocks.Types.SimpleController.PD or controllerType == Modelica.Blocks.Types.SimpleController.PID),group="Control Settings"));
-  Medium.ThermodynamicState sta_a=Medium.setState_phX(
-    port_a.p,
-    noEvent(
-      actualStream(
-        port_a.h_outflow)),
-    noEvent(
-      actualStream(
-        port_a.Xi_outflow))) if show_T
-    "Medium properties in port_a";
-  Medium.ThermodynamicState sta_b=Medium.setState_phX(
-    port_b.p,
-    noEvent(
-      actualStream(
-        port_b.h_outflow)),
-    noEvent(
-      actualStream(
-        port_b.Xi_outflow))) if show_T
-    "Medium properties in port_b";
-  Modelica.Fluid.Interfaces.FluidPort_a port_a(
-    redeclare package Medium=Medium)
-    "Fluid connector a (positive design flow direction is from port_a to port_b)"
-    annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
-  Modelica.Fluid.Interfaces.FluidPort_b port_b(
-    redeclare package Medium=Medium)
-    "Fluid connector b (positive design flow direction is from port_a to port_b)"
-    annotation (Placement(transformation(extent={{90,-10},{110,10}})));
   Modelica.Blocks.Interfaces.BooleanInput on[num]
     "On signal for cooling towers"
     annotation (Placement(transformation(extent={{-140,20},{-100,60}})));
@@ -130,6 +95,7 @@ model CoolingTowerWithBypass
     redeclare final package Medium=Medium,
     final allowFlowReversal=allowFlowReversal,
     final m_flow_nominal=m_flow_nominal*0.0001,
+    final show_T=show_T,
     final dpValve_nominal=dpValve_nominal,
     final dpFixed_nominal=dp_nominal,
     final use_inputFilter=use_inputFilter)
