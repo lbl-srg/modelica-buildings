@@ -172,10 +172,16 @@ equation
     Documentation(info="<html>
 <p>
 This example showcases the ground thermal coupling for two uninsulated 
-buried pipe operating around ambient temperature (<i>20</i>°C), and separated
-in 2 and 10 segments respectively.
-Both design flow direction and reverse flow direction 
-(components with suffix <code>Rev</code>) are simulated.
+buried pipe - direct and reverse flow direction - operating around 
+ambient temperature (<i>20</i>°C), and separated
+in 2 and 10 segments respectively.</p>
+<p>
+This example illustrate the difference in boundary conditions that
+results from different segmentation of the pipes, since both
+pipes are representative of the same conditions (see
+<a href=\"modelica://Buildings.Fluid.BuriedPipes.Examples.SingleBuriedPipe\">
+Buildings.Fluid.BuriedPipes.Examples.SingleBuriedPipe</a> for validation
+that direct and reverse flow result in the same modeled operation).
 </p>
 </html>", revisions="<html>
 <ul>
@@ -185,6 +191,6 @@ First implementation.
 </li>
 </ul>
 </html>"),
-    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/BuriedPipes/Examples/SingleBuriedPipe.mos"
+    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/BuriedPipes/Examples/MultiSegmentBuriedPipe.mos"
         "Simulate and plot"));
 end MultiSegmentBuriedPipe;

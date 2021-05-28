@@ -224,5 +224,22 @@ First implementation.
 </li>
 </ul>
 </html>", info="<html>
+<p>
+Wrapper around <a href=\"modelica://Buildings.Fluid.Resistances.PlugFlowPipe\">
+Buildings.Fluid.Resistances.PlugFlowPipe</a> which allows to specify <code>nSeg</code>
+successive segments of pipes (connected in series).
+</p>
+<p>
+This wrapper simplify use-cases where different segments of the same
+pipe might have different boundary conditions. This would be the case, 
+for instance, for sufficiently long stretch of buried pipes.
+</p>
+<p>
+To reduce coupled nonlinear equations, the pipe resistance 
+is aggregated to a single instance of 
+<a href=\"modelica://Buildings.Fluid.FixedResistances.HydraulicDiameter\">
+Buildings.Fluid.FixedResistances.HydraulicDiameter</a> rather than being
+instantiated separately for each segment.
+</p>
 </html>"));
 end MultiPlugFlowPipe;
