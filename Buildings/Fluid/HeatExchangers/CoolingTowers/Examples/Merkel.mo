@@ -4,6 +4,7 @@ model Merkel "Test model for cooling tower using the Merkel theory"
   extends BaseClasses.PartialStaticTwoPortCoolingTower(
     redeclare Buildings.Fluid.HeatExchangers.CoolingTowers.Merkel tow(
       ratWatAir_nominal=ratWatAir_nominal,
+      dp_nominal = 6000,
       TAirInWB_nominal=273.15 + 25.55,
       TWatIn_nominal=273.15 + 35,
       TWatOut_nominal=273.15 + 35 - 5.56,

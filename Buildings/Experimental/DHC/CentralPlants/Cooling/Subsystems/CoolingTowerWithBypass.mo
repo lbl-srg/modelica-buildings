@@ -15,6 +15,9 @@ model CoolingTowerWithBypass
   parameter Boolean show_T=true
     "= true, if actual temperature at port is computed"
     annotation (Dialog(tab="Advanced",group="Diagnostics"));
+  parameter Boolean allowFlowReversal = true
+    "= false to simplify equations, assuming, but not enforcing, no flow reversal"
+    annotation(Dialog(tab="Assumptions"), Evaluate=true);
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal
     "Total nominal mass flow rate of condenser water"
     annotation (Dialog(group="Nominal condition"));
@@ -111,6 +114,8 @@ model CoolingTowerWithBypass
     redeclare final package Medium=Medium,
     final num=num,
     final show_T=show_T,
+    final m_flow_small=m_flow_nominal,
+    final allowFlowReversal=allowFlowReversal,
     final m_flow_nominal=m_flow_nominal/num,
     final dp_nominal=dp_nominal,
     final ratWatAir_nominal=ratWatAir_nominal,
@@ -123,6 +128,7 @@ model CoolingTowerWithBypass
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Buildings.Fluid.Actuators.Valves.TwoWayEqualPercentage valByp(
     redeclare final package Medium=Medium,
+    final allowFlowReversal=allowFlowReversal,
     final m_flow_nominal=m_flow_nominal*0.0001,
     final dpValve_nominal=dpValve_nominal,
     final dpFixed_nominal=dp_nominal,
@@ -131,7 +137,9 @@ model CoolingTowerWithBypass
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},origin={0,-40})));
   Buildings.Fluid.Sensors.TemperatureTwoPort senTCWSup(
     redeclare final package Medium=Medium,
+    final allowFlowReversal=allowFlowReversal,
     final m_flow_nominal=m_flow_nominal,
+    final m_flow_small=m_flow_nominal,
     final T_start=Medium.T_default)
     "Temperature sensor"
     annotation (Placement(transformation(extent={{60,10},{80,-10}})));

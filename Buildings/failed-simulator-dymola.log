@@ -1,0 +1,211 @@
+Automatically generated BuildingsPy dump file for failed translations.
+
+===============================
+=====START OF NEW LOG FILE=====
+===============================
+﻿ = true
+
+    
+    rCheck = checkModel("Buildings.Experimental.DHC.CentralPlants.Cooling.Subsystems.Examples.CoolingTowerParallel");
+Check of Buildings.Experimental.DHC.CentralPlants.Cooling.Subsystems.Examples.CoolingTowerParallel:
+Error: Redeclaration requires a subtype.
+ But missing component computeFlowResistance.
+  In redeclaration of component tow:
+  File: C:/Users/17206/AppData/Local/Temp/tmp-Buildings-4-hni_x7o5/Buildings/Experimental/DHC/CentralPlants/Cooling/Subsystems/Examples/CoolingTowerParallel.mo, line 6
+Original declaration of tow:
+  File: C:/Users/17206/AppData/Local/Temp/tmp-Buildings-4-hni_x7o5/Buildings/Fluid/HeatExchangers/CoolingTowers/Examples/BaseClasses/PartialStaticTwoPortCoolingTower.mo, line 12
+  Context: Buildings.Fluid.HeatExchangers.CoolingTowers.Examples.BaseClasses.PartialStaticTwoPortCoolingTower.tow
+The model has the same number of unknowns and equations: 729
+The model has the same number of unknowns and equations:
+  717+2*(tow.val[1].order+tow.val[2].order+pum.filter.order)
+Check of Buildings.Experimental.DHC.CentralPlants.Cooling.Subsystems.Examples.CoolingTowerParallel successful.
+Declaring variable: Boolean rCheck ;
+    
+    Modelica.Utilities.Streams.print("    { \"file\" :  \"Buildings/Resources/Scripts/Dymola/Experimental/DHC/CentralPlants/Cooling/Subsystems/Examples/CoolingTowerParallel.mos\",", "statistics.json");
+    Modelica.Utilities.Streams.print("      \"model\" : \"Buildings.Experimental.DHC.CentralPlants.Cooling.Subsystems.Examples.CoolingTowerParallel\",", "statistics.json");
+    Modelica.Utilities.Streams.print("      \"check\" : {", "statistics.json");
+    Modelica.Utilities.Streams.print("        \"command\" : \"checkModel(\\\"Buildings.Experimental.DHC.CentralPlants.Cooling.Subsystems.Examples.CoolingTowerParallel\\\");\",", "statistics.json");
+    Modelica.Utilities.Streams.print("        \"result\"  : " + String(rCheck), "statistics.json");
+    Modelica.Utilities.Streams.print("      },", "statistics.json");
+    
+    
+    rScript=RunScript("Resources/Scripts/Dymola/Experimental/DHC/CentralPlants/Cooling/Subsystems/Examples/CoolingTowerParallel.mos");
+// Simulate
+simulateModel("Buildings.Experimental.DHC.CentralPlants.Cooling.Subsystems.Examples.CoolingTowerParallel", 
+        startTime=15552000, 
+        stopTime=15724800, 
+        method="cvode", 
+        tolerance=1e-06, 
+        resultFile="CoolingTowerParallel");
+Translation of Buildings.Experimental.DHC.CentralPlants.Cooling.Subsystems.Examples.CoolingTowerParallel:
+Error: Redeclaration requires a subtype.
+ But missing component computeFlowResistance.
+  In redeclaration of component tow:
+  File: C:/Users/17206/AppData/Local/Temp/tmp-Buildings-4-hni_x7o5/Buildings/Experimental/DHC/CentralPlants/Cooling/Subsystems/Examples/CoolingTowerParallel.mo, line 6
+Original declaration of tow:
+  File: C:/Users/17206/AppData/Local/Temp/tmp-Buildings-4-hni_x7o5/Buildings/Fluid/HeatExchangers/CoolingTowers/Examples/BaseClasses/PartialStaticTwoPortCoolingTower.mo, line 12
+  Context: Buildings.Fluid.HeatExchangers.CoolingTowers.Examples.BaseClasses.PartialStaticTwoPortCoolingTower.tow
+The DAE has 729 scalar unknowns and 729 scalar equations.
+ 
+Statistics
+ 
+Original Model
+  Number of components: 182
+  Variables: 1742
+  Constants: 47 (48 scalars)
+  Parameters: 892 (954 scalars)
+  Unknowns: 803 (754 scalars)
+  Differentiated variables: 16 scalars
+  Equations: 769
+  Nontrivial: 648
+Translated Model
+  Constants: 606 scalars
+  Free parameters: 202 scalars
+  Parameter depending: 267 scalars
+  Outputs: 23 scalars
+  Continuous time states: 12 scalars
+  Time-varying variables: 239 scalars
+  Alias variables: 442 scalars
+  Number of mixed real/discrete systems of equations: 0
+  Sizes of linear systems of equations: { }
+  Sizes after manipulation of the linear systems: { }
+  Sizes of nonlinear systems of equations: {3, 5, 7, 7}
+  Sizes after manipulation of the nonlinear systems: {1, 1, 1, 1}
+  Number of numerical Jacobians: 0
+  Initialization problem
+    Sizes of nonlinear systems of equations: {2, 2, 5}
+    Sizes after manipulation of the nonlinear systems: {1, 1, 1}
+    Number of numerical Jacobians: 0
+ 
+Selected continuous time states
+Statically selected continuous time states
+  conFan.I.y
+  pum.filter.x[1]
+  pum.filter.x[2]
+  pum.vol.dynBal.U
+  tow.cooTow[1].vol.dynBal.U
+  tow.cooTow[2].vol.dynBal.U
+  tow.senTem.T
+  tow.val[1].filter.x[1]
+  tow.val[1].filter.x[2]
+  tow.val[2].filter.x[1]
+  tow.val[2].filter.x[2]
+  vol.dynBal.U
+ 
+Error detected when generating code.
+Translation aborted.
+Error: ERRORS have been issued.
+ = false
+// Plot commands
+
+
+Declaring variable: Boolean rScript ;
+    
+    savelog("Buildings.Experimental.DHC.CentralPlants.Cooling.Subsystems.Examples.CoolingTowerParallel.translation.log");
+
+
+===============================
+=====START OF NEW LOG FILE=====
+===============================
+﻿ = true
+
+    
+    rCheck = checkModel("Buildings.Experimental.DHC.CentralPlants.Cooling.Subsystems.Examples.CoolingTowerWithBypass");
+Check of Buildings.Experimental.DHC.CentralPlants.Cooling.Subsystems.Examples.CoolingTowerWithBypass:
+Error: Redeclaration requires a subtype.
+ But missing component m_flow_small.
+  In redeclaration of component tow:
+  File: C:/Users/17206/AppData/Local/Temp/tmp-Buildings-5-3__u23_4/Buildings/Experimental/DHC/CentralPlants/Cooling/Subsystems/Examples/CoolingTowerWithBypass.mo, line 6
+Original declaration of tow:
+  File: C:/Users/17206/AppData/Local/Temp/tmp-Buildings-5-3__u23_4/Buildings/Fluid/HeatExchangers/CoolingTowers/Examples/BaseClasses/PartialStaticTwoPortCoolingTower.mo, line 12
+  Context: Buildings.Fluid.HeatExchangers.CoolingTowers.Examples.BaseClasses.PartialStaticTwoPortCoolingTower.tow
+The model has the same number of unknowns and equations: 851
+The model has the same number of unknowns and equations:
+  839+2*(tow.cooTowSys.val[1].order+tow.cooTowSys.val[2].order+pum.filter.order)
+Check of Buildings.Experimental.DHC.CentralPlants.Cooling.Subsystems.Examples.CoolingTowerWithBypass successful.
+Declaring variable: Boolean rCheck ;
+    
+    Modelica.Utilities.Streams.print("    { \"file\" :  \"Buildings/Resources/Scripts/Dymola/Experimental/DHC/CentralPlants/Cooling/Subsystems/Examples/CoolingTowerWithBypass.mos\",", "statistics.json");
+    Modelica.Utilities.Streams.print("      \"model\" : \"Buildings.Experimental.DHC.CentralPlants.Cooling.Subsystems.Examples.CoolingTowerWithBypass\",", "statistics.json");
+    Modelica.Utilities.Streams.print("      \"check\" : {", "statistics.json");
+    Modelica.Utilities.Streams.print("        \"command\" : \"checkModel(\\\"Buildings.Experimental.DHC.CentralPlants.Cooling.Subsystems.Examples.CoolingTowerWithBypass\\\");\",", "statistics.json");
+    Modelica.Utilities.Streams.print("        \"result\"  : " + String(rCheck), "statistics.json");
+    Modelica.Utilities.Streams.print("      },", "statistics.json");
+    
+    
+    rScript=RunScript("Resources/Scripts/Dymola/Experimental/DHC/CentralPlants/Cooling/Subsystems/Examples/CoolingTowerWithBypass.mos");
+// Simulate
+simulateModel("Buildings.Experimental.DHC.CentralPlants.Cooling.Subsystems.Examples.CoolingTowerWithBypass", 
+        startTime=10368000, 
+        stopTime=10540800, 
+        method="cvode", 
+        tolerance=1e-06, 
+        resultFile="CoolingTowerWithBypass");
+Translation of Buildings.Experimental.DHC.CentralPlants.Cooling.Subsystems.Examples.CoolingTowerWithBypass:
+Error: Redeclaration requires a subtype.
+ But missing component m_flow_small.
+  In redeclaration of component tow:
+  File: C:/Users/17206/AppData/Local/Temp/tmp-Buildings-5-3__u23_4/Buildings/Experimental/DHC/CentralPlants/Cooling/Subsystems/Examples/CoolingTowerWithBypass.mo, line 6
+Original declaration of tow:
+  File: C:/Users/17206/AppData/Local/Temp/tmp-Buildings-5-3__u23_4/Buildings/Fluid/HeatExchangers/CoolingTowers/Examples/BaseClasses/PartialStaticTwoPortCoolingTower.mo, line 12
+  Context: Buildings.Fluid.HeatExchangers.CoolingTowers.Examples.BaseClasses.PartialStaticTwoPortCoolingTower.tow
+The DAE has 851 scalar unknowns and 851 scalar equations.
+ 
+Statistics
+ 
+Original Model
+  Number of components: 210
+  Variables: 2096
+  Constants: 53 (54 scalars)
+  Parameters: 1088 (1152 scalars)
+  Unknowns: 955 (887 scalars)
+  Differentiated variables: 18 scalars
+  Equations: 898
+  Nontrivial: 771
+Translated Model
+  Constants: 743 scalars
+  Free parameters: 244 scalars
+  Parameter depending: 299 scalars
+  Outputs: 23 scalars
+  Continuous time states: 14 scalars
+  Time-varying variables: 285 scalars
+  Alias variables: 522 scalars
+  Number of mixed real/discrete systems of equations: 0
+  Sizes of linear systems of equations: { }
+  Sizes after manipulation of the linear systems: { }
+  Sizes of nonlinear systems of equations: {3, 8, 7, 7}
+  Sizes after manipulation of the nonlinear systems: {1, 2, 1, 1}
+  Number of numerical Jacobians: 0
+  Initialization problem
+    Sizes of nonlinear systems of equations: {2, 2, 8}
+    Sizes after manipulation of the nonlinear systems: {1, 1, 2}
+    Number of numerical Jacobians: 0
+ 
+Selected continuous time states
+Statically selected continuous time states
+  pum.filter.x[1]
+  pum.filter.x[2]
+  pum.vol.dynBal.U
+  tow.bypValCon.I.y
+  tow.cooTowSpeCon.I.y
+  tow.cooTowSys.cooTow[1].vol.dynBal.U
+  tow.cooTowSys.cooTow[2].vol.dynBal.U
+  tow.cooTowSys.senTem.T
+  tow.cooTowSys.val[1].filter.x[1]
+  tow.cooTowSys.val[1].filter.x[2]
+  tow.cooTowSys.val[2].filter.x[1]
+  tow.cooTowSys.val[2].filter.x[2]
+  tow.senTCWSup.T
+  vol.dynBal.U
+ 
+Error detected when generating code.
+Translation aborted.
+Error: ERRORS have been issued.
+ = false
+// Plot commands
+
+Declaring variable: Boolean rScript ;
+    
+    savelog("Buildings.Experimental.DHC.CentralPlants.Cooling.Subsystems.Examples.CoolingTowerWithBypass.translation.log");
+
+
