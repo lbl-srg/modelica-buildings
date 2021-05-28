@@ -305,6 +305,7 @@ void generateFMU(FMUBuilding* bui, const char* modelicaBuildingsJsonFile){
   char* optionFlags;
   char* outputFlag;
   char* createFlag;
+  char* exe_name;
   char* fulCmd;
   size_t len;
   int retVal;
@@ -329,27 +330,48 @@ void generateFMU(FMUBuilding* bui, const char* modelicaBuildingsJsonFile){
   optionFlags = " --no-compress "; /* Flag for command */
   outputFlag = " --output-path "; /* Flag for command */
   createFlag = " --create "; /* Flag for command */
-  len = strlen(bui->buildingsLibraryRoot) + strlen(cmd) + strlen(optionFlags)
+  len = strlen("\"") + strlen(bui->buildingsLibraryRoot) + strlen(cmd) + strlen("\"") + strlen(optionFlags)
     + strlen(outputFlag) + strlen("\"") + strlen(bui->fmuAbsPat) + strlen("\"")
     + strlen(createFlag) + strlen("\"") + strlen(modelicaBuildingsJsonFile) + strlen("\"")
     + 1;
+#ifdef _WIN32 /* Win32 or Win64 */
+  /* Windows needs double quotes in the system call, see https://stackoverflow.com/questions/2642551/windows-c-system-call-with-spaces-in-command */
+  len = len + 2 * strlen("\"");
+#endif
+
+  mallocString(len-2, "Failed to allocate memory in generateFMU() for executable name.",
+    &exe_name, SpawnFormatError);
+  memset(exe_name, '\0', len-2);
 
   mallocString(len, "Failed to allocate memory in generateFMU().", &fulCmd, SpawnFormatError);
   memset(fulCmd, '\0', len);
-  strcpy(fulCmd, bui->buildingsLibraryRoot); /* This is for example /mtn/shared/Buildings */
-  strcat(fulCmd, cmd);
-  /* Check if the executable exists
-     Linux return 0, and Windows returns 2 if file does not exist */
-  if( access(fulCmd, F_OK ) != 0 ) {
-    SpawnFormatError("Executable '%s' does not exist: '%s'.", fulCmd, strerror(errno));
+
+  strcpy(exe_name, bui->buildingsLibraryRoot); /* This is for example /mtn/shared/Buildings */
+  strcat(exe_name, cmd);
+
+  /* Check if the executable exists and is executable. For this, the leading and trailing space needs to be removed.
+     (But later on, for invoking the executable, the spaces need to be present if there is a white space in the directory name.)
+  */
+  /* Check if executable exists. Linux returns 0, and Windows returns 2 if file does not exist */
+  if( access(exe_name, F_OK ) != 0 ) {
+    SpawnFormatError("Executable '%s' does not exist: '%s'.", exe_name, strerror(errno));
   }
   /* Make sure the file is executable */
   /* Windows has no mode X_OK = 1, see https://docs.microsoft.com/en-us/cpp/c-runtime-library/reference/access-waccess?view=vs-2019 */
 #ifndef _WIN32
-  if( access(fulCmd, X_OK ) != 0 ) {
-    SpawnFormatError("File '%s' exists, but fails to have executable flag set: '%s.", fulCmd, strerror(errno));
+  if( access(exe_name, X_OK ) != 0 ) {
+    SpawnFormatError("File '%s' exists, but fails to have executable flag set: '%s.", exe_name, strerror(errno));
   }
+
 #endif
+
+  /* Build version of string with leading and trailing quotes, which is needed to invoke the command if the directory has empty spaces. */
+  strcpy(fulCmd, "\""); /* For Linux, add a quote to allow for spaces in directory, such as for Buildings 8.0.0 */
+#ifdef _WIN32 /* Win32 or Win64, add leading quote */
+  strcat(fulCmd, "\"");
+#endif
+  strcat(fulCmd, exe_name);
+  strcat(fulCmd, "\"");
   /* Continue building the command line */
   strcat(fulCmd, optionFlags);
   strcat(fulCmd, outputFlag);
@@ -360,6 +382,10 @@ void generateFMU(FMUBuilding* bui, const char* modelicaBuildingsJsonFile){
   strcat(fulCmd, "\"");
   strcat(fulCmd, modelicaBuildingsJsonFile);
   strcat(fulCmd, "\"");
+#ifdef _WIN32 /* Win32 or Win64, add trailing quote */
+  strcat(fulCmd, "\"");
+#endif
+
 
   /* Generate the FMU */
   if (bui->logLevel >= MEDIUM)
@@ -373,6 +399,7 @@ void generateFMU(FMUBuilding* bui, const char* modelicaBuildingsJsonFile){
   if (retVal != 0){
     SpawnFormatError("%.3f %s: Generating FMU returned value %d, but FMU exists.\n", bui->time, bui->modelicaNameBuilding, retVal);
   }
+  free(exe_name);
   free(fulCmd);
 }
 

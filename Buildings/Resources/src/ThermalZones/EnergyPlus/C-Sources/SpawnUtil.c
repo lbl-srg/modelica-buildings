@@ -641,10 +641,16 @@ void buildVariableNames(
 }
 
 void createDirectory(const char* dirName, void (*SpawnFormatError)(const char *string, ...)){
-  struct stat st = {0};
   /* Create directory if it does not already exist */
+#ifdef _WIN32 /* Win32 or Win64 */
+  struct _stat64i32 st = {0};
+  if (_stat64i32(dirName, &st) == -1) {
+    if ( _mkdir(dirName) == -1)
+#else
+  struct stat st = {0};
   if (stat(dirName, &st) == -1) {
     if ( mkdir(dirName, 0700) == -1)
+#endif
       SpawnFormatError("Failed to create directory %s", dirName);
   }
 }
