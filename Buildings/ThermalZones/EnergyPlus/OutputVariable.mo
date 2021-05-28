@@ -150,6 +150,7 @@ and then simulate the model. This will create the file
 </p>
 <pre>
 Zone,Average,Zone Electric Equipment Electricity Rate [W]
+Zone,Average,Site Outdoor Air Drybulb Temperature [C]
 </pre>
 <p>
 Next, instantiate the output variable in Modelica. To obtain the value of
@@ -163,6 +164,23 @@ Buildings.ThermalZones.EnergyPlus.OutputVariable equEle(
   key=\"LIVING ZONE\")
   \"Block that reads output from EnergyPlus\";
 </pre>
+<p>
+To obtain the value of
+<code>Site Outdoor Air Drybulb Temperature [C]</code> from EnergyPlus,
+the Modelica instantiation would be
+</p>
+<pre>
+Buildings.ThermalZones.EnergyPlus.OutputVariable TOut(
+  name=\"Site Outdoor Air Drybulb Temperature\",
+  key=\"Environment\")
+  \"Block that reads output from EnergyPlus\";
+</pre>
+<p>
+(Note that this variable could be read directly from the Modelica weather data bus,
+which can be accessed from
+<a href=\"Buildings.ThermalZones.EnergyPlus.Building\">
+Buildings.ThermalZones.EnergyPlus.Building</a>.)
+</p>
 <p>
 By default, the Modelica log file will display the unit in the form
 </p>
