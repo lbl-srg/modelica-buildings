@@ -19,10 +19,14 @@ model ChillerStage
     annotation (Placement(transformation(extent={{-200,40},{-160,80}}),iconTransformation(extent={{-140,40},{-100,80}})));
   Modelica.Blocks.Interfaces.RealInput TChiWatRet
     "Chilled water return temperature"
-    annotation (Placement(transformation(extent={{-200,0},{-160,40}}),iconTransformation(extent={{-140,0},{-100,40}})),iconTransformation(extent={{-140,0},{-100,40}}));
+    annotation (Placement(transformation(extent={{-200,0},{-160,40}}),
+      iconTransformation(extent={{-140,0},{-100,40}})),
+      iconTransformation(extent={{-140,0},{-100,40}}));
   Modelica.Blocks.Interfaces.RealInput TChiWatSup
     "Chilled water supply temperature"
-    annotation (Placement(transformation(extent={{-200,-40},{-160,0}}),iconTransformation(extent={{-140,-40},{-100,0}})),iconTransformation(extent={{-140,-40},{-100,0}}));
+    annotation (Placement(transformation(extent={{-200,-40},{-160,0}}),
+      iconTransformation(extent={{-140,-40},{-100,0}})),
+      iconTransformation(extent={{-140,-40},{-100,0}}));
   Modelica.Blocks.Interfaces.RealInput mFloChiWat
     "Chilled water mass flow rate"
     annotation (Placement(transformation(extent={{-200,-80},{-160,-40}}),iconTransformation(extent={{-140,-80},{-100,-40}})));
@@ -84,14 +88,14 @@ model ChillerStage
     final t=1)
     "On signal of chiller two"
     annotation (Placement(transformation(extent={{120,-20},{140,0}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold thrOneToTwo(
-    final t=criPoiLoa+dQ)
+  Buildings.Controls.OBC.CDL.Continuous.Hysteresis thrOneToTwo(
+    uLow=criPoiLoa+dQ,
+    uHigh=criPoiLoa+dQ+100)
     "Threshold of turning two chillers on"
-    annotation (Placement(transformation(extent={{-30,-50},{-10,-30}})));
-  Buildings.Controls.OBC.CDL.Continuous.LessThreshold thrTwoToOne(
-    final t=criPoiLoa-dQ)
+    annotation (Placement(transformation(extent={{-36,-50},{-16,-30}})));
+  Modelica.Blocks.Logical.Not thrTwoToOne
     "Threshold of turning off the second chiller"
-    annotation (Placement(transformation(extent={{-30,-80},{-10,-60}})));
+    annotation (Placement(transformation(extent={{-36,-84},{-16,-64}})));
   Buildings.Controls.OBC.CDL.Logical.Not notOn
     "Not on"
     annotation (Placement(transformation(extent={{-30,10},{-10,30}})));
@@ -113,7 +117,8 @@ protected
     p=Medium.p_default,
     X=Medium.X_default)
     "Medium state at default properties";
-  final parameter Modelica.SIunits.SpecificHeatCapacity cp_default=Medium.specificHeatCapacityCp(
+  final parameter Modelica.SIunits.SpecificHeatCapacity cp_default=
+    Medium.specificHeatCapacityCp(
     sta_default)
     "Specific heat capacity of the fluid";
 equation
@@ -152,9 +157,9 @@ equation
   connect(on,offToOne.condition)
     annotation (Line(points={{-180,60},{-50,60},{-50,40},{-2,40}},color={255,0,255}));
   connect(oneToTwo.condition,thrOneToTwo.y)
-    annotation (Line(points={{-2,-40},{-8,-40}},color={255,0,255}));
+    annotation (Line(points={{-2,-40},{-14,-40}},color={255,0,255}));
   connect(thrTwoToOne.y,twoToOne.condition)
-    annotation (Line(points={{-8,-70},{-6,-70},{-6,-56},{40,-56},{40,-40},{48,-40}},color={255,0,255}));
+    annotation (Line(points={{-15,-74},{-6,-74},{-6,-56},{40,-56},{40,-40},{48,-40}},color={255,0,255}));
   connect(on,notOn.u)
     annotation (Line(points={{-180,60},{-50,60},{-50,20},{-32,20}},color={255,0,255}));
   connect(notOn.y,oneToOff.condition)
@@ -164,15 +169,15 @@ equation
   connect(cp.u,pro.y)
     annotation (Line(points={{-82,0},{-89,0}},color={0,0,127}));
   connect(cp.y,thrOneToTwo.u)
-    annotation (Line(points={{-59,0},{-50,0},{-50,-40},{-32,-40}},color={0,0,127}));
-  connect(cp.y,thrTwoToOne.u)
-    annotation (Line(points={{-59,0},{-50,0},{-50,-70},{-32,-70}},color={0,0,127}));
+    annotation (Line(points={{-59,0},{-50,0},{-50,-40},{-38,-40}},color={0,0,127}));
   connect(dT.u1,TChiWatRet)
     annotation (Line(points={{-152,12},{-156,12},{-156,20},{-180,20}},color={0,0,127}));
   connect(TChiWatSup,dT.u2)
     annotation (Line(points={{-180,-20},{-156,-20},{-156,0},{-152,0}},color={0,0,127}));
   connect(pro.u2,mFloChiWat)
     annotation (Line(points={{-112,-6},{-120,-6},{-120,-60},{-180,-60}},color={0,0,127}));
+  connect(oneToTwo.condition, thrTwoToOne.u) annotation (Line(points={{-2,-40},
+          {-10,-40},{-10,-54},{-50,-54},{-50,-74},{-38,-74}}, color={255,0,255}));
   annotation (
     defaultComponentName="chiStaCon",
     Diagram(
@@ -209,6 +214,6 @@ First implementation.
 <p><br>It is assumed that both chillers have the same capacity of <code>QChi_nominal</code>. </p>
 <p>Note: This model can be used for plants with two chillers with or without waterside econimizer (WSE). For plants with WSE, extra control logic on top of this model needs to be added. </p>
 <p><img alt=\"State graph\"
-src=\"modelica://Buildings/Resources/Images/Experimental/DHC/CentralPlants/Cooling/Controls/ChillerStage.tif\"/>. </p>
+src=\"modelica://Buildings/Resources/Images/Experimental/DHC/CentralPlants/Cooling/Controls/ChillerStage.png\"/>. </p>
 </html>"));
 end ChillerStage;

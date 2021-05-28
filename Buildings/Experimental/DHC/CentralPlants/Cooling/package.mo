@@ -1,7 +1,7 @@
 within Buildings.Experimental.DHC.CentralPlants;
-package Cooling
-  "Package of models for central cooling production"
+package Cooling "Package of models for central cooling production"
   extends Modelica.Icons.VariantsPackage;
+
   annotation (
     preferredView="info",
     Documentation(

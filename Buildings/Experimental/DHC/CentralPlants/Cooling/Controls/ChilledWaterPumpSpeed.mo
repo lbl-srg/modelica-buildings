@@ -26,7 +26,8 @@ model ChilledWaterPumpSpeed
     "Critical point of speed signal for switching on or off";
   parameter Real deaBanSpe=0.3
     "Deadband for critical point of speed signal";
-  parameter Modelica.Blocks.Types.SimpleController controllerType=Modelica.Blocks.Types.SimpleController.PI
+  parameter Modelica.Blocks.Types.SimpleController controllerType=
+    Modelica.Blocks.Types.SimpleController.PI
     "Type of pump speed controller"
     annotation (Dialog(group="Speed Controller"));
   parameter Real k(
@@ -37,11 +38,15 @@ model ChilledWaterPumpSpeed
   parameter Modelica.SIunits.Time Ti(
     final min=Modelica.Constants.small)=60
     "Time constant of Integrator block"
-    annotation (Dialog(enable=controllerType == Modelica.Blocks.Types.SimpleController.PI or controllerType == Modelica.Blocks.Types.SimpleController.PID,group="Speed Controller"));
+    annotation (Dialog(enable=controllerType ==
+      Modelica.Blocks.Types.SimpleController.PI or controllerType ==
+      Modelica.Blocks.Types.SimpleController.PID,group="Speed Controller"));
   parameter Modelica.SIunits.Time Td(
     final min=0)=0.1
     "Time constant of Derivative block"
-    annotation (Dialog(enable=controllerType == Modelica.Blocks.Types.SimpleController.PD or controllerType == Modelica.Blocks.Types.SimpleController.PID,group="Speed Controller"));
+    annotation (Dialog(enable=controllerType ==
+      Modelica.Blocks.Types.SimpleController.PD or controllerType ==
+      Modelica.Blocks.Types.SimpleController.PID,group="Speed Controller"));
   Modelica.Blocks.Interfaces.RealInput masFloPum(
     final unit="kg/s")
     "Total mass flowrate of chilled water pumps"
