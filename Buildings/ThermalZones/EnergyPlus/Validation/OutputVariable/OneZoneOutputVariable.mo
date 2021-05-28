@@ -12,8 +12,7 @@ model OneZoneOutputVariable
     experiment(
       StartTime=864000,
       StopTime=950400,
-      Tolerance=1e-06,
-      __Dymola_Algorithm="Cvode"),
+      Tolerance=1e-06),
     Documentation(info="<html>
 <p>
 Simple test case for one building in which only an EnergyPlus output variable is read.
