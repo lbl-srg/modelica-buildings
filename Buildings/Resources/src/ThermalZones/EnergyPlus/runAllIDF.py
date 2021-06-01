@@ -126,7 +126,7 @@ if __name__ == '__main__':
 
   # Build a list of all idf files.
   cases = list()
-  exa_bui = os.path.join("Buildings", "Resources", "Data", "ThermalZones", "EnergyPlus")
+#  exa_bui = os.path.join("Buildings", "Resources", "Data", "ThermalZones", "EnergyPlus")
   exa_ep = os.path.join("/usr", "local", "EnergyPlus-9-5-0", "ExampleFiles")
   for search_path in [exa_bui, exa_ep]:
     for path in Path(search_path).rglob('*.idf'):
