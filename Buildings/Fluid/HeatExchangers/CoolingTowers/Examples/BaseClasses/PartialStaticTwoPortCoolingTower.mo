@@ -124,6 +124,12 @@ on the temperature of the control volume to which the heat is added.
 revisions="<html>
 <ul>
 <li>
+May 28, 2021, by Chengnan Shi:<br/>
+Changed replaceable cooling tower model to <code>PartialTwoPortInterface</code> for
+reusability in <a href=\"modelica://Buildings.Experimental.DHC.CentralPlants.Cooling.Subsystems.Examples\">
+Buildings.Experimental.DHC.CentralPlants.Cooling.Subsystems.Examples</a>.
+</li>
+<li>
 January 16, 2020, by Michael Wetter:<br/>
 Changed energy balance to dynamic balance and set fan to use the input filter,
 which is the default for most applications.
