@@ -50,11 +50,11 @@ createPlot(
 createPlot(
     id=2, 
     position={55, 26, 833, 515}, 
-    y={"pla.cooTowWitByp.TWetBul", "pla.cooTowWitByp.sta_a.T", "pla.cooTowWitByp.sta_b.T"}, 
+    y={"pla.cooTowWitByp.TWetBul", "pla.cooTowWitByp.TLvg"}, 
     range={0.0, 90000.0, 0.0, 30.0}, 
     grid=true, 
     subPlot=2, 
-    colors={{28,108,200}, {238,46,47}, {0,140,72}}, 
+    colors={{28,108,200}, {238,46,47}}, 
     timeUnit="h",
-    displayUnits={"degC", "degC", "degC"});
+    displayUnits={"degC", "degC"});
 
