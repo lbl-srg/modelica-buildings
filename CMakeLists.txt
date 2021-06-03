@@ -7,7 +7,6 @@
 cmake_policy(SET CMP0048 NEW)
 
 project( Modelica-Buildings
-  VERSION 8.0.0
   DESCRIPTION "Modelica Buildings Library"
   LANGUAGES C
 )
@@ -51,6 +50,8 @@ endif()
 
 if ( MSVC )
   add_compile_options("/wd4100")
+  add_definitions(-D_CRT_SECURE_NO_WARNINGS)
+  add_compile_definitions(EXTERNAL_FUNCTION_EXPORT)
 endif()
 
 # Set target directories.
