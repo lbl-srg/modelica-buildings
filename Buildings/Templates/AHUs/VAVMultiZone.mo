@@ -14,13 +14,13 @@ model VAVMultiZone "Multiple-Zone VAV"
     annotation(Dialog(enable=have_souCoiHea or have_souCoiReh));
 
   final inner parameter Boolean have_souCoiCoo = coiCoo.have_sou
-    "Set to true for fluid ports on the source side"
+    "Set to true if cooling coil requires fluid ports on the source side"
     annotation (Evaluate=true, Dialog(group="Cooling coil"));
   final parameter Boolean have_souCoiHea = coiHea.have_sou
-    "Set to true for fluid ports on the source side"
+    "Set to true if heating coil requires fluid ports on the source side"
     annotation (Evaluate=true, Dialog(group="Heating coil"));
   final parameter Boolean have_souCoiReh=coiReh.have_sou
-    "Set to true for fluid ports on the source side"
+    "Set to true if reheat coil requires fluid ports on the source side"
     annotation (Evaluate=true, Dialog(group="Reheat coil"));
 
   final inner parameter Templates.Types.Fan typFanSup=
@@ -84,7 +84,8 @@ model VAVMultiZone "Multiple-Zone VAV"
   Buildings.Templates.BaseClasses.Sensors.Wrapper TMix(
     redeclare final package Medium = MediumAir,
     typ=Types.Sensor.Temperature,
-    final loc=Types.Location.Supply) "Mixed air temperature sensor"
+    final loc=Types.Location.Supply)
+    "Mixed air temperature sensor"
     annotation (
       Dialog(
         group="Supply air section",

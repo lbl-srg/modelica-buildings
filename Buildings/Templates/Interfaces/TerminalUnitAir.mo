@@ -10,6 +10,7 @@ partial model TerminalUnitAir
     annotation (Evaluate=true, Dialog(group="Configuration"));
 
   inner parameter String id
+   "System name"
     annotation (
       Evaluate=true,
       Dialog(group="Configuration"));

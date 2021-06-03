@@ -20,6 +20,7 @@ partial model AHU "Interface class for air handling unit"
         enable=false));
 
   inner parameter String id
+    "System name"
     annotation (
       Evaluate=true,
       Dialog(group="Configuration"));
@@ -41,8 +42,8 @@ partial model AHU "Interface class for air handling unit"
   Modelica.Fluid.Interfaces.FluidPort_a port_Out(
     redeclare final package Medium = MediumAir,
     m_flow(min=if allowFlowReversal then -Modelica.Constants.inf else 0),
-    h_outflow(start=MediumAir.h_default, nominal=MediumAir.h_default)) if
-    typ <> Types.AHU.ExhaustOnly
+    h_outflow(start=MediumAir.h_default, nominal=MediumAir.h_default))
+ if typ <> Types.AHU.ExhaustOnly
     "Outdoor air intake"
     annotation (Placement(transformation(
           extent={{-310,-210},{-290,-190}}), iconTransformation(extent={{-210,
@@ -50,16 +51,16 @@ partial model AHU "Interface class for air handling unit"
   Modelica.Fluid.Interfaces.FluidPort_b port_Sup(
     redeclare final package Medium =MediumAir,
     m_flow(max=if allowFlowReversal then +Modelica.Constants.inf else 0),
-    h_outflow(start=MediumAir.h_default, nominal=MediumAir.h_default)) if
-    typ == Types.AHU.SupplyOnly or typ == Types.AHU.SingleDuct
+    h_outflow(start=MediumAir.h_default, nominal=MediumAir.h_default))
+ if typ == Types.AHU.SupplyOnly or typ == Types.AHU.SingleDuct
     "Supply air" annotation (
       Placement(transformation(extent={{290,-210},{310,-190}}),
         iconTransformation(extent={{190,-110},{210,-90}})));
   Modelica.Fluid.Interfaces.FluidPort_b port_SupCol(
     redeclare final package Medium =MediumAir,
     m_flow(max=if allowFlowReversal then +Modelica.Constants.inf else 0),
-    h_outflow(start=MediumAir.h_default, nominal=MediumAir.h_default)) if
-    typ == Types.AHU.DualDuct
+    h_outflow(start=MediumAir.h_default, nominal=MediumAir.h_default))
+ if typ == Types.AHU.DualDuct
     "Dual duct cold deck air supply"
     annotation (Placement(transformation(
           extent={{290,-250},{310,-230}}), iconTransformation(extent={{190,
@@ -67,8 +68,8 @@ partial model AHU "Interface class for air handling unit"
   Modelica.Fluid.Interfaces.FluidPort_b port_SupHot(
     redeclare final package Medium =MediumAir,
     m_flow(max=if allowFlowReversal then +Modelica.Constants.inf else 0),
-    h_outflow(start=MediumAir.h_default, nominal=MediumAir.h_default)) if
-    typ == Types.AHU.DualDuct
+    h_outflow(start=MediumAir.h_default, nominal=MediumAir.h_default))
+ if typ == Types.AHU.DualDuct
     "Dual duct hot deck air supply"
     annotation (Placement(
         transformation(extent={{290,-170},{310,-150}}), iconTransformation(
@@ -76,16 +77,16 @@ partial model AHU "Interface class for air handling unit"
   Modelica.Fluid.Interfaces.FluidPort_a port_Ret(
     redeclare final package Medium =MediumAir,
     m_flow(min=if allowFlowReversal then -Modelica.Constants.inf else 0),
-    h_outflow(start=MediumAir.h_default, nominal=MediumAir.h_default)) if
-    typ <> Types.AHU.SupplyOnly
+    h_outflow(start=MediumAir.h_default, nominal=MediumAir.h_default))
+ if typ <> Types.AHU.SupplyOnly
     "Return air"
     annotation (Placement(transformation(extent={{290,-90},{310,-70}}),
         iconTransformation(extent={{190,90},{210,110}})));
   Modelica.Fluid.Interfaces.FluidPort_b port_Rel(
     redeclare final package Medium = MediumAir,
     m_flow(max=if allowFlowReversal then +Modelica.Constants.inf else 0),
-    h_outflow(start=MediumAir.h_default, nominal=MediumAir.h_default)) if
-    typ <> Types.AHU.SupplyOnly and have_porRel
+    h_outflow(start=MediumAir.h_default, nominal=MediumAir.h_default))
+ if typ <> Types.AHU.SupplyOnly and have_porRel
     "Relief (exhaust) air"
     annotation (Placement(transformation(
           extent={{-310,-90},{-290,-70}}), iconTransformation(extent={{-210,90},
