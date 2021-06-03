@@ -1,5 +1,5 @@
 within Buildings.Templates.AHUs;
-model VAVSingleDuct "VAV single duct"
+model VAVMultiZone "Multiple-Zone VAV"
   extends Buildings.Templates.Interfaces.AHU(
     final typ=Buildings.Templates.Types.AHU.SingleDuct,
     final have_porRel=secOutRel.typ<>Templates.Types.OutdoorReliefReturnSection.NoRelief);
@@ -182,8 +182,7 @@ model VAVSingleDuct "VAV single duct"
         enable=false),
       Placement(transformation(extent={{142,-210},{162,-190}})));
 
-  inner replaceable Controls.OpenLoop conAHU constrainedby
-    Buildings.Templates.Interfaces.ControllerAHU
+  inner replaceable Controls.OpenLoop conAHU constrainedby Buildings.Templates.Interfaces.ControllerAHU
     "AHU controller"
     annotation (
       choicesAllMatching=true,
@@ -493,4 +492,4 @@ Modulateded relief damper
 
 
 </html>"));
-end VAVSingleDuct;
+end VAVMultiZone;

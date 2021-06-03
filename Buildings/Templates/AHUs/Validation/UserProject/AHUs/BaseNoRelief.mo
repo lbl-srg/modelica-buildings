@@ -1,6 +1,6 @@
 within Buildings.Templates.AHUs.Validation.UserProject.AHUs;
 model BaseNoRelief
-  extends VAVSingleDuct(
+  extends VAVMultiZone(
     redeclare BaseClasses.OutdoorReliefReturnSection.NoRelief secOutRel,
     final id="VAV_1",
     nZon=1,

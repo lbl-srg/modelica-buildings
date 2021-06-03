@@ -1,6 +1,6 @@
 within Buildings.Templates.AHUs.Validation.UserProject.AHUs;
 model FanReturnSingleVariable
-  extends VAVSingleDuct(
+  extends VAVMultiZone(
     redeclare BaseClasses.OutdoorReliefReturnSection.Economizer secOutRel(
         redeclare BaseClasses.ReliefReturnSection.ReturnFan secRel(redeclare
           Templates.BaseClasses.Fans.SingleVariable fanRet

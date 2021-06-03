@@ -1,6 +1,6 @@
 within Buildings.Templates.AHUs.Validation.UserProject.AHUs;
 model CoilHeatingEffectivenessNTU
-  extends VAVSingleDuct(
+  extends VAVMultiZone(
     redeclare Templates.BaseClasses.Coils.WaterBasedHeating coiHea(redeclare
         Templates.BaseClasses.Coils.HeatExchangers.DryCoilEffectivenessNTU hex
         "Epsilon-NTU heat exchanger model") "Water-based",

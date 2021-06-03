@@ -1,6 +1,6 @@
 within Buildings.Templates.AHUs.Validation.UserProject.AHUs;
 model EconomizerCommonOA
-  extends VAVSingleDuct(
+  extends VAVMultiZone(
     secOutRel(redeclare BaseClasses.OutdoorSection.SingleCommon secOut
         "Single common OA damper (modulated) with AFMS"),
     nZon=1,
