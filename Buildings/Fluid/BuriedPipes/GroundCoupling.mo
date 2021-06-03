@@ -21,12 +21,7 @@ model GroundCoupling "Thermal coupling between buried pipes and ground"
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a ports[nPip, nSeg]
     "Buried pipes heatports"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
-        rotation=90,
-        origin={0,-100}),
-                        iconTransformation(
-        extent={{-9,-9},{9,9}},
-        rotation=270,
-        origin={-1,-99})));
+        origin={0,-100})));
   Buildings.BoundaryConditions.GroundTemperature.UndisturbedSoilTemperature
     soi(cliCon=cliCon, soiDat=soiDat, dep=depMea) "Soil temperature";
 

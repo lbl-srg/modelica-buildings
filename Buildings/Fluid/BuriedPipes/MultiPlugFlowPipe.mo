@@ -36,12 +36,6 @@ model MultiPlugFlowPipe
   parameter Modelica.SIunits.ThermalConductivity kIns
     "Heat conductivity of pipe insulation";
 
-  parameter Modelica.SIunits.SpecificHeatCapacity cPip=2300
-    "Specific heat of pipe wall material. 2300 for PE, 500 for steel";
-
-  parameter Modelica.SIunits.Density rhoPip(displayUnit="kg/m3")=930
-    "Density of pipe wall material. 930 for PE, 8000 for steel";
-
   parameter Modelica.SIunits.Length dPip = 0.0035
     "Pipe wall thickness";
 
@@ -66,23 +60,21 @@ model MultiPlugFlowPipe
     "Heat transfer to or from surroundings (heat loss from pipe results in a positive heat flow)"
     annotation (Placement(transformation(extent={{-10,90},{10,110}})));
 
-  FixedResistances.PlugFlowPipe pipSeg[nSeg](
+  FixedResistances.BaseClasses.PlugFlowCore pipSeg[nSeg](
     length=length,
+    each final R=R,
+    each final C=C,
     each final dh=rInt*2,
+    each final v_nominal=v_nominal,
+    redeclare final FixedResistances.LosslessPipe res,
     redeclare final package Medium = Medium,
-    cor(redeclare final FixedResistances.LosslessPipe res),
     each final allowFlowReversal=allowFlowReversal,
     each final m_flow_nominal=m_flow_nominal,
-    each final cPip=cPip,
-    each final rhoPip=rhoPip,
     each final thickness=dPip,
-    each final dIns=dIns,
-    each final kIns=kIns,
     each final m_flow_small=m_flow_small,
     each final T_start_in=T_start_in,
     each final T_start_out=T_start_out,
-    each final initDelay=initDelay,
-    each final nPorts=1)
+    each final initDelay=initDelay)
     "Pipe segments"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 
@@ -105,29 +97,44 @@ model MultiPlugFlowPipe
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
 
 protected
+  parameter Modelica.SIunits.Length totLen = sum(length) "Total pipe length";
   parameter Modelica.SIunits.Velocity
     v_nominal = m_flow_nominal / (Modelica.Constants.pi * rInt^2 * rho_default)
     "Velocity at m_flow_nominal";
+
   parameter Modelica.SIunits.Density rho_default=Medium.density_pTX(
       p=Medium.p_default,
       T=Medium.T_default,
       X=Medium.X_default)
     "Default density (e.g., rho_liquidWater = 995, rho_air = 1.2)";
-  parameter Modelica.SIunits.Length totLen = sum(length) "Total pipe length";
+  parameter Medium.ThermodynamicState sta_default=Medium.setState_pTX(
+      T=Medium.T_default,
+      p=Medium.p_default,
+      X=Medium.X_default) "Default medium state";
+  parameter Modelica.SIunits.SpecificHeatCapacity cp_default=
+      Medium.specificHeatCapacityCp(state=sta_default)
+    "Heat capacity of medium";
+
+    parameter Real R(unit="(m.K)/W")=1/(kIns*2*Modelica.Constants.pi/
+    Modelica.Math.log((rInt + dPip + dIns)/(rInt + dPip)))
+    "Thermal resistance per unit length from fluid to boundary temperature";
+  parameter Real C(unit="J/(K.m)")=
+    rho_default*Modelica.Constants.pi*rInt^2*cp_default
+    "Thermal capacity per unit length of water in pipe";
 
 
 equation
   connect(port_a, pipSeg[1].port_a)
     annotation (Line(points={{-100,0},{-10,0}}, color={0,127,255}));
   for i in 2:nSeg loop
-    connect(pipSeg[i-1].ports_b[1], pipSeg[i].port_a);
+    connect(pipSeg[i-1].port_b, pipSeg[i].port_a);
   end for;
   connect(pipSeg.heatPort, heatPorts)
     annotation (Line(points={{0,10},{0,100}}, color={191,0,0}));
-  connect(pipSeg[nSeg].ports_b[1], res.port_a)
-    annotation (Line(points={{10,0},{26,0},{26,0},{40,0}}, color={0,127,255}));
   connect(res.port_b, port_b)
     annotation (Line(points={{60,0},{100,0}}, color={0,127,255}));
+  connect(pipSeg[nSeg].port_b, res.port_a)
+    annotation (Line(points={{10,0},{40,0}}, color={0,127,255}));
   annotation (
     Line(points={{70,20},{72,20},{72,0},{100,0}}, color={0,127,255}),
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{

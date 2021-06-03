@@ -32,8 +32,6 @@ model MultiSegmentBuriedPipe
     m_flow_nominal=1,
     dIns=dIns,
     kIns=soiDat.k,
-    cPip=500,
-    rhoPip=8000,
     dPip=0.0032)
     "Buried pipe"
     annotation (Placement(transformation(extent={{-10,30},{10,50}})));
@@ -89,8 +87,6 @@ model MultiSegmentBuriedPipe
     m_flow_nominal=1,
     dIns=dIns,
     kIns=soiDat.k,
-    cPip=500,
-    rhoPip=8000,
     dPip=0.0032)
     "Buried pipe"
     annotation (Placement(transformation(extent={{-10,-30},{10,-50}})));
@@ -156,9 +152,9 @@ equation
   connect(pipRev.port_b, senTemInlRev.port_a)
     annotation (Line(points={{10,-40},{30,-40}}, color={0,127,255}));
   connect(pip.heatPorts, gro.ports[1, :]) annotation (Line(points={{0,50},{0,66},
-          {0,80.1},{-0.1,80.1}}, color={191,0,0}));
+          {0,80},{0,80}},        color={191,0,0}));
   connect(pipRev.heatPorts, groRev.ports[1, :]) annotation (Line(points={{0,-50},
-          {0,-66},{0,-80.1},{-0.1,-80.1}}, color={191,0,0}));
+          {0,-66},{0,-80},{0,-80}},        color={191,0,0}));
   connect(souRev.ports[1], senTemInlRev.port_b)
     annotation (Line(points={{60,-40},{50,-40}}, color={0,127,255}));
   connect(senTemOutRev.port_a, sinRev.ports[1])
