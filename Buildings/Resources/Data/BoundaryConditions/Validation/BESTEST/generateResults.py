@@ -27,8 +27,6 @@ import git
 
 # Check if it just implements post-process (from .mat files to Json files)
 POST_PROCESS_ONLY = False
-# Erase old .mat files
-CLEAN_MAT = False
 # Erase anything but the Json file results in the ResultJson folder and .mat
 # files
 DEL_EVR = False
@@ -216,7 +214,6 @@ def get_cases(case_dict):
              "set_tolerance": case_dict["set_tolerance"],
              "show_GUI": case_dict["show_GUI"],
              "n_intervals": case_dict["n_intervals"],
-             "CLEAN_MAT": case_dict['CLEAN_MAT'],
              "DEL_EVR": case_dict["DEL_EVR"],
              "CODE_VERBOSE": case_dict["CODE_VERBOSE"]})
     return cases
@@ -226,8 +223,8 @@ def _simulate(spec):
     '''
     This function execute the simulation of a specific Case model and stores
     the result in the simulation directory, then copies the result to the
-    current working directory and if CLEAN_MAT option is selected the old .mat
-    files are removed
+    current working directory.
+
     :param spec: dictionary with the simulation specifications
 
     '''
@@ -252,10 +249,8 @@ def _simulate(spec):
     s = Simulator(spec["model"])
     # Add all necessary parameters from Case Dict
     s.addPreProcessingStatement("OutputCPUtime:= true;")
-    # fixme: Printing current directory for diagnostics
-    s.addPreProcessingStatement("cd")
-    # fixme: Print directories and files
-    s.addPreProcessingStatement("Modelica.Utilities.Files.list(\".\");")
+    s.addPreProcessingStatement("// For Dymola 2022 (or higher) unload MSL so that MSL from uses statement is loaded")
+    s.addPreProcessingStatement("if DymolaVersionNumber() <> 2021.0 then eraseClasses({\"Modelica\"}); end if;")
     s.setSolver(spec["solver"])
     if 'parameters' in spec:
         s.addParameters(spec['parameters'])
@@ -275,19 +270,20 @@ def _simulate(spec):
 
     def _copy_results(wor_dir, des_dir):
         os.mkdir(des_dir)
+        if spec['CODE_VERBOSE']:
+            print(f"Running glob for .mat in '{wor_dir}'")
         files = glob.glob(os.path.join(wor_dir, '*.mat'))
         files.extend(glob.glob(os.path.join(wor_dir, '*.log')))
         for file in files:
+            if spec['CODE_VERBOSE']:
+                print(f"Copying result file '{file}'' to '{res_des}'")
             shutil.copy(file, res_des)
 
     # Removing old results directory
-    if os.path.isdir(res_des) and spec["CLEAN_MAT"]:
+    if os.path.isdir(res_des):
         shutil.rmtree(res_des)
-        _copy_results(wor_dir, res_des)
-    elif os.path.isdir(res_des) and not spec["CLEAN_MAT"]:
-        pass
-    else:
-        _copy_results(wor_dir, res_des)
+
+    _copy_results(wor_dir, res_des)
 
 
 def _organize_cases(mat_dir,case_dict):
@@ -319,8 +315,7 @@ def _organize_cases(mat_dir,case_dict):
             case_list.append(temp)
     else:
         raise ValueError(
-            f"*** There is failed simulation, no result file was found. \
-                Check the simulations. len(CASES) = {len(CASES)}, len(mat_files) = {len(mat_files)}")
+            f"*** No result file was found. Check the simulations. len(CASES) = {len(CASES)}, len(mat_files) = {len(mat_files)}")
     return case_list
 
 
@@ -1062,7 +1057,6 @@ if __name__ == '__main__':
                  'from_git_hub': FROM_GIT_HUB or not CI_TESTING,
                  'BRANCH': BRANCH,
                  'LIBPATH': LIBPATH,
-                 'CLEAN_MAT': CLEAN_MAT,
                  'DEL_EVR': DEL_EVR or CI_TESTING,
                  'CODE_VERBOSE': CODE_VERBOSE,
                  'lib_name': library_name,
@@ -1096,9 +1090,9 @@ if __name__ == '__main__':
         po.join()  # Block at this line until all processes are done
 
         # Delete temporary directories
-        for case in list_of_cases:
+        #for case in list_of_cases:
             # Delete simulation directory
-            shutil.rmtree(case['wor_dir'])
+        #    shutil.rmtree(case['wor_dir'])
         # Delete temporary library directory
         shutil.rmtree(temp_lib_dir, onerror=remove_readonly)
 

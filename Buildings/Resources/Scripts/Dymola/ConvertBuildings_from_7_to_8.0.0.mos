@@ -91,6 +91,8 @@ convertModifiers("Buildings.Controls.Continuous.PIDHysteresisTimer", {"reverseAc
 convertClass(
     "Buildings.Controls.OBC.CDL.Continuous.Derivative",
     "Buildings.Obsolete.Controls.OBC.CDL.Continuous.Derivative");
+// Rename modifier, and then move to Obsolete because the reset trigger lead in 8.0.0 to two different PID controllers.
+convertModifiers("Buildings.Controls.OBC.CDL.Continuous.LimPID", {"reverseAction"}, {"reverseActing=not %reverseAction%"});
 convertClass(
     "Buildings.Controls.OBC.CDL.Continuous.LimPID",
     "Buildings.Obsolete.Controls.OBC.CDL.Continuous.LimPID");

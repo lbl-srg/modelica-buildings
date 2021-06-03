@@ -61,21 +61,24 @@ void EnergyPlusSpawnExchange(
       ptrSpaObj->modelicaName);
   }
 
+  if (ptrSpaObj->printUnit && (! ptrSpaObj->unitPrinted)){
+    /* The above statement is only true for outputs, hence we know the outputs->units[0] exists */
+    if (ptrSpaObj->outputs->units[0]){ /* modelDescription.xml defines unit */
+      SpawnFormatMessage("Output %s.y has in Modelica the unit %s.\n",
+        ptrSpaObj->modelicaName,
+        fmi2_import_get_unit_name(ptrSpaObj->outputs->units[0]));
+    }
+    else{
+      SpawnFormatMessage("Output %s.y has same unit as received from EnergyPlus, but EnergyPlus does not define the unit of this output.\n",
+        ptrSpaObj->modelicaName);
+    }
+    ptrSpaObj->unitPrinted = fmi2True;
+  }
+
   if (initialCall){
     ptrSpaObj->isInitialized = true; /* Set to true as it will be initialized right below */
     if (bui->logLevel >= MEDIUM)
       SpawnFormatMessage("%.3f %s: Initial call for exchange.\n", bui->time, ptrSpaObj->modelicaName);
-
-    if (ptrSpaObj->printUnit){
-      /* The above statement is only true for outputs, hence we know the outputs->units[0] exists */
-      if (ptrSpaObj->outputs->units[0]) /* modelDescription.xml defines unit */
-        SpawnFormatMessage("Output %s.y has in Modelica the unit %s.\n",
-          ptrSpaObj->modelicaName,
-          fmi2_import_get_unit_name(ptrSpaObj->outputs->units[0]));
-      else
-        SpawnFormatMessage("Output %s.y has same unit as received from EnergyPlus, but EnergyPlus does not define the unit of this output.\n",
-          ptrSpaObj->modelicaName);
-      }
   }
   else
   {
