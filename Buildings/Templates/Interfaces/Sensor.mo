@@ -11,17 +11,17 @@ partial model Sensor
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal=
     if typ <> Types.Sensor.None and typ <> Types.Sensor.DifferentialPressure then (
       if loc == Templates.Types.Location.Supply then
-        dat.getReal(varName=id + "." + "Supply air mass flow rate")
+        dat.getReal(varName=id + ".Mechanical.Supply air mass flow rate.value")
       elseif loc == Templates.Types.Location.OutdoorAir then
-        dat.getReal(varName=id + "." + "Supply air mass flow rate")
+        dat.getReal(varName=id + ".Mechanical.Supply air mass flow rate.value")
       elseif loc == Templates.Types.Location.MinimumOutdoorAir then
-        dat.getReal(varName=id + "." + "Supply air mass flow rate")
+        dat.getReal(varName=id + ".Mechanical.Supply air mass flow rate.value")
       elseif loc == Templates.Types.Location.Return then
-        dat.getReal(varName=id + "." + "Return air mass flow rate")
+        dat.getReal(varName=id + ".Mechanical.Return air mass flow rate.value")
       elseif loc == Templates.Types.Location.Relief then
-        dat.getReal(varName=id + "." + "Return air mass flow rate")
+        dat.getReal(varName=id + ".Mechanical.Return air mass flow rate.value")
       elseif loc == Templates.Types.Location.Terminal then
-        dat.getReal(varName=id + "." + "Discharge air mass flow rate")
+        dat.getReal(varName=id + ".Mechanical.Discharge air mass flow rate.value")
       else 0)
       else 0
     "Mass flow rate"

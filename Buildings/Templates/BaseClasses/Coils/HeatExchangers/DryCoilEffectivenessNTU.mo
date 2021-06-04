@@ -4,15 +4,15 @@ model DryCoilEffectivenessNTU "Epsilon-NTU heat exchanger model"
     final typ=Types.HeatExchanger.DryCoilEffectivenessNTU);
 
   parameter Modelica.SIunits.HeatFlowRate Q_flow_nominal(min=0)=
-    dat.getReal(varName=id + "." + funStr + " coil.Capacity")
+    dat.getReal(varName=id + ".Mechanical." + funStr + " coil.Capacity.value")
     "Nominal heat flow rate"
     annotation(Dialog(group = "Nominal condition"));
   parameter Modelica.SIunits.Temperature T_a1_nominal=
-    dat.getReal(varName=id + "." + funStr + " coil.Entering liquid temperature")
+    dat.getReal(varName=id + ".Mechanical." + funStr + " coil.Entering liquid temperature.value")
     "Nominal inlet temperature"
     annotation(Dialog(group = "Nominal condition"));
   parameter Modelica.SIunits.Temperature T_a2_nominal=
-    dat.getReal(varName=id + "." + funStr + " coil.Entering air temperature")
+    dat.getReal(varName=id + ".Mechanical." + funStr + " coil.Entering air temperature.value")
     "Nominal inlet temperature"
     annotation(Dialog(group = "Nominal condition"));
   parameter Buildings.Fluid.Types.HeatExchangerConfiguration configuration=

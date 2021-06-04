@@ -6,7 +6,7 @@ model ThreeWayValve "Three-way valve"
   parameter Modelica.SIunits.PressureDifference dpValve_nominal(
      displayUnit="Pa",
      min=0)=
-    dat.getReal(varName=id + "." + funStr + " coil valve.Pressure drop")
+    dat.getReal(varName=id + ".Mechanical." + funStr + " coil valve.Pressure drop.value")
     "Nominal pressure drop of fully open valve"
     annotation(Dialog(group="Nominal condition"));
   final parameter Modelica.SIunits.PressureDifference dpFixed_nominal[2](

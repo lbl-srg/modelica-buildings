@@ -15,11 +15,11 @@ partial block ControllerAHU
     "External parameter file";
 
   final parameter String idTerArr[nZon]=
-    dat.getStringArray1D(id + ".Terminal unit identifiers", nZon)
+    dat.getStringArray1D(id + ".Identification.Terminal unit identifiers.value", nZon)
     "Served terminal units - Array of system identifiers"
     annotation(Evaluate=true);
   final parameter String namGro[nGro]=
-    dat.getStringArray1D(id + ".Zone group names", nGro)
+    dat.getStringArray1D(id + ".Identification.Zone group names.value", nGro)
     "Array of group names"
     annotation(Evaluate=true);
 

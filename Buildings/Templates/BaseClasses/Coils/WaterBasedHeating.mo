@@ -8,39 +8,30 @@ model WaterBasedHeating "Water-based"
     final have_weaBus=false);
 
   inner parameter Modelica.SIunits.MassFlowRate mAir_flow_nominal(min=0)=
-    dat.getReal(varName=id + "." + funStr + " coil.Air mass flow rate")
+    dat.getReal(varName=id + ".Mechanical." + funStr + " coil.Air mass flow rate.value")
     "Air mass flow rate"
     annotation (Dialog(
       group="Nominal condition"),
       Evaluate=true);
-    // Templates.BaseClasses.getReal(
-    //   id + "." + funStr + " coil.Air mass flow rate",
-    //   dat.fileName)
+
   inner parameter Modelica.SIunits.PressureDifference dpAir_nominal(
     displayUnit="Pa")=
-    dat.getReal(varName=id + "." + funStr + " coil.Air pressure drop")
+    dat.getReal(varName=id + ".Mechanical." + funStr + " coil.Air pressure drop.value")
     "Air pressure drop"
     annotation (
       Dialog(group="Nominal condition"),
       Evaluate=true);
-    // Templates.BaseClasses.getReal(
-    //   id + "." + funStr + " coil.Air pressure drop",
-    //   dat.fileName)
+
   inner parameter Modelica.SIunits.MassFlowRate mWat_flow_nominal(min=0)=
-    dat.getReal(varName=id + "." + funStr + " coil.Liquid mass flow rate")
+    dat.getReal(varName=id + ".Mechanical." + funStr + " coil.Liquid mass flow rate.value")
     "Liquid mass flow rate"
     annotation(Dialog(group = "Nominal condition"), Evaluate=true);
-//     Templates.BaseClasses.getReal(
-//       id + "." + funStr + " coil.Liquid mass flow rate",
-//       dat.fileName)
+
   inner parameter Modelica.SIunits.PressureDifference dpWat_nominal(
     displayUnit="Pa")=
-    dat.getReal(varName=id + "." + funStr + " coil.Liquid pressure drop")
+    dat.getReal(varName=id + ".Mechanical." + funStr + " coil.Liquid pressure drop.value")
     "Liquid pressure drop"
     annotation(Dialog(group = "Nominal condition"), Evaluate=true);
-    // Templates.BaseClasses.getReal(
-    //   id + "." + funStr + " coil.Liquid pressure drop",
-    //   dat.fileName)
 
   replaceable Actuators.None act
     constrainedby Templates.Interfaces.Actuator(
@@ -141,7 +132,7 @@ equation
 Using modified getReal function with annotation(__Dymola_translate=true)
 avoids warning for non literal nominal attributes.
 Not supported by OCT though:
-Compliance error at line 8, column 4, 
+Compliance error at line 8, column 4,
   Constructors for external objects is not supported in functions
 
 </p>

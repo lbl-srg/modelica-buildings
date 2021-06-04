@@ -3,12 +3,8 @@ block Guideline36 "Guideline 36 VAV single duct controller"
   extends Buildings.Templates.BaseClasses.Controls.AHUs.SingleDuct(
     final typ=Templates.Types.ControllerAHU.Guideline36);
 
-  /* 
-  *  Parameters assigned from external file
-  */
-
   parameter String namGroZon[nZon] = {
-    dat.getString(varName=idTerArr[i] + ".Zone group name")
+    dat.getString(varName=idTerArr[i] + ".Identification.Zone group name.value")
     for i in 1:nZon}
     "Name of group which each zone belongs to"
     annotation(Evaluate=true);
@@ -27,15 +23,7 @@ block Guideline36 "Guideline 36 VAV single duct controller"
     "Number of zones that each group contains"
     annotation(Evaluate=true);
 
-
-  parameter Real VOutPerAre_flow[nZon](
-    each final unit = "m3/(s.m2)")={
-      dat.getReal(varName=idTerArr[i] + "Zone.Outdoor air volume flow rate per unit area")
-      for i in 1:nZon}
-   "Outdoor air rate per unit area"
-   annotation(Dialog(group="Nominal condition"));
-
-  /* 
+  /*
   *  Parameters for Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.VAV.Controller
   */
 
@@ -44,16 +32,23 @@ block Guideline36 "Guideline 36 VAV single duct controller"
     final quantity="Time")=120
     "Sample period of component, set to the same value as the trim and respond sequence";
 
-  parameter Boolean have_perZonRehBox=true
+  final parameter Boolean have_perZonRehBox = Modelica.Math.BooleanVectors.anyTrue({
+      dat.getBoolean(varName=idTerArr[i] + ".Control.Zone Perimeter zone.value")
+      for i in 1:nZon})
     "Check if there is any VAV-reheat boxes on perimeter zones"
     annotation (Dialog(group="System and building parameters"));
 
-  parameter Boolean have_duaDucBox=false
+  final parameter Boolean have_duaDucBox = Modelica.Math.BooleanVectors.anyTrue({
+      Modelica.Utilities.Strings.find(
+        dat.getString(varName=idTerArr[i] + ".Identification.Type.value"),
+        "dual",
+        caseSensitive=false) <> 0
+      for i in 1:nZon})
     "Check if the AHU serves dual duct boxes"
     annotation (Dialog(group="System and building parameters"));
 
-  parameter Boolean have_airFloMeaSta=false
-    "Check if the AHU has AFMS (Airflow measurement station)"
+  outer parameter Boolean have_airFloMeaSta
+    "Check if the AHU has supply airflow measuring station"
     annotation (Dialog(group="System and building parameters"));
 
   // ----------- Parameters for economizer control -----------
@@ -207,7 +202,8 @@ block Guideline36 "Guideline 36 VAV single duct controller"
   parameter Real pMaxSet(
     final unit="Pa",
     final displayUnit="Pa",
-    final quantity="PressureDifference")=400
+    final quantity="PressureDifference")=
+    dat.getReal(varName=id + ".Control.Airflow.Duct Design Maximum Static Pressure")
     "Maximum pressure setpoint for fan speed control"
     annotation (Dialog(tab="Fan speed", group="Trim and respond for reseting duct static pressure setpoint"));
 
@@ -266,10 +262,12 @@ block Guideline36 "Guideline 36 VAV single duct controller"
       enable=controllerTypeFanSpe == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
           or controllerTypeFanSpe == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
 
-  parameter Real yFanMax=1 "Maximum allowed fan speed"
+  parameter Real yFanMax = dat.getReal(varName=id + ".Control.Airflow.Maximum Fan Speed - Supply fan")
+    "Maximum allowed fan speed"
     annotation (Dialog(group="Fan speed PID controller"));
 
-  parameter Real yFanMin=0.1 "Lowest allowed fan speed if fan is on"
+  parameter Real yFanMin = dat.getReal(varName=id + ".Control.Airflow.Minimum Fan Speed - Supply fan")
+    "Lowest allowed fan speed if fan is on"
     annotation (Dialog(group="Fan speed PID controller"));
 
   // ----------- parameters for minimum outdoor airflow setting  -----------
@@ -286,17 +284,20 @@ block Guideline36 "Guideline 36 VAV single duct controller"
   parameter Real TSupSetMin(
     final unit="K",
     final displayUnit="degC",
-    final quantity="ThermodynamicTemperature")=285.15
+    final quantity="ThermodynamicTemperature")=
+    dat.getReal(varName=id + ".Control.Supply air temperature.Lowest cooling set point")
     "Lowest cooling supply air temperature setpoint"
     annotation (Dialog(tab="Supply air temperature", group="Temperature limits"));
 
   parameter Real TSupSetMax(
     final unit="K",
     final displayUnit="degC",
-    final quantity="ThermodynamicTemperature")=291.15
+    final quantity="ThermodynamicTemperature")=
+    dat.getReal(varName=id + ".Control.Supply air temperature.Highest cooling set point")
     "Highest cooling supply air temperature setpoint. It is typically 18 degC (65 degF) in mild and dry climates, 16 degC (60 degF) or lower in humid climates"
     annotation (Dialog(tab="Supply air temperature", group="Temperature limits"));
 
+  // FIXME: what is that?
   parameter Real TSupSetDes(
     final unit="K",
     final displayUnit="degC",
@@ -307,14 +308,16 @@ block Guideline36 "Guideline 36 VAV single duct controller"
   parameter Real TOutMin(
     final unit="K",
     final displayUnit="degC",
-    final quantity="ThermodynamicTemperature")=289.15
+    final quantity="ThermodynamicTemperature")=
+    dat.getReal(varName=id + ".Control.Supply air temperature.Lower value of OAT reset range")
     "Lower value of the outdoor air temperature reset range. Typically value is 16 degC (60 degF)"
     annotation (Dialog(tab="Supply air temperature", group="Temperature limits"));
 
   parameter Real TOutMax(
     final unit="K",
     final displayUnit="degC",
-    final quantity="ThermodynamicTemperature")=294.15
+    final quantity="ThermodynamicTemperature")=
+    dat.getReal(varName=id + ".Control.Supply air temperature.Higher value of OAT reset range")
     "Higher value of the outdoor air temperature reset range. Typically value is 21 degC (70 degF)"
     annotation (Dialog(tab="Supply air temperature", group="Temperature limits"));
 
@@ -403,65 +406,154 @@ block Guideline36 "Guideline 36 VAV single duct controller"
     "Lower limit of controller signal when cooling coil is off. Require -1 < uHeaMax < uCooMin < 1."
     annotation (Dialog(group="Supply air temperature"));
 
+  /*
+  * Parameters for Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.VAV.SetPoints.OutdoorAirFlow.Zone
+  */
+
+  parameter Real VOutPerAre_flow[nZon](
+    each final unit = "m3/(s.m2)") = {
+      dat.getReal(varName=
+        idTerArr[i] + ".Control.Zone outdoor air volume flow rate per unit area.value")
+      for i in 1:nZon}
+    "Outdoor air rate per unit area"
+    annotation(Dialog(group="Nominal condition"));
+
+  parameter Real VOutPerPer_flow[nZon](each unit="m3/s") = {
+     dat.getReal(varName=
+      idTerArr[i] + ".Control.Zone outdoor air volume flow rate per person")
+     for i in 1:nZon}
+    "Outdoor air rate per person"
+    annotation(Dialog(group="Nominal condition"));
+
+  parameter Real AFlo[nZon](each unit="m2") = {
+     dat.getReal(varName=idTerArr[i] + ".Control.Zone floor area")
+     for i in 1:nZon}
+    "Floor area of each zone"
+    annotation(Dialog(group="Nominal condition"));
+
+  parameter Boolean have_occSen[nZon] = {
+     dat.getBoolean(varName=idTerArr[i] + ".Control.Occupancy sensor")
+     for i in 1:nZon}
+    "Set to true if zones have occupancy sensor";
+
+  parameter Boolean have_winSen[nZon] = {
+     dat.getBoolean(varName=idTerArr[i] + ".Control.Window sensor")
+     for i in 1:nZon}
+    "Set to true if zones have window status sensor";
+
+  parameter Real occDen[nZon](each final unit = "1/m2") = {
+     dat.getReal(varName=idTerArr[i] + ".Control.Zone default number of person per unit area")
+     for i in 1:nZon}
+    "Default number of person per unit area";
+
+  parameter Real zonDisEffHea[nZon](each final unit = "1") = {
+     dat.getReal(varName=idTerArr[i] + ".Control.Zone air distribution effectiveness during heating")
+     for i in 1:nZon}
+    "Zone air distribution effectiveness during heating";
+
+  parameter Real zonDisEffCoo[nZon](each final unit = "1") = {
+     dat.getReal(varName=idTerArr[i] + ".Control.Zone air distribution effectiveness during cooling")
+     for i in 1:nZon}
+    "Zone air distribution effectiveness during cooling";
+
+  // FIXME: What is that?
+  parameter Real desZonDisEff[nZon](each final unit = "1") = zonDisEffCoo
+    "Design zone air distribution effectiveness"
+    annotation(Dialog(group="Nominal condition"));
+
+  final parameter Real desZonPop[nZon](
+    each min=0,
+    each final unit = "1") = occDen * AFlo
+    "Design zone population during peak occupancy"
+    annotation(Dialog(group="Nominal condition"));
+
+  parameter Real uLow[nZon](
+    each final unit="K",
+    each final displayUnit="K",
+    each final quantity="ThermodynamicTemperature") = -0.5
+    "If zone space temperature minus supply air temperature is less than uLow,
+     then it should use heating supply air distribution effectiveness"
+    annotation (Dialog(tab="Advanced"));
+
+  parameter Real uHig[nZon](
+    each final unit="K",
+    each final displayUnit="K",
+    each final quantity="ThermodynamicTemperature") = 0.5
+    "If zone space temperature minus supply air temperature is more than uHig,
+     then it should use cooling supply air distribution effectiveness"
+    annotation (Dialog(tab="Advanced"));
+
+  parameter Real minZonPriFlo[nZon](each unit="m3/s") = {
+     dat.getReal(varName=idTerArr[i] + ".Control.Zone minimum expected primary air volume flow rate")
+     for i in 1:nZon}
+    "Minimum expected zone primary flow rate"
+    annotation(Dialog(group="Nominal condition"));
 
   /*
   * Parameters for Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.VAV.SetPoints.OutdoorAirFlow.Zone
   */
 
+  parameter Real THeaSetOcc[nZon](
+    each final unit="K",
+    each displayUnit="degC",
+    final quantity="ThermodynamicTemperature") = {
+      dat.getReal(varName=idTerArr[i] + ".Control.Occupied heating setpoint")
+      for i in 1:nZon}
+    "Occupied heating setpoint";
 
+  parameter Real THeaSetUno[nZon](
+    each final unit="K",
+    each displayUnit="degC",
+    each final quantity="ThermodynamicTemperature") = {
+      dat.getReal(varName=idTerArr[i] + ".Control.Unoccupied heating setpoint")
+      for i in 1:nZon}
+    "Unoccupied heating setpoint";
 
-//   parameter Real VOutPerPer_flow[nZon](unit="m3/s")=2.5e-3
-//     "Outdoor air rate per person"
-//     annotation(Dialog(group="Nominal condition"));
-//
-//   parameter Real AFlo[nZon](unit="m2")
-//     "Floor area of each zone"
-//     annotation(Dialog(group="Nominal condition"));
-//
-//   parameter Boolean have_occSen[nZon]=true
-//     "Set to true if zones have occupancy sensor";
-//
-//   parameter Boolean have_winSen[nZon]=true
-//     "Set to true if zones have window status sensor";
-//
-//   parameter Real occDen[nZon](final unit = "1/m2") = 0.05
-//     "Default number of person in unit area";
-//
-//   parameter Real zonDisEffHea[nZon](final unit = "1") = 0.8
-//     "Zone air distribution effectiveness during heating";
-//
-//   parameter Real zonDisEffCoo[nZon](final unit = "1") = 1.0
-//     "Zone air distribution effectiveness during cooling";
-//
-//   parameter Real desZonDisEff[nZon](final unit = "1") = 1.0
-//     "Design zone air distribution effectiveness"
-//     annotation(Dialog(group="Nominal condition"));
-//
-//   parameter Real desZonPop[nZon](
-//     min=0,
-//     final unit = "1") = occDen*AFlo
-//     "Design zone population during peak occupancy"
-//     annotation(Dialog(group="Nominal condition"));
-//
-//   parameter Real uLow[nZon](
-//     final unit="K",
-//     final displayUnit="K",
-//     final quantity="ThermodynamicTemperature") = -0.5
-//     "If zone space temperature minus supply air temperature is less than uLow,
-//      then it should use heating supply air distribution effectiveness"
-//     annotation (Dialog(tab="Advanced"));
-//
-//   parameter Real uHig[nZon](
-//     final unit="K",
-//     final displayUnit="K",
-//     final quantity="ThermodynamicTemperature") = 0.5
-//     "If zone space temperature minus supply air temperature is more than uHig,
-//      then it should use cooling supply air distribution effectiveness"
-//     annotation (Dialog(tab="Advanced"));
-//
-//   parameter Real minZonPriFlo[nZon](unit="m3/s")
-//     "Minimum expected zone primary flow rate"
-//     annotation(Dialog(group="Nominal condition"));
+  parameter Real TCooSetOcc[nZon](
+    each final unit="K",
+    each displayUnit="degC",
+    each final quantity="ThermodynamicTemperature") = {
+      dat.getReal(varName=idTerArr[i] + ".Control.Occupied cooling setpoint")
+      for i in 1:nZon}
+    "Occupied cooling setpoint";
+
+  parameter Real TCooSetUno[nZon](
+    each final unit="K",
+    each displayUnit="degC",
+    each final quantity="ThermodynamicTemperature") = {
+      dat.getReal(varName=idTerArr[i] + ".Control.Unoccupied cooling setpoint")
+      for i in 1:nZon}
+    "Unoccupied cooling setpoint";
+
+  parameter Real bouLim[nZon](
+    each final unit="K",
+    each displayUnit="K",
+    each final quantity="TemperatureDifference",
+    each final min=0.5) = 1
+    "Threshold of temperature difference for indicating the end of setback or setup mode";
+
+  /*
+  * Parameters for Buildings.Controls.OBC.ASHRAE.G36_PR1.Generic.SetPoints.OperationMode
+  */
+
+  // Those are assumed identical for all zone groups.
+
+  parameter Real preWarCooTim(
+    final unit="s",
+    final quantity="Time") = 10800
+    "Maximum cool-down or warm-up time";
+
+  parameter Real TZonFreProOn(
+    final unit="K",
+    displayUnit="degC",
+    final quantity="ThermodynamicTemperature")=277.15
+    "Threshold temperature to activate the freeze protection mode";
+
+  parameter Real TZonFreProOff(
+    final unit="K",
+    displayUnit="degC",
+    final quantity="ThermodynamicTemperature")=280.15
+    "Threshold temperature to end the freeze protection mode";
 
   Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.VAV.Controller conAHU(
     final samplePeriod=samplePeriod,
@@ -525,8 +617,20 @@ block Guideline36 "Guideline 36 VAV single duct controller"
     "AHU controller"
     annotation (Placement(transformation(extent={{-40,8},{40,152}})));
 
-  Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.VAV.SetPoints.OutdoorAirFlow.Zone
-    zonOutAirSet[nZon]
+  Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.VAV.SetPoints.OutdoorAirFlow.Zone zonOutAirSet[nZon](
+    final VOutPerAre_flow=VOutPerAre_flow,
+    final VOutPerPer_flow=VOutPerPer_flow,
+    final AFlo=AFlo,
+    final have_occSen=have_occSen,
+    final have_winSen=have_winSen,
+    final occDen=occDen,
+    final zonDisEffHea=zonDisEffHea,
+    final zonDisEffCoo=zonDisEffCoo,
+    final desZonDisEff=desZonDisEff,
+    final desZonPop=desZonPop,
+    final uLow=uLow,
+    final uHig=uHig,
+    final minZonPriFlo=minZonPriFlo)
     "Zone level calculation of the minimum outdoor airflow set point"
     annotation (Placement(transformation(extent={{150,-60},{130,-40}})));
 
@@ -535,7 +639,13 @@ block Guideline36 "Guideline 36 VAV single duct controller"
     "Sum up zone calculation output"
     annotation (Placement(transformation(extent={{20,-60},{0,-40}})));
 
-  Buildings.Controls.OBC.ASHRAE.G36_PR1.Generic.SetPoints.ZoneStatus zonSta[nZon]
+  Buildings.Controls.OBC.ASHRAE.G36_PR1.Generic.SetPoints.ZoneStatus zonSta[nZon](
+    final THeaSetOcc=THeaSetOcc,
+    final THeaSetUno=THeaSetUno,
+    final TCooSetOcc=TCooSetOcc,
+    final TCooSetUno=TCooSetUno,
+    final bouLim=bouLim,
+    final have_winSen=have_winSen)
     "Evaluate zone temperature status"
     annotation (Placement(transformation(extent={{20,-180},{0,-152}})));
 
@@ -545,15 +655,17 @@ block Guideline36 "Guideline 36 VAV single duct controller"
     annotation (Placement(transformation(extent={{-54,-188},{-74,-148}})));
 
   Buildings.Controls.OBC.ASHRAE.G36_PR1.Generic.SetPoints.OperationMode opeModSel[nGro](
-    final numZon=nZonGro)
+    final numZon=nZonGro,
+    each final preWarCooTim=preWarCooTim,
+    each final TZonFreProOn=TZonFreProOn,
+    each final TZonFreProOff=TZonFreProOff)
     "Operation mode selection for each zone group"
     annotation (Placement(transformation(extent={{-74,-136},{-54,-104}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant FIXME1(k=24 + 273.15)
     "Where is the use of the average zone set point described?"
     annotation (Placement(transformation(extent={{260,170},{240,190}})));
-  Buildings.Controls.OBC.CDL.Integers.Sources.Constant FIXME2
-                                                           [nZon](k=fill(1,
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant FIXME2 [nZon](k=fill(1,
         nZon)) "nOcc shall be Boolean, not integer"
     annotation (Placement(transformation(extent={{260,140},{240,160}})));
   Buildings.Controls.OBC.CDL.Routing.RealReplicator TSupSet(
@@ -582,11 +694,11 @@ block Guideline36 "Guideline 36 VAV single duct controller"
     k=fill(1800, nZon))
     "Optimal start using global outdoor air temperature not associated with any AHU"
     annotation (Placement(transformation(extent={{260,-170},{240,-150}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant FIXME4(k=24 + 273.15) "To be determined determined by the control sequence based on energy standard, climate
-zone, and economizer high-limit-control device type"
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant FIXME4(k=24 + 273.15)
+  "To be determined determined by the control sequence based on energy standard, climate zone, and economizer high-limit-control device type"
     annotation (Placement(transformation(extent={{260,100},{240,120}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant FIXME5(k=1)
-    "Various economizer configurations not handled: yDamRel (or exhaust), yDamOutMin "
+    "Various economizer configurations not handled: yDamRel (or exhaust), yDamOutMin"
     annotation (Placement(transformation(extent={{260,50},{240,70}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant FIXME6(k=1)
     "Various fan configurations not handled: yFanRet (or relief)"
@@ -618,7 +730,6 @@ protected
         transformation(extent={{70,-140},{110,-100}}), iconTransformation(
           extent={{-10,64},{10,84}})));
 
-
 // DEBUG
 Buildings.Controls.OBC.CDL.Logical.Sources.Constant zonOcc(k=true);
 Buildings.Controls.OBC.CDL.Logical.Sources.Constant uOcc(k=true);
@@ -635,7 +746,6 @@ Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TCooSetOff(k=1);
 Buildings.Controls.OBC.CDL.Logical.Sources.Constant uEndSetUp(k=true);
 Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TZon(k=1);
 Buildings.Controls.OBC.CDL.Logical.Sources.Constant uWin(k=true);
-
 
 equation
   // DEBUG

@@ -3,31 +3,31 @@ block Guideline36
   extends Buildings.Templates.BaseClasses.Controls.TerminalUnits.SingleDuct(
     final typ=Templates.Types.ControllerTU.Guideline36);
 
-  /* 
+  /*
   *  Parameters assigned from external file
   */
 
   parameter Modelica.SIunits.Area AFlo=
-    dat.getReal(varName=id + ".Zone.Floor area")
+    dat.getReal(varName=id + ".Control.Zone floor area.value")
     "Zone floor area";
   parameter Modelica.SIunits.VolumeFlowRate V_flow_nominal=
-    dat.getReal(varName=id + ".Discharge air mass flow rate") / 1.2
+    dat.getReal(varName=id + ".Mechanical.Discharge air mass flow rate.value") / 1.2
     "Volume flow rate"
     annotation (Dialog(group="Nominal condition"));
 
   parameter Real VOutPerAre_flow(final unit = "m3/(s.m2)")=
-    dat.getReal(varName=id + ".Zone.Outdoor air volume flow rate per unit area")
+    dat.getReal(varName=id + ".Control.Zone outdoor air volume flow rate per unit area.value")
     "Outdoor air volume flow rate per unit area"
     annotation (Dialog(tab="Airflow setpoint", group="Nominal conditions"));
   parameter Real VOutPerPer_flow(
     final unit="m3/s",
     final quantity="VolumeFlowRate")=
-    dat.getReal(varName=id + ".Zone.Outdoor air volume flow rate per person")
+    dat.getReal(varName=id + ".Control.Zone outdoor air volume flow rate per person.value")
     "Outdoor air volume flow rate per person"
     annotation (Dialog(tab="Airflow setpoint", group="Nominal conditions"));
 
-  /* 
-  *  Parameters for Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.Controller 
+  /*
+  *  Parameters for Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.Controller
   */
   parameter Modelica.SIunits.Time samplePeriod = 120
     "Sample period of trim and respond for pressure reset request";
@@ -142,41 +142,52 @@ block Guideline36
   parameter Real VDisCooSetMax_flow(
     final unit="m3/s",
     final quantity="VolumeFlowRate")=V_flow_nominal
-    "Zone maximum cooling airflow setpoint"
+    "Maximum cooling airflow setpoint"
     annotation (Dialog(tab="Airflow setpoint", group="Nominal conditions"));
   parameter Real VDisSetMin_flow(
     final unit="m3/s",
-    final quantity="VolumeFlowRate")=0.15*V_flow_nominal
-    "Zone minimum airflow setpoint"
+    final quantity="VolumeFlowRate")=
+    dat.getReal(varName=id + ".Control.Minimum airflow setpoint.value")
+    "Minimum airflow setpoint"
     annotation (Dialog(tab="Airflow setpoint", group="Nominal conditions"));
   parameter Real VDisHeaSetMax_flow(
     final unit="m3/s",
-    final quantity="VolumeFlowRate")=0.3*V_flow_nominal
-    "Zone maximum heating airflow setpoint"
+    final quantity="VolumeFlowRate")=
+    dat.getReal(varName=id + ".Control.Maximum heating airflow setpoint.value")
+    "Maximum heating airflow setpoint"
     annotation (Dialog(tab="Airflow setpoint", group="Nominal conditions"));
   parameter Real VDisConMin_flow(
     final unit="m3/s",
-    final quantity="VolumeFlowRate")=0.1*V_flow_nominal
-    "VAV box controllable minimum"
+    final quantity="VolumeFlowRate")=
+    dat.getReal(varName=id + ".Control.Minimum controllable airflow.value")
+    "Minimum controllable airflow"
     annotation (Dialog(tab="Airflow setpoint", group="Nominal conditions"));
 
-  parameter Real CO2Set=894 "CO2 setpoint in ppm"
+  parameter Real CO2Set = dat.getReal(varName=id + ".Control.CO2 setpoint.value")
+    "CO2 setpoint in ppm"
     annotation (Dialog(tab="Airflow setpoint", group="Nominal conditions"));
+
   parameter Real dTDisZonSetMax(
     final unit="K",
     displayUnit="K",
-    final quantity="TemperatureDifference")=11
+    final quantity="TemperatureDifference")=
+    dat.getReal(varName=id + ".Control.Maximum discharge air temperature above heating setpoint.value")
     "Zone maximum discharge air temperature above heating setpoint"
     annotation (Dialog(tab="Damper and valve", group="Parameters"));
+
   parameter Real TDisMin(
     final quantity="ThermodynamicTemperature",
     final unit = "K",
-    displayUnit = "degC")=283.15
+    displayUnit = "degC")=
+    dat.getReal(varName=id + ".Control.Minimum discharge air temperature.value")
     "Lowest discharge air temperature"
     annotation (Dialog(tab="Damper and valve", group="Parameters"));
+
+  // FIXME: bind with have_souHea
   parameter Boolean have_heaPla=false
     "Flag, true if there is a boiler plant"
     annotation (Dialog(tab="System requests", group="Parameters"));
+
   parameter Real errTZonCoo_1(
     final unit="K",
     displayUnit="K",
@@ -221,10 +232,11 @@ block Guideline36
     "Duration time of discharge air temperature is less than setpoint"
     annotation (Dialog(tab="System requests", group="Duration times"));
 
-  /* 
+  /*
   *  Parameters for Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.SetPoints.ZoneTemperatures
   */
 
+  // FIXME: See issue documented in linkage_g36_sequence.md
   parameter Boolean cooAdj=false
     "Flag, set to true if both cooling and heating setpoint are adjustable separately"
     annotation(Dialog(group="Setpoint adjustable setting"));
@@ -241,37 +253,43 @@ block Guideline36
   parameter Real TZonCooOnMax(
     final unit="K",
     displayUnit="degC",
-    final quantity="ThermodynamicTemperature")=300.15
+    final quantity="ThermodynamicTemperature")=
+    dat.getReal(varName=id + ".Control.Maximum cooling setpoint during on.value")
     "Maximum cooling setpoint during on"
     annotation(Dialog(group="Setpoints limits setting"));
   parameter Real TZonCooOnMin(
     final unit="K",
     displayUnit="degC",
-    final quantity="ThermodynamicTemperature")=295.15
+    final quantity="ThermodynamicTemperature")=
+    dat.getReal(varName=id + ".Control.Minimum cooling setpoint during on.value")
     "Minimum cooling setpoint during on"
     annotation(Dialog(group="Setpoints limits setting"));
   parameter Real TZonHeaOnMax(
     final unit="K",
     displayUnit="degC",
-    final quantity="ThermodynamicTemperature")=295.15
+    final quantity="ThermodynamicTemperature")=
+    dat.getReal(varName=id + ".Control.Maximum heating setpoint during on.value")
     "Maximum heating setpoint during on"
     annotation(Dialog(group="Setpoints limits setting"));
   parameter Real TZonHeaOnMin(
     final unit="K",
     displayUnit="degC",
-    final quantity="ThermodynamicTemperature")=291.15
+    final quantity="ThermodynamicTemperature")=
+    dat.getReal(varName=id + ".Control.Minimum heating setpoint during on.value")
     "Minimum heating setpoint during on"
     annotation(Dialog(group="Setpoints limits setting"));
   parameter Real TZonCooSetWinOpe(
     final unit="K",
     displayUnit="degC",
-    final quantity="ThermodynamicTemperature")=322.15
+    final quantity="ThermodynamicTemperature")=
+    dat.getReal(varName=id + ".Control.Cooling setpoint when window is open.value")
     "Cooling setpoint when window is open"
     annotation(Dialog(group="Setpoints limits setting", enable=have_winSen));
   parameter Real TZonHeaSetWinOpe(
     final unit="K",
     displayUnit="degC",
-    final quantity="ThermodynamicTemperature")=277.15
+    final quantity="ThermodynamicTemperature")=
+    dat.getReal(varName=id + ".Control.Heating setpoint when window is open.value")
     "Heating setpoint when window is open"
     annotation(Dialog(group="Setpoints limits setting", enable=have_winSen));
 
@@ -294,7 +312,7 @@ block Guideline36
     "Heating setpoint decrease value (degC) when heating demand limit level 3 is imposed"
     annotation(Dialog(group="Setpoint adjustment", tab="Demand control"));
 
-  /* 
+  /*
   *  Final parameters
   */
   final parameter Boolean have_heaWatCoi=

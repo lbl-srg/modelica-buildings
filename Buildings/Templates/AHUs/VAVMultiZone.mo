@@ -33,6 +33,11 @@ model VAVMultiZone "Multiple-Zone VAV"
     "Type of return fan"
     annotation (Evaluate=true);
 
+  final inner parameter Boolean have_airFloMeaSta=
+    VSup_flow.typ==Types.Sensor.VolumeFlowRate
+    "Check if the AHU has supply airflow measuring station"
+    annotation (Evaluate=true);
+
   Modelica.Fluid.Interfaces.FluidPort_b port_coiCooRet(
     redeclare final package Medium = MediumCoo) if have_souCoiCoo
     "Cooling coil return port"
@@ -183,7 +188,8 @@ model VAVMultiZone "Multiple-Zone VAV"
         enable=false),
       Placement(transformation(extent={{142,-210},{162,-190}})));
 
-  inner replaceable Controls.OpenLoop conAHU constrainedby Buildings.Templates.Interfaces.ControllerAHU
+  inner replaceable Controls.OpenLoop conAHU
+    constrainedby Buildings.Templates.Interfaces.ControllerAHU
     "AHU controller"
     annotation (
       choicesAllMatching=true,

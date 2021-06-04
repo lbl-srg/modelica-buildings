@@ -5,26 +5,26 @@ model TwoPosition "Two-position damper"
 
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal=
     if loc==Templates.Types.Location.OutdoorAir then
-      dat.getReal(varName=id + ".Supply air mass flow rate")
+      dat.getReal(varName=id + ".Mechanical.Supply air mass flow rate.value")
     elseif loc==Templates.Types.Location.MinimumOutdoorAir  then
-      dat.getReal(varName=id + ".Economizer.Minimum outdoor air mass flow rate")
+      dat.getReal(varName=id + ".Mechanical.Economizer.Minimum outdoor air mass flow rate.value")
     elseif loc==Templates.Types.Location.Return then
-      dat.getReal(varName=id + ".Return air mass flow rate")
+      dat.getReal(varName=id + ".Mechanical.Return air mass flow rate.value")
     elseif loc==Templates.Types.Location.Relief then
-      dat.getReal(varName=id + ".Return air mass flow rate")
+      dat.getReal(varName=id + ".Mechanical.Return air mass flow rate.value")
     else 0
     "Mass flow rate"
     annotation (Dialog(group="Nominal condition"), Evaluate=true);
   parameter Modelica.SIunits.PressureDifference dpDamper_nominal(
     min=0, displayUnit="Pa")=
     if loc==Templates.Types.Location.OutdoorAir then
-      dat.getReal(varName=id + ".Economizer.Outdoor air damper pressure drop")
+      dat.getReal(varName=id + ".Mechanical.Economizer.Outdoor air damper pressure drop.value")
     elseif loc==Templates.Types.Location.MinimumOutdoorAir  then
-      dat.getReal(varName=id + ".Economizer.Minimum outdoor air damper pressure drop")
+      dat.getReal(varName=id + ".Mechanical.Economizer.Minimum outdoor air damper pressure drop.value")
     elseif loc==Templates.Types.Location.Return then
-      dat.getReal(varName=id + ".Economizer.Return air damper pressure drop")
+      dat.getReal(varName=id + ".Mechanical.Economizer.Return air damper pressure drop.value")
     elseif loc==Templates.Types.Location.Relief then
-      dat.getReal(varName=id + ".Economizer.Relief air damper pressure drop")
+      dat.getReal(varName=id + ".Mechanical.Economizer.Relief air damper pressure drop.value")
     else 0
     "Pressure drop of open damper"
     annotation (Dialog(group="Nominal condition"));

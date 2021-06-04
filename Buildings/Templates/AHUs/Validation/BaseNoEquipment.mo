@@ -33,13 +33,13 @@ model BaseNoEquipment
   /*
   FIXME: test snippet working with Dymola but not with OCT
   External object constructors are not allowed inside functions.
-  
+
   parameter Integer nTest = Templates.BaseClasses.getArraySize1D(
-     varName="VAV_1.Supply fan.Pressure curve",
+     varName="VAV_1.Supply fan.Pressure curve.value",
      fileName=dat.fileName);
 
   Modelica.Blocks.Sources.TimeTable timeTable(
-  table=dat.getRealArray2D("VAV_1.Supply fan.Pressure curve", nTest, 2));
+  table=dat.getRealArray2D("VAV_1.Supply fan.Pressure curve.value", nTest, 2));
   */
 
 

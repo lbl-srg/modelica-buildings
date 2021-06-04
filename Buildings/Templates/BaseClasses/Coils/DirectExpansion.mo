@@ -14,7 +14,7 @@ model DirectExpansion "Direct expansion"
   // Only the air pressure drop needs to be declared.
   inner parameter Modelica.SIunits.PressureDifference dpAir_nominal(
     displayUnit="Pa")=
-    dat.getReal(varName=id + "." + funStr + " coil.Air pressure drop")
+    dat.getReal(varName=id + ".Mechanical." + funStr + " coil.Air pressure drop.value")
     "Air pressure drop"
     annotation (
       Dialog(group="Nominal condition"),
