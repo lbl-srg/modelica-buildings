@@ -7,7 +7,29 @@ model UnconditionedNoOutput
 
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
+    __Dymola_Commands(
+      file="modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/EnergyPlus/Examples/SingleFamilyHouse/UnconditionedNoOutput.mos" "Simulate and plot"),
     experiment(
-      StopTime=432000,
-      Tolerance=1e-06));
+      StopTime=86400,
+      Tolerance=1e-06),
+    Documentation(info="<html>
+<p>
+This validation case tests whether Spawn works for an idf file that has no output variables declared.
+</p>
+<p>
+The model is identical to
+<a href=\"Buildings.ThermalZones.EnergyPlus.Examples.SingleFamilyHouse.Unconditioned\">
+Buildings.ThermalZones.EnergyPlus.Examples.SingleFamilyHouse.Unconditioned</a>
+except that it uses an idf file that has no output variables.
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+June 1, 2021, by Baptiste Ravache:<br/>
+First implementation.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2512\">issue 2512</a>.
+</li>
+</ul>
+</html>"));
 end UnconditionedNoOutput;
