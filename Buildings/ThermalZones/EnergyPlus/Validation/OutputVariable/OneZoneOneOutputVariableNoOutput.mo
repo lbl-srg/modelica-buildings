@@ -2,7 +2,7 @@ within Buildings.ThermalZones.EnergyPlus.Validation.OutputVariable;
 model OneZoneOneOutputVariableNoOutput
   "Failing example caused by missing Output:Variable in the idf"
   extends
-    Buildings.ThermalZones.EnergyPlus.Examples.SingleFamilyHouse.UnconditionedNoOutput;
+    Buildings.ThermalZones.EnergyPlus.Validation.OutputVariable.NoOutputVariable;
   Buildings.ThermalZones.EnergyPlus.OutputVariable equEle(
     name="Zone Electric Equipment Electricity Rate",
     key="LIVING ZONE",

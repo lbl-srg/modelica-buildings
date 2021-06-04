@@ -1,5 +1,5 @@
-within Buildings.ThermalZones.EnergyPlus.Examples.SingleFamilyHouse;
-model UnconditionedNoOutput
+within Buildings.ThermalZones.EnergyPlus.Validation.OutputVariable;
+model NoOutputVariable
   "Failing example caused by missing Output:Variable in the idf"
   extends Buildings.ThermalZones.EnergyPlus.Examples.SingleFamilyHouse.Unconditioned(
    building(idfName=Modelica.Utilities.Files.loadResource(
@@ -8,7 +8,7 @@ model UnconditionedNoOutput
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
     __Dymola_Commands(
-      file="modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/EnergyPlus/Examples/SingleFamilyHouse/UnconditionedNoOutput.mos" "Simulate and plot"),
+      file="modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/EnergyPlus/Validation/OutputVariable/NoOutputVariable.mos" "Simulate and plot"),
     experiment(
       StopTime=86400,
       Tolerance=1e-06),
@@ -32,4 +32,4 @@ This is for
 </li>
 </ul>
 </html>"));
-end UnconditionedNoOutput;
+end NoOutputVariable;
