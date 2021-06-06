@@ -155,6 +155,3 @@ if __name__ == '__main__':
   print(f"Number of successful simulation: {nSuc}")
   print(f"Number of fatal error messages : {nFat}")
   print(f"Number of nonhandled errors    : {nErr}")
-
-
-
