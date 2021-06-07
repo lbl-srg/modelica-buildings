@@ -11,6 +11,5 @@ compareVars :=
     "pla.splCHWSup.port_2.m_flow",
     "pla.splCHWSup.port_3.m_flow",
     "pla.cooTowWitByp.TWetBul",
-    "pla.cooTowWitByp.sta_a.T",
-    "pla.cooTowWitByp.sta_b.T"
+    "pla.cooTowWitByp.TLvg"
   };

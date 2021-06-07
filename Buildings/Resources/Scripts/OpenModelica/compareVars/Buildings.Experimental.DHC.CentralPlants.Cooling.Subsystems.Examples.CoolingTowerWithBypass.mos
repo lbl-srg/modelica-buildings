@@ -1,13 +1,13 @@
 compareVars :=
   {
-    "cooTowPar.TWetBul",
-    "cooTowPar.sta_a.T",
-    "cooTowPar.sta_b.T",
-    "cooTowPar.cooTowSpeCon.u_s",
-    "cooTowPar.cooTowSpeCon.u_m",
+    "tow.TWetBul",
+    "tow.sta_a.T",
+    "tow.sta_b.T",
+    "tow.cooTowSpeCon.u_s",
+    "tow.cooTowSpeCon.u_m",
     "onOffCon.reference",
     "onOffCon.u",
-    "cooTowPar.bypValCon.u_s",
-    "cooTowPar.bypValCon.u_m",
-    "cooTowPar.bypValCon.y"
+    "tow.bypValCon.u_s",
+    "tow.bypValCon.u_m",
+    "tow.bypValCon.y"
   };

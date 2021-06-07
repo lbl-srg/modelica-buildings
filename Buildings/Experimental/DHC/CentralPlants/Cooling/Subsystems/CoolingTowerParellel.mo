@@ -1,6 +1,8 @@
 within Buildings.Experimental.DHC.CentralPlants.Cooling.Subsystems;
 model CoolingTowerParellel
   "Multiple identical cooling towers in parallel connection"
+  extends Buildings.Fluid.Interfaces.PartialTwoPortInterface(
+    redeclare replaceable package Medium=Buildings.Media.Water);
   extends Buildings.Applications.DataCenters.ChillerCooled.Equipment.BaseClasses.SignalFilter(
     riseTimeValve=30,
     use_inputFilter=true,
@@ -8,17 +10,9 @@ model CoolingTowerParellel
   parameter Integer num(
     final min=1)=2
     "Number of cooling towers";
-  replaceable package Medium=Buildings.Media.Water
-    "Condenser water medium";
   parameter Modelica.Fluid.Types.Dynamics energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial
     "Type of energy balance: dynamic (3 initialization options) or steady state"
     annotation (Evaluate=true,Dialog(tab="Dynamics",group="Equations"));
-  parameter Boolean show_T=true
-    "= true, if actual temperature at port is computed"
-    annotation (Dialog(tab="Advanced",group="Diagnostics"));
-  parameter Modelica.SIunits.MassFlowRate m_flow_nominal
-    "Nominal mass flow rate of condenser water in each tower"
-    annotation (Dialog(group="Nominal condition"));
   parameter Modelica.SIunits.PressureDifference dp_nominal
     "Nominal pressure difference of the tower"
     annotation (Dialog(group="Nominal condition"));
@@ -41,14 +35,6 @@ model CoolingTowerParellel
   parameter Modelica.SIunits.Power PFan_nominal
     "Fan power"
     annotation (Dialog(group="Fan"));
-  Modelica.Fluid.Interfaces.FluidPort_a port_a(
-    redeclare final package Medium=Medium)
-    "Fluid connector a (positive design flow direction is from port_a to port_b)"
-    annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
-  Modelica.Fluid.Interfaces.FluidPort_b port_b(
-    redeclare final package Medium=Medium)
-    "Fluid connector b (positive design flow direction is from port_a to port_b)"
-    annotation (Placement(transformation(extent={{90,-10},{110,10}})));
   Modelica.Blocks.Interfaces.BooleanInput on[num]
     "On signal for cooling towers"
     annotation (Placement(transformation(extent={{-140,40},{-100,80}})));
@@ -66,10 +52,14 @@ model CoolingTowerParellel
     each final unit="W")
     "Electric power consumed by fan"
     annotation (Placement(transformation(extent={{100,50},{120,70}})));
-  Modelica.Blocks.Interfaces.RealOutput TLvg(each final unit="K", each
-      displayUnit="degC") "Leaving water temperature"
+  Modelica.Blocks.Interfaces.RealOutput TLvg(
+    each final unit="K",
+    each displayUnit="degC")
+    "Leaving water temperature"
     annotation (Placement(transformation(extent={{100,20},{120,40}})));
   replaceable Buildings.Fluid.HeatExchangers.CoolingTowers.Merkel cooTow[num](
+    each final allowFlowReversal=allowFlowReversal,
+    each final m_flow_small=m_flow_small,
     each final ratWatAir_nominal=ratWatAir_nominal,
     each final TAirInWB_nominal=TAirInWB_nominal,
     each final TWatIn_nominal=TWatIn_nominal,
@@ -86,6 +76,7 @@ model CoolingTowerParellel
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Buildings.Fluid.Actuators.Valves.TwoWayEqualPercentage val[num](
     redeclare each final package Medium=Medium,
+    each final allowFlowReversal=allowFlowReversal,
     each final m_flow_nominal=m_flow_nominal,
     each final dpValve_nominal=dpValve_nominal,
     each final dpFixed_nominal=dp_nominal)
@@ -96,28 +87,11 @@ model CoolingTowerParellel
     annotation (Placement(transformation(extent={{-90,50},{-70,70}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort senTem(
     redeclare final package Medium=Medium,
+    final allowFlowReversal=allowFlowReversal,
     final m_flow_nominal=m_flow_nominal,
+    final m_flow_small=m_flow_small,
     final T_start=Medium.T_default)
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
-protected
-    Medium.ThermodynamicState sta_a=Medium.setState_phX(
-    port_a.p,
-    noEvent(
-      actualStream(
-        port_a.h_outflow)),
-    noEvent(
-      actualStream(
-        port_a.Xi_outflow))) if show_T
-    "Medium properties in port_a";
-  Medium.ThermodynamicState sta_b=Medium.setState_phX(
-    port_b.p,
-    noEvent(
-      actualStream(
-        port_b.h_outflow)),
-    noEvent(
-      actualStream(
-        port_b.Xi_outflow))) if show_T
-    "Medium properties in port_b";
 equation
   for i in 1:num loop
     connect(port_a,val[i].port_a)

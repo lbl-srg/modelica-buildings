@@ -9,6 +9,7 @@ model CoolingTowerParallel
       TAirInWB_nominal=273.15+25.55,
       TWatIn_nominal=273.15+35,
       dT_nominal=5.56,
+      dp_nominal = 6000,
       PFan_nominal=4800),
     weaDat(final computeWetBulbTemperature=true));
    Modelica.Blocks.Sources.Constant TSetLea(
