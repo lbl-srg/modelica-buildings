@@ -8812,7 +8812,7 @@ on the Buildings library.
 </p>
 <ul>
 <li>
-<a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_8_0_0\">Version 8.0.0</a> (xxx, 2020)
+<a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_8_0_0\">Version 8.0.0</a> (June 8, 2021)
 </li>
 <li>
 <a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_7_0_1\">Version 7.0.1</a> (June 4, 2021)
@@ -9321,8 +9321,8 @@ end UsersGuide;
 annotation (
 preferredView="info",
 version="8.0.0",
-versionDate="2020-05-28",
-dateModified="2020-05-28",
+versionDate="2021-06-08",
+dateModified="2021-06-08",
 uses(Modelica(version="3.2.3")),
 conversion(
   from(version={"7.0.0"},
