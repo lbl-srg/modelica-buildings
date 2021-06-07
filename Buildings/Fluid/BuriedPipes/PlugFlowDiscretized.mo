@@ -1,6 +1,6 @@
 within Buildings.Fluid.BuriedPipes;
-model MultiPlugFlowPipe
-  "Pipe model using spatialDistribution for temperature delay"
+model PlugFlowDiscretized
+  "Discretized pipe model using spatialDistribution for temperature delay"
   extends Buildings.Fluid.Interfaces.PartialTwoPort;
 
   constant Boolean homotopyInitialization = true "= true, use homotopy method"
@@ -121,7 +121,6 @@ protected
   parameter Real C(unit="J/(K.m)")=
     rho_default*Modelica.Constants.pi*rInt^2*cp_default
     "Thermal capacity per unit length of water in pipe";
-
 
 equation
   connect(port_a, pipSeg[1].port_a)
@@ -249,4 +248,4 @@ Buildings.Fluid.FixedResistances.HydraulicDiameter</a> rather than being
 instantiated separately for each segment.
 </p>
 </html>"));
-end MultiPlugFlowPipe;
+end PlugFlowDiscretized;

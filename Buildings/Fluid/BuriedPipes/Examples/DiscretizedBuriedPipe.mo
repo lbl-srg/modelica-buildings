@@ -1,5 +1,5 @@
 ﻿within Buildings.Fluid.BuriedPipes.Examples;
-model MultiSegmentBuriedPipe
+model DiscretizedBuriedPipe
   "Example model of a buried pipe with multiple segment"
   extends Modelica.Icons.Example;
 
@@ -24,16 +24,15 @@ model MultiSegmentBuriedPipe
   replaceable package Medium = Buildings.Media.Water "Medium in the pipe"
     annotation (choicesAllMatching=true);
 
-  MultiPlugFlowPipe pip(
-    redeclare package Medium=Medium,
+  PlugFlowDiscretized pip(
+    redeclare package Medium = Medium,
     nSeg=nSeg,
     rInt=0.05,
     length=segLen,
     m_flow_nominal=1,
     dIns=dIns,
     kIns=soiDat.k,
-    dPip=0.0032)
-    "Buried pipe"
+    dPip=0.0032) "Buried pipe"
     annotation (Placement(transformation(extent={{-10,30},{10,50}})));
 
   Buildings.Fluid.BuriedPipes.GroundCoupling gro(
@@ -79,7 +78,7 @@ model MultiSegmentBuriedPipe
     T_start=293.15) "Pipe outlet temperature sensor"
     annotation (Placement(transformation(extent={{30,30},{50,50}})));
 
-  MultiPlugFlowPipe pipRev(
+  PlugFlowDiscretized pipRev(
     redeclare package Medium = Medium,
     nSeg=nSegRev,
     rInt=0.05,
@@ -87,8 +86,7 @@ model MultiSegmentBuriedPipe
     m_flow_nominal=1,
     dIns=dIns,
     kIns=soiDat.k,
-    dPip=0.0032)
-    "Buried pipe"
+    dPip=0.0032) "Buried pipe"
     annotation (Placement(transformation(extent={{-10,-30},{10,-50}})));
   GroundCoupling groRev(
     nPip=1,
@@ -187,6 +185,6 @@ First implementation.
 </li>
 </ul>
 </html>"),
-    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/BuriedPipes/Examples/MultiSegmentBuriedPipe.mos"
+    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/BuriedPipes/Examples/DiscretizedBuriedPipe.mos"
         "Simulate and plot"));
-end MultiSegmentBuriedPipe;
+end DiscretizedBuriedPipe;
