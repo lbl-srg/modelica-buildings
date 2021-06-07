@@ -63,17 +63,23 @@ package Medium = Buildings.Media.Air;
     linearized=false,
     dp_nominal=1000) "Fixed resistance"
     annotation (Placement(transformation(extent={{-88,24},{-108,44}})));
-  Sensors.SpecificEnthalpy senEnt3(redeclare package Medium = Medium)
+  Sensors.SpecificEnthalpy senEnt3(redeclare package Medium = Medium,
+      warnAboutOnePortConnection=false)
     annotation (Placement(transformation(extent={{-310,140},{-290,160}})));
-  Sensors.Temperature senTem3(redeclare package Medium = Medium)
+  Buildings.Fluid.Sensors.Temperature senTem3(redeclare package Medium = Medium,
+      warnAboutOnePortConnection=false)
     annotation (Placement(transformation(extent={{-350,140},{-330,160}})));
-  Sensors.MassFraction senMas3(redeclare package Medium = Medium)
+  Sensors.MassFraction senMas3(redeclare package Medium = Medium,
+      warnAboutOnePortConnection=false)
     annotation (Placement(transformation(extent={{-270,140},{-250,160}})));
-  Sensors.SpecificEnthalpy senEnt4(redeclare package Medium = Medium)
+  Sensors.SpecificEnthalpy senEnt4(redeclare package Medium = Medium,
+      warnAboutOnePortConnection=false)
     annotation (Placement(transformation(extent={{-310,60},{-290,80}})));
-  Sensors.Temperature senTem4(redeclare package Medium = Medium)
+  Buildings.Fluid.Sensors.Temperature senTem4(redeclare package Medium = Medium,
+      warnAboutOnePortConnection=false)
     annotation (Placement(transformation(extent={{-350,60},{-330,80}})));
-  Sensors.MassFraction senMas4(redeclare package Medium = Medium)
+  Sensors.MassFraction senMas4(redeclare package Medium = Medium,
+      warnAboutOnePortConnection=false)
     annotation (Placement(transformation(extent={{-270,60},{-250,80}})));
   Modelica.Blocks.Math.Add cheTem1(k2=-1)
     "Check whether the outputs of the forward flow and reverse flow model are identical"
@@ -127,17 +133,23 @@ package Medium = Buildings.Media.Air;
         transformation(
         extent={{10,-10},{-10,10}},
         origin={40,98})));
-  Sensors.SpecificEnthalpy senEnt1(redeclare package Medium = Medium)
+  Sensors.SpecificEnthalpy senEnt1(redeclare package Medium = Medium,
+      warnAboutOnePortConnection=false)
     annotation (Placement(transformation(extent={{10,140},{30,160}})));
-  Sensors.Temperature senTem1(redeclare package Medium = Medium)
+  Buildings.Fluid.Sensors.Temperature senTem1(redeclare package Medium = Medium,
+      warnAboutOnePortConnection=false)
     annotation (Placement(transformation(extent={{-30,140},{-10,160}})));
-  Sensors.MassFraction senMas1(redeclare package Medium = Medium)
+  Sensors.MassFraction senMas1(redeclare package Medium = Medium,
+      warnAboutOnePortConnection=false)
     annotation (Placement(transformation(extent={{50,140},{70,160}})));
-  Sensors.Temperature senTem2(redeclare package Medium = Medium)
+  Buildings.Fluid.Sensors.Temperature senTem2(redeclare package Medium = Medium,
+      warnAboutOnePortConnection=false)
     annotation (Placement(transformation(extent={{20,-60},{40,-40}})));
-  Sensors.SpecificEnthalpy senEnt2(redeclare package Medium = Medium)
+  Sensors.SpecificEnthalpy senEnt2(redeclare package Medium = Medium,
+      warnAboutOnePortConnection=false)
     annotation (Placement(transformation(extent={{60,-60},{80,-40}})));
-  Sensors.MassFraction senMas2(redeclare package Medium = Medium)
+  Sensors.MassFraction senMas2(redeclare package Medium = Medium,
+      warnAboutOnePortConnection=false)
     annotation (Placement(transformation(extent={{100,-60},{120,-40}})));
   FixedResistances.PressureDrop res1(
     redeclare package Medium = Medium,
@@ -292,8 +304,14 @@ of stream connector. This bug will be corrected in future versions of Dymola.
 </html>", revisions="<html>
 <ul>
 <li>
+September 20, 2020, by Michael Wetter:<br/>
+Updated model to use one port temperature sensor from Modelica Standard Library.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1399\"> #1399</a>.
+</li>
+<li>
 May 2, 2019, by Jianjun Hu:<br/>
-Replaced fluid source. This is for 
+Replaced fluid source. This is for
 <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1072\"> #1072</a>.
 </li>
 <li>

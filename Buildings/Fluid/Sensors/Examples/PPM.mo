@@ -22,7 +22,8 @@ model PPM "Test model for the extra property sensor outputting PPM"
     m_flow=m_flow_nominal) "Fresh air supply"
     annotation (Placement(transformation(extent={{-40,30},{-20,50}})));
 
-  Buildings.Fluid.Sensors.PPM senPPMVol(redeclare package Medium = Medium)
+  Buildings.Fluid.Sensors.PPM senPPMVol(redeclare package Medium = Medium,
+      warnAboutOnePortConnection=false)
     "PPM sensor for mixing volume"
     annotation (Placement(transformation(extent={{120,40},{140,60}})));
   Modelica.Blocks.Sources.Constant CO2In(k=m_flow_nominal/1000)
@@ -36,7 +37,8 @@ model PPM "Test model for the extra property sensor outputting PPM"
         extent={{10,-10},{-10,10}},
         rotation=90,
         origin={80,10})));
-  Buildings.Fluid.Sensors.PPM senPPMIn(redeclare package Medium = Medium)
+  Buildings.Fluid.Sensors.PPM senPPMIn(redeclare package Medium = Medium,
+      warnAboutOnePortConnection=false)
     "PPM sensor for inlet"
     annotation (Placement(transformation(extent={{-20,80},{0,100}})));
   Buildings.Fluid.Sensors.PPMTwoPort senPPMNoRev(
@@ -72,7 +74,8 @@ model PPM "Test model for the extra property sensor outputting PPM"
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)
     "Mixing volume without dynamics"
     annotation (Placement(transformation(extent={{70,80},{90,100}})));
-  Buildings.Fluid.Sensors.PPM senPPMVol2( redeclare package Medium = Medium)
+  Buildings.Fluid.Sensors.PPM senPPMVol2( redeclare package Medium = Medium,
+      warnAboutOnePortConnection=false)
     "PPM sensor for mixing volume"
     annotation (Placement(transformation(extent={{120,80},{140,100}})));
   Buildings.Fluid.Sources.MassFlowSource_T mSouSta(

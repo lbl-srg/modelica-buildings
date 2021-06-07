@@ -1,7 +1,10 @@
 within Buildings.Controls.OBC.CDL.Discrete;
 block FirstOrderHold "First order hold of a sampled-data system"
 
-  parameter Modelica.SIunits.Time samplePeriod(min=1E-3)
+  parameter Real samplePeriod(
+    final quantity="Time",
+    final unit="s",
+    min=1E-3)
     "Sample period of component";
 
   Interfaces.RealInput u "Continuous input signal"
@@ -11,7 +14,10 @@ block FirstOrderHold "First order hold of a sampled-data system"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
 protected
-  parameter Modelica.SIunits.Time t0(fixed=false)
+  parameter Real t0(
+    final quantity="Time",
+    final unit="s",
+    fixed=false)
     "First sample time instant";
 
   output Boolean sampleTrigger "True, if sample time instant";
@@ -19,14 +25,18 @@ protected
   output Boolean firstTrigger(start=false, fixed=true)
     "Rising edge signals first sample instant";
 
-  Modelica.SIunits.Time tSample "Time of sample";
+  Real tSample(
+    final quantity="Time",
+    final unit="s") "Time of sample";
   Real uSample "Value of sample";
   Real pre_uSample "Value of previous sample";
   Real c "Slope";
 
 initial equation
-  t0 = time;
-  pre(tSample) = time;
+  t0 = Buildings.Utilities.Math.Functions.round(
+         x = integer(time/samplePeriod)*samplePeriod,
+         n = 6);
+  pre(tSample) = t0;
   pre(uSample) = u;
   pre(pre_uSample) = u;
   pre(c) = 0.0;
@@ -36,10 +46,6 @@ equation
   sampleTrigger = sample(t0, samplePeriod);
   when sampleTrigger then
     firstTrigger = time <= t0 + samplePeriod/2;
-  end when;
-
-  // Declarations specific to this type of discrete block
-  when sampleTrigger then
     tSample = time;
     uSample = u;
     pre_uSample = pre(uSample);
@@ -81,6 +87,18 @@ values of the last two sampled input signals.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+November 12, 2020, by Michael Wetter:<br/>
+Reformulated to remove dependency to <code>Modelica.SIunits</code>.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2243\">issue 2243</a>.
+</li>
+<li>
+October 19, 2020, by Michael Wetter:<br/>
+Refactored implementation.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2170\">#2170</a>.
+</li>
 <li>
 March 2, 2020, by Michael Wetter:<br/>
 Changed icon to display dynamically the output value.

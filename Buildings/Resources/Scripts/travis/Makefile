@@ -42,7 +42,7 @@ test-verify-files:
 # This targets searches all files `run.sh` and executes them.
 test-energyplus-validations:
 	@find $(ROOT)/Buildings/Resources/Data -name run.sh | xargs -I {} sh -c \
-  	  'cd `dirname {}` && \
+	  'cd `dirname {}` && \
 	   echo "*********************************************************" && \
 	   echo "*** Testing `pwd`/run.sh" && \
 	   ./run.sh'
@@ -53,9 +53,12 @@ test-cdl-conformance:
 	(cd $(ROOT) && \
 	 echo "*********************************************************" && \
 	 echo "*** Running modelica-json" && \
- 	 export MODELICAPATH=`pwd` && \
+	 export MODELICAPATH=`pwd` && \
 	 node $(MODELICA_JSON_HOME)/app.js -f Buildings/Controls/OBC -o json -m modelica -d out --strict true && \
 	 rm -rf out)
+
+test-omc:
+	(cd $(ROOT) && $(TRAVIS_BUILD_DIR)/Buildings/Resources/Scripts/travis/omc/testOpenModelica.sh)
 
 test-dymola:
 	(cd $(ROOT)/Buildings && \
