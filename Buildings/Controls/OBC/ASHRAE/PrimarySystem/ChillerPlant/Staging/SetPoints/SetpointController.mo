@@ -342,8 +342,8 @@ block SetpointController
     annotation (Placement(transformation(extent={{120,320},{160,360}}),
         iconTransformation(extent={{100,-202},{140,-162}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yCapReq(
-    final quantity="Power",
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yCapReq(final quantity=
+        "HeatFlowRate",
     final unit="W")
     "Chilled water cooling capacity requirement"
     annotation (Placement(transformation(extent={{120,370},{160,410}}),
@@ -632,7 +632,7 @@ equation
           extent={{-98,-196},{-14,-222}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
-          textString="TChiWat_flow"),
+          textString="VChiWat_flow"),
         Text(
           extent={{-96,-128},{8,-152}},
           lineColor={0,0,127},

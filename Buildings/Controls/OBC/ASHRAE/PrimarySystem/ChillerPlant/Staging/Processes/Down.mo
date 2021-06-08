@@ -191,7 +191,7 @@ block Down
     annotation (Placement(transformation(extent={{280,-120},{320,-80}}),
       iconTransformation(extent={{100,-50},{140,-10}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yLeaPum
-    "Lead pump status"
+    "Lead condenser water pump status"
     annotation (Placement(transformation(extent={{280,-170},{320,-130}}),
       iconTransformation(extent={{100,-90},{140,-50}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yDesConWatPumSpe(
