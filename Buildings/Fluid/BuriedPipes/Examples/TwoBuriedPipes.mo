@@ -127,14 +127,14 @@ equation
   connect(pipChW.ports_b[1], senTemChWOut.port_a)
     annotation (Line(points={{20,20},{50,20}},
                                              color={0,127,255}));
-  connect(pipChW.heatPort, gro.ports[1])
-    annotation (Line(points={{10,30},{10,40},{30,40},{30,60},{29.9,60},{29.9,
-          60.55}},                                     color={191,0,0}));
+  connect(pipChW.heatPort, gro.ports[1,1])
+    annotation (Line(points={{10,30},{10,40},{30,40},{30,60},{30,60},{30,59.5}},
+                                                       color={191,0,0}));
   connect(TinHotW.y, souHotW.T_in) annotation (Line(points={{-79,-40},{-72,-40},
           {-72,-36},{-68,-36}}, color={0,0,127}));
-  connect(pipHotW.heatPort, gro.ports[2])
-    annotation (Line(points={{10,-30},{10,-20},{30,-20},{30,30},{29.9,30},{29.9,
-          59.65}},                                       color={191,0,0}));
+  connect(pipHotW.heatPort, gro.ports[2,1])
+    annotation (Line(points={{10,-30},{10,-20},{30,-20},{30,30},{30,30},{30,60.5}},
+                                                         color={191,0,0}));
   connect(souHotW.ports[1], senTemHotWIn.port_a)
     annotation (Line(points={{-46,-40},{-30,-40}}, color={0,127,255}));
   connect(senTemHotWIn.port_b, pipHotW.port_a)

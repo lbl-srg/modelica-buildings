@@ -1,4 +1,4 @@
-within Buildings.Fluid.BuriedPipes.Examples;
+﻿within Buildings.Fluid.BuriedPipes.Examples;
 model SingleBuriedPipe "Example model of a single buried pipe"
   extends Modelica.Icons.Example;
 
@@ -132,15 +132,15 @@ equation
   connect(pip.ports_b[1], senTemOut.port_a)
     annotation (Line(points={{10,40},{30,40}},
                                              color={0,127,255}));
-  connect(pip.heatPort, gro.ports[1,1]) annotation (Line(points={{0,50},{0,80.1},
-          {-0.1,80.1}},    color={191,0,0}));
+  connect(pip.heatPort, gro.ports[1,1]) annotation (Line(points={{0,50},{0,80},
+          {0,80}},         color={191,0,0}));
   connect(senTemOutRev.port_b, pipRev.port_a)
     annotation (Line(points={{-30,-40},{-10,-40}},
                                                  color={0,127,255}));
   connect(pipRev.ports_b[1], senTemInlRev.port_a)
     annotation (Line(points={{10,-40},{30,-40}}, color={0,127,255}));
   connect(pipRev.heatPort, groRev.ports[1,1])
-    annotation (Line(points={{0,-50},{0,-80.1},{-0.1,-80.1}},
+    annotation (Line(points={{0,-50},{0,-80},{0,-80}},
                                                  color={191,0,0}));
   connect(souRev.ports[1], senTemInlRev.port_b)
     annotation (Line(points={{60,-40},{50,-40}}, color={0,127,255}));

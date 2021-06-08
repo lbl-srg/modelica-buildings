@@ -1,5 +1,5 @@
 ﻿within Buildings.Fluid.BuriedPipes.Examples;
-model MultiSegmentBuriedPipe
+model DiscretizedBuriedPipe
   "Example model of a buried pipe with multiple segment"
   extends Modelica.Icons.Example;
 
@@ -24,18 +24,15 @@ model MultiSegmentBuriedPipe
   replaceable package Medium = Buildings.Media.Water "Medium in the pipe"
     annotation (choicesAllMatching=true);
 
-  MultiPlugFlowPipe pip(
-    redeclare package Medium=Medium,
+  PlugFlowDiscretized pip(
+    redeclare package Medium = Medium,
     nSeg=nSeg,
     rInt=0.05,
     length=segLen,
     m_flow_nominal=1,
     dIns=dIns,
     kIns=soiDat.k,
-    cPip=500,
-    rhoPip=8000,
-    dPip=0.0032)
-    "Buried pipe"
+    dPip=0.0032) "Buried pipe"
     annotation (Placement(transformation(extent={{-10,30},{10,50}})));
 
   Buildings.Fluid.BuriedPipes.GroundCoupling gro(
@@ -81,7 +78,7 @@ model MultiSegmentBuriedPipe
     T_start=293.15) "Pipe outlet temperature sensor"
     annotation (Placement(transformation(extent={{30,30},{50,50}})));
 
-  MultiPlugFlowPipe pipRev(
+  PlugFlowDiscretized pipRev(
     redeclare package Medium = Medium,
     nSeg=nSegRev,
     rInt=0.05,
@@ -89,10 +86,7 @@ model MultiSegmentBuriedPipe
     m_flow_nominal=1,
     dIns=dIns,
     kIns=soiDat.k,
-    cPip=500,
-    rhoPip=8000,
-    dPip=0.0032)
-    "Buried pipe"
+    dPip=0.0032) "Buried pipe"
     annotation (Placement(transformation(extent={{-10,-30},{10,-50}})));
   GroundCoupling groRev(
     nPip=1,
@@ -156,9 +150,9 @@ equation
   connect(pipRev.port_b, senTemInlRev.port_a)
     annotation (Line(points={{10,-40},{30,-40}}, color={0,127,255}));
   connect(pip.heatPorts, gro.ports[1, :]) annotation (Line(points={{0,50},{0,66},
-          {0,80.1},{-0.1,80.1}}, color={191,0,0}));
+          {0,80},{0,80}},        color={191,0,0}));
   connect(pipRev.heatPorts, groRev.ports[1, :]) annotation (Line(points={{0,-50},
-          {0,-66},{0,-80.1},{-0.1,-80.1}}, color={191,0,0}));
+          {0,-66},{0,-80},{0,-80}},        color={191,0,0}));
   connect(souRev.ports[1], senTemInlRev.port_b)
     annotation (Line(points={{60,-40},{50,-40}}, color={0,127,255}));
   connect(senTemOutRev.port_a, sinRev.ports[1])
@@ -172,10 +166,16 @@ equation
     Documentation(info="<html>
 <p>
 This example showcases the ground thermal coupling for two uninsulated 
-buried pipe operating around ambient temperature (<i>20</i>°C), and separated
-in 2 and 10 segments respectively.
-Both design flow direction and reverse flow direction 
-(components with suffix <code>Rev</code>) are simulated.
+buried pipe - direct and reverse flow direction - operating around 
+ambient temperature (<i>20</i>°C), and separated
+in 2 and 10 segments respectively.</p>
+<p>
+This example illustrate the difference in boundary conditions that
+results from different segmentation of the pipes, since both
+pipes are representative of the same conditions (see
+<a href=\"modelica://Buildings.Fluid.BuriedPipes.Examples.SingleBuriedPipe\">
+Buildings.Fluid.BuriedPipes.Examples.SingleBuriedPipe</a> for validation
+that direct and reverse flow result in the same modeled operation).
 </p>
 </html>", revisions="<html>
 <ul>
@@ -185,6 +185,6 @@ First implementation.
 </li>
 </ul>
 </html>"),
-    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/BuriedPipes/Examples/SingleBuriedPipe.mos"
+    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/BuriedPipes/Examples/DiscretizedBuriedPipe.mos"
         "Simulate and plot"));
-end MultiSegmentBuriedPipe;
+end DiscretizedBuriedPipe;

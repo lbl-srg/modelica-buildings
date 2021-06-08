@@ -211,7 +211,7 @@ equation
 May 17, 2021, by Baptiste Ravache:<br/>
 Make <code>res</code> instance replaceable, to allow pipe resistance
 aggregation in
-<a href=\"modelica://Buildings.Fluid.BuriedPipes.MultiPlugFlowPipe\">BuriedPipes.MultiPlugFlowPipe</a>
+<a href=\"modelica://Buildings.Fluid.BuriedPipes.PlugFlowDiscretized\">BuriedPipes.PlugFlowDiscretized</a>
 </li>
 <li>
 April 14, 2020, by Michael Wetter:<br/>
