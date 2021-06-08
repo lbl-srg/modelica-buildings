@@ -11,7 +11,7 @@ First implementation.
 </ul>
 </html>", info="<html>
 <p>
-This example model showcase the use of the convection coefficient
+This example model showcases the use of the convection coefficient
 correction, which allows to specify the heat transfer rate between
 the air and the surface temperature.
 </p>

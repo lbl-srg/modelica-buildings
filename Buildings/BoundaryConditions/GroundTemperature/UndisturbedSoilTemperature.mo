@@ -83,7 +83,7 @@ equation
         coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>
 <p>
-This model provides a prescribed temperature boundary counditions for buried objects,
+This model provides a prescribed temperature boundary condition for buried objects,
 where the temperature is computed per the ASCE (1996) equation:
 </p>
 <p>

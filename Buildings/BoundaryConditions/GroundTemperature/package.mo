@@ -3,7 +3,9 @@ package GroundTemperature "Package with models to compute ground temperature"
   extends Modelica.Icons.VariantsPackage;
 
   annotation (Documentation(info="<html>
-This package contains models to compute ground temperature
+<p>
+This package contains models to compute the ground temperature.
+</p>
 </html>", revisions="<html>
 <ul>
 <li>

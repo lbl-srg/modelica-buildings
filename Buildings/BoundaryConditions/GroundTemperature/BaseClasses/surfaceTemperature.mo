@@ -88,7 +88,7 @@ ASHRAE (2013). <i>District Cooling Guide</i>. ASHRAE, Atlanta, GA.<br>
 ASHRAE (2013). <i>District Heating Guide</i>. ASHRAE, Atlanta, GA.<br>
 D.W. Riseborough (2003). <i>Thawing and freezing indices in the active layer</i>. Proceedings of the 8th International Conference on Permafrost, Swets &amp; Zeitlinger.<br>
 V.J. Lunardini (1981). <i>Heat Transfer in Cold Climates</i>. Van Nostrand Reinhold Company.<br>
-D.R. Freitag and T. McFadden (1997). <i>Introduction to Cold Regions Engineering</i>. Amer Society of Civil Engineers.
+D.R. Freitag and T. McFadden (1997). <i>Introduction to Cold Regions Engineering</i>. American Society of Civil Engineers.
 
 </p>
 

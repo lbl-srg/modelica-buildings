@@ -12,7 +12,7 @@ First implementation.
 </ul>
 </html>", info="<html>
 <p>
-This example model showcase the use of n-factors, which are used
+This example model showcases the use of n-factors, which are used
 to correct the surface temperature given the ratio of freezing/thawing
 degree days (FDD/TDD) between the air and the ground.
 </p>
