@@ -137,6 +137,7 @@ typedef struct SpawnObject
   spawnDerivatives* derivatives; /* Derivatives */
 
   bool printUnit;                   /* Flag whether unit diagnostics should be printed (used for OutputVariable) */
+  fmi2Boolean unitPrinted;                 /* Flag, false at start and set to true after units are printed (used for OutputVariable) */
 
   fmi2Boolean isInstantiated; /* Flag set to true when the zone has been completely instantiated */
   fmi2Boolean isInitialized;  /* Flag set to true after the zone has executed all get/set calls in the initializion mode
