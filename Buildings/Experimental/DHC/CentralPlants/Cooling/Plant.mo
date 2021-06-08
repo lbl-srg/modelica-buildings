@@ -165,12 +165,12 @@ model Plant
   Buildings.Fluid.Sensors.MassFlowRate senMasFloByp(
     redeclare final package Medium=Medium)
     "Chilled water bypass valve mass flow meter"
-    annotation (Placement(transformation(extent={{-10,-10},{10,10}},rotation=180,origin={30,-90})));
+    annotation (Placement(transformation(extent={{40,-80},{20,-100}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort senTCHWSup(
     redeclare final package Medium=Medium,
     final m_flow_nominal=mCHW_flow_nominal)
     "Chilled water supply temperature"
-    annotation (Placement(transformation(extent={{-10,10},{10,-10}},rotation=0,origin={210,-90})));
+    annotation (Placement(transformation(extent={{140,-30},{160,-50}})));
   Buildings.Experimental.DHC.CentralPlants.Cooling.Controls.ChilledWaterPumpSpeed chiWatPumCon(
     tWai=0,
     final m_flow_nominal=mCHW_flow_nominal,
@@ -190,7 +190,7 @@ model Plant
     redeclare final package Medium=Medium,
     final m_flow_nominal=mCHW_flow_nominal)
     "Chilled water return temperature"
-    annotation (Placement(transformation(extent={{-10,-10},{10,10}},rotation=0,origin={-240,-90})));
+    annotation (Placement(transformation(extent={{-270,-100},{-250,-80}})));
   Buildings.Fluid.Sources.Boundary_pT expTanCW(
     redeclare final package Medium=Medium,
     nPorts=1)
@@ -226,14 +226,16 @@ model Plant
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     dp_nominal={0,0,0})
     "Flow joint for the chilled water return side"
-    annotation (Placement(transformation(extent={{10,10},{-10,-10}},rotation=-90,origin={-80,-90})));
+    annotation (Placement(transformation(extent={{10,10},{-10,-10}},
+      rotation=-90,origin={-80,-90})));
   Buildings.Fluid.FixedResistances.Junction splCHWSup(
     redeclare final package Medium=Medium,
     final m_flow_nominal=mCHW_flow_nominal .* {1,-1,-1},
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     dp_nominal={0,0,0})
     "Flow splitter for the chilled water supply side"
-    annotation (Placement(transformation(extent={{10,-10},{-10,10}},rotation=90,origin={80,-90})));
+    annotation (Placement(transformation(extent={{10,-10},{-10,10}},
+      rotation=90,origin={80,-90})));
   Buildings.Experimental.DHC.CentralPlants.Cooling.Controls.ChilledWaterBypass chiBypCon(
     final numChi=numChi,
     final mMin_flow=mMin_flow)
@@ -270,7 +272,7 @@ equation
   connect(expTanCW.ports[1],pumCW.port_a)
     annotation (Line(points={{20,120},{0,120},{0,90},{20,90}},color={0,127,255}));
   connect(senTCHWRet.port_b,senMasFlo.port_a)
-    annotation (Line(points={{-230,-90},{-190,-90}},color={0,127,255}));
+    annotation (Line(points={{-250,-90},{-190,-90}},color={0,127,255}));
   connect(chiStaCon.y,mulChiSys.on)
     annotation (Line(points={{-219,194},{-160,194},{-160,160},{100,160},{100,4},{12,4}},color={255,0,255}));
   connect(chiStaCon.y,chiOn.u)
@@ -284,9 +286,9 @@ equation
     color={255,204,51},thickness=0.5),Text(string="%first",index=-1,
     extent={{-6,3},{-6,3}},horizontalAlignment=TextAlignment.Right));
   connect(port_aSerCoo,senTCHWRet.port_a)
-    annotation (Line(points={{-300,-40},{-280,-40},{-280,-90},{-250,-90}},color={0,127,255}));
+    annotation (Line(points={{-300,-40},{-280,-40},{-280,-90},{-270,-90}},color={0,127,255}));
   connect(senTCHWSup.port_b,port_bSerCoo)
-    annotation (Line(points={{220,-90},{280,-90},{280,-40},{300,-40}},color={0,127,255}));
+    annotation (Line(points={{160,-40},{300,-40}},                    color={0,127,255}));
   connect(TCHWSupSet,mulChiSys.TSet)
     annotation (Line(points={{-320,140},{-280,140},{-280,180},{120,180},{120,0},{12,0}},color={0,0,127}));
   connect(totPPum.y,PPum)
@@ -294,7 +296,8 @@ equation
   connect(pumCW.P,totPPum.u[1:2])
     annotation (Line(points={{41,94},{80,94},{80,140},{240,140},{240,160.5},{258,160.5}},color={0,0,127}));
   connect(pumCHW.P,totPPum.u[3:4])
-    annotation (Line(points={{-29,-2},{-20,-2},{-20,20},{84,20},{84,136},{242,136},{242,158.5},{258,158.5}},color={0,0,127}));
+    annotation (Line(points={{-29,-2},{-20,-2},{-20,44},{84,44},{84,136},{242,136},
+          {242,158.5},{258,158.5}},                                                                         color={0,0,127}));
   connect(totPFan.y,PFan)
     annotation (Line(points={{282,200},{320,200}},color={0,0,127}));
   connect(cooTowWitByp.PFan,totPFan.u[1:2])
@@ -306,7 +309,8 @@ equation
   connect(mulChiSys.port_b2,splCHWSup.port_1)
     annotation (Line(points={{10,-6},{80,-6},{80,-80}},color={0,127,255}));
   connect(splCHWSup.port_3,senTCHWSup.port_a)
-    annotation (Line(points={{90,-90},{200,-90}},color={0,127,255}));
+    annotation (Line(points={{90,-90},{90,-40},{140,-40}},
+                                                 color={0,127,255}));
   connect(splCHWSup.port_2,senMasFloByp.port_a)
     annotation (Line(points={{80,-100},{80,-110},{60,-110},{60,-90},{40,-90}},color={0,127,255}));
   connect(joiCHWRet.port_2,pumCHW.port_a)
@@ -318,9 +322,10 @@ equation
   connect(expTanCHW.ports[1],pumCHW.port_a)
     annotation (Line(points={{-90,-30},{-80,-30},{-80,-6},{-50,-6}},color={0,127,255}));
   connect(senTCHWRet.T,chiStaCon.TChiWatRet)
-    annotation (Line(points={{-240,-79},{-240,172},{-260,172},{-260,196},{-242,196}},color={0,0,127}));
+    annotation (Line(points={{-260,-79},{-260,196},{-242,196}},                      color={0,0,127}));
   connect(senTCHWSup.T,chiStaCon.TChiWatSup)
-    annotation (Line(points={{210,-101},{210,-120},{-220,-120},{-220,172},{-252,172},{-252,192},{-242,192}},color={0,0,127}));
+    annotation (Line(points={{150,-51},{150,-120},{-220,-120},{-220,166},{-252,166},
+          {-252,192},{-242,192}},                                                                           color={0,0,127}));
   connect(senMasFlo.m_flow,chiStaCon.mFloChiWat)
     annotation (Line(points={{-180,-79},{-180,172},{-246,172},{-246,188},{-242,188}},color={0,0,127}));
   connect(chiBypCon.y,valByp.y)

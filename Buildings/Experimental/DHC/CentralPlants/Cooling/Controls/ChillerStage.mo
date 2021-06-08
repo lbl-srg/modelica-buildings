@@ -16,55 +16,63 @@ model ChillerStage
     "Deadband for critical point of cooling load";
   Modelica.Blocks.Interfaces.BooleanInput on
     "Enabling signal of the plant. True: chiller should be enabled"
-    annotation (Placement(transformation(extent={{-200,40},{-160,80}}),iconTransformation(extent={{-140,40},{-100,80}})));
+    annotation (Placement(transformation(extent={{-200,40},{-160,80}}),
+      iconTransformation(extent={{-140,40},{-100,80}})));
   Modelica.Blocks.Interfaces.RealInput TChiWatRet
     "Chilled water return temperature"
     annotation (Placement(transformation(extent={{-200,0},{-160,40}}),
-      iconTransformation(extent={{-140,0},{-100,40}})),
-      iconTransformation(extent={{-140,0},{-100,40}}));
+      iconTransformation(extent={{-140,0},{-100,40}})));
   Modelica.Blocks.Interfaces.RealInput TChiWatSup
     "Chilled water supply temperature"
     annotation (Placement(transformation(extent={{-200,-40},{-160,0}}),
-      iconTransformation(extent={{-140,-40},{-100,0}})),
-      iconTransformation(extent={{-140,-40},{-100,0}}));
+      iconTransformation(extent={{-140,-40},{-100,0}})));
   Modelica.Blocks.Interfaces.RealInput mFloChiWat
     "Chilled water mass flow rate"
-    annotation (Placement(transformation(extent={{-200,-80},{-160,-40}}),iconTransformation(extent={{-140,-80},{-100,-40}})));
+    annotation (Placement(transformation(extent={{-200,-80},{-160,-40}}),
+      iconTransformation(extent={{-140,-80},{-100,-40}})));
   Modelica.Blocks.Interfaces.BooleanOutput y[2]
     "On/off signal for the chillers - 0: off; 1: on"
-    annotation (Placement(transformation(extent={{160,-10},{180,10}}),iconTransformation(extent={{100,-10},{120,10}})));
+    annotation (Placement(transformation(extent={{160,-10},{180,10}}),
+      iconTransformation(extent={{100,-10},{120,10}})));
   Modelica.StateGraph.InitialStep off(
     nIn=1)
     "No cooling is demanded"
-    annotation (Placement(transformation(extent={{-10,10},{10,-10}},rotation=-90,origin={10,70})));
+    annotation (Placement(transformation(extent={{-10,10},{10,-10}},
+      rotation=-90,origin={10,70})));
   Modelica.StateGraph.StepWithSignal oneOn(
     nOut=2,
     nIn=2)
     "Status of one chiller on"
-    annotation (Placement(transformation(extent={{10,-10},{-10,10}},rotation=90,origin={10,0})));
+    annotation (Placement(transformation(extent={{10,-10},{-10,10}},
+      rotation=90,origin={10,0})));
   Modelica.StateGraph.StepWithSignal twoOn
     "Status of two chillers on"
-    annotation (Placement(transformation(extent={{10,-10},{-10,10}},rotation=90,origin={10,-70})));
+    annotation (Placement(transformation(extent={{10,-10},{-10,10}},
+      rotation=90,origin={10,-70})));
   Modelica.StateGraph.TransitionWithSignal offToOne(
     enableTimer=true,
     waitTime=tWai)
     "Condition of transition from off to one chiller on"
-    annotation (Placement(transformation(extent={{10,10},{-10,-10}},rotation=90,origin={10,40})));
+    annotation (Placement(transformation(extent={{10,10},{-10,-10}},
+      rotation=90,origin={10,40})));
   Modelica.StateGraph.TransitionWithSignal oneToTwo(
     enableTimer=true,
     waitTime=tWai)
     "Condition of transition from one chiller to two chillers"
-    annotation (Placement(transformation(extent={{10,10},{-10,-10}},rotation=90,origin={10,-40})));
+    annotation (Placement(transformation(extent={{10,10},{-10,-10}},
+      rotation=90,origin={10,-40})));
   Modelica.StateGraph.TransitionWithSignal twoToOne(
     enableTimer=true,
     waitTime=tWai)
     "Condition of transion from two chillers to one chiller"
-    annotation (Placement(transformation(extent={{-10,10},{10,-10}},rotation=90,origin={60,-40})));
+    annotation (Placement(transformation(extent={{-10,10},{10,-10}},
+      rotation=90,origin={60,-40})));
   Modelica.StateGraph.TransitionWithSignal oneToOff(
     enableTimer=true,
     waitTime=tWai)
     "Condition of transition from one chiller to off"
-    annotation (Placement(transformation(extent={{-10,10},{10,-10}},rotation=90,origin={40,40})));
+    annotation (Placement(transformation(extent={{-10,10},{10,-10}},
+      rotation=90,origin={40,40})));
   inner Modelica.StateGraph.StateGraphRoot stateGraphRoot
     "State graph root"
     annotation (Placement(transformation(extent={{120,60},{140,80}})));
