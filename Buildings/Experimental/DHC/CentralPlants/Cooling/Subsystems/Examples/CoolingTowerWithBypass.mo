@@ -48,6 +48,9 @@ First implementation.
 </ul>
 </html>",
       info="<html>
-<p>This model validates the parallel connected cooling tower subsystem in <a href=\"modelica://Buildings.Experimental.DHC.CentralPlants.Cooling.Subsystems.CoolingTowerWithBypass\">Buildings.Experimental.DHC.CentralPlants.Cooling.Subsystems.CoolingTowerWithBypass</a>.</p>
+<p>
+This model validates the parallel connected cooling tower subsystem in 
+<a href=\"modelica://Buildings.Experimental.DHC.CentralPlants.Cooling.Subsystems.CoolingTowerWithBypass\">Buildings.Experimental.DHC.CentralPlants.Cooling.Subsystems.CoolingTowerWithBypass</a>.
+</p>
 </html>"));
 end CoolingTowerWithBypass;

@@ -15,7 +15,8 @@ model Plant
     annotation (Dialog(group="Chiller"));
   replaceable parameter Buildings.Fluid.Chillers.Data.ElectricEIR.Generic perChi
     "Performance data of chiller"
-    annotation (Dialog(group="Chiller"),choicesAllMatching=true,Placement(transformation(extent={{124,264},{138,278}})));
+    annotation (Dialog(group="Chiller"),choicesAllMatching=true,
+   Placement(transformation(extent={{124,264},{138,278}})));
   parameter Modelica.SIunits.MassFlowRate mCHW_flow_nominal
     "Nominal chilled water mass flow rate"
     annotation (Dialog(group="Chiller"));
@@ -57,11 +58,13 @@ model Plant
   replaceable parameter Buildings.Fluid.Movers.Data.Generic perCHWPum
     constrainedby Buildings.Fluid.Movers.Data.Generic
     "Performance data of chilled water pump"
-    annotation (Dialog(group="Pump"),choicesAllMatching=true,Placement(transformation(extent={{164,264},{178,278}})));
+    annotation (Dialog(group="Pump"),choicesAllMatching=true,
+   Placement(transformation(extent={{164,264},{178,278}})));
   replaceable parameter Buildings.Fluid.Movers.Data.Generic perCWPum
     constrainedby Buildings.Fluid.Movers.Data.Generic
     "Performance data of condenser water pump"
-    annotation (Dialog(group="Pump"),choicesAllMatching=true,Placement(transformation(extent={{204,264},{218,278}})));
+    annotation (Dialog(group="Pump"),choicesAllMatching=true,
+   Placement(transformation(extent={{204,264},{218,278}})));
   parameter Modelica.SIunits.Pressure dpCHWPumVal_nominal
     "Nominal pressure drop of chilled water pump valve"
     annotation (Dialog(group="Pump"));
@@ -86,16 +89,19 @@ model Plant
     annotation (Evaluate=true,Dialog(tab="Dynamics",group="Equations"));
   Modelica.Blocks.Interfaces.BooleanInput on
     "On signal of the plant"
-    annotation (Placement(transformation(extent={{-340,180},{-300,220}}),iconTransformation(extent={{-342,202},{-302,242}})));
+    annotation (Placement(transformation(extent={{-340,180},{-300,220}}),
+   iconTransformation(extent={{-342,202},{-302,242}})));
   Modelica.Blocks.Interfaces.RealInput TCHWSupSet(
     final unit="K",
     displayUnit="degC")
     "Set point for chilled water supply temperature"
-    annotation (Placement(transformation(extent={{-340,120},{-300,160}}),iconTransformation(extent={{-340,138},{-300,178}})));
+    annotation (Placement(transformation(extent={{-340,120},{-300,160}}),
+   iconTransformation(extent={{-340,138},{-300,178}})));
   Modelica.Blocks.Interfaces.RealInput dpMea(
     final unit="Pa")
     "Measured pressure difference"
-    annotation (Placement(transformation(extent={{-340,60},{-300,100}}),iconTransformation(extent={{-340,78},{-300,118}})));
+    annotation (Placement(transformation(extent={{-340,60},{-300,100}}),
+   iconTransformation(extent={{-340,78},{-300,118}})));
   Buildings.Applications.DataCenters.ChillerCooled.Equipment.ElectricChillerParallel mulChiSys(
     use_inputFilter=false,
     final per=fill(
@@ -159,12 +165,12 @@ model Plant
   Buildings.Fluid.Sensors.MassFlowRate senMasFloByp(
     redeclare final package Medium=Medium)
     "Chilled water bypass valve mass flow meter"
-    annotation (Placement(transformation(extent={{-10,-10},{10,10}},rotation=180,origin={30,-90})));
+    annotation (Placement(transformation(extent={{40,-80},{20,-100}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort senTCHWSup(
     redeclare final package Medium=Medium,
     final m_flow_nominal=mCHW_flow_nominal)
     "Chilled water supply temperature"
-    annotation (Placement(transformation(extent={{-10,10},{10,-10}},rotation=0,origin={210,-90})));
+    annotation (Placement(transformation(extent={{140,-30},{160,-50}})));
   Buildings.Experimental.DHC.CentralPlants.Cooling.Controls.ChilledWaterPumpSpeed chiWatPumCon(
     tWai=0,
     final m_flow_nominal=mCHW_flow_nominal,
@@ -184,7 +190,7 @@ model Plant
     redeclare final package Medium=Medium,
     final m_flow_nominal=mCHW_flow_nominal)
     "Chilled water return temperature"
-    annotation (Placement(transformation(extent={{-10,-10},{10,10}},rotation=0,origin={-240,-90})));
+    annotation (Placement(transformation(extent={{-270,-100},{-250,-80}})));
   Buildings.Fluid.Sources.Boundary_pT expTanCW(
     redeclare final package Medium=Medium,
     nPorts=1)
@@ -220,14 +226,16 @@ model Plant
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     dp_nominal={0,0,0})
     "Flow joint for the chilled water return side"
-    annotation (Placement(transformation(extent={{10,10},{-10,-10}},rotation=-90,origin={-80,-90})));
+    annotation (Placement(transformation(extent={{10,10},{-10,-10}},
+      rotation=-90,origin={-80,-90})));
   Buildings.Fluid.FixedResistances.Junction splCHWSup(
     redeclare final package Medium=Medium,
     final m_flow_nominal=mCHW_flow_nominal .* {1,-1,-1},
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     dp_nominal={0,0,0})
     "Flow splitter for the chilled water supply side"
-    annotation (Placement(transformation(extent={{10,-10},{-10,10}},rotation=90,origin={80,-90})));
+    annotation (Placement(transformation(extent={{10,-10},{-10,10}},
+      rotation=90,origin={80,-90})));
   Buildings.Experimental.DHC.CentralPlants.Cooling.Controls.ChilledWaterBypass chiBypCon(
     final numChi=numChi,
     final mMin_flow=mMin_flow)
@@ -264,7 +272,7 @@ equation
   connect(expTanCW.ports[1],pumCW.port_a)
     annotation (Line(points={{20,120},{0,120},{0,90},{20,90}},color={0,127,255}));
   connect(senTCHWRet.port_b,senMasFlo.port_a)
-    annotation (Line(points={{-230,-90},{-190,-90}},color={0,127,255}));
+    annotation (Line(points={{-250,-90},{-190,-90}},color={0,127,255}));
   connect(chiStaCon.y,mulChiSys.on)
     annotation (Line(points={{-219,194},{-160,194},{-160,160},{100,160},{100,4},{12,4}},color={255,0,255}));
   connect(chiStaCon.y,chiOn.u)
@@ -278,9 +286,9 @@ equation
     color={255,204,51},thickness=0.5),Text(string="%first",index=-1,
     extent={{-6,3},{-6,3}},horizontalAlignment=TextAlignment.Right));
   connect(port_aSerCoo,senTCHWRet.port_a)
-    annotation (Line(points={{-300,-40},{-280,-40},{-280,-90},{-250,-90}},color={0,127,255}));
+    annotation (Line(points={{-300,-40},{-280,-40},{-280,-90},{-270,-90}},color={0,127,255}));
   connect(senTCHWSup.port_b,port_bSerCoo)
-    annotation (Line(points={{220,-90},{280,-90},{280,-40},{300,-40}},color={0,127,255}));
+    annotation (Line(points={{160,-40},{300,-40}}, color={0,127,255}));
   connect(TCHWSupSet,mulChiSys.TSet)
     annotation (Line(points={{-320,140},{-280,140},{-280,180},{120,180},{120,0},{12,0}},color={0,0,127}));
   connect(totPPum.y,PPum)
@@ -288,7 +296,8 @@ equation
   connect(pumCW.P,totPPum.u[1:2])
     annotation (Line(points={{41,94},{80,94},{80,140},{240,140},{240,160.5},{258,160.5}},color={0,0,127}));
   connect(pumCHW.P,totPPum.u[3:4])
-    annotation (Line(points={{-29,-2},{-20,-2},{-20,20},{84,20},{84,136},{242,136},{242,158.5},{258,158.5}},color={0,0,127}));
+    annotation (Line(points={{-29,-2},{-20,-2},{-20,44},{84,44},{84,136},{242,136},
+          {242,158.5},{258,158.5}}, color={0,0,127}));
   connect(totPFan.y,PFan)
     annotation (Line(points={{282,200},{320,200}},color={0,0,127}));
   connect(cooTowWitByp.PFan,totPFan.u[1:2])
@@ -300,7 +309,8 @@ equation
   connect(mulChiSys.port_b2,splCHWSup.port_1)
     annotation (Line(points={{10,-6},{80,-6},{80,-80}},color={0,127,255}));
   connect(splCHWSup.port_3,senTCHWSup.port_a)
-    annotation (Line(points={{90,-90},{200,-90}},color={0,127,255}));
+    annotation (Line(points={{90,-90},{90,-40},{140,-40}},
+                                                 color={0,127,255}));
   connect(splCHWSup.port_2,senMasFloByp.port_a)
     annotation (Line(points={{80,-100},{80,-110},{60,-110},{60,-90},{40,-90}},color={0,127,255}));
   connect(joiCHWRet.port_2,pumCHW.port_a)
@@ -312,9 +322,10 @@ equation
   connect(expTanCHW.ports[1],pumCHW.port_a)
     annotation (Line(points={{-90,-30},{-80,-30},{-80,-6},{-50,-6}},color={0,127,255}));
   connect(senTCHWRet.T,chiStaCon.TChiWatRet)
-    annotation (Line(points={{-240,-79},{-240,172},{-260,172},{-260,196},{-242,196}},color={0,0,127}));
+    annotation (Line(points={{-260,-79},{-260,196},{-242,196}},color={0,0,127}));
   connect(senTCHWSup.T,chiStaCon.TChiWatSup)
-    annotation (Line(points={{210,-101},{210,-120},{-220,-120},{-220,172},{-252,172},{-252,192},{-242,192}},color={0,0,127}));
+    annotation (Line(points={{150,-51},{150,-120},{-220,-120},{-220,166},{-252,166},
+          {-252,192},{-242,192}},color={0,0,127}));
   connect(senMasFlo.m_flow,chiStaCon.mFloChiWat)
     annotation (Line(points={{-180,-79},{-180,172},{-246,172},{-246,188},{-242,188}},color={0,0,127}));
   connect(chiBypCon.y,valByp.y)
@@ -327,22 +338,35 @@ equation
     defaultComponentName="pla",
     Documentation(
       info="<html>
-<p>This model showcases a generic district central cooling plant as illustrated in the schematics below. </p>
-<ul>
-<li>The cooling is provided by two parallel chillers instantiated from </li>
-<p><a href=\"modelica://Buildings.Applications.DataCenters.ChillerCooled.Equipment.ElectricChillerParallel\">Buildings.Applications.DataCenters.ChillerCooled.Equipment.ElectricChillerParallel</a>. </p>
-<li>The chilled water bypass loop is controlled to ensure a minimum flow </li>
-<p>of chilled water running through the chillers all the time. </p>
-<li>The condenser water is cooled by two parallel cooling towers with a bypass loop. </li>
-<p>See <a href=\"modelica://Buildings.Experimental.DHC.CentralPlants.Cooling.Subsystems.CoolingTowerWithBypass\">Buildings.Experimental.DHC.CentralPlants.Cooling.Subsystems.CoolingTowerWithBypass</a> </p>
-<p>for the details of the modeling of the cooling towers. </p>
-<li>The chilled water loop is equipped with two parallel variable speed pumps, </li>
-<p>which are controlled to maitain a use-determined pressure difference setpoint at the demand side. </p>
-<p>The condenser water pumps are constant speed with prescribed mass flow rates. </p>
-<li>The plant operates when it receives an <span style=\"font-family: Courier New;\">on</span> signal from the external control. </li>
-</ul>
-<p>The staging of the chillers is based on the calculated cooling load. </p>
-<p>See <a href=\"modelica://Buildings.Experimental.DHC.CentralPlants.Cooling.Controls.ChillerStage\">Buildings.Experimental.DHC.CentralPlants.Cooling.Controls.ChillerStage</a> for the detailed control logic. </p>
+<p>
+This model showcases a generic district cooling central plant as illustrated 
+in the schematic below. The primary-only chiller plant contains bypass legs
+on both the chilled water (CHW) and condenser water (CW) sides. 
+The plant operates when it receives an 
+<span style=\"font-family: Courier New;\">on</span> signal from the external control.
+</p>
+
+<h4>Chillers and Chilled Water Loop</h4>
+<p>
+The cooling is provided by two parallel chillers 
+instantiated from 
+<a href=\"modelica://Buildings.Applications.DataCenters.ChillerCooled.Equipment.ElectricChillerParallel\">Buildings.Applications.DataCenters.ChillerCooled.Equipment.ElectricChillerParallel</a>. 
+The staging of the chillers is based on the calculated cooling load. 
+See <a href=\"modelica://Buildings.Experimental.DHC.CentralPlants.Cooling.Controls.ChillerStage\">Buildings.Experimental.DHC.CentralPlants.Cooling.Controls.ChillerStage</a> 
+for the detailed control logic.
+</p>
+<p>
+The chilled water loop is equipped with two parallel variable speed pumps, 
+which are controlled to maintain a user-determined pressure difference 
+setpoint at the demand side. The chilled water bypass is controlled to 
+ensure a minimum flow of chilled water running through the chillers all the time. 
+</p>
+<h4>Condenser Water Loop</h4>
+<p>The condenser water is cooled by two parallel cooling towers with a bypass loop. 
+See <a href=\"modelica://Buildings.Experimental.DHC.CentralPlants.Cooling.Subsystems.CoolingTowerWithBypass\">Buildings.Experimental.DHC.CentralPlants.Cooling.Subsystems.CoolingTowerWithBypass</a> 
+for the details of the modeling of the cooling towers. The condenser water pumps 
+are constant speed with prescribed mass flow rates. 
+</p>
 <p><img src=\"modelica://Buildings/Resources/Images/Experimental/DHC/CentralPlants/Cooling/Plant.png\" alt=\"System schematics\"/>. </p>
 </html>",
       revisions="<html>
