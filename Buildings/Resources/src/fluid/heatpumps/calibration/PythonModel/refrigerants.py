@@ -281,7 +281,7 @@ class R410A(object):
 
         dpdv = -R*TVap/(vVap - b)**2.0
         for i in range(len(A)):
-            dpdv = dpdv + (-i)*(A[i] + B[i]*TVap
+            dpdv = dpdv - (2.0+i)*(A[i] + B[i]*TVap
                                 + C[i]*np.exp(-k*TVap/self.TCri)) \
                                 / (vVap - b)**(i + 3.0)
         return dpdv

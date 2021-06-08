@@ -33,6 +33,22 @@ test-bestest:
 	git status --porcelain $(ROOT)/Buildings/Resources/Data/BoundaryConditions/Validation/BESTEST
 	git diff --exit-code $(ROOT)/Buildings/Resources/Data/BoundaryConditions/Validation/BESTEST
 
+test-spawn-portability:
+	@echo "*** Check if Spawn works if the root folder is not Buildings"
+	(cd  "$(ROOT)" && \
+	  mv Buildings "Buildings 8.0.0" && \
+	  echo "within ;" > SpawnTest.mo && \
+	  echo "model SpawnTest" >> SpawnTest.mo && \
+	  echo "  extends" >> SpawnTest.mo && \
+	  echo "    Buildings.ThermalZones.EnergyPlus.Examples.SingleFamilyHouse.Unconditioned;" >> SpawnTest.mo && \
+	  echo "end SpawnTest;" >> SpawnTest.mo && \
+	  echo "simulateModel(\"SpawnTest\", stopTime=432000, method=\"Cvode\", tolerance=1e-06);" > run.mos && \
+	  echo "exit()" >> run.mos && \
+	  rm -f dslog.txt && \
+	  dymola run.mos && \
+	  mv "Buildings 8.0.0" Buildings && \
+	  grep "terminated successfully" dslog.txt )
+
 test-omc:
 	(cd $(ROOT) && $(TRAVIS_BUILD_DIR)/Buildings/Resources/Scripts/travis/omc/testOpenModelica.sh)
 
