@@ -40,7 +40,7 @@ or by replacing existing component models by new ones.
 The example models can be found in the packages `Examples`.
 
 Study the detailed tutorials with step-by-step instructions for how to build system models,
-which can be found in the `Tutorial package <https://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Examples_Tutorial.html>`_.
+which can be found in the `Tutorial package <https://simulationresearch.lbl.gov/modelica/releases/v8.0.0/help/Buildings_Examples_Tutorial.html>`_.
 
 Note that heat transfer models, which can be found in `Buildings.HeatTransfer.*.Examples` are easier to understand than fluid flow models because;
 
