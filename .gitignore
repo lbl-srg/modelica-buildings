@@ -72,4 +72,4 @@ Buildings/Resources/src/fluid/heatpumps/calibration/doc/build/doctrees
 tmp-eplus-*
 eplus*
 sqlite*
-*/tmp-simulation*
+*/EnergyPlus-simulation*

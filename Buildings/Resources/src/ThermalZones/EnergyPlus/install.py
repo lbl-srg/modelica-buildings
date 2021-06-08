@@ -13,6 +13,13 @@ import zipfile
 import urllib.request, urllib.parse, urllib.error
 import shutil
 
+# Commit, see https://gitlab.com/kylebenne/spawn/-/pipelines?scope=all&page=1
+# Also available is latest/Spawn-latest-{Linux,win64,Darwin}
+# The setup below will lead to a specific commit being pulled.
+commit = "b6575d860ca14093dc4c8da684fdda73690970ad"
+NAME_VERSION = f"Spawn-0.1.1-{commit[0:10]}"
+
+
 
 def log(msg):
     print(msg)
@@ -152,16 +159,11 @@ def replace_table_in_mo(html, varType, moFile):
 
 
 if __name__ == "__main__":
-    # Commit, see https://gitlab.com/kylebenne/spawn/-/pipelines?scope=all&page=1
-    # Also available is latest/Spawn-latest-{Linux,win64,Darwin}
-    # The setup below lead to a specific commit being pulled.
-    commit = "3ec0a1fa6e31452fcb5b9318ea85c5610995e50b"
-    name_version = f"Spawn-0.1.0-{commit[0:10]}"
 
     dists = list()
     dists.append(
         {
-            "src": f"https://spawn.s3.amazonaws.com/builds/{name_version}-Linux.tar.gz",
+            "src": f"https://spawn.s3.amazonaws.com/builds/{NAME_VERSION}-Linux.tar.gz",
             "des": "spawn-linux64",
             "files": {
                 "bin/spawn": "",
@@ -173,7 +175,7 @@ if __name__ == "__main__":
     )
     dists.append(
         {
-            "src": f"https://spawn.s3.amazonaws.com/builds/{name_version}-win64.zip",
+            "src": f"https://spawn.s3.amazonaws.com/builds/{NAME_VERSION}-win64.zip",
             "des": "spawn-win64",
             "files": {
                 "bin/epfmi.dll": "",

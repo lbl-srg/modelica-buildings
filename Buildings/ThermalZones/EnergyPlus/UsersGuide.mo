@@ -35,7 +35,7 @@ in the instance <code>building</code>.
 </li>
 </ol>
 <p>
-The following coupling objects can then be integrated in the model that contains the instance 
+The following coupling objects can then be integrated in the model that contains the instance
 <code>building</code>, or in any model instantiated by that model.
 </p>
 <ul>
@@ -164,20 +164,32 @@ The following conventions are made:
 </p>
 <ul>
 <li>
-If a zone is in the idf file but not modeled in Modelica, EnergyPlus will
-simulate the zone as free floating.
+If a zone is in the idf file but not modeled in Modelica, then
+<ul>
+<li>
+EnergyPlus will simulate the zone as free floating, and
 </li>
 <li>
-EnergyPlus will remove all infiltration objects, even for zones that are not modeled
-with
+EnergyPlus will simulate the outside air infiltration if specified in the idf file.
+</li>
+</ul>
+This allows unconditioned zones such as a basement or an attic to simulate in EnergyPlus
+without having to use an instance of
 <a href=\"modelica://Buildings.ThermalZones.EnergyPlus.ThermalZone\">
 Buildings.ThermalZones.EnergyPlus.ThermalZone</a>.
-(This is expected to change in future releases so that unconditioned spaces, such as
-an attic, need not be modeled with
+</li>
+<li>
+If a zone is in the idf file and modeled in Modelica using
 <a href=\"modelica://Buildings.ThermalZones.EnergyPlus.ThermalZone\">
-Buildings.ThermalZones.EnergyPlus.ThermalZone</a>
-just to add infiltration.
-See <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2492\">issue 2492</a>)
+Buildings.ThermalZones.EnergyPlus.ThermalZone</a>,
+then EnergyPlus will remove all infiltration objects for this zone.
+This is done because Modelica computes the mass balance of the zone air, and infiltration
+depends on the static pressure of the HVAC system.
+Pressure-driven infiltration can be modeled using
+<a href=\"modelica://Buildings.Airflow.Multizone\">
+Buildings.Airflow.Multizone</a>, or a fixed infiltration rate can be imposed as is shown in
+<a href=\"modelica://Buildings.ThermalZones.EnergyPlus.Examples.SingleFamilyHouse.AirHeating\">
+Buildings.ThermalZones.EnergyPlus.Examples.SingleFamilyHouse.AirHeating</a>.
 </li>
 <li>
 All EnergyPlus HVAC objects that are present in the idf file are removed when coupled to Spawn.
@@ -356,6 +368,52 @@ the internal wall temperatures.
 </p>
 </html>"));
   end EnergyPlusWarmUp;
+
+  class KnownIssues
+    "Known issues"
+    extends Modelica.Icons.Information;
+    annotation (
+      preferredView="info",
+      Documentation(
+        info="<html>
+<h4>Known issues</h4>
+<h5>EnergyPlus warnings</h5>
+<p>
+EnergyPlus may issue a warning such as
+</p>
+<pre>
+Calculated Relative Humidity out of range (PsyRhFnTdbWPb)
+</pre>
+<p>
+Such warnings can be ignored. The humidity balance of EnergyPlus is not used
+because Modelica computes the humidity balance.<br/>
+This will be addressed through
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2220\">issue 2220</a>.
+</p>
+<h5>Signals to time schedules and actuators</h5>
+<p>
+If Modelica overrides a time schedule or an actuator at a time instant that does not
+coincide with an EnergyPlus time step, the change in value may be ignored for the heat balance
+of the current EnergyPlus time step.<br/>
+This will be addressed through
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2000\">issue 2000</a>.
+</p>
+<h5>Simulation must not start at a negative time</h5>
+<p>
+If a simulation starts at a time smaller than <i>0</i>, then an error will be issued and
+the simulation won't start.<br/>
+This will be addressed through
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1938\">issue 1938</a>.
+</p><h5>FMUs generated with a Spawn model may still require a Buildings library installation</h5>
+<p>
+If an FMU is generated that contains a Spawn model and then simulated on another computer,
+the simulation may fail to start because of depedencies to the Buildings library and the Spawn binaries.
+.<br/>
+This will be addressed through
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2054\">issue 2054</a>.
+</p>
+</html>"));
+  end KnownIssues;
 
   class NotesForDymola
     "Notes for Dymola"

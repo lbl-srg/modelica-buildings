@@ -11,6 +11,7 @@
 
 #include <stdio.h>
 #ifdef _MSC_VER
+#include <direct.h> /* Provides _getcwd() */
 #include <windows.h>
 #define R_OK 4
 #define W_OK 2
