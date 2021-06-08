@@ -16,7 +16,7 @@ model Plant
   replaceable parameter Buildings.Fluid.Chillers.Data.ElectricEIR.Generic perChi
     "Performance data of chiller"
     annotation (Dialog(group="Chiller"),choicesAllMatching=true,
-			Placement(transformation(extent={{124,264},{138,278}})));
+   Placement(transformation(extent={{124,264},{138,278}})));
   parameter Modelica.SIunits.MassFlowRate mCHW_flow_nominal
     "Nominal chilled water mass flow rate"
     annotation (Dialog(group="Chiller"));
@@ -59,12 +59,12 @@ model Plant
     constrainedby Buildings.Fluid.Movers.Data.Generic
     "Performance data of chilled water pump"
     annotation (Dialog(group="Pump"),choicesAllMatching=true,
-			Placement(transformation(extent={{164,264},{178,278}})));
+   Placement(transformation(extent={{164,264},{178,278}})));
   replaceable parameter Buildings.Fluid.Movers.Data.Generic perCWPum
     constrainedby Buildings.Fluid.Movers.Data.Generic
     "Performance data of condenser water pump"
     annotation (Dialog(group="Pump"),choicesAllMatching=true,
-			Placement(transformation(extent={{204,264},{218,278}})));
+   Placement(transformation(extent={{204,264},{218,278}})));
   parameter Modelica.SIunits.Pressure dpCHWPumVal_nominal
     "Nominal pressure drop of chilled water pump valve"
     annotation (Dialog(group="Pump"));
@@ -90,18 +90,18 @@ model Plant
   Modelica.Blocks.Interfaces.BooleanInput on
     "On signal of the plant"
     annotation (Placement(transformation(extent={{-340,180},{-300,220}}),
-			iconTransformation(extent={{-342,202},{-302,242}})));
+   iconTransformation(extent={{-342,202},{-302,242}})));
   Modelica.Blocks.Interfaces.RealInput TCHWSupSet(
     final unit="K",
     displayUnit="degC")
     "Set point for chilled water supply temperature"
     annotation (Placement(transformation(extent={{-340,120},{-300,160}}),
-			iconTransformation(extent={{-340,138},{-300,178}})));
+   iconTransformation(extent={{-340,138},{-300,178}})));
   Modelica.Blocks.Interfaces.RealInput dpMea(
     final unit="Pa")
     "Measured pressure difference"
     annotation (Placement(transformation(extent={{-340,60},{-300,100}}),
-			iconTransformation(extent={{-340,78},{-300,118}})));
+   iconTransformation(extent={{-340,78},{-300,118}})));
   Buildings.Applications.DataCenters.ChillerCooled.Equipment.ElectricChillerParallel mulChiSys(
     use_inputFilter=false,
     final per=fill(
@@ -333,22 +333,35 @@ equation
     defaultComponentName="pla",
     Documentation(
       info="<html>
-<p>This model showcases a generic district central cooling plant as illustrated in the schematics below. </p>
-<ul>
-<li>The cooling is provided by two parallel chillers instantiated from </li>
-<p><a href=\"modelica://Buildings.Applications.DataCenters.ChillerCooled.Equipment.ElectricChillerParallel\">Buildings.Applications.DataCenters.ChillerCooled.Equipment.ElectricChillerParallel</a>. </p>
-<li>The chilled water bypass loop is controlled to ensure a minimum flow </li>
-<p>of chilled water running through the chillers all the time. </p>
-<li>The condenser water is cooled by two parallel cooling towers with a bypass loop. </li>
-<p>See <a href=\"modelica://Buildings.Experimental.DHC.CentralPlants.Cooling.Subsystems.CoolingTowerWithBypass\">Buildings.Experimental.DHC.CentralPlants.Cooling.Subsystems.CoolingTowerWithBypass</a> </p>
-<p>for the details of the modeling of the cooling towers. </p>
-<li>The chilled water loop is equipped with two parallel variable speed pumps, </li>
-<p>which are controlled to maitain a use-determined pressure difference setpoint at the demand side. </p>
-<p>The condenser water pumps are constant speed with prescribed mass flow rates. </p>
-<li>The plant operates when it receives an <span style=\"font-family: Courier New;\">on</span> signal from the external control. </li>
-</ul>
-<p>The staging of the chillers is based on the calculated cooling load. </p>
-<p>See <a href=\"modelica://Buildings.Experimental.DHC.CentralPlants.Cooling.Controls.ChillerStage\">Buildings.Experimental.DHC.CentralPlants.Cooling.Controls.ChillerStage</a> for the detailed control logic. </p>
+<p>
+This model showcases a generic district cooling central plant as illustrated 
+in the schematic below. The primary-only chiller plant contains bypass legs
+on both the chilled water (CHW) and condenser water (CW) sides. 
+The plant operates when it receives an 
+<span style=\"font-family: Courier New;\">on</span> signal from the external control.
+</p>
+
+<h4>Chillers and Chilled Water Loop</h4>
+<p>
+The cooling is provided by two parallel chillers 
+instantiated from 
+<a href=\"modelica://Buildings.Applications.DataCenters.ChillerCooled.Equipment.ElectricChillerParallel\">Buildings.Applications.DataCenters.ChillerCooled.Equipment.ElectricChillerParallel</a>. 
+The staging of the chillers is based on the calculated cooling load. 
+See <a href=\"modelica://Buildings.Experimental.DHC.CentralPlants.Cooling.Controls.ChillerStage\">Buildings.Experimental.DHC.CentralPlants.Cooling.Controls.ChillerStage</a> 
+for the detailed control logic.
+</p>
+<p>
+The chilled water loop is equipped with two parallel variable speed pumps, 
+which are controlled to maintain a user-determined pressure difference 
+setpoint at the demand side. The chilled water bypass is controlled to 
+ensure a minimum flow of chilled water running through the chillers all the time. 
+</p>
+<h4>Condenser Water Loop</h4>
+<p>The condenser water is cooled by two parallel cooling towers with a bypass loop. 
+See <a href=\"modelica://Buildings.Experimental.DHC.CentralPlants.Cooling.Subsystems.CoolingTowerWithBypass\">Buildings.Experimental.DHC.CentralPlants.Cooling.Subsystems.CoolingTowerWithBypass</a> 
+for the details of the modeling of the cooling towers. The condenser water pumps 
+are constant speed with prescribed mass flow rates. 
+</p>
 <p><img src=\"modelica://Buildings/Resources/Images/Experimental/DHC/CentralPlants/Cooling/Plant.png\" alt=\"System schematics\"/>. </p>
 </html>",
       revisions="<html>
