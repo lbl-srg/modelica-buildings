@@ -252,7 +252,7 @@ where: <br>
 Buildings.Fluid.BuriedPipes.Functions.groundCouplingFactors</a>
 for more information) <br>
 <i>Q<sub>i</sub></i> = net heat transfer from pipe <i>i</i> <br>
-<i>T<sub>i</sub></i> = temperature atthe exterior surface of pipe <i>i</i> <br>
+<i>T<sub>i</sub></i> = temperature at the exterior surface of pipe <i>i</i> <br>
 <i>T<sub>g</sub></i> = undisturbed ground temperature at the depth of the 
 network.
 </p>

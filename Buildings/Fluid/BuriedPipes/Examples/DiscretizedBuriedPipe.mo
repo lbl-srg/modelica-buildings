@@ -160,8 +160,7 @@ equation
   connect(Tin.y, souRev.T_in) annotation (Line(points={{-99,0},{100,0},{100,-44},
           {82,-44}}, color={0,0,127}));
   annotation (Diagram(
-        coordinateSystem(preserveAspectRatio=false, extent={{-120,-120},{120,
-            120}})),
+        coordinateSystem(preserveAspectRatio=false, extent={{-140,-120},{140,120}})),
     experiment(StopTime=63072000, Tolerance=1e-06),
     Documentation(info="<html>
 <p>

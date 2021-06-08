@@ -179,8 +179,7 @@ equation
   connect(con.port_b, gro.ports[1, 1])
     annotation (Line(points={{60,0},{90,0},{90,80}}, color={191,0,0}));
   annotation (Diagram(
-        coordinateSystem(preserveAspectRatio=false, extent={{-120,-120},{120,
-            120}})),
+        coordinateSystem(preserveAspectRatio=false, extent={{-140,-120},{140,120}})),
     experiment(StopTime=63072000, Tolerance=1e-06),
     Documentation(info="<html>
 <p>

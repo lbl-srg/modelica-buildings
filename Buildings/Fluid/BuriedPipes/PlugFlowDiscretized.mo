@@ -241,7 +241,7 @@ pipe might have different boundary conditions. This would be the case,
 for instance, for sufficiently long stretch of buried pipes.
 </p>
 <p>
-To reduce coupled nonlinear equations, the pipe resistance 
+To reduce coupled nonlinear equations, the pipe flow resistance 
 is aggregated to a single instance of 
 <a href=\"modelica://Buildings.Fluid.FixedResistances.HydraulicDiameter\">
 Buildings.Fluid.FixedResistances.HydraulicDiameter</a> rather than being
