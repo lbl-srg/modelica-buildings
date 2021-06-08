@@ -1,9 +1,10 @@
 within Buildings.Experimental.DHC.CentralPlants.Cooling.Subsystems;
-model CoolingTowerParellel
+model CoolingTowerParallel
   "Multiple identical cooling towers in parallel connection"
   extends Buildings.Fluid.Interfaces.PartialTwoPortInterface(
     redeclare replaceable package Medium=Buildings.Media.Water);
-  extends Buildings.Applications.DataCenters.ChillerCooled.Equipment.BaseClasses.SignalFilter(
+  extends
+    Buildings.Applications.DataCenters.ChillerCooled.Equipment.BaseClasses.SignalFilter(
     riseTimeValve=30,
     use_inputFilter=true,
     final numFil=num);
@@ -276,4 +277,4 @@ First implementation.
 is currently used in this model. </p>
 </html>"),
     __Dymola_Commands);
-end CoolingTowerParellel;
+end CoolingTowerParallel;
