@@ -15,7 +15,8 @@ model Plant
     annotation (Dialog(group="Chiller"));
   replaceable parameter Buildings.Fluid.Chillers.Data.ElectricEIR.Generic perChi
     "Performance data of chiller"
-    annotation (Dialog(group="Chiller"),choicesAllMatching=true,Placement(transformation(extent={{124,264},{138,278}})));
+    annotation (Dialog(group="Chiller"),choicesAllMatching=true,
+			Placement(transformation(extent={{124,264},{138,278}})));
   parameter Modelica.SIunits.MassFlowRate mCHW_flow_nominal
     "Nominal chilled water mass flow rate"
     annotation (Dialog(group="Chiller"));
@@ -57,11 +58,13 @@ model Plant
   replaceable parameter Buildings.Fluid.Movers.Data.Generic perCHWPum
     constrainedby Buildings.Fluid.Movers.Data.Generic
     "Performance data of chilled water pump"
-    annotation (Dialog(group="Pump"),choicesAllMatching=true,Placement(transformation(extent={{164,264},{178,278}})));
+    annotation (Dialog(group="Pump"),choicesAllMatching=true,
+			Placement(transformation(extent={{164,264},{178,278}})));
   replaceable parameter Buildings.Fluid.Movers.Data.Generic perCWPum
     constrainedby Buildings.Fluid.Movers.Data.Generic
     "Performance data of condenser water pump"
-    annotation (Dialog(group="Pump"),choicesAllMatching=true,Placement(transformation(extent={{204,264},{218,278}})));
+    annotation (Dialog(group="Pump"),choicesAllMatching=true,
+			Placement(transformation(extent={{204,264},{218,278}})));
   parameter Modelica.SIunits.Pressure dpCHWPumVal_nominal
     "Nominal pressure drop of chilled water pump valve"
     annotation (Dialog(group="Pump"));
@@ -86,16 +89,19 @@ model Plant
     annotation (Evaluate=true,Dialog(tab="Dynamics",group="Equations"));
   Modelica.Blocks.Interfaces.BooleanInput on
     "On signal of the plant"
-    annotation (Placement(transformation(extent={{-340,180},{-300,220}}),iconTransformation(extent={{-342,202},{-302,242}})));
+    annotation (Placement(transformation(extent={{-340,180},{-300,220}}),
+			iconTransformation(extent={{-342,202},{-302,242}})));
   Modelica.Blocks.Interfaces.RealInput TCHWSupSet(
     final unit="K",
     displayUnit="degC")
     "Set point for chilled water supply temperature"
-    annotation (Placement(transformation(extent={{-340,120},{-300,160}}),iconTransformation(extent={{-340,138},{-300,178}})));
+    annotation (Placement(transformation(extent={{-340,120},{-300,160}}),
+			iconTransformation(extent={{-340,138},{-300,178}})));
   Modelica.Blocks.Interfaces.RealInput dpMea(
     final unit="Pa")
     "Measured pressure difference"
-    annotation (Placement(transformation(extent={{-340,60},{-300,100}}),iconTransformation(extent={{-340,78},{-300,118}})));
+    annotation (Placement(transformation(extent={{-340,60},{-300,100}}),
+			iconTransformation(extent={{-340,78},{-300,118}})));
   Buildings.Applications.DataCenters.ChillerCooled.Equipment.ElectricChillerParallel mulChiSys(
     use_inputFilter=false,
     final per=fill(

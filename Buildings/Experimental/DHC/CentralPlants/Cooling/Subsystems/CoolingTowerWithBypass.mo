@@ -376,9 +376,14 @@ equation
 </ul>
 </html>",
       info="<html>
-<p>This model simulates parallel connected cooling tower subsystem with a bypass valve. </p>
-<p>The bypass valve is controlled to enforce that the leaving condenser water temperature does not drop below the minimum temperature <code>TMin</code>.</p>
-<p>By default, the condenser water setpoint is the ambient wet bulb temperature <code>TWetBul</code> plus the approach temperature <code>dTApp</code>. </p>
-<p>Inside the model, a cooling tower fan speed controller is also implemented to maintain the condenser water at its setpoint.</p>
+<p>This model simulates parallel connected cooling tower subsystem 
+with a bypass valve. </p>
+<p>The bypass valve is controlled to enforce that the leaving 
+condenser water temperature does not drop below the minimum temperature 
+<code>TMin</code>.</p>
+<p>By default, the condenser water setpoint is the ambient wet bulb 
+temperature <code>TWetBul</code> plus the approach temperature <code>dTApp</code>. </p>
+<p>Inside the model, a cooling tower fan speed controller is also 
+implemented to maintain the condenser water at its setpoint.</p>
 </html>"));
 end CoolingTowerWithBypass;
