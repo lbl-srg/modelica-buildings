@@ -288,7 +288,7 @@ equation
   connect(port_aSerCoo,senTCHWRet.port_a)
     annotation (Line(points={{-300,-40},{-280,-40},{-280,-90},{-270,-90}},color={0,127,255}));
   connect(senTCHWSup.port_b,port_bSerCoo)
-    annotation (Line(points={{160,-40},{300,-40}},                    color={0,127,255}));
+    annotation (Line(points={{160,-40},{300,-40}}, color={0,127,255}));
   connect(TCHWSupSet,mulChiSys.TSet)
     annotation (Line(points={{-320,140},{-280,140},{-280,180},{120,180},{120,0},{12,0}},color={0,0,127}));
   connect(totPPum.y,PPum)
@@ -297,7 +297,7 @@ equation
     annotation (Line(points={{41,94},{80,94},{80,140},{240,140},{240,160.5},{258,160.5}},color={0,0,127}));
   connect(pumCHW.P,totPPum.u[3:4])
     annotation (Line(points={{-29,-2},{-20,-2},{-20,44},{84,44},{84,136},{242,136},
-          {242,158.5},{258,158.5}},                                                                         color={0,0,127}));
+          {242,158.5},{258,158.5}}, color={0,0,127}));
   connect(totPFan.y,PFan)
     annotation (Line(points={{282,200},{320,200}},color={0,0,127}));
   connect(cooTowWitByp.PFan,totPFan.u[1:2])
@@ -322,10 +322,10 @@ equation
   connect(expTanCHW.ports[1],pumCHW.port_a)
     annotation (Line(points={{-90,-30},{-80,-30},{-80,-6},{-50,-6}},color={0,127,255}));
   connect(senTCHWRet.T,chiStaCon.TChiWatRet)
-    annotation (Line(points={{-260,-79},{-260,196},{-242,196}},                      color={0,0,127}));
+    annotation (Line(points={{-260,-79},{-260,196},{-242,196}},color={0,0,127}));
   connect(senTCHWSup.T,chiStaCon.TChiWatSup)
     annotation (Line(points={{150,-51},{150,-120},{-220,-120},{-220,166},{-252,166},
-          {-252,192},{-242,192}},                                                                           color={0,0,127}));
+          {-252,192},{-242,192}},color={0,0,127}));
   connect(senMasFlo.m_flow,chiStaCon.mFloChiWat)
     annotation (Line(points={{-180,-79},{-180,172},{-246,172},{-246,188},{-242,188}},color={0,0,127}));
   connect(chiBypCon.y,valByp.y)
