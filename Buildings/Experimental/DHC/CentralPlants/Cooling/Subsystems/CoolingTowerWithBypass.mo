@@ -94,7 +94,7 @@ model CoolingTowerWithBypass
   Buildings.Fluid.Actuators.Valves.TwoWayEqualPercentage valByp(
     redeclare final package Medium=Medium,
     final allowFlowReversal=allowFlowReversal,
-    final m_flow_nominal=m_flow_nominal*0.0001,
+    final m_flow_nominal=m_flow_nominal,
     final show_T=show_T,
     final dpValve_nominal=dpValve_nominal,
     final dpFixed_nominal=dp_nominal,
@@ -121,8 +121,8 @@ model CoolingTowerWithBypass
       final unit="K",
       displayUnit="degC"),
     controllerType=Modelica.Blocks.Types.SimpleController.PI,
-    k=1,
-    Ti=60,
+    final k=k,
+    final Ti=Ti,
     final reset=Buildings.Types.Reset.Parameter,
     final y_reset=0)
     "Bypass valve controller"
