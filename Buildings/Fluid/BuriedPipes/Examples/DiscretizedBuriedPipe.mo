@@ -1,6 +1,6 @@
 ﻿within Buildings.Fluid.BuriedPipes.Examples;
 model DiscretizedBuriedPipe
-  "Example model of a buried pipe with multiple segment"
+  "Example model of a buried pipe with multiple segments"
   extends Modelica.Icons.Example;
 
   parameter Modelica.SIunits.Length totLen=10000 "Total pipe length";
@@ -165,11 +165,11 @@ equation
     Documentation(info="<html>
 <p>
 This example showcases the ground thermal coupling for two uninsulated 
-buried pipe - direct and reverse flow direction - operating around 
+buried pipes - direct and reverse flow direction - operating around 
 ambient temperature (<i>20</i>°C), and separated
 in 2 and 10 segments respectively.</p>
 <p>
-This example illustrate the difference in boundary conditions that
+This example illustrates the difference in boundary conditions that
 results from different segmentation of the pipes, since both
 pipes are representative of the same conditions (see
 <a href=\"modelica://Buildings.Fluid.BuriedPipes.Examples.SingleBuriedPipe\">

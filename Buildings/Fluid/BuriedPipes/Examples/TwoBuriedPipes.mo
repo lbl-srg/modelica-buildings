@@ -1,4 +1,4 @@
-within Buildings.Fluid.BuriedPipes.Examples;
+﻿within Buildings.Fluid.BuriedPipes.Examples;
 model TwoBuriedPipes "Example model of two buried pipes in close proximity"
   extends Modelica.Icons.Example;
 
@@ -151,8 +151,8 @@ equation
 <p>
 This example showcases the ground thermal coupling for a network of two 
 uninsulated buried pipes that are in close proximity. One pipe carries 
-chilled water oscillating around 10degC whereas the other carries hot water 
-oscillating around 80degC.
+chilled water oscillating around <i>10</i>°C whereas the other carries hot water 
+oscillating around <i>80</i>°C.
 </p>
 </html>", revisions="<html>
 <ul>

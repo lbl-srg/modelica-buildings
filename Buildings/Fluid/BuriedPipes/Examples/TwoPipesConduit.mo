@@ -1,4 +1,4 @@
-within Buildings.Fluid.BuriedPipes.Examples;
+﻿within Buildings.Fluid.BuriedPipes.Examples;
 model TwoPipesConduit
   "Example model of a buried conduit housing a supply and return pipe"
   extends Modelica.Icons.Example;
@@ -185,8 +185,8 @@ equation
 <p>
 This example showcases the ground thermal coupling for a buried conduit
 that contains one insulated hot water supply pipe oscillating around
-70degC and an uninsulated hot water return pipe oscillating around
-50degC.
+<i>70</i>°C and an uninsulated hot water return pipe oscillating around
+<i>50</i>°C.
 </p>
 </html>", revisions="<html>
 <ul>
