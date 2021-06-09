@@ -113,7 +113,7 @@ This model is to validate the block
 Buildings.Controls.OBC.Utilities.OptimalStart</a> for space heating system.
 </p>
 <p>
-The room is modelled as a simple differential equation with a time constant of
+The room is modeled as a simple differential equation with a time constant of
 around 5.6 hours.
 The outdoor temperature is also repetitive each day;
 the optimal start time converges to a small amount of time <code>tOpt</code> after a few days.

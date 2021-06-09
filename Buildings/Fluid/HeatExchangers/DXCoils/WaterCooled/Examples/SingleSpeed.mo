@@ -41,7 +41,7 @@ model SingleSpeed "Test model for single speed DX coil"
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)
                  "Single speed DX coil"
     annotation (Placement(transformation(extent={{-6,-6},{14,14}})));
-  Buildings.Fluid.HeatExchangers.DXCoils.WaterCooled.Data.Generic.DXCoil datCoi(
+  parameter Buildings.Fluid.HeatExchangers.DXCoils.WaterCooled.Data.Generic.DXCoil datCoi(
       nSta=1,
       sta={Buildings.Fluid.HeatExchangers.DXCoils.WaterCooled.Data.Generic.BaseClasses.Stage(
         spe=1800/60,
