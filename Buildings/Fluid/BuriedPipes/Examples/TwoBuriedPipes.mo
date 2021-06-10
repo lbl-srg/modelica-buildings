@@ -1,4 +1,4 @@
-﻿within Buildings.Fluid.BuriedPipes.Examples;
+within Buildings.Fluid.BuriedPipes.Examples;
 model TwoBuriedPipes "Example model of two buried pipes in close proximity"
   extends Modelica.Icons.Example;
 
