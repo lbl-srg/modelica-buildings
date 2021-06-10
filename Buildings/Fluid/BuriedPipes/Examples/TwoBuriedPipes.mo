@@ -5,10 +5,12 @@ model TwoBuriedPipes "Example model of two buried pipes in close proximity"
   replaceable parameter
     Buildings.BoundaryConditions.GroundTemperature.ClimaticConstants.Boston
     cliCon "Surface temperature climatic conditions";
-  replaceable parameter Buildings.HeatTransfer.Data.Soil.Generic
-    soiDat(k=1.58,c=1150,d=1600) "Soil thermal properties";
   replaceable package Medium = Buildings.Media.Water "Medium in the pipe"
     annotation (choicesAllMatching=true);
+
+  replaceable parameter Buildings.HeatTransfer.Data.Soil.Generic
+    soiDat(k=1.58,c=1150,d=1600) "Soil thermal properties"
+    annotation (Placement(transformation(extent={{100,80},{120,100}})));
 
   Buildings.Fluid.BuriedPipes.GroundCoupling gro(
     nPip=2,
@@ -27,7 +29,7 @@ model TwoBuriedPipes "Example model of two buried pipes in close proximity"
     redeclare package Medium = Medium,
     dh=0.1,
     length=1000,
-    m_flow_nominal=1,
+    m_flow_nominal=10,
     dIns=0.01,
     kIns=100,
     cPip=500,
@@ -50,7 +52,7 @@ model TwoBuriedPipes "Example model of two buried pipes in close proximity"
     annotation (Placement(transformation(extent={{-66,10},{-46,30}})));
   Sensors.TemperatureTwoPort senTemChWIn(
     redeclare package Medium = Medium,
-    m_flow_nominal=1,
+    m_flow_nominal=pipChW.m_flow_nominal,
     T_start=TChW) "Chilled water pipe inlet temperature sensor"
     annotation (Placement(transformation(extent={{-30,10},{-10,30}})));
   Sources.Boundary_pT sinChW(
@@ -61,7 +63,7 @@ model TwoBuriedPipes "Example model of two buried pipes in close proximity"
     annotation (Placement(transformation(extent={{100,10},{80,30}})));
   Sensors.TemperatureTwoPort senTemChWOut(
     redeclare package Medium = Medium,
-    m_flow_nominal=1,
+    m_flow_nominal=pipChW.m_flow_nominal,
     T_start=TChW) "Chilled water pipe outlet temperature sensor"
     annotation (Placement(transformation(extent={{50,10},{70,30}})));
 
@@ -69,7 +71,7 @@ model TwoBuriedPipes "Example model of two buried pipes in close proximity"
     redeclare package Medium = Medium,
     dh=0.1,
     length=1000,
-    m_flow_nominal=1,
+    m_flow_nominal=10,
     dIns=0.01,
     kIns=100,
     cPip=500,
@@ -77,7 +79,8 @@ model TwoBuriedPipes "Example model of two buried pipes in close proximity"
     thickness=0.0032,
     T_start_in=THotW,
     T_start_out=THotW,
-    nPorts=1) annotation (Placement(transformation(extent={{0,-50},{20,-30}})));
+    nPorts=1) "Buried hot water pipe"
+    annotation (Placement(transformation(extent={{0,-50},{20,-30}})));
   Modelica.Blocks.Sources.Sine TinHotW(
     amplitude=5,
     freqHz=1/90/24/60/60,
@@ -92,7 +95,7 @@ model TwoBuriedPipes "Example model of two buried pipes in close proximity"
     annotation (Placement(transformation(extent={{-66,-50},{-46,-30}})));
   Sensors.TemperatureTwoPort senTemHotWIn(
     redeclare package Medium = Medium,
-    m_flow_nominal=1,
+    m_flow_nominal=pipHotW.m_flow_nominal,
     T_start=THotW) "Hot water pipe inlet temperature sensor"
     annotation (Placement(transformation(extent={{-30,-50},{-10,-30}})));
   Sources.Boundary_pT sinHotW(
@@ -103,13 +106,15 @@ model TwoBuriedPipes "Example model of two buried pipes in close proximity"
     annotation (Placement(transformation(extent={{100,-50},{80,-30}})));
   Sensors.TemperatureTwoPort senTemHotWOut(
     redeclare package Medium = Medium,
-    m_flow_nominal=1,
+    m_flow_nominal=pipHotW.m_flow_nominal,
     T_start=THotW) "Hot water pipe outlet temperature sensor"
     annotation (Placement(transformation(extent={{50,-50},{70,-30}})));
 
 protected
-  parameter Modelica.SIunits.Temperature TChW = 273.15 + 10;
-  parameter Modelica.SIunits.Temperature THotW = 273.15 + 80;
+  parameter Modelica.SIunits.Temperature TChW = 273.15 + 10
+    "Chilled water mean supply temperature";
+  parameter Modelica.SIunits.Temperature THotW = 273.15 + 80
+    "Hot water mean supply temperature";
 
 equation
   connect(TinChW.y, souChW.T_in) annotation (Line(points={{-79,20},{-72,20},{

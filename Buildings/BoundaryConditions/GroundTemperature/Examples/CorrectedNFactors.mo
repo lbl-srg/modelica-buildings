@@ -23,5 +23,8 @@ The values used in this example are equivalent to the use-case
 presented in the \"Heat Transfer at Ground Surface\" section of the
 <i>District Cooling Guide</i> (ASHRAE, 2013). 
 </p>
-</html>"));
+</html>"),
+experiment(StopTime=31536000, Tolerance=1e-6),
+__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/BoundaryConditions/GroundTemperature/Examples/CorrectedNFactors.mos"
+        "Simulate and plot"));
 end CorrectedNFactors;

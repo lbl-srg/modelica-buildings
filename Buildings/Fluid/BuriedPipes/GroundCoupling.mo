@@ -1,15 +1,13 @@
 within Buildings.Fluid.BuriedPipes;
 model GroundCoupling "Thermal coupling between buried pipes and ground"
   parameter Integer nPip(min=1) "Number of buried pipes";
+  parameter Integer nSeg(min=1) = 1 "Number of axial segments";
 
   replaceable parameter Buildings.HeatTransfer.Data.Soil.Generic soiDat
     "Soil thermal properties";
   replaceable parameter
     Buildings.BoundaryConditions.GroundTemperature.ClimaticConstants.Generic
     cliCon "Surface temperature climatic conditions";
-
-  parameter Integer nSeg(min=1) = 1
-    "Number of axial segments (and number of heat ports for each pipe)";
 
   parameter Modelica.SIunits.Length len[nSeg] "Pipes length";
 
@@ -35,7 +33,7 @@ protected
 
 equation
   for seg in 1:nSeg loop
-    ports[:,seg].T .- soi.port.T = P * ports[:,seg].Q_flow /
+    ports[:,seg].T .- soi.T = P * ports[:,seg].Q_flow /
         (2 * Modelica.Constants.pi * soiDat.k * len[seg]);
   end for;
 
@@ -246,15 +244,16 @@ in the equation:
 </p>
 <p>
 where: <br>
-<i>k<sub>s</sub></i> = soil thermal conductivity <br>
+<i>L</i> = pipe length [m] <br>
+<i>k<sub>s</sub></i> = soil thermal conductivity [W/(m.K)] <br>
 <i>P<sub>ij</sub></i> = geometric factor (see 
-<a href=\"modelica://Buildings.Fluid.BuriedPipes.Functions.groundCouplingFactors\">
-Buildings.Fluid.BuriedPipes.Functions.groundCouplingFactors</a>
+<a href=\"modelica://Buildings.Fluid.BuriedPipes.BaseClasses.groundCouplingFactors\">
+Buildings.Fluid.BuriedPipes.BaseClasses.groundCouplingFactors</a>
 for more information) <br>
-<i>Q<sub>i</sub></i> = net heat transfer from pipe <i>i</i> <br>
-<i>T<sub>i</sub></i> = temperature at the exterior surface of pipe <i>i</i> <br>
+<i>Q<sub>i</sub></i> = net heat transfer from pipe <i>i</i> [W]<br>
+<i>T<sub>i</sub></i> = temperature at the exterior surface of pipe <i>i</i> [degC]<br>
 <i>T<sub>g</sub></i> = undisturbed ground temperature at the depth of the 
-network.
+network. [degC]
 </p>
 <p>
 This model relies on the following assumptions.

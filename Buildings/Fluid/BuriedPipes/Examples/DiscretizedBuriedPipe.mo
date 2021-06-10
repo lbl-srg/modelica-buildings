@@ -19,20 +19,22 @@ model DiscretizedBuriedPipe
   replaceable parameter
     Buildings.BoundaryConditions.GroundTemperature.ClimaticConstants.Boston
     cliCon "Surface temperature climatic conditions";
-  replaceable parameter Buildings.HeatTransfer.Data.Soil.Generic
-    soiDat(k=1.58,c=1150,d=1600) "Soil thermal properties";
   replaceable package Medium = Buildings.Media.Water "Medium in the pipe"
     annotation (choicesAllMatching=true);
+
+  replaceable parameter Buildings.HeatTransfer.Data.Soil.Generic
+    soiDat(k=1.58,c=1150,d=1600) "Soil thermal properties"
+    annotation (Placement(transformation(extent={{100,80},{120,100}})));
 
   PlugFlowDiscretized pip(
     redeclare package Medium = Medium,
     nSeg=nSeg,
-    rInt=0.05,
+    dh=0.1,
     length=segLen,
     m_flow_nominal=1,
     dIns=dIns,
     kIns=soiDat.k,
-    dPip=0.0032) "Buried pipe"
+    thickness=0.0032) "Buried pipe"
     annotation (Placement(transformation(extent={{-10,30},{10,50}})));
 
   Buildings.Fluid.BuriedPipes.GroundCoupling gro(
@@ -43,7 +45,7 @@ model DiscretizedBuriedPipe
     len=pip.length,
     dep={1.5},
     pos={0},
-    rad={pip.rInt + pip.dPip + pip.dIns})
+    rad={pip.dh / 2 + pip.thickness + pip.dIns})
     "Ground coupling" annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
@@ -81,12 +83,12 @@ model DiscretizedBuriedPipe
   PlugFlowDiscretized pipRev(
     redeclare package Medium = Medium,
     nSeg=nSegRev,
-    rInt=0.05,
+    dh=0.1,
     length=segLenRev,
     m_flow_nominal=1,
     dIns=dIns,
     kIns=soiDat.k,
-    dPip=0.0032) "Buried pipe"
+    thickness=0.0032) "Buried pipe"
     annotation (Placement(transformation(extent={{-10,-30},{10,-50}})));
   GroundCoupling groRev(
     nPip=1,
@@ -96,7 +98,7 @@ model DiscretizedBuriedPipe
     len=pipRev.length,
     dep={1.5},
     pos={0},
-    rad={pip.rInt + pip.dPip + pip.dIns})
+    rad={pip.dh / 2 + pip.thickness + pip.dIns})
     "Ground coupling" annotation (Placement(
         transformation(
         extent={{-10,10},{10,-10}},

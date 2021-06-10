@@ -6,8 +6,6 @@ model TwoPipesConduit
   replaceable parameter
     Buildings.BoundaryConditions.GroundTemperature.ClimaticConstants.Boston
     cliCon "Surface temperature climatic conditions";
-  replaceable parameter Buildings.HeatTransfer.Data.Soil.Generic
-    soiDat(k=1.58,c=1150,d=1600) "Soil thermal properties";
   replaceable package Medium = Buildings.Media.Water "Medium in the pipe"
     annotation (choicesAllMatching=true);
 
@@ -21,6 +19,9 @@ model TwoPipesConduit
     d=1380) "Conduit wall material (PVC)"
     annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
 
+  replaceable parameter Buildings.HeatTransfer.Data.Soil.Generic
+    soiDat(k=1.58,c=1150,d=1600) "Soil thermal properties"
+    annotation (Placement(transformation(extent={{100,80},{120,100}})));
 
   FixedResistances.PlugFlowPipe pipSup(
     redeclare package Medium = Medium,

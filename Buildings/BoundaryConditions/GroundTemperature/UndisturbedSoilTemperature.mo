@@ -4,21 +4,25 @@ model UndisturbedSoilTemperature "Undisturbed soil temperature"
 
   parameter Boolean useNFac = false
     "= true, use n-factors to correct climatic constants";
-  parameter Real nFacTha = 1 "Thawing n-factor (Tair > 0degC)";
-  parameter Real nFacFre = 1 "Freezing n-factor (Tair <= 0degC)";
+  parameter Real nFacTha = 1 "Thawing n-factor (Tair > 0degC)"
+    annotation(Dialog(enable=useNFac));
+  parameter Real nFacFre = 1 "Freezing n-factor (Tair <= 0degC)"
+    annotation(Dialog(enable=useNFac));
 
   parameter Boolean useCon = false
     "= true, includes convection between air and surface coupling";
   parameter Real hSur(unit="W/(m2.K)", min=0) = 25
-    "Surface convective heat transfer coefficient";
+    "Surface convective heat transfer coefficient"
+    annotation(Dialog(enable=useCon));
 
   replaceable parameter Buildings.HeatTransfer.Data.Soil.Generic
     soiDat "Soil thermal properties";
   replaceable parameter ClimaticConstants.Generic
     cliCon "Surface temperature climatic conditions";
 
-  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b
-    port "Boundary heat port";
+  Modelica.SIunits.Temperature T
+    "Undisturbed soil temperature at depth dep";
+
 protected
   constant Modelica.SIunits.Angle pi = Modelica.Constants.pi;
   constant Modelica.SIunits.Duration Year = 365.2422*24*60*60
@@ -41,9 +45,14 @@ protected
   parameter Real pha = - corDep * (pi/soiDif/Year)^0.5
     "Phase angle of ground temperature sinusoid";
 
+initial equation
+  assert(not (useCon and useNFac),
+    "N-Factors and surface convection corrections 
+    would typically not be used simultaneously",
+    level = AssertionLevel.warning);
 
 equation
-  port.T = corCliCon.TSurMea + corCliCon.TSurAmp * exp(pha) *
+  T = corCliCon.TSurMea + corCliCon.TSurAmp * exp(pha) *
     sin(2*pi*(time-timLag)/Year + pha);
     annotation (Placement(transformation(extent={{-6,-104},{6,-92}}),
         iconTransformation(extent={{-6,-104},{6,-92}})),
@@ -87,7 +96,7 @@ This model provides a prescribed temperature boundary condition for buried objec
 where the temperature is computed per the ASCE (1996) equation:
 </p>
 <p>
-<img alt=\"image\" src=\"modelica://Buildings/Resources/Images/BoundaryConditions/GroundTemperature/UndisturbedGroundTemperature.svg\" />
+<img alt=\"image\" src=\"modelica://Buildings/Resources/Images/BoundaryConditions/GroundTemperature/UndisturbedSoilTemperature.svg\" />
 </p>
 <p>
 where: <br>
@@ -117,9 +126,14 @@ heat transfer coefficient <i>hSur</i>.
 The impact of surface cover can be modeled using n-factors by setting the flag
 <i>useNFac</i> to <code>true</code> and specifying the thawing and freezing
 n-factors at the surface. <br>
+
 More information about n-factors correction can be found in the documentation
 for <a href=\"modelica://Buildings.BoundaryConditions.GroundTemperature.BaseClasses.surfaceTemperature\">
 Buildings.BoundaryConditions.GroundTemperature.BaseClasses.surfaceTemperature</a>.
+</p>
+<p>
+Since n-factors incorporate the effect of surface convection,
+both corrections would typically not be applied simultaneously. <br>
 </p>
 
 <h4>References</h4>

@@ -15,5 +15,8 @@ This example model showcases the use of the convection coefficient
 correction, which allows to specify the heat transfer rate between
 the air and the surface temperature.
 </p>
-</html>"));
+</html>"),
+experiment(StopTime=31536000, Tolerance=1e-6),
+__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/BoundaryConditions/GroundTemperature/Examples/CorrectedConvection.mos"
+        "Simulate and plot"));
 end CorrectedConvection;
