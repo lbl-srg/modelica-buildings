@@ -227,7 +227,7 @@
                     "value": 10,
                     "unit": "m3/s"
                 },
-                "Maximum expected system primary air volume flow rate": {
+                "Maximum expected system primary airflow at design stage": {
                     "value": 10,
                     "unit": "m3/s"
                 },

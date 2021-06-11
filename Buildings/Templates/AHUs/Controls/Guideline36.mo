@@ -271,11 +271,10 @@ block Guideline36 "Guideline 36 VAV single duct controller"
     annotation (Dialog(group="Fan speed PID controller"));
 
   // ----------- parameters for minimum outdoor airflow setting  -----------
-  // FIXME: what is that? Design supply air flow rate? ("primary" only makes sense at the terminal level.)
   parameter Real VPriSysMax_flow(
     final unit="m3/s",
     final quantity="VolumeFlowRate")=
-    dat.getReal(varName=id + ".Control.Maximum expected system primary volume air flow rate")
+    dat.getReal(varName=id + ".Control.Maximum expected system primary airflow at design stage")
     "Maximum expected system primary airflow at design stage"
     annotation (Dialog(tab="Minimum outdoor airflow rate", group="Nominal conditions"));
 
