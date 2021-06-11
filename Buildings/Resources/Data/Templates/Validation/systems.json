@@ -102,7 +102,7 @@
                 "value": 3E-4,
                 "unit": "m3/(s.m2)"
             },
-            "Zone putdoor air volume flow rate per person": {
+            "Zone outdoor air volume flow rate per person": {
                 "value": 2.5E-3,
                 "unit": "m3/s"
             },
@@ -219,13 +219,21 @@
                 }
             },
             "Ventilation": {
-                "Design OA flow rate": {
-                    "value": 294.15,
-                    "unit": "K"
+                "Design OA volume flow rate": {
+                    "value": 10,
+                    "unit": "m3/s"
                 },
-                "Uncorrected design OA flow rate": {
-                    "value": 294.15,
-                    "unit": "K"
+                "Uncorrected design OA volume flow rate": {
+                    "value": 10,
+                    "unit": "m3/s"
+                },
+                "Maximum expected system primary air volume flow rate": {
+                    "value": 10,
+                    "unit": "m3/s"
+                },
+                "Peak system population": {
+                    "value": 1,
+                    "unit": "p"
                 }
             },
             "Airflow": {

@@ -271,13 +271,17 @@ block Guideline36 "Guideline 36 VAV single duct controller"
     annotation (Dialog(group="Fan speed PID controller"));
 
   // ----------- parameters for minimum outdoor airflow setting  -----------
+  // FIXME: what is that? Design supply air flow rate? ("primary" only makes sense at the terminal level.)
   parameter Real VPriSysMax_flow(
     final unit="m3/s",
-    final quantity="VolumeFlowRate")
+    final quantity="VolumeFlowRate")=
+    dat.getReal(varName=id + ".Control.Maximum expected system primary volume air flow rate")
     "Maximum expected system primary airflow at design stage"
     annotation (Dialog(tab="Minimum outdoor airflow rate", group="Nominal conditions"));
 
-  parameter Real peaSysPop "Peak system population"
+  parameter Real peaSysPop=
+    dat.getReal(varName=id + ".Control.Peak system population")
+    "Peak system population"
     annotation (Dialog(tab="Minimum outdoor airflow rate", group="Nominal conditions"));
 
   // ----------- parameters for supply air temperature control  -----------
@@ -463,25 +467,9 @@ block Guideline36 "Guideline 36 VAV single duct controller"
 
   final parameter Real desZonPop[nZon](
     each min=0,
-    each final unit = "1") = occDen * AFlo
+    each final unit = "1") = occDen .* AFlo
     "Design zone population during peak occupancy"
     annotation(Dialog(group="Nominal condition"));
-
-  parameter Real uLow[nZon](
-    each final unit="K",
-    each final displayUnit="K",
-    each final quantity="ThermodynamicTemperature") = -0.5
-    "If zone space temperature minus supply air temperature is less than uLow,
-     then it should use heating supply air distribution effectiveness"
-    annotation (Dialog(tab="Advanced"));
-
-  parameter Real uHig[nZon](
-    each final unit="K",
-    each final displayUnit="K",
-    each final quantity="ThermodynamicTemperature") = 0.5
-    "If zone space temperature minus supply air temperature is more than uHig,
-     then it should use cooling supply air distribution effectiveness"
-    annotation (Dialog(tab="Advanced"));
 
   parameter Real minZonPriFlo[nZon](each unit="m3/s") = {
      dat.getReal(varName=idTerArr[i] + ".Control.Zone minimum expected primary air volume flow rate")
@@ -496,7 +484,7 @@ block Guideline36 "Guideline 36 VAV single duct controller"
   parameter Real THeaSetOcc[nZon](
     each final unit="K",
     each displayUnit="degC",
-    final quantity="ThermodynamicTemperature") = {
+    each final quantity="ThermodynamicTemperature") = {
       dat.getReal(varName=idTerArr[i] + ".Control.Occupied heating setpoint")
       for i in 1:nZon}
     "Occupied heating setpoint";
@@ -524,13 +512,6 @@ block Guideline36 "Guideline 36 VAV single duct controller"
       dat.getReal(varName=idTerArr[i] + ".Control.Unoccupied cooling setpoint")
       for i in 1:nZon}
     "Unoccupied cooling setpoint";
-
-  parameter Real bouLim[nZon](
-    each final unit="K",
-    each displayUnit="K",
-    each final quantity="TemperatureDifference",
-    each final min=0.5) = 1
-    "Threshold of temperature difference for indicating the end of setback or setup mode";
 
   /*
   * Parameters for Buildings.Controls.OBC.ASHRAE.G36_PR1.Generic.SetPoints.OperationMode
@@ -628,8 +609,6 @@ block Guideline36 "Guideline 36 VAV single duct controller"
     final zonDisEffCoo=zonDisEffCoo,
     final desZonDisEff=desZonDisEff,
     final desZonPop=desZonPop,
-    final uLow=uLow,
-    final uHig=uHig,
     final minZonPriFlo=minZonPriFlo)
     "Zone level calculation of the minimum outdoor airflow set point"
     annotation (Placement(transformation(extent={{150,-60},{130,-40}})));
@@ -644,7 +623,6 @@ block Guideline36 "Guideline 36 VAV single duct controller"
     final THeaSetUno=THeaSetUno,
     final TCooSetOcc=TCooSetOcc,
     final TCooSetUno=TCooSetUno,
-    final bouLim=bouLim,
     final have_winSen=have_winSen)
     "Evaluate zone temperature status"
     annotation (Placement(transformation(extent={{20,-180},{0,-152}})));
@@ -710,6 +688,9 @@ block Guideline36 "Guideline 36 VAV single duct controller"
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant FIXME8(k=1)
     "Convert zone group mode into AHU system mode per 5.15"
     annotation (Placement(transformation(extent={{260,-90},{240,-70}})));
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant  FIXME9(k=true)
+    "Various economizer configurations not handled: yDamRel (or exhaust), yDamOutMin"
+    annotation (Placement(transformation(extent={{278,62},{258,82}})));
 protected
     BaseClasses.Connectors.SubBusOutput busOutAHU
     "AHU output points"
@@ -982,10 +963,9 @@ equation
       points={{220.1,0.1},{200,0.1},{200,-56},{152,-56}},
       color={255,204,51},
       thickness=0.5));
-  connect(FIXME5.y, busOutAHU.yDamRel)
-    annotation (Line(points={{238,60},{90,60}}, color={0,0,127}));
-  connect(FIXME5.y, busOutAHU.yDamOutMin) annotation (Line(points={{238,60},{166,
-          60},{166,60},{90,60}}, color={0,0,127}));
+ connect(FIXME9.y, busOutAHU.yDamRel) annotation (Line(points={{256,72},{174,72},{174,60},{90,60}},
+                                                                                  color={0,0,127}));
+  // connect(FIXME5.y, busOutAHU.yDamOutMin) annotation (Line(points={{238,60},{90,60}}, color={0,0,127}));
   connect(FIXME7.y, busOutAHU.yFanRet) annotation (Line(points={{264,20},{106,
           20},{106,60},{90,60}},
                              color={255,0,255}));
