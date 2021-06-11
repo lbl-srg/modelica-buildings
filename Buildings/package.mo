@@ -217,9 +217,9 @@ Version 9.0.0 is ... xxx
 The following <b style=\"color:blue\">new libraries</b> have been added:
 </p>
 <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\">
-<tr><td valign=\"top\">xxx
+<tr><td valign=\"top\">Buildings.Media.Steam
     </td>
-    <td valign=\"top\">xxx.
+    <td valign=\"top\">Package with medium model for steam heating applications.
     </td>
     </tr>
 </table>
@@ -318,7 +318,7 @@ xxx
 </li>
 </ul>
 </html>"));
-end Version_9_0_0;
+  end Version_9_0_0;
 
     class Version_8_0_0 "Version 8.0.0"
       extends Modelica.Icons.ReleaseNotes;
