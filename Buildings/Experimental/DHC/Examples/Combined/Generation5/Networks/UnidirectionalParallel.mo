@@ -26,28 +26,28 @@ model UnidirectionalParallel
     "Length of the end of the distribution line (supply only, not counting return line)";
   parameter Modelica.SIunits.Length dhDis[nCon](
     each fixed=false,
-    each start=0.2,
+    each start=0.05,
     each min=0.01)
     "Hydraulic diameter of the distribution pipe before each connection";
   parameter Modelica.SIunits.Length dhDisRet[nCon](
     each fixed=false,
-    each start=0.2,
+    each start=0.05,
     each min=0.01)
     "Hydraulic diameter of the distribution pipe before each connection";
   parameter Modelica.SIunits.Length dhCon[nCon](
     each fixed=false,
-    each start=0.2,
+    each start=0.05,
     each min=0.01)
     "Hydraulic diameter of each connection pipe";
   parameter Modelica.SIunits.Length dhEnd(
     fixed=false,
-    start=0.2,
+    start=0.05,
     min=0.01)
     "Hydraulic diameter of the end of the distribution line";
   annotation (Documentation(info="<html>
 <p>
 This model represents a two-pipe distribution network with built-in computation
-of the pipe diameters based on the pressure drop per pipe length 
+of the pipe diameters based on the pressure drop per pipe length
 at nominal flow rate.
 </p>
 </html>", revisions="<html>

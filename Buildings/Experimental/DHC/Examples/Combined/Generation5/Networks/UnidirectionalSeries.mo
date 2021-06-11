@@ -25,34 +25,34 @@ model UnidirectionalSeries
     "Length of the end of the distribution line (after last connection)";
   parameter Modelica.SIunits.Length dhDis[nCon](
     each fixed=false,
-    each start=0.2,
+    each start=0.05,
     each min=0.01)
     "Hydraulic diameter of the distribution pipe before each connection";
   parameter Modelica.SIunits.Length dhCon[nCon](
     each fixed=false,
-    each start=0.2,
+    each start=0.05,
     each min=0.01)
     "Hydraulic diameter of each connection pipe";
   parameter Modelica.SIunits.Length dhEnd(
     fixed=false,
-    start=0.2,
+    start=0.05,
     min=0.01)
     "Hydraulic diameter of of the end of the distribution line (after last connection)";
   annotation (Documentation(info="<html>
 <p>
 This model represents a one-pipe distribution network with built-in computation
-of the pipe diameter based on the pressure drop per pipe length 
+of the pipe diameter based on the pressure drop per pipe length
 at nominal flow rate.
 </p>
 <h4>Modeling considerations</h4>
 <p>
-Note that <code>dhDis</code> needs to be vectorized, even if the same value 
-is computed for each array element in case of a one-pipe network. 
+Note that <code>dhDis</code> needs to be vectorized, even if the same value
+is computed for each array element in case of a one-pipe network.
 This is because the pipe diameter is computed at initialization by the model
 <a href=\"Buildings.Experimental.DHC.Examples.Combined.Generation5.Networks.BaseClasses.ConnectionSeriesAutosize\">
 Buildings.Experimental.DHC.Examples.Combined.Generation5.Networks.BaseClasses.ConnectionSeriesAutosize</a>
 which is instantiated for each connection.
-So the initialization system of equations would be overdetermined if using 
+So the initialization system of equations would be overdetermined if using
 a parameter binding with a scalar variable.
 </p>
 </html>", revisions="<html>
