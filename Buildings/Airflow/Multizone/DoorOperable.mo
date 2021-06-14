@@ -59,8 +59,6 @@ protected
 
   Modelica.SIunits.VolumeFlowRate VABpOpeClo_flow[2](each nominal=0.001)
     "Volume flow rate from A to B if positive due to static pressure difference";
-  Modelica.SIunits.VolumeFlowRate VABp_flow(nominal=0.001)
-    "Volume flow rate from A to B if positive due to static pressure difference";
 
   Modelica.SIunits.Area A "Current opening area";
 equation
@@ -173,6 +171,12 @@ November, 2002.
 </html>",
 revisions="<html>
 <ul>
+<li>
+June 11, 2021, by Michael Wetter:<br/>
+Removed duplicate declaration of <code>VABp_flow</code>.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1496\">#1496</a>.
+</li>
 <li>
 January 22, 2020, by Michael Wetter:<br/>
 Revised buoyancy-driven flow.
