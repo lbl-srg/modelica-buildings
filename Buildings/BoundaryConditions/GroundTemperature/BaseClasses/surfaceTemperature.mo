@@ -12,6 +12,7 @@ function surfaceTemperature
 
 protected
   constant Integer Year=365 "Year period in days";
+  constant Integer secInDay = 24 * 60 * 60 "Seconds in a day";
   constant Modelica.SIunits.Angle pi = Modelica.Constants.pi;
   constant Modelica.SIunits.Temperature TFre = 273.15 "Freezing temperature of water";
   Real freq = 2 * pi / Year "Year frequency in rad/days";
@@ -23,8 +24,8 @@ protected
 algorithm
   // Analytical mean by integrating undisturbed soil temperature formula
   TAirDayMea := {cliCon.TSurMea + cliCon.TSurAmp / freq * (
-    cos(freq * (cliCon.sinPhaDay - day)) -
-    cos(freq * (cliCon.sinPhaDay - (day + 1))))
+    cos(freq * (cliCon.sinPha / secInDay - day)) -
+    cos(freq * (cliCon.sinPha / secInDay - (day + 1))))
     for day in 1:Year};
 
   TSurDayMea := {
@@ -38,7 +39,7 @@ algorithm
   corCliCon := ClimaticConstants.Generic(
     TSurMea = sum(TSurDayMea)/Year,
     TSurAmp = 2 / Year .* (C1^2 + C2^2)^0.5,
-    sinPhaDay = (Modelica.Math.atan(C2 / C1) + pi/2) / freq);
+    sinPha = (Modelica.Math.atan(C2 / C1) + pi/2) * secInDay / freq);
 
   annotation (Documentation(revisions="<html>
 <ul>

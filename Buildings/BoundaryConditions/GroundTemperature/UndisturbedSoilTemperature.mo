@@ -40,7 +40,7 @@ protected
   parameter Modelica.SIunits.ThermalDiffusivity
     soiDif = soiDat.k / soiDat.c / soiDat.d "Soil diffusivity";
   parameter Modelica.SIunits.Duration
-    timLag = corCliCon.sinPhaDay*24*60*60
+    timLag = corCliCon.sinPha
     "Start time of surface temperature sinusoid";
   parameter Real pha = - corDep * (pi/soiDif/Year)^0.5
     "Phase angle of ground temperature sinusoid";
@@ -123,9 +123,9 @@ by setting the flag <i>useCon</i> to <code>true</code> and specifying the
 heat transfer coefficient <i>hSur</i>.
 </p>
 <p>
-The impact of surface cover can be modeled using n-factors by setting the flag
-<i>useNFac</i> to <code>true</code> and specifying the thawing and freezing
-n-factors at the surface. <br>
+The impact of surface cover on soil temperature can be modeled using 
+n-factors by setting the flag <i>useNFac</i> to <code>true</code> and 
+specifying the thawing and freezing n-factors at the surface. <br>
 
 More information about n-factors correction can be found in the documentation
 for <a href=\"modelica://Buildings.BoundaryConditions.GroundTemperature.BaseClasses.surfaceTemperature\">
