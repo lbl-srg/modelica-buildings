@@ -52,7 +52,7 @@ protected
     final y_start=y_start,
     x(each final stateSelect=StateSelect.always,
       each final start=0)) if use_inputFilter
-    "Second order filter to approximate valve opening time, and to improve numerics"
+    "Second order filter to approximate actuator opening time, and to improve numerics"
     annotation (Placement(transformation(extent={{6,81},{20,95}})));
 
 equation
