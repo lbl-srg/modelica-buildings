@@ -8,7 +8,7 @@ model FlowControlled_m_flow
     final constInput(final unit="kg/s")=constantMassFlowRate,
     filter(
       final y_start=m_flow_start,
-      u_nominal=m_flow_nominal,
+      x(each nominal=m_flow_nominal),
       u(final unit="kg/s"),
       y(final unit="kg/s")),
     eff(
@@ -44,8 +44,8 @@ model FlowControlled_m_flow
 
   Modelica.Blocks.Interfaces.RealInput m_flow_in(
     final unit="kg/s",
-    nominal=m_flow_nominal) if
-       inputType == Buildings.Fluid.Types.InputType.Continuous
+    nominal=m_flow_nominal)
+    if inputType == Buildings.Fluid.Types.InputType.Continuous
     "Prescribed mass flow rate"
     annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
@@ -63,7 +63,7 @@ model FlowControlled_m_flow
 equation
   if use_inputFilter then
     connect(filter.y, m_flow_actual) annotation (Line(
-      points={{34.7,88},{44,88},{44,50},{110,50}},
+      points={{41,70.5},{44,70.5},{44,50},{110,50}},
       color={0,0,127},
       smooth=Smooth.None));
   else
@@ -107,6 +107,12 @@ User's Guide</a> for more information.
 </html>",
       revisions="<html>
 <ul>
+<li>
+June 17, 2021, by Michael Wetter:<br/>
+Changed implementation of the filter.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1498\">#1498</a>.
+</li>
 <li>
 February 21, 2020, by Michael Wetter:<br/>
 Changed icon to display its operating stage.<br/>

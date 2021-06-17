@@ -245,12 +245,17 @@ have been <b style=\"color:blue\">improved</b> in a
 <b style=\"color:blue\">backward compatible</b> way:
 </p>
 <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
-<tr><td colspan=\"2\"><b>xxx</b>
+<tr><td colspan=\"2\"><b>Buildings.Fluid.Actuators</b>
     </td>
 </tr>
-<tr><td valign=\"top\">xxx
+<tr><td valign=\"top\">Buildings.Fluid.Movers.FlowControlled_dp<br/>
+                       Buildings.Fluid.Movers.FlowControlled_m_flow<br/>
+                       Buildings.Fluid.Movers.SpeedControlled_Nrpm<br/>
+                       Buildings.Fluid.Movers.SpeedControlled_y
     </td>
-    <td valign=\"top\">xxx.
+    <td valign=\"top\">Changed implementation of the filter.
+                       The new implementation uses a simpler model.<br/>
+                       This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1498\">#1498</a>.
     </td>
 </tr>
 <tr><td colspan=\"2\"><b>xxx</b>
@@ -269,7 +274,32 @@ have been <b style=\"color:blue\">improved</b> in a
 <b style=\"color:blue\">non-backward compatible</b> way:
 </p>
 <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
- <tr><td colspan=\"2\"><b>xxx</b>
+<tr><td colspan=\"2\"><b>Buildings.Fluid.Actuators</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Fluid.Actuators.Dampers.Exponential<br/>
+                       Buildings.Fluid.Actuators.Dampers.MixingBox<br/>
+                       Buildings.Fluid.Actuators.Dampers.MixingBoxMinimumFlow<br/>
+                       Buildings.Fluid.Actuators.Dampers.PressureIndependent<br/>
+                       Buildings.Fluid.Actuators.Valves.ThreeWayEqualPercentageLinear<br/>
+                       Buildings.Fluid.Actuators.Valves.ThreeWayLinear<br/>
+                       Buildings.Fluid.Actuators.Valves.ThreeWayTable<br/>
+                       Buildings.Fluid.Actuators.Valves.TwoWayEqualPercentage<br/>
+                       Buildings.Fluid.Actuators.Valves.TwoWayLinear<br/>
+                       Buildings.Fluid.Actuators.Valves.TwoWayPolynomial<br/>
+                       Buildings.Fluid.Actuators.Valves.TwoWayPressureIndependent<br/>
+                       Buildings.Fluid.Actuators.Valves.TwoWayQuickOpening<br/>
+                       Buildings.Fluid.Actuators.Valves.TwoWayTable
+    </td>
+    <td valign=\"top\">Changed implementation of the filter and changed the parameter <code>order</code> to be a constant
+                       because typical users have no need to change this value.
+                       The new implementation uses a simpler model.<br/>
+                       This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1498\">#1498</a>.<br/>
+                       This change is only backwards incompatible if a user
+                       propagated the value of <code>order</code> to a high-level parameter.
+    </td>
+</tr>
+<tr><td colspan=\"2\"><b>xxx</b>
     </td>
 </tr>
 <tr><td valign=\"top\">xxx
