@@ -9,12 +9,10 @@ block Guideline36 "Guideline 36 VAV single duct controller"
     "Name of group which each zone belongs to"
     annotation(Evaluate=true);
 
-  final parameter Integer idxGroZon[nZon] = {
-    Modelica.Math.BooleanVectors.firstTrueIndex({
-      namGroZon[i] == namGro[j] for j in 1:nGro})
-    for i in 1:nZon}
-    "Index of group which each zone belongs to"
-    annotation(Evaluate=true);
+  final parameter Boolean groZonMsk[nGro, nZon] = {
+    {namGroZon[gro] == namGro[zon] for zon in 1:nZon}
+    for gro in 1:nGro}
+    "Array of zone group masks" annotation(Evaluate=true);
 
   final parameter Integer nZonGro[nGro] = {
     Modelica.Math.BooleanVectors.countTrue({
@@ -627,7 +625,9 @@ block Guideline36 "Guideline 36 VAV single duct controller"
     annotation (Placement(transformation(extent={{20,-180},{0,-152}})));
 
   Buildings.Controls.OBC.ASHRAE.G36_PR1.Generic.SetPoints.GroupStatus zonGroSta[nGro](
-    final numZon=nZonGro)
+    each final numZon=nZon,
+    final nZonGro=nZonGro,
+    final inZon=groZonMsk)
     "Evaluate zone group status"
     annotation (Placement(transformation(extent={{-54,-188},{-74,-148}})));
 
@@ -905,8 +905,8 @@ equation
       points={{-200.1,0.1},{-200.1,0},{-180,0},{-180,-100},{-2,-100}},
       color={255,204,51},
       thickness=0.5));
-  connect(TSupSet.y, busSofTer.TSupSet) annotation (Line(points={{22,-100},{80,
-          -100},{80,-120},{90,-120}}, color={0,0,127}));
+  connect(TSupSet.y, busSofTer.TSupSet) annotation (Line(points={{22,-100},{80,-100},
+          {80,-120},{90,-120}},       color={0,0,127}));
   connect(busSofTer, busTer.sof) annotation (Line(
       points={{90,-120},{200,-120},{200,0.1},{220.1,0.1}},
       color={255,204,51},
@@ -972,15 +972,76 @@ equation
           24},{110,60},{90,60}}, color={0,0,127}));
   connect(FIXME8.y, conAHU.uOpeMod) annotation (Line(points={{238,-80},{-48,-80},
           {-48,30},{-44,30}}, color={255,127,0}));
+
+  for gro in 1:nGro loop
+    connect(zonSta.yCooTim, zonGroSta[gro].uCooTim) annotation (Line(points={{-2,-153},
+            {-44,-153},{-44,-157},{-52,-157}}, color={0,0,127}));
+    connect(zonSta.yWarTim, zonGroSta[gro].uWarTim) annotation (Line(points={{-2,-155},
+            {-40,-155},{-40,-159},{-52,-159}}, color={0,0,127}));
+    connect(zonSta.yOccHeaHig, zonGroSta[gro].uOccHeaHig) annotation (Line(points={{
+            -2,-160},{-44,-160},{-44,-163},{-52,-163}}, color={255,0,255}));
+    connect(zonSta.yHigOccCoo, zonGroSta[gro].uHigOccCoo)
+      annotation (Line(points={{-2,-165},{-52,-165}}, color={255,0,255}));
+    connect(zonSta.THeaSetOff, zonGroSta[gro].THeaSetOff) annotation (Line(points={{
+            -2,-168},{-44,-168},{-44,-171},{-52,-171}}, color={0,0,127}));
+    connect(zonSta.yUnoHeaHig, zonGroSta[gro].uUnoHeaHig) annotation (Line(points={{
+            -2,-170},{-28,-170},{-28,-169},{-52,-169}}, color={255,0,255}));
+    connect(zonSta.yEndSetBac, zonGroSta[gro].uEndSetBac) annotation (Line(points={{
+            -2,-172},{-27,-172},{-27,-173},{-52,-173}}, color={255,0,255}));
+    connect(zonSta.TCooSetOff, zonGroSta[gro].TCooSetOff) annotation (Line(points={{
+            -2,-175},{-44,-175},{-44,-179},{-52,-179}}, color={0,0,127}));
+    connect(zonSta.yHigUnoCoo, zonGroSta[gro].uHigUnoCoo)
+      annotation (Line(points={{-2,-177},{-52,-177}}, color={255,0,255}));
+    connect(zonSta.yEndSetUp, zonGroSta[gro].uEndSetUp) annotation (Line(points={{-2,
+            -179},{-2,-180},{-44,-180},{-44,-181},{-52,-181}}, color={255,0,255}));
+  end for;
+  connect(zonGroSta[1].zonOcc, busSofTer) annotation (Line(points={{-52,-149},{-50,
+          -149},{-50,-148},{-48,-148},{-48,-120},{90,-120}}, color={255,0,255}),
+      Text(
+      string="%second",
+      index=1,
+      extent={{6,3},{6,3}},
+      horizontalAlignment=TextAlignment.Left));
+  connect(zonGroSta[1].uOcc, busSofTer) annotation (Line(points={{-52,-151},{-50,
+          -151},{-50,-150},{-48,-150},{-48,-120},{90,-120}}, color={255,0,255}),
+      Text(
+      string="%second",
+      index=1,
+      extent={{6,3},{6,3}},
+      horizontalAlignment=TextAlignment.Left));
+  connect(zonGroSta[1].tNexOcc, busSofTer) annotation (Line(points={{-52,-153},{
+          -48,-153},{-48,-120},{90,-120}}, color={0,0,127}), Text(
+      string="%second",
+      index=1,
+      extent={{6,3},{6,3}},
+      horizontalAlignment=TextAlignment.Left));
+  connect(opeModSel.yOpeMod, busSofTer) annotation (Line(points={{-52,-120},{90,
+          -120}}, color={255,127,0}), Text(
+      string="%second",
+      index=1,
+      extent={{6,3},{6,3}},
+      horizontalAlignment=TextAlignment.Left));
+  connect(busTer.inp.uWin, zonGroSta.uWin) annotation (Line(
+      points={{220.1,0.1},{200,0.1},{200,-184},{-52,-184},{-52,-187}},
+      color={255,204,51},
+      thickness=0.5), Text(
+      string="%first",
+      index=-1,
+      extent={{6,3},{6,3}},
+      horizontalAlignment=TextAlignment.Left));
+  connect(busTer.inp.TZon, zonGroSta.TZon) annotation (Line(
+      points={{220.1,0.1},{200,0.1},{200,-188},{-52,-188},{-52,-185}},
+      color={255,204,51},
+      thickness=0.5), Text(
+      string="%first",
+      index=-1,
+      extent={{6,3},{6,3}},
+      horizontalAlignment=TextAlignment.Left));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false), graphics={Text(
           extent={{216,-12},{422,-66}},
           lineColor={238,46,47},
-          textString="Todo: subset indices for different Boolean values (such as have_occSen)"),
-                                                               Text(
-          extent={{-50,-112},{156,-166}},
-          lineColor={238,46,47},
-          textString="Manual edit of connect clauses between groups and zones due to lack of suitable extractor blocks")}),
+          textString="Todo: subset indices for different Boolean values (such as have_occSen)")}),
     Documentation(info="<html>
 <p>
 WARNING: Do not use. Not configured and connected yet!

@@ -1,0 +1,40 @@
+within Buildings.Controls.OBC.CDL.Routing;
+model RealArrayFilter
+  "Filter a real array of based on a boolean mask"
+  parameter Integer nin "Size of input array";
+  parameter Integer nout "Size of output array";
+  parameter Boolean fil[nin]=fill(true,nin) "Array mask";
+
+  Interfaces.RealInput    u[nin]
+    "Connector of Boolean input signal"
+    annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
+  Interfaces.RealOutput    y[nout]
+    "Connector of Boolean output signals"
+    annotation (Placement(transformation(extent={{100,-20},{140,20}})));
+
+protected
+  Integer filId[nout] = Modelica.Math.BooleanVectors.index(fil)
+    "Indices of included element in input array";
+
+initial equation
+  assert(nout==sum({if y then 1 else 0 for y in fil}),
+    "The size of the output array does not match the 
+    size of included elements in the mask");
+equation
+  y = u[filId];
+  annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
+        Rectangle(
+          extent={{-100,-100},{100,100}},
+          lineColor={0,0,127},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+        Polygon(
+          points={{-60,80},{-60,-80},{20,-10},{60,-10},{80,10},{20,10},{-60,80}},
+          lineColor={0,0,0},
+          fillColor={0,0,127},
+          fillPattern=FillPattern.Solid,
+          lineThickness=0.5),
+        Line(points={{-100,0},{-60,0}}, color={0,0,127}),
+        Line(points={{70,0},{100,0}}, color={0,0,127})}),        Diagram(
+        coordinateSystem(preserveAspectRatio=false)));
+end RealArrayFilter;
