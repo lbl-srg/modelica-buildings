@@ -26,7 +26,7 @@
 #endif
 
 #ifndef ENVIRONMENT64
-#error Modelica Spawn coupling is only supported for Linux 64 bit. Your operating system is not 64 bit.
+#error Modelica Spawn coupling is only supported for Windows and Linux 64 bit. Your operating system is not 64 bit.
 #endif
 
 /* ********************************************************* */
