@@ -3,28 +3,10 @@ block Guideline36
   extends Buildings.Templates.BaseClasses.Controls.TerminalUnits.SingleDuct(
     final typ=Templates.Types.ControllerTU.Guideline36);
 
-  /*
-  *  Parameters assigned from external file
-  */
-
-  parameter Modelica.SIunits.Area AFlo=
-    dat.getReal(varName=id + ".Control.Zone floor area.value")
-    "Zone floor area";
   parameter Modelica.SIunits.VolumeFlowRate V_flow_nominal=
     dat.getReal(varName=id + ".Mechanical.Discharge air mass flow rate.value") / 1.2
     "Volume flow rate"
     annotation (Dialog(group="Nominal condition"));
-
-  parameter Real VOutPerAre_flow(final unit = "m3/(s.m2)")=
-    dat.getReal(varName=id + ".Control.Zone outdoor air volume flow rate per unit area.value")
-    "Outdoor air volume flow rate per unit area"
-    annotation (Dialog(tab="Airflow setpoint", group="Nominal conditions"));
-  parameter Real VOutPerPer_flow(
-    final unit="m3/s",
-    final quantity="VolumeFlowRate")=
-    dat.getReal(varName=id + ".Control.Zone outdoor air volume flow rate per person.value")
-    "Outdoor air volume flow rate per person"
-    annotation (Dialog(tab="Airflow setpoint", group="Nominal conditions"));
 
   /*
   *  Parameters for Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.Controller
@@ -130,15 +112,21 @@ block Guideline36
       enable=controllerTypeDam == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
           or controllerTypeDam == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
 
-  parameter Boolean have_occSen=false
-    "Set to true if the zone has occupancy sensor"
+  parameter Boolean have_occSen=
+     dat.getBoolean(varName=id + ".Control.Occupancy sensor")
+    "Set to true if zones have occupancy sensor"
     annotation (Dialog(tab="Airflow setpoint", group="Zone sensors"));
-  parameter Boolean have_winSen=false
-    "Set to true if the zone has window status sensor"
+
+  parameter Boolean have_winSen=
+     dat.getBoolean(varName=id + ".Control.Window sensor")
+    "Set to true if zones have window status sensor"
     annotation (Dialog(tab="Airflow setpoint", group="Zone sensors"));
-  parameter Boolean have_CO2Sen=false
+
+  parameter Boolean have_CO2Sen=
+    dat.getBoolean(varName=id + ".Control.CO2 sensor")
     "Set to true if the zone has CO2 sensor"
     annotation (Dialog(tab="Airflow setpoint", group="Zone sensors"));
+
   parameter Real VDisCooSetMax_flow(
     final unit="m3/s",
     final quantity="VolumeFlowRate")=V_flow_nominal
@@ -313,12 +301,87 @@ block Guideline36
     annotation(Dialog(group="Setpoint adjustment", tab="Demand control"));
 
   /*
+  * Parameters for Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.VAV.SetPoints.OutdoorAirFlow.Zone
+  */
+
+  parameter Real VOutPerAre_flow(final unit = "m3/(s.m2)")=
+      dat.getReal(varName=
+        id + ".Control.Zone outdoor air volume flow rate per unit area.value")
+    "Outdoor air rate per unit area"
+    annotation(Dialog(group="Nominal condition"));
+
+  parameter Real VOutPerPer_flow(final unit="m3/s")=
+     dat.getReal(varName=
+      id + ".Control.Zone outdoor air volume flow rate per person")
+    "Outdoor air rate per person"
+    annotation(Dialog(group="Nominal condition"));
+
+  parameter Real AFlo(final unit="m2")=
+     dat.getReal(varName=id + ".Control.Zone floor area")
+    "Floor area of each zone"
+    annotation(Dialog(group="Nominal condition"));
+
+  parameter Real occDen(final unit = "1/m2")=
+     dat.getReal(varName=id + ".Control.Zone default number of person per unit area")
+    "Default number of person per unit area";
+
+  parameter Real zonDisEffHea(final unit = "1")=
+     dat.getReal(varName=id + ".Control.Zone air distribution effectiveness during heating")
+    "Zone air distribution effectiveness during heating";
+
+  parameter Real zonDisEffCoo(final unit = "1")=
+     dat.getReal(varName=id + ".Control.Zone air distribution effectiveness during cooling")
+    "Zone air distribution effectiveness during cooling";
+
+  parameter Real desZonDisEff(final unit = "1") = zonDisEffCoo
+    "Design zone air distribution effectiveness"
+    annotation(Dialog(group="Nominal condition"));
+
+  parameter Real minZonPriFlo(final unit="m3/s")=
+     dat.getReal(varName=id + ".Control.Zone minimum expected primary air volume flow rate")
+    "Minimum expected zone primary flow rate"
+    annotation(Dialog(group="Nominal condition"));
+
+  /*
+  * Parameters for Buildings.Controls.OBC.ASHRAE.G36_PR1.Generic.SetPoints.ZoneStatus
+  */
+
+  parameter Real THeaSetOcc(
+    final unit="K",
+    displayUnit="degC")=
+      dat.getReal(varName=id + ".Control.Occupied heating setpoint")
+    "Occupied heating setpoint";
+
+  parameter Real THeaSetUno(
+    final unit="K",
+    displayUnit="degC")=
+      dat.getReal(varName=id + ".Control.Unoccupied heating setpoint")
+    "Unoccupied heating setpoint";
+
+  parameter Real TCooSetOcc(
+    final unit="K",
+    displayUnit="degC")=
+      dat.getReal(varName=id + ".Control.Occupied cooling setpoint")
+    "Occupied cooling setpoint";
+
+  parameter Real TCooSetUno(
+    final unit="K",
+    displayUnit="degC")=
+      dat.getReal(varName=id + ".Control.Unoccupied cooling setpoint")
+    "Unoccupied cooling setpoint";
+
+  /*
   *  Final parameters
   */
   final parameter Boolean have_heaWatCoi=
     coiReh.typ==Buildings.Templates.Types.Coil.WaterBased
     "Flag, true if there is a hot water coil"
     annotation (Dialog(tab="System requests", group="Parameters"));
+
+  final parameter Real desZonPop(
+    min=0,
+    final unit = "1") = occDen * AFlo
+    "Design zone population during peak occupancy";
 
   Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.Controller conTerUni(
     final samplePeriod=samplePeriod,
@@ -390,6 +453,33 @@ block Guideline36
     "nOcc should be Boolean"
     annotation (Placement(transformation(extent={{-240,30},{-220,50}})));
 
+  Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.VAV.SetPoints.OutdoorAirFlow.Zone zonOutAirSet(
+    final VOutPerAre_flow=VOutPerAre_flow,
+    final VOutPerPer_flow=VOutPerPer_flow,
+    final AFlo=AFlo,
+    final have_occSen=have_occSen,
+    final have_winSen=have_winSen,
+    final occDen=occDen,
+    final zonDisEffHea=zonDisEffHea,
+    final zonDisEffCoo=zonDisEffCoo,
+    final desZonDisEff=desZonDisEff,
+    final desZonPop=desZonPop,
+    final minZonPriFlo=minZonPriFlo)
+    "Zone level calculation of the minimum outdoor airflow set point"
+    annotation (Placement(transformation(extent={{120,20},{140,40}})));
+  Buildings.Controls.OBC.ASHRAE.G36_PR1.Generic.SetPoints.ZoneStatus zonSta(
+    final THeaSetOcc=THeaSetOcc,
+    final THeaSetUno=THeaSetUno,
+    final TCooSetOcc=TCooSetOcc,
+    final TCooSetUno=TCooSetUno,
+    final have_winSen=have_winSen)
+    "Evaluate zone temperature status"
+    annotation (Placement(transformation(extent={{120,-94},{140,-66}})));
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant FIXME2(k=1) "nOcc shall be Boolean, not integer"
+    annotation (Placement(transformation(extent={{-240,70},{-220,90}})));
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant FIXME3(k=1800)
+    "Optimal start using global outdoor air temperature not associated with any AHU"
+    annotation (Placement(transformation(extent={{-240,-90},{-220,-70}})));
 protected
   BaseClasses.Connectors.SubBusOutput busOut
     "Output points"
@@ -502,11 +592,89 @@ equation
       points={{50,-20},{80,-20},{80,-60},{-180,-60},{-180,0.1},{-200.1,0.1}},
       color={255,204,51},
       thickness=0.5));
+  connect(FIXME2.y, zonOutAirSet.nOcc)
+    annotation (Line(points={{-218,80},{100,80},{100,39},{118,39}}, color={255,127,0}));
+  connect(busTer.inp.uWin, zonOutAirSet.uWin) annotation (Line(
+      points={{-200.1,0.1},{-20,0.1},{-20,40},{98,40},{98,36},{118,36}},
+      color={255,204,51},
+      thickness=0.5));
+  connect(busTer.inp.TZon, zonOutAirSet.TZon) annotation (Line(
+      points={{-200.1,0.1},{-20,0.1},{-20,40},{97.8261,40},{97.8261,30},{118,30}},
+      color={255,204,51},
+      thickness=0.5));
+  connect(busTer.inp.TDis, zonOutAirSet.TDis) annotation (Line(
+      points={{-200.1,0.1},{-20,0.1},{-20,40},{98,40},{98,27},{118,27}},
+      color={255,204,51},
+      thickness=0.5));
+  connect(busSof.yReqOutAir, zonOutAirSet.uReqOutAir)
+    annotation (Line(
+      points={{50,-20},{100,-20},{100,33},{118,33}},
+      color={255,204,51},
+      thickness=0.5));
+  connect(busTer.inp.VDis_flow, zonOutAirSet.VDis_flow) annotation (Line(
+      points={{-200.1,0.1},{-200.1,0.196078},{-20,0.196078},{-20,40},{98,40},{98,24},{118,24}},
+      color={255,204,51},
+      thickness=0.5));
+  connect(busSof.VDesUncOutAir_flow, zonOutAirSet.VUncOut_flow_nominal)
+    annotation (Line(
+      points={{50,-20},{100,-20},{100,21},{118,21}},
+      color={255,204,51},
+      thickness=0.5));
+  connect(FIXME3.y, zonSta.cooDowTim)
+    annotation (Line(points={{-218,-80},{110,-80},{110,-72},{118,-72}}, color={0,0,127}));
+  connect(FIXME3.y, zonSta.warUpTim)
+    annotation (Line(points={{-218,-80},{110,-80},{110,-76},{118,-76}}, color={0,0,127}));
+  connect(zonOutAirSet.yDesZonPeaOcc, busSof.yDesZonPeaOcc)
+    annotation (Line(points={{142,39},{172,39},{172,-20},{50,-20}}, color={0,0,127}));
+  connect(zonOutAirSet.VDesPopBreZon_flow, busSof.VDesPopBreZon_flow)
+    annotation (Line(points={{142,36},{170,36},{170,-20},{50,-20}}, color={0,0,127}));
+  connect(zonOutAirSet.VDesAreBreZon_flow, busSof.VDesAreBreZon_flow)
+    annotation (Line(points={{142,33},{168,33},{168,-20},{50,-20}}, color={0,0,127}));
+  connect(zonOutAirSet.yDesPriOutAirFra, busSof.yDesPriOutAirFra)
+    annotation (Line(points={{142,30},{166,30},{166,-20},{50,-20}}, color={0,0,127}));
+  connect(zonOutAirSet.VUncOutAir_flow, busSof.VUncOutAir_flow)
+    annotation (Line(points={{142,27},{164,27},{164,-20},{50,-20}}, color={0,0,127}));
+  connect(zonOutAirSet.yPriOutAirFra, busSof.yPriOutAirFra)
+    annotation (Line(points={{142,24},{162,24},{162,-20},{50,-20}}, color={0,0,127}));
+  connect(zonOutAirSet.VPriAir_flow, busSof.VPriAir_flow)
+    annotation (Line(points={{142,21},{160,21},{160,-20},{50,-20}}, color={0,0,127}));
+  connect(busTer.inp.uWin, zonSta.uWin) annotation (Line(
+      points={{-200.1,0.1},{-20,0.1},{-20,-84},{118,-84}},
+      color={255,204,51},
+      thickness=0.5));
+  connect(busTer.inp.TZon, zonSta.TZon) annotation (Line(
+      points={{-200.1,0.1},{-20,0.1},{-20,-88},{118,-88}},
+      color={255,204,51},
+      thickness=0.5));
+  connect(zonSta.yCooTim, busSof.yCooTim)
+    annotation (Line(points={{142,-67},{152,-67},{152,-20},{50,-20}}, color={0,0,127}));
+  connect(zonSta.yWarTim, busSof.yWarTim)
+    annotation (Line(points={{142,-69},{154,-69},{154,-20},{50,-20}}, color={0,0,127}));
+  connect(zonSta.THeaSetOn, busSof.THeaSetOn)
+    annotation (Line(points={{142,-72},{156,-72},{156,-20},{50,-20}}, color={0,0,127}));
+  connect(zonSta.yOccHeaHig, busSof.yOccHeaHig)
+    annotation (Line(points={{142,-74},{158,-74},{158,-20},{50,-20}}, color={255,0,255}));
+  connect(zonSta.TCooSetOn, busSof.TCooSetOn)
+    annotation (Line(points={{142,-77},{160,-77},{160,-20},{50,-20}}, color={0,0,127}));
+  connect(zonSta.yHigOccCoo, busSof.yHigOccCoo)
+    annotation (Line(points={{142,-79},{162,-79},{162,-20},{50,-20}}, color={255,0,255}));
+  connect(zonSta.THeaSetOff, busSof.THeaSetOff)
+    annotation (Line(points={{142,-82},{164,-82},{164,-20},{50,-20}}, color={0,0,127}));
+  connect(zonSta.yUnoHeaHig, busSof.yUnoHeaHig)
+    annotation (Line(points={{142,-84},{166,-84},{166,-20},{50,-20}}, color={255,0,255}));
+  connect(zonSta.yEndSetBac, busSof.yEndSetBac)
+    annotation (Line(points={{142,-86},{168,-86},{168,-20},{50,-20}}, color={255,0,255}));
+  connect(zonSta.TCooSetOff, busSof.TCooSetOff)
+    annotation (Line(points={{142,-89},{170,-89},{170,-20},{50,-20}}, color={0,0,127}));
+  connect(zonSta.yHigUnoCoo, busSof.yHigUnoCoo)
+    annotation (Line(points={{142,-91},{172,-91},{172,-20},{50,-20}}, color={255,0,255}));
+  connect(zonSta.yEndSetUp, busSof.yEndSetUp)
+    annotation (Line(points={{142,-93},{174,-93},{174,-20},{50,-20}}, color={255,0,255}));
   annotation (
     defaultComponentName="conTer",
     Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false), graphics={Text(
-          extent={{-182,-52},{24,-106}},
+          extent={{-178,-100},{28,-154}},
           lineColor={238,46,47},
           textString=
               "Todo: subset indices for different Boolean values (such as have_occSen)")}));

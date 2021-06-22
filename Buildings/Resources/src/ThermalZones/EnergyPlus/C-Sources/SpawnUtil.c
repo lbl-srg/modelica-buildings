@@ -503,7 +503,7 @@ void getSimulationTemporaryDirectory(
   char** dirNam,
   void (*SpawnFormatError)(const char *string, ...)){
   /* Return the absolute name of the temporary directory to be used for EnergyPlus
-     in the form "/mnt/xxx/tmp-eplus-mod.nam.bui"
+     in the form "/mnt/xxx/EnergyPlus-simulation-model.name.building"
   */
   size_t lenNam;
   size_t lenPre;
@@ -515,7 +515,7 @@ void getSimulationTemporaryDirectory(
   const size_t maxLenCurDir = 100000;
 
   /* Prefix for temporary directory */
-  const char* pre = "tmp-simulation-\0";
+  const char* pre = "EnergyPlus-simulation-\0";
 
   /* Current directory */
   mallocString(
