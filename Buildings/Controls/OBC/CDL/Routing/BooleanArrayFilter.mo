@@ -31,12 +31,23 @@ equation
           fillPattern=FillPattern.Solid),
         Line(points={{-102,0},{-60,0}}, color={255,0,255}),
         Line(points={{70,0},{100,0}}, color={255,0,255}),
+        Text(
+          lineColor={0,0,255},
+          extent={{-150,110},{150,150}},
+          textString="%name"),
         Polygon(
           points={{-60,80},{-60,-80},{20,-10},{60,-10},{80,10},{20,10},{-60,80}},
-
           lineColor={0,0,0},
           fillColor={255,0,255},
           fillPattern=FillPattern.Solid,
           lineThickness=0.5)}),                                  Diagram(
-        coordinateSystem(preserveAspectRatio=false)));
+        coordinateSystem(preserveAspectRatio=false)),
+    Documentation(revisions="<html>
+<ul>
+<li>
+June 22, 2021, by Baptiste Ravache:<br/>
+First implementation
+</li>
+</ul>
+</html>"));
 end BooleanArrayFilter;

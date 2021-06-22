@@ -1,9 +1,12 @@
 BooleanArrayFilter
+BooleanArrayReplicator
 BooleanReplicator
 IntegerArrayFilter
+IntegerArrayReplicator
 IntegerReplicator
 RealExtractSignal
 RealExtractor
 RealArrayFilter
+RealArrayReplicator
 RealReplicator
 Validation

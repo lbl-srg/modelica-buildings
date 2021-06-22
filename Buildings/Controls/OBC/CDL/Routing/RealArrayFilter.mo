@@ -6,10 +6,10 @@ model RealArrayFilter
   parameter Boolean fil[nin]=fill(true,nin) "Array mask";
 
   Interfaces.RealInput    u[nin]
-    "Connector of Boolean input signal"
+    "Connector of Real input signal"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
   Interfaces.RealOutput    y[nout]
-    "Connector of Boolean output signals"
+    "Connector of Real output signals"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
 protected
@@ -28,6 +28,10 @@ equation
           lineColor={0,0,127},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid),
+        Text(
+          lineColor={0,0,255},
+          extent={{-150,110},{150,150}},
+          textString="%name"),
         Polygon(
           points={{-60,80},{-60,-80},{20,-10},{60,-10},{80,10},{20,10},{-60,80}},
           lineColor={0,0,0},
@@ -36,5 +40,13 @@ equation
           lineThickness=0.5),
         Line(points={{-100,0},{-60,0}}, color={0,0,127}),
         Line(points={{70,0},{100,0}}, color={0,0,127})}),        Diagram(
-        coordinateSystem(preserveAspectRatio=false)));
+        coordinateSystem(preserveAspectRatio=false)),
+    Documentation(revisions="<html>
+<ul>
+<li>
+June 22, 2021, by Baptiste Ravache:<br/>
+First implementation
+</li>
+</ul>
+</html>"));
 end RealArrayFilter;

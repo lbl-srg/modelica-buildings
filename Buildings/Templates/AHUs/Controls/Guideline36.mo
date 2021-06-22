@@ -629,7 +629,7 @@ block Guideline36 "Guideline 36 VAV single duct controller"
     final nZonGro=nZonGro,
     final inZon=groZonMsk)
     "Evaluate zone group status"
-    annotation (Placement(transformation(extent={{-54,-188},{-74,-148}})));
+    annotation (Placement(transformation(extent={{-60,-180},{-80,-140}})));
 
   Buildings.Controls.OBC.ASHRAE.G36_PR1.Generic.SetPoints.OperationMode opeModSel[nGro](
     final numZon=nZonGro,
@@ -637,7 +637,7 @@ block Guideline36 "Guideline 36 VAV single duct controller"
     each final TZonFreProOn=TZonFreProOn,
     each final TZonFreProOff=TZonFreProOff)
     "Operation mode selection for each zone group"
-    annotation (Placement(transformation(extent={{-74,-136},{-54,-104}})));
+    annotation (Placement(transformation(extent={{-80,-134},{-60,-102}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant FIXME1(k=24 + 273.15)
     "Where is the use of the average zone set point described?"
@@ -690,6 +690,12 @@ block Guideline36 "Guideline 36 VAV single duct controller"
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant  FIXME9(k=true)
     "Various economizer configurations not handled: yDamRel (or exhaust), yDamOutMin"
     annotation (Placement(transformation(extent={{278,62},{258,82}})));
+  Buildings.Controls.OBC.ASHRAE.G36_PR1.Generic.SetPoints.ZoneStatusDuplicator
+    zonStaDup "Zone status duplicator"
+    annotation (Placement(transformation(extent={{-20,-180},{-28,-140}})));
+  Buildings.Controls.OBC.ASHRAE.G36_PR1.Generic.SetPoints.ZoneGroupFilter
+    zonGroFil[nGro]
+    annotation (Placement(transformation(extent={{-40,-180},{-48,-140}})));
 protected
     BaseClasses.Connectors.SubBusOutput busOutAHU
     "AHU output points"
@@ -833,37 +839,40 @@ equation
       points={{-200.1,0.1},{-180,0.1},{-180,38},{-44,38}},
       color={255,204,51},
       thickness=0.5));
-  connect(zonGroSta.uGroOcc,opeModSel.uOcc) annotation (Line(points={{-76,-149},
-          {-86,-149},{-86,-106},{-76,-106}}, color={255,0,255}));
-  connect(zonGroSta.nexOcc,opeModSel.tNexOcc) annotation (Line(points={{-76,-151},
-          {-102,-151},{-102,-108},{-76,-108}},    color={0,0,127}));
-  connect(zonGroSta.yCooTim,opeModSel.maxCooDowTim) annotation (Line(points={{-76,
-          -155},{-112,-155},{-112,-110},{-76,-110}},   color={0,0,127}));
-  connect(zonGroSta.yWarTim,opeModSel.maxWarUpTim) annotation (Line(points={{-76,
-          -157},{-108,-157},{-108,-114},{-76,-114}},
+  connect(zonGroSta.uGroOcc,opeModSel.uOcc) annotation (Line(points={{-82,-141},
+          {-86,-141},{-86,-104},{-82,-104}}, color={255,0,255}));
+  connect(zonGroSta.nexOcc,opeModSel.tNexOcc) annotation (Line(points={{-82,
+          -143},{-102,-143},{-102,-106},{-82,-106}},
                                                   color={0,0,127}));
-  connect(zonGroSta.yOccHeaHig,opeModSel.uOccHeaHig) annotation (Line(points={{-76,
-          -161},{-102,-161},{-102,-116},{-76,-116}},    color={255,0,255}));
-  connect(zonGroSta.yHigOccCoo,opeModSel.uHigOccCoo) annotation (Line(points={{-76,
-          -163},{-102,-163},{-102,-112},{-76,-112}},    color={255,0,255}));
-  connect(zonGroSta.yColZon,opeModSel.totColZon) annotation (Line(points={{-76,-166},
-          {-102,-166},{-102,-120},{-76,-120}},    color={255,127,0}));
-  connect(zonGroSta.ySetBac,opeModSel.uSetBac) annotation (Line(points={{-76,-168},
-          {-100,-168},{-100,-122},{-76,-122}},    color={255,0,255}));
-  connect(zonGroSta.yEndSetBac,opeModSel.uEndSetBac) annotation (Line(points={{-76,
-          -170},{-98,-170},{-98,-124},{-76,-124}},      color={255,0,255}));
-  connect(zonGroSta.TZonMax,opeModSel.TZonMax) annotation (Line(points={{-76,-181},
-          {-96,-181},{-96,-126},{-76,-126}},      color={0,0,127}));
-  connect(zonGroSta.TZonMin,opeModSel.TZonMin) annotation (Line(points={{-76,-183},
-          {-94,-183},{-94,-128},{-76,-128}},      color={0,0,127}));
-  connect(zonGroSta.yHotZon,opeModSel. totHotZon) annotation (Line(points={{-76,
-          -173},{-90,-173},{-90,-130},{-76,-130}},color={255,127,0}));
-  connect(zonGroSta.ySetUp,opeModSel. uSetUp) annotation (Line(points={{-76,-175},
-          {-90,-175},{-90,-132},{-76,-132}},      color={255,0,255}));
-  connect(zonGroSta.yEndSetUp,opeModSel. uEndSetUp) annotation (Line(points={{-76,
-          -177},{-88,-177},{-88,-134},{-76,-134}},color={255,0,255}));
-  connect(zonGroSta.yOpeWin,opeModSel. uOpeWin) annotation (Line(points={{-76,-187},
-          {-104,-187},{-104,-118},{-76,-118}},
+  connect(zonGroSta.yCooTim,opeModSel.maxCooDowTim) annotation (Line(points={{-82,
+          -147},{-112,-147},{-112,-108},{-82,-108}},   color={0,0,127}));
+  connect(zonGroSta.yWarTim,opeModSel.maxWarUpTim) annotation (Line(points={{-82,
+          -149},{-108,-149},{-108,-112},{-82,-112}},
+                                                  color={0,0,127}));
+  connect(zonGroSta.yOccHeaHig,opeModSel.uOccHeaHig) annotation (Line(points={{-82,
+          -153},{-102,-153},{-102,-114},{-82,-114}},    color={255,0,255}));
+  connect(zonGroSta.yHigOccCoo,opeModSel.uHigOccCoo) annotation (Line(points={{-82,
+          -155},{-102,-155},{-102,-110},{-82,-110}},    color={255,0,255}));
+  connect(zonGroSta.yColZon,opeModSel.totColZon) annotation (Line(points={{-82,
+          -158},{-102,-158},{-102,-118},{-82,-118}},
+                                                  color={255,127,0}));
+  connect(zonGroSta.ySetBac,opeModSel.uSetBac) annotation (Line(points={{-82,
+          -160},{-100,-160},{-100,-120},{-82,-120}},
+                                                  color={255,0,255}));
+  connect(zonGroSta.yEndSetBac,opeModSel.uEndSetBac) annotation (Line(points={{-82,
+          -162},{-98,-162},{-98,-122},{-82,-122}},      color={255,0,255}));
+  connect(zonGroSta.TZonMax,opeModSel.TZonMax) annotation (Line(points={{-82,
+          -173},{-96,-173},{-96,-124},{-82,-124}},color={0,0,127}));
+  connect(zonGroSta.TZonMin,opeModSel.TZonMin) annotation (Line(points={{-82,
+          -175},{-94,-175},{-94,-126},{-82,-126}},color={0,0,127}));
+  connect(zonGroSta.yHotZon,opeModSel. totHotZon) annotation (Line(points={{-82,
+          -165},{-90,-165},{-90,-128},{-82,-128}},color={255,127,0}));
+  connect(zonGroSta.ySetUp,opeModSel. uSetUp) annotation (Line(points={{-82,
+          -167},{-90,-167},{-90,-130},{-82,-130}},color={255,0,255}));
+  connect(zonGroSta.yEndSetUp,opeModSel. uEndSetUp) annotation (Line(points={{-82,
+          -169},{-88,-169},{-88,-132},{-82,-132}},color={255,0,255}));
+  connect(zonGroSta.yOpeWin,opeModSel. uOpeWin) annotation (Line(points={{-82,
+          -179},{-104,-179},{-104,-116},{-82,-116}},
                                              color={255,127,0}));
   connect(FIXME1.y, conAHU.TZonHeaSet) annotation (Line(points={{238,180},{-60,180},
           {-60,148},{-44,148}},      color={0,0,127}));
@@ -902,11 +911,12 @@ equation
       color={255,204,51},
       thickness=0.5));
   connect(busAHU.sof.TSupSet, TSupSet.u) annotation (Line(
-      points={{-200.1,0.1},{-200.1,0},{-180,0},{-180,-100},{-2,-100}},
+      points={{-200.1,0.1},{-200.1,0},{-180,0},{-180,-90},{-40,-90},{-40,-100},
+          {-2,-100}},
       color={255,204,51},
       thickness=0.5));
-  connect(TSupSet.y, busSofTer.TSupSet) annotation (Line(points={{22,-100},{80,-100},
-          {80,-120},{90,-120}},       color={0,0,127}));
+  connect(TSupSet.y, busSofTer.TSupSet) annotation (Line(points={{22,-100},{60,
+          -100},{60,-120},{90,-120}}, color={0,0,127}));
   connect(busSofTer, busTer.sof) annotation (Line(
       points={{90,-120},{200,-120},{200,0.1},{220.1,0.1}},
       color={255,204,51},
@@ -974,69 +984,113 @@ equation
           {-48,30},{-44,30}}, color={255,127,0}));
 
   for gro in 1:nGro loop
-    connect(zonSta.yCooTim, zonGroSta[gro].uCooTim) annotation (Line(points={{-2,-153},
-            {-44,-153},{-44,-157},{-52,-157}}, color={0,0,127}));
-    connect(zonSta.yWarTim, zonGroSta[gro].uWarTim) annotation (Line(points={{-2,-155},
-            {-40,-155},{-40,-159},{-52,-159}}, color={0,0,127}));
-    connect(zonSta.yOccHeaHig, zonGroSta[gro].uOccHeaHig) annotation (Line(points={{
-            -2,-160},{-44,-160},{-44,-163},{-52,-163}}, color={255,0,255}));
-    connect(zonSta.yHigOccCoo, zonGroSta[gro].uHigOccCoo)
-      annotation (Line(points={{-2,-165},{-52,-165}}, color={255,0,255}));
-    connect(zonSta.THeaSetOff, zonGroSta[gro].THeaSetOff) annotation (Line(points={{
-            -2,-168},{-44,-168},{-44,-171},{-52,-171}}, color={0,0,127}));
-    connect(zonSta.yUnoHeaHig, zonGroSta[gro].uUnoHeaHig) annotation (Line(points={{
-            -2,-170},{-28,-170},{-28,-169},{-52,-169}}, color={255,0,255}));
-    connect(zonSta.yEndSetBac, zonGroSta[gro].uEndSetBac) annotation (Line(points={{
-            -2,-172},{-27,-172},{-27,-173},{-52,-173}}, color={255,0,255}));
-    connect(zonSta.TCooSetOff, zonGroSta[gro].TCooSetOff) annotation (Line(points={{
-            -2,-175},{-44,-175},{-44,-179},{-52,-179}}, color={0,0,127}));
-    connect(zonSta.yHigUnoCoo, zonGroSta[gro].uHigUnoCoo)
-      annotation (Line(points={{-2,-177},{-52,-177}}, color={255,0,255}));
-    connect(zonSta.yEndSetUp, zonGroSta[gro].uEndSetUp) annotation (Line(points={{-2,
-            -179},{-2,-180},{-44,-180},{-44,-181},{-52,-181}}, color={255,0,255}));
   end for;
-  connect(zonGroSta[1].zonOcc, busSofTer) annotation (Line(points={{-52,-149},{-50,
-          -149},{-50,-148},{-48,-148},{-48,-120},{90,-120}}, color={255,0,255}),
-      Text(
-      string="%second",
-      index=1,
-      extent={{6,3},{6,3}},
-      horizontalAlignment=TextAlignment.Left));
-  connect(zonGroSta[1].uOcc, busSofTer) annotation (Line(points={{-52,-151},{-50,
-          -151},{-50,-150},{-48,-150},{-48,-120},{90,-120}}, color={255,0,255}),
-      Text(
-      string="%second",
-      index=1,
-      extent={{6,3},{6,3}},
-      horizontalAlignment=TextAlignment.Left));
-  connect(zonGroSta[1].tNexOcc, busSofTer) annotation (Line(points={{-52,-153},{
-          -48,-153},{-48,-120},{90,-120}}, color={0,0,127}), Text(
-      string="%second",
-      index=1,
-      extent={{6,3},{6,3}},
-      horizontalAlignment=TextAlignment.Left));
-  connect(opeModSel.yOpeMod, busSofTer) annotation (Line(points={{-52,-120},{90,
-          -120}}, color={255,127,0}), Text(
-      string="%second",
-      index=1,
-      extent={{6,3},{6,3}},
-      horizontalAlignment=TextAlignment.Left));
-  connect(busTer.inp.uWin, zonGroSta.uWin) annotation (Line(
-      points={{220.1,0.1},{200,0.1},{200,-184},{-52,-184},{-52,-187}},
+  connect(opeModSel.yOpeMod, busSofTer.yOpeMod) annotation (Line(points={{-58,
+          -118},{-40,-118},{-40,-120},{90,-120}},
+                  color={255,127,0}));
+  connect(zonSta.yCooTim, zonStaDup.uCooTim) annotation (Line(points={{-2,-153},
+          {-2,-154},{-10,-154},{-10,-149},{-18,-149}}, color={0,0,127}));
+  connect(zonSta.yOccHeaHig, zonStaDup.uOccHeaHig) annotation (Line(points={{-2,-160},
+          {-10,-160},{-10,-155},{-18,-155}},       color={255,0,255}));
+  connect(zonSta.yHigOccCoo, zonStaDup.uHigOccCoo) annotation (Line(points={{-2,-165},
+          {-2,-166},{-10,-166},{-10,-157},{-18,-157}},       color={255,0,255}));
+  connect(zonSta.THeaSetOff, zonStaDup.THeaSetOff) annotation (Line(points={{-2,-168},
+          {-10,-168},{-10,-163},{-18,-163}},       color={0,0,127}));
+  connect(zonSta.yUnoHeaHig, zonStaDup.uUnoHeaHig) annotation (Line(points={{-2,-170},
+          {-8,-170},{-8,-161},{-18,-161}},       color={255,0,255}));
+  connect(zonSta.yEndSetBac, zonStaDup.uEndSetBac) annotation (Line(points={{-2,-172},
+          {-8,-172},{-8,-165},{-18,-165}},       color={255,0,255}));
+  connect(zonSta.TCooSetOff, zonStaDup.TCooSetOff) annotation (Line(points={{-2,-175},
+          {-2,-174},{-10,-174},{-10,-172},{-18,-172},{-18,-171}},       color={0,
+          0,127}));
+  connect(zonSta.yHigUnoCoo, zonStaDup.uHigUnoCoo) annotation (Line(points={{-2,-177},
+          {-2,-169},{-18,-169}},       color={255,0,255}));
+  connect(zonSta.yEndSetUp, zonStaDup.uEndSetUp) annotation (Line(points={{-2,-179},
+          {-2,-178},{-8,-178},{-8,-173},{-18,-173}}, color={255,0,255}));
+  connect(zonSta.yWarTim, zonStaDup.uWarTim) annotation (Line(points={{-2,-155},
+          {-2,-156},{-8,-156},{-8,-151},{-18,-151}}, color={0,0,127}));
+  connect(busSofTer.tNexOcc, zonStaDup.tNexOcc) annotation (Line(
+      points={{90,-120},{-8,-120},{-8,-145},{-18,-145}},
       color={255,204,51},
-      thickness=0.5), Text(
-      string="%first",
-      index=-1,
-      extent={{6,3},{6,3}},
-      horizontalAlignment=TextAlignment.Left));
-  connect(busTer.inp.TZon, zonGroSta.TZon) annotation (Line(
-      points={{220.1,0.1},{200,0.1},{200,-188},{-52,-188},{-52,-185}},
+      thickness=0.5));
+  connect(busSofTer.uOccSch, zonStaDup.uOcc) annotation (Line(
+      points={{90,-120},{-8,-120},{-8,-143},{-18,-143}},
       color={255,204,51},
-      thickness=0.5), Text(
-      string="%first",
-      index=-1,
-      extent={{6,3},{6,3}},
-      horizontalAlignment=TextAlignment.Left));
+      thickness=0.5));
+  connect(busSofTer.uOveZon, zonStaDup.zonOcc) annotation (Line(
+      points={{90,-120},{-8,-120},{-8,-141},{-18,-141}},
+      color={255,204,51},
+      thickness=0.5));
+  connect(busTer.inp.TZon, zonStaDup.TZon) annotation (Line(
+      points={{220.1,0.1},{206,0.1},{206,-186},{-12,-186},{-12,-177},{-18,-177}},
+      color={255,204,51},
+      thickness=0.5));
+  connect(busTer.inp.uWin, zonStaDup.uWin) annotation (Line(
+      points={{220.1,0.1},{206,0.1},{206,-186},{-12,-186},{-12,-180},{-18,-180},
+          {-18,-179}},
+      color={255,204,51},
+      thickness=0.5));
+  connect(zonStaDup.yzonOcc, zonGroFil.zonOcc)
+    annotation (Line(points={{-30,-141},{-38,-141}}, color={255,0,255}));
+  connect(zonStaDup.yOcc, zonGroFil.uOcc)
+    annotation (Line(points={{-30,-143},{-38,-143}}, color={255,0,255}));
+  connect(zonStaDup.ytNexOcc, zonGroFil.tNexOcc)
+    annotation (Line(points={{-30,-145},{-38,-145}}, color={0,0,127}));
+  connect(zonStaDup.yCooTim, zonGroFil.uCooTim)
+    annotation (Line(points={{-30,-149},{-38,-149}}, color={0,0,127}));
+  connect(zonStaDup.yWarTim, zonGroFil.uWarTim)
+    annotation (Line(points={{-30,-151},{-38,-151}}, color={0,0,127}));
+  connect(zonStaDup.yOccHeaHig, zonGroFil.uOccHeaHig)
+    annotation (Line(points={{-30,-155},{-38,-155}}, color={255,0,255}));
+  connect(zonStaDup.yHigOccCoo, zonGroFil.uHigOccCoo)
+    annotation (Line(points={{-30,-157},{-38,-157}}, color={255,0,255}));
+  connect(zonStaDup.yUnoHeaHig, zonGroFil.uUnoHeaHig)
+    annotation (Line(points={{-30,-161},{-38,-161}}, color={255,0,255}));
+  connect(zonStaDup.yTHeaSetOff, zonGroFil.THeaSetOff)
+    annotation (Line(points={{-30,-163},{-38,-163}}, color={0,0,127}));
+  connect(zonStaDup.yEndSetBac, zonGroFil.uEndSetBac)
+    annotation (Line(points={{-30,-165},{-38,-165}}, color={255,0,255}));
+  connect(zonStaDup.yHigUnoCoo, zonGroFil.uHigUnoCoo)
+    annotation (Line(points={{-30,-169},{-38,-169}}, color={255,0,255}));
+  connect(zonStaDup.yTCooSetOff, zonGroFil.TCooSetOff)
+    annotation (Line(points={{-30,-171},{-38,-171}}, color={0,0,127}));
+  connect(zonStaDup.yEndSetUp, zonGroFil.uEndSetUp)
+    annotation (Line(points={{-30,-173},{-38,-173}}, color={255,0,255}));
+  connect(zonStaDup.yTZon, zonGroFil.TZon)
+    annotation (Line(points={{-30,-177},{-38,-177}}, color={0,0,127}));
+  connect(zonStaDup.yWin, zonGroFil.uWin)
+    annotation (Line(points={{-30,-179},{-38,-179}}, color={255,0,255}));
+  connect(zonGroFil.yzonOcc, zonGroSta.zonOcc)
+    annotation (Line(points={{-50,-141},{-58,-141}}, color={255,0,255}));
+  connect(zonGroFil.yOcc, zonGroSta.uOcc)
+    annotation (Line(points={{-50,-143},{-58,-143}}, color={255,0,255}));
+  connect(zonGroFil.ytNexOcc, zonGroSta.tNexOcc)
+    annotation (Line(points={{-50,-145},{-58,-145}}, color={0,0,127}));
+  connect(zonGroFil.yCooTim, zonGroSta.uCooTim)
+    annotation (Line(points={{-50,-149},{-58,-149}}, color={0,0,127}));
+  connect(zonGroFil.yWarTim, zonGroSta.uWarTim)
+    annotation (Line(points={{-50,-151},{-58,-151}}, color={0,0,127}));
+  connect(zonGroFil.yOccHeaHig, zonGroSta.uOccHeaHig)
+    annotation (Line(points={{-50,-155},{-58,-155}}, color={255,0,255}));
+  connect(zonGroFil.yHigOccCoo, zonGroSta.uHigOccCoo)
+    annotation (Line(points={{-50,-157},{-58,-157}}, color={255,0,255}));
+  connect(zonGroFil.yUnoHeaHig, zonGroSta.uUnoHeaHig)
+    annotation (Line(points={{-50,-161},{-58,-161}}, color={255,0,255}));
+  connect(zonGroFil.yTHeaSetOff, zonGroSta.THeaSetOff)
+    annotation (Line(points={{-50,-163},{-58,-163}}, color={0,0,127}));
+  connect(zonGroFil.yEndSetBac, zonGroSta.uEndSetBac)
+    annotation (Line(points={{-50,-165},{-58,-165}}, color={255,0,255}));
+  connect(zonGroFil.yHigUnoCoo, zonGroSta.uHigUnoCoo)
+    annotation (Line(points={{-50,-169},{-58,-169}}, color={255,0,255}));
+  connect(zonGroFil.yTCooSetOff, zonGroSta.TCooSetOff)
+    annotation (Line(points={{-50,-171},{-58,-171}}, color={0,0,127}));
+  connect(zonGroFil.yEndSetUp, zonGroSta.uEndSetUp)
+    annotation (Line(points={{-50,-173},{-58,-173}}, color={255,0,255}));
+  connect(zonGroFil.yTZon, zonGroSta.TZon)
+    annotation (Line(points={{-50,-177},{-58,-177}}, color={0,0,127}));
+  connect(zonGroFil.yWin, zonGroSta.uWin) annotation (Line(points={{-50,-179},{
+          -50,-180},{-58,-180},{-58,-179}},
+                                        color={255,0,255}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false), graphics={Text(
           extent={{216,-12},{422,-66}},

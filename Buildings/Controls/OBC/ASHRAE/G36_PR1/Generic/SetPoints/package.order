@@ -1,5 +1,7 @@
 GroupStatus
 OperationMode
 TrimAndRespond
+ZoneGroupFilter
 ZoneStatus
+ZoneStatusDuplicator
 Validation
