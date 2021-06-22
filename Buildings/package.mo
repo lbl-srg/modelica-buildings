@@ -269,12 +269,12 @@ have been <b style=\"color:blue\">improved</b> in a
 <b style=\"color:blue\">non-backward compatible</b> way:
 </p>
 <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
- <tr><td colspan=\"2\"><b>xxx</b>
+ <tr><td colspan=\"2\"><b>Buildings.Obsolete</b>
     </td>
 </tr>
-<tr><td valign=\"top\">xxx
+<tr><td valign=\"top\">Buildings.Obsolete.Utilities.IO.Python27
     </td>
-    <td valign=\"top\">xxx.
+    <td valign=\"top\">Removed support for Python 27. Use instead <code>Buildings.Utilities.IO.Python36</code>.
     </td>
 </tr>
 </table>
