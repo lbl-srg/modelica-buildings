@@ -1,196 +1,196 @@
 within Buildings.Controls.OBC.ASHRAE.G36_PR1.Generic.SetPoints;
 model ZoneStatusDuplicator "Duplicate zone status output"
 
-  parameter Integer numZon(final min=1)=1 "Number of zones in input";
-  parameter Integer numGro(final min=1)=1 "Number of groups in output";
+  parameter Integer nZon(final min=1)=1 "Number of zones in input";
+  parameter Integer nGro(final min=1)=1 "Number of groups in output";
 
 
-  CDL.Interfaces.BooleanInput                        zonOcc[numZon]
+  CDL.Interfaces.BooleanInput                        zonOcc[nZon]
     "True when the zone is set to be occupied due to the override"
     annotation (Placement(transformation(extent={{-80,60},{-40,100}}),
       iconTransformation(extent={{-80,190},{-40,230}})));
-  CDL.Interfaces.BooleanInput                        uOcc[numZon]
+  CDL.Interfaces.BooleanInput                        uOcc[nZon]
     "True when the zone is occupied according to the occupancy schedule"
     annotation (Placement(transformation(extent={{-80,20},{-40,60}}),
         iconTransformation(extent={{-80,170},{-40,210}})));
-  CDL.Interfaces.RealInput                        tNexOcc[numZon](final unit=
-        fill("s", numZon), final quantity=fill("Time", numZon))
+  CDL.Interfaces.RealInput                        tNexOcc[nZon](final unit=
+        fill("s", nZon), final quantity=fill("Time", nZon))
                                          "Time to next occupied period"
     annotation (Placement(transformation(extent={{-80,-20},{-40,20}}),
       iconTransformation(extent={{-80,150},{-40,190}})));
-  CDL.Interfaces.RealInput                        uCooTim[numZon](final unit=
-        fill("s", numZon), final quantity=fill("Time", numZon))
+  CDL.Interfaces.RealInput                        uCooTim[nZon](final unit=
+        fill("s", nZon), final quantity=fill("Time", nZon))
                                          "Cool down time"
     annotation (Placement(transformation(extent={{-80,-60},{-40,-20}}),
       iconTransformation(extent={{-80,110},{-40,150}})));
-  CDL.Interfaces.RealInput                        uWarTim[numZon](final unit=
-        fill("s", numZon), final quantity=fill("Time", numZon))
+  CDL.Interfaces.RealInput                        uWarTim[nZon](final unit=
+        fill("s", nZon), final quantity=fill("Time", nZon))
                                          "Warm-up time"
     annotation (Placement(transformation(extent={{-80,-100},{-40,-60}}),
       iconTransformation(extent={{-80,90},{-40,130}})));
-  CDL.Interfaces.BooleanInput                        uOccHeaHig[numZon]
+  CDL.Interfaces.BooleanInput                        uOccHeaHig[nZon]
     "True when the zone temperature is lower than the occupied heating setpoint"
     annotation (Placement(transformation(extent={{-80,-140},{-40,-100}}),
       iconTransformation(extent={{-80,50},{-40,90}})));
-  CDL.Interfaces.BooleanInput                        uHigOccCoo[numZon]
+  CDL.Interfaces.BooleanInput                        uHigOccCoo[nZon]
     "True when the zone temperature is higher than the occupied cooling setpoint"
     annotation (Placement(transformation(extent={{-80,-180},{-40,-140}}),
       iconTransformation(extent={{-80,30},{-40,70}})));
-  CDL.Interfaces.BooleanInput                        uUnoHeaHig[numZon]
+  CDL.Interfaces.BooleanInput                        uUnoHeaHig[nZon]
     "True when the zone temperature is lower than the unoccupied heating setpoint"
     annotation (Placement(transformation(extent={{-80,-220},{-40,-180}}),
       iconTransformation(extent={{-80,-10},{-40,30}})));
-  CDL.Interfaces.RealInput                        THeaSetOff[numZon](
-    final unit=fill("K", numZon),
-    displayUnit=fill("degC", numZon),
-    final quantity=fill("ThermodynamicTemperature", numZon))
+  CDL.Interfaces.RealInput                        THeaSetOff[nZon](
+    final unit=fill("K", nZon),
+    displayUnit=fill("degC", nZon),
+    final quantity=fill("ThermodynamicTemperature", nZon))
     "Zone unoccupied heating setpoint"
     annotation (Placement(transformation(extent={{-80,-260},{-40,-220}}),
       iconTransformation(extent={{-80,-30},{-40,10}})));
-  CDL.Interfaces.BooleanInput                        uEndSetBac[numZon]
+  CDL.Interfaces.BooleanInput                        uEndSetBac[nZon]
     "True when the zone could end the setback mode"
     annotation (Placement(transformation(extent={{-80,-300},{-40,-260}}),
       iconTransformation(extent={{-80,-50},{-40,-10}})));
-  CDL.Interfaces.BooleanInput                        uHigUnoCoo[numZon]
+  CDL.Interfaces.BooleanInput                        uHigUnoCoo[nZon]
     "True when the zone temperature is higher than its unoccupied cooling setpoint"
     annotation (Placement(transformation(extent={{-80,-330},{-40,-290}}),
       iconTransformation(extent={{-80,-90},{-40,-50}})));
-  CDL.Interfaces.RealInput                        TCooSetOff[numZon](
-    final unit=fill("K", numZon),
-    displayUnit=fill("degC", numZon),
-    final quantity=fill("ThermodynamicTemperature", numZon))
+  CDL.Interfaces.RealInput                        TCooSetOff[nZon](
+    final unit=fill("K", nZon),
+    displayUnit=fill("degC", nZon),
+    final quantity=fill("ThermodynamicTemperature", nZon))
     "Zone unoccupied cooling setpoint"
     annotation (Placement(transformation(extent={{-80,-390},{-40,-350}}),
       iconTransformation(extent={{-80,-110},{-40,-70}})));
-  CDL.Interfaces.BooleanInput                        uEndSetUp[numZon]
+  CDL.Interfaces.BooleanInput                        uEndSetUp[nZon]
     "True when the zone could end the setup mode"
     annotation (Placement(transformation(extent={{-80,-420},{-40,-380}}),
       iconTransformation(extent={{-80,-130},{-40,-90}})));
-  CDL.Interfaces.RealInput                        TZon[numZon](
-    final unit=fill("K", numZon),
-    displayUnit=fill("degC", numZon),
-    final quantity=fill("ThermodynamicTemperature", numZon)) "Zone temperature"
+  CDL.Interfaces.RealInput                        TZon[nZon](
+    final unit=fill("K", nZon),
+    displayUnit=fill("degC", nZon),
+    final quantity=fill("ThermodynamicTemperature", nZon)) "Zone temperature"
     annotation (Placement(transformation(extent={{-80,-460},{-40,-420}}),
       iconTransformation(extent={{-80,-170},{-40,-130}})));
-  CDL.Interfaces.BooleanInput                        uWin[numZon]
+  CDL.Interfaces.BooleanInput                        uWin[nZon]
     "True when the window is open, false when the window is close or the zone does not have window status sensor"
     annotation (Placement(transformation(extent={{-80,-540},{-40,-500}}),
       iconTransformation(extent={{-80,-190},{-40,-150}})));
 
 
-  CDL.Interfaces.BooleanOutput yzonOcc[numGro, numZon]
+  CDL.Interfaces.BooleanOutput yzonOcc[nGro, nZon]
     "True when the zone is set to be occupied due to the override"
     annotation (Placement(transformation(extent={{40,60},{80,100}}),
       iconTransformation(extent={{40,190},{80,230}})));
-  CDL.Interfaces.BooleanOutput yOcc[numGro,numZon]
+  CDL.Interfaces.BooleanOutput yOcc[nGro,nZon]
     "True when the zone is occupied according to the occupancy schedule"
     annotation (Placement(transformation(extent={{40,20},{80,60}}),
         iconTransformation(extent={{40,170},{80,210}})));
-  CDL.Interfaces.RealOutput ytNexOcc[numGro, numZon](
-    final unit=fill("s", numZon),
-    final quantity=fill("Time", numZon)) "Time to next occupied period"
+  CDL.Interfaces.RealOutput ytNexOcc[nGro, nZon](
+    final unit=fill("s", nZon),
+    final quantity=fill("Time", nZon)) "Time to next occupied period"
     annotation (Placement(transformation(extent={{40,-20},{80,20}}),
       iconTransformation(extent={{40,150},{80,190}})));
-  CDL.Interfaces.RealOutput yCooTim[numGro,numZon](final unit=fill("s", numZon),
-      final quantity=fill("Time", numZon)) "Cool down time" annotation (
+  CDL.Interfaces.RealOutput yCooTim[nGro,nZon](final unit=fill("s", nZon),
+      final quantity=fill("Time", nZon)) "Cool down time" annotation (
       Placement(transformation(extent={{40,-60},{80,-20}}), iconTransformation(
           extent={{40,110},{80,150}})));
-  CDL.Interfaces.RealOutput yWarTim[numGro,numZon](final unit=fill("s", numZon),
-      final quantity=fill("Time", numZon)) "Warm-up time" annotation (Placement(
+  CDL.Interfaces.RealOutput yWarTim[nGro,nZon](final unit=fill("s", nZon),
+      final quantity=fill("Time", nZon)) "Warm-up time" annotation (Placement(
         transformation(extent={{40,-100},{80,-60}}), iconTransformation(extent={
             {40,90},{80,130}})));
-  CDL.Interfaces.BooleanOutput yOccHeaHig[numGro,numZon]
+  CDL.Interfaces.BooleanOutput yOccHeaHig[nGro,nZon]
     "True when the zone temperature is lower than the occupied heating setpoint"
     annotation (Placement(transformation(extent={{40,-140},{80,-100}}),
         iconTransformation(extent={{40,50},{80,90}})));
-  CDL.Interfaces.BooleanOutput yHigOccCoo[numGro,numZon]
+  CDL.Interfaces.BooleanOutput yHigOccCoo[nGro,nZon]
     "True when the zone temperature is higher than the occupied cooling setpoint"
     annotation (Placement(transformation(extent={{40,-180},{80,-140}}),
         iconTransformation(extent={{40,30},{80,70}})));
-  CDL.Interfaces.BooleanOutput yUnoHeaHig[numGro,numZon]
+  CDL.Interfaces.BooleanOutput yUnoHeaHig[nGro,nZon]
     "True when the zone temperature is lower than the unoccupied heating setpoint"
     annotation (Placement(transformation(extent={{40,-220},{80,-180}}),
         iconTransformation(extent={{40,-10},{80,30}})));
-  CDL.Interfaces.RealOutput yTHeaSetOff[numGro, numZon](
-    final unit=fill("K", numZon),
-    displayUnit=fill("degC", numZon),
-    final quantity=fill("ThermodynamicTemperature", numZon))
+  CDL.Interfaces.RealOutput yTHeaSetOff[nGro, nZon](
+    final unit=fill("K", nZon),
+    displayUnit=fill("degC", nZon),
+    final quantity=fill("ThermodynamicTemperature", nZon))
     "Zone unoccupied heating setpoint"
     annotation (Placement(transformation(extent={{40,-260},{80,-220}}),
       iconTransformation(extent={{40,-30},{80,10}})));
-  CDL.Interfaces.BooleanOutput yEndSetBac[numGro,numZon]
+  CDL.Interfaces.BooleanOutput yEndSetBac[nGro,nZon]
     "True when the zone could end the setback mode" annotation (Placement(
         transformation(extent={{40,-300},{80,-260}}), iconTransformation(extent=
            {{40,-50},{80,-10}})));
-  CDL.Interfaces.BooleanOutput yHigUnoCoo[numGro,numZon]
+  CDL.Interfaces.BooleanOutput yHigUnoCoo[nGro,nZon]
     "True when the zone temperature is higher than its unoccupied cooling setpoint"
     annotation (Placement(transformation(extent={{40,-330},{80,-290}}),
         iconTransformation(extent={{40,-90},{80,-50}})));
-  CDL.Interfaces.RealOutput yTCooSetOff[numGro, numZon](
-    final unit=fill("K", numZon),
-    displayUnit=fill("degC", numZon),
-    final quantity=fill("ThermodynamicTemperature", numZon))
+  CDL.Interfaces.RealOutput yTCooSetOff[nGro, nZon](
+    final unit=fill("K", nZon),
+    displayUnit=fill("degC", nZon),
+    final quantity=fill("ThermodynamicTemperature", nZon))
     "Zone unoccupied cooling setpoint"
     annotation (Placement(transformation(extent={{40,-390},{80,-350}}),
       iconTransformation(extent={{40,-110},{80,-70}})));
-  CDL.Interfaces.BooleanOutput yEndSetUp[numGro,numZon]
+  CDL.Interfaces.BooleanOutput yEndSetUp[nGro,nZon]
     "True when the zone could end the setup mode" annotation (Placement(
         transformation(extent={{40,-420},{80,-380}}), iconTransformation(extent=
            {{40,-130},{80,-90}})));
-  CDL.Interfaces.RealOutput yTZon[numGro, numZon](
-    final unit=fill("K", numZon),
-    displayUnit=fill("degC", numZon),
-    final quantity=fill("ThermodynamicTemperature", numZon)) "Zone temperature"
+  CDL.Interfaces.RealOutput yTZon[nGro, nZon](
+    final unit=fill("K", nZon),
+    displayUnit=fill("degC", nZon),
+    final quantity=fill("ThermodynamicTemperature", nZon)) "Zone temperature"
     annotation (Placement(transformation(extent={{40,-460},{80,-420}}),
       iconTransformation(extent={{40,-170},{80,-130}})));
-  CDL.Interfaces.BooleanOutput yWin[numGro,numZon]
+  CDL.Interfaces.BooleanOutput yWin[nGro,nZon]
     "True when the window is open, false when the window is close or the zone does not have window status sensor"
     annotation (Placement(transformation(extent={{40,-540},{80,-500}}),
         iconTransformation(extent={{40,-190},{80,-150}})));
 
 
-  CDL.Routing.BooleanArrayReplicator zonOccDup(nin=numZon, nout=numGro)
+  CDL.Routing.BooleanArrayReplicator zonOccDup(nin=nZon, nout=nGro)
     "Duplicator"
     annotation (Placement(transformation(extent={{-10,70},{10,90}})));
-  CDL.Routing.BooleanArrayReplicator uOccDup(nin=numZon, nout=numGro)
+  CDL.Routing.BooleanArrayReplicator uOccDup(nin=nZon, nout=nGro)
     "Duplicator"
     annotation (Placement(transformation(extent={{-10,30},{10,50}})));
-  CDL.Routing.RealArrayReplicator tNexOccDup(nin=numZon, nout=numGro)
+  CDL.Routing.RealArrayReplicator tNexOccDup(nin=nZon, nout=nGro)
     "Duplicator"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
-  CDL.Routing.RealArrayReplicator uCooTimDup(nin=numZon, nout=numGro)
+  CDL.Routing.RealArrayReplicator uCooTimDup(nin=nZon, nout=nGro)
     "Duplicator"
     annotation (Placement(transformation(extent={{-10,-50},{10,-30}})));
-  CDL.Routing.RealArrayReplicator uWarTimDup(nin=numZon, nout=numGro)
+  CDL.Routing.RealArrayReplicator uWarTimDup(nin=nZon, nout=nGro)
     "Duplicator"
     annotation (Placement(transformation(extent={{-10,-90},{10,-70}})));
-  CDL.Routing.BooleanArrayReplicator uOccHeaHigDup(nin=numZon, nout=numGro)
+  CDL.Routing.BooleanArrayReplicator uOccHeaHigDup(nin=nZon, nout=nGro)
     "Duplicator"
     annotation (Placement(transformation(extent={{-10,-130},{10,-110}})));
-  CDL.Routing.BooleanArrayReplicator uHigOccCooDup(nin=numZon, nout=numGro)
+  CDL.Routing.BooleanArrayReplicator uHigOccCooDup(nin=nZon, nout=nGro)
     "Duplicator"
     annotation (Placement(transformation(extent={{-10,-170},{10,-150}})));
-  CDL.Routing.BooleanArrayReplicator uUnoHeaHigDup(nin=numZon, nout=numGro)
+  CDL.Routing.BooleanArrayReplicator uUnoHeaHigDup(nin=nZon, nout=nGro)
     "Duplicator"
     annotation (Placement(transformation(extent={{-10,-210},{10,-190}})));
-  CDL.Routing.RealArrayReplicator THeaSetOffDup(nin=numZon, nout=numGro)
+  CDL.Routing.RealArrayReplicator THeaSetOffDup(nin=nZon, nout=nGro)
     "Duplicator"
     annotation (Placement(transformation(extent={{-10,-250},{10,-230}})));
-  CDL.Routing.BooleanArrayReplicator uEndSetBacDup(nin=numZon, nout=numGro)
+  CDL.Routing.BooleanArrayReplicator uEndSetBacDup(nin=nZon, nout=nGro)
     "Duplicator"
     annotation (Placement(transformation(extent={{-10,-290},{10,-270}})));
-  CDL.Routing.BooleanArrayReplicator uHigUnoCooDup(nin=numZon, nout=numGro)
+  CDL.Routing.BooleanArrayReplicator uHigUnoCooDup(nin=nZon, nout=nGro)
     "Duplicator"
     annotation (Placement(transformation(extent={{-10,-320},{10,-300}})));
-  CDL.Routing.RealArrayReplicator TCooSetOffDup(nin=numZon, nout=numGro)
+  CDL.Routing.RealArrayReplicator TCooSetOffDup(nin=nZon, nout=nGro)
     "Duplicator"
     annotation (Placement(transformation(extent={{-10,-380},{10,-360}})));
-  CDL.Routing.BooleanArrayReplicator uEndSetUpDup(nin=numZon, nout=numGro)
+  CDL.Routing.BooleanArrayReplicator uEndSetUpDup(nin=nZon, nout=nGro)
     "Duplicator"
     annotation (Placement(transformation(extent={{-10,-410},{10,-390}})));
-  CDL.Routing.RealArrayReplicator TZonDup(nin=numZon, nout=numGro) "Duplicator"
+  CDL.Routing.RealArrayReplicator TZonDup(nin=nZon, nout=nGro) "Duplicator"
     annotation (Placement(transformation(extent={{-10,-450},{10,-430}})));
-  CDL.Routing.BooleanArrayReplicator uWinDup(nin=numZon, nout=numGro)
+  CDL.Routing.BooleanArrayReplicator uWinDup(nin=nZon, nout=nGro)
     "Duplicator"
     annotation (Placement(transformation(extent={{-10,-530},{10,-510}})));
 equation
@@ -341,5 +341,22 @@ equation
           lineColor={0,0,255},
           textString="%name")}),
                           Diagram(coordinateSystem(preserveAspectRatio=false,
-          extent={{-40,-540},{40,100}})));
+          extent={{-40,-540},{40,100}})),
+    Documentation(revisions="<html>
+<ul>
+<li>
+June 23, 2021, by Baptiste Ravache:<br/>
+First implementation.
+</li>
+</ul>
+</html>", info="<html>
+<p>
+This block duplicates the signals of <code>nZon</code> 
+zones statuses by a factor of <code>nGro</code>.
+This block should be used in coordination with
+<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36_PR1.Generic.SetPoints.ZoneGroupFilter\">
+Buildings.Controls.OBC.ASHRAE.G36_PR1.Generic.SetPoints.ZoneGroupFilter</a> to
+parse zone data into groups.
+</p>
+</html>"));
 end ZoneStatusDuplicator;

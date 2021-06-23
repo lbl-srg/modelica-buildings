@@ -9,13 +9,13 @@ block Guideline36 "Guideline 36 VAV single duct controller"
     "Name of group which each zone belongs to"
     annotation(Evaluate=true);
 
-  final parameter Boolean groZonMsk[nGro, nZon] = {
+  final parameter Boolean zonGroMsk[nGro, nZon] = {
     {namGroZon[gro] == namGro[zon] for zon in 1:nZon}
     for gro in 1:nGro}
     "Array of zone group masks" annotation(Evaluate=true);
 
   final parameter Integer idGroZon[nZon] = {
-    Modelica.Math.BooleanVectors.firstTrueIndex(groZonMsk[:,zon])
+    Modelica.Math.BooleanVectors.firstTrueIndex(zonGroMsk[:,zon])
     for zon in 1:nZon}
     "Id of group that each zone belongs to" annotation(Evaluate=true);
 
@@ -503,7 +503,7 @@ block Guideline36 "Guideline 36 VAV single duct controller"
     annotation (Placement(transformation(extent={{20,-60},{0,-40}})));
 
   Buildings.Controls.OBC.ASHRAE.G36_PR1.Generic.SetPoints.GroupStatus zonGroSta[nGro](
-    each final numZon=nZon)
+    final numZon=nZonGro)
     "Evaluate zone group status"
     annotation (Placement(transformation(extent={{-60,-180},{-80,-140}})));
 
@@ -560,14 +560,14 @@ block Guideline36 "Guideline 36 VAV single duct controller"
     "Various economizer configurations not handled: yDamRel (or exhaust), yDamOutMin"
     annotation (Placement(transformation(extent={{300,142},{280,162}})));
   Buildings.Controls.OBC.ASHRAE.G36_PR1.Generic.SetPoints.ZoneStatusDuplicator
-    zonStaDup(numZon=nZon, numGro=nGro)
+    zonStaDup(nZon=nZon, nGro=nGro)
               "Zone status duplicator"
     annotation (Placement(transformation(extent={{-12,-180},{-20,-140}})));
   Buildings.Controls.OBC.ASHRAE.G36_PR1.Generic.SetPoints.ZoneGroupFilter
     zonGroFil[nGro](
-    numZon=nZon,
-    numZonGro=nZonGro,
-    zonGroFil=groZonMsk) "Zone status filter"
+    nZon=nZon,
+    nZonGro=nZonGro,
+    zonGroMsk=zonGroMsk) "Zone status filter"
     annotation (Placement(transformation(extent={{-40,-180},{-48,-140}})));
 protected
     BaseClasses.Connectors.SubBusOutput busOutAHU
@@ -761,7 +761,8 @@ equation
   connect(zonStaDup.yOcc, zonGroFil.uOcc)
     annotation (Line(points={{-22,-143},{-38,-143}}, color={255,0,255}));
   connect(zonStaDup.ytNexOcc, zonGroFil.tNexOcc)
-    annotation (Line(points={{-22,-145},{-38,-145}}, color={0,0,127}));
+    annotation (Line(points={{-22,-145},{-30,-145},{-30,-162},{-38,-162}},
+                                                     color={0,0,127}));
   connect(zonStaDup.yCooTim, zonGroFil.uCooTim)
     annotation (Line(points={{-22,-149},{-38,-149}}, color={0,0,127}));
   connect(zonStaDup.yWarTim, zonGroFil.uWarTim)
@@ -920,7 +921,10 @@ equation
       extent={{6,3},{6,3}},
       horizontalAlignment=TextAlignment.Left));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
-        coordinateSystem(preserveAspectRatio=false)),
+        coordinateSystem(preserveAspectRatio=false), graphics={Text(
+          extent={{-54,-80},{152,-134}},
+          lineColor={238,46,47},
+          textString="Todo: subset indices for different Boolean values (such as have_occSen)")}),
     Documentation(info="<html>
 <p>
 WARNING: Do not use. Not configured and connected yet!

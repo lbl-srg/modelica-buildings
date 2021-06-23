@@ -3,7 +3,7 @@ model IntegerArrayFilter
   "Filter an integer array of based on a boolean mask"
   parameter Integer nin "Size of input array";
   parameter Integer nout "Size of output array";
-  parameter Boolean fil[nin]=fill(true,nin) "Array mask";
+  parameter Boolean msk[nin]=fill(true,nin) "Array mask";
 
   Interfaces.IntegerInput u[nin]
     "Connector of Integer input signal"
@@ -13,15 +13,15 @@ model IntegerArrayFilter
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
 protected
-  Integer filId[nout] = Modelica.Math.BooleanVectors.index(fil)
+  Integer mskId[nout] = Modelica.Math.BooleanVectors.index(msk)
     "Indices of included element in input array";
 
 initial equation
-  assert(nout==sum({if y then 1 else 0 for y in fil}),
+  assert(nout==sum({if y then 1 else 0 for y in msk}),
     "The size of the output array does not match the 
     size of included elements in the mask");
 equation
-  y = u[filId];
+  y = u[mskId];
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Rectangle(
           extent={{-100,-100},{100,100}},
@@ -48,5 +48,15 @@ June 22, 2021, by Baptiste Ravache:<br/>
 First implementation
 </li>
 </ul>
+</html>", info="<html>
+<p>
+This block filter a Integer array of size <code>nin</code> to
+an array of size <code>nout</code> given a boolean mask 
+<code>msk</code>.
+</p>
+<p>
+This block initially verifies that the mask will filter the
+array to the right size output.
+</p>
 </html>"));
 end IntegerArrayFilter;
