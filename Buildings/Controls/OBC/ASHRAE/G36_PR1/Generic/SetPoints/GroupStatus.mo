@@ -2,11 +2,7 @@ within Buildings.Controls.OBC.ASHRAE.G36_PR1.Generic.SetPoints;
 block GroupStatus "Block that outputs the zone group status"
 
   parameter Integer numZon(
-    final min=1)=5 "Number of zones";
-  parameter Integer nZonGro(
-    final min=1)=numZon "Number of zones in zone group";
-  parameter Boolean inZon[numZon]=fill(true, numZon)
-    "Boolean array of zones included in group";
+    final min=1)=5 "number of zones in the zone group";
   parameter Real uLow=-0.1
     "Low limit of the hysteresis for checking temperature difference"
     annotation (Dialog(tab="Advanced"));
@@ -16,74 +12,74 @@ block GroupStatus "Block that outputs the zone group status"
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput zonOcc[numZon]
     "True when the zone is set to be occupied due to the override"
-    annotation (Placement(transformation(extent={{-180,280},{-140,320}}),
+    annotation (Placement(transformation(extent={{-140,280},{-100,320}}),
       iconTransformation(extent={{-140,170},{-100,210}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uOcc[numZon]
     "True when the zone is occupied according to the occupancy schedule"
-    annotation (Placement(transformation(extent={{-180,240},{-140,280}}),
+    annotation (Placement(transformation(extent={{-140,240},{-100,280}}),
         iconTransformation(extent={{-140,150},{-100,190}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput tNexOcc[numZon](
     final unit=fill("s", numZon),
     final quantity=fill("Time", numZon)) "Time to next occupied period"
-    annotation (Placement(transformation(extent={{-180,200},{-140,240}}),
+    annotation (Placement(transformation(extent={{-140,200},{-100,240}}),
       iconTransformation(extent={{-140,130},{-100,170}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uCooTim[numZon](
     final unit=fill("s", numZon),
     final quantity=fill("Time", numZon)) "Cool down time"
-    annotation (Placement(transformation(extent={{-180,160},{-140,200}}),
+    annotation (Placement(transformation(extent={{-140,160},{-100,200}}),
       iconTransformation(extent={{-140,90},{-100,130}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uWarTim[numZon](
     final unit=fill("s", numZon),
     final quantity=fill("Time", numZon)) "Warm-up time"
-    annotation (Placement(transformation(extent={{-180,120},{-140,160}}),
+    annotation (Placement(transformation(extent={{-140,120},{-100,160}}),
       iconTransformation(extent={{-140,70},{-100,110}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uOccHeaHig[numZon]
     "True when the zone temperature is lower than the occupied heating setpoint"
-    annotation (Placement(transformation(extent={{-180,80},{-140,120}}),
+    annotation (Placement(transformation(extent={{-140,80},{-100,120}}),
       iconTransformation(extent={{-140,30},{-100,70}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uHigOccCoo[numZon]
     "True when the zone temperature is higher than the occupied cooling setpoint"
-    annotation (Placement(transformation(extent={{-180,40},{-140,80}}),
+    annotation (Placement(transformation(extent={{-140,40},{-100,80}}),
       iconTransformation(extent={{-140,10},{-100,50}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uUnoHeaHig[numZon]
     "True when the zone temperature is lower than the unoccupied heating setpoint"
-    annotation (Placement(transformation(extent={{-180,0},{-140,40}}),
+    annotation (Placement(transformation(extent={{-140,0},{-100,40}}),
       iconTransformation(extent={{-140,-30},{-100,10}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput THeaSetOff[numZon](
     final unit=fill("K", numZon),
     displayUnit=fill("degC", numZon),
     final quantity=fill("ThermodynamicTemperature", numZon))
     "Zone unoccupied heating setpoint"
-    annotation (Placement(transformation(extent={{-180,-40},{-140,0}}),
+    annotation (Placement(transformation(extent={{-140,-40},{-100,0}}),
       iconTransformation(extent={{-140,-50},{-100,-10}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uEndSetBac[numZon]
     "True when the zone could end the setback mode"
-    annotation (Placement(transformation(extent={{-180,-80},{-140,-40}}),
+    annotation (Placement(transformation(extent={{-140,-80},{-100,-40}}),
       iconTransformation(extent={{-140,-70},{-100,-30}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uHigUnoCoo[numZon]
     "True when the zone temperature is higher than its unoccupied cooling setpoint"
-    annotation (Placement(transformation(extent={{-180,-110},{-140,-70}}),
+    annotation (Placement(transformation(extent={{-140,-110},{-100,-70}}),
       iconTransformation(extent={{-140,-110},{-100,-70}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TCooSetOff[numZon](
     final unit=fill("K", numZon),
     displayUnit=fill("degC", numZon),
     final quantity=fill("ThermodynamicTemperature", numZon))
     "Zone unoccupied cooling setpoint"
-    annotation (Placement(transformation(extent={{-180,-170},{-140,-130}}),
+    annotation (Placement(transformation(extent={{-140,-170},{-100,-130}}),
       iconTransformation(extent={{-140,-130},{-100,-90}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uEndSetUp[numZon]
     "True when the zone could end the setup mode"
-    annotation (Placement(transformation(extent={{-180,-200},{-140,-160}}),
+    annotation (Placement(transformation(extent={{-140,-200},{-100,-160}}),
       iconTransformation(extent={{-140,-150},{-100,-110}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TZon[numZon](
     final unit=fill("K", numZon),
     displayUnit=fill("degC", numZon),
     final quantity=fill("ThermodynamicTemperature", numZon)) "Zone temperature"
-    annotation (Placement(transformation(extent={{-180,-240},{-140,-200}}),
+    annotation (Placement(transformation(extent={{-140,-240},{-100,-200}}),
       iconTransformation(extent={{-140,-190},{-100,-150}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uWin[numZon]
     "True when the window is open, false when the window is close or the zone does not have window status sensor"
-    annotation (Placement(transformation(extent={{-180,-320},{-140,-280}}),
+    annotation (Placement(transformation(extent={{-140,-320},{-100,-280}}),
       iconTransformation(extent={{-140,-210},{-100,-170}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput uGroOcc
     "True when the zone group is in occupied mode"
@@ -155,119 +151,51 @@ block GroupStatus "Block that outputs the zone group status"
     annotation (Placement(transformation(extent={{100,-320},{140,-280}}),
       iconTransformation(extent={{100,-210},{140,-170}})));
 
-  CDL.Routing.BooleanArrayFilter booleanArrayFilter(
-    nin=numZon,
-    nout=nZonGro,
-    fil=inZon)
-    annotation (Placement(transformation(extent={{-120,290},{-100,310}})));
-  CDL.Routing.BooleanArrayFilter booleanArrayFilter1(
-    nin=numZon,
-    nout=nZonGro,
-    fil=inZon)
-    annotation (Placement(transformation(extent={{-120,250},{-100,270}})));
-  CDL.Routing.RealArrayFilter realArrayFilter(
-    nin=numZon,
-    nout=nZonGro,
-    fil=inZon)
-    annotation (Placement(transformation(extent={{-120,210},{-100,230}})));
-  CDL.Routing.RealArrayFilter realArrayFilter1(
-    nin=numZon,
-    nout=nZonGro,
-    fil=inZon)
-    annotation (Placement(transformation(extent={{-120,170},{-100,190}})));
-  CDL.Routing.RealArrayFilter realArrayFilter2(
-    nin=numZon,
-    nout=nZonGro,
-    fil=inZon)
-    annotation (Placement(transformation(extent={{-120,130},{-100,150}})));
-  CDL.Routing.BooleanArrayFilter booleanArrayFilter5(
-    nin=numZon,
-    nout=nZonGro,
-    fil=inZon)
-    annotation (Placement(transformation(extent={{-120,90},{-100,110}})));
-  CDL.Routing.BooleanArrayFilter booleanArrayFilter6(
-    nin=numZon,
-    nout=nZonGro,
-    fil=inZon)
-    annotation (Placement(transformation(extent={{-120,50},{-100,70}})));
-  CDL.Routing.BooleanArrayFilter booleanArrayFilter7(
-    nin=numZon,
-    nout=nZonGro,
-    fil=inZon)
-    annotation (Placement(transformation(extent={{-120,10},{-100,30}})));
-  CDL.Routing.RealArrayFilter realArrayFilter3(
-    nin=numZon,
-    nout=nZonGro,
-    fil=inZon)
-    annotation (Placement(transformation(extent={{-120,-30},{-100,-10}})));
-  CDL.Routing.BooleanArrayFilter booleanArrayFilter9(
-    nin=numZon,
-    nout=nZonGro,
-    fil=inZon)
-    annotation (Placement(transformation(extent={{-120,-70},{-100,-50}})));
-  CDL.Routing.BooleanArrayFilter booleanArrayFilter10(
-    nin=numZon,
-    nout=nZonGro,
-    fil=inZon)
-    annotation (Placement(transformation(extent={{-120,-100},{-100,-80}})));
-  CDL.Routing.RealArrayFilter realArrayFilter4(
-    nin=numZon,
-    nout=nZonGro,
-    fil=inZon)
-    annotation (Placement(transformation(extent={{-120,-160},{-100,-140}})));
-  CDL.Routing.BooleanArrayFilter booleanArrayFilter12(
-    nin=numZon,
-    nout=nZonGro,
-    fil=inZon)
-    annotation (Placement(transformation(extent={{-120,-190},{-100,-170}})));
-  CDL.Routing.RealArrayFilter realArrayFilter5(
-    nin=numZon,
-    nout=nZonGro,
-    fil=inZon)
-    annotation (Placement(transformation(extent={{-120,-230},{-100,-210}})));
-  CDL.Routing.BooleanArrayFilter booleanArrayFilter14(
-    nin=numZon,
-    nout=nZonGro,
-    fil=inZon)
-    annotation (Placement(transformation(extent={{-120,-310},{-100,-290}})));
 protected
-  Buildings.Controls.OBC.CDL.Continuous.MultiMax cooDowTim(nin=nZonGro)
+  Buildings.Controls.OBC.CDL.Continuous.MultiMax cooDowTim(
+    final nin=numZon)
     "Longest cooldown time"
     annotation (Placement(transformation(extent={{40,170},{60,190}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiMax warUpTim(nin=nZonGro)
+  Buildings.Controls.OBC.CDL.Continuous.MultiMax warUpTim(
+    final nin=numZon)
     "Longest warm up time"
     annotation (Placement(transformation(extent={{40,130},{60,150}})));
-  Buildings.Controls.OBC.CDL.Logical.MultiOr mulOr(nu=nZonGro)
+  Buildings.Controls.OBC.CDL.Logical.MultiOr mulOr(
+    final nu=numZon)
     "Check if there is any zone that the zone temperature is lower than its occupied heating setpoint"
     annotation (Placement(transformation(extent={{40,90},{60,110}})));
-  Buildings.Controls.OBC.CDL.Logical.MultiOr mulOr1(nu=nZonGro)
+  Buildings.Controls.OBC.CDL.Logical.MultiOr mulOr1(
+    final nu=numZon)
     "Check if there is any zone that the zone temperature is higher than its occupied cooling setpoint"
     annotation (Placement(transformation(extent={{40,50},{60,70}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiMax maxTem(nin=nZonGro)
-                       "Maximum zone temperature in the zone group"
+  Buildings.Controls.OBC.CDL.Continuous.MultiMax maxTem(
+    final nin=numZon) "Maximum zone temperature in the zone group"
     annotation (Placement(transformation(extent={{0,-230},{20,-210}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiMin minTem(nin=nZonGro)
-                       "Minimum zone temperature in the zone group"
+  Buildings.Controls.OBC.CDL.Continuous.MultiMin minTem(
+    final nin=numZon) "Minimum zone temperature in the zone group"
     annotation (Placement(transformation(extent={{0,-270},{20,-250}})));
-  Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger booToInt[nZonGro]
+  Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger booToInt[numZon]
     "Convert boolean to integer"
     annotation (Placement(transformation(extent={{-80,10},{-60,30}})));
   Buildings.Controls.OBC.CDL.Integers.MultiSum totColZon(
-    final nin=nZonGro) "Total number of cold zone"
+    final nin=numZon) "Total number of cold zone"
     annotation (Placement(transformation(extent={{40,10},{60,30}})));
-  Buildings.Controls.OBC.CDL.Logical.MultiAnd endSetBac(nu=nZonGro)
+  Buildings.Controls.OBC.CDL.Logical.MultiAnd endSetBac(
+   final nu=numZon)
     "Check if all zones have ended the setback mode"
     annotation (Placement(transformation(extent={{40,-70},{60,-50}})));
-  Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger booToInt1[nZonGro]
+  Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger booToInt1[numZon]
     "Convert boolean to integer"
     annotation (Placement(transformation(extent={{-80,-100},{-60,-80}})));
   Buildings.Controls.OBC.CDL.Integers.MultiSum totHotZon(
-    final nin=nZonGro) "Total number of hot zones"
+    final nin=numZon) "Total number of hot zones"
     annotation (Placement(transformation(extent={{40,-100},{60,-80}})));
-  Buildings.Controls.OBC.CDL.Logical.MultiAnd endSetUp(nu=nZonGro)
+  Buildings.Controls.OBC.CDL.Logical.MultiAnd endSetUp(
+    final nu=numZon)
     "Check if all zones have ended the setup mode"
-    annotation (Placement(transformation(extent={{0,-190},{20,-170}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiSum sumUnoHea(nin=nZonGro)
+    annotation (Placement(transformation(extent={{-2,-190},{18,-170}})));
+  Buildings.Controls.OBC.CDL.Continuous.MultiSum sumUnoHea(
+    final nin=numZon)
     "Sum of all zones unoccupied heating setpoint"
     annotation (Placement(transformation(extent={{-80,-30},{-60,-10}})));
   Buildings.Controls.OBC.CDL.Continuous.Feedback difUnoHea
@@ -276,15 +204,16 @@ protected
   Buildings.Controls.OBC.CDL.Continuous.Division div1 "Average difference"
     annotation (Placement(transformation(extent={{20,-30},{40,-10}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant totZon(
-    final k=nZonGro) "Total number of zones"
+    final k=numZon) "Total number of zones"
     annotation (Placement(transformation(extent={{-80,110},{-60,130}})));
   Buildings.Controls.OBC.CDL.Conversions.IntegerToReal intToRea "Convert integer to real"
     annotation (Placement(transformation(extent={{-40,110},{-20,130}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiSum sumUnoCoo(nin=nZonGro)
+  Buildings.Controls.OBC.CDL.Continuous.MultiSum sumUnoCoo(
+    final nin=numZon)
     "Sum of all zones unoccupied cooling setpoint"
     annotation (Placement(transformation(extent={{-80,-160},{-60,-140}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiSum sumTem(nin=nZonGro)
-                       "Sum of all zones temperature"
+  Buildings.Controls.OBC.CDL.Continuous.MultiSum sumTem(
+    final nin=numZon) "Sum of all zones temperature"
     annotation (Placement(transformation(extent={{-80,-210},{-60,-190}})));
   Buildings.Controls.OBC.CDL.Continuous.Feedback difUnoCoo
     "Difference between unoccupied cooling setpoint and zone temperature"
@@ -301,23 +230,26 @@ protected
     final uHigh=uHigh)
     "Hysteresis that outputs if the group should run in setup mode"
     annotation (Placement(transformation(extent={{60,-140},{80,-120}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiMin minToNexOcc(nin=nZonGro)
+  Buildings.Controls.OBC.CDL.Continuous.MultiMin minToNexOcc(
+    final nin=numZon)
     "Minimum time to next occupied period"
     annotation (Placement(transformation(extent={{-60,210},{-40,230}})));
-  Buildings.Controls.OBC.CDL.Logical.MultiOr schOcc(nu=nZonGro)
+  Buildings.Controls.OBC.CDL.Logical.MultiOr schOcc(
+    final nu=numZon)
     "Check if the group should be in occupied mode according to the schedule"
     annotation (Placement(transformation(extent={{-60,250},{-40,270}})));
-  Buildings.Controls.OBC.CDL.Logical.MultiOr oveRidOcc(nu=nZonGro)
+  Buildings.Controls.OBC.CDL.Logical.MultiOr oveRidOcc(
+    final nu=numZon)
     "Check if the group should be in occupied mode according to the zone override"
     annotation (Placement(transformation(extent={{-60,290},{-40,310}})));
   Buildings.Controls.OBC.CDL.Logical.Or groOcc
     "Check if the group should be in occupied mode according to the schedule or the zone override"
     annotation (Placement(transformation(extent={{40,270},{60,290}})));
-  Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger booToInt2[nZonGro]
+  Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger booToInt2[numZon]
     "Convert boolean to integer"
     annotation (Placement(transformation(extent={{-60,-310},{-40,-290}})));
   Buildings.Controls.OBC.CDL.Integers.MultiSum totOpeWin(
-    final nin=nZonGro)
+    final nin=numZon)
     "Total number of opening windows"
     annotation (Placement(transformation(extent={{40,-310},{60,-290}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea(
@@ -342,14 +274,35 @@ equation
     annotation (Line(points={{62,100},{120,100}}, color={255,0,255}));
   connect(mulOr1.y, yHigOccCoo)
     annotation (Line(points={{62,60},{120,60}},   color={255,0,255}));
+  connect(uCooTim, cooDowTim.u)
+    annotation (Line(points={{-120,180},{38,180}}, color={0,0,127}));
+  connect(uOccHeaHig, mulOr.u)
+    annotation (Line(points={{-120,100},{38,100}},color={255,0,255}));
+  connect(TZon,maxTem. u)
+    annotation (Line(points={{-120,-220},{-2,-220}},color={0,0,127}));
+  connect(TZon,minTem. u)
+    annotation (Line(points={{-120,-220},{-80,-220},{-80,-260},{-2,-260}},
+      color={0,0,127}));
+  connect(uHigOccCoo, mulOr1.u)
+    annotation (Line(points={{-120,60},{38,60}},  color={255,0,255}));
+  connect(uWarTim, warUpTim.u)
+    annotation (Line(points={{-120,140},{38,140}}, color={0,0,127}));
+  connect(uUnoHeaHig, booToInt.u)
+    annotation (Line(points={{-120,20},{-82,20}}, color={255,0,255}));
   connect(totColZon.y, yColZon)
     annotation (Line(points={{62,20},{120,20}}, color={255,127,0}));
   connect(endSetBac.y, yEndSetBac)
     annotation (Line(points={{62,-60},{120,-60}}, color={255,0,255}));
+  connect(uHigUnoCoo, booToInt1.u)
+    annotation (Line(points={{-120,-90},{-82,-90}},   color={255,0,255}));
   connect(totHotZon.y, yHotZon)
     annotation (Line(points={{62,-90},{120,-90}},   color={255,127,0}));
   connect(endSetUp.y, yEndSetUp)
-    annotation (Line(points={{22,-180},{120,-180}}, color={255,0,255}));
+    annotation (Line(points={{20,-180},{120,-180}}, color={255,0,255}));
+  connect(uEndSetUp, endSetUp.u)
+    annotation (Line(points={{-120,-180},{-4,-180}}, color={255,0,255}));
+  connect(uEndSetBac, endSetBac.u)
+    annotation (Line(points={{-120,-60},{38,-60}},  color={255,0,255}));
   connect(booToInt.y, totColZon.u)
     annotation (Line(points={{-58,20},{38,20}}, color={255,0,255}));
   connect(booToInt1.y, totHotZon.u)
@@ -381,12 +334,27 @@ equation
   connect(hys1.y, ySetUp)
     annotation (Line(points={{82,-130},{120,-130}},
       color={255,0,255}));
+  connect(TCooSetOff, sumUnoCoo.u)
+    annotation (Line(points={{-120,-150},{-82,-150}}, color={0,0,127}));
+  connect(TZon, sumTem.u)
+    annotation (Line(points={{-120,-220},{-90,-220},{-90,-200},{-82,-200}},
+      color={0,0,127}));
+  connect(THeaSetOff, sumUnoHea.u)
+    annotation (Line(points={{-120,-20},{-82,-20}}, color={0,0,127}));
   connect(groOcc.y, uGroOcc) annotation (Line(points={{62,280},{120,280}},
           color={255,0,255}));
   connect(oveRidOcc.y, groOcc.u1) annotation (Line(points={{-38,300},{-20,300},{
           -20,280},{38,280}}, color={255,0,255}));
   connect(schOcc.y, groOcc.u2) annotation (Line(points={{-38,260},{-20,260},{-20,
           272},{38,272}}, color={255,0,255}));
+  connect(uOcc, schOcc.u) annotation (Line(points={{-120,260},{-62,260}},
+          color={255,0,255}));
+  connect(zonOcc, oveRidOcc.u) annotation (Line(points={{-120,300},{-62,300}},
+          color={255,0,255}));
+  connect(tNexOcc, minToNexOcc.u)
+    annotation (Line(points={{-120,220},{-62,220}}, color={0,0,127}));
+  connect(uWin, booToInt2.u) annotation (Line(points={{-120,-300},{-62,-300}},
+          color={255,0,255}));
   connect(totOpeWin.y, yOpeWin)
     annotation (Line(points={{62,-300},{120,-300}}, color={255,127,0}));
   connect(booToInt2.y, totOpeWin.u)
@@ -400,70 +368,6 @@ equation
   connect(pro.y, nexOcc) annotation (Line(points={{82,220},{94,220},{94,220},{120,
           220}}, color={0,0,127}));
 
-  connect(zonOcc, booleanArrayFilter.u)
-    annotation (Line(points={{-160,300},{-122,300}}, color={255,0,255}));
-  connect(booleanArrayFilter.y, oveRidOcc.u)
-    annotation (Line(points={{-98,300},{-62,300}}, color={255,0,255}));
-  connect(uOcc, booleanArrayFilter1.u)
-    annotation (Line(points={{-160,260},{-122,260}}, color={255,0,255}));
-  connect(booleanArrayFilter1.y, schOcc.u)
-    annotation (Line(points={{-98,260},{-62,260}}, color={255,0,255}));
-  connect(tNexOcc, realArrayFilter.u)
-    annotation (Line(points={{-160,220},{-122,220}}, color={0,0,127}));
-  connect(realArrayFilter.y, minToNexOcc.u)
-    annotation (Line(points={{-98,220},{-62,220}}, color={0,0,127}));
-  connect(uCooTim, realArrayFilter1.u)
-    annotation (Line(points={{-160,180},{-122,180}}, color={0,0,127}));
-  connect(realArrayFilter1.y, cooDowTim.u)
-    annotation (Line(points={{-98,180},{38,180}}, color={0,0,127}));
-  connect(uWarTim, realArrayFilter2.u)
-    annotation (Line(points={{-160,140},{-122,140}}, color={0,0,127}));
-  connect(realArrayFilter2.y, warUpTim.u)
-    annotation (Line(points={{-98,140},{38,140}}, color={0,0,127}));
-  connect(uOccHeaHig, booleanArrayFilter5.u)
-    annotation (Line(points={{-160,100},{-122,100}}, color={255,0,255}));
-  connect(booleanArrayFilter5.y, mulOr.u)
-    annotation (Line(points={{-98,100},{38,100}}, color={255,0,255}));
-  connect(uHigOccCoo, booleanArrayFilter6.u)
-    annotation (Line(points={{-160,60},{-122,60}}, color={255,0,255}));
-  connect(booleanArrayFilter6.y, mulOr1.u)
-    annotation (Line(points={{-98,60},{38,60}}, color={255,0,255}));
-  connect(uUnoHeaHig, booleanArrayFilter7.u)
-    annotation (Line(points={{-160,20},{-122,20}}, color={255,0,255}));
-  connect(booleanArrayFilter7.y, booToInt.u)
-    annotation (Line(points={{-98,20},{-82,20}}, color={255,0,255}));
-  connect(THeaSetOff, realArrayFilter3.u)
-    annotation (Line(points={{-160,-20},{-122,-20}}, color={0,0,127}));
-  connect(realArrayFilter3.y, sumUnoHea.u)
-    annotation (Line(points={{-98,-20},{-82,-20}}, color={0,0,127}));
-  connect(uEndSetBac, booleanArrayFilter9.u)
-    annotation (Line(points={{-160,-60},{-122,-60}}, color={255,0,255}));
-  connect(booleanArrayFilter9.y, endSetBac.u)
-    annotation (Line(points={{-98,-60},{38,-60}}, color={255,0,255}));
-  connect(uHigUnoCoo, booleanArrayFilter10.u)
-    annotation (Line(points={{-160,-90},{-122,-90}}, color={255,0,255}));
-  connect(booleanArrayFilter10.y, booToInt1.u)
-    annotation (Line(points={{-98,-90},{-82,-90}}, color={255,0,255}));
-  connect(TCooSetOff, realArrayFilter4.u)
-    annotation (Line(points={{-160,-150},{-122,-150}}, color={0,0,127}));
-  connect(realArrayFilter4.y, sumUnoCoo.u)
-    annotation (Line(points={{-98,-150},{-82,-150}}, color={0,0,127}));
-  connect(uEndSetUp, booleanArrayFilter12.u)
-    annotation (Line(points={{-160,-180},{-122,-180}}, color={255,0,255}));
-  connect(booleanArrayFilter12.y, endSetUp.u)
-    annotation (Line(points={{-98,-180},{-2,-180}}, color={255,0,255}));
-  connect(TZon, realArrayFilter5.u)
-    annotation (Line(points={{-160,-220},{-122,-220}}, color={0,0,127}));
-  connect(realArrayFilter5.y, sumTem.u) annotation (Line(points={{-98,-220},{-90,
-          -220},{-90,-200},{-82,-200}}, color={0,0,127}));
-  connect(realArrayFilter5.y, maxTem.u)
-    annotation (Line(points={{-98,-220},{-2,-220}}, color={0,0,127}));
-  connect(realArrayFilter5.y, minTem.u) annotation (Line(points={{-98,-220},{-90,
-          -220},{-90,-260},{-2,-260}}, color={0,0,127}));
-  connect(uWin, booleanArrayFilter14.u)
-    annotation (Line(points={{-160,-300},{-122,-300}}, color={255,0,255}));
-  connect(booleanArrayFilter14.y, booToInt2.u)
-    annotation (Line(points={{-98,-300},{-62,-300}}, color={255,0,255}));
 annotation (
   defaultComponentName = "groSta",
   Icon(coordinateSystem(extent={{-100,-200},{100,200}}),
@@ -625,7 +529,7 @@ annotation (
           lineColor={255,127,0},
           pattern=LinePattern.Dash,
           textString="yOpeWin")}),
-  Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-140,-320},{100,320}})),
+  Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-320},{100,320}})),
 Documentation(info="<html>
 <p>
 This sequence sums up the zone level status calculation to find the outputs that are
