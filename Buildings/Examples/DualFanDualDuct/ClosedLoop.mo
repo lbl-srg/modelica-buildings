@@ -376,7 +376,7 @@ model ClosedLoop "Closed loop model of a dual-fan dual-duct system"
     redeclare package Medium2 = MediumA,
     m1_flow_nominal=mWatHot_flow_nominal,
     m2_flow_nominal=mAirHot_flow_nominal,
-    Q_flow_nominal=mAirHot_flow_nominal*1000*(45 - 12),
+    Q_flow_nominal=mAirHot_flow_nominal*1000*(12 - 45),
     configuration=Buildings.Fluid.Types.HeatExchangerConfiguration.CounterFlow,
     dp2_nominal=0,
     from_dp2=from_dp,
@@ -416,7 +416,9 @@ model ClosedLoop "Closed loop model of a dual-fan dual-duct system"
     redeclare package Medium = MediumW,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     m_flow_nominal=mWatPre_flow_nominal,
-    inputType=Buildings.Fluid.Types.InputType.Continuous)
+    inputType=Buildings.Fluid.Types.InputType.Continuous,
+    nominalValuesDefineDefaultPressureCurve=true,
+    dp_nominal=6000)
     "Pump for preheat coil (to ensure constant flow through the coil)"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
@@ -1314,5 +1316,5 @@ __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Examples/D
         "Simulate and plot"),
     experiment(
       StopTime=172800,
-      Tolerance=1e-07));
+      Tolerance=1e-06));
 end ClosedLoop;
