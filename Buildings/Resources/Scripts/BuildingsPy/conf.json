@@ -27,6 +27,20 @@
     "model_name": "Buildings.Fluid.Examples.FlowSystem.Simplified2"
   },
   {
+    "optimica": {
+      "simulate": false,
+      "comment" : "RuntimeError, see https://travis-ci.com/github/lbl-srg/modelica-buildings/jobs/519052046#L481"
+    },
+  "model_name": "Buildings.ThermalZones.Detailed.Examples.FFD.Tutorial.MixedConvection"
+  },
+  {
+    "optimica": {
+      "simulate": false,
+      "comment" : "RuntimeError, see https://travis-ci.com/github/lbl-srg/modelica-buildings/jobs/519052046#L481"
+    },
+  "model_name": "Buildings.ThermalZones.Detailed.Examples.FFD.ForcedConvection"
+  },
+  {
     "jmodelica": {
       "simulate": false
     },

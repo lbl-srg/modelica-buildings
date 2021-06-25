@@ -15,8 +15,7 @@ model RadiationTemperature "Radiative temperature of the room"
     haveShade "Heat port that connects to shade"
                                        annotation (Placement(transformation(extent={{230,28},
             {250,48}})));
-  parameter Boolean haveShade "Set to true if the windows have a shade"
-  annotation(HideResult="true");
+  parameter Boolean haveShade "Set to true if the windows have a shade";
 
   Modelica.Blocks.Interfaces.RealInput uSha[NConExtWin](each min=0, each max=1) if
        haveShade

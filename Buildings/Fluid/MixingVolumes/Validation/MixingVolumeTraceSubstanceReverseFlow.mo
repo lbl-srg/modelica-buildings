@@ -4,8 +4,10 @@ model MixingVolumeTraceSubstanceReverseFlow
   extends
     Buildings.Fluid.MixingVolumes.Validation.BaseClasses.MixingVolumeReverseFlow(
     Medium(extraPropertiesNames={"CO2"}),
-    volDyn(use_C_flow=true),
-    volSte(use_C_flow=true),
+    redeclare replaceable Buildings.Fluid.MixingVolumes.MixingVolume volDyn
+      constrainedby Buildings.Fluid.MixingVolumes.MixingVolume(use_C_flow=true),
+    redeclare replaceable Buildings.Fluid.MixingVolumes.MixingVolume volSte
+      constrainedby Buildings.Fluid.MixingVolumes.MixingVolume(use_C_flow=true),
     gain(k=1/1000),
     bou(C={0.003}));
 
@@ -27,6 +29,10 @@ The mass flow rate starts positive and reverses its direction at <i>t=5</i> seco
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+June 24, 2021, by Michael Wetter:<br/>
+Added constraining clause to avoid warning in Optimica.
+</li>
 <li>
 December 7, 2016, by Michael Wetter:<br/>
 Set <code>bou(C={0.003})</code> to avoid a negative value for
