@@ -12,7 +12,7 @@ block IntegerArrayReplicator "Integer array signal replicator"
 equation
   y=fill(u, nout);
   annotation (
-    defaultComponentName="intRep",
+    defaultComponentName="intArrRep",
     Icon(
       graphics={
         Rectangle(

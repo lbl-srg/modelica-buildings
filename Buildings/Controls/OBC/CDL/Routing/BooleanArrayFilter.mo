@@ -1,5 +1,5 @@
 within Buildings.Controls.OBC.CDL.Routing;
-model BooleanArrayFilter
+block BooleanArrayFilter
   "Filter a boolean array based on a boolean mask"
   parameter Integer nin "Size of input array";
   parameter Integer nout "Size of output array";
@@ -19,11 +19,13 @@ protected
 
 initial equation
   assert(nout==sum({if y then 1 else 0 for y in msk}),
-    "The size of the output array does not match the 
-    size of included elements in the mask");
+    "In " + getInstanceName() + ": The size of the output array does not 
+    match the size of included elements in the mask");
 equation
   y = u[mskId];
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
+  annotation (
+    defaultComponentName="booArrFil",
+    Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Rectangle(
           extent={{-100,-100},{100,100}},
           lineColor={255,0,255},

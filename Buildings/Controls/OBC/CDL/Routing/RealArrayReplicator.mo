@@ -12,7 +12,7 @@ block RealArrayReplicator "Real array signal replicator"
 equation
   y=fill(u, nout);
   annotation (
-    defaultComponentName="intRep",
+    defaultComponentName="reaArrRep",
     Documentation(
       info="<html>
 <p>

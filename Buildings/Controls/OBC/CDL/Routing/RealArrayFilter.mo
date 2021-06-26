@@ -1,5 +1,5 @@
 within Buildings.Controls.OBC.CDL.Routing;
-model RealArrayFilter
+block RealArrayFilter
   "Filter a real array of based on a boolean mask"
   parameter Integer nin "Size of input array";
   parameter Integer nout "Size of output array";
@@ -22,7 +22,9 @@ initial equation
     size of included elements in the mask");
 equation
   y = u[mskId];
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
+  annotation (
+    defaultComponentName="reaArrFil",
+    Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Rectangle(
           extent={{-100,-100},{100,100}},
           lineColor={0,0,127},

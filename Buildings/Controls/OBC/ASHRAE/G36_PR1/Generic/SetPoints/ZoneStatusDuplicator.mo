@@ -1,5 +1,5 @@
 within Buildings.Controls.OBC.ASHRAE.G36_PR1.Generic.SetPoints;
-model ZoneStatusDuplicator "Duplicate zone status output"
+block ZoneStatusDuplicator "Duplicate zone status output"
 
   parameter Integer nZon(final min=1)=1 "Number of zones in input";
   parameter Integer nGro(final min=1)=1 "Number of groups in output";
@@ -353,10 +353,12 @@ First implementation.
 <p>
 This block duplicates the signals of <code>nZon</code> 
 zones statuses by a factor of <code>nGro</code>.
-This block should be used in coordination with
-<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36_PR1.Generic.SetPoints.ZoneGroupFilter\">
-Buildings.Controls.OBC.ASHRAE.G36_PR1.Generic.SetPoints.ZoneGroupFilter</a> to
-parse zone data into groups.
+</p>
+<p>
+This block prevent the use of <code>for</code> loops in the connectors between
+zones and zone groups by connecting all the zones to each 
+<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36_PR1.Generic.SetPoints.GroupStatus\">
+Buildings.Controls.OBC.ASHRAE.G36_PR1.Generic.SetPoints.GroupStatus</a>. <br>
 </p>
 </html>"));
 end ZoneStatusDuplicator;

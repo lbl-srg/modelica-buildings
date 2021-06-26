@@ -12,7 +12,7 @@ block BooleanArrayReplicator "Boolean array signal replicator"
 equation
   y=fill(u, nout);
   annotation (
-    defaultComponentName="intRep",
+    defaultComponentName="booArrRep",
     Documentation(
       info="<html>
 <p>
