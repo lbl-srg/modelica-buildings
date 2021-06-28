@@ -81,7 +81,7 @@ model ClosedLoop "Closed loop model of a dual-fan dual-duct system"
     "Preheat coil"
     annotation (Placement(transformation(extent={{100,-56},{120,-36}})));
 
-  Buildings.Fluid.HeatExchangers.WetCoilCounterFlow cooCoi(
+  Fluid.HeatExchangers.WetCoilEffectivenessNTU      hexWetNtu(
     redeclare package Medium1 = MediumW,
     redeclare package Medium2 = MediumA,
     m1_flow_nominal=mWatCol_flow_nominal,
@@ -157,8 +157,8 @@ model ClosedLoop "Closed loop model of a dual-fan dual-duct system"
     annotation (Placement(transformation(extent={{-302,-378},{-280,-356}})));
   Buildings.Examples.VAVReheat.Controls.ControlBus controlBus
     annotation (Placement(transformation(extent={{-250,-270},{-230,-250}})));
-  Buildings.Fluid.Sensors.TemperatureTwoPort TPreHeaCoi(redeclare package
-      Medium = MediumA, m_flow_nominal=m_flow_nominal)
+  Buildings.Fluid.Sensors.TemperatureTwoPort TPreHeaCoi(redeclare package Medium =
+               MediumA, m_flow_nominal=m_flow_nominal)
     "Preheating coil outlet temperature"
     annotation (Placement(transformation(extent={{134,-50},{154,-30}})));
   Buildings.Utilities.Math.Min min(nin=5) "Computes lowest room temperature"
@@ -722,15 +722,18 @@ equation
           -6.10623e-16}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(cooCoi.port_b2, TCoiCoo.port_a)    annotation (Line(
+  connect(hexWetNtu.port_b2, TCoiCoo.port_a)
+    annotation (Line(
       points={{372,-150},{410,-150}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(valCoo.port_b, cooCoi.port_a1) annotation (Line(
+  connect(valCoo.port_b, hexWetNtu.port_a1)
+    annotation (Line(
       points={{380,-180},{380,-162},{372,-162}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(cooCoi.port_b1, sinCoo.ports[1]) annotation (Line(
+  connect(hexWetNtu.port_b1, sinCoo.ports[1])
+    annotation (Line(
       points={{352,-162},{340,-162},{340,-210}},
       color={0,127,255},
       smooth=Smooth.None));
@@ -754,13 +757,11 @@ equation
       thickness=0.5,
       smooth=Smooth.None));
   connect(cor.port_b, flo.portsCor[1]) annotation (Line(
-      points={{582,112},{582,252},{784,252},{784,364},{915.409,364},{915.409,
-          394.246}},
+      points={{582,112},{582,252},{784,252},{784,364},{915.409,364},{915.409,394.246}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(splRetRoo1.port_3, flo.portsCor[2]) annotation (Line(
-      points={{602,170},{602,240},{792,240},{792,352},{928,352},{928,394.246},{
-          929.148,394.246}},
+      points={{602,170},{602,240},{792,240},{792,352},{928,352},{928,394.246},{929.148,394.246}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(sou.port_b, flo.portsSou[1]) annotation (Line(
@@ -832,7 +833,8 @@ equation
       points={{496,130},{478,130},{478,500},{1162,500},{1162,396},{1122.87,396}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(fanSupCol.port_b, cooCoi.port_a2) annotation (Line(
+  connect(fanSupCol.port_b, hexWetNtu.port_a2)
+    annotation (Line(
       points={{310,-150},{352,-150}},
       color={0,127,255},
       smooth=Smooth.None));
@@ -962,8 +964,7 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(splSupNorHot.port_2, wes.port_aHot) annotation (Line(
-      points={{1000,-6.10623e-16},{1058,-6.10623e-16},{1058,0},{1124.21,0},{
-          1124.21,46}},
+      points={{1000,-6.10623e-16},{1058,-6.10623e-16},{1058,0},{1124.21,0},{1124.21,46}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(splSupNorCol.port_2, wes.port_aCol) annotation (Line(
@@ -1060,18 +1061,18 @@ equation
   connect(modeSelector.yFan, conFanRet.uFan) annotation (Line(points={{-279,
           -362},{-220,-362},{-220,258},{280,258},{280,236},{298,236}}, color={
           255,0,255}));
-  connect(cor.yFan, modeSelector.yFan) annotation (Line(points={{543.467,71.2},
-          {530,71.2},{530,-362},{-279,-362}},   color={255,0,255}));
+  connect(cor.yFan, modeSelector.yFan) annotation (Line(points={{543.467,71.2},{530,71.2},{530,-362},{-279,-362}},
+                                                color={255,0,255}));
   connect(modeSelector.yFan, sou.yFan) annotation (Line(points={{-279,-362},{
           658,-362},{658,70.8},{681.2,70.8}}, color={255,0,255}));
-  connect(modeSelector.yFan, eas.yFan) annotation (Line(points={{-279,-362},{
-          800,-362},{800,73.2},{819.467,73.2}}, color={255,0,255}));
-  connect(modeSelector.yFan, nor.yFan) annotation (Line(points={{-279,-362},{
-          932,-362},{932,73.2},{959.467,73.2}},               color={255,0,255}));
-  connect(modeSelector.yFan, wes.yFan) annotation (Line(points={{-279,-362},{
-          1074,-362},{1074,73.2},{1097.47,73.2}}, color={255,0,255}));
-  connect(modeSelector.yEco, conEco.uEna) annotation (Line(points={{-279,-372},
-          {-216,-372},{-216,94},{-73.3333,94},{-73.3333,107.333}}, color={255,0,
+  connect(modeSelector.yFan, eas.yFan) annotation (Line(points={{-279,-362},{800,-362},{800,73.2},{819.467,73.2}},
+                                                color={255,0,255}));
+  connect(modeSelector.yFan, nor.yFan) annotation (Line(points={{-279,-362},{932,-362},{932,73.2},{959.467,73.2}},
+                                                              color={255,0,255}));
+  connect(modeSelector.yFan, wes.yFan) annotation (Line(points={{-279,-362},{1074,-362},{1074,73.2},{1097.47,73.2}},
+                                                  color={255,0,255}));
+  connect(modeSelector.yEco, conEco.uEna) annotation (Line(points={{-279,-372},{-216,-372},{-216,94},{-73.3333,94},{
+          -73.3333,107.333}},                                      color={255,0,
           255}));
   connect(conCooCoi.y, valCoo.y) annotation (Line(points={{311,-200},{360,-200},
           {360,-190},{368,-190}}, color={0,0,127}));
@@ -1110,8 +1111,8 @@ equation
   connect(TSetCoo.TSet, TMixSet.TSupCooSet) annotation (Line(points={{-179,-200},
           {-160,-200},{-160,66},{-196,66},{-196,116},{-192,116}}, color={0,0,
           127}));
-  connect(conTMix.y, conEco.uOATSup) annotation (Line(points={{-128,120},{-110,
-          120},{-110,128.667},{-81.3333,128.667}}, color={0,0,127}));
+  connect(conTMix.y, conEco.uOATSup) annotation (Line(points={{-128,120},{-110,120},{-110,128.667},{-81.3333,128.667}},
+                                                   color={0,0,127}));
   connect(TMixSet.TSet, conTMix.u_s)
     annotation (Line(points={{-168,120},{-152,120}}, color={0,0,127}));
   connect(TMix.T, conTMix.u_m) annotation (Line(points={{40,-29},{40,100},{-140,
