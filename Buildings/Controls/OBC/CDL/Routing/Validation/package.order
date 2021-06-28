@@ -4,8 +4,8 @@ BooleanReplicator
 IntegerArrayFilter
 IntegerArrayReplicator
 IntegerReplicator
-RealExtractSignal
-RealExtractor
 RealArrayFilter
 RealArrayReplicator
+RealExtractSignal
+RealExtractor
 RealReplicator
