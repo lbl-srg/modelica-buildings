@@ -152,7 +152,7 @@ partial model PartialOpenLoop
     "Heating coil"
     annotation (Placement(transformation(extent={{118,-36},{98,-56}})));
 
-  Buildings.Fluid.HeatExchangers.WetCoilCounterFlow cooCoi(
+  Fluid.HeatExchangers.WetCoilEffectivenessNTU      hexWetNtu(
     show_T=true,
     UA_nominal=3*m_flow_nominal*1000*15/
       Buildings.Fluid.HeatExchangers.BaseClasses.lmtd(
@@ -479,10 +479,10 @@ partial model PartialOpenLoop
   Results res(
     final A=ATot,
     PFan=fanSup.P + 0,
-    PHea=heaCoi.Q2_flow + cor.terHea.Q2_flow + nor.terHea.Q2_flow + wes.terHea.Q2_flow
-         + eas.terHea.Q2_flow + sou.terHea.Q2_flow,
-    PCooSen=cooCoi.QSen2_flow,
-    PCooLat=cooCoi.QLat2_flow) "Results of the simulation";
+    PHea=heaCoi.Q2_flow + cor.terHea.Q2_flow + nor.terHea.Q2_flow + wes.terHea.Q2_flow + eas.terHea.Q2_flow + sou.terHea.Q2_flow,
+
+    PCooSen=hexWetNtu.QSen2_flow,
+    PCooLat=hexWetNtu.QLat2_flow) "Results of the simulation";
   /*fanRet*/
 
 public
@@ -713,7 +713,8 @@ equation
       color={0,127,255},
       smooth=Smooth.None,
       thickness=0.5));
-  connect(cooCoi.port_b1, sinCoo.ports[1]) annotation (Line(
+  connect(hexWetNtu.port_b1, sinCoo.ports[1])
+    annotation (Line(
       points={{190,-52},{180,-52},{180,-110}},
       color={28,108,200},
       thickness=0.5));
@@ -733,8 +734,7 @@ equation
       thickness=0.5,
       smooth=Smooth.None));
   connect(splRetRoo1.port_3, flo.portsCor[2]) annotation (Line(
-      points={{640,10},{640,118},{892,118},{892,472},{898,472},{898,513.333},{
-          906.052,513.333}},
+      points={{640,10},{640,118},{892,118},{892,472},{898,472},{898,513.333},{906.052,513.333}},
       color={0,127,255},
       thickness=0.5));
   connect(splRetSou.port_3, flo.portsSou[2]) annotation (Line(
@@ -750,8 +750,7 @@ equation
       color={0,127,255},
       thickness=0.5));
   connect(splRetNor.port_2, flo.portsWes[2]) annotation (Line(
-      points={{1162,0},{1188,0},{1188,346},{818,346},{818,484},{817.635,484},{
-          817.635,513.333}},
+      points={{1162,0},{1188,0},{1188,346},{818,346},{818,484},{817.635,484},{817.635,513.333}},
       color={0,127,255},
       thickness=0.5));
   connect(weaBus, flo.weaBus) annotation (Line(
@@ -775,7 +774,7 @@ equation
       smooth=Smooth.None,
       pattern=LinePattern.Dash));
 
-  connect(cooCoi.port_b2, fanSup.port_a) annotation (Line(
+  connect(hexWetNtu.port_b2, fanSup.port_a) annotation (Line(
       points={{210,-40},{300,-40}},
       color={0,127,255},
       smooth=Smooth.None,
@@ -790,18 +789,15 @@ equation
       color={0,127,255},
       thickness=0.5));
   connect(eas.port_bAir, flo.portsEas[1]) annotation (Line(
-      points={{950,60},{950,120},{1054,120},{1054,506},{1054.37,506},{1054.37,
-          513.333}},
+      points={{950,60},{950,120},{1054,120},{1054,506},{1054.37,506},{1054.37,513.333}},
       color={0,127,255},
       thickness=0.5));
   connect(nor.port_bAir, flo.portsNor[1]) annotation (Line(
-      points={{1110,60},{1110,214},{926,214},{926,326},{891.791,326},{891.791,
-          575.667}},
+      points={{1110,60},{1110,214},{926,214},{926,326},{891.791,326},{891.791,575.667}},
       color={0,127,255},
       thickness=0.5));
   connect(wes.port_bAir, flo.portsWes[1]) annotation (Line(
-      points={{1310,60},{1310,344},{804,344},{804,424},{803.374,424},{803.374,
-          513.333}},
+      points={{1310,60},{1310,344},{804,344},{804,424},{803.374,424},{803.374,513.333}},
       color={0,127,255},
       thickness=0.5));
 
@@ -812,7 +808,8 @@ equation
     annotation (Line(points={{350,-40},{400,-40}}, color={0,127,255}));
   connect(senSupFlo.port_b, splSupRoo1.port_1)
     annotation (Line(points={{420,-40},{580,-40}}, color={0,127,255}));
-  connect(cooCoi.port_a1, souCoo.ports[1]) annotation (Line(
+  connect(hexWetNtu.port_a1, souCoo.ports[1])
+    annotation (Line(
       points={{210,-52},{230,-52},{230,-110}},
       color={28,108,200},
       thickness=0.5));
@@ -834,7 +831,8 @@ equation
       points={{50,-40},{98,-40}},
       color={0,127,255},
       thickness=0.5));
-  connect(heaCoi.port_b2, cooCoi.port_a2) annotation (Line(
+  connect(heaCoi.port_b2, hexWetNtu.port_a2)
+    annotation (Line(
       points={{118,-40},{190,-40}},
       color={0,127,255},
       thickness=0.5));
@@ -849,16 +847,14 @@ equation
   connect(cor.port_bHotWat, sinHea.ports[2]) annotation (Line(points={{570,30},{
           560,30},{560,-240},{322,-240},{322,-236},{90,-236}},
                                           color={0,127,255}));
-  connect(sou.port_bHotWat, sinHea.ports[3]) annotation (Line(points={{750,28},
-          {740,28},{740,-240},{412,-240},{412,-237.333},{90,-237.333}},
-                                                  color={0,127,255}));
-  connect(eas.port_bHotWat, sinHea.ports[4]) annotation (Line(points={{930,28},
-          {920,28},{920,-240},{504,-240},{504,-238.667},{90,-238.667}},
-                                                  color={0,127,255}));
+  connect(sou.port_bHotWat, sinHea.ports[3]) annotation (Line(points={{750,28},{740,28},{740,-240},{412,-240},{412,
+          -237.333},{90,-237.333}},               color={0,127,255}));
+  connect(eas.port_bHotWat, sinHea.ports[4]) annotation (Line(points={{930,28},{920,28},{920,-240},{504,-240},{504,
+          -238.667},{90,-238.667}},               color={0,127,255}));
   connect(nor.port_bHotWat, sinHea.ports[5]) annotation (Line(points={{1090,28},
           {1080,28},{1080,-240},{90,-240}}, color={0,127,255}));
-  connect(wes.port_bHotWat, sinHea.ports[6]) annotation (Line(points={{1290,28},
-          {1280,28},{1280,-240},{90,-240},{90,-241.333}}, color={0,127,255}));
+  connect(wes.port_bHotWat, sinHea.ports[6]) annotation (Line(points={{1290,28},{1280,28},{1280,-240},{90,-240},{90,
+          -241.333}},                                     color={0,127,255}));
   connect(souHeaCor.m_flow_in, gaiHeaCoiCor.y)
     annotation (Line(points={{528,46},{516,46}}, color={0,0,127}));
   connect(souHeaSou.m_flow_in, gaiHeaCoiSou.y)
