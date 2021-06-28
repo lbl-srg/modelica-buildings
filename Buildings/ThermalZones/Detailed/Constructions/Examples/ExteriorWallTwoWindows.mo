@@ -11,6 +11,8 @@ model ExteriorWallTwoWindows
     "Heat transfer area of frame and window";
   parameter Real fFra[:]={0.1, 0.1}
     "Fraction of window frame divided by total window area";
+  final parameter Modelica.SIunits.Area AFra[:]= fFra .* AWin "Frame area";
+  final parameter Modelica.SIunits.Area AGla[:] = AWin .- AFra "Glass area";
 
   parameter Boolean linearizeRadiation = false
     "Set to true to linearize emissive power";
