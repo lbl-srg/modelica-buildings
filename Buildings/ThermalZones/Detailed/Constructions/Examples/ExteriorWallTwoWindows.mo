@@ -93,8 +93,7 @@ model ExteriorWallTwoWindows
     annotation (Placement(transformation(extent={{-122,-58},{-102,-38}})));
   Modelica.Blocks.Routing.Replicator replicator(nout=nCon)
     annotation (Placement(transformation(extent={{-160,-42},{-140,-22}})));
-  Modelica.Thermal.HeatTransfer.Components.ThermalCollector theCol3(
-                                                                   m=2)
+  Modelica.Thermal.HeatTransfer.Components.ThermalCollector theCol3(m=2)
     "Thermal collector to link a vector of models to a single model"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
