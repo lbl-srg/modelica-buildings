@@ -282,7 +282,8 @@ equation
             88.88},{-280.4,88.88}},
                         color={255,204,51}, thickness=0.5));
     connect(controlBus[iFlo], modeSelector[iFlo].cb)
-      annotation (Line(points={{-68,54},{-121.728,54},{-121.728,53.4545},{-177.455,53.4545}},
+      annotation (Line(points={{-68,54},{-121.728,54},{-121.728,53.4545},{
+            -177.455,53.4545}},
         color={255,204,51}, thickness=0.5));
     connect(controlBus[iFlo], fan_dP_On_Off[iFlo].controlBus)
       annotation (Line(points={{-68,54},{-68,54},{-68,-1.4},{-67.2,-1.4}},
@@ -401,8 +402,8 @@ equation
   connect(weaBus, buiZon.weaBus)
     annotation (Line(points={{-324,170},{-324,170},{-44,170},{-44,80},{51.6,80}},
       color={255,204,51}, thickness=0.5));
-  connect(modeSelector.yFan, conFanRet.uFan) annotation (Line(points={{-163.273,51.6364},{-146,51.6364},{-146,163.2},{
-          12.6,163.2}},                                           color={255,0,
+  connect(modeSelector.yFan, conFanRet.uFan) annotation (Line(points={{-163.273,
+          51.6364},{-146,51.6364},{-146,163.2},{12.6,163.2}},     color={255,0,
           255}));
   connect(conTSup.yOA, conEco.uOATSup) annotation (Line(points={{-218,-60},{-210,
           -60},{-210,-40},{-296,-40},{-296,99.2},{-286.8,99.2}}, color={0,0,127}));
@@ -412,8 +413,9 @@ equation
           {-132,-55},{-127,-55}}, color={0,0,127}));
   connect(conTSup.yCoo, valCoo.y) annotation (Line(points={{-218,-66},{-210,-66},
           {-210,-94},{-66,-94},{-66,-55},{-57,-55}}, color={0,0,127}));
-  connect(modeSelector.yFan, conTSup.uEna) annotation (Line(points={{-163.273,51.6364},{-160,51.6364},{-160,0},{-260,0},
-          {-260,-66},{-242,-66}},                             color={255,0,255}));
+  connect(modeSelector.yFan, conTSup.uEna) annotation (Line(points={{-163.273,
+          51.6364},{-160,51.6364},{-160,0},{-260,0},{-260,-66},{-242,-66}},
+                                                              color={255,0,255}));
   connect(controlBus, TAirSupSet.controlBus) annotation (Line(
       points={{-68,54},{-72,54},{-72,60},{-290,60},{-290,-68}},
       color={255,204,51},
@@ -424,8 +426,9 @@ equation
       horizontalAlignment=TextAlignment.Right));
   connect(TAirSupSet.TSet, conTSup.TSupSet)
     annotation (Line(points={{-278,-60},{-242,-60}}, color={0,0,127}));
-  connect(modeSelector.yEco, conEco.uEna) annotation (Line(points={{-163.273,44.3636},{-158,44.3636},{-158,82},{-282,82},
-          {-282,86.4}},                                    color={255,0,255}));
+  connect(modeSelector.yEco, conEco.uEna) annotation (Line(points={{-163.273,
+          44.3636},{-158,44.3636},{-158,82},{-282,82},{-282,86.4}},
+                                                           color={255,0,255}));
 annotation (
   experiment(
       StopTime=604800,
@@ -508,6 +511,11 @@ shading devices, Technical Report, Oct. 17, 2006.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+June 30, 2021, by Antoine Gautier:<br/>
+Changed cooling coil model. This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2549\">issue #2549</a>.
+</li>
 <li>
 February 25, 2021, by Baptiste Ravache:<br/>
 Inverse the sign of hex[nFlo].Q_flow_nominal to respect the heat flow convention.

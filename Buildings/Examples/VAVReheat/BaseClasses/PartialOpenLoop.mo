@@ -480,9 +480,9 @@ partial model PartialOpenLoop
     final A=ATot,
     PFan=fanSup.P + 0,
     PHea=heaCoi.Q2_flow + cor.terHea.Q2_flow + nor.terHea.Q2_flow + wes.terHea.Q2_flow + eas.terHea.Q2_flow + sou.terHea.Q2_flow,
-
     PCooSen=hexWetNtu.QSen2_flow,
     PCooLat=hexWetNtu.QLat2_flow) "Results of the simulation";
+
   /*fanRet*/
 
 public
@@ -734,7 +734,8 @@ equation
       thickness=0.5,
       smooth=Smooth.None));
   connect(splRetRoo1.port_3, flo.portsCor[2]) annotation (Line(
-      points={{640,10},{640,118},{892,118},{892,472},{898,472},{898,513.333},{906.052,513.333}},
+      points={{640,10},{640,118},{892,118},{892,472},{898,472},{898,513.333},{
+          906.052,513.333}},
       color={0,127,255},
       thickness=0.5));
   connect(splRetSou.port_3, flo.portsSou[2]) annotation (Line(
@@ -750,7 +751,8 @@ equation
       color={0,127,255},
       thickness=0.5));
   connect(splRetNor.port_2, flo.portsWes[2]) annotation (Line(
-      points={{1162,0},{1188,0},{1188,346},{818,346},{818,484},{817.635,484},{817.635,513.333}},
+      points={{1162,0},{1188,0},{1188,346},{818,346},{818,484},{817.635,484},{
+          817.635,513.333}},
       color={0,127,255},
       thickness=0.5));
   connect(weaBus, flo.weaBus) annotation (Line(
@@ -789,15 +791,18 @@ equation
       color={0,127,255},
       thickness=0.5));
   connect(eas.port_bAir, flo.portsEas[1]) annotation (Line(
-      points={{950,60},{950,120},{1054,120},{1054,506},{1054.37,506},{1054.37,513.333}},
+      points={{950,60},{950,120},{1054,120},{1054,506},{1054.37,506},{1054.37,
+          513.333}},
       color={0,127,255},
       thickness=0.5));
   connect(nor.port_bAir, flo.portsNor[1]) annotation (Line(
-      points={{1110,60},{1110,214},{926,214},{926,326},{891.791,326},{891.791,575.667}},
+      points={{1110,60},{1110,214},{926,214},{926,326},{891.791,326},{891.791,
+          575.667}},
       color={0,127,255},
       thickness=0.5));
   connect(wes.port_bAir, flo.portsWes[1]) annotation (Line(
-      points={{1310,60},{1310,344},{804,344},{804,424},{803.374,424},{803.374,513.333}},
+      points={{1310,60},{1310,344},{804,344},{804,424},{803.374,424},{803.374,
+          513.333}},
       color={0,127,255},
       thickness=0.5));
 
@@ -847,14 +852,16 @@ equation
   connect(cor.port_bHotWat, sinHea.ports[2]) annotation (Line(points={{570,30},{
           560,30},{560,-240},{322,-240},{322,-236},{90,-236}},
                                           color={0,127,255}));
-  connect(sou.port_bHotWat, sinHea.ports[3]) annotation (Line(points={{750,28},{740,28},{740,-240},{412,-240},{412,
-          -237.333},{90,-237.333}},               color={0,127,255}));
-  connect(eas.port_bHotWat, sinHea.ports[4]) annotation (Line(points={{930,28},{920,28},{920,-240},{504,-240},{504,
-          -238.667},{90,-238.667}},               color={0,127,255}));
+  connect(sou.port_bHotWat, sinHea.ports[3]) annotation (Line(points={{750,28},
+          {740,28},{740,-240},{412,-240},{412,-237.333},{90,-237.333}},
+                                                  color={0,127,255}));
+  connect(eas.port_bHotWat, sinHea.ports[4]) annotation (Line(points={{930,28},
+          {920,28},{920,-240},{504,-240},{504,-238.667},{90,-238.667}},
+                                                  color={0,127,255}));
   connect(nor.port_bHotWat, sinHea.ports[5]) annotation (Line(points={{1090,28},
           {1080,28},{1080,-240},{90,-240}}, color={0,127,255}));
-  connect(wes.port_bHotWat, sinHea.ports[6]) annotation (Line(points={{1290,28},{1280,28},{1280,-240},{90,-240},{90,
-          -241.333}},                                     color={0,127,255}));
+  connect(wes.port_bHotWat, sinHea.ports[6]) annotation (Line(points={{1290,28},
+          {1280,28},{1280,-240},{90,-240},{90,-241.333}}, color={0,127,255}));
   connect(souHeaCor.m_flow_in, gaiHeaCoiCor.y)
     annotation (Line(points={{528,46},{516,46}}, color={0,0,127}));
   connect(souHeaSou.m_flow_in, gaiHeaCoiSou.y)
@@ -946,6 +953,11 @@ shading devices, Technical Report, Oct. 17, 2006.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+June 30, 2021, by Antoine Gautier:<br/>
+Changed cooling coil model. This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2549\">issue #2549</a>.
+</li>
 <li>
 May 6, 2021, by David Blum:<br/>
 Change to <code>from_dp=false</code> for all mixing box dampers.<br/>

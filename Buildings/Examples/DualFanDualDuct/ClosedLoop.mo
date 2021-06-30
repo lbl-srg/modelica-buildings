@@ -757,11 +757,13 @@ equation
       thickness=0.5,
       smooth=Smooth.None));
   connect(cor.port_b, flo.portsCor[1]) annotation (Line(
-      points={{582,112},{582,252},{784,252},{784,364},{915.409,364},{915.409,394.246}},
+      points={{582,112},{582,252},{784,252},{784,364},{915.409,364},{915.409,
+          394.246}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(splRetRoo1.port_3, flo.portsCor[2]) annotation (Line(
-      points={{602,170},{602,240},{792,240},{792,352},{928,352},{928,394.246},{929.148,394.246}},
+      points={{602,170},{602,240},{792,240},{792,352},{928,352},{928,394.246},{
+          929.148,394.246}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(sou.port_b, flo.portsSou[1]) annotation (Line(
@@ -964,7 +966,8 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(splSupNorHot.port_2, wes.port_aHot) annotation (Line(
-      points={{1000,-6.10623e-16},{1058,-6.10623e-16},{1058,0},{1124.21,0},{1124.21,46}},
+      points={{1000,-6.10623e-16},{1058,-6.10623e-16},{1058,0},{1124.21,0},{
+          1124.21,46}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(splSupNorCol.port_2, wes.port_aCol) annotation (Line(
@@ -1061,18 +1064,18 @@ equation
   connect(modeSelector.yFan, conFanRet.uFan) annotation (Line(points={{-279,
           -362},{-220,-362},{-220,258},{280,258},{280,236},{298,236}}, color={
           255,0,255}));
-  connect(cor.yFan, modeSelector.yFan) annotation (Line(points={{543.467,71.2},{530,71.2},{530,-362},{-279,-362}},
-                                                color={255,0,255}));
+  connect(cor.yFan, modeSelector.yFan) annotation (Line(points={{543.467,71.2},
+          {530,71.2},{530,-362},{-279,-362}},   color={255,0,255}));
   connect(modeSelector.yFan, sou.yFan) annotation (Line(points={{-279,-362},{
           658,-362},{658,70.8},{681.2,70.8}}, color={255,0,255}));
-  connect(modeSelector.yFan, eas.yFan) annotation (Line(points={{-279,-362},{800,-362},{800,73.2},{819.467,73.2}},
-                                                color={255,0,255}));
-  connect(modeSelector.yFan, nor.yFan) annotation (Line(points={{-279,-362},{932,-362},{932,73.2},{959.467,73.2}},
-                                                              color={255,0,255}));
-  connect(modeSelector.yFan, wes.yFan) annotation (Line(points={{-279,-362},{1074,-362},{1074,73.2},{1097.47,73.2}},
-                                                  color={255,0,255}));
-  connect(modeSelector.yEco, conEco.uEna) annotation (Line(points={{-279,-372},{-216,-372},{-216,94},{-73.3333,94},{
-          -73.3333,107.333}},                                      color={255,0,
+  connect(modeSelector.yFan, eas.yFan) annotation (Line(points={{-279,-362},{
+          800,-362},{800,73.2},{819.467,73.2}}, color={255,0,255}));
+  connect(modeSelector.yFan, nor.yFan) annotation (Line(points={{-279,-362},{
+          932,-362},{932,73.2},{959.467,73.2}},               color={255,0,255}));
+  connect(modeSelector.yFan, wes.yFan) annotation (Line(points={{-279,-362},{
+          1074,-362},{1074,73.2},{1097.47,73.2}}, color={255,0,255}));
+  connect(modeSelector.yEco, conEco.uEna) annotation (Line(points={{-279,-372},
+          {-216,-372},{-216,94},{-73.3333,94},{-73.3333,107.333}}, color={255,0,
           255}));
   connect(conCooCoi.y, valCoo.y) annotation (Line(points={{311,-200},{360,-200},
           {360,-190},{368,-190}}, color={0,0,127}));
@@ -1111,8 +1114,8 @@ equation
   connect(TSetCoo.TSet, TMixSet.TSupCooSet) annotation (Line(points={{-179,-200},
           {-160,-200},{-160,66},{-196,66},{-196,116},{-192,116}}, color={0,0,
           127}));
-  connect(conTMix.y, conEco.uOATSup) annotation (Line(points={{-128,120},{-110,120},{-110,128.667},{-81.3333,128.667}},
-                                                   color={0,0,127}));
+  connect(conTMix.y, conEco.uOATSup) annotation (Line(points={{-128,120},{-110,
+          120},{-110,128.667},{-81.3333,128.667}}, color={0,0,127}));
   connect(TMixSet.TSet, conTMix.u_s)
     annotation (Line(points={{-168,120},{-152,120}}, color={0,0,127}));
   connect(TMix.T, conTMix.u_m) annotation (Line(points={{40,-29},{40,100},{-140,
@@ -1236,6 +1239,11 @@ shading devices, Technical Report, Oct. 17, 2006.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+June 30, 2021, by Antoine Gautier:<br/>
+Changed cooling coil model. This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2549\">issue #2549</a>.
+</li>
 <li>
 October 27, 2020, by Antoine Gautier:<br/>
 Refactored the model for compatibility with the updated control of supply air
