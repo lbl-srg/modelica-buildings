@@ -251,7 +251,7 @@ have been <b style=\"color:blue\">improved</b> in a
 <tr><td valign=\"top\">Buildings.Examples.VAVReheat.Controls.DuctStaticPressureSetpoint
     </td>
     <td valign=\"top\">Removed hysteresis that disabled duct static pressure reset based on outdoor air temperature.<br/>
-                     This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2545\">issue 2550</a>.
+                     This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2545\">issue #2550</a>.
     </td>
 </tr>
 <tr><td colspan=\"2\"><b>xxx</b>
