@@ -152,7 +152,7 @@ partial model PartialOpenLoop
     "Heating coil"
     annotation (Placement(transformation(extent={{118,-36},{98,-56}})));
 
-  Fluid.HeatExchangers.WetCoilEffectivenessNTU      hexWetNtu(
+  Fluid.HeatExchangers.WetCoilEffectivenessNTU cooCoi(
     show_T=true,
     UA_nominal=3*m_flow_nominal*1000*15/
       Buildings.Fluid.HeatExchangers.BaseClasses.lmtd(
@@ -480,8 +480,8 @@ partial model PartialOpenLoop
     final A=ATot,
     PFan=fanSup.P + 0,
     PHea=heaCoi.Q2_flow + cor.terHea.Q2_flow + nor.terHea.Q2_flow + wes.terHea.Q2_flow + eas.terHea.Q2_flow + sou.terHea.Q2_flow,
-    PCooSen=hexWetNtu.QSen2_flow,
-    PCooLat=hexWetNtu.QLat2_flow) "Results of the simulation";
+    PCooSen=cooCoi.QSen2_flow,
+    PCooLat=cooCoi.QLat2_flow) "Results of the simulation";
 
   /*fanRet*/
 
@@ -713,7 +713,7 @@ equation
       color={0,127,255},
       smooth=Smooth.None,
       thickness=0.5));
-  connect(hexWetNtu.port_b1, sinCoo.ports[1])
+  connect(cooCoi.port_b1, sinCoo.ports[1])
     annotation (Line(
       points={{190,-52},{180,-52},{180,-110}},
       color={28,108,200},
@@ -776,7 +776,7 @@ equation
       smooth=Smooth.None,
       pattern=LinePattern.Dash));
 
-  connect(hexWetNtu.port_b2, fanSup.port_a) annotation (Line(
+  connect(cooCoi.port_b2, fanSup.port_a) annotation (Line(
       points={{210,-40},{300,-40}},
       color={0,127,255},
       smooth=Smooth.None,
@@ -813,7 +813,7 @@ equation
     annotation (Line(points={{350,-40},{400,-40}}, color={0,127,255}));
   connect(senSupFlo.port_b, splSupRoo1.port_1)
     annotation (Line(points={{420,-40},{580,-40}}, color={0,127,255}));
-  connect(hexWetNtu.port_a1, souCoo.ports[1])
+  connect(cooCoi.port_a1, souCoo.ports[1])
     annotation (Line(
       points={{210,-52},{230,-52},{230,-110}},
       color={28,108,200},
@@ -836,7 +836,7 @@ equation
       points={{50,-40},{98,-40}},
       color={0,127,255},
       thickness=0.5));
-  connect(heaCoi.port_b2, hexWetNtu.port_a2)
+  connect(heaCoi.port_b2, cooCoi.port_a2)
     annotation (Line(
       points={{118,-40},{190,-40}},
       color={0,127,255},

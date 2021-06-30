@@ -81,7 +81,7 @@ model ClosedLoop "Closed loop model of a dual-fan dual-duct system"
     "Preheat coil"
     annotation (Placement(transformation(extent={{100,-56},{120,-36}})));
 
-  Fluid.HeatExchangers.WetCoilEffectivenessNTU      hexWetNtu(
+  Fluid.HeatExchangers.WetCoilEffectivenessNTU      cooCoi(
     redeclare package Medium1 = MediumW,
     redeclare package Medium2 = MediumA,
     m1_flow_nominal=mWatCol_flow_nominal,
@@ -722,17 +722,17 @@ equation
           -6.10623e-16}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(hexWetNtu.port_b2, TCoiCoo.port_a)
+  connect(cooCoi.port_b2, TCoiCoo.port_a)
     annotation (Line(
       points={{372,-150},{410,-150}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(valCoo.port_b, hexWetNtu.port_a1)
+  connect(valCoo.port_b, cooCoi.port_a1)
     annotation (Line(
       points={{380,-180},{380,-162},{372,-162}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(hexWetNtu.port_b1, sinCoo.ports[1])
+  connect(cooCoi.port_b1, sinCoo.ports[1])
     annotation (Line(
       points={{352,-162},{340,-162},{340,-210}},
       color={0,127,255},
@@ -835,7 +835,7 @@ equation
       points={{496,130},{478,130},{478,500},{1162,500},{1162,396},{1122.87,396}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(fanSupCol.port_b, hexWetNtu.port_a2)
+  connect(fanSupCol.port_b, cooCoi.port_a2)
     annotation (Line(
       points={{310,-150},{352,-150}},
       color={0,127,255},

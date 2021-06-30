@@ -55,8 +55,7 @@ model OneFloor_OneZone "Closed-loop model with 1 zone in 1 floor"
     each T_a1_nominal=281.65,
     each T_a2_nominal=323.15) "Heating coil"
     annotation (Placement(transformation(extent={{-144,-46},{-124,-26}})));
-  Fluid.HeatExchangers.WetCoilEffectivenessNTU      hexWetNtu
-                                                          [nFlo](
+  Fluid.HeatExchangers.WetCoilEffectivenessNTU cooCoi[nFlo](
     redeclare each package Medium1 = MediumW,
     redeclare each package Medium2 = MediumA,
     each UA_nominal=m_flow_nominal*1000*15/
@@ -263,19 +262,19 @@ equation
     connect(conFanRet[iFlo].y, fanRet[iFlo].y)
       annotation (Line(points={{28.7,159},{36,159},{36,180},{-20,180},{-20,138}},
         color={0,0,127}, pattern=LinePattern.Dash));
-    connect(TCoiHeaOut[iFlo].port_b, hexWetNtu[iFlo].port_a2)
+    connect(TCoiHeaOut[iFlo].port_b, cooCoi[iFlo].port_a2)
       annotation (Line(
         points={{-88,-30},{-82,-30},{-76,-30}},
         color={0,127,255},
         thickness=0.5));
-    connect(hexWetNtu[iFlo].port_b2, fan[iFlo].port_a)
+    connect(cooCoi[iFlo].port_b2, fan[iFlo].port_a)
       annotation (Line(
         points={{-56,-30},{-48,-30},{-40,-30}},
         color={0,127,255},
         thickness=0.5));
-    connect(hexWetNtu[iFlo].port_b1, sinCoo[iFlo].ports[1])
+    connect(cooCoi[iFlo].port_b1, sinCoo[iFlo].ports[1])
       annotation (Line(points={{-76,-42},{-80,-42},{-80,-66}}, color={0,127,255}));
-    connect(hexWetNtu[iFlo].port_a1, valCoo[iFlo].port_b)
+    connect(cooCoi[iFlo].port_a1, valCoo[iFlo].port_b)
       annotation (Line(points={{-56,-42},{-51,-42},{-51,-50}}, color={0,127,255}));
     connect(controlBus[iFlo], conEco[iFlo].controlBus)
       annotation (Line(points={{-68,54},{-134,54},{-134,80},{-280,80},{-280,
