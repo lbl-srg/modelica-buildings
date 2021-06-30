@@ -4,7 +4,7 @@ model RoomHVAC
  extends Modelica.Icons.Example;
 
   Buildings.Fluid.FMI.ExportContainers.Examples.FMUs.HVACZone hvaCon(
-    redeclare Buildings.Fluid.HeatExchangers.WetCoilCounterFlow cooCoi(
+    redeclare Buildings.Fluid.HeatExchangers.WetCoilEffectivenessNTU cooCoi(
       UA_nominal=-hvaCon.QCoiC_flow_nominal/
         Buildings.Fluid.HeatExchangers.BaseClasses.lmtd(
         T_a1=hvaCon.THeaRecLvg,
@@ -25,7 +25,7 @@ model RoomHVAC
   BaseCase baseCase
     annotation (Placement(transformation(extent={{-60,60},{-40,80}})));
   Examples.FMUs.HVACZones hvaCon2(
-    redeclare Buildings.Fluid.HeatExchangers.WetCoilCounterFlow cooCoi(
+    redeclare Buildings.Fluid.HeatExchangers.WetCoilEffectivenessNTU cooCoi(
       UA_nominal=-hvaCon2.QCoiC_flow_nominal/
         Buildings.Fluid.HeatExchangers.BaseClasses.lmtd(
         T_a1=hvaCon2.THeaRecLvg,
