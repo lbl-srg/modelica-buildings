@@ -212,6 +212,11 @@ The valve and fan are partial models, and should be redeclared when used in the 
 </html>", revisions="<html>
 <ul>
 <li>
+June 30, 2021, by Antoine Gautier:<br/>
+Changed cooling coil model. This is for
+<a href="https://github.com/lbl-srg/modelica-buildings/issues/2549">issue #2549</a>.
+</li>
+<li>
 April 9, 2021, by Kathryn Hinkelman:<br/>
 Removed <code>kFixed</code> redundancies. See
 <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1472\">IBPSA, #1472</a>.

@@ -81,7 +81,7 @@ model ClosedLoop "Closed loop model of a dual-fan dual-duct system"
     "Preheat coil"
     annotation (Placement(transformation(extent={{100,-56},{120,-36}})));
 
-  Fluid.HeatExchangers.WetCoilEffectivenessNTU      cooCoi(
+  Fluid.HeatExchangers.WetCoilEffectivenessNTU cooCoi(
     redeclare package Medium1 = MediumW,
     redeclare package Medium2 = MediumA,
     m1_flow_nominal=mWatCol_flow_nominal,
