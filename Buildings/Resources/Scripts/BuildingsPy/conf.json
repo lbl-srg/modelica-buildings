@@ -215,14 +215,14 @@
       "simulate": false
     },
     "model_name": "Buildings.Examples.VAVReheat.ASHRAE2006",
-    "comment": "See https://github.com/lbl-srg/modelica-buildings/issues/2549"
+    "comment": "This causes a CVode error on travis. See https://travis-ci.com/github/lbl-srg/modelica-buildings/jobs/520509213 and https://github.com/lbl-srg/modelica-buildings/issues/2549"
   },
   {
     "jmodelica": {
       "simulate": false
     },
     "model_name": "Buildings.Examples.VAVReheat.Guideline36",
-    "comment": "See https://github.com/lbl-srg/modelica-buildings/issues/2549"
+    "comment": "This causes a timeout on travis. See https://travis-ci.com/github/lbl-srg/modelica-buildings/jobs/520509213 and https://github.com/lbl-srg/modelica-buildings/issues/2549"
   },
   {
     "optimica": {
