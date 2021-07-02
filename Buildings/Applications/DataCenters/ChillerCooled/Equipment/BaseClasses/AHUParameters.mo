@@ -27,7 +27,7 @@ Buildings.Applications.DataCenters.ChillerCooled.Equipment</a>.
 <li>
 June 30, 2021, by Antoine Gautier:<br/>
 Removed unused parameters. This is for
-<a href="https://github.com/lbl-srg/modelica-buildings/issues/2549">issue #2549</a>.
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2549\">issue #2549</a>.
 </li>
 <li>
 April 08, 2017 by Yangyang Fu:<br/>

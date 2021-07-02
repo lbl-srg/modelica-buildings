@@ -222,7 +222,7 @@ With Dymola 2017, we obtain the trajectories shown below.
 <li>
 June 30, 2021, by Antoine Gautier:<br/>
 Changed cooling coil model. This is for
-<a href="https://github.com/lbl-srg/modelica-buildings/issues/2549">issue #2549</a>.
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2549\">issue #2549</a>.
 </li>
 <li>
 November 8, 2016, by Michael Wetter:<br/>
