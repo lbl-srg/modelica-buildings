@@ -45,10 +45,6 @@ partial model PartialFourPortFourMedium
     displayUnit="Pa") = port_a2.p - port_b2.p
     "Pressure difference between port_a2 and port_b2";
 
-  parameter Boolean allowFlowReversal = false
-    "= false to simplify equations, assuming, but not enforcing, no flow reversal"
-    annotation(Dialog(tab="Assumptions"), Evaluate=true);
-
   Medium_a1.ThermodynamicState sta_a1=Medium_a1.setState_phX(
       port_a1.p,
       noEvent(actualStream(port_a1.h_outflow)),

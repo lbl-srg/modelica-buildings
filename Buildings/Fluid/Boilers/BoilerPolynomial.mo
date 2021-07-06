@@ -5,56 +5,8 @@ model BoilerPolynomial
     redeclare final Buildings.Fluid.MixingVolumes.MixingVolume vol,
     show_T = true,
     final tau=VWat*rho_default/m_flow_nominal);
+  extends Buildings.Fluid.Boilers.BaseClasses.PartialBoilerPolynomial;
 
-  parameter Modelica.SIunits.Power Q_flow_nominal "Nominal heating power";
-  parameter Modelica.SIunits.Temperature T_nominal = 353.15
-    "Temperature used to compute nominal efficiency (only used if efficiency curve depends on temperature)";
-  // Assumptions
-  parameter Buildings.Fluid.Types.EfficiencyCurves effCur=Buildings.Fluid.Types.EfficiencyCurves.Constant
-    "Curve used to compute the efficiency";
-  parameter Real a[:] = {0.9} "Coefficients for efficiency curve";
-
-  parameter Buildings.Fluid.Data.Fuels.Generic fue "Fuel type"
-   annotation (choicesAllMatching = true);
-
-  parameter Modelica.SIunits.ThermalConductance UA=0.05*Q_flow_nominal/30
-    "Overall UA value";
-  parameter Modelica.SIunits.Volume VWat = 1.5E-6*Q_flow_nominal
-    "Water volume of boiler"
-    annotation(Dialog(tab = "Dynamics", enable = not (energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState)));
-  parameter Modelica.SIunits.Mass mDry =   1.5E-3*Q_flow_nominal
-    "Mass of boiler that will be lumped to water heat capacity"
-    annotation(Dialog(tab = "Dynamics", enable = not (energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState)));
-
-  Modelica.SIunits.Efficiency eta=
-    if effCur ==Buildings.Fluid.Types.EfficiencyCurves.Constant then
-      a[1]
-    elseif effCur ==Buildings.Fluid.Types.EfficiencyCurves.Polynomial then
-      Buildings.Utilities.Math.Functions.polynomial(a=a, x=y)
-   elseif effCur ==Buildings.Fluid.Types.EfficiencyCurves.QuadraticLinear then
-      Buildings.Utilities.Math.Functions.quadraticLinear(a=aQuaLin, x1=y, x2=T)
-   else
-      0
-  "Boiler efficiency";
-  Modelica.SIunits.Power QFue_flow = y * Q_flow_nominal/eta_nominal
-    "Heat released by fuel";
-  Modelica.SIunits.Power QWat_flow = eta * QFue_flow
-    "Heat transfer from gas into water";
-  Modelica.SIunits.MassFlowRate mFue_flow = QFue_flow/fue.h
-    "Fuel mass flow rate";
-  Modelica.SIunits.VolumeFlowRate VFue_flow = mFue_flow/fue.d
-    "Fuel volume flow rate";
-
-  Modelica.Blocks.Interfaces.RealInput y(min=0, max=1) "Part load ratio"
-    annotation (Placement(transformation(extent={{-140,60},{-100,100}})));
-
-  Modelica.Blocks.Interfaces.RealOutput T(final quantity="ThermodynamicTemperature",
-                                          final unit = "K", displayUnit = "degC", min=0)
-    annotation (Placement(transformation(extent={{100,70},{120,90}})));
-
-  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heatPort
-    "Heat port, can be used to connect to ambient"
-    annotation (Placement(transformation(extent={{-10,62}, {10,82}})));
   Modelica.Thermal.HeatTransfer.Components.HeatCapacitor heaCapDry(
     C=500*mDry,
     T(start=T_start)) if not (energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState)
@@ -62,46 +14,12 @@ model BoilerPolynomial
     annotation (Placement(transformation(extent={{-80,12},{-60,32}})));
 
 protected
-  parameter Real eta_nominal(fixed=false) "Boiler efficiency at nominal condition";
-  parameter Real aQuaLin[6] = if size(a, 1) == 6 then a else fill(0, 6)
-  "Auxiliary variable for efficiency curve because quadraticLinear requires exactly 6 elements";
-
-  Buildings.HeatTransfer.Sources.PrescribedHeatFlow preHeaFlo
-    annotation (Placement(transformation(extent={{-43,-40},{-23,-20}})));
-  Modelica.Blocks.Sources.RealExpression Q_flow_in(y=QWat_flow)
-    annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
-  Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor temSen
-    "Temperature of fluid"
-    annotation (Placement(transformation(extent={{0,30},{20,50}})));
-
   Modelica.Thermal.HeatTransfer.Components.ThermalConductor UAOve(G=UA)
     "Overall thermal conductance (if heatPort is connected)"
     annotation (Placement(transformation(extent={{-48,10},{-28,30}})));
 
-initial equation
-  if  effCur == Buildings.Fluid.Types.EfficiencyCurves.QuadraticLinear then
-    assert(size(a, 1) == 6,
-    "The boiler has the efficiency curve set to 'Buildings.Fluid.Types.EfficiencyCurves.QuadraticLinear',
-    and hence the parameter 'a' must have exactly 6 elements.
-    However, only " + String(size(a, 1)) + " elements were provided.");
-  end if;
-
-  if effCur ==Buildings.Fluid.Types.EfficiencyCurves.Constant then
-    eta_nominal = a[1];
-  elseif effCur ==Buildings.Fluid.Types.EfficiencyCurves.Polynomial then
-    eta_nominal = Buildings.Utilities.Math.Functions.polynomial(
-                                                          a=a, x=1);
-  elseif effCur ==Buildings.Fluid.Types.EfficiencyCurves.QuadraticLinear then
-    // For this efficiency curve, a must have 6 elements.
-    eta_nominal = Buildings.Utilities.Math.Functions.quadraticLinear(
-                                                               a=aQuaLin, x1=1, x2=T_nominal);
-  else
-     eta_nominal = 999;
-  end if;
 
 equation
-
-  assert(eta > 0.001, "Efficiency curve is wrong.");
 
   connect(UAOve.port_b, vol.heatPort)            annotation (Line(
       points={{-28,20},{-22,20},{-22,-10},{-9,-10}},

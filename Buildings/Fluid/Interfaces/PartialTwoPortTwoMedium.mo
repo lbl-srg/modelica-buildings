@@ -26,10 +26,6 @@ partial model PartialTwoPortTwoMedium
   Modelica.SIunits.PressureDifference dp(start=_dp_start, displayUnit="Pa") = port_a.p - port_b.p
     "Pressure difference between port_a and port_b";
 
-  parameter Boolean allowFlowReversal = false
-    "= false to simplify equations, assuming, but not enforcing, no flow reversal"
-    annotation(Dialog(tab="Assumptions"), Evaluate=true);
-
   Medium_a.ThermodynamicState sta_a=
       Medium_a.setState_phX(port_a.p,
                           noEvent(actualStream(port_a.h_outflow)),
