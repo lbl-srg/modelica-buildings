@@ -15,23 +15,30 @@ partial model PartialWaterPhaseChange
      MediumSte.saturationTemperature(pSatHig)
      "Saturation temperature at the high pressure setpoint";
 
+protected
+  parameter MediumWat.ThermodynamicState staWat_default=MediumWat.setState_pTX(
+      T=TSatHig, p=pSatHig, X=MediumWat.X_default);
+  parameter MediumSte.ThermodynamicState staSte_default=MediumSte.setState_pTX(
+      T=TSatHig, p=pSatHig, X=MediumSte.X_default);
+
   parameter Modelica.SIunits.SpecificEnthalpy dhVapStd=
-    MediumSte.specificEnthalpy(MediumSte.setState_pTX(
-        p=pSatHig,
-        T=TSatHig,
-        X=MediumSte.X_default)) -
-      MediumWat.specificEnthalpy(MediumWat.setState_pTX(
-        p=pSatHig,
-        T=TSatHig,
-        X=MediumWat.X_default))
+    MediumSte.specificEnthalpy(staSte_default) -
+      MediumWat.specificEnthalpy(staWat_default)
     "Standard change in enthalpy due to vaporization";
 
-  parameter Modelica.SIunits.SpecificHeatCapacity cpSteHigStd=
-     MediumSte.specificHeatCapacityCp(MediumSte.setState_pTX(
-       p=pSatHig,
-       T=TSatHig,
-       X=MediumSte.X_default))
-    "Standard specific heat of steam at the high pressure setpoint";
+  parameter Modelica.SIunits.SpecificHeatCapacity cpWatStd=
+     MediumWat.specificHeatCapacityCp(staWat_default)
+    "Standard specific heat of liquid water";
+  parameter Modelica.SIunits.SpecificHeatCapacity cpSteStd=
+     MediumSte.specificHeatCapacityCp(staSte_default)
+    "Standard specific heat of steam";
+
+  parameter Modelica.SIunits.Density rhoWatStd=
+     MediumWat.density(staWat_default)
+    "Standard density of liquid water";
+  parameter Modelica.SIunits.Density rhoSteStd=
+     MediumSte.density(staSte_default)
+    "Standard density of steam";
 
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)));

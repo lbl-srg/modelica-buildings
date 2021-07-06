@@ -55,16 +55,12 @@ protected
   parameter Real aQuaLin[6] = if size(a, 1) == 6 then a else fill(0, 6)
   "Auxiliary variable for efficiency curve because quadraticLinear requires exactly 6 elements";
 
-  Buildings.HeatTransfer.Sources.PrescribedHeatFlow preHeaFlo
-    annotation (Placement(transformation(extent={{-43,-40},{-23,-20}})));
-  Modelica.Blocks.Sources.RealExpression Q_flow_in(y=QWat_flow)
-    annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
   Modelica.Blocks.Sources.RealExpression QFue_flow_out(y=QFue_flow)
     "Output of fuel flow rate"
     annotation (Placement(transformation(extent={{70,40},{90,60}})));
   Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor temSen
     "Temperature of fluid"
-    annotation (Placement(transformation(extent={{0,30},{20,50}})));
+    annotation (Placement(transformation(extent={{20,30},{40,50}})));
 
 initial equation
   if  effCur == Buildings.Fluid.Types.EfficiencyCurves.QuadraticLinear then
@@ -92,16 +88,18 @@ equation
   assert(eta > 0.001, "Efficiency curve is wrong.");
 
   connect(temSen.T, T) annotation (Line(
-      points={{20,40},{60,40},{60,80},{110,80}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(Q_flow_in.y,preHeaFlo. Q_flow) annotation (Line(
-      points={{-59,-30},{-43,-30}},
+      points={{40,40},{60,40},{60,80},{110,80}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(QFue_flow_out.y, fueFloRat)
     annotation (Line(points={{91,50},{110,50}}, color={0,0,127}));
   annotation ( Icon(graphics={
+        Rectangle(
+          extent={{-70,60},{70,-60}},
+          lineColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={95,95,95},
+          fillPattern=FillPattern.Solid),
         Polygon(
           points={{0,-34},{-12,-52},{14,-52},{0,-34}},
           pattern=LinePattern.None,

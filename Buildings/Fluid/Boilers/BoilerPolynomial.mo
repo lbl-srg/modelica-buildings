@@ -1,11 +1,11 @@
 within Buildings.Fluid.Boilers;
 model BoilerPolynomial
   "Boiler with efficiency curve described by a polynomial of the temperature"
+  extends Buildings.Fluid.Boilers.BaseClasses.PartialBoilerPolynomial;
   extends Interfaces.TwoPortHeatMassExchanger(
     redeclare final Buildings.Fluid.MixingVolumes.MixingVolume vol,
     show_T = true,
     final tau=VWat*rho_default/m_flow_nominal);
-  extends Buildings.Fluid.Boilers.BaseClasses.PartialBoilerPolynomial;
 
   parameter Modelica.SIunits.ThermalConductance UA=0.05*Q_flow_nominal/30
     "Overall UA value";
@@ -25,17 +25,19 @@ model BoilerPolynomial
 protected
   Modelica.Thermal.HeatTransfer.Components.ThermalConductor UAOve(G=UA)
     "Overall thermal conductance (if heatPort is connected)"
-    annotation (Placement(transformation(extent={{-48,10},{-28,30}})));
-
-
+    annotation (Placement(transformation(extent={{-40,10},{-20,30}})));
+  Buildings.HeatTransfer.Sources.PrescribedHeatFlow preHeaFlo
+    annotation (Placement(transformation(extent={{-40,-40},{-20,-20}})));
+  Modelica.Blocks.Sources.RealExpression Q_flow_in(y=QWat_flow)
+    annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
 equation
 
   connect(UAOve.port_b, vol.heatPort)            annotation (Line(
-      points={{-28,20},{-22,20},{-22,-10},{-9,-10}},
+      points={{-20,20},{-16,20},{-16,-10},{-9,-10}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(UAOve.port_a, heatPort) annotation (Line(
-      points={{-48,20},{-52,20},{-52,60},{0,60},{0,72}},
+      points={{-40,20},{-44,20},{-44,60},{0,60},{0,72}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(heaCapDry.port, vol.heatPort) annotation (Line(
@@ -43,20 +45,20 @@ equation
       color={191,0,0},
       smooth=Smooth.None));
   connect(temSen.T, T) annotation (Line(
-      points={{20,40},{60,40},{60,80},{110,80}},
+      points={{40,40},{60,40},{60,80},{110,80}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(preHeaFlo.port, vol.heatPort) annotation (Line(
-      points={{-23,-30},{-15,-30},{-15,-10},{-9,-10}},
+      points={{-20,-30},{-16,-30},{-16,-10},{-9,-10}},
+      color={191,0,0},
+      smooth=Smooth.None));
+  connect(vol.heatPort, temSen.port) annotation (Line(
+      points={{-9,-10},{-16,-10},{-16,40},{20,40}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(Q_flow_in.y,preHeaFlo. Q_flow) annotation (Line(
-      points={{-59,-30},{-43,-30}},
+      points={{-59,-30},{-40,-30}},
       color={0,0,127},
-      smooth=Smooth.None));
-  connect(vol.heatPort, temSen.port) annotation (Line(
-      points={{-9,-10},{-16,-10},{-16,40},{0,40}},
-      color={191,0,0},
       smooth=Smooth.None));
   annotation ( Icon(graphics={
         Polygon(
