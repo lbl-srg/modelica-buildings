@@ -5,12 +5,15 @@ EightPortHeatMassExchanger
 FourPortHeatMassExchanger
 PartialEightPortInterface
 PartialFourPort
+PartialFourPortFourMedium
 PartialFourPortInterface
 PartialFourPortParallel
 PartialTwoPort
 PartialTwoPortInterface
 PartialTwoPortTransport
+PartialTwoPortTwoMedium
 PartialTwoPortVector
+PartialWaterPhaseChange
 PrescribedOutlet
 StaticFourPortHeatMassExchanger
 StaticTwoPortConservationEquation
