@@ -374,10 +374,25 @@ equation
       Interval=900,
       Tolerance=1e-006),
     __Dymola_Commands(file=
-          "Resources/Scripts/Dymola/Fluid/FixedResistances/Validation/PlugFlowPipes/PlugFlowAIT.mos"
+          "Resources/Scripts/Dymola/Fluid/BuriedPipes/Validation/GroundCouplingAIT.mos"
         "Simulate and plot"),
     Diagram(coordinateSystem(extent={{-120,-160},{160,160}})),
     Documentation(info="<html>
+<p>
+Validation of <a href=\"modelica://Buildings.Fluid.BuriedPipes.GroundCoupling\">
+Buildings.Fluid.BuriedPipes.GroundCoupling</a> using the experimental data collected by
+the Austrian Institute of Technology.
+</p>
+<p>
+See <a href=\"modelica://Buildings.Fluid.FixedResistances.Validation.PlugFlowPipes.PlugFlowAIT\">
+Buildings.Fluid.FixedResistances.Validation.PlugFlowPipes.PlugFlowAIT</a> for more info.
+</p>
 </html>", revisions="<html>
+<ul>
+<li>
+June 25, 2021, by Baptiste Ravache:<br/>
+First implementation.
+</li>
+</ul>
 </html>"));
 end GroundCouplingAIT;
