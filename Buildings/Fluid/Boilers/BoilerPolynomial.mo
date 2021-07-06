@@ -7,6 +7,15 @@ model BoilerPolynomial
     final tau=VWat*rho_default/m_flow_nominal);
   extends Buildings.Fluid.Boilers.BaseClasses.PartialBoilerPolynomial;
 
+  parameter Modelica.SIunits.ThermalConductance UA=0.05*Q_flow_nominal/30
+    "Overall UA value";
+  parameter Modelica.SIunits.Volume VWat = 1.5E-6*Q_flow_nominal
+    "Water volume of boiler"
+    annotation(Dialog(tab = "Dynamics", enable = not (energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState)));
+  parameter Modelica.SIunits.Mass mDry =   1.5E-3*Q_flow_nominal
+    "Mass of boiler that will be lumped to water heat capacity"
+    annotation(Dialog(tab = "Dynamics", enable = not (energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState)));
+
   Modelica.Thermal.HeatTransfer.Components.HeatCapacitor heaCapDry(
     C=500*mDry,
     T(start=T_start)) if not (energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState)

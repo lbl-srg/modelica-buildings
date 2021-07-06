@@ -13,15 +13,6 @@ partial model PartialBoilerPolynomial
   parameter Buildings.Fluid.Data.Fuels.Generic fue "Fuel type"
    annotation (choicesAllMatching = true);
 
-  parameter Modelica.SIunits.ThermalConductance UA=0.05*Q_flow_nominal/30
-    "Overall UA value";
-  parameter Modelica.SIunits.Volume VWat = 1.5E-6*Q_flow_nominal
-    "Water volume of boiler"
-    annotation(Dialog(tab = "Dynamics", enable = not (energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState)));
-  parameter Modelica.SIunits.Mass mDry =   1.5E-3*Q_flow_nominal
-    "Mass of boiler that will be lumped to water heat capacity"
-    annotation(Dialog(tab = "Dynamics", enable = not (energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState)));
-
   Modelica.SIunits.Efficiency eta=
     if effCur ==Buildings.Fluid.Types.EfficiencyCurves.Constant then
       a[1]
@@ -48,16 +39,17 @@ partial model PartialBoilerPolynomial
                                           final unit = "K", displayUnit = "degC", min=0)
     annotation (Placement(transformation(extent={{100,70},{120,90}})));
 
-  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heatPort
-    "Heat port, can be used to connect to ambient"
-    annotation (Placement(transformation(extent={{-10,62}, {10,82}})));
-
   Modelica.Blocks.Interfaces.RealOutput fueFloRat(
     final quantity="HeatFlowRate",
     final unit="W",
     displayUnit="kW",
     min=0) "Flow rate of fuel consumption"
     annotation (Placement(transformation(extent={{100,40},{120,60}})));
+
+  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heatPort
+    "Heat port, can be used to connect to ambient"
+    annotation (Placement(transformation(extent={{-10,62}, {10,82}})));
+
 protected
   parameter Real eta_nominal(fixed=false) "Boiler efficiency at nominal condition";
   parameter Real aQuaLin[6] = if size(a, 1) == 6 then a else fill(0, 6)
@@ -67,13 +59,13 @@ protected
     annotation (Placement(transformation(extent={{-43,-40},{-23,-20}})));
   Modelica.Blocks.Sources.RealExpression Q_flow_in(y=QWat_flow)
     annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
+  Modelica.Blocks.Sources.RealExpression QFue_flow_out(y=QFue_flow)
+    "Output of fuel flow rate"
+    annotation (Placement(transformation(extent={{70,40},{90,60}})));
   Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor temSen
     "Temperature of fluid"
     annotation (Placement(transformation(extent={{0,30},{20,50}})));
 
-  Modelica.Blocks.Sources.RealExpression QFue_flow_out(y=QFue_flow)
-    "Output of fuel flow rate"
-    annotation (Placement(transformation(extent={{70,40},{90,60}})));
 initial equation
   if  effCur == Buildings.Fluid.Types.EfficiencyCurves.QuadraticLinear then
     assert(size(a, 1) == 6,
