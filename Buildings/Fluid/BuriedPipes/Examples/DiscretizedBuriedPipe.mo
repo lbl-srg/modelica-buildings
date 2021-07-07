@@ -1,4 +1,4 @@
-within Buildings.Fluid.BuriedPipes.Examples;
+﻿within Buildings.Fluid.BuriedPipes.Examples;
 model DiscretizedBuriedPipe
   "Example model of a buried pipe with multiple segments"
   extends Modelica.Icons.Example;
@@ -24,7 +24,7 @@ model DiscretizedBuriedPipe
 
   replaceable parameter Buildings.HeatTransfer.Data.Soil.Generic
     soiDat(k=1.58,c=1150,d=1600) "Soil thermal properties"
-    annotation (Placement(transformation(extent={{100,80},{120,100}})));
+    annotation (Placement(transformation(extent={{-60,80},{-40,100}})));
 
   PlugFlowDiscretized pip(
     redeclare package Medium = Medium,

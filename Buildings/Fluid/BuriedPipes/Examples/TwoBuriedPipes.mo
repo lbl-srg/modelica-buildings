@@ -1,4 +1,4 @@
-within Buildings.Fluid.BuriedPipes.Examples;
+﻿within Buildings.Fluid.BuriedPipes.Examples;
 model TwoBuriedPipes "Example model of two buried pipes in close proximity"
   extends Modelica.Icons.Example;
 
@@ -10,7 +10,7 @@ model TwoBuriedPipes "Example model of two buried pipes in close proximity"
 
   replaceable parameter Buildings.HeatTransfer.Data.Soil.Generic
     soiDat(k=1.58,c=1150,d=1600) "Soil thermal properties"
-    annotation (Placement(transformation(extent={{100,80},{120,100}})));
+    annotation (Placement(transformation(extent={{-60,80},{-40,100}})));
 
   Buildings.Fluid.BuriedPipes.GroundCoupling gro(
     nPip=2,

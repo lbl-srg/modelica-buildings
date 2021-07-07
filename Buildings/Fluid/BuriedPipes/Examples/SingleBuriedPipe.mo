@@ -1,4 +1,4 @@
-within Buildings.Fluid.BuriedPipes.Examples;
+﻿within Buildings.Fluid.BuriedPipes.Examples;
 model SingleBuriedPipe "Example model of a single buried pipe"
   extends Modelica.Icons.Example;
 
@@ -12,7 +12,7 @@ model SingleBuriedPipe "Example model of a single buried pipe"
 
   replaceable parameter Buildings.HeatTransfer.Data.Soil.Generic
     soiDat(k=1.58,c=1150,d=1600) "Soil thermal properties"
-    annotation (Placement(transformation(extent={{100,80},{120,100}})));
+    annotation (Placement(transformation(extent={{-60,80},{-40,100}})));
 
   FixedResistances.PlugFlowPipe pip(
     redeclare package Medium=Medium,
