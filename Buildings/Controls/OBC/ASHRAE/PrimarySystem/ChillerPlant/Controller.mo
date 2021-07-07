@@ -1,6 +1,38 @@
 within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant;
 block Controller "Chiller plant controller"
 
+
+  //// Plant enable
+
+  parameter Real schTab[4,2] = [0,1; 6*3600,1; 19*3600,1; 24*3600,1]
+    "Plant enabling schedule allowing operators to lock out the plant during off-hour"
+    annotation(Dialog(group="Plant enable"));
+
+  parameter Modelica.SIunits.Temperature TChiLocOut=277.5
+    "Outdoor air lockout temperature below which the chiller plant should be disabled"
+    annotation(Dialog(group="Plant enable"));
+
+  parameter Real plaThrTim(
+    final unit="s",
+    final quantity="Time")=15*60
+      "Threshold time to check status of chiller plant"
+    annotation(Dialog(group="Plant enable"));
+
+  parameter Real reqThrTim(
+    final unit="s",
+    final quantity="Time")=3*60
+      "Threshold time to check current chiller plant request"
+    annotation(Dialog(group="Plant enable"));
+
+  parameter Integer ignReq = 0
+    "Ignorable chiller plant requests"
+    annotation(Dialog(group="Plant enable"));
+
+  parameter Real locDt = 1
+    "Offset temperature for lockout chiller"
+    annotation(Evaluate=true, Dialog(tab="Advanced", group="Plant enable"));
+
+
   //// Economizer controller parameters
 
   parameter Real holdPeriod(
@@ -61,35 +93,6 @@ block Controller "Chiller plant controller"
     "Economizer enable time needed to allow increase of the tuning parameter"
     annotation(Evaluate=true, Dialog(tab="Waterside economizer", group="Tuning"));
 
-  //// Plant enable
-
-  parameter Real schTab[4,2] = [0,1; 6*3600,1; 19*3600,1; 24*3600,1]
-    "Plant enabling schedule allowing operators to lock out the plant during off-hour"
-    annotation(Dialog(group="Plant enable"));
-
-  parameter Modelica.SIunits.Temperature TChiLocOut=277.5
-    "Outdoor air lockout temperature below which the chiller plant should be disabled"
-    annotation(Dialog(group="Plant enable"));
-
-  parameter Real plaThrTim(
-    final unit="s",
-    final quantity="Time")=15*60
-      "Threshold time to check status of chiller plant"
-    annotation(Dialog(group="Plant enable"));
-
-  parameter Real reqThrTim(
-    final unit="s",
-    final quantity="Time")=3*60
-      "Threshold time to check current chiller plant request"
-    annotation(Dialog(group="Plant enable"));
-
-  parameter Integer ignReq = 0
-    "Ignorable chiller plant requests"
-    annotation(Dialog(group="Plant enable"));
-
-  parameter Real locDt = 1
-    "Offset temperature for lockout chiller"
-    annotation(Evaluate=true, Dialog(tab="Advanced", group="Plant enable"));
 
   //// Head pressure
 
@@ -793,50 +796,114 @@ block Controller "Chiller plant controller"
     annotation (Dialog(tab="Cooling Towers", group="Makeup water"));
 
 
-  CDL.Interfaces.BooleanInput uChiIsoVal[nChi] if have_heaChiWatPum
-    "Chilled water isolation valve status"
-    annotation(Placement(transformation(extent={{-840,484},{-800,524}}),
-      iconTransformation(extent={{-140,180},{-100,220}})));
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uChiConIsoVal[nChi]
+    "Chilled condenser water isolation valve status"
+    annotation (Placement(transformation(extent={{-840,620},{-800,660}}),
+      iconTransformation(extent={{-140,200},{-100,240}})));
 
-  CDL.Interfaces.BooleanInput uChiWatPum[nChiWatPum]
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uChiWatReq[nChi]
+    "Chilled water requst status for each chiller"
+    annotation (Placement(transformation(extent={{-840,590},{-800,630}}),
+      iconTransformation(extent={{-140,240},{-100,280}})));
+
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uConWatReq[nChi]
+    "Condenser water requst status for each chiller"
+    annotation (Placement(transformation(extent={{-840,560},{-800,600}}),
+      iconTransformation(extent={{-140,260},{-100,300}})));
+
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uChiWatPum[nChiWatPum]
     "Chilled water pump status"
     annotation(Placement(transformation(extent={{-840,520},{-800,560}}),
       iconTransformation(extent={{-140,160},{-100,200}})));
 
-  CDL.Interfaces.BooleanInput uChiAva[nChi]
-    "Chiller availability status vector"
-    annotation(Placement(transformation(extent={{-840,60},{-800,100}}),
-        iconTransformation(extent={{-140,140},{-100,180}})));
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uChiIsoVal[nChi] if have_heaChiWatPum
+    "Chilled water isolation valve status"
+    annotation(Placement(transformation(extent={{-840,484},{-800,524}}),
+      iconTransformation(extent={{-140,180},{-100,220}})));
 
-  CDL.Interfaces.BooleanInput uChi[nChi]
-    "Vector of chiller proven on status: true=ON"
-    annotation(Placement(transformation(extent={{-840,380},{-800,420}}),
-      iconTransformation(extent={{-140,220},{-100,260}})));
-
-  CDL.Interfaces.BooleanInput uTowSta[nTowCel]
-    "Vector of tower cell proven on status: true=running tower cell"
-    annotation(Placement(transformation(extent={{-840,-800},{-800,-760}}),
-      iconTransformation(extent={{-140,280},{-100,320}})));
-
-  CDL.Interfaces.IntegerInput chiWatSupResReq
-    "Number of chiller plant cooling requests"
-    annotation(Placement(transformation(extent={{-840,-320},{-800,-280}}),
-      iconTransformation(extent={{-140,110},{-100,150}})));
-
-  CDL.Interfaces.RealInput VChiWat_flow(final quantity=
-        "VolumeFlowRate", final unit="m3/s")
-    "Measured chilled water volume flow rate"
-    annotation(Placement(transformation(extent={{-840,420},{-800,460}}),
-    iconTransformation(extent={{-140,-80},{-100,-40}})));
-
-  CDL.Interfaces.RealInput dpChiWat_remote[nSenChiWatPum](
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput dpChiWat_remote[nSenChiWatPum](
     final unit=fill("Pa", nSenChiWatPum),
     final quantity=fill("PressureDifference", nSenChiWatPum))
     "Chilled water differential static pressure from remote sensor"
     annotation(Placement(transformation(extent={{-840,450},{-800,490}}),
       iconTransformation(extent={{-140,-150},{-100,-110}})));
 
-  CDL.Interfaces.RealInput uChiWatIsoVal[nChi](
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput VChiWat_flow(
+    final quantity="VolumeFlowRate",
+    final unit="m3/s")
+    "Measured chilled water volume flow rate"
+    annotation(Placement(transformation(extent={{-840,420},{-800,460}}),
+      iconTransformation(extent={{-140,-80},{-100,-40}})));
+
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uChi[nChi]
+    "Vector of chiller proven on status: true=ON"
+    annotation(Placement(transformation(extent={{-840,380},{-800,420}}),
+      iconTransformation(extent={{-140,220},{-100,260}})));
+
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput TOutWet(
+    final unit="K",
+    displayUnit="degC",
+    final quantity="ThermodynamicTemperature")
+    "Outdoor air wet bulb temperature"
+    annotation(Placement(transformation(extent={{-840,340},{-800,380}}),
+      iconTransformation(extent={{-140,30},{-100,70}})));
+
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput TChiWatRetDow(
+    final unit="K",
+    displayUnit="degC",
+    final quantity="ThermodynamicTemperature")
+    "Chiller water return temperature downstream of the WSE"
+    annotation(Placement(transformation(extent={{-840,300},{-800,340}}),
+      iconTransformation(extent={{-140,-60},{-100,-20}})));
+
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput TChiWatRet(
+    final unit="K",
+    displayUnit="degC",
+    final quantity="ThermodynamicTemperature")
+    "Chiller water return temperature upstream of the WSE"
+    annotation(Placement(transformation(extent={{-840,260},{-800,300}}),
+        iconTransformation(extent={{-140,-20},{-100,20}})));
+
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput TConWatRet(
+    final unit="K",
+    displayUnit="degC",
+    final quantity="ThermodynamicTemperature") if not have_HeaPreConSig
+    "Measured condenser water return temperature"
+    annotation(Placement(transformation(extent={{-840,220},{-800,260}}),
+      iconTransformation(extent={{-140,-218},{-100,-178}})));
+
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput TChiWatSup(
+    final unit="K",
+    displayUnit="degC",
+    final quantity="ThermodynamicTemperature") if not have_HeaPreConSig
+    "Measured chilled water supply temperature"
+    annotation(Placement(transformation(extent={{-840,190},{-800,230}}),
+      iconTransformation(extent={{-140,-40},{-100,0}})));
+
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput uHeaPreCon[nChi] if have_HeaPreConSig
+    "Chiller head pressure control loop signal from chiller controller"
+    annotation (Placement(transformation(extent={{-840,160},{-800,200}}),
+        iconTransformation(extent={{-140,80},{-100,120}})));
+
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput uChiLoa[nChi](
+    final quantity=fill("ElectricCurrent",nChi),
+    final unit=fill("A", nChi)) "Current chiller load, in amperage"
+    annotation(Placement(transformation(extent={{-840,120},{-800,160}}),
+      iconTransformation(extent={{-140,60},{-100,100}})));
+
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uChiAva[nChi]
+    "Chiller availability status vector"
+    annotation(Placement(transformation(extent={{-840,60},{-800,100}}),
+        iconTransformation(extent={{-140,140},{-100,180}})));
+
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput dpChiWatPum(
+    final unit="Pa",
+    final quantity="PressureDifference") if not have_serChi
+    "Chilled water pump differential static pressure"
+    annotation(Placement(transformation(extent={{-838,-20},{-798,20}}),
+    iconTransformation(extent={{-140,-110},{-100,-70}})));
+
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput uChiWatIsoVal[nChi](
     final min=fill(0, nChi),
     final max=fill(1, nChi),
     final unit=fill("1", nChi))
@@ -844,26 +911,53 @@ block Controller "Chiller plant controller"
     annotation(Placement(transformation(extent={{-840,-260},{-800,-220}}),
       iconTransformation(extent={{-140,-130},{-100,-90}})));
 
-  CDL.Interfaces.RealInput uConWatPumSpe[nConWatPum](
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput chiWatSupResReq
+    "Number of chiller plant cooling requests"
+    annotation(Placement(transformation(extent={{-840,-320},{-800,-280}}),
+      iconTransformation(extent={{-140,110},{-100,150}})));
+
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput uConWatPumSpe[nConWatPum](
     final min=fill(0, nConWatPum),
     final max=fill(1, nConWatPum),
     final unit=fill("1", nConWatPum)) "Current condenser water pump speed"
     annotation(Placement(transformation(extent={{-840,-410},{-800,-370}}),
         iconTransformation(extent={{-140,-190},{-100,-150}})));
 
-  CDL.Interfaces.RealInput TConWatSup(
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uConWatPum[nConWatPum]
+    "Condenser water pump status"
+    annotation (Placement(transformation(extent={{-840,-440},{-800,-400}}),
+      iconTransformation(extent={{-140,160},{-100,200}})));
+
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput TOut(
     final unit="K",
-    final displayUnit="degC",
+    displayUnit="degC",
+    final quantity="ThermodynamicTemperature")
+    "Outdoor air dry bulb temperature"
+    annotation (Placement(transformation(extent={{-840,-500},{-800,-460}}),
+      iconTransformation(extent={{-140,10},{-100,50}})));
+
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput uChiCooLoa[nChi](
+    final quantity=fill("HeatFlowRate",nChi),
+    final unit=fill("W", nChi)) "Current chiller cooling load"
+    annotation (Placement(transformation(extent={{-840,-560},{-800,-520}}),
+      iconTransformation(extent={{-140,60},{-100,100}})));
+
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput uFanSpe(
+    final quantity="1",
+    final min=0,
+    final max=1) "Tower fan speed"
+    annotation (Placement(transformation(extent={{-840,-608},{-800,-568}}),
+      iconTransformation(extent={{-140,-270},{-100,-230}})));
+
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput TConWatSup(
+    final unit="K",
+    displayUnit="degC",
     final quantity="ThermodynamicTemperature") if not closeCoupledPlant
     "Condenser water supply temperature"
     annotation(Placement(transformation(extent={{-840,-680},{-800,-640}}),
       iconTransformation(extent={{-140,-238},{-100,-198}})));
 
-  CDL.Interfaces.RealInput watLev "Measured water level" annotation (Placement(
-        transformation(extent={{-840,-760},{-800,-720}}), iconTransformation(
-          extent={{-140,-320},{-100,-280}})));
-
-  CDL.Interfaces.RealInput uIsoVal[nTowCel](
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput uIsoVal[nTowCel](
     final min=fill(0, nTowCel),
     final max=fill(1, nTowCel),
     final unit=fill("1", nTowCel))
@@ -871,113 +965,126 @@ block Controller "Chiller plant controller"
     annotation(Placement(transformation(extent={{-840,-728},{-800,-688}}),
       iconTransformation(extent={{-140,-300},{-100,-260}})));
 
-  CDL.Interfaces.RealInput TChiWatRetDow(final unit="K",
-      final quantity="ThermodynamicTemperature")
-    "Chiller water return temperature downstream of the WSE"
-    annotation(Placement(transformation(extent={{-840,300},{-800,340}}),
-        iconTransformation(extent={{-140,-60},{-100,-20}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput watLev
+    "Measured water level"
+    annotation (Placement(transformation(extent={{-840,-760},{-800,-720}}),
+      iconTransformation(extent={{-140,-320},{-100,-280}})));
 
-  CDL.Interfaces.RealInput TChiWatRet(final unit="K",
-      final quantity="ThermodynamicTemperature")
-    "Chiller water return temperature upstream of the WSE"
-    annotation(Placement(transformation(extent={{-840,260},{-800,300}}),
-        iconTransformation(extent={{-140,-20},{-100,20}})));
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uTowSta[nTowCel]
+    "Vector of tower cell proven on status: true=running tower cell"
+    annotation(Placement(transformation(extent={{-840,-800},{-800,-760}}),
+      iconTransformation(extent={{-140,280},{-100,320}})));
 
-  CDL.Interfaces.RealInput TOutWet(final unit="K",
-      final quantity="ThermodynamicTemperature")
-    "Outdoor air wet bulb temperature"
-    annotation(Placement(transformation(extent={{-840,340},{-800,380}}),
-        iconTransformation(extent={{-140,30},{-100,70}})));
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yLeaChiWatPum
+    "Lead pump status setpoint"
+    annotation (Placement(transformation(extent={{800,560},{840,600}}),
+        iconTransformation(extent={{100,200},{140,240}})));
 
-  CDL.Interfaces.RealInput dpChiWatPum(final unit="Pa",
-      final quantity="PressureDifference") if not have_serChi
-    "Chilled water pump differential static pressure"
-    annotation(Placement(transformation(extent={{-838,-20},{-798,20}}),
-    iconTransformation(extent={{-140,-110},{-100,-70}})));
-
-  CDL.Interfaces.RealInput uChiLoa[nChi](final quantity=fill("ElectricCurrent",
-        nChi), final unit=fill("A", nChi)) "Current chiller load, in amperage"
-    annotation(Placement(transformation(extent={{-840,120},{-800,160}}),
-      iconTransformation(extent={{-140,60},{-100,100}})));
-
-  CDL.Interfaces.RealInput TConWatRet(
-    final unit="K",
-    final displayUnit="degC",
-    final quantity="ThermodynamicTemperature") if not have_HeaPreConSig
-    "Measured condenser water return temperature"
-    annotation(Placement(transformation(extent={{-840,220},{-800,260}}),
-      iconTransformation(extent={{-140,-218},{-100,-178}})));
-
-  CDL.Interfaces.RealInput TChiWatSup(
-    final unit="K",
-    final displayUnit="degC",
-    final quantity="ThermodynamicTemperature") if not have_HeaPreConSig
-    "Measured chilled water supply temperature"
-    annotation(Placement(transformation(extent={{-840,190},{-800,230}}),
-      iconTransformation(extent={{-140,-40},{-100,0}})));
-
-  CDL.Interfaces.BooleanOutput yChi[nChi]
-    "Chiller enabling status"
-    annotation(Placement(transformation(extent={{800,330},{840,370}}),
-      iconTransformation(extent={{100,230},{140,270}})));
-
-  CDL.Interfaces.BooleanOutput yChiWatPum[nChiWatPum] if
-    have_heaChiWatPum
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yChiWatPum[nChiWatPum]
+  if have_heaChiWatPum
     "Chilled water pump status setpoint"
     annotation(Placement(transformation(extent={{800,500},{840,540}}),
       iconTransformation(extent={{100,-20},{140,20}})));
 
-  CDL.Interfaces.BooleanOutput yLeaCel
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yChiPumSpe(
+    final min=0,
+    final max=1,
+    final unit="1")
+    "Enabled chilled water pump speed setpoint"
+    annotation(Placement(transformation(extent={{800,466},{840,506}}),
+      iconTransformation(extent={{100,-50},{140,-10}})));
+
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yChiDem[nChi](
+    final quantity=fill("ElectricCurrent",nChi),
+    final unit=fill("A", nChi))
+    "Chiller demand setpoint to set through BACnet or similar "
+    annotation(Placement(transformation(extent={{800,400},{840,440}}),
+      iconTransformation(extent={{100,-140},{140,-100}})));
+
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yChi[nChi]
+    "Chiller enabling status"
+    annotation(Placement(transformation(extent={{800,330},{840,370}}),
+      iconTransformation(extent={{100,230},{140,270}})));
+
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yHeaPreConVal[nChi](
+    final min=fill(0, nChi),
+    final max=fill(1, nChi),
+    final unit=fill("1", nChi))
+    "Head pressure control valve position"
+    annotation (Placement(transformation(extent={{800,160},{840,200}}),
+      iconTransformation(extent={{100,-110},{140,-70}})));
+
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yConWatPumSpe(
+    final unit=fill("1", nChi),
+    final min=fill(0, nChi),
+    final max=fill(1, nChi)) "Condenser water pump speed setpoint"
+    annotation (Placement(transformation(extent={{800,130},{840,170}}),
+        iconTransformation(extent={{792,100},{832,140}})));
+
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yChiWatMinFloSet(
+    final quantity="VolumeFlowRate",
+    final unit="m3/s",
+    final min=0) "Chilled water minimum flow setpoint"
+    annotation (Placement(transformation(extent={{800,100},{840,140}}),
+      iconTransformation(extent={{788,100},{828,140}})));
+
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yConWatPum[nConWatPum]
+    "Status setpoint of condenser water pump"
+    annotation (Placement(transformation(extent={{800,46},{840,86}}),
+      iconTransformation(extent={{780,66},{820,106}})));
+
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yChiWatIsoVal[nChi](
+    final unit=fill("1", nChi),
+    final min=fill(0, nChi),
+    final max=fill(1, nChi))
+    "Chiller isolation valve position setpoints"
+    annotation (Placement(transformation(extent={{800,-20},{840,20}}),
+        iconTransformation(extent={{782,-20},{822,20}})));
+
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yValPosSet(
+    final min=0,
+    final max=1,
+    final unit="1")
+    "Chilled water minimum flow bypass valve position setpoint"
+    annotation (Placement(transformation(extent={{800,-340},{840,-300}}),
+        iconTransformation(extent={{100,-20},{140,20}})));
+
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yNumCel
+    "Total number of enabled cooling tower cells"
+    annotation(Placement(transformation(extent={{800,-560},{840,-520}}),
+      iconTransformation(extent={{100,50},{140,90}})));
+
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yLeaCel
     "Lead tower cell status setpoint"
     annotation(Placement(transformation(extent={{800,-600},{840,-560}}),
       iconTransformation(extent={{100,110},{140,150}})));
 
-  CDL.Interfaces.BooleanOutput yTowSta[nTowCel]
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yTowCelIsoVal[nTowCel](
+    final min=fill(0, nTowCel),
+    final max=fill(1, nTowCel),
+    final unit=fill("1", nTowCel))
+    "Cooling tower cells isolation valve position"
+    annotation (Placement(transformation(extent={{800,-640},{840,-600}}),
+      iconTransformation(extent={{100,-170},{140,-130}})));
+
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yTowSta[nTowCel]
     "Vector of tower cells status setpoint"
     annotation(Placement(transformation(extent={{800,-680},{840,-640}}),
       iconTransformation(extent={{100,170},{140,210}})));
 
-  CDL.Interfaces.BooleanOutput yMakUp
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yTowFanSpe[nTowCel](
+    final min=fill(0, nTowCel),
+    final max=fill(1, nTowCel),
+    final unit=fill("1", nTowCel))
+    "Fan speed setpoint of each cooling tower cell"
+    annotation (Placement(transformation(extent={{800,-720},{840,-680}}),
+      iconTransformation(extent={{100,-80},{140,-40}})));
+
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yMakUp
     "Makeup water valve On-Off status"
     annotation(Placement(transformation(extent={{800,-780},{840,-740}}),
       iconTransformation(extent={{100,140},{140,180}})));
 
-  CDL.Interfaces.RealOutput yTowCelIsoVal[nTowCel](
-    final min=fill(0, nTowCel),
-    final max=fill(1, nTowCel),
-    final unit=fill("1", nTowCel))
-    "Cooling tower cells isolation valve position" annotation (Placement(
-        transformation(extent={{800,-640},{840,-600}}), iconTransformation(
-          extent={{100,-170},{140,-130}})));
-
-  CDL.Interfaces.RealOutput yTowFanSpe[nTowCel](
-    final min=fill(0, nTowCel),
-    final max=fill(1, nTowCel),
-    final unit=fill("1", nTowCel))
-    "Fan speed setpoint of each cooling tower cell" annotation (Placement(
-        transformation(extent={{800,-720},{840,-680}}), iconTransformation(
-          extent={{100,-80},{140,-40}})));
-
-  CDL.Interfaces.RealOutput yValPosSet(
-    final min=0,
-    final max=1,
-    final unit="1") "Chilled water minimum flow bypass valve position setpoint"
-    annotation (Placement(transformation(extent={{800,-340},{840,-300}}),
-        iconTransformation(extent={{100,-20},{140,20}})));
-
-  CDL.Interfaces.RealOutput yChiPumSpe(
-    final min=0,
-    final max=1,
-    final unit="1") "Enabled chilled water pump speed setpoint"
-                                                       annotation(Placement(
-        transformation(extent={{800,466},{840,506}}), iconTransformation(extent={{100,-50},
-            {140,-10}})));
-
-  CDL.Interfaces.RealOutput yChiDem[nChi](final quantity=fill("ElectricCurrent",
-        nChi), final unit=fill("A", nChi))
-    "Chiller demand setpoint to set through BACnet or similar "
-    annotation(Placement(transformation(extent={{800,400},{840,440}}),
-      iconTransformation(extent={{100,-140},{140,-100}})));
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Economizers.Controller wseSta(
     final holdPeriod=holdPeriod,
@@ -1020,7 +1127,7 @@ block Controller "Chiller plant controller"
     final Ti=fill(TiHeaPreCon, nChi)) "Chiller head pressure controller"
     annotation (Placement(transformation(extent={{-420,180},{-380,220}})));
 
-  MinimumFlowBypass.Controller minBypValCon(
+  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.MinimumFlowBypass.Controller minBypValCon(
     final nChi=nChi,
     final minFloSet=minFloSet,
     final controllerType=controllerTypeMinFloByp,
@@ -1110,10 +1217,12 @@ block Controller "Chiller plant controller"
     annotation(Placement(transformation(extent={{-160,-68},{-80,100}})));
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Towers.Controller towCon(
+    final nChi=nChi,
     final nTowCel=nTowCel,
     final totChiSta=totChiSta,
     final nConWatPum=nConWatPum,
     final closeCoupledPlant=closeCoupledPlant,
+    final have_WSE=have_WSE,
     final desCap=desCap,
     final fanSpeMin=fanSpeMin,
     final fanSpeMax=fanSpeMax,
@@ -1154,7 +1263,7 @@ block Controller "Chiller plant controller"
     "Cooling tower controller"
     annotation(Placement(transformation(extent={{-160,-720},{-80,-560}})));
 
-  Staging.Processes.Down dowProCon(
+  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Processes.Down dowProCon(
     final nChi=nChi,
     final totSta=totSta,
     final have_WSE=have_WSE,
@@ -1178,7 +1287,7 @@ block Controller "Chiller plant controller"
     "Staging down process controller"
     annotation(Placement(transformation(extent={{280,-300},{360,-140}})));
 
-  Staging.Processes.Up upProCon(
+  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Processes.Up upProCon(
     final nChi=nChi,
     final totSta=totSta,
     final have_WSE=have_WSE,
@@ -1203,201 +1312,130 @@ block Controller "Chiller plant controller"
     "Staging up process controller"
     annotation(Placement(transformation(extent={{280,280},{360,440}})));
 
-  CDL.Continuous.MultiMax mulMax(nin=nTowCel) "All input values are the same"
+  Buildings.Controls.OBC.CDL.Continuous.MultiMax mulMax(nin=nTowCel) "All input values are the same"
     annotation(Placement(transformation(extent={{40,-562},{60,-542}})));
 
-  CDL.Logical.Or chaProUpDown "Either in staging up or in staging down process"
+  Buildings.Controls.OBC.CDL.Logical.Or chaProUpDown "Either in staging up or in staging down process"
     annotation(Placement(transformation(extent={{540,-90},{560,-70}})));
 
-  CDL.Discrete.TriggeredSampler staSam
+  Buildings.Controls.OBC.CDL.Discrete.TriggeredSampler staSam
     "Samples stage index after each staging process is finished"
     annotation(Placement(transformation(extent={{80,-20},{100,0}})));
 
-  CDL.Conversions.RealToInteger reaToInt1
+  Buildings.Controls.OBC.CDL.Conversions.RealToInteger reaToInt1
     annotation(Placement(transformation(extent={{120,-20},{140,0}})));
 
-  CDL.Conversions.IntegerToReal intToRea
+  Buildings.Controls.OBC.CDL.Conversions.IntegerToReal intToRea
     annotation(Placement(transformation(extent={{40,-20},{60,0}})));
 
-  CDL.Logical.FallingEdge falEdg
+  Buildings.Controls.OBC.CDL.Logical.FallingEdge falEdg
     annotation(Placement(transformation(extent={{580,-90},{600,-70}})));
 
-  CDL.Interfaces.IntegerOutput yNumCel
-    "Total number of enabled cooling tower cells"
-    annotation(Placement(transformation(extent={{800,-560},{840,-520}}),
-      iconTransformation(extent={{100,50},{140,90}})));
 
-  CDL.Logical.MultiOr mulOr(nu=nChiWatPum)
+
+  Buildings.Controls.OBC.CDL.Logical.MultiOr mulOr(nu=nChiWatPum)
     annotation(Placement(transformation(extent={{-640,-134},{-620,-114}})));
 
-  CDL.Continuous.MultiMax conWatPumSpe(nin=nConWatPum)
+  Buildings.Controls.OBC.CDL.Continuous.MultiMax conWatPumSpe(nin=nConWatPum)
     "Running condenser water pump speed"
     annotation (Placement(transformation(extent={{-560,-400},{-540,-380}})));
-  CDL.Logical.Or staCooTow
+  Buildings.Controls.OBC.CDL.Logical.Or staCooTow
     "Tower stage change status: true=stage cooling tower"
     annotation (Placement(transformation(extent={{580,-130},{600,-110}})));
-  CDL.Interfaces.RealInput TOut(final unit="K", final quantity="ThermodynamicTemperature")
-    "Outdoor air dr bulb temperature" annotation (Placement(transformation(
-          extent={{-840,-500},{-800,-460}}),
-                                          iconTransformation(extent={{-140,10},{
-            -100,50}})));
 
-  CDL.Interfaces.RealInput uFanSpe(
-    final quantity="1",
-    final min=0,
-    final max=1) "Tower fan speed" annotation (Placement(transformation(extent={
-            {-840,-608},{-800,-568}}), iconTransformation(extent={{-140,-270},{-100,
-            -230}})));
-
-  CDL.Interfaces.BooleanInput uChiConIsoVal[nChi]
-    "Chilled condenser water isolation valve status" annotation (Placement(
-        transformation(extent={{-840,620},{-800,660}}), iconTransformation(
-          extent={{-140,200},{-100,240}})));
-
-  CDL.Interfaces.BooleanInput uConWatReq[nChi]
-    "Condenser water requst status for each chiller" annotation (Placement(
-        transformation(extent={{-840,560},{-800,600}}), iconTransformation(
-          extent={{-140,260},{-100,300}})));
-
-  CDL.Interfaces.BooleanInput uChiWatReq[nChi]
-    "Chilled water requst status for each chiller" annotation (Placement(
-        transformation(extent={{-840,590},{-800,630}}), iconTransformation(
-          extent={{-140,240},{-100,280}})));
-
-  CDL.Routing.BooleanReplicator booRep(nout=nChi) if have_WSE
+  Buildings.Controls.OBC.CDL.Routing.BooleanReplicator booRep(nout=nChi) if have_WSE
     "Waterside economizer status"
     annotation (Placement(transformation(extent={{-480,290},{-460,310}})));
 
-  CDL.Routing.RealReplicator conWatRetTem(final nout=nChi)
+  Buildings.Controls.OBC.CDL.Routing.RealReplicator conWatRetTem(final nout=nChi)
     "Condenser water return temperature"
     annotation (Placement(transformation(extent={{-640,230},{-620,250}})));
 
-  CDL.Routing.RealReplicator chiWatSupTem(final nout=nChi)
+  Buildings.Controls.OBC.CDL.Routing.RealReplicator chiWatSupTem(final nout=nChi)
     "Chilled water supply temperature"
     annotation (Placement(transformation(extent={{-640,194},{-620,214}})));
 
-  CDL.Logical.Switch desConWatPumSpeSwi "Design condenser water pump speed"
+  Buildings.Controls.OBC.CDL.Logical.Switch desConWatPumSpeSwi "Design condenser water pump speed"
     annotation (Placement(transformation(extent={{580,190},{600,210}})));
 
-  CDL.Routing.RealReplicator repDesConTem(final nout=nChi)
+  Buildings.Controls.OBC.CDL.Routing.RealReplicator repDesConTem(final nout=nChi)
     "Replicate design condenser water temperature"
     annotation (Placement(transformation(extent={{660,190},{680,210}})));
 
-  CDL.Interfaces.RealInput uHeaPreCon[nChi] if have_HeaPreConSig
-    "Chiller head pressure control loop signal from chiller controller"
-    annotation (Placement(transformation(extent={{-840,160},{-800,200}}),
-        iconTransformation(extent={{-140,80},{-100,120}})));
-
-  CDL.Interfaces.RealOutput yHeaPreConVal[nChi]
-    "Head pressure control valve position" annotation (Placement(transformation(
-          extent={{800,160},{840,200}}), iconTransformation(extent={{100,-110},{
-            140,-70}})));
-  CDL.Continuous.MultiMin mulMin(nin=nChi)
+  Buildings.Controls.OBC.CDL.Continuous.MultiMin mulMin(nin=nChi)
     annotation (Placement(transformation(extent={{-360,150},{-340,170}})));
 
-  CDL.Logical.Switch chiMinFloSet "Chiller water minimum flow setpoint"
+  Buildings.Controls.OBC.CDL.Logical.Switch chiMinFloSet "Chiller water minimum flow setpoint"
     annotation (Placement(transformation(extent={{580,110},{600,130}})));
 
-  CDL.Routing.BooleanReplicator uChiSwi(nout=nChi)
+  Buildings.Controls.OBC.CDL.Routing.BooleanReplicator uChiSwi(nout=nChi)
     "In chiller stage up process"
     annotation (Placement(transformation(extent={{560,340},{580,360}})));
 
-  CDL.Logical.LogicalSwitch uChiStaPro[nChi]
+  Buildings.Controls.OBC.CDL.Logical.LogicalSwitch uChiStaPro[nChi]
     "Chiller head pressure control status"
     annotation (Placement(transformation(extent={{740,340},{760,360}})));
 
-  CDL.Logical.Pre heaCon[nChi] "Chiller head pressure control"
+  Buildings.Controls.OBC.CDL.Logical.Pre heaCon[nChi] "Chiller head pressure control"
     annotation (Placement(transformation(extent={{660,270},{680,290}})));
 
-  CDL.Logical.Pre preConPumLeaSta
+  Buildings.Controls.OBC.CDL.Logical.Pre preConPumLeaSta
     "Lead condenser water pump status from previous step"
     annotation (Placement(transformation(extent={{580,-260},{600,-240}})));
-  CDL.Interfaces.BooleanOutput yLeaChiWatPum "Lead pump status setpoint"
-    annotation (Placement(transformation(extent={{800,560},{840,600}}),
-        iconTransformation(extent={{100,200},{140,240}})));
-  Generic.EquipmentRotation.ControllerTwo equRot if have_heaChiWatPum
+
+  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.EquipmentRotation.ControllerTwo equRot if have_heaChiWatPum
     "fixme - rotates 2 pumps or groups of pumps"
     annotation (Placement(transformation(extent={{360,560},{380,580}})));
-  CDL.Integers.Sources.Constant conInt1
-                                      [nChiWatPum](k={1,2}) if
-    have_heaChiWatPum
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt1
+                                      [nChiWatPum](k={1,2})
+ if have_heaChiWatPum
     "Fixme - 2 pumps or groups of pumps only"
     annotation (Placement(transformation(extent={{420,590},{440,610}})));
-  CDL.Integers.Sources.Constant conInt2
-                                      [nChiWatPum](k={2,1}) if
-    have_heaChiWatPum
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt2
+                                      [nChiWatPum](k={2,1})
+ if have_heaChiWatPum
     "Fixme - 2 pumps or groups of pumps only"
     annotation (Placement(transformation(extent={{420,540},{440,560}})));
-  CDL.Logical.IntegerSwitch intSwi[2] if have_heaChiWatPum
+  Buildings.Controls.OBC.CDL.Logical.IntegerSwitch intSwi[2] if have_heaChiWatPum
     "fixme - two devices or groups of devices"
     annotation (Placement(transformation(extent={{480,560},{500,580}})));
-  CDL.Logical.Xor xor[nTowCel]
+  Buildings.Controls.OBC.CDL.Logical.Xor xor[nTowCel]
     "Outputs true when input signals are not the same. fixme - move to inside towCon"
     annotation (Placement(transformation(extent={{-300,-790},{-280,-770}})));
-  CDL.Logical.Latch chiStaUp "In chiller stage up process"
+  Buildings.Controls.OBC.CDL.Logical.Latch chiStaUp "In chiller stage up process"
     annotation (Placement(transformation(extent={{480,310},{500,330}})));
-  CDL.Logical.Pre pre2
+  Buildings.Controls.OBC.CDL.Logical.Pre pre2
     annotation (Placement(transformation(extent={{180,-490},{200,-470}})));
-  CDL.Conversions.BooleanToInteger booToInt[nChiWatPum] if have_heaChiWatPum
+  Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger booToInt[nChiWatPum] if have_heaChiWatPum
     "Convert boolean to integer"
     annotation (Placement(transformation(extent={{640,550},{660,570}})));
-  CDL.Integers.MultiSum totChiPum(nin=nChiWatPum) if have_heaChiWatPum
+  Buildings.Controls.OBC.CDL.Integers.MultiSum totChiPum(nin=nChiWatPum) if have_heaChiWatPum
     "Total enabled chilled water pump"
     annotation (Placement(transformation(extent={{680,550},{700,570}})));
-  CDL.Integers.GreaterThreshold intGreThr(final t=1)
+  Buildings.Controls.OBC.CDL.Integers.GreaterThreshold intGreThr(final t=1)
     "Check if more than one pump is enabled, if yes, then it means lag pump is enabled"
     annotation (Placement(transformation(extent={{720,550},{740,570}})));
-  CDL.Logical.LogicalSwitch chiHeaCon[nChi]
+  Buildings.Controls.OBC.CDL.Logical.LogicalSwitch chiHeaCon[nChi]
     "Chiller head control enabling status"
     annotation (Placement(transformation(extent={{620,270},{640,290}})));
-  CDL.Logical.IntegerSwitch conWatPumNum
+  Buildings.Controls.OBC.CDL.Logical.IntegerSwitch conWatPumNum
     "Total number of enablded condenser water pump"
     annotation (Placement(transformation(extent={{540,50},{560,70}})));
-  Generic.EquipmentRotation.ControllerTwo equRot1 if have_heaChiWatPum
+  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.EquipmentRotation.ControllerTwo equRot1 if have_heaChiWatPum
     "fixme - rotates 2 pumps or groups of pumps"
     annotation (Placement(transformation(extent={{640,50},{660,70}})));
-  CDL.Logical.LogicalSwitch conPumLeaSta
+  Buildings.Controls.OBC.CDL.Logical.LogicalSwitch conPumLeaSta
     "Pick the condenser water pump lead status"
     annotation (Placement(transformation(extent={{540,-260},{560,-240}})));
-  CDL.Integers.GreaterThreshold intGreThr1(final t=1)
+  Buildings.Controls.OBC.CDL.Integers.GreaterThreshold intGreThr1(final t=1)
     "Check if more than one pump is enabled, if yes, then it means lag pump is enabled"
     annotation (Placement(transformation(extent={{580,50},{600,70}})));
-  CDL.Interfaces.BooleanInput uConWatPum[nConWatPum]
-    "Condenser water pump status" annotation (Placement(transformation(extent={
-            {-840,-440},{-800,-400}}), iconTransformation(extent={{-140,160},{-100,
-            200}})));
-  CDL.Interfaces.BooleanOutput yConWatPum[nConWatPum]
-    "Status setpoint of condenser water pump" annotation (Placement(
-        transformation(extent={{800,46},{840,86}}),  iconTransformation(extent=
-            {{780,66},{820,106}})));
-  CDL.Interfaces.RealOutput yConWatPumSpe(
-    final unit=fill("1", nChi),
-    final min=fill(0, nChi),
-    final max=fill(1, nChi)) "Condenser water pump speed setpoint"
-    annotation (Placement(transformation(extent={{800,130},{840,170}}),
-        iconTransformation(extent={{792,100},{832,140}})));
-  CDL.Logical.Switch chiIsoVal[nChi]
+  Buildings.Controls.OBC.CDL.Logical.Switch chiIsoVal[nChi]
     "Chiller isolation valve position setpoint"
     annotation (Placement(transformation(extent={{640,-10},{660,10}})));
-  CDL.Interfaces.RealOutput yChiWatMinFloSet(
-    final quantity="VolumeFlowRate",
-    final unit="m3/s",
-    final min=0) "Chilled water minimum flow setpoint"
-    annotation (Placement(transformation(extent={{800,100},{840,140}}),
-      iconTransformation(extent={{788,100},{828,140}})));
-  CDL.Interfaces.RealOutput yChiWatIsoVal[nChi](
-    final unit=fill("1", nChi),
-    final min=fill(0, nChi),
-    final max=fill(1, nChi)) "Chiller isolation valve position setpoints"
-    annotation (Placement(transformation(extent={{800,-20},{840,20}}),
-        iconTransformation(extent={{782,-20},{822,20}})));
-  CDL.Interfaces.RealInput uChiCooLoa[nChi](
-    final quantity=fill("HeatFlowRate",nChi),
-    final unit=fill("W", nChi)) "Current chiller cooling load"
-    annotation (Placement(transformation(extent={{-840,-560},{-800,-520}}),
-        iconTransformation(extent={{-140,60},{-100,100}})));
-  CDL.Logical.Switch chiDem[nChi] "Chiller demand"
+  Buildings.Controls.OBC.CDL.Logical.Switch chiDem[nChi] "Chiller demand"
     annotation (Placement(transformation(extent={{740,410},{760,430}})));
+
 equation
   connect(staSetCon.uPla, plaEna.yPla) annotation(Line(points={{-168,72},{-480,
           72},{-480,-460},{-518,-460}},        color={255,0,255}));

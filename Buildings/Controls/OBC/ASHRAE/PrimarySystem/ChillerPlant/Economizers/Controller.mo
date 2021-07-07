@@ -3,8 +3,7 @@ block Controller "Waterside economizer (WSE) enable/disable status"
 
   parameter Real holdPeriod(
     final unit="s",
-    final quantity="Time",
-    displayUnit="h")=1200
+    final quantity="Time")=1200
     "WSE minimum on or off time"
   annotation(Dialog(group="Enable parameters"));
 
@@ -16,29 +15,25 @@ block Controller "Waterside economizer (WSE) enable/disable status"
 
   parameter Real TOffsetEna(
     final unit="K",
-    final quantity="TemperatureDifference",
-    displayUnit="degC")=2
+    final quantity="TemperatureDifference")=2
     "Temperature offset between the chilled water return upstream of WSE and the predicted WSE output"
   annotation(Dialog(group="Enable parameters"));
 
   parameter Real TOffsetDis(
     final unit="K",
-    final quantity="TemperatureDifference",
-    displayUnit="degC")=1
+    final quantity="TemperatureDifference")=1
     "Temperature offset between the chilled water return upstream and downstream WSE"
   annotation(Dialog(group="Enable parameters"));
 
   parameter Real heaExcAppDes(
     final unit="K",
-    final quantity="TemperatureDifference",
-    displayUnit="degC")=2
+    final quantity="TemperatureDifference")=2
     "Design heat exchanger approach"
     annotation(Dialog(group="Design parameters"));
 
   parameter Real cooTowAppDes(
     final unit="K",
-    final quantity="TemperatureDifference",
-    displayUnit="degC")=2
+    final quantity="TemperatureDifference")=2
     "Design cooling tower approach"
     annotation(Dialog(group="Design parameters"));
 
@@ -51,8 +46,7 @@ block Controller "Waterside economizer (WSE) enable/disable status"
 
   parameter Real hysDt(
     final unit="K",
-    final quantity="TemperatureDifference",
-    displayUnit="degC")=1
+    final quantity="TemperatureDifference")=1
      "Deadband temperature used in hysteresis block"
     annotation (Evaluate=true, Dialog(tab="Advanced", group="Hysteresis"));
 
@@ -84,6 +78,7 @@ block Controller "Waterside economizer (WSE) enable/disable status"
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TOutWet(
     final unit="K",
+    displayUnit="degC",
     final quantity="ThermodynamicTemperature")
     "Outdoor air wet bulb temperature"
     annotation (Placement(transformation(extent={{-220,80},{-180,120}}),
@@ -91,6 +86,7 @@ block Controller "Waterside economizer (WSE) enable/disable status"
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TChiWatRet(
     final unit="K",
+    displayUnit="degC",
     final quantity="ThermodynamicTemperature")
     "Chilled water return temperature upstream of the WSE"
     annotation (Placement(transformation(extent={{-220,40},{-180,80}}),
@@ -98,6 +94,7 @@ block Controller "Waterside economizer (WSE) enable/disable status"
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TChiWatRetDow(
     final unit="K",
+    displayUnit="degC",
     final quantity="ThermodynamicTemperature")
     "Chilled water return temperature downstream of the WSE"
     annotation (Placement(transformation(extent={{-220,0},{-180,40}}),
@@ -125,6 +122,7 @@ block Controller "Waterside economizer (WSE) enable/disable status"
 
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput TWsePre(
     final quantity="ThermodynamicTemperature",
+    displayUnit="degC",
     final unit="K")
     "Predicted waterside economizer outlet temperature"
     annotation (Placement(transformation(extent={{180,-20},{220,20}}),

@@ -53,7 +53,7 @@ protected
     final unit="1") = 0.5
     "Tuning parameter maximum limit";
 
-  CDL.Continuous.Sources.Constant resVal(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant resVal(
     final k=0) "Reset value"
     annotation (Placement(transformation(extent={{120,0},{140,20}})));
 
@@ -65,8 +65,7 @@ protected
     final k2=-1) "Anti-windup adder"
     annotation (Placement(transformation(extent={{200,20},{220,40}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Timer tim(final t=wseOnTimDec)
-                                               "Timer"
+  Buildings.Controls.OBC.CDL.Logical.Timer tim(final t=wseOnTimDec) "Timer"
     annotation (Placement(transformation(extent={{-260,140},{-240,160}})));
 
   Buildings.Controls.OBC.CDL.Logical.FallingEdge falEdg "Falling edge"

@@ -4,14 +4,12 @@ block PredictedOutletTemperature
 
   parameter Real heaExcAppDes(
     final unit="K",
-    final quantity="TemperatureDifference",
-    displayUnit="degC")=2
+    final quantity="TemperatureDifference")=2
     "Design heat exchanger approach";
 
   parameter Real cooTowAppDes(
     final unit="K",
-    final quantity="TemperatureDifference",
-    displayUnit="degC")=2
+    final quantity="TemperatureDifference")=2
     "Design cooling tower approach";
 
   parameter Real TOutWetDes(
@@ -34,6 +32,7 @@ block PredictedOutletTemperature
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TOutWet(
     final unit="K",
+    displayUnit="degC",
     final quantity="ThermodynamicTemperature") "Outdoor air wet bulb temperature"
     annotation (Placement(transformation(extent={{-200,120},{-160,160}}),
         iconTransformation(extent={{-140,60},{-100,100}})));
