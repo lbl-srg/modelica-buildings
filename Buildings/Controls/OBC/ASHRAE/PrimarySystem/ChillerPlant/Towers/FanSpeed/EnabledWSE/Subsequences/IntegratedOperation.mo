@@ -46,11 +46,11 @@ block IntegratedOperation
     "Waterside economizer enabling status: true=ON"
     annotation (Placement(transformation(extent={{-200,-20},{-160,20}}),
       iconTransformation(extent={{-140,-100},{-100,-60}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yFanSpe(
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput ySpeSet(
     final min=0,
     final max=1,
     final unit="1")
-    "Tower fan speed when WSE is enabled and there is any chiller running"
+    "Tower fan speed setpoint when WSE is enabled and there is any chiller running"
     annotation (Placement(transformation(extent={{160,-100},{200,-60}}),
       iconTransformation(extent={{100,-20},{140,20}})));
 
@@ -177,7 +177,7 @@ equation
     annotation (Line(points={{82,-40},{100,-40},{100,-88},{118,-88}}, color={0,0,127}));
   connect(maxTowSpe.y, fanSpe.u1)
     annotation (Line(points={{22,-60},{30,-60},{30,-72},{118,-72}}, color={0,0,127}));
-  connect(fanSpe.y,yFanSpe)
+  connect(fanSpe.y,ySpeSet)
     annotation (Line(points={{142,-80},{180,-80}}, color={0,0,127}));
   connect(chiMinCycLoa.y, minCycLoa.u)
     annotation (Line(points={{-98,140},{-22,140}}, color={0,0,127}));
@@ -274,7 +274,7 @@ annotation (
           extent={{-160,-160},{160,160}})),
 Documentation(info="<html>
 <p>
-Block that outputs cooling tower fan speed <code>yFanSpe</code> when both waterside 
+Block that outputs cooling tower fan speed <code>ySpeSet</code> when both waterside 
 economizer and chillers are enabled, i.e. integrated operation. This is implemented 
 according to ASHRAE RP-1711 Advanced Sequences of Operation for HVAC Systems Phase II – 
 Central Plants and Hydronic Systems (Draft on March 23, 2020), section 5.2.12.2, 

@@ -180,9 +180,9 @@ block Controller "Cooling tower controller"
     "Maximum cooling tower water level recommended by manufacturer"
     annotation (Dialog(tab="Makeup water"));
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput chiLoa[nChi](
-    final unit=fill("W", nChi),
-    final quantity=fill("HeatFlowRate", nChi)) if have_WSE
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput chiLoa[nChi](final unit=fill(
+        "W", nChi), final quantity=fill("HeatFlowRate", nChi)) if
+                                                  have_WSE
     "Current load of each chiller"
     annotation (Placement(transformation(extent={{-140,220},{-100,260}}),
       iconTransformation(extent={{-140,170},{-100,210}})));
@@ -197,7 +197,7 @@ block Controller "Cooling tower controller"
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uFanSpe(
      final min=0,
      final max=1,
-     final unit="1") "Tower fan speed"
+     final unit="1") "Measured fan speed of each tower cell"
     annotation (Placement(transformation(extent={{-140,140},{-100,180}}),
       iconTransformation(extent={{-140,110},{-100,150}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TChiWatSup(
@@ -303,10 +303,11 @@ block Controller "Cooling tower controller"
     "Vector of tower cells status setpoint"
     annotation (Placement(transformation(extent={{100,-130},{140,-90}}),
       iconTransformation(extent={{100,-70},{140,-30}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yFanSpe[nTowCel](
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput ySpeSet[nTowCel](
     final min=fill(0, nTowCel),
     final max=fill(1, nTowCel),
-    final unit=fill("1", nTowCel)) "Fan speed of each cooling tower cell"
+    final unit=fill("1", nTowCel))
+    "Fan speed setpoint of each cooling tower cell"
     annotation (Placement(transformation(extent={{100,-170},{140,-130}}),
       iconTransformation(extent={{100,-130},{140,-90}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yMakUp
@@ -388,14 +389,14 @@ equation
     annotation (Line(points={{2,-42},{40,-42},{40,-70},{120,-70}}, color={0,0,127}));
   connect(towSta.yTowSta, swi.u2)
     annotation (Line(points={{2,-46},{20,-46},{20,-150},{58,-150}}, color={255,0,255}));
-  connect(towFanSpe.yFanSpe, reaRep.u)
+  connect(towFanSpe.ySpeSet, reaRep.u)
     annotation (Line(points={{2,40},{18,40}}, color={0,0,127}));
   connect(reaRep.y, swi.u1)
     annotation (Line(points={{42,40},{50,40},{50,-142},{58,-142}}, color={0,0,127}));
   connect(zer.y, swi.u3)
     annotation (Line(points={{22,-180},{40,-180},{40,-158},{58,-158}},
       color={0,0,127}));
-  connect(swi.y, yFanSpe)
+  connect(swi.y,ySpeSet)
     annotation (Line(points={{82,-150},{120,-150}}, color={0,0,127}));
   connect(towFanSpe.chiLoa, chiLoa)
     annotation (Line(points={{-22,59},{-40,59},{-40,240},{-120,240}}, color={0,0,127}));
@@ -553,7 +554,7 @@ annotation (
         Text(
           extent={{54,-100},{98,-116}},
           lineColor={0,0,127},
-          textString="yFanSpe"),
+          textString="ySpeSet"),
         Text(
           extent={{46,-40},{98,-56}},
           lineColor={255,0,255},
@@ -575,7 +576,7 @@ Documentation(info="<html>
 <p>
 Block that controls cooling tower cells enabling status <code>yTowSta</code>,
 the supply isolation valve positions <code>yIsoVal</code> of each cell and the
-cell fan operating speed <code>yFanSpe</code>.
+cell fan operating speed <code>ySpeSet</code>.
 This is implemented according to ASHRAE RP-1711 Advanced Sequences of Operation for
 HVAC Systems Phase II –
 Central Plants and Hydronic Systems (Draft on March 23, 2020), section 5.2.12.

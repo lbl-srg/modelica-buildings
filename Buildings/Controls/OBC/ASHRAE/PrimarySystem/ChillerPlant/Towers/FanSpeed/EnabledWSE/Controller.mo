@@ -42,9 +42,9 @@ block Controller "Tower fan speed control when waterside economizer is enabled"
                        enable=chiWatCon==Buildings.Controls.OBC.CDL.Types.SimpleController.PD or
                               chiWatCon==Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput chiLoa[nChi](
-    final unit=fill("W",nChi),
-    final quantity=fill("HeatFlowRate",nChi)) "Current load of each chiller"
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput chiLoa[nChi](final unit=fill(
+        "W", nChi), final quantity=fill("HeatFlowRate", nChi))
+                                              "Current load of each chiller"
     annotation (Placement(transformation(extent={{-140,60},{-100,100}}),
       iconTransformation(extent={{-140,70},{-100,110}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uChi[nChi]
@@ -58,7 +58,7 @@ block Controller "Tower fan speed control when waterside economizer is enabled"
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uFanSpe(
      final min=0,
      final max=1,
-     final unit="1") "Tower fan speed"
+     final unit="1") "Measured tower fan speed"
      annotation (Placement(transformation(extent={{-140,-50},{-100,-10}}),
        iconTransformation(extent={{-140,-40},{-100,0}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TChiWatSup(
@@ -75,11 +75,11 @@ block Controller "Tower fan speed control when waterside economizer is enabled"
     "Chilled water supply temperature setpoint"
     annotation (Placement(transformation(extent={{-140,-110},{-100,-70}}),
       iconTransformation(extent={{-140,-110},{-100,-70}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yFanSpe(
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput ySpeSet(
     final min=0,
     final max=1,
     final unit="1")
-    "Tower fan speed when WSE is enabled and there is any chiller running"
+    "Tower fan speed setpoint when WSE is enabled and there is any chiller running"
     annotation (Placement(transformation(extent={{100,-20},{140,20}}),
       iconTransformation(extent={{100,-20},{140,20}})));
 
@@ -129,9 +129,9 @@ equation
     annotation (Line(points={{-42,-68},{-60,-68},{-60,-90},{-120,-90}}, color={0,0,127}));
   connect(mulOr.y, swi.u2)
     annotation (Line(points={{-18,40},{-2,40}}, color={255,0,255}));
-  connect(intOpe.yFanSpe, swi.u1)
+  connect(intOpe.ySpeSet, swi.u1)
     annotation (Line(points={{-18,80},{-10,80},{-10,48},{-2,48}}, color={0,0,127}));
-  connect(wseOpe.yFanSpe, swi.u3)
+  connect(wseOpe.ySpeSet, swi.u3)
     annotation (Line(points={{-18,-60},{-10,-60},{-10,32},{-2,32}}, color={0,0,127}));
   connect(uWse, swi1.u2)
     annotation (Line(points={{-120,0},{58,0}}, color={255,0,255}));
@@ -139,7 +139,7 @@ equation
     annotation (Line(points={{22,40},{40,40},{40,8},{58,8}}, color={0,0,127}));
   connect(zer.y, swi1.u3)
     annotation (Line(points={{22,-30},{40,-30},{40,-8},{58,-8}}, color={0,0,127}));
-  connect(swi1.y, yFanSpe)
+  connect(swi1.y,ySpeSet)
     annotation (Line(points={{82,0},{120,0}}, color={0,0,127}));
   connect(uChi, mulOr.u)
     annotation (Line(points={{-120,40},{-42,40}}, color={255,0,255}));
@@ -215,11 +215,11 @@ annotation (
         Text(
           extent={{54,12},{98,-6}},
           lineColor={0,0,127},
-          textString="yFanSpe")}),
+          textString="ySpeSet")}),
   Diagram(coordinateSystem(preserveAspectRatio=false)),
   Documentation(info="<html>
 <p>
-Block that outputs cooling tower fan speed <code>yFanSpe</code> when waterside 
+Block that outputs cooling tower fan speed <code>ySpeSet</code> when waterside 
 economizer is enabled. This is implemented 
 according to ASHRAE RP-1711 Advanced Sequences of Operation for HVAC Systems Phase II – 
 Central Plants and Hydronic Systems (Draft on March 23, 2020), section 5.2.12.2, 

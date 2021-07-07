@@ -1,4 +1,4 @@
-within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Towers.FanSpeed.ReturnWaterTemperature.Subsequences;
+﻿within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Towers.FanSpeed.ReturnWaterTemperature.Subsequences;
 block Enable "Sequence for enabling and disabling tower fan"
 
   parameter Integer nChi=2 "Total number of chillers";
@@ -25,7 +25,7 @@ block Enable "Sequence for enabling and disabling tower fan"
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uFanSpe(
     final min=0,
     final max=1,
-    final unit="1") "Tower fan speed"
+    final unit="1") "Measured tower fan speed"
     annotation (Placement(transformation(extent={{-220,100},{-180,140}}),
       iconTransformation(extent={{-140,40},{-100,80}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TTowSet(

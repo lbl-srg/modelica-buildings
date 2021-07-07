@@ -70,9 +70,9 @@ block DownStart "Sequence for starting stage-down process"
     "Current stage minimum cycling operative partial load ratio"
     annotation (Placement(transformation(extent={{-200,160},{-160,200}}),
       iconTransformation(extent={{-140,60},{-100,100}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput uChiLoa[nChi](
-    final quantity=fill("HeatFlowRate", nChi),
-    final unit=fill("W", nChi)) "Current chiller load"
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput uChiLoa[nChi](final quantity=
+        fill("ElectricCurrent", nChi), final unit=fill("A", nChi))
+                                "Current chiller load"
     annotation (Placement(transformation(extent={{-200,130},{-160,170}}),
       iconTransformation(extent={{-140,40},{-100,80}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uChi[nChi]
@@ -112,9 +112,9 @@ block DownStart "Sequence for starting stage-down process"
     "Next disabling chiller when there is any stage up that need one chiller on and another off"
     annotation (Placement(transformation(extent={{-200,-190},{-160,-150}}),
       iconTransformation(extent={{-140,-120},{-100,-80}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yChiDem[nChi](
-    final quantity=fill("HeatFlowRate", nChi),
-    final unit=fill("W", nChi)) "Chiller demand setpoint"
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yChiDem[nChi](final quantity
+      =fill("ElectricCurrent", nChi), final unit=fill("A", nChi))
+                                "Chiller demand setpoint"
     annotation (Placement(transformation(extent={{180,120},{220,160}}),
       iconTransformation(extent={{100,70},{140,110}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yChiWatMinFloSet

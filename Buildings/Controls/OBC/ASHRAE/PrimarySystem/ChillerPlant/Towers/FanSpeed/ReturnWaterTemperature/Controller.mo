@@ -175,10 +175,10 @@ block Controller
     "Condenser water supply temperature"
     annotation (Placement(transformation(extent={{-200,-300},{-160,-260}}),
       iconTransformation(extent={{-240,-200},{-200,-160}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yFanSpe(
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput ySpeSet(
     final min=0,
     final max=1,
-    final unit="1") "Cooling tower fan speed"
+    final unit="1") "Fan speed setpoint of each cooling tower cell"
     annotation (Placement(transformation(extent={{160,190},{200,230}}),
       iconTransformation(extent={{200,-20},{240,20}})));
 
@@ -211,7 +211,7 @@ block Controller
     final Td=TdCouPla,
     final yMax=yCouPlaMax,
     final yMin=yCouPlaMin) if closeCoupledPlant
-    "Tower fan speed control when the plant is closed coupled"
+    "Tower fan speed control when the plant is close coupled"
     annotation (Placement(transformation(extent={{40,-140},{60,-120}})));
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Towers.FanSpeed.ReturnWaterTemperature.Subsequences.LessCoupled
     lesCouTowSpe(
@@ -229,7 +229,7 @@ block Controller
     final TdSupCon=TdSupCon,
     final ySupConMax=ySupConMax,
     final ySupConMin=ySupConMin) if not closeCoupledPlant
-    "Tower fan speed control when the plant is not closed coupled"
+    "Tower fan speed control when the plant is not close coupled"
     annotation (Placement(transformation(extent={{40,-220},{60,-200}})));
 
 protected
@@ -368,10 +368,10 @@ equation
       color={0,0,127}));
   connect(enaTow.yTow, swi.u2)
     annotation (Line(points={{62,20},{80,20},{80,0},{118,0}}, color={255,0,255}));
-  connect(couTowSpe.yFanSpe, swi.u1)
+  connect(couTowSpe.ySpeSet, swi.u1)
     annotation (Line(points={{62,-130},{100,-130},{100,8},{118,8}},
       color={0,0,127}));
-  connect(lesCouTowSpe.yFanSpe, swi.u1)
+  connect(lesCouTowSpe.ySpeSet, swi.u1)
     annotation (Line(points={{62,-210},{100,-210},{100,8},{118,8}},
       color={0,0,127}));
   connect(zer1.y, swi.u3)
@@ -391,7 +391,7 @@ equation
   connect(zer2.y, swi1.u3)
     annotation (Line(points={{62,170},{80,170},{80,202},{98,202}},
       color={0,0,127}));
-  connect(swi1.y,yFanSpe)
+  connect(swi1.y,ySpeSet)
     annotation (Line(points={{122,210},{180,210}}, color={0,0,127}));
   connect(uChi, mulOr.u)
     annotation (Line(points={{-180,210},{-122,210}}, color={255,0,255}));
@@ -524,7 +524,7 @@ annotation (
         Text(
           extent={{122,12},{200,-6}},
           lineColor={0,0,127},
-          textString="yFanSpe")}),
+          textString="ySpeSet")}),
     Diagram(coordinateSystem(preserveAspectRatio=false,
           extent={{-160,-300},{160,280}}), graphics={
           Text(
@@ -577,7 +577,7 @@ annotation (
           textString="- if WSE is enabled, then fan speed will be controlled by uTowSpeWSE;")}),
 Documentation(info="<html>
 <p>
-Block that outputs cooling tower fan speed <code>yFanSpe</code> for maintaining
+Block that outputs cooling tower fan speed <code>ySpeSet</code> for maintaining
 condenser water return temperature at setpoint. This is implemented
 according to ASHRAE RP-1711 Advanced Sequences of Operation for HVAC Systems Phase II –
 Central Plants and Hydronic Systems (Draft on March 23, 2020), section 5.2.12.2,

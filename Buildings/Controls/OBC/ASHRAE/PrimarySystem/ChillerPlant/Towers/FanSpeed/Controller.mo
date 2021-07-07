@@ -1,4 +1,4 @@
-within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Towers.FanSpeed;
+﻿within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Towers.FanSpeed;
 block Controller "Tower fan speed control"
 
   parameter Integer nChi=2 "Total number of chillers";
@@ -142,9 +142,9 @@ block Controller "Tower fan speed control"
     "Time to ramp return water temperature from initial value to setpoint"
     annotation (Dialog(tab="Advanced", group="Return temperature control: Setpoint"));
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput chiLoa[nChi](
-    final unit=fill("W", nChi),
-    final quantity=fill("HeatFlowRate", nChi)) if have_WSE "Current load of each chiller"
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput chiLoa[nChi](final unit=fill(
+        "W", nChi), final quantity=fill("HeatFlowRate", nChi)) if
+                                                  have_WSE "Current load of each chiller"
     annotation (Placement(transformation(extent={{-140,120},{-100,160}}),
       iconTransformation(extent={{-140,170},{-100,210}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uChi[nChi]
@@ -158,7 +158,7 @@ block Controller "Tower fan speed control"
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uFanSpe(
      final min=0,
      final max=1,
-     final unit="1") "Tower fan speed"
+     final unit="1") "Measured tower fan speed"
      annotation (Placement(transformation(extent={{-140,60},{-100,100}}),
        iconTransformation(extent={{-140,80},{-100,120}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TChiWatSup(
@@ -214,10 +214,10 @@ block Controller "Tower fan speed control"
     "Condenser water supply temperature"
     annotation (Placement(transformation(extent={{-140,-180},{-100,-140}}),
       iconTransformation(extent={{-140,-210},{-100,-170}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yFanSpe(
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput ySpeSet(
     final min=0,
     final max=1,
-    final unit="1") "Cooling tower fan speed"
+    final unit="1") "Fan speed setpoint of each cooling tower cell"
     annotation (Placement(transformation(extent={{100,-20},{140,20}}),
       iconTransformation(extent={{100,-20},{140,20}})));
 
@@ -273,7 +273,7 @@ block Controller "Tower fan speed control"
     annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
 
 equation
-  connect(fanSpeWse.yFanSpe, fanSpeRetTem.uTowSpeWSE)
+  connect(fanSpeWse.ySpeSet, fanSpeRetTem.uTowSpeWSE)
     annotation (Line(points={{-18,50},{0,50},{0,-22},{18,-22}},  color={0,0,127}));
   connect(fanSpeWse.chiLoa, chiLoa)
     annotation (Line(points={{-42,59},{-60,59},{-60,140},{-120,140}},
@@ -323,7 +323,7 @@ equation
   connect(fanSpeRetTem.TConWatSup, TConWatSup)
     annotation (Line(points={{18,-58},{-48,-58},{-48,-160},{-120,-160}},
       color={0,0,127}));
-  connect(fanSpeRetTem.yFanSpe, yFanSpe)
+  connect(fanSpeRetTem.ySpeSet,ySpeSet)
     annotation (Line(points={{62,-40},{80,-40},{80,0},{120,0}},
       color={0,0,127}));
 
@@ -386,7 +386,7 @@ annotation (
         Text(
           extent={{48,10},{98,-8}},
           lineColor={0,0,127},
-          textString="yFanSpe"),
+          textString="ySpeSet"),
         Text(
           extent={{-96,140},{-60,124}},
           lineColor={255,0,255},
@@ -403,7 +403,7 @@ annotation (
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-180},{100,160}})),
 Documentation(info="<html>
 <p>
-Block that outputs cooling tower fan speed <code>yFanSpe</code>. This is implemented
+Block that outputs cooling tower fan speed <code>ySpeSet</code>. This is implemented
 according to ASHRAE RP-1711 Advanced Sequences of Operation for HVAC Systems Phase II –
 Central Plants and Hydronic Systems (Draft on March 23, 2020), section 5.2.12.2, item
 1, 2, and 4.

@@ -95,9 +95,8 @@ block Down
     "Current stage minimum cycling operative partial load ratio"
     annotation (Placement(transformation(extent={{-320,260},{-280,300}}),
       iconTransformation(extent={{-140,110},{-100,150}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput uChiLoa[nChi](
-    final quantity=fill("HeatFlowRate", nChi),
-    final unit=fill("W", nChi))
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput uChiLoa[nChi](final quantity=
+        fill("ElectricCurrent", nChi), final unit=fill("A", nChi))
     "Current chiller load"
     annotation (Placement(transformation(extent={{-320,230},{-280,270}}),
       iconTransformation(extent={{-140,90},{-100,130}})));
@@ -161,9 +160,8 @@ block Down
     "Indicate stage-down status: true=in stage-down process"
     annotation (Placement(transformation(extent={{280,330},{320,370}}),
       iconTransformation(extent={{100,170},{140,210}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yChiDem[nChi](
-    final quantity=fill("HeatFlowRate", nChi),
-    final unit=fill("W", nChi))
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yChiDem[nChi](final quantity
+      =fill("ElectricCurrent", nChi), final unit=fill("A", nChi))
     "Chiller demand setpoint"
     annotation (Placement(transformation(extent={{280,240},{320,280}}),
       iconTransformation(extent={{100,130},{140,170}})));

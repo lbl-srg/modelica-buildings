@@ -35,7 +35,7 @@ block WSEOperation
     annotation (Dialog(tab="Advanced"));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uFanSpe(
-    final unit="1") "Tower fan speed"
+    final unit="1") "Measured tower fan speed"
     annotation (Placement(transformation(extent={{-180,80},{-140,120}}),
       iconTransformation(extent={{-140,60},{-100,100}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TChiWatSup(
@@ -52,11 +52,11 @@ block WSEOperation
     "Chilled water supply temperature setpoint"
     annotation (Placement(transformation(extent={{-180,-140},{-140,-100}}),
       iconTransformation(extent={{-140,-100},{-100,-60}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yFanSpe(
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput ySpeSet(
     final min=0,
     final max=1,
     final unit="1")
-    "Tower fan speed when WSE is enabled and there is any chiller running"
+    "Tower fan speed setpoint when WSE is enabled and there is any chiller running"
     annotation (Placement(transformation(extent={{140,40},{180,80}}),
       iconTransformation(extent={{100,-20},{140,20}})));
 
@@ -188,7 +188,7 @@ equation
   connect(lin.y, swi.u3)
     annotation (Line(points={{122,-120},{130,-120},{130,-60},{86,-60},{86,52},
       {98,52}}, color={0,0,127}));
-  connect(swi.y,yFanSpe)
+  connect(swi.y,ySpeSet)
     annotation (Line(points={{122,60},{160,60}}, color={0,0,127}));
   connect(minTowSpe.y, dFanSpe.u2)
     annotation (Line(points={{-98,20},{-80,20},{-80,88}}, color={0,0,127}));

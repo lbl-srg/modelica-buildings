@@ -61,10 +61,10 @@ block Coupled
     "Tower maximum speed that reset based on plant partial load ratio"
     annotation (Placement(transformation(extent={{-160,-120},{-120,-80}}),
       iconTransformation(extent={{-140,-120},{-100,-80}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yFanSpe(
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput ySpeSet(
     final min=0,
     final max=1,
-    final unit="1") "Cooling tower fan speed"
+    final unit="1") "Fan speed setpoint of each cooling tower cell"
     annotation (Placement(transformation(extent={{120,-60},{160,-20}}),
       iconTransformation(extent={{100,-20},{140,20}})));
 
@@ -165,7 +165,7 @@ equation
       color={0,0,127}));
   connect(fanSpe.y, swi.u1)
     annotation (Line(points={{42,-60},{50,-60},{50,-32},{78,-32}}, color={0,0,127}));
-  connect(swi.y,yFanSpe)
+  connect(swi.y,ySpeSet)
     annotation (Line(points={{102,-40},{140,-40}}, color={0,0,127}));
 
 annotation (
@@ -199,8 +199,8 @@ annotation (
           fillPattern=FillPattern.Solid)}),
 Documentation(info="<html>
 <p>
-Block that outputs cooling tower fan speed <code>yFanSpe</code> based on the control
-of condenser water return temperature for the plant that is closed coupled. 
+Block that outputs cooling tower fan speed <code>ySpeSet</code> based on the control
+of condenser water return temperature for the plant that is close coupled. 
 This is implemented according to ASHRAE RP-1711 Advanced Sequences of Operation for 
 HVAC Systems Phase II – Central Plants and Hydronic Systems (Draft on March 23, 
 2020), section 5.2.12.2, item 2.e-f.
@@ -214,7 +214,7 @@ shall be mapped to the variable tower speed. Map the tower speed from minimum to
 speed <code>fanSpeMin</code> at 0% loop output to 100% speed at 100% loop output.
 </li>
 <li>
-The output tower speed <code>yFanSpe</code> shall be the lowest value of tower speed
+The output tower speed <code>ySpeSet</code> shall be the lowest value of tower speed
 from loop mapping, maximum cooling tower speed setpoint from each chiller head 
 pressure control loop <code>uMaxTowSpeSet</code>, and tower maximum speed that reset 
 based on plant partial load ratio <code>plrTowMaxSpe</code>. All operating fans shall

@@ -104,11 +104,10 @@ block LessCoupled
     "Condenser water supply temperature setpoint"
     annotation (Placement(transformation(extent={{160,130},{200,170}}),
       iconTransformation(extent={{100,60},{140,100}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yFanSpe(
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput ySpeSet(
     final min=0,
     final max=1,
-    final unit="1")
-    "Cooling tower fan speed"
+    final unit="1") "Fan speed setpoint of each cooling tower cell"
     annotation (Placement(transformation(extent={{160,-160},{200,-120}}),
       iconTransformation(extent={{100,-20},{140,20}})));
 
@@ -254,7 +253,7 @@ equation
   connect(one2.y, swi1.u3)
     annotation (Line(points={{-138,-150},{-120,-150},{-120,-128},{-42,-128}},
       color={0,0,127}));
-  connect(swi.y,yFanSpe)
+  connect(swi.y,ySpeSet)
     annotation (Line(points={{142,-140},{180,-140}},color={0,0,127}));
   connect(uChi, booToRea.u) annotation (Line(points={{-200,-120},{-170,-120},{-170,
           50},{-142,50}}, color={255,0,255}));
@@ -324,7 +323,7 @@ annotation (
           fillPattern=FillPattern.Solid)}),
 Documentation(info="<html>
 <p>
-Block that outputs cooling tower fan speed <code>yFanSpe</code> based on the control
+Block that outputs cooling tower fan speed <code>ySpeSet</code> based on the control
 of condenser water return temperature for the plant that is not closed coupled.
 This is implemented according to ASHRAE RP-1711 Advanced Sequences of Operation for
 HVAC Systems Phase II – Central Plants and Hydronic Systems (Draft on March 23,
@@ -351,7 +350,7 @@ variable tower speed. Reset the tower speed from minimum tower speed <code>fanSp
 at 0% loop output to 100% speed at 100% loop output.
 </li>
 <li>
-Tower speed <code>yFanSpe</code> shall be the lowest value of tower speed
+Tower speed <code>ySpeSet</code> shall be the lowest value of tower speed
 from loop mapping, maximum cooling tower speed setpoint from each chiller head
 pressure control loop <code>uMaxTowSpeSet</code>, and tower maximum speed that reset
 based on plant partial load ratio <code>plrTowMaxSpe</code>. All operating fans shall
