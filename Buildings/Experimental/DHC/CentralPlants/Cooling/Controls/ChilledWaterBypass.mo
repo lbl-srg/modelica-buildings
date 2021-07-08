@@ -87,6 +87,7 @@ First implementation.
 </ul>
 </html>",
       info="<html>
+<<<<<<< Updated upstream
 <p>This model implements the chilled water loop bypass valve control logic 
 as follows: </p>
 <p>When the plant is on, the PID controller controls the valve opening ratio 
@@ -96,5 +97,10 @@ to reach the scaled mass flow rate setpoint. </p>
 <span style=\"font-family: Courier New;\">mMin_flow</span>, which is the 
 minimum mass flow rate required by the chiller. </p>
 <p>If two chillers are on, the setpoint is twice as much. </p>
+=======
+<p>This model implements the chilled water loop bypass valve control logic as follows: </p>
+<p>When the plant is on, the PID controller controls the valve opening ratio to reach the scaled mass flow rate setpoint. </p>
+<p>The setpoint is <code>mMin_flow</code> multiplied by the number of chillers that are on. <code>mMin_flow</code> is the minimum mass flow rate required by one chiller. </p>
+>>>>>>> Stashed changes
 </html>"));
 end ChilledWaterBypass;

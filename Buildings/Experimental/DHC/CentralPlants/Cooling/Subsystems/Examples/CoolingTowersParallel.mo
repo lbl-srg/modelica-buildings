@@ -1,9 +1,9 @@
 within Buildings.Experimental.DHC.CentralPlants.Cooling.Subsystems.Examples;
-model CoolingTowerParallel
+model CoolingTowersParallel
   "Example model for parallel cooling tower model"
   extends Modelica.Icons.Example;
   extends Buildings.Fluid.HeatExchangers.CoolingTowers.Examples.BaseClasses.PartialStaticTwoPortCoolingTower(
-    redeclare Buildings.Experimental.DHC.CentralPlants.Cooling.Subsystems.CoolingTowerParallel tow(
+    redeclare Buildings.Experimental.DHC.CentralPlants.Cooling.Subsystems.CoolingTowersParallel tow(
       use_inputFilter=false,
       riseTimeValve=30,
       TAirInWB_nominal=273.15+25.55,
@@ -60,10 +60,7 @@ equation
       file="Resources/Scripts/Dymola/Experimental/DHC/CentralPlants/Cooling/Subsystems/Examples/CoolingTowerParallel.mos" "Simulate and Plot"),
     Documentation(
       info="<html>
-<p>
-This model validates the parallel connected cooling tower subsystem 
-in <a href=\"modelica://Buildings.Experimental.DHC.CentralPlants.Cooling.Subsystems.CoolingTowerParallel\">Buildings.Experimental.DHC.CentralPlants.Cooling.Subsystems.CoolingTowerPareallel</a>.
-</p>
+<p>This model validates the parallel connected cooling tower subsystem in <a href=\"modelica://Buildings.Experimental.DHC.CentralPlants.Cooling.Subsystems.CoolingTowerParellel\">Buildings.Experimental.DHC.CentralPlants.Cooling.Subsystems.CoolingTowerParellel</a>.</p>
 </html>",
       revisions="<html>
 <ul>
@@ -73,4 +70,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end CoolingTowerParallel;
+end CoolingTowersParallel;

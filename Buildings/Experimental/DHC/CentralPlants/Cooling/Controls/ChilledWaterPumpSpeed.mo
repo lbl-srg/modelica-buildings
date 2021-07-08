@@ -1,6 +1,6 @@
 within Buildings.Experimental.DHC.CentralPlants.Cooling.Controls;
 model ChilledWaterPumpSpeed
-  "Controller for up to two headed variable speed chilled water pumps"
+  "Controller for up to two variable speed chilled water pumps"
   extends Modelica.Blocks.Icons.Block;
   parameter Integer numPum(
     final min=1,

@@ -116,7 +116,7 @@ model Plant
     redeclare final package Medium2=Medium)
     "Chillers connected in parallel"
     annotation (Placement(transformation(extent={{10,-10},{-10,10}})));
-  Buildings.Experimental.DHC.CentralPlants.Cooling.Subsystems.CoolingTowerWithBypass cooTowWitByp(
+  Buildings.Experimental.DHC.CentralPlants.Cooling.Subsystems.CoolingTowersWithBypass cooTowWitByp(
     redeclare final package Medium=Medium,
     final num=numChi,
     final m_flow_nominal=mCW_flow_nominal,
@@ -338,35 +338,22 @@ equation
     defaultComponentName="pla",
     Documentation(
       info="<html>
-<p>
-This model showcases a generic district cooling central plant as illustrated 
-in the schematic below. The primary-only chiller plant contains bypass legs
-on both the chilled water (CHW) and condenser water (CW) sides. 
-The plant operates when it receives an 
-<span style=\"font-family: Courier New;\">on</span> signal from the external control.
-</p>
-
-<h4>Chillers and Chilled Water Loop</h4>
-<p>
-The cooling is provided by two parallel chillers 
-instantiated from 
-<a href=\"modelica://Buildings.Applications.DataCenters.ChillerCooled.Equipment.ElectricChillerParallel\">Buildings.Applications.DataCenters.ChillerCooled.Equipment.ElectricChillerParallel</a>. 
-The staging of the chillers is based on the calculated cooling load. 
-See <a href=\"modelica://Buildings.Experimental.DHC.CentralPlants.Cooling.Controls.ChillerStage\">Buildings.Experimental.DHC.CentralPlants.Cooling.Controls.ChillerStage</a> 
-for the detailed control logic.
-</p>
-<p>
-The chilled water loop is equipped with two parallel variable speed pumps, 
-which are controlled to maintain a user-determined pressure difference 
-setpoint at the demand side. The chilled water bypass is controlled to 
-ensure a minimum flow of chilled water running through the chillers all the time. 
-</p>
-<h4>Condenser Water Loop</h4>
-<p>The condenser water is cooled by two parallel cooling towers with a bypass loop. 
-See <a href=\"modelica://Buildings.Experimental.DHC.CentralPlants.Cooling.Subsystems.CoolingTowerWithBypass\">Buildings.Experimental.DHC.CentralPlants.Cooling.Subsystems.CoolingTowerWithBypass</a> 
-for the details of the modeling of the cooling towers. The condenser water pumps 
-are constant speed with prescribed mass flow rates. 
-</p>
+<p>This model showcases a generic district central cooling plant as illustrated in the schematics below. </p>
+<ul>
+<li>The cooling is provided by two parallel chillers instantiated from </li>
+<p><a href=\"modelica://Buildings.Applications.DataCenters.ChillerCooled.Equipment.ElectricChillerParallel\">Buildings.Applications.DataCenters.ChillerCooled.Equipment.ElectricChillerParallel</a>. </p>
+<li>The chilled water bypass loop is controlled to ensure a minimum flow </li>
+<p>of chilled water running through the chillers all the time. </p>
+<li>The condenser water is cooled by two parallel cooling towers with a bypass loop. </li>
+<p>See <a href=\"modelica://Buildings.Experimental.DHC.CentralPlants.Cooling.Subsystems.CoolingTowerWithBypass\">Buildings.Experimental.DHC.CentralPlants.Cooling.Subsystems.CoolingTowerWithBypass</a> </p>
+<p>for the details of the modeling of the cooling towers. </p>
+<li>The chilled water loop is equipped with two parallel variable speed pumps, </li>
+<p>which are controlled to maitain a use-determined pressure difference setpoint at the demand side. </p>
+<p>The condenser water pumps are constant speed with prescribed mass flow rates. </p>
+<li>The plant operates when it receives an <code>on</code> signal from the external control. </li>
+</ul>
+<p>The staging of the chillers is based on the calculated cooling load. </p>
+<p>See <a href=\"modelica://Buildings.Experimental.DHC.CentralPlants.Cooling.Controls.ChillerStage\">Buildings.Experimental.DHC.CentralPlants.Cooling.Controls.ChillerStage</a> for the detailed control logic. </p>
 <p><img src=\"modelica://Buildings/Resources/Images/Experimental/DHC/CentralPlants/Cooling/Plant.png\" alt=\"System schematics\"/>. </p>
 </html>",
       revisions="<html>

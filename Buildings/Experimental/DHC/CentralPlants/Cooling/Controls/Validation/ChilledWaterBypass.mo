@@ -38,7 +38,7 @@ equation
       coordinateSystem(
         preserveAspectRatio=false)),
     experiment(
-      Tolerance=1e-06),
+      Tolerance=1e-06, StopTime=1200),
     __Dymola_Commands(
       file="Resources/Scripts/Dymola/Experimental/DHC/CentralPlants/Cooling/Controls/Validation/ChilledWaterBypass.mos" "Simulate and Plot"),
     Documentation(
