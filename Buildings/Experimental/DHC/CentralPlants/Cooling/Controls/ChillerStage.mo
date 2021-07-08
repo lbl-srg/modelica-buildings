@@ -76,26 +76,6 @@ model ChillerStage
   inner Modelica.StateGraph.StateGraphRoot stateGraphRoot
     "State graph root"
     annotation (Placement(transformation(extent={{120,60},{140,80}})));
-  Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger booToInt(
-    final integerTrue=1,
-    final integerFalse=0)
-    "Boolean to integer"
-    annotation (Placement(transformation(extent={{80,-40},{100,-20}})));
-  Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger booToInt1(
-    final integerTrue=2,
-    final integerFalse=0)
-    "Boolean to integer"
-    annotation (Placement(transformation(extent={{80,-80},{100,-60}})));
-  Buildings.Controls.OBC.CDL.Integers.Add addInt
-    "Calculator of chiller stage index. 0: off; 1: one chiller enabled; 2: two chillers enabled"
-    annotation (Placement(transformation(extent={{120,-60},{140,-40}})));
-  Buildings.Controls.OBC.CDL.Integers.GreaterThreshold chiOne
-    "On signal of chiller one"
-    annotation (Placement(transformation(extent={{120,20},{140,40}})));
-  Buildings.Controls.OBC.CDL.Integers.GreaterThreshold chiTwo(
-    final t=1)
-    "On signal of chiller two"
-    annotation (Placement(transformation(extent={{120,-20},{140,0}})));
   Buildings.Controls.OBC.CDL.Continuous.Hysteresis thrOneToTwo(
     uLow=criPoiLoa+dQ,
     uHigh=criPoiLoa+dQ+100)
@@ -146,22 +126,6 @@ equation
     annotation (Line(points={{10.25,-10.5},{10.25,-18},{40,-18},{40,36}},color={0,0,0}));
   connect(oneOn.outPort[1],oneToTwo.inPort)
     annotation (Line(points={{9.75,-10.5},{9.75,-18},{10,-18},{10,-36}},color={0,0,0}));
-  connect(addInt.u2,booToInt1.y)
-    annotation (Line(points={{118,-56},{110,-56},{110,-70},{102,-70}},color={255,127,0}));
-  connect(oneOn.active,booToInt.u)
-    annotation (Line(points={{21,0},{70,0},{70,-30},{78,-30}},color={255,0,255}));
-  connect(twoOn.active,booToInt1.u)
-    annotation (Line(points={{21,-70},{78,-70}},color={255,0,255}));
-  connect(booToInt.y,addInt.u1)
-    annotation (Line(points={{102,-30},{110,-30},{110,-44},{118,-44}},color={255,127,0}));
-  connect(addInt.y,chiTwo.u)
-    annotation (Line(points={{142,-50},{150,-50},{150,-30},{114,-30},{114,-10},{118,-10}},color={255,127,0}));
-  connect(addInt.y,chiOne.u)
-    annotation (Line(points={{142,-50},{150,-50},{150,-30},{114,-30},{114,30},{118,30}},color={255,127,0}));
-  connect(chiOne.y,y[1])
-    annotation (Line(points={{142,30},{150,30},{150,-5},{170,-5}},color={255,0,255}));
-  connect(chiTwo.y,y[2])
-    annotation (Line(points={{142,-10},{150,-10},{150,5},{170,5}},color={255,0,255}));
   connect(on,offToOne.condition)
     annotation (Line(points={{-180,60},{-50,60},{-50,40},{-2,40}},color={255,0,255}));
   connect(oneToTwo.condition,thrOneToTwo.y)
@@ -186,6 +150,10 @@ equation
     annotation (Line(points={{-112,-6},{-120,-6},{-120,-60},{-180,-60}},color={0,0,127}));
   connect(oneToTwo.condition, thrTwoToOne.u) annotation (Line(points={{-2,-40},
           {-10,-40},{-10,-54},{-50,-54},{-50,-74},{-38,-74}}, color={255,0,255}));
+  connect(twoOn.active, y[2]) annotation (Line(points={{21,-70},{120,-70},{120,
+          5},{170,5}}, color={255,0,255}));
+  connect(oneOn.active, y[1]) annotation (Line(points={{21,0},{120,0},{120,-5},
+          {170,-5}}, color={255,0,255}));
   annotation (
     defaultComponentName="chiStaCon",
     Diagram(
