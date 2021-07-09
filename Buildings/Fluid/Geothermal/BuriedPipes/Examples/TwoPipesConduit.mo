@@ -1,4 +1,4 @@
-﻿within Buildings.Fluid.BuriedPipes.Examples;
+﻿within Buildings.Fluid.Geothermal.BuriedPipes.Examples;
 model TwoPipesConduit
   "Example model of a buried conduit housing a supply and return pipe"
   extends Modelica.Icons.Example;
@@ -36,7 +36,7 @@ model TwoPipesConduit
     nPorts=1) "Buried pipe"
     annotation (Placement(transformation(extent={{-10,50},{10,30}})));
 
-  Buildings.Fluid.BuriedPipes.GroundCoupling gro(
+  Buildings.Fluid.Geothermal.BuriedPipes.GroundCoupling gro(
     nPip=1,
     cliCon=cliCon,
     soiDat=soiDat,
@@ -44,8 +44,7 @@ model TwoPipesConduit
     len={len},
     dep={1.5},
     pos={0},
-    rad={dCon}) "Ground coupling" annotation (Placement(
-        transformation(
+    rad={dCon}) "Ground coupling" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={90,90})));
@@ -198,6 +197,6 @@ First implementation.
 </ul>
 </html>"),
     __Dymola_Commands(file=
-          "Resources/Scripts/Dymola/Fluid/BuriedPipes/Examples/TwoPipesConduit.mos"
+          "Resources/Scripts/Dymola/Fluid/Geothermal/BuriedPipes/Examples/TwoPipesConduit.mos"
         "Simulate and plot"));
 end TwoPipesConduit;

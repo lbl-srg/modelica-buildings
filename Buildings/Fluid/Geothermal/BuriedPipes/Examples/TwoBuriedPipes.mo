@@ -1,4 +1,4 @@
-﻿within Buildings.Fluid.BuriedPipes.Examples;
+﻿within Buildings.Fluid.Geothermal.BuriedPipes.Examples;
 model TwoBuriedPipes "Example model of two buried pipes in close proximity"
   extends Modelica.Icons.Example;
 
@@ -12,7 +12,7 @@ model TwoBuriedPipes "Example model of two buried pipes in close proximity"
     soiDat(k=1.58,c=1150,d=1600) "Soil thermal properties"
     annotation (Placement(transformation(extent={{-60,80},{-40,100}})));
 
-  Buildings.Fluid.BuriedPipes.GroundCoupling gro(
+  Buildings.Fluid.Geothermal.BuriedPipes.GroundCoupling gro(
     nPip=2,
     cliCon=cliCon,
     soiDat=soiDat,
@@ -167,6 +167,6 @@ First implementation.
 </li>
 </ul>
 </html>"),
-    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/BuriedPipes/Examples/TwoBuriedPipes.mos"
+    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Geothermal/BuriedPipes/Examples/TwoBuriedPipes.mos"
         "Simulate and plot"));
 end TwoBuriedPipes;

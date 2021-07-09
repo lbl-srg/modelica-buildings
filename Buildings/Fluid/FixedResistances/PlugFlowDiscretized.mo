@@ -1,4 +1,4 @@
-within Buildings.Fluid.BuriedPipes;
+within Buildings.Fluid.FixedResistances;
 model PlugFlowDiscretized
   "Discretized pipe model using spatialDistribution for temperature delay"
   extends Buildings.Fluid.Interfaces.PartialTwoPort;

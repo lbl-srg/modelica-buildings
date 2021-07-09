@@ -1,4 +1,4 @@
-within Buildings.Fluid.BuriedPipes.Validation;
+within Buildings.Fluid.Geothermal.BuriedPipes.Validation;
 model GroundCouplingAIT
   "Validation for pipe and ground coupling against data from Austrian Institute of Technology"
   extends Modelica.Icons.Example;
@@ -211,7 +211,8 @@ model GroundCouplingAIT
         extent={{-10,10},{10,-10}},
         rotation=90,
         origin={80,-10})));
-  Buildings.Fluid.Sources.Boundary_pT ExcludedBranch(redeclare package Medium = Medium,
+  Buildings.Fluid.Sources.Boundary_pT ExcludedBranch(redeclare package
+      Medium =                                                                  Medium,
       nPorts=1) "Mass flow sink for excluded branch"
                 annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
@@ -374,13 +375,13 @@ equation
       Interval=900,
       Tolerance=1e-006),
     __Dymola_Commands(file=
-          "Resources/Scripts/Dymola/Fluid/BuriedPipes/Validation/GroundCouplingAIT.mos"
+          "Resources/Scripts/Dymola/Fluid/Geothermal/BuriedPipes/Validation/GroundCouplingAIT.mos"
         "Simulate and plot"),
     Diagram(coordinateSystem(extent={{-120,-160},{160,160}})),
     Documentation(info="<html>
 <p>
-Validation of <a href=\"modelica://Buildings.Fluid.BuriedPipes.GroundCoupling\">
-Buildings.Fluid.BuriedPipes.GroundCoupling</a> using the experimental data collected by
+Validation of <a href=\"modelica://Buildings.Fluid.Geothermal.BuriedPipes.GroundCoupling\">
+Buildings.Fluid.Geothermal.BuriedPipes.GroundCoupling</a> using the experimental data collected by
 the Austrian Institute of Technology.
 </p>
 <p>

@@ -1,4 +1,4 @@
-within Buildings.Fluid.BuriedPipes;
+within Buildings.Fluid.Geothermal.BuriedPipes;
 model GroundCoupling "Thermal coupling between buried pipes and ground"
   parameter Integer nPip(min=1) "Number of buried pipes";
   parameter Integer nSeg(min=1) = 1 "Number of axial segments";
@@ -240,15 +240,15 @@ This technique is extended to a network with multiple pipes by Kusuda (1981)
 in the equation:
 </p>
 <p>
-<img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Fluid/BuriedPipes/GroundCoupling.svg\" />
+<img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Fluid/Geothermal/BuriedPipes/GroundCoupling.svg\" />
 </p>
 <p>
 where: <br>
 <i>L</i> = pipe length [m] <br>
 <i>k<sub>s</sub></i> = soil thermal conductivity [W/(m.K)] <br>
 <i>P<sub>ij</sub></i> = geometric factor (see 
-<a href=\"modelica://Buildings.Fluid.BuriedPipes.BaseClasses.groundCouplingFactors\">
-Buildings.Fluid.BuriedPipes.BaseClasses.groundCouplingFactors</a>
+<a href=\"modelica://Buildings.Fluid.Geothermal.BuriedPipes.BaseClasses.groundCouplingFactors\">
+Buildings.Fluid.Geothermal.BuriedPipes.BaseClasses.groundCouplingFactors</a>
 for more information) <br>
 <i>Q<sub>i</sub></i> = net heat transfer from pipe <i>i</i> [W]<br>
 <i>T<sub>i</sub></i> = temperature at the exterior surface of pipe <i>i</i> [degC]<br>

@@ -9,6 +9,24 @@ model PlugFlowCore
   parameter Modelica.SIunits.Length dh
     "Hydraulic diameter (assuming a round cross section area)";
 
+  replaceable Buildings.Fluid.FixedResistances.HydraulicDiameter res(
+    final dh=dh,
+    final from_dp=from_dp,
+    final length=length,
+    final roughness=roughness,
+    final fac=fac,
+    final ReC=ReC,
+    final v_nominal=v_nominal,
+    final allowFlowReversal=allowFlowReversal,
+    final show_T=false,
+    final homotopyInitialization=homotopyInitialization,
+    final linearized=linearized,
+    dp(nominal=fac*200*length)) constrainedby
+    Buildings.Fluid.Interfaces.PartialTwoPortInterface(
+      redeclare final package Medium = Medium,
+      final m_flow_nominal=m_flow_nominal)
+                 "Pressure drop calculation for this pipe"
+    annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
   parameter Modelica.SIunits.Velocity v_nominal
     "Velocity at m_flow_nominal (used to compute default value for hydraulic diameter dh)"
     annotation(Dialog(group="Nominal condition"));
@@ -59,25 +77,6 @@ model PlugFlowCore
   parameter Boolean linearized = false
     "= true, use linear relation between m_flow and dp for any flow rate"
     annotation(Evaluate=true, Dialog(tab="Advanced"));
-
-  replaceable Buildings.Fluid.FixedResistances.HydraulicDiameter res(
-    final dh=dh,
-    final from_dp=from_dp,
-    final length=length,
-    final roughness=roughness,
-    final fac=fac,
-    final ReC=ReC,
-    final v_nominal=v_nominal,
-    final allowFlowReversal=allowFlowReversal,
-    final show_T=false,
-    final homotopyInitialization=homotopyInitialization,
-    final linearized=linearized,
-    dp(nominal=fac*200*length)) constrainedby
-    Buildings.Fluid.Interfaces.PartialTwoPortInterface(
-      redeclare final package Medium = Medium,
-      final m_flow_nominal=m_flow_nominal)
-                 "Pressure drop calculation for this pipe"
-    annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
 
   Buildings.Fluid.FixedResistances.BaseClasses.PlugFlow del(
     redeclare final package Medium = Medium,
@@ -211,7 +210,8 @@ equation
 May 17, 2021, by Baptiste Ravache:<br/>
 Make <code>res</code> instance replaceable, to allow pipe resistance
 aggregation in
-<a href=\"modelica://Buildings.Fluid.BuriedPipes.PlugFlowDiscretized\">BuriedPipes.PlugFlowDiscretized</a>
+<a href=\"modelica://Buildings.Fluid.FixedResistances.PlugFlowDiscretized\">
+Buildings.Fluid.FixedResistances.PlugFlowDiscretized</a>
 </li>
 <li>
 April 14, 2020, by Michael Wetter:<br/>

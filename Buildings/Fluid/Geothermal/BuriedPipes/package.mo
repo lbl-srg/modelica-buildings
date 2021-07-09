@@ -1,6 +1,8 @@
-within Buildings.Fluid;
+within Buildings.Fluid.Geothermal;
 package BuriedPipes "Package with models for buried pipes"
   extends Modelica.Icons.VariantsPackage;
+
+
 
 
   annotation (Documentation(info="<html>

@@ -1,4 +1,4 @@
-within Buildings.Fluid.BuriedPipes.BaseClasses;
+within Buildings.Fluid.Geothermal.BuriedPipes.BaseClasses;
 function groundCouplingFactors
   "Geometric factors for buried pipe-ground coupling"
   extends Modelica.Icons.Function;
@@ -34,7 +34,7 @@ For a network of n buried pipes that are coaxial, the matrix P of size
 n x n is computed from the system geometry:
 </p>
 <p>
-<img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Fluid/BuriedPipes/BaseClasses/groundCouplingFactors.svg\" />
+<img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Fluid/Geothermal/BuriedPipes/BaseClasses/groundCouplingFactors.svg\" />
 </p>
 <p>
 where: <br>
