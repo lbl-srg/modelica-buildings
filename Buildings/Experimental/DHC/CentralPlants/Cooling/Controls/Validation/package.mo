@@ -1,7 +1,6 @@
 within Buildings.Experimental.DHC.CentralPlants.Cooling.Controls;
 package Validation "Collection of validation models"
   extends Modelica.Icons.ExamplesPackage;
-
   annotation (
     Documentation(
       info="<html>
