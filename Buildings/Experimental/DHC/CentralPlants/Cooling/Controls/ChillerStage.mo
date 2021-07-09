@@ -82,8 +82,7 @@ model ChillerStage
   Modelica.Blocks.Logical.Not thrTwoToOne
     "Threshold of turning off the second chiller"
     annotation (Placement(transformation(extent={{-36,-84},{-16,-64}})));
-  Buildings.Controls.OBC.CDL.Logical.Not notOn
-    "Not on"
+  Buildings.Controls.OBC.CDL.Logical.Not notOn "Not on"
     annotation (Placement(transformation(extent={{-30,10},{-10,30}})));
   Modelica.Blocks.Math.Add dT(
     final k1=-1,
@@ -97,6 +96,8 @@ model ChillerStage
     final k=-cp_default)
     "Specific heat multiplier to calculate heat flow rate"
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
+  Buildings.Controls.OBC.CDL.Logical.Or Or "On signal for either chiller"
+    annotation (Placement(transformation(extent={{106,20},{126,40}})));
 protected
   final parameter Medium.ThermodynamicState sta_default=Medium.setState_pTX(
     T=Medium.T_default,
@@ -148,10 +149,14 @@ equation
     annotation (Line(points={{-112,-6},{-120,-6},{-120,-60},{-180,-60}},color={0,0,127}));
   connect(oneToTwo.condition, thrTwoToOne.u) annotation (Line(points={{-2,-40},
           {-10,-40},{-10,-54},{-50,-54},{-50,-74},{-38,-74}}, color={255,0,255}));
+  connect(oneOn.active, Or.u1) annotation (Line(points={{21,0},{80,0},{80,30},{
+          104,30}}, color={255,0,255}));
+  connect(twoOn.active, Or.u2) annotation (Line(points={{21,-70},{100,-70},{100,
+          22},{104,22}}, color={255,0,255}));
+  connect(Or.y, y[1]) annotation (Line(points={{128,30},{144,30},{144,-5},{170,
+          -5}}, color={255,0,255}));
   connect(twoOn.active, y[2]) annotation (Line(points={{21,-70},{120,-70},{120,
           5},{170,5}}, color={255,0,255}));
-  connect(oneOn.active, y[1]) annotation (Line(points={{21,0},{120,0},{120,-5},
-          {170,-5}}, color={255,0,255}));
   annotation (
     defaultComponentName="chiStaCon",
     Diagram(

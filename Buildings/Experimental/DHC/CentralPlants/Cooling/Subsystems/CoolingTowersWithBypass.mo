@@ -15,7 +15,7 @@ model CoolingTowersWithBypass
   parameter Modelica.SIunits.Pressure dp_nominal
     "Nominal pressure difference of the tower"
     annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.SIunits.PressureDifference dpValve_nominal=6000
+  parameter Modelica.SIunits.PressureDifference dpValve_nominal
     "Nominal pressure difference of the valve";
   parameter Real ratWatAir_nominal(
     final min=0,
@@ -82,6 +82,7 @@ model CoolingTowersWithBypass
     final m_flow_small=m_flow_nominal,
     final allowFlowReversal=allowFlowReversal,
     final m_flow_nominal=m_flow_nominal/num,
+    final dpValve_nominal=dpValve_nominal,
     final dp_nominal=dp_nominal,
     final ratWatAir_nominal=ratWatAir_nominal,
     final TAirInWB_nominal=TAirInWB_nominal,
@@ -167,7 +168,7 @@ equation
     annotation (Line(points={{10,0},{60,0}},color={0,127,255}));
   connect(senTCWSup.port_b,port_b)
     annotation (Line(points={{80,0},{100,0}},color={0,127,255}));
-  connect(TSetByPas.y,bypValCon.u_s)
+  connect(TSetByp.y,bypValCon.u_s)
     annotation (Line(points={{-69,-50},{-62,-50}},color={0,0,127}));
   connect(senTCWSup.T,bypValCon.u_m)
     annotation (Line(points={{70,-11},{70,-80},{-50,-80},{-50,-62}},color={0,0,127}));
@@ -186,7 +187,7 @@ equation
     annotation (Line(points={{-48,60},{-38,60}}, color={255,0,255}));
   connect(cooTowSpeCon.u_s,swi.y)
     annotation (Line(points={{-8,60},{-14,60}}, color={0,0,127}));
-  connect(TSetByPas.y,swi.u3)
+  connect(TSetByp.y,swi.u3)
     annotation (Line(points={{-69,-50},{-66,-50},{-66,45.8125},{-46,45.8125},{-46,52},{-38,52}},color={0,0,127}));
   connect(TWetBul,addPar.u)
     annotation (Line(points={{-120,-20},{-86,-20},{-86,90},{-82,90}},color={0,0,127}));

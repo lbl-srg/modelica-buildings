@@ -12,6 +12,9 @@ model ChilledWaterBypass
     "Time constant of Integrator block" annotation (Dialog(enable=
           controllerType == Modelica.Blocks.Types.SimpleController.PI or
           controllerType == Modelica.Blocks.Types.SimpleController.PID));
+  parameter Modelica.Blocks.Types.SimpleController controllerType=
+         Modelica.Blocks.Types.SimpleController.PI
+    "Type of controller";
   Modelica.Blocks.Interfaces.BooleanInput chiOn[numChi]
     "On signals of the chillers"
     annotation (Placement(transformation(extent={{-140,10},{-100,50}})));
@@ -22,7 +25,7 @@ model ChilledWaterBypass
     "Bypass valve opening ratio"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
   Buildings.Controls.Continuous.LimPID bypValCon(
-    controllerType=Modelica.Blocks.Types.SimpleController.PI,
+    controllerType=controllerType,
     final k=k,
     final Ti=Ti,
     yMin=0.01,

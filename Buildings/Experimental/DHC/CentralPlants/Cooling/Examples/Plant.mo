@@ -41,6 +41,8 @@ model Plant
     "Nominal pressure drop of chilled water pump valve";
   parameter Modelica.SIunits.Pressure dpCWPumVal_nominal=6000
     "Nominal pressure drop of chilled water pump valve";
+  parameter Modelica.SIunits.PressureDifference dpValve_nominal=6000
+   "Nominal pressure difference of the valve";
   Buildings.Experimental.DHC.CentralPlants.Cooling.Plant pla(
     perChi=perChi,
     dTApp=3,
@@ -57,6 +59,7 @@ model Plant
     dT_nominal=5.56,
     TMin=288.15,
     PFan_nominal=5000,
+    dpValve_nominal=dpValve_nominal,
     dpCHWPumVal_nominal=dpCHWPumVal_nominal,
     dpCWPumVal_nominal=dpCWPumVal_nominal,
     tWai=tWai,

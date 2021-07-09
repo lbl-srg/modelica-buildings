@@ -3,7 +3,8 @@ model CoolingTowersParallel
   "Multiple identical cooling towers in parallel connection"
   extends Buildings.Fluid.Interfaces.PartialTwoPortInterface(
     redeclare replaceable package Medium=Buildings.Media.Water);
-  extends Buildings.Applications.DataCenters.ChillerCooled.Equipment.BaseClasses.SignalFilter(
+  extends
+    Buildings.Applications.DataCenters.ChillerCooled.Equipment.BaseClasses.SignalFilter(
     riseTimeValve=30,
     use_inputFilter=true,
     final numFil=num);

@@ -2,13 +2,15 @@ within Buildings.Experimental.DHC.CentralPlants.Cooling.Subsystems.Examples;
 model CoolingTowersParallel
   "Example model for parallel cooling tower model"
   extends Modelica.Icons.Example;
-  extends Buildings.Fluid.HeatExchangers.CoolingTowers.Examples.BaseClasses.PartialStaticTwoPortCoolingTower(
+  extends
+    Buildings.Fluid.HeatExchangers.CoolingTowers.Examples.BaseClasses.PartialStaticTwoPortCoolingTower(
     redeclare Buildings.Experimental.DHC.CentralPlants.Cooling.Subsystems.CoolingTowersParallel tow(
       use_inputFilter=false,
       riseTimeValve=30,
       TAirInWB_nominal=273.15+25.55,
       TWatIn_nominal=273.15+35,
       dT_nominal=5.56,
+      dpValve_nominal = 6000,
       dp_nominal = 6000,
       PFan_nominal=4800),
     weaDat(final computeWetBulbTemperature=true));
@@ -57,7 +59,7 @@ equation
       StopTime=15724800,
       Tolerance=1e-06),
     __Dymola_Commands(
-      file="Resources/Scripts/Dymola/Experimental/DHC/CentralPlants/Cooling/Subsystems/Examples/CoolingTowerParallel.mos" "Simulate and Plot"),
+      file="Resources/Scripts/Dymola/Experimental/DHC/CentralPlants/Cooling/Subsystems/Examples/CoolingTowersParallel.mos" "Simulate and Plot"),
     Documentation(
       info="<html>
 <p>This model validates the parallel connected cooling tower subsystem in <a href=\"modelica://Buildings.Experimental.DHC.CentralPlants.Cooling.Subsystems.CoolingTowerParellel\">Buildings.Experimental.DHC.CentralPlants.Cooling.Subsystems.CoolingTowerParellel</a>.</p>

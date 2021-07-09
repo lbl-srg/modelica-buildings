@@ -71,6 +71,8 @@ model Plant
   parameter Modelica.SIunits.Pressure dpCWPumVal_nominal
     "Nominal pressure drop of condenser water pump valve"
     annotation (Dialog(group="Pump"));
+  parameter Modelica.SIunits.PressureDifference dpValve_nominal
+   "Nominal pressure difference of the valve";
   // control settings
   parameter Modelica.SIunits.Time tWai
     "Waiting time"
@@ -121,6 +123,7 @@ model Plant
     final num=numChi,
     final m_flow_nominal=mCW_flow_nominal,
     final dp_nominal=dpCW_nominal,
+    final dpValve_nominal = dpValve_nominal,
     final TAirInWB_nominal=TAirInWB_nominal,
     final TWatIn_nominal=TCW_nominal,
     final dT_nominal=dT_nominal,
@@ -330,7 +333,7 @@ equation
     annotation (Line(points={{-180,-79},{-180,172},{-246,172},{-246,188},{-242,188}},color={0,0,127}));
   connect(chiBypCon.y,valByp.y)
     annotation (Line(points={{-59,-150},{-30,-150},{-30,-102}},color={0,0,127}));
-  connect(senMasFloByp.m_flow,chiBypCon.masFloByp)
+  connect(senMasFloByp.m_flow,chiBypCon.mFloByp)
     annotation (Line(points={{30,-101},{30,-166},{-90,-166},{-90,-154},{-82,-154}},color={0,0,127}));
   connect(chiStaCon.y,chiBypCon.chiOn)
     annotation (Line(points={{-219,194},{-160,194},{-160,-147},{-82,-147}},color={255,0,255}));
