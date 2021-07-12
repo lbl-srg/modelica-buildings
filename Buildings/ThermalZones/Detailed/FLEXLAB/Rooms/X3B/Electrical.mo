@@ -25,7 +25,7 @@ model Electrical "Model of the electrical room attached to test cell X3A"
      til = {Buildings.Types.Tilt.Floor},
      azi = {Buildings.Types.Azimuth.N},
      stateAtSurface_a = {false}));
-  replaceable
+  replaceable parameter
     Data.Constructions.OpaqueConstructions.ExteriorConstructions.Construction3
     eleExt "Construction describing the exterior walls in the electrical room"
     annotation (Placement(transformation(extent={{430,-210},{450,-190}})));
