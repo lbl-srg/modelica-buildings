@@ -108,11 +108,9 @@ model Plant
     annotation (Placement(transformation(extent={{60,-20},{40,0}})));
 equation
   connect(dpMea.y,pla.dpMea)
-    annotation (Line(points={{-39,-50},{-20,-50},{-20,13.2667},{-10.6667,
-          13.2667}},                                                               color={0,0,127}));
+    annotation (Line(points={{-39,-50},{-20,-50},{-20,13.2667},{-10.6667,13.2667}},color={0,0,127}));
   connect(TCHWSupSet.y,pla.TCHWSupSet)
-    annotation (Line(points={{-39,-10},{-32,-10},{-32,15.2667},{-10.6667,
-          15.2667}},                                                               color={0,0,127}));
+    annotation (Line(points={{-39,-10},{-32,-10},{-32,15.2667},{-10.6667,15.2667}},color={0,0,127}));
   connect(fixHeaFlo.port,vol.heatPort)
     annotation (Line(points={{20,50},{26,50},{26,30},{40,30}},color={191,0,0}));
   connect(pla.port_bSerCoo,vol.ports[1])
@@ -124,8 +122,7 @@ equation
   connect(on.y,pla.on)
     annotation (Line(points={{-39,30},{-32,30},{-32,17.4},{-10.7333,17.4}},color={255,0,255}));
   connect(weaDat.weaBus,pla.weaBus)
-    annotation (Line(points={{-40,70},{-20,70},{-20,24},{0.0333333,24},{
-          0.0333333,18.8667}},                                                              color={255,204,51}));
+    annotation (Line(points={{-40,70},{-20,70},{-20,24},{0.0333333,24},{0.0333333,18.8667}},color={255,204,51}));
   annotation (
     Icon(
       coordinateSystem(
