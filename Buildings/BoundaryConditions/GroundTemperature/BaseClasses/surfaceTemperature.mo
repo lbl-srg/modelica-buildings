@@ -29,10 +29,10 @@ algorithm
     for day in 1:Year};
 
   TSurDayMea := {
-    if T > TFre
-    then (TFre + (T - TFre) * nFacTha)
-    else (TFre + (T - TFre) * nFacFre)
-    for T in TAirDayMea};
+    if TAirDayMea[day] > TFre
+    then (TFre + (TAirDayMea[day] - TFre) * nFacTha)
+    else (TFre + (TAirDayMea[day] - TFre) * nFacFre)
+    for day in 1:Year};
   C1 := sum({TSurDayMea[day] * cos(freq * day) for day in 1:Year});
   C2 := sum({TSurDayMea[day] * sin(freq * day) for day in 1:Year});
 
