@@ -15,7 +15,7 @@
    Using function pointers allows the library to load the
    correct version provided by the Modelica simulation
    environment that compiles the Modelica model.
-/* ********************************************************* */
+   ********************************************************* */
 
 /* Custom implementation of ModelicaFormatMessage that prints to stdout
 #define my_printf(...) MyModelicaFormatMessage(__VA_ARGS__)
