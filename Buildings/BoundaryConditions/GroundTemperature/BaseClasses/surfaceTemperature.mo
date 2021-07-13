@@ -57,8 +57,11 @@ by applying n-factors with the methodology prescribed in the
 <p>
 N-factors corresponds to the ratio of freezing (/thawing) degree
 days or index between the air and the ground surface and can
-be used to couple the air and ground surface temperatures.
-<br>
+be used to couple the air and ground surface temperatures.<br>
+For example, a freezing n-factor of 1.35 means that during the 
+freezing season, the daily average ground surface temperature is 
+on average 1.35 times colder than the air (using the freezing 
+temperature of water as a reference).<br>
 In its guide, ASHRAE suggests to first apply the n-factors to the
 uncorrected ground temperature at zero burial depth, and to fit a
 new sinusoidal curve to the result.

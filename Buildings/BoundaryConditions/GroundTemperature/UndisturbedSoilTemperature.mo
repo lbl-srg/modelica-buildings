@@ -102,7 +102,7 @@ where the temperature is computed per the ASCE (1996) equation:
 where: <br>
 <i>T<sub>s,z</sub></i> = ground temperature at depth <i>z</i>,<br>
 <i>&tau;</i> = annual period length (constant 365.25 days),<br>
-<i>&alpha;</i> = soil thermal diffusivity, <br>
+<i>&alpha;</i> = soil thermal diffusivity (assumed constant throughout the year), <br>
 <i>t</i> = time, <br>
 <i>T<sub>ms</sub></i> = mean annual surface temperature, <br>
 <i>A<sub>s</sub></i> = temperature amplitude throughout the year (max - min), <br>
@@ -120,7 +120,9 @@ the convective thermal resistance and the impact of surface cover.
 <p>
 The convective thermal resistance can be modeled as a virtual equivalent soil layer
 by setting the flag <i>useCon</i> to <code>true</code> and specifying the
-heat transfer coefficient <i>hSur</i>.
+heat transfer coefficient <i>hSur</i>.<br/>
+This correction would result in a larger delay and dampening of the 
+resulting sinusoid.
 </p>
 <p>
 The impact of surface cover on soil temperature can be modeled using 

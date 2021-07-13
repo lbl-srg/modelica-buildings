@@ -233,7 +233,14 @@ equation
 This model simulates the heat transfer between multiple buried pipes and the 
 ground, using climate and soil information and the geometry of the pipes 
 network.
-
+</p>
+<p>
+The model can take any number of pipes, and can be discretized axially 
+in any number of segments. Currently, the model only allows for pipes 
+that run co-axially and parallel to the ground, and the axial segmentation 
+must be the same for each pipe.
+</p>
+<p>
 The heat transfer solution is based upon the potential flow theory and 
 obtained by the use of \"mirror-image\" technique suggested by Eckert (1959).
 This technique is extended to a network with multiple pipes by Kusuda (1981) 
@@ -259,10 +266,10 @@ network. [degC]
 This model relies on the following assumptions.
 </p>
 <ul>
-<li>Heat transfer is in steady state (although seasonal heat storage
-is modeled in the ground temperature model).</li>
+<li>Heat transfer is in steady state.</li>
 <li>The heat transfer is radial (no axial diffusion).</li>
-<li>The exterior surfaces of the pipes and the ground surface are isothermic planes.</li>
+<li>The exterior surfaces for each pipe segment are isothermic planes.</li>
+<li>The ground surface is an isothermic plane.</li>
 <li>The soil conductivity is homogeneous and isotropic.</li>
 </ul>
 <h4>References</h4>
