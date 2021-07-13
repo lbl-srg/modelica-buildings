@@ -1,4 +1,4 @@
-﻿within Buildings.Fluid.Geothermal.BuriedPipes.Examples;
+within Buildings.Fluid.Geothermal.BuriedPipes.Examples;
 model DiscretizedBuriedPipe
   "Example model of a buried pipe with multiple segments"
   extends Modelica.Icons.Example;
