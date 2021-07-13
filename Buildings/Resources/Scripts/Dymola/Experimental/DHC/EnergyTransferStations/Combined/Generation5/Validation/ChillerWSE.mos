@@ -49,15 +49,8 @@ createPlot(
     color=true);
 createPlot(
     id=3,
-    y={"ets.hex.senT1HexWatEnt.T", "ets.hex.senT1HexWatLvg.T", "ets.hex.senT2HexWatEnt.T", "ets.hex.senT2HexWatLvg.T"},
+    y={"senTDisWatSup.T", "senTDisWatRet.T", "ets.hex.senT2HexWatEnt.T", "ets.hex.senT2HexWatLvg.T"},
     position={1115, 7, 545, 518},
-    autoscale=true,
-    autoerase=true,
-    autoreplot=true,
-    grid=true,
-    color=true);
-createPlot(id=3, y={"ets.hex.con.absDelT.y", "ets.hex.con.setAct.y"},
-    subPlot=2,
     autoscale=true,
     autoerase=true,
     autoreplot=true,
