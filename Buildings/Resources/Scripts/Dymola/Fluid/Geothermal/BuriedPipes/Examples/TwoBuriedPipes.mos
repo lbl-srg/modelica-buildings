@@ -1,7 +1,7 @@
 ﻿simulateModel("Buildings.Fluid.Geothermal.BuriedPipes.Examples.TwoBuriedPipes", stopTime=63072000, method="Cvode", tolerance=1e-06, resultFile="TwoBuriedPipes");
 createPlot(id=1, 
   position={0, 0, 1534, 469}, 
-  y={"senTemChWIn.T", "senTemChWOut.T", "senTemHotWIn.T", "senTemHotWOut.T", "gro.soi.port.T"}, 
+  y={"senTemChWIn.T", "senTemChWOut.T", "senTemHotWIn.T", "senTemHotWOut.T", "gro.soi.T"}, 
   range={0.0, 740.0, 0.0, 90.0}, 
   grid=true, 
   legends={"TChWIn", "TChWOut", "THotWIn", "THotWatOut", "Tgro"}, 

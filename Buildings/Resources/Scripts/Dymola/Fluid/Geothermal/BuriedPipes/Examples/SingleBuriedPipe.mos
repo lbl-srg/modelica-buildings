@@ -2,7 +2,7 @@
 createPlot(
   id=1,
   position={55, 55, 1192, 772},
-  y={"senTemInl.T", "senTemOut.T", "gro.soi.port.T", "senTemInlRev.T", "senTemOutRev.T", "groRev.soi.port.T"},
+  y={"senTemInl.T", "senTemOut.T", "gro.soi.T", "senTemInlRev.T", "senTemOutRev.T", "groRev.soi.T"},
   range={0.0, 750.0, 2.0, 26.0},
   grid=true,
   autoscale=false,

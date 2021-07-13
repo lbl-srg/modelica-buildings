@@ -2,8 +2,8 @@ compareVars :=
   {
     "senTemInl.T",
     "senTemOut.T",
-    "gro.soi.port.T",
+    "gro.soi.T",
     "senTemInlRev.T",
     "senTemOutRev.T",
-    "groRev.soi.port.T"
+    "groRev.soi.T"
   };

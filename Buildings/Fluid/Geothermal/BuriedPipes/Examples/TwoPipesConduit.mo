@@ -1,4 +1,4 @@
-within Buildings.Fluid.Geothermal.BuriedPipes.Examples;
+﻿within Buildings.Fluid.Geothermal.BuriedPipes.Examples;
 model TwoPipesConduit
   "Example model of a buried conduit housing a supply and return pipe"
   extends Modelica.Icons.Example;
@@ -117,7 +117,7 @@ model TwoPipesConduit
         rotation=180,
         origin={-70,-40})));
   Modelica.Thermal.HeatTransfer.Components.HeatCapacitor conAir(C=VConAir * rhoAir * cpAir, T(start=
-          313.15))
+          313.15, fixed=true))
     "Conduit air heat capacity" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,

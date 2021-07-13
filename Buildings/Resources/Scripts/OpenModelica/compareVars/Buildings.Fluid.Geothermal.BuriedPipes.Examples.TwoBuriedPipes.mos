@@ -4,5 +4,5 @@ compareVars :=
     "senTemChWOut.T",
     "senTemHotWIn.T",
     "senTemHotWOut.T",
-    "gro.soi.port.T"
+    "gro.soi.T"
   };
