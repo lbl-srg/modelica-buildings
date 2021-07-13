@@ -4,31 +4,34 @@ model HeatExchanger
   extends Modelica.Icons.Example;
   package Medium=Buildings.Media.Water
     "Medium model";
-  Fluid.Sources.Boundary_pT bou1(
-    redeclare package Medium=Medium,
+  Buildings.Fluid.Sources.Boundary_pT bou1(
+    redeclare package Medium = Medium,
     use_T_in=true,
-    nPorts=2)
-    "Primary boundary conditions"
-    annotation (Placement(transformation(extent={{10,-10},{-10,10}},rotation=0,origin={110,-62})));
-  Fluid.Sources.Boundary_pT bou2(
-    redeclare package Medium=Medium,
+    nPorts=2) "Primary boundary conditions" annotation (Placement(
+        transformation(
+        extent={{10,-10},{-10,10}},
+        rotation=0,
+        origin={110,-62})));
+  Buildings.Fluid.Sources.Boundary_pT bou2(
+    redeclare package Medium = Medium,
     use_T_in=true,
-    nPorts=2)
-    "Secondary boundary conditions"
-    annotation (Placement(transformation(extent={{-10,-10},{10,10}},rotation=0,origin={-110,-62})));
+    nPorts=2) "Secondary boundary conditions" annotation (Placement(
+        transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=0,
+        origin={-110,-62})));
   Modelica.Blocks.Sources.BooleanExpression uHeaRej(
-    y=time >= 3000)
-    "Heat rejection enable signal"
+    y=time >= 3000) "Heat rejection enable signal"
     annotation (Placement(transformation(extent={{-230,110},{-210,130}})));
   Modelica.Blocks.Sources.BooleanExpression uEnaColRej(
     y=time >= 1000 and time < 3000)
     "Cold rejection enable signal"
     annotation (Placement(transformation(extent={{-230,90},{-210,110}})));
-  Experimental.DHC.EnergyTransferStations.Combined.Generation5.Subsystems.HeatExchanger hexPum(
-    redeclare final package Medium1=Medium,
-    redeclare final package Medium2=Medium,
+  DHC.EnergyTransferStations.Combined.Generation5.Subsystems.HeatExchanger hexPum(
+    redeclare final package Medium1 = Medium,
+    redeclare final package Medium2 = Medium,
     show_T=true,
-    conCon=Buildings.Experimental.DHC.EnergyTransferStations.Types.ConnectionConfiguration.Pump,
+    conCon=DHC.EnergyTransferStations.Types.ConnectionConfiguration.Pump,
     dp1Hex_nominal=20E3,
     dp2Hex_nominal=20E3,
     QHex_flow_nominal=1E6,
@@ -36,43 +39,48 @@ model HeatExchanger
     T_b1Hex_nominal=277.15,
     T_a2Hex_nominal=275.15,
     T_b2Hex_nominal=279.15,
-    dT1HexSet=abs(
-      hexPum.T_b1Hex_nominal-hexPum.T_a1Hex_nominal) .* {1+1/3,1})
-    "Heat exchanger with primary pump"
+    dT1HexSet=abs(hexPum.T_b1Hex_nominal - hexPum.T_a1Hex_nominal) .* {1 + 1/3,
+        1}) "Heat exchanger with primary pump"
     annotation (Placement(transformation(extent={{-10,-70},{10,-50}})));
   Buildings.Controls.OBC.CDL.Logical.Switch swi
     annotation (Placement(transformation(extent={{-160,-70},{-140,-50}})));
-  Fluid.Sensors.TemperatureTwoPort senT1OutPum(
-    redeclare final package Medium=Medium,
-    m_flow_nominal=hexPum.m1_flow_nominal)
-    "Primary outlet temperature"
-    annotation (Placement(transformation(extent={{-10,-10},{10,10}},rotation=0,origin={70,-80})));
-  Fluid.Sensors.TemperatureTwoPort senT1InlPum(
-    redeclare final package Medium=Medium,
-    m_flow_nominal=hexPum.m1_flow_nominal)
-    "Primary inlet temperature"
-    annotation (Placement(transformation(extent={{10,-10},{-10,10}},rotation=0,origin={70,-40})));
-  Fluid.Sensors.TemperatureTwoPort senT2OutPum(
-    redeclare final package Medium=Medium,
-    m_flow_nominal=hexPum.m1_flow_nominal)
-    "Secondary outlet temperature"
-    annotation (Placement(transformation(extent={{10,-10},{-10,10}},rotation=0,origin={-70,-40})));
-  Fluid.Sensors.TemperatureTwoPort senT2InlPum(
-    redeclare final package Medium=Medium,
-    m_flow_nominal=hexPum.m1_flow_nominal)
-    "Secondary inlet temperature"
-    annotation (Placement(transformation(extent={{-10,-10},{10,10}},rotation=0,origin={-70,-80})));
-  Fluid.Sources.Boundary_pT bou2Val(
-    redeclare package Medium=Medium,
+  Buildings.Fluid.Sensors.TemperatureTwoPort senT1OutPum(redeclare final
+      package Medium = Medium, m_flow_nominal=hexPum.m1_flow_nominal)
+    "Primary outlet temperature" annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=0,
+        origin={70,-80})));
+  Buildings.Fluid.Sensors.TemperatureTwoPort senT1InlPum(redeclare final
+      package Medium = Medium, m_flow_nominal=hexPum.m1_flow_nominal)
+    "Primary inlet temperature" annotation (Placement(transformation(
+        extent={{10,-10},{-10,10}},
+        rotation=0,
+        origin={70,-40})));
+  Buildings.Fluid.Sensors.TemperatureTwoPort senT2OutPum(redeclare final
+      package Medium = Medium, m_flow_nominal=hexPum.m2_flow_nominal)
+    "Secondary outlet temperature" annotation (Placement(transformation(
+        extent={{10,-10},{-10,10}},
+        rotation=0,
+        origin={-70,-40})));
+  Buildings.Fluid.Sensors.TemperatureTwoPort senT2InlPum(redeclare final
+      package Medium = Medium, m_flow_nominal=hexPum.m2_flow_nominal)
+    "Secondary inlet temperature" annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=0,
+        origin={-70,-80})));
+  Buildings.Fluid.Sources.Boundary_pT bou2Val(
+    redeclare package Medium = Medium,
     use_T_in=true,
-    nPorts=2)
-    "Secondary boundary conditions"
-    annotation (Placement(transformation(extent={{-10,-10},{10,10}},rotation=0,origin={-110,20})));
-  Experimental.DHC.EnergyTransferStations.Combined.Generation5.Subsystems.HeatExchanger hexVal(
-    redeclare final package Medium1=Medium,
-    redeclare final package Medium2=Medium,
+    nPorts=2) "Secondary boundary conditions" annotation (Placement(
+        transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=0,
+        origin={-110,20})));
+  DHC.EnergyTransferStations.Combined.Generation5.Subsystems.HeatExchanger hexVal(
+    redeclare final package Medium1 = Medium,
+    redeclare final package Medium2 = Medium,
     show_T=true,
-    conCon=Buildings.Experimental.DHC.EnergyTransferStations.Types.ConnectionConfiguration.TwoWayValve,
+    conCon=DHC.EnergyTransferStations.Types.ConnectionConfiguration.TwoWayValve,
     dp1Hex_nominal=20E3,
     dp2Hex_nominal=20E3,
     QHex_flow_nominal=1E6,
@@ -80,58 +88,65 @@ model HeatExchanger
     T_b1Hex_nominal=277.15,
     T_a2Hex_nominal=275.15,
     T_b2Hex_nominal=279.15,
-    dT1HexSet=abs(
-      hexVal.T_b1Hex_nominal-hexVal.T_a1Hex_nominal) .* {1+1/3,1})
-    "Heat exchanger with primary control valve"
+    dT1HexSet=abs(hexVal.T_b1Hex_nominal - hexVal.T_a1Hex_nominal) .* {1 + 1/3,
+        1}) "Heat exchanger with primary control valve"
     annotation (Placement(transformation(extent={{-10,10},{10,30}})));
-  Fluid.Sources.Boundary_pT bou1Val(
-    redeclare package Medium=Medium,
-    p=Medium.p_default+30E3,
+
+  Buildings.Fluid.Sources.Boundary_pT bou1Val(
+    redeclare package Medium = Medium,
+    p=Medium.p_default + 30E3,
     use_T_in=true,
-    nPorts=1)
-    "Primary boundary conditions"
-    annotation (Placement(transformation(extent={{10,-10},{-10,10}},rotation=0,origin={112,40})));
-  Fluid.Sources.Boundary_pT bou1Val1(
-    redeclare package Medium=Medium,
-    nPorts=1)
-    "Primary boundary conditions"
-    annotation (Placement(transformation(extent={{10,-10},{-10,10}},rotation=0,origin={110,0})));
-  Fluid.Sensors.TemperatureTwoPort senT1InlVal(
-    redeclare final package Medium=Medium,
-    m_flow_nominal=hexVal.m1_flow_nominal)
-    "Primary inlet temperature"
-    annotation (Placement(transformation(extent={{10,-10},{-10,10}},rotation=0,origin={70,40})));
-  Fluid.Sensors.TemperatureTwoPort senT1OutVal(
-    redeclare final package Medium=Medium,
-    m_flow_nominal=hexVal.m1_flow_nominal)
-    "Primary outlet temperature"
-    annotation (Placement(transformation(extent={{-10,-10},{10,10}},rotation=0,origin={70,0})));
-  Fluid.Sensors.TemperatureTwoPort senT2OutVal(
-    redeclare final package Medium=Medium,
-    m_flow_nominal=hexVal.m1_flow_nominal)
-    "Secondary outlet temperature"
-    annotation (Placement(transformation(extent={{10,-10},{-10,10}},rotation=0,origin={-70,40})));
-  Fluid.Sensors.TemperatureTwoPort senT2InlVal(
-    redeclare final package Medium=Medium,
-    m_flow_nominal=hexVal.m1_flow_nominal)
-    "Secondary inlet temperature"
-    annotation (Placement(transformation(extent={{-10,-10},{10,10}},rotation=0,origin={-70,0})));
-  Fluid.Sensors.RelativePressure senRelPre(
-    redeclare final package Medium=Medium)
-    annotation (Placement(transformation(extent={{-10,-10},{10,10}},rotation=-90,origin={50,20})));
+    nPorts=1) "Primary boundary conditions" annotation (Placement(
+        transformation(
+        extent={{10,-10},{-10,10}},
+        rotation=0,
+        origin={112,40})));
+  Buildings.Fluid.Sources.Boundary_pT bou1Val1(redeclare package Medium =
+        Medium, nPorts=1) "Primary boundary conditions" annotation (Placement(
+        transformation(
+        extent={{10,-10},{-10,10}},
+        rotation=0,
+        origin={110,0})));
+  Buildings.Fluid.Sensors.TemperatureTwoPort senT1InlVal(redeclare final
+      package Medium = Medium, m_flow_nominal=hexVal.m1_flow_nominal)
+    "Primary inlet temperature" annotation (Placement(transformation(
+        extent={{10,-10},{-10,10}},
+        rotation=0,
+        origin={70,40})));
+  Buildings.Fluid.Sensors.TemperatureTwoPort senT1OutVal(redeclare final
+      package Medium = Medium, m_flow_nominal=hexVal.m1_flow_nominal)
+    "Primary outlet temperature" annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=0,
+        origin={70,0})));
+  Buildings.Fluid.Sensors.TemperatureTwoPort senT2OutVal(redeclare final
+      package Medium = Medium, m_flow_nominal=hexVal.m2_flow_nominal)
+    "Secondary outlet temperature" annotation (Placement(transformation(
+        extent={{10,-10},{-10,10}},
+        rotation=0,
+        origin={-70,40})));
+  Buildings.Fluid.Sensors.TemperatureTwoPort senT2InlVal(redeclare final
+      package Medium = Medium, m_flow_nominal=hexVal.m2_flow_nominal)
+    "Secondary inlet temperature" annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=0,
+        origin={-70,0})));
+  Buildings.Fluid.Sensors.RelativePressure senRelPre(redeclare final package
+      Medium = Medium) annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=-90,
+        origin={50,20})));
   Buildings.Controls.OBC.CDL.Logical.Or or2
     annotation (Placement(transformation(extent={{-160,90},{-140,110}})));
   Modelica.Blocks.Sources.RealExpression yValIsoCon(
-    y=
-      if time >= 2500 then
+    y=if time >= 2500 then
         1
       else
         0)
     "Condenser loop isolation valve opening"
     annotation (Placement(transformation(extent={{-230,70},{-210,90}})));
   Modelica.Blocks.Sources.RealExpression yValIsoEva(
-    y=
-      if time >= 500 then
+    y=if time >= 500 then
         1
       else
         0)
@@ -146,12 +161,10 @@ model HeatExchanger
   Buildings.Controls.OBC.CDL.Logical.Switch swi1
     annotation (Placement(transformation(extent={{-60,90},{-40,110}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zer(
-    k=0)
-    "Zero"
+    k=0) "Zero"
     annotation (Placement(transformation(extent={{-120,110},{-100,130}})));
   Modelica.Blocks.Sources.TimeTable TColVal(
-    y(
-      final unit="K",
+    y(final unit="K",
       displayUnit="degC"),
     table=[
       0,6;
@@ -161,12 +174,10 @@ model HeatExchanger
       5,6;
       10,6],
     timeScale=1000,
-    offset=273.15)
-    "Cold side temperature values"
+    offset=273.15) "Cold side temperature values"
     annotation (Placement(transformation(extent={{-230,-50},{-210,-30}})));
   Modelica.Blocks.Sources.TimeTable THotVal(
-    y(
-      final unit="K",
+    y(final unit="K",
       displayUnit="degC"),
     table=[
       0,45;
@@ -180,8 +191,7 @@ model HeatExchanger
     "Hot side temperature values"
     annotation (Placement(transformation(extent={{-230,-90},{-210,-70}})));
   Modelica.Blocks.Sources.TimeTable TDisVal(
-    y(
-      final unit="K",
+    y(final unit="K",
       displayUnit="degC"),
     table=[
       0,8;
