@@ -71,8 +71,8 @@ model Plant
   parameter Modelica.SIunits.Pressure dpCWPumVal_nominal
     "Nominal pressure drop of condenser water pump valve"
     annotation (Dialog(group="Pump"));
-  parameter Modelica.SIunits.PressureDifference dpValve_nominal
-   "Nominal pressure difference of the valve";
+  parameter Modelica.SIunits.PressureDifference dpCooTowVal_nominal
+   "Nominal pressure difference of the cooling tower valve";
   // control settings
   parameter Modelica.SIunits.Time tWai
     "Waiting time"
@@ -123,7 +123,7 @@ model Plant
     final num=numChi,
     final m_flow_nominal=mCW_flow_nominal,
     final dp_nominal=dpCW_nominal,
-    final dpValve_nominal = dpValve_nominal,
+    final dpValve_nominal = dpCooTowVal_nominal,
     final TAirInWB_nominal=TAirInWB_nominal,
     final TWatIn_nominal=TCW_nominal,
     final dT_nominal=dT_nominal,

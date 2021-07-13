@@ -41,8 +41,8 @@ model Plant
     "Nominal pressure drop of chilled water pump valve";
   parameter Modelica.SIunits.Pressure dpCWPumVal_nominal=6000
     "Nominal pressure drop of chilled water pump valve";
-  parameter Modelica.SIunits.PressureDifference dpValve_nominal=6000
-   "Nominal pressure difference of the valve";
+  parameter Modelica.SIunits.PressureDifference dpCooTowVal_nominal=6000
+   "Nominal pressure difference of the cooling tower valve";
   Buildings.Experimental.DHC.CentralPlants.Cooling.Plant pla(
     perChi=perChi,
     dTApp=3,
@@ -59,7 +59,7 @@ model Plant
     dT_nominal=5.56,
     TMin=288.15,
     PFan_nominal=5000,
-    dpValve_nominal=dpValve_nominal,
+    dpCooTowVal_nominal=dpCooTowVal_nominal,
     dpCHWPumVal_nominal=dpCHWPumVal_nominal,
     dpCWPumVal_nominal=dpCWPumVal_nominal,
     tWai=tWai,
@@ -108,9 +108,11 @@ model Plant
     annotation (Placement(transformation(extent={{60,-20},{40,0}})));
 equation
   connect(dpMea.y,pla.dpMea)
-    annotation (Line(points={{-39,-50},{-20,-50},{-20,13.2667},{-10.6667,13.2667}},color={0,0,127}));
+    annotation (Line(points={{-39,-50},{-20,-50},{-20,13.2667},{-10.6667,
+          13.2667}},                                                               color={0,0,127}));
   connect(TCHWSupSet.y,pla.TCHWSupSet)
-    annotation (Line(points={{-39,-10},{-32,-10},{-32,15.2667},{-10.6667,15.2667}},color={0,0,127}));
+    annotation (Line(points={{-39,-10},{-32,-10},{-32,15.2667},{-10.6667,
+          15.2667}},                                                               color={0,0,127}));
   connect(fixHeaFlo.port,vol.heatPort)
     annotation (Line(points={{20,50},{26,50},{26,30},{40,30}},color={191,0,0}));
   connect(pla.port_bSerCoo,vol.ports[1])
@@ -122,7 +124,8 @@ equation
   connect(on.y,pla.on)
     annotation (Line(points={{-39,30},{-32,30},{-32,17.4},{-10.7333,17.4}},color={255,0,255}));
   connect(weaDat.weaBus,pla.weaBus)
-    annotation (Line(points={{-40,70},{-20,70},{-20,24},{0.0333333,24},{0.0333333,18.8667}},color={255,204,51}));
+    annotation (Line(points={{-40,70},{-20,70},{-20,24},{0.0333333,24},{
+          0.0333333,18.8667}},                                                              color={255,204,51}));
   annotation (
     Icon(
       coordinateSystem(
