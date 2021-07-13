@@ -2,8 +2,7 @@ within Buildings.Controls.OBC.CDL.Routing.Validation;
 model RealArrayReplicator
   "Validation model for the RealArrayReplicator block"
   Buildings.Controls.OBC.CDL.Routing.RealArrayReplicator
-                                                    reaRep(nin=2,
-    nout=3)
+    reaRep(nin=2, nout=3)
     "Block that outputs the array replicating input value"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp ram[2](

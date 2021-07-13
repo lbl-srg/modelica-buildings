@@ -156,98 +156,99 @@ block GroupStatus "Block that outputs the zone group status"
     annotation (Placement(transformation(extent={{100,-320},{140,-280}}),
       iconTransformation(extent={{100,-210},{140,-170}})));
 
-  CDL.Routing.BooleanArrayFilter zonOccFil(
-    nin=numZon,
-    nout=numZonGro,
-    msk=zonGroMsk) "Zone group filter"
-    annotation (Placement(transformation(extent={{-120,290},{-100,310}})));
-  CDL.Routing.BooleanArrayFilter uOccFil(
-    nin=numZon,
-    nout=numZonGro,
-    msk=zonGroMsk) "Zone group filter"
-    annotation (Placement(transformation(extent={{-120,250},{-100,270}})));
-  CDL.Routing.RealArrayFilter tNexOccFil(
-    nin=numZon,
-    nout=numZonGro,
-    msk=zonGroMsk) "Zone group filter"
-    annotation (Placement(transformation(extent={{-120,210},{-100,230}})));
-  CDL.Routing.RealArrayFilter uCooTimFil(
-    nin=numZon,
-    nout=numZonGro,
-    msk=zonGroMsk) "Zone group filter"
-    annotation (Placement(transformation(extent={{-120,170},{-100,190}})));
-  CDL.Routing.RealArrayFilter uWarTimFil(
-    nin=numZon,
-    nout=numZonGro,
-    msk=zonGroMsk) "Zone group filter"
-    annotation (Placement(transformation(extent={{-120,130},{-100,150}})));
-  CDL.Routing.BooleanArrayFilter uOccHeaHigFil(
-    nin=numZon,
-    nout=numZonGro,
-    msk=zonGroMsk) "Zone group filter"
-    annotation (Placement(transformation(extent={{-120,90},{-100,110}})));
-  CDL.Routing.BooleanArrayFilter uHigOccCooFil(
-    nin=numZon,
-    nout=numZonGro,
-    msk=zonGroMsk) "Zone group filter"
-    annotation (Placement(transformation(extent={{-120,50},{-100,70}})));
-  CDL.Routing.BooleanArrayFilter uUnoHeaHigFil(
-    nin=numZon,
-    nout=numZonGro,
-    msk=zonGroMsk) "Zone group filter"
-    annotation (Placement(transformation(extent={{-120,10},{-100,30}})));
-  CDL.Routing.RealArrayFilter THeaSetOffFil(
-    nin=numZon,
-    nout=numZonGro,
-    msk=zonGroMsk) "Zone group filter"
-    annotation (Placement(transformation(extent={{-120,-30},{-100,-10}})));
-  CDL.Routing.BooleanArrayFilter uEndSetBacFil(
-    nin=numZon,
-    nout=numZonGro,
-    msk=zonGroMsk) "Zone group filter"
-    annotation (Placement(transformation(extent={{-120,-70},{-100,-50}})));
-  CDL.Routing.BooleanArrayFilter uHigUnoCooFil(
-    nin=numZon,
-    nout=numZonGro,
-    msk=zonGroMsk) "Zone group filter"
-    annotation (Placement(transformation(extent={{-120,-100},{-100,-80}})));
-  CDL.Routing.RealArrayFilter TCooSetOffFil(
-    nin=numZon,
-    nout=numZonGro,
-    msk=zonGroMsk) "Zone group filter"
-    annotation (Placement(transformation(extent={{-120,-160},{-100,-140}})));
-  CDL.Routing.BooleanArrayFilter uEndSetUpFil(
-    nin=numZon,
-    nout=numZonGro,
-    msk=zonGroMsk) "Zone group filter"
-    annotation (Placement(transformation(extent={{-120,-190},{-100,-170}})));
-  CDL.Routing.RealArrayFilter TZonFil(
-    nin=numZon,
-    nout=numZonGro,
-    msk=zonGroMsk) "Zone group filter"
-    annotation (Placement(transformation(extent={{-120,-230},{-100,-210}})));
-  CDL.Routing.BooleanArrayFilter uWinFil(
-    nin=numZon,
-    nout=numZonGro,
-    msk=zonGroMsk) "Zone group filter"
-    annotation (Placement(transformation(extent={{-120,-310},{-100,-290}})));
 protected
-  Buildings.Controls.OBC.CDL.Continuous.MultiMax cooDowTim(nin=numZonGro)
+    Buildings.Controls.OBC.CDL.Routing.BooleanArrayFilter zonOccFil(
+    final nin=numZon,
+    final nout=numZonGro,
+    final msk=zonGroMsk) "Zone group filter"
+    annotation (Placement(transformation(extent={{-120,290},{-100,310}})));
+  Buildings.Controls.OBC.CDL.Routing.BooleanArrayFilter uOccFil(
+    final nin=numZon,
+    final nout=numZonGro,
+    final msk=zonGroMsk) "Zone group filter"
+    annotation (Placement(transformation(extent={{-120,250},{-100,270}})));
+  Buildings.Controls.OBC.CDL.Routing.RealArrayFilter tNexOccFil(
+    final nin=numZon,
+    final nout=numZonGro,
+    final msk=zonGroMsk) "Zone group filter"
+    annotation (Placement(transformation(extent={{-120,210},{-100,230}})));
+  Buildings.Controls.OBC.CDL.Routing.RealArrayFilter uCooTimFil(
+    final nin=numZon,
+    final nout=numZonGro,
+    final msk=zonGroMsk) "Zone group filter"
+    annotation (Placement(transformation(extent={{-120,170},{-100,190}})));
+  Buildings.Controls.OBC.CDL.Routing.RealArrayFilter uWarTimFil(
+    final nin=numZon,
+    final nout=numZonGro,
+    final msk=zonGroMsk) "Zone group filter"
+    annotation (Placement(transformation(extent={{-120,130},{-100,150}})));
+  Buildings.Controls.OBC.CDL.Routing.BooleanArrayFilter uOccHeaHigFil(
+    final nin=numZon,
+    final nout=numZonGro,
+    final msk=zonGroMsk) "Zone group filter"
+    annotation (Placement(transformation(extent={{-120,90},{-100,110}})));
+  Buildings.Controls.OBC.CDL.Routing.BooleanArrayFilter uHigOccCooFil(
+    final nin=numZon,
+    final nout=numZonGro,
+    final msk=zonGroMsk) "Zone group filter"
+    annotation (Placement(transformation(extent={{-120,50},{-100,70}})));
+  Buildings.Controls.OBC.CDL.Routing.BooleanArrayFilter uUnoHeaHigFil(
+    final nin=numZon,
+    final nout=numZonGro,
+    final msk=zonGroMsk) "Zone group filter"
+    annotation (Placement(transformation(extent={{-120,10},{-100,30}})));
+  Buildings.Controls.OBC.CDL.Routing.RealArrayFilter THeaSetOffFil(
+    final nin=numZon,
+    final nout=numZonGro,
+    final msk=zonGroMsk) "Zone group filter"
+    annotation (Placement(transformation(extent={{-120,-30},{-100,-10}})));
+  Buildings.Controls.OBC.CDL.Routing.BooleanArrayFilter uEndSetBacFil(
+    final nin=numZon,
+    final nout=numZonGro,
+    final msk=zonGroMsk) "Zone group filter"
+    annotation (Placement(transformation(extent={{-120,-70},{-100,-50}})));
+  Buildings.Controls.OBC.CDL.Routing.BooleanArrayFilter uHigUnoCooFil(
+    final nin=numZon,
+    final nout=numZonGro,
+    final msk=zonGroMsk) "Zone group filter"
+    annotation (Placement(transformation(extent={{-120,-100},{-100,-80}})));
+  Buildings.Controls.OBC.CDL.Routing.RealArrayFilter TCooSetOffFil(
+    final nin=numZon,
+    final nout=numZonGro,
+    final msk=zonGroMsk) "Zone group filter"
+    annotation (Placement(transformation(extent={{-120,-160},{-100,-140}})));
+  Buildings.Controls.OBC.CDL.Routing.BooleanArrayFilter uEndSetUpFil(
+    final nin=numZon,
+    final nout=numZonGro,
+    final msk=zonGroMsk) "Zone group filter"
+    annotation (Placement(transformation(extent={{-120,-190},{-100,-170}})));
+  Buildings.Controls.OBC.CDL.Routing.RealArrayFilter TZonFil(
+    final nin=numZon,
+    final nout=numZonGro,
+    final msk=zonGroMsk) "Zone group filter"
+    annotation (Placement(transformation(extent={{-120,-230},{-100,-210}})));
+  Buildings.Controls.OBC.CDL.Routing.BooleanArrayFilter uWinFil(
+    final nin=numZon,
+    final nout=numZonGro,
+    final msk=zonGroMsk) "Zone group filter"
+    annotation (Placement(transformation(extent={{-120,-310},{-100,-290}})));
+
+  Buildings.Controls.OBC.CDL.Continuous.MultiMax cooDowTim(final nin=numZonGro)
     "Longest cooldown time"
     annotation (Placement(transformation(extent={{40,170},{60,190}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiMax warUpTim(nin=numZonGro)
+  Buildings.Controls.OBC.CDL.Continuous.MultiMax warUpTim(final nin=numZonGro)
     "Longest warm up time"
     annotation (Placement(transformation(extent={{40,130},{60,150}})));
-  Buildings.Controls.OBC.CDL.Logical.MultiOr mulOr(nu=numZonGro)
+  Buildings.Controls.OBC.CDL.Logical.MultiOr mulOr(final nu=numZonGro)
     "Check if there is any zone that the zone temperature is lower than its occupied heating setpoint"
     annotation (Placement(transformation(extent={{40,90},{60,110}})));
-  Buildings.Controls.OBC.CDL.Logical.MultiOr mulOr1(nu=numZonGro)
+  Buildings.Controls.OBC.CDL.Logical.MultiOr mulOr1(final nu=numZonGro)
     "Check if there is any zone that the zone temperature is higher than its occupied cooling setpoint"
     annotation (Placement(transformation(extent={{40,50},{60,70}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiMax maxTem(nin=numZonGro)
+  Buildings.Controls.OBC.CDL.Continuous.MultiMax maxTem(final nin=numZonGro)
                       "Maximum zone temperature in the zone group"
     annotation (Placement(transformation(extent={{0,-230},{20,-210}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiMin minTem(nin=numZonGro)
+  Buildings.Controls.OBC.CDL.Continuous.MultiMin minTem(final nin=numZonGro)
                       "Minimum zone temperature in the zone group"
     annotation (Placement(transformation(extent={{0,-270},{20,-250}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger booToInt[numZonGro]
@@ -256,7 +257,7 @@ protected
   Buildings.Controls.OBC.CDL.Integers.MultiSum totColZon(
     final nin=numZonGro) "Total number of cold zone"
     annotation (Placement(transformation(extent={{40,10},{60,30}})));
-  Buildings.Controls.OBC.CDL.Logical.MultiAnd endSetBac(nu=numZonGro)
+  Buildings.Controls.OBC.CDL.Logical.MultiAnd endSetBac(final nu=numZonGro)
     "Check if all zones have ended the setback mode"
     annotation (Placement(transformation(extent={{40,-70},{60,-50}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger booToInt1[numZonGro]
@@ -265,10 +266,10 @@ protected
   Buildings.Controls.OBC.CDL.Integers.MultiSum totHotZon(
     final nin=numZonGro) "Total number of hot zones"
     annotation (Placement(transformation(extent={{40,-100},{60,-80}})));
-  Buildings.Controls.OBC.CDL.Logical.MultiAnd endSetUp(nu=numZonGro)
+  Buildings.Controls.OBC.CDL.Logical.MultiAnd endSetUp(final nu=numZonGro)
     "Check if all zones have ended the setup mode"
     annotation (Placement(transformation(extent={{-2,-190},{18,-170}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiSum sumUnoHea(nin=numZonGro)
+  Buildings.Controls.OBC.CDL.Continuous.MultiSum sumUnoHea(final nin=numZonGro)
     "Sum of all zones unoccupied heating setpoint"
     annotation (Placement(transformation(extent={{-80,-30},{-60,-10}})));
   Buildings.Controls.OBC.CDL.Continuous.Feedback difUnoHea
@@ -281,10 +282,10 @@ protected
     annotation (Placement(transformation(extent={{-80,110},{-60,130}})));
   Buildings.Controls.OBC.CDL.Conversions.IntegerToReal intToRea "Convert integer to real"
     annotation (Placement(transformation(extent={{-40,110},{-20,130}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiSum sumUnoCoo(nin=numZonGro)
+  Buildings.Controls.OBC.CDL.Continuous.MultiSum sumUnoCoo(final nin=numZonGro)
     "Sum of all zones unoccupied cooling setpoint"
     annotation (Placement(transformation(extent={{-80,-160},{-60,-140}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiSum sumTem(nin=numZonGro)
+  Buildings.Controls.OBC.CDL.Continuous.MultiSum sumTem(final nin=numZonGro)
                       "Sum of all zones temperature"
     annotation (Placement(transformation(extent={{-80,-210},{-60,-190}})));
   Buildings.Controls.OBC.CDL.Continuous.Feedback difUnoCoo
@@ -302,13 +303,13 @@ protected
     final uHigh=uHigh)
     "Hysteresis that outputs if the group should run in setup mode"
     annotation (Placement(transformation(extent={{60,-140},{80,-120}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiMin minToNexOcc(nin=numZonGro)
+  Buildings.Controls.OBC.CDL.Continuous.MultiMin minToNexOcc(final nin=numZonGro)
     "Minimum time to next occupied period"
     annotation (Placement(transformation(extent={{-60,210},{-40,230}})));
-  Buildings.Controls.OBC.CDL.Logical.MultiOr schOcc(nu=numZonGro)
+  Buildings.Controls.OBC.CDL.Logical.MultiOr schOcc(final nu=numZonGro)
     "Check if the group should be in occupied mode according to the schedule"
     annotation (Placement(transformation(extent={{-60,250},{-40,270}})));
-  Buildings.Controls.OBC.CDL.Logical.MultiOr oveRidOcc(nu=numZonGro)
+  Buildings.Controls.OBC.CDL.Logical.MultiOr oveRidOcc(final nu=numZonGro)
     "Check if the group should be in occupied mode according to the zone override"
     annotation (Placement(transformation(extent={{-60,290},{-40,310}})));
   Buildings.Controls.OBC.CDL.Logical.Or groOcc

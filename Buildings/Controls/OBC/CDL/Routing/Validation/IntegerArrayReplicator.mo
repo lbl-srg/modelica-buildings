@@ -2,8 +2,7 @@ within Buildings.Controls.OBC.CDL.Routing.Validation;
 model IntegerArrayReplicator
   "Validation model for the IntegerArrayReplicator block"
   Buildings.Controls.OBC.CDL.Routing.IntegerArrayReplicator
-                                                       intRep(nin=2,
-    nout=3)
+    intRep(nin=2, nout=3)
     "Block that outputs the array replicating input value"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp ram[2](

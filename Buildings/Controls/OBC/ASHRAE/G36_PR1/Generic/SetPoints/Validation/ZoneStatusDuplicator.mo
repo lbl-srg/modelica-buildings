@@ -6,10 +6,10 @@ model ZoneStatusDuplicator
     zonStaDup(nZon=5, nGro=2)
               "Zone status duplicator"
     annotation (Placement(transformation(extent={{0,-40},{20,40}})));
-  CDL.Continuous.Sources.Constant reaInp[6,5](k=fill({1,2,3,4,5}, 6))
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant reaInp[6,5](k=fill({1,2,3,4,5}, 6))
     "Real inputs"
     annotation (Placement(transformation(extent={{-100,20},{-80,40}})));
-  CDL.Logical.Sources.Constant booInp[9,5](k=fill({true,true,false,true,false},
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant booInp[9,5](k=fill({true,true,false,true,false},
         9)) "Boolean inputs"
     annotation (Placement(transformation(extent={{-100,-40},{-80,-20}})));
 equation

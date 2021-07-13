@@ -5,10 +5,10 @@ block RealArrayFilter
   parameter Integer nout "Size of output array";
   parameter Boolean msk[nin]=fill(true,nin) "Array mask";
 
-  Interfaces.RealInput    u[nin]
+  Interfaces.RealInput u[nin]
     "Connector of Real input signal"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
-  Interfaces.RealOutput    y[nout]
+  Interfaces.RealOutput y[nout]
     "Connector of Real output signals"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
@@ -41,7 +41,8 @@ equation
           fillPattern=FillPattern.Solid,
           lineThickness=0.5),
         Line(points={{-100,0},{-60,0}}, color={0,0,127}),
-        Line(points={{70,0},{100,0}}, color={0,0,127})}),        Diagram(
+        Line(points={{70,0},{100,0}}, color={0,0,127})}),
+    Diagram(
         coordinateSystem(preserveAspectRatio=false)),
     Documentation(revisions="<html>
 <ul>
