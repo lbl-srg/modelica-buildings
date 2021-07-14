@@ -1,10 +1,9 @@
 within Buildings.Controls.OBC.CDL.Routing.Validation;
 model RealArrayFilter
   "Validation model for the RealArrayFilter block"
-  Buildings.Controls.OBC.CDL.Routing.RealArrayFilter reaFil(
-    nin=3,
-    nout=2,
-    msk={true,false,true}) "Block that filter the input array"
+  Buildings.Controls.OBC.CDL.Routing.RealArrayFilter
+    reaFil(nin=3, nout=2, msk={true,false,true})
+    "Block that filter the input array"
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
 
   Continuous.Sources.Constant ReaInp[3](k={1,2,3}) "Real inputs"

@@ -1,10 +1,9 @@
 within Buildings.Controls.OBC.CDL.Routing.Validation;
 model IntegerArrayFilter
   "Validation model for the IntegerArrayFilter block"
-  Buildings.Controls.OBC.CDL.Routing.IntegerArrayFilter intFil(
-    nin=3,
-    nout=2,
-    msk={true,false,true}) "Block that filter the input array"
+  Buildings.Controls.OBC.CDL.Routing.IntegerArrayFilter
+    intFil(nin=3, nout=2, msk={true,false,true})
+    "Block that filter the input array"
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
 
   Integers.Sources.Constant IntInp[3](k={1,2,3}) "Integer inputs"

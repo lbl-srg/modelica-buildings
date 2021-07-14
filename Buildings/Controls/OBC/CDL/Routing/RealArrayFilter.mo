@@ -17,7 +17,7 @@ protected
     "Indices of included element in input array";
 
 initial equation
-  assert(nout==sum({if y then 1 else 0 for y in msk}),
+  assert(nout==sum({if msk[i] then 1 else 0 for i in 1:nin}),
     "The size of the output array does not match the 
     size of included elements in the mask");
 equation
