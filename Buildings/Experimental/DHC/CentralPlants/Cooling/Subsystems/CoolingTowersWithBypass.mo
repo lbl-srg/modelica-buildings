@@ -1,5 +1,5 @@
 within Buildings.Experimental.DHC.CentralPlants.Cooling.Subsystems;
-model CoolingTowerWithBypass
+model CoolingTowersWithBypass
   "Cooling tower system with bypass valve"
   extends Buildings.Fluid.Interfaces.PartialTwoPortInterface(
     redeclare replaceable package Medium=Buildings.Media.Water);
@@ -15,7 +15,7 @@ model CoolingTowerWithBypass
   parameter Modelica.SIunits.Pressure dp_nominal
     "Nominal pressure difference of the tower"
     annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.SIunits.PressureDifference dpValve_nominal=6000
+  parameter Modelica.SIunits.PressureDifference dpValve_nominal
     "Nominal pressure difference of the valve";
   parameter Real ratWatAir_nominal(
     final min=0,
@@ -74,7 +74,7 @@ model CoolingTowerWithBypass
     each displayUnit="degC")
     "Leaving water temperature"
     annotation (Placement(transformation(extent={{100,20},{120,40}})));
-  Buildings.Experimental.DHC.CentralPlants.Cooling.Subsystems.CoolingTowerParallel cooTowSys(
+  Buildings.Experimental.DHC.CentralPlants.Cooling.Subsystems.CoolingTowersParallel cooTowSys(
     final use_inputFilter=use_inputFilter,
     redeclare final package Medium=Medium,
     final num=num,
@@ -82,6 +82,7 @@ model CoolingTowerWithBypass
     final m_flow_small=m_flow_nominal,
     final allowFlowReversal=allowFlowReversal,
     final m_flow_nominal=m_flow_nominal/num,
+    final dpValve_nominal=dpValve_nominal,
     final dp_nominal=dp_nominal,
     final ratWatAir_nominal=ratWatAir_nominal,
     final TAirInWB_nominal=TAirInWB_nominal,
@@ -100,7 +101,7 @@ model CoolingTowerWithBypass
     final dpFixed_nominal=dp_nominal,
     final use_inputFilter=use_inputFilter)
     "Condenser water bypass valve"
-    annotation (Placement(transformation(extent={{-10,-30},{10,-50}})));
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}},origin={0,-40})));
   Buildings.Fluid.Sensors.TemperatureTwoPort senTCWSup(
     redeclare final package Medium=Medium,
     final allowFlowReversal=allowFlowReversal,
@@ -109,10 +110,10 @@ model CoolingTowerWithBypass
     final T_start=Medium.T_default)
     "Temperature sensor"
     annotation (Placement(transformation(extent={{60,10},{80,-10}})));
-  Modelica.Blocks.Sources.Constant TSetByPas(
+  Modelica.Blocks.Sources.Constant TSetByp(
     final k=TMin)
     "Bypass loop temperature setpoint"
-    annotation (Placement(transformation(extent={{-90,-70},{-70,-50}})));
+    annotation (Placement(transformation(extent={{-90,-60},{-70,-40}})));
   Buildings.Controls.Continuous.LimPID bypValCon(
     u_s(
       final unit="K",
@@ -126,7 +127,7 @@ model CoolingTowerWithBypass
     final reset=Buildings.Types.Reset.Parameter,
     final y_reset=0)
     "Bypass valve controller"
-    annotation (Placement(transformation(extent={{-60,-70},{-40,-50}})));
+    annotation (Placement(transformation(extent={{-60,-60},{-40,-40}})));
   Buildings.Controls.Continuous.LimPID cooTowSpeCon(
     u_s(
       final unit="K",
@@ -159,18 +160,18 @@ model CoolingTowerWithBypass
     dp_nominal={0,0,0},
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)
     "Upstream mixing point of cooTowSys and valByp"
-    annotation (Placement(transformation(extent={{-50,-10},{-30,10}})));
+    annotation (Placement(transformation(extent={{-34,-4},{-26,4}})));
 equation
   connect(cooTowSys.TWetBul,TWetBul)
-    annotation (Line(points={{-12,-6},{-20,-6},{-20,-20},{-120,-20}},color={0,0,127}));
+    annotation (Line(points={{-12,-6},{-40,-6},{-40,-20},{-120,-20}},color={0,0,127}));
   connect(cooTowSys.port_b,senTCWSup.port_a)
     annotation (Line(points={{10,0},{60,0}},color={0,127,255}));
   connect(senTCWSup.port_b,port_b)
     annotation (Line(points={{80,0},{100,0}},color={0,127,255}));
-  connect(TSetByPas.y,bypValCon.u_s)
-    annotation (Line(points={{-69,-60},{-62,-60}},color={0,0,127}));
+  connect(TSetByp.y,bypValCon.u_s)
+    annotation (Line(points={{-69,-50},{-62,-50}},color={0,0,127}));
   connect(senTCWSup.T,bypValCon.u_m)
-    annotation (Line(points={{70,-11},{70,-90},{-50,-90},{-50,-72}},color={0,0,127}));
+    annotation (Line(points={{70,-11},{70,-80},{-50,-80},{-50,-62}},color={0,0,127}));
   connect(valByp.port_b,senTCWSup.port_a)
     annotation (Line(points={{10,-40},{30,-40},{30,0},{60,0}},color={0,127,255}));
   connect(cooTowSpeCon.y,cooTowSys.uFanSpe)
@@ -178,7 +179,7 @@ equation
   connect(cooTowSys.PFan,PFan)
     annotation (Line(points={{11,6},{40,6},{40,60},{110,60}},color={0,0,127}));
   connect(bypValCon.y,valByp.y)
-    annotation (Line(points={{-39,-60},{0,-60},{0,-52}},                    color={0,0,127}));
+    annotation (Line(points={{-39,-50},{-20,-50},{-20,-20},{0,-20},{0,-28}},color={0,0,127}));
   connect(senTCWSup.T,cooTowSpeCon.u_m)
     annotation (Line(points={{70,-11},{70,-20},{34,-20},{34,21.3672},{34,40},{4,
           40},{4,48}},                                                           color={0,0,127}));
@@ -186,24 +187,22 @@ equation
     annotation (Line(points={{-48,60},{-38,60}}, color={255,0,255}));
   connect(cooTowSpeCon.u_s,swi.y)
     annotation (Line(points={{-8,60},{-14,60}}, color={0,0,127}));
-  connect(TSetByPas.y,swi.u3)
-    annotation (Line(points={{-69,-60},{-66,-60},{-66,45.8125},{-46,45.8125},{
-          -46,52},{-38,52}},                                                                    color={0,0,127}));
+  connect(TSetByp.y,swi.u3)
+    annotation (Line(points={{-69,-50},{-66,-50},{-66,45.8125},{-46,45.8125},{-46,52},{-38,52}},color={0,0,127}));
   connect(TWetBul,addPar.u)
     annotation (Line(points={{-120,-20},{-86,-20},{-86,90},{-82,90}},color={0,0,127}));
   connect(addPar.y,swi.u1)
     annotation (Line(points={{-58,90},{-46,90},{-46,68},{-38,68}},color={0,0,127}));
   connect(on,cooTowSys.on)
-    annotation (Line(points={{-120,40},{-22,40},{-22,6},{-12,6}},color={255,0,255}));
+    annotation (Line(points={{-120,40},{-80,40},{-80,6},{-12,6}},color={255,0,255}));
   connect(on[1],bypValCon.trigger)
-    annotation (Line(points={{-120,30},{-120,40},{-92,40},{-92,-90},{-58,-90},{
-          -58,-72}},                                                           color={255,0,255}));
+    annotation (Line(points={{-120,30},{-92,30},{-92,-80},{-58,-80},{-58,-62}},color={255,0,255}));
   connect(port_a, jun.port_1)
-    annotation (Line(points={{-100,0},{-50,0}}, color={0,127,255}));
+    annotation (Line(points={{-100,0},{-34,0}}, color={0,127,255}));
   connect(cooTowSys.port_a, jun.port_2)
-    annotation (Line(points={{-10,0},{-30,0}}, color={0,127,255}));
+    annotation (Line(points={{-10,0},{-26,0}}, color={0,127,255}));
   connect(valByp.port_a, jun.port_3)
-    annotation (Line(points={{-10,-40},{-40,-40},{-40,-10}},color={0,127,255}));
+    annotation (Line(points={{-10,-40},{-30,-40},{-30,-4}}, color={0,127,255}));
   connect(addPar.y, hys.u)
     annotation (Line(points={{-58,90},{-46,90},{-46,76},{-78,76},{-78,60},{-72,60}}, color={0,0,127}));
   connect(senTCWSup.T, TLvg)
@@ -378,14 +377,9 @@ equation
 </ul>
 </html>",
       info="<html>
-<p>This model simulates parallel connected cooling tower subsystem 
-with a bypass valve. </p>
-<p>The bypass valve is controlled to enforce that the leaving 
-condenser water temperature does not drop below the minimum temperature 
-<code>TMin</code>.</p>
-<p>By default, the condenser water setpoint is the ambient wet bulb 
-temperature <code>TWetBul</code> plus the approach temperature <code>dTApp</code>. </p>
-<p>Inside the model, a cooling tower fan speed controller is also 
-implemented to maintain the condenser water at its setpoint.</p>
+<p>This model simulates parallel connected cooling tower subsystem with a bypass valve. </p>
+<p>The bypass valve is controlled to enforce that the leaving condenser water temperature does not drop below the minimum temperature <code>TMin</code>.</p>
+<p>By default, the condenser water setpoint is the ambient wet bulb temperature <code>TWetBul</code> plus the approach temperature <code>dTApp</code>. </p>
+<p>Inside the model, a cooling tower fan speed controller is also implemented to maintain the condenser water at its setpoint.</p>
 </html>"));
-end CoolingTowerWithBypass;
+end CoolingTowersWithBypass;

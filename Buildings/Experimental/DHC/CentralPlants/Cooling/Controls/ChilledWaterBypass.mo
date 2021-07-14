@@ -12,6 +12,9 @@ model ChilledWaterBypass
     "Time constant of Integrator block" annotation (Dialog(enable=
           controllerType == Modelica.Blocks.Types.SimpleController.PI or
           controllerType == Modelica.Blocks.Types.SimpleController.PID));
+  parameter Modelica.Blocks.Types.SimpleController controllerType=
+         Modelica.Blocks.Types.SimpleController.PI
+    "Type of controller";
   Modelica.Blocks.Interfaces.BooleanInput chiOn[numChi]
     "On signals of the chillers"
     annotation (Placement(transformation(extent={{-140,10},{-100,50}})));
@@ -22,7 +25,7 @@ model ChilledWaterBypass
     "Bypass valve opening ratio"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
   Buildings.Controls.Continuous.LimPID bypValCon(
-    controllerType=Modelica.Blocks.Types.SimpleController.PI,
+    controllerType=controllerType,
     final k=k,
     final Ti=Ti,
     yMin=0.01,
@@ -87,14 +90,8 @@ First implementation.
 </ul>
 </html>",
       info="<html>
-<p>This model implements the chilled water loop bypass valve control logic 
-as follows: </p>
-<p>When the plant is on, the PID controller controls the valve opening ratio 
-to reach the scaled mass flow rate setpoint. </p>
-<p>The setpoint is determined based on the number of chillers that are operating. </p>
-<p>If one chiller is on, then the setpoint equals 
-<span style=\"font-family: Courier New;\">mMin_flow</span>, which is the 
-minimum mass flow rate required by the chiller. </p>
-<p>If two chillers are on, the setpoint is twice as much. </p>
+<p>This model implements the chilled water loop bypass valve control logic as follows: </p>
+<p>When the plant is on, the PID controller controls the valve opening ratio to reach the scaled mass flow rate setpoint. </p>
+<p>The setpoint is <code>mMin_flow</code> multiplied by the number of chillers that are on. <code>mMin_flow</code> is the minimum mass flow rate required by one chiller. </p>
 </html>"));
 end ChilledWaterBypass;
