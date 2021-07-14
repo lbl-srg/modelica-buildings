@@ -234,9 +234,9 @@ Buildings.Fluid.Resistances.PlugFlowPipe</a> which allows to specify <code>nSeg<
 successive segments of pipes (connected in series).
 </p>
 <p>
-This wrapper simplify use-cases where different segments of the same
+This wrapper simplifies use-cases where different segments of the same
 pipe might have different boundary conditions. This would be the case, 
-for instance, for sufficiently long stretch of buried pipes.
+for instance, for sufficiently long stretches of buried pipes.
 </p>
 <p>
 To reduce coupled nonlinear equations, the pipe flow resistance 
