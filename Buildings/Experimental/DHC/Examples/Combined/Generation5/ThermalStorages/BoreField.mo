@@ -19,9 +19,8 @@ model BoreField "Geothermal borefield model"
           dSoi=2600),
       final conDat=Buildings.Fluid.Geothermal.Borefields.Data.Configuration.Example(
         borCon=Buildings.Fluid.Geothermal.Borefields.Types.BoreholeConfiguration.DoubleUTubeParallel,
-        dp_nominal=dpBorFie_nominal,
-        mBor_flow_nominal=1.0,
-        hBor=hBor,
+        dp_nominal=35000,
+        hBor=300,
         rBor=0.095,
         nBor=350,
         cooBor=cooBor,
@@ -32,32 +31,19 @@ model BoreField "Geothermal borefield model"
         xC=0.05)),
     show_T=true);
   /* 
-  Some parameters (nBor, mBor_flow_nominal) cannot be propagated down to 
+  Some parameters (such as nBor) cannot be propagated down to 
   borFieDat.conDat otherwise Dymola fails to expand.
-  We assign them literally within borFieDat.conDat and propagate them up here.
+  We assign them literally within borFieDat.conDat and propagate them up here
+  to compute dependent parameters.
   */
   parameter Integer nBor = borFieDat.conDat.nBor
     "Length of borehole"
     annotation(Evaluate=true);
-  parameter Modelica.SIunits.Height hBor = 300
-    "Total height of the borehole";
   parameter Real dxyBor = 10
     "Distance between boreholes";
   final parameter Modelica.SIunits.Length cooBor[nBor, 2]=
     {dxyBor * {mod(i - 1, 10), floor((i - 1)/10)} for i in 1:nBor}
     "Cartesian coordinates of the boreholes in meters";
-  parameter Modelica.SIunits.MassFlowRate mBor_flow_nominal=
-    borFieDat.conDat.mBor_flow_nominal
-    "Nominal mass flow rate per borehole"
-    annotation (Dialog(group="Nominal condition"));
-  /*
-  1 kg/s in double-U DN40 HDPE yields 120 Pa/m in each tube.
-  We add 30% singular pressure drop.
-  */
-  parameter Modelica.SIunits.Pressure dpBorFie_nominal(displayUnit="Pa")=
-    2 * hBor * 120 * (mBor_flow_nominal / 1.0)^2 * 1.30
-    "Pressure losses for the entire borefield"
-    annotation (Dialog(group="Nominal condition"));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput Q_flow(final unit="W")
     "Rate at which heat is extracted from soil"
     annotation (Placement(transformation(extent={{100,-50},{120,-30}}),
