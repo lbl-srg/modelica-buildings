@@ -1,0 +1,12 @@
+compareVars :=
+  {
+    "hexDis.Q1_flow",
+    "hexWetNTU_TX.Q1_flow",
+    "hexDryNTU_T.Q1_flow",
+    "hexDis.sta_b2.T",
+    "hexWetNTU_TX.sta_b2.T",
+    "hexDryNTU_T.sta_b2.T",
+    "hexDis.UA_nominal",
+    "hexWetNTU_TX.UA_nominal",
+    "hexDryNTU_T.UA_nominal"
+  };

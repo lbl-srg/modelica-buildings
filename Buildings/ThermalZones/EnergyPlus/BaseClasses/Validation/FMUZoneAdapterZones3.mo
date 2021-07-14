@@ -22,14 +22,15 @@ model FMUZoneAdapterZones3
     "Building model"
     annotation (Placement(transformation(extent={{-80,70},{-60,90}})));
   Buildings.ThermalZones.EnergyPlus.BaseClasses.ThermalZoneAdapter fmuZonCor(
-    buildingsLibraryRoot=Buildings.ThermalZones.EnergyPlus.BaseClasses.buildingsLibraryRoot,
     modelicaNameBuilding=modelicaNameBuilding,
     final idfName=idfName,
     final weaName=weaName,
+    relativeSurfaceTolerance=building.relativeSurfaceTolerance,
     final zoneName="Core_ZN",
     usePrecompiledFMU=true,
     final fmuName=Modelica.Utilities.Files.loadResource(
       "modelica://Buildings/Resources/src/ThermalZones/EnergyPlus/FMUs/Zones3.fmu"),
+    logLevel=building.logLevel,
     final nFluPor=2)
     "Adapter to EnergyPlus"
     annotation (Placement(transformation(extent={{20,20},{40,40}})));
@@ -62,14 +63,15 @@ model FMUZoneAdapterZones3
     "Zone air temperature"
     annotation (Placement(transformation(extent={{60,20},{80,40}})));
   Buildings.ThermalZones.EnergyPlus.BaseClasses.ThermalZoneAdapter fmuZonSou(
-    buildingsLibraryRoot=Buildings.ThermalZones.EnergyPlus.BaseClasses.buildingsLibraryRoot,
     modelicaNameBuilding=modelicaNameBuilding,
     final idfName=idfName,
     final weaName=weaName,
+    relativeSurfaceTolerance=building.relativeSurfaceTolerance,
     final zoneName="South_ZN",
     usePrecompiledFMU=true,
     final fmuName=Modelica.Utilities.Files.loadResource(
       "modelica://Buildings/Resources/src/ThermalZones/EnergyPlus/FMUs/Zones3.fmu"),
+    logLevel=building.logLevel,
     final nFluPor=2)
     "Adapter to EnergyPlus"
     annotation (Placement(transformation(extent={{20,-20},{40,0}})));
@@ -82,14 +84,15 @@ model FMUZoneAdapterZones3
     "Zone air temperature"
     annotation (Placement(transformation(extent={{60,-20},{80,0}})));
   Buildings.ThermalZones.EnergyPlus.BaseClasses.ThermalZoneAdapter fmuZonNor(
-    buildingsLibraryRoot=Buildings.ThermalZones.EnergyPlus.BaseClasses.buildingsLibraryRoot,
     modelicaNameBuilding=modelicaNameBuilding,
     final idfName=idfName,
     final weaName=weaName,
+    relativeSurfaceTolerance=building.relativeSurfaceTolerance,
     final zoneName="North_ZN",
     usePrecompiledFMU=true,
     final fmuName=Modelica.Utilities.Files.loadResource(
       "modelica://Buildings/Resources/src/ThermalZones/EnergyPlus/FMUs/Zones3.fmu"),
+    logLevel=building.logLevel,
     final nFluPor=2)
     "Adapter to EnergyPlus"
     annotation (Placement(transformation(extent={{20,-60},{40,-40}})));
@@ -101,6 +104,7 @@ model FMUZoneAdapterZones3
       displayUnit="degC"))
     "Zone air temperature"
     annotation (Placement(transformation(extent={{60,-60},{80,-40}})));
+
 equation
   connect(X_w.y,fmuZonCor.X_w)
     annotation (Line(points={{-67,54},{-14,54},{-14,34},{18,34}},color={0,0,127}));

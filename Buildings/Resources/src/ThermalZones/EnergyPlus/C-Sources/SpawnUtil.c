@@ -130,6 +130,16 @@ void setVariables(
     else
       ptrReals->valsEP[i] = ptrReals->valsSI[i];
   }
+
+  /* If debug mode, write exchanged values to log file */
+  if (bui->logLevel >= TIMESTEP){
+    for(i = 0; i < ptrReals->n; i++){
+      bui->SpawnFormatMessage("%.3f %s: Sending to EnergyPlus, %s = %.6g [%s].\n",
+        bui->time, modelicaInstanceName, ptrReals->fmiNames[i], ptrReals->valsEP[i],
+        fmi2_import_get_unit_name(ptrReals->units[i]));
+    }
+  }
+
   status = fmi2_import_set_real(bui->fmu, ptrReals->valRefs, ptrReals->n, ptrReals->valsEP);
   if (status != (fmi2_status_t)fmi2OK) {
     bui->SpawnFormatError("Failed to set variables for %s in FMU.\n",  modelicaInstanceName);
@@ -170,14 +180,22 @@ void getVariables(FMUBuilding* bui, const char* modelicaInstanceName, spawnReals
 {
   size_t i;
   fmi2_status_t status;
-/* fixme
+
   if (bui->logLevel >= TIMESTEP)
-    bui->SpawnFormatMessage("%.3f %s: Getting real variables from EnergyPlus, mode = %s.\n", bui->time, modelicaInstanceName, fmuModeToString(bui->mode));
-*/
+    bui->SpawnFormatMessage("%.3f %s: Getting real variables from EnergyPlus, mode = %s.\n",
+      bui->time, modelicaInstanceName, fmuModeToString(bui->mode));
+
   status = fmi2_import_get_real(bui->fmu, ptrReals->valRefs, ptrReals->n, ptrReals->valsEP);
   if (status != (fmi2_status_t)fmi2OK) {
-    bui->SpawnFormatError("Failed to get variables for %s\n",
-    modelicaInstanceName);
+    if (bui->mode == initializationMode){
+      bui->SpawnFormatError(
+        "Failed to get parameter values for %s. This may be due to an error during the initialization or warm-up of EnergyPlus as the EnergyPlus FMU has been generated and loaded with no error.\n",
+      modelicaInstanceName, fmuModeToString(bui->mode));
+    }
+    else{
+      bui->SpawnFormatError("Failed to get variables for %s during mode = %s.\n",
+      modelicaInstanceName, fmuModeToString(bui->mode));
+    }
   }
   /* Set SI unit value */
   for(i = 0; i < ptrReals->n; i++){
@@ -186,6 +204,15 @@ void getVariables(FMUBuilding* bui, const char* modelicaInstanceName, spawnReals
     else
       ptrReals->valsSI[i] = ptrReals->valsEP[i];
   }
+  /* If debug mode, write exchanged values to log file */
+  if (bui->logLevel >= TIMESTEP){
+    for(i = 0; i < ptrReals->n; i++){
+      bui->SpawnFormatMessage("%.3f %s: Received from EnergyPlus, %s = %.6g [%s].\n",
+        bui->time, modelicaInstanceName, ptrReals->fmiNames[i], ptrReals->valsEP[i],
+        fmi2_import_get_unit_name(ptrReals->units[i]));
+    }
+  }
+
   stopIfResultsAreNaN(bui, modelicaInstanceName, ptrReals);
 }
 
@@ -476,7 +503,7 @@ void getSimulationTemporaryDirectory(
   char** dirNam,
   void (*SpawnFormatError)(const char *string, ...)){
   /* Return the absolute name of the temporary directory to be used for EnergyPlus
-     in the form "/mnt/xxx/tmp-eplus-mod.nam.bui"
+     in the form "/mnt/xxx/EnergyPlus-simulation-model.name.building"
   */
   size_t lenNam;
   size_t lenPre;
@@ -488,7 +515,7 @@ void getSimulationTemporaryDirectory(
   const size_t maxLenCurDir = 100000;
 
   /* Prefix for temporary directory */
-  const char* pre = "tmp-simulation-\0";
+  const char* pre = "EnergyPlus-simulation-\0";
 
   /* Current directory */
   mallocString(
@@ -621,10 +648,16 @@ void buildVariableNames(
 }
 
 void createDirectory(const char* dirName, void (*SpawnFormatError)(const char *string, ...)){
-  struct stat st = {0};
   /* Create directory if it does not already exist */
+#ifdef _WIN32 /* Win32 or Win64 */
+  struct _stat64i32 st = {0};
+  if (_stat64i32(dirName, &st) == -1) {
+    if ( _mkdir(dirName) == -1)
+#else
+  struct stat st = {0};
   if (stat(dirName, &st) == -1) {
     if ( mkdir(dirName, 0700) == -1)
+#endif
       SpawnFormatError("Failed to create directory %s", dirName);
   }
 }

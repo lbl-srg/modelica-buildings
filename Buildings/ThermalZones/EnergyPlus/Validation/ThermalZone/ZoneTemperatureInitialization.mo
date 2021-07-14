@@ -20,7 +20,8 @@ initialized correctly by EnergyPlus.
 </p>
 </html>",
       revisions="<html>
-<ul><li>
+<ul>
+<li>
 May 19, 2020, by Michael Wetter:<br/>
 First implementation.
 </li>

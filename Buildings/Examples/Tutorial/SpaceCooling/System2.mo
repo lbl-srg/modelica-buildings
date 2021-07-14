@@ -79,8 +79,9 @@ model System2
     dp2_nominal=200,
     eps=eps) "Heat recovery"
     annotation (Placement(transformation(extent={{-110,-36},{-90,-16}})));
-  Buildings.Fluid.HeatExchangers.WetCoilCounterFlow cooCoi(redeclare package Medium1 =
-        MediumW, redeclare package Medium2 = MediumA,
+  Buildings.Fluid.HeatExchangers.WetCoilEffectivenessNTU cooCoi(
+    redeclare package Medium1 = MediumW,
+    redeclare package Medium2 = MediumA,
     m1_flow_nominal=mW_flow_nominal,
     m2_flow_nominal=mA_flow_nominal,
     dp1_nominal=6000,
@@ -118,8 +119,8 @@ model System2
     annotation (Placement(transformation(extent={{-160,40},{-140,60}})));
   BoundaryConditions.WeatherData.Bus weaBus
     annotation (Placement(transformation(extent={{-120,40},{-100,60}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant mAir_flow(k=mA_flow_nominal)
-    "Fan air flow rate"
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant mAir_flow(k=
+        mA_flow_nominal) "Fan air flow rate"
     annotation (Placement(transformation(extent={{0,0},{20,20}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant mWat_flow(k=mW_flow_nominal)
     "Water flow rate"
@@ -188,11 +189,11 @@ equation
       index=-1,
       extent={{-6,3},{-6,3}}));
   connect(fan.m_flow_in, mAir_flow.y) annotation (Line(
-      points={{49.8,-8},{49.8,10},{21,10}},
+      points={{50,-8},{50,10},{22,10}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(mWat_flow.y, souWat.m_flow_in) annotation (Line(
-      points={{-59,-104},{-52,-104},{-52,-92},{-40,-92}},
+      points={{-58,-104},{-52,-104},{-52,-92},{-42,-92}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(hex.port_b1, senTemHXOut.port_a) annotation (Line(
@@ -419,8 +420,14 @@ We assign this value using the equation
 <p>
 where <i>Q&#775;</i> is the exchanged heat and
 <i>lmtd</i> is the logarithmic mean temperature difference.
-The computation of the <i>UA</i> is done using the
-parameter assignment
+The computation of the <i>UA</i> is done 
+by setting
+</p>
+<pre>
+use_UA_nominal=true
+</pre>
+<p>
+and then using the parameter assignment
 </p>
 <pre>
   UA_nominal=-QCoiC_flow_nominal/
@@ -440,9 +447,7 @@ In order to see the coil inlet and outlet temperatures, we set the parameter
   show_T = true
 </pre>
 <p>
-Its default value is <code>false</code>, as this setting can lead to faster computation
-in large system models in which the flow rate crosses zero, because crossing zero
-triggers the numerical solution for a state-event which can be computationally expensive.
+Its default value is <code>false</code>.
 </p>
 <p>
 To use prescribed initial values for the state variables of the cooling coil, we set

@@ -46,7 +46,7 @@ model Borefields
     tau=0)
     "Outlet temperature of the borefield with 2-UTube in parallel configuration"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
-  Buildings.Fluid.Geothermal.Borefields.Data.Borefield.Example borFieUTubDat(
+  parameter Buildings.Fluid.Geothermal.Borefields.Data.Borefield.Example borFieUTubDat(
     conDat=Buildings.Fluid.Geothermal.Borefields.Data.Configuration.Example(
     borCon=Buildings.Fluid.Geothermal.Borefields.Types.BoreholeConfiguration.SingleUTube))
     annotation (Placement(transformation(extent={{70,-100},{90,-80}})));
@@ -88,7 +88,7 @@ model Borefields
     tau=0)
     "Outlet temperature of the borefield with 2-UTube in serie configuration"
     annotation (Placement(transformation(extent={{42,50},{62,70}})));
-  Buildings.Fluid.Geothermal.Borefields.Data.Borefield.Example borFie2UTubParDat(
+  parameter Buildings.Fluid.Geothermal.Borefields.Data.Borefield.Example borFie2UTubParDat(
     conDat=Buildings.Fluid.Geothermal.Borefields.Data.Configuration.Example(
     borCon=Buildings.Fluid.Geothermal.Borefields.Types.BoreholeConfiguration.DoubleUTubeParallel))
     "Data from the borefield with 2-UTube in parallel borehole configuration"
@@ -129,7 +129,7 @@ model Borefields
     tau=0)
     "Inlet temperature of the borefield with UTube configuration"
     annotation (Placement(transformation(extent={{40,-70},{60,-50}})));
-  Buildings.Fluid.Geothermal.Borefields.Data.Borefield.Example borFie2UTubSerDat(
+  parameter Buildings.Fluid.Geothermal.Borefields.Data.Borefield.Example borFie2UTubSerDat(
     conDat=Buildings.Fluid.Geothermal.Borefields.Data.Configuration.Example(
     borCon=Buildings.Fluid.Geothermal.Borefields.Types.BoreholeConfiguration.DoubleUTubeSeries))
     "Data from the borefield with 2-UTube in serie borehole configuration"
@@ -171,6 +171,11 @@ the thermal behaviour of the circulating fluid in each case.
 </html>",
 revisions="<html>
 <ul>
+<li>
+April 8, 2021, by Michael Wetter:<br/>
+Added missing <code>parameter</code> keyword.<br/>
+For <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1464\">IBPSA, issue 1464</a>.
+</li>
 <li>
 June 2018, by Damien Picard:<br/>
 First implementation.

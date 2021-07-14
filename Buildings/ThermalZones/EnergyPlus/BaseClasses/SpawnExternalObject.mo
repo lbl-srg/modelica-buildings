@@ -5,7 +5,8 @@ class SpawnExternalObject
   function constructor
     "Construct to connect to a thermal zone in EnergyPlus"
     extends Modelica.Icons.Function;
-    input Integer objectType "Type of the object (1: ThermalZone, 2: Schedule, 3: Actuator)";
+    input Integer objectType
+      "Type of the object (1: ThermalZone, 2: Schedule, 3: Actuator, 4: Surface)";
     input Modelica.SIunits.Time startTime
       "Start time of the simulation";
     input String modelicaNameBuilding
@@ -16,6 +17,8 @@ class SpawnExternalObject
       "Name of the IDF";
     input String weaName
       "Name of the weather file";
+    input Real relativeSurfaceTolerance
+      "Relative tolerance of surface temperature calculations";
     input String epName
       "Name of the object in EnergyPlus";
     input Boolean usePrecompiledFMU
@@ -26,22 +29,36 @@ class SpawnExternalObject
       "Root directory of the Buildings library (used to find the spawn executable)";
     input Buildings.ThermalZones.EnergyPlus.Types.LogLevels logLevel
       "LogLevels of EnergyPlus output";
-    input Boolean printUnit "Set to true to print units for OutputVariable object. Must be false for all other objects";
-    input String jsonName "Name of the object in the json configuration file";
-    input String jsonKeysValues "Keys and values string to be written to the json configuration file";
-    input String parOutNames[nParOut] "Names of parameter in modelDescription.xml file";
-    input String parOutUnits[nParOut] "Modelica units of the parameters";
-    input Integer nParOut "Number of parameters";
-    input String inpNames[nInp] "Names of inputs in modelDescription.xml file";
-    input String inpUnits[nInp] "Modelica units of the inputs";
-    input Integer nInp "Size of inpNames";
-    input String outNames[nOut] "Names of outputs in modelDescription.xml file";
-    input String outUnits[nOut] "Modelica units of the outputs";
-    input Integer nOut "Size of outNames";
-    input Integer derivatives_structure[nDer, 2] "List of derivatives (1-based index, [i,j] means dy_i/du_j";
-    input Integer nDer "Size of derivatives";
-    input Real derivatives_delta[nDer] "Increments for derivative calculation";
-
+    input Boolean printUnit
+      "Set to true to print units for OutputVariable object. Must be false for all other objects";
+    input String jsonName
+      "Name of the object in the json configuration file";
+    input String jsonKeysValues
+      "Keys and values string to be written to the json configuration file";
+    input String parOutNames[nParOut]
+      "Names of parameter in modelDescription.xml file";
+    input String parOutUnits[nParOut]
+      "Modelica units of the parameters";
+    input Integer nParOut
+      "Number of parameters";
+    input String inpNames[nInp]
+      "Names of inputs in modelDescription.xml file";
+    input String inpUnits[nInp]
+      "Modelica units of the inputs";
+    input Integer nInp
+      "Size of inpNames";
+    input String outNames[nOut]
+      "Names of outputs in modelDescription.xml file";
+    input String outUnits[nOut]
+      "Modelica units of the outputs";
+    input Integer nOut
+      "Size of outNames";
+    input Integer derivatives_structure[nDer,2]
+      "List of derivatives (1-based index, [i,j] means dy_i/du_j";
+    input Integer nDer
+      "Size of derivatives";
+    input Real derivatives_delta[nDer]
+      "Increments for derivative calculation";
     output SpawnExternalObject adapter;
   external "C" adapter=ModelicaSpawnAllocate(
     objectType,
@@ -50,6 +67,7 @@ class SpawnExternalObject
     modelicaInstanceName,
     idfName,
     weaName,
+    relativeSurfaceTolerance,
     epName,
     usePrecompiledFMU,
     fmuName,
@@ -75,9 +93,10 @@ class SpawnExternalObject
     nDer,
     derivatives_delta,
     nDer)
-    annotation (Include="#include <EnergyPlusWrapper.c>",
-    IncludeDirectory="modelica://Buildings/Resources/C-Sources",
-    Library={"ModelicaBuildingsEnergyPlus","fmilib_shared"});
+    annotation (
+      Include="#include <EnergyPlusWrapper.c>",
+      IncludeDirectory="modelica://Buildings/Resources/C-Sources",
+      Library={"ModelicaBuildingsEnergyPlus","fmilib_shared"});
     annotation (
       Documentation(
         info="<html>
@@ -107,12 +126,11 @@ First implementation.
     "Release storage"
     extends Modelica.Icons.Function;
     input SpawnExternalObject adapter;
-  external "C" ModelicaSpawnFree(
-    adapter)
+  external "C" ModelicaSpawnFree(adapter)
     annotation (
       Include="#include <EnergyPlusWrapper.c>",
       IncludeDirectory="modelica://Buildings/Resources/C-Sources",
-      Library={"ModelicaBuildingsEnergyPlus", "fmilib_shared"});
+      Library={"ModelicaBuildingsEnergyPlus","fmilib_shared"});
     annotation (
       Documentation(
         info="<html>
