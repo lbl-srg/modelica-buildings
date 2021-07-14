@@ -78,7 +78,8 @@ model ModeSelector "Finite State Machine for the operational modes"
   Modelica.Blocks.Routing.RealPassThrough TRooAve "Average room temperature"
     annotation (Placement(transformation(extent={{-80,110},{-60,130}})));
   Modelica.Blocks.Sources.BooleanExpression booleanExpression(
-    y=TRooAve.y < TRooSetHeaOcc)
+    y=occThrSho.y and (TRooAve.y < TRooSetHeaOcc))
+    "Test that outputs true if room temperature is below occupied heating and system should be switched on soon"
     annotation (Placement(transformation(extent={{-198,-224},{-122,-200}})));
   PreCoolingStarter preCooSta(TRooSetCooOcc=TRooSetCooOcc)
     "Model to start pre-cooling"
