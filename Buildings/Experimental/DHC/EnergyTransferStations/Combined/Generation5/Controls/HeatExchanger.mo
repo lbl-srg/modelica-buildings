@@ -25,7 +25,8 @@ model HeatExchanger
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yPum2Hex(
     final unit="1")
     "District heat exchanger secondary pump control signal"
-    annotation (Placement(transformation(extent={{220,-40},{260,0}}),iconTransformation(extent={{100,-20},{140,20}})));
+    annotation (Placement(transformation(extent={{220,-20},{260,20}}),
+                                                                     iconTransformation(extent={{100,-20},{140,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yVal2Hex(
     final unit="1")
     "District heat exchanger secondary valve control signal"
@@ -112,9 +113,9 @@ equation
     annotation (Line(points={{-88,-20},{-80,-20},{-80,-8},{-62,-8}},
                                                                   color={255,0,255}));
   connect(min1.y,max1.u2)
-    annotation (Line(points={{62,-80},{78,-80},{78,-66},{88,-66}},  color={0,0,127}));
+    annotation (Line(points={{62,-80},{80,-80},{80,-66},{88,-66}},  color={0,0,127}));
   connect(swiOff2.y,yPum2Hex)
-    annotation (Line(points={{182,60},{194,60},{194,-20},{240,-20}},  color={0,0,127}));
+    annotation (Line(points={{182,60},{190,60},{190,0},{240,0}},      color={0,0,127}));
   connect(one.y,mapSpe.x2)
     annotation (Line(points={{62,20},{70,20},{70,56},{88,56}},    color={0,0,127}));
   connect(one.y,mapSpe.f2)
@@ -147,7 +148,8 @@ equation
   connect(and2.y,swiOff2.u2)
     annotation (Line(points={{-38,0},{-20,0},{-20,40},{130,40},{130,60},{158,60}},      color={255,0,255}));
   connect(u, max1.u1)
-    annotation (Line(points={{-240,40},{-180,40},{-180,60},{84,60},{84,-54},{88,-54}},     color={0,0,127}));
+    annotation (Line(points={{-240,40},{-200,40},{-200,-60},{80,-60},{80,-54},{
+          88,-54}},                                                                        color={0,0,127}));
   connect(yValIso[1], heaRej.u)
     annotation (Line(points={{-240,-50},{-238,-40},{-180,-40},{-180,0},{-172,0}}, color={0,0,127}));
   connect(yValIso[2], cooRej.u) annotation (Line(points={{-240,-30},{-240,-40},{-172,-40}}, color={0,0,127}));
@@ -160,6 +162,11 @@ equation
     Documentation(
       revisions="<html>
 <ul>
+<li>
+July 14, 2021, by Antoine Gautier:<br/>
+Updated the control logic.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2561\">issue #2561</a>.
+</li>
 <li>
 July 31, 2020, by Antoine Gautier:<br/>
 First implementation.

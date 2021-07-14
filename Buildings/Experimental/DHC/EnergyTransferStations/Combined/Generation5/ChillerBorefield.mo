@@ -343,7 +343,7 @@ equation
 <ul>
 <li>
 July 14, 2021, by Antoine Gautier:<br/>
-Added optional waterside economizer and included pressure boundary condition.<br/>
+Added optional waterside economizer.<br/>
 This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2561\">issue #2561</a>.
 </li>
 <li>
@@ -400,11 +400,6 @@ This will significantly improve the system performance as it is a
 necessary condition for the chiller to be operated at a lower lift, see
 <a href=\"modelica://Buildings.Experimental.DHC.EnergyTransferStations.Combined.Generation5.Controls.Reset\">
 Buildings.Experimental.DHC.EnergyTransferStations.Combined.Generation5.Controls.Reset</a>.
-</p>
-<p>
-Also note that the model includes a pressure boundary condition which
-is shared between the hot water and chilled water circuits, the two circuits
-being hydronically connected.
 <br/>
 </p>
 <p>

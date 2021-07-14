@@ -345,8 +345,10 @@ as the connections are in parallel.
 </li>
 </ul>
 <p>
-Eventually, note that this hydronic layout is not compatible with a
-compressor-less cooling mode using only the district heat exchanger.
+Note that the model includes a pressure boundary condition which
+is shared between the hot water and chilled water circuits, the two circuits
+being hydronically connected.
+<br/>
 </p>
 <p>
 <img alt=\"Sequence chart\"
@@ -355,6 +357,11 @@ src=\"modelica://Buildings/Resources/Images/Experimental/DHC/EnergyTransferStati
 </html>",
 revisions="<html>
 <ul>
+<li>
+July 14, 2021, by Antoine Gautier:<br/>
+Added pressure boundary condition.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2561\">issue #2561</a>.
+</li>
 <li>
 December 21, 2020, by Antoine Gautier:<br/>
 Added outputs for distributed energy flow rate.

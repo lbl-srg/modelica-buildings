@@ -255,6 +255,11 @@ equation
       revisions="<html>
 <ul>
 <li>
+July 14, 2021, by Antoine Gautier:<br/>
+Refactored after updating the control logic.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2561\">issue #2561</a>.
+</li>
+<li>
 July 31, 2020, by Antoine Gautier:<br/>
 First implementation.
 </li>
