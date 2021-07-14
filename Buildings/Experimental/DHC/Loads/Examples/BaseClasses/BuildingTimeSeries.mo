@@ -26,38 +26,41 @@ model BuildingTimeSeries
     annotation(Dialog(enable=have_chiWat, group="Scaling"));
   parameter Modelica.SIunits.Temperature T_aHeaWat_nominal=313.15
     "Heating water inlet temperature at nominal conditions"
-    annotation (Dialog(group="Nominal condition"));
+    annotation (Dialog(group="Nominal condition", enable=have_heaWat));
   parameter Modelica.SIunits.Temperature T_bHeaWat_nominal(
     min=273.15,
     displayUnit="degC")=T_aHeaWat_nominal-5
     "Heating water outlet temperature at nominal conditions"
-    annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.SIunits.Temperature T_aChiWat_nominal=291.15
+    annotation (Dialog(group="Nominal condition", enable=have_heaWat));
+  parameter Modelica.SIunits.Temperature T_aChiWat_nominal=280.15
     "Chilled water inlet temperature at nominal conditions "
-    annotation (Dialog(group="Nominal condition"));
+    annotation (Dialog(group="Nominal condition", enable=have_chiWat));
   parameter Modelica.SIunits.Temperature T_bChiWat_nominal(
     min=273.15,
     displayUnit="degC")=T_aChiWat_nominal+5
     "Chilled water outlet temperature at nominal conditions"
-    annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.SIunits.Temperature T_aLoaHea_nominal=273.15 + 20
+    annotation (Dialog(group="Nominal condition", enable=have_chiWat));
+  parameter Modelica.SIunits.Temperature T_aLoaHea_nominal=293.15
     "Load side inlet temperature at nominal conditions in heating mode"
     annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.SIunits.Temperature T_aLoaCoo_nominal=273.15 + 24
+  parameter Modelica.SIunits.Temperature T_aLoaCoo_nominal=297.15
     "Load side inlet temperature at nominal conditions in cooling mode"
-    annotation (Dialog(group="Nominal condition"));
+    annotation (Dialog(group="Nominal condition", enable=have_chiWat));
+  parameter Modelica.SIunits.MassFraction w_aLoaCoo_nominal=0.0095
+    "Load side inlet humidity ratio at nominal conditions in cooling mode"
+    annotation (Dialog(group="Nominal condition", enable=have_chiWat));
   parameter Modelica.SIunits.MassFlowRate mLoaHea_flow_nominal=1
     "Load side mass flow rate at nominal conditions in heating mode (single unit)"
-    annotation (Dialog(group="Nominal condition"));
+    annotation (Dialog(group="Nominal condition", enable=have_heaWat));
   parameter Modelica.SIunits.MassFlowRate mLoaCoo_flow_nominal=mLoaHea_flow_nominal
     "Load side mass flow rate at nominal conditions in cooling mode (single unit)"
-    annotation (Dialog(group="Nominal condition"));
+    annotation (Dialog(group="Nominal condition", enable=have_chiWat));
   parameter Modelica.SIunits.HeatFlowRate QCoo_flow_nominal(
     max=-Modelica.Constants.eps)=Buildings.Experimental.DHC.Loads.BaseClasses.getPeakLoad(
     string="#Peak space cooling load",
     filNam=Modelica.Utilities.Files.loadResource(filNam))
     "Design cooling heat flow rate (<=0)"
-    annotation (Dialog(group="Nominal condition"));
+    annotation (Dialog(group="Nominal condition", enable=have_chiWat));
   parameter Modelica.SIunits.HeatFlowRate QHea_flow_nominal(
     min=Modelica.Constants.eps)=Buildings.Experimental.DHC.Loads.BaseClasses.getPeakLoad(
     string="#Peak space heating load",
@@ -176,7 +179,10 @@ model BuildingTimeSeries
     final mLoaCoo_flow_nominal=mLoaCoo_flow_nominal,
     final T_aChiWat_nominal=T_aChiWat_nominal,
     final T_bChiWat_nominal=T_bChiWat_nominal,
-    final T_aLoaCoo_nominal=T_aLoaCoo_nominal)
+    final T_aLoaCoo_nominal=T_aLoaCoo_nominal,
+    final w_aLoaCoo_nominal=w_aLoaCoo_nominal,
+    final TRooHea_nominal=T_aLoaHea_nominal,
+    final QRooHea_flow_nominal=QHea_flow_nominal/facMulCoo)
     "Cooling terminal unit"
     annotation (Placement(transformation(extent={{70,36},{90,56}})));
   Buildings.Controls.OBC.CDL.Continuous.Add addPPum

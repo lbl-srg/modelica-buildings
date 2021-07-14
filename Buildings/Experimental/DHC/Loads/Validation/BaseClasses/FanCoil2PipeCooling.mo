@@ -28,8 +28,8 @@ model FanCoil2PipeCooling
   parameter Modelica.SIunits.Time Ti(
     min=Modelica.Constants.small)=10
     "Time constant of integrator block";
-  parameter Modelica.SIunits.PressureDifference dpLoa_nominal(
-    displayUnit="Pa") = 250
+  parameter Modelica.SIunits.PressureDifference dpLoa_nominal(displayUnit="Pa")=
+     250
     "Load side pressure drop"
     annotation(Dialog(group="Nominal condition"));
   final parameter hexConfiguration hexConCoo=hexConfiguration.CounterFlow
@@ -37,6 +37,13 @@ model FanCoil2PipeCooling
   parameter Boolean have_speVar=true
     "Set to true for a variable speed fan (otherwise fan is always on)"
     annotation (Evaluate=true, Dialog(group="Configuration"));
+  parameter Modelica.SIunits.HeatFlowRate QRooHea_flow_nominal(
+    min=0)=0
+    "Nominal heating load (for room air temperature prediction)"
+    annotation (Dialog(group="Nominal condition"));
+  parameter Modelica.SIunits.Temperature TRooHea_nominal=21.1 + 273.15
+    "Room temperature at heating nominal conditions (for room air temperature prediction)"
+    annotation (Dialog(group="Nominal condition"));
   Buildings.Controls.OBC.CDL.Continuous.PIDWithReset con(
     final k=k,
     final Ti=Ti,
@@ -55,7 +62,7 @@ model FanCoil2PipeCooling
     final dp_nominal=dpLoa_nominal)
     "Fan"
     annotation (Placement(transformation(extent={{50,-10},{30,10}})));
-  Fluid.HeatExchangers.WetCoilEffectivenessNTU           hexWetNtu(
+  Fluid.HeatExchangers.WetCoilEffectivenessNTU hexWetNtu(
     redeclare final package Medium1=Medium1,
     redeclare final package Medium2=Medium2,
     final configuration=hexConCoo,
@@ -69,14 +76,15 @@ model FanCoil2PipeCooling
     final T_a2_nominal=T_aLoaCoo_nominal,
     final allowFlowReversal1=allowFlowReversal,
     final allowFlowReversal2=allowFlowReversalLoa,
-    w_a2_nominal=w_aLoaCoo_nominal)
+    final w_a2_nominal=w_aLoaCoo_nominal)
     "Cooling coil"
     annotation (Placement(transformation(extent={{-80,4},{-60,-16}})));
   Buildings.Controls.OBC.CDL.Continuous.Gain gaiMasFlo(
     k=mChiWat_flow_nominal)
     "Scale water flow rate"
     annotation (Placement(transformation(extent={{40,210},{60,230}})));
-  Modelica.Blocks.Sources.RealExpression Q_flowCoo(y=hexWetNtu.Q2_flow)
+  Modelica.Blocks.Sources.RealExpression Q_flowCoo(
+    final y=hexWetNtu.Q2_flow)
     annotation (Placement(transformation(extent={{120,190},{140,210}})));
   Buildings.Controls.OBC.CDL.Continuous.Gain gaiFloNom2(
     k=mLoaCoo_flow_nominal)
@@ -96,8 +104,9 @@ model FanCoil2PipeCooling
     annotation (Placement(transformation(extent={{10,-10},{-10,10}},rotation=0,origin={112,0})));
   Buildings.Experimental.DHC.Loads.SimpleRoomODE TLoaODE(
     TOutHea_nominal=273.15 - 5,
-    TIndHea_nominal=T_aLoaHea_nominal,
-    QHea_flow_nominal=QHea_flow_nominal)
+    final TIndHea_nominal=TRooHea_nominal,
+    final QHea_flow_nominal=QRooHea_flow_nominal)
+    "Predicted room air temperature"
     annotation (Placement(transformation(extent={{-10,30},{10,50}})));
   Buildings.Controls.OBC.CDL.Continuous.Gain gaiHeaFlo(
     k=1/QCoo_flow_nominal)

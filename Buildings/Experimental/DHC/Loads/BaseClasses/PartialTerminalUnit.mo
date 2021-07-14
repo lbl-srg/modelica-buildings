@@ -104,7 +104,7 @@ partial model PartialTerminalUnit
     "Load side inlet temperature at nominal conditions in cooling mode"
     annotation (Dialog(group="Nominal condition",enable=have_chiWat));
 
-  parameter Modelica.SIunits.Temperature w_aLoaCoo_nominal=0.011
+  parameter Modelica.SIunits.MassFraction w_aLoaCoo_nominal=0.011
     "Load side inlet humidity ratio at nominal conditions in cooling mode"
     annotation (Dialog(group="Nominal condition",enable=have_chiWat));
   // IO connectors
