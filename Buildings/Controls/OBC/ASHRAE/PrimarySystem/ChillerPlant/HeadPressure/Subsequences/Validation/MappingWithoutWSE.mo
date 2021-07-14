@@ -6,7 +6,7 @@ model MappingWithoutWSE
     "Specify setpoints for plant with constant speed condenser water pumps"
     annotation (Placement(transformation(extent={{0,30},{20,50}})));
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.HeadPressure.Subsequences.MappingWithoutWSE
-    varPumSpe(final fixSpePum=false)
+    varPumSpe(final fixSpeConWatPum=false)
     "Specify setpoints for plant with constant speed condenser water pumps"
     annotation (Placement(transformation(extent={{0,-50},{20,-30}})));
 
@@ -23,15 +23,15 @@ protected
 
 equation
   connect(conLoo.y, fixPumSpe.uHeaPreCon)
-    annotation (Line(points={{-39,60},{-20,60},{-20,48},{-2,48}}, color={0,0,127}));
+    annotation (Line(points={{-38,60},{-20,60},{-20,48},{-2,48}}, color={0,0,127}));
   connect(enaPreCon.y, fixPumSpe.uHeaPreEna)
-    annotation (Line(points={{-39,0},{-12,0},{-12,32},{-2,32}}, color={255,0,255}));
+    annotation (Line(points={{-38,0},{-12,0},{-12,32},{-2,32}}, color={255,0,255}));
   connect(conLoo.y, varPumSpe.uHeaPreCon)
-    annotation (Line(points={{-39,60},{-20,60},{-20,-32},{-2,-32}}, color={0,0,127}));
+    annotation (Line(points={{-38,60},{-20,60},{-20,-32},{-2,-32}}, color={0,0,127}));
   connect(enaPreCon.y, varPumSpe.uHeaPreEna)
-    annotation (Line(points={{-39,0},{-12,0},{-12,-48},{-2,-48}}, color={255,0,255}));
+    annotation (Line(points={{-38,0},{-12,0},{-12,-48},{-2,-48}}, color={255,0,255}));
   connect(desPumSpe.y, varPumSpe.desConWatPumSpe)
-    annotation (Line(points={{-39,-40},{-2,-40}}, color={0,0,127}));
+    annotation (Line(points={{-38,-40},{-2,-40}}, color={0,0,127}));
 
 annotation (
   experiment(StopTime=5.0, Tolerance=1e-06),

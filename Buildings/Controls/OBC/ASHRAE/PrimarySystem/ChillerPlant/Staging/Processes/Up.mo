@@ -2,8 +2,11 @@
 block Up "Sequence for control devices when there is stage-up command"
 
   parameter Integer nChi=2 "Total number of chillers in the plant";
+  parameter Integer nConWatPum=2 "Total number of condenser water pumps";
   parameter Integer totSta=6
     "Total number of stages, including the stages with a WSE, if applicable";
+  parameter Integer chiSta=3
+    "Total number of chiller stages, including stage zero but not the stages with a WSE, if applicable";
   parameter Boolean have_WSE=true
     "True: have waterside economizer";
   parameter Boolean have_PonyChiller=false
@@ -12,6 +15,8 @@ block Up "Sequence for control devices when there is stage-up command"
     "True: the plant has parallel chillers";
   parameter Boolean have_heaPum=true
     "True: headered condenser water pumps";
+  parameter Boolean fixSpeConWatPum=true
+    "True: fixed speed condenser water pump";
   parameter Real chiDemRedFac=0.75
     "Demand reducing factor of current operating chillers"
     annotation (Dialog(group="Limit chiller demand"));
@@ -49,11 +54,14 @@ block Up "Sequence for control devices when there is stage-up command"
     "Chiller stage vector, element value like x.5 means chiller stage x plus WSE"
     annotation (Dialog(group="Enable condenser water pump"));
   parameter Real desConWatPumSpe[totSta]={0,0.5,0.75,0.6,0.75,0.9}
-    "Design condenser water pump speed setpoints, the size should be double of total stage numbers"
+    "Design condenser water pump speed setpoints, according to current chiller stage and WSE status"
     annotation (Dialog(group="Enable condenser water pump"));
   parameter Real desConWatPumNum[totSta]={0,1,1,2,2,2}
-    "Design number of condenser water pumps that should be ON, the size should be double of total stage numbers"
+    "Design number of condenser water pumps that should be ON, according to current chiller stage and WSE status"
     annotation (Dialog(group="Enable condenser water pump"));
+  parameter Real desChiNum[chiSta]={0,1,2}
+    "Design number of chiller that should be ON, according to current chiller stage"
+    annotation (Dialog(group="Enable condenser water pump", enable=fixSpeConWatPum));
   parameter Real thrTimEnb(
     final unit="s",
     final quantity="Time",
@@ -93,9 +101,8 @@ block Up "Sequence for control devices when there is stage-up command"
     "Vector of chillers status setpoint"
     annotation (Placement(transformation(extent={{-280,200},{-240,240}}),
       iconTransformation(extent={{-140,140},{-100,180}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput uChiLoa[nChi](
-    final quantity=fill("HeatFlowRate", nChi),
-    final unit=fill("W", nChi))
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput uChiLoa[nChi](final quantity=
+        fill("ElectricCurrent", nChi), final unit=fill("A", nChi))
     "Current chiller load"
     annotation (Placement(transformation(extent={{-280,150},{-240,190}}),
       iconTransformation(extent={{-140,100},{-100,140}})));
@@ -128,27 +135,31 @@ block Up "Sequence for control devices when there is stage-up command"
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uConWatPumSpeSet(
     final min=0,
     final max=1,
-    final unit="1")
+    final unit="1") if not fixSpeConWatPum
     "Condenser water pump speed setpoint"
     annotation (Placement(transformation(extent={{-280,-90},{-240,-50}}),
       iconTransformation(extent={{-140,-100},{-100,-60}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uConWatPumSpe(
     final min=0,
     final max=1,
-    final unit="1")
+    final unit="1") if not fixSpeConWatPum
     "Current condenser water pump speed"
     annotation (Placement(transformation(extent={{-280,-120},{-240,-80}}),
-      iconTransformation(extent={{-140,-130},{-100,-90}})));
+      iconTransformation(extent={{-140,-120},{-100,-80}})));
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uConWatPum[nConWatPum] if fixSpeConWatPum
+    "Status indicating if condenser water pump is running"
+    annotation (Placement(transformation(extent={{-280,-150},{-240,-110}}),
+        iconTransformation(extent={{-140,-140},{-100,-100}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uChiHeaCon[nChi]
     "Chillers head pressure control status"
-    annotation (Placement(transformation(extent={{-280,-150},{-240,-110}}),
-      iconTransformation(extent={{-140,-160},{-100,-120}})));
+    annotation (Placement(transformation(extent={{-280,-180},{-240,-140}}),
+      iconTransformation(extent={{-140,-170},{-100,-130}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uChiWatIsoVal[nChi](
     final min=fill(0, nChi),
     final max=fill(1, nChi),
     final unit=fill("1", nChi))
     "Chilled water isolation valve position"
-    annotation (Placement(transformation(extent={{-280,-180},{-240,-140}}),
+    annotation (Placement(transformation(extent={{-280,-210},{-240,-170}}),
       iconTransformation(extent={{-140,-190},{-100,-150}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uChiWatReq[nChi]
     "Chilled water requst status for each chiller"
@@ -158,9 +169,8 @@ block Up "Sequence for control devices when there is stage-up command"
     "Indicate if it is in stage-up process: true=in stage-up process"
     annotation (Placement(transformation(extent={{240,180},{280,220}}),
       iconTransformation(extent={{100,170},{140,210}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yChiDem[nChi](
-    final quantity=fill("HeatFlowRate", nChi),
-    final unit=fill("W", nChi))
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yChiDem[nChi](final quantity=
+       fill("ElectricCurrent", nChi), final unit=fill("A", nChi))
     "Chiller demand setpoint"
     annotation (Placement(transformation(extent={{240,140},{280,180}}),
       iconTransformation(extent={{100,130},{140,170}})));
@@ -182,7 +192,7 @@ block Up "Sequence for control devices when there is stage-up command"
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yDesConWatPumSpe(
     final min=0,
     final max=1,
-    final unit="1")
+    final unit="1") if not fixSpeConWatPum
     "Condenser water pump design speed at current stage"
     annotation (Placement(transformation(extent={{240,-30},{280,10}}),
       iconTransformation(extent={{100,-30},{140,10}})));
@@ -241,11 +251,14 @@ protected
     conWatPumCon(
     final have_heaPum=have_heaPum,
     final have_WSE=have_WSE,
+    fixSpe=fixSpeConWatPum,
     final nChi=nChi,
     final totSta=totSta,
+    chiSta=chiSta,
     final staVec=staVec,
     final desConWatPumSpe=desConWatPumSpe,
     final desConWatPumNum=desConWatPumNum,
+    final desChiNum=desChiNum,
     final relSpeDif=relSpeDif)
     "Enabling next condenser water pump or change pump speed"
     annotation (Placement(transformation(extent={{60,-20},{80,0}})));
@@ -343,13 +356,13 @@ equation
     annotation (Line(points={{-118,200},{-100,200},{-100,42},{-2,42}},
       color={255,0,255}));
   connect(conWatPumCon.uWSE, uWSE)
-    annotation (Line(points={{58,-14},{-4,-14},{-4,-40},{-260,-40}},
+    annotation (Line(points={{58,-12},{-6,-12},{-6,-40},{-260,-40}},
       color={255,0,255}));
   connect(conWatPumCon.uConWatPumSpe, uConWatPumSpe)
-    annotation (Line(points={{58,-19},{4,-19},{4,-100},{-260,-100}},
+    annotation (Line(points={{58,-17},{2,-17},{2,-100},{-260,-100}},
       color={0,0,127}));
   connect(enaNexCWP.yChiSta, conWatPumCon.uChiSta)
-    annotation (Line(points={{22,40},{40,40},{40,-11},{58,-11}},
+    annotation (Line(points={{22,40},{40,40},{40,-9},{58,-9}},
       color={255,127,0}));
   connect(lat.y, enaHeaCon.chaPro)
     annotation (Line(points={{-118,200},{-100,200},{-100,-86},{58,-86}},
@@ -361,7 +374,7 @@ equation
     annotation (Line(points={{-58,229},{-36,229},{-36,-142},{58,-142}},
       color={255,127,0}));
   connect(enaChiIsoVal.uChiWatIsoVal, uChiWatIsoVal)
-    annotation (Line(points={{58,-145},{-96,-145},{-96,-160},{-260,-160}},
+    annotation (Line(points={{58,-145},{-96,-145},{-96,-190},{-260,-190}},
       color={0,0,127}));
   connect(lat.y, enaChiIsoVal.chaPro)
     annotation (Line(points={{-118,200},{-100,200},{-100,-158},{58,-158}},
@@ -379,7 +392,7 @@ equation
     annotation (Line(points={{18,-220},{-260,-220}},
       color={255,0,255}));
   connect(endUp.uChiWatIsoVal, uChiWatIsoVal)
-    annotation (Line(points={{18,-222},{-96,-222},{-96,-160},{-260,-160}},
+    annotation (Line(points={{18,-222},{-96,-222},{-96,-190},{-260,-190}},
       color={0,0,127}));
   connect(uConWatReq, endUp.uConWatReq)
     annotation (Line(points={{-260,-10},{-164,-10},{-164,-224},{18,-224}},
@@ -476,16 +489,16 @@ equation
     annotation (Line(points={{58,0},{48,0},{48,60},{-260,60}},
       color={255,0,255}));
   connect(mulOr.y, conWatPumCon.uLeaChiSta)
-    annotation (Line(points={{-58,10},{44,10},{44,-5},{58,-5}},
+    annotation (Line(points={{-58,10},{44,10},{44,-4},{58,-4}},
       color={255,0,255}));
   connect(mulOr.y, conWatPumCon.uLeaChiEna)
-    annotation (Line(points={{-58,10},{44,10},{44,-3},{58,-3}},
+    annotation (Line(points={{-58,10},{44,10},{44,-2},{58,-2}},
       color={255,0,255}));
   connect(mulOr1.y, conWatPumCon.uLeaConWatReq)
-    annotation (Line(points={{-58,-20},{-8,-20},{-8,-8},{58,-8}},
+    annotation (Line(points={{-58,-20},{-10,-20},{-10,-6},{58,-6}},
       color={255,0,255}));
   connect(conWatPumCon.uConWatPumSpeSet, uConWatPumSpeSet)
-    annotation (Line(points={{58,-17},{0,-17},{0,-70},{-260,-70}},
+    annotation (Line(points={{58,-15},{-2,-15},{-2,-70},{-260,-70}},
       color={0,0,127}));
   connect(conWatPumCon.yConWatPumNum, yConWatPumNum)
     annotation (Line(points={{82,-13},{220,-13},{220,-40},{260,-40}},
@@ -552,10 +565,12 @@ equation
   connect(uChiSta, enaNexCWP.uChiSta) annotation (Line(points={{-260,30},{-180,30},
           {-180,35},{-2,35}}, color={255,127,0}));
   connect(enaHeaCon.uChiHeaCon, uChiHeaCon) annotation (Line(points={{58,-98},{-48,
-          -98},{-48,-130},{-260,-130}}, color={255,0,255}));
-  connect(uChiHeaCon, endUp.uChiHeaCon) annotation (Line(points={{-260,-130},{-48,
-          -130},{-48,-226},{18,-226}}, color={255,0,255}));
+          -98},{-48,-160},{-260,-160}}, color={255,0,255}));
+  connect(uChiHeaCon, endUp.uChiHeaCon) annotation (Line(points={{-260,-160},{-48,
+          -160},{-48,-226},{18,-226}}, color={255,0,255}));
 
+  connect(conWatPumCon.uConWatPum, uConWatPum) annotation (Line(points={{58,-19},
+          {6,-19},{6,-130},{-260,-130}}, color={255,0,255}));
 annotation (
   defaultComponentName="upProCon",
   Diagram(coordinateSystem(preserveAspectRatio=false,
@@ -621,7 +636,7 @@ annotation (
           pattern=LinePattern.Dash,
           textString="uConWatPumSpeSet"),
         Text(
-          extent={{-96,-102},{-22,-116}},
+          extent={{-96,-92},{-22,-106}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="uConWatPumSpe"),
@@ -683,9 +698,13 @@ annotation (
           lineColor={255,127,0},
           textString="uChiSta"),
         Text(
-          extent={{-98,-134},{-48,-146}},
+          extent={{-98,-144},{-48,-156}},
           lineColor={255,0,255},
-          textString="uChiHeaCon")}),
+          textString="uChiHeaCon"),
+        Text(
+          extent={{-96,-112},{-38,-126}},
+          lineColor={255,0,255},
+          textString="uConWatPum")}),
 Documentation(info="<html>
 <p>
 Block that controls devices when there is a stage-up command. This sequence is for
