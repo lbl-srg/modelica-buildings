@@ -270,8 +270,8 @@ First implementation.
       info="<html>
 <p>
 This model validates
-<a href=\"modelica://Buildings.Experimental.DHC.EnergyTransferStations.Combined.Generation5.Subsystems.WatersideEconommizer\">
-Buildings.Experimental.DHC.EnergyTransferStations.Combined.Generation5.Subsystems.WatersideEconommizer</a>
+<a href=\"modelica://Buildings.Experimental.DHC.EnergyTransferStations.Combined.Generation5.Subsystems.WatersideEconomizer\">
+Buildings.Experimental.DHC.EnergyTransferStations.Combined.Generation5.Subsystems.WatersideEconomizer</a>
 in a configuration where the primary flow rate is modulated by means of a
 two-way valve (see <code>hexVal</code>), and in a configuration where the
 primary flow rate is modulated by means of a variable speed pump

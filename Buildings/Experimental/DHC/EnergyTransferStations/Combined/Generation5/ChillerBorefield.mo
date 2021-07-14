@@ -382,6 +382,14 @@ for a detailed description.
 The borefield and district heat exchanger loops are equipped with
 variable speed pumps modulated by the supervisory controller.
 </li>
+<li>
+An optional waterside economizer can be instantiated in series with the chiller,
+on the chilled water return. It uses a dedicated heat exchanger, connected in 
+parallel with the main heat exchanger. See
+<a href=\"modelica://Buildings.Experimental.DHC.EnergyTransferStations.Combined.Generation5.Subsystems.WatersideEconomizer\">
+Buildings.Experimental.DHC.EnergyTransferStations.Combined.Generation5.Subsystems.WatersideEconomizer</a>
+for the operating principles and modeling assumptions.
+</li>
 </ul>
 <p>
 Note that the heating and cooling enable signals (<code>uHea</code> and <code>uCoo</code>)
@@ -392,6 +400,11 @@ This will significantly improve the system performance as it is a
 necessary condition for the chiller to be operated at a lower lift, see
 <a href=\"modelica://Buildings.Experimental.DHC.EnergyTransferStations.Combined.Generation5.Controls.Reset\">
 Buildings.Experimental.DHC.EnergyTransferStations.Combined.Generation5.Controls.Reset</a>.
+</p>
+<p>
+Also note that the model includes a pressure boundary condition which
+is shared between the hot water and chilled water circuits, the two circuits
+being hydronically connected.
 <br/>
 </p>
 <p>
