@@ -87,18 +87,20 @@ block ZoneStatusDuplicator "Duplicate zone status output"
     annotation (Placement(transformation(extent={{40,20},{80,60}}),
         iconTransformation(extent={{40,170},{80,210}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput ytNexOcc[nGro, nZon](
-    final unit=fill("s", nZon),
-    final quantity=fill("Time", nZon)) "Time to next occupied period"
+    final unit=fill("s", nGro, nZon),
+    final quantity=fill("Time", nGro, nZon)) "Time to next occupied period"
     annotation (Placement(transformation(extent={{40,-20},{80,20}}),
       iconTransformation(extent={{40,150},{80,190}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yCooTim[nGro,nZon](final unit=fill("s", nZon),
-      final quantity=fill("Time", nZon)) "Cool down time" annotation (
-      Placement(transformation(extent={{40,-60},{80,-20}}), iconTransformation(
-          extent={{40,110},{80,150}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yWarTim[nGro,nZon](final unit=fill("s", nZon),
-      final quantity=fill("Time", nZon)) "Warm-up time" annotation (Placement(
-        transformation(extent={{40,-100},{80,-60}}), iconTransformation(extent={
-            {40,90},{80,130}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yCooTim[nGro,nZon](
+    final unit=fill("s", nGro, nZon),
+    final quantity=fill("Time", nGro, nZon)) "Cool down time" 
+    annotation (Placement(transformation(extent={{40,-60},{80,-20}}), 
+      iconTransformation(extent={{40,110},{80,150}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yWarTim[nGro,nZon](
+    final unit=fill("s", nGro, nZon),
+    final quantity=fill("Time", nGro, nZon)) "Warm-up time" 
+    annotation (Placement(transformation(extent={{40,-100},{80,-60}}), 
+      iconTransformation(extent={{40,90},{80,130}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yOccHeaHig[nGro,nZon]
     "True when the zone temperature is lower than the occupied heating setpoint"
     annotation (Placement(transformation(extent={{40,-140},{80,-100}}),
@@ -112,9 +114,9 @@ block ZoneStatusDuplicator "Duplicate zone status output"
     annotation (Placement(transformation(extent={{40,-220},{80,-180}}),
         iconTransformation(extent={{40,-10},{80,30}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yTHeaSetOff[nGro, nZon](
-    final unit=fill("K", nZon),
-    displayUnit=fill("degC", nZon),
-    final quantity=fill("ThermodynamicTemperature", nZon))
+    final unit=fill("K", nGro, nZon),
+    displayUnit=fill("degC", nGro, nZon),
+    final quantity=fill("ThermodynamicTemperature", nGro, nZon))
     "Zone unoccupied heating setpoint"
     annotation (Placement(transformation(extent={{40,-260},{80,-220}}),
       iconTransformation(extent={{40,-30},{80,10}})));
@@ -127,9 +129,9 @@ block ZoneStatusDuplicator "Duplicate zone status output"
     annotation (Placement(transformation(extent={{40,-330},{80,-290}}),
         iconTransformation(extent={{40,-90},{80,-50}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yTCooSetOff[nGro, nZon](
-    final unit=fill("K", nZon),
-    displayUnit=fill("degC", nZon),
-    final quantity=fill("ThermodynamicTemperature", nZon))
+    final unit=fill("K", nGro, nZon),
+    displayUnit=fill("degC", nGro, nZon),
+    final quantity=fill("ThermodynamicTemperature", nGro, nZon))
     "Zone unoccupied cooling setpoint"
     annotation (Placement(transformation(extent={{40,-390},{80,-350}}),
       iconTransformation(extent={{40,-110},{80,-70}})));
@@ -138,9 +140,9 @@ block ZoneStatusDuplicator "Duplicate zone status output"
         transformation(extent={{40,-420},{80,-380}}), iconTransformation(extent=
            {{40,-130},{80,-90}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yTZon[nGro, nZon](
-    final unit=fill("K", nZon),
-    displayUnit=fill("degC", nZon),
-    final quantity=fill("ThermodynamicTemperature", nZon)) "Zone temperature"
+    final unit=fill("K", nGro, nZon),
+    displayUnit=fill("degC", nGro, nZon),
+    final quantity=fill("ThermodynamicTemperature", nGro, nZon)) "Zone temperature"
     annotation (Placement(transformation(extent={{40,-460},{80,-420}}),
       iconTransformation(extent={{40,-170},{80,-130}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yWin[nGro,nZon]
