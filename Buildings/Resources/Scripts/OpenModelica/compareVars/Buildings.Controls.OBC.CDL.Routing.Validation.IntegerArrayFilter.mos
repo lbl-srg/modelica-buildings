@@ -1,0 +1,8 @@
+compareVars :=
+  {
+    "intFil.u[1]",
+    "intFil.u[2]",
+    "intFil.u[3]",
+    "intFil.y[1]",
+    "intFil.y[2]"
+  };

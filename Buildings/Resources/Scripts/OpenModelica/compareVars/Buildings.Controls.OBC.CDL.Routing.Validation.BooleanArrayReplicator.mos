@@ -1,0 +1,7 @@
+compareVars :=
+  {
+    "booRep.u[1]",
+    "booRep.y[1, 1]",
+    "booRep.y[2, 2]",
+    "booRep.y[3, 2]"
+  };
