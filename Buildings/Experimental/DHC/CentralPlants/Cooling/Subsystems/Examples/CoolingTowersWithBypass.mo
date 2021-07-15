@@ -1,10 +1,11 @@
 within Buildings.Experimental.DHC.CentralPlants.Cooling.Subsystems.Examples;
-model CoolingTowerWithBypass
+model CoolingTowersWithBypass
   "Example model for parallel cooling towers with bypass valve"
   extends Modelica.Icons.Example;
   extends Buildings.Fluid.HeatExchangers.CoolingTowers.Examples.BaseClasses.PartialStaticTwoPortCoolingTower(
-    redeclare Buildings.Experimental.DHC.CentralPlants.Cooling.Subsystems.CoolingTowerWithBypass tow(
+    redeclare Buildings.Experimental.DHC.CentralPlants.Cooling.Subsystems.CoolingTowersWithBypass tow(
       use_inputFilter=false,
+      dpValve_nominal = 6000,
       dp_nominal(displayUnit="Pa") = 6000,
       TAirInWB_nominal=273.15 + 25.55,
       TWatIn_nominal=273.15 + 35,
@@ -37,7 +38,7 @@ equation
       StopTime=10540800,
       Tolerance=1e-06),
     __Dymola_Commands(
-      file="Resources/Scripts/Dymola/Experimental/DHC/CentralPlants/Cooling/Subsystems/Examples/CoolingTowerWithBypass.mos" "Simulate and Plot"),
+      file="Resources/Scripts/Dymola/Experimental/DHC/CentralPlants/Cooling/Subsystems/Examples/CoolingTowersWithBypass.mos" "Simulate and Plot"),
     Documentation(
       revisions="<html>
 <ul>
@@ -48,9 +49,6 @@ First implementation.
 </ul>
 </html>",
       info="<html>
-<p>
-This model validates the parallel connected cooling tower subsystem in 
-<a href=\"modelica://Buildings.Experimental.DHC.CentralPlants.Cooling.Subsystems.CoolingTowerWithBypass\">Buildings.Experimental.DHC.CentralPlants.Cooling.Subsystems.CoolingTowerWithBypass</a>.
-</p>
+<p>This model validates the parallel connected cooling tower subsystem in <a href=\"modelica://Buildings.Experimental.DHC.CentralPlants.Cooling.Subsystems.CoolingTowersWithBypass\">Buildings.Experimental.DHC.CentralPlants.Cooling.Subsystems.CoolingTowerWithBypass</a>.</p>
 </html>"));
-end CoolingTowerWithBypass;
+end CoolingTowersWithBypass;
