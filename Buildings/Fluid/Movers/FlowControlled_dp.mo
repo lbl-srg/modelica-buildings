@@ -9,7 +9,7 @@ model FlowControlled_dp
     final constInput(final unit="Pa") = constantHead,
     filter(
       final y_start=dp_start,
-      u_nominal=abs(dp_nominal),
+      x(each nominal=dp_nominal),
       u(final unit="Pa"),
       y(final unit="Pa")),
     eff(
@@ -63,8 +63,8 @@ model FlowControlled_dp
         rotation=90,
         origin={-80,120})));
 
-  Modelica.Blocks.Interfaces.RealInput dp_in(final unit="Pa") if
-    inputType == Buildings.Fluid.Types.InputType.Continuous
+  Modelica.Blocks.Interfaces.RealInput dp_in(final unit="Pa")
+ if inputType == Buildings.Fluid.Types.InputType.Continuous
     "Prescribed pressure rise"
     annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
@@ -83,19 +83,19 @@ protected
   Modelica.Blocks.Math.Gain gain(final k=-1)
     annotation (Placement(transformation(extent={{10,-10},{-10,10}},
         rotation=90,
-        origin={36,30})));
+        origin={44,30})));
 equation
   assert(inputSwitch.u >= -1E-3,
     "Pressure set point for mover cannot be negative. Obtained dp = " + String(inputSwitch.u));
 
   if use_inputFilter then
     connect(filter.y, gain.u) annotation (Line(
-      points={{34.7,88},{36,88},{36,42}},
+      points={{41,70.5},{44,70.5},{44,42}},
       color={0,0,127},
       smooth=Smooth.None));
   else
     connect(inputSwitch.y, gain.u) annotation (Line(
-      points={{1,50},{36,50},{36,42}},
+      points={{1,50},{44,50},{44,42}},
       color={0,0,127},
       smooth=Smooth.None));
   end if;
@@ -105,7 +105,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(preSou.dp_in, gain.y) annotation (Line(
-      points={{56,8},{56,14},{36,14},{36,19}},
+      points={{56,8},{56,14},{44,14},{44,19}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(senRelPre.p_rel, dp_actual) annotation (Line(points={{50.5,-26.35},{
@@ -163,6 +163,12 @@ Buildings.Fluid.Movers.Validation.FlowControlled_dpSystem</a>.
 </html>",
       revisions="<html>
 <ul>
+<li>
+June 17, 2021, by Michael Wetter:<br/>
+Changed implementation of the filter.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1498\">#1498</a>.
+</li>
 <li>
 February 21, 2020, by Michael Wetter:<br/>
 Changed icon to display its operating stage.<br/>
