@@ -96,8 +96,8 @@ block Controller "Chiller plant controller"
 
   //// Head pressure
 
-  parameter Boolean fixSpeConWatPum = true
-    "True: the plant has fixed speed condenser water pumps"
+  parameter Boolean fixSpeConWatPum = false
+    "True: the plant has fixed speed condenser water pumps. When the plant has waterside economizer, it must be false"
     annotation(Dialog(group="Pumps configuration", enable=not have_WSE));
 
   parameter Boolean have_HeaPreConSig = false
@@ -339,7 +339,7 @@ block Controller "Chiller plant controller"
   //// Staging setpoints
 
   parameter Boolean have_WSE=true
-    "true = plant has a WSE, false = plant does not have WSE"
+    "True if the plant has waterside economizer. When the plant has waterside economizer, the condenser water pump speed must be variable"
     annotation (Dialog(tab="General", group="Plant configuration"));
 
   parameter Boolean have_serChi = false
@@ -843,7 +843,7 @@ block Controller "Chiller plant controller"
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TOutWet(
     final unit="K",
     displayUnit="degC",
-    final quantity="ThermodynamicTemperature")
+    final quantity="ThermodynamicTemperature") if have_WSE
     "Outdoor air wet bulb temperature"
     annotation(Placement(transformation(extent={{-840,340},{-800,380}}),
       iconTransformation(extent={{-140,80},{-100,120}})));
@@ -875,7 +875,8 @@ block Controller "Chiller plant controller"
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TChiWatSup(
     final unit="K",
     displayUnit="degC",
-    final quantity="ThermodynamicTemperature") if not have_HeaPreConSig
+    final quantity="ThermodynamicTemperature")
+    if (not have_HeaPreConSig) or have_WSE
     "Measured chilled water supply temperature"
     annotation(Placement(transformation(extent={{-840,190},{-800,230}}),
       iconTransformation(extent={{-140,0},{-100,40}})));
@@ -908,7 +909,7 @@ block Controller "Chiller plant controller"
     final max=fill(1, nChi),
     final unit=fill("1", nChi))
     "Chilled water isolation valve position"
-    annotation(Placement(transformation(extent={{-840,-260},{-800,-220}}),
+    annotation(Placement(transformation(extent={{-840,-248},{-800,-208}}),
       iconTransformation(extent={{-140,-100},{-100,-60}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput chiWatSupResReq
@@ -938,7 +939,8 @@ block Controller "Chiller plant controller"
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uChiCooLoa[nChi](
     final quantity=fill("HeatFlowRate",nChi),
-    final unit=fill("W", nChi)) "Current chiller cooling load"
+    final unit=fill("W", nChi)) if have_WSE
+                                "Current chiller cooling load"
     annotation (Placement(transformation(extent={{-840,-560},{-800,-520}}),
       iconTransformation(extent={{-140,-200},{-100,-160}})));
 
@@ -978,13 +980,13 @@ block Controller "Chiller plant controller"
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yLeaChiWatPum
     "Lead pump status setpoint"
     annotation (Placement(transformation(extent={{800,560},{840,600}}),
-        iconTransformation(extent={{100,220},{140,260}})));
+        iconTransformation(extent={{100,240},{140,280}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yChiWatPum[nChiWatPum]
   if have_heaChiWatPum
     "Chilled water pump status setpoint"
     annotation(Placement(transformation(extent={{800,500},{840,540}}),
-      iconTransformation(extent={{100,190},{140,230}})));
+      iconTransformation(extent={{100,210},{140,250}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yChiPumSpe(
     final min=0,
@@ -992,27 +994,28 @@ block Controller "Chiller plant controller"
     final unit="1")
     "Enabled chilled water pump speed setpoint"
     annotation(Placement(transformation(extent={{800,466},{840,506}}),
-      iconTransformation(extent={{100,160},{140,200}})));
+      iconTransformation(extent={{100,180},{140,220}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yChiDem[nChi](
     final quantity=fill("ElectricCurrent",nChi),
     final unit=fill("A", nChi))
     "Chiller demand setpoint to set through BACnet or similar "
     annotation(Placement(transformation(extent={{800,400},{840,440}}),
-      iconTransformation(extent={{100,130},{140,170}})));
+      iconTransformation(extent={{100,150},{140,190}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yChi[nChi]
     "Chiller enabling status setpoint"
     annotation(Placement(transformation(extent={{800,330},{840,370}}),
-      iconTransformation(extent={{100,100},{140,140}})));
+      iconTransformation(extent={{100,120},{140,160}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yHeaPreConVal[nChi](
     final min=fill(0, nChi),
     final max=fill(1, nChi),
     final unit=fill("1", nChi))
+    if have_WSE or (not have_WSE and fixSpeConWatPum)
     "Head pressure control valve position"
     annotation (Placement(transformation(extent={{800,160},{840,200}}),
-      iconTransformation(extent={{100,70},{140,110}})));
+      iconTransformation(extent={{100,90},{140,130}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yConWatPumSpe(
     final unit=fill("1", nChi),
@@ -1020,19 +1023,19 @@ block Controller "Chiller plant controller"
     final max=fill(1, nChi)) if not fixSpeConWatPum
                              "Condenser water pump speed setpoint"
     annotation (Placement(transformation(extent={{800,130},{840,170}}),
-        iconTransformation(extent={{100,40},{140,80}})));
+        iconTransformation(extent={{100,60},{140,100}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yChiWatMinFloSet(
     final quantity="VolumeFlowRate",
     final unit="m3/s",
     final min=0) "Chilled water minimum flow setpoint"
     annotation (Placement(transformation(extent={{800,100},{840,140}}),
-      iconTransformation(extent={{100,12},{140,52}})));
+      iconTransformation(extent={{100,32},{140,72}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yConWatPum[nConWatPum]
     "Status setpoint of condenser water pump"
     annotation (Placement(transformation(extent={{800,46},{840,86}}),
-      iconTransformation(extent={{100,-20},{140,20}})));
+      iconTransformation(extent={{100,0},{140,40}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yChiWatIsoVal[nChi](
     final unit=fill("1", nChi),
@@ -1040,24 +1043,29 @@ block Controller "Chiller plant controller"
     final max=fill(1, nChi))
     "Chiller isolation valve position setpoints"
     annotation (Placement(transformation(extent={{800,-20},{840,20}}),
-        iconTransformation(extent={{100,-50},{140,-10}})));
+        iconTransformation(extent={{100,-70},{140,-30}})));
+
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yReaChiDemLim
+    "Release chiller demand limit"
+    annotation (Placement(transformation(extent={{800,-230},{840,-190}}),
+        iconTransformation(extent={{100,-40},{140,0}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yMinValPosSet(
     final min=0,
     final max=1,
     final unit="1") "Chilled water minimum flow bypass valve position setpoint"
     annotation (Placement(transformation(extent={{800,-340},{840,-300}}),
-        iconTransformation(extent={{100,-80},{140,-40}})));
+        iconTransformation(extent={{100,-100},{140,-60}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yNumCel
     "Total number of enabled cooling tower cells"
     annotation(Placement(transformation(extent={{800,-560},{840,-520}}),
-      iconTransformation(extent={{100,-110},{140,-70}})));
+      iconTransformation(extent={{100,-130},{140,-90}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yLeaCel
     "Lead tower cell status setpoint"
     annotation(Placement(transformation(extent={{800,-600},{840,-560}}),
-      iconTransformation(extent={{100,-140},{140,-100}})));
+      iconTransformation(extent={{100,-160},{140,-120}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yTowCelIsoVal[nTowCel](
     final min=fill(0, nTowCel),
@@ -1065,12 +1073,12 @@ block Controller "Chiller plant controller"
     final unit=fill("1", nTowCel))
     "Cooling tower cells isolation valve position"
     annotation (Placement(transformation(extent={{800,-640},{840,-600}}),
-      iconTransformation(extent={{100,-170},{140,-130}})));
+      iconTransformation(extent={{100,-190},{140,-150}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yTowCel[nTowCel]
     "Vector of tower cells status setpoint"
     annotation(Placement(transformation(extent={{800,-680},{840,-640}}),
-      iconTransformation(extent={{100,-200},{140,-160}})));
+      iconTransformation(extent={{100,-220},{140,-180}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yTowFanSpe[nTowCel](
     final min=fill(0, nTowCel),
@@ -1078,12 +1086,12 @@ block Controller "Chiller plant controller"
     final unit=fill("1", nTowCel))
     "Fan speed setpoint of each cooling tower cell"
     annotation (Placement(transformation(extent={{800,-720},{840,-680}}),
-      iconTransformation(extent={{100,-230},{140,-190}})));
+      iconTransformation(extent={{100,-250},{140,-210}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yMakUp
     "Makeup water valve On-Off status"
     annotation(Placement(transformation(extent={{800,-780},{840,-740}}),
-      iconTransformation(extent={{100,-260},{140,-220}})));
+      iconTransformation(extent={{100,-280},{140,-240}})));
 
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Economizers.Controller wseSta(
@@ -1338,6 +1346,7 @@ block Controller "Chiller plant controller"
     annotation(Placement(transformation(extent={{-640,-134},{-620,-114}})));
 
   Buildings.Controls.OBC.CDL.Continuous.MultiMax conWatPumSpe(nin=nConWatPum)
+    if not fixSpeConWatPum
     "Running condenser water pump speed"
     annotation (Placement(transformation(extent={{-560,-400},{-540,-380}})));
 
@@ -1364,12 +1373,12 @@ block Controller "Chiller plant controller"
     annotation (Placement(transformation(extent={{580,190},{600,210}})));
 
   Buildings.Controls.OBC.CDL.Routing.RealReplicator repDesConTem(final nout=nChi)
-    if not ((not have_WSE) and fixSpeConWatPum)
+    if not fixSpeConWatPum
     "Replicate design condenser water temperature"
     annotation (Placement(transformation(extent={{680,190},{700,210}})));
 
   Buildings.Controls.OBC.CDL.Continuous.MultiMin mulMin(nin=nChi)
-    if not ((not have_WSE) and fixSpeConWatPum)
+    if not fixSpeConWatPum
     annotation (Placement(transformation(extent={{-360,150},{-340,170}})));
 
   Buildings.Controls.OBC.CDL.Logical.Switch chiMinFloSet "Chiller water minimum flow setpoint"
@@ -1459,9 +1468,10 @@ block Controller "Chiller plant controller"
   Buildings.Controls.OBC.CDL.Logical.Switch chiDem[nChi] "Chiller demand"
     annotation (Placement(transformation(extent={{740,410},{760,430}})));
 
-  CDL.Continuous.Gain gai(final k=1) if not ((not have_WSE) and fixSpeConWatPum)
-    "Dummy gain so the connection could be disabled"
-    annotation (Placement(transformation(extent={{640,190},{660,210}})));
+  Buildings.Controls.OBC.CDL.Logical.LogicalSwitch relDem
+    "Release chiller demand limit"
+    annotation (Placement(transformation(extent={{580,-220},{600,-200}})));
+
 equation
   connect(staSetCon.uPla, plaEna.yPla) annotation(Line(points={{-168,72},{-480,
           72},{-480,-460},{-518,-460}},        color={255,0,255}));
@@ -1587,10 +1597,9 @@ equation
   connect(dowProCon.uChiLoa, uChiLoa) annotation(Line(points={{272,-172},{-730,-172},
           {-730,140},{-820,140}},color={0,0,127}));
   connect(dowProCon.uChiWatIsoVal, uChiWatIsoVal) annotation(Line(points={{272,-228},
-          {210,-228},{210,-240},{-820,-240}},  color={0,0,127}));
-  connect(uChiWatIsoVal, upProCon.uChiWatIsoVal) annotation(Line(points={{-820,
-          -240},{210,-240},{210,292},{272,292}},
-                                             color={0,0,127}));
+          {-820,-228}},                        color={0,0,127}));
+  connect(uChiWatIsoVal, upProCon.uChiWatIsoVal) annotation(Line(points={{-820,-228},
+          {210,-228},{210,292},{272,292}},   color={0,0,127}));
   connect(yChiWatPum, chiWatPumCon.yChiWatPum) annotation(Line(points={{820,520},
           {630,520},{630,510},{606,510}},color={255,0,
           255}));
@@ -1841,10 +1850,16 @@ equation
           {240,-420},{240,312},{272,312}}, color={255,0,255}));
   connect(uConWatPum, dowProCon.uConWatPum) annotation (Line(points={{-820,-420},
           {240,-420},{240,-296},{272,-296}}, color={255,0,255}));
-  connect(desConWatPumSpeSwi.y, gai.u)
-    annotation (Line(points={{602,200},{638,200}}, color={0,0,127}));
-  connect(gai.y, repDesConTem.u)
-    annotation (Line(points={{662,200},{678,200}}, color={0,0,127}));
+  connect(desConWatPumSpeSwi.y, repDesConTem.u)
+    annotation (Line(points={{602,200},{678,200}}, color={0,0,127}));
+  connect(dowProCon.yReaDemLim, relDem.u3) annotation (Line(points={{368,-188},{
+          490,-188},{490,-218},{578,-218}}, color={255,0,255}));
+  connect(upProCon.yStaPro, relDem.u1) annotation (Line(points={{368,436},{430,436},
+          {430,-202},{578,-202}}, color={255,0,255}));
+  connect(chiStaUp.y, relDem.u2) annotation (Line(points={{502,320},{520,320},{520,
+          -210},{578,-210}}, color={255,0,255}));
+  connect(relDem.y, yReaChiDemLim)
+    annotation (Line(points={{602,-210},{820,-210}}, color={255,0,255}));
 annotation (
   defaultComponentName="chiPlaCon",
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-300},{100,300}}),
@@ -1982,73 +1997,77 @@ annotation (
           lineColor={255,0,255},
           textString="uTowSta"),
         Text(
-          extent={{50,246},{98,232}},
+          extent={{50,266},{98,252}},
           lineColor={255,0,255},
           textString="yLeaChiWatPum"),
         Text(
-          extent={{50,218},{98,204}},
+          extent={{50,238},{98,224}},
           lineColor={255,0,255},
           textString="yChiWatPum"),
         Text(
-          extent={{76,128},{98,114}},
+          extent={{76,148},{98,134}},
           lineColor={255,0,255},
           textString="yChi"),
         Text(
-          extent={{52,8},{100,-6}},
+          extent={{52,28},{100,14}},
           lineColor={255,0,255},
           textString="yConWatPum"),
         Text(
-          extent={{60,-112},{100,-126}},
+          extent={{60,-132},{100,-146}},
           lineColor={255,0,255},
           textString="yLeaCel"),
         Text(
-          extent={{62,-172},{98,-186}},
+          extent={{62,-192},{98,-206}},
           lineColor={255,0,255},
           textString="yTowCel"),
         Text(
-          extent={{64,-234},{98,-248}},
+          extent={{64,-254},{98,-268}},
           lineColor={255,0,255},
           textString="yMakUp"),
         Text(
-          extent={{52,188},{100,174}},
+          extent={{52,208},{100,194}},
           lineColor={0,0,127},
           textString="yChiPumSpe"),
         Text(
-          extent={{52,158},{100,144}},
+          extent={{52,178},{100,164}},
           lineColor={0,0,127},
           textString="yChiDem"),
         Text(
-          extent={{52,98},{100,84}},
+          extent={{52,118},{100,104}},
           lineColor={0,0,127},
           textString="yHeaPreConVal"),
         Text(
-          extent={{52,68},{100,54}},
+          extent={{52,88},{100,74}},
           lineColor={0,0,127},
           textString="yConWatPumSpe"),
         Text(
-          extent={{52,40},{100,26}},
+          extent={{52,60},{100,46}},
           lineColor={0,0,127},
           textString="yChiWatMinFloSet"),
         Text(
-          extent={{52,-22},{100,-36}},
+          extent={{52,-42},{100,-56}},
           lineColor={0,0,127},
           textString="yChiWatIsoVal"),
         Text(
-          extent={{52,-52},{100,-66}},
+          extent={{52,-72},{100,-86}},
           lineColor={0,0,127},
           textString="yMinValPosSet"),
         Text(
-          extent={{52,-142},{100,-156}},
+          extent={{52,-162},{100,-176}},
           lineColor={0,0,127},
           textString="yTowCelIsoVal"),
         Text(
-          extent={{52,-202},{100,-216}},
+          extent={{52,-222},{100,-236}},
           lineColor={0,0,127},
           textString="yTwoFanSpe"),
         Text(
-          extent={{58,-82},{100,-96}},
+          extent={{58,-102},{100,-116}},
           lineColor={255,127,0},
-          textString="yNumCel")}),
+          textString="yNumCel"),
+        Text(
+          extent={{52,-10},{100,-24}},
+          lineColor={255,0,255},
+          textString="yReaChiDemLim")}),
   Diagram(coordinateSystem(extent={{-800,-840},{800,760}}),
           graphics={Text(
           extent={{-482,-574},{-398,-594}},

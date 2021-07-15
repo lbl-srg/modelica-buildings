@@ -151,8 +151,13 @@ protected
   Buildings.Controls.OBC.CDL.Logical.LogicalSwitch logSwi6[nChi]
     "Logical switch"
     annotation (Placement(transformation(extent={{100,-250},{120,-230}})));
-  Buildings.Controls.OBC.CDL.Logical.LogicalSwitch logSwi7 "Logical switch"
+  Buildings.Controls.OBC.CDL.Logical.LogicalSwitch logSwi7
+    "Logical switch"
     annotation (Placement(transformation(extent={{160,-62},{180,-42}})));
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant con3(
+    final k=true)
+    "When the process does not require chiller on-off, there is no need to limit chiller demand"
+    annotation (Placement(transformation(extent={{20,-80},{40,-60}})));
 
 equation
   connect(nexEnaChi, intRep.u)
@@ -292,9 +297,6 @@ equation
   connect(uOnOff, logSwi7.u2)
     annotation (Line(points={{-220,-120},{80,-120},{80,-52},{158,-52}},
       color={255,0,255}));
-  connect(uStaDow, logSwi7.u3)
-    annotation (Line(points={{-220,140},{-180,140},{-180,-60},{158,-60}},
-      color={255,0,255}));
   connect(logSwi7.y, yReaDemLim)
     annotation (Line(points={{182,-52},{202,-52},{202,-50},{220,-50}},
       color={255,0,255}));
@@ -308,6 +310,8 @@ equation
     annotation (Line(points={{-78,-8},{-40,-8},{-40,-44},{158,-44}},
       color={255,0,255}));
 
+  connect(con3.y, logSwi7.u3) annotation (Line(points={{42,-70},{90,-70},{90,-60},
+          {158,-60}}, color={255,0,255}));
 annotation (
   defaultComponentName="disChi",
   Icon(graphics={
