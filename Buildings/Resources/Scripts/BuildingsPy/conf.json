@@ -172,46 +172,6 @@
     "model_name": "Buildings.Utilities.IO.Python36.Functions.Examples.ExchangeWithPassPythonObject"
   },
   {
-    "jmodelica": {
-        "translate": false
-    },
-    "optimica": {
-        "translate": false,
-        "comment": "Python 2.7 is not supported"
-    },
-    "model_name": "Buildings.Obsolete.Utilities.IO.Python27.Examples.KalmanFilter"
-  },
-  {
-    "jmodelica": {
-      "translate": false
-    },
-    "optimica": {
-      "translate": false,
-      "comment": "Python 2.7 is not supported"
-    },
-   "model_name": "Buildings.Obsolete.Utilities.IO.Python27.Examples.SimpleRoom"
-  },
-  {
-       "jmodelica": {
-         "translate": false
-    },
-       "optimica": {
-         "translate": false,
-         "comment": "Python 2.7 is not supported"
-    },
-    "model_name": "Buildings.Obsolete.Utilities.IO.Python27.Functions.Examples.Exchange"
-  },
-  {
-       "jmodelica": {
-         "translate": false
-    },
-       "optimica": {
-         "translate": false,
-         "comment": "Python 2.7 is not supported"
-    },
-    "model_name": "Buildings.Obsolete.Utilities.IO.Python27.Functions.Examples.ExchangeWithPassPythonObject"
-  },
-  {
        "jmodelica": {
          "rtol": 1E-8
     },
