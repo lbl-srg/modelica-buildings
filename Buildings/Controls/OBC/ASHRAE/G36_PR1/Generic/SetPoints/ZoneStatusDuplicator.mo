@@ -4,7 +4,6 @@ block ZoneStatusDuplicator "Duplicate zone status output"
   parameter Integer nZon(final min=1)=1 "Number of zones in input";
   parameter Integer nGro(final min=1)=1 "Number of groups in output";
 
-
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput zonOcc[nZon]
     "True when the zone is set to be occupied due to the override"
     annotation (Placement(transformation(extent={{-80,60},{-40,100}}),
@@ -12,19 +11,22 @@ block ZoneStatusDuplicator "Duplicate zone status output"
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uOcc[nZon]
     "True when the zone is occupied according to the occupancy schedule"
     annotation (Placement(transformation(extent={{-80,20},{-40,60}}),
-        iconTransformation(extent={{-80,170},{-40,210}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput tNexOcc[nZon](final unit=
-        fill("s", nZon), final quantity=fill("Time", nZon))
+      iconTransformation(extent={{-80,170},{-40,210}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput tNexOcc[nZon](
+    final unit=fill("s", nZon),
+    final quantity=fill("Time", nZon))
     "Time to next occupied period"
     annotation (Placement(transformation(extent={{-80,-20},{-40,20}}),
       iconTransformation(extent={{-80,150},{-40,190}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput uCooTim[nZon](final unit=
-        fill("s", nZon), final quantity=fill("Time", nZon))
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput uCooTim[nZon](
+    final unit=fill("s", nZon),
+    final quantity=fill("Time", nZon))
     "Cool down time"
     annotation (Placement(transformation(extent={{-80,-60},{-40,-20}}),
       iconTransformation(extent={{-80,110},{-40,150}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput uWarTim[nZon](final unit=
-        fill("s", nZon), final quantity=fill("Time", nZon))
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput uWarTim[nZon](
+    final unit=fill("s", nZon),
+    final quantity=fill("Time", nZon))
     "Warm-up time"
     annotation (Placement(transformation(extent={{-80,-100},{-40,-60}}),
       iconTransformation(extent={{-80,90},{-40,130}})));
@@ -77,7 +79,6 @@ block ZoneStatusDuplicator "Duplicate zone status output"
     annotation (Placement(transformation(extent={{-80,-540},{-40,-500}}),
       iconTransformation(extent={{-80,-190},{-40,-150}})));
 
-
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yzonOcc[nGro, nZon]
     "True when the zone is set to be occupied due to the override"
     annotation (Placement(transformation(extent={{40,60},{80,100}}),
@@ -93,13 +94,13 @@ block ZoneStatusDuplicator "Duplicate zone status output"
       iconTransformation(extent={{40,150},{80,190}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yCooTim[nGro,nZon](
     final unit=fill("s", nGro, nZon),
-    final quantity=fill("Time", nGro, nZon)) "Cool down time" 
-    annotation (Placement(transformation(extent={{40,-60},{80,-20}}), 
+    final quantity=fill("Time", nGro, nZon)) "Cool down time"
+    annotation (Placement(transformation(extent={{40,-60},{80,-20}}),
       iconTransformation(extent={{40,110},{80,150}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yWarTim[nGro,nZon](
     final unit=fill("s", nGro, nZon),
-    final quantity=fill("Time", nGro, nZon)) "Warm-up time" 
-    annotation (Placement(transformation(extent={{40,-100},{80,-60}}), 
+    final quantity=fill("Time", nGro, nZon)) "Warm-up time"
+    annotation (Placement(transformation(extent={{40,-100},{80,-60}}),
       iconTransformation(extent={{40,90},{80,130}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yOccHeaHig[nGro,nZon]
     "True when the zone temperature is lower than the occupied heating setpoint"
@@ -121,9 +122,9 @@ block ZoneStatusDuplicator "Duplicate zone status output"
     annotation (Placement(transformation(extent={{40,-260},{80,-220}}),
       iconTransformation(extent={{40,-30},{80,10}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yEndSetBac[nGro,nZon]
-    "True when the zone could end the setback mode" annotation (Placement(
-        transformation(extent={{40,-300},{80,-260}}), iconTransformation(extent=
-           {{40,-50},{80,-10}})));
+    "True when the zone could end the setback mode"
+    annotation (Placement(transformation(extent={{40,-300},{80,-260}}),
+      iconTransformation(extent={{40,-50},{80,-10}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yHigUnoCoo[nGro,nZon]
     "True when the zone temperature is higher than its unoccupied cooling setpoint"
     annotation (Placement(transformation(extent={{40,-330},{80,-290}}),
@@ -136,9 +137,9 @@ block ZoneStatusDuplicator "Duplicate zone status output"
     annotation (Placement(transformation(extent={{40,-390},{80,-350}}),
       iconTransformation(extent={{40,-110},{80,-70}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yEndSetUp[nGro,nZon]
-    "True when the zone could end the setup mode" annotation (Placement(
-        transformation(extent={{40,-420},{80,-380}}), iconTransformation(extent=
-           {{40,-130},{80,-90}})));
+    "True when the zone could end the setup mode"
+    annotation (Placement(transformation(extent={{40,-420},{80,-380}}),
+      iconTransformation(extent={{40,-130},{80,-90}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yTZon[nGro, nZon](
     final unit=fill("K", nGro, nZon),
     displayUnit=fill("degC", nGro, nZon),
@@ -150,51 +151,82 @@ block ZoneStatusDuplicator "Duplicate zone status output"
     annotation (Placement(transformation(extent={{40,-540},{80,-500}}),
         iconTransformation(extent={{40,-190},{80,-150}})));
 
-
-  Buildings.Controls.OBC.CDL.Routing.BooleanArrayReplicator zonOccDup(nin=nZon, nout=nGro)
+protected
+  Buildings.Controls.OBC.CDL.Routing.BooleanArrayReplicator zonOccDup(
+    final nin=nZon,
+    final nout=nGro)
     "Duplicator"
     annotation (Placement(transformation(extent={{-10,70},{10,90}})));
-  Buildings.Controls.OBC.CDL.Routing.BooleanArrayReplicator uOccDup(nin=nZon, nout=nGro)
+  Buildings.Controls.OBC.CDL.Routing.BooleanArrayReplicator uOccDup(
+    final nin=nZon,
+    final nout=nGro)
     "Duplicator"
     annotation (Placement(transformation(extent={{-10,30},{10,50}})));
-  Buildings.Controls.OBC.CDL.Routing.RealArrayReplicator tNexOccDup(nin=nZon, nout=nGro)
+  Buildings.Controls.OBC.CDL.Routing.RealArrayReplicator tNexOccDup(
+    final nin=nZon,
+    final nout=nGro)
     "Duplicator"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
-  Buildings.Controls.OBC.CDL.Routing.RealArrayReplicator uCooTimDup(nin=nZon, nout=nGro)
+  Buildings.Controls.OBC.CDL.Routing.RealArrayReplicator uCooTimDup(
+    final nin=nZon,
+    final nout=nGro)
     "Duplicator"
     annotation (Placement(transformation(extent={{-10,-50},{10,-30}})));
-  Buildings.Controls.OBC.CDL.Routing.RealArrayReplicator uWarTimDup(nin=nZon, nout=nGro)
+  Buildings.Controls.OBC.CDL.Routing.RealArrayReplicator uWarTimDup(
+    final nin=nZon,
+    final nout=nGro)
     "Duplicator"
     annotation (Placement(transformation(extent={{-10,-90},{10,-70}})));
-  Buildings.Controls.OBC.CDL.Routing.BooleanArrayReplicator uOccHeaHigDup(nin=nZon, nout=nGro)
+  Buildings.Controls.OBC.CDL.Routing.BooleanArrayReplicator uOccHeaHigDup(
+    final nin=nZon,
+    final nout=nGro)
     "Duplicator"
     annotation (Placement(transformation(extent={{-10,-130},{10,-110}})));
-  Buildings.Controls.OBC.CDL.Routing.BooleanArrayReplicator uHigOccCooDup(nin=nZon, nout=nGro)
+  Buildings.Controls.OBC.CDL.Routing.BooleanArrayReplicator uHigOccCooDup(
+    final nin=nZon,
+    final nout=nGro)
     "Duplicator"
     annotation (Placement(transformation(extent={{-10,-170},{10,-150}})));
-  Buildings.Controls.OBC.CDL.Routing.BooleanArrayReplicator uUnoHeaHigDup(nin=nZon, nout=nGro)
+  Buildings.Controls.OBC.CDL.Routing.BooleanArrayReplicator uUnoHeaHigDup(
+    final nin=nZon,
+    final nout=nGro)
     "Duplicator"
     annotation (Placement(transformation(extent={{-10,-210},{10,-190}})));
-  Buildings.Controls.OBC.CDL.Routing.RealArrayReplicator THeaSetOffDup(nin=nZon, nout=nGro)
+  Buildings.Controls.OBC.CDL.Routing.RealArrayReplicator THeaSetOffDup(
+    final nin=nZon,
+    final nout=nGro)
     "Duplicator"
     annotation (Placement(transformation(extent={{-10,-250},{10,-230}})));
-  Buildings.Controls.OBC.CDL.Routing.BooleanArrayReplicator uEndSetBacDup(nin=nZon, nout=nGro)
+  Buildings.Controls.OBC.CDL.Routing.BooleanArrayReplicator uEndSetBacDup(
+    final nin=nZon,
+    final nout=nGro)
     "Duplicator"
     annotation (Placement(transformation(extent={{-10,-290},{10,-270}})));
-  Buildings.Controls.OBC.CDL.Routing.BooleanArrayReplicator uHigUnoCooDup(nin=nZon, nout=nGro)
+  Buildings.Controls.OBC.CDL.Routing.BooleanArrayReplicator uHigUnoCooDup(
+    final nin=nZon,
+    final nout=nGro)
     "Duplicator"
     annotation (Placement(transformation(extent={{-10,-320},{10,-300}})));
-  Buildings.Controls.OBC.CDL.Routing.RealArrayReplicator TCooSetOffDup(nin=nZon, nout=nGro)
+  Buildings.Controls.OBC.CDL.Routing.RealArrayReplicator TCooSetOffDup(
+    final nin=nZon,
+    final nout=nGro)
     "Duplicator"
     annotation (Placement(transformation(extent={{-10,-380},{10,-360}})));
-  Buildings.Controls.OBC.CDL.Routing.BooleanArrayReplicator uEndSetUpDup(nin=nZon, nout=nGro)
+  Buildings.Controls.OBC.CDL.Routing.BooleanArrayReplicator uEndSetUpDup(
+    final nin=nZon,
+    final nout=nGro)
     "Duplicator"
     annotation (Placement(transformation(extent={{-10,-410},{10,-390}})));
-  Buildings.Controls.OBC.CDL.Routing.RealArrayReplicator TZonDup(nin=nZon, nout=nGro) "Duplicator"
+  Buildings.Controls.OBC.CDL.Routing.RealArrayReplicator TZonDup(
+    final nin=nZon,
+    final nout=nGro) "Duplicator"
     annotation (Placement(transformation(extent={{-10,-450},{10,-430}})));
-  Buildings.Controls.OBC.CDL.Routing.BooleanArrayReplicator uWinDup(nin=nZon, nout=nGro)
+  Buildings.Controls.OBC.CDL.Routing.BooleanArrayReplicator uWinDup(
+    final nin=nZon,
+    final nout=nGro)
     "Duplicator"
     annotation (Placement(transformation(extent={{-10,-530},{10,-510}})));
+
 equation
   connect(zonOcc, zonOccDup.u)
     annotation (Line(points={{-60,80},{-12,80}}, color={255,0,255}));
@@ -256,6 +288,7 @@ equation
     annotation (Line(points={{12,-440},{60,-440}}, color={0,0,127}));
   connect(uWinDup.y, yWin)
     annotation (Line(points={{12,-520},{60,-520}}, color={255,0,255}));
+
   annotation (defaultComponentName="zonStaDup",
       Icon(coordinateSystem(preserveAspectRatio=false, extent={{-40,-180},
             {40,220}}), graphics={

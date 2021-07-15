@@ -6,9 +6,9 @@ model IntegerArrayReplicator
     "Block that outputs the array replicating input value"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp ram[2](
-    each height=5,
-    each duration=1,
-    each offset=-2) "Block that outputs ramp signal"
+    height=fill(5,2),
+    duration=fill(1,2),
+    offset=fill(-2,2)) "Block that outputs ramp signal"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
   Buildings.Controls.OBC.CDL.Conversions.RealToInteger reaToInt[2]
     "Convert Real input to Integer output"

@@ -4,7 +4,7 @@ model BooleanArrayReplicator
   Buildings.Controls.OBC.CDL.Routing.BooleanArrayReplicator booRep(nin=2, nout=3)
     "Block that outputs the array replicating input value"
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul[2](each period=0.2)
+  Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul[2](period=fill(0.2,2))
     "Block that outputs boolean pulse"
     annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
 

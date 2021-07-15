@@ -233,23 +233,29 @@ protected
     final msk=zonGroMsk) "Zone group filter"
     annotation (Placement(transformation(extent={{-120,-310},{-100,-290}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.MultiMax cooDowTim(final nin=numZonGro)
+  Buildings.Controls.OBC.CDL.Continuous.MultiMax cooDowTim(
+    final nin=numZonGro)
     "Longest cooldown time"
     annotation (Placement(transformation(extent={{40,170},{60,190}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiMax warUpTim(final nin=numZonGro)
+  Buildings.Controls.OBC.CDL.Continuous.MultiMax warUpTim(
+    final nin=numZonGro)
     "Longest warm up time"
     annotation (Placement(transformation(extent={{40,130},{60,150}})));
-  Buildings.Controls.OBC.CDL.Logical.MultiOr mulOr(final nu=numZonGro)
+  Buildings.Controls.OBC.CDL.Logical.MultiOr mulOr(
+    final nu=numZonGro)
     "Check if there is any zone that the zone temperature is lower than its occupied heating setpoint"
     annotation (Placement(transformation(extent={{40,90},{60,110}})));
-  Buildings.Controls.OBC.CDL.Logical.MultiOr mulOr1(final nu=numZonGro)
+  Buildings.Controls.OBC.CDL.Logical.MultiOr mulOr1(
+    final nu=numZonGro)
     "Check if there is any zone that the zone temperature is higher than its occupied cooling setpoint"
     annotation (Placement(transformation(extent={{40,50},{60,70}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiMax maxTem(final nin=numZonGro)
-                      "Maximum zone temperature in the zone group"
+  Buildings.Controls.OBC.CDL.Continuous.MultiMax maxTem(
+    final nin=numZonGro)
+    "Maximum zone temperature in the zone group"
     annotation (Placement(transformation(extent={{0,-230},{20,-210}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiMin minTem(final nin=numZonGro)
-                      "Minimum zone temperature in the zone group"
+  Buildings.Controls.OBC.CDL.Continuous.MultiMin minTem(
+    final nin=numZonGro)
+    "Minimum zone temperature in the zone group"
     annotation (Placement(transformation(extent={{0,-270},{20,-250}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger booToInt[numZonGro]
     "Convert boolean to integer"
@@ -257,7 +263,8 @@ protected
   Buildings.Controls.OBC.CDL.Integers.MultiSum totColZon(
     final nin=numZonGro) "Total number of cold zone"
     annotation (Placement(transformation(extent={{40,10},{60,30}})));
-  Buildings.Controls.OBC.CDL.Logical.MultiAnd endSetBac(final nu=numZonGro)
+  Buildings.Controls.OBC.CDL.Logical.MultiAnd endSetBac(
+    final nu=numZonGro)
     "Check if all zones have ended the setback mode"
     annotation (Placement(transformation(extent={{40,-70},{60,-50}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger booToInt1[numZonGro]
@@ -266,10 +273,12 @@ protected
   Buildings.Controls.OBC.CDL.Integers.MultiSum totHotZon(
     final nin=numZonGro) "Total number of hot zones"
     annotation (Placement(transformation(extent={{40,-100},{60,-80}})));
-  Buildings.Controls.OBC.CDL.Logical.MultiAnd endSetUp(final nu=numZonGro)
+  Buildings.Controls.OBC.CDL.Logical.MultiAnd endSetUp(
+    final nu=numZonGro)
     "Check if all zones have ended the setup mode"
     annotation (Placement(transformation(extent={{-2,-190},{18,-170}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiSum sumUnoHea(final nin=numZonGro)
+  Buildings.Controls.OBC.CDL.Continuous.MultiSum sumUnoHea(
+    final nin=numZonGro)
     "Sum of all zones unoccupied heating setpoint"
     annotation (Placement(transformation(extent={{-80,-30},{-60,-10}})));
   Buildings.Controls.OBC.CDL.Continuous.Feedback difUnoHea
@@ -282,11 +291,13 @@ protected
     annotation (Placement(transformation(extent={{-80,110},{-60,130}})));
   Buildings.Controls.OBC.CDL.Conversions.IntegerToReal intToRea "Convert integer to real"
     annotation (Placement(transformation(extent={{-40,110},{-20,130}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiSum sumUnoCoo(final nin=numZonGro)
+  Buildings.Controls.OBC.CDL.Continuous.MultiSum sumUnoCoo(
+    final nin=numZonGro)
     "Sum of all zones unoccupied cooling setpoint"
     annotation (Placement(transformation(extent={{-80,-160},{-60,-140}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiSum sumTem(final nin=numZonGro)
-                      "Sum of all zones temperature"
+  Buildings.Controls.OBC.CDL.Continuous.MultiSum sumTem(
+    final nin=numZonGro)
+    "Sum of all zones temperature"
     annotation (Placement(transformation(extent={{-80,-210},{-60,-190}})));
   Buildings.Controls.OBC.CDL.Continuous.Feedback difUnoCoo
     "Difference between unoccupied cooling setpoint and zone temperature"
@@ -303,13 +314,16 @@ protected
     final uHigh=uHigh)
     "Hysteresis that outputs if the group should run in setup mode"
     annotation (Placement(transformation(extent={{60,-140},{80,-120}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiMin minToNexOcc(final nin=numZonGro)
+  Buildings.Controls.OBC.CDL.Continuous.MultiMin minToNexOcc(
+    final nin=numZonGro)
     "Minimum time to next occupied period"
     annotation (Placement(transformation(extent={{-60,210},{-40,230}})));
-  Buildings.Controls.OBC.CDL.Logical.MultiOr schOcc(final nu=numZonGro)
+  Buildings.Controls.OBC.CDL.Logical.MultiOr schOcc(
+    final nu=numZonGro)
     "Check if the group should be in occupied mode according to the schedule"
     annotation (Placement(transformation(extent={{-60,250},{-40,270}})));
-  Buildings.Controls.OBC.CDL.Logical.MultiOr oveRidOcc(final nu=numZonGro)
+  Buildings.Controls.OBC.CDL.Logical.MultiOr oveRidOcc(
+    final nu=numZonGro)
     "Check if the group should be in occupied mode according to the zone override"
     annotation (Placement(transformation(extent={{-60,290},{-40,310}})));
   Buildings.Controls.OBC.CDL.Logical.Or groOcc
@@ -401,7 +415,6 @@ equation
           {58,226}}, color={0,0,127}));
   connect(pro.y, nexOcc) annotation (Line(points={{82,220},{94,220},{94,220},{120,
           220}}, color={0,0,127}));
-
   connect(zonOcc, zonOccFil.u)
     annotation (Line(points={{-160,300},{-122,300}}, color={255,0,255}));
   connect(uOcc, uOccFil.u)
@@ -466,6 +479,7 @@ equation
     annotation (Line(points={{-160,-300},{-122,-300}}, color={255,0,255}));
   connect(uWinFil.y, booToInt2.u)
     annotation (Line(points={{-98,-300},{-62,-300}}, color={255,0,255}));
+
 annotation (
   defaultComponentName = "groSta",
   Icon(coordinateSystem(extent={{-100,-200},{100,200}}),

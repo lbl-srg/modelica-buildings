@@ -2,18 +2,21 @@ within Buildings.Controls.OBC.ASHRAE.G36_PR1.Generic.SetPoints.Validation;
 model ZoneStatusDuplicator
   "Validate block for duplicating zone status"
 
-  Buildings.Controls.OBC.ASHRAE.G36_PR1.Generic.SetPoints.ZoneStatusDuplicator
-    zonStaDup(nZon=5, nGro=2)
-              "Zone status duplicator"
+  Buildings.Controls.OBC.ASHRAE.G36_PR1.Generic.SetPoints.ZoneStatusDuplicator zonStaDup(
+    final nZon=5,
+    final nGro=2)
+    "Zone status duplicator"
     annotation (Placement(transformation(extent={{0,-40},{20,40}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant reaInp[6,5](k=fill({1,2,3,4,5}, 6))
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant reaInp[6,5](
+    final k=fill({1,2,3,4,5}, 6))
     "Real inputs"
     annotation (Placement(transformation(extent={{-100,20},{-80,40}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant booInp[9,5](k=fill({true,true,false,true,false},
-        9)) "Boolean inputs"
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant booInp[9,5](
+    final k=fill({true,true,false,true,false},9))
+    "Boolean inputs"
     annotation (Placement(transformation(extent={{-100,-40},{-80,-20}})));
-equation
 
+equation
   connect(reaInp[1, :].y, zonStaDup.tNexOcc)
     annotation (Line(points={{-78,30},{-5,30}}, color={0,0,127}));
   connect(reaInp[2, :].y, zonStaDup.uCooTim) annotation (Line(points={{-78,30},{
@@ -44,6 +47,7 @@ equation
           {-40,-30},{-40,-26},{-5,-26}}, color={255,0,255}));
   connect(booInp[9, :].y, zonStaDup.uWin) annotation (Line(points={{-78,-30},{-40,
           -30},{-40,-38},{-5,-38}}, color={255,0,255}));
+
 annotation (
   experiment(StopTime=1, Tolerance=1e-6),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36_PR1/Generic/SetPoints/Validation/ZoneStatusDuplicator.mos"
