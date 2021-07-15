@@ -1,0 +1,17 @@
+compareVars :=
+  {
+    "staUp.y",
+    "staUp.uOpe",
+    "staUp.uStaUp",
+    "staUp.dpChiWatPumSet",
+    "staUp.dpChiWatPum",
+    "staUp.TChiWatSup",
+    "staUp.TChiWatSupSet",
+    "staUp1.y",
+    "staUp1.uOpe",
+    "staUp1.uStaUp",
+    "staUp1.dpChiWatPumSet",
+    "staUp1.dpChiWatPum",
+    "staUp1.TChiWatSup",
+    "staUp1.TChiWatSupSet"
+  };

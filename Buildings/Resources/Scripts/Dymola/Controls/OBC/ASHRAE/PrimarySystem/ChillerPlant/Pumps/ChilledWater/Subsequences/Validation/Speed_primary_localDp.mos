@@ -1,0 +1,9 @@
+simulateModel("Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Pumps.ChilledWater.Subsequences.Validation.Speed_primary_localDp", method="Cvode", stopTime=10, tolerance=1e-06, resultFile="chiWatPumSpe_primary_localDP");
+createPlot(id=1, position={20, 10, 700, 1000}, subPlot=1, y={"chiPumSpe.dpChiWat_remote[1]","chiPumSpe.dpChiWat_remote[2]","chiPumSpe.dpChiWatSet"}, range={0.0, 1200.0, 0.4, 0.9}, grid=true, colors={{28,108,200},{238,46,47},{0,140,72}});
+createPlot(id=1, position={20, 10, 700, 1000}, subPlot=2, y={"chiPumSpe.maxRemDP.u[1]","chiPumSpe.maxRemDP.u[2]"}, range={0.0, 1200.0, 0.4, 0.9}, grid=true, colors={{28,108,200},{238,46,47}});
+createPlot(id=1, position={20, 10, 700, 1000}, subPlot=3, y={"chiPumSpe.maxRemDP.y"}, range={0.0, 1200.0, 0.4, 0.9}, grid=true, colors={{28,108,200}});
+createPlot(id=1, position={20, 10, 700, 1000}, subPlot=4, y={"chiPumSpe.locDpSet.y","chiPumSpe.locDpSet.f1","chiPumSpe.locDpSet.f2"}, range={0.0, 1200.0, 0.4, 0.9}, grid=true, colors={{28,108,200},{238,46,47},{0,140,72}});
+createPlot(id=2, position={740, 10, 700, 1000}, subPlot=1, y={"chiPumSpe.locDpSet.y","chiPumSpe.dpChiWat_local"}, range={0.0, 1200.0, 0.4, 0.9}, grid=true, colors={{28,108,200},{238,46,47}});
+createPlot(id=2, position={740, 10, 700, 1000}, subPlot=2, y={"chiPumSpe.conPID1.u_s","chiPumSpe.conPID1.u_m"}, range={0.0, 1200.0, 0.4, 0.9}, grid=true, colors={{28,108,200},{238,46,47}});
+createPlot(id=2, position={740, 10, 700, 1000}, subPlot=3, y={"chiPumSpe.conPID1.y"}, range={0.0, 1200.0, 0.4, 0.9}, grid=true, colors={{28,108,200}});
+createPlot(id=2, position={740, 10, 700, 1000}, subPlot=4, y={"chiPumSpe.yChiWatPumSpe","chiPumSpe.pumSpe.f1","chiPumSpe.pumSpe.f2"}, range={0.0, 1200.0, 0.4, 0.9}, grid=true, colors={{28,108,200},{238,46,47},{0,140,72}});

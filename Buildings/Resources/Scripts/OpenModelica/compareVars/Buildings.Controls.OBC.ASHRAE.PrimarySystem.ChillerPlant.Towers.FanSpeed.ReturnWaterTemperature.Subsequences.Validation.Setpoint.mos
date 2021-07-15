@@ -1,0 +1,10 @@
+compareVars :=
+  {
+    "conWatRetSet.uChi[1]",
+    "conWatRetSet.uChi[2]",
+    "conWatRetSet.uPla",
+    "conWatRetSet.uOpeParLoaRat",
+    "conWatRetSet.TChiWatSupSet",
+    "conWatRetSet.TConWatRetSet",
+    "conWatRetSet.conWatRet.y"
+  };

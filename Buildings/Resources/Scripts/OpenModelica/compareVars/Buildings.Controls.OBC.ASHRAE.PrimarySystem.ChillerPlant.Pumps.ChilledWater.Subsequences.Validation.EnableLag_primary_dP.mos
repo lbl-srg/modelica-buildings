@@ -1,0 +1,13 @@
+compareVars :=
+  {
+    "enaLagChiPum.chiWatFloRat.y",
+    "enaLagChiPum.addPar2.y",
+    "enaLagChiPum.hys.y",
+    "enaLagChiPum.yUp",
+    "enaLagChiPum.tim.y",
+    "nexLagPumTri.y",
+    "enaLagChiPum.hys1.y",
+    "enaLagChiPum.yDown",
+    "enaLagChiPum.tim1.y",
+    "lasLagPumTri.y"
+  };

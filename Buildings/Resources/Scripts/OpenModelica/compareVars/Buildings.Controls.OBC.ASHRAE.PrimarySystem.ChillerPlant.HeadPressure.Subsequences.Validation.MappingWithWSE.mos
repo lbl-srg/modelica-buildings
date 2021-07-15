@@ -1,0 +1,11 @@
+compareVars :=
+  {
+    "witWSE.uHeaPreCon",
+    "witWSE.yMaxTowSpeSet",
+    "witWSE.yConWatPumSpeSet",
+    "witWSE.yHeaPreConVal",
+    "noWSE.uHeaPreCon",
+    "noWSE.yMaxTowSpeSet",
+    "noWSE.yConWatPumSpeSet",
+    "noWSE.yHeaPreConVal"
+  };

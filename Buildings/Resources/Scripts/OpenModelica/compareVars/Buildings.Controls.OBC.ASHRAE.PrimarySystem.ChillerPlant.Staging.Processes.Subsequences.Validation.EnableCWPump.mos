@@ -1,0 +1,13 @@
+compareVars :=
+  {
+    "staUpInd.uUpsDevSta",
+    "staUpInd.uStaUp",
+    "staUpInd.uStaDow",
+    "staUpInd.uStaSet",
+    "staUpInd.yChiSta",
+    "staDowInd.uUpsDevSta",
+    "staDowInd.uStaUp",
+    "staDowInd.uStaDow",
+    "staDowInd.uStaSet",
+    "staDowInd.yChiSta"
+  };

@@ -1,0 +1,14 @@
+compareVars :=
+  {
+    "iniStaCol.yIni",
+    "iniStaCol.uUp",
+    "iniStaCol.TChiWatSupSet",
+    "iniStaCol.TOutWet",
+    "iniStaCol.uTunPar",
+    "iniStaCol.uPla",
+    "iniStaHot.yIni",
+    "iniStaHot.uUp",
+    "iniStaHot.TChiWatSupSet",
+    "iniStaHot.TOutWet",
+    "iniStaHot.uTunPar"
+  };
