@@ -27,9 +27,9 @@
      inkscape:pagecheckerboard="0"
      showgrid="true"
      inkscape:snap-grids="true"
-     inkscape:zoom="3.1492355"
-     inkscape:cx="590.302"
-     inkscape:cy="262.92095"
+     inkscape:zoom="8.9073831"
+     inkscape:cx="660.18267"
+     inkscape:cy="58.378538"
      inkscape:window-width="1645"
      inkscape:window-height="987"
      inkscape:window-x="35"
@@ -1848,7 +1848,7 @@
        d="m 590.1529,2141.6189 v 5"
        id="path5222" />
     <g
-       transform="translate(214.75,89.835697)"
+       transform="translate(213.75,89.83574)"
        id="use3045-2"
        style="display:inline">
       <ellipse
@@ -1871,7 +1871,7 @@
     </g>
     <path
        style="display:inline;fill:#ffffff;fill-opacity:1;fill-rule:evenodd;stroke:#4d4d4d;stroke-width:0.5;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stop-color:#000000"
-       d="m 880,2191.8689 v 5"
+       d="m 879,2191.8689 v 5"
        id="path5222-3" />
     <path
        style="fill:#ffffff;fill-opacity:1;fill-rule:evenodd;stroke:#4d4d4d;stroke-width:0.5;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stop-color:#000000"
@@ -2694,8 +2694,9 @@
        id="path20312" />
     <path
        style="font-variation-settings:normal;opacity:1;vector-effect:none;fill:none;fill-opacity:1;stroke:#b3b3b3;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:3.9;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;-inkscape-stroke:none;marker-end:url(#marker2107);stop-color:#000000;stop-opacity:1"
-       d="m 880,2181.869 v -45.0001 h -85 v 10 h 10"
-       id="path20314" />
+       d="m 879,2181.8689 v -45 l -84,0 v 5 h 10"
+       id="path20314"
+       sodipodi:nodetypes="ccccc" />
     <path
        style="font-variation-settings:normal;opacity:1;vector-effect:none;fill:none;fill-opacity:1;stroke:#b3b3b3;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:3.9;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;-inkscape-stroke:none;marker-start:url(#marker2107);stop-color:#000000;stop-opacity:1"
        d="m 855,2156.8689 h 5 v 25.0001"
@@ -2718,6 +2719,36 @@
          y="2153.7561"
          x="701.66943"
          id="tspan1683-6-3">Cooling enable</tspan></text>
+    <g
+       transform="translate(224.75,89.835697)"
+       id="use3045-2-5"
+       style="display:inline">
+      <ellipse
+         ry="4.7500153"
+         rx="4.875"
+         transform="rotate(90)"
+         style="fill:#000000;fill-opacity:0;stroke:#4d4d4d;stroke-width:0.5;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         id="ellipse1530-8-9"
+         cx="2097.1582"
+         cy="-665.25" />
+      <text
+         id="text1534-9-4"
+         y="2099.9302"
+         x="663.06122"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:6.66667px;line-height:1.25;font-family:Arial;-inkscape-font-specification:'Arial, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;stroke:#4d4d4d;stroke-width:0;stroke-miterlimit:4;stroke-dasharray:none"
+         xml:space="preserve"><tspan
+           y="2099.9302"
+           x="663.06122"
+           id="tspan1532-7-90">F</tspan></text>
+    </g>
+    <path
+       style="display:inline;fill:#ffffff;fill-opacity:1;fill-rule:evenodd;stroke:#4d4d4d;stroke-width:0.5;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stop-color:#000000"
+       d="m 890,2191.8689 v 5"
+       id="path5222-3-9" />
+    <path
+       style="font-variation-settings:normal;opacity:1;vector-effect:none;fill:none;fill-opacity:1;stroke:#b3b3b3;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:3.9;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;-inkscape-stroke:none;stop-color:#000000;stop-opacity:1;marker-end:url(#marker2107)"
+       d="m 890,2181.8689 v -50 H 790 v 15 h 15"
+       id="path5504" />
   </g>
   <g
      transform="translate(-205.25,-2106.3295)"
