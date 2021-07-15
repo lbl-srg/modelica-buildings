@@ -135,7 +135,7 @@ model HeatExchanger
     final k=m2_flow_nominal)
     "Scale to nominal mass flow rate"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},rotation=-90,origin={40,118})));
-  Buildings.Fluid.Actuators.Valves.TwoWayEqualPercentage val1Hex(
+  Fluid.Actuators.Valves.TwoWayPressureIndependent       val1Hex(
     redeclare final package Medium = Medium1,
     final m_flow_nominal=m1_flow_nominal,
     from_dp=true,
@@ -256,7 +256,7 @@ equation
 <ul>
 <li>
 July 14, 2021, by Antoine Gautier:<br/>
-Refactored after updating the control logic.<br/>
+Refactored after updating the control logic, changed the primary control valve to pressure-independent.<br/>
 This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2561\">issue #2561</a>.
 </li>
 <li>
