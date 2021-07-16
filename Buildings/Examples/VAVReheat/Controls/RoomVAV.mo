@@ -104,7 +104,7 @@ block RoomVAV "Controller for room VAV box"
     "Minimum flow in heating mode"
     annotation (Placement(transformation(extent={{-60,90},{-40,110}})));
   Buildings.Controls.OBC.CDL.Logical.Switch swi
-    "Switch minimum air flow rate between heating and cooling mode"
+    "Switch minimum air flow rate between heating and absolute minimum"
     annotation (Placement(transformation(extent={{-10,50},{10,70}})));
   Buildings.Controls.OBC.CDL.Utilities.Assert assMes(message=
     "The difference between cooling and heating set points must be greater than dTHys")
@@ -120,7 +120,7 @@ protected
   parameter Real yMax=1 "Upper limit of PID control output";
   parameter Real yMin=0 "Lower limit of PID control output";
   parameter Modelica.SIunits.TemperatureDifference dTHys(final min=0) = 0.5
-    "Hysteresis width for enabling cooling mode";
+    "Hysteresis width for switching minimum air flow rate";
 equation
   connect(TRooCooSet, conCoo.u_s)
     annotation (Line(points={{-120,0},{-62,0}}, color={0,0,127}));

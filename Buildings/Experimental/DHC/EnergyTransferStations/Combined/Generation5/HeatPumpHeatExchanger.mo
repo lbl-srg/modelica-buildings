@@ -72,9 +72,9 @@ model HeatPumpHeatExchanger
     cpSer_default / dT_nominal
     "Evaporator water mass flow rate of heat pump for hot water production"
     annotation (Dialog(group="Nominal condition", enable=have_hotWat));
-  final parameter Modelica.SIunits.MassFlowRate mDisWat_flow_nominal(min=0)=
+  final parameter Modelica.SIunits.MassFlowRate mSerWat_flow_nominal(min=0)=
     max(proHeaWat.m2_flow_nominal + mEvaHotWat_flow_nominal, hexChi.m1_flow_nominal)
-    "District water mass flow rate"
+    "Service water mass flow rate"
     annotation (Dialog(group="Nominal condition"));
   constant Modelica.SIunits.SpecificHeatCapacity cpBui_default=
     MediumBui.specificHeatCapacityCp(MediumBui.setState_pTX(
@@ -182,7 +182,7 @@ model HeatPumpHeatExchanger
   Buildings.Fluid.Delays.DelayFirstOrder volMix_a(
     redeclare final package Medium = MediumSer,
     final nPorts=if have_hotWat then 4 else 3,
-    final m_flow_nominal=mDisWat_flow_nominal,
+    final m_flow_nominal=mSerWat_flow_nominal,
     tau=600,
     final energyDynamics=mixingVolumeEnergyDynamics)
     "Mixing volume to break algebraic loops and to emulate the delay of the substation"
@@ -190,7 +190,7 @@ model HeatPumpHeatExchanger
   Buildings.Fluid.Delays.DelayFirstOrder volMix_b(
     redeclare final package Medium = MediumSer,
     final nPorts=if have_hotWat then 4 else 3,
-    final m_flow_nominal=mDisWat_flow_nominal,
+    final m_flow_nominal=mSerWat_flow_nominal,
     tau=600,
     final energyDynamics=mixingVolumeEnergyDynamics)
     "Mixing volume to break algebraic loops and to emulate the delay of the substation"
@@ -300,7 +300,7 @@ model HeatPumpHeatExchanger
   Buildings.Experimental.DHC.EnergyTransferStations.Combined.Generation5.Subsystems.SwitchBox
     swiFlo(
     redeclare final package Medium = MediumSer,
-    final m_flow_nominal=mDisWat_flow_nominal) "Flow switch box"
+    final m_flow_nominal=mSerWat_flow_nominal) "Flow switch box"
     annotation (Placement(transformation(extent={{-10,-390},{10,-370}})));
   DHC.EnergyTransferStations.BaseClasses.Junction bypHeaWatSup(redeclare final
       package Medium = MediumBui, final m_flow_nominal=proHeaWat.m1_flow_nominal
@@ -356,7 +356,7 @@ model HeatPumpHeatExchanger
     annotation (Placement(transformation(extent={{-10,24},{10,44}})));
   Fluid.Sources.Boundary_pT sinSHW(
     redeclare final package Medium = MediumBui,
-    nPorts=1) if  have_hotWat
+    nPorts=1)  if have_hotWat
     "Sink for service hot water" annotation (Placement(
       transformation(
       extent={{10,-10},{-10,10}},
@@ -372,8 +372,8 @@ model HeatPumpHeatExchanger
   Buildings.Controls.OBC.CDL.Continuous.Division div1 if have_hotWat
     "Compute mass flow rate from load"
     annotation (Placement(transformation(extent={{-100,-50},{-80,-30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Gain gai(final k=cpBui_default) if
-    have_hotWat "Times Cp"
+  Buildings.Controls.OBC.CDL.Continuous.Gain gai(final k=cpBui_default)
+ if have_hotWat "Times Cp"
     annotation (Placement(transformation(extent={{-120,-10},{-100,10}})));
   Buildings.Controls.OBC.CDL.Continuous.MultiSum masFloHeaTot(final nin=2)
     "Compute district water mass flow rate used for heating service"
@@ -423,7 +423,8 @@ model HeatPumpHeatExchanger
   Buildings.Controls.OBC.CDL.Continuous.Add heaFloEvaSHW if have_hotWat and have_varFloEva
     "Heat flow rate at evaporator"
     annotation (Placement(transformation(extent={{-100,90},{-80,110}})));
-  Buildings.Controls.OBC.CDL.Continuous.Add dTHHW(k2=-1) if have_hotWat and have_varFloEva
+  Buildings.Controls.OBC.CDL.Continuous.Add dTHHW(
+    final k2=-1)
     "Heating hot water DeltaT"
     annotation (Placement(transformation(extent={{0,310},{-20,330}})));
   Buildings.Controls.OBC.CDL.Continuous.Gain capFloHHW(
@@ -454,10 +455,12 @@ model HeatPumpHeatExchanger
     final cp=cpSer_default) if have_varFloEva
     "Mass flow rate control"
     annotation (Placement(transformation(extent={{-60,230},{-40,250}})));
-  Buildings.Controls.OBC.CDL.Continuous.Max priOve "Ensure primary overflow"
+  Buildings.Controls.OBC.CDL.Continuous.Max priOve if have_varFloCon
+    "Ensure primary overflow"
     annotation (Placement(transformation(extent={{-60,270},{-40,290}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Product loaHHW "Heating load"
+  Buildings.Controls.OBC.CDL.Continuous.Product loaHHW if have_varFloEva or have_varFloCon
+    "Heating load"
     annotation (Placement(transformation(extent={{-140,270},{-120,290}})));
 equation
   connect(TChiWatSupSet, conTChiWat.u_s) annotation (Line(points={{-320,0},{-200,

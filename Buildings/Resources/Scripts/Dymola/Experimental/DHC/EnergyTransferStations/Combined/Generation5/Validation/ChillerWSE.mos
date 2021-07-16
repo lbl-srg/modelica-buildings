@@ -1,9 +1,9 @@
 removePlots(false);
-simulateModel("Buildings.Experimental.DHC.EnergyTransferStations.Combined.Generation5.Validation.ChillerOnly",
+simulateModel("Buildings.Experimental.DHC.EnergyTransferStations.Combined.Generation5.Validation.ChillerWSE",
     method="Cvode",
     tolerance=1e-6,
     stopTime=360000,
-    resultFile="ChillerOnly");
+    resultFile="ChillerWSE");
 Advanced.FilenameInLegend = true;
 createPlot(id=1,
     position={4, 5, 546, 906},
@@ -22,7 +22,7 @@ createPlot(id=1,
     grid=true,
     color=true);
 createPlot(id=1,
-    y={"ets.conSup.yHea", "ets.conSup.yCoo", "ets.conSup.yAmb[1]"},
+    y={"ets.conSup.yHea", "ets.conSup.yCoo", "ets.conSup.yAmb[1]", "ets.WSE.conWSE.y1Hex"},
     subPlot=3,
     autoscale=true,
     autoerase=true,
