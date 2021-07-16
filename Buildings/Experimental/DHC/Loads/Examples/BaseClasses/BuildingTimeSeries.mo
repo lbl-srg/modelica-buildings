@@ -168,7 +168,9 @@ model BuildingTimeSeries
     final QHea_flow_nominal=QHea_flow_nominal/facMulHea,
     final T_aLoaHea_nominal=T_aLoaHea_nominal,
     final k=k,
-    final Ti=Ti) if have_chiWat
+    final Ti=Ti,
+    final TRooHea_nominal=T_aLoaHea_nominal,
+    final QRooHea_flow_nominal=QHea_flow_nominal/facMulCoo) if have_chiWat
   constrainedby DHC.Loads.BaseClasses.PartialTerminalUnit(
     redeclare final package Medium1=Medium,
     redeclare final package Medium2=Medium2,
@@ -180,9 +182,7 @@ model BuildingTimeSeries
     final T_aChiWat_nominal=T_aChiWat_nominal,
     final T_bChiWat_nominal=T_bChiWat_nominal,
     final T_aLoaCoo_nominal=T_aLoaCoo_nominal,
-    final w_aLoaCoo_nominal=w_aLoaCoo_nominal,
-    final TRooHea_nominal=T_aLoaHea_nominal,
-    final QRooHea_flow_nominal=QHea_flow_nominal/facMulCoo)
+    final w_aLoaCoo_nominal=w_aLoaCoo_nominal)
     "Cooling terminal unit"
     annotation (Placement(transformation(extent={{70,36},{90,56}})));
   Buildings.Controls.OBC.CDL.Continuous.Add addPPum
