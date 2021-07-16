@@ -63,7 +63,7 @@ partial model PartialFanCoil4Pipe
   Modelica.Blocks.Sources.RealExpression Q_flowHea(
     y=hexHea.Q2_flow)
     annotation (Placement(transformation(extent={{-80,50},{-60,70}})));
-  Buildings.Fluid.HeatExchangers.DryCoilEffectivenessNTU hexCoo(
+  Fluid.HeatExchangers.WetCoilEffectivenessNTU hexWetNtu(
     redeclare final package Medium1=Medium1,
     redeclare final package Medium2=Medium2,
     final configuration=hexConCoo,
@@ -71,14 +71,15 @@ partial model PartialFanCoil4Pipe
     final m2_flow_nominal=mLoaCoo_flow_nominal,
     final dp1_nominal=0,
     dp2_nominal=200,
+    use_Q_flow_nominal=true,
     final Q_flow_nominal=QCoo_flow_nominal,
     final T_a1_nominal=T_aChiWat_nominal,
     final T_a2_nominal=T_aLoaCoo_nominal,
     final allowFlowReversal1=allowFlowReversal,
-    final allowFlowReversal2=allowFlowReversalLoa)
+    final allowFlowReversal2=allowFlowReversalLoa,
+    final w_a2_nominal=w_aLoaCoo_nominal)
     annotation (Placement(transformation(extent={{0,4},{20,-16}})));
-  Modelica.Blocks.Sources.RealExpression Q_flowCoo(
-    y=hexCoo.Q2_flow)
+  Modelica.Blocks.Sources.RealExpression Q_flowCoo(y=hexWetNtu.Q2_flow)
     annotation (Placement(transformation(extent={{-80,30},{-60,50}})));
   Buildings.Controls.OBC.CDL.Continuous.Gain gaiFloNom2(
     k=max(
@@ -101,10 +102,10 @@ partial model PartialFanCoil4Pipe
     "C1 maximum"
     annotation (Placement(transformation(extent={{-10,130},{10,150}})));
 equation
-  connect(hexCoo.port_b2,hexHea.port_a2)
-    annotation (Line(points={{0,0},{-60,0}},color={0,127,255}));
-  connect(fan.port_b,hexCoo.port_a2)
-    annotation (Line(points={{70,0},{20,0}},color={0,127,255}));
+  connect(hexWetNtu.port_b2, hexHea.port_a2)
+    annotation (Line(points={{0,0},{-60,0}}, color={0,127,255}));
+  connect(fan.port_b, hexWetNtu.port_a2)
+    annotation (Line(points={{70,0},{20,0}}, color={0,127,255}));
   connect(gaiFloNom2.y,fan.m_flow_in)
     annotation (Line(points={{62,140},{80,140},{80,12}},color={0,0,127}));
   connect(conHea.y,gaiHeaFloNom.u)
@@ -131,10 +132,10 @@ equation
     annotation (Line(points={{12,220},{20,220},{20,200},{-20,200},{-20,146},{-12,146}},color={0,0,127}));
   connect(conCoo.y,smoothMax.u2)
     annotation (Line(points={{12,180},{20,180},{20,120},{-20,120},{-20,134},{-12,134}},color={0,0,127}));
-  connect(mulChiWatFloInl.port_b,hexCoo.port_a1)
-    annotation (Line(points={{-160,-180},{-20,-180},{-20,-12},{0,-12}},color={0,127,255}));
-  connect(hexCoo.port_b1,mulChiWatFloOut.port_a)
-    annotation (Line(points={{20,-12},{40,-12},{40,-180},{160,-180}},color={0,127,255}));
+  connect(mulChiWatFloInl.port_b, hexWetNtu.port_a1) annotation (Line(points={{-160,
+          -180},{-20,-180},{-20,-12},{0,-12}}, color={0,127,255}));
+  connect(hexWetNtu.port_b1, mulChiWatFloOut.port_a) annotation (Line(points={{20,
+          -12},{40,-12},{40,-180},{160,-180}}, color={0,127,255}));
   connect(hexHea.port_b1,mulHeaWatFloOut.port_a)
     annotation (Line(points={{-60,-12},{-40,-12},{-40,-220},{160,-220}},color={0,127,255}));
   connect(mulHeaWatFloInl.port_b,hexHea.port_a1)

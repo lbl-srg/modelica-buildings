@@ -95,9 +95,9 @@ model FanCoil2PipeHeating
     "Source for return air"
     annotation (Placement(transformation(extent={{10,-10},{-10,10}},rotation=0,origin={112,0})));
   Buildings.Experimental.DHC.Loads.SimpleRoomODE TLoaODE(
-    TOutHea_nominal=273.15-5,
+    TOutHea_nominal=273.15 - 5,
     TIndHea_nominal=T_aLoaHea_nominal,
-    QHea_flow_nominal=QHea_flow_nominal)
+    QHea_flow_nominal=QHea_flow_nominal) "Predicted room air temperature"
     annotation (Placement(transformation(extent={{-10,30},{10,50}})));
   Buildings.Controls.OBC.CDL.Continuous.Gain gaiHeaFlo(
     k=1/QHea_flow_nominal)

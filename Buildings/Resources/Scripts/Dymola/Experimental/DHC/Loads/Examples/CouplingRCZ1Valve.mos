@@ -3,7 +3,7 @@ simulateModel("Buildings.Experimental.DHC.Loads.Examples.CouplingRCZ1Valve",
     tolerance=1e-6,
     numberOfIntervals=500,
     stopTime=604800.0,
-    resultFile="CouplingRCZ1Valve");
+    resultFile="CouplingRCZ1Valve1");
 createPlot(
     id=1,
     position={1, 20, 492, 682},
@@ -71,4 +71,3 @@ plotExpression(
     false,
     "facSca*QCoo_flow_nominal",
     3);
-
