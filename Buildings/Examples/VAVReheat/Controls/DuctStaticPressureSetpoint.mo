@@ -1,9 +1,9 @@
 within Buildings.Examples.VAVReheat.Controls;
 model DuctStaticPressureSetpoint "Computes the duct static pressure setpoint"
   extends Modelica.Blocks.Interfaces.MISO;
-  parameter Modelica.SIunits.AbsolutePressure pMin(displayUnit="Pa") = 100
+  parameter Modelica.SIunits.AbsolutePressure pMin(displayUnit="Pa")=100
     "Minimum duct static pressure setpoint";
-  parameter Modelica.SIunits.AbsolutePressure pMax(displayUnit="Pa") = 410
+  parameter Modelica.SIunits.AbsolutePressure pMax(displayUnit="Pa")=410
     "Maximum duct static pressure setpoint";
   parameter Real k=0.1 "Gain of controller";
   parameter Modelica.SIunits.Time Ti=60 "Time constant of integrator block";
@@ -34,18 +34,6 @@ protected
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
   Modelica.Blocks.Math.Product product
     annotation (Placement(transformation(extent={{20,10},{40,30}})));
-public
-  Modelica.Blocks.Logical.Hysteresis hysteresis(uLow=283.15, uHigh=284.15)
-    "Hysteresis to put fan on minimum revolution"
-    annotation (Placement(transformation(extent={{-60,70},{-40,90}})));
-  Modelica.Blocks.Interfaces.RealInput TOut "Outside air temperature"
-    annotation (Placement(transformation(extent={{-140,60},{-100,100}})));
-protected
-  Modelica.Blocks.Sources.Constant zero(k=0) "Zero output signal"
-    annotation (Placement(transformation(extent={{20,42},{40,62}})));
-public
-  Modelica.Blocks.Logical.Switch switch1
-    annotation (Placement(transformation(extent={{60,50},{80,70}})));
 equation
   connect(max.u, u) annotation (Line(
       points={{-62,6.66134e-16},{-80,6.66134e-16},{-80,0},{-120,0},{-120,
@@ -85,26 +73,7 @@ equation
           5.55112e-16}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(hysteresis.u, TOut) annotation (Line(
-      points={{-62,80},{-120,80}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(product.y, switch1.u1) annotation (Line(
-      points={{41,20},{50,20},{50,68},{58,68}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(zero.y, switch1.u3) annotation (Line(
-      points={{41,52},{58,52}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(switch1.y, pSet.u1) annotation (Line(
-      points={{81,60},{90,60},{90,20},{52,20},{52,6},{58,6}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(hysteresis.y, switch1.u2) annotation (Line(
-      points={{-39,80},{46,80},{46,60},{58,60}},
-      color={255,0,255},
-      smooth=Smooth.None));
+  connect(product.y, pSet.u1) annotation (Line(points={{41,20},{50,20},{50,6},{58,6}}, color={0,0,127}));
   annotation ( Icon(graphics={
         Text(
           extent={{-76,148},{50,-26}},
