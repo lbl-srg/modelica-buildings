@@ -87,14 +87,13 @@ model WatersideEconomizer
     final k=y1Min)
     "Minimum signal"
     annotation (Placement(transformation(extent={{-10,130},{10,150}})));
-  Buildings.Controls.OBC.CDL.Continuous.Max max1
-    "Maximum between control signal and minimum signal"
+  Buildings.Controls.OBC.CDL.Continuous.Line lin
+    "Linear variation bounded by minimum and 1"
     annotation (Placement(transformation(extent={{60,90},{80,110}})));
   Buildings.Controls.OBC.CDL.Logical.Switch swiOff1
     "Output zero if cooling not enabled or isolation valve open (cold rejection)"
     annotation (Placement(transformation(extent={{100,150},{120,170}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zer(final k=0)
-    "Zero"
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zer(final k=0) "Zero"
     annotation (Placement(transformation(extent={{60,130},{80,150}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uCoo
     "Cooling enable signal"
@@ -140,6 +139,8 @@ model WatersideEconomizer
   Buildings.Controls.OBC.CDL.Logical.Switch swiOff2
     "Switch between enabled and disabled mode"
     annotation (Placement(transformation(extent={{140,90},{160,110}})));
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant one(final k=1) "One"
+    annotation (Placement(transformation(extent={{-10,70},{10,90}})));
 equation
   connect(T2WatEnt, delT1.u1)
     annotation (Line(points={{-200,-80},{-160,-80},{-160,-94},{-142,-94}}, color={0,0,127}));
@@ -212,12 +213,18 @@ equation
           130,108},{138,108}}, color={0,0,127}));
   connect(iniSta.active, swiOff2.u2) annotation (Line(points={{-20,29},{-20,20},
           {130,20},{130,100},{138,100}}, color={255,0,255}));
-  connect(max1.y, swiOff2.u3) annotation (Line(points={{82,100},{120,100},{120,
+  connect(lin.y, swiOff2.u3) annotation (Line(points={{82,100},{120,100},{120,
           92},{138,92}}, color={0,0,127}));
-  connect(nor2.y, max1.u2) annotation (Line(points={{-118,100},{40,100},{40,94},
-          {58,94}}, color={0,0,127}));
-  connect(min1.y, max1.u1) annotation (Line(points={{12,140},{40,140},{40,106},
-          {58,106}}, color={0,0,127}));
+  connect(nor2.y, lin.u)
+    annotation (Line(points={{-118,100},{58,100}}, color={0,0,127}));
+  connect(one.y, lin.x2) annotation (Line(points={{12,80},{40,80},{40,96},{58,
+          96}}, color={0,0,127}));
+  connect(one.y, lin.f2) annotation (Line(points={{12,80},{50,80},{50,92},{58,
+          92}}, color={0,0,127}));
+  connect(zer.y, lin.x1) annotation (Line(points={{82,140},{90,140},{90,120},{
+          50,120},{50,108},{58,108}}, color={0,0,127}));
+  connect(min1.y, lin.f1) annotation (Line(points={{12,140},{40,140},{40,104},{
+          58,104}}, color={0,0,127}));
   annotation (
     Diagram(
       coordinateSystem(
