@@ -39,10 +39,12 @@ block PIDWithEnable
     final k=k,
     final Ti=Ti,
     final Td=Td,
+    final r=r,
     final controllerType=controllerType,
     final yMin=yMin,
     final yMax=yMax,
-    final reverseActing=reverseActing)
+    final reverseActing=reverseActing,
+    final y_reset=y_reset)
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Buildings.Controls.OBC.CDL.Logical.Switch swi
     annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
