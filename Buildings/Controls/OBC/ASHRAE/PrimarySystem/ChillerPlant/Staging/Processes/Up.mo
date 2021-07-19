@@ -13,7 +13,7 @@ block Up "Sequence for control devices when there is stage-up command"
     "True: have pony chiller";
   parameter Boolean have_parChi=true
     "True: the plant has parallel chillers";
-  parameter Boolean have_heaPum=true
+  parameter Boolean have_heaConWatPum=true
     "True: headered condenser water pumps";
   parameter Boolean fixSpeConWatPum=true
     "True: fixed speed condenser water pump";
@@ -249,7 +249,7 @@ protected
     annotation (Placement(transformation(extent={{0,30},{20,50}})));
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Pumps.CondenserWater.Controller
     conWatPumCon(
-    final have_heaPum=have_heaPum,
+    final have_heaPum=have_heaConWatPum,
     final have_WSE=have_WSE,
     fixSpe=fixSpeConWatPum,
     final nChi=nChi,

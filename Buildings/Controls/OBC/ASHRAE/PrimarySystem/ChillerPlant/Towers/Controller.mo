@@ -2,7 +2,7 @@
 block Controller "Cooling tower controller"
 
   parameter Integer nChi=2 "Total number of chillers";
-  parameter Integer totChiSta=6
+  parameter Integer totSta=6
     "Total number of stages, stage zero should be counted as one stage";
   parameter Integer nTowCel=4 "Total number of cooling tower cells";
   parameter Integer nConWatPum=2 "Total number of condenser water pumps";
@@ -162,10 +162,10 @@ block Controller "Cooling tower controller"
     annotation (Dialog(tab="Fan speed", group="Advanced"));
 
   // Tower staging
-  parameter Real staVec[totChiSta]={0,0.5,1,1.5,2,2.5}
+  parameter Real staVec[totSta]={0,0.5,1,1.5,2,2.5}
     "Chiller stage vector, element value like x.5 means chiller stage x plus WSE"
     annotation (Dialog(tab="Tower staging", group="Nominal"));
-  parameter Real towCelOnSet[totChiSta]={0,2,2,4,4,4}
+  parameter Real towCelOnSet[totSta]={0,2,2,4,4,4}
     "Number of condenser water pumps that should be ON, according to current chiller stage and WSE status"
     annotation (Dialog(tab="Tower staging"));
   parameter Real chaTowCelIsoTim(final unit="s", final quantity="Time")=300
@@ -181,8 +181,8 @@ block Controller "Cooling tower controller"
     annotation (Dialog(tab="Makeup water"));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput chiLoa[nChi](final unit=fill(
-        "W", nChi), final quantity=fill("HeatFlowRate", nChi)) if
-                                                  have_WSE
+        "W", nChi), final quantity=fill("HeatFlowRate", nChi))
+                                               if have_WSE
     "Current load of each chiller"
     annotation (Placement(transformation(extent={{-140,220},{-100,260}}),
       iconTransformation(extent={{-140,170},{-100,210}})));
@@ -362,7 +362,7 @@ protected
     final have_WSE=have_WSE,
     final nTowCel=nTowCel,
     final nConWatPum=nConWatPum,
-    final totChiSta=totChiSta,
+    final totSta=totSta,
     final staVec=staVec,
     final towCelOnSet=towCelOnSet,
     final chaTowCelIsoTim=chaTowCelIsoTim,

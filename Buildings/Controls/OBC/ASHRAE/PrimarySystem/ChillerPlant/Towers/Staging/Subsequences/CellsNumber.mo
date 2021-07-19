@@ -1,4 +1,4 @@
-within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Towers.Staging.Subsequences;
+﻿within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Towers.Staging.Subsequences;
 block CellsNumber
   "Sequence for identifying total number of enabling cells"
 
@@ -7,11 +7,11 @@ block CellsNumber
   parameter Integer nConWatPum = 2 "Total number of condenser water pumps";
   parameter Integer nTowCel = 4
     "Total number of cooling tower cells";
-  parameter Integer totChiSta = 6
+  parameter Integer totSta = 6
     "Total number of plant stages, stage zero should be counted as one stage";
-  parameter Real staVec[totChiSta]={0,0.5,1,1.5,2,2.5}
+  parameter Real staVec[totSta]={0,0.5,1,1.5,2,2.5}
     "Plant stage vector with size of total number of stages, element value like x.5 means chiller stage x plus WSE";
-  parameter Real towCelOnSet[totChiSta] = {0,2,2,4,4,4}
+  parameter Real towCelOnSet[totSta] = {0,2,2,4,4,4}
     "Design number of tower fan cells that should be ON, according to current chiller stage and WSE status";
   parameter Real speChe = 0.01
     "Lower threshold value to check if condenser water pump is proven on"
@@ -68,29 +68,29 @@ protected
   Buildings.Controls.OBC.CDL.Continuous.Add add3 "Add real inputs"
     annotation (Placement(transformation(extent={{-80,-30},{-60,-10}})));
   Buildings.Controls.OBC.CDL.Routing.RealReplicator reaRep(
-    final nout=totChiSta) "Replicate real input"
+    final nout=totSta) "Replicate real input"
     annotation (Placement(transformation(extent={{-40,-30},{-20,-10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con4[totChiSta](
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con4[totSta](
     final k=staVec) "Stage indicator array"
     annotation (Placement(transformation(extent={{-40,-80},{-20,-60}})));
-  Buildings.Controls.OBC.CDL.Continuous.Add add4[totChiSta](
-    final k1=fill(1, totChiSta),
-    final k2=fill(-1,totChiSta)) "Sum of real inputs"
+  Buildings.Controls.OBC.CDL.Continuous.Add add4[totSta](
+    final k1=fill(1, totSta),
+    final k2=fill(-1,totSta)) "Sum of real inputs"
     annotation (Placement(transformation(extent={{20,-50},{40,-30}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greEquThr[totChiSta](
-    final t=fill(-0.1,totChiSta)) "Check stage indicator"
+  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greEquThr[totSta](
+    final t=fill(-0.1,totSta)) "Check stage indicator"
     annotation (Placement(transformation(extent={{60,-50},{80,-30}})));
-  Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger booToInt[totChiSta]
+  Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger booToInt[totSta]
     "Convert boolean input to integer"
     annotation (Placement(transformation(extent={{100,-50},{120,-30}})));
   Buildings.Controls.OBC.CDL.Integers.MultiSum mulSumInt(
-    final nin=totChiSta) "Sun of input vector "
+    final nin=totSta) "Sun of input vector "
     annotation (Placement(transformation(extent={{140,-50},{160,-30}})));
   Buildings.Controls.OBC.CDL.Routing.RealExtractor celOnNum(
-    final nin=totChiSta)
+    final nin=totSta)
     "Number of cells should be enabled at current plant stage"
     annotation (Placement(transformation(extent={{180,-10},{200,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con5[totChiSta](
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con5[totSta](
     final k=towCelOnSet)
     "Number of enabling cells at each stage"
     annotation (Placement(transformation(extent={{140,-10},{160,10}})));

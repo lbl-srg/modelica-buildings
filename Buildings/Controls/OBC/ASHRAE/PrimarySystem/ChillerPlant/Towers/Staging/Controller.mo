@@ -1,15 +1,15 @@
-within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Towers.Staging;
+﻿within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Towers.Staging;
 block Controller "Sequence of staging cooling tower cells"
 
   parameter Boolean have_WSE=true
     "Flag to indicate if the plant has waterside economizer";
   parameter Integer nTowCel=4 "Total number of cooling tower cells";
   parameter Integer nConWatPum=2 "Total number of condenser water pumps";
-  parameter Integer totChiSta=6
+  parameter Integer totSta=6
     "Total number of plant stages, stage zero should be counted as one stage";
-  parameter Real staVec[totChiSta]={0,0.5,1,1.5,2,2.5}
+  parameter Real staVec[totSta]={0,0.5,1,1.5,2,2.5}
     "Plant stage vector with size of total number of stages, element value like x.5 means chiller stage x plus WSE";
-  parameter Real towCelOnSet[totChiSta]={0,2,2,4,4,4}
+  parameter Real towCelOnSet[totSta]={0,2,2,4,4,4}
     "Design number of tower fan cells that should be ON, according to current chiller stage and WSE status";
   parameter Real chaTowCelIsoTim=90
     "Nominal time needed for open isolation valve of the tower cells";
@@ -83,7 +83,7 @@ block Controller "Sequence of staging cooling tower cells"
     final have_WSE=have_WSE,
     final nConWatPum=nConWatPum,
     final nTowCel=nTowCel,
-    final totChiSta=totChiSta,
+    final totSta=totSta,
     final staVec=staVec,
     final towCelOnSet=towCelOnSet,
     final speChe=speChe)  "Total number of enabled cells"

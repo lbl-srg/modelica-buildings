@@ -6,7 +6,7 @@ model CellsNumber
     enaTowCel(
     nConWatPum=2,
     nTowCel=4) "Find number of enabling cells"
-    annotation (Placement(transformation(extent={{62,-10},{82,10}})));
+    annotation (Placement(transformation(extent={{60,-10},{80,10}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse wseSta(
     final width=0.15,
     final period=3600,
@@ -42,21 +42,21 @@ equation
   connect(chiStaGen.y, chiStaSet.u)
     annotation (Line(points={{-78,50},{-62,50}}, color={0,0,127}));
   connect(curChiSta.y, enaTowCel.uChiSta)
-    annotation (Line(points={{-38,90},{40,90},{40,9},{60,9}}, color={255,127,0}));
+    annotation (Line(points={{-38,90},{40,90},{40,9},{58,9}}, color={255,127,0}));
   connect(chiStaSet.y, enaTowCel.uChiStaSet)
-    annotation (Line(points={{-38,50},{34,50},{34,6},{60,6}}, color={255,127,0}));
+    annotation (Line(points={{-38,50},{34,50},{34,6},{58,6}}, color={255,127,0}));
   connect(booPul2.y, StaTow.u)
     annotation (Line(points={{-78,10},{-62,10}}, color={255,0,255}));
   connect(StaTow.y, enaTowCel.uTowStaCha)
-    annotation (Line(points={{-38,10},{28,10},{28,2},{60,2}}, color={255,0,255}));
+    annotation (Line(points={{-38,10},{28,10},{28,2},{58,2}}, color={255,0,255}));
   connect(wseSta.y, enaTowCel.uWse)
-    annotation (Line(points={{-38,-30},{-8,-30},{-8,-2},{60,-2}}, color={255,0,255}));
+    annotation (Line(points={{-38,-30},{-8,-30},{-8,-2},{58,-2}}, color={255,0,255}));
   connect(conWatPumSpe.y, enaTowCel.uConWatPumSpe)
-    annotation (Line(points={{-38,-100},{8,-100},{8,-9},{60,-9}}, color={0,0,127}));
+    annotation (Line(points={{-38,-100},{8,-100},{8,-9},{58,-9}}, color={0,0,127}));
   connect(pul.y, leaConPum.u)
     annotation (Line(points={{-78,-60},{-62,-60}}, color={255,0,255}));
   connect(leaConPum.y, enaTowCel.uLeaConWatPum)
-    annotation (Line(points={{-38,-60},{0,-60},{0,-6},{60,-6}}, color={255,0,255}));
+    annotation (Line(points={{-38,-60},{0,-60},{0,-6},{58,-6}}, color={255,0,255}));
 
 annotation (experiment(StopTime=3600.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/PrimarySystem/ChillerPlant/Towers/Staging/Subsequences/Validation/CellsNumber.mos"
