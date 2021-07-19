@@ -141,13 +141,13 @@ model PartialParallel
     final conCon=conCon,
     final dp1Hex_nominal=dp1Hex_nominal,
     final dp2Hex_nominal=dp2Hex_nominal,
-    final QHex_flow_nominal=QHex_flow_nominal,
-    final T_a1Hex_nominal=T_a1Hex_nominal,
-    final T_b1Hex_nominal=T_b1Hex_nominal,
-    final T_a2Hex_nominal=T_a2Hex_nominal,
-    final T_b2Hex_nominal=T_b2Hex_nominal,
-    final spePum1HexMin=spePum1HexMin,
-    final spePum2HexMin=spePum2HexMin) "District heat exchanger"
+    final Q_flow_nominal=QHex_flow_nominal,
+    final T_a1_nominal=T_a1Hex_nominal,
+    final T_b1_nominal=T_b1Hex_nominal,
+    final T_a2_nominal=T_a2Hex_nominal,
+    final T_b2_nominal=T_b2Hex_nominal,
+    final spePum1Min=spePum1HexMin,
+    final spePum2Min=spePum2HexMin) "District heat exchanger"
     annotation (Placement(transformation(extent={{-10,-244},{10,-264}})));
   EnergyTransferStations.BaseClasses.StratifiedTank tanChiWat(
     redeclare final package Medium = MediumBui,
@@ -246,9 +246,11 @@ equation
   connect(uHea,conSup.uHea)
     annotation (Line(points={{-320,100},{-290,100},{-290,31},{-262,31}},color={255,0,255}));
   connect(valIsoEva.port_a,colChiWat.ports_aCon[1])
-    annotation (Line(points={{70,-120},{108,-120},{108,-24}},color={0,127,255}));
+    annotation (Line(points={{70,-120},{90,-120},{90,-24},{108,-24}},
+                                                             color={0,127,255}));
   connect(colAmbWat.port_aDisRet,colChiWat.ports_bCon[1])
-    annotation (Line(points={{20,-100},{132,-100},{132,-24}},color={0,127,255}));
+    annotation (Line(points={{20,-100},{150,-100},{150,-24},{132,-24}},
+                                                             color={0,127,255}));
   connect(conSup.yValIsoEva,valIsoEva.y)
     annotation (Line(points={{-238,21},{-220,21},{-220,-80},{60,-80},{60,-108}},color={0,0,127}));
   connect(conSup.yValIsoCon,valIsoCon.y)
@@ -264,9 +266,11 @@ equation
   connect(tanHeaWat.port_bBot,colHeaWat.port_aDisSup)
     annotation (Line(points={{-200,100},{-180,100},{-180,-34},{-140,-34}},color={0,127,255}));
   connect(valIsoCon.port_a,colHeaWat.ports_aCon[1])
-    annotation (Line(points={{-70,-120},{-108,-120},{-108,-24}},color={0,127,255}));
+    annotation (Line(points={{-70,-120},{-90,-120},{-90,-24},{-108,-24}},
+                                                                color={0,127,255}));
   connect(colAmbWat.port_bDisRet,colHeaWat.ports_bCon[1])
-    annotation (Line(points={{-20,-100},{-132,-100},{-132,-24}},color={0,127,255}));
+    annotation (Line(points={{-20,-100},{-150,-100},{-150,-24},{-132,-24}},
+                                                                color={0,127,255}));
   connect(totPHea.y,PHea)
     annotation (Line(points={{282,60},{290,60},{290,80},{320,80}},
                                                 color={0,0,127}));

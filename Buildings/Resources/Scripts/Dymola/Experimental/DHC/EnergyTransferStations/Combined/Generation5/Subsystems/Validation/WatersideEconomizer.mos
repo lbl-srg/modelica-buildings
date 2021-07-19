@@ -6,7 +6,7 @@ simulateModel("Buildings.Experimental.DHC.EnergyTransferStations.Combined.Genera
 createPlot(
     id=1,
     position={21, 19, 542, 623},
-    y={"senT1InlPum.T", "senT2InlPum.T", "hexPum.conWSE.calTemLvg.T2HexWatLvg", "senT2OutPum.T"},
+    y={"senT1InlPum.T", "senT2InlPum.T", "hexPum.conWSE.calTemLvg.T2WatLvg", "senT2OutPum.T"},
     grid=true);
 createPlot(
     id=1,
@@ -15,13 +15,13 @@ createPlot(
     subPlot=2);
 createPlot(
     id=1,
-    y={"hexPum.conWSE.y1Hex", "hexPum.conWSE.yVal2Hex"},
+    y={"hexPum.conWSE.y1", "hexPum.conWSE.yVal2"},
     grid=true,
     subPlot=3);
 createPlot(
     id=2,
     position={91, 23, 542, 623},
-    y={"senT1InlVal.T", "senT2InlVal.T", "hexVal.conWSE.calTemLvg.T2HexWatLvg", "senT2OutVal.T"},
+    y={"senT1InlVal.T", "senT2InlVal.T", "hexVal.conWSE.calTemLvg.T2WatLvg", "senT2OutVal.T"},
     grid=true);
 createPlot(
     id=2,
@@ -30,6 +30,6 @@ createPlot(
     subPlot=2);
 createPlot(
     id=2,
-    y={"hexVal.conWSE.y1Hex", "hexVal.conWSE.yVal2Hex"},
+    y={"hexVal.conWSE.y1", "hexVal.conWSE.yVal2"},
     grid=true,
     subPlot=3);

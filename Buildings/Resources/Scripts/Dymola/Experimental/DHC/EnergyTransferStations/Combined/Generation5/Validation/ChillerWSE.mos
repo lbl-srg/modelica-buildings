@@ -22,7 +22,7 @@ createPlot(id=1,
     grid=true,
     color=true);
 createPlot(id=1,
-    y={"ets.conSup.yHea", "ets.conSup.yCoo", "ets.conSup.yAmb[1]", "ets.WSE.conWSE.y1Hex"},
+    y={"ets.conSup.yHea", "ets.conSup.yCoo", "ets.conSup.yAmb[1]", "ets.WSE.conWSE.y1"},
     subPlot=3,
     autoscale=true,
     autoerase=true,
@@ -31,7 +31,7 @@ createPlot(id=1,
     color=true);
 createPlot(
     id=2,
-    y={"ets.chi.pumCon.m_flow", "ets.chi.pumEva.m_flow", "ets.hex.pum1Hex.m_flow",  "ets.hex.pum2Hex.m_flow", "ets.hex.m1_flow_nominal", "ets.hex.m2_flow_nominal"},
+    y={"ets.chi.pumCon.m_flow", "ets.chi.pumEva.m_flow", "ets.hex.pum1.m_flow",  "ets.hex.pum2.m_flow", "ets.hex.m1_flow_nominal", "ets.hex.m2_flow_nominal"},
     position={560, 7, 539, 607},
     autoscale=true,
     autoerase=true,
@@ -49,7 +49,7 @@ createPlot(
     color=true);
 createPlot(
     id=3,
-    y={"senTDisWatSup.T", "senTDisWatRet.T", "ets.hex.senT2HexWatEnt.T", "ets.hex.senT2HexWatLvg.T"},
+    y={"senTDisWatSup.T", "senTDisWatRet.T", "ets.hex.senT2WatEnt.T", "ets.hex.senT2WatLvg.T"},
     position={1115, 7, 545, 518},
     autoscale=true,
     autoerase=true,

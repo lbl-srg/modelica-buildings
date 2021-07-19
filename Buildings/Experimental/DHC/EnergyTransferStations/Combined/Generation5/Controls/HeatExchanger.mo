@@ -4,12 +4,12 @@ model HeatExchanger
   extends Modelica.Blocks.Icons.Block;
   parameter DHC.EnergyTransferStations.Types.ConnectionConfiguration conCon
     "District connection configuration" annotation (Evaluate=true);
-  parameter Real spePum1HexMin(
+  parameter Real spePum1Min(
     final unit="1",
     min=0)=0.1
     "Heat exchanger primary pump minimum speed (fractional)"
-    annotation (Dialog(enable=not have_val1Hex));
-  parameter Real spePum2HexMin(
+    annotation (Dialog(enable=not have_val1));
+  parameter Real spePum2Min(
     final unit="1",
     min=0.01)=0.1
     "Heat exchanger secondary pump minimum speed (fractional)";
@@ -17,17 +17,16 @@ model HeatExchanger
     "Isolation valves return position (index 1 for condenser)"
     annotation (Placement(transformation(extent={{-260,-60},{-220,-20}}),
                                                                        iconTransformation(extent={{-140,-70},{-100,-30}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput y1Hex(
-    final unit="1")
-    "District heat exchanger primary control signal"
-    annotation (Placement(transformation(extent={{220,20},{260,60}}),
-                                                                    iconTransformation(extent={{100,40},{140,80}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yPum2Hex(
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput y1(final unit="1")
+    "District heat exchanger primary control signal" annotation (Placement(
+        transformation(extent={{220,20},{260,60}}), iconTransformation(extent={
+            {100,40},{140,80}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yPum2(
     final unit="1")
     "District heat exchanger secondary pump control signal"
     annotation (Placement(transformation(extent={{220,-20},{260,20}}),
                                                                      iconTransformation(extent={{100,-20},{140,20}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yVal2Hex(
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yVal2(
     final unit="1")
     "District heat exchanger secondary valve control signal"
     annotation (Placement(transformation(extent={{220,-80},{260,-40}}),iconTransformation(extent={{100,-80},{140,-40}})));
@@ -37,7 +36,8 @@ model HeatExchanger
   Buildings.Controls.OBC.CDL.Logical.Switch swiOff1
     "Output zero if not enabled"
     annotation (Placement(transformation(extent={{160,-70},{180,-50}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant min1(final k=if have_val1Hex then 0 else spePum1HexMin)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant min1(
+    final k=if have_val1 then 0 else spePum1Min)
     "Minimum pump speed or actuator opening"
     annotation (Placement(transformation(extent={{40,-90},{60,-70}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput u
@@ -65,7 +65,7 @@ model HeatExchanger
     "At least one valve is open "
     annotation (Placement(transformation(extent={{-110,-30},{-90,-10}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant speMin(
-    final k=spePum2HexMin)
+    final k=spePum2Min)
     "Minimum pump speed"
     annotation (Placement(transformation(extent={{-10,70},{10,90}})));
   Buildings.Controls.OBC.CDL.Logical.Switch swiOff2
@@ -90,12 +90,12 @@ model HeatExchanger
     "Mapping function for valve opening"
     annotation (Placement(transformation(extent={{90,10},{110,30}})));
 protected
-  parameter Boolean have_val1Hex=conCon ==
+  parameter Boolean have_val1=conCon ==
     DHC.EnergyTransferStations.Types.ConnectionConfiguration.TwoWayValve
     "True in case of control valve on district side, false in case of a pump";
 equation
-  connect(swiOff1.y,y1Hex)
-    annotation (Line(points={{182,-60},{200,-60},{200,40},{240,40}},color={0,0,127}));
+  connect(swiOff1.y, y1) annotation (Line(points={{182,-60},{200,-60},{200,40},
+          {240,40}}, color={0,0,127}));
   connect(max1.y,swiOff1.u1)
     annotation (Line(points={{112,-60},{126,-60},{126,-52},{158,-52}},color={0,0,127}));
   connect(u,greThr.u)
@@ -114,7 +114,7 @@ equation
                                                                   color={255,0,255}));
   connect(min1.y,max1.u2)
     annotation (Line(points={{62,-80},{80,-80},{80,-66},{88,-66}},  color={0,0,127}));
-  connect(swiOff2.y,yPum2Hex)
+  connect(swiOff2.y,yPum2)
     annotation (Line(points={{182,60},{190,60},{190,0},{240,0}},      color={0,0,127}));
   connect(one.y,mapSpe.x2)
     annotation (Line(points={{62,20},{70,20},{70,56},{88,56}},    color={0,0,127}));
@@ -143,7 +143,7 @@ equation
     annotation (Line(points={{62,20},{70,20},{70,12},{88,12}},  color={0,0,127}));
   connect(hal.y,mapVal.x2)
     annotation (Line(points={{12,20},{20,20},{20,4},{84,4},{84,16},{88,16}},    color={0,0,127}));
-  connect(mapVal.y,yVal2Hex)
+  connect(mapVal.y,yVal2)
     annotation (Line(points={{112,20},{210,20},{210,-60},{240,-60}},  color={0,0,127}));
   connect(and2.y,swiOff2.u2)
     annotation (Line(points={{-38,0},{-20,0},{-20,40},{130,40},{130,60},{158,60}},      color={255,0,255}));

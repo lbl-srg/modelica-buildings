@@ -1,17 +1,16 @@
 within Buildings.Experimental.DHC.EnergyTransferStations.Combined.Generation5.Subsystems;
 model WatersideEconomizer
   "Base subsystem with waterside economizer"
-  extends Buildings.Fluid.Interfaces.PartialFourPortInterface(final
-      m1_flow_nominal=abs(QHex_flow_nominal/4200/(T_b1Hex_nominal -
-        T_a1Hex_nominal)), final m2_flow_nominal=abs(QHex_flow_nominal/4200/(
-        T_b2Hex_nominal - T_a2Hex_nominal)));
+  extends Buildings.Fluid.Interfaces.PartialFourPortInterface(
+    final m1_flow_nominal=abs(Q_flow_nominal/4200/(T_b1_nominal - T_a1_nominal)),
+    final m2_flow_nominal=abs(Q_flow_nominal/4200/(T_b2_nominal - T_a2_nominal)));
   parameter DHC.EnergyTransferStations.Types.ConnectionConfiguration conCon
     "District connection configuration" annotation (Evaluate=true);
   replaceable parameter Buildings.Fluid.Movers.Data.Generic perPum1(
     motorCooledByFluid=false)
     constrainedby Buildings.Fluid.Movers.Data.Generic
     "Record with performance data for primary pump"
-    annotation (Dialog(enable=not have_val1Hex),choicesAllMatching=true,
+    annotation (Dialog(enable=not have_val1),choicesAllMatching=true,
     Placement(transformation(extent={{-40,-140},{-20,-120}})));
   parameter Modelica.SIunits.PressureDifference dp1Hex_nominal(displayUnit="Pa")
     "Nominal pressure drop across heat exchanger on district side"
@@ -19,27 +18,27 @@ model WatersideEconomizer
   parameter Modelica.SIunits.PressureDifference dp2Hex_nominal(displayUnit="Pa")
     "Nominal pressure drop across heat exchanger on building side"
     annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.SIunits.PressureDifference dpVal1Hex_nominal(
-    displayUnit="Pa")=if have_val1Hex then dp1Hex_nominal/2 else 0
+  parameter Modelica.SIunits.PressureDifference dpVal1_nominal(
+    displayUnit="Pa")=if have_val1 then dp1Hex_nominal/2 else 0
     "Nominal pressure drop of primary control valve"
-    annotation (Dialog(enable=have_val1Hex,group="Nominal condition"));
-  parameter Modelica.SIunits.PressureDifference dpVal2Hex_nominal(
+    annotation (Dialog(enable=have_val1,group="Nominal condition"));
+  parameter Modelica.SIunits.PressureDifference dpVal2_nominal(
     displayUnit="Pa")=dp2Hex_nominal/10
     "Nominal pressure drop of heat exchanger bypass valve"
     annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.SIunits.HeatFlowRate QHex_flow_nominal
+  parameter Modelica.SIunits.HeatFlowRate Q_flow_nominal
     "Nominal heat flow rate (from district to building)"
     annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.SIunits.Temperature T_a1Hex_nominal
+  parameter Modelica.SIunits.Temperature T_a1_nominal
     "Nominal water inlet temperature on district side"
     annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.SIunits.Temperature T_b1Hex_nominal
+  parameter Modelica.SIunits.Temperature T_b1_nominal
     "Nominal water outlet temperature on district side"
     annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.SIunits.Temperature T_a2Hex_nominal
+  parameter Modelica.SIunits.Temperature T_a2_nominal
     "Nominal water inlet temperature on building side"
     annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.SIunits.Temperature T_b2Hex_nominal
+  parameter Modelica.SIunits.Temperature T_b2_nominal
     "Nominal water outlet temperature on building side"
     annotation (Dialog(group="Nominal condition"));
   parameter Real y1Min(final unit="1")=0.05
@@ -61,7 +60,7 @@ model WatersideEconomizer
     annotation (Dialog(group="Controls"));
   // IO CONNECTORS
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput PPum(
-    final unit="W") if not have_val1Hex
+    final unit="W") if not have_val1
     "Power drawn by pump motors"
     annotation (Placement(transformation(extent={{100,-20},{140,20}}),
     iconTransformation(extent={{100,-20},{140,20}})));
@@ -69,8 +68,8 @@ model WatersideEconomizer
   Controls.WatersideEconomizer conWSE(
     final m2_flow_nominal=m2_flow_nominal,
     final y1Min=y1Min,
-    final T_a1Hex_nominal=T_a1Hex_nominal,
-    final T_b2Hex_nominal=T_b2Hex_nominal,
+    final T_a1_nominal=T_a1_nominal,
+    final T_b2_nominal=T_b2_nominal,
     final dTEna=dTEna,
     final dTDis=dTDis)
     "District heat exchanger loop controller"
@@ -82,25 +81,26 @@ model WatersideEconomizer
     configuration=Buildings.Fluid.Types.HeatExchangerConfiguration.CounterFlow,
     final allowFlowReversal1=allowFlowReversal1,
     final allowFlowReversal2=allowFlowReversal2,
-    final dp1_nominal=if have_val1Hex then 0 else dp1Hex_nominal,
+    final dp1_nominal=if have_val1 then 0 else dp1Hex_nominal,
     final dp2_nominal=0,
     final m1_flow_nominal=m1_flow_nominal,
     final m2_flow_nominal=m2_flow_nominal,
-    final Q_flow_nominal=QHex_flow_nominal,
-    final T_a1_nominal=T_a1Hex_nominal,
-    final T_a2_nominal=T_a2Hex_nominal) "Heat exchanger" annotation (Placement(
+    final Q_flow_nominal=Q_flow_nominal,
+    final T_a1_nominal=T_a1_nominal,
+    final T_a2_nominal=T_a2_nominal)
+    "Heat exchanger" annotation (Placement(
         transformation(extent={{10,10},{-10,-10}}, rotation=180)));
-  DHC.EnergyTransferStations.BaseClasses.Pump_m_flow pum1Hex(
+  DHC.EnergyTransferStations.BaseClasses.Pump_m_flow pum1(
     redeclare final package Medium = Medium1,
     final per=perPum1,
     final m_flow_nominal=m1_flow_nominal,
     final dp_nominal=dp1Hex_nominal,
-    final allowFlowReversal=allowFlowReversal1) if not have_val1Hex
+    final allowFlowReversal=allowFlowReversal1) if not have_val1
     "District heat exchanger primary pump" annotation (Placement(transformation(
         extent={{10,10},{-10,-10}},
         rotation=180,
         origin={-60,80})));
-  Buildings.Fluid.Sensors.TemperatureTwoPort senT2HexWatEnt(
+  Buildings.Fluid.Sensors.TemperatureTwoPort senT2WatEnt(
     redeclare final package Medium = Medium2,
     final m_flow_nominal=m2_flow_nominal,
     final allowFlowReversal=allowFlowReversal2)
@@ -109,7 +109,7 @@ model WatersideEconomizer
         extent={{10,-10},{-10,10}},
         rotation=0,
         origin={40,-60})));
-  Buildings.Fluid.Sensors.TemperatureTwoPort senT2HexWatLvg(
+  Buildings.Fluid.Sensors.TemperatureTwoPort senT2WatLvg(
     redeclare final package Medium = Medium2,
     final m_flow_nominal=m2_flow_nominal,
     final allowFlowReversal=allowFlowReversal2)
@@ -119,32 +119,32 @@ model WatersideEconomizer
         extent={{10,-10},{-10,10}},
         rotation=0,
         origin={-40,-60})));
-  Buildings.Fluid.Actuators.Valves.TwoWayPressureIndependent val1Hex(
+  Buildings.Fluid.Actuators.Valves.TwoWayPressureIndependent val1(
     redeclare final package Medium = Medium1,
     final m_flow_nominal=m1_flow_nominal,
     from_dp=true,
-    final dpValve_nominal=dpVal1Hex_nominal,
+    final dpValve_nominal=dpVal1_nominal,
     final dpFixed_nominal=dp1Hex_nominal,
-    use_inputFilter=false) if have_val1Hex
+    use_inputFilter=false) if have_val1
     "Heat exchanger primary control valve"
     annotation (Placement(transformation(extent={{70,70},{90,90}})));
   Buildings.Controls.OBC.CDL.Continuous.Gain gai1(
-    final k=m1_flow_nominal) if not have_val1Hex
+    final k=m1_flow_nominal) if not have_val1
     "Scale to nominal mass flow rate"
     annotation (Placement(transformation(extent={{10,100},{-10,120}})));
-  Buildings.Fluid.Actuators.Valves.ThreeWayLinear val2Hex(
+  Buildings.Fluid.Actuators.Valves.ThreeWayLinear val2(
     redeclare final package Medium = Medium2,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     use_inputFilter=false,
     final m_flow_nominal=m2_flow_nominal,
-    final dpValve_nominal=dpVal2Hex_nominal,
+    final dpValve_nominal=dpVal2_nominal,
     final dpFixed_nominal={dp2Hex_nominal,0},
     fraK=1) "Heat exchanger secondary control valve" annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={20,-40})));
-  Buildings.Fluid.Sensors.TemperatureTwoPort senT1HexWatEnt(
+  Buildings.Fluid.Sensors.TemperatureTwoPort senT1WatEnt(
     redeclare final package Medium = Medium1,
     final m_flow_nominal=m1_flow_nominal,
     final allowFlowReversal=allowFlowReversal1)
@@ -169,55 +169,55 @@ model WatersideEconomizer
         rotation=0,
         origin={-80,-60})));
 protected
-  parameter Boolean have_val1Hex=
+  parameter Boolean have_val1=
     conCon ==DHC.EnergyTransferStations.Types.ConnectionConfiguration.TwoWayValve
     "True in case of control valve on district side, false in case of a pump";
 equation
-  if not have_val1Hex then
+  if not have_val1 then
     connect(hex.port_b1, port_b1) annotation (Line(points={{10,6},{20,6},{20,60},
-            {100,60}},                                                                      color={0,127,255}));
+            {100,60}}, color={0,127,255}));
   else
-    connect(port_a1, senT1HexWatEnt.port_a) annotation (Line(points={{-100,60},{-20,60},{-20,50}}, color={0,127,255}));
+    connect(port_a1, senT1WatEnt.port_a) annotation (Line(points={{-100,60},{-20,60},{-20,50}}, color={0,127,255}));
   end if;
-  connect(port_a1,pum1Hex.port_a)
+  connect(port_a1,pum1.port_a)
     annotation (Line(points={{-100,60},{-90,60},{-90,80},{-70,80}},color={0,127,255}));
-  connect(val1Hex.port_b,port_b1)
+  connect(val1.port_b,port_b1)
     annotation (Line(points={{90,80},{94,80},{94,60},{100,60}},color={0,127,255}));
-  connect(conWSE.y1Hex, val1Hex.y) annotation (Line(points={{52,165},{80,165},{80,92}},  color={0,0,127}));
-  connect(conWSE.y1Hex, gai1.u) annotation (Line(points={{52,165},{80,165},{80,110},
+  connect(conWSE.y1, val1.y) annotation (Line(points={{52,165},{80,165},{80,92}},  color={0,0,127}));
+  connect(conWSE.y1, gai1.u) annotation (Line(points={{52,165},{80,165},{80,110},
           {12,110}},                                                                           color={0,0,127}));
-  connect(gai1.y,pum1Hex.m_flow_in)
+  connect(gai1.y,pum1.m_flow_in)
     annotation (Line(points={{-12,110},{-60,110},{-60,92}},color={0,0,127}));
-  connect(PPum, pum1Hex.P) annotation (Line(points={{120,0},{44,0},{44,89},{-49,89}}, color={0,0,127}));
-  connect(conWSE.yVal2Hex, val2Hex.y)
+  connect(PPum, pum1.P) annotation (Line(points={{120,0},{44,0},{44,89},{-49,89}}, color={0,0,127}));
+  connect(conWSE.yVal2, val2.y)
     annotation (Line(points={{52,155},{60,155},{60,-40},{32,-40}},        color={0,0,127}));
-  connect(port_a2, senT2HexWatEnt.port_a) annotation (Line(points={{100,-60},{50,-60}}, color={0,127,255}));
-  connect(hex.port_b2, senT2HexWatLvg.port_a)
+  connect(port_a2, senT2WatEnt.port_a) annotation (Line(points={{100,-60},{50,-60}}, color={0,127,255}));
+  connect(hex.port_b2, senT2WatLvg.port_a)
     annotation (Line(points={{-10,-6},{-20,-6},{-20,-60},{-30,-60}}, color={0,127,255}));
-  connect(senT1HexWatEnt.port_b, hex.port_a1) annotation (Line(points={{-20,30},
+  connect(senT1WatEnt.port_b, hex.port_a1) annotation (Line(points={{-20,30},
           {-20,6},{-10,6}},                                                                       color={0,127,255}));
-  connect(senT1HexWatEnt.port_a, pum1Hex.port_b)
+  connect(senT1WatEnt.port_a, pum1.port_b)
     annotation (Line(points={{-20,50},{-20,80},{-50,80}}, color={0,127,255}));
-  connect(hex.port_b1, val1Hex.port_a) annotation (Line(points={{10,6},{20,6},{
+  connect(hex.port_b1, val1.port_a) annotation (Line(points={{10,6},{20,6},{
           20,80},{70,80}},                                                                      color={0,127,255}));
   connect(uCoo, conWSE.uCoo) annotation (Line(points={{-120,160},{-40,160},{-40,168},{28,168}}, color={255,0,255}));
-  connect(senT1HexWatEnt.T, conWSE.T1HexWatEnt)
+  connect(senT1WatEnt.T, conWSE.T1WatEnt)
     annotation (Line(points={{-31,40},{-38,40},{-38,162},{28,162}}, color={0,0,127}));
-  connect(conWSE.T2HexWatEnt, senT2HexWatEnt.T)
+  connect(conWSE.T2WatEnt, senT2WatEnt.T)
     annotation (Line(points={{28,159},{20,159},{20,140},{40,140},{40,-49},{40,-49}}, color={0,0,127}));
-  connect(senT2HexWatLvg.T, conWSE.T2HexWatLvg)
+  connect(senT2WatLvg.T, conWSE.T2WatLvg)
     annotation (Line(points={{-40,-49},{-40,156},{28,156}}, color={0,0,127}));
   connect(yValIsoEva_actual, conWSE.yValIsoEva_actual)
     annotation (Line(points={{-120,130},{24,130},{24,153},{28,153}}, color={0,0,127}));
-  connect(val2Hex.port_3, senT2HexWatLvg.port_a)
+  connect(val2.port_3, senT2WatLvg.port_a)
     annotation (Line(points={{10,-40},{-20,-40},{-20,-60},{-30,-60}}, color={0,127,255}));
-  connect(val2Hex.port_1, hex.port_a2)
+  connect(val2.port_1, hex.port_a2)
     annotation (Line(points={{20,-30},{20,-6},{10,-6}}, color={0,127,255}));
-  connect(val2Hex.port_2, senT2HexWatEnt.port_b)
+  connect(val2.port_2, senT2WatEnt.port_b)
     annotation (Line(points={{20,-50},{20,-60},{30,-60}}, color={0,127,255}));
   connect(port_b2, senMasFlo2.port_b)
     annotation (Line(points={{-100,-60},{-90,-60}}, color={0,127,255}));
-  connect(senMasFlo2.port_a, senT2HexWatLvg.port_b)
+  connect(senMasFlo2.port_a, senT2WatLvg.port_b)
     annotation (Line(points={{-70,-60},{-50,-60}}, color={0,127,255}));
   connect(senMasFlo2.m_flow, conWSE.m2_flow)
     annotation (Line(points={{-80,-49},{-80,165},{28,165}}, color={0,0,127}));
@@ -255,8 +255,8 @@ First implementation.
 <p>
 This is a model for a waterside economizer for sidestream integration (in
 series with the chillers).
-The primary side is typically connected to the service line. 
-The primary flow rate is modulated either with a variable speed pump or 
+The primary side is typically connected to the service line.
+The primary flow rate is modulated either with a variable speed pump or
 with a two-way valve.
 The secondary side is typically connected to the chilled water return,
 using a three-port two-position directional control valve.

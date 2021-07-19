@@ -2,9 +2,9 @@ within Buildings.Examples.VAVReheat.Controls;
 block RoomVAV "Controller for room VAV box"
   extends Modelica.Blocks.Icons.Block;
 
-  parameter Real ratVFloMin(final unit="1") = 0.3
+  parameter Real ratVFloMin(unit="1")=0.3
     "Minimum airflow set point (ratio to nominal)";
-  parameter Real ratVFloHea(final unit="1") = ratVFloMin
+  parameter Real ratVFloHea(unit="1")=ratVFloMin
     "Heating airflow set point (ratio to nominal)";
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController cooController=
     Buildings.Controls.OBC.CDL.Types.SimpleController.PI "Type of controller"
@@ -81,8 +81,7 @@ block RoomVAV "Controller for room VAV box"
     "Cooling maximum flow"
     annotation (Placement(transformation(extent={{30,-50},{50,-30}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minFloCoo(
-    final k=ratVFloMin)
-    "Minimum flow in cooling mode"
+    final k=ratVFloMin) "Minimum air flow set point"
     annotation (Placement(transformation(extent={{-60,30},{-40,50}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant conOne(k=1)
     "Constant 1"
@@ -100,11 +99,10 @@ block RoomVAV "Controller for room VAV box"
     "Heating loop control error"
     annotation (Placement(transformation(extent={{-50,130},{-30,150}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minFloHea(
-    final k=ratVFloHea)
-    "Minimum flow in heating mode"
+    final k=ratVFloHea) "Minimum air flow set point in heating mode"
     annotation (Placement(transformation(extent={{-60,90},{-40,110}})));
   Buildings.Controls.OBC.CDL.Logical.Switch swi
-    "Switch minimum air flow rate between heating and absolute minimum"
+    "Switch between heating and deadband air flow rate"
     annotation (Placement(transformation(extent={{-10,50},{10,70}})));
   Buildings.Controls.OBC.CDL.Utilities.Assert assMes(message=
     "The difference between cooling and heating set points must be greater than dTHys")

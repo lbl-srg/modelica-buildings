@@ -6,10 +6,10 @@ model WatersideEconomizer
   parameter Modelica.SIunits.MassFlowRate m2_flow_nominal
     "Heat exchanger secondary mass flow rate"
     annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.SIunits.Temperature T_a1Hex_nominal
+  parameter Modelica.SIunits.Temperature T_a1_nominal
     "Nominal water inlet temperature on district side"
     annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.SIunits.Temperature T_b2Hex_nominal
+  parameter Modelica.SIunits.Temperature T_b2_nominal
     "Nominal water outlet temperature on building side"
     annotation (Dialog(group="Nominal condition"));
   parameter Real y1Min(final unit="1")=0.05
@@ -21,7 +21,7 @@ model WatersideEconomizer
   parameter Modelica.SIunits.TemperatureDifference dTDis = 0.5
     "Minimum delta-T across heat exchanger before disabling WSE"
     annotation (Dialog(group="Controls"));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput T1HexWatEnt(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput T1WatEnt(
     final unit="K",
     displayUnit="degC") "Heat exchanger primary water entering temperature"
     annotation (Placement(transformation(extent={{-220,-60},{-180,-20}}),
@@ -31,22 +31,21 @@ model WatersideEconomizer
     "Heat exchanger secondary mass flow rate" annotation (
       Placement(transformation(extent={{-220,80},{-180,120}}),
         iconTransformation(extent={{-140,30},{-100,70}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput T2HexWatLvg(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput T2WatLvg(
     final unit="K", displayUnit="degC")
     "Heat exchanger secondary water leaving temperature"
     annotation (Placement(transformation(extent={{-220,-140},{-180,-100}}),
                      iconTransformation(extent={{-140,-60},{-100,-20}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput T2HexWatEnt(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput T2WatEnt(
     final unit="K", displayUnit="degC")
     "Heat exchanger secondary water entering temperature"
     annotation (Placement(transformation(extent={{-220,-100},{-180,-60}}),
                     iconTransformation(extent={{-140,-30},{-100,10}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput y1Hex(
-    final unit="1")
-    "Primary control signal (pump or valve)"
-    annotation (Placement(transformation(extent={{180,80},{220,120}}),
-      iconTransformation(extent={{100,30},{140,70}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yVal2Hex(
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput y1(final unit="1")
+    "Primary control signal (pump or valve)" annotation (Placement(
+        transformation(extent={{180,80},{220,120}}), iconTransformation(extent=
+            {{100,30},{140,70}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yVal2(
     final unit="1")
     "Secondary valve control signal"
     annotation (Placement(transformation(extent={{180,-60},{220,-20}}),
@@ -56,8 +55,7 @@ model WatersideEconomizer
     final k=1)
     "Add threshold for enabling WSE"
     annotation (Placement(transformation(extent={{-90,-50},{-70,-30}})));
-  Modelica.StateGraph.InitialStepWithSignal
-                                  iniSta "Initial state "
+  Modelica.StateGraph.InitialStepWithSignal iniSta "Initial state "
     annotation (Placement(transformation(extent={{-30,30},{-10,50}})));
   Modelica.StateGraph.TransitionWithSignal ena "Transition to enabled state"
     annotation (Placement(transformation(extent={{10,30},{30,50}})));
@@ -71,7 +69,7 @@ model WatersideEconomizer
     "Compare to threshold for disabling WSE"
     annotation (Placement(transformation(extent={{-50,-110},{-30,-90}})));
   PredictLeavingTemperature calTemLvg(
-    final dTApp_nominal=abs(T_a1Hex_nominal - T_b2Hex_nominal),
+    final dTApp_nominal=abs(T_a1_nominal - T_b2_nominal),
     final m2_flow_nominal=m2_flow_nominal)
     "Compute predicted leaving water temperature"
     annotation (Placement(transformation(extent={{-140,-50},{-120,-30}})));
@@ -110,18 +108,23 @@ model WatersideEconomizer
     annotation (Placement(transformation(extent={{0,-110},{20,-90}})));
   Buildings.Controls.OBC.CDL.Logical.Not not2 "Cooling disabled"
     annotation (Placement(transformation(extent={{-50,-80},{-30,-60}})));
-  Buildings.Controls.OBC.CDL.Logical.Timer tim(t=1200) "True when WSE active for more than t" annotation (Placement(
+  Buildings.Controls.OBC.CDL.Logical.Timer tim(t=1200)
+    "True when WSE active for more than t" annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={50,-70})));
-  Buildings.Controls.OBC.CDL.Logical.Timer tim1(t=1200) "True when WSE inactive for more than t"
+  Buildings.Controls.OBC.CDL.Logical.Timer tim1(t=1200)
+    "True when WSE inactive for more than t"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90)));
-  Buildings.Controls.OBC.CDL.Logical.And and2 "Cooling disabled or temperature criterion verified"
+  Buildings.Controls.OBC.CDL.Logical.And and2
+    "Cooling disabled or temperature criterion verified"
     annotation (Placement(transformation(extent={{70,-102},{90,-82}})));
-  Buildings.Controls.OBC.CDL.Continuous.LessThreshold isValIsoEvaClo(final t=1E-6, h=0.5E-6) "True if valve closed"
+  Buildings.Controls.OBC.CDL.Continuous.LessThreshold isValIsoEvaClo(
+    final t=1E-6, h=0.5E-6)
+    "True if valve closed"
     annotation (Placement(transformation(extent={{-140,-170},{-120,-150}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput yValIsoEva_actual(final unit="1")
     "Return position of evaporator to ambient loop isolation valve"
@@ -138,20 +141,19 @@ model WatersideEconomizer
     "Switch between enabled and disabled mode"
     annotation (Placement(transformation(extent={{140,90},{160,110}})));
 equation
-  connect(T2HexWatEnt, delT1.u1)
+  connect(T2WatEnt, delT1.u1)
     annotation (Line(points={{-200,-80},{-160,-80},{-160,-94},{-142,-94}}, color={0,0,127}));
-  connect(T2HexWatLvg, delT1.u2)
+  connect(T2WatLvg, delT1.u2)
     annotation (Line(points={{-200,-120},{-160,-120},{-160,-106},{-142,-106}},
                                                                              color={0,0,127}));
   connect(delT1.y, delTemDis.u) annotation (Line(points={{-118,-100},{-52,-100}},color={0,0,127}));
-  connect(T1HexWatEnt, calTemLvg.T1HexWatEnt)
+  connect(T1WatEnt, calTemLvg.T1WatEnt)
     annotation (Line(points={{-200,-40},{-160,-40},{-160,-45},{-142,-45}},
                                                                      color={0,0,127}));
-  connect(calTemLvg.T2HexWatLvg, addDelTem.u) annotation (Line(points={{-118,-40},{-92,-40}},
-                                                                                           color={0,0,127}));
+  connect(calTemLvg.T2WatLvg, addDelTem.u) annotation (Line(points={{-118,-40},{-92,-40}}, color={0,0,127}));
   connect(addDelTem.y, delTemDis1.u1) annotation (Line(points={{-68,-40},{-52,-40}},
                                                                                   color={0,0,127}));
-  connect(T2HexWatEnt, delTemDis1.u2)
+  connect(T2WatEnt, delTemDis1.u2)
     annotation (Line(points={{-200,-80},{-60,-80},{-60,-48},{-52,-48}},
                                                                       color={0,0,127}));
   connect(iniSta.outPort[1], ena.inPort) annotation (Line(points={{-9.5,40},{16,40}},   color={0,0,0}));
@@ -159,7 +161,7 @@ equation
   connect(actSta.outPort[1], dis.inPort) annotation (Line(points={{70.5,40},{96,40}}, color={0,0,0}));
   connect(dis.outPort, iniSta.inPort[1])
     annotation (Line(points={{101.5,40},{120,40},{120,60},{-40,60},{-40,40},{-31,40}}, color={0,0,0}));
-  connect(booToRea.y, yVal2Hex) annotation (Line(points={{162,-40},{200,-40}}, color={0,0,127}));
+  connect(booToRea.y, yVal2) annotation (Line(points={{162,-40},{200,-40}}, color={0,0,127}));
   connect(zer.y, swiOff1.u3) annotation (Line(points={{82,140},{90,140},{90,152},
           {98,152}},                                                                    color={0,0,127}));
   connect(mulAnd.y, ena.condition) annotation (Line(points={{22,-40},{30,-40},{
@@ -204,7 +206,7 @@ equation
     annotation (Line(points={{-200,100},{-142,100}}, color={0,0,127}));
   connect(min1.y, swiOff1.u1) annotation (Line(points={{12,140},{40,140},{40,
           168},{98,168}}, color={0,0,127}));
-  connect(swiOff2.y, y1Hex)
+  connect(swiOff2.y, y1)
     annotation (Line(points={{162,100},{200,100}}, color={0,0,127}));
   connect(swiOff1.y, swiOff2.u1) annotation (Line(points={{122,160},{130,160},{
           130,108},{138,108}}, color={0,0,127}));

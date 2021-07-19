@@ -15,7 +15,7 @@ createPlot(
     subPlot=2);
 createPlot(
     id=1,
-    y={"hexPum.con.y1Hex", "hexPum.con.yVal2Hex", "hexPum.con.yPum2Hex"},
+    y={"hexPum.con.y1", "hexPum.con.yVal2", "hexPum.con.yPum2"},
     grid=true,
     subPlot=3);
 createPlot(
@@ -30,6 +30,6 @@ createPlot(
     subPlot=2);
 createPlot(
     id=2,
-    y={"hexVal.con.y1Hex", "hexVal.con.yVal2Hex", "hexVal.con.yPum2Hex"},
+    y={"hexVal.con.y1", "hexVal.con.yVal2", "hexVal.con.yPum2"},
     grid=true,
     subPlot=3);
