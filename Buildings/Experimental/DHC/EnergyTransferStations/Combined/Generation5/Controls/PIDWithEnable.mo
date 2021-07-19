@@ -15,6 +15,9 @@ block PIDWithEnable
     min=0)=0.1
     "Time constant of derivative block"
     annotation (Dialog(enable=controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PD or controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
+  parameter Real r(
+    min=100*Modelica.Constants.eps)=1
+    "Typical range of control error, used for scaling the control error";
   parameter Real yMin=0
     "Lower limit of output";
   parameter Real yMax=1
@@ -86,7 +89,7 @@ equation
     Documentation(
       info="<html>
 <p>
-This is an update of 
+This is an update of
 <a href=\"modelica://Buildings.Controls.OBC.CDL.Continuous.PIDWithReset\">
 Buildings.Controls.OBC.CDL.Continuous.PIDWithReset</a>
 with an additional Boolean input representing an enable signal.
@@ -96,7 +99,7 @@ with an additional Boolean input representing an enable signal.
 When enabled, the controller output is identical to
 <a href=\"modelica://Buildings.Controls.OBC.CDL.Continuous.PIDWithReset\">
 Buildings.Controls.OBC.CDL.Continuous.PIDWithReset</a>
-(and the controller integral term is reset to <code>yMin</code> at 
+(and the controller integral term is reset to <code>yMin</code> at
 enabling time).
 </li>
 <li>
