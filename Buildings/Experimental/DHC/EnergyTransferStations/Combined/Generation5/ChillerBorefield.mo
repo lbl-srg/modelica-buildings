@@ -101,6 +101,10 @@ model ChillerBorefield "ETS model for 5GDHC systems with heat recovery chiller a
       Dialog(group="Waterside economizer", enable=not have_val1Hex and have_WSE),
       choicesAllMatching=true,
       Placement(transformation(extent={{220,222},{240,242}})));
+  final parameter Modelica.SIunits.MassFlowRate m1WSE_flow_nominal=
+    abs(QWSE_flow_nominal/4200/(T_b1WSE_nominal - T_a1WSE_nominal))
+    "WSE primary mass flow rate"
+    annotation (Dialog(group="Waterside economizer", enable=have_WSE));
   parameter Modelica.SIunits.Temperature TBorWatEntMax=313.15
     "Maximum value of borefield water entering temperature"
     annotation (Dialog(group="Borefield",enable=have_borFie));
@@ -152,10 +156,6 @@ model ChillerBorefield "ETS model for 5GDHC systems with heat recovery chiller a
   parameter Modelica.SIunits.Temperature TChiWatSupSetMin(
     displayUnit="degC")=datChi.TEvaLvgMin
     "Minimum value of chilled water supply temperature set point"
-    annotation (Dialog(group="Supervisory controller"));
-  final parameter Modelica.SIunits.TemperatureDifference dT12Hex_nominal=
-    abs(T_a1Hex_nominal - T_a2Hex_nominal)
-    "Difference between primary and secondary entering temperature in cold rejection"
     annotation (Dialog(group="Supervisory controller"));
 
   replaceable Subsystems.Chiller chi(
@@ -230,12 +230,18 @@ model ChillerBorefield "ETS model for 5GDHC systems with heat recovery chiller a
     annotation (Placement(transformation(extent={{220,116},{240,136}})));
   Buildings.Experimental.DHC.EnergyTransferStations.BaseClasses.Junction splWSE(
     redeclare final package Medium = MediumSer,
-    final m_flow_nominal=mSerWat_flow_nominal*{1,-1,-1})
+    final m_flow_nominal={
+      hex.m1_flow_nominal + m1WSE_flow_nominal,
+      -hex.m1_flow_nominal,
+      -m1WSE_flow_nominal})
     "Flow splitter for WSE"
     annotation (Placement(transformation(extent={{-230,-270},{-210,-250}})));
   Buildings.Experimental.DHC.EnergyTransferStations.BaseClasses.Junction mixWSE(
     redeclare final package Medium = MediumSer,
-    final m_flow_nominal=mSerWat_flow_nominal*{1,-1,1})
+    final m_flow_nominal={
+      hex.m1_flow_nominal,
+      -hex.m1_flow_nominal - m1WSE_flow_nominal,
+      m1WSE_flow_nominal})
     "Flow mixer for WSE"
     annotation (Placement(transformation(extent={{244,-250},{264,-270}})));
 

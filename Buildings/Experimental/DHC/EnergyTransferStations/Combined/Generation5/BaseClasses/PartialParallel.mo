@@ -49,10 +49,6 @@ model PartialParallel
   parameter Modelica.SIunits.Temperature T_b2Hex_nominal
     "Nominal water outlet temperature on building side"
     annotation (Dialog(group="District heat exchanger"));
-  final parameter Modelica.SIunits.MassFlowRate mSerWat_flow_nominal(min=0)=
-    hex.m1_flow_nominal
-    "Service water mass flow rate"
-    annotation (Dialog(group="Nominal condition"));
   parameter Real spePum1HexMin(
     final unit="1",
     min=0)=0.1
