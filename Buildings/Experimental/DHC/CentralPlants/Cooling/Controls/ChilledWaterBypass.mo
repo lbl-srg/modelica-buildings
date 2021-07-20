@@ -4,7 +4,7 @@ model ChilledWaterBypass
   extends Modelica.Blocks.Icons.Block;
   parameter Integer numChi(
     min=1)
-    "Number of chillers, maximum is 2";
+    "Number of chillers";
   parameter Modelica.SIunits.MassFlowRate mMin_flow
     "Minimum mass flow rate of single chiller";
   parameter Real k(min=0) = 1 "Gain of controller";
@@ -93,5 +93,6 @@ First implementation.
 <p>This model implements the chilled water loop bypass valve control logic as follows: </p>
 <p>When the plant is on, the PID controller controls the valve opening ratio to reach the scaled mass flow rate setpoint. </p>
 <p>The setpoint is <code>mMin_flow</code> multiplied by the number of chillers that are on. <code>mMin_flow</code> is the minimum mass flow rate required by one chiller. </p>
+<p>This control sequence assumes that all the chillers are identical and the cooling load is evenly splitbetwwen all of the chillers that are on.</p>
 </html>"));
 end ChilledWaterBypass;
