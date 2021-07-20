@@ -1,11 +1,7 @@
 within Buildings.Experimental.DHC.CentralPlants.Cooling.Controls;
 model ChilledWaterPumpSpeed
-  "Controller for up to two variable speed chilled water pumps"
+  "Controller for up to two headered variable speed chilled water pumps"
   extends Modelica.Blocks.Icons.Block;
-  parameter Integer numPum(
-    final min=1,
-    final max=2)=2
-    "Number of chilled water pumps, maximum is 2";
   parameter Modelica.SIunits.PressureDifference dpSetPoi(
     displayUnit="Pa")
     "Pressure difference setpoint";
@@ -86,9 +82,11 @@ model ChilledWaterPumpSpeed
     "Multiplier gain for normalizing dp input"
     annotation (Placement(transformation(extent={{-80,-50},{-60,-30}})));
   Modelica.Blocks.Sources.Constant dpSetSca(
-    final k=1)
-    "Scaled differential pressure setpoint"
+    final k=1) "Scaled differential pressure setpoint"
     annotation (Placement(transformation(extent={{-100,-10},{-80,10}})));
+protected
+  final parameter Integer numPum=2
+    "Number of chilled water pumps";
 equation
   connect(pumStaCon.masFloPum,masFloPum)
     annotation (Line(points={{-12,8},{-20,8},{-20,40},{-120,40}},color={0,0,127}));
