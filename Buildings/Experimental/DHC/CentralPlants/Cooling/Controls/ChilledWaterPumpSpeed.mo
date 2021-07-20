@@ -82,7 +82,8 @@ model ChilledWaterPumpSpeed
     "Multiplier gain for normalizing dp input"
     annotation (Placement(transformation(extent={{-80,-50},{-60,-30}})));
   Modelica.Blocks.Sources.Constant dpSetSca(
-    final k=1) "Scaled differential pressure setpoint"
+    final k=1)
+    "Scaled differential pressure setpoint"
     annotation (Placement(transformation(extent={{-100,-10},{-80,10}})));
 protected
   final parameter Integer numPum=2
