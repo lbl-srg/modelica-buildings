@@ -355,17 +355,11 @@ equation
       info="<html>
 <p>This model showcases a generic district central cooling plant as illustrated in the schematics below. </p>
 <ul>
-<li>The cooling is provided by two parallel chillers instantiated from </li>
-<p><a href=\"modelica://Buildings.Applications.DataCenters.ChillerCooled.Equipment.ElectricChillerParallel\">Buildings.Applications.DataCenters.ChillerCooled.Equipment.ElectricChillerParallel</a>. </p>
-<li>The chilled water bypass loop is controlled to ensure a minimum flow </li>
-<p>of chilled water running through the chillers all the time. </p>
-<li>The condenser water is cooled by two parallel cooling towers with a bypass loop. </li>
-<p>See <a href=\"modelica://Buildings.Experimental.DHC.CentralPlants.Cooling.Subsystems.CoolingTowerWithBypass\">Buildings.Experimental.DHC.CentralPlants.Cooling.Subsystems.CoolingTowerWithBypass</a> </p>
-<p>for the details of the modeling of the cooling towers. </p>
-<li>The chilled water loop is equipped with two parallel variable speed pumps, </li>
-<p>which are controlled to maitain a use-determined pressure difference setpoint at the demand side. </p>
-<p>The condenser water pumps are constant speed with prescribed mass flow rates. </p>
-<li>The plant operates when it receives an <code>on</code> signal from the external control. </li>
+<p><li>The cooling is provided by two parallel chillers instantiated from <a href=\"modelica://Buildings.Applications.DataCenters.ChillerCooled.Equipment.ElectricChillerParallel\">Buildings.Applications.DataCenters.ChillerCooled.Equipment.ElectricChillerParallel</a>. </li><p>
+<p><li>The chilled water bypass loop is controlled to ensure a minimum flow of chilled water running through the chillers all the time. </li><p>
+<p><li>The condenser water is cooled by two parallel cooling towers with a bypass loop. See <a href=\"modelica://Buildings.Experimental.DHC.CentralPlants.Cooling.Subsystems.CoolingTowerWithBypass\">Buildings.Experimental.DHC.CentralPlants.Cooling.Subsystems.CoolingTowerWithBypass</a> for the details of the modeling of the cooling towers. </li><p>
+<p><li>The chilled water loop is equipped with two parallel variable speed pumps, which are controlled to maitain a use-determined pressure difference setpoint at the demand side. The condenser water pumps are constant speed with prescribed mass flow rates. </li><p>
+<p><li>The plant operates when it receives an <span style=\"font-family: Courier New;\">on</span> signal from the external control. </li><p>
 </ul>
 <p>The staging of the chillers is based on the calculated cooling load. </p>
 <p>See <a href=\"modelica://Buildings.Experimental.DHC.CentralPlants.Cooling.Controls.ChillerStage\">Buildings.Experimental.DHC.CentralPlants.Cooling.Controls.ChillerStage</a> for the detailed control logic. </p>
