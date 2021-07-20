@@ -56,7 +56,8 @@ model BuildingTimeSeriesWithETS
         extent={{-20,-20},{20,20}},
         rotation=90,
         origin={-80,-120})));
-  Controls.OBC.CDL.Continuous.Gain loaHeaNor(k=1/bui.QHea_flow_nominal)
+  Controls.OBC.CDL.Continuous.Gain loaHeaNor(
+    k=1/QHea_flow_nominal)
     "Normalized heating load"
     annotation (Placement(transformation(extent={{-200,-110},{-180,-90}})));
   Controls.OBC.CDL.Continuous.GreaterThreshold enaHeaCoo[2](each t=1e-4)
@@ -66,7 +67,8 @@ model BuildingTimeSeriesWithETS
     final k=true) if have_hotWat
     "SHW production enable signal"
     annotation (Placement(transformation(extent={{0,-130},{-20,-110}})));
-  Controls.OBC.CDL.Continuous.Gain loaCooNor(k=1/bui.QCoo_flow_nominal)
+  Controls.OBC.CDL.Continuous.Gain loaCooNor(
+    k=1/QCoo_flow_nominal)
     "Normalized cooling load"
     annotation (Placement(transformation(extent={{-200,-150},{-180,-130}})));
 equation
