@@ -8,10 +8,8 @@ model Plant
     have_weaBus=true,
     typ=Buildings.Experimental.DHC.Types.DistrictSystemType.Cooling);
   // chiller parameters
-  parameter Integer numChi(
-    min=1,
-    max=2)=2
-    "Number of chillers, maximum is 2"
+  parameter Integer numChi=2
+    "Number of chillers"
     annotation (Dialog(group="Chiller"));
   replaceable parameter Buildings.Fluid.Chillers.Data.ElectricEIR.Generic perChi
     "Performance data of chiller"
