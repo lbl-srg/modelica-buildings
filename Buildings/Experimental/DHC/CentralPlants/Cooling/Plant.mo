@@ -21,7 +21,8 @@ model Plant
   parameter Modelica.SIunits.Pressure dpCHW_nominal
     "Pressure difference at the chilled water side"
     annotation (Dialog(group="Chiller"));
-  parameter Modelica.SIunits.HeatFlowRate QChi_nominal
+  parameter Modelica.SIunits.HeatFlowRate QChi_nominal(
+    max=0)
     "Nominal cooling capacity of single chiller (negative means cooling)"
     annotation (Dialog(group="Chiller"));
   parameter Modelica.SIunits.MassFlowRate mMin_flow
