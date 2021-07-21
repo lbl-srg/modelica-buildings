@@ -64,8 +64,7 @@ First implementation.
         "Simulate and Plot"),
     experiment(
       StopTime=2592000,
-      Tolerance=1e-06,
-      __Dymola_Algorithm="Cvode"),
+      Tolerance=1e-06),
     Diagram(coordinateSystem(extent={{-100,-100},{100,100}})),
     Icon(coordinateSystem(extent={{-100,-100},{100,100}})));
 end EnergyPlusSurfaces;
