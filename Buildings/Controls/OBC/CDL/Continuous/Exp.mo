@@ -1,29 +1,35 @@
 within Buildings.Controls.OBC.CDL.Continuous;
-block Exp "Output the exponential (base e) of the input"
-
-  Interfaces.RealInput u "Connector of Real input signal"
+block Exp
+  "Output the exponential (base e) of the input"
+  Interfaces.RealInput u
+    "Connector of Real input signal"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
-
-  Interfaces.RealOutput y "Connector of Real output signal"
+  Interfaces.RealOutput y
+    "Connector of Real output signal"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
 equation
-  y = Modelica.Math.exp(u);
-
-annotation (
-  defaultComponentName="exp",
-  Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
-            100}}), graphics={
-        Line(points={{-90,-80.3976},{68,-80.3976}}, color={192,192,192}),
+  y=Modelica.Math.exp(u);
+  annotation (
+    defaultComponentName="exp",
+    Icon(
+      coordinateSystem(
+        preserveAspectRatio=true,
+        extent={{-100,-100},{100,100}}),
+      graphics={
+        Line(
+          points={{-90,-80.3976},{68,-80.3976}},
+          color={192,192,192}),
         Rectangle(
           extent={{-100,100},{100,-100}},
           lineColor={0,0,0},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid),
-        Line(points={{-80,-80},{-31,-77.9},{-6.03,-74},{10.9,-68.4},{23.7,-61},
-              {34.2,-51.6},{43,-40.3},{50.3,-27.8},{56.7,-13.5},{62.3,2.23},{
-              67.1,18.6},{72,38.2},{76,57.6},{80,80}}),
-        Line(points={{0,-80},{0,68}}, color={192,192,192}),
+        Line(
+          points={{-80,-80},{-31,-77.9},{-6.03,-74},{10.9,-68.4},{23.7,-61},{34.2,-51.6},{43,-40.3},{50.3,-27.8},{56.7,-13.5},{62.3,2.23},{67.1,18.6},{72,38.2},{76,57.6},{80,80}}),
+        Line(
+          points={{0,-80},{0,68}},
+          color={192,192,192}),
         Text(
           extent={{-86,50},{-14,2}},
           lineColor={192,192,192},
@@ -35,8 +41,11 @@ annotation (
         Text(
           extent={{226,60},{106,10}},
           lineColor={0,0,0},
-          textString=DynamicSelect("", String(y, leftjustified=false, significantDigits=3)))}),
-    Documentation(info="<html>
+          textString=DynamicSelect("",String(y,
+            leftjustified=false,
+            significantDigits=3)))}),
+    Documentation(
+      info="<html>
 <p>
 Block that outputs <code>y = exp(u)</code>,
 where
@@ -49,7 +58,8 @@ base-e exponential function.
      alt=\"exp.png\" />
 </p>
 
-</html>", revisions="<html>
+</html>",
+      revisions="<html>
 <ul>
 <li>
 March 2, 2020, by Michael Wetter:<br/>

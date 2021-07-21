@@ -13,8 +13,14 @@ docker run \
   --detach=false \
   --rm \
   -v ${sha_dir}:/mnt/shared \
+<<<<<<< HEAD
   ${DOCKER_USERNAME}/travis_ubuntu-1804_dymola-2020x-x86_64 /bin/bash -c \
   "Xvfb :77  -extension RANDR -extension GLX & \
   export DISPLAY=:77.0 && \
   cd /mnt/shared/${bas_nam} && \
   dymola ${arg_lis}"
+=======
+  ${DOCKER_USERNAME}/travis_ubuntu-1804_dymola:2022-x86_64 /bin/bash -c \
+  "cd /mnt/shared/${bas_nam} && \
+   dymola ${arg_lis}"
+>>>>>>> master

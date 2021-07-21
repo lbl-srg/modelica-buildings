@@ -12,52 +12,62 @@ model ThreeRoomsContam
     nPorts=5,
     m_flow_nominal=0.001,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    "Air volume east room"
     annotation (Placement(transformation(extent={{80,-20},{100,0}})));
 
   Buildings.Airflow.Multizone.Orifice oriOutBot(
     redeclare package Medium = Medium,
     A=0.01,
-    m=0.5) annotation (Placement(transformation(extent={{142,-90},{162,-70}})));
+    m=0.5) "Orifice at bottom of facade"
+           annotation (Placement(transformation(extent={{142,-90},{162,-70}})));
   Buildings.Airflow.Multizone.MediumColumn colOutTop(
     redeclare package Medium = Medium,
     h=1.5,
     densitySelection=Buildings.Airflow.Multizone.Types.densitySelection.fromBottom)
+    "Medium column for bottom floor outside air"
     annotation (Placement(transformation(extent={{191,-8},{211,12}})));
   Buildings.Airflow.Multizone.Orifice oriOutTop(
     redeclare package Medium = Medium,
     A=0.01,
-    m=0.5) annotation (Placement(transformation(extent={{141,10},{161,30}})));
+    m=0.5) "Orifice at top of facade"
+           annotation (Placement(transformation(extent={{141,10},{161,30}})));
   Buildings.Airflow.Multizone.MediumColumn colEasInTop(
     redeclare package Medium = Medium,
     h=1.5,
     densitySelection=Buildings.Airflow.Multizone.Types.densitySelection.fromBottom)
+    "Medium column for bottom floor"
     annotation (Placement(transformation(extent={{121,-10},{141,10}})));
   Buildings.Fluid.Sources.Boundary_pT volOut(
     redeclare package Medium = Medium,
     nPorts=2,
     p(displayUnit="Pa") = 101325,
-    T=283.15) annotation (Placement(transformation(extent={{10,-10},{-10,10}},
+    T=283.15) "Outside air boundary condition"
+              annotation (Placement(transformation(extent={{10,-10},{-10,10}},
           origin={231,-30})));
 
   Buildings.Airflow.Multizone.MediumColumn colEasInBot(
     redeclare package Medium = Medium,
     h=1.5,
     densitySelection=Buildings.Airflow.Multizone.Types.densitySelection.fromTop)
+    "Medium column for bottom floor"
     annotation (Placement(transformation(extent={{122,-70},{142,-50}})));
   Buildings.Airflow.Multizone.MediumColumn colOutBot(
     redeclare package Medium = Medium,
     h=1.5,
     densitySelection=Buildings.Airflow.Multizone.Types.densitySelection.fromTop)
+    "Medium column for bottom floor outside air"
     annotation (Placement(transformation(extent={{190,-68},{210,-48}})));
   Buildings.Airflow.Multizone.MediumColumn colWesBot(
     redeclare package Medium = Medium,
     h=1.5,
     densitySelection=Buildings.Airflow.Multizone.Types.densitySelection.fromBottom)
+    "Medium column for bottom floor"
     annotation (Placement(transformation(extent={{-70,9},{-50,29}})));
   Buildings.Airflow.Multizone.Orifice oriWesTop(
     redeclare package Medium = Medium,
     m=0.5,
-    A=0.01) annotation (Placement(transformation(
+    A=0.01) "Orifice between top and bottom west floor"
+            annotation (Placement(transformation(
         origin={-60,49},
         extent={{-10,-10},{10,10}},
         rotation=270)));
@@ -66,18 +76,17 @@ model ThreeRoomsContam
     redeclare package Medium = Medium,
     h=1.5,
     densitySelection=Buildings.Airflow.Multizone.Types.densitySelection.fromTop)
+    "Medium column for top floor"
     annotation (Placement(transformation(extent={{-70,71},{-50,91}})));
-  Buildings.Airflow.Multizone.DoorDiscretizedOperable dooOpeClo(
+
+  replaceable DoorOpen dooOpeClo(
     redeclare package Medium = Medium,
-    LClo=20*1E-4,
     wOpe=1,
     hOpe=2.2,
-    CDOpe=0.78,
-    CDClo=0.78,
-    nCom=10,
-    hA=3/2,
-    hB=3/2,
-    dp_turbulent(displayUnit="Pa") = 0.01) "Discretized door"
+    dp_turbulent(displayUnit="Pa") = 0.01,
+    CD=0.78,
+    m=0.5)  constrainedby Fluid.Interfaces.PartialFourPortInterface
+    "Door"
     annotation (Placement(transformation(extent={{-1,-55},{19,-35}})));
   Buildings.Fluid.MixingVolumes.MixingVolume volWes(
     redeclare package Medium = Medium,
@@ -86,18 +95,19 @@ model ThreeRoomsContam
     V=2.5*5*5,
     m_flow_nominal=0.001,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    "Air volume west floor"
     annotation (Placement(transformation(extent={{-90,-30},{-70,-10}})));
-  Modelica.Blocks.Sources.Constant open(k=1) annotation (Placement(
-        transformation(extent={{-40,-21},{-20,-1}})));
   Buildings.Airflow.Multizone.MediumColumn col1EasBot(
     redeclare package Medium = Medium,
     h=1.5,
     densitySelection=Buildings.Airflow.Multizone.Types.densitySelection.fromBottom)
+    "Medium column for bottom floor"
     annotation (Placement(transformation(extent={{100,9},{120,29}})));
   Buildings.Airflow.Multizone.Orifice oriEasTop(
     redeclare package Medium = Medium,
     m=0.5,
-    A=0.01) annotation (Placement(transformation(
+    A=0.01) "Orifice between top and bottom east floor"
+            annotation (Placement(transformation(
         origin={110,49},
         extent={{-10,-10},{10,10}},
         rotation=90)));
@@ -105,6 +115,7 @@ model ThreeRoomsContam
     redeclare package Medium = Medium,
     h=1.5,
     densitySelection=Buildings.Airflow.Multizone.Types.densitySelection.fromTop)
+    "Medium column for top floor"
     annotation (Placement(transformation(extent={{100,71},{120,91}})));
   Buildings.Fluid.MixingVolumes.MixingVolume volTop(
     redeclare package Medium = Medium,
@@ -113,6 +124,7 @@ model ThreeRoomsContam
     nPorts=2,
     m_flow_nominal=0.001,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    "Air volume top floor"
     annotation (Placement(transformation(extent={{-20,120},{0,140}})));
 
   Buildings.HeatTransfer.Sources.FixedTemperature TTop(T=293.15)
@@ -134,8 +146,6 @@ model ThreeRoomsContam
     "Thermal conductor"
     annotation (Placement(transformation(extent={{50,-20},{70,0}})));
 equation
-  connect(open.y, dooOpeClo.y) annotation (Line(points={{-19,-11},{-14,-11},{
-          -14,-45},{-2,-45}},  color={0,0,255}));
   connect(volWes.ports[1], dooOpeClo.port_b2) annotation (Line(
       points={{-82.6667,-30},{-82.6667,-51},{-1,-51}},
       color={0,127,255}));
@@ -242,9 +252,10 @@ The model implements the configuration shown below.</p>
 <img src=\"modelica://Buildings/Resources/Images/Airflow/Multizone/Examples/3roomValidation.png\" border=\"1\" alt=\"Configuration of the three rooms.\"/>
 </p>
 <p>
-This model has been used for a comparative model validation between CONTAM and
-the <code>Buildings</code> library.
-See Wetter (2006) for details of the validation.
+For the model that has been used for a comparative model validation between CONTAM and
+the <code>Buildings</code> library in Wetter (2006), see
+<a href=\"modelica://Buildings.Airflow.Multizone.Validation.ThreeRoomsContamDiscretizedDoor\">
+Buildings.Airflow.Multizone.Validation.ThreeRoomsContamDiscretizedDoor</a>.
 </p>
 <h4>References</h4>
 <p>
@@ -255,6 +266,10 @@ Proc. of the 5th International Modelica Conference, p. 431-440. Vienna, Austria,
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+October 9, 2020, by Michael Wetter:<br/>
+Refactored model to use the new door model.
+</li>
 <li>
 May 15, 2019, by Jianjun Hu:<br/>
 Replaced fluid source. This is for 

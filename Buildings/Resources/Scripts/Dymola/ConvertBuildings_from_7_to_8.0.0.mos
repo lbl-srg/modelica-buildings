@@ -1,0 +1,115 @@
+//  Conversion script for Buildings library
+//  from: Version 7
+//  to:   Version 8.0.0
+clear
+
+convertClear();
+
+convertModifiers("Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.VAV.Economizers.Subsequences.Modulation",
+                {"samplePeriod"}, fill("",0), true);
+
+// Conversion for https://github.com/lbl-srg/modelica-buildings/issues/2355
+convertClass("Buildings.Controls.OBC.CDL.SetPoints.SupplyReturnTemperatureReset",
+             "Buildings.Controls.OBC.Utilities.SetPoints.SupplyReturnTemperatureReset");
+
+// Conversion for https://github.com/lbl-srg/modelica-buildings/issues/2265
+convertClass("Buildings.Air.Systems.SingleZone.VAV.ChillerDXHeatingEconomizerController",
+             "Buildings.Air.Systems.SingleZone.VAV.BaseClasses.ControllerChillerDXHeatingEconomizer");
+
+// Conversion for https://github.com/lbl-srg/modelica-buildings/issues/2282
+convertElement("Buildings.Controls.OBC.CDL.Logical.Sources.SampleTrigger",
+                "startTime", "shift");
+convertElement("Buildings.Controls.OBC.CDL.Logical.Sources.Pulse",
+                "startTime", "shift");
+convertElement("Buildings.Controls.OBC.CDL.Continuous.Sources.Pulse",
+                "startTime", "shift");
+
+convertModifiers("Buildings.Controls.OBC.CDL.Continuous.Sources.Pulse",
+                {"nperiod"}, fill("",0), true);
+
+
+// Conversion for https://github.com/lbl-srg/modelica-buildings/issues/2134
+convertClass("Buildings.Controls.OBC.CDL.Continuous.HysteresisWithHold",
+             "Buildings.Obsolete.Controls.OBC.CDL.Continuous.HysteresisWithHold");
+convertClass("Buildings.Controls.OBC.CDL.Continuous.ChangeSign",
+             "Buildings.Obsolete.Controls.OBC.CDL.Continuous.ChangeSign");
+
+
+// Conversion for https://github.com/lbl-srg/modelica-buildings/issues/2139
+convertClass("Buildings.Controls.OBC.CDL.Psychrometrics.TDewPoi_TDryBulPhi",
+             "Buildings.Obsolete.Controls.OBC.CDL.Psychrometrics.TDewPoi_TDryBulPhi");
+convertClass("Buildings.Controls.OBC.CDL.Psychrometrics.TWetBul_TDryBulPhi",
+             "Buildings.Obsolete.Controls.OBC.CDL.Psychrometrics.TWetBul_TDryBulPhi");
+convertClass("Buildings.Controls.OBC.CDL.Psychrometrics.h_TDryBulPhi",
+             "Buildings.Obsolete.Controls.OBC.CDL.Psychrometrics.h_TDryBulPhi");
+
+
+// Conversion for https://github.com/lbl-srg/modelica-buildings/issues/2076
+convertClass("Buildings.Controls.OBC.CDL.Continuous.GreaterEqualThreshold",
+             "Buildings.Obsolete.Controls.OBC.CDL.Continuous.GreaterEqualThreshold");
+convertClass("Buildings.Controls.OBC.CDL.Continuous.GreaterEqual",
+             "Buildings.Obsolete.Controls.OBC.CDL.Continuous.GreaterEqual");
+convertClass("Buildings.Controls.OBC.CDL.Continuous.LessEqualThreshold",
+             "Buildings.Obsolete.Controls.OBC.CDL.Continuous.LessEqualThreshold");
+convertClass("Buildings.Controls.OBC.CDL.Continuous.LessEqual",
+             "Buildings.Obsolete.Controls.OBC.CDL.Continuous.LessEqual");
+
+convertElement(
+    "Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold",
+    "threshold", "t");
+convertElement(
+    "Buildings.Controls.OBC.CDL.Continuous.LessThreshold",
+    "threshold", "t");
+convertElement(
+    "Buildings.Controls.OBC.CDL.Continuous.NumberOfRequests",
+    "threshold", "t");
+convertElement(
+    "Buildings.Controls.OBC.CDL.Integers.GreaterEqualThreshold",
+    "threshold", "t");
+convertElement(
+    "Buildings.Controls.OBC.CDL.Integers.LessEqualThreshold",
+    "threshold", "t");
+convertElement(
+    "Buildings.Controls.OBC.CDL.Integers.GreaterThreshold",
+    "threshold", "t");
+convertElement(
+    "Buildings.Controls.OBC.CDL.Integers.LessThreshold",
+    "threshold", "t");
+
+// Conversion for https://github.com/lbl-srg/modelica-buildings/issues/2124
+convertClass("Buildings.Controls.OBC.CDL.Continuous.Validation.NumberOfRequests",
+             "Buildings.Obsolete.Controls.OBC.CDL.Continuous.Validation.NumberOfRequests");
+convertClass("Buildings.Controls.OBC.CDL.Continuous.NumberOfRequests",
+             "Buildings.Obsolete.Controls.OBC.CDL.Continuous.NumberOfRequests");
+
+// Conversion for https://github.com/ibpsa/modelica-ibpsa/issues/1365
+convertModifiers("Buildings.Controls.Continuous.LimPID", {"reverseAction"}, {"reverseActing=not %reverseAction%"});
+convertModifiers("Buildings.Controls.Continuous.PIDHysteresis", {"reverseAction"}, {"reverseActing=not %reverseAction%"});
+convertModifiers("Buildings.Controls.Continuous.PIDHysteresisTimer", {"reverseAction"}, {"reverseActing=not %reverseAction%"});
+
+// Conversion for https://github.com/lbl-srg/modelica-buildings/issues/2056
+convertClass(
+    "Buildings.Controls.OBC.CDL.Continuous.Derivative",
+    "Buildings.Obsolete.Controls.OBC.CDL.Continuous.Derivative");
+// Rename modifier, and then move to Obsolete because the reset trigger lead in 8.0.0 to two different PID controllers.
+convertModifiers("Buildings.Controls.OBC.CDL.Continuous.LimPID", {"reverseAction"}, {"reverseActing=not %reverseAction%"});
+convertClass(
+    "Buildings.Controls.OBC.CDL.Continuous.LimPID",
+    "Buildings.Obsolete.Controls.OBC.CDL.Continuous.LimPID");
+convertClass(
+    "Buildings.Controls.OBC.CDL.Types.Reset",
+    "Buildings.Obsolete.Controls.OBC.CDL.Types.Reset");
+
+
+// Conversion for https://github.com/lbl-srg/modelica-buildings/issues/2177
+// remove parameter pre_y_start
+convertModifiers("Buildings.Controls.OBC.CDL.Logical.Latch",
+                {"pre_y_start"}, fill("",0), true);
+convertModifiers("Buildings.Controls.OBC.CDL.Logical.Toggle",
+                {"pre_y_start"}, fill("",0), true);
+
+// Conversion for https://github.com/lbl-srg/modelica-buildings/issues/2059
+// Point VAVBranch to the Obsolete version and add hardcoded values as parameters.
+convertClass(
+  "Buildings.Examples.VAVReheat.BaseClasses.VAVBranch",
+  "Buildings.Obsolete.Examples.VAVReheat.BaseClasses.VAVBranch");

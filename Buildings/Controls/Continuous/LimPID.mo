@@ -425,6 +425,7 @@ revisions="<html>
 March 9, 2020, by Michael Wetter:<br/>
 Corrected wrong unit declaration for parameter <code>k</code>.<br/>
 This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1316\">issue 1316</a>.
+</li>
 <li>
 October 19, 2019, by Filip Jorissen:<br/>
 Disabled homotopy to ensure bounded outputs

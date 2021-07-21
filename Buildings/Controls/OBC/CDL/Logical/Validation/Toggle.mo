@@ -1,4 +1,5 @@
 within Buildings.Controls.OBC.CDL.Logical.Validation;
+<<<<<<< HEAD
 model Toggle "Validation model for the Toggle block"
 
   Buildings.Controls.OBC.CDL.Logical.Toggle falCle
@@ -17,31 +18,50 @@ model Toggle "Validation model for the Toggle block"
     "False clear input, initial true output"
     annotation (Placement(transformation(extent={{-100,-150},{-80,-130}})));
 
+=======
+model Toggle
+  "Validation model for the Toggle block"
+  Buildings.Controls.OBC.CDL.Logical.Toggle falCleTruIni
+    "Toggle block with clear input being contantly false and true initial toggle input"
+    annotation (Placement(transformation(extent={{-60,90},{-40,110}})));
+  Buildings.Controls.OBC.CDL.Logical.Toggle falCleFalIni
+    "Toggle block with clear input being contantly false and false initial toggle input"
+    annotation (Placement(transformation(extent={{-60,30},{-40,50}})));
+  Buildings.Controls.OBC.CDL.Logical.Toggle truCleTruIni
+    "Toggle block with clear input being contantly true and true initial toggle input"
+    annotation (Placement(transformation(extent={{-60,-50},{-40,-30}})));
+  Buildings.Controls.OBC.CDL.Logical.Toggle truCleFalIni
+    "Toggle block with clear input being contantly true and false initial toggle input"
+    annotation (Placement(transformation(extent={{-60,-110},{-40,-90}})));
+>>>>>>> master
   Buildings.Controls.OBC.CDL.Logical.Toggle swiCleInp
     "Initial false output, with clear input switch between false and true"
     annotation (Placement(transformation(extent={{100,90},{120,110}})));
-
   Buildings.Controls.OBC.CDL.Logical.Toggle swiCleInp1
     "Initial false output, with clear input switch between false and true"
     annotation (Placement(transformation(extent={{100,-70},{120,-50}})));
-
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse cleInp(
     final width=0.5,
     final period=6)
     "Block that outputs cyclic on and off"
     annotation (Placement(transformation(extent={{0,70},{20,90}})));
-  Buildings.Controls.OBC.CDL.Logical.Not not1 "Logical not"
+  Buildings.Controls.OBC.CDL.Logical.Not not1
+    "Logical not"
     annotation (Placement(transformation(extent={{40,-70},{60,-50}})));
+<<<<<<< HEAD
 
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant fal(final k=false)
     "False clear input"
     annotation (Placement(transformation(extent={{-160,70},{-140,90}})));
 
+=======
+>>>>>>> master
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse togInp(
     final width=0.5,
     final period=2)
     "Block that outputs cyclic on and off"
     annotation (Placement(transformation(extent={{-160,150},{-140,170}})));
+<<<<<<< HEAD
 
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant tru(final k=true)
     "True clear input"
@@ -92,12 +112,87 @@ annotation (
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/CDL/Logical/Validation/Toggle.mos"
           "Simulate and plot"),
     Documentation(info="<html>
+=======
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant tru(
+    final k=true)
+    "True clear input"
+    annotation (Placement(transformation(extent={{-120,-70},{-100,-50}})));
+  Buildings.Controls.OBC.CDL.Logical.Not not2
+    "Logical not"
+    annotation (Placement(transformation(extent={{-120,-10},{-100,10}})));
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant fal(
+    final k=false)
+    "False clear input"
+    annotation (Placement(transformation(extent={{-120,70},{-100,90}})));
+
+equation
+  connect(cleInp.y,swiCleInp.clr)
+    annotation (Line(points={{22,80},{70,80},{70,94},{98,94}},color={255,0,255}));
+  connect(not1.u,cleInp.y)
+    annotation (Line(points={{38,-60},{30,-60},{30,80},{22,80}},color={255,0,255}));
+  connect(not1.y,swiCleInp1.clr)
+    annotation (Line(points={{62,-60},{72,-60},{72,-66},{98,-66}},color={255,0,255}));
+  connect(togInp.y,swiCleInp.u)
+    annotation (Line(points={{-138,160},{80,160},{80,100},{98,100}},color={255,0,255}));
+  connect(togInp.y,swiCleInp1.u)
+    annotation (Line(points={{-138,160},{80,160},{80,-60},{98,-60}},color={255,0,255}));
+  connect(togInp.y,falCleTruIni.u)
+    annotation (Line(points={{-138,160},{-80,160},{-80,100},{-62,100}},color={255,0,255}));
+  connect(fal.y,falCleTruIni.clr)
+    annotation (Line(points={{-98,80},{-70,80},{-70,94},{-62,94}},color={255,0,255}));
+  connect(togInp.y,truCleTruIni.u)
+    annotation (Line(points={{-138,160},{-80,160},{-80,-40},{-62,-40}},color={255,0,255}));
+  connect(fal.y,falCleFalIni.clr)
+    annotation (Line(points={{-98,80},{-70,80},{-70,34},{-62,34}},color={255,0,255}));
+  connect(togInp.y,not2.u)
+    annotation (Line(points={{-138,160},{-130,160},{-130,0},{-122,0}},color={255,0,255}));
+  connect(not2.y,falCleFalIni.u)
+    annotation (Line(points={{-98,0},{-90,0},{-90,40},{-62,40}},color={255,0,255}));
+  connect(tru.y,truCleTruIni.clr)
+    annotation (Line(points={{-98,-60},{-70,-60},{-70,-46},{-62,-46}},color={255,0,255}));
+  connect(tru.y,truCleFalIni.clr)
+    annotation (Line(points={{-98,-60},{-70,-60},{-70,-106},{-62,-106}},color={255,0,255}));
+  connect(not2.y,truCleFalIni.u)
+    annotation (Line(points={{-98,0},{-90,0},{-90,-100},{-62,-100}},color={255,0,255}));
+  annotation (
+    experiment(
+      StopTime=10.0,
+      Tolerance=1e-06),
+    __Dymola_Commands(
+      file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/CDL/Logical/Validation/Toggle.mos" "Simulate and plot"),
+    Documentation(
+      info="<html>
+>>>>>>> master
 <p>
 Validation test for the block
 <a href=\"modelica://Buildings.Controls.OBC.CDL.Logical.Toggle\">
 Buildings.Controls.OBC.CDL.Logical.Toggle</a>.
 </p>
+<<<<<<< HEAD
 </html>", revisions="<html>
+=======
+<ul>
+<li>
+When the clear input is <code>false</code>, the initial output should equal to the initial toggle input.
+</li>
+<li>
+When the clear input is <code>true</code>, the initial output should be <code>false</code>,
+regardless of the value of the toggle input.
+</li>
+<li>
+At the same moment, when both the clear input and the toggle input rise from <code>false</code>
+to <code>true</code>, the output should become <code>false</code> if it was <code>true</code>,
+or remain <code>false</code> if it was <code>false</code>.
+</li>
+<li>
+At the same moment, when the clear input falls from <code>true</code> to <code>false</code>
+and the toggle input rises from <code>false</code> to <code>true</code>, the output
+should rise from <code>false</code> to <code>true</code>.
+</li>
+</ul>
+</html>",
+      revisions="<html>
+>>>>>>> master
 <ul>
 <li>
 April 4, 2019, by Jianjun Hu:<br/>
@@ -110,18 +205,25 @@ First implementation.
 </li>
 </ul>
 </html>"),
-    Icon(coordinateSystem(extent={{-100,-100},{100,100}}),
-         graphics={
-        Ellipse(lineColor = {75,138,73},
-                fillColor={255,255,255},
-                fillPattern = FillPattern.Solid,
-                extent = {{-100,-100},{100,100}}),
-        Polygon(lineColor = {0,0,255},
-                fillColor = {75,138,73},
-                pattern = LinePattern.None,
-                fillPattern = FillPattern.Solid,
-                points = {{-36,60},{64,0},{-36,-60},{-36,60}})}),
-    Diagram(coordinateSystem(extent={{-180,-180},{180,180}}), graphics={
+    Icon(
+      coordinateSystem(
+        extent={{-100,-100},{100,100}}),
+      graphics={
+        Ellipse(
+          lineColor={75,138,73},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid,
+          extent={{-100,-100},{100,100}}),
+        Polygon(
+          lineColor={0,0,255},
+          fillColor={75,138,73},
+          pattern=LinePattern.None,
+          fillPattern=FillPattern.Solid,
+          points={{-36,60},{64,0},{-36,-60},{-36,60}})}),
+    Diagram(
+      coordinateSystem(
+        extent={{-180,-180},{180,180}}),
+      graphics={
         Text(
           extent={{-110,130},{-42,118}},
           lineColor={28,108,200},

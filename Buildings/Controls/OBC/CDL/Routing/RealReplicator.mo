@@ -1,25 +1,40 @@
 within Buildings.Controls.OBC.CDL.Routing;
-block RealReplicator "Real signal replicator"
-  parameter Integer nout=1 "Number of outputs";
-  Interfaces.RealInput u "Connector of Real input signal"
+block RealReplicator
+  "Real signal replicator"
+  parameter Integer nout=1
+    "Number of outputs";
+  Interfaces.RealInput u
+    "Connector of Real input signal"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
-  Interfaces.RealOutput y[nout] "Connector of Real output signal"
+  Interfaces.RealOutput y[nout]
+    "Connector of Real output signal"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
 equation
-  y = fill(u, nout);
-
-annotation (
+  y=fill(
+    u,
+    nout);
+  annotation (
     defaultComponentName="reaRep",
-    Icon(graphics={Rectangle(
-        extent={{-100,-100},{100,100}},
-        lineColor={0,0,127},
-        fillColor={255,255,255},
-        fillPattern=FillPattern.Solid),
-        Line(points={{-100,0},{-6,0}}, color={0,0,127}),
-        Line(points={{100,0},{10,0}}, color={0,0,127}),
-        Line(points={{0,0},{100,10}}, color={0,0,127}),
-        Line(points={{0,0},{100,-10}}, color={0,0,127}),
+    Icon(
+      graphics={
+        Rectangle(
+          extent={{-100,-100},{100,100}},
+          lineColor={0,0,127},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+        Line(
+          points={{-100,0},{-6,0}},
+          color={0,0,127}),
+        Line(
+          points={{100,0},{10,0}},
+          color={0,0,127}),
+        Line(
+          points={{0,0},{100,10}},
+          color={0,0,127}),
+        Line(
+          points={{0,0},{100,-10}},
+          color={0,0,127}),
         Ellipse(
           extent={{-14,16},{16,-14}},
           lineColor={0,0,0},
@@ -29,12 +44,14 @@ annotation (
           lineColor={0,0,255},
           extent={{-150,110},{150,150}},
           textString="%name")}),
-    Documentation(info="<html>
+    Documentation(
+      info="<html>
 <p>
 This block replicates the Real input signal to an array of <code>nout</code>
 identical Real output signals.
 </p>
-</html>", revisions="<html>
+</html>",
+      revisions="<html>
 <ul>
 <li>
 July 24, 2017, by Jianjun Hu:<br/>

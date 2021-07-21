@@ -64,7 +64,7 @@ model VAVBranch "Supply branch of a VAV system"
     redeclare package Medium2 = MediumW,
     m1_flow_nominal=m_flow_nominal,
     m2_flow_nominal=m_flow_nominal*1000*(50 - 17)/4200/10,
-    Q_flow_nominal=m_flow_nominal*1006*(50 - 16.7),
+    Q_flow_nominal=m_flow_nominal*1006*(16.7 - 50),
     configuration=Buildings.Fluid.Types.HeatExchangerConfiguration.CounterFlow,
     dp1_nominal=0,
     from_dp2=true,
@@ -256,6 +256,7 @@ annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
           textString="TRooAir")}),
      Documentation(info="<html>
 <p>
+<<<<<<< HEAD
 Model for a VAV branch.
 </p>
 <p>
@@ -265,9 +266,20 @@ Buildings.Examples.VAVReheat.ThermalZones.VAVBranch</a>, but using different VAV
 box model
 <a href=\"modelica://Buildings.Fluid.Actuators.Dampers.PressureIndependent\">
 Buildings.Fluid.Actuators.Dampers.PressureIndependent</a>.
+=======
+Model for a VAV supply branch.
+The terminal VAV box has a pressure independent damper and a water reheat coil.
+The pressure independent damper model includes an idealized flow rate controller
+and requires a discharge air flow rate set-point (normalized to the nominal value)
+as a control signal.
+>>>>>>> master
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+February 25, 2021 by Baptiste Ravache:<br/>
+Inverse the sign of terHea.Q_flow_nominal to respect the heat flow convention.
+</li>
 <li>
 June 6, 2017 by Jianjun Hu:<br/>
 First implementation, based on Buildings library.

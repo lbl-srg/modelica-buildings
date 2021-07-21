@@ -90,6 +90,76 @@ as required from medium model \"" + mediumName + "\".");
     state.p = p;
     state.T = T;
     state.X = X;
+<<<<<<< HEAD
+=======
+
+    X[1] = Xi[1];
+    X[2] = 1 - X[1];
+
+    // Assertions to test for bounds
+    assert(noEvent(X[1] >= -1.e-5) and noEvent(X[1] <= 1 + 1.e-5), "Mass fraction X[1] = " + String(X[1]) + " of substance water"
+      + "\nof medium \"Buildings.Media.Air\" is not in the range 0..1");
+
+    assert(noEvent(T >= 200.0), "In "   + getInstanceName() + ": Temperature T exceeded its minimum allowed value of -73.15 degC (200 Kelvin)
+as required from medium model \"Buildings.Media.Air\".");
+    assert(noEvent(T <= 423.15), "In "   + getInstanceName() + ": Temperature T exceeded its maximum allowed value of 150 degC (423.15 Kelvin)
+as required from medium model \"Buildings.Media.Air\".");
+
+  assert(noEvent(p >= 0.0), "Pressure (= " + String(p) + " Pa) of medium \"Buildings.Media.Air\" is negative\n(Temperature = " + String(T) + " K)");
+  annotation (Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,
+            -100},{100,100}}), graphics={Rectangle(
+          extent={{-100,100},{100,-100}},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid,
+          lineColor={0,0,255}), Text(
+          extent={{-152,164},{152,102}},
+          textString="%name",
+          lineColor={0,0,255})}), Documentation(info="<html>
+<p>
+Model with basic thermodynamic properties.
+</p>
+<p>
+This model provides equation for the following thermodynamic properties:
+</p>
+<table border=\"1\" cellspacing=\"0\" cellpadding=\"2\" summary=\"Thermodynamic properties\">
+  <tr><td><strong>Variable</strong></td>
+      <td><strong>Unit</strong></td>
+      <td><strong>Description</strong></td></tr>
+  <tr><td>T</td>
+      <td>K</td>
+      <td>temperature</td></tr>
+  <tr><td>p</td>
+      <td>Pa</td>
+      <td>absolute pressure</td></tr>
+  <tr><td>d</td>
+      <td>kg/m3</td>
+      <td>density</td></tr>
+  <tr><td>h</td>
+      <td>J/kg</td>
+      <td>specific enthalpy</td></tr>
+  <tr><td>u</td>
+      <td>J/kg</td>
+      <td>specific internal energy</td></tr>
+  <tr><td>Xi[nXi]</td>
+      <td>kg/kg</td>
+      <td>independent mass fractions m_i/m</td></tr>
+  <tr><td>R</td>
+      <td>J/kg.K</td>
+      <td>gas constant</td></tr>
+  <tr><td>M</td>
+      <td>kg/mol</td>
+      <td>molar mass</td></tr>
+</table>
+</html>", revisions="<html>
+<ul>
+<li>
+September 22, 2020, by Michael Wetter:<br/>
+First implementation based on Modelica Standard Library,
+but with <code>noEvent</code> added to check of bounds.
+</li>
+</ul>
+</html>"));
+>>>>>>> master
   end BaseProperties;
 
 redeclare function density "Gas density"

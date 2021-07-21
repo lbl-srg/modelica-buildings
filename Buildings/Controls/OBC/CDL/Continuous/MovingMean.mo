@@ -1,67 +1,81 @@
 within Buildings.Controls.OBC.CDL.Continuous;
 block MovingMean
   "Block to output moving average"
-
-  parameter Modelica.SIunits.Time delta(min=1E-5)
+  parameter Real delta(
+    final quantity="Time",
+    final unit="s",
+    min=1E-5)
     "Time horizon over which the input is averaged";
-
-  Interfaces.RealInput u "Connector of Real input signal"
-   annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
-  Interfaces.RealOutput y "Connector of Real output signal"
-   annotation (Placement(transformation(extent={{100,-20},{140,20}})));
+  Interfaces.RealInput u
+    "Connector of Real input signal"
+    annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
+  Interfaces.RealOutput y
+    "Connector of Real output signal"
+    annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
 protected
-  parameter Modelica.SIunits.Time tStart(fixed=false) "Start time";
-  Real mu "Internal integrator variable";
-  Real muDel "Internal integrator variable with delay";
-  Boolean mode(start=false, fixed=true) "Calculation mode";
+  parameter Real tStart(
+    final quantity="Time",
+    final unit="s",
+    fixed=false)
+    "Start time";
+  Real mu
+    "Internal integrator variable";
+  Real muDel
+    "Internal integrator variable with delay";
+  Boolean mode(
+    start=false,
+    fixed=true)
+    "Calculation mode";
 
 initial equation
-  tStart = time;
-  mu = 0;
-equation
-  u =der(mu);
-  muDel = delay(mu, delta);
+  tStart=time;
+  mu=0;
 
+equation
+  u=der(mu);
+  muDel=delay(
+    mu,
+    delta);
   // Compute the mode so that Dymola generates
   // time and not state events as it would with
   // an if-then construct
   when time >= tStart+delta then
-    mode = true;
+    mode=true;
   end when;
-
   if mode then
-    y = (mu-muDel)/delta;
+    y=(mu-muDel)/delta;
   else
-    y = (mu-muDel)/(time-tStart+1E-3);
+    y=(mu-muDel)/(time-tStart+1E-3);
   end if;
   annotation (
-  defaultComponentName="movMea",
-  Icon(graphics={
+    defaultComponentName="movMea",
+    Icon(
+      graphics={
         Rectangle(
-        extent={{-100,-100},{100,100}},
-        lineColor={0,0,127},
-        fillColor={255,255,255},
-        fillPattern=FillPattern.Solid),
+          extent={{-100,-100},{100,100}},
+          lineColor={0,0,127},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
         Polygon(
           points={{-78,90},{-86,68},{-70,68},{-78,90}},
           lineColor={192,192,192},
           fillColor={192,192,192},
           fillPattern=FillPattern.Solid),
-        Line(points={{-78,68},{-78,-80}}, color={192,192,192}),
-        Line(points={{-88,0},{70,0}}, color={192,192,192}),
+        Line(
+          points={{-78,68},{-78,-80}},
+          color={192,192,192}),
+        Line(
+          points={{-88,0},{70,0}},
+          color={192,192,192}),
         Polygon(
           points={{92,0},{70,8},{70,-8},{92,0}},
           lineColor={192,192,192},
           fillColor={192,192,192},
           fillPattern=FillPattern.Solid),
         Line(
-           points={{-78,-31},{-64,-31},{-64,-15},{-56,-15},{-56,-63},{-48,-63},{
-              -48,-41},{-40,-41},{-40,43},{-32,43},{-32,11},{-32,11},{-32,-49},{
-              -22,-49},{-22,-31},{-12,-31},{-12,-59},{-2,-59},{-2,23},{4,23},{4,
-              37},{10,37},{10,-19},{20,-19},{20,-7},{26,-7},{26,-37},{36,-37},{36,
-              35},{46,35},{46,1},{54,1},{54,-65},{64,-65}},
-            color={215,215,215}),
+          points={{-78,-31},{-64,-31},{-64,-15},{-56,-15},{-56,-63},{-48,-63},{-48,-41},{-40,-41},{-40,43},{-32,43},{-32,11},{-32,11},{-32,-49},{-22,-49},{-22,-31},{-12,-31},{-12,-59},{-2,-59},{-2,23},{4,23},{4,37},{10,37},{10,-19},{20,-19},{20,-7},{26,-7},{26,-37},{36,-37},{36,35},{46,35},{46,1},{54,1},{54,-65},{64,-65}},
+          color={215,215,215}),
         Line(
           points={{-78,-24},{68,-24}}),
         Text(
@@ -75,8 +89,11 @@ equation
         Text(
           extent={{226,60},{106,10}},
           lineColor={0,0,0},
-          textString=DynamicSelect("", String(y, leftjustified=false, significantDigits=3)))}),
-   Documentation(info="<html>
+          textString=DynamicSelect("",String(y,
+            leftjustified=false,
+            significantDigits=3)))}),
+    Documentation(
+      info="<html>
 <p>
 This block outputs the mean value of its input signal as
 </p>
@@ -112,8 +129,15 @@ and
 Buildings.Controls.OBC.CDL.Continuous.Validation.MovingMean_nonZeroStart</a>
 for example.
 </p>
-</html>", revisions="<html>
+</html>",
+      revisions="<html>
 <ul>
+<li>
+November 12, 2020, by Michael Wetter:<br/>
+Reformulated to remove dependency to <code>Modelica.SIunits</code>.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2243\">issue 2243</a>.
+</li>
 <li>
 March 2, 2020, by Michael Wetter:<br/>
 Changed icon to display dynamically the output value.

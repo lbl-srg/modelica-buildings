@@ -40,9 +40,15 @@ model ZoneStatus
     final k=1800) "Cooling down time"
     annotation (Placement(transformation(extent={{-80,120},{-60,140}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse uWinSta(
+<<<<<<< HEAD
     width=0.3,
     period=43200,
     startTime=1800)
+=======
+    final width=0.3,
+    final period=43200,
+    final shift=1800)
+>>>>>>> master
     "Window on/off status"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},origin={-110,20})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp ramp2(

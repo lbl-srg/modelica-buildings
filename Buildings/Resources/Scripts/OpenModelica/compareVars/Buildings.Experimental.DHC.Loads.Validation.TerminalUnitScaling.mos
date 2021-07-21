@@ -1,0 +1,16 @@
+compareVars :=
+  {
+    "ter.QActHea_flow",
+    "terUniMul.QActHea_flow",
+    "terUniMulZonMul.QActHea_flow",
+    "ter.QReqHea_flow",
+    "QHea_flow_nominal",
+    "ter.mReqHeaWat_flow",
+    "terUniMul.mReqHeaWat_flow",
+    "terUniMulZonMul.mReqHeaWat_flow",
+    "ter.mHeaWat_flow_nominal",
+    "ter.TLoaODE.TAir",
+    "terUniMul.TLoaODE.TAir",
+    "terUniMulZonMul.TLoaODE.TAir",
+    "TSet.y"
+  };

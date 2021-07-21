@@ -6,7 +6,7 @@ import numpy as np
 class SingleStageHeatPump(object):
     """ Object for heat pump model based on Jin (2002):
         H. Jin. Parameter estimation based models of water source heat pumps.
-        PhD Thesis. Oklahoma State University. Stillwater, Oklahoma, USA. 2012.
+        PhD Thesis. Oklahoma State University. Stillwater, Oklahoma, USA. 2002.
 
     :param eva: Evaporator model.
     :param con: Condenser model.

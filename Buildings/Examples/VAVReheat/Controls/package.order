@@ -1,14 +1,13 @@
 ControlBus
-CoolingCoilTemperatureSetpoint
 DuctStaticPressureSetpoint
 Economizer
-EconomizerTemperatureControl
 FanVFD
-MixedAirTemperatureSetpoint
 ModeSelector
 OperationModes
 PreCoolingStarter
 RoomTemperatureSetpoint
 RoomVAV
 State
+SupplyAirTemperature
+SupplyAirTemperatureSetpoint
 Examples

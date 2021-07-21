@@ -27,7 +27,7 @@ partial model MixingVolumeReverseFlow
         rotation=180,
         origin={70,-20})));
   replaceable Buildings.Fluid.MixingVolumes.MixingVolume volDyn
-    constrainedby Buildings.Fluid.MixingVolumes.BaseClasses.MixingVolumeHeatPort(
+    constrainedby Buildings.Fluid.MixingVolumes.MixingVolume(
         redeclare package Medium = Medium,
         V=1,
         nPorts=2,
@@ -37,7 +37,7 @@ partial model MixingVolumeReverseFlow
     annotation (Placement(transformation(extent={{10,0},{30,20}})));
 
   replaceable Buildings.Fluid.MixingVolumes.MixingVolume volSte
-    constrainedby Buildings.Fluid.MixingVolumes.BaseClasses.MixingVolumeHeatPort(
+    constrainedby Buildings.Fluid.MixingVolumes.MixingVolume(
         redeclare package Medium = Medium,
         final prescribedHeatFlowRate = prescribedHeatFlowRate,
         V=1,
@@ -93,10 +93,17 @@ The mass flow rate starts positive and reverses its direction at <i>t=5</i> seco
 </html>", revisions="<html>
 <ul>
 <li>
+April 29, 2021, by Michael Wetter:<br/>
+Reformulated constraint of replaceable model to avoid access of
+component that is not in constraining type.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1473\">IBPSA, #1473</a>.
+</li>
+<li>
 December 23, 2019, by Michael Wetter:<br/>
 Changed constraining clause to ensure that heat port is present.<br/>
 This is for
-<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1268\">Buildings, #1268</a>.
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1268\">IBPSA, #1268</a>.
 </li>
 <li>
 January 19, 2016, by Michael Wetter:<br/>

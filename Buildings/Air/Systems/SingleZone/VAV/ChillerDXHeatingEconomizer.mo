@@ -1,6 +1,11 @@
 within Buildings.Air.Systems.SingleZone.VAV;
 model ChillerDXHeatingEconomizer
+<<<<<<< HEAD
   "HVAC system model with a dry cooling coil, air-cooled chiller, electric heating coil, variable speed fan, and mixing box with economizer control."
+=======
+  "HVAC system model with a dry cooling coil, air-cooled chiller, electric heating coil,
+   variable speed fan, and mixing box with economizer control."
+>>>>>>> master
   replaceable package MediumA = Buildings.Media.Air "Medium model for air"
       annotation (choicesAllMatching = true);
   replaceable package MediumW = Buildings.Media.Water "Medium model for water"
@@ -154,6 +159,7 @@ model ChillerDXHeatingEconomizer
   Buildings.Fluid.HeatExchangers.DryCoilEffectivenessNTU cooCoi(
     redeclare package Medium1 = MediumW,
     redeclare package Medium2 = MediumA,
+<<<<<<< HEAD
     dp1_nominal=0,
     dp2_nominal=0,
     m2_flow_nominal=mAir_flow_nominal,
@@ -165,6 +171,19 @@ model ChillerDXHeatingEconomizer
     show_T=true,
     T_a1_nominal=279.15,
     T_a2_nominal=298.15)
+=======
+    final dp1_nominal=0,
+    final dp2_nominal=0,
+    final m2_flow_nominal=mAir_flow_nominal,
+    final Q_flow_nominal=QCoo_flow_nominal,
+    final configuration=Buildings.Fluid.Types.HeatExchangerConfiguration.CounterFlow,
+    final allowFlowReversal1=false,
+    final allowFlowReversal2=false,
+    final m1_flow_nominal=mChiEva_flow_nominal,
+    final show_T=true,
+    final T_a1_nominal=279.15,
+    final T_a2_nominal=298.15)
+>>>>>>> master
     "Cooling coil"
     annotation (Placement(transformation(extent={{110,44},{90,24}})));
 
@@ -627,6 +646,10 @@ feedback control of damper positions. The cooling coil is a dry coil model.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+February 25, 2021, by Baptiste Ravache:<br/>
+Inverse the sign of <code>cooCoi.Q_flow_nominal</code> to respect the heat flow convention.
+</li>
 <li>
 September 08, 2017, by Thierry S. Nouidui:<br/>
 Removed experiment annotation.

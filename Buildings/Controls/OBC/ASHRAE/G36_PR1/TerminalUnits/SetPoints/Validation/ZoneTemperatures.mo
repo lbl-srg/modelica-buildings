@@ -45,8 +45,13 @@ model ZoneTemperatures "Validate block for zone set point"
     "Convert boolean input to integer output"
     annotation (Placement(transformation(extent={{-20,-100},{0,-80}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse winSta(
+<<<<<<< HEAD
     period=14400,
     startTime=1200)
+=======
+    final period=14400,
+    final shift=1200)
+>>>>>>> master
     "Generate signal indicating window status"
     annotation (Placement(transformation(extent={{40,-30},{60,-10}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse occSta(

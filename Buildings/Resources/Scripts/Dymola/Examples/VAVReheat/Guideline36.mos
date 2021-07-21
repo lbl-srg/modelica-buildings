@@ -11,10 +11,17 @@ createPlot(id = 3,
  filename = "Guideline36.mat",
  leftTitleType = 1,
  bottomTitleType = 1);
+<<<<<<< HEAD
 createPlot(id = 3,
  position = {26, 33, 808, 212},
  y = {"sou.vav.m_flow", "eas.vav.m_flow", "nor.vav.m_flow", "wes.vav.m_flow", "cor.vav.m_flow_turbulent"},
  range = {0.0, 180000.0, 1.5, -0.5},
+=======
+createPlot(id = 1,
+ position = {26, 33, 808, 213},
+ y = {"sou.TSup", "eas.TSup", "nor.TSup", "wes.TSup", "cor.TSup"},
+ range = {0.0, 180000.0, 35.0, 10.0},
+>>>>>>> master
  autoscale = true,
  autoerase = true,
  autoreplot = true,
@@ -35,3 +42,24 @@ createPlot(id = 3,
  subPlot = 2,
  leftTitleType = 1,
  bottomTitleType = 1);
+<<<<<<< HEAD
+=======
+createPlot(
+    id=2,
+    position={851, 35, 588, 648},
+    y={"conAHU.VEffOutAir_flow", "conAHU.VOut_flow"},
+    autoscale=true,
+    autoerase=true,
+    autoreplot=true,
+    grid=true,
+    color=true);
+createPlot(
+    id=2,
+    y={"conAHU.yOutDamPos", "conAHU.eco.mod.uOutDamPosMin", "conAHU.eco.mod.uOutDamPosMax", "conAHU.yRetDamPos"},
+    autoscale=true,
+    autoerase=true,
+    autoreplot=true,
+    grid=true,
+    color=true,
+    subPlot=2);
+>>>>>>> master

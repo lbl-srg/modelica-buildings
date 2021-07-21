@@ -1,3 +1,10 @@
 Constant
 Pulse
 SampleTrigger
+<<<<<<< HEAD
+=======
+SampleTriggerNegativeStartTime
+SampleTriggerPositiveStartTime
+TimeTable
+TimeTableNegativeStartTime
+>>>>>>> master

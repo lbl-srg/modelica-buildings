@@ -292,6 +292,15 @@ of stream connector. This bug will be corrected in future versions of Dymola.
 </html>", revisions="<html>
 <ul>
 <li>
+<<<<<<< HEAD
+=======
+September 20, 2020, by Michael Wetter:<br/>
+Updated model to use one port temperature sensor from Modelica Standard Library.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1399\"> #1399</a>.
+</li>
+<li>
+>>>>>>> master
 May 2, 2019, by Jianjun Hu:<br/>
 Replaced fluid source. This is for 
 <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1072\"> #1072</a>.

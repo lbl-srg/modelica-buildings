@@ -63,6 +63,7 @@ The control strategy is as follows:
 <li>The chiller is enabled when
 <i>
   T<sub>chw,ent</sub> &gt; T<sub>chi,set</sub> + &Delta;T<sub>chi,ban</sub> </i>
+</li>
 <li>The chiller is disabled when
 <i>
   T<sub>chw,ent</sub> &le; T<sub>chi,set</sub></i>
@@ -74,7 +75,7 @@ where <i>T<sub>chw,ent</sub></i> is the tempearture of chilled water entering th
 <h4>Setpoint Reset</h4>
 <p>
 The setpoint reset strategy is to first increase the different pressure, <i>&Delta;p</i>, of the chilled water loop to increase the mass flow rate.
-If <i>&Delta;p</i> reaches the maximum value and further cooling is still needed, the chiller remperature setpoint, <i>T<sub>chi,set</sub></i>, is reduced.
+If <i>&Delta;p</i> reaches the maximum value and further cooling is still needed, the chiller temperature setpoint, <i>T<sub>chi,set</sub></i>, is reduced.
 If there is too much cooling, the <i>T<sub>chi,set</sub></i> and <i>&Delta;p</i>  will be changed in the reverse direction.
 </p>
 <p>

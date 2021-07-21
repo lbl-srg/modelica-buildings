@@ -26,14 +26,19 @@ Models that are contributed need to adhere to the following guidelines, as this 
  * They should be of general interest to other users and well documented and tested.
  * They need to follow the coding conventions described in
 
+<<<<<<< HEAD
    - the `Buildings library user guide <https://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_UsersGuide.html#Buildings.UsersGuide.Conventions>`_,
    - the `Modelica Standard Library user guide <https://simulationresearch.lbl.gov/modelica/releases/msl/3.2/help/Modelica_UsersGuide_Conventions.html#Modelica.UsersGuide.Conventions>`_, and
    - the `Buildings library style guide <https://github.com/lbl-srg/modelica-buildings/wiki/Style-Guide>`_.
+=======
+   - the `Buildings library user guide <https://simulationresearch.lbl.gov/modelica/releases/v8.0.0/help/Buildings_UsersGuide.html#Buildings.UsersGuide.Conventions>`_ and
+   - the `Style Guide` provided in subsections of :numref:`sec_sty_gui`
+>>>>>>> master
 
- * They need to be made available under the `Modelica Buildings Library license <https://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_UsersGuide.html#Buildings.UsersGuide.License>`_.
+ * They need to be made available under the `Modelica Buildings Library license <https://simulationresearch.lbl.gov/modelica/releases/v8.0.0/help/Buildings_UsersGuide.html#Buildings.UsersGuide.License>`_.
  * For models of thermofluid flow components, they need to be based on the base classes in
-   `Buildings.Fluid.Interfaces <https://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_Interfaces.html>`_,
-   which are described in the `user guide <https://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_Interfaces_UsersGuide.html#Buildings.Fluid.Interfaces.UsersGuide>`_ of this package.
+   `Buildings.Fluid.Interfaces <https://simulationresearch.lbl.gov/modelica/releases/v8.0.0/help/Buildings_Fluid_Interfaces.html>`_,
+   which are described in the `user guide <https://simulationresearch.lbl.gov/modelica/releases/v8.0.0/help/Buildings_Fluid_Interfaces_UsersGuide.html#Buildings.Fluid.Interfaces.UsersGuide>`_ of this package.
    Otherwise, it becomes difficult to ensure that the implementation is numerically robust.
 
 
@@ -46,8 +51,8 @@ Adding a new class, such as a model or a function, is usually easiest by extendi
 In many cases, the similar component already exists.
 In this situation, it is recommended to copy and modify a similar component.
 If both components share a significant amount of similar code, then a base class should be introduced that implements the common code.
-See for example `Buildings.Fluid.Sensors.BaseClasses.PartialAbsoluteSensor <https://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_Sensors_BaseClasses.html#Buildings.Fluid.Sensors.BaseClasses.PartialAbsoluteSensor>`_ which is shared by all sensors with one fluid port in the package
-`Buildings.Fluid.Sensors <https://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_Sensors.html#Buildings.Fluid.Sensors>`_.
+See for example `Buildings.Fluid.Sensors.BaseClasses.PartialAbsoluteSensor <https://simulationresearch.lbl.gov/modelica/releases/v8.0.0/help/Buildings_Fluid_Sensors_BaseClasses.html#Buildings.Fluid.Sensors.BaseClasses.PartialAbsoluteSensor>`_ which is shared by all sensors with one fluid port in the package
+`Buildings.Fluid.Sensors <https://simulationresearch.lbl.gov/modelica/releases/v8.0.0/help/Buildings_Fluid_Sensors.html#Buildings.Fluid.Sensors>`_.
 
 The next sections give guidance that is specific to the implementation of thermofluid flow devices, pressure drop models and control sequences.
 
@@ -55,20 +60,20 @@ Thermofluid flow device
 ~~~~~~~~~~~~~~~~~~~~~~~
 
 To add a component of a thermofluid flow device, the package
-`Buildings.Fluid.Interface <https://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_Interfaces.html>`_  contains basic classes that can be extended.
-See `Buildings.Fluid.Interface.UsersGuide <https://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_Interfaces_UsersGuide.html#Buildings.Fluid.Interfaces.UsersGuide>`_ for a description of these classes.
+`Buildings.Fluid.Interface <https://simulationresearch.lbl.gov/modelica/releases/v8.0.0/help/Buildings_Fluid_Interfaces.html>`_  contains basic classes that can be extended.
+See `Buildings.Fluid.Interface.UsersGuide <https://simulationresearch.lbl.gov/modelica/releases/v8.0.0/help/Buildings_Fluid_Interfaces_UsersGuide.html#Buildings.Fluid.Interfaces.UsersGuide>`_ for a description of these classes.
 Alternatively, simple models such as the models below may be used as a starting point for implementing new models for thermofluid flow devices:
 
-`Buildings.Fluid.HeatExchangers.HeaterCooler_u <https://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_HeatExchangers.html#Buildings.Fluid.HeatExchangers.HeaterCooler_u>`_
+`Buildings.Fluid.HeatExchangers.HeaterCooler_u <https://simulationresearch.lbl.gov/modelica/releases/v8.0.0/help/Buildings_Fluid_HeatExchangers.html#Buildings.Fluid.HeatExchangers.HeaterCooler_u>`_
   For a device that adds heat to a fluid stream.
 
-`Buildings.Fluid.Humidifiers.Humidifier_u <https://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_Humidifiers.html#Buildings.Fluid.Humidifiers.Humidifier_u>`_
+`Buildings.Fluid.Humidifiers.Humidifier_u <https://simulationresearch.lbl.gov/modelica/releases/v8.0.0/help/Buildings_Fluid_Humidifiers.html#Buildings.Fluid.Humidifiers.Humidifier_u>`_
   For a device that adds humidity to a fluid stream.
 
-`Buildings.Fluid.Chillers.Carnot_y <https://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_Chillers.html#Buildings.Fluid.Chillers.Carnot_y>`_
+`Buildings.Fluid.Chillers.Carnot_y <https://simulationresearch.lbl.gov/modelica/releases/v8.0.0/help/Buildings_Fluid_Chillers.html#Buildings.Fluid.Chillers.Carnot_y>`_
   For a device that exchanges heat between two fluid streams.
 
-`Buildings.Fluid.MassExchangers.ConstantEffectiveness <https://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_MassExchangers.html#Buildings.Fluid.MassExchangers.ConstantEffectiveness>`_
+`Buildings.Fluid.MassExchangers.ConstantEffectiveness <https://simulationresearch.lbl.gov/modelica/releases/v8.0.0/help/Buildings_Fluid_MassExchangers.html#Buildings.Fluid.MassExchangers.ConstantEffectiveness>`_
   For a device that exchanges heat and humidity between two fluid streams.
 
 .. _fig_merkel:
@@ -94,11 +99,11 @@ Pressure drop
 
 When implementing equations for pressure drop, it is recommended
 to expand the base class
-`Buildings.Fluid.BaseClasses.PartialResistance <https://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_BaseClasses.html#Buildings.Fluid.BaseClasses.PartialResistance>`_.
+`Buildings.Fluid.BaseClasses.PartialResistance <https://simulationresearch.lbl.gov/modelica/releases/v8.0.0/help/Buildings_Fluid_BaseClasses.html#Buildings.Fluid.BaseClasses.PartialResistance>`_.
 Models should allow computing the flow resistance as a quadratic function
 with regularization near zero as implemented in
-`Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp <https://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_BaseClasses_FlowModels.html#Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp>`_ and in
-`Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow <https://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_BaseClasses_FlowModels.html#Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow>`_.
+`Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp <https://simulationresearch.lbl.gov/modelica/releases/v8.0.0/help/Buildings_Fluid_BaseClasses_FlowModels.html#Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp>`_ and in
+`Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow <https://simulationresearch.lbl.gov/modelica/releases/v8.0.0/help/Buildings_Fluid_BaseClasses_FlowModels.html#Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow>`_.
 The governing equation is
 
 .. math::
@@ -155,6 +160,7 @@ The following rules need to be followed, in addition to the guidelines described
 
 #. The naming of parameters, inputs, outputs and instances must follow the naming
    conventions in
+<<<<<<< HEAD
    `Buildings.UsersGuide.Conventions <https://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_UsersGuide.html#Buildings.UsersGuide.Conventions>`_.
 
 #. Each block must have an ``info`` section that explains its functionality.
@@ -162,6 +168,14 @@ The following rules need to be followed, in addition to the guidelines described
    need to be referenced using the html ``<code>...</code>`` element.
    In the ``info`` section, units need to be provided in SI units, or in dual units. For SI units,
    use Kelvin for temperature *differences* and degree Celsius for actual temperatures.
+=======
+   `Buildings.UsersGuide.Conventions <https://simulationresearch.lbl.gov/modelica/releases/v8.0.0/help/Buildings_UsersGuide.html#Buildings.UsersGuide.Conventions>`_.
+   Avoid providing duplicate information in the instance name, for example if the block is within the ``Boilers`` package,
+   the instance name must not contain ``boi``. Ensure that the instance name is unambiguous when viewed in a top level
+   controller block.
+   Consider whether the block can be used to control other equipment as well, and if so, make sure the instance name
+   is also applicable for these applications.
+>>>>>>> master
 
 #. Parameters that can be grouped together, such as parameters relating to temperature setpoints
    or to the configuration of the trim and respond logic, should be grouped together with the
@@ -268,7 +282,7 @@ first increases the mass flow rate setpoint and then reduces the supply temperat
 
 For simple models, the validation can be against analytic solutions.
 This is for example done in
-`Buildings.Fluid.FixedResistances.PressureDrop <https://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_FixedResistances_Examples.html#Buildings.Fluid.FixedResistances.Examples.PressureDrop>`_
+`Buildings.Fluid.FixedResistances.PressureDrop <https://simulationresearch.lbl.gov/modelica/releases/v8.0.0/help/Buildings_Fluid_FixedResistances_Examples.html#Buildings.Fluid.FixedResistances.Examples.PressureDrop>`_
 which uses a regression tests that checks the correct relation between mass flow rate and pressure drop.
 For complex thermofluid flow devices, a comparative model validation needs to be done, for example
 by comparing the result of the Modelica model against the results from EnergyPlus.

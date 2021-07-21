@@ -17,11 +17,19 @@ SET /A errno=0
 SET SRCS=pythonInterpreter.c
 SET LIBS=pythonInterpreter.lib
 
+<<<<<<< HEAD
 SET MOD_DLL=ModelicaBuildingsPython2.7.dll
 SET MOD_LIB=ModelicaBuildingsPython2.7.lib
 
 SET DUMMY_SRC=dummy.c
 SET DUMMY_DLL=python2.7.dll
+=======
+SET MOD_DLL=ModelicaBuildingsPython3.6.dll
+SET MOD_LIB=ModelicaBuildingsPython3.6.lib
+
+SET DUMMY_SRC=dummy.c
+SET DUMMY_DLL=python3.6.dll
+>>>>>>> master
 
 REM The first parameter is the architecture flag (x86 or x64).
 REM + Architecture related paths must be specified before running the batch file:
@@ -78,7 +86,11 @@ IF %ARCH%==x64 (
 ECHO DLL will be saved in: %BINDIR%.
 
 SET PYTHONInc=%PYTHONHOME%\include
+<<<<<<< HEAD
 SET PYTHONLibs=%PYTHONHOME%\libs\python27.lib
+=======
+SET PYTHONLibs=%PYTHONHOME%\libs\python36.lib
+>>>>>>> master
 
 CALL %CLPATH%
 IF %ERRORLEVEL% neq 0 (

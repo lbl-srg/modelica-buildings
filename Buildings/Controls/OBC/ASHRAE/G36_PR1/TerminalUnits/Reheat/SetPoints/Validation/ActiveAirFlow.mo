@@ -36,7 +36,11 @@ model ActiveAirFlow
     offset=2) "occNum"
     annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse winSta(
+<<<<<<< HEAD
     startTime=0,
+=======
+    shift=0,
+>>>>>>> master
     width=0.2,
     period=90000)
     "Generate signal indicating window status"

@@ -11,8 +11,19 @@ model ChillerDXHeatingEconomizer
   parameter Modelica.SIunits.Temperature TSupChi_nominal=279.15
     "Design value for chiller leaving water temperature";
 
+<<<<<<< HEAD
   ChillerDXHeatingEconomizerController con(
     minOAFra=0.2,
+=======
+  Buildings.Air.Systems.SingleZone.VAV.BaseClasses.ControllerChillerDXHeatingEconomizer con(
+    minAirFlo=0.1,
+    minOAFra=0.4,
+    controllerTypeHea=Buildings.Controls.OBC.CDL.Types.SimpleController.P,
+    controllerTypeCoo=Buildings.Controls.OBC.CDL.Types.SimpleController.P,
+    kCoo=1,
+    TiCoo=120,
+    controllerTypeFan=Buildings.Controls.OBC.CDL.Types.SimpleController.P,
+>>>>>>> master
     kFan=4,
     kEco=4,
     kHea=4,
@@ -43,6 +54,7 @@ model ChillerDXHeatingEconomizer
     annotation (Placement(transformation(extent={{-140,10},{-120,30}})));
 
 equation
+<<<<<<< HEAD
   connect(TSetRooHea.y[1], con.TSetRooHea)
     annotation (Line(points={{-119,50},{-110,50},{-110,10},{-102,10}},
                                                    color={0,0,127}));
@@ -69,6 +81,43 @@ equation
           {-108,60},{-30,60},{-30,80}}, color={0,0,127}), Text(
       textString="%second",
       index=1,
+=======
+  connect(TSetRooHea.y[1], con.TSetRooHea)   annotation (Line(points={{-130,50},
+          {-110,50},{-110,6},{-102,6}},            color={0,0,127}));
+  connect(TSetRooCoo.y[1], con.TSetRooCoo)    annotation (Line(points={{-130,20},
+          {-116,20},{-116,3},{-102,3}},                                color={0,0,127}));
+  connect(hvac.uFan, con.yFan) annotation (Line(points={{-42,18},{-60,18},{-60,
+          8},{-78,8}},
+                    color={0,0,127}));
+  connect(hvac.uHea, con.yHea) annotation (Line(points={{-42,12},{-58,12},{-58,
+          5},{-78,5}},
+                    color={0,0,127}));
+  connect(con.yCooCoiVal, hvac.uCooVal) annotation (Line(points={{-78,-2},{-56,
+          -2},{-56,5},{-42,5}},
+                            color={0,0,127}));
+  connect(hvac.uEco, con.yOutAirFra) annotation (Line(points={{-42,-2},{-52,-2},
+          {-52,2},{-78,2}}, color={0,0,127}));
+  connect(con.chiOn, hvac.chiOn) annotation (Line(points={{-78,-5},{-58,-5},{
+          -58,-10},{-42,-10}},
+                           color={255,0,255}));
+  connect(hvac.TSetChi, con.TSetSupChi) annotation (Line(points={{-42,-18},{-60,
+          -18},{-60,-8},{-78,-8}},                     color={0,0,127}));
+  connect(hvac.TMix, con.TMix) annotation (Line(points={{1.2,-4},{8,-4},{8,-40},
+          {-114,-40},{-114,9},{-102,9}},color={0,0,127}));
+  connect(hvac.TSup, con.TSup) annotation (Line(points={{1.2,-8},{6,-8},{6,-36},
+          {-110,-36},{-110,-9},{-102,-9}},color={0,0,127}));
+  connect(zon.TRooAir, con.TRoo) annotation (Line(points={{81,0},{108,0},{108,
+          -148},{-120,-148},{-120,-6},{-102,-6}}, color={0,0,127}));
+  connect(occSch.occupied, con.uOcc) annotation (Line(points={{-131,-40},{-128,
+          -40},{-128,3.60822e-16},{-102,3.60822e-16}},
+                                           color={255,0,255}));
+  connect(weaBus.TDryBul, con.TOut) annotation (Line(
+      points={{-79,80},{-79,40},{-106,40},{-106,-3},{-102,-3}},
+      color={255,204,51},
+      thickness=0.5), Text(
+      string="%first",
+      index=-1,
+>>>>>>> master
       extent={{-6,3},{-6,3}},
       horizontalAlignment=TextAlignment.Right));
   connect(zon.TRooAir, con.TRoo) annotation (Line(points={{81,0},{108,0},{108,

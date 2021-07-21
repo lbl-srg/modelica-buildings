@@ -36,6 +36,15 @@ Buildings.Fluid.Sensors.BaseClasses.PartialFlowSensor</a>.
 revisions="<html>
 <ul>
 <li>
+<<<<<<< HEAD
+=======
+September 20, 2020, by Michael Wetter:<br/>
+Introduced parameter <code>warnAboutOnePortConnection</code> and added assertion with level set to warning.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1399\"> #1399</a>.
+</li>
+<li>
+>>>>>>> master
 January 18, 2019, by Jianjun Hu:<br/>
 Limited the media choice.
 See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1050\">#1050</a>.

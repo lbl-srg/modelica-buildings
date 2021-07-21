@@ -66,6 +66,7 @@ as required from medium model \"" + mediumName + "\".");
     state.T = T;
     state.p = p;
     annotation(Documentation(info="<html>
+<<<<<<< HEAD
     <p>
     This base properties model is identical to
     <a href=\"modelica://Modelica.Media.Water.ConstantPropertyLiquidWater\">
@@ -75,6 +76,52 @@ as required from medium model \"" + mediumName + "\".");
     has been replaced by <code>u=h</code> because
     <code>cp_const=cv_const</code>.
     </p>
+=======
+<p>
+Model with basic thermodynamic properties.
+</p>
+<p>
+This base properties model is identical to
+<a href=\"modelica://Modelica.Media.Water.ConstantPropertyLiquidWater\">
+Modelica.Media.Water.ConstantPropertyLiquidWater</a>,
+except that the equation
+<code>u = cv_const*(T - reference_T)</code>
+has been replaced by <code>u=h</code> because
+<code>cp_const=cv_const</code>.
+</p>
+<p>
+This model provides equation for the following thermodynamic properties:
+</p>
+<table border=\"1\" cellspacing=\"0\" cellpadding=\"2\" summary=\"Thermodynamic properties\">
+  <tr><td><strong>Variable</strong></td>
+      <td><strong>Unit</strong></td>
+      <td><strong>Description</strong></td></tr>
+  <tr><td>T</td>
+      <td>K</td>
+      <td>temperature</td></tr>
+  <tr><td>p</td>
+      <td>Pa</td>
+      <td>absolute pressure</td></tr>
+  <tr><td>d</td>
+      <td>kg/m3</td>
+      <td>density</td></tr>
+  <tr><td>h</td>
+      <td>J/kg</td>
+      <td>specific enthalpy</td></tr>
+  <tr><td>u</td>
+      <td>J/kg</td>
+      <td>specific internal energy</td></tr>
+  <tr><td>Xi[nXi]</td>
+      <td>kg/kg</td>
+      <td>independent mass fractions m_i/m</td></tr>
+  <tr><td>R</td>
+      <td>J/kg.K</td>
+      <td>gas constant</td></tr>
+  <tr><td>M</td>
+      <td>kg/mol</td>
+      <td>molar mass</td></tr>
+</table>
+>>>>>>> master
 </html>"));
   end BaseProperties;
 

@@ -12,9 +12,9 @@ The following books are useful for new users to get started:
 
 * The online book with interactive examples of Michael Tiller at http://book.xogeny.com/.
 * The books by Michael Tiller [Til2001]_ and Peter Fritzson ([Fri2011]_ and [Fri2004]_).
-* The tutorials that are listed at https://www.modelica.org/publications.
+* The tutorials that are listed at https://modelica.org/publications.
 
-Although the `Modelica Language Tutorial <https://www.modelica.org/documents/ModelicaTutorial14.pdf>`_ is for an older version (Modelica 1.4), it is still instructive and relevant to understand the concepts of the language.
+Although the `Modelica Language Tutorial <https://modelica.org/documents/ModelicaTutorial14.pdf>`_ is for an older version (Modelica 1.4), it is still instructive and relevant to understand the concepts of the language.
 
 Links to papers that describe or used the `Buildings` library are available at https://simulationresearch.lbl.gov/modelica/publications.html.
 The model documentation from the download page contains user guides that describe the individual packages of the `Buildings` library.
@@ -34,8 +34,13 @@ Spoken tutorials for beginners are available at http://spoken-tutorial.org/tutor
 
 
 
+<<<<<<< HEAD
 Literature for Developers
 -------------------------
+=======
+Study the detailed tutorials with step-by-step instructions for how to build system models,
+which can be found in the `Tutorial package <https://simulationresearch.lbl.gov/modelica/releases/v8.0.0/help/Buildings_Examples_Tutorial.html>`_.
+>>>>>>> master
 
 It is essential that users who develop new thermo-fluid models to  understand the concept of stream connectors. Stream connectors are explained in the Modelica language definition, available at https://www.modelica.org/documents, and in the paper Franke et al. [Fra2009a]_.
 The `Buildings` library uses similar modeling principles, and the same base classes, as the `Modelica.Fluid` library. Hence, we also recommend reading the paper about the standardization of thermo-fluid models in Modelica.Fluid [Fra2009b]_.
@@ -51,7 +56,15 @@ Check the software requirements for the different versions of the Buildings libr
 Running the First Simulations
 -----------------------------
 
+<<<<<<< HEAD
 To start using Modelica, run the example models of the `Buildings` library. Make variations in these examples by changing values of model parameters or by replacing existing component models by new ones. The example models can be found in the packages `Examples`, and detailed tutorials with step-by-step instructions for how to build system models can be found in the `Tutorial package <https://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Examples_Tutorial.html>`_.
+=======
+It is essential that users who develop new thermo-fluid models to understand the concept of stream connectors.
+Stream connectors are explained in the Modelica language definition, available at https://modelica.org/documents,
+and in the paper Franke et al. [Fra2009a]_.
+The `Buildings` library uses similar modeling principles, and the same base classes, as the `Modelica.Fluid` library.
+Hence, we also recommend reading the paper about the standardization of thermo-fluid models in Modelica.Fluid [Fra2009b]_.
+>>>>>>> master
 
 Note that heat transfer models, which can be found in `Buildings.HeatTransfer.*.Examples` are easier to understand than fluid flow models because;
 

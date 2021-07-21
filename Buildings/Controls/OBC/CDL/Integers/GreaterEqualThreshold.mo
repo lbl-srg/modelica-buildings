@@ -1,22 +1,40 @@
 within Buildings.Controls.OBC.CDL.Integers;
 block GreaterEqualThreshold
   "Output y is true, if input u is greater or equal than threshold"
+<<<<<<< HEAD
 
   parameter Integer threshold=0 "Comparison with respect to threshold";
 
   Interfaces.IntegerInput u "Connector of Integer input signal"
+=======
+  parameter Integer t=0
+    "Comparison with respect to a threshold";
+  Interfaces.IntegerInput u
+    "Connector of Integer input signal"
+>>>>>>> master
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
-
-  Interfaces.BooleanOutput y "Connector of Boolean output signal"
+  Interfaces.BooleanOutput y
+    "Connector of Boolean output signal"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
 equation
+<<<<<<< HEAD
   y = u >= threshold;
 
 annotation (
   defaultComponentName="intGreEquThr",
   Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},
             {100,100}}), graphics={
+=======
+  y=u >= t;
+  annotation (
+    defaultComponentName="intGreEquThr",
+    Icon(
+      coordinateSystem(
+        preserveAspectRatio=true,
+        extent={{-100,-100},{100,100}}),
+      graphics={
+>>>>>>> master
         Text(
           extent={{-150,-140},{150,-110}},
           lineColor={0,0,0},
@@ -30,10 +48,16 @@ annotation (
           borderPattern=BorderPattern.Raised),
         Ellipse(
           extent={{71,7},{85,-7}},
-          lineColor=DynamicSelect({235,235,235}, if y then {0,255,0}
-               else {235,235,235}),
-          fillColor=DynamicSelect({235,235,235}, if y then {0,255,0}
-               else {235,235,235}),
+          lineColor=DynamicSelect({235,235,235},
+            if y then
+              {0,255,0}
+            else
+              {235,235,235}),
+          fillColor=DynamicSelect({235,235,235},
+            if y then
+              {0,255,0}
+            else
+              {235,235,235}),
           fillPattern=FillPattern.Solid),
         Text(
           extent={{-150,150},{150,110}},
@@ -47,13 +71,15 @@ annotation (
           points={{-52,-36},{-6,-14}},
           thickness=0.5,
           color={255,127,0})}),
-  Documentation(info="<html>
+    Documentation(
+      info="<html>
 <p>
 Block that outputs <code>true</code> if the Integer input is greater than or equal to
 the parameter <code>threshold</code>.
 Otherwise the output is <code>false</code>.
 </p>
-</html>", revisions="<html>
+</html>",
+      revisions="<html>
 <ul>
 <li>
 August 30, 2017, by Jianjun Hu:<br/>
