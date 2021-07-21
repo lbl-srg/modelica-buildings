@@ -73,15 +73,34 @@ model ZoneSurfaces
 
   annotation (
     Documentation(
-      info="<html></html>",
-      revisions="<html><ul></ul></html>"),
+      info="<html>
+<p>
+This model simulates the envelope of a single family house with EnergyPlus but uses 
+<a href=\"modelica://Buildings.ThermalZones.EnergyPlus.ZoneSurface\">
+Buildings.ThermalZones.EnergyPlus.ZoneSurface</a> to model the heat 
+transfer through the garage exterior (east and west facing) and interior walls.
+</p>
+<p>
+The temperature results of this model are to be compared to the results of
+<a href=\"modelica://Buildings.ThermalZones.EnergyPlus.Validation.SurfaceComparison.EnergyPlusSurfaces\">
+EnergyPlusSurfaces</a> which runs the same model without the Spawn objects.
+</p>
+</html>",
+      revisions="<html>
+<ul>
+<li>
+July 21, 2021, by Baptiste Ravache:<br/>
+First implementation.
+</li>
+</ul>
+</html>"),
     __Dymola_Commands(
-      file="Resources/Scripts/Dymola/ThermalZones/EnergyPlus/Validation/ZoneSurface/GarageSurfaces.mos"
+      file="Resources/Scripts/Dymola/ThermalZones/EnergyPlus/Validation/SurfaceComparison/ZoneSurfaces.mos"
         "Simulate and Plot"),
     experiment(
       StopTime=2592000,
       Tolerance=1e-06,
       __Dymola_Algorithm="Cvode"),
-    Diagram(coordinateSystem(extent={{-100,-100},{120,100}})),
-    Icon(coordinateSystem(extent={{-100,-100},{120,100}})));
+    Diagram(coordinateSystem(extent={{-100,-100},{100,100}})),
+    Icon(coordinateSystem(extent={{-100,-100},{100,100}})));
 end ZoneSurfaces;

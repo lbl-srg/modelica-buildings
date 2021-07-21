@@ -1,4 +1,4 @@
-within Buildings.ThermalZones.EnergyPlus.Validation.ZoneSurface.BaseClasses;
+within Buildings.ThermalZones.EnergyPlus.Validation.SurfaceComparison.BaseClasses;
 model InteriorWall
 
   extends Buildings.HeatTransfer.Conduction.BaseClasses.PartialConstruction;
@@ -19,7 +19,7 @@ model InteriorWall
   Buildings.ThermalZones.EnergyPlus.ZoneSurface sur_b(surfaceName=surNam_b)
     "Wall surface (port b)"
     annotation (Placement(transformation(extent={{-10,-40},{10,-60}})));
-  HeatTransfer.Conduction.MultiLayer walCon(
+  Buildings.HeatTransfer.Conduction.MultiLayer walCon(
     A=A,
     layers=layers) "Wall conduction"
     annotation (Placement(transformation(
@@ -33,7 +33,7 @@ model InteriorWall
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={-40,30})));
-  HeatTransfer.Sources.PrescribedHeatFlow heaSur_a
+  Buildings.HeatTransfer.Sources.PrescribedHeatFlow heaSur_a
     "Surface heat transfer rate (port a)"
     annotation (Placement(
         transformation(
@@ -47,7 +47,7 @@ model InteriorWall
         extent={{-10,-10},{10,10}},
         rotation=270,
         origin={-40,-30})));
-  HeatTransfer.Sources.PrescribedHeatFlow heaSur_b
+  Buildings.HeatTransfer.Sources.PrescribedHeatFlow heaSur_b
     "Surface heat transfer rate (port b)"
     annotation (Placement(
         transformation(
@@ -96,5 +96,27 @@ equation
           lineColor={238,46,47},
           fillColor={238,46,47},
           fillPattern=FillPattern.Solid)}),                      Diagram(
-        coordinateSystem(preserveAspectRatio=false)));
+        coordinateSystem(preserveAspectRatio=false)),
+    Documentation(revisions="<html>
+<ul>
+<li>
+July 21, 2021, by Baptiste Ravache:<br/>
+First implementation.
+</li>
+</ul>
+</html>", info="<html>
+<p>
+This is a model of the heat transfer through an interior wall, which is connected
+to an EnergyPlus Zone Heat Balance through 
+<a href=\"modelica://Buildings.ThermalZones.EnergyPlus.ZoneSurface\">
+Buildings.ThermalZones.EnergyPlus.ZoneSurface</a> objects on both side of
+the wall.  
+</p>
+<p>
+This model can be used in a Spawn simulation to substitute the heat conduction 
+calculation performed by EnergyPlus with a
+<a href=\"modelica://Buildings.HeatTransfer.Conduction.MultiLayer\">
+Buildings.HeatTransfer.Conduction.MultiLayer</a> object.
+</p>
+</html>"));
 end InteriorWall;

@@ -1,0 +1,7 @@
+compareVars :=
+  {
+    "TWesWalGarSur.y",
+    "TEasWalGarSur.y",
+    "TIntWalGarSur.y",
+    "TGarAir.y"
+  };
