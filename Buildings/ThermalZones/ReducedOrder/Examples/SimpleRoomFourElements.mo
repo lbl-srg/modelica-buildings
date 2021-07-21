@@ -59,7 +59,7 @@ model SimpleRoomFourElements
     AWin={7,7},
     ATransparent={7,7},
     AExt={3.5,8},
-    redeclare package Medium = Modelica.Media.Air.SimpleAir,
+    redeclare replaceable package Medium = Modelica.Media.Air.SimpleAir,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     extWallRC(thermCapExt(each der_T(fixed=true))),
     intWallRC(thermCapInt(each der_T(fixed=true))),

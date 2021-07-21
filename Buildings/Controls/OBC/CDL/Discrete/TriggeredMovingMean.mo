@@ -15,13 +15,6 @@ block TriggeredMovingMean
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
 protected
-<<<<<<< HEAD
-  parameter Modelica.SIunits.Time t0(fixed=false) "First sample time instant";
-  Integer iSample(start=0, fixed=true) "Sample numbering in the calculation";
-  Integer counter(start=0, fixed=true)
-      "Number of samples used for averaging calculation";
-  Integer index(start=0, fixed=true) "Index of the vector ySample";
-=======
   Integer iSample(
     start=0,
     fixed=true)
@@ -34,14 +27,10 @@ protected
     start=0,
     fixed=true)
     "Index of the vector ySample";
->>>>>>> master
   Real ySample[n](
     start=zeros(n),
     each fixed=true)
     "Vector of samples to be averaged";
-
-initial equation
-  t0 = time;
 
 equation
   when {initial(),trigger} then
@@ -183,6 +172,10 @@ and produces this value at its output <code>y</code>.
 </html>",
       revisions="<html>
 <ul>
+<li>
+October 19, 2020, by Michael Wetter:<br/>
+Removed non-needed protected parameter <code>t0</code>.
+</li>
 <li>
 March 2, 2020, by Michael Wetter:<br/>
 Changed icon to display dynamically the output value.

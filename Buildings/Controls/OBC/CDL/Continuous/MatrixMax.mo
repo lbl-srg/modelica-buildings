@@ -28,13 +28,8 @@ equation
   if rowMax then
     y={max(u[i,:]) for i in 1:size(u,1)};
   else
-<<<<<<< HEAD
-    y = {max(u[:,i]) for i in 1:size(u, 2)};
-  end if
-=======
     y={max(u[:,i]) for i in 1:size(u,2)};
   end if;
->>>>>>> master
   annotation (
     defaultComponentName="matMax",
     Documentation(

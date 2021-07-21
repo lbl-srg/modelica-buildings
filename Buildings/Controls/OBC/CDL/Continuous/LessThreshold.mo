@@ -1,22 +1,4 @@
 within Buildings.Controls.OBC.CDL.Continuous;
-<<<<<<< HEAD
-block LessThreshold "Output y is true, if input u is less than threshold"
-
-  parameter Real threshold=0 "Comparison with respect to threshold";
-
-  Interfaces.RealInput u "Connector of Real input signal"
-    annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
-
-  Interfaces.BooleanOutput y "Connector of Boolean output signal"
-    annotation (Placement(transformation(extent={{100,-20},{140,20}})));
-
-equation
-  y = u < threshold;
-  annotation (
-        defaultComponentName="lesThr",
-        Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},
-            {100,100}}), graphics={
-=======
 block LessThreshold
   "Output y is true, if input u is less than threshold"
   parameter Real t=0
@@ -139,7 +121,6 @@ equation
         preserveAspectRatio=true,
         extent={{-100,-100},{100,100}}),
       graphics={
->>>>>>> master
         Rectangle(
           extent={{-100,100},{100,-100}},
           lineColor={0,0,0},
@@ -148,13 +129,6 @@ equation
           fillPattern=FillPattern.Solid,
           borderPattern=BorderPattern.Raised),
         Ellipse(
-<<<<<<< HEAD
-          extent={{71,7},{85,-7}},
-          lineColor=DynamicSelect({235,235,235}, if y then {0,255,0}
-               else {235,235,235}),
-          fillColor=DynamicSelect({235,235,235}, if y then {0,255,0}
-               else {235,235,235}),
-=======
           extent={{73,7},{87,-7}},
           lineColor=DynamicSelect({235,235,235},
             if y then
@@ -166,26 +140,11 @@ equation
               {0,255,0}
             else
               {235,235,235}),
->>>>>>> master
           fillPattern=FillPattern.Solid),
-        Text(
-<<<<<<< HEAD
-          extent={{-150,-140},{150,-110}},
-          lineColor={0,0,0},
-          textString="%threshold"),
-        Text(
-          extent={{-150,150},{150,110}},
-          lineColor={0,0,255},
-          textString="%name"),
         Line(
-          points={{-10,20},{-54,0},{-10,-18}},
-          thickness=0.5)}),
-Documentation(info="<html>
-<p>
-Block that outputs <code>true</code> if the Real input is less than
-the parameter <code>threshold</code>.
-Otherwise the output is <code>false</code>.
-=======
+          points={{2,10},{-16,2},{2,-8}},
+          thickness=0.5),
+        Text(
           extent={{-150,150},{150,110}},
           textString="%name",
           lineColor={0,0,255}),
@@ -247,14 +206,11 @@ in simulation to guard against numerical noise. Numerical noise can be present i
 an input depends on a state variable or a quantity that requires an iterative solution, such as
 a temperature or a mass flow rate of an HVAC system.
 To disable hysteresis, set <i>h=0</i>.
->>>>>>> master
 </p>
 </html>",
       revisions="<html>
 <ul>
 <li>
-<<<<<<< HEAD
-=======
 February 3, 2021, by Antoine Gautier:<br/>
 Corrected documentation.<br/>
 This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2246\">issue 2246</a>.
@@ -265,7 +221,6 @@ Added hysteresis.<br/>
 This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2076\">issue 2076</a>.
 </li>
 <li>
->>>>>>> master
 January 3, 2017, by Michael Wetter:<br/>
 First implementation, based on the implementation of the
 Modelica Standard Library.

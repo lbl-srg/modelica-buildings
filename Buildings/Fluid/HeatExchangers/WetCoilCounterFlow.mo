@@ -4,17 +4,12 @@ model WetCoilCounterFlow
   extends Buildings.Fluid.HeatExchangers.DryCoilCounterFlow(
     redeclare replaceable package Medium2 =
       Modelica.Media.Interfaces.PartialCondensingGases,
-<<<<<<< HEAD
-    redeclare final model HexElement =
-      Buildings.Fluid.HeatExchangers.BaseClasses.HexElementLatent);
-=======
     redeclare model HexElement =
       Buildings.Fluid.HeatExchangers.BaseClasses.HexElementLatent(simplify_mWat_flow=simplify_mWat_flow));
 
   constant Boolean simplify_mWat_flow = true
     "Set to true to cause port_a.m_flow + port_b.m_flow = 0 even if mWat_flow is non-zero. Used only if Medium.nX > 1"
     annotation(HideResult=true);
->>>>>>> master
 
   Modelica.SIunits.HeatFlowRate QSen2_flow = Q2_flow - QLat2_flow
     "Sensible heat input into air stream (negative if air is cooled)";
@@ -83,8 +78,6 @@ Buildings.Fluid.HeatExchangers.DryCoilCounterFlow</a> instead of this model.
 </html>", revisions="<html>
 <ul>
 <li>
-<<<<<<< HEAD
-=======
 March 12, 2021, by Michael Wetter:<br/>
 Removed <code>final</code> declaration in redeclaration.<br/>
 This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2392\">#2392</a>.
@@ -95,7 +88,6 @@ Added constant <code>simplify_mWat_flow</code>.<br/>
 This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1920\">#1920</a>.
 </li>
 <li>
->>>>>>> master
 October 19, 2018, by Kino:<br/>
 Changed model to use a replaceable model as this allows translation in OpenModelica.<br/>
 This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1258\">#1258</a>.

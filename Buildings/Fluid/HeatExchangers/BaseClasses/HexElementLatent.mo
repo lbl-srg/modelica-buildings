@@ -10,6 +10,7 @@ model HexElementLatent "Element of a heat exchanger with humidity condensation o
      final energyDynamics=energyDynamics,
      final massDynamics=energyDynamics,
      final initialize_p=initialize_p2,
+     final simplify_mWat_flow=simplify_mWat_flow,
      prescribedHeatFlowRate=false));
 
   constant Boolean simplify_mWat_flow=true
@@ -94,8 +95,6 @@ surface. This is done using the heat flow sources <code>heaConVapAir</code> and
 revisions="<html>
 <ul>
 <li>
-<<<<<<< HEAD
-=======
 March 11, 2021, by Michael Wetter:<br/>
 Changed constant <code>simplify_mWat_flow</code> from protected to public because it is assigned by
 <a href=\"modelica://Buildings.Fluid.HeatExchangers.WetCoilCounterFlow\">Buildings.Fluid.HeatExchangers.WetCoilCounterFlow</a>.<br/>
@@ -107,7 +106,6 @@ Added constant <code>simplify_mWat_flow</code>.<br/>
 This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1920\">#1920</a>.
 </li>
 <li>
->>>>>>> master
 April 14, 2017, by David Blum:<br/>
 Added heat of condensation to coil surface heat balance and removed it from the air stream.<br/>
 This is for issue

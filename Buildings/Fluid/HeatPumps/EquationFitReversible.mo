@@ -116,10 +116,8 @@ protected
    "Prescribed source side heat flow rate"
     annotation (Placement(transformation(extent={{59,-70},{39,-50}})));
 
-  Buildings.Controls.OBC.CDL.Integers.LessThreshold lesThr(
-    final threshold=0) if
-       not per.reverseCycle
-    "Indicator, outputs true if in cooling mode"
+  Buildings.Controls.OBC.CDL.Integers.LessThreshold lesThr(final t=0) if not
+    per.reverseCycle "Indicator, outputs true if in cooling mode"
     annotation (Placement(transformation(extent={{-80,-90},{-60,-70}})));
 
   Buildings.Controls.OBC.CDL.Utilities.Assert aleMes(

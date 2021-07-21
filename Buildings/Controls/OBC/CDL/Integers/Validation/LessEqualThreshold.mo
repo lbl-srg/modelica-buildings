@@ -8,11 +8,7 @@ model LessEqualThreshold
     "Block that generates ramp signal"
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
   Buildings.Controls.OBC.CDL.Integers.LessEqualThreshold intLesEquThr(
-<<<<<<< HEAD
-    threshold=2)
-=======
     t=2)
->>>>>>> master
     "Block output true if input is less or equal to threshold value"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
   Buildings.Controls.OBC.CDL.Continuous.Round round1(

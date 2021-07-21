@@ -8,12 +8,8 @@ model GreaterEqualThreshold
     "Block that generates ramp signal"
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
   Buildings.Controls.OBC.CDL.Integers.GreaterEqualThreshold intGreEquThr(
-<<<<<<< HEAD
-    threshold=2) "Block output true if input is greater or equal to threshold value"
-=======
     t=2)
     "Block output true if input is greater or equal to threshold value"
->>>>>>> master
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
   Buildings.Controls.OBC.CDL.Continuous.Round round1(
     n=0)

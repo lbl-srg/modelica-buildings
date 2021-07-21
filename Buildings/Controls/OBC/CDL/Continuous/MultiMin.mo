@@ -13,16 +13,11 @@ block MultiMin
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
 equation
-<<<<<<< HEAD
-  y = min(u);
-  annotation (Icon(coordinateSystem(
-=======
   y=min(u);
   annotation (
     defaultComponentName="mulMin",
     Icon(
       coordinateSystem(
->>>>>>> master
         preserveAspectRatio=false,
         extent={{-100,-100},{100,100}}),
       graphics={

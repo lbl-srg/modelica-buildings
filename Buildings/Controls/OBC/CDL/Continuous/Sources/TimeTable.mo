@@ -7,17 +7,12 @@ block TimeTable
     "Smoothness of table interpolation";
   parameter CDL.Types.Extrapolation extrapolation=CDL.Types.Extrapolation.Periodic
     "Extrapolation of data outside the definition range";
-<<<<<<< HEAD
-  parameter Real offset[:]={0} "Offsets of output signals";
-  parameter Modelica.SIunits.Time timeScale=1
-=======
   parameter Real offset[:]=fill(
     0,
     nout)
     "Offsets of output signals as a vector with length equal to number of table matrix columns less one";
   parameter Real timeScale(
     final unit="1")=1
->>>>>>> master
     "Time scale of first table column. Set to 3600 if time in table is in hours";
   Interfaces.RealOutput y[nout]
     "Output of the table"
@@ -33,9 +28,6 @@ protected
     final unit="s",
     fixed=false)
     "First sample time instant";
-<<<<<<< HEAD
-
-=======
   parameter Real timeRange(
     final quantity="Time",
     final unit="s")=timeScale*(table[end,1]-table[1,1])
@@ -44,7 +36,6 @@ protected
     table,
     1)
     "Number of time stamps";
->>>>>>> master
   // CDL uses different enumerations for smoothness and for extrapolation
   // than the Modelica Standard Library. Hence, we cast the CDL
   // enumeration to the MSL enumaration.
@@ -67,20 +58,6 @@ protected
       else
         Modelica.Blocks.Types.Extrapolation.Periodic,
     final offset=offset,
-<<<<<<< HEAD
-    final startTime=if (extrapolation == Types.Extrapolation.Periodic) then integer(t0/86400)*86400 else 0,
-    final timeScale=timeScale) "Time table"
-    annotation (Placement(transformation(extent={{-12,-10},{8,10}})));
-
-initial equation
-  t0=time;
-
-equation
-  connect(tab.y, y) annotation (Line(points={{9,0},{120,0}}, color={0,0,127}));
-
-annotation (
-Documentation(info="<html>
-=======
     final startTime=
       if(extrapolation == Types.Extrapolation.Periodic) then
         t0
@@ -108,12 +85,11 @@ equation
     defaultComponentName="timTab",
     Documentation(
       info="<html>
->>>>>>> master
 <p>
 Block that outputs values of a time table.
 </p>
 <p>
-The block takes as a parameter a time table of the format
+The block takes as a parameter a time table of a format:
 </p>
 <pre>
 table = [ 0*3600, 0;
@@ -280,8 +256,6 @@ of <i>0.5</i> seconds outputs
       revisions="<html>
 <ul>
 <li>
-<<<<<<< HEAD
-=======
 November 12, 2020, by Michael Wetter:<br/>
 Reformulated to remove dependency to <code>Modelica.SIunits</code>.<br/>
 This is for
@@ -297,7 +271,6 @@ October 7, 2020, by Michael Wetter:<br/>
 Revised implementation to add <code>timeSpan</code>.
 </li>
 <li>
->>>>>>> master
 March 13, 2020, by Michael Wetter:<br/>
 Corrected implementation so that the table also works if the simulation
 starts at a negative time.<br/>

@@ -1,24 +1,4 @@
 within Buildings.Controls.OBC.CDL.Continuous.Validation;
-<<<<<<< HEAD
-model GreaterThreshold  "Validation model for the GreaterThreshold block"
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp ramp2(
-    duration=1,
-    offset=-1,
-    height=2) "Block that generates ramp signal"
-    annotation (Placement(transformation(extent={{-26,-8},{-6,12}})));
-
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr
-    annotation (Placement(transformation(extent={{26,-8},{46,12}})));
-
-equation
-  connect(ramp2.y, greThr.u)
-    annotation (Line(points={{-5,2},{8,2},{24,2}}, color={0,0,127}));
-  annotation (
-  experiment(StopTime=1.0, Tolerance=1e-06),
-  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/CDL/Continuous/Validation/GreaterThreshold.mos"
-        "Simulate and plot"),
-    Documentation(info="<html>
-=======
 model GreaterThreshold
   "Validation model for the GreaterThreshold block"
   Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold gre(
@@ -54,15 +34,20 @@ equation
       file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/CDL/Continuous/Validation/GreaterThreshold.mos" "Simulate and plot"),
     Documentation(
       info="<html>
->>>>>>> master
 <p>
 Validation test for the block
 <a href=\"modelica://Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold\">
 Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold</a>.
+The instance <code>gre</code> has no hysteresis, and the
+instance <code>greHys</code> has a hysteresis.
 </p>
 </html>",
       revisions="<html>
 <ul>
+<li>
+August 5, 2020, by Michael Wetter:<br/>
+Updated model to add a test case with hysteresis.
+</li>
 <li>
 April 1, 2017, by Jianjun Hu:<br/>
 First implementation.

@@ -1,19 +1,4 @@
 within Buildings.Controls.OBC.CDL.Logical.Sources.Validation;
-<<<<<<< HEAD
-model Pulse "Validation model for the Boolean Pulse block"
-
-  Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul(
-    width = 0.5,
-    period = 1)
-    "Block that generates pulse signal of type Boolean"
-    annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
-
-  annotation (
-  experiment(StopTime=5.0, Tolerance=1e-06),
-  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/CDL/Logical/Sources/Validation/Pulse.mos"
-        "Simulate and plot"),
-    Documentation(info="<html>
-=======
 model Pulse
   "Validation model for the Boolean Pulse block"
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul_a1(
@@ -114,15 +99,11 @@ model Pulse
       file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/CDL/Logical/Sources/Validation/Pulse.mos" "Simulate and plot"),
     Documentation(
       info="<html>
->>>>>>> master
 <p>
 Validation test for the block
 <a href=\"modelica://Buildings.Controls.OBC.CDL.Logical.Sources.Pulse\">
 Buildings.Controls.OBC.CDL.Logical.Sources.Pulse</a>.
 </p>
-<<<<<<< HEAD
-</html>", revisions="<html>
-=======
 <p>
 This validates the blocks with a start time of <i>0</i>.
 All blocks with the same letter after the underscore are configured to produce
@@ -130,8 +111,19 @@ the same output.
 </p>
 </html>",
       revisions="<html>
->>>>>>> master
 <ul>
+<li>
+October 19, 2020, by Michael Wetter:<br/>
+Refactored test for systematic testing.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2170\">#2170</a>.
+</li>
+<li>
+September 1, 2020, by Milica Grahovac:<br/>
+Added test cases for simulation time starting before and after the pulse <code>startTime</code>.
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2110\">#2110</a>.
+</li>
 <li>
 July 17, 2017, by Jianjun Hu:<br/>
 First implementation.

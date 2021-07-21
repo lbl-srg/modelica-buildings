@@ -1,0 +1,5 @@
+simulateModel("Buildings.Fluid.CHPs.BaseClasses.Validation.WarmUpTimeDelay",
+    method="cvode", stopTime=900, tolerance=1e-06, resultFile="WarmUpTimeDelay");
+createPlot(id=1, position={20, 20, 900, 1200}, subPlot=1, y={"transition1.condition","transition2.condition","transition3.condition"}, grid=true, colors={{28,108,200},{238,46,47},{0,142,47}});
+createPlot(id=1, position={20, 20, 900, 1200}, subPlot=2, y={"per.timeDelayStart"}, grid=true, colors={{28,108,200}});
+createPlot(id=1, position={20, 20, 900, 1200}, subPlot=3, y={"actMod"}, grid=true, colors={{28,108,200}});

@@ -28,13 +28,8 @@ equation
   if rowMin then
     y={min(u[i,:]) for i in 1:size(u,1)};
   else
-<<<<<<< HEAD
-    y = {min(u[:,i]) for i in 1:size(u, 2)};
-  end if
-=======
     y={min(u[:,i]) for i in 1:size(u,2)};
   end if;
->>>>>>> master
   annotation (
     defaultComponentName="matMin",
     Documentation(

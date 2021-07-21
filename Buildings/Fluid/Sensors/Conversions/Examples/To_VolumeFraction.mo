@@ -11,8 +11,7 @@ model To_VolumeFraction "Example problem for conversion model"
     "Set point for volume fraction of 700PPM CO2"
     annotation (Placement(transformation(extent={{-180,-20},{-160,0}})));
   Buildings.Controls.Continuous.LimPID limPID(
-    controllerType=Modelica.Blocks.Types.SimpleController.PI,
-    reverseAction=true,
+    reverseActing=false,
     Ti=600,
     k=2,
     Td=1)
@@ -155,7 +154,7 @@ the setpoint, which does not comply with ASHRAE regulations.
 <ul>
 <li>
 May 2, 2019, by Jianjun Hu:<br/>
-Replaced fluid source. This is for 
+Replaced fluid source. This is for
 <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1072\"> #1072</a>.
 </li>
 <li>

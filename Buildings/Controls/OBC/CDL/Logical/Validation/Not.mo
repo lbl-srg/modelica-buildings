@@ -7,16 +7,12 @@ model Not
     "Block that outputs cyclic on and off"
     annotation (Placement(transformation(extent={{-26,-10},{-6,10}})));
   Buildings.Controls.OBC.CDL.Logical.Not not1
+    "Output true when input is false and output false when input is true"
     annotation (Placement(transformation(extent={{26,-10},{46,10}})));
 
 equation
-<<<<<<< HEAD
-  connect(booPul.y, not1.u)
-    annotation (Line(points={{-5,0},{8,0},{24,0}}, color={255,0,255}));
-=======
   connect(booPul.y,not1.u)
     annotation (Line(points={{-4,0},{-4,0},{24,0}},color={255,0,255}));
->>>>>>> master
   annotation (
     experiment(
       StopTime=5.0,

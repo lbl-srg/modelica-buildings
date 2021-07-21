@@ -19,24 +19,16 @@ model Switch
     "Block that outputs cyclic on and off"
     annotation (Placement(transformation(extent={{-26,-10},{-6,10}})));
   Buildings.Controls.OBC.CDL.Logical.Switch switch1
+    "Switch between two real inputs"
     annotation (Placement(transformation(extent={{26,-10},{46,10}})));
 
 equation
-<<<<<<< HEAD
-  connect(booPul.y, switch1.u2)
-    annotation (Line(points={{-5,0},{10,0},{24,0}}, color={255,0,255}));
-  connect(ramp2.y, switch1.u3) annotation (Line(points={{-5,-32},{8,-32},{8,-8},
-          {24,-8}}, color={0,0,127}));
-  connect(ramp1.y, switch1.u1)
-    annotation (Line(points={{-5,32},{8,32},{8,8},{24,8}}, color={0,0,127}));
-=======
   connect(booPul.y,switch1.u2)
     annotation (Line(points={{-4,0},{-4,0},{24,0}},color={255,0,255}));
   connect(ramp2.y,switch1.u3)
     annotation (Line(points={{-4,-32},{8,-32},{8,-8},{24,-8}},color={0,0,127}));
   connect(ramp1.y,switch1.u1)
     annotation (Line(points={{-4,32},{8,32},{8,8},{24,8}},color={0,0,127}));
->>>>>>> master
   annotation (
     experiment(
       StopTime=5.0,

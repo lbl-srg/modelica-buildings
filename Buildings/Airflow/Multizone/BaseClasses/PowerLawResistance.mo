@@ -2,7 +2,8 @@ within Buildings.Airflow.Multizone.BaseClasses;
 partial model PowerLawResistance "Flow resistance that uses the power law"
   extends Buildings.Fluid.Interfaces.PartialTwoPortInterface(
     final allowFlowReversal=true,
-    final m_flow_nominal=rho_default*k*dp_turbulent);
+    final m_flow_nominal=rho_default*k*dp_turbulent,
+    final m_flow_small=1E-4*abs(m_flow_nominal));
   extends Buildings.Airflow.Multizone.BaseClasses.ErrorControl;
 
   constant Boolean homotopyInitialization = true "= true, use homotopy method"
@@ -131,6 +132,12 @@ The model is used as a base for the interzonal air flow models.
 </html>",
 revisions="<html>
 <ul>
+<li>
+May 12, 2020, by Michael Wetter:<br/>
+Changed assignment of <code>m_flow_small</code> to <code>final</code>.
+This quantity are not used in this model and models that extend from it.
+Hence there is no need for the user to change the value.
+</li>
 <li>
 April 14, 2020, by Michael Wetter:<br/>
 Changed <code>homotopyInitialization</code> to a constant.<br/>

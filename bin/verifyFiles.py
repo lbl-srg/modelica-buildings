@@ -16,7 +16,7 @@ LIBHOME=os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", LIBNAME)
 INVALID_IN_ALL=["fixme", "import \"",
                 "import Buildings;",
                 "import IBPSA;",
-                "<h1", "<h2", "<h3", "todo", "xxx", "tt>", "<--",
+                "<h1", "<h2", "<h3", "todo", "tt>", "<--",
                 "realString", "integerString", "structurallyIncomplete",
                 "preferedView", "Algorithm=", "Diagram,", "DocumentationClass",
                 "Modelica.Icons.Info;",

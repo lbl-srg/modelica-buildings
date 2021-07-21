@@ -176,38 +176,6 @@ model OneFloor_OneZone "Closed-loop model with 1 zone in 1 floor"
     redeclare each package Medium = MediumA,
     each m_flow_nominal=m_flow_nominal) "Supply air temperature sensor"
     annotation (Placement(transformation(extent={{4,-38},{20,-22}})));
-<<<<<<< HEAD
-  Modelica.Blocks.Sources.Constant TSupSetHea(
-    y(final quantity="ThermodynamicTemperature",
-      final unit="K",
-      displayUnit="degC",
-      min=0),
-    k=273.15 + 10) "Supply air temperature setpoint for heating"
-    annotation (Placement(transformation(extent={{-270,-66},{-258,-54}})));
-  Buildings.Examples.VAVReheat.Controls.CoolingCoilTemperatureSetpoint TSetCoo[nFlo]
-    "Setpoint for cooling coil"
-    annotation (Placement(transformation(extent={{-238,-94},{-226,-82}})));
-  Buildings.Controls.Continuous.LimPID cooCoiCon[nFlo](
-    each reverseAction=true,
-    each Td=60,
-    each initType=Modelica.Blocks.Types.InitPID.InitialState,
-    each yMax=1,
-    each yMin=0,
-    each controllerType=Modelica.Blocks.Types.SimpleController.PI,
-    each Ti=600,
-    each k=0.1) "Controller for cooling coil"
-    annotation (Placement(transformation(extent={{-192,-94},{-180,-82}})));
-  Buildings.Controls.Continuous.LimPID heaCoiCon[nFlo](
-    each yMax=1,
-    each yMin=0,
-    each Td=60,
-    each initType=Modelica.Blocks.Types.InitPID.InitialState,
-    each controllerType=Modelica.Blocks.Types.SimpleController.PI,
-    each Ti=600,
-    each k=0.1)   "Controller for heating coil"
-    annotation (Placement(transformation(extent={{-192,-66},{-180,-54}})));
-=======
->>>>>>> master
   Buildings.Examples.VAVReheat.Controls.ModeSelector modeSelector[nFlo]
     "Finite State Machine for the operational modes"
     annotation (Placement(transformation(extent={{-180,40},{-164,56}})));

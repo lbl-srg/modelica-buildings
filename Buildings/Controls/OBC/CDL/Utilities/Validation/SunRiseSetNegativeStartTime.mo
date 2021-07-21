@@ -26,16 +26,6 @@ model SunRiseSetNegativeStartTime
     timZon=36000)
     "Sydney as a test example in the southern hemisphere"
     annotation (Placement(transformation(extent={{-10,-70},{10,-50}})));
-<<<<<<< HEAD
-equation
-
-annotation (
-  experiment(StartTime=-43200, StopTime=259200, Tolerance=1e-06),
-  __Dymola_Commands(
-  file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/CDL/Utilities/Validation/SunRiseSetNegativeStartTime.mos"
-        "Simulate and plot"),
-  Documentation(info="<html>
-=======
   annotation (
     experiment(
       StartTime=-43200,
@@ -45,7 +35,6 @@ annotation (
       file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/CDL/Utilities/Validation/SunRiseSetNegativeStartTime.mos" "Simulate and plot"),
     Documentation(
       info="<html>
->>>>>>> master
 <p>This example includes 4 tests for the <a href=\"modelica://Buildings.Controls.OBC.CDL.Utilities.SunRiseSet\">
 Buildings.Controls.OBC.CDL.Utilities.SunRiseSet</a> block: 2 normal cases, an arctic and antarctic case.
 The normal cases are represented by San Francisco and Sydney, where there is a sunrise and sunset every day. </p>

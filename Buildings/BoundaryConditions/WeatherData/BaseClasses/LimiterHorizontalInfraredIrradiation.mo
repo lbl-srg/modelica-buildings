@@ -4,17 +4,14 @@ block LimiterHorizontalInfraredIrradiation
   extends PartialLimiterMin;
 
   Modelica.Blocks.Interfaces.RealOutput HHorIR(
-    final unit="W/m2") "Horizontal infrared irradiation"
+    final unit="W/m2") = max(0, u) "Horizontal infrared irradiation"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
-
-equation
-  HHorIR = max(0, u);
 
   annotation (
 defaultComponentName="limMin",
 Documentation(info="<html>
 <p>
-Block that limits the horizontal infrared irradiation to be non-zero.
+Block that limits the horizontal infrared irradiation to be positive.
 </p>
 <p>
 This block is used because interpolation of weather data can lead to slightly

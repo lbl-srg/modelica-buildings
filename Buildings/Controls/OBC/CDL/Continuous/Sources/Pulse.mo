@@ -6,34 +6,6 @@ block Pulse
   parameter Real width(
     final min=Constants.small,
     final max=1,
-<<<<<<< HEAD
-    final unit = "1") = 0.5 "Width of pulse in fraction of period";
-  parameter Modelica.SIunits.Time period(final min=Constants.small)
-   "Time for one period";
-  parameter Integer nperiod=-1
-    "Number of periods (< 0 means infinite number of periods)";
-  parameter Real offset=0 "Offset of output signals";
-  parameter Modelica.SIunits.Time startTime=0
-    "Output = offset for time < startTime";
-  Interfaces.RealOutput y "Connector of Pulse output signal"
-    annotation (Placement(transformation(extent={{100,-20},{140,20}})));
-
-protected
-  Modelica.SIunits.Time T_width=period*width "Pulse duration time";
-  Modelica.SIunits.Time T_start "Start time of current period";
-  Integer count "Period count";
-initial equation
-  count = integer((time - startTime)/period);
-  T_start = startTime + count*period;
-equation
-  when integer((time - startTime)/period) > pre(count) then
-    count = pre(count) + 1;
-    T_start = time;
-  end when;
-  y = offset + (if (time < startTime or nperiod == 0 or (nperiod > 0 and
-    count >= nperiod)) then 0 else if time < T_start + T_width then amplitude
-     else 0);
-=======
     final unit="1")=0.5
     "Width of pulse in fraction of period";
   parameter Real period(
@@ -69,7 +41,6 @@ equation
     annotation (Line(points={{-18,0},{18,0}},color={255,0,255}));
   connect(y,booToRea.y)
     annotation (Line(points={{120,0},{42,0}},color={0,0,127}));
->>>>>>> master
   annotation (
     defaultComponentName="pul",
     Icon(
@@ -90,20 +61,9 @@ equation
           lineColor={192,192,192},
           fillColor={192,192,192},
           fillPattern=FillPattern.Solid),
-<<<<<<< HEAD
-        Line(points={{-90,-70},{82,-70}}, color={192,192,192}),
-        Polygon(
-          points={{90,-70},{68,-62},{68,-78},{90,-70}},
-          lineColor={192,192,192},
-          fillColor={192,192,192},
-          fillPattern=FillPattern.Solid),
-        Line(points={{-80,-70},{-40,-70},{-40,44},{0,44},{0,-70},{40,-70},{40,
-              44},{79,44}}),
-=======
         Line(
           points={{-90,-70},{82,-70}},
           color={192,192,192}),
->>>>>>> master
         Text(
           extent={{-147,-152},{153,-112}},
           lineColor={0,0,0},
@@ -115,10 +75,6 @@ equation
         Text(
           extent={{226,60},{106,10}},
           lineColor={0,0,0},
-<<<<<<< HEAD
-          textString=DynamicSelect("", String(y, leftjustified=false, significantDigits=3)))}),
-    Documentation(info="<html>
-=======
           textString=DynamicSelect("",String(y,
             leftjustified=false,
             significantDigits=3))),
@@ -163,27 +119,20 @@ equation
           fillPattern=FillPattern.Solid)}),
     Documentation(
       info="<html>
->>>>>>> master
 <p>
-The Real output y is a pulse signal:
+Block that outputs a pulse signal as shown below.
 </p>
-
 <p align=\"center\">
 <img src=\"modelica://Buildings/Resources/Images/Controls/OBC/CDL/Continuous/Sources/Pulse.png\"
      alt=\"Pulse.png\" />
-<<<<<<< HEAD
-=======
      </p>
 <p>
 The pulse signal is generated an infinite number of times, and aligned with <code>time=shift</code>.
->>>>>>> master
 </p>
 </html>",
       revisions="<html>
 <ul>
 <li>
-<<<<<<< HEAD
-=======
 December 03, 2020, by Milica Grahovac:<br/>
 Renamed <code>delay</code> parameter to <code>shift</code>.<br/>
 This is for
@@ -202,7 +151,6 @@ This is for
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2170\">#2170</a>.
 </li>
 <li>
->>>>>>> master
 March 2, 2020, by Michael Wetter:<br/>
 Changed icon to display dynamically the output value.
 </li>

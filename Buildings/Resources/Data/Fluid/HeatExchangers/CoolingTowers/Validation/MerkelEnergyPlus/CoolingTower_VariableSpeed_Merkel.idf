@@ -117,11 +117,7 @@
 ! Utility Tariffs:                None
 !
 
-<<<<<<< HEAD
-  Version,9.2;
-=======
   Version,9.5;
->>>>>>> master
 
   Building,
     Building,                !- Name

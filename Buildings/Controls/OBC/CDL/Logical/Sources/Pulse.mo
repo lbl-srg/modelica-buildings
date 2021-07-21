@@ -4,27 +4,6 @@ block Pulse
   parameter Real width(
     final min=Constants.small,
     final max=1,
-<<<<<<< HEAD
-    final unit = "1") = 0.5 "Width of pulse in fraction of period";
-  parameter Modelica.SIunits.Time period(
-    final min=Constants.small) "Time for one period";
-  parameter Modelica.SIunits.Time startTime=0 "Time instant of first pulse";
-  Interfaces.BooleanOutput y "Connector of Boolean output signal"
-    annotation (Placement(transformation(extent={{100,-20},{140,20}})));
-
-protected
-  parameter Modelica.SIunits.Time Twidth=period*width
-    "Width of one pulse";
-  discrete Modelica.SIunits.Time pulseStart "Start time of pulse";
-
-initial equation
-  pulseStart = startTime;
-equation
-  when sample(startTime, period) then
-    pulseStart = time;
-  end when;
-  y = time >= pulseStart and time < pulseStart + Twidth;
-=======
     final unit="1")=0.5
     "Width of pulse in fraction of period";
   parameter Real period(
@@ -92,7 +71,6 @@ equation
     period) then
     y=false;
   end when;
->>>>>>> master
   annotation (
     defaultComponentName="booPul",
     Icon(
@@ -109,14 +87,9 @@ equation
         Text(
           extent={{-150,-140},{150,-110}},
           lineColor={0,0,0},
-<<<<<<< HEAD
-          textString="%period"), Line(points={{-80,-70},{-40,-70},{-40,44},{0,
-              44},{0,-70},{40,-70},{40,44},{79,44}}),
-=======
           textString="%period"),
         Line(
           points={{79,-70},{40,-70},{40,44},{-1,44},{-1,-70},{-41,-70},{-41,44},{-80,44}}),
->>>>>>> master
         Polygon(
           points={{-80,88},{-88,66},{-72,66},{-80,88}},
           lineColor={255,0,255},
@@ -149,10 +122,6 @@ equation
         Text(
           lineColor={0,0,255},
           extent={{-150,110},{150,150}},
-<<<<<<< HEAD
-          textString="%name")}),
-      Documentation(info="<html>
-=======
           textString="%name"),
         Text(
           extent={{-66,80},{-8,56}},
@@ -188,21 +157,13 @@ equation
           textString="%shift")}),
     Documentation(
       info="<html>
->>>>>>> master
 <p>
-The Boolean output y is a pulse signal:
+Block that outputs a pulse signal as shown below.
 </p>
-
 <p align=\"center\">
-<img src=\"modelica://Buildings/Resources/Images/Controls/OBC/CDL/Logical/Sources/BooleanPulse.png\"
+<img src=\"modelica://Buildings/Resources/Images/Controls/OBC/CDL/Logical/Sources/Pulse.png\"
      alt=\"BooleanPulse.png\" />
 </p>
-<<<<<<< HEAD
-
-</html>", revisions="<html>
-<ul>
-<li>
-=======
 <p>
 The pulse signal is generated an infinite number of times, and aligned with <code>time=shift</code>.
 </p>
@@ -238,7 +199,6 @@ This is for
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2110\">#2110</a>.
 </li>
 <li>
->>>>>>> master
 March 23, 2017, by Jianjun Hu:<br/>
 First implementation, based on the implementation of the
 Modelica Standard Library.

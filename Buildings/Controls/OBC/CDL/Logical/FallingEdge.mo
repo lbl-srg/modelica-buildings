@@ -11,12 +11,8 @@ block FallingEdge
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
 protected
-<<<<<<< HEAD
-  Boolean not_u=not u;
-=======
   Boolean not_u=not u
     "Boolean not of the input";
->>>>>>> master
 
 initial equation
   pre(not_u)=not pre_u_start;

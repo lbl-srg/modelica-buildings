@@ -1,14 +1,8 @@
 within Buildings.Controls.OBC.CDL.Logical;
-<<<<<<< HEAD
-block ZeroCrossing "Trigger zero crossing of input u"
-
-  Interfaces.RealInput u
-=======
 block ZeroCrossing
   "Trigger zero crossing of input u"
   Interfaces.RealInput u
     "Connector of Real input signal"
->>>>>>> master
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
   Interfaces.BooleanOutput y
     "Connector of Boolean output signal"
@@ -18,16 +12,11 @@ block ZeroCrossing
     annotation (Placement(transformation(origin={0,-120},extent={{-20,-20},{20,20}},rotation=90)));
 
 protected
-<<<<<<< HEAD
-  Boolean disable=not enable;
-  Boolean u_pos;
-=======
   Boolean disable=not enable
     "Boolean not of enable input";
   Boolean u_pos
     "Positive real input";
 
->>>>>>> master
 initial equation
   pre(u_pos)=false;
   pre(enable)=false;

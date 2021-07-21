@@ -2,6 +2,7 @@ within Buildings.Controls.OBC.CDL.Integers.Validation;
 model Change
   "Validation model for the Change block"
   Buildings.Controls.OBC.CDL.Integers.Change cha
+    "Check if the integer input changes value"
     annotation (Placement(transformation(extent={{0,-50},{20,-30}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp ramp2(
     offset=0,
@@ -33,34 +34,6 @@ model Change
     annotation (Placement(transformation(extent={{60,-20},{80,0}})));
 
 equation
-<<<<<<< HEAD
-  connect(ramp2.y, changeSampler.u)
-    annotation (Line(points={{-19,30},{58,30}}, color={0,0,127}));
-  connect(timTabLin.y[1], reaToInt.u)
-    annotation (Line(points={{-59,-40},{-42,-40}}, color={0,0,127}));
-  connect(reaToInt.y, cha.u)
-    annotation (Line(points={{-19,-40},{-2,-40}}, color={255,127,0}));
-  connect(ramp2.y, increaseSampler.u)
-    annotation (Line(points={{-19,30},{40,30},{40,70},{58,70}},
-      color={0,0,127}));
-  connect(ramp2.y, decreaseSampler.u)
-    annotation (Line(points={{-19,30},{40,30},{40,-10},{58,-10}},
-      color={0,0,127}));
-  connect(cha.up, increaseSampler.trigger)
-    annotation (Line(points={{21,-34},{30,-34},{30,52},{70,52},{70,58.2}},
-      color={255,0,255}));
-  connect(cha.y, changeSampler.trigger)
-    annotation (Line(points={{21,-40},{46,-40},{46,12},{70,12},{70,18.2}},
-      color={255,0,255}));
-  connect(cha.down, decreaseSampler.trigger)
-    annotation (Line(points={{21,-46},{70,-46},{70,-21.8}}, color={255,0,255}));
-
-annotation (
-experiment(StopTime=1.0, Tolerance=1e-06),
-  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/CDL/Integers/Validation/Change.mos"
-        "Simulate and plot"),
-Documentation(info="<html>
-=======
   connect(ramp2.y,changeSampler.u)
     annotation (Line(points={{-18,30},{58,30}},color={0,0,127}));
   connect(timTabLin.y[1],reaToInt.u)
@@ -85,7 +58,6 @@ Documentation(info="<html>
       file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/CDL/Integers/Validation/Change.mos" "Simulate and plot"),
     Documentation(
       info="<html>
->>>>>>> master
 <p>
 Validation test for the block
 <a href=\"modelica://Buildings.Controls.OBC.CDL.Integers.Change\">

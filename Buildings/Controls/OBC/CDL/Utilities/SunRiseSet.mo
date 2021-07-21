@@ -285,18 +285,11 @@ equation
       staTim,
       lat);
   end when;
-<<<<<<< HEAD
-
-  sunUp = nextSunSet < nextSunRise
-  annotation (defaultComponentName="sunRiseSet",
-  Documentation(info="<html>
-=======
   sunUp=nextSunSet < nextSunRise;
   annotation (
     defaultComponentName="sunRiseSet",
     Documentation(
       info="<html>
->>>>>>> master
 <p>
 This block outputs the next sunrise and sunset time.
 The sunrise time keeps constant until the model time reaches the next sunrise,

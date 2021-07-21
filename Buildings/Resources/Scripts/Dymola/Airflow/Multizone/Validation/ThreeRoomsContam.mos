@@ -1,10 +1,4 @@
-<<<<<<< HEAD
-translateModel("Buildings.Airflow.Multizone.Validation.ThreeRoomsContam");
-simulateModel("Buildings.Airflow.Multizone.Validation.ThreeRoomsContam", stopTime=3600,
- method="radau", tolerance=1e-06, resultFile="ThreeRoomsContam");
-=======
 simulateModel("Buildings.Airflow.Multizone.Validation.ThreeRoomsContam", stopTime=3600, method="CVode", tolerance=1e-06, resultFile="ThreeRoomsContam");
->>>>>>> master
 createPlot(id = 1,
  position = {35, 30, 825, 625},
  y = {"oriWesTop.port_a.m_flow", "oriEasTop.port_a.m_flow", "oriOutTop.port_a.m_flow","oriOutBot.port_a.m_flow", "dooOpeClo.port_a1.m_flow", "dooOpeClo.port_a2.m_flow"},

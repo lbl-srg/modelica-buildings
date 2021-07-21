@@ -140,23 +140,8 @@ model ClosedLoop "Closed loop model of a dual-fan dual-duct system"
     annotation (Placement(transformation(extent={{-320,170},{-300,190}})));
   Buildings.Examples.DualFanDualDuct.Controls.HeatingCoilTemperatureSetpoint
     TSupSetHea(TOn=284.15, TOff=279.15)
-<<<<<<< HEAD
-    "Supply air temperature setpoint for heating"
-    annotation (Placement(transformation(extent={{-80,-180},{-60,-160}})));
-  Buildings.Controls.Continuous.LimPID cooCoiCon(
-    reverseAction=true,
-    Td=60,
-    initType=Modelica.Blocks.Types.InitPID.InitialState,
-    yMax=1,
-    yMin=0,
-    Ti=120,
-    controllerType=Modelica.Blocks.Types.SimpleController.P,
-    k=1) "Controller for cooling coil"
-    annotation (Placement(transformation(extent={{340,-200},{360,-180}})));
-=======
     "Set point for preheat coil outlet temperature "
     annotation (Placement(transformation(extent={{-200,-110},{-180,-90}})));
->>>>>>> master
   Buildings.Examples.VAVReheat.Controls.FanVFD conFanSupHot(
     initType=Modelica.Blocks.Types.Init.InitialState,
     y_start=yFan_start,

@@ -1,16 +1,5 @@
 within Buildings.Media.Examples;
 model SteamProperties
-<<<<<<< HEAD
-  "Model that tests the implementation of the steam properties"
-  extends Modelica.Icons.Example;
-  extends Buildings.Media.Examples.BaseClasses.FluidProperties(
-    redeclare package Medium = Buildings.Media.Steam,
-    TMin=273.16,
-    TMax=647.096);
-
-
-equation
-=======
   "Model that tests the implementation of the steam superheated properties"
   extends Modelica.Icons.Example;
   extends Buildings.Media.Examples.BaseClasses.PartialProperties(
@@ -41,7 +30,6 @@ equation
   ddhp = Medium.density_derh_p(state_pTX);
   ddph = Medium.density_derp_h(state_pTX);
 
->>>>>>> master
   // Check the implementation of the base properties
   basPro.state.p=p;
   basPro.state.T=T;
@@ -57,14 +45,9 @@ This example checks thermophysical properties of the medium.
 revisions="<html>
 <ul>
 <li>
-<<<<<<< HEAD
-March 6, 2020, by Kathryn Hinkelman:<br/>
-Change medium to ideal steam to eliminate discontinuities.
-=======
 October 30, 2020, by Kathryn Hinkelman:<br/>
 Rebased steam medium to PartialMedium and improved steam property consistency
 and efficiency.
->>>>>>> master
 </li>
 <li>
 September 12, 2019, by Yangyang Fu:<br/>

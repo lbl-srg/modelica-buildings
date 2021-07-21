@@ -24,19 +24,11 @@ protected
   output Boolean sampleTrigger
     "True, if sample time instant";
 
-  output Boolean firstTrigger(start=false, fixed=true)
-    "Rising edge signals first sample instant";
-
 initial equation
-<<<<<<< HEAD
-  t0 = time;
-  y = y_start;
-=======
   t0=Buildings.Utilities.Math.Functions.round(
     x=integer(time/samplePeriod)*samplePeriod,
     n=6);
   y=y_start;
->>>>>>> master
 
 equation
   // Declarations that are used for all discrete blocks
@@ -44,20 +36,8 @@ equation
     t0,
     samplePeriod);
   when sampleTrigger then
-<<<<<<< HEAD
-    firstTrigger = time <= t0 + samplePeriod/2;
-  end when;
-
-  // Declarations specific to this type of discrete block
-  when sampleTrigger then
-    y = pre(u);
-  end when;
-
-
-=======
     y=pre(u);
   end when;
->>>>>>> master
   annotation (
     defaultComponentName="uniDel",
     Documentation(
@@ -80,8 +60,6 @@ the output <code>y</code> is identical to parameter <code>y_start</code>.
       revisions="<html>
 <ul>
 <li>
-<<<<<<< HEAD
-=======
 November 12, 2020, by Michael Wetter:<br/>
 Reformulated to remove dependency to <code>Modelica.SIunits</code>.<br/>
 This is for
@@ -94,7 +72,6 @@ This is for
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2170\">#2170</a>.
 </li>
 <li>
->>>>>>> master
 March 2, 2020, by Michael Wetter:<br/>
 Changed icon to display dynamically the output value.
 </li>

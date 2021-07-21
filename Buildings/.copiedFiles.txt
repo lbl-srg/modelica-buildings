@@ -82,6 +82,8 @@ Buildings/BoundaryConditions/SolarGeometry/BaseClasses/WallSolarAzimuth.mo
 Buildings/BoundaryConditions/SolarGeometry/BaseClasses/ZenithAngle.mo
 Buildings/BoundaryConditions/SolarGeometry/BaseClasses/package.mo
 Buildings/BoundaryConditions/SolarGeometry/BaseClasses/package.order
+Buildings/BoundaryConditions/SolarGeometry/BaseClasses/solarAzimuthNoEvent.mo
+Buildings/BoundaryConditions/SolarGeometry/BaseClasses/solarAzimuthWithEvent.mo
 Buildings/BoundaryConditions/SolarGeometry/Examples/IncidenceAngle.mo
 Buildings/BoundaryConditions/SolarGeometry/Examples/ZenithAngle.mo
 Buildings/BoundaryConditions/SolarGeometry/Examples/package.mo
@@ -257,6 +259,9 @@ Buildings/Fluid/Actuators/Dampers/Examples/package.order
 Buildings/Fluid/Actuators/Dampers/Exponential.mo
 Buildings/Fluid/Actuators/Dampers/MixingBox.mo
 Buildings/Fluid/Actuators/Dampers/PressureIndependent.mo
+Buildings/Fluid/Actuators/Dampers/Validation/PressureIndependent.mo
+Buildings/Fluid/Actuators/Dampers/Validation/package.mo
+Buildings/Fluid/Actuators/Dampers/Validation/package.order
 Buildings/Fluid/Actuators/Dampers/package.mo
 Buildings/Fluid/Actuators/Dampers/package.order
 Buildings/Fluid/Actuators/Motors/Examples/IdealMotor.mo
@@ -1216,11 +1221,7 @@ Buildings/Media/Examples/PropyleneGlycolWaterProperties.mo
 Buildings/Media/Examples/PropyleneGlycolWaterTemperatureEnthalpyInversion.mo
 Buildings/Media/Examples/SteamDerivativeCheck.mo
 Buildings/Media/Examples/SteamProperties.mo
-<<<<<<< HEAD
-Buildings/Media/Examples/SteamSaturatedProperties.mo
-=======
 Buildings/Media/Examples/SteamSaturationConsistencyCheck.mo
->>>>>>> master
 Buildings/Media/Examples/SteamTemperatureEnthalpyInversion.mo
 Buildings/Media/Examples/WaterDerivativeCheck.mo
 Buildings/Media/Examples/WaterProperties.mo
@@ -1407,6 +1408,8 @@ Buildings/Resources/Images/Fluid/Sensors/onePortHex.png
 Buildings/Resources/Images/Fluid/Sensors/onePortHex.tiff
 Buildings/Resources/Images/Fluid/Sensors/twoPortHex.png
 Buildings/Resources/Images/Fluid/Sensors/twoPortHex.tiff
+Buildings/Resources/Images/Fluid/Sensors/warningIcon.png
+Buildings/Resources/Images/Fluid/Sensors/warningIcon.svg
 Buildings/Resources/Images/Fluid/Storage/Stratified.pdf
 Buildings/Resources/Images/Fluid/Storage/Stratified.png
 Buildings/Resources/Images/Fluid/Storage/Stratified.svg
@@ -1426,8 +1429,6 @@ Buildings/Resources/Images/Media/Antifreeze/PropyleneGlycolWaterError20degC.png
 Buildings/Resources/Images/Media/Antifreeze/PropyleneGlycolWaterProperties.pdf
 Buildings/Resources/Images/Media/Antifreeze/PropyleneGlycolWaterProperties.png
 Buildings/Resources/Images/Media/Antifreeze/propyleneGlycol.py
-Buildings/Resources/Images/Media/Steam/numericalError.pdf
-Buildings/Resources/Images/Media/Steam/numericalError.png
 Buildings/Resources/Images/Media/Water/plotCp.pdf
 Buildings/Resources/Images/Media/Water/plotCp.png
 Buildings/Resources/Images/Media/Water/plotCp.py
@@ -1516,6 +1517,7 @@ Buildings/Resources/Scripts/Dymola/BoundaryConditions/WeatherData/BaseClasses/Ex
 Buildings/Resources/Scripts/Dymola/BoundaryConditions/WeatherData/BaseClasses/Examples/GetTimeSpanTMY3.mos
 Buildings/Resources/Scripts/Dymola/BoundaryConditions/WeatherData/BaseClasses/Examples/GetTimeSpanTMY3LongHeader.mos
 Buildings/Resources/Scripts/Dymola/BoundaryConditions/WeatherData/BaseClasses/Examples/GetTimeSpanTMY3_NonzeroStart.mos
+Buildings/Resources/Scripts/Dymola/BoundaryConditions/WeatherData/BaseClasses/Examples/LimitMin.mos
 Buildings/Resources/Scripts/Dymola/BoundaryConditions/WeatherData/BaseClasses/Examples/LocalCivilTime.mos
 Buildings/Resources/Scripts/Dymola/BoundaryConditions/WeatherData/BaseClasses/Examples/SolarTime.mos
 Buildings/Resources/Scripts/Dymola/BoundaryConditions/WeatherData/Examples/ReaderTMY3.mos
@@ -1544,6 +1546,7 @@ Buildings/Resources/Scripts/Dymola/Fluid/Actuators/BaseClasses/Examples/EqualPer
 Buildings/Resources/Scripts/Dymola/Fluid/Actuators/Dampers/Examples/Damper.mos
 Buildings/Resources/Scripts/Dymola/Fluid/Actuators/Dampers/Examples/MixingBox.mos
 Buildings/Resources/Scripts/Dymola/Fluid/Actuators/Dampers/Examples/VAVBoxExponential.mos
+Buildings/Resources/Scripts/Dymola/Fluid/Actuators/Dampers/Validation/PressureIndependent.mos
 Buildings/Resources/Scripts/Dymola/Fluid/Actuators/Motors/Examples/IdealMotor.mos
 Buildings/Resources/Scripts/Dymola/Fluid/Actuators/Valves/Examples/ThreeWayValves.mos
 Buildings/Resources/Scripts/Dymola/Fluid/Actuators/Valves/Examples/TwoWayValvePressureIndependent.mos
@@ -1866,11 +1869,7 @@ Buildings/Resources/Scripts/Dymola/Media/Examples/PropyleneGlycolWaterProperties
 Buildings/Resources/Scripts/Dymola/Media/Examples/PropyleneGlycolWaterTemperatureEnthalpyInversion.mos
 Buildings/Resources/Scripts/Dymola/Media/Examples/SteamDerivativeCheck.mos
 Buildings/Resources/Scripts/Dymola/Media/Examples/SteamProperties.mos
-<<<<<<< HEAD
-Buildings/Resources/Scripts/Dymola/Media/Examples/SteamSaturatedProperties.mos
-=======
 Buildings/Resources/Scripts/Dymola/Media/Examples/SteamSaturationConsistencyCheck.mos
->>>>>>> master
 Buildings/Resources/Scripts/Dymola/Media/Examples/SteamTemperatureEnthalpyInversion.mos
 Buildings/Resources/Scripts/Dymola/Media/Examples/WaterDerivativeCheck.mos
 Buildings/Resources/Scripts/Dymola/Media/Examples/WaterProperties.mos
@@ -1883,6 +1882,7 @@ Buildings/Resources/Scripts/Dymola/Media/Specialized/Water/Examples/TemperatureD
 Buildings/Resources/Scripts/Dymola/Media/Specialized/Water/Examples/TemperatureDependentDensityTemperatureEnthalpyInversion.mos
 Buildings/Resources/Scripts/Dymola/Media/Specialized/Water/Examples/WaterProperties_pT.mos
 Buildings/Resources/Scripts/Dymola/ThermalZones/ReducedOrder/Examples/SimpleRoomFourElements.mos
+Buildings/Resources/Scripts/Dymola/ThermalZones/ReducedOrder/Examples/SimpleRoomFourElementsTraceSubstance.mos
 Buildings/Resources/Scripts/Dymola/ThermalZones/ReducedOrder/Examples/SimpleRoomOneElement.mos
 Buildings/Resources/Scripts/Dymola/ThermalZones/ReducedOrder/Examples/SimpleRoomThreeElements.mos
 Buildings/Resources/Scripts/Dymola/ThermalZones/ReducedOrder/Examples/SimpleRoomTwoElements.mos
@@ -1988,24 +1988,19 @@ Buildings/Resources/Scripts/Dymola/Utilities/Time/Validation/CalendarTimeMonths.
 Buildings/Resources/Scripts/Dymola/Utilities/Time/Validation/CalendarTimeMonthsMinus.mos
 Buildings/Resources/Scripts/Dymola/Utilities/Time/Validation/CalendarTimeMonthsPlus.mos
 Buildings/Resources/Scripts/JModelica/buildingspy_to_csv.py
-<<<<<<< HEAD
-Buildings/Resources/Scripts/travis/bin/dymola
-Buildings/Resources/Scripts/travis/bin/jm_ipython.sh
-=======
 Buildings/Resources/Scripts/travis/dymola/dymola
->>>>>>> master
 Buildings/Resources/bin/ConvertWeatherData.jar
 Buildings/Resources/src/convertEPW/Makefile
 Buildings/Resources/src/convertEPW/doc/ConvertWeatherData.html
-Buildings/Resources/src/convertEPW/doc/allclasses-frame.html
-Buildings/Resources/src/convertEPW/doc/allclasses-noframe.html
+Buildings/Resources/src/convertEPW/doc/allclasses-index.html
+Buildings/Resources/src/convertEPW/doc/allclasses.html
+Buildings/Resources/src/convertEPW/doc/allpackages-index.html
 Buildings/Resources/src/convertEPW/doc/constant-values.html
 Buildings/Resources/src/convertEPW/doc/deprecated-list.html
+Buildings/Resources/src/convertEPW/doc/element-list
 Buildings/Resources/src/convertEPW/doc/help-doc.html
 Buildings/Resources/src/convertEPW/doc/index-all.html
 Buildings/Resources/src/convertEPW/doc/index.html
-<<<<<<< HEAD
-=======
 Buildings/Resources/src/convertEPW/doc/jquery/external/jquery/jquery.js
 Buildings/Resources/src/convertEPW/doc/jquery/images/ui-bg_glass_55_fbf9ee_1x400.png
 Buildings/Resources/src/convertEPW/doc/jquery/images/ui-bg_glass_65_dadada_1x400.png
@@ -2035,14 +2030,19 @@ Buildings/Resources/src/convertEPW/doc/jquery/jszip/dist/jszip.js
 Buildings/Resources/src/convertEPW/doc/jquery/jszip/dist/jszip.min.js
 Buildings/Resources/src/convertEPW/doc/member-search-index.js
 Buildings/Resources/src/convertEPW/doc/member-search-index.zip
->>>>>>> master
 Buildings/Resources/src/convertEPW/doc/overview-tree.html
-Buildings/Resources/src/convertEPW/doc/package-frame.html
-Buildings/Resources/src/convertEPW/doc/package-list
+Buildings/Resources/src/convertEPW/doc/package-search-index.js
+Buildings/Resources/src/convertEPW/doc/package-search-index.zip
 Buildings/Resources/src/convertEPW/doc/package-summary.html
 Buildings/Resources/src/convertEPW/doc/package-tree.html
+Buildings/Resources/src/convertEPW/doc/resources/glass.png
 Buildings/Resources/src/convertEPW/doc/resources/inherit.gif
+Buildings/Resources/src/convertEPW/doc/resources/x.png
+Buildings/Resources/src/convertEPW/doc/script.js
+Buildings/Resources/src/convertEPW/doc/search.js
 Buildings/Resources/src/convertEPW/doc/stylesheet.css
+Buildings/Resources/src/convertEPW/doc/type-search-index.js
+Buildings/Resources/src/convertEPW/doc/type-search-index.zip
 Buildings/Resources/src/convertEPW/src/ConvertWeatherData.java
 Buildings/Resources/src/convertEPW/src/Makefile
 Buildings/Resources/src/convertEPW/src/Manifest.txt
@@ -2060,6 +2060,7 @@ Buildings/ThermalZones/ReducedOrder/EquivalentAirTemperature/VDI6007WithWindow.m
 Buildings/ThermalZones/ReducedOrder/EquivalentAirTemperature/package.mo
 Buildings/ThermalZones/ReducedOrder/EquivalentAirTemperature/package.order
 Buildings/ThermalZones/ReducedOrder/Examples/SimpleRoomFourElements.mo
+Buildings/ThermalZones/ReducedOrder/Examples/SimpleRoomFourElementsTraceSubstance.mo
 Buildings/ThermalZones/ReducedOrder/Examples/SimpleRoomOneElement.mo
 Buildings/ThermalZones/ReducedOrder/Examples/SimpleRoomThreeElements.mo
 Buildings/ThermalZones/ReducedOrder/Examples/SimpleRoomTwoElements.mo

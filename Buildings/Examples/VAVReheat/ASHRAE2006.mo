@@ -8,14 +8,6 @@ model ASHRAE2006
       final sampleModel=sampleModel),
     amb(nPorts=3));
 
-<<<<<<< HEAD
-  Modelica.Blocks.Sources.Constant TSupSetHea(y(
-      final quantity="ThermodynamicTemperature",
-      final unit="K",
-      displayUnit="degC",
-      min=0), k=273.15 + 10) "Supply air temperature setpoint for heating"
-    annotation (Placement(transformation(extent={{-180,-172},{-160,-152}})));
-=======
   parameter Real ratVMinCor_flow(final unit="1")=
     max(1.5*VCorOA_flow_nominal, 0.15*mCor_flow_nominal/1.2) /
     (mCor_flow_nominal/1.2)
@@ -37,7 +29,6 @@ model ASHRAE2006
     (mWes_flow_nominal/1.2)
     "Minimum discharge air flow rate ratio";
 
->>>>>>> master
   Controls.FanVFD conFanSup(xSet_nominal(displayUnit="Pa") = 410, r_N_min=
         yFanMin)
     "Controller for fan"
@@ -48,17 +39,10 @@ model ASHRAE2006
     annotation (Placement(transformation(extent={{-250,-352},{-230,-332}})));
 
   Controls.Economizer conEco(
-<<<<<<< HEAD
-    dT=1,
-    VOut_flow_min=0.3*m_flow_nominal/1.2,
-    Ti=600,
-    k=0.1) "Controller for economizer"
-=======
     have_reset=true,
     have_frePro=true,
     VOut_flow_min=Vot_flow_nominal)
            "Controller for economizer"
->>>>>>> master
     annotation (Placement(transformation(extent={{-80,140},{-60,160}})));
   Controls.RoomTemperatureSetpoint TSetRoo(
     final THeaOn=THeaOn,
@@ -68,52 +52,8 @@ model ASHRAE2006
     annotation (Placement(transformation(extent={{-300,-358},{-280,-338}})));
   Controls.DuctStaticPressureSetpoint pSetDuc(
     nin=5,
-    controllerType=Modelica.Blocks.Types.SimpleController.PI,
     pMin=50) "Duct static pressure setpoint"
     annotation (Placement(transformation(extent={{160,-16},{180,4}})));
-<<<<<<< HEAD
-  Controls.CoolingCoilTemperatureSetpoint TSetCoo "Setpoint for cooling coil"
-    annotation (Placement(transformation(extent={{-130,-212},{-110,-192}})));
-  Controls.RoomVAV conVAVCor "Controller for terminal unit corridor"
-    annotation (Placement(transformation(extent={{530,32},{550,52}})));
-  Controls.RoomVAV conVAVSou "Controller for terminal unit south"
-    annotation (Placement(transformation(extent={{700,30},{720,50}})));
-  Controls.RoomVAV conVAVEas "Controller for terminal unit east"
-    annotation (Placement(transformation(extent={{880,30},{900,50}})));
-  Controls.RoomVAV conVAVNor "Controller for terminal unit north"
-    annotation (Placement(transformation(extent={{1040,30},{1060,50}})));
-  Controls.RoomVAV conVAVWes "Controller for terminal unit west"
-    annotation (Placement(transformation(extent={{1240,28},{1260,48}})));
-  Buildings.Controls.Continuous.LimPID heaCoiCon(
-    yMax=1,
-    yMin=0,
-    Td=60,
-    initType=Modelica.Blocks.Types.InitPID.InitialState,
-    controllerType=Modelica.Blocks.Types.SimpleController.PI,
-    k=0.02,
-    Ti=300)
-           "Controller for heating coil"
-    annotation (Placement(transformation(extent={{-80,-212},{-60,-192}})));
-  Buildings.Controls.Continuous.LimPID cooCoiCon(
-    reverseAction=true,
-    Td=60,
-    initType=Modelica.Blocks.Types.InitPID.InitialState,
-    yMax=1,
-    yMin=0,
-    controllerType=Modelica.Blocks.Types.SimpleController.PI,
-    Ti=600,
-    k=0.1) "Controller for cooling coil"
-    annotation (Placement(transformation(extent={{-80,-250},{-60,-230}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swiHeaCoi
-    "Switch to switch off heating coil"
-    annotation (Placement(transformation(extent={{60,-220},{80,-200}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swiCooCoi
-    "Switch to switch off cooling coil"
-    annotation (Placement(transformation(extent={{60,-258},{80,-238}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant coiOff(k=0)
-    "Signal to switch water flow through coils off"
-    annotation (Placement(transformation(extent={{-60,-172},{-40,-152}})));
-=======
   Controls.RoomVAV conVAVCor(ratVFloMin=ratVMinCor_flow, ratVFloHea=ratVFloHea)
     "Controller for terminal unit corridor"
     annotation (Placement(transformation(extent={{456,-124},{476,-104}})));
@@ -129,7 +69,6 @@ model ASHRAE2006
   Controls.RoomVAV conVAVWes(ratVFloMin=ratVMinWes_flow, ratVFloHea=ratVFloHea)
                              "Controller for terminal unit west"
     annotation (Placement(transformation(extent={{1186,-124},{1206,-104}})));
->>>>>>> master
 
   Buildings.Controls.OBC.CDL.Logical.Or or2
     annotation (Placement(transformation(extent={{-10,-250},{10,-230}})));
@@ -194,100 +133,12 @@ equation
       smooth=Smooth.None,
       pattern=LinePattern.Dash));
   connect(conEco.VOut_flow, VOut1.V_flow) annotation (Line(
-<<<<<<< HEAD
-      points={{-81.3333,149.333},{-90,149.333},{-90,80},{-61,80},{-61,-20.9}},
-      color={0,0,127},
-      smooth=Smooth.None,
-      pattern=LinePattern.Dash));
-  connect(conEco.yOA, eco.yOut) annotation (Line(
-      points={{-59.3333,152},{-10,152},{-10,-34}},
-=======
       points={{-81.3333,142.667},{-90,142.667},{-90,80},{-80,80},{-80,-29}},
->>>>>>> master
       color={0,0,127},
       smooth=Smooth.None,
       pattern=LinePattern.Dash));
 
   connect(conVAVCor.TRoo, TRooAir.y5[1]) annotation (Line(
-<<<<<<< HEAD
-      points={{528,38},{520,38},{520,162},{511,162}},
-      color={0,0,127},
-      pattern=LinePattern.Dash));
-  connect(conVAVSou.TRoo, TRooAir.y1[1]) annotation (Line(
-      points={{698,36},{690,36},{690,36},{680,36},{680,178},{511,178}},
-      color={0,0,127},
-      pattern=LinePattern.Dash));
-  connect(TRooAir.y2[1], conVAVEas.TRoo) annotation (Line(
-      points={{511,174},{868,174},{868,36},{878,36}},
-      color={0,0,127},
-      pattern=LinePattern.Dash));
-  connect(TRooAir.y3[1], conVAVNor.TRoo) annotation (Line(
-      points={{511,170},{1028,170},{1028,36},{1038,36}},
-      color={0,0,127},
-      pattern=LinePattern.Dash));
-  connect(TRooAir.y4[1], conVAVWes.TRoo) annotation (Line(
-      points={{511,166},{1220,166},{1220,34},{1238,34}},
-      color={0,0,127},
-      pattern=LinePattern.Dash));
-  connect(conVAVCor.yDam, pSetDuc.u[1]) annotation (Line(points={{551,46.8},{
-          556,46.8},{556,72},{120,72},{120,-7.6},{158,-7.6}}, color={0,0,127}));
-  connect(conVAVSou.yDam, pSetDuc.u[2]) annotation (Line(points={{721,44.8},{
-          730,44.8},{730,72},{120,72},{120,-6.8},{158,-6.8}}, color={0,0,127}));
-  connect(pSetDuc.u[3], conVAVEas.yDam) annotation (Line(points={{158,-6},{120,
-          -6},{120,72},{910,72},{910,44.8},{901,44.8}}, color={0,0,127}));
-  connect(conVAVNor.yDam, pSetDuc.u[4]) annotation (Line(points={{1061,44.8},{
-          1072,44.8},{1072,72},{122,72},{122,-6},{160,-6},{160,-5.2},{158,-5.2}},
-        color={0,0,127}));
-  connect(conVAVCor.TDis, TSupCor.T) annotation (Line(points={{528,34},{522,34},
-          {522,34},{514,34},{514,92},{569,92}}, color={0,0,127}));
-  connect(TSupSou.T, conVAVSou.TDis) annotation (Line(points={{749,92},{688,92},
-          {688,32},{698,32}}, color={0,0,127}));
-  connect(TSupEas.T, conVAVEas.TDis) annotation (Line(points={{929,90},{872,90},
-          {872,32},{878,32}}, color={0,0,127}));
-  connect(TSupNor.T, conVAVNor.TDis) annotation (Line(points={{1089,94},{1032,
-          94},{1032,32},{1038,32}}, color={0,0,127}));
-  connect(TSupWes.T, conVAVWes.TDis) annotation (Line(points={{1289,90},{1228,
-          90},{1228,30},{1238,30}}, color={0,0,127}));
-  connect(conVAVWes.yDam, pSetDuc.u[5]) annotation (Line(points={{1261,42.8},{
-          1270,42.8},{1270,72},{120,72},{120,-4},{134,-4},{134,-4.4},{158,-4.4}},
-        color={0,0,127}));
-  connect(cor.yVAV, conVAVCor.yDam) annotation (Line(points={{566,50},{556,50},
-          {556,46.8},{551,46.8}},color={0,0,127}));
-  connect(cor.yVal, conVAVCor.yVal) annotation (Line(points={{566,34},{560,34},
-          {560,37},{551,37}},color={0,0,127}));
-  connect(conVAVSou.yDam, sou.yVAV) annotation (Line(points={{721,44.8},{730,
-          44.8},{730,48},{746,48}}, color={0,0,127}));
-  connect(conVAVSou.yVal, sou.yVal) annotation (Line(points={{721,35},{732.5,35},
-          {732.5,32},{746,32}}, color={0,0,127}));
-  connect(conVAVEas.yVal, eas.yVal) annotation (Line(points={{901,35},{912.5,35},
-          {912.5,32},{926,32}}, color={0,0,127}));
-  connect(conVAVEas.yDam, eas.yVAV) annotation (Line(points={{901,44.8},{910,
-          44.8},{910,48},{926,48}}, color={0,0,127}));
-  connect(conVAVNor.yDam, nor.yVAV) annotation (Line(points={{1061,44.8},{
-          1072.5,44.8},{1072.5,48},{1086,48}}, color={0,0,127}));
-  connect(conVAVNor.yVal, nor.yVal) annotation (Line(points={{1061,35},{1072.5,
-          35},{1072.5,32},{1086,32}}, color={0,0,127}));
-  connect(conVAVCor.TRooHeaSet, controlBus.TRooSetHea) annotation (Line(points=
-          {{528,50},{480,50},{480,-342},{-240,-342}},color={0,0,127}));
-  connect(conVAVCor.TRooCooSet, controlBus.TRooSetCoo) annotation (Line(points=
-          {{528,46},{480,46},{480,-342},{-240,-342}},color={0,0,127}));
-  connect(conVAVSou.TRooHeaSet, controlBus.TRooSetHea) annotation (Line(points=
-          {{698,48},{660,48},{660,-342},{-240,-342}},color={0,0,127}));
-  connect(conVAVSou.TRooCooSet, controlBus.TRooSetCoo) annotation (Line(points=
-          {{698,44},{660,44},{660,-342},{-240,-342}},color={0,0,127}));
-  connect(conVAVEas.TRooHeaSet, controlBus.TRooSetHea) annotation (Line(points=
-          {{878,48},{850,48},{850,-342},{-240,-342}},color={0,0,127}));
-  connect(conVAVEas.TRooCooSet, controlBus.TRooSetCoo) annotation (Line(points=
-          {{878,44},{850,44},{850,-342},{-240,-342}},color={0,0,127}));
-  connect(conVAVNor.TRooHeaSet, controlBus.TRooSetHea) annotation (Line(points=
-          {{1038,48},{1020,48},{1020,-342},{-240,-342}},color={0,0,127}));
-  connect(conVAVNor.TRooCooSet, controlBus.TRooSetCoo) annotation (Line(points=
-          {{1038,44},{1020,44},{1020,-342},{-240,-342}},color={0,0,127}));
-  connect(conVAVWes.TRooHeaSet, controlBus.TRooSetHea) annotation (Line(points=
-          {{1238,46},{1202,46},{1202,-342},{-240,-342}},color={0,0,127}));
-  connect(conVAVWes.TRooCooSet, controlBus.TRooSetCoo) annotation (Line(points=
-          {{1238,42},{1202,42},{1202,-342},{-240,-342}},color={0,0,127}));
-=======
       points={{455,-121},{452,-121},{452,-120},{448,-120},{448,275},{480,275}},
       color={0,0,127},
       pattern=LinePattern.Dash));
@@ -339,7 +190,6 @@ equation
           -107},{1142,-107},{1142,-342},{-240,-342}},   color={0,0,127}));
   connect(conVAVWes.TRooCooSet, controlBus.TRooSetCoo) annotation (Line(points={{1184,
           -114},{1142,-114},{1142,-342},{-240,-342}},   color={0,0,127}));
->>>>>>> master
 
   connect(wes.yVAV, conVAVWes.yDam) annotation (Line(points={{1286,52},{1274,52},
           {1274,-109.2},{1207,-109.2}},
@@ -375,45 +225,6 @@ equation
           255}));
   connect(conFanSup.y, fanSup.y) annotation (Line(points={{261,0},{280,0},{280,
           -20},{310,-20},{310,-28}}, color={0,0,127}));
-<<<<<<< HEAD
-  connect(modeSelector.yFan, swiCooCoi.u2) annotation (Line(points={{-179.545,
-          -310},{-20,-310},{-20,-248},{58,-248}},
-                                              color={255,0,255}));
-  connect(swiCooCoi.u1, cooCoiCon.y) annotation (Line(points={{58,-240},{-20,
-          -240},{-59,-240}},      color={0,0,127}));
-  connect(swiHeaCoi.u1, heaCoiCon.y)
-    annotation (Line(points={{58,-202},{-59,-202}}, color={0,0,127}));
-  connect(coiOff.y, swiCooCoi.u3) annotation (Line(points={{-39,-162},{-28,-162},
-          {-28,-256},{58,-256}},
-                              color={0,0,127}));
-  connect(coiOff.y, swiHeaCoi.u3) annotation (Line(points={{-39,-162},{-28,-162},
-          {-28,-218},{58,-218}},
-                              color={0,0,127}));
-  connect(TSup.T, cooCoiCon.u_m) annotation (Line(points={{340,-29},{340,-12},{
-          372,-12},{372,-268},{-70,-268},{-70,-252}}, color={0,0,127}));
-  connect(TSup.T, heaCoiCon.u_m) annotation (Line(points={{340,-29},{340,-12},{
-          372,-12},{372,-268},{-88,-268},{-88,-222},{-70,-222},{-70,-214}},
-        color={0,0,127}));
-  connect(gaiHeaCoi.u, swiHeaCoi.y)
-    annotation (Line(points={{98,-210},{81,-210},{81,-210}}, color={0,0,127}));
-  connect(gaiCooCoi.u, swiCooCoi.y) annotation (Line(points={{98,-248},{88,-248},
-          {88,-248},{81,-248}}, color={0,0,127}));
-  connect(eco.yExh, conEco.yOA) annotation (Line(
-      points={{-3,-34},{-2,-34},{-2,152},{-59.3333,152}},
-      color={0,0,127},
-      pattern=LinePattern.Dash));
-  connect(eco.yRet, conEco.yRet) annotation (Line(
-      points={{-16.8,-34},{-16.8,146.667},{-59.3333,146.667}},
-      color={0,0,127},
-      pattern=LinePattern.Dash));
-  connect(freSta.y, or2.u1) annotation (Line(points={{21,-92},{21,-92},{40,-92},
-          {40,-150},{-20,-150},{-20,-170},{-2,-170}},        color={255,0,255}));
-  connect(or2.u2, modeSelector.yFan) annotation (Line(points={{-2,-178},{-20,
-          -178},{-20,-310},{-179.545,-310}},
-                                     color={255,0,255}));
-  connect(or2.y, swiHeaCoi.u2) annotation (Line(points={{21,-170},{40,-170},{40,
-          -190},{40,-190},{40,-210},{58,-210}}, color={255,0,255}));
-=======
   connect(or2.u2, modeSelector.yFan) annotation (Line(points={{-12,-248},{-30,
           -248},{-30,-305.455},{-179.091,-305.455}},
                                      color={255,0,255}));
@@ -489,7 +300,6 @@ equation
           -10},{-100,-45},{-114,-45}}, color={0,127,255}));
   connect(freSta.y, or2.u1) annotation (Line(points={{-38,-90},{-30,-90},{-30,
           -240},{-12,-240}}, color={255,0,255}));
->>>>>>> master
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-380,-400},{1440,
             660}})),
@@ -558,8 +368,6 @@ ASHRAE, Atlanta, GA, 2006.
 </html>", revisions="<html>
 <ul>
 <li>
-<<<<<<< HEAD
-=======
 May 6, 2021, by David Blum:<br/>
 Change to <code>from_dp=false</code> for exhaust air damper.<br/>
 This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2485\">issue #2485</a>.
@@ -604,7 +412,6 @@ This is
 for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1873\">#1873</a>.
 </li>
 <li>
->>>>>>> master
 May 19, 2016, by Michael Wetter:<br/>
 Changed chilled water supply temperature to <i>6&deg;C</i>.
 This is

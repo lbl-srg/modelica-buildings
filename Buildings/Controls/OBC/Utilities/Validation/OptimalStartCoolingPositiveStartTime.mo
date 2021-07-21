@@ -45,17 +45,11 @@ model OptimalStartCoolingPositiveStartTime
   Buildings.Controls.OBC.CDL.Continuous.Add add
     "Reset setpoint from unoccupied to occupied during optimal start period"
     annotation (Placement(transformation(extent={{120,0},{140,20}})));
-  Buildings.Controls.OBC.CDL.Continuous.LimPID conPID(
+  Buildings.Controls.OBC.CDL.Continuous.PID conPID(
     controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
     Ti=1,
-<<<<<<< HEAD
-    yMax=1,
-    yMin=0,
-    reverseAction=true) "PI control signal for the cooling power"
-=======
     reverseActing=false)
     "PI control signal for the cooling power"
->>>>>>> master
     annotation (Placement(transformation(extent={{160,0},{180,20}})));
   Buildings.Controls.SetPoints.OccupancySchedule occSch(
     occupancy=3600*{7,19},

@@ -36,6 +36,12 @@ Otherwise, it outputs <code>y = u3</code>.
       revisions="<html>
 <ul>
 <li>
+July 17, 2020, by Jianjun Hu:<br/>
+Changed icon to display dynamically which input signal is being outputted.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2033\"># 2033</a>.
+</li>
+<li>
 July 10, 2019, by Milica Grahovac:<br/>
 First implementation.
 </li>
@@ -62,9 +68,6 @@ First implementation.
           points={{-100,-80},{-40,-80},{-40,-80}},
           color={244,125,35}),
         Line(
-<<<<<<< HEAD
-          points={{-40,80},{8,2}},
-=======
           points={{-40,12},{-40,-10}},
           color={255,0,255}),
         Line(
@@ -76,7 +79,6 @@ First implementation.
               {-40,80}
             else
               {-40,-80}}),
->>>>>>> master
           color={244,125,35},
           thickness=1),
         Ellipse(
@@ -98,8 +100,6 @@ First implementation.
               {235,235,235}),
           fillPattern=FillPattern.Solid),
         Text(
-<<<<<<< HEAD
-=======
           extent={{-90,80},{-46,54}},
           lineColor=DynamicSelect({0,0,0},
             if u2 then
@@ -116,7 +116,6 @@ First implementation.
               {0,0,0}),
           textString="false"),
         Text(
->>>>>>> master
           extent={{-150,150},{150,110}},
           lineColor={0,0,255},
           textString="%name")}));

@@ -214,19 +214,6 @@ positions. Return and outdoor damper are not interlocked. When the economizer is
 the damper positions are set to the minimum outdoor air damper position limits.
 </p>
 <p>
-<<<<<<< HEAD
-The time rate of change of the damper signals is limited by a first order hold,
-using the sample time <code>samplePeriod</code>.
-This prevents a quick opening of the outdoor air damper, for example when the
-outdoor airflow setpoint has a step change.
-Slowing down the opening of the outdoor air damper allows the freeze protection
-to componensate with its dynamics that is faster than the opening of the outdoor air damper.
-To avoid that all dampers are closed, the return air damper has the same
-time rate of change limitation.
-</p>
-<p>
-=======
->>>>>>> master
 The control charts below show the input-output structure and an economizer damper
 modulation sequence assuming a well configured controller. Control diagram:
 </p>

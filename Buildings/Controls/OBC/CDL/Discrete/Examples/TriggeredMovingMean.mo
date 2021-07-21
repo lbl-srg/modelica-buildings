@@ -10,12 +10,8 @@ model TriggeredMovingMean
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul(
     width=0.5,
     period=1,
-<<<<<<< HEAD
-    startTime=-0.5) "Block that outputs trigger signals"
-=======
     shift=-0.5)
     "Block that outputs trigger signals"
->>>>>>> master
     annotation (Placement(transformation(extent={{-60,-20},{-40,0}})));
   Buildings.Controls.OBC.CDL.Discrete.TriggeredMovingMean triMovMea(
     n=3)
@@ -31,13 +27,8 @@ model TriggeredMovingMean
     annotation (Placement(transformation(extent={{0,-60},{20,-40}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul1(
     width=0.5,
-<<<<<<< HEAD
-    period=1,
-    startTime=0) "Block that outputs trigger signals"
-=======
     period=1)
     "Block that outputs trigger signals"
->>>>>>> master
     annotation (Placement(transformation(extent={{-60,-80},{-40,-60}})));
 
 equation

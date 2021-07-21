@@ -13,17 +13,11 @@ block MultiMax
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
 equation
-<<<<<<< HEAD
-  y = max(u);
-
-annotation (Icon(coordinateSystem(
-=======
   y=max(u);
   annotation (
     defaultComponentName="mulMax",
     Icon(
       coordinateSystem(
->>>>>>> master
         preserveAspectRatio=false,
         extent={{-100,-100},{100,100}}),
       graphics={

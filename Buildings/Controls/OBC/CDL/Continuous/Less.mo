@@ -1,23 +1,4 @@
 within Buildings.Controls.OBC.CDL.Continuous;
-<<<<<<< HEAD
-block Less "Output y is true, if input u1 is less than input u2"
-
-  Interfaces.RealInput u1 "Connector of first Real input signal"
-    annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
-
-  Interfaces.RealInput u2 "Connector of second Real input signal"
-    annotation (Placement(transformation(extent={{-140,-100},{-100,-60}})));
-
-  Interfaces.BooleanOutput y "Connector of Boolean output signal"
-    annotation (Placement(transformation(extent={{100,-20},{140,20}})));
-
-equation
-  y = u1 < u2;
-  annotation (
-        defaultComponentName="les",
-        Icon(coordinateSystem(preserveAspectRatio=false,extent={{-100,
-            -100},{100,100}}), graphics={
-=======
 block Less
   "Output y is true, if input u1 is less than input u2"
   parameter Real h(
@@ -145,7 +126,6 @@ equation
         preserveAspectRatio=false,
         extent={{-100,-100},{100,100}}),
       graphics={
->>>>>>> master
         Rectangle(
           extent={{-100,100},{100,-100}},
           lineColor={0,0,0},
@@ -166,28 +146,14 @@ equation
             else
               {235,235,235}),
           fillPattern=FillPattern.Solid),
-<<<<<<< HEAD
-        Ellipse(extent={{32,10},{52,-10}}, lineColor={0,0,127}),
-        Line(points={{-100,-80},{42,-80},{42,0}}, color={0,0,127}),
-=======
         Line(
           points={{-100,-80},{42,-80},{42,-62}},
           color={0,0,127}),
->>>>>>> master
         Line(
-          points={{-6,18},{-50,-2},{-6,-20}},
+          points={{18,14},{-12,2},{18,-8}},
           thickness=0.5),
         Text(
           extent={{-150,150},{150,110}},
-<<<<<<< HEAD
-          lineColor={0,0,255},
-          textString="%name")}),
-                            Documentation(info="<html>
-<p>
-Block that outputs <code>true</code> if the Real input <code>u1</code>
-is less than the Real input <code>u2</code>.
-Otherwise the output is <code>false</code>.
-=======
           textString="%name",
           lineColor={0,0,255}),
         Text(
@@ -258,14 +224,11 @@ in simulation to guard against numerical noise. Numerical noise can be present i
 an input depends on a state variable or a quantity that requires an iterative solution, such as
 a temperature or a mass flow rate of an HVAC system.
 To disable hysteresis, set <i>h=0</i>.
->>>>>>> master
 </p>
 </html>",
       revisions="<html>
 <ul>
 <li>
-<<<<<<< HEAD
-=======
 February 3, 2021, by Antoine Gautier:<br/>
 Corrected documentation.<br/>
 This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2246\">issue 2246</a>.
@@ -276,7 +239,6 @@ Added hysteresis.<br/>
 This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2076\">issue 2076</a>.
 </li>
 <li>
->>>>>>> master
 January 3, 2017, by Michael Wetter:<br/>
 First implementation, based on the implementation of the
 Modelica Standard Library.

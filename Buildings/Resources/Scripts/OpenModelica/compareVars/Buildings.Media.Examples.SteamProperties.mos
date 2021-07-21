@@ -12,14 +12,8 @@ compareVars :=
     "hIse",
     "beta",
     "kappa",
-<<<<<<< HEAD
-    "ddpT",
-    "ddTp",
-    "dddX[1]",
-=======
     "ddhp",
     "ddph",
->>>>>>> master
     "cp",
     "cv",
     "lambda",

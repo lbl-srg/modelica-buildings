@@ -25,13 +25,8 @@ model SupplyReturnTemperatureReset
     "Compute the supply and return set point of heating systems with changing room setpoint temperature"
     annotation (Placement(transformation(extent={{20,-50},{40,-30}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Pulse TRoo1(
-<<<<<<< HEAD:Buildings/Controls/OBC/CDL/SetPoints/Validation/SupplyReturnTemperatureReset.mo
-    offset=273.15 + 20,
-    startTime=0.5,
-=======
     offset=273.15+20,
     shift=0.5,
->>>>>>> master:Buildings/Controls/OBC/Utilities/SetPoints/Validation/SupplyReturnTemperatureReset.mo
     amplitude=-5,
     period=1,
     y(

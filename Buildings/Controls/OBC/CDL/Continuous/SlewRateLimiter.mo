@@ -2,16 +2,6 @@ within Buildings.Controls.OBC.CDL.Continuous;
 block SlewRateLimiter
   "Limit the increase or decrease rate of input"
   parameter Real raisingSlewRate(
-<<<<<<< HEAD
-    min = Constants.small,
-    final unit = "1/s") "Speed with which to increase the output";
-
-  parameter Real fallingSlewRate(
-    max = -Constants.small,
-    final unit = "1/s") = -raisingSlewRate "Speed with which to decrease the output";
-
-  parameter Modelica.SIunits.Time Td(min=Constants.eps) = raisingSlewRate*10
-=======
     min=Constants.small,
     unit="1/s")
     "Speed with which to increase the output";
@@ -23,7 +13,6 @@ block SlewRateLimiter
     final quantity="Time",
     final unit="s",
     min=Constants.eps)=raisingSlewRate*10
->>>>>>> master
     "Derivative time constant";
   parameter Boolean enable=true
     "Set to false to disable rate limiter";
@@ -84,8 +73,6 @@ Smaller time constant <code>Td</code> means nearer ideal derivative.
       revisions="<html>
 <ul>
 <li>
-<<<<<<< HEAD
-=======
 November 12, 2020, by Michael Wetter:<br/>
 Reformulated to remove dependency to <code>Modelica.SIunits</code>.<br/>
 This is for
@@ -97,7 +84,6 @@ Removed final attribute on unit because if the input quantity is power,
 then the rate limit is units of power per units of time.
 </li>
 <li>
->>>>>>> master
 March 2, 2020, by Michael Wetter:<br/>
 Changed icon to display dynamically the output value.
 </li>

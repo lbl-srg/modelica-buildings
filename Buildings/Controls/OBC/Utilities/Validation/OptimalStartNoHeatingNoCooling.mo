@@ -1,16 +1,10 @@
 within Buildings.Controls.OBC.Utilities.Validation;
 model OptimalStartNoHeatingNoCooling
   "Validation model for the block OptimalStart for the case with no preheating nor precooling"
-<<<<<<< HEAD
-
-  Buildings.Controls.OBC.Utilities.OptimalStart optSta(computeHeating=false,
-      computeCooling=false) "Optimal start for both heating and cooling system"
-=======
   Buildings.Controls.OBC.Utilities.OptimalStart optSta(
     computeHeating=false,
     computeCooling=false)
     "Optimal start for both heating and cooling system"
->>>>>>> master
     annotation (Placement(transformation(extent={{40,0},{60,20}})));
   Modelica.Blocks.Continuous.Integrator TRoo(
     k=0.0000004,
@@ -44,23 +38,15 @@ model OptimalStartNoHeatingNoCooling
   Buildings.Controls.OBC.CDL.Continuous.Add add1
     "Reset temperature from unoccupied to occupied for optimal start period"
     annotation (Placement(transformation(extent={{140,0},{160,20}})));
-  Buildings.Controls.OBC.CDL.Continuous.LimPID conPID1(
+  Buildings.Controls.OBC.CDL.Continuous.PID conPID1(
     controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
     Ti=3,
-<<<<<<< HEAD
-    yMax=1,
-    yMin=0,
-    reverseAction=true) "PI control for space cooling"
-    annotation (Placement(transformation(extent={{180,0},{200,20}})));
-  Buildings.Controls.SetPoints.OccupancySchedule occSch(occupancy=3600*{7,19},period=24*3600)
-=======
     reverseActing=false)
     "PI control for space cooling"
     annotation (Placement(transformation(extent={{180,0},{200,20}})));
   Buildings.Controls.SetPoints.OccupancySchedule occSch(
     occupancy=3600*{7,19},
     period=24*3600)
->>>>>>> master
     "Daily schedule"
     annotation (Placement(transformation(extent={{-20,-60},{0,-40}})));
   Buildings.Controls.OBC.CDL.Continuous.MultiSum mulSum(
@@ -74,16 +60,10 @@ model OptimalStartNoHeatingNoCooling
   Buildings.Controls.OBC.CDL.Continuous.Add add2
     "Reset temperature from unoccupied to occupied for optimal start period"
     annotation (Placement(transformation(extent={{140,40},{160,60}})));
-  Buildings.Controls.OBC.CDL.Continuous.LimPID conPID(
+  Buildings.Controls.OBC.CDL.Continuous.PID conPID(
     controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
-<<<<<<< HEAD
-    Ti=3,
-    yMax=1,
-    yMin=0) "PI control for space heating"
-=======
     Ti=3)
     "PI control for space heating"
->>>>>>> master
     annotation (Placement(transformation(extent={{180,40},{200,60}})));
   Buildings.Controls.OBC.CDL.Continuous.Gain QHea(
     k=2000)
@@ -96,22 +76,6 @@ model OptimalStartNoHeatingNoCooling
     shift(
       displayUnit="d")=604800,
     amplitude=15,
-<<<<<<< HEAD
-    period(displayUnit="d") = 1209600,
-    startTime(displayUnit="d") = 604800)
-    "Range of outdoor dry bulb temperature"
-    annotation (Placement(transformation(extent={{-210,-60},{-190,-40}})));
-  CDL.Conversions.BooleanToReal TSetHea(
-    realTrue=273.15 + 21,
-    realFalse=273.15 + 15,
-    y(final unit="K", displayUnit="degC"))
-    "Room temperature set point for heating"
-    annotation (Placement(transformation(extent={{80,-70},{100,-50}})));
-  CDL.Conversions.BooleanToReal TSetCoo(
-    realTrue=273.15 + 24,
-    realFalse=273.15 + 30,
-    y(final unit="K", displayUnit="degC"))
-=======
     period(
       displayUnit="d")=1209600)
     "Range of outdoor dry bulb temperature"
@@ -130,7 +94,6 @@ model OptimalStartNoHeatingNoCooling
     y(
       final unit="K",
       displayUnit="degC"))
->>>>>>> master
     "Room temperature set point for cooling"
     annotation (Placement(transformation(extent={{80,-40},{100,-20}})));
 
