@@ -138,11 +138,11 @@ protected
 
   Buildings.Fluid.Humidifiers.Humidifier_u heaCooHum_u(
     redeclare final package Medium = Medium2,
-    mWat_flow_nominal = 1,
-    dp_nominal = dp2_nominal,
-    m_flow_nominal = m2_flow_nominal,
-    energyDynamics = energyDynamics,
-    massDynamics = massDynamics)
+    final mWat_flow_nominal = 1,
+    final dp_nominal = dp2_nominal,
+    final m_flow_nominal = m2_flow_nominal,
+    final energyDynamics = energyDynamics,
+    final massDynamics = massDynamics)
     "Heat and moisture exchange with air stream"
     annotation (Placement(transformation(extent={{-60,-70},{-80,-50}})));
   Buildings.Fluid.HeatExchangers.BaseClasses.HADryCoil hA(
@@ -157,14 +157,16 @@ protected
     "Model for convective heat transfer coefficient"
     annotation (Placement(transformation(extent={{-68,-13},{-50,9}})));
   Buildings.Fluid.HeatExchangers.BaseClasses.WetCoilDryWetRegime dryWetCalcs(
+    fullyWet(hAirOut(start=Medium2.h_default)),
     final cfg=flowRegime,
     final mWat_flow_nominal=m1_flow_nominal,
     final mAir_flow_nominal=m2_flow_nominal,
-    Qfac=Qfac)
+    final Qfac=Qfac)
     "Dry/wet calculations block"
     annotation (Placement(transformation(extent={{-20,-40},{60,40}})));
-  Modelica.Blocks.Sources.RealExpression cp_a1Exp(final y=
-        Medium1.specificHeatCapacityCp(state_a1_inflow))
+
+  Modelica.Blocks.Sources.RealExpression cp_a1Exp(
+    final y=Medium1.specificHeatCapacityCp(state_a1_inflow))
     "Expression for cp of air"
     annotation (Placement(transformation(extent={{-44,18},{-30,30}})));
   Modelica.Blocks.Sources.RealExpression XWat_a2Exp(

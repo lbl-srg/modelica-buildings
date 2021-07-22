@@ -85,9 +85,9 @@ model FanCoil2PipeHeatingValve
     "Source for return air"
     annotation (Placement(transformation(extent={{10,-10},{-10,10}},rotation=0,origin={110,0})));
   Buildings.Experimental.DHC.Loads.SimpleRoomODE TLoaODE(
-    TOutHea_nominal=273.15-5,
+    TOutHea_nominal=273.15 - 5,
     TIndHea_nominal=T_aLoaHea_nominal,
-    QHea_flow_nominal=QHea_flow_nominal)
+    QHea_flow_nominal=QHea_flow_nominal) "Predicted room air temperature"
     annotation (Placement(transformation(extent={{-10,30},{10,50}})));
   Fluid.Actuators.Valves.TwoWayEqualPercentage val(
     redeclare final package Medium=Medium1,
