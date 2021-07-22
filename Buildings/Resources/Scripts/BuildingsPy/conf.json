@@ -43,11 +43,8 @@
   {
     "jmodelica": {
       "simulate": false
-  },
+    },
     "optimica": {
-<<<<<<< HEAD
-      "simulate": false
-=======
       "rtol": 1E-8,
       "comment": "Tolerance of 1E-7 would lead to very slow progress with commit fabaa64231692a2a2b6c044aff34f5ae6b3be868"
     },
@@ -152,34 +149,29 @@
       "comment":  "See https://github.com/lbl-srg/modelica-buildings/issues/2235"
   },
     "model_name": "Buildings.Utilities.IO.Python36.Examples.KalmanFilter"
->>>>>>> master
-  },
-  "model_name": "Buildings.ThermalZones.Detailed.Validation.SingleZoneFloorWithHeating"
   },
   {
-       "jmodelica": {
-         "simulate": false
+    "jmodelica": {
+      "translate": false
     },
-<<<<<<< HEAD
-       "optimica": {
-         "translate": false
-=======
+   "model_name": "Buildings.Utilities.IO.Python36.Examples.SimpleRoom"
+  },
+  {
+    "jmodelica": {
+        "translate": false
+    },
+    "optimica": {
+        "simulate": false
+    },
     "model_name": "Buildings.Utilities.IO.Python36.Functions.Examples.Exchange"
   },
   {
     "jmodelica": {
       "translate": false
->>>>>>> master
     },
-    "model_name": "Buildings.Utilities.IO.Python27.Functions.Examples.Exchange"
+    "model_name": "Buildings.Utilities.IO.Python36.Functions.Examples.ExchangeWithPassPythonObject"
   },
   {
-<<<<<<< HEAD
-       "optimica": {
-         "translate": false
-    },
-    "model_name": "Buildings.Utilities.IO.Python27.Examples.KalmanFilter"
-=======
        "jmodelica": {
          "rtol": 1E-8
     },
@@ -197,27 +189,14 @@
     },
     "model_name": "Buildings.Experimental.DHC.Examples.Combined.Generation5.Examples.ParallelConstantFlow",
     "comment": "See https://github.com/lbl-srg/modelica-buildings/issues/2435 and https://github.com/lbl-srg/modelica-buildings/issues/2436"
->>>>>>> master
   },
   {
-       "optimica": {
-         "translate": false
+    "jmodelica": {
+      "translate": false
     },
-<<<<<<< HEAD
-    "model_name": "Buildings.Utilities.IO.Python27.Functions.Examples.Exchange"
-  },
-  {
-       "optimica": {
-         "translate": false
+    "optimica": {
+      "translate": false
     },
-    "model_name": "Buildings.Utilities.IO.Python27.Functions.Examples.ExchangeWithPassPythonObject"
-  },
-  {
-       "optimica": {
-         "translate": false
-    },
-    "model_name": "Buildings.Utilities.IO.Python27.Examples.SimpleRoom"
-=======
     "model_name": "Buildings.Experimental.DHC.Examples.Combined.Generation5.Examples.SeriesConstantFlow",
     "comment": "See https://github.com/lbl-srg/modelica-buildings/issues/2435 and https://github.com/lbl-srg/modelica-buildings/issues/2436"
   },
@@ -244,7 +223,6 @@
     },
     "model_name": "Buildings.Examples.VAVReheat.Guideline36",
     "comment": "This causes a timeout on travis. See https://travis-ci.com/github/lbl-srg/modelica-buildings/jobs/520509213 and https://github.com/lbl-srg/modelica-buildings/issues/2549"
->>>>>>> master
   },
   {
     "optimica": {
