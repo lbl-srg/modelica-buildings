@@ -6,7 +6,7 @@ model PipeAutosize "Pipe model parameterized with pressure drop per pipe length"
 
   parameter Modelica.SIunits.Length dh(
     fixed=false,
-    start=0.2,
+    start=0.05,
     min=0.01)
     "Hydraulic diameter (assuming a round cross section area)";
 
