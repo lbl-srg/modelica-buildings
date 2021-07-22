@@ -59,8 +59,6 @@ partial model PartialFlowMachine
   parameter Modelica.Blocks.Types.Init init=Modelica.Blocks.Types.Init.InitialOutput
     "Type of initialization (no init/steady state/initial state/initial output)"
     annotation(Dialog(tab="Dynamics", group="Filtered speed",enable=use_inputFilter));
-  parameter Real y_start(min=0, max=1, unit="1")=0 "Initial value of speed"
-    annotation(Dialog(tab="Dynamics", group="Filtered speed",enable=use_inputFilter));
 
   // Connectors and ports
     Modelica.Blocks.Interfaces.IntegerInput stage
@@ -256,7 +254,6 @@ protected
     final computePowerUsingSimilarityLaws=computePowerUsingSimilarityLaws,
     final haveVMax=haveVMax,
     final V_flow_max=V_flow_max,
-    r_N(start=y_start),
     r_V(start=m_flow_nominal/rho_default),
     final preVar=preVar) "Flow machine"
     annotation (Placement(transformation(extent={{-32,-68},{-12,-48}})));

@@ -13,7 +13,7 @@ model ActuatorSignal
   parameter Modelica.Blocks.Types.Init init=Modelica.Blocks.Types.Init.InitialOutput
     "Type of initialization (no init/steady state/initial state/initial output)"
     annotation(Dialog(tab="Dynamics", group="Filtered opening",enable=use_inputFilter));
-  parameter Real y_start=1 "Initial value of output"
+  parameter Real y_start=1 "Initial position of actuator"
     annotation(Dialog(tab="Dynamics", group="Filtered opening",enable=use_inputFilter));
 
   Modelica.Blocks.Interfaces.RealInput y(min=0, max=1)

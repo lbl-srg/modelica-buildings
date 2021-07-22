@@ -20,7 +20,8 @@ model FlowControlled_m_flow
           Buildings.Fluid.Movers.BaseClasses.Characteristics.flowParameters(
             V_flow = {i/(nOri-1)*2.0*m_flow_nominal/rho_default for i in 0:(nOri-1)},
             dp =     {i/(nOri-1)*2.0*dp_nominal for i in (nOri-1):-1:0}),
-      final use_powerCharacteristic = if per.havePressureCurve then per.use_powerCharacteristic else false)),
+      final use_powerCharacteristic = if per.havePressureCurve then per.use_powerCharacteristic else false),
+      r_N(start=if abs(m_flow_nominal) > 1E-8 then m_flow_start/m_flow_nominal else 0)),
     preSou(m_flow_start=m_flow_start));
 
   // For air, we set dp_nominal = 600 as default, for water we set 10000
@@ -114,6 +115,7 @@ User's Guide</a> for more information.
 <li>
 June 17, 2021, by Michael Wetter:<br/>
 Changed implementation of the filter.<br/>
+Removed parameter <code>y_start</code> which is not used because <code>m_flow_start</code> is used.<br/>
 This is for
 <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1498\">#1498</a>.
 </li>

@@ -21,7 +21,8 @@ model FlowControlled_dp
           Buildings.Fluid.Movers.BaseClasses.Characteristics.flowParameters(
             V_flow = {i/(nOri-1)*2.0*m_flow_nominal/rho_default for i in 0:(nOri-1)},
             dp =     {i/(nOri-1)*2.0*dp_nominal for i in (nOri-1):-1:0}),
-      final use_powerCharacteristic = if per.havePressureCurve then per.use_powerCharacteristic else false)));
+      final use_powerCharacteristic = if per.havePressureCurve then per.use_powerCharacteristic else false),
+      r_N(start=if abs(dp_nominal) > 1E-8 then dp_start/dp_nominal else 0)));
 
   parameter Modelica.SIunits.PressureDifference dp_start(
     min=0,
@@ -167,6 +168,7 @@ Buildings.Fluid.Movers.Validation.FlowControlled_dpSystem</a>.
 <li>
 June 17, 2021, by Michael Wetter:<br/>
 Changed implementation of the filter.<br/>
+Removed parameter <code>y_start</code> which is not used because <code>dp_start</code> is used.<br/>
 This is for
 <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1498\">#1498</a>.
 </li>

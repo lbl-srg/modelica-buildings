@@ -14,9 +14,13 @@ model SpeedControlled_y
       y(final unit="1")),
     eff(
       per(final pressure = per.pressure,
-          final use_powerCharacteristic = per.use_powerCharacteristic)),
+          final use_powerCharacteristic = per.use_powerCharacteristic),
+          r_N(start=y_start)),
     gaiSpe(u(final unit="1"),
            final k=1/per.speed_nominal));
+
+  parameter Real y_start(min=0, max=1, unit="1")=0 "Initial value of speed"
+    annotation(Dialog(tab="Dynamics", group="Filtered speed", enable=use_inputFilter));
 
   Modelica.Blocks.Interfaces.RealInput y(
     unit="1")
