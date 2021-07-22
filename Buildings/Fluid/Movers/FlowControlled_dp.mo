@@ -9,9 +9,10 @@ model FlowControlled_dp
     final constInput(final unit="Pa") = constantHead,
     filter(
       final y_start=dp_start,
-      x(each nominal=dp_nominal),
       u(final unit="Pa"),
-      y(final unit="Pa")),
+      y(final unit="Pa"),
+      x(each nominal=dp_nominal),
+      u_nominal=dp_nominal),
     eff(
       per(
         final pressure = if per.havePressureCurve then

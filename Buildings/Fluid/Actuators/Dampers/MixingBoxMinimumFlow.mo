@@ -63,14 +63,12 @@ protected
     annotation (Placement(transformation(extent={{-32,78},{-12,98}}),
         iconTransformation(extent={{60,50},{80,70}})));
 
-  Modelica.Blocks.Continuous.CriticalDamping filterOutMin(
-     final order=order,
-     final f=fCut,
-     final normalized=true,
-     final initType=Modelica.Blocks.Types.Init.InitialOutput,
-     final y_start=yOutMin_start,
-     x(each final stateSelect=StateSelect.always,
-       each final start=0)) if use_inputFilter
+  Buildings.Fluid.BaseClasses.ActuatorFilter filterOutMin(
+    final n=order,
+    final f=fCut,
+    final normalized=true,
+    final initType=Modelica.Blocks.Types.Init.InitialOutput,
+    final y_start=y_start) if use_inputFilter
     "Second order filter to approximate valve opening time, and to improve numerics"
     annotation (Placement(transformation(extent={{-56,81},{-42,95}})));
 

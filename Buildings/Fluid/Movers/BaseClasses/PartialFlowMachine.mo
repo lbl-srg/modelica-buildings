@@ -186,13 +186,11 @@ protected
     nPorts=2) "Fluid volume for dynamic model"
     annotation (Placement(transformation(extent={{-70,0},{-90,20}})));
 
-  Modelica.Blocks.Continuous.CriticalDamping filter(
+  Buildings.Fluid.BaseClasses.ActuatorFilter filter(
     final n=2,
     final f=fCut,
     final normalized=true,
-    final initType=Modelica.Blocks.Types.Init.InitialOutput,
-    x(each final stateSelect=StateSelect.always,
-      each final start=0)) if use_inputFilter
+    final initType=init) if use_inputFilter
     "Second order filter to approximate dynamics of pump speed, and to improve numerics"
     annotation (Placement(transformation(extent={{20,61},{40,80}})));
 

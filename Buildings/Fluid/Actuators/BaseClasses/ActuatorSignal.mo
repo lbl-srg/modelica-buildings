@@ -44,14 +44,12 @@ protected
     annotation (Placement(transformation(extent={{40,78},{60,98}}),
         iconTransformation(extent={{60,50},{80,70}})));
 
-  Modelica.Blocks.Continuous.CriticalDamping filter(
+  Buildings.Fluid.BaseClasses.ActuatorFilter filter(
     final n=order,
     final f=fCut,
     final normalized=true,
-    final initType=Modelica.Blocks.Types.Init.InitialOutput,
-    final y_start=y_start,
-    x(each final stateSelect=StateSelect.always,
-      each final start=0)) if use_inputFilter
+    final initType=init,
+    final y_start=y_start) if use_inputFilter
     "Second order filter to approximate actuator opening time, and to improve numerics"
     annotation (Placement(transformation(extent={{6,81},{20,95}})));
 

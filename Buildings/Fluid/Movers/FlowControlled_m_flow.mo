@@ -8,9 +8,10 @@ model FlowControlled_m_flow
     final constInput(final unit="kg/s")=constantMassFlowRate,
     filter(
       final y_start=m_flow_start,
-      x(each nominal=m_flow_nominal),
       u(final unit="kg/s"),
-      y(final unit="kg/s")),
+      y(final unit="kg/s"),
+      x(each nominal=m_flow_nominal),
+      u_nominal=m_flow_nominal),
     eff(
       per(
         final pressure = if per.havePressureCurve then
@@ -66,21 +67,24 @@ equation
       points={{41,70.5},{44,70.5},{44,50},{110,50}},
       color={0,0,127},
       smooth=Smooth.None));
+    connect(filter.y, preSou.m_flow_in)
+      annotation (Line(points={{41,70.5},{44,70.5},{44,8}}, color={0,0,127}));
   else
-    connect(inputSwitch.y, preSou.m_flow_in) annotation (Line(
+  connect(inputSwitch.y, m_flow_actual) annotation (Line(points={{1,50},{110,50}},
+                                             color={0,0,127}));
+  connect(inputSwitch.y, preSou.m_flow_in) annotation (Line(
       points={{1,50},{44,50},{44,8}},
       color={0,0,127},
       smooth=Smooth.None));
   end if;
-   connect(m_flow_actual, preSou.m_flow_in) annotation (Line(
-      points={{110,50},{44,50},{44,8}},
-      color={0,0,127},
-      smooth=Smooth.None));
+
 
   connect(inputSwitch.u, m_flow_in) annotation (Line(
       points={{-22,50},{-26,50},{-26,80},{0,80},{0,120}},
       color={0,0,127},
       smooth=Smooth.None));
+
+
   annotation (
       Icon(graphics={
         Text(
