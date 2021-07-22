@@ -1,4 +1,4 @@
-simulateModel("Buildings.ThermalZones.Detailed.Examples.ISAT.Tutorial.NaturalConvection", stopTime=7200, method="Cvode", tolerance=1e-06, resultFile="NaturalConvection");
+simulateModel("Buildings.ThermalZones.Detailed.Examples.ISAT.Tutorial.NaturalConvection", stopTime=7200, method="Cvode", tolerance=1e-06, resultFile="NaturalConvectionISAT");
 removePlots();
 Advanced.FullPlotTooltip = true;
 createPlot(id = 1,
@@ -12,7 +12,7 @@ createPlot(id = 1,
  grid = true,
  color = true,
  online = false,
- filename = "NaturalConvection.mat",
+ filename = "NaturalConvectionISAT.mat",
  leftTitleType = 1,
  bottomTitleType = 1,
  colors = {{0,0,255}});

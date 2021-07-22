@@ -1,13 +1,21 @@
-last-generated=2015-05-29
-statistics-initialization={'linear': '0, 0, 0, 0'}
-statistics-simulation={'numerical Jacobians': '0', 'nonlinear': ' ', 'linear': ' '}
-sin.T_in=[303.149993896484375, 303.149993896484375]
-sou.T_in=[293.149993896484375, 293.149993896484375]
-hea.com.vol.T=[295.121337890625, 295.121337890625]
-time=[0., 1.]
-hea.outlet.p=[98000., 98000.]
-sou.outlet.p=[100000., 100000.]
-hea.inlet.p=[100000., 100000.]
-sin.inlet.p=[100000., 100000.]
-floMac.outlet.p=[100000., 100000.]
-floMac.inlet.p=[98000., 98000.]
+last-generated=2020-05-26
+statistics-initialization=
+{
+  "linear": "0, 0"
+}
+statistics-simulation=
+{
+  "linear": " ",
+  "nonlinear": " ",
+  "numerical Jacobians": "0"
+}
+time=[0e+00, 1e+00]
+hea.com.vol.T=[2.95121337890625e+02, 2.95121337890625e+02]
+sou.T_in=[2.931499938964844e+02, 2.931499938964844e+02]
+sin.T_in=[3.031499938964844e+02, 3.031499938964844e+02]
+floMac.inlet.p=[9.8e+04, 9.8e+04]
+floMac.outlet.p=[1e+05, 1e+05]
+hea.inlet.p=[1e+05, 1e+05]
+hea.outlet.p=[9.8e+04, 9.8e+04]
+sou.outlet.p=[1e+05, 1e+05]
+sin.inlet.p=[1e+05, 1e+05]
