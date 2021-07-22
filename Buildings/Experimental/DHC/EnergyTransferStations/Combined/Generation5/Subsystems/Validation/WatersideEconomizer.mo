@@ -4,7 +4,7 @@ model WatersideEconomizer
   extends Modelica.Icons.Example;
   package Medium=Buildings.Media.Water
     "Medium model";
-  Buildings.Fluid.Sources.Boundary_pT bou1(
+  Buildings.Fluid.Sources.Boundary_pT bou1Pum(
     redeclare package Medium = Medium,
     use_T_in=true,
     nPorts=2) "Primary boundary conditions" annotation (Placement(
@@ -12,7 +12,7 @@ model WatersideEconomizer
         extent={{10,-10},{-10,10}},
         rotation=0,
         origin={140,-62})));
-  Buildings.Fluid.Movers.FlowControlled_dp pum(
+  Buildings.Fluid.Movers.FlowControlled_dp pum2Pum(
     redeclare package Medium = Medium,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     m_flow_nominal=hexPum.m2_flow_nominal,
@@ -77,7 +77,7 @@ model WatersideEconomizer
     T_b2_nominal=283.15)
     "Heat exchanger with primary control valve"
     annotation (Placement(transformation(extent={{20,10},{40,30}})));
-  Buildings.Fluid.Sources.Boundary_pT bou1Val(
+  Buildings.Fluid.Sources.Boundary_pT bou1InlVal(
     redeclare package Medium = Medium,
     p=Medium.p_default + 45E3,
     use_T_in=true,
@@ -86,7 +86,7 @@ model WatersideEconomizer
         extent={{10,-10},{-10,10}},
         rotation=0,
         origin={140,40})));
-  Buildings.Fluid.Sources.Boundary_pT bou1Val1(redeclare package Medium =
+  Buildings.Fluid.Sources.Boundary_pT bou1OutVal(redeclare package Medium =
         Medium, nPorts=1) "Primary boundary conditions" annotation (Placement(
         transformation(
         extent={{10,-10},{-10,10}},
@@ -127,7 +127,7 @@ model WatersideEconomizer
     timeScale=1000,
     offset=273.15) "Chilled water return temperature values"
     annotation (Placement(transformation(extent={{-200,10},{-180,30}})));
-  Modelica.Blocks.Sources.TimeTable TDisVal(
+  Modelica.Blocks.Sources.TimeTable TSerWat(
     y(final unit="K",
       displayUnit="degC"),
     table=[
@@ -138,29 +138,20 @@ model WatersideEconomizer
       4,6;
       5,18],
     timeScale=1000,
-    offset=273.15)
-    "District water temperature values"
+    offset=273.15) "Service water temperature values"
     annotation (Placement(transformation(extent={{200,-70},{180,-50}})));
-  Buildings.Fluid.Sources.Boundary_pT bou2Val1(
+  Buildings.Fluid.Sources.Boundary_pT bou2(
     redeclare package Medium = Medium,
     use_T_in=true,
-    nPorts=2) "Secondary boundary conditions" annotation (Placement(
+    nPorts=4) "Secondary boundary conditions" annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
-        origin={-140,0})));
-  Buildings.Fluid.Sources.Boundary_pT bou3(
-    redeclare package Medium = Medium,
-    use_T_in=true,
-    nPorts=2) "Secondary boundary conditions" annotation (Placement(
-        transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=0,
-        origin={-140,-80})));
-  Buildings.Fluid.FixedResistances.PressureDrop res(
+        origin={-150,0})));
+  Buildings.Fluid.FixedResistances.PressureDrop resPum(
     redeclare package Medium = Medium,
     m_flow_nominal=hexPum.m2_flow_nominal,
-    dp_nominal=20E4)
+    dp_nominal=20E4) "Pipe flow resistance"
     annotation (Placement(transformation(extent={{-100,-50},{-120,-30}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp     dpSet(
     height=15E4,
@@ -168,7 +159,7 @@ model WatersideEconomizer
     offset=10E4,
     startTime=1500)                                                    "Differential pressure set point"
     annotation (Placement(transformation(extent={{-200,-40},{-180,-20}})));
-  Buildings.Fluid.Movers.FlowControlled_dp pum1(
+  Buildings.Fluid.Movers.FlowControlled_dp pum2Val(
     redeclare package Medium = Medium,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     m_flow_nominal=hexPum.m2_flow_nominal,
@@ -178,36 +169,32 @@ model WatersideEconomizer
         extent={{10,-10},{-10,10}},
         rotation=0,
         origin={-70,40})));
-  Buildings.Fluid.FixedResistances.PressureDrop res1(
+  Buildings.Fluid.FixedResistances.PressureDrop resVal(
     redeclare package Medium = Medium,
     m_flow_nominal=hexPum.m2_flow_nominal,
-    dp_nominal=20E4)
+    dp_nominal=20E4) "Pipe flow resistance"
     annotation (Placement(transformation(extent={{-100,30},{-120,50}})));
   Modelica.Blocks.Sources.RealExpression yEva(y=0) "Isolation valve signal"
     annotation (Placement(transformation(extent={{-200,50},{-180,70}})));
 equation
   connect(hexPum.port_b1,senT1OutPum.port_a)
     annotation (Line(points={{40,-54},{70,-54},{70,-80},{90,-80}},color={0,127,255}));
-  connect(senT1OutPum.port_b,bou1.ports[1])
-    annotation (Line(points={{110,-80},{130,-80},{130,-60}},
-                                                           color={0,127,255}));
+  connect(senT1OutPum.port_b, bou1Pum.ports[1]) annotation (Line(points={{110,-80},
+          {130,-80},{130,-60}}, color={0,127,255}));
   connect(hexPum.port_a1,senT1InlPum.port_b)
     annotation (Line(points={{20,-54},{10,-54},{10,-40},{90,-40}},   color={0,127,255}));
-  connect(senT1InlPum.port_a,bou1.ports[2])
-    annotation (Line(points={{110,-40},{130,-40},{130,-64}},
-                                                           color={0,127,255}));
+  connect(senT1InlPum.port_a, bou1Pum.ports[2]) annotation (Line(points={{110,-40},
+          {130,-40},{130,-64}}, color={0,127,255}));
   connect(hexPum.port_b2,senT2OutPum.port_a)
     annotation (Line(points={{20,-66},{-10,-66},{-10,-40},{-30,-40}}, color={0,127,255}));
   connect(senT2InlPum.port_b,hexPum.port_a2)
     annotation (Line(points={{-30,-80},{50,-80},{50,-66},{40,-66}},color={0,127,255}));
   connect(hexVal.port_a1,senT1InlVal.port_b)
     annotation (Line(points={{20,26},{10,26},{10,40},{90,40}},   color={0,127,255}));
-  connect(senT1InlVal.port_a,bou1Val.ports[1])
-    annotation (Line(points={{110,40},{130,40}},
-                                               color={0,127,255}));
-  connect(bou1Val1.ports[1],senT1OutVal.port_b)
-    annotation (Line(points={{130,0},{110,0}},
-                                             color={0,127,255}));
+  connect(senT1InlVal.port_a, bou1InlVal.ports[1])
+    annotation (Line(points={{110,40},{130,40}}, color={0,127,255}));
+  connect(bou1OutVal.ports[1], senT1OutVal.port_b)
+    annotation (Line(points={{130,0},{110,0}}, color={0,127,255}));
   connect(senT1OutVal.port_a,hexVal.port_b1)
     annotation (Line(points={{90,0},{60,0},{60,26},{40,26}},color={0,127,255}));
   connect(hexVal.port_a2,senT2InlVal.port_b)
@@ -218,40 +205,44 @@ equation
     annotation (Line(points={{20,26},{10,26},{10,40},{80,40},{80,30}},   color={0,127,255}));
   connect(senRelPre.port_b,senT1OutVal.port_a)
     annotation (Line(points={{80,10},{80,0},{90,0}},color={0,127,255}));
-  connect(TDisVal.y,bou1.T_in)
-    annotation (Line(points={{179,-60},{170,-60},{170,-58},{152,-58}},color={0,0,127}));
-  connect(TDisVal.y,bou1Val.T_in)
-    annotation (Line(points={{179,-60},{170,-60},{170,44},{152,44}},color={0,0,127}));
+  connect(TSerWat.y, bou1Pum.T_in) annotation (Line(points={{179,-60},{170,-60},
+          {170,-58},{152,-58}}, color={0,0,127}));
+  connect(TSerWat.y, bou1InlVal.T_in) annotation (Line(points={{179,-60},{170,-60},
+          {170,44},{152,44}}, color={0,0,127}));
   connect(uCoo.y, hexVal.uCoo) annotation (Line(points={{-179,80},{0,80},{0,20},{18,20}},      color={255,0,255}));
   connect(uCoo.y, hexPum.uCoo) annotation (Line(points={{-179,80},{0,80},{0,-60},{18,-60}},      color={255,0,255}));
-  connect(bou2Val1.ports[1], senT2InlVal.port_a) annotation (Line(points={{-130,2},{-130,0},{-50,0}},
-                                                                                             color={0,127,255}));
-  connect(TChiWatRet.y, bou2Val1.T_in) annotation (Line(points={{-179,20},{-162,20},{-162,4},{-152,4}},
-                                                                                                      color={0,0,127}));
-  connect(TChiWatRet.y, bou3.T_in) annotation (Line(points={{-179,20},{-162,20},{-162,-76},{-152,-76}},
-                                                                                                      color={0,0,127}));
-  connect(pum.port_a, senT2OutPum.port_b) annotation (Line(points={{-60,-40},{-50,-40}}, color={0,127,255}));
-  connect(res.port_a, pum.port_b) annotation (Line(points={{-100,-40},{-80,-40}},  color={0,127,255}));
-  connect(res.port_b, bou3.ports[1]) annotation (Line(points={{-120,-40},{-130,-40},{-130,-78}}, color={0,127,255}));
-  connect(bou3.ports[2], senT2InlPum.port_a)
-    annotation (Line(points={{-130,-82},{-130,-80},{-50,-80}}, color={0,127,255}));
-  connect(dpSet.y, pum.dp_in)
-    annotation (Line(points={{-178,-30},{-90,-30},{-90,-20},{-70,-20},{-70,-28}},   color={0,0,127}));
-  connect(senT2OutVal.port_b, pum1.port_a) annotation (Line(points={{-50,40},{-60,40}}, color={0,127,255}));
-  connect(pum1.port_b, res1.port_a) annotation (Line(points={{-80,40},{-100,40}}, color={0,127,255}));
-  connect(dpSet.y, pum1.dp_in)
-    annotation (Line(points={{-178,-30},{-90,-30},{-90,60},{-70,60},{-70,52}}, color={0,0,127}));
-  connect(res1.port_b, bou2Val1.ports[2]) annotation (Line(points={{-120,40},{-130,40},{-130,-2}}, color={0,127,255}));
+  connect(bou2.ports[1], senT2InlVal.port_a) annotation (Line(points={{-140,3},
+          {-120,3},{-120,0},{-50,0}}, color={0,127,255}));
+  connect(TChiWatRet.y, bou2.T_in) annotation (Line(points={{-179,20},{-172,20},
+          {-172,4},{-162,4}}, color={0,0,127}));
+  connect(pum2Pum.port_a, senT2OutPum.port_b)
+    annotation (Line(points={{-60,-40},{-50,-40}}, color={0,127,255}));
+  connect(resPum.port_a, pum2Pum.port_b)
+    annotation (Line(points={{-100,-40},{-80,-40}}, color={0,127,255}));
+  connect(dpSet.y, pum2Pum.dp_in) annotation (Line(points={{-178,-30},{-90,-30},
+          {-90,-20},{-70,-20},{-70,-28}}, color={0,0,127}));
+  connect(senT2OutVal.port_b, pum2Val.port_a)
+    annotation (Line(points={{-50,40},{-60,40}}, color={0,127,255}));
+  connect(pum2Val.port_b, resVal.port_a)
+    annotation (Line(points={{-80,40},{-100,40}}, color={0,127,255}));
+  connect(dpSet.y, pum2Val.dp_in) annotation (Line(points={{-178,-30},{-90,-30},
+          {-90,60},{-70,60},{-70,52}}, color={0,0,127}));
+  connect(resVal.port_b, bou2.ports[2]) annotation (Line(points={{-120,40},{
+          -140,40},{-140,1}}, color={0,127,255}));
   connect(yEva.y, hexVal.yValIsoEva_actual) annotation (Line(points={{-179,60},
           {-6,60},{-6,17},{18,17}}, color={0,0,127}));
   connect(yEva.y, hexPum.yValIsoEva_actual) annotation (Line(points={{-179,60},
           {-6.07143,60},{-6.07143,17.1429},{-6,17.1429},{-6,-63},{18,-63}},
         color={0,0,127}));
+  connect(bou2.ports[3], resPum.port_b) annotation (Line(points={{-140,-1},{
+          -140,-2},{-130,-2},{-130,-40},{-120,-40}}, color={0,127,255}));
+  connect(senT2InlPum.port_a, bou2.ports[4]) annotation (Line(points={{-50,-80},
+          {-140,-80},{-140,-3}}, color={0,127,255}));
   annotation (
     Diagram(
       coordinateSystem(
         preserveAspectRatio=false,
-        extent={{-240,-140},{240,140}})),
+        extent={{-220,-120},{220,120}})),
     __Dymola_Commands(
       file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/DHC/EnergyTransferStations/Combined/Generation5/Subsystems/Validation/WatersideEconomizer.mos"
       "Simulate and plot"),
