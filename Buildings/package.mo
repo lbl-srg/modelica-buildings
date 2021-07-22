@@ -207,138 +207,86 @@ Each class (i.e., model, block and function) must be used in an example or valid
   class Version_9_0_0 "Version 9.0.0"
   extends Modelica.Icons.ReleaseNotes;
     annotation (Documentation(info="<html>
-<div class=\"release-summary\">
-<p>
-Version 9.0.0 is ... xxx
-</p>
-</div>
-<!-- New libraries -->
-<p>
-The following <b style=\"color:blue\">new libraries</b> have been added:
-</p>
-<table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\">
-<tr><td valign=\"top\">Buildings.Media.Steam
-    </td>
-    <td valign=\"top\">Package with medium model for steam heating applications.
-    </td>
-    </tr>
-</table>
-<!-- New components for existing libraries -->
-<p>
-The following <b style=\"color:blue\">new components</b> have been added
-to <b style=\"color:blue\">existing</b> libraries:
-</p>
-<table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
-<tr><td colspan=\"2\"><b>xxx</b>
-    </td>
+<p>Version 9.0.0 is ... xxx </p>
+<p>The following <b><span style=\"color: #0000ff;\">new libraries</span></b> have been added: </p>
+<table cellspacing=\"0\" cellpadding=\"2\" border=\"1\"><tr>
+<td valign=\"top\"><p>Buildings.Media.Steam </p></td>
+<td valign=\"top\"><p>Package with medium model for steam heating applications. </p></td>
 </tr>
-<tr><td valign=\"top\">xxx
-    </td>
-    <td valign=\"top\">xxx.
-    </td>
-    </tr>
-</table>
-<!-- Backward compatible changes -->
-<p>
-The following <b style=\"color:blue\">existing components</b>
-have been <b style=\"color:blue\">improved</b> in a
-<b style=\"color:blue\">backward compatible</b> way:
-</p>
-<table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
-<tr><td colspan=\"2\"><b>Buildings.Applications.DataCenters</b>
-    </td>
-</tr>
-<tr><td valign=\"top\">Buildings.Applications.DataCenters.ChillerCooled.Equipment.BaseClasses.AHUParameters<br/>
-	          Buildings.Applications.DataCenters.ChillerCooled.Equipment.BaseClasses.PartialCoolingCoilHumidifyingHeating
-    </td>
-    <td valign=\"top\">Changed cooling coil model and removed unused parameters.<br/>
-	          This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2549\">issue #2549</a>.
-    </td>
-</tr>
-<tr><td colspan=\"2\"><b>Buildings.Examples</b>
-    </td>
-</tr>
-<tr><td valign=\"top\">Buildings.Examples.DualFanDualDuct.ClosedLoop<br/>
-	          Buildings.Examples.ScalableBenchmarks.BuildingVAV.Examples.OneFloor_OneZone<br/>
-	          Buildings.Examples.VAVReheat.BaseClasses.PartialOpenLoop
-    </td>
-    <td valign=\"top\">Changed cooling coil model.<br/>
-	          This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2549\">issue #2549</a>.
-    </td>
-</tr>
-<tr><td colspan=\"2\"><b>Buildings.Fluid.FMI</b>
-    </td>
-</tr>
-<tr><td valign=\"top\">Buildings.Fluid.FMI.ExportContainers.Validation.RoomHVAC
-    </td>
-    <td valign=\"top\">Changed cooling coil model.<br/>
-	          This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2549\">issue #2549</a>.
-    </td>
-</tr>
-<tr><td colspan=\"2\"><b>xxx</b>
-    </td>
-</tr>
-<tr><td valign=\"top\">xxx
-    </td>
-    <td valign=\"top\">xxx.
-    </td>
+<tr>
+<td valign=\"top\"><p>Buildings.ThermalZones.Detailed.Examples.ISAT </p></td>
+<td valign=\"top\"><p>Package with thermal airflow model using in situ adaptive tabulation.</p></td>
 </tr>
 </table>
-<!-- Non-backward compatible changes to existing components -->
-<p>
-The following <b style=\"color:blue\">existing components</b>
-have been <b style=\"color:blue\">improved</b> in a
-<b style=\"color:blue\">non-backward compatible</b> way:
-</p>
-<table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
- <tr><td colspan=\"2\"><b>Buildings.Obsolete</b>
-    </td>
+<p><br>The following <b><span style=\"color: #0000ff;\">new components</span></b> have been added to <b><span style=\"color: #0000ff;\">existing</span></b> libraries: </p>
+<table cellspacing=\"0\" cellpadding=\"2\" border=\"1\"><tr>
+<td colspan=\"2\"><p><b>xxx</b> </p></td>
 </tr>
-<tr><td valign=\"top\">Buildings.Obsolete.Utilities.IO.Python27
-    </td>
-    <td valign=\"top\">Removed support for Python 27. Use instead <code>Buildings.Utilities.IO.Python36</code>.
-    </td>
+<tr>
+<td valign=\"top\"><p>xxx </p></td>
+<td valign=\"top\"><p>xxx. </p></td>
 </tr>
 </table>
-<!-- Errors that have been fixed -->
-<p>
-The following <b style=\"color:red\">critical errors</b> have been fixed (i.e., errors
-that can lead to wrong simulation results):
-</p>
-<table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
-<tr><td colspan=\"2\"><b>xxx</b>
-    </td>
+<p><br>The following <b><span style=\"color: #0000ff;\">existing components</span></b> have been <b><span style=\"color: #0000ff;\">improved</span></b> in a <b><span style=\"color: #0000ff;\">backward compatible</span></b> way: </p>
+<table cellspacing=\"0\" cellpadding=\"2\" border=\"1\"><tr>
+<td colspan=\"2\"><p><b>Buildings.Applications.DataCenters</b> </p></td>
 </tr>
-<tr><td valign=\"top\">xxx
-    </td>
-    <td valign=\"top\">xxx.
-    </td>
+<tr>
+<td valign=\"top\"><p>Buildings.Applications.DataCenters.ChillerCooled.Equipment.BaseClasses.AHUParameters</p><p>Buildings.Applications.DataCenters.ChillerCooled.Equipment.BaseClasses.PartialCoolingCoilHumidifyingHeating </p></td>
+<td valign=\"top\"><p>Changed cooling coil model and removed unused parameters.</p><p>This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2549\">issue #2549</a>. </p></td>
 </tr>
-</table>
-<!-- Uncritical errors -->
-<p>
-The following <b style=\"color:red\">uncritical errors</b> have been fixed (i.e., errors
-that do <b style=\"color:red\">not</b> lead to wrong simulation results, e.g.,
-units are wrong or errors in documentation):
-</p>
-<table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
-<tr><td colspan=\"2\"><b>Buildings.ThermalZones.Detailed</b>
-    </td>
+<tr>
+<td colspan=\"2\"><p><b>Buildings.Examples</b> </p></td>
 </tr>
-<tr><td valign=\"top\">Buildings.ThermalZones.Detailed.BaseClasses.RadiationTemperature
-    </td>
-    <td valign=\"top\">Corrected wrong value for annotation <code>HideResult</code>.<br/>
-                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2550\">#2550</a>.
-    </td>
+<tr>
+<td valign=\"top\"><p>Buildings.Examples.DualFanDualDuct.ClosedLoop</p><p>Buildings.Examples.ScalableBenchmarks.BuildingVAV.Examples.OneFloor_OneZone</p><p>Buildings.Examples.VAVReheat.BaseClasses.PartialOpenLoop </p></td>
+<td valign=\"top\"><p>Changed cooling coil model.</p><p>This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2549\">issue #2549</a>. </p></td>
+</tr>
+<tr>
+<td colspan=\"2\"><p><b>Buildings.Fluid.FMI</b> </p></td>
+</tr>
+<tr>
+<td valign=\"top\"><p>Buildings.Fluid.FMI.ExportContainers.Validation.RoomHVAC </p></td>
+<td valign=\"top\"><p>Changed cooling coil model.</p><p>This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2549\">issue #2549</a>. </p></td>
+</tr>
+<tr>
+<td colspan=\"2\"><p><b>xxx</b> </p></td>
+</tr>
+<tr>
+<td valign=\"top\"><p>xxx </p></td>
+<td valign=\"top\"><p>xxx. </p></td>
 </tr>
 </table>
-<p>
-Note:
-</p>
+<p><br>The following <b><span style=\"color: #0000ff;\">existing components</span></b> have been <b><span style=\"color: #0000ff;\">improved</span></b> in a <b><span style=\"color: #0000ff;\">non-backward compatible</span></b> way: </p>
+<table cellspacing=\"0\" cellpadding=\"2\" border=\"1\"><tr>
+<td colspan=\"2\"><p><b>Buildings.Obsolete</b> </p></td>
+</tr>
+<tr>
+<td valign=\"top\"><p>Buildings.Obsolete.Utilities.IO.Python27 </p></td>
+<td valign=\"top\"><p>Removed support for Python 27. Use instead <span style=\"font-family: Courier New;\">Buildings.Utilities.IO.Python36</span>. </p></td>
+</tr>
+</table>
+<p><br>The following <b><span style=\"color: #ff0000;\">critical errors</span></b> have been fixed (i.e., errors that can lead to wrong simulation results): </p>
+<table cellspacing=\"0\" cellpadding=\"2\" border=\"1\"><tr>
+<td colspan=\"2\"><p><b>xxx</b> </p></td>
+</tr>
+<tr>
+<td valign=\"top\"><p>xxx </p></td>
+<td valign=\"top\"><p>xxx. </p></td>
+</tr>
+</table>
+<p><br>The following <b><span style=\"color: #ff0000;\">uncritical errors</span></b> have been fixed (i.e., errors that do <b><span style=\"color: #ff0000;\">not</span></b> lead to wrong simulation results, e.g., units are wrong or errors in documentation): </p>
+<table cellspacing=\"0\" cellpadding=\"2\" border=\"1\"><tr>
+<td colspan=\"2\"><p><b>Buildings.ThermalZones.Detailed</b> </p></td>
+</tr>
+<tr>
+<td valign=\"top\"><p>Buildings.ThermalZones.Detailed.BaseClasses.RadiationTemperature </p></td>
+<td valign=\"top\"><p>Corrected wrong value for annotation <span style=\"font-family: Courier New;\">HideResult</span>.</p><p>This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2550\">#2550</a>. </p></td>
+</tr>
+</table>
+<p><br>Note: </p>
 <ul>
-<li>
-xxx
-</li>
+<li>xxx </li>
 </ul>
 </html>"));
   end Version_9_0_0;
