@@ -111,7 +111,7 @@ equation
 <li><a href=\"modelica://Buildings.Fluid.Sources.MassFlowSource_T\">Buildings.Fluid.Sources.MassFlowSource_T</a>. This model provides inlet air for the <span style=\"font-family: Courier New;\">roo</span>. Name it as <span style=\"font-family: Courier New;\">bouIn</span>. </li>
 <li><a href=\"modelica://Buildings.Fluid.Sources.Boundary_pT\">Buildings.Fluid.Sources.Boundary_pT</a>. This model is the outdoor environment to which the outlet of <span style=\"font-family: Courier New;\">roo</span> is connected. Name it as <span style=\"font-family: Courier New;\">bouOut</span>. </li>
 </ul></li>
-<li>In the text editor mode, add the medium and the number of surfaces as below: </li>
+<li>In the text editor mode, add the medium and the number of surfaces as below: 
 <p><span style=\"font-family: Courier New;\">package MediumA = Buildings.Media.GasesConstantDensity.MoistAirUnsaturated (T_default=283.15);</span></p>
 <p><span style=\"font-family: Courier New;\">parameter Integer nConExtWin=0;</span></p>
 <p><span style=\"font-family: Courier New;\">parameter Integer nConBou=0;</span></p>
@@ -119,7 +119,8 @@ equation
 <p><span style=\"font-family: Courier New;\">parameter Integer nConExt=0;</span></p>
 <p><span style=\"font-family: Courier New;\">parameter Integer nConPar=0;</span></p>
 <p><span style=\"font-family: Courier New;\">parameter Integer nSou=0;</span></p>
-<li>Edit <span style=\"font-family: Courier New;\">roo</span> as below: </li>
+</li>
+<li>Edit <span style=\"font-family: Courier New;\">roo</span> as below: 
 <p><span style=\"font-family: Courier New;\">Buildings.ThermalZones.Detailed.CFD roo(</span></p>
 <p><span style=\"font-family: Courier New;\">redeclare package Medium = MediumA,</span></p>
 <p><span style=\"font-family: Courier New;\">surBou(</span></p>
@@ -149,13 +150,14 @@ equation
 <p><span style=\"font-family: Courier New;\">nPorts = 2,</span></p>
 <p><span style=\"font-family: Courier New;\">portName={&quot;Inlet&quot;,&quot;Outlet&quot;},</span></p>
 <p><span style=\"font-family: Courier New;\">samplePeriod = 200);</span></p>
+</li> 
 <li>Set the parameters for the following components: </li>
 <li><ul>
 <li>Set <span style=\"font-family: Courier New;\">qRadGai_flow</span>, <span style=\"font-family: Courier New;\">qConGai_flow</span> and <span style=\"font-family: Courier New;\">qLatGai_flow</span> to <i>0</i>. </li>
 <li>Set <span style=\"font-family: Courier New;\">TFlo</span> to <i>303.15</i> Kelvin. </li>
 <li>Set <span style=\"font-family: Courier New;\">TOthWal</span> to <i>283.15</i> Kelvin. </li>
 </ul></li>
-<li>Set the values for the parameters of <span style=\"font-family: Courier New;\">bouIn</span> and <span style=\"font-family: Courier New;\">bouOut</span> as below: </li>
+<li>Set the values for the parameters of <span style=\"font-family: Courier New;\">bouIn</span> and <span style=\"font-family: Courier New;\">bouOut</span> as below:
 <p><span style=\"font-family: Courier New;\">Fluid.Sources.MassFlowSource_T bouIn(</span></p>
 <p><span style=\"font-family: Courier New;\">redeclare package Medium = MediumA,</span></p>
 <p><span style=\"font-family: Courier New;\">nPorts=1,</span></p>
@@ -164,12 +166,15 @@ equation
 <p><span style=\"font-family: Courier New;\">Fluid.Sources.FixedBoundary bouOut(</span></p>
 <p><span style=\"font-family: Courier New;\">redeclare package Medium = MediumA,</span></p>
 <p><span style=\"font-family: Courier New;\">nPorts=1);</span></p>
-<li>Connect the components as shown in the figure below. </li>
+</li>
+<li>Connect the components as shown in the figure below.
 <p align=\"center\"><img src=\"modelica://Buildings/Resources/Images/ThermalZones/Detailed/Examples/ISAT/ForcedConvectionModel.png\" alt=\"image\"/> </p>
-<li>Confirm in the textual editor that the connections to <span style=\"font-family: Courier New;\">roo.ports</span> are as follows: </li>
+</li>
+<li>Confirm in the textual editor that the connections to <span style=\"font-family: Courier New;\">roo.ports</span> are as follows:
 <p><span style=\"font-family: Courier New;\">connect(bouIn.ports[1], roo.ports[1]);</span></p>
 <p><span style=\"font-family: Courier New;\">connect(bouOut.ports[1], roo.ports[2]);</span></p>
-<li>Define the settings for the ISAT model: </li>
+</li>
+<li>Define the settings for the ISAT model:
 <p><span style=\"font-family: Courier New;\">In the set.isat file, the parameters for the ISAT model can be defined:</span></p>
 <p>/********************************************************************************</p>
 <p>| Section 1: General settings of isat</p>
@@ -237,6 +242,7 @@ equation
 <p>/* outp.outp_weight: weights for error control, when outputs have different order of magnitudes */</p>
 <p>outp.outp_weight 0.1</p>
 <p>outp.outp_weight 1.0</p>
+</li>
 <li>Use the Simplified CFD Interface (SCI) to generate the input file for the FFD. </li>
 <li><ul>
 <li>Define the grid. </li>
@@ -244,7 +250,7 @@ equation
 <li>Generate the input files, which have by default the names <span style=\"font-family: Courier New;\">input.cfd</span> (mesh file) and <span style=\"font-family: Courier New;\">zeroone.dat</span> (obstacles file). </li>
 <li>Rename the files as <span style=\"font-family: Courier New;\">ForcedConvection.cfd</span> and <span style=\"font-family: Courier New;\">ForcedConvection.dat</span>, respectively. </li>
 </ul></li>
-<li>Revise the FFD parameter input file <span style=\"font-family: Courier New;\">ForcedConvection.ffd</span> (an example file is available in <span style=\"font-family: Courier New;\">Buildings/Resources/Data/ThermalZones/Detailed/Examples/FFD/Tutorial/</span>): </li>
+<li>Revise the FFD parameter input file <span style=\"font-family: Courier New;\">ForcedConvection.ffd</span> (an example file is available in <span style=\"font-family: Courier New;\">Buildings/Resources/Data/ThermalZones/Detailed/Examples/FFD/Tutorial/</span>):
 <p><span style=\"font-family: Courier New;\">inpu.parameter_file_format SCI</span></p>
 <p><span style=\"font-family: Courier New;\">inpu.parameter_file_name input.cfd</span></p>
 <p><span style=\"font-family: Courier New;\">inpu.block_file_name zeroone.dat</span></p>
@@ -265,6 +271,7 @@ equation
 <p><span style=\"font-family: Courier New;\">init.u 0.0 // Initial condition for velocity u</span></p>
 <p><span style=\"font-family: Courier New;\">init.v 0.0 // Initial condition for velocity v</span></p>
 <p><span style=\"font-family: Courier New;\">init.w 0.0 // Initial condition for velocity w</span></p>
+</li>
 <li>Put the files <span style=\"font-family: Courier New;\">input.isat</span>, <span style=\"font-family: Courier New;\">output.isat</span>, <span style=\"font-family: Courier New;\">set.isat</span>, <span style=\"font-family: Courier New;\">input.ffd</span>, <span style=\"font-family: Courier New;\">input.dat</span>, and <span style=\"font-family: Courier New;\">input.cfd</span> in the directory <span style=\"font-family: Courier New;\">Buildings/Resources/Data/ThermalZones/Detailed/Examples/ISAT/ForcedConvection/</span>. </li>
 <li>Set the simulation stop time of the Modelica model to <span style=\"font-family: Courier New;\">180</span> seconds and choose, for example, the Radau solver. </li>
 <li>Translate the model and start the simulation. </li>

@@ -120,7 +120,7 @@ equation
 <p align=\"center\">Figure (b) </p>
 <p>More details of the case description can be found in <a href=\"#ZuoEtAl2012\">Zuo et al. (2012)</a>. </p>
 <h4>Step by Step Guide</h4>
-<p>This section describes step by step how to build and simulate the model. </p>
+<p>This section describes step by step how to build and simulate the model. </p> 
 <ol>
 <li>Add the following component models to the <span style=\"font-family: Courier New;\">NaturalConvection</span> model: </li>
 <li><ul>
@@ -130,10 +130,9 @@ equation
 <li><a href=\"modelica://Modelica.Blocks.Routing.Multiplex3\">Modelica.Blocks.Routing.Multiplex3</a>. This block is used to combine three scalar signals to a vector. Name it as <span style=\"font-family: Courier New;\">multiple_x3</span>. </li>
 <li><a href=\"modelica://Buildings.HeatTransfer.Sources.FixedTemperature\">Buildings.HeatTransfer.Sources.FixedTemperature</a>. Two models are needed to specify the temperatures on the east and west walls. Name them as <span style=\"font-family: Courier New;\">TeasWal</span> and <span style=\"font-family: Courier New;\">TwesWal</span>, respectively. </li>
 </ul></li>
-</ul>
 <p><br>Note that for the other four walls with adiabatic boundary conditions, we do not need to specify a zero heat flow boundary condition because the heat flow rate transferred through a heat port from the outside is zero if the heat port is not connected from the outside. </p>
-
-<li>In the textual editor mode, add the medium and the number of surfaces as shown below: </li>
+</li>
+<li>In the textual editor mode, add the medium and the number of surfaces as shown below:
 <p><span style=\"font-family: Courier New;\">Buildings.ThermalZones.Detailed.CFD roo(</span></p>
 <p><span style=\"font-family: Courier New;\">package MediumA = Buildings.Media.Air (T_default=283.15);</span></p>
 <p><span style=\"font-family: Courier New;\">parameter Integer nConExtWin=0;</span></p>
@@ -141,7 +140,8 @@ equation
 <p><span style=\"font-family: Courier New;\">parameter Integer nSurBou=6;</span></p>
 <p><span style=\"font-family: Courier New;\">parameter Integer nConExt=0;</span></p>
 <p><span style=\"font-family: Courier New;\">parameter Integer nConPar=0;</span> </p>
-<li>Edit <span style=\"font-family: Courier New;\">roo</span> as below: </li>
+</li>
+<li>Edit <span style=\"font-family: Courier New;\">roo</span> as below:
 <p><span style=\"font-family: Courier New;\">edeclare package Medium = MediumA,</span></p>
 <p><span style=\"font-family: Courier New;\">surBou(</span></p>
 <p><span style=\"font-family: Courier New;\">name={&quot;East Wall&quot;,&quot;West Wall&quot;,&quot;North Wall&quot;,&quot;South Wall&quot;,&quot;Ceiling&quot;,&quot;Floor&quot;},</span></p>
@@ -178,15 +178,17 @@ equation
 <p><span style=\"font-family: Courier New;\">T_start=273.15,</span></p>
 <p><span style=\"font-family: Courier New;\">samplePeriod = 7200,</span></p>
 <p><span style=\"font-family: Courier New;\">massDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial);</span></p>
-<li>Connect the component as shown in the figure below. </li>
+</li>
+<li>Connect the component as shown in the figure below.
 <p align=\"center\"><img src=\"modelica://Buildings/Resources/Images/ThermalZones/Detailed/Examples/ISAT/Tutorial/NaturalConvectionModel.png\" alt=\"image\"/> </p>
+</li>
 <li>Set the values for the following components: </li>
 <li><ul>
 <li>Set <span style=\"font-family: Courier New;\">qRadGai_flow</span>, <span style=\"font-family: Courier New;\">qConGai_flow</span> and <span style=\"font-family: Courier New;\">qLatGai_flow</span> to <i>0</i>. </li>
 <li>Set <span style=\"font-family: Courier New;\">TEasWal</span> to <i>273.15</i> Kelvin. </li>
 <li>Set <span style=\"font-family: Courier New;\">TWesWal</span> to <i>274.15</i> Kelvin. </li>
 </ul></li>
-<li>Define the settings for the ISAT model: </li>
+<li>Define the settings for the ISAT model:
 <p>In the <span style=\"font-family: Courier New;\">set.isat</span> file, the parameters for the ISAT model can be defined:</p>
 <p>/********************************************************************************</p>
 <p>| Section 1: General settings of isat</p>
@@ -254,6 +256,7 @@ equation
 <p>/* outp.outp_weight: weights for error control, when outputs have different order of magnitudes */</p>
 <p>outp.outp_weight 1.0</p>
 <p>outp.outp_weight 10.0</p>
+</li>
 <li>Note: the desired outputs of isat can be altered by changing the output sensors in section 3 of the set.isat file. The available default sensors include:</li>
 <li><ul>
 <li><span style=\"font-family: Courier New;\">temp_roo,</span> which outputs the average room temperature, </li>
@@ -262,9 +265,11 @@ equation
 <li><span style=\"font-family: Courier New;\">temp_sen,</span> which outputs the temperature at a defined location (default is center of the room), </li>
 <li><span style=\"font-family: Courier New;\">vel_sen,</span> which outputs the velocity at the a defined location (default is center of the room). </li>
 </ul></li>
+</ol>
 <p>Furthermore, advanced users can modify the source code located in <span style=\"font-family: Courier New;\">Buildings/Resources/src/ISAT</span> to adjust the current sensors or add new ones.</p>
 <p>For example, in lines <span style=\"font-family: Courier New;\">324-326</span> and <span style=\"font-family: Courier New;\">344-346</span> in <span style=\"font-family: Courier New;\">utility_isat.c,</span> users can change the location of the temperature or velocity sensor.</p>
 <p>In addition, the occupied zones can be adjusted in the <span style=\"font-family: Courier New;\">average_room_temp</span> and <span style=\"font-family: Courier New;\">average_room_vel</span> functions in <span style=\"font-family: Courier New;\">utility_isat.c.</span></p>
+<ol>
 <li>Use the Simplified CFD Interface (SCI) to generate the input file for FFD. </li>
 <li><ul>
 <li>Use a 20 x 20 x 20 uniform grid. </li>
@@ -272,7 +277,7 @@ equation
 <li>Generate the input files which have the default names <span style=\"font-family: Courier New;\">input.cfd</span> (mesh file) and <span style=\"font-family: Courier New;\">zeroone.dat</span> (obstacles file). </li>
 <li>Rename the files as <span style=\"font-family: Courier New;\">NaturalConvection.cfd</span> and <span style=\"font-family: Courier New;\">NaturalConvection.dat</span>, respectively. </li>
 </ul></li>
-<li>Revise the FFD parameter input file <span style=\"font-family: Courier New;\">NaturalConvection.ffd</span> (an example file is provided in <span style=\"font-family: Courier New;\">Buildings/Resources/Data/ThermalZones/Detailed/Examples/ISAT/Tutorial/</span>): </li>
+<li>Revise the FFD parameter input file <span style=\"font-family: Courier New;\">NaturalConvection.ffd</span> (an example file is provided in <span style=\"font-family: Courier New;\">Buildings/Resources/Data/ThermalZones/Detailed/Examples/ISAT/Tutorial/</span>):
 <p><span style=\"font-family: Courier New;\">inpu.parameter_file_format SCI</span></p>
 <p><span style=\"font-family: Courier New;\">inpu.parameter_file_name NaturalConvection.cfd</span></p>
 <p><span style=\"font-family: Courier New;\">inpu.block_file_name NaturalConvection.dat</span></p>
@@ -293,6 +298,7 @@ equation
 <p><span style=\"font-family: Courier New;\">init.v 0.0 // Initial condition for velocity v</span></p>
 <p><span style=\"font-family: Courier New;\">init.w 0.0 // Initial condition for velocity w</span></p>
 <p>Please note that some of the physical properties were manipulated to obtain the desired Rayleigh Number of <i>10<sup>5</i></sup>. </p>
+</li>
 <li>Store <span style=\"font-family: Courier New;\">NaturalConvection.ffd</span>, <span style=\"font-family: Courier New;\">NaturalConvection.dat</span>, and <span style=\"font-family: Courier New;\">NaturalConvection.cfd</span> at <span style=\"font-family: Courier New;\">Buildings/Resources/Data/ThermalZones/Detailed/Examples/ISAT/Tutorial</span>. </li>
 <li>Set simulation the stop time of the Modelica model <span style=\"font-family: Courier New;\">7200</span> seconds and choose for example the Radau solver. </li>
 <li>Translate the model and start the simulation. </li>
