@@ -22,7 +22,7 @@ block ActuatorFilter
 
   parameter Real u_nominal = 1 "Magnitude of input";
 
-  Real x[n](each final stateSelect=StateSelect.never) = u_nom*xTil
+  Real x[n](each final stateSelect=StateSelect.never) = u_nom*s
     "Transformed filter states";
 
 
@@ -34,23 +34,24 @@ protected
     "Frequency correction factor for normalized filter";
   parameter Real w_u=2*Modelica.Constants.pi*f/alpha/u_nom;
 
-  Real xTil[n](start=x_start/u_nom) "Filter states";
+  Real s[n](start=x_start/u_nom) "Filter states";
 
 initial equation
   if initType == Init.SteadyState then
-    der(xTil) = zeros(n);
+    der(s) = zeros(n);
   elseif initType == Init.InitialState then
-    xTil = x_start/u_nom;
+    s = x_start/u_nom;
   elseif initType == Init.InitialOutput then
     y = y_start;
-    der(xTil[1:n-1]) = zeros(n-1);
+    der(s[1:n - 1]) = zeros(n - 1);
   end if;
+
 equation
-   der(xTil[1]) = (u - u_nom * xTil[1])*w_u;
-   for i in 2:n loop
-     der(xTil[i]) = ( u_nom * xTil[i - 1] - u_nom * xTil[i])*w_u;
-   end for;
-  y = u_nom * xTil[n];
+  der(s[1]) = (u - u_nom*s[1])*w_u;
+  for i in 2:n loop
+    der(s[i]) = (u_nom*s[i - 1] - u_nom*s[i])*w_u;
+  end for;
+  y =u_nom*s[n];
 
   annotation (
     defaultComponentName="act",
@@ -91,8 +92,8 @@ of valves, dampers and fans.
 The implementation is based on
 <a href=\"modelica://Modelica.Blocks.Continuous.CriticalDamping\">
 Modelica.Blocks.Continuous.CriticalDamping</a>.
-It differs from that model in that the internal state of the filter <code>xTil</code>
-is transformed using <code>x = u_nominal*xTil</code>.
+It differs from that model in that the internal state of the filter <code>s</code>
+is transformed using <code>x = u_nominal*s</code>.
 It turns out that this transformation leads to smaller system of nonlinear equations if <code>u_nominal &ne; 0</code>, see
 <a href=\"https://https://github.com/ibpsa/modelica-ibpsa/issues/1498#issuecomment-885020611\">IBPSA, #1498</a>
 for a discussion.
