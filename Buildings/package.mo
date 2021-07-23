@@ -209,7 +209,7 @@ Each class (i.e., model, block and function) must be used in an example or valid
     annotation (Documentation(info="<html>
 <p>Version 9.0.0 is ... xxx </p>
 <p>The following <b><span style=\"color: #0000ff;\">new libraries</span></b> have been added: </p>
-<table cellspacing=\"0\" cellpadding=\"2\" border=\"1\"><tr>
+<table cellspacing=\"0\" cellpadding=\"2\" summary = \"summary\" border=\"1\"><tr>
 <td valign=\"top\"><p>Buildings.Media.Steam </p></td>
 <td valign=\"top\"><p>Package with medium model for steam heating applications. </p></td>
 </tr>
@@ -219,7 +219,7 @@ Each class (i.e., model, block and function) must be used in an example or valid
 </tr>
 </table>
 <p><br>The following <b><span style=\"color: #0000ff;\">new components</span></b> have been added to <b><span style=\"color: #0000ff;\">existing</span></b> libraries: </p>
-<table cellspacing=\"0\" cellpadding=\"2\" border=\"1\"><tr>
+<table cellspacing=\"0\" cellpadding=\"2\" summary = \"summary\" border=\"1\"><tr>
 <td colspan=\"2\"><p><b>xxx</b> </p></td>
 </tr>
 <tr>
@@ -228,7 +228,7 @@ Each class (i.e., model, block and function) must be used in an example or valid
 </tr>
 </table>
 <p><br>The following <b><span style=\"color: #0000ff;\">existing components</span></b> have been <b><span style=\"color: #0000ff;\">improved</span></b> in a <b><span style=\"color: #0000ff;\">backward compatible</span></b> way: </p>
-<table cellspacing=\"0\" cellpadding=\"2\" border=\"1\"><tr>
+<table cellspacing=\"0\" cellpadding=\"2\" summary = \"summary\" border=\"1\"><tr>
 <td colspan=\"2\"><p><b>Buildings.Applications.DataCenters</b> </p></td>
 </tr>
 <tr>
@@ -258,7 +258,7 @@ Each class (i.e., model, block and function) must be used in an example or valid
 </tr>
 </table>
 <p><br>The following <b><span style=\"color: #0000ff;\">existing components</span></b> have been <b><span style=\"color: #0000ff;\">improved</span></b> in a <b><span style=\"color: #0000ff;\">non-backward compatible</span></b> way: </p>
-<table cellspacing=\"0\" cellpadding=\"2\" border=\"1\"><tr>
+<table cellspacing=\"0\" cellpadding=\"2\" summary = \"summary\" border=\"1\"><tr>
 <td colspan=\"2\"><p><b>Buildings.Obsolete</b> </p></td>
 </tr>
 <tr>
@@ -267,7 +267,7 @@ Each class (i.e., model, block and function) must be used in an example or valid
 </tr>
 </table>
 <p><br>The following <b><span style=\"color: #ff0000;\">critical errors</span></b> have been fixed (i.e., errors that can lead to wrong simulation results): </p>
-<table cellspacing=\"0\" cellpadding=\"2\" border=\"1\"><tr>
+<table cellspacing=\"0\" cellpadding=\"2\" summary = \"summary\" border=\"1\"><tr>
 <td colspan=\"2\"><p><b>xxx</b> </p></td>
 </tr>
 <tr>
@@ -276,7 +276,7 @@ Each class (i.e., model, block and function) must be used in an example or valid
 </tr>
 </table>
 <p><br>The following <b><span style=\"color: #ff0000;\">uncritical errors</span></b> have been fixed (i.e., errors that do <b><span style=\"color: #ff0000;\">not</span></b> lead to wrong simulation results, e.g., units are wrong or errors in documentation): </p>
-<table cellspacing=\"0\" cellpadding=\"2\" border=\"1\"><tr>
+<table cellspacing=\"0\" cellpadding=\"2\" summary = \"summary\" border=\"1\"><tr>
 <td colspan=\"2\"><p><b>Buildings.ThermalZones.Detailed</b> </p></td>
 </tr>
 <tr>

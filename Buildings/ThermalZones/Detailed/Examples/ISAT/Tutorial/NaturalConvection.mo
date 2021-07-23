@@ -129,7 +129,7 @@ equation
 <li><a href=\"modelica://Modelica.Blocks.Sources.Constant\">Modelica.Blocks.Sources.Constant</a>. Three models are needed to specify that internal radiation, internal convective heat gain and internal latent heat gain zero. Name these models as <span style=\"font-family: Courier New;\">qRadGai_flow</span>, <span style=\"font-family: Courier New;\">qConGai_flow</span> and <span style=\"font-family: Courier New;\">qLatGai_flow</span>, respectively. </li>
 <li><a href=\"modelica://Modelica.Blocks.Routing.Multiplex3\">Modelica.Blocks.Routing.Multiplex3</a>. This block is used to combine three scalar signals to a vector. Name it as <span style=\"font-family: Courier New;\">multiple_x3</span>. </li>
 <li><a href=\"modelica://Buildings.HeatTransfer.Sources.FixedTemperature\">Buildings.HeatTransfer.Sources.FixedTemperature</a>. Two models are needed to specify the temperatures on the east and west walls. Name them as <span style=\"font-family: Courier New;\">TeasWal</span> and <span style=\"font-family: Courier New;\">TwesWal</span>, respectively. </li>
-</ul></li>
+</ul>
 <p><br>Note that for the other four walls with adiabatic boundary conditions, we do not need to specify a zero heat flow boundary condition because the heat flow rate transferred through a heat port from the outside is zero if the heat port is not connected from the outside. </p>
 </li>
 <li>In the textual editor mode, add the medium and the number of surfaces as shown below:
@@ -140,7 +140,7 @@ equation
 <p><span style=\"font-family: Courier New;\">parameter Integer nSurBou=6;</span></p>
 <p><span style=\"font-family: Courier New;\">parameter Integer nConExt=0;</span></p>
 <p><span style=\"font-family: Courier New;\">parameter Integer nConPar=0;</span> </p>
-</li>
+</li> 
 <li>Edit <span style=\"font-family: Courier New;\">roo</span> as below:
 <p><span style=\"font-family: Courier New;\">edeclare package Medium = MediumA,</span></p>
 <p><span style=\"font-family: Courier New;\">surBou(</span></p>
@@ -297,8 +297,8 @@ equation
 <p><span style=\"font-family: Courier New;\">init.u 0.0 // Initial condition for velocity u</span></p>
 <p><span style=\"font-family: Courier New;\">init.v 0.0 // Initial condition for velocity v</span></p>
 <p><span style=\"font-family: Courier New;\">init.w 0.0 // Initial condition for velocity w</span></p>
-<p>Please note that some of the physical properties were manipulated to obtain the desired Rayleigh Number of <i>10<sup>5</i></sup>. </p>
-</li>
+<p>Please note that some of the physical properties were manipulated to obtain the desired Rayleigh Number of <i>10<sup>5</sup></i>. </p>
+</li> 
 <li>Store <span style=\"font-family: Courier New;\">NaturalConvection.ffd</span>, <span style=\"font-family: Courier New;\">NaturalConvection.dat</span>, and <span style=\"font-family: Courier New;\">NaturalConvection.cfd</span> at <span style=\"font-family: Courier New;\">Buildings/Resources/Data/ThermalZones/Detailed/Examples/ISAT/Tutorial</span>. </li>
 <li>Set simulation the stop time of the Modelica model <span style=\"font-family: Courier New;\">7200</span> seconds and choose for example the Radau solver. </li>
 <li>Translate the model and start the simulation. </li>

@@ -342,7 +342,6 @@ equation
 <li>Set the simulation stop time of the Modelica model to <span style=\"font-family: Courier New;\">180</span> seconds and choose, for example, the Radau solver. </li>
 <li>Translate the model and start the simulation. </li>
 <li>Post-process: the generation of FFD output file (plt or vtk) is blocked by default, the users should revise the codes to output. </li>
-</li>
 </ol>
 </html>",revisions="<html>
 <ul>
