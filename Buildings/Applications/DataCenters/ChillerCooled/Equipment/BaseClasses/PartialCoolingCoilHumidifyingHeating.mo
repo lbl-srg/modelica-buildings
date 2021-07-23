@@ -133,7 +133,6 @@ if not inputType == Buildings.Fluid.Types.InputType.Stages
       final use_inputFilter=use_inputFilterFan,
       final riseTime=riseTimeFan,
       final init=initFan,
-      final y_start=yFan_start,
       final p_start=p_start,
       final T_start=T_start,
       final X_start=X_start,
