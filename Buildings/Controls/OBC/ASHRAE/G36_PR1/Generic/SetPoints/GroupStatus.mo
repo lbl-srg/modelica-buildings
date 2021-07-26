@@ -156,6 +156,15 @@ block GroupStatus "Block that outputs the zone group status"
     annotation (Placement(transformation(extent={{100,-320},{140,-280}}),
       iconTransformation(extent={{100,-210},{140,-170}})));
 
+  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hysSetBac(final uLow=uLow,
+      final uHigh=uHigh)
+    "Hysteresis that outputs if the group should run in setback mode"
+    annotation (Placement(transformation(extent={{60,-30},{80,-10}})));
+  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hysSetUp(final uLow=uLow,
+      final uHigh=uHigh)
+    "Hysteresis that outputs if the group should run in setup mode"
+    annotation (Placement(transformation(extent={{60,-140},{80,-120}})));
+
 protected
     Buildings.Controls.OBC.CDL.Routing.BooleanArrayFilter zonOccFil(
     final nin=numZon,
@@ -304,14 +313,6 @@ protected
     annotation (Placement(transformation(extent={{-30,-130},{-10,-110}})));
   Buildings.Controls.OBC.CDL.Continuous.Division div2 "Average difference"
     annotation (Placement(transformation(extent={{20,-140},{40,-120}})));
-  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hysSetBac(final uLow=uLow,
-      final uHigh=uHigh)
-    "Hysteresis that outputs if the group should run in setback mode"
-    annotation (Placement(transformation(extent={{60,-30},{80,-10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hysSetUp(final uLow=uLow,
-      final uHigh=uHigh)
-    "Hysteresis that outputs if the group should run in setup mode"
-    annotation (Placement(transformation(extent={{60,-140},{80,-120}})));
   Buildings.Controls.OBC.CDL.Continuous.MultiMin minToNexOcc(
     final nin=numZonGro)
     "Minimum time to next occupied period"
