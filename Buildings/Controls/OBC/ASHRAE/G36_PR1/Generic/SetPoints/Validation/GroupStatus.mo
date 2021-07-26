@@ -212,7 +212,7 @@ Buildings.Controls.OBC.ASHRAE.G36_PR1.Generic.SetPoints.GroupStatus</a>
 for checking group temperature status.
 </p>
 <p>
-The block take 3 zones as input, but filters them 
+The block takes 3 zones as input, but filters them
 down to only processing zone 1 and 3 
 (reindexed in output to 1 and 2 respectively).
 </p>
