@@ -1,11 +1,11 @@
 within Buildings.Controls.OBC.CDL.Logical;
 block MultiOr
   "Logical MultiOr, y = u[1] or u[2] or u[3] or ..."
-  parameter Integer nu(
+  parameter Integer nin(
     min=0)=0
     "Number of input connections"
     annotation (Dialog(connectorSizing=true),HideResult=true);
-  Interfaces.BooleanInput u[nu]
+  Interfaces.BooleanInput u[nin]
     "Connector of Boolean input signals"
     annotation (Placement(transformation(extent={{-140,70},{-100,-70}})));
   Interfaces.BooleanOutput y
@@ -13,7 +13,7 @@ block MultiOr
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
 protected
-  Boolean uTemp[nu]
+  Boolean uTemp[nin]
     "Temporary variable";
 
 equation
@@ -26,8 +26,9 @@ equation
       1) loop
       uTemp[i]=u[i] or uTemp[i-1];
     end for;
-    y=uTemp[nu];
-  elseif(size(
+    y=uTemp[nin];
+  elseif
+        (size(
     u,
     1) == 1) then
     uTemp[1]=u[1];
