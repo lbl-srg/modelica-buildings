@@ -13,7 +13,7 @@ block RealArrayFilter
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
 protected
-  Integer mskId[nout] = Modelica.Math.BooleanVectors.index(msk)
+  parameter Integer mskId[nout] = Modelica.Math.BooleanVectors.index(msk)
     "Indices of included element in input array";
 
 initial equation
