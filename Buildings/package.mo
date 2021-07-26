@@ -234,20 +234,20 @@ to <b style=\"color:blue\">existing</b> libraries:
 </tr>
 <tr><td valign=\"top\">Buildings.Controls.OBC.ASHRAE.G36_PR1.Generic.SetPoints.ZoneStatusDuplicator
     </td>
-    <td valign=\"top\">Duplicates the zone status to be connected to all zone groups.<br/>
-                     This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2544\">issue 2544</a>.
+    <td valign=\"top\">Block that duplicates the zone status to be connected to all zone groups.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2544\">issue 2544</a>.
     </td>
 </tr>
 <tr><td valign=\"top\">
-	Buildings.Controls.OBC.CDL.Routing.BooleanArrayFilter<br/>
-	Buildings.Controls.OBC.CDL.Routing.BooleanArrayReplicator<br/>
-	Buildings.Controls.OBC.CDL.Routing.IntegerArrayFilter<br/>
-	Buildings.Controls.OBC.CDL.Routing.IntegerArrayReplicator<br/>
-	Buildings.Controls.OBC.CDL.Routing.RealArrayFilter<br/>
-	Buildings.Controls.OBC.CDL.Routing.RealArrayReplicator
+        Buildings.Controls.OBC.CDL.Routing.BooleanArrayFilter<br/>
+        Buildings.Controls.OBC.CDL.Routing.BooleanArrayReplicator<br/>
+        Buildings.Controls.OBC.CDL.Routing.IntegerArrayFilter<br/>
+        Buildings.Controls.OBC.CDL.Routing.IntegerArrayReplicator<br/>
+        Buildings.Controls.OBC.CDL.Routing.RealArrayFilter<br/>
+        Buildings.Controls.OBC.CDL.Routing.RealArrayReplicator
     </td>
-    <td valign=\"top\">Blocks for filtering and replicating arrays<br/>
-                     This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2544\">issue 2544</a>.
+    <td valign=\"top\">Blocks for filtering and replicating arrays.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2544\">issue 2544</a>.
     </td>
 </tr>
 </table>
@@ -264,7 +264,7 @@ have been <b style=\"color:blue\">improved</b> in a
 <tr><td valign=\"top\">Buildings.Controls.OBC.ASHRAE.G36_PR1.Generic.SetPoints.GroupStatus
     </td>
     <td valign=\"top\">Add filters to select which zones are used in group.<br/>
-                     This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2544\">issue 2544</a>.
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2544\">issue 2544</a>.
     </td>
 </tr>
 </table>

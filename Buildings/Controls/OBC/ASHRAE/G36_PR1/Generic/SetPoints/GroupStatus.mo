@@ -2,9 +2,9 @@ within Buildings.Controls.OBC.ASHRAE.G36_PR1.Generic.SetPoints;
 block GroupStatus "Block that outputs the zone group status"
 
   parameter Integer numZon(
-    final min=1)=5 "number of zones in building";
+    final min=1)=5 "Number of zones in building";
   parameter Integer numZonGro(
-    final min=1)=numZon "number of zones in group";
+    final min=1)=numZon "Number of zones in group";
   parameter Boolean zonGroMsk[numZon]=fill(true, numZon)
     "Boolean array mask of zones included in group";
 
