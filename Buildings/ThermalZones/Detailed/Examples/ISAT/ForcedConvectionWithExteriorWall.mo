@@ -89,8 +89,7 @@ equation
 <p><span style=\"font-family: Courier New;\">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;name={&quot;East&nbsp;Wall&quot;},</span></p>
 <p><span style=\"font-family: Courier New;\">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A={0.9},</span></p>
 <p><span style=\"font-family: Courier New;\">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;layers={matLayExt},</span></p>
-<p><span style=\"font-family: Courier New;\">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;til={</span></p>
-<p><span style=\"font-family: Courier New;\">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Buildings.Types.Tilt.Wall},</span></p>
+<p><span style=\"font-family: Courier New;\">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;til={Buildings.Types.Tilt.Wall},</span></p>
 <p><span style=\"font-family: Courier New;\">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;boundaryCondition={Buildings.ThermalZones.Detailed.Types.CFDBoundaryConditions.Temperature}),</span></p>
 <p><br>The other walls are defined as regular surface boundaries in the roo model as shown below.</p>
 <p><span style=\"font-family: Courier New;\">surBou(</span></p>
@@ -99,9 +98,9 @@ equation
 <p><span style=\"font-family: Courier New;\">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A={0.9,1,1,1,1},</span></p>
 <p><span style=\"font-family: Courier New;\">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;til={Buildings.Types.Tilt.Wall,Buildings.Types.Tilt.Wall,</span></p>
 <p><span style=\"font-family: Courier New;\">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Buildings.Types.Tilt.Wall,Buildings.Types.Tilt.Ceiling,Buildings.Types.Tilt.Floor},</span></p>
-<p><span style=\"font-family: Courier New;\">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style=\"color: #0000ff;\">each&nbsp;</span>absIR=1e-5,</p>
-<p><span style=\"font-family: Courier New;\">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style=\"color: #0000ff;\">each&nbsp;</span>absSol=1e-5,</p>
-<p><span style=\"font-family: Courier New;\">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style=\"color: #0000ff;\">each&nbsp;</span>boundaryCondition=Buildings.ThermalZones.Detailed.Types.CFDBoundaryConditions.Temperature),</p>
+<p><span style=\"font-family: Courier New;\">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style=\"color: #0000ff;\">each&nbsp;</span>absIR=1e-5,</span></p>
+<p><span style=\"font-family: Courier New;\">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style=\"color: #0000ff;\">each&nbsp;</span>absSol=1e-5,</span></p>
+<p><span style=\"font-family: Courier New;\">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style=\"color: #0000ff;\">each&nbsp;</span>boundaryCondition=Buildings.ThermalZones.Detailed.Types.CFDBoundaryConditions.Temperature),</span></p>
 <p>The heat flux through the east wall is defined as an ISAT output in Section 3 of the set.isat file located in the directory Buildings/Resources/Data/ThermalZones/Detailed/Examples/ISAT/ForcedConvectionWithExteriorWall/. </p>
 <p><span style=\"font-family: Courier New;\">/********************************************************************************</span></p>
 <p><span style=\"font-family: Courier New;\">| Section 3: Output settings of isat and ffd</span></p>

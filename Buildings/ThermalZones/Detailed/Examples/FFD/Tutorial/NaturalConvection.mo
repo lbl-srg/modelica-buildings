@@ -161,7 +161,7 @@ More details of the case description can be found in
 This section describes step by step how to build and simulate the model.
 </p>
 <ol>
-<li>
+<li> 
 <p>
 Add the following component models to the <code>NaturalConvection</code> model:
 </p>
