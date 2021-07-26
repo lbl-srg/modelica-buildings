@@ -7,8 +7,8 @@ block Speed
   parameter Boolean fixSpe = false
     "Flag to indicate if the plant has fix speed condenser water pump";
   parameter Integer totSta = 6
-    "Total number of stages, including stage zero and the stages with a WSE, if applicable";
-  parameter Integer chiSta = 3
+    "Total number of plant stages, including stage zero and the stages with a WSE, if applicable";
+  parameter Integer nChiSta = 3
     "Total number of chiller stages, including stage zero but not the stages with a WSE, if applicable";
   parameter Real staVec[totSta] = {0, 0.5, 1, 1.5, 2, 2.5}
     "Chiller stage vector, element value like x.5 means chiller stage x plus WSE";
@@ -18,7 +18,7 @@ block Speed
   parameter Real desConWatPumNum[totSta] = {0,1,1,2,2,2}
     "Design number of condenser water pumps that should be ON, according to current chiller stage and WSE status"
     annotation (Dialog(group="Setpoint according to stage"));
-  parameter Real desChiNum[chiSta] = {0, 1, 2}
+  parameter Real desChiNum[nChiSta] = {0, 1, 2}
     "Design number of chiller that should be ON, according to current chiller stage"
     annotation (Dialog(group="Setpoint according to stage", enable=fixSpe));
 
@@ -99,12 +99,12 @@ protected
     final k=0) if not have_WSE
     "Constant zero"
     annotation (Placement(transformation(extent={{-120,-10},{-100,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con5[chiSta](
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con5[nChiSta](
     final k=desChiNum) if fixSpe
     "Number of chiller should be enabled"
     annotation (Placement(transformation(extent={{-20,-70},{0,-50}})));
   Buildings.Controls.OBC.CDL.Routing.RealExtractor conWatPumOn1(
-    final nin=chiSta) if fixSpe
+    final nin=nChiSta) if fixSpe
     "Number of condenser water pump should be on"
     annotation (Placement(transformation(extent={{20,-70},{40,-50}})));
   Buildings.Controls.OBC.CDL.Conversions.RealToInteger reaToInt1 if fixSpe

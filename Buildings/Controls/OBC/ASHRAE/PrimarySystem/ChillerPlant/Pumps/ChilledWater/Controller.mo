@@ -113,8 +113,8 @@ block Controller
     "Lead pump status setpoint"
     annotation (Placement(transformation(extent={{280,50},{320,90}}),
       iconTransformation(extent={{100,60},{140,100}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yChiWatPum[nPum] if
-    have_heaPum
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yChiWatPum[nPum]
+ if have_heaPum
     "Chilled water pump status setpoint"
     annotation (Placement(transformation(extent={{280,-20},{320,20}}),
       iconTransformation(extent={{100,-20},{140,20}})));
@@ -196,8 +196,8 @@ protected
     final nout=nPum) if have_heaPum
     "Replicate boolean input"
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
-  Buildings.Controls.OBC.CDL.Conversions.IntegerToReal intToRea[nPum] if
-       have_heaPum
+  Buildings.Controls.OBC.CDL.Conversions.IntegerToReal intToRea[nPum]
+    if have_heaPum
     "Convert integer to real number"
     annotation (Placement(transformation(extent={{-220,220},{-200,240}})));
   Buildings.Controls.OBC.CDL.Routing.RealExtractor leaPum(
@@ -234,8 +234,8 @@ protected
   Buildings.Controls.OBC.CDL.Integers.Equal intEqu3[nPum] if have_heaPum
     "Check next lag pump"
     annotation (Placement(transformation(extent={{60,-100},{80,-80}})));
-  Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger booToInt[nPum] if
-       have_heaPum
+  Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger booToInt[nPum]
+    if have_heaPum
     "Convert boolean to integer"
     annotation (Placement(transformation(extent={{-240,-130},{-220,-110}})));
   Buildings.Controls.OBC.CDL.Integers.MultiSum mulSumInt(
@@ -257,16 +257,16 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Pre pre1[nPum] if have_heaPum
     "Breaks algebraic loops"
     annotation (Placement(transformation(extent={{220,-130},{240,-110}})));
-  Buildings.Controls.OBC.CDL.Logical.LogicalSwitch leaPumSta[nPum] if
-    have_heaPum
+  Buildings.Controls.OBC.CDL.Logical.LogicalSwitch leaPumSta[nPum]
+ if have_heaPum
     "Lead pump status"
     annotation (Placement(transformation(extent={{120,180},{140,200}})));
-  Buildings.Controls.OBC.CDL.Logical.LogicalSwitch nexLagPumSta[nPum] if
-    have_heaPum
+  Buildings.Controls.OBC.CDL.Logical.LogicalSwitch nexLagPumSta[nPum]
+ if have_heaPum
     "Next lag pump status"
     annotation (Placement(transformation(extent={{120,-40},{140,-20}})));
-  Buildings.Controls.OBC.CDL.Logical.LogicalSwitch lasLagPumSta[nPum] if
-    have_heaPum
+  Buildings.Controls.OBC.CDL.Logical.LogicalSwitch lasLagPumSta[nPum]
+ if have_heaPum
     "Last lag pump status"
     annotation (Placement(transformation(extent={{120,-100},{140,-80}})));
   Buildings.Controls.OBC.CDL.Logical.Or enaPum[nPum] if have_heaPum

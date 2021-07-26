@@ -3,7 +3,7 @@ block Controller "Cooling tower controller"
 
   parameter Integer nChi=2 "Total number of chillers";
   parameter Integer totSta=6
-    "Total number of stages, stage zero should be counted as one stage";
+    "Total number of plant stages, including stage zero and the stages with a WSE, if applicable";
   parameter Integer nTowCel=4 "Total number of cooling tower cells";
   parameter Integer nConWatPum=2 "Total number of condenser water pumps";
   parameter Boolean closeCoupledPlant=false

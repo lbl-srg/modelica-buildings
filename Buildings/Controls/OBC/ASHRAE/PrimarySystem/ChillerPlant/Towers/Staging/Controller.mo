@@ -6,7 +6,7 @@ block Controller "Sequence of staging cooling tower cells"
   parameter Integer nTowCel=4 "Total number of cooling tower cells";
   parameter Integer nConWatPum=2 "Total number of condenser water pumps";
   parameter Integer totSta=6
-    "Total number of plant stages, stage zero should be counted as one stage";
+    "Total number of plant stages, including stage zero and the stages with a WSE, if applicable";
   parameter Real staVec[totSta]={0,0.5,1,1.5,2,2.5}
     "Plant stage vector with size of total number of stages, element value like x.5 means chiller stage x plus WSE";
   parameter Real towCelOnSet[totSta]={0,2,2,4,4,4}

@@ -37,8 +37,8 @@ block ReduceDemand "Sequence for reducing operating chiller demand"
     "Chiller status: true=ON"
     annotation (Placement(transformation(extent={{-200,-130},{-160,-90}}),
       iconTransformation(extent={{-140,-110},{-100,-70}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yChiDem[nChi](final quantity
-      =fill("ElectricCurrent", nChi), final unit=fill("A", nChi))
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yChiDem[nChi](final quantity=
+       fill("ElectricCurrent", nChi), final unit=fill("A", nChi))
                                 "Chiller demand setpoint"
     annotation (Placement(transformation(extent={{160,70},{200,110}}),
       iconTransformation(extent={{100,20},{140,60}})));

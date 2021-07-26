@@ -5,8 +5,8 @@ block EnableLead_headered
     "Flag of waterside economizer: true=have WSE, false=no WSE";
   parameter Integer nChi=2 "Total number of chiller";
 
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uWseConIsoVal if
-       have_WSE "WSE condenser water isolation valve commanded status"
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uWseConIsoVal
+    if have_WSE "WSE condenser water isolation valve commanded status"
     annotation (Placement(transformation(extent={{-140,-40},{-100,0}}),
       iconTransformation(extent={{-140,-60},{-100,-20}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uChiConIsoVal[nChi]

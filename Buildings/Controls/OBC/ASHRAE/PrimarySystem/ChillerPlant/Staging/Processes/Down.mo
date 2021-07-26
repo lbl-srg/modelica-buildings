@@ -5,8 +5,8 @@ block Down
   parameter Integer nChi = 2 "Total number of chillers in the plant";
   parameter Integer nConWatPum=2 "Total number of condenser water pumps";
   parameter Integer totSta = 3
-    "Total number of stages, including the stages with a WSE, if applicable";
-  parameter Integer chiSta=3
+    "Total number of plant stages, including stage zero and the stages with a WSE, if applicable";
+  parameter Integer nChiSta=3
     "Total number of chiller stages, including stage zero but not the stages with a WSE, if applicable";
   parameter Boolean have_WSE=true
     "True: have waterside economizer";
@@ -48,7 +48,7 @@ block Down
   parameter Real desConWatPumNum[totSta]
     "Design number of condenser water pumps that should be ON, according to current chiller stage and WSE status"
     annotation (Dialog(group="Disable condenser water pump"));
-  parameter Real desChiNum[chiSta]={0,1,2}
+  parameter Real desChiNum[nChiSta]={0,1,2}
     "Design number of chiller that should be ON, according to current chiller stage"
     annotation (Dialog(group="Disable condenser water pump", enable=fixSpeConWatPum));
   parameter Real byPasSetTim(unit="s", displayUnit="h")
@@ -65,8 +65,8 @@ block Down
     displayUnit="h")=60
     "Time to allow loop to stabilize after resetting minimum chilled water flow setpoint"
     annotation (Dialog(group="Reset bypass"));
-  parameter Real relSpeDif = 0.05
-    "Relative error to the setpoint for checking if it has achieved speed setpoint"
+  parameter Real pumSpeChe = 0.05
+    "Lower threshold value to check if condenser water pump has achieved setpoint"
     annotation (Dialog(tab="Advanced", group="Disable condenser water pump"));
   parameter Real relFloDif=0.05
     "Relative error to the setpoint for checking if it has achieved flow rate setpoint"
@@ -156,8 +156,9 @@ block Down
     "Indicate stage-down status: true=in stage-down process"
     annotation (Placement(transformation(extent={{280,330},{320,370}}),
       iconTransformation(extent={{100,170},{140,210}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yChiDem[nChi](final quantity=
-       fill("ElectricCurrent", nChi), final unit=fill("A", nChi))
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yChiDem[nChi](
+    final quantity=fill("ElectricCurrent", nChi),
+    final unit=fill("A", nChi))
     "Chiller demand setpoint"
     annotation (Placement(transformation(extent={{280,240},{320,280}}),
       iconTransformation(extent={{100,130},{140,170}})));
@@ -256,12 +257,12 @@ protected
     final nChi=nChi,
     final nConWatPum=nConWatPum,
     final totSta=totSta,
-    final chiSta=chiSta,
+    final nChiSta=nChiSta,
     final staVec=staVec,
     final desConWatPumSpe=desConWatPumSpe,
     final desConWatPumNum=desConWatPumNum,
     final desChiNum=desChiNum,
-    final relSpeDif=relSpeDif)
+    final pumSpeChe=pumSpeChe)
     "Enabling next condenser water pump or change pump speed"
     annotation (Placement(transformation(extent={{140,-192},{160,-172}})));
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.MinimumFlowBypass.FlowSetpoint

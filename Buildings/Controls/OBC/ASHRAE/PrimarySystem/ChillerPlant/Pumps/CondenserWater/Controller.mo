@@ -10,9 +10,9 @@ block Controller "Condenser water pump controller"
   parameter Integer nChi=2 "Total number of chillers";
   parameter Integer nConWatPum=2 "Total number of condenser water pumps";
   parameter Integer totSta=6
-    "Total number of stages, including the stages with a WSE, if applicable"
+    "Total number of plant stages, including stage zero and the stages with a WSE, if applicable"
     annotation (Dialog(group="Stage design speed"));
-  parameter Integer chiSta = 3
+  parameter Integer nChiSta = 3
     "Total number of chiller stages, including stage zero but not the stages with a WSE, if applicable";
   parameter Real staVec[totSta]={0,0.5,1,1.5,2,2.5}
     "Chiller stage vector, element value like x.5 means chiller stage x plus WSE"
@@ -23,12 +23,11 @@ block Controller "Condenser water pump controller"
   parameter Real desConWatPumNum[totSta]={0,1,1,2,2,2}
     "Design number of condenser water pumps that should be ON, according to current chiller stage and WSE status"
     annotation (Dialog(group="Stage design speed"));
-  parameter Real desChiNum[chiSta]={0,1,2}
+  parameter Real desChiNum[nChiSta]={0,1,2}
     "Design number of chiller that should be ON, according to current chiller stage"
     annotation (Dialog(group="Stage design speed", enable=fixSpe));
-  parameter Real relSpeDif = 0.05
-    "Relative error to the setpoint for checking if it has achieved speed setpoint"
-    annotation (Dialog(tab="Advanced"));
+  parameter Real pumSpeChe = 0.05
+    "Lower threshold value to check if condenser water pump has achieved setpoint";
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uChiConIsoVal[nChi]
     "Chiller condenser water isolation valve status"
@@ -104,7 +103,7 @@ protected
     final have_WSE=have_WSE,
     final fixSpe=fixSpe,
     final totSta=totSta,
-    final chiSta=chiSta,
+    final nChiSta=nChiSta,
     final staVec=staVec,
     final desConWatPumSpe=desConWatPumSpe,
     final desConWatPumNum=desConWatPumNum,
@@ -117,9 +116,8 @@ protected
   Buildings.Controls.OBC.CDL.Continuous.Abs abs if not fixSpe
     "Absolute difference"
     annotation (Placement(transformation(extent={{-60,-60},{-40,-40}})));
-  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys(
-    final uLow=relSpeDif - 0.01,
-    final uHigh=relSpeDif + 0.01) if not fixSpe
+  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys(final uLow=pumSpeChe,
+      final uHigh=2*pumSpeChe)    if not fixSpe
     "Check if operating speed equals to setpoint"
     annotation (Placement(transformation(extent={{0,-100},{20,-80}})));
   Buildings.Controls.OBC.CDL.Logical.Not not1 if not fixSpe
@@ -143,14 +141,6 @@ protected
     final k=false) if not have_WSE
     "Logical true"
     annotation (Placement(transformation(extent={{-60,100},{-40,120}})));
-  Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar(
-    final p=1e-6,
-    final k=1) if not fixSpe
-    "Add a small value to avoid zero denominator"
-    annotation (Placement(transformation(extent={{-100,-120},{-80,-100}})));
-  Buildings.Controls.OBC.CDL.Continuous.Division div if not fixSpe
-    "Calculate the relative difference"
-    annotation (Placement(transformation(extent={{-40,-100},{-20,-80}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger booToInt[nConWatPum] if fixSpe
     "Convert boolean to integer"
     annotation (Placement(transformation(extent={{-100,-150},{-80,-130}})));
@@ -230,17 +220,6 @@ equation
   connect(enaLeaHeaPum.uChiConIsoVal, uChiConIsoVal)
     annotation (Line(points={{18,134},{-40,134},{-40,140},{-140,140}},
       color={255,0,255}));
-  connect(uConWatPumSpeSet, addPar.u)
-    annotation (Line(points={{-140,-50},{-110,-50},{-110,-110},{-102,-110}},
-      color={0,0,127}));
-  connect(addPar.y, div.u2)
-    annotation (Line(points={{-78,-110},{-70,-110},{-70,-96},{-42,-96}},
-      color={0,0,127}));
-  connect(abs.y, div.u1)
-    annotation (Line(points={{-38,-50},{-30,-50},{-30,-70},{-60,-70},{-60,-84},{
-          -42,-84}}, color={0,0,127}));
-  connect(div.y, hys.u)
-    annotation (Line(points={{-18,-90},{-2,-90}},   color={0,0,127}));
   connect(uConWatPum, booToInt.u)
     annotation (Line(points={{-140,-140},{-102,-140}}, color={255,0,255}));
   connect(booToInt.y, mulSumInt.u)
@@ -252,7 +231,9 @@ equation
   connect(intEqu.y, and2.u2) annotation (Line(points={{62,-120},{70,-120},{70,-58},
           {78,-58}}, color={255,0,255}));
 
-annotation (
+  connect(abs.y, hys.u) annotation (Line(points={{-38,-50},{-20,-50},{-20,-90},{
+          -2,-90}}, color={0,0,127}));
+    annotation (Dialog(tab="Advanced"),
   defaultComponentName="conWatPumCon",
   Icon(coordinateSystem(extent={{-100,-100},{100,100}}),
        graphics={

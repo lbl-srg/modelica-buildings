@@ -4,8 +4,8 @@ block Up "Sequence for control devices when there is stage-up command"
   parameter Integer nChi=2 "Total number of chillers in the plant";
   parameter Integer nConWatPum=2 "Total number of condenser water pumps";
   parameter Integer totSta=6
-    "Total number of stages, including the stages with a WSE, if applicable";
-  parameter Integer chiSta=3
+    "Total number of plant stages, including stage zero and the stages with a WSE, if applicable";
+  parameter Integer nChiSta=3
     "Total number of chiller stages, including stage zero but not the stages with a WSE, if applicable";
   parameter Boolean have_WSE=true
     "True: have waterside economizer";
@@ -59,7 +59,7 @@ block Up "Sequence for control devices when there is stage-up command"
   parameter Real desConWatPumNum[totSta]={0,1,1,2,2,2}
     "Design number of condenser water pumps that should be ON, according to current chiller stage and WSE status"
     annotation (Dialog(group="Enable condenser water pump"));
-  parameter Real desChiNum[chiSta]={0,1,2}
+  parameter Real desChiNum[nChiSta]={0,1,2}
     "Design number of chiller that should be ON, according to current chiller stage"
     annotation (Dialog(group="Enable condenser water pump", enable=fixSpeConWatPum));
   parameter Real thrTimEnb(
@@ -86,8 +86,8 @@ block Up "Sequence for control devices when there is stage-up command"
     displayUnit="h")=300
     "Threshold time to check after newly enabled chiller being operated"
     annotation (Dialog(group="Enable next chiller",enable=have_PonyChiller));
-  parameter Real relSpeDif = 0.05
-    "Relative error to the setpoint for checking if it has achieved speed setpoint"
+  parameter Real pumSpeChe = 0.05
+    "Lower threshold value to check if condenser water pump has achieved setpoint"
     annotation (Dialog(tab="Advanced", group="Enable condenser water pump"));
   parameter Real relFloDif=0.05
     "Relative error to the setpoint for checking if it has achieved flow rate setpoint"
@@ -251,15 +251,15 @@ protected
     conWatPumCon(
     final have_heaPum=have_heaConWatPum,
     final have_WSE=have_WSE,
-    fixSpe=fixSpeConWatPum,
+    final fixSpe=fixSpeConWatPum,
     final nChi=nChi,
     final totSta=totSta,
-    chiSta=chiSta,
+    final nChiSta=nChiSta,
     final staVec=staVec,
     final desConWatPumSpe=desConWatPumSpe,
     final desConWatPumNum=desConWatPumNum,
     final desChiNum=desChiNum,
-    final relSpeDif=relSpeDif)
+    final pumSpeChe=pumSpeChe)
     "Enabling next condenser water pump or change pump speed"
     annotation (Placement(transformation(extent={{60,-20},{80,0}})));
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Processes.Subsequences.HeadControl

@@ -112,8 +112,8 @@ block DownStart "Sequence for starting stage-down process"
     "Next disabling chiller when there is any stage up that need one chiller on and another off"
     annotation (Placement(transformation(extent={{-200,-190},{-160,-150}}),
       iconTransformation(extent={{-140,-120},{-100,-80}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yChiDem[nChi](final quantity
-      =fill("ElectricCurrent", nChi), final unit=fill("A", nChi))
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yChiDem[nChi](final quantity=
+       fill("ElectricCurrent", nChi), final unit=fill("A", nChi))
                                 "Chiller demand setpoint"
     annotation (Placement(transformation(extent={{180,120},{220,160}}),
       iconTransformation(extent={{100,70},{140,110}})));
