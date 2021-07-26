@@ -208,8 +208,6 @@ equation
       textString="%second",
       index=1,
       extent={{6,3},{6,3}}));
-  connect(pSetDuc.TOut, TOut.y) annotation (Line(points={{158,2},{32,2},{32,130},
-          {-160,130},{-160,180},{-279,180}}, color={0,0,127}));
   connect(TOut.y, controlBus.TOut) annotation (Line(points={{-279,180},{-240,180},
           {-240,-342}},                            color={0,0,127}), Text(
       textString="%second",
@@ -219,14 +217,12 @@ equation
       points={{-70.6667,141.467},{-70.6667,120},{-240,120},{-240,-342}},
       color={255,204,51},
       thickness=0.5));
-  connect(modeSelector.yFan, conFanSup.uFan) annotation (Line(points={{-179.091,
-          -305.455},{260,-305.455},{260,-30},{226,-30},{226,6},{238,6}},
-                                                                 color={255,0,
+  connect(modeSelector.yFan, conFanSup.uFan) annotation (Line(points={{-179.091,-305.455},{260,-305.455},{260,-30},{226,
+          -30},{226,6},{238,6}},                                 color={255,0,
           255}));
   connect(conFanSup.y, fanSup.y) annotation (Line(points={{261,0},{280,0},{280,
           -20},{310,-20},{310,-28}}, color={0,0,127}));
-  connect(or2.u2, modeSelector.yFan) annotation (Line(points={{-12,-248},{-30,
-          -248},{-30,-305.455},{-179.091,-305.455}},
+  connect(or2.u2, modeSelector.yFan) annotation (Line(points={{-12,-248},{-30,-248},{-30,-305.455},{-179.091,-305.455}},
                                      color={255,0,255}));
   connect(cor.y_actual, pSetDuc.u[1]) annotation (Line(points={{612,42},{620,42},
           {620,74},{140,74},{140,-7.6},{158,-7.6}}, color={0,0,127}));
@@ -252,17 +248,16 @@ equation
       color={0,0,127},
       pattern=LinePattern.Dash));
   connect(conTSup.yOA, conEco.uOATSup) annotation (Line(
-      points={{52,-220},{60,-220},{60,170},{-86,170},{-86,158.667},{-81.3333,
-          158.667}},
+      points={{52,-220},{60,-220},{60,170},{-86,170},{-86,158.667},{-81.3333,158.667}},
       color={0,0,127},
       pattern=LinePattern.Dash));
   connect(or2.y, conTSup.uEna) annotation (Line(points={{12,-240},{20,-240},{20,
           -226},{28,-226}},    color={255,0,255}));
-  connect(modeSelector.yEco, conEco.uEna) annotation (Line(points={{-179.091,
-          -314.545},{-160,-314.545},{-160,100},{-73.3333,100},{-73.3333,137.333}},
+  connect(modeSelector.yEco, conEco.uEna) annotation (Line(points={{-179.091,-314.545},{-160,-314.545},{-160,100},{
+          -73.3333,100},{-73.3333,137.333}},
         color={255,0,255}));
-  connect(TMix.T, conEco.TMix) annotation (Line(points={{40,-29},{40,166},{-90,
-          166},{-90,148},{-81.3333,148}}, color={0,0,127}));
+  connect(TMix.T, conEco.TMix) annotation (Line(points={{40,-29},{40,166},{-90,166},{-90,148},{-81.3333,148}},
+                                          color={0,0,127}));
   connect(controlBus, TSupSet.controlBus) annotation (Line(
       points={{-240,-342},{-240,-228},{-190,-228}},
       color={255,204,51},
@@ -285,14 +280,11 @@ equation
           {1017,-37.5},{1016,-37.5},{1016,44}}, color={0,0,127}));
   connect(conVAVWes.yVal, gaiHeaCoiWes.u) annotation (Line(points={{1207,-119},
           {1207,-37.5},{1206,-37.5},{1206,44}}, color={0,0,127}));
-  connect(damRet.y, conEco.yRet) annotation (Line(points={{-12,-10},{-18,-10},{
-          -18,146.667},{-58.6667,146.667}},
+  connect(damRet.y, conEco.yRet) annotation (Line(points={{-12,-10},{-18,-10},{-18,146.667},{-58.6667,146.667}},
                                         color={0,0,127}));
-  connect(damExh.y, conEco.yOA) annotation (Line(points={{-40,2},{-40,152},{
-          -58.6667,152}},
+  connect(damExh.y, conEco.yOA) annotation (Line(points={{-40,2},{-40,152},{-58.6667,152}},
                  color={0,0,127}));
-  connect(damOut.y, conEco.yOA) annotation (Line(points={{-40,-28},{-40,-20},{
-          -22,-20},{-22,152},{-58.6667,152}},
+  connect(damOut.y, conEco.yOA) annotation (Line(points={{-40,-28},{-40,-20},{-22,-20},{-22,152},{-58.6667,152}},
                                           color={0,0,127}));
   connect(damExh.port_a, TRet.port_b) annotation (Line(points={{-30,-10},{-26,-10},
           {-26,140},{90,140}}, color={0,127,255}));
