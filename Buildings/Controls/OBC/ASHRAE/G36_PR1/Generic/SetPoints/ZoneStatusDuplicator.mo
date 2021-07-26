@@ -387,14 +387,15 @@ First implementation.
 </ul>
 </html>", info="<html>
 <p>
-This block duplicates the signals of <code>nZon</code> 
-zones statuses by a factor of <code>nGro</code>.
+This block duplicates the signals of <code>nZon</code> by converting the
+input vector-valued signals of dimension <code>nZon</code> to a matrix-valued
+output of dimension <code>[nGro, nZon]</code>.
 </p>
 <p>
 This block prevent the use of <code>for</code> loops in the connectors between
 zones and zone groups by connecting all the zones to each 
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36_PR1.Generic.SetPoints.GroupStatus\">
-Buildings.Controls.OBC.ASHRAE.G36_PR1.Generic.SetPoints.GroupStatus</a>. <br>
+Buildings.Controls.OBC.ASHRAE.G36_PR1.Generic.SetPoints.GroupStatus</a>.
 </p>
 </html>"));
 end ZoneStatusDuplicator;

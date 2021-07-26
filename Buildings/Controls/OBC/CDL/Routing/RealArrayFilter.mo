@@ -18,8 +18,8 @@ protected
 
 initial equation
   assert(nout==sum({if msk[i] then 1 else 0 for i in 1:nin}),
-    "The size of the output array does not match the 
-    size of included elements in the mask");
+    "The size of the output array does not match the
+    size of included elements in the mask.");
 equation
   y = u[mskId];
   annotation (
@@ -53,13 +53,18 @@ First implementation
 </ul>
 </html>", info="<html>
 <p>
-This block filter a Real array of size <code>nin</code> to
-an array of size <code>nout</code> given a boolean mask 
+This block filters a Real array of size <code>nin</code> to
+an array of size <code>nout</code> given a boolean mask
 <code>msk</code>.
 </p>
 <p>
-This block initially verifies that the mask will filter the
-array to the right size output.
+If an entry in <code>msk</code> is <code>true</code>, then the value
+of this input will be sent to the output <code>y</code>, otherwise it
+will be discarded.
+</p>
+<p>
+The parameter <code>msk</code> must have exactly <code>nout</code> entries
+set to <code>true</code>, otherwise an error message is issued.
 </p>
 </html>"));
 end RealArrayFilter;
