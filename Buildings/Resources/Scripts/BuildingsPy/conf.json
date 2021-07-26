@@ -227,6 +227,13 @@
     "comment": "This causes a timeout on travis. See https://travis-ci.com/github/lbl-srg/modelica-buildings/jobs/520509213 and https://github.com/lbl-srg/modelica-buildings/issues/2549"
   },
   {
+    "jmodelica": {
+      "simulate": false
+    },
+    "model_name": "Buildings.Examples.DualFanDualDuct.ClosedLoop",
+    "comment": "This causes a timeout on travis. See https://app.travis-ci.com/github/lbl-srg/modelica-buildings/jobs/525707949"
+  },
+  {
     "optimica": {
         "simulate": false,
         "comment": "This causes a timeout on travis, but works locally. See https://travis-ci.com/github/lbl-srg/modelica-buildings/jobs/501193509#L635"

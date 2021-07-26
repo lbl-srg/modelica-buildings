@@ -72,5 +72,9 @@ This is for
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/602\">#602</a>.
 </li>
 </ul>
+</html>", info="<html>
+<p>
+PI controller for the fan speed. The controller outputs <i>y = 0</i> if the fan control signal is off, e.g., if <code>uFan = false</code>.
+</p>
 </html>"));
 end FanVFD;
