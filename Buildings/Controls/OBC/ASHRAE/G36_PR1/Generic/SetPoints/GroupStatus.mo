@@ -304,14 +304,12 @@ protected
     annotation (Placement(transformation(extent={{-30,-130},{-10,-110}})));
   Buildings.Controls.OBC.CDL.Continuous.Division div2 "Average difference"
     annotation (Placement(transformation(extent={{20,-140},{40,-120}})));
-  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys(
-    final uLow=uLow,
-    final uHigh=uHigh)
+  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hysSetBac(final uLow=uLow,
+      final uHigh=uHigh)
     "Hysteresis that outputs if the group should run in setback mode"
     annotation (Placement(transformation(extent={{60,-30},{80,-10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys1(
-    final uLow=uLow,
-    final uHigh=uHigh)
+  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hysSetUp(final uLow=uLow,
+      final uHigh=uHigh)
     "Hysteresis that outputs if the group should run in setup mode"
     annotation (Placement(transformation(extent={{60,-140},{80,-120}})));
   Buildings.Controls.OBC.CDL.Continuous.MultiMin minToNexOcc(
@@ -341,7 +339,7 @@ protected
     final realFalse=1)
     "When any zone becomes occpuied, output zero"
     annotation (Placement(transformation(extent={{0,230},{20,250}})));
-  Buildings.Controls.OBC.CDL.Continuous.Product pro
+  Buildings.Controls.OBC.CDL.Continuous.Product proOcc
     "When it is occupied, output zero"
     annotation (Placement(transformation(extent={{60,210},{80,230}})));
 
@@ -388,15 +386,14 @@ equation
           -14},{18,-14}}, color={0,0,127}));
   connect(difUnoCoo.y, div2.u1) annotation (Line(points={{-8,-120},{8,-120},{8,-124},
           {18,-124}},color={0,0,127}));
-  connect(div1.y, hys.u)
+  connect(div1.y, hysSetBac.u)
     annotation (Line(points={{42,-20},{58,-20}}, color={0,0,127}));
-  connect(hys.y, ySetBac)
+  connect(hysSetBac.y, ySetBac)
     annotation (Line(points={{82,-20},{120,-20}}, color={255,0,255}));
-  connect(div2.y, hys1.u)
+  connect(div2.y, hysSetUp.u)
     annotation (Line(points={{42,-130},{58,-130}}, color={0,0,127}));
-  connect(hys1.y, ySetUp)
-    annotation (Line(points={{82,-130},{120,-130}},
-      color={255,0,255}));
+  connect(hysSetUp.y, ySetUp)
+    annotation (Line(points={{82,-130},{120,-130}}, color={255,0,255}));
   connect(groOcc.y, uGroOcc) annotation (Line(points={{62,280},{120,280}},
           color={255,0,255}));
   connect(oveRidOcc.y, groOcc.u1) annotation (Line(points={{-38,300},{-20,300},{
@@ -409,12 +406,12 @@ equation
     annotation (Line(points={{-38,-300},{38,-300}}, color={255,127,0}));
   connect(schOcc.y, booToRea.u) annotation (Line(points={{-38,260},{-20,260},{-20,
           240},{-2,240}}, color={255,0,255}));
-  connect(minToNexOcc.y, pro.u2) annotation (Line(points={{-38,220},{-20,220},{-20,
-          214},{58,214}}, color={0,0,127}));
-  connect(booToRea.y, pro.u1) annotation (Line(points={{22,240},{40,240},{40,226},
-          {58,226}}, color={0,0,127}));
-  connect(pro.y, nexOcc) annotation (Line(points={{82,220},{94,220},{94,220},{120,
-          220}}, color={0,0,127}));
+  connect(minToNexOcc.y, proOcc.u2) annotation (Line(points={{-38,220},{-20,220},
+          {-20,214},{58,214}}, color={0,0,127}));
+  connect(booToRea.y, proOcc.u1) annotation (Line(points={{22,240},{40,240},{40,
+          226},{58,226}}, color={0,0,127}));
+  connect(proOcc.y, nexOcc) annotation (Line(points={{82,220},{94,220},{94,220},
+          {120,220}}, color={0,0,127}));
   connect(zonOcc, zonOccFil.u)
     annotation (Line(points={{-160,300},{-122,300}}, color={255,0,255}));
   connect(uOcc, uOccFil.u)
@@ -648,7 +645,7 @@ This sequence sums up the zone level status calculation to find the outputs that
 needed to define the zone group operation mode.
 </p>
 <p>
-It requires following inputs from zone lelvel calculation:
+It requires following inputs from zone level controller:
 </p>
 <ul>
 <li>
