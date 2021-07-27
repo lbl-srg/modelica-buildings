@@ -41,6 +41,48 @@
   "model_name": "Buildings.ThermalZones.Detailed.Examples.FFD.Tutorial.MixedConvection"
   },
   {
+    "optimica": {
+      "simulate": false,
+      "comment": "See https://github.com/lbl-srg/modelica-buildings/issues/2231"
+    },
+  "model_name": "Buildings.ThermalZones.Detailed.Examples.FFD.Tutorial.MixedConvectionWithBox"
+  },
+  {
+    "optimica": {
+      "simulate": false,
+      "comment": "See https://github.com/lbl-srg/modelica-buildings/issues/2231"
+    },
+  "model_name": "Buildings.ThermalZones.Detailed.Examples.ISAT.Tutorial.NaturalConvection"
+  },
+  {
+    "optimica": {
+      "simulate": false,
+      "comment": "See https://github.com/lbl-srg/modelica-buildings/issues/2231"
+    },
+  "model_name": "Buildings.ThermalZones.Detailed.Examples.ISAT.ForcedConvection"
+  },
+  {
+    "optimica": {
+      "simulate": false,
+      "comment": "See https://github.com/lbl-srg/modelica-buildings/issues/2231"
+    },
+  "model_name": "Buildings.ThermalZones.Detailed.Examples.ISAT.ForcedConvectionWithExteriorWall"
+  },
+  {
+    "optimica": {
+      "simulate": false,
+      "comment": "See https://github.com/lbl-srg/modelica-buildings/issues/2231"
+    },
+  "model_name": "Buildings.ThermalZones.Detailed.Examples.ISAT.Tutorial.MixedConvection"
+  },
+  {
+    "optimica": {
+      "simulate": false,
+      "comment": "See https://github.com/lbl-srg/modelica-buildings/issues/2231"
+    },
+  "model_name": "Buildings.ThermalZones.Detailed.Examples.ISAT.Tutorial.MixedConvectionWithBox"
+  },
+  {
     "jmodelica": {
       "simulate": false
     },
