@@ -249,10 +249,10 @@ have been <b style=\"color:blue\">improved</b> in a
     </td>
 </tr>
 <tr><td valign=\"top\">Buildings.Applications.DataCenters.ChillerCooled.Equipment.BaseClasses.AHUParameters<br/>
-                 Buildings.Applications.DataCenters.ChillerCooled.Equipment.BaseClasses.PartialCoolingCoilHumidifyingHeating
+                Buildings.Applications.DataCenters.ChillerCooled.Equipment.BaseClasses.PartialCoolingCoilHumidifyingHeating
     </td>
     <td valign=\"top\">Changed cooling coil model and removed unused parameters.<br/>
-                 This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2549\">issue #2549</a>.
+                This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2549\">issue #2549</a>.
     </td>
 </tr>
 <tr><td colspan=\"2\"><b>Buildings.Examples</b>
@@ -269,7 +269,7 @@ have been <b style=\"color:blue\">improved</b> in a
                  Buildings.Examples.VAVReheat.BaseClasses.PartialOpenLoop
     </td>
     <td valign=\"top\">Changed cooling coil model.<br/>
-                  This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2549\">issue #2549</a>.
+                This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2549\">issue #2549</a>.
     </td>
 </tr>
 <tr><td colspan=\"2\"><b>Buildings.Fluid.FMI</b>
@@ -278,7 +278,7 @@ have been <b style=\"color:blue\">improved</b> in a
 <tr><td valign=\"top\">Buildings.Fluid.FMI.ExportContainers.Validation.RoomHVAC
     </td>
     <td valign=\"top\">Changed cooling coil model.<br/>
-                 This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2549\">issue #2549</a>.
+                This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2549\">issue #2549</a>.
     </td>
 </tr>
 <tr><td colspan=\"2\"><b>xxx</b>
@@ -312,8 +312,8 @@ have been <b style=\"color:blue\">improved</b> in a
                        Buildings.Controls.OBC.CDL.Logical.MultiOr
     </td>
     <td valign=\"top\">Renamed parameter <code>nu</code> to <code>nin</code>.
-                 This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2580\">issue 2580</a>.<br/>
-                 For Dymola, a conversion script makes this change.</td>
+                This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2580\">issue 2580</a>.<br/>
+                For Dymola, a conversion script makes this change.</td>
 </tr>
 </table>
 <!-- Errors that have been fixed -->
