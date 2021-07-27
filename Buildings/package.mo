@@ -312,8 +312,8 @@ have been <b style=\"color:blue\">improved</b> in a
                        Buildings.Controls.OBC.CDL.Logical.MultiOr
     </td>
     <td valign=\"top\">Renamed parameter <code>nu</code> to <code>nin</code>.
-                 This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2580\">issue 2580</a>.
-    </td>
+                 This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2580\">issue 2580</a>.<br/>
+                 For Dymola, a conversion script makes this change.</td>
 </tr>
 </table>
 <!-- Errors that have been fixed -->
