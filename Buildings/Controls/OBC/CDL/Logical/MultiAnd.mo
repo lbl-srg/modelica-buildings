@@ -83,8 +83,13 @@ Buildings.Controls.OBC.CDL.Logical.Validation.MultiAnd</a>
 for an example.
 </p>
 </html>",
-      revisions="<html>
+revisions="<html>
 <ul>
+<li>
+July 26, 2021, by Jianjun Hu:<br/>
+Renamed parameter <code>nu</code> to <code>nin</code>. This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2580\">issue 2580</a>.
+</li>
 <li>
 June 28, 2017, by Jianjun Hu:<br/>
 First implementation. This is for
