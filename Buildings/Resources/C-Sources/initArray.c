@@ -11,7 +11,7 @@
  */
 
 #include "externalObjectStructure.h"
-#include <ModelicaUtilities.h>
+
 #include <stdlib.h>
 
 /* Create the structure "table" and return pointer to "table". */
