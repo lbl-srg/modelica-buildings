@@ -14,8 +14,6 @@
 #include <stdio.h>
 #include <stdbool.h>
 
-/* #include <ModelicaUtilities.h> */
-
 void incrementBuildings_nFMU();
 void decrementBuildings_nFMU();
 size_t getBuildings_nFMU();
