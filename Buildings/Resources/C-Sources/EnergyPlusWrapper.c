@@ -1,7 +1,6 @@
 #ifndef Spawn_declared
 #define Spawn_declared
 
-#include <ModelicaUtilities.h>
 #include "EnergyPlusWrapper.h"
 
 /* *********************************************************
