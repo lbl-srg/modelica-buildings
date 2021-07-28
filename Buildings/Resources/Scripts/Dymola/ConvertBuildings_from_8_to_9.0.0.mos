@@ -12,3 +12,12 @@ convertClass("Buildings.Controls.OBC.CDL.Routing.IntegerReplicator",
              "Buildings.Controls.OBC.CDL.Routing.IntegerScalarReplicator");
 convertClass("Buildings.Controls.OBC.CDL.Routing.RealReplicator",
              "Buildings.Controls.OBC.CDL.Routing.RealScalarReplicator");
+
+// Conversion for https://github.com/lbl-srg/modelica-buildings/issues/2580
+convertElement(
+    "Buildings.Controls.OBC.CDL.Logical.MultiAnd",
+    "nu", "nin");
+convertElement(
+    "Buildings.Controls.OBC.CDL.Logical.MultiOr",
+    "nu", "nin");
+
