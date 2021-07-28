@@ -247,7 +247,7 @@ to <b style=\"color:blue\">existing</b> libraries:
         Buildings.Controls.OBC.CDL.Routing.RealVectorReplicator
     </td>
     <td valign=\"top\">Blocks for filtering and replicating vectors of signals.<br/>
-                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2544\">issue 2544</a>.
+         This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2544\">issue 2544</a>.
     </td>
 </tr>
 </table>
@@ -311,12 +311,24 @@ have been <b style=\"color:blue\">improved</b> in a
 <b style=\"color:blue\">non-backward compatible</b> way:
 </p>
 <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
- <tr><td colspan=\"2\"><b>Buildings.Obsolete</b>
+<tr><td colspan=\"2\"><b>Buildings.Obsolete</b>
     </td>
 </tr>
 <tr><td valign=\"top\">Buildings.Obsolete.Utilities.IO.Python27
     </td>
     <td valign=\"top\">Removed support for Python 27. Use instead <code>Buildings.Utilities.IO.Python36</code>.
+    </td>
+</tr>
+<tr><td colspan=\"2\"><b>Buildings.Controls.OBC.CDL.Routing</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">
+    Buildings.Controls.OBC.CDL.Routing.BooleanReplicator<br/>
+    Buildings.Controls.OBC.CDL.Routing.IntegerReplicator<br/>
+    Buildings.Controls.OBC.CDL.Routing.RealReplicator
+    </td>
+    <td valign=\"top\">Renamed to include BooleanScalarReplicator, IntegerScalarReplicator, RealScalarReplicator.<br/>
+         This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2544\">issue 2544</a>. 
     </td>
 </tr>
 </table>
