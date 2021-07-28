@@ -327,8 +327,9 @@ have been <b style=\"color:blue\">improved</b> in a
     Buildings.Controls.OBC.CDL.Routing.IntegerReplicator<br/>
     Buildings.Controls.OBC.CDL.Routing.RealReplicator
     </td>
-    <td valign=\"top\">Renamed to include BooleanScalarReplicator, IntegerScalarReplicator, RealScalarReplicator.<br/>
-         This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2544\">issue 2544</a>. 
+    <td valign=\"top\">Renamed to include <code>BooleanScalarReplicator</code>, <code>IntegerScalarReplicator</code>,
+                       and <code>RealScalarReplicator</code>.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2544\">issue 2544</a>. 
     </td>
 </tr>
 </table>
