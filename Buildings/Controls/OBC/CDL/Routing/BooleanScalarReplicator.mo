@@ -15,7 +15,7 @@ equation
     u,
     nout);
   annotation (
-    defaultComponentName="booRep",
+    defaultComponentName="booScaRep",
     Icon(
       graphics={
         Rectangle(
@@ -55,7 +55,7 @@ identical Boolean output signals.
 <ul>
 <li>
 July 27, 2021, by Baptiste Ravache:<br/>
-Renamed to BooleanScalarReplicator.
+Renamed to <code>BooleanScalarReplicator</code>.
 </li>
 <li>
 July 24, 2017, by Jianjun Hu:<br/>

@@ -15,7 +15,7 @@ equation
     u,
     nout);
   annotation (
-    defaultComponentName="reaRep",
+    defaultComponentName="reaScaRep",
     Icon(
       graphics={
         Rectangle(
@@ -55,7 +55,7 @@ identical Real output signals.
 <ul>
 <li>
 July 27, 2021, by Baptiste Ravache:<br/>
-Renamed to RealScalarReplicator.
+Renamed to <code>RealScalarReplicator</code>.
 </li>
 <li>
 July 24, 2017, by Jianjun Hu:<br/>

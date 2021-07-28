@@ -12,7 +12,7 @@ block RealVectorReplicator "Real vector signal replicator"
 equation
   y=fill(u, nout);
   annotation (
-    defaultComponentName="reaArrRep",
+    defaultComponentName="reaVecRep",
     Documentation(
       info="<html>
 <p>

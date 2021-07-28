@@ -24,7 +24,7 @@ initial equation
 equation
   y = u[mskId];
   annotation (
-    defaultComponentName="booArrFil",
+    defaultComponentName="booVecFil",
     Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Rectangle(
           extent={{-100,-100},{100,100}},

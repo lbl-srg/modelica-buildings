@@ -15,7 +15,7 @@ equation
     u,
     nout);
   annotation (
-    defaultComponentName="intRep",
+    defaultComponentName="intScaRep",
     Icon(
       graphics={
         Rectangle(
@@ -55,7 +55,7 @@ identical Integer output signals.
 <ul>
 <li>
 July 27, 2021, by Baptiste Ravache:<br/>
-Renamed to IntegerScalarReplicator.
+Renamed to <code>IntegerScalarReplicator</code>.
 </li>
 <li>
 July 24, 2017, by Jianjun Hu:<br/>

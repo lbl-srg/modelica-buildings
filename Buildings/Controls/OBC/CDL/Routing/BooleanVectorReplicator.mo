@@ -12,7 +12,7 @@ block BooleanVectorReplicator "Boolean vector signal replicator"
 equation
   y=fill(u, nout);
   annotation (
-    defaultComponentName="booArrRep",
+    defaultComponentName="booVecRep",
     Documentation(
       info="<html>
 <p>

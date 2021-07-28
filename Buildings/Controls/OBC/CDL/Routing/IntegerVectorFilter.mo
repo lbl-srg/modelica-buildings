@@ -23,7 +23,7 @@ initial equation
 equation
   y = u[mskId];
   annotation (
-    defaultComponentName="intArrFil",
+    defaultComponentName="intVecFil",
     Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Rectangle(
           extent={{-100,-100},{100,100}},
