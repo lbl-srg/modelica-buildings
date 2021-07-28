@@ -1,9 +1,9 @@
 within Buildings.Controls.OBC.CDL.Routing;
-block BooleanArrayReplicator "Boolean array signal replicator"
-  parameter Integer nin=1 "Size of input array";
+block BooleanVectorReplicator "Boolean vector signal replicator"
+  parameter Integer nin=1 "Size of input vector";
   parameter Integer nout=1 "Number of row in output";
   Interfaces.BooleanInput u[nin]
-    "Connector of Boolean array input signal"
+    "Connector of Boolean vector input signal"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
   Interfaces.BooleanOutput y[nout, nin]
     "Connector of Boolean matrix output signals"
@@ -16,9 +16,9 @@ equation
     Documentation(
       info="<html>
 <p>
-This block replicates a Boolean array input signal of size <code>nin</code>,
+This block replicates a Boolean vector input signal of size <code>nin</code>,
 to a matrix with <code>nout</code> rows and <code>nin</code> columns,
-where each row is duplicating the input array.
+where each row is duplicating the input vector.
 </p>
 </html>",
       revisions="<html>
@@ -62,4 +62,4 @@ First implementation
         Line(
           points={{-100,10},{0,0}},
           color={255,0,255})}));
-end BooleanArrayReplicator;
+end BooleanVectorReplicator;

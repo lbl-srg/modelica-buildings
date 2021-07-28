@@ -1,21 +1,18 @@
 within Buildings.Controls.OBC.CDL.Routing;
-block IntegerReplicator
-  "Integer signal replicator"
-  parameter Integer nout=1
-    "Number of outputs";
-  Interfaces.IntegerInput u
-    "Connector of Integer input signal"
+block IntegerVectorReplicator "Integer vector signal replicator"
+  parameter Integer nin=1 "Size of input vector";
+  parameter Integer nout=1 "Number of row in output";
+  Interfaces.IntegerInput u[nin]
+    "Connector of Integer vector input signal"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
-  Interfaces.IntegerOutput y[nout]
-    "Connector of Integer output signals"
+  Interfaces.IntegerOutput y[nout, nin]
+    "Connector of Integer matrix output signals"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
 equation
-  y=fill(
-    u,
-    nout);
+  y=fill(u, nout);
   annotation (
-    defaultComponentName="intRep",
+    defaultComponentName="intArrRep",
     Icon(
       graphics={
         Rectangle(
@@ -43,21 +40,23 @@ equation
         Text(
           lineColor={0,0,255},
           extent={{-150,110},{150,150}},
-          textString="%name")}),
+          textString="%name"),
+        Line(points={{-100,-10},{0,0}}, color={255,127,0}),
+        Line(points={{-100,10},{0,0}}, color={255,127,0})}),
     Documentation(
       info="<html>
 <p>
-This block replicates the Integer input signal to an array of <code>nout</code>
-identical Integer output signals.
+This block replicates an Integer vector input signal of size <code>nin</code>,
+to a matrix with <code>nout</code> rows and <code>nin</code> columns,
+where each row is duplicating the input vector.
 </p>
 </html>",
       revisions="<html>
 <ul>
 <li>
-July 24, 2017, by Jianjun Hu:<br/>
-First implementation, based on the implementation of the
-Modelica Standard Library.
+June 22, 2021, by Baptiste Ravache:<br/>
+First implementation
 </li>
 </ul>
 </html>"));
-end IntegerReplicator;
+end IntegerVectorReplicator;

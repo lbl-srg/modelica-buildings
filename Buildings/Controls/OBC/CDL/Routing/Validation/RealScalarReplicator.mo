@@ -1,7 +1,7 @@
 within Buildings.Controls.OBC.CDL.Routing.Validation;
-model RealReplicator
-  "Validation model for the RealReplicator block"
-  Buildings.Controls.OBC.CDL.Routing.RealReplicator reaRep(
+model RealScalarReplicator
+  "Validation model for the RealScalarReplicator block"
+  Buildings.Controls.OBC.CDL.Routing.RealScalarReplicator reaRep(
     nout=3)
     "Block that outputs the array replicating input value"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
@@ -20,17 +20,21 @@ equation
       StopTime=1.0,
       Tolerance=1e-06),
     __Dymola_Commands(
-      file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/CDL/Routing/Validation/RealReplicator.mos" "Simulate and plot"),
+      file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/CDL/Routing/Validation/RealScalarReplicator.mos" "Simulate and plot"),
     Documentation(
       info="<html>
 <p>
 Validation test for the block
-<a href=\"modelica://Buildings.Controls.OBC.CDL.Routing.RealReplicator\">
-Buildings.Controls.OBC.CDL.Routing.RealReplicator</a>.
+<a href=\"modelica://Buildings.Controls.OBC.CDL.Routing.RealScalarReplicator\">
+Buildings.Controls.OBC.CDL.Routing.RealScalarReplicator</a>.
 </p>
 </html>",
       revisions="<html>
 <ul>
+<li>
+July 27, 2021, by Baptiste Ravache:<br/>
+Renamed to RealScalarReplicator.
+</li>
 <li>
 July 24, 2017, by Jianjun Hu:<br/>
 First implementation.
@@ -50,4 +54,4 @@ First implementation.
           pattern=LinePattern.None,
           fillPattern=FillPattern.Solid,
           points={{-36,60},{64,0},{-36,-60},{-36,60}})}));
-end RealReplicator;
+end RealScalarReplicator;

@@ -152,76 +152,76 @@ block ZoneStatusDuplicator "Duplicate zone status output"
         iconTransformation(extent={{40,-190},{80,-150}})));
 
 protected
-  Buildings.Controls.OBC.CDL.Routing.BooleanArrayReplicator zonOccDup(
+  Buildings.Controls.OBC.CDL.Routing.BooleanVectorReplicator zonOccDup(
     final nin=nZon,
     final nout=nGro)
     "Duplicator"
     annotation (Placement(transformation(extent={{-10,70},{10,90}})));
-  Buildings.Controls.OBC.CDL.Routing.BooleanArrayReplicator uOccDup(
+  Buildings.Controls.OBC.CDL.Routing.BooleanVectorReplicator uOccDup(
     final nin=nZon,
     final nout=nGro)
     "Duplicator"
     annotation (Placement(transformation(extent={{-10,30},{10,50}})));
-  Buildings.Controls.OBC.CDL.Routing.RealArrayReplicator tNexOccDup(
+  Buildings.Controls.OBC.CDL.Routing.RealVectorReplicator tNexOccDup(
     final nin=nZon,
     final nout=nGro)
     "Duplicator"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
-  Buildings.Controls.OBC.CDL.Routing.RealArrayReplicator uCooTimDup(
+  Buildings.Controls.OBC.CDL.Routing.RealVectorReplicator uCooTimDup(
     final nin=nZon,
     final nout=nGro)
     "Duplicator"
     annotation (Placement(transformation(extent={{-10,-50},{10,-30}})));
-  Buildings.Controls.OBC.CDL.Routing.RealArrayReplicator uWarTimDup(
+  Buildings.Controls.OBC.CDL.Routing.RealVectorReplicator uWarTimDup(
     final nin=nZon,
     final nout=nGro)
     "Duplicator"
     annotation (Placement(transformation(extent={{-10,-90},{10,-70}})));
-  Buildings.Controls.OBC.CDL.Routing.BooleanArrayReplicator uOccHeaHigDup(
+  Buildings.Controls.OBC.CDL.Routing.BooleanVectorReplicator uOccHeaHigDup(
     final nin=nZon,
     final nout=nGro)
     "Duplicator"
     annotation (Placement(transformation(extent={{-10,-130},{10,-110}})));
-  Buildings.Controls.OBC.CDL.Routing.BooleanArrayReplicator uHigOccCooDup(
+  Buildings.Controls.OBC.CDL.Routing.BooleanVectorReplicator uHigOccCooDup(
     final nin=nZon,
     final nout=nGro)
     "Duplicator"
     annotation (Placement(transformation(extent={{-10,-170},{10,-150}})));
-  Buildings.Controls.OBC.CDL.Routing.BooleanArrayReplicator uUnoHeaHigDup(
+  Buildings.Controls.OBC.CDL.Routing.BooleanVectorReplicator uUnoHeaHigDup(
     final nin=nZon,
     final nout=nGro)
     "Duplicator"
     annotation (Placement(transformation(extent={{-10,-210},{10,-190}})));
-  Buildings.Controls.OBC.CDL.Routing.RealArrayReplicator THeaSetOffDup(
+  Buildings.Controls.OBC.CDL.Routing.RealVectorReplicator THeaSetOffDup(
     final nin=nZon,
     final nout=nGro)
     "Duplicator"
     annotation (Placement(transformation(extent={{-10,-250},{10,-230}})));
-  Buildings.Controls.OBC.CDL.Routing.BooleanArrayReplicator uEndSetBacDup(
+  Buildings.Controls.OBC.CDL.Routing.BooleanVectorReplicator uEndSetBacDup(
     final nin=nZon,
     final nout=nGro)
     "Duplicator"
     annotation (Placement(transformation(extent={{-10,-290},{10,-270}})));
-  Buildings.Controls.OBC.CDL.Routing.BooleanArrayReplicator uHigUnoCooDup(
+  Buildings.Controls.OBC.CDL.Routing.BooleanVectorReplicator uHigUnoCooDup(
     final nin=nZon,
     final nout=nGro)
     "Duplicator"
     annotation (Placement(transformation(extent={{-10,-320},{10,-300}})));
-  Buildings.Controls.OBC.CDL.Routing.RealArrayReplicator TCooSetOffDup(
+  Buildings.Controls.OBC.CDL.Routing.RealVectorReplicator TCooSetOffDup(
     final nin=nZon,
     final nout=nGro)
     "Duplicator"
     annotation (Placement(transformation(extent={{-10,-380},{10,-360}})));
-  Buildings.Controls.OBC.CDL.Routing.BooleanArrayReplicator uEndSetUpDup(
+  Buildings.Controls.OBC.CDL.Routing.BooleanVectorReplicator uEndSetUpDup(
     final nin=nZon,
     final nout=nGro)
     "Duplicator"
     annotation (Placement(transformation(extent={{-10,-410},{10,-390}})));
-  Buildings.Controls.OBC.CDL.Routing.RealArrayReplicator TZonDup(
+  Buildings.Controls.OBC.CDL.Routing.RealVectorReplicator TZonDup(
     final nin=nZon,
     final nout=nGro) "Duplicator"
     annotation (Placement(transformation(extent={{-10,-450},{10,-430}})));
-  Buildings.Controls.OBC.CDL.Routing.BooleanArrayReplicator uWinDup(
+  Buildings.Controls.OBC.CDL.Routing.BooleanVectorReplicator uWinDup(
     final nin=nZon,
     final nout=nGro)
     "Duplicator"

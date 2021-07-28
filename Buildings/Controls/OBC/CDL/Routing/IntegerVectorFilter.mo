@@ -1,8 +1,8 @@
 within Buildings.Controls.OBC.CDL.Routing;
-block IntegerArrayFilter
-  "Filter an integer array of based on a boolean mask"
-  parameter Integer nin "Size of input array";
-  parameter Integer nout "Size of output array";
+block IntegerVectorFilter
+  "Filter an integer vector based on a boolean mask"
+  parameter Integer nin "Size of input vector";
+  parameter Integer nout "Size of output vector";
   parameter Boolean msk[nin]=fill(true,nin) "Array mask";
 
   Interfaces.IntegerInput u[nin]
@@ -14,11 +14,11 @@ block IntegerArrayFilter
 
 protected
   parameter Integer mskId[nout] = Modelica.Math.BooleanVectors.index(msk)
-    "Indices of included element in input array";
+    "Indices of included element in input vector";
 
 initial equation
   assert(nout==sum({if msk[i] then 1 else 0 for i in 1:nin}),
-    "The size of the output array does not match the
+    "The size of the output vector does not match the
     size of included elements in the mask.");
 equation
   y = u[mskId];
@@ -52,8 +52,8 @@ First implementation
 </ul>
 </html>", info="<html>
 <p>
-This block filters a Integer array of size <code>nin</code> to
-an array of size <code>nout</code> given a Boolean mask
+This block filters a Integer vector of size <code>nin</code> to
+a vector of size <code>nout</code> given a Boolean mask
 <code>msk</code>.
 </p>
 <p>
@@ -66,4 +66,4 @@ The parameter <code>msk</code> must have exactly <code>nout</code> entries
 set to <code>true</code>, otherwise an error message is issued.
 </p>
 </html>"));
-end IntegerArrayFilter;
+end IntegerVectorFilter;

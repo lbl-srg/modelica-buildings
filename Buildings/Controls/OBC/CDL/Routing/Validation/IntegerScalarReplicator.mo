@@ -1,7 +1,7 @@
 within Buildings.Controls.OBC.CDL.Routing.Validation;
-model IntegerReplicator
-  "Validation model for the IntegerReplicator block"
-  Buildings.Controls.OBC.CDL.Routing.IntegerReplicator intRep(
+model IntegerScalarReplicator
+  "Validation model for the IntegerScalarReplicator block"
+  Buildings.Controls.OBC.CDL.Routing.IntegerScalarReplicator intRep(
     nout=3)
     "Block that outputs the array replicating input value"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
@@ -25,17 +25,21 @@ equation
       StopTime=1.0,
       Tolerance=1e-06),
     __Dymola_Commands(
-      file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/CDL/Routing/Validation/IntegerReplicator.mos" "Simulate and plot"),
+      file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/CDL/Routing/Validation/IntegerScalarReplicator.mos" "Simulate and plot"),
     Documentation(
       info="<html>
 <p>
 Validation test for the block
-<a href=\"modelica://Buildings.Controls.OBC.CDL.Routing.IntegerReplicator\">
-Buildings.Controls.OBC.CDL.Routing.IntegerReplicator</a>.
+<a href=\"modelica://Buildings.Controls.OBC.CDL.Routing.IntegerScalarReplicator\">
+Buildings.Controls.OBC.CDL.Routing.IntegerScalarReplicator</a>.
 </p>
 </html>",
       revisions="<html>
 <ul>
+<li>
+July 27, 2021, by Baptiste Ravache:<br/>
+Renamed to IntegerScalarReplicator.
+</li>
 <li>
 July 24, 2017, by Jianjun Hu:<br/>
 First implementation.
@@ -55,4 +59,4 @@ First implementation.
           pattern=LinePattern.None,
           fillPattern=FillPattern.Solid,
           points={{-36,60},{64,0},{-36,-60},{-36,60}})}));
-end IntegerReplicator;
+end IntegerScalarReplicator;

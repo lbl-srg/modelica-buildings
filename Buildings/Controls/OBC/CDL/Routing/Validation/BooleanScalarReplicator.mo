@@ -1,34 +1,40 @@
 within Buildings.Controls.OBC.CDL.Routing.Validation;
-model RealArrayFilter
-  "Validation model for the RealArrayFilter block"
-  Buildings.Controls.OBC.CDL.Routing.RealArrayFilter
-    reaFil(nin=3, nout=2, msk={true,false,true})
-    "Block that filter the input array"
+model BooleanScalarReplicator
+  "Validation model for the BooleanScalarReplicator block"
+  Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator booRep(
+    nout=3)
+    "Block that outputs the array replicating input value"
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
-
-  Continuous.Sources.Constant ReaInp[3](k={1,2,3}) "Real inputs"
+  Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul(
+    period=0.2)
+    "Block that outputs boolean pulse"
     annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
+
 equation
-  connect(ReaInp.y, reaFil.u)
-    annotation (Line(points={{-18,0},{18,0}}, color={0,0,127}));
+  connect(booPul.y,booRep.u)
+    annotation (Line(points={{-19,0},{18,0}},color={255,0,255}));
   annotation (
     experiment(
       StopTime=1.0,
       Tolerance=1e-06),
     __Dymola_Commands(
-      file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/CDL/Routing/Validation/RealArrayFilter.mos" "Simulate and plot"),
+      file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/CDL/Routing/Validation/BooleanScalarReplicator.mos" "Simulate and plot"),
     Documentation(
       info="<html>
 <p>
 Validation test for the block
-<a href=\"modelica://Buildings.Controls.OBC.CDL.Routing.RealArrayFilter\">
-Buildings.Controls.OBC.CDL.Routing.RealArrayFilter</a>.
+<a href=\"modelica://Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator\">
+Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator</a>.
 </p>
 </html>",
       revisions="<html>
 <ul>
 <li>
-June 25, 2021, by Baptiste Ravache:<br/>
+July 27, 2021, by Baptiste Ravache:<br/>
+Renamed to BooleanScalarReplicator.
+</li>
+<li>
+July 24, 2017, by Jianjun Hu:<br/>
 First implementation.
 </li>
 </ul>
@@ -46,4 +52,4 @@ First implementation.
           pattern=LinePattern.None,
           fillPattern=FillPattern.Solid,
           points={{-36,60},{64,0},{-36,-60},{-36,60}})}));
-end RealArrayFilter;
+end BooleanScalarReplicator;

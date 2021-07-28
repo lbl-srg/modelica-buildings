@@ -239,14 +239,14 @@ to <b style=\"color:blue\">existing</b> libraries:
     </td>
 </tr>
 <tr><td valign=\"top\">
-        Buildings.Controls.OBC.CDL.Routing.BooleanArrayFilter<br/>
-        Buildings.Controls.OBC.CDL.Routing.BooleanArrayReplicator<br/>
-        Buildings.Controls.OBC.CDL.Routing.IntegerArrayFilter<br/>
-        Buildings.Controls.OBC.CDL.Routing.IntegerArrayReplicator<br/>
-        Buildings.Controls.OBC.CDL.Routing.RealArrayFilter<br/>
-        Buildings.Controls.OBC.CDL.Routing.RealArrayReplicator
+        Buildings.Controls.OBC.CDL.Routing.BooleanVectorFilter<br/>
+        Buildings.Controls.OBC.CDL.Routing.BooleanVectorReplicator<br/>
+        Buildings.Controls.OBC.CDL.Routing.IntegerVectorFilter<br/>
+        Buildings.Controls.OBC.CDL.Routing.IntegerVectorReplicator<br/>
+        Buildings.Controls.OBC.CDL.Routing.RealVectorFilter<br/>
+        Buildings.Controls.OBC.CDL.Routing.RealVectorReplicator
     </td>
-    <td valign=\"top\">Blocks for filtering and replicating arrays.<br/>
+    <td valign=\"top\">Blocks for filtering and replicating vectors of signals.<br/>
                        This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2544\">issue 2544</a>.
     </td>
 </tr>

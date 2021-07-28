@@ -4,3 +4,11 @@
 clear
 
 convertClear();
+
+// Conversion for https://github.com/lbl-srg/modelica-buildings/issues/2544
+convertClass("Buildings.Controls.OBC.CDL.Routing.BooleanReplicator",
+             "Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator");
+convertClass("Buildings.Controls.OBC.CDL.Routing.IntegerReplicator",
+             "Buildings.Controls.OBC.CDL.Routing.IntegerScalarReplicator");
+convertClass("Buildings.Controls.OBC.CDL.Routing.RealReplicator",
+             "Buildings.Controls.OBC.CDL.Routing.RealScalarReplicator");

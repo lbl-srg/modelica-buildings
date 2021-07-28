@@ -87,11 +87,11 @@ model FlowDistributionPumpControl
       displayUnit="degC"))
     "Minimum temperature set point"
     annotation (Placement(transformation(extent={{-180,60},{-160,80}})));
-  Buildings.Controls.OBC.CDL.Routing.RealReplicator reaRep(
+  Buildings.Controls.OBC.CDL.Routing.RealScalarReplicator reaRep(
     nout=nLoa)
     "Repeat input to output an array"
     annotation (Placement(transformation(extent={{-128,60},{-108,80}})));
-  Buildings.Controls.OBC.CDL.Routing.RealReplicator reaRep1(
+  Buildings.Controls.OBC.CDL.Routing.RealScalarReplicator reaRep1(
     nout=nLoa)
     "Repeat input to output an array"
     annotation (Placement(transformation(extent={{-128,20},{-108,40}})));

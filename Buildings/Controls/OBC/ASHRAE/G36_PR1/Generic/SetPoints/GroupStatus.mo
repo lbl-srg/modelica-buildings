@@ -166,77 +166,77 @@ block GroupStatus "Block that outputs the zone group status"
     annotation (Placement(transformation(extent={{60,-140},{80,-120}})));
 
 protected
-    Buildings.Controls.OBC.CDL.Routing.BooleanArrayFilter zonOccFil(
+    Buildings.Controls.OBC.CDL.Routing.BooleanVectorFilter zonOccFil(
     final nin=numZon,
     final nout=numZonGro,
     final msk=zonGroMsk) "Zone group filter"
     annotation (Placement(transformation(extent={{-120,290},{-100,310}})));
-  Buildings.Controls.OBC.CDL.Routing.BooleanArrayFilter uOccFil(
+  Buildings.Controls.OBC.CDL.Routing.BooleanVectorFilter uOccFil(
     final nin=numZon,
     final nout=numZonGro,
     final msk=zonGroMsk) "Zone group filter"
     annotation (Placement(transformation(extent={{-120,250},{-100,270}})));
-  Buildings.Controls.OBC.CDL.Routing.RealArrayFilter tNexOccFil(
+  Buildings.Controls.OBC.CDL.Routing.RealVectorFilter tNexOccFil(
     final nin=numZon,
     final nout=numZonGro,
     final msk=zonGroMsk) "Zone group filter"
     annotation (Placement(transformation(extent={{-120,210},{-100,230}})));
-  Buildings.Controls.OBC.CDL.Routing.RealArrayFilter uCooTimFil(
+  Buildings.Controls.OBC.CDL.Routing.RealVectorFilter uCooTimFil(
     final nin=numZon,
     final nout=numZonGro,
     final msk=zonGroMsk) "Zone group filter"
     annotation (Placement(transformation(extent={{-120,170},{-100,190}})));
-  Buildings.Controls.OBC.CDL.Routing.RealArrayFilter uWarTimFil(
+  Buildings.Controls.OBC.CDL.Routing.RealVectorFilter uWarTimFil(
     final nin=numZon,
     final nout=numZonGro,
     final msk=zonGroMsk) "Zone group filter"
     annotation (Placement(transformation(extent={{-120,130},{-100,150}})));
-  Buildings.Controls.OBC.CDL.Routing.BooleanArrayFilter uOccHeaHigFil(
+  Buildings.Controls.OBC.CDL.Routing.BooleanVectorFilter uOccHeaHigFil(
     final nin=numZon,
     final nout=numZonGro,
     final msk=zonGroMsk) "Zone group filter"
     annotation (Placement(transformation(extent={{-120,90},{-100,110}})));
-  Buildings.Controls.OBC.CDL.Routing.BooleanArrayFilter uHigOccCooFil(
+  Buildings.Controls.OBC.CDL.Routing.BooleanVectorFilter uHigOccCooFil(
     final nin=numZon,
     final nout=numZonGro,
     final msk=zonGroMsk) "Zone group filter"
     annotation (Placement(transformation(extent={{-120,50},{-100,70}})));
-  Buildings.Controls.OBC.CDL.Routing.BooleanArrayFilter uUnoHeaHigFil(
+  Buildings.Controls.OBC.CDL.Routing.BooleanVectorFilter uUnoHeaHigFil(
     final nin=numZon,
     final nout=numZonGro,
     final msk=zonGroMsk) "Zone group filter"
     annotation (Placement(transformation(extent={{-120,10},{-100,30}})));
-  Buildings.Controls.OBC.CDL.Routing.RealArrayFilter THeaSetOffFil(
+  Buildings.Controls.OBC.CDL.Routing.RealVectorFilter THeaSetOffFil(
     final nin=numZon,
     final nout=numZonGro,
     final msk=zonGroMsk) "Zone group filter"
     annotation (Placement(transformation(extent={{-120,-30},{-100,-10}})));
-  Buildings.Controls.OBC.CDL.Routing.BooleanArrayFilter uEndSetBacFil(
+  Buildings.Controls.OBC.CDL.Routing.BooleanVectorFilter uEndSetBacFil(
     final nin=numZon,
     final nout=numZonGro,
     final msk=zonGroMsk) "Zone group filter"
     annotation (Placement(transformation(extent={{-120,-70},{-100,-50}})));
-  Buildings.Controls.OBC.CDL.Routing.BooleanArrayFilter uHigUnoCooFil(
+  Buildings.Controls.OBC.CDL.Routing.BooleanVectorFilter uHigUnoCooFil(
     final nin=numZon,
     final nout=numZonGro,
     final msk=zonGroMsk) "Zone group filter"
     annotation (Placement(transformation(extent={{-120,-100},{-100,-80}})));
-  Buildings.Controls.OBC.CDL.Routing.RealArrayFilter TCooSetOffFil(
+  Buildings.Controls.OBC.CDL.Routing.RealVectorFilter TCooSetOffFil(
     final nin=numZon,
     final nout=numZonGro,
     final msk=zonGroMsk) "Zone group filter"
     annotation (Placement(transformation(extent={{-120,-160},{-100,-140}})));
-  Buildings.Controls.OBC.CDL.Routing.BooleanArrayFilter uEndSetUpFil(
+  Buildings.Controls.OBC.CDL.Routing.BooleanVectorFilter uEndSetUpFil(
     final nin=numZon,
     final nout=numZonGro,
     final msk=zonGroMsk) "Zone group filter"
     annotation (Placement(transformation(extent={{-120,-190},{-100,-170}})));
-  Buildings.Controls.OBC.CDL.Routing.RealArrayFilter TZonFil(
+  Buildings.Controls.OBC.CDL.Routing.RealVectorFilter TZonFil(
     final nin=numZon,
     final nout=numZonGro,
     final msk=zonGroMsk) "Zone group filter"
     annotation (Placement(transformation(extent={{-120,-230},{-100,-210}})));
-  Buildings.Controls.OBC.CDL.Routing.BooleanArrayFilter uWinFil(
+  Buildings.Controls.OBC.CDL.Routing.BooleanVectorFilter uWinFil(
     final nin=numZon,
     final nout=numZonGro,
     final msk=zonGroMsk) "Zone group filter"

@@ -1,9 +1,9 @@
 within Buildings.Controls.OBC.CDL.Routing.Validation;
-model RealArrayReplicator
-  "Validation model for the RealArrayReplicator block"
-  Buildings.Controls.OBC.CDL.Routing.RealArrayReplicator
+model RealVectorReplicator
+  "Validation model for the RealVectorReplicator block"
+  Buildings.Controls.OBC.CDL.Routing.RealVectorReplicator
     reaRep(nin=2, nout=3)
-    "Block that outputs the array replicating input value"
+    "Block that outputs the vector replicating input value"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp ram[2](
     height=fill(5,2),
@@ -19,13 +19,13 @@ equation
       StopTime=1.0,
       Tolerance=1e-06),
     __Dymola_Commands(
-      file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/CDL/Routing/Validation/RealArrayReplicator.mos" "Simulate and plot"),
+      file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/CDL/Routing/Validation/RealVectorReplicator.mos" "Simulate and plot"),
     Documentation(
       info="<html>
 <p>
 Validation test for the block
-<a href=\"modelica://Buildings.Controls.OBC.CDL.Routing.RealArrayReplicator\">
-Buildings.Controls.OBC.CDL.Routing.RealArrayReplicator</a>.
+<a href=\"modelica://Buildings.Controls.OBC.CDL.Routing.RealVectorReplicator\">
+Buildings.Controls.OBC.CDL.Routing.RealVectorReplicator</a>.
 </p>
 </html>",
       revisions="<html>
@@ -49,4 +49,4 @@ First implementation.
           pattern=LinePattern.None,
           fillPattern=FillPattern.Solid,
           points={{-36,60},{64,0},{-36,-60},{-36,60}})}));
-end RealArrayReplicator;
+end RealVectorReplicator;

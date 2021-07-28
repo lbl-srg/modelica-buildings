@@ -61,7 +61,7 @@ block SideHot
     final k={(i-1) for i in 1:nSouAmb})
     "x1"
     annotation (Placement(transformation(extent={{60,70},{80,90}})));
-  Buildings.Controls.OBC.CDL.Routing.RealReplicator rep(
+  Buildings.Controls.OBC.CDL.Routing.RealScalarReplicator rep(
     final nout=nSouAmb)
     "Replicate control signal"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},rotation=0,origin={0,60})));

@@ -1,5 +1,5 @@
 within Buildings.Controls.OBC.CDL.Routing;
-block BooleanReplicator
+block BooleanScalarReplicator
   "Boolean signal replicator"
   parameter Integer nout=1
     "Number of outputs";
@@ -54,10 +54,14 @@ identical Boolean output signals.
       revisions="<html>
 <ul>
 <li>
+July 27, 2021, by Baptiste Ravache:<br/>
+Renamed to BooleanScalarReplicator.
+</li>
+<li>
 July 24, 2017, by Jianjun Hu:<br/>
 First implementation, based on the implementation of the
 Modelica Standard Library.
 </li>
 </ul>
 </html>"));
-end BooleanReplicator;
+end BooleanScalarReplicator;
