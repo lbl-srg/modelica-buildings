@@ -3,7 +3,7 @@ block Capacities
   "Returns design and minimal stage capacities for current and next available higher and lower stage"
 
   parameter Integer nSta = 3
-    "Total number of stages";
+    "Number of chiller stages, does not include zero stage";
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uLow
     "Current stage is the lowest available stage"

@@ -9,13 +9,13 @@ block Up "Sequence for control devices when there is stage-up command"
     "Total number of chiller stages, including stage zero but not the stages with a WSE, if applicable";
   parameter Boolean have_WSE=true
     "True: have waterside economizer";
-  parameter Boolean have_PonyChiller=false
+  parameter Boolean have_ponyChiller=false
     "True: have pony chiller";
   parameter Boolean have_parChi=true
     "True: the plant has parallel chillers";
   parameter Boolean have_heaConWatPum=true
     "True: headered condenser water pumps";
-  parameter Boolean fixSpeConWatPum=true
+  parameter Boolean have_fixSpeConWatPum=true
     "True: fixed speed condenser water pump";
   parameter Real chiDemRedFac=0.75
     "Demand reducing factor of current operating chillers"
@@ -23,13 +23,13 @@ block Up "Sequence for control devices when there is stage-up command"
   parameter Real holChiDemTim(
     final unit="s",
     final quantity="Time",
-    displayUnit="h")=300
+    displayUnit="s")=300
     "Maximum time to wait for the actual demand less than percentage of current load"
     annotation (Dialog(group="Limit chiller demand"));
   parameter Real byPasSetTim(
     final unit="s",
     final quantity="Time",
-    displayUnit="h")=300
+    displayUnit="s")=300
     "Time to reset minimum bypass flow"
     annotation (Dialog(group="Reset CHW minimum flow setpoint"));
   parameter Real minFloSet[nChi](
@@ -47,7 +47,7 @@ block Up "Sequence for control devices when there is stage-up command"
   parameter Real aftByPasSetTim(
     final unit="s",
     final quantity="Time",
-    displayUnit="h")=60
+    displayUnit="s")=60
     "Time to allow loop to stabilize after resetting minimum chilled water flow setpoint"
     annotation (Dialog(group="Reset bypass"));
   parameter Real staVec[totSta]={0,0.5,1,1.5,2,2.5}
@@ -61,31 +61,31 @@ block Up "Sequence for control devices when there is stage-up command"
     annotation (Dialog(group="Enable condenser water pump"));
   parameter Real desChiNum[nChiSta]={0,1,2}
     "Design number of chiller that should be ON, according to current chiller stage"
-    annotation (Dialog(group="Enable condenser water pump", enable=fixSpeConWatPum));
+    annotation (Dialog(group="Enable condenser water pump", enable=have_fixSpeConWatPum));
   parameter Real thrTimEnb(
     final unit="s",
     final quantity="Time",
-    displayUnit="h")=10
+    displayUnit="s")=10
     "Threshold time to enable head pressure control after condenser water pump being reset"
     annotation (Dialog(group="Enable head pressure control"));
   parameter Real waiTim(
     final unit="s",
     final quantity="Time",
-    displayUnit="h")=30
+    displayUnit="s")=30
     "Waiting time after enabling next head pressure control"
     annotation (Dialog(group="Enable head pressure control"));
   parameter Real chaChiWatIsoTim(
     final unit="s",
     final quantity="Time",
-    displayUnit="h")=300
+    displayUnit="s")=300
     "Time to slowly change isolation valve, should be determined in the field"
     annotation (Dialog(group="Enable CHW isolation valve"));
   parameter Real proOnTim(
     final unit="s",
     final quantity="Time",
-    displayUnit="h")=300
+    displayUnit="s")=300
     "Threshold time to check after newly enabled chiller being operated"
-    annotation (Dialog(group="Enable next chiller",enable=have_PonyChiller));
+    annotation (Dialog(group="Enable next chiller",enable=have_ponyChiller));
   parameter Real pumSpeChe = 0.05
     "Lower threshold value to check if condenser water pump has achieved setpoint"
     annotation (Dialog(tab="Advanced", group="Enable condenser water pump"));
@@ -135,18 +135,18 @@ block Up "Sequence for control devices when there is stage-up command"
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uConWatPumSpeSet(
     final min=0,
     final max=1,
-    final unit="1") if not fixSpeConWatPum
+    final unit="1") if not have_fixSpeConWatPum
     "Condenser water pump speed setpoint"
     annotation (Placement(transformation(extent={{-280,-90},{-240,-50}}),
       iconTransformation(extent={{-140,-100},{-100,-60}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uConWatPumSpe(
     final min=0,
     final max=1,
-    final unit="1") if not fixSpeConWatPum
+    final unit="1") if not have_fixSpeConWatPum
     "Current condenser water pump speed"
     annotation (Placement(transformation(extent={{-280,-120},{-240,-80}}),
       iconTransformation(extent={{-140,-120},{-100,-80}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uConWatPum[nConWatPum] if fixSpeConWatPum
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uConWatPum[nConWatPum] if have_fixSpeConWatPum
     "Status indicating if condenser water pump is running"
     annotation (Placement(transformation(extent={{-280,-150},{-240,-110}}),
         iconTransformation(extent={{-140,-140},{-100,-100}})));
@@ -192,7 +192,7 @@ block Up "Sequence for control devices when there is stage-up command"
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yDesConWatPumSpe(
     final min=0,
     final max=1,
-    final unit="1") if not fixSpeConWatPum
+    final unit="1") if not have_fixSpeConWatPum
     "Condenser water pump design speed at current stage"
     annotation (Placement(transformation(extent={{240,-30},{280,10}}),
       iconTransformation(extent={{100,-30},{140,10}})));
@@ -251,7 +251,7 @@ protected
     conWatPumCon(
     final have_heaPum=have_heaConWatPum,
     final have_WSE=have_WSE,
-    final fixSpe=fixSpeConWatPum,
+    final fixSpe=have_fixSpeConWatPum,
     final nChi=nChi,
     final totSta=totSta,
     final nChiSta=nChiSta,
@@ -718,7 +718,7 @@ devices during chiller staging up process.
 </p>
 <ol>
 <li>
-Identify the chiller(s) that should be enabled (and disabled, if <code>have_PonyChiller=true</code>).
+Identify the chiller(s) that should be enabled (and disabled, if <code>have_ponyChiller=true</code>).
 This is implemented in block <code>nexChi</code>. See
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Processes.Subsequences.NextChiller\">
 Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Processes.Subsequences.NextChiller</a>

@@ -52,11 +52,17 @@ block Controller "Cooling tower controller"
   parameter Real kWSE=1 "Gain of controller"
     annotation (Dialog(tab="Fan speed", group="WSE enabled",
                        enable=have_WSE));
-  parameter Real TiWSE(final unit="s", final quantity="Time")=0.5 "Time constant of integrator block"
+  parameter Real TiWSE(
+    final unit="s",
+    final quantity="Time")=0.5
+    "Time constant of integrator block"
     annotation (Dialog(tab="Fan speed", group="WSE enabled",
                        enable=have_WSE and (chiWatCon==Buildings.Controls.OBC.CDL.Types.SimpleController.PI or
                                           chiWatCon==Buildings.Controls.OBC.CDL.Types.SimpleController.PID)));
-  parameter Real TdWSE(final unit="s", final quantity="Time")=0.1 "Time constant of derivative block"
+  parameter Real TdWSE(
+    final unit="s",
+    final quantity="Time")=0.1
+    "Time constant of derivative block"
     annotation (Dialog(tab="Fan speed", group="WSE enabled",
                        enable=have_WSE and (chiWatCon==Buildings.Controls.OBC.CDL.Types.SimpleController.PD or
                                           chiWatCon==Buildings.Controls.OBC.CDL.Types.SimpleController.PID)));
@@ -114,7 +120,9 @@ block Controller "Cooling tower controller"
     annotation (Dialog(tab="Fan speed", group="Return temperature control",
                        enable=closeCoupledPlant));
 
-  parameter Real samplePeriod(final unit="s", final quantity="Time")=30
+  parameter Real samplePeriod(
+    final unit="s",
+    final quantity="Time")=30
     "Period of sampling condenser water supply and return temperature difference"
     annotation (Dialog(tab="Fan speed", group="Return temperature control",
                        enable=not closeCoupledPlant));
@@ -126,12 +134,16 @@ block Controller "Cooling tower controller"
   parameter Real kSupCon=1 "Gain of controller"
     annotation (Dialog(tab="Fan speed", group="Return temperature control",
                        enable=not closeCoupledPlant));
-  parameter Real TiSupCon(final unit="s", final quantity="Time")=0.5
+  parameter Real TiSupCon(
+    final unit="s",
+    final quantity="Time")=0.5
     "Time constant of integrator block"
     annotation (Dialog(tab="Fan speed", group="Return temperature control",
                        enable=not closeCoupledPlant and (supWatCon==Buildings.Controls.OBC.CDL.Types.SimpleController.PI or
                                                          supWatCon==Buildings.Controls.OBC.CDL.Types.SimpleController.PID)));
-  parameter Real TdSupCon(final unit="s", final quantity="Time")=0.1
+  parameter Real TdSupCon(
+    final unit="s",
+    final quantity="Time")=0.1
     "Time constant of derivative block"
     annotation (Dialog(tab="Fan speed", group="Return temperature control",
                        enable=not closeCoupledPlant and (supWatCon==Buildings.Controls.OBC.CDL.Types.SimpleController.PD or
@@ -145,19 +157,29 @@ block Controller "Cooling tower controller"
   parameter Real speChe=0.005
     "Lower threshold value to check fan or pump speed"
     annotation (Dialog(tab="Fan speed", group="Advanced"));
-  parameter Real iniPlaTim(final unit="s", final quantity="Time")=600
+  parameter Real iniPlaTim(
+    final unit="s",
+    final quantity="Time")=600
     "Time to hold return temperature at initial setpoint after plant being enabled"
     annotation (Dialog(tab="Fan speed", group="Advanced"));
-  parameter Real ramTim(final unit="s", final quantity="Time")=180
+  parameter Real ramTim(
+    final unit="s",
+    final quantity="Time")=180
     "Time to ramp return water temperature from initial value to setpoint"
     annotation (Dialog(tab="Fan speed", group="Advanced"));
-  parameter Real cheMinFanSpe(final unit="s", final quantity="Time")=300
+  parameter Real cheMinFanSpe(
+    final unit="s",
+    final quantity="Time")=300
     "Threshold time for checking duration when tower fan equals to the minimum tower fan speed"
     annotation (Dialog(tab="Fan speed", group="Advanced"));
-  parameter Real cheMaxTowSpe(final unit="s", final quantity="Time")=300
+  parameter Real cheMaxTowSpe(
+    final unit="s",
+    final quantity="Time")=300
     "Threshold time for checking duration when any enabled chiller maximum cooling speed equals to the minimum tower fan speed"
     annotation (Dialog(tab="Fan speed", group="Advanced"));
-  parameter Real cheTowOff(final unit="s", final quantity="Time")=60
+  parameter Real cheTowOff(
+    final unit="s",
+    final quantity="Time")=60
     "Threshold time for checking duration when there is no enabled tower fan"
     annotation (Dialog(tab="Fan speed", group="Advanced"));
 
@@ -168,22 +190,25 @@ block Controller "Cooling tower controller"
   parameter Real towCelOnSet[totSta]={0,2,2,4,4,4}
     "Number of condenser water pumps that should be ON, according to current chiller stage and WSE status"
     annotation (Dialog(tab="Tower staging"));
-  parameter Real chaTowCelIsoTim(final unit="s", final quantity="Time")=300
+  parameter Real chaTowCelIsoTim(
+    final unit="s",
+    final quantity="Time")=300
     "Time to slowly change isolation valve"
     annotation (Dialog(tab="Tower staging", group="Enable isolation valve"));
 
   // Water level control
-  parameter Real watLevMin(final min=0)=0.7
+  parameter Real watLevMin(
+    final min=0)=0.7
     "Minimum cooling tower water level recommended by manufacturer"
     annotation (Dialog(tab="Makeup water"));
   parameter Real watLevMax=1
     "Maximum cooling tower water level recommended by manufacturer"
     annotation (Dialog(tab="Makeup water"));
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput chiLoa[nChi](final unit=fill(
-        "W", nChi), final quantity=fill("HeatFlowRate", nChi))
-                                               if have_WSE
-    "Current load of each chiller"
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput chiLoa[nChi](
+    final unit=fill("W", nChi),
+    final quantity=fill("HeatFlowRate", nChi)) if have_WSE
+    "Current cooling load of each chiller"
     annotation (Placement(transformation(extent={{-140,220},{-100,260}}),
       iconTransformation(extent={{-140,170},{-100,210}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uChi[nChi]

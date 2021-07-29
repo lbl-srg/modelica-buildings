@@ -2,7 +2,7 @@ within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.SetPoint
 block Configurator "Configures chiller staging"
 
   parameter Integer nSta = 3
-    "Number of chiller stages";
+    "Number of chiller stages, does not include zero stage";
 
   parameter Integer nChi = 2
     "Number of chillers";

@@ -1,14 +1,14 @@
 ﻿within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.HeadPressure.Subsequences;
 block MappingWithoutWSE
   "Equipment setpoints when chiller head pressure control is enabled, for plants without waterside economizer"
-  parameter Boolean fixSpeConWatPum = true
+  parameter Boolean have_fixSpeConWatPum = true
     "Flag: true=fixed speed condenser water pumps, false=variable speed condenser water pumps";
   parameter Real minTowSpe = 0.1
     "Minimum cooling tower fan speed";
   parameter Real minConWatPumSpe = 0.1 "Minimum condenser water pump speed"
-    annotation (Dialog(enable=not fixSpeConWatPum));
+    annotation (Dialog(enable=not have_fixSpeConWatPum));
   parameter Real minHeaPreValPos = 0.1 "Minimum head pressure control valve position"
-    annotation (Dialog(enable=fixSpeConWatPum));
+    annotation (Dialog(enable=have_fixSpeConWatPum));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uHeaPreCon(
     final min=0,
@@ -20,7 +20,7 @@ block MappingWithoutWSE
   Buildings.Controls.OBC.CDL.Interfaces.RealInput desConWatPumSpe(
     final min=0,
     final max=1,
-    final unit="1") if not fixSpeConWatPum
+    final unit="1") if not have_fixSpeConWatPum
     "Design condenser water pump speed for current stage"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}}),
       iconTransformation(extent={{-140,-20},{-100,20}})));
@@ -37,13 +37,13 @@ block MappingWithoutWSE
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yHeaPreConVal(
     final unit="1",
     final min=0,
-    final max=1) if fixSpeConWatPum "Head pressure control valve position"
+    final max=1) if have_fixSpeConWatPum "Head pressure control valve position"
     annotation (Placement(transformation(extent={{100,-60},{140,-20}}),
       iconTransformation(extent={{100,-60},{140,-20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yConWatPumSpeSet(
     final unit="1",
     final min=0,
-    final max=1) if not fixSpeConWatPum "Condenser water pump speed setpoint"
+    final max=1) if not have_fixSpeConWatPum "Condenser water pump speed setpoint"
     annotation (Placement(transformation(extent={{100,-100},{140,-60}}),
       iconTransformation(extent={{100,-100},{140,-60}})));
 
@@ -71,12 +71,12 @@ protected
     "Constant value"
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant fulOpeVal(
-    final k=1) if fixSpeConWatPum "Fully open valve position"
+    final k=1) if have_fixSpeConWatPum "Fully open valve position"
     annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant one2(k=1) "Constant one"
     annotation (Placement(transformation(extent={{-80,-50},{-60,-30}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minValPos(
-    final k=minHeaPreValPos) if fixSpeConWatPum
+    final k=minHeaPreValPos) if have_fixSpeConWatPum
     "Minimum head pressure control valve position"
     annotation (Placement(transformation(extent={{0,-60},{20,-40}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zer2(final k=0)
@@ -85,7 +85,7 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Switch swi "Logical switch"
     annotation (Placement(transformation(extent={{60,-90},{80,-70}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minPumSpe(
-    final k=minConWatPumSpe) if not fixSpeConWatPum
+    final k=minConWatPumSpe) if not have_fixSpeConWatPum
     "Minimum condenser water pump speed"
     annotation (Placement(transformation(extent={{-40,-60},{-20,-40}})));
   Buildings.Controls.OBC.CDL.Logical.Switch swi1 "Logical switch"
@@ -205,13 +205,13 @@ speed setpoint <code>yMaxTowSpeSet</code> from 100% to minimum speed
 <code>minTowSpe</code>.
 </li>
 <li>
-If the plant has fixed speed condenser water pumps (<code>fixSpeConWatPum</code>=true), then: 
+If the plant has fixed speed condenser water pumps (<code>have_fixSpeConWatPum</code>=true), then: 
 when <code>uHeaPreCon</code> changes from 50% to 100%, reset head pressure control
 valve position <code>yHeaPreConVal</code> from 100% open to 
 <code>minHeaPreValPos</code>.
 </li>
 <li>
-If the plant has variable speed condenser water pumps (<code>fixSpeConWatPum</code>=false), then: 
+If the plant has variable speed condenser water pumps (<code>have_fixSpeConWatPum</code>=false), then: 
 when <code>uHeaPreCon</code> changes from 50% to 100%, reset condenser water pump 
 speed <code>yConWatPumSpeSet</code> from design speed for the stage <code>desConWatPumSpe</code> to 
 minimum speed <code>minConWatPumSpe</code>. When the pumps are dedicated, speed

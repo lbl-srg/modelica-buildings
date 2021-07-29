@@ -2,7 +2,7 @@ within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.SetPoint
 block Change "Calculates the chiller stage signal"
 
   parameter Integer nSta = 3
-    "Number of chiller stages";
+    "Number of chiller stages, does not include zero stage";
 
   parameter Real delayStaCha(
     final unit="s",

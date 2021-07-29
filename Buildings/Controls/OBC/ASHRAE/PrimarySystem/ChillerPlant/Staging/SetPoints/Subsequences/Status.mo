@@ -3,7 +3,7 @@ block Status
   "Outputs current stage chiller index vector, current, next available lower and higher stage index and whether curent stage is the lowest and/or the highest available stage"
 
   parameter Integer nSta = 3
-    "Number of stages";
+    "Number of chiller stages, does not include zero stage";
 
   parameter Integer nChi = 2
     "Number of chillers";

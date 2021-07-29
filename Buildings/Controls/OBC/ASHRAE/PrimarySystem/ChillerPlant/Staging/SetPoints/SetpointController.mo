@@ -39,7 +39,7 @@ block SetpointController
     annotation (Dialog(tab="General", group="Chiller configuration parameters"));
 
   parameter Integer nSta = 3
-    "Number of chiller stages"
+    "Number of chiller stages, does not include zero stage"
     annotation (Dialog(tab="General", group="Chiller configuration parameters"));
 
   parameter Integer staMat[nSta, nChi] = {{1,0},{0,1},{1,1}}
@@ -387,7 +387,7 @@ block SetpointController
 
 protected
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.SetPoints.Subsequences.Initial iniSta(
-    final have_WSE=have_WSE)
+    final have_WSE=have_WSE) "Initia stage"
     annotation (Placement(transformation(extent={{-80,100},{-60,120}})));
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.SetPoints.Subsequences.Configurator conf(

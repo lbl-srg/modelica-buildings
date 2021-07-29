@@ -6,7 +6,7 @@ block PartLoadRatios
     "Plant contains at least one variable speed centrifugal chiller";
 
   parameter Integer nSta = 3
-    "Total number of chiller stages";
+    "Number of chiller stages, does not include zero stage";
 
   parameter Real posDisMult(
     final unit = "1",

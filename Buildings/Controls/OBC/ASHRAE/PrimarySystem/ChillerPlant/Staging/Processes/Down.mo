@@ -10,33 +10,39 @@ block Down
     "Total number of chiller stages, including stage zero but not the stages with a WSE, if applicable";
   parameter Boolean have_WSE=true
     "True: have waterside economizer";
-  parameter Boolean have_PonyChiller=false
+  parameter Boolean have_ponyChiller=false
     "True: have pony chiller";
   parameter Boolean have_parChi=true
     "True: the plant has parallel chillers";
   parameter Boolean have_heaConWatPum=true
     "True: headered condenser water pumps";
-  parameter Boolean fixSpeConWatPum=false
+  parameter Boolean have_fixSpeConWatPum=false
     "True: fixed speed condenser water pump";
   parameter Real chiDemRedFac=0.75
     "Demand reducing factor of current operating chillers"
-    annotation (Dialog(group="Disable last chiller", enable=have_PonyChiller));
+    annotation (Dialog(group="Disable last chiller", enable=have_ponyChiller));
   parameter Real holChiDemTim(
-    unit="s",
-    displayUnit="h")=300
+    final unit="s",
+    final quantity="Time",
+    displayUnit="s")=300
     "Maximum time to wait for the actual demand less than percentage of current load"
-    annotation (Dialog(group="Disable last chiller", enable=have_PonyChiller));
+    annotation (Dialog(group="Disable last chiller", enable=have_ponyChiller));
   parameter Real waiTim(
-    unit="s",
-    displayUnit="h")=30
+    final unit="s",
+    final quantity="Time",
+    displayUnit="s")=30
     "Waiting time after enabling next head pressure control"
-    annotation (Dialog(group="Disable last chiller", enable=have_PonyChiller));
+    annotation (Dialog(group="Disable last chiller", enable=have_ponyChiller));
   parameter Real proOnTim(
-    unit="s",
-    displayUnit="h")=300
+    final unit="s",
+    final quantity="Time",
+    displayUnit="s")=300
     "Enabled chiller operation time to indicate if it is proven on"
-    annotation (Dialog(group="Disable last chiller", enable=have_PonyChiller));
-  parameter Real chaChiWatIsoTim(unit="s", displayUnit="h")
+    annotation (Dialog(group="Disable last chiller", enable=have_ponyChiller));
+  parameter Real chaChiWatIsoTim(
+    final unit="s",
+    final quantity="Time",
+    displayUnit="s")
     "Time to slowly change isolation valve, should be determined in the field"
     annotation (Dialog(group="Disable CHW isolation valve"));
   parameter Real staVec[totSta]
@@ -50,19 +56,29 @@ block Down
     annotation (Dialog(group="Disable condenser water pump"));
   parameter Real desChiNum[nChiSta]={0,1,2}
     "Design number of chiller that should be ON, according to current chiller stage"
-    annotation (Dialog(group="Disable condenser water pump", enable=fixSpeConWatPum));
-  parameter Real byPasSetTim(unit="s", displayUnit="h")
+    annotation (Dialog(group="Disable condenser water pump", enable=have_fixSpeConWatPum));
+  parameter Real byPasSetTim(
+    final unit="s",
+    final quantity="Time",
+    displayUnit="s")
     "Time to reset minimum by-pass flow"
     annotation (Dialog(group="Reset CHW minimum flow setpoint"));
-  parameter Real minFloSet[nChi](unit="m3/s", displayUnit="m3/s")
+  parameter Real minFloSet[nChi](
+    final unit="m3/s",
+    final quantity="VolumeFlowRate",
+    displayUnit="m3/s")
     "Minimum chilled water flow through each chiller"
     annotation (Dialog(group="Reset CHW minimum flow setpoint"));
-  parameter Real maxFloSet[nChi](unit="m3/s", displayUnit="m3/s")
+  parameter Real maxFloSet[nChi](
+    final unit="m3/s",
+    final quantity="VolumeFlowRate",
+    displayUnit="m3/s")
     "Maximum chilled water flow through each chiller"
     annotation (Dialog(group="Reset CHW minimum flow setpoint"));
   parameter Real aftByPasSetTim(
-    unit="s",
-    displayUnit="h")=60
+    final unit="s",
+    final quantity="Time",
+    displayUnit="s")=60
     "Time to allow loop to stabilize after resetting minimum chilled water flow setpoint"
     annotation (Dialog(group="Reset bypass"));
   parameter Real pumSpeChe = 0.05
@@ -87,8 +103,9 @@ block Down
     "Current stage minimum cycling operative partial load ratio"
     annotation (Placement(transformation(extent={{-320,260},{-280,300}}),
       iconTransformation(extent={{-140,120},{-100,160}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput uChiLoa[nChi](final quantity=
-        fill("ElectricCurrent", nChi), final unit=fill("A", nChi))
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput uChiLoa[nChi](
+    final quantity=fill("ElectricCurrent", nChi),
+    final unit=fill("A", nChi))
     "Current chiller load"
     annotation (Placement(transformation(extent={{-320,230},{-280,270}}),
       iconTransformation(extent={{-140,100},{-100,140}})));
@@ -137,18 +154,18 @@ block Down
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uConWatPumSpeSet(
     final min=0,
     final max=1,
-    final unit="1") if not fixSpeConWatPum
+    final unit="1") if not have_fixSpeConWatPum
     "Condenser water pump speed setpoint"
     annotation (Placement(transformation(extent={{-320,-300},{-280,-260}}),
       iconTransformation(extent={{-140,-170},{-100,-130}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uConWatPumSpe(
     final min=0,
     final max=1,
-    final unit="1") if not fixSpeConWatPum
+    final unit="1") if not have_fixSpeConWatPum
     "Current condenser water pump speed"
     annotation (Placement(transformation(extent={{-320,-360},{-280,-320}}),
       iconTransformation(extent={{-140,-190},{-100,-150}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uConWatPum[nConWatPum] if fixSpeConWatPum
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uConWatPum[nConWatPum] if have_fixSpeConWatPum
     "Status indicating if condenser water pump is running"
     annotation (Placement(transformation(extent={{-320,-400},{-280,-360}}),
         iconTransformation(extent={{-140,-210},{-100,-170}})));
@@ -192,7 +209,7 @@ block Down
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yDesConWatPumSpe(
     final min=0,
     final max=1,
-    final unit="1") if not fixSpeConWatPum
+    final unit="1") if not have_fixSpeConWatPum
     "Condenser water pump design speed at current stage"
     annotation (Placement(transformation(extent={{280,-200},{320,-160}}),
       iconTransformation(extent={{100,-130},{140,-90}})));
@@ -253,7 +270,7 @@ protected
     conWatPumCon(
     final have_heaPum=have_heaConWatPum,
     final have_WSE=have_WSE,
-    final fixSpe=fixSpeConWatPum,
+    final fixSpe=have_fixSpeConWatPum,
     final nChi=nChi,
     final nConWatPum=nConWatPum,
     final totSta=totSta,
@@ -807,7 +824,7 @@ devices during chiller staging down process.
 </p>
 <ol>
 <li>
-Identify the chiller(s) that should be enabled (and disabled, if <code>have_PonyChiller=true</code>).
+Identify the chiller(s) that should be enabled (and disabled, if <code>have_ponyChiller=true</code>).
 This is implemented in block <code>nexChi</code>. See
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Processes.Subsequences.NextChiller\">
 Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Processes.Subsequences.NextChiller</a>
