@@ -1,7 +1,6 @@
 within Buildings.Experimental.DHC.CentralPlants.Cooling.Controls;
 model ChillerStage
   "Chiller staging controller for plants with two chillers of the same size"
-  extends Modelica.Blocks.Icons.Block;
   replaceable package Medium=Buildings.Media.Water
     constrainedby Modelica.Media.Interfaces.PartialMedium
     "Service side medium";
@@ -20,43 +19,43 @@ model ChillerStage
   Modelica.Blocks.Interfaces.BooleanInput on
     "Enabling signal of the plant. True: chiller should be enabled"
     annotation (Placement(transformation(extent={{-200,40},{-160,80}}),
-      iconTransformation(extent={{-140,40},{-100,80}})));
+      iconTransformation(extent={{-200,40},{-160,80}})));
   Modelica.Blocks.Interfaces.RealInput TChiWatRet
     "Chilled water return temperature"
-    annotation (Placement(transformation(extent={{-200,0},{-160,40}}),
-      iconTransformation(extent={{-140,0},{-100,40}})));
+    annotation (Placement(transformation(extent={{-200,-24},{-160,16}}),
+      iconTransformation(extent={{-200,-24},{-160,16}})));
   Modelica.Blocks.Interfaces.RealInput TChiWatSup
     "Chilled water supply temperature"
-    annotation (Placement(transformation(extent={{-200,-40},{-160,0}}),
-      iconTransformation(extent={{-140,-40},{-100,0}})));
+    annotation (Placement(transformation(extent={{-200,-60},{-160,-20}}),
+      iconTransformation(extent={{-200,-60},{-160,-20}})));
   Modelica.Blocks.Interfaces.RealInput mFloChiWat
     "Chilled water mass flow rate"
-    annotation (Placement(transformation(extent={{-200,-80},{-160,-40}}),
-      iconTransformation(extent={{-140,-80},{-100,-40}})));
+    annotation (Placement(transformation(extent={{-200,-96},{-160,-56}}),
+      iconTransformation(extent={{-200,-96},{-160,-56}})));
   Modelica.Blocks.Interfaces.BooleanOutput y[2]
     "On/off signal for the chillers - false: off; true: on"
-    annotation (Placement(transformation(extent={{160,-10},{180,10}}),iconTransformation(extent={{100,-10},{120,10}})));
-  Modelica.StateGraph.InitialStep off(
-    nIn=1)
+    annotation (Placement(transformation(extent={{160,10},{180,-10}}),iconTransformation(extent={{160,-10},
+            {180,10}})));
+  Modelica.StateGraph.InitialStep off(nIn=1)
     "No cooling is demanded"
     annotation (Placement(transformation(extent={{-10,10},{10,-10}},
-      rotation=-90,origin={10,70})));
+      rotation=-90,origin={10,90})));
   Modelica.StateGraph.StepWithSignal oneOn(
     nOut=2,
     nIn=2)
     "Status of one chiller on"
     annotation (Placement(transformation(extent={{10,-10},{-10,10}},
       rotation=90,origin={10,0})));
-  Modelica.StateGraph.StepWithSignal twoOn
+  Modelica.StateGraph.StepWithSignal twoOn(nOut=2)
     "Status of two chillers on"
     annotation (Placement(transformation(extent={{10,-10},{-10,10}},
-      rotation=90,origin={10,-70})));
+      rotation=90,origin={10,-90})));
   Modelica.StateGraph.TransitionWithSignal offToOne(
     enableTimer=true,
     waitTime=tWai)
     "Condition of transition from off to one chiller on"
     annotation (Placement(transformation(extent={{10,10},{-10,-10}},
-      rotation=90,origin={10,40})));
+      rotation=90,origin={10,60})));
   Modelica.StateGraph.TransitionWithSignal oneToTwo(
     enableTimer=true,
     waitTime=tWai)
@@ -65,39 +64,39 @@ model ChillerStage
       rotation=90,origin={10,-40})));
   Modelica.StateGraph.TransitionWithSignal twoToOne(
     enableTimer=true,
-    waitTime=tWai)
-    "Condition of transion from two chillers to one chiller"
+    waitTime=tWai) "Condition of transion from two chillers to one chiller"
     annotation (Placement(transformation(extent={{-10,10},{10,-10}},
       rotation=90,origin={60,-40})));
   Modelica.StateGraph.TransitionWithSignal oneToOff(
     enableTimer=true,
     waitTime=tWai)
     "Condition of transition from one chiller to off"
-    annotation (Placement(transformation(extent={{-10,10},{10,-10}},rotation=90,origin={40,40})));
-  Buildings.Controls.OBC.CDL.Continuous.Hysteresis thrOneToTwo(
-    uLow=staDowThr,
-    uHigh=staUpThr)
-    "Threshold of turning two chillers on"
-    annotation (Placement(transformation(extent={{-36,-50},{-16,-30}})));
+    annotation (Placement(transformation(extent={{-10,10},{10,-10}},rotation=90,origin={40,60})));
+  Buildings.Controls.OBC.CDL.Continuous.Hysteresis thrOneToTwo(uLow=-staDowThr/
+        QChi_nominal, uHigh=-staUpThr/QChi_nominal)
+                    "Threshold of turning two chillers on"
+    annotation (Placement(transformation(extent={{-60,-80},{-40,-60}})));
   Modelica.Blocks.Logical.Not thrTwoToOne
     "Threshold of turning off the second chiller"
-    annotation (Placement(transformation(extent={{-36,-84},{-16,-64}})));
-  Buildings.Controls.OBC.CDL.Logical.Not notOn "Not on"
-    annotation (Placement(transformation(extent={{-30,10},{-10,30}})));
+    annotation (Placement(transformation(extent={{-100,-18},{-80,2}})));
   Modelica.Blocks.Math.Add dT(
     final k1=-1,
     final k2=+1)
     "Temperature difference"
-    annotation (Placement(transformation(extent={{-150,-4},{-130,16}})));
+    annotation (Placement(transformation(extent={{-140,-20},{-120,0}})));
   Modelica.Blocks.Math.Product pro
     "Product"
-    annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
-  Modelica.Blocks.Math.Gain cp(
-    final k=-cp_default)
+    annotation (Placement(transformation(extent={{-140,-80},{-120,-60}})));
+  Modelica.Blocks.Math.Gain plr(final k=cp_default/QChi_nominal)
     "Specific heat multiplier to calculate heat flow rate"
-    annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
+    annotation (Placement(transformation(extent={{-102,-80},{-82,-60}})));
   Buildings.Controls.OBC.CDL.Logical.Or Or "On signal for either chiller"
-    annotation (Placement(transformation(extent={{106,20},{126,40}})));
+    annotation (Placement(transformation(extent={{120,20},{140,40}})));
+  Modelica.Blocks.Logical.Not notOn "on switches to false"
+    annotation (Placement(transformation(extent={{-100,20},{-80,40}})));
+  Modelica.Blocks.Logical.Or TwoToOne
+    "Conditions that turn off the second chiller"
+    annotation (Placement(transformation(extent={{-40,-20},{-20,0}})));
 protected
   final parameter Medium.ThermodynamicState sta_default=Medium.setState_pTX(
     T=Medium.T_default,
@@ -110,68 +109,89 @@ protected
     "Specific heat capacity of the fluid";
 equation
   connect(off.outPort[1],offToOne.inPort)
-    annotation (Line(points={{10,59.5},{10,44}},color={0,0,0}));
-  connect(oneToOff.outPort,off.inPort[1])
-    annotation (Line(points={{40,41.5},{40,88},{10,88},{10,81}},color={0,0,0}));
+    annotation (Line(points={{10,79.5},{10,64}},color={0,0,0}));
   connect(oneToTwo.outPort,twoOn.inPort[1])
-    annotation (Line(points={{10,-41.5},{10,-59}},color={0,0,0}));
-  connect(twoOn.outPort[1],twoToOne.inPort)
-    annotation (Line(points={{10,-80.5},{10,-88},{60,-88},{60,-44}},color={0,0,0}));
+    annotation (Line(points={{10,-41.5},{10,-79}},color={0,0,0}));
   connect(twoToOne.outPort,oneOn.inPort[2])
-    annotation (Line(points={{60,-38.5},{60,16},{10.5,16},{10.5,11}},color={0,0,0}));
-  connect(offToOne.outPort,oneOn.inPort[1])
-    annotation (Line(points={{10,38.5},{10,11},{9.5,11}},color={0,0,0}));
+    annotation (Line(points={{60,-38.5},{60,20},{10.5,20},{10.5,11}},color={0,0,0}));
   connect(oneOn.outPort[2],oneToOff.inPort)
-    annotation (Line(points={{10.25,-10.5},{10.25,-18},{40,-18},{40,36}},color={0,0,0}));
+    annotation (Line(points={{10.25,-10.5},{10.25,-20},{40,-20},{40,56}},color={0,0,0}));
   connect(oneOn.outPort[1],oneToTwo.inPort)
-    annotation (Line(points={{9.75,-10.5},{9.75,-18},{10,-18},{10,-36}},color={0,0,0}));
-  connect(on,offToOne.condition)
-    annotation (Line(points={{-180,60},{-50,60},{-50,40},{-2,40}},color={255,0,255}));
+    annotation (Line(points={{9.75,-10.5},{9.75,-36},{10,-36}},         color={0,0,0}));
   connect(oneToTwo.condition,thrOneToTwo.y)
-    annotation (Line(points={{-2,-40},{-14,-40}},color={255,0,255}));
-  connect(thrTwoToOne.y,twoToOne.condition)
-    annotation (Line(points={{-15,-74},{-6,-74},{-6,-56},{40,-56},{40,-40},{48,-40}},color={255,0,255}));
-  connect(on,notOn.u)
-    annotation (Line(points={{-180,60},{-50,60},{-50,20},{-32,20}},color={255,0,255}));
-  connect(notOn.y,oneToOff.condition)
-    annotation (Line(points={{-8,20},{28,20},{28,40}},color={255,0,255}));
+    annotation (Line(points={{-2,-40},{-20,-40},{-20,-70},{-38,-70}},
+                                                 color={255,0,255}));
   connect(dT.y,pro.u1)
-    annotation (Line(points={{-129,6},{-112,6}},color={0,0,127}));
-  connect(cp.u,pro.y)
-    annotation (Line(points={{-82,0},{-89,0}},color={0,0,127}));
-  connect(cp.y,thrOneToTwo.u)
-    annotation (Line(points={{-59,0},{-50,0},{-50,-40},{-38,-40}},color={0,0,127}));
+    annotation (Line(points={{-119,-10},{-114,-10},{-114,-40},{-150,-40},{-150,-64},
+          {-142,-64}},                          color={0,0,127}));
+  connect(plr.u, pro.y)
+    annotation (Line(points={{-104,-70},{-119,-70}},
+                                                   color={0,0,127}));
+  connect(plr.y, thrOneToTwo.u) annotation (Line(points={{-81,-70},{-62,-70}},
+                           color={0,0,127}));
   connect(dT.u1,TChiWatRet)
-    annotation (Line(points={{-152,12},{-156,12},{-156,20},{-180,20}},color={0,0,127}));
+    annotation (Line(points={{-142,-4},{-180,-4}},                    color={0,0,127}));
   connect(TChiWatSup,dT.u2)
-    annotation (Line(points={{-180,-20},{-156,-20},{-156,0},{-152,0}},color={0,0,127}));
+    annotation (Line(points={{-180,-40},{-160,-40},{-160,-16},{-142,-16}},
+                                                                      color={0,0,127}));
   connect(pro.u2,mFloChiWat)
-    annotation (Line(points={{-112,-6},{-120,-6},{-120,-60},{-180,-60}},color={0,0,127}));
-  connect(oneToTwo.condition, thrTwoToOne.u) annotation (Line(points={{-2,-40},
-          {-10,-40},{-10,-54},{-50,-54},{-50,-74},{-38,-74}}, color={255,0,255}));
-  connect(oneOn.active, Or.u1) annotation (Line(points={{21,0},{80,0},{80,30},{
-          104,30}}, color={255,0,255}));
-  connect(twoOn.active, Or.u2) annotation (Line(points={{21,-70},{100,-70},{100,
-          22},{104,22}}, color={255,0,255}));
-  connect(Or.y, y[1]) annotation (Line(points={{128,30},{144,30},{144,-5},{170,
-          -5}}, color={255,0,255}));
-  connect(twoOn.active, y[2]) annotation (Line(points={{21,-70},{120,-70},{120,
-          5},{170,5}}, color={255,0,255}));
+    annotation (Line(points={{-142,-76},{-180,-76}},                    color={0,0,127}));
+  connect(oneToTwo.condition, thrTwoToOne.u)
+    annotation (Line(points={{-2,-40},{-108,-40},{-108,-8},{-102,-8}},
+                                                              color={255,0,255}));
+  connect(oneOn.active, Or.u1)
+    annotation (Line(points={{21,-8.88178e-16},{80,-8.88178e-16},{80,30},{118,30}},
+                    color={255,0,255}));
+  connect(twoOn.active, Or.u2)
+    annotation (Line(points={{21,-90},{100,-90},{100,22},{118,22}},
+                         color={255,0,255}));
+  connect(Or.y, y[1])
+    annotation (Line(points={{142,30},{144,30},{144,5},{170,5}},
+                color={255,0,255}));
+  connect(twoOn.active, y[2])
+    annotation (Line(points={{21,-90},{120,-90},{120,-5},{170,-5}},
+                       color={255,0,255}));
+  connect(on, notOn.u)
+    annotation (Line(points={{-180,60},{-120,60},{-120,30},{-102,30}},
+                                                   color={255,0,255}));
+  connect(twoOn.outPort[1],twoToOne.inPort)
+    annotation (Line(points={{9.75,-100.5},{9.75,-120},{60,-120},{60,-44}},
+                                                                    color={0,0,0}));
+  connect(offToOne.outPort,oneOn.inPort[1])
+    annotation (Line(points={{10,58.5},{10,11},{9.5,11}},color={0,0,0}));
+  connect(oneToOff.outPort,off.inPort[1])
+    annotation (Line(points={{40,61.5},{40,120},{10,120},{10,101}},
+                                                                color={0,0,0}));
+  connect(on, offToOne.condition) annotation (Line(points={{-180,60},{-2,60}},
+                             color={255,0,255}));
+  connect(thrTwoToOne.y, TwoToOne.u2) annotation (Line(points={{-79,-8},{-80,-8},
+          {-80,-18},{-42,-18}}, color={255,0,255}));
+  connect(notOn.y, TwoToOne.u1) annotation (Line(points={{-79,30},{-60,30},{-60,
+          -10},{-42,-10}}, color={255,0,255}));
+  connect(TwoToOne.y, twoToOne.condition) annotation (Line(points={{-19,-10},{-10,
+          -10},{-10,-28},{40,-28},{40,-40},{48,-40}}, color={255,0,255}));
+  connect(notOn.y, oneToOff.condition)
+    annotation (Line(points={{-79,30},{28,30},{28,60}}, color={255,0,255}));
   annotation (
     defaultComponentName="chiStaCon",
     Diagram(
       coordinateSystem(
         preserveAspectRatio=false,
-        extent={{-160,-100},{160,100}})),
+        extent={{-160,-160},{160,160}})),
     Icon(
       coordinateSystem(
         preserveAspectRatio=false,
-        extent={{-100,-100},{100,100}}),
-      graphics={
+        extent={{-160,-160},{160,160}}),
+        graphics={
+        Rectangle(
+          extent={{-160,-160},{160,160}},
+          lineColor={0,0,127},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
         Text(
-          extent={{-150,150},{150,110}},
-          textString="%name",
-          lineColor={0,0,255})}),
+          extent={{-154,206},{146,166}},
+          lineColor={0,0,255},
+          textString="%name")}),
     Documentation(
       revisions="<html>
 <ul>
@@ -186,14 +206,12 @@ First implementation.
 <ul>
 <li>When the plant enabling signal <code>on</code> changes from <code>false</code> to <code>true</code>, one chiller is enabled. </li>
 <li>When the total cooling load <code>QLoa</code> exceeds 80 percent (adjustable) of one chiller&apos;s nominal capacity <code>QChi_nominal</code>, a second chiller is enabled. </li>
-<li>When the total cooling load <code>QLoa</code> drops below 60 percent (adjustable) of one chiller&apos;s nominal capacity <code>QChi_nominal</code>(i.e. 30 percent of both chillers combined), the second chiller is disabled. </li>
-<li>When the plant enabling signal <code>on</code> changes from <code>true</code> to <code>false</code>, the operating chiller is disabled.</li>
+<li>When the total cooling load <code>QLoa</code> drops below 60 percent (adjustable) of one chiller&apos;s nominal capacity <code>QChi_nominal</code>(i.e. 30 percent of both chillers combined), or the plant enabling signal <code>on</code> changes from <code>true</code> to <code>false</code>, the second chiller is disabled. </li>
+<li>When the plant enabling signal <code>on</code> changes from <code>true</code> to <code>false</code>, the operating chillers will be disabled sequentially.</li>
 <li>Parameter <code>tWai</code> assures a transitional time is kept between each operation. </li>
 </ul>
 <p><br>It is assumed that both chillers have the same capacity of <code>QChi_nominal</code>. </p>
-<p>Note: This model can be used for plants with two chillers with or without waterside 
-econimizer (WSE). For plants with WSE, extra control logic on top of this model needs to be added. </p>
-<p><img alt=\"State graph\"
-src=\"modelica://Buildings/Resources/Images/Experimental/DHC/CentralPlants/Cooling/Controls/ChillerStage.png\"/>. </p>
+<p>Note: This model can be used for plants with two chillers with or without waterside econimizer (WSE). For plants with WSE, extra control logic on top of this model needs to be added. </p>
+<p><img src=\"modelica://Buildings/Resources/Images/Experimental/DHC/CentralPlants/Cooling/Controls/ChillerStage.png\" alt=\"State graph\"/>. </p>
 </html>"));
 end ChillerStage;

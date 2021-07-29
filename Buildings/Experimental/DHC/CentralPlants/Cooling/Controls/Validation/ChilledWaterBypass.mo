@@ -5,7 +5,7 @@ model ChilledWaterBypass
   Buildings.Experimental.DHC.CentralPlants.Cooling.Controls.ChilledWaterBypass chiBypCon(numChi=2,
     mMin_flow=0.03)
     "Chilled water bypass loop control"
-    annotation (Placement(transformation(extent={{0,-10},{20,10}})));
+    annotation (Placement(transformation(extent={{0,-20},{20,0}})));
   Modelica.Blocks.Sources.BooleanTable onOne(
     table(
       each displayUnit="s")={300,900})
@@ -25,11 +25,14 @@ model ChilledWaterBypass
     annotation (Placement(transformation(extent={{-60,-40},{-40,-20}})));
 equation
   connect(mFloByp.y, chiBypCon.mFloByp) annotation (Line(points={{-39,-30},{-20,
-          -30},{-20,-4},{-2,-4}}, color={0,0,127}));
+          -30},{-20,-15.3333},{-1.11111,-15.3333}},
+                                  color={0,0,127}));
   connect(onTwo.y,chiBypCon.chiOn[2])
-    annotation (Line(points={{-39,10},{-20,10},{-20,4},{-2,4}},color={255,0,255}));
+    annotation (Line(points={{-39,10},{-20,10},{-20,-7.77778},{-1.11111,
+          -7.77778}},                                          color={255,0,255}));
   connect(onOne.y,chiBypCon.chiOn[1])
-    annotation (Line(points={{-39,40},{-20,40},{-20,2},{-2,2}},color={255,0,255}));
+    annotation (Line(points={{-39,40},{-20,40},{-20,-8.88889},{-1.11111,
+          -8.88889}},                                          color={255,0,255}));
   annotation (
     Icon(
       coordinateSystem(
