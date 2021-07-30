@@ -2,9 +2,9 @@ within Buildings.Examples.VAVReheat.Controls;
 block RoomVAV "Controller for room VAV box"
   extends Modelica.Blocks.Icons.Block;
 
-  parameter Real ratVFloMin(unit="1")=0.3
+  parameter Real ratVFloMin(final unit="1") = 0.3
     "Minimum airflow set point (ratio to nominal)";
-  parameter Real ratVFloHea(unit="1")=ratVFloMin
+  parameter Real ratVFloHea(final unit="1") = ratVFloMin
     "Heating airflow set point (ratio to nominal)";
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController cooController=
     Buildings.Controls.OBC.CDL.Types.SimpleController.PI "Type of controller"
@@ -214,7 +214,7 @@ In heating demand, <code>yDam</code> is fixed at the heating value <code>ratVFlo
 and <code>yVal</code> is modulated between 0 and 1.
 </li>
 <li>
-In cooling demand, <code>yDam</code> is modulated between the minimum value 
+In cooling demand, <code>yDam</code> is modulated between the minimum value
 <code>ratVFloMin</code> and 1, and <code>yVal</code> is 0.
 </li>
 </ul>
