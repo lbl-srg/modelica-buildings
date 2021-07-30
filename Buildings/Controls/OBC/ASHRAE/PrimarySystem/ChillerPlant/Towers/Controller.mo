@@ -188,7 +188,7 @@ block Controller "Cooling tower controller"
     "Chiller stage vector, element value like x.5 means chiller stage x plus WSE"
     annotation (Dialog(tab="Tower staging", group="Nominal"));
   parameter Real towCelOnSet[totSta]={0,2,2,4,4,4}
-    "Number of condenser water pumps that should be ON, according to current chiller stage and WSE status"
+    "Design number of tower fan cells that should be ON, according to current chiller stage and WSE status"
     annotation (Dialog(tab="Tower staging"));
   parameter Real chaTowCelIsoTim(
     final unit="s",

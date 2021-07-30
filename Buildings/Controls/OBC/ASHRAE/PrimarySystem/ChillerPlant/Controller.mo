@@ -15,10 +15,6 @@ block Controller "Chiller plant controller"
     "Flag: true means that the plant has parallel chillers"
     annotation(Dialog(tab="General", group="Chillers configuration"));
 
-  parameter Boolean have_serChi = false
-    "true = series chillers plant; false = parallel chillers plant"
-    annotation (Dialog(tab="General", group="Chillers configuration"));
-
   parameter Boolean have_ponyChiller=false
     "True: have pony chiller"
     annotation (Dialog(tab="General", group="Chillers configuration"));
@@ -52,7 +48,7 @@ block Controller "Chiller plant controller"
   parameter Real TChiWatSupMin[nChi](
     final unit=fill("K",nChi),
     final quantity=fill("ThermodynamicTemperature",nChi),
-    displayUnit=fill("degC",nChi))
+    displayUnit=fill("degC",nChi))={278.15,278.15}
     "Minimum chilled water supply temperature"
     annotation (Dialog(tab="General", group="Chillers configuration"));
 
@@ -118,19 +114,19 @@ block Controller "Chiller plant controller"
 
   // ---- General: Chiller staging settings ----
 
-  parameter Integer nSta = 3
-    "Number of chiller stages, does not include zero stage"
+  parameter Integer nSta = 2
+    "Number of chiller stages, neighth zero stage nor the stages with enabled waterside economizer is included"
     annotation (Dialog(tab="General", group="Staging configuration"));
 
   parameter Integer totSta=6
     "Total number of plant stages, including stage zero and the stages with a WSE, if applicable"
     annotation (Dialog(tab="General", group="Staging configuration"));
 
-  parameter Integer staMat[nSta, nChi] = {{1,0},{0,1},{1,1}}
-    "Staging matrix with stage as row index and chiller as column index"
+  parameter Integer staMat[nSta, nChi] = {{1,0},{1,1}}
+    "Staging matrix with chiller stage as row index and chiller as column index"
     annotation (Dialog(tab="General", group="Staging configuration"));
 
-  parameter Real desChiNum[nSta+1]={0,1,1,2}
+  parameter Real desChiNum[nSta+1]={0,1,2}
     "Design number of chiller that should be ON, according to current chiller stage"
     annotation (Dialog(tab="General", group="Staging configuration", enable=have_fixSpeConWatPum));
 
@@ -139,15 +135,15 @@ block Controller "Chiller plant controller"
     annotation (Dialog(tab="General", group="Staging configuration"));
 
   parameter Real desConWatPumSpe[totSta]={0,0.5,0.75,0.6,0.75,0.9}
-    "Design condenser water pump speed setpoints, the size should be double of total stage numbers"
+    "Design condenser water pump speed setpoints, according to current chiller stage and WSE status"
     annotation (Dialog(tab="General", group="Staging configuration"));
 
   parameter Real desConWatPumNum[totSta]={0,1,1,2,2,2}
-    "Design number of condenser water pumps that should be ON, the size should be double of total stage numbers"
+    "Design number of condenser water pumps that should be ON, according to current chiller stage and WSE status"
     annotation (Dialog(tab="General", group="Staging configuration"));
 
   parameter Real towCelOnSet[totSta]={0,2,2,4,4,4}
-    "Number of condenser water pumps that should be ON, according to current chiller stage and WSE status"
+    "Design number of tower fan cells that should be ON, according to current chiller stage and WSE status"
     annotation(Dialog(tab="General", group="Staging configuration"));
 
   // ---- General: Cooling tower ----
@@ -579,13 +575,13 @@ block Controller "Chiller plant controller"
 
   parameter Real chiDemRedFac=0.75
     "Demand reducing factor of current operating chillers"
-    annotation (Dialog(tab="Staging", group="Up and down process: Limit chiller demand"));
+    annotation (Dialog(tab="Staging", group="Up and down process"));
 
   parameter Real holChiDemTim(
     final unit="s",
     final quantity="Time")=300
     "Maximum time to wait for the actual demand less than percentage of current load"
-    annotation (Dialog(tab="Staging", group="Up and down process: Limit chiller demand"));
+    annotation (Dialog(tab="Staging", group="Up and down process"));
 
   parameter Real aftByPasSetTim(
     final unit="s",
@@ -597,26 +593,26 @@ block Controller "Chiller plant controller"
     final unit="s",
     final quantity="Time")=30
     "Waiting time after enabling next head pressure control"
-    annotation (Dialog(tab="Staging", group="Up and down process: Time parameters"));
+    annotation (Dialog(tab="Staging", group="Up and down process"));
 
   parameter Real chaChiWatIsoTim(
     final unit="s",
     final quantity="Time",
     displayUnit="h")=300
     "Time to slowly change isolation valve, should be determined in the field"
-    annotation (Dialog(tab="Staging", group="Up and down process: Time parameters"));
+    annotation (Dialog(tab="Staging", group="Up and down process"));
 
   parameter Real proOnTim(
     final unit="s",
     final quantity="Time")=300
     "Threshold time to check after newly enabled chiller being operated"
-    annotation (Dialog(tab="Staging", group="Up and down process: Time parameters", enable=have_ponyChiller));
+    annotation (Dialog(tab="Staging", group="Up and down process", enable=have_ponyChiller));
 
   parameter Real thrTimEnb(
     final unit="s",
     final quantity="Time")=10
     "Threshold time to enable head pressure control after condenser water pump being reset"
-    annotation (Dialog(tab="Staging", group="Up process: Time parameters"));
+    annotation (Dialog(tab="Staging", group="Up and down process"));
 
   // fixme: this should be a sum of all chiller capacities
 
@@ -1544,6 +1540,9 @@ block Controller "Chiller plant controller"
     annotation (Placement(transformation(extent={{580,-220},{600,-200}})));
 
 protected
+  final parameter Boolean have_serChi = not have_parChi
+    "true = series chillers plant; false = parallel chillers plant"
+    annotation (Dialog(tab="General", group="Chillers configuration"));
   final parameter Real TChiWatSupMin_Lowest(
     final unit="K",
     final quantity="ThermodynamicTemperature",
@@ -1939,8 +1938,8 @@ equation
   connect(relDem.y, yReaChiDemLim)
     annotation (Line(points={{602,-210},{820,-210}}, color={255,0,255}));
 annotation (
-  defaultComponentName="chiPlaCon",
-  Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-300},{100,300}}),
+    defaultComponentName="chiPlaCon",
+    Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-300},{100,300}}),
         graphics={
         Rectangle(
           extent={{-100,-300},{100,300}},
@@ -1982,7 +1981,8 @@ annotation (
         Text(
           extent={{-100,206},{-62,196}},
           lineColor={255,0,255},
-          textString="uChiIsoVal"),
+          textString="uChiIsoVal",
+          visible=have_heaChiWatPum),
         Text(
           extent={{-98,168},{-50,154}},
           lineColor={0,0,127},
@@ -1998,11 +1998,13 @@ annotation (
         Text(
           extent={{-100,106},{-68,96}},
           lineColor={0,0,127},
-          textString="TOutWet"),
+          textString="TOutWet",
+          visible=have_WSE),
         Text(
           extent={{-98,88},{-50,74}},
           lineColor={0,0,125},
-          textString="TChiWatRetDow"),
+          textString="TChiWatRetDow",
+          visible=have_WSE),
         Text(
           extent={{-100,66},{-60,56}},
           lineColor={0,0,127},
@@ -2010,15 +2012,18 @@ annotation (
         Text(
           extent={{-100,48},{-60,32}},
           lineColor={0,0,127},
-          textString="TConWatRet"),
+          textString="TConWatRet",
+          visible=not have_heaPreConSig),
         Text(
           extent={{-98,26},{-58,14}},
           lineColor={0,0,127},
-          textString="TChiWatSup"),
+          textString="TChiWatSup",
+          visible=(not have_heaPreConSig) or have_WSE),
         Text(
           extent={{-98,8},{-60,-6}},
           lineColor={0,0,127},
-          textString="uHeaPreCon"),
+          textString="uHeaPreCon",
+          visible=have_heaPreConSig),
         Text(
           extent={{-98,-14},{-66,-26}},
           lineColor={0,0,127},
@@ -2030,7 +2035,8 @@ annotation (
         Text(
           extent={{-98,-52},{-50,-66}},
           lineColor={0,0,127},
-          textString="dpChiWatPum"),
+          textString="dpChiWatPum",
+          visible=not have_serChi),
         Text(
           extent={{-98,-72},{-50,-86}},
           lineColor={0,0,127},
@@ -2054,7 +2060,8 @@ annotation (
         Text(
           extent={{-98,-172},{-50,-186}},
           lineColor={0,0,127},
-          textString="uChiCooLoa"),
+          textString="uChiCooLoa",
+          visible=have_WSE),
         Text(
           extent={{-96,-194},{-64,-206}},
           lineColor={0,0,127},
@@ -2062,7 +2069,8 @@ annotation (
         Text(
           extent={{-98,-214},{-50,-228}},
           lineColor={0,0,127},
-          textString="TConWatSup"),
+          textString="TConWatSup",
+          visible=not closeCoupledPlant),
         Text(
           extent={{-100,-234},{-68,-246}},
           lineColor={0,0,127},
@@ -2082,7 +2090,8 @@ annotation (
         Text(
           extent={{50,238},{98,224}},
           lineColor={255,0,255},
-          textString="yChiWatPum"),
+          textString="yChiWatPum",
+          visible=have_heaChiWatPum),
         Text(
           extent={{76,148},{98,134}},
           lineColor={255,0,255},
@@ -2114,11 +2123,13 @@ annotation (
         Text(
           extent={{52,118},{100,104}},
           lineColor={0,0,127},
-          textString="yHeaPreConVal"),
+          textString="yHeaPreConVal",
+          visible=have_WSE or (not have_WSE and have_fixSpeConWatPum)),
         Text(
           extent={{52,88},{100,74}},
           lineColor={0,0,127},
-          textString="yConWatPumSpe"),
+          textString="yConWatPumSpe",
+          visible=not have_fixSpeConWatPum),
         Text(
           extent={{52,60},{100,46}},
           lineColor={0,0,127},
@@ -2147,20 +2158,18 @@ annotation (
           extent={{52,-10},{100,-24}},
           lineColor={255,0,255},
           textString="yReaChiDemLim")}),
-  Diagram(coordinateSystem(extent={{-800,-840},{800,760}}),
-          graphics={Text(
+    Diagram(coordinateSystem(extent={{-800,-840},{800,760}}), graphics={Text(
           extent={{-482,-574},{-398,-594}},
           lineColor={28,108,200},
           textString="might need a pre block")}),
-  Documentation(info="<html>
+    Documentation(info="<html>
 <p>
 Assemble a controller for plants with two devices or groups of devices (chillers, towers(4 cells), CW and C pumps)
 </p>
 <p>
 Implemented configuration: parallel chillers, headered pumps
 </p>
-</html>",
-revisions="<html>
+</html>", revisions="<html>
 <ul>
 <li>
 May 30, 2020, by Milica Grahovac:<br/>
