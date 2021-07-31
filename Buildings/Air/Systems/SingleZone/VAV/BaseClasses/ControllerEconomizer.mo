@@ -73,7 +73,7 @@ model ControllerEconomizer "Controller for economizer"
   Modelica.Blocks.Logical.Switch switch1 "Switch to select control output"
     annotation (Placement(transformation(extent={{20,10},{40,30}})));
   Modelica.Blocks.MathBoolean.And and1(
-    final nu=3) "Logical and"
+    final nin=3) "Logical and"
     annotation (Placement(transformation(extent={{20,-60},{40,-40}})));
   Controls.Continuous.LimPID con(
     final controllerType=controllerTypeEco,

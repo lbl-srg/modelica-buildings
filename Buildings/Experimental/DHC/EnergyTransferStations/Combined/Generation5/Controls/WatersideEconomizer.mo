@@ -99,10 +99,10 @@ model WatersideEconomizer
     "Cooling enable signal"
     annotation (Placement(transformation(extent={{-220,140},{-180,180}}),
     iconTransformation(extent={{-140,60},{-100,100}})));
-  Buildings.Controls.OBC.CDL.Logical.MultiAnd mulAnd(nu=4)
+  Buildings.Controls.OBC.CDL.Logical.MultiAnd mulAnd(nin=4)
     "Enable if cooling enabled and temperature criterion verified"
     annotation (Placement(transformation(extent={{0,-50},{20,-30}})));
-  Buildings.Controls.OBC.CDL.Logical.MultiOr or1(nu=3)
+  Buildings.Controls.OBC.CDL.Logical.MultiOr or1(nin=3)
     "Cooling disabled or temperature criterion verified"
     annotation (Placement(transformation(extent={{0,-110},{20,-90}})));
   Buildings.Controls.OBC.CDL.Logical.Not not2 "Cooling disabled"
