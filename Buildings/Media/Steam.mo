@@ -216,7 +216,7 @@ end specificInternalEnergy;
 redeclare replaceable function extends specificHeatCapacityCp
   "Specific heat capacity at constant pressure"
 
-  protected
+protected
   Modelica.Media.Common.GibbsDerivs g
     "Dimensionless Gibbs function and derivatives w.r.t. pi and tau";
   SpecificHeatCapacity R "Specific gas constant of water vapor";
@@ -240,7 +240,7 @@ end specificHeatCapacityCp;
 redeclare replaceable function extends specificHeatCapacityCv
   "Specific heat capacity at constant volume"
 
-  protected
+protected
   Modelica.Media.Common.GibbsDerivs g
     "Dimensionless Gibbs function and derivatives w.r.t. pi and tau";
   SpecificHeatCapacity R "Specific gas constant of water vapor";
@@ -489,7 +489,7 @@ function g2 "Gibbs function for region 2: g(p,T)"
   input Modelica.SIunits.Temperature T "Temperature (K)";
   output Modelica.Media.Common.GibbsDerivs g
     "Dimensionless Gibbs function and derivatives w.r.t. pi and tau";
-  protected
+protected
   Real tau2 "Dimensionless temperature";
   Real[55] o "Vector of auxiliary variables";
 algorithm
@@ -849,6 +849,7 @@ algorithm
         region=2);
   annotation (Inline=true);
 end pressure_dT;
+
   annotation (Icon(graphics={
       Line(
         points={{50,30},{30,10},{50,-10},{30,-30}},

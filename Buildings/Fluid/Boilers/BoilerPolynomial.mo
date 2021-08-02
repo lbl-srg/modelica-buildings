@@ -209,6 +209,7 @@ The following polynomials can be selected to compute the efficiency:
 </i></td>
 </tr>
 </table>
+
 <p>
 where <i>T</i> is the boiler outlet temperature in Kelvin.
 For <code>effCur = Buildings.Fluid.Types.EfficiencyCurves.Polynomial</code>,
@@ -236,6 +237,7 @@ parameter <code>fue</code>.
 Note that if <i>&eta;</i> is the efficiency relative to the lower heating value,
 then the fuel properties also need to be used for the lower heating value.
 </p>
+
 <p>
 Optionally, the port <code>heatPort</code> can be connected to a heat port
 outside of this model to impose a boundary condition in order to
@@ -243,6 +245,7 @@ model heat losses to the ambient. When using this <code>heatPort</code>,
 make sure that the efficiency curve <code>effCur</code>
 does not already account for this heat loss.
 </p>
+
 <p>
 On the Assumptions tag, the model can be parameterized to compute a transient
 or steady-state response.
