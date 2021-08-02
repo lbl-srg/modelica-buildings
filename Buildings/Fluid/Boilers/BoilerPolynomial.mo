@@ -253,6 +253,7 @@ The transient response of the boiler is computed using a first
 order differential equation to compute the boiler's water and metal temperature,
 which are lumped into one state. The boiler outlet temperature is equal to this water temperature.
 </p>
+
 </html>", revisions="<html>
 <ul>
 <li>
