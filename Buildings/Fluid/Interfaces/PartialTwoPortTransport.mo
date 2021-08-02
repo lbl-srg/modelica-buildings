@@ -21,12 +21,12 @@ partial model PartialTwoPortTransport
   // Diagnostics
   parameter Boolean show_T = true
     "= true, if temperatures at port_a and port_b are computed"
-    annotation(
+    annotation (
       Dialog(tab="Advanced", group="Diagnostics"),
       HideResult=true);
   parameter Boolean show_V_flow = true
     "= true, if volume flow rate at inflowing port is computed"
-    annotation(
+    annotation (
       Dialog(tab="Advanced", group="Diagnostics"),
       HideResult=true);
 

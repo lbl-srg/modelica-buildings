@@ -1,6 +1,6 @@
 within Buildings.Fluid.Interfaces;
 partial model PartialWaterPhaseChange
-  "Partial model with fundamental equations for water phase change"
+  "Partial model with fundamental parameters for water steam-liquid phase change"
   replaceable package MediumSte = Buildings.Media.Steam constrainedby
     Modelica.Media.Interfaces.PartialMedium
      "Steam medium";
@@ -8,38 +8,37 @@ partial model PartialWaterPhaseChange
     Modelica.Media.Interfaces.PartialMedium
     "Water medium";
 
-  parameter Modelica.SIunits.AbsolutePressure pSatHig
-    "Saturation pressure at the high pressure setpoint";
+  // Assumptions
+  parameter Boolean allowFlowReversal = true
+    "= false to simplify equations, assuming, but not enforcing, no flow reversal. Used only if model has two ports."
+    annotation(Dialog(tab="Assumptions"), Evaluate=true);
+  parameter Modelica.Fluid.Types.Dynamics energyDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial
+    "Type of energy balance: dynamic (3 initialization options) or steady state"
+    annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Equations"));
+  parameter Modelica.Fluid.Types.Dynamics massDynamics=energyDynamics
+    "Type of mass balance: dynamic (3 initialization options) or steady state"
+    annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Equations"));
 
-  parameter Modelica.SIunits.Temperature TSatHig=
-     MediumSte.saturationTemperature(pSatHig)
-     "Saturation temperature at the high pressure setpoint";
-
-protected
-  parameter MediumWat.ThermodynamicState staWat_default=MediumWat.setState_pTX(
-      T=TSatHig, p=pSatHig, X=MediumWat.X_default);
-  parameter MediumSte.ThermodynamicState staSte_default=MediumSte.setState_pTX(
-      T=TSatHig, p=pSatHig, X=MediumSte.X_default);
-
-  parameter Modelica.SIunits.SpecificEnthalpy dhVapStd=
-    MediumSte.specificEnthalpy(staSte_default) -
-      MediumWat.specificEnthalpy(staWat_default)
-    "Standard change in enthalpy due to vaporization";
-
-  parameter Modelica.SIunits.SpecificHeatCapacity cpWatStd=
-     MediumWat.specificHeatCapacityCp(staWat_default)
-    "Standard specific heat of liquid water";
-  parameter Modelica.SIunits.SpecificHeatCapacity cpSteStd=
-     MediumSte.specificHeatCapacityCp(staSte_default)
-    "Standard specific heat of steam";
-
-  parameter Modelica.SIunits.Density rhoWatStd=
-     MediumWat.density(staWat_default)
-    "Standard density of liquid water";
-  parameter Modelica.SIunits.Density rhoSteStd=
-     MediumSte.density(staSte_default)
-    "Standard density of steam";
-
+  // Initialization
+  parameter MediumSte.AbsolutePressure p_start = MediumSte.p_default
+    "Start value of pressure"
+    annotation(Dialog(tab = "Initialization"));
+  parameter MediumSte.Temperature T_start=MediumSte.T_default
+    "Start value of temperature"
+    annotation(Dialog(tab = "Initialization"));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
-        coordinateSystem(preserveAspectRatio=false)));
+        coordinateSystem(preserveAspectRatio=false)),
+    Documentation(info="<html>
+<p>
+A partial class with common parameters needed 
+for modeling water phase change.
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+July 22, 2021 by Kathryn Hinkelman:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));
 end PartialWaterPhaseChange;
