@@ -10,19 +10,33 @@ model NonIntegrated
             Medium1.density_pTX(101325, 273.15+4, Medium1.X_default),
             Medium2.density_pTX(101325, 273.15+4, Medium2.X_default)});
 
+  Fluid.FixedResistances.Junction spl2(
+    redeclare package Medium = Medium2,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
+    m_flow_nominal=
+      {numChi*m2_flow_chi_nominal,-numChi*m2_flow_chi_nominal,-m2_flow_wse_nominal},
+    dp_nominal={0,0,0}) "Splitter"
+    annotation (Placement(transformation(extent={{90,-50},{70,-70}})));
+  Fluid.FixedResistances.Junction jun2(
+    redeclare package Medium = Medium2,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
+    m_flow_nominal={m2_flow_wse_nominal,-numChi*m2_flow_chi_nominal,numChi*
+        m2_flow_chi_nominal},
+    dp_nominal={0,0,0}) "Junction"
+    annotation (Placement(transformation(extent={{-60,-50},{-80,-70}})));
 equation
-  connect(port_a2, wse.port_a2)
-    annotation (Line(points={{100,-60},{80,-60},{80,
-          24},{60,24}},color={0,127,255}));
-  connect(port_a2, chiPar.port_a2)
-    annotation (Line(points={{100,-60},{-8,-60},
-          {-8,24},{-40,24}},color={0,127,255}));
-  connect(chiPar.port_b2, port_b2)
-    annotation (Line(points={{-60,24},{-72,24},{
-          -72,-60},{-100,-60}},color={0,127,255}));
-  connect(senTem.port_b, port_b2)
-    annotation (Line(points={{8,24},{0,24},{0,-40},
-          {-72,-40},{-72,-60},{-100,-60}}, color={0,127,255}));
+  connect(port_a2, spl2.port_1)
+    annotation (Line(points={{100,-60},{90,-60}}, color={0,127,255}));
+  connect(spl2.port_3, wse.port_a2)
+    annotation (Line(points={{80,-50},{80,24},{60,24}}, color={0,127,255}));
+  connect(spl2.port_2, chiPar.port_a2) annotation (Line(points={{70,-60},{-30,
+          -60},{-30,24},{-40,24}}, color={0,127,255}));
+  connect(port_b2, jun2.port_2)
+    annotation (Line(points={{-100,-60},{-80,-60}}, color={0,127,255}));
+  connect(chiPar.port_b2, jun2.port_3)
+    annotation (Line(points={{-60,24},{-70,24},{-70,-50}}, color={0,127,255}));
+  connect(jun2.port_1, senTem.port_b) annotation (Line(points={{-60,-60},{-40,
+          -60},{-40,-50},{0,-50},{0,24},{8,24}}, color={0,127,255}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Line(points={{64,0},{74,0},{74,-60},{90,-60}}, color={0,128,255}),
         Line(points={{-72,0},{-76,0},{-76,-60},{-92,-60}}, color={0,128,255}),
@@ -79,6 +93,10 @@ For Fully Mechanical Cooling (FMC) Mode:
 </ul>
 </html>", revisions="<html>
 <ul>
+<li>
+April 13, 2021, by Kathryn Hinkelman:<br/>
+Added junctions.
+</li>
 <li>
 July 1, 2017, by Yangyang Fu:<br/>
 First implementation.

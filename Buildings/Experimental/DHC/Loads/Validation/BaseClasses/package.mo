@@ -7,7 +7,7 @@ package BaseClasses
     Documentation(
       info="<html>
 <p>
-This package contains base classes that are used to construct the models in
+This package contains base classes that are used to construct the classes in
 <a href=\"modelica://Buildings.Experimental.DHC.Loads.Validation\">
 Buildings.Experimental.DHC.Loads.Validation</a>.
 </p>

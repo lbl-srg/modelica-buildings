@@ -138,8 +138,6 @@ equation
           0},{-12,-20}},       color={0,127,255}));
   connect(port_bHotWat, terHea.port_b1) annotation (Line(points={{-100,-60},{
           -12,-60},{-12,-40}}, color={0,127,255}));
-  connect(y_actual, y_actual)
-    annotation (Line(points={{110,0},{110,0}},   color={0,0,127}));
   connect(vav.port_b, senTem.port_a) annotation (Line(points={{6.66134e-16,20},{
           0,20},{0,30},{-4.44089e-16,30}}, color={0,127,255}));
   connect(senTem.port_b, senVolFlo.port_a)

@@ -2,6 +2,10 @@ within Buildings.Examples.VAVReheat.Validation;
 model Guideline36SteadyState
   "Validation of detailed model that is at steady state with constant weather data"
   extends Buildings.Examples.VAVReheat.Guideline36(
+    redeclare replaceable Buildings.Examples.VAVReheat.BaseClasses.Floor flo(
+      final lat=lat,
+      final sampleModel=sampleModel,
+      gai(K=0*[0.4; 0.4; 0.2])),
       weaDat(
       pAtmSou=Buildings.BoundaryConditions.Types.DataSource.Parameter,
       ceiHeiSou=Buildings.BoundaryConditions.Types.DataSource.Parameter,
@@ -18,8 +22,6 @@ model Guideline36SteadyState
       HSou=Buildings.BoundaryConditions.Types.RadiationDataSource.Input_HGloHor_HDifHor),
       use_windPressure=false,
       sampleModel=false,
-      flo(
-        gai(K=0*[0.4; 0.4; 0.2])),
       occSch(
         occupancy=3600*24*365*{1,2},
         period=2*3600*24*365));
@@ -47,6 +49,12 @@ no HVAC operation.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+April 30, 2021, by Michael Wetter:<br/>
+Reformulated replaceable class and introduced floor areas in base class
+to avoid access of components that are not in the constraining type.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2471\">issue #2471</a>.
+</li>
 <li>
 April 18, 2020, by Michael Wetter:<br/>
 First implementation.

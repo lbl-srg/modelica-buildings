@@ -42,8 +42,8 @@ partial model PartialDistribution1Pipe
     annotation (Placement(transformation(extent={{100,20},{140,60}}),
       iconTransformation(extent={{200,10},{240,50}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput TOut[nCon](
-    final unit="K",
-    displayUnit="degC") if show_TOut
+    each final unit="K",
+    each displayUnit="degC") if show_TOut
     "Temperature in distribution line at each connection outlet"
     annotation (
       Placement(transformation(extent={{100,-100},{140,-60}}),

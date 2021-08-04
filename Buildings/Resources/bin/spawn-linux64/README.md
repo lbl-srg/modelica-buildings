@@ -1,10 +1,5 @@
 # Spawn 
 
-_Version: 0.0.1_
-
-_Build: 316d0c8c19_
-
-
 This is the spawn executable. 
 There are currently two capabilities provided by this program.
 1. Create an FMU given an EnergyPlus idf file

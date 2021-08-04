@@ -13,6 +13,13 @@ import zipfile
 import urllib.request, urllib.parse, urllib.error
 import shutil
 
+# Commit, see https://gitlab.com/kylebenne/spawn/-/pipelines?scope=all&page=1
+# Also available is latest/Spawn-latest-{Linux,win64,Darwin}
+# The setup below will lead to a specific commit being pulled.
+commit = "b6575d860ca14093dc4c8da684fdda73690970ad"
+NAME_VERSION = f"Spawn-0.1.1-{commit[0:10]}"
+
+
 
 def log(msg):
     print(msg)
@@ -112,7 +119,7 @@ def get_html_table(allVars, template_name):
     return html
 
 
-def replace_table_in_mo(html, varType):
+def replace_table_in_mo(html, varType, moFile):
     """Replaces in the .mo file the table with the output variables"""
     import os
     import re
@@ -125,7 +132,7 @@ def replace_table_in_mo(html, varType):
         "..",
         "ThermalZones",
         "EnergyPlus",
-        "UsersGuide.mo",
+        moFile,
     )
     mo_new = ""
     with open(mo_name, "r") as mo_fil:
@@ -152,16 +159,11 @@ def replace_table_in_mo(html, varType):
 
 
 if __name__ == "__main__":
-    # Commit, see https://gitlab.com/kylebenne/spawn/-/pipelines?scope=all&page=1
-    # Also available is latest/Spawn-latest-{Linux,win64,Darwin}
-    # The setup below lead to a specific commit being pulled.
-    commit = "b47b0c49ca"
-    name_version = f"Spawn-0.0.1-{commit}"
 
     dists = list()
     dists.append(
         {
-            "src": f"https://spawn.s3.amazonaws.com/builds/{name_version}-Linux.tar.gz",
+            "src": f"https://spawn.s3.amazonaws.com/builds/{NAME_VERSION}-Linux.tar.gz",
             "des": "spawn-linux64",
             "files": {
                 "bin/spawn": "",
@@ -173,7 +175,7 @@ if __name__ == "__main__":
     )
     dists.append(
         {
-            "src": f"https://spawn.s3.amazonaws.com/builds/{name_version}-win64.zip",
+            "src": f"https://spawn.s3.amazonaws.com/builds/{NAME_VERSION}-win64.zip",
             "des": "spawn-win64",
             "files": {
                 "bin/epfmi.dll": "",
@@ -192,14 +194,16 @@ if __name__ == "__main__":
             "spawnFlag": "--output-vars",
             "htmlTemplate": "output_vars_template.html",
             "varType": "output variables",
+            "moFile": "OutputVariable.mo"
         },
         {
             "spawnFlag": "--actuators",
             "htmlTemplate": "actuators_template.html",
             "varType": "actuators",
+            "moFile": "Actuator.mo"
         },
     ]
     for v in vars:
         js = get_vars_as_json(v["spawnFlag"])
         html = get_html_table(js, v["htmlTemplate"])
-        replace_table_in_mo(html, v["varType"])
+        replace_table_in_mo(html, v["varType"], v["moFile"])
