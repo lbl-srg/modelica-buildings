@@ -6,7 +6,7 @@ model ChillerStage
     tWai=30,
     QChi_nominal=-200*3.517*1000)
     "Chiller staging controller"
-    annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
+    annotation (Placement(transformation(extent={{0,-10},{20,10}})));
   Modelica.Blocks.Sources.BooleanTable on(
     table(
       each displayUnit="s")={300,900})
@@ -26,13 +26,17 @@ model ChillerStage
     annotation (Placement(transformation(extent={{-60,-60},{-40,-40}})));
 equation
   connect(on.y,chiStaCon.on)
-    annotation (Line(points={{-39,50},{-28,50},{-28,6},{-12,6}},color={255,0,255}));
+    annotation (Line(points={{-39,50},{-28,50},{-28,3.75},{-1.25,3.75}},
+                                                                color={255,0,255}));
   connect(mFlo.y,chiStaCon.mFloChiWat)
-    annotation (Line(points={{-39,-50},{-28,-50},{-28,-6},{-12,-6}},color={0,0,127}));
+    annotation (Line(points={{-39,-50},{-28,-50},{-28,-3.75},{-1.25,-3.75}},
+                                                                    color={0,0,127}));
   connect(TRet.y,chiStaCon.TChiWatRet)
-    annotation (Line(points={{-39,20},{-34,20},{-34,2},{-12,2}},color={0,0,127}));
+    annotation (Line(points={{-39,20},{-34,20},{-34,1.25},{-1.25,1.25}},
+                                                                color={0,0,127}));
   connect(TSup.y,chiStaCon.TChiWatSup)
-    annotation (Line(points={{-39,-20},{-34,-20},{-34,-2},{-12,-2}},color={0,0,127}));
+    annotation (Line(points={{-39,-20},{-34,-20},{-34,-1.25},{-1.25,-1.25}},
+                                                                    color={0,0,127}));
   annotation (
     Icon(
       coordinateSystem(

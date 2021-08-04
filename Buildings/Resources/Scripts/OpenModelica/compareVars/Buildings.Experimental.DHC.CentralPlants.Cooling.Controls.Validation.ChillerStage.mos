@@ -1,7 +1,7 @@
 compareVars :=
   {
     "chiStaCon.on",
-    "chiStaCon.cp.y",
+    "chiStaCon.plr.y",
     "chiStaCon.y[1]",
     "chiStaCon.y[2]"
   };
