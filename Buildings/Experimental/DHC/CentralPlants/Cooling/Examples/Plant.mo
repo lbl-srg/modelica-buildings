@@ -96,7 +96,7 @@ model Plant
   Fluid.FixedResistances.PressureDrop res(
     redeclare package Medium=Medium,
     m_flow_nominal=pla.numChi*mCHW_flow_nominal,
-    dp_nominal(displayUnit="bar") = 67800)
+    dp_nominal(displayUnit="kPa") = 1000000)
     "Flow resistance"
     annotation (Placement(transformation(extent={{60,-50},{40,-30}})));
   Modelica.Blocks.Sources.Sine LoaVar(
