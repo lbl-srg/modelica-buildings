@@ -61,6 +61,13 @@ block ReturnFanDirectPressure
     "Averaged building static pressure"
     annotation (Placement(transformation(extent={{120,50},{160,90}}),
       iconTransformation(extent={{100,50},{140,90}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yExhDam(
+     final unit="1",
+     final min=0,
+     final max=1)
+    "Exhaust damper control signal (0: closed, 1: open)"
+    annotation (Placement(transformation(extent={{120,0},{160,40}}),
+        iconTransformation(extent={{100,0},{140,40}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput dpDisSet(
      final unit="Pa",
      displayUnit="Pa",
@@ -68,13 +75,6 @@ block ReturnFanDirectPressure
     "Return fan discharge static pressure setpoint"
     annotation (Placement(transformation(extent={{120,-110},{160,-70}}),
         iconTransformation(extent={{100,-80},{140,-40}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yExhDam(
-     final unit="1",
-     final min=0,
-     final max=1)
-    "Exhaust damper control signal (0: closed, 1: open)"
-    annotation (Placement(transformation(extent={{120,0},{160,40}}),
-        iconTransformation(extent={{100,40},{140,80}})));
 
   Buildings.Controls.OBC.CDL.Continuous.MovingMean movMea(
     final delta=300)
@@ -197,7 +197,7 @@ equation
 annotation (
   defaultComponentName="retFanDpCon",
   Icon(graphics={
-        Text(extent={{-98,142},{102,102}},
+        Text(extent={{-100,140},{100,100}},
           lineColor={0,0,255},
           textString="%name"),
         Rectangle(
@@ -293,7 +293,7 @@ dampers from <code>yExhDam = 0</code> (closed) to <code>yExhDam = 1</code> (open
 From <i>0.5</i> to <i>1</i>, the building pressure control loop resets the return fan
 discharge static pressure setpoint from <code>dpDisMin</code>
 to <code>dpDisMax</code>. The <code>dpDisMin</code> and
-<code>dpDisMax</code> are specified in Section 3.2.14.
+<code>dpDisMax</code> are specified in Section 3.2.1.4.
 </li>
 </ol>
 <p align=\"center\">
