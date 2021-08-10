@@ -2,8 +2,7 @@ within Buildings.Experimental.DHC.CentralPlants.Cooling.Subsystems.Examples;
 model CoolingTowersParallel
   "Example model for parallel cooling tower model"
   extends Modelica.Icons.Example;
-  extends
-    Buildings.Fluid.HeatExchangers.CoolingTowers.Examples.BaseClasses.PartialStaticTwoPortCoolingTower(
+  extends BaseClasses.PartialCoolingTowersSubsystem(
     redeclare Buildings.Experimental.DHC.CentralPlants.Cooling.Subsystems.CoolingTowersParallel tow(
       use_inputFilter=false,
       riseTimeValve=30,
