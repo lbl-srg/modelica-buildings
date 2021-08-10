@@ -23,7 +23,6 @@ A million repetitions of "a"
 
 /* for uint32_t */
 #include <stdint.h>
-
 #include "cryptographicsHash.h"
 
 

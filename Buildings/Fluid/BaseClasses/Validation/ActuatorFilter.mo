@@ -57,7 +57,7 @@ different start values of the filter output.
 </html>", revisions="<html>
 <ul>
 <li>
-July 22, 2020, by Michael Wetter:<br/>
+July 22, 2021, by Michael Wetter:<br/>
 First implementation for
 <a href=\"https://https://github.com/ibpsa/modelica-ibpsa/issues/1498\">IBPSA, #1498</a>
 </li>
