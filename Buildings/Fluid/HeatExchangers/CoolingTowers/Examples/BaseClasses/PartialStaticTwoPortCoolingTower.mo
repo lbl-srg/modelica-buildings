@@ -9,9 +9,13 @@ partial model PartialStaticTwoPortCoolingTower
       annotation (Dialog(group="Nominal condition"));
 
   replaceable
-    Buildings.Fluid.Interfaces.PartialTwoPortInterface tow(
+    Buildings.Fluid.HeatExchangers.CoolingTowers.BaseClasses.CoolingTower tow
+     constrainedby
+    Buildings.Fluid.HeatExchangers.CoolingTowers.BaseClasses.CoolingTower(
     redeclare package Medium = Medium_W,
     m_flow_nominal=m_flow_nominal,
+    dp_nominal=6000,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     show_T=true) "Cooling tower"
     annotation (Placement(transformation(extent={{22,-60},{42,-40}})));
 
@@ -123,12 +127,6 @@ on the temperature of the control volume to which the heat is added.
 </html>",
 revisions="<html>
 <ul>
-<li>
-May 28, 2021, by Chengnan Shi:<br/>
-Changed replaceable cooling tower model to <code>PartialTwoPortInterface</code> for
-reusability in <a href=\"modelica://Buildings.Experimental.DHC.CentralPlants.Cooling.Subsystems.Examples\">
-Buildings.Experimental.DHC.CentralPlants.Cooling.Subsystems.Examples</a>.
-</li>
 <li>
 January 16, 2020, by Michael Wetter:<br/>
 Changed energy balance to dynamic balance and set fan to use the input filter,
