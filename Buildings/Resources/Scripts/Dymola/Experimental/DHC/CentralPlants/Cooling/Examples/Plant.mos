@@ -9,11 +9,11 @@ removePlots(false);
 createPlot(
     id=1, 
     position={24, 10, 831, 511}, 
-    y={"pla.chiStaCon.QChi_nominal", "LoaVar.y"}, 
+    y={"pla.chiStaCon.QChi_nominal", "loaVar.y"}, 
     range={0.0, 90000.0, -4000000.0, 3000000.0}, 
     grid=true, 
     filename="Plant.mat", 
-    legends={"", "LoaVar.y[W]"}, 
+    legends={"", "loaVar.y[W]"}, 
     leftTitleType=2, 
     leftTitle="[W]",
     colors={{28,108,200}, {238,46,47}}, 
