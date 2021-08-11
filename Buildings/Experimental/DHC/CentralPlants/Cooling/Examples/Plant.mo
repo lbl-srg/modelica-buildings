@@ -99,7 +99,7 @@ model Plant
     dp_nominal(displayUnit="kPa") = 1000000)
     "Flow resistance"
     annotation (Placement(transformation(extent={{60,-50},{40,-30}})));
-  Modelica.Blocks.Sources.Sine LoaVar(
+  Modelica.Blocks.Sources.Sine loaVar(
     amplitude=913865,
     freqHz=1/126900,
     offset=913865,
@@ -129,7 +129,7 @@ equation
                                                                            color={255,0,255}));
   connect(weaDat.weaBus,pla.weaBus)
     annotation (Line(points={{-40,30},{0.0333333,30},{0.0333333,-1.13333}},                 color={255,204,51}));
-  connect(fixHeaFlo.Q_flow, LoaVar.y)
+  connect(fixHeaFlo.Q_flow,loaVar. y)
     annotation (Line(points={{0,70},{-39,70}}, color={0,0,127}));
   connect(res.port_b, senRelPre.port_b)
     annotation (Line(points={{40,-40},{30,-40},{30,-20}}, color={0,127,255}));
