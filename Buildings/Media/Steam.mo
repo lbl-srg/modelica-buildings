@@ -7,6 +7,7 @@ package Steam
      singleState = true,
      reducedX = true,
      fixedX = true,
+     ThermoStates=Modelica.Media.Interfaces.Choices.IndependentVariables.pTX,
      FluidConstants={Modelica.Media.IdealGases.Common.FluidData.H2O},
      reference_T=273.15,
      reference_p=101325,
