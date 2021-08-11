@@ -38,7 +38,6 @@ behavior of a model.
 </li>
 </ul>
 
-
 <h4>Naming</h4>
 <ol>
 <li>
