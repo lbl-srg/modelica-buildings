@@ -1,0 +1,15 @@
+compareVars :=
+  {
+    "TSat0",
+    "TSat",
+    "pSat",
+    "hlvErr",
+    "hlErr",
+    "hvErr",
+    "hlvIF97",
+    "hlvWatSte",
+    "hlIF97",
+    "hlWat",
+    "hvIF97",
+    "hvSte"
+  };
