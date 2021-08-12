@@ -70,8 +70,8 @@ model CoolingTowersWithBypass
     "Electric power consumed by fan"
     annotation (Placement(transformation(extent={{100,50},{120,70}})));
   Modelica.Blocks.Interfaces.RealOutput TLvg(
-    each final unit="K",
-    each displayUnit="degC")
+    final unit="K",
+    displayUnit="degC")
     "Leaving water temperature"
     annotation (Placement(transformation(extent={{100,20},{120,40}})));
   Buildings.Experimental.DHC.CentralPlants.Cooling.Subsystems.CoolingTowersParallel cooTowSys(

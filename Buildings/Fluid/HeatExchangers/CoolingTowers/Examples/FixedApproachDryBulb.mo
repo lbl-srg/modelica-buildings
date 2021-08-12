@@ -4,7 +4,6 @@ model FixedApproachDryBulb
   extends Modelica.Icons.Example;
   extends BaseClasses.PartialStaticTwoPortCoolingTower(
     redeclare CoolingTowers.FixedApproach tow(
-        dp_nominal = 6000,
         m_flow_nominal=m_flow_nominal),
     vol(energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial));
 equation

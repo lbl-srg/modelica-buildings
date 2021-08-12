@@ -9,11 +9,11 @@ removePlots(false);
 createPlot(
     id=1, 
     position={24, 10, 831, 511}, 
-    y={"pla.chiStaCon.QChi_nominal", "pla.chiStaCon.cp.y"}, 
+    y={"pla.chiStaCon.QChi_nominal", "loaVar.y"}, 
     range={0.0, 90000.0, -4000000.0, 3000000.0}, 
     grid=true, 
     filename="Plant.mat", 
-    legends={"", "pla.chiStaCon.QLoa [W]"}, 
+    legends={"", "loaVar.y[W]"}, 
     leftTitleType=2, 
     leftTitle="[W]",
     colors={{28,108,200}, {238,46,47}}, 
@@ -22,22 +22,24 @@ createPlot(
 createPlot(
     id=1, 
     position={24, 10, 831, 511}, 
-    y={"pla.chiStaCon.y[1]", "pla.chiStaCon.y[2]"}, 
-    range={0.0, 90000.0, -1.0, 2.0}, 
+    y={"pla.chiStaCon.plr.y"}, 
+    range={0.0, 90000.0, 0, 2}, 
     grid=true, 
-    subPlot=2, 
-    colors={{28,108,200}, {28,108,200}},
-    timeUnit="h");
+	subPlot=2,
+    legends={"plr.y[1]"}, 
+    leftTitle="[1]",
+    colors={{28,108,200}}, 
+    timeUnit="h",
+    displayUnits={"1"});
 createPlot(
     id=1, 
     position={24, 10, 831, 511}, 
-    y={"pla.senTCHWSup.T", "pla.senTCHWRet.T"}, 
-    range={0.0, 90000.0, 0.0, 60.0}, 
+    y={"pla.chiStaCon.y[1]", "pla.chiStaCon.y[2]"}, 
+    range={0.0, 90000.0, -1.0, 2.0}, 
     grid=true, 
     subPlot=3, 
-    colors={{28,108,200}, {238,46,47}}, 
-    timeUnit="h",
-    displayUnits={"degC", "degC"});
+    colors={{28,108,200}, {28,108,200}},
+    timeUnit="h");
 createPlot(
     id=2, 
     position={55, 26, 833, 515}, 
@@ -57,4 +59,13 @@ createPlot(
     colors={{28,108,200}, {238,46,47}}, 
     timeUnit="h",
     displayUnits={"degC", "degC"});
-
+createPlot(
+    id=2, 
+    position={24, 10, 831, 511}, 
+    y={"pla.senTCHWSup.T", "pla.senTCHWRet.T"}, 
+    range={0.0, 90000.0, 0.0, 60.0}, 
+    grid=true, 
+    subPlot=3, 
+    colors={{28,108,200}, {238,46,47}}, 
+    timeUnit="h",
+    displayUnits={"degC", "degC"});

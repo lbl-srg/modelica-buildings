@@ -17,7 +17,7 @@ createPlot(
 createPlot(
     id=1, 
     position={69, 10, 871, 547}, 
-    y={"chiStaCon.cp.y"}, 
+    y={"chiStaCon.plr.y"}, 
     range={0.0, 1200.0, -1000000.0, 500000.0}, 
     grid=true, 
     subPlot=2, 

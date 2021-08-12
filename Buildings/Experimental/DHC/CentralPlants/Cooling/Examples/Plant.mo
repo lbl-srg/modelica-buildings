@@ -66,63 +66,78 @@ model Plant
     dpSetPoi=dpSetPoi,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     "District cooling plant"
-    annotation (Placement(transformation(extent={{-10,0},{10,20}})));
+    annotation (Placement(transformation(extent={{-10,-20},{10,0}})));
   Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(
     final computeWetBulbTemperature=true,
     filNam=Modelica.Utilities.Files.loadResource(
       "modelica://Buildings/Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos"))
     "Weather data"
-    annotation (Placement(transformation(extent={{-60,60},{-40,80}})));
+    annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
   Modelica.Blocks.Sources.BooleanConstant on
     "On signal of the plant"
-    annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
+    annotation (Placement(transformation(extent={{-60,-20},{-40,0}})));
   Modelica.Blocks.Sources.Constant TCHWSupSet(
     k=TCHWSet)
     "Chilled water supply temperature setpoint"
-    annotation (Placement(transformation(extent={{-60,-20},{-40,0}})));
-  Modelica.Blocks.Sources.Ramp dpMea(
-    offset=0.5*dpSetPoi,
-    height=0.4*dpSetPoi,
-    startTime=21600,
-    duration=21600)
-    "Measured pressure difference"
     annotation (Placement(transformation(extent={{-60,-60},{-40,-40}})));
   Fluid.MixingVolumes.MixingVolume vol(
-    nPorts=2,
+    nPorts=3,
     redeclare package Medium=Medium,
     m_flow_nominal=pla.numChi*mCHW_flow_nominal,
     V=0.5,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     "Mixing volume"
     annotation (Placement(transformation(extent={{40,20},{60,40}})));
-  Modelica.Thermal.HeatTransfer.Sources.FixedHeatFlow fixHeaFlo(
-    Q_flow=pla.numChi*mCHW_flow_nominal*4200*10,
+  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow
+                                                      fixHeaFlo(
     T_ref=293.15)
     "Fixed heat flow rate"
-    annotation (Placement(transformation(extent={{0,40},{20,60}})));
+    annotation (Placement(transformation(extent={{0,60},{20,80}})));
   Fluid.FixedResistances.PressureDrop res(
     redeclare package Medium=Medium,
     m_flow_nominal=pla.numChi*mCHW_flow_nominal,
-    dp_nominal=6000)
+    dp_nominal(displayUnit="kPa") = 1000000)
     "Flow resistance"
-    annotation (Placement(transformation(extent={{60,-20},{40,0}})));
+    annotation (Placement(transformation(extent={{60,-50},{40,-30}})));
+  Modelica.Blocks.Sources.Sine loaVar(
+    amplitude=913865,
+    freqHz=1/126900,
+    offset=913865,
+    startTime(displayUnit="h") = 21600) "Variable demand load"
+    annotation (Placement(transformation(extent={{-60,60},{-40,80}})));
+  Fluid.Sensors.RelativePressure senRelPre(redeclare package Medium = Medium)
+    annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=270,
+        origin={30,-10})));
 equation
-  connect(dpMea.y,pla.dpMea)
-    annotation (Line(points={{-39,-50},{-20,-50},{-20,13.2667},{-10.6667,13.2667}},color={0,0,127}));
   connect(TCHWSupSet.y,pla.TCHWSupSet)
-    annotation (Line(points={{-39,-10},{-32,-10},{-32,15.2667},{-10.6667,15.2667}},color={0,0,127}));
+    annotation (Line(points={{-39,-50},{-32,-50},{-32,-4.73333},{-10.6667,
+          -4.73333}},                                                              color={0,0,127}));
   connect(fixHeaFlo.port,vol.heatPort)
-    annotation (Line(points={{20,50},{26,50},{26,30},{40,30}},color={191,0,0}));
+    annotation (Line(points={{20,70},{32,70},{32,30},{40,30}},color={191,0,0}));
   connect(pla.port_bSerCoo,vol.ports[1])
-    annotation (Line(points={{10,8.66667},{20,8.66667},{20,20},{48,20}},color={0,127,255}));
+    annotation (Line(points={{10,-11.3333},{16,-11.3333},{16,20},{47.3333,20}},
+                                                                        color={0,127,255}));
   connect(vol.ports[2],res.port_a)
-    annotation (Line(points={{52,20},{70,20},{70,-10},{60,-10}},color={0,127,255}));
+    annotation (Line(points={{50,20},{80,20},{80,-40},{60,-40}},color={0,127,255}));
   connect(res.port_b,pla.port_aSerCoo)
-    annotation (Line(points={{40,-10},{-14,-10},{-14,8.66667},{-10,8.66667}},color={0,127,255}));
+    annotation (Line(points={{40,-40},{-14,-40},{-14,-11.3333},{-10,-11.3333}},
+                                                                             color={0,127,255}));
   connect(on.y,pla.on)
-    annotation (Line(points={{-39,30},{-32,30},{-32,17.4},{-10.7333,17.4}},color={255,0,255}));
+    annotation (Line(points={{-39,-10},{-38,-10},{-38,-2.6},{-10.7333,-2.6}},
+                                                                           color={255,0,255}));
   connect(weaDat.weaBus,pla.weaBus)
-    annotation (Line(points={{-40,70},{-20,70},{-20,24},{0.0333333,24},{0.0333333,18.8667}},color={255,204,51}));
+    annotation (Line(points={{-40,30},{0.0333333,30},{0.0333333,-1.13333}},                 color={255,204,51}));
+  connect(fixHeaFlo.Q_flow,loaVar. y)
+    annotation (Line(points={{0,70},{-39,70}}, color={0,0,127}));
+  connect(res.port_b, senRelPre.port_b)
+    annotation (Line(points={{40,-40},{30,-40},{30,-20}}, color={0,127,255}));
+  connect(vol.ports[3], senRelPre.port_a)
+    annotation (Line(points={{52.6667,20},{30,20},{30,0}}, color={0,127,255}));
+  connect(senRelPre.p_rel, pla.dpMea) annotation (Line(points={{21,-10},{20,-10},
+          {20,-60},{-20,-60},{-20,-6.73333},{-10.6667,-6.73333}}, color={0,0,
+          127}));
   annotation (
     Icon(
       coordinateSystem(

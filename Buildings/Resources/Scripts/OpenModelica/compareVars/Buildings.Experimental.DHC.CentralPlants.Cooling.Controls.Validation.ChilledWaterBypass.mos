@@ -4,5 +4,5 @@ compareVars :=
     "onTwo.y",
     "chiBypCon.bypValCon.u_s",
     "chiBypCon.bypValCon.u_m",
-    "chiBypCon.bypValCon.y"
+    "chiBypCon.y"
   };

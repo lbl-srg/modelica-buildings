@@ -1,6 +1,6 @@
-within Buildings.Fluid.HeatExchangers.CoolingTowers.Examples.BaseClasses;
-partial model PartialStaticTwoPortCoolingTower
-  "Base class for test models of cooling towers"
+within Buildings.Experimental.DHC.CentralPlants.Cooling.Subsystems.Examples.BaseClasses;
+partial model PartialCoolingTowersSubsystem
+  "Partial class for test models of subsystems"
 
   package Medium_W = Buildings.Media.Water "Medium model for water";
 
@@ -9,13 +9,9 @@ partial model PartialStaticTwoPortCoolingTower
       annotation (Dialog(group="Nominal condition"));
 
   replaceable
-    Buildings.Fluid.HeatExchangers.CoolingTowers.BaseClasses.CoolingTower tow
-     constrainedby
-    Buildings.Fluid.HeatExchangers.CoolingTowers.BaseClasses.CoolingTower(
+    Buildings.Fluid.Interfaces.PartialTwoPortInterface tow(
     redeclare package Medium = Medium_W,
     m_flow_nominal=m_flow_nominal,
-    dp_nominal=6000,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     show_T=true) "Cooling tower"
     annotation (Placement(transformation(extent={{22,-60},{42,-40}})));
 
@@ -128,6 +124,12 @@ on the temperature of the control volume to which the heat is added.
 revisions="<html>
 <ul>
 <li>
+May 28, 2021, by Chengnan Shi:<br/>
+Changed replaceable cooling tower model to <code>PartialTwoPortInterface</code> for
+reusability in <a href=\"modelica://Buildings.Experimental.DHC.CentralPlants.Cooling.Subsystems.Examples\">
+Buildings.Experimental.DHC.CentralPlants.Cooling.Subsystems.Examples</a>.
+</li>
+<li>
 January 16, 2020, by Michael Wetter:<br/>
 Changed energy balance to dynamic balance and set fan to use the input filter,
 which is the default for most applications.
@@ -138,4 +140,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end PartialStaticTwoPortCoolingTower;
+end PartialCoolingTowersSubsystem;
