@@ -126,8 +126,8 @@ end exponentialDamper_inv;
 initial equation
   (kSupSpl, idx_sorted) = Modelica.Math.Vectors.sort(kSupSpl_raw, ascending=true);
   // The sum below is a trick to avoid in OPTIMICA the warning
-  // Variable array index in equation can result in slow simulation time if we were to use
-  // ySupSpl = ySupSpl_raw[idx_sorted];
+  // Variable array index in equation can result in slow simulation time.
+  // This warning was issued for the formulation ySupSpl = ySupSpl_raw[idx_sorted];
   for i in 1:sizeSupSpl loop
     ySupSpl[i] = sum((if k == idx_sorted[i] then ySupSpl_raw[k] else 0) for k in 1:sizeSupSpl);
   end for;
