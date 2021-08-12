@@ -1,6 +1,6 @@
 compareVars :=
   {
-    "pla.chiStaCon.QChi_nominal",
+    "pla.PCoo",
     "loaVar.y",
     "pla.chiStaCon.plr.y",
     "pla.chiStaCon.y[1]",
