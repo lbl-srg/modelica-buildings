@@ -28,11 +28,11 @@ equation
           -30},{-20,-15.3333},{-1.11111,-15.3333}},
                                   color={0,0,127}));
   connect(onTwo.y,chiBypCon.chiOn[2])
-    annotation (Line(points={{-39,10},{-20,10},{-20,-7.77778},{-1.11111,
-          -7.77778}},                                          color={255,0,255}));
+    annotation (Line(points={{-39,10},{-20,10},{-20,-7.77778},{-1.11111,-7.77778}},
+      color={255,0,255}));
   connect(onOne.y,chiBypCon.chiOn[1])
-    annotation (Line(points={{-39,40},{-20,40},{-20,-8.88889},{-1.11111,
-          -8.88889}},                                          color={255,0,255}));
+    annotation (Line(points={{-39,40},{-20,40},{-20,-8.88889},{-1.11111,-8.88889}},
+      color={255,0,255}));
   annotation (
     Icon(
       coordinateSystem(
@@ -43,7 +43,8 @@ equation
     experiment(
       Tolerance=1e-06, StopTime=1200),
     __Dymola_Commands(
-      file="Resources/Scripts/Dymola/Experimental/DHC/CentralPlants/Cooling/Controls/Validation/ChilledWaterBypass.mos" "Simulate and Plot"),
+      file="Resources/Scripts/Dymola/Experimental/DHC/CentralPlants/Cooling/Controls/Validation/ChilledWaterBypass.mos" 
+      "Simulate and Plot"),
     Documentation(
       revisions="<html>
 <ul>

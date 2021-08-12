@@ -125,18 +125,12 @@ revisions="<html>
 <ul>
 <li>
 May 28, 2021, by Chengnan Shi:<br/>
-Changed replaceable cooling tower model to <code>PartialTwoPortInterface</code> for
-reusability in <a href=\"modelica://Buildings.Experimental.DHC.CentralPlants.Cooling.Subsystems.Examples\">
+Duplicate <a href=\"modelica://Buildings.Fluid.HeatExchangers.CoolingTowers.Examples.BaseClasses.PartialStaticTwoPortCoolingTower\">
+Buildings.Fluid.HeatExchangers.CoolingTowers.Examples.BaseClasses.PartialStaticTwoPortCoolingTower</a><br/>
+Changed replaceable cooling tower model to <code>PartialTwoPortInterface</code> 
+for reusability in 
+<a href=\"modelica://Buildings.Experimental.DHC.CentralPlants.Cooling.Subsystems.Examples\">
 Buildings.Experimental.DHC.CentralPlants.Cooling.Subsystems.Examples</a>.
-</li>
-<li>
-January 16, 2020, by Michael Wetter:<br/>
-Changed energy balance to dynamic balance and set fan to use the input filter,
-which is the default for most applications.
-</li>
-<li>
-July 12, 2011, by Michael Wetter:<br/>
-First implementation.
 </li>
 </ul>
 </html>"));

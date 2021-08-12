@@ -34,16 +34,22 @@ equation
   connect(TSetLea.y, conFan.u_s)
     annotation (Line(points={{-39,-10},{-32,-10}},color={0,0,127}));
   connect(tow.TLvg, conFan.u_m)
-    annotation (Line(points={{43,-47},{54,-47},{54,-30},{-20,-30},{-20,-22}},color={0,0,127}));
+    annotation (Line(points={{43,-47},{54,-47},{54,-30},{-20,-30},{-20,-22}},
+      color={0,0,127}));
   connect(onOffCon.y, tow.on[1])
-    annotation (Line(points={{1,-190},{12,-190},{12,-236},{-96,-236},{-96,-34},{12,-34},{12,-44},{20,-44}}, color={255,0,255}));
+    annotation (Line(points={{1,-190},{12,-190},{12,-236},{-96,-236},{-96,-34},
+      {12,-34},{12,-44},{20,-44}}, color={255,0,255}));
   connect(onOffCon.y, tow.on[2])
-    annotation (Line(points={{1,-190},{12,-190},{12,-236},{-96,-236},{-96,-34},{12,-34},{12,-44},{20,-44}}, color={255,0,255}));
+    annotation (Line(points={{1,-190},{12,-190},{12,-236},{-96,-236},
+      {-96,-34},{12,-34},{12,-44},{20,-44}}, color={255,0,255}));
   connect(conFan.y, tow.uFanSpe)
-    annotation (Line(points={{-9,-10},{4,-10},{4,-48},{20,-48}}, color={0,0,127}));
+    annotation (Line(points={{-9,-10},{4,-10},{4,-48},{20,-48}}, 
+      color={0,0,127}));
   connect(weaBus.TWetBul, tow.TWetBul)
-   annotation (Line(points={{-60,50},{-4,50},{-4,-56},{20,-56}},color={255,204,51},thickness=0.5),
-     Text(string="%first",index=-1,extent={{-6,3},{-6,3}},horizontalAlignment=TextAlignment.Right));
+   annotation (Line(points={{-60,50},{-4,50},{-4,-56},{20,-56}},
+    color={255,204,51},thickness=0.5),
+     Text(string="%first",index=-1,extent={{-6,3},{-6,3}},
+     horizontalAlignment=TextAlignment.Right));
   annotation (
     Icon(
       coordinateSystem(
@@ -58,10 +64,13 @@ equation
       StopTime=15724800,
       Tolerance=1e-06),
     __Dymola_Commands(
-      file="Resources/Scripts/Dymola/Experimental/DHC/CentralPlants/Cooling/Subsystems/Examples/CoolingTowersParallel.mos" "Simulate and Plot"),
+      file="Resources/Scripts/Dymola/Experimental/DHC/CentralPlants/Cooling/Subsystems/Examples/CoolingTowersParallel.mos" 
+      "Simulate and Plot"),
     Documentation(
       info="<html>
-<p>This model validates the parallel connected cooling tower subsystem in <a href=\"modelica://Buildings.Experimental.DHC.CentralPlants.Cooling.Subsystems.CoolingTowerParellel\">Buildings.Experimental.DHC.CentralPlants.Cooling.Subsystems.CoolingTowerParellel</a>.</p>
+<p>This model validates the parallel connected cooling tower subsystem in 
+<a href=\"modelica://Buildings.Experimental.DHC.CentralPlants.Cooling.Subsystems.CoolingTowerParellel\">
+Buildings.Experimental.DHC.CentralPlants.Cooling.Subsystems.CoolingTowerParellel</a>.</p>
 </html>",
       revisions="<html>
 <ul>

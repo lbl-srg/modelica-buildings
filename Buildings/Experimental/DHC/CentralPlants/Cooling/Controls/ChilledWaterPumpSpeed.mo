@@ -96,9 +96,11 @@ equation
   connect(pumStaCon.y,pumSpe.u1)
     annotation (Line(points={{11,0},{28,0},{28,6},{38,6}},color={0,0,127}));
   connect(conPID.y,pumSpe[1].u2)
-    annotation (Line(points={{-39,0},{-30,0},{-30,-20},{28,-20},{28,-6},{38,-6}},color={0,0,127}));
+    annotation (Line(points={{-39,0},{-30,0},{-30,-20},{28,-20},{28,-6},{38,-6}},
+      color={0,0,127}));
   connect(conPID.y,pumSpe[2].u2)
-    annotation (Line(points={{-39,0},{-30,0},{-30,-20},{28,-20},{28,-6},{38,-6}},color={0,0,127}));
+    annotation (Line(points={{-39,0},{-30,0},{-30,-20},{28,-20},{28,-6},{38,-6}},
+      color={0,0,127}));
   connect(pumSpe.y,y)
     annotation (Line(points={{61,0},{110,0}},color={0,0,127}));
   connect(dpMea,gai.u)
@@ -137,11 +139,13 @@ The staging of pumps is implemented through an instance of
 Buildings.Applications.DataCenters.ChillerCooled.Controls.VariableSpeedPumpStage</a>. 
 </p>
 <p>
-The pump speed is controlled to maintain the pressure difference setpoint through a PID controller.
+The pump speed is controlled to maintain the pressure difference setpoint 
+through a PID controller.
 </p>
-<p>The model inputs are the measured chilled water mass flow rate <code>masFloPum</code> 
-and the pressure difference <code>dpMea</code> at a reference point from the demand side. 
-The output <code>y</code> is a vector of pump speeds.
+<p>The model inputs are the measured chilled water mass flow rate 
+<code>masFloPum</code> and the pressure difference <code>dpMea</code> at a 
+reference point from the demand side. The output <code>y</code> is a vector 
+of pump speeds.
 </p>
 <p>
 The model currently only supports the control of up to two variable speed pumps.

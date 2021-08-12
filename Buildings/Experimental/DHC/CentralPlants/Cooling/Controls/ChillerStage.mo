@@ -34,8 +34,8 @@ model ChillerStage
       iconTransformation(extent={{-200,-96},{-160,-56}})));
   Modelica.Blocks.Interfaces.BooleanOutput y[2]
     "On/off signal for the chillers - false: off; true: on"
-    annotation (Placement(transformation(extent={{160,10},{180,-10}}),iconTransformation(extent={{160,-10},
-            {180,10}})));
+    annotation (Placement(transformation(extent={{160,10},{180,-10}}),
+      iconTransformation(extent={{160,-10},{180,10}})));
   Modelica.StateGraph.InitialStep off(nIn=1)
     "No cooling is demanded"
     annotation (Placement(transformation(extent={{-10,10},{10,-10}},
@@ -71,7 +71,8 @@ model ChillerStage
     enableTimer=true,
     waitTime=tWai)
     "Condition of transition from one chiller to off"
-    annotation (Placement(transformation(extent={{-10,10},{10,-10}},rotation=90,origin={40,60})));
+    annotation (Placement(transformation(extent={{-10,10},{10,-10}},
+      rotation=90,origin={40,60})));
   Buildings.Controls.OBC.CDL.Continuous.Hysteresis thrOneToTwo(uLow=-staDowThr/
         QChi_nominal, uHigh=-staUpThr/QChi_nominal)
                     "Threshold of turning two chillers on"
@@ -113,57 +114,61 @@ equation
   connect(oneToTwo.outPort,twoOn.inPort[1])
     annotation (Line(points={{10,-41.5},{10,-79}},color={0,0,0}));
   connect(twoToOne.outPort,oneOn.inPort[2])
-    annotation (Line(points={{60,-38.5},{60,20},{10.5,20},{10.5,11}},color={0,0,0}));
+    annotation (Line(points={{60,-38.5},{60,20},{10.5,20},{10.5,11}},
+      color={0,0,0}));
   connect(oneOn.outPort[2],oneToOff.inPort)
-    annotation (Line(points={{10.25,-10.5},{10.25,-20},{40,-20},{40,56}},color={0,0,0}));
+    annotation (Line(points={{10.25,-10.5},{10.25,-20},{40,-20},{40,56}},
+      color={0,0,0}));
   connect(oneOn.outPort[1],oneToTwo.inPort)
-    annotation (Line(points={{9.75,-10.5},{9.75,-36},{10,-36}},         color={0,0,0}));
+    annotation (Line(points={{9.75,-10.5},{9.75,-36},{10,-36}},
+      color={0,0,0}));
   connect(oneToTwo.condition,thrOneToTwo.y)
     annotation (Line(points={{-2,-40},{-20,-40},{-20,-70},{-38,-70}},
-                                                 color={255,0,255}));
+      color={255,0,255}));
   connect(dT.y,pro.u1)
-    annotation (Line(points={{-119,-10},{-114,-10},{-114,-40},{-150,-40},{-150,-64},
-          {-142,-64}},                          color={0,0,127}));
+    annotation (Line(points={{-119,-10},{-114,-10},{-114,-40},{-150,-40},
+      {-150,-64},{-142,-64}},color={0,0,127}));
   connect(plr.u, pro.y)
     annotation (Line(points={{-104,-70},{-119,-70}},
-                                                   color={0,0,127}));
+      color={0,0,127}));
   connect(plr.y, thrOneToTwo.u) annotation (Line(points={{-81,-70},{-62,-70}},
-                           color={0,0,127}));
+    color={0,0,127}));
   connect(dT.u1,TChiWatRet)
-    annotation (Line(points={{-142,-4},{-180,-4}},                    color={0,0,127}));
+    annotation (Line(points={{-142,-4},{-180,-4}},
+      color={0,0,127}));
   connect(TChiWatSup,dT.u2)
     annotation (Line(points={{-180,-40},{-160,-40},{-160,-16},{-142,-16}},
-                                                                      color={0,0,127}));
+      color={0,0,127}));
   connect(pro.u2,mFloChiWat)
-    annotation (Line(points={{-142,-76},{-180,-76}},                    color={0,0,127}));
+    annotation (Line(points={{-142,-76},{-180,-76}},color={0,0,127}));
   connect(oneToTwo.condition, thrTwoToOne.u)
     annotation (Line(points={{-2,-40},{-108,-40},{-108,-8},{-102,-8}},
-                                                              color={255,0,255}));
+      color={255,0,255}));
   connect(oneOn.active, Or.u1)
     annotation (Line(points={{21,-8.88178e-16},{80,-8.88178e-16},{80,30},{118,30}},
-                    color={255,0,255}));
+      color={255,0,255}));
   connect(twoOn.active, Or.u2)
     annotation (Line(points={{21,-90},{100,-90},{100,22},{118,22}},
-                         color={255,0,255}));
+      color={255,0,255}));
   connect(Or.y, y[1])
     annotation (Line(points={{142,30},{144,30},{144,5},{170,5}},
-                color={255,0,255}));
+      color={255,0,255}));
   connect(twoOn.active, y[2])
     annotation (Line(points={{21,-90},{120,-90},{120,-5},{170,-5}},
-                       color={255,0,255}));
+      color={255,0,255}));
   connect(on, notOn.u)
     annotation (Line(points={{-180,60},{-120,60},{-120,30},{-102,30}},
-                                                   color={255,0,255}));
+      color={255,0,255}));
   connect(twoOn.outPort[1],twoToOne.inPort)
     annotation (Line(points={{9.75,-100.5},{9.75,-120},{60,-120},{60,-44}},
-                                                                    color={0,0,0}));
+      color={0,0,0}));
   connect(offToOne.outPort,oneOn.inPort[1])
     annotation (Line(points={{10,58.5},{10,11},{9.5,11}},color={0,0,0}));
   connect(oneToOff.outPort,off.inPort[1])
     annotation (Line(points={{40,61.5},{40,120},{10,120},{10,101}},
-                                                                color={0,0,0}));
+      color={0,0,0}));
   connect(on, offToOne.condition) annotation (Line(points={{-180,60},{-2,60}},
-                             color={255,0,255}));
+    color={255,0,255}));
   connect(thrTwoToOne.y, TwoToOne.u2) annotation (Line(points={{-79,-8},{-80,-8},
           {-80,-18},{-42,-18}}, color={255,0,255}));
   connect(notOn.y, TwoToOne.u1) annotation (Line(points={{-79,30},{-60,30},{-60,
@@ -204,14 +209,26 @@ First implementation.
       info="<html>
 <p>This model implements the staging control logic as follows: </p>
 <ul>
-<li>When the plant enabling signal <code>on</code> changes from <code>false</code> to <code>true</code>, one chiller is enabled. </li>
-<li>When the total cooling load <code>QLoa</code> exceeds 80 percent (adjustable) of one chiller&apos;s nominal capacity <code>QChi_nominal</code>, a second chiller is enabled. </li>
-<li>When the total cooling load <code>QLoa</code> drops below 60 percent (adjustable) of one chiller&apos;s nominal capacity <code>QChi_nominal</code>(i.e. 30 percent of both chillers combined), or the plant enabling signal <code>on</code> changes from <code>true</code> to <code>false</code>, the second chiller is disabled. </li>
-<li>When the plant enabling signal <code>on</code> changes from <code>true</code> to <code>false</code>, the operating chillers will be disabled sequentially.</li>
-<li>Parameter <code>tWai</code> assures a transitional time is kept between each operation. </li>
+<li>When the plant enabling signal <code>on</code> changes from 
+<code>false</code> to <code>true</code>, one chiller is enabled. </li>
+<li>When the total cooling load <code>QLoa</code> exceeds 80 percent (adjustable) 
+of one chiller&apos;s nominal capacity <code>QChi_nominal</code>, a second 
+chiller is enabled. </li>
+<li>When the total cooling load <code>QLoa</code> drops below 60 percent 
+(adjustable) of one chiller&apos;s nominal capacity <code>QChi_nominal</code>
+(i.e. 30 percent of both chillers combined), or the plant enabling signal 
+<code>on</code> changes from <code>true</code> to <code>false</code>, the second 
+chiller is disabled. </li>
+<li>When the plant enabling signal <code>on</code> changes from <code>true</code> 
+to <code>false</code>, the operating chillers will be disabled sequentially.</li>
+<li>Parameter <code>tWai</code> assures a transitional time is kept between each 
+operation. </li>
 </ul>
-<p><br>It is assumed that both chillers have the same capacity of <code>QChi_nominal</code>. </p>
-<p>Note: This model can be used for plants with two chillers with or without waterside econimizer (WSE). For plants with WSE, extra control logic on top of this model needs to be added. </p>
+<p><br>It is assumed that both chillers have the same capacity of 
+<code>QChi_nominal</code>. </p>
+<p>Note: This model can be used for plants with two chillers with or without 
+waterside econimizer (WSE). For plants with WSE, extra control logic on top of 
+this model needs to be added. </p>
 <p><img src=\"modelica://Buildings/Resources/Images/Experimental/DHC/CentralPlants/Cooling/Controls/ChillerStage.png\" alt=\"State graph\"/>. </p>
 </html>"));
 end ChillerStage;

@@ -113,22 +113,24 @@ model Plant
 equation
   connect(TCHWSupSet.y,pla.TCHWSupSet)
     annotation (Line(points={{-39,-50},{-32,-50},{-32,-4.73333},{-10.6667,
-          -4.73333}},                                                              color={0,0,127}));
+          -4.73333}},color={0,0,127}));
   connect(fixHeaFlo.port,vol.heatPort)
     annotation (Line(points={{20,70},{32,70},{32,30},{40,30}},color={191,0,0}));
   connect(pla.port_bSerCoo,vol.ports[1])
     annotation (Line(points={{10,-11.3333},{16,-11.3333},{16,20},{47.3333,20}},
-                                                                        color={0,127,255}));
+      color={0,127,255}));
   connect(vol.ports[2],res.port_a)
-    annotation (Line(points={{50,20},{80,20},{80,-40},{60,-40}},color={0,127,255}));
+    annotation (Line(points={{50,20},{80,20},{80,-40},{60,-40}},
+      color={0,127,255}));
   connect(res.port_b,pla.port_aSerCoo)
     annotation (Line(points={{40,-40},{-14,-40},{-14,-11.3333},{-10,-11.3333}},
-                                                                             color={0,127,255}));
+      color={0,127,255}));
   connect(on.y,pla.on)
     annotation (Line(points={{-39,-10},{-38,-10},{-38,-2.6},{-10.7333,-2.6}},
-                                                                           color={255,0,255}));
+      color={255,0,255}));
   connect(weaDat.weaBus,pla.weaBus)
-    annotation (Line(points={{-40,30},{0.0333333,30},{0.0333333,-1.13333}},                 color={255,204,51}));
+    annotation (Line(points={{-40,30},{0.0333333,30},{0.0333333,-1.13333}},
+      color={255,204,51}));
   connect(fixHeaFlo.Q_flow,loaVar. y)
     annotation (Line(points={{0,70},{-39,70}}, color={0,0,127}));
   connect(res.port_b, senRelPre.port_b)
@@ -164,5 +166,6 @@ First implementation.
 </ul>
 </html>"),
     __Dymola_Commands(
-      file="Resources/Scripts/Dymola/Experimental/DHC/CentralPlants/Cooling/Examples/Plant.mos" "Simulate and Plot"));
+      file="Resources/Scripts/Dymola/Experimental/DHC/CentralPlants/Cooling/Examples/Plant.mos" 
+      "Simulate and Plot"));
 end Plant;

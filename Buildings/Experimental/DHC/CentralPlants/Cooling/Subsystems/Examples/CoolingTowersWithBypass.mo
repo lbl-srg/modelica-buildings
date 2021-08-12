@@ -18,12 +18,16 @@ model CoolingTowersWithBypass
     "Minimum allowed water temperature entering chiller";
 equation
   connect(weaBus.TWetBul, tow.TWetBul)
-   annotation (Line( points={{-60,50},{0,50},{0,-52},{20,-52}},color={255,204,51},thickness=0.5),
-     Text(string="%first",index=-1,extent={{-6,3},{-6,3}},horizontalAlignment=TextAlignment.Right));
+   annotation (Line( points={{-60,50},{0,50},{0,-52},{20,-52}},
+    color={255,204,51},thickness=0.5),
+     Text(string="%first",index=-1,extent={{-6,3},{-6,3}},
+      horizontalAlignment=TextAlignment.Right));
   connect(onOffCon.y, tow.on[1])
-   annotation (Line(points={{1,-190},{10,-190},{10,-236},{-96,-236},{-96,-34},{10,-34},{10,-46},{20,-46}}, color={255,0,255}));
+   annotation (Line(points={{1,-190},{10,-190},{10,-236},{-96,-236},{-96,-34},
+    {10,-34},{10,-46},{20,-46}}, color={255,0,255}));
   connect(onOffCon.y, tow.on[2])
-   annotation (Line(points={{1,-190},{10,-190},{10,-236},{-96,-236},{-96,-34},{10,-34},{10,-46},{20,-46}}, color={255,0,255}));
+   annotation (Line(points={{1,-190},{10,-190},{10,-236},{-96,-236},{-96,-34},
+    {10,-34},{10,-46},{20,-46}}, color={255,0,255}));
   annotation (
     Icon(
       coordinateSystem(
@@ -38,7 +42,8 @@ equation
       StopTime=10540800,
       Tolerance=1e-06),
     __Dymola_Commands(
-      file="Resources/Scripts/Dymola/Experimental/DHC/CentralPlants/Cooling/Subsystems/Examples/CoolingTowersWithBypass.mos" "Simulate and Plot"),
+      file="Resources/Scripts/Dymola/Experimental/DHC/CentralPlants/Cooling/Subsystems/Examples/CoolingTowersWithBypass.mos" 
+      "Simulate and Plot"),
     Documentation(
       revisions="<html>
 <ul>
@@ -49,6 +54,8 @@ First implementation.
 </ul>
 </html>",
       info="<html>
-<p>This model validates the parallel connected cooling tower subsystem in <a href=\"modelica://Buildings.Experimental.DHC.CentralPlants.Cooling.Subsystems.CoolingTowersWithBypass\">Buildings.Experimental.DHC.CentralPlants.Cooling.Subsystems.CoolingTowerWithBypass</a>.</p>
+<p>This model validates the parallel connected cooling tower subsystem in 
+<a href=\"modelica://Buildings.Experimental.DHC.CentralPlants.Cooling.Subsystems.CoolingTowersWithBypass\">
+Buildings.Experimental.DHC.CentralPlants.Cooling.Subsystems.CoolingTowerWithBypass</a>.</p>
 </html>"));
 end CoolingTowersWithBypass;

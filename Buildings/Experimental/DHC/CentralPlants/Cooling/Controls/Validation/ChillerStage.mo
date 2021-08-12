@@ -27,16 +27,16 @@ model ChillerStage
 equation
   connect(on.y,chiStaCon.on)
     annotation (Line(points={{-39,50},{-28,50},{-28,3.75},{-1.25,3.75}},
-                                                                color={255,0,255}));
+      color={255,0,255}));
   connect(mFlo.y,chiStaCon.mFloChiWat)
     annotation (Line(points={{-39,-50},{-28,-50},{-28,-3.75},{-1.25,-3.75}},
-                                                                    color={0,0,127}));
+      color={0,0,127}));
   connect(TRet.y,chiStaCon.TChiWatRet)
     annotation (Line(points={{-39,20},{-34,20},{-34,1.25},{-1.25,1.25}},
-                                                                color={0,0,127}));
+      color={0,0,127}));
   connect(TSup.y,chiStaCon.TChiWatSup)
     annotation (Line(points={{-39,-20},{-34,-20},{-34,-1.25},{-1.25,-1.25}},
-                                                                    color={0,0,127}));
+      color={0,0,127}));
   annotation (
     Icon(
       coordinateSystem(
@@ -48,7 +48,8 @@ equation
       StopTime=1200,
       Tolerance=1e-06),
     __Dymola_Commands(
-      file="Resources/Scripts/Dymola/Experimental/DHC/CentralPlants/Cooling/Controls/Validation/ChillerStage.mos" "Simulate and Plot"),
+      file="Resources/Scripts/Dymola/Experimental/DHC/CentralPlants/Cooling/Controls/Validation/ChillerStage.mos" 
+      "Simulate and Plot"),
     Documentation(
       revisions="<html>
 <ul>

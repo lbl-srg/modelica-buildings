@@ -25,9 +25,11 @@ model ChilledWaterPumpSpeed
     annotation (Placement(transformation(extent={{-60,-40},{-40,-20}})));
 equation
   connect(dpMea.y,chiWatPumSpe.dpMea)
-    annotation (Line(points={{-39,-30},{-30,-30},{-30,-4},{-12,-4}},color={0,0,127}));
+    annotation (Line(points={{-39,-30},{-30,-30},{-30,-4},{-12,-4}},
+      color={0,0,127}));
   connect(mFloTot.y,chiWatPumSpe.masFloPum)
-    annotation (Line(points={{-39,30},{-30,30},{-30,4},{-12,4}},color={0,0,127}));
+    annotation (Line(points={{-39,30},{-30,30},{-30,4},{-12,4}},
+      color={0,0,127}));
   annotation (
     Icon(
       coordinateSystem(
@@ -39,7 +41,8 @@ equation
       StopTime=1200,
       Tolerance=1e-06),
     __Dymola_Commands(
-      file="Resources/Scripts/Dymola/Experimental/DHC/CentralPlants/Cooling/Controls/Validation/ChilledWaterPumpSpeed.mos" "Simulate and Plot"),
+      file="Resources/Scripts/Dymola/Experimental/DHC/CentralPlants/Cooling/Controls/Validation/ChilledWaterPumpSpeed.mos" 
+      "Simulate and Plot"),
     Documentation(
       revisions="<html>
 <ul>
