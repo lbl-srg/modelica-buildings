@@ -38,7 +38,6 @@ behavior of a model.
 </li>
 </ul>
 
-
 <h4>Naming</h4>
 <ol>
 <li>
@@ -335,6 +334,9 @@ have been <b style=\"color:blue\">improved</b> in a
                        propagated the value of <code>order</code> to a high-level parameter.
     </td>
 </tr>
+<tr><td colspan=\"2\"><b>Buildings.Fluid.Movers</b>
+    </td>
+</tr>
 <tr><td valign=\"top\">Buildings.Fluid.Movers.FlowControlled_dp<br/>
                        Buildings.Fluid.Movers.FlowControlled_m_flow
     </td>
@@ -344,15 +346,17 @@ have been <b style=\"color:blue\">improved</b> in a
                        For Dymola, a conversion script makes this change.
     </td>
 </tr>
-<tr><td colspan=\"2\"><b>Buildings.Obsolete</b>
+ <tr><td colspan=\"2\"><b>Buildings.Examples.ScalableBenchmarks</b>
     </td>
 </tr>
-<tr><td valign=\"top\">Buildings.Obsolete.Utilities.IO.Python27
+<tr><td valign=\"top\">Buildings.Examples.ScalableBenchmarks.BuildingVAV.ThermalZones.ThermalZone
     </td>
-    <td valign=\"top\">Removed support for Python 27. Use instead <code>Buildings.Utilities.IO.Python36</code>.
-    </td>
+    <td valign=\"top\">Reimplemented computation of energy provided by HVAC system to also include the latent load.
+                       The new implementation uses the enthalpy sensor, and therefore the mass flow rate and temperature
+                       sensors have been removed.
+</td>
 </tr>
- <tr><td colspan=\"2\"><b>Buildings.Controls.OBC.CDL</b>
+<tr><td colspan=\"2\"><b>Buildings.Controls.OBC.CDL</b>
     </td>
 </tr>
 <tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Logical.MultiAnd<br/>
@@ -361,6 +365,13 @@ have been <b style=\"color:blue\">improved</b> in a
     <td valign=\"top\">Renamed parameter <code>nu</code> to <code>nin</code>.
                 This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2580\">issue 2580</a>.<br/>
                 For Dymola, a conversion script makes this change.</td>
+</tr><tr><td colspan=\"2\"><b>Buildings.Obsolete</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Obsolete.Utilities.IO.Python27
+    </td>
+    <td valign=\"top\">Removed support for Python 27. Use instead <code>Buildings.Utilities.IO.Python36</code>.
+    </td>
 </tr>
 </table>
 <!-- Errors that have been fixed -->
