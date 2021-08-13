@@ -1,5 +1,5 @@
 within Buildings.Applications.BaseClasses;
-package Controls "fixme: add brief description"
+package Controls "Package with control components for Buildings.Applications examples"
   extends Modelica.Icons.Package;
 
 annotation (preferredView="info", Documentation(info="<html>

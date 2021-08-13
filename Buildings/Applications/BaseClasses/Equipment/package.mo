@@ -1,5 +1,5 @@
 within Buildings.Applications.BaseClasses;
-package Equipment "fixme: add brief description"
+package Equipment "Equipment models for systems in applications package"
   extends Modelica.Icons.VariantsPackage;
 
 annotation (preferredView="info", Documentation(info="<html>
