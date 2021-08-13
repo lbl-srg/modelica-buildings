@@ -4,7 +4,6 @@ model CoolingTowersWithBypass
   extends Modelica.Icons.Example;
   extends BaseClasses.PartialCoolingTowersSubsystem(
     redeclare Buildings.Experimental.DHC.CentralPlants.Cooling.Subsystems.CoolingTowersWithBypass tow(
-      use_inputFilter=false,
       dpValve_nominal = 6000,
       dp_nominal(displayUnit="Pa") = 6000,
       TAirInWB_nominal=273.15 + 25.55,
@@ -42,7 +41,7 @@ equation
       StopTime=10540800,
       Tolerance=1e-06),
     __Dymola_Commands(
-      file="Resources/Scripts/Dymola/Experimental/DHC/CentralPlants/Cooling/Subsystems/Examples/CoolingTowersWithBypass.mos" 
+      file="Resources/Scripts/Dymola/Experimental/DHC/CentralPlants/Cooling/Subsystems/Examples/CoolingTowersWithBypass.mos"
       "Simulate and Plot"),
     Documentation(
       revisions="<html>

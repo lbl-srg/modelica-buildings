@@ -3,11 +3,6 @@ model CoolingTowersParallel
   "Multiple identical cooling towers in parallel connection"
   extends Buildings.Fluid.Interfaces.PartialTwoPortInterface(
     redeclare replaceable package Medium=Buildings.Media.Water);
-  extends
-    Buildings.Applications.DataCenters.ChillerCooled.Equipment.BaseClasses.SignalFilter(
-    riseTimeValve=30,
-    use_inputFilter=true,
-    final numFil=num);
   parameter Integer num(
     final min=1)=2
     "Number of cooling towers";
@@ -36,6 +31,9 @@ model CoolingTowersParallel
   parameter Modelica.SIunits.Power PFan_nominal
     "Fan power"
     annotation (Dialog(group="Fan"));
+  parameter Boolean use_inputFilter=true
+    "= true, if opening is filtered with a 2nd order CriticalDamping filter"
+    annotation (Dialog(tab="Dynamics",group="Filtered opening"));
   Modelica.Blocks.Interfaces.BooleanInput on[num]
     "On signal for cooling towers"
     annotation (Placement(transformation(extent={{-140,40},{-100,80}})));
@@ -80,6 +78,7 @@ model CoolingTowersParallel
     each final allowFlowReversal=allowFlowReversal,
     each final m_flow_nominal=m_flow_nominal,
     each final dpValve_nominal=dpValve_nominal,
+    each final use_inputFilter=use_inputFilter,
     each final dpFixed_nominal=dp_nominal)
     "Cooling tower valves"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
@@ -93,6 +92,7 @@ model CoolingTowersParallel
     final m_flow_small=m_flow_small,
     final T_start=Medium.T_default)
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
+
 equation
   for i in 1:num loop
     connect(port_a,val[i].port_a)
@@ -108,21 +108,14 @@ equation
     connect(cooTow[i].port_b, senTem.port_a)
       annotation (Line(points={{10,0},{40,0}}, color={0,127,255}));
   end for;
-  if use_inputFilter then
-    connect(booToRea.y,filter.u)
-      annotation (Line(points={{-68,60},{-60,60},{-60,84},{-55.2,84}},color={0,0,127}));
-  else
-    connect(booToRea.y,y_actual)
-      annotation (Line(points={{-68,60},{-60,60},{-60,74},{-20,74}},color={0,0,127}));
-  end if;
-  connect(y_actual,val.y)
-    annotation (Line(points={{-20,74},{-14,74},{-14,60},{-50,60},{-50,12}},color={0,0,127}));
   connect(on,booToRea.u)
     annotation (Line(points={{-120,60},{-92,60}},color={255,0,255}));
   connect(senTem.port_b, port_b)
     annotation (Line(points={{60,0},{100,0}}, color={0,127,255}));
   connect(senTem.T, TLvg)
     annotation (Line(points={{50,11},{50,30},{110,30}}, color={0,0,127}));
+  connect(booToRea.y, val.y)
+    annotation (Line(points={{-68,60},{-50,60},{-50,12}}, color={0,0,127}));
   annotation (
     defaultComponentName="cooTowPar",
     Diagram(
