@@ -100,21 +100,20 @@ block SeparateWithAFMS
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yMinOutDamPos(
     final min=0,
     final max=1,
-    final unit="1") "Minimum outdoor air damper position"
+    final unit="1")
+    "Outdoor air damper position to ensure minimum outdoor air flow"
     annotation (Placement(transformation(extent={{220,220},{260,260}}),
         iconTransformation(extent={{100,70},{140,110}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yOutDamPosMin(
     final min=outDamPhyPosMin,
     final max=outDamPhyPosMax,
-    final unit="1")
-    "Minimum outdoor air damper position limit"
+    final unit="1") "Physically minimum outdoor air damper position limit"
     annotation (Placement(transformation(extent={{220,-140},{260,-100}}),
         iconTransformation(extent={{100,30},{140,70}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yOutDamPosMax(
     final min=outDamPhyPosMin,
     final max=outDamPhyPosMax,
-    final unit="1")
-    "Maximum outdoor air damper position limit"
+    final unit="1") "Physically maximum outdoor air damper position limit"
     annotation (Placement(transformation(extent={{220,-180},{260,-140}}),
         iconTransformation(extent={{100,10},{140,50}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yRetDamPosMin(

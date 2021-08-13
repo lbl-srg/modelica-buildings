@@ -92,41 +92,43 @@ block SeparateWithDP
     "Supply fan speed"
     annotation (Placement(transformation(extent={{-260,-60},{-220,-20}}),
         iconTransformation(extent={{-140,-110},{-100,-70}})));
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yMinOutDam
+    "Status of minimum outdoor air damper position, true means it's open"
+    annotation (Placement(transformation(extent={{220,140},{260,180}}),
+        iconTransformation(extent={{100,70},{140,110}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yOutDamPosMin(
     final min=outDamPhyPosMin,
     final max=outDamPhyPosMax,
-    final unit="1")
-    "Minimum outdoor air damper position limit"
+    final unit="1") "Physically minimum outdoor air damper position limit"
     annotation (Placement(transformation(extent={{220,-140},{260,-100}}),
-        iconTransformation(extent={{100,60},{140,100}})));
+        iconTransformation(extent={{100,30},{140,70}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yOutDamPosMax(
     final min=outDamPhyPosMin,
     final max=outDamPhyPosMax,
-    final unit="1")
-    "Maximum outdoor air damper position limit"
+    final unit="1") "Physically maximum outdoor air damper position limit"
     annotation (Placement(transformation(extent={{220,-180},{260,-140}}),
-        iconTransformation(extent={{100,20},{140,60}})));
+        iconTransformation(extent={{100,10},{140,50}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yRetDamPosMin(
     final min=retDamPhyPosMin,
     final max=retDamPhyPosMax,
     final unit="1")
     "Minimum return air damper position limit"
     annotation (Placement(transformation(extent={{220,-220},{260,-180}}),
-        iconTransformation(extent={{100,-20},{140,20}})));
+        iconTransformation(extent={{100,-50},{140,-10}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yRetDamPosMax(
     final min=retDamPhyPosMin,
     final max=retDamPhyPosMax,
     final unit="1")
     "Maximum return air damper position limit"
     annotation (Placement(transformation(extent={{220,-270},{260,-230}}),
-        iconTransformation(extent={{100,-60},{140,-20}})));
+        iconTransformation(extent={{100,-70},{140,-30}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yRetDamPhyPosMax(
     final min=0,
     final max=1,
     final unit="1")
     "Physical maximum return air damper position limit. Required as an input for the economizer enable disable sequence"
     annotation (Placement(transformation(extent={{220,-310},{260,-270}}),
-        iconTransformation(extent={{100,-100},{140,-60}})));
+        iconTransformation(extent={{100,-110},{140,-70}})));
 
 protected
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minDesDp(
@@ -320,6 +322,8 @@ equation
     annotation (Line(points={{-178,-120},{240,-120}}, color={0,0,127}));
   connect(outDamPhyPosMaxSig.y, yOutDamPosMax)
     annotation (Line(points={{-178,-160},{240,-160}}, color={0,0,127}));
+  connect(enaMinDam.y, yMinOutDam)
+    annotation (Line(points={{-18,160},{240,160}}, color={255,0,255}));
 
 annotation (
   defaultComponentName="ecoLim",

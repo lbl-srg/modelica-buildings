@@ -128,15 +128,13 @@ block ReliefFan "Sequence for relief fan control for AHUs using actuated relief 
     final h=hys)
     "Check if the controller output is greater than minimum speed plus threshold"
     annotation (Placement(transformation(extent={{-280,-100},{-260,-80}})));
-  Buildings.Controls.OBC.CDL.Logical.Latch staUp
-    "Start stage up timer"
-    annotation (Placement(transformation(extent={{-220,-100},{-200,-80}})));
   Buildings.Controls.OBC.CDL.Logical.Timer upTim(
     final t=420)
     "Check if the controller output has been greater than threshold for sufficient long time"
     annotation (Placement(transformation(extent={{-180,-100},{-160,-80}})));
-  Buildings.Controls.OBC.CDL.Logical.Pre pre
-    annotation (Placement(transformation(extent={{-120,-130},{-100,-110}})));
+  Buildings.Controls.OBC.CDL.Logical.Pre pre(final pre_u_start=true)
+    "Break algebraic loop"
+    annotation (Placement(transformation(extent={{-20,-130},{0,-110}})));
   Buildings.Controls.OBC.CDL.Logical.Edge edg
     annotation (Placement(transformation(extent={{-120,-100},{-100,-80}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea2[nRelFan]
@@ -190,15 +188,13 @@ block ReliefFan "Sequence for relief fan control for AHUs using actuated relief 
     final h=hys)
     "Check if the controller output is less than minimum speed"
     annotation (Placement(transformation(extent={{-280,-320},{-260,-300}})));
-  Buildings.Controls.OBC.CDL.Logical.Latch staDow
-    "Start stage down timer"
-    annotation (Placement(transformation(extent={{-220,-320},{-200,-300}})));
   Buildings.Controls.OBC.CDL.Logical.Timer dowTim(
     final t=300)
     "Check if the controller output has been less than threshold for sufficient long time"
     annotation (Placement(transformation(extent={{-180,-320},{-160,-300}})));
-  Buildings.Controls.OBC.CDL.Logical.Pre pre1
-    annotation (Placement(transformation(extent={{-120,-340},{-100,-320}})));
+  Buildings.Controls.OBC.CDL.Logical.Pre pre1(final pre_u_start=true)
+    "Break algebraic loop"
+    annotation (Placement(transformation(extent={{-20,-330},{0,-310}})));
   Buildings.Controls.OBC.CDL.Logical.Edge edg1
     annotation (Placement(transformation(extent={{-120,-280},{-100,-260}})));
   Buildings.Controls.OBC.CDL.Continuous.Product pro2[nRelFan]
@@ -320,10 +316,22 @@ block ReliefFan "Sequence for relief fan control for AHUs using actuated relief 
     final nin=nRelFan)
     "Check if there is any relief fan is proven on"
     annotation (Placement(transformation(extent={{60,206},{80,226}})));
-
-  CDL.Conversions.BooleanToReal                        booToRea4[nRelFan]
+  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea4[nRelFan]
     "Convert boolean to real"
     annotation (Placement(transformation(extent={{440,50},{460,70}})));
+  Buildings.Controls.OBC.CDL.Logical.Not not1
+    "Logical not"
+    annotation (Placement(transformation(extent={{-60,-130},{-40,-110}})));
+  Buildings.Controls.OBC.CDL.Logical.And and1
+    "Start timer, and reset to zero if the threshold time has passed"
+    annotation (Placement(transformation(extent={{-220,-100},{-200,-80}})));
+  Buildings.Controls.OBC.CDL.Logical.And and3
+    "Start timer, and reset to zero if the threshold time has passed"
+    annotation (Placement(transformation(extent={{-220,-320},{-200,-300}})));
+  Buildings.Controls.OBC.CDL.Logical.Not not2
+    "Logical not"
+    annotation (Placement(transformation(extent={{-60,-330},{-40,-310}})));
+
 equation
   connect(uSupFan, booToRea.u)
     annotation (Line(points={{-500,330},{-462,330}}, color={255,0,255}));
@@ -369,16 +377,6 @@ equation
     annotation (Line(points={{-118,160},{-102,160}}, color={255,0,255}));
   connect(booRep.y, enaDam.u2) annotation (Line(points={{-118,130},{-110,130},{-110,
           152},{-102,152}},color={255,0,255}));
-  connect(greThr2.y, staUp.u)
-    annotation (Line(points={{-258,-90},{-222,-90}}, color={255,0,255}));
-  connect(staUp.y, upTim.u)
-    annotation (Line(points={{-198,-90},{-182,-90}}, color={255,0,255}));
-  connect(upTim.passed, edg.u) annotation (Line(points={{-158,-98},{-140,-98},{-140,
-          -90},{-122,-90}}, color={255,0,255}));
-  connect(upTim.passed, pre.u) annotation (Line(points={{-158,-98},{-140,-98},{-140,
-          -120},{-122,-120}}, color={255,0,255}));
-  connect(pre.y, staUp.clr) annotation (Line(points={{-98,-120},{-80,-120},{-80,
-          -140},{-240,-140},{-240,-96},{-222,-96}}, color={255,0,255}));
   connect(uRelFan, booToRea2.u) annotation (Line(points={{-500,-160},{-440,-160},
           {-440,-26},{-422,-26}}, color={255,0,255}));
   connect(enaRel.y, add2.u1) annotation (Line(points={{-398,330},{-390,330},{-390,
@@ -413,16 +411,8 @@ equation
     annotation (Line(points={{2,0},{18,0}},  color={0,0,127}));
   connect(lesThr2.y, or2.u1)
     annotation (Line(points={{42,0},{58,0}}, color={255,0,255}));
-  connect(staDow.y, dowTim.u)
-    annotation (Line(points={{-198,-310},{-182,-310}}, color={255,0,255}));
-  connect(lesThr3.y, staDow.u)
-    annotation (Line(points={{-258,-310},{-222,-310}}, color={255,0,255}));
   connect(dowTim.passed, edg1.u) annotation (Line(points={{-158,-318},{-140,-318},
           {-140,-270},{-122,-270}}, color={255,0,255}));
-  connect(dowTim.passed, pre1.u) annotation (Line(points={{-158,-318},{-140,-318},
-          {-140,-330},{-122,-330}}, color={255,0,255}));
-  connect(pre1.y, staDow.clr) annotation (Line(points={{-98,-330},{-80,-330},{-80,
-          -350},{-240,-350},{-240,-316},{-222,-316}}, color={255,0,255}));
   connect(booToRea2.y, pro2.u2) annotation (Line(points={{-398,-26},{-380,-26},{
           -380,-206},{-282,-206}}, color={0,0,127}));
   connect(gai.y, pro2.u1) annotation (Line(points={{-358,330},{-310,330},{-310,-194},
@@ -541,6 +531,28 @@ equation
     annotation (Line(points={{402,60},{438,60}}, color={255,0,255}));
   connect(booToRea4.y, yDam)
     annotation (Line(points={{462,60},{500,60}}, color={0,0,127}));
+  connect(upTim.passed, edg.u) annotation (Line(points={{-158,-98},{-140,-98},{-140,
+          -90},{-122,-90}}, color={255,0,255}));
+  connect(edg.y, not1.u) annotation (Line(points={{-98,-90},{-80,-90},{-80,-120},
+          {-62,-120}}, color={255,0,255}));
+  connect(not1.y, pre.u)
+    annotation (Line(points={{-38,-120},{-22,-120}}, color={255,0,255}));
+  connect(and1.y, upTim.u)
+    annotation (Line(points={{-198,-90},{-182,-90}}, color={255,0,255}));
+  connect(greThr2.y, and1.u1)
+    annotation (Line(points={{-258,-90},{-222,-90}}, color={255,0,255}));
+  connect(pre.y, and1.u2) annotation (Line(points={{2,-120},{20,-120},{20,-140},
+          {-240,-140},{-240,-98},{-222,-98}}, color={255,0,255}));
+  connect(edg1.y, not2.u) annotation (Line(points={{-98,-270},{-80,-270},{-80,-320},
+          {-62,-320}}, color={255,0,255}));
+  connect(not2.y, pre1.u)
+    annotation (Line(points={{-38,-320},{-22,-320}}, color={255,0,255}));
+  connect(lesThr3.y, and3.u1)
+    annotation (Line(points={{-258,-310},{-222,-310}}, color={255,0,255}));
+  connect(and3.y, dowTim.u)
+    annotation (Line(points={{-198,-310},{-182,-310}}, color={255,0,255}));
+  connect(pre1.y, and3.u2) annotation (Line(points={{2,-320},{20,-320},{20,-340},
+          {-240,-340},{-240,-318},{-222,-318}}, color={255,0,255}));
 
 annotation (defaultComponentName="relFanCon",
  Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
@@ -598,14 +610,14 @@ annotation (defaultComponentName="relFanCon",
           fillPattern=FillPattern.Solid,
           pattern=LinePattern.None),
         Text(
-          extent={{-68,-108},{108,-134}},
+          extent={{54,-110},{230,-136}},
           lineColor={0,0,255},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid,
           horizontalAlignment=TextAlignment.Left,
           textString="Stage-up: turning on a new relief fan"),
         Text(
-          extent={{-58,-320},{140,-348}},
+          extent={{52,-324},{250,-352}},
           lineColor={0,0,255},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid,

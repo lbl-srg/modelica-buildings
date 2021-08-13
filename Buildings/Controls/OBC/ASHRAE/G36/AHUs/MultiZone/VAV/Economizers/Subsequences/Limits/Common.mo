@@ -118,8 +118,7 @@ block Common
     final Ti=Ti,
     final Td=Td,
     final yMax=yMax,
-    final yMin=yMin)
-    "Damper position limit controller"
+    final yMin=yMin) "Damper position limit controller"
     annotation (Placement(transformation(extent={{-140,180},{-120,200}})));
 
 protected

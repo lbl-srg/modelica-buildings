@@ -223,8 +223,8 @@ block Controller
         iconTransformation(extent={{-140,80},{-100,120}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput dpMinOutDam(
     final unit="Pa",
-    final quantity="PressureDifference") if
-       have_separateDP
+    final quantity="PressureDifference")
+    if have_separateDP
     "Measured pressure difference across the minimum outdoor air damper"
     annotation (Placement(transformation(extent={{-280,60},{-240,100}}),
         iconTransformation(extent={{-140,50},{-100,90}})));
@@ -302,8 +302,8 @@ block Controller
     final outDamPhyPosMax=outDamPhyPosMax,
     final outDamPhyPosMin=outDamPhyPosMin,
     final minOutDamPhyPosMax=minOutDamPhyPosMax,
-    final minOutDamPhyPosMin=minOutDamPhyPosMin) if
-       have_separateAFMS
+    final minOutDamPhyPosMin=minOutDamPhyPosMin)
+    if have_separateAFMS
     "Damper position limits for units with separated minimum outdoor air damper and airflow measurement"
     annotation (Placement(transformation(extent={{-140,130},{-120,150}})));
   Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.Economizers.Subsequences.Limits.SeparateWithDP
@@ -317,8 +317,8 @@ block Controller
     final retDamPhyPosMax=retDamPhyPosMax,
     final retDamPhyPosMin=retDamPhyPosMin,
     final outDamPhyPosMax=outDamPhyPosMax,
-    final outDamPhyPosMin=outDamPhyPosMin) if
-       have_separateDP
+    final outDamPhyPosMin=outDamPhyPosMin)
+    if have_separateDP
     "Damper position limits for units with separated minimum outdoor air damper and differential pressure measurement"
     annotation (Placement(transformation(extent={{-140,70},{-120,90}})));
   Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.Economizers.Subsequences.Limits.Common
@@ -331,8 +331,8 @@ block Controller
     final retDamPhyPosMax=retDamPhyPosMax,
     final retDamPhyPosMin=retDamPhyPosMin,
     final outDamPhyPosMax=outDamPhyPosMax,
-    final outDamPhyPosMin=outDamPhyPosMin) if
-       have_common "Damper position limits for units with common damper"
+    final outDamPhyPosMin=outDamPhyPosMin)
+    if have_common "Damper position limits for units with common damper"
     annotation (Placement(transformation(extent={{-140,10},{-120,30}})));
   Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.Economizers.Subsequences.Enable enaDis(
     final use_enthalpy=use_enthalpy,
@@ -346,8 +346,8 @@ block Controller
     final have_direct_control=buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanDp,
     final uMin=uHeaMax,
     final uMax=uCooMin,
-    final samplePeriod=samplePeriod) if
-       have_returns
+    final samplePeriod=samplePeriod)
+    if have_returns
     "Modulate economizer dampers position for buildings with return fan controlling pressure"
     annotation (Placement(transformation(extent={{100,70},{120,90}})));
   Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.Economizers.Subsequences.Modulations.Reliefs modRel(
@@ -355,8 +355,8 @@ block Controller
     final uMax=uCooMin,
     final uOutDamMax=uOutDamMax,
     final uRetDamMin=uRetDamMin,
-    final samplePeriod=samplePeriod) if
-       have_reliefs
+    final samplePeriod=samplePeriod)
+    if have_reliefs
     "Modulate economizer dampers position for buildings with relief damper or fan controlling pressure"
     annotation (Placement(transformation(extent={{100,10},{120,30}})));
   Buildings.Controls.OBC.ASHRAE.G36.Generic.FreezeProtectionMixedAir freProTMix(
@@ -465,16 +465,16 @@ equation
           {-98,16},{-98,-88},{18,-88}},              color={0,0,127}));
   connect(damLim.yRetDamPhyPosMax, enaDis.uRetDamPhyPosMax) annotation (Line(
         points={{-118,12},{-104,12},{-104,-86},{18,-86}},  color={0,0,127}));
-  connect(sepDp.yOutDamPosMin, enaDis.uOutDamPosMin) annotation (Line(points={{-118,88},
-          {-40,88},{-40,-84},{18,-84}},               color={0,0,127}));
-  connect(sepDp.yOutDamPosMax, enaDis.uOutDamPosMax) annotation (Line(points={{-118,84},
-          {-46,84},{-46,-82},{18,-82}},               color={0,0,127}));
-  connect(sepDp.yRetDamPosMin, enaDis.uRetDamPosMin) annotation (Line(points={{-118,80},
-          {-52,80},{-52,-90},{18,-90}},               color={0,0,127}));
-  connect(sepDp.yRetDamPosMax, enaDis.uRetDamPosMax) annotation (Line(points={{-118,76},
-          {-58,76},{-58,-88},{18,-88}},               color={0,0,127}));
+  connect(sepDp.yOutDamPosMin, enaDis.uOutDamPosMin) annotation (Line(points={{-118,85},
+          {-40,85},{-40,-84},{18,-84}},               color={0,0,127}));
+  connect(sepDp.yOutDamPosMax, enaDis.uOutDamPosMax) annotation (Line(points={{-118,83},
+          {-46,83},{-46,-82},{18,-82}},               color={0,0,127}));
+  connect(sepDp.yRetDamPosMin, enaDis.uRetDamPosMin) annotation (Line(points={{-118,77},
+          {-52,77},{-52,-90},{18,-90}},               color={0,0,127}));
+  connect(sepDp.yRetDamPosMax, enaDis.uRetDamPosMax) annotation (Line(points={{-118,75},
+          {-58,75},{-58,-88},{18,-88}},               color={0,0,127}));
   connect(sepDp.yRetDamPhyPosMax, enaDis.uRetDamPhyPosMax) annotation (Line(
-        points={{-118,72},{-64,72},{-64,-86},{18,-86}},      color={0,0,127}));
+        points={{-118,71},{-64,71},{-64,-86},{18,-86}},      color={0,0,127}));
   connect(sepAFMS.yOutDamPosMin, enaDis.uOutDamPosMin) annotation (Line(points={{-118,
           145},{0,145},{0,-84},{18,-84}},             color={0,0,127}));
   connect(sepAFMS.yOutDamPosMax, enaDis.uOutDamPosMax) annotation (Line(points={{-118,
@@ -491,8 +491,8 @@ equation
           {98,20}},         color={0,0,127}));
   connect(damLim.yOutDamPosMin, modRel.uOutDamPosMin) annotation (Line(points={{-118,28},
           {-80,28},{-80,11},{98,11}},             color={0,0,127}));
-  connect(sepDp.yOutDamPosMin, modRel.uOutDamPosMin) annotation (Line(points={{-118,88},
-          {-40,88},{-40,11},{98,11}},              color={0,0,127}));
+  connect(sepDp.yOutDamPosMin, modRel.uOutDamPosMin) annotation (Line(points={{-118,85},
+          {-40,85},{-40,11},{98,11}},              color={0,0,127}));
   connect(sepAFMS.yOutDamPosMin, modRel.uOutDamPosMin) annotation (Line(points={{-118,
           145},{0,145},{0,11},{98,11}},            color={0,0,127}));
   connect(enaDis.yOutDamPosMax, modRel.uOutDamPosMax) annotation (Line(points={{42,-74},
@@ -611,7 +611,7 @@ for a description.
 </li>
 
 <li>
-Third sed of sequences modulate the outdoor and return damper position
+Third set of sequences modulate the outdoor and return damper position
 to track the supply air temperature setpoint, subject to the limits of the damper positions
 that were computed in the above blocks. Different sequence will be enabled depending
 on the types of building pressure control system, which include
