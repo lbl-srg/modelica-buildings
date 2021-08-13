@@ -109,7 +109,7 @@ model CoolingTowersWithBypass
     final m_flow_small=m_flow_nominal,
     final T_start=Medium.T_default)
     "Temperature sensor"
-    annotation (Placement(transformation(extent={{60,10},{80,-10}})));
+    annotation (Placement(transformation(extent={{60,-10},{80,10}})));
   Modelica.Blocks.Sources.Constant TSetByp(
     final k=TMin)
     "Bypass loop temperature setpoint"
@@ -140,20 +140,20 @@ model CoolingTowersWithBypass
     final k=k,
     final Ti=Ti)
     "Cooling tower fan speed controller"
-    annotation (Placement(transformation(extent={{-6,50},{14,70}})));
+    annotation (Placement(transformation(extent={{-10,40},{10,60}})));
   Buildings.Controls.OBC.CDL.Logical.Switch swi
     "Output the input of higher value"
-    annotation (Placement(transformation(extent={{-36,50},{-16,70}})));
+    annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
   Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys(
     uLow=TMin-0.1,
     uHigh=TMin+0.1)
     "Compare if (TWetBul+dTApp) is greater than TMin"
-    annotation (Placement(transformation(extent={{-70,50},{-50,70}})));
+    annotation (Placement(transformation(extent={{-70,40},{-50,60}})));
   Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar(
     p=dTApp,
     k=1)
     "Add approach temperature on top of wetbulb temperature"
-    annotation (Placement(transformation(extent={{-80,80},{-60,100}})));
+    annotation (Placement(transformation(extent={{-80,70},{-60,90}})));
   Buildings.Fluid.FixedResistances.Junction jun(
   redeclare final package Medium=Medium,
     m_flow_nominal=m_flow_nominal .* {1,-1,-1},
@@ -162,12 +162,12 @@ model CoolingTowersWithBypass
     "Upstream mixing point of cooTowSys and valByp"
     annotation (Placement(transformation(extent={{-34,-4},{-26,4}})));
 protected
-  parameter Boolean enableTi = 
-    controllerType == Modelica.Blocks.Types.SimpleController.PI or 
+  parameter Boolean enableTi=
+    controllerType == Modelica.Blocks.Types.SimpleController.PI or
     controllerType == Modelica.Blocks.Types.SimpleController.PID
     "Flag to enable controller parameter Ti";
-  parameter Boolean enableTd = 
-    controllerType == Modelica.Blocks.Types.SimpleController.PD or 
+  parameter Boolean enableTd=
+    controllerType == Modelica.Blocks.Types.SimpleController.PD or
     controllerType == Modelica.Blocks.Types.SimpleController.PID
     "Flag to enable controller parameter Td";
 equation
@@ -180,11 +180,12 @@ equation
   connect(TSetByp.y,bypValCon.u_s)
     annotation (Line(points={{-69,-50},{-62,-50}},color={0,0,127}));
   connect(senTCWSup.T,bypValCon.u_m)
-    annotation (Line(points={{70,-11},{70,-80},{-50,-80},{-50,-62}},color={0,0,127}));
+    annotation (Line(points={{70,11},{70,30},{54,30},{54,-80},{-50,-80},{-50,
+          -62}},                                                    color={0,0,127}));
   connect(valByp.port_b,senTCWSup.port_a)
     annotation (Line(points={{10,-40},{30,-40},{30,0},{60,0}},color={0,127,255}));
   connect(cooTowSpeCon.y,cooTowSys.uFanSpe)
-    annotation (Line(points={{15,60},{20,60},{20,20},{-20,20},{-20,2},{-12,2}},
+    annotation (Line(points={{11,50},{16,50},{16,14},{-18,14},{-18,2},{-12,2}},
       color={0,0,127}));
   connect(cooTowSys.PFan,PFan)
     annotation (Line(points={{11,6},{40,6},{40,60},{110,60}},color={0,0,127}));
@@ -192,26 +193,27 @@ equation
     annotation (Line(points={{-39,-50},{-20,-50},{-20,-20},{0,-20},{0,-28}},
       color={0,0,127}));
   connect(senTCWSup.T,cooTowSpeCon.u_m)
-    annotation (Line(points={{70,-11},{70,-20},{34,-20},{34,21.3672},{34,40},{4,
-          40},{4,48}},color={0,0,127}));
+    annotation (Line(points={{70,11},{70,30},{0,30},{0,38}},
+                      color={0,0,127}));
   connect(hys.y, swi.u2)
-    annotation (Line(points={{-48,60},{-38,60}}, color={255,0,255}));
+    annotation (Line(points={{-48,50},{-42,50}}, color={255,0,255}));
   connect(cooTowSpeCon.u_s,swi.y)
-    annotation (Line(points={{-8,60},{-14,60}}, color={0,0,127}));
+    annotation (Line(points={{-12,50},{-18,50}},color={0,0,127}));
   connect(TSetByp.y,swi.u3)
-    annotation (Line(points={{-69,-50},{-66,-50},{-66,45.8125},{-46,45.8125},
-      {-46,52},{-38,52}},color={0,0,127}));
+    annotation (Line(points={{-69,-50},{-66,-50},{-66,34},{-46,34},{-46,42},{
+          -42,42}},      color={0,0,127}));
   connect(TWetBul,addPar.u)
-    annotation (Line(points={{-120,-20},{-86,-20},{-86,90},{-82,90}},
+    annotation (Line(points={{-120,-20},{-86,-20},{-86,80},{-82,80}},
       color={0,0,127}));
   connect(addPar.y,swi.u1)
-    annotation (Line(points={{-58,90},{-46,90},{-46,68},{-38,68}},
+    annotation (Line(points={{-58,80},{-46,80},{-46,64},{-42,64},{-42,58}},
       color={0,0,127}));
   connect(on,cooTowSys.on)
     annotation (Line(points={{-120,40},{-80,40},{-80,6},{-12,6}},
       color={255,0,255}));
   connect(on[1],bypValCon.trigger)
-    annotation (Line(points={{-120,30},{-92,30},{-92,-80},{-58,-80},{-58,-62}},
+    annotation (Line(points={{-120,30},{-120,40},{-92,40},{-92,-80},{-58,-80},{
+          -58,-62}},
       color={255,0,255}));
   connect(port_a, jun.port_1)
     annotation (Line(points={{-100,0},{-34,0}}, color={0,127,255}));
@@ -220,10 +222,11 @@ equation
   connect(valByp.port_a, jun.port_3)
     annotation (Line(points={{-10,-40},{-30,-40},{-30,-4}}, color={0,127,255}));
   connect(addPar.y, hys.u)
-    annotation (Line(points={{-58,90},{-46,90},{-46,76},{-78,76},{-78,60},{-72,60}}, 
+    annotation (Line(points={{-58,80},{-46,80},{-46,64},{-78,64},{-78,50},{-72,
+          50}},
       color={0,0,127}));
   connect(senTCWSup.T, TLvg)
-    annotation (Line(points={{70,-11},{70,-20},{34,-20},{34,30},{110,30}}, 
+    annotation (Line(points={{70,11},{70,30},{110,30}},
       color={0,0,127}));
   annotation (
     defaultComponentName="cooTowWitByp",
