@@ -110,11 +110,11 @@ model CoolingTowersWithBypass
     final T_start=Medium.T_default)
     "Temperature sensor"
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
-  Modelica.Blocks.Sources.Constant TSetByp(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TSetByp(
     final k=TMin)
     "Bypass loop temperature setpoint"
     annotation (Placement(transformation(extent={{-90,-60},{-70,-40}})));
-  Buildings.Controls.Continuous.LimPID bypValCon(
+  Buildings.Controls.OBC.CDL.Continuous.PIDWithReset bypValCon(
     u_s(
       final unit="K",
       displayUnit="degC"),
@@ -124,11 +124,10 @@ model CoolingTowersWithBypass
     controllerType=Modelica.Blocks.Types.SimpleController.PI,
     final k=k,
     final Ti=Ti,
-    final reset=Buildings.Types.Reset.Parameter,
     final y_reset=0)
     "Bypass valve controller"
     annotation (Placement(transformation(extent={{-60,-60},{-40,-40}})));
-  Buildings.Controls.Continuous.LimPID cooTowSpeCon(
+  Buildings.Controls.OBC.CDL.Continuous.PID cooTowSpeCon(
     u_s(
       final unit="K",
       displayUnit="degC"),
@@ -180,8 +179,8 @@ equation
   connect(TSetByp.y,bypValCon.u_s)
     annotation (Line(points={{-69,-50},{-62,-50}},color={0,0,127}));
   connect(senTCWSup.T,bypValCon.u_m)
-    annotation (Line(points={{70,11},{70,30},{54,30},{54,-80},{-50,-80},{-50,
-          -62}},                                                    color={0,0,127}));
+    annotation (Line(points={{70,11},{70,30},{54,30},{54,-80},{-50,-80},{-50,-62}},
+                                                                    color={0,0,127}));
   connect(valByp.port_b,senTCWSup.port_a)
     annotation (Line(points={{10,-40},{30,-40},{30,0},{60,0}},color={0,127,255}));
   connect(cooTowSpeCon.y,cooTowSys.uFanSpe)
@@ -200,8 +199,8 @@ equation
   connect(cooTowSpeCon.u_s,swi.y)
     annotation (Line(points={{-12,50},{-18,50}},color={0,0,127}));
   connect(TSetByp.y,swi.u3)
-    annotation (Line(points={{-69,-50},{-66,-50},{-66,34},{-46,34},{-46,42},{
-          -42,42}},      color={0,0,127}));
+    annotation (Line(points={{-69,-50},{-66,-50},{-66,34},{-46,34},{-46,42},{-42,
+          42}},          color={0,0,127}));
   connect(TWetBul,addPar.u)
     annotation (Line(points={{-120,-20},{-86,-20},{-86,80},{-82,80}},
       color={0,0,127}));
@@ -212,8 +211,8 @@ equation
     annotation (Line(points={{-120,40},{-80,40},{-80,6},{-12,6}},
       color={255,0,255}));
   connect(on[1],bypValCon.trigger)
-    annotation (Line(points={{-120,30},{-120,40},{-92,40},{-92,-80},{-58,-80},{
-          -58,-62}},
+    annotation (Line(points={{-120,40},{-80,40},{-80,-28},{-94,-28},{-94,-80},{-56,
+          -80},{-56,-62}},
       color={255,0,255}));
   connect(port_a, jun.port_1)
     annotation (Line(points={{-100,0},{-34,0}}, color={0,127,255}));
@@ -222,8 +221,7 @@ equation
   connect(valByp.port_a, jun.port_3)
     annotation (Line(points={{-10,-40},{-30,-40},{-30,-4}}, color={0,127,255}));
   connect(addPar.y, hys.u)
-    annotation (Line(points={{-58,80},{-46,80},{-46,64},{-78,64},{-78,50},{-72,
-          50}},
+    annotation (Line(points={{-58,80},{-46,80},{-46,64},{-78,64},{-78,50},{-72,50}},
       color={0,0,127}));
   connect(senTCWSup.T, TLvg)
     annotation (Line(points={{70,11},{70,30},{110,30}},
