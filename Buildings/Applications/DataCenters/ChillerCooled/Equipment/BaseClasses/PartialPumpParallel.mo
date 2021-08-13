@@ -107,7 +107,6 @@ partial model PartialPumpParallel "Partial model for pump parallel"
     each final use_inputFilter=use_inputFilter,
     each final riseTime=riseTimePump,
     each final init=init,
-    final y_start= yPump_start,
     each final energyDynamics=energyDynamics,
     each final massDynamics=massDynamics,
     each final p_start=p_start,

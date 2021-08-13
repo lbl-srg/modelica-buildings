@@ -4,3 +4,16 @@
 clear
 
 convertClear();
+
+// Conversion for https://github.com/ibpsa/modelica-ibpsa/issues/1498
+convertModifiers("Buildings.Fluid.Movers.FlowControlled_dp",
+                {"y_start"}, fill("",0), true);
+convertModifiers("Buildings.Fluid.Movers.FlowControlled_m_flow",
+                {"y_start"}, fill("",0), true);
+// Conversion for https://github.com/lbl-srg/modelica-buildings/issues/2580
+convertElement(
+    "Buildings.Controls.OBC.CDL.Logical.MultiAnd",
+    "nu", "nin");
+convertElement(
+    "Buildings.Controls.OBC.CDL.Logical.MultiOr",
+    "nu", "nin");

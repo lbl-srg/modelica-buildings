@@ -14,20 +14,6 @@ partial model PartialCoolingCoilHumidifyingHeating "Partial AHU model "
   constant Boolean homotopyInitialization = true "= true, use homotopy method"
     annotation(HideResult=true);
 
-  // Cooling coil
-  parameter Boolean waterSideFlowDependent=true
-    "Set to false to make water-side hA independent of mass flow rate"
-    annotation (Dialog(tab="Heat transfer",group="Cooling coil"));
-  parameter Boolean airSideFlowDependent=true
-    "Set to false to make air-side hA independent of mass flow rate"
-    annotation (Dialog(tab="Heat transfer",group="Cooling coil"));
-  parameter Boolean waterSideTemperatureDependent=false
-    "Set to false to make water-side hA independent of temperature"
-    annotation (Dialog(tab="Heat transfer",group="Cooling coil"));
-  parameter Boolean airSideTemperatureDependent=false
-    "Set to false to make air-side hA independent of temperature"
-    annotation (Dialog(tab="Heat transfer",group="Cooling coil"));
-
   // Initialization of the fan
   parameter Medium2.AbsolutePressure p_start = Medium2.p_default
     "Start value of pressure"
@@ -116,24 +102,16 @@ if not inputType == Buildings.Fluid.Types.InputType.Stages
     annotation (Placement(transformation(extent={{-140,-70},{-100,-30}}),
         iconTransformation(extent={{-120,-50},{-100,-30}})));
 
-  Buildings.Fluid.HeatExchangers.WetCoilCounterFlow cooCoi(
+  Fluid.HeatExchangers.WetCoilEffectivenessNTU cooCoi(
     redeclare final package Medium1 = Medium1,
     redeclare final package Medium2 = Medium2,
     final UA_nominal=UA_nominal,
     final r_nominal=r_nominal,
-    final nEle=nEle,
-    final tau1=tau1,
-    final tau2=tau2,
-    final tau_m=tau_m,
     final allowFlowReversal1=allowFlowReversal1,
     final allowFlowReversal2=allowFlowReversal2,
     final show_T=show_T,
     final m1_flow_small=m1_flow_small,
     final m2_flow_small=m2_flow_small,
-    final waterSideFlowDependent=waterSideFlowDependent,
-    final airSideFlowDependent=airSideFlowDependent,
-    final waterSideTemperatureDependent=waterSideTemperatureDependent,
-    final airSideTemperatureDependent=airSideTemperatureDependent,
     final energyDynamics=energyDynamics,
     final m1_flow_nominal=m1_flow_nominal,
     final m2_flow_nominal=m2_flow_nominal,
@@ -155,7 +133,6 @@ if not inputType == Buildings.Fluid.Types.InputType.Stages
       final use_inputFilter=use_inputFilterFan,
       final riseTime=riseTimeFan,
       final init=initFan,
-      final y_start=yFan_start,
       final p_start=p_start,
       final T_start=T_start,
       final X_start=X_start,
@@ -196,15 +173,12 @@ initial equation
     level = AssertionLevel.warning);
 
 equation
-  connect(port_a1, cooCoi.port_a1)
-    annotation (Line(points={{-100,60},{50,60},{50,-48},{60,-48}},
-                                                color={0,127,255}));
-  connect(cooCoi.port_a2, port_a2)
-    annotation (Line(points={{80,-60},{80,-60},{84,-60},{100,-60}},
-               color={0,127,255}));
-  connect(cooCoi.port_b1, watVal.port_a)
-    annotation (Line(points={{80,-48},{80,-48},{80,-26},{80,-34},{80,-20}},
-                                              color={0,127,255}));
+  connect(port_a1, cooCoi.port_a1) annotation (Line(points={{-100,60},{50,60},
+          {50,-48},{60,-48}}, color={0,127,255}));
+  connect(cooCoi.port_a2, port_a2) annotation (Line(points={{80,-60},{80,-60},
+          {84,-60},{100,-60}}, color={0,127,255}));
+  connect(cooCoi.port_b1, watVal.port_a) annotation (Line(points={{80,-48},{80,
+          -48},{80,-26},{80,-34},{80,-20}}, color={0,127,255}));
   connect(watVal.port_b, port_b1)
    annotation (Line(points={{80,0},{80,0},{80,60},{100,60}},
                  color={0,127,255}));
@@ -236,6 +210,11 @@ The valve and fan are partial models, and should be redeclared when used in the 
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+June 30, 2021, by Antoine Gautier:<br/>
+Changed cooling coil model. This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2549\">issue #2549</a>.
+</li>
 <li>
 April 9, 2021, by Kathryn Hinkelman:<br/>
 Removed <code>kFixed</code> redundancies. See

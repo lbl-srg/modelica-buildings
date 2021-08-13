@@ -73,20 +73,19 @@ model ModeSelector "Finite State Machine for the operational modes"
   Modelica.StateGraph.Transition t7(condition=TRooMin.y - delTRooOnOff/2 <
         TRooSetCooOcc or occupied.y)
     annotation (Placement(transformation(extent={{10,-140},{30,-120}})));
-  Modelica.Blocks.Logical.And and1
-    annotation (Placement(transformation(extent={{-100,-200},{-80,-180}})));
   Modelica.Blocks.Routing.RealPassThrough TRooAve "Average room temperature"
     annotation (Placement(transformation(extent={{-80,110},{-60,130}})));
   Modelica.Blocks.Sources.BooleanExpression booleanExpression(
-    y=TRooAve.y < TRooSetHeaOcc)
-    annotation (Placement(transformation(extent={{-198,-224},{-122,-200}})));
+    y=occThrSho.y and (TRooAve.y < TRooSetHeaOcc))
+    "Test that outputs true if room temperature is below occupied heating and system should be switched on soon"
+    annotation (Placement(transformation(extent={{-204,-226},{-100,-192}})));
   PreCoolingStarter preCooSta(TRooSetCooOcc=TRooSetCooOcc)
     "Model to start pre-cooling"
     annotation (Placement(transformation(extent={{-140,-160},{-120,-140}})));
   Modelica.StateGraph.TransitionWithSignal t9
     annotation (Placement(transformation(extent={{-90,-140},{-70,-120}})));
   Modelica.Blocks.Logical.Not not1
-    annotation (Placement(transformation(extent={{-48,-180},{-28,-160}})));
+    annotation (Placement(transformation(extent={{-100,-190},{-80,-170}})));
   Modelica.Blocks.Logical.And and2
     annotation (Placement(transformation(extent={{80,100},{100,120}})));
   Modelica.Blocks.Logical.Not not2
@@ -204,18 +203,6 @@ equation
       points={{106.5,130},{-30,130},{-30,29.3333},{-21,29.3333}},
       color={0,0,0},
       smooth=Smooth.None));
-  connect(occThrSho.y, and1.u1) annotation (Line(
-      points={{-119,-180},{-110,-180},{-110,-190},{-102,-190}},
-      color={255,0,255},
-      smooth=Smooth.None));
-  connect(and1.y, t6.condition) annotation (Line(
-      points={{-79,-190},{-66,-190},{-66,-102}},
-      color={255,0,255},
-      smooth=Smooth.None));
-  connect(and1.y, t5.condition) annotation (Line(
-      points={{-79,-190},{128,-190},{128,18}},
-      color={255,0,255},
-      smooth=Smooth.None));
   connect(cb.TRooAve, TRooAve.u) annotation (Line(
       points={{-158,140},{-100,140},{-100,120},{-82,120}},
       color={255,204,51},
@@ -224,10 +211,6 @@ equation
       textString="%first",
       index=-1,
       extent={{-6,3},{-6,3}}));
-  connect(booleanExpression.y, and1.u2) annotation (Line(
-      points={{-118.2,-212},{-110.1,-212},{-110.1,-198},{-102,-198}},
-      color={255,0,255},
-      smooth=Smooth.None));
   connect(preCooSta.y, t9.condition) annotation (Line(
       points={{-119,-150},{-80,-150},{-80,-142}},
       color={255,0,255},
@@ -261,11 +244,11 @@ equation
       color={0,0,0},
       smooth=Smooth.None));
   connect(occThrSho.y, not1.u) annotation (Line(
-      points={{-119,-180},{-110,-180},{-110,-170},{-50,-170}},
+      points={{-119,-180},{-102,-180}},
       color={255,0,255},
       smooth=Smooth.None));
   connect(not1.y, and2.u2) annotation (Line(
-      points={{-27,-170},{144,-170},{144,84},{66,84},{66,102},{78,102}},
+      points={{-79,-180},{36,-180},{36,-50},{56,-50},{56,102},{78,102}},
       color={255,0,255},
       smooth=Smooth.None));
   connect(and2.y, t4.condition) annotation (Line(
@@ -356,6 +339,10 @@ equation
       horizontalAlignment=TextAlignment.Left));
   connect(modIni.y, sum.u[6]) annotation (Line(points={{-181,20},{-200,20},{
           -200,136.5},{-192,136.5}}, color={255,127,0}));
+  connect(t6.condition, booleanExpression.y) annotation (Line(points={{-66,-102},
+          {-66,-209},{-94.8,-209}}, color={255,0,255}));
+  connect(t5.condition, booleanExpression.y) annotation (Line(points={{128,18},
+          {128,-209},{-94.8,-209}}, color={255,0,255}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-220,
             -220},{220,220}})), Icon(coordinateSystem(
           preserveAspectRatio=true, extent={{-220,-220},{220,220}}), graphics={

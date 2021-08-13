@@ -217,7 +217,7 @@ model ControllerChillerDXHeatingEconomizer
     final uHigh=0.05)
     "Hysteresis for heating"
     annotation (Placement(transformation(extent={{-30,120},{-10,140}})));
-  Buildings.Controls.OBC.CDL.Logical.MultiOr orFan(nu=3)
+  Buildings.Controls.OBC.CDL.Logical.MultiOr orFan(nin=3)
     "Switch fan on if heating, cooling, or occupied"
     annotation (Placement(transformation(extent={{40,94},{60,114}})));
   Modelica.Blocks.Logical.And and1 "Logical and"
