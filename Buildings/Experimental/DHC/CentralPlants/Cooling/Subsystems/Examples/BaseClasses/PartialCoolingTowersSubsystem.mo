@@ -31,7 +31,7 @@ partial model PartialCoolingTowersSubsystem
   Buildings.BoundaryConditions.WeatherData.Bus weaBus "Weather data bus"
     annotation (Placement(transformation(extent={{-70,40},{-50,60}})));
 
-  Modelica.Blocks.Logical.OnOffController onOffCon(
+  Buildings.Controls.OBC.CDL.Logical.OnOffController onOffCon(
     bandwidth=2,
     reference(
       unit="K",
@@ -41,17 +41,17 @@ partial model PartialCoolingTowersSubsystem
     "On/off controller"
     annotation (Placement(transformation(extent={{-20,-200},{0,-180}})));
 
-  Modelica.Blocks.Logical.Switch swi "Control switch for chilled water pump"
+  Buildings.Controls.OBC.CDL.Logical.Switch swi "Control switch for chilled water pump"
     annotation (Placement(transformation(extent={{20,-200},{40,-180}})));
 
-  Modelica.Blocks.Sources.Constant TSwi(k=273.15 + 22)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TSwi(k=273.15 + 22)
     "Switch temperature for switching tower pump on"
     annotation (Placement(transformation(extent={{-80,-206},{-60,-186}})));
 
-  Modelica.Blocks.Sources.Constant zer(k=0) "Zero flow rate"
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zer(k=0) "Zero flow rate"
     annotation (Placement(transformation(extent={{-20,-230},{0,-210}})));
 
-  Modelica.Blocks.Sources.Constant m_flow(k=m_flow_nominal)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant m_flow(k=m_flow_nominal)
     "Water flow rate"
     annotation (Placement(transformation(extent={{-20,-168},{0,-148}})));
 
@@ -79,12 +79,12 @@ equation
   connect(weaDat.weaBus, weaBus)
    annotation (Line(points={{-80,50},{-60,50}},color={255,204,51}));
   connect(onOffCon.y, swi.u2)
-   annotation (Line(points={{1,-190},{18,-190}},color={255,0,255}));
+   annotation (Line(points={{2,-190},{18,-190}},color={255,0,255}));
   connect(zer.y, swi.u3)
-   annotation (Line(points={{1,-220},{8,-220},{8,-198},{18,-198}},
+   annotation (Line(points={{2,-220},{8,-220},{8,-198},{18,-198}},
      color={0,0,127}));
   connect(m_flow.y, swi.u1)
-   annotation (Line(points={{1,-158},{8,-158},{8,-182},{18,-182}},
+   annotation (Line(points={{2,-158},{8,-158},{8,-182},{18,-182}},
      color={0,0,127}));
   connect(vol.ports[1], pum.port_a)
    annotation (Line(points={{27.3333,-120},{-60,-120},{-60,-50},{-40,-50}},
@@ -101,13 +101,13 @@ equation
   connect(pum.port_b, tow.port_a)
    annotation (Line(points={{-20,-50},{22,-50}},color={0,127,255}));
   connect(onOffCon.u, TSwi.y)
-   annotation (Line(points={{-22,-196},{-59,-196}},color={0,0,127}));
+   annotation (Line(points={{-22,-196},{-58,-196}},color={0,0,127}));
   connect(TVol.T, onOffCon.reference)
    annotation (Line(points={{-50,-150},{-40,-150},{-40,-184},{-22,-184}},
       color={0,0,127}));
   connect(swi.y, pum.m_flow_in)
-   annotation (Line(points={{41,-190},{70,-190},{70,-240},{-100,-240},
-     {-100,-30},{-30,-30},{-30,-38}},color={0,0,127}));
+   annotation (Line(points={{42,-190},{70,-190},{70,-240},{-100,-240},{-100,-30},
+          {-30,-30},{-30,-38}},      color={0,0,127}));
   connect(exp.ports[1], vol.ports[3])
    annotation (Line(points={{80,-120},{32.6667,-120}},color={0,127,255}));
 
