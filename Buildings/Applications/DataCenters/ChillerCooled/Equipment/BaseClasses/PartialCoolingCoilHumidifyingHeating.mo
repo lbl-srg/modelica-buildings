@@ -91,8 +91,8 @@ partial model PartialCoolingCoilHumidifyingHeating "Partial AHU model "
     "Actuator position (0: closed, 1: open) on water side"
     annotation (Placement(transformation(extent={{-140,10},{-100,50}}),
       iconTransformation(extent={{-120,30},{-100,50}})));
-  Modelica.Blocks.Interfaces.RealInput uFan if
-   not inputType == Buildings.Fluid.Types.InputType.Stages
+  Modelica.Blocks.Interfaces.RealInput uFan
+if not inputType == Buildings.Fluid.Types.InputType.Stages
    "Continuous input signal for the fan"
     annotation (Placement(transformation(extent={{-140,-70},{-100,-30}}),
       iconTransformation(extent={{-120,-50},{-100,-30}})));
@@ -110,8 +110,8 @@ partial model PartialCoolingCoilHumidifyingHeating "Partial AHU model "
     final unit="1") "Actual valve position"
     annotation (Placement(transformation(extent={{100,30},{120,50}}),
                iconTransformation(extent={{100,30},{120,50}})));
-  Modelica.Blocks.Interfaces.IntegerInput stage if
-    inputType == Buildings.Fluid.Types.InputType.Stages
+  Modelica.Blocks.Interfaces.IntegerInput stage
+ if inputType == Buildings.Fluid.Types.InputType.Stages
     "Stage input signal for the pressure head"
     annotation (Placement(transformation(extent={{-140,-70},{-100,-30}}),
         iconTransformation(extent={{-120,-50},{-100,-30}})));

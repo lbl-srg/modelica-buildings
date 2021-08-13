@@ -1,4 +1,4 @@
-within Buildings.Applications.DataCenters.ChillerCooled.Equipment;
+within Buildings.Applications.BaseClasses.Equipment;
 model FlowMachine_y "Identical speed controlled flow machines"
   extends Buildings.Applications.DataCenters.ChillerCooled.Equipment.BaseClasses.PartialPumpParallel(
     redeclare final Buildings.Fluid.Movers.SpeedControlled_y pum,

@@ -103,7 +103,7 @@ model Plant
     "Measured pressure difference"
     annotation (Placement(transformation(extent={{-340,60},{-300,100}}),
    iconTransformation(extent={{-340,78},{-300,118}})));
-  Buildings.Applications.DataCenters.ChillerCooled.Equipment.ElectricChillerParallel mulChiSys(
+  Buildings.Applications.BaseClasses.Equipment.ElectricChillerParallel mulChiSys(
     use_inputFilter=false,
     final per=fill(
       perChi,
@@ -131,7 +131,7 @@ model Plant
     final TMin=TMin)
     "Cooling towers with bypass valve"
     annotation (Placement(transformation(extent={{-40,160},{-20,180}})));
-  Buildings.Applications.DataCenters.ChillerCooled.Equipment.FlowMachine_y pumCHW(
+  Buildings.Applications.BaseClasses.Equipment.FlowMachine_y pumCHW(
     redeclare final package Medium=Medium,
     final per=fill(
       perCHWPum,
@@ -146,7 +146,7 @@ model Plant
     final num=numChi)
     "Chilled water pumps"
     annotation (Placement(transformation(extent={{-52,34},{-32,54}})));
-  Buildings.Applications.DataCenters.ChillerCooled.Equipment.FlowMachine_m pumCW(
+  Buildings.Applications.BaseClasses.Equipment.FlowMachine_m pumCW(
     redeclare final package Medium=Medium,
     final per=fill(
       perCWPum,
@@ -363,8 +363,8 @@ equation
 in the schematics below. </p>
 <ul>
 <li>The cooling is provided by two parallel chillers instantiated from 
-<a href=\"modelica://Buildings.Applications.DataCenters.ChillerCooled.Equipment.ElectricChillerParallel\">
-Buildings.Applications.DataCenters.ChillerCooled.Equipment.ElectricChillerParallel</a>. </li>
+<a href=\"modelica://Buildings.Applications.BaseClasses.Equipment.ElectricChillerParallel\">
+Buildings.Applications.BaseClasses.Equipment.ElectricChillerParallel</a>. </li>
 <li>The chilled water bypass loop is controlled to ensure a minimum flow of 
 chilled water running through the chillers all the time. </li>
 <li>The condenser water is cooled by two parallel cooling towers with a bypass 

@@ -1,10 +1,10 @@
-within Buildings.Applications.DataCenters.ChillerCooled.Controls.Validation;
+within Buildings.Applications.BaseClasses.Controls.Validation;
 model VariableSpeedPumpStage
   "Test the model ChillerWSE.Examples.BaseClasses.VariableSpeedPumpStageControl"
   extends Modelica.Icons.Example;
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal=100 "Nominal mass flowrate";
 
-  Buildings.Applications.DataCenters.ChillerCooled.Controls.VariableSpeedPumpStage
+  Buildings.Applications.BaseClasses.Controls.VariableSpeedPumpStage
     varSpePumSta(tWai=30, m_flow_nominal=m_flow_nominal,
     criPoiSpe=0.6)
     "Staging controller for variable speed pumps"
@@ -28,13 +28,13 @@ equation
     annotation (Line(points={{-39,40},{-30,
           40},{-30,8},{-12,8}}, color={0,0,127}));
   annotation (    __Dymola_Commands(file=
-          "modelica://Buildings/Resources/Scripts/Dymola/Applications/DataCenters/ChillerCooled/Controls/Validation/VariableSpeedPumpStage.mos"
+          "modelica://Buildings/Resources/Scripts/Dymola/Applications/BaseClasses/Controls/Validation/VariableSpeedPumpStage.mos"
         "Simulate and plot"),
     Documentation(info="<html>
 <p>
 This model test the staging controller for variable-speed pumps. The staging controller is located in
-<a href=\"modelica://Buildings.Applications.DataCenters.ChillerCooled.Controls.VariableSpeedPumpStage\">
-Buildings.Applications.DataCenters.ChillerCooled.Controls.VariableSpeedPumpStage</a>.
+<a href=\"modelica://Buildings.Applications.BaseClasses.Controls.VariableSpeedPumpStage\">
+Buildings.Applications.BaseClasses.Controls.VariableSpeedPumpStage</a>.
 </p>
 </html>", revisions="<html>
 <ul>

@@ -1,4 +1,4 @@
-within Buildings.Applications.DataCenters.ChillerCooled.Equipment.Validation;
+within Buildings.Applications.BaseClasses.Equipment.Validation;
 model ElectricChillerParallel "Model that test electric chiller parallel"
   extends Modelica.Icons.Example;
 
@@ -23,7 +23,7 @@ model ElectricChillerParallel "Model that test electric chiller parallel"
   parameter Buildings.Fluid.Chillers.Data.ElectricEIR.ElectricEIRChiller_York_YT_563kW_10_61COP_Vanes
     per2 "Chiller performance data"
     annotation (Placement(transformation(extent={{32,50},{52,70}})));
-  Buildings.Applications.DataCenters.ChillerCooled.Equipment.ElectricChillerParallel chiPar(
+  Buildings.Applications.BaseClasses.Equipment.ElectricChillerParallel chiPar(
     num=2,
     redeclare package Medium1 = Medium1,
     redeclare package Medium2 = Medium2,
@@ -136,7 +136,7 @@ equation
   connect(chiPar.port_a2, sou2.ports[1]) annotation (Line(points={{10,-26},{20,-26},
           {20,-30},{60,-30}}, color={0,127,255}));
   annotation (    __Dymola_Commands(file=
-          "modelica://Buildings/Resources/Scripts/Dymola/Applications/DataCenters/ChillerCooled/Equipment/Validation/ElectricChillerParallel.mos"
+          "modelica://Buildings/Resources/Scripts/Dymola/Applications/BaseClasses/Equipment/Validation/ElectricChillerParallel.mos"
         "Simulate and plot"),
     Documentation(info="<html>
 <p>

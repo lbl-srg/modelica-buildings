@@ -60,7 +60,7 @@ model ChilledWaterPumpSpeed
   Modelica.Blocks.Math.Product pumSpe[numPum]
     "Output pump speed"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
-  Buildings.Applications.DataCenters.ChillerCooled.Controls.VariableSpeedPumpStage pumStaCon(
+  Buildings.Applications.BaseClasses.Controls.VariableSpeedPumpStage pumStaCon(
     final tWai=tWai,
     final m_flow_nominal=m_flow_nominal,
     final minSpe=minSpe,
@@ -130,8 +130,8 @@ First implementation.
 <p>
 This model implements the control logic for variable speed pumps. 
 The staging of pumps is implemented through an instance of 
-<a href=\"modelica://Buildings.Applications.DataCenters.ChillerCooled.Controls.VariableSpeedPumpStage\">
-Buildings.Applications.DataCenters.ChillerCooled.Controls.VariableSpeedPumpStage</a>. 
+<a href=\"modelica://Buildings.Applications.BaseClasses.Controls.VariableSpeedPumpStage\">
+Buildings.Applications.BaseClasses.Controls.VariableSpeedPumpStage</a>. 
 </p>
 <p>
 The pump speed is controlled to maintain the pressure difference setpoint 

@@ -1,4 +1,4 @@
-within Buildings.Applications.DataCenters.ChillerCooled.Equipment;
+within Buildings.Applications.BaseClasses.Equipment;
 model ElectricChillerParallel "Multiple identical electric chillers"
   extends Buildings.Applications.DataCenters.ChillerCooled.Equipment.BaseClasses.PartialParallelElectricEIR(
     redeclare final Buildings.Fluid.Chillers.ElectricEIR chi[num](

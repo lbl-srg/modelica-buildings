@@ -1,4 +1,4 @@
-within Buildings.Applications.DataCenters.ChillerCooled.Equipment;
+within Buildings.Applications.BaseClasses.Equipment;
 model FlowMachine_m "Identical m_flow controlled pumps"
   extends Buildings.Applications.DataCenters.ChillerCooled.Equipment.BaseClasses.PartialPumpParallel(
     redeclare final Buildings.Fluid.Movers.FlowControlled_m_flow pum(

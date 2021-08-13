@@ -1,4 +1,4 @@
-within Buildings.Applications.DataCenters.ChillerCooled.Equipment.Validation;
+within Buildings.Applications.BaseClasses.Equipment.Validation;
 model PumpParallel "Example that tests the model pump parallels"
   extends Modelica.Icons.Example;
 
@@ -9,7 +9,7 @@ model PumpParallel "Example that tests the model pump parallels"
   parameter Real thr1=1E-4 "Threshold for shutoff valves in parallel 1";
   parameter Real thr2=thr1*m_flow_nominal "Threshold for shutoff valves in parallel 2";
 
-  Buildings.Applications.DataCenters.ChillerCooled.Equipment.FlowMachine_y pumPar1(
+  Buildings.Applications.BaseClasses.Equipment.FlowMachine_y pumPar1(
     redeclare package Medium = MediumW,
     num=numPum,
     dpValve_nominal=6000,
@@ -63,7 +63,7 @@ model PumpParallel "Example that tests the model pump parallels"
     "Input signal"
     annotation (Placement(transformation(extent={{-92,70},{-72,90}})));
 
-  Buildings.Applications.DataCenters.ChillerCooled.Equipment.FlowMachine_m pumPar2(
+  Buildings.Applications.BaseClasses.Equipment.FlowMachine_m pumPar2(
     redeclare package Medium = MediumW,
     num=numPum,
     dpValve_nominal=6000,
@@ -117,7 +117,7 @@ equation
     annotation (Line(points={{40,40},{82,40},{82,38}}, color={0,127,255}));
 
   annotation (    __Dymola_Commands(file=
-    "modelica://Buildings/Resources/Scripts/Dymola/Applications/DataCenters/ChillerCooled/Equipment/Validation/PumpParallel.mos"
+    "modelica://Buildings/Resources/Scripts/Dymola/Applications/BaseClasses/Equipment/Validation/PumpParallel.mos"
         "Simulate and plot"),
     Documentation(info="<html>
 <p>
