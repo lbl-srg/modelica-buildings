@@ -26,12 +26,12 @@ model ChilledWaterBypass
     "Bypass valve opening ratio"
     annotation (Placement(transformation(extent={{100,-10},{120,10}}),
         iconTransformation(extent={{100,-10},{120,10}})));
-  Buildings.Controls.Continuous.LimPID bypValCon(
+  Buildings.Controls.OBC.CDL.Continuous.PIDWithReset
+                                       bypValCon(
     controllerType=controllerType,
     final k=k,
     final Ti=Ti,
     yMin=0.01,
-    reset=Buildings.Types.Reset.Parameter,
     y_reset=0)
     "Chilled water bypass valve controller"
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
@@ -62,11 +62,11 @@ equation
     annotation (Line(points={{-38,50},{-30,50},{-30,-30},{-2,-30}},
                            color={255,127,0}));
   connect(intGreThr.y, bypValCon.trigger)
-    annotation (Line(points={{22,-30},{62,-30},{62,-12}},color={255,0,255}));
+    annotation (Line(points={{22,-30},{64,-30},{64,-12}},color={255,0,255}));
   connect(numChiOn.y, intToRea.u)
     annotation (Line(points={{-38,50},{-22,50}}, color={255,127,0}));
   connect(bypValCon.y, y)
-    annotation (Line(points={{81,0},{110,0}},  color={0,0,127}));
+    annotation (Line(points={{82,0},{110,0}},  color={0,0,127}));
   connect(intToRea.y, mFloSetSca.u)
     annotation (Line(points={{2,50},{18,50}}, color={0,0,127}));
   connect(mFloSetSca.y, bypValCon.u_s)

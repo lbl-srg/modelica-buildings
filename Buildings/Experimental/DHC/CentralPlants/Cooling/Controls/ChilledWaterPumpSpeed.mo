@@ -70,19 +70,16 @@ model ChilledWaterPumpSpeed
     final deaBanSpe=deaBanSpe)
     "Chilled water pump staging control"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
-  Buildings.Controls.Continuous.LimPID conPID(
+  Buildings.Controls.OBC.CDL.Continuous.PID
+                                       conPID(
     final controllerType=controllerType,
     final Ti=Ti,
     final k=k,
-    final Td=Td)
+    final Td=Td,
+    r=dpSetPoi)
     "PID controller of pump speed"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
-  Modelica.Blocks.Math.Gain gai(
-    final k=1/dpSetPoi)
-    "Multiplier gain for normalizing dp input"
-    annotation (Placement(transformation(extent={{-80,-50},{-60,-30}})));
-  Modelica.Blocks.Sources.Constant dpSetSca(
-    final k=1)
+  Modelica.Blocks.Sources.Constant dpSetSca(final k=dpSetPoi)
     "Scaled differential pressure setpoint"
     annotation (Placement(transformation(extent={{-100,-10},{-80,10}})));
 protected
@@ -92,23 +89,21 @@ equation
   connect(pumStaCon.masFloPum,masFloPum)
     annotation (Line(points={{-12,8},{-20,8},{-20,40},{-120,40}},color={0,0,127}));
   connect(conPID.y,pumStaCon.speSig)
-    annotation (Line(points={{-39,0},{-20,0},{-20,4},{-12,4}},color={0,0,127}));
+    annotation (Line(points={{-38,0},{-20,0},{-20,4},{-12,4}},color={0,0,127}));
   connect(pumStaCon.y,pumSpe.u1)
     annotation (Line(points={{11,0},{28,0},{28,6},{38,6}},color={0,0,127}));
   connect(conPID.y,pumSpe[1].u2)
-    annotation (Line(points={{-39,0},{-30,0},{-30,-20},{28,-20},{28,-6},{38,-6}},
+    annotation (Line(points={{-38,0},{-30,0},{-30,-20},{28,-20},{28,-6},{38,-6}},
       color={0,0,127}));
   connect(conPID.y,pumSpe[2].u2)
-    annotation (Line(points={{-39,0},{-30,0},{-30,-20},{28,-20},{28,-6},{38,-6}},
+    annotation (Line(points={{-38,0},{-30,0},{-30,-20},{28,-20},{28,-6},{38,-6}},
       color={0,0,127}));
   connect(pumSpe.y,y)
     annotation (Line(points={{61,0},{110,0}},color={0,0,127}));
-  connect(dpMea,gai.u)
-    annotation (Line(points={{-120,-40},{-82,-40}},color={0,0,127}));
-  connect(gai.y,conPID.u_m)
-    annotation (Line(points={{-59,-40},{-50,-40},{-50,-12}},color={0,0,127}));
   connect(dpSetSca.y,conPID.u_s)
     annotation (Line(points={{-79,0},{-62,0}},color={0,0,127}));
+  connect(dpMea, conPID.u_m) annotation (Line(points={{-120,-40},{-50,-40},{-50,
+          -12}}, color={0,0,127}));
   annotation (
     defaultComponentName="CHWPumCon",
     Icon(
