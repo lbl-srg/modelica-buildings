@@ -15,7 +15,7 @@
  *
  */
 #include "cfdCosimulation.h"
-#include <ModelicaUtilities.h>
+
 #include <stdlib.h>
 #include <stdio.h>
 /*

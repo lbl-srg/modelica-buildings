@@ -72,7 +72,6 @@ model ScrollWaterToWater_OneRoomRadiator
   Buildings.Fluid.Movers.FlowControlled_m_flow pumHeaPum(
     redeclare package Medium = MediumW,
     m_flow_nominal=mHeaPum_flow_nominal,
-    y_start=1,
     m_flow_start=0.85,
     T_start=TRadSup_nominal,
     nominalValuesDefineDefaultPressureCurve=true,
@@ -127,7 +126,6 @@ model ScrollWaterToWater_OneRoomRadiator
 
   Buildings.Fluid.Movers.FlowControlled_m_flow pumHeaPumSou(
     redeclare package Medium = MediumW,
-    y_start=1,
     m_flow_start=0.85,
     m_flow_nominal=mHeaPum_flow_nominal,
     nominalValuesDefineDefaultPressureCurve=true,
@@ -302,6 +300,12 @@ off when the room temperature rises above <i>21</i>&deg;C.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+July 22, 2021, by Michael Wetter:<br/>
+Removed assignments <code>pumHeaPum(y_start=1)</code> and <code>pumHeaPumSou(y_start=1)</code>.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1498\">#1498</a>.
+</li>
 <li>
 April 21, 2021, by Michael Wetter:<br/>
 Corrected error in calculation of design mass flow rate.<br/>

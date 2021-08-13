@@ -20,7 +20,7 @@
  *
  */
 #include "cfdCosimulation.h"
-#include <ModelicaUtilities.h>
+
 /*
  * Start the cosimulation
  *
