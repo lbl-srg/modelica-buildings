@@ -45,7 +45,7 @@ package Air
   // Therefore, the statement
   //   p(stateSelect=if preferredMediumStates then StateSelect.prefer else StateSelect.default)
   // has been removed.
-  redeclare model BaseProperties "Base properties (p, d, T, h, u, R, MM and X and Xi) of a medium"
+  redeclare replaceable model BaseProperties "Base properties (p, d, T, h, u, R, MM and X and Xi) of a medium"
 
   parameter Boolean preferredMediumStates=false
     "= true if StateSelect.prefer shall be used for the independent property variables of the medium"

@@ -294,12 +294,13 @@ have been <b style=\"color:blue\">improved</b> in a
                        This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2549\">issue #2549</a>.
     </td>
 </tr>
-<tr><td colspan=\"2\"><b>xxx</b>
+<tr><td colspan=\"2\"><b>Buildings.Media</b>
     </td>
 </tr>
-<tr><td valign=\"top\">xxx
+<tr><td valign=\"top\">Buildings.Media.Air
     </td>
-    <td valign=\"top\">xxx.
+    <td valign=\"top\">Made the <code>BaseProperties</code> replaceable.<br/>
+                       This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/pull/1516\">IBPSA #1516</a>.
     </td>
 </tr>
 </table>
