@@ -184,6 +184,20 @@
   },
   {
     "jmodelica": {
+      "simulate": false,
+      "comment": "See https://app.travis-ci.com/github/lbl-srg/modelica-buildings/jobs/531423041"
+    },
+    "model_name": "Buildings.Examples.ScalableBenchmarks.BuildingVAV.Examples.OneFloor_OneZone"
+  },
+  {
+    "jmodelica": {
+      "simulate": false,
+      "comment": "See https://app.travis-ci.com/github/lbl-srg/modelica-buildings/jobs/531423041"
+    },
+    "model_name": "Buildings.Examples.ScalableBenchmarks.BuildingVAV.Examples.TwoFloor_TwoZone"
+  },
+  {
+    "jmodelica": {
       "translate": false
     },
     "optimica": {
