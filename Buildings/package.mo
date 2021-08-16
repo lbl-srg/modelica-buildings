@@ -293,12 +293,13 @@ have been <b style=\"color:blue\">improved</b> in a
                        This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2549\">issue #2549</a>.
     </td>
 </tr>
-<tr><td colspan=\"2\"><b>xxx</b>
+<tr><td colspan=\"2\"><b>Buildings.Media</b>
     </td>
 </tr>
-<tr><td valign=\"top\">xxx
+<tr><td valign=\"top\">Buildings.Media.Air
     </td>
-    <td valign=\"top\">xxx.
+    <td valign=\"top\">Made the <code>BaseProperties</code> replaceable.<br/>
+                       This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/pull/1516\">IBPSA #1516</a>.
     </td>
 </tr>
 </table>
@@ -352,8 +353,12 @@ have been <b style=\"color:blue\">improved</b> in a
 <tr><td valign=\"top\">Buildings.Examples.ScalableBenchmarks.BuildingVAV.ThermalZones.ThermalZone
     </td>
     <td valign=\"top\">Reimplemented computation of energy provided by HVAC system to also include the latent load.
-                       The new implementation uses the enthalpy sensor, and therefore the mass flow rate and temperature
-                       sensors have been removed.
+                     The new implementation uses the enthalpy sensor, and therefore the mass flow rate and temperature
+                     sensors have been removed. Also, rather than load in Watts, it outputs the energy in Joules.<br/>
+                     This version also improves the infiltration. Now, exactly the same amount of air in infiltrated and
+                     exfiltrated. This was not the case previously because the infiltration was a prescribed air flow rate,
+                     and the exfiltration was based on pressure difference. This caused an inbalance in the HVAC supply and
+                     return air flow rate.
 </td>
 </tr>
 <tr><td colspan=\"2\"><b>Buildings.Controls.OBC.CDL</b>
