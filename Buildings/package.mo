@@ -253,8 +253,8 @@ to <b style=\"color:blue\">existing</b> libraries:
 </tr>
 <tr><td valign=\"top\">Buildings.Fluid.FixedResistances.PlugFlowDiscretized
     </td>
-    <td valign=\"top\">Class for modeling multiple PlugFlowPipe in series, 
-    which can be used to vary boundary conditions over the length of a pipe.
+    <td valign=\"top\">Class for modeling multiple plug flow pipes in series,
+                       which can be used to vary boundary conditions over the length of a pipe.
     </td>
 </tr>
 </table>
