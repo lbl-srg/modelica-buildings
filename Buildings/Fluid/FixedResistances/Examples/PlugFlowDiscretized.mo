@@ -18,8 +18,7 @@ model PlugFlowDiscretized "Simple example of discretized plug flow pipe"
     nPorts=1,
     p(displayUnit="Pa") = 101325) "Pressure boundary condition"
     annotation (Placement(transformation(extent={{82,-10},{62,10}})));
-  Buildings.Fluid.FixedResistances.PlugFlowDiscretized
-                                                pip(
+  Buildings.Fluid.FixedResistances.PlugFlowDiscretized pip(
     redeclare package Medium = Medium,
     nSeg=nSeg,
     dh=0.1,
