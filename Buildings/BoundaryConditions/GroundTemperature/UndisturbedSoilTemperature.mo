@@ -4,9 +4,9 @@ model UndisturbedSoilTemperature "Undisturbed soil temperature"
 
   parameter Boolean useNFac = false
     "= true, use n-factors to correct climatic constants";
-  parameter Real nFacTha = 1 "Thawing n-factor (Tair > 0degC)"
+  parameter Real nFacTha = 1 "Thawing n-factor (TAir > 0degC)"
     annotation(Dialog(enable=useNFac));
-  parameter Real nFacFre = 1 "Freezing n-factor (Tair <= 0degC)"
+  parameter Real nFacFre = 1 "Freezing n-factor (TAir <= 0degC)"
     annotation(Dialog(enable=useNFac));
 
   parameter Boolean useCon = false
@@ -35,7 +35,7 @@ protected
   parameter ClimaticConstants.Generic corCliCon= if useNFac
     then BaseClasses.surfaceTemperature(cliCon=cliCon, nFacTha=nFacTha, nFacFre=nFacFre)
     else cliCon
-    "N-factor corrected climatic constants";
+    "<i>n</i>-factor corrected climatic constants";
 
   parameter Modelica.SIunits.ThermalDiffusivity
     soiDif = soiDat.k / soiDat.c / soiDat.d "Soil diffusivity";
@@ -47,7 +47,7 @@ protected
 
 initial equation
   assert(not (useCon and useNFac),
-    "N-Factors and surface convection corrections 
+    "N-Factors and surface convection corrections
     would typically not be used simultaneously",
     level = AssertionLevel.warning);
 
@@ -121,20 +121,20 @@ the convective thermal resistance and the impact of surface cover.
 The convective thermal resistance can be modeled as a virtual equivalent soil layer
 by setting the flag <i>useCon</i> to <code>true</code> and specifying the
 heat transfer coefficient <i>hSur</i>.<br/>
-This correction would result in a larger delay and dampening of the 
+This correction would result in a larger delay and dampening of the
 resulting sinusoid.
 </p>
 <p>
-The impact of surface cover on soil temperature can be modeled using 
-n-factors by setting the flag <i>useNFac</i> to <code>true</code> and 
-specifying the thawing and freezing n-factors at the surface. <br>
+The impact of surface cover on soil temperature can be modeled using
+<i>n</i>-factors by setting the flag <i>useNFac</i> to <code>true</code> and
+specifying the thawing and freezing <i>n</i>-factors at the surface. <br>
 
-More information about n-factors correction can be found in the documentation
+More information about <i>n</i>-factors correction can be found in the documentation
 for <a href=\"modelica://Buildings.BoundaryConditions.GroundTemperature.BaseClasses.surfaceTemperature\">
 Buildings.BoundaryConditions.GroundTemperature.BaseClasses.surfaceTemperature</a>.
 </p>
 <p>
-Since n-factors incorporate the effect of surface convection,
+Since <i>n</i>-factors incorporate the effect of surface convection,
 both corrections would typically not be applied simultaneously. <br>
 </p>
 

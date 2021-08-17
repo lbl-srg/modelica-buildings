@@ -1,12 +1,12 @@
 within Buildings.BoundaryConditions.GroundTemperature.BaseClasses;
 function surfaceTemperature
-  "Function to correct the climatic constants using n-factors"
+  "Function to correct the climatic constants using <i>n</i>-factors"
   extends Modelica.Icons.Function;
 
   input ClimaticConstants.Generic cliCon
     "Surface temperature climatic conditions";
-  input Real nFacTha "Thawing n-factor (Tair > 0degC)";
-  input Real nFacFre "Freezing n-factor (Tair <= 0degC)";
+  input Real nFacTha "Thawing n-factor (TAir > 0degC)";
+  input Real nFacFre "Freezing n-factor (TAir <= 0degC)";
   output ClimaticConstants.Generic corCliCon
     "Corrected surface temperature climatic conditions";
 
@@ -51,24 +51,24 @@ First implementation.
 </html>", info="<html>
 <p>
 This function corrects the surface temperature climatic constants
-by applying n-factors with the methodology prescribed in the
+by applying <i>n</i>-factors with the methodology prescribed in the
 <i>District Cooling Guide</i> (ASHRAE, 2013).
 </p>
 <p>
-N-factors corresponds to the ratio of freezing (/thawing) degree
+<i>n</i>-factors corresponds to the ratio of freezing (/thawing) degree
 days or index between the air and the ground surface and can
 be used to couple the air and ground surface temperatures.<br>
-For example, a freezing n-factor of 1.35 means that during the 
-freezing season, the daily average ground surface temperature is 
-on average 1.35 times colder than the air (using the freezing 
+For example, a freezing <i>n</i>-factor of 1.35 means that during the
+freezing season, the daily average ground surface temperature is
+on average 1.35 times colder than the air (using the freezing
 temperature of water as a reference).<br>
-In its guide, ASHRAE suggests to first apply the n-factors to the
+In its guide, ASHRAE suggests to first apply the <i>n</i>-factors to the
 uncorrected ground temperature at zero burial depth, and to fit a
 new sinusoidal curve to the result.
 <br>
-In this function, the freezing n-factor is applied to days where
-the daily mean air temperature is below the freezing temperature (0degC), 
-whereas the thawing n-factor is applied to the remaining days.
+In this function, the freezing <i>n</i>-factor is applied to days where
+the daily mean air temperature is below the freezing temperature (0degC),
+whereas the thawing <i>n</i>-factor is applied to the remaining days.
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
   T<sub>ground</sub> - T<sub>freezing</sub> = &eta;<sub>freezing</sub> * (T<sub>air</sub> - T<sub>freezing</sub>) &nbsp; if T<sub>air</sub> &lt;= T<sub>freezing</sub><br>
@@ -79,9 +79,9 @@ The sinusoidal curve is then fitted using the analytical solution
 proposed in Appendix B of the District Heating Guide.
 </p>
 <p>
-N-factors are specific to a climate and surface cover, and should be
+<i>n</i>-factors are specific to a climate and surface cover, and should be
 extrapolated from other sites with caution. As a first approximation,
-tabulated values of n-factors are available in Lunardini (1981) and 
+tabulated values of <i>n</i>-factors are available in Lunardini (1981) and
 Freitag and McFadden (1997).
 </p>
 
