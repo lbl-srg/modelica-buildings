@@ -229,8 +229,8 @@ First implementation.
 </ul>
 </html>", info="<html>
 <p>
-Wrapper around <a href=\"modelica://Buildings.Fluid.Resistances.PlugFlowPipe\">
-Buildings.Fluid.Resistances.PlugFlowPipe</a> which allows to specify <code>nSeg</code>
+Wrapper around <a href=\"modelica://Buildings.Fluid.FixedResistances.PlugFlowPipe\">
+Buildings.Fluid.FixedResistances.PlugFlowPipe</a> which allows to specify <code>nSeg</code>
 successive segments of pipes (connected in series).
 </p>
 <p>
