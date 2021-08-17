@@ -26,12 +26,12 @@ algorithm
 
   annotation (Documentation(info="<html>
 <p>
-This function computes the multiple buried pipe system coupling matrix P 
+This function computes the multiple buried pipe system coupling matrix <i>P</i>
 described by Kusuda (1981).
 </p>
 <p>
-For a network of n buried pipes that are coaxial, the matrix P of size 
-n x n is computed from the system geometry:
+For a network of <i>n</i> buried pipes that are coaxial, the matrix <i>P</i> of size
+<i>n x n</i> is computed from the system geometry:
 </p>
 <p>
 <img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Fluid/Geothermal/BuriedPipes/BaseClasses/groundCouplingFactors.svg\" />
