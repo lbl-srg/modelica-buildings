@@ -17,15 +17,15 @@ model PlugFlowCore
     final fac=fac,
     final ReC=ReC,
     final v_nominal=v_nominal,
-    final allowFlowReversal=allowFlowReversal,
-    final show_T=false,
     final homotopyInitialization=homotopyInitialization,
     final linearized=linearized,
     dp(nominal=fac*200*length)) constrainedby
     Buildings.Fluid.Interfaces.PartialTwoPortInterface(
       redeclare final package Medium = Medium,
-      final m_flow_nominal=m_flow_nominal)
-                 "Pressure drop calculation for this pipe"
+      final m_flow_nominal=m_flow_nominal,
+      final allowFlowReversal=allowFlowReversal,
+      final show_T=false)
+      "Pressure drop calculation for this pipe"
     annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
   parameter Modelica.SIunits.Velocity v_nominal
     "Velocity at m_flow_nominal (used to compute default value for hydraulic diameter dh)"
