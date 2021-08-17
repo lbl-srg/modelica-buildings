@@ -1,7 +1,10 @@
-within Buildings.Fluid.Geothermal.BuriedPipes.Examples;
+﻿within Buildings.Fluid.Geothermal.BuriedPipes.Examples;
 model DiscretizedBuriedPipe
   "Example model of a buried pipe with multiple segments"
   extends Modelica.Icons.Example;
+
+  replaceable package Medium = Buildings.Media.Water "Medium in the pipe"
+    annotation (choicesAllMatching=true);
 
   parameter Modelica.SIunits.Length totLen=10000 "Total pipe length";
 
@@ -19,8 +22,6 @@ model DiscretizedBuriedPipe
   replaceable parameter
     Buildings.BoundaryConditions.GroundTemperature.ClimaticConstants.Boston
     cliCon "Surface temperature climatic conditions";
-  replaceable package Medium = Buildings.Media.Water "Medium in the pipe"
-    annotation (choicesAllMatching=true);
 
   replaceable parameter Buildings.HeatTransfer.Data.Soil.Generic
     soiDat(k=1.58,c=1150,d=1600) "Soil thermal properties"
