@@ -292,6 +292,13 @@ defaultComponentName="eco",
 Documentation(revisions="<html>
 <ul>
 <li>
+June 10, 2021, by Michael Wetter:<br/>
+Changed implementation of the filter and changed the parameter <code>order</code> to a constant
+as most users need not change this value.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1498\">#1498</a>.
+</li>
+<li>
 December 23, 2019, by Antoine Gautier:<br/>
 Updated parameter bindings consistently with refactoring of
 <a href=\"modelica://Buildings.Fluid.Actuators.BaseClasses.PartialDamperExponential\">

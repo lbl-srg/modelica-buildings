@@ -81,7 +81,7 @@ model ClosedLoop "Closed loop model of a dual-fan dual-duct system"
     "Preheat coil"
     annotation (Placement(transformation(extent={{100,-56},{120,-36}})));
 
-  Buildings.Fluid.HeatExchangers.WetCoilCounterFlow cooCoi(
+  Fluid.HeatExchangers.WetCoilEffectivenessNTU cooCoi(
     redeclare package Medium1 = MediumW,
     redeclare package Medium2 = MediumA,
     m1_flow_nominal=mWatCol_flow_nominal,
@@ -157,8 +157,8 @@ model ClosedLoop "Closed loop model of a dual-fan dual-duct system"
     annotation (Placement(transformation(extent={{-302,-378},{-280,-356}})));
   Buildings.Examples.VAVReheat.Controls.ControlBus controlBus
     annotation (Placement(transformation(extent={{-250,-270},{-230,-250}})));
-  Buildings.Fluid.Sensors.TemperatureTwoPort TPreHeaCoi(redeclare package
-      Medium = MediumA, m_flow_nominal=m_flow_nominal)
+  Buildings.Fluid.Sensors.TemperatureTwoPort TPreHeaCoi(redeclare package Medium =
+               MediumA, m_flow_nominal=m_flow_nominal)
     "Preheating coil outlet temperature"
     annotation (Placement(transformation(extent={{134,-50},{154,-30}})));
   Buildings.Utilities.Math.Min min(nin=5) "Computes lowest room temperature"
@@ -722,15 +722,18 @@ equation
           -6.10623e-16}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(cooCoi.port_b2, TCoiCoo.port_a)    annotation (Line(
+  connect(cooCoi.port_b2, TCoiCoo.port_a)
+    annotation (Line(
       points={{372,-150},{410,-150}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(valCoo.port_b, cooCoi.port_a1) annotation (Line(
+  connect(valCoo.port_b, cooCoi.port_a1)
+    annotation (Line(
       points={{380,-180},{380,-162},{372,-162}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(cooCoi.port_b1, sinCoo.ports[1]) annotation (Line(
+  connect(cooCoi.port_b1, sinCoo.ports[1])
+    annotation (Line(
       points={{352,-162},{340,-162},{340,-210}},
       color={0,127,255},
       smooth=Smooth.None));
@@ -832,7 +835,8 @@ equation
       points={{496,130},{478,130},{478,500},{1162,500},{1162,396},{1122.87,396}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(fanSupCol.port_b, cooCoi.port_a2) annotation (Line(
+  connect(fanSupCol.port_b, cooCoi.port_a2)
+    annotation (Line(
       points={{310,-150},{352,-150}},
       color={0,127,255},
       smooth=Smooth.None));
@@ -1235,6 +1239,11 @@ shading devices, Technical Report, Oct. 17, 2006.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+June 30, 2021, by Antoine Gautier:<br/>
+Changed cooling coil model. This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2549\">issue #2549</a>.
+</li>
 <li>
 October 27, 2020, by Antoine Gautier:<br/>
 Refactored the model for compatibility with the updated control of supply air

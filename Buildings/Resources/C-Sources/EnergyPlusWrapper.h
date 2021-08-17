@@ -1,8 +1,6 @@
 #ifndef EnergyPlusWrapper_h
 #define EnergyPlusWrapper_h
 
-#include <ModelicaUtilities.h>
-
 #include <stdint.h>
 
 
