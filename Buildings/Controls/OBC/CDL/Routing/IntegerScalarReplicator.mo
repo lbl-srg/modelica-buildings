@@ -1,5 +1,5 @@
 within Buildings.Controls.OBC.CDL.Routing;
-block IntegerReplicator
+block IntegerScalarReplicator
   "Integer signal replicator"
   parameter Integer nout=1
     "Number of outputs";
@@ -15,7 +15,7 @@ equation
     u,
     nout);
   annotation (
-    defaultComponentName="intRep",
+    defaultComponentName="intScaRep",
     Icon(
       graphics={
         Rectangle(
@@ -54,10 +54,14 @@ identical Integer output signals.
       revisions="<html>
 <ul>
 <li>
+July 27, 2021, by Baptiste Ravache:<br/>
+Renamed to <code>IntegerScalarReplicator</code>.
+</li>
+<li>
 July 24, 2017, by Jianjun Hu:<br/>
 First implementation, based on the implementation of the
 Modelica Standard Library.
 </li>
 </ul>
 </html>"));
-end IntegerReplicator;
+end IntegerScalarReplicator;

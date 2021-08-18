@@ -100,10 +100,10 @@ model Guideline36
   Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.VAV.SetPoints.OutdoorAirFlow.SumZone
     zonToSys(final numZon=numZon) "Sum up zone calculation output"
     annotation (Placement(transformation(extent={{280,570},{300,590}})));
-  Buildings.Controls.OBC.CDL.Routing.RealReplicator reaRep1(final nout=numZon)
+  Buildings.Controls.OBC.CDL.Routing.RealScalarReplicator reaRep1(final nout=numZon)
     "Replicate design uncorrected minimum outdoor airflow setpoint"
     annotation (Placement(transformation(extent={{460,580},{480,600}})));
-  Buildings.Controls.OBC.CDL.Routing.BooleanReplicator booRep1(final nout=numZon)
+  Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator booRep1(final nout=numZon)
     "Replicate signal whether the outdoor airflow is required"
     annotation (Placement(transformation(extent={{460,550},{480,570}})));
 
@@ -128,16 +128,16 @@ model Guideline36
     final k=fill(false, numZon))
     "All windows are closed, no zone has override switch"
     annotation (Placement(transformation(extent={{-300,330},{-280,350}})));
-  Buildings.Controls.OBC.CDL.Routing.RealReplicator reaRep(nout=numZon)
+  Buildings.Controls.OBC.CDL.Routing.RealScalarReplicator reaRep(nout=numZon)
     "Assume all zones have same occupancy schedule"
     annotation (Placement(transformation(extent={{-200,-190},{-180,-170}})));
-  Buildings.Controls.OBC.CDL.Routing.BooleanReplicator booRep(nout=numZon)
+  Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator booRep(nout=numZon)
     "Assume all zones have same occupancy schedule"
     annotation (Placement(transformation(extent={{-200,-150},{-180,-130}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant demLimLev[numZon](
     final  k=fill(0, numZon)) "Demand limit level, assumes to be 0"
     annotation (Placement(transformation(extent={{-300,230},{-280,250}})));
-  Buildings.Controls.OBC.CDL.Routing.IntegerReplicator intRep(
+  Buildings.Controls.OBC.CDL.Routing.IntegerScalarReplicator intRep(
     final nout=numZon)
     "All zones in same operation mode"
     annotation (Placement(transformation(extent={{-140,220},{-120,240}})));

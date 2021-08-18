@@ -256,6 +256,27 @@ to <b style=\"color:blue\">existing</b> libraries:
                        which can be used to vary boundary conditions over the length of a pipe.
     </td>
 </tr>
+<tr><td colspan=\"2\"><b>Buildings.Controls.OBC</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Controls.OBC.ASHRAE.G36_PR1.Generic.SetPoints.ZoneStatusDuplicator
+    </td>
+    <td valign=\"top\">Block that duplicates the zone status to be connected to all zone groups.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2544\">issue 2544</a>.
+    </td>
+</tr>
+<tr><td valign=\"top\">
+        Buildings.Controls.OBC.CDL.Routing.BooleanVectorFilter<br/>
+        Buildings.Controls.OBC.CDL.Routing.BooleanVectorReplicator<br/>
+        Buildings.Controls.OBC.CDL.Routing.IntegerVectorFilter<br/>
+        Buildings.Controls.OBC.CDL.Routing.IntegerVectorReplicator<br/>
+        Buildings.Controls.OBC.CDL.Routing.RealVectorFilter<br/>
+        Buildings.Controls.OBC.CDL.Routing.RealVectorReplicator
+    </td>
+    <td valign=\"top\">Blocks for filtering and replicating vectors of signals.<br/>
+         This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2544\">issue 2544</a>.
+    </td>
+</tr>
 </table>
 <!-- Backward compatible changes -->
 <p>
@@ -320,6 +341,15 @@ have been <b style=\"color:blue\">improved</b> in a
     </td>
     <td valign=\"top\">Made the <code>BaseProperties</code> replaceable.<br/>
                        This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/pull/1516\">IBPSA #1516</a>.
+    </td>
+</tr>
+<tr><td colspan=\"2\"><b>Buildings.Controls.OBC</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Controls.OBC.ASHRAE.G36_PR1.Generic.SetPoints.GroupStatus
+    </td>
+    <td valign=\"top\">Add filters to select which zones are used in group.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2544\">issue 2544</a>.
     </td>
 </tr>
 </table>
@@ -389,6 +419,20 @@ have been <b style=\"color:blue\">improved</b> in a
     </td>
     <td valign=\"top\">Renamed parameter <code>nu</code> to <code>nin</code>.
                 This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2580\">issue 2580</a>.<br/>
+                For Dymola, a conversion script makes this change.
+    </td>
+</tr>
+<tr><td colspan=\"2\"><b>Buildings.Controls.OBC.CDL.Routing</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">
+    Buildings.Controls.OBC.CDL.Routing.BooleanReplicator<br/>
+    Buildings.Controls.OBC.CDL.Routing.IntegerReplicator<br/>
+    Buildings.Controls.OBC.CDL.Routing.RealReplicator
+    </td>
+    <td valign=\"top\">Renamed to include <code>BooleanScalarReplicator</code>, <code>IntegerScalarReplicator</code>,
+                       and <code>RealScalarReplicator</code>.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2544\">issue 2544</a>. 
                 For Dymola, a conversion script makes this change.</td>
 </tr><tr><td colspan=\"2\"><b>Buildings.Obsolete</b>
     </td>
