@@ -15,8 +15,8 @@ model HumidityRatio
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={0,30})));
-  Modelica.Blocks.Routing.RealPassThrough xSup if
-    Modelica.Utilities.Strings.find(insNam, "xSup")<>0
+  Modelica.Blocks.Routing.RealPassThrough xSup
+ if Modelica.Utilities.Strings.find(insNam, "xSup")<>0
     "Pass through to connect with specific control signal" annotation (
       Placement(transformation(
         extent={{-10,-10},{10,10}},

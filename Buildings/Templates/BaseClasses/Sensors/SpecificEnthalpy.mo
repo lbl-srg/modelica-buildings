@@ -8,8 +8,8 @@ model SpecificEnthalpy
     final m_flow_nominal=m_flow_nominal)
     "Specific enthalpy sensor"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
-  Modelica.Blocks.Routing.RealPassThrough hRet if
-    Modelica.Utilities.Strings.find(insNam, "hRet")<>0
+  Modelica.Blocks.Routing.RealPassThrough hRet
+ if Modelica.Utilities.Strings.find(insNam, "hRet")<>0
     "Pass through to connect with specific control signal"
     annotation (
       Placement(transformation(

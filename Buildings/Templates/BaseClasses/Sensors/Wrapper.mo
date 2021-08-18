@@ -5,43 +5,43 @@ model Wrapper "Wrapper class for sensor models"
   HumidityRatio hum(
     redeclare final package Medium = Medium,
     final loc=loc,
-    final m_flow_nominal=m_flow_nominal) if
-       typ==Buildings.Templates.Types.Sensor.HumidityRatio
+    final m_flow_nominal=m_flow_nominal)
+    if typ==Buildings.Templates.Types.Sensor.HumidityRatio
     "Humidity ratio"
     annotation (Placement(transformation(extent={{-50,30},{-30,50}})));
   None non(
     redeclare final package Medium = Medium,
     final loc=loc,
-    final m_flow_nominal=m_flow_nominal) if
-       typ==Buildings.Templates.Types.Sensor.None
+    final m_flow_nominal=m_flow_nominal)
+    if typ==Buildings.Templates.Types.Sensor.None
     "No sensor"
     annotation (Placement(transformation(extent={{-20,10},{0,30}})));
   SpecificEnthalpy entSpe(
     redeclare final package Medium = Medium,
     final loc=loc,
-    final m_flow_nominal=m_flow_nominal) if
-       typ==Buildings.Templates.Types.Sensor.SpecificEnthalpy
+    final m_flow_nominal=m_flow_nominal)
+    if typ==Buildings.Templates.Types.Sensor.SpecificEnthalpy
     "Specific enthalpy"
     annotation (Placement(transformation(extent={{10,-10},{30,10}})));
   Temperature tem(
     redeclare final package Medium = Medium,
     final loc=loc,
-    final m_flow_nominal=m_flow_nominal) if
-       typ==Buildings.Templates.Types.Sensor.Temperature
+    final m_flow_nominal=m_flow_nominal)
+    if typ==Buildings.Templates.Types.Sensor.Temperature
     "Temperature"
     annotation (Placement(transformation(extent={{40,-30},{60,-10}})));
   VolumeFlowRate volFlo(
     redeclare final package Medium = Medium,
     final loc=loc,
-    final m_flow_nominal=m_flow_nominal) if
-       typ==Buildings.Templates.Types.Sensor.VolumeFlowRate
+    final m_flow_nominal=m_flow_nominal)
+    if typ==Buildings.Templates.Types.Sensor.VolumeFlowRate
     "Volume flow rate"
     annotation (Placement(transformation(extent={{70,-50},{90,-30}})));
   DifferentialPressure preDif(
     redeclare final package Medium = Medium,
     final loc=loc,
-    final m_flow_nominal=m_flow_nominal) if
-       typ==Buildings.Templates.Types.Sensor.DifferentialPressure
+    final m_flow_nominal=m_flow_nominal)
+    if typ==Buildings.Templates.Types.Sensor.DifferentialPressure
     "Differential pressure"
     annotation (Placement(transformation(extent={{-80,50},{-60,70}})));
 equation

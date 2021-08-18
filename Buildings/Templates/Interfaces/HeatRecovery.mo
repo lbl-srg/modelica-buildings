@@ -28,29 +28,29 @@ model HeatRecovery
   Modelica.Fluid.Interfaces.FluidPort_a port_aOut(
     redeclare final package Medium = MediumAir,
     m_flow(min=if allowFlowReversal then -Modelica.Constants.inf else 0),
-    h_outflow(start=MediumAir.h_default, nominal=MediumAir.h_default)) if
-    typ<>Templates.Types.HeatRecovery.None
+    h_outflow(start=MediumAir.h_default, nominal=MediumAir.h_default))
+ if typ<>Templates.Types.HeatRecovery.None
     "Outdoor air inlet"
     annotation (Placement(transformation(extent={{-110,-70},{-90,-50}})));
   Modelica.Fluid.Interfaces.FluidPort_b port_bOut(
     redeclare final package Medium = MediumAir,
     m_flow(max=if allowFlowReversal then +Modelica.Constants.inf else 0),
-    h_outflow(start=MediumAir.h_default, nominal=MediumAir.h_default)) if
-    typ<>Templates.Types.HeatRecovery.None
+    h_outflow(start=MediumAir.h_default, nominal=MediumAir.h_default))
+ if typ<>Templates.Types.HeatRecovery.None
     "Outdoor air outlet"
     annotation (Placement(transformation(extent={{110,-70},{90,-50}})));
   Modelica.Fluid.Interfaces.FluidPort_a port_aRel(
     redeclare final package Medium = MediumAir,
     m_flow(min=if allowFlowReversal then -Modelica.Constants.inf else 0),
-    h_outflow(start=MediumAir.h_default, nominal=MediumAir.h_default)) if
-    typ<>Templates.Types.HeatRecovery.None
+    h_outflow(start=MediumAir.h_default, nominal=MediumAir.h_default))
+ if typ<>Templates.Types.HeatRecovery.None
     "Relief/exhaust air inlet"
     annotation (Placement(transformation(extent={{90,50},{110,70}})));
   Modelica.Fluid.Interfaces.FluidPort_b port_bRel(
     redeclare final package Medium = MediumAir,
     m_flow(max=if allowFlowReversal then +Modelica.Constants.inf else 0),
-    h_outflow(start=MediumAir.h_default, nominal=MediumAir.h_default)) if
-    typ<>Templates.Types.HeatRecovery.None
+    h_outflow(start=MediumAir.h_default, nominal=MediumAir.h_default))
+ if typ<>Templates.Types.HeatRecovery.None
     "Relief/exhaust air outlet"
     annotation (Placement(transformation(extent={{-90,50},{-110,70}})));
   annotation (Icon(graphics={

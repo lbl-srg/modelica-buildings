@@ -37,8 +37,8 @@ partial model OutdoorReliefReturnSection
   Modelica.Fluid.Interfaces.FluidPort_b port_Rel(
     redeclare final package Medium = MediumAir,
     m_flow(max=if allowFlowReversal then +Modelica.Constants.inf else 0),
-    h_outflow(start=MediumAir.h_default, nominal=MediumAir.h_default)) if
-    typ <> Types.OutdoorReliefReturnSection.NoRelief
+    h_outflow(start=MediumAir.h_default, nominal=MediumAir.h_default))
+ if typ <> Types.OutdoorReliefReturnSection.NoRelief
     "Relief (exhaust) air"
     annotation (Placement(transformation(
       extent={{-190,70},{-170,90}}),iconTransformation(extent={{-190,90},{-170,
@@ -67,8 +67,8 @@ partial model OutdoorReliefReturnSection
     annotation (Placement(transformation(extent={{170,70},{190,90}}),
         iconTransformation(extent={{170,90},{190,110}})));
   Modelica.Fluid.Interfaces.FluidPort_b port_bPre(
-    redeclare final package Medium = MediumAir) if
-    have_porPre
+    redeclare final package Medium = MediumAir)
+ if have_porPre
     "Optional fluid connector for differential pressure sensor"
     annotation (Placement(transformation(extent={{90,130},{70,150}}),
         iconTransformation(extent={{90,130},{70,150}})));

@@ -7,22 +7,22 @@ model DifferentialPressure
     redeclare final package Medium=Medium)
     "Relative pressure sensor"
     annotation (Placement(transformation(extent={{-50,-30},{-30,-50}})));
-  Modelica.Blocks.Routing.RealPassThrough pSup_rel if
-    Modelica.Utilities.Strings.find(insNam, "pSup")<>0
+  Modelica.Blocks.Routing.RealPassThrough pSup_rel
+ if Modelica.Utilities.Strings.find(insNam, "pSup")<>0
     "Pass through to connect with specific control signal" annotation (
       Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={0,50})));
-  Modelica.Blocks.Routing.RealPassThrough dpOut if
-    Modelica.Utilities.Strings.find(insNam, "dpOut")<>0
+  Modelica.Blocks.Routing.RealPassThrough dpOut
+ if Modelica.Utilities.Strings.find(insNam, "dpOut")<>0
     "Pass through to connect with specific control signal" annotation (
       Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={40,50})));
-  Modelica.Blocks.Routing.RealPassThrough pRet_rel if
-    Modelica.Utilities.Strings.find(insNam, "pRet")<>0
+  Modelica.Blocks.Routing.RealPassThrough pRet_rel
+ if Modelica.Utilities.Strings.find(insNam, "pRet")<>0
     "Pass through to connect with specific control signal" annotation (
       Placement(transformation(
         extent={{-10,-10},{10,10}},

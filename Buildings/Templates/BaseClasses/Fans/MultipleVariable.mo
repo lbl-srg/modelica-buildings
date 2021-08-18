@@ -20,16 +20,16 @@ model MultipleVariable
       choicesAllMatching=true,
       Placement(transformation(extent={{-10,10},{10,30}})));
 
-  Modelica.Blocks.Routing.RealPassThrough ySpeFanSup if
-    loc==Templates.Types.Location.Supply
+  Modelica.Blocks.Routing.RealPassThrough ySpeFanSup
+ if loc==Templates.Types.Location.Supply
     "Pass through to connect with specific control signal"
     annotation (
       Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={-20,80})));
-  Modelica.Blocks.Routing.RealPassThrough ySpeFanRet if
-    loc==Templates.Types.Location.Return or loc==Templates.Types.Location.Relief
+  Modelica.Blocks.Routing.RealPassThrough ySpeFanRet
+ if loc==Templates.Types.Location.Return or loc==Templates.Types.Location.Relief
     "Pass through to connect with specific control signal"
     annotation (
       Placement(transformation(
@@ -59,27 +59,27 @@ model MultipleVariable
     nPorts=1)
     "Zero flow boundary condition"
     annotation (Placement(transformation(extent={{54,-30},{34,-10}})));
-  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal yFanSup if
-    loc==Templates.Types.Location.Supply
+  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal yFanSup
+ if loc==Templates.Types.Location.Supply
     "Supply fan start/stop"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={-46,80})));
-  Buildings.Controls.OBC.CDL.Continuous.Product conSup1 if
-    loc==Templates.Types.Location.Supply
+  Buildings.Controls.OBC.CDL.Continuous.Product conSup1
+ if loc==Templates.Types.Location.Supply
     "Resulting control signal" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={-40,50})));
-  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal yFanRet if
-    loc==Templates.Types.Location.Return or loc==Templates.Types.Location.Relief
+  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal yFanRet
+ if loc==Templates.Types.Location.Return or loc==Templates.Types.Location.Relief
     "Return fan start/stop" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={46,80})));
-  Buildings.Controls.OBC.CDL.Continuous.Product conRet1 if
-    loc==Templates.Types.Location.Return or loc==Templates.Types.Location.Relief
+  Buildings.Controls.OBC.CDL.Continuous.Product conRet1
+ if loc==Templates.Types.Location.Return or loc==Templates.Types.Location.Relief
     "Resulting control signal"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
@@ -101,15 +101,15 @@ model MultipleVariable
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={0,-80})));
-  Modelica.Blocks.Routing.BooleanPassThrough yFanSup_actual if
-    loc==Templates.Types.Location.Supply
+  Modelica.Blocks.Routing.BooleanPassThrough yFanSup_actual
+ if loc==Templates.Types.Location.Supply
     "Supply fan status"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=180,
         origin={-40,-80})));
-  Modelica.Blocks.Routing.BooleanPassThrough yFanRet_actual if
-    loc==Templates.Types.Location.Return or loc==Templates.Types.Location.Relief
+  Modelica.Blocks.Routing.BooleanPassThrough yFanRet_actual
+ if loc==Templates.Types.Location.Return or loc==Templates.Types.Location.Relief
     "Return fan status"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},

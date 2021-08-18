@@ -6,22 +6,22 @@ model VolumeFlowRate
     redeclare final package Medium=Medium,
     final m_flow_nominal=m_flow_nominal) "Volume flow rate sensor"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
-  Modelica.Blocks.Routing.RealPassThrough VOut_flow if
-    Modelica.Utilities.Strings.find(insNam, "VOut")<>0
+  Modelica.Blocks.Routing.RealPassThrough VOut_flow
+ if Modelica.Utilities.Strings.find(insNam, "VOut")<>0
     "Pass through to connect with specific control signal" annotation (
       Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={-40,50})));
-  Modelica.Blocks.Routing.RealPassThrough VSup_flow if
-    Modelica.Utilities.Strings.find(insNam, "VSup")<>0
+  Modelica.Blocks.Routing.RealPassThrough VSup_flow
+ if Modelica.Utilities.Strings.find(insNam, "VSup")<>0
     "Pass through to connect with specific control signal" annotation (
       Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={0,50})));
-  Modelica.Blocks.Routing.RealPassThrough VRet_flow if
-    Modelica.Utilities.Strings.find(insNam, "VRet")<>0
+  Modelica.Blocks.Routing.RealPassThrough VRet_flow
+ if Modelica.Utilities.Strings.find(insNam, "VRet")<>0
     "Pass through to connect with specific control signal" annotation (
       Placement(transformation(
         extent={{-10,-10},{10,10}},

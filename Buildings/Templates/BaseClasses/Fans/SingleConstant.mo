@@ -19,14 +19,14 @@ model SingleConstant "Single fan - Constant speed"
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={0,30})));
-  Modelica.Blocks.Routing.BooleanPassThrough yFanSup if
-    loc==Templates.Types.Location.Supply
+  Modelica.Blocks.Routing.BooleanPassThrough yFanSup
+ if loc==Templates.Types.Location.Supply
     "Supply fan start/stop" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={-60,70})));
-  Modelica.Blocks.Routing.BooleanPassThrough yFanRet if
-    loc==Templates.Types.Location.Return or loc==Templates.Types.Location.Relief
+  Modelica.Blocks.Routing.BooleanPassThrough yFanRet
+ if loc==Templates.Types.Location.Return or loc==Templates.Types.Location.Relief
     "Return fan start/stop" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
@@ -38,14 +38,14 @@ model SingleConstant "Single fan - Constant speed"
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={0,-30})));
-  Modelica.Blocks.Routing.BooleanPassThrough yFanSup_actual if
-    loc==Templates.Types.Location.Supply
+  Modelica.Blocks.Routing.BooleanPassThrough yFanSup_actual
+ if loc==Templates.Types.Location.Supply
     "Supply fan status" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={-20,-70})));
-  Modelica.Blocks.Routing.BooleanPassThrough yFanRet_actual if
-    loc==Templates.Types.Location.Return or loc==Templates.Types.Location.Relief
+  Modelica.Blocks.Routing.BooleanPassThrough yFanRet_actual
+ if loc==Templates.Types.Location.Return or loc==Templates.Types.Location.Relief
     "Return fan status" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,

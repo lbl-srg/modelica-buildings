@@ -1,13 +1,16 @@
 PassThroughFluid
+ChillerGroup
 Coils
 Connectors
 Controls
+CoolingTowerGroup
 Dampers
 Fans
 HeatRecovery
 OutdoorSection
 OutdoorReliefReturnSection
 ReliefReturnSection
+PumpGroup
 Sensors
 getArraySize1D
 getReal
