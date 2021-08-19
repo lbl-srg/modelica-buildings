@@ -46,8 +46,16 @@ model Building
 protected
   Real synchronization_done = synchronize.done
     "Intermediate variable as acausal connectors cannot be used in the algorithm section";
+
+  final parameter String idf=Modelica.Utilities.Files.loadResource(idfName)
+      "idf file to be loaded into the FMU";
+  final parameter String epw=Modelica.Utilities.Files.loadResource(
+    Modelica.Utilities.Strings.substring(weaName, 1, Modelica.Utilities.Strings.length(weaName)-4) + ".epw")
+      "idf file to be loaded into the FMU";
+
   Linux64Binaries linux64Binaries if generatePortableFMU
     "Record with binaries";
+
   record Linux64Binaries
     final parameter String spawnLinuxExecutable=Modelica.Utilities.Files.loadResource(
       "modelica://Buildings/Resources/bin/spawn-linux64/bin/spawn")
