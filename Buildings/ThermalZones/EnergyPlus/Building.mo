@@ -5,15 +5,17 @@ model Building
   final constant String modelicaNameBuilding=getInstanceName()
     "Name of this instance"
     annotation (HideResult=true);
+
   parameter String idfName
     "Name of the IDF file";
 
   parameter String epwName
-    "Name of the EPW file *fixme: this is needed now explicitly, else Dymola won't include it in the resources folder of the fmu* Make sure it is used in the C code";
+    "Name of the EPW file";
 
   parameter String weaName
-    "Name of the weather file, in .mos format and with .mos extension (see info section)"
+    "Name of the weather file, in .mos format and with .mos extension"
     annotation (Evaluate=true);
+
   parameter Boolean usePrecompiledFMU=false
     "Set to true to use pre-compiled FMU with name specified by fmuName"
     annotation (Dialog(tab="Debug"));
