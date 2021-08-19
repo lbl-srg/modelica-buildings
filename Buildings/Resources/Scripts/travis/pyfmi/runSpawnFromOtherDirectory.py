@@ -52,8 +52,8 @@ def simulate():
         raise RuntimeError("Failed to simulate fmu.")
 
 from buildingspy.simulate.Optimica import Simulator
-#model = "Buildings.ThermalZones.EnergyPlus.Examples.SingleFamilyHouse.Unconditioned"
-model = "Buildings.Controls.Continuous.Examples.LimPID"
+model = "Buildings.ThermalZones.EnergyPlus.Examples.SingleFamilyHouse.Unconditioned"
+#model = "Buildings.Controls.Continuous.Examples.LimPID"
 fmu = model.replace('.', '_') + ".fmu"
 s=Simulator(model)
 s.translate()
@@ -65,8 +65,7 @@ shutil.move(fmu, worDir)
 os.chdir(worDir)
 
 with open("simulate.py", 'w') as f:
-    f.write(f"""
-from pyfmi import load_fmu
+    f.write(f"""from pyfmi import load_fmu
 mod = load_fmu("{fmu}")
 mod.simulate()
 """)

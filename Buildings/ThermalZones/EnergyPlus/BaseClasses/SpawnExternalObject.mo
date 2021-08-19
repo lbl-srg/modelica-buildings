@@ -14,8 +14,8 @@ class SpawnExternalObject
       "Name of the Modelica instance of this object";
     input String idfName
       "Name of the IDF";
-    input String weaName
-      "Name of the weather file";
+    input String epwName
+      "Name of the weather file with epw extension";
     input String epName
       "Name of the object in EnergyPlus";
     input Boolean usePrecompiledFMU
@@ -49,7 +49,7 @@ class SpawnExternalObject
     modelicaNameBuilding,
     modelicaInstanceName,
     idfName,
-    weaName,
+    epwName,
     epName,
     usePrecompiledFMU,
     fmuName,

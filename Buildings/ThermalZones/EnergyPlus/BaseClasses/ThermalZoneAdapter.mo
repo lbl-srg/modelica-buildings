@@ -15,8 +15,8 @@ model ThermalZoneAdapter
     annotation (HideResult=true);
   parameter String idfName
     "Name of the IDF file that contains this zone";
-  parameter String weaName
-    "Name of the Energyplus weather file";
+  parameter String epwName
+    "Name of the Energyplus weather file with epw extension";
   parameter String zoneName
     "Name of the thermal zone as specified in the EnergyPlus input";
   parameter Boolean usePrecompiledFMU=false
@@ -95,7 +95,7 @@ protected
     modelicaNameBuilding=modelicaNameBuilding,
     modelicaInstanceName=modelicaInstanceName,
     idfName=idfName,
-    weaName=weaName,
+    epwName=epwName,
     epName=zoneName,
     usePrecompiledFMU=usePrecompiledFMU,
     fmuName=fmuName,

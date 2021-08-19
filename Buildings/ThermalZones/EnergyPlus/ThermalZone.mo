@@ -89,7 +89,7 @@ protected
     final modelicaNameBuilding=modelicaNameBuilding,
     final modelicaInstanceName=modelicaInstanceName,
     final idfName=idfName,
-    final weaName=weaName,
+    final epwName=epwName,
     final zoneName=zoneName,
     final nFluPor=nPorts,
     final usePrecompiledFMU=usePrecompiledFMU,

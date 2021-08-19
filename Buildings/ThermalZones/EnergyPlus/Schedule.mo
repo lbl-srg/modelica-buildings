@@ -30,7 +30,7 @@ protected
     modelicaNameBuilding=modelicaNameBuilding,
     modelicaInstanceName=modelicaInstanceName,
     idfName=idfName,
-    weaName=weaName,
+    epwName=epwName,
     epName=name,
     usePrecompiledFMU=usePrecompiledFMU,
     fmuName=fmuName,

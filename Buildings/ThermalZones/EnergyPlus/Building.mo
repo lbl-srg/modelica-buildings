@@ -6,8 +6,11 @@ model Building
     "Name of this instance"
     annotation (HideResult=true);
   parameter String idfName
-    "Name of the IDF file"
-    annotation (Evaluate=true);
+    "Name of the IDF file";
+
+  parameter String epwName
+    "Name of the EPW file *fixme: this is needed now explicitly, else Dymola won't include it in the resources folder of the fmu* Make sure it is used in the C code";
+
   parameter String weaName
     "Name of the weather file, in .mos format and with .mos extension (see info section)"
     annotation (Evaluate=true);
@@ -46,13 +49,12 @@ model Building
 protected
   Real synchronization_done = synchronize.done
     "Intermediate variable as acausal connectors cannot be used in the algorithm section";
-
+/*
   final parameter String idf=Modelica.Utilities.Files.loadResource(idfName)
       "idf file to be loaded into the FMU";
-  final parameter String epw=Modelica.Utilities.Files.loadResource(
-    Modelica.Utilities.Strings.substring(weaName, 1, Modelica.Utilities.Strings.length(weaName)-4) + ".epw")
+  final parameter String epw=Modelica.Utilities.Files.loadResource(epwName)
       "idf file to be loaded into the FMU";
-
+*/
   Linux64Binaries linux64Binaries if generatePortableFMU
     "Record with binaries";
 
@@ -144,13 +146,18 @@ provided. This is the file that can be read, for example, with
 <a href=\"modelica://Buildings.BoundaryConditions.WeatherData.ReaderTMY3\">
 Buildings.BoundaryConditions.WeatherData.ReaderTMY3</a>.
 However, both weather files <code>.mos</code> and <code>.epw</code>
-must be provided in the same directory. When starting the simulation, EnergyPlus will
-be run with the weather file whose name is identical to <code>weaName</code>, but with the
-extension <code>.mos</code> replaced with <code>.epw</code>.
+must be provided. When starting the simulation, EnergyPlus will
+be run with the weather file whose name is identical to <code>epwName</code>,
+while Modelica will use the file specified by <code>weaName</code>.
 </p>
 </html>",
       revisions="<html>
 <ul>
+<li>
+August 19, 2021, by Michael Wetter:<br/>
+Introduced parameter <code>epwName</code>.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2054\">#2054</a>.
+</li>
 <li>
 February 18, 2021, by Michael Wetter:<br/>
 Refactor synchronization of constructors.<br/>
