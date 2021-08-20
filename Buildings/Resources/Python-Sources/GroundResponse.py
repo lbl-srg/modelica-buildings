@@ -178,8 +178,7 @@ def initialize_gener(toughLayesr, Q, fileName):
         f.write("         1         2         3         4         5         6         7         8" + os.linesep)
         f.write("         9        10        11        12        13        14        15        16" + os.linesep)
         f.write("        17        18        19        20        21        22        23        24" + os.linesep)
-        f.write("        25        26        27        28        29        30        31        32" + os.linesep)
-        f.write("        33" + os.linesep)
+        f.write("        25        26        27        28        29        30        31" + os.linesep)
 
 ''' Update the `INFILE` file for the first TOUGH call
 '''
@@ -189,7 +188,7 @@ def update_infile(preTim, curTim, infile, outfile):
     count = 0
     for line in fin:
         count += 1
-        if count == 27:
+        if count == 31:
             endStr=line[20:]
             staStr='%10.1f%10.1f' % (preTim, curTim)
             fout.write(staStr + endStr)
@@ -211,7 +210,7 @@ def find_layer_depth(fileName):
     dz.append(1)
     z.append(-1.5)
     layers.append(
-        {'layer': 'A4',
+        {'layer': 'A4m',
          'z': z[0],
          'dz': dz[0]
         }
@@ -219,10 +218,10 @@ def find_layer_depth(fileName):
     layInd = 0
     for line in fin:
         count += 1
-        if count >=3 and count <= 34:
+        if count >=3 and count <= 32:
             layInd += 1
             strSet = line.split()
-            z.append(float(strSet[-1]))
+            z.append((-1)*float(strSet[-1].split('-')[-1]))
             thickness = 2*((z[layInd-1] - dz[layInd-1]/2) - z[layInd])
             dz.append(thickness)
             layers.append(
@@ -332,14 +331,14 @@ def update_writeincon(infile, preTim, curTim, boreholeTem, heatFlux, T_out):
             tempStr = '% 10.0f' % curTim
             fout.write(tempStr.strip() + os.linesep)
         # assign borehole wall temperature to each segment
-        elif (count >= 10 and count <= 42):
+        elif (count >= 10 and count <= 40):
             tempStr = '% 10.3f' % (boreholeTem[count-10] - 273.15)
             fout.write(tempStr.strip() + os.linesep)
         # assign heat flux to each segment
-        elif (count >= 44 and count <= 76):
+        elif (count >= 42 and count <= 72):
             tempStr = '% 10.3f' % heatFlux[count-44]
             fout.write(tempStr.strip() + os.linesep)
-        elif (count == 78):
+        elif (count == 74):
             tempStr = '% 10.3f' % (T_out - 273.15)
             fout.write(tempStr.strip() + os.linesep)
         else:
@@ -361,13 +360,13 @@ def extract_data(outFile):
     for line in fin:
         print (line)
         count += 1
-        if count <= 33:
+        if count <= 31:
             T_Bor.append(float(line.strip())+273.15)
-        if (count > 34 and count <= 44):
+        if (count > 32 and count <= 42):
             temp = line.split()
-            p_Int.append(float(temp[2].strip()))
-            x_Int.append(float(temp[3].strip()))
-            T_Int.append(float(temp[4].strip())+273.15)
+            p_Int.append(float(temp[-3].strip()))
+            x_Int.append(float(temp[-2].strip()))
+            T_Int.append(float(temp[-1].strip())+273.15)
     data = {
         'T_Bor': T_Bor,
         'p_Int': p_Int,
