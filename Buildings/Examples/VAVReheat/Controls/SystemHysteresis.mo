@@ -2,10 +2,12 @@ within Buildings.Examples.VAVReheat.Controls;
 model SystemHysteresis
   "Block that applies hysteresis and a minimum on timer to a control signal"
 
-  Buildings.Controls.OBC.CDL.Logical.TrueFalseHold truFalHol(trueHoldDuration=600, final
+  Buildings.Controls.OBC.CDL.Logical.TrueFalseHold truFalHol(trueHoldDuration(
+        displayUnit="h") = 21600,                                                  final
       falseHoldDuration=0) "Keep pump running at least for trueHoldDuration"
     annotation (Placement(transformation(extent={{-11,-10},{9,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr(t=0.05, h=0.05/2)
+  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr(t=0.02, h=0.01/
+        2)
     "Threshold to switch on system"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
   Buildings.Controls.OBC.CDL.Logical.Switch swi "Switch for control signal"
