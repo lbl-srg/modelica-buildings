@@ -115,7 +115,7 @@ block Controller "Chiller plant controller"
   // ---- General: Chiller staging settings ----
 
   parameter Integer nSta = 2
-    "Number of chiller stages, neighth zero stage nor the stages with enabled waterside economizer is included"
+    "Number of chiller stages, neither zero stage nor the stages with enabled waterside economizer is included"
     annotation (Dialog(tab="General", group="Staging configuration"));
 
   parameter Integer totSta=6
@@ -127,11 +127,11 @@ block Controller "Chiller plant controller"
     annotation (Dialog(tab="General", group="Staging configuration"));
 
   parameter Real desChiNum[nSta+1]={0,1,2}
-    "Design number of chiller that should be ON, according to current chiller stage"
+    "Design number of chiller that should be ON at each chiller stage, including the zero stage"
     annotation (Dialog(tab="General", group="Staging configuration", enable=have_fixSpeConWatPum));
 
   parameter Real staVec[totSta]={0,0.5,1,1.5,2,2.5}
-    "Chiller stage vector, element value like x.5 means chiller stage x plus WSE"
+    "Plant stage vector, element value like x.5 means chiller stage x plus WSE"
     annotation (Dialog(tab="General", group="Staging configuration"));
 
   parameter Real desConWatPumSpe[totSta]={0,0.5,0.75,0.6,0.75,0.9}
@@ -598,7 +598,7 @@ block Controller "Chiller plant controller"
   parameter Real chaChiWatIsoTim(
     final unit="s",
     final quantity="Time",
-    displayUnit="h")=300
+    displayUnit="s")=300
     "Time to slowly change isolation valve, should be determined in the field"
     annotation (Dialog(tab="Staging", group="Up and down process"));
 
