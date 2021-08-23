@@ -44,16 +44,18 @@ model VAVReheatBox "Supply box of a VAV system with a hot water reheat coil"
   Modelica.Blocks.Interfaces.RealInput yVAV
     "Signal for VAV damper"
     annotation (
-      Placement(transformation(extent={{-140,40},{-100,80}}),
-        iconTransformation(extent={{-140,40},{-100,80}})));
+      Placement(transformation(extent={{-140,60},{-100,100}}),
+        iconTransformation(extent={{-140,60},{-100,100}})));
   Modelica.Blocks.Interfaces.RealOutput y_actual "Actual VAV damper position"
     annotation (Placement(transformation(extent={{100,-10},{120,10}}),
         iconTransformation(extent={{100,-10},{120,10}})));
-  Modelica.Fluid.Interfaces.FluidPort_a port_aHotWat(redeclare package Medium =
+  Modelica.Fluid.Interfaces.FluidPort_a port_aHotWat(redeclare package Medium
+      =
       MediumW) "Hot water inlet port"
     annotation (Placement(transformation(extent={{-110,-10},{-90,10}}),
         iconTransformation(extent={{-110,-10},{-90,10}})));
-  Modelica.Fluid.Interfaces.FluidPort_b port_bHotWat(redeclare package Medium =
+  Modelica.Fluid.Interfaces.FluidPort_b port_bHotWat(redeclare package Medium
+      =
       MediumW) "Hot water outlet port"
     annotation (Placement(transformation(extent={{-110,-70},{-90,-50}}),
         iconTransformation(extent={{-110,-70},{-90,-50}})));
@@ -98,8 +100,7 @@ model VAVReheatBox "Supply box of a VAV system with a hot water reheat coil"
     redeclare package Medium = MediumA,
     initType=Modelica.Blocks.Types.Init.InitialState,
     m_flow_nominal=m_flow_nominal,
-    allowFlowReversal=allowFlowReversal)
-    "Supply Air Temperature Sensor"
+    allowFlowReversal=allowFlowReversal) "Supply Air Temperature Sensor"
     annotation (Placement(
         transformation(
         extent={{-10,10},{10,-10}},
@@ -116,6 +117,16 @@ model VAVReheatBox "Supply box of a VAV system with a hot water reheat coil"
         extent={{-10,10},{10,-10}},
         rotation=90,
         origin={0,80})));
+  Fluid.Actuators.Valves.TwoWayEqualPercentage val(
+    redeclare package Medium = MediumW,
+    m_flow_nominal=mHotWat_flow_nominal,
+    dpValve_nominal=3000,
+    dpFixed_nominal=3000) "Valve for terminal heater"
+    annotation (Placement(transformation(extent={{-72,-10},{-52,10}})));
+  Modelica.Blocks.Interfaces.RealInput yHea
+    "Actuator position for heating valve (0: closed, 1: open)" annotation (
+      Placement(transformation(extent={{-140,20},{-100,60}}),
+        iconTransformation(extent={{-140,10},{-100,50}})));
 protected
   constant Modelica.SIunits.SpecificHeatCapacity cpAir=
     Buildings.Utilities.Psychrometrics.Constants.cpAir
@@ -124,8 +135,9 @@ protected
     Buildings.Utilities.Psychrometrics.Constants.cpWatLiq
     "Water specific heat capacity";
 equation
-  connect(vav.y, yVAV) annotation (Line(points={{-12,10},{-40,10},{-40,60},{-120,
-          60}}, color={0,0,127}));
+  connect(vav.y, yVAV) annotation (Line(points={{-12,10},{-48,10},{-48,80},{
+          -120,80}},
+                color={0,0,127}));
   connect(vav.y_actual, y_actual)
     annotation (Line(points={{-7,15},{-7,24},{20,24},{20,0},{110,0}},
                                                           color={0,0,127}));
@@ -134,8 +146,6 @@ equation
   connect(vav.port_a, terHea.port_b2)
     annotation (Line(points={{-4.44089e-16,0},{3.55271e-15,0},{3.55271e-15,-20}},
                                                            color={0,127,255}));
-  connect(port_aHotWat, terHea.port_a1) annotation (Line(points={{-100,0},{-12,
-          0},{-12,-20}},       color={0,127,255}));
   connect(port_bHotWat, terHea.port_b1) annotation (Line(points={{-100,-60},{
           -12,-60},{-12,-40}}, color={0,127,255}));
   connect(vav.port_b, senTem.port_a) annotation (Line(points={{6.66134e-16,20},{
@@ -150,6 +160,12 @@ equation
                              color={0,0,127}));
   connect(senTem.T, TSup) annotation (Line(points={{11,40},{110,40}},
                 color={0,0,127}));
+  connect(port_aHotWat, val.port_a)
+    annotation (Line(points={{-100,0},{-72,0}}, color={0,127,255}));
+  connect(val.port_b, terHea.port_a1)
+    annotation (Line(points={{-52,0},{-12,0},{-12,-20}}, color={0,127,255}));
+  connect(yHea, val.y)
+    annotation (Line(points={{-120,40},{-62,40},{-62,12}}, color={0,0,127}));
   annotation (Icon(
     graphics={
         Rectangle(
@@ -228,13 +244,13 @@ equation
           fillPattern=FillPattern.Solid,
           lineColor={0,0,0}),
         Rectangle(
-          extent={{-100,-18},{-20,-24}},
+          extent={{-98,-20},{-18,-24}},
           lineColor={0,0,255},
           pattern=LinePattern.None,
-          fillColor={0,0,255},
+          fillColor={238,46,47},
           fillPattern=FillPattern.Solid),
         Rectangle(
-          extent={{-100,-42},{-20,-48}},
+          extent={{-100,-42},{-20,-46}},
           lineColor={0,0,255},
           pattern=LinePattern.None,
           fillColor={0,0,255},
@@ -243,7 +259,7 @@ equation
           extent={{-12,3},{12,-3}},
           lineColor={0,0,255},
           pattern=LinePattern.None,
-          fillColor={0,0,255},
+          fillColor={238,46,47},
           fillPattern=FillPattern.Solid,
           origin={-97,-12},
           rotation=90),
@@ -254,7 +270,20 @@ equation
           fillColor={0,0,255},
           fillPattern=FillPattern.Solid,
           origin={-97,-54},
-          rotation=90)}),       Documentation(info="<html>
+          rotation=90),
+        Line(points={{-100,80},{-38,80},{-38,38},{-10,38}}, color={0,0,127}),
+        Polygon(
+          points={{-78,-14},{-78,-30},{-66,-22},{-78,-14}},
+          lineColor={0,0,0},
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid),
+        Polygon(
+          points={{-54,-14},{-54,-30},{-66,-22},{-54,-14}},
+          lineColor={0,0,0},
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid),
+        Line(points={{-100,30},{-66,30},{-66,-2},{-66,-20}}, color={0,0,127})}),
+                                Documentation(info="<html>
 <p>
 Model for a VAV terminal box with a water reheat coil and pressure independent damper.
 The pressure independent damper model includes an idealized flow rate controller

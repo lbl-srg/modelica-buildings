@@ -177,18 +177,6 @@ equation
   connect(wes.TSup, conVAVWes.TDis) annotation (Line(points={{1332,48},{1340,48},
           {1340,74},{1228,74},{1228,88},{1238,88}},
                                     color={0,0,127}));
-  connect(cor.yVAV, conVAVCor.yDam) annotation (Line(points={{566,54},{556,54},{
-          556,100},{552,100}},
-                             color={0,0,127}));
-  connect(conVAVSou.yDam, sou.yVAV) annotation (Line(points={{724,100},{730,100},
-          {730,52},{746,52}},color={0,0,127}));
-  connect(conVAVEas.yDam, eas.yVAV) annotation (Line(points={{902,100},{910,100},
-          {910,52},{926,52}},color={0,0,127}));
-  connect(conVAVNor.yDam, nor.yVAV) annotation (Line(points={{1060,100},{1072.5,
-          100},{1072.5,52},{1086,52}},color={0,0,127}));
-  connect(wes.yVAV, conVAVWes.yDam) annotation (Line(points={{1286,52},{1274,52},
-          {1274,100},{1262,100}},
-                                color={0,0,127}));
   connect(conVAVCor.yZonTemResReq, TZonResReq.u[1]) annotation (Line(points={{552,90},
           {554,90},{554,220},{280,220},{280,375.6},{298,375.6}},         color=
           {255,127,0}));
@@ -512,25 +500,30 @@ equation
           230},{-110,207},{-102,207}}, color={255,127,0}));
   connect(zonGroSta.yOpeWin, opeModSel.uOpeWin) annotation (Line(points={{-138,261},
           {-124,261},{-124,302},{-102,302}}, color={255,127,0}));
-  connect(conVAVCor.yVal, gaiHeaCoiCor.u)
-    annotation (Line(points={{552,95},{552,68},{478,68},{478,46},{492,46}},
-                                                           color={0,0,127}));
-  connect(conVAVSou.yVal, gaiHeaCoiSou.u) annotation (Line(points={{724,95},{724,
-          68},{664,68},{664,44},{678,44}},
-                                  color={0,0,127}));
-  connect(conVAVEas.yVal, gaiHeaCoiEas.u) annotation (Line(points={{902,95},{902,
-          80},{838,80},{838,44},{850,44}},
-                                  color={0,0,127}));
-  connect(conVAVNor.yVal, gaiHeaCoiNor.u) annotation (Line(points={{1060,95},{1060,
-          80},{1008,80},{1008,44},{1016,44}},
-                                    color={0,0,127}));
-  connect(conVAVWes.yVal, gaiHeaCoiWes.u) annotation (Line(points={{1262,95},{1262,
-          82},{1196,82},{1196,44},{1206,44}},
-                                    color={0,0,127}));
   connect(amb.ports[3], TRet.port_b) annotation (Line(points={{-114,-45},{-100,
           -45},{-100,140},{90,140}}, color={0,127,255}));
   connect(freSta.y, swiFreSta.u2) annotation (Line(points={{-38,-90},{40,-90},{
           40,-192},{58,-192}}, color={255,0,255}));
+  connect(cor.yVAV, conVAVCor.yDam) annotation (Line(points={{566,58},{560,58},
+          {560,100},{550,100}}, color={0,0,127}));
+  connect(cor.yHea, conVAVCor.yVal) annotation (Line(points={{566,48},{556,48},
+          {556,96},{552,96}}, color={0,0,127}));
+  connect(conVAVSou.yDam, sou.yVAV) annotation (Line(points={{724,100},{738,100},
+          {738,56},{744,56}}, color={0,0,127}));
+  connect(conVAVSou.yVal, sou.yHea) annotation (Line(points={{724,95},{736,95},
+          {736,46},{744,46}}, color={0,0,127}));
+  connect(conVAVEas.yDam, eas.yVAV) annotation (Line(points={{902,100},{918,100},
+          {918,56},{924,56}}, color={0,0,127}));
+  connect(conVAVEas.yVal, eas.yHea) annotation (Line(points={{902,95},{912,95},
+          {912,46},{926,46}}, color={0,0,127}));
+  connect(conVAVNor.yDam, nor.yVAV) annotation (Line(points={{1060,100},{1076,
+          100},{1076,56},{1084,56}}, color={0,0,127}));
+  connect(conVAVNor.yVal, nor.yHea) annotation (Line(points={{1060,95},{1072,95},
+          {1072,46},{1084,46}}, color={0,0,127}));
+  connect(conVAVWes.yDam, wes.yVAV) annotation (Line(points={{1262,100},{1276,
+          100},{1276,58},{1284,58}}, color={0,0,127}));
+  connect(conVAVWes.yVal, wes.yHea) annotation (Line(points={{1262,95},{1272,95},
+          {1272,46},{1284,46},{1284,48}}, color={0,0,127}));
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-380,-320},{1400,
             680}})),

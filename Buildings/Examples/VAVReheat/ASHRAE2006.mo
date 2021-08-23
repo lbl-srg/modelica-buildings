@@ -6,7 +6,8 @@ model ASHRAE2006
    redeclare replaceable Buildings.Examples.VAVReheat.BaseClasses.Floor flo(
       final lat=lat,
       final sampleModel=sampleModel),
-    amb(nPorts=3));
+    amb(nPorts=3),
+    sinHea(T=THotWatInl_nominal));
 
   parameter Real ratVMinCor_flow(final unit="1")=
     max(1.5*VCorOA_flow_nominal, 0.15*mCor_flow_nominal/1.2) /
@@ -158,18 +159,6 @@ equation
       points={{484,275},{1160,275},{1160,-121},{1185,-121}},
       color={0,0,127},
       pattern=LinePattern.Dash));
-  connect(cor.yVAV, conVAVCor.yDam) annotation (Line(points={{566,54},{556,54},
-          {556,-109.2},{477,-109.2}},
-                                 color={0,0,127}));
-  connect(conVAVSou.yDam, sou.yVAV) annotation (Line(points={{659,-109.2},{738,
-          -109.2},{738,52},{746,52}},
-                                    color={0,0,127}));
-  connect(conVAVEas.yDam, eas.yVAV) annotation (Line(points={{843,-109.2},{914,
-          -109.2},{914,52},{926,52}},
-                                    color={0,0,127}));
-  connect(conVAVNor.yDam, nor.yVAV) annotation (Line(points={{1017,-109.2},{
-          1072.5,-109.2},{1072.5,52},{1086,52}},
-                                               color={0,0,127}));
   connect(conVAVCor.TRooHeaSet, controlBus.TRooSetHea) annotation (Line(points={{454,
           -107},{436,-107},{436,-342},{-240,-342}},  color={0,0,127}));
   connect(conVAVCor.TRooCooSet, controlBus.TRooSetCoo) annotation (Line(points={{454,
@@ -191,9 +180,6 @@ equation
   connect(conVAVWes.TRooCooSet, controlBus.TRooSetCoo) annotation (Line(points={{1184,
           -114},{1142,-114},{1142,-342},{-240,-342}},   color={0,0,127}));
 
-  connect(wes.yVAV, conVAVWes.yDam) annotation (Line(points={{1286,52},{1274,52},
-          {1274,-109.2},{1207,-109.2}},
-                                    color={0,0,127}));
   connect(occSch.tNexOcc, controlBus.dTNexOcc) annotation (Line(
       points={{-297,-204},{-240,-204},{-240,-342}},
       color={0,0,127},
@@ -268,18 +254,6 @@ equation
       horizontalAlignment=TextAlignment.Right));
   connect(TSupSet.TSet, conTSup.TSupSet)
     annotation (Line(points={{-178,-220},{28,-220}}, color={0,0,127}));
-  connect(conVAVCor.yVal, gaiHeaCoiCor.u) annotation (Line(points={{477,-119},{
-          477,46},{492,46}},              color={0,0,127}));
-  connect(conVAVSou.yVal, gaiHeaCoiSou.u) annotation (Line(points={{659,-119},{
-          659,-106},{660,-106},{660,44},{678,44}},
-                                            color={0,0,127}));
-  connect(conVAVEas.yVal, gaiHeaCoiEas.u) annotation (Line(points={{843,-119},{
-          843,-36},{844,-36},{844,44},{850,44}},
-                                            color={0,0,127}));
-  connect(conVAVNor.yVal, gaiHeaCoiNor.u) annotation (Line(points={{1017,-119},
-          {1017,-37.5},{1016,-37.5},{1016,44}}, color={0,0,127}));
-  connect(conVAVWes.yVal, gaiHeaCoiWes.u) annotation (Line(points={{1207,-119},
-          {1207,-37.5},{1206,-37.5},{1206,44}}, color={0,0,127}));
   connect(damRet.y, conEco.yRet) annotation (Line(points={{-12,-10},{-18,-10},{-18,146.667},{-58.6667,146.667}},
                                         color={0,0,127}));
   connect(damExh.y, conEco.yOA) annotation (Line(points={{-40,2},{-40,152},{-58.6667,152}},
@@ -292,6 +266,26 @@ equation
           -10},{-100,-45},{-114,-45}}, color={0,127,255}));
   connect(freSta.y, or2.u1) annotation (Line(points={{-38,-90},{-30,-90},{-30,
           -240},{-12,-240}}, color={255,0,255}));
+  connect(cor.yHea, conVAVCor.yVal) annotation (Line(points={{566,48},{504,48},
+          {504,-120},{478,-120}}, color={0,0,127}));
+  connect(cor.yVAV, conVAVCor.yDam) annotation (Line(points={{566,58},{500,58},
+          {500,-110},{478,-110}}, color={0,0,127}));
+  connect(sou.yHea, conVAVSou.yVal) annotation (Line(points={{746,46},{686,46},
+          {686,-120},{660,-120}}, color={0,0,127}));
+  connect(sou.yVAV, conVAVSou.yDam) annotation (Line(points={{746,56},{680,56},
+          {680,-110},{660,-110}}, color={0,0,127}));
+  connect(eas.yHea, conVAVEas.yVal) annotation (Line(points={{926,46},{866,46},
+          {866,-118},{842,-118}}, color={0,0,127}));
+  connect(eas.yVAV, conVAVEas.yDam) annotation (Line(points={{926,56},{860,56},
+          {860,-110},{844,-110}}, color={0,0,127}));
+  connect(nor.yHea, conVAVNor.yVal) annotation (Line(points={{1086,46},{1044,46},
+          {1044,-120},{1018,-120}}, color={0,0,127}));
+  connect(nor.yVAV, conVAVNor.yDam) annotation (Line(points={{1086,56},{1040,56},
+          {1040,-108},{1018,-108}}, color={0,0,127}));
+  connect(wes.yHea, conVAVWes.yVal) annotation (Line(points={{1286,46},{1228,46},
+          {1228,-118},{1208,-118}}, color={0,0,127}));
+  connect(wes.yVAV, conVAVWes.yDam) annotation (Line(points={{1286,56},{1220,56},
+          {1220,-108},{1206,-108}}, color={0,0,127}));
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-380,-400},{1440,
             660}})),
