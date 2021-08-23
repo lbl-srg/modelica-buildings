@@ -117,11 +117,13 @@ model VAVReheatBox "Supply box of a VAV system with a hot water reheat coil"
         origin={0,80})));
   Fluid.Actuators.Valves.TwoWayEqualPercentage val(
     redeclare package Medium = MediumW,
+    allowFlowReversal=false,
     m_flow_nominal=mHotWat_flow_nominal,
+    from_dp=true,
     dpValve_nominal=3000,
-    riseTime=60,
+    use_inputFilter=false,
     dpFixed_nominal=3000) "Valve for terminal heater"
-    annotation (Placement(transformation(extent={{-72,-10},{-52,10}})));
+    annotation (Placement(transformation(extent={{-70,-10},{-50,10}})));
   Modelica.Blocks.Interfaces.RealInput yHea
     "Actuator position for heating valve (0: closed, 1: open)" annotation (
       Placement(transformation(extent={{-140,20},{-100,60}}),
@@ -160,11 +162,11 @@ equation
   connect(senTem.T, TSup) annotation (Line(points={{11,40},{110,40}},
                 color={0,0,127}));
   connect(port_aHotWat, val.port_a)
-    annotation (Line(points={{-100,0},{-72,0}}, color={0,127,255}));
+    annotation (Line(points={{-100,0},{-70,0}}, color={0,127,255}));
   connect(val.port_b, terHea.port_a1)
-    annotation (Line(points={{-52,0},{-12,0},{-12,-20}}, color={0,127,255}));
+    annotation (Line(points={{-50,0},{-12,0},{-12,-20}}, color={0,127,255}));
   connect(yHea, val.y)
-    annotation (Line(points={{-120,40},{-62,40},{-62,12}}, color={0,0,127}));
+    annotation (Line(points={{-120,40},{-60,40},{-60,12}}, color={0,0,127}));
   annotation (Icon(
     graphics={
         Rectangle(
