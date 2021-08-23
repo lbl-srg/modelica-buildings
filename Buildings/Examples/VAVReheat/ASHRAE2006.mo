@@ -72,10 +72,10 @@ model ASHRAE2006
     annotation (Placement(transformation(extent={{1186,-124},{1206,-104}})));
 
   Buildings.Controls.OBC.CDL.Logical.Or or2
-    annotation (Placement(transformation(extent={{-10,-250},{10,-230}})));
+    annotation (Placement(transformation(extent={{-100,-250},{-80,-230}})));
   Controls.SupplyAirTemperature conTSup
     "Supply air temperature and economizer controller"
-    annotation (Placement(transformation(extent={{30,-230},{50,-210}})));
+    annotation (Placement(transformation(extent={{-20,-232},{0,-212}})));
   Controls.SupplyAirTemperatureSetpoint TSupSet
     "Supply air temperature set point"
     annotation (Placement(transformation(extent={{-200,-230},{-180,-210}})));
@@ -87,6 +87,12 @@ model ASHRAE2006
     m_flow_nominal=m_flow_nominal,
     dpDamper_nominal=5)  "Exhaust air damper"
     annotation (Placement(transformation(extent={{-30,-20},{-50,0}})));
+  Controls.SystemHysteresis sysHysHea
+    "Hysteresis and delay to switch heating on and off"
+    annotation (Placement(transformation(extent={{40,-150},{60,-130}})));
+  Controls.SystemHysteresis sysHysCoo
+    "Hysteresis and delay to switch cooling on and off"
+    annotation (Placement(transformation(extent={{40,-250},{60,-230}})));
 equation
   connect(controlBus, modeSelector.cb) annotation (Line(
       points={{-240,-342},{-152,-342},{-152,-303.182},{-196.818,-303.182}},
@@ -208,7 +214,8 @@ equation
           255}));
   connect(conFanSup.y, fanSup.y) annotation (Line(points={{261,0},{280,0},{280,
           -20},{310,-20},{310,-28}}, color={0,0,127}));
-  connect(or2.u2, modeSelector.yFan) annotation (Line(points={{-12,-248},{-30,-248},{-30,-305.455},{-179.091,-305.455}},
+  connect(or2.u2, modeSelector.yFan) annotation (Line(points={{-102,-248},{-120,
+          -248},{-120,-305.455},{-179.091,-305.455}},
                                      color={255,0,255}));
   connect(cor.y_actual, pSetDuc.u[1]) annotation (Line(points={{612,42},{620,42},
           {620,74},{140,74},{140,-7.6},{158,-7.6}}, color={0,0,127}));
@@ -221,24 +228,17 @@ equation
   connect(wes.y_actual, pSetDuc.u[5]) annotation (Line(points={{1332,40},{1338,
           40},{1338,74},{140,74},{140,-4.4},{158,-4.4}}, color={0,0,127}));
   connect(TSup.T, conTSup.TSup) annotation (Line(
-      points={{340,-29},{340,-20},{360,-20},{360,-280},{16,-280},{16,-214},{28,
-          -214}},
-      color={0,0,127},
-      pattern=LinePattern.Dash));
-  connect(conTSup.yHea, gaiHeaCoi.u) annotation (Line(
-      points={{52,-214},{68,-214},{68,-184},{124,-184}},
-      color={0,0,127},
-      pattern=LinePattern.Dash));
-  connect(conTSup.yCoo, gaiCooCoi.u) annotation (Line(
-      points={{52,-226},{60,-226},{60,-186},{222,-186}},
+      points={{340,-29},{352,-29},{352,-188},{-26,-188},{-26,-216},{-22,-216}},
       color={0,0,127},
       pattern=LinePattern.Dash));
   connect(conTSup.yOA, conEco.uOATSup) annotation (Line(
-      points={{52,-220},{60,-220},{60,170},{-86,170},{-86,158.667},{-81.3333,158.667}},
+      points={{2,-222},{8,-222},{8,126},{-96,126},{-96,158.667},{-81.3333,
+          158.667}},
       color={0,0,127},
       pattern=LinePattern.Dash));
-  connect(or2.y, conTSup.uEna) annotation (Line(points={{12,-240},{20,-240},{20,
-          -226},{28,-226}},    color={255,0,255}));
+  connect(or2.y, conTSup.uEna) annotation (Line(points={{-78,-240},{-28,-240},{
+          -28,-228},{-22,-228}},
+                               color={255,0,255}));
   connect(modeSelector.yEco, conEco.uEna) annotation (Line(points={{-179.091,-314.545},{-160,-314.545},{-160,100},{
           -73.3333,100},{-73.3333,137.333}},
         color={255,0,255}));
@@ -253,7 +253,8 @@ equation
       extent={{-6,3},{-6,3}},
       horizontalAlignment=TextAlignment.Right));
   connect(TSupSet.TSet, conTSup.TSupSet)
-    annotation (Line(points={{-178,-220},{28,-220}}, color={0,0,127}));
+    annotation (Line(points={{-178,-220},{-178,-222},{-22,-222}},
+                                                     color={0,0,127}));
   connect(damRet.y, conEco.yRet) annotation (Line(points={{-12,-10},{-18,-10},{-18,146.667},{-58.6667,146.667}},
                                         color={0,0,127}));
   connect(damExh.y, conEco.yOA) annotation (Line(points={{-40,2},{-40,152},{-58.6667,152}},
@@ -264,8 +265,6 @@ equation
           {-26,140},{90,140}}, color={0,127,255}));
   connect(damExh.port_b, amb.ports[3]) annotation (Line(points={{-50,-10},{-100,
           -10},{-100,-45},{-114,-45}}, color={0,127,255}));
-  connect(freSta.y, or2.u1) annotation (Line(points={{-38,-90},{-30,-90},{-30,
-          -240},{-12,-240}}, color={255,0,255}));
   connect(cor.yHea, conVAVCor.yVal) annotation (Line(points={{566,48},{504,48},
           {504,-120},{478,-120}}, color={0,0,127}));
   connect(cor.yVAV, conVAVCor.yDam) annotation (Line(points={{566,58},{500,58},
@@ -286,6 +285,20 @@ equation
           {1228,-118},{1208,-118}}, color={0,0,127}));
   connect(wes.yVAV, conVAVWes.yDam) annotation (Line(points={{1286,56},{1220,56},
           {1220,-108},{1206,-108}}, color={0,0,127}));
+  connect(freSta.y, or2.u1) annotation (Line(points={{-118,-90},{-110,-90},{
+          -110,-240},{-102,-240}}, color={255,0,255}));
+  connect(sysHysHea.yPum, pumHeaCoi.y) annotation (Line(points={{62,-147},{160,
+          -147},{160,-120},{154,-120}}, color={0,0,127}));
+  connect(conTSup.yHea, sysHysHea.u) annotation (Line(points={{2,-216},{20,-216},
+          {20,-140},{38,-140}}, color={0,0,127}));
+  connect(conTSup.yCoo, sysHysCoo.u)
+    annotation (Line(points={{2,-228},{2,-240},{38,-240}}, color={0,0,127}));
+  connect(sysHysCoo.y, valCooCoi.y) annotation (Line(points={{62,-240},{160,
+          -240},{160,-210},{168,-210}}, color={0,0,127}));
+  connect(sysHysCoo.yPum, pumCooCoi.y) annotation (Line(points={{62,-247},{200,
+          -247},{200,-120},{194,-120}}, color={0,0,127}));
+  connect(sysHysHea.y, valHeaCoi.y) annotation (Line(points={{62,-140},{158,
+          -140},{158,-170},{152,-170}}, color={0,0,127}));
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-380,-400},{1440,
             660}})),
