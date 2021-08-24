@@ -294,6 +294,12 @@ as a control signal.
 </html>", revisions="<html>
 <ul>
 <li>
+August 24, 2021, by Michael Wetter:<br/>
+Changed model to include the hydraulic configurations of the cooling coil,
+heating coil and VAV terminal box.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2594\">issue #2594</a>.
+</li>
+<li>
 February 12, 2021, by Baptiste Ravache:<br/>
 First implementation, based on <a href=\"modelica://Buildings.Obsolete.Examples.VAVReheat.BaseClasses.VAVBranch\">
 Buildings.Obsolete.Examples.VAVReheat.BaseClasses.VAVBranch</a><br/>

@@ -225,8 +225,8 @@ partial model PartialOpenLoop
     m_flow_nominal=m_flow_nominal,
     allowFlowReversal=allowFlowReversal)
     annotation (Placement(transformation(extent={{330,-50},{350,-30}})));
-  Buildings.Fluid.Sensors.RelativePressure dpDisSupFan(redeclare package Medium
-      = MediumA) "Supply fan static discharge pressure" annotation (Placement(
+  Buildings.Fluid.Sensors.RelativePressure dpDisSupFan(redeclare package Medium =
+        MediumA) "Supply fan static discharge pressure" annotation (Placement(
         transformation(
         extent={{-10,10},{10,-10}},
         rotation=90,
@@ -957,6 +957,12 @@ shading devices, Technical Report, Oct. 17, 2006.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+August 24, 2021, by Michael Wetter:<br/>
+Changed model to include the hydraulic configurations of the cooling coil,
+heating coil and VAV terminal box.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2594\">issue #2594</a>.
+</li>
 <li>
 June 30, 2021, by Antoine Gautier:<br/>
 Changed cooling coil model. This is for

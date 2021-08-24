@@ -209,8 +209,9 @@ equation
       points={{-70.6667,141.467},{-70.6667,120},{-240,120},{-240,-342}},
       color={255,204,51},
       thickness=0.5));
-  connect(modeSelector.yFan, conFanSup.uFan) annotation (Line(points={{-179.091,-305.455},{260,-305.455},{260,-30},{226,
-          -30},{226,6},{238,6}},                                 color={255,0,
+  connect(modeSelector.yFan, conFanSup.uFan) annotation (Line(points={{-179.091,
+          -305.455},{260,-305.455},{260,-30},{226,-30},{226,6},{238,6}},
+                                                                 color={255,0,
           255}));
   connect(conFanSup.y, fanSup.y) annotation (Line(points={{261,0},{280,0},{280,
           -20},{310,-20},{310,-28}}, color={0,0,127}));
@@ -239,11 +240,11 @@ equation
   connect(or2.y, conTSup.uEna) annotation (Line(points={{-78,-240},{-28,-240},{
           -28,-228},{-22,-228}},
                                color={255,0,255}));
-  connect(modeSelector.yEco, conEco.uEna) annotation (Line(points={{-179.091,-314.545},{-160,-314.545},{-160,100},{
-          -73.3333,100},{-73.3333,137.333}},
+  connect(modeSelector.yEco, conEco.uEna) annotation (Line(points={{-179.091,
+          -314.545},{-160,-314.545},{-160,100},{-73.3333,100},{-73.3333,137.333}},
         color={255,0,255}));
-  connect(TMix.T, conEco.TMix) annotation (Line(points={{40,-29},{40,166},{-90,166},{-90,148},{-81.3333,148}},
-                                          color={0,0,127}));
+  connect(TMix.T, conEco.TMix) annotation (Line(points={{40,-29},{40,166},{-90,
+          166},{-90,148},{-81.3333,148}}, color={0,0,127}));
   connect(controlBus, TSupSet.controlBus) annotation (Line(
       points={{-240,-342},{-240,-228},{-190,-228}},
       color={255,204,51},
@@ -255,40 +256,48 @@ equation
   connect(TSupSet.TSet, conTSup.TSupSet)
     annotation (Line(points={{-178,-220},{-178,-222},{-22,-222}},
                                                      color={0,0,127}));
-  connect(damRet.y, conEco.yRet) annotation (Line(points={{-12,-10},{-18,-10},{-18,146.667},{-58.6667,146.667}},
+  connect(damRet.y, conEco.yRet) annotation (Line(points={{-12,-10},{-18,-10},{
+          -18,146.667},{-58.6667,146.667}},
                                         color={0,0,127}));
-  connect(damExh.y, conEco.yOA) annotation (Line(points={{-40,2},{-40,152},{-58.6667,152}},
+  connect(damExh.y, conEco.yOA) annotation (Line(points={{-40,2},{-40,152},{
+          -58.6667,152}},
                  color={0,0,127}));
-  connect(damOut.y, conEco.yOA) annotation (Line(points={{-40,-28},{-40,-20},{-22,-20},{-22,152},{-58.6667,152}},
+  connect(damOut.y, conEco.yOA) annotation (Line(points={{-40,-28},{-40,-20},{
+          -22,-20},{-22,152},{-58.6667,152}},
                                           color={0,0,127}));
   connect(damExh.port_a, TRet.port_b) annotation (Line(points={{-30,-10},{-26,-10},
           {-26,140},{90,140}}, color={0,127,255}));
   connect(damExh.port_b, amb.ports[3]) annotation (Line(points={{-50,-10},{-100,
           -10},{-100,-45},{-114,-45}}, color={0,127,255}));
   connect(cor.yHea, conVAVCor.yVal) annotation (Line(points={{566,48},{504,48},
-          {504,-120},{478,-120}}, color={0,0,127}));
+          {504,-119},{477,-119}}, color={0,0,127}));
   connect(cor.yVAV, conVAVCor.yDam) annotation (Line(points={{566,58},{500,58},
-          {500,-110},{478,-110}}, color={0,0,127}));
+          {500,-109.2},{477,-109.2}},
+                                  color={0,0,127}));
   connect(sou.yHea, conVAVSou.yVal) annotation (Line(points={{746,46},{686,46},
-          {686,-120},{660,-120}}, color={0,0,127}));
+          {686,-119},{659,-119}}, color={0,0,127}));
   connect(sou.yVAV, conVAVSou.yDam) annotation (Line(points={{746,56},{680,56},
-          {680,-110},{660,-110}}, color={0,0,127}));
+          {680,-109.2},{659,-109.2}},
+                                  color={0,0,127}));
   connect(eas.yHea, conVAVEas.yVal) annotation (Line(points={{926,46},{866,46},
-          {866,-118},{842,-118}}, color={0,0,127}));
+          {866,-119},{843,-119}}, color={0,0,127}));
   connect(eas.yVAV, conVAVEas.yDam) annotation (Line(points={{926,56},{860,56},
-          {860,-110},{844,-110}}, color={0,0,127}));
+          {860,-109.2},{843,-109.2}},
+                                  color={0,0,127}));
   connect(nor.yHea, conVAVNor.yVal) annotation (Line(points={{1086,46},{1044,46},
-          {1044,-120},{1018,-120}}, color={0,0,127}));
+          {1044,-119},{1017,-119}}, color={0,0,127}));
   connect(nor.yVAV, conVAVNor.yDam) annotation (Line(points={{1086,56},{1040,56},
-          {1040,-108},{1018,-108}}, color={0,0,127}));
+          {1040,-109.2},{1017,-109.2}},
+                                    color={0,0,127}));
   connect(wes.yHea, conVAVWes.yVal) annotation (Line(points={{1286,46},{1228,46},
-          {1228,-118},{1208,-118}}, color={0,0,127}));
+          {1228,-119},{1207,-119}}, color={0,0,127}));
   connect(wes.yVAV, conVAVWes.yDam) annotation (Line(points={{1286,56},{1220,56},
-          {1220,-108},{1206,-108}}, color={0,0,127}));
+          {1220,-109.2},{1207,-109.2}},
+                                    color={0,0,127}));
   connect(freSta.y, or2.u1) annotation (Line(points={{-118,-90},{-110,-90},{
           -110,-240},{-102,-240}}, color={255,0,255}));
   connect(sysHysHea.yPum, pumHeaCoi.y) annotation (Line(points={{62,-147},{160,
-          -147},{160,-120},{154,-120}}, color={0,0,127}));
+          -147},{160,-120},{152,-120}}, color={0,0,127}));
   connect(conTSup.yHea, sysHysHea.u) annotation (Line(points={{2,-216},{20,-216},
           {20,-140},{38,-140}}, color={0,0,127}));
   connect(conTSup.yCoo, sysHysCoo.u)
@@ -296,7 +305,7 @@ equation
   connect(sysHysCoo.y, valCooCoi.y) annotation (Line(points={{62,-240},{160,
           -240},{160,-210},{168,-210}}, color={0,0,127}));
   connect(sysHysCoo.yPum, pumCooCoi.y) annotation (Line(points={{62,-247},{200,
-          -247},{200,-120},{194,-120}}, color={0,0,127}));
+          -247},{200,-120},{192,-120}}, color={0,0,127}));
   connect(sysHysHea.y, valHeaCoi.y) annotation (Line(points={{62,-140},{158,
           -140},{158,-170},{152,-170}}, color={0,0,127}));
   annotation (
@@ -366,6 +375,12 @@ ASHRAE, Atlanta, GA, 2006.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+August 24, 2021, by Michael Wetter:<br/>
+Changed model to include the hydraulic configurations of the cooling coil,
+heating coil and VAV terminal box.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2594\">issue #2594</a>.
+</li>
 <li>
 May 6, 2021, by David Blum:<br/>
 Change to <code>from_dp=false</code> for exhaust air damper.<br/>

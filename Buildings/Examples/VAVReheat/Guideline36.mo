@@ -502,25 +502,25 @@ equation
   connect(amb.ports[3], TRet.port_b) annotation (Line(points={{-114,-45},{-100,
           -45},{-100,140},{90,140}}, color={0,127,255}));
   connect(cor.yVAV, conVAVCor.yDam) annotation (Line(points={{566,58},{560,58},
-          {560,100},{550,100}}, color={0,0,127}));
+          {560,100},{552,100}}, color={0,0,127}));
   connect(cor.yHea, conVAVCor.yVal) annotation (Line(points={{566,48},{556,48},
-          {556,96},{552,96}}, color={0,0,127}));
+          {556,95},{552,95}}, color={0,0,127}));
   connect(conVAVSou.yDam, sou.yVAV) annotation (Line(points={{724,100},{738,100},
-          {738,56},{744,56}}, color={0,0,127}));
+          {738,56},{746,56}}, color={0,0,127}));
   connect(conVAVSou.yVal, sou.yHea) annotation (Line(points={{724,95},{736,95},
-          {736,46},{744,46}}, color={0,0,127}));
+          {736,46},{746,46}}, color={0,0,127}));
   connect(conVAVEas.yDam, eas.yVAV) annotation (Line(points={{902,100},{918,100},
-          {918,56},{924,56}}, color={0,0,127}));
+          {918,56},{926,56}}, color={0,0,127}));
   connect(conVAVEas.yVal, eas.yHea) annotation (Line(points={{902,95},{912,95},
           {912,46},{926,46}}, color={0,0,127}));
   connect(conVAVNor.yDam, nor.yVAV) annotation (Line(points={{1060,100},{1076,
-          100},{1076,56},{1084,56}}, color={0,0,127}));
+          100},{1076,56},{1086,56}}, color={0,0,127}));
   connect(conVAVNor.yVal, nor.yHea) annotation (Line(points={{1060,95},{1072,95},
-          {1072,46},{1084,46}}, color={0,0,127}));
+          {1072,46},{1086,46}}, color={0,0,127}));
   connect(conVAVWes.yDam, wes.yVAV) annotation (Line(points={{1262,100},{1276,
-          100},{1276,58},{1284,58}}, color={0,0,127}));
+          100},{1276,56},{1286,56}}, color={0,0,127}));
   connect(conVAVWes.yVal, wes.yHea) annotation (Line(points={{1262,95},{1272,95},
-          {1272,46},{1284,46},{1284,48}}, color={0,0,127}));
+          {1272,46},{1286,46},{1286,46}}, color={0,0,127}));
   connect(freSta.y, swiFreSta.u2) annotation (Line(points={{-118,-90},{-64,-90},
           {-64,-140},{-42,-140}}, color={255,0,255}));
   connect(swiFreSta.y, sysHysHea.u)
@@ -528,16 +528,16 @@ equation
   connect(sysHysHea.y, valHeaCoi.y) annotation (Line(points={{42,-140},{160,
           -140},{160,-170},{152,-170}}, color={0,0,127}));
   connect(sysHysHea.yPum, pumHeaCoi.y) annotation (Line(points={{42,-147},{158,
-          -147},{158,-120},{154,-120}}, color={0,0,127}));
+          -147},{158,-120},{152,-120}}, color={0,0,127}));
   connect(sysHysCoo.y, valCooCoi.y) annotation (Line(points={{42,-240},{160,
-          -240},{160,-210},{166,-210},{166,-208},{168,-208}}, color={0,0,127}));
+          -240},{160,-210},{166,-210},{166,-210},{168,-210}}, color={0,0,127}));
   connect(sysHysCoo.yPum, pumCooCoi.y) annotation (Line(points={{42,-247},{240,
-          -247},{240,-120},{194,-120},{194,-118}}, color={0,0,127}));
+          -247},{240,-120},{192,-120},{192,-120}}, color={0,0,127}));
   connect(conAHU.yHea, swiFreSta.u3) annotation (Line(points={{424,554.667},{
-          456,554.667},{456,-300},{-60,-300},{-60,-148},{-40,-148}}, color={0,0,
+          456,554.667},{456,-300},{-60,-300},{-60,-148},{-42,-148}}, color={0,0,
           127}));
   connect(conAHU.yCoo, sysHysCoo.u) annotation (Line(points={{424,544},{424,546},
-          {452,546},{452,-296},{0,-296},{0,-240},{20,-240}}, color={0,0,127}));
+          {452,546},{452,-296},{0,-296},{0,-240},{18,-240}}, color={0,0,127}));
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-380,-320},{1400,
             680}})),
@@ -582,6 +582,12 @@ its input.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+August 24, 2021, by Michael Wetter:<br/>
+Changed model to include the hydraulic configurations of the cooling coil,
+heating coil and VAV terminal box.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2594\">issue #2594</a>.
+</li>
 <li>
 April 30, 2021, by Michael Wetter:<br/>
 Reformulated replaceable class and introduced floor areas in base class

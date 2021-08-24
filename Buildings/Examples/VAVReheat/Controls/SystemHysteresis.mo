@@ -3,11 +3,10 @@ model SystemHysteresis
   "Block that applies hysteresis and a minimum on timer to a control signal"
 
   Buildings.Controls.OBC.CDL.Logical.TrueFalseHold truFalHol(trueHoldDuration(
-        displayUnit="h") = 21600,                                                  final
-      falseHoldDuration=0) "Keep pump running at least for trueHoldDuration"
-    annotation (Placement(transformation(extent={{-11,-10},{9,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr(t=0.02, h=0.01/
-        2)
+        displayUnit="h") = 10800,
+        final falseHoldDuration=0) "Keep pump running at least for trueHoldDuration"
+    annotation (Placement(transformation(extent={{-19,-10},{1,10}})));
+  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr(t=0.1, h=0.09)
     "Threshold to switch on system"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
   Buildings.Controls.OBC.CDL.Logical.Switch swi "Switch for control signal"
@@ -35,22 +34,24 @@ equation
     annotation (Line(points={{-62,0},{-120,0}}, color={0,0,127}));
   connect(swi.y, y) annotation (Line(points={{62,0},{120,0}}, color={0,0,127}));
   connect(greThr.y, truFalHol.u)
-    annotation (Line(points={{-38,0},{-13,0}}, color={255,0,255}));
+    annotation (Line(points={{-38,0},{-21,0}}, color={255,0,255}));
   connect(truFalHol.y, swi.u2)
-    annotation (Line(points={{11,0},{38,0}}, color={255,0,255}));
+    annotation (Line(points={{3,0},{38,0}},  color={255,0,255}));
   connect(swi.u1, u) annotation (Line(points={{38,8},{20,8},{20,20},{-90,20},{-90,
           0},{-120,0}}, color={0,0,127}));
   connect(con.y, swi.u3) annotation (Line(points={{12,-68},{32,-68},{32,-8},{38,
           -8}}, color={0,0,127}));
-  connect(truFalHol.y, swi1.u2) annotation (Line(points={{11,0},{28,0},{28,-60},
-          {38,-60}}, color={255,0,255}));
+  connect(truFalHol.y, swi1.u2) annotation (Line(points={{3,0},{28,0},{28,-54},
+          {30,-54},{30,-60},{38,-60}},
+                     color={255,0,255}));
   connect(con.y, swi1.u3)
     annotation (Line(points={{12,-68},{38,-68}}, color={0,0,127}));
   connect(one.y, swi1.u1) annotation (Line(points={{12,-30},{20,-30},{20,-52},{
           38,-52}}, color={0,0,127}));
-  connect(swi1.y, yPum) annotation (Line(points={{62,-60},{80,-60},{80,-70},{
-          110,-70}}, color={0,0,127}));
+  connect(swi1.y, yPum) annotation (Line(points={{62,-60},{80,-60},{80,-70},{120,
+          -70}},     color={0,0,127}));
   annotation (
+    defaultComponentName="sysHys",
     Diagram(coordinateSystem(extent={{-100,-100},{100,100}})),
     Icon(coordinateSystem(extent={{-100,-100},{100,100}}), graphics={
         Text(
@@ -97,5 +98,13 @@ equation
 <p>
 Block that ensure that the system runs for a minimum time once it is switched on.
 </p>
+</html>", revisions="<html>
+<ul>
+<li>
+August 24, 2021, by Michael Wetter:<br/>
+First version.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2594\">issue #2594</a>.
+</li>
+</ul>
 </html>"));
 end SystemHysteresis;
