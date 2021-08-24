@@ -13,3 +13,8 @@ OutdoorReliefReturnSection
 ReliefReturnSection
 Sensor
 TerminalUnitAir
+CoolingTowerGroup
+PumpGroup
+ChillerGroup
+WatersideEconomizer
+ChilledWaterPlant

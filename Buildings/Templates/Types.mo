@@ -23,6 +23,16 @@ package Types "AHU types"
       SingleDuct
       "Single duct system with supply and return")
       "Enumeration to configure the AHU";
+  type ChillerGroup = enumeration(
+      ChillerParallel
+      "Chillers in parallel",
+      ChillerSeries
+      "Chillers in series");
+  type ChilledWaterPlant = enumeration(
+      WaterCooledChiller
+      "Water cooled chiller plant",
+      AirCooledChiller
+      "Air cooled chiller plant");
   type ControllerAHU = enumeration(
       Guideline36
       "Guideline 36 control sequence",
@@ -43,6 +53,9 @@ package Types "AHU types"
       WaterBased
       "Water-based coil")
     "Enumeration to configure the coil";
+  type CoolingTowerGroup = enumeration(
+      CoolingTowerParallel
+      "Cooling towers in parallel");
   type Damper = enumeration(
       NoPath
       "No fluid path",
@@ -123,6 +136,9 @@ package Types "AHU types"
       NoRelief
       "No relief branch")
     "Enumeration to configure the outdoor/relief/return air section";
+  type PumpGroup = enumeration(
+      HeaderedPump
+      "Headered pumps");
   type ReliefReturnSection = enumeration(
       NoEconomizer
       "No economizer",
@@ -173,4 +189,7 @@ package Types "AHU types"
       Induction
       "Induction system")
     "Enumeration to configure the terminal unit";
+  type WatersideEconomizer = enumeration(
+      WatersideEconomizer
+      "Waterisde economizer");
 end Types;
