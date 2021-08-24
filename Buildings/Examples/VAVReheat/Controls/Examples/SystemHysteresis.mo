@@ -33,6 +33,5 @@ Note that <code>sys1</code> has a high frequency input, but the pump signal stay
         "Simulate and plot"),
     experiment(
       StopTime=21600,
-      Tolerance=1e-06,
-      __Dymola_Algorithm="Cvode"));
+      Tolerance=1e-06));
 end SystemHysteresis;
