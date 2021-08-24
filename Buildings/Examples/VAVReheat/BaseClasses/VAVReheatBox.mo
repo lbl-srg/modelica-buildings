@@ -41,12 +41,13 @@ model VAVReheatBox "Supply box of a VAV system with a hot water reheat coil"
     "Fluid connector b (positive design flow direction is from port_a1 to port_b1)"
     annotation (Placement(transformation(extent={{-10,90},{10,110}}),
         iconTransformation(extent={{-10,90},{10,110}})));
-  Modelica.Blocks.Interfaces.RealInput yVAV
+  Modelica.Blocks.Interfaces.RealInput yVAV(final unit="1")
     "Signal for VAV damper"
     annotation (
       Placement(transformation(extent={{-140,60},{-100,100}}),
         iconTransformation(extent={{-140,60},{-100,100}})));
-  Modelica.Blocks.Interfaces.RealOutput y_actual "Actual VAV damper position"
+  Modelica.Blocks.Interfaces.RealOutput y_actual(final unit="1")
+  "Actual VAV damper position"
     annotation (Placement(transformation(extent={{100,-10},{120,10}}),
         iconTransformation(extent={{100,-10},{120,10}})));
   Modelica.Fluid.Interfaces.FluidPort_a port_aHotWat(redeclare package Medium =
@@ -57,10 +58,14 @@ model VAVReheatBox "Supply box of a VAV system with a hot water reheat coil"
       MediumW) "Hot water outlet port"
     annotation (Placement(transformation(extent={{-110,-70},{-90,-50}}),
         iconTransformation(extent={{-110,-70},{-90,-50}})));
-  Modelica.Blocks.Interfaces.RealOutput TSup "Supply Air Temperature"
+  Modelica.Blocks.Interfaces.RealOutput TSup(
+     final unit = "K",
+     displayUnit = "degC")
+     "Supply Air Temperature"
     annotation (Placement(transformation(extent={{100,30},{120,50}}),
         iconTransformation(extent={{100,30},{120,50}})));
-  Modelica.Blocks.Interfaces.RealOutput VSup_flow
+  Modelica.Blocks.Interfaces.RealOutput VSup_flow(
+    final unit="m3/s")
     "Supply Air Volumetric Flow Rate"
     annotation (Placement(transformation(extent={{100,70},{120,90}}),
         iconTransformation(extent={{100,70},{120,90}})));
