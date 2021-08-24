@@ -12,22 +12,24 @@ model SystemHysteresis
     "Control signal for pump" annotation (Placement(transformation(extent={{100,
             -90},{140,-50}}), iconTransformation(extent={{100,-90},{140,-50}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr(t=0.1, h=0.09)
+  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr(
+    t=0.1,
+    h=0.09)
     "Threshold to switch on system"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
   Buildings.Controls.OBC.CDL.Logical.Switch swi "Switch for control signal"
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con(k=0)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con(final k=0)
     "Zero output signal"
     annotation (Placement(transformation(extent={{0,-40},{20,-20}})));
 
-  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal
-                                            booToRea
+  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea
     "Switch for pump control signal"
     annotation (Placement(transformation(extent={{60,-80},{80,-60}})));
-  Buildings.Controls.OBC.CDL.Logical.TrueFalseHold truFalHol1(trueHoldDuration(
-        displayUnit="h") = 14400,final falseHoldDuration=0)
-                                   "Keep pump running at least for trueHoldDuration"
+  Buildings.Controls.OBC.CDL.Logical.TrueFalseHold truFalHol1(
+    trueHoldDuration(displayUnit="h") = 14400,
+    final falseHoldDuration=0)
+        "Keep pump running at least for trueHoldDuration"
     annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
 equation
   connect(greThr.u, u)
