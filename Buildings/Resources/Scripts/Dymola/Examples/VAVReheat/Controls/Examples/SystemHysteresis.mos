@@ -1,3 +1,3 @@
-simulateModel("Buildings.Examples.VAVReheat.Controls.Examples.SystemHysteresis", stopTime=86400, method="Cvode", tolerance=1e-06, resultFile="SystemHysteresis");
+simulateModel("Buildings.Examples.VAVReheat.Controls.Examples.SystemHysteresis", stopTime=21600, method="Cvode", tolerance=1e-06, resultFile="SystemHysteresis");
 createPlot(id=4, position={14, 24, 592, 754}, y={"sysHys.u", "sysHys.y", "sysHys.yPum"}, range={0.0, 90000.0, -0.1, 1.1}, grid=true, colors={{28,108,200}, {238,46,47}, {0,140,72}}, timeUnit="s");
 createPlot(id=5, position={648, 22, 592, 754}, y={"sysHys1.yPum"}, range={0.0, 90000.0, -0.1, 1.1}, grid=true, colors={{0,140,72}}, timeUnit="s");
