@@ -11,6 +11,8 @@ model ExteriorWallTwoWindows
     "Heat transfer area of frame and window";
   parameter Real fFra[:]={0.1, 0.1}
     "Fraction of window frame divided by total window area";
+  final parameter Modelica.SIunits.Area AFra[:]= fFra .* AWin "Frame area";
+  final parameter Modelica.SIunits.Area AGla[:] = AWin .- AFra "Glass area";
 
   parameter Boolean linearizeRadiation = false
     "Set to true to linearize emissive power";
@@ -91,8 +93,7 @@ model ExteriorWallTwoWindows
     annotation (Placement(transformation(extent={{-122,-58},{-102,-38}})));
   Modelica.Blocks.Routing.Replicator replicator(nout=nCon)
     annotation (Placement(transformation(extent={{-160,-42},{-140,-22}})));
-  Modelica.Thermal.HeatTransfer.Components.ThermalCollector theCol3(
-                                                                   m=2)
+  Modelica.Thermal.HeatTransfer.Components.ThermalCollector theCol3(m=2)
     "Thermal collector to link a vector of models to a single model"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},

@@ -30,22 +30,22 @@ partial model PartialFloor "Interface for a model of a floor of a building"
   Modelica.Fluid.Vessels.BaseClasses.VesselFluidPorts_b portsEas[2](
       redeclare package Medium = Medium) "Fluid inlets and outlets"
     annotation (Placement(transformation(extent={{310,28},{350,44}}),
-        iconTransformation(extent={{306,40},{346,56}})));
+        iconTransformation(extent={{306,48},{346,64}})));
 
   Modelica.Fluid.Vessels.BaseClasses.VesselFluidPorts_b portsNor[2](
       redeclare package Medium = Medium) "Fluid inlets and outlets"
     annotation (Placement(transformation(extent={{70,116},{110,132}}),
-        iconTransformation(extent={{78,108},{118,124}})));
+        iconTransformation(extent={{78,116},{118,132}})));
 
   Modelica.Fluid.Vessels.BaseClasses.VesselFluidPorts_b portsWes[2](
       redeclare package Medium = Medium) "Fluid inlets and outlets"
     annotation (Placement(transformation(extent={{-50,36},{-10,52}}),
-        iconTransformation(extent={{-46,40},{-6,56}})));
+        iconTransformation(extent={{-46,48},{-6,64}})));
 
   Modelica.Fluid.Vessels.BaseClasses.VesselFluidPorts_b portsCor[2](
       redeclare package Medium = Medium) "Fluid inlets and outlets"
     annotation (Placement(transformation(extent={{70,38},{110,54}}),
-        iconTransformation(extent={{78,40},{118,56}})));
+        iconTransformation(extent={{78,48},{118,64}})));
 
   Modelica.Blocks.Interfaces.RealOutput TRooAir[5](
     each unit="K",
@@ -64,7 +64,8 @@ partial model PartialFloor "Interface for a model of a floor of a building"
         origin={-90,50})));
 
   BoundaryConditions.WeatherData.Bus weaBus "Weather bus"
-    annotation (Placement(transformation(extent={{200,190},{220,210}})));
+    annotation (Placement(transformation(extent={{200,190},{220,210}}),
+        iconTransformation(extent={{200,210},{220,230}})));
 
   Buildings.Examples.VAVReheat.BaseClasses.RoomLeakage leaSou(
     redeclare package Medium = Medium,

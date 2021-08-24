@@ -172,53 +172,29 @@
     "model_name": "Buildings.Utilities.IO.Python36.Functions.Examples.ExchangeWithPassPythonObject"
   },
   {
-    "jmodelica": {
-        "translate": false
-    },
-    "optimica": {
-        "translate": false,
-        "comment": "Python 2.7 is not supported"
-    },
-    "model_name": "Buildings.Obsolete.Utilities.IO.Python27.Examples.KalmanFilter"
-  },
-  {
-    "jmodelica": {
-      "translate": false
-    },
-    "optimica": {
-      "translate": false,
-      "comment": "Python 2.7 is not supported"
-    },
-   "model_name": "Buildings.Obsolete.Utilities.IO.Python27.Examples.SimpleRoom"
-  },
-  {
-       "jmodelica": {
-         "translate": false
-    },
-       "optimica": {
-         "translate": false,
-         "comment": "Python 2.7 is not supported"
-    },
-    "model_name": "Buildings.Obsolete.Utilities.IO.Python27.Functions.Examples.Exchange"
-  },
-  {
-       "jmodelica": {
-         "translate": false
-    },
-       "optimica": {
-         "translate": false,
-         "comment": "Python 2.7 is not supported"
-    },
-    "model_name": "Buildings.Obsolete.Utilities.IO.Python27.Functions.Examples.ExchangeWithPassPythonObject"
-  },
-  {
        "jmodelica": {
          "rtol": 1E-8
     },
        "optimica": {
-         "rtol": 1E-8
+         "solver": "Radau5ODE",
+         "rtol": 1E-8,
+         "comment": "See https://app.travis-ci.com/github/lbl-srg/modelica-buildings/jobs/526352954#L640, times out with new filter for actuators"
     },
     "model_name": "Buildings.Examples.DualFanDualDuct.ClosedLoop"
+  },
+  {
+    "jmodelica": {
+      "simulate": false,
+      "comment": "See https://app.travis-ci.com/github/lbl-srg/modelica-buildings/jobs/531423041"
+    },
+    "model_name": "Buildings.Examples.ScalableBenchmarks.BuildingVAV.Examples.OneFloor_OneZone"
+  },
+  {
+    "jmodelica": {
+      "simulate": false,
+      "comment": "See https://app.travis-ci.com/github/lbl-srg/modelica-buildings/jobs/531423041"
+    },
+    "model_name": "Buildings.Examples.ScalableBenchmarks.BuildingVAV.Examples.TwoFloor_TwoZone"
   },
   {
     "jmodelica": {
@@ -249,6 +225,27 @@
     },
     "model_name": "Buildings.Experimental.DHC.Examples.Combined.Generation5.Examples.SeriesVariableFlow",
     "comment": "See https://github.com/lbl-srg/modelica-buildings/issues/2435 and https://github.com/lbl-srg/modelica-buildings/issues/2436"
+  },
+  {
+    "jmodelica": {
+      "simulate": false
+    },
+    "model_name": "Buildings.Examples.VAVReheat.ASHRAE2006",
+    "comment": "This causes a CVode error on travis. See https://travis-ci.com/github/lbl-srg/modelica-buildings/jobs/520509213 and https://github.com/lbl-srg/modelica-buildings/issues/2549"
+  },
+  {
+    "jmodelica": {
+      "simulate": false
+    },
+    "model_name": "Buildings.Examples.VAVReheat.Guideline36",
+    "comment": "This causes a timeout on travis. See https://travis-ci.com/github/lbl-srg/modelica-buildings/jobs/520509213 and https://github.com/lbl-srg/modelica-buildings/issues/2549"
+  },
+  {
+    "jmodelica": {
+      "simulate": false
+    },
+    "model_name": "Buildings.Examples.DualFanDualDuct.ClosedLoop",
+    "comment": "This causes a timeout on travis. See https://app.travis-ci.com/github/lbl-srg/modelica-buildings/jobs/525707949"
   },
   {
     "optimica": {

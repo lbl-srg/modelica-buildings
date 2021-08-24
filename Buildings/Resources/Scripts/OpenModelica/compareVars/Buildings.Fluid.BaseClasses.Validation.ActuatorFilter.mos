@@ -1,0 +1,7 @@
+compareVars :=
+  {
+    "act_1.y",
+    "act_2.y",
+    "act_y_start1.y",
+    "act_y_start05.y"
+  };

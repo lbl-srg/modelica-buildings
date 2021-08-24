@@ -2,7 +2,7 @@ simulateModel("Buildings.Examples.ScalableBenchmarks.BuildingVAV.Examples.OneFlo
 createPlot(id=1, position={15, 10, 590, 700}, subPlot=1, y={"weaDat.weaBus.TDryBul"}, range={0.0, 5.0, -3.5, 3.5}, grid=true, colors={{28,108,200}});
 createPlot(id=1, subPlot=2, y={"weaDat.weaBus.HDirNor","weaDat.weaBus.HGloHor"}, range={0.0, 5.0, -3.5, 3.5}, grid=true, colors={{0,140,72},{28,108,200}});
 createPlot(id=2, position={614, 10, 590, 700}, subPlot=1, y={"buiZon.theZon[1, 1].roo.heaPorAir.T"}, range={0.0, 5.0, -3.5, 3.5}, grid=true, colors={{28,108,200}});
-createPlot(id=2, subPlot=2, y={"buiZon.theZon[1, 1].heaCooPow"}, range={0.0, 604800, -2000, 2000}, autoscale=false, grid=true, colors={{28,108,200}});
+createPlot(id=2, subPlot=2, y={"buiZon.theZon[1, 1].EHea", "buiZon.theZon[1, 1].ECoo"}, grid=true, colors={{0,140,72},{28,108,200}});
 createPlot(
     id=3,
     position={1213, 11, 588, 698},

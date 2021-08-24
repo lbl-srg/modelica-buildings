@@ -274,7 +274,7 @@ model FlowDistribution
     final allowFlowReversal=allowFlowReversal)
     "Supply mass flow rate sensor"
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
-  Buildings.Controls.OBC.CDL.Routing.RealReplicator reaRep(
+  Buildings.Controls.OBC.CDL.Routing.RealScalarReplicator reaRep(
     final nout=nUni)
     "Repeat input to output an array"
     annotation (Placement(transformation(extent={{20,150},{40,170}})));
