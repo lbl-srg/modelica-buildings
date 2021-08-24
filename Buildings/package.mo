@@ -216,6 +216,25 @@ Version 9.0.0 is ... xxx
 The following <b style=\"color:blue\">new libraries</b> have been added:
 </p>
 <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\">
+<tr><td colspan=\"2\"><b>Buildings.BoundaryConditions</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.BoundaryConditions.GroundTemperature
+    </td>
+    <td valign=\"top\">Package with models and climatic data for computing ground temperature.
+    </td>
+</tr>
+<tr><td colspan=\"2\"><b>Buildings.Fluid.Geothermal</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Fluid.Geothermal.BuriedPipes
+    </td>
+    <td valign=\"top\">Package with models for modeling thermal coupling between buried pipes and ground.
+    </td>
+</tr>
+<tr><td colspan=\"2\"><b>Buildings.Media</b>
+    </td>
+</tr>
 <tr><td valign=\"top\">Buildings.Media.Steam
     </td>
     <td valign=\"top\">Package with medium model for steam heating applications.
@@ -235,14 +254,36 @@ The following <b style=\"color:blue\">new components</b> have been added
 to <b style=\"color:blue\">existing</b> libraries:
 </p>
 <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
-<tr><td colspan=\"2\"><b>xxx</b>
+<tr><td colspan=\"2\"><b>Buildings.Fluid.FixedResistances</b>
     </td>
 </tr>
-<tr><td valign=\"top\">xxx
+<tr><td valign=\"top\">Buildings.Fluid.FixedResistances.PlugFlowDiscretized
     </td>
-    <td valign=\"top\">xxx.
+    <td valign=\"top\">Class for modeling multiple plug flow pipes in series,
+                       which can be used to vary boundary conditions over the length of a pipe.
     </td>
-    </tr>
+</tr>
+<tr><td colspan=\"2\"><b>Buildings.Controls.OBC</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Controls.OBC.ASHRAE.G36_PR1.Generic.SetPoints.ZoneStatusDuplicator
+    </td>
+    <td valign=\"top\">Block that duplicates the zone status to be connected to all zone groups.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2544\">issue 2544</a>.
+    </td>
+</tr>
+<tr><td valign=\"top\">
+        Buildings.Controls.OBC.CDL.Routing.BooleanVectorFilter<br/>
+        Buildings.Controls.OBC.CDL.Routing.BooleanVectorReplicator<br/>
+        Buildings.Controls.OBC.CDL.Routing.IntegerVectorFilter<br/>
+        Buildings.Controls.OBC.CDL.Routing.IntegerVectorReplicator<br/>
+        Buildings.Controls.OBC.CDL.Routing.RealVectorFilter<br/>
+        Buildings.Controls.OBC.CDL.Routing.RealVectorReplicator
+    </td>
+    <td valign=\"top\">Blocks for filtering and replicating vectors of signals.<br/>
+         This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2544\">issue 2544</a>.
+    </td>
+</tr>
 </table>
 <!-- Backward compatible changes -->
 <p>
@@ -307,6 +348,15 @@ have been <b style=\"color:blue\">improved</b> in a
     </td>
     <td valign=\"top\">Made the <code>BaseProperties</code> replaceable.<br/>
                        This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/pull/1516\">IBPSA #1516</a>.
+    </td>
+</tr>
+<tr><td colspan=\"2\"><b>Buildings.Controls.OBC</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Controls.OBC.ASHRAE.G36_PR1.Generic.SetPoints.GroupStatus
+    </td>
+    <td valign=\"top\">Add filters to select which zones are used in group.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2544\">issue 2544</a>.
     </td>
 </tr>
 </table>
@@ -376,6 +426,20 @@ have been <b style=\"color:blue\">improved</b> in a
     </td>
     <td valign=\"top\">Renamed parameter <code>nu</code> to <code>nin</code>.
                 This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2580\">issue 2580</a>.<br/>
+                For Dymola, a conversion script makes this change.
+    </td>
+</tr>
+<tr><td colspan=\"2\"><b>Buildings.Controls.OBC.CDL.Routing</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">
+    Buildings.Controls.OBC.CDL.Routing.BooleanReplicator<br/>
+    Buildings.Controls.OBC.CDL.Routing.IntegerReplicator<br/>
+    Buildings.Controls.OBC.CDL.Routing.RealReplicator
+    </td>
+    <td valign=\"top\">Renamed to include <code>BooleanScalarReplicator</code>, <code>IntegerScalarReplicator</code>,
+                       and <code>RealScalarReplicator</code>.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2544\">issue 2544</a>. 
                 For Dymola, a conversion script makes this change.</td>
 </tr><tr><td colspan=\"2\"><b>Buildings.Obsolete</b>
     </td>
@@ -405,12 +469,16 @@ The following <b style=\"color:red\">critical errors</b> have been fixed (i.e., 
 that can lead to wrong simulation results):
 </p>
 <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
-<tr><td colspan=\"2\"><b>xxx</b>
+<tr><td colspan=\"2\"><b>Buildings.Occupants</b>
     </td>
 </tr>
-<tr><td valign=\"top\">xxx
+<tr><td valign=\"top\">Buildings.Occupants.Office.Occupancy.Wang2005Occupancy
     </td>
-    <td valign=\"top\">xxx.
+    <td valign=\"top\">Reformulated model so it works also if the simulation does not start at <i>0</i>.<br/>
+                       To improve efficiency, this reformulation also changes the event triggering function so that
+                       it leads to time events rather than state events.<br/>
+                       This is for
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2590\">#2590</a>..
     </td>
 </tr>
 </table>
