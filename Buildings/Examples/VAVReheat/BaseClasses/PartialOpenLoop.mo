@@ -465,6 +465,7 @@ partial model PartialOpenLoop
   Results res(
     final A=ATot,
     PFan=fanSup.P + 0,
+    PPum=pumHeaCoi.P + pumCooCoi.P,
     PHea=heaCoi.Q2_flow + cor.terHea.Q2_flow + nor.terHea.Q2_flow + wes.terHea.Q2_flow + eas.terHea.Q2_flow + sou.terHea.Q2_flow,
     PCooSen=cooCoi.QSen2_flow,
     PCooLat=cooCoi.QLat2_flow) "Results of the simulation";
@@ -576,14 +577,14 @@ partial model PartialOpenLoop
         origin={180,-166})));
   Fluid.Movers.SpeedControlled_y pumCooCoi(
     redeclare package Medium = MediumW,
-    per(pressure(V_flow={0,mCooWat_flow_nominal/1.2*2}, dp=2*{3000,0})),
+    per(pressure(V_flow={0,mCooWat_flow_nominal/1000*2}, dp=2*{3000,0})),
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial) "Supply air fan"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=270,
         origin={180,-120})));
   Fluid.Movers.SpeedControlled_y pumHeaCoi(
     redeclare package Medium = MediumW,
-    per(pressure(V_flow={0,mHeaWat_flow_nominal/1.2*2}, dp=2*{6000,0})),
+    per(pressure(V_flow={0,mHeaWat_flow_nominal/1000*2}, dp=2*{6000,0})),
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     "Pump for heating coil" annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
@@ -609,6 +610,7 @@ protected
   model Results "Model to store the results of the simulation"
     parameter Modelica.SIunits.Area A "Floor area";
     input Modelica.SIunits.Power PFan "Fan energy";
+    input Modelica.SIunits.Power PPum "Pump energy";
     input Modelica.SIunits.Power PHea "Heating energy";
     input Modelica.SIunits.Power PCooSen "Sensible cooling energy";
     input Modelica.SIunits.Power PCooLat "Latent cooling energy";
@@ -618,6 +620,11 @@ protected
       start=0,
       nominal=1E5,
       fixed=true) "Fan energy";
+    Real EPum(
+      unit="J/m2",
+      start=0,
+      nominal=1E5,
+      fixed=true) "Pump energy";
     Real EHea(
       unit="J/m2",
       start=0,
@@ -637,6 +644,7 @@ protected
   equation
 
     A*der(EFan) = PFan;
+    A*der(EPum) = PPum;
     A*der(EHea) = PHea;
     A*der(ECooSen) = PCooSen;
     A*der(ECooLat) = PCooLat;
