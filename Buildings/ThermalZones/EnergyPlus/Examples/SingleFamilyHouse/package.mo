@@ -1,7 +1,7 @@
 within Buildings.ThermalZones.EnergyPlus.Examples;
-package SingleFamilyHouse
-  "Package with examples that illustrate the use of the EnergyPlus objects"
+package SingleFamilyHouse "Package with examples that illustrate the use of the EnergyPlus objects"
   extends Modelica.Icons.ExamplesPackage;
+
   annotation (
     preferredView="info",
     Documentation(

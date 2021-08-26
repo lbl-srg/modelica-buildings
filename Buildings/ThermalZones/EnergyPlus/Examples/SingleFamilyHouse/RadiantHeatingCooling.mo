@@ -58,20 +58,13 @@ model RadiantHeatingCooling
     nPorts=1)
     "Pressure boundary condition"
     annotation (Placement(transformation(extent={{70,-270},{50,-250}})));
-  Controls.OBC.CDL.Continuous.PID conHea(
-    controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.P,
-    k=2,
-    Ti(
-      displayUnit="min")=3600)
-    "Controller for heating"
-    annotation (Placement(transformation(extent={{-200,-140},{-180,-120}})));
   Controls.OBC.CDL.Continuous.Sources.Constant TSetRooHea(
     k(final unit="K",
       displayUnit="degC")=293.15,
     y(final unit="K",
       displayUnit="degC"))
     "Room temperture set point for heating"
-    annotation (Placement(transformation(extent={{-240,-140},{-220,-120}})));
+    annotation (Placement(transformation(extent={{-200,-182},{-180,-162}})));
   Fluid.Movers.SpeedControlled_y pum(
     redeclare package Medium=MediumW,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
@@ -85,35 +78,15 @@ model RadiantHeatingCooling
     inputType=Buildings.Fluid.Types.InputType.Continuous)
     "Pump"
     annotation (Placement(transformation(extent={{-80,-270},{-60,-250}})));
-  Fluid.HeatExchangers.HeaterCooler_u hea(
+  Fluid.HeatExchangers.Heater_T hea(
     redeclare final package Medium=MediumW,
     allowFlowReversal=false,
     m_flow_nominal=mHea_flow_nominal,
     dp_nominal=10000,
     show_T=true,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    Q_flow_nominal=QHea_flow_nominal)
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     "Ideal heater"
     annotation (Placement(transformation(extent={{-40,-270},{-20,-250}})));
-  Controls.OBC.CDL.Continuous.Hysteresis hysHea(
-    uLow=0.1,
-    uHigh=0.2)
-    "Hysteresis to switch system on and off"
-    annotation (Placement(transformation(extent={{-160,-140},{-140,-120}})));
-  Controls.OBC.CDL.Logical.Switch swiBoi
-    "Switch for boiler"
-    annotation (Placement(transformation(extent={{-120,-180},{-100,-160}})));
-  Controls.OBC.CDL.Logical.Switch swiPum
-    "Switch for pump"
-    annotation (Placement(transformation(extent={{-120,-210},{-100,-190}})));
-  Controls.OBC.CDL.Continuous.Sources.Constant on(
-    k=1)
-    "On signal"
-    annotation (Placement(transformation(extent={{-200,-220},{-180,-200}})));
-  Controls.OBC.CDL.Continuous.Sources.Constant off(
-    k=0)
-    "Off signal"
-    annotation (Placement(transformation(extent={{-200,-188},{-180,-168}})));
   // Ceiling slab
   Fluid.HeatExchangers.RadiantSlabs.ParallelCircuitsSlab slaCei(
     redeclare package Medium=MediumW,
@@ -204,6 +177,9 @@ model RadiantHeatingCooling
         rotation=270,
         origin={100,-260})));
 
+  RoomTemperature_Controller conHea(TSupSet_max=313.15)
+    "Controller for radiant heating system" annotation (Placement(
+        transformation(rotation=0, extent={{-162,-202},{-142,-182}})));
 initial equation
   // The floor area can be obtained from EnergyPlus, but it is a structural parameter used to
   // size the system and therefore we hard-code it here.
@@ -253,26 +229,10 @@ equation
     annotation (Line(points={{100,130},{100,140},{14,140},{14,130}},color={191,0,0}));
   connect(slaCei.surf_b,attFlo.heaPorBac)
     annotation (Line(points={{14,110},{14,100},{100,100},{100,110.2}},color={191,0,0}));
-  connect(hysHea.y,swiBoi.u2)
-    annotation (Line(points={{-138,-130},{-132,-130},{-132,-170},{-122,-170}},color={255,0,255}));
-  connect(hysHea.y,swiPum.u2)
-    annotation (Line(points={{-138,-130},{-132,-130},{-132,-200},{-122,-200}},color={255,0,255}));
-  connect(TSetRooHea.y,conHea.u_s)
-    annotation (Line(points={{-218,-130},{-202,-130}},color={0,0,127}));
-  connect(conHea.y,hysHea.u)
-    annotation (Line(points={{-178,-130},{-162,-130}},color={0,0,127}));
-  connect(conHea.y,swiBoi.u1)
-    annotation (Line(points={{-178,-130},{-170,-130},{-170,-162},{-122,-162}},color={0,0,127}));
-  connect(off.y,swiBoi.u3)
-    annotation (Line(points={{-178,-178},{-122,-178}},color={0,0,127}));
-  connect(off.y,swiPum.u3)
-    annotation (Line(points={{-178,-178},{-150,-178},{-150,-208},{-122,-208}},color={0,0,127}));
-  connect(on.y,swiPum.u1)
-    annotation (Line(points={{-178,-210},{-160,-210},{-160,-192},{-122,-192}},color={0,0,127}));
-  connect(swiBoi.y,hea.u)
-    annotation (Line(points={{-98,-170},{-50,-170},{-50,-254},{-42,-254}},color={0,0,127}));
-  connect(pum.y,swiPum.y)
-    annotation (Line(points={{-70,-248},{-70,-200},{-98,-200}},color={0,0,127}));
+  connect(TSetRooHea.y, conHea.TRooSet) annotation (Line(points={{-178,-172},{
+          -170,-172},{-170,-186},{-164,-186}}, color={0,0,127}));
+  connect(pum.y, conHea.yPum) annotation (Line(points={{-70,-248},{-70,-198},{-140,
+          -198}}, color={0,0,127}));
   connect(pum.port_b,hea.port_a)
     annotation (Line(points={{-60,-260},{-40,-260}},color={0,127,255}));
   connect(hea.port_b,slaFlo.port_a)
@@ -283,10 +243,12 @@ equation
           -280},{100,-280},{100,-269.8}}, color={191,0,0}));
   connect(slaFlo.port_b,pum.port_a)
     annotation (Line(points={{20,-260},{40,-260},{40,-300},{-100,-300},{-100,-260},{-80,-260}},color={0,127,255}));
-  connect(zon.TAir,conHea.u_m)
-    annotation (Line(points={{41,18},{48,18},{48,40},{-210,40},{-210,-150},{-190,-150},{-190,-142}},color={0,0,127}));
+  connect(zon.TAir, conHea.TRoo) annotation (Line(points={{41,18},{48,18},{48,
+          40},{-210,40},{-210,-198},{-164,-198}}, color={0,0,127}));
   connect(slaFlo.port_b,pre.ports[1])
     annotation (Line(points={{20,-260},{50,-260}},color={0,127,255}));
+  connect(conHea.TSupSet, hea.TSet) annotation (Line(points={{-140,-186},{-50,-186},
+          {-50,-252},{-42,-252}}, color={0,0,127}));
   annotation (
     __Dymola_Commands(
       file="modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/EnergyPlus/Examples/SingleFamilyHouse/RadiantHeatingCooling.mos" "Simulate and plot"),
