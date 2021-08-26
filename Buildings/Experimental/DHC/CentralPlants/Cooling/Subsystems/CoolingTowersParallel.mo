@@ -66,7 +66,7 @@ model CoolingTowersParallel
     each final PFan_nominal=PFan_nominal,
     each final dp_nominal=0)
     constrainedby
-    Buildings.Fluid.HeatExchangers.CoolingTowers.BaseClasses.CoolingTower(
+    Buildings.Fluid.HeatExchangers.CoolingTowers.BaseClasses.CoolingTowerVariableSpeed(
       redeclare each final package Medium=Medium,
       each final show_T=show_T,
       each final m_flow_nominal=m_flow_nominal,
