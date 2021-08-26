@@ -102,7 +102,8 @@ model RadiantHeatingWithGroundHeatTransfer
     "Boundary condition for construction"
     annotation (Placement(transformation(extent={{0,0},{20,20}},origin={-32,-330})));
 
-  Controls.OBC.RadiantSystems.Heating.HighMassSupplyTemperature_TRoom conHea(TSupSet_max=313.15)
+  Controls.OBC.RadiantSystems.Heating.HighMassSupplyTemperature_TRoom conHea(
+      TSupSet_max=318.15)
     "Controller for radiant heating system"
     annotation (Placement(transformation(extent={{-120,-220},{-100,-200}})));
 initial equation
@@ -134,8 +135,8 @@ equation
     annotation (Line(points={{-12,-320},{14,-320},{14,-312}},color={191,0,0}));
   connect(soi.port_b,slaFlo.surf_b)
     annotation (Line(points={{14,-292},{14,-270}},color={191,0,0}));
-  connect(conHea.TRoo, zon.TAir) annotation (Line(points={{-122,-216},{-270,
-          -216},{-270,40},{48,40},{48,18},{41,18}}, color={0,0,127}));
+  connect(conHea.TRoo, zon.TAir) annotation (Line(points={{-122,-216},{-192,-216},
+          {-192,40},{48,40},{48,18},{41,18}},       color={0,0,127}));
   connect(TSetRooHea.y, conHea.TRooSet) annotation (Line(points={{-158,-190},{
           -140,-190},{-140,-204},{-122,-204}}, color={0,0,127}));
   connect(conHea.yPum, pum.y) annotation (Line(points={{-98,-216},{-70,-216},{
@@ -195,7 +196,7 @@ First implementation.
 </html>"),
     Diagram(
       coordinateSystem(
-        extent={{-320,-340},{160,60}})),
+        extent={{-220,-340},{160,60}})),
     Icon(
       coordinateSystem(
         extent={{-100,-100},{100,100}})));
