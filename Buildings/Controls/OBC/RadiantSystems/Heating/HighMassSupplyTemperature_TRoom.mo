@@ -1,5 +1,5 @@
-within Buildings.ThermalZones.EnergyPlus.Examples.SingleFamilyHouse;
-model RoomTemperature_Controller
+within Buildings.Controls.OBC.RadiantSystems.Heating;
+block HighMassSupplyTemperature_TRoom
   "Room temperature controller for radiant heating with constant mass flow and variable supply temperature"
 
   parameter Real TSupSet_max(
@@ -248,4 +248,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end RoomTemperature_Controller;
+end HighMassSupplyTemperature_TRoom;

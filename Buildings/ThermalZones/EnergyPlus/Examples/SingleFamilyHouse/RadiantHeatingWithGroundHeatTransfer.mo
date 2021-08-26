@@ -102,7 +102,7 @@ model RadiantHeatingWithGroundHeatTransfer
     "Boundary condition for construction"
     annotation (Placement(transformation(extent={{0,0},{20,20}},origin={-32,-330})));
 
-  RoomTemperature_Controller conHea(TSupSet_max=313.15)
+  Controls.OBC.RadiantSystems.Heating.HighMassSupplyTemperature_TRoom conHea(TSupSet_max=313.15)
     "Controller for radiant heating system"
     annotation (Placement(transformation(extent={{-120,-220},{-100,-200}})));
 initial equation

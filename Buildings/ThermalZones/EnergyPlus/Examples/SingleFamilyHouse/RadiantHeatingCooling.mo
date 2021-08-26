@@ -177,7 +177,7 @@ model RadiantHeatingCooling
         rotation=270,
         origin={100,-260})));
 
-  RoomTemperature_Controller conHea(TSupSet_max=313.15)
+  Controls.OBC.RadiantSystems.Heating.HighMassSupplyTemperature_TRoom conHea(TSupSet_max=313.15)
     "Controller for radiant heating system" annotation (Placement(
         transformation(rotation=0, extent={{-162,-202},{-142,-182}})));
 initial equation

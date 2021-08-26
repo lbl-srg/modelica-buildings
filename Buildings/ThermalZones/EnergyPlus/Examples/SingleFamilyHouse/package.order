@@ -5,5 +5,3 @@ RadiantHeatingCooling
 RadiantHeatingWithGroundHeatTransfer
 ShadeControl
 Unconditioned
-RoomTemperature_Controller
-RoomTemperature_Controller_Validation

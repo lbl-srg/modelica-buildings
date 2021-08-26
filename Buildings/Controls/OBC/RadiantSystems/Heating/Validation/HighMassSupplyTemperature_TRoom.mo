@@ -1,5 +1,5 @@
-within Buildings.ThermalZones.EnergyPlus.Examples.SingleFamilyHouse;
-model RoomTemperature_Controller_Validation
+within Buildings.Controls.OBC.RadiantSystems.Heating.Validation;
+model HighMassSupplyTemperature_TRoom
   "Validation model for the room temperature controller"
   extends Modelica.Icons.Example;
 
@@ -10,7 +10,7 @@ model RoomTemperature_Controller_Validation
     timeScale=3600) "Measured room temperature"
     annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
 
-  RoomTemperature_Controller conHea(TSupSet_max=303.15) "Controller"
+  Controls.OBC.RadiantSystems.Heating.HighMassSupplyTemperature_TRoom conHea(TSupSet_max=303.15) "Controller"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 
 protected
@@ -28,8 +28,8 @@ equation
       info="<html>
 <p>
 This example validates the room temperature controller
-<a href=\"modelica://Buildings.ThermalZones.EnergyPlus.Examples.SingleFamilyHouse.RoomTemperature_Controller\">
-Buildings.ThermalZones.EnergyPlus.Examples.SingleFamilyHouse.RoomTemperature_Controller</a>
+<a href=\"modelica://Buildings.Controls.OBC.RadiantSystems.Heating.HighMassSupplyTemperature_TRoom\">
+Buildings.Controls.OBC.RadiantSystems.Heating.HighMassSupplyTemperature_TRoom</a>
 for the radiant system.
 The validation model applies a ramp signal to the controller input for the measured room air temperature.
 </p>
@@ -43,9 +43,9 @@ First implementation.
 </ul>
 </html>"),
     __Dymola_Commands(
-      file="modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/EnergyPlus/Examples/SingleFamilyHouse/RoomTemperature_Controller_Validation.mos" "Simulate and plot"),
+      file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/RadiantSystems/Heating/Validation/HighMassSupplyTemperature_TRoom.mos" "Simulate and plot"),
     experiment(
       StopTime=7200,
       Tolerance=1e-06,
       __Dymola_Algorithm="Cvode"));
-end RoomTemperature_Controller_Validation;
+end HighMassSupplyTemperature_TRoom;
