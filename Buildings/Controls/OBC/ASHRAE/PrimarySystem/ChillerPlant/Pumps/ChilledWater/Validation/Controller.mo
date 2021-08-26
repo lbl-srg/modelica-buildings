@@ -77,6 +77,10 @@ protected
     final period=3600,
     final shift=300) "Lead chiller enabling status"
     annotation (Placement(transformation(extent={{-60,0},{-40,20}})));
+  Buildings.Controls.OBC.CDL.Routing.RealReplicator reaRep(
+    final nout=2)
+    "Replicate real input"
+    annotation (Placement(transformation(extent={{-20,-140},{0,-120}})));
 
 equation
   connect(conInt.y, heaNoLoc.uPumLeaLag)
@@ -90,17 +94,11 @@ equation
   connect(remPreSen2.y, heaNoLoc.dpChiWat_remote[2])
     annotation (Line(points={{-38,-90},{52,-90},{52,152},{78,152}},
       color={0,0,127}));
-  connect(difPreSet.y, heaNoLoc.dpChiWatSet)
-    annotation (Line(points={{-38,-130},{56,-130},{56,150},{78,150}},
-      color={0,0,127}));
   connect(remPreSen1.y, dedNoLoc.dpChiWat_remote[1])
     annotation (Line(points={{-78,-70},{52,-70},{52,62},{78,62}},
       color={0,0,127}));
   connect(remPreSen2.y, dedNoLoc.dpChiWat_remote[2])
     annotation (Line(points={{-38,-90},{52,-90},{52,62},{78,62}},
-      color={0,0,127}));
-  connect(difPreSet.y, dedNoLoc.dpChiWatSet)
-    annotation (Line(points={{-38,-130},{56,-130},{56,60},{78,60}},
       color={0,0,127}));
   connect(locPreSen.y, dedLoc.dpChiWat_local)
     annotation (Line(points={{-78,-110},{48,-110},{48,-86},{78,-86}}, color={0,0,127}));
@@ -110,8 +108,6 @@ equation
   connect(remPreSen2.y, dedLoc.dpChiWat_remote[2])
     annotation (Line(points={{-38,-90},{52,-90},{52,-88},{78,-88}},
       color={0,0,127}));
-  connect(difPreSet.y, dedLoc.dpChiWatSet)
-    annotation (Line(points={{-38,-130},{56,-130},{56,-90},{78,-90}}, color={0,0,127}));
   connect(enaStaRet.y, heaNoLoc.uChiWatPum) annotation (Line(points={{-38,90},{44,
           90},{44,166},{78,166}},     color={255,0,255}));
   connect(con.y, heaNoLoc.uChiIsoVal[1])
@@ -144,6 +140,14 @@ equation
           {32,76},{78,76}}, color={255,0,255}));
   connect(booRep.y, dedLoc.uChiWatPum) annotation (Line(points={{2,40},{32,40},{
           32,-74},{78,-74}}, color={255,0,255}));
+  connect(difPreSet.y, reaRep.u)
+    annotation (Line(points={{-38,-130},{-22,-130}}, color={0,0,127}));
+  connect(reaRep.y, heaNoLoc.dpChiWatSet_remote) annotation (Line(points={{2,-130},
+          {56,-130},{56,150},{78,150}}, color={0,0,127}));
+  connect(reaRep.y, dedNoLoc.dpChiWatSet_remote) annotation (Line(points={{2,-130},
+          {56,-130},{56,60},{78,60}}, color={0,0,127}));
+  connect(reaRep.y, dedLoc.dpChiWatSet_remote) annotation (Line(points={{2,-130},
+          {56,-130},{56,-90},{78,-90}}, color={0,0,127}));
 
 annotation (
   experiment(StopTime=3600.0, Tolerance=1e-06),

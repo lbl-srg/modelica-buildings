@@ -143,7 +143,7 @@ protected
 
   Buildings.Controls.OBC.CDL.Logical.Latch lat1
     "Ensures initial stage is held until the first stage change signal after the initial stage phase is over"
-    annotation (Placement(transformation(extent={{102,150},{122,170}})));
+    annotation (Placement(transformation(extent={{100,150},{120,170}})));
 
   Buildings.Controls.OBC.CDL.Logical.And and3 "And"
     annotation (Placement(transformation(extent={{280,90},{300,110}})));
@@ -233,16 +233,16 @@ equation
     annotation (Line(points={{238,10},{222,10}},   color={0,0,127}));
   connect(triSam1.y,greThr1. u)
     annotation (Line(points={{262,10},{278,10}},   color={0,0,127}));
-  connect(edg.y,lat1. u) annotation (Line(points={{-358,160},{-340,160},{-340,180},
-          {80,180},{80,160},{100,160}},
+  connect(edg.y,lat1. u) annotation (Line(points={{-358,160},{-340,160},{-340,
+          180},{80,180},{80,160},{98,160}},
                                  color={255,0,255}));
   connect(switch2.y,reaToInt. u)
     annotation (Line(points={{362,200},{380,200},{380,160},{398,160}},
                                                  color={0,0,127}));
   connect(greThr1.y,and3. u2) annotation (Line(points={{302,10},{320,10},{320,60},
           {260,60},{260,92},{278,92}},       color={255,0,255}));
-  connect(and3.y,lat1. clr) annotation (Line(points={{302,100},{320,100},{320,140},
-          {80,140},{80,154},{100,154}},
+  connect(and3.y,lat1. clr) annotation (Line(points={{302,100},{320,100},{320,
+          140},{80,140},{80,154},{98,154}},
                                       color={255,0,255}));
   connect(and1.y,staChaHol1. u) annotation (Line(points={{-58,-190},{-40,-190},{
           -40,-170},{-22,-170}},
@@ -251,7 +251,7 @@ equation
     annotation (Line(points={{2,-170},{18,-170}},    color={255,0,255}));
   connect(uUp, or2.u1) annotation (Line(points={{-460,-40},{-380,-40},{-380,-90},
           {-362,-90}}, color={255,0,255}));
-  connect(uDow, or2.u2) annotation (Line(points={{-460,-140},{-380,-140},{-380,
+  connect(uDow, or2.u2) annotation (Line(points={{-460,-140},{-390,-140},{-390,
           -98},{-362,-98}},
                        color={255,0,255}));
   connect(uAvaUp, intToRea1.u)
@@ -282,7 +282,7 @@ equation
     annotation (Line(points={{-460,160},{-382,160}}, color={255,0,255}));
   connect(and3.u1, and6.y) annotation (Line(points={{278,100},{-100,100},{-100,-80},
           {-138,-80}}, color={255,0,255}));
-  connect(lat1.y, switch2.u2) annotation (Line(points={{124,160},{160,160},{160,
+  connect(lat1.y, switch2.u2) annotation (Line(points={{122,160},{160,160},{160,
           200},{338,200}}, color={255,0,255}));
   connect(or1.y, staChaHol2.u) annotation (Line(points={{142,-50},{152,-50},{152,
           -24},{100,-24},{100,-10},{118,-10}}, color={255,0,255}));
@@ -309,7 +309,7 @@ equation
           {460,60}}, color={255,0,255}));
   connect(cha.down, yChaDowEdg) annotation (Line(points={{402,4},{420,4},{420,-60},
           {460,-60}}, color={255,0,255}));
-  connect(uUp, and4.u1) annotation (Line(points={{-460,-40},{-390,-40},{-390,60},
+  connect(uUp, and4.u1) annotation (Line(points={{-460,-40},{-380,-40},{-380,60},
           {-322,60}}, color={255,0,255}));
   connect(uDow, not2.u) annotation (Line(points={{-460,-140},{-390,-140},{-390,
           40},{-362,40}},

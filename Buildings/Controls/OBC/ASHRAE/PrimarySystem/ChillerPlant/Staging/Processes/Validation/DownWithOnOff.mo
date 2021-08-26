@@ -6,7 +6,7 @@ model DownWithOnOff
     dowProCon(
     final nChi=2,
     final totSta=4,
-    final have_PonyChiller=true,
+    final have_ponyChiller=true,
     final chaChiWatIsoTim=300,
     final staVec={0,0.5,1,2},
     final desConWatPumSpe={0,0.5,0.75,0.6},

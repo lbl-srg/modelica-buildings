@@ -53,18 +53,24 @@ block Speed_primary_localDp
     "Chilled water differential static pressure from remote sensor"
     annotation (Placement(transformation(extent={{-180,-100},{-140,-60}}),
       iconTransformation(extent={{-140,-60},{-100,-20}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput dpChiWatSet(
-    final unit="Pa",
-    final quantity="PressureDifference")
-    "Chilled water differential static pressure setpoint"
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput dpChiWatSet_remote[nSen](
+      final unit=fill("Pa", nSen), final quantity=fill("PressureDifference",
+        nSen)) "Chilled water differential static pressure setpoint"
     annotation (Placement(transformation(extent={{-180,-140},{-140,-100}}),
-      iconTransformation(extent={{-140,-100},{-100,-60}})));
+        iconTransformation(extent={{-140,-100},{-100,-60}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yChiWatPumSpe(
     final min=minPumSpe,
     final max=maxPumSpe,
     final unit="1") "Chilled water pump speed"
     annotation (Placement(transformation(extent={{140,100},{180,140}}),
       iconTransformation(extent={{100,-20},{140,20}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput dpChiWatPumSet_local(
+    final quantity="PressureDifference",
+    final unit="Pa",
+    displayUnit="Pa")
+    "Local differential pressure setpoint"
+    annotation (Placement(transformation(extent={{140,-40},{180,0}}),
+        iconTransformation(extent={{100,-80},{140,-40}})));
 
   Buildings.Controls.OBC.CDL.Continuous.PIDWithReset conPID1(
     final controllerType=controllerType,
@@ -77,7 +83,8 @@ block Speed_primary_localDp
     annotation (Placement(transformation(extent={{-40,50},{-20,70}})));
   Buildings.Controls.OBC.CDL.Continuous.Line pumSpe "Pump speed"
     annotation (Placement(transformation(extent={{100,50},{120,70}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiMax maxRemDP(final nin=nSen)
+  Buildings.Controls.OBC.CDL.Continuous.MultiMax maxRemDP(
+    final nin=nSen)
     "Highest output from differential pressure control loops"
     annotation (Placement(transformation(extent={{40,-30},{60,-10}})));
   Buildings.Controls.OBC.CDL.Continuous.Line locDpSet
@@ -94,9 +101,6 @@ block Speed_primary_localDp
     annotation (Placement(transformation(extent={{0,-30},{20,-10}})));
 
 protected
-  Buildings.Controls.OBC.CDL.Routing.RealReplicator reaRep(
-    final nout=nSen) "Replicate real input"
-    annotation (Placement(transformation(extent={{-120,-130},{-100,-110}})));
   Buildings.Controls.OBC.CDL.Routing.BooleanReplicator booRep(
     final nout=nSen)
     "Replicate boolean input"
@@ -141,8 +145,6 @@ equation
     annotation (Line(points={{22,-20},{38,-20}}, color={0,0,127}));
   connect(booRep.y, conPID.trigger)
     annotation (Line(points={{-18,-40},{4,-40},{4,-32}}, color={255,0,255}));
-  connect(dpChiWatSet, reaRep.u)
-    annotation (Line(points={{-160,-120},{-122,-120}}, color={0,0,127}));
   connect(maxRemDP.y, locDpSet.u)
     annotation (Line(points={{62,-20},{98,-20}}, color={0,0,127}));
   connect(zer.y, locDpSet.x1)
@@ -168,9 +170,6 @@ equation
     annotation (Line(points={{2,100},{20,100},{20,52},{98,52}}, color={0,0,127}));
   connect(dpChiWat_remote, div.u1)
     annotation (Line(points={{-160,-80},{-80,-80},{-80,-94},{-42,-94}},
-      color={0,0,127}));
-  connect(reaRep.y, div.u2)
-    annotation (Line(points={{-98,-120},{-80,-120},{-80,-106},{-42,-106}},
       color={0,0,127}));
   connect(locDpSet.y, div1.u2)
     annotation (Line(points={{122,-20},{130,-20},{130,40},{-120,40},{-120,74},
@@ -207,7 +206,10 @@ equation
       color={255,0,255}));
   connect(uChiWatPum, mulOr.u)
     annotation (Line(points={{-160,-40},{-122,-40}},color={255,0,255}));
-
+  connect(dpChiWatSet_remote, div.u2) annotation (Line(points={{-160,-120},{-80,
+          -120},{-80,-106},{-42,-106}}, color={0,0,127}));
+  connect(locDpSet.y, dpChiWatPumSet_local)
+    annotation (Line(points={{122,-20},{160,-20}}, color={0,0,127}));
 annotation (
   defaultComponentName="chiPumSpe",
   Icon(coordinateSystem(extent={{-100,-100},{100,100}}),
@@ -237,15 +239,20 @@ annotation (
           pattern=LinePattern.Dash,
           textString="yChiWatPumSpe"),
         Text(
-          extent={{-98,-68},{-34,-90}},
+          extent={{-98,-68},{-20,-92}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
-          textString="dpChiWatSet"),
+          textString="dpChiWatSet_remote"),
         Text(
           extent={{-98,92},{-30,70}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
-          textString="dpChiWat_local")}),
+          textString="dpChiWat_local"),
+        Text(
+          extent={{6,-46},{98,-70}},
+          lineColor={0,0,127},
+          pattern=LinePattern.Dash,
+          textString="dpChiWatPumSet_local")}),
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-140,-140},{140,140}})),
   Documentation(info="<html>
 <p>

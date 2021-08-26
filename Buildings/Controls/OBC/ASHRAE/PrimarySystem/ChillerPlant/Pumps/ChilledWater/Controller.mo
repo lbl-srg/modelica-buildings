@@ -95,12 +95,12 @@ block Controller
     "Chilled water differential static pressure from remote sensor"
     annotation (Placement(transformation(extent={{-320,-220},{-280,-180}}),
       iconTransformation(extent={{-140,-100},{-100,-60}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput dpChiWatSet(
-    final unit="Pa",
-    final quantity="PressureDifference")
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput dpChiWatSet_remote[nSen](
+    final unit=fill("Pa", nSen),
+    final quantity=fill("PressureDifference",nSen))
     "Chilled water differential static pressure setpoint"
     annotation (Placement(transformation(extent={{-320,-260},{-280,-220}}),
-      iconTransformation(extent={{-140,-120},{-100,-80}})));
+        iconTransformation(extent={{-140,-120},{-100,-80}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yLea
     "Lead pump status setpoint"
     annotation (Placement(transformation(extent={{280,50},{320,90}}),
@@ -115,7 +115,14 @@ block Controller
     final max=1,
     final unit="1") "Enabled chilled water pump speed"
     annotation (Placement(transformation(extent={{280,-220},{320,-180}}),
-      iconTransformation(extent={{100,-100},{140,-60}})));
+      iconTransformation(extent={{100,-80},{140,-40}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput dpChiWatPumSet_local(
+    final quantity="PressureDifference",
+    final unit="Pa",
+    displayUnit="Pa") if have_locSen
+    "Local differential pressure setpoint"
+    annotation (Placement(transformation(extent={{280,-260},{320,-220}}),
+        iconTransformation(extent={{100,-110},{140,-70}})));
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Pumps.ChilledWater.Subsequences.EnableLead_dedicated
     enaDedLeaPum if not have_heaPum
@@ -393,15 +400,12 @@ equation
   connect(pumSpeLocDp.dpChiWat_remote, dpChiWat_remote)
     annotation (Line(points={{-62,-204},{-200,-204},{-200,-200},{-300,-200}},
       color={0,0,127}));
-  connect(pumSpeLocDp.dpChiWatSet, dpChiWatSet)
-    annotation (Line(points={{-62,-208},{-220,-208},{-220,-240},{-300,-240}},
-      color={0,0,127}));
-  connect(dpChiWat_remote, pumSpeRemDp.dpChiWat)
-    annotation (Line(points={{-300,-200},{-200,-200},{-200,-240},{-62,-240}},
-      color={0,0,127}));
-  connect(dpChiWatSet, pumSpeRemDp.dpChiWatSet)
-    annotation (Line(points={{-300,-240},{-220,-240},{-220,-248},{-62,-248}},
-      color={0,0,127}));
+  connect(pumSpeLocDp.dpChiWatSet_remote, dpChiWatSet_remote) annotation (Line(
+        points={{-62,-208},{-220,-208},{-220,-240},{-300,-240}}, color={0,0,127}));
+  connect(dpChiWat_remote, pumSpeRemDp.dpChiWat_remote) annotation (Line(points=
+         {{-300,-200},{-200,-200},{-200,-240},{-62,-240}}, color={0,0,127}));
+  connect(dpChiWatSet_remote, pumSpeRemDp.dpChiWatSet_remote) annotation (Line(
+        points={{-300,-240},{-220,-240},{-220,-248},{-62,-248}}, color={0,0,127}));
   connect(enaPum.y, pumSta.u2)
     annotation (Line(points={{202,-30},{210,-30},{210,-50},{150,-50},{150,-98},
       {178,-98}},  color={255,0,255}));
@@ -487,6 +491,8 @@ equation
   connect(pre1.y, booToInt1.u) annotation (Line(points={{242,-120},{260,-120},{260,
           -140},{-250,-140},{-250,-70},{-242,-70}}, color={255,0,255}));
 
+  connect(pumSpeLocDp.dpChiWatPumSet_local, dpChiWatPumSet_local) annotation (
+      Line(points={{-38,-206},{200,-206},{200,-240},{300,-240}}, color={0,0,127}));
 annotation (
   defaultComponentName="chiWatPum",
   Diagram(coordinateSystem(preserveAspectRatio=false,

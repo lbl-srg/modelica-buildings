@@ -143,8 +143,8 @@ block Controller "Tower fan speed control"
     annotation (Dialog(tab="Advanced", group="Return temperature control: Setpoint"));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput chiLoa[nChi](final unit=fill(
-        "W", nChi), final quantity=fill("HeatFlowRate", nChi)) if
-                                                  have_WSE "Current load of each chiller"
+        "W", nChi), final quantity=fill("HeatFlowRate", nChi))
+                                               if have_WSE "Current load of each chiller"
     annotation (Placement(transformation(extent={{-140,120},{-100,160}}),
       iconTransformation(extent={{-140,170},{-100,210}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uChi[nChi]

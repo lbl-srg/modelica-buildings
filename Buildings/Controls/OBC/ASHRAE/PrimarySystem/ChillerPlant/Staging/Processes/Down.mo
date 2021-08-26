@@ -736,17 +736,20 @@ annotation (
         Text(
           extent={{-104,-124},{-68,-136}},
           lineColor={255,0,255},
-          textString="uWSE"),
+          textString="uWSE",
+          visible=have_WSE),
         Text(
           extent={{-98,-162},{-32,-176}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
-          textString="uConWatPumSpe"),
+          textString="uConWatPumSpe",
+          visible=not have_fixSpeConWatPum),
         Text(
           extent={{-98,-140},{-26,-158}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
-          textString="uConWatPumSpeSet"),
+          textString="uConWatPumSpeSet",
+          visible=not have_fixSpeConWatPum),
         Text(
           extent={{60,198},{100,186}},
           lineColor={255,0,255},
@@ -781,7 +784,8 @@ annotation (
           extent={{18,-104},{98,-114}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
-          textString="yDesConWatPumSpe"),
+          textString="yDesConWatPumSpe",
+          visible=not have_fixSpeConWatPum),
         Text(
           extent={{34,-142},{96,-156}},
           lineColor={255,127,0},
@@ -810,7 +814,8 @@ annotation (
         Text(
           extent={{-98,-182},{-42,-196}},
           lineColor={255,0,255},
-          textString="uConWatPum")}),
+          textString="uConWatPum",
+          visible=have_fixSpeConWatPum)}),
 Documentation(info="<html>
 <p>
 Block that controls devices when there is a stage-down command. This sequence is for

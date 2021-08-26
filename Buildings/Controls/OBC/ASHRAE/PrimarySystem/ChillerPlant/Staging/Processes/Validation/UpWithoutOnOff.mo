@@ -5,6 +5,7 @@ model UpWithoutOnOff
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Processes.Up upProCon(
     final nChi=2,
     final totSta=4,
+    final have_fixSpeConWatPum=false,
     final chaChiWatIsoTim=300,
     final staVec={0,0.5,1,2},
     final desConWatPumSpe={0,0.5,0.75,0.6},
@@ -140,10 +141,11 @@ equation
           {140,-60},{140,-140},{16,-140},{16,60},{38,60}},        color={0,0,127}));
   connect(zerOrdHol1.y, zerOrdHol2.u) annotation (Line(points={{122,-60},{140,-60},
           {140,-90},{80,-90},{80,-110},{98,-110}}, color={0,0,127}));
-  connect(zerOrdHol2.y, upProCon.uConWatPumSpe) annotation (Line(points={{122,-110},
-          {130,-110},{130,-134},{18,-134},{18,57},{38,57}},color={0,0,127}));
+  connect(zerOrdHol2.y, upProCon.uConWatPumSpe) annotation (Line(points={{122,
+          -110},{130,-110},{130,-134},{18,-134},{18,58},{38,58}},
+                                                           color={0,0,127}));
   connect(chiStaRet.y, upProCon.uChiHeaCon) annotation (Line(points={{122,70},{
-          140,70},{140,40},{20,40},{20,54},{38,54}}, color={255,0,255}));
+          140,70},{140,40},{20,40},{20,53},{38,53}}, color={255,0,255}));
   connect(staUp.y, booRep.u) annotation (Line(points={{-78,110},{-70,110},{-70,-220},
           {-62,-220}}, color={255,0,255}));
   connect(booRep.y, IsoVal.u2) annotation (Line(points={{-38,-220},{-30,-220},{-30,

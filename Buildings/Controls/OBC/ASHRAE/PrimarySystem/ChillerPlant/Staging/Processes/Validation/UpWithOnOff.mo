@@ -5,7 +5,8 @@ model UpWithOnOff
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Processes.Up upProCon(
     final nChi=2,
     final totSta=4,
-    final have_PonyChiller=true,
+    final have_ponyChiller=true,
+    final have_fixSpeConWatPum=false,
     final chaChiWatIsoTim=300,
     final staVec={0,0.5,1,2},
     final desConWatPumSpe={0,0.5,0.75,0.6},
@@ -227,11 +228,13 @@ equation
   connect(conPumSpeSet.y, upProCon.uConWatPumSpeSet) annotation (Line(points={{102,-20},
           {120,-20},{120,-40},{-38,-40},{-38,92},{18,92}},      color={0,0,127}));
   connect(conPumSpe.y, upProCon.uConWatPumSpe) annotation (Line(points={{102,-60},
-          {120,-60},{120,-80},{-36,-80},{-36,89},{18,89}},   color={0,0,127}));
-  connect(chiOneHea.y, upProCon.uChiHeaCon[1]) annotation (Line(points={{102,-100},
-          {120,-100},{120,-116},{-32,-116},{-32,85},{18,85}}, color={255,0,255}));
-  connect(chiTwoHea.y, upProCon.uChiHeaCon[2]) annotation (Line(points={{102,-140},
-          {120,-140},{120,-124},{-34,-124},{-34,87},{18,87}}, color={255,0,255}));
+          {120,-60},{120,-80},{-36,-80},{-36,90},{18,90}},   color={0,0,127}));
+  connect(chiOneHea.y, upProCon.uChiHeaCon[1]) annotation (Line(points={{102,
+          -100},{120,-100},{120,-116},{-32,-116},{-32,84},{18,84}},
+                                                              color={255,0,255}));
+  connect(chiTwoHea.y, upProCon.uChiHeaCon[2]) annotation (Line(points={{102,
+          -140},{120,-140},{120,-124},{-34,-124},{-34,86},{18,86}},
+                                                              color={255,0,255}));
   connect(upProCon.yChiHeaCon[1], chiOneHea.u) annotation (Line(points={{42,90},
           {50,90},{50,-100},{78,-100}}, color={255,0,255}));
   connect(upProCon.yChiHeaCon[2], chiTwoHea.u) annotation (Line(points={{42,92},

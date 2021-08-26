@@ -112,7 +112,7 @@ protected
     "Logical equal"
     annotation (Placement(transformation(extent={{40,10},{60,30}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Pre pre if  not simTimSta
+  Buildings.Controls.OBC.CDL.Logical.Pre pre  if not simTimSta
     "Logical pre"
     annotation (Placement(transformation(extent={{80,10},{100,30}})));
 

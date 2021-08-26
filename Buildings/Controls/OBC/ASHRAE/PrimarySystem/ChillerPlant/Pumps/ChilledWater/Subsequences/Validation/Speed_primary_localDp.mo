@@ -33,6 +33,9 @@ protected
     final amplitude=1*6894.75,
     final offset=8.5*6894.75)  "Local pressure difference sensor reading"
     annotation (Placement(transformation(extent={{-60,70},{-40,90}})));
+  Buildings.Controls.OBC.CDL.Routing.RealReplicator reaRep(
+    final nout=2) "Replicate real input"
+    annotation (Placement(transformation(extent={{-30,-90},{-10,-70}})));
 
 equation
   connect(locPreSen.y, chiPumSpe.dpChiWat_local)
@@ -44,12 +47,13 @@ equation
   connect(remPreSen2.y, chiPumSpe.dpChiWat_remote[2])
     annotation (Line(points={{-38,-40},{-20,-40},{-20,-3},{18,-3}},
       color={0,0,127}));
-  connect(difPreSet.y, chiPumSpe.dpChiWatSet)
-    annotation (Line(points={{-38,-80},{0,-80},{0,-8},{18,-8}},
-      color={0,0,127}));
   connect(pumSta.y, chiPumSpe.uChiWatPum)
     annotation (Line(points={{-38,40},{-20,40},{-20,4},{18,4}},
       color={255,0,255}));
+  connect(difPreSet.y, reaRep.u)
+    annotation (Line(points={{-38,-80},{-32,-80}}, color={0,0,127}));
+  connect(reaRep.y, chiPumSpe.dpChiWatSet_remote)
+    annotation (Line(points={{-8,-80},{0,-80},{0,-8},{18,-8}}, color={0,0,127}));
 
 annotation (
   experiment(StopTime=10.0, Tolerance=1e-06),

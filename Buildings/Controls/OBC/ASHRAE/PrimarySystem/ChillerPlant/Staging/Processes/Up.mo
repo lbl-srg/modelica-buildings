@@ -615,7 +615,8 @@ annotation (
         Text(
           extent={{-100,-44},{-64,-56}},
           lineColor={255,0,255},
-          textString="uWSE"),
+          textString="uWSE",
+          visible=have_WSE),
         Text(
           extent={{-98,-184},{-48,-196}},
           lineColor={255,0,255},
@@ -634,12 +635,14 @@ annotation (
           extent={{-96,-70},{-12,-88}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
-          textString="uConWatPumSpeSet"),
+          textString="uConWatPumSpeSet",
+          visible=not have_fixSpeConWatPum),
         Text(
           extent={{-96,-92},{-22,-106}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
-          textString="uConWatPumSpe"),
+          textString="uConWatPumSpe",
+          visible=not have_fixSpeConWatPum),
         Text(
           extent={{-96,-164},{-36,-176}},
           lineColor={0,0,127},
@@ -679,7 +682,8 @@ annotation (
           extent={{18,-4},{98,-14}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
-          textString="yDesConWatPumSpe"),
+          textString="yDesConWatPumSpe",
+          visible=not have_fixSpeConWatPum),
         Text(
           extent={{36,-130},{96,-146}},
           lineColor={0,0,127},
@@ -704,7 +708,8 @@ annotation (
         Text(
           extent={{-96,-112},{-38,-126}},
           lineColor={255,0,255},
-          textString="uConWatPum")}),
+          textString="uConWatPum",
+          visible=have_fixSpeConWatPum)}),
 Documentation(info="<html>
 <p>
 Block that controls devices when there is a stage-up command. This sequence is for

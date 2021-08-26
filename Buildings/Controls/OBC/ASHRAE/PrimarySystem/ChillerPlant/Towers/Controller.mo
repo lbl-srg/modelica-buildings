@@ -391,7 +391,7 @@ protected
     final staVec=staVec,
     final towCelOnSet=towCelOnSet,
     final chaTowCelIsoTim=chaTowCelIsoTim,
-    final speChe=speChe)
+    final speChe=speChe) "Cooling tower staging"
     annotation (Placement(transformation(extent={{-20,-52},{0,-32}})));
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Towers.WaterLevel makUpWat(
     final watLevMin=watLevMin,

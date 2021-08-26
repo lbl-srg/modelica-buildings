@@ -108,12 +108,12 @@ protected
   Buildings.Controls.OBC.CDL.Continuous.Division floRat[nChi]
     "Flow rate ratio through each chiller"
     annotation (Placement(transformation(extent={{-280,170},{-260,190}})));
-  Buildings.Controls.OBC.CDL.Routing.RealExtractor nexChiRat(final nin=nChi) if
-       have_parChi
+  Buildings.Controls.OBC.CDL.Routing.RealExtractor nexChiRat(final nin=nChi)
+    if have_parChi
     "Flow rate ratio of next enabling chiller"
     annotation (Placement(transformation(extent={{-220,80},{-200,100}})));
-  Buildings.Controls.OBC.CDL.Routing.RealExtractor nexChiMaxFlo(final nin=nChi) if
-       have_parChi "Maximum flow rate of next enabling chiller"
+  Buildings.Controls.OBC.CDL.Routing.RealExtractor nexChiMaxFlo(final nin=nChi)
+    if have_parChi "Maximum flow rate of next enabling chiller"
     annotation (Placement(transformation(extent={{-220,40},{-200,60}})));
   Buildings.Controls.OBC.CDL.Continuous.Max max if have_parChi
     "Maximum flow rate ratio of operating chillers after one chiller being enabled"
@@ -143,27 +143,27 @@ protected
   Buildings.Controls.OBC.CDL.Continuous.Max max1 if not have_parChi
     "Largest minimum flow rate setpoint of operating chillers after one chiller being enabled"
     annotation (Placement(transformation(extent={{-40,-200},{-20,-180}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiSum mulSum1(final nin=nChi) if
-       have_parChi
+  Buildings.Controls.OBC.CDL.Continuous.MultiSum mulSum1(final nin=nChi)
+    if have_parChi
     "Sum of maximum chilled water flow rate setpoint of operating chillers after one chiller being disabled"
     annotation (Placement(transformation(extent={{-120,-70},{-100,-50}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiMax multiMax1(final nin=nChi) if
-       not have_parChi
+  Buildings.Controls.OBC.CDL.Continuous.MultiMax multiMax1(final nin=nChi)
+    if not have_parChi
     "Largest minimum flow rate setpoint of operating chillers"
     annotation (Placement(transformation(extent={{-120,-170},{-100,-150}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiMax multiMax2(final nin=nChi) if
-       have_parChi
+  Buildings.Controls.OBC.CDL.Continuous.MultiMax multiMax2(final nin=nChi)
+    if have_parChi
     "Maximum flow rate ratio of operating chillers after one chiller being disabled"
     annotation (Placement(transformation(extent={{-120,-10},{-100,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiMax multiMax3(final nin=nChi) if
-       not have_parChi
+  Buildings.Controls.OBC.CDL.Continuous.MultiMax multiMax3(final nin=nChi)
+    if not have_parChi
     "Largest minimum flow rate setpoint of operating chillers after one chiller being disabled"
     annotation (Placement(transformation(extent={{-40,-240},{-20,-220}})));
   Buildings.Controls.OBC.CDL.Logical.Switch swi5[nChi] if not have_parChi
     "Minimum flow rate of operating chiller"
     annotation (Placement(transformation(extent={{-160,-170},{-140,-150}})));
-  Buildings.Controls.OBC.CDL.Routing.RealExtractor nexChiMinFlo(final nin=nChi) if
-       not have_parChi "Minimum flow rate of next enabling chiller"
+  Buildings.Controls.OBC.CDL.Routing.RealExtractor nexChiMinFlo(final nin=nChi)
+    if not have_parChi "Minimum flow rate of next enabling chiller"
     annotation (Placement(transformation(extent={{-100,-200},{-80,-180}})));
   Buildings.Controls.OBC.CDL.Logical.Switch swi6[nChi] if not have_parChi
     "Minimum flow rate of operating chiller"
@@ -197,8 +197,8 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Switch swi12[nChi] if have_parChi
     "Flow rate ratio of operating chiller"
     annotation (Placement(transformation(extent={{-220,260},{-200,280}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiMax multiMax5(final nin=nChi) if
-       have_parChi
+  Buildings.Controls.OBC.CDL.Continuous.MultiMax multiMax5(final nin=nChi)
+    if have_parChi
     "Maximum flow rate ratio of operating chillers"
     annotation (Placement(transformation(extent={{-180,260},{-160,280}})));
   Buildings.Controls.OBC.CDL.Continuous.Product pro4 if have_parChi
