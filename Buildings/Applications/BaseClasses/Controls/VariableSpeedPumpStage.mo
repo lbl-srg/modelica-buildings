@@ -1,4 +1,4 @@
-within Buildings.Applications.DataCenters.ChillerCooled.Controls;
+within Buildings.Applications.BaseClasses.Controls;
 model VariableSpeedPumpStage "Staging control for variable speed pumps"
   extends Modelica.Blocks.Icons.Block;
 

@@ -27,3 +27,14 @@ convertElement(
     "Buildings.Controls.OBC.CDL.Logical.MultiOr",
     "nu", "nin");
 
+// Conversion for https://github.com/lbl-srg/modelica-buildings/issues/2264
+convertClass("Buildings.Applications.DataCenters.ChillerCooled.Equipment.FlowMachine_y",
+             "Buildings.Applications.BaseClasses.Equipment.FlowMachine_y");
+convertClass("Buildings.Applications.DataCenters.ChillerCooled.Equipment.FlowMachine_m",
+             "Buildings.Applications.BaseClasses.Equipment.FlowMachine_m");
+convertClass("Buildings.Applications.DataCenters.ChillerCooled.Equipment.ElectricChillerParallel",
+             "Buildings.Applications.BaseClasses.Equipment.ElectricChillerParallel");
+convertClass("Buildings.Applications.DataCenters.ChillerCooled.Controls.VariableSpeedPumpStage",
+             "Buildings.Applications.BaseClasses.Controls.VariableSpeedPumpStage");
+convertElement("Buildings.Fluid.HeatExchangers.CoolingTowers.YorkCalc",
+               "TWatIn0", "TWatIn_nominal")

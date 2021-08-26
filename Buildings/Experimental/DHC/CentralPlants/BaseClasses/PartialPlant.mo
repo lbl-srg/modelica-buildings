@@ -24,7 +24,8 @@ partial model PartialPlant
   parameter Boolean have_eleHea=false
     "Set to true if the plant has electric heating system"
     annotation (Evaluate=true, Dialog(group="Configuration"));
-  parameter Integer nFue=0
+  // Placeholder parameter
+  final parameter Integer nFue=0
     "Number of fuel types (0 means no combustion system)"
     annotation (Evaluate=true, Dialog(group="Configuration"));
   parameter Boolean have_eleCoo=false
@@ -36,7 +37,7 @@ partial model PartialPlant
   parameter Boolean allowFlowReversal=false
     "Set to true to allow flow reversal in service lines"
     annotation (Dialog(tab="Assumptions"),Evaluate=true);
-  parameter Buildings.Fluid.Data.Fuels.Generic fue[nFue]
+  final parameter Buildings.Fluid.Data.Fuels.Generic fue[nFue]
     "Fuel type"
      annotation (choicesAllMatching = true, Dialog(enable=nFue>0));
   // IO CONNECTORS

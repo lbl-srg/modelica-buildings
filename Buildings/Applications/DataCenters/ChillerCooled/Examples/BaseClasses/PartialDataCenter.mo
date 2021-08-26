@@ -234,7 +234,7 @@ partial model PartialDataCenter
   Modelica.Blocks.Sources.Constant TAirSupSet(k=TSupAirSet)
     "Supply air temperature setpoint"
     annotation (Placement(transformation(extent={{-140,-90},{-120,-70}})));
-  Buildings.Applications.DataCenters.ChillerCooled.Controls.VariableSpeedPumpStage varSpeCon(
+  Buildings.Applications.BaseClasses.Controls.VariableSpeedPumpStage varSpeCon(
     tWai=tWai,
     m_flow_nominal=m2_flow_chi_nominal,
     deaBanSpe=0.45)

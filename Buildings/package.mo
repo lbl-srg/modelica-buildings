@@ -239,7 +239,14 @@ The following <b style=\"color:blue\">new libraries</b> have been added:
     </td>
     <td valign=\"top\">Package with medium model for steam heating applications.
     </td>
-    </tr>
+</tr>
+<tr><td valign=\"top\">Buildings.Experimental.DHC.CentralPlants.Cooling
+    </td>
+    <td valign=\"top\">Package with models for a chilled water plant adapted to 
+    district cooling applications.<br/>
+    This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2264\">issue 2264</a>
+    </td>
+</tr>
 </table>
 <!-- New components for existing libraries -->
 <p>
@@ -441,6 +448,19 @@ have been <b style=\"color:blue\">improved</b> in a
     </td>
     <td valign=\"top\">Removed support for Python 27. Use instead <code>Buildings.Utilities.IO.Python36</code>.
     </td>
+</tr>
+ <tr><td colspan=\"2\"><b>Buildings.Applications</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">
+    Buildings.Applications.DataCenters.ChillerCooled.Equipment.FlowMachine_y<br/>
+    Buildings.Applications.DataCenters.ChillerCooled.Equipment.FlowMachine_m<br/>
+    Buildings.Applications.DataCenters.ChillerCooled.Equipment.ElectricChillerParallel<br/>
+    Buildings.Applications.DataCenters.ChillerCooled.Controls.VariableSpeedPumpStage
+    </td>
+    <td valign=\"top\">Moved to Buildings.Applications.BaseClasses.<br/>
+                This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2264\">issue 2264</a>.<br/>
+                For Dymola, a conversion script makes this change.</td>
 </tr>
 </table>
 <!-- Errors that have been fixed -->
