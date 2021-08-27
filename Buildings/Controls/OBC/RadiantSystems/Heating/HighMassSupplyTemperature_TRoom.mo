@@ -163,9 +163,9 @@ equation
           extent={{-150,110},{150,150}},
           textString="%name"),
         Text(
-          extent={{74,92},{94,46}},
+          extent={{58,94},{94,44}},
           lineColor={0,0,127},
-          textString="TSet"),
+          textString="TSupSet"),
         Text(
           extent={{76,-44},{96,-90}},
           lineColor={0,0,127},
@@ -223,7 +223,21 @@ equation
         Text(
           extent={{80,32},{98,16}},
           lineColor={0,0,127},
-          textString="y")}),
+          textString="y"),
+        Text(
+          extent={{230,108},{110,58}},
+          lineColor={0,0,127},
+          textString=DynamicSelect("",
+            String(TSupSet,
+              leftjustified=false,
+              significantDigits=3))),
+        Text(
+          extent={{230,64},{110,14}},
+          lineColor={0,0,127},
+          textString=DynamicSelect("",
+            String(y,
+              leftjustified=false,
+              significantDigits=2)))}),
     Documentation(info="<html>
 <p>
 Controller for a radiant heating system.
@@ -236,9 +250,9 @@ The pump control is based on a hysteresis that takes as an input the control sig
 the supply temperature set point controller.
 </p>
 <p>
-While this controller allows to be configured as a PI-controller,
-for system with high mass, best result are achieved if configured as a P-controller,
-which is the default setting.
+For systems with high thermal mass, this controller should be left configured
+as a P-controller, which is the default setting.
+PI-controller likely saturate due to the slow system response.
 </p>
 </html>", revisions="<html>
 <ul>
