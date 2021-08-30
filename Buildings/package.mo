@@ -242,7 +242,7 @@ The following <b style=\"color:blue\">new libraries</b> have been added:
 </tr>
 <tr><td valign=\"top\">Buildings.Experimental.DHC.CentralPlants.Cooling
     </td>
-    <td valign=\"top\">Package with models for a chilled water plant adapted to 
+    <td valign=\"top\">Package with models for a chilled water plant adapted to
     district cooling applications.<br/>
     This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2264\">issue 2264</a>
     </td>
@@ -439,7 +439,7 @@ have been <b style=\"color:blue\">improved</b> in a
     </td>
     <td valign=\"top\">Renamed to include <code>BooleanScalarReplicator</code>, <code>IntegerScalarReplicator</code>,
                        and <code>RealScalarReplicator</code>.<br/>
-                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2544\">issue 2544</a>. 
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2544\">issue 2544</a>.
                 For Dymola, a conversion script makes this change.</td>
 </tr><tr><td colspan=\"2\"><b>Buildings.Obsolete</b>
     </td>
@@ -458,7 +458,7 @@ have been <b style=\"color:blue\">improved</b> in a
     Buildings.Applications.DataCenters.ChillerCooled.Equipment.ElectricChillerParallel<br/>
     Buildings.Applications.DataCenters.ChillerCooled.Controls.VariableSpeedPumpStage
     </td>
-    <td valign=\"top\">Moved to Buildings.Applications.BaseClasses.<br/>
+    <td valign=\"top\">Moved to <code>Buildings.Applications.BaseClasses</code>.<br/>
                 This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2264\">issue 2264</a>.<br/>
                 For Dymola, a conversion script makes this change.</td>
 </tr>
