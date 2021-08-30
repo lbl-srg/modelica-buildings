@@ -37,4 +37,4 @@ convertClass("Buildings.Applications.DataCenters.ChillerCooled.Equipment.Electri
 convertClass("Buildings.Applications.DataCenters.ChillerCooled.Controls.VariableSpeedPumpStage",
              "Buildings.Applications.BaseClasses.Controls.VariableSpeedPumpStage");
 convertElement("Buildings.Fluid.HeatExchangers.CoolingTowers.YorkCalc",
-               "TWatIn0", "TWatIn_nominal")
+               "TWatIn0", "TWatIn_nominal");
