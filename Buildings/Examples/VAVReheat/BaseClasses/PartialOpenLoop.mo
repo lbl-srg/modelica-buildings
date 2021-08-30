@@ -115,7 +115,7 @@ partial model PartialOpenLoop
   parameter Real yFanMin = 0.1 "Minimum fan speed";
 
   parameter Modelica.SIunits.Temperature THotWatInl_nominal(
-    displayUnit="degC")=55 + 273.15
+    displayUnit="degC")=45 + 273.15
     "Reheat coil nominal inlet water temperature";
 
   parameter Boolean allowFlowReversal=true
@@ -201,7 +201,7 @@ partial model PartialOpenLoop
   Buildings.Fluid.Sources.Boundary_pT sinHea(
     redeclare package Medium = MediumW,
     p=300000,
-    T=318.15,
+    T=THotWatInl_nominal,
     nPorts=1) "Sink for heating coil" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
@@ -225,8 +225,8 @@ partial model PartialOpenLoop
     m_flow_nominal=m_flow_nominal,
     allowFlowReversal=allowFlowReversal)
     annotation (Placement(transformation(extent={{330,-50},{350,-30}})));
-  Buildings.Fluid.Sensors.RelativePressure dpDisSupFan(redeclare package Medium
-      = MediumA) "Supply fan static discharge pressure" annotation (Placement(
+  Buildings.Fluid.Sensors.RelativePressure dpDisSupFan(redeclare package Medium =
+        MediumA) "Supply fan static discharge pressure" annotation (Placement(
         transformation(
         extent={{-10,10},{10,-10}},
         rotation=90,
@@ -618,7 +618,7 @@ partial model PartialOpenLoop
   Fluid.Sources.Boundary_pT souHea(
     redeclare package Medium = MediumW,
     p(displayUnit="Pa") = 300000 + 6000,
-    T=318.15,
+    T=THotWatInl_nominal,
     nPorts=1) "Source for heating coil" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
