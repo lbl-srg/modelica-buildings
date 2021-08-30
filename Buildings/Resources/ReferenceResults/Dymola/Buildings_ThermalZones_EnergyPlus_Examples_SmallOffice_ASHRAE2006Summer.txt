@@ -1,14 +1,14 @@
-last-generated=2021-08-25
+last-generated=2021-08-30
 statistics-initialization=
 {
   "linear": "0, 0, 0, 0, 0, 4",
-  "nonlinear": "0, 1, 2, 0, 0, 0, 0, 2, 0, 0, 0, 1, 1, 1",
+  "nonlinear": "0, 1, 2, 0, 0, 0, 0, 2, 0, 0, 0, 1, 1, 1, 1",
   "numerical Jacobians": "0"
 }
 statistics-simulation=
 {
   "linear": "0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 0",
-  "nonlinear": "0, 0, 0, 0, 3, 1, 1, 1, 0, 1, 1",
+  "nonlinear": "0, 0, 0, 0, 3, 1, 1, 0, 1, 0, 1, 1",
   "number of continuous time states": "77",
   "numerical Jacobians": "0"
 }

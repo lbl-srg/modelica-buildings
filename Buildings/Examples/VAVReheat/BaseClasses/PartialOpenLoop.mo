@@ -202,10 +202,10 @@ partial model PartialOpenLoop
     redeclare package Medium = MediumW,
     p=300000,
     T=318.15,
-    nPorts=2) "Sink for heating coil" annotation (Placement(transformation(
+    nPorts=1) "Sink for heating coil" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
-        origin={110,-270})));
+        origin={88,-270})));
   Buildings.Fluid.Sources.Boundary_pT sinCoo(
     redeclare package Medium = MediumW,
     p=300000,
@@ -225,8 +225,8 @@ partial model PartialOpenLoop
     m_flow_nominal=m_flow_nominal,
     allowFlowReversal=allowFlowReversal)
     annotation (Placement(transformation(extent={{330,-50},{350,-30}})));
-  Buildings.Fluid.Sensors.RelativePressure dpDisSupFan(redeclare package Medium =
-        MediumA) "Supply fan static discharge pressure" annotation (Placement(
+  Buildings.Fluid.Sensors.RelativePressure dpDisSupFan(redeclare package Medium
+      = MediumA) "Supply fan static discharge pressure" annotation (Placement(
         transformation(
         extent={{-10,10},{10,-10}},
         rotation=90,
@@ -526,40 +526,16 @@ partial model PartialOpenLoop
     annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
         rotation=90,
-        origin={220,-166})));
-  Fluid.Actuators.Valves.ThreeWayEqualPercentageLinear valHeaCoi(
-    redeclare package Medium = MediumW,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
-    m_flow_nominal=mHeaWat_flow_nominal,
-    dpValve_nominal=3000) "Valve for heating coil in AHU" annotation (Placement(
-        transformation(
-        extent={{-10,10},{10,-10}},
-        rotation=90,
-        origin={140,-170})));
+        origin={220,-170})));
   Fluid.Actuators.Valves.TwoWayEqualPercentage valCooCoi(
     redeclare package Medium = MediumW,
     m_flow_nominal=mCooWat_flow_nominal,
     dpValve_nominal=6000,
-    dpFixed_nominal=0)    "Valve for cooling coil" annotation (Placement(
+    dpFixed_nominal=0) "Valve for cooling coil"    annotation (Placement(
         transformation(
         extent={{10,-10},{-10,10}},
         rotation=90,
         origin={180,-210})));
-  Fluid.FixedResistances.Junction splHeaRet(
-    redeclare package Medium = MediumW,
-    m_flow_nominal=mHeaWat_flow_nominal*{1,1,1},
-    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
-    dp_nominal(each displayUnit="Pa") = {0,0,0},
-    portFlowDirection_1=if allowFlowReversal then Modelica.Fluid.Types.PortFlowDirection.Bidirectional
-         else Modelica.Fluid.Types.PortFlowDirection.Entering,
-    portFlowDirection_2=if allowFlowReversal then Modelica.Fluid.Types.PortFlowDirection.Bidirectional
-         else Modelica.Fluid.Types.PortFlowDirection.Leaving,
-    portFlowDirection_3=if allowFlowReversal then Modelica.Fluid.Types.PortFlowDirection.Bidirectional
-         else Modelica.Fluid.Types.PortFlowDirection.Leaving) "Flow splitter"
-    annotation (Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=90,
-        origin={80,-170})));
   Fluid.FixedResistances.Junction splCooRet(
     redeclare package Medium = MediumW,
     m_flow_nominal=mCooWat_flow_nominal*{1,1,1},
@@ -574,7 +550,7 @@ partial model PartialOpenLoop
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
-        origin={180,-166})));
+        origin={180,-170})));
   Fluid.Movers.SpeedControlled_y pumCooCoi(
     redeclare package Medium = MediumW,
     per(pressure(V_flow={0,mCooWat_flow_nominal/1000*2}, dp=2*{3000,0})),
@@ -584,12 +560,12 @@ partial model PartialOpenLoop
         origin={180,-120})));
   Fluid.Movers.SpeedControlled_y pumHeaCoi(
     redeclare package Medium = MediumW,
-    per(pressure(V_flow={0,mHeaWat_flow_nominal/1000*2}, dp=2*{6000,0})),
+    per(pressure(V_flow={0,mHeaWat_flow_nominal/1000*2}, dp=2*{3000,0})),
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     "Pump for heating coil" annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
         rotation=90,
-        origin={140,-120})));
+        origin={128,-120})));
   Fluid.Sources.Boundary_pT souCoo(
     redeclare package Medium = MediumW,
     p(displayUnit="Pa") = 300000 + 6000,
@@ -600,6 +576,53 @@ partial model PartialOpenLoop
         rotation=90,
         origin={220,-270})));
 
+  Fluid.Actuators.Valves.TwoWayEqualPercentage valHeaCoi(
+    redeclare package Medium = MediumW,
+    m_flow_nominal=mHeaWat_flow_nominal,
+    dpValve_nominal=6000,
+    dpFixed_nominal=0) "Valve for heating coil" annotation (Placement(
+        transformation(
+        extent={{10,-10},{-10,10}},
+        rotation=90,
+        origin={88,-210})));
+  Fluid.FixedResistances.Junction splHeaRet(
+    redeclare package Medium = MediumW,
+    m_flow_nominal=mHeaWat_flow_nominal*{1,1,1},
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
+    dp_nominal(each displayUnit="Pa") = {0,0,0},
+    portFlowDirection_1=if allowFlowReversal then Modelica.Fluid.Types.PortFlowDirection.Bidirectional
+         else Modelica.Fluid.Types.PortFlowDirection.Entering,
+    portFlowDirection_2=if allowFlowReversal then Modelica.Fluid.Types.PortFlowDirection.Bidirectional
+         else Modelica.Fluid.Types.PortFlowDirection.Leaving,
+    portFlowDirection_3=if allowFlowReversal then Modelica.Fluid.Types.PortFlowDirection.Bidirectional
+         else Modelica.Fluid.Types.PortFlowDirection.Leaving) "Flow splitter"
+    annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=90,
+        origin={88,-170})));
+  Fluid.FixedResistances.Junction splHeaSup(
+    redeclare package Medium = MediumW,
+    m_flow_nominal=mHeaWat_flow_nominal*{1,1,1},
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
+    dp_nominal(each displayUnit="Pa") = {0,0,0},
+    portFlowDirection_1=if allowFlowReversal then Modelica.Fluid.Types.PortFlowDirection.Bidirectional
+         else Modelica.Fluid.Types.PortFlowDirection.Entering,
+    portFlowDirection_2=if allowFlowReversal then Modelica.Fluid.Types.PortFlowDirection.Bidirectional
+         else Modelica.Fluid.Types.PortFlowDirection.Leaving,
+    portFlowDirection_3=if allowFlowReversal then Modelica.Fluid.Types.PortFlowDirection.Bidirectional
+         else Modelica.Fluid.Types.PortFlowDirection.Leaving) "Flow splitter"
+    annotation (Placement(transformation(
+        extent={{-10,10},{10,-10}},
+        rotation=90,
+        origin={128,-170})));
+  Fluid.Sources.Boundary_pT souHea(
+    redeclare package Medium = MediumW,
+    p(displayUnit="Pa") = 300000 + 6000,
+    T=318.15,
+    nPorts=1) "Source for heating coil" annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=90,
+        origin={128,-270})));
 protected
   constant Modelica.SIunits.SpecificHeatCapacity cpAir=
     Buildings.Utilities.Psychrometrics.Constants.cpAir
@@ -876,32 +899,34 @@ equation
   connect(sinHeaTer.ports[5], wes.port_bHotWat) annotation (Line(points={{520,-213.2},
           {1256,-213.2},{1256,28},{1290,28}},
                                             color={0,127,255}));
-  connect(pumHeaCoi.port_b, heaCoi.port_a1) annotation (Line(points={{140,-110},
-          {140,-52},{118,-52}}, color={0,127,255}));
-  connect(heaCoi.port_b1,splHeaRet. port_2)
-    annotation (Line(points={{98,-52},{80,-52},{80,-160}}, color={0,127,255}));
+  connect(pumHeaCoi.port_b, heaCoi.port_a1) annotation (Line(points={{128,-110},
+          {128,-52},{118,-52}}, color={0,127,255}));
   connect(cooCoi.port_b1,pumCooCoi. port_a) annotation (Line(points={{190,-52},{
           180,-52},{180,-110}}, color={0,127,255}));
-  connect(splCooSup.port_2, cooCoi.port_a1) annotation (Line(points={{220,-156},
+  connect(splCooSup.port_2, cooCoi.port_a1) annotation (Line(points={{220,-160},
           {220,-52},{210,-52}}, color={0,127,255}));
   connect(splCooRet.port_3,splCooSup. port_3)
-    annotation (Line(points={{190,-166},{210,-166}}, color={0,127,255}));
+    annotation (Line(points={{190,-170},{210,-170}}, color={0,127,255}));
   connect(pumCooCoi.port_b, splCooRet.port_2)
-    annotation (Line(points={{180,-130},{180,-156}}, color={0,127,255}));
+    annotation (Line(points={{180,-130},{180,-160}}, color={0,127,255}));
   connect(valCooCoi.port_a, splCooRet.port_1)
-    annotation (Line(points={{180,-200},{180,-176}}, color={0,127,255}));
+    annotation (Line(points={{180,-200},{180,-180}}, color={0,127,255}));
   connect(valCooCoi.port_b, sinCoo.ports[1])
     annotation (Line(points={{180,-220},{180,-260}}, color={0,127,255}));
   connect(souCoo.ports[1], splCooSup.port_1) annotation (Line(points={{220,-260},
-          {220,-176}},                                  color={0,127,255}));
-  connect(sinHea.ports[1], splHeaRet.port_1) annotation (Line(points={{108,-260},
-          {110,-260},{110,-200},{80,-200},{80,-180}}, color={0,127,255}));
-  connect(pumHeaCoi.port_a, valHeaCoi.port_2)
-    annotation (Line(points={{140,-130},{140,-160}}, color={0,127,255}));
-  connect(valHeaCoi.port_3, splHeaRet.port_3)
-    annotation (Line(points={{130,-170},{90,-170}}, color={0,127,255}));
-  connect(sinHea.ports[2], valHeaCoi.port_1) annotation (Line(points={{112,-260},
-          {112,-260},{112,-200},{140,-200},{140,-180}}, color={0,127,255}));
+          {220,-180}},                                  color={0,127,255}));
+  connect(souHea.ports[1], splHeaSup.port_1)
+    annotation (Line(points={{128,-260},{128,-180}}, color={0,127,255}));
+  connect(splHeaSup.port_2, pumHeaCoi.port_a)
+    annotation (Line(points={{128,-160},{128,-130}}, color={0,127,255}));
+  connect(heaCoi.port_b1, splHeaRet.port_2)
+    annotation (Line(points={{98,-52},{88,-52},{88,-160}}, color={0,127,255}));
+  connect(sinHea.ports[1], valHeaCoi.port_b)
+    annotation (Line(points={{88,-260},{88,-220}}, color={0,127,255}));
+  connect(valHeaCoi.port_a, splHeaRet.port_1)
+    annotation (Line(points={{88,-200},{88,-180}}, color={0,127,255}));
+  connect(splHeaRet.port_3, splHeaSup.port_3)
+    annotation (Line(points={{98,-170},{118,-170}}, color={0,127,255}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-380,
             -400},{1420,660}})), Documentation(info="<html>
 <p>

@@ -75,7 +75,7 @@ model ASHRAE2006
     annotation (Placement(transformation(extent={{-100,-250},{-80,-230}})));
   Controls.SupplyAirTemperature conTSup
     "Supply air temperature and economizer controller"
-    annotation (Placement(transformation(extent={{-20,-232},{0,-212}})));
+    annotation (Placement(transformation(extent={{-60,-230},{-40,-210}})));
   Controls.SupplyAirTemperatureSetpoint TSupSet
     "Supply air temperature set point"
     annotation (Placement(transformation(extent={{-200,-230},{-180,-210}})));
@@ -89,10 +89,19 @@ model ASHRAE2006
     annotation (Placement(transformation(extent={{-30,-20},{-50,0}})));
   Controls.SystemHysteresis sysHysHea
     "Hysteresis and delay to switch heating on and off"
-    annotation (Placement(transformation(extent={{40,-150},{60,-130}})));
+    annotation (Placement(transformation(extent={{-10,-150},{10,-130}})));
   Controls.SystemHysteresis sysHysCoo
     "Hysteresis and delay to switch cooling on and off"
     annotation (Placement(transformation(extent={{40,-250},{60,-230}})));
+  Buildings.Controls.OBC.CDL.Logical.Switch swiFreStaPum
+    "Switch for freeze stat of pump"
+    annotation (Placement(transformation(extent={{40,-130},{60,-110}})));
+  Buildings.Controls.OBC.CDL.Logical.Switch swiFreStaVal
+    "Switch for freeze stat of valve"
+    annotation (Placement(transformation(extent={{40,-170},{60,-150}})));
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant yFreHeaCoi(final k=1)
+    "Flow rate signal for heating coil when freeze stat is on"
+    annotation (Placement(transformation(extent={{-140,-130},{-120,-110}})));
 equation
   connect(controlBus, modeSelector.cb) annotation (Line(
       points={{-240,-342},{-152,-342},{-152,-303.182},{-196.818,-303.182}},
@@ -229,16 +238,16 @@ equation
   connect(wes.y_actual, pSetDuc.u[5]) annotation (Line(points={{1332,40},{1338,
           40},{1338,74},{140,74},{140,-4.4},{158,-4.4}}, color={0,0,127}));
   connect(TSup.T, conTSup.TSup) annotation (Line(
-      points={{340,-29},{352,-29},{352,-188},{-26,-188},{-26,-216},{-22,-216}},
+      points={{340,-29},{352,-29},{352,-188},{-80,-188},{-80,-214},{-62,-214}},
       color={0,0,127},
       pattern=LinePattern.Dash));
   connect(conTSup.yOA, conEco.uOATSup) annotation (Line(
-      points={{2,-222},{8,-222},{8,126},{-96,126},{-96,158.667},{-81.3333,
-          158.667}},
+      points={{-38,-220},{-28,-220},{-28,-180},{-152,-180},{-152,158.667},{
+          -81.3333,158.667}},
       color={0,0,127},
       pattern=LinePattern.Dash));
-  connect(or2.y, conTSup.uEna) annotation (Line(points={{-78,-240},{-28,-240},{
-          -28,-228},{-22,-228}},
+  connect(or2.y, conTSup.uEna) annotation (Line(points={{-78,-240},{-70,-240},{
+          -70,-226},{-62,-226}},
                                color={255,0,255}));
   connect(modeSelector.yEco, conEco.uEna) annotation (Line(points={{-179.091,
           -314.545},{-160,-314.545},{-160,100},{-73.3333,100},{-73.3333,137.333}},
@@ -254,8 +263,7 @@ equation
       extent={{-6,3},{-6,3}},
       horizontalAlignment=TextAlignment.Right));
   connect(TSupSet.TSet, conTSup.TSupSet)
-    annotation (Line(points={{-178,-220},{-178,-222},{-22,-222}},
-                                                     color={0,0,127}));
+    annotation (Line(points={{-178,-220},{-62,-220}},color={0,0,127}));
   connect(damRet.y, conEco.yRet) annotation (Line(points={{-12,-10},{-18,-10},{
           -18,146.667},{-58.6667,146.667}},
                                         color={0,0,127}));
@@ -296,18 +304,37 @@ equation
                                     color={0,0,127}));
   connect(freSta.y, or2.u1) annotation (Line(points={{-118,-90},{-110,-90},{
           -110,-240},{-102,-240}}, color={255,0,255}));
-  connect(sysHysHea.yPum, pumHeaCoi.y) annotation (Line(points={{62,-147},{160,
-          -147},{160,-120},{152,-120}}, color={0,0,127}));
-  connect(conTSup.yHea, sysHysHea.u) annotation (Line(points={{2,-216},{20,-216},
-          {20,-140},{38,-140}}, color={0,0,127}));
+  connect(conTSup.yHea, sysHysHea.u) annotation (Line(points={{-38,-214},{-32,
+          -214},{-32,-140},{-12,-140}},
+                                color={0,0,127}));
   connect(conTSup.yCoo, sysHysCoo.u)
-    annotation (Line(points={{2,-228},{2,-240},{38,-240}}, color={0,0,127}));
+    annotation (Line(points={{-38,-226},{-38,-240},{38,-240}},
+                                                           color={0,0,127}));
   connect(sysHysCoo.y, valCooCoi.y) annotation (Line(points={{62,-240},{160,
           -240},{160,-210},{168,-210}}, color={0,0,127}));
   connect(sysHysCoo.yPum, pumCooCoi.y) annotation (Line(points={{62,-247},{200,
           -247},{200,-120},{192,-120}}, color={0,0,127}));
-  connect(sysHysHea.y, valHeaCoi.y) annotation (Line(points={{62,-140},{158,
-          -140},{158,-170},{152,-170}}, color={0,0,127}));
+  connect(sysHysCoo.sysOn, modeSelector.yFan) annotation (Line(points={{38,-234},
+          {20,-234},{20,-305.455},{-179.091,-305.455}}, color={255,0,255}));
+  connect(sysHysHea.sysOn, modeSelector.yFan) annotation (Line(points={{-12,
+          -134},{-18,-134},{-18,-306},{-98,-306},{-98,-305.455},{-179.091,
+          -305.455}}, color={255,0,255}));
+  connect(yFreHeaCoi.y, swiFreStaPum.u1) annotation (Line(points={{-118,-120},{
+          -80,-120},{-80,-112},{38,-112}}, color={0,0,127}));
+  connect(yFreHeaCoi.y, swiFreStaVal.u1) annotation (Line(points={{-118,-120},{
+          28,-120},{28,-152},{38,-152}}, color={0,0,127}));
+  connect(freSta.y, swiFreStaPum.u2) annotation (Line(points={{-118,-90},{34,
+          -90},{34,-120},{38,-120}}, color={255,0,255}));
+  connect(freSta.y, swiFreStaVal.u2) annotation (Line(points={{-118,-90},{34,
+          -90},{34,-160},{38,-160}}, color={255,0,255}));
+  connect(sysHysHea.y, swiFreStaVal.u3) annotation (Line(points={{12,-140},{24,
+          -140},{24,-168},{38,-168}}, color={0,0,127}));
+  connect(sysHysHea.yPum, swiFreStaPum.u3) annotation (Line(points={{12,-147},{
+          20,-147},{20,-128},{38,-128}}, color={0,0,127}));
+  connect(swiFreStaPum.y, pumHeaCoi.y) annotation (Line(points={{62,-120},{108,
+          -120},{108,-140},{150,-140},{150,-120},{140,-120}}, color={0,0,127}));
+  connect(swiFreStaVal.y, valHeaCoi.y) annotation (Line(points={{62,-160},{66,
+          -160},{66,-210},{76,-210}}, color={0,0,127}));
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-380,-400},{1440,
             660}})),

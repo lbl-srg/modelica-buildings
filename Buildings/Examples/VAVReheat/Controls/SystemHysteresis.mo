@@ -18,36 +18,59 @@ model SystemHysteresis
     "Threshold to switch on system"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
   Buildings.Controls.OBC.CDL.Logical.Switch swi "Switch for control signal"
-    annotation (Placement(transformation(extent={{60,-10},{80,10}})));
+    annotation (Placement(transformation(extent={{30,-2},{50,18}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con(final k=0)
     "Zero output signal"
-    annotation (Placement(transformation(extent={{0,-40},{20,-20}})));
+    annotation (Placement(transformation(extent={{-30,-88},{-10,-68}})));
 
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea
     "Switch for pump control signal"
-    annotation (Placement(transformation(extent={{60,-80},{80,-60}})));
+    annotation (Placement(transformation(extent={{30,-72},{50,-52}})));
   Buildings.Controls.OBC.CDL.Logical.TrueFalseHold truFalHol1(
     trueHoldDuration(displayUnit="h") = 14400,
     final falseHoldDuration=0)
         "Keep pump running at least for trueHoldDuration"
     annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput sysOn
+    "System on signal, set for example to true if fan is on"
+    annotation (Placement(transformation(extent={{-140,40},{-100,80}})));
+  Buildings.Controls.OBC.CDL.Logical.Switch swiSysOff
+    "Switch to overide if system is off"
+    annotation (Placement(transformation(extent={{70,-10},{90,10}})));
+  Buildings.Controls.OBC.CDL.Logical.Switch swiSysOff1
+    "Switch to overide if system is off"
+    annotation (Placement(transformation(extent={{68,-80},{88,-60}})));
 equation
   connect(greThr.u, u)
     annotation (Line(points={{-62,0},{-120,0}}, color={0,0,127}));
-  connect(swi.y, y) annotation (Line(points={{82,0},{98,0},{98,0},{120,0}},
-                                                              color={0,0,127}));
-  connect(swi.u1, u) annotation (Line(points={{58,8},{20,8},{20,20},{-80,20},{-80,
-          0},{-120,0}}, color={0,0,127}));
-  connect(con.y, swi.u3) annotation (Line(points={{22,-30},{52,-30},{52,-8},{58,
-          -8}}, color={0,0,127}));
-  connect(booToRea.y, yPum) annotation (Line(points={{82,-70},{80,-70},{80,-70},
-          {120,-70}}, color={0,0,127}));
+  connect(swi.u1, u) annotation (Line(points={{28,16},{6,16},{6,40},{-88,40},{
+          -88,0},{-120,0}},
+                        color={0,0,127}));
+  connect(con.y, swi.u3) annotation (Line(points={{-8,-78},{20,-78},{20,0},{28,
+          0}},  color={0,0,127}));
   connect(greThr.y, truFalHol1.u) annotation (Line(points={{-38,0},{-22,0}},
                          color={255,0,255}));
   connect(truFalHol1.y, swi.u2)
-    annotation (Line(points={{2,0},{58,0}}, color={255,0,255}));
-  connect(truFalHol1.y, booToRea.u) annotation (Line(points={{2,0},{40,0},{40,
-          -70},{58,-70}}, color={255,0,255}));
+    annotation (Line(points={{2,0},{10,0},{10,8},{28,8}},
+                                            color={255,0,255}));
+  connect(truFalHol1.y, booToRea.u) annotation (Line(points={{2,0},{10,0},{10,
+          -62},{28,-62}}, color={255,0,255}));
+  connect(sysOn, swiSysOff.u2) annotation (Line(points={{-120,60},{60,60},{60,0},
+          {68,0}}, color={255,0,255}));
+  connect(swiSysOff.y, y)
+    annotation (Line(points={{92,0},{120,0}}, color={0,0,127}));
+  connect(swi.y, swiSysOff.u1)
+    annotation (Line(points={{52,8},{68,8}}, color={0,0,127}));
+  connect(con.y, swiSysOff.u3) annotation (Line(points={{-8,-78},{20,-78},{20,
+          -8},{68,-8}}, color={0,0,127}));
+  connect(swiSysOff1.y, yPum)
+    annotation (Line(points={{90,-70},{120,-70}}, color={0,0,127}));
+  connect(booToRea.y, swiSysOff1.u1)
+    annotation (Line(points={{52,-62},{66,-62}}, color={0,0,127}));
+  connect(swiSysOff1.u3, con.y)
+    annotation (Line(points={{66,-78},{-8,-78}}, color={0,0,127}));
+  connect(sysOn, swiSysOff1.u2) annotation (Line(points={{-120,60},{60,60},{60,
+          -70},{66,-70}}, color={255,0,255}));
   annotation (
     defaultComponentName="sysHys",
     Diagram(coordinateSystem(extent={{-100,-100},{100,100}})),

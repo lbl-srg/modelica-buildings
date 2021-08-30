@@ -3,5 +3,6 @@ compareVars :=
     "sysHys.u",
     "sysHys.y",
     "sysHys.yPum",
-    "sysHys1.yPum"
+    "sysHys1.yPum",
+    "sysHys.sysOn"
   };

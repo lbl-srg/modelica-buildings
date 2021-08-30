@@ -75,11 +75,12 @@ model Guideline36
   Buildings.Controls.OBC.CDL.Integers.MultiSum PZonResReq(nin=5)
     "Number of zone pressure requests"
     annotation (Placement(transformation(extent={{300,320},{320,340}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swiFreSta "Switch for freeze stat"
-    annotation (Placement(transformation(extent={{-40,-150},{-20,-130}})));
+  Buildings.Controls.OBC.CDL.Logical.Switch swiFreStaPum
+    "Switch for freeze stat of pump"
+    annotation (Placement(transformation(extent={{20,-120},{40,-100}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant yFreHeaCoi(final k=1)
     "Flow rate signal for heating coil when freeze stat is on"
-    annotation (Placement(transformation(extent={{-100,-142},{-80,-122}})));
+    annotation (Placement(transformation(extent={{-40,-106},{-20,-86}})));
   Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.VAV.Controller conAHU(
     kMinOut=0.03,
     final pMaxSet=410,
@@ -102,10 +103,10 @@ model Guideline36
     annotation (Placement(transformation(extent={{280,570},{300,590}})));
   Buildings.Controls.OBC.CDL.Routing.RealScalarReplicator reaRep1(final nout=numZon)
     "Replicate design uncorrected minimum outdoor airflow setpoint"
-    annotation (Placement(transformation(extent={{460,580},{480,600}})));
+    annotation (Placement(transformation(extent={{464,580},{484,600}})));
   Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator booRep1(final nout=numZon)
     "Replicate signal whether the outdoor airflow is required"
-    annotation (Placement(transformation(extent={{460,550},{480,570}})));
+    annotation (Placement(transformation(extent={{464,550},{484,570}})));
 
   Buildings.Controls.OBC.ASHRAE.G36_PR1.Generic.SetPoints.ZoneStatus zonSta[numZon]
     "Check zone temperature status"
@@ -144,10 +145,13 @@ model Guideline36
 
   Controls.SystemHysteresis sysHysHea
     "Hysteresis and delay to switch heating on and off"
-    annotation (Placement(transformation(extent={{20,-150},{40,-130}})));
+    annotation (Placement(transformation(extent={{-40,-150},{-20,-130}})));
   Controls.SystemHysteresis sysHysCoo
     "Hysteresis and delay to switch cooling on and off"
     annotation (Placement(transformation(extent={{20,-250},{40,-230}})));
+  Buildings.Controls.OBC.CDL.Logical.Switch swiFreStaVal
+    "Switch for freeze stat of valve"
+    annotation (Placement(transformation(extent={{20,-160},{40,-140}})));
 equation
   connect(conVAVCor.TZon, TRooAir.y5[1]) annotation (Line(
       points={{528,94},{520,94},{520,275},{480,275}},
@@ -273,8 +277,8 @@ equation
           {986,-20},{986,86},{1036,86}},   color={0,0,127}));
   connect(TSup.T, conVAVWes.TSupAHU) annotation (Line(points={{340,-29},{340,-20},
           {1168,-20},{1168,86},{1238,86}}, color={0,0,127}));
-  connect(yFreHeaCoi.y, swiFreSta.u1) annotation (Line(points={{-78,-132},{-42,
-          -132}},               color={0,0,127}));
+  connect(yFreHeaCoi.y, swiFreStaPum.u1) annotation (Line(points={{-18,-96},{10,
+          -96},{10,-102},{18,-102}}, color={0,0,127}));
   connect(zonToSys.ySumDesZonPop, conAHU.sumDesZonPop) annotation (Line(points={{302,589},
           {308,589},{308,609.778},{336,609.778}},           color={0,0,127}));
   connect(zonToSys.VSumDesPopBreZon_flow, conAHU.VSumDesPopBreZon_flow)
@@ -315,14 +319,14 @@ equation
           582}},
         color={0,0,127}));
   connect(conAHU.VDesUncOutAir_flow, reaRep1.u) annotation (Line(points={{424,
-          597.333},{440,597.333},{440,590},{458,590}},
+          597.333},{440,597.333},{440,590},{462,590}},
                                               color={0,0,127}));
-  connect(reaRep1.y, zonOutAirSet.VUncOut_flow_nominal) annotation (Line(points={{482,590},
+  connect(reaRep1.y, zonOutAirSet.VUncOut_flow_nominal) annotation (Line(points={{486,590},
           {490,590},{490,464},{210,464},{210,581},{218,581}},          color={0,
           0,127}));
   connect(conAHU.yReqOutAir, booRep1.u) annotation (Line(points={{424,565.333},
-          {444,565.333},{444,560},{458,560}},color={255,0,255}));
-  connect(booRep1.y, zonOutAirSet.uReqOutAir) annotation (Line(points={{482,560},
+          {444,565.333},{444,560},{462,560}},color={255,0,255}));
+  connect(booRep1.y, zonOutAirSet.uReqOutAir) annotation (Line(points={{486,560},
           {496,560},{496,460},{206,460},{206,593},{218,593}}, color={255,0,255}));
   connect(flo.TRooAir, zonOutAirSet.TZon) annotation (Line(points={{1107.13,506},
           {1164,506},{1164,660},{210,660},{210,590},{218,590}},     color={0,0,127}));
@@ -521,23 +525,34 @@ equation
           100},{1276,56},{1286,56}}, color={0,0,127}));
   connect(conVAVWes.yVal, wes.yHea) annotation (Line(points={{1262,95},{1272,95},
           {1272,46},{1286,46},{1286,46}}, color={0,0,127}));
-  connect(freSta.y, swiFreSta.u2) annotation (Line(points={{-118,-90},{-64,-90},
-          {-64,-140},{-42,-140}}, color={255,0,255}));
-  connect(swiFreSta.y, sysHysHea.u)
-    annotation (Line(points={{-18,-140},{18,-140}}, color={0,0,127}));
-  connect(sysHysHea.y, valHeaCoi.y) annotation (Line(points={{42,-140},{160,
-          -140},{160,-170},{152,-170}}, color={0,0,127}));
-  connect(sysHysHea.yPum, pumHeaCoi.y) annotation (Line(points={{42,-147},{158,
-          -147},{158,-120},{152,-120}}, color={0,0,127}));
+  connect(freSta.y, swiFreStaPum.u2) annotation (Line(points={{-118,-90},{-64,
+          -90},{-64,-110},{18,-110}}, color={255,0,255}));
   connect(sysHysCoo.y, valCooCoi.y) annotation (Line(points={{42,-240},{160,
           -240},{160,-210},{166,-210},{166,-210},{168,-210}}, color={0,0,127}));
   connect(sysHysCoo.yPum, pumCooCoi.y) annotation (Line(points={{42,-247},{240,
           -247},{240,-120},{192,-120},{192,-120}}, color={0,0,127}));
-  connect(conAHU.yHea, swiFreSta.u3) annotation (Line(points={{424,554.667},{
-          456,554.667},{456,-300},{-60,-300},{-60,-148},{-42,-148}}, color={0,0,
-          127}));
   connect(conAHU.yCoo, sysHysCoo.u) annotation (Line(points={{424,544},{424,546},
           {452,546},{452,-296},{0,-296},{0,-240},{18,-240}}, color={0,0,127}));
+  connect(conAHU.yHea, sysHysHea.u) annotation (Line(points={{424,554.667},{456,
+          554.667},{456,-298},{-60,-298},{-60,-140},{-42,-140}}, color={0,0,127}));
+  connect(sysHysHea.sysOn, conAHU.ySupFan) annotation (Line(points={{-42,-134},
+          {-62,-134},{-62,-300},{458,-300},{458,629.333},{424,629.333}}, color=
+          {255,0,255}));
+  connect(swiFreStaPum.y, pumHeaCoi.y) annotation (Line(points={{42,-110},{80,
+          -110},{80,-140},{152,-140},{152,-120},{140,-120}}, color={0,0,127}));
+  connect(swiFreStaVal.u1, yFreHeaCoi.y) annotation (Line(points={{18,-142},{10,
+          -142},{10,-96},{-18,-96}}, color={0,0,127}));
+  connect(sysHysHea.y, swiFreStaVal.u3) annotation (Line(points={{-18,-140},{
+          -10,-140},{-10,-158},{18,-158}}, color={0,0,127}));
+  connect(sysHysHea.yPum, swiFreStaPum.u3) annotation (Line(points={{-18,-147},
+          {-6,-147},{-6,-118},{18,-118}}, color={0,0,127}));
+  connect(freSta.y, swiFreStaVal.u2) annotation (Line(points={{-118,-90},{-64,
+          -90},{-64,-110},{0,-110},{0,-150},{18,-150}}, color={255,0,255}));
+  connect(swiFreStaVal.y, valHeaCoi.y) annotation (Line(points={{42,-150},{60,
+          -150},{60,-210},{76,-210}}, color={0,0,127}));
+  connect(sysHysCoo.sysOn, conAHU.ySupFan) annotation (Line(points={{18,-234},{
+          -62,-234},{-62,-300},{458,-300},{458,629.333},{424,629.333}}, color={
+          255,0,255}));
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-380,-320},{1400,
             680}})),
