@@ -137,7 +137,7 @@ partial model PartialChillerWSE
     "Electric power consumed by chiller compressor"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 
-  Buildings.Applications.DataCenters.ChillerCooled.Equipment.ElectricChillerParallel chiPar(
+  Buildings.Applications.BaseClasses.Equipment.ElectricChillerParallel chiPar(
     redeclare final replaceable package Medium1 = Medium1,
     redeclare final replaceable package Medium2 = Medium2,
     final CvData=Buildings.Fluid.Types.CvTypes.OpPoint,
