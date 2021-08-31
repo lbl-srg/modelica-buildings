@@ -18,7 +18,6 @@
  * strValWri    - String values to write.
  * nStrWri      - Number of strings to write.
  */
-#include <ModelicaUtilities.h>
 
 void pythonExchangeValues(const char * moduleName,
                           const char * functionName,

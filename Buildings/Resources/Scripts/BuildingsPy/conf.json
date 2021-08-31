@@ -176,9 +176,25 @@
          "rtol": 1E-8
     },
        "optimica": {
-         "rtol": 1E-8
+         "solver": "Radau5ODE",
+         "rtol": 1E-8,
+         "comment": "See https://app.travis-ci.com/github/lbl-srg/modelica-buildings/jobs/526352954#L640, times out with new filter for actuators"
     },
     "model_name": "Buildings.Examples.DualFanDualDuct.ClosedLoop"
+  },
+  {
+    "jmodelica": {
+      "simulate": false,
+      "comment": "See https://app.travis-ci.com/github/lbl-srg/modelica-buildings/jobs/531423041"
+    },
+    "model_name": "Buildings.Examples.ScalableBenchmarks.BuildingVAV.Examples.OneFloor_OneZone"
+  },
+  {
+    "jmodelica": {
+      "simulate": false,
+      "comment": "See https://app.travis-ci.com/github/lbl-srg/modelica-buildings/jobs/531423041"
+    },
+    "model_name": "Buildings.Examples.ScalableBenchmarks.BuildingVAV.Examples.TwoFloor_TwoZone"
   },
   {
     "jmodelica": {
@@ -223,6 +239,13 @@
     },
     "model_name": "Buildings.Examples.VAVReheat.Guideline36",
     "comment": "This causes a timeout on travis. See https://travis-ci.com/github/lbl-srg/modelica-buildings/jobs/520509213 and https://github.com/lbl-srg/modelica-buildings/issues/2549"
+  },
+  {
+    "jmodelica": {
+      "simulate": false
+    },
+    "model_name": "Buildings.Examples.DualFanDualDuct.ClosedLoop",
+    "comment": "This causes a timeout on travis. See https://app.travis-ci.com/github/lbl-srg/modelica-buildings/jobs/525707949"
   },
   {
     "optimica": {

@@ -44,7 +44,7 @@ model NonIntegratedPrimarySecondaryEconomizer
     "Cooling mode controller"
     annotation (Placement(transformation(extent={{-212,100},{-192,120}})));
 
-  Buildings.Applications.DataCenters.ChillerCooled.Equipment.FlowMachine_y secPum(
+  Buildings.Applications.BaseClasses.Equipment.FlowMachine_y secPum(
     redeclare package Medium = MediumW,
     dpValve_nominal=6000,
     per=perPumSec,
@@ -59,7 +59,7 @@ model NonIntegratedPrimarySecondaryEconomizer
         extent={{-10,10},{10,-10}},
         rotation=-90,
         origin={-40,-38})));
-  Buildings.Applications.DataCenters.ChillerCooled.Equipment.FlowMachine_m priPum(
+  Buildings.Applications.BaseClasses.Equipment.FlowMachine_m priPum(
     redeclare package Medium = MediumW,
     dpValve_nominal=6000,
     per=perPumPri,
@@ -255,8 +255,8 @@ For constant speed pumps, the number of running pumps equals to the number of ru
 <p>
 For variable speed pumps, the number of runing pumps is controlled by the speed signal and the mass flowrate.
 Details are shown in
-<a href=\"modelica://Buildings.Applications.DataCenters.ChillerCooled.Controls.VariableSpeedPumpStage\">
-Buildings.Applications.DataCenters.ChillerCooled.Controls.VariableSpeedPumpStage</a>. And the speed is
+<a href=\"modelica://Buildings.Applications.BaseClasses.Controls.VariableSpeedPumpStage\">
+Buildings.Applications.BaseClasses.Controls.VariableSpeedPumpStage</a>. And the speed is
 controlled by maintaining a fixed differential pressure between the outlet and inlet on the waterside
 of the Computer Room Air Handler (CRAH).
 </p>

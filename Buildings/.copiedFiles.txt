@@ -300,6 +300,7 @@ Buildings/Fluid/Actuators/Valves/package.mo
 Buildings/Fluid/Actuators/Valves/package.order
 Buildings/Fluid/Actuators/package.mo
 Buildings/Fluid/Actuators/package.order
+Buildings/Fluid/BaseClasses/ActuatorFilter.mo
 Buildings/Fluid/BaseClasses/FlowModels/Validation/BasicFlowFunction_dp_DerivativeCheck.mo
 Buildings/Fluid/BaseClasses/FlowModels/Validation/BasicFlowFunction_dp_DerivativeCheck2.mo
 Buildings/Fluid/BaseClasses/FlowModels/Validation/BasicFlowFunction_m_flow_DerivativeCheck.mo
@@ -321,6 +322,7 @@ Buildings/Fluid/BaseClasses/IndexMassFraction.mo
 Buildings/Fluid/BaseClasses/MassFlowRateMultiplier.mo
 Buildings/Fluid/BaseClasses/PartialResistance.mo
 Buildings/Fluid/BaseClasses/PartialThreeWayResistance.mo
+Buildings/Fluid/BaseClasses/Validation/ActuatorFilter.mo
 Buildings/Fluid/BaseClasses/Validation/MassFlowRateMultiplier.mo
 Buildings/Fluid/BaseClasses/Validation/package.mo
 Buildings/Fluid/BaseClasses/Validation/package.order
@@ -1563,6 +1565,7 @@ Buildings/Resources/Scripts/Dymola/Fluid/BaseClasses/FlowModels/Validation/Basic
 Buildings/Resources/Scripts/Dymola/Fluid/BaseClasses/FlowModels/Validation/InverseFlowFunctions.mos
 Buildings/Resources/Scripts/Dymola/Fluid/BaseClasses/FlowModels/Validation/InvertingBasicFlowFunction_dp.mos
 Buildings/Resources/Scripts/Dymola/Fluid/BaseClasses/FlowModels/Validation/InvertingBasicFlowFunction_m_flow.mos
+Buildings/Resources/Scripts/Dymola/Fluid/BaseClasses/Validation/ActuatorFilter.mos
 Buildings/Resources/Scripts/Dymola/Fluid/BaseClasses/Validation/MassFlowRateMultiplier.mos
 Buildings/Resources/Scripts/Dymola/Fluid/Chillers/Examples/Carnot_TEva.mos
 Buildings/Resources/Scripts/Dymola/Fluid/Chillers/Examples/Carnot_y.mos

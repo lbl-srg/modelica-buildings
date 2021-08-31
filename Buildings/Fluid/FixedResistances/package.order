@@ -3,6 +3,7 @@ HydraulicDiameter
 Junction
 LosslessPipe
 Pipe
+PlugFlowDiscretized
 PlugFlowPipe
 PressureDrop
 Examples

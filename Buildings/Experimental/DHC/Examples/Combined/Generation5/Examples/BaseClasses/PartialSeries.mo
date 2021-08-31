@@ -19,7 +19,7 @@ partial model PartialSeries "Partial model for series network"
     annotation (Evaluate=true);
   inner parameter
     Buildings.Experimental.DHC.Examples.Combined.Generation5.Data.DesignDataSeries
-    datDes(final mCon_flow_nominal=bui.ets.mDisWat_flow_nominal) "Design data"
+    datDes(final mCon_flow_nominal=bui.ets.mSerWat_flow_nominal) "Design data"
     annotation (Placement(transformation(extent={{-340,220},{-320,240}})));
   // COMPONENTS
   Buildings.Experimental.DHC.Examples.Combined.Generation5.ThermalStorages.BoreField
@@ -278,7 +278,7 @@ equation
 <li>
 February 23, 2021, by Antoine Gautier:<br/>
 Refactored with base classes from the <code>DHC</code> package.<br/>
-This is for 
+This is for
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1769\">
 issue 1769</a>.
 </li>
