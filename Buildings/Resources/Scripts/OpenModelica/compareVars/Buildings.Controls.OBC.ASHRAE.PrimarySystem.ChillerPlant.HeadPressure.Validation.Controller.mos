@@ -13,7 +13,6 @@ compareVars :=
     "disWSE.yHeaPreConVal",
     "disWSE.yConWatPumSpeSet",
     "conSpePum.yMaxTowSpeSet",
-    "conSpePum.yHeaPreConVal",
     "varSpePum.yMaxTowSpeSet",
     "varSpePum.yConWatPumSpeSet"
   };

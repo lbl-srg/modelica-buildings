@@ -1,5 +1,5 @@
 ﻿within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.HeadPressure;
-block Controller "Head pressure controller"
+block Controller "Head pressure controller for plants with headered condenser water pumps"
   parameter Boolean have_heaPreConSig = false
     "Flag indicating if there is head pressure control signal from chiller controller"
     annotation (Dialog(group="Plant"));
@@ -223,7 +223,7 @@ annotation (
 <p>
 Block that generates control signals for chiller head pressure control,
 according to ASHRAE RP-1711 Advanced Sequences of Operation for HVAC Systems Phase II –
-Central Plants and Hydronic Systems (Draft on March 23, 2020),
+Central Plants and Hydronic Systems (draft version on March 23, 2020),
 section 5.2.10 Head pressure control.
 </p>
 <p>

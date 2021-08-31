@@ -144,7 +144,7 @@ The waterside economizer (WSE) is enabled or disabled based on the predicted WSE
 heat exchanger (HX) leaving water temperature, <code>y</code>.
 This block predicts <code>y</code> based on current plant load
 and ambient wet bulb temperature with resepect to the design conditions, as described in
-ASHRAE RP-1711, July Draft, section 5.2.3.1.
+ASHRAE RP-1711, March 2020, section 5.2.3.1.
 </p>
 <p>
 The block calculates the predicted WSE output temperature <code>y</code> as a sum of these

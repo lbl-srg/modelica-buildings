@@ -6,7 +6,7 @@ model MappingWithoutWSE
     "Specify setpoints for plant with constant speed condenser water pumps"
     annotation (Placement(transformation(extent={{0,30},{20,50}})));
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.HeadPressure.Subsequences.MappingWithoutWSE
-    varPumSpe(final fixSpeConWatPum=false)
+    varPumSpe(final have_fixSpeConWatPum=false)
     "Specify setpoints for plant with constant speed condenser water pumps"
     annotation (Placement(transformation(extent={{0,-50},{20,-30}})));
 

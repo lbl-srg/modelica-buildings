@@ -1,4 +1,4 @@
-within Buildings.Controls.OBC.ASHRAE.PrimarySystem;
+﻿within Buildings.Controls.OBC.ASHRAE.PrimarySystem;
 package ChillerPlant "Chiller plant control sequences"
 
 annotation (preferredView="info", Documentation(info="<html>
@@ -7,7 +7,9 @@ This package contains control sequences for a chiller plant comprising a single 
 chilled and condenser water pumps, cooling towers and an optional water side economizer.
 </p>
 <p>
-The control sequences are implemented based on ASHRAE RP-1711, Draft 4 and Draft 5.
+The control sequences are implemented based on ASHRAE RP-1711 Advanced Sequences of
+Operation for HVAC Systems Phase II –
+Central Plants and Hydronic Systems (draft version on March 23, 2020).
 </p>
 </html>"),
   Icon(graphics={

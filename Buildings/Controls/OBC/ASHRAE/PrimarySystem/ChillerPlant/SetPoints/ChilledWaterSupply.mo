@@ -33,12 +33,14 @@ block ChilledWaterSupply
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uChiWatPlaRes(
     final min=minSet,
     final max=maxSet,
-    final unit="1") "Chilled water plant reset" annotation (Placement(
-        transformation(extent={{-120,-20},{-80,20}}), iconTransformation(extent=
-           {{-140,-20},{-100,20}})));
+    final unit="1")
+    "Chilled water plant reset"
+    annotation (Placement(transformation(extent={{-120,-20},{-80,20}}),
+        iconTransformation(extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput dpChiWatPumSet[nRemDpSen](
-      final unit=fill("Pa", nRemDpSen), final quantity=fill("PressureDifference",
-        nRemDpSen)) "Chilled water pump differential static pressure setpoint"
+    final unit=fill("Pa", nRemDpSen),
+    final quantity=fill("PressureDifference",nRemDpSen))
+    "Chilled water pump differential static pressure setpoint"
     annotation (Placement(transformation(extent={{80,30},{120,70}}),
         iconTransformation(extent={{100,40},{140,80}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput TChiWatSupSet(
@@ -66,8 +68,8 @@ protected
      final k=fill(dpChiWatPumMin, nRemDpSen))
     "Minimum chilled water pump differential pressure setpoint"
     annotation (Placement(transformation(extent={{-20,60},{0,80}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant maxChiWatPumPre[nRemDpSen]
-    (final k=dpChiWatPumMax)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant maxChiWatPumPre[nRemDpSen](
+     final k=dpChiWatPumMax)
     "Maximum chilled water pump differential pressure setpoint"
     annotation (Placement(transformation(extent={{-20,18},{0,38}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant maxChiWatTem(
@@ -112,7 +114,6 @@ equation
     annotation (Line(points={{62,50},{100,50}},color={0,0,127}));
   connect(chiWatTem.y, TChiWatSupSet)
     annotation (Line(points={{62,-50},{100,-50}},color={0,0,127}));
-
   connect(uChiWatPlaRes, chiWatTem.u) annotation (Line(points={{-100,0},{-70,0},
           {-70,-50},{38,-50}}, color={0,0,127}));
   connect(uChiWatPlaRes, reaRep.u) annotation (Line(points={{-100,0},{-70,0},{-70,
@@ -121,6 +122,7 @@ equation
           -42},{38,-42}}, color={0,0,127}));
   connect(reaRep.y, chiWatPumPre.u)
     annotation (Line(points={{-38,50},{38,50}}, color={0,0,127}));
+
 annotation (
   defaultComponentName="chiWatSupSet",
   Diagram(coordinateSystem(preserveAspectRatio=false,

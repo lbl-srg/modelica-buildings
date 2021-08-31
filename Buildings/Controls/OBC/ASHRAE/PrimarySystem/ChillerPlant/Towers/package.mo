@@ -1,11 +1,13 @@
-within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant;
+﻿within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant;
 package Towers "Package of sequences for cooling tower control"
 
 annotation (
 preferredView="info", Documentation(info="<html>
 <p>
 This package contains sequences for cooling tower control.
-The implementation is based on section 5.2.12 in ASHRAE RP-1711, Draft 6 (July 25, 2019).
+The implementation is based on section 5.2.12 in
+ASHRAE RP-1711 Advanced Sequences of Operation for HVAC Systems Phase II –
+Central Plants and Hydronic Systems (draft version on March 23, 2020).
 </p>
 </html>"),
 Icon(graphics={

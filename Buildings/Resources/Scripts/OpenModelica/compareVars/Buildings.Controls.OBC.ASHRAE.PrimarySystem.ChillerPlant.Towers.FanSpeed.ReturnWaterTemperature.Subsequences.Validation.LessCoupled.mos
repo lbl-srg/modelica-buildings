@@ -8,5 +8,5 @@ compareVars :=
     "lesCouTowSpe.TConWatSupSet",
     "lesCouTowSpe.uMaxTowSpeSet[1]",
     "lesCouTowSpe.uMaxTowSpeSet[2]",
-    "lesCouTowSpe.yFanSpe"
+    "lesCouTowSpe.ySpeSet"
   };

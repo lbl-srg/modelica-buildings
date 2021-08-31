@@ -44,6 +44,13 @@ block PlantEnable "Sequence to enable and disable plant"
     annotation (Placement(transformation(extent={{200,70},{220,90}}),
       iconTransformation(extent={{100,-10},{120,10}})));
 
+  Buildings.Controls.OBC.CDL.Continuous.Sources.TimeTable enaSch(
+    final table=schTab,
+    final smoothness=tabSmo,
+    final extrapolation=extrapolation)
+    "Plant enabling schedule allowing operators to lock out the plant during off-hour"
+    annotation (Placement(transformation(extent={{-140,40},{-120,60}})));
+
 protected
   final parameter Buildings.Controls.OBC.CDL.Types.Smoothness tabSmo=
     Buildings.Controls.OBC.CDL.Types.Smoothness.ConstantSegments
@@ -52,13 +59,6 @@ protected
   final parameter Buildings.Controls.OBC.CDL.Types.Extrapolation extrapolation=
     Buildings.Controls.OBC.CDL.Types.Extrapolation.Periodic
     "Extrapolation of data outside the definition range";
-
-  Buildings.Controls.OBC.CDL.Continuous.Sources.TimeTable enaSch(
-    final table=schTab,
-    final smoothness=tabSmo,
-    final extrapolation=extrapolation)
-    "Plant enabling schedule allowing operators to lock out the plant during off-hour"
-    annotation (Placement(transformation(extent={{-140,40},{-120,60}})));
 
   Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold schOn(
     final t=0.5)

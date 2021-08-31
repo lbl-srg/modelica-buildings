@@ -281,7 +281,7 @@ equation
 Documentation(info="<html>
 <p>
 Waterside economizer outlet temperature prediction tuning parameter subsequence 
-per ASHRAE RP-1711, July Draft, section 5.2.3.3. 
+per ASHRAE RP-1711, March 2020, section 5.2.3.3. 
 </p>
 <p>
 The subsequence calculates the tuning parameter <code>y</code> as follows:

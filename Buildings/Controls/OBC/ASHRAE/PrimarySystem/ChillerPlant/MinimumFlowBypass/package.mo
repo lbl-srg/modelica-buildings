@@ -1,10 +1,12 @@
-within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant;
+﻿within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant;
 package MinimumFlowBypass "Sequences for controlling chilled water minimum flow bypass valve"
 
 annotation (preferredView="info", Documentation(info="<html>
 <p>
 This package contains chilled water minimum flow bypass valve control sequences.
-The implementation is based on section 5.2.8. in ASHRAE RP-1711, Draft 4.
+The implementation is based on section 5.2.8. in ASHRAE RP-1711 Advanced Sequences
+of Operation for HVAC Systems Phase II –
+Central Plants and Hydronic Systems (draft version on March 23, 2020).
 </p>
 </html>"),
 Icon(graphics={

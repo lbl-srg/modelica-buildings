@@ -7,16 +7,16 @@ compareVars :=
     "towFanSpe.uPla",
     "towFanSpe.TConWatRet",
     "towFanSpe.conWatRetSet.TConWatRetSet",
-    "towFanSpe.couTowSpe.yFanSpe",
+    "towFanSpe.couTowSpe.ySpeSet",
     "towFanSpe.uTowSpeWSE",
-    "towFanSpe.yFanSpe",
+    "towFanSpe.ySpeSet",
     "towFanSpe1.TConWatRet",
     "towFanSpe1.conWatRetSet.TConWatRetSet",
-    "towFanSpe1.lesCouTowSpe.yFanSpe",
+    "towFanSpe1.lesCouTowSpe.ySpeSet",
     "towFanSpe1.uTowSpeWSE",
-    "towFanSpe1.yFanSpe",
+    "towFanSpe1.ySpeSet",
     "towFanSpe2.TConWatRet",
     "towFanSpe2.conWatRetSet.TConWatRetSet",
-    "towFanSpe2.couTowSpe.yFanSpe",
-    "towFanSpe2.yFanSpe"
+    "towFanSpe2.couTowSpe.ySpeSet",
+    "towFanSpe2.ySpeSet"
   };

@@ -7,5 +7,5 @@ compareVars :=
     "couTowSpe.uMaxTowSpeSet[1]",
     "couTowSpe.uMaxTowSpeSet[2]",
     "couTowSpe.plrTowMaxSpe",
-    "couTowSpe.yFanSpe"
+    "couTowSpe.ySpeSet"
   };

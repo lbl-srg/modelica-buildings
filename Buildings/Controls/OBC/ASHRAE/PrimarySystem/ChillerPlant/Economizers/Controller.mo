@@ -295,7 +295,7 @@ equation
           extent={{-180,-120},{180,120}})),
 Documentation(info="<html>
 <p>
-Waterside economizer (WSE) control sequence per ASHRAE RP-1711, July Draft, section 5.2.3.
+Waterside economizer (WSE) control sequence per ASHRAE RP-1711, March 2020, section 5.2.3.
 It implements the enable/disable conditions as provided in sections 5.2.3.1. and 5.2.3.2.
 </p>
 <p>

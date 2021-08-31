@@ -1,11 +1,12 @@
-within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Pumps;
+﻿within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Pumps;
 package CondenserWater "Sequences for condenser water pump control"
 
 annotation (preferredView="info", Documentation(info="<html>
 <p>
 This package contains control sequences for condenser water pumps.
 The implementations are based on section 5.2.9 Condener water water pumps, 
-in ASHRAE RP-1711 (Draft 6 on July 25, 2019).
+in ASHRAE RP-1711 Advanced Sequences of Operation for HVAC Systems Phase II –
+Central Plants and Hydronic Systems (draft version on March 23, 2020).
 </p>
 </html>"), Icon(graphics={
         Rectangle(

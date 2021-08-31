@@ -3,7 +3,7 @@ package Subsequences "Subsequences for chiller head pressure control"
 
 annotation (preferredView="info", Documentation(info="<html>
 <p>
-This package contains waterside economizer control subsequences.
+This package contains chiller head pressure control subsequences.
 </p>
 </html>"),
   Icon(graphics={

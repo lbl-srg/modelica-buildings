@@ -5,5 +5,5 @@ compareVars :=
     "intOpe.uWse",
     "intOpe.chiLoa[1]",
     "intOpe.chiMinCap[1]",
-    "intOpe.yFanSpe"
+    "intOpe.ySpeSet"
   };

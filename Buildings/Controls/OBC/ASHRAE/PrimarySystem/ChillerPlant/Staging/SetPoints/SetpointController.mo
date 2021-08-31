@@ -538,8 +538,8 @@ equation
           -172},{-22,-172}}, color={255,0,255}));
   connect(staDow.y, cha.uDow) annotation (Line(points={{-78,-230},{-50,-230},{-50,
           -176},{-22,-176}}, color={255,0,255}));
-  connect(uPla, cha.uPla) annotation (Line(points={{-420,-100},{-280,-100},{-280,
-          -140},{-60,-140},{-60,-180},{-22,-180}},
+  connect(uPla, cha.uPla) annotation (Line(points={{-420,-100},{-280,-100},{
+          -280,-140},{-70,-140},{-70,-180},{-22,-180}},
                                              color={255,0,255}));
   connect(cha.ySta, ySta) annotation (Line(points={{2,-166},{20,-166},{20,280},
           {140,280}},color={255,127,0}));

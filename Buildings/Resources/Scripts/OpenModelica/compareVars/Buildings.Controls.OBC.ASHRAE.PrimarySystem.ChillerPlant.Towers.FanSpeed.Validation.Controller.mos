@@ -6,16 +6,16 @@ compareVars :=
     "cloCouWitWse.uPla",
     "cloCouWitWse.TConWatRet",
     "cloCouWitWse.fanSpeRetTem.conWatRetSet.TConWatRetSet",
-    "cloCouWitWse.fanSpeRetTem.couTowSpe.yFanSpe",
+    "cloCouWitWse.fanSpeRetTem.couTowSpe.ySpeSet",
     "cloCouWitWse.fanSpeRetTem.uTowSpeWSE",
-    "cloCouWitWse.yFanSpe",
+    "cloCouWitWse.ySpeSet",
     "lesCouWitWse.TConWatRet",
     "lesCouWitWse.fanSpeRetTem.conWatRetSet.TConWatRetSet",
-    "lesCouWitWse.fanSpeRetTem.lesCouTowSpe.yFanSpe",
+    "lesCouWitWse.fanSpeRetTem.lesCouTowSpe.ySpeSet",
     "lesCouWitWse.fanSpeRetTem.uTowSpeWSE",
-    "lesCouWitWse.yFanSpe",
+    "lesCouWitWse.ySpeSet",
     "cloCouNoWse.TConWatRet",
     "cloCouNoWse.fanSpeRetTem.conWatRetSet.TConWatRetSet",
-    "cloCouNoWse.fanSpeRetTem.couTowSpe.yFanSpe",
-    "cloCouNoWse.yFanSpe"
+    "cloCouNoWse.fanSpeRetTem.couTowSpe.ySpeSet",
+    "cloCouNoWse.ySpeSet"
   };
