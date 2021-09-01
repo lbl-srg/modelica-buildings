@@ -33,7 +33,7 @@ protected
     final amplitude=1*6894.75,
     final offset=8.5*6894.75)  "Local pressure difference sensor reading"
     annotation (Placement(transformation(extent={{-60,70},{-40,90}})));
-  Buildings.Controls.OBC.CDL.Routing.RealReplicator reaRep(
+  Buildings.Controls.OBC.CDL.Routing.RealScalarReplicator reaRep(
     final nout=2) "Replicate real input"
     annotation (Placement(transformation(extent={{-30,-90},{-10,-70}})));
 

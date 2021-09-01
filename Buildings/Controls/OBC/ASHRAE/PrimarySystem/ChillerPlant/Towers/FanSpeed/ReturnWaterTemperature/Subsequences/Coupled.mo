@@ -98,7 +98,7 @@ protected
     "Check if the condenser water pump is proven on"
     annotation (Placement(transformation(extent={{-100,10},{-80,30}})));
   Buildings.Controls.OBC.CDL.Logical.MultiOr anyProOn(
-    final nu=nConWatPum)
+    final nin=nConWatPum)
     "Check if there is any condenser water pump is proven on"
     annotation (Placement(transformation(extent={{-60,10},{-40,30}})));
   Buildings.Controls.OBC.CDL.Continuous.MultiMin fanSpe(final nin=3)

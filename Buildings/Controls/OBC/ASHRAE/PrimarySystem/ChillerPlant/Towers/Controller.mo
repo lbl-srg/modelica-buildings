@@ -403,7 +403,7 @@ protected
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zer[nTowCel](
     final k=fill(0, nTowCel)) "Zero constant"
     annotation (Placement(transformation(extent={{0,-190},{20,-170}})));
-  Buildings.Controls.OBC.CDL.Routing.RealReplicator reaRep(
+  Buildings.Controls.OBC.CDL.Routing.RealScalarReplicator reaRep(
     final nout=nTowCel) "Replicate real input"
     annotation (Placement(transformation(extent={{20,30},{40,50}})));
 

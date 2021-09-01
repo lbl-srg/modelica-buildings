@@ -191,7 +191,7 @@ protected
     annotation (Placement(transformation(extent={{140,-20},{160,0}})));
   Buildings.Controls.OBC.CDL.Logical.Switch chiDem[nChi] "Chiller demand"
     annotation (Placement(transformation(extent={{140,130},{160,150}})));
-  Buildings.Controls.OBC.CDL.Routing.BooleanReplicator booRep4(final nout=nChi)
+  Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator booRep4(final nout=nChi)
     "Replicate boolean input"
     annotation (Placement(transformation(extent={{60,10},{80,30}})));
   Buildings.Controls.OBC.CDL.Logical.Switch chiWatIsoVal[nChi]

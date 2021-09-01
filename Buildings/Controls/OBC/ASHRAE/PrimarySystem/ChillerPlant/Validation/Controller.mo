@@ -97,7 +97,7 @@ model Controller "Validation head pressure controller"
     annotation (Placement(transformation(extent={{-260,-190},{-240,-170}})));
   Buildings.Controls.OBC.CDL.Continuous.Max max1
     annotation (Placement(transformation(extent={{120,-110},{140,-90}})));
-  Buildings.Controls.OBC.CDL.Routing.RealReplicator reaRep(
+  Buildings.Controls.OBC.CDL.Routing.RealScalarReplicator reaRep(
     final nout=2)
     annotation (Placement(transformation(extent={{160,20},{180,40}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea[2]

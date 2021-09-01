@@ -49,7 +49,7 @@ model Controller "Validation sequence of tower cell controller"
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant con[4](
     final k=fill(false,4)) "Constant zero"
     annotation (Placement(transformation(extent={{-120,-140},{-100,-120}})));
-  Buildings.Controls.OBC.CDL.Routing.BooleanReplicator booRep(final nout=4)
+  Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator booRep(final nout=4)
     "Replicate boolean input"
     annotation (Placement(transformation(extent={{-20,-120},{0,-100}})));
   Buildings.Controls.OBC.CDL.Logical.LogicalSwitch logSwi[4] "Logical switch"

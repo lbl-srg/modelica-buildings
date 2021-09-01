@@ -234,7 +234,7 @@ block Controller
 
 protected
   Buildings.Controls.OBC.CDL.Logical.MultiOr mulOr(
-    final nu=nChi) "Check if any chiller is enabled"
+    final nin=nChi) "Check if any chiller is enabled"
     annotation (Placement(transformation(extent={{-120,200},{-100,220}})));
   Buildings.Controls.OBC.CDL.Logical.Not not1 if have_WSE
     "Waterside economizer is not enabled"

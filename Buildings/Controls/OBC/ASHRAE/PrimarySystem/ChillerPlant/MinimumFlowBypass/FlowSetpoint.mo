@@ -124,7 +124,7 @@ protected
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt[nChi](
     final k=chiInd) "Chiller index vector"
     annotation (Placement(transformation(extent={{-400,-40},{-380,-20}})));
-  Buildings.Controls.OBC.CDL.Routing.IntegerReplicator intRep(
+  Buildings.Controls.OBC.CDL.Routing.IntegerScalarReplicator intRep(
     final nout=nChi) "Replicate integer input"
     annotation (Placement(transformation(extent={{-400,-80},{-380,-60}})));
   Buildings.Controls.OBC.CDL.Integers.Equal intEqu[nChi] "Check equality of two integer inputs"
@@ -243,7 +243,7 @@ protected
     annotation (Placement(transformation(extent={{-360,240},{-340,260}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea[nChi] "Boolean to real"
     annotation (Placement(transformation(extent={{-400,240},{-380,260}})));
-  Buildings.Controls.OBC.CDL.Routing.BooleanReplicator booRep(
+  Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator booRep(
     final nout=nChi) "Replicate boolean input"
     annotation (Placement(transformation(extent={{-380,30},{-360,50}})));
   Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greEquThr[nChi](

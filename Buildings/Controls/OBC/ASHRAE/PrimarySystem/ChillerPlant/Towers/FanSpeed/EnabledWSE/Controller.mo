@@ -107,7 +107,7 @@ protected
     final Td=TdWSE)
     "Tower fan speed when the waterside economizer is running alone"
     annotation (Placement(transformation(extent={{-40,-70},{-20,-50}})));
-  Buildings.Controls.OBC.CDL.Logical.MultiOr mulOr(final nu=nChi) "Logical or"
+  Buildings.Controls.OBC.CDL.Logical.MultiOr mulOr(final nin=nChi) "Logical or"
     annotation (Placement(transformation(extent={{-40,30},{-20,50}})));
   Buildings.Controls.OBC.CDL.Logical.Switch swi "Logical switch"
     annotation (Placement(transformation(extent={{0,30},{20,50}})));

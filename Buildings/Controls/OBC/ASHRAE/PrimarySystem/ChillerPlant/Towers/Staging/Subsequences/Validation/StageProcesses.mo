@@ -24,7 +24,7 @@ model StageProcesses
     annotation (Placement(transformation(extent={{-140,50},{-120,70}})));
   Buildings.Controls.OBC.CDL.Logical.LogicalSwitch logSwi[4] "Logical switch"
     annotation (Placement(transformation(extent={{0,50},{20,70}})));
-  Buildings.Controls.OBC.CDL.Routing.BooleanReplicator booRep(
+  Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator booRep(
     final nout=4) "Replicate boolean input"
     annotation (Placement(transformation(extent={{-60,50},{-40,70}})));
   Buildings.Controls.OBC.CDL.Discrete.ZeroOrderHold zerOrdHol[4](

@@ -101,7 +101,7 @@ block Speed_primary_localDp
     annotation (Placement(transformation(extent={{0,-30},{20,-10}})));
 
 protected
-  Buildings.Controls.OBC.CDL.Routing.BooleanReplicator booRep(
+  Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator booRep(
     final nout=nSen)
     "Replicate boolean input"
     annotation (Placement(transformation(extent={{-40,-50},{-20,-30}})));
@@ -131,12 +131,12 @@ protected
   Buildings.Controls.OBC.CDL.Continuous.Division div1
     "Normalized pressure difference"
     annotation (Placement(transformation(extent={{-100,70},{-80,90}})));
-  Buildings.Controls.OBC.CDL.Routing.RealReplicator reaRep1(
+  Buildings.Controls.OBC.CDL.Routing.RealScalarReplicator reaRep1(
     final nout=nSen) "Replicate real input"
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
   Buildings.Controls.OBC.CDL.Logical.Switch swi "Logical switch"
     annotation (Placement(transformation(extent={{100,110},{120,130}})));
-  Buildings.Controls.OBC.CDL.Logical.MultiOr mulOr(final nu=nPum)
+  Buildings.Controls.OBC.CDL.Logical.MultiOr mulOr(final nin=nPum)
     "Check if there is any pump enabled"
     annotation (Placement(transformation(extent={{-120,-50},{-100,-30}})));
 

@@ -90,7 +90,7 @@ protected
     annotation (Placement(transformation(extent={{40,90},{60,110}})));
   Buildings.Controls.OBC.CDL.Continuous.Division div1 "Output first input divided by second input"
     annotation (Placement(transformation(extent={{40,50},{60,70}})));
-  Buildings.Controls.OBC.CDL.Logical.MultiOr mulOr(final nu=nChi) "Logical or"
+  Buildings.Controls.OBC.CDL.Logical.MultiOr mulOr(final nin=nChi) "Logical or"
     annotation (Placement(transformation(extent={{-120,10},{-100,30}})));
   Buildings.Controls.OBC.CDL.Continuous.Line lin "Linear interpolation"
     annotation (Placement(transformation(extent={{60,-50},{80,-30}})));

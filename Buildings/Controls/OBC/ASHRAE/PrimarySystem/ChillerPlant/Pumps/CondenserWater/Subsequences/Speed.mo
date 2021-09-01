@@ -74,7 +74,7 @@ protected
   Buildings.Controls.OBC.CDL.Continuous.Add add2 if not fixSpe
                                                  "Add two real inputs"
     annotation (Placement(transformation(extent={{-80,50},{-60,70}})));
-  Buildings.Controls.OBC.CDL.Routing.RealReplicator reaRep(
+  Buildings.Controls.OBC.CDL.Routing.RealScalarReplicator reaRep(
     final nout=totSta) if not fixSpe
                        "Replicate real input"
     annotation (Placement(transformation(extent={{-40,50},{-20,70}})));

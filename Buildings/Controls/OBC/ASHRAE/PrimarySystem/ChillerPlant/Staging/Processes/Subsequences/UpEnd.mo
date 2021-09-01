@@ -195,7 +195,7 @@ protected
   Buildings.Controls.OBC.CDL.Logical.LogicalSwitch logSwi3[nChi]
     "Logical switch"
     annotation (Placement(transformation(extent={{160,-60},{180,-40}})));
-  Buildings.Controls.OBC.CDL.Routing.BooleanReplicator booRep4(final nout=nChi)
+  Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator booRep4(final nout=nChi)
     "Replicate boolean input"
     annotation (Placement(transformation(extent={{-80,50},{-60,70}})));
   Buildings.Controls.OBC.CDL.Logical.Switch chiWatIso[nChi]

@@ -79,7 +79,7 @@ protected
     annotation (Placement(transformation(extent={{-140,80},{-120,100}})));
 
   Buildings.Controls.OBC.CDL.Logical.MultiAnd enaPla(
-    final nu=4) "Enable chiller plant"
+    final nin=4) "Enable chiller plant"
     annotation (Placement(transformation(extent={{40,70},{60,90}})));
 
   Buildings.Controls.OBC.CDL.Logical.Timer enaTim(
@@ -185,8 +185,9 @@ equation
           -78},{38,-78}}, color={255,0,255}));
   connect(hys.y, notLoc.u) annotation (Line(points={{-78,-130},{-60,-130},{-60,10},
           {-22,10}}, color={255,0,255}));
-  connect(notLoc.y, enaPla.u[4]) annotation (Line(points={{2,10},{20,10},{20,74.75},
-          {38,74.75}}, color={255,0,255}));
+  connect(notLoc.y, enaPla.u[4]) annotation (Line(points={{2,10},{20,10},{20,
+          74.75},{38,74.75}},
+                       color={255,0,255}));
   connect(disPla.y, plaSta.clr) annotation (Line(points={{62,-10},{80,-10},{80,74},
           {98,74}}, color={255,0,255}));
   connect(enaTim1.passed, disPlaCon.u2) annotation (Line(points={{-78,-78},{-20,

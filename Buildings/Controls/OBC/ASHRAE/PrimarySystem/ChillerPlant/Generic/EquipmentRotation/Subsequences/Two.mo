@@ -36,7 +36,7 @@ protected
     final pre_u_start=initRoles) "Previous timestep"
     annotation (Placement(transformation(extent={{40,-30},{60,-10}})));
 
-  Buildings.Controls.OBC.CDL.Routing.BooleanReplicator booRep(
+  Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator booRep(
     final nout=nDev) "Signal replicator"
     annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
 

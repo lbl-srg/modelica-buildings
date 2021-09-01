@@ -32,7 +32,7 @@ model ChilledWaterPlantReset
     "Convert real to integer"
     annotation (Placement(transformation(extent={{0,-60},{20,-40}})));
 
-  Buildings.Controls.OBC.CDL.Routing.BooleanReplicator booRep(nout=2)
+  Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator booRep(nout=2)
     annotation (Placement(transformation(extent={{0,-30},{20,-10}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.TimeTable timTabLin1(
     final smoothness=Buildings.Controls.OBC.CDL.Types.Smoothness.ConstantSegments,

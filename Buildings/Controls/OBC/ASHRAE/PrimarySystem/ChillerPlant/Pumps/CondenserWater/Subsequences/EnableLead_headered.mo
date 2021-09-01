@@ -33,7 +33,7 @@ protected
     "Logical false"
     annotation (Placement(transformation(extent={{-80,-70},{-60,-50}})));
   Buildings.Controls.OBC.CDL.Logical.MultiOr mulOr(
-    final nu=nChi)
+    final nin=nChi)
     "Check if there is any chiller enabled"
     annotation (Placement(transformation(extent={{-80,10},{-60,30}})));
 

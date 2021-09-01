@@ -53,13 +53,13 @@ protected
   Buildings.Controls.OBC.CDL.Continuous.Line lin1
     "Chilled water isolation valve setpoint"
     annotation (Placement(transformation(extent={{20,230},{40,250}})));
-  Buildings.Controls.OBC.CDL.Routing.RealReplicator reaRep(
+  Buildings.Controls.OBC.CDL.Routing.RealScalarReplicator reaRep(
     final nout=nTowCel)
     "Replicate real input"
     annotation (Placement(transformation(extent={{100,160},{120,180}})));
   Buildings.Controls.OBC.CDL.Logical.Switch swi[nTowCel] "Logical switch"
     annotation (Placement(transformation(extent={{120,100},{140,120}})));
-  Buildings.Controls.OBC.CDL.Routing.BooleanReplicator booRep(
+  Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator booRep(
     final nout=nTowCel)
     "Replicate boolean input"
     annotation (Placement(transformation(extent={{60,20},{80,40}})));
@@ -71,7 +71,7 @@ protected
     final uLow=fill(0.925, nTowCel),
     final uHigh=fill(0.975, nTowCel)) "Check if isolation valve is open more than 95%"
     annotation (Placement(transformation(extent={{-60,-70},{-40,-50}})));
-  Buildings.Controls.OBC.CDL.Logical.MultiAnd mulAnd1(final nu=nTowCel)
+  Buildings.Controls.OBC.CDL.Logical.MultiAnd mulAnd1(final nin=nTowCel)
     "Logical and"
     annotation (Placement(transformation(extent={{80,-40},{100,-20}})));
   Buildings.Controls.OBC.CDL.Logical.And and5
@@ -84,7 +84,7 @@ protected
   Buildings.Controls.OBC.CDL.Logical.And and1[nTowCel]
     "True: cells should be enabled"
     annotation (Placement(transformation(extent={{20,-150},{40,-130}})));
-  Buildings.Controls.OBC.CDL.Routing.BooleanReplicator booRep1(
+  Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator booRep1(
     final nout=nTowCel)
     "Replicate boolean input"
     annotation (Placement(transformation(extent={{120,-80},{140,-60}})));
@@ -99,7 +99,7 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Not not1[nTowCel] "Logical and"
     annotation (Placement(transformation(extent={{-60,160},{-40,180}})));
   Buildings.Controls.OBC.CDL.Logical.MultiAnd enaCel(
-    final nu=nTowCel) "New cells should be enabled"
+    final nin=nTowCel) "New cells should be enabled"
     annotation (Placement(transformation(extent={{-20,160},{0,180}})));
   Buildings.Controls.OBC.CDL.Logical.Switch celPosSet
     "Slowly change the opening setpoint to 1 of the enabling cells isolation valve, or change the setpoint to 0 of the disabling cells"
@@ -113,23 +113,23 @@ protected
   Buildings.Controls.OBC.CDL.Logical.LogicalSwitch newTowCell[nTowCel]
     "New tower cell status"
     annotation (Placement(transformation(extent={{100,-190},{120,-170}})));
-  Buildings.Controls.OBC.CDL.Routing.BooleanReplicator booRep2(
+  Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator booRep2(
     final nout=nTowCel) "In the enabling process"
     annotation (Placement(transformation(extent={{40,-190},{60,-170}})));
   Buildings.Controls.OBC.CDL.Logical.LogicalSwitch disExiCel[nTowCel]
     "Disable existing cells"
     annotation (Placement(transformation(extent={{40,-220},{60,-200}})));
-  Buildings.Controls.OBC.CDL.Routing.BooleanReplicator booRep3(
+  Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator booRep3(
     final nout=nTowCel) "In the disabling process"
     annotation (Placement(transformation(extent={{-40,-220},{-20,-200}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant con2[nTowCel](
     final k=fill(false, nTowCel)) "Disable cells"
     annotation (Placement(transformation(extent={{-80,-200},{-60,-180}})));
   Buildings.Controls.OBC.CDL.Logical.MultiOr staPro(
-    final nu=nTowCel) "In tower staging process"
+    final nin=nTowCel) "In tower staging process"
     annotation (Placement(transformation(extent={{20,290},{40,310}})));
   Buildings.Controls.OBC.CDL.Logical.MultiOr opeVal(
-    final nu=nTowCel) "Check if there is any opened valve"
+    final nin=nTowCel) "Check if there is any opened valve"
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
   Buildings.Controls.OBC.CDL.Logical.And and3
     "Check if the opened valves are fully open"
@@ -143,7 +143,7 @@ protected
   Buildings.Controls.OBC.CDL.Integers.Equal intEqu[nTowCel]
     "Check if the opened valves are fully open"
     annotation (Placement(transformation(extent={{40,-40},{60,-20}})));
-  Buildings.Controls.OBC.CDL.Routing.BooleanReplicator booRep4(
+  Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator booRep4(
     final nout=nTowCel) "In the disabling process"
     annotation (Placement(transformation(extent={{60,-270},{80,-250}})));
   Buildings.Controls.OBC.CDL.Logical.Or celChaSta[nTowCel]
@@ -155,7 +155,7 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Edge edg[nTowCel] "Check if there is any cell being enabled"
     annotation (Placement(transformation(extent={{-120,-310},{-100,-290}})));
   Buildings.Controls.OBC.CDL.Logical.MultiOr endStaPro(
-    final nu=nTowCel)
+    final nin=nTowCel)
     "Check if there is any cell changed status so it means that the staging process is done"
     annotation (Placement(transformation(extent={{0,-290},{20,-270}})));
   Buildings.Controls.OBC.CDL.Logical.Latch lat[nTowCel] "Change cells status"

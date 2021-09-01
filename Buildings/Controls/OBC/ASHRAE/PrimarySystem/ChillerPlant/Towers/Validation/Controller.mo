@@ -127,7 +127,7 @@ protected
     final uLow=0.005, final uHigh=0.01)
     "Lead condenser water pump status"
     annotation (Placement(transformation(extent={{-240,-190},{-220,-170}})));
-  Buildings.Controls.OBC.CDL.Routing.BooleanReplicator booRep(final nout=4)
+  Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator booRep(final nout=4)
     "Replicate boolean input"
     annotation (Placement(transformation(extent={{-80,-390},{-60,-370}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant con[4](
@@ -146,7 +146,7 @@ protected
   Buildings.Controls.OBC.CDL.Logical.LogicalSwitch chaCel1[4]
     "Vector of changing tower cells when chiller is enabled"
     annotation (Placement(transformation(extent={{40,-310},{60,-290}})));
-  Buildings.Controls.OBC.CDL.Routing.BooleanReplicator booRep1(final nout=4)
+  Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator booRep1(final nout=4)
     "Replicate boolean input"
     annotation (Placement(transformation(extent={{-80,-310},{-60,-290}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant con1[4](

@@ -28,7 +28,7 @@ model Speed_primary_remoteDp
     final startTime=2,
     final amplitude=1*6894.75) "Remote pressure difference sensor reading"
     annotation (Placement(transformation(extent={{-60,-50},{-40,-30}})));
-  Buildings.Controls.OBC.CDL.Routing.RealReplicator reaRep(
+  Buildings.Controls.OBC.CDL.Routing.RealScalarReplicator reaRep(
     final nout=2) "Replicate real input"
     annotation (Placement(transformation(extent={{-30,-90},{-10,-70}})));
 

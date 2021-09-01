@@ -75,7 +75,7 @@ protected
     annotation (Placement(transformation(extent={{-360,170},{-340,190}})));
   Buildings.Controls.OBC.CDL.Logical.Or3 or3 "Logical or"
     annotation (Placement(transformation(extent={{-260,-150},{-240,-130}})));
-  Buildings.Controls.OBC.CDL.Routing.BooleanReplicator booRep(
+  Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator booRep(
     final nout=4) "Replicate boolean input"
     annotation (Placement(transformation(extent={{-200,-90},{-180,-70}})));
   Buildings.Controls.OBC.CDL.Logical.Not not1 "Logical not"

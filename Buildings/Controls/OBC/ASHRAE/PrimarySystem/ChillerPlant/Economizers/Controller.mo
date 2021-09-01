@@ -39,7 +39,7 @@ block Controller "Waterside economizer (WSE) enable/disable status"
 
   parameter Real TOutWetDes(
     final unit="K",
-    final quantity="TemperatureDifference",
+    final quantity="ThermodynamicTemperature",
     displayUnit="degC")=288.15
     "Design outdoor air wet bulb temperature"
     annotation(Dialog(group="Design parameters"));

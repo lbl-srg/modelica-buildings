@@ -67,7 +67,7 @@ protected
     annotation (Placement(transformation(extent={{-220,-80},{-200,-60}})));
   Buildings.Controls.OBC.CDL.Continuous.Add add3 "Add real inputs"
     annotation (Placement(transformation(extent={{-80,-30},{-60,-10}})));
-  Buildings.Controls.OBC.CDL.Routing.RealReplicator reaRep(
+  Buildings.Controls.OBC.CDL.Routing.RealScalarReplicator reaRep(
     final nout=totSta) "Replicate real input"
     annotation (Placement(transformation(extent={{-40,-30},{-20,-10}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con4[totSta](
@@ -118,7 +118,7 @@ protected
     "Chiller stage index in the staging process"
     annotation (Placement(transformation(extent={{-160,10},{-140,30}})));
   Buildings.Controls.OBC.CDL.Logical.MultiOr mulOr(
-    final nu=nConWatPum)
+    final nin=nConWatPum)
     "Check if any condenser water pump is running"
     annotation (Placement(transformation(extent={{-140,-170},{-120,-150}})));
 

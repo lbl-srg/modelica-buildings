@@ -85,7 +85,7 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Not not1[nPum] "Logical not"
     annotation (Placement(transformation(extent={{-100,50},{-80,70}})));
   Buildings.Controls.OBC.CDL.Logical.MultiAnd mulAnd(
-    final nu=nPum) "Logical and"
+    final nin=nPum) "Logical and"
     annotation (Placement(transformation(extent={{-60,50},{-40,70}})));
   Buildings.Controls.OBC.CDL.Logical.Not not2
     "Check if these is any CHW pump is proven on"

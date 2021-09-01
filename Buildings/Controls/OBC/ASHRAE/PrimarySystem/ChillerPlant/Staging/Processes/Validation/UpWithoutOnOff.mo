@@ -23,7 +23,7 @@ protected
     final offset=1,
     final startTime=500) "Chilled water flow rate"
     annotation (Placement(transformation(extent={{-140,-50},{-120,-30}})));
-  Buildings.Controls.OBC.CDL.Routing.BooleanReplicator booRep(
+  Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator booRep(
     final nout=2) "Replicate boolean input"
     annotation (Placement(transformation(extent={{-60,-230},{-40,-210}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul(
@@ -82,7 +82,7 @@ protected
   Buildings.Controls.OBC.CDL.Conversions.RealToInteger staSet
     "Stage setpoint index"
     annotation (Placement(transformation(extent={{-20,190},{0,210}})));
-  Buildings.Controls.OBC.CDL.Routing.BooleanReplicator booRep1(final nout=2)
+  Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator booRep1(final nout=2)
     "Replicate boolean input"
     annotation (Placement(transformation(extent={{-60,100},{-40,120}})));
   Buildings.Controls.OBC.CDL.Logical.LogicalSwitch chiSet[2]

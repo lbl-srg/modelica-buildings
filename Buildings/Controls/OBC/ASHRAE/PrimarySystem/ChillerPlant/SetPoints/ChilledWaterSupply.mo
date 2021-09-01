@@ -83,7 +83,7 @@ protected
   Buildings.Controls.OBC.CDL.Continuous.Line chiWatTem
     "Chilled water temperature setpoint"
     annotation (Placement(transformation(extent={{40,-60},{60,-40}})));
-  Buildings.Controls.OBC.CDL.Routing.RealReplicator reaRep(
+  Buildings.Controls.OBC.CDL.Routing.RealScalarReplicator reaRep(
     final nout=nRemDpSen)
     "Distribute reset value to each remote sensor"
     annotation (Placement(transformation(extent={{-60,40},{-40,60}})));

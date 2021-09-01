@@ -1266,7 +1266,7 @@ block Controller "Chiller plant controller"
     annotation(Placement(transformation(extent={{580,-90},{600,-70}})));
 
   Buildings.Controls.OBC.CDL.Logical.MultiOr mulOr(
-    final nu=nChiWatPum)
+    final nin=nChiWatPum)
     annotation(Placement(transformation(extent={{-640,-134},{-620,-114}})));
 
   Buildings.Controls.OBC.CDL.Continuous.MultiMax conWatPumSpe(
@@ -1279,18 +1279,18 @@ block Controller "Chiller plant controller"
     "Tower stage change status: true=stage cooling tower"
     annotation (Placement(transformation(extent={{580,-130},{600,-110}})));
 
-  Buildings.Controls.OBC.CDL.Routing.BooleanReplicator booRep(
+  Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator booRep(
     final nout=nChi) if have_WSE
     "Waterside economizer status"
     annotation (Placement(transformation(extent={{-480,290},{-460,310}})));
 
-  Buildings.Controls.OBC.CDL.Routing.RealReplicator conWatRetTem(
+  Buildings.Controls.OBC.CDL.Routing.RealScalarReplicator conWatRetTem(
     final nout=nChi)
     if not have_heaPreConSig
     "Condenser water return temperature"
     annotation (Placement(transformation(extent={{-640,230},{-620,250}})));
 
-  Buildings.Controls.OBC.CDL.Routing.RealReplicator chiWatSupTem(
+  Buildings.Controls.OBC.CDL.Routing.RealScalarReplicator chiWatSupTem(
     final nout=nChi)
     if not have_heaPreConSig
     "Chilled water supply temperature"
@@ -1301,7 +1301,7 @@ block Controller "Chiller plant controller"
     "Design condenser water pump speed"
     annotation (Placement(transformation(extent={{580,190},{600,210}})));
 
-  Buildings.Controls.OBC.CDL.Routing.RealReplicator repDesConTem(
+  Buildings.Controls.OBC.CDL.Routing.RealScalarReplicator repDesConTem(
     final nout=nChi)
     if not have_fixSpeConWatPum
     "Replicate design condenser water temperature"
@@ -1315,7 +1315,7 @@ block Controller "Chiller plant controller"
   Buildings.Controls.OBC.CDL.Logical.Switch chiMinFloSet "Chiller water minimum flow setpoint"
     annotation (Placement(transformation(extent={{580,110},{600,130}})));
 
-  Buildings.Controls.OBC.CDL.Routing.BooleanReplicator uChiSwi(
+  Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator uChiSwi(
     final nout=nChi)
     "In chiller stage up process"
     annotation (Placement(transformation(extent={{560,340},{580,360}})));

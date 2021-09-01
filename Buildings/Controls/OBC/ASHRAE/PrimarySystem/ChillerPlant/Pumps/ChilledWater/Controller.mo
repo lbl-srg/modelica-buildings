@@ -179,27 +179,27 @@ protected
     final k=1) if have_heaPum
     "Constant one"
     annotation (Placement(transformation(extent={{-220,190},{-200,210}})));
-  Buildings.Controls.OBC.CDL.Routing.IntegerReplicator intRep(
+  Buildings.Controls.OBC.CDL.Routing.IntegerScalarReplicator intRep(
     final nout=nPum) if have_heaPum
     "Replicate integer input"
     annotation (Placement(transformation(extent={{0,220},{20,240}})));
-  Buildings.Controls.OBC.CDL.Routing.BooleanReplicator booRep(
+  Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator booRep(
     final nout=nPum) if have_heaPum
     "Replicate boolean input"
     annotation (Placement(transformation(extent={{0,100},{20,120}})));
-  Buildings.Controls.OBC.CDL.Routing.IntegerReplicator intRep1(
+  Buildings.Controls.OBC.CDL.Routing.IntegerScalarReplicator intRep1(
     final nout=nPum) if have_heaPum
     "Replicate integer input"
     annotation (Placement(transformation(extent={{0,-60},{20,-40}})));
-  Buildings.Controls.OBC.CDL.Routing.BooleanReplicator booRep1(
+  Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator booRep1(
     final nout=nPum) if have_heaPum
     "Replicate boolean input"
     annotation (Placement(transformation(extent={{60,20},{80,40}})));
-  Buildings.Controls.OBC.CDL.Routing.IntegerReplicator intRep2(
+  Buildings.Controls.OBC.CDL.Routing.IntegerScalarReplicator intRep2(
     final nout=nPum) if have_heaPum
     "Replicate integer input"
     annotation (Placement(transformation(extent={{0,-110},{20,-90}})));
-  Buildings.Controls.OBC.CDL.Routing.BooleanReplicator booRep2(
+  Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator booRep2(
     final nout=nPum) if have_heaPum
     "Replicate boolean input"
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
@@ -289,7 +289,7 @@ protected
     "Remove pump"
     annotation (Placement(transformation(extent={{220,-80},{240,-60}})));
   Buildings.Controls.OBC.CDL.Logical.MultiAnd mulAnd(
-    final nu=nPum) if have_heaPum
+    final nin=nPum) if have_heaPum
     "Check if all the pumps have achieved the setpoint status"
     annotation (Placement(transformation(extent={{-140,-30},{-120,-10}})));
   Buildings.Controls.OBC.CDL.Logical.Latch enaNexLag if have_heaPum

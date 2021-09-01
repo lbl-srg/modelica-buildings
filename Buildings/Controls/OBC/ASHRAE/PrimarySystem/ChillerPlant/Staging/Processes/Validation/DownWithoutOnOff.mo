@@ -23,7 +23,7 @@ protected
     final offset=2,
     final startTime=800) "Chilled water flow rate"
     annotation (Placement(transformation(extent={{-140,-110},{-120,-90}})));
-  Buildings.Controls.OBC.CDL.Routing.BooleanReplicator booRep(
+  Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator booRep(
     final nout=2) "Replicate boolean input"
     annotation (Placement(transformation(extent={{-60,-210},{-40,-190}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul(
@@ -74,7 +74,7 @@ protected
     final k={true,false})
     "Vector of chillers status setpoint at stage one"
     annotation (Placement(transformation(extent={{-140,150},{-120,170}})));
-  Buildings.Controls.OBC.CDL.Routing.BooleanReplicator booRep2(final nout=2)
+  Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator booRep2(final nout=2)
     "Replicate boolean input"
     annotation (Placement(transformation(extent={{-60,120},{-40,140}})));
   Buildings.Controls.OBC.CDL.Logical.LogicalSwitch chiSet2[2]

@@ -66,7 +66,7 @@ protected
     final k={false,true})
     "Vector of chillers status setpoint at stage two"
     annotation (Placement(transformation(extent={{-260,110},{-240,130}})));
-  Buildings.Controls.OBC.CDL.Routing.BooleanReplicator booRep(
+  Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator booRep(
     final nout=2)
     "Replicate boolean input"
     annotation (Placement(transformation(extent={{-180,90},{-160,110}})));
@@ -104,7 +104,7 @@ protected
     final k={true,true})
     "Vector of chillers status setpoint at stage two"
     annotation (Placement(transformation(extent={{40,110},{60,130}})));
-  Buildings.Controls.OBC.CDL.Routing.BooleanReplicator booRep1(
+  Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator booRep1(
     final nout=2)
     "Replicate boolean input"
     annotation (Placement(transformation(extent={{120,90},{140,110}})));
@@ -140,7 +140,7 @@ protected
     final k={false,true})
     "Vector of chillers status setpoint at stage two"
     annotation (Placement(transformation(extent={{-260,-250},{-240,-230}})));
-  Buildings.Controls.OBC.CDL.Routing.BooleanReplicator booRep2(
+  Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator booRep2(
     final nout=2) "Replicate boolean input"
     annotation (Placement(transformation(extent={{-180,-230},{-160,-210}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul6(
@@ -174,7 +174,7 @@ protected
     final k={true,true})
     "Vector of chillers status setpoint at stage two"
     annotation (Placement(transformation(extent={{40,-250},{60,-230}})));
-  Buildings.Controls.OBC.CDL.Routing.BooleanReplicator booRep3(
+  Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator booRep3(
     final nout=2) "Replicate boolean input"
     annotation (Placement(transformation(extent={{120,-230},{140,-210}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul7(

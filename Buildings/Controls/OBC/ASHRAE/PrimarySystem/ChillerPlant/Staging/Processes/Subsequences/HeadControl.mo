@@ -63,7 +63,7 @@ protected
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea[nChi]
     "Convert boolean input to real output"
     annotation (Placement(transformation(extent={{-120,-100},{-100,-80}})));
-  Buildings.Controls.OBC.CDL.Routing.BooleanReplicator booRep(final nout=nChi)
+  Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator booRep(final nout=nChi)
     "Replicate boolean input"
     annotation (Placement(transformation(extent={{-60,-120},{-40,-100}})));
   Buildings.Controls.OBC.CDL.Logical.And and2 "Logical and"
@@ -76,7 +76,7 @@ protected
     final t=thrTimEnb + waiTim)
     "Check if it has been threshold time after condenser water pump achieves its new setpoint and have waited for another amount of time"
     annotation (Placement(transformation(extent={{40,110},{60,130}})));
-  Buildings.Controls.OBC.CDL.Routing.BooleanReplicator booRep1(
+  Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator booRep1(
     final nout=nChi) "Replicate boolean input"
     annotation (Placement(transformation(extent={{80,70},{100,90}})));
   Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greEquThr[nChi](
@@ -87,10 +87,10 @@ protected
     annotation (Placement(transformation(extent={{-20,-50},{0,-30}})));
   Buildings.Controls.OBC.CDL.Logical.Switch swi1[nChi] "Logical switch"
     annotation (Placement(transformation(extent={{80,-50},{100,-30}})));
-  Buildings.Controls.OBC.CDL.Routing.BooleanReplicator booRep2(final nout=nChi)
+  Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator booRep2(final nout=nChi)
     "Replicate boolean input"
     annotation (Placement(transformation(extent={{20,-50},{40,-30}})));
-  Buildings.Controls.OBC.CDL.Routing.IntegerReplicator intRep(final nout=nChi)
+  Buildings.Controls.OBC.CDL.Routing.IntegerScalarReplicator intRep(final nout=nChi)
     "Replicate integer input"
     annotation (Placement(transformation(extent={{-120,-20},{-100,0}})));
   Buildings.Controls.OBC.CDL.Integers.Equal intEqu[nChi]
@@ -101,7 +101,7 @@ protected
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea1[nChi]
     "Convert boolean input to real output"
     annotation (Placement(transformation(extent={{80,20},{100,40}})));
-  Buildings.Controls.OBC.CDL.Routing.BooleanReplicator booRep3(final nout=nChi)
+  Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator booRep3(final nout=nChi)
     "Replicate boolean input"
     annotation (Placement(transformation(extent={{40,20},{60,40}})));
   Buildings.Controls.OBC.CDL.Logical.LogicalSwitch logSwi "Logical switch"
@@ -120,7 +120,7 @@ protected
   Buildings.Controls.OBC.CDL.Logical.LogicalSwitch logSwi1[nChi]
     "Logical switch"
     annotation (Placement(transformation(extent={{180,-70},{200,-50}})));
-  Buildings.Controls.OBC.CDL.Routing.BooleanReplicator booRep4(final nout=nChi)
+  Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator booRep4(final nout=nChi)
     "Replicate boolean input"
     annotation (Placement(transformation(extent={{80,-140},{100,-120}})));
 

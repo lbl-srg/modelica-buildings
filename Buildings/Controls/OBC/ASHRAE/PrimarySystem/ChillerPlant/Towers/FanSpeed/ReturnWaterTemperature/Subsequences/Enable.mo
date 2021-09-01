@@ -64,7 +64,7 @@ protected
     final uHigh=fill(2*fanSpeChe, nChi))
     "Check if chiller head pressure control maximum tower speed is greater than the minimum tower speed "
     annotation (Placement(transformation(extent={{-40,150},{-20,170}})));
-  Buildings.Controls.OBC.CDL.Logical.MultiOr mulOr(final nu=nChi)
+  Buildings.Controls.OBC.CDL.Logical.MultiOr mulOr(final nin=nChi)
     "Check if any enabled chiller head pressure control maximum tower speed equals to the minimum tower speed"
     annotation (Placement(transformation(extent={{40,150},{60,170}})));
   Buildings.Controls.OBC.CDL.Logical.Not not1[nChi] "Logical not"
@@ -103,7 +103,7 @@ protected
     annotation (Placement(transformation(extent={{80,70},{100,90}})));
   Buildings.Controls.OBC.CDL.Logical.Or disTow "Disable tower fans"
     annotation (Placement(transformation(extent={{120,110},{140,130}})));
-  Buildings.Controls.OBC.CDL.Logical.MultiOr mulOr1(final nu=nTowCel)
+  Buildings.Controls.OBC.CDL.Logical.MultiOr mulOr1(final nin=nTowCel)
     "True when any tower fan is enaled"
     annotation (Placement(transformation(extent={{-140,-130},{-120,-110}})));
   Buildings.Controls.OBC.CDL.Logical.Not not3 "No enabled tower fan"
@@ -120,7 +120,7 @@ protected
     final uHigh=0.15)
     "Check if tower temperature is above the adjusted setpoint"
     annotation (Placement(transformation(extent={{20,-50},{40,-30}})));
-  Buildings.Controls.OBC.CDL.Logical.MultiAnd mulAnd(final nu=nChi)
+  Buildings.Controls.OBC.CDL.Logical.MultiAnd mulAnd(final nin=nChi)
     "Check if all enabled chillers head pressure control maximum tower speed are greater than tower minimum speed"
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
   Buildings.Controls.OBC.CDL.Logical.And3 enaTow

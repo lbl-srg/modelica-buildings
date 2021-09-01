@@ -138,7 +138,7 @@ protected
     annotation (Placement(transformation(extent={{-100,-10},{-80,10}})));
 
   Buildings.Controls.OBC.CDL.Logical.MultiOr mulOr(
-    final nu=nRemSen)
+    final nin=nRemSen)
     if (not have_serChi) and (not have_locSen)
     annotation (Placement(transformation(extent={{20,-90},{40,-70}})));
 

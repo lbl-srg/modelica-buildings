@@ -65,7 +65,7 @@ protected
     final duration=2000)
     "Lead chiller proven on status"
     annotation (Placement(transformation(extent={{-20,-30},{0,-10}})));
-  Buildings.Controls.OBC.CDL.Routing.BooleanReplicator booRep(
+  Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator booRep(
     final nout=3) "Replicate plant enabling status"
     annotation (Placement(transformation(extent={{-20,30},{0,50}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse enaPla(
@@ -77,7 +77,7 @@ protected
     final period=3600,
     final shift=300) "Lead chiller enabling status"
     annotation (Placement(transformation(extent={{-60,0},{-40,20}})));
-  Buildings.Controls.OBC.CDL.Routing.RealReplicator reaRep(
+  Buildings.Controls.OBC.CDL.Routing.RealScalarReplicator reaRep(
     final nout=2)
     "Replicate real input"
     annotation (Placement(transformation(extent={{-20,-140},{0,-120}})));

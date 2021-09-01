@@ -52,7 +52,7 @@ protected
     final y_start=fill(1e-6,nChi))
     "Triggered sampler to sample current chiller demand"
     annotation (Placement(transformation(extent={{0,120},{20,140}})));
-  Buildings.Controls.OBC.CDL.Routing.BooleanReplicator booRep(
+  Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator booRep(
     final nout=nChi)
     "Replicate boolean input"
     annotation (Placement(transformation(extent={{-60,150},{-40,170}})));
@@ -75,13 +75,13 @@ protected
     annotation (Placement(transformation(extent={{-40,-120},{-20,-100}})));
   Buildings.Controls.OBC.CDL.Logical.Not not1[nChi] "Logical not"
     annotation (Placement(transformation(extent={{40,-120},{60,-100}})));
-  Buildings.Controls.OBC.CDL.Logical.MultiAnd mulAnd(final nu=nChi)
+  Buildings.Controls.OBC.CDL.Logical.MultiAnd mulAnd(final nin=nChi)
     "Current chillers demand have been lower than 80%"
     annotation (Placement(transformation(extent={{80,-120},{100,-100}})));
   Buildings.Controls.OBC.CDL.Logical.Edge edg
     "Rising edge, output true at the moment when input turns from false to true"
     annotation (Placement(transformation(extent={{-100,150},{-80,170}})));
-  Buildings.Controls.OBC.CDL.Routing.BooleanReplicator booRep1(final nout=nChi)
+  Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator booRep1(final nout=nChi)
     "Replicate boolean input "
     annotation (Placement(transformation(extent={{-80,90},{-60,110}})));
   Buildings.Controls.OBC.CDL.Logical.And and2 "Logical and"
@@ -100,7 +100,7 @@ protected
     annotation (Placement(transformation(extent={{-40,20},{-20,40}})));
   Buildings.Controls.OBC.CDL.Continuous.Max max "Maximum value of two real inputs"
     annotation (Placement(transformation(extent={{0,10},{20,30}})));
-  Buildings.Controls.OBC.CDL.Routing.RealReplicator reaRep(final nout=nChi)
+  Buildings.Controls.OBC.CDL.Routing.RealScalarReplicator reaRep(final nout=nChi)
     "Replicate real input"
     annotation (Placement(transformation(extent={{60,10},{80,30}})));
   Buildings.Controls.OBC.CDL.Continuous.Product pro[nChi]

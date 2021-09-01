@@ -176,7 +176,7 @@ protected
     annotation (Placement(transformation(extent={{180,-160},{200,-140}})));
 
   Buildings.Controls.OBC.CDL.Logical.MultiAnd mulAnd(
-    final nu=nSta) "Logical and with a vector input"
+    final nin=nSta) "Logical and with a vector input"
     annotation (Placement(transformation(extent={{140,-160},{160,-140}})));
 
 equation
