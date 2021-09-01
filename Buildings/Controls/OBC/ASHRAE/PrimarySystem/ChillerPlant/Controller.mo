@@ -2078,10 +2078,10 @@ They are applicable for the primary-only plants or for the primary-secondary sys
 serving differential pressure controlled pumps.  
 </p>
 <table summary=\"summary\" border=\"1\">
-<tr><th bgcolor=\"#eee\">Applicable</th> </tr>
+<tr><th bgcolor=\"silver\">Applicable</th> </tr>
 <tr><td>Primary-only systems</td></tr>
 <tr><td>Primay-secondary systems serving differential pressure controlled pumps</td></tr>
-<tr><th bgcolor=\"#eee\">Not applicable</th> </tr>
+<tr><th bgcolor=\"silver\">Not applicable</th> </tr>
 <tr><td>Primary-only systems serving a single large load, e.g. large AHU</td></tr>
 <tr><td>Primay-secondary systems where there are any coil pumps</td></tr>
 <tr><td>Plants with multiple reset loops</td></tr>
@@ -2096,10 +2096,10 @@ Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.HeadPressure.Controller
 generates control signals for chiller head pressure control.
 </p>
 <table summary=\"summary\" border=\"1\">
-<tr><th bgcolor=\"#eee\">Applicable</th> </tr>
+<tr><th bgcolor=\"silver\">Applicable</th> </tr>
 <tr><td>Plants with headered condenser water pump, fixed or variable speed</td></tr>
 <tr><td>Plants with or without waterside economizer</td></tr>
-<tr><th bgcolor=\"#eee\">Not applicable</th> </tr>
+<tr><th bgcolor=\"silver\">Not applicable</th> </tr>
 <tr><td>Plants with air-cooling chillers</td></tr>
 </table>
 <p>
@@ -2126,9 +2126,9 @@ Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.MinimumFlowBypass.FlowS
 control chilled water minimum flow bypass valve.
 </p>
 <table summary=\"summary\" border=\"1\">
-<tr><th bgcolor=\"#eee\">Applicable</th> </tr>
+<tr><th bgcolor=\"silver\">Applicable</th> </tr>
 <tr><td>Primary-only plants, with parallel or series chillers</td></tr>
-<tr><th bgcolor=\"#eee\">Not applicable</th> </tr>
+<tr><th bgcolor=\"silver\">Not applicable</th> </tr>
 <tr><td>Primary-secondary plants</td></tr>
 </table>
 
@@ -2141,9 +2141,9 @@ controls chilled water pump. It is applicable for primary-only plants with paral
 chillers.
 </p>
 <table summary=\"summary\" border=\"1\">
-<tr><th bgcolor=\"#eee\">Applicable</th> </tr>
+<tr><th bgcolor=\"silver\">Applicable</th> </tr>
 <tr><td>Primary-only plants with parallel chillers</td></tr>
-<tr><th bgcolor=\"#eee\">Not applicable</th> </tr>
+<tr><th bgcolor=\"silver\">Not applicable</th> </tr>
 <tr><td>Primary-only plants with series chillers</td></tr>
 <tr><td>Primary-secondary plants</td></tr>
 </table>
@@ -2159,10 +2159,10 @@ Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Processes.Down<
 controls chiller staging up and down process. They are applicable for following plants:
 </p>
 <table summary=\"summary\" border=\"1\">
-<tr><th bgcolor=\"#eee\">Applicable</th> </tr>
+<tr><th bgcolor=\"silver\">Applicable</th> </tr>
 <tr><td>water-cooled, primary-only, parallel chiller plants with headered chilled water pumps and headered condenser water pumps</td></tr>
 <tr><td>air-cooled primary-only, parallel chiller plants with headered chilled water pumps</td></tr>
-<tr><th bgcolor=\"#eee\">Not applicable</th> </tr>
+<tr><th bgcolor=\"silver\">Not applicable</th> </tr>
 <tr><td>Primary-only plants with parallel chillers, dedicated chilled water or condenser water pumps</td></tr>
 <tr><td>Primary-only plants with series chillers</td></tr>
 <tr><td>Primary-secondary plants</td></tr>
