@@ -31,9 +31,10 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Not staDow1 "Stage down command"
     annotation (Placement(transformation(extent={{-160,130},{-140,150}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant chiLoa1(
-    final k=1000) "Chiller load"
+    final k=2) "Chiller load"
     annotation (Placement(transformation(extent={{-200,-60},{-180,-40}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant yOpeParLoaRatMin1(final k=0.78)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant yOpeParLoaRatMin1(
+    final k=0.78)
     "Minimum cycling operative partial load ratio"
     annotation (Placement(transformation(extent={{-200,20},{-180,40}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant fulOpe1(final k=1)

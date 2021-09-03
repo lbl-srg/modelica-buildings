@@ -33,7 +33,8 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Not staUp "Stage up command"
     annotation (Placement(transformation(extent={{-100,100},{-80,120}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant chiLoa[2](
-    final k=fill(1000,2)) "Chiller load"
+    final k=fill(2, 2))
+    "Chiller load"
     annotation (Placement(transformation(extent={{-140,30},{-120,50}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant iniChiIsoVal[2](
     final k={1,0}) "Initial chilled water solation valve"
@@ -41,8 +42,8 @@ protected
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zer1[2](
     final k=fill(0,2)) "Constant zero"
     annotation (Placement(transformation(extent={{-140,-10},{-120,10}})));
-  Buildings.Controls.OBC.CDL.Logical.Pre chiStaRet[2](final pre_u_start={true,
-        false}) "Chiller status return value"
+  Buildings.Controls.OBC.CDL.Logical.Pre chiStaRet[2](
+    final pre_u_start={true,false}) "Chiller status return value"
     annotation (Placement(transformation(extent={{100,60},{120,80}})));
   Buildings.Controls.OBC.CDL.Logical.Switch swi1[2] "Logical switch"
     annotation (Placement(transformation(extent={{-60,10},{-40,30}})));

@@ -548,8 +548,6 @@ equation
           {60,-250},{-160,-250},{-160,-36},{118,-36}}, color={255,0,255}));
   connect(endUp.endStaTri, lat4.clr) annotation (Line(points={{42,-229},{60,-229},
           {60,-250},{-160,-250},{-160,-116},{118,-116}}, color={255,0,255}));
-  connect(endUp.endStaTri, lat5.clr) annotation (Line(points={{42,-229},{60,-229},
-          {60,-250},{-160,-250},{-160,-176},{98,-176}}, color={255,0,255}));
   connect(uStaSet, nexChi.uStaSet) annotation (Line(points={{-260,250},{-104,250},
           {-104,227},{-82,227}}, color={255,127,0}));
   connect(lat.y, nexChi.chaPro) annotation (Line(points={{-118,200},{-100,200},{
@@ -568,9 +566,11 @@ equation
           -98},{-48,-160},{-260,-160}}, color={255,0,255}));
   connect(uChiHeaCon, endUp.uChiHeaCon) annotation (Line(points={{-260,-160},{-48,
           -160},{-48,-226},{18,-226}}, color={255,0,255}));
-
   connect(conWatPumCon.uConWatPum, uConWatPum) annotation (Line(points={{58,-19},
           {6,-19},{6,-130},{-260,-130}}, color={255,0,255}));
+  connect(endUp.endStaTri, lat5.clr) annotation (Line(points={{42,-229},{60,-229},
+          {60,-250},{-160,-250},{-160,-176},{98,-176}}, color={255,0,255}));
+
 annotation (
   defaultComponentName="upProCon",
   Diagram(coordinateSystem(preserveAspectRatio=false,

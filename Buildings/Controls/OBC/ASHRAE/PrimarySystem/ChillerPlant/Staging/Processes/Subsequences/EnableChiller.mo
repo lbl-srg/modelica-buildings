@@ -333,16 +333,16 @@ annotation (
           textString="Disable 
 small chiller"),
           Text(
-          extent={{70,94},{204,78}},
+          extent={{70,94},{262,74}},
           pattern=LinePattern.None,
           fillColor={210,210,210},
           fillPattern=FillPattern.Solid,
           lineColor={0,0,127},
           horizontalAlignment=TextAlignment.Left,
-          textString="1. When the stage change does not require one chiller off and another 
-chiller on."),
+          textString=
+              "1. When the stage change does not require one chiller off and another chiller on."),
           Text(
-          extent={{70,84},{282,62}},
+          extent={{72,76},{284,54}},
           pattern=LinePattern.None,
           fillColor={210,210,210},
           fillPattern=FillPattern.Solid,
@@ -351,7 +351,7 @@ chiller on."),
           textString="2. When the stage change does require one chiller off and another chiller on, 
 but the enabled chiller has not yet finished starting."),
           Text(
-          extent={{36,-132},{116,-140}},
+          extent={{82,-122},{162,-130}},
           pattern=LinePattern.None,
           fillColor={210,210,210},
           fillPattern=FillPattern.Solid,
@@ -359,7 +359,7 @@ but the enabled chiller has not yet finished starting."),
           horizontalAlignment=TextAlignment.Right,
           textString="Output new chiller status array:"),
           Text(
-          extent={{36,-138},{248,-160}},
+          extent={{24,-132},{236,-154}},
           pattern=LinePattern.None,
           fillColor={210,210,210},
           fillPattern=FillPattern.Solid,

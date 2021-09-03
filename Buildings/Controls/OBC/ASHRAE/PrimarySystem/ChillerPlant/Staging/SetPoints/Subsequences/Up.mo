@@ -16,53 +16,45 @@ block Up "Generates a stage up signal"
 
   parameter Real effConTruDelay(
     final unit="s",
-    final quantity="Time",
-    displayUnit="h")=900
+    final quantity="Time")=900
       "Enable delay for efficiency condition";
 
   parameter Real faiSafTruDelay(
     final unit="s",
-    final quantity="Time",
-    displayUnit="h")=900
+    final quantity="Time")=900
       "Enable delay for failsafe condition";
 
   parameter Real shortTDelay(
     final unit="s",
-    final quantity="Time",
-    displayUnit="h")=600
+    final quantity="Time")=600
       "Short enable delay for staging from zero to first available stage up"
     annotation(Evaluate=true, Dialog(enable=have_WSE));
 
   parameter Real longTDelay(
     final unit="s",
-    final quantity="Time",
-    displayUnit="h")=1200
+    final quantity="Time")=1200
       "Long enable delay for staging from zero to first available stage up"
     annotation(Evaluate=true, Dialog(enable=have_WSE));
 
   parameter Real faiSafTDif(
     final unit="K",
-    final quantity="TemperatureDifference",
-    displayUnit="degC")=1
+    final quantity="TemperatureDifference")=1
       "Offset between the chilled water supply temperature and its setpoint";
 
   parameter Real TDifHys(
     final unit="K",
-    final quantity="TemperatureDifference",
-    displayUnit="degC")=1
+    final quantity="TemperatureDifference")=1
       "Hysteresis deadband for temperature";
 
   parameter Real smallTDif(
     final unit="K",
-    final quantity="TemperatureDifference",
-    displayUnit="degC")=1
+    final quantity="TemperatureDifference")=1
       "Offset between the chilled water supply temperature and its setpoint for the long condition"
     annotation(Evaluate=true, Dialog(enable=have_WSE));
 
   parameter Real largeTDif(
     final unit="K",
-    final quantity="TemperatureDifference",
-    displayUnit="degC")=2
+    final quantity="TemperatureDifference")=2
       "Offset between the chilled water supply temperature and its setpoint for the short condition"
     annotation(Evaluate=true, Dialog(enable=have_WSE));
 

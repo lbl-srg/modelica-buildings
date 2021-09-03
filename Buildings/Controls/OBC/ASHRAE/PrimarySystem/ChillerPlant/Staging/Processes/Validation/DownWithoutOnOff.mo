@@ -33,7 +33,8 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Not staDow "Stage down command"
     annotation (Placement(transformation(extent={{-100,120},{-80,140}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant chiLoa[2](
-    final k=fill(1000,2)) "Chiller load"
+    final k=fill(2, 2))
+    "Chiller load"
     annotation (Placement(transformation(extent={{-140,-30},{-120,-10}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant yOpeParLoaRatMin(
     final k=0.78) "Minimum cycling operative partial load ratio"
@@ -66,8 +67,8 @@ protected
     final samplePeriod=20)
     "Output the input signal with a zero order hold"
     annotation (Placement(transformation(extent={{100,-130},{120,-110}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant staTwoChi2[2](
-    final k={false,true})
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant staTwoChi2[2](final k={
+        true,true})
     "Vector of chillers status setpoint at stage two"
     annotation (Placement(transformation(extent={{-140,90},{-120,110}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant staOneChi2[2](

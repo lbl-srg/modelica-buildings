@@ -30,8 +30,7 @@ protected
     annotation (Placement(transformation(extent={{-200,110},{-180,130}})));
   Buildings.Controls.OBC.CDL.Logical.Not staUp "Stage up command"
     annotation (Placement(transformation(extent={{-160,110},{-140,130}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant fulLoa(
-    final k=1000)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant fulLoa(final k=2)
     "Full load"
     annotation (Placement(transformation(extent={{-200,10},{-180,30}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zerLoa(
