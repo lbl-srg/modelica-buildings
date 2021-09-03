@@ -956,7 +956,7 @@ the control sequence.
 <p>
 To model the heat transfer through the building envelope,
 this model contains the replaceable model
-<a href=\"modelica:Buildings.Examples.VAVReheat.BaseClasses.PartialFloor\">
+<a href=\"modelica://Buildings.Examples.VAVReheat.BaseClasses.PartialFloor\">
 Buildings.Examples.VAVReheat.BaseClasses.PartialFloor</a>
 which provides an interface for a floor with five thermal zones.
 When using this model, this five zone model will need to be replaced with an actual implementation.
