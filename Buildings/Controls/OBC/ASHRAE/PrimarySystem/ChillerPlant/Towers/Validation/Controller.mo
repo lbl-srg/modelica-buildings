@@ -7,6 +7,7 @@ model Controller "Validation sequence of controlling tower"
     nTowCel=4,
     nConWatPum=2,
     have_WSE=true)
+    "Cooling tower controller"
     annotation (Placement(transformation(extent={{200,340},{220,380}})));
 
 protected

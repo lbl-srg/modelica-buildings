@@ -247,6 +247,14 @@ The following <b style=\"color:blue\">new libraries</b> have been added:
     This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2264\">issue 2264</a>
     </td>
 </tr>
+
+<tr><td valign=\"top\">Buildings.Controls.OBC.ASHRAE.PrimarySystem
+    </td>
+    <td valign=\"top\">Package with models for the chilled water plants control.<br/>
+    This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2293\">issue 2293</a>
+    </td>
+</tr>
+
 </table>
 <!-- New components for existing libraries -->
 <p>

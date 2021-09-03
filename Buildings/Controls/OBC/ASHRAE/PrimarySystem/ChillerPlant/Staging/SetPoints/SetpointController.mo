@@ -720,15 +720,15 @@ equation
           pattern=LinePattern.Dash,
           textString="yOpeParLoaRatMin"),
         Text(
-          extent={{48,200},{96,164}},
+          extent={{54,194},{98,170}},
           lineColor={217,67,180},
           pattern=LinePattern.Dash,
-          textString="yChaUp"),
+          textString="yUp"),
         Text(
-          extent={{48,168},{96,132}},
+          extent={{52,164},{100,140}},
           lineColor={217,67,180},
           pattern=LinePattern.Dash,
-          textString="yChaDow"),
+          textString="yDow"),
         Text(
           extent={{42,-198},{94,-220}},
           lineColor={0,0,127},
