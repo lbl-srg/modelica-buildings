@@ -1,4 +1,4 @@
-﻿within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant;
+within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant;
 package Economizers "Waterside economizer (WSE) sequences"
 
 annotation (

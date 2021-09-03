@@ -1,4 +1,4 @@
-﻿within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Pumps.ChilledWater.Subsequences;
+within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Pumps.ChilledWater.Subsequences;
 block EnableLead_headered
   "Sequence to enable or disable the lead pump of plants with headered primary chilled water pumps"
   parameter Integer nChi=2 "Total number of chiller CHW isolation valves";

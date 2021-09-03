@@ -1,4 +1,4 @@
-﻿within Buildings.Controls.OBC.ASHRAE;
+within Buildings.Controls.OBC.ASHRAE;
 package PrimarySystem "Package with primary system control sequences"
 
 annotation (

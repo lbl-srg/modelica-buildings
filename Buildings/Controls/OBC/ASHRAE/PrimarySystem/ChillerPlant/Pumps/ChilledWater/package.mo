@@ -1,4 +1,4 @@
-﻿within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Pumps;
+within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Pumps;
 package ChilledWater "Sequences for chilled water pump control"
 
 annotation (

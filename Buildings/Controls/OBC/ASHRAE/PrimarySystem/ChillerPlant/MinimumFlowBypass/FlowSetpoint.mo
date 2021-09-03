@@ -1,4 +1,4 @@
-﻿within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.MinimumFlowBypass;
+within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.MinimumFlowBypass;
 block FlowSetpoint "Chilled water minimum flow setpoint for primary-only plants"
 
   parameter Integer nChi = 3

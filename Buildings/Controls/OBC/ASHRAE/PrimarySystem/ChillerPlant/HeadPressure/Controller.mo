@@ -1,4 +1,4 @@
-﻿within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.HeadPressure;
+within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.HeadPressure;
 block Controller "Head pressure controller for plants with headered condenser water pumps"
   parameter Boolean have_heaPreConSig = false
     "Flag indicating if there is head pressure control signal from chiller controller"
