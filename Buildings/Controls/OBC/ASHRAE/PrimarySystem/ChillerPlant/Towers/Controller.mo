@@ -34,12 +34,16 @@ block Controller "Cooling tower controller"
   parameter Real kIntOpe=1 "Gain of controller"
     annotation (Dialog(tab="Fan speed", group="WSE enabled",
                        enable=have_WSE));
-  parameter Real TiIntOpe(final unit="s", final quantity="Time")=0.5
+  parameter Real TiIntOpe(
+    final unit="s",
+    final quantity="Time")=0.5
     "Time constant of integrator block"
     annotation (Dialog(tab="Fan speed", group="WSE enabled",
                        enable=have_WSE and (intOpeCon==Buildings.Controls.OBC.CDL.Types.SimpleController.PI or
                                           intOpeCon==Buildings.Controls.OBC.CDL.Types.SimpleController.PID)));
-  parameter Real TdIntOpe(final unit="s", final quantity="Time")=0.1
+  parameter Real TdIntOpe(
+    final unit="s",
+    final quantity="Time")=0.1
     "Time constant of derivative block"
     annotation (Dialog(tab="Fan speed", group="WSE enabled",
                        enable=have_WSE and (intOpeCon==Buildings.Controls.OBC.CDL.Types.SimpleController.PD or
