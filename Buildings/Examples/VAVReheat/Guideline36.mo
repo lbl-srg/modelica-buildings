@@ -188,34 +188,34 @@ equation
           {1340,74},{1228,74},{1228,88},{1238,88}},
                                     color={0,0,127}));
   connect(conVAVCor.yZonTemResReq, TZonResReq.u[1]) annotation (Line(points={{552,90},
-          {554,90},{554,220},{280,220},{280,375.6},{298,375.6}},         color=
+          {554,90},{554,220},{280,220},{280,367.2},{298,367.2}},         color=
           {255,127,0}));
   connect(conVAVSou.yZonTemResReq, TZonResReq.u[2]) annotation (Line(points={{724,90},
-          {726,90},{726,220},{280,220},{280,372.8},{298,372.8}},         color=
+          {726,90},{726,220},{280,220},{280,368.6},{298,368.6}},         color=
           {255,127,0}));
   connect(conVAVEas.yZonTemResReq, TZonResReq.u[3]) annotation (Line(points={{902,90},
           {904,90},{904,220},{280,220},{280,370},{298,370}},         color={255,
           127,0}));
   connect(conVAVNor.yZonTemResReq, TZonResReq.u[4]) annotation (Line(points={{1060,90},
-          {1064,90},{1064,220},{280,220},{280,367.2},{298,367.2}},
+          {1064,90},{1064,220},{280,220},{280,371.4},{298,371.4}},
         color={255,127,0}));
   connect(conVAVWes.yZonTemResReq, TZonResReq.u[5]) annotation (Line(points={{1262,90},
-          {1266,90},{1266,220},{280,220},{280,364.4},{298,364.4}},
+          {1266,90},{1266,220},{280,220},{280,372.8},{298,372.8}},
         color={255,127,0}));
   connect(conVAVCor.yZonPreResReq, PZonResReq.u[1]) annotation (Line(points={{552,86},
-          {558,86},{558,214},{288,214},{288,335.6},{298,335.6}},         color=
+          {558,86},{558,214},{288,214},{288,327.2},{298,327.2}},         color=
           {255,127,0}));
   connect(conVAVSou.yZonPreResReq, PZonResReq.u[2]) annotation (Line(points={{724,86},
-          {728,86},{728,214},{288,214},{288,332.8},{298,332.8}},         color=
+          {728,86},{728,214},{288,214},{288,328.6},{298,328.6}},         color=
           {255,127,0}));
   connect(conVAVEas.yZonPreResReq, PZonResReq.u[3]) annotation (Line(points={{902,86},
           {906,86},{906,214},{288,214},{288,330},{298,330}},         color={255,
           127,0}));
   connect(conVAVNor.yZonPreResReq, PZonResReq.u[4]) annotation (Line(points={{1060,86},
-          {1066,86},{1066,214},{288,214},{288,327.2},{298,327.2}},
+          {1066,86},{1066,214},{288,214},{288,331.4},{298,331.4}},
         color={255,127,0}));
   connect(conVAVWes.yZonPreResReq, PZonResReq.u[5]) annotation (Line(points={{1262,86},
-          {1268,86},{1268,214},{288,214},{288,324.4},{298,324.4}},
+          {1268,86},{1268,214},{288,214},{288,332.8},{298,332.8}},
         color={255,127,0}));
   connect(cor.VSup_flow, VDis_flow.u1[1]) annotation (Line(points={{612,58},{620,
           58},{620,74},{472,74},{472,206},{180,206},{180,340},{218,340}},
@@ -570,7 +570,11 @@ reheat coil and an air damper in each of the five zone inlet branches.
 See the model
 <a href=\"modelica://Buildings.Examples.VAVReheat.BaseClasses.PartialOpenLoop\">
 Buildings.Examples.VAVReheat.BaseClasses.PartialOpenLoop</a>
-for a description of the HVAC system and the building envelope.
+for a description of the HVAC system,
+and see the model
+<a href=\"modelica://Buildings.Examples.VAVReheat.BaseClasses.Floor\">
+Buildings.Examples.VAVReheat.BaseClasses.Floor</a>
+for a description of the building envelope.
 </p>
 <p>
 The control is based on ASHRAE Guideline 36, and implemented
@@ -597,6 +601,11 @@ its input.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+September 3, 2021, by Michael Wetter:<br/>
+Updated documentation.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2600\">issue #2600</a>.
+</li>
 <li>
 August 24, 2021, by Michael Wetter:<br/>
 Changed model to include the hydraulic configurations of the cooling coil,

@@ -43,7 +43,11 @@ The figure below shows the schematic diagram of the HVAC system
 See the model
 <a href=\"modelica://Buildings.Examples.VAVReheat.BaseClasses.PartialOpenLoop\">
 Buildings.Examples.VAVReheat.BaseClasses.PartialOpenLoop</a>
-for a description of the HVAC system and the building envelope.
+for a description of the HVAC system,
+and see the model
+<a href=\"modelica://Buildings.ThermalZones.EnergyPlus.Examples.SmallOffice.BaseClasses.Floor\">
+Buildings.ThermalZones.EnergyPlus.Examples.SmallOffice.BaseClasses.Floor</a>
+for a description of the building envelope.
 </p>
 <p>
 The control is an implementation of the control sequence
@@ -82,7 +86,12 @@ ASHRAE, Atlanta, GA, 2006.
 </p>
 </html>",
       revisions="<html>
-<ul>
+      <ul>
+<li>
+September 3, 2021, by Michael Wetter:<br/>
+Updated documentation.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2600\">issue #2600</a>.
+</li>
 <li>
 November 25, 2019, by Milica Grahovac:<br/>
 Impementation of <a href=\"modelica://Buildings.Examples.VAVReheat.ASHRAE2006\">
