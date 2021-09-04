@@ -228,15 +228,15 @@ equation
           -248},{-120,-305.455},{-179.091,-305.455}},
                                      color={255,0,255}));
   connect(cor.y_actual, pSetDuc.u[1]) annotation (Line(points={{612,42},{620,42},
-          {620,74},{140,74},{140,-7.6},{158,-7.6}}, color={0,0,127}));
+          {620,74},{140,74},{140,-6.8},{158,-6.8}}, color={0,0,127}));
   connect(sou.y_actual, pSetDuc.u[2]) annotation (Line(points={{792,40},{800,40},
-          {800,74},{140,74},{140,-6.8},{158,-6.8}}, color={0,0,127}));
+          {800,74},{140,74},{140,-6.4},{158,-6.4}}, color={0,0,127}));
   connect(eas.y_actual, pSetDuc.u[3]) annotation (Line(points={{972,40},{980,40},
           {980,74},{140,74},{140,-6},{158,-6}}, color={0,0,127}));
-  connect(nor.y_actual, pSetDuc.u[4]) annotation (Line(points={{1132,40},{1140,
-          40},{1140,74},{140,74},{140,-5.2},{158,-5.2}}, color={0,0,127}));
-  connect(wes.y_actual, pSetDuc.u[5]) annotation (Line(points={{1332,40},{1338,
-          40},{1338,74},{140,74},{140,-4.4},{158,-4.4}}, color={0,0,127}));
+  connect(nor.y_actual, pSetDuc.u[4]) annotation (Line(points={{1132,40},{1140,40},
+          {1140,74},{140,74},{140,-5.6},{158,-5.6}},     color={0,0,127}));
+  connect(wes.y_actual, pSetDuc.u[5]) annotation (Line(points={{1332,40},{1338,40},
+          {1338,74},{140,74},{140,-5.2},{158,-5.2}},     color={0,0,127}));
   connect(TSup.T, conTSup.TSup) annotation (Line(
       points={{340,-29},{352,-29},{352,-188},{-80,-188},{-80,-214},{-62,-214}},
       color={0,0,127},
@@ -356,7 +356,11 @@ The figure below shows the schematic diagram of the HVAC system
 See the model
 <a href=\"modelica://Buildings.Examples.VAVReheat.BaseClasses.PartialOpenLoop\">
 Buildings.Examples.VAVReheat.BaseClasses.PartialOpenLoop</a>
-for a description of the HVAC system and the building envelope.
+for a description of the HVAC system,
+and see the model
+<a href=\"modelica://Buildings.Examples.VAVReheat.BaseClasses.Floor\">
+Buildings.Examples.VAVReheat.BaseClasses.Floor</a>
+for a description of the building envelope.
 </p>
 <p>
 The control is an implementation of the control sequence
@@ -402,6 +406,11 @@ ASHRAE, Atlanta, GA, 2006.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+September 3, 2021, by Michael Wetter:<br/>
+Updated documentation.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2600\">issue #2600</a>.
+</li>
 <li>
 August 24, 2021, by Michael Wetter:<br/>
 Changed model to include the hydraulic configurations of the cooling coil,

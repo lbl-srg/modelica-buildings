@@ -686,7 +686,7 @@ equation
       smooth=Smooth.None,
       thickness=0.5));
   connect(amb.ports[1], VOut1.port_a) annotation (Line(
-      points={{-114,-42.8},{-94,-42.8},{-94,-40},{-90,-40}},
+      points={{-114,-46.1},{-94,-46.1},{-94,-40},{-90,-40}},
       color={0,127,255},
       smooth=Smooth.None,
       thickness=0.5));
@@ -766,24 +766,24 @@ equation
       smooth=Smooth.None));
   connect(splRetRoo1.port_3, flo.portsCor[2]) annotation (Line(
       points={{640,10},{640,118},{892,118},{892,472},{898,472},{898,520.667},{
-          906.052,520.667}},
+          902.487,520.667}},
       color={0,127,255},
       thickness=0.5));
   connect(splRetSou.port_3, flo.portsSou[2]) annotation (Line(
-      points={{822,10},{822,152},{900,152},{900,447.333},{906.052,447.333}},
+      points={{822,10},{822,152},{900,152},{900,447.333},{902.487,447.333}},
       color={0,127,255},
       thickness=0.5));
   connect(splRetEas.port_3, flo.portsEas[2]) annotation (Line(
-      points={{1002,10},{1002,120},{1068.63,120},{1068.63,520.667}},
+      points={{1002,10},{1002,120},{1065.06,120},{1065.06,520.667}},
       color={0,127,255},
       thickness=0.5));
   connect(splRetNor.port_3, flo.portsNor[2]) annotation (Line(
-      points={{1152,10},{1152,214},{906.052,214},{906.052,583}},
+      points={{1152,10},{1152,214},{902.487,214},{902.487,583}},
       color={0,127,255},
       thickness=0.5));
   connect(splRetNor.port_2, flo.portsWes[2]) annotation (Line(
-      points={{1162,0},{1188,0},{1188,346},{818,346},{818,484},{817.635,484},{
-          817.635,520.667}},
+      points={{1162,0},{1188,0},{1188,346},{818,346},{818,484},{814.07,484},{
+          814.07,520.667}},
       color={0,127,255},
       thickness=0.5));
   connect(weaBus, flo.weaBus) annotation (Line(
@@ -814,25 +814,25 @@ equation
       thickness=0.5));
 
   connect(cor.port_bAir, flo.portsCor[1]) annotation (Line(
-      points={{590,62},{590,120},{891.791,120},{891.791,520.667}},
+      points={{590,62},{590,120},{895.357,120},{895.357,520.667}},
       color={0,127,255},
       thickness=0.5));
   connect(sou.port_bAir, flo.portsSou[1]) annotation (Line(
-      points={{770,60},{770,152},{891.791,152},{891.791,447.333}},
+      points={{770,60},{770,152},{895.357,152},{895.357,447.333}},
       color={0,127,255},
       thickness=0.5));
   connect(eas.port_bAir, flo.portsEas[1]) annotation (Line(
-      points={{950,60},{950,120},{1054,120},{1054,506},{1054.37,506},{1054.37,
+      points={{950,60},{950,120},{1054,120},{1054,506},{1057.93,506},{1057.93,
           520.667}},
       color={0,127,255},
       thickness=0.5));
   connect(nor.port_bAir, flo.portsNor[1]) annotation (Line(
-      points={{1110,60},{1110,214},{926,214},{926,326},{891.791,326},{891.791,
+      points={{1110,60},{1110,214},{926,214},{926,326},{895.357,326},{895.357,
           583}},
       color={0,127,255},
       thickness=0.5));
   connect(wes.port_bAir, flo.portsWes[1]) annotation (Line(
-      points={{1310,60},{1310,344},{804,344},{804,424},{803.374,424},{803.374,
+      points={{1310,60},{1310,344},{804,344},{804,424},{806.939,424},{806.939,
           520.667}},
       color={0,127,255},
       thickness=0.5));
@@ -845,8 +845,8 @@ equation
   connect(senSupFlo.port_b, splSupRoo1.port_1)
     annotation (Line(points={{420,-40},{580,-40}}, color={0,127,255}));
   connect(dpDisSupFan.port_b, amb.ports[2]) annotation (Line(
-      points={{320,10},{320,14},{-106,14},{-106,-48},{-110,-48},{-110,-47.2},{-114,
-          -47.2}},
+      points={{320,10},{320,14},{-106,14},{-106,-48},{-110,-48},{-110,-43.9},{-114,
+          -43.9}},
       color={0,0,0},
       pattern=LinePattern.Dot));
   connect(senRetFlo.port_b, TRet.port_a) annotation (Line(points={{340,140},{
@@ -871,33 +871,33 @@ equation
     annotation (Line(points={{0,0},{0,140},{90,140}}, color={0,127,255}));
   connect(damRet.port_b, TMix.port_a)
     annotation (Line(points={{0,-20},{0,-40},{30,-40}}, color={0,127,255}));
-  connect(souHeaTer.ports[1], cor.port_aHotWat) annotation (Line(points={{520,-176.8},
-          {528,-176.8},{528,42},{570,42}},
+  connect(souHeaTer.ports[1], cor.port_aHotWat) annotation (Line(points={{520,-181.6},
+          {528,-181.6},{528,42},{570,42}},
                                          color={0,127,255}));
-  connect(souHeaTer.ports[2], sou.port_aHotWat) annotation (Line(points={{520,-178.4},
-          {720,-178.4},{720,40},{750,40}},
+  connect(souHeaTer.ports[2], sou.port_aHotWat) annotation (Line(points={{520,-180.8},
+          {720,-180.8},{720,40},{750,40}},
                                          color={0,127,255}));
   connect(souHeaTer.ports[3], eas.port_aHotWat) annotation (Line(points={{520,-180},
           {900,-180},{900,40},{930,40}}, color={0,127,255}));
-  connect(souHeaTer.ports[4], nor.port_aHotWat) annotation (Line(points={{520,-181.6},
-          {1060,-181.6},{1060,40},{1090,40}},
+  connect(souHeaTer.ports[4], nor.port_aHotWat) annotation (Line(points={{520,-179.2},
+          {1060,-179.2},{1060,40},{1090,40}},
                                             color={0,127,255}));
-  connect(souHeaTer.ports[5], wes.port_aHotWat) annotation (Line(points={{520,-183.2},
-          {1250,-183.2},{1250,40},{1290,40}},
+  connect(souHeaTer.ports[5], wes.port_aHotWat) annotation (Line(points={{520,-178.4},
+          {1250,-178.4},{1250,40},{1290,40}},
                                             color={0,127,255}));
-  connect(sinHeaTer.ports[1], cor.port_bHotWat) annotation (Line(points={{520,-206.8},
-          {534,-206.8},{534,30},{570,30}},
+  connect(sinHeaTer.ports[1], cor.port_bHotWat) annotation (Line(points={{520,-211.6},
+          {534,-211.6},{534,30},{570,30}},
                                          color={0,127,255}));
-  connect(sinHeaTer.ports[2], sou.port_bHotWat) annotation (Line(points={{520,-208.4},
-          {728,-208.4},{728,28},{750,28}},
+  connect(sinHeaTer.ports[2], sou.port_bHotWat) annotation (Line(points={{520,-210.8},
+          {728,-210.8},{728,28},{750,28}},
                                          color={0,127,255}));
   connect(sinHeaTer.ports[3], eas.port_bHotWat) annotation (Line(points={{520,-210},
           {906,-210},{906,28},{930,28}}, color={0,127,255}));
-  connect(sinHeaTer.ports[4], nor.port_bHotWat) annotation (Line(points={{520,-211.6},
-          {1066,-211.6},{1066,28},{1090,28}},
+  connect(sinHeaTer.ports[4], nor.port_bHotWat) annotation (Line(points={{520,-209.2},
+          {1066,-209.2},{1066,28},{1090,28}},
                                             color={0,127,255}));
-  connect(sinHeaTer.ports[5], wes.port_bHotWat) annotation (Line(points={{520,-213.2},
-          {1256,-213.2},{1256,28},{1290,28}},
+  connect(sinHeaTer.ports[5], wes.port_bHotWat) annotation (Line(points={{520,-208.4},
+          {1256,-208.4},{1256,28},{1290,28}},
                                             color={0,127,255}));
   connect(pumHeaCoi.port_b, heaCoi.port_a1) annotation (Line(points={{128,-110},
           {128,-52},{118,-52}}, color={0,127,255}));
@@ -955,41 +955,19 @@ the control sequence.
 </p>
 <p>
 To model the heat transfer through the building envelope,
-a model of five interconnected rooms is used.
-The five room model is representative of one floor of the
-new construction medium office building for Chicago, IL,
-as described in the set of DOE Commercial Building Benchmarks
-(Deru et al, 2009). There are four perimeter zones and one core zone.
-The envelope thermal properties meet ASHRAE Standard 90.1-2004.
-The thermal room model computes transient heat conduction through
-walls, floors and ceilings and long-wave radiative heat exchange between
-surfaces. The convective heat transfer coefficient is computed based
-on the temperature difference between the surface and the room air.
-There is also a layer-by-layer short-wave radiation,
-long-wave radiation, convection and conduction heat transfer model for the
-windows. The model is similar to the
-Window 5 model and described in TARCOG 2006.
-</p>
-<p>
-Each thermal zone can have air flow from the HVAC system, through leakages of the building envelope (except for the core zone) and through bi-directional air exchange through open doors that connect adjacent zones. The bi-directional air exchange is modeled based on the differences in static pressure between adjacent rooms at a reference height plus the difference in static pressure across the door height as a function of the difference in air density.
-Infiltration is a function of the
-flow imbalance of the HVAC system.
-</p>
-<h4>References</h4>
-<p>
-Deru M., K. Field, D. Studer, K. Benne, B. Griffith, P. Torcellini,
- M. Halverson, D. Winiarski, B. Liu, M. Rosenberg, J. Huang, M. Yazdanian, and D. Crawley.
-<i>DOE commercial building research benchmarks for commercial buildings</i>.
-Technical report, U.S. Department of Energy, Energy Efficiency and
-Renewable Energy, Office of Building Technologies, Washington, DC, 2009.
-</p>
-<p>
-TARCOG 2006: Carli, Inc., TARCOG: Mathematical models for calculation
-of thermal performance of glazing systems with our without
-shading devices, Technical Report, Oct. 17, 2006.
+this model contains the replaceable model
+<a href=\"modelica://Buildings.Examples.VAVReheat.BaseClasses.PartialFloor\">
+Buildings.Examples.VAVReheat.BaseClasses.PartialFloor</a>
+which provides an interface for a floor with five thermal zones.
+When using this model, this five zone model will need to be replaced with an actual implementation.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+September 3, 2021, by Michael Wetter:<br/>
+Updated documentation.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2600\">issue #2600</a>.
+</li>
 <li>
 August 24, 2021, by Michael Wetter:<br/>
 Changed model to include the hydraulic configurations of the cooling coil,
