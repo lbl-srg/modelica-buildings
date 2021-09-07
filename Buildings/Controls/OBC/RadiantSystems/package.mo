@@ -1,5 +1,5 @@
 within Buildings.Controls.OBC;
-package RadiantSystems "fixme: add brief description"
+package RadiantSystems "Package with controllers for radiant heating and cooling systems"
   extends Modelica.Icons.Package;
 
 annotation (preferredView="info", Documentation(info="<html>

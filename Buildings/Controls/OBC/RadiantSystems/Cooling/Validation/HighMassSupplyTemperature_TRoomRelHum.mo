@@ -62,6 +62,5 @@ First implementation.
       file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/RadiantSystems/Cooling/Validation/HighMassSupplyTemperature_TRoomRelHum.mos" "Simulate and plot"),
     experiment(
       StopTime=7200,
-      Tolerance=1e-06,
-      __Dymola_Algorithm="Cvode"));
+      Tolerance=1e-06));
 end HighMassSupplyTemperature_TRoomRelHum;
