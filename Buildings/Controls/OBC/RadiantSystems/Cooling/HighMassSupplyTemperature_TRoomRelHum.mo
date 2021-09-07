@@ -1,32 +1,38 @@
-within Buildings.Controls.OBC.RadiantSystems.Heating;
-block HighMassSupplyTemperature_TRoom
-  "Room temperature controller for radiant heating with constant mass flow and variable supply temperature"
+within Buildings.Controls.OBC.RadiantSystems.Cooling;
+block HighMassSupplyTemperature_TRoomRelHum
+  "Room temperature controller for radiant cooling with constant mass flow and variable supply temperature"
 
   parameter Real TSupSet_max(
     final unit="K",
-    displayUnit="degC") "Maximum heating supply water temperature";
+    displayUnit="degC") = 297.15 "Maximum cooling supply water temperature";
+
   parameter Real TSupSet_min(
     final unit="K",
-    displayUnit="degC") = 293.15 "Minimum heating supply water temperature";
+    displayUnit="degC") "Minimum cooling supply water temperature";
 
   parameter Controls.OBC.CDL.Types.SimpleController controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.P
     "Type of controller" annotation (Dialog(group="Control gains"));
+
   parameter Real k(
     min=100*Buildings.Controls.OBC.CDL.Constants.eps)=2
     "Gain of controller"
     annotation (Dialog(group="Control gains"));
+
   parameter Real Ti(
     final quantity="Time",
     final unit="s",
     min=100*Buildings.Controls.OBC.CDL.Constants.eps)=3600
     "Time constant of integrator block"
-    annotation (Dialog(group="Control gains",enable=controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PI or controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
+    annotation (Dialog(group="Control gains",
+      enable=controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PI or controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
+
   parameter Real Td(
     final quantity="Time",
     final unit="s",
     min=100*Buildings.Controls.OBC.CDL.Constants.eps)=0.1
     "Time constant of derivative block"
-    annotation (Dialog(group="Control gains",enable=controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PD or controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
+    annotation (Dialog(group="Control gains",
+      enable=controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PD or controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
 
   Controls.OBC.CDL.Interfaces.RealInput TRooSet(
     final unit="K",
@@ -34,16 +40,23 @@ block HighMassSupplyTemperature_TRoom
     "Set point for room air temperature" annotation (Placement(transformation(
           extent={{-140,40},{-100,80}}),   iconTransformation(extent={{-140,40},
             {-100,80}})));
+
   Controls.OBC.CDL.Interfaces.RealInput TRoo(
     final unit="K",
     displayUnit="degC") "Measured room air temperature"
     annotation (Placement(transformation(
           extent={{-140,-20},{-100,20}}),  iconTransformation(extent={{-140,-20},
             {-100,20}})));
+
+  Controls.OBC.CDL.Interfaces.RealInput phiRoo(
+    final unit="1") "Measured room air relative humidity"
+    annotation (Placement(transformation(
+          extent={{-140,-80},{-100,-40}}), iconTransformation(extent={{-140,-80},
+            {-100,-40}})));
+
   Controls.OBC.CDL.Interfaces.RealOutput TSupSet(
     final unit="K",
-    displayUnit="degC")
-    "Set point for heating supply water temperature"
+    displayUnit="degC") "Set point for cooling supply water temperature"
     annotation (Placement(transformation(extent={{100,60},{140,100}}),
         iconTransformation(extent={{100,40},{140,80}})));
 
@@ -69,84 +82,100 @@ block HighMassSupplyTemperature_TRoom
     annotation (Placement(transformation(extent={{100,-100},{140,-60}}),
         iconTransformation(extent={{100,-80},{140,-40}})));
 
-  Controls.OBC.CDL.Continuous.PID conHea(
+  CDL.Psychrometrics.DewPoint_TDryBulPhi dewPoi
+    "Dew point temperature, used to avoid condensation"
+    annotation (Placement(transformation(extent={{20,-20},{40,0}})));
+  CDL.Continuous.Hysteresis hysCoo(
+    uLow=0.1,
+    uHigh=0.2)
+    "Hysteresis to switch system on and off"
+    annotation (Placement(transformation(extent={{20,-90},{40,-70}})));
+  CDL.Continuous.PID conCoo(
     final controllerType=controllerType,
     final k=k,
     final Ti = Ti,
     final Td = Td,
     final yMax=1,
     final yMin=0,
-    final reverseActing=true) "Controller for heating supply set point signal"
+    reverseActing=false)
+    "Controller for cooling"
     annotation (Placement(transformation(extent={{-80,10},{-60,30}})));
 
-  Controls.OBC.CDL.Continuous.Hysteresis hysHea(
-    uLow=0.1,
-    uHigh=0.2)
-    "Hysteresis to switch system on and off"
-    annotation (Placement(transformation(extent={{-40,-70},{-20,-50}})));
-
 protected
-  Controls.OBC.CDL.Continuous.Sources.Constant one(final k=1) "Outputs one"
-    annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
-  Controls.OBC.CDL.Continuous.Sources.Constant zero(final k=0) "Outputs zero"
-    annotation (Placement(transformation(extent={{-40,60},{-20,80}})));
-
-  Controls.OBC.CDL.Continuous.Sources.Constant THeaSup_minimum(final k(
-      final unit="K",
-      displayUnit="degC") = TSupSet_min)
-    "Negative value of minimum heating supply water temperature"
-    annotation (Placement(transformation(extent={{-40,30},{-20,50}})));
-
-  Controls.OBC.CDL.Continuous.Sources.Constant THeaSup_maximum(
+  CDL.Continuous.Sources.Constant TSupMin(
     final k(
       final unit="K",
-      displayUnit="degC") = TSupSet_max) "Maximum heating supply water temperature"
-    annotation (Placement(transformation(extent={{-40,-40},{-20,-20}})));
+      displayUnit="degC") = TSupSet_min,
+      y(final unit="K", displayUnit="degC"))
+    "Minimum cooling supply water temperature"
+    annotation (Placement(transformation(extent={{-80,-50},{-60,-30}})));
+  CDL.Continuous.Sources.Constant TSupMax(
+    final k(
+      final unit="K",
+      displayUnit="degC") = TSupSet_max,
+    y(final unit="K", displayUnit="degC"))
+    "Maximum cooling supply water temperature"
+    annotation (Placement(transformation(extent={{-80,40},{-60,60}})));
 
-  Controls.OBC.CDL.Continuous.Line TSup(
+  CDL.Continuous.Sources.Constant one(final k=1) "Outputs one"
+    annotation (Placement(transformation(extent={{-80,-20},{-60,0}})));
+  CDL.Continuous.Sources.Constant zero(final k=0) "Outputs zero"
+    annotation (Placement(transformation(extent={{-80,70},{-60,90}})));
+
+  CDL.Continuous.Line TSupNoDewPoi(
     limitBelow=false,
     limitAbove=false,
-    y(final unit="K",
-      displayUnit="degC")) "Set point for supply water temperature"
+    y(final unit="K", displayUnit="degC"))
+    "Set point for supply water temperature without consideration of dew point"
     annotation (Placement(transformation(extent={{20,10},{40,30}})));
-
+  CDL.Continuous.Max TSupCoo
+    "Cooling water supply temperature"
+    annotation (Placement(transformation(extent={{60,14},{80,34}})));
   CDL.Conversions.BooleanToReal booToRea(
     final realFalse=0,
     final realTrue=1)
     "Pump control signal as a Real number (either 0 or 1)"
-    annotation (Placement(transformation(extent={{40,-90},{60,-70}})));
+    annotation (Placement(transformation(extent={{60,-90},{80,-70}})));
+
 equation
-  connect(conHea.y,hysHea.u)
-    annotation (Line(points={{-58,20},{-50,20},{-50,-60},{-42,-60}},
-                                                      color={0,0,127}));
-  connect(TRoo, conHea.u_m)
-    annotation (Line(points={{-120,0},{-70,0},{-70,8}},  color={0,0,127}));
-  connect(TRooSet, conHea.u_s) annotation (Line(points={{-120,60},{-90,60},{-90,
-          20},{-82,20}}, color={0,0,127}));
-  connect(TSup.x1, zero.y) annotation (Line(points={{18,28},{0,28},{0,70},{-18,70}},
-                 color={0,0,127}));
-  connect(one.y, TSup.x2) annotation (Line(points={{-18,0},{-4,0},{-4,16},{18,16}},
-                color={0,0,127}));
-  connect(conHea.y, TSup.u) annotation (Line(points={{-58,20},{18,20}},
-                    color={0,0,127}));
-  connect(TSup.f1, THeaSup_minimum.y) annotation (Line(points={{18,24},{-4,24},{
-          -4,40},{-18,40}},
-                         color={0,0,127}));
-  connect(THeaSup_maximum.y, TSup.f2) annotation (Line(points={{-18,-30},{0,-30},
-          {0,12},{18,12}},color={0,0,127}));
-  connect(TSup.y, TSupSet) annotation (Line(points={{42,20},{80,20},{80,80},{120,
-          80}}, color={0,0,127}));
-  connect(hysHea.y, on)
-    annotation (Line(points={{-18,-60},{80,-60},{80,-30},{120,-30}},
-                                               color={255,0,255}));
-  connect(conHea.y, y) annotation (Line(points={{-58,20},{-50,20},{-50,88},{60,88},
-          {60,30},{120,30}}, color={0,0,127}));
+  connect(hysCoo.y,booToRea.u)
+    annotation (Line(points={{42,-80},{58,-80}},    color={255,0,255}));
+  connect(conCoo.y,hysCoo.u)
+    annotation (Line(points={{-58,20},{0,20},{0,-80},{18,-80}},
+                                                    color={0,0,127}));
+  connect(TSupCoo.u2,dewPoi.TDewPoi)
+    annotation (Line(points={{58,18},{48,18},{48,-10},{42,-10}},      color={0,0,127}));
+  connect(TSupCoo.y, TSupSet) annotation (Line(points={{82,24},{86,24},{86,80},{
+          120,80}}, color={0,0,127}));
+  connect(conCoo.y, y) annotation (Line(points={{-58,20},{0,20},{0,-24},{90,-24},
+          {90,30},{120,30}},color={0,0,127}));
+  connect(conCoo.u_s, TRooSet) annotation (Line(points={{-82,20},{-92,20},{-92,60},
+          {-120,60}}, color={0,0,127}));
+  connect(dewPoi.phi, phiRoo) annotation (Line(points={{18,-16},{-10,-16},{-10,-88},
+          {-92,-88},{-92,-60},{-120,-60}},
+                       color={0,0,127}));
   connect(booToRea.y, yPum)
-    annotation (Line(points={{62,-80},{108,-80}}, color={0,0,127}));
-  connect(booToRea.u, hysHea.y) annotation (Line(points={{38,-80},{20,-80},{20,-60},
-          {-18,-60}}, color={255,0,255}));
+    annotation (Line(points={{82,-80},{102,-80}}, color={0,0,127}));
+  connect(hysCoo.y, on) annotation (Line(points={{42,-80},{50,-80},{50,-30},{120,
+          -30}}, color={255,0,255}));
+  connect(TSupNoDewPoi.x1, zero.y) annotation (Line(points={{18,28},{-34,28},{-34,
+          80},{-58,80}}, color={0,0,127}));
+  connect(TSupNoDewPoi.f1, TSupMax.y) annotation (Line(points={{18,24},{-40,24},
+          {-40,50},{-58,50}}, color={0,0,127}));
+  connect(TSupNoDewPoi.x2, one.y) annotation (Line(points={{18,16},{-40,16},{-40,
+          -10},{-58,-10}}, color={0,0,127}));
+  connect(TSupNoDewPoi.f2, TSupMin.y) annotation (Line(points={{18,12},{-34,12},
+          {-34,-40},{-58,-40}}, color={0,0,127}));
+  connect(conCoo.y, TSupNoDewPoi.u)
+    annotation (Line(points={{-58,20},{18,20}}, color={0,0,127}));
+  connect(TSupNoDewPoi.y, TSupCoo.u1) annotation (Line(points={{42,20},{52,20},{
+          52,30},{58,30}}, color={0,0,127}));
+  connect(TRoo, conCoo.u_m) annotation (Line(points={{-120,0},{-88,0},{-88,4},{-70,
+          4},{-70,8}}, color={0,0,127}));
+  connect(TRoo, dewPoi.TDryBul) annotation (Line(points={{-120,0},{-88,0},{-88,-80},
+          {-16,-80},{-16,-4},{18,-4}}, color={0,0,127}));
   annotation (
-  defaultComponentName="conHea",
+  defaultComponentName="conCoo",
   Diagram(coordinateSystem(extent={{-100,-100},{100,100}})), Icon(
         coordinateSystem(extent={{-100,-100},{100,100}}), graphics={
         Rectangle(extent={{-172,66},{-172,66}}, lineColor={28,108,200}),
@@ -175,6 +204,10 @@ equation
           extent={{-92,92},{-48,44}},
           lineColor={0,0,127},
           textString="TRooSet"),
+        Text(
+          extent={{-94,32},{-74,-14}},
+          lineColor={0,0,127},
+          textString="TRoo"),
         Rectangle(
           extent={{-30,-16},{48,-40}},
           lineColor={95,95,95},
@@ -183,8 +216,9 @@ equation
           fillPattern=FillPattern.Solid),
         Line(
           points={{56,-82},{56,-26},{-24,-26},{-24,-20},{56,-20}},
-          color={238,46,47},
+          color={28,108,200},
           thickness=1),
+        Line(points={{-100,0},{-30,0}},                     color={28,108,200}),
         Rectangle(
           extent={{-30,-16},{48,48}},
           lineColor={28,108,200},
@@ -230,19 +264,23 @@ equation
             String(y,
               leftjustified=false,
               significantDigits=2))),
-        Line(points={{-100,0},{-30,0}},                     color={28,108,200}),
+        Line(points={{-30,-8},{-66,-8},{-66,-60},{-100,-60}},
+             color={28,108,200}),
         Text(
-          extent={{-92,30},{-72,-16}},
+          extent={{-92,-24},{-72,-70}},
           lineColor={0,0,127},
-          textString="TRoo")}),
+          textString="phi")}),
     Documentation(info="<html>
 <p>
-Controller for a radiant heating system.
+Controller for a radiant cooling system.
 </p>
 <p>
 This controller tracks the room temperature set point <code>TRooSet</code> by
 adjusting the supply water temperature set point <code>TSupSet</code>
 based on a proportional controller.
+The calculation of the supply water temperature set point <code>TSupSet</code> is
+such that it never below the dew point temperature, which is computed based on the
+inputs <code>TRoo</code> and <code>phiRoo</code>.
 The pump is either off or operates at full speed, in which case <code>yPum = 1</code>.
 The pump control is based on a hysteresis that takes as an input the control signal from
 the supply temperature set point controller.
@@ -255,9 +293,9 @@ PI-controller likely saturate due to the slow system response.
 </html>", revisions="<html>
 <ul>
 <li>
-August 26, 2021, by Michael Wetter:<br/>
+September 7, 2021, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
 </html>"));
-end HighMassSupplyTemperature_TRoom;
+end HighMassSupplyTemperature_TRoomRelHum;

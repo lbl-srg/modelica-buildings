@@ -29,7 +29,7 @@ model RadiantHeatingWithGroundHeatTransfer
   Buildings.ThermalZones.EnergyPlus.ZoneSurface livFlo(
     surfaceName="Living:Floor")
     "Surface of living room floor"
-    annotation (Placement(transformation(extent={{60,-190},{80,-170}})));
+    annotation (Placement(transformation(extent={{60,-160},{80,-140}})));
   Fluid.HeatExchangers.RadiantSlabs.ParallelCircuitsSlab slaFlo(
     redeclare package Medium=MediumW,
     allowFlowReversal=false,
@@ -54,10 +54,10 @@ model RadiantHeatingWithGroundHeatTransfer
     annotation (Placement(transformation(extent={{72,-270},{52,-250}})));
   HeatTransfer.Sources.PrescribedHeatFlow preHeaLivFlo
     "Surface heat flow rate"
-    annotation (Placement(transformation(extent={{98,-184},{118,-164}})));
+    annotation (Placement(transformation(extent={{98,-154},{118,-134}})));
   Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor TSurLivFlo
     "Surface temperature for floor of living room"
-    annotation (Placement(transformation(extent={{20,-190},{40,-170}})));
+    annotation (Placement(transformation(extent={{20,-160},{40,-140}})));
   Controls.OBC.CDL.Continuous.Sources.Constant TSetRooHea(
     k(final unit="K",
       displayUnit="degC")=293.15,
@@ -118,11 +118,12 @@ equation
   connect(slaFlo.port_b,pre.ports[1])
     annotation (Line(points={{20,-260},{52,-260}},color={0,127,255}));
   connect(livFlo.Q_flow,preHeaLivFlo.Q_flow)
-    annotation (Line(points={{82,-174},{98,-174}},color={0,0,127}));
+    annotation (Line(points={{82,-144},{98,-144}},color={0,0,127}));
   connect(preHeaLivFlo.port,slaFlo.surf_a)
-    annotation (Line(points={{118,-174},{124,-174},{124,-200},{14,-200},{14,-250}},color={191,0,0}));
+    annotation (Line(points={{118,-144},{124,-144},{124,-170},{14,-170},{14,
+          -250}},                                                                  color={191,0,0}));
   connect(TSurLivFlo.port,slaFlo.surf_a)
-    annotation (Line(points={{20,-180},{14,-180},{14,-250}},color={191,0,0}));
+    annotation (Line(points={{20,-150},{14,-150},{14,-250}},color={191,0,0}));
   connect(hea.port_b,slaFlo.port_a)
     annotation (Line(points={{-20,-260},{0,-260}},color={0,127,255}));
   connect(pum.port_b,hea.port_a)
@@ -130,13 +131,13 @@ equation
   connect(pum.port_a,slaFlo.port_b)
     annotation (Line(points={{-80,-260},{-90,-260},{-90,-280},{40,-280},{40,-260},{20,-260}},color={0,127,255}));
   connect(TSurLivFlo.T,livFlo.T)
-    annotation (Line(points={{40,-180},{58,-180}},color={0,0,127}));
+    annotation (Line(points={{40,-150},{58,-150}},color={0,0,127}));
   connect(TSoi.port,soi.port_a)
     annotation (Line(points={{-12,-320},{14,-320},{14,-312}},color={191,0,0}));
   connect(soi.port_b,slaFlo.surf_b)
     annotation (Line(points={{14,-292},{14,-270}},color={191,0,0}));
-  connect(conHea.TRoo, zon.TAir) annotation (Line(points={{-122,-216},{-192,-216},
-          {-192,40},{48,40},{48,18},{41,18}},       color={0,0,127}));
+  connect(conHea.TRoo, zon.TAir) annotation (Line(points={{-122,-210},{-192,
+          -210},{-192,40},{48,40},{48,18},{41,18}}, color={0,0,127}));
   connect(TSetRooHea.y, conHea.TRooSet) annotation (Line(points={{-158,-190},{
           -140,-190},{-140,-204},{-122,-204}}, color={0,0,127}));
   connect(conHea.yPum, pum.y) annotation (Line(points={{-98,-216},{-70,-216},{
