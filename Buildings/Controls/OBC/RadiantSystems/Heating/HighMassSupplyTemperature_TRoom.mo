@@ -142,7 +142,7 @@ equation
   connect(conHea.y, y) annotation (Line(points={{-58,20},{-50,20},{-50,88},{60,88},
           {60,30},{120,30}}, color={0,0,127}));
   connect(booToRea.y, yPum)
-    annotation (Line(points={{62,-80},{108,-80}}, color={0,0,127}));
+    annotation (Line(points={{62,-80},{120,-80}}, color={0,0,127}));
   connect(booToRea.u, hysHea.y) annotation (Line(points={{38,-80},{20,-80},{20,-60},
           {-18,-60}}, color={255,0,255}));
   annotation (
