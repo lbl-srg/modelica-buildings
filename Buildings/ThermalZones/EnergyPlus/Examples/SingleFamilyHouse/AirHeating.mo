@@ -41,7 +41,8 @@ model AirHeating
     period(
       displayUnit="d")=86400,
     offset=273.15+16,
-    y(unit="K",
+    y(
+      unit="K",
       displayUnit="degC"))
     "Setpoint for room air"
     annotation (Placement(transformation(extent={{-150,-110},{-130,-90}})));
