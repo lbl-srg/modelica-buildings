@@ -155,7 +155,7 @@ equation
           {-92,-88},{-92,-60},{-120,-60}},
                        color={0,0,127}));
   connect(booToRea.y, yPum)
-    annotation (Line(points={{82,-80},{102,-80}}, color={0,0,127}));
+    annotation (Line(points={{82,-80},{120,-80}}, color={0,0,127}));
   connect(hysCoo.y, on) annotation (Line(points={{42,-80},{50,-80},{50,-30},{120,
           -30}}, color={255,0,255}));
   connect(TSupNoDewPoi.x1, zero.y) annotation (Line(points={{18,28},{-34,28},{-34,
@@ -279,8 +279,7 @@ This controller tracks the room temperature set point <code>TRooSet</code> by
 adjusting the supply water temperature set point <code>TSupSet</code>
 based on a proportional controller.
 The calculation of the supply water temperature set point <code>TSupSet</code> is
-such that it never below the dew point temperature, which is computed based on the
-inputs <code>TRoo</code> and <code>phiRoo</code>.
+such that it is never below the dew point temperature.
 The pump is either off or operates at full speed, in which case <code>yPum = 1</code>.
 The pump control is based on a hysteresis that takes as an input the control signal from
 the supply temperature set point controller.
