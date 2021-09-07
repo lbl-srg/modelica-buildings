@@ -229,7 +229,8 @@ The following <b style=\"color:blue\">new libraries</b> have been added:
 </tr>
 <tr><td valign=\"top\">Buildings.Controls.OBC.RadiantSystems
     </td>
-    <td valign=\"top\">Package with controllers for radiant cooling and heating systems.
+    <td valign=\"top\">Package with controllers for radiant cooling and heating systems
+                       such for pipes embedded in the concrete slab.
     </td>
 </tr>
 <tr><td colspan=\"2\"><b>Buildings.Fluid.Geothermal</b>
@@ -440,7 +441,7 @@ have been <b style=\"color:blue\">improved</b> in a
     </td>
     <td valign=\"top\">Renamed to include <code>BooleanScalarReplicator</code>, <code>IntegerScalarReplicator</code>,
                        and <code>RealScalarReplicator</code>.<br/>
-                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2544\">issue 2544</a>. 
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2544\">issue 2544</a>.
                 For Dymola, a conversion script makes this change.</td>
 </tr><tr><td colspan=\"2\"><b>Buildings.Obsolete</b>
     </td>
