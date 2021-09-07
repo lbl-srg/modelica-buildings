@@ -248,7 +248,14 @@ The following <b style=\"color:blue\">new libraries</b> have been added:
     </td>
     <td valign=\"top\">Package with medium model for steam heating applications.
     </td>
-    </tr>
+</tr>
+<tr><td valign=\"top\">Buildings.Experimental.DHC.CentralPlants.Cooling
+    </td>
+    <td valign=\"top\">Package with models for a chilled water plant adapted to
+    district cooling applications.<br/>
+    This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2264\">issue 2264</a>
+    </td>
+</tr>
 </table>
 <!-- New components for existing libraries -->
 <p>
@@ -369,6 +376,47 @@ have been <b style=\"color:blue\">improved</b> in a
 <b style=\"color:blue\">non-backward compatible</b> way:
 </p>
 <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
+<tr><td colspan=\"2\"><b>Buildings.Applications</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">
+    Buildings.Applications.DataCenters.ChillerCooled.Equipment.FlowMachine_y<br/>
+    Buildings.Applications.DataCenters.ChillerCooled.Equipment.FlowMachine_m<br/>
+    Buildings.Applications.DataCenters.ChillerCooled.Equipment.ElectricChillerParallel<br/>
+    Buildings.Applications.DataCenters.ChillerCooled.Controls.VariableSpeedPumpStage
+    </td>
+    <td valign=\"top\">Moved to <code>Buildings.Applications.BaseClasses</code>.<br/>
+                This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2264\">issue 2264</a>.<br/>
+                For Dymola, a conversion script makes this change.</td>
+</tr>
+<tr><td colspan=\"2\"><b>Buildings.Examples.VAVReheat</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Examples.VAVReheat.ASHRAE2006<br/>
+                       Buildings.Examples.VAVReheat.Guideline36<br/>
+                       Buildings.Examples.VAVReheat.BaseClasses.PartialOpenLoop
+    </td>
+    <td valign=\"top\">Changed models to include the hydraulic configurations of the cooling coil,
+                       heating coil and VAV terminal box.<br/>
+                       Changed heating supply water temperature at design condition to <i>45</i>&deg;C.<br/>
+                       Corrected implementation of freeze protection for ASHRAE 2006 models.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2594\">issue #2594</a>.
+    </td>
+</tr>
+ <tr><td colspan=\"2\"><b>Buildings.Examples.ScalableBenchmarks</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Examples.ScalableBenchmarks.BuildingVAV.ThermalZones.ThermalZone
+    </td>
+    <td valign=\"top\">Reimplemented computation of energy provided by HVAC system to also include the latent load.
+                     The new implementation uses the enthalpy sensor, and therefore the mass flow rate and temperature
+                     sensors have been removed. Also, rather than load in Watts, it outputs the energy in Joules.<br/>
+                     This version also improves the infiltration. Now, exactly the same amount of air in infiltrated and
+                     exfiltrated. This was not the case previously because the infiltration was a prescribed air flow rate,
+                     and the exfiltration was based on pressure difference. This caused an inbalance in the HVAC supply and
+                     return air flow rate.
+</td>
+</tr>
 <tr><td colspan=\"2\"><b>Buildings.Fluid.Actuators</b>
     </td>
 </tr>
@@ -406,20 +454,6 @@ have been <b style=\"color:blue\">improved</b> in a
                        For Dymola, a conversion script makes this change.
     </td>
 </tr>
- <tr><td colspan=\"2\"><b>Buildings.Examples.ScalableBenchmarks</b>
-    </td>
-</tr>
-<tr><td valign=\"top\">Buildings.Examples.ScalableBenchmarks.BuildingVAV.ThermalZones.ThermalZone
-    </td>
-    <td valign=\"top\">Reimplemented computation of energy provided by HVAC system to also include the latent load.
-                     The new implementation uses the enthalpy sensor, and therefore the mass flow rate and temperature
-                     sensors have been removed. Also, rather than load in Watts, it outputs the energy in Joules.<br/>
-                     This version also improves the infiltration. Now, exactly the same amount of air in infiltrated and
-                     exfiltrated. This was not the case previously because the infiltration was a prescribed air flow rate,
-                     and the exfiltration was based on pressure difference. This caused an inbalance in the HVAC supply and
-                     return air flow rate.
-</td>
-</tr>
 <tr><td colspan=\"2\"><b>Buildings.Controls.OBC.CDL</b>
     </td>
 </tr>
@@ -449,6 +483,21 @@ have been <b style=\"color:blue\">improved</b> in a
 <tr><td valign=\"top\">Buildings.Obsolete.Utilities.IO.Python27
     </td>
     <td valign=\"top\">Removed support for Python 27. Use instead <code>Buildings.Utilities.IO.Python36</code>.
+    </td>
+</tr>
+<tr><td colspan=\"2\"><b>Buildings.ThermalZones.EnergyPlus.Examples.SmallOffice</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.ThermalZones.EnergyPlus.Examples.SmallOffice.ASHRAE2006Spring<br/>
+                       Buildings.ThermalZones.EnergyPlus.Examples.SmallOffice.ASHRAE2006Summer<br/>
+                       Buildings.ThermalZones.EnergyPlus.Examples.SmallOffice.ASHRAE2006Winter<br/>
+                       Buildings.ThermalZones.EnergyPlus.Examples.SmallOffice.Guideline36Spring<br/>
+                       Buildings.ThermalZones.EnergyPlus.Examples.SmallOffice.Guideline36Summer<br/>
+                       Buildings.ThermalZones.EnergyPlus.Examples.SmallOffice.Guideline36Winter<br/>
+    </td>
+    <td valign=\"top\">Changed models to include the hydraulic configurations of the cooling coil,
+                       heating coil and VAV terminal box.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2594\">issue #2594</a>.
     </td>
 </tr>
 </table>

@@ -36,7 +36,7 @@ jobs:
           architecture: 'x64' # optional x64 or x86. Defaults to x64 if not specified
 
       - name: "Install pip"
-        run: pip3 install --upgrade pip setuptools wheel
+        run: pip3 install --upgrade pip wheel
 
       - name: "Install sphinx and its dependencies"
         run: pip3 install \

@@ -54,7 +54,7 @@ model IntegratedPrimaryLoadSide
     "Electrical power consumed by the pumps"
     annotation (Placement(transformation(extent={{100,-50},{120,-30}})));
 
-  Buildings.Applications.DataCenters.ChillerCooled.Equipment.FlowMachine_y pum(
+  Buildings.Applications.BaseClasses.Equipment.FlowMachine_y pum(
     redeclare final package Medium = Medium2,
     final p_start=p2_start,
     final T_start=T2_start,

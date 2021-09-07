@@ -40,7 +40,11 @@ reheat coil and an air damper in each of the five zone inlet branches.
 See the model
 <a href=\"modelica://Buildings.Examples.VAVReheat.BaseClasses.PartialOpenLoop\">
 Buildings.Examples.VAVReheat.BaseClasses.PartialOpenLoop</a>
-for a description of the HVAC system and the building envelope.
+for a description of the HVAC system,
+and see the model
+<a href=\"modelica://Buildings.ThermalZones.EnergyPlus.Examples.SmallOffice.BaseClasses.Floor\">
+Buildings.ThermalZones.EnergyPlus.Examples.SmallOffice.BaseClasses.Floor</a>
+for a description of the building envelope.
 </p>
 <p>
 The control is based on ASHRAE Guideline 36, and implemented
@@ -68,6 +72,11 @@ its input.
 </html>",
       revisions="<html>
 <ul>
+<li>
+September 3, 2021, by Michael Wetter:<br/>
+Updated documentation.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2600\">issue #2600</a>.
+</li>
 <li>
 November 25, 2019, by Milica Grahovac:<br/>
 Impementation of <a href=\"modelica://Buildings.Examples.VAVReheat.Guideline36\">
