@@ -224,6 +224,15 @@ The following <b style=\"color:blue\">new libraries</b> have been added:
     <td valign=\"top\">Package with models and climatic data for computing ground temperature.
     </td>
 </tr>
+<tr><td colspan=\"2\"><b>Buildings.Controls</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Controls.OBC.RadiantSystems
+    </td>
+    <td valign=\"top\">Package with controllers for radiant cooling and heating systems
+                       such for pipes embedded in the concrete slab.
+    </td>
+</tr>
 <tr><td colspan=\"2\"><b>Buildings.Fluid.Geothermal</b>
     </td>
 </tr>
