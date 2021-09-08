@@ -330,7 +330,7 @@ have been <b style=\"color:blue\">improved</b> in a
 <tr><td valign=\"top\">Buildings.Examples.VAVReheat.Controls.DuctStaticPressureSetpoint
     </td>
     <td valign=\"top\">Removed hysteresis that disabled duct static pressure reset based on outdoor air temperature.<br/>
-                     This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2545\">issue #2550</a>.
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2545\">issue #2545</a>.
     </td>
 </tr>
 <tr><td valign=\"top\">Buildings.Examples.DualFanDualDuct.ClosedLoop<br/>
@@ -516,7 +516,7 @@ that can lead to wrong simulation results):
                        To improve efficiency, this reformulation also changes the event triggering function so that
                        it leads to time events rather than state events.<br/>
                        This is for
-                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2590\">#2590</a>..
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2590\">#2590</a>.
     </td>
 </tr>
 </table>
@@ -527,14 +527,40 @@ that do <b style=\"color:red\">not</b> lead to wrong simulation results, e.g.,
 units are wrong or errors in documentation):
 </p>
 <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
-<tr><td colspan=\"2\"><b>Buildings.ThermalZones.Detailed</b>
+<tr><td colspan=\"2\"><b>Buildings.Airflow</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Airflow.Multizone.DoorOperable
+    </td>
+    <td valign=\"top\">Removed duplicate declaration of <code>VABp_flow</code>.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1496\">Buidings, issue #1496</a>.
+    </td>
+</tr>
+<tr><td colspan=\"2\"><b>Buildings.Electrical</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.ThermalZones.Detailed.FLEXLAB.Rooms.X3B.Electrical
+    </td>
+    <td valign=\"top\">Added missing parameter declaration.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2556\">Buidings, issue #2556</a>.
+    </td>
+</tr>
+<tr><td colspan=\"2\"><b>Buildings.ThermalZones</b>
     </td>
 </tr>
 <tr><td valign=\"top\">Buildings.ThermalZones.Detailed.BaseClasses.RadiationTemperature
     </td>
-    <td valign=\"top\">Corrected wrong value for annotation <code>HideResult</code>.<br/>
-                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2550\">#2550</a>.
+    <td valign=\"top\">Corrected annotation.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2550\">Buidings, issue #2550</a>.
     </td>
+</tr>
+    <tr><td valign=\"top\">Buildings.ThermalZones.Detailed.Constructions.Examples.ExteriorWallTwoWindows<br/>
+                           Buildings.ThermalZones.Detailed.Constructions.Examples.ExteriorWallWithWindow<br/>
+                           Buildings.ThermalZones.Detailed.Validation.BESTEST.Cases6xx.Case600FF
+        </td>
+        <td valign=\"top\">Added missing parameter declaration.<br/>
+                           This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2556\">Buidings, issue #2556</a>.
+        </td>
 </tr>
 </table>
 <p>
@@ -4573,7 +4599,7 @@ This closes <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/565\"
      <td valign=\"top\">Removed the constant <code>sensibleOnly</code> and
                         introduced instead the parameter <code>use_mWat_flow</code>.
                         The new parameter, if set to <code>true</code>, will enable an input connector
-                        that can be used to add water to the conservation equation..
+                        that can be used to add water to the conservation equation.
                         For Dymola, the conversion script updates the model for these changes.
      </td>
    </tr>
@@ -6770,7 +6796,7 @@ have been <b style=\"color:blue\">improved</b> in a
     </td>
     <td valign=\"top\">Removed the use of the deprecated
                        <code>cardinality</code> function.
-                       Therefore, now all input signals must be connected..
+                       Therefore, now all input signals must be connected.
     </td>
 </tr>
 <tr><td colspan=\"2\"><b>Buildings.Utilities</b>
