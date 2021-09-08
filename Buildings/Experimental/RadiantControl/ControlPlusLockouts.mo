@@ -19,7 +19,6 @@ block ControlPlusLockouts "Full radiant control"
     final unit="s",
     final displayUnit="s",
     final quantity="Time")=1800 "Time for which cooling is locked if CHW return is too cold";
-
    parameter Real TiHea(min=0,
     final unit="s",
     final displayUnit="s",
@@ -117,7 +116,8 @@ equation
 This encompasses full radiant control based on water return temperature, room air temperature, night flush signal, slab temperature, and slab setpoint. <p>
 
 <p> Each day, a slab temperature setpoint for a perimeter zone should be determined based on a lookup table that references the forecast high outdoor air temperature.
-See Buildings.Experimental.RadiantControl.SlabTempSignal.SlabSetPerim.
+See <a href=\"modelica://Buildings.Experimental.RadiantControl.SlabTemperatureSignal.SlabSetpointPerimeter\">
+Buildings.Experimental.RadiantControl.SlabTemperatureSignal.SlabSetpointPerimeter</a>.
 
 Core zone setpoints are set to a constant value throughout the year (typically 70F). <p>
 
