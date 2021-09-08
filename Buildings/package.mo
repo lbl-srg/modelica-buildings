@@ -9427,7 +9427,7 @@ end UsersGuide;
 
 annotation (
 preferredView="info",
-version="8.0.0",
+version="8.0.1",
 versionDate="2021-06-08",
 dateModified="2021-06-08",
 uses(Modelica(version="3.2.3")),
