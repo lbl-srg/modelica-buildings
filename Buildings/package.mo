@@ -210,7 +210,7 @@ Each class (i.e., model, block and function) must be used in an example or valid
     <div class=\"release-summary\">
     <p>
     Version 8.0.1 is a bug fix release.
-    The library has been tested with Dymola 2021, JModelica (revision 14023),
+    The library has been tested with Dymola 2022, JModelica (revision 14023),
     and OPTIMICA (revision OCT-stable-r19089_JM-r14295).
     </p>
     <p>
