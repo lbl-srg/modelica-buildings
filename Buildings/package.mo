@@ -204,6 +204,110 @@ Each class (i.e., model, block and function) must be used in an example or valid
   package ReleaseNotes "Release notes"
     extends Modelica.Icons.ReleaseNotes;
 
+    class Version_8_0_1 "Version 8.0.1"
+      extends Modelica.Icons.ReleaseNotes;
+        annotation (Documentation(info="<html>
+    <div class=\"release-summary\">
+    <p>
+    Version 8.0.1 is a bug fix release.
+    The library has been tested with Dymola 2021, JModelica (revision 14023),
+    and OPTIMICA (revision OCT-stable-r19089_JM-r14295).
+    </p>
+    <p>
+    The following changes have been done:
+    <ul>
+    <li>
+    xxx.
+    </li>
+    </ul>
+    </div>
+    <!-- New libraries -->
+    <!-- New components for existing libraries -->
+    <!-- Backward compatible changes -->
+    <p>
+    The following <b style=\"color:blue\">existing components</b>
+    have been <b style=\"color:blue\">improved</b> in a
+    <b style=\"color:blue\">backward compatible</b> way:
+    </p>
+    <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
+    <tr><td colspan=\"2\"><b>xxx</b>
+        </td>
+    </tr>
+    <tr><td valign=\"top\">xxx
+        </td>
+        <td valign=\"top\">xxx.<br/>
+                           This is for
+                           <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/xxx\">Buildings, #xxx</a>.
+        </td>
+    </tr>
+    </table>
+    <!-- Non-backward compatible changes to existing components -->
+    <!-- Errors that have been fixed -->
+    <p>
+    The following <b style=\"color:red\">critical errors</b> have been fixed (i.e., errors
+    that can lead to wrong simulation results):
+    </p>
+    <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
+    <tr><td colspan=\"2\"><b>Buildings.Occupants</b>
+        </td>
+    </tr>
+    <tr><td valign=\"top\">Buildings.Occupants.Office.Occupancy.Wang2005Occupancy
+        </td>
+        <td valign=\"top\">Reformulated model so it works also if the simulation does not start at <i>0</i>.<br/>
+                           To improve efficiency, this reformulation also changes the event triggering function so that
+                           it leads to time events rather than state events.<br/>
+                           This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2590\">Buildings, #2590</a>.
+        </td>
+    </tr>
+    </table>
+    <!-- Uncritical errors -->
+    <p>
+    The following <b style=\"color:red\">uncritical errors</b> have been fixed (i.e., errors
+    that do <b style=\"color:red\">not</b> lead to wrong simulation results, e.g.,
+    units are wrong or errors in documentation):
+    </p>
+    <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
+    <tr><td colspan=\"2\"><b>Buildings.Airflow</b>
+        </td>
+    </tr>
+    <tr><td valign=\"top\">Buildings.Airflow.Multizone.DoorOperable
+        </td>
+        <td valign=\"top\">Removed duplicate declaration of <code>VABp_flow</code>.<br/>
+                           This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1496\">Buidings, issue #1496</a>.
+        </td>
+    </tr>
+    <tr><td colspan=\"2\"><b>Buildings.Electrical</b>
+        </td>
+    </tr>
+    <tr><td valign=\"top\">Buildings.ThermalZones.Detailed.FLEXLAB.Rooms.X3B.Electrical
+        </td>
+        <td valign=\"top\">Added missing parameter declaration.<br/>
+                           This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2556\">Buidings, issue #2556</a>.
+        </td>
+    </tr>
+    <tr><td colspan=\"2\"><b>Buildings.ThermalZones</b>
+        </td>
+    </tr>
+    <tr><td valign=\"top\">Buildings.ThermalZones.Detailed.BaseClasses.RadiationTemperature
+        </td>
+        <td valign=\"top\">Corrected annotation.<br/>
+                           This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2550\">Buidings, issue #2550</a>.
+        </td>
+    </tr>
+    <tr><td valign=\"top\">Buildings.ThermalZones.Detailed.Constructions.Examples.ExteriorWallTwoWindows<br/>
+                           Buildings.ThermalZones.Detailed.Constructions.Examples.ExteriorWallWithWindow<br/>
+                           Buildings.ThermalZones.Detailed.Validation.BESTEST.Cases6xx.Case600FF
+        </td>
+        <td valign=\"top\">Added missing parameter declaration.<br/>
+                           This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2556\">Buidings, issue #2556</a>.
+        </td>
+    </tr>
+    </table>
+    <!-- Obsolete components -->
+     </html>"));
+    end Version_8_0_1;
+
+
     class Version_8_0_0 "Version 8.0.0"
       extends Modelica.Icons.ReleaseNotes;
         annotation (Documentation(info="<html>
@@ -4229,7 +4333,7 @@ This closes <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/565\"
      <td valign=\"top\">Removed the constant <code>sensibleOnly</code> and
                         introduced instead the parameter <code>use_mWat_flow</code>.
                         The new parameter, if set to <code>true</code>, will enable an input connector
-                        that can be used to add water to the conservation equation..
+                        that can be used to add water to the conservation equation.
                         For Dymola, the conversion script updates the model for these changes.
      </td>
    </tr>
@@ -6426,7 +6530,7 @@ have been <b style=\"color:blue\">improved</b> in a
     </td>
     <td valign=\"top\">Removed the use of the deprecated
                        <code>cardinality</code> function.
-                       Therefore, now all input signals must be connected..
+                       Therefore, now all input signals must be connected.
     </td>
 </tr>
 <tr><td colspan=\"2\"><b>Buildings.Utilities</b>
@@ -8811,6 +8915,9 @@ This section summarizes the changes that have been performed
 on the Buildings library.
 </p>
 <ul>
+<li>
+<a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_8_0_1\">Version 8.0.1</a> (xxx)
+</li>
 <li>
 <a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_8_0_0\">Version 8.0.0</a> (June 8, 2021)
 </li>
