@@ -136,7 +136,7 @@ before_install:
 # the html output may have small formatting differences which causes
 # the test to fail
 install:
-  - pip3 install --upgrade pip setuptools wheel
+  - pip3 install --upgrade pip wheel
   - pip3 install --only-binary=numpy,scipy,matplotlib numpy==1.13.3 scipy==0.19.1 matplotlib==2.1.0
   - pip3 install git+https://github.com/lbl-srg/BuildingsPy@master
   - if [[ "$TEST_ARG" == *test-energyplus* ]]; then
