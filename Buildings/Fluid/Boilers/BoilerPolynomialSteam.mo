@@ -82,7 +82,7 @@ model BoilerPolynomialSteam "Steam boiler"
     allowFlowReversal=allowFlowReversal,
     m_flow_nominal=m_flow_nominal,
     show_T=show_T,
-    dp_nominal=dp_nominal)
+    dp_nominal=dp_nominal) "Flow resistance"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
 
 protected
@@ -98,8 +98,10 @@ protected
     "Internal block needed for conditional input part load ratio";
 
   Buildings.HeatTransfer.Sources.PrescribedHeatFlow preHeaFlo if not steadyDynamics
+  "Prescribed heat flow(if heatPort is connected)"
     annotation (Placement(transformation(extent={{-49,-40},{-29,-20}})));
   Modelica.Blocks.Sources.RealExpression Q_flow_in(y=QWat_flow) if not steadyDynamics
+  "Heat transfer from gas into water(if heatPort is connected)"
     annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
 
   Modelica.Thermal.HeatTransfer.Components.ThermalConductor UAOve(G=UA) if not steadyDynamics

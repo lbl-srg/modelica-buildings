@@ -15,7 +15,7 @@ model MixingVolumeEvaporation
     "Pressure of the fluid";
 
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heatPort(
-    T(start=T_start)) if not steadyDynamics
+    T(start=T_start)) if not steadyDynamics "Heat port"
   annotation (Placement(transformation(extent={{-10,-90},{10,-110}})));
   Modelica.Blocks.Interfaces.RealOutput VLiq(unit="m3") "Liquid volume"
   annotation (Placement(transformation(
