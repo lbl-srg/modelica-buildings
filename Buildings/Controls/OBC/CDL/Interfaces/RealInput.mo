@@ -1,6 +1,6 @@
 within Buildings.Controls.OBC.CDL.Interfaces;
 connector RealInput=input Real
-  "'input Real' as connector"
+  "Real input connector"
 annotation (defaultComponentName="u",
  Icon(graphics={Polygon(lineColor={0,0,127},
                         fillColor={0,0,127},
