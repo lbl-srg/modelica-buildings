@@ -22,7 +22,6 @@ model TransportWaterAir
     annotation (Placement(transformation(extent={{82,16},{62,36}})));
   Buildings.Fluid.FixedResistances.PlugFlowPipe pip(
     redeclare package Medium = MediumW,
-    nPorts=1,
     dIns=0.05,
     kIns=0.028,
     m_flow_nominal=1,
@@ -62,7 +61,6 @@ model TransportWaterAir
     "Pressure boundary condition"
     annotation (Placement(transformation(extent={{80,-80},{60,-60}})));
   PlugFlowPipe duc(
-    nPorts=1,
     dIns=0.05,
     kIns=0.028,
     m_flow_nominal=1,
@@ -112,7 +110,7 @@ equation
   connect(Tin.y, sou.T_in)
     annotation (Line(points={{-71,30},{-62,30}},
                                                color={0,0,127}));
-  connect(pip.ports_b[1], senTemOutW.port_a)
+  connect(pip.port_b, senTemOutW.port_a)
     annotation (Line(points={{20,26},{30,26}}, color={0,127,255}));
   connect(senTemOutW.port_b, sin.ports[1])
     annotation (Line(points={{50,26},{62,26}}, color={0,127,255}));
@@ -122,7 +120,7 @@ equation
   connect(senTemIn.port_b, pip.port_a)
     annotation (Line(points={{-10,26},{0,26}},
                                              color={0,127,255}));
-  connect(duc.ports_b[1],senTemOutA. port_a)
+  connect(duc.port_b,senTemOutA. port_a)
     annotation (Line(points={{18,-70},{28,-70}}, color={0,127,255}));
   connect(senTemOutA.port_b, sin1.ports[1])
     annotation (Line(points={{48,-70},{60,-70}}, color={0,127,255}));
