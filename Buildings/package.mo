@@ -135,13 +135,6 @@ its class name ends with the string <code>Beta</code>.
     The library has been tested with Dymola 2022, JModelica (revision 14023),
     and OPTIMICA (revision OCT-stable-r19089_JM-r14295).
     </p>
-    <p>
-    The following changes have been done:
-    <ul>
-    <li>
-    xxx.
-    </li>
-    </ul>
     </div>
     <!-- New libraries -->
     <!-- New components for existing libraries -->
@@ -151,18 +144,6 @@ its class name ends with the string <code>Beta</code>.
     have been <b style=\"color:blue\">improved</b> in a
     <b style=\"color:blue\">backward compatible</b> way:
     </p>
-    <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
-    <tr><td colspan=\"2\"><b>xxx</b>
-        </td>
-    </tr>
-    <tr><td valign=\"top\">xxx
-        </td>
-        <td valign=\"top\">xxx.<br/>
-                           This is for
-                           <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/xxx\">Buildings, #xxx</a>.
-        </td>
-    </tr>
-    </table>
     <!-- Non-backward compatible changes to existing components -->
     <!-- Errors that have been fixed -->
     <p>
@@ -8200,7 +8181,7 @@ on the Buildings library.
 </p>
 <ul>
 <li>
-<a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_7_0_2\">Version 7.0.2</a> (xxx)
+<a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_7_0_2\">Version 7.0.2</a>
 </li>
 <li>
 <a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_7_0_1\">Version 7.0.1</a> (June 4, 2021)
