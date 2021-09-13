@@ -210,7 +210,8 @@ equation
           extent={{-100,-72},{100,-88}},
           lineColor={0,0,0},
           textString="L = %length
-d = %dh")}),
+          d = %dh")}),
+    obsolete = "Obsolete model - use Buildings.Fluid.FixedResistances.PlugFlowPipe instead",
     Documentation(revisions="<html>
 <ul>
 <li>

@@ -204,6 +204,7 @@ equation
           lineColor={0,0,0},
           fillPattern=FillPattern.HorizontalCylinder,
           fillColor={215,202,187})}),
+    obsolete = "Obsolete model - use Buildings.Fluid.FixedResistances.PlugFlowPipe instead",
     Documentation(revisions="<html>
 <ul>
 <li>
