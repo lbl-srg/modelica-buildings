@@ -3,6 +3,10 @@ model PlugFlowPipe
   "Pipe model using spatialDistribution for temperature delay"
   extends Buildings.Fluid.Interfaces.PartialTwoPort;
 
+  // The flag computeFlowResistance is required in Buildings.Fluid.FixedResistances.PlugFlowDiscretized
+  constant Boolean computeFlowResistance=true
+    "Flag to enable/disable computation of flow resistance";
+
   constant Boolean homotopyInitialization = true "= true, use homotopy method"
     annotation(HideResult=true);
 
@@ -148,12 +152,12 @@ protected
     "Lossless pipe for connecting the outlet port when have_pipCap=false"
     annotation (Placement(transformation(extent={{70,-30},{90,-10}})));
 
-  HydraulicDiameter res(
+  Buildings.Fluid.FixedResistances.HydraulicDiameter res(
     redeclare final package Medium = Medium,
     final dh=dh,
     final m_flow_nominal=m_flow_nominal,
     final from_dp=from_dp,
-    final length=length,
+    final length=if computeFlowResistance then length else 0,
     final roughness=roughness,
     final fac=fac,
     final ReC=ReC,
@@ -241,9 +245,9 @@ equation
     annotation (Line(points={{-80,0},{-100,0}}, color={0,127,255}));
 
   connect(heaLos_b.port_b, vol.ports[1])
-    annotation (Line(points={{60,0},{79,0},{79,20}}, color={0,127,255}));
+    annotation (Line(points={{60,0},{78,0},{78,20}}, color={0,127,255}));
   connect(vol.ports[2], port_b)
-    annotation (Line(points={{81,20},{81,0},{100,0}}, color={0,127,255}));
+    annotation (Line(points={{82,20},{82,0},{100,0}}, color={0,127,255}));
   connect(heaLos_b.port_b, noMixPip.port_a) annotation (Line(points={{60,0},{66,
           0},{66,-20},{70,-20}}, color={0,127,255}));
   connect(noMixPip.port_b, port_b) annotation (Line(points={{90,-20},{94,-20},{94,

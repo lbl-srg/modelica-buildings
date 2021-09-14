@@ -8,7 +8,7 @@ compareVars :=
     "duc.port_b.C_outflow[1]",
     "CIn[1].y",
     "pip.v_nominal",
-    "pip.res.v",
-    "duc.res.v_nominal",
+    "pip.v",
+    "duc.v_nominal",
     "duc.res.v"
   };
