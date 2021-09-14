@@ -14,7 +14,7 @@ model PlugFlowPipe "Simple example of plug flow pipe"
     T=273.15 + 10,
     nPorts=2,
     p(displayUnit="Pa") = 101325) "Pressure boundary condition"
-    annotation (Placement(transformation(extent={{102,-10},{82,10}})));
+    annotation (Placement(transformation(extent={{100,-10},{80,10}})));
   Buildings.Fluid.FixedResistances.PlugFlowPipe pip(
     redeclare package Medium = Medium,
     dh=0.1,
@@ -90,7 +90,7 @@ equation
     annotation (Line(points={{20,20},{40,20}},
                                              color={0,127,255}));
   connect(senTemOut.port_b, sin.ports[1])
-    annotation (Line(points={{60,20},{76,20},{76,2},{82,2}},
+    annotation (Line(points={{60,20},{76,20},{76,-1},{80,-1}},
                                              color={0,127,255}));
   connect(senTemIn.port_b, pip.port_a)
     annotation (Line(points={{-10,20},{0,20}},
@@ -100,7 +100,7 @@ equation
   connect(pipNoMix.port_b, senTemOutNoMix.port_a)
     annotation (Line(points={{20,-20},{40,-20}}, color={0,127,255}));
   connect(senTemOutNoMix.port_b, sin.ports[2]) annotation (Line(points={{60,-20},
-          {76,-20},{76,-2},{82,-2}}, color={0,127,255}));
+          {76,-20},{76,1},{80,1}},   color={0,127,255}));
   connect(bou[1].port, pip.heatPort)
     annotation (Line(points={{-20,70},{-4,70},{-4,40},{10,40},{10,30}},
                                                         color={191,0,0}));
@@ -131,5 +131,7 @@ This test includes an inlet temperature step under a constant mass flow rate.
 <ul>
 <li>September 8, 2017 by Bram van der Heijde<br/>First implementation</li>
 </ul>
-</html>"));
+</html>"),
+    Diagram(coordinateSystem(extent={{-120,-100},{120,100}})),
+    Icon(coordinateSystem(extent={{-100,-100},{100,100}})));
 end PlugFlowPipe;
