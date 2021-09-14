@@ -1,5 +1,11 @@
 compareVars :=
   {
     "senTemIn.T",
-    "senTemOut.T"
+    "senTemOut.T",
+    "bou[1].T",
+    "pip.QEnv_flow",
+    "pip.dp",
+    "pip.res.v",
+    "pip.res.m_flow_nominal",
+    "pip.res.m_flow"
   };

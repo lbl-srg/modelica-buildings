@@ -22,7 +22,7 @@ model PlugFlowDiscretized "Simple example of discretized plug flow pipe"
     redeclare package Medium = Medium,
     nSeg=nSeg,
     dh=0.1,
-    segLen=fill(10, nSeg),
+    totLen=100,
     dIns=0.05,
     kIns=0.028,
     m_flow_nominal=1,

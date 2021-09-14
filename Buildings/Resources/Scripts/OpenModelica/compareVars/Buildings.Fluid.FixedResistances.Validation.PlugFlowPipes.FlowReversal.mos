@@ -4,6 +4,5 @@ compareVars :=
     "senTemIn.T",
     "senTemOut.T",
     "pip.v_nominal",
-    "pip.del.v",
-    "pip.res.v_nominal"
+    "pip.v"
   };
