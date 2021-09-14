@@ -5,6 +5,12 @@ clear
 
 convertClear();
 
+// Refactoring for https://github.com/ibpsa/modelica-ibpsa/issues/1494
+convertClass("IBPSA.Fluid.FixedResistances.PlugFlowPipe",
+             "IBPSA.Obsolete.Fluid.FixedResistances.PlugFlowPipe");
+convertClass("IBPSA.Fluid.FixedResistances.BaseClasses.PlugFlowCore",
+             "IBPSA.Obsolete.Fluid.FixedResistances.BaseClasses.PlugFlowCore");
+
 // Conversion for https://github.com/lbl-srg/modelica-buildings/issues/2544
 convertClass("Buildings.Controls.OBC.CDL.Routing.BooleanReplicator",
              "Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator");
@@ -18,7 +24,7 @@ convertModifiers("Buildings.Fluid.Movers.FlowControlled_dp",
                 {"y_start"}, fill("",0), true);
 convertModifiers("Buildings.Fluid.Movers.FlowControlled_m_flow",
                 {"y_start"}, fill("",0), true);
-                
+
 // Conversion for https://github.com/lbl-srg/modelica-buildings/issues/2580
 convertElement(
     "Buildings.Controls.OBC.CDL.Logical.MultiAnd",

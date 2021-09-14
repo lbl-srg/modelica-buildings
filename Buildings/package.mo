@@ -442,6 +442,23 @@ have been <b style=\"color:blue\">improved</b> in a
                        propagated the value of <code>order</code> to a high-level parameter.
     </td>
 </tr>
+<tr><td colspan=\"2\"><b>Buildings.Fluid.FixedResistances</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Fluid.FixedResistances.PlugFlowPipe<br/>
+                       Buildings.Fluid.FixedResistances.BaseClasses.PlugFlowCore
+    </td>
+    <td valign=\"top\">In <code>Buildings.Fluid.FixedResistances.PlugFlowPipe</code>, changed <code>ports_b</code>,
+                       which was a vectorized port, to <code>port_b</code> which is a scalar port.
+                       This has been done in order for the model to have the same connectors as
+                       are used for other pipe models.<br/>
+                       Refactored implementation and made various classes in this model protected.<br/>
+                       This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1494\">IBPSA #1494</a>.<br/>
+                       For Dymola, a conversion script renames existing models to
+                       <code>Buildings.Obsolete.Fluid.FixedResistances.PlugFlowPipe</code> and
+                       <code>Buildings.Obsolete.Fluid.FixedResistances.BaseClasses.PlugFlowCore</code>.
+    </td>
+</tr>
 <tr><td colspan=\"2\"><b>Buildings.Fluid.Movers</b>
     </td>
 </tr>
