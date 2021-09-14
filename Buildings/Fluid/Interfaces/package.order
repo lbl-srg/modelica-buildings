@@ -11,6 +11,7 @@ PartialFourPortParallel
 PartialTwoPort
 PartialTwoPortInterface
 PartialTwoPortTransport
+PartialTwoPortTwoMedium_rev
 PartialTwoPortTwoMedium
 PartialTwoPortVector
 PartialWaterPhaseChange
