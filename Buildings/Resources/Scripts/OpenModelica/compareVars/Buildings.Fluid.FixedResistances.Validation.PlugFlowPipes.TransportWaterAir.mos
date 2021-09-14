@@ -10,5 +10,5 @@ compareVars :=
     "pip.v_nominal",
     "pip.v",
     "duc.v_nominal",
-    "duc.res.v"
+    "duc.v"
   };
