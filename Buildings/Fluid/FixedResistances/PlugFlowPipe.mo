@@ -3,10 +3,6 @@ model PlugFlowPipe
   "Pipe model using spatialDistribution for temperature delay"
   extends Buildings.Fluid.Interfaces.PartialTwoPort;
 
-  // The flag computeFlowResistance is required in Buildings.Fluid.FixedResistances.PlugFlowDiscretized
-  constant Boolean computeFlowResistance=true
-    "Flag to enable/disable computation of flow resistance";
-
   constant Boolean homotopyInitialization = true "= true, use homotopy method"
     annotation(HideResult=true);
 
@@ -89,8 +85,13 @@ model PlugFlowPipe
     annotation(Evaluate=true, Dialog(tab="Advanced"));
 
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heatPort
-    "Heat transfer to or from surroundings (heat loss from pipe results in a positive heat flow)"
+    "Heat transfer to or from surroundings (positive if pipe is colder than surrounding)"
     annotation (Placement(transformation(extent={{-10,90},{10,110}})));
+
+  // QEnv_flow is introduced because in discretized pipes, heatPort.Q_flow must be summed over all ports.
+  // By introducing this variable, both models have the same variable.
+  Modelica.SIunits.HeatFlowRate QEnv_flow = heatPort.Q_flow
+    "Heat transfer to or from surroundings (positive if pipe is colder than surrounding)";
 
   Modelica.SIunits.PressureDifference dp(displayUnit="Pa") = res.dp
     "Pressure difference between port_a and port_b";
@@ -157,7 +158,7 @@ protected
     final dh=dh,
     final m_flow_nominal=m_flow_nominal,
     final from_dp=from_dp,
-    final length=if computeFlowResistance then length else 0,
+    final length=length,
     final roughness=roughness,
     final fac=fac,
     final ReC=ReC,
@@ -297,6 +298,10 @@ equation
 d = %dh")}),
     Documentation(revisions="<html>
 <ul>
+<li>
+September 14, 2021, by Michael Wetter:<br/>
+Made most instances protected and exposed main variables of interest.
+</li>
 <li>
 July 9, 2021, by Baptiste Ravache:<br/>
 Replaced the vectorized outlet port <code>ports_b</code> with
