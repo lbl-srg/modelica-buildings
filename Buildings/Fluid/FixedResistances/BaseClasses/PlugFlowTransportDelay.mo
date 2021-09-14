@@ -23,13 +23,13 @@ model PlugFlowTransportDelay "Delay time for given normalized velocity"
     if initDelay and (abs(m_flow_start) > 1E-10*m_flow_nominal)
      then min(-length/m_flow_start*(rho*dh^2/4*Modelica.Constants.pi), 0) else 0
     "Initial value of input time at outlet";
-  final parameter Real conUM = length / (rho*(dh^2)/4*Modelica.Constants.pi)
+  final parameter Real conUM(unit="1/kg") = 4/rho/dh/dh/Modelica.Constants.pi/length
     "Constant to convert mass flow rate into velocity normalized by the pipe length";
   Modelica.SIunits.Time time_out_rev "Reverse flow direction output time";
   Modelica.SIunits.Time time_out_des "Design flow direction output time";
 
   Real x(start=0) "Spatial coordinate for spatialDistribution operator";
-  Modelica.SIunits.Frequency u "Normalized fluid velocity (1/s)";
+  Real u(unit="1/s") "Normalized fluid velocity (1/s)";
 
   Modelica.Blocks.Interfaces.RealInput m_flow "Mass flow of fluid" annotation (
       Placement(transformation(extent={{-140,-20},{-100,20}}),
@@ -50,7 +50,6 @@ initial equation
 
 equation
   u = m_flow * conUM;
-
   der(x) = u;
   (time_out_rev, time_out_des) = spatialDistribution(
     time,
