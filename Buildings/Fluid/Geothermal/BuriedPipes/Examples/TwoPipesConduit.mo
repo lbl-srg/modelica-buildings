@@ -32,8 +32,7 @@ model TwoPipesConduit
     kIns=0.05,
     cPip=500,
     rhoPip=8000,
-    thickness=0.0032,
-    nPorts=1) "Buried pipe"
+    thickness=0.0032) "Buried pipe"
     annotation (Placement(transformation(extent={{-10,50},{10,30}})));
 
   Buildings.Fluid.Geothermal.BuriedPipes.GroundCoupling gro(
@@ -86,8 +85,7 @@ model TwoPipesConduit
     kIns=0.19,
     cPip=500,
     rhoPip=8000,
-    thickness=0.0032,
-    nPorts=1) "Buried pipe"
+    thickness=0.0032) "Buried pipe"
     annotation (Placement(transformation(extent={{-10,-50},{10,-30}})));
   Sensors.TemperatureTwoPort senTemOutRet(
     redeclare package Medium = Medium,
@@ -157,13 +155,9 @@ equation
     annotation (Line(points={{50,40},{60,40}}, color={0,127,255}));
   connect(senTemInlSup.port_b, pipSup.port_a)
     annotation (Line(points={{-30,40},{-10,40}}, color={0,127,255}));
-  connect(pipSup.ports_b[1], senTemOutSup.port_a)
-    annotation (Line(points={{10,40},{30,40}}, color={0,127,255}));
   connect(senTemOutRet.port_b,pipRet. port_a)
     annotation (Line(points={{-30,-40},{-10,-40}},
                                                  color={0,127,255}));
-  connect(pipRet.ports_b[1],senTemInlRet. port_a)
-    annotation (Line(points={{10,-40},{30,-40}}, color={0,127,255}));
   connect(souRet.ports[1],senTemInlRet. port_b)
     annotation (Line(points={{60,-40},{50,-40}}, color={0,127,255}));
   connect(sinRet.ports[1],senTemOutRet. port_a)
@@ -178,6 +172,10 @@ equation
     annotation (Line(points={{40,0},{0,0},{0,30}}, color={191,0,0}));
   connect(con.port_b, gro.ports[1, 1])
     annotation (Line(points={{60,0},{90,0},{90,80}}, color={191,0,0}));
+  connect(pipSup.port_b, senTemOutSup.port_a)
+    annotation (Line(points={{10,40},{30,40}}, color={0,127,255}));
+  connect(pipRet.port_b, senTemInlRet.port_a)
+    annotation (Line(points={{10,-40},{30,-40}}, color={0,127,255}));
   annotation (Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-140,-120},{140,120}})),
     experiment(StopTime=63072000, Tolerance=1e-06),
@@ -190,6 +188,10 @@ that contains one insulated hot water supply pipe oscillating around
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+September 14, 2021, by Michael Wetter:<br/>
+Updated example for new pipe model.
+</li>
 <li>
 June 02, 2021, by Baptiste Ravache:<br/>
 First implementation.

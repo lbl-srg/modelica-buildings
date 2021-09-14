@@ -36,8 +36,7 @@ model TwoBuriedPipes "Example model of two buried pipes in close proximity"
     rhoPip=8000,
     thickness=0.0032,
     T_start_in=TChW,
-    T_start_out=TChW,
-    nPorts=1) "Buried chilled water pipe"
+    T_start_out=TChW) "Buried chilled water pipe"
     annotation (Placement(transformation(extent={{0,10},{20,30}})));
   Modelica.Blocks.Sources.Sine TinChW(
     amplitude=2,
@@ -78,8 +77,7 @@ model TwoBuriedPipes "Example model of two buried pipes in close proximity"
     rhoPip=8000,
     thickness=0.0032,
     T_start_in=THotW,
-    T_start_out=THotW,
-    nPorts=1) "Buried hot water pipe"
+    T_start_out=THotW) "Buried hot water pipe"
     annotation (Placement(transformation(extent={{0,-50},{20,-30}})));
   Modelica.Blocks.Sources.Sine TinHotW(
     amplitude=5,
@@ -129,9 +127,6 @@ equation
   connect(senTemChWIn.port_b, pipChW.port_a)
     annotation (Line(points={{-10,20},{0,20}},
                                              color={0,127,255}));
-  connect(pipChW.ports_b[1], senTemChWOut.port_a)
-    annotation (Line(points={{20,20},{50,20}},
-                                             color={0,127,255}));
   connect(pipChW.heatPort, gro.ports[1,1])
     annotation (Line(points={{10,30},{10,40},{30,40},{30,60},{30,60},{30,59.5}},
                                                        color={191,0,0}));
@@ -144,23 +139,29 @@ equation
     annotation (Line(points={{-46,-40},{-30,-40}}, color={0,127,255}));
   connect(senTemHotWIn.port_b, pipHotW.port_a)
     annotation (Line(points={{-10,-40},{0,-40}}, color={0,127,255}));
-  connect(pipHotW.ports_b[1], senTemHotWOut.port_a)
-    annotation (Line(points={{20,-40},{50,-40}}, color={0,127,255}));
   connect(senTemHotWOut.port_b, sinHotW.ports[1])
     annotation (Line(points={{70,-40},{80,-40}}, color={0,127,255}));
+  connect(pipChW.port_b, senTemChWOut.port_a)
+    annotation (Line(points={{20,20},{50,20}}, color={0,127,255}));
+  connect(pipHotW.port_b, senTemHotWOut.port_a) annotation (Line(points={{20,
+          -40},{36,-40},{36,-40},{50,-40}}, color={0,127,255}));
   annotation (Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-120,-120},{120,
             120}})),
     experiment(StopTime=63072000, Tolerance=1e-06),
     Documentation(info="<html>
 <p>
-This example showcases the ground thermal coupling for a network of two 
-uninsulated buried pipes that are in close proximity. One pipe carries 
-chilled water oscillating around <i>10</i>°C whereas the other carries hot water 
+This example showcases the ground thermal coupling for a network of two
+uninsulated buried pipes that are in close proximity. One pipe carries
+chilled water oscillating around <i>10</i>°C whereas the other carries hot water
 oscillating around <i>80</i>°C.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+September 14, 2021, by Michael Wetter:<br/>
+Updated example for new pipe model.
+</li>
 <li>
 March 17, 2021, by Baptiste Ravache:<br/>
 First implementation.
