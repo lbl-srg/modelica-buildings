@@ -1,6 +1,6 @@
-ChilledWaterStaticPressureSetpointReset
-OperatingMode
 BypassValvePosition
-ZoneTemperature
+ChilledWaterStaticPressureSetpointReset
 ChilledWaterSupplyReset
+OperatingMode
 ZoneRegulation
+ZoneTemperature
