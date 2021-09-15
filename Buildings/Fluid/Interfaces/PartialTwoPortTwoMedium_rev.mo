@@ -52,32 +52,34 @@ partial model PartialTwoPortTwoMedium_rev
     "Fluid connector b (positive design flow direction is from port_a to port_b)"
     annotation (Placement(transformation(extent={{110,-10},{90,10}})));
 
-protected
-  final parameter Modelica.SIunits.MassFlowRate _m_flow_start = 0
-  "Start value for m_flow, used to avoid a warning if not set in m_flow, and to avoid m_flow.start in parameter window";
-  final parameter Modelica.SIunits.PressureDifference _dp_start(displayUnit="Pa") = 0
-  "Start value for dp, used to avoid a warning if not set in dp, and to avoid dp.start in parameter window";
-
 
   // Assumptions
   parameter Boolean allowFlowReversal = true
     "= false to simplify equations, assuming, but not enforcing, no flow reversal. Used only if model has two ports."
     annotation(Dialog(tab="Assumptions"), Evaluate=true);
+
+   //Dynamics
   parameter Modelica.Fluid.Types.Dynamics energyDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial
     "Type of energy balance: dynamic (3 initialization options) or steady state"
     annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Equations"));
+
   parameter Modelica.Fluid.Types.Dynamics massDynamics=energyDynamics
     "Type of mass balance: dynamic (3 initialization options) or steady state"
     annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Equations"));
 
   // Initialization
-  parameter Medium_a.AbsolutePressure p_start = Medium_a.p_default
+  parameter Medium_b.AbsolutePressure p_start = Medium_b.p_default
     "Start value of pressure"
     annotation(Dialog(tab = "Initialization"));
-  parameter Medium_a.Temperature T_start=Medium_a.T_default
+  parameter Medium_b.Temperature T_start=Medium_b.T_default
     "Start value of temperature"
     annotation(Dialog(tab = "Initialization"));
 
+protected
+  final parameter Modelica.SIunits.MassFlowRate _m_flow_start = 0
+  "Start value for m_flow, used to avoid a warning if not set in m_flow, and to avoid m_flow.start in parameter window";
+  final parameter Modelica.SIunits.PressureDifference _dp_start(displayUnit="Pa") = 0
+  "Start value for dp, used to avoid a warning if not set in dp, and to avoid dp.start in parameter window";
 
 
 
