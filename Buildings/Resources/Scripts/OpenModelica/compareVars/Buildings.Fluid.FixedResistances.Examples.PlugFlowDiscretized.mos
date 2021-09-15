@@ -5,7 +5,7 @@ compareVars :=
     "bou[1].T",
     "pip.QEnv_flow",
     "pip.dp",
-    "pip.res.v",
-    "pip.res.m_flow_nominal",
-    "pip.res.m_flow"
+    "pip.v",
+    "pip.m_flow_nominal",
+    "pip.m_flow"
   };
