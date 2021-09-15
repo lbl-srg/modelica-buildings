@@ -10,4 +10,5 @@ RoomVAV
 State
 SupplyAirTemperature
 SupplyAirTemperatureSetpoint
+SystemHysteresis
 Examples

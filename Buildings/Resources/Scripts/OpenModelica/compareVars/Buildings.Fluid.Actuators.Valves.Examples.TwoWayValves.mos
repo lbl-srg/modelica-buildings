@@ -4,5 +4,6 @@ compareVars :=
     "valQui.phi",
     "valEqu.phi",
     "valInd.phi",
-    "valPol.phi"
+    "valPol.phi",
+    "valBut.phi"
   };

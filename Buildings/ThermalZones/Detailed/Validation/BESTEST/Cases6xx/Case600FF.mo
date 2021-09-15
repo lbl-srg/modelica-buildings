@@ -45,12 +45,12 @@ model Case600FF
         nStaRef=nStaRef)}) "Exterior wall"
     annotation (Placement(transformation(extent={{20,84},{34,98}})));
   parameter Buildings.HeatTransfer.Data.OpaqueConstructions.Generic
-                                                          matFlo(final nLay=
-           2,
-    absIR_a=0.9,
-    absIR_b=0.9,
-    absSol_a=0.6,
-    absSol_b=0.6,
+    matFlo(
+      final nLay=2,
+      absIR_a=0.9,
+      absIR_b=0.9,
+      absSol_a=0.6,
+      absSol_b=0.6,
     material={Buildings.HeatTransfer.Data.Solids.Generic(
         x=1.003,
         k=0.040,
@@ -100,14 +100,14 @@ model Case600FF
       til={Z_},
       azi={S_}),
     lat=weaDat.lat,
-    massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)
-    "Room model for Case 600"
+    massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState) "Room model"
     annotation (Placement(transformation(extent={{36,-30},{66,0}})));
   Modelica.Blocks.Sources.Constant qConGai_flow(k=80/48) "Convective heat gain"
     annotation (Placement(transformation(extent={{-56,64},{-48,72}})));
   Modelica.Blocks.Sources.Constant qRadGai_flow(k=120/48) "Radiative heat gain"
     annotation (Placement(transformation(extent={{-44,72},{-36,80}})));
   Modelica.Blocks.Routing.Multiplex3 multiplex3_1
+    "Multiplex for internal gains"
     annotation (Placement(transformation(extent={{-18,64},{-10,72}})));
   Modelica.Blocks.Sources.Constant qLatGai_flow(k=0) "Latent heat gain"
     annotation (Placement(transformation(extent={{-44,56},{-36,64}})));
@@ -125,7 +125,8 @@ model Case600FF
                                           annotation (Placement(transformation(
         extent={{0,0},{-8,8}},
         origin={72,-52})));
-  parameter Buildings.HeatTransfer.Data.OpaqueConstructions.Generic roof(nLay=3,
+  parameter Buildings.HeatTransfer.Data.OpaqueConstructions.Generic roof(
+    nLay=3,
     absIR_a=0.9,
     absIR_b=0.9,
     absSol_a=0.6,
@@ -147,8 +148,7 @@ model Case600FF
         d=950,
         nStaRef=nStaRef)}) "Roof"
     annotation (Placement(transformation(extent={{60,84},{74,98}})));
-  Buildings.ThermalZones.Detailed.Validation.BESTEST.Data.Win600
-         window600(
+  parameter Buildings.ThermalZones.Detailed.Validation.BESTEST.Data.Win600 window600(
     UFra=3,
     haveExteriorShade=false,
     haveInteriorShade=false) "Window"
@@ -181,6 +181,7 @@ model Case600FF
     "0.41 ACH adjusted for the altitude (0.5 at sea level)"
     annotation (Placement(transformation(extent={{-96,-78},{-88,-70}})));
   Modelica.Blocks.Math.Product product
+    "Product to compute infiltration mass flow rate"
     annotation (Placement(transformation(extent={{-50,-60},{-40,-50}})));
   Buildings.Fluid.Sensors.Density density(
     redeclare package Medium = MediumA,
@@ -188,10 +189,13 @@ model Case600FF
     "Air density inside the building"
     annotation (Placement(transformation(extent={{-40,-76},{-50,-66}})));
   Buildings.BoundaryConditions.WeatherData.Bus weaBus
+   "Weather data bus"
     annotation (Placement(transformation(extent={{-4,-96},{12,-80}})));
   Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor TRooAir
     "Room air temperature"
-    annotation (Placement(transformation(extent={{-86,-28},{-78,-20}})));
+    annotation (Placement(transformation(extent={{5,-5},{-5,5}},
+        rotation=0,
+        origin={7,-15})));
   replaceable parameter
     Buildings.ThermalZones.Detailed.Validation.BESTEST.Data.StandardResultsFreeFloating
       staRes(
@@ -202,6 +206,7 @@ model Case600FF
     "Reference results from ASHRAE/ANSI Standard 140"
     annotation (Placement(transformation(extent={{80,40},{94,54}})));
   Modelica.Blocks.Math.MultiSum multiSum(nu=1)
+    "Multi sum for infiltration air flow rate"
     annotation (Placement(transformation(extent={{-78,-80},{-66,-68}})));
   Controls.OBC.CDL.Continuous.MovingMean TRooHou(delta=3600)
     "Hourly averaged room air temperature"
@@ -277,7 +282,7 @@ equation
       index=-1,
       extent={{-6,3},{-6,3}}));
   connect(roo.heaPorAir, TRooAir.port)  annotation (Line(
-      points={{50.25,-15},{-90,-15},{-90,-24},{-86,-24}},
+      points={{50.25,-15},{12,-15}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(sinInf.ports[1], roo.ports[2])        annotation (Line(
@@ -285,7 +290,7 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(multiSum.y, product.u1) annotation (Line(
-      points={{-64.98,-74},{-54,-74},{-54,-52},{-51,-52}},
+      points={{-64.98,-74},{-58,-74},{-58,-52},{-51,-52}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(InfiltrationRate.y, multiSum.u[1]) annotation (Line(
@@ -294,15 +299,15 @@ equation
       smooth=Smooth.None));
 
   connect(TRooAir.T, TRooHou.u) annotation (Line(
-      points={{-78,-24},{-68.8,-24}},
+      points={{2,-15},{-80,-15},{-80,-24},{-68.8,-24}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(TRooAir.T, TRooAnn.u) annotation (Line(
-      points={{-78,-24},{-72,-24},{-72,-36},{-68.8,-36}},
+      points={{2,-15},{-80,-15},{-80,-36},{-68.8,-36}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(souInf.ports[1], roo.ports[3]) annotation (Line(points={{-12,-28},{14,
-          -28},{14,-20.5},{39.75,-20.5}}, color={0,127,255}));
+  connect(souInf.ports[1], roo.ports[3]) annotation (Line(points={{-12,-28},{28,
+          -28},{28,-20.5},{39.75,-20.5}}, color={0,127,255}));
   annotation (
 experiment(Tolerance=1e-06, StopTime=3.1536e+07),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/Detailed/Validation/BESTEST/Cases6xx/Case600FF.mos"
@@ -352,6 +357,7 @@ Added reference results.
 Changed implementation to make this model the base class
 for all BESTEST cases.
 Added computation of hourly and annual averaged room air temperature.
+</li>
 <li>
 October 6, 2011, by Michael Wetter:<br/>
 First implementation.

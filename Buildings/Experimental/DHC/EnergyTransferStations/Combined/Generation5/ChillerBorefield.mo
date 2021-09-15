@@ -1,26 +1,23 @@
 within Buildings.Experimental.DHC.EnergyTransferStations.Combined.Generation5;
-model ChillerBorefield
-  "ETS model for 5GDHC systems with heat recovery chiller and optional borefield"
+model ChillerBorefield "ETS model for 5GDHC systems with heat recovery chiller and optional borefield"
   extends BaseClasses.PartialParallel(
     final have_eleCoo=true,
     final have_fan=false,
-    redeclare replaceable Controls.Supervisory conSup(
-      final controllerType=controllerType,
-      final kHot=kHot,
-      final kCol=kCol,
-      final TiHot=TiHot,
-      final TiCol=TiCol,
-      final THeaWatSupSetMin=THeaWatSupSetMin,
-      final TChiWatSupSetMin=TChiWatSupSetMin)
-      constrainedby Controls.BaseClasses.PartialSupervisory,
+    redeclare replaceable Controls.Supervisory conSup
+      constrainedby Controls.Supervisory(
+        final controllerType=controllerType,
+        final kHot=kHot,
+        final kCol=kCol,
+        final TiHot=TiHot,
+        final TiCol=TiCol,
+        final THeaWatSupSetMin=THeaWatSupSetMin,
+        final TChiWatSupSetMin=TChiWatSupSetMin),
     nSysHea=1,
     nSouAmb=
       if have_borFie then
         2
       else
         1,
-    dT1HexSet=abs(
-      T_b1Hex_nominal-T_a1Hex_nominal) .* {1+1/datChi.COP_nominal,1},
     VTanHeaWat=datChi.PLRMin*datChi.mCon_flow_nominal*5*60/1000,
     VTanChiWat=datChi.PLRMin*datChi.mEva_flow_nominal*5*60/1000,
     colChiWat(
@@ -38,16 +35,21 @@ model ChillerBorefield
     totPHea(
       nin=1),
     totPCoo(
-      nin=1));
+      nin=1),
+    nPorts_bChiWat=1,
+    nPorts_aHeaWat=1,
+    nPorts_aChiWat=1,
+    nPorts_bHeaWat=1);
   parameter Boolean have_borFie=false
     "Set to true in case a borefield is used in addition of the district HX"
     annotation (Evaluate=true);
-  parameter Modelica.SIunits.PressureDifference dpCon_nominal(
-    displayUnit="Pa")
+  parameter Boolean have_WSE=false
+    "Set to true in case a waterside economizer is used"
+    annotation (Evaluate=true);
+  parameter Modelica.SIunits.PressureDifference dpCon_nominal(displayUnit="Pa")
     "Nominal pressure drop accross condenser"
     annotation (Dialog(group="Chiller"));
-  parameter Modelica.SIunits.PressureDifference dpEva_nominal(
-    displayUnit="Pa")
+  parameter Modelica.SIunits.PressureDifference dpEva_nominal(displayUnit="Pa")
     "Nominal pressure drop accross evaporator"
     annotation (Dialog(group="Chiller"));
   replaceable parameter Fluid.Chillers.Data.ElectricEIR.Generic datChi
@@ -66,15 +68,50 @@ model ChillerBorefield
     "Record with performance data for evaporator pump"
     annotation (Dialog(group="Chiller"),choicesAllMatching=true,
     Placement(transformation(extent={{100,222},{120,242}})));
+  parameter Modelica.SIunits.PressureDifference dp1WSE_nominal(displayUnit="Pa")=
+     40E3
+    "Nominal pressure drop across heat exchanger on district side"
+    annotation (Dialog(group="Waterside economizer", enable=have_WSE));
+  parameter Modelica.SIunits.PressureDifference dp2WSE_nominal(displayUnit="Pa")=
+     40E3
+    "Nominal pressure drop across heat exchanger on building side"
+    annotation (Dialog(group="Waterside economizer", enable=have_WSE));
+  parameter Modelica.SIunits.HeatFlowRate QWSE_flow_nominal = 0
+    "Nominal heat flow rate through heat exchanger (<=0)"
+    annotation (Dialog(group="Waterside economizer", enable=have_WSE));
+  parameter Modelica.SIunits.Temperature T_a1WSE_nominal=279.15
+    "Nominal water inlet temperature on district side"
+    annotation (Dialog(group="Waterside economizer", enable=have_WSE));
+  parameter Modelica.SIunits.Temperature T_b1WSE_nominal=284.15
+    "Nominal water outlet temperature on district side"
+    annotation (Dialog(group="Waterside economizer", enable=have_WSE));
+  parameter Modelica.SIunits.Temperature T_a2WSE_nominal=288.15
+    "Nominal water inlet temperature on building side"
+    annotation (Dialog(group="Waterside economizer", enable=have_WSE));
+  parameter Modelica.SIunits.Temperature T_b2WSE_nominal=281.15
+    "Nominal water outlet temperature on building side"
+    annotation (Dialog(group="Waterside economizer", enable=have_WSE));
+  parameter Real y1WSEMin(unit="1")=0.05
+    "Minimum pump flow rate or valve opening for temperature measurement (fractional)"
+    annotation (Dialog(group="Waterside economizer", enable=have_WSE));
+  replaceable parameter Fluid.Movers.Data.Generic perPum1WSE(
+    motorCooledByFluid=false) constrainedby Fluid.Movers.Data.Generic
+    "Record with performance data for primary pump of waterside economizer"
+    annotation (
+      Dialog(group="Waterside economizer", enable=not have_val1Hex and have_WSE),
+      choicesAllMatching=true,
+      Placement(transformation(extent={{220,222},{240,242}})));
+  final parameter Modelica.SIunits.MassFlowRate m1WSE_flow_nominal=
+    abs(QWSE_flow_nominal/4200/(T_b1WSE_nominal - T_a1WSE_nominal))
+    "WSE primary mass flow rate"
+    annotation (Dialog(group="Waterside economizer", enable=have_WSE));
   parameter Modelica.SIunits.Temperature TBorWatEntMax=313.15
     "Maximum value of borefield water entering temperature"
     annotation (Dialog(group="Borefield",enable=have_borFie));
-  parameter Real spePumBorMin(
-    final unit="1")=0.1
+  parameter Real spePumBorMin(unit="1")=0.1
     "Borefield pump minimum speed"
     annotation (Dialog(group="Borefield",enable=have_borFie));
-  parameter Modelica.SIunits.Pressure dpBorFie_nominal(
-    displayUnit="Pa")=5E4
+  parameter Modelica.SIunits.Pressure dpBorFie_nominal(displayUnit="Pa")=5E4
     "Pressure losses for the entire borefield (control valve excluded)"
     annotation (Dialog(group="Borefield",enable=have_borFie));
   replaceable parameter Fluid.Geothermal.Borefields.Data.Borefield.Example datBorFie
@@ -88,7 +125,8 @@ model ChillerBorefield
     "Record with performance data for borefield pump"
     annotation (Dialog(group="Borefield",enable=have_borFie),
     choicesAllMatching=true,Placement(transformation(extent={{180,222},{200,242}})));
-  parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI
+  parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerType=
+    Buildings.Controls.OBC.CDL.Types.SimpleController.PI
     "Type of controller"
     annotation (Dialog(group="Supervisory controller"));
   parameter Real kHot(
@@ -119,6 +157,7 @@ model ChillerBorefield
     displayUnit="degC")=datChi.TEvaLvgMin
     "Minimum value of chilled water supply temperature set point"
     annotation (Dialog(group="Supervisory controller"));
+
   replaceable Subsystems.Chiller chi(
     redeclare final package Medium=MediumBui,
     final perPumCon=perPumCon,
@@ -141,12 +180,77 @@ model ChillerBorefield
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zerPPum(
     final k=0) if not have_borFie
     "Zero power"
-    annotation (Placement(transformation(extent={{200,-90},{220,-70}})));
+    annotation (Placement(transformation(extent={{220,-90},{240,-70}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zerPHea(
     final k=0)
     "Zero power"
-    annotation (Placement(transformation(extent={{200,50},{220,70}})));
+    annotation (Placement(transformation(extent={{220,50},{240,70}})));
+  Networks.BaseClasses.DifferenceEnthalpyFlowRate dHFloHeaWat(
+    redeclare final package Medium1 = MediumBui,
+    final m_flow_nominal=colHeaWat.mDis_flow_nominal)
+    "Variation of enthalpy flow rate"
+    annotation (Placement(transformation(extent={{10,-10},{-10,10}},
+        rotation=-90,
+        origin={-274,130})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput dHHeaWat_flow(final unit="W")
+    "Heating water distributed energy flow rate"
+    annotation (Placement(transformation(extent={{300,140},{340,180}}),
+      iconTransformation(extent={{-40,-40},{40,40}},
+        rotation=-90,
+        origin={240,-340})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput dHChiWat_flow(final unit="W")
+    "Chilled water distributed energy flow rate"
+    annotation (Placement(transformation(extent={{300,100},{340,140}}),
+      iconTransformation(extent={{-40,-40},{40,40}},
+        rotation=-90,
+        origin={280,-340})));
+  Networks.BaseClasses.DifferenceEnthalpyFlowRate dHFloChiWat(
+    redeclare final package Medium1 = MediumBui,
+    final m_flow_nominal=colChiWat.mDis_flow_nominal)
+    "Variation of enthalpy flow rate"
+    annotation (Placement(transformation(extent={{-10,10},{10,-10}},
+        rotation=90,
+        origin={274,130})));
+  Subsystems.WatersideEconomizer WSE(
+    redeclare final package Medium1 = MediumSer,
+    redeclare final package Medium2 = MediumBui,
+    final perPum1=perPum1WSE,
+    final allowFlowReversal1=allowFlowReversalSer,
+    final allowFlowReversal2=allowFlowReversalBui,
+    final conCon=conCon,
+    final dp1Hex_nominal=dp1WSE_nominal,
+    final dp2Hex_nominal=dp2WSE_nominal,
+    final Q_flow_nominal=QWSE_flow_nominal,
+    final T_a1_nominal=T_a1WSE_nominal,
+    final T_b1_nominal=T_b1WSE_nominal,
+    final T_a2_nominal=T_a2WSE_nominal,
+    final T_b2_nominal=T_b2WSE_nominal,
+    final y1Min=y1WSEMin) if have_WSE
+    "Waterside economizer"
+    annotation (Placement(transformation(extent={{220,116},{240,136}})));
+  Buildings.Experimental.DHC.EnergyTransferStations.BaseClasses.Junction splWSE(
+    redeclare final package Medium = MediumSer,
+    final m_flow_nominal={
+      hex.m1_flow_nominal + m1WSE_flow_nominal,
+      -hex.m1_flow_nominal,
+      -m1WSE_flow_nominal})
+    "Flow splitter for WSE"
+    annotation (Placement(transformation(extent={{-230,-270},{-210,-250}})));
+  Buildings.Experimental.DHC.EnergyTransferStations.BaseClasses.Junction mixWSE(
+    redeclare final package Medium = MediumSer,
+    final m_flow_nominal={
+      hex.m1_flow_nominal,
+      -hex.m1_flow_nominal - m1WSE_flow_nominal,
+      m1WSE_flow_nominal})
+    "Flow mixer for WSE"
+    annotation (Placement(transformation(extent={{244,-250},{264,-270}})));
+
 equation
+  if not have_WSE then
+    connect(tanChiWat.port_aTop, dHFloChiWat.port_b2)
+    annotation (Line(points={{200,112},{268,112},{268,120}}, color={0,127,255}));
+  end if;
+
   connect(chi.port_bHeaWat,colHeaWat.ports_aCon[2])
     annotation (Line(points={{-10,0},{-108,0},{-108,-24}},color={0,127,255}));
   connect(chi.port_aHeaWat,colHeaWat.ports_bCon[2])
@@ -170,11 +274,11 @@ equation
   connect(valIsoEva.y_actual,borFie.yValIso_actual[2])
     annotation (Line(points={{55,-113},{40,-113},{40,-200},{-88,-200},{-88,-215},{-82,-215}},color={0,0,127}));
   connect(borFie.PPum,totPPum.u[3])
-    annotation (Line(points={{-58,-216},{240,-216},{240,-62},{258,-62},{258,-60}},color={0,0,127}));
+    annotation (Line(points={{-58,-216},{250,-216},{250,-62},{258,-62},{258,-60}},color={0,0,127}));
   connect(zerPPum.y,totPPum.u[3])
-    annotation (Line(points={{222,-80},{254,-80},{254,-62},{258,-62},{258,-60}},color={0,0,127}));
+    annotation (Line(points={{242,-80},{248,-80},{248,-60},{258,-60}},          color={0,0,127}));
   connect(zerPHea.y,totPHea.u[1])
-    annotation (Line(points={{222,60},{258,60}},color={0,0,127}));
+    annotation (Line(points={{242,60},{258,60}},color={0,0,127}));
   connect(chi.PChi,totPCoo.u[1])
     annotation (Line(points={{12,-4},{20,-4},{20,20},{258,20}},color={0,0,127}));
   connect(uHea,conSup.uHea)
@@ -184,9 +288,49 @@ equation
   connect(conSup.yCoo,chi.uCoo)
     annotation (Line(points={{-238,29},{-22,29},{-22,-4},{-12,-4}},color={255,0,255}));
   connect(valIsoCon.y_actual,conSup.yValIsoCon_actual)
-    annotation (Line(points={{-55,-113},{-40,-113},{-40,-60},{-266,-60},{-266,15},{-262,15}},color={0,0,127}));
+    annotation (Line(points={{-55,-113},{-40,-113},{-40,-60},{-266,-60},{-266,15},
+          {-262,15}},                                                                        color={0,0,127}));
   connect(valIsoEva.y_actual,conSup.yValIsoEva_actual)
-    annotation (Line(points={{55,-113},{40,-113},{40,-64},{-270,-64},{-270,13},{-262,13}},color={0,0,127}));
+    annotation (Line(points={{55,-113},{40,-113},{40,-64},{-270,-64},{-270,13},{
+          -262,13}},                                                                      color={0,0,127}));
+  connect(dHFloHeaWat.dH_flow,dHHeaWat_flow)
+    annotation (Line(points={{-271,142},{-271,160},{320,160}},           color={0,0,127}));
+  connect(dHFloChiWat.dH_flow,dHChiWat_flow)
+    annotation (Line(points={{277,142},{292,142},{292,120},{320,120}},color={0,0,127}));
+  connect(dHFloChiWat.port_a1, tanChiWat.port_bBot)
+    annotation (Line(points={{280,120},{280,100},{200,100}},           color={0,127,255}));
+  connect(dHFloChiWat.port_b1, ports_bChiWat[1])
+    annotation (Line(points={{280,140},{280,200},{300,200}},                               color={0,127,255}));
+  connect(tanHeaWat.port_bTop, dHFloHeaWat.port_a1)
+    annotation (Line(points={{-220,112},{-268,112},{-268,120}},
+                                                     color={0,127,255}));
+  connect(tanHeaWat.port_aBot, dHFloHeaWat.port_b2)
+    annotation (Line(points={{-220,100},{-280,100},{-280,120}},
+                                                     color={0,127,255}));
+  connect(dHFloHeaWat.port_a2, ports_aHeaWat[1])
+    annotation (Line(points={{-280,140},{-280,260},{-300,260}},            color={0,127,255}));
+  connect(ports_aChiWat[1], dHFloChiWat.port_a2)
+    annotation (Line(points={{-300,200},{268,200},{268,140}},             color={0,127,255}));
+  connect(dHFloHeaWat.port_b1, ports_bHeaWat[1])
+    annotation (Line(points={{-268,140},{-268,260},{300,260}},            color={0,127,255}));
+  connect(splWSE.port_2, hex.port_a1) annotation (Line(points={{-210,-260},{-10,
+          -260}},                                                                       color={0,127,255}));
+  connect(dHFloChiWat.port_b2, WSE.port_a2)
+    annotation (Line(points={{268,120},{240,120}},                     color={0,127,255}));
+  connect(WSE.port_b2, tanChiWat.port_aTop) annotation (Line(points={{220,120},{206,120},{206,112},{200,112}},
+                                                                                           color={0,127,255}));
+  connect(mixWSE.port_2, port_bSerAmb)
+    annotation (Line(points={{264,-260},{280,-260},{280,-200},{300,-200}}, color={0,127,255}));
+  connect(splWSE.port_3, WSE.port_a1)
+    annotation (Line(points={{-220,-270},{-220,-280},{210,-280},{210,132},{220,132}}, color={0,127,255}));
+  connect(WSE.port_b1, mixWSE.port_3) annotation (Line(points={{240,132},{254,132},{254,-250}}, color={0,127,255}));
+  connect(hex.port_b1, mixWSE.port_1) annotation (Line(points={{10,-260},{244,-260}}, color={0,127,255}));
+  connect(conSup.yCoo, WSE.uCoo) annotation (Line(points={{-238,29},{140,29},{140,
+          126},{218,126}},                                                                         color={255,0,255}));
+  connect(valIsoEva.y_actual, WSE.yValIsoEva_actual)
+    annotation (Line(points={{55,-113},{40,-113},{40,123},{218,123}}, color={0,0,127}));
+  connect(port_aSerAmb, splWSE.port_1) annotation (Line(points={{-300,-200},{
+          -280,-200},{-280,-260},{-230,-260}}, color={0,127,255}));
   annotation (
     Diagram(
       coordinateSystem(
@@ -202,8 +346,13 @@ equation
       revisions="<html>
 <ul>
 <li>
+April 30, 2021, by Michael Wetter:<br/>
+Reformulated replaceable class to avoid access of components that are not in the constraining type.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2471\">issue #2471</a>.
+</li>
+<li>
 July 31, 2020, by Antoine Gautier:<br/>
-First implementation
+First implementation.
 </li>
 </ul>
 </html>",
@@ -246,7 +395,7 @@ Buildings.Experimental.DHC.EnergyTransferStations.Combined.Generation5.Controls.
 </p>
 <p>
 <img alt=\"System schematics\"
-src=\"modelica://Buildings/Resources/Images/Experimental/DHC/EnergyTransferStations/Combined/Generation5/ChillerBorefield.png\"/>.
+src=\"modelica://Buildings/Resources/Images/Experimental/DHC/EnergyTransferStations/Combined/Generation5/ChillerBorefield.png\"/>
 </p>
 </html>"));
 end ChillerBorefield;

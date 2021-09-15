@@ -1,7 +1,7 @@
 #ifndef CRYPTOGRAPHICSHASH_H
 #define CRYPTOGRAPHICSHASH_H
 
-#include "EnergyPlusTypes.h"
+#include "SpawnTypes.h"
 /*
    Implementation is based on SHA-1 in C
    By Steve Reid <steve@edmweb.com>

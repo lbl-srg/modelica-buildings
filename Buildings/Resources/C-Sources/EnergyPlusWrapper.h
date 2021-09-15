@@ -1,8 +1,6 @@
 #ifndef EnergyPlusWrapper_h
 #define EnergyPlusWrapper_h
 
-#include <ModelicaUtilities.h>
-
 #include <stdint.h>
 
 
@@ -26,108 +24,59 @@
 #endif
 
 #ifndef ENVIRONMENT64
-#error Modelica Spawn coupling is only supported for Linux 64 bit. Your operating system is not 64 bit.
+#error Modelica Spawn coupling is only supported for Windows and Linux 64 bit. Your operating system is not 64 bit.
 #endif
 
 /* ********************************************************* */
 /* Thermal zone */
-extern void* EnergyPlusZoneAllocate(
+extern void* EnergyPlusSpawnAllocate(
+  const int objectType,
+  double startTime,
   const char* modelicaNameBuilding,
   const char* modelicaNameThermalZone,
   const char* idfName,
   const char* weaName,
-  const char* zoneName,
+  double relativeSurfaceTolerance,
+  const char* epName,
   int usePrecompiledFMU,
   const char* fmuName,
   const char* buildingsLibraryRoot,
   const int logLevel,
+  const int printUnit,
+  const char* jsonName,
+  const char* jsonKeysValues,
+  const char** parOutNames,
+  const size_t nParOut,
+  const char** parOutUnits,
+  const size_t nParOutUni,
+  const char** inpNames,
+  const size_t nInp,
+  const char** inpUnits,
+  const size_t nInpUni,
+  const char** outNames,
+  const size_t nOut,
+  const char** outUnits,
+  const size_t nOutUni,
+  const int* derivatives_structure,
+  const size_t k,
+  const size_t n,
+  const double* derivatives_delta,
+  const size_t nDer,
   void (*SpawnMessage)(const char *string),
   void (*SpawnError)(const char *string),
   void (*SpawnFormatMessage)(const char *string, ...),
   void (*SpawnFormatError)(const char *string, ...));
 
-extern void EnergyPlusZoneInstantiate(void* object, double t0, double* AFlo, double* V, double* mSenFac);
+extern void EnergyPlusSpawnInitialize(void* object, int *nObj);
 
-extern void EnergyPlusZoneExchange(
+extern void EnergyPlusSpawnGetParameters(void* object, double *parOut);
+
+extern void EnergyPlusSpawnExchange(
   void* object,
   int initialCall,
-  double T,
-  double X,
-  double mInlets_flow,
-  double TAveInlet,
-  double QGaiRad_flow,
-  double AFlo,
-  double time,
-  double* TRad,
-  double* QConSen_flow,
-  double* dQConSen_flow,
-  double* QLat_flow,
-  double* QPeo_flow,
-  double* tNext);
-
-extern void EnergyPlusZoneFree(void* object);
-
-/* ********************************************************* */
-/* Input variables */
-extern void* EnergyPlusInputVariableAllocate(
-  const int objectType,
-  const char* modelicaNameBuilding,
-  const char* modelicaNameInputVariable,
-  const char* idfName,
-  const char* weaName,
-  const char* name,
-  const char* componentType,
-  const char* controlType,
-  const char* unit,
-  int usePrecompiledFMU,
-  const char* fmuName,
-  const char* buildingsLibraryRoot,
-  const int logLevel,
-  void (*SpawnMessage)(const char *string),
-  void (*SpawnError)(const char *string),
-  void (*SpawnFormatMessage)(const char *string, ...),
-  void (*SpawnFormatError)(const char *string, ...));
-
-extern void EnergyPlusInputVariableInstantiate(void* object, double t0);
-
-extern void EnergyPlusInputVariableExchange(
-  void* object,
-  int initialCall,
-  double u,
-  double time,
+  const double* u,
   double* y);
 
-extern void EnergyPlusInputVariableFree(void* object);
-
-/* ********************************************************* */
-/* Output variables */
-extern void* EnergyPlusOutputVariableAllocate(
-  const char* modelicaNameBuilding,
-  const char* modelicaNameOutputVariable,
-  const char* idfName,
-  const char* weaName,
-  const char* variableName,
-  const char* componentKey,
-  int usePrecompiledFMU,
-  const char* fmuName,
-  const char* buildingsLibraryRoot,
-  const int logLevel,
-  int printUnit,
-  void (*SpawnMessage)(const char *string),
-  void (*SpawnError)(const char *string),
-  void (*SpawnFormatMessage)(const char *string, ...),
-  void (*SpawnFormatError)(const char *string, ...));
-
-extern void EnergyPlusOutputVariableInstantiate(void* object, double t0);
-
-extern void EnergyPlusOutputVariableExchange(
-  void* object,
-  int initialCall,
-  double directDependency,
-  double time,
-  double* y,
-  double* tNext);
-
-extern void EnergyPlusOutputVariableFree(void* object);
+extern void EnergyPlusSpawnObjectFree(void* object);
 
 #endif

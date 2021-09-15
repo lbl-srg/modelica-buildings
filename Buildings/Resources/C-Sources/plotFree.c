@@ -5,7 +5,7 @@
  */
 
 #include "plotObjectStructure.h"
-#include <ModelicaUtilities.h>
+
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>

@@ -49,13 +49,13 @@ model OneFloor_OneZone "Closed-loop model with 1 zone in 1 floor"
     each allowFlowReversal2=false,
     each m2_flow_nominal=m_flow_nominal*1000*(10 - (-20))/4200/10,
     each configuration=Buildings.Fluid.Types.HeatExchangerConfiguration.CounterFlow,
-    each Q_flow_nominal=m_flow_nominal*1006*(16.7 - 8.5),
+    each Q_flow_nominal=m_flow_nominal*1006*(8.5 - 16.7),
     each dp1_nominal=0,
     each dp2_nominal=0,
     each T_a1_nominal=281.65,
     each T_a2_nominal=323.15) "Heating coil"
     annotation (Placement(transformation(extent={{-144,-46},{-124,-26}})));
-  Buildings.Fluid.HeatExchangers.WetCoilCounterFlow cooCoi[nFlo](
+  Fluid.HeatExchangers.WetCoilEffectivenessNTU cooCoi[nFlo](
     redeclare each package Medium1 = MediumW,
     redeclare each package Medium2 = MediumA,
     each UA_nominal=m_flow_nominal*1000*15/
@@ -263,17 +263,19 @@ equation
       annotation (Line(points={{28.7,159},{36,159},{36,180},{-20,180},{-20,138}},
         color={0,0,127}, pattern=LinePattern.Dash));
     connect(TCoiHeaOut[iFlo].port_b, cooCoi[iFlo].port_a2)
-      annotation (Line(points={{-88,-30},{-82,-30},{-76,-30}},
-        color={0,127,255}, thickness=0.5));
+      annotation (Line(
+        points={{-88,-30},{-82,-30},{-76,-30}},
+        color={0,127,255},
+        thickness=0.5));
     connect(cooCoi[iFlo].port_b2, fan[iFlo].port_a)
-      annotation (Line(points={{-56,-30},{-48,-30},{-40,-30}},
-        color={0,127,255}, thickness=0.5));
+      annotation (Line(
+        points={{-56,-30},{-48,-30},{-40,-30}},
+        color={0,127,255},
+        thickness=0.5));
     connect(cooCoi[iFlo].port_b1, sinCoo[iFlo].ports[1])
-      annotation (Line(points={{-76,-42},{-80,-42},{-80,-66}},
-        color={0,127,255}));
+      annotation (Line(points={{-76,-42},{-80,-42},{-80,-66}}, color={0,127,255}));
     connect(cooCoi[iFlo].port_a1, valCoo[iFlo].port_b)
-      annotation (Line(points={{-56,-42},{-51,-42},{-51,-50}},
-        color={0,127,255}));
+      annotation (Line(points={{-56,-42},{-51,-42},{-51,-50}}, color={0,127,255}));
     connect(controlBus[iFlo], conEco[iFlo].controlBus)
       annotation (Line(points={{-68,54},{-134,54},{-134,80},{-280,80},{-280,
             88.88},{-280.4,88.88}},
@@ -508,6 +510,15 @@ shading devices, Technical Report, Oct. 17, 2006.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+June 30, 2021, by Antoine Gautier:<br/>
+Changed cooling coil model. This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2549\">issue #2549</a>.
+</li>
+<li>
+February 25, 2021, by Baptiste Ravache:<br/>
+Inverse the sign of hex[nFlo].Q_flow_nominal to respect the heat flow convention.
+</li>
 <li>
 October 27, 2020, by Antoine Gautier:<br/>
 Refactored the model for compatibility with the updated control of supply air

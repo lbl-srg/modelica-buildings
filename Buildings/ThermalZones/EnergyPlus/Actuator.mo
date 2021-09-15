@@ -1,7 +1,8 @@
 within Buildings.ThermalZones.EnergyPlus;
-model Actuator
+block Actuator
   "Block to write to an EnergyPlus actuator"
   extends Buildings.ThermalZones.EnergyPlus.BaseClasses.PartialEnergyPlusObject;
+  extends Buildings.ThermalZones.EnergyPlus.BaseClasses.Synchronize.ObjectSynchronizer;
   parameter String variableName
     "Actuated component unique name in the EnergyPlus idf file";
   parameter String componentType
@@ -17,40 +18,77 @@ model Actuator
   Modelica.Blocks.Interfaces.RealOutput y
     "Value written to EnergyPlus (use for direct dependency of Actuators and Schedules)"
     annotation (Placement(transformation(extent={{100,-20},{140,20}}),iconTransformation(extent={{100,-20},{140,20}})));
+
 protected
-  constant String modelicaNameInputVariable=getInstanceName()
-    "Name of this instance"
-    annotation (HideResult=true);
-  Buildings.ThermalZones.EnergyPlus.BaseClasses.FMUInputVariableClass adapter=Buildings.ThermalZones.EnergyPlus.BaseClasses.FMUInputVariableClass(
-    objectType=1,
+  constant Integer nParOut=0
+    "Number of parameter values retrieved from EnergyPlus";
+  constant Integer nInp=1
+    "Number of inputs";
+  constant Integer nOut=0
+    "Number of outputs";
+  constant Integer nDer=0
+    "Number of derivatives";
+  constant Integer nY=nOut+nDer+1
+    "Size of output vector of exchange function";
+  parameter Integer nObj(
+    fixed=false,
+    start=0)
+    "Total number of Spawn objects in building";
+  final parameter String unitString=Buildings.ThermalZones.EnergyPlus.BaseClasses.getUnitAsString(unit)
+    "Unit as a string";
+  Buildings.ThermalZones.EnergyPlus.BaseClasses.SpawnExternalObject adapter=Buildings.ThermalZones.EnergyPlus.BaseClasses.SpawnExternalObject(
+    objectType=3,
+    startTime=startTime,
     modelicaNameBuilding=modelicaNameBuilding,
-    modelicaNameInputVariable=modelicaNameInputVariable,
+    modelicaInstanceName=modelicaInstanceName,
     idfName=idfName,
     weaName=weaName,
-    name=variableName,
-    componentType=componentType,
-    controlType=controlType,
-    unit=Buildings.ThermalZones.EnergyPlus.BaseClasses.getUnitAsString(unit),
+    relativeSurfaceTolerance=relativeSurfaceTolerance,
+    epName=variableName,
     usePrecompiledFMU=usePrecompiledFMU,
     fmuName=fmuName,
     buildingsLibraryRoot=Buildings.ThermalZones.EnergyPlus.BaseClasses.buildingsLibraryRoot,
-    logLevel=logLevel)
+    logLevel=logLevel,
+    printUnit=false,
+    jsonName="emsActuators",
+    jsonKeysValues="        \"variableName\": \""+variableName+"\",
+        \"componentType\": \""+componentType+"\",
+        \"controlType\": \""+controlType+"\",
+        \"unit\": \""+unitString+"\",
+        \"fmiName\": \""+variableName+"_"+componentType+"\"",
+    parOutNames=fill("",nParOut),
+    parOutUnits=fill("",nParOut),
+    nParOut=nParOut,
+    inpNames={componentType},
+    inpUnits={unitString},
+    nInp=nInp,
+    outNames=fill("",nOut),
+    outUnits=fill("",nOut),
+    nOut=nOut,
+    derivatives_structure=fill(fill(nDer,2),nDer),
+    nDer=nDer,
+    derivatives_delta=fill(0,nDer))
     "Class to communicate with EnergyPlus";
+  Real yEP[nY]
+    "Output of exchange function";
+
 initial equation
   assert(
     not usePrecompiledFMU,
     "Use of pre-compiled FMU is not supported for block Actuator.");
-  Buildings.ThermalZones.EnergyPlus.BaseClasses.inputVariableInitialize(
+  nObj=Buildings.ThermalZones.EnergyPlus.BaseClasses.initialize(
     adapter=adapter,
-    startTime=time);
+    isSynchronized=building.isSynchronized);
+
 equation
-  y=Buildings.ThermalZones.EnergyPlus.BaseClasses.inputVariableExchange(
-    adapter,
-    initial(),
-    u,
-    round(
-      time,
-      1E-3));
+  yEP=Buildings.ThermalZones.EnergyPlus.BaseClasses.exchange(
+    adapter=adapter,
+    initialCall=false,
+    nY=nY,
+    u={u,round(time,1E-3)},
+    dummy=nObj);
+  y=yEP[1];
+  nObj=synBui.synchronize.done;
   annotation (
     defaultComponentName="act",
     Documentation(
@@ -99,8 +137,8 @@ For other actuators, please see the EnergyPlus EMS Application Guide.
 <h5>Configuring an actuator for lights</h5>
 <p>
 Consider the example
-<a href=\"modelica://Buildings.ThermalZones.EnergyPlus.Validation.Actuator.LightsControl\">
-Buildings.ThermalZones.EnergyPlus.Validation.Actuator.LightsControl</a>.
+<a href=\"modelica://Buildings.ThermalZones.EnergyPlus.Examples.SingleFamilyHouse.LightsControl\">
+Buildings.ThermalZones.EnergyPlus.Examples.SingleFamilyHouse.LightsControl</a>.
 In this example, Modelica overwrites the EnergyPlus <code>Lights</code> object.
 The idf-file
 has the following entry:
@@ -146,8 +184,8 @@ and setting its input to the required power in Watts.
 <h5>Configuring an actuator for a shade</h5>
 <p>
 Consider the example
-<a href=\"modelica://Buildings.ThermalZones.EnergyPlus.Validation.Actuator.ShadeControl\">
-Buildings.ThermalZones.EnergyPlus.Validation.Actuator.ShadeControl</a>.
+<a href=\"modelica://Buildings.ThermalZones.EnergyPlus.Examples.SingleFamilyHouse.ShadeControl\">
+Buildings.ThermalZones.EnergyPlus.Examples.SingleFamilyHouse.ShadeControl</a>.
 In this example, the idf-file
 has the following entry:
 </p>
@@ -190,9 +228,207 @@ in the example, the input <code>actSha.u</code> is set to <i>0</i> or <i>6</i>.
 Note that the entry <code>EnergyManagementSystem:Actuator</code> in the idf-file is optional.
 If specified, it will be ignored and the Modelica object be used instead.
 </p>
+<h4>Supported Actuators</h4>
+<p>
+The table below shows all EMS actuator objects supported by Spawn.
+Which of these are available for a particular model depends on the EnergyPlus
+idf-file. To list the EMS actuator objects that are available in your model, add the line
+</p>
+<pre>
+Output:EnergyManagementSystem,
+  Verbose,                 !- Actuator Availability Dictionary Reporting
+  Verbose,                 !- Internal Variable Availability Dictionary Reporting
+  Verbose;                 !- EMS Runtime Language Debug Output Level
+</pre>
+<p>
+to the EnergyPlus idf-file. This will produce an EnergyPlus EMS data dictionary (<code>*.edd</code>) file that lists
+the actuators for this model. Those that are listed in the <code>*.edd</code> file and in the table below are supported.
+</p>
+<p>
+In the table below, the name in the first column
+must be used as the value for the parameter <code>componentType</code>
+and the name of the second column
+must be used as the value for the parameter <code>controlType</code>.
+</p>
+<!-- Start of table of actuators generated by install.py. Do not edit. -->
+<table summary=\"Supported EMS actuators\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
+  <tr><th><code>componentType</code></th>
+    <th><code>controlType</code></th>
+    <th>Unit as received in Modelica</th>
+    <th>Unit used by EnergyPlus</th>
+  </tr>
+  <tr>
+    <td>ElectricEquipment</td>
+    <td>Electricity Rate</td>
+    <td>W</td>
+    <td>W</td>
+  </tr>
+    <tr>
+    <td>ExteriorLights</td>
+    <td>Electricity Rate</td>
+    <td>W</td>
+    <td>W</td>
+  </tr>
+    <tr>
+    <td>Lights</td>
+    <td>Electricity Rate</td>
+    <td>W</td>
+    <td>W</td>
+  </tr>
+    <tr>
+    <td>Material</td>
+    <td>Surface Property Solar Absorptance</td>
+    <td>1</td>
+    <td>1</td>
+  </tr>
+    <tr>
+    <td>Material</td>
+    <td>Surface Property Thermal Absorptance</td>
+    <td>1</td>
+    <td>1</td>
+  </tr>
+    <tr>
+    <td>Material</td>
+    <td>Surface Property Visible Absorptance</td>
+    <td>1</td>
+    <td>1</td>
+  </tr>
+    <tr>
+    <td>People</td>
+    <td>Number of People</td>
+    <td>1</td>
+    <td>1</td>
+  </tr>
+    <tr>
+    <td>Schedule:Compact</td>
+    <td>Schedule Value</td>
+    <td>1</td>
+    <td>1</td>
+  </tr>
+    <tr>
+    <td>Schedule:Constant</td>
+    <td>Schedule Value</td>
+    <td>1</td>
+    <td>1</td>
+  </tr>
+    <tr>
+    <td>Surface</td>
+    <td>Construction State</td>
+    <td>1</td>
+    <td>1</td>
+  </tr>
+    <tr>
+    <td>Surface</td>
+    <td>Exterior Surface Convection Heat Transfer Coefficient</td>
+    <td>W/m2.K</td>
+    <td>W/m2.K</td>
+  </tr>
+    <tr>
+    <td>Surface</td>
+    <td>Interior Surface Convection Heat Transfer Coefficient</td>
+    <td>W/m2.K</td>
+    <td>W/m2.K</td>
+  </tr>
+    <tr>
+    <td>Surface</td>
+    <td>Outdoor Air Wind Direction</td>
+    <td>rad</td>
+    <td>deg</td>
+  </tr>
+    <tr>
+    <td>Surface</td>
+    <td>Outdoor Air Wind Speed</td>
+    <td>m/s</td>
+    <td>m/s</td>
+  </tr>
+    <tr>
+    <td>Surface</td>
+    <td>Surface Inside Temperature</td>
+    <td>K</td>
+    <td>degC</td>
+  </tr>
+    <tr>
+    <td>Surface</td>
+    <td>Surface Outside Temperature</td>
+    <td>K</td>
+    <td>degC</td>
+  </tr>
+    <tr>
+    <td>Surface</td>
+    <td>View Factor To Ground</td>
+    <td>1</td>
+    <td>1</td>
+  </tr>
+    <tr>
+    <td>Weather Data</td>
+    <td>Diffuse Solar</td>
+    <td>W/m2</td>
+    <td>W/m2</td>
+  </tr>
+    <tr>
+    <td>Weather Data</td>
+    <td>Direct Solar</td>
+    <td>W/m2</td>
+    <td>W/m2</td>
+  </tr>
+    <tr>
+    <td>Weather Data</td>
+    <td>Outdoor Dew Point</td>
+    <td>K</td>
+    <td>degC</td>
+  </tr>
+    <tr>
+    <td>Weather Data</td>
+    <td>Outdoor Dry Bulb</td>
+    <td>K</td>
+    <td>degC</td>
+  </tr>
+    <tr>
+    <td>Weather Data</td>
+    <td>Outdoor Relative Humidity</td>
+    <td>1</td>
+    <td>%</td>
+  </tr>
+    <tr>
+    <td>Weather Data</td>
+    <td>Wind Direction</td>
+    <td>rad</td>
+    <td>deg</td>
+  </tr>
+    <tr>
+    <td>Weather Data</td>
+    <td>Wind Speed</td>
+    <td>m/s</td>
+    <td>m/s</td>
+  </tr>
+    <tr>
+    <td>Zone</td>
+    <td>Outdoor Air Drybulb Temperature</td>
+    <td>K</td>
+    <td>degC</td>
+  </tr>
+    <tr>
+    <td>Zone</td>
+    <td>Outdoor Air Wetbulb Temperature</td>
+    <td>K</td>
+    <td>degC</td>
+  </tr>
+    <tr>
+    <td>Zone Infiltration</td>
+    <td>Air Exchange Flow Rate</td>
+    <td>m3/s</td>
+    <td>m3/s</td>
+  </tr>
+  </table>
+<!-- End of table of actuators generated by install.py. Do not edit. -->
 </html>",
       revisions="<html>
 <ul>
+<li>
+February 18, 2021, by Michael Wetter:<br/>
+Refactor synchronization of constructors.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2360\">#2360</a>.
+</li>
 <li>
 November 13, 2019, by Michael Wetter:<br/>
 First implementation.

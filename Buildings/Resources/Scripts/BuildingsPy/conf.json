@@ -52,6 +52,96 @@
   },
   {
     "jmodelica": {
+      "simulate": false
+    },
+    "optimica": {
+      "rtol": 1E-7
+    },
+    "model_name": "Buildings.ThermalZones.EnergyPlus.Examples.SmallOffice.Guideline36Spring"
+  },
+  {
+    "jmodelica": {
+      "simulate": false
+    },
+    "optimica": {
+      "rtol": 1E-7
+    },
+    "model_name": "Buildings.ThermalZones.EnergyPlus.Examples.SmallOffice.Guideline36Summer"
+  },
+  {
+    "jmodelica": {
+      "simulate": false
+    },
+    "optimica": {
+      "rtol": 1E-7
+    },
+    "model_name": "Buildings.ThermalZones.EnergyPlus.Examples.SmallOffice.Guideline36Winter"
+  },
+  {
+    "jmodelica": {
+      "simulate": false
+    },
+    "optimica": {
+      "rtol": 1E-7
+    },
+    "model_name": "Buildings.ThermalZones.EnergyPlus.Examples.SmallOffice.ASHRAE2006Spring"
+  },
+  {
+    "jmodelica": {
+      "simulate": false
+    },
+    "optimica": {
+      "rtol": 1E-7
+    },
+    "model_name": "Buildings.ThermalZones.EnergyPlus.Examples.SmallOffice.ASHRAE2006Summer"
+  },
+  {
+    "jmodelica": {
+      "simulate": false
+    },
+    "optimica": {
+      "rtol": 1E-7
+    },
+    "model_name": "Buildings.ThermalZones.EnergyPlus.Examples.SmallOffice.ASHRAE2006Winter"
+  },
+  {
+    "jmodelica": {
+      "simulate": false
+    },
+    "optimica": {
+      "rtol": 1E-7
+    },
+    "model_name": "Buildings.ThermalZones.EnergyPlus.Examples.SmallOffice.NoHVAC"
+  },
+  {
+    "jmodelica": {
+      "simulate": false
+    },
+    "optimica": {
+      "rtol": 1E-8
+    },
+    "model_name": "Buildings.ThermalZones.EnergyPlus.Examples.SmallOffice.IdealHeatingCoolingSpring"
+  },
+  {
+    "jmodelica": {
+      "simulate": false
+    },
+    "optimica": {
+      "rtol": 1E-8
+    },
+    "model_name": "Buildings.ThermalZones.EnergyPlus.Examples.SmallOffice.IdealHeatingCoolingSummer"
+  },
+  {
+    "jmodelica": {
+      "simulate": false
+    },
+    "optimica": {
+      "rtol": 1E-8
+    },
+    "model_name": "Buildings.ThermalZones.EnergyPlus.Examples.SmallOffice.IdealHeatingCoolingWinter"
+  },
+  {
+    "jmodelica": {
         "translate": false
     },
     "optimica": {
@@ -73,7 +163,7 @@
     "optimica": {
         "simulate": false
     },
- "model_name": "Buildings.Utilities.IO.Python36.Functions.Examples.Exchange"
+    "model_name": "Buildings.Utilities.IO.Python36.Functions.Examples.Exchange"
   },
   {
     "jmodelica": {
@@ -82,49 +172,93 @@
     "model_name": "Buildings.Utilities.IO.Python36.Functions.Examples.ExchangeWithPassPythonObject"
   },
   {
+       "jmodelica": {
+         "rtol": 1E-8
+    },
+       "optimica": {
+         "solver": "Radau5ODE",
+         "rtol": 1E-8,
+         "comment": "See https://app.travis-ci.com/github/lbl-srg/modelica-buildings/jobs/526352954#L640, times out with new filter for actuators"
+    },
+    "model_name": "Buildings.Examples.DualFanDualDuct.ClosedLoop"
+  },
+  {
     "jmodelica": {
-        "translate": false
+      "simulate": false,
+      "comment": "See https://app.travis-ci.com/github/lbl-srg/modelica-buildings/jobs/531423041"
     },
-    "optimica": {
-        "translate": false,
-        "comment": "Python 2.7 is not supported"
+    "model_name": "Buildings.Examples.ScalableBenchmarks.BuildingVAV.Examples.OneFloor_OneZone"
+  },
+  {
+    "jmodelica": {
+      "simulate": false,
+      "comment": "See https://app.travis-ci.com/github/lbl-srg/modelica-buildings/jobs/531423041"
     },
-    "model_name": "Buildings.Obsolete.Utilities.IO.Python27.Examples.KalmanFilter"
+    "model_name": "Buildings.Examples.ScalableBenchmarks.BuildingVAV.Examples.TwoFloor_TwoZone"
   },
   {
     "jmodelica": {
       "translate": false
     },
     "optimica": {
-      "translate": false,
-      "comment": "Python 2.7 is not supported"
+      "translate": false
     },
-   "model_name": "Buildings.Obsolete.Utilities.IO.Python27.Examples.SimpleRoom"
+    "model_name": "Buildings.Experimental.DHC.Examples.Combined.Generation5.Examples.ParallelConstantFlow",
+    "comment": "See https://github.com/lbl-srg/modelica-buildings/issues/2435 and https://github.com/lbl-srg/modelica-buildings/issues/2436"
   },
   {
-       "jmodelica": {
-         "translate": false
+    "jmodelica": {
+      "translate": false
     },
-       "optimica": {
-         "translate": false,
-         "comment": "Python 2.7 is not supported"
+    "optimica": {
+      "translate": false
     },
-    "model_name": "Buildings.Obsolete.Utilities.IO.Python27.Functions.Examples.Exchange"
+    "model_name": "Buildings.Experimental.DHC.Examples.Combined.Generation5.Examples.SeriesConstantFlow",
+    "comment": "See https://github.com/lbl-srg/modelica-buildings/issues/2435 and https://github.com/lbl-srg/modelica-buildings/issues/2436"
   },
   {
-       "jmodelica": {
-         "translate": false
+    "jmodelica": {
+      "translate": false
     },
-       "optimica": {
-         "translate": false,
-         "comment": "Python 2.7 is not supported"
+    "optimica": {
+      "translate": false
     },
-    "model_name": "Buildings.Obsolete.Utilities.IO.Python27.Functions.Examples.ExchangeWithPassPythonObject"
+    "model_name": "Buildings.Experimental.DHC.Examples.Combined.Generation5.Examples.SeriesVariableFlow",
+    "comment": "See https://github.com/lbl-srg/modelica-buildings/issues/2435 and https://github.com/lbl-srg/modelica-buildings/issues/2436"
   },
   {
-       "jmodelica": {
-         "rtol": 1E-8
+    "jmodelica": {
+      "simulate": false
     },
-    "model_name": "Buildings.Examples.DualFanDualDuct.ClosedLoop"
+    "model_name": "Buildings.Examples.VAVReheat.ASHRAE2006",
+    "comment": "This causes a CVode error on travis. See https://travis-ci.com/github/lbl-srg/modelica-buildings/jobs/520509213 and https://github.com/lbl-srg/modelica-buildings/issues/2549"
+  },
+  {
+    "jmodelica": {
+      "simulate": false
+    },
+    "model_name": "Buildings.Examples.VAVReheat.Guideline36",
+    "comment": "This causes a timeout on travis. See https://travis-ci.com/github/lbl-srg/modelica-buildings/jobs/520509213 and https://github.com/lbl-srg/modelica-buildings/issues/2549"
+  },
+  {
+    "jmodelica": {
+      "simulate": false
+    },
+    "model_name": "Buildings.Examples.DualFanDualDuct.ClosedLoop",
+    "comment": "This causes a timeout on travis. See https://app.travis-ci.com/github/lbl-srg/modelica-buildings/jobs/525707949"
+  },
+  {
+    "optimica": {
+        "simulate": false,
+        "comment": "This causes a timeout on travis, but works locally. See https://travis-ci.com/github/lbl-srg/modelica-buildings/jobs/501193509#L635"
+    },
+    "model_name": "Buildings.ThermalZones.EnergyPlus.Examples.SmallOffice.ASHRAE2006Summer"
+  },
+  {
+    "optimica": {
+        "simulate": false,
+        "comment": "This causes a timeout on travis, but works locally. See https://travis-ci.com/github/lbl-srg/modelica-buildings/jobs/501193509#L635"
+    },
+    "model_name": "Buildings.ThermalZones.EnergyPlus.Examples.SmallOffice.ASHRAE2006Winter"
   }
 ]

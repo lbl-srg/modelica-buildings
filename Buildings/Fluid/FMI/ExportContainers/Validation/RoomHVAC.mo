@@ -4,7 +4,7 @@ model RoomHVAC
  extends Modelica.Icons.Example;
 
   Buildings.Fluid.FMI.ExportContainers.Examples.FMUs.HVACZone hvaCon(
-    redeclare Buildings.Fluid.HeatExchangers.WetCoilCounterFlow cooCoi(
+    redeclare Buildings.Fluid.HeatExchangers.WetCoilEffectivenessNTU cooCoi(
       UA_nominal=-hvaCon.QCoiC_flow_nominal/
         Buildings.Fluid.HeatExchangers.BaseClasses.lmtd(
         T_a1=hvaCon.THeaRecLvg,
@@ -25,7 +25,7 @@ model RoomHVAC
   BaseCase baseCase
     annotation (Placement(transformation(extent={{-60,60},{-40,80}})));
   Examples.FMUs.HVACZones hvaCon2(
-    redeclare Buildings.Fluid.HeatExchangers.WetCoilCounterFlow cooCoi(
+    redeclare Buildings.Fluid.HeatExchangers.WetCoilEffectivenessNTU cooCoi(
       UA_nominal=-hvaCon2.QCoiC_flow_nominal/
         Buildings.Fluid.HeatExchangers.BaseClasses.lmtd(
         T_a1=hvaCon2.THeaRecLvg,
@@ -219,6 +219,11 @@ With Dymola 2017, we obtain the trajectories shown below.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+June 30, 2021, by Antoine Gautier:<br/>
+Changed cooling coil model. This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2549\">issue #2549</a>.
+</li>
 <li>
 November 8, 2016, by Michael Wetter:<br/>
 Removed wrong usage of <code>each</code> keyword.

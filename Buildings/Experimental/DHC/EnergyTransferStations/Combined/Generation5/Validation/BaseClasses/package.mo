@@ -1,6 +1,7 @@
 within Buildings.Experimental.DHC.EnergyTransferStations.Combined.Generation5.Validation;
-package BaseClasses
-  "Package with base classes"
+package BaseClasses "Package with base classes"
+  extends Modelica.Icons.BasesPackage;
+
   annotation (
     Documentation(
       info="<html>

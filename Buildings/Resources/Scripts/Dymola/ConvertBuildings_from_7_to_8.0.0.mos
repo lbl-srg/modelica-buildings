@@ -5,6 +5,17 @@ clear
 
 convertClear();
 
+convertModifiers("Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.VAV.Economizers.Subsequences.Modulation",
+                {"samplePeriod"}, fill("",0), true);
+
+// Conversion for https://github.com/lbl-srg/modelica-buildings/issues/2355
+convertClass("Buildings.Controls.OBC.CDL.SetPoints.SupplyReturnTemperatureReset",
+             "Buildings.Controls.OBC.Utilities.SetPoints.SupplyReturnTemperatureReset");
+
+// Conversion for https://github.com/lbl-srg/modelica-buildings/issues/2265
+convertClass("Buildings.Air.Systems.SingleZone.VAV.ChillerDXHeatingEconomizerController",
+             "Buildings.Air.Systems.SingleZone.VAV.BaseClasses.ControllerChillerDXHeatingEconomizer");
+
 // Conversion for https://github.com/lbl-srg/modelica-buildings/issues/2282
 convertElement("Buildings.Controls.OBC.CDL.Logical.Sources.SampleTrigger",
                 "startTime", "shift");
@@ -80,6 +91,8 @@ convertModifiers("Buildings.Controls.Continuous.PIDHysteresisTimer", {"reverseAc
 convertClass(
     "Buildings.Controls.OBC.CDL.Continuous.Derivative",
     "Buildings.Obsolete.Controls.OBC.CDL.Continuous.Derivative");
+// Rename modifier, and then move to Obsolete because the reset trigger lead in 8.0.0 to two different PID controllers.
+convertModifiers("Buildings.Controls.OBC.CDL.Continuous.LimPID", {"reverseAction"}, {"reverseActing=not %reverseAction%"});
 convertClass(
     "Buildings.Controls.OBC.CDL.Continuous.LimPID",
     "Buildings.Obsolete.Controls.OBC.CDL.Continuous.LimPID");
@@ -94,3 +107,9 @@ convertModifiers("Buildings.Controls.OBC.CDL.Logical.Latch",
                 {"pre_y_start"}, fill("",0), true);
 convertModifiers("Buildings.Controls.OBC.CDL.Logical.Toggle",
                 {"pre_y_start"}, fill("",0), true);
+
+// Conversion for https://github.com/lbl-srg/modelica-buildings/issues/2059
+// Point VAVBranch to the Obsolete version and add hardcoded values as parameters.
+convertClass(
+  "Buildings.Examples.VAVReheat.BaseClasses.VAVBranch",
+  "Buildings.Obsolete.Examples.VAVReheat.BaseClasses.VAVBranch");

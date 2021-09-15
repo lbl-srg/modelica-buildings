@@ -142,7 +142,7 @@ Hence there is no need for the user to change the value.
 April 14, 2020, by Michael Wetter:<br/>
 Changed <code>homotopyInitialization</code> to a constant.<br/>
 This is for
-<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1341\">Buildings, #1341</a>.
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1341\">IBPSA, #1341</a>.
 </li>
 <li>
 June 24, 2018, by Michael Wetter:<br/>
@@ -156,7 +156,7 @@ the Reynolds number, and the Reynolds number is not used by this model.
 Also removed the variable <code>Re</code> for the Reynolds number.<br/>
 This change is non-backward compatible.<br/>
 This is for
-<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/932\">Buildings, #932</a>.
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/932\">IBPSA, #932</a>.
 </li>
 <li>
 May 1, 2018, by Filip Jorissen:<br/>
