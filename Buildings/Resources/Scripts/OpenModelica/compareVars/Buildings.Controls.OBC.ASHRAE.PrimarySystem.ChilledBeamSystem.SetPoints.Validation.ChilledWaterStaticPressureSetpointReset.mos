@@ -1,0 +1,6 @@
+compareVars :=
+  {
+    "chiWatStaPreSetRes.uPumSta[1]",
+    "chiWatStaPreSetRes.uValPos[1]",
+    "chiWatStaPreSetRes.yStaPreSetPoi"
+  };

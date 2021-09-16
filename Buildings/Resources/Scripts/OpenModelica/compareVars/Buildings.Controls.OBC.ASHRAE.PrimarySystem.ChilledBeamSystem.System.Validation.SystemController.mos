@@ -1,0 +1,9 @@
+compareVars :=
+  {
+    "sysCon.uValPos[1]",
+    "sysCon.dPChiWatLoo",
+    "sysCon.chiWatStaPreSetRes.yStaPreSetPoi",
+    "sysCon.yChiWatPum[1]",
+    "sysCon.yPumSpe",
+    "sysCon.yChiWatPum[2]"
+  };

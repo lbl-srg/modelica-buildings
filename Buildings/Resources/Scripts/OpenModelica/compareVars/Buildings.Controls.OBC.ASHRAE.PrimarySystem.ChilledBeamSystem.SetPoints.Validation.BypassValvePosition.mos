@@ -1,0 +1,8 @@
+compareVars :=
+  {
+    "bypValPos.uPumSta[1]",
+    "bypValPos.uPumSpe",
+    "bypValPos.dpChiWatLoo",
+    "bypValPos.dPChiWatMax",
+    "bypValPos.yBypValPos"
+  };

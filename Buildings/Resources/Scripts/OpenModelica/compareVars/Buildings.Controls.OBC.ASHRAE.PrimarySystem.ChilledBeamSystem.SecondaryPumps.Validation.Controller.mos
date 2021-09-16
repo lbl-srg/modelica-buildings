@@ -1,0 +1,17 @@
+compareVars :=
+  {
+    "pumCon.uPumLeaLag[1]",
+    "pumCon.uPumLeaLag[2]",
+    "pumCon.uValPos[1]",
+    "pumCon.yChiWatPum[2]",
+    "pumCon.yPumSpe",
+    "pumCon.enaLagSecPum.timPer",
+    "pumCon.enaLagSecPum.timPer1",
+    "pumCon.enaLagSecPum.timPer2",
+    "pumCon.enaLagSecPum.tim1.y",
+    "pumCon.enaLagSecPum.tim.y",
+    "pumCon.enaLagSecPum.tim2.y",
+    "pumCon.yChiWatPum[1]",
+    "pumCon.dpChiWat_remote[1]",
+    "pumCon.dpChiWatSet"
+  };
