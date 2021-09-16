@@ -311,6 +311,15 @@ have been <b style=\"color:blue\">improved</b> in a
                        This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2549\">issue #2549</a>.
     </td>
 </tr>
+<tr><td colspan=\"2\"><b>Buildings.BoundaryConditions</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.BoundaryConditions.WeatherData.ReaderTMY3
+    </td>
+    <td valign=\"top\">The weather data reader is now reading the altitude above sea level from the weather data file.
+                       This new version also outputs this altitude and the latitude of the location on the weather data bus.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1477\">IBPSA, issue #1477</a>.
+    </td>
 <tr><td colspan=\"2\"><b>Buildings.Fluid.Actuators</b>
     </td>
 </tr>
@@ -388,6 +397,32 @@ have been <b style=\"color:blue\">improved</b> in a
     <td valign=\"top\">Moved to <code>Buildings.Applications.BaseClasses</code>.<br/>
                 This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2264\">issue 2264</a>.<br/>
                 For Dymola, a conversion script makes this change.</td>
+</tr>
+<tr><td colspan=\"2\"><b>Buildings.BoundaryConditions</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.BoundaryConditions.SolarGeometry.IncidenceAngle<br/>
+                       Buildings.BoundaryConditions.SolarGeometry.BaseClasses.IncidenceAngle<br/>
+                       Buildings.BoundaryConditions.SolarGeometry.ZenithAngle<br/>
+                       Buildings.BoundaryConditions.SolarIrradiation.DiffusePerez<br/>
+                       Buildings.BoundaryConditions.SolarIrradiation.DirectTiltedSurface
+    </td>
+    <td valign=\"top\">Removed parameter <code>lat</code> for the latitude as this is now obtained from the weather data bus.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1477\">IBPSA, issue #1477</a>.
+                       For Dymola, a conversion script makes this change.
+    </td>
+<tr><td valign=\"top\">Buildings.BoundaryConditions.SolarIrradiation.BaseClasses.RelativeAirMass
+    </td>
+    <td valign=\"top\">Introduced altitude attenuation for relative air mass calculation.
+                       This required adding a new input.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1477\">IBPSA, issue #1477</a>.
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.BoundaryConditions.SolarIrradiation.BaseClasses.SkyClearness
+    </td>
+    <td valign=\"top\">Changed input connector <code>HGloHor</code> to <code>HDirHor</code>.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1477\">IBPSA, issue #1477</a>.
+    </td>
 </tr>
 <tr><td colspan=\"2\"><b>Buildings.Examples.VAVReheat</b>
     </td>

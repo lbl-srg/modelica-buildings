@@ -5,6 +5,13 @@ clear
 
 convertClear();
 
+// Conversion for https://github.com/ibpsa/modelica-ibpsa/issues/1477
+convertModifiers("Buildings.BoundaryConditions.SolarGeometry.IncidenceAngle", {"lat"}, fill("",0), true);
+convertModifiers("Buildings.BoundaryConditions.SolarGeometry.BaseClasses.IncidenceAngle", {"lat"}, fill("",0), true);
+convertModifiers("Buildings.BoundaryConditions.SolarGeometry.ZenithAngle", {"lat"}, fill("",0), true);
+convertModifiers("Buildings.BoundaryConditions.SolarIrradiation.DiffusePerez", {"lat"}, fill("",0), true);
+convertModifiers("Buildings.BoundaryConditions.SolarIrradiation.DirectTiltedSurface", {"lat"}, fill("",0), true);
+
 // Refactoring for https://github.com/ibpsa/modelica-ibpsa/issues/1494
 convertClass("IBPSA.Fluid.FixedResistances.PlugFlowPipe",
              "IBPSA.Obsolete.Fluid.FixedResistances.PlugFlowPipe");
