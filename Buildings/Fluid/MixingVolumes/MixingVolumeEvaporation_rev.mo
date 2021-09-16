@@ -57,12 +57,15 @@ model MixingVolumeEvaporation_rev
     stateSelect=if massDynamics == Modelica.Fluid.Types.Dynamics.SteadyState
     then StateSelect.default else StateSelect.prefer)
     "Volume of liquid phase";
+
   MediumSte.SpecificEnthalpy hSte "Specific enthalpy of steam vapor";
   MediumWat.SpecificEnthalpy hWat "Specific enthalpy of water liquid";
   MediumSte.Density rhoSte "Density of steam vapor";
   MediumWat.Density rhoWat "Density of liquid water";
-  Modelica.SIunits.Mass m(start=VWat_start*(rhoWat_start+rhoSte_start))
-    "Total mass of volume";
+  Modelica.SIunits.Mass m "Total mass of volume";
+
+  //  (start=VWat_start*(rhoWat_start+rhoSte_start))
+
   Modelica.SIunits.Energy U(start=U_start) "Internal energy";
   Modelica.SIunits.MassFlowRate mWat_flow "Feed water mass flow rate";
   Modelica.SIunits.MassFlowRate mSte_flow "Steam mass flow rate";
@@ -81,6 +84,7 @@ model MixingVolumeEvaporation_rev
     rhoSte_start*MediumSte.specificEnthalpy(state_start)) -
     p_start*VWat_start*2
     "Starting internal energy";
+
 
 //  Modelica.Blocks.Interfaces.RealInput Q_flow(unit="W") if not steadyDynamics
 //    "Sensible plus latent heat flow rate transferred into the medium"

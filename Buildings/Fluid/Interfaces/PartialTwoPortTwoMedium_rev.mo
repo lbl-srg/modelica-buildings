@@ -41,13 +41,13 @@ partial model PartialTwoPortTwoMedium_rev
 
   Modelica.Fluid.Interfaces.FluidPort_a port_a(
     redeclare final package Medium = Medium_a,
-     m_flow(min=0),
+     m_flow(min=if allowFlowReversal then -Modelica.Constants.inf else 0),
      h_outflow(start = Medium_a.h_default, nominal = Medium_a.h_default))
     "Fluid connector a (positive design flow direction is from port_a to port_b)"
     annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
   Modelica.Fluid.Interfaces.FluidPort_b port_b(
     redeclare final package Medium = Medium_b,
-     m_flow(max=0),
+     m_flow(max=if allowFlowReversal then +Modelica.Constants.inf else 0),
      h_outflow(start = Medium_b.h_default, nominal = Medium_b.h_default))
     "Fluid connector b (positive design flow direction is from port_a to port_b)"
     annotation (Placement(transformation(extent={{110,-10},{90,10}})));

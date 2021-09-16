@@ -93,6 +93,6 @@ First implementation.
 </ul>
 </html>"),
 experiment(Tolerance=1E-6, StopTime=1.0),
-__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/MixingVolumes/Examples/MixingVolumeEvaporation.mos"
+__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/MixingVolumes/Examples/MixingVolumeEvaporation_rev.mos"
         "Simulate and plot"));
 end MixingVolumeEvaporation_rev;
