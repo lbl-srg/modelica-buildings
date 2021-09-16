@@ -71,7 +71,7 @@ protected
     "Constant integer source with operation mode enumeration"
     annotation (Placement(transformation(extent={{-120,-80},{-100,-60}})));
 
-  Buildings.Controls.OBC.CDL.Routing.IntegerReplicator intRep(
+  Buildings.Controls.OBC.CDL.Routing.IntegerScalarReplicator intRep(
     final nout=3)
     "Integer replicator"
     annotation (Placement(transformation(extent={{-120,-40},{-100,-20}})));
@@ -100,12 +100,12 @@ protected
     annotation (Placement(transformation(extent={{0,-100},{20,-80}})));
 
   Buildings.Controls.OBC.CDL.Logical.MultiOr mulOr1(
-    final nu=3)
+    final nin=3)
     "Multi Or"
     annotation (Placement(transformation(extent={{40,-60},{60,-40}})));
 
   Buildings.Controls.OBC.CDL.Logical.MultiOr mulOr2(
-    final nu=3)
+    final nin=3)
     "Multi Or"
     annotation (Placement(transformation(extent={{40,-100},{60,-80}})));
 
@@ -149,11 +149,6 @@ equation
           -90},{-2,-90}}, color={255,0,255}));
   connect(con2.y, logSwi1.u3) annotation (Line(points={{-18,-70},{-10,-70},{-10,
           -98},{-2,-98}}, color={255,0,255}));
-  connect(logSwi.y, mulOr1.u[1:3]) annotation (Line(points={{22,-50},{30,-50},{
-          30,-54.6667},{38,-54.6667}},
-                                    color={255,0,255}));
-  connect(logSwi1.y, mulOr2.u[1:3]) annotation (Line(points={{22,-90},{30,-90},
-          {30,-94.6667},{38,-94.6667}},color={255,0,255}));
   connect(mulOr1.y, yChiBeaEna) annotation (Line(points={{62,-50},{120,-50},{120,
           70},{160,70}}, color={255,0,255}));
   connect(mulOr2.y, yDoasEna) annotation (Line(points={{62,-90},{120,-90},{120,-70},
@@ -166,6 +161,11 @@ equation
     annotation (Line(points={{-48,40},{-22,40}}, color={255,0,255}));
   connect(uDetOcc, intSwi.u2)
     annotation (Line(points={{-160,90},{18,90}}, color={255,0,255}));
+  connect(logSwi.y, mulOr1.u[1:3]) annotation (Line(points={{22,-50},{30,-50},{
+          30,-54.6667},{38,-54.6667}},
+                                    color={255,0,255}));
+  connect(logSwi1.y, mulOr2.u[1:3]) annotation (Line(points={{22,-90},{30,-90},
+          {30,-94.6667},{38,-94.6667}},color={255,0,255}));
   annotation (defaultComponentName="opeMod",
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
             {100,100}}), graphics={

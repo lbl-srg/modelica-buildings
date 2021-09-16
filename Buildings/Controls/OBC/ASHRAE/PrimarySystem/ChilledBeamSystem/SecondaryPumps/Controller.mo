@@ -207,7 +207,7 @@ protected
     "Boolean source"
     annotation (Placement(transformation(extent={{122,-40},{142,-20}})));
 
-  Buildings.Controls.OBC.CDL.Routing.BooleanReplicator booRep(
+  Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator booRep(
     final nout=nPum)
     "Boolean replicator"
     annotation (Placement(transformation(extent={{118,86},{138,106}})));

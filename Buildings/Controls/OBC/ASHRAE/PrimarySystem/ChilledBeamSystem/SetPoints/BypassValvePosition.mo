@@ -33,6 +33,12 @@ block BypassValvePosition
     final quantity="Time") = 0.5
     "Time constant of integrator block";
 
+  parameter Real Td=0.1
+    "Time constant of derivative block";
+
+  parameter CDL.Types.SimpleController controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI
+    "Type of controller";
+
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uPumSta[nPum]
     "Pump proven On signal"
     annotation (Placement(transformation(extent={{-140,30},{-100,70}}),
@@ -60,9 +66,6 @@ block BypassValvePosition
     annotation (Placement(transformation(extent={{100,-20},{140,20}}),
       iconTransformation(extent={{100,-20},{140,20}})));
 
-  parameter Real Td=0.1 "Time constant of derivative block";
-  parameter CDL.Types.SimpleController controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI
-    "Type of controller";
 protected
   Buildings.Controls.OBC.CDL.Logical.Switch swi
     "Real switch"
@@ -117,7 +120,7 @@ protected
     annotation (Placement(transformation(extent={{-40,-60},{-20,-40}})));
 
   Buildings.Controls.OBC.CDL.Logical.MultiOr mulOr(
-    final nu=nPum)
+    final nin=nPum)
     "Multi Or"
     annotation (Placement(transformation(extent={{-80,40},{-60,60}})));
 

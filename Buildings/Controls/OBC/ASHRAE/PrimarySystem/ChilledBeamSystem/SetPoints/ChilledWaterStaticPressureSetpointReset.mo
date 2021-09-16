@@ -133,7 +133,7 @@ protected
     annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
 
   Buildings.Controls.OBC.CDL.Logical.MultiOr mulOr(
-    final nu=nPum)
+    final nin=nPum)
     "Multi or"
     annotation (Placement(transformation(extent={{-80,40},{-60,60}})));
 
@@ -148,12 +148,12 @@ protected
     annotation (Placement(transformation(extent={{10,-40},{30,-20}})));
 
   Buildings.Controls.OBC.CDL.Logical.MultiOr mulOr1(
-    final nu=nVal)
+    final nin=nVal)
     "Multi or"
     annotation (Placement(transformation(extent={{-20,-40},{0,-20}})));
 
   Buildings.Controls.OBC.CDL.Logical.MultiOr mulOr2(
-    final nu=nVal)
+    final nin=nVal)
     "Multi or"
     annotation (Placement(transformation(extent={{-20,-80},{0,-60}})));
 

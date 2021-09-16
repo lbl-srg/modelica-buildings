@@ -39,6 +39,7 @@ block EnableLead
     annotation (Placement(transformation(extent={{100,-20},{140,20}}),
       iconTransformation(extent={{100,-20},{140,20}})));
 
+protected
   Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys[nVal](
     final uLow=fill(valPosClo, nVal),
     final uHigh=fill(valPosOpe, nVal))
@@ -51,7 +52,7 @@ block EnableLead
     annotation (Placement(transformation(extent={{0,10},{20,30}})));
 
   Buildings.Controls.OBC.CDL.Logical.MultiOr mulOr(
-    final nu=nVal)
+    final nin=nVal)
     "Determine if any pumps are opened"
     annotation (Placement(transformation(extent={{-50,-10},{-30,10}})));
 
@@ -72,9 +73,6 @@ equation
   connect(uValPos, hys.u)
     annotation (Line(points={{-120,0},{-82,0}}, color={0,0,127}));
 
-  connect(hys.y, mulOr.u[1:nVal]) annotation (Line(points={{-58,0},{-56,0},{-56,0},
-          {-52,0}},    color={255,0,255}));
-
   connect(mulOr.y, tim.u) annotation (Line(points={{-28,0},{-20,0},{-20,20},{-2,
           20}}, color={255,0,255}));
 
@@ -93,6 +91,8 @@ equation
   connect(lat.y, yLea)
     annotation (Line(points={{82,0},{120,0}}, color={255,0,255}));
 
+  connect(hys.y, mulOr.u[1:nVal]) annotation (Line(points={{-58,0},{-56,0},{-56,0},
+          {-52,0}},        color={255,0,255}));
 annotation (
   defaultComponentName="enaLeaPum",
   Icon(coordinateSystem(preserveAspectRatio=false), graphics={

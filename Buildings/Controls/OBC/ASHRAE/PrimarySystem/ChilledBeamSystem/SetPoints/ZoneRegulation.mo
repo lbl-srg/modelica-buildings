@@ -234,7 +234,7 @@ protected
     "Design volume fliow rates for each operation mode"
     annotation (Placement(transformation(extent={{-100,-20},{-80,0}})));
 
-  Buildings.Controls.OBC.CDL.Routing.IntegerReplicator intRep(
+  Buildings.Controls.OBC.CDL.Routing.IntegerScalarReplicator intRep(
     final nout=3)
     "Integer replicator"
     annotation (Placement(transformation(extent={{-110,-90},{-90,-70}})));
