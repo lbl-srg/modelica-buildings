@@ -77,7 +77,6 @@ model MixedAir
     linearizeRadiation = false,
     nPorts=1,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    lat=0.73268921998722,
     T_start=T_start) "Room model"
     annotation (Placement(transformation(extent={{46,20},{86,60}})));
 

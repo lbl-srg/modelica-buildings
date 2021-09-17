@@ -105,7 +105,6 @@ model TwoRoomsWithStorage
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     nPorts=3,
     linearizeRadiation=true,
-    lat=0.73268921998722,
     extConMod=Buildings.HeatTransfer.Types.ExteriorConvection.Fixed)
     "Room model"
     annotation (Placement(transformation(extent={{356,464},{396,504}})));
@@ -141,7 +140,6 @@ model TwoRoomsWithStorage
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     linearizeRadiation=true,
     nPorts=3,
-    lat=0.73268921998722,
     extConMod=Buildings.HeatTransfer.Types.ExteriorConvection.Fixed)
     "Room model"
     annotation (Placement(transformation(extent={{368,206},{408,246}})));
@@ -1206,6 +1204,12 @@ Buildings.Examples.HydronicHeating.TwoRoomsWithStorage.CoolingControl</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+September 16, 2021, by Michael Wetter:<br/>
+Removed assignment of parameter <code>lat</code> as this is now obtained from the weather data reader.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1477\">IBPSA, #1477</a>.
+</li>
 <li>
 March 4, 2021, by David Blum:<br/>
 Changed <code>dpVal_nominal</code> to 6 kPa.

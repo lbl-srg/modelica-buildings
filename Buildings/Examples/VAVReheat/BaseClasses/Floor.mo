@@ -14,7 +14,6 @@ model Floor "Model of a floor of the building"
 
   parameter HeatTransfer.Types.InteriorConvection intConMod=Buildings.HeatTransfer.Types.InteriorConvection.Temperature
     "Convective heat transfer model for room-facing surfaces of opaque constructions";
-  parameter Modelica.SIunits.Angle lat "Latitude";
   parameter Real winWalRat(
     min=0.01,
     max=0.99) = 0.33 "Window to wall ratio for exterior walls";
@@ -92,7 +91,6 @@ model Floor "Model of a floor of the building"
 
   Buildings.ThermalZones.Detailed.MixedAir sou(
     redeclare package Medium = Medium,
-    lat=lat,
     AFlo=AFloSou,
     hRoo=hRoo,
     nConExt=0,
@@ -124,7 +122,6 @@ model Floor "Model of a floor of the building"
     annotation (Placement(transformation(extent={{144,-44},{184,-4}})));
   Buildings.ThermalZones.Detailed.MixedAir eas(
     redeclare package Medium = Medium,
-    lat=lat,
     AFlo=AFloEas,
     hRoo=hRoo,
     nConExt=0,
@@ -161,7 +158,6 @@ model Floor "Model of a floor of the building"
     annotation (Placement(transformation(extent={{304,56},{344,96}})));
   Buildings.ThermalZones.Detailed.MixedAir nor(
     redeclare package Medium = Medium,
-    lat=lat,
     AFlo=AFloNor,
     hRoo=hRoo,
     nConExt=0,
@@ -193,7 +189,6 @@ model Floor "Model of a floor of the building"
     annotation (Placement(transformation(extent={{144,116},{184,156}})));
   Buildings.ThermalZones.Detailed.MixedAir wes(
     redeclare package Medium = Medium,
-    lat=lat,
     AFlo=AFloWes,
     hRoo=hRoo,
     nConExt=0,
@@ -230,7 +225,6 @@ model Floor "Model of a floor of the building"
     annotation (Placement(transformation(extent={{12,36},{52,76}})));
   Buildings.ThermalZones.Detailed.MixedAir cor(
     redeclare package Medium = Medium,
-    lat=lat,
     AFlo=AFloCor,
     hRoo=hRoo,
     nConExt=0,
@@ -698,7 +692,13 @@ equation
           fillColor={170,213,255},
           fillPattern=FillPattern.Solid)}),
     Documentation(revisions="<html>
-    <ul>
+<ul>
+<li>
+September 16, 2021, by Michael Wetter:<br/>
+Removed parameter <code>lat</code> as this is now obtained from the weather data reader.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1477\">IBPSA, #1477</a>.
+</li>
 <li>
 September 3, 2021, by Michael Wetter:<br/>
 Updated documentation.<br/>

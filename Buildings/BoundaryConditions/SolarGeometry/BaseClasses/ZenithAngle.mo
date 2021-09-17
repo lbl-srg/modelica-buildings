@@ -17,7 +17,8 @@ block ZenithAngle "Zenith angle"
     quantity="Angle",
     unit="rad",
     displayUnit="deg") "Latitude"
-    annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
+    annotation (Placement(transformation(extent={{-140,-20},{-100,20}}),
+        iconTransformation(extent={{-140,-20},{-100,20}})));
 equation
   zen =  Modelica.Math.acos(Modelica.Math.cos(lat)*Modelica.Math.cos(decAng)*
     Modelica.Math.cos(solHouAng) + Modelica.Math.sin(lat)*Modelica.Math.sin(
