@@ -79,19 +79,21 @@ model ExtremeAmbientConditions
     annotation (Placement(transformation(extent={{-80,2},{-60,22}})));
   Modelica.Blocks.Sources.Constant solTim(k=12*3600) "Solar time"
     annotation (Placement(transformation(extent={{-80,-30},{-60,-10}})));
-  Modelica.Blocks.Sources.Constant lat(k=0.73097781993588)
-                                                  "Location latitude"
-    annotation (Placement(transformation(extent={{-80,-70},{-60,-50}})));
+  Modelica.Blocks.Sources.Constant lat(k=0.656593) "Location latitude"
+    annotation (Placement(transformation(extent={{-80,-60},{-60,-40}})));
+  Modelica.Blocks.Sources.Constant alt(k=2) "Location altitude"
+    annotation (Placement(transformation(extent={{-80,-90},{-60,-70}})));
 equation
   connect(sou.ports[1], solAsh.port_a)
     annotation (Line(points={{1.77636e-15,-40},{20,-40}}, color={0,127,255}));
   connect(sou2.ports[1], solEn.port_a)
     annotation (Line(points={{1.77636e-15,-80},{20,-80}}, color={0,127,255}));
   connect(solAsh.port_b, sou1.ports[1])
-    annotation (Line(points={{40,-40},{70,-40},{70,-38}},
+    annotation (Line(points={{40,-40},{70,-40},{70,-41}},
                                                        color={0,127,255}));
-  connect(solEn.port_b, sou1.ports[2]) annotation (Line(points={{40,-80},{56,-80},
-          {56,-42},{70,-42}}, color={0,127,255}));
+  connect(solEn.port_b, sou1.ports[2]) annotation (Line(points={{40,-80},{56,
+          -80},{56,-39},{70,-39}},
+                              color={0,127,255}));
   connect(weaBus, solAsh.weaBus) annotation (Line(
       points={{0,0},{20,0},{20,-30.4}},
       color={255,204,51},
@@ -144,7 +146,13 @@ equation
       textString="%second",
       index=1,
       extent={{6,3},{6,3}}));
-  connect(lat.y, weaBus.lat) annotation (Line(points={{-59,-60},{-28,-60},{-28,
+  connect(lat.y, weaBus.lat) annotation (Line(points={{-59,-50},{-28,-50},{-28,
+          0},{0,0}}, color={0,0,127}), Text(
+      string="%second",
+      index=1,
+      extent={{6,3},{6,3}},
+      horizontalAlignment=TextAlignment.Left));
+  connect(alt.y, weaBus.alt) annotation (Line(points={{-59,-80},{-28,-80},{-28,
           0},{0,0}}, color={0,0,127}), Text(
       string="%second",
       index=1,
