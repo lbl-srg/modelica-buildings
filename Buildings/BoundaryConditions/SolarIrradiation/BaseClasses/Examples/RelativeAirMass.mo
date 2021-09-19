@@ -2,7 +2,7 @@ within Buildings.BoundaryConditions.SolarIrradiation.BaseClasses.Examples;
 model RelativeAirMass "Test model for relative air mass"
   extends Modelica.Icons.Example;
   Buildings.BoundaryConditions.SolarIrradiation.BaseClasses.RelativeAirMass
-    relAirMas annotation (Placement(transformation(extent={{20,0},{40,20}})));
+    relAirMas annotation (Placement(transformation(extent={{20,6},{40,26}})));
   Buildings.BoundaryConditions.SolarGeometry.ZenithAngle zen
     annotation (Placement(transformation(extent={{-20,0},{0,20}})));
   Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=
@@ -12,7 +12,7 @@ model RelativeAirMass "Test model for relative air mass"
             {-12,54}}), iconTransformation(extent={{-232,-2},{-212,18}})));
 equation
   connect(zen.y, relAirMas.zen) annotation (Line(
-      points={{1,10},{10,10},{10,5.8},{18,5.8}},
+      points={{1,10},{18,10}},
       color={0,0,127}));
   connect(weaDat.weaBus, zen.weaBus) annotation (Line(
       points={{-40,10},{-20,10}},
@@ -27,7 +27,7 @@ equation
       extent={{6,3},{6,3}},
       horizontalAlignment=TextAlignment.Left));
   connect(weaBus.alt, relAirMas.alt) annotation (Line(
-      points={{-32,34},{12,34},{12,10.4},{18,10.4}},
+      points={{-32,34},{12,34},{12,22},{18,22}},
       color={255,204,51},
       thickness=0.5), Text(
       string="%first",

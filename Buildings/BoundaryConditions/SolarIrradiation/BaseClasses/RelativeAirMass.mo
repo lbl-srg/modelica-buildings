@@ -3,14 +3,15 @@ block RelativeAirMass "Relative air mass"
   extends Modelica.Blocks.Icons.Block;
   Modelica.Blocks.Interfaces.RealInput alt(
     quantity="Length",
-    unit="m") "location altitude" annotation (Placement(transformation(extent={{-140,-16},{-100,24}}),
-        iconTransformation(extent={{-140,-16},{-100,24}})));
+    unit="m") "location altitude" annotation (Placement(transformation(extent={{-140,40},
+            {-100,80}}),
+        iconTransformation(extent={{-140,40},{-100,80}})));
   Modelica.Blocks.Interfaces.RealInput zen(
     quantity="Angle",
     unit="rad",
     displayUnit="deg") "Zenith angle of the sun beam"
-    annotation (Placement(transformation(extent={{-140,-62},{-100,-22}}),
-        iconTransformation(extent={{-140,-62},{-100,-22}})));
+    annotation (Placement(transformation(extent={{-140,-80},{-100,-40}}),
+        iconTransformation(extent={{-140,-80},{-100,-40}})));
   Modelica.Blocks.Interfaces.RealOutput relAirMas "Relative air mass"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 protected
@@ -30,9 +31,11 @@ equation
 This component computes the relative air mass for sky brightness.
 </p>
 <h4>References</h4>
+<p>
 R. Perez (1999).
 <i>Fortran Function irrpz.f</i>,
-Emailed by R. Perez to F.C. Winkelmann on May 21, 1999.<br/>
+Emailed by R. Perez to F.C. Winkelmann on May 21, 1999.
+</p>
 </html>", revisions="<html>
 <ul>
 <li>
