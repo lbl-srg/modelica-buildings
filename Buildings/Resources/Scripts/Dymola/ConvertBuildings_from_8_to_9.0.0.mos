@@ -40,10 +40,10 @@ convertModifiers("Buildings.Electrical.DC.Sources.PVSimpleOriented", {"lat"}, fi
 convertModifiers("Buildings.Electrical.Interfaces.PartialPVOriented", {"lat"}, fill("", 0), true);
 
 // Refactoring for https://github.com/ibpsa/modelica-ibpsa/issues/1494
-convertClass("IBPSA.Fluid.FixedResistances.PlugFlowPipe",
-             "IBPSA.Obsolete.Fluid.FixedResistances.PlugFlowPipe");
-convertClass("IBPSA.Fluid.FixedResistances.BaseClasses.PlugFlowCore",
-             "IBPSA.Obsolete.Fluid.FixedResistances.BaseClasses.PlugFlowCore");
+convertClass("Buildings.Fluid.FixedResistances.PlugFlowPipe",
+             "Buildings.Obsolete.Fluid.FixedResistances.PlugFlowPipe");
+convertClass("Buildings.Fluid.FixedResistances.BaseClasses.PlugFlowCore",
+             "Buildings.Obsolete.Fluid.FixedResistances.BaseClasses.PlugFlowCore");
 
 // Conversion for https://github.com/lbl-srg/modelica-buildings/issues/2544
 convertClass("Buildings.Controls.OBC.CDL.Routing.BooleanReplicator",
