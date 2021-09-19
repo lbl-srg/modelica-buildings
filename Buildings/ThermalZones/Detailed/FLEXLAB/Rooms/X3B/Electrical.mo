@@ -3,7 +3,6 @@ model Electrical "Model of the electrical room attached to test cell X3A"
   extends Buildings.ThermalZones.Detailed.MixedAir(
   hRoo = 3.6576,
   AFlo = 2.39,
-  lat = 0.66098585832754,
   nSurBou = 2,
   nConExt=4,
   nConExtWin=0,

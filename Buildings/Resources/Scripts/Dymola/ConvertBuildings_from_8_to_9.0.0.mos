@@ -5,6 +5,40 @@ clear
 
 convertClear();
 
+// Conversion for https://github.com/ibpsa/modelica-ibpsa/issues/1477
+convertModifiers("Buildings.BoundaryConditions.SolarGeometry.IncidenceAngle", {"lat"}, fill("",0), true);
+convertModifiers("Buildings.BoundaryConditions.SolarGeometry.BaseClasses.IncidenceAngle", {"lat"}, fill("",0), true);
+convertModifiers("Buildings.BoundaryConditions.SolarGeometry.ZenithAngle", {"lat"}, fill("",0), true);
+convertModifiers("Buildings.BoundaryConditions.SolarIrradiation.DiffusePerez", {"lat"}, fill("",0), true);
+convertModifiers("Buildings.BoundaryConditions.SolarIrradiation.DirectTiltedSurface", {"lat"}, fill("",0), true);
+
+convertModifiers("Buildings.ThermalZones.Detailed.MixedAir", {"lat"}, fill("",0), true);
+convertModifiers("Buildings.ThermalZones.Detailed.CFD", {"lat"}, fill("",0), true);
+
+convertModifiers("Buildings.ThermalZones.Detailed.BaseClasses.ExteriorBoundaryConditions", {"lat"}, fill("", 0), true);
+convertModifiers("Buildings.ThermalZones.Detailed.BaseClasses.ExteriorBoundaryConditionsWithWindow", {"lat"}, fill("", 0), true);
+convertModifiers("Buildings.ThermalZones.Detailed.Validation.BaseClasses.SingleZoneFloor", {"lat"}, fill("", 0), true);
+
+convertModifiers("Buildings.Fluid.SolarCollectors.EN12975", {"lat"}, fill("", 0), true);
+convertModifiers("Buildings.Fluid.SolarCollectors.ASHRAE93", {"lat"}, fill("", 0), true);
+convertModifiers("Buildings.HeatTransfer.Windows.FixedShade", {"lat"}, fill("", 0), true);
+convertModifiers("Buildings.HeatTransfer.Windows.Overhang", {"lat"}, fill("", 0), true);
+convertModifiers("Buildings.HeatTransfer.Windows.BaseClasses.Overhang", {"lat"}, fill("", 0), true);
+convertModifiers("Buildings.BoundaryConditions.SolarGeometry.BaseClasses.SolarAzimuth", {"lat"}, fill("", 0), true);
+
+convertModifiers("Buildings.Examples.VAVReheat.BaseClasses.Floor", {"lat"}, fill("", 0), true);
+convertModifiers("Buildings.Examples.ScalableBenchmarks.BuildingVAV.ThermalZones.MultiZone", {"lat"}, fill("", 0), true);
+convertModifiers("Buildings.Examples.ScalableBenchmarks.BuildingVAV.ThermalZones.ThermalZone", {"lat"}, fill("", 0), true);
+convertModifiers("Buildings.Air.Systems.SingleZone.VAV.Examples.BaseClasses.Room", {"lat"}, fill("", 0), true);
+
+convertModifiers("Buildings.Electrical.AC.ThreePhasesUnbalanced.Sources.PVsimpleOriented", {"lat"}, fill("", 0), true);
+convertModifiers("Buildings.Electrical.AC.ThreePhasesUnbalanced.Sources.PVsimpleOriented_N", {"lat"}, fill("", 0), true);
+convertModifiers("Buildings.Electrical.DC.Sources.PVSimpleOriented", {"lat"}, fill("", 0), true);
+convertModifiers("Buildings.Electrical.AC.OnePhase.Sources.PVSimpleOriented", {"lat"}, fill("", 0), true);
+convertModifiers("Buildings.Electrical.AC.ThreePhasesBalanced.Sources.PVSimpleOriented", {"lat"}, fill("", 0), true);
+convertModifiers("Buildings.Electrical.DC.Sources.PVSimpleOriented", {"lat"}, fill("", 0), true);
+convertModifiers("Buildings.Electrical.Interfaces.PartialPVOriented", {"lat"}, fill("", 0), true);
+
 // Refactoring for https://github.com/ibpsa/modelica-ibpsa/issues/1494
 convertClass("IBPSA.Fluid.FixedResistances.PlugFlowPipe",
              "IBPSA.Obsolete.Fluid.FixedResistances.PlugFlowPipe");

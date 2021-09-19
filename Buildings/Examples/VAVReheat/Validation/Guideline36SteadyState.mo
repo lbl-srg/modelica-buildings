@@ -3,7 +3,6 @@ model Guideline36SteadyState
   "Validation of detailed model that is at steady state with constant weather data"
   extends Buildings.Examples.VAVReheat.Guideline36(
     redeclare replaceable Buildings.Examples.VAVReheat.BaseClasses.Floor flo(
-      final lat=lat,
       final sampleModel=sampleModel,
       gai(K=0*[0.4; 0.4; 0.2])),
       weaDat(
@@ -49,6 +48,12 @@ no HVAC operation.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+September 16, 2021, by Michael Wetter:<br/>
+Removed assignment of parameter <code>lat</code> as this is now obtained from the weather data reader.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1477\">IBPSA, #1477</a>.
+</li>
 <li>
 April 30, 2021, by Michael Wetter:<br/>
 Reformulated replaceable class and introduced floor areas in base class
