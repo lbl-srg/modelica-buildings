@@ -281,6 +281,11 @@ as follows:
 </li>
 </ol>
 <p>
+With this change to using real weather data, we also change the simulation
+time to be one day during the summer, where the start time is 4320 h (15552000 s)
+and the stop time is 4344 h (15638400 s).
+</p>
+<p>
 If the model is now simulated, the following plot could be generated that shows that the
 room is cooled too much due to the open loop control:
 <p align=\"center\">
