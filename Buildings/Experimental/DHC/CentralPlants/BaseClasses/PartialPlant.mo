@@ -152,7 +152,7 @@ revisions="<html>
 <ul>
 <li>
 September 20, 2021, by Mingzhe Liu:<br/>
-Refactored <code>if</code> statement to enable and disable the fluid connector under different system types correctly.
+Refactored <code>if</code> statement to correctly enable and disable the fluid connector under different system types.
 </li>
 <li>
 December 21, 2020, by Antoine Gautier:<br/>
