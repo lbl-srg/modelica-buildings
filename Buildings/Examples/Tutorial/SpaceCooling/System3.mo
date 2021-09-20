@@ -362,6 +362,14 @@ Buildings.Controls.OBC.CDL.Continuous.PID</a>.
 </html>", revisions="<html>
 <ul>
 <li>
+September 20, 2021 by David Blum:<br/>
+Correct supply and return water parameterization.<br/>
+Use design conditions for UA parameterization in cooling coil.<br/>
+Use explicit calculation of sensible and latent load to determine design load
+on cooling coil.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2624\">#2624</a>.
+</li>
+<li>
 January 28, 2015 by Michael Wetter:<br/>
 Added thermal mass of furniture directly to air volume.
 This avoids an index reduction.
