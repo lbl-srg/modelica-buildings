@@ -295,9 +295,11 @@ The calculations are as follows:
   parameter Real eps = 0.8 \"Heat recovery effectiveness\";
 
   /////////////////////////////////////////////////////////
-  // Air temperatures at design conditions
+  // Design air conditions
   parameter Modelica.SIunits.Temperature TASup_nominal = 273.15+18
     \"Nominal air temperature supplied to room\";
+  parameter Modelica.SIunits.DimensionlessRatio wASup_nominal = 0.012
+    \"Nominal air humidity ratio supplied to room [kg/kg] assuming 90% relative humidity\";
   parameter Modelica.SIunits.Temperature TRooSet = 273.15+24
     \"Nominal room air temperature\";
   parameter Modelica.SIunits.Temperature TOut_nominal = 273.15+30
@@ -305,6 +307,8 @@ The calculations are as follows:
   parameter Modelica.SIunits.Temperature THeaRecLvg=
     TOut_nominal - eps*(TOut_nominal-TRooSet)
     \"Air temperature leaving the heat recovery\";
+  parameter Modelica.SIunits.DimensionlessRatio wHeaRecLvg = 0.0135
+    \"Air humidity ratio leaving the heat recovery [kg/kg]\";
 
   /////////////////////////////////////////////////////////
   // Cooling loads and air mass flow rates
@@ -318,9 +322,9 @@ The calculations are as follows:
     \"Nominal air mass flow rate, increased by factor 1.3 to allow for recovery after temperature setback\";
   parameter Modelica.SIunits.TemperatureDifference dTFan = 2
     \"Estimated temperature raise across fan that needs to be made up by the cooling coil\";
-  parameter Modelica.SIunits.HeatFlowRate QCoiC_flow_nominal=4*
-    (QRooC_flow_nominal + mA_flow_nominal*(TASup_nominal-THeaRecLvg-dTFan)*1006)
-    \"Cooling load of coil, taking into account economizer, and increased due to latent heat removal\";
+  parameter Modelica.SIunits.HeatFlowRate QCoiC_flow_nominal=
+    mA_flow_nominal*(TASup_nominal-THeaRecLvg-dTFan)*1006+mA_flow_nominal*(wASup_nominal-wHeaRecLvg)*2458.3e3
+    \"Cooling load of coil, taking into account outside air sensible and latent heat removal\";
 
   /////////////////////////////////////////////////////////
   // Water temperatures and mass flow rates
@@ -329,7 +333,7 @@ The calculations are as follows:
   parameter Modelica.SIunits.Temperature TWRet_nominal = 273.15+12
     \"Water return temperature\";
   parameter Modelica.SIunits.MassFlowRate mW_flow_nominal=
-    QCoiC_flow_nominal/(TWRet_nominal-TWSup_nominal)/4200
+    -QCoiC_flow_nominal/(TWRet_nominal-TWSup_nominal)/4200
     \"Nominal water mass flow rate\";
 </pre>
 </li>
@@ -415,35 +419,17 @@ water and air side nominal mass flow rates and pressure drops to
 </pre>
 <p>
 This model also requires the specification of the <i>UA</i>-value.
-We assign this value using the equation
-</p>
-<p align=\"center\" style=\"font-style:italic;\">
-  UA = Q&#775; &frasl; lmtd,
-</p>
-<p>
-where <i>Q&#775;</i> is the exchanged heat and
-<i>lmtd</i> is the logarithmic mean temperature difference.
-The computation of the <i>UA</i> is done 
-by setting
+We allow the component model to do this based on design conditions by setting
+the parameters:
 </p>
 <pre>
-use_UA_nominal=true
+    use_Q_flow_nominal=true,
+    Q_flow_nominal= QCoiC_flow_nominal
+    T_a1_nominal=TWSup_nominal,
+    T_a2_nominal=THeaRecLvg,
+    W_a2_nominal= wHeaRecLvg
 </pre>
 <p>
-and then using the parameter assignment
-</p>
-<pre>
-  UA_nominal=-QCoiC_flow_nominal/
-        Buildings.Fluid.HeatExchangers.BaseClasses.lmtd(
-          T_a1=THeaRecLvg,
-          T_b1=TASup_nominal,
-          T_a2=TWSup_nominal,
-          T_b2=TWRet_nominal)
-</pre>
-<p>
-which calls the function
-<a href=\"modelica://Buildings.Fluid.HeatExchangers.BaseClasses.lmtd\">
-Buildings.Fluid.HeatExchangers.BaseClasses.lmtd</a>.
 In order to see the coil inlet and outlet temperatures, we set the parameter
 </p>
 <pre>
