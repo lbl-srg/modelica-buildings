@@ -19,6 +19,12 @@ that are exchanged with Modelica.
 revisions="<html>
 <ul>
 <li>
+September 18, 2021, by Francesco Casella:<br/>
+Removed parameter prefix for OpenModelica.<br/>
+See
+<a href=\"https://github.com/OpenModelica/OpenModelica/issues/7839\">OpenModelica, #7839</a>.
+</li>
+<li>
 July 30, 2013, by Michael Wetter:<br/>
 First implementation.
 </li>
