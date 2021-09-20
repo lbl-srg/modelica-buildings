@@ -1,0 +1,7 @@
+simulateModel("Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChilledBeamSystem.SetPoints.Validation.BypassValvePosition", method="Cvode", stopTime=7200, tolerance=1e-06, resultFile="BypassValvePosition");
+
+createPlot(id=1, position={0, 0, 3443, 1803}, y={"bypValPos.uPumSta[1]"}, range={0.0, 7200.0, -0.1, 1.1}, grid=true, colors={{28,108,200}});
+createPlot(id=1, position={0, 0, 3443, 445}, y={"bypValPos.uPumSpe"}, range={0.0, 7200.0, 0.09, 0.22}, grid=true, subPlot=2, colors={{28,108,200}});
+plotExpression(apply(BypassValvePosition[end].bypValPos.minPumSpe+BypassValvePosition[end].bypValPos.dPumSpe), false, "BypassValvePosition[end].bypValPos.minPumSpe + BypassValvePosition[end].bypValPos.dPumSpe", 1);
+createPlot(id=1, position={0, 0, 3443, 446}, y={"bypValPos.dpChiWatLoo", "bypValPos.dPChiWatMax"}, range={0.0, 7200.0, 34000.0, 56000.0}, grid=true, subPlot=3, colors={{28,108,200}, {238,46,47}});
+createPlot(id=1, position={0, 0, 3443, 445}, y={"bypValPos.yBypValPos"}, range={0.0, 7200.0, -0.1, 1.1}, grid=true, subPlot=4, colors={{28,108,200}});

@@ -1,0 +1,15 @@
+compareVars :=
+  {
+    "chiWatSupRes.uConSen",
+    "chiWatSupRes.uValPos",
+    "chiWatSupRes.yChiWatSupReq",
+    "chiWatSupRes.TChiWatReq",
+    "chiWatSupRes1.uConSen",
+    "chiWatSupRes1.uValPos",
+    "chiWatSupRes1.yChiWatSupReq",
+    "chiWatSupRes1.TChiWatReq",
+    "chiWatSupRes2.uConSen",
+    "chiWatSupRes2.uValPos",
+    "chiWatSupRes2.yChiWatSupReq",
+    "chiWatSupRes2.TChiWatReq"
+  };

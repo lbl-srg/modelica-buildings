@@ -1,0 +1,17 @@
+compareVars :=
+  {
+    "zonRegCon.uOpeMod",
+    "zonRegCon.TZon",
+    "zonRegCon.TZonSet.TZonHeaSet",
+    "zonRegCon.yReh",
+    "zonRegCon.mulSum.y",
+    "zonRegCon.VDes_occ",
+    "zonRegCon.VDes_unoccSch",
+    "zonRegCon.VDes_unoccUnsch",
+    "zonRegCon.VDis_flow",
+    "zonRegCon.mulSum.y",
+    "zonRegCon.yDam",
+    "zonRegCon.TZon",
+    "zonRegCon.TZonSet.TZonCooSet",
+    "zonRegCon.yChiVal"
+  };
