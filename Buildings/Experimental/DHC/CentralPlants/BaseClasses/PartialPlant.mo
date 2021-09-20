@@ -1,8 +1,6 @@
 within Buildings.Experimental.DHC.CentralPlants.BaseClasses;
 partial model PartialPlant
   "Partial class for modeling a central plant"
-  import TypDisSys=Buildings.Experimental.DHC.Types.DistrictSystemType
-    "District system type enumeration";
   replaceable package Medium=Buildings.Media.Water
     constrainedby Modelica.Media.Interfaces.PartialMedium
     "Service side medium";
@@ -12,7 +10,8 @@ partial model PartialPlant
     annotation(Dialog(enable=
       typ == TypDisSys.CombinedGeneration1 or
       typ == TypDisSys.HeatingGeneration1));
-  parameter TypDisSys typ=TypDisSys.CombinedGeneration2to4
+  parameter Buildings.Experimental.DHC.Types.DistrictSystemType
+  typ=Buildings.Experimental.DHC.Types.DistrictSystemType.CombinedGeneration2to4
     "Type of district system"
     annotation (Evaluate=true, Dialog(group="Configuration"));
   parameter Boolean have_fan=false
