@@ -3,14 +3,14 @@ block SolarAzimuth "Solar azimuth"
   extends Modelica.Blocks.Icons.Block;
   Modelica.Blocks.Interfaces.RealInput zen(quantity="Angle", unit="rad")
     "Zenith angle"
-    annotation (Placement(transformation(extent={{-140,40},{-100,80}}),
+    annotation (Placement(transformation(extent={{-140,60},{-100,100}}),
         iconTransformation(extent={{-140,60},{-100,100}})));
   Modelica.Blocks.Interfaces.RealInput solTim(quantity="Time", unit="s")
     "Solar time" annotation (Placement(transformation(extent={{-140,-60},{-100,
             -20}}), iconTransformation(extent={{-140,-60},{-100,-20}})));
   Modelica.Blocks.Interfaces.RealInput lat(quantity="Angle", unit="rad")
     "Latitude" annotation (Placement(transformation(extent={{-140,-100},{-100,
-            -60}}), iconTransformation(extent={{-140,-120},{-100,-80}})));
+            -60}}), iconTransformation(extent={{-140,-100},{-100,-60}})));
   Modelica.Blocks.Interfaces.RealOutput solAzi(
     final quantity="Angle",
     final unit="rad",
@@ -18,8 +18,8 @@ block SolarAzimuth "Solar azimuth"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
   Modelica.Blocks.Interfaces.RealInput decAng(quantity="Angle", unit="rad")
     "Declination angle"
-    annotation (Placement(transformation(extent={{-140,0},{-100,40}}),
-        iconTransformation(extent={{-140,0},{-100,40}})));
+    annotation (Placement(transformation(extent={{-140,20},{-100,60}}),
+        iconTransformation(extent={{-140,18},{-100,58}})));
 
 protected
   Real arg "cos(solAzi) after data validity check";

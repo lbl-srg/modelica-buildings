@@ -39,7 +39,7 @@ protected
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
 equation
   connect(relAirMas.relAirMas, skyBri.relAirMas) annotation (Line(
-      points={{-71.6,-40},{-66,-40},{-66,-48.4},{-60.8,-48.4}},
+      points={{-71.6,-40},{-66,-40},{-66,-47.6},{-60.8,-47.6}},
       color={0,0,127}));
   connect(skyBri.skyBri, briCoe.skyBri) annotation (Line(
       points={{-51.6,-50},{-46,-50},{-46,-30},{-40.8,-30}},
@@ -54,7 +54,7 @@ equation
       points={{-100,5.55112e-16},{-86,5.55112e-16},{-86,17.6},{-62.8,17.6}},
       color={0,0,127}));
   connect(weaBus.solZen, relAirMas.zen) annotation (Line(
-      points={{-100,5.55112e-16},{-86,5.55112e-16},{-86,-41.68},{-80.8,-41.68}},
+      points={{-100,5.55112e-16},{-86,5.55112e-16},{-86,-42.4},{-80.8,-42.4}},
       color={0,0,127}));
   connect(weaBus.solZen, briCoe.zen) annotation (Line(
       points={{-100,5.55112e-16},{-86,5.55112e-16},{-86,-20},{-66,-20},{-66,-32},
@@ -75,7 +75,7 @@ equation
       index=-1,
       extent={{-6,3},{-6,3}}));
   connect(weaBus.HDifHor, skyBri.HDifHor) annotation (Line(
-      points={{-100,5.55112e-16},{-92,5.55112e-16},{-92,-51.6},{-60.8,-51.6}},
+      points={{-100,5.55112e-16},{-92,5.55112e-16},{-92,-50},{-60.8,-50}},
       color={255,204,51},
       thickness=0.5), Text(
       textString="%first",
@@ -136,7 +136,7 @@ equation
       points={{44.1,-8.4},{52,-8.4},{52,-60},{110,-60}},
       color={0,0,127}));
   connect(weaBus.solTim, skyBri.solTim) annotation (Line(
-      points={{-100,0},{-96,0},{-96,-53.36},{-60.8,-53.36}},
+      points={{-100,0},{-96,0},{-96,-52.4},{-60.8,-52.4}},
       color={255,204,51},
       thickness=0.5), Text(
       string="%first",
@@ -144,7 +144,7 @@ equation
       extent={{-6,3},{-6,3}},
       horizontalAlignment=TextAlignment.Right));
   connect(weaBus.alt, relAirMas.alt) annotation (Line(
-      points={{-100,0},{-84,0},{-84,-39.84},{-80.8,-39.84}},
+      points={{-100,0},{-84,0},{-84,-37.6},{-80.8,-37.6}},
       color={255,204,51},
       thickness=0.5), Text(
       string="%first",

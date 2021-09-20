@@ -68,7 +68,7 @@ is such that the regularization is usually not triggered.
 <li>
 September 6, 2021, by Ettore Zanetti:<br/>
 Changed <code>lat</code> from being a parameter to an input from weather bus.<br/>
-Changed input connector <code>HGloHor</code> to <code>HDirHor</code><br/>.
+Changed input connector <code>HGloHor</code> to <code>HDirHor</code>.<br/>
 This is for
 <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1477\">IBPSA, #1477</a>.
 </li>
