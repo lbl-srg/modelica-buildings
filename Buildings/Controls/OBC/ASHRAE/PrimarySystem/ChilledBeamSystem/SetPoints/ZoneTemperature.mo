@@ -75,11 +75,11 @@ protected
     annotation (Placement(transformation(extent={{-40,-30},{-20,-10}})));
 
   Buildings.Controls.OBC.CDL.Logical.Switch swi
-    "Switch"
+    "Switch for occupied heating setpoint"
     annotation (Placement(transformation(extent={{40,50},{60,70}})));
 
   Buildings.Controls.OBC.CDL.Logical.Switch swi1
-    "Switch"
+    "Switch for occupied cooling setpoint"
     annotation (Placement(transformation(extent={{40,-70},{60,-50}})));
 
 equation

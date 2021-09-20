@@ -256,7 +256,7 @@ protected
     annotation (Placement(transformation(extent={{50,30},{70,50}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Product pro1
-    "Product"
+    "Product to close chilled beam manifold valve due to condensation"
     annotation (Placement(transformation(extent={{90,30},{110,50}})));
 
   Buildings.Controls.OBC.CDL.Utilities.Assert assMes(
@@ -265,6 +265,7 @@ protected
     annotation (Placement(transformation(extent={{50,60},{70,80}})));
 
   Buildings.Controls.OBC.CDL.Logical.Switch swi
+    "Switch to enable air damper control"
     annotation (Placement(transformation(extent={{80,-40},{100,-20}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con1(
