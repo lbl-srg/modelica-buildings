@@ -24,13 +24,13 @@ model System3
 
   /////////////////////////////////////////////////////////
   // Design air conditions
-  parameter Modelica.SIunits.Temperature TASup_nominal = 273.15+18
+  parameter Modelica.SIunits.Temperature TASup_nominal = 291.15
     "Nominal air temperature supplied to room";
   parameter Modelica.SIunits.DimensionlessRatio wASup_nominal = 0.012
     "Nominal air humidity ratio supplied to room [kg/kg] assuming 90% relative humidity";
-  parameter Modelica.SIunits.Temperature TRooSet = 273.15+24
+  parameter Modelica.SIunits.Temperature TRooSet = 297.15
     "Nominal room air temperature";
-  parameter Modelica.SIunits.Temperature TOut_nominal = 273.15+30
+  parameter Modelica.SIunits.Temperature TOut_nominal = 303.15
     "Design outlet air temperature";
   parameter Modelica.SIunits.Temperature THeaRecLvg=
     TOut_nominal - eps*(TOut_nominal-TRooSet)
@@ -56,9 +56,9 @@ model System3
 
   /////////////////////////////////////////////////////////
   // Water temperatures and mass flow rates
-  parameter Modelica.SIunits.Temperature TWSup_nominal = 273.15+12
+  parameter Modelica.SIunits.Temperature TWSup_nominal = 285.15
     "Water supply temperature";
-  parameter Modelica.SIunits.Temperature TWRet_nominal = 273.15+16
+  parameter Modelica.SIunits.Temperature TWRet_nominal = 289.15
     "Water return temperature";
   parameter Modelica.SIunits.MassFlowRate mW_flow_nominal=
     -QCoiC_flow_nominal/(TWRet_nominal-TWSup_nominal)/4200
