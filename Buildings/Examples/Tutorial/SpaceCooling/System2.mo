@@ -328,9 +328,9 @@ The calculations are as follows:
 
   /////////////////////////////////////////////////////////
   // Water temperatures and mass flow rates
-  parameter Modelica.SIunits.Temperature TWSup_nominal = 289.15
+  parameter Modelica.SIunits.Temperature TWSup_nominal = 285.15
     \"Water supply temperature\";
-  parameter Modelica.SIunits.Temperature TWRet_nominal = 285.15
+  parameter Modelica.SIunits.Temperature TWRet_nominal = 289.15
     \"Water return temperature\";
   parameter Modelica.SIunits.MassFlowRate mW_flow_nominal=
     -QCoiC_flow_nominal/(TWRet_nominal-TWSup_nominal)/4200
