@@ -45,7 +45,7 @@ partial model PartialPlant
     redeclare package Medium = Medium,
     m_flow(min=if allowFlowReversal then -Modelica.Constants.inf else 0),
     h_outflow(start=Medium.h_default, nominal=Medium.h_default)) if
-    typ == TypDisSys.CombinedGeneration5
+    connector_amb
     "Fluid connector for ambient water service supply line"
     annotation (
       Placement(transformation(extent={{-310,30},{-290,50}}),
@@ -54,7 +54,7 @@ partial model PartialPlant
     redeclare package Medium = Medium,
     m_flow(max=if allowFlowReversal then +Modelica.Constants.inf else 0),
     h_outflow(start=Medium.h_default, nominal=Medium.h_default)) if
-    typ == TypDisSys.CombinedGeneration5
+    connector_amb
     "Fluid connector for ambient water service return line"
     annotation (
       Placement(transformation(extent={{290,30},{310,50}}),
@@ -62,9 +62,7 @@ partial model PartialPlant
   Modelica.Fluid.Interfaces.FluidPort_a port_aSerHea(
     redeclare package Medium = Medium,
     m_flow(min=if allowFlowReversal then -Modelica.Constants.inf else 0),
-    h_outflow(start=Medium.h_default, nominal=Medium.h_default)) if
-    typ <> TypDisSys.Cooling and
-    typ <> TypDisSys.CombinedGeneration5
+    h_outflow(start=Medium.h_default, nominal=Medium.h_default)) if connector_hea
     "Fluid connector for heating service supply line"
     annotation (Placement(
       transformation(extent={{-310,-10},{-290,10}}),    iconTransformation(
@@ -72,9 +70,7 @@ partial model PartialPlant
   Modelica.Fluid.Interfaces.FluidPort_b port_bSerHea(
     redeclare package Medium = MediumHea_b,
     m_flow(max=if allowFlowReversal then +Modelica.Constants.inf else 0),
-    h_outflow(start=MediumHea_b.h_default, nominal=MediumHea_b.h_default)) if
-    typ <> TypDisSys.Cooling and
-    typ <> TypDisSys.CombinedGeneration5
+    h_outflow(start=MediumHea_b.h_default, nominal=MediumHea_b.h_default)) if connector_hea
     "Fluid connector for heating service return line"
     annotation (Placement(
         transformation(extent={{290,-10},{310,10}}),    iconTransformation(
@@ -83,18 +79,14 @@ partial model PartialPlant
     redeclare package Medium = Medium,
     m_flow(min=if allowFlowReversal then -Modelica.Constants.inf else 0),
     h_outflow(start=Medium.h_default, nominal=Medium.h_default)) if
-    typ == TypDisSys.CombinedGeneration1 or
-    typ == TypDisSys.CombinedGeneration2to4 or
-    typ == TypDisSys.Cooling
+    connector_coo
     "Fluid connector for cooling service supply line"
     annotation (Placement(transformation(extent={{-310,-50},{-290,-30}})));
   Modelica.Fluid.Interfaces.FluidPort_b port_bSerCoo(
     redeclare package Medium = Medium,
     m_flow(max=if allowFlowReversal then +Modelica.Constants.inf else 0),
     h_outflow(start=Medium.h_default, nominal=Medium.h_default)) if
-    typ == TypDisSys.CombinedGeneration1 or
-    typ == TypDisSys.CombinedGeneration2to4 or
-    typ == TypDisSys.Cooling
+    connector_coo
     "Fluid connector for cooling service return line"
     annotation (Placement(
       transformation(extent={{290,-50},{310,-30}}),   iconTransformation(
@@ -129,6 +121,16 @@ partial model PartialPlant
     annotation (
       Placement(transformation(extent={{300,100},{340,140}}),
         iconTransformation(extent={{300,80},{380,160}})));
+protected
+  final parameter Boolean connector_hea=typ <> Buildings.Experimental.DHC.Types.DistrictSystemType.Cooling and
+  typ <> Buildings.Experimental.DHC.Types.DistrictSystemType.CombinedGeneration5
+  "Boolean flag to enable fluid connector for heating water pipe";
+  final parameter Boolean connector_coo=typ == Buildings.Experimental.DHC.Types.DistrictSystemType.CombinedGeneration1 or
+  typ == Buildings.Experimental.DHC.Types.DistrictSystemType.CombinedGeneration2to4 or
+  typ == Buildings.Experimental.DHC.Types.DistrictSystemType.Cooling
+  "Boolean flag to enable fluid connector for cooling water pipe";
+  final parameter Boolean connector_amb=typ == Buildings.Experimental.DHC.Types.DistrictSystemType.CombinedGeneration5
+  "Boolean flag to enable fluid connector for ambine water pipe, which used as cooling and heating pipe in 5th generation district energy system";
   annotation (
     defaultComponentName="plan",
     Documentation(
@@ -188,29 +190,28 @@ First implementation.
           pattern=LinePattern.None,
           fillColor={0,0,255},
           fillPattern=FillPattern.Solid,
-          visible=typ <> TypDisSys.Cooling and typ <> TypDisSys.CombinedGeneration5),
+          visible=connector_hea),
         Rectangle(
           extent={{140,-48},{300,-32}},
           lineColor={0,0,255},
           pattern=LinePattern.None,
           fillColor={0,0,255},
           fillPattern=FillPattern.Solid,
-          visible=typ == TypDisSys.CombinedGeneration1 or typ == TypDisSys.CombinedGeneration2to4
-               or typ == TypDisSys.Cooling),
+          visible=connector_coo),
         Rectangle(
           extent={{-300,32},{-140,48}},
           lineColor={0,0,255},
           pattern=LinePattern.None,
           fillColor={0,255,255},
           fillPattern=FillPattern.Solid,
-          visible=typ == TypDisSys.CombinedGeneration5),
+          visible=connector_amb),
         Rectangle(
           extent={{140,32},{300,48}},
           lineColor={0,0,255},
           pattern=LinePattern.None,
           fillColor={0,255,255},
           fillPattern=FillPattern.Solid,
-          visible=typ == TypDisSys.CombinedGeneration5),
+          visible=connector_amb),
         Rectangle(
           extent={{-140,140},{140,-142}},
           lineColor={27,0,55},
@@ -222,15 +223,14 @@ First implementation.
           pattern=LinePattern.None,
           fillColor={238,46,47},
           fillPattern=FillPattern.Solid,
-          visible=typ <> TypDisSys.Cooling and typ <> TypDisSys.CombinedGeneration5),
+          visible=connector_hea),
         Rectangle(
           extent={{-300,-48},{-140,-32}},
           lineColor={0,0,255},
           pattern=LinePattern.None,
           fillColor={238,46,47},
           fillPattern=FillPattern.Solid,
-          visible=typ == TypDisSys.CombinedGeneration1 or typ == TypDisSys.CombinedGeneration2to4
-               or typ == TypDisSys.Cooling)}),
+          visible=connector_coo)}),
     Diagram(
       coordinateSystem(
         preserveAspectRatio=false,
