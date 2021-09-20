@@ -97,7 +97,7 @@ model System2
     w_a2_nominal=wHeaRecLvg,
     show_T=true,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial) "Cooling coil"
-                                                               annotation (Placement(
+      annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=180,
