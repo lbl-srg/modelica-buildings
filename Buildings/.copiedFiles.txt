@@ -147,6 +147,7 @@ Buildings/BoundaryConditions/WeatherData/BaseClasses/Examples/ConvertTimeNegativ
 Buildings/BoundaryConditions/WeatherData/BaseClasses/Examples/ConvertTimePositiveStart.mo
 Buildings/BoundaryConditions/WeatherData/BaseClasses/Examples/EquationOfTime.mo
 Buildings/BoundaryConditions/WeatherData/BaseClasses/Examples/GetAbsolutePath.mo
+Buildings/BoundaryConditions/WeatherData/BaseClasses/Examples/GetAltitudeTMY3.mo
 Buildings/BoundaryConditions/WeatherData/BaseClasses/Examples/GetHeaderElement.mo
 Buildings/BoundaryConditions/WeatherData/BaseClasses/Examples/GetTimeSpanTMY3.mo
 Buildings/BoundaryConditions/WeatherData/BaseClasses/Examples/GetTimeSpanTMY3LongHeader.mo
@@ -170,7 +171,9 @@ Buildings/BoundaryConditions/WeatherData/BaseClasses/SolarTime.mo
 Buildings/BoundaryConditions/WeatherData/BaseClasses/SourceSelector.mo
 Buildings/BoundaryConditions/WeatherData/BaseClasses/SourceSelectorRadiation.mo
 Buildings/BoundaryConditions/WeatherData/BaseClasses/getAbsolutePath.mo
+Buildings/BoundaryConditions/WeatherData/BaseClasses/getAltitudeLocationTMY3.mo
 Buildings/BoundaryConditions/WeatherData/BaseClasses/getHeaderElementTMY3.mo
+Buildings/BoundaryConditions/WeatherData/BaseClasses/getLastHeaderElementTMY3.mo
 Buildings/BoundaryConditions/WeatherData/BaseClasses/getLatitudeTMY3.mo
 Buildings/BoundaryConditions/WeatherData/BaseClasses/getLongitudeTMY3.mo
 Buildings/BoundaryConditions/WeatherData/BaseClasses/getTimeSpanTMY3.mo
@@ -1286,11 +1289,19 @@ Buildings/Resources/Data/BoundaryConditions/Validation/BESTEST/700260.epw
 Buildings/Resources/Data/BoundaryConditions/Validation/BESTEST/700260.mos
 Buildings/Resources/Data/BoundaryConditions/Validation/BESTEST/722190.epw
 Buildings/Resources/Data/BoundaryConditions/Validation/BESTEST/722190.mos
-Buildings/Resources/Data/BoundaryConditions/Validation/BESTEST/725650.epw
-Buildings/Resources/Data/BoundaryConditions/Validation/BESTEST/725650.mos
 Buildings/Resources/Data/BoundaryConditions/Validation/BESTEST/855740.epw
 Buildings/Resources/Data/BoundaryConditions/Validation/BESTEST/855740.mos
 Buildings/Resources/Data/BoundaryConditions/Validation/BESTEST/README.md
+Buildings/Resources/Data/BoundaryConditions/Validation/BESTEST/WD100.epw
+Buildings/Resources/Data/BoundaryConditions/Validation/BESTEST/WD100.mos
+Buildings/Resources/Data/BoundaryConditions/Validation/BESTEST/WD200.epw
+Buildings/Resources/Data/BoundaryConditions/Validation/BESTEST/WD200.mos
+Buildings/Resources/Data/BoundaryConditions/Validation/BESTEST/WD300.epw
+Buildings/Resources/Data/BoundaryConditions/Validation/BESTEST/WD300.mos
+Buildings/Resources/Data/BoundaryConditions/Validation/BESTEST/WD400.epw
+Buildings/Resources/Data/BoundaryConditions/Validation/BESTEST/WD400.mos
+Buildings/Resources/Data/BoundaryConditions/Validation/BESTEST/WD500.epw
+Buildings/Resources/Data/BoundaryConditions/Validation/BESTEST/WD500.mos
 Buildings/Resources/Data/BoundaryConditions/Validation/BESTEST/WD600.epw
 Buildings/Resources/Data/BoundaryConditions/Validation/BESTEST/WD600.mos
 Buildings/Resources/Data/BoundaryConditions/Validation/BESTEST/WeatherDriversResultsSubmittal1.json
@@ -1511,6 +1522,7 @@ Buildings/Resources/Scripts/Dymola/BoundaryConditions/WeatherData/BaseClasses/Ex
 Buildings/Resources/Scripts/Dymola/BoundaryConditions/WeatherData/BaseClasses/Examples/ConvertTimePositiveStart.mos
 Buildings/Resources/Scripts/Dymola/BoundaryConditions/WeatherData/BaseClasses/Examples/EquationOfTime.mos
 Buildings/Resources/Scripts/Dymola/BoundaryConditions/WeatherData/BaseClasses/Examples/GetAbsolutePath.mos
+Buildings/Resources/Scripts/Dymola/BoundaryConditions/WeatherData/BaseClasses/Examples/GetAltitudeTMY3.mos
 Buildings/Resources/Scripts/Dymola/BoundaryConditions/WeatherData/BaseClasses/Examples/GetHeaderElement.mos
 Buildings/Resources/Scripts/Dymola/BoundaryConditions/WeatherData/BaseClasses/Examples/GetTimeSpanTMY3.mos
 Buildings/Resources/Scripts/Dymola/BoundaryConditions/WeatherData/BaseClasses/Examples/GetTimeSpanTMY3LongHeader.mos

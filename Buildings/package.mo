@@ -311,6 +311,15 @@ have been <b style=\"color:blue\">improved</b> in a
                        This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2549\">issue #2549</a>.
     </td>
 </tr>
+<tr><td colspan=\"2\"><b>Buildings.BoundaryConditions</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.BoundaryConditions.WeatherData.ReaderTMY3
+    </td>
+    <td valign=\"top\">The weather data reader is now reading the altitude above sea level from the weather data file.
+                       This new version also outputs this altitude and the latitude of the location on the weather data bus.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1477\">IBPSA, issue #1477</a>.
+    </td>
 <tr><td colspan=\"2\"><b>Buildings.Fluid.Actuators</b>
     </td>
 </tr>
@@ -388,6 +397,50 @@ have been <b style=\"color:blue\">improved</b> in a
     <td valign=\"top\">Moved to <code>Buildings.Applications.BaseClasses</code>.<br/>
                 This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2264\">issue 2264</a>.<br/>
                 For Dymola, a conversion script makes this change.</td>
+</tr>
+<tr><td colspan=\"2\"><b>Buildings.BoundaryConditions</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.BoundaryConditions.SolarGeometry.IncidenceAngle<br/>
+                       Buildings.BoundaryConditions.SolarGeometry.BaseClasses.IncidenceAngle<br/>
+                       Buildings.BoundaryConditions.SolarGeometry.ZenithAngle<br/>
+                       Buildings.BoundaryConditions.SolarIrradiation.DiffusePerez<br/>
+                       Buildings.BoundaryConditions.SolarIrradiation.DirectTiltedSurface<br/>
+                       Buildings.BoundaryConditions.SolarGeometry.BaseClasses.SolarAzimuth
+    </td>
+    <td valign=\"top\">Removed parameter <code>lat</code> for the latitude as this is now obtained from the weather data bus.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1477\">IBPSA, issue #1477</a>.
+                       For Dymola, a conversion script makes this change.
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.BoundaryConditions.SolarIrradiation.BaseClasses.RelativeAirMass
+    </td>
+    <td valign=\"top\">Introduced altitude attenuation for relative air mass calculation.
+                       This required adding a new input.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1477\">IBPSA, issue #1477</a>.
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.BoundaryConditions.SolarIrradiation.BaseClasses.SkyClearness
+    </td>
+    <td valign=\"top\">Changed input connector <code>HGloHor</code> to <code>HDirHor</code>.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1477\">IBPSA, issue #1477</a>.
+    </td>
+</tr>
+<tr><td colspan=\"2\"><b>Buildings.Electrical</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Electrical.AC.ThreePhasesUnbalanced.Sources.PVsimpleOriented<br/>
+                       Buildings.Electrical.AC.ThreePhasesUnbalanced.Sources.PVsimpleOriented_N<br/>
+                       Buildings.Electrical.DC.Sources.PVSimpleOriented<br/>
+                       Buildings.Electrical.AC.OnePhase.Sources.PVSimpleOriented<br/>
+                       Buildings.Electrical.AC.ThreePhasesBalanced.Sources.PVSimpleOriented<br/>
+                       Buildings.Electrical.DC.Sources.PVSimpleOriented<br/>
+                       Buildings.Electrical.Interfaces.PartialPVOriented
+    </td>
+    <td valign=\"top\">Removed parameter <code>lat</code> for the latitude as this is now obtained from the weather data bus.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1477\">IBPSA, issue #1477</a>.
+                       For Dymola, a conversion script makes this change.
+    </td>
 </tr>
 <tr><td colspan=\"2\"><b>Buildings.Examples.VAVReheat</b>
     </td>
@@ -471,6 +524,32 @@ have been <b style=\"color:blue\">improved</b> in a
                        For Dymola, a conversion script makes this change.
     </td>
 </tr>
+
+<tr><td colspan=\"2\"><b>Buildings.Fluid.SolarCollectors</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Fluid.SolarCollectors.EN12975<br/>
+                       Buildings.Fluid.SolarCollectors.ASHRAE93
+    </td>
+    <td valign=\"top\">Removed parameter <code>lat</code> for the latitude as this is now obtained from the weather data bus.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1477\">IBPSA, issue #1477</a>.
+                       For Dymola, a conversion script makes this change.
+    </td>
+</tr>
+<tr><td colspan=\"2\"><b>Buildings.HeatTransfer.Windows</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.HeatTransfer.Windows.FixedShade<br/>
+                       Buildings.HeatTransfer.Windows.Overhang<br/>
+                       Buildings.HeatTransfer.Windows.BaseClasses.Overhang
+    </td>
+    <td valign=\"top\">Removed parameter <code>lat</code> for the latitude as this is now obtained from the weather data bus.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1477\">IBPSA, issue #1477</a>.
+                       For Dymola, a conversion script makes this change.
+    </td>
+</tr>
+
+
 <tr><td colspan=\"2\"><b>Buildings.Controls.OBC.CDL</b>
     </td>
 </tr>
@@ -500,6 +579,20 @@ have been <b style=\"color:blue\">improved</b> in a
 <tr><td valign=\"top\">Buildings.Obsolete.Utilities.IO.Python27
     </td>
     <td valign=\"top\">Removed support for Python 27. Use instead <code>Buildings.Utilities.IO.Python36</code>.
+    </td>
+</tr>
+<tr><td colspan=\"2\"><b>Buildings.ThermalZones.Detailed</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.ThermalZones.Detailed.MixedAir<br/>
+                       Buildings.ThermalZones.Detailed.CFD<br/>
+                       Buildings.ThermalZones.Detailed.BaseClasses.ExteriorBoundaryConditions<br/>
+                       Buildings.ThermalZones.Detailed.BaseClasses.ExteriorBoundaryConditionsWithWindow<br/>
+                       Buildings.ThermalZones.Detailed.Validation.BaseClasses.SingleZoneFloor
+    </td>
+    <td valign=\"top\">Removed parameter <code>lat</code> for the latitude as this is now obtained from the weather data bus.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1477\">IBPSA, issue #1477</a>.
+                       For Dymola, a conversion script makes this change.
     </td>
 </tr>
 <tr><td colspan=\"2\"><b>Buildings.ThermalZones.EnergyPlus.Examples.SmallOffice</b>

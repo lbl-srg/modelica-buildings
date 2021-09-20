@@ -58,7 +58,6 @@ model ExteriorWallTwoWindows
     nCon=2,
     linearizeRadiation = false,
     conMod=Buildings.HeatTransfer.Types.ExteriorConvection.Fixed,
-    lat=0.73268921998722,
     conPar=conPar)
     "Exterior boundary conditions for constructions with a window"
     annotation (Placement(transformation(extent={{82,-14},{122,26}})));
@@ -116,8 +115,8 @@ model ExteriorWallTwoWindows
     absIR_glass={glaSys1.shade.absIR_b, glaSys2.shade.absIR_b},
     tauIR_air={glaSys1.shade.tauIR_a, glaSys2.shade.tauIR_a},
     tauIR_glass={glaSys1.shade.tauIR_b, glaSys2.shade.tauIR_b},
-    A=AGla) if
-     glaSys1.haveShade or glaSys2.haveShade "Interior shade radiation model"
+    A=AGla)
+  if glaSys1.haveShade or glaSys2.haveShade "Interior shade radiation model"
     annotation (Placement(transformation(extent={{-40,-60},{-20,-40}})));
   Buildings.HeatTransfer.Windows.InteriorHeatTransferConvective intShaCon[nCon](
     A=A,
@@ -299,6 +298,12 @@ This model tests the exterior construction with two windows.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+September 16, 2021, by Michael Wetter:<br/>
+Removed assignment of parameter <code>lat</code> as this is now obtained from the weather data reader.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1477\">IBPSA, #1477</a>.
+</li>
 <li>
 February 18, 2020, by Michael Wetter:<br/>
 Corrected wrong parameter assignment.<br/>

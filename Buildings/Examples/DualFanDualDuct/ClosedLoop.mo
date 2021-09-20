@@ -54,7 +54,6 @@ model ClosedLoop "Closed loop model of a dual-fan dual-duct system"
     "Mixed air temperature at summer design conditions";
   parameter Modelica.SIunits.Temperature TSupCol_nominal = 12+273.15
     "Cold deck temperature at nominal condition";
-  parameter Modelica.SIunits.Angle lat=41.98*3.14159/180 "Latitude";
 
   Buildings.Fluid.Sources.Outside amb(redeclare package Medium = MediumA, nPorts=2)
     "Ambient conditions"
@@ -363,8 +362,7 @@ model ClosedLoop "Closed loop model of a dual-fan dual-duct system"
   BoundaryConditions.WeatherData.Bus weaBus "Weather Data Bus"
     annotation (Placement(transformation(extent={{-360,170},{-340,190}})));
   Buildings.Examples.VAVReheat.BaseClasses.Floor flo(
-    redeclare package Medium = MediumA,
-    lat=lat)
+    redeclare package Medium = MediumA)
     "Model of a floor of the building that is served by this VAV system"
     annotation (Placement(transformation(extent={{800,282},{1116,510}})));
   Modelica.Blocks.Routing.DeMultiplex5 TRooAir
@@ -758,12 +756,12 @@ equation
       smooth=Smooth.None));
   connect(cor.port_b, flo.portsCor[1]) annotation (Line(
       points={{582,112},{582,252},{784,252},{784,364},{915.409,364},{915.409,
-          394.246}},
+          401.262}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(splRetRoo1.port_3, flo.portsCor[2]) annotation (Line(
-      points={{602,170},{602,240},{792,240},{792,352},{928,352},{928,394.246},{
-          929.148,394.246}},
+      points={{602,170},{602,240},{792,240},{792,352},{928,352},{928,401.262},{
+          929.148,401.262}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(sou.port_b, flo.portsSou[1]) annotation (Line(
@@ -775,31 +773,31 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(eas.port_b, flo.portsEas[1]) annotation (Line(
-      points={{858,114},{858,212},{1078,212},{1078,394.246},{1072.03,394.246}},
+      points={{858,114},{858,212},{1078,212},{1078,401.262},{1072.03,401.262}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(splRetEas.port_3, flo.portsEas[2]) annotation (Line(
-      points={{882,170},{882,210},{1085.77,210},{1085.77,394.246}},
+      points={{882,170},{882,210},{1085.77,210},{1085.77,401.262}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(nor.port_b, flo.portsNor[1]) annotation (Line(
-      points={{998,114},{998,412},{915.409,412},{915.409,453.877}},
+      points={{998,114},{998,412},{915.409,412},{915.409,460.892}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(splRetNor.port_3, flo.portsNor[2]) annotation (Line(
-      points={{1022,170},{1022,418},{929.148,418},{929.148,453.877}},
+      points={{1022,170},{1022,418},{929.148,418},{929.148,460.892}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(wes.port_b, flo.portsWes[1]) annotation (Line(
-      points={{1136,114},{1136,248},{830.226,248},{830.226,394.246}},
+      points={{1136,114},{1136,248},{830.226,248},{830.226,401.262}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(splRetNor.port_2, flo.portsWes[2]) annotation (Line(
-      points={{1032,160},{1130,160},{1130,240},{843.965,240},{843.965,394.246}},
+      points={{1032,160},{1130,160},{1130,240},{843.965,240},{843.965,401.262}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(weaBus, flo.weaBus) annotation (Line(
-      points={{-350,180},{-348,180},{-348,527.538},{999.217,527.538}},
+      points={{-350,180},{-348,180},{-348,545.077},{999.217,545.077}},
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None));
@@ -1239,6 +1237,12 @@ shading devices, Technical Report, Oct. 17, 2006.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+September 16, 2021, by Michael Wetter:<br/>
+Removed assignment of parameter <code>lat</code> as this is now obtained from the weather data reader.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1477\">IBPSA, #1477</a>.
+</li>
 <li>
 June 30, 2021, by Antoine Gautier:<br/>
 Changed cooling coil model. This is for
