@@ -335,7 +335,7 @@ protected
 
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt[nPum](
     final k=pumStaOrd)
-    "Constant integer source"
+    "Chilled water pump staging order"
     annotation (Placement(transformation(extent={{-80,50},{-60,70}})));
 
 equation
