@@ -1,7 +1,7 @@
 within Buildings.Obsolete.Fluid.FixedResistances.BaseClasses;
 model PlugFlowCore
   "Pipe model using spatialDistribution for temperature delay with modified delay tracker"
-  extends Modelica.Icons.ObsoleteModel;
+  extends Buildings.Obsolete.BaseClasses.ObsoleteModel;
   extends Buildings.Fluid.Interfaces.PartialTwoPort;
 
   constant Boolean homotopyInitialization = true "= true, use homotopy method"

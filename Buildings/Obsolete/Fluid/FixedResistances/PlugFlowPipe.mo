@@ -1,6 +1,6 @@
 within Buildings.Obsolete.Fluid.FixedResistances;
 model PlugFlowPipe "Pipe model using spatialDistribution for temperature delay"
-  extends Modelica.Icons.ObsoleteModel;
+  extends Buildings.Obsolete.BaseClasses.ObsoleteModel;
   extends Buildings.Fluid.Interfaces.PartialTwoPortVector;
 
   constant Boolean homotopyInitialization = true "= true, use homotopy method"
@@ -61,7 +61,7 @@ model PlugFlowPipe "Pipe model using spatialDistribution for temperature delay"
   parameter Modelica.SIunits.Temperature T_start_out(start=Medium.T_default)=
     T_start_in "Initialization temperature at pipe outlet"
     annotation (Dialog(tab="Initialization"));
-  parameter Boolean initDelay(start=false) = false
+  parameter Boolean initDelay = false
     "Initialize delay for a constant mass flow rate if true, otherwise start from 0"
     annotation (Dialog(tab="Initialization"));
   parameter Modelica.SIunits.MassFlowRate m_flow_start=0 "Initial value of mass flow rate through pipe"
@@ -210,7 +210,7 @@ equation
           extent={{-100,-72},{100,-88}},
           lineColor={0,0,0},
           textString="L = %length
-          d = %dh")}),
+d = %dh")}),
     obsolete = "Obsolete model - use Buildings.Fluid.FixedResistances.PlugFlowPipe instead",
     Documentation(revisions="<html>
 <ul>

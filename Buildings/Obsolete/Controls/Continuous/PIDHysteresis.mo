@@ -1,7 +1,8 @@
-within Buildings.Controls.Continuous;
+within Buildings.Obsolete.Controls.Continuous;
 model PIDHysteresis
   "PID controller with anti-windup, output limiter and output hysteresis"
   extends Modelica.Blocks.Interfaces.SVcontrol;
+  extends Buildings.Obsolete.BaseClasses.ObsoleteModel;
 
   parameter Real eOn = 1
     "if off and control error > eOn, switch to set point tracking"
@@ -52,7 +53,7 @@ model PIDHysteresis
   parameter Boolean strict=true "= true, if strict limits with noEvent(..)"
     annotation (Evaluate=true, choices(checkBox=true), Dialog(tab="Advanced"));
 
-  LimPID PID(
+  Buildings.Controls.Continuous.LimPID PID(
     final controllerType=controllerType,
     final k=k,
     final Ti=Ti,
@@ -152,6 +153,7 @@ equation
         Line(points={{12,68},{12,34}}),
         Line(points={{-60,34},{12,34}})}),
 defaultComponentName="conPID",
+obsolete = "Obsolete model - use Buildings.Controls.Continuous.LimPID instead",
 Documentation(info="<html>
 <p>
 Block of a controller for set point tracking with a hysteresis element that switches the
@@ -183,8 +185,8 @@ used in the PID controller.
 April 13, 2016, by Michael Wetter:<br/>
 Set <code>zer(final k=0)</code> and made swi, zer and zer1 protected
 which they are also for
-<a href=\"modelica://Buildings.Controls.Continuous.PIDHysteresis\">
-Buildings.Controls.Continuous.PIDHysteresis</a>.
+<a href=\"modelica://Buildings.Obsolete.Controls.Continuous.PIDHysteresis\">
+Buildings.Obsolete.Controls.Continuous.PIDHysteresis</a>.
 These changes are not backwards compatible.
 </li>
 <li>
