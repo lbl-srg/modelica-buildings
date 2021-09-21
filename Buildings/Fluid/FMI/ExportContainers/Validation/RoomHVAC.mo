@@ -218,6 +218,11 @@ With Dymola 2017, we obtain the trajectories shown below.
 </html>", revisions="<html>
 <ul>
 <li>
+September 21, 2021 by David Blum:<br/>
+Use design conditions for UA parameterization in cooling coil.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2624\">#2624</a>.
+</li>
+<li>
 June 30, 2021, by Antoine Gautier:<br/>
 Changed cooling coil model. This is for
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2549\">issue #2549</a>.
