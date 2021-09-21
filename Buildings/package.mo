@@ -456,8 +456,9 @@ have been <b style=\"color:blue\">improved</b> in a
     <td valign=\"top\">Renamed to include <code>BooleanScalarReplicator</code>, <code>IntegerScalarReplicator</code>,
                        and <code>RealScalarReplicator</code>.<br/>
                        This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2544\">issue 2544</a>.
-                For Dymola, a conversion script makes this change.
-</td>
+                       For Dymola, a conversion script makes this change.
+    </td>
+</tr>
 <tr><td colspan=\"2\"><b>Buildings.Electrical</b>
     </td>
 </tr>
@@ -500,7 +501,7 @@ have been <b style=\"color:blue\">improved</b> in a
                      exfiltrated. This was not the case previously because the infiltration was a prescribed air flow rate,
                      and the exfiltration was based on pressure difference. This caused an inbalance in the HVAC supply and
                      return air flow rate.
-</td>
+    </td>
 </tr>
 <tr><td colspan=\"2\"><b>Buildings.Fluid.Actuators</b>
     </td>
@@ -556,7 +557,6 @@ have been <b style=\"color:blue\">improved</b> in a
                        For Dymola, a conversion script makes this change.
     </td>
 </tr>
-
 <tr><td colspan=\"2\"><b>Buildings.Fluid.SolarCollectors</b>
     </td>
 </tr>
@@ -580,7 +580,7 @@ have been <b style=\"color:blue\">improved</b> in a
                        For Dymola, a conversion script makes this change.
     </td>
 </tr>
-</tr><tr><td colspan=\"2\"><b>Buildings.Obsolete</b>
+<tr><td colspan=\"2\"><b>Buildings.Obsolete</b>
     </td>
 </tr>
 <tr><td valign=\"top\">Buildings.Obsolete.Utilities.IO.Python27
@@ -1159,7 +1159,8 @@ have been <b style=\"color:blue\">improved</b> in a
                        industry convention is that reverse action means that the control output
                        changes in reverse to the measurement signal.<br/>
                        This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1365\">IBPSA, #1365</a>.<br/>
-                       For Dymola, a conversion script makes this change.</td>
+                       For Dymola, a conversion script makes this change.
+    </td>
 </tr>
 <tr><td colspan=\"2\"><b>Buildings.Controls.OBC.ASHRAE.G36_PR1</b>
     </td>
@@ -1259,7 +1260,7 @@ have been <b style=\"color:blue\">improved</b> in a
                        This is for
                        <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2170\">issue 2170</a>.
     </td>
-    </tr>
+</tr>
 <tr><td colspan=\"2\"><b>Buildings.Controls.OBC.CDL.Logical</b>
     </td>
 </tr>
