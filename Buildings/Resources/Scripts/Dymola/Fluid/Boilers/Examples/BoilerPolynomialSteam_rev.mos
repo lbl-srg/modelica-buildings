@@ -1,5 +1,5 @@
 ﻿// Simulate
-simulateModel("Buildings.Fluid.Boilers.Examples.BoilerPolynomialSteam_rev", stopTime=3600, tolerance=1e-06, resultFile="BoilerPolynomialSteam");
+simulateModel("Buildings.Fluid.Boilers.Examples.BoilerPolynomialSteam_rev", stopTime=3600, tolerance=1e-06, resultFile="BoilerPolynomialSteam_rev");
 // Plot commands
 createPlot(id=1, position={33, 21, 614, 476}, 
 	y={"y.y"}, 

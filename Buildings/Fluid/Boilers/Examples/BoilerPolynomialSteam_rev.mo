@@ -71,7 +71,7 @@ equation
           -14},{-30,-50},{0,-50}}, color={0,127,255}));
   connect(boiSte.port_b, sin.ports[2]) annotation (Line(points={{20,-50},{50,
           -50},{50,-14},{62,-14}}, color={0,127,255}));
-  annotation (__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Boilers/Examples/BoilerPolynomialSteam.mos"
+  annotation (__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Boilers/Examples/BoilerPolynomialSteam_rev.mos"
         "Simulate and plot"),
     experiment(Tolerance=1e-6, StopTime=3600),
     Documentation(info="<html>

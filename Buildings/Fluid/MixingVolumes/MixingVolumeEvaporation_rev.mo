@@ -116,8 +116,8 @@ initial equation
   // Otherwise, the system of ordinary differential equations may be inconsistent.
   if energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState then
     assert(massDynamics == energyDynamics, "In " + getInstanceName() + ":
-         If 'massDynamics == Modelica.Fluid.Types.Dynamics.SteadyState', then it is
-         required that 'energyDynamics==Modelica.Fluid.Types.Dynamics.SteadyState'.
+         If 'energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState', then it is
+         required that 'massDynamics==Modelica.Fluid.Types.Dynamics.SteadyState'.
          Otherwise, the system of equations may not be consistent.
          You need to select other parameter values.");
   end if;
