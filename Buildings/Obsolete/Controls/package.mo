@@ -1,6 +1,6 @@
 within Buildings.Obsolete;
 package Controls "Package with obsolete models for controls"
-  extends Modelica.Icons.Package;
+  extends Modelica.Icons.VariantsPackage;
 
 annotation (preferredView="info", Documentation(info="<html>
 <p>

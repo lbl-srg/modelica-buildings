@@ -1,6 +1,6 @@
 within Buildings.Obsolete.Controls;
 package Continuous "Package with obsolete models for continuous time control"
-  extends Modelica.Icons.Package;
+  extends Modelica.Icons.VariantsPackage;
 
 annotation (preferredView="info", Documentation(info="<html>
 <p>
