@@ -426,6 +426,30 @@ have been <b style=\"color:blue\">improved</b> in a
                        This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1477\">IBPSA, issue #1477</a>.
     </td>
 </tr>
+<tr><td colspan=\"2\"><b>Buildings.Controls.OBC.CDL</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Logical.MultiAnd<br/>
+                       Buildings.Controls.OBC.CDL.Logical.MultiOr
+    </td>
+    <td valign=\"top\">Renamed parameter <code>nu</code> to <code>nin</code>.
+                This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2580\">issue 2580</a>.<br/>
+                For Dymola, a conversion script makes this change.
+    </td>
+</tr>
+<tr><td colspan=\"2\"><b>Buildings.Controls.OBC.CDL.Routing</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">
+    Buildings.Controls.OBC.CDL.Routing.BooleanReplicator<br/>
+    Buildings.Controls.OBC.CDL.Routing.IntegerReplicator<br/>
+    Buildings.Controls.OBC.CDL.Routing.RealReplicator
+    </td>
+    <td valign=\"top\">Renamed to include <code>BooleanScalarReplicator</code>, <code>IntegerScalarReplicator</code>,
+                       and <code>RealScalarReplicator</code>.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2544\">issue 2544</a>.
+                For Dymola, a conversion script makes this change.
+</td>
 <tr><td colspan=\"2\"><b>Buildings.Electrical</b>
     </td>
 </tr>
@@ -548,31 +572,6 @@ have been <b style=\"color:blue\">improved</b> in a
                        For Dymola, a conversion script makes this change.
     </td>
 </tr>
-
-
-<tr><td colspan=\"2\"><b>Buildings.Controls.OBC.CDL</b>
-    </td>
-</tr>
-<tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Logical.MultiAnd<br/>
-                       Buildings.Controls.OBC.CDL.Logical.MultiOr
-    </td>
-    <td valign=\"top\">Renamed parameter <code>nu</code> to <code>nin</code>.
-                This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2580\">issue 2580</a>.<br/>
-                For Dymola, a conversion script makes this change.
-    </td>
-</tr>
-<tr><td colspan=\"2\"><b>Buildings.Controls.OBC.CDL.Routing</b>
-    </td>
-</tr>
-<tr><td valign=\"top\">
-    Buildings.Controls.OBC.CDL.Routing.BooleanReplicator<br/>
-    Buildings.Controls.OBC.CDL.Routing.IntegerReplicator<br/>
-    Buildings.Controls.OBC.CDL.Routing.RealReplicator
-    </td>
-    <td valign=\"top\">Renamed to include <code>BooleanScalarReplicator</code>, <code>IntegerScalarReplicator</code>,
-                       and <code>RealScalarReplicator</code>.<br/>
-                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2544\">issue 2544</a>.
-                For Dymola, a conversion script makes this change.</td>
 </tr><tr><td colspan=\"2\"><b>Buildings.Obsolete</b>
     </td>
 </tr>
