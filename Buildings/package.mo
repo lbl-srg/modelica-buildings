@@ -426,6 +426,17 @@ have been <b style=\"color:blue\">improved</b> in a
                        This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1477\">IBPSA, issue #1477</a>.
     </td>
 </tr>
+<tr><td colspan=\"2\"><b>Buildings.Controls.Continuous</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Controls.Continuous.PIDHysteresisTimer<br/>
+                       Buildings.Controls.Continuous.PIDHysteresis
+    </td>
+    <td valign=\"top\">Moved blocks to <code>Buildings.Obsolete.Controls.Continuous</code>.<br/>
+                This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1522\">IBPSA, issue #1522</a>.<br/>
+                For Dymola, a conversion script makes this change.
+    </td>
+</tr>
 <tr><td colspan=\"2\"><b>Buildings.Controls.OBC.CDL</b>
     </td>
 </tr>
@@ -435,9 +446,6 @@ have been <b style=\"color:blue\">improved</b> in a
     <td valign=\"top\">Renamed parameter <code>nu</code> to <code>nin</code>.
                 This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2580\">issue 2580</a>.<br/>
                 For Dymola, a conversion script makes this change.
-    </td>
-</tr>
-<tr><td colspan=\"2\"><b>Buildings.Controls.OBC.CDL.Routing</b>
     </td>
 </tr>
 <tr><td valign=\"top\">
@@ -590,7 +598,7 @@ have been <b style=\"color:blue\">improved</b> in a
                        Buildings.ThermalZones.Detailed.Validation.BaseClasses.SingleZoneFloor
     </td>
     <td valign=\"top\">Removed parameter <code>lat</code> for the latitude as this is now obtained from the weather data bus.<br/>
-                       This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1477\">IBPSA, issue #1477</a>.
+                       This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1477\">IBPSA, issue #1477</a>.<br/>
                        For Dymola, a conversion script makes this change.
     </td>
 </tr>
@@ -602,11 +610,22 @@ have been <b style=\"color:blue\">improved</b> in a
                        Buildings.ThermalZones.EnergyPlus.Examples.SmallOffice.ASHRAE2006Winter<br/>
                        Buildings.ThermalZones.EnergyPlus.Examples.SmallOffice.Guideline36Spring<br/>
                        Buildings.ThermalZones.EnergyPlus.Examples.SmallOffice.Guideline36Summer<br/>
-                       Buildings.ThermalZones.EnergyPlus.Examples.SmallOffice.Guideline36Winter<br/>
+                       Buildings.ThermalZones.EnergyPlus.Examples.SmallOffice.Guideline36Winter
     </td>
     <td valign=\"top\">Changed models to include the hydraulic configurations of the cooling coil,
                        heating coil and VAV terminal box.<br/>
                        This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2594\">issue #2594</a>.
+    </td>
+</tr>
+<tr><td colspan=\"2\"><b>Buildings.Utilities.Math</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">IBPSA.Utilities.Math.Polynominal<br/>
+                       IBPSA.Utilities.Math.Examples.Polynominal
+    </td>
+    <td valign=\"top\">Corrected name to <code>Polynomial</code>.<br/>
+                       This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1524\">IBPSA, issue #1524</a>.<br/>
+                       For Dymola, a conversion script makes this change.
     </td>
 </tr>
 </table>
