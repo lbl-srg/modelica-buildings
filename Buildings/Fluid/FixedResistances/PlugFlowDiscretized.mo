@@ -21,7 +21,7 @@ model PlugFlowDiscretized
     "Hydraulic diameter" annotation (Dialog(group="Material"));
 
   parameter Real ReC=4000
-    "Reynolds number where transition to turbulent starts";
+    "Reynolds number where transition to turbulence starts";
 
   parameter Modelica.SIunits.Height roughness=2.5e-5
     "Average height of surface asperities (default: smooth steel pipe)"
@@ -372,12 +372,12 @@ successive segments of pipes (connected in series).
 </p>
 <p>
 This wrapper simplifies use-cases where different segments of the same
-pipe might have different boundary conditions. This would be the case, 
+pipe might have different boundary conditions. This would be the case,
 for instance, for sufficiently long stretches of buried pipes.
 </p>
 <p>
-To reduce coupled nonlinear equations, the pipe flow resistance 
-is aggregated to a single instance of 
+To reduce coupled nonlinear equations, the pipe flow resistance
+is aggregated to a single instance of
 <a href=\"modelica://Buildings.Fluid.FixedResistances.HydraulicDiameter\">
 Buildings.Fluid.FixedResistances.HydraulicDiameter</a> rather than being
 instantiated separately for each segment.

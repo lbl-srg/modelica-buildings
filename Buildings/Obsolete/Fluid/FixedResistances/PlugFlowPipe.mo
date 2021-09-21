@@ -19,7 +19,7 @@ model PlugFlowPipe "Pipe model using spatialDistribution for temperature delay"
     annotation(Dialog(group="Nominal condition"));
 
   parameter Real ReC=4000
-    "Reynolds number where transition to turbulent starts";
+    "Reynolds number where transition to turbulence starts";
 
   parameter Modelica.SIunits.Height roughness=2.5e-5
     "Average height of surface asperities (default: smooth steel pipe)"

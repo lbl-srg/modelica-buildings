@@ -24,7 +24,7 @@ model PlugFlowPipe
     annotation(Dialog(group="Nominal condition"));
 
   parameter Real ReC=4000
-    "Reynolds number where transition to turbulent starts";
+    "Reynolds number where transition to turbulence starts";
 
   parameter Modelica.SIunits.Height roughness=2.5e-5
     "Average height of surface asperities (default: smooth steel pipe)"
@@ -298,6 +298,12 @@ equation
 d = %dh")}),
     Documentation(revisions="<html>
 <ul>
+<li>
+September 21, 2021, by Michael Wetter:<br/>
+Corrected typo in comments.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1525\">#1525</a>.
+</li>
 <li>
 September 14, 2021, by Michael Wetter:<br/>
 Made most instances protected and exposed main variables of interest.

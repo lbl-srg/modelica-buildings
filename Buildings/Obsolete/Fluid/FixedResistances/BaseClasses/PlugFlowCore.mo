@@ -54,7 +54,7 @@ model PlugFlowCore
     annotation (Dialog(tab="Initialization", enable=initDelay));
 
   parameter Real ReC=4000
-    "Reynolds number where transition to turbulent starts";
+    "Reynolds number where transition to turbulence starts";
 
   parameter Boolean linearized = false
     "= true, use linear relation between m_flow and dp for any flow rate"
