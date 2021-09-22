@@ -350,13 +350,36 @@ have been <b style=\"color:blue\">improved</b> in a
                        This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2549\">issue #2549</a>.
     </td>
 </tr>
+<tr><td valign=\"top\">Buildings.Examples.Tutorial.SpaceCooling.System2<br/>
+                       Buildings.Examples.Tutorial.SpaceCooling.System3<br/>
+    </td>
+    <td valign=\"top\">Correct supply and return water parameterization.<br/>
+                       Use design conditions for UA parameterization in cooling coil.<br/>
+                       Use explicit calculation of sensible and latent load to determine design load
+                       on cooling coil.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2624\">issue #2624</a>.
+    </td>
+</tr>
 <tr><td colspan=\"2\"><b>Buildings.Fluid.FMI</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Fluid.FMI.ExportContainers.HVACZone<br/>
+                       Buildings.Fluid.FMI.ExportContainers.HVACZones<br/>
+    </td>
+    <td valign=\"top\">Correct supply and return water parameterization.<br/>
+                       Use explicit calculation of sensible and latent load to determine design load
+                       on cooling coil.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2624\">issue #2624</a>.
     </td>
 </tr>
 <tr><td valign=\"top\">Buildings.Fluid.FMI.ExportContainers.Validation.RoomHVAC
     </td>
     <td valign=\"top\">Changed cooling coil model.<br/>
-                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2549\">issue #2549</a>.
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2549\">issue #2549</a>.<br/>
+                       Correct supply and return water parameterization.<br/>
+                       Use explicit calculation of sensible and latent load to determine design load
+                       on cooling coil.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2624\">issue #2624</a>.
     </td>
 </tr>
 <tr><td colspan=\"2\"><b>Buildings.Media</b>
