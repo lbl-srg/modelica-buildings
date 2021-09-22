@@ -129,7 +129,7 @@ protected
   typ == Buildings.Experimental.DHC.Types.DistrictSystemType.Cooling
   "Boolean flag to enable fluid connectors for cooling service line";
   final parameter Boolean connector_amb=typ == Buildings.Experimental.DHC.Types.DistrictSystemType.CombinedGeneration5
-  "Boolean flag to enable fluid connector for ambient service line";
+  "Boolean flag to enable fluid connector for ambient water service line";
   annotation (
     defaultComponentName="plan",
     Documentation(
