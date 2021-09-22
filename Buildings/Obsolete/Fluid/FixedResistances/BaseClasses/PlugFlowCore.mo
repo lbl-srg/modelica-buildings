@@ -1,7 +1,7 @@
 within Buildings.Obsolete.Fluid.FixedResistances.BaseClasses;
 model PlugFlowCore
   "Pipe model using spatialDistribution for temperature delay with modified delay tracker"
-  extends Modelica.Icons.ObsoleteModel;
+  extends Buildings.Obsolete.BaseClasses.ObsoleteModel;
   extends Buildings.Fluid.Interfaces.PartialTwoPort;
 
   constant Boolean homotopyInitialization = true "= true, use homotopy method"
@@ -54,7 +54,7 @@ model PlugFlowCore
     annotation (Dialog(tab="Initialization", enable=initDelay));
 
   parameter Real ReC=4000
-    "Reynolds number where transition to turbulent starts";
+    "Reynolds number where transition to turbulence starts";
 
   parameter Boolean linearized = false
     "= true, use linear relation between m_flow and dp for any flow rate"

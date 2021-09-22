@@ -449,6 +449,39 @@ have been <b style=\"color:blue\">improved</b> in a
                        This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1477\">IBPSA, issue #1477</a>.
     </td>
 </tr>
+<tr><td colspan=\"2\"><b>Buildings.Controls.Continuous</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Controls.Continuous.PIDHysteresisTimer<br/>
+                       Buildings.Controls.Continuous.PIDHysteresis
+    </td>
+    <td valign=\"top\">Moved blocks to <code>Buildings.Obsolete.Controls.Continuous</code>.<br/>
+                This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1522\">IBPSA, issue #1522</a>.<br/>
+                For Dymola, a conversion script makes this change.
+    </td>
+</tr>
+<tr><td colspan=\"2\"><b>Buildings.Controls.OBC.CDL</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Logical.MultiAnd<br/>
+                       Buildings.Controls.OBC.CDL.Logical.MultiOr
+    </td>
+    <td valign=\"top\">Renamed parameter <code>nu</code> to <code>nin</code>.
+                This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2580\">issue 2580</a>.<br/>
+                For Dymola, a conversion script makes this change.
+    </td>
+</tr>
+<tr><td valign=\"top\">
+    Buildings.Controls.OBC.CDL.Routing.BooleanReplicator<br/>
+    Buildings.Controls.OBC.CDL.Routing.IntegerReplicator<br/>
+    Buildings.Controls.OBC.CDL.Routing.RealReplicator
+    </td>
+    <td valign=\"top\">Renamed to include <code>BooleanScalarReplicator</code>, <code>IntegerScalarReplicator</code>,
+                       and <code>RealScalarReplicator</code>.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2544\">issue 2544</a>.
+                       For Dymola, a conversion script makes this change.
+    </td>
+</tr>
 <tr><td colspan=\"2\"><b>Buildings.Electrical</b>
     </td>
 </tr>
@@ -491,7 +524,7 @@ have been <b style=\"color:blue\">improved</b> in a
                      exfiltrated. This was not the case previously because the infiltration was a prescribed air flow rate,
                      and the exfiltration was based on pressure difference. This caused an inbalance in the HVAC supply and
                      return air flow rate.
-</td>
+    </td>
 </tr>
 <tr><td colspan=\"2\"><b>Buildings.Fluid.Actuators</b>
     </td>
@@ -547,7 +580,6 @@ have been <b style=\"color:blue\">improved</b> in a
                        For Dymola, a conversion script makes this change.
     </td>
 </tr>
-
 <tr><td colspan=\"2\"><b>Buildings.Fluid.SolarCollectors</b>
     </td>
 </tr>
@@ -571,32 +603,7 @@ have been <b style=\"color:blue\">improved</b> in a
                        For Dymola, a conversion script makes this change.
     </td>
 </tr>
-
-
-<tr><td colspan=\"2\"><b>Buildings.Controls.OBC.CDL</b>
-    </td>
-</tr>
-<tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Logical.MultiAnd<br/>
-                       Buildings.Controls.OBC.CDL.Logical.MultiOr
-    </td>
-    <td valign=\"top\">Renamed parameter <code>nu</code> to <code>nin</code>.
-                This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2580\">issue 2580</a>.<br/>
-                For Dymola, a conversion script makes this change.
-    </td>
-</tr>
-<tr><td colspan=\"2\"><b>Buildings.Controls.OBC.CDL.Routing</b>
-    </td>
-</tr>
-<tr><td valign=\"top\">
-    Buildings.Controls.OBC.CDL.Routing.BooleanReplicator<br/>
-    Buildings.Controls.OBC.CDL.Routing.IntegerReplicator<br/>
-    Buildings.Controls.OBC.CDL.Routing.RealReplicator
-    </td>
-    <td valign=\"top\">Renamed to include <code>BooleanScalarReplicator</code>, <code>IntegerScalarReplicator</code>,
-                       and <code>RealScalarReplicator</code>.<br/>
-                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2544\">issue 2544</a>.
-                For Dymola, a conversion script makes this change.</td>
-</tr><tr><td colspan=\"2\"><b>Buildings.Obsolete</b>
+<tr><td colspan=\"2\"><b>Buildings.Obsolete</b>
     </td>
 </tr>
 <tr><td valign=\"top\">Buildings.Obsolete.Utilities.IO.Python27
@@ -614,7 +621,7 @@ have been <b style=\"color:blue\">improved</b> in a
                        Buildings.ThermalZones.Detailed.Validation.BaseClasses.SingleZoneFloor
     </td>
     <td valign=\"top\">Removed parameter <code>lat</code> for the latitude as this is now obtained from the weather data bus.<br/>
-                       This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1477\">IBPSA, issue #1477</a>.
+                       This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1477\">IBPSA, issue #1477</a>.<br/>
                        For Dymola, a conversion script makes this change.
     </td>
 </tr>
@@ -626,11 +633,22 @@ have been <b style=\"color:blue\">improved</b> in a
                        Buildings.ThermalZones.EnergyPlus.Examples.SmallOffice.ASHRAE2006Winter<br/>
                        Buildings.ThermalZones.EnergyPlus.Examples.SmallOffice.Guideline36Spring<br/>
                        Buildings.ThermalZones.EnergyPlus.Examples.SmallOffice.Guideline36Summer<br/>
-                       Buildings.ThermalZones.EnergyPlus.Examples.SmallOffice.Guideline36Winter<br/>
+                       Buildings.ThermalZones.EnergyPlus.Examples.SmallOffice.Guideline36Winter
     </td>
     <td valign=\"top\">Changed models to include the hydraulic configurations of the cooling coil,
                        heating coil and VAV terminal box.<br/>
                        This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2594\">issue #2594</a>.
+    </td>
+</tr>
+<tr><td colspan=\"2\"><b>Buildings.Utilities.Math</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">IBPSA.Utilities.Math.Polynominal<br/>
+                       IBPSA.Utilities.Math.Examples.Polynominal
+    </td>
+    <td valign=\"top\">Corrected name to <code>Polynomial</code>.<br/>
+                       This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1524\">IBPSA, issue #1524</a>.<br/>
+                       For Dymola, a conversion script makes this change.
     </td>
 </tr>
 </table>
@@ -1164,7 +1182,8 @@ have been <b style=\"color:blue\">improved</b> in a
                        industry convention is that reverse action means that the control output
                        changes in reverse to the measurement signal.<br/>
                        This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1365\">IBPSA, #1365</a>.<br/>
-                       For Dymola, a conversion script makes this change.</td>
+                       For Dymola, a conversion script makes this change.
+    </td>
 </tr>
 <tr><td colspan=\"2\"><b>Buildings.Controls.OBC.ASHRAE.G36_PR1</b>
     </td>
@@ -1264,7 +1283,7 @@ have been <b style=\"color:blue\">improved</b> in a
                        This is for
                        <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2170\">issue 2170</a>.
     </td>
-    </tr>
+</tr>
 <tr><td colspan=\"2\"><b>Buildings.Controls.OBC.CDL.Logical</b>
     </td>
 </tr>

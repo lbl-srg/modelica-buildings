@@ -1,7 +1,8 @@
-within Buildings.Controls.Continuous;
+within Buildings.Obsolete.Controls.Continuous;
 model PIDHysteresisTimer
   "PID controller with anti-windup, hysteresis and timer to prevent short cycling"
   extends Modelica.Blocks.Interfaces.SVcontrol;
+  extends Buildings.Obsolete.BaseClasses.ObsoleteModel;
 
   parameter Real minOffTime=600
     "Minimum time that devices needs to be off before it can run again"
@@ -61,7 +62,7 @@ model PIDHysteresisTimer
   Modelica.Blocks.Interfaces.RealOutput tOff "Time since boiler switched off"
     annotation (Placement(transformation(extent={{100,30},{120,50}})));
 
-  LimPID con(
+  Buildings.Controls.Continuous.LimPID con(
     final controllerType=controllerType,
     final k=k,
     final Ti=Ti,
@@ -79,7 +80,7 @@ model PIDHysteresisTimer
     final reverseActing=reverseActing,
     final strict=strict) "Controller to track setpoint"
     annotation (Placement(transformation(extent={{-10,-60},{10,-40}})));
-  OffTimer offHys
+  Buildings.Controls.Continuous.OffTimer offHys
     annotation (Placement(transformation(extent={{-20,0},{0,20}})));
   Modelica.Blocks.Logical.Timer onTimer
     annotation (Placement(transformation(extent={{-20,70},{0,90}})));
@@ -199,7 +200,8 @@ equation
         Line(points={{-80,84},{-80,-84}}, color={192,192,192}),
         Line(points={{-80,-76},{-48,-76},{-48,30},{2,40},{54,-42},{54,-76},{64,
               -76}}, color={0,0,127})}),
-   defaultComponentName="conPID",
+defaultComponentName="conPID",
+obsolete = "Obsolete model - use Buildings.Controls.Continuous.LimPID instead",
 Documentation(
 info="<html>
 <p>
@@ -208,8 +210,8 @@ controller to short cycle.
 </p>
 <p>
 The controller is similar to
-<a href=\"modelica://Buildings.Controls.Continuous.PIDHysteresis\">
-Buildings.Controls.Continuous.PIDHysteresis</a> but in addition,
+<a href=\"modelica://Buildings.Obsolete.Controls.Continuous.PIDHysteresis\">
+Buildings.Obsolete.Controls.Continuous.PIDHysteresis</a> but in addition,
 it has a timer that prevents the controller from switching to on
 too fast. When the controller switches off, the timer starts and
 avoids the controller from switching on until <code>minOffTime</code> seconds elapsed.

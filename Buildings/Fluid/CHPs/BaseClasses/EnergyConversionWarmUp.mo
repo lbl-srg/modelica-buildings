@@ -109,7 +109,7 @@ protected
     annotation (Placement(transformation(extent={{140,110},{160,130}})));
   Buildings.Controls.OBC.CDL.Continuous.Product PEleNet1 "Generated electrical power"
     annotation (Placement(transformation(extent={{260,330},{280,350}})));
-  Buildings.Utilities.Math.Polynominal masFloAir(final a=per.coeMasAir)
+  Buildings.Utilities.Math.Polynomial masFloAir(final a=per.coeMasAir)
     "Air mass flow rate"
     annotation (Placement(transformation(extent={{500,230},{520,250}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant min2(final k=1)
