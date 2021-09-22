@@ -123,13 +123,13 @@ partial model PartialPlant
 protected
   final parameter Boolean connector_hea=typ <> Buildings.Experimental.DHC.Types.DistrictSystemType.Cooling and
   typ <> Buildings.Experimental.DHC.Types.DistrictSystemType.CombinedGeneration5
-  "Boolean flag to enable fluid connector for heating water pipe";
+  "Boolean flag to enable fluid connectors for heating service line";
   final parameter Boolean connector_coo=typ == Buildings.Experimental.DHC.Types.DistrictSystemType.CombinedGeneration1 or
   typ == Buildings.Experimental.DHC.Types.DistrictSystemType.CombinedGeneration2to4 or
   typ == Buildings.Experimental.DHC.Types.DistrictSystemType.Cooling
-  "Boolean flag to enable fluid connector for cooling water pipe";
+  "Boolean flag to enable fluid connectors for cooling service line";
   final parameter Boolean connector_amb=typ == Buildings.Experimental.DHC.Types.DistrictSystemType.CombinedGeneration5
-  "Boolean flag to enable fluid connector for ambine water pipe, which used as cooling and heating pipe in 5th generation district energy system";
+  "Boolean flag to enable fluid connector for ambient service line";
   annotation (
     defaultComponentName="plan",
     Documentation(
