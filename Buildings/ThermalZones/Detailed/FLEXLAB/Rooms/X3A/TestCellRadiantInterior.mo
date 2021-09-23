@@ -33,7 +33,6 @@ model TestCellRadiantInterior
                    each boundaryCondition=Buildings.ThermalZones.Detailed.Types.CFDBoundaryConditions.HeatFlowRate),
       each intConMod=Buildings.HeatTransfer.Types.InteriorConvection.Temperature,
       each extConMod=Buildings.HeatTransfer.Types.ExteriorConvection.TemperatureWind,
-      each lat=0.66098585832754,
     conBou(each steadyStateInitial=true),
     datConExt(each steadyStateInitial=true, each boundaryCondition=Buildings.ThermalZones.Detailed.Types.CFDBoundaryConditions.Temperature),
     datConPar(each steadyStateInitial=true));

@@ -332,7 +332,6 @@ Fluid.Movers.FlowControlled_m_flow           pumHot(
   ThermalZones.Detailed.FLEXLAB.Rooms.X3A.TestCellRadiantInterior radInt(
     nConExtWin=0,
     nConBou=5,
-    lat=0.72954762733363,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyStateInitial,
     massDynamics=Modelica.Fluid.Types.Dynamics.SteadyStateInitial,
     nPorts=2,
