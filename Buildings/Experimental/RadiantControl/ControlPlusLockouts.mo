@@ -31,13 +31,14 @@ block ControlPlusLockouts "Full radiant control"
     final unit="K",
     final displayUnit="degC",
     final quantity="TemperatureDifference")=2.22 "Difference from slab temp setpoint required to trigger alarm during occupied hours";
-parameter Real TDeaNor(min=0,
+  parameter Real TDeaNor(min=0,
     final unit="K",
     final displayUnit="degC",
     final quantity="TemperatureDifference")=0.28
-                                           "Difference from slab temp setpoint required to trigger alarm during unoccpied hours";
+                                           "Difference from slab temp setpoint required to trigger alarm during unoccupied hours";
   parameter Real k(min=0,max=24)=18 "Last occupied hour";
- parameter Boolean off_within_deadband=true "If flow should turn off when slab setpoint is within deadband, set to true. Otherwise, set to false";
+  parameter Boolean off_within_deadband=true "If flow should turn off when slab setpoint is within deadband, set to true. Otherwise, set to false";
+
   Controls.OBC.CDL.Logical.And and2 "Final Heating Signal"
     annotation (Placement(transformation(extent={{20,40},{40,60}})));
   Controls.OBC.CDL.Logical.And and1 "Final cooling signal"
