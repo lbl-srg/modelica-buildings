@@ -240,12 +240,18 @@ equation
 Controller for a radiant heating system.
 </p>
 <p>
-This controller tracks the room temperature set point <code>TRooSet</code> by
-adjusting the supply water temperature set point <code>TSupSet</code>
-based on a proportional controller.
+The controller tracks the room temperature set point <code>TRooSet</code> by
+adjusting the supply water temperature set point <code>TSupSet</code> linearly between
+<code>TSupSetMin</code> and <code>TSupSetMax</code>
+based on the output signal <code>y</code> of the proportional controller.
 The pump is either off or operates at full speed, in which case <code>yPum = 1</code>.
-The pump control is based on a hysteresis that takes as an input the control signal from
-the supply temperature set point controller.
+The pump control is based on a hysteresis that switches the pump on when the output of the
+proportional controller <code>y</code> exceeds <i>0.2</i>, and the pump is commanded off when the output falls
+below <i>0.1</i>. See figure below for the control charts.
+</p>
+<p align=\"center\">
+<img alt=\"Image of control output\"
+src=\"modelica://Buildings/Resources/Images/Controls/OBC/RadiantSystems/Heating/HighMassSupplyTemperature_TRoom.png\"/>
 </p>
 <p>
 For systems with high thermal mass, this controller should be left configured
