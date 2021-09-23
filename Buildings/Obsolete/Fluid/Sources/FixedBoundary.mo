@@ -1,6 +1,6 @@
 within Buildings.Obsolete.Fluid.Sources;
 model FixedBoundary "Boundary source component"
-  extends Modelica.Icons.ObsoleteModel;
+  extends Buildings.Obsolete.BaseClasses.ObsoleteModel;
   extends Buildings.Fluid.Sources.BaseClasses.PartialSource(final verifyInputs=true);
   parameter Boolean use_p=true "select p or d"
     annotation (Evaluate = true,
@@ -123,20 +123,20 @@ revisions="<html>
 <li>
 May 13, 2019 by Jianjun Hu:<br/>
 Moved from Buildings.Fluid.Sources.FixedBoundary to here. This is for  
-<a href=\"https://github.com/Buildings/modelica-Buildings/issues/1072\"> #1072</a>.
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1072\"> #1072</a>.
 </li>
 <li>
 January 14, 2019 by Jianjun Hu:<br/>
 Changed to extend <a href=\"modelica://Buildings.Fluid.Sources.BaseClasses.PartialSource\">
 Buildings.Fluid.Sources.BaseClasses.PartialSource</a>. This is for 
-<a href=\"https://github.com/Buildings/modelica-Buildings/issues/1050\"> #1050</a>.
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1050\"> #1050</a>.
 </li>
 <li>
 April 18, 2017, by Filip Jorissen:<br/>
 Changed <code>checkBoundary</code> implementation
 such that it is run as an initial equation
 since it depends on parameters only.
-See <a href=\"https://github.com/Buildings/modelica-Buildings/issues/728\">#728</a>.
+See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/728\">#728</a>.
 </li>
 <li>
 January 26, 2016, by Michael Wetter:<br/>

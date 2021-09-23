@@ -1,6 +1,6 @@
 within Buildings.Obsolete.Fluid.FixedResistances;
 model PlugFlowPipe "Pipe model using spatialDistribution for temperature delay"
-  extends Modelica.Icons.ObsoleteModel;
+  extends Buildings.Obsolete.BaseClasses.ObsoleteModel;
   extends Buildings.Fluid.Interfaces.PartialTwoPortVector;
 
   constant Boolean homotopyInitialization = true "= true, use homotopy method"
@@ -19,7 +19,7 @@ model PlugFlowPipe "Pipe model using spatialDistribution for temperature delay"
     annotation(Dialog(group="Nominal condition"));
 
   parameter Real ReC=4000
-    "Reynolds number where transition to turbulent starts";
+    "Reynolds number where transition to turbulence starts";
 
   parameter Modelica.SIunits.Height roughness=2.5e-5
     "Average height of surface asperities (default: smooth steel pipe)"
@@ -61,7 +61,7 @@ model PlugFlowPipe "Pipe model using spatialDistribution for temperature delay"
   parameter Modelica.SIunits.Temperature T_start_out(start=Medium.T_default)=
     T_start_in "Initialization temperature at pipe outlet"
     annotation (Dialog(tab="Initialization"));
-  parameter Boolean initDelay(start=false) = false
+  parameter Boolean initDelay = false
     "Initialize delay for a constant mass flow rate if true, otherwise start from 0"
     annotation (Dialog(tab="Initialization"));
   parameter Modelica.SIunits.MassFlowRate m_flow_start=0 "Initial value of mass flow rate through pipe"
@@ -210,7 +210,7 @@ equation
           extent={{-100,-72},{100,-88}},
           lineColor={0,0,0},
           textString="L = %length
-          d = %dh")}),
+d = %dh")}),
     obsolete = "Obsolete model - use Buildings.Fluid.FixedResistances.PlugFlowPipe instead",
     Documentation(revisions="<html>
 <ul>
