@@ -281,7 +281,6 @@ Fluid.Movers.FlowControlled_m_flow           pumHot(
     annotation (Placement(transformation(extent={{198,232},{242,276}})));
   ThermalZones.Detailed.FLEXLAB.Rooms.X3A.TestCellRadiantExterior radExt(
     nSurBou=1,
-    lat=0.73268921998722,
     hRoo=3,
     steadyStateWindow=false,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyStateInitial,
@@ -401,10 +400,6 @@ equation
           330},{58,328},{80.4,328}}, color={0,0,127}));
   connect(shaPos2.y[1], radExt.uSha[1]) annotation (Line(points={{59,350},{62,
           350},{62,338},{80.4,338}}, color={0,0,127}));
-  connect(weaDat1.weaBus, radExt.weaBus) annotation (Line(
-      points={{204,350},{154,350},{154,337.9},{119.9,337.9}},
-      color={255,204,51},
-      thickness=0.5));
   connect(sla1.surf_a, radExt.surf_surBou[1]) annotation (Line(points={{10,22},
           {54,22},{54,306},{98.2,306}}, color={191,0,0}));
   connect(sla1.surf_a, temSlaTop.port) annotation (Line(points={{10,22},{-22,22},
@@ -452,6 +447,18 @@ equation
           270,138},{198,138},{198,176},{208,176}}, color={0,0,127}));
   connect(TOut2.port, conBel2.port_a) annotation (Line(points={{230,176},{248,
           176},{248,202},{112,202},{112,262},{122,262}}, color={191,0,0}));
+  connect(weaDat1.weaBus, weaBus1.lat) annotation (Line(
+      points={{204,350},{238,350},{238,352},{270,352},{270,308},{280,308}},
+      color={255,204,51},
+      thickness=0.5), Text(
+      string="%second",
+      index=1,
+      extent={{6,3},{6,3}},
+      horizontalAlignment=TextAlignment.Left));
+  connect(weaDat1.weaBus, radExt.weaBus) annotation (Line(
+      points={{204,350},{214,350},{214,322},{119.9,322},{119.9,337.9}},
+      color={255,204,51},
+      thickness=0.5));
   annotation (Documentation(info="<html>
 <p>
 This models a radiant slab serving a perimeter zone as per current control scheme.

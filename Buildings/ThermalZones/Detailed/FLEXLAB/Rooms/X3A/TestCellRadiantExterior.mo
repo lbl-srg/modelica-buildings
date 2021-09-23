@@ -41,7 +41,6 @@ model TestCellRadiantExterior
       azi={Buildings.Types.Azimuth.W,Buildings.Types.Azimuth.S}),
       intConMod=Buildings.HeatTransfer.Types.InteriorConvection.Temperature,
       extConMod=Buildings.HeatTransfer.Types.ExteriorConvection.TemperatureWind,
-    lat=0.66098585832754,
     conBou(
       each steadyStateInitial=false,
       each T_a_start=288.15,
