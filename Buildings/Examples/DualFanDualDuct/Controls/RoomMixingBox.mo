@@ -34,7 +34,8 @@ block RoomMixingBox "Controller for room mixing box"
     controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
     Td=60,
     k=0.1,
-    Ti=120) "Controller for mass flow rate"
+    Ti=120,
+    r=m_flow_min)   "Controller for mass flow rate"
     annotation (Placement(transformation(extent={{-42,30},{-22,50}})));
   Modelica.Blocks.Sources.Constant mAirSet(k=m_flow_min)
     "Set point for minimum air flow rate"
@@ -197,5 +198,14 @@ equation
 This controller outputs the control signal for the air damper for the hot deck and the cold deck.
 The control signal for the hot deck is the larger of the two signals needed to track the room heating
 temperature setpoint, and the minimum air flow rate.
+</html>", revisions="<html>
+<ul>
+<li>
+October 15, 2020, by Michael Wetter:<br/>
+Moved normalization of control error to PID controller.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2182\">#2182</a>.
+</li>
+</ul>
 </html>"));
 end RoomMixingBox;

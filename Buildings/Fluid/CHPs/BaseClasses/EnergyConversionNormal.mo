@@ -51,7 +51,7 @@ protected
   Buildings.Controls.OBC.CDL.Continuous.Product heaGen
     "Heat generation within the engine"
     annotation (Placement(transformation(extent={{60,-50},{80,-30}})));
-  Buildings.Utilities.Math.Polynominal masFloAir(final a=per.coeMasAir)
+  Buildings.Utilities.Math.Polynomial masFloAir(final a=per.coeMasAir)
     "Air mass flow rate computation"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
   Buildings.Controls.OBC.CDL.Continuous.Gain masFloFue(final k=1/per.LHVFue)
@@ -62,8 +62,6 @@ equation
           {-160,40}},  color={0,0,127}));
   connect(heaGen.y, QGen_flow)
     annotation (Line(points={{82,-40},{160,-40}}, color={0,0,127}));
-  connect(QGen_flow, QGen_flow)
-    annotation (Line(points={{160,-40},{160,-40}}, color={0,0,127}));
   connect(masFloAir.y, mAir_flow)
     annotation (Line(points={{121,0},{160,0}}, color={0,0,127}));
   connect(etaE.TWatIn, TWatIn) annotation (Line(points={{-82,-6},{-100,-6},{-100,
@@ -108,6 +106,15 @@ the fuel flow rate.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+April 30, 2021, by Michael Wetter:<br/>
+Reformulated replaceable class to avoid access of components that are not in the constraining type.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2471\">issue #2471</a>.
+</li>
+<li>
+April 30, 2021, by Michael Wetter:<br/>
+Removed connector to itself.
+</li>
 <li>
 October 31, 2019, by Jianjun Hu:<br/>
 Refactored implementation.

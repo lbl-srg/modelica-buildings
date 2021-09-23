@@ -23,12 +23,13 @@ model PlugFlowTransportDelay "Delay time for given normalized velocity"
     if initDelay and (abs(m_flow_start) > 1E-10*m_flow_nominal)
      then min(-length/m_flow_start*(rho*dh^2/4*Modelica.Constants.pi), 0) else 0
     "Initial value of input time at outlet";
-
+  final parameter Real conUM(unit="1/kg") = 4/rho/dh/dh/Modelica.Constants.pi/length
+    "Constant to convert mass flow rate into velocity normalized by the pipe length";
   Modelica.SIunits.Time time_out_rev "Reverse flow direction output time";
   Modelica.SIunits.Time time_out_des "Design flow direction output time";
 
   Real x(start=0) "Spatial coordinate for spatialDistribution operator";
-  Modelica.SIunits.Frequency u "Normalized fluid velocity (1/s)";
+  Real u(unit="1/s") "Normalized fluid velocity (1/s)";
 
   Modelica.Blocks.Interfaces.RealInput m_flow "Mass flow of fluid" annotation (
       Placement(transformation(extent={{-140,-20},{-100,20}}),
@@ -48,8 +49,7 @@ initial equation
   t0 = time;
 
 equation
-  u = m_flow/(rho*(dh^2)/4*Modelica.Constants.pi)/length;
-
+  u = m_flow * conUM;
   der(x) = u;
   (time_out_rev, time_out_des) = spatialDistribution(
     time,
@@ -59,8 +59,8 @@ equation
     initialPoints = {0.0, 1.0},
     initialValues = {t0 + t_in_start, t0 + t_out_start});
 
-  tau = time - time_out_des;
-  tauRev = time - time_out_rev;
+  tau    = max(0, time - time_out_des);
+  tauRev = max(0, time - time_out_rev);
 
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
@@ -119,25 +119,30 @@ function. This components requires the mass flow through the pipe and the pipe
 dimensions in order to derive information about the fluid propagation.
 </p>
 <p>
-The component calculates the delay time at both in/outlet ports of the pipe
-and therefore has two outlets. During forward flow, only the forward
-<a href=\"modelica://Buildings.Fluid.FixedResistances.BaseClasses.PlugFlowTransportDelay\">
-Buildings.Fluid.FixedResistances.BaseClasses.PlugFlowTransportDelay</a> component in
-<a href=\"modelica://Buildings.Fluid.FixedResistances.BaseClasses.PlugFlowCore\">
-Buildings.Fluid.FixedResistances.BaseClasses.PlugFlowCore</a>
-will be active and uses the forward output of PlugFlowTransportDelay.
-During reverse, the opposite is true and only the reverse output is used.
+The component calculates the delay time at the inlet and the outlet port of the pipe.
+For the forward flow, the time delay is exposed at the output <code>tau</code>,
+and for the backward flow, the time delay is exposed at the output <code>tauRev</code>.
 </p>
 <h4>Assumption</h4>
-<p>It is assumed that no axial mixing takes place in the pipe. </p>
+<p>
+No axial mixing takes place in the pipe.
+</p>
 </html>", revisions="<html>
 <ul>
+<li>
+December 2, 2020, by Philipp Mehrfeld:<br/>
+Corrected calculation of <code>tau</code> and <code>tauRev</code> to be be 
+only positive.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1427\">#1427</a>.
+</li>
 <li>
 December 14, 2018, by Michael Wetter:<br/>
 Corrected argument of <code>spatialDistribution</code> operator to be a parameter
 expression.<br/>
 This is for
 <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1055\">#1055</a>.
+</li>
 <li>
 September 9, 2016 by Bram van der Heijde:<br/>
 Rename from PDETime_massFlowMod to PlugFlowTransportDelayMod

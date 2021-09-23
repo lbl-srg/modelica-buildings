@@ -81,8 +81,7 @@ block RoomVAV "Controller for room VAV box"
     "Cooling maximum flow"
     annotation (Placement(transformation(extent={{30,-50},{50,-30}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minFloCoo(
-    final k=ratVFloMin)
-    "Minimum flow in cooling mode"
+    final k=ratVFloMin) "Minimum air flow set point"
     annotation (Placement(transformation(extent={{-60,30},{-40,50}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant conOne(k=1)
     "Constant 1"
@@ -100,11 +99,10 @@ block RoomVAV "Controller for room VAV box"
     "Heating loop control error"
     annotation (Placement(transformation(extent={{-50,130},{-30,150}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minFloHea(
-    final k=ratVFloHea)
-    "Minimum flow in heating mode"
+    final k=ratVFloHea) "Minimum air flow set point in heating mode"
     annotation (Placement(transformation(extent={{-60,90},{-40,110}})));
   Buildings.Controls.OBC.CDL.Logical.Switch swi
-    "Switch minimum air flow rate between heating and cooling mode"
+    "Switch between heating and deadband air flow rate"
     annotation (Placement(transformation(extent={{-10,50},{10,70}})));
   Buildings.Controls.OBC.CDL.Utilities.Assert assMes(message=
     "The difference between cooling and heating set points must be greater than dTHys")
@@ -120,7 +118,7 @@ protected
   parameter Real yMax=1 "Upper limit of PID control output";
   parameter Real yMin=0 "Lower limit of PID control output";
   parameter Modelica.SIunits.TemperatureDifference dTHys(final min=0) = 0.5
-    "Hysteresis width for enabling cooling mode";
+    "Hysteresis width for switching minimum air flow rate";
 equation
   connect(TRooCooSet, conCoo.u_s)
     annotation (Line(points={{-120,0},{-62,0}}, color={0,0,127}));
@@ -216,7 +214,7 @@ In heating demand, <code>yDam</code> is fixed at the heating value <code>ratVFlo
 and <code>yVal</code> is modulated between 0 and 1.
 </li>
 <li>
-In cooling demand, <code>yDam</code> is modulated between the minimum value 
+In cooling demand, <code>yDam</code> is modulated between the minimum value
 <code>ratVFloMin</code> and 1, and <code>yVal</code> is 0.
 </li>
 </ul>

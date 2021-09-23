@@ -1,9 +1,5 @@
 within Buildings.Experimental.RadiantControl.Lockouts.SubLockouts;
 package Validation "Collection of validation models for individual lockouts"
-
-
-
-
  annotation (preferredView="info", Documentation(info="<html>
 
 This package contains validation models for each individual radiant slab lockout on its own. 

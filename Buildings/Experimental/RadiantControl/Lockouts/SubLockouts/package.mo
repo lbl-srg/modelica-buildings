@@ -1,9 +1,5 @@
 within Buildings.Experimental.RadiantControl.Lockouts;
 package SubLockouts "Individual lockouts as separate blocks"
-
-
-
-
  annotation (preferredView="info", Documentation(info="<html>
 
 This package contains each individual radiant slab lockout on its own. 

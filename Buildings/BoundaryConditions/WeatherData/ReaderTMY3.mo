@@ -231,6 +231,9 @@ block ReaderTMY3 "Reader for TMY3 weather data"
   final parameter Modelica.SIunits.Time timZon(displayUnit="h")=
     Buildings.BoundaryConditions.WeatherData.BaseClasses.getTimeZoneTMY3(filNam)
     "Time zone";
+  final parameter Modelica.SIunits.Length alt(displayUnit="m")=
+    Buildings.BoundaryConditions.WeatherData.BaseClasses.getAltitudeLocationTMY3(filNam)
+    "Location altitude above sea level";
 
 protected
   final parameter Modelica.SIunits.Time[2] timeSpan=
@@ -387,8 +390,8 @@ protected
     annotation (Placement(transformation(extent={{40,-240},{60,-220}})));
   SolarGeometry.BaseClasses.AltitudeAngle altAng "Solar altitude angle"
     annotation (Placement(transformation(extent={{-28,-226},{-8,-206}})));
-   SolarGeometry.BaseClasses.ZenithAngle zenAng(
-     final lat = lat) "Zenith angle"
+   SolarGeometry.BaseClasses.ZenithAngle zenAng
+                      "Zenith angle"
     annotation (Placement(transformation(extent={{-70,-226},{-50,-206}})));
    SolarGeometry.BaseClasses.Declination decAng "Declination angle"
     annotation (Placement(transformation(extent={{-120,-220},{-100,-200}})));
@@ -399,7 +402,8 @@ protected
     annotation (Placement(transformation(extent={{-150,-290},{-130,-270}})));
   Longitude longitude(final longitude=lon) "Longitude"
     annotation (Placement(transformation(extent={{-120,-282},{-100,-262}})));
-
+  Altitude altitude(final Altitude=alt) "Altitude"
+    annotation (Placement(transformation(extent={{226,94},{246,114}})));
   //---------------------------------------------------------------------------
   // Optional instanciation of a block that computes the wet bulb temperature.
   // This block may be needed for evaporative cooling towers.
@@ -513,6 +517,49 @@ First implementation.
 </ul>
 </html>"));
   end Longitude;
+
+  block Altitude "Generate constant signal of type Real"
+    extends Modelica.Blocks.Icons.Block;
+
+    parameter Modelica.SIunits.Length Altitude "Location altitude above sea level";
+
+    Modelica.Blocks.Interfaces.RealOutput y(
+      unit="m") "Location altitude above sea level"
+      annotation (Placement(transformation(extent={{100,-10},{120,10}})));
+  equation
+    y = Altitude;
+    annotation (
+    Icon(coordinateSystem(
+        preserveAspectRatio=true,
+        extent={{-100,-100},{100,100}}), graphics={
+        Text(
+          extent={{-81,32},{84,-24}},
+          lineColor={0,0,0},
+            textString="Altitude")}),
+    Documentation(info="<html>
+<p>
+Block to output the altitude of the location.
+This block is added so that the altitude is displayed
+with a comment in the GUI of the weather bus connector.
+</p>
+<h4>Implementation</h4>
+<p>
+If
+<a href=\"modelica://Modelica.Blocks.Sources.Constant\">
+Modelica.Blocks.Sources.Constant</a> where used, then
+the comment for the Altitude would be \"Connector of Real output signal\".
+As this documentation string cannot be overwritten, a new block
+was implemented.
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+May 2, 2021, by Ettore Zanetti:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));
+  end Altitude;
 
 equation
 
@@ -809,7 +856,12 @@ equation
   connect(latitude.y, weaBus.lat) annotation (Line(
       points={{-129,-280},{-124,-280},{-124,-290},{290,-290},{290,0},{300,0}},
       color={0,0,127}));
-
+  connect(altitude.y, weaBus.alt) annotation (Line(points={{247,104},{290,104},{
+          290,0},{300,0}}, color={0,0,127}), Text(
+      string="%second",
+      index=1,
+      extent={{6,3},{6,3}},
+      horizontalAlignment=TextAlignment.Left));
   connect(chePre.pAtm, weaBus.pAtm) annotation (Line(points={{181,270},{220,270},
           {220,0},{300,0}}, color={0,0,127}), Text(
       string="%second",
@@ -817,6 +869,8 @@ equation
       extent={{6,3},{6,3}},
       horizontalAlignment=TextAlignment.Left));
 
+  connect(latitude.y, zenAng.lat) annotation (Line(points={{-129,-280},{-124,
+          -280},{-124,-290},{-90,-290},{-90,-216},{-72,-216}}, color={0,0,127}));
     annotation (
     defaultComponentName="weaDat",
     Icon(coordinateSystem(
@@ -1220,6 +1274,10 @@ On a console window, type<pre>
   cd Buildings/Resources/weatherdata
   java -jar ../bin/ConvertWeatherData.jar inputFile.epw
 </pre>
+  if inputFile contains space in the name:
+<pre>
+  java -jar ../bin/ConvertWeatherData.jar \"inputFile .epw\"
+</pre>
 This will generate the weather data file <code>inputFile.mos</code>, which can be read
 by the model
 <a href=\"modelica://Buildings.BoundaryConditions.WeatherData.ReaderTMY3\">
@@ -1466,6 +1524,17 @@ For instance, the unit must be
 </ul>
 </li>
 <li>
+<p>
+Hourly and subhourly timestamp are handled in a different way in <code>.epw</code> files.
+From the EnergyPlus Auxiliary Programs Document (v9.3.0, p. 63):
+In hourly data the minute field can be <code>00</code> or <code>60</code>. In this case as mentioned in the previous section, the weather data
+is reported at the hourly value and the minute field has to be ignored, writing <code>1, 60</code> or <code>1, 00</code> is equivalent.
+If the minute field is between <code>00</code> and <code>60</code>, the file becomes subhourly, in this case the timestamp corresponds to the
+minute field in the considered hour. For example: <code>1, 30</code> is equivalent to <i>00:30</i> and <code>3, 45</code> is equivalent to <i>02:45</i>.<br/>
+(Note the offset in the hour digit.)
+</p>
+</li>
+<li>
 The ReaderTMY3 should only be used with TMY3 data. It contains a time shift for solar radiation data
 that is explained below. This time shift needs to be removed if the user may want to
 use the ReaderTMY3 for other weather data types.
@@ -1527,6 +1596,24 @@ Technical Report, NREL/TP-581-43156, revised May 2008.
 </ul>
 </html>", revisions="<html>
 <ul>
+<li>
+September 6, 2021, by Ettore Zanetti:<br/>
+Changed alt and lat to real inputs.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1477\">IBPSA, #1477</a>.
+</li>
+<li>
+May 2, 2021, by Ettore Zanetti:<br/>
+Added altitude to parameters.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1477\">IBPSA, #1477</a>.
+</li>
+<li>
+October 4, 2020, by Ettore Zanetti:<br/>
+Updated documentation for Java weather file generator.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1396\">#1396</a>.
+</li>
 <li>
 August 20, 2019, by Filip Jorissen:<br/>
 Better clarified the meaning of <code>time</code> in the documentation.<br/>

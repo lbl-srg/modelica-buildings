@@ -2,6 +2,4 @@ LimPID
 LimPIDWithReset
 NumberOfRequests
 OffTimer
-PIDHysteresis
-PIDHysteresisTimer
 SignalRanker

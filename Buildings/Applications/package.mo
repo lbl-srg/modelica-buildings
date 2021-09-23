@@ -6,7 +6,7 @@ annotation (
 preferredView="info",
 Documentation(info="<html>
 <p>
-This package contains packages for different application domains.
+This package contains subpackages for different application domains.
 Currently, it contains
 <a href=\"modelica://Buildings.Applications.DataCenters\">
 Buildings.Applications.DataCenters</a>

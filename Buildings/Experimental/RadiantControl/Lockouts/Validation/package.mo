@@ -1,6 +1,5 @@
 within Buildings.Experimental.RadiantControl.Lockouts;
 package Validation "Collection of validation models for grouped lockouts"
-
  annotation (preferredView="info", Documentation(info="<html>
 
 This package contains the validation model for the radiant slab lockout control block that combines all sublockouts

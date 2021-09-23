@@ -1,9 +1,45 @@
 within Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses;
 model UACp "Calculates UA/Cp of the coil"
-  extends Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.NominalCondition;
   extends Modelica.Blocks.Icons.Block;
 
   constant Boolean homotopyInitialization = true "= true, use homotopy method"
+    annotation(HideResult=true);
+
+  replaceable package Medium = Buildings.Media.Air constrainedby
+    Modelica.Media.Interfaces.PartialCondensingGases "Medium model"
+      annotation (choicesAllMatching=true);
+  replaceable parameter
+    Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.Data.Generic.BaseClasses.NominalValues per
+     constrainedby
+    Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.Data.Generic.BaseClasses.NominalValues
+     "Performance data" annotation (choicesAllMatching=true);
+
+  final parameter Modelica.SIunits.MassFraction XEvaIn_nominal=
+     Buildings.Utilities.Psychrometrics.Functions.X_pSatpphi(
+        pSat=Medium.saturationPressure(per.TEvaIn_nominal),
+        p=per.p_nominal,
+        phi=per.phiIn_nominal)
+    "Rated/Nominal mass fraction of air entering coil";
+  final parameter Modelica.SIunits.SpecificEnthalpy hEvaIn_nominal=
+   Medium.specificEnthalpy_pTX(
+     p=per.p_nominal,
+     T=per.TEvaIn_nominal,
+     X=cat(1,{XEvaIn_nominal}, {1-sum({XEvaIn_nominal})}))
+    "Rated enthalpy of air entering cooling coil";
+  final parameter Modelica.SIunits.SpecificEnthalpy hOut_nominal=
+    hEvaIn_nominal + per.Q_flow_nominal / per.m_flow_nominal
+    "Rated enthalpy of air exiting cooling coil";
+  final parameter Modelica.SIunits.Temperature TOut_nominal=
+    per.TEvaIn_nominal + (per.SHR_nominal * per.Q_flow_nominal)/(per.m_flow_nominal * Cp_nominal)
+    "Dry-bulb temperature of the air leaving the cooling coil at nominal condition";
+  final parameter Modelica.SIunits.MassFraction XEvaOut_nominal(start=0.005, min=0, max=1.0)=
+     XEvaIn_nominal + (hOut_nominal- hEvaIn_nominal)*(1-per.SHR_nominal)/
+     Medium.enthalpyOfCondensingGas(T=per.TEvaIn_nominal)
+    "Rated/Nominal mass fraction of air leaving the coil";
+  final parameter Modelica.SIunits.SpecificHeatCapacity Cp_nominal=
+    Medium.specificHeatCapacityCp(Medium.setState_pTX(
+          p=per.p_nominal, T=per.TEvaIn_nominal, X=cat(1,{XEvaIn_nominal}, {1-sum({XEvaIn_nominal})})))
+    "Specific heat of air at specified nominal condition"
     annotation(HideResult=true);
 
   final parameter Modelica.SIunits.MassFraction XADP_nominal(
@@ -90,14 +126,12 @@ initial equation
 This model calculates the <i>UA/c<sub>p</sub></i> value and the bypass factor
 of the coil from the nominal inlet and outlet
 air properties.
-The nominal conditions are calculated using
-<a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.NominalCondition\">
-Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.NominalCondition</a>.</p>
+</p>
 <p>
 For a heat exchanger where one medium changes phase, the <i>NTU-&epsilon;</i> relation
 is
 <p align=\"center\" style=\"font-style:italic;\">
-  &epsilon; = 1 - exp(-NTU) = 1-exp(-UA &frasl; c<sub>p</sub> &frasl; m&#775;)
+  &epsilon; = 1 - exp(-NTU) = 1-exp(-UA &frasl; c<sub>p</sub> &frasl; m&#775;).
 </p>
 <p>
 Since the bypass factor <i>b</i> is defined as <i>b=1-&epsilon;</i>,
@@ -109,11 +143,17 @@ one can write
 <p>
 and, hence,
 <p align=\"center\" style=\"font-style:italic;\">
- UA &frasl; c<sub>p</sub> = - m&#775; log(b)
+ UA &frasl; c<sub>p</sub> = - m&#775; log(b).
 </p>
 </html>",
 revisions="<html>
 <ul>
+<li>
+November 11, 2020, by Michael Wetter:<br/>
+Refactored to integrate directly a base class that was used only once in the library.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2229\">#2229</a>.
+</li>
 <li>
 April 14, 2020, by Michael Wetter:<br/>
 Changed <code>homotopyInitialization</code> to a constant.<br/>

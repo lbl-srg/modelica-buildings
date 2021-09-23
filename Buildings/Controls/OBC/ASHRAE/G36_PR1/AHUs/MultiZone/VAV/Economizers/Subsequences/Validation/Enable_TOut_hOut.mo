@@ -80,11 +80,11 @@ protected
     final k=true) "Supply fan status signal"
       annotation (Placement(transformation(extent={{-200,-42},{-180,-22}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul(
-    final startTime=10,
+    final shift=10,
     final period=2000) "Boolean pulse signal"
     annotation (Placement(transformation(extent={{-200,150},{-180,170}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul1(
-    final startTime=10,
+    final shift=10,
     final period=2000) "Boolean pulse signal"
     annotation (Placement(transformation(extent={{-80,80},{-60,100}})));
 

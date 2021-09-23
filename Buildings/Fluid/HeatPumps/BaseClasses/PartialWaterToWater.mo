@@ -315,7 +315,7 @@ H. Jin.
 <i>
 Parameter estimation based models of water source heat pumps.
 </i>
-PhD Thesis. Oklahoma State University. Stillwater, Oklahoma, USA. 2012.
+PhD Thesis. Oklahoma State University. Stillwater, Oklahoma, USA. 2002.
 </p>
 </html>", revisions="<html>
 <ul>
@@ -323,7 +323,7 @@ PhD Thesis. Oklahoma State University. Stillwater, Oklahoma, USA. 2012.
 April 14, 2020, by Michael Wetter:<br/>
 Changed <code>homotopyInitialization</code> to a constant.<br/>
 This is for
-<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1341\">Buildings, #1341</a>.
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1341\">IBPSA, #1341</a>.
 </li>
 <li>
 May 30, 2017, by Filip Jorissen:<br/>

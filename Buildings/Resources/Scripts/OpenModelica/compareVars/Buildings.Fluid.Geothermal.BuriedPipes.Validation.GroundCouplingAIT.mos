@@ -1,0 +1,11 @@
+compareVars :=
+  {
+    "senTem_p1.T",
+    "pip0.port_a.m_flow",
+    "senTem_p2.T",
+    "pip2.port_a.m_flow",
+    "senTem_p3.T",
+    "pip3.port_a.m_flow",
+    "senTem_p4.T",
+    "pip4.port_a.m_flow"
+  };

@@ -1,6 +1,5 @@
 within Buildings.Experimental.RadiantControl;
 package Validation "Validation for radiant control"
-
 annotation (Documentation(info="<html>
   <p>
   This package contains three validation models for the radiant control module. 

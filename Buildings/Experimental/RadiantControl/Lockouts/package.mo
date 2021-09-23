@@ -1,8 +1,5 @@
 within Buildings.Experimental.RadiantControl;
 package Lockouts "Blocks to lock out radiant slab"
-
-
-
  annotation (preferredView="info", Documentation(info="<html>
 
 This package contains the radiant slab lockout control blocks, which indicate when heating or cooling of the radiant slab is locked out.

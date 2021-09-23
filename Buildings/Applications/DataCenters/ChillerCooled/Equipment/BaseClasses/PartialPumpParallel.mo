@@ -37,10 +37,6 @@ partial model PartialPumpParallel "Partial model for pump parallel"
    // Valve parameters
   parameter Real l=0.0001 "Valve leakage, l=Kv(y=0)/Kv(y=1)"
     annotation(Dialog(group="Two-way valve"));
-  parameter Real kFixed=m_flow_nominal/sqrt(dpValve_nominal)
-    "Flow coefficient of fixed resistance that may be in series with valve,
-    k=m_flow/sqrt(dp), with unit=(kg.m)^(1/2)."
-    annotation(Dialog(group="Two-way valve"));
   parameter Modelica.SIunits.Time riseTimeValve = 120
     "Rise time of the filter (time to reach 99.6 % of the speed)"
     annotation(Dialog(tab="Dynamics", group="Valve",enable=use_inputFilter));
@@ -111,7 +107,6 @@ partial model PartialPumpParallel "Partial model for pump parallel"
     each final use_inputFilter=use_inputFilter,
     each final riseTime=riseTimePump,
     each final init=init,
-    final y_start= yPump_start,
     each final energyDynamics=energyDynamics,
     each final massDynamics=massDynamics,
     each final p_start=p_start,
@@ -125,7 +120,6 @@ partial model PartialPumpParallel "Partial model for pump parallel"
     redeclare each final replaceable package Medium = Medium,
     each final dpFixed_nominal=0,
     each final l=l,
-    each final kFixed=kFixed,
     each final CvData=Buildings.Fluid.Types.CvTypes.OpPoint,
     each final allowFlowReversal=allowFlowReversal,
     each final show_T=show_T,
@@ -169,9 +163,9 @@ equation
     annotation (Line(points={{11,9},{20,9},{20,40},{110,40}},
       color={0,0,127}));
   connect(booToRea.y, val.y)
-    annotation (Line(points={{41,60},{50,60},{50,12}}, color={0,0,127}));
+    annotation (Line(points={{42,60},{50,60},{50,12}}, color={0,0,127}));
   connect(hys.y, booToRea.u)
-    annotation (Line(points={{1,60},{18,60}}, color={255,0,255}));
+    annotation (Line(points={{2,60},{18,60}}, color={255,0,255}));
   connect(hys.u, u) annotation (Line(points={{-22,60},{-62,60},{-62,40},{-120,40}},
         color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
