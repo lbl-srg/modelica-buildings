@@ -1,17 +1,22 @@
 within Buildings.Experimental.RadiantControl.Validation;
 model ControlPlusLockout "Validation model for radiant control"
-   final parameter Real TSlaSetCor(min=0,
+  final parameter Real TSlaSetCor(min=0,
     final unit="K",
     final displayUnit="K",
-    final quantity="Temperature")=294.3;
-    final parameter Real TAirHiLim(min=0,
+    final quantity="Temperature")=294.3
+    "Slab setpoint temperature offset";
+
+  final parameter Real TAirHiLim(min=0,
     final unit="K",
     final displayUnit="K",
-    final quantity="Temperature")=297.6;
-    final parameter Real TempWaLoSet(min=0,
+    final quantity="Temperature")=297.6
+    "Air room temperature offset";
+
+  final parameter Real TempWaLoSet(min=0,
     final unit="K",
     final displayUnit="K",
-    final quantity="Temperature")=285.9;
+    final quantity="Temperature")=285.9
+    "Water return temperature offset";
 
   Controls.OBC.CDL.Continuous.Sources.Sine sin(
     amplitude=20,

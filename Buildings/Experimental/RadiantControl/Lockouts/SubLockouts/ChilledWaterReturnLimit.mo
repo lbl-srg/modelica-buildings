@@ -21,8 +21,9 @@ block ChilledWaterReturnLimit
   Controls.OBC.CDL.Interfaces.BooleanOutput cooSigChwRet
     "True if water temperature is above low threshhold, false if not"
     annotation (Placement(transformation(extent={{100,-10},{140,30}})));
-  Controls.OBC.CDL.Continuous.Hysteresis hys1(uLow=TWaLoSet, uHigh=TWaLoSet +
-        1)
+  Controls.OBC.CDL.Continuous.Hysteresis hys1(
+    uLow=TWaLoSet,
+    uHigh=TWaLoSet + 1)
     "Test if CHW is below low limit- output false if CHW temp is low, output true if not"
     annotation (Placement(transformation(extent={{-60,0},{-40,20}})));
   Controls.OBC.CDL.Logical.Not           not1

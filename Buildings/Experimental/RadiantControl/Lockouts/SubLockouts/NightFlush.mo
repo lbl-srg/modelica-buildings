@@ -18,10 +18,12 @@ equation
 <p>
 If night flush mode is on, heating is locked out. 
 The purpose of this lockout is to allow the slab to be pre-cooled below its setpoint without the building's heating system turning on.
- Output is expressed as a heating or cooling signal. If the heating signal is true, heating is allowed (ie, it is not locked out).
-  If the cooling signal is true, cooling is allowed (ie, it is not locked out).
-  A true signal indicates only that heating or cooling is *permitted*- it does *not* indicate the actual status
-  of the final heating or cooling signal, which depends on the slab temperature and slab setpoint (see SlabTempSignal for more info).
+ Output is expressed as a heating or cooling signal. If the heating signal is true, heating is allowed (i.e., it is not locked out).
+  If the cooling signal is true, cooling is allowed (i.e., it is not locked out).
+  A true signal indicates only that heating or cooling is permitted- it does not indicate the actual status
+  of the final heating or cooling signal, which depends on the slab temperature and slab setpoint 
+  (see package <a href=\"modelica://Buildings.Experimental.RadiantControl.SlabTemperatureSignal\">
+  Buildings.Experimental.RadiantControl.SlabTemperatureSignal</a> for more info).
 </p>
 </html>", revisions="<html>
 <ul>

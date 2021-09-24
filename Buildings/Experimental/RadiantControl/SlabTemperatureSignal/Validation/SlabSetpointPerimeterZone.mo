@@ -20,7 +20,7 @@ equation
           -22,30},{-6,30}}, color={0,0,127}));
   annotation (Documentation(info="<html>
 <p>
-This validates the slab setpoint for a perimeter zone based on forecast OAT.
+This validates the slab setpoint for a perimeter zone based on forecast outdoor air temperature <code>TOut</code>.
 </p>
 </html>", revisions="<html>
 <ul>

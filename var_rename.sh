@@ -11,9 +11,9 @@ for ff in `find . \( -name '*ControlPlusLockouts.mo' -or -name '*ControlPlusLock
      TAirLoSet TAirLowSet \
      TChwRet TSlaWaRet \
      TWaLoSet TWatLowSet \
-     TiCHW CooLocDurWatTem \
-     TiCoo CooLocAftHea \
-     TiHea HeaLocAftCoo \
+     TiCHW cooLocDurWatTem \
+     TiCoo cooLocDurAftHea \
+     TiHea heaLocDurAftCoo \
      off_within_deadband offWitDea \
      TChwRet TSlaWatRet \
           )
@@ -36,9 +36,9 @@ for ff in `find . \( -name '*AllLockouts.mo' -or -name '*AllLockouts.mos' -or -n
      TAirLoSet TAirLowSet \
      TChwRet TSlaWaRet \
      TWaLoSet TWatLowSet \
-     TiCHW CooLocDurWatTem \
-     TiCoo CooLocAftHea \
-     TiHea HeaLocAftCoo \
+     TiCHW cooLocDurWatTem \
+     TiCoo cooLocDurAftHea \
+     TiHea heaLocDurAftCoo \
      off_within_deadband offWitDea \
           )
 
@@ -63,9 +63,9 @@ done
 for ff in `find . \( -name '*ChilledWaterReturnLimit.mo' -or -name '*ChilledWaterReturnLimit.mos' -or -name '*ChilledWaterReturnLimit.txt' -or -name '*ChilledWaterReturnLimit.svg'  \)`; do
     list=(\
      TWaLoSet TWatLowSet \
-     TiCHW CooLocDurWatTem \
-     TWa TSlaWaRet \ 
-     cooSigChwRet yCoo \
+     TiCHW cooLocDurWatTem \
+     TWa TSlaRet \
+     cooSigChwRet yCooTChiWatRetLim \
           )
 
     for ((i=0; i<${#list[@]}; i+=2)); do
@@ -75,12 +75,12 @@ done
 
 for ff in `find . \( -name '*HysteresisLimit.mo' -or -name '*HysteresisLimit.mos' -or -name '*HysteresisLimit.txt' -or -name '*HysteresisLimit.svg'  \)`; do
     list=(\
-     TiCoo CooLocAftHea \
-     TiHea HeaLocAftCoo \
+     TiCoo cooLocDurAftHea \
+     TiHea heaLocDurAftCoo \
      heaSig uHea \
      cooSig uCoo \
-     htgSigHys uHeaHys \
-
+     htgSigHys yHeaNotLoc \
+     clgSigHys yCooNotLoc \
           )
 
     for ((i=0; i<${#list[@]}; i+=2)); do
@@ -117,7 +117,7 @@ done
 for ff in `find . \( -name '*ChilledWaterReturnLockout.mo' -or -name '*ChilledWaterReturnLockout.mos' -or -name '*ChilledWaterReturnLockout.txt' -or -name '*ChilledWaterReturnLockout.svg'  \)`; do
     list=(\
      TWaLoSet TWaLowSet \
-     TiCHW CooLocDurWatTem \
+     TiCHW cooLocDurWatTem \
           )
 
     for ((i=0; i<${#list[@]}; i+=2)); do
@@ -128,8 +128,8 @@ done
 
 for ff in `find . \( -name '*HysteresisLockout.mo' -or -name '*HysteresisLockout.mos' -or -name '*HysteresisLockout.txt' -or -name '*HysteresisLockout.svg'  \)`; do
     list=(\
-     TiCoo CooLocAftHea \
-     TiHea HeaLocAftCoo \
+     TiCoo cooLocDurAftHea \
+     TiHea heaLocDurAftCoo \
           )
 
     for ((i=0; i<${#list[@]}; i+=2)); do
@@ -141,7 +141,7 @@ done
 for ff in `find . \( -name '*NightFlushLockout.mo' -or -name '*NightFlushLockout.mos' -or -name '*NightFlushLockout.txt' -or -name '*NightFlushLockout.svg'  \)`; do
     list=(\
      nitFluLoc nigFluLoc \
-     TiHea HeaLocAftCoo \
+     TiHea heaLocDurAftCoo \
           )
 
     for ((i=0; i<${#list[@]}; i+=2)); do
@@ -160,9 +160,9 @@ for ff in `find . \( -name '*AllLockout.mo' -or -name '*AllLockout.mos' -or -nam
      TimHea LocDurHea \
      TimCoo LocDurCoo \
      TWaLoSet TWatLowSet \
-     TiCHW CooLocDurWatTem \
-     TiCoo CooLocAftHea \
-     TiHea HeaLocAftCoo \
+     TiCHW cooLocDurWatTem \
+     TiCoo cooLocDurAftHea \
+     TiHea heaLocDurAftCoo \
           )
 
     for ((i=0; i<${#list[@]}; i+=2)); do
@@ -173,11 +173,58 @@ done
 
 for ff in `find . \( -name '*DeadbandControl.mo' -or -name '*DeadbandControl.mos' -or -name '*DeadbandControl.txt' -or -name '*DeadbandControl.svg'  \)`; do
     list=(\
-     nitFluLoc nigFluLoc \
-     TiHea HeaLocAftCoo \
+     off_within_deadband offWitDea \
           )
 
     for ((i=0; i<${#list[@]}; i+=2)); do
         sed -e s/${list[i]}/${list[i+1]}/g -i $ff
     done
 done
+
+
+
+for ff in `find . \( -name '*ForecastHighChicago.mo' -or -name '*ForecastHighChicago.mos' -or -name '*ForecastHighChicago.txt' -or -name '*ForecastHighChicago.svg'  \)`; do
+    list=(\
+     TForHiChi TForHigChi \
+          )
+
+    for ((i=0; i<${#list[@]}; i+=2)); do
+        sed -e s/${list[i]}/${list[i+1]}/g -i $ff
+    done
+done
+
+for ff in `find . \( -name '*ControlPlusLockout.mo' -or -name '*ControlPlusLockout.mos' -or -name '*ControlPlusLockout.txt' -or -name '*ControlPlusLockout.svg'  \)`; do
+    list=(\
+     TAirHiLim TAirHigLim \
+     TempWaLoSet WatTemLowSet \
+          )
+
+    for ((i=0; i<${#list[@]}; i+=2)); do
+        sed -e s/${list[i]}/${list[i+1]}/g -i $ff
+    done
+done
+
+for ff in `find . \( -name '*ControlPlusLockoutPerimeter.mo' -or -name '*ControlPlusLockoutPerimeter.mos' -or -name '*ControlPlusLockoutPerimeter.txt' -or -name '*ControlPlusLockoutPerimeter.svg'  \)`; do
+    list=(\
+     TAirHiLim TAirHigLim \
+     TAirLoLim TAirLowLim \
+     TempWaLoSet WatTemLowSet \
+          )
+
+    for ((i=0; i<${#list[@]}; i+=2)); do
+        sed -e s/${list[i]}/${list[i+1]}/g -i $ff
+    done
+done
+
+for ff in `find . \( -name '*ControlPlusLockoutCore.mo' -or -name '*ControlPlusLockoutCore.mos' -or -name '*ControlPlusLockoutCore.txt' -or -name '*ControlPlusLockoutCore.svg'  \)`; do
+    list=(\
+     TAirHiLim TAirHigLim \
+     TAirLoLim TAirLowLim \
+     TempWaLoSet WatTemLowSet \
+          )
+
+    for ((i=0; i<${#list[@]}; i+=2)); do
+        sed -e s/${list[i]}/${list[i+1]}/g -i $ff
+    done
+done
+

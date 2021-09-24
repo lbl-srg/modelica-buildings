@@ -381,7 +381,7 @@ equation
   connect(temCooValSla.port_b, pumCol.port_a) annotation (Line(points={{-10,-102},
           {-12,-102},{-12,-68}}, color={0,127,255}));
   connect(weaDat1.weaBus, weaBus1.TDryBul) annotation (Line(
-      points={{204,350},{238,350},{238,308},{280,308}},
+      points={{204,350},{248,350},{248,308},{280,308}},
       color={255,204,51},
       thickness=0.5), Text(
       string="%second",
@@ -448,7 +448,7 @@ equation
   connect(TOut2.port, conBel2.port_a) annotation (Line(points={{230,176},{248,
           176},{248,202},{112,202},{112,262},{122,262}}, color={191,0,0}));
   connect(weaDat1.weaBus, weaBus1.lat) annotation (Line(
-      points={{204,350},{238,350},{238,352},{270,352},{270,308},{280,308}},
+      points={{204,350},{248,350},{248,308},{280,308}},
       color={255,204,51},
       thickness=0.5), Text(
       string="%second",
