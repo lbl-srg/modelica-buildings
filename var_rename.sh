@@ -1,16 +1,14 @@
 for ff in `find . \( -name '*ControlPlusLockouts.mo' -or -name '*ControlPlusLockouts.mos' -or -name '*ControlPlusLockouts.txt' -or -name '*ControlPlusLockouts.svg'  \)`; do
     list=(\
      nitFluSig uNigFlu \
-     TWaRet TSlaWaRet \
+     TWaRet TSlaWatRet \
      htgSig yHea \
      clgSig yCoo \
      htgSigL yHea \
      clgSigL yCoo \
-     TChwRet TSlaWaRet \
-     TAirHiSet TAirHigSet \
-     TAirLoSet TAirLowSet \
-     TChwRet TSlaWaRet \
-     TWaLoSet TWatLowSet \
+     TAirHiSet TZonHigSet \
+     TAirLoSet TZonLowSet \
+     TWaLoSet TWatSetLow \
      TiCHW cooLocDurWatTem \
      TiCoo cooLocDurAftHea \
      TiHea heaLocDurAftCoo \
@@ -26,16 +24,15 @@ done
 for ff in `find . \( -name '*AllLockouts.mo' -or -name '*AllLockouts.mos' -or -name '*AllLockouts.txt' -or -name '*AllLockouts.svg'  \)`; do
     list=(\
      nitFluSig uNigFlu \
-     TWaRet TSlaWaRet \
+     TWaRet TSlaWatRet \
      htgSig yHea \
      clgSig yCoo \
      htgSigL yHea \
      clgSigL yCoo \
-     TChwRet TSlaWaRet \
-     TAirHiSet TAirHigSet \
-     TAirLoSet TAirLowSet \
-     TChwRet TSlaWaRet \
-     TWaLoSet TWatLowSet \
+     TChwRet TSlaWatRet \
+     TAirHiSet TZonHigSet \
+     TAirLoSet TZonLowSet \
+     TWaLoSet TWatSetLow \
      TiCHW cooLocDurWatTem \
      TiCoo cooLocDurAftHea \
      TiHea heaLocDurAftCoo \
@@ -49,10 +46,10 @@ done
 
 for ff in `find . \( -name '*AirTemperatureLimit.mo' -or -name '*AirTemperatureLimit.mos' -or -name '*AirTemperatureLimit.txt' -or -name '*AirTemperatureLimit.svg'  \)`; do
     list=(\
-     TAirHiSet TAirHigSet \
-     TAirLoSet TAirLowSet \
-     htgSigAirTem heaSigAirTem \
-     clgSigAirTem cooSigAirTem \
+     TAirHiSet TZonHigSet \
+     TAirLoSet TZonLowSet \
+     htgSigAirTem yHeaTZon \
+     htgSigAirTem yCooTZon \
           )
 
     for ((i=0; i<${#list[@]}; i+=2)); do
@@ -62,7 +59,7 @@ done
 
 for ff in `find . \( -name '*ChilledWaterReturnLimit.mo' -or -name '*ChilledWaterReturnLimit.mos' -or -name '*ChilledWaterReturnLimit.txt' -or -name '*ChilledWaterReturnLimit.svg'  \)`; do
     list=(\
-     TWaLoSet TWatLowSet \
+     TWaLoSet TWatSetLow \
      TiCHW cooLocDurWatTem \
      TWa TSlaRet \
      cooSigChwRet yCooTChiWatRetLim \
@@ -102,8 +99,8 @@ done
 
 for ff in `find . \( -name '*AirTemperatureLockout.mo' -or -name '*AirTemperatureLockout.mos' -or -name '*AirTemperatureLockout.txt' -or -name '*AirTemperatureLockout.svg'  \)`; do
     list=(\
-     TAirHiLim TAirHigLim \
-     TAirLoLim TAirLowLim \
+     TAirHiLim TZonHigLim \
+     TAirLoLim TZonLowLim \
      THiRoo THigRoo \
      TLoRoo TLowRoo \
           )
@@ -152,14 +149,14 @@ done
 
 for ff in `find . \( -name '*AllLockout.mo' -or -name '*AllLockout.mos' -or -name '*AllLockout.txt' -or -name '*AllLockout.svg'  \)`; do
     list=(\
-     TAirHiLim TAirHigLim \
-     TAirLoLim TAirLowLim \
-     TAirHiSet TAirHigSet \
-     TAirLoSet TAirLowSet \
+     TAirHiLim TZonHigLim \
+     TAirLoLim TZonLowLim \
+     TAirHiSet TZonHigSet \
+     TAirLoSet TZonLowSet \
      TimeCHW LocDurCHW \
      TimHea LocDurHea \
      TimCoo LocDurCoo \
-     TWaLoSet TWatLowSet \
+     TWaLoSet TWatSetLow \
      TiCHW cooLocDurWatTem \
      TiCoo cooLocDurAftHea \
      TiHea heaLocDurAftCoo \
@@ -181,8 +178,6 @@ for ff in `find . \( -name '*DeadbandControl.mo' -or -name '*DeadbandControl.mos
     done
 done
 
-
-
 for ff in `find . \( -name '*ForecastHighChicago.mo' -or -name '*ForecastHighChicago.mos' -or -name '*ForecastHighChicago.txt' -or -name '*ForecastHighChicago.svg'  \)`; do
     list=(\
      TForHiChi TForHigChi \
@@ -195,7 +190,7 @@ done
 
 for ff in `find . \( -name '*ControlPlusLockout.mo' -or -name '*ControlPlusLockout.mos' -or -name '*ControlPlusLockout.txt' -or -name '*ControlPlusLockout.svg'  \)`; do
     list=(\
-     TAirHiLim TAirHigLim \
+     TAirHiLim TZonHigLim \
      TempWaLoSet WatTemLowSet \
           )
 
@@ -206,8 +201,8 @@ done
 
 for ff in `find . \( -name '*ControlPlusLockoutPerimeter.mo' -or -name '*ControlPlusLockoutPerimeter.mos' -or -name '*ControlPlusLockoutPerimeter.txt' -or -name '*ControlPlusLockoutPerimeter.svg'  \)`; do
     list=(\
-     TAirHiLim TAirHigLim \
-     TAirLoLim TAirLowLim \
+     TAirHiLim TZonHigLim \
+     TAirLoLim TZonLowLim \
      TempWaLoSet WatTemLowSet \
           )
 
@@ -218,9 +213,14 @@ done
 
 for ff in `find . \( -name '*ControlPlusLockoutCore.mo' -or -name '*ControlPlusLockoutCore.mos' -or -name '*ControlPlusLockoutCore.txt' -or -name '*ControlPlusLockoutCore.svg'  \)`; do
     list=(\
-     TAirHiLim TAirHigLim \
-     TAirLoLim TAirLowLim \
+     TAirHiLim TZonHigLim \
+     TAirLoLim TZonLowLim \
      TempWaLoSet WatTemLowSet \
+     TimCHW cooLocDurWatTem \
+     TimCoo cooLocDurAftHea \
+     TimHea heaLocDurAftCoo \
+     TemDeaRel 
+     TemDeaNor 
           )
 
     for ((i=0; i<${#list[@]}; i+=2)); do
