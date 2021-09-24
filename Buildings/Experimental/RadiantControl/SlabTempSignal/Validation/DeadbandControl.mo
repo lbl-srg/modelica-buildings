@@ -28,53 +28,53 @@ model DeadbandControl "Validation model for deadband control"
     TDeaRel=TemDeaRel,
     TDeaNor=TemDeaNor,
     k=LastOcc,
-    off_within_deadband=OffTru)
+    offWitDea=OffTru)
     annotation (Placement(transformation(extent={{-20,40},{0,60}})));
   Buildings.Experimental.RadiantControl.SlabTempSignal.DeadbandControl deaCon1(
     TDeaRel=TemDeaRel,
     TDeaNor=TemDeaNor,
     k=LastOcc,
-    off_within_deadband=OffFal)
+    offWitDea=OffFal)
     annotation (Placement(transformation(extent={{-20,0},{0,20}})));
   Buildings.Experimental.RadiantControl.SlabTempSignal.DeadbandControl deaCon2(
     TDeaRel=TemDeaRel,
     TDeaNor=TemDeaNor,
     k=LastOcc,
-    off_within_deadband=OffTru)
+    offWitDea=OffTru)
     annotation (Placement(transformation(extent={{-20,-40},{0,-20}})));
   Buildings.Experimental.RadiantControl.SlabTempSignal.DeadbandControl deaCon3(
     TDeaRel=TemDeaRel,
     TDeaNor=TemDeaNor,
     k=LastOcc,
-    off_within_deadband=OffFal)
+    offWitDea=OffFal)
     annotation (Placement(transformation(extent={{-20,-80},{0,-60}})));
   Buildings.Experimental.RadiantControl.SlabTempSignal.DeadbandControl
     deaConTes(
     TDeaRel=TemDeaRel,
     TDeaNor=TemDeaNor,
     k=LastOcc,
-    off_within_deadband=OffTru)
+    offWitDea=OffTru)
     annotation (Placement(transformation(extent={{50,60},{80,92}})));
   Buildings.Experimental.RadiantControl.SlabTempSignal.DeadbandControl
     deaConTesFal(
     TDeaRel=TemDeaRel,
     TDeaNor=TemDeaNor,
     k=LastOcc,
-    off_within_deadband=OffFal)
+    offWitDea=OffFal)
     annotation (Placement(transformation(extent={{50,8},{80,40}})));
   Buildings.Experimental.RadiantControl.SlabTempSignal.DeadbandControl
     deaConTes1(
     TDeaRel=TemDeaRel,
     TDeaNor=TemDeaNor,
     k=LastOcc,
-    off_within_deadband=OffTru)
+    offWitDea=OffTru)
     annotation (Placement(transformation(extent={{50,-40},{80,-8}})));
   Buildings.Experimental.RadiantControl.SlabTempSignal.DeadbandControl
     deaConTesFal1(
     TDeaRel=TemDeaRel,
     TDeaNor=TemDeaNor,
     k=LastOcc,
-    off_within_deadband=OffFal)
+    offWitDea=OffFal)
     annotation (Placement(transformation(extent={{50,-92},{80,-60}})));
 equation
   connect(sin.y, deaCon.slaTemErr) annotation (Line(points={{-38,30},{-24,30},{

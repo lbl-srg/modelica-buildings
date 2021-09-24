@@ -1,11 +1,11 @@
 within Buildings.Experimental.RadiantControl.Lockouts.SubLockouts;
 block HysteresisLimit
   "Locks out heating if cooling occurred in the past hour; locks out cooling if heating occurred in the past hour"
-   parameter Real TiHea(min=0,
+   parameter Real heaLocDurAftCoo(min=0,
     final unit="s",
     final displayUnit="s",
     final quantity="Time") = 3600 "Time for which heating is locked out after cooling concludes";
-   parameter Real TiCoo(min=0,
+   parameter Real cooLocDurAftHea(min=0,
     final unit="s",
     final displayUnit="s",
     final quantity="Time") = 3600 "Time for which cooling is locked out after heating concludes";
@@ -17,21 +17,21 @@ block HysteresisLimit
   Controls.OBC.CDL.Logical.Pre           pre(pre_u_start=false)
                                              "Breaks Boolean loop"
     annotation (Placement(transformation(extent={{-260,80},{-240,100}})));
-  Controls.OBC.CDL.Interfaces.BooleanInput heaSig
+  Controls.OBC.CDL.Interfaces.BooleanInput uHea
     "Heating signal- true if heating is on; false if not"
                                                   annotation (Placement(
         transformation(extent={{-380,40},{-340,80}}), iconTransformation(extent=
            {{-142,22},{-102,62}})));
-  Controls.OBC.CDL.Interfaces.BooleanOutput clgSigHys
+  Controls.OBC.CDL.Interfaces.BooleanOutput yCooNotLoc
     "True if cooling allowed; false if cooling locked out" annotation (
       Placement(transformation(extent={{100,-112},{140,-72}}),
         iconTransformation(extent={{100,-100},{140,-60}})));
-  Controls.OBC.CDL.Interfaces.BooleanInput cooSig
+  Controls.OBC.CDL.Interfaces.BooleanInput uCoo
     "Cooling signal- true if cooling is on; false if not"
                                                   annotation (Placement(
         transformation(extent={{-380,-140},{-340,-100}}), iconTransformation(
           extent={{-140,-100},{-100,-60}})));
-  Controls.OBC.CDL.Interfaces.BooleanOutput htgSigHys
+  Controls.OBC.CDL.Interfaces.BooleanOutput yHeaNotLoc
     "True if heating allowed; false if heating locked out" annotation (
       Placement(transformation(extent={{100,-26},{140,14}}), iconTransformation(
           extent={{100,0},{140,40}})));
@@ -45,26 +45,26 @@ block HysteresisLimit
     "Once simulation has been running for user-specified time duration, enables hysteresis prevention"
     annotation (Placement(transformation(extent={{-100,-120},{-80,-100}})));
   Controls.OBC.CDL.Continuous.Hysteresis hys(
-    uLow=TiCoo - 0.1,
-    uHigh=TiCoo,
+    uLow=cooLocDurAftHea - 0.1,
+    uHigh=cooLocDurAftHea,
     pre_y_start=true)
     "Checks if heating has been off for user-specified duration"
     annotation (Placement(transformation(extent={{-178,80},{-158,100}})));
   Controls.OBC.CDL.Continuous.Hysteresis hys1(
-    uLow=TiCoo - 0.1,
-    uHigh=TiCoo,
+    uLow=cooLocDurAftHea - 0.1,
+    uHigh=cooLocDurAftHea,
     pre_y_start=false)
     "Checks if simulation has been running for at least lockout duration: if not, no hysteresis lockouts"
     annotation (Placement(transformation(extent={{-260,20},{-240,40}})));
   Controls.OBC.CDL.Continuous.Hysteresis hys2(
-    uLow=TiHea - 0.1,
-    uHigh=TiHea,
+    uLow=heaLocDurAftCoo - 0.1,
+    uHigh=heaLocDurAftCoo,
     pre_y_start=false)
     "Checks if simulation has been running for at least lockout duration: if not, no hysteresis lockouts"
     annotation (Placement(transformation(extent={{-260,-60},{-240,-40}})));
   Controls.OBC.CDL.Continuous.Hysteresis hys3(
-    uLow=TiHea - 0.1,
-    uHigh=TiHea,
+    uLow=heaLocDurAftCoo - 0.1,
+    uHigh=heaLocDurAftCoo,
     pre_y_start=true)
     "Checks if cooling has been off for user-specified duration"
     annotation (Placement(transformation(extent={{-180,-120},{-160,-100}})));
@@ -88,12 +88,12 @@ block HysteresisLimit
     "Records time since heating turned off"
     annotation (Placement(transformation(extent={{-218,80},{-198,100}})));
 equation
-  connect(heaSig, pre.u) annotation (Line(points={{-360,60},{-280,60},{-280,90},
+  connect(uHea, pre.u) annotation (Line(points={{-360,60},{-280,60},{-280,90},
           {-262,90}}, color={255,0,255}));
   connect(pre1.y, offTimCol.u)
     annotation (Line(points={{-238,-110},{-222,-110}},
                                                      color={255,0,255}));
-  connect(cooSig, pre1.u) annotation (Line(points={{-360,-120},{-290,-120},{
+  connect(uCoo, pre1.u) annotation (Line(points={{-360,-120},{-290,-120},{
           -290,-110},{-262,-110}},
                             color={255,0,255}));
   connect(modTim.y, hys1.u) annotation (Line(points={{-299,-30},{-280,-30},{
@@ -115,21 +115,21 @@ equation
           -170,22},{-102,22}}, color={255,0,255}));
   connect(con1.y, logSwiCol.u3) annotation (Line(points={{-238,-160},{-122,-160},
           {-122,-118},{-102,-118}}, color={255,0,255}));
-  connect(cooSig, not3.u) annotation (Line(points={{-360,-120},{-294,-120},{
+  connect(uCoo, not3.u) annotation (Line(points={{-360,-120},{-294,-120},{
           -294,-176},{-112,-176},{-112,-150},{-82,-150}}, color={255,0,255}));
   connect(logSwiCol.y, and3.u1) annotation (Line(points={{-78,-110},{-62,-110},
           {-62,-130},{-42,-130}}, color={255,0,255}));
   connect(not3.y, and3.u2) annotation (Line(points={{-58,-150},{-52,-150},{-52,
           -138},{-42,-138}}, color={255,0,255}));
-  connect(and3.y, htgSigHys) annotation (Line(points={{-18,-130},{60,-130},{60,
+  connect(and3.y, yHeaNotLoc) annotation (Line(points={{-18,-130},{60,-130},{60,
           -6},{120,-6}}, color={255,0,255}));
-  connect(heaSig, not2.u) annotation (Line(points={{-360,60},{-280,60},{-280,
+  connect(uHea, not2.u) annotation (Line(points={{-360,60},{-280,60},{-280,
           114},{-114,114},{-114,90},{-82,90}}, color={255,0,255}));
   connect(not2.y, and2.u1) annotation (Line(points={{-58,90},{-46,90},{-46,30},
           {-42,30}}, color={255,0,255}));
   connect(logSwiHot.y, and2.u2) annotation (Line(points={{-78,30},{-62,30},{-62,
           22},{-42,22}}, color={255,0,255}));
-  connect(and2.y, clgSigHys) annotation (Line(points={{-18,30},{20,30},{20,-92},
+  connect(and2.y, yCooNotLoc) annotation (Line(points={{-18,30},{20,30},{20,-92},
           {120,-92}}, color={255,0,255}));
   connect(offTimHot.y, hys.u)
     annotation (Line(points={{-197,90},{-180,90}}, color={0,0,127}));

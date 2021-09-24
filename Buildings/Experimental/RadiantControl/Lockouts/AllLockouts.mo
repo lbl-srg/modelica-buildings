@@ -1,29 +1,29 @@
 within Buildings.Experimental.RadiantControl.Lockouts;
 block AllLockouts "Composite block of all lockouts: room air temperature, chilled water return, hysteresis, and night flush"
-    parameter Real TAirHiSet(min=0,
+    parameter Real TZonHigSet(min=0,
     final unit="K",
     final displayUnit="degC",
     final quantity="Temperature")=297.6
     "Air temperature high limit above which heating is locked out";
-    parameter Real TAirLoSet(min=0,
+    parameter Real TZonLowSet(min=0,
     final unit="K",
     final displayUnit="degC",
     final quantity="Temperature")=293.15
     "Air temperature low limit below which heating is locked out";
-   parameter Real TWaLoSet(min=0,
+   parameter Real TWatSetLow(min=0,
     final unit="K",
     final displayUnit="degC",
     final quantity="Temperature")=285.9
     "Lower limit for chilled water return temperature, below which cooling is locked out";
-   parameter  Real TiCHW(min=0,
+   parameter  Real cooLocDurWatTem(min=0,
     final unit="s",
     final displayUnit="s",
     final quantity="Time")=1800 "Time for which cooling is locked if CHW return is too cold";
-    parameter Real TiHea(min=0,
+    parameter Real heaLocDurAftCoo(min=0,
     final unit="s",
     final displayUnit="s",
     final quantity="Time") = 3600 "Time for which heating is locked out after cooling concludes";
-    parameter Real TiCoo(min=0,
+    parameter Real cooLocDurAftHea(min=0,
     final unit="s",
     final displayUnit="s",
     final quantity="Time") = 3600 "Time for which cooling is locked out after heating concludes";
@@ -33,63 +33,63 @@ block AllLockouts "Composite block of all lockouts: room air temperature, chille
   Controls.OBC.CDL.Logical.And3 andCoo
     "Combines signals from cooling lockouts to produce true signal if cooling is allowed"
     annotation (Placement(transformation(extent={{60,-60},{80,-40}})));
-  Controls.OBC.CDL.Interfaces.RealInput TChwRet
+  Controls.OBC.CDL.Interfaces.RealInput TSlaWatRet
     "Chilled water return temperature"
     annotation (Placement(transformation(extent={{-140,-90},{-100,-50}})));
-  Controls.OBC.CDL.Interfaces.BooleanInput htgSig
+  Controls.OBC.CDL.Interfaces.BooleanInput yHea
     "Heating signal- true if heating is called for, false if not"
     annotation (Placement(transformation(extent={{-140,30},{-100,70}})));
-  Controls.OBC.CDL.Interfaces.BooleanInput clgSig
+  Controls.OBC.CDL.Interfaces.BooleanInput yCoo
     "Cooling signal- true if cooling is called for, false if not"
     annotation (Placement(transformation(extent={{-140,-10},{-100,30}})));
   Controls.OBC.CDL.Interfaces.RealInput TRooAir "Room air temperature"
     annotation (Placement(transformation(extent={{-140,-50},{-100,-10}})));
-  Controls.OBC.CDL.Interfaces.BooleanInput nitFluSig
+  Controls.OBC.CDL.Interfaces.BooleanInput uNigFlu
     "Night flush signal- true if night flush is on"
     annotation (Placement(transformation(extent={{-140,70},{-100,110}})));
-  Controls.OBC.CDL.Interfaces.BooleanOutput htgSigL
+  Controls.OBC.CDL.Interfaces.BooleanOutput yHeaL
     "True if heating allowed, false if locked out"
     annotation (Placement(transformation(extent={{100,10},{140,50}})));
-  Controls.OBC.CDL.Interfaces.BooleanOutput clgSigL
+  Controls.OBC.CDL.Interfaces.BooleanOutput yCooL
     "True if cooling allowed, false if cooling locked out"
     annotation (Placement(transformation(extent={{100,-70},{140,-30}})));
-  SubLockouts.HysteresisLimit hysLim(TiHea=TiHea, TiCoo=TiCoo)
+  SubLockouts.HysteresisLimit hysLim(heaLocDurAftCoo=heaLocDurAftCoo, cooLocDurAftHea=cooLocDurAftHea)
     "Locks out heating (heating signal false) if cooling has just been on; locks out cooling (cooling signal false) if heating has just been on"
     annotation (Placement(transformation(extent={{-40,-20},{-20,0}})));
-  SubLockouts.AirTemperatureLimit airTemLim(TAirHiSet=TAirHiSet, TAirLoSet=
-        TAirLoSet)
+  SubLockouts.AirTemperatureLimit airTemLim(TZonHigSet=TZonHigSet, TZonLowSet=
+        TZonLowSet)
     "Locks out heating (heating signal is false) if air is too hot; locks out cooling (cooling signal is false) if slab is too cold"
     annotation (Placement(transformation(extent={{-40,20},{-20,40}})));
   SubLockouts.NightFlush nitFluLoc
     "Locks out heating (heating signal is false) if night flush mode is on"
     annotation (Placement(transformation(extent={{-40,60},{-20,80}})));
-  SubLockouts.ChilledWaterReturnLimit chwRetLim(TWaLoSet=TWaLoSet, TiCHW=TiCHW)
+  SubLockouts.ChilledWaterReturnLimit chwRetLim(TWatSetLow=TWatSetLow, cooLocDurWatTem=cooLocDurWatTem)
     "Locks out cooling (cooling signal false) if chilled water return temperature is too low"
     annotation (Placement(transformation(extent={{-40,-80},{-20,-60}})));
 equation
-  connect(andHea.y, htgSigL)
+  connect(andHea.y, yHeaL)
     annotation (Line(points={{82,30},{120,30}}, color={255,0,255}));
-  connect(andCoo.y, clgSigL)
+  connect(andCoo.y, yCooL)
     annotation (Line(points={{82,-50},{120,-50}}, color={255,0,255}));
-  connect(htgSig, hysLim.heaSig) annotation (Line(points={{-120,50},{-80,50},{-80,
+  connect(yHea, hysLim.heaSig) annotation (Line(points={{-120,50},{-80,50},{-80,
           -5.8},{-42.2,-5.8}}, color={255,0,255}));
-  connect(clgSig, hysLim.cooSig) annotation (Line(points={{-120,10},{-84,10},{-84,
+  connect(yCoo, hysLim.cooSig) annotation (Line(points={{-120,10},{-84,10},{-84,
           -18},{-42,-18}}, color={255,0,255}));
-  connect(hysLim.htgSigHys, andHea.u3) annotation (Line(points={{-18,-8},{20,-8},
+  connect(hysLim.yHeaHys, andHea.u3) annotation (Line(points={{-18,-8},{20,-8},
           {20,22},{58,22}}, color={255,0,255}));
-  connect(hysLim.clgSigHys, andCoo.u2) annotation (Line(points={{-18,-18},{20,-18},
+  connect(hysLim.yCooHys, andCoo.u2) annotation (Line(points={{-18,-18},{20,-18},
           {20,-50},{58,-50}}, color={255,0,255}));
   connect(TRooAir, airTemLim.TRoo) annotation (Line(points={{-120,-30},{-73,-30},
           {-73,37.2},{-42,37.2}}, color={0,0,127}));
-  connect(airTemLim.htgSigAirTem, andHea.u2) annotation (Line(points={{-18,33},
+  connect(airTemLim.yHeaAirTem, andHea.u2) annotation (Line(points={{-18,33},
           {20,33},{20,30},{58,30}}, color={255,0,255}));
-  connect(airTemLim.clgSigAirTem, andCoo.u1) annotation (Line(points={{-18,25},
+  connect(airTemLim.yCooAirTem, andCoo.u1) annotation (Line(points={{-18,25},
           {30,25},{30,-42},{58,-42}}, color={255,0,255}));
-  connect(nitFluSig, nitFluLoc.nitFluSig) annotation (Line(points={{-120,90},{-82,
+  connect(uNigFlu, nitFluLoc.uNigFlu) annotation (Line(points={{-120,90},{-82,
           90},{-82,70},{-42.2,70}}, color={255,0,255}));
-  connect(nitFluLoc.htgSigNitFlu, andHea.u1) annotation (Line(points={{-18,70},
+  connect(nitFluLoc.yHeaNitFlu, andHea.u1) annotation (Line(points={{-18,70},
           {20,70},{20,38},{58,38}}, color={255,0,255}));
-  connect(TChwRet, chwRetLim.TWa) annotation (Line(points={{-120,-70},{-80,-70},
+  connect(TSlaWatRet, chwRetLim.TWa) annotation (Line(points={{-120,-70},{-80,-70},
           {-80,-68},{-42,-68}}, color={0,0,127}));
   connect(chwRetLim.cooSigChwRet, andCoo.u3) annotation (Line(points={{-18,-69},
           {20,-69},{20,-58},{58,-58}}, color={255,0,255}));

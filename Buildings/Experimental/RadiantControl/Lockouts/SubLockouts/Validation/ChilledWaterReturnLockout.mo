@@ -1,12 +1,12 @@
 within Buildings.Experimental.RadiantControl.Lockouts.SubLockouts.Validation;
 model ChilledWaterReturnLockout
   "Chilled water return lockout validation model"
-  final parameter Real TWaLoSet(min=0,
+  final parameter Real TWatSetLow(min=0,
     final unit="K",
     final displayUnit="K",
     final quantity="Temperature")=285.9
     "Lower limit for chilled water return temperature, below which cooling is locked out";
-   final parameter Real TiCHW(min=0,
+   final parameter Real cooLocDurWatTem(min=0,
     final unit="s",
     final displayUnit="s",
     final quantity="Time")=3600 "Time for which cooling is locked out if CHW return is too cold";
@@ -14,12 +14,12 @@ model ChilledWaterReturnLockout
     amplitude=20,
     freqHz=0.0001,
     phase(displayUnit="rad"),
-    offset=TWaLoSet) "Varying chilled water return temperature"
+    offset=TWatSetLow) "Varying chilled water return temperature"
     annotation (Placement(transformation(extent={{-80,40},{-60,60}})));
-  ChilledWaterReturnLimit chwRetLim(TWaLoSet=TWaLoSet, TiCHW=TiCHW)
+  ChilledWaterReturnLimit chwRetLim(TWatSetLow=TWatSetLow, cooLocDurWatTem=cooLocDurWatTem)
     annotation (Placement(transformation(extent={{-20,40},{0,60}})));
 equation
-  connect(sin.y,chwRetLim. TWa) annotation (Line(points={{-58,50},{-40,50},{-40,
+  connect(sin.y,chwRetLim. TSlaRet) annotation (Line(points={{-58,50},{-40,50},{-40,
           52},{-22,52}}, color={0,0,127}));
   annotation (Documentation(info="<html>
 <p>

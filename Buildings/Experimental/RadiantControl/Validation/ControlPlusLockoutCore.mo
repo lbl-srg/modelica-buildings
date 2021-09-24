@@ -9,12 +9,12 @@ model ControlPlusLockoutCore
   replaceable package MediumW =
       Buildings.Media.Water "Medium model";
  //-------------------------Radiant Control Parameters-------------------------//
- final parameter Real TAirHiLim(min=0,
+ final parameter Real TZonHigLim(min=0,
     final unit="K",
     final displayUnit="K",
     final quantity="Temperature")=297.6
     "Air temperature high limit above which heating is locked out";
-   final parameter Real TAirLoLim(min=0,
+   final parameter Real TZonLowLim(min=0,
     final unit="K",
     final displayUnit="K",
     final quantity="Temperature")=293.15
@@ -24,19 +24,19 @@ model ControlPlusLockoutCore
     final displayUnit="K",
     final quantity="Temperature")=285.9
     "Lower limit for chilled water return temperature, below which cooling is locked out";
-   final parameter Real TimCHW(min=0,
+   final parameter Real cooLocDurWatTem(min=0,
     final unit="s",
     final displayUnit="s",
     final quantity="Time")=1800 "Time for which cooling is locked out if CHW return is too cold";
-   final parameter Real TimHea(min=0,
+   final parameter Real heaLocDurAftCoo(min=0,
     final unit="s",
     final displayUnit="s",
     final quantity="Time") = 3600 "Time for which heating is locked out after cooling concludes";
-  final parameter Real TimCoo(min=0,
+  final parameter Real cooLocDurAftHea(min=0,
     final unit="s",
     final displayUnit="s",
     final quantity="Time") = 3600 "Time for which cooling is locked out after heating concludes";
-   final parameter Real TemDeaRel(min=0,
+   final parameter Real TemDeaNor(min=0,
     final unit="K",
     final displayUnit="K",
     final quantity="TemperatureDifference")=2.22 "Difference from slab temp setpoint required to trigger heating or cooling during occupied hours";
@@ -252,13 +252,13 @@ Fluid.Movers.FlowControlled_m_flow           pumHot(
         rotation=90,
         origin={156,4})));
   Experimental.RadiantControl.ControlPlusLockouts conPluLoc(
-    TAirHiSet=TAirHiLim,
-    TAirLoSet=TAirLoLim,
+    TAirHiSet=TZonHigLim,
+    TAirLoSet=TZonLowLim,
     TWaLoSet=TemWaLoSet,
-    TiCHW=TimCHW,
-    TiHea=TimHea,
-    TiCoo=TimCoo,
-    TDeaRel=TemDeaRel,
+    TiCHW=cooLocDurWatTem,
+    TiHea=heaLocDurAftCoo,
+    TiCoo=cooLocDurAftHea,
+    TDeaRel=TemDeaNor,
     TDeaNor=TemDeaNor,
     k=LasOcc,
     off_within_deadband=OffTru) "Control plus lockouts"

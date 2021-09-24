@@ -1,18 +1,18 @@
 within Buildings.Experimental.RadiantControl.Lockouts.SubLockouts;
 block NightFlush "Locks out heating if building is in night flush mode"
-  Controls.OBC.CDL.Interfaces.BooleanInput nitFluSig
+  Controls.OBC.CDL.Interfaces.BooleanInput uNigFlu
     "True if night flush mode is on; false otherwise"
     annotation (Placement(transformation(extent={{-142,-20},{-102,20}})));
-  Controls.OBC.CDL.Interfaces.BooleanOutput htgSigNitFlu
+  Controls.OBC.CDL.Interfaces.BooleanOutput yNigFluHea
     "True if heating is allowed, false if heating is locked out"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
   Controls.OBC.CDL.Logical.Not           not1
     "If night flush mode is on, heating should not be on"
     annotation (Placement(transformation(extent={{-8,-10},{12,10}})));
 equation
-  connect(not1.y, htgSigNitFlu)
+  connect(not1.y, yNigFluHea)
     annotation (Line(points={{14,0},{120,0}}, color={255,0,255}));
-  connect(nitFluSig, not1.u)
+  connect(uNigFlu, not1.u)
     annotation (Line(points={{-122,0},{-10,0}}, color={255,0,255}));
   annotation (defaultComponentName = "nitFluLoc",Documentation(info="<html>
 <p>

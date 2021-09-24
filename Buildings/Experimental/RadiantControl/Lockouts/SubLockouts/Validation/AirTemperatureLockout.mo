@@ -6,44 +6,44 @@ model AirTemperatureLockout
     amplitude=20,
     freqHz=1/7200,
     phase(displayUnit="rad"),
-    offset=TAirHiLim) "Varying air temperature"
+    offset=TZonHigLim) "Varying air temperature"
     annotation (Placement(transformation(extent={{-82,-80},{-62,-60}})));
-  final parameter Real TAirHiLim(min=0,
+  final parameter Real TZonHigLim(min=0,
     final unit="K",
     final displayUnit="K",
     final quantity="Temperature")=297.6
     "Air temperature high limit above which heating is locked out";
-   final parameter Real TAirLoLim(min=0,
+   final parameter Real TZonLowLim(min=0,
     final unit="K",
     final displayUnit="K",
     final quantity="Temperature")=293.15
     "Air temperature low limit below which heating is locked out";
 
-  Controls.OBC.CDL.Continuous.Sources.Constant THiRoo(k=TAirHiLim + 2)
+  Controls.OBC.CDL.Continuous.Sources.Constant THigRoo(k=TZonHigLim + 2)
     "Temperature above high limit"
     annotation (Placement(transformation(extent={{-80,40},{-60,60}})));
-  Controls.OBC.CDL.Continuous.Sources.Constant TLoRoo(k=TAirLoLim - 2)
+  Controls.OBC.CDL.Continuous.Sources.Constant TLowRoo(k=TZonLowLim - 2)
     "Temperature below high limit"
     annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
-  Controls.OBC.CDL.Continuous.Sources.Constant TMedRoo(k=TAirLoLim + 2)
+  Controls.OBC.CDL.Continuous.Sources.Constant TMedRoo(k=TZonLowLim + 2)
     "Temperature between limits"
     annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
-  AirTemperatureLimit airTemLim(TAirHiSet=TAirHiLim, TAirLoSet=TAirLoLim)
+  AirTemperatureLimit airTemLim(TZonHigSet=TZonHigLim, TZonLowSet=TZonLowLim)
     annotation (Placement(transformation(extent={{-20,40},{0,60}})));
-  AirTemperatureLimit airTemLim1(TAirHiSet=TAirHiLim, TAirLoSet=TAirLoLim)
+  AirTemperatureLimit airTemLim1(TZonHigSet=TZonHigLim, TZonLowSet=TZonLowLim)
     annotation (Placement(transformation(extent={{-20,0},{0,20}})));
-  AirTemperatureLimit airTemLim2(TAirHiSet=TAirHiLim, TAirLoSet=TAirLoLim)
+  AirTemperatureLimit airTemLim2(TZonHigSet=TZonHigLim, TZonLowSet=TZonLowLim)
     annotation (Placement(transformation(extent={{-20,-40},{0,-20}})));
-  AirTemperatureLimit airTemLim3(TAirHiSet=TAirHiLim, TAirLoSet=TAirLoLim)
+  AirTemperatureLimit airTemLim3(TZonHigSet=TZonHigLim, TZonLowSet=TZonLowLim)
     annotation (Placement(transformation(extent={{-20,-80},{0,-60}})));
 equation
   connect(sin.y, airTemLim3.TRoo) annotation (Line(points={{-60,-70},{-40,-70},
           {-40,-62.8},{-22,-62.8}}, color={0,0,127}));
-  connect(TLoRoo.y, airTemLim2.TRoo) annotation (Line(points={{-58,-30},{-40,-30},
+  connect(TLowRoo.y, airTemLim2.TRoo) annotation (Line(points={{-58,-30},{-40,-30},
           {-40,-22.8},{-22,-22.8}}, color={0,0,127}));
   connect(TMedRoo.y, airTemLim1.TRoo) annotation (Line(points={{-58,10},{-40,10},
           {-40,17.2},{-22,17.2}}, color={0,0,127}));
-  connect(THiRoo.y, airTemLim.TRoo) annotation (Line(points={{-58,50},{-40,50},
+  connect(THigRoo.y, airTemLim.TRoo) annotation (Line(points={{-58,50},{-40,50},
           {-40,57.2},{-22,57.2}}, color={0,0,127}));
   annotation (Documentation(info="<html>
   <p>

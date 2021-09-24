@@ -11,7 +11,7 @@ parameter Real TDeaNor(min=0,
     final quantity="TemperatureDifference")=0.28
                                            "Difference from slab temp setpoint required to trigger heating or cooling during unoccpied hours";
   parameter Real k(min=0,max=24)=18 "Last occupied hour";
-  parameter Boolean off_within_deadband=true "If flow should turn off when slab setpoint is within deadband, set to true. Otherwise, set to false";
+  parameter Boolean offWitDea=true "If flow should turn off when slab setpoint is within deadband, set to true. Otherwise, set to false";
 
   Controls.OBC.CDL.Continuous.Hysteresis hysRel(uLow=-TDeaRel, uHigh=TDeaRel)
     "Call for heating or cooling in times of relaxed deadband, i.e. during unoccupied hours. True indicates warm slab (call for cooling). False indicates cold slab (call for heating)"
@@ -44,8 +44,8 @@ parameter Real TDeaNor(min=0,
   Controls.OBC.CDL.Logical.Sources.Pulse booPul1(width=w, period=86400)
     "True if occupied (and setpoint should be met within a smaller tolerance), false if unoccupied (and setpoint should be met within a larger tolerance)"
     annotation (Placement(transformation(extent={{-120,-100},{-100,-80}})));
-  Controls.OBC.CDL.Logical.Sources.Constant con(k=off_within_deadband)
-    "If user has specified that heating & cooling should both be off if slab is within deadband, off_within_deadband is true. Otherwise, it is false"
+  Controls.OBC.CDL.Logical.Sources.Constant con(k=offWitDea)
+    "If user has specified that heating & cooling should both be off if slab is within deadband, offWitDea is true. Otherwise, it is false"
     annotation (Placement(transformation(extent={{40,80},{60,100}})));
   Controls.OBC.CDL.Logical.Sources.Constant con1(k=true)
     "Constant true value- allows heating or cooling call if \"off within deadband\" is false"
@@ -124,7 +124,7 @@ If this value is exceeded and slab temperature is above setpoint, cooling is tur
 <p>
 The user also specifies the final occupied hour (k). <p>
 
-<p>Finally, the user specifies whether or not heating and cooling should both be off when the slab error is within deadband (off_within_deadband).
+<p>Finally, the user specifies whether or not heating and cooling should both be off when the slab error is within deadband (offWitDea).
 If this variable is true, neither heating nor cooling is requested when the slab error is smaller than the user-specified difference from slab setpoint
 (TDeaNor if the room is occupied, or TDeaRel if the room is unoccupied).  
 If this variable is false, either heating or cooling will be on at all times. 

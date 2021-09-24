@@ -60,9 +60,11 @@ done
 for ff in `find . \( -name '*ChilledWaterReturnLimit.mo' -or -name '*ChilledWaterReturnLimit.mos' -or -name '*ChilledWaterReturnLimit.txt' -or -name '*ChilledWaterReturnLimit.svg'  \)`; do
     list=(\
      TWaLoSet TWatSetLow \
+     TWaLowSet TWatSetLow \
      TiCHW cooLocDurWatTem \
      TWa TSlaRet \
      cooSigChwRet yCooTChiWatRetLim \
+     TSlaRettSetLow TWatSetLow \
           )
 
     for ((i=0; i<${#list[@]}; i+=2)); do
@@ -113,8 +115,12 @@ done
 
 for ff in `find . \( -name '*ChilledWaterReturnLockout.mo' -or -name '*ChilledWaterReturnLockout.mos' -or -name '*ChilledWaterReturnLockout.txt' -or -name '*ChilledWaterReturnLockout.svg'  \)`; do
     list=(\
-     TWaLoSet TWaLowSet \
+     TWaLoSet TWatSetLow \
+     TWaLowSet TWatSetLow \
      TiCHW cooLocDurWatTem \
+     cooSigChwRet yCooTChiWatRetLim \
+     TWa TSlaRet \
+     TSlaRettSetLow TWatSetLow \
           )
 
     for ((i=0; i<${#list[@]}; i+=2)); do
@@ -127,6 +133,10 @@ for ff in `find . \( -name '*HysteresisLockout.mo' -or -name '*HysteresisLockout
     list=(\
      TiCoo cooLocDurAftHea \
      TiHea heaLocDurAftCoo \
+     heaSig uHea \
+     cooSig uCoo \
+     htgSigHys yHeaNotLoc \
+     clgSigHys yCooNotLoc \
           )
 
     for ((i=0; i<${#list[@]}; i+=2)); do
@@ -139,6 +149,8 @@ for ff in `find . \( -name '*NightFlushLockout.mo' -or -name '*NightFlushLockout
     list=(\
      nitFluLoc nigFluLoc \
      TiHea heaLocDurAftCoo \
+     nigFluLoc.nitFluSig nigFluLoc.uNigFlu \
+     nigFluLoc.htgSigNitFlu nigFluLoc.yNigFluHea
           )
 
     for ((i=0; i<${#list[@]}; i+=2)); do

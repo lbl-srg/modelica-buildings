@@ -1,5 +1,5 @@
 compareVars :=
   {
-    "nitFluLoc.nitFluSig",
-    "nitFluLoc.htgSigNitFlu"
+    "nigFluLoc.uNigFlu",
+    "nigFluLoc.yNigFluHea"
   };

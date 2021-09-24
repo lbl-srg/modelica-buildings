@@ -1,10 +1,10 @@
 within Buildings.Experimental.RadiantControl.Lockouts.SubLockouts.Validation;
 model HysteresisLockout "Validation model for hysteresis lockout"
-  final parameter Real TiHea(min=0,
+  final parameter Real heaLocDurAftCoo(min=0,
     final unit="s",
     final displayUnit="s",
     final quantity="Time") = 3600 "Time for which heating is locked out after cooling concludes";
-  final parameter Real TiCoo(min=0,
+  final parameter Real cooLocDurAftHea(min=0,
     final unit="s",
     final displayUnit="s",
     final quantity="Time") = 3600 "Time for which cooling is locked out after heating concludes";
@@ -57,29 +57,29 @@ model HysteresisLockout "Validation model for hysteresis lockout"
     "Constant cooling signal"
     annotation (Placement(transformation(extent={{60,-80},{80,-60}})));
 equation
-  connect(booPul2.y, hysLim5.heaSig) annotation (Line(points={{222,-30},{242,
+  connect(booPul2.y, hysLim5.uHea) annotation (Line(points={{222,-30},{242,
           -30},{242,-45.8},{259.8,-45.8}}, color={255,0,255}));
-  connect(booPul3.y, hysLim5.cooSig) annotation (Line(points={{222,-70},{242,
+  connect(booPul3.y, hysLim5.uCoo) annotation (Line(points={{222,-70},{242,
           -70},{242,-58},{260,-58}}, color={255,0,255}));
-  connect(booPul1.y, hysLim4.cooSig) annotation (Line(points={{222,10},{240,10},
+  connect(booPul1.y, hysLim4.uCoo) annotation (Line(points={{222,10},{240,10},
           {240,22},{258,22}}, color={255,0,255}));
-  connect(booPul.y, hysLim4.heaSig) annotation (Line(points={{222,50},{240,50},
+  connect(booPul.y, hysLim4.uHea) annotation (Line(points={{222,50},{240,50},
           {240,34.2},{257.8,34.2}}, color={255,0,255}));
-  connect(con1.y, hysLim.heaSig) annotation (Line(points={{-58,50},{-42,50},{
+  connect(con1.y, hysLim.uHea) annotation (Line(points={{-58,50},{-42,50},{
           -42,34.2},{-22.2,34.2}}, color={255,0,255}));
-  connect(con.y, hysLim.cooSig) annotation (Line(points={{-58,10},{-40,10},{-40,
+  connect(con.y, hysLim.uCoo) annotation (Line(points={{-58,10},{-40,10},{-40,
           22},{-22,22}}, color={255,0,255}));
-  connect(con2.y, hysLim1.cooSig) annotation (Line(points={{-58,-70},{-40,-70},
+  connect(con2.y, hysLim1.uCoo) annotation (Line(points={{-58,-70},{-40,-70},
           {-40,-58},{-22,-58}}, color={255,0,255}));
-  connect(con3.y, hysLim1.heaSig) annotation (Line(points={{-58,-30},{-40,-30},
+  connect(con3.y, hysLim1.uHea) annotation (Line(points={{-58,-30},{-40,-30},
           {-40,-45.8},{-22.2,-45.8}}, color={255,0,255}));
-  connect(con4.y, hysLim3.heaSig) annotation (Line(points={{82,50},{100,50},{
+  connect(con4.y, hysLim3.uHea) annotation (Line(points={{82,50},{100,50},{
           100,34.2},{117.8,34.2}}, color={255,0,255}));
-  connect(con5.y, hysLim3.cooSig) annotation (Line(points={{82,10},{102,10},{
+  connect(con5.y, hysLim3.uCoo) annotation (Line(points={{82,10},{102,10},{
           102,22},{118,22}}, color={255,0,255}));
-  connect(con6.y, hysLim2.heaSig) annotation (Line(points={{82,-30},{102,-30},{
+  connect(con6.y, hysLim2.uHea) annotation (Line(points={{82,-30},{102,-30},{
           102,-45.8},{117.8,-45.8}}, color={255,0,255}));
-  connect(con7.y, hysLim2.cooSig) annotation (Line(points={{82,-70},{100,-70},{
+  connect(con7.y, hysLim2.uCoo) annotation (Line(points={{82,-70},{100,-70},{
           100,-58},{118,-58}}, color={255,0,255}));
   annotation (Documentation(info="<html>
 <p>

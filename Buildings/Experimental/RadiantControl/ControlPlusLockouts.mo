@@ -1,29 +1,29 @@
 within Buildings.Experimental.RadiantControl;
 block ControlPlusLockouts "Full radiant control"
-   parameter Real TAirHiSet(min=0,
+   parameter Real TZonHigSet(min=0,
     final unit="K",
     final displayUnit="degC",
     final quantity="Temperature")=297.6
     "Air temperature high limit above which heating is locked out";
-    parameter Real TAirLoSet(min=0,
+    parameter Real TZonLowSet(min=0,
     final unit="K",
     final displayUnit="degC",
     final quantity="Temperature")=293.15
     "Air temperature low limit below which heating is locked out";
-    parameter Real TWaLoSet(min=0,
+    parameter Real TWatSetLow(min=0,
     final unit="K",
     final displayUnit="degC",
     final quantity="Temperature")=285.9
     "Lower limit for chilled water return temperature, below which cooling is locked out";
-    parameter Real TiCHW(min=0,
+    parameter Real cooLocDurWatTem(min=0,
     final unit="s",
     final displayUnit="s",
     final quantity="Time")=1800 "Time for which cooling is locked if CHW return is too cold";
-   parameter Real TiHea(min=0,
+   parameter Real heaLocDurAftCoo(min=0,
     final unit="s",
     final displayUnit="s",
     final quantity="Time") = 3600 "Time for which heating is locked out after cooling concludes";
-    parameter Real TiCoo(min=0,
+    parameter Real cooLocDurAftHea(min=0,
     final unit="s",
     final displayUnit="s",
     final quantity="Time") = 3600 "Time for which cooling is locked out after heating concludes";
@@ -37,7 +37,7 @@ block ControlPlusLockouts "Full radiant control"
     final quantity="TemperatureDifference")=0.28
                                            "Difference from slab temp setpoint required to trigger alarm during unoccupied hours";
   parameter Real k(min=0,max=24)=18 "Last occupied hour";
-  parameter Boolean off_within_deadband=true "If flow should turn off when slab setpoint is within deadband, set to true. Otherwise, set to false";
+  parameter Boolean offWitDea=true "If flow should turn off when slab setpoint is within deadband, set to true. Otherwise, set to false";
 
   Controls.OBC.CDL.Logical.And and2 "Final Heating Signal"
     annotation (Placement(transformation(extent={{20,40},{40,60}})));
@@ -47,28 +47,28 @@ block ControlPlusLockouts "Full radiant control"
     annotation (Placement(transformation(extent={{-140,-60},{-100,-20}})));
   Controls.OBC.CDL.Interfaces.RealInput TSla "Measured slab temperature"
     annotation (Placement(transformation(extent={{-140,60},{-100,100}})));
-  Controls.OBC.CDL.Interfaces.RealInput TWaRet "Water return temperature"
+  Controls.OBC.CDL.Interfaces.RealInput TSlaWatRet "Water return temperature"
     annotation (Placement(transformation(extent={{-140,-100},{-100,-60}})));
   SlabTemperatureSignal.Error err "Slab temperature error"
     annotation (Placement(transformation(extent={{-58,40},{-38,60}})));
   Controls.OBC.CDL.Interfaces.RealInput TSlaSet "Slab temperature setpoint"
     annotation (Placement(transformation(extent={{-140,20},{-100,60}})));
-  Controls.OBC.CDL.Interfaces.BooleanInput nitFluSig
+  Controls.OBC.CDL.Interfaces.BooleanInput uNigFlu
     "Night flush signal- true if night flush on; false if not"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
-  Controls.OBC.CDL.Interfaces.BooleanOutput htgSig
+  Controls.OBC.CDL.Interfaces.BooleanOutput yHea
     "True if heating is called for; false if not"
     annotation (Placement(transformation(extent={{100,24},{140,64}})));
-  Controls.OBC.CDL.Interfaces.BooleanOutput clgSig
+  Controls.OBC.CDL.Interfaces.BooleanOutput yCoo
     "True if cooling is called for; false if not"
     annotation (Placement(transformation(extent={{100,-50},{140,-10}})));
   Lockouts.AllLockouts allLoc(
-    TAirHiSet=TAirHiSet,
-    TAirLoSet=TAirLoSet,
-    TWaLoSet=TWaLoSet,
-    TiCHW=TiCHW,
-    TiHea=TiHea,
-    TiCoo=TiCoo) "All lockouts, combined"
+    TZonHigSet=TZonHigSet,
+    TZonLowSet=TZonLowSet,
+    TWatSetLow=TWatSetLow,
+    cooLocDurWatTem=cooLocDurWatTem,
+    heaLocDurAftCoo=heaLocDurAftCoo,
+    cooLocDurAftHea=cooLocDurAftHea) "All lockouts, combined"
     annotation (Placement(transformation(extent={{-20,0},{0,20}})));
   SlabTemperatureSignal.DeadbandControl deaCon(
     TDeaRel=TDeaRel,
@@ -84,19 +84,19 @@ equation
           48},{-96,40},{-120,40}}, color={0,0,127}));
   connect(err.TSla, TSla)
     annotation (Line(points={{-60,51},{-60,80},{-120,80}}, color={0,0,127}));
-  connect(and1.y, clgSig) annotation (Line(points={{42,-10},{94,-10},{94,-30},{120,
+  connect(and1.y, yCoo) annotation (Line(points={{42,-10},{94,-10},{94,-30},{120,
           -30}}, color={255,0,255}));
-  connect(and2.y, htgSig) annotation (Line(points={{42,50},{94,50},{94,44},{120,
+  connect(and2.y, yHea) annotation (Line(points={{42,50},{94,50},{94,44},{120,
           44}}, color={255,0,255}));
-  connect(nitFluSig, allLoc.nitFluSig) annotation (Line(points={{-120,0},{-86,0},
+  connect(uNigFlu, allLoc.uNigFlu) annotation (Line(points={{-120,0},{-86,0},
           {-86,19},{-22,19}}, color={255,0,255}));
   connect(TRooAir, allLoc.TRooAir) annotation (Line(points={{-120,-40},{-78,-40},
           {-78,7},{-22,7}}, color={0,0,127}));
-  connect(TWaRet, allLoc.TChwRet) annotation (Line(points={{-120,-80},{-40,-80},
+  connect(TSlaWatRet, allLoc.TSlaWatRet) annotation (Line(points={{-120,-80},{-40,-80},
           {-40,3},{-22,3}}, color={0,0,127}));
-  connect(allLoc.htgSigL, and2.u2) annotation (Line(points={{2,13},{16,13},{16,
+  connect(allLoc.yHeaL, and2.u2) annotation (Line(points={{2,13},{16,13},{16,
           42},{18,42}}, color={255,0,255}));
-  connect(allLoc.clgSigL, and1.u2) annotation (Line(points={{2,5},{6,5},{6,-18},
+  connect(allLoc.yCooL, and1.u2) annotation (Line(points={{2,5},{6,5},{6,-18},
           {18,-18}}, color={255,0,255}));
   connect(err.slaTemErr, deaCon.slaTemErr) annotation (Line(points={{-36,51},{-32,
           51},{-32,39.2},{-26.6,39.2}}, color={0,0,127}));
@@ -106,11 +106,11 @@ equation
           50},{18,50}}, color={255,0,255}));
   connect(and1.y, pre.u) annotation (Line(points={{42,-10},{50,-10},{50,-30},{
           58,-30}}, color={255,0,255}));
-  connect(pre.y, allLoc.clgSig) annotation (Line(points={{82,-30},{86,-30},{86,
+  connect(pre.y, allLoc.yCoo) annotation (Line(points={{82,-30},{86,-30},{86,
           -60},{-60,-60},{-60,11},{-22,11}}, color={255,0,255}));
   connect(and2.y, pre1.u) annotation (Line(points={{42,50},{50,50},{50,70},{58,
           70}}, color={255,0,255}));
-  connect(pre1.y, allLoc.htgSig) annotation (Line(points={{82,70},{84,70},{84,
+  connect(pre1.y, allLoc.yHea) annotation (Line(points={{82,70},{84,70},{84,
           94},{-74,94},{-74,15},{-22,15}}, color={255,0,255}));
   annotation (defaultComponentName = "conPluLoc",Documentation(info="<html>
 <p>
@@ -136,10 +136,10 @@ If there is a call for cooling (ie, the slab temperature is above its setpoint p
 <p> When the slab is within its deadband, the user specifies whether the system should send no calls for heating or cooling (i.e. 'offwithindeadband' is set to true),
 or whether it should continue to call for heating or cooling and then correct itself once the slab temperature goes out of range (i.e. 'offwithindeadband' is set to false).  <p>
 
-<p> Heating is locked out if room air temperature is too hot (above a user-specified value, TAirHiSet), if night flush mode is on, or if cooling was on within a user-specified amount of time (TiHea). <p>
+<p> Heating is locked out if room air temperature is too hot (above a user-specified value, TZonHigSet), if night flush mode is on, or if cooling was on within a user-specified amount of time (heaLocDurAftCoo). <p>
 <p> 
-Cooling is locked out if room air temperature is too cold (below a user-specified value, TAirLoSet), if chilled water return temperature is lower than a user-specified value 
-(TWaLoSet, typically 55F or the chilled water supply temperature), or if heating was on within a user-specified amount of time (TiCoo, typically one hour).  <p>
+Cooling is locked out if room air temperature is too cold (below a user-specified value, TZonLowSet), if chilled water return temperature is lower than a user-specified value 
+(TWatSetLow, typically 55F or the chilled water supply temperature), or if heating was on within a user-specified amount of time (cooLocDurAftHea, typically one hour).  <p>
 
 </p>
 </html>", revisions="<html>

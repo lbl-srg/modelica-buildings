@@ -94,7 +94,7 @@ block ForecastHighChicago
         271.45; 31449600,275.95])
     "Forecast high lookup table: x axis time in seconds, y axis forecast high temperature"
     annotation (Placement(transformation(extent={{-6,-30},{-48,12}})));
-  Controls.OBC.CDL.Interfaces.RealOutput TForHiChi
+  Controls.OBC.CDL.Interfaces.RealOutput TForHigChi
     "Forecasted high temperature"
     annotation (Placement(transformation(extent={{100,-18},{140,22}})));
   Controls.OBC.CDL.Discrete.Sampler sam(samplePeriod=86400)
@@ -103,7 +103,7 @@ block ForecastHighChicago
 equation
   connect(modTim1.y, forHi.u) annotation (Line(points={{53,36},{70,36},{70,-9},
           {-1.8,-9}}, color={0,0,127}));
-  connect(sam.y, TForHiChi) annotation (Line(points={{42,-70},{80,-70},{80,2},{
+  connect(sam.y, TForHigChi) annotation (Line(points={{42,-70},{80,-70},{80,2},{
           120,2}}, color={0,0,127}));
   connect(forHi.y, sam.u) annotation (Line(points={{-50.1,-9},{-60,-9},{-60,-70},
           {18,-70}}, color={0,0,127}));

@@ -1,29 +1,29 @@
 within Buildings.Experimental.RadiantControl.Lockouts.SubLockouts;
 block ChilledWaterReturnLimit
   "Locks out cooling if chilled water return temperature is below user-specified threshold"
-  parameter Real TWaLoSet(min=0,
+  parameter Real TWatSetLow(min=0,
     final unit="K",
     final displayUnit="degC",
     final quantity="Temperature")=285.9
     "Lower limit for chilled water return temperature, below which cooling is locked out";
-    parameter Real TiCHW(min=0,
+    parameter Real cooLocDurWatTem(min=0,
     final unit="s",
     final displayUnit="s",
     final quantity="Time")=1800 "Time for which cooling is locked out if CHW return is too cold";
-  Controls.OBC.CDL.Logical.TrueHoldWithReset           truHol(duration=TiCHW)
+  Controls.OBC.CDL.Logical.TrueHoldWithReset           truHol(duration=cooLocDurWatTem)
     "Holds signal for user-specified time threshhold"
     annotation (Placement(transformation(extent={{20,0},{40,20}})));
   Controls.OBC.CDL.Logical.Not           not6
     "Negates signal so that cooling is locked out if CHW return water temp is too low"
     annotation (Placement(transformation(extent={{60,0},{80,20}})));
-  Controls.OBC.CDL.Interfaces.RealInput TWa "Slab water return temperature"
+  Controls.OBC.CDL.Interfaces.RealInput TSlaRet "Slab water return temperature"
     annotation (Placement(transformation(extent={{-140,0},{-100,40}})));
-  Controls.OBC.CDL.Interfaces.BooleanOutput cooSigChwRet
+  Controls.OBC.CDL.Interfaces.BooleanOutput yCooTChiWatRetLim
     "True if water temperature is above low threshhold, false if not"
     annotation (Placement(transformation(extent={{100,-10},{140,30}})));
   Controls.OBC.CDL.Continuous.Hysteresis hys1(
-    uLow=TWaLoSet,
-    uHigh=TWaLoSet + 1)
+    uLow=TWatSetLow,
+    uHigh=TWatSetLow + 1)
     "Test if CHW is below low limit- output false if CHW temp is low, output true if not"
     annotation (Placement(transformation(extent={{-60,0},{-40,20}})));
   Controls.OBC.CDL.Logical.Not           not1
@@ -32,9 +32,9 @@ block ChilledWaterReturnLimit
 equation
   connect(truHol.y, not6.u)
     annotation (Line(points={{42,10},{58,10}}, color={255,0,255}));
-  connect(not6.y,cooSigChwRet)
+  connect(not6.y,yCooTChiWatRetLim)
     annotation (Line(points={{82,10},{120,10}}, color={255,0,255}));
-  connect(TWa, hys1.u) annotation (Line(points={{-120,20},{-92,20},{-92,10},{-62,
+  connect(TSlaRet, hys1.u) annotation (Line(points={{-120,20},{-92,20},{-92,10},{-62,
           10}}, color={0,0,127}));
   connect(hys1.y, not1.u)
     annotation (Line(points={{-38,10},{-22,10}}, color={255,0,255}));

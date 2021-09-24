@@ -1,11 +1,11 @@
 within Buildings.Experimental.RadiantControl.Lockouts.SubLockouts;
 block AirTemperatureLimit "Locks out heating if room air is hotter than user-specified threshold; locks out cooling if room air is colder than user-specified threshold"
-   parameter Real TAirHiSet(min=0,
+   parameter Real TZonHigSet(min=0,
     final unit="K",
     final displayUnit="degC",
     final quantity="Temperature")=297.6
     "Air temperature high limit above which heating is locked out";
-    parameter Real TAirLoSet(min=0,
+    parameter Real TZonLowSet(min=0,
     final unit="K",
     final displayUnit="degC",
     final quantity="Temperature")=293.15
@@ -13,7 +13,7 @@ block AirTemperatureLimit "Locks out heating if room air is hotter than user-spe
   Buildings.Controls.OBC.CDL.Logical.Not           not2
     "Negates hysteresis output to give heating signal"
     annotation (Placement(transformation(extent={{40,20},{60,40}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput htgSigAirTem
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yHeaTZon
     "True if heating is allowed, false if heating is locked out because room air is too hot"
     annotation (Placement(transformation(extent={{100,10},{140,50}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput clgSigAirTem
@@ -22,14 +22,14 @@ block AirTemperatureLimit "Locks out heating if room air is hotter than user-spe
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TRoo(unit="K", displayUnit="K")
     "Room air temperature"
     annotation (Placement(transformation(extent={{-140,52},{-100,92}})));
-  Controls.OBC.CDL.Continuous.Hysteresis hys(uLow=TAirHiSet - 0.1, uHigh=
-        TAirHiSet) "If room air temp is above high threshold, lock out heating"
+  Controls.OBC.CDL.Continuous.Hysteresis hys(uLow=TZonHigSet - 0.1, uHigh=
+        TZonHigSet) "If room air temp is above high threshold, lock out heating"
     annotation (Placement(transformation(extent={{0,20},{20,40}})));
-  Controls.OBC.CDL.Continuous.Hysteresis hys1(uLow=TAirLoSet, uHigh=TAirLoSet
+  Controls.OBC.CDL.Continuous.Hysteresis hys1(uLow=TZonLowSet, uHigh=TZonLowSet
          + 0.1) "If room air temp is below low threshold, lock out cooling"
     annotation (Placement(transformation(extent={{0,-60},{20,-40}})));
 equation
-  connect(not2.y, htgSigAirTem)
+  connect(not2.y, yHeaTZon)
     annotation (Line(points={{62,30},{120,30}}, color={255,0,255}));
   connect(hys.y, not2.u)
     annotation (Line(points={{22,30},{38,30}}, color={255,0,255}));

@@ -1,13 +1,13 @@
 within Buildings.Experimental.RadiantControl.Lockouts.SubLockouts.Validation;
 model NightFlushLockout "Validation model for night flush"
-  NightFlush nitFluLoc
+  NightFlush nigFluLoc
     annotation (Placement(transformation(extent={{0,0},{20,20}})));
   Controls.OBC.CDL.Logical.Sources.Pulse booPul(period=43000)
     "Varying night flush signal"
     annotation (Placement(transformation(extent={{-60,0},{-40,20}})));
 equation
-  connect(booPul.y, nitFluLoc.nitFluSig)
-    annotation (Line(points={{-38,10},{-2.2,10}}, color={255,0,255}));
+  connect(booPul.y, nigFluLoc.yNigFluHea)
+    annotation (Line(points={{-38,10},{22,10}},   color={255,0,255}));
   annotation (Documentation(info="<html>
 <p>
 Validates the night flush lockout. 

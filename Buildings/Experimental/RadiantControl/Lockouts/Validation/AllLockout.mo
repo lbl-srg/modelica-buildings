@@ -1,11 +1,11 @@
 within Buildings.Experimental.RadiantControl.Lockouts.Validation;
 model AllLockout "Validation model for all lockouts"
-    final parameter Real TAirHiLim(min=0,
+    final parameter Real TZonHigLim(min=0,
     final unit="K",
     final displayUnit="K",
     final quantity="Temperature")=297.6
     "Air temperature high limit above which heating is locked out";
-   final parameter Real TAirLoLim(min=0,
+   final parameter Real TZonLowLim(min=0,
     final unit="K",
     final displayUnit="K",
     final quantity="Temperature")=293.15
@@ -15,15 +15,15 @@ model AllLockout "Validation model for all lockouts"
     final displayUnit="K",
     final quantity="Temperature")=285.9
     "Lower limit for chilled water return temperature, below which cooling is locked out";
-   final parameter Real TimeCHW(min=0,
+   final parameter Real LocDurCHW(min=0,
     final unit="s",
     final displayUnit="s",
     final quantity="Time")=3600 "Time for which cooling is locked out if CHW return is too cold";
-   final parameter Real TimHea(min=0,
+   final parameter Real LocDurHea(min=0,
     final unit="s",
     final displayUnit="s",
     final quantity="Time") = 3600 "Time for which heating is locked out after cooling concludes";
-  final parameter Real TimCoo(min=0,
+  final parameter Real LocDurCoo(min=0,
     final unit="s",
     final displayUnit="s",
     final quantity="Time") = 3600 "Time for which cooling is locked out after heating concludes";
@@ -32,7 +32,7 @@ model AllLockout "Validation model for all lockouts"
     amplitude=20,
     freqHz=0.0001,
     phase(displayUnit="rad"),
-    offset=TAirHiLim) "Varying room air  temperature"
+    offset=TZonHigLim) "Varying room air  temperature"
     annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
   Controls.OBC.CDL.Continuous.Sources.Sine sin1(
     amplitude=20,
@@ -41,12 +41,12 @@ model AllLockout "Validation model for all lockouts"
     offset=TempWaLoSet) "Varying chilled water return temperature"
     annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
   AllLockouts allLoc(
-    TAirHiSet=TAirHiLim,
-    TAirLoSet=TAirLoLim,
-    TWaLoSet=TempWaLoSet,
-    TiCHW=TimeCHW,
-    TiHea=TimHea,
-    TiCoo=TimCoo)
+    TZonHigSet=TZonHigLim,
+    TZonLowSet=TZonLowLim,
+    TWatSetLow=TempWaLoSet,
+    cooLocDurWatTem=LocDurCHW,
+    heaLocDurAftCoo=LocDurHea,
+    cooLocDurAftHea=LocDurCoo)
     annotation (Placement(transformation(extent={{-20,-2},{0,18}})));
   Controls.OBC.CDL.Logical.Sources.Pulse booPul(period=43000)
     "Varying night flush signal"

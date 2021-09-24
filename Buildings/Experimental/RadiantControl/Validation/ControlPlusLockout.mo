@@ -6,13 +6,13 @@ model ControlPlusLockout "Validation model for radiant control"
     final quantity="Temperature")=294.3
     "Slab setpoint temperature offset";
 
-  final parameter Real TAirHiLim(min=0,
+  final parameter Real TZonHigLim(min=0,
     final unit="K",
     final displayUnit="K",
     final quantity="Temperature")=297.6
     "Air room temperature offset";
 
-  final parameter Real TempWaLoSet(min=0,
+  final parameter Real WatTemLowSet(min=0,
     final unit="K",
     final displayUnit="K",
     final quantity="Temperature")=285.9
@@ -22,13 +22,13 @@ model ControlPlusLockout "Validation model for radiant control"
     amplitude=20,
     freqHz=0.0001,
     phase(displayUnit="rad"),
-    offset=TAirHiLim) "Varying room air temperature"
+    offset=TZonHigLim) "Varying room air temperature"
     annotation (Placement(transformation(extent={{-60,-20},{-40,0}})));
   Controls.OBC.CDL.Continuous.Sources.Sine sin1(
     amplitude=20,
     freqHz=0.0001,
     phase(displayUnit="rad"),
-    offset=TempWaLoSet) "Varying water return temperature"
+    offset=WatTemLowSet) "Varying water return temperature"
     annotation (Placement(transformation(extent={{-60,-60},{-40,-40}})));
   Controls.OBC.CDL.Continuous.Sources.Sine sin2(
     amplitude=TSlaSetCor/15,

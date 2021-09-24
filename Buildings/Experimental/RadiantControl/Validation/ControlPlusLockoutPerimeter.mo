@@ -9,12 +9,12 @@ model ControlPlusLockoutPerimeter
   replaceable package MediumW =
       Buildings.Media.Water "Medium model";
       //--------------------------------------Radiant Control Parameters-----------------------------------//
-    final parameter Real TAirHiLim(min=0,
+    final parameter Real TZonHigLim(min=0,
     final unit="K",
     final displayUnit="K",
     final quantity="Temperature")=297.6
     "Air temperature high limit above which heating is locked out";
-   final parameter Real TAirLoLim(min=0,
+   final parameter Real TZonLowLim(min=0,
     final unit="K",
     final displayUnit="K",
     final quantity="Temperature")=293.15
@@ -323,8 +323,8 @@ Fluid.Movers.FlowControlled_m_flow           pumHot(
         rotation=90,
         origin={156,4})));
   Experimental.RadiantControl.ControlPlusLockouts conPluLoc(
-    TAirHiSet=TAirHiLim,
-    TAirLoSet=TAirLoLim,
+    TAirHiSet=TZonHigLim,
+    TAirLoSet=TZonLowLim,
     TWaLoSet=TemWaLoSet,
     TiCHW=TimCHW,
     TiHea=TimHea,
