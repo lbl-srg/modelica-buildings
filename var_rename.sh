@@ -200,6 +200,8 @@ done
 
 for ff in `find . \( -name '*DeadbandControl.mo' -or -name '*DeadbandControl.mos' -or -name '*DeadbandControl.txt' -or -name '*DeadbandControl.svg'  \)`; do
     list=(\
+     htgCal uHea \
+     clgCal uCoo \
      off_within_deadband offWitDea \
           )
 
@@ -209,6 +211,16 @@ for ff in `find . \( -name '*DeadbandControl.mo' -or -name '*DeadbandControl.mos
 done
 
 for ff in `find . \( -name '*ForecastHighChicago.mo' -or -name '*ForecastHighChicago.mos' -or -name '*ForecastHighChicago.txt' -or -name '*ForecastHighChicago.svg'  \)`; do
+    list=(\
+     TForHiChi TForHigChi \
+          )
+
+    for ((i=0; i<${#list[@]}; i+=2)); do
+        sed -e s/${list[i]}/${list[i+1]}/g -i $ff
+    done
+done
+
+for ff in `find . \( -name '*ChicagoForecastHigh.mo' -or -name '*ChicagoForecastHigh.mos' -or -name '*ChicagoForecastHigh.txt' -or -name '*ChicagoForecastHigh.svg'  \)`; do
     list=(\
      TForHiChi TForHigChi \
           )

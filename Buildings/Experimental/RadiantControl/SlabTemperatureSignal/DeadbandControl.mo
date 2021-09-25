@@ -24,10 +24,10 @@ parameter Real TDeaNor(min=0,
     annotation (Placement(transformation(extent={{40,-20},{60,0}})));
   Controls.OBC.CDL.Interfaces.RealInput slaTemErr "Slab temperature error"
     annotation (Placement(transformation(extent={{-196,-158},{-156,-118}})));
-  Controls.OBC.CDL.Interfaces.BooleanOutput htgCal
+  Controls.OBC.CDL.Interfaces.BooleanOutput uHea
     "True if there is a call for heating; false if not"
     annotation (Placement(transformation(extent={{150,-10},{190,30}})));
-  Controls.OBC.CDL.Interfaces.BooleanOutput clgCal
+  Controls.OBC.CDL.Interfaces.BooleanOutput uCoo
     "True if there is a call for cooling; false if not"
     annotation (Placement(transformation(extent={{150,-110},{190,-70}})));
   Controls.OBC.CDL.Continuous.Abs           abs
@@ -81,9 +81,9 @@ equation
           -42,30}}, color={0,0,127}));
   connect(not1.y, and3.u2) annotation (Line(points={{62,-10},{64,-10},{64,2},{
           118,2}}, color={255,0,255}));
-  connect(and3.y, htgCal)
+  connect(and3.y, uHea)
     annotation (Line(points={{142,10},{170,10}}, color={255,0,255}));
-  connect(and4.y, clgCal)
+  connect(and4.y, uCoo)
     annotation (Line(points={{142,-90},{170,-90}}, color={255,0,255}));
   connect(hys.y, logSwi1.u1) annotation (Line(points={{-98,-52},{-72,-52},{-72,
           -102},{-42,-102}}, color={255,0,255}));

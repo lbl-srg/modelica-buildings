@@ -1,5 +1,5 @@
 compareVars :=
   {
-    "forHiChi.TForHiChi",
+    "forHiChi.TForHigChi",
     "weaDat2.weaBus.TDryBul"
   };
