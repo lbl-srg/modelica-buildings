@@ -14,6 +14,7 @@ for ff in `find . \( -name '*ControlPlusLockouts.mo' -or -name '*ControlPlusLock
      TiHea heaLocDurAftCoo \
      off_within_deadband offWitDea \
      TChwRet TSlaWatRet \
+
           )
 
     for ((i=0; i<${#list[@]}; i+=2)); do
@@ -25,10 +26,12 @@ for ff in `find . \( -name '*AllLockouts.mo' -or -name '*AllLockouts.mos' -or -n
     list=(\
      nitFluSig uNigFlu \
      TWaRet TSlaWatRet \
-     htgSig yHea \
-     clgSig yCoo \
+     htgSig uHea \
+     clgSig uCoo \
      htgSigL yHea \
      clgSigL yCoo \
+     heaSig uHea \
+     cooSig uCoo \
      TChwRet TSlaWatRet \
      TAirHiSet TZonHigSet \
      TAirLoSet TZonLowSet \
@@ -37,6 +40,14 @@ for ff in `find . \( -name '*AllLockouts.mo' -or -name '*AllLockouts.mos' -or -n
      TiCoo cooLocDurAftHea \
      TiHea heaLocDurAftCoo \
      off_within_deadband offWitDea \
+     hysLim.uHeaHys hysLim.uHea \
+     hysLim.uCooHys hysLim.uCoo \
+     airTemLim.uHeaAirTem airTemLim.yHeaTZon \
+     airTemLim.uCooAirTem airTemLim.yCooTZon \
+     nitFluLoc.uHeaNitFlu nitFluLoc.uNigFlu \
+     chwRetLim.cooSigChwRet chwRetLim.yCooTChiWatRetLim \
+     chwRetLim.TWa chwRetLim.TSlaRet \
+
           )
 
     for ((i=0; i<${#list[@]}; i+=2)); do
@@ -49,7 +60,8 @@ for ff in `find . \( -name '*AirTemperatureLimit.mo' -or -name '*AirTemperatureL
      TAirHiSet TZonHigSet \
      TAirLoSet TZonLowSet \
      htgSigAirTem yHeaTZon \
-     htgSigAirTem yCooTZon \
+     clgSigAirTem yCooTZon \ 
+     TRoo TZon \
           )
 
     for ((i=0; i<${#list[@]}; i+=2)); do
@@ -172,6 +184,8 @@ for ff in `find . \( -name '*AllLockout.mo' -or -name '*AllLockout.mos' -or -nam
      TiCHW cooLocDurWatTem \
      TiCoo cooLocDurAftHea \
      TiHea heaLocDurAftCoo \
+     allLoc.clgSig hysLim.uCoo \
+          allLoc.clgSig hysLim.uCoo \
           )
 
     for ((i=0; i<${#list[@]}; i+=2)); do

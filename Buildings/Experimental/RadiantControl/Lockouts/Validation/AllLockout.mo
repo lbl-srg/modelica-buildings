@@ -47,7 +47,7 @@ model AllLockout "Validation model for all lockouts"
     cooLocDurWatTem=LocDurCHW,
     heaLocDurAftCoo=LocDurHea,
     cooLocDurAftHea=LocDurCoo)
-    annotation (Placement(transformation(extent={{-20,-2},{0,18}})));
+    annotation (Placement(transformation(extent={{-20,0},{0,20}})));
   Controls.OBC.CDL.Logical.Sources.Pulse booPul(period=43000)
     "Varying night flush signal"
     annotation (Placement(transformation(extent={{-80,80},{-60,100}})));
@@ -59,7 +59,7 @@ model AllLockout "Validation model for all lockouts"
     annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
 equation
   connect(sin.y, allLoc.TRooAir) annotation (Line(points={{-58,-30},{-40,-30},{
-          -40,5},{-22,5}}, color={0,0,127}));
+          -40,7},{-22,7}}, color={0,0,127}));
   connect(sin1.y, allLoc.TChwRet) annotation (Line(points={{-58,-70},{-40,-70},
           {-40,1},{-22,1}}, color={0,0,127}));
   connect(booPul2.y, allLoc.clgSig) annotation (Line(points={{-58,10},{-40,10},

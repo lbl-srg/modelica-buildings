@@ -36,10 +36,10 @@ block AllLockouts "Composite block of all lockouts: room air temperature, chille
   Controls.OBC.CDL.Interfaces.RealInput TSlaWatRet
     "Chilled water return temperature"
     annotation (Placement(transformation(extent={{-140,-90},{-100,-50}})));
-  Controls.OBC.CDL.Interfaces.BooleanInput yHea
+  Controls.OBC.CDL.Interfaces.BooleanInput uHea
     "Heating signal- true if heating is called for, false if not"
     annotation (Placement(transformation(extent={{-140,30},{-100,70}})));
-  Controls.OBC.CDL.Interfaces.BooleanInput yCoo
+  Controls.OBC.CDL.Interfaces.BooleanInput uCoo
     "Cooling signal- true if cooling is called for, false if not"
     annotation (Placement(transformation(extent={{-140,-10},{-100,30}})));
   Controls.OBC.CDL.Interfaces.RealInput TRooAir "Room air temperature"
@@ -47,10 +47,10 @@ block AllLockouts "Composite block of all lockouts: room air temperature, chille
   Controls.OBC.CDL.Interfaces.BooleanInput uNigFlu
     "Night flush signal- true if night flush is on"
     annotation (Placement(transformation(extent={{-140,70},{-100,110}})));
-  Controls.OBC.CDL.Interfaces.BooleanOutput yHeaL
+  Controls.OBC.CDL.Interfaces.BooleanOutput yHea
     "True if heating allowed, false if locked out"
     annotation (Placement(transformation(extent={{100,10},{140,50}})));
-  Controls.OBC.CDL.Interfaces.BooleanOutput yCooL
+  Controls.OBC.CDL.Interfaces.BooleanOutput yCoo
     "True if cooling allowed, false if cooling locked out"
     annotation (Placement(transformation(extent={{100,-70},{140,-30}})));
   SubLockouts.HysteresisLimit hysLim(heaLocDurAftCoo=heaLocDurAftCoo, cooLocDurAftHea=cooLocDurAftHea)
@@ -67,31 +67,31 @@ block AllLockouts "Composite block of all lockouts: room air temperature, chille
     "Locks out cooling (cooling signal false) if chilled water return temperature is too low"
     annotation (Placement(transformation(extent={{-40,-80},{-20,-60}})));
 equation
-  connect(andHea.y, yHeaL)
+  connect(andHea.y, yHea)
     annotation (Line(points={{82,30},{120,30}}, color={255,0,255}));
-  connect(andCoo.y, yCooL)
+  connect(andCoo.y, yCoo)
     annotation (Line(points={{82,-50},{120,-50}}, color={255,0,255}));
-  connect(yHea, hysLim.heaSig) annotation (Line(points={{-120,50},{-80,50},{-80,
+  connect(uHea, hysLim.uHea) annotation (Line(points={{-120,50},{-80,50},{-80,
           -5.8},{-42.2,-5.8}}, color={255,0,255}));
-  connect(yCoo, hysLim.cooSig) annotation (Line(points={{-120,10},{-84,10},{-84,
+  connect(uCoo, hysLim.uCoo) annotation (Line(points={{-120,10},{-84,10},{-84,
           -18},{-42,-18}}, color={255,0,255}));
-  connect(hysLim.yHeaHys, andHea.u3) annotation (Line(points={{-18,-8},{20,-8},
+  connect(hysLim.uHea, andHea.u3) annotation (Line(points={{-42.2,-5.8},{20,-5.8},
           {20,22},{58,22}}, color={255,0,255}));
-  connect(hysLim.yCooHys, andCoo.u2) annotation (Line(points={{-18,-18},{20,-18},
-          {20,-50},{58,-50}}, color={255,0,255}));
+  connect(hysLim.uCoo, andCoo.u2) annotation (Line(points={{-42,-18},{20,-18},{20,
+          -50},{58,-50}},     color={255,0,255}));
   connect(TRooAir, airTemLim.TRoo) annotation (Line(points={{-120,-30},{-73,-30},
           {-73,37.2},{-42,37.2}}, color={0,0,127}));
-  connect(airTemLim.yHeaAirTem, andHea.u2) annotation (Line(points={{-18,33},
+  connect(airTemLim.yHeaTZon, andHea.u2) annotation (Line(points={{-18,33},
           {20,33},{20,30},{58,30}}, color={255,0,255}));
-  connect(airTemLim.yCooAirTem, andCoo.u1) annotation (Line(points={{-18,25},
+  connect(airTemLim.yCooTZon, andCoo.u1) annotation (Line(points={{-18,25},
           {30,25},{30,-42},{58,-42}}, color={255,0,255}));
   connect(uNigFlu, nitFluLoc.uNigFlu) annotation (Line(points={{-120,90},{-82,
           90},{-82,70},{-42.2,70}}, color={255,0,255}));
-  connect(nitFluLoc.yHeaNitFlu, andHea.u1) annotation (Line(points={{-18,70},
-          {20,70},{20,38},{58,38}}, color={255,0,255}));
-  connect(TSlaWatRet, chwRetLim.TWa) annotation (Line(points={{-120,-70},{-80,-70},
+  connect(nitFluLoc.uNigFlu, andHea.u1) annotation (Line(points={{-42.2,70},{20,
+          70},{20,38},{58,38}},     color={255,0,255}));
+  connect(TSlaWatRet, chwRetLim.TSlaRet) annotation (Line(points={{-120,-70},{-80,-70},
           {-80,-68},{-42,-68}}, color={0,0,127}));
-  connect(chwRetLim.cooSigChwRet, andCoo.u3) annotation (Line(points={{-18,-69},
+  connect(chwRetLim.yCooTChiWatRetLim, andCoo.u3) annotation (Line(points={{-18,-69},
           {20,-69},{20,-58},{58,-58}}, color={255,0,255}));
   annotation (defaultComponentName = "allLoc",Documentation(info="<html>
 <p>

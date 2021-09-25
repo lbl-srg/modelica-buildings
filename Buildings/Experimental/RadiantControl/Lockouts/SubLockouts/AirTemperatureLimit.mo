@@ -16,7 +16,7 @@ block AirTemperatureLimit "Locks out heating if room air is hotter than user-spe
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yHeaTZon
     "True if heating is allowed, false if heating is locked out because room air is too hot"
     annotation (Placement(transformation(extent={{100,10},{140,50}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput clgSigAirTem
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yCooTZon
     "True if cooling allowed, false if cooling locked out because room air is too cold"
     annotation (Placement(transformation(extent={{100,-70},{140,-30}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TRoo(unit="K", displayUnit="K")
@@ -35,7 +35,7 @@ equation
     annotation (Line(points={{22,30},{38,30}}, color={255,0,255}));
   connect(TRoo, hys.u) annotation (Line(points={{-120,72},{-60,72},{-60,30},{-2,
           30}}, color={0,0,127}));
-  connect(hys1.y, clgSigAirTem)
+  connect(hys1.y, yCooTZon)
     annotation (Line(points={{22,-50},{120,-50}}, color={255,0,255}));
   connect(TRoo, hys1.u) annotation (Line(points={{-120,72},{-60,72},{-60,-50},{
           -2,-50}}, color={0,0,127}));
