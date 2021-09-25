@@ -75,10 +75,6 @@ equation
           -5.8},{-42.2,-5.8}}, color={255,0,255}));
   connect(uCoo, hysLim.uCoo) annotation (Line(points={{-120,10},{-84,10},{-84,
           -18},{-42,-18}}, color={255,0,255}));
-  connect(hysLim.uHea, andHea.u3) annotation (Line(points={{-42.2,-5.8},{20,-5.8},
-          {20,22},{58,22}}, color={255,0,255}));
-  connect(hysLim.uCoo, andCoo.u2) annotation (Line(points={{-42,-18},{20,-18},{20,
-          -50},{58,-50}},     color={255,0,255}));
   connect(TRooAir, airTemLim.TRoo) annotation (Line(points={{-120,-30},{-73,-30},
           {-73,37.2},{-42,37.2}}, color={0,0,127}));
   connect(airTemLim.yHeaTZon, andHea.u2) annotation (Line(points={{-18,33},
@@ -87,12 +83,16 @@ equation
           {30,25},{30,-42},{58,-42}}, color={255,0,255}));
   connect(uNigFlu, nitFluLoc.uNigFlu) annotation (Line(points={{-120,90},{-82,
           90},{-82,70},{-42.2,70}}, color={255,0,255}));
-  connect(nitFluLoc.uNigFlu, andHea.u1) annotation (Line(points={{-42.2,70},{20,
-          70},{20,38},{58,38}},     color={255,0,255}));
   connect(TSlaWatRet, chwRetLim.TSlaRet) annotation (Line(points={{-120,-70},{-80,-70},
           {-80,-68},{-42,-68}}, color={0,0,127}));
   connect(chwRetLim.yCooTChiWatRetLim, andCoo.u3) annotation (Line(points={{-18,-69},
           {20,-69},{20,-58},{58,-58}}, color={255,0,255}));
+  connect(nitFluLoc.yNigFluHea, andHea.u1) annotation (Line(points={{-18,70},{
+          20,70},{20,38},{58,38}}, color={255,0,255}));
+  connect(hysLim.yHeaNotLoc, andHea.u3) annotation (Line(points={{-18,-8},{50,
+          -8},{50,22},{58,22}}, color={255,0,255}));
+  connect(hysLim.yCooNotLoc, andCoo.u2) annotation (Line(points={{-18,-18},{0,
+          -18},{0,-50},{58,-50}}, color={255,0,255}));
   annotation (defaultComponentName = "allLoc",Documentation(info="<html>
 <p>
 This block encompasses all lockouts.

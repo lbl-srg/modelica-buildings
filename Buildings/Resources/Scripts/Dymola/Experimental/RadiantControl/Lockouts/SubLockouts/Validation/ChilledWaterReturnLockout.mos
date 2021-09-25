@@ -1,6 +1,6 @@
 simulateModel("Buildings.Experimental.RadiantControl.Lockouts.SubLockouts.Validation.ChilledWaterReturnLockout", startTime=0.0, stopTime=172800.0, method="cvode",  tolerance=1E-06, resultFile="ChilledWaterReturnLockout");
 createPlot(id=1, position={15, 10, 924, 583},
- y={"chwRetLim.TWa","chwRetLim.TWatSetLow"}, 
+ y={"chwRetLim.TSlaRet","chwRetLim.TSlaRet"}, 
  range={0.0, 172000.0, 250, 320},
  autoscale = true,
  autoerase = true,

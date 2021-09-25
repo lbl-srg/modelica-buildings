@@ -1,11 +1,11 @@
 compareVars :=
   {
-    "allLoc.clgSigL",
-    "allLoc.hysLim.clgSigHys",
-    "allLoc.airTemLim.clgSigAirTem",
-    "allLoc.chwRetLim.cooSigChwRet",
-    "allLoc.htgSigL",
-    "allLoc.hysLim.htgSigHys",
-    "allLoc.airTemLim.htgSigAirTem",
-    "allLoc.nitFluLoc.htgSigNitFlu"
+    "allLoc.yCoo",
+    "allLoc.hysLim.yCooNotLoc",
+    "allLoc.airTemLim.yCooTZon",
+    "allLoc.chwRetLim.yCooTChiWatRetLim",
+    "allLoc.yHea",
+    "allLoc.hysLim.yHeaNotLoc",
+    "allLoc.airTemLim.yHeaTZon",
+    "allLoc.nitFluLoc.yNigFluHea"
   };

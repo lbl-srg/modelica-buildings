@@ -185,7 +185,11 @@ for ff in `find . \( -name '*AllLockout.mo' -or -name '*AllLockout.mos' -or -nam
      TiCoo cooLocDurAftHea \
      TiHea heaLocDurAftCoo \
      allLoc.clgSig hysLim.uCoo \
-          allLoc.clgSig hysLim.uCoo \
+     allLoc.clgSig hysLim.uCoo \
+     allLoc.TChwRet allLoc.TSlaWatRet
+     allLoc.clgSig allLoc.uCoo \
+     allLoc.htgSig allLoc.uHea \
+     allLoc.nitFluSig allLoc.uNigFlu
           )
 
     for ((i=0; i<${#list[@]}; i+=2)); do

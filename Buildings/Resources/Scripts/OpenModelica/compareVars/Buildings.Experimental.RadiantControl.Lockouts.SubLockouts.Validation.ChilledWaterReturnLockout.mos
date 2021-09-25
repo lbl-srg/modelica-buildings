@@ -1,6 +1,6 @@
 compareVars :=
   {
-    "chwRetLim.TWa",
-    "chwRetLim.TWatSetLow",
+    "chwRetLim.TSlaRet",
+    "chwRetLim.TSlaRet",
     "chwRetLim.yCooTChiWatRetLim"
   };

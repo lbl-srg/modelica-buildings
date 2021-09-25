@@ -58,16 +58,16 @@ model AllLockout "Validation model for all lockouts"
     "Varying cooling signal"
     annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
 equation
-  connect(sin.y, allLoc.TRooAir) annotation (Line(points={{-58,-30},{-40,-30},{
-          -40,7},{-22,7}}, color={0,0,127}));
-  connect(sin1.y, allLoc.TChwRet) annotation (Line(points={{-58,-70},{-40,-70},
-          {-40,1},{-22,1}}, color={0,0,127}));
-  connect(booPul2.y, allLoc.clgSig) annotation (Line(points={{-58,10},{-40,10},
-          {-40,9},{-22,9}}, color={255,0,255}));
-  connect(booPul1.y, allLoc.htgSig) annotation (Line(points={{-58,50},{-40,50},
-          {-40,13},{-22,13}}, color={255,0,255}));
-  connect(booPul.y, allLoc.nitFluSig) annotation (Line(points={{-58,90},{-34,90},
-          {-34,17},{-22,17}}, color={255,0,255}));
+  connect(sin.y, allLoc.TRooAir) annotation (Line(points={{-58,-30},{-40,-30},{-40,
+          7},{-22,7}},     color={0,0,127}));
+  connect(sin1.y, allLoc.TSlaWatRet) annotation (Line(points={{-58,-70},{-40,-70},
+          {-40,3},{-22,3}}, color={0,0,127}));
+  connect(booPul2.y, allLoc.uCoo) annotation (Line(points={{-58,10},{-40,10},{-40,
+          11},{-22,11}},    color={255,0,255}));
+  connect(booPul1.y, allLoc.uHea) annotation (Line(points={{-58,50},{-40,50},{-40,
+          15},{-22,15}},      color={255,0,255}));
+  connect(booPul.y, allLoc.uNigFlu) annotation (Line(points={{-58,90},{-34,90},
+          {-34,19},{-22,19}}, color={255,0,255}));
   annotation (Documentation(info="<html>
 <p>
 This model validates all lockouts. 
