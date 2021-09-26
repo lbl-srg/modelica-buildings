@@ -1,6 +1,6 @@
 within Buildings.Fluid.Interfaces;
 partial model PartialTwoPortTwoMedium_rev
-  "Partial model with two ports with two separate medium models without storing mass or energy(Phase Change process assumptions and initilization)"
+  "Partial model with two ports with two separate medium models without storing mass or energy"
 
 
   replaceable package Medium_a =
@@ -83,4 +83,17 @@ protected
 
 
 
+  annotation (Documentation(info="<html>
+This partial model defines an interface for components with two ports and two separate medium in each port. 
+The component transports fluid between two ports without storing mass or energy. 
+The treatment of the design flow direction and of flow reversal are predefined based on the parameter <code>allowFlowReversal</code>.
+
+This model is ideal to implement systems with phase change process. Also includes assumptions and initilization parameters for the phase change process.   
+
+</html>", revisions="<html>
+<ul>
+<li>July 22, 2021 by Kathryn Hinkelman: </li>
+<li>First implementation. </li>
+</ul>
+</html>"));
 end PartialTwoPortTwoMedium_rev;
