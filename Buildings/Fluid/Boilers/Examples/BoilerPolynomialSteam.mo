@@ -3,9 +3,9 @@ model BoilerPolynomialSteam "Example model to test the BoilerPolynomialSteam"
   extends Modelica.Icons.Example;
 
     // Package medium declaration
-  replaceable package MediumWat = Buildings.Media.Water
+  package MediumWat = Buildings.Media.Water
     "Water medium - port_a(inlet)";
-  replaceable package MediumSte = Buildings.Media.Steam
+  package MediumSte = Buildings.Media.Steam
      "Steam medium - port_b(oulet)";
 
   parameter Modelica.SIunits.AbsolutePressure p_nominal = 300000

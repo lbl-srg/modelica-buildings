@@ -2,10 +2,10 @@ within Buildings.Fluid.MixingVolumes.Examples;
 model MixingVolumeEvaporation "Test model for heat transfer to volume"
   extends Modelica.Icons.Example;
 
-replaceable package MediumSte = Buildings.Media.Steam
+package MediumSte = Buildings.Media.Steam
     "Steam medium - Medium model for port_b (outlet)";
 
-replaceable package MediumWat = Buildings.Media.Water
+package MediumWat = Buildings.Media.Water
     "Water medium - Medium model for port_a (inlet)";
 
   Buildings.Fluid.MixingVolumes.MixingVolumeEvaporation volDyn(
