@@ -1,9 +1,13 @@
 within Buildings.Fluid.Boilers.Examples;
-model BoilerPolynomialSteam "Test model"
+model BoilerPolynomialSteam "Example model to test the BoilerPolynomialSteam"
   extends Modelica.Icons.Example;
-  extends Buildings.Fluid.Interfaces.PartialWaterPhaseChange(
-    p_start=300000,
-    T_start=273.15+200);
+
+    // Package medium declaration
+  replaceable package MediumWat = Buildings.Media.Water
+    "Water medium - port_a(inlet)";
+  replaceable package MediumSte = Buildings.Media.Steam
+     "Steam medium - port_b(oulet)";
+
   parameter Modelica.SIunits.AbsolutePressure p_nominal = 300000
     "Nominal pressure";
   parameter Modelica.SIunits.Temperature T_nominal=
