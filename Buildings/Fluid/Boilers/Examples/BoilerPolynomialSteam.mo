@@ -65,8 +65,8 @@ equation
     annotation (Line(points={{20,-10},{62,-10}}, color={0,127,255}));
   connect(TAmb2.port, boiDyn.heatPort)
     annotation (Line(points={{0,50},{10,50},{10,-2.8}},   color={191,0,0}));
-  connect(y.y, boiDyn.y) annotation (Line(points={{-39,50},{-30,50},{-30,-2},{
-          -2,-2}}, color={0,0,127}));
+  connect(y.y, boiDyn.y) annotation (Line(points={{-39,50},{-30,50},{-30,-2},{-2,-2}},
+                   color={0,0,127}));
   connect(sou.ports[1], boiDyn.port_a)
     annotation (Line(points={{-40,-10},{0,-10}}, color={0,127,255}));
   connect(sou.ports[2], boiSte.port_a) annotation (Line(points={{-40,-14},{-30,

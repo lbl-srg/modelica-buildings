@@ -40,20 +40,56 @@ partial model PartialTwoPortTwoMedium
 
   Modelica.Fluid.Interfaces.FluidPort_a port_a(
     redeclare final package Medium = Medium_a,
-     m_flow(min=0),
+     m_flow(min=if allowFlowReversal then -Modelica.Constants.inf else 0),
      h_outflow(start = Medium_a.h_default, nominal = Medium_a.h_default))
     "Fluid connector a (positive design flow direction is from port_a to port_b)"
     annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
   Modelica.Fluid.Interfaces.FluidPort_b port_b(
     redeclare final package Medium = Medium_b,
-     m_flow(max=0),
+     m_flow(max=if allowFlowReversal then +Modelica.Constants.inf else 0),
      h_outflow(start = Medium_b.h_default, nominal = Medium_b.h_default))
     "Fluid connector b (positive design flow direction is from port_a to port_b)"
     annotation (Placement(transformation(extent={{110,-10},{90,10}})));
+
+  // Assumptions
+  parameter Boolean allowFlowReversal = true
+    "= false to simplify equations, assuming, but not enforcing, no flow reversal. Used only if model has two ports."
+    annotation(Dialog(tab="Assumptions"), Evaluate=true);
+
+   //Dynamics
+  parameter Modelica.Fluid.Types.Dynamics energyDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial
+    "Type of energy balance: dynamic (3 initialization options) or steady state"
+    annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Equations"));
+
+  parameter Modelica.Fluid.Types.Dynamics massDynamics=energyDynamics
+    "Type of mass balance: dynamic (3 initialization options) or steady state"
+    annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Equations"));
+
+  // Initialization
+  parameter Medium_b.AbsolutePressure p_start = Medium_b.p_default
+    "Start value of pressure"
+    annotation(Dialog(tab = "Initialization"));
+  parameter Medium_b.Temperature T_start=Medium_b.T_default
+    "Start value of temperature"
+    annotation(Dialog(tab = "Initialization"));
 
 protected
   final parameter Modelica.SIunits.MassFlowRate _m_flow_start = 0
   "Start value for m_flow, used to avoid a warning if not set in m_flow, and to avoid m_flow.start in parameter window";
   final parameter Modelica.SIunits.PressureDifference _dp_start(displayUnit="Pa") = 0
   "Start value for dp, used to avoid a warning if not set in dp, and to avoid dp.start in parameter window";
+
+  annotation (Documentation(info="<html>
+This partial model defines an interface for components with two ports and two separate medium in each port. 
+The component transports fluid between two ports without storing mass or energy. 
+The treatment of the design flow direction and of flow reversal are predefined based on the parameter <code>allowFlowReversal</code>.
+
+This model is ideal to implement systems with phase change process. Also includes assumptions and initilization parameters for the phase change process.   
+
+</html>", revisions="<html>
+<ul>
+<li>July 22, 2021 by Kathryn Hinkelman: </li>
+<li>First implementation. </li>
+</ul>
+</html>"));
 end PartialTwoPortTwoMedium;
