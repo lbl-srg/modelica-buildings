@@ -36,7 +36,7 @@ model ControlPlusLockoutCore
     final unit="s",
     final displayUnit="s",
     final quantity="Time") = 3600 "Time for which cooling is locked out after heating concludes";
-   final parameter Real TemDeaNor(min=0,
+   final parameter Real TemDeaRel(min=0,
     final unit="K",
     final displayUnit="K",
     final quantity="TemperatureDifference")=2.22 "Difference from slab temp setpoint required to trigger heating or cooling during occupied hours";
@@ -252,16 +252,16 @@ Fluid.Movers.FlowControlled_m_flow           pumHot(
         rotation=90,
         origin={156,4})));
   Experimental.RadiantControl.ControlPlusLockouts conPluLoc(
-    TAirHiSet=TZonHigLim,
-    TAirLoSet=TZonLowLim,
+    TAirHigSet=TZonHigLim,
+    TAirLowSet=TZonLowLim,
     TWaLoSet=TemWaLoSet,
     TiCHW=cooLocDurWatTem,
     TiHea=heaLocDurAftCoo,
     TiCoo=cooLocDurAftHea,
-    TDeaRel=TemDeaNor,
+    TDeaRel=TemDeaRel,
     TDeaNor=TemDeaNor,
     k=LasOcc,
-    off_within_deadband=OffTru) "Control plus lockouts"
+    offWitDea=OffTru) "Control plus lockouts"
     annotation (Placement(transformation(extent={{-400,-100},{-380,-80}})));
   Fluid.Sources.Boundary_pT
     airOut2(redeclare package Medium = MediumA, nPorts=1)

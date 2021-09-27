@@ -323,23 +323,23 @@ Fluid.Movers.FlowControlled_m_flow           pumHot(
         rotation=90,
         origin={156,4})));
   Experimental.RadiantControl.ControlPlusLockouts conPluLoc(
-    TAirHiSet=TZonHigLim,
-    TAirLoSet=TZonLowLim,
-    TWaLoSet=TemWaLoSet,
-    TiCHW=TimCHW,
-    TiHea=TimHea,
-    TiCoo=TimCoo,
+    TZonHigSet=TZonHigLim,
+    TZonLowSet=TZonLowLim,
+    TWatSetLow=TemWaLoSet,
+    cooLocDurWatTem=TimCHW,
+    heaLocDurAftCoo=TimHea,
+    cooLocDurAftHea=TimCoo,
     TDeaRel=TemDeaRel,
     TDeaNor=TemDeaNor,
     k=LasOcc,
-    off_within_deadband=OffTru) "Control plus lockouts"
+    offWitDea=OffTru) "Control plus lockouts"
     annotation (Placement(transformation(extent={{-400,-100},{-380,-80}})));
   SlabTemperatureSignal.SlabSetpointPerimeter slaSetPer "Slab setpoint "
     annotation (Placement(transformation(extent={{-520,-60},{-500,-40}})));
   SlabTemperatureSignal.Validation.BaseClasses.ForecastHighChicago forHiChi
     "Forecast high temperature"
     annotation (Placement(transformation(extent={{-586,-64},{-566,-44}})));
-  Controls.OBC.CDL.Logical.Sources.Constant nitFluSig(k=false)
+  Controls.OBC.CDL.Logical.Sources.Constant uNigFlu(k=false)
     "Night flush signal- constantly false"
     annotation (Placement(transformation(extent={{-482,-140},{-462,-120}})));
 equation
@@ -418,30 +418,30 @@ equation
           255}));
   connect(temRet.port_b, sin.ports[1]) annotation (Line(points={{52,8},{104,8},{
           104,14},{156,14}}, color={0,127,255}));
-  connect(conPluLoc.htgSig, booToReaHtgPum.u) annotation (Line(points={{-378,-85.6},
+  connect(conPluLoc.yHea, booToReaHtgPum.u) annotation (Line(points={{-378,-85.6},
           {-316,-85.6},{-316,-70},{-262,-70}}, color={255,0,255}));
-  connect(conPluLoc.htgSig, booToReaHtgVal.u) annotation (Line(points={{-378,-85.6},
+  connect(conPluLoc.yHea, booToReaHtgVal.u) annotation (Line(points={{-378,-85.6},
           {-316,-85.6},{-316,-112},{-262,-112}}, color={255,0,255}));
-  connect(conPluLoc.clgSig, booToReaClgPum.u) annotation (Line(points={{-378,-93},
+  connect(conPluLoc.yCoo, booToReaClgPum.u) annotation (Line(points={{-378,-93},
           {-366,-93},{-366,-320},{-100,-320},{-100,-90},{-64,-90}}, color={255,
           0,255}));
-  connect(conPluLoc.clgSig, booToReaClgVal.u) annotation (Line(points={{-378,-93},
+  connect(conPluLoc.yCoo, booToReaClgVal.u) annotation (Line(points={{-378,-93},
           {-366,-93},{-366,-320},{-100,-320},{-100,-130},{-64,-130}}, color={
           255,0,255}));
-  connect(temRet.T, conPluLoc.TWaRet) annotation (Line(points={{41,-2},{41,230},
+  connect(temRet.T, conPluLoc.TSlaWatRet) annotation (Line(points={{41,-2},{41,230},
           {-462,230},{-462,-98},{-402,-98}}, color={0,0,127}));
   connect(temRoo.T, conPluLoc.TRooAir) annotation (Line(points={{62,241},{-464,
           241},{-464,-94},{-402,-94}}, color={0,0,127}));
   connect(temSlaTop.T, conPluLoc.TSla) annotation (Line(points={{-82,44},{-464,44},
           {-464,-82},{-402,-82}}, color={0,0,127}));
-  connect(forHiChi.TForHiChi, slaSetPer.TFor) annotation (Line(points={{-564,-53.8},
+  connect(forHiChi.TForHigChi, slaSetPer.TFor) annotation (Line(points={{-564,-53.8},
           {-556,-53.8},{-556,-56},{-540,-56},{-540,-50},{-522,-50}}, color={0,0,
           127}));
   connect(slaSetPer.TSlaSetPer, conPluLoc.TSlaSet) annotation (Line(points={{-498,
           -50},{-468,-50},{-468,-86},{-402,-86}}, color={0,0,127}));
   connect(radExt.ports[2], temRoo.port_a) annotation (Line(points={{87,312},{80,
           312},{80,260},{100,260},{100,232},{84,232}}, color={0,127,255}));
-  connect(nitFluSig.y, conPluLoc.nitFluSig) annotation (Line(points={{-460,-130},
+  connect(uNigFlu.y, conPluLoc.uNigFlu) annotation (Line(points={{-460,-130},
           {-432,-130},{-432,-90},{-402,-90}}, color={255,0,255}));
   connect(TIntSet.y, TOut2.T) annotation (Line(points={{246.4,254},{270,254},{
           270,138},{198,138},{198,176},{208,176}}, color={0,0,127}));

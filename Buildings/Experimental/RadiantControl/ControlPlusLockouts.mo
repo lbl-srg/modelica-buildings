@@ -94,24 +94,24 @@ equation
           {-78,7},{-22,7}}, color={0,0,127}));
   connect(TSlaWatRet, allLoc.TSlaWatRet) annotation (Line(points={{-120,-80},{-40,-80},
           {-40,3},{-22,3}}, color={0,0,127}));
-  connect(allLoc.yHeaL, and2.u2) annotation (Line(points={{2,13},{16,13},{16,
+  connect(allLoc.yHea, and2.u2) annotation (Line(points={{2,13},{16,13},{16,
           42},{18,42}}, color={255,0,255}));
-  connect(allLoc.yCooL, and1.u2) annotation (Line(points={{2,5},{6,5},{6,-18},
+  connect(allLoc.yCoo, and1.u2) annotation (Line(points={{2,5},{6,5},{6,-18},
           {18,-18}}, color={255,0,255}));
   connect(err.slaTemErr, deaCon.slaTemErr) annotation (Line(points={{-36,51},{-32,
           51},{-32,39.2},{-26.6,39.2}}, color={0,0,127}));
-  connect(deaCon.clgCal, and1.u1) annotation (Line(points={{8,44},{12,44},{12,-10},
+  connect(deaCon.uCoo, and1.u1) annotation (Line(points={{8,44},{12,44},{12,-10},
           {18,-10}}, color={255,0,255}));
-  connect(deaCon.htgCal, and2.u1) annotation (Line(points={{8,54},{14,54},{14,
+  connect(deaCon.uHea, and2.u1) annotation (Line(points={{8,54},{14,54},{14,
           50},{18,50}}, color={255,0,255}));
   connect(and1.y, pre.u) annotation (Line(points={{42,-10},{50,-10},{50,-30},{
           58,-30}}, color={255,0,255}));
-  connect(pre.y, allLoc.yCoo) annotation (Line(points={{82,-30},{86,-30},{86,
-          -60},{-60,-60},{-60,11},{-22,11}}, color={255,0,255}));
+  connect(pre.y, allLoc.uCoo) annotation (Line(points={{82,-30},{86,-30},{86,-60},
+          {-60,-60},{-60,11},{-22,11}},      color={255,0,255}));
   connect(and2.y, pre1.u) annotation (Line(points={{42,50},{50,50},{50,70},{58,
           70}}, color={255,0,255}));
-  connect(pre1.y, allLoc.yHea) annotation (Line(points={{82,70},{84,70},{84,
-          94},{-74,94},{-74,15},{-22,15}}, color={255,0,255}));
+  connect(pre1.y, allLoc.uHea) annotation (Line(points={{82,70},{84,70},{84,94},
+          {-74,94},{-74,15},{-22,15}},     color={255,0,255}));
   annotation (defaultComponentName = "conPluLoc",Documentation(info="<html>
 <p>
 This encompasses full radiant control based on water return temperature, room air temperature, night flush signal, slab temperature, and slab setpoint. <p>

@@ -1,11 +1,11 @@
 compareVars :=
   {
-    "conPluLoc.htgSig",
-    "conPluLoc.clgSig",
-    "conPluLoc.allLoc.htgSigL",
-    "conPluLoc.allLoc.clgSigL",
-    "conPluLoc.deaCon.clgCal",
-    "conPluLoc.deaCon.htgCal",
+    "conPluLoc.yHea",
+    "conPluLoc.yCoo",
+    "conPluLoc.allLoc.yHeaL",
+    "conPluLoc.allLoc.yCooL",
+    "conPluLoc.deaCon.uCoo",
+    "conPluLoc.deaCon.uHea",
     "conPluLoc.err.slaTemErr",
     "conPluLoc.deaCon.TDeaRel",
     "conPluLoc.deaCon.TDeaNor"

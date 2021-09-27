@@ -234,6 +234,20 @@ for ff in `find . \( -name '*ControlPlusLockout.mo' -or -name '*ControlPlusLocko
     list=(\
      TAirHiLim TZonHigLim \
      TempWaLoSet WatTemLowSet \
+     nitFluSig uNigFlu \
+     TWaRet TSlaWatRet \
+     htgSig yHea \
+     clgSig yCoo \
+     htgSigL yHea \
+     clgSigL yCoo \
+     TAirHiSet TZonHigSet \
+     TAirLoSet TZonLowSet \
+     TWaLoSet TWatSetLow \
+     TiCHW cooLocDurWatTem \
+     TiCoo cooLocDurAftHea \
+     TiHea heaLocDurAftCoo \
+     off_within_deadband offWitDea \
+     TChwRet TSlaWatRet \
           )
 
     for ((i=0; i<${#list[@]}; i+=2)); do
@@ -261,8 +275,6 @@ for ff in `find . \( -name '*ControlPlusLockoutCore.mo' -or -name '*ControlPlusL
      TimCHW cooLocDurWatTem \
      TimCoo cooLocDurAftHea \
      TimHea heaLocDurAftCoo \
-     TemDeaRel 
-     TemDeaNor 
           )
 
     for ((i=0; i<${#list[@]}; i+=2)); do

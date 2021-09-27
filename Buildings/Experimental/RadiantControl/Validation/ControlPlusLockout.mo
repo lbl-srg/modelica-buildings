@@ -40,25 +40,25 @@ model ControlPlusLockout "Validation model for radiant control"
     "Flat temperature setpoint"
     annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
   ControlPlusLockouts conPluLoc "Control plus lockouts"
-    annotation (Placement(transformation(extent={{2,0},{24,20}})));
+    annotation (Placement(transformation(extent={{0,0},{22,20}})));
   Controls.OBC.CDL.Logical.Sources.Pulse booPul(period=43000)
     "Varying night flush signal"
     annotation (Placement(transformation(extent={{-60,-100},{-40,-80}})));
 equation
   connect(sin2.y, conPluLoc.TSla) annotation (Line(points={{-38,70},{-20,70},{
-          -20,18},{-0.2,18}},
+          -20,18},{-2.2,18}},
                        color={0,0,127}));
   connect(TIntSet.y, conPluLoc.TSlaSet) annotation (Line(points={{-38,30},{-30,
-          30},{-30,14},{-0.2,14}},
+          30},{-30,14},{-2.2,14}},
                                 color={0,0,127}));
   connect(sin.y, conPluLoc.TRooAir) annotation (Line(points={{-38,-10},{-20,-10},
-          {-20,6},{-0.2,6}},
+          {-20,6},{-2.2,6}},
                           color={0,0,127}));
-  connect(sin1.y, conPluLoc.TWaRet) annotation (Line(points={{-38,-50},{-8,-50},
-          {-8,2},{-0.2,2}},
+  connect(sin1.y, conPluLoc.TSlaWatRet) annotation (Line(points={{-38,-50},{-8,
+          -50},{-8,2},{-2.2,2}},
                          color={0,0,127}));
-  connect(booPul.y, conPluLoc.nitFluSig) annotation (Line(points={{-38,-90},{
-          -26,-90},{-26,10},{-0.2,10}}, color={255,0,255}));
+  connect(booPul.y, conPluLoc.uNigFlu) annotation (Line(points={{-38,-90},{-26,
+          -90},{-26,10},{-2.2,10}},     color={255,0,255}));
   annotation (Documentation(info="<html>
 <p>
 This models the radiant slab control scheme with inputs not tied to a physical room.
