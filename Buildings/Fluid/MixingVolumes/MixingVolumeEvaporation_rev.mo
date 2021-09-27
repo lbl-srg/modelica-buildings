@@ -1,4 +1,4 @@
-within Buildings.Fluid.MixingVolumes;
+﻿within Buildings.Fluid.MixingVolumes;
 model MixingVolumeEvaporation_rev
   "Mixing volume for water evaporation at equilibrium(conbining the conservation equation Evaporation)"
 
@@ -235,7 +235,73 @@ First implementation.
 </ul>
 </html>", info="<html>
 <p>
-Mixing volume with water phase change.
+This model represents an instantaneous mixed volume with the evaporation process of water with liquid and vapor phases in equilibrium. 
+The volume can exchange heat through its <code>heatPort</code>.
+
+This model is similar to <a href = \"modelica:// Modelica.Fluid.Examples.DrumBoiler.BaseClasses.EquilibriumDrumBoiler\">Modelica.Fluid.Examples.DrumBoiler.BaseClasses.EquilibriumDrumBoiler</a> 
+with the following exceptions:
+<ul>
+<li>Rather than a two-phase medium, fluid mediums are modeled as two
+single-state fluids, with liquid water at the up-stream port<code>(port_a)</code>, and
+steam vapor at the downstream port <code>(port_b)</code>.
+
+<li>The metal drum is excluded from the mass and energy balances.
+
+<li>The new model protects against incorrect physics where the steam and
+liquid water volumes must always be equal to or greater than zero<code>(Vwat>=0, VSte>=0)</code>.
+
+<li>The steady state balances accurately hold mass and internal energy
+constant
+</ul>
+
+<p>
+<h4> Implementation</h4></p>
+<p>MixingVolumeEvaporation is configured to allow both steady state and dynamic mass and energy
+balances. The steady state and dynamic balance implementation use the mixed medium properties. 
+The heat transfer through the <code>heatPort</code> is disabled in steady state balance.
+The fluid mass <i>m</i> in the volume is calculated as</p>
+
+<p align = \"center\" style = \"font-style:italic;\">
+m = ρ<sub>s</sub>V<sub>s</sub> + ρ<sub>w</sub>V<sub>w</sub>
 </p>
+
+where <i>ρ</i> is density,<i>V</i> is volume, and subscripts represent the steam and liquid water components. The total internal energy <i>U</i> is
+<p align = \"center\" style = \"font-style:italic;\">
+U = ρ<sub>s</sub>V<sub>s</sub>h<sub>s</sub> + ρ<sub>w</sub>V<sub>w</sub> − pV
+</p>
+
+where <i>h</i> is specific enthalpy, <i>p</i> is pressure, and the total volume of fluid <i>V=V<sub>s</sub>+V<sub>w</sub></i>.
+
+<p><li>The steady state mass balance and energy balance is given as
+<p align = \"center\" style = \"font-style:italic;\">
+m&#775;<sub>s</sub> + m&#775;<sub>w</sub> = 0,
+<li>U = U_start, Q&#775; = 0</p>
+
+The dynamic mass and energy balance is given as
+<p align = \"center\" style = \"font-style:italic;\">
+dm/dt = m&#775;<sub>s</sub> + m&#775;<sub>w</sub>
+<li>dU/dt = Q&#775; + m&#775;<sub>s</sub> h<sub>s</sub> + m&#775;<sub>w</sub> h<sub>w</sub></p> 
+
+<p>where ̇<i>m&#775;<sub>s</sub></i> and <i>m&#775;<sub>w</sub></i> is the mass flow rates of steam and liquid water
+respectively; <i>Q&#775;</i> is the net heat flow rate through the boiler’s enclosure and from the fuel; <i>h<sub>s</sub></i> and <i>h<sub>w</sub></i> is the specific enthalpy of steam and liquid water. 
+Note that with the split medium approach, the liquid
+phase(water) is always assigned at the <code>port_a</code>(inlet) while the vapor
+phase(steam) is always at the <code>port_b</code>(outlet).</p> 
+
+<p>
+<li>Two principal assumptions are made with this model:</p>
+<ul><p>
+<li>The water is always at a saturated state within the boiler, and saturated steam vapor with a quality of 1 is discharged from the outlet  
+port   with <i>h<sub>s</sub>=h<sub>v</sub>.
+
+<li>The liquid and vapor components in the volume are at equilibrium.
+</ul>
+</p>
+<p>
+This model is used for the implementation of <a href = \"modelica://Buildings.Fluid.Boilers.BoilerPolynomialSteam_rev\"> Buildings.Fluid.Boilers.BoilerPolynomialSteam_rev</a>, which exhibits
+phase change process of water from liquid state to vapor state.
+</p>
+
+
 </html>"));
 end MixingVolumeEvaporation_rev;
