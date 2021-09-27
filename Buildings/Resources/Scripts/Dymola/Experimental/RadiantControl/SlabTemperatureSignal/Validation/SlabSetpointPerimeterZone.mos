@@ -6,5 +6,4 @@ createPlot(id=1, position={15, 10, 924, 583},
  autoerase = true,
  autoreplot = true,
  grid=true,
- color=true,
- filename="SlabSetpointPerimeterZone.mat");
+ color=true);

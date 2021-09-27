@@ -6,18 +6,16 @@ createPlot(id=1, position={15, 10, 924, 583},
  autoerase = true,
  autoreplot = true,
  grid=true,
- color=true,
- filename="ControlPlusLockout.mat");
+ color=true);
 createPlot(id=1, position={15, 10, 924, 583},
- y={"conPluLoc.allLoc.yHeaL", "conPluLoc.allLoc.yCooL"}, 
+ y={"conPluLoc.allLoc.yHea", "conPluLoc.allLoc.yCoo"}, 
  range={0.0, 172000.0, 0, 1},
  autoscale = true,
  autoerase = true,
  autoreplot = true,
  grid=true,
  color=true,
- subPlot=2,
- filename="ControlPlusLockout.mat");
+ subPlot=2);
  createPlot(id=1, position={15, 10, 924, 583},
  y={"conPluLoc.deaCon.uCoo", "conPluLoc.deaCon.uHea"},
  range={0.0, 172000.0, 0, 1},
@@ -26,8 +24,7 @@ createPlot(id=1, position={15, 10, 924, 583},
  autoreplot = true,
  grid=true,
  color=true,
- subPlot=3,
- filename="ConPluLoc.mat");
+ subPlot=3);
  createPlot(id=2, position={15, 10, 924, 583},
  y={"conPluLoc.err.slaTemErr","conPluLoc.deaCon.TDeaRel","conPluLoc.deaCon.TDeaNor"}, 
  range={0.0, 172000.0, (-20), 20},
@@ -35,6 +32,5 @@ createPlot(id=1, position={15, 10, 924, 583},
  autoerase = true,
  autoreplot = true,
  grid=true,
- color=true,
- filename="ControlPlusLockout.mat");
+ color=true);
  

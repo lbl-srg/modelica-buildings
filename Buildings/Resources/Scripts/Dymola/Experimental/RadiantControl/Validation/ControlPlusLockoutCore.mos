@@ -6,8 +6,7 @@ createPlot(id=1, position={15, 20, 924, 583},
  autoerase = true,
  autoreplot = true,
  grid=true,
- color=true,
- filename="ControlPlusLockoutCore.mat");
+ color=true);
 createPlot(id=1, position={15, 20, 924, 583},
  y={"conPluLoc.err.slaTemErr"}, 
  range={0.0, 31536000, (-10), 10},
@@ -16,6 +15,5 @@ createPlot(id=1, position={15, 20, 924, 583},
  autoreplot = true,
  grid=true,
  color=true,
- subPlot=2,
- filename="ControlPlusLockoutCore.mat")
+ subPlot=2)
 

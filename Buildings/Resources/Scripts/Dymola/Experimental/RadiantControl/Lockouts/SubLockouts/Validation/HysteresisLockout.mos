@@ -6,8 +6,7 @@ createPlot(id=1, position={15, 10, 924, 583},
  autoerase = true,
  autoreplot = true,
  grid=true,
- color=true,
- filename="HysteresisLockout.mat");
+ color=true);
 createPlot(id=2, position={15, 10, 924, 583},
  y={"hysLim1.uHea","hysLim1.uCoo","hysLim1.yHeaNotLoc","hysLim1.yCooNotLoc"}, 
  range={0.0, 172000.0, 0, 1},
@@ -15,8 +14,7 @@ createPlot(id=2, position={15, 10, 924, 583},
  autoerase = true,
  autoreplot = true,
  grid=true,
- color=true,
- filename="HysteresisLockout.mat");
+ color=true);
  createPlot(id=3, position={15, 10, 924, 583},
  y={"hysLim2.uHea","hysLim2.uCoo","hysLim2.yHeaNotLoc","hysLim2.yCooNotLoc"}, 
  range={0.0, 172000.0, 0, 1},
@@ -24,8 +22,7 @@ createPlot(id=2, position={15, 10, 924, 583},
  autoerase = true,
  autoreplot = true,
  grid=true,
- color=true,
- filename="HysteresisLockout.mat");
+ color=true);
  createPlot(id=4, position={15, 10, 924, 583},
  y={"hysLim3.uHea","hysLim3.uCoo","hysLim3.yHeaNotLoc","hysLim3.yCooNotLoc"}, 
  range={0.0, 172000.0, 0, 1},
@@ -33,8 +30,7 @@ createPlot(id=2, position={15, 10, 924, 583},
  autoerase = true,
  autoreplot = true,
  grid=true,
- color=true,
- filename="HysteresisLockout.mat");
+ color=true);
  createPlot(id=5, position={15, 10, 924, 583},
  y={"hysLim4.uHea","hysLim4.uCoo","hysLim4.yHeaNotLoc","hysLim4.yCooNotLoc"}, 
  range={0.0, 172000.0, 0, 1},
@@ -42,8 +38,7 @@ createPlot(id=2, position={15, 10, 924, 583},
  autoerase = true,
  autoreplot = true,
  grid=true,
- color=true,
- filename="HysteresisLockout.mat");
+ color=true);
   createPlot(id=6, position={15, 10, 924, 583},
  y={"hysLim5.uHea","hysLim5.uCoo","hysLim5.yHeaNotLoc","hysLim5.yCooNotLoc"}, 
  range={0.0, 172000.0, 0, 1},
@@ -51,5 +46,4 @@ createPlot(id=2, position={15, 10, 924, 583},
  autoerase = true,
  autoreplot = true,
  grid=true,
- color=true,
- filename="HysteresisLockout.mat");
+ color=true);
