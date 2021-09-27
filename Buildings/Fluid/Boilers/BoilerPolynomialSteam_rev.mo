@@ -1,5 +1,5 @@
 within Buildings.Fluid.Boilers;
-model BoilerPolynomialSteam_rev "Steam boiler"
+model BoilerPolynomialSteam_rev "A simple boiler exhibiting the phase change of water from liquid to vapor and the efficiency curve is described by the polynomial of temperature."
   extends Buildings.Fluid.Interfaces.PartialWaterPhaseChange;
   extends Buildings.Fluid.Interfaces.PartialTwoPortTwoMedium(
     redeclare final package Medium_a=MediumWat,
@@ -192,7 +192,26 @@ equation
           preserveAspectRatio=false)),
     Documentation(info="<html>
 <p>
-A simple two-port steam boiler model.
+This model is similar to the <a href = \"modelica:// Buildings.Fluid.Boilers.BoilerPolynomial\"> Buildings.Fluid.Boilers.BoilerPolynomial</a> for
+the efficiency and fuel mass flow rate computation with the following exceptions:
+include:</p>
+
+<ul>
+<p>
+<li>Water enters <code>port_a</code> in liquid state and exits <code>port_b</code> in vapour state. 
+This implementation follows the split medium approach using <a href = \"modelica://Buildings.Fluid.Interfaces.PartialTwoPortTwoMedium_rev\">Buildings.Fluid.Interfaces.PartialTwoPortTwoMedium_rev</a> interface model.
+<li> <a href = \"modelica:// Buildings.Fluid.MixingVolumes.MixingVolumeEvaporation_rev\">Buildings.Fluid.MixingVolumes.MixingVolumeEvaporation_rev</a> is used to implement the phase change process of water from liquid to vapor in equilibrium.
+<li>Steady state and Dynamic balance are parameterized. Part load input <code>y, Heatport, preHeaFlo</code> and <code>heaCapDry</code> of the boiler are disabled in steady state balance. 
+</ul>
+
 </p>
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+July 22, 2021 by Kathryn Hinkelman:<br/>
+First implementation.
+</li>
+</ul>
 </html>"));
 end BoilerPolynomialSteam_rev;
