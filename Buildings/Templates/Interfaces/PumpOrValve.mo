@@ -1,13 +1,7 @@
 within Buildings.Templates.Interfaces;
-partial model WatersideEconomizer
-  extends Fluid.Interfaces.PartialFourPortInterface(
-    redeclare package Medium1=Buildings.Media.Water,
-    redeclare package Medium2=Buildings.Media.Water);
-
-  parameter Types.WatersideEconomizer typ
-    "Type of waterside economizer"
-    annotation (Evaluate=true, Dialog(group="Configuration"));
-  // ToDo: Other WSE parameters
+partial model PumpOrValve
+  extends Fluid.Interfaces.PartialTwoPort(
+    redeclare package Medium=Buildings.Media.Water);
 
   outer parameter String id
     "System identifier";
@@ -30,4 +24,4 @@ partial model WatersideEconomizer
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid)}), Diagram(
         coordinateSystem(preserveAspectRatio=false)));
-end WatersideEconomizer;
+end PumpOrValve;

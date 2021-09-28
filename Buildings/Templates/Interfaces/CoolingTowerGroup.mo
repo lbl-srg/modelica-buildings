@@ -1,7 +1,7 @@
 within Buildings.Templates.Interfaces;
 partial model CoolingTowerGroup
   extends Fluid.Interfaces.PartialTwoPort(
-    redeclare package Medium=Buildings.Media.Water);
+    redeclare final package Medium=Buildings.Media.Water);
 
   parameter Types.CoolingTowerGroup typ
     "Type of cooling tower group"
@@ -22,6 +22,10 @@ partial model CoolingTowerGroup
         rotation=0,
         origin={0,100})));
 
+  BoundaryConditions.WeatherData.Bus weaBus
+    "Weather bus"
+    annotation (Placement(transformation(extent={{30,80},{70,120}}),
+      iconTransformation(extent={{40,90},{60,110}})));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false),
     graphics={Rectangle(
           extent={{-100,100},{100,-100}},

@@ -1,12 +1,13 @@
 within Buildings.Templates.Interfaces;
-partial model PumpGroup
-  extends Fluid.Interfaces.PartialTwoPort(
-    redeclare package Medium=Buildings.Media.Water);
+partial model ChilledWaterReturnSection
+  extends Fluid.Interfaces.PartialFourPortInterface(
+    redeclare package Medium1=Buildings.Media.Water,
+    redeclare package Medium2=Buildings.Media.Water);
 
-  parameter Types.PumpGroup typ
-    "Type of pump group"
+  parameter Types.WatersideEconomizer typ
+    "Type of waterside economizer"
     annotation (Evaluate=true, Dialog(group="Configuration"));
-  // ToDo: Other PumpGroup parameters
+  // ToDo: Other WSE parameters
 
   outer parameter String id
     "System identifier";
@@ -29,4 +30,4 @@ partial model PumpGroup
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid)}), Diagram(
         coordinateSystem(preserveAspectRatio=false)));
-end PumpGroup;
+end ChilledWaterReturnSection;

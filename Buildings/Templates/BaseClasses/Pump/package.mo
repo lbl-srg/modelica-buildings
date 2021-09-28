@@ -1,4 +1,3 @@
 within Buildings.Templates.BaseClasses;
-package PumpGroup
-  
-end PumpGroup;
+package Pump
+end Pump;

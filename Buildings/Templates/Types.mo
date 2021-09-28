@@ -116,7 +116,11 @@ package Types "AHU types"
       Relief,
       Return,
       Supply,
-      Terminal)
+      Terminal,
+      CondenserWaterSupply,
+      CondenserWaterReturn,
+      ChilledWaterSupply,
+      ChilledWaterReturn)
     "Enumeration to specify the equipment location";
   type OutdoorSection = enumeration(
       NoEconomizer
@@ -136,9 +140,12 @@ package Types "AHU types"
       NoRelief
       "No relief branch")
     "Enumeration to configure the outdoor/relief/return air section";
+  type Pump = enumeration(
+      Pump "Pump");
   type PumpGroup = enumeration(
       HeaderedPump
-      "Headered pumps");
+      "Headered pumps",
+      None "None");
   type ReliefReturnSection = enumeration(
       NoEconomizer
       "No economizer",
@@ -189,7 +196,12 @@ package Types "AHU types"
       Induction
       "Induction system")
     "Enumeration to configure the terminal unit";
-  type WatersideEconomizer = enumeration(
+  type Valve = enumeration(
+      None "No valve",
+      Linear "Linear two-way valve",
+      EqualPercentage "Equal percentage two-way valve");
+  type ChilledWaterReturnSection = enumeration(
+      NoEconomizer "No waterside economizer",
       WatersideEconomizer
       "Waterisde economizer");
 end Types;

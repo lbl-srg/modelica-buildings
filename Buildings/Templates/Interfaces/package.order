@@ -14,7 +14,9 @@ ReliefReturnSection
 Sensor
 TerminalUnitAir
 CoolingTowerGroup
-PumpGroup
 ChillerGroup
-WatersideEconomizer
+ChilledWaterReturnSection
 ChilledWaterPlant
+Pump
+Valve
+PumpOrValve

@@ -21,11 +21,11 @@ model StaticTwoPortConservationEquation
     "Sensible plus latent heat flow rate transferred into the medium"
     annotation (Placement(transformation(extent={{-140,60},{-100,100}})));
   Modelica.Blocks.Interfaces.RealInput mWat_flow(final quantity="MassFlowRate",
-                                                 unit="kg/s") if
-       use_mWat_flow "Moisture mass flow rate added to the medium"
+                                                 unit="kg/s")
+    if use_mWat_flow "Moisture mass flow rate added to the medium"
     annotation (Placement(transformation(extent={{-140,20},{-100,60}})));
-  Modelica.Blocks.Interfaces.RealInput[Medium.nC] C_flow if
-       use_C_flow "Trace substance mass flow rate added to the medium"
+  Modelica.Blocks.Interfaces.RealInput[Medium.nC] C_flow
+    if use_C_flow "Trace substance mass flow rate added to the medium"
     annotation (Placement(transformation(extent={{-140,-60},{-100,-20}})));
 
   // Outputs that are needed in models that extend this model

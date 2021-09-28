@@ -1,14 +1,17 @@
 within Buildings.Templates.Interfaces;
 partial model ChillerGroup
+  extends Buildings.Fluid.Interfaces.PartialOptionalFourPortInterface(
+    redeclare final package Medium1=Buildings.Media.Water,
+    redeclare final package Medium2=Buildings.Media.Water,
+    final hasMedium1=true,
+    final hasMedium2=not is_airCoo);
 
   parameter Types.ChillerGroup typ
     "Type of chiller group"
     annotation (Evaluate=true, Dialog(group="Configuration"));
   // ToDo: Other ChillerGroup parameters
 
-  parameter Boolean is_airCoo = false;
-
-
+  parameter Boolean is_airCoo = false "Are chiller in group air cooled";
 
   outer parameter String id
     "System identifier";
@@ -24,14 +27,6 @@ partial model ChillerGroup
         rotation=0,
         origin={0,100})));
 
-  Modelica.Fluid.Interfaces.FluidPort_a port_a
-    annotation (Placement(transformation(extent={{90,30},{110,50}})));
-  Modelica.Fluid.Interfaces.FluidPort_b port_b
-    annotation (Placement(transformation(extent={{90,-50},{110,-30}})));
-  Modelica.Fluid.Interfaces.FluidPort_a port_a1 if not is_airCoo
-    annotation (Placement(transformation(extent={{-110,-50},{-90,-30}})));
-  Modelica.Fluid.Interfaces.FluidPort_b port_b1 if not is_airCoo
-    annotation (Placement(transformation(extent={{-110,30},{-90,50}})));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false),
     graphics={Rectangle(
           extent={{-100,100},{100,-100}},

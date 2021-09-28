@@ -31,7 +31,7 @@ partial model PartialEightPortInterface
   // Diagnostics
   parameter Boolean show_T = false
     "= true, if actual temperature at port is computed"
-    annotation(
+    annotation (
       Dialog(tab="Advanced", group="Diagnostics"),
       HideResult=true);
   Medium1.MassFlowRate m1_flow = port_a1.m_flow
@@ -55,44 +55,44 @@ partial model PartialEightPortInterface
   Medium1.ThermodynamicState sta_a1=
       Medium1.setState_phX(port_a1.p,
                            noEvent(actualStream(port_a1.h_outflow)),
-                           noEvent(actualStream(port_a1.Xi_outflow))) if
-         show_T "Medium properties in port_a1";
+                           noEvent(actualStream(port_a1.Xi_outflow)))
+      if show_T "Medium properties in port_a1";
   Medium1.ThermodynamicState sta_b1=
       Medium1.setState_phX(port_b1.p,
                            noEvent(actualStream(port_b1.h_outflow)),
-                           noEvent(actualStream(port_b1.Xi_outflow))) if
-         show_T "Medium properties in port_b1";
+                           noEvent(actualStream(port_b1.Xi_outflow)))
+      if show_T "Medium properties in port_b1";
   Medium2.ThermodynamicState sta_a2=
       Medium2.setState_phX(port_a2.p,
                            noEvent(actualStream(port_a2.h_outflow)),
-                           noEvent(actualStream(port_a2.Xi_outflow))) if
-         show_T "Medium properties in port_a2";
+                           noEvent(actualStream(port_a2.Xi_outflow)))
+      if show_T "Medium properties in port_a2";
   Medium2.ThermodynamicState sta_b2=
       Medium2.setState_phX(port_b2.p,
                            noEvent(actualStream(port_b2.h_outflow)),
-                           noEvent(actualStream(port_b2.Xi_outflow))) if
-         show_T "Medium properties in port_b2";
+                           noEvent(actualStream(port_b2.Xi_outflow)))
+      if show_T "Medium properties in port_b2";
 
  Medium3.ThermodynamicState sta_a3=
       Medium3.setState_phX(port_a3.p,
                            noEvent(actualStream(port_a3.h_outflow)),
-                           noEvent(actualStream(port_a3.Xi_outflow))) if
-         show_T "Medium properties in port_a3";
+                           noEvent(actualStream(port_a3.Xi_outflow)))
+      if show_T "Medium properties in port_a3";
   Medium3.ThermodynamicState sta_b3=
       Medium3.setState_phX(port_b3.p,
                            noEvent(actualStream(port_b3.h_outflow)),
-                           noEvent(actualStream(port_b3.Xi_outflow))) if
-         show_T "Medium properties in port_b3";
+                           noEvent(actualStream(port_b3.Xi_outflow)))
+      if show_T "Medium properties in port_b3";
   Medium4.ThermodynamicState sta_a4=
       Medium4.setState_phX(port_a4.p,
                            noEvent(actualStream(port_a4.h_outflow)),
-                           noEvent(actualStream(port_a4.Xi_outflow))) if
-         show_T "Medium properties in port_a4";
+                           noEvent(actualStream(port_a4.Xi_outflow)))
+      if show_T "Medium properties in port_a4";
   Medium4.ThermodynamicState sta_b4=
       Medium4.setState_phX(port_b4.p,
                            noEvent(actualStream(port_b4.h_outflow)),
-                           noEvent(actualStream(port_b4.Xi_outflow))) if
-         show_T "Medium properties in port_b4";
+                           noEvent(actualStream(port_b4.Xi_outflow)))
+      if show_T "Medium properties in port_b4";
 protected
   Medium1.ThermodynamicState state_a1_inflow=
     Medium1.setState_phX(port_a1.p, inStream(port_a1.h_outflow), inStream(port_a1.Xi_outflow))

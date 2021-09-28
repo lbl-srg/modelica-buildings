@@ -41,7 +41,8 @@ model MultipleVariable
     final mCon_flow_nominal=fill(m_flow_nominal, nFan),
     final nCon=nFan)
     annotation (Placement(transformation(extent={{-20,-30},{20,-10}})));
-  Buildings.Controls.OBC.CDL.Routing.RealReplicator reaRep(
+  Buildings.Controls.OBC.CDL.Routing.RealScalarReplicator
+                                                    reaRep(
     final nout=nFan)
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},

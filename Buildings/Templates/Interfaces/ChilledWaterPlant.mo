@@ -13,23 +13,25 @@ partial model ChilledWaterPlant
     annotation (Evaluate=true, Dialog(group="Configuration"));
 
   Modelica.Fluid.Interfaces.FluidPort_a port_a "Chilled water supply"
-    annotation (Placement(transformation(extent={{210,-30},{230,-10}})));
+    annotation (Placement(transformation(extent={{190,-20},{210,0}})));
   Modelica.Fluid.Interfaces.FluidPort_b port_b "Chilled water return"
-    annotation (Placement(transformation(extent={{210,-70},{230,-50}})));
-  BaseClasses.Connectors.BusInterface chiPlaCon "Chiller plant control bus"
+    annotation (Placement(transformation(extent={{190,-80},{210,-60}})));
+  BaseClasses.Connectors.BusInterface chwCon "Chilled water loop control bus"
     annotation (Placement(transformation(
-        extent={{-20,-20},{20,20}},
+        extent={{-20,20},{20,-20}},
         rotation=90,
-        origin={-100,40}), iconTransformation(
-        extent={{-10,-10},{10,10}},
-        rotation=0,
-        origin={0,100})));
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{220,100}}),                                  graphics={
+        origin={200,40})));
+  BaseClasses.Connectors.BusInterface cwCon "Condenser loop control bus"
+    annotation (Placement(transformation(
+        extent={{-20,20},{20,-20}},
+        rotation=90,
+        origin={-200,40})));
+  annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-200,-100},
+            {200,100}}),                                        graphics={
               Rectangle(
-          extent={{-100,100},{100,-100}},
+          extent={{-200,100},{200,-100}},
           lineColor={0,0,255},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid)}), Diagram(coordinateSystem(
-          preserveAspectRatio=false, extent={{-100,-100},{220,100}})));
+          preserveAspectRatio=false, extent={{-200,-100},{200,100}})));
 end ChilledWaterPlant;
