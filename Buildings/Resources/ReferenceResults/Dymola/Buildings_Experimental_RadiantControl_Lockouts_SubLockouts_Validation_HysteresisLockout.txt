@@ -1,6 +1,10 @@
-last-generated=2021-09-27
+last-generated=2021-09-28
 statistics-simulation=
-{}
+{
+  "linear": " ",
+  "nonlinear": " ",
+  "numerical Jacobians": "0"
+}
 time=[0e+00, 1.728e+05]
 hysLim.uHea=[1e+00, 1e+00]
 hysLim.uCoo=[1e+00, 1e+00]
