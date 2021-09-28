@@ -28,8 +28,9 @@ This validates the slab error model, ie the difference between the slab temperat
 <ul>
 <li>
 October 6, 2020, by Fiona Woods:<br/>
-Updated description. 
+First implementation.
 </li>
+</ul>
 </html>"),experiment(StartTime=0.0, StopTime=172000.0, Tolerance=1e-06),__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/RadiantControl/SlabTemperatureSignal/Validation/SlabError.mos"
         "Simulate and plot"),Icon(graphics={
         Ellipse(

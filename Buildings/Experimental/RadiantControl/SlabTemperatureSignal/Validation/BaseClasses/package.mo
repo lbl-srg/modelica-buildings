@@ -12,7 +12,8 @@ annotation (Documentation(info="<html>
 <ul>
 <li>
 October 6, 2020, by Fiona Woods:<br/>
-Updated package description.<br/>
+First implementation.
 </li>
+</ul>
 </html>"));
 end BaseClasses;

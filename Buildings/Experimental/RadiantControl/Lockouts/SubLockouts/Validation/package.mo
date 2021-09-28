@@ -10,7 +10,8 @@ This package contains validation models for each individual radiant slab lockout
 <ul>
 <li>
 October 6, 2020, by Fiona Woods:<br/>
-Updated package description.<br/>
-</li> 
+First implementation.
+</li>
+</ul>
 </html>"));
 end Validation;

@@ -27,8 +27,9 @@ This term is what drives calls for heating or for cooling.
 <ul>
 <li>
 October 6, 2020, by Fiona Woods:<br/>
-Updated description. 
+First implementation. 
 </li>
+</ul>
 </html>"),Icon(coordinateSystem(
         preserveAspectRatio=true,
         extent={{-100,-100},{100,100}}), graphics={

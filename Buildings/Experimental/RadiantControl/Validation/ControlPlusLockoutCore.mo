@@ -222,8 +222,8 @@ Fluid.Movers.FlowControlled_m_flow           pumHot(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={-28,-194})));
-  Fluid.Sensors.TemperatureTwoPort temCoolingValtoPump(redeclare package Medium
-      = MediumW, m_flow_nominal=mRad_flow_nominal) "CoolingTemperature"
+  Fluid.Sensors.TemperatureTwoPort temCoolingValtoPump(redeclare package Medium =
+        MediumW, m_flow_nominal=mRad_flow_nominal) "CoolingTemperature"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
@@ -439,25 +439,31 @@ equation
   annotation (Documentation(info="<html>
 <p>
 This models a radiant slab serving a core zone. 
-The slab is controlled to 70F year round, following the control scheme specified in the (<a href=\"modelica://Buildings.Experimental.RadiantControl.ControlPlusLockouts\">
-Buildings.Experimental.RadiantControl.ControlPlusLockouts</a>) block.  
-<p> 
-The zone is 5 meters by 9 meters in floor area and is 3 meters in height.
-All walls are exposed to a constant-temperature boundary condition that is set to ~70F to approximate interior conditions. 
-<li> The room is modeled with standard office internal gains - 0.6 W/SF lighting (20% radiative, 80% convective), 0.6 W/SF plug loads (50% radiative, 50% convective) , and 2 occupants, with corresponding heat gains
-<li> (93 W/person sensible (50% radiative and 50% convective) & 74 W/person latent).
-<li> Gains are modeled with ASHRAE standard schedules for lighting, plug loads, and occupancy, respectively. 
-<li> During occupied hours, the room receives ventilation air at approximately code minimum rate (~90 cfm). 
-<li> During unoccupied hours, the room receives a negligible amount of air.
+The slab is controlled to 70F year round, following the control scheme specified in the 
+(<a href=\"modelica://Buildings.Experimental.RadiantControl.ControlPlusLockouts\">Buildings.Experimental.RadiantControl.ControlPlusLockouts</a>) block.  
+</p>
 <p>
-Chilled water and hot water are provided to the slab by constant temperature flow sources, at 10C (cooling) and 40 C (heating). 
+The zone is 5 meters by 9 meters in floor area and is 3 meters in height.
+All walls are exposed to a constant-temperature boundary condition that is set to ~70F to approximate interior conditions. The corresponding heat gains are:
+<ul>
+<li> Standard office internal gains - 0.6 W/SF lighting (20% radiative, 80% convective), 0.6 W/SF plug loads (50% radiative, 50% convective)</li>
+<li> 2 occupants (93 W/person sensible (50% radiative and 50% convective) & 74 W/person latent)</li>
+</ul>
+<p>
+Gains are modeled with ASHRAE standard schedules for lighting, plug loads, and occupancy, respectively.
+During occupied hours, the room receives ventilation air at approximately code minimum rate (~90 cfm). 
+During unoccupied hours, the room receives a negligible amount of air.
+</p>
+<p>
+Chilled water and hot water are provided to the slab by constant temperature flow sources, at 10<code>degC</code> (cooling) and 40<code>degC</code> (heating). 
 </p>
 </html>", revisions="<html>
 <ul>
 <li>
 October 6, 2020, by Fiona Woods:<br/>
-Updated description. 
+First implementation.
 </li>
+</ul>
 </html>"),
    experiment(Tolerance=1e-6,  StartTime=0, StopTime=31536000),
     __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/RadiantControl/Validation/ControlPlusLockoutCore.mos" "Simulate and plot"),

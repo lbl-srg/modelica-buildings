@@ -67,8 +67,9 @@ This models the radiant slab control scheme with inputs not tied to a physical r
 <ul>
 <li>
 October 6, 2020, by Fiona Woods:<br/>
-Updated description. 
+First implementation
 </li>
+</ul>
 </html>"),experiment(StartTime=0.0, StopTime=172800.0, Tolerance=1e-06),__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/RadiantControl/Validation/ControlPlusLockout.mos"
         "Simulate and plot"),Icon(graphics={
         Ellipse(

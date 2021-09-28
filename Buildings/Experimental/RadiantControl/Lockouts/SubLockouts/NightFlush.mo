@@ -29,8 +29,9 @@ The purpose of this lockout is to allow the slab to be pre-cooled below its setp
 <ul>
 <li>
 October 6, 2020, by Fiona Woods:<br/>
-Updated description. 
+First implementation. 
 </li>
+</ul>
 </html>"),Icon(coordinateSystem(
         preserveAspectRatio=true,
         extent={{-100,-100},{100,100}}),graphics={

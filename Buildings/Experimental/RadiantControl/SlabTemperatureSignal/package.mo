@@ -19,7 +19,8 @@ Buildings.Experimental.RadiantControl.ControlPlusLockouts</a>)
 <ul>
 <li>
 October 6, 2020, by Fiona Woods:<br/>
-Updated package description.<br/>
-</li> 
+First implementation.
+</li>
+</ul> 
 </html>"));
 end SlabTemperatureSignal;

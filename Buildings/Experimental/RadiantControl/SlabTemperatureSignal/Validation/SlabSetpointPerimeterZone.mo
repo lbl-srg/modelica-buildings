@@ -26,8 +26,9 @@ This validates the slab setpoint for a perimeter zone based on forecast outdoor 
 <ul>
 <li>
 October 6, 2020, by Fiona Woods:<br/>
-Updated description. 
+First implementation. 
 </li>
+</ul>
 </html>"),experiment(StartTime=0, StopTime=1641600.0, Tolerance=1e-06),__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/RadiantControl/SlabTemperatureSignal/Validation/SlabSetpointPerimeterZone.mos"
         "Simulate and plot"),Icon(graphics={
         Ellipse(

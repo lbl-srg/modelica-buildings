@@ -148,8 +148,9 @@ Heating is locked out for a specified amount of time after cooling turns off (ty
 <ul>
 <li>
 October 6, 2020, by Fiona Woods:<br/>
-Updated description. 
+First implementation.
 </li>
+</ul>
 </html>"),Icon(coordinateSystem(
         preserveAspectRatio=false, extent={{-100,-100},{100,100}}),      graphics={
         Text(

@@ -143,8 +143,9 @@ If the slab temperature is below the slab setpoint minus deadband, a call for he
 <ul>
 <li>
 October 6, 2020, by Fiona Woods:<br/>
-Updated description. 
+First implementation. 
 </li>
+</ul>
 </html>"),Icon(coordinateSystem(
         preserveAspectRatio=true,
         extent={{-150,-150},{150,150}}),  graphics={

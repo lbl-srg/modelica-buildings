@@ -114,33 +114,34 @@ equation
           {-74,94},{-74,15},{-22,15}},     color={255,0,255}));
   annotation (defaultComponentName = "conPluLoc",Documentation(info="<html>
 <p>
-This encompasses full radiant control based on water return temperature, room air temperature, night flush signal, slab temperature, and slab setpoint. <p>
-
+This encompasses full radiant control based on water return temperature, room air temperature, night flush signal, slab temperature, and slab setpoint. 
+</p>
 <p> Each day, a slab temperature setpoint for a perimeter zone should be determined based on a lookup table that references the forecast high outdoor air temperature.
 See <a href=\"modelica://Buildings.Experimental.RadiantControl.SlabTemperatureSignal.SlabSetpointPerimeter\">
 Buildings.Experimental.RadiantControl.SlabTemperatureSignal.SlabSetpointPerimeter</a>.
-
-Core zone setpoints are set to a constant value throughout the year (typically 70F). <p>
-
- <p>
-
-The user specifies a deadband for occupied hours (TDeaNor,typically 0.5F) and one for unoccupied hours (TDeaRel, typically 4F).
+</p>
+<p>
+Core zone setpoints are set to a constant value throughout the year (typically 70<code>degF</code>).
+</p>
+<p>
+The user specifies a deadband for occupied hours <code>TDeaNor</code> and one for unoccupied hours <code>TDeaRel</code>.
 Each day, from midnight until the last occupied hour, a call for heating or cooling is produced if the setpoint is not met within the occupied deadband.
-After the last occupied hour (k, typically 18 = 6PM), calls for heating or cooling are produced if the setpoint is not met within the unoccupied deadband.  <p>
-
-
-<p> If there is a call for heating (ie, the slab temperature is below its setpoint minus a user-specified deadband) and heating is not locked out, a heating signal is generated, asking for hot water to be sent to the slab. 
-If there is a call for cooling (ie, the slab temperature is above its setpoint plus a user-specified deadband) and cooling is not locked out, a cooling signal is generated, asing for cold water to be sent to the slab.  <p>
-
-
-<p> When the slab is within its deadband, the user specifies whether the system should send no calls for heating or cooling (i.e. 'offwithindeadband' is set to true),
-or whether it should continue to call for heating or cooling and then correct itself once the slab temperature goes out of range (i.e. 'offwithindeadband' is set to false).  <p>
-
-<p> Heating is locked out if room air temperature is too hot (above a user-specified value, TZonHigSet), if night flush mode is on, or if cooling was on within a user-specified amount of time (heaLocDurAftCoo). <p>
+After the last occupied hour, typically 18 (6PM), calls for heating or cooling are produced if the setpoint is not met within the unoccupied deadband.
+</p>
 <p> 
-Cooling is locked out if room air temperature is too cold (below a user-specified value, TZonLowSet), if chilled water return temperature is lower than a user-specified value 
-(TWatSetLow, typically 55F or the chilled water supply temperature), or if heating was on within a user-specified amount of time (cooLocDurAftHea, typically one hour).  <p>
-
+If there is a call for heating (ie, the slab temperature is below its setpoint minus a user-specified deadband) and heating is not locked out, a heating signal is generated, asking for hot water to be sent to the slab. 
+If there is a call for cooling (ie, the slab temperature is above its setpoint plus a user-specified deadband) and cooling is not locked out, a cooling signal is generated, asing for cold water to be sent to the slab.
+</p>
+<p> 
+When the slab is within its deadband, the user specifies whether the system should send no calls for heating or cooling (i.e. <code>offWitDea</code> is set to <code>true</code>),
+or whether it should continue to call for heating or cooling and then correct itself once the slab temperature goes out of range (i.e. <code>offWitDea</code> is set to <code>false</code>).
+</p>
+<p> 
+Heating is locked out if room air temperature is too hot (above a user-specified value, <code>TZonHigSet</code>), if night flush mode is on, or if cooling was on within a user-specified amount of time (<code>heaLocDurAftCoo</code>). 
+</p>
+<p> 
+Cooling is locked out if room air temperature is too cold (below a user-specified value, <code>TZonLowSet</code>), if chilled water return temperature is lower than a user-specified value 
+(<code>TWatSetLow</code>, typically 55<code>degF</code> or the chilled water supply temperature), or if heating was on within a user-specified amount of time (<code>cooLocDurAftHea</code>, typically one hour).  
 </p>
 </html>", revisions="<html>
 <ul>
@@ -148,6 +149,7 @@ Cooling is locked out if room air temperature is too cold (below a user-specifie
 October 6, 2020, by Fiona Woods:<br/>
 Updated description. 
 </li>
+</ul>
 </html>"),Icon(coordinateSystem(
         preserveAspectRatio=true,
         extent={{-100,-100},{100,100}}),graphics={

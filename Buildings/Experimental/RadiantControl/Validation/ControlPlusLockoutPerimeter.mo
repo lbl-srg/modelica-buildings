@@ -482,8 +482,9 @@ Chilled water and hot water are provided to the slab by constant temperature flo
 <ul>
 <li>
 October 6, 2020, by Fiona Woods:<br/>
-Updated description. 
+First implementation.
 </li>
+</ul>
 </html>"), experiment(Tolerance=1e-6, StartTime=0, StopTime=31536000),
     __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/RadiantControl/Validation/ControlPlusLockoutPerimeter.mos" "Simulate and plot"),
     Icon(coordinateSystem(extent={{-100,-100},{100,100}}),

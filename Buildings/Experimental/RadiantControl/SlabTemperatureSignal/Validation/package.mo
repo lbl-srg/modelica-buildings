@@ -16,7 +16,8 @@ This package contains validation models blocks that determine the slab setpoint 
 <ul>
 <li>
 October 6, 2020, by Fiona Woods:<br/>
-Updated package description.<br/>
-</li> 
+First implementation.
+</li>
+</ul>
 </html>"));
 end Validation;

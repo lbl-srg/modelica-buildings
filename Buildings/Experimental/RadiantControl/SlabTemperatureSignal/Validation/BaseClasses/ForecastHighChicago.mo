@@ -115,8 +115,9 @@ This outputs the next-day high temperature for Chicago, so that an appropriate r
 <ul>
 <li>
 October 6, 2020, by Fiona Woods:<br/>
-Updated description. 
+First implementation.  
 </li>
+</ul>
 </html>"),Icon(coordinateSystem(
         preserveAspectRatio=true,
         extent={{-100,-100},{100,100}}), graphics={

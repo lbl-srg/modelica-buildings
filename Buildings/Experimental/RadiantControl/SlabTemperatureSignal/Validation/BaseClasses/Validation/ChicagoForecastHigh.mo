@@ -27,6 +27,13 @@ __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experiment
 <p>
 This validates the Chicago forecast high. 
 </p>
+</html>", revisions="<html>
+<ul>
+<li>
+October 6, 2020, by Fiona Woods:<br/>
+First implementation.  
+</li>
+</ul>
 </html>"),Icon(graphics={
         Ellipse(
           lineColor={75,138,73},

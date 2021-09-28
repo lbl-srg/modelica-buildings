@@ -59,8 +59,9 @@ equation
 <ul>
 <li>
 October 6, 2020, by Fiona Woods:<br/>
-Updated description. 
+First implementation. 
 </li>
+</ul>
 </html>"),experiment(StartTime=0, StopTime=172800.0, Tolerance=1e-06),__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/RadiantControl/Lockouts/SubLockouts/Validation/AirTemperatureLockout.mos"
         "Simulate and plot"),Icon(graphics={
         Ellipse(

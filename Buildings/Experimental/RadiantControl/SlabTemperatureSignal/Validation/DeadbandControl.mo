@@ -73,17 +73,14 @@ model DeadbandControl "Validation model for deadband control"
     offWitDea=OffFal)
     annotation (Placement(transformation(extent={{50,-92},{80,-60}})));
 equation
-  connect(sin.y, deaCon.slaTemErr) annotation (Line(points={{-38,30},{-24,30},
-          {-24,40.8},{-21.7333,40.8}},
-                                  color={0,0,127}));
-  connect(sin1.y, deaCon2.slaTemErr) annotation (Line(points={{-38,-50},{-24,
-          -50},{-24,-39.2},{-21.7333,-39.2}},
-                                         color={0,0,127}));
-  connect(sin1.y, deaCon3.slaTemErr) annotation (Line(points={{-38,-50},{-24,
-          -50},{-24,-79.2},{-21.7333,-79.2}},
-                                         color={0,0,127}));
-  connect(sin.y, deaCon1.slaTemErr) annotation (Line(points={{-38,30},{-24,30},
-          {-24,0.8},{-21.7333,0.8}},color={0,0,127}));
+  connect(sin.y, deaCon.slaTemErr) annotation (Line(points={{-38,30},{-24,30},{-24,40.8},
+          {-21.7333,40.8}},       color={0,0,127}));
+  connect(sin1.y, deaCon2.slaTemErr) annotation (Line(points={{-38,-50},{-24,-50},{-24,-39.2},
+          {-21.7333,-39.2}},             color={0,0,127}));
+  connect(sin1.y, deaCon3.slaTemErr) annotation (Line(points={{-38,-50},{-24,-50},{-24,-79.2},
+          {-21.7333,-79.2}},             color={0,0,127}));
+  connect(sin.y, deaCon1.slaTemErr) annotation (Line(points={{-38,30},{-24,30},{-24,0.8},
+          {-21.7333,0.8}},          color={0,0,127}));
   connect(sin.y, deaConTes.slaTemErr) annotation (Line(points={{-38,30},{20,30},
           {20,61.28},{47.4,61.28}}, color={0,0,127}));
   connect(sin.y, deaConTesFal.slaTemErr) annotation (Line(points={{-38,30},{20,30},
@@ -103,8 +100,9 @@ and the other in which the slab must receive either heating or cooling at all ti
 <ul>
 <li>
 October 6, 2020, by Fiona Woods:<br/>
-Updated description. 
+First implementation. 
 </li>
+</ul>
 </html>"),experiment(StartTime=0,StopTime=172800.0, Tolerance=1e-06),__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/RadiantControl/SlabTemperatureSignal/Validation/DeadbandControl.mos"
         "Simulate and plot"),Icon(
         coordinateSystem(extent={{-100,-120},{100,100}}),         graphics={

@@ -91,8 +91,9 @@ and that heating is locked out if cooling has been on within a user-specified am
 <ul>
 <li>
 October 6, 2020, by Fiona Woods:<br/>
-Updated description. 
+First implementation.
 </li>
+</ul>
 </html>"),experiment(StopTime=172800.0, Tolerance=1e-06),__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/RadiantControl/Lockouts/SubLockouts/Validation/HysteresisLockout.mos"
         "Simulate and plot"),Icon(graphics={
         Ellipse(
