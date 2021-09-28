@@ -444,11 +444,12 @@ The slab is controlled to 70F year round, following the control scheme specified
 </p>
 <p>
 The zone is 5 meters by 9 meters in floor area and is 3 meters in height.
-All walls are exposed to a constant-temperature boundary condition that is set to ~70F to approximate interior conditions. The corresponding heat gains are:
+All walls are exposed to a constant-temperature boundary condition that is set to ~70<code>defF</code> to approximate interior conditions. The corresponding heat gains are:
 <ul>
 <li> Standard office internal gains - 0.6 W/SF lighting (20% radiative, 80% convective), 0.6 W/SF plug loads (50% radiative, 50% convective)</li>
 <li> 2 occupants (93 W/person sensible (50% radiative and 50% convective) & 74 W/person latent)</li>
 </ul>
+</p>
 <p>
 Gains are modeled with ASHRAE standard schedules for lighting, plug loads, and occupancy, respectively.
 During occupied hours, the room receives ventilation air at approximately code minimum rate (~90 cfm). 

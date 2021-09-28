@@ -9,7 +9,7 @@ block AirTemperatureLimit "Locks out heating if room air is hotter than user-spe
     final unit="K",
     final displayUnit="degC",
     final quantity="Temperature")=293.15
-    "Air temperature low limit below which heating is locked out";
+    "Air temperature low limit below which cooling is locked out";
   Buildings.Controls.OBC.CDL.Logical.Not           not2
     "Negates hysteresis output to give heating signal"
     annotation (Placement(transformation(extent={{40,20},{60,40}})));
@@ -41,12 +41,13 @@ equation
           -2,-50}}, color={0,0,127}));
   annotation (defaultComponentName = "airTemLim",Documentation(info="<html>
 <p>
-If room air temperature is above a specified temperature threshold (typically 76F), heating is looked out. 
-If room air temperature is below a specified temperature threshold (typically 68F), cooling is locked out.
-Output is expressed as a heating or cooling signal. If the heating signal is true, heating is allowed (ie, it is not locked out).
+If room air temperature is above a specified temperature threshold (typically 76<code>degF</code>), heating is looked out. 
+If room air temperature is below a specified temperature threshold (typically 68<code>degF</code>), cooling is locked out.
+Output is expressed as a heating or cooling signal. If the heating signal is <code>true</code>, heating is allowed (ie, it is not locked out).
 If the cooling signal is true, cooling is allowed (ie, it is not locked out).
-A true signal indicates only that heating or cooling is *permitted*- it does *not* indicate the actual status
-of the final heating or cooling signal, which depends on the slab temperature and slab setpoint (see SlabTempSignal for more info).
+A true signal indicates only that heating or cooling is permitted- it does not indicate the actual status
+of the final heating or cooling signal, which depends on the slab temperature and slab setpoint (see <a href=\"modelica://Buildings.Experimental.RadiantControl.SlabTemperatureSignal\">
+Buildings.Experimental.RadiantControl.SlabTemperatureSignal</a> for more info).
 </p>
 </html>", revisions="<html>
 <ul>

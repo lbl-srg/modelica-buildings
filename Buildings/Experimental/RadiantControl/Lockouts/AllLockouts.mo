@@ -111,13 +111,17 @@ as this would waste energy and negate the cooling effect of the flush. </li>
 
 <p>Cooling lockouts are as follows:</p>
 <ul>
-<li>1. Air Temperature Lockout: Cooling is locked out if room air temperature is below a user-specified temperature threshhold (typically 68F).</li>
-<li>2. Chilled Water Return Temperature Lockout: Cooling is locked out for a user-specified amount of time (typically 30 minutes) if chilled water return temperature is too cold, 
+<li>1. Air Temperature Lockout (<a href=\"modelica://Buildings.Experimental.RadiantControl.Lockouts.SubLockouts.AirTemperatureLimit\">
+Buildings.Experimental.RadiantControl.Lockouts.SubLockouts.AirTemperatureLimit</a>): Cooling is locked out if room air temperature is below a user-specified temperature threshhold (typically 68<code>degF</code>).</li>
+<li>2. Chilled Water Return Temperature Lockout (<a href=\"modelica://Buildings.Experimental.RadiantControl.Lockouts.SubLockouts.ChilledWaterReturnLimit\">
+Buildings.Experimental.RadiantControl.Lockouts.SubLockouts.ChilledWaterReturnLimit</a>): Cooling is locked out for a user-specified amount of time (typically 30 minutes) if chilled water return temperature is too cold, 
 as this indicates that the room needs less cooling than is being provided.</li>
-<li>3. Hysteresis Lockout: Cooling is locked out if heating was on within a user-specified amount of time (typically one hour).</li>
+<li>3. Hysteresis Lockout  (<a href=\"modelica://Buildings.Experimental.RadiantControl.Lockouts.SubLockouts.HysteresisLimit\">
+Buildings.Experimental.RadiantControl.Lockouts.SubLockouts.HysteresisLimit</a>): 
+Cooling is locked out if heating was on within a user-specified amount of time (typically one hour).</li>
 </ul>
 
-<p>Output is expressed as a heating or cooling signal. If the heating signal is true, heating is allowed (i.e., it is not locked out).
+<p>Output is expressed as a heating or cooling signal. If the heating signal is <code>true</code>, heating is allowed (i.e., it is not locked out).
 If the cooling signal is true, cooling is allowed (ie, it is not locked out).</p>
 
 A true signal indicates only that heating or cooling is permitted - it does not indicate the actual status
