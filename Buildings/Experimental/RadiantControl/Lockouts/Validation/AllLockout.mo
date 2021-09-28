@@ -76,7 +76,7 @@ if night flush mode is on,
 or if cooling was on within a user-specified amount of time. 
 Cooling is locked out if room air temperature is too cold, 
 if chilled water return temperature is too cold, 
-or if heating was on within a user-specified amount of time. 
+or if heating was on within a user-specified amount of time.
 </p>
 </html>", revisions="<html>
 <ul>

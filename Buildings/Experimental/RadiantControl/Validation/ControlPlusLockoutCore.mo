@@ -222,8 +222,8 @@ Fluid.Movers.FlowControlled_m_flow           pumHot(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={-28,-194})));
-  Fluid.Sensors.TemperatureTwoPort temCoolingValtoPump(redeclare package Medium =
-        MediumW, m_flow_nominal=mRad_flow_nominal) "CoolingTemperature"
+  Fluid.Sensors.TemperatureTwoPort temCoolingValtoPump(redeclare package Medium
+      = MediumW, m_flow_nominal=mRad_flow_nominal) "CoolingTemperature"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
