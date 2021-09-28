@@ -84,7 +84,7 @@ or if heating was on within a user-specified amount of time.
 October 6, 2020, by Fiona Woods:<br/>
 Updated description. 
 </li>
-</html>"),experiment(StopTime=172800.0, Tolerance=1e-06),__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/RadiantControl/Lockouts/Validation/AllLockout.mos"
+</html>"),experiment(StopTime=172000.0, Tolerance=1e-06),__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/RadiantControl/Lockouts/Validation/AllLockout.mos"
         "Simulate and plot"),Icon(graphics={
         Ellipse(
           lineColor={75,138,73},

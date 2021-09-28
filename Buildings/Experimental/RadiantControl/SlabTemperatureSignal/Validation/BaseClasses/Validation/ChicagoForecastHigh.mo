@@ -21,7 +21,7 @@ equation
       index=1,
       extent={{-6,3},{-6,3}},
       horizontalAlignment=TextAlignment.Right));
-  annotation (experiment(Tolerance=1E-06, StopTime=172800),
+  annotation (experiment(Tolerance=1E-06, StopTime=31536000),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/RadiantControl/SlabTemperatureSignal/Validation/BaseClasses/Validation/ChicagoForecastHigh.mos"
         "Simulate and plot"), Documentation(info="<html>
 <p>
