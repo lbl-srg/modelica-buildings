@@ -1,7 +1,0 @@
-compareVars :=
-  {
-    "winUnsAla1.uWinPos",
-    "winUnsAla1.yUnsAla",
-    "winUnsAla2.uWinPos",
-    "winUnsAla2.yUnsAla"
-  };

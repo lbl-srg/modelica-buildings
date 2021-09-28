@@ -1,5 +1,0 @@
-compareVars :=
-  {
-    "manLoc.uManOveRid",
-    "manLoc.yManOveNatVenSig"
-  };

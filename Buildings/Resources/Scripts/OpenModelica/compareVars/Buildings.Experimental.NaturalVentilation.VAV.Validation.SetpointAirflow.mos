@@ -1,9 +1,0 @@
-compareVars :=
-  {
-    "setAirRes.floVAV",
-    "setAirRes.VentMinFlo",
-    "setAirRes.AreaMinFlo",
-    "setAirRes.natVenSig",
-    "setAirRes.rooPop",
-    "setAirRes.yfloStp"
-  };

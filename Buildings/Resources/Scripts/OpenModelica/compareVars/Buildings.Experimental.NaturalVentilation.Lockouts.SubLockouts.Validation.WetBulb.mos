@@ -1,8 +1,0 @@
-compareVars :=
-  {
-    "wetBulLoc.TRooSet",
-    "wetBulLoc.TWetBul",
-    "wetBulLoc.TWetBulDif",
-    "wetBulLoc.addDif.y",
-    "wetBulLoc.yWetBulNatVenSig"
-  };

@@ -1,6 +1,0 @@
-compareVars :=
-  {
-    "winLoc.winSpeLim",
-    "winLoc.winSpe",
-    "winLoc.yWinNatVenSig"
-  };

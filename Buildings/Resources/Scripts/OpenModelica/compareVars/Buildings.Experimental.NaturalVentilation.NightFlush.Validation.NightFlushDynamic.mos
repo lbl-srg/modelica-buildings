@@ -1,6 +1,0 @@
-compareVars :=
-  {
-    "nitFluDyn.uRooSet",
-    "nitFluDyn.yRooSetAdj",
-    "nitFluDyn.yNitFlu"
-  };

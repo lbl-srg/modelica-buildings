@@ -1,6 +1,0 @@
-compareVars :=
-  {
-    "temRoo.T",
-    "natVenNitFluDyn.nitFluDyn.yRooSetAdj",
-    "natVenNitFluDyn.yWinOpe"
-  };
