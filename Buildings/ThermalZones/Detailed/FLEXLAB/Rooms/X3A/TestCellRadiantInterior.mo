@@ -81,8 +81,8 @@ model TestCellRadiantInterior
   <li> and is used in validation models for (<a href=\"modelica://Buildings.Experimental.NaturalVentilation.NightFlush.NightFlushFixedDuration\">
   Buildings.Experimental.NaturalVentilation.NightFlush.NaturalVentilationNightFlushFixedDuration</a>), (<a href=\"modelica://Buildings.Experimental.NaturalVentilation.NightFlush.NightFlushFixedDuration\">
   Buildings.Experimental.NaturalVentilation.NightFlush.NaturalVentilationNightFlushDynamicDuration</a>), 
-  <li> and (<a href=\"modelica://Buildings.Experimental.RadiantControl.ControlPlusLockouts\">
-Buildings.Experimental.RadiantControl.ControlPlusLockouts</a>) . 
+  <li> and (<a href=\"modelica://Buildings.Controls.OBC.RadiantSystems.CoolingAndHeating.ControlPlusLockouts\">
+Buildings.Controls.OBC.RadiantSystems.CoolingAndHeating.ControlPlusLockouts</a>) . 
   <li>The zone is 5 meters by 9 meters in floor area and is 3 meters in height.
   <li> The roof is a standard ASHRAE 90.1 2010 code-minimum construction.
   <li> The floor should be exposed to a radiant slab (in the case of radiant models) or to another boundary condition (if no radiant is present).  
