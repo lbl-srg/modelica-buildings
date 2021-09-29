@@ -330,7 +330,7 @@ Fluid.Movers.FlowControlled_m_flow           pumHot(
   Modelica.Thermal.HeatTransfer.Components.ThermalConductor conBel3(G=0.2)
     "Combined convection and radiation resistance below the slab"
     annotation (Placement(transformation(extent={{-182,280},{-162,300}})));
-  ThermalZones.Detailed.FLEXLAB.Rooms.X3A.TestCellRadiantInterior radInt(
+  Buildings.ThermalZones.Detailed.FLEXLAB.Rooms.X3A.TestCellRadiantInterior radInt(
     nConExtWin=0,
     nConBou=5,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyStateInitial,

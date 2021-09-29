@@ -279,7 +279,7 @@ Fluid.Movers.FlowControlled_m_flow           pumHot(
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TIntSet(k=294)
     "Indoor temperature of adjacent conditioned spaces"
     annotation (Placement(transformation(extent={{198,232},{242,276}})));
-  ThermalZones.Detailed.FLEXLAB.Rooms.X3A.TestCellRadiantExterior radExt(
+  Buildings.ThermalZones.Detailed.FLEXLAB.Rooms.X3A.TestCellRadiantExterior radExt(
     nSurBou=1,
     hRoo=3,
     steadyStateWindow=false,
