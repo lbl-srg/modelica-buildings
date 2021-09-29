@@ -89,26 +89,23 @@ model TestCellRadiantExterior
     annotation (Placement(transformation(extent={{410,-72},{430,-52}})));
   annotation(Documentation(info="<html>
   <p>
-  This is a model for an exterior zone, with many base characteristics drawn from test cell 3A in the LBNL User Facility.
-  <li>This model is intended to represent
-  a sample exterior zone for radiant and natural ventilation control,
-  <li> and is used in validation models for (<a href=\"modelica://Buildings.Experimental.NaturalVentilation.NightFlush.NightFlushFixedDuration\">
+  This is a model for an exterior zone, with many base characteristics drawn from test cell 3A in the LBNL User Facility. 
+  This model is intended to represent a sample exterior zone for radiant and natural ventilation control, and is used in validation models for 
+  (<a href=\"modelica://Buildings.Experimental.NaturalVentilation.NightFlush.NightFlushFixedDuration\">
   Buildings.Experimental.NaturalVentilation.NightFlush.NaturalVentilationNightFlushFixedDuration</a>), (<a href=\"modelica://Buildings.Experimental.NaturalVentilation.NightFlush.NightFlushFixedDuration\">
   Buildings.Experimental.NaturalVentilation.NightFlush.NaturalVentilationNightFlushDynamicDuration</a>), and (<a href=\"modelica://Buildings.Controls.OBC.RadiantSystems.CoolingAndHeating.ControlPlusLockouts\">
-Buildings.Controls.OBC.RadiantSystems.CoolingAndHeating.ControlPlusLockouts</a>) . 
-  <li>The zone is 5 meters by 9 meters in floor area and is 3 meters in height.
-  <li>The zone has two exposed walls, each with windows: one oriented south, and the other oriented west. 
-  <li> The roof is a standard ASHRAE 90.1 2010 code-minimum construction.
-  <li> The floor should be exposed to a radiant slab (in the case of radiant models) or to another boundary condition (if no radiant is present).  
-  <li>The remaining two walls are exposed to a constant-temperature boundary condition that should be set to ~70F to approximate interior conditions.
-  <li> Exterior wall constructions are R-25; windows are 2 meters by 2 meters each and are the equivalent of Solarban 70. 
-  <li> Partition walls are standard partition constructions. 
- 
+  Buildings.Controls.OBC.RadiantSystems.CoolingAndHeating.ControlPlusLockouts</a>). The zone is 5 meters by 9 meters in floor area and is 3 meters in height. The zone has two exposed walls, each with windows: one oriented south, and the other oriented west. 
+  The roof is a standard ASHRAE 90.1 2010 code-minimum construction. 
+  The floor should be exposed to a radiant slab (in the case of radiant models) or to another boundary condition (if no radiant is present). 
+  The remaining two walls are exposed to a constant-temperature boundary condition that should be set to ~70F to approximate interior conditions. 
+  Exterior wall constructions are R-25; windows are 2 meters by 2 meters each and are the equivalent of Solarban 70. Partition walls are standard partition constructions. 
+  </p>
   </html>",
   revisions = "<html>
   <ul>
   <li>Jun 10, 2013 by Peter Grant:<br/>
-  First implementation.</li>
+  First implementation.
+  </li>
   </ul>
   </html>"), defaultComponentName = "radExt", Icon(coordinateSystem(preserveAspectRatio=false, extent={{-200,-200},
             {200,200}}),       graphics={

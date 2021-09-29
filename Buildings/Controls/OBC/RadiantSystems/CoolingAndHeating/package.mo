@@ -17,9 +17,9 @@ Buildings.Controls.OBC.RadiantSystems.CoolingAndHeating.SlabTemperatureSignal</a
 <ul>
 <li>
 October 6, 2020, by Fiona Woods:<br/>
-Updated description.
-</ul>
+First implementation.
 </li>
+</ul>
 </html>"),Icon(graphics={
       Rectangle(
         extent={{-100,100},{100,-100}},

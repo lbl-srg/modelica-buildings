@@ -117,28 +117,27 @@ This determines calls for heating or cooling based on the slab error, ie the dif
 The user specifies two error thresholds- one value for occupied hours (TDeaNor, typically 0.5F), 
 and one larger value for unoccupied hours (TDeaRel,typically 4F), when slab temperature can fluctuate within a wider range. 
 These variables indicate the absolute value of the allowable slab error. 
-<p>
+</p>
 <p>
 If this value is exceeded and slab temperature is below setpoint, heating is turned on. 
-If this value is exceeded and slab temperature is above setpoint, cooling is turned on. <p>
+If this value is exceeded and slab temperature is above setpoint, cooling is turned on. </p>
 <p>
-The user also specifies the final occupied hour (k). <p>
+The user also specifies the final occupied hour (k). </p>
 
 <p>Finally, the user specifies whether or not heating and cooling should both be off when the slab error is within deadband (offWitDea).
 If this variable is true, neither heating nor cooling is requested when the slab error is smaller than the user-specified difference from slab setpoint
 (TDeaNor if the room is occupied, or TDeaRel if the room is unoccupied).  
 If this variable is false, either heating or cooling will be on at all times. 
 It is recommended that this variable be set to true, as setting this to false requires either heating or cooling to be on at all times,
-which is more energy intensive and may be impractical with many building designs. <p> 
+which is more energy intensive and may be impractical with many building designs. </p>
 
 <p> The slab setpoint is selected at midnight each day based on that day's forecasted outdoor air high temperature.
 From this point until the building's last occupied hour, the building system attempts to meet the slab setpoint within the specified occupied deadband. 
-After the last occupied hour, the building system attempts to meet the slab setpoint within the specified unoccupied deadband. <p>
+After the last occupied hour, the building system attempts to meet the slab setpoint within the specified unoccupied deadband. </p>
 
 <p>If the slab temperature is above the setpoint + deadband, a call for cooling is produced. 
-If the slab temperature is below the slab setpoint minus deadband, a call for heating is produced. <p>
+If the slab temperature is below the slab setpoint minus deadband, a call for heating is produced. </p>
 
-</p>
 </html>", revisions="<html>
 <ul>
 <li>

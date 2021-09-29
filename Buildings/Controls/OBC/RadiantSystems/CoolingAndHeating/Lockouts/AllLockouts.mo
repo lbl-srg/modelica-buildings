@@ -103,7 +103,7 @@ Heating lockouts are as follows:
 </p>
 
 <ul>
-<li>1. Air Temperature Lockout: Heating is locked out if room air temperature is above a user-specified temperature threshold (typically 76F). </li>
+<li>1. Air Temperature Lockout: Heating is locked out if room air temperature is above a user-specified temperature threshold (typically 76<code>degF</code>). </li>
 <li>2. Night Flush Lockout: Heating is locked out if night flush mode is on, as night flush setpoints are typically below heating setpoint, but heating is not desired during night flush operation,
 as this would waste energy and negate the cooling effect of the flush. </li>
 <li>3. Hysteresis Lockout: Heating is locked out if cooling was on within a user-specified amount of time (typically one hour).</li>
@@ -123,13 +123,11 @@ Cooling is locked out if heating was on within a user-specified amount of time (
 
 <p>Output is expressed as a heating or cooling signal. If the heating signal is <code>true</code>, heating is allowed (i.e., it is not locked out).
 If the cooling signal is true, cooling is allowed (ie, it is not locked out).</p>
-
+<p>
 A true signal indicates only that heating or cooling is permitted - it does not indicate the actual status
   of the final heating or cooling signal, which depends on the slab temperature and slab setpoint 
   (see <a href=\"modelica://Buildings.Controls.OBC.RadiantSystems.CoolingAndHeating.SlabTemperatureSignal.SlabSetpointPerimeter\">
 Buildings.Controls.OBC.RadiantSystems.CoolingAndHeating.SlabTemperatureSignal.SlabSetpointPerimeter</a> for more information).
-  
-  <p>
 </p>
 </html>", revisions="<html>
 <ul>

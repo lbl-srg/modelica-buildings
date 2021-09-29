@@ -465,16 +465,17 @@ This models a radiant slab serving a perimeter zone as per current control schem
 The slab is controlled to a daily setpoint based on forecast high outdoor air temperature, 
 as specified in the Buildings.Controls.OBC.RadiantSystems.CoolingAndHeating.SlabTempSignal block. 
 Slab control follows the control scheme specified in the (<a href=\"modelica://Buildings.Controls.OBC.RadiantSystems.CoolingAndHeating.ControlPlusLockouts\">
-Buildings.Controls.OBC.RadiantSystems.CoolingAndHeating.ControlPlusLockouts</a>) block. 
+Buildings.Controls.OBC.RadiantSystems.CoolingAndHeating.ControlPlusLockouts</a>) block.
+</p>
 <p> 
-The zone is 5 meters by 9 meters in floor area and is 3 meters in height.
-<li>The zone has two exposed walls, each with windows: one oriented south, and the other oriented west. 
-<li>The remaining walls are exposed to a constant-temperature boundary condition that is set to ~70F to approximate interior conditions. 
-<li> The room is modeled with standard office internal gains - 0.6 W/SF lighting (20% radiative, 80% convective), 0.6 W/SF plug loads (50% radiative, 50% convective) , and 2 occupants, with corresponding heat gains
-<li> (93 W/person sensible (50% radiative and 50% convective) & 74 W/person latent).
-<li> Gains are modeled with ASHRAE standard schedules for lighting, plug loads, and occupancy, respectively. 
-<li> During occupied hours, the room receives ventilation air at approximately code minimum rate (~90 cfm). 
-<li> During unoccupied hours, the room receives a negligible amount of air. 
+The zone is 5 meters by 9 meters in floor area and is 3 meters in height. The zone has two exposed walls, each with windows: one oriented south, and the other oriented west. 
+The remaining walls are exposed to a constant-temperature boundary condition that is set to ~70<code>degF</code> to approximate interior conditions.
+The room is modeled with standard office internal gains - 0.6 W/SF lighting (20% radiative, 80% convective), 0.6 W/SF plug loads (50% radiative, 50% convective) , and 2 occupants, with the corresponding heat gains of:
+93 W/person sensible (50% radiative and 50% convective) and 74 W/person latent. Gains are modeled with ASHRAE standard schedules for lighting, plug loads, and occupancy, respectively. 
+</p>
+<p>
+During occupied hours, the room receives ventilation air at approximately code minimum rate (~90 cfm). During unoccupied hours, the room receives a negligible amount of air.
+</p>
 <p>
 Chilled water and hot water are provided to the slab by constant temperature flow sources, at 10C (cooling) and 40 C (heating). 
 </p>

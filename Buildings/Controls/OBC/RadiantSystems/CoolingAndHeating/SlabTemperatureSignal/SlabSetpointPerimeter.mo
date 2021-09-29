@@ -32,8 +32,8 @@ equation
   annotation (defaultComponentName = "slaSetPer",Documentation(info="<html>
 <p>
 This determines the slab temperature setpoint for a perimeter zone from the forecast high OAT. 
-Temperature setpoint is selected from a lookup table. 
-<p>Note that this setpoint is determined differently than the setpoint for core zones, which is set to a constant value throughout the year (typically 70F). <p>
+Temperature setpoint is selected from a lookup table. </p>
+<p>Note that this setpoint is determined differently than the setpoint for core zones, which is set to a constant value throughout the year (typically 70F).
 </p>
 </html>", revisions="<html>
 <ul>

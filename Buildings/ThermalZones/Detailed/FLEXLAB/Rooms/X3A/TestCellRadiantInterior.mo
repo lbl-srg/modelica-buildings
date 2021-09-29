@@ -77,22 +77,22 @@ model TestCellRadiantInterior
   annotation(Documentation(info="<html>
   <p>
   This is a model for an exterior zone, with many base characteristics drawn from test cell 3A in the LBNL User Facility. 
-  <li>This model is intended to represent  a sample interior zone for radiant and natural ventilation control,
-  <li> and is used in validation models for (<a href=\"modelica://Buildings.Experimental.NaturalVentilation.NightFlush.NightFlushFixedDuration\">
+  This model is intended to represent a sample interior zone for radiant and natural ventilation control, 
+  and is used in validation models for (<a href=\"modelica://Buildings.Experimental.NaturalVentilation.NightFlush.NightFlushFixedDuration\">
   Buildings.Experimental.NaturalVentilation.NightFlush.NaturalVentilationNightFlushFixedDuration</a>), (<a href=\"modelica://Buildings.Experimental.NaturalVentilation.NightFlush.NightFlushFixedDuration\">
   Buildings.Experimental.NaturalVentilation.NightFlush.NaturalVentilationNightFlushDynamicDuration</a>), 
-  <li> and (<a href=\"modelica://Buildings.Controls.OBC.RadiantSystems.CoolingAndHeating.ControlPlusLockouts\">
+  and (<a href=\"modelica://Buildings.Controls.OBC.RadiantSystems.CoolingAndHeating.ControlPlusLockouts\">
 Buildings.Controls.OBC.RadiantSystems.CoolingAndHeating.ControlPlusLockouts</a>) . 
-  <li>The zone is 5 meters by 9 meters in floor area and is 3 meters in height.
-  <li> The roof is a standard ASHRAE 90.1 2010 code-minimum construction.
-  <li> The floor should be exposed to a radiant slab (in the case of radiant models) or to another boundary condition (if no radiant is present).  
-  <li>All four walls are exposed to a constant-temperature boundary condition that should be set to ~70F to approximate interior conditions. 
-  <li> Walls are standard partition wall constructions. 
+<p>The zone is 5 meters by 9 meters in floor area and is 3 meters in height. The roof is a standard ASHRAE 90.1 2010 code-minimum construction. 
+The floor should be exposed to a radiant slab (in the case of radiant models) or to another boundary condition (if no radiant is present).  
+All four walls are exposed to a constant-temperature boundary condition that should be set to ~70F to approximate interior conditions. 
+Walls are standard partition wall constructions. </p>
   </html>",
   revisions = "<html>
   <ul>
   <li>Jun 10, 2013 by Peter Grant:<br/>
-  First implementation.</li>
+  First implementation.
+  </li>
   </ul>
   </html>"), defaultComponentName = "radInt", Icon(coordinateSystem(preserveAspectRatio=false, extent={{-200,-200},
             {200,200}}),       graphics={
