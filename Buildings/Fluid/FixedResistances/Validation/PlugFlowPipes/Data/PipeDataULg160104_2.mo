@@ -1,4 +1,4 @@
-﻿within Buildings.Fluid.FixedResistances.Validation.PlugFlowPipes.Data;
+within Buildings.Fluid.FixedResistances.Validation.PlugFlowPipes.Data;
 record PipeDataULg160104_2 "Experimental data from ULg's pipe test bench from 4 January 2016. Low mass flow"
   extends Buildings.Fluid.FixedResistances.Validation.PlugFlowPipes.Data.BaseClasses.PipeDataULg(
     T_start_out=15.0,
