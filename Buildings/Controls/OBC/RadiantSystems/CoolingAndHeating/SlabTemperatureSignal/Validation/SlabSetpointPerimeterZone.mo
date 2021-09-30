@@ -4,7 +4,8 @@ model SlabSetpointPerimeterZone
   final parameter Real TOut(min=0,
     final unit="K",
     final displayUnit="K",
-    final quantity="Temperature")=294.3;
+    final quantity="Temperature")=294.3
+    "Outdoor air temperature";
   Controls.OBC.RadiantSystems.CoolingAndHeating.SlabTemperatureSignal.SlabSetpointPerimeter slaSetPer
     "Slab temperature setpoint for the perimeter zone"
     annotation (Placement(transformation(extent={{-4,20},{16,40}})));

@@ -3,7 +3,7 @@ model ControlPlusLockoutPerimeter
   "Radiant slab serving perimeter zone with heating and cooling sources, pumps, and valves"
   extends Modelica.Icons.Example;
   replaceable package MediumA =
-      Buildings.Media.Air;
+      Buildings.Media.Air "Air medium";
 
 //-------------------------Step 2: Water as medium-------------------------//
   replaceable package MediumW =
@@ -48,7 +48,8 @@ model ControlPlusLockoutPerimeter
   final parameter Real LasOcc(min=0,max=24)=16 "Last occupied hour";
   final parameter Boolean OffTru=true "True: both heating and cooling signals turn off when slab setpoint is within deadband";
 //------------------------Step 4: Design conditions------------------------//
-  parameter Buildings.Fluid.Data.Pipes.PEX_RADTEST pipe;
+  parameter Buildings.Fluid.Data.Pipes.PEX_RADTEST pipe
+    "Pipe";
   parameter HeatTransfer.Data.OpaqueConstructions.Generic layers(nLay=3, material={
         Buildings.HeatTransfer.Data.Solids.Generic(
         x=0.1,
@@ -65,22 +66,51 @@ model ControlPlusLockoutPerimeter
         c=832,
         d=2322)})
         "Material layers from surface a to b (8cm concrete, 5 cm insulation, 20 cm reinforced concrete)";
-  parameter Modelica.SIunits.HeatFlowRate Q_flow_nominal = 4000
+  parameter Real Q_flow_nominal(
+    final min=0,
+    final unit="J/s",
+    final quantity="HeatFlowRate") = 4000
     "Nominal heat flow rate of water in slab";
-  parameter Modelica.SIunits.Temperature TRadSup_nominal = 273.15+40
+  parameter Real TRadSup_nominal(
+    final unit="K",
+    final displayUnit="K",
+    final quantity="ThermodynamicTemperature") = 273.15+40
     "Slab nominal heating supply water temperature, 105 F";
-  parameter Modelica.SIunits.Temperature TRadRet_nominal = 273.15+35
+  parameter Real TRadRet_nominal(
+    final unit="K",
+    final displayUnit="K",
+    final quantity="ThermodynamicTemperature") = 273.15+35
     "Slab nominal heating return water temperature,heating 95 F";
-  parameter Modelica.SIunits.MassFlowRate mRad_flow_nominal=
+  parameter Real mRad_flow_nominal(
+    final min=0,
+    final unit="kg/s",
+    final quantity="MassFlowRate")=
     Q_flow_nominal/4200/(TRadSup_nominal-TRadRet_nominal)
     "Radiator nominal mass flow rate";
-  parameter Modelica.SIunits.Temperature TRadCol_nominal = 273.15+10;
-  parameter Modelica.SIunits.Area A=45;
+  parameter Real TRadCol_nominal(
+    final unit="K",
+    final displayUnit="K",
+    final quantity="ThermodynamicTemperature") = 273.15+10
+    "Radiator nominal temperature";
+  parameter Real A(
+    final min=0,
+    final unit="m2",
+    final quantity="Area")= 45 "Area";
 //------------------------------------------------------------------------//
-  parameter Modelica.SIunits.Volume V=5*9*3 "Room volume";
-  parameter Modelica.SIunits.MassFlowRate mA_flow_nominal = V*1.2*6/3600
+  parameter Real V(
+    final min=0,
+    final unit="m3",
+    final quantity="Volume")=5*9*3 "Room volume";
+
+  parameter Real mA_flow_nominal(
+    final min=0,
+    final unit="kg/s",
+    final quantity="MassFlowRate") = V*1.2*6/3600
     "Nominal mass flow rate";
-  parameter Modelica.SIunits.HeatFlowRate QRooInt_flow = 100
+  parameter Real QRooInt_flow(
+    final min=0,
+    final unit="J/s",
+    final quantity="HeatFlowRate") = 100
     "Internal heat gains of the room";
 
   Fluid.HeatExchangers.RadiantSlabs.SingleCircuitSlab           sla1(
