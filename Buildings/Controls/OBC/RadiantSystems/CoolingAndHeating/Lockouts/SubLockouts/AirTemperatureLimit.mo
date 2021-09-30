@@ -46,6 +46,8 @@ If room air temperature is below a specified temperature threshold (typically 68
 </p>
 <p>
 Output is expressed as a heating or cooling signal. If the heating signal is <code>true</code>, heating is allowed (ie, it is not locked out).
+</p>
+<p>
 If the cooling signal is true, cooling is allowed (ie, it is not locked out).
 A true signal indicates only that heating or cooling is permitted- it does not indicate the actual status
 of the final heating or cooling signal, which depends on the slab temperature and slab setpoint (see <a href=\"modelica://Buildings.Controls.OBC.RadiantSystems.CoolingAndHeating.SlabTemperatureSignal\">
