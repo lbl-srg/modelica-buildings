@@ -6,7 +6,7 @@ model PipeAutosize "Pipe model parameterized with pressure drop per pipe length"
 
   parameter Modelica.SIunits.Length dh(
     fixed=false,
-    start=0.2,
+    start=0.05,
     min=0.01)
     "Hydraulic diameter (assuming a round cross section area)";
 
@@ -16,7 +16,7 @@ model PipeAutosize "Pipe model parameterized with pressure drop per pipe length"
   parameter Modelica.SIunits.Length length "Length of the pipe";
 
   parameter Real ReC(min=0)=4000
-    "Reynolds number where transition to turbulent starts";
+    "Reynolds number where transition to turbulence starts";
 
   parameter Modelica.SIunits.Velocity v_nominal=m_flow_nominal / (rho_default * ARound)
     "Velocity at m_flow_nominal (used to compute default value for hydraulic diameter dh)"

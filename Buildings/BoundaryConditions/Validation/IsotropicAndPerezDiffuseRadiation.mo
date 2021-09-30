@@ -10,9 +10,6 @@ model IsotropicAndPerezDiffuseRadiation
   parameter Modelica.SIunits.Angle til(
     displayUnit="deg")
     "Surface tilt angle";
-  parameter Modelica.SIunits.Angle lat(
-    displayUnit="deg")
-    "Latitude angle";
   parameter Modelica.SIunits.Angle azi(
     displayUnit="deg")
     "Azimuth angle";
@@ -20,7 +17,6 @@ model IsotropicAndPerezDiffuseRadiation
     "Ground reflectance";
   SolarIrradiation.DirectTiltedSurface HDir(
     til=til,
-    lat=lat,
     azi=azi)
     "Direct Irradiation on tilted surface"
     annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
@@ -34,7 +30,6 @@ model IsotropicAndPerezDiffuseRadiation
   SolarIrradiation.DiffusePerez HDiffPer(
     til=til,
     rho=rho,
-    lat=lat,
     azi=azi,
     outSkyCon=true,
     outGroCon=true)
@@ -78,6 +73,18 @@ equation
     Documentation(
       revisions="<html>
 <ul>
+<li>
+September 6, 2021, by Ettore Zanetti:<br/>
+Removed parameter <code>lat</code> as it is now obtained from the weather data bus.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1477\">IBPSA, #1477</a>.
+</li>
+<li>
+May 2, 2021, by Ettore Zanetti:<br/>
+Added altitude to parameters.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1477\">IBPSA, #1477</a>.
+</li>
 <li>
 October 25, 2020, by Ettore Zanetti:<br/>
 Updated comments for variable descriptions

@@ -72,7 +72,6 @@ model MixedAirFreeResponse "Free response of room model"
 
   parameter String weaFil = Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos")
    "Weather data file";
-  parameter Modelica.SIunits.Angle lat = Buildings.BoundaryConditions.WeatherData.BaseClasses.getLatitudeTMY3(weaFil) "Latitude";
   parameter Modelica.SIunits.Volume VRoo = 4555.7  "Room volum";
   parameter Modelica.SIunits.Height hRoo = 2.74 "Room height";
   parameter Modelica.SIunits.Length hWin = 1.5 "Height of windows";
@@ -82,7 +81,6 @@ model MixedAirFreeResponse "Free response of room model"
 
   Buildings.ThermalZones.Detailed.MixedAir roo(
     redeclare package Medium = Medium,
-    lat=lat,
     AFlo=AFlo,
     hRoo=hRoo,
     nConExt=0,

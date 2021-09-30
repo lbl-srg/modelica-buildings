@@ -17,7 +17,6 @@ model FlatPlateWithTank
     sysConfig=Buildings.Fluid.SolarCollectors.Types.SystemConfiguration.Series,
     per=Buildings.Fluid.SolarCollectors.Data.GlazedFlatPlate.FP_SolahartKf(),
     nSeg=9,
-    lat=0.73097781993588,
     azi=0.3,
     til=0.78539816339745) "Flat plate solar collector model"
     annotation (Placement(transformation(extent={{-2,46},{18,66}})));
@@ -227,6 +226,12 @@ equation
       </html>",
 revisions="<html>
 <ul>
+<li>
+September 16, 2021, by Michael Wetter:<br/>
+Removed parameter assignment for <code>lat</code>.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1477\">IBPSA, #1477</a>.
+</li>
 <li>
 December 22, 2014 by Michael Wetter:<br/>
 Removed <code>Modelica.Fluid.System</code>

@@ -14,7 +14,6 @@ model Floor "Model of a floor of the building"
 
   parameter HeatTransfer.Types.InteriorConvection intConMod=Buildings.HeatTransfer.Types.InteriorConvection.Temperature
     "Convective heat transfer model for room-facing surfaces of opaque constructions";
-  parameter Modelica.SIunits.Angle lat "Latitude";
   parameter Real winWalRat(
     min=0.01,
     max=0.99) = 0.33 "Window to wall ratio for exterior walls";
@@ -92,7 +91,6 @@ model Floor "Model of a floor of the building"
 
   Buildings.ThermalZones.Detailed.MixedAir sou(
     redeclare package Medium = Medium,
-    lat=lat,
     AFlo=AFloSou,
     hRoo=hRoo,
     nConExt=0,
@@ -124,7 +122,6 @@ model Floor "Model of a floor of the building"
     annotation (Placement(transformation(extent={{144,-44},{184,-4}})));
   Buildings.ThermalZones.Detailed.MixedAir eas(
     redeclare package Medium = Medium,
-    lat=lat,
     AFlo=AFloEas,
     hRoo=hRoo,
     nConExt=0,
@@ -161,7 +158,6 @@ model Floor "Model of a floor of the building"
     annotation (Placement(transformation(extent={{304,56},{344,96}})));
   Buildings.ThermalZones.Detailed.MixedAir nor(
     redeclare package Medium = Medium,
-    lat=lat,
     AFlo=AFloNor,
     hRoo=hRoo,
     nConExt=0,
@@ -193,7 +189,6 @@ model Floor "Model of a floor of the building"
     annotation (Placement(transformation(extent={{144,116},{184,156}})));
   Buildings.ThermalZones.Detailed.MixedAir wes(
     redeclare package Medium = Medium,
-    lat=lat,
     AFlo=AFloWes,
     hRoo=hRoo,
     nConExt=0,
@@ -230,7 +225,6 @@ model Floor "Model of a floor of the building"
     annotation (Placement(transformation(extent={{12,36},{52,76}})));
   Buildings.ThermalZones.Detailed.MixedAir cor(
     redeclare package Medium = Medium,
-    lat=lat,
     AFlo=AFloCor,
     hRoo=hRoo,
     nConExt=0,
@@ -698,7 +692,18 @@ equation
           fillColor={170,213,255},
           fillPattern=FillPattern.Solid)}),
     Documentation(revisions="<html>
-    <ul>
+<ul>
+<li>
+September 16, 2021, by Michael Wetter:<br/>
+Removed parameter <code>lat</code> as this is now obtained from the weather data reader.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1477\">IBPSA, #1477</a>.
+</li>
+<li>
+September 3, 2021, by Michael Wetter:<br/>
+Updated documentation.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2600\">issue #2600</a>.
+</li>
 <li>
 April 30, 2021, by Michael Wetter:<br/>
 Reformulated replaceable class and introduced floor areas in base class
@@ -723,11 +728,46 @@ to be parameters does not imply that the whole record has the variability of a p
 </html>", info="<html>
 <p>
 Model of a floor that consists
-of five thermal zones that are representative of one floor of the
+of five thermal zones.
+</p>
+<p>
+The five room model is representative of one floor of the
 new construction medium office building for Chicago, IL,
-as described in the set of DOE Commercial Building Benchmarks.
-There are four perimeter zones and one core zone.
+as described in the set of DOE Commercial Building Benchmarks
+(Deru et al, 2009). There are four perimeter zones and one core zone.
 The envelope thermal properties meet ASHRAE Standard 90.1-2004.
+The thermal room model computes transient heat conduction through
+walls, floors and ceilings and long-wave radiative heat exchange between
+surfaces. The convective heat transfer coefficient is computed based
+on the temperature difference between the surface and the room air.
+There is also a layer-by-layer short-wave radiation,
+long-wave radiation, convection and conduction heat transfer model for the
+windows. The model is similar to the
+Window 5 model and described in TARCOG 2006.
+</p>
+<p>
+Each thermal zone can have air flow from the HVAC system,
+through leakages of the building envelope (except for the core zone)
+and through bi-directional air exchange through open doors that connect adjacent zones.
+The bi-directional air exchange is modeled based on the differences in
+static pressure between adjacent rooms at a reference height plus the
+difference in static pressure across the door height as a function of the difference in air density.
+Infiltration is a function of the
+flow imbalance of the HVAC system.
+</p>
+
+<h4>References</h4>
+<p>
+Deru M., K. Field, D. Studer, K. Benne, B. Griffith, P. Torcellini,
+ M. Halverson, D. Winiarski, B. Liu, M. Rosenberg, J. Huang, M. Yazdanian, and D. Crawley.
+<i>DOE commercial building research benchmarks for commercial buildings</i>.
+Technical report, U.S. Department of Energy, Energy Efficiency and
+Renewable Energy, Office of Building Technologies, Washington, DC, 2009.
+</p>
+<p>
+TARCOG 2006: Carli, Inc., TARCOG: Mathematical models for calculation
+of thermal performance of glazing systems with our without
+shading devices, Technical Report, Oct. 17, 2006.
 </p>
 </html>"));
 end Floor;

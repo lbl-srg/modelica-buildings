@@ -1,6 +1,6 @@
 within Buildings.Controls.OBC;
 package OutdoorLights
-  "Package with models for outdoor lighting controls"
+  "Package with controllers for outdoor lights"
   extends Modelica.Icons.Package;
   annotation (
     Documentation(

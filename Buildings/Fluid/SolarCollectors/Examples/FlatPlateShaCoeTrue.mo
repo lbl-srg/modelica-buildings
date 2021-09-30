@@ -15,7 +15,6 @@ model FlatPlateShaCoeTrue "Test model for FlatPlate with use_shaCoe_in = true"
     nPanels=5,
     sysConfig=Buildings.Fluid.SolarCollectors.Types.SystemConfiguration.Series,
     nSeg=9,
-    lat=0.65938539140346,
     til=0.5235987755983) "Flat plate solar collector with 3 segments"
     annotation (Placement(transformation(extent={{-16,-20},{4,0}})));
 
@@ -91,6 +90,12 @@ equation
     </html>",
 revisions="<html>
 <ul>
+<li>
+September 16, 2021, by Michael Wetter:<br/>
+Removed parameter assignment for <code>lat</code>.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1477\">IBPSA, #1477</a>.
+</li>
 <li>
 December 22, 2014 by Michael Wetter:<br/>
 Removed <code>Modelica.Fluid.System</code>

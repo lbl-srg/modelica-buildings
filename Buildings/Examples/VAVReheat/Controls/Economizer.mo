@@ -52,41 +52,32 @@ block Economizer "Controller for economizer"
             {240,100}})));
   Modelica.Blocks.Math.Gain gain(k=1/VOut_flow_min) "Normalize mass flow rate"
     annotation (Placement(transformation(extent={{-60,-70},{-40,-50}})));
-  Buildings.Controls.Continuous.LimPID conV_flow(
+  Buildings.Controls.OBC.CDL.Continuous.PID conV_flow(
     controllerType=controllerType,
     k=k,
     Ti=Ti,
     yMax=1,
     yMin=0,
-    Td=60,
-    y_reset=0,
-    final reset=if have_reset then Buildings.Types.Reset.Parameter else
-      Buildings.Types.Reset.Disabled)
+    Td=60)
     "Controller for outside air flow rate"
     annotation (Placement(transformation(extent={{-10,-30},{10,-10}})));
   Modelica.Blocks.Sources.Constant uni(k=1) "Unity signal"
     annotation (Placement(transformation(extent={{-60,-30},{-40,-10}})));
   Modelica.Blocks.Sources.Constant closed(k=0) "Signal to close OA damper"
     annotation (Placement(transformation(extent={{30,30},{50,50}})));
-  Modelica.Blocks.Math.Max max
-    "Takes higher signal (maximum damper opening between cooling and OA requirement)"
-    annotation (Placement(transformation(extent={{80,-10},{100,10}})));
-  Buildings.Controls.Continuous.LimPID yOATFre(
+  Buildings.Controls.OBC.CDL.Continuous.PID yOATFre(
     controllerType=controllerType,
     k=k,
     Ti=Ti,
     Td=60,
     yMax=1,
     yMin=0,
-    y_reset=1,
-    reverseActing=false,
-    final reset=if have_reset then Buildings.Types.Reset.Parameter else
-      Buildings.Types.Reset.Disabled) if have_frePro
+    reverseActing=false) if have_frePro
     "Controller of outdoor damper to track freeze temperature setpoint"
     annotation (Placement(transformation(extent={{-30,70},{-10,90}})));
-  Modelica.Blocks.Math.Min min
+  Buildings.Controls.OBC.CDL.Continuous.Min minFrePro
     "Takes lower signal (limits damper opening for freeze protection)"
-    annotation (Placement(transformation(extent={{30,-10},{50,10}})));
+    annotation (Placement(transformation(extent={{80,4},{100,24}})));
   Modelica.Blocks.Sources.Constant TFre(k=TFreSet)
     "Setpoint for freeze protection"
     annotation (Placement(transformation(extent={{-60,70},{-40,90}})));
@@ -107,6 +98,9 @@ block Economizer "Controller for economizer"
   Buildings.Controls.OBC.CDL.Logical.Switch swiModClo
     "Switch between modulating or closing outdoor air damper"
     annotation (Placement(transformation(extent={{130,-10},{150,10}})));
+  Buildings.Controls.OBC.CDL.Continuous.Max maxOutDam
+    "Select larger of the outdoor damper signals"
+    annotation (Placement(transformation(extent={{40,-10},{60,10}})));
 equation
   connect(VOut_flow, gain.u) annotation (Line(
       points={{-120,-60},{-62,-60}},
@@ -120,16 +114,8 @@ equation
       points={{-39,-20},{-12,-20}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(min.u2, conV_flow.y) annotation (Line(
-      points={{28,-6},{20,-6},{20,-20},{11,-20}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(min.y, max.u2) annotation (Line(
-      points={{51,0},{60,0},{60,-6},{78,-6}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(yOATFre.y, min.u1) annotation (Line(points={{-9,80},{0,80},{0,6},{28,6}},
-                                    color={0,0,127}));
+  connect(yOATFre.y, minFrePro.u1)
+    annotation (Line(points={{-9,80},{0,80},{0,20},{78,20}}, color={0,0,127}));
   connect(yRet, invSig.y)
     annotation (Line(points={{220,0},{192,0}}, color={0,0,127}));
   connect(feedback.y, hysLoc.u)
@@ -144,8 +130,6 @@ equation
       index=-1,
       extent={{-3,-6},{-3,-6}},
       horizontalAlignment=TextAlignment.Right));
-  connect(swiOA.y, max.u1) annotation (Line(points={{112,120},{120,120},{120,100},
-          {70,100},{70,6},{78,6}},color={0,0,127}));
   connect(closed.y, swiOA.u3) annotation (Line(points={{51,40},{60,40},{60,112},
           {88,112}}, color={0,0,127}));
   connect(hysLoc.y, swiOA.u2)
@@ -153,12 +137,8 @@ equation
   connect(uOATSup, swiOA.u1) annotation (Line(points={{-120,160},{60,160},{60,128},
           {88,128}}, color={0,0,127}));
 
-  connect(uEna, yOATFre.trigger) annotation (Line(points={{-120,190},{-94,190},{
-          -94,60},{-28,60},{-28,68}},color={255,0,255}));
-  connect(uEna, conV_flow.trigger) annotation (Line(points={{-120,190},{-94,190},
-          {-94,-40},{-8,-40},{-8,-32}},                   color={255,0,255}));
-  connect(one.y, min.u1)
-    annotation (Line(points={{-39,20},{0,20},{0,6},{28,6}},  color={0,0,127}));
+  connect(one.y, minFrePro.u1)
+    annotation (Line(points={{-39,20},{78,20}}, color={0,0,127}));
   connect(yOATFre.u_s, TFre.y)
     annotation (Line(points={{-32,80},{-39,80}}, color={0,0,127}));
   connect(TMix, yOATFre.u_m)
@@ -170,11 +150,16 @@ equation
   connect(uEna, swiModClo.u2) annotation (Line(points={{-120,190},{140,190},{
           140,20},{124,20},{124,0},{128,0}},
                                          color={255,0,255}));
-  connect(max.y, swiModClo.u1) annotation (Line(points={{101,0},{110,0},{110,8},
-          {128,8}}, color={0,0,127}));
-  connect(closed.y, swiModClo.u3) annotation (Line(points={{51,40},{120,40},{
-          120,-8},{128,-8}},
-                         color={0,0,127}));
+  connect(closed.y, swiModClo.u3) annotation (Line(points={{51,40},{120,40},{120,
+          -8},{128,-8}}, color={0,0,127}));
+  connect(maxOutDam.u1, swiOA.y) annotation (Line(points={{38,6},{20,6},{20,100},
+          {120,100},{120,120},{112,120}}, color={0,0,127}));
+  connect(conV_flow.y, maxOutDam.u2) annotation (Line(points={{11,-20},{20,-20},
+          {20,-6},{38,-6}}, color={0,0,127}));
+  connect(minFrePro.y, swiModClo.u1) annotation (Line(points={{101,14},{114,14},
+          {114,8},{128,8}}, color={0,0,127}));
+  connect(maxOutDam.y, minFrePro.u2)
+    annotation (Line(points={{62,0},{72,0},{72,8},{80,8}}, color={0,0,127}));
   annotation (defaultComponentName="conEco",
     Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{200,
             200}})),
@@ -235,6 +220,10 @@ than the return air dry bulb, economizer cooling is disabled.
 </ol>
 </html>", revisions="<html>
 <ul>
+<li>
+August 31, 2021, by Michael Wetter:<br/>
+Corrected selection of control signal during freeze protection.
+</li>
 <li>
 October 27, 2020, by Antoine Gautier:<br/>
 Refactored for compatibility with new supply air temperature control.<br/>

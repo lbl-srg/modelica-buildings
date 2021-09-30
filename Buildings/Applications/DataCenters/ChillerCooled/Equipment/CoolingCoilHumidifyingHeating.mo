@@ -4,7 +4,7 @@ model CoolingCoilHumidifyingHeating
     redeclare Buildings.Fluid.Actuators.Valves.TwoWayEqualPercentage watVal(
       final R=R,
       final delta0=delta0),
-    redeclare final Buildings.Fluid.Movers.SpeedControlled_y fan);
+    redeclare final Buildings.Fluid.Movers.SpeedControlled_y fan(y_start=yFan_start));
 
   // Parameters for water-side valve
   parameter Real R=50 "Rangeability, R=50...100 typically"
@@ -148,8 +148,8 @@ equation
   connect(eleHea.port_a, hum.port_b)
     annotation (Line(points={{-12,-60},{10,-60}},
                 color={0,127,255}));
-  connect(hum.port_a, cooCoi.port_b2)
-    annotation (Line(points={{30,-60},{30,-60},{48,-60},{42,-60},{60,-60}}, color={0,127,255}));
+  connect(hum.port_a, cooCoi.port_b2) annotation (Line(points={{30,-60},{30,
+          -60},{48,-60},{42,-60},{60,-60}}, color={0,127,255}));
   connect(eleHea.P, PHea)
     annotation (Line(points={{-33,-66},{-40,-66},{-40,-76},
                 {18,-76},{18,-110}}, color={0,0,127}));

@@ -22,7 +22,6 @@ block Overhang
                                                final unit="1")
     "Fraction of window area exposed to the sun"
   annotation (Placement(transformation(extent={{100,-10},{120,10}})));
-  parameter Modelica.SIunits.Angle lat "Latitude";
 
   parameter Modelica.SIunits.Angle azi(displayUnit="deg")
     "Surface azimuth; azi= -90 degree East; azi= 0 degree South";
@@ -66,7 +65,7 @@ protected
     "Corrected for the sun behind the surface/wall";
   Modelica.SIunits.Area crShdArea2 "Corrected for the sun below horizon";
 
-  Buildings.BoundaryConditions.SolarGeometry.BaseClasses.SolarAzimuth solAzi(lat=lat)
+  Buildings.BoundaryConditions.SolarGeometry.BaseClasses.SolarAzimuth solAzi
     "Solar azimuth"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
 
@@ -177,7 +176,7 @@ equation
    end if;
 
   connect(weaBus.solTim, solAzi.solTim) annotation (Line(
-      points={{-102,5.55112e-16},{-88,5.55112e-16},{-88,-6},{-62,-6}},
+      points={{-102,0},{-80,0},{-80,-4},{-62,-4}},
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None), Text(
@@ -185,7 +184,7 @@ equation
       index=-1,
       extent={{-6,3},{-6,3}}));
   connect(weaBus.solZen, solAzi.zen) annotation (Line(
-      points={{-102,5.55112e-16},{-79,5.55112e-16},{-79,6},{-62,6}},
+      points={{-102,5.55112e-16},{-80,5.55112e-16},{-80,6},{-62,6}},
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None), Text(
@@ -202,6 +201,14 @@ equation
       index=-1,
       extent={{-6,3},{-6,3}}));
 
+  connect(weaBus.lat, solAzi.lat) annotation (Line(
+      points={{-102,0},{-80,0},{-80,-10},{-62,-10}},
+      color={255,204,51},
+      thickness=0.5), Text(
+      string="%first",
+      index=-1,
+      extent={{-6,3},{-6,3}},
+      horizontalAlignment=TextAlignment.Right));
   annotation ( Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}),
                     graphics={Rectangle(
@@ -269,6 +276,12 @@ to calculate the shaded fraction of the window.
 </html>",
 revisions="<html>
 <ul>
+<li>
+September 16, 2021, by Michael Wetter:<br/>
+Removed parameter <code>lat</code> because the latitude is now obtained from the weather data bus.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1477\">IBPSA, #1477</a>.
+</li>
 <li>
 October 28, 2014, by Michael Wetter:<br/>
 Reformulated <code>shdwTrnglRtio*x1 = y1</code> to avoid a division by
