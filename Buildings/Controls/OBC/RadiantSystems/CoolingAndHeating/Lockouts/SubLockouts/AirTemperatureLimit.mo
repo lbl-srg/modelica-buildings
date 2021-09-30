@@ -43,6 +43,8 @@ equation
 <p>
 If room air temperature is above a specified temperature threshold (typically 76<code>degF</code>), heating is looked out. 
 If room air temperature is below a specified temperature threshold (typically 68<code>degF</code>), cooling is locked out.
+</p>
+<p>
 Output is expressed as a heating or cooling signal. If the heating signal is <code>true</code>, heating is allowed (ie, it is not locked out).
 If the cooling signal is true, cooling is allowed (ie, it is not locked out).
 A true signal indicates only that heating or cooling is permitted- it does not indicate the actual status
