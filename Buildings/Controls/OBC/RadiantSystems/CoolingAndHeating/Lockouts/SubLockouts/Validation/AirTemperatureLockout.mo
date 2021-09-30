@@ -28,13 +28,21 @@ model AirTemperatureLockout
   Controls.OBC.CDL.Continuous.Sources.Constant TMedRoo(k=TZonLowLim + 2)
     "Temperature between limits"
     annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
-  Controls.OBC.RadiantSystems.CoolingAndHeating.Lockouts.SubLockouts.AirTemperatureLimit airTemLim(TZonHigSet=TZonHigLim, TZonLowSet=TZonLowLim)
+  Controls.OBC.RadiantSystems.CoolingAndHeating.Lockouts.SubLockouts.AirTemperatureLimit airTemLim(
+    final TZonHigSet=TZonHigLim,
+    final TZonLowSet=TZonLowLim) "Air temperature limit"
     annotation (Placement(transformation(extent={{-20,40},{0,60}})));
-  Controls.OBC.RadiantSystems.CoolingAndHeating.Lockouts.SubLockouts.AirTemperatureLimit airTemLim1(TZonHigSet=TZonHigLim, TZonLowSet=TZonLowLim)
+  Controls.OBC.RadiantSystems.CoolingAndHeating.Lockouts.SubLockouts.AirTemperatureLimit airTemLim1(
+    final TZonHigSet=TZonHigLim,
+    final TZonLowSet=TZonLowLim) "Air temperature limit"
     annotation (Placement(transformation(extent={{-20,0},{0,20}})));
-  Controls.OBC.RadiantSystems.CoolingAndHeating.Lockouts.SubLockouts.AirTemperatureLimit airTemLim2(TZonHigSet=TZonHigLim, TZonLowSet=TZonLowLim)
+  Controls.OBC.RadiantSystems.CoolingAndHeating.Lockouts.SubLockouts.AirTemperatureLimit airTemLim2(
+    final TZonHigSet=TZonHigLim,
+    final TZonLowSet=TZonLowLim) "Air temperature limit"
     annotation (Placement(transformation(extent={{-20,-40},{0,-20}})));
-  Controls.OBC.RadiantSystems.CoolingAndHeating.Lockouts.SubLockouts.AirTemperatureLimit airTemLim3(TZonHigSet=TZonHigLim, TZonLowSet=TZonLowLim)
+  Controls.OBC.RadiantSystems.CoolingAndHeating.Lockouts.SubLockouts.AirTemperatureLimit airTemLim3(
+    final TZonHigSet=TZonHigLim,
+    final TZonLowSet=TZonLowLim) "Air temperature limit"
     annotation (Placement(transformation(extent={{-20,-80},{0,-60}})));
 equation
   connect(sin.y, airTemLim3.TRoo) annotation (Line(points={{-60,-70},{-40,-70},

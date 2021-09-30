@@ -238,7 +238,7 @@ Fluid.Movers.FlowControlled_m_flow           pumHot(
         Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"))
     "Weather data reader"
     annotation (Placement(transformation(extent={{184,340},{204,360}})));
-  BoundaryConditions.WeatherData.Bus weaBus1
+  BoundaryConditions.WeatherData.Bus weaBus1 "Weather bus"
     annotation (Placement(transformation(extent={{270,298},{290,318}})));
   Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor temSlaTop
     "Temperature at the top of the slab" annotation (Placement(transformation(
@@ -286,7 +286,7 @@ Fluid.Movers.FlowControlled_m_flow           pumHot(
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyStateInitial,
     massDynamics=Modelica.Fluid.Types.Dynamics.SteadyStateInitial,
     nPorts=2,
-    redeclare package Medium = MediumA)
+    redeclare package Medium = MediumA) "Radiant exterior test cell"
     annotation (Placement(transformation(extent={{82,300},{122,340}})));
   Modelica.Blocks.Sources.CombiTimeTable intGai2(
     table=[0,1.05729426,1.25089426,0; 3600,1.05729426,1.25089426,0; 7200,1.05729426,

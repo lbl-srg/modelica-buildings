@@ -4,17 +4,21 @@ model SlabError "Validation model for slab temperature error block"
     final parameter Real TSlaSet(min=0,
     final unit="K",
     final displayUnit="K",
-    final quantity="Temperature")=294.3;
+    final quantity="Temperature")=294.3
+    "Slab temperature setpoint";
   Controls.OBC.CDL.Continuous.Sources.Sine sin(
     amplitude=TSlaSet/5,
     freqHz=1/86400,
     phase(displayUnit="rad"),
     offset=TSlaSet) "Varying slab temperature"
     annotation (Placement(transformation(extent={{-40,20},{-20,40}})));
-  Controls.OBC.CDL.Continuous.Sources.Constant TSlaStp(k=TSlaSet)
+  Controls.OBC.CDL.Continuous.Sources.Constant TSlaStp(
+    final k=TSlaSet)
     "Slab temperature setpoint (constant)"
     annotation (Placement(transformation(extent={{-40,-20},{-20,0}})));
-  Controls.OBC.RadiantSystems.CoolingAndHeating.SlabTemperatureSignal.Error err annotation (Placement(transformation(extent={{6,4},{26,24}})));
+  Controls.OBC.RadiantSystems.CoolingAndHeating.SlabTemperatureSignal.Error err
+  "Error calculation"
+  annotation (Placement(transformation(extent={{6,4},{26,24}})));
 equation
   connect(sin.y, err.TSla) annotation (Line(points={{-18,30},{-10,30},{-10,15},{
           4,15}}, color={0,0,127}));

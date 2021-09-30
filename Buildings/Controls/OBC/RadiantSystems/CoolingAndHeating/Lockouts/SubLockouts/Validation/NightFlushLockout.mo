@@ -1,6 +1,7 @@
 within Buildings.Controls.OBC.RadiantSystems.CoolingAndHeating.Lockouts.SubLockouts.Validation;
 model NightFlushLockout "Validation model for night flush"
   Controls.OBC.RadiantSystems.CoolingAndHeating.Lockouts.SubLockouts.NightFlush nigFluLoc
+    "Night flush"
     annotation (Placement(transformation(extent={{0,0},{20,20}})));
   Controls.OBC.CDL.Logical.Sources.Pulse booPul(period=43000)
     "Varying night flush signal"

@@ -9,10 +9,10 @@ block HysteresisLimit
     final unit="s",
     final displayUnit="s",
     final quantity="Time") = 3600 "Time for which cooling is locked out after heating concludes";
-  Controls.OBC.CDL.Logical.LogicalSwitch           logSwiHot
+  Controls.OBC.CDL.Logical.LogicalSwitch logSwiHot
     "Once simulation has been running for user-specified time duration, enables hysteresis prevention"
     annotation (Placement(transformation(extent={{-100,20},{-80,40}})));
-  Buildings.Utilities.Time.ModelTime modTim
+  Buildings.Utilities.Time.ModelTime modTim "Model time"
     annotation (Placement(transformation(extent={{-320,-40},{-300,-20}})));
   Controls.OBC.CDL.Logical.Pre           pre(pre_u_start=false)
                                              "Breaks Boolean loop"

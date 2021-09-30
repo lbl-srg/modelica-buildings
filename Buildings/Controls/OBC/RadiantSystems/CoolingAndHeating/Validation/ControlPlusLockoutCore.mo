@@ -48,7 +48,7 @@ model ControlPlusLockoutCore
   final parameter Real LasOcc(min=0,max=24)=16 "Last occupied hour";
   final parameter Boolean OffTru=true "True: both heating and cooling signals turn off when slab setpoint is within deadband";
 //-------------------------Slab and Fluid Parameters-------------------------//
-  parameter Buildings.Fluid.Data.Pipes.PEX_RADTEST pipe;
+  parameter Buildings.Fluid.Data.Pipes.PEX_RADTEST pipe "Pipe";
   parameter HeatTransfer.Data.OpaqueConstructions.Generic layers(nLay=3, material={
         Buildings.HeatTransfer.Data.Solids.Generic(
         x=0.1,

@@ -28,59 +28,62 @@ model DeadbandControl "Validation model for deadband control"
     TDeaRel=TemDeaRel,
     TDeaNor=TemDeaNor,
     k=LastOcc,
-    offWitDea=OffTru)
+    offWitDea=OffTru) "Deadband control"
     annotation (Placement(transformation(extent={{-20,40},{0,60}})));
   Buildings.Controls.OBC.RadiantSystems.CoolingAndHeating.SlabTemperatureSignal.DeadbandControl deaCon1(
     TDeaRel=TemDeaRel,
     TDeaNor=TemDeaNor,
     k=LastOcc,
-    offWitDea=OffFal)
+    offWitDea=OffFal) "Deadband control"
     annotation (Placement(transformation(extent={{-20,0},{0,20}})));
   Buildings.Controls.OBC.RadiantSystems.CoolingAndHeating.SlabTemperatureSignal.DeadbandControl deaCon2(
     TDeaRel=TemDeaRel,
     TDeaNor=TemDeaNor,
     k=LastOcc,
-    offWitDea=OffTru)
+    offWitDea=OffTru) "Deadband control"
     annotation (Placement(transformation(extent={{-20,-40},{0,-20}})));
   Buildings.Controls.OBC.RadiantSystems.CoolingAndHeating.SlabTemperatureSignal.DeadbandControl deaCon3(
     TDeaRel=TemDeaRel,
     TDeaNor=TemDeaNor,
     k=LastOcc,
-    offWitDea=OffFal)
+    offWitDea=OffFal) "Deadband control"
     annotation (Placement(transformation(extent={{-20,-80},{0,-60}})));
   Buildings.Controls.OBC.RadiantSystems.CoolingAndHeating.SlabTemperatureSignal.DeadbandControl deaConTes(
     TDeaRel=TemDeaRel,
     TDeaNor=TemDeaNor,
     k=LastOcc,
-    offWitDea=OffTru)
+    offWitDea=OffTru) "Deadband control"
     annotation (Placement(transformation(extent={{50,60},{80,92}})));
   Buildings.Controls.OBC.RadiantSystems.CoolingAndHeating.SlabTemperatureSignal.DeadbandControl deaConTesFal(
     TDeaRel=TemDeaRel,
     TDeaNor=TemDeaNor,
     k=LastOcc,
-    offWitDea=OffFal)
+    offWitDea=OffFal) "Deadband control"
     annotation (Placement(transformation(extent={{50,8},{80,40}})));
   Buildings.Controls.OBC.RadiantSystems.CoolingAndHeating.SlabTemperatureSignal.DeadbandControl deaConTes1(
     TDeaRel=TemDeaRel,
     TDeaNor=TemDeaNor,
     k=LastOcc,
-    offWitDea=OffTru)
+    offWitDea=OffTru) "Deadband control"
     annotation (Placement(transformation(extent={{50,-40},{80,-8}})));
   Buildings.Controls.OBC.RadiantSystems.CoolingAndHeating.SlabTemperatureSignal.DeadbandControl deaConTesFal1(
     TDeaRel=TemDeaRel,
     TDeaNor=TemDeaNor,
     k=LastOcc,
-    offWitDea=OffFal)
+    offWitDea=OffFal) "Deadband control"
     annotation (Placement(transformation(extent={{50,-92},{80,-60}})));
 equation
-  connect(sin.y, deaCon.slaTemErr) annotation (Line(points={{-38,30},{-24,30},{-24,40.8},
-          {-21.7333,40.8}},       color={0,0,127}));
-  connect(sin1.y, deaCon2.slaTemErr) annotation (Line(points={{-38,-50},{-24,-50},{-24,-39.2},
-          {-21.7333,-39.2}},             color={0,0,127}));
-  connect(sin1.y, deaCon3.slaTemErr) annotation (Line(points={{-38,-50},{-24,-50},{-24,-79.2},
-          {-21.7333,-79.2}},             color={0,0,127}));
-  connect(sin.y, deaCon1.slaTemErr) annotation (Line(points={{-38,30},{-24,30},{-24,0.8},
-          {-21.7333,0.8}},          color={0,0,127}));
+  connect(sin.y, deaCon.slaTemErr) annotation (Line(points={{-38,30},{-24,30},{
+          -24,40.8},{-21.7333,40.8}},
+                                  color={0,0,127}));
+  connect(sin1.y, deaCon2.slaTemErr) annotation (Line(points={{-38,-50},{-24,
+          -50},{-24,-39.2},{-21.7333,-39.2}},
+                                         color={0,0,127}));
+  connect(sin1.y, deaCon3.slaTemErr) annotation (Line(points={{-38,-50},{-24,
+          -50},{-24,-79.2},{-21.7333,-79.2}},
+                                         color={0,0,127}));
+  connect(sin.y, deaCon1.slaTemErr) annotation (Line(points={{-38,30},{-24,30},
+          {-24,0.8},{-21.7333,0.8}},color={0,0,127}));
   connect(sin.y, deaConTes.slaTemErr) annotation (Line(points={{-38,30},{20,30},
           {20,61.28},{47.4,61.28}}, color={0,0,127}));
   connect(sin.y, deaConTesFal.slaTemErr) annotation (Line(points={{-38,30},{20,30},

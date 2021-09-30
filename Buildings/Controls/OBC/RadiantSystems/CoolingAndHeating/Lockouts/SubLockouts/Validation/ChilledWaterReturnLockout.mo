@@ -16,7 +16,10 @@ model ChilledWaterReturnLockout
     phase(displayUnit="rad"),
     offset=TWatSetLow) "Varying chilled water return temperature"
     annotation (Placement(transformation(extent={{-80,40},{-60,60}})));
-  Controls.OBC.RadiantSystems.CoolingAndHeating.Lockouts.SubLockouts.ChilledWaterReturnLimit chwRetLim(TWatSetLow=TWatSetLow, cooLocDurWatTem=cooLocDurWatTem)
+  Controls.OBC.RadiantSystems.CoolingAndHeating.Lockouts.SubLockouts.ChilledWaterReturnLimit chwRetLim(
+    final TWatSetLow=TWatSetLow,
+    final cooLocDurWatTem=cooLocDurWatTem)
+    "Chilled water return limit"
     annotation (Placement(transformation(extent={{-20,40},{0,60}})));
 equation
   connect(sin.y,chwRetLim. TSlaRet) annotation (Line(points={{-58,50},{-40,50},{-40,

@@ -6,6 +6,7 @@ model SlabSetpointPerimeterZone
     final displayUnit="K",
     final quantity="Temperature")=294.3;
   Controls.OBC.RadiantSystems.CoolingAndHeating.SlabTemperatureSignal.SlabSetpointPerimeter slaSetPer
+    "Slab temperature setpoint for the perimeter zone"
     annotation (Placement(transformation(extent={{-4,20},{16,40}})));
   Controls.OBC.CDL.Continuous.Sources.TimeTable timTab(table=[0,274.8166667;
         86400,274.8167222; 172800,280.3722222; 259200,280.3727778; 345600,
@@ -14,6 +15,7 @@ model SlabSetpointPerimeterZone
         1036800,295.3722222; 1123200,295.3722778; 1209600,295.9277778; 1296000,
         295.9278333; 1382400,299.8166667; 1468800,299.8172222; 1555200,
         302.5944444], extrapolation=Buildings.Controls.OBC.CDL.Types.Extrapolation.HoldLastPoint)
+    "Table"
     annotation (Placement(transformation(extent={{-60,18},{-40,38}})));
 equation
   connect(timTab.y[1], slaSetPer.TFor) annotation (Line(points={{-38,28},{-22,28},{

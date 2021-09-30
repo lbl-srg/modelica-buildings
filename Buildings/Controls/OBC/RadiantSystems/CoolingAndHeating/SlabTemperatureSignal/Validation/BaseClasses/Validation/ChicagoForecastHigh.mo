@@ -2,6 +2,7 @@ within Buildings.Controls.OBC.RadiantSystems.CoolingAndHeating.SlabTemperatureSi
 model ChicagoForecastHigh
   "Validation model for forecast high temperature for Chicago"
   Controls.OBC.RadiantSystems.CoolingAndHeating.SlabTemperatureSignal.Validation.BaseClasses.ForecastHighChicago forHiChi
+    "Forecast high chicago"
     annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
   BoundaryConditions.WeatherData.ReaderTMY3 weaDat2(filNam=
         ModelicaServices.ExternalReferences.loadResource(

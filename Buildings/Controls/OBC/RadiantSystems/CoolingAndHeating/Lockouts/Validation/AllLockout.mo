@@ -46,7 +46,7 @@ model AllLockout "Validation model for all lockouts"
     TWatSetLow=TempWaLoSet,
     cooLocDurWatTem=LocDurCHW,
     heaLocDurAftCoo=LocDurHea,
-    cooLocDurAftHea=LocDurCoo)
+    cooLocDurAftHea=LocDurCoo) "Combined lockouts"
     annotation (Placement(transformation(extent={{-20,0},{0,20}})));
   Controls.OBC.CDL.Logical.Sources.Pulse booPul(period=43000)
     "Varying night flush signal"

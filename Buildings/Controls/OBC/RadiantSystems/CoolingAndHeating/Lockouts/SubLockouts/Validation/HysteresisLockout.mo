@@ -9,16 +9,22 @@ model HysteresisLockout "Validation model for hysteresis lockout"
     final displayUnit="s",
     final quantity="Time") = 3600 "Time for which cooling is locked out after heating concludes";
   Controls.OBC.RadiantSystems.CoolingAndHeating.Lockouts.SubLockouts.HysteresisLimit hysLim
+    "Hysteresis limit"
     annotation (Placement(transformation(extent={{-20,20},{0,40}})));
   Controls.OBC.RadiantSystems.CoolingAndHeating.Lockouts.SubLockouts.HysteresisLimit hysLim1
+    "Hysteresis limit"
     annotation (Placement(transformation(extent={{-20,-60},{0,-40}})));
   Controls.OBC.RadiantSystems.CoolingAndHeating.Lockouts.SubLockouts.HysteresisLimit hysLim2
+    "Hysteresis limit"
     annotation (Placement(transformation(extent={{120,-60},{140,-40}})));
   Controls.OBC.RadiantSystems.CoolingAndHeating.Lockouts.SubLockouts.HysteresisLimit hysLim3
+    "Hysteresis limit"
     annotation (Placement(transformation(extent={{120,20},{140,40}})));
   Controls.OBC.RadiantSystems.CoolingAndHeating.Lockouts.SubLockouts.HysteresisLimit hysLim4
+    "Hysteresis limit"
     annotation (Placement(transformation(extent={{260,20},{280,40}})));
   Controls.OBC.RadiantSystems.CoolingAndHeating.Lockouts.SubLockouts.HysteresisLimit hysLim5
+    "Hysteresis limit"
     annotation (Placement(transformation(extent={{262,-60},{282,-40}})));
   Controls.OBC.CDL.Logical.Sources.Pulse booPul(period=1800)
     "Varying heating signal"
