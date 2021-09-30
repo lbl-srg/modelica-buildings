@@ -42,7 +42,7 @@ model ChilledWaterPlant
   Fluid.FixedResistances.Junction cwRetSpl(redeclare package Medium = MediumCW,
       energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)
     "Condenser water return mixer"
-    annotation (Placement(transformation(extent={{-60,-60},{-40,-80}})));
+    annotation (Placement(transformation(extent={{-80,-60},{-60,-80}})));
   Fluid.FixedResistances.Junction comLegMix(redeclare package Medium = MediumCHW,
       energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)
     "Common leg mixer"
@@ -76,61 +76,14 @@ equation
           60,10},{60,-10},{88,-10}},color={0,127,255}));
   connect(secPum.port_b, port_a) annotation (Line(points={{180,-10},{200,-10}},
                                color={0,127,255}));
-  connect(chwCon, chi.busCon) annotation (Line(
-      points={{200,40},{8,40},{8,-10},{20,-10}},
-      color={255,204,51},
-      thickness=0.5), Text(
-      string="%first",
-      index=-1,
-      extent={{-6,3},{-6,3}},
-      horizontalAlignment=TextAlignment.Right));
-  connect(chwCon, priPum.busCon) annotation (Line(
-      points={{200,40},{170,40},{170,6},{98,6},{98,0}},
-      color={255,204,51},
-      thickness=0.5), Text(
-      string="%first",
-      index=-1,
-      extent={{-6,3},{-6,3}},
-      horizontalAlignment=TextAlignment.Right));
-  connect(chwCon, secPum.busCon) annotation (Line(
-      points={{200,40},{170,40},{170,0}},
-      color={255,204,51},
-      thickness=0.5), Text(
-      string="%first",
-      index=-1,
-      extent={{-6,3},{-6,3}},
-      horizontalAlignment=TextAlignment.Right));
-  connect(wse.busCon, chwCon) annotation (Line(
-      points={{20,-70},{8,-70},{8,40},{200,40}},
-      color={255,204,51},
-      thickness=0.5), Text(
-      string="%second",
-      index=1,
-      extent={{-6,3},{-6,3}},
-      horizontalAlignment=TextAlignment.Right));
   connect(cwSupSpl.port_2, chi.port_a1) annotation (Line(points={{-40,-10},{-20,
           -10},{-20,10},{24,10},{24,0}},
                                    color={0,127,255}));
-  connect(cooTow.port_a, cwRetSpl.port_1) annotation (Line(points={{-180,-10},{-186,
-          -10},{-186,-70},{-60,-70}},    color={0,127,255}));
+  connect(cooTow.port_a, cwRetSpl.port_1) annotation (Line(points={{-180,-10},{
+          -186,-10},{-186,-70},{-80,-70}},
+                                         color={0,127,255}));
   connect(chi.port_b1, cwRetSpl.port_3) annotation (Line(points={{24,-20},{24,
-          -30},{-20,-30},{-20,-50},{-50,-50},{-50,-60}},     color={0,127,255}));
-  connect(cooTow.busCon, cwCon) annotation (Line(
-      points={{-170,0},{-170,40},{-200,40}},
-      color={255,204,51},
-      thickness=0.5), Text(
-      string="%second",
-      index=1,
-      extent={{-6,3},{-6,3}},
-      horizontalAlignment=TextAlignment.Right));
-  connect(conPum.busCon, cwCon) annotation (Line(
-      points={{-130,0},{-130,40},{-200,40}},
-      color={255,204,51},
-      thickness=0.5), Text(
-      string="%second",
-      index=1,
-      extent={{-6,3},{-6,3}},
-      horizontalAlignment=TextAlignment.Right));
+          -32},{-70,-32},{-70,-60}},                         color={0,127,255}));
   connect(priPum.port_b,comLegSpl. port_1)
     annotation (Line(points={{108,-10},{120,-10}},color={0,127,255}));
   connect(comLegSpl.port_2, secPum.port_a)
@@ -142,27 +95,18 @@ equation
   connect(comLegMix.port_3, comLeg.port_a)
     annotation (Line(points={{46,-40},{52,-40},{52,-50},{60,-50}},
                                                  color={0,127,255}));
-  connect(comLeg.busCon, chwCon.comLeg) annotation (Line(
-      points={{70,-40},{70,40},{200,40}},
-      color={255,204,51},
-      thickness=0.5), Text(
-      string="%second",
-      index=1,
-      extent={{6,3},{6,3}},
-      horizontalAlignment=TextAlignment.Left));
   connect(wse.port_b2, comLegMix.port_2)
     annotation (Line(points={{36,-60},{36,-50}}, color={0,127,255}));
-  connect(cwRetSpl.port_2, wse.port_b1) annotation (Line(points={{-40,-70},{-20,
+  connect(cwRetSpl.port_2, wse.port_b1) annotation (Line(points={{-60,-70},{-20,
           -70},{-20,-92},{24,-92},{24,-80}}, color={0,127,255}));
   connect(cwSupSpl.port_3, wse.port_a1) annotation (Line(points={{-50,-20},{-50,
-          -40},{24,-40},{24,-60}}, color={0,127,255}));
+          -48},{24,-48},{24,-60}}, color={0,127,255}));
   connect(TCHWRet.port_b, port_b)
     annotation (Line(points={{160,-70},{200,-70}}, color={0,127,255}));
   connect(TCHWRet.port_a, wse.port_a2) annotation (Line(points={{140,-70},{60,
           -70},{60,-92},{36,-92},{36,-80}}, color={0,127,255}));
-  connect(TCHWRet.T, chwCon.inp.TCHWRet) annotation (Line(points={{150,-59},{150,
-          40.1},{200.1,40.1}},
-                             color={0,0,127}), Text(
+  connect(TCHWRet.T, chwCon.inp.TCHWRet) annotation (Line(points={{150,-59},{
+          150,40},{200,40}}, color={0,0,127}), Text(
       string="%second",
       index=1,
       extent={{6,3},{6,3}},
@@ -173,6 +117,68 @@ equation
     annotation (Line(points={{-80,-10},{-60,-10}}, color={0,127,255}));
   connect(weaBus, cooTow.weaBus) annotation (Line(
       points={{0,100},{0,80},{-165,80},{-165,0}},
+      color={255,204,51},
+      thickness=0.5), Text(
+      string="%first",
+      index=-1,
+      extent={{6,3},{6,3}},
+      horizontalAlignment=TextAlignment.Left));
+  connect(cwCon.cooTow, cooTow.busCon) annotation (Line(
+      points={{-199.9,40.1},{-170,40.1},{-170,0}},
+      color={255,204,51},
+      thickness=0.5), Text(
+      string="%first",
+      index=-1,
+      extent={{-6,3},{-6,3}},
+      horizontalAlignment=TextAlignment.Right));
+  connect(cwCon.conPum, conPum.busCon) annotation (Line(
+      points={{-199.9,40.1},{-130,40.1},{-130,0}},
+      color={255,204,51},
+      thickness=0.5), Text(
+      string="%first",
+      index=-1,
+      extent={{-6,3},{-6,3}},
+      horizontalAlignment=TextAlignment.Right));
+  connect(chwCon.secPum, secPum.busCon) annotation (Line(
+      points={{200.1,40.1},{170,40.1},{170,0}},
+      color={255,204,51},
+      thickness=0.5), Text(
+      string="%first",
+      index=-1,
+      extent={{6,3},{6,3}},
+      horizontalAlignment=TextAlignment.Left));
+  connect(chwCon.chi, chi.busCon) annotation (Line(
+      points={{200.1,40.1},{0,40.1},{0,-10},{20,-10}},
+      color={255,204,51},
+      thickness=0.5), Text(
+      string="%first",
+      index=-1,
+      extent={{-3,6},{-3,6}},
+      horizontalAlignment=TextAlignment.Right));
+  connect(chwCon.wse, wse.busCon) annotation (Line(
+      points={{200.1,40.1},{0,40.1},{0,-70},{20,-70}},
+      color={255,204,51},
+      thickness=0.5), Text(
+      string="%first",
+      index=-1,
+      extent={{6,3},{6,3}},
+      horizontalAlignment=TextAlignment.Left));
+  connect(chwCon.comLeg, comLeg.busCon) annotation (Line(
+      points={{200.1,40.1},{70,40.1},{70,-40}},
+      color={255,204,51},
+      thickness=0.5), Text(
+      string="%first",
+      index=-1,
+      extent={{6,3},{6,3}},
+      horizontalAlignment=TextAlignment.Left));
+  connect(TCWSup.T, cwCon.inp.TCWSup) annotation (Line(points={{-90,1},{-90,40},
+          {-200,40}}, color={0,0,127}), Text(
+      string="%second",
+      index=1,
+      extent={{-6,3},{-6,3}},
+      horizontalAlignment=TextAlignment.Right));
+  connect(chwCon.priPum, priPum.busCon) annotation (Line(
+      points={{200,40},{98,40},{98,0}},
       color={255,204,51},
       thickness=0.5), Text(
       string="%first",

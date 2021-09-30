@@ -16,12 +16,14 @@ partial model ChilledWaterPlant
     annotation (Placement(transformation(extent={{190,-20},{210,0}})));
   Modelica.Fluid.Interfaces.FluidPort_b port_b "Chilled water return"
     annotation (Placement(transformation(extent={{190,-80},{210,-60}})));
-  BaseClasses.Connectors.BusInterface chwCon "Chilled water loop control bus"
+  BaseClasses.Connectors.BusChilledWater
+                                      chwCon "Chilled water loop control bus"
     annotation (Placement(transformation(
         extent={{-20,20},{20,-20}},
         rotation=90,
         origin={200,40})));
-  BaseClasses.Connectors.BusInterface cwCon "Condenser loop control bus"
+  BaseClasses.Connectors.BusCondenserWater
+                                      cwCon "Condenser loop control bus"
     annotation (Placement(transformation(
         extent={{-20,20},{20,-20}},
         rotation=90,
