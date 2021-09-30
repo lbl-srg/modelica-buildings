@@ -90,7 +90,6 @@ First implementation.
           extent={{-68,82},{308,66}},
           lineColor={0,0,0},
           lineThickness=1,
-          fontSize=9,
           horizontalAlignment=TextAlignment.Left,
           textStyle={TextStyle.Bold},
           textString="Chilled Water Return Lockout: 

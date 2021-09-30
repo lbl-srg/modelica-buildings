@@ -171,7 +171,6 @@ First implementation.
           extent={{-64,100},{312,84}},
           lineColor={0,0,0},
           lineThickness=1,
-          fontSize=9,
           horizontalAlignment=TextAlignment.Left,
           textStyle={TextStyle.Bold},
           textString="All Lockouts Combined")}));

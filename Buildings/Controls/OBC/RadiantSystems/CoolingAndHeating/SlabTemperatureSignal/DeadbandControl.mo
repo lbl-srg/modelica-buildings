@@ -203,7 +203,6 @@ First implementation.
           lineThickness=1,
           fontName="Arial Narrow",
           horizontalAlignment=TextAlignment.Left,
-          fontSize=12,
           textString="Test absolute slab temperature error
 against occupied 
 or unoccupied 
@@ -214,7 +213,6 @@ error thresholds"),
           lineThickness=1,
           fontName="Arial Narrow",
           horizontalAlignment=TextAlignment.Left,
-          fontSize=11,
           textString="Test slab temperature error
  against occupied or
  unoccupied error thresholds"),
@@ -228,7 +226,6 @@ error thresholds"),
           lineThickness=1,
           fontName="Arial Narrow",
           horizontalAlignment=TextAlignment.Left,
-          fontSize=8,
           textString="Final cooling signal- 
 true
 if slab calls for cooling 
@@ -241,7 +238,6 @@ is not within deadband
           lineThickness=1,
           fontName="Arial Narrow",
           horizontalAlignment=TextAlignment.Left,
-          fontSize=8,
           textString="Final heating signal- 
 true
 if slab calls for heating 
@@ -253,7 +249,6 @@ is not within deadband
           lineColor={0,0,0},
           lineThickness=1,
           horizontalAlignment=TextAlignment.Left,
-          fontSize=14,
           fontName="Arial Narrow",
           textStyle={TextStyle.Bold},
           textString="Deadband Control: 
@@ -268,7 +263,6 @@ slab behavior within deadband"),
           lineThickness=1,
           fontName="Arial Narrow",
           horizontalAlignment=TextAlignment.Left,
-          fontSize=8,
           textString="If user specifies 
 that
 heating &

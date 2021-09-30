@@ -70,7 +70,6 @@ First implementation.
           lineColor={0,0,0},
           lineThickness=1,
           horizontalAlignment=TextAlignment.Left,
-          fontSize=14,
           fontName="Arial Narrow",
           textStyle={TextStyle.Bold},
           textString="Slab Error:

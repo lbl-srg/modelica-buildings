@@ -189,7 +189,6 @@ First implementation.
         Text(
           extent={{-230,90},{194,-12}},
           lineColor={28,108,200},
-          fontSize=11,
           fontName="Arial Narrow",
           horizontalAlignment=TextAlignment.Left,
           textString="If model time is greater
@@ -201,7 +200,6 @@ If model time < user-specified threshold,
         Text(
           extent={{-294,-56},{-248,-102}},
           lineColor={238,46,47},
-          fontSize=8,
           fontName="Arial Narrow",
           horizontalAlignment=TextAlignment.Left,
           textString="If model time is greater than user-specified time threshold, 
@@ -223,7 +221,6 @@ If model time < user-specified threshold,
         Text(
           extent={{-42,122},{382,20}},
           lineColor={28,108,200},
-          fontSize=11,
           fontName="Arial Narrow",
           horizontalAlignment=TextAlignment.Left,
           textString="If heating has been off 
@@ -234,7 +231,6 @@ cooling is not locked out
         Text(
           extent={{-70,-26},{354,-128}},
           lineColor={238,46,47},
-          fontSize=11,
           fontName="Arial Narrow",
           horizontalAlignment=TextAlignment.Left,
           textString="If cooling has been off 
@@ -246,7 +242,6 @@ heating is not locked out
           extent={{-284,150},{92,134}},
           lineColor={0,0,0},
           lineThickness=1,
-          fontSize=9,
           horizontalAlignment=TextAlignment.Left,
           textStyle={TextStyle.Bold},
           textString="Hysteresis Lockout: 

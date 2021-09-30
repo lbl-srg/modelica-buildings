@@ -190,7 +190,6 @@ Updated description.
           extent={{-92,92},{284,76}},
           lineColor={0,0,0},
           lineThickness=1,
-          fontSize=9,
           horizontalAlignment=TextAlignment.Left,
           textStyle={TextStyle.Bold},
           textString="Control Plus Lockouts:
