@@ -1,5 +1,0 @@
-compareVars :=
-  {
-    "slaSetPer.TFor",
-    "slaSetPer.TSlaSetPer"
-  };
