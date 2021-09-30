@@ -79,11 +79,10 @@ equation
   connect(cwSupSpl.port_2, chi.port_a1) annotation (Line(points={{-40,-10},{-20,
           -10},{-20,10},{24,10},{24,0}},
                                    color={0,127,255}));
-  connect(cooTow.port_a, cwRetSpl.port_1) annotation (Line(points={{-180,-10},{
-          -186,-10},{-186,-70},{-80,-70}},
-                                         color={0,127,255}));
-  connect(chi.port_b1, cwRetSpl.port_3) annotation (Line(points={{24,-20},{24,
-          -32},{-70,-32},{-70,-60}},                         color={0,127,255}));
+  connect(cooTow.port_a, cwRetSpl.port_1) annotation (Line(points={{-180,-10},{-186,
+          -10},{-186,-70},{-80,-70}},    color={0,127,255}));
+  connect(chi.port_b1, cwRetSpl.port_3) annotation (Line(points={{24,-20},{24,-32},
+          {-70,-32},{-70,-60}},                              color={0,127,255}));
   connect(priPum.port_b,comLegSpl. port_1)
     annotation (Line(points={{108,-10},{120,-10}},color={0,127,255}));
   connect(comLegSpl.port_2, secPum.port_a)
@@ -105,8 +104,8 @@ equation
     annotation (Line(points={{160,-70},{200,-70}}, color={0,127,255}));
   connect(TCHWRet.port_a, wse.port_a2) annotation (Line(points={{140,-70},{60,
           -70},{60,-92},{36,-92},{36,-80}}, color={0,127,255}));
-  connect(TCHWRet.T, chwCon.inp.TCHWRet) annotation (Line(points={{150,-59},{
-          150,40},{200,40}}, color={0,0,127}), Text(
+  connect(TCHWRet.T, chwCon.inp.TCHWRet) annotation (Line(points={{150,-59},{150,
+          40},{200,40}},     color={0,0,127}), Text(
       string="%second",
       index=1,
       extent={{6,3},{6,3}},
@@ -178,7 +177,7 @@ equation
       extent={{-6,3},{-6,3}},
       horizontalAlignment=TextAlignment.Right));
   connect(chwCon.priPum, priPum.busCon) annotation (Line(
-      points={{200,40},{98,40},{98,0}},
+      points={{200.1,40.1},{98,40.1},{98,0}},
       color={255,204,51},
       thickness=0.5), Text(
       string="%first",

@@ -147,7 +147,7 @@ equation
   connect(colDis.port_aDisRet, port_b) annotation (Line(points={{20,-56},{34,
           -56},{34,-40},{80,-40},{80,0},{100,0}}, color={0,127,255}));
   annotation (Diagram(graphics={                               Text(
-          extent={{-60,-60},{100,-100}},
+          extent={{-72,-58},{88,-98}},
           lineColor={238,46,47},
           horizontalAlignment=TextAlignment.Left,
           textString="Boundary conditions are only needed for OCT
