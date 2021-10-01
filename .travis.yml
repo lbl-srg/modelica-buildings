@@ -31,6 +31,7 @@ addons:
     - sourceline: "deb https://build.openmodelica.org/omc/builds/linux/releases/1.18.0/ bionic release"
       key_url: "http://build.openmodelica.org/apt/openmodelica.asc"
     packages:
+    - ca-certificates
     - omc=1.18.0~23-g2c8def3-1
     - omlib-modelica-3.2.3=3.2.3~20210516~174036~git~OM~maint~3.2.3-1 #3.2.3 is not in https://build.openmodelica.org/omc/builds/linux/releases/1.16.1/dists/bionic/release/binary-amd64/Packages.gz
 
