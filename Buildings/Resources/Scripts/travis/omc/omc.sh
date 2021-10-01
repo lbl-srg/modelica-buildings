@@ -91,7 +91,7 @@ docker run \
   -v ${sha_dir}:/mnt/shared \
   --rm \
   ${DOCKER_USERNAME}/${IMG_NAME} /bin/bash -c \
-  "export OPENMODELICALIBRARY=${DOCKER_MODELICAPATH} && \
+  "export OPENMODELICALIBRARY=${DOCKER_MODELICAPATH}:/usr/lib/omlibrary && \
   cd /mnt/shared/${bas_nam} && \
   omc ${arg_lis}"
 exit $?
