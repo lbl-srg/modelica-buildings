@@ -41,8 +41,6 @@ docker run \
   -i \
   $DOCKER_INTERACTIVE \
   --detach=false \
-  ${MOD_MOUNT} \
-  ${PYT_MOUNT} \
   -v ${sha_dir}:/mnt/shared \
   --rm \
   ${DOCKER_USERNAME}/${IMG_NAME} /bin/bash -c \
