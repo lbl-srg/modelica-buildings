@@ -41,11 +41,7 @@ done
 
 export OPENMODELICALIBRARY=`pwd`:/usr/lib/omlibrary
 #omc +d=nogen,initialization,backenddaeinfo,discreteinfo,stateselection --newBackend $mosScript
-echo "-------------------"
-which omc
-ls -l ${HOME}/bin
 omc $mosScript
-
 
 # Check for failures
 exiFla=0
