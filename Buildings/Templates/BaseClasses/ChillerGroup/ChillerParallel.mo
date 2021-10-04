@@ -3,6 +3,10 @@ model ChillerParallel
   extends Buildings.Templates.Interfaces.ChillerGroup(
     final typ=Buildings.Templates.Types.ChillerGroup.ChillerParallel);
 
+  parameter Boolean has_chwPum = false "= true if chilled water side flow is controlled by a dedicated pump";
+  parameter Boolean has_cwPum = false "= true if condenser water side flow is controlled by a dedicated pump";
+
+
   Fluid.Sources.MassFlowSource_T floZer_a(
     redeclare final package Medium = Medium,
     final m_flow=0,
@@ -69,52 +73,26 @@ model ChillerParallel
     each final C2_nominal=C2_nominal)
     "Chillers with identical nominal parameters but different performance curves"
     annotation (Placement(transformation(extent={{-10,-8},{10,12}})));
-  Fluid.Actuators.Valves.TwoWayLinear           val2[num](
-    each final dpFixed_nominal=dp2_nominal,
-    redeclare each replaceable package Medium = Medium2,
-    each final allowFlowReversal=allowFlowReversal2,
-    each final m_flow_nominal=m2_flow_nominal,
-    each final show_T=show_T,
-    each final homotopyInitialization=homotopyInitialization,
-    each final riseTime=riseTimeValve,
-    each final init=initValve,
-    each final use_inputFilter=false,
-    each final deltaM=deltaM2,
-    each final l=l[2],
-    final y_start=yValve_start,
-    each final CvData=Buildings.Fluid.Types.CvTypes.OpPoint,
-    each final from_dp=from_dp2,
-    each final linearized=linearizeFlowResistance2,
-    each final rhoStd=rhoStd[2],
-    each final dpValve_nominal=dpValve_nominal[2])
-    "Isolation valves on medium 2 side for on/off use"
-    annotation (Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=90,
-        origin={-20,-30})));
-  Fluid.Actuators.Valves.TwoWayLinear           val1[num](
-    each final dpFixed_nominal=dp2_nominal,
-    redeclare each replaceable package Medium = Medium2,
-    each final allowFlowReversal=allowFlowReversal2,
-    each final m_flow_nominal=m2_flow_nominal,
-    each final show_T=show_T,
-    each final homotopyInitialization=homotopyInitialization,
-    each final riseTime=riseTimeValve,
-    each final init=initValve,
-    each final use_inputFilter=false,
-    each final deltaM=deltaM2,
-    each final l=l[2],
-    final y_start=yValve_start,
-    each final CvData=Buildings.Fluid.Types.CvTypes.OpPoint,
-    each final from_dp=from_dp2,
-    each final linearized=linearizeFlowResistance2,
-    each final rhoStd=rhoStd[2],
-    each final dpValve_nominal=dpValve_nominal[2])
-    "Isolation valves on medium 2 side for on/off use"
-    annotation (Placement(transformation(
-        extent={{-10,-10},{10,10}},
+  inner replaceable Buildings.Templates.BaseClasses.Pump.None pum_1[num]
+    constrainedby Buildings.Templates.Interfaces.Pump
+    annotation (Placement(transformation(extent={{10,-10},{-10,10}},
         rotation=270,
         origin={20,30})));
+  inner replaceable Buildings.Templates.BaseClasses.Pump.None pum_2[num]
+    constrainedby Buildings.Templates.Interfaces.Pump
+    annotation (Placement(transformation(extent={{10,-10},{-10,10}},
+        rotation=90,
+        origin={-20,-30})));
+  inner replaceable Buildings.Templates.BaseClasses.Valve.None val_1[num]
+    constrainedby Buildings.Templates.Interfaces.Valve
+    annotation (Placement(transformation(extent={{10,-10},{-10,10}},
+        rotation=90,
+        origin={-20,30})));
+  inner replaceable Buildings.Templates.BaseClasses.Valve.None val_2[num]
+    constrainedby Buildings.Templates.Interfaces.Valve
+    annotation (Placement(transformation(extent={{10,-10},{-10,10}},
+        rotation=270,
+        origin={20,-30})));
 equation
   connect(floZer_a1.ports[1], colDis1.port_bDisRet)
     annotation (Line(points={{-40,76},{-20,76}}, color={0,127,255}));
@@ -132,18 +110,6 @@ equation
           -70},{-32,-60},{-100,-60}}, color={0,127,255}));
   connect(colDis.port_aDisRet, port_a2) annotation (Line(points={{20,-76},{30,
           -76},{30,-60},{100,-60}}, color={0,127,255}));
-  connect(colDis.ports_bCon, val2.port_a) annotation (Line(points={{-12,-60},{
-          -12,-50},{-20,-50},{-20,-40}}, color={0,127,255}));
-  connect(val2.port_b, chi.port_b2)
-    annotation (Line(points={{-20,-20},{-20,-4},{-10,-4}}, color={0,127,255}));
-  connect(chi.port_a2, colDis.ports_aCon) annotation (Line(points={{10,-4},{20,
-          -4},{20,-50},{12,-50},{12,-60}}, color={0,127,255}));
-  connect(colDis1.ports_aCon, val1.port_a) annotation (Line(points={{12,60},{12,
-          44},{20,44},{20,40}}, color={0,127,255}));
-  connect(val1.port_b, chi.port_b1)
-    annotation (Line(points={{20,20},{20,8},{10,8}}, color={0,127,255}));
-  connect(chi.port_a1, colDis1.ports_bCon) annotation (Line(points={{-10,8},{
-          -20,8},{-20,48},{-12,48},{-12,60}}, color={0,127,255}));
   connect(busCon.out.on, chi.on) annotation (Line(
       points={{0.1,100.1},{0.1,96},{0,96},{0,90},{-80,90},{-80,0},{-20,0},{-20,
           5},{-12,5}},
@@ -155,27 +121,27 @@ equation
       horizontalAlignment=TextAlignment.Left));
   connect(busCon.out.TSet, chi.TSet) annotation (Line(
       points={{0.1,100.1},{0.1,90},{-80,90},{-80,0},{-20,0},{-20,-1},{-12,-1}},
+      color={255,204,51},
+      thickness=0.5), Text(
+      string="%first",
+      index=-1,
+      extent={{6,3},{6,3}},
+      horizontalAlignment=TextAlignment.Left));
 
-      color={255,204,51},
-      thickness=0.5), Text(
-      string="%first",
-      index=-1,
-      extent={{6,3},{6,3}},
-      horizontalAlignment=TextAlignment.Left));
-  connect(busCon.out.val1, val1.y) annotation (Line(
-      points={{0.1,100.1},{0.1,90},{80,90},{80,30},{32,30}},
-      color={255,204,51},
-      thickness=0.5), Text(
-      string="%first",
-      index=-1,
-      extent={{-6,3},{-6,3}},
-      horizontalAlignment=TextAlignment.Right));
-  connect(busCon.out.val2, val2.y) annotation (Line(
-      points={{0.1,100.1},{0.1,90},{-80,90},{-80,-30},{-32,-30}},
-      color={255,204,51},
-      thickness=0.5), Text(
-      string="%first",
-      index=-1,
-      extent={{6,3},{6,3}},
-      horizontalAlignment=TextAlignment.Left));
+  connect(colDis.ports_aCon, val_2.port_a) annotation (Line(points={{12,-60},{12,
+          -50},{20,-50},{20,-40}}, color={0,127,255}));
+  connect(val_2.port_b, chi.port_a2)
+    annotation (Line(points={{20,-20},{20,-4},{10,-4}}, color={0,127,255}));
+  connect(chi.port_b2, pum_2.port_a)
+    annotation (Line(points={{-10,-4},{-20,-4},{-20,-20}}, color={0,127,255}));
+  connect(pum_2.port_b, colDis.ports_bCon) annotation (Line(points={{-20,-40},{-20,
+          -50},{-12,-50},{-12,-60}}, color={0,127,255}));
+  connect(colDis1.ports_bCon, val_1.port_a) annotation (Line(points={{-12,60},{-12,
+          50},{-20,50},{-20,40}}, color={0,127,255}));
+  connect(val_1.port_b, chi.port_a1)
+    annotation (Line(points={{-20,20},{-20,8},{-10,8}}, color={0,127,255}));
+  connect(chi.port_b1, pum_1.port_a)
+    annotation (Line(points={{10,8},{20,8},{20,20}}, color={0,127,255}));
+  connect(pum_1.port_b, colDis1.ports_aCon) annotation (Line(points={{20,40},{20,
+          50},{12,50},{12,60}}, color={0,127,255}));
 end ChillerParallel;

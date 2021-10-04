@@ -12,7 +12,7 @@ package Valve
     connect(val.port_b, port_b)
       annotation (Line(points={{10,0},{100,0}}, color={0,127,255}));
     connect(busCon.out.y, val.y) annotation (Line(
-        points={{0.1,100.1},{0.1,80},{-20,80},{-20,30},{0,30},{0,12}},
+        points={{0.1,100.1},{0.1,80},{-20,80},{-20,40},{0,40},{0,12}},
         color={255,204,51},
         thickness=0.5), Text(
         string="%first",
@@ -38,7 +38,7 @@ package Valve
     connect(val.port_b, port_b)
       annotation (Line(points={{10,0},{100,0}}, color={0,127,255}));
     connect(busCon.out.y, val.y) annotation (Line(
-        points={{0.1,100.1},{0.1,80},{-20,80},{-20,30},{0,30},{0,12}},
+        points={{0.1,100.1},{0.1,80},{-20,80},{-20,40},{0,40},{0,12}},
         color={255,204,51},
         thickness=0.5), Text(
         string="%first",
