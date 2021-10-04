@@ -17,7 +17,7 @@ model SystemHysteresis
     h=0.09)
     "Threshold to switch on system"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi "Switch for control signal"
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi "Switch for control signal"
     annotation (Placement(transformation(extent={{30,-2},{50,18}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con(final k=0)
     "Zero output signal"
@@ -34,10 +34,10 @@ model SystemHysteresis
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput sysOn
     "System on signal, set for example to true if fan is on"
     annotation (Placement(transformation(extent={{-140,40},{-100,80}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swiSysOff
+  Buildings.Controls.OBC.CDL.Continuous.Switch swiSysOff
     "Switch to overide if system is off"
     annotation (Placement(transformation(extent={{70,-10},{90,10}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swiSysOff1
+  Buildings.Controls.OBC.CDL.Continuous.Switch swiSysOff1
     "Switch to overide if system is off"
     annotation (Placement(transformation(extent={{68,-80},{88,-60}})));
 equation

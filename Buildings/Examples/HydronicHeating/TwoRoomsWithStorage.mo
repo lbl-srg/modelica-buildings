@@ -288,7 +288,7 @@ model TwoRoomsWithStorage
   Controls.SetPoints.OccupancySchedule occSch1(occupancy=3600*{7,8,10,11,11.5,
         15,19,21}) "Occupancy schedule"
     annotation (Placement(transformation(extent={{300,556},{320,576}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch switch1
+  Buildings.Controls.OBC.CDL.Continuous.Switch switch1
     annotation (Placement(transformation(extent={{340,550},{360,570}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zer(k=0) "Outputs zero"
     annotation (Placement(transformation(extent={{260,540},{280,560}})));
@@ -296,11 +296,11 @@ model TwoRoomsWithStorage
       firstEntryOccupied=false, occupancy=3600*{7,10,12,22})
     "Occupancy schedule"
     annotation (Placement(transformation(extent={{300,276},{320,296}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch switch2
+  Buildings.Controls.OBC.CDL.Continuous.Switch switch2
     annotation (Placement(transformation(extent={{340,270},{360,290}})));
   Controls.SetPoints.OccupancySchedule occSch "Occupancy schedule"
     annotation (Placement(transformation(extent={{480,358},{500,378}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi "Switch to select set point"
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi "Switch to select set point"
     annotation (Placement(transformation(extent={{640,370},{660,390}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TRooNig(k=273.15 + 16)
     "Room temperature set point at night"
@@ -393,7 +393,7 @@ model TwoRoomsWithStorage
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TRooOff(k=273.15 - 5)
     "Low room temperature set point to switch heating off"
     annotation (Placement(transformation(extent={{600,300},{620,320}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi1 "Switch to select set point"
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi1 "Switch to select set point"
     annotation (Placement(transformation(extent={{540,380},{560,400}})));
   Modelica.Blocks.Logical.OnOffController onOff(bandwidth=2) "On/off switch"
     annotation (Placement(transformation(extent={{580,334},{600,354}})));

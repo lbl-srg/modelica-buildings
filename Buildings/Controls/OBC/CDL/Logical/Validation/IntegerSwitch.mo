@@ -1,7 +1,7 @@
 within Buildings.Controls.OBC.CDL.Logical.Validation;
 model IntegerSwitch
   "Validation model for the IntegerSwitch block"
-  Buildings.Controls.OBC.CDL.Logical.IntegerSwitch integerSwitch
+  Buildings.Controls.OBC.CDL.Integers.Switch integerSwitch
     "Integer switch"
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul1(
@@ -71,8 +71,8 @@ equation
       info="<html>
 <p>
 Validation test for the block
-<a href=\"modelica://Buildings.Controls.OBC.CDL.Logical.IntegerSwitch\">
-Buildings.Controls.OBC.CDL.Logical.IntegerSwitch</a>.
+<a href=\"modelica://Buildings.Controls.OBC.CDL.Integers.Switch\">
+Buildings.Controls.OBC.CDL.Integers.Switch</a>.
 </p>
 <p>
 The input <code>u2</code> is the switch input: If <code>u2 = true</code>,

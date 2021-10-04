@@ -131,7 +131,7 @@ protected
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zerSpe(k=0)
     "Zero fan speed when it becomes OFF"
     annotation (Placement(transformation(extent={{20,-90},{40,-70}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi
     "If fan is OFF, fan speed outputs to zero"
     annotation (Placement(transformation(extent={{80,-90},{100,-110}})));
   Buildings.Controls.OBC.CDL.Logical.Or or1

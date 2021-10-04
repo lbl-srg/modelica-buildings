@@ -92,10 +92,10 @@ model ASHRAE2006
   Controls.SystemHysteresis sysHysCoo
     "Hysteresis and delay to switch cooling on and off"
     annotation (Placement(transformation(extent={{40,-250},{60,-230}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swiFreStaPum
+  Buildings.Controls.OBC.CDL.Continuous.Switch swiFreStaPum
     "Switch for freeze stat of pump"
     annotation (Placement(transformation(extent={{40,-130},{60,-110}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swiFreStaVal
+  Buildings.Controls.OBC.CDL.Continuous.Switch swiFreStaVal
     "Switch for freeze stat of valve"
     annotation (Placement(transformation(extent={{40,-170},{60,-150}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant yFreHeaCoi(final k=1)

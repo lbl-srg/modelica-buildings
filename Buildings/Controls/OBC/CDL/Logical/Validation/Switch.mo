@@ -18,7 +18,7 @@ model Switch
     period=2)
     "Block that outputs cyclic on and off"
     annotation (Placement(transformation(extent={{-26,-10},{-6,10}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch switch1
+  Buildings.Controls.OBC.CDL.Continuous.Switch switch1
     "Switch between two real inputs"
     annotation (Placement(transformation(extent={{26,-10},{46,10}})));
 
@@ -39,8 +39,8 @@ equation
       info="<html>
 <p>
 Validation test for the block
-<a href=\"modelica://Buildings.Controls.OBC.CDL.Logical.Switch\">
-Buildings.Controls.OBC.CDL.Logical.Switch</a>.
+<a href=\"modelica://Buildings.Controls.OBC.CDL.Continuous.Switch\">
+Buildings.Controls.OBC.CDL.Continuous.Switch</a>.
 </p>
 </html>",
       revisions="<html>

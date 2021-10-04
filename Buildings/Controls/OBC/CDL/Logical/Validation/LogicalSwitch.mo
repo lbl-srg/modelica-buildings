@@ -16,7 +16,7 @@ model LogicalSwitch
     period=5)
     "Block that outputs cyclic on and off"
     annotation (Placement(transformation(extent={{-26,-46},{-6,-26}})));
-  Buildings.Controls.OBC.CDL.Logical.LogicalSwitch logicalSwitch
+  Buildings.Controls.OBC.CDL.Logical.Switch logicalSwitch
     "Switch between two boolean inputs"
     annotation (Placement(transformation(extent={{26,-10},{46,10}})));
 
@@ -37,8 +37,8 @@ equation
       info="<html>
 <p>
 Validation test for the block
-<a href=\"modelica://Buildings.Controls.OBC.CDL.Logical.LogicalSwitch\">
-Buildings.Controls.OBC.CDL.Logical.LogicalSwitch</a>.
+<a href=\"modelica://Buildings.Controls.OBC.CDL.Logical.Switch\">
+Buildings.Controls.OBC.CDL.Logical.Switch</a>.
 </p>
 <p>
 The input <code>u2</code> is the switch input: If <code>u2 = true</code>,
