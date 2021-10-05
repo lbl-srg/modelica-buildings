@@ -9,7 +9,7 @@ model ASHRAE2006
     mNor_flow_nominal=ACHNor*VRooNor*conv,
     mWes_flow_nominal=ACHWes*VRooWes*conv,
     redeclare Buildings.Examples.VAVReheat.BaseClasses.ASHRAE2006 hvac,
-    redeclare Buildings.Examples.VAVReheat.BaseClasses.Floor flo(
+    redeclare replaceable Buildings.Examples.VAVReheat.BaseClasses.Floor flo(
       sampleModel=true));
 
   parameter Real ACHCor(final unit="1/h")=6

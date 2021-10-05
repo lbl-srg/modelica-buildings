@@ -6,7 +6,7 @@ compareVars :=
     "flo.wes.TAir",
     "flo.cor.TAir",
     "hvac.TZonSet[1].TZonCooSet",
-    "TZonSet[1].TZonHeaSet",
+    "hvac.TZonSet[1].TZonHeaSet",
     "hvac.fanSup.y",
     "hvac.cor.vav.y_actual",
     "hvac.sou.vav.y_actual",

@@ -5,8 +5,10 @@ model TraceSubstance
     MediumA(extraPropertiesNames={"CO2"}),
     hvac(
       amb(
-      C=fill(400e-6*Modelica.Media.IdealGases.Common.SingleGasesData.CO2.MM
-                    /Modelica.Media.IdealGases.Common.SingleGasesData.Air.MM, MediumA.nC))));
+        C=fill(400e-6*Modelica.Media.IdealGases.Common.SingleGasesData.CO2.MM
+                    /Modelica.Media.IdealGases.Common.SingleGasesData.Air.MM, MediumA.nC))),
+    redeclare BaseClasses.Floor flo);
+
   annotation (experiment(
       StartTime=4492800,
       StopTime=4665600,
