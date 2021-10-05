@@ -83,7 +83,7 @@ model Floor "Model of a floor of the building"
 
   constant Modelica.SIunits.Height hRoo=2.74 "Room height";
 
-  parameter Boolean sampleModel = true
+  parameter Boolean sampleModel = false
     "Set to true to time-sample the model, which can give shorter simulation time if there is already time sampling in the system model"
     annotation (
       Evaluate=true,
