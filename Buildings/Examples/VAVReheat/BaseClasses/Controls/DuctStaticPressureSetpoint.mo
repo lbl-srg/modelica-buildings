@@ -1,4 +1,4 @@
-within Buildings.Examples.VAVReheat.Controls;
+within Buildings.Examples.VAVReheat.BaseClasses.Controls;
 model DuctStaticPressureSetpoint "Computes the duct static pressure setpoint"
   extends Modelica.Blocks.Interfaces.MISO;
   parameter Modelica.SIunits.AbsolutePressure pMin(displayUnit="Pa")=100

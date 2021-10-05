@@ -1,7 +1,7 @@
-within Buildings.Examples.VAVReheat.Controls;
+within Buildings.Examples.VAVReheat.BaseClasses.Controls;
 block FanVFD "Controller for fan revolution"
   extends Modelica.Blocks.Interfaces.SISO;
-  import Buildings.Examples.VAVReheat.Controls.OperationModes;
+  import Buildings.Examples.VAVReheat.BaseClasses.Controls.OperationModes;
   Buildings.Controls.OBC.CDL.Continuous.PIDWithReset con(
     r=xSet_nominal,
     yMax=1,

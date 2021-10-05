@@ -1,5 +1,5 @@
 within Buildings.Examples.VAVReheat.BaseClasses;
-partial model PartialOpenLoop
+partial model PartialHVAC
   "Partial model of variable air volume flow system with terminal reheat and five thermal zones"
 
   replaceable package MediumA = Buildings.Media.Air
@@ -903,7 +903,7 @@ This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2471\
 <li>
 April 16, 2021, by Michael Wetter:<br/>
 Refactored model to implement the economizer dampers directly in
-<code>Buildings.Examples.VAVReheat.BaseClasses.PartialOpenLoop</code> rather than through the
+<code>Buildings.Examples.VAVReheat.BaseClasses.PartialHVAC</code> rather than through the
 model of a mixing box. Since the version of the Guideline 36 model has no exhaust air damper,
 this leads to simpler equations.
 <br/> This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2454\">issue #2454</a>.
@@ -972,4 +972,4 @@ This is for
           lineColor={0,0,0},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid)}));
-end PartialOpenLoop;
+end PartialHVAC;

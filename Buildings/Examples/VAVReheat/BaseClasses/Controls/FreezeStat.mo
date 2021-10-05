@@ -1,4 +1,4 @@
-within Buildings.Examples.VAVReheat.BaseClasses;
+within Buildings.Examples.VAVReheat.BaseClasses.Controls;
 model FreezeStat "Freeze thermostat with timed lockout"
 
   parameter Real lockoutTime(

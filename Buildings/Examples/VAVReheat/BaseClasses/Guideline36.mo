@@ -1,7 +1,7 @@
 within Buildings.Examples.VAVReheat.BaseClasses;
 model Guideline36
   "Variable air volume flow system with terminal reheat and Guideline 36 control sequence serving five thermal zones"
-  extends Buildings.Examples.VAVReheat.BaseClasses.PartialOpenLoop(
+  extends Buildings.Examples.VAVReheat.BaseClasses.PartialHVAC(
     damOut(
       dpDamper_nominal=10,
       dpFixed_nominal=10),
@@ -147,7 +147,7 @@ model Guideline36
   Buildings.Controls.OBC.CDL.Continuous.Switch swiFreStaVal
     "Switch for freeze stat of valve"
     annotation (Placement(transformation(extent={{20,-160},{40,-140}})));
-  FreezeStat freSta(lockoutTime=3600)
+  Controls.FreezeStat freSta(lockoutTime=3600)
                     "Freeze stat for heating coil"
     annotation (Placement(transformation(extent={{-90,-120},{-70,-100}})));
 equation
@@ -563,8 +563,8 @@ reheat coil and an air damper in each of the five zone inlet branches.
 </p>
 <p>
 See the model
-<a href=\"modelica://Buildings.Examples.VAVReheat.BaseClasses.PartialOpenLoop\">
-Buildings.Examples.VAVReheat.BaseClasses.PartialOpenLoop</a>
+<a href=\"modelica://Buildings.Examples.VAVReheat.BaseClasses.PartialHVAC\">
+Buildings.Examples.VAVReheat.BaseClasses.PartialHVAC</a>
 for a description of the HVAC system,
 and see the model
 <a href=\"modelica://Buildings.Examples.VAVReheat.BaseClasses.Floor\">
@@ -628,7 +628,7 @@ This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2471\
 <li>
 April 16, 2021, by Michael Wetter:<br/>
 Refactored model to implement the economizer dampers directly in
-<code>Buildings.Examples.VAVReheat.BaseClasses.PartialOpenLoop</code> rather than through the
+<code>Buildings.Examples.VAVReheat.BaseClasses.PartialHVAC</code> rather than through the
 model of a mixing box. Since the version of the Guideline 36 model has no exhaust air damper,
 this leads to simpler equations.
 <br/> This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2454\">issue #2454</a>.

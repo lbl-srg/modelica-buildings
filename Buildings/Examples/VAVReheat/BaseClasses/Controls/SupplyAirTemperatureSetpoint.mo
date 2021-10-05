@@ -1,8 +1,8 @@
-within Buildings.Examples.VAVReheat.Controls;
+within Buildings.Examples.VAVReheat.BaseClasses.Controls;
 block SupplyAirTemperatureSetpoint
   "Block computing the supply air temperature set point based on the operation mode"
   extends Modelica.Blocks.Icons.Block;
-  ControlBus controlBus
+  BaseClasses.Controls.ControlBus controlBus
     annotation (Placement(transformation(extent={{-10,-90},{10,-70}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput TSet(
     final unit="K",

@@ -1,17 +1,17 @@
-within Buildings.Examples.VAVReheat.Controls;
+within Buildings.Examples.VAVReheat.BaseClasses.Controls;
 model ModeSelector "Finite State Machine for the operational modes"
   Modelica.StateGraph.InitialStepWithSignal initialStepWithSignal(nIn=0)
     annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
   Modelica.StateGraph.Transition start "Starts the system"
     annotation (Placement(transformation(extent={{-50,20},{-30,40}})));
   State unOccOff(
-    mode=Buildings.Examples.VAVReheat.Controls.OperationModes.unoccupiedOff,
+    mode=Buildings.Examples.VAVReheat.BaseClasses.Controls.OperationModes.unoccupiedOff,
     nIn=3,
     nOut=4) "Unoccupied off mode, no coil protection"
     annotation (Placement(transformation(extent={{-20,20},{0,40}})));
   State unOccNigSetBac(
     nOut=2,
-    mode=Buildings.Examples.VAVReheat.Controls.OperationModes.unoccupiedNightSetBack,
+    mode=Buildings.Examples.VAVReheat.BaseClasses.Controls.OperationModes.unoccupiedNightSetBack,
     nIn=1) "Unoccupied night set back"
     annotation (Placement(transformation(extent={{80,20},{100,40}})));
   Modelica.StateGraph.Transition t2(
@@ -37,7 +37,7 @@ model ModeSelector "Finite State Machine for the operational modes"
   Modelica.Blocks.Routing.RealPassThrough TRooSetHea
     "Current heating setpoint temperature"
     annotation (Placement(transformation(extent={{-80,170},{-60,190}})));
-  State morWarUp(mode=Buildings.Examples.VAVReheat.Controls.OperationModes.unoccupiedWarmUp,
+  State morWarUp(mode=Buildings.Examples.VAVReheat.BaseClasses.Controls.OperationModes.unoccupiedWarmUp,
                                                                             nIn=2,
     nOut=1) "Morning warm up"
     annotation (Placement(transformation(extent={{-40,-100},{-20,-80}})));
@@ -49,7 +49,7 @@ model ModeSelector "Finite State Machine for the operational modes"
   Modelica.StateGraph.TransitionWithSignal t5
     annotation (Placement(transformation(extent={{118,20},{138,40}})));
   State occ(
-    mode=Buildings.Examples.VAVReheat.Controls.OperationModes.occupied,
+    mode=Buildings.Examples.VAVReheat.BaseClasses.Controls.OperationModes.occupied,
     nIn=3)
     "Occupied mode"
     annotation (Placement(transformation(extent={{60,-100},{80,-80}})));
@@ -67,7 +67,7 @@ model ModeSelector "Finite State Machine for the operational modes"
     annotation (Placement(transformation(extent={{118,120},{98,140}})));
   State morPreCoo(
     nIn=1,
-    mode=Buildings.Examples.VAVReheat.Controls.OperationModes.unoccupiedPreCool,
+    mode=Buildings.Examples.VAVReheat.BaseClasses.Controls.OperationModes.unoccupiedPreCool,
     nOut=1) "Pre-cooling mode"
     annotation (Placement(transformation(extent={{-40,-140},{-20,-120}})));
   Modelica.StateGraph.Transition t7(condition=TRooMin.y - delTRooOnOff/2 <
@@ -112,7 +112,7 @@ model ModeSelector "Finite State Machine for the operational modes"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={200,-70})));
-  Modelica.Blocks.Math.BooleanToInteger modIni(integerTrue=Integer(Buildings.Examples.VAVReheat.Controls.OperationModes.unoccupiedOff))
+  Modelica.Blocks.Math.BooleanToInteger modIni(integerTrue=Integer(Buildings.Examples.VAVReheat.BaseClasses.Controls.OperationModes.unoccupiedOff))
     "Initial operation mode"
     annotation (Placement(transformation(extent={{-160,10},{-180,30}})));
 equation

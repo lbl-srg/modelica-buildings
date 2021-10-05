@@ -1,4 +1,4 @@
-within Buildings.Examples.VAVReheat.Controls;
+within Buildings.Examples.VAVReheat.BaseClasses.Controls;
 block SupplyAirTemperature
   "Control block for tracking the supply air temperature set point"
   extends Modelica.Blocks.Icons.Block;
@@ -187,8 +187,8 @@ A deadband between heating and economizer cooling is also modeled.
 <p>
 Note that the economizer lockout when the outdoor air temperature
 is higher than the return air temperature is implemented in
-<a href=\"modelica://Buildings.Examples.VAVReheat.Controls.Economizer\">
-Buildings.Examples.VAVReheat.Controls.Economizer</a>.
+<a href=\"modelica://Buildings.Examples.VAVReheat.BaseClasses.Controls.Economizer\">
+Buildings.Examples.VAVReheat.BaseClasses.Controls.Economizer</a>.
 </p>
 <h4>References</h4>
 <p>

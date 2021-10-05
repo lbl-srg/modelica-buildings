@@ -44,8 +44,8 @@ partial model HVACBuilding
     "Reheat coil nominal inlet water temperature";
 
   replaceable
-  Buildings.Examples.VAVReheat.BaseClasses.PartialOpenLoop hvac
-    constrainedby Buildings.Examples.VAVReheat.BaseClasses.PartialOpenLoop(
+  Buildings.Examples.VAVReheat.BaseClasses.PartialHVAC hvac
+    constrainedby Buildings.Examples.VAVReheat.BaseClasses.PartialHVAC(
     redeclare final package MediumA = MediumA,
     redeclare final package MediumW = MediumW,
     final VRooCor=VRooCor,

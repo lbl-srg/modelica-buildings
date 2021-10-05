@@ -1,6 +1,6 @@
-within Buildings.Examples.VAVReheat.Controls;
+within Buildings.Examples.VAVReheat.BaseClasses.Controls;
 block Economizer "Controller for economizer"
-  import Buildings.Examples.VAVReheat.Controls.OperationModes;
+  import Buildings.Examples.VAVReheat.BaseClasses.Controls.OperationModes;
   parameter Boolean have_reset = false
     "Set to true to reset the outdoor air damper controllers with the enable signal"
     annotation(Evaluate=true);
@@ -212,8 +212,8 @@ measurement
 </li>
 <li>
 Supply air cooling, based on the logic implemented in
-<a href=\"modelica://Buildings.Examples.VAVReheat.Controls.SupplyAirTemperature\">
-Buildings.Examples.VAVReheat.Controls.SupplyAirTemperature</a>,
+<a href=\"modelica://Buildings.Examples.VAVReheat.BaseClasses.Controls.SupplyAirTemperature\">
+Buildings.Examples.VAVReheat.BaseClasses.Controls.SupplyAirTemperature</a>,
 with the additional condition that when the outside air dry bulb is greater
 than the return air dry bulb, economizer cooling is disabled.
 </li>

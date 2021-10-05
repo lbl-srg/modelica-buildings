@@ -1,8 +1,8 @@
-within Buildings.Examples.VAVReheat.Controls.Examples;
+within Buildings.Examples.VAVReheat.BaseClasses.Controls.Examples;
 model SupplyAirTemperature
   "Validation of the supply air temperature control"
   extends Modelica.Icons.Example;
-  Buildings.Examples.VAVReheat.Controls.SupplyAirTemperature conTSup(k=0.1, Ti=
+  Buildings.Examples.VAVReheat.BaseClasses.Controls.SupplyAirTemperature conTSup(k=0.1, Ti=
         60)
     "Controller"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
@@ -31,13 +31,13 @@ equation
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
   experiment(StopTime=3600,  Tolerance=1e-06),
-  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Examples/VAVReheat/Controls/Examples/SupplyAirTemperature.mos"
+  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Examples/VAVReheat/BaseClasses/Controls/Examples/SupplyAirTemperature.mos"
   "Simulate and plot"),
     Documentation(info="<html>
 <p>
 This model validates the supply air temperature control, as implemented in
-<a href=\"modelica://Buildings.Examples.VAVReheat.Controls.SupplyAirTemperature\">
-Buildings.Examples.VAVReheat.Controls.SupplyAirTemperature</a>
+<a href=\"modelica://Buildings.Examples.VAVReheat.BaseClasses.Controls.SupplyAirTemperature\">
+Buildings.Examples.VAVReheat.BaseClasses.Controls.SupplyAirTemperature</a>
 </p>
 </html>",
 revisions="<html>

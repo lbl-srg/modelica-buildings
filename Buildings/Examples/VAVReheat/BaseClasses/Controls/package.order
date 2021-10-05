@@ -2,6 +2,7 @@ ControlBus
 DuctStaticPressureSetpoint
 Economizer
 FanVFD
+FreezeStat
 ModeSelector
 OperationModes
 PreCoolingStarter

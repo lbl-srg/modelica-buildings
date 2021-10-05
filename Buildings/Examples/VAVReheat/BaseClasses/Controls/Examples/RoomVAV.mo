@@ -1,8 +1,8 @@
-within Buildings.Examples.VAVReheat.Controls.Examples;
+within Buildings.Examples.VAVReheat.BaseClasses.Controls.Examples;
 model RoomVAV "Test model for the room VAV controller"
   extends Modelica.Icons.Example;
 
-  Buildings.Examples.VAVReheat.Controls.RoomVAV vavBoxCon(ratVFloMin=0.15,
+  Buildings.Examples.VAVReheat.BaseClasses.Controls.RoomVAV vavBoxCon(ratVFloMin=0.15,
       ratVFloHea=0.3)
     "VAV terminal unit single maximum controller"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
@@ -38,7 +38,7 @@ equation
           {-22,-44}}, color={0,0,127}));
 
 annotation (
-  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Examples/VAVReheat/Controls/Examples/RoomVAV.mos"
+  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Examples/VAVReheat/BaseClasses/Controls/Examples/RoomVAV.mos"
         "Simulate and plot"),
     experiment(StopTime=3600, Tolerance=1e-6),
     Documentation(info="<html>

@@ -1,11 +1,11 @@
-within Buildings.Examples.VAVReheat.Controls;
+within Buildings.Examples.VAVReheat.BaseClasses.Controls;
 block PreCoolingStarter "Outputs true when precooling should start"
   extends Modelica.Blocks.Interfaces.BooleanSignalSource;
   parameter Modelica.SIunits.Temperature TOutLim = 286.15
     "Limit for activating precooling";
   parameter Modelica.SIunits.Temperature TRooSetCooOcc
     "Set point for room air temperature during cooling mode";
-  ControlBus controlBus
+  BaseClasses.Controls.ControlBus controlBus
     annotation (Placement(transformation(extent={{-72,50},{-52,70}})));
   Modelica.Blocks.Logical.GreaterThreshold greater(threshold=TRooSetCooOcc)
     annotation (Placement(transformation(extent={{-40,0},{-20,20}})));

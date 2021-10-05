@@ -50,8 +50,8 @@ The figure below shows the schematic diagram of the HVAC system
 </p>
 <p>
 See the model
-<a href=\"modelica://Buildings.Examples.VAVReheat.BaseClasses.PartialOpenLoop\">
-Buildings.Examples.VAVReheat.BaseClasses.PartialOpenLoop</a>
+<a href=\"modelica://Buildings.Examples.VAVReheat.BaseClasses.PartialHVAC\">
+Buildings.Examples.VAVReheat.BaseClasses.PartialHVAC</a>
 for a description of the HVAC system,
 and see the model
 <a href=\"modelica://Buildings.ThermalZones.EnergyPlus.Examples.SmallOffice.BaseClasses.Floor\">

@@ -1,4 +1,4 @@
-within Buildings.Examples.VAVReheat.Controls;
+within Buildings.Examples.VAVReheat.BaseClasses.Controls;
 block RoomVAV "Controller for room VAV box"
   extends Modelica.Blocks.Icons.Block;
 

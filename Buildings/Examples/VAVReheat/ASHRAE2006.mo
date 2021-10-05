@@ -40,8 +40,8 @@ The figure below shows the schematic diagram of the HVAC system
 </p>
 <p>
 See the model
-<a href=\"modelica://Buildings.Examples.VAVReheat.BaseClasses.PartialOpenLoop\">
-Buildings.Examples.VAVReheat.BaseClasses.PartialOpenLoop</a>
+<a href=\"modelica://Buildings.Examples.VAVReheat.BaseClasses.PartialHVAC\">
+Buildings.Examples.VAVReheat.BaseClasses.PartialHVAC</a>
 for a description of the HVAC system,
 and see the model
 <a href=\"modelica://Buildings.Examples.VAVReheat.BaseClasses.Floor\">
@@ -61,12 +61,12 @@ modulated in sequence to maintain the supply air temperature set point.
 The economizer control provides the following functions:
 freeze protection, minimum outside air requirement, and supply air cooling,
 see
-<a href=\"modelica://Buildings.Examples.VAVReheat.Controls.Economizer\">
-Buildings.Examples.VAVReheat.Controls.Economizer</a>.
+<a href=\"modelica://Buildings.Examples.VAVReheat.BaseClasses.Controls.Economizer\">
+Buildings.Examples.VAVReheat.BaseClasses.Controls.Economizer</a>.
 The controller of the terminal units tracks the room air temperature set point
 based on a \"dual maximum with constant volume heating\" logic, see
-<a href=\"modelica://Buildings.Examples.VAVReheat.Controls.RoomVAV\">
-Buildings.Examples.VAVReheat.Controls.RoomVAV</a>.
+<a href=\"modelica://Buildings.Examples.VAVReheat.BaseClasses.Controls.RoomVAV\">
+Buildings.Examples.VAVReheat.BaseClasses.Controls.RoomVAV</a>.
 </p>
 <p>
 There is also a finite state machine that transitions the mode of operation
@@ -129,7 +129,7 @@ This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2471\
 <li>
 April 16, 2021, by Michael Wetter:<br/>
 Refactored model to implement the economizer dampers directly in
-<code>Buildings.Examples.VAVReheat.BaseClasses.PartialOpenLoop</code> rather than through the
+<code>Buildings.Examples.VAVReheat.BaseClasses.PartialHVAC</code> rather than through the
 model of a mixing box. Since the version of the Guideline 36 model has no exhaust air damper,
 this leads to simpler equations.<br/>
 This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2454\">issue #2454</a>.

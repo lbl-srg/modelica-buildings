@@ -1,4 +1,4 @@
-within Buildings.Examples.VAVReheat.Controls;
+within Buildings.Examples.VAVReheat.BaseClasses.Controls;
 model SystemHysteresis
   "Block that applies hysteresis and a minimum on timer to a control signal"
 

@@ -1,9 +1,9 @@
-within Buildings.Examples.VAVReheat.Controls.Examples;
+within Buildings.Examples.VAVReheat.BaseClasses.Controls.Examples;
 model SystemHysteresis "Test model for the system hysteresis"
   extends Modelica.Icons.Example;
-  Buildings.Examples.VAVReheat.Controls.SystemHysteresis sysHys
+  Buildings.Examples.VAVReheat.BaseClasses.Controls.SystemHysteresis sysHys
     annotation (Placement(transformation(extent={{-10,20},{10,40}})));
-  Buildings.Examples.VAVReheat.Controls.SystemHysteresis sysHys1
+  Buildings.Examples.VAVReheat.BaseClasses.Controls.SystemHysteresis sysHys1
     annotation (Placement(transformation(extent={{-10,-40},{10,-20}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Pulse pul(width=1/60, period=3600)
     "Pulse source"
@@ -33,15 +33,15 @@ equation
     Documentation(info="<html>
 <p>
 This model tests
-<a href=\"modelica://Buildings.Examples.VAVReheat.Controls.SystemHysteresis\">
-Buildings.Examples.VAVReheat.Controls.SystemHysteresis</a>.
+<a href=\"modelica://Buildings.Examples.VAVReheat.BaseClasses.Controls.SystemHysteresis\">
+Buildings.Examples.VAVReheat.BaseClasses.Controls.SystemHysteresis</a>.
 </p>
 <p>
 In one test, there is repeated on/off, while in the other test, there is only one switch to on.
 Note that <code>sys1</code> has a high frequency input, but the pump signal stays on to avoid short cycling.
 </p>
 </html>"),
- __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Examples/VAVReheat/Controls/Examples/SystemHysteresis.mos"
+ __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Examples/VAVReheat/BaseClasses/Controls/Examples/SystemHysteresis.mos"
         "Simulate and plot"),
     experiment(
       StopTime=21600,

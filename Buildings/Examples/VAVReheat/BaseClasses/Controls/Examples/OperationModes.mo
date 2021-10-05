@@ -1,8 +1,8 @@
-within Buildings.Examples.VAVReheat.Controls.Examples;
+within Buildings.Examples.VAVReheat.BaseClasses.Controls.Examples;
 model OperationModes "Test model for operation modes"
     extends Modelica.Icons.Example;
-  import ModelicaVAV = Buildings.Examples.VAVReheat;
-  ModelicaVAV.Controls.ModeSelector operationModes
+
+  Buildings.Examples.VAVReheat.BaseClasses.Controls.ModeSelector operationModes
     annotation (Placement(transformation(extent={{-40,-20},{-20,0}})));
   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow preHeaFlo
     annotation (Placement(transformation(extent={{90,-60},{110,-40}})));
@@ -22,26 +22,26 @@ model OperationModes "Test model for operation modes"
   Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor temperatureSensor
     annotation (Placement(transformation(extent={{100,110},{120,130}})));
   Modelica.Blocks.Sources.RealExpression TRooSetHea(
-    y=if mode.y == Integer(ModelicaVAV.Controls.OperationModes.occupied)
+    y=if mode.y == Integer(Buildings.Examples.VAVReheat.BaseClasses.Controls.OperationModes.occupied)
       then 293.15 else 287.15)
     annotation (Placement(transformation(extent={{-160,40},{-140,60}})));
   Modelica.Blocks.Sources.Constant TCoiHea(k=283.15)
     "Temperature after heating coil"
     annotation (Placement(transformation(extent={{-160,-40},{-140,-20}})));
-  ModelicaVAV.Controls.ControlBus controlBus
+  Buildings.Examples.VAVReheat.BaseClasses.Controls.ControlBus controlBus
     annotation (Placement(transformation(extent={{-60,30},{-40,50}})));
   Modelica.Blocks.Routing.IntegerPassThrough mode "Outputs the control mode"
     annotation (Placement(transformation(extent={{0,20},{20,40}})));
   Modelica.Blocks.Sources.BooleanExpression modSel(
-    y=mode.y == Integer(ModelicaVAV.Controls.OperationModes.unoccupiedNightSetBack) or
-      mode.y == Integer(ModelicaVAV.Controls.OperationModes.unoccupiedWarmUp))
+    y=mode.y == Integer(Buildings.Examples.VAVReheat.BaseClasses.Controls.OperationModes.unoccupiedNightSetBack) or
+      mode.y == Integer(Buildings.Examples.VAVReheat.BaseClasses.Controls.OperationModes.unoccupiedWarmUp))
     annotation (Placement(transformation(extent={{-20,-60},{0,-40}})));
   Modelica.Blocks.Sources.Constant TOut(k=283.15) "Outside temperature"
     annotation (Placement(transformation(extent={{-160,-80},{-140,-60}})));
   Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor temperatureSensor1
     annotation (Placement(transformation(extent={{100,142},{120,162}})));
   Modelica.Blocks.Sources.BooleanExpression modSel1(
-    y=mode.y == Integer(ModelicaVAV.Controls.OperationModes.occupied))
+    y=mode.y == Integer(Buildings.Examples.VAVReheat.BaseClasses.Controls.OperationModes.occupied))
     annotation (Placement(transformation(extent={{-20,-130},{0,-110}})));
   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow preHeaFlo1
     annotation (Placement(transformation(extent={{112,-130},{132,-110}})));
@@ -187,7 +187,7 @@ equation
       extent={{6,3},{6,3}}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-200,
             -200},{200,200}})),
-        __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Examples/VAVReheat/Controls/Examples/OperationModes.mos"
+        __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Examples/VAVReheat/BaseClasses/Controls/Examples/OperationModes.mos"
         "Simulate and plot"),
     experiment(
       StopTime=172800,

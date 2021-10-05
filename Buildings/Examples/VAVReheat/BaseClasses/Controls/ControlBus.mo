@@ -1,4 +1,4 @@
-within Buildings.Examples.VAVReheat.Controls;
+within Buildings.Examples.VAVReheat.BaseClasses.Controls;
 expandable connector ControlBus
   "Empty control bus that is adapted to the signals connected to it"
   extends Modelica.Icons.SignalBus;
