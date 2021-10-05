@@ -1,7 +1,6 @@
-within Buildings.Controls.OBC.CDL.Logical.Validation;
-model IntegerSwitch
-  "Validation model for the IntegerSwitch block"
-  Buildings.Controls.OBC.CDL.Logical.IntegerSwitch integerSwitch
+within Buildings.Controls.OBC.CDL.Integers.Validation;
+model Switch "Validation model for the Switch block"
+  Buildings.Controls.OBC.CDL.Integers.Switch integerSwitch
     "Integer switch"
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul1(
@@ -44,35 +43,35 @@ protected
 
 equation
   connect(booPul2.y,integerSwitch.u2)
-    annotation (Line(points={{-5,0},{58,0}},color={255,0,255}));
+    annotation (Line(points={{-4,0},{58,0}},color={255,0,255}));
   connect(booPul1.y,booToInt.u)
-    annotation (Line(points={{-59,30},{-42,30}},color={255,0,255}));
+    annotation (Line(points={{-58,30},{-42,30}},color={255,0,255}));
   connect(booPul3.y,booToInt1.u)
-    annotation (Line(points={{-59,-70},{-42,-70}},color={255,0,255}));
+    annotation (Line(points={{-58,-70},{-42,-70}},color={255,0,255}));
   connect(conInt.y,proInt.u1)
-    annotation (Line(points={{-59,70},{-20,70},{-20,56},{-2,56}},color={255,127,0}));
+    annotation (Line(points={{-58,70},{-20,70},{-20,56},{-2,56}},color={255,127,0}));
   connect(booToInt.y,proInt.u2)
-    annotation (Line(points={{-19,30},{-10,30},{-10,44},{-2,44}},color={255,127,0}));
+    annotation (Line(points={{-18,30},{-10,30},{-10,44},{-2,44}},color={255,127,0}));
   connect(conInt1.y,proInt1.u1)
-    annotation (Line(points={{-59,-30},{-10,-30},{-10,-44},{-2,-44}},color={255,127,0}));
+    annotation (Line(points={{-58,-30},{-10,-30},{-10,-44},{-2,-44}},color={255,127,0}));
   connect(booToInt1.y,proInt1.u2)
-    annotation (Line(points={{-19,-70},{-10,-70},{-10,-56},{-2,-56}},color={255,127,0}));
+    annotation (Line(points={{-18,-70},{-10,-70},{-10,-56},{-2,-56}},color={255,127,0}));
   connect(proInt.y,integerSwitch.u1)
-    annotation (Line(points={{21,50},{40,50},{40,8},{58,8}},color={255,127,0}));
+    annotation (Line(points={{22,50},{40,50},{40,8},{58,8}},color={255,127,0}));
   connect(proInt1.y,integerSwitch.u3)
-    annotation (Line(points={{21,-50},{40,-50},{40,-8},{58,-8}},color={255,127,0}));
+    annotation (Line(points={{22,-50},{40,-50},{40,-8},{58,-8}},color={255,127,0}));
   annotation (
     experiment(
       StopTime=5.0,
       Tolerance=1e-06),
     __Dymola_Commands(
-      file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/CDL/Logical/Validation/IntegerSwitch.mos" "Simulate and plot"),
+      file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/CDL/Integers/Validation/Switch.mos" "Simulate and plot"),
     Documentation(
       info="<html>
 <p>
 Validation test for the block
-<a href=\"modelica://Buildings.Controls.OBC.CDL.Logical.IntegerSwitch\">
-Buildings.Controls.OBC.CDL.Logical.IntegerSwitch</a>.
+<a href=\"modelica://Buildings.Controls.OBC.CDL.Integers.Switch\">
+Buildings.Controls.OBC.CDL.Integers.Switch</a>.
 </p>
 <p>
 The input <code>u2</code> is the switch input: If <code>u2 = true</code>,
@@ -102,4 +101,4 @@ First implementation.
           pattern=LinePattern.None,
           fillPattern=FillPattern.Solid,
           points={{-36,60},{64,0},{-36,-60},{-36,60}})}));
-end IntegerSwitch;
+end Switch;

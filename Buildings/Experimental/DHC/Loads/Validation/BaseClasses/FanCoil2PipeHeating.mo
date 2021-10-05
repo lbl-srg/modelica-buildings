@@ -105,7 +105,7 @@ model FanCoil2PipeHeating
   Buildings.Controls.OBC.CDL.Continuous.Gain gaiHeaFlo1(
     k=1/QHea_flow_nominal)
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},rotation=90,origin={0,190})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi
     "Logical switch"
     annotation (Placement(transformation(extent={{30,170},{50,190}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant one(

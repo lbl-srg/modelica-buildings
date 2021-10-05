@@ -183,7 +183,7 @@ protected
   Buildings.Controls.OBC.CDL.Logical.And and1 "Logical and"
     annotation (Placement(transformation(extent={{120,-150},{140,-130}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Switch swi4
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi4
     "Ensuring the system efficiency will not be negative"
     annotation (Placement(transformation(extent={{60,-70},{80,-50}})));
 
