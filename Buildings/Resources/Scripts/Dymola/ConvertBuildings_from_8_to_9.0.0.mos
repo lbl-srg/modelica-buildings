@@ -91,3 +91,11 @@ convertClass("Buildings.Applications.DataCenters.ChillerCooled.Controls.Variable
              "Buildings.Applications.BaseClasses.Controls.VariableSpeedPumpStage");
 convertElement("Buildings.Fluid.HeatExchangers.CoolingTowers.YorkCalc",
                "TWatIn0", "TWatIn_nominal");
+
+// Conversion for https://github.com/lbl-srg/modelica-buildings/issues/2650
+convertClass("Buildings.Controls.OBC.CDL.Logical.IntegerSwitch",
+             "Buildings.Controls.OBC.CDL.Integers.Switch")
+convertClass("Buildings.Controls.OBC.CDL.Logical.Switch",
+             "Buildings.Controls.OBC.CDL.Continuous.Switch")
+convertClass("Buildings.Controls.OBC.CDL.Logical.LogicalSwitch",
+             "Buildings.Controls.OBC.CDL.Logical.Switch")
