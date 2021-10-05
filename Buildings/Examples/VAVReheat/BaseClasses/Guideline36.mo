@@ -70,7 +70,7 @@ model Guideline36
   Buildings.Controls.OBC.CDL.Integers.MultiSum PZonResReq(nin=5)
     "Number of zone pressure requests"
     annotation (Placement(transformation(extent={{300,320},{320,340}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swiFreStaPum
+  Buildings.Controls.OBC.CDL.Continuous.Switch swiFreStaPum
     "Switch for freeze stat of pump"
     annotation (Placement(transformation(extent={{20,-120},{40,-100}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant yFreHeaCoi(final k=1)
@@ -144,7 +144,7 @@ model Guideline36
   Controls.SystemHysteresis sysHysCoo
     "Hysteresis and delay to switch cooling on and off"
     annotation (Placement(transformation(extent={{20,-250},{40,-230}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swiFreStaVal
+  Buildings.Controls.OBC.CDL.Continuous.Switch swiFreStaVal
     "Switch for freeze stat of valve"
     annotation (Placement(transformation(extent={{20,-160},{40,-140}})));
   FreezeStat freSta(lockoutTime=3600)
