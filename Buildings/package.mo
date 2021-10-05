@@ -482,6 +482,17 @@ have been <b style=\"color:blue\">improved</b> in a
                        For Dymola, a conversion script makes this change.
     </td>
 </tr>
+<tr><td valign=\"top\">
+    Buildings.Controls.OBC.CDL.Logical.IntegerSwitch<br/>
+    Buildings.Controls.OBC.CDL.Logical.LogicalSwitch<br/>
+    Buildings.Controls.OBC.CDL.Logical.Switch
+    </td>
+    <td valign=\"top\">Moved the blocks to <code>CDL.Integers.Switch</code>, <code>CDL.Logical.Switch</code>,
+                       and <code>CDL.Continuous.Switch</code>.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2650\">issue 2650</a>.
+                       For Dymola, a conversion script makes this change.
+    </td>
+</tr>
 <tr><td colspan=\"2\"><b>Buildings.Electrical</b>
     </td>
 </tr>

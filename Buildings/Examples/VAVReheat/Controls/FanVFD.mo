@@ -35,7 +35,7 @@ block FanVFD "Controller for fan revolution"
   parameter Modelica.SIunits.Time Ti=15 "Time constant of integrator block"
     annotation (Dialog(group="Setpoint tracking"));
 
-  Buildings.Controls.OBC.CDL.Logical.Switch swi
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uFan
     "Set to true to enable the fan on"

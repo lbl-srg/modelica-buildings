@@ -101,7 +101,7 @@ block RoomVAV "Controller for room VAV box"
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minFloHea(
     final k=ratVFloHea) "Minimum air flow set point in heating mode"
     annotation (Placement(transformation(extent={{-60,90},{-40,110}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi
     "Switch between heating and deadband air flow rate"
     annotation (Placement(transformation(extent={{-10,50},{10,70}})));
   Buildings.Controls.OBC.CDL.Utilities.Assert assMes(message=

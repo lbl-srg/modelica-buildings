@@ -1,17 +1,17 @@
-within Buildings.Controls.OBC.CDL.Logical;
-block IntegerSwitch
-  "Switch between two integer signals"
-  Interfaces.IntegerInput u1
-    "Integer input signal"
+within Buildings.Controls.OBC.CDL.Continuous;
+block Switch
+  "Switch between two Real signals"
+  Interfaces.RealInput u1
+    "Real input signal"
     annotation (Placement(transformation(extent={{-140,60},{-100,100}})));
   Interfaces.BooleanInput u2
     "Boolean switch input signal, if true, y=u1, else y=u3"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
-  Interfaces.IntegerInput u3
-    "Integer input signal"
+  Interfaces.RealInput u3
+    "Real input signal"
     annotation (Placement(transformation(extent={{-140,-100},{-100,-60}})));
-  Interfaces.IntegerOutput y
-    "Integer output signal"
+  Interfaces.RealOutput y
+    "Real output signal"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
 equation
@@ -21,11 +21,11 @@ equation
     else
       u3;
   annotation (
-    defaultComponentName="intSwi",
+    defaultComponentName="swi",
     Documentation(
       info="<html>
 <p>
-Block that outputs one of two integer input signals based on a boolean input signal.
+Block that outputs one of two real input signals based on a boolean input signal.
 </p>
 <p>
 If the input signal <code>u2</code> is <code>true</code>,
@@ -42,8 +42,9 @@ This is for
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2033\"># 2033</a>.
 </li>
 <li>
-July 10, 2019, by Milica Grahovac:<br/>
-First implementation.
+January 3, 2017, by Michael Wetter:<br/>
+First implementation, based on the implementation of the
+Modelica Standard Library.
 </li>
 </ul>
 </html>"),
@@ -59,33 +60,33 @@ First implementation.
           fillPattern=FillPattern.Solid,
           borderPattern=BorderPattern.Raised),
         Line(
-          points={{12,0},{100,0}},
-          color={244,125,35}),
+          points={{12.0,0.0},{100.0,0.0}},
+          color={0,0,127}),
         Line(
-          points={{-100,0},{-40,0}},
+          points={{-100.0,0.0},{-40.0,0.0}},
           color={255,0,255}),
         Line(
-          points={{-100,-80},{-40,-80},{-40,-80}},
-          color={244,125,35}),
+          points={{-100.0,-80.0},{-40.0,-80.0},{-40.0,-80.0}},
+          color={0,0,127}),
         Line(
-          points={{-40,12},{-40,-10}},
+          points={{-40.0,12.0},{-40.0,-12.0}},
           color={255,0,255}),
         Line(
-          points={{-100,80},{-40,80}},
-          color={244,125,35}),
+          points={{-100.0,80.0},{-40.0,80.0}},
+          color={0,0,127}),
         Line(
-          points=DynamicSelect({{8,2},{-40,80}},{{8,2},
+          points=DynamicSelect({{10,0},{-40,80}},{{10,0},
             if u2 then
               {-40,80}
             else
               {-40,-80}}),
-          color={244,125,35},
-          thickness=1),
+          color={0,0,127},
+          thickness=1.0),
         Ellipse(
-          lineColor={0,0,127},
+          lineColor={0,0,255},
           pattern=LinePattern.None,
           fillPattern=FillPattern.Solid,
-          extent={{2.0,-6.0},{18.0,8.0}}),
+          extent={{2.0,-8.0},{18.0,8.0}}),
         Ellipse(
           extent={{-71,7},{-85,-7}},
           lineColor=DynamicSelect({235,235,235},
@@ -119,4 +120,4 @@ First implementation.
           extent={{-150,150},{150,110}},
           lineColor={0,0,255},
           textString="%name")}));
-end IntegerSwitch;
+end Switch;
