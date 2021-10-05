@@ -83,7 +83,7 @@ model Floor "Model of a floor of the building"
 
   constant Modelica.SIunits.Height hRoo=2.74 "Room height";
 
-  parameter Boolean sampleModel = false
+  parameter Boolean sampleModel = true
     "Set to true to time-sample the model, which can give shorter simulation time if there is already time sampling in the system model"
     annotation (
       Evaluate=true,
@@ -596,7 +596,9 @@ equation
       color={0,0,127},
       smooth=Smooth.None,
       pattern=LinePattern.Dash));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=true,
+  annotation (
+  defaultComponentName="flo",
+  Diagram(coordinateSystem(preserveAspectRatio=true,
         extent={{-160,-100},{380,500}},
         initialScale=0.1)),     Icon(coordinateSystem(
           preserveAspectRatio=true, extent={{-80,-80},{380,180}}), graphics={
@@ -693,6 +695,12 @@ equation
           fillPattern=FillPattern.Solid)}),
     Documentation(revisions="<html>
 <ul>
+<li>
+October 4, 2021, by Michael Wetter:<br/>
+Refactored <a href=\"modelica://Buildings.Examples.VAVReheat\">Buildings.Examples.VAVReheat</a>
+and its base classes to separate building from HVAC model.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2652\">issue #2652</a>.
+</li>
 <li>
 September 16, 2021, by Michael Wetter:<br/>
 Removed parameter <code>lat</code> as this is now obtained from the weather data reader.<br/>

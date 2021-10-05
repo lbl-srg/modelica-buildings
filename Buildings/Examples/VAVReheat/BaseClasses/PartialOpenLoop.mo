@@ -2,59 +2,47 @@ within Buildings.Examples.VAVReheat.BaseClasses;
 partial model PartialOpenLoop
   "Partial model of variable air volume flow system with terminal reheat and five thermal zones"
 
-  package MediumA = Buildings.Media.Air "Medium model for air";
-  package MediumW = Buildings.Media.Water "Medium model for water";
+  replaceable package MediumA = Buildings.Media.Air
+    constrainedby Modelica.Media.Interfaces.PartialCondensingGases "Medium model for air";
+  replaceable package MediumW = Buildings.Media.Water "Medium model for water";
 
   constant Integer numZon=5 "Total number of served VAV boxes";
 
-  parameter Modelica.SIunits.Volume VRooCor=flo.VRooCor
+  parameter Modelica.SIunits.Volume VRooCor
     "Room volume corridor";
-  parameter Modelica.SIunits.Volume VRooSou=flo.VRooSou
+  parameter Modelica.SIunits.Volume VRooSou
     "Room volume south";
-  parameter Modelica.SIunits.Volume VRooNor=flo.VRooNor
+  parameter Modelica.SIunits.Volume VRooNor
     "Room volume north";
-  parameter Modelica.SIunits.Volume VRooEas=flo.VRooEas
+  parameter Modelica.SIunits.Volume VRooEas
     "Room volume east";
-  parameter Modelica.SIunits.Volume VRooWes=flo.VRooWes
+  parameter Modelica.SIunits.Volume VRooWes
     "Room volume west";
 
-  parameter Modelica.SIunits.Area AFloCor=flo.AFloCor "Floor area corridor";
-  parameter Modelica.SIunits.Area AFloSou=flo.AFloSou "Floor area south";
-  parameter Modelica.SIunits.Area AFloNor=flo.AFloNor "Floor area north";
-  parameter Modelica.SIunits.Area AFloEas=flo.AFloEas "Floor area east";
-  parameter Modelica.SIunits.Area AFloWes=flo.AFloWes "Floor area west";
+  parameter Modelica.SIunits.Area AFloCor "Floor area corridor";
+  parameter Modelica.SIunits.Area AFloSou "Floor area south";
+  parameter Modelica.SIunits.Area AFloNor "Floor area north";
+  parameter Modelica.SIunits.Area AFloEas "Floor area east";
+  parameter Modelica.SIunits.Area AFloWes "Floor area west";
 
-  parameter Modelica.SIunits.Area AFlo[numZon]={flo.AFloCor,flo.AFloSou,flo.AFloEas,
-      flo.AFloNor,flo.AFloWes} "Floor area of each zone";
+  final parameter Modelica.SIunits.Area AFlo[numZon]={AFloCor,AFloSou,AFloEas,
+      AFloNor,AFloWes} "Floor area of each zone";
   final parameter Modelica.SIunits.Area ATot=sum(AFlo) "Total floor area";
 
   constant Real conv=1.2/3600 "Conversion factor for nominal mass flow rate";
 
-  parameter Real ACHCor(final unit="1/h")=6
-    "Design air change per hour core";
-  parameter Real ACHSou(final unit="1/h")=6
-    "Design air change per hour south";
-  parameter Real ACHEas(final unit="1/h")=9
-    "Design air change per hour east";
-  parameter Real ACHNor(final unit="1/h")=6
-    "Design air change per hour north";
-  parameter Real ACHWes(final unit="1/h")=7
-    "Design air change per hour west";
-
-  parameter Modelica.SIunits.MassFlowRate mCor_flow_nominal=ACHCor*VRooCor*conv
+  parameter Modelica.SIunits.MassFlowRate mCor_flow_nominal
     "Design mass flow rate core";
-  parameter Modelica.SIunits.MassFlowRate mSou_flow_nominal=ACHSou*VRooSou*conv
+  parameter Modelica.SIunits.MassFlowRate mSou_flow_nominal
     "Design mass flow rate south";
-  parameter Modelica.SIunits.MassFlowRate mEas_flow_nominal=ACHEas*VRooEas*conv
+  parameter Modelica.SIunits.MassFlowRate mEas_flow_nominal
     "Design mass flow rate east";
-  parameter Modelica.SIunits.MassFlowRate mNor_flow_nominal=ACHNor*VRooNor*conv
+  parameter Modelica.SIunits.MassFlowRate mNor_flow_nominal
     "Design mass flow rate north";
-  parameter Modelica.SIunits.MassFlowRate mWes_flow_nominal=ACHWes*VRooWes*conv
+  parameter Modelica.SIunits.MassFlowRate mWes_flow_nominal
     "Design mass flow rate west";
 
-  parameter Modelica.SIunits.MassFlowRate m_flow_nominal=0.7*(mCor_flow_nominal
-       + mSou_flow_nominal + mEas_flow_nominal + mNor_flow_nominal +
-      mWes_flow_nominal) "Nominal mass flow rate";
+  parameter Modelica.SIunits.MassFlowRate m_flow_nominal "Nominal mass flow rate";
 
   parameter Modelica.SIunits.MassFlowRate mHeaWat_flow_nominal=m_flow_nominal*1000*
       (10 - (-20))/4200/10 "Nominal water mass flow rate for heating coil in AHU";
@@ -63,8 +51,6 @@ partial model PartialOpenLoop
 
   parameter Real ratVFloHea(final unit="1") = 0.3
     "VAV box maximum air flow rate ratio in heating mode";
-
-  parameter Modelica.SIunits.Angle lat=41.98*3.14159/180 "Latitude";
 
   parameter Real ratOAFlo_A(final unit="m3/(s.m2)") = 0.3e-3
     "Outdoor airflow rate required per unit area";
@@ -115,30 +101,40 @@ partial model PartialOpenLoop
   parameter Real yFanMin = 0.1 "Minimum fan speed";
 
   parameter Modelica.SIunits.Temperature THotWatInl_nominal(
-    displayUnit="degC")=45 + 273.15
+    displayUnit="degC")
     "Reheat coil nominal inlet water temperature";
 
   parameter Boolean allowFlowReversal=true
     "= false to simplify equations, assuming, but not enforcing, no flow reversal"
     annotation (Evaluate=true);
 
-  parameter Boolean use_windPressure=true "Set to true to enable wind pressure";
 
-  parameter Boolean sampleModel=true
-    "Set to true to time-sample the model, which can give shorter simulation time if there is already time sampling in the system model"
-    annotation (Evaluate=true, Dialog(tab=
-    "Experimental (may be changed in future releases)"));
+  Modelica.Fluid.Interfaces.FluidPort_a port_supAir[numZon](redeclare package
+      Medium = MediumA)
+    "Supply air to thermal zones"
+    annotation (Placement(transformation(extent={{1410,150},{1430,170}}),
+        iconTransformation(extent={{432,190},{452,210}})));
+  Modelica.Fluid.Interfaces.FluidPort_a port_retAir[numZon](redeclare package
+      Medium = MediumA)
+    "Return air from thermal zones"
+    annotation (Placement(transformation(extent={{1410,110},{1430,130}}),
+        iconTransformation(extent={{432,20},{452,40}})));
+
+  Modelica.Blocks.Interfaces.RealInput TRoo[numZon](
+   each final unit="K",
+   each displayUnit="degC")
+   "Room temperatures"
+    annotation (Placement(transformation(
+        extent={{-20,-20},{20,20}},
+        rotation=0,
+        origin={-400,320}), iconTransformation(
+        extent={{-20,-20},{20,20}},
+        rotation=0,
+        origin={-220,180})));
 
   Buildings.Fluid.Sources.Outside amb(redeclare package Medium = MediumA,
       nPorts=2) "Ambient conditions"
     annotation (Placement(transformation(extent={{-136,-56},{-114,-34}})));
-
-  replaceable Buildings.Examples.VAVReheat.BaseClasses.PartialFloor flo
-    constrainedby Buildings.Examples.VAVReheat.BaseClasses.PartialFloor(
-      redeclare final package Medium = MediumA,
-      final use_windPressure=use_windPressure)
-    "Model of a floor of the building that is served by this VAV system"
-    annotation (Placement(transformation(extent={{772,396},{1100,616}})), choicesAllMatching=true);
 
   Buildings.Fluid.HeatExchangers.DryCoilEffectivenessNTU heaCoi(
     redeclare package Medium1 = MediumW,
@@ -198,22 +194,6 @@ partial model PartialOpenLoop
     "Sensor for return fan flow rate"
     annotation (Placement(transformation(extent={{360,130},{340,150}})));
 
-  Buildings.Fluid.Sources.Boundary_pT sinHea(
-    redeclare package Medium = MediumW,
-    p=300000,
-    T=THotWatInl_nominal,
-    nPorts=1) "Sink for heating coil" annotation (Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=90,
-        origin={88,-270})));
-  Buildings.Fluid.Sources.Boundary_pT sinCoo(
-    redeclare package Medium = MediumW,
-    p=300000,
-    T=285.15,
-    nPorts=1) "Sink for cooling coil" annotation (Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=90,
-        origin={180,-270})));
   Modelica.Blocks.Routing.RealPassThrough TOut(y(
       final quantity="ThermodynamicTemperature",
       final unit="K",
@@ -233,12 +213,7 @@ partial model PartialOpenLoop
         origin={320,0})));
   Buildings.Controls.SetPoints.OccupancySchedule occSch(occupancy=3600*{6,19})
     "Occupancy schedule"
-    annotation (Placement(transformation(extent={{-318,-220},{-298,-200}})));
-  Buildings.Utilities.Math.Min min(nin=5) "Computes lowest room temperature"
-    annotation (Placement(transformation(extent={{1200,440},{1220,460}})));
-  Buildings.Utilities.Math.Average ave(nin=5)
-    "Compute average of room temperatures"
-    annotation (Placement(transformation(extent={{1200,410},{1220,430}})));
+    annotation (Placement(transformation(extent={{-320,-220},{-300,-200}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort TRet(
     redeclare package Medium = MediumA,
     m_flow_nominal=m_flow_nominal,
@@ -448,19 +423,15 @@ partial model PartialOpenLoop
          else Modelica.Fluid.Types.PortFlowDirection.Leaving)
     "Splitter for room supply"
     annotation (Placement(transformation(extent={{1100,-30},{1120,-50}})));
-  BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=
-        Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"),
-      computeWetBulbTemperature=false)
-    annotation (Placement(transformation(extent={{-360,170},{-340,190}})));
   BoundaryConditions.WeatherData.Bus weaBus "Weather Data Bus"
     annotation (Placement(transformation(extent={{-330,170},{-310,190}}),
-        iconTransformation(extent={{-360,170},{-340,190}})));
+        iconTransformation(extent={{-168,134},{-148,154}})));
 
   Modelica.Blocks.Routing.DeMultiplex5 TRooAir(u(each unit="K", each
         displayUnit="degC")) "Demultiplex for room air temperature"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
-        rotation=270,
-        origin={488,286})));
+        rotation=0,
+        origin={490,290})));
 
   Results res(
     final A=ATot,
@@ -469,11 +440,6 @@ partial model PartialOpenLoop
     PHea=heaCoi.Q2_flow + cor.terHea.Q2_flow + nor.terHea.Q2_flow + wes.terHea.Q2_flow + eas.terHea.Q2_flow + sou.terHea.Q2_flow,
     PCooSen=cooCoi.QSen2_flow,
     PCooLat=cooCoi.QLat2_flow) "Results of the simulation";
-
-  /*fanRet*/
-
-  FreezeStat freSta "Freeze stat for heating coil"
-    annotation (Placement(transformation(extent={{-140,-100},{-120,-80}})));
 
   Fluid.Actuators.Dampers.Exponential damRet(
     redeclare package Medium = MediumA,
@@ -494,24 +460,6 @@ partial model PartialOpenLoop
     dpDamper_nominal=5,
     dpFixed_nominal=5) "Outdoor air damper"
     annotation (Placement(transformation(extent={{-50,-50},{-30,-30}})));
-  Fluid.Sources.Boundary_pT souHeaTer(
-    redeclare package Medium = MediumW,
-    p(displayUnit="Pa") = 300000 + 6000,
-    T=THotWatInl_nominal,
-    nPorts=5) "Source for heating of terminal boxes" annotation (Placement(
-        transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=0,
-        origin={510,-180})));
-  Fluid.Sources.Boundary_pT sinHeaTer(
-    redeclare package Medium = MediumW,
-    p(displayUnit="Pa") = 300000,
-    T=THotWatInl_nominal,
-    nPorts=5) "Source for heating of terminal boxes" annotation (Placement(
-        transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=0,
-        origin={510,-210})));
   Fluid.FixedResistances.Junction splCooSup(
     redeclare package Medium = MediumW,
     m_flow_nominal=mCooWat_flow_nominal*{1,1,1},
@@ -533,9 +481,9 @@ partial model PartialOpenLoop
     dpValve_nominal=6000,
     dpFixed_nominal=0) "Valve for cooling coil"    annotation (Placement(
         transformation(
-        extent={{10,-10},{-10,10}},
+        extent={{-10,-10},{10,10}},
         rotation=90,
-        origin={180,-210})));
+        origin={220,-210})));
   Fluid.FixedResistances.Junction splCooRet(
     redeclare package Medium = MediumW,
     m_flow_nominal=mCooWat_flow_nominal*{1,1,1},
@@ -566,15 +514,6 @@ partial model PartialOpenLoop
         extent={{-10,10},{10,-10}},
         rotation=90,
         origin={128,-120})));
-  Fluid.Sources.Boundary_pT souCoo(
-    redeclare package Medium = MediumW,
-    p(displayUnit="Pa") = 300000 + 6000,
-    T=285.15,
-    nPorts=1) "Source for cooling coil loop" annotation (Placement(
-        transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=90,
-        origin={220,-270})));
 
   Fluid.Actuators.Valves.TwoWayEqualPercentage valHeaCoi(
     redeclare package Medium = MediumW,
@@ -582,9 +521,9 @@ partial model PartialOpenLoop
     dpValve_nominal=6000,
     dpFixed_nominal=0) "Valve for heating coil" annotation (Placement(
         transformation(
-        extent={{10,-10},{-10,10}},
+        extent={{-10,-10},{10,10}},
         rotation=90,
-        origin={88,-210})));
+        origin={128,-210})));
   Fluid.FixedResistances.Junction splHeaRet(
     redeclare package Medium = MediumW,
     m_flow_nominal=mHeaWat_flow_nominal*{1,1,1},
@@ -615,14 +554,35 @@ partial model PartialOpenLoop
         extent={{-10,10},{10,-10}},
         rotation=90,
         origin={128,-170})));
-  Fluid.Sources.Boundary_pT souHea(
-    redeclare package Medium = MediumW,
-    p(displayUnit="Pa") = 300000 + 6000,
-    T=THotWatInl_nominal,
-    nPorts=1) "Source for heating coil" annotation (Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=90,
-        origin={128,-270})));
+
+
+  Modelica.Fluid.Interfaces.FluidPort_a portHeaCoiSup(redeclare package Medium =
+        MediumW) "Heating coil loop supply"
+    annotation (Placement(transformation(extent={{70,-310},{90,-290}}),
+        iconTransformation(extent={{-30,-150},{-10,-130}})));
+  Modelica.Fluid.Interfaces.FluidPort_b portHeaCoiRet(redeclare package Medium =
+        MediumW) "Heating coil loop return" annotation (Placement(
+        transformation(extent={{110,-310},{130,-290}}),
+                                                      iconTransformation(extent={{30,-150},
+            {50,-130}})));
+  Modelica.Fluid.Interfaces.FluidPort_a portHeaTerSup(redeclare package Medium =
+        MediumW) "Terminal heat loop supply"
+    annotation (Placement(transformation(extent={{450,-310},{470,-290}}),
+        iconTransformation(extent={{250,-150},{270,-130}})));
+  Modelica.Fluid.Interfaces.FluidPort_b portHeaTerRet(redeclare package Medium =
+        MediumW) "Terminal heat loop return" annotation (Placement(
+        transformation(extent={{490,-310},{510,-290}}),
+                                                      iconTransformation(extent={{310,
+            -150},{330,-130}})));
+  Modelica.Fluid.Interfaces.FluidPort_a portCooCoiSup(redeclare package Medium =
+        MediumW) "Cooling coil loop supply"
+    annotation (Placement(transformation(extent={{190,-310},{210,-290}}),
+        iconTransformation(extent={{110,-150},{130,-130}})));
+  Modelica.Fluid.Interfaces.FluidPort_b portCooCoiRet(redeclare package Medium =
+        MediumW)
+    "Coolin coil loop return"
+    annotation (Placement(transformation(extent={{230,-310},{250,-290}}),
+        iconTransformation(extent={{170,-150},{190,-130}})));
 protected
   constant Modelica.SIunits.SpecificHeatCapacity cpAir=
     Buildings.Utilities.Psychrometrics.Constants.cpAir
@@ -686,7 +646,7 @@ equation
       smooth=Smooth.None,
       thickness=0.5));
   connect(amb.ports[1], VOut1.port_a) annotation (Line(
-      points={{-114,-46.1},{-94,-46.1},{-94,-40},{-90,-40}},
+      points={{-114,-42.8},{-94,-42.8},{-94,-40},{-90,-40}},
       color={0,127,255},
       smooth=Smooth.None,
       thickness=0.5));
@@ -749,11 +709,6 @@ equation
       color={0,127,255},
       smooth=Smooth.None,
       thickness=0.5));
-  connect(weaDat.weaBus, weaBus) annotation (Line(
-      points={{-340,180},{-320,180}},
-      color={255,204,51},
-      thickness=0.5,
-      smooth=Smooth.None));
   connect(weaBus.TDryBul, TOut.u) annotation (Line(
       points={{-320,180},{-302,180}},
       color={255,204,51},
@@ -764,77 +719,11 @@ equation
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None));
-  connect(splRetRoo1.port_3, flo.portsCor[2]) annotation (Line(
-      points={{640,10},{640,118},{892,118},{892,472},{898,472},{898,520.667},{
-          902.487,520.667}},
-      color={0,127,255},
-      thickness=0.5));
-  connect(splRetSou.port_3, flo.portsSou[2]) annotation (Line(
-      points={{822,10},{822,152},{900,152},{900,447.333},{902.487,447.333}},
-      color={0,127,255},
-      thickness=0.5));
-  connect(splRetEas.port_3, flo.portsEas[2]) annotation (Line(
-      points={{1002,10},{1002,120},{1065.06,120},{1065.06,520.667}},
-      color={0,127,255},
-      thickness=0.5));
-  connect(splRetNor.port_3, flo.portsNor[2]) annotation (Line(
-      points={{1152,10},{1152,214},{902.487,214},{902.487,583}},
-      color={0,127,255},
-      thickness=0.5));
-  connect(splRetNor.port_2, flo.portsWes[2]) annotation (Line(
-      points={{1162,0},{1188,0},{1188,346},{818,346},{818,484},{814.07,484},{
-          814.07,520.667}},
-      color={0,127,255},
-      thickness=0.5));
-  connect(weaBus, flo.weaBus) annotation (Line(
-      points={{-320,180},{-320,671},{978.783,671}},
-      color={255,204,51},
-      thickness=0.5,
-      smooth=Smooth.None));
-  connect(flo.TRooAir, min.u) annotation (Line(
-      points={{1107.13,515.167},{1164.7,515.167},{1164.7,450},{1198,450}},
-      color={0,0,127},
-      smooth=Smooth.None,
-      pattern=LinePattern.Dash));
-  connect(flo.TRooAir, ave.u) annotation (Line(
-      points={{1107.13,515.167},{1166,515.167},{1166,420},{1198,420}},
-      color={0,0,127},
-      smooth=Smooth.None,
-      pattern=LinePattern.Dash));
-  connect(TRooAir.u, flo.TRooAir) annotation (Line(
-      points={{488,298},{488,538},{1164,538},{1164,515.167},{1107.13,515.167}},
-      color={0,0,127},
-      smooth=Smooth.None,
-      pattern=LinePattern.Dash));
 
   connect(cooCoi.port_b2, fanSup.port_a) annotation (Line(
       points={{210,-40},{300,-40}},
       color={0,127,255},
       smooth=Smooth.None,
-      thickness=0.5));
-
-  connect(cor.port_bAir, flo.portsCor[1]) annotation (Line(
-      points={{590,62},{590,120},{895.357,120},{895.357,520.667}},
-      color={0,127,255},
-      thickness=0.5));
-  connect(sou.port_bAir, flo.portsSou[1]) annotation (Line(
-      points={{770,60},{770,152},{895.357,152},{895.357,447.333}},
-      color={0,127,255},
-      thickness=0.5));
-  connect(eas.port_bAir, flo.portsEas[1]) annotation (Line(
-      points={{950,60},{950,120},{1054,120},{1054,506},{1057.93,506},{1057.93,
-          520.667}},
-      color={0,127,255},
-      thickness=0.5));
-  connect(nor.port_bAir, flo.portsNor[1]) annotation (Line(
-      points={{1110,60},{1110,214},{926,214},{926,326},{895.357,326},{895.357,
-          583}},
-      color={0,127,255},
-      thickness=0.5));
-  connect(wes.port_bAir, flo.portsWes[1]) annotation (Line(
-      points={{1310,60},{1310,344},{804,344},{804,424},{806.939,424},{806.939,
-          520.667}},
-      color={0,127,255},
       thickness=0.5));
 
 
@@ -845,15 +734,12 @@ equation
   connect(senSupFlo.port_b, splSupRoo1.port_1)
     annotation (Line(points={{420,-40},{580,-40}}, color={0,127,255}));
   connect(dpDisSupFan.port_b, amb.ports[2]) annotation (Line(
-      points={{320,10},{320,14},{-106,14},{-106,-48},{-110,-48},{-110,-43.9},{-114,
-          -43.9}},
+      points={{320,10},{320,14},{-106,14},{-106,-48},{-110,-48},{-110,-47.2},{-114,
+          -47.2}},
       color={0,0,0},
       pattern=LinePattern.Dot));
   connect(senRetFlo.port_b, TRet.port_a) annotation (Line(points={{340,140},{
           226,140},{110,140}}, color={0,127,255}));
-  connect(freSta.u, TMix.T) annotation (Line(points={{-142,-90},{-148,-90},{-148,
-          -70},{20,-70},{20,-20},{40,-20},{40,-29}},
-                                                color={0,0,127}));
   connect(TMix.port_b, heaCoi.port_a2) annotation (Line(
       points={{50,-40},{98,-40}},
       color={0,127,255},
@@ -871,34 +757,6 @@ equation
     annotation (Line(points={{0,0},{0,140},{90,140}}, color={0,127,255}));
   connect(damRet.port_b, TMix.port_a)
     annotation (Line(points={{0,-20},{0,-40},{30,-40}}, color={0,127,255}));
-  connect(souHeaTer.ports[1], cor.port_aHotWat) annotation (Line(points={{520,-181.6},
-          {528,-181.6},{528,42},{570,42}},
-                                         color={0,127,255}));
-  connect(souHeaTer.ports[2], sou.port_aHotWat) annotation (Line(points={{520,-180.8},
-          {720,-180.8},{720,40},{750,40}},
-                                         color={0,127,255}));
-  connect(souHeaTer.ports[3], eas.port_aHotWat) annotation (Line(points={{520,-180},
-          {900,-180},{900,40},{930,40}}, color={0,127,255}));
-  connect(souHeaTer.ports[4], nor.port_aHotWat) annotation (Line(points={{520,-179.2},
-          {1060,-179.2},{1060,40},{1090,40}},
-                                            color={0,127,255}));
-  connect(souHeaTer.ports[5], wes.port_aHotWat) annotation (Line(points={{520,-178.4},
-          {1250,-178.4},{1250,40},{1290,40}},
-                                            color={0,127,255}));
-  connect(sinHeaTer.ports[1], cor.port_bHotWat) annotation (Line(points={{520,-211.6},
-          {534,-211.6},{534,30},{570,30}},
-                                         color={0,127,255}));
-  connect(sinHeaTer.ports[2], sou.port_bHotWat) annotation (Line(points={{520,-210.8},
-          {728,-210.8},{728,28},{750,28}},
-                                         color={0,127,255}));
-  connect(sinHeaTer.ports[3], eas.port_bHotWat) annotation (Line(points={{520,-210},
-          {906,-210},{906,28},{930,28}}, color={0,127,255}));
-  connect(sinHeaTer.ports[4], nor.port_bHotWat) annotation (Line(points={{520,-209.2},
-          {1066,-209.2},{1066,28},{1090,28}},
-                                            color={0,127,255}));
-  connect(sinHeaTer.ports[5], wes.port_bHotWat) annotation (Line(points={{520,-208.4},
-          {1256,-208.4},{1256,28},{1290,28}},
-                                            color={0,127,255}));
   connect(pumHeaCoi.port_b, heaCoi.port_a1) annotation (Line(points={{128,-110},
           {128,-52},{118,-52}}, color={0,127,255}));
   connect(cooCoi.port_b1,pumCooCoi. port_a) annotation (Line(points={{190,-52},{
@@ -909,26 +767,72 @@ equation
     annotation (Line(points={{190,-170},{210,-170}}, color={0,127,255}));
   connect(pumCooCoi.port_b, splCooRet.port_2)
     annotation (Line(points={{180,-130},{180,-160}}, color={0,127,255}));
-  connect(valCooCoi.port_a, splCooRet.port_1)
-    annotation (Line(points={{180,-200},{180,-180}}, color={0,127,255}));
-  connect(valCooCoi.port_b, sinCoo.ports[1])
-    annotation (Line(points={{180,-220},{180,-260}}, color={0,127,255}));
-  connect(souCoo.ports[1], splCooSup.port_1) annotation (Line(points={{220,-260},
-          {220,-180}},                                  color={0,127,255}));
-  connect(souHea.ports[1], splHeaSup.port_1)
-    annotation (Line(points={{128,-260},{128,-180}}, color={0,127,255}));
   connect(splHeaSup.port_2, pumHeaCoi.port_a)
     annotation (Line(points={{128,-160},{128,-130}}, color={0,127,255}));
   connect(heaCoi.port_b1, splHeaRet.port_2)
     annotation (Line(points={{98,-52},{88,-52},{88,-160}}, color={0,127,255}));
-  connect(sinHea.ports[1], valHeaCoi.port_b)
-    annotation (Line(points={{88,-260},{88,-220}}, color={0,127,255}));
-  connect(valHeaCoi.port_a, splHeaRet.port_1)
-    annotation (Line(points={{88,-200},{88,-180}}, color={0,127,255}));
   connect(splHeaRet.port_3, splHeaSup.port_3)
     annotation (Line(points={{98,-170},{118,-170}}, color={0,127,255}));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-380,
-            -400},{1420,660}})), Documentation(info="<html>
+  connect(sou.port_bAir, port_supAir[1]) annotation (Line(points={{770,60},{770,
+          152},{1420,152}}, color={0,127,255}));
+  connect(eas.port_bAir, port_supAir[2]) annotation (Line(points={{950,60},{950,
+          156},{1420,156}}, color={0,127,255}));
+  connect(nor.port_bAir, port_supAir[3]) annotation (Line(points={{1110,60},{1112,
+          60},{1112,160},{1420,160}}, color={0,127,255}));
+  connect(wes.port_bAir, port_supAir[4]) annotation (Line(points={{1310,60},{1310,
+          164},{1420,164}}, color={0,127,255}));
+  connect(cor.port_bAir, port_supAir[5]) annotation (Line(points={{590,62},{592,
+          62},{592,168},{1420,168}}, color={0,127,255}));
+  connect(splRetSou.port_3, port_retAir[1]) annotation (Line(points={{822,10},{822,
+          112},{1420,112}}, color={0,127,255}));
+  connect(splRetEas.port_3, port_retAir[2]) annotation (Line(points={{1002,10},{
+          1002,116},{1420,116}}, color={0,127,255}));
+  connect(splRetNor.port_3, port_retAir[3]) annotation (Line(points={{1152,10},{
+          1152,120},{1420,120}}, color={0,127,255}));
+  connect(splRetNor.port_2, port_retAir[4]) annotation (Line(points={{1162,0},{1360,
+          0},{1360,124},{1420,124}}, color={0,127,255}));
+  connect(splRetRoo1.port_3, port_retAir[5]) annotation (Line(points={{640,10},{
+          640,128},{1420,128}}, color={0,127,255}));
+  connect(splHeaSup.port_1, valHeaCoi.port_b)
+    annotation (Line(points={{128,-180},{128,-200}}, color={0,127,255}));
+  connect(splCooSup.port_1, valCooCoi.port_b)
+    annotation (Line(points={{220,-180},{220,-200}}, color={0,127,255}));
+  connect(TRooAir.u, TRoo) annotation (Line(points={{478,290},{20,290},{20,320},
+          {-400,320}}, color={0,0,127}));
+  connect(portHeaCoiSup, valHeaCoi.port_a) annotation (Line(points={{80,-300},{80,
+          -262},{128,-262},{128,-220}},    color={0,127,255}));
+  connect(portHeaCoiRet, splHeaRet.port_1) annotation (Line(points={{120,-300},
+          {120,-240},{88,-240},{88,-180}}, color={0,127,255}));
+  connect(portCooCoiSup, valCooCoi.port_a) annotation (Line(points={{200,-300},
+          {200,-260},{220,-260},{220,-220}}, color={0,127,255}));
+  connect(portCooCoiRet, splCooRet.port_1) annotation (Line(points={{240,-300},
+          {240,-240},{180,-240},{180,-180}}, color={0,127,255}));
+  connect(portHeaTerSup, cor.port_aHotWat) annotation (Line(points={{460,-300},
+          {460,-180},{520,-180},{520,42},{570,42}}, color={0,127,255}));
+  connect(portHeaTerSup, sou.port_aHotWat) annotation (Line(points={{460,-300},
+          {460,-180},{720,-180},{720,40},{750,40}}, color={0,127,255}));
+  connect(portHeaTerSup, eas.port_aHotWat) annotation (Line(points={{460,-300},{
+          460,-180},{900,-180},{900,40},{930,40}},  color={0,127,255}));
+  connect(portHeaTerSup, nor.port_aHotWat) annotation (Line(points={{460,-300},{
+          460,-180},{1060,-180},{1060,40},{1090,40}},  color={0,127,255}));
+  connect(portHeaTerRet, cor.port_bHotWat) annotation (Line(points={{500,-300},
+          {500,-186},{526,-186},{526,30},{570,30}}, color={0,127,255}));
+  connect(portHeaTerRet, sou.port_bHotWat) annotation (Line(points={{500,-300},
+          {500,-186},{726,-186},{726,28},{750,28}}, color={0,127,255}));
+  connect(portHeaTerRet, eas.port_bHotWat) annotation (Line(points={{500,-300},
+          {500,-186},{906,-186},{906,28},{930,28}}, color={0,127,255}));
+  connect(portHeaTerRet, nor.port_bHotWat) annotation (Line(points={{500,-300},
+          {500,-186},{1066,-186},{1066,28},{1090,28}}, color={0,127,255}));
+  connect(portHeaTerSup, wes.port_aHotWat) annotation (Line(points={{460,-300},{
+          460,-180},{1270,-180},{1270,40},{1290,40}}, color={0,127,255}));
+  connect(portHeaTerRet, wes.port_bHotWat) annotation (Line(points={{500,-300},{
+          500,-186},{1278,-186},{1278,28},{1290,28}}, color={0,127,255}));
+  annotation (
+  Diagram(
+    coordinateSystem(
+    preserveAspectRatio=false,
+    extent={{-380,-300},{1420,360}})),
+    Documentation(info="<html>
 <p>
 This model consist of an HVAC system, a building envelope model and a model
 for air flow through building leakage and through open doors.
@@ -963,6 +867,12 @@ When using this model, this five zone model will need to be replaced with an act
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+October 4, 2021, by Michael Wetter:<br/>
+Refactored <a href=\"modelica://Buildings.Examples.VAVReheat\">Buildings.Examples.VAVReheat</a>
+and its base classes to separate building from HVAC model.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2652\">issue #2652</a>.
+</li>
 <li>
 September 3, 2021, by Michael Wetter:<br/>
 Updated documentation.<br/>
@@ -1051,5 +961,15 @@ This is for
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/426\">issue 426</a>.
 </li>
 </ul>
-</html>"));
+</html>"),
+    Icon(coordinateSystem(extent={{-200,-140},{440,220}}),graphics={
+        Text(
+          extent={{56,226},{168,290}},
+          textString="%name",
+          lineColor={0,0,255}),
+        Rectangle(
+          extent={{-200,222},{440,-140}},
+          lineColor={0,0,0},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid)}));
 end PartialOpenLoop;
