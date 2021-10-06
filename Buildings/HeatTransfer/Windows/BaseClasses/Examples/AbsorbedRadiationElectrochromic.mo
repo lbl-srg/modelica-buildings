@@ -14,6 +14,12 @@ This example tests the absorption of electrochromic glass.
 </html>", revisions="<html>
 <ul>
 <li>
+September 16, 2021, by Michael Wetter:<br/>
+Removed parameter <code>lat</code> as this is now obtained from the weather data reader.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1477\">IBPSA, #1477</a>.
+</li>
+<li>
 August 7, 2015, by Michael Wetter:<br/>
 First implementation.
 </li>

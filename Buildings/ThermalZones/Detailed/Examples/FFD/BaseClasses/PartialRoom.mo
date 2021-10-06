@@ -24,8 +24,7 @@ partial model PartialRoom "Partial model for a room"
     linearizeRadiation=true,
     samplePeriod=60,
     cfdFilNam="modelica://Buildings/Resources/Data/ThermalZones/Detailed/Examples/FFD/OnlyWall.ffd",
-    massDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    lat=0.00022318989969804) "Room model"
+    massDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial) "Room model"
     annotation (Placement(transformation(extent={{46,20},{86,60}})));
   Modelica.Blocks.Sources.Constant qConGai_flow(k=0) "Convective heat gain"
     annotation (Placement(transformation(extent={{-60,40},{-40,60}})));
@@ -53,7 +52,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(multiplex3_1.y, roo.qGai_flow) annotation (Line(
-      points={{1,50},{20,50},{20,48},{44,48}},
+      points={{1,50},{20,50},{20,48},{44.4,48}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(weaDat.weaBus, roo.weaBus) annotation (Line(

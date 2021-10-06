@@ -44,7 +44,7 @@ block ExhaustDamper
     final r=dpBuiSet)
                "Building static pressure controller"
     annotation (Placement(transformation(extent={{20,50},{40,70}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi
     "Check if exhaust damper should be activated"
     annotation (Placement(transformation(extent={{40,-40},{60,-20}})));
 

@@ -4,7 +4,6 @@ model ASHRAE2006
   extends Modelica.Icons.Example;
   extends Buildings.Examples.VAVReheat.BaseClasses.PartialOpenLoop(
    redeclare replaceable Buildings.Examples.VAVReheat.BaseClasses.Floor flo(
-      final lat=lat,
       final sampleModel=sampleModel),
     amb(nPorts=3),
     sinHea(T=THotWatInl_nominal));
@@ -93,10 +92,10 @@ model ASHRAE2006
   Controls.SystemHysteresis sysHysCoo
     "Hysteresis and delay to switch cooling on and off"
     annotation (Placement(transformation(extent={{40,-250},{60,-230}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swiFreStaPum
+  Buildings.Controls.OBC.CDL.Continuous.Switch swiFreStaPum
     "Switch for freeze stat of pump"
     annotation (Placement(transformation(extent={{40,-130},{60,-110}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swiFreStaVal
+  Buildings.Controls.OBC.CDL.Continuous.Switch swiFreStaVal
     "Switch for freeze stat of valve"
     annotation (Placement(transformation(extent={{40,-170},{60,-150}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant yFreHeaCoi(final k=1)
@@ -228,15 +227,15 @@ equation
           -248},{-120,-305.455},{-179.091,-305.455}},
                                      color={255,0,255}));
   connect(cor.y_actual, pSetDuc.u[1]) annotation (Line(points={{612,42},{620,42},
-          {620,74},{140,74},{140,-6.8},{158,-6.8}}, color={0,0,127}));
+          {620,74},{140,74},{140,-7.6},{158,-7.6}}, color={0,0,127}));
   connect(sou.y_actual, pSetDuc.u[2]) annotation (Line(points={{792,40},{800,40},
-          {800,74},{140,74},{140,-6.4},{158,-6.4}}, color={0,0,127}));
+          {800,74},{140,74},{140,-6.8},{158,-6.8}}, color={0,0,127}));
   connect(eas.y_actual, pSetDuc.u[3]) annotation (Line(points={{972,40},{980,40},
           {980,74},{140,74},{140,-6},{158,-6}}, color={0,0,127}));
   connect(nor.y_actual, pSetDuc.u[4]) annotation (Line(points={{1132,40},{1140,40},
-          {1140,74},{140,74},{140,-5.6},{158,-5.6}},     color={0,0,127}));
+          {1140,74},{140,74},{140,-5.2},{158,-5.2}},     color={0,0,127}));
   connect(wes.y_actual, pSetDuc.u[5]) annotation (Line(points={{1332,40},{1338,40},
-          {1338,74},{140,74},{140,-5.2},{158,-5.2}},     color={0,0,127}));
+          {1338,74},{140,74},{140,-4.4},{158,-4.4}},     color={0,0,127}));
   connect(TSup.T, conTSup.TSup) annotation (Line(
       points={{340,-29},{352,-29},{352,-188},{-80,-188},{-80,-214},{-62,-214}},
       color={0,0,127},
@@ -406,6 +405,12 @@ ASHRAE, Atlanta, GA, 2006.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+September 16, 2021, by Michael Wetter:<br/>
+Removed assignment of parameter <code>lat</code> as this is now obtained from the weather data reader.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1477\">IBPSA, #1477</a>.
+</li>
 <li>
 September 3, 2021, by Michael Wetter:<br/>
 Updated documentation.<br/>

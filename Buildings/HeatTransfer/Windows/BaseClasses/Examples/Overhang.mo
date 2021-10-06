@@ -2,7 +2,6 @@ within Buildings.HeatTransfer.Windows.BaseClasses.Examples;
 model Overhang "Test model for the overhang"
   extends Modelica.Icons.Example;
   Buildings.BoundaryConditions.SolarGeometry.IncidenceAngle incAng(
-    lat=weaDat.lat,
     azi=Buildings.Types.Azimuth.S,
     til=Buildings.Types.Tilt.Wall) "Solar incidence angle on a tilted surface"
     annotation (Placement(transformation(extent={{-40,0},{-20,20}})));
@@ -12,7 +11,6 @@ model Overhang "Test model for the overhang"
   Buildings.HeatTransfer.Windows.BaseClasses.Overhang ove(
     gap=0.1,
     azi=Buildings.Types.Azimuth.S,
-    lat=weaDat.lat,
     wL=0,
     wR=0.95,
     dep=0.5,
@@ -109,6 +107,12 @@ a way that the overhang in non-symmetric with respect to the window center-line.
 </html>",
 revisions="<html>
 <ul>
+<li>
+September 16, 2021, by Michael Wetter:<br/>
+Removed assignment of parameter <code>lat</code> as this is now obtained from the weather data reader.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1477\">IBPSA, #1477</a>.
+</li>
 <li>
 July 5, 2012, by Michael Wetter<br/>
 Changed parameters to test non-symmetric overhang.

@@ -163,10 +163,10 @@ protected
     final limitAbove=true)
     "Linear mapping of the return air damper position to the control signal"
     annotation (Placement(transformation(extent={{120,100},{140,120}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch retDamPosMinSwitch
+  Buildings.Controls.OBC.CDL.Continuous.Switch retDamPosMinSwitch
     "A switch to deactivate the return air damper minimal outdoor airflow control"
     annotation (Placement(transformation(extent={{40,-30},{60,-10}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch outDamPosMaxSwitch
+  Buildings.Controls.OBC.CDL.Continuous.Switch outDamPosMaxSwitch
     "A switch to deactivate the outdoor air damper minimal outdoor airflow control"
     annotation (Placement(transformation(extent={{40,10},{60,30}})));
   Buildings.Controls.OBC.CDL.Logical.Not not1 "Logical not block"

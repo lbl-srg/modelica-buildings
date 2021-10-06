@@ -4,7 +4,6 @@ model Guideline36
   extends Modelica.Icons.Example;
   extends Buildings.Examples.VAVReheat.BaseClasses.PartialOpenLoop(
     redeclare replaceable Buildings.Examples.VAVReheat.BaseClasses.Floor flo(
-      final lat=lat,
       final sampleModel=sampleModel),
     amb(nPorts=3),
     damOut(
@@ -75,7 +74,7 @@ model Guideline36
   Buildings.Controls.OBC.CDL.Integers.MultiSum PZonResReq(nin=5)
     "Number of zone pressure requests"
     annotation (Placement(transformation(extent={{300,320},{320,340}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swiFreStaPum
+  Buildings.Controls.OBC.CDL.Continuous.Switch swiFreStaPum
     "Switch for freeze stat of pump"
     annotation (Placement(transformation(extent={{20,-120},{40,-100}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant yFreHeaCoi(final k=1)
@@ -149,7 +148,7 @@ model Guideline36
   Controls.SystemHysteresis sysHysCoo
     "Hysteresis and delay to switch cooling on and off"
     annotation (Placement(transformation(extent={{20,-250},{40,-230}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swiFreStaVal
+  Buildings.Controls.OBC.CDL.Continuous.Switch swiFreStaVal
     "Switch for freeze stat of valve"
     annotation (Placement(transformation(extent={{20,-160},{40,-140}})));
 equation
@@ -188,34 +187,34 @@ equation
           {1340,74},{1228,74},{1228,88},{1238,88}},
                                     color={0,0,127}));
   connect(conVAVCor.yZonTemResReq, TZonResReq.u[1]) annotation (Line(points={{552,90},
-          {554,90},{554,220},{280,220},{280,367.2},{298,367.2}},         color=
+          {554,90},{554,220},{280,220},{280,375.6},{298,375.6}},         color=
           {255,127,0}));
   connect(conVAVSou.yZonTemResReq, TZonResReq.u[2]) annotation (Line(points={{724,90},
-          {726,90},{726,220},{280,220},{280,368.6},{298,368.6}},         color=
+          {726,90},{726,220},{280,220},{280,372.8},{298,372.8}},         color=
           {255,127,0}));
   connect(conVAVEas.yZonTemResReq, TZonResReq.u[3]) annotation (Line(points={{902,90},
           {904,90},{904,220},{280,220},{280,370},{298,370}},         color={255,
           127,0}));
   connect(conVAVNor.yZonTemResReq, TZonResReq.u[4]) annotation (Line(points={{1060,90},
-          {1064,90},{1064,220},{280,220},{280,371.4},{298,371.4}},
+          {1064,90},{1064,220},{280,220},{280,367.2},{298,367.2}},
         color={255,127,0}));
   connect(conVAVWes.yZonTemResReq, TZonResReq.u[5]) annotation (Line(points={{1262,90},
-          {1266,90},{1266,220},{280,220},{280,372.8},{298,372.8}},
+          {1266,90},{1266,220},{280,220},{280,364.4},{298,364.4}},
         color={255,127,0}));
   connect(conVAVCor.yZonPreResReq, PZonResReq.u[1]) annotation (Line(points={{552,86},
-          {558,86},{558,214},{288,214},{288,327.2},{298,327.2}},         color=
+          {558,86},{558,214},{288,214},{288,335.6},{298,335.6}},         color=
           {255,127,0}));
   connect(conVAVSou.yZonPreResReq, PZonResReq.u[2]) annotation (Line(points={{724,86},
-          {728,86},{728,214},{288,214},{288,328.6},{298,328.6}},         color=
+          {728,86},{728,214},{288,214},{288,332.8},{298,332.8}},         color=
           {255,127,0}));
   connect(conVAVEas.yZonPreResReq, PZonResReq.u[3]) annotation (Line(points={{902,86},
           {906,86},{906,214},{288,214},{288,330},{298,330}},         color={255,
           127,0}));
   connect(conVAVNor.yZonPreResReq, PZonResReq.u[4]) annotation (Line(points={{1060,86},
-          {1066,86},{1066,214},{288,214},{288,331.4},{298,331.4}},
+          {1066,86},{1066,214},{288,214},{288,327.2},{298,327.2}},
         color={255,127,0}));
   connect(conVAVWes.yZonPreResReq, PZonResReq.u[5]) annotation (Line(points={{1262,86},
-          {1268,86},{1268,214},{288,214},{288,332.8},{298,332.8}},
+          {1268,86},{1268,214},{288,214},{288,324.4},{298,324.4}},
         color={255,127,0}));
   connect(cor.VSup_flow, VDis_flow.u1[1]) annotation (Line(points={{612,58},{620,
           58},{620,74},{472,74},{472,206},{180,206},{180,340},{218,340}},
@@ -601,6 +600,12 @@ its input.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+September 16, 2021, by Michael Wetter:<br/>
+Removed assignment of parameter <code>lat</code> as this is now obtained from the weather data reader.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1477\">IBPSA, #1477</a>.
+</li>
 <li>
 September 3, 2021, by Michael Wetter:<br/>
 Updated documentation.<br/>

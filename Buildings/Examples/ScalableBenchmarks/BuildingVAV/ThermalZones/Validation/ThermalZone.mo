@@ -5,7 +5,6 @@ model ThermalZone "Validation of the single zone model"
 
   Buildings.Examples.ScalableBenchmarks.BuildingVAV.ThermalZones.ThermalZone thermalZone(
     redeclare package MediumA = MediumA,
-    lat=41.98*3.14159/180,
     gainFactor=1) "Thermal zone model"
     annotation (Placement(transformation(extent={{-20,-20},{20,20}})));
   Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=
@@ -32,6 +31,12 @@ internal heat gain fluctuating amplitude factor is set to be <code>gainFactor=1<
 
 </html>", revisions="<html>
 <ul>
+<li>
+September 16, 2021, by Michael Wetter:<br/>
+Removed assignment of parameter <code>lat</code> as this is now obtained from the weather data reader.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1477\">IBPSA, #1477</a>.
+</li>
 <li>
 June 16, 2017, by Jianjun Hu:<br/>
 First implementation.

@@ -4,7 +4,6 @@ model TraceSubstance
   extends ASHRAE2006(
     MediumA(extraPropertiesNames={"CO2"}),
     redeclare BaseClasses.Floor flo(
-      final lat=lat,
       final sampleModel=sampleModel),
     amb(nPorts=3, C=fill(400e-6*Modelica.Media.IdealGases.Common.SingleGasesData.CO2.MM
                          /Modelica.Media.IdealGases.Common.SingleGasesData.Air.MM, MediumA.nC)));
@@ -26,6 +25,12 @@ Buildings.Examples.VAVReheat.Validation.BaseClasses.Floor</a>.
 </p>
 </html>",revisions="<html>
 <ul>
+<li>
+September 16, 2021, by Michael Wetter:<br/>
+Removed assignment of parameter <code>lat</code> as this is now obtained from the weather data reader.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1477\">IBPSA, #1477</a>.
+</li>
 <li>
 May 9, 2021, by David Blum:<br/>
 First implementation.

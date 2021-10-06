@@ -89,13 +89,13 @@ block Economizer "Controller for economizer"
     annotation (Placement(transformation(extent={{-30,110},{-10,130}})));
   Modelica.Blocks.Math.Feedback feedback
     annotation (Placement(transformation(extent={{-90,110},{-70,130}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swiOA
+  Buildings.Controls.OBC.CDL.Continuous.Switch swiOA
     "Switch to close outdoor air damper"
     annotation (Placement(transformation(extent={{90,110},{110,130}})));
   Modelica.Blocks.Sources.Constant one(k=1) if not have_frePro
     "Fill value in case freeze protection is disabled"
     annotation (Placement(transformation(extent={{-60,10},{-40,30}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swiModClo
+  Buildings.Controls.OBC.CDL.Continuous.Switch swiModClo
     "Switch between modulating or closing outdoor air damper"
     annotation (Placement(transformation(extent={{130,-10},{150,10}})));
   Buildings.Controls.OBC.CDL.Continuous.Max maxOutDam

@@ -41,7 +41,7 @@ partial model PartialCoolingTowersSubsystem
     "On/off controller"
     annotation (Placement(transformation(extent={{-20,-200},{0,-180}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Switch swi "Control switch for chilled water pump"
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi "Control switch for chilled water pump"
     annotation (Placement(transformation(extent={{20,-200},{40,-180}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TSwi(k=273.15 + 22)
