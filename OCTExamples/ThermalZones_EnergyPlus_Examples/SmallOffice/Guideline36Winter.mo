@@ -2,13 +2,13 @@ within OCTExamples.ThermalZones_EnergyPlus_Examples.SmallOffice;
 model Guideline36Winter
   "Variable air volume flow system with terminal reheat and five thermal zones controlled using an ASHRAE G36 controller"
   extends Modelica.Icons.Example;
-  extends Buildings.Examples.VAVReheat.BaseClasses.HVACBuilding(
+  extends OCTExamples.VAVReheat.BaseClasses.HVACBuilding(
     mCor_flow_nominal=ACHCor*VRooCor*conv,
     mSou_flow_nominal=ACHSou*VRooSou*conv,
     mEas_flow_nominal=ACHEas*VRooEas*conv,
     mNor_flow_nominal=ACHNor*VRooNor*conv,
     mWes_flow_nominal=ACHWes*VRooWes*conv,
-    redeclare Buildings.Examples.VAVReheat.BaseClasses.Guideline36 hvac,
+    redeclare OCTExamples.VAVReheat.BaseClasses.Guideline36 hvac,
     redeclare
       OCTExamples.ThermalZones_EnergyPlus_Examples.SmallOffice.BaseClasses.Floor
       flo);
