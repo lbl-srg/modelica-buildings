@@ -520,7 +520,9 @@ have been <b style=\"color:blue\">improved</b> in a
                        heating coil and VAV terminal box.<br/>
                        Changed heating supply water temperature at design condition to <i>45</i>&deg;C.<br/>
                        Corrected implementation of freeze protection for ASHRAE 2006 models.<br/>
-                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2594\">issue #2594</a>.
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2594\">issue #2594</a>.<br/>
+                       Changed model structure to separate building and HVAC system.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2652\">issue #2652</a>.<br/>
     </td>
 </tr>
  <tr><td colspan=\"2\"><b>Buildings.Examples.ScalableBenchmarks</b>
@@ -648,7 +650,9 @@ have been <b style=\"color:blue\">improved</b> in a
     </td>
     <td valign=\"top\">Changed models to include the hydraulic configurations of the cooling coil,
                        heating coil and VAV terminal box.<br/>
-                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2594\">issue #2594</a>.
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2594\">issue #2594</a>.<br/>
+                       Changed model structure to separate building and HVAC system.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2652\">issue #2652</a>.<br/>
     </td>
 </tr>
 <tr><td colspan=\"2\"><b>Buildings.Utilities.Math</b>

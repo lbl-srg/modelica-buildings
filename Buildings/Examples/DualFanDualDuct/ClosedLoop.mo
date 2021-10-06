@@ -141,7 +141,7 @@ model ClosedLoop "Closed loop model of a dual-fan dual-duct system"
     TSupSetHea(TOn=284.15, TOff=279.15)
     "Set point for preheat coil outlet temperature "
     annotation (Placement(transformation(extent={{-200,-110},{-180,-90}})));
-  Buildings.Examples.VAVReheat.Controls.FanVFD conFanSupHot(
+  Buildings.Examples.VAVReheat.BaseClasses.Controls.FanVFD conFanSupHot(
     initType=Modelica.Blocks.Types.Init.InitialState,
     y_start=yFan_start,
     xSet_nominal(displayUnit="Pa") = 30,
@@ -152,9 +152,9 @@ model ClosedLoop "Closed loop model of a dual-fan dual-duct system"
   Buildings.Controls.SetPoints.OccupancySchedule occSch(occupancy=3600*{6,19})
     "Occupancy schedule"
     annotation (Placement(transformation(extent={{-318,-220},{-298,-200}})));
-  Buildings.Examples.VAVReheat.Controls.ModeSelector modeSelector
+  Buildings.Examples.VAVReheat.BaseClasses.Controls.ModeSelector modeSelector
     annotation (Placement(transformation(extent={{-302,-378},{-280,-356}})));
-  Buildings.Examples.VAVReheat.Controls.ControlBus controlBus
+  Buildings.Examples.VAVReheat.BaseClasses.Controls.ControlBus controlBus
     annotation (Placement(transformation(extent={{-250,-270},{-230,-250}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort TPreHeaCoi(redeclare package Medium =
                MediumA, m_flow_nominal=m_flow_nominal)
@@ -185,7 +185,7 @@ model ClosedLoop "Closed loop model of a dual-fan dual-duct system"
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={380,-220})));
-  Buildings.Examples.VAVReheat.Controls.Economizer conEco(
+  Buildings.Examples.VAVReheat.BaseClasses.Controls.Economizer conEco(
     have_frePro=true,
     VOut_flow_min=0.3*m_flow_nominal/1.2,
     k=0.05,
@@ -198,7 +198,7 @@ model ClosedLoop "Closed loop model of a dual-fan dual-duct system"
   Buildings.Fluid.Sensors.TemperatureTwoPort TMix(redeclare package Medium =
         MediumA, m_flow_nominal=m_flow_nominal) "Mixed air temperature sensor"
     annotation (Placement(transformation(extent={{30,-50},{50,-30}})));
-  Buildings.Examples.VAVReheat.Controls.RoomTemperatureSetpoint TSetRoo(THeaOff=
+  Buildings.Examples.VAVReheat.BaseClasses.Controls.RoomTemperatureSetpoint TSetRoo(THeaOff=
         289.15)
     annotation (Placement(transformation(extent={{-300,-276},{-280,-256}})));
   Buildings.Fluid.Sources.Boundary_pT souHea(
@@ -264,7 +264,7 @@ model ClosedLoop "Closed loop model of a dual-fan dual-duct system"
     VRoo=360.08,
     from_dp=true) "West-facing thermal zone"
     annotation (Placement(transformation(extent={{1102,46},{1170,114}})));
-  Buildings.Examples.VAVReheat.Controls.FanVFD conFanRet(
+  Buildings.Examples.VAVReheat.BaseClasses.Controls.FanVFD conFanRet(
                         xSet_nominal(displayUnit="Pa") = 30,
     initType=Modelica.Blocks.Types.Init.InitialState,
     y_start=yFan_start,
@@ -511,7 +511,7 @@ model ClosedLoop "Closed loop model of a dual-fan dual-duct system"
   Modelica.Blocks.Sources.Constant pStaPre_Set(      y(final unit="Pa", min=0), k=30)
     "Setpoint for static pressure"
     annotation (Placement(transformation(extent={{60,110},{80,130}})));
-  Buildings.Examples.VAVReheat.Controls.FanVFD conFanSupCol(
+  Buildings.Examples.VAVReheat.BaseClasses.Controls.FanVFD conFanSupCol(
     initType=Modelica.Blocks.Types.Init.InitialState,
     y_start=yFan_start,
     xSet_nominal(displayUnit="Pa") = 30,
@@ -1160,8 +1160,8 @@ to track a building pressure of 30 Pascals above outside air pressure.
 There is also an economizer which is controlled to provide the following
 functions: freeze protection, minimum outside air requirement,
 and supply air cooling, see
-<a href=\"modelica://Buildings.Examples.VAVReheat.Controls.Economizer\">
-Buildings.Examples.VAVReheat.Controls.Economizer</a>.
+<a href=\"modelica://Buildings.Examples.VAVReheat.BaseClasses.Controls.Economizer\">
+Buildings.Examples.VAVReheat.BaseClasses.Controls.Economizer</a>.
 During night-time, the fans are switched off.
 The coils are controlled as follows: The preheat coil is controlled to
 maintain an air outlet temperature of 11&deg;C during day-time, and

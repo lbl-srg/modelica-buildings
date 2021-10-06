@@ -79,7 +79,7 @@ model VAVBranch "Supply branch of a VAV system"
     nPorts=1) "Sink for terminal box "
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},rotation=180,
       origin={132,24})));
-  Buildings.Examples.VAVReheat.Controls.RoomVAV con
+  Buildings.Examples.VAVReheat.BaseClasses.Controls.RoomVAV con
     "Room temperature controller"
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
   Buildings.Fluid.Sensors.MassFlowRate senMasFlo(
