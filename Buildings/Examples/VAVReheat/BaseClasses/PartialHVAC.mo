@@ -1,6 +1,6 @@
 within Buildings.Examples.VAVReheat.BaseClasses;
 partial model PartialHVAC
-  "Partial model of variable air volume flow system with terminal reheat and five thermal zones"
+  "Partial model of variable air volume flow system with terminal reheat that serves five thermal zones"
 
   replaceable package MediumA = Buildings.Media.Air
     constrainedby Modelica.Media.Interfaces.PartialCondensingGases "Medium model for air";
@@ -107,7 +107,6 @@ partial model PartialHVAC
   parameter Boolean allowFlowReversal=true
     "= false to simplify equations, assuming, but not enforcing, no flow reversal"
     annotation (Evaluate=true);
-
 
   Modelica.Fluid.Interfaces.FluidPort_a port_supAir[numZon](redeclare package
       Medium = MediumA)
@@ -239,7 +238,7 @@ partial model PartialHVAC
     THotWatOut_nominal=THotWatInl_nominal-10,
     TAirInl_nominal=12+273.15,
     QHea_flow_nominal=mCor_flow_nominal*ratVFloHea*cpAir*(32-12))
-    "Zone for core of buildings (azimuth will be neglected)"
+    "Zone for core of building"
     annotation (Placement(transformation(extent={{570,22},{610,62}})));
   Buildings.Examples.VAVReheat.BaseClasses.VAVReheatBox sou(
     redeclare package MediumA = MediumA,
@@ -423,12 +422,13 @@ partial model PartialHVAC
          else Modelica.Fluid.Types.PortFlowDirection.Leaving)
     "Splitter for room supply"
     annotation (Placement(transformation(extent={{1100,-30},{1120,-50}})));
-  BoundaryConditions.WeatherData.Bus weaBus "Weather Data Bus"
+  BoundaryConditions.WeatherData.Bus weaBus "Weather data bus"
     annotation (Placement(transformation(extent={{-330,170},{-310,190}}),
         iconTransformation(extent={{-168,134},{-148,154}})));
 
-  Modelica.Blocks.Routing.DeMultiplex5 TRooAir(u(each unit="K", each
-        displayUnit="degC")) "Demultiplex for room air temperature"
+  Modelica.Blocks.Routing.DeMultiplex5 TRooAir(
+    u(each unit="K",
+      each displayUnit="degC")) "Demultiplex for room air temperature"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=0,
         origin={490,290})));
@@ -646,7 +646,7 @@ equation
       smooth=Smooth.None,
       thickness=0.5));
   connect(amb.ports[1], VOut1.port_a) annotation (Line(
-      points={{-114,-42.8},{-94,-42.8},{-94,-40},{-90,-40}},
+      points={{-114,-46.1},{-94,-46.1},{-94,-40},{-90,-40}},
       color={0,127,255},
       smooth=Smooth.None,
       thickness=0.5));
@@ -734,8 +734,8 @@ equation
   connect(senSupFlo.port_b, splSupRoo1.port_1)
     annotation (Line(points={{420,-40},{580,-40}}, color={0,127,255}));
   connect(dpDisSupFan.port_b, amb.ports[2]) annotation (Line(
-      points={{320,10},{320,14},{-106,14},{-106,-48},{-110,-48},{-110,-47.2},{-114,
-          -47.2}},
+      points={{320,10},{320,14},{-106,14},{-106,-48},{-110,-48},{-110,-43.9},{-114,
+          -43.9}},
       color={0,0,0},
       pattern=LinePattern.Dot));
   connect(senRetFlo.port_b, TRet.port_a) annotation (Line(points={{340,140},{
@@ -774,25 +774,25 @@ equation
   connect(splHeaRet.port_3, splHeaSup.port_3)
     annotation (Line(points={{98,-170},{118,-170}}, color={0,127,255}));
   connect(sou.port_bAir, port_supAir[1]) annotation (Line(points={{770,60},{770,
-          152},{1420,152}}, color={0,127,255}));
-  connect(eas.port_bAir, port_supAir[2]) annotation (Line(points={{950,60},{950,
           156},{1420,156}}, color={0,127,255}));
+  connect(eas.port_bAir, port_supAir[2]) annotation (Line(points={{950,60},{950,
+          158},{1420,158}}, color={0,127,255}));
   connect(nor.port_bAir, port_supAir[3]) annotation (Line(points={{1110,60},{1112,
           60},{1112,160},{1420,160}}, color={0,127,255}));
   connect(wes.port_bAir, port_supAir[4]) annotation (Line(points={{1310,60},{1310,
-          164},{1420,164}}, color={0,127,255}));
+          162},{1420,162}}, color={0,127,255}));
   connect(cor.port_bAir, port_supAir[5]) annotation (Line(points={{590,62},{592,
-          62},{592,168},{1420,168}}, color={0,127,255}));
+          62},{592,164},{1420,164}}, color={0,127,255}));
   connect(splRetSou.port_3, port_retAir[1]) annotation (Line(points={{822,10},{822,
-          112},{1420,112}}, color={0,127,255}));
+          116},{1420,116}}, color={0,127,255}));
   connect(splRetEas.port_3, port_retAir[2]) annotation (Line(points={{1002,10},{
-          1002,116},{1420,116}}, color={0,127,255}));
+          1002,118},{1420,118}}, color={0,127,255}));
   connect(splRetNor.port_3, port_retAir[3]) annotation (Line(points={{1152,10},{
           1152,120},{1420,120}}, color={0,127,255}));
   connect(splRetNor.port_2, port_retAir[4]) annotation (Line(points={{1162,0},{1360,
-          0},{1360,124},{1420,124}}, color={0,127,255}));
+          0},{1360,122},{1420,122}}, color={0,127,255}));
   connect(splRetRoo1.port_3, port_retAir[5]) annotation (Line(points={{640,10},{
-          640,128},{1420,128}}, color={0,127,255}));
+          640,124},{1420,124}}, color={0,127,255}));
   connect(splHeaSup.port_1, valHeaCoi.port_b)
     annotation (Line(points={{128,-180},{128,-200}}, color={0,127,255}));
   connect(splCooSup.port_1, valCooCoi.port_b)
@@ -834,8 +834,7 @@ equation
     extent={{-380,-300},{1420,360}})),
     Documentation(info="<html>
 <p>
-This model consist of an HVAC system, a building envelope model and a model
-for air flow through building leakage and through open doors.
+This partial model consist of an HVAC system that serves five thermal zones.
 </p>
 <p>
 The HVAC system is a variable air volume (VAV) flow system with economizer
@@ -847,23 +846,13 @@ The figure below shows the schematic diagram of the HVAC system
 <img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Examples/VAVReheat/vavSchematics.png\" border=\"1\"/>
 </p>
 <p>
-Most of the HVAC control in this model is open loop.
-Two models that extend this model, namely
+The control sequences for this HVAC system are added in
+the two models that extend this model, namely
 <a href=\"modelica://Buildings.Examples.VAVReheat.ASHRAE2006\">
 Buildings.Examples.VAVReheat.ASHRAE2006</a>
 and
 <a href=\"modelica://Buildings.Examples.VAVReheat.Guideline36\">
-Buildings.Examples.VAVReheat.Guideline36</a>
-add closed loop control. See these models for a description of
-the control sequence.
-</p>
-<p>
-To model the heat transfer through the building envelope,
-this model contains the replaceable model
-<a href=\"modelica://Buildings.Examples.VAVReheat.BaseClasses.PartialFloor\">
-Buildings.Examples.VAVReheat.BaseClasses.PartialFloor</a>
-which provides an interface for a floor with five thermal zones.
-When using this model, this five zone model will need to be replaced with an actual implementation.
+Buildings.Examples.VAVReheat.Guideline36</a>.
 </p>
 </html>", revisions="<html>
 <ul>
