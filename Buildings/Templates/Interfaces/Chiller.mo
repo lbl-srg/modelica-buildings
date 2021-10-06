@@ -18,7 +18,7 @@ partial model Chiller
   outer parameter ExternData.JSONFile dat
     "External parameter file";
 
-  Buildings.Templates.BaseClasses.Connectors.BusInterface busCon "Control bus"
+  Buildings.Templates.BaseClasses.Connectors.BusChiller busCon "Control bus"
     annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
         rotation=0,

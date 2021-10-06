@@ -3,7 +3,8 @@ model WaterCooledChilledWaterPlant
   extends Buildings.Templates.Interfaces.ChilledWaterPlant(
     final typ=Buildings.Templates.Types.ChilledWaterPlant.WaterCooledChiller);
   extends
-    Buildings.Templates.BaseClasses.ChilledWaterPlant.PartialChilledWaterLoop;
+    Buildings.Templates.BaseClasses.ChilledWaterPlant.PartialChilledWaterLoop(
+      chi(redeclare final package Mediu1=MediumCW));
   extends
     Buildings.Templates.BaseClasses.ChilledWaterPlant.PartialCondenserWaterLoop;
 equation
@@ -57,12 +58,8 @@ equation
       index=1,
       extent={{6,3},{6,3}},
       horizontalAlignment=TextAlignment.Left));
-  connect(cwSupSpl.port_2, chi.port_a1) annotation (Line(points={{-40,-10},{-30,
-          -10},{-30,10},{-8,10},{-8,0}}, color={0,127,255}));
   connect(cwRetSpl.port_2, wse.port_b1) annotation (Line(points={{-40,-70},{-30,
           -70},{-30,-92},{-8,-92},{-8,-80}}, color={0,127,255}));
-  connect(chi.port_b1, wse.port_a1)
-    annotation (Line(points={{-8,-20},{-8,-60}}, color={0,127,255}));
   connect(secPum.port_b, port_a)
     annotation (Line(points={{180,-10},{200,-10}}, color={0,127,255}));
   connect(TCHWRet.port_b, port_b)

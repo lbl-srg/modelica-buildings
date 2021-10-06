@@ -1,10 +1,10 @@
 within Buildings.Templates.Interfaces;
 partial model ChillerGroup
   extends Buildings.Fluid.Interfaces.PartialOptionalFourPortInterface(
-    redeclare final package Medium1=Buildings.Media.Water,
-    redeclare final package Medium2=Buildings.Media.Water,
-    final hasMedium1=true,
-    final hasMedium2=not is_airCoo);
+    redeclare package Medium1=Buildings.Media.Water,
+    redeclare package Medium2=Buildings.Media.Water,
+    final hasMedium1=not is_airCoo,
+    final hasMedium2=true);
 
   parameter Types.ChillerGroup typ
     "Type of chiller group"
