@@ -1,0 +1,11 @@
+compareVars :=
+  {
+    "couTowSpe.TConWatRetSet",
+    "couTowSpe.TConWatRet",
+    "couTowSpe.uConWatPumSpe[1]",
+    "couTowSpe.uConWatPumSpe[2]",
+    "couTowSpe.uMaxTowSpeSet[1]",
+    "couTowSpe.uMaxTowSpeSet[2]",
+    "couTowSpe.plrTowMaxSpe",
+    "couTowSpe.ySpeSet"
+  };
