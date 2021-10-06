@@ -12,7 +12,9 @@ Sensors
 getArraySize1D
 getReal
 ChilledWaterReturnSection
+Chiller
 ChillerGroup
 CoolingTowerGroup
 Pump
 Valve
+ChilledWaterPlant

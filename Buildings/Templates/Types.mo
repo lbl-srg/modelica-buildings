@@ -23,6 +23,11 @@ package Types "AHU types"
       SingleDuct
       "Single duct system with supply and return")
       "Enumeration to configure the AHU";
+  type Chiller = enumeration(
+      ElectricChiller
+      "Electric water cooled chiller",
+      AbsorptionChiller
+      "Absorption chiller");
   type ChillerGroup = enumeration(
       ChillerParallel
       "Chillers in parallel",

@@ -3,9 +3,6 @@ model ChillerParallel
   extends Buildings.Templates.Interfaces.ChillerGroup(
     final typ=Buildings.Templates.Types.ChillerGroup.ChillerParallel);
 
-  parameter Boolean has_chwPum = false "= true if chilled water side flow is controlled by a dedicated pump";
-  parameter Boolean has_cwPum = false "= true if condenser water side flow is controlled by a dedicated pump";
-
 
   Fluid.Sources.MassFlowSource_T floZer_a(
     redeclare final package Medium = Medium,

@@ -32,8 +32,8 @@ model MultipleVariable
     final m_flow=0,
     nPorts=1) "Zero flow boundary condition"
     annotation (Placement(transformation(extent={{60,-40},{40,-60}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold evaSta[nPum](t=1E-2, h
-      =0.5E-2) "Evaluate pump status" annotation (Placement(transformation(
+  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold evaSta[nPum](t=1E-2, h=
+       0.5E-2) "Evaluate pump status" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={70,70})));

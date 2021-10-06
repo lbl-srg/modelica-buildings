@@ -1,12 +1,17 @@
 within Buildings.Templates.Interfaces;
-partial model CoolingTowerGroup
-  extends Fluid.Interfaces.PartialTwoPort(
-    redeclare package Medium=Buildings.Media.Water);
+partial model Chiller
+  extends Buildings.Fluid.Interfaces.PartialOptionalFourPortInterface(
+    redeclare final package Medium1=Buildings.Media.Water,
+    redeclare final package Medium2=Buildings.Media.Water,
+    final hasMedium1=true,
+    final hasMedium2=not is_airCoo);
 
-  parameter Types.CoolingTowerGroup typ
-    "Type of cooling tower group"
+  parameter Types.Chiller typ
+    "Type of chiller"
     annotation (Evaluate=true, Dialog(group="Configuration"));
-  // ToDo: Other CoolingTowerGroup parameters
+  // ToDo: Other Chiller parameters
+
+  parameter Boolean is_airCoo = false "Is chiller air cooled";
 
   outer parameter String id
     "System identifier";
@@ -22,10 +27,6 @@ partial model CoolingTowerGroup
         rotation=0,
         origin={0,100})));
 
-  BoundaryConditions.WeatherData.Bus weaBus
-    "Weather bus"
-    annotation (Placement(transformation(extent={{30,80},{70,120}}),
-      iconTransformation(extent={{40,90},{60,110}})));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false),
     graphics={Rectangle(
           extent={{-100,100},{100,-100}},
@@ -33,4 +34,4 @@ partial model CoolingTowerGroup
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid)}), Diagram(
         coordinateSystem(preserveAspectRatio=false)));
-end CoolingTowerGroup;
+end Chiller;
