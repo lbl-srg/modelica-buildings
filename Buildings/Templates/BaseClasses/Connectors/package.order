@@ -6,3 +6,7 @@ SubBusOutput
 SubBusSoftware
 BusChilledWater
 BusCondenserWater
+BusChiller
+BusValve
+BusPump
+BusChillerGroup
