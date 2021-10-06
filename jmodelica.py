@@ -58,7 +58,8 @@ print(f"Compiled {fmu_name}")
 end = time.time()
 print(f"Translation time: {end - start}")
 
-#sys.exit(0)
+# Skip simulation
+sys.exit(0)
 ######################################################################
 # Copy style sheets.
 # This is a hack to get the css and js files to render the html diagnostics.
