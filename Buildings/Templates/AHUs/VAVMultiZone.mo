@@ -149,8 +149,12 @@ model VAVMultiZone "Multiple-Zone VAV"
       coiReh.typ<>Buildings.Templates.Types.Coil.None then Types.Sensor.Temperature
       else Types.Sensor.None,
     final loc=Types.Location.Supply)
-    "Cooling coil leaving air temperature sensor" annotation (Dialog(group="Supply air section",
-        enable=false), Placement(transformation(extent={{50,-210},{70,-190}})));
+    "Cooling coil leaving air temperature sensor"
+    annotation (
+      Dialog(
+        group="Supply air section",
+        enable=false),
+      Placement(transformation(extent={{50,-210},{70,-190}})));
 
   inner replaceable Buildings.Templates.BaseClasses.Coils.None coiReh
     constrainedby Buildings.Templates.Interfaces.Coil(
