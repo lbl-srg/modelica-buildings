@@ -1,6 +1,6 @@
 within Buildings.Examples.VAVReheat.BaseClasses;
 partial model HVACBuilding
-  "System model that contains the HVAC and building model"
+  "Partial model that contains the HVAC and building model"
 
   replaceable package MediumA = Buildings.Media.Air "Medium model for air";
   replaceable package MediumW = Buildings.Media.Water "Medium model for water";
@@ -194,11 +194,5 @@ This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2652\
 </li>
 </ul>
 </html>"),
-    __Dymola_Commands(file=
-          "modelica://Buildings/Resources/Scripts/Dymola/Examples/VAVReheat/ASHRAE2006.mos"
-        "Simulate and plot"),
-    experiment(
-      StopTime=172800,
-      Tolerance=1e-06),
     Icon(coordinateSystem(extent={{-100,-100},{100,100}})));
 end HVACBuilding;
