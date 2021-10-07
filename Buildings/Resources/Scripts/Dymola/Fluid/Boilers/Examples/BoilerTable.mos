@@ -1,0 +1,13 @@
+simulateModel("Buildings.Fluid.Boilers.Examples.BoilerTable", tolerance=1e-6, stopTime=3600, method="dassl", resultFile="BoilerTable");
+createPlot(id=1,
+ position={15, 10, 717, 370},
+ x="T_inlet.y",
+ y={"boi1_005.eta", "boi2_050.eta", "boi3_100.eta"}, 
+ range={290.0, 345.0, 0.86, 1.0}, 
+ erase=false, 
+ grid=true, 
+ filename="BoilerTable.mat", 
+ legends={"eta (5%)", "eta (50%)", "eta (100%)"}, 
+ colors={{28,108,200}, {238,46,47}, {0,140,72}}, 
+ displayUnits={"1", "1", "1"});
+
