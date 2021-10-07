@@ -1,6 +1,13 @@
 within Buildings.Fluid.Boilers;
-model BoilerPolynomialSteam "Steam boiler"
-  extends Buildings.Fluid.Interfaces.PartialWaterPhaseChange;
+model BoilerPolynomialSteam
+  "A simple boiler exhibiting the phase change of water from liquid to vapor and the efficiency curve is described by the polynomial of temperature."
+
+      // Package medium declaration
+  replaceable package MediumWat = Buildings.Media.Water
+    "Water medium - port_a(inlet)";
+  replaceable package MediumSte = Buildings.Media.Steam
+     "Steam medium - port_b(oulet)";
+
   extends Buildings.Fluid.Interfaces.PartialTwoPortTwoMedium(
     redeclare final package Medium_a=MediumWat,
     redeclare final package Medium_b=MediumSte);
@@ -64,7 +71,7 @@ model BoilerPolynomialSteam "Steam boiler"
     "heat capacity of boiler metal"
     annotation (Placement(transformation(extent={{-80,12},{-60,32}})));
 
-  Buildings.Fluid.MixingVolumes.MixingVolumeEvaporation vol(
+  MixingVolumes.MixingVolumeEvaporation vol(
     redeclare package MediumSte = MediumSte,
     redeclare package MediumWat = MediumWat,
     allowFlowReversal=allowFlowReversal,
@@ -74,15 +81,13 @@ model BoilerPolynomialSteam "Steam boiler"
     T_start=T_start,
     m_flow_nominal=m_flow_nominal,
     show_T=show_T,
-    V=V)
-    "Steam water mixing volume"
-    annotation (Placement(transformation(extent={{0,-10},{20,10}})));
+    V=V) "Steam water mixing volume" annotation (Placement(transformation(extent={{0,-10},{20,10}})));
   Buildings.Fluid.FixedResistances.PressureDrop res(
     redeclare package Medium = MediumWat,
     allowFlowReversal=allowFlowReversal,
     m_flow_nominal=m_flow_nominal,
     show_T=show_T,
-    dp_nominal=dp_nominal)
+    dp_nominal=dp_nominal) "Flow resistance"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
 
 protected
@@ -98,8 +103,10 @@ protected
     "Internal block needed for conditional input part load ratio";
 
   Buildings.HeatTransfer.Sources.PrescribedHeatFlow preHeaFlo if not steadyDynamics
+  "Prescribed heat flow(if heatPort is connected)"
     annotation (Placement(transformation(extent={{-49,-40},{-29,-20}})));
   Modelica.Blocks.Sources.RealExpression Q_flow_in(y=QWat_flow) if not steadyDynamics
+  "Heat transfer from gas into water(if heatPort is connected)"
     annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
 
   Modelica.Thermal.HeatTransfer.Components.ThermalConductor UAOve(G=UA) if not steadyDynamics
@@ -190,7 +197,26 @@ equation
           preserveAspectRatio=false)),
     Documentation(info="<html>
 <p>
-A simple two-port steam boiler model.
+This model is similar to the <a href = \"modelica:// Buildings.Fluid.Boilers.BoilerPolynomial\"> Buildings.Fluid.Boilers.BoilerPolynomial</a> for
+the efficiency and fuel mass flow rate computation with the following exceptions:
+include:</p>
+
+<ul>
+<p>
+<li>Water enters <code>port_a</code> in liquid state and exits <code>port_b</code> in vapour state. 
+This implementation follows the split medium approach using <a href = \"modelica://Buildings.Fluid.Interfaces.PartialTwoPortTwoMedium_rev\">Buildings.Fluid.Interfaces.PartialTwoPortTwoMedium_rev</a> interface model.
+<li> <a href = \"modelica:// Buildings.Fluid.MixingVolumes.MixingVolumeEvaporation_rev\">Buildings.Fluid.MixingVolumes.MixingVolumeEvaporation_rev</a> is used to implement the phase change process of water from liquid to vapor in equilibrium.
+<li>Steady state and Dynamic balance are parameterized. Part load input <code>y, Heatport, preHeaFlo</code> and <code>heaCapDry</code> of the boiler are disabled in steady state balance. 
+</ul>
+
 </p>
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+July 22, 2021 by Kathryn Hinkelman:<br/>
+First implementation.
+</li>
+</ul>
 </html>"));
 end BoilerPolynomialSteam;

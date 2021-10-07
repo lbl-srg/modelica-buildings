@@ -1,9 +1,13 @@
 within Buildings.Fluid.Boilers.Examples;
-model BoilerPolynomialSteam "Test model"
+model BoilerPolynomialSteam "Example model to test the BoilerPolynomialSteam"
   extends Modelica.Icons.Example;
-  extends Buildings.Fluid.Interfaces.PartialWaterPhaseChange(
-    p_start=300000,
-    T_start=273.15+200);
+
+    // Package medium declaration
+  package MediumWat = Buildings.Media.Water
+    "Water medium - port_a(inlet)";
+  package MediumSte = Buildings.Media.Steam
+     "Steam medium - port_b(oulet)";
+
   parameter Modelica.SIunits.AbsolutePressure p_nominal = 300000
     "Nominal pressure";
   parameter Modelica.SIunits.Temperature T_nominal=
@@ -61,8 +65,8 @@ equation
     annotation (Line(points={{20,-10},{62,-10}}, color={0,127,255}));
   connect(TAmb2.port, boiDyn.heatPort)
     annotation (Line(points={{0,50},{10,50},{10,-2.8}},   color={191,0,0}));
-  connect(y.y, boiDyn.y) annotation (Line(points={{-39,50},{-30,50},{-30,-2},{
-          -2,-2}}, color={0,0,127}));
+  connect(y.y, boiDyn.y) annotation (Line(points={{-39,50},{-30,50},{-30,-2},{-2,-2}},
+                   color={0,0,127}));
   connect(sou.ports[1], boiDyn.port_a)
     annotation (Line(points={{-40,-10},{0,-10}}, color={0,127,255}));
   connect(sou.ports[2], boiSte.port_a) annotation (Line(points={{-40,-14},{-30,
