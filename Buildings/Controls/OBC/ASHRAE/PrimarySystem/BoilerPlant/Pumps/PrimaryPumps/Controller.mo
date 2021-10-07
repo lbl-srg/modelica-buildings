@@ -393,12 +393,6 @@ block Controller
     annotation (Placement(transformation(extent={{280,-20},{320,20}}),
       iconTransformation(extent={{100,-20},{140,20}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yPumChaPro if not
-    have_priOnl
-    "Signal indicating completion of pump change process"
-    annotation (Placement(transformation(extent={{280,50},{320,90}}),
-      iconTransformation(extent={{100,120},{140,160}})));
-
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yPumSpe(
     final min=0,
     final max=1,
@@ -615,12 +609,13 @@ protected
     "Sum of integer inputs"
     annotation (Placement(transformation(extent={{-200,-166},{-180,-146}})));
 
-  Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger booToInt2[nPum]
+  Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger booToInt2[nPum] if
+    have_heaPriPum and (not have_priOnl)
     "Convert boolean to integer"
     annotation (Placement(transformation(extent={{-248,-250},{-228,-230}})));
 
   Buildings.Controls.OBC.CDL.Integers.MultiSum mulSumInt2(
-    final nin=nBoi)
+    final nin=nBoi) if have_heaPriPum and (not have_priOnl)
     "Sum of integer inputs"
     annotation (Placement(transformation(extent={{-202,-250},{-182,-230}})));
 
@@ -650,15 +645,6 @@ protected
     "Hold true signal when a pump needs to be enabled for stage change"
     annotation (Placement(transformation(extent={{-200,-200},{-180,-180}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Change cha[nPum] if not have_priOnl
-    "Detect change in pump status"
-    annotation (Placement(transformation(extent={{180,60},{200,80}})));
-
-  Buildings.Controls.OBC.CDL.Logical.MultiOr mulOr(
-    final nin=nPum) if not have_priOnl
-    "Compile pump status change signals"
-    annotation (Placement(transformation(extent={{210,60},{230,80}})));
-
   Buildings.Controls.OBC.CDL.Logical.And and4 if have_heaPriPum and (not
     have_priOnl)
     "Initiate the pump enable process"
@@ -673,10 +659,6 @@ protected
     have_priOnl)
     "Logical not"
     annotation (Placement(transformation(extent={{50,-250},{70,-230}})));
-
-  Buildings.Controls.OBC.CDL.Logical.Pre pre2 if not have_priOnl
-    "Logical pre block"
-    annotation (Placement(transformation(extent={{240,60},{260,80}})));
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Pumps.Generic.ChangeStatus
     chaPumSta(final nPum=nPum) if
@@ -927,9 +909,6 @@ equation
   connect(lat.y, intSwi.u2)
     annotation (Line(points={{-178,-190},{-98,-190}}, color={255,0,255}));
 
-  connect(cha.y, mulOr.u[1:nPum]) annotation (Line(points={{202,70},{208,70}},
-                       color={255,0,255}));
-
   connect(intGre.y, and4.u1)
     annotation (Line(points={{-18,-190},{-2,-190}}, color={255,0,255}));
 
@@ -989,9 +968,6 @@ equation
 
   connect(reaToInt2.y, chaPumSta3.uLasLagPum) annotation (Line(points={{-18,
           -100},{34,-100},{34,-180},{128,-180}},color={255,127,0}));
-
-  connect(pre2.y, lat.clr) annotation (Line(points={{262,70},{274,70},{274,-204},
-          {-206,-204},{-206,-196},{-202,-196}}, color={255,0,255}));
 
   connect(lat.y, and1.u1) annotation (Line(points={{-178,-190},{-170,-190},{
           -170,-284},{-150,-284}}, color={255,0,255}));
@@ -1073,18 +1049,14 @@ equation
           {180,-24}}, color={255,0,255}));
   connect(logSwi.y, yHotWatPum) annotation (Line(points={{204,-32},{248,-32},{248,
           0},{300,0}}, color={255,0,255}));
-  connect(logSwi.y, pumSpeLocDp.uHotWatPum) annotation (Line(points={{204,-32},{
-          248,-32},{248,-356},{-70,-356},{-70,-416},{-62,-416}}, color={255,0,255}));
-  connect(logSwi.y, pumSpeRemDp.uHotWatPum) annotation (Line(points={{204,-32},{
-          248,-32},{248,-356},{-70,-356},{-70,-452},{-62,-452}}, color={255,0,255}));
   connect(chaPumSta3.yHotWatPum, logSwi.u3) annotation (Line(points={{152,-172},
           {166,-172},{166,-40},{180,-40}}, color={255,0,255}));
   connect(chaPumSta4.yHotWatPum, logSwi.u3) annotation (Line(points={{84,-304},{
           166,-304},{166,-40},{180,-40}}, color={255,0,255}));
-  connect(uNexEnaBoi, chaPumSta.uNexLagPum) annotation (Line(points={{-300,-310},
-          {-278,-310},{-278,98},{22,98},{22,106},{56,106}}, color={255,127,0}));
-  connect(uLasDisBoi, chaPumSta.uLasLagPum) annotation (Line(points={{-300,-350},
-          {-264,-350},{-264,96},{28,96},{28,102},{56,102}}, color={255,127,0}));
+  connect(uNexEnaBoi, chaPumSta.uNexLagPum) annotation (Line(points={{-300,-300},
+          {-278,-300},{-278,98},{22,98},{22,106},{56,106}}, color={255,127,0}));
+  connect(uLasDisBoi, chaPumSta.uLasLagPum) annotation (Line(points={{-300,-340},
+          {-264,-340},{-264,96},{28,96},{28,102},{56,102}}, color={255,127,0}));
   connect(uHotWatPum, pumSpeLocDp.uHotWatPum) annotation (Line(points={{-300,140},
           {-260,140},{-260,-476},{-62,-476}}, color={255,0,255}));
   connect(uHotWatPum, pumSpeRemDp.uHotWatPum) annotation (Line(points={{-300,140},
