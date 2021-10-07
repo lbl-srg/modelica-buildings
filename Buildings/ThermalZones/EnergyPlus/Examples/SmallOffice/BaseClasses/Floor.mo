@@ -2,16 +2,16 @@ within Buildings.ThermalZones.EnergyPlus.Examples.SmallOffice.BaseClasses;
 model Floor
   "Model of a floor of the building"
   extends Buildings.Examples.VAVReheat.BaseClasses.PartialFloor(
-    final VRooCor=456.455,
-    final VRooSou=346.022,
-    final VRooNor=346.022,
-    final VRooEas=205.265,
-    final VRooWes=205.265,
-    final AFloCor=cor.AFlo,
-    final AFloSou=sou.AFlo,
-    final AFloNor=nor.AFlo,
-    final AFloEas=eas.AFlo,
-    final AFloWes=wes.AFlo,
+    VRooCor=456.455,
+    VRooSou=346.022,
+    VRooNor=346.022,
+    VRooEas=205.265,
+    VRooWes=205.265,
+    AFloCor=cor.AFlo,
+    AFloSou=sou.AFlo,
+    AFloNor=nor.AFlo,
+    AFloEas=eas.AFlo,
+    AFloWes=wes.AFlo,
     opeWesCor(
       wOpe=4),
     opeSouCor(
@@ -133,6 +133,29 @@ initial equation
     abs(
       wes.V-VRooWes) < 0.01,
     "Volumes don't match. These had to be entered manually to avoid using a non-literal value.");
+
+  // Other models may override the assignment for AFlo. Hence we check below for consistency.
+  assert(
+    abs(
+      cor.AFlo-AFloCor) < 0.01,
+    "Areas don't match. Make sure model that overrides these parameter defaults uses the same values as the idf file uses.");
+  assert(
+    abs(
+      sou.AFlo-AFloSou) < 0.01,
+    "Areas don't match. Make sure model that overrides these parameter defaults uses the same values as the idf file uses.");
+  assert(
+    abs(
+      nor.AFlo-AFloNor) < 0.01,
+    "Areas don't match. Make sure model that overrides these parameter defaults uses the same values as the idf file uses.");
+  assert(
+    abs(
+      eas.AFlo-AFloEas) < 0.01,
+    "Areas don't match. Make sure model that overrides these parameter defaults uses the same values as the idf file uses.");
+  assert(
+    abs(
+      wes.AFlo-AFloWes) < 0.01,
+    "Areas don't match. Make sure model that overrides these parameter defaults uses the same values as the idf file uses.");
+
   assert(
     abs(
       opeWesCor.wOpe-4) < 0.01,
