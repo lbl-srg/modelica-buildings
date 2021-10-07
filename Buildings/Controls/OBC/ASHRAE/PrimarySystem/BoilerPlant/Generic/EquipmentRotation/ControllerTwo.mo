@@ -146,17 +146,17 @@ protected
     "Based on a rotation trigger sets device roles according to equipment rotation"
     annotation (Placement(transformation(extent={{100,-40},{120,-20}})));
 
-  Buildings.Controls.OBC.CDL.Routing.BooleanReplicator repLea(
+  Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator repLea(
     final nout=nDev) if not continuous
     "Replicates lead signal"
     annotation (Placement(transformation(extent={{-120,-20},{-100,0}})));
 
-  Buildings.Controls.OBC.CDL.Routing.BooleanReplicator repLag(
+  Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator repLag(
     final nout=nDev) if lag
     "Replicates lag signal"
     annotation (Placement(transformation(extent={{-120,-50},{-100,-30}})));
 
-  Buildings.Controls.OBC.CDL.Logical.LogicalSwitch logSwi1[nDev] if not continuous
+  Buildings.Controls.OBC.CDL.Logical.Switch logSwi1[nDev] if not continuous
     "Switch"
     annotation (Placement(transformation(extent={{-60,-42},{-40,-22}})));
 

@@ -69,7 +69,7 @@ protected
     "Boiler status return value"
     annotation (Placement(transformation(extent={{-40,70},{-20,90}})));
 
-  Buildings.Controls.OBC.CDL.Logical.LogicalSwitch boiTwo
+  Buildings.Controls.OBC.CDL.Logical.Switch boiTwo
     "Boiler two status"
     annotation (Placement(transformation(extent={{-40,-50},{-20,-30}})));
 

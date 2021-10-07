@@ -72,7 +72,7 @@ protected
     "Check if it is time to change isolation valve position"
     annotation (Placement(transformation(extent={{-80,-180},{-60,-160}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Switch swi
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi
     "Logical switch"
     annotation (Placement(transformation(extent={{140,-50},{160,-30}})));
 

@@ -1166,7 +1166,7 @@ protected
     annotation (Placement(transformation(extent={{160,-430},{180,-410}})));
 
   Buildings.Controls.OBC.CDL.Logical.MultiOr mulOr(
-    final nu=nPumPri)
+    final nin=nPumPri)
     "Multi Or"
     annotation (Placement(transformation(extent={{200,-430},{220,-410}})));
 
@@ -1285,11 +1285,11 @@ protected
     "Latch to identify if process is stage-up or stage-down"
     annotation (Placement(transformation(extent={{-50,350},{-30,370}})));
 
-  Buildings.Controls.OBC.CDL.Logical.LogicalSwitch logSwi
+  Buildings.Controls.OBC.CDL.Logical.Switch logSwi
     "Logical switch"
     annotation (Placement(transformation(extent={{22,320},{42,340}})));
 
-  Buildings.Controls.OBC.CDL.Logical.IntegerSwitch intSwi
+  Buildings.Controls.OBC.CDL.Integers.Switch intSwi
     "Integer switch"
     annotation (Placement(transformation(extent={{20,370},{40,390}})));
 
@@ -1345,16 +1345,16 @@ protected
     "Differential pressure setpoint for primary circuit"
     annotation (Placement(transformation(extent={{60,-180},{80,-160}})));
 
-  Buildings.Controls.OBC.CDL.Logical.LogicalSwitch logSwi1[nBoi]
+  Buildings.Controls.OBC.CDL.Logical.Switch logSwi1[nBoi]
     "Logical switch"
     annotation (Placement(transformation(extent={{180,260},{200,280}})));
 
-  Buildings.Controls.OBC.CDL.Routing.BooleanReplicator booRep(
+  Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator booRep(
     final nout=nBoi)
     "Boolean replicator"
     annotation (Placement(transformation(extent={{120,260},{140,280}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Switch swi[nBoi] if have_heaPriPum
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi[nBoi] if have_heaPriPum
     "Real switch"
     annotation (Placement(transformation(extent={{180,220},{200,240}})));
 
@@ -1435,7 +1435,7 @@ protected
     "Secondary pump controller"
     annotation (Placement(transformation(extent={{120,-380},{140,-340}})));
 
-  Buildings.Controls.OBC.CDL.Logical.IntegerSwitch intSwi1 if not have_priOnl
+  Buildings.Controls.OBC.CDL.Integers.Switch intSwi1 if not have_priOnl
     "Integer switch"
     annotation (Placement(transformation(extent={{64,280},{84,300}})));
 

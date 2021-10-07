@@ -126,16 +126,16 @@ protected
     annotation (Placement(transformation(extent={{-70,-60},{-50,-40}})));
 
   Buildings.Controls.OBC.CDL.Logical.MultiOr mulOr(
-    final nu=nPum)
+    final nin=nPum)
     "Check if any hot water pumps are enabled"
     annotation (Placement(transformation(extent={{-110,-60},{-90,-40}})));
 
-  Buildings.Controls.OBC.CDL.Routing.RealReplicator reaRep(
+  Buildings.Controls.OBC.CDL.Routing.RealScalarReplicator reaRep(
     final nout=nSen)
     "Replicate real input"
     annotation (Placement(transformation(extent={{-120,-130},{-100,-110}})));
 
-  Buildings.Controls.OBC.CDL.Routing.BooleanReplicator booRep(
+  Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator booRep(
     final nout=nSen)
     "Replicate boolean input"
     annotation (Placement(transformation(extent={{-30,-60},{-10,-40}})));
@@ -164,7 +164,7 @@ protected
     "Normalized pressure difference"
     annotation (Placement(transformation(extent={{-40,-110},{-20,-90}})));
 
-  Buildings.Controls.OBC.CDL.Routing.RealReplicator reaRep1(
+  Buildings.Controls.OBC.CDL.Routing.RealScalarReplicator reaRep1(
     final nout=nSen)
     "Replicate real input"
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));

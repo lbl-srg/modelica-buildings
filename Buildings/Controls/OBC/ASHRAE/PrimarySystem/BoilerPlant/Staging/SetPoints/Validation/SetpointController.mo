@@ -223,7 +223,7 @@ protected
     "Falling edge detector"
     annotation (Placement(transformation(extent={{160,-180},{180,-160}})));
 
-  Buildings.Controls.OBC.CDL.Routing.RealReplicator reaRep1(
+  Buildings.Controls.OBC.CDL.Routing.RealScalarReplicator reaRep1(
     final nout=3)
     "Convert input into array"
     annotation (Placement(transformation(extent={{-120,-130},{-100,-110}})));
@@ -304,7 +304,7 @@ protected
     "Falling edge detector"
     annotation (Placement(transformation(extent={{560,60},{580,80}})));
 
-  Buildings.Controls.OBC.CDL.Routing.RealReplicator reaRep2(
+  Buildings.Controls.OBC.CDL.Routing.RealScalarReplicator reaRep2(
     final nout=3)
     "Convert input into array"
     annotation (Placement(transformation(extent={{280,110},{300,130}})));
@@ -380,7 +380,7 @@ protected
     "Falling edge detector"
     annotation (Placement(transformation(extent={{160,60},{180,80}})));
 
-  Buildings.Controls.OBC.CDL.Routing.RealReplicator reaRep(
+  Buildings.Controls.OBC.CDL.Routing.RealScalarReplicator reaRep(
     final nout=3)
     "Convert input into array"
     annotation (Placement(transformation(extent={{-120,110},{-100,130}})));

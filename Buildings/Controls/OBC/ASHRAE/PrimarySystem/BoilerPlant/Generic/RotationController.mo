@@ -136,12 +136,12 @@ protected
     "Check if both components are enabled"
     annotation (Placement(transformation(extent={{50,-10},{70,10}})));
 
-  Buildings.Controls.OBC.CDL.Routing.BooleanReplicator booRep[nDev](
+  Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator booRep[nDev](
     final nout=fill(nDev, nDev))
     "Boolean replicator"
     annotation (Placement(transformation(extent={{-30,-50},{-10,-30}})));
 
-  Buildings.Controls.OBC.CDL.Logical.LogicalSwitch logSwi[nDev]
+  Buildings.Controls.OBC.CDL.Logical.Switch logSwi[nDev]
     "Logical switch"
     annotation (Placement(transformation(extent={{10,-90},{30,-70}})));
 
@@ -155,7 +155,7 @@ protected
     "Constant Boolean source"
     annotation (Placement(transformation(extent={{-80,-90},{-60,-70}})));
 
-  Buildings.Controls.OBC.CDL.Logical.LogicalSwitch logSwi1[nDev]
+  Buildings.Controls.OBC.CDL.Logical.Switch logSwi1[nDev]
     "Logical switch"
     annotation (Placement(transformation(extent={{50,-70},{70,-50}})));
 

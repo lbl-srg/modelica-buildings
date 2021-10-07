@@ -84,7 +84,7 @@ block CondensationControl
       iconTransformation(extent={{100,-80},{140,-40}})));
 
 protected
-  Buildings.Controls.OBC.CDL.Logical.Switch swi
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi
     "Pass 0 regulation signal if stage type is not non-condensing"
     annotation (Placement(transformation(extent={{-50,40},{-30,60}})));
 

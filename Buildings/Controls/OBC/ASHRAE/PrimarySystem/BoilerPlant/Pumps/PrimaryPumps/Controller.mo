@@ -632,7 +632,7 @@ protected
     "Increase number of enabled boilers by one to initiate pump enable"
     annotation (Placement(transformation(extent={{-130,-170},{-110,-150}})));
 
-  Buildings.Controls.OBC.CDL.Logical.IntegerSwitch intSwi if have_heaPriPum and (not have_priOnl)
+  Buildings.Controls.OBC.CDL.Integers.Switch intSwi if have_heaPriPum and (not have_priOnl)
     "Integer switch"
     annotation (Placement(transformation(extent={{-96,-200},{-76,-180}})));
 
@@ -655,7 +655,7 @@ protected
     annotation (Placement(transformation(extent={{180,60},{200,80}})));
 
   Buildings.Controls.OBC.CDL.Logical.MultiOr mulOr(
-    final nu=nPum) if not have_priOnl
+    final nin=nPum) if not have_priOnl
     "Compile pump status change signals"
     annotation (Placement(transformation(extent={{210,60},{230,80}})));
 
@@ -729,11 +729,11 @@ protected
     "Delay pump disable after boilers have been disabled"
     annotation (Placement(transformation(extent={{-120,30},{-100,50}})));
 
-  Buildings.Controls.OBC.CDL.Logical.LogicalSwitch logSwi[nPum]
+  Buildings.Controls.OBC.CDL.Logical.Switch logSwi[nPum]
     "Logical switch"
     annotation (Placement(transformation(extent={{182,-42},{202,-22}})));
 
-  Buildings.Controls.OBC.CDL.Routing.BooleanReplicator booRep(
+  Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator booRep(
     final nout=nPum)
     "Boolean replicator"
     annotation (Placement(transformation(extent={{142,30},{162,50}})));
@@ -755,7 +755,7 @@ protected
     "Logical Not"
     annotation (Placement(transformation(extent={{-140,-400},{-120,-380}})));
 
-  Buildings.Controls.OBC.CDL.Logical.MultiAnd mulAnd(nu=nPum) if not have_priOnl
+  Buildings.Controls.OBC.CDL.Logical.MultiAnd mulAnd(nin=nPum) if not have_priOnl
     "Check if all pumps are at desired status"
     annotation (Placement(transformation(extent={{-100,-400},{-80,-380}})));
 

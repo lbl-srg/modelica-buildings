@@ -33,28 +33,28 @@ protected
   parameter Boolean initRoles[2] = {true, false}
     "Sets initial roles: true = lead, false = lag or standby";
 
-  Buildings.Controls.OBC.CDL.Logical.LogicalSwitch logSwi[2] "Switch"
+  Buildings.Controls.OBC.CDL.Logical.Switch logSwi[2] "Switch"
     annotation (Placement(transformation(extent={{0,40},{20,60}})));
 
-  Buildings.Controls.OBC.CDL.Logical.LogicalSwitch logSwi1[2] "Switch"
+  Buildings.Controls.OBC.CDL.Logical.Switch logSwi1[2] "Switch"
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
 
-  Buildings.Controls.OBC.CDL.Logical.LogicalSwitch logSwi2[2] "Switch"
+  Buildings.Controls.OBC.CDL.Logical.Switch logSwi2[2] "Switch"
     annotation (Placement(transformation(extent={{0,-60},{20,-40}})));
 
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant staSta[2](
     final k=fill(false, 2)) "Standby status"
     annotation (Placement(transformation(extent={{-100,-20},{-80,0}})));
 
-  Buildings.Controls.OBC.CDL.Routing.BooleanReplicator repLag1(final nout=2)
+  Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator repLag1(final nout=2)
     "Replicates lag signal"
     annotation (Placement(transformation(extent={{-60,-80},{-40,-60}})));
 
-  Buildings.Controls.OBC.CDL.Routing.BooleanReplicator repLag(final nout=2)
+  Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator repLag(final nout=2)
     "Replicates lag signal"
     annotation (Placement(transformation(extent={{-60,30},{-40,50}})));
 
-  Buildings.Controls.OBC.CDL.Routing.BooleanReplicator repLead(final nout=2)
+  Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator repLead(final nout=2)
     "Replicates lead signal"
     annotation (Placement(transformation(extent={{-60,60},{-40,80}})));
 

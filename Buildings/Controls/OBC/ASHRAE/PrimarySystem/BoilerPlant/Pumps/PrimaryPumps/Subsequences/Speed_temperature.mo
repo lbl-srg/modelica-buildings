@@ -139,7 +139,7 @@ block Speed_temperature
     annotation (Placement(transformation(extent={{120,80},{160,120}}),
       iconTransformation(extent={{100,-20},{140,20}})));
 
-  Buildings.Controls.OBC.CDL.Logical.IntegerSwitch intSwi1
+  Buildings.Controls.OBC.CDL.Integers.Switch intSwi1
     "Integer switch"
     annotation (Placement(transformation(extent={{40,40},{60,60}})));
 
@@ -162,7 +162,7 @@ protected
     "Hysteresis loop for sending one request"
     annotation (Placement(transformation(extent={{-60,0},{-40,20}})));
 
-  Buildings.Controls.OBC.CDL.Logical.IntegerSwitch intSwi
+  Buildings.Controls.OBC.CDL.Integers.Switch intSwi
     "Integer switch"
     annotation (Placement(transformation(extent={{10,0},{30,20}})));
 
@@ -221,7 +221,7 @@ protected
     annotation (Placement(transformation(extent={{-100,20},{-80,40}})));
 
   Buildings.Controls.OBC.CDL.Logical.MultiOr mulOr(
-    final nu=nPum)
+    final nin=nPum)
     "Check if any hot water primary pumps are enabled"
     annotation (Placement(transformation(extent={{-100,90},{-80,110}})));
 
@@ -230,11 +230,11 @@ protected
     "Constant zero"
     annotation (Placement(transformation(extent={{-60,70},{-40,90}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Switch swi
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi
     "Logical switch"
     annotation (Placement(transformation(extent={{80,90},{100,110}})));
 
-  Buildings.Controls.OBC.CDL.Routing.RealReplicator reaRep(
+  Buildings.Controls.OBC.CDL.Routing.RealScalarReplicator reaRep(
     final nout=nBoi) if not primarySecondarySensors
     "Real replicator"
     annotation (Placement(transformation(extent={{20,-100},{40,-80}})));

@@ -25,7 +25,7 @@ protected
     "Determine if the isolation valve is open based on valve position"
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
 
-  Buildings.Controls.OBC.CDL.Logical.LogicalSwitch leaPumSta
+  Buildings.Controls.OBC.CDL.Logical.Switch leaPumSta
     "Lead pump status"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
 
@@ -40,7 +40,7 @@ protected
     annotation (Placement(transformation(extent={{-40,-50},{-20,-30}})));
 
   Buildings.Controls.OBC.CDL.Logical.MultiOr mulOr(
-    final nu=nBoi)
+    final nin=nBoi)
     "Check if there are any hot water isolation valves opened"
     annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
 

@@ -257,20 +257,20 @@ protected
     "Latch to short valve closing process in dedicated pump configuration plants"
     annotation (Placement(transformation(extent={{150,30},{170,50}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Switch swi[nBoi] if have_heaPriPum
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi[nBoi] if have_heaPriPum
     "Pass valve position signal from valve opening controller once the opening process starts"
     annotation (Placement(transformation(extent={{40,-140},{60,-120}})));
 
-  Buildings.Controls.OBC.CDL.Routing.BooleanReplicator booRep(
+  Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator booRep(
     final nout=nBoi) if have_heaPriPum
     "Boolean replicator"
     annotation (Placement(transformation(extent={{0,-140},{20,-120}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Switch swi1[nBoi] if have_heaPriPum
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi1[nBoi] if have_heaPriPum
     "Pass valve position signal from valve closing controller once the closing process starts"
     annotation (Placement(transformation(extent={{100,-120},{120,-100}})));
 
-  Buildings.Controls.OBC.CDL.Routing.BooleanReplicator booRep1(
+  Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator booRep1(
     final nout=nBoi) if have_heaPriPum
     "Boolean replicator"
     annotation (Placement(transformation(extent={{70,-160},{90,-140}})));
@@ -280,7 +280,7 @@ protected
     "Time delay after valve has been opened and pump status has been changed"
     annotation (Placement(transformation(extent={{0,90},{20,110}})));
 
-  Buildings.Controls.OBC.CDL.Logical.LogicalSwitch logSwi
+  Buildings.Controls.OBC.CDL.Logical.Switch logSwi
     "Pass process completion signal based on whether stage change involves turning off larger boiler or not"
     annotation (Placement(transformation(extent={{40,-50},{60,-30}})));
 
@@ -289,7 +289,7 @@ protected
     annotation (Placement(transformation(extent={{-32,-120},{-12,-100}})));
 
   Buildings.Controls.OBC.CDL.Logical.MultiOr mulOr(
-    final nu=1) if not have_priOnl
+    final nin=1) if not have_priOnl
     "Pass enable signal for plants that are not primary-only"
     annotation (Placement(transformation(extent={{-170,50},{-150,70}})));
 

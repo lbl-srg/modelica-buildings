@@ -36,7 +36,7 @@ protected
     "Minimum valve position for condensation control"
     annotation (Placement(transformation(extent={{-40,-70},{-20,-50}})));
 
-  Buildings.Controls.OBC.CDL.Routing.BooleanReplicator booRep(
+  Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator booRep(
     final nout=2)
     "Boolean replicator"
     annotation (Placement(transformation(extent={{-40,-30},{-20,-10}})));
@@ -46,7 +46,7 @@ protected
     "Constant zero signal"
     annotation (Placement(transformation(extent={{-80,50},{-60,70}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Switch swi
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi
     "Pass zero flowrate when pumps are switched off"
     annotation (Placement(transformation(extent={{-40,10},{-20,30}})));
 

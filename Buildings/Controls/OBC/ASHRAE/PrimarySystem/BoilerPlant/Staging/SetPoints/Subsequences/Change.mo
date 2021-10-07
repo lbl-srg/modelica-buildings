@@ -90,7 +90,7 @@ protected
     "Triggered sampler"
     annotation (Placement(transformation(extent={{130,140},{150,160}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Switch switch1
+  Buildings.Controls.OBC.CDL.Continuous.Switch switch1
     "Switch"
     annotation (Placement(transformation(extent={{-200,50},{-180,70}})));
 
@@ -116,7 +116,7 @@ protected
     "Holds stage switched to initial upon plant start"
     annotation (Placement(transformation(extent={{-320,150},{-300,170}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Switch switch2
+  Buildings.Controls.OBC.CDL.Continuous.Switch switch2
     "Switch"
     annotation (Placement(transformation(extent={{40,140},{60,160}})));
 
@@ -173,7 +173,7 @@ protected
     annotation (Placement(transformation(extent={{320,-120},{340,-100}})));
 
   Buildings.Controls.OBC.CDL.Logical.MultiAnd mulAnd(
-    final nu=4)
+    final nin=4)
     "Ensure all conditions for stage change are satisfied"
     annotation (Placement(transformation(extent={{-160,-90},{-140,-70}})));
 
@@ -205,7 +205,7 @@ protected
     "Edge detector"
     annotation (Placement(transformation(extent={{60,-90},{80,-70}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Switch switch3
+  Buildings.Controls.OBC.CDL.Continuous.Switch switch3
     "Switch"
     annotation (Placement(transformation(extent={{-40,100},{-20,120}})));
 

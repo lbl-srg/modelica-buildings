@@ -68,11 +68,11 @@ protected
     "Disable boiler hot water isolation valve for all disabled boilers simultaneously"
     annotation (Placement(transformation(extent={{20,-60},{40,-40}})));
 
-  Buildings.Controls.OBC.CDL.Logical.LogicalSwitch logSwi[nBoi]
+  Buildings.Controls.OBC.CDL.Logical.Switch logSwi[nBoi]
     "Pass input boiler enable status when plant is enabled and disable all boilers when plant is disabled"
     annotation (Placement(transformation(extent={{140,40},{160,60}})));
 
-  Buildings.Controls.OBC.CDL.Routing.BooleanReplicator booRep1(
+  Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator booRep1(
     final nout=nBoi)
     "Boolean replicator"
     annotation (Placement(transformation(extent={{-40,110},{-20,130}})));
@@ -81,7 +81,7 @@ protected
     "Logical Not"
     annotation (Placement(transformation(extent={{-130,-20},{-110,0}})));
 
-  Buildings.Controls.OBC.CDL.Routing.BooleanReplicator booRep2(
+  Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator booRep2(
     final nout=nBoi) if have_heaPriPum
     "Boolean replicator"
     annotation (Placement(transformation(extent={{-20,-20},{0,0}})));
@@ -101,7 +101,7 @@ protected
     annotation (Placement(transformation(extent={{120,-130},{140,-110}})));
 
   Buildings.Controls.OBC.CDL.Logical.MultiAnd mulAnd1(
-    final nu=nBoi) if have_priOnl and have_heaPriPum
+    final nin=nBoi) if have_priOnl and have_heaPriPum
     "Multi And"
     annotation (Placement(transformation(extent={{80,-126},{100,-106}})));
 
@@ -123,16 +123,16 @@ protected
 
 
   Buildings.Controls.OBC.CDL.Logical.MultiAnd mulAnd2(
-    final nu=nBoi) if not have_priOnl and have_heaPriPum
+    final nin=nBoi) if not have_priOnl and have_heaPriPum
     "Multi And"
     annotation (Placement(transformation(extent={{80,-100},{100,-80}})));
 
   Buildings.Controls.OBC.CDL.Logical.MultiOr mulOr1(
-    final nu=1) if not have_priOnl and not have_heaPriPum
+    final nin=1) if not have_priOnl and not have_heaPriPum
     "Multi Or"
     annotation (Placement(transformation(extent={{-10,-100},{10,-80}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Switch swi[nBoi] if have_heaPriPum
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi[nBoi] if have_heaPriPum
     "Real switch"
     annotation (Placement(transformation(extent={{140,-60},{160,-40}})));
 

@@ -89,12 +89,12 @@ protected
     annotation (Placement(transformation(extent={{120,-10},{140,10}})));
 
   Buildings.Controls.OBC.CDL.Logical.MultiAnd mulAnd(
-    final nu=4)
+    final nin=4)
     "Check if all the conditions for enabling plant have been met"
     annotation (Placement(transformation(extent={{80,110},{100,130}})));
 
   Buildings.Controls.OBC.CDL.Logical.MultiOr mulOr(
-    final nu=3)
+    final nin=3)
     "Check if any conditions except plant-on time have been satisfied to disable plant"
     annotation (Placement(transformation(extent={{30,-80},{50,-60}})));
 

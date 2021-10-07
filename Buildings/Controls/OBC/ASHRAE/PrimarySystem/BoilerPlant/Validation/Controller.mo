@@ -151,7 +151,7 @@ protected
     "True delay for simulating pump proven on process"
     annotation (Placement(transformation(extent={{40,0},{60,20}})));
 
-  Buildings.Controls.OBC.CDL.Routing.RealReplicator reaRep(
+  Buildings.Controls.OBC.CDL.Routing.RealScalarReplicator reaRep(
     final nout=2)
     "Replicate pump speed to all pumps in system"
     annotation (Placement(transformation(extent={{40,30},{60,50}})));
@@ -171,7 +171,7 @@ protected
     "Unit delay to simulate change of pump speed"
     annotation (Placement(transformation(extent={{290,60},{310,80}})));
 
-  Buildings.Controls.OBC.CDL.Routing.RealReplicator reaRep1(
+  Buildings.Controls.OBC.CDL.Routing.RealScalarReplicator reaRep1(
     final nout=2)
     "Replicate pump speed to all pumps in system"
     annotation (Placement(transformation(extent={{260,60},{280,80}})));

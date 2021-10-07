@@ -210,7 +210,7 @@ protected
     "Extract max flowrate of boiler being disabled during stage-up"
     annotation (Placement(transformation(extent={{-20,40},{0,60}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Switch swi
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi
     "Pass minimum flow setpoint based on whether stage-up involves a boiler being disabled"
     annotation (Placement(transformation(extent={{140,0},{160,20}})));
 
@@ -218,7 +218,7 @@ protected
     "Product of flowrate ratio and maximum flowrate"
     annotation (Placement(transformation(extent={{92,-100},{112,-80}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Switch swi1
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi1
     "Pass minimum flow setpoint based on whether the plant is being staged-up or staged-down"
     annotation (Placement(transformation(extent={{290,-80},{310,-60}})));
 
@@ -234,7 +234,7 @@ protected
     "Set minimum flow setpoint as per 5.3.8.2 if uOnOff=True, else as per 5.3.8.1"
     annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Switch swi2
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi2
     "Pass minimum flow setpoint based on whether stage-down involves a boiler being enabled"
     annotation (Placement(transformation(extent={{140,-160},{160,-140}})));
 
@@ -312,7 +312,7 @@ protected
     "Detect start of change in minimum flow setpoint"
     annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Switch swi3
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi3
     "Pass new minimum flow setpoint based on whether the plant is being staged-up or staged-down"
     annotation (Placement(transformation(extent={{190,-210},{210,-190}})));
 

@@ -51,7 +51,7 @@ protected
     annotation (Placement(transformation(extent={{-20,20},{0,40}})));
 
   Buildings.Controls.OBC.CDL.Logical.MultiOr mulOr(
-    final nu=nDev)
+    final nin=nDev)
     "Multiple or"
     annotation (Placement(transformation(extent={{130,-10},{150,10}})));
 
@@ -80,13 +80,13 @@ protected
     "Falling edge"
     annotation (Placement(transformation(extent={{-100,-70},{-80,-50}})));
 
-  Buildings.Controls.OBC.CDL.Routing.BooleanReplicator booRep(
+  Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator booRep(
     final nout=nDev) if lag
     "Boolean replicator"
     annotation (Placement(transformation(extent={{-40,-30},{-20,-10}})));
 
   Buildings.Controls.OBC.CDL.Logical.MultiOr mulOr1(
-    final nu=nDev) if lag
+    final nin=nDev) if lag
     "Multi Or"
     annotation (Placement(transformation(extent={{-100,-30},{-80,-10}})));
 

@@ -69,7 +69,7 @@ protected
     annotation (Placement(transformation(extent={{-70,30},{-50,50}})));
 
   Buildings.Controls.OBC.CDL.Logical.MultiOr mulOr(
-    final nu=nPum)
+    final nin=nPum)
     "Block to detect if any of the pumps are proved ON"
     annotation (Placement(transformation(extent={{-70,-10},{-50,10}})));
 

@@ -144,7 +144,7 @@ block HotWaterSupplyTemperatureReset
       iconTransformation(extent={{100,-60},{140,-20}})));
 
 protected
-  Buildings.Controls.OBC.CDL.Logical.Switch swi1
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi1
     "Select plant setpoint based on stage type"
     annotation (Placement(transformation(extent={{10,60},{30,80}})));
 
@@ -186,12 +186,12 @@ protected
     "Retain last value before stage change initiates"
     annotation (Placement(transformation(extent={{50,40},{70,60}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Switch swi
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi
     "Logical switch"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 
   Buildings.Controls.OBC.CDL.Logical.MultiOr mulOr(
-    final nu=nPum)
+    final nin=nPum)
     "Check if any pumps are turned on"
     annotation (Placement(transformation(extent={{-120,80},{-100,100}})));
 
@@ -230,7 +230,7 @@ protected
     "Generate binary vector to identify non-condensing boilers"
     annotation (Placement(transformation(extent={{-40,-280},{-20,-260}})));
 
-  Buildings.Controls.OBC.CDL.Routing.RealReplicator reaRep(
+  Buildings.Controls.OBC.CDL.Routing.RealScalarReplicator reaRep(
     final nout=nBoi)
     "Convert temperature setpoint into vector"
     annotation (Placement(transformation(extent={{10,-200},{30,-180}})));
@@ -239,7 +239,7 @@ protected
     "Element-wise product"
     annotation (Placement(transformation(extent={{60,-200},{80,-180}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Switch swi2
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi2
     "Logical Switch"
     annotation (Placement(transformation(extent={{-40,-200},{-20,-180}})));
 
@@ -262,7 +262,7 @@ protected
     "Ensure condensing boiler setpoint does not exceed design setpoint"
     annotation (Placement(transformation(extent={{-80,-180},{-60,-160}})));
 
-  Buildings.Controls.OBC.CDL.Routing.RealReplicator reaRep1(
+  Buildings.Controls.OBC.CDL.Routing.RealScalarReplicator reaRep1(
     final nout=nBoi)
     "Convert temperature setpoint into vector"
     annotation (Placement(transformation(extent={{10,-310},{30,-290}})));

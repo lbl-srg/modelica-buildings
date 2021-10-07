@@ -55,7 +55,7 @@ protected
     "Enabling boiler index"
     annotation (Placement(transformation(extent={{-160,90},{-140,110}})));
 
-  Buildings.Controls.OBC.CDL.Logical.LogicalSwitch boiTwo
+  Buildings.Controls.OBC.CDL.Logical.Switch boiTwo
     "Boiler two status"
     annotation (Placement(transformation(extent={{-40,-50},{-20,-30}})));
 
@@ -79,7 +79,7 @@ protected
     "Does not requires one boiler on and another boiler off"
     annotation (Placement(transformation(extent={{20,-110},{40,-90}})));
 
-  Buildings.Controls.OBC.CDL.Logical.LogicalSwitch boiTwo1
+  Buildings.Controls.OBC.CDL.Logical.Switch boiTwo1
     "Boiler two status"
     annotation (Placement(transformation(extent={{140,-50},{160,-30}})));
 

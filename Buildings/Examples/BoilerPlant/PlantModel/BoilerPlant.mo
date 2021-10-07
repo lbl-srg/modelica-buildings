@@ -399,7 +399,7 @@ model BoilerPlant
     "Measured radiator return temperature"
     annotation (Placement(transformation(extent={{180,110},{200,130}})));
 
-  Buildings.Controls.OBC.CDL.Routing.RealReplicator reaRep(
+  Buildings.Controls.OBC.CDL.Routing.RealScalarReplicator reaRep(
     final nout=1)
     "Real replicator"
     annotation (Placement(transformation(extent={{280,0},{300,20}})));
@@ -467,7 +467,7 @@ model BoilerPlant
     "Hold pump enable status until change process is completed"
     annotation (Placement(transformation(extent={{-300,30},{-280,50}})));
 
-  Buildings.Controls.OBC.CDL.Logical.LogicalSwitch logSwi[2]
+  Buildings.Controls.OBC.CDL.Logical.Switch logSwi[2]
     "Switch to signal from controller once enabling process has been completed"
     annotation (Placement(transformation(extent={{-260,30},{-240,50}})));
 
@@ -502,7 +502,7 @@ model BoilerPlant
     "Check difference between return temperature and boiler temperature"
     annotation (Placement(transformation(extent={{160,-100},{180,-80}})));
 
-  Buildings.Controls.OBC.CDL.Routing.RealReplicator reaRep1(
+  Buildings.Controls.OBC.CDL.Routing.RealScalarReplicator reaRep1(
     final nout=2)
     "Real replicator"
     annotation (Placement(transformation(extent={{270,30},{290,50}})));
@@ -523,7 +523,7 @@ model BoilerPlant
     "Convert measured flow to positive"
     annotation (Placement(transformation(extent={{100,-70},{120,-50}})));
 
-  Buildings.Controls.OBC.CDL.Logical.LogicalSwitch logSwi1[2]
+  Buildings.Controls.OBC.CDL.Logical.Switch logSwi1[2]
     "Switch to signal from controller once enabling process has been completed"
     annotation (Placement(transformation(extent={{-210,110},{-190,130}})));
 
@@ -552,7 +552,7 @@ model BoilerPlant
     "Find difference between setpoint and measured temperature"
     annotation (Placement(transformation(extent={{-260,-170},{-240,-150}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Switch swi[2]
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi[2]
     "Switch"
     annotation (Placement(transformation(extent={{-90,-170},{-70,-150}})));
 
@@ -572,11 +572,11 @@ model BoilerPlant
     annotation (Placement(transformation(extent={{-230,-170},{-210,-150}})));
 
   Buildings.Controls.OBC.CDL.Logical.MultiOr mulOr(
-    final nu=2)
+    final nin=2)
     "Check if any of the boiler supply temperature setpoints are not being met"
     annotation (Placement(transformation(extent={{-200,-170},{-180,-150}})));
 
-  Buildings.Controls.OBC.CDL.Routing.BooleanReplicator booRep(
+  Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator booRep(
     final nout=2)
     "Boolean replicator"
     annotation (Placement(transformation(extent={{-170,-170},{-150,-150}})));

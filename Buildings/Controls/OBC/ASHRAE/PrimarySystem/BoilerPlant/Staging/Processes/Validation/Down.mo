@@ -152,7 +152,7 @@ protected
     "Logical pre block"
     annotation (Placement(transformation(extent={{-260,180},{-240,200}})));
 
-  Buildings.Controls.OBC.CDL.Logical.LogicalSwitch logSwi1[nBoi]
+  Buildings.Controls.OBC.CDL.Logical.Switch logSwi1[nBoi]
     "Pass boiler setpoints for stage 3 after one stage change"
     annotation (Placement(transformation(extent={{-220,100},{-200,120}})));
 
@@ -165,7 +165,7 @@ protected
     "Falling edge detector"
     annotation (Placement(transformation(extent={{-90,150},{-70,170}})));
 
-  Buildings.Controls.OBC.CDL.Logical.IntegerSwitch intSwi
+  Buildings.Controls.OBC.CDL.Integers.Switch intSwi
     "Switch between stage 2 and stage 3 setpoints"
     annotation (Placement(transformation(extent={{-220,30},{-200,50}})));
 
@@ -183,7 +183,7 @@ protected
     "Detect first triggering pulse and subsequent stage change completion signals"
     annotation (Placement(transformation(extent={{-130,110},{-110,130}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Switch swi[nBoi]
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi[nBoi]
     "Pass initial valve position and switch to signal from controller"
     annotation (Placement(transformation(extent={{-220,270},{-200,290}})));
 
@@ -215,7 +215,7 @@ protected
     "Falling edge detector"
     annotation (Placement(transformation(extent={{-90,190},{-70,210}})));
 
-  Buildings.Controls.OBC.CDL.Logical.LogicalSwitch logSwi2[nBoi]
+  Buildings.Controls.OBC.CDL.Logical.Switch logSwi2[nBoi]
     "Pass boiler setpoints for stage 1 and switch to setpoints for stage 2"
     annotation (Placement(transformation(extent={{-300,100},{-280,120}})));
 
@@ -224,7 +224,7 @@ protected
     "Initial boiler setpoints for stage 1"
     annotation (Placement(transformation(extent={{-334,130},{-314,150}})));
 
-  Buildings.Controls.OBC.CDL.Logical.IntegerSwitch intSwi1
+  Buildings.Controls.OBC.CDL.Integers.Switch intSwi1
     "Switch between stage 1 and stage 2 setpoints"
     annotation (Placement(transformation(extent={{-320,20},{-300,40}})));
 
@@ -241,7 +241,7 @@ protected
     "Hold true signal once first stage change is completed"
     annotation (Placement(transformation(extent={{-40,60},{-20,80}})));
 
-  Buildings.Controls.OBC.CDL.Routing.BooleanReplicator booRep(
+  Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator booRep(
     final nout=nBoi)
     "Boolean replicator"
     annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
@@ -256,7 +256,7 @@ protected
     "Logical pre block"
     annotation (Placement(transformation(extent={{110,180},{130,200}})));
 
-  Buildings.Controls.OBC.CDL.Logical.LogicalSwitch logSwi4[nBoi]
+  Buildings.Controls.OBC.CDL.Logical.Switch logSwi4[nBoi]
     "Pass boiler setpoints for stage 3 after one stage change"
     annotation (Placement(transformation(extent={{150,100},{170,120}})));
 
@@ -269,7 +269,7 @@ protected
     "Falling edge detector"
     annotation (Placement(transformation(extent={{280,150},{300,170}})));
 
-  Buildings.Controls.OBC.CDL.Logical.IntegerSwitch intSwi2
+  Buildings.Controls.OBC.CDL.Integers.Switch intSwi2
     "Switch between stage 2 and stage 3 setpoints"
     annotation (Placement(transformation(extent={{150,30},{170,50}})));
 
@@ -305,7 +305,7 @@ protected
     "Falling edge detector"
     annotation (Placement(transformation(extent={{280,190},{300,210}})));
 
-  Buildings.Controls.OBC.CDL.Logical.LogicalSwitch logSwi5[nBoi]
+  Buildings.Controls.OBC.CDL.Logical.Switch logSwi5[nBoi]
     "Pass boiler setpoints for stage 1 and switch to setpoints for stage 2"
     annotation (Placement(transformation(extent={{70,100},{90,120}})));
 
@@ -314,7 +314,7 @@ protected
     "Initial boiler setpoints for stage 1"
     annotation (Placement(transformation(extent={{36,130},{56,150}})));
 
-  Buildings.Controls.OBC.CDL.Logical.IntegerSwitch intSwi3
+  Buildings.Controls.OBC.CDL.Integers.Switch intSwi3
     "Switch between stage 1 and stage 2 setpoints"
     annotation (Placement(transformation(extent={{50,20},{70,40}})));
 
@@ -331,7 +331,7 @@ protected
     "Hold true signal once first stage change is completed"
     annotation (Placement(transformation(extent={{330,60},{350,80}})));
 
-  Buildings.Controls.OBC.CDL.Routing.BooleanReplicator booRep1(
+  Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator booRep1(
     final nout=nBoi)
     "Boolean replicator"
     annotation (Placement(transformation(extent={{280,60},{300,80}})));
@@ -346,7 +346,7 @@ protected
     "Logical pre block"
     annotation (Placement(transformation(extent={{-260,-160},{-240,-140}})));
 
-  Buildings.Controls.OBC.CDL.Logical.LogicalSwitch logSwi13[nBoi]
+  Buildings.Controls.OBC.CDL.Logical.Switch logSwi13[nBoi]
     "Pass boiler setpoints for stage 3 after one stage change"
     annotation (Placement(transformation(extent={{-220,-236},{-200,-216}})));
 
@@ -356,7 +356,7 @@ protected
     "Boiler setpoints for stage 3"
     annotation (Placement(transformation(extent={{-260,-216},{-240,-196}})));
 
-  Buildings.Controls.OBC.CDL.Logical.IntegerSwitch intSwi8
+  Buildings.Controls.OBC.CDL.Integers.Switch intSwi8
     "Switch between stage 2 and stage 3 setpoints"
     annotation (Placement(transformation(extent={{-220,-306},{-200,-286}})));
 
@@ -374,7 +374,7 @@ protected
     "Detect first triggering pulse and subsequent stage change completion signals"
     annotation (Placement(transformation(extent={{-130,-226},{-110,-206}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Switch swi4[nBoi]
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi4[nBoi]
     "Pass initial valve position and switch to signal from controller"
     annotation (Placement(transformation(extent={{-220,-66},{-200,-46}})));
 
@@ -407,7 +407,7 @@ protected
     "Falling edge detector"
     annotation (Placement(transformation(extent={{-90,-146},{-70,-126}})));
 
-  Buildings.Controls.OBC.CDL.Logical.LogicalSwitch logSwi14[nBoi]
+  Buildings.Controls.OBC.CDL.Logical.Switch logSwi14[nBoi]
     "Pass boiler setpoints for stage 1 and switch to setpoints for stage 2"
     annotation (Placement(transformation(extent={{-300,-236},{-280,-216}})));
 
@@ -416,7 +416,7 @@ protected
     "Initial boiler setpoints for stage 1"
     annotation (Placement(transformation(extent={{-334,-206},{-314,-186}})));
 
-  Buildings.Controls.OBC.CDL.Logical.IntegerSwitch intSwi9
+  Buildings.Controls.OBC.CDL.Integers.Switch intSwi9
     "Switch between stage 1 and stage 2 setpoints"
     annotation (Placement(transformation(extent={{-320,-316},{-300,-296}})));
 
@@ -433,7 +433,7 @@ protected
     "Hold true signal once first stage change is completed"
     annotation (Placement(transformation(extent={{-50,-280},{-30,-260}})));
 
-  Buildings.Controls.OBC.CDL.Routing.BooleanReplicator booRep4(
+  Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator booRep4(
     final nout=nBoi)
     "Boolean replicator"
     annotation (Placement(transformation(extent={{-90,-280},{-70,-260}})));
@@ -448,7 +448,7 @@ protected
     "Calculated minimum flow rate signal"
     annotation (Placement(transformation(extent={{-90,-66},{-70,-46}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Switch swi2
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi2
     "Pass different instances of measured flow-rate after stage change"
     annotation (Placement(transformation(extent={{-50,-46},{-30,-26}})));
 

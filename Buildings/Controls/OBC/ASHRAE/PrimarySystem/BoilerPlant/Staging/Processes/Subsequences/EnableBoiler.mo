@@ -55,7 +55,7 @@ protected
   final parameter Integer boiInd[nBoi]={i for i in 1:nBoi}
     "Boiler index, {1,2,...,n}";
 
-  Buildings.Controls.OBC.CDL.Logical.LogicalSwitch logSwi[nBoi]
+  Buildings.Controls.OBC.CDL.Logical.Switch logSwi[nBoi]
     "Logical switch"
     annotation (Placement(transformation(extent={{100,110},{120,130}})));
 
@@ -63,7 +63,7 @@ protected
     "Logical And"
     annotation (Placement(transformation(extent={{-160,50},{-140,70}})));
 
-  Buildings.Controls.OBC.CDL.Routing.BooleanReplicator booRep(
+  Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator booRep(
     final nout=nBoi)
     "Replicate boolean input"
     annotation (Placement(transformation(extent={{-100,50},{-80,70}})));
@@ -86,7 +86,7 @@ protected
     "Check boilers that are on"
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
 
-  Buildings.Controls.OBC.CDL.Logical.LogicalSwitch logSwi1[nBoi]
+  Buildings.Controls.OBC.CDL.Logical.Switch logSwi1[nBoi]
     "Logical switch"
     annotation (Placement(transformation(extent={{100,-120},{120,-100}})));
 
@@ -99,7 +99,7 @@ protected
     "False constant"
     annotation (Placement(transformation(extent={{40,-90},{60,-70}})));
 
-  Buildings.Controls.OBC.CDL.Logical.LogicalSwitch logSwi2[nBoi]
+  Buildings.Controls.OBC.CDL.Logical.Switch logSwi2[nBoi]
     "Logical switch"
     annotation (Placement(transformation(extent={{160,-60},{180,-40}})));
 
@@ -107,7 +107,7 @@ protected
     "Logical or"
     annotation (Placement(transformation(extent={{40,-60},{60,-40}})));
 
-  Buildings.Controls.OBC.CDL.Routing.IntegerReplicator intRep(
+  Buildings.Controls.OBC.CDL.Routing.IntegerScalarReplicator intRep(
     final nout=nBoi)
     "Replicate integer input"
     annotation (Placement(transformation(extent={{-160,110},{-140,130}})));
@@ -125,7 +125,7 @@ protected
     "Record the old boiler status"
     annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
 
-  Buildings.Controls.OBC.CDL.Routing.BooleanReplicator booRep1(
+  Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator booRep1(
     final nout=nBoi)
     "Replicate boolean input"
     annotation (Placement(transformation(extent={{-60,-30},{-40,-10}})));
@@ -134,12 +134,12 @@ protected
     "Rising edge"
     annotation (Placement(transformation(extent={{-100,-30},{-80,-10}})));
 
-  Buildings.Controls.OBC.CDL.Routing.BooleanReplicator booRep2(
+  Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator booRep2(
     final nout=nBoi)
     "Replicate boolean input"
     annotation (Placement(transformation(extent={{-20,-120},{0,-100}})));
 
-  Buildings.Controls.OBC.CDL.Routing.BooleanReplicator booRep3(
+  Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator booRep3(
     final nout=nBoi)
     "Replicate boolean input"
     annotation (Placement(transformation(extent={{80,-60},{100,-40}})));
@@ -157,7 +157,7 @@ protected
     "Boiler index array"
     annotation (Placement(transformation(extent={{-160,80},{-140,100}})));
 
-  Buildings.Controls.OBC.CDL.Routing.IntegerReplicator intRep1(
+  Buildings.Controls.OBC.CDL.Routing.IntegerScalarReplicator intRep1(
     final nout=nBoi)
     "Replicate integer input"
     annotation (Placement(transformation(extent={{-160,-160},{-140,-140}})));
@@ -166,16 +166,16 @@ protected
     "Check next enabling boiler"
     annotation (Placement(transformation(extent={{-100,-160},{-80,-140}})));
 
-  Buildings.Controls.OBC.CDL.Logical.LogicalSwitch logSwi3[nBoi]
+  Buildings.Controls.OBC.CDL.Logical.Switch logSwi3[nBoi]
     "Logical switch"
     annotation (Placement(transformation(extent={{60,30},{80,50}})));
 
-  Buildings.Controls.OBC.CDL.Routing.BooleanReplicator  booRep4(
+  Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator  booRep4(
     final nout=nBoi)
     "Replicate boolean input"
     annotation (Placement(transformation(extent={{-40,30},{-20,50}})));
 
-  Buildings.Controls.OBC.CDL.Logical.LogicalSwitch logSwi4
+  Buildings.Controls.OBC.CDL.Logical.Switch logSwi4
     "Logical switch"
     annotation (Placement(transformation(extent={{120,-180},{140,-160}})));
 
@@ -188,7 +188,7 @@ protected
     annotation (Placement(transformation(extent={{-20,-230},{0,-210}})));
 
   Buildings.Controls.OBC.CDL.Logical.MultiAnd mulAnd(
-    final nu=nBoi+1)
+    final nin=nBoi+1)
     "Multi-input Logical And"
     annotation (Placement(transformation(extent={{52,-230},{72,-210}})));
 

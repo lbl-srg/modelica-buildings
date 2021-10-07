@@ -23,11 +23,11 @@ model BoilerPlant
         70) annotation (Placement(transformation(extent={{-10,10},{10,30}})));
   Buildings.Controls.OBC.CDL.Logical.Not not1
     annotation (Placement(transformation(extent={{20,10},{40,30}})));
-  Buildings.Controls.OBC.CDL.Routing.BooleanReplicator booRep(nout=2)
+  Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator booRep(nout=2)
     annotation (Placement(transformation(extent={{80,10},{100,30}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea
     annotation (Placement(transformation(extent={{50,-30},{70,-10}})));
-  Buildings.Controls.OBC.CDL.Routing.RealReplicator reaRep(nout=2)
+  Buildings.Controls.OBC.CDL.Routing.RealScalarReplicator reaRep(nout=2)
     annotation (Placement(transformation(extent={{80,-30},{100,-10}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con1(k=-Q_flow_nominal)
     annotation (Placement(transformation(extent={{-110,30},{-90,50}})));

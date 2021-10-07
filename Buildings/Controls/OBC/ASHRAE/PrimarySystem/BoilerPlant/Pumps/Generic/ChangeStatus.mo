@@ -32,12 +32,12 @@ protected
   parameter Integer pumInd[nPum]={i for i in 1:nPum}
     "Pump index, {1,2,...,n}";
 
-  Buildings.Controls.OBC.CDL.Routing.BooleanReplicator booRep1(
+  Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator booRep1(
     final nout=nPum)
     "Replicate boolean input"
     annotation (Placement(transformation(extent={{-80,70},{-60,90}})));
 
-  Buildings.Controls.OBC.CDL.Routing.BooleanReplicator booRep2(
+  Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator booRep2(
     final nout=nPum)
     "Replicate boolean input"
     annotation (Placement(transformation(extent={{-80,40},{-60,60}})));
@@ -50,11 +50,11 @@ protected
     "Check last lag pump"
     annotation (Placement(transformation(extent={{-60,-90},{-40,-70}})));
 
-  Buildings.Controls.OBC.CDL.Logical.LogicalSwitch nexLagPumSta[nPum]
+  Buildings.Controls.OBC.CDL.Logical.Switch nexLagPumSta[nPum]
     "Next lag pump status"
     annotation (Placement(transformation(extent={{-20,-50},{0,-30}})));
 
-  Buildings.Controls.OBC.CDL.Logical.LogicalSwitch lasLagPumSta[nPum]
+  Buildings.Controls.OBC.CDL.Logical.Switch lasLagPumSta[nPum]
     "Last lag pump status"
     annotation (Placement(transformation(extent={{-20,-90},{0,-70}})));
 
@@ -66,20 +66,20 @@ protected
     "Hot water pump status"
     annotation (Placement(transformation(extent={{20,-90},{40,-70}})));
 
-  Buildings.Controls.OBC.CDL.Logical.LogicalSwitch remPum[nPum]
+  Buildings.Controls.OBC.CDL.Logical.Switch remPum[nPum]
     "Remove pump"
     annotation (Placement(transformation(extent={{50,-70},{70,-50}})));
 
-  Buildings.Controls.OBC.CDL.Logical.LogicalSwitch addPum[nPum]
+  Buildings.Controls.OBC.CDL.Logical.Switch addPum[nPum]
     "Add pump"
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
 
-  Buildings.Controls.OBC.CDL.Routing.IntegerReplicator intRep(
+  Buildings.Controls.OBC.CDL.Routing.IntegerScalarReplicator intRep(
     final nout=nPum)
     "Integer replicator"
     annotation (Placement(transformation(extent={{-90,-50},{-70,-30}})));
 
-  Buildings.Controls.OBC.CDL.Routing.IntegerReplicator intRep1(
+  Buildings.Controls.OBC.CDL.Routing.IntegerScalarReplicator intRep1(
     final nout=nPum)
     "Integer replicator"
     annotation (Placement(transformation(extent={{-90,-90},{-70,-70}})));

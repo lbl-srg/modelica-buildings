@@ -119,7 +119,7 @@ protected
     annotation (Placement(transformation(extent={{-60,-80},{-40,-60}})));
 
   Buildings.Controls.OBC.CDL.Logical.MultiOr mulOr(
-    final nu=nPum)
+    final nin=nPum)
     "Check if any hot water primary pumps are enabled"
     annotation (Placement(transformation(extent={{-100,-10},{-80,10}})));
 
@@ -143,7 +143,7 @@ protected
     "Constant zero"
     annotation (Placement(transformation(extent={{-80,80},{-60,100}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Switch swi
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi
     "Logical switch"
     annotation (Placement(transformation(extent={{80,90},{100,110}})));
 

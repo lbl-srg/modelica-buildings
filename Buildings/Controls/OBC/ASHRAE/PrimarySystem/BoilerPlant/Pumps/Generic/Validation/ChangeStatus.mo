@@ -29,11 +29,11 @@ protected
     "Switch pump staging to staging-down after 3 pump stage-ups"
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
 
-  Buildings.Controls.OBC.CDL.Logical.LogicalSwitch logSwi
+  Buildings.Controls.OBC.CDL.Logical.Switch logSwi
     "Logical switch"
     annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
 
-  Buildings.Controls.OBC.CDL.Logical.LogicalSwitch logSwi1
+  Buildings.Controls.OBC.CDL.Logical.Switch logSwi1
     "Logical switch"
     annotation (Placement(transformation(extent={{-40,10},{-20,30}})));
 

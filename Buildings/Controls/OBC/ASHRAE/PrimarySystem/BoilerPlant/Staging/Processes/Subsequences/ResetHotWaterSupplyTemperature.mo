@@ -73,7 +73,7 @@ protected
     "Boiler plant stage index generator"
     annotation (Placement(transformation(extent={{-156,-70},{-136,-50}})));
 
-  Buildings.Controls.OBC.CDL.Routing.IntegerReplicator intRep(
+  Buildings.Controls.OBC.CDL.Routing.IntegerScalarReplicator intRep(
     final nout=nSta)
     "Generate row vector with current stage setpoint"
     annotation (Placement(transformation(extent={{-120,-90},{-100,-70}})));
@@ -82,7 +82,7 @@ protected
     "Identify stage indices below current setpoint"
     annotation (Placement(transformation(extent={{-80,-70},{-60,-50}})));
 
-  Buildings.Controls.OBC.CDL.Logical.IntegerSwitch intSwi[nSta]
+  Buildings.Controls.OBC.CDL.Integers.Switch intSwi[nSta]
     "Pass stage-type values for all stage indices lower than current setpoint"
     annotation (Placement(transformation(extent={{-40,-70},{-20,-50}})));
 
@@ -118,7 +118,7 @@ protected
     "Ensure current stage setpoint is the lead non-condensing boiler stage"
     annotation (Placement(transformation(extent={{120,-40},{140,-20}})));
 
-  Buildings.Controls.OBC.CDL.Logical.LogicalSwitch logSwi
+  Buildings.Controls.OBC.CDL.Logical.Switch logSwi
     "Pass process completion signal based on whether stage setpoint is lead non-condensing stage"
     annotation (Placement(transformation(extent={{120,20},{140,40}})));
 

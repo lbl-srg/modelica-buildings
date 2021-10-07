@@ -90,7 +90,7 @@ protected
     "Record the old hot water isolation valve status"
     annotation (Placement(transformation(extent={{-80,-110},{-60,-90}})));
 
-  Buildings.Controls.OBC.CDL.Routing.BooleanReplicator booRep(
+  Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator booRep(
     final nout=nBoi)
     "Replicate boolean input"
     annotation (Placement(transformation(extent={{20,-150},{40,-130}})));
@@ -99,11 +99,11 @@ protected
     "Check if it is time to change isolation valve position"
     annotation (Placement(transformation(extent={{-80,-180},{-60,-160}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Switch swi[nBoi]
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi[nBoi]
     "Logical switch"
     annotation (Placement(transformation(extent={{120,-50},{140,-30}})));
 
-  Buildings.Controls.OBC.CDL.Routing.BooleanReplicator booRep1(
+  Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator booRep1(
     final nout=nBoi)
     "Replicate boolean input"
     annotation (Placement(transformation(extent={{60,-180},{80,-160}})));
@@ -112,11 +112,11 @@ protected
     "Logical not"
     annotation (Placement(transformation(extent={{-20,-90},{0,-70}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Switch swi1[nBoi]
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi1[nBoi]
     "Logical switch"
     annotation (Placement(transformation(extent={{60,-70},{80,-50}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Switch swi2[nBoi]
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi2[nBoi]
     "Logical switch"
     annotation (Placement(transformation(extent={{60,0},{80,20}})));
 
@@ -124,12 +124,12 @@ protected
     "Check next enabling isolation valve"
     annotation (Placement(transformation(extent={{-20,0},{0,20}})));
 
-  Buildings.Controls.OBC.CDL.Routing.IntegerReplicator intRep(
+  Buildings.Controls.OBC.CDL.Routing.IntegerScalarReplicator intRep(
     final nout=nBoi)
     "Replicate integer input"
     annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
 
-  Buildings.Controls.OBC.CDL.Routing.RealReplicator reaRep(
+  Buildings.Controls.OBC.CDL.Routing.RealScalarReplicator reaRep(
     final nout=nBoi)
     "Replicate real input"
     annotation (Placement(transformation(extent={{80,70},{100,90}})));
@@ -167,7 +167,7 @@ protected
     annotation (Placement(transformation(extent={{40,210},{60,230}})));
 
   Buildings.Controls.OBC.CDL.Logical.MultiAnd mulAnd1(
-    final nu=nBoi)
+    final nin=nBoi)
     "Logical and"
     annotation (Placement(transformation(extent={{80,210},{100,230}})));
 

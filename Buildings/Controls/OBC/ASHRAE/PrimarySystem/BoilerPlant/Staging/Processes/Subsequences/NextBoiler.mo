@@ -62,12 +62,12 @@ protected
     annotation (Placement(transformation(extent={{-120,-110},{-100,-90}})));
 
   Buildings.Controls.OBC.CDL.Logical.MultiOr anyEnaBoi(
-    final nu=nBoi)
+    final nin=nBoi)
     "Check if there is any enabling boiler"
     annotation (Placement(transformation(extent={{-80,-30},{-60,-10}})));
 
   Buildings.Controls.OBC.CDL.Logical.MultiOr anyDisBoi(
-    final nu=nBoi)
+    final nin=nBoi)
     "Check if there is any disabling boiler"
     annotation (Placement(transformation(extent={{-80,-70},{-60,-50}})));
 
@@ -150,7 +150,7 @@ protected
     "Vector of boiler index"
     annotation (Placement(transformation(extent={{-120,-10},{-100,10}})));
 
-  Buildings.Controls.OBC.CDL.Routing.BooleanReplicator booRep(
+  Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator booRep(
     final nout=nBoi)
     "Replicate boolean input"
     annotation (Placement(transformation(extent={{-160,-170},{-140,-150}})));

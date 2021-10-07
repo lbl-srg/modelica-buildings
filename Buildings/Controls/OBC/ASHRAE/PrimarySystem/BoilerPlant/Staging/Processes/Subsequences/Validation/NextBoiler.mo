@@ -27,35 +27,35 @@ model NextBoiler
     annotation (Placement(transformation(extent={{240,-150},{260,-130}})));
 
 protected
-  Buildings.Controls.OBC.CDL.Logical.LogicalSwitch boiSet[2]
+  Buildings.Controls.OBC.CDL.Logical.Switch boiSet[2]
     "Boiler status setpoint"
     annotation (Placement(transformation(extent={{-140,90},{-120,110}})));
 
-  Buildings.Controls.OBC.CDL.Logical.LogicalSwitch inPro
+  Buildings.Controls.OBC.CDL.Logical.Switch inPro
     "Check if it is in the staging process"
     annotation (Placement(transformation(extent={{-140,30},{-120,50}})));
 
-  Buildings.Controls.OBC.CDL.Logical.LogicalSwitch boiSet1[2]
+  Buildings.Controls.OBC.CDL.Logical.Switch boiSet1[2]
     "Boiler status setpoint"
     annotation (Placement(transformation(extent={{160,90},{180,110}})));
 
-  Buildings.Controls.OBC.CDL.Logical.LogicalSwitch inPro1
+  Buildings.Controls.OBC.CDL.Logical.Switch inPro1
     "Check if it is in the staging process"
     annotation (Placement(transformation(extent={{160,30},{180,50}})));
 
-  Buildings.Controls.OBC.CDL.Logical.LogicalSwitch boiSet2[2]
+  Buildings.Controls.OBC.CDL.Logical.Switch boiSet2[2]
     "Boiler status setpoint"
     annotation (Placement(transformation(extent={{-140,-230},{-120,-210}})));
 
-  Buildings.Controls.OBC.CDL.Logical.LogicalSwitch inPro2
+  Buildings.Controls.OBC.CDL.Logical.Switch inPro2
     "Check if it is in the staging process"
     annotation (Placement(transformation(extent={{-140,-290},{-120,-270}})));
 
-  Buildings.Controls.OBC.CDL.Logical.LogicalSwitch boiSet3[2]
+  Buildings.Controls.OBC.CDL.Logical.Switch boiSet3[2]
     "Boiler status setpoint"
     annotation (Placement(transformation(extent={{160,-230},{180,-210}})));
 
-  Buildings.Controls.OBC.CDL.Logical.LogicalSwitch inPro3
+  Buildings.Controls.OBC.CDL.Logical.Switch inPro3
     "Check if it is in the staging process"
     annotation (Placement(transformation(extent={{160,-290},{180,-270}})));
 
@@ -84,7 +84,7 @@ protected
     "Stage one"
     annotation (Placement(transformation(extent={{-260,190},{-240,210}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Switch swi
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi
     "Logical switch"
     annotation (Placement(transformation(extent={{-180,210},{-160,230}})));
 
@@ -97,7 +97,7 @@ protected
     "Vector of boilers status setpoint at stage two"
     annotation (Placement(transformation(extent={{-260,110},{-240,130}})));
 
-  Buildings.Controls.OBC.CDL.Routing.BooleanReplicator booRep(
+  Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator booRep(
     final nout=2)
     "Replicate boolean input"
     annotation (Placement(transformation(extent={{-180,90},{-160,110}})));
@@ -138,7 +138,7 @@ protected
     "Stage one"
     annotation (Placement(transformation(extent={{40,190},{60,210}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Switch swi1
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi1
     "Logical switch"
     annotation (Placement(transformation(extent={{120,210},{140,230}})));
 
@@ -151,7 +151,7 @@ protected
     "Vector of boilers status setpoint at stage two"
     annotation (Placement(transformation(extent={{40,110},{60,130}})));
 
-  Buildings.Controls.OBC.CDL.Routing.BooleanReplicator booRep1(
+  Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator booRep1(
     final nout=2)
     "Replicate boolean input"
     annotation (Placement(transformation(extent={{120,90},{140,110}})));
@@ -192,7 +192,7 @@ protected
     "Stage one"
     annotation (Placement(transformation(extent={{-260,-90},{-240,-70}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Switch swi2
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi2
     "Logical switch"
     annotation (Placement(transformation(extent={{-180,-110},{-160,-90}})));
 
@@ -205,7 +205,7 @@ protected
     "Vector of boilers status setpoint at stage two"
     annotation (Placement(transformation(extent={{-260,-250},{-240,-230}})));
 
-  Buildings.Controls.OBC.CDL.Routing.BooleanReplicator booRep2(
+  Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator booRep2(
     final nout=2)
     "Replicate boolean input"
     annotation (Placement(transformation(extent={{-180,-230},{-160,-210}})));
@@ -246,7 +246,7 @@ protected
     "Stage one"
     annotation (Placement(transformation(extent={{40,-90},{60,-70}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Switch swi3
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi3
     "Logical switch"
     annotation (Placement(transformation(extent={{120,-110},{140,-90}})));
 
@@ -259,7 +259,7 @@ protected
     "Vector of boilers status setpoint at stage two"
     annotation (Placement(transformation(extent={{40,-250},{60,-230}})));
 
-  Buildings.Controls.OBC.CDL.Routing.BooleanReplicator booRep3(
+  Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator booRep3(
     final nout=2)
     "Replicate boolean input"
     annotation (Placement(transformation(extent={{120,-230},{140,-210}})));

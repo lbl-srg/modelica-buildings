@@ -460,7 +460,7 @@ protected
     annotation (Placement(transformation(extent={{-120,210},{-100,230}})));
 
   Buildings.Controls.OBC.CDL.Logical.MultiOr mulOr(
-    final nu=2)
+    final nin=2)
     "Multi Or"
     annotation (Placement(transformation(extent={{-90,210},{-70,230}})));
 
@@ -469,7 +469,7 @@ protected
     annotation (Placement(transformation(extent={{220,190},{240,210}})));
 
   Buildings.Controls.OBC.CDL.Logical.MultiOr mulOr1(
-    final nu=2)
+    final nin=2)
     "Multi Or"
     annotation (Placement(transformation(extent={{250,190},{270,210}})));
 
@@ -478,7 +478,7 @@ protected
     annotation (Placement(transformation(extent={{-140,80},{-120,100}})));
 
   Buildings.Controls.OBC.CDL.Logical.MultiOr mulOr2(
-    final nu=2)
+    final nin=2)
     "Multi Or"
     annotation (Placement(transformation(extent={{-110,80},{-90,100}})));
 
@@ -487,7 +487,7 @@ protected
     annotation (Placement(transformation(extent={{220,60},{240,80}})));
 
   Buildings.Controls.OBC.CDL.Logical.MultiOr mulOr3(
-    final nu=2)
+    final nin=2)
     "Multi Or"
     annotation (Placement(transformation(extent={{250,60},{270,80}})));
 
@@ -496,7 +496,7 @@ protected
     annotation (Placement(transformation(extent={{-150,-100},{-130,-80}})));
 
   Buildings.Controls.OBC.CDL.Logical.MultiOr mulOr4(
-    final nu=2)
+    final nin=2)
     "Multi Or"
     annotation (Placement(transformation(extent={{-120,-100},{-100,-80}})));
 
@@ -505,7 +505,7 @@ protected
     annotation (Placement(transformation(extent={{240,-110},{260,-90}})));
 
   Buildings.Controls.OBC.CDL.Logical.MultiOr mulOr5(
-    final nu=2)
+    final nin=2)
     "Multi Or"
     annotation (Placement(transformation(extent={{270,-110},{290,-90}})));
 
@@ -514,7 +514,7 @@ protected
     annotation (Placement(transformation(extent={{-150,-280},{-130,-260}})));
 
   Buildings.Controls.OBC.CDL.Logical.MultiOr mulOr6(
-    final nu=2)
+    final nin=2)
     "Multi Or"
     annotation (Placement(transformation(extent={{-120,-280},{-100,-260}})));
 
@@ -523,7 +523,7 @@ protected
     annotation (Placement(transformation(extent={{240,-270},{260,-250}})));
 
   Buildings.Controls.OBC.CDL.Logical.MultiOr mulOr7(
-    final nu=2)
+    final nin=2)
     "Multi Or"
     annotation (Placement(transformation(extent={{270,-270},{290,-250}})));
 
@@ -532,7 +532,7 @@ protected
     annotation (Placement(transformation(extent={{-140,-440},{-120,-420}})));
 
   Buildings.Controls.OBC.CDL.Logical.MultiOr mulOr8(
-    final nu=2)
+    final nin=2)
     "Multi Or"
     annotation (Placement(transformation(extent={{-110,-440},{-90,-420}})));
 
@@ -541,7 +541,7 @@ protected
     annotation (Placement(transformation(extent={{220,-450},{240,-430}})));
 
   Buildings.Controls.OBC.CDL.Logical.MultiOr mulOr9(
-    final nu=2)
+    final nin=2)
     "Multi Or"
     annotation (Placement(transformation(extent={{250,-450},{270,-430}})));
 
@@ -550,23 +550,23 @@ protected
     "True delay to represent pump turning on"
     annotation (Placement(transformation(extent={{-150,240},{-130,260}})));
 
-  Buildings.Controls.OBC.CDL.Logical.IntegerSwitch intSwi
+  Buildings.Controls.OBC.CDL.Integers.Switch intSwi
     "Integer switch"
     annotation (Placement(transformation(extent={{280,-186},{300,-166}})));
 
-  Buildings.Controls.OBC.CDL.Logical.IntegerSwitch intSwi1
+  Buildings.Controls.OBC.CDL.Integers.Switch intSwi1
     "Integer switch"
     annotation (Placement(transformation(extent={{-120,-340},{-100,-320}})));
 
-  Buildings.Controls.OBC.CDL.Logical.IntegerSwitch intSwi2
+  Buildings.Controls.OBC.CDL.Integers.Switch intSwi2
     "Integer switch"
     annotation (Placement(transformation(extent={{280,-350},{300,-330}})));
 
-  Buildings.Controls.OBC.CDL.Logical.IntegerSwitch intSwi3
+  Buildings.Controls.OBC.CDL.Integers.Switch intSwi3
     "Integer switch"
     annotation (Placement(transformation(extent={{-100,-500},{-80,-480}})));
 
-  Buildings.Controls.OBC.CDL.Logical.IntegerSwitch intSwi4
+  Buildings.Controls.OBC.CDL.Integers.Switch intSwi4
     "Integer switch"
     annotation (Placement(transformation(extent={{260,-530},{280,-510}})));
 

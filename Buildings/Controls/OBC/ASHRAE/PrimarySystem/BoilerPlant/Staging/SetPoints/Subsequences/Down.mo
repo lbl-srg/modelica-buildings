@@ -285,7 +285,7 @@ protected
     "Logical Or"
     annotation (Placement(transformation(extent={{60,-108},{80,-88}})));
 
-  Buildings.Controls.OBC.CDL.Logical.LogicalSwitch logSwi
+  Buildings.Controls.OBC.CDL.Logical.Switch logSwi
     "Logical switch"
     annotation (Placement(transformation(extent={{100,-50},{120,-30}})));
 
@@ -303,7 +303,7 @@ protected
     "Integer to Real conversion"
     annotation (Placement(transformation(extent={{-60,-180},{-40,-160}})));
 
-  Buildings.Controls.OBC.CDL.Logical.LogicalSwitch logSwi1 if not have_priOnl
+  Buildings.Controls.OBC.CDL.Logical.Switch logSwi1 if not have_priOnl
     "Logical switch"
     annotation (Placement(transformation(extent={{140,-100},{160,-80}})));
 

@@ -149,7 +149,7 @@ protected
     "Check for non-condensing boilers"
     annotation (Placement(transformation(extent={{30,-110},{50,-90}})));
 
-  Buildings.Controls.OBC.CDL.Logical.LogicalSwitch logSwi
+  Buildings.Controls.OBC.CDL.Logical.Switch logSwi
     "Switch for heating capacity condition based on stage type"
     annotation (Placement(transformation(extent={{100,40},{120,60}})));
 
@@ -157,7 +157,7 @@ protected
     "Logical And"
     annotation (Placement(transformation(extent={{130,-10},{150,10}})));
 
-  Buildings.Controls.OBC.CDL.Logical.LogicalSwitch logSwi1
+  Buildings.Controls.OBC.CDL.Logical.Switch logSwi1
     "Switch for flow-rate condition"
     annotation (Placement(transformation(extent={{100,-40},{120,-20}})));
 
