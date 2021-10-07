@@ -743,8 +743,6 @@ protected
     "Boolean False signal"
     annotation (Placement(transformation(extent={{128,0},{148,20}})));
 
-<<<<<<< HEAD
-=======
   Buildings.Controls.OBC.CDL.Logical.Latch lat1 if not have_priOnl
     "Latch"
     annotation (Placement(transformation(extent={{-60,-400},{-40,-380}})));
@@ -769,7 +767,6 @@ protected
     "Logical Not"
     annotation (Placement(transformation(extent={{-20,-400},{0,-380}})));
 
->>>>>>> 5f4174228b (Added logic to wait for pumps to be proven on before completing pump staging process)
 equation
   connect(enaDedLeaPum.uPlaEna, uPlaEna) annotation (Line(points={{-202,115},{-240,
           115},{-240,110},{-300,110}}, color={255,0,255}));
@@ -999,15 +996,6 @@ equation
   connect(lat.y, and1.u1) annotation (Line(points={{-178,-190},{-170,-190},{
           -170,-284},{-150,-284}}, color={255,0,255}));
 
-<<<<<<< HEAD
-  connect(uPumChaPro, and1.u2) annotation (Line(points={{-300,-250},{-276,-250},
-          {-276,-264},{-184,-264},{-184,-292},{-150,-292}}, color={255,0,255}));
-
-  connect(uPumChaPro, not2.u) annotation (Line(points={{-300,-250},{-276,-250},
-          {-276,-264},{-184,-264},{-184,-320},{-150,-320}}, color={255,0,255}));
-
-=======
->>>>>>> 5f4174228b (Added logic to wait for pumps to be proven on before completing pump staging process)
   connect(lat.y, or2.u1) annotation (Line(points={{-178,-190},{-170,-190},{-170,
           -302},{-112,-302}}, color={255,0,255}));
 
@@ -1093,20 +1081,6 @@ equation
           {166,-172},{166,-40},{180,-40}}, color={255,0,255}));
   connect(chaPumSta4.yHotWatPum, logSwi.u3) annotation (Line(points={{84,-304},{
           166,-304},{166,-40},{180,-40}}, color={255,0,255}));
-<<<<<<< HEAD
-  connect(logSwi.y, cha.u) annotation (Line(points={{204,-32},{248,-32},{248,56},
-          {154,56},{154,70},{178,70}}, color={255,0,255}));
-  connect(logSwi.y, pumSpeFlo.uHotWatPum) annotation (Line(points={{204,-32},{248,
-          -32},{248,-356},{-70,-356},{-70,-499},{-62,-499}}, color={255,0,255}));
-  connect(logSwi.y, pumSpeTem.uHotWatPum) annotation (Line(points={{204,-32},{248,
-          -32},{248,-356},{-70,-356},{-70,-530},{-62,-530}}, color={255,0,255}));
-  connect(mulSumInt2.y, intGreEquThr.u) annotation (Line(points={{-180,-240},{
-          -82,-240},{-82,-318},{-78,-318}}, color={255,127,0}));
-  connect(mulSumInt2.y, intLesEquThr.u) annotation (Line(points={{-180,-240},{
-          -82,-240},{-82,-298},{-20,-298},{-20,-318},{-14,-318}}, color={255,
-          127,0}));
-=======
->>>>>>> 5f4174228b (Added logic to wait for pumps to be proven on before completing pump staging process)
   connect(uNexEnaBoi, chaPumSta.uNexLagPum) annotation (Line(points={{-300,-310},
           {-278,-310},{-278,98},{22,98},{22,106},{56,106}}, color={255,127,0}));
   connect(uLasDisBoi, chaPumSta.uLasLagPum) annotation (Line(points={{-300,-350},
