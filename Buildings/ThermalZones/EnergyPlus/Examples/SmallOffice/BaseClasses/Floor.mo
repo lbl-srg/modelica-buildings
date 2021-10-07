@@ -93,13 +93,14 @@ model Floor
     "Attic zone"
     annotation (Placement(transformation(extent={{300,-60},{340,-20}})));
 
-protected
   parameter String idfName=Modelica.Utilities.Files.loadResource(
     "modelica://Buildings/Resources/Data/ThermalZones/EnergyPlus/Examples/RefBldgSmallOffice/RefBldgSmallOfficeNew2004_Chicago.idf")
     "Name of the IDF file";
   parameter String weaName=Modelica.Utilities.Files.loadResource(
     "modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos")
     "Name of the weather file";
+
+protected
   inner Buildings.ThermalZones.EnergyPlus.Building building(
     idfName=idfName,
     weaName=weaName,
