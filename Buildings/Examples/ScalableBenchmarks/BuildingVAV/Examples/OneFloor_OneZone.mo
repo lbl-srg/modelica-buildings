@@ -176,10 +176,10 @@ model OneFloor_OneZone "Closed-loop model with 1 zone in 1 floor"
     redeclare each package Medium = MediumA,
     each m_flow_nominal=m_flow_nominal) "Supply air temperature sensor"
     annotation (Placement(transformation(extent={{4,-38},{20,-22}})));
-  Buildings.Examples.VAVReheat.Controls.ModeSelector modeSelector[nFlo]
+  Buildings.Examples.VAVReheat.BaseClasses.Controls.ModeSelector modeSelector[nFlo]
     "Finite State Machine for the operational modes"
     annotation (Placement(transformation(extent={{-180,40},{-164,56}})));
-  Buildings.Examples.VAVReheat.Controls.Economizer conEco[nFlo](
+  Buildings.Examples.VAVReheat.BaseClasses.Controls.Economizer conEco[nFlo](
     each have_reset=true,
     each VOut_flow_min=0.3*m_flow_nominal/1.2)
     "Controller for economizer"
@@ -201,7 +201,7 @@ model OneFloor_OneZone "Closed-loop model with 1 zone in 1 floor"
   Buildings.Utilities.Math.Min min1[nFlo](each nin=nZon)
     "Computes lowest room temperature"
     annotation (Placement(transformation(extent={{108,94},{120,106}})));
-  Buildings.Examples.VAVReheat.Controls.FanVFD conFanRet[nFlo](
+  Buildings.Examples.VAVReheat.BaseClasses.Controls.FanVFD conFanRet[nFlo](
     each xSet_nominal(displayUnit="m3/s") = m_flow_nominal/1.2,
     each r_N_min=0.2) "Controller for fan"
     annotation (Placement(transformation(extent={{14,152},{28,166}})));
@@ -222,10 +222,10 @@ model OneFloor_OneZone "Closed-loop model with 1 zone in 1 floor"
     fan_dP_On_Off[nFlo](each preRis=dP_pre)
     "controller outputs fan on or off"
     annotation (Placement(transformation(extent={{-70,-14},{-56,0}})));
-  VAVReheat.Controls.SupplyAirTemperature conTSup[nFlo](each k=0.01)
+  VAVReheat.BaseClasses.Controls.SupplyAirTemperature conTSup[nFlo](each k=0.01)
     "Supply air temperature controller"
     annotation (Placement(transformation(extent={{-240,-70},{-220,-50}})));
-  VAVReheat.Controls.SupplyAirTemperatureSetpoint TAirSupSet[nFlo]
+  VAVReheat.BaseClasses.Controls.SupplyAirTemperatureSetpoint TAirSupSet[nFlo]
     "Supply air temperature set point"
     annotation (Placement(transformation(extent={{-300,-70},{-280,-50}})));
 equation
@@ -459,12 +459,12 @@ The heating coil valve, outside air damper, and cooling coil valve are
 modulated in sequence to maintain the supply air temperature set point.
 The economizer control ensures the following functions:
 minimum outside air requirement, and supply air cooling, see
-<a href=\"modelica://Buildings.Examples.VAVReheat.Controls.Economizer\">
-Buildings.Examples.VAVReheat.Controls.Economizer</a>.
+<a href=\"modelica://Buildings.Examples.VAVReheat.BaseClasses.Controls.Economizer\">
+Buildings.Examples.VAVReheat.BaseClasses.Controls.Economizer</a>.
 The controller of the terminal units tracks the room air temperature set point
 based on a \"single maximum\" logic, see
-<a href=\"modelica://Buildings.Examples.VAVReheat.Controls.RoomVAV\">
-Buildings.Examples.VAVReheat.Controls.RoomVAV</a>.
+<a href=\"modelica://Buildings.Examples.VAVReheat.BaseClasses.Controls.RoomVAV\">
+Buildings.Examples.VAVReheat.BaseClasses.Controls.RoomVAV</a>.
 </p>
 <p>
 There is also a finite state machine that transitions the mode of operation of
