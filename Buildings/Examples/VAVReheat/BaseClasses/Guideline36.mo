@@ -16,7 +16,7 @@ model Guideline36
     "Minimum expected zone primary flow rate";
   parameter Modelica.SIunits.Time samplePeriod=120
     "Sample period of component, set to the same value as the trim and respond that process yPreSetReq";
-  parameter Modelica.SIunits.PressureDifference dpDisRetMax=40
+  parameter Modelica.SIunits.PressureDifference dpDisRetMax(displayUnit="Pa")=40
     "Maximum return fan discharge static pressure setpoint";
 
   Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.Controller conVAVCor(
