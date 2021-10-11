@@ -27,14 +27,10 @@ partial model PartialBoiler "Boiler base class with efficiency unspecified"
     "Boiler efficiency at nominal condition";
 
   Modelica.SIunits.Efficiency eta "Boiler efficiency";
-  Modelica.SIunits.Power QFue_flow = y * Q_flow_nominal/eta_nominal
-    "Heat released by fuel";
-  Modelica.SIunits.Power QWat_flow = eta * QFue_flow
-    "Heat transfer from gas into water";
-  Modelica.SIunits.MassFlowRate mFue_flow = QFue_flow/fue.h
-    "Fuel mass flow rate";
-  Modelica.SIunits.VolumeFlowRate VFue_flow = mFue_flow/fue.d
-    "Fuel volume flow rate";
+  Modelica.SIunits.Power QFue_flow "Heat released by fuel";
+  Modelica.SIunits.Power QWat_flow "Heat transfer from gas into water";
+  Modelica.SIunits.MassFlowRate mFue_flow "Fuel mass flow rate";
+  Modelica.SIunits.VolumeFlowRate VFue_flow "Fuel volume flow rate";
 
   Modelica.Blocks.Interfaces.RealInput y(min=0, max=1) "Part load ratio"
     annotation (Placement(transformation(extent={{-140,60},{-100,100}})));
@@ -69,6 +65,11 @@ partial model PartialBoiler "Boiler base class with efficiency unspecified"
 
 equation
   assert(eta > 0.001, "Efficiency curve is wrong.");
+
+  QFue_flow = y * Q_flow_nominal/eta_nominal;
+  QWat_flow = eta * QFue_flow;
+  mFue_flow = QFue_flow/fue.h;
+  VFue_flow = mFue_flow/fue.d;
 
   connect(UAOve.port_b, vol.heatPort) annotation (Line(
       points={{-28,20},{-22,20},{-22,-10},{-9,-10}},

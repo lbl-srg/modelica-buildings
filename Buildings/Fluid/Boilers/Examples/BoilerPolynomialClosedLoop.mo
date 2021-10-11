@@ -1,5 +1,6 @@
 within Buildings.Fluid.Boilers.Examples;
-model BoilerPolynomialClosedLoop "Boiler with closed loop control"
+model BoilerPolynomialClosedLoop
+ "Boilers with efficiency specified by polynomial and with open loop control"
   extends Modelica.Icons.Example;
  package Medium = Buildings.Media.Water "Medium model";
  parameter Modelica.SIunits.Power Q_flow_nominal = 20000 "Nominal power";
@@ -200,7 +201,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(m_flow_pum.y, pumBoi.m_flow_in) annotation (Line(
-      points={{-59,-20},{-12,-20},{-12,-20.2}},
+      points={{-59,-20},{-12,-20},{-12,-20}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(vol.ports[1], spl3.port_1) annotation (Line(
@@ -216,7 +217,7 @@ equation
       color={191,0,0},
       smooth=Smooth.None));
   connect(gain.y, pumLoa.m_flow_in) annotation (Line(
-      points={{-19,110},{-13.6,110},{-13.6,109.8},{-12,109.8}},
+      points={{-19,110},{-13.6,110},{-13.6,110},{-12,110}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(m_flow_pum.y, gain.u) annotation (Line(
