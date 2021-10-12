@@ -34,7 +34,7 @@ model BoilerTable
   Modelica.Blocks.Interfaces.RealInput
     T_inlet(quantity="ThermodynamicTemperature", unit="K") "Inlet temperature"
     annotation (Placement(transformation(extent={{-140,16},{-100,56}}),
-        iconTransformation(extent={{-140,16},{-100,56}})));
+        iconTransformation(extent={{-140,-64},{-100,-24}})));
 
 initial equation
   eta_nominal = Buildings.Utilities.Math.Functions.smoothInterpolation(
@@ -62,5 +62,9 @@ First implementation. This is for
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2651\">#2651</a>.
 </li>
 </ul>
-</html>"));
+</html>"), Icon(graphics={Line(points={{-100,-44},{-80,-44}}, color={0,0,0}),
+        Text(
+          extent={{-22,-54},{-142,-104}},
+          lineColor={0,0,0},
+          textString="T_in")}));
 end BoilerTable;
