@@ -37,20 +37,12 @@ model BoilerTable
         iconTransformation(extent={{-140,16},{-100,56}})));
 
 initial equation
-/*  if smo == Modelica.Blocks.Types.Smoothness.ConstantSegments then
-    eta_nominal = Modelica.Blocks.Tables.Internal.getTable2DValueNoDer(
-     tableID=effTab.tableID,u1=1,u2=T_inlet_nominal);
-  else
-    eta_nominal = Modelica.Blocks.Tables.Internal.getTable2DValue(
-     tableID=effTab.tableID,u1=1,u2=T_inlet_nominal);
-  end if;*/
   eta_nominal = Buildings.Utilities.Math.Functions.smoothInterpolation(
     x=T_inlet_nominal, xSup=effCur[1,2:end], ySup=effCur[end,2:end]);
-
-equation
   assert(effCur[end,1] == 1,
     "Efficiency curve at full load (y == 1) must be provided.");
 
+equation
   eta=effTab.y;
   connect(effTab.u1, y) annotation (Line(points={{-76,80},{-120,80}},
                 color={0,0,127}));
