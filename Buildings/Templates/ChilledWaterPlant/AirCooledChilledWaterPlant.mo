@@ -2,7 +2,8 @@ within Buildings.Templates.ChilledWaterPlant;
 model AirCooledChilledWaterPlant
   extends Buildings.Templates.Interfaces.ChilledWaterPlant(
     final typ=Buildings.Templates.Types.ChilledWaterPlant.AirCooledChiller);
-  extends Buildings.Templates.BaseClasses.ChilledWaterPlant.PartialChilledWaterLoop;
+  extends Buildings.Templates.BaseClasses.ChilledWaterPlant.PartialChilledWaterLoop(
+    final is_airCoo=true);
 equation
   connect(secPum.port_b, port_a)
     annotation (Line(points={{180,-10},{200,-10}}, color={0,127,255}));

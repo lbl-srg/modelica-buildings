@@ -11,7 +11,9 @@ partial model ChillerGroup
     annotation (Evaluate=true, Dialog(group="Configuration"));
   // ToDo: Other ChillerGroup parameters
 
-  parameter Boolean is_airCoo = false "Are chiller in group air cooled";
+  parameter Boolean is_airCoo
+    "= true, chillers in group are air cooled, 
+    = false, chillers in group are water cooled";
 
   outer parameter String id
     "System identifier";

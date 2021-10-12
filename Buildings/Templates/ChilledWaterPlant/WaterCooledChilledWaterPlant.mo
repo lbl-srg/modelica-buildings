@@ -4,7 +4,8 @@ model WaterCooledChilledWaterPlant
     final typ=Buildings.Templates.Types.ChilledWaterPlant.WaterCooledChiller);
   extends
     Buildings.Templates.BaseClasses.ChilledWaterPlant.PartialChilledWaterLoop(
-      chi(redeclare final package Mediu1=MediumCW));
+      chi(redeclare final package Medium1=MediumCW),
+      final is_airCoo=false);
   extends
     Buildings.Templates.BaseClasses.ChilledWaterPlant.PartialCondenserWaterLoop;
 equation

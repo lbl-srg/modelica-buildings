@@ -3,6 +3,13 @@ model ChillerParallel
   extends Buildings.Templates.Interfaces.ChillerGroup(
     final typ=Buildings.Templates.Types.ChillerGroup.ChillerParallel);
 
+  inner replaceable Buildings.Templates.BaseClasses.Chiller.ElectricChiller chi[num]
+    constrainedby Buildings.Templates.Interfaces.Chiller(
+      redeclare each final package Medium1 = Medium1,
+      redeclare each final package Medium2 = Medium2,
+      final is_airCoo=is_airCoo)
+    annotation (Placement(transformation(extent={{-20,-20},{20,20}},
+        rotation=0)));
 
   Fluid.Sources.MassFlowSource_T floZerChi_b(
     redeclare final package Medium = Medium,
@@ -34,12 +41,7 @@ model ChillerParallel
     final m_flow=0,
     nPorts=1) "Zero flow boundary condition"
     annotation (Placement(transformation(extent={{60,60},{40,80}})));
-  inner replaceable Buildings.Templates.BaseClasses.Chiller.ElectricChiller chi[num]
-    constrainedby Buildings.Templates.Interfaces.Chiller(
-      redeclare each final package Medium1 = Medium1,
-      redeclare each final package Medium2 = Medium2)
-    annotation (Placement(transformation(extent={{-20,-20},{20,20}},
-        rotation=0)));
+
 equation
   connect(floZerCon_a.ports[1], colDisCon.port_bDisRet)
     annotation (Line(points={{-40,76},{-20,76}}, color={0,127,255}));

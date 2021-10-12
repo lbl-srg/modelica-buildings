@@ -111,7 +111,7 @@ equation
       extent={{-3,6},{-3,6}},
       horizontalAlignment=TextAlignment.Right));
   connect(busCon.out.on, chi.on) annotation (Line(
-      points={{0,100},{0,16},{0,16},{0,80},{-60,80},{-60,5},{-12,5}},
+      points={{0,100},{0,80},{-60,80},{-60,5},{-12,5}},
       color={255,204,51},
       thickness=0.5), Text(
       string="%first",

@@ -5,10 +5,14 @@ model PartialChilledWaterLoop
     "Chilled water medium";
 
   parameter Boolean has_comLeg "Chilled water loop has common leg";
+  parameter Boolean is_airCoo
+    "= true, chillers in group are air cooled, 
+    = false, chillers in group are water cooled";
 
   inner replaceable Buildings.Templates.BaseClasses.ChillerGroup.ChillerParallel chi
     constrainedby Buildings.Templates.Interfaces.ChillerGroup(
-      redeclare final package Medium2 = MediumCHW)
+      redeclare final package Medium2 = MediumCHW,
+      final is_airCoo=is_airCoo)
     annotation (Placement(transformation(extent={{10,-10},{-10,10}},
         rotation=90,
         origin={-2,-10})));
