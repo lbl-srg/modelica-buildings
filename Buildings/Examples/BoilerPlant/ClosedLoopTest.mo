@@ -1,18 +1,29 @@
 within Buildings.Examples.BoilerPlant;
 model ClosedLoopTest "Closed loop testing model"
   extends Modelica.Icons.Example;
-  replaceable package MediumA =
-      Buildings.Media.Air;
-  replaceable package MediumW =
-      Buildings.Media.Water "Medium model";
+  replaceable package MediumA = Buildings.Media.Air
+    "Medium model";
+  replaceable package MediumW = Buildings.Media.Water
+    "Medium model";
 
-  parameter Real boiCapRat = 0.8
+  parameter Modelica.SIunits.MassFlowRate mRad_flow_nominal=0.000604*1000
+    "Radiator nominal mass flow rate";
+
+  parameter Real boiDesCap(
+    final unit="W",
+    displayUnit="W",
+    final quantity="Power")= 60000
+    "Total boiler plant design capacity";
+
+  parameter Real boiCapRat(
+    final unit="1",
+    displayUnit="1") = 0.4
     "Ratio of boiler-1 capacity to total capacity";
 
-  Buildings.Examples.BoilerPlant.PlantModel.BoilerPlant boilerPlant(boiCap1=(2 -
-        boiCapRat)*15000, boiCap2=boiCapRat*15000)
+  Buildings.Examples.BoilerPlant.PlantModel.BoilerPlant boilerPlant(boiCap1=(1 -
+        boiCapRat)*boiDesCap, boiCap2=boiCapRat*boiDesCap)
     "Boiler plant model"
-    annotation (Placement(transformation(extent={{42,-10},{62,10}})));
+    annotation (Placement(transformation(extent={{40,-10},{60,10}})));
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Controller controller(
     final have_priOnl=true,
@@ -34,17 +45,17 @@ model ClosedLoopTest "Closed loop testing model"
           Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Types.BoilerTypes.condensingBoiler},
     final nSta=3,
     final staMat=[1,0; 0,1; 1,1],
-    final boiDesCap={boiCapRat*15000*0.8,(2 - boiCapRat)*15000*0.8},
+    final boiDesCap={boiCapRat*boiDesCap*0.8,(1 - boiCapRat)*boiDesCap*0.8},
     final boiFirMin={0.2,0.3},
-    final minFloSet={0.2*boiCapRat*0.0003,0.3*(2 - boiCapRat)*0.0003},
-    final maxFloSet={boiCapRat*0.0003,(2 - boiCapRat)*0.0003},
+    final minFloSet={0.2*boiCapRat*0.0003,0.3*(1 - boiCapRat)*0.0003},
+    final maxFloSet={boiCapRat*0.0003,(1 - boiCapRat)*0.0003},
     final bypSetRat=0.000005,
     final nPumPri=2,
     final TMinSupNonConBoi=333.2,
     final k_bypVal=1,
     final Ti_bypVal=50,
     final Td_bypVal=10e-9,
-    final boiDesFlo={boiCapRat*0.0003,(2 - boiCapRat)*0.0003},
+    final boiDesFlo={boiCapRat*0.0003,(1 - boiCapRat)*0.0003},
     final k_priPum=1,
     final Ti_priPum=90,
     final Td_priPum=3,
@@ -60,7 +71,8 @@ model ClosedLoopTest "Closed loop testing model"
     "Radiator isolation valve controller"
     annotation (Placement(transformation(extent={{50,50},{70,70}})));
 
-protected
+
+// protected
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con(
     final k=273.15 + 21.11)
     "Zone temperature setpoint"
@@ -133,17 +145,17 @@ protected
 
 equation
   connect(controller.yBoi, boilerPlant.uBoiSta)
-    annotation (Line(points={{-18,14},{16,14},{16,9},{40,9}},
+    annotation (Line(points={{-18,14},{16,14},{16,9},{38,9}},
                                                            color={255,0,255}));
   connect(controller.yHotWatIsoVal, boilerPlant.uHotIsoVal)
-    annotation (Line(points={{-18,6},{16,6},{16,6},{40,6}},color={0,0,127}));
+    annotation (Line(points={{-18,6},{38,6}},              color={0,0,127}));
   connect(controller.yBypValPos, boilerPlant.uBypValSig)
-    annotation (Line(points={{-18,2},{0,2},{0,-3},{40,-3}},  color={0,0,127}));
+    annotation (Line(points={{-18,2},{0,2},{0,-3},{38,-3}},  color={0,0,127}));
   connect(con.y, conPID.u_s)
     annotation (Line(points={{32,60},{48,60}}, color={0,0,127}));
   connect(conPID.y, boilerPlant.uRadIsoVal) annotation (Line(points={{72,60},{76,
-          60},{76,34},{38,34},{38,-6},{40,-6}}, color={0,0,127}));
-  connect(boilerPlant.yZonTem, conPID.u_m) annotation (Line(points={{64,9},{80,9},
+          60},{76,34},{38,34},{38,-6}},         color={0,0,127}));
+  connect(boilerPlant.yZonTem, conPID.u_m) annotation (Line(points={{62,9},{80,9},
           {80,28},{60,28},{60,48}}, color={0,0,127}));
   connect(con3.y, controller.uBoiAva) annotation (Line(points={{-88,0},{-60,0},
           {-60,8},{-42,8}},                                   color={255,0,255}));
@@ -165,7 +177,7 @@ equation
       horizontalAlignment=TextAlignment.Right));
 
   connect(weaBus.TDryBul, boilerPlant.TOutAir) annotation (Line(
-      points={{-50,60},{-28,60},{-28,40},{8,40},{8,-9},{40,-9}},
+      points={{-50,60},{-28,60},{-28,40},{8,40},{8,-9},{38,-9}},
       color={255,204,51},
       thickness=0.5), Text(
       string="%first",
@@ -173,36 +185,36 @@ equation
       extent={{-3,-6},{-3,-6}},
       horizontalAlignment=TextAlignment.Right));
   connect(timTab.y[1], boilerPlant.QRooInt_flowrate)
-    annotation (Line(points={{-8,80},{0,80},{0,12},{40,12}},
+    annotation (Line(points={{-8,80},{0,80},{0,12},{38,12}},
                                                            color={0,0,127}));
   connect(controller.yPriPum, boilerPlant.uPumSta)
-    annotation (Line(points={{-18,-2},{2,-2},{2,3},{40,3}},
+    annotation (Line(points={{-18,-2},{2,-2},{2,3},{38,3}},
                                               color={255,0,255}));
   connect(controller.yPriPumSpe, boilerPlant.uPumSpe) annotation (Line(points={{-18,-6},
-          {4,-6},{4,0},{40,0}},                       color={0,0,127}));
-  connect(boilerPlant.ySupTem, controller.TSupPri) annotation (Line(points={{64,6},{
+          {4,-6},{4,0},{38,0}},                       color={0,0,127}));
+  connect(boilerPlant.ySupTem, controller.TSupPri) annotation (Line(points={{62,6},{
           100,6},{100,-68},{-68,-68},{-68,23},{-42,23}},               color={0,
           0,127}));
-  connect(boilerPlant.yRetTem, controller.TRetPri) annotation (Line(points={{64,3},{
+  connect(boilerPlant.yRetTem, controller.TRetPri) annotation (Line(points={{62,3},{
           104,3},{104,-72},{-72,-72},{-72,20},{-42,20}},               color={0,
           0,127}));
   connect(boilerPlant.yHotWatDp, controller.dpHotWatPri_rem) annotation (Line(
-        points={{64,0},{108,0},{108,-76},{-76,-76},{-76,11},{-42,11}},
+        points={{62,0},{108,0},{108,-76},{-76,-76},{-76,11},{-42,11}},
         color={0,0,127}));
   connect(boilerPlant.VHotWat_flow, controller.VHotWatPri_flow) annotation (
-      Line(points={{64,-3},{112,-3},{112,-80},{-80,-80},{-80,17},{-42,17}},
+      Line(points={{62,-3},{112,-3},{112,-80},{-80,-80},{-80,17},{-42,17}},
         color={0,0,127}));
 
   connect(boilerPlant.yBypValSig, controller.uBypValPos) annotation (Line(
-        points={{64,12},{116,12},{116,-84},{-84,-84},{-84,-29},{-42,-29}},
+        points={{62,12},{116,12},{116,-84},{-84,-84},{-84,-29},{-42,-29}},
         color={0,0,127}));
-  connect(boilerPlant.yBoiSta, controller.uBoi) annotation (Line(points={{64,-6},
+  connect(boilerPlant.yBoiSta, controller.uBoi) annotation (Line(points={{62,-6},
           {120,-6},{120,-88},{-88,-88},{-88,-17},{-42,-17}}, color={255,0,255}));
-  connect(boilerPlant.yPumSta, controller.uPriPum) annotation (Line(points={{64,-9},
+  connect(boilerPlant.yPumSta, controller.uPriPum) annotation (Line(points={{62,-9},
           {124,-9},{124,-92},{-92,-92},{-92,-20},{-42,-20}},     color={255,0,
           255}));
   connect(boilerPlant.yHotWatIsoVal, controller.uHotWatIsoVal) annotation (Line(
-        points={{64,-12},{128,-12},{128,-96},{-96,-96},{-96,-26},{-42,-26}},
+        points={{62,-12},{128,-12},{128,-96},{-96,-96},{-96,-26},{-42,-26}},
         color={0,0,127}));
   connect(conPID.y, hys.u) annotation (Line(points={{72,60},{76,60},{76,110},{78,
           110}}, color={0,0,127}));
@@ -229,7 +241,7 @@ equation
   connect(tim2.passed, lat.clr) annotation (Line(points={{142,62},{150,62},{150,
           88},{136,88},{136,104},{138,104}}, color={255,0,255}));
   connect(controller.TBoiHotWatSupSet, boilerPlant.TBoiHotWatSupSet)
-    annotation (Line(points={{-18,10},{-2,10},{-2,-12},{40,-12}},     color={0,0,
+    annotation (Line(points={{-18,10},{-2,10},{-2,-12},{38,-12}},     color={0,0,
           127}));
   annotation (Documentation(info="<html>
 <p>
