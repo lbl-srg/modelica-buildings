@@ -142,7 +142,7 @@ protected
      if (haveVMax and haveDPMax) or (nOri == 2) then 1
      elseif haveVMax or haveDPMax then 2
      else 3
-    "Flag, used to pick the right representatio of the fan or pump pressure curve";
+    "Flag, used to pick the right representation of the fan or pump pressure curve";
 
   final parameter
     Buildings.Fluid.Movers.BaseClasses.Characteristics.flowParametersInternal pCur1(
@@ -289,7 +289,7 @@ Received
 Warning:
 ========
 It is recommended that the volume flow rate versus pressure relation
-of the fan or pump satisfies the minimum decrease condition
+of the fan or pump satisfy the minimum decrease condition
 
         (per.pressure.dp[i+1]-per.pressure.dp[i])
 d[i] = ------------------------------------------------- < " + String(-kRes) + "
