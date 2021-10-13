@@ -272,7 +272,7 @@ protected
     annotation (Placement(transformation(extent={{60,-280},{80,-260}})));
 
 equation
-  connect(uHotWatPumSta, mulOr.u[1:2]) annotation (Line(points={{-160,90},{-122,
+  connect(uHotWatPumSta, mulOr.u[1:nPum]) annotation (Line(points={{-160,90},{-122,
           90}},                   color={255,0,255}));
   connect(mulOr.y, triRes.uDevSta)
     annotation (Line(points={{-98,90},{-60,90},{-60,98},{-42,98}},

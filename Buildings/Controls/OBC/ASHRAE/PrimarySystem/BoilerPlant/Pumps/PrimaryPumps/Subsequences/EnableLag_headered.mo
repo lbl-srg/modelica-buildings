@@ -199,7 +199,7 @@ equation
 
   connect(uHotWatPum, cha.u) annotation (Line(points={{-160,0},{-130,0},{-130,130},
           {-122,130}}, color={255,0,255}));
-  connect(cha.y, mulOr.u[1:2]) annotation (Line(points={{-98,130},{-90,130},{-90,
+  connect(cha.y, mulOr.u[1:nPum]) annotation (Line(points={{-98,130},{-90,130},{-90,
           130},{-82,130}},     color={255,0,255}));
   connect(hys.y, tim.u)
     annotation (Line(points={{-18,40},{-2,40}}, color={255,0,255}));

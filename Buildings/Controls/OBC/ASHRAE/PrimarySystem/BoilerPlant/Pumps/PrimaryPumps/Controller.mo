@@ -733,15 +733,15 @@ protected
     annotation (Placement(transformation(extent={{128,0},{148,20}})));
 
   Buildings.Controls.OBC.CDL.Logical.Latch lat1 if not have_priOnl
-    "Latch"
+    "Latch to hold process completion signal"
     annotation (Placement(transformation(extent={{-60,-400},{-40,-380}})));
 
   Buildings.Controls.OBC.CDL.Logical.Xor xor[nPum] if not have_priOnl
-    "Logical Exclusive Or"
+    "Check if all pumps are enabled and disabled as required"
     annotation (Placement(transformation(extent={{-180,-400},{-160,-380}})));
 
   Buildings.Controls.OBC.CDL.Logical.Not not4[nPum] if not have_priOnl
-    "Logical Not"
+    "True signal for pumps that are at correct state"
     annotation (Placement(transformation(extent={{-140,-400},{-120,-380}})));
 
   Buildings.Controls.OBC.CDL.Logical.MultiAnd mulAnd(nin=nPum) if not have_priOnl
@@ -753,7 +753,7 @@ protected
     annotation (Placement(transformation(extent={{-220,-400},{-200,-380}})));
 
   Buildings.Controls.OBC.CDL.Logical.Not not5 if not have_priOnl
-    "Logical Not"
+    "Generate true signal when process is incomplete"
     annotation (Placement(transformation(extent={{-20,-400},{0,-380}})));
 
 equation
