@@ -159,14 +159,14 @@ equation
           extent={{132,112},{12,62}},
           lineColor={0,0,0},
           textString=DynamicSelect("",String(dH_flow,
-            leftjustified=false,
+            leftJustified=false,
             significantDigits=0))),
         Text(
           visible=have_integrator,
           extent={{132,-56},{12,-106}},
           lineColor={0,0,0},
           textString=DynamicSelect("",String(E,
-            leftjustified=false,
+            leftJustified=false,
             significantDigits=0)))}),
     Documentation(
       info="<html>
