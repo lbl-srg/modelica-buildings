@@ -1,6 +1,6 @@
 within Buildings.Fluid.Boilers;
 model BoilerPolynomial
-  "Boiler with efficiency curve described by a polynomial of the control signal and/or temperature"
+  "Boiler with efficiency curve described by a polynomial of the control signal and (optional) temperature"
   extends Buildings.Fluid.Boilers.BaseClasses.PartialBoiler;
   parameter Buildings.Fluid.Types.EfficiencyCurves
     effCur=Buildings.Fluid.Types.EfficiencyCurves.Constant
@@ -14,10 +14,10 @@ model BoilerPolynomial
 initial equation
   if  effCur == Buildings.Fluid.Types.EfficiencyCurves.QuadraticLinear then
     assert(size(a, 1) == 6,
-    "The boiler has the efficiency curve set to 
-    'Buildings.Fluid.Types.EfficiencyCurves.QuadraticLinear',
-    and hence the parameter 'a' must have exactly 6 elements.
-    The number of elements is " + String(size(a, 1)) + ".");
+    "The parameter 'a' must have exactly 6 elements 
+when the boiler efficiency curve set to 
+'Buildings.Fluid.Types.EfficiencyCurves.QuadraticLinear'. 
+The number of elements currently supplied is " + String(size(a, 1)) + ".");
   end if;
 
   if effCur ==Buildings.Fluid.Types.EfficiencyCurves.Constant then
@@ -26,7 +26,7 @@ initial equation
     eta_nominal = Buildings.Utilities.Math.Functions.polynomial(
                                                           a=a, x=1);
   elseif effCur ==Buildings.Fluid.Types.EfficiencyCurves.QuadraticLinear then
-    // For this efficiency curve, a must have 6 elements.
+    // For this efficiency curve, 'a' must have exactly 6 elements.
     eta_nominal = Buildings.Utilities.Math.Functions.quadraticLinear(
                                                   a=aQuaLin, x1=1, x2=T_nominal);
   else
@@ -105,7 +105,7 @@ an arbitrary number of polynomial coefficients can be specified.
 ", revisions="<html>
 <ul>
 <li>
-October 4, 2021, by Hongxiang Fu:<br/>
+October 13, 2021, by Hongxiang Fu:<br/>
 For the implementation of 
 <a href=\"Modelica://Buildings.Fluid.Boilers.BoilerTable\">
 <code>Buildings.Fluid.Boilers.BoilerTable</code></a>, 
