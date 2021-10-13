@@ -15,7 +15,7 @@ initial equation
   if  effCur == Buildings.Fluid.Types.EfficiencyCurves.QuadraticLinear then
     assert(size(a, 1) == 6,
     "The parameter 'a' must have exactly 6 elements 
-when the boiler efficiency curve set to 
+when the boiler efficiency curve is set to 
 'Buildings.Fluid.Types.EfficiencyCurves.QuadraticLinear'. 
 The number of elements currently supplied is " + String(size(a, 1)) + ".");
   end if;
