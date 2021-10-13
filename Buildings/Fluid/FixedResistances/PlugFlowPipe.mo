@@ -213,7 +213,7 @@ protected
     or have_symmetry=false"
     annotation (Placement(transformation(extent={{-90,-30},{-70,-10}})));
 
-  Buildings.Fluid.FixedResistances.HydraulicDiameter res(
+  replaceable Buildings.Fluid.FixedResistances.HydraulicDiameter res(
     redeclare final package Medium = Medium,
     final dh=dh,
     final m_flow_nominal=m_flow_nominal,
