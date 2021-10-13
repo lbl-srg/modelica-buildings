@@ -43,7 +43,6 @@ partial block ControllerAHU
         rotation=90,
         origin={100,0})));
 
-
   annotation (
     __Dymola_translate=true,
     Icon(coordinateSystem(preserveAspectRatio=false), graphics={

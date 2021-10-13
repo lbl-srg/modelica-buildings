@@ -5,5 +5,4 @@ block SingleDuct
   outer replaceable Buildings.Templates.BaseClasses.Coils.None coiReh
     "Reheat coil";
 
-
 end SingleDuct;

@@ -42,7 +42,6 @@ model BaseNoEquipment
   table=dat.getRealArray2D("VAV_1.Supply fan.Pressure curve.value", nTest, 2));
   */
 
-
   Fluid.FixedResistances.PressureDrop res(
     redeclare final package Medium=MediumAir,
     m_flow_nominal=1, dp_nominal=100)
