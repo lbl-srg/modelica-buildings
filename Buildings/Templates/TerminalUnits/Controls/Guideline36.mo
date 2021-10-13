@@ -3,6 +3,19 @@ block Guideline36
   extends Buildings.Templates.BaseClasses.Controls.TerminalUnits.SingleDuct(
     final typ=Templates.Types.ControllerTU.Guideline36);
 
+  // See FIXME below for those parameters.
+  parameter Boolean have_occSen=false
+    "Set to true if zones have occupancy sensor"
+    annotation (Dialog(tab="Airflow setpoint", group="Zone sensors"));
+
+  parameter Boolean have_winSen=false
+    "Set to true if zones have window status sensor"
+    annotation (Dialog(tab="Airflow setpoint", group="Zone sensors"));
+
+  parameter Boolean have_CO2Sen=false
+    "Set to true if the zone has CO2 sensor"
+    annotation (Dialog(tab="Airflow setpoint", group="Zone sensors"));
+
   parameter Modelica.SIunits.VolumeFlowRate V_flow_nominal=
     dat.getReal(varName=id + ".Mechanical.Discharge air mass flow rate.value") / 1.2
     "Volume flow rate"
@@ -11,6 +24,7 @@ block Guideline36
   /*
   *  Parameters for Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.Controller
   */
+
   parameter Modelica.SIunits.Time samplePeriod = 120
     "Sample period of trim and respond for pressure reset request";
 
@@ -112,6 +126,7 @@ block Guideline36
       enable=controllerTypeDam == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
           or controllerTypeDam == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
 
+  /* FIXME: Evaluate function call at compile time, FE ExternData.
   parameter Boolean have_occSen=
      dat.getBoolean(varName=id + ".Control.Occupancy sensor")
     "Set to true if zones have occupancy sensor"
@@ -126,6 +141,7 @@ block Guideline36
     dat.getBoolean(varName=id + ".Control.CO2 sensor")
     "Set to true if the zone has CO2 sensor"
     annotation (Dialog(tab="Airflow setpoint", group="Zone sensors"));
+    */
 
   parameter Real VDisCooSetMax_flow(
     final unit="m3/s",
@@ -312,25 +328,25 @@ block Guideline36
 
   parameter Real VOutPerPer_flow(final unit="m3/s")=
      dat.getReal(varName=
-      id + ".Control.Zone outdoor air volume flow rate per person")
+      id + ".Control.Zone outdoor air volume flow rate per person.value")
     "Outdoor air rate per person"
     annotation(Dialog(group="Nominal condition"));
 
   parameter Real AFlo(final unit="m2")=
-     dat.getReal(varName=id + ".Control.Zone floor area")
+     dat.getReal(varName=id + ".Control.Zone floor area.value")
     "Floor area of each zone"
     annotation(Dialog(group="Nominal condition"));
 
   parameter Real occDen(final unit = "1/m2")=
-     dat.getReal(varName=id + ".Control.Zone default number of person per unit area")
+     dat.getReal(varName=id + ".Control.Zone default number of person per unit area.value")
     "Default number of person per unit area";
 
   parameter Real zonDisEffHea(final unit = "1")=
-     dat.getReal(varName=id + ".Control.Zone air distribution effectiveness during heating")
+     dat.getReal(varName=id + ".Control.Zone air distribution effectiveness during heating.value")
     "Zone air distribution effectiveness during heating";
 
   parameter Real zonDisEffCoo(final unit = "1")=
-     dat.getReal(varName=id + ".Control.Zone air distribution effectiveness during cooling")
+     dat.getReal(varName=id + ".Control.Zone air distribution effectiveness during cooling.value")
     "Zone air distribution effectiveness during cooling";
 
   parameter Real desZonDisEff(final unit = "1") = zonDisEffCoo
@@ -338,7 +354,7 @@ block Guideline36
     annotation(Dialog(group="Nominal condition"));
 
   parameter Real minZonPriFlo(final unit="m3/s")=
-     dat.getReal(varName=id + ".Control.Zone minimum expected primary air volume flow rate")
+     dat.getReal(varName=id + ".Control.Zone minimum expected primary air volume flow rate.value")
     "Minimum expected zone primary flow rate"
     annotation(Dialog(group="Nominal condition"));
 
@@ -349,25 +365,25 @@ block Guideline36
   parameter Real THeaSetOcc(
     final unit="K",
     displayUnit="degC")=
-      dat.getReal(varName=id + ".Control.Occupied heating setpoint")
+      dat.getReal(varName=id + ".Control.Occupied heating setpoint.value")
     "Occupied heating setpoint";
 
   parameter Real THeaSetUno(
     final unit="K",
     displayUnit="degC")=
-      dat.getReal(varName=id + ".Control.Unoccupied heating setpoint")
+      dat.getReal(varName=id + ".Control.Unoccupied heating setpoint.value")
     "Unoccupied heating setpoint";
 
   parameter Real TCooSetOcc(
     final unit="K",
     displayUnit="degC")=
-      dat.getReal(varName=id + ".Control.Occupied cooling setpoint")
+      dat.getReal(varName=id + ".Control.Occupied cooling setpoint.value")
     "Occupied cooling setpoint";
 
   parameter Real TCooSetUno(
     final unit="K",
     displayUnit="degC")=
-      dat.getReal(varName=id + ".Control.Unoccupied cooling setpoint")
+      dat.getReal(varName=id + ".Control.Unoccupied cooling setpoint.value")
     "Unoccupied cooling setpoint";
 
   /*
@@ -516,7 +532,7 @@ equation
       points={{-200.1,0.1},{-20,0.1},{-20,-4},{-12,-4}},
       color={255,204,51},
       thickness=0.5));
-  connect(busTer.inp.TDis,conTerUni. TDis) annotation (Line(
+  connect(busTer.inp.TDis.T,conTerUni. TDis) annotation (Line(
       points={{-200.1,0.1},{-20,0.1},{-20,-6},{-12,-6}},
       color={255,204,51},
       thickness=0.5));
@@ -602,7 +618,7 @@ equation
       points={{-200.1,0.1},{-20,0.1},{-20,40},{97.8261,40},{97.8261,30},{118,30}},
       color={255,204,51},
       thickness=0.5));
-  connect(busTer.inp.TDis, zonOutAirSet.TDis) annotation (Line(
+  connect(busTer.inp.TDis.T, zonOutAirSet.TDis) annotation (Line(
       points={{-200.1,0.1},{-20,0.1},{-20,40},{98,40},{98,27},{118,27}},
       color={255,204,51},
       thickness=0.5));

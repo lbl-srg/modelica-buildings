@@ -24,16 +24,32 @@ partial model AHU "Interface class for air handling unit"
     annotation (
       Evaluate=true,
       Dialog(group="Configuration"));
-  inner parameter Integer nZon
+  // See FIXME below for those parameters.
+  inner parameter Integer nZon=1
     "Number of served zones"
     annotation (
       Evaluate=true,
       Dialog(group="Configuration"));
-  inner parameter Integer nGro
+  inner parameter Integer nGro=1
     "Number of zone groups"
     annotation (
       Evaluate=true,
       Dialog(group="Configuration"));
+
+  /* FIXME: Evaluate function call at compile time, FE ExternData.
+  inner parameter Integer nZon=
+    dat.getArraySize1D(varName=id + ".Terminal unit identifiers.value")
+    "Number of served zones"
+    annotation (
+      Evaluate=true,
+      Dialog(group="Configuration"));
+  inner parameter Integer nGro=
+    dat.getArraySize1D(varName=id + ".Zone group names.value")
+    "Number of zone groups"
+    annotation (
+      Evaluate=true,
+      Dialog(group="Configuration"));
+      */
 
   parameter Boolean allowFlowReversal = true
     "= false to simplify equations, assuming, but not enforcing, no flow reversal"

@@ -1,5 +1,5 @@
 within Buildings.Templates.TerminalUnits.Validation.UserProject;
-block DummyControlPoints
+block DummyControlPointsAHU
   extends Modelica.Blocks.Icons.Block;
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TZonHeaOccSet(final k=
@@ -39,6 +39,12 @@ block DummyControlPoints
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant uCooDemLimLev(final k=1)
     "Demand limiter level"
     annotation (Placement(transformation(extent={{-60,-110},{-40,-90}})));
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant VDesUncOutAir_flow(final k=1)
+    "VDesUncOutAir_flow from AHU controller"
+    annotation (Placement(transformation(extent={{40,130},{60,150}})));
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant yReqOutAir(final k=true)
+    "yReqOutAir from AHU controller"
+    annotation (Placement(transformation(extent={{40,90},{60,110}})));
 equation
   connect(TZon.y, busTer.inp.TZon);
 
@@ -51,8 +57,21 @@ equation
   connect(uHeaDemLimLev.y, busTer.sof.uHeaDemLimLev);
   connect(uCooDemLimLev.y, busTer.sof.uCooDemLimLev);
 
+  connect(yReqOutAir.y, busTer.sof.yReqOutAir) annotation (Line(points={{62,100},
+          {174,100},{174,0.1},{200.1,0.1}}, color={255,0,255}), Text(
+      string="%second",
+      index=1,
+      extent={{6,3},{6,3}},
+      horizontalAlignment=TextAlignment.Left));
+  connect(VDesUncOutAir_flow.y, busTer.sof.VDesUncOutAir_flow) annotation (Line(
+        points={{62,140},{180,140},{180,0.1},{200.1,0.1}}, color={0,0,127}),
+      Text(
+      string="%second",
+      index=1,
+      extent={{6,3},{6,3}},
+      horizontalAlignment=TextAlignment.Left));
   annotation (
     defaultComponentName="conPoiDum",
     Diagram(coordinateSystem(preserveAspectRatio=
             false, extent={{-200,-180},{200,180}})));
-end DummyControlPoints;
+end DummyControlPointsAHU;

@@ -3,11 +3,22 @@ block Guideline36 "Guideline 36 VAV single duct controller"
   extends Buildings.Templates.BaseClasses.Controls.AHUs.SingleDuct(
     final typ=Templates.Types.ControllerAHU.Guideline36);
 
+  // See FIXME below for those parameters.
+  parameter String namGroZon[nZon] = {
+    "First floor"}
+    "Name of group which each zone belongs to"
+    annotation(Evaluate=true);
+  final parameter Boolean have_perZonRehBox = true
+    "Check if there is any VAV-reheat boxes on perimeter zones"
+    annotation (Dialog(group="System and building parameters"));
+
+  /* FIXME: Evaluate function call at compile time, FE ExternData.
   parameter String namGroZon[nZon] = {
     dat.getString(varName=idTerArr[i] + ".Identification.Zone group name.value")
     for i in 1:nZon}
     "Name of group which each zone belongs to"
     annotation(Evaluate=true);
+    */
 
   final parameter Integer idxGroZon[nZon] = {
     Modelica.Math.BooleanVectors.firstTrueIndex({
@@ -32,12 +43,13 @@ block Guideline36 "Guideline 36 VAV single duct controller"
     final quantity="Time")=120
     "Sample period of component, set to the same value as the trim and respond sequence";
 
+  /* FIXME: Evaluate function call at compile time, FE ExternData
   final parameter Boolean have_perZonRehBox = Modelica.Math.BooleanVectors.anyTrue({
-      dat.getBoolean(varName=idTerArr[i] + ".Control.Zone Perimeter zone.value")
+      dat.getBoolean(varName=idTerArr[i] + ".Control.Perimeter zone with reheat.value")
       for i in 1:nZon})
     "Check if there is any VAV-reheat boxes on perimeter zones"
     annotation (Dialog(group="System and building parameters"));
-
+    */
   final parameter Boolean have_duaDucBox = Modelica.Math.BooleanVectors.anyTrue({
       Modelica.Utilities.Strings.find(
         dat.getString(varName=idTerArr[i] + ".Identification.Type.value"),
@@ -515,15 +527,16 @@ block Guideline36 "Guideline 36 VAV single duct controller"
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant FIXME1(k=24 + 273.15)
     "Where is the use of the average zone set point described?"
     annotation (Placement(transformation(extent={{260,190},{240,210}})));
-  Buildings.Controls.OBC.CDL.Routing.RealReplicator TSupSet(
+  Buildings.Controls.OBC.CDL.Routing.RealScalarReplicator TSupSet(
     final nout=nZon)
     "Pass signal to terminal unit bus"
     annotation (Placement(transformation(extent={{160,-110},{180,-90}})));
-  Buildings.Controls.OBC.CDL.Routing.RealReplicator VDesUncOutAir_flow(
+  Buildings.Controls.OBC.CDL.Routing.RealScalarReplicator VDesUncOutAir_flow(
     final nout=nZon)
     "Pass signal to terminal unit bus"
     annotation (Placement(transformation(extent={{160,94},{180,114}})));
-  Buildings.Controls.OBC.CDL.Routing.BooleanReplicator yReqOutAir(
+  Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator
+                                                          yReqOutAir(
     final nout=nZon)
     "Pass signal to terminal unit bus"
     annotation (Placement(transformation(extent={{160,58},{180,78}})));
@@ -653,23 +666,23 @@ equation
   connect(zonToSys.uOutAirFra_max, conAHU.uOutAirFra_max) annotation (Line(
         points={{-2,-56},{-72,-56},{-72,82},{-44,82}},                   color=
           {0,0,127}));
-  connect(busAHU.inp.TSup, conAHU.TSup) annotation (Line(
+  connect(busAHU.inp.TSup.T, conAHU.TSup) annotation (Line(
       points={{-200.1,0.1},{-180,0.1},{-180,80},{-100,80},{-100,70},{-44,70}},
       color={255,204,51},
       thickness=0.5));
-  connect(busAHU.inp.TOut, conAHU.TOut) annotation (Line(
+  connect(busAHU.inp.TOut.T, conAHU.TOut) annotation (Line(
       points={{-200.1,0.1},{-180,0.1},{-180,136},{-44,136}},
       color={255,204,51},
       thickness=0.5));
-  connect(busAHU.inp.pSup_rel, conAHU.ducStaPre) annotation (Line(
+  connect(busAHU.inp.pSup_rel.p_rel, conAHU.ducStaPre) annotation (Line(
       points={{-200.1,0.1},{-180,0.1},{-180,130},{-44,130}},
       color={255,204,51},
       thickness=0.5));
-  connect(busAHU.inp.VOut_flow, conAHU.VOut_flow) annotation (Line(
+  connect(busAHU.inp.VOut_flow.V_flow, conAHU.VOut_flow) annotation (Line(
       points={{-200.1,0.1},{-180,0.1},{-180,46},{-44,46}},
       color={255,204,51},
       thickness=0.5));
-  connect(busAHU.inp.TMix, conAHU.TMix) annotation (Line(
+  connect(busAHU.inp.TMix.T, conAHU.TMix) annotation (Line(
       points={{-200.1,0.1},{-180,0.1},{-180,38},{-44,38}},
       color={255,204,51},
       thickness=0.5));
@@ -712,21 +725,27 @@ equation
   connect(conAHU.ySupFan, busOutAHU.yFanSup)
     annotation (Line(points={{44,140},{100,140},{100,160}},
                                                          color={255,0,255}));
-  connect(conAHU.ySupFanSpe, busOutAHU.ySpeFanSup) annotation (Line(points={{44,128},{100,128},{100,160}},
+  connect(conAHU.ySupFanSpe, busOutAHU.ySpeFanSup)
+    annotation (Line(points={{44,128},{100,128},{100,160}},
                                           color={0,0,127}));
-  connect(conAHU.VDesUncOutAir_flow, VDesUncOutAir_flow.u) annotation (Line(
+  connect(conAHU.VDesUncOutAir_flow, VDesUncOutAir_flow.u)
+    annotation (Line(
         points={{44,104},{158,104}},                 color={0,0,127}));
-  connect(conAHU.yReqOutAir, yReqOutAir.u) annotation (Line(points={{44,68},{158,68}},
-                                 color={255,0,255}));
-  connect(conAHU.yHea, busOutAHU.yCoiHea) annotation (Line(points={{44,56},{100,56},{100,160}},
+  connect(conAHU.yReqOutAir, yReqOutAir.u)
+    annotation (Line(points={{44,68},{158,68}}, color={255,0,255}));
+  connect(conAHU.yHea, busOutAHU.yCoiHea)
+    annotation (Line(points={{44,56},{100,56},{100,160}},
                                 color={0,0,127}));
-  connect(conAHU.yCoo, busOutAHU.yCoiCoo) annotation (Line(points={{44,44},{100,44},{100,160}},
+  connect(conAHU.yCoo, busOutAHU.yCoiCoo)
+    annotation (Line(points={{44,44},{100,44},{100,160}},
                                         color={0,0,127}));
-  connect(conAHU.yRetDamPos, busOutAHU.yDamRet) annotation (Line(points={{44,32},{100,32},{100,160}},
+  connect(conAHU.yRetDamPos, busOutAHU.yDamRet)
+    annotation (Line(points={{44,32},{100,32},{100,160}},
                                             color={0,0,127}));
-  connect(conAHU.yOutDamPos, busOutAHU.yDamOut) annotation (Line(points={{44,20},{100,20},{100,160}},
-                                                    color={0,0,127}));
-  connect(busOutAHU, busAHU.out) annotation (Line(
+  connect(conAHU.yOutDamPos, busOutAHU.yDamOut)
+    annotation (Line(points={{44,20},{100,20},{100,160}}, color={0,0,127}));
+  connect(busOutAHU, busAHU.out)
+    annotation (Line(
       points={{100,160},{-180,160},{-180,0.1},{-200.1,0.1}},
       color={255,204,51},
       thickness=0.5));
@@ -746,23 +765,25 @@ equation
       points={{220.1,0.1},{-160,0.1},{-160,60},{-142,60}},
       color={255,204,51},
       thickness=0.5));
-
-  connect(FIXME4.y, conAHU.TOutCut) annotation (Line(points={{178,222},{178,218},{-56,218},{-56,64},{-44,64}},
+  connect(FIXME4.y, conAHU.TOutCut)
+    annotation (Line(points={{178,222},{178,218},{-56,218},{-56,64},{-44,64}},
                               color={0,0,127}));
-  connect(busAHU.inp.hOut, conAHU.hOut) annotation (Line(
+  connect(busAHU.inp.hOut.h, conAHU.hOut) annotation (Line(
       points={{-200.1,0.1},{-180,0.1},{-180,80},{-100,80},{-100,58},{-44,58}},
       color={255,204,51},
       thickness=0.5));
-  connect(FIXME4.y, conAHU.hOutCut) annotation (Line(points={{178,222},{178,226},{-50,226},{-50,52},{-44,52}},
+  connect(FIXME4.y, conAHU.hOutCut)
+    annotation (Line(points={{178,222},{178,226},{-50,226},{-50,52},{-44,52}},
                               color={0,0,127}));
- connect(FIXME9.y, busOutAHU.yDamRel) annotation (Line(points={{278,152},{166,152},{166,160},{100,160}},
-                                                                                  color={0,0,127}));
+ connect(FIXME9.y, busOutAHU.yDamRel)
+   annotation (Line(points={{278,152},{166,152},{166,160},{100,160}}, color={0,0,127}));
   // connect(FIXME5.y, busOutAHU.yDamOutMin) annotation (Line(points={{238,60},{90,60}}, color={0,0,127}));
-  connect(FIXME7.y, busOutAHU.yFanRet) annotation (Line(points={{238,120},{100,120},{100,160}},
-                             color={255,0,255}));
-  connect(FIXME6.y, busOutAHU.ySpeFanRet) annotation (Line(points={{278,180},{166,180},{166,160},{100,160}},
-                                 color={0,0,127}));
-  connect(FIXME8.y, conAHU.uOpeMod) annotation (Line(points={{238,-80},{-48,-80},
+  connect(FIXME7.y, busOutAHU.yFanRet)
+    annotation (Line(points={{238,120},{100,120},{100,160}}, color={255,0,255}));
+  connect(FIXME6.y, busOutAHU.ySpeFanRet)
+    annotation (Line(points={{278,180},{166,180},{166,160},{100,160}}, olor={0,0,127}));
+  connect(FIXME8.y, conAHU.uOpeMod)
+    annotation (Line(points={{238,-80},{-48,-80},
           {-48,30},{-44,30}}, color={255,127,0}));
   connect(TSupSet.y, busTer.sof.TSupSet)
     annotation (Line(points={{182,-100},{200,-100},{200,0.1},{220.1,0.1}}, color={0,0,127}));
