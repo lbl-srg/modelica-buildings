@@ -25,27 +25,28 @@ model ClosedLoopTest "Closed loop testing model"
         boiCapRat)*boiDesCap, boiCap2=boiCapRat*boiDesCap,
     mRad_flow_nominal=mRad_flow_nominal,
     V=126016.35,
-    zonTheCap=6987976290)
+    zonTheCap=6987976290,
+    dpValve_nominal_value=20000,
+    dpFixed_nominal_value=1000)
     "Boiler plant model"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Controller controller(
     controllerType_priPum=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
-
     controllerType_bypVal=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
     final have_priOnl=true,
     final have_heaPriPum=true,
     final have_varPriPum=true,
     final have_varSecPum=false,
     final nSenPri=1,
-    final nPumPri_nominal=2,
+    final nPumPri_nominal=1,
     final nPumSec=0,
     final nSenSec=0,
     final nPumSec_nominal=0,
     TPlaHotWatSetMax=273.15 + 70,
     final VHotWatPri_flow_nominal=mRad_flow_nominal/1000,
-    final maxLocDpPri=4000,
-    final minLocDpPri=4000,
+    final maxLocDpPri=5000,
+    final minLocDpPri=5000,
     final VHotWatSec_flow_nominal=1e-6,
     final nBoi=2,
     final boiTyp={Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Types.BoilerTypes.condensingBoiler,
@@ -59,7 +60,7 @@ model ClosedLoopTest "Closed loop testing model"
     final maxFloSet={boiCapRat*mRad_flow_nominal/1000,(1 - boiCapRat)*
         mRad_flow_nominal/1000},
     final bypSetRat=0.000005,
-    final nPumPri=2,
+    final nPumPri=1,
     final TMinSupNonConBoi=333.2,
     final k_bypVal=1,
     final Ti_bypVal=90,
@@ -82,10 +83,6 @@ model ClosedLoopTest "Closed loop testing model"
     annotation (Placement(transformation(extent={{50,50},{70,70}})));
 
 // protected
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con(
-    final k=273.15 + 21.11)
-    "Zone temperature setpoint"
-    annotation (Placement(transformation(extent={{10,50},{30,70}})));
 
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant con3[2](
     final k=fill(true,2))
@@ -101,17 +98,22 @@ model ClosedLoopTest "Closed loop testing model"
     "Weather bus"
     annotation (Placement(transformation(extent={{-60,50},{-40,70}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.TimeTable timTab(
+  Modelica.Blocks.Sources.CombiTimeTable timTab(
+    tableOnFile=true,
+    tableName="tab1",
+    fileName=ModelicaServices.ExternalReferences.loadResource(
+        "modelica://Buildings/Resources/Data/Examples/BoilerPlant/ClosedLoopTest.txt"),
+
+    columns={2,5},
     final extrapolation=Buildings.Controls.OBC.CDL.Types.Extrapolation.Periodic,
     final smoothness=Buildings.Controls.OBC.CDL.Types.Smoothness.ConstantSegments,
     final table=[-6,0; 8,10000; 18,0],
-    final timeScale=3600)
+    final timeScale=60)
     "Time table for internal heat gain"
-    annotation (Placement(transformation(extent={{-30,70},{-10,90}})));
+    annotation (Placement(transformation(extent={{-100,90},{-80,110}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys(
-    final uLow=0.01,
-    final uHigh=0.05)
+  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys(final uLow=0.05, final
+      uHigh=0.1)
     "Check if radiator control valve opening is above threshold for enabling boiler plant"
     annotation (Placement(transformation(extent={{80,100},{100,120}})));
 
@@ -128,6 +130,10 @@ model ClosedLoopTest "Closed loop testing model"
     final integerTrue=3) "Boolean to Integer conversion"
     annotation (Placement(transformation(extent={{150,20},{170,40}})));
 
+  Controls.OBC.CDL.Continuous.Gain gai(k=-1) "Convert to heating load"
+    annotation (Placement(transformation(extent={{-60,90},{-40,110}})));
+  Controls.OBC.CDL.Continuous.AddParameter addPar(p=273.15, k=1)
+    annotation (Placement(transformation(extent={{-40,110},{-20,130}})));
 equation
   connect(controller.yBoi, boilerPlant.uBoiSta)
     annotation (Line(points={{-18,14},{16,14},{16,9},{38,9}},
@@ -136,8 +142,6 @@ equation
     annotation (Line(points={{-18,6},{38,6}},              color={0,0,127}));
   connect(controller.yBypValPos, boilerPlant.uBypValSig)
     annotation (Line(points={{-18,2},{0,2},{0,-3},{38,-3}},  color={0,0,127}));
-  connect(con.y, conPID.u_s)
-    annotation (Line(points={{32,60},{48,60}}, color={0,0,127}));
   connect(conPID.y, boilerPlant.uRadIsoVal) annotation (Line(points={{72,60},{76,
           60},{76,30},{30,30},{30,-6},{38,-6}}, color={0,0,127}));
   connect(boilerPlant.yZonTem, conPID.u_m) annotation (Line(points={{62,9},{80,9},
@@ -169,9 +173,6 @@ equation
       index=-1,
       extent={{-3,-6},{-3,-6}},
       horizontalAlignment=TextAlignment.Right));
-  connect(timTab.y[1], boilerPlant.QRooInt_flowrate)
-    annotation (Line(points={{-8,80},{0,80},{0,12},{38,12}},
-                                                           color={0,0,127}));
   connect(controller.yPriPum, boilerPlant.uPumSta)
     annotation (Line(points={{-18,-2},{2,-2},{2,3},{38,3}},
                                               color={255,0,255}));
@@ -217,6 +218,14 @@ equation
     annotation (Line(points={{102,110},{158,110}}, color={255,0,255}));
   connect(hys1.y, booToInt1.u)
     annotation (Line(points={{112,30},{148,30}}, color={255,0,255}));
+  connect(timTab.y[1], gai.u)
+    annotation (Line(points={{-79,100},{-62,100}}, color={0,0,127}));
+  connect(gai.y, boilerPlant.QRooInt_flowrate) annotation (Line(points={{-38,
+          100},{0,100},{0,12},{38,12}}, color={0,0,127}));
+  connect(timTab.y[2], addPar.u) annotation (Line(points={{-79,100},{-70,100},{
+          -70,120},{-42,120}}, color={0,0,127}));
+  connect(addPar.y, conPID.u_s) annotation (Line(points={{-18,120},{40,120},{40,
+          60},{48,60}}, color={0,0,127}));
   annotation (Documentation(info="<html>
 <p>
 This model couples the boiler plant model for a primary-only, condensing boiler
