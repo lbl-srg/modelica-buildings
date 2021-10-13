@@ -147,10 +147,12 @@ package Types "AHU types"
     "Enumeration to configure the outdoor/relief/return air section";
   type Pump = enumeration(
       Pump "Pump");
-  type PumpGroup = enumeration(
-      HeaderedPump
-      "Headered pumps",
-      None "None");
+  type PumpLocation = enumeration(
+      CHWHeadered "Chilled water loop headered primary pump",
+      CHWDedicated "Chilled water loop dedicated primary pump",
+      CHWSecondary "Chilled water loop secondary pump",
+      CWHeadered "Condenser water loop headered pump",
+      CWDedicated "Condenser water loop dedicated pump");
   type ReliefReturnSection = enumeration(
       NoEconomizer
       "No economizer",
