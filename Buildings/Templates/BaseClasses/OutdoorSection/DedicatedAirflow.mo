@@ -38,17 +38,7 @@ model DedicatedAirflow
     final loc=Buildings.Templates.Types.Location.MinimumOutdoorAir)
     "Minimum outdoor air volume flow rate sensor"
     annotation (
-      choices(
-        choice(redeclare BaseClasses.Sensors.None VOutMin_flow "No sensor"),
-        choice(redeclare BaseClasses.Sensors.VolumeFlowRate VOutMin_flow "Volume flow rate sensor")),
-      Dialog(group="Outdoor air section", enable=damOutMin.typ <> Buildings.Templates.Types.Damper.NoPath),
-      __Linkage(
-        modification(
-          condition=typOut <> Buildings.Templates.Types.OutdoorSection.DedicatedAirflow,
-            redeclare BaseClasses.Sensors.None VOutMin_flow "No sensor"),
-        condition=typOut == Buildings.Templates.Types.OutdoorSection.DedicatedAirflow,
-        redeclare BaseClasses.Sensors.VolumeFlowRate VOutMin_flow "Volume flow rate sensor"),
-    Placement(transformation(extent={{80,50},{100,70}})));
+      Placement(transformation(extent={{80,50},{100,70}})));
 equation
   connect(port_aIns, damOut.port_a)
     annotation (Line(points={{-80,0},{-10,0}}, color={0,127,255}));
@@ -62,8 +52,8 @@ equation
       points={{30,70},{30,80},{0,80},{0,140}},
       color={255,204,51},
       thickness=0.5));
-  connect(TOutMin.busCon, busCon) annotation (Line(
-      points={{60,70},{60,80},{0,80},{0,140}},
+  connect(TOutMin.busCon, busCon.inp.TOutMin) annotation (Line(
+      points={{60,70},{60,80},{0.1,80},{0.1,140.1}},
       color={255,204,51},
       thickness=0.5));
   connect(damOut.port_b, port_b)
@@ -74,8 +64,8 @@ equation
     annotation (Line(points={{70,60},{80,60}}, color={0,127,255}));
   connect(VOutMin_flow.port_b, port_b) annotation (Line(points={{100,60},{120,60},
           {120,0},{180,0}}, color={0,127,255}));
-  connect(VOutMin_flow.busCon, busCon) annotation (Line(
-      points={{90,70},{90,80},{0,80},{0,140}},
+  connect(VOutMin_flow.busCon, busCon.inp.VOutMin_flow) annotation (Line(
+      points={{90,70},{90,80},{0.1,80},{0.1,140.1}},
       color={255,204,51},
       thickness=0.5));
   connect(damOutMin.port_b, TOutMin.port_a)

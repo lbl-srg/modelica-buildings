@@ -58,16 +58,16 @@ equation
           -20,60},{10,60}}, color={0,127,255}));
   connect(dpOutMin.port_bRef, port_b) annotation (Line(points={{20,50},{20,40},{
           120,40},{120,0},{180,0}}, color={0,127,255}));
-  connect(dpOutMin.busCon, busCon) annotation (Line(
-      points={{20,70},{20,80},{0,80},{0,140}},
+  connect(dpOutMin.busCon, busCon.inp.dpOutMin) annotation (Line(
+      points={{20,70},{20,80},{0.1,80},{0.1,140.1}},
       color={255,204,51},
       thickness=0.5));
   connect(damOutMin.busCon, busCon) annotation (Line(
       points={{50,70},{50,80},{0,80},{0,140}},
       color={255,204,51},
       thickness=0.5));
-  connect(TOutMin.busCon, busCon) annotation (Line(
-      points={{80,70},{80,80},{0,80},{0,140}},
+  connect(TOutMin.busCon, busCon.inp.TOutMin) annotation (Line(
+      points={{80,70},{80,80},{0.1,80},{0.1,140.1}},
       color={255,204,51},
       thickness=0.5));
   connect(damOut.port_b, port_b)

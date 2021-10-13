@@ -86,9 +86,9 @@ model VAVMultiZone "Multiple-Zone VAV"
       Placement(transformation(extent={{-178,-104},{-142,-76}})));
 
   // FIXME: bind typ to control option.
-  Buildings.Templates.BaseClasses.Sensors.Wrapper TMix(
+  Buildings.Templates.BaseClasses.Sensors.Temperature TMix(
     redeclare final package Medium = MediumAir,
-    typ=Types.Sensor.Temperature,
+    final typ=Types.Sensor.Temperature,
     final loc=Types.Location.Supply)
     "Mixed air temperature sensor"
     annotation (
@@ -121,7 +121,7 @@ model VAVMultiZone "Multiple-Zone VAV"
       Dialog(group="Heating coil"),
       Placement(transformation(extent={{-40,-210},{-20,-190}})));
 
-  BaseClasses.Sensors.Wrapper THea(
+  BaseClasses.Sensors.Temperature THea(
     redeclare final package Medium = MediumAir,
     final typ=if coiHea.typ<>Templates.Types.Coil.None and
       coiCoo.typ<>Templates.Types.Coil.None then Types.Sensor.Temperature
@@ -143,7 +143,7 @@ model VAVMultiZone "Multiple-Zone VAV"
       Dialog(group="Cooling coil"),
       Placement(transformation(extent={{20,-210},{40,-190}})));
 
-  BaseClasses.Sensors.Wrapper TCoo(
+  BaseClasses.Sensors.Temperature TCoo(
     redeclare final package Medium = MediumAir,
     final typ=if coiCoo.typ<>Buildings.Templates.Types.Coil.None and
       coiReh.typ<>Buildings.Templates.Types.Coil.None then Types.Sensor.Temperature
@@ -181,7 +181,7 @@ model VAVMultiZone "Multiple-Zone VAV"
       Placement(transformation(extent={{110,-210},{130,-190}})));
 
   // FIXME: bind typ to control option.
-  Buildings.Templates.BaseClasses.Sensors.Wrapper VSup_flow(
+  BaseClasses.Sensors.VolumeFlowRate VSup_flow(
     redeclare final package Medium = MediumAir,
     final loc=Templates.Types.Location.Supply,
     typ=Types.Sensor.VolumeFlowRate)
@@ -215,9 +215,9 @@ model VAVMultiZone "Multiple-Zone VAV"
     dp_nominal=100)
     annotation (Placement(transformation(extent={{172,-210},{192,-190}})));
 
-  Buildings.Templates.BaseClasses.Sensors.Wrapper TSup(
+  Buildings.Templates.BaseClasses.Sensors.Temperature TSup(
     redeclare final package Medium = MediumAir,
-    typ=Types.Sensor.Temperature,
+    final typ=Types.Sensor.Temperature,
     final loc=Types.Location.Supply)
     "Supply air temperature sensor"
     annotation (
@@ -227,9 +227,9 @@ model VAVMultiZone "Multiple-Zone VAV"
       Placement(transformation(extent={{200,-210},{220,-190}})));
 
   // FIXME: bind typ to control option.
-  Buildings.Templates.BaseClasses.Sensors.Wrapper xSup(
+  BaseClasses.Sensors.HumidityRatio xSup(
     redeclare final package Medium = MediumAir,
-    typ=Types.Sensor.None,
+    final typ=Types.Sensor.None,
     final loc=Types.Location.Supply)
     "Supply air humidity ratio sensor"
     annotation (
@@ -239,9 +239,9 @@ model VAVMultiZone "Multiple-Zone VAV"
       Placement(transformation(extent={{230,-210},{250,-190}})));
 
   // FIXME: bind typ to control option.
-  Buildings.Templates.BaseClasses.Sensors.Wrapper pSup_rel(
+  Buildings.Templates.BaseClasses.Sensors.DifferentialPressure pSup_rel(
     redeclare final package Medium = MediumAir,
-    typ=Types.Sensor.None,
+    final typ=Types.Sensor.None,
     final loc=Types.Location.Supply)
     "Duct static pressure sensor"
     annotation (
@@ -278,9 +278,9 @@ model VAVMultiZone "Multiple-Zone VAV"
         origin={40,250})));
 
   // FIXME: bind typ to control option.
-  BaseClasses.Sensors.Wrapper TRet(
+  BaseClasses.Sensors.Temperature TRet(
     redeclare final package Medium = MediumAir,
-    typ=Types.Sensor.None,
+    final typ=Types.Sensor.None,
     final loc=Types.Location.Return)
     "Return air temperature sensor"
     annotation (
@@ -290,7 +290,7 @@ model VAVMultiZone "Multiple-Zone VAV"
       Placement(transformation(extent={{222,-90},{202,-70}})));
 
   // FIXME: bind typ to control option.
-  BaseClasses.Sensors.Wrapper hRet(
+  BaseClasses.Sensors.SpecificEnthalpy hRet(
     redeclare final package Medium = MediumAir,
     typ=Types.Sensor.None,
     final loc=Types.Location.Return)
@@ -302,7 +302,6 @@ model VAVMultiZone "Multiple-Zone VAV"
       Placement(transformation(extent={{252,-90},{232,-70}})));
 
 equation
-
   connect(port_coiCooSup, coiCoo.port_aSou) annotation (Line(points={{20,-280},{
           20,-220},{26,-220},{26,-210}},   color={0,127,255}));
   connect(coiCoo.port_bSou, port_coiCooRet) annotation (Line(points={{34,-210},{
@@ -374,7 +373,6 @@ equation
       index=-1,
       extent={{-3,6},{-3,6}},
       horizontalAlignment=TextAlignment.Right));
-
   connect(fanSupBlo.busCon, busAHU) annotation (Line(
       points={{-60,-190},{-60,0},{-300,0}},
       color={255,204,51},
@@ -387,28 +385,28 @@ equation
       points={{-30,-190},{-30,0},{-300,0}},
       color={255,204,51},
       thickness=0.5));
-  connect(TMix.busCon, busAHU) annotation (Line(
-      points={{-90,-190},{-90,0},{-300,0}},
+  connect(TMix.busCon, busAHU.inp.TMix) annotation (Line(
+      points={{-90,-190},{-90,0.1},{-300.1,0.1}},
       color={255,204,51},
       thickness=0.5));
   connect(coiReh.busCon, busAHU) annotation (Line(
       points={{90,-190},{90,0},{-300,0}},
       color={255,204,51},
       thickness=0.5));
-  connect(VSup_flow.busCon, busAHU) annotation (Line(
-      points={{152,-190},{152,0},{-300,0}},
+  connect(VSup_flow.busCon, busAHU.inp.VSup_flow) annotation (Line(
+      points={{152,-190},{152,0.1},{-300.1,0.1}},
       color={255,204,51},
       thickness=0.5));
-  connect(TSup.busCon, busAHU) annotation (Line(
-      points={{210,-190},{210,0},{-300,0}},
+  connect(TSup.busCon, busAHU.inp.TSup) annotation (Line(
+      points={{210,-190},{210,0.1},{-300.1,0.1}},
       color={255,204,51},
       thickness=0.5));
-  connect(xSup.busCon, busAHU) annotation (Line(
-      points={{240,-190},{240,0},{-300,0}},
+  connect(xSup.busCon, busAHU.inp.xSup) annotation (Line(
+      points={{240,-190},{240,0.1},{-300.1,0.1}},
       color={255,204,51},
       thickness=0.5));
-  connect(pSup_rel.busCon, busAHU) annotation (Line(
-      points={{270,-190},{270,0},{-300,0}},
+  connect(pSup_rel.busCon, busAHU.inp.pSup_rel) annotation (Line(
+      points={{270,-190},{270,0.1},{-300.1,0.1}},
       color={255,204,51},
       thickness=0.5));
   connect(coiCoo.busCon, busAHU) annotation (Line(
@@ -421,12 +419,12 @@ equation
     annotation (Line(points={{300,-80},{252,-80}}, color={0,127,255}));
   connect(hRet.port_b, TRet.port_a)
     annotation (Line(points={{232,-80},{222,-80}}, color={0,127,255}));
-  connect(TRet.busCon, busAHU) annotation (Line(
-      points={{212,-70},{212,0},{-300,0}},
+  connect(TRet.busCon, busAHU.inp.TRet) annotation (Line(
+      points={{212,-70},{212,0.1},{-300.1,0.1}},
       color={255,204,51},
       thickness=0.5));
-  connect(hRet.busCon, busAHU) annotation (Line(
-      points={{242,-70},{242,0},{-300,0}},
+  connect(hRet.busCon, busAHU.inp.hRet) annotation (Line(
+      points={{242,-70},{242,0.1},{-300.1,0.1}},
       color={255,204,51},
       thickness=0.5));
   connect(coiHea.port_b, THea.port_a)
@@ -437,12 +435,12 @@ equation
     annotation (Line(points={{40,-200},{50,-200}}, color={0,127,255}));
   connect(TCoo.port_b, coiReh.port_a)
     annotation (Line(points={{70,-200},{80,-200}}, color={0,127,255}));
-  connect(THea.busCon, busAHU) annotation (Line(
-      points={{0,-190},{0,0},{-300,0}},
+  connect(THea.busCon, busAHU.inp.THea) annotation (Line(
+      points={{0,-190},{0,0.1},{-300.1,0.1}},
       color={255,204,51},
       thickness=0.5));
-  connect(TCoo.busCon, busAHU) annotation (Line(
-      points={{60,-190},{60,0},{-300,0}},
+  connect(TCoo.busCon, busAHU.inp.TCoo) annotation (Line(
+      points={{60,-190},{60,0.1},{-300.1,0.1}},
       color={255,204,51},
       thickness=0.5));
   connect(port_Rel, secOutRel.port_Rel)
