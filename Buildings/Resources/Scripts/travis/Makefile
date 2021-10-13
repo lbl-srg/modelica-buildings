@@ -50,7 +50,8 @@ test-spawn-portability:
 	  grep "terminated successfully" dslog.txt )
 
 test-omc:
-	(cd $(ROOT) && $(TRAVIS_BUILD_DIR)/Buildings/Resources/Scripts/travis/omc/testOpenModelica.sh)
+	(cd $(ROOT) && \
+	  $(TRAVIS_BUILD_DIR)/Buildings/Resources/Scripts/travis/omc/testOpenModelica.sh)
 
 test-dymola:
 	(cd $(ROOT)/Buildings && \
