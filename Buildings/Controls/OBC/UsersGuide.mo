@@ -131,12 +131,26 @@ Both have been developed in the OpenBuildingControl project, see
 <a href=\"https://obc.lbl.gov\">obc.lbl.gov</a>.
 </p>
 <p>
-The control sequences, which include the HVAC
-airside system control
+The package contains control sequences for
+</p>
+<ul>
+<li>
+HVAC airside system control
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36_PR1\">Buildings.Controls.OBC.ASHRAE.G36_PR1</a>,
-the outdoor lighting control <a href=\"modelica://Buildings.Controls.OBC.OutdoorLights\">Buildings.Controls.OBC.OutdoorLights</a>,
-and the shading device control <a href=\"modelica://Buildings.Controls.OBC.Shade\">Buildings.Controls.OBC.Shade</a>,
-are composed of the elementary blocks from the package
+</li>
+<li>
+radiant heating and cooling systems
+<a href=\"modelica://Buildings.Controls.OBC.RadiantSystems\">Buildings.Controls.OBC.RadiantSystems</a>,
+</li>
+<li>
+outdoor lighting control <a href=\"modelica://Buildings.Controls.OBC.OutdoorLights\">Buildings.Controls.OBC.OutdoorLights</a>, and
+</li>
+<li>
+shading device control <a href=\"modelica://Buildings.Controls.OBC.Shade\">Buildings.Controls.OBC.Shade</a>.
+</li>
+</ul>
+<p>
+The control sequences are composed of the elementary blocks from the package
 <a href=\"modelica://Buildings.Controls.OBC.CDL\">Buildings.Controls.OBC.CDL</a>.
 </p>
 <p>

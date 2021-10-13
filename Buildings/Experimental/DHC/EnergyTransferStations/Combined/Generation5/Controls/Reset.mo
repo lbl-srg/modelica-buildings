@@ -25,7 +25,7 @@ model Reset
     k=THeaWatSupSetMin)
     "Minimum value of HW set point"
     annotation (Placement(transformation(extent={{-60,-30},{-40,-10}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swiHea
+  Buildings.Controls.OBC.CDL.Continuous.Switch swiHea
     "Switch"
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
   Buildings.Controls.OBC.CDL.Continuous.SlewRateLimiter ramLimHea(

@@ -5,7 +5,6 @@ model SewageHeatRecovery
     final have_fan=false,
     final have_pum=true,
     final have_eleHea=false,
-    final nFue=0,
     final have_eleCoo=false,
     final have_weaBus=false,
     final typ=DHC.Types.DistrictSystemType.CombinedGeneration5);

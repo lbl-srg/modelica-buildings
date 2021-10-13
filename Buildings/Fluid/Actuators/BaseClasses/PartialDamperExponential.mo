@@ -25,7 +25,7 @@ partial model PartialDamperExponential
   parameter Boolean roundDuct = false
     "Set to true for round duct, false for square cross section"
     annotation(Dialog(enable=not use_deltaM));
-  parameter Real ReC=4000 "Reynolds number where transition to turbulent starts"
+  parameter Real ReC=4000 "Reynolds number where transition to turbulence starts"
     annotation(Dialog(enable=not use_deltaM));
   parameter Real a(unit="1")=-1.51 "Coefficient a for damper characteristics"
     annotation(Dialog(tab="Damper coefficients"));
@@ -203,6 +203,12 @@ ASHRAE Final Report 825-RP, Atlanta, GA.
 </html>",
 revisions="<html>
 <ul>
+<li>
+September 21, 2021, by Michael Wetter:<br/>
+Corrected typo in comments.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1525\">#1525</a>.
+</li>
 <li>
 December 23, 2019, by Antoine Gautier:<br/>
 Removed the equations involving <code>m_flow</code> and <code>dp</code> that now need
