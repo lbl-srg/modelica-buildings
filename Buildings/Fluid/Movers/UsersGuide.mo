@@ -446,7 +446,7 @@ and only the shaft, or hydraulic, work <i>W<sub>hyd</sub></i> enters the thermod
 control volume. Hence,
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
-  Q = Q<sub>hyd</sub> - W<sub>flo</sub>.
+  Q = W<sub>hyd</sub> - W<sub>flo</sub>.
 </p>
 <p>The efficiencies are computed as</p>
 <p align=\"center\" style=\"font-style:italic;\">
@@ -476,7 +476,7 @@ and <i>&eta;<sub>mot</sub></i> are computed as
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
   &eta;<sub>hyd</sub> = 1,<br/>
-  &radic;&eta;<sub>mot</sub> = &eta;.
+  &eta;<sub>mot</sub> = &eta;.
 </p>
 <p>
 However, if <code>per.use_powerCharacteristic=false</code>, then
