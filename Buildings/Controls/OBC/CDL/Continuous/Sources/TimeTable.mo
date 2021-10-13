@@ -277,5 +277,5 @@ Initial CDL implementation.
         Text(
           extent={{226,60},{106,10}},
           lineColor={0,0,0},
-          textString=DynamicSelect("", if (nout==1) then String(y[1], leftjustified=false, significantDigits=3) else ""))}));
+          textString=DynamicSelect("", if (nout==1) then String(y[1], leftJustified=false, significantDigits=3) else ""))}));
 end TimeTable;

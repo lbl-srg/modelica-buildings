@@ -349,5 +349,5 @@ Diagram(coordinateSystem(extent={{-140,-100},{140,100}})),
         Text(
           extent={{226,106},{106,56}},
           lineColor={0,0,0},
-          textString=DynamicSelect("", String(tOpt, leftjustified=false, significantDigits=3)))}));
+          textString=DynamicSelect("", String(tOpt, leftJustified=false, significantDigits=3)))}));
 end OptimalStart;
