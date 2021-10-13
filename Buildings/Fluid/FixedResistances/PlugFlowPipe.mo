@@ -94,6 +94,27 @@ model PlugFlowPipe
 
   Modelica.SIunits.Velocity v = del.v "Flow velocity of medium in pipe";
 
+  replaceable Buildings.Fluid.FixedResistances.HydraulicDiameter res(
+    final dh=dh,
+    final from_dp=from_dp,
+    final length=length,
+    final roughness=roughness,
+    final fac=fac,
+    final ReC=ReC,
+    final v_nominal=v_nominal,
+    final homotopyInitialization=homotopyInitialization,
+    final linearized=linearized,
+    dp(nominal=fac*200*length)) constrainedby
+    Buildings.Fluid.Interfaces.PartialTwoPortInterface(
+      redeclare final package Medium = Medium,
+      final m_flow_nominal=m_flow_nominal,
+      final allowFlowReversal=allowFlowReversal,
+      final show_T=false)
+    "Pressure drop calculation for this pipe"
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}},
+        rotation=0,
+        origin={0,40})));
+
 protected
   parameter Modelica.SIunits.HeatCapacity CPip=
     length*((dh + 2*thickness)^2 - dh^2)*Modelica.Constants.pi/4*cPip*rhoPip "Heat capacity of pipe wall";
@@ -212,26 +233,6 @@ protected
     "Lossless pipe for connecting the outlet port when have_pipCap=false
     or have_symmetry=false"
     annotation (Placement(transformation(extent={{-90,-30},{-70,-10}})));
-
-  replaceable Buildings.Fluid.FixedResistances.HydraulicDiameter res(
-    redeclare final package Medium = Medium,
-    final dh=dh,
-    final m_flow_nominal=m_flow_nominal,
-    final from_dp=from_dp,
-    final length=length,
-    final roughness=roughness,
-    final fac=fac,
-    final ReC=ReC,
-    final v_nominal=v_nominal,
-    final allowFlowReversal=allowFlowReversal,
-    final show_T=false,
-    final homotopyInitialization=homotopyInitialization,
-    final linearized=linearized,
-    dp(nominal=fac*200*length))
-    "Pressure drop calculation for this pipe"
-    annotation (Placement(transformation(extent={{-10,-10},{10,10}},
-        rotation=0,
-        origin={0,40})));
 
 
 initial equation

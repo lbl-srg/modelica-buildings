@@ -13,9 +13,13 @@ model PlugFlowDiscretized
     annotation (Dialog(tab="Advanced"));
 
   parameter Boolean have_pipCap=true
-    "= true, a mixing volume is added to port_b that corresponds
-    to the heat capacity of the pipe wall"
+    "= true, a mixing volume is added to each segment that corresponds 
+    to the heat capacity of the pipe segment wall"
     annotation (Dialog(tab="Advanced"));
+  parameter Boolean have_symmetry=true
+    "= false, the mixing volume is only on port_b of each segment,
+    which improve performances, but reduces dynamic accuracy."
+    annotation (Dialog(tab="Advanced", enable=have_pipCap));
 
   parameter Modelica.SIunits.Length dh
     "Hydraulic diameter" annotation (Dialog(group="Material"));
@@ -92,12 +96,13 @@ model PlugFlowDiscretized
     v_nominal = m_flow_nominal / (APip * rho_default)
     "Velocity at m_flow_nominal";
 
-  Modelica.SIunits.Velocity v = del[1].v "Flow velocity of medium in pipe";
+  Modelica.SIunits.Velocity v = pipSeg[1].v "Flow velocity of medium in pipe";
 
   PlugFlowPipe pipSeg[nSeg](
     redeclare final FixedResistances.LosslessPipe res,
     final length=segLen,
-    each final nPorts=1,
+    final T_start_in=T_start_in,
+    final T_start_out=T_start_out,
     each final dIns=dIns,
     each final kIns=kIns,
     each final cPip=cPip,
@@ -109,9 +114,9 @@ model PlugFlowDiscretized
     each final m_flow_nominal=m_flow_nominal,
     each final thickness=thickness,
     each final m_flow_small=m_flow_small,
-    each final T_start_in=T_start_in,
-    each final T_start_out=T_start_out,
-    each final initDelay=initDelay)
+    each final initDelay=initDelay,
+    each final have_pipCap=have_pipCap,
+    each final have_symmetry=have_symmetry)
     "Pipe segments"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 protected
@@ -148,8 +153,15 @@ equation
   connect(res.port_b, port_b)
     annotation (Line(points={{80,0},{100,0}}, color={0,127,255}));
 
+  for i in 2:nSeg loop
+    connect(pipSeg[i-1].port_b, pipSeg[i].port_a);
+  end for;
 
-  connect(port_a, pipSeg.port_a)
+  connect(pipSeg.heatPort, heatPorts)
+    annotation (Line(points={{0,10},{0,100}}, color={191,0,0}));
+  connect(pipSeg[nSeg].port_b, res.port_a)
+    annotation (Line(points={{10,0},{60,0}}, color={0,127,255}));
+  connect(port_a, pipSeg[1].port_a)
     annotation (Line(points={{-100,0},{-10,0}}, color={0,127,255}));
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
