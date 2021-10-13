@@ -267,7 +267,7 @@ model BoilerPlant
   Buildings.Fluid.Movers.SpeedControlled_y pum(
     redeclare package Medium = Media.Water,
     final allowFlowReversal=true,
-    redeclare Fluid.Movers.Data.Pumps.Wilo.customPumpCurves per,
+    redeclare Fluid.Movers.Data.Pumps.Wilo.BoilerPlant per,
     final inputType=Buildings.Fluid.Types.InputType.Continuous,
     final addPowerToMedium=false)
     "Hot water primary pump-1"
@@ -288,7 +288,7 @@ model BoilerPlant
   Buildings.Fluid.Movers.SpeedControlled_y pum1(
     redeclare package Medium =Media.Water,
     final allowFlowReversal=true,
-    redeclare Fluid.Movers.Data.Pumps.Wilo.customPumpCurves per,
+    redeclare Fluid.Movers.Data.Pumps.Wilo.BoilerPlant per,
     final inputType=Buildings.Fluid.Types.InputType.Continuous,
     final addPowerToMedium=false)
     "Hot water primary pump-2"

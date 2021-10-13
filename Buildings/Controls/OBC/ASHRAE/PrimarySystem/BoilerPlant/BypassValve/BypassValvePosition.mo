@@ -5,6 +5,9 @@ block BypassValvePosition
   parameter Integer nPum = 2
     "Number of pumps";
 
+  parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerType= Buildings.Controls.OBC.CDL.Types.SimpleController.PI
+    "Type of controller";
+
   parameter Real k(
     final min=0,
     final unit="1",
@@ -93,7 +96,7 @@ protected
     annotation (Placement(transformation(extent={{-70,70},{-50,90}})));
 
   Buildings.Controls.OBC.CDL.Continuous.PIDWithReset conPID(
-    final controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PID,
+    final controllerType=controllerType,
     final k=k,
     final Ti=Ti,
     final Td=Td,

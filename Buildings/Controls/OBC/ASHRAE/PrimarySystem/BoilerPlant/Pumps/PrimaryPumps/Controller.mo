@@ -2,6 +2,10 @@ within Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Pumps.PrimaryPump
 block Controller
     "Sequences to control hot water pumps in boiler plants"
 
+  parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerType= Buildings.Controls.OBC.CDL.Types.SimpleController.PI
+    "Type of controller"
+    annotation (Dialog(tab="Pump control parameters", group="PID parameters"));
+
   parameter Boolean have_heaPriPum = true
     "Flag of headered hot water pumps design: true=headered, false=dedicated"
     annotation (Dialog(group="Plant parameters"));
@@ -414,6 +418,7 @@ block Controller
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Pumps.Generic.Speed_localDp
     pumSpeLocDp(
+    final controllerType=controllerType,
     final nSen=nSen,
     final nPum=nPum,
     final minLocDp=minLocDp,
@@ -496,6 +501,7 @@ protected
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Pumps.Generic.Speed_remoteDp
     pumSpeRemDp(
+    final controllerType=controllerType,
     final nSen=nSen,
     final nPum=nPum,
     final minPumSpe=minPumSpe,
@@ -508,6 +514,7 @@ protected
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Pumps.PrimaryPumps.Subsequences.Speed_flow
     pumSpeFlo(
+    final controllerType=controllerType,
     final primarySecondarySensors=have_secFloSen,
     final nPum=nPum,
     final minPumSpe=minPumSpe,

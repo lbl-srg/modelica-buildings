@@ -2,6 +2,10 @@ within Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Pumps.Generic;
 block Speed_localDp
   "Pump speed control plants where the remote DP sensor(s) is not hardwired to the plant controller, but a local DP sensor is hardwired"
 
+  parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerType= Buildings.Controls.OBC.CDL.Types.SimpleController.PI
+    "Type of controller"
+    annotation(Dialog(group="Speed controller"));
+
   parameter Integer nSen = 2
     "Total number of remote differential pressure sensors";
 
@@ -100,6 +104,7 @@ block Speed_localDp
     annotation (Placement(transformation(extent={{100,-30},{120,-10}})));
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Pumps.Generic.Speed_remoteDp hotPumSpe(
+    controllerType=controllerType,
     final nSen=1,
     final nPum=nPum,
     final minPumSpe=minPumSpe,
@@ -112,7 +117,7 @@ block Speed_localDp
 
 protected
   Buildings.Controls.OBC.CDL.Continuous.PIDWithReset conPID[nSen](
-    final controllerType=fill(Buildings.Controls.OBC.CDL.Types.SimpleController.PID,nSen),
+    final controllerType=fill(controllerType, nSen),
     final k=fill(k, nSen),
     final Ti=fill(Ti, nSen),
     final Td=fill(Td, nSen),

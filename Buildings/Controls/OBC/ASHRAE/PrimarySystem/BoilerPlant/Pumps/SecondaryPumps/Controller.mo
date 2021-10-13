@@ -2,6 +2,10 @@ within Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Pumps.SecondaryPu
 block Controller
     "Sequences to control hot water pumps in boiler plants"
 
+  parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerType= Buildings.Controls.OBC.CDL.Types.SimpleController.PI
+    "Type of controller"
+    annotation(Dialog(tab="Pump control parameters", group="PID parameters"));
+
   parameter Boolean have_varSecPum = false
     "True: Variable-speed secondary pumps;
     False: Fixed-speed secondary pumps"
@@ -299,6 +303,7 @@ block Controller
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Pumps.Generic.Speed_localDp
     pumSpeLocDp(
+    controllerType=controllerType,
     final nSen=nSen,
     final nPum=nPum,
     final minLocDp=minLocDp,
@@ -347,6 +352,7 @@ protected
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Pumps.Generic.Speed_remoteDp
     pumSpeRemDp(
+    controllerType=controllerType,
     final nSen=nSen,
     final nPum=nPum,
     final minPumSpe=minPumSpe,

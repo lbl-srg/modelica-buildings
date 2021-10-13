@@ -2,6 +2,18 @@ within Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant;
 model Controller
     "Boiler plant controller"
 
+  parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerType_priPum= Buildings.Controls.OBC.CDL.Types.SimpleController.PI
+    "Type of controller"
+    annotation (Dialog(tab="Primary pump control parameters", group="PID parameters"));
+
+  parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerType_bypVal= Buildings.Controls.OBC.CDL.Types.SimpleController.PI
+    "Type of controller"
+    annotation(Dialog(tab="Bypass valve control parameters"));
+
+  parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerType_secPum= Buildings.Controls.OBC.CDL.Types.SimpleController.PI
+    "Type of controller"
+    annotation(Dialog(tab="Secondary pump control parameters", group="PID parameters"));
+
   parameter Boolean have_priOnl = false
     "Is the boiler plant a primary-only, condensing boiler plant?"
     annotation(Dialog(tab="General", group="Boiler plant configuration parameters"));
@@ -1202,6 +1214,7 @@ protected
     annotation (Placement(transformation(extent={{120,20},{140,60}})));
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Pumps.PrimaryPumps.Controller priPumCon(
+    final controllerType=controllerType_priPum,
     final have_heaPriPum=have_heaPriPum,
     final have_priOnl=have_priOnl,
     final have_varPriPum=have_varPriPum,
@@ -1239,7 +1252,9 @@ protected
     "Primary pump controller"
     annotation (Placement(transformation(extent={{120,-208},{140,-152}})));
 
-  Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.BypassValve.BypassValvePosition bypValPos(nPum=nPumPri,
+  Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.BypassValve.BypassValvePosition bypValPos(
+    final nPum=nPumPri,
+    final controllerType=controllerType_bypVal,
     final k=k_bypVal,
     final Ti=Ti_bypVal,
     final Td=Td_bypVal) if have_priOnl
@@ -1304,7 +1319,7 @@ protected
     final minFloSet=fill(minFloSet, nSta),
     final maxFloSet=fill(maxFloSet, nSta),
     final bypSetRat=fill(bypSetRat, nSta),
-    final delSamPer=fill(1, nSta))
+    final delSamPer=fill(60, nSta))
     "Calculate vector of minimum flow setpoints for all stages"
     annotation (Placement(transformation(extent={{-340,0},{-320,20}})));
 
@@ -1387,12 +1402,12 @@ protected
     annotation (Placement(transformation(extent={{300,-20},{320,0}})));
 
   Buildings.Controls.OBC.CDL.Discrete.UnitDelay uniDel(
-    final samplePeriod=1)
+    final samplePeriod=60)
     "Unit delay"
     annotation (Placement(transformation(extent={{-210,360},{-190,380}})));
 
   Buildings.Controls.OBC.CDL.Discrete.UnitDelay uniDel1(
-    final samplePeriod=1)
+    final samplePeriod=60)
     "Unit delay"
     annotation (Placement(transformation(extent={{90,370},{110,390}})));
 
@@ -1406,6 +1421,7 @@ protected
     annotation (Placement(transformation(extent={{240,60},{260,80}})));
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Pumps.SecondaryPumps.Controller secPumCon(
+    final controllerType=controllerType_secPum,
     final have_varSecPum=true,
     final have_secFloSen=have_secFloSen,
     final nPum=nPumSec,
@@ -1656,7 +1672,7 @@ equation
                                          color={255,0,255}));
 
   connect(priPumCon.yHotWatPum, yPriPum)
-    annotation (Line(points={{142,-178.133},{260,-178.133},{260,-130},{420,-130}},
+    annotation (Line(points={{142,-180},{260,-180},{260,-130},{420,-130}},
                                                      color={255,0,255}));
 
   connect(reaToInt1.u, uniDel.y)

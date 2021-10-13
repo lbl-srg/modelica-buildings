@@ -2,6 +2,10 @@ within Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Pumps.PrimaryPump
 block Speed_flow
   "Pump speed control for primary-secondary plants where flowrate sensors are available in the hot water circuit"
 
+  parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerType= Buildings.Controls.OBC.CDL.Types.SimpleController.PI
+    "Type of controller"
+    annotation(Dialog(group="Speed controller"));
+
   parameter Boolean primarySecondarySensors = true
   "True: Flowrate sensors in primary and secondary circuits;
   False: Flowrate sensor in decoupler";
@@ -92,7 +96,7 @@ block Speed_flow
 
 protected
   Buildings.Controls.OBC.CDL.Continuous.PIDWithReset conPID(
-    final controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PID,
+    final controllerType=controllerType,
     final k=k,
     final Ti=Ti,
     final Td=Td,

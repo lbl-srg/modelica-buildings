@@ -6,13 +6,13 @@ model ClosedLoopTest "Closed loop testing model"
   replaceable package MediumW = Buildings.Media.Water
     "Medium model";
 
-  parameter Modelica.SIunits.MassFlowRate mRad_flow_nominal=0.000604*1000
+  parameter Modelica.SIunits.MassFlowRate mRad_flow_nominal=113.45
     "Radiator nominal mass flow rate";
 
   parameter Real boiDesCap(
     final unit="W",
     displayUnit="W",
-    final quantity="Power")= 60000
+    final quantity="Power")= 5134933.83
     "Total boiler plant design capacity";
 
   parameter Real boiCapRat(
@@ -20,12 +20,19 @@ model ClosedLoopTest "Closed loop testing model"
     displayUnit="1") = 0.4
     "Ratio of boiler-1 capacity to total capacity";
 
-  Buildings.Examples.BoilerPlant.PlantModel.BoilerPlant boilerPlant(boiCap1=(1 -
-        boiCapRat)*boiDesCap, boiCap2=boiCapRat*boiDesCap)
+  Buildings.Examples.BoilerPlant.PlantModel.BoilerPlant boilerPlant(
+    Q_flow_nominal=boiDesCap,                                       boiCap1=(1 -
+        boiCapRat)*boiDesCap, boiCap2=boiCapRat*boiDesCap,
+    mRad_flow_nominal=mRad_flow_nominal,
+    V=126016.35,
+    zonTheCap=6987976290)
     "Boiler plant model"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Controller controller(
+    controllerType_priPum=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
+
+    controllerType_bypVal=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
     final have_priOnl=true,
     final have_heaPriPum=true,
     final have_varPriPum=true,
@@ -36,7 +43,7 @@ model ClosedLoopTest "Closed loop testing model"
     final nSenSec=0,
     final nPumSec_nominal=0,
     TPlaHotWatSetMax=273.15 + 70,
-    final VHotWatPri_flow_nominal=0.0006,
+    final VHotWatPri_flow_nominal=mRad_flow_nominal/1000,
     final maxLocDpPri=4000,
     final minLocDpPri=4000,
     final VHotWatSec_flow_nominal=1e-6,
@@ -47,18 +54,21 @@ model ClosedLoopTest "Closed loop testing model"
     final staMat=[1,0; 0,1; 1,1],
     final boiDesCap={boiCapRat*boiDesCap*0.8,(1 - boiCapRat)*boiDesCap*0.8},
     final boiFirMin={0.2,0.3},
-    final minFloSet={0.2*boiCapRat*0.0003,0.3*(1 - boiCapRat)*0.0003},
-    final maxFloSet={boiCapRat*0.0003,(1 - boiCapRat)*0.0003},
+    final minFloSet={0.2*boiCapRat*mRad_flow_nominal/1000,0.3*(1 - boiCapRat)*
+        mRad_flow_nominal/1000},
+    final maxFloSet={boiCapRat*mRad_flow_nominal/1000,(1 - boiCapRat)*
+        mRad_flow_nominal/1000},
     final bypSetRat=0.000005,
     final nPumPri=2,
     final TMinSupNonConBoi=333.2,
     final k_bypVal=1,
-    final Ti_bypVal=50,
+    final Ti_bypVal=90,
     final Td_bypVal=10e-9,
-    final boiDesFlo={boiCapRat*0.0003,(1 - boiCapRat)*0.0003},
-    final k_priPum=1,
-    final Ti_priPum=90,
-    final Td_priPum=3,
+    final boiDesFlo={boiCapRat*mRad_flow_nominal/1000,(1 - boiCapRat)*
+        mRad_flow_nominal/1000},
+    final k_priPum=0.1,
+    final Ti_priPum=75,
+    final Td_priPum=10e-9,
     final minPriPumSpeSta={0,0,0},
     final speConTypPri=Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Types.PrimaryPumpSpeedControlTypes.remoteDP)
     "Boiler plant controller"
@@ -66,11 +76,10 @@ model ClosedLoopTest "Closed loop testing model"
 
   Buildings.Controls.OBC.CDL.Continuous.PID conPID(
     final controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
-    final k=1*10e-4,
-    Ti=30)
+    final k=10e-2,
+    Ti=300)
     "Radiator isolation valve controller"
     annotation (Placement(transformation(extent={{50,50},{70,70}})));
-
 
 // protected
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con(
@@ -106,42 +115,18 @@ model ClosedLoopTest "Closed loop testing model"
     "Check if radiator control valve opening is above threshold for enabling boiler plant"
     annotation (Placement(transformation(extent={{80,100},{100,120}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Timer tim(
-    final t=60)
-    "Timer"
-    annotation (Placement(transformation(extent={{110,100},{130,120}})));
-
   Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger booToInt
     "Boolean to Integer conversion"
-    annotation (Placement(transformation(extent={{170,50},{190,70}})));
+    annotation (Placement(transformation(extent={{160,100},{180,120}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys1(
-    final uLow=0.85,
-    final uHigh=0.9)
+  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys1(final uLow=0.85, final
+      uHigh=0.9)
     "Check if radiator control valve opening is above threshold for rasing HHW supply temperature"
     annotation (Placement(transformation(extent={{90,20},{110,40}})));
-
-  Buildings.Controls.OBC.CDL.Logical.Timer tim1(
-    final t=30)
-    "Timer"
-    annotation (Placement(transformation(extent={{120,20},{140,40}})));
 
   Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger booToInt1(
     final integerTrue=3) "Boolean to Integer conversion"
     annotation (Placement(transformation(extent={{150,20},{170,40}})));
-
-  Buildings.Controls.OBC.CDL.Logical.Latch lat
-    "Latch to send requests for hot water supply to boiler plant"
-    annotation (Placement(transformation(extent={{140,100},{160,120}})));
-
-  Buildings.Controls.OBC.CDL.Logical.Timer tim2(
-    final t=30)
-    "Timer"
-    annotation (Placement(transformation(extent={{120,60},{140,80}})));
-
-  Buildings.Controls.OBC.CDL.Logical.Not not1
-    "Logical Not"
-    annotation (Placement(transformation(extent={{90,60},{110,80}})));
 
 equation
   connect(controller.yBoi, boilerPlant.uBoiSta)
@@ -154,7 +139,7 @@ equation
   connect(con.y, conPID.u_s)
     annotation (Line(points={{32,60},{48,60}}, color={0,0,127}));
   connect(conPID.y, boilerPlant.uRadIsoVal) annotation (Line(points={{72,60},{76,
-          60},{76,34},{38,34},{38,-6}},         color={0,0,127}));
+          60},{76,30},{30,30},{30,-6},{38,-6}}, color={0,0,127}));
   connect(boilerPlant.yZonTem, conPID.u_m) annotation (Line(points={{62,9},{80,9},
           {80,28},{60,28},{60,48}}, color={0,0,127}));
   connect(con3.y, controller.uBoiAva) annotation (Line(points={{-88,0},{-60,0},
@@ -218,31 +203,20 @@ equation
         color={0,0,127}));
   connect(conPID.y, hys.u) annotation (Line(points={{72,60},{76,60},{76,110},{78,
           110}}, color={0,0,127}));
-  connect(hys.y, tim.u)
-    annotation (Line(points={{102,110},{108,110}}, color={255,0,255}));
-  connect(booToInt.y, controller.supResReq) annotation (Line(points={{192,60},{196,
-          60},{196,-100},{-50,-100},{-50,29},{-42,29}}, color={255,127,0}));
+  connect(booToInt.y, controller.supResReq) annotation (Line(points={{182,110},{
+          196,110},{196,-100},{-50,-100},{-50,29},{-42,29}},
+                                                        color={255,127,0}));
   connect(conPID.y, hys1.u) annotation (Line(points={{72,60},{76,60},{76,30},{88,
           30}}, color={0,0,127}));
-  connect(hys1.y, tim1.u)
-    annotation (Line(points={{112,30},{118,30}}, color={255,0,255}));
-  connect(tim1.passed, booToInt1.u) annotation (Line(points={{142,22},{146,22},{
-          146,30},{148,30}}, color={255,0,255}));
   connect(booToInt1.y, controller.TSupResReq) annotation (Line(points={{172,30},
           {184,30},{184,-104},{-54,-104},{-54,32},{-42,32}}, color={255,127,0}));
-  connect(booToInt.u, lat.y) annotation (Line(points={{168,60},{166,60},{166,110},
-          {162,110}}, color={255,0,255}));
-  connect(tim.passed, lat.u) annotation (Line(points={{132,102},{134,102},{134,110},
-          {138,110}}, color={255,0,255}));
-  connect(tim2.u, not1.y)
-    annotation (Line(points={{118,70},{112,70}}, color={255,0,255}));
-  connect(hys.y, not1.u) annotation (Line(points={{102,110},{104,110},{104,88},{
-          84,88},{84,70},{88,70}}, color={255,0,255}));
-  connect(tim2.passed, lat.clr) annotation (Line(points={{142,62},{150,62},{150,
-          88},{136,88},{136,104},{138,104}}, color={255,0,255}));
   connect(controller.TBoiHotWatSupSet, boilerPlant.TBoiHotWatSupSet)
     annotation (Line(points={{-18,10},{-2,10},{-2,-12},{38,-12}},     color={0,0,
           127}));
+  connect(hys.y, booToInt.u)
+    annotation (Line(points={{102,110},{158,110}}, color={255,0,255}));
+  connect(hys1.y, booToInt1.u)
+    annotation (Line(points={{112,30},{148,30}}, color={255,0,255}));
   annotation (Documentation(info="<html>
 <p>
 This model couples the boiler plant model for a primary-only, condensing boiler
