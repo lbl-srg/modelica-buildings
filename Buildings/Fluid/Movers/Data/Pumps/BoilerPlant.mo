@@ -1,6 +1,5 @@
-within Buildings.Fluid.Movers.Data.Pumps.Wilo;
-record BoilerPlant
-  "Pump curves for BoilerPlant model in Examples package"
+within Buildings.Fluid.Movers.Data.Pumps;
+record BoilerPlant "Pump curves for BoilerPlant model in Examples package"
   extends Generic(
     use_powerCharacteristic=true,
     speed_rpm_nominal=1450,

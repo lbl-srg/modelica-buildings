@@ -283,14 +283,14 @@ model BoilerPlant
   Buildings.Fluid.Movers.SpeedControlled_y pum(
     redeclare package Medium = Media.Water,
     final allowFlowReversal=true,
-    redeclare Fluid.Movers.Data.Pumps.Wilo.BoilerPlant per,
+    redeclare Fluid.Movers.Data.Pumps.BoilerPlant per,
     final inputType=Buildings.Fluid.Types.InputType.Continuous,
     final addPowerToMedium=false,
-    riseTime=15)
-    "Hot water primary pump-1"
-    annotation (Placement(transformation(extent={{-10,-10},{10,10}},
-      rotation=90,
-      origin={-30,-70})));
+    riseTime=15) "Hot water primary pump-1" annotation (Placement(
+        transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=90,
+        origin={-30,-70})));
 
   Buildings.Fluid.FixedResistances.Junction spl1(
     redeclare package Medium = MediumW,
@@ -572,11 +572,11 @@ model BoilerPlant
     final isCircular=true,
     final diameter=0.0762,
     final height_ab=0.0102,
-    redeclare model FlowModel=
+    redeclare model FlowModel =
         Modelica.Fluid.Pipes.BaseClasses.FlowModels.NominalLaminarFlow,
     final nNodes=2,
     final use_HeatTransfer=true,
-    redeclare model HeatTransfer=
+    redeclare model HeatTransfer =
         Modelica.Fluid.Pipes.BaseClasses.HeatTransfer.ConstantFlowHeatTransfer,
     flowModel(
       final dp_nominal(displayUnit="Pa") = 50000,
