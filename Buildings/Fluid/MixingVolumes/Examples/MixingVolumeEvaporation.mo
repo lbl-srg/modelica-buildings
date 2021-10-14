@@ -1,10 +1,10 @@
 within Buildings.Fluid.MixingVolumes.Examples;
-model MixingVolumeEvaporation "Test model for heat transfer to volume"
+model MixingVolumeEvaporation
+  "Example model for heat transfer with the evaporation mixing volume"
   extends Modelica.Icons.Example;
 
 package MediumSte = Buildings.Media.Steam
     "Steam medium - Medium model for port_b (outlet)";
-
 package MediumWat = Buildings.Media.Water
     "Water medium - Medium model for port_a (inlet)";
 
@@ -14,14 +14,16 @@ package MediumWat = Buildings.Media.Water
     redeclare package MediumSte = MediumSte,
     m_flow_nominal=0.01,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    allowFlowReversal=true) "Dynamic volume" annotation (Placement(transformation(extent={{20,0},{40,-20}})));
+    allowFlowReversal=true) "Dynamic volume"
+    annotation (Placement(transformation(extent={{20,0},{40,-20}})));
   Buildings.Fluid.MixingVolumes.MixingVolumeEvaporation volSte(
     V=1,
     redeclare package MediumWat = MediumWat,
     redeclare package MediumSte = MediumSte,
     m_flow_nominal=0.01,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
-    allowFlowReversal=true) "Steady volume" annotation (Placement(transformation(extent={{20,-40},{40,-60}})));
+    allowFlowReversal=true) "Steady volume"
+    annotation (Placement(transformation(extent={{20,-40},{40,-60}})));
   Modelica.Fluid.Sources.MassFlowSource_T sou(
     redeclare package Medium = MediumWat,
     use_m_flow_in=true,
@@ -38,13 +40,12 @@ package MediumWat = Buildings.Media.Water
     redeclare package Medium = MediumSte,
     p=volDyn.p_start,
     nPorts=2) "Boundary condition"
-      annotation (Placement(transformation(extent={{80,-22},{60,-2}})));
+    annotation (Placement(transformation(extent={{80,-22},{60,-2}})));
   Modelica.Blocks.Sources.Ramp ramp(
     duration=1,
     offset=1,
     height=-2)
     annotation (Placement(transformation(extent={{-90,-20},{-70,0}})));
-
   Modelica.Thermal.HeatTransfer.Sensors.HeatFlowSensor heaFlo
     "Heat flow sensor"
     annotation (Placement(transformation(extent={{-20,40},{0,60}})));
