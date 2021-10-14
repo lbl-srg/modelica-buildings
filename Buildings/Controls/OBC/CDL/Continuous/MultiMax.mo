@@ -33,7 +33,7 @@ annotation (
         Text(
           extent={{226,60},{106,10}},
           lineColor={0,0,0},
-          textString=DynamicSelect("", String(y, leftjustified=false, significantDigits=3)))}),
+          textString=DynamicSelect("", String(y, leftJustified=false, significantDigits=3)))}),
 Documentation(info="<html>
 <p>
 Outputs the maximum element of the input vector.

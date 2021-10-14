@@ -66,7 +66,7 @@ annotation (defaultComponentName="senMasFra",
         Text(
          extent={{-20,120},{-140,70}},
           lineColor={0,0,0},
-          textString=DynamicSelect("", String(X, leftjustified=false, significantDigits=3)))}),
+          textString=DynamicSelect("", String(X, leftJustified=false, significantDigits=3)))}),
   Documentation(info="<html>
 <p>
 This model outputs the mass fraction of the passing fluid.
