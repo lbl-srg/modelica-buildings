@@ -1,25 +1,24 @@
 ﻿within Buildings.Fluid.MixingVolumes;
 model MixingVolumeEvaporation
   "Mixing volume model exhibiting the evaporation process of water"
-
-  // Package medium declaration
-  replaceable package MediumWat = Buildings.Media.Water
-    "Water medium - port_a(inlet)";
-  replaceable package MediumSte = Buildings.Media.Steam
-     "Steam medium - port_b(oulet)";
-
   extends Buildings.Fluid.Interfaces.PartialTwoPortTwoMedium(
     redeclare final package Medium_a=MediumWat,
     redeclare final package Medium_b=MediumSte,
     p_start=1000000,
     T_start=453.15);
 
-  // Inputs
+  // Medium declarations
+  replaceable package MediumWat =
+    Buildings.Media.Specialized.Water.TemperatureDependentDensity
+    "Liquid water medium - port_a(inlet)";
+  replaceable package MediumSte = Buildings.Media.Steam
+     "Steam medium - port_b(oulet)";
+
+  // Input
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heatPort(
     T(start=T_start)) if not steadyDynamics "Heat port"
   annotation (Placement(transformation(extent={{-10,-90},{10,-110}})));
-
-  //Outputs
+  //Output
   Modelica.Blocks.Interfaces.RealOutput VLiq(unit="m3") "Liquid volume"
   annotation (Placement(transformation(
         origin={110,70},
@@ -29,44 +28,37 @@ model MixingVolumeEvaporation
         rotation=0,
         origin={110,70})));
 
+  // Parameter
   parameter Modelica.SIunits.Volume V "Total volume";
 
-// Initialization
-  final parameter Modelica.SIunits.SpecificEnthalpy hSteStart=
-    MediumSte.specificEnthalpy_pTX(p_start, T_start, MediumSte.X_default)
-    "Start value for specific enthalpy";
-  parameter Modelica.SIunits.Volume VWat_start=V/2
-    "Start value of liquid volumeStart value of volume"
-    annotation (Dialog(tab="Initialization"));
-
-// Set nominal attributes where literal values can be used.
+// Variables
   MediumWat.ThermodynamicState state_saturated
-    "State vector for saturated conditions";
+    "Saturated state";
   MediumSte.AbsolutePressure p(
     start=p_start,
     stateSelect=if massDynamics == Modelica.Fluid.Types.Dynamics.SteadyState
     then StateSelect.default else StateSelect.prefer)
     "Pressure inside volume";
   MediumSte.Temperature T(start=T_start) "Temperature inside volume";
-  Modelica.SIunits.Volume VSte(start=VWat_start) "Volume of vapor phase";
+  Modelica.SIunits.Volume VSte(start=VWat_start) "Volume of steam vapor";
   Modelica.SIunits.Volume VWat(
     start=VWat_start,
     stateSelect=if massDynamics == Modelica.Fluid.Types.Dynamics.SteadyState
     then StateSelect.default else StateSelect.prefer)
-    "Volume of liquid phase";
-
+    "Volume of liquid water phase";
   MediumSte.SpecificEnthalpy hSte "Specific enthalpy of steam vapor";
-  MediumWat.SpecificEnthalpy hWat "Specific enthalpy of water liquid";
+  MediumWat.SpecificEnthalpy hWat "Specific enthalpy of liquid water";
   MediumSte.Density rhoSte "Density of steam vapor";
   MediumWat.Density rhoWat "Density of liquid water";
   Modelica.SIunits.Mass m "Total mass of volume";
-
-  //  (start=VWat_start*(rhoWat_start+rhoSte_start))
-
-  Modelica.SIunits.Energy U(start=U_start) "Internal energy";
+  Modelica.SIunits.Energy U(final start=U_start) "Internal energy";
   Modelica.SIunits.MassFlowRate mWat_flow "Feed water mass flow rate";
   Modelica.SIunits.MassFlowRate mSte_flow "Steam mass flow rate";
 
+  // Initialization
+  parameter Modelica.SIunits.Volume VWat_start=V/2
+    "Start value of liquid volumeStart value of volume"
+    annotation (Dialog(tab="Initialization"));
   final parameter MediumWat.ThermodynamicState state_start = MediumWat.setState_pTX(
       T=T_start,
       p=p_start,
@@ -75,15 +67,14 @@ model MixingVolumeEvaporation
     state=state_start) "Density, used to compute fluid mass";
   final parameter Modelica.SIunits.Density rhoSte_start=MediumSte.density(
     state=state_start) "Density, used to compute fluid mass";
+  final parameter Modelica.SIunits.SpecificEnthalpy hSteStart=
+    MediumSte.specificEnthalpy_pTX(p_start, T_start, MediumSte.X_default)
+    "Start value for specific enthalpy";
   final parameter Modelica.SIunits.Energy U_start=
     VWat_start*(rhoWat_start*MediumWat.specificEnthalpy(state_start) +
     rhoSte_start*MediumSte.specificEnthalpy(state_start)) -
     p_start*VWat_start*2
     "Starting internal energy";
-
-//  Modelica.Blocks.Interfaces.RealInput Q_flow(unit="W") if not steadyDynamics
-//    "Sensible plus latent heat flow rate transferred into the medium"
-//    annotation (Placement(transformation(extent={{-140,40},{-100,80}})));
 
 protected
   final parameter Boolean steadyDynamics=
@@ -92,7 +83,7 @@ protected
     "= true, if steady state formulation";
 
   Buildings.HeatTransfer.Sources.PrescribedTemperature preTem if not steadyDynamics
-    "Port temperature"
+    "Prescribed temperature"
     annotation (Placement(transformation(extent={{-60,-60},{-40,-40}})));
   Modelica.Blocks.Sources.RealExpression portT(y=T) if  not steadyDynamics
     "Port temperature"
@@ -100,7 +91,6 @@ protected
   Modelica.Thermal.HeatTransfer.Sensors.HeatFlowSensor heaFloSen if not steadyDynamics
     "Heat flow sensor"
     annotation (Placement(transformation(extent={{-10,-40},{-30,-60}})));
-
   Modelica.Blocks.Interfaces.RealInput Q_flow_internal
     "Needed to use conditional connector Q_flow";
 
@@ -120,17 +110,13 @@ initial equation
   if energyDynamics == Modelica.Fluid.Types.Dynamics.FixedInitial then
     // No intial condition is given here to avoid overspecification in models
     // that use this base class.
-  //   p = p_start;
-  //   T = T_start;
   elseif energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyStateInitial then
-    //    der(p) = 0;
     der(T) = 0;
   end if;
 
   if massDynamics == Modelica.Fluid.Types.Dynamics.FixedInitial then
      VWat = VWat_start;
   elseif massDynamics == Modelica.Fluid.Types.Dynamics.SteadyStateInitial then
- //   der(VWat) = 0;
     der(p)=0;
   end if;
 
@@ -178,9 +164,6 @@ equation
 
   // outputs
   VLiq = VWat;
- // hOut = hSte;
- // UOut = U;
- // mOut = m;
 
 // Check that evaporation is actually possible
   assert(VSte >= 0, "There is no more steam vapor in the volume.");
@@ -225,42 +208,62 @@ First implementation.
 </ul>
 </html>", info="<html>
 <p>
-This model represents an instantaneous mixed volume with the evaporation process of water with liquid and vapor phases in equilibrium. 
-The volume can exchange heat through its <code>heatPort</code>.
+This model represents an instantaneous mixed volume with the 
+evaporation process of water with liquid and vapor phases in equilibrium
+and at a saturated state. The volume can exchange heat through 
+its <code>heatPort</code> when configured with dynamic mass and 
+energy balances. In steady state, the heat port is conditional removed
+in order to maintain a consistent set of equations.
 
-This model is similar to <a href = \"modelica:// Modelica.Fluid.Examples.DrumBoiler.BaseClasses.EquilibriumDrumBoiler\">Modelica.Fluid.Examples.DrumBoiler.BaseClasses.EquilibriumDrumBoiler</a> 
+This model is similar to 
+<a href = \"modelica://Modelica.Fluid.Examples.DrumBoiler.BaseClasses.EquilibriumDrumBoiler\">
+Modelica.Fluid.Examples.DrumBoiler.BaseClasses.EquilibriumDrumBoiler</a> 
 with the following exceptions:
 <ul>
-<li>Rather than a two-phase medium, fluid mediums are modeled as two
+<li>
+Rather than a two-phase medium, fluid mediums are modeled as two
 single-state fluids, with liquid water at the up-stream port<code>(port_a)</code>, and
-steam vapor at the downstream port <code>(port_b)</code>.
-
-<li>The metal drum is excluded from the mass and energy balances.
-
-<li>The new model protects against incorrect physics where the steam and
-liquid water volumes must always be equal to or greater than zero<code>(Vwat>=0, VSte>=0)</code>.
-
-<li>The steady state balances accurately hold mass and internal energy
-constant
+steam vapor at the downstream port <code>(port_b)</code>;
+</li>
+<li>
+The metal drum is excluded from the mass and energy balances;
+</li>
+<li>
+The new model protects against incorrect physics where the steam and
+liquid water masses must always be equal to or greater than 
+zero; and
+</li>
+<li>
+The steady state balances accurately hold mass and internal energy
+constant.
+</li>
 </ul>
+</p>
 
 <p>
-<h4> Implementation</h4></p>
-<p>MixingVolumeEvaporation is configured to allow both steady state and dynamic mass and energy
-balances. The steady state and dynamic balance implementation use the mixed medium properties. 
-The heat transfer through the <code>heatPort</code> is disabled in steady state balance.
-The fluid mass <i>m</i> in the volume is calculated as</p>
+<h4> Implementation</h4>
+This model is configured to allow both steady state and dynamic mass 
+and energy balances. The heat transfer through the 
+<code>heatPort</code> is disabled in steady state balance.
+This is required because the fluid is restricted to a saturated state;
+thus, the heat transfer rate is a function of mass flow rate only
+if the volume is steady. The fluid mass <i>m</i> in the volume is 
+calculated as
+</p>
 
 <p align = \"center\" style = \"font-style:italic;\">
 m = ρ<sub>s</sub>V<sub>s</sub> + ρ<sub>w</sub>V<sub>w</sub>
 </p>
 
-where <i>ρ</i> is density,<i>V</i> is volume, and subscripts represent the steam and liquid water components. The total internal energy <i>U</i> is
+where <i>ρ</i> is density,<i>V</i> is volume, and subscripts represent 
+the steam and liquid water components, respectively. 
+The total internal energy <i>U</i> is
 <p align = \"center\" style = \"font-style:italic;\">
 U = ρ<sub>s</sub>V<sub>s</sub>h<sub>s</sub> + ρ<sub>w</sub>V<sub>w</sub> − pV
 </p>
 
-where <i>h</i> is specific enthalpy, <i>p</i> is pressure, and the total volume of fluid <i>V=V<sub>s</sub>+V<sub>w</sub></i>.
+where <i>h</i> is specific enthalpy, <i>p</i> is pressure, and the 
+total volume of fluid <i>V=V<sub>s</sub>+V<sub>w</sub></i>.
 
 <p><li>The steady state mass balance and energy balance is given as
 <p align = \"center\" style = \"font-style:italic;\">
@@ -270,28 +273,52 @@ m&#775;<sub>s</sub> + m&#775;<sub>w</sub> = 0,
 The dynamic mass and energy balance is given as
 <p align = \"center\" style = \"font-style:italic;\">
 dm/dt = m&#775;<sub>s</sub> + m&#775;<sub>w</sub>
-<li>dU/dt = Q&#775; + m&#775;<sub>s</sub> h<sub>s</sub> + m&#775;<sub>w</sub> h<sub>w</sub></p> 
+<li>dU/dt = Q&#775; + m&#775;<sub>s</sub> h<sub>s</sub> + m&#775;
+<sub>w</sub> h<sub>w</sub></p> 
 
-<p>where ̇<i>m&#775;<sub>s</sub></i> and <i>m&#775;<sub>w</sub></i> is the mass flow rates of steam and liquid water
-respectively; <i>Q&#775;</i> is the net heat flow rate through the boiler’s enclosure and from the fuel; <i>h<sub>s</sub></i> and <i>h<sub>w</sub></i> is the specific enthalpy of steam and liquid water. 
-Note that with the split medium approach, the liquid
-phase(water) is always assigned at the <code>port_a</code>(inlet) while the vapor
-phase(steam) is always at the <code>port_b</code>(outlet).</p> 
+<p>where ̇<i>m&#775;<sub>s</sub></i> and <i>m&#775;<sub>w</sub></i> 
+is the mass flow rates of steam and liquid water
+respectively; <i>Q&#775;</i> is the net heat flow rate through 
+the boiler’s enclosure and from the fuel; 
+<i>h<sub>s</sub></i> and <i>h<sub>w</sub></i> are the specific 
+enthalpies of steam and liquid water, respectively. 
+Note that with an evaporation process, the liquid
+phase (water) is always assigned at the <code>port_a</code> (inlet), 
+while the vapor phase (steam) is always at the <code>port_b</code> (outlet).
+</p> 
 
+<h4>Assumptions</h4>
 <p>
-<li>Two principal assumptions are made with this model:</p>
-<ul><p>
-<li>The water is always at a saturated state within the boiler, and saturated steam vapor with a quality of 1 is discharged from the outlet  
-port   with <i>h<sub>s</sub>=h<sub>v</sub>.
-
-<li>The liquid and vapor components in the volume are at equilibrium.
+Two principal assumptions are made with this model:
+</p>
+<p>
+<ul>
+<li>
+The water is always at a saturated state within the 
+boiler, and saturated steam vapor with a quality of 
+1 is discharged from the outlet port with 
+<i>h<sub>s</sub>=h<sub>v</sub>.
+</li>
+<li>
+The liquid and vapor components in the volume are at equilibrium.
+</li>
 </ul>
 </p>
 <p>
-This model is used for the implementation of <a href = \"modelica://Buildings.Fluid.Boilers.BoilerPolynomialSteam_rev\"> Buildings.Fluid.Boilers.BoilerPolynomialSteam_rev</a>, which exhibits
+This model is instantiated in 
+<a href = \"modelica://Buildings.Fluid.Boilers.BoilerPolynomialSteam\">
+Buildings.Fluid.Boilers.BoilerPolynomialSteam</a>, which exhibits
 phase change process of water from liquid state to vapor state.
 </p>
 
+<h4>Reference</h4>
+<p>
+Hinkelman, Kathryn, Saranya Anbarasu, Michael Wetter, 
+Antoine Gautier, and Wangda Zuo. 2021. “A New Steam 
+Medium Model for Fast and Accurate Simulation of District 
+Heating Systems.” engrXiv. October 8. 
+<a href=\"https://engrxiv.org/cqfmv/\">doi:10.31224/osf.io/cqfmv</a>
+</p>
 
 </html>"));
 end MixingVolumeEvaporation;

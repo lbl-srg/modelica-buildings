@@ -102,11 +102,13 @@ This interface model also includes parameters for mass and
 energy dynamics as well as initialization.   
 </p>
 <h4>Reference</h4>
+<p>
 Hinkelman, Kathryn, Saranya Anbarasu, Michael Wetter, 
 Antoine Gautier, and Wangda Zuo. 2021. “A New Steam 
 Medium Model for Fast and Accurate Simulation of District 
 Heating Systems.” engrXiv. October 8. 
 <a href=\"https://engrxiv.org/cqfmv/\">doi:10.31224/osf.io/cqfmv</a>
+</p>
 </html>", revisions="<html>
 <ul>
 <li>July 22, 2021 by Kathryn Hinkelman: </li>
