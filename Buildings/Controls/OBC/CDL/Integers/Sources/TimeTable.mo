@@ -220,7 +220,7 @@ Initial CDL implementation based on continuous time table implementation in CDL.
           textString=DynamicSelect("",
             if(nout == 1) then
               String(y[1],
-                leftjustified=false,
+                leftJustified=false,
                 significantDigits=3)
             else
               ""))}));

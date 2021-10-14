@@ -76,7 +76,7 @@ equation
           extent={{226,60},{106,10}},
           lineColor={0,0,0},
           textString=DynamicSelect("",String(y,
-            leftjustified=false,
+            leftJustified=false,
             significantDigits=3))),
         Polygon(
           points={{-80,52},{-68,56},{-68,48},{-80,52}},

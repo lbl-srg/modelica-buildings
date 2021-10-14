@@ -43,7 +43,7 @@ annotation (defaultComponentName="senTraSub",
         Text(
           extent={{180,90},{60,40}},
           lineColor={0,0,0},
-          textString=DynamicSelect("", String(C, leftjustified=false, significantDigits=3)))}),
+          textString=DynamicSelect("", String(C, leftJustified=false, significantDigits=3)))}),
   Documentation(info="<html>
 <p>
 This model outputs the trace substances contained in the fluid connected to its port.
