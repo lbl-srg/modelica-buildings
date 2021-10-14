@@ -1,4 +1,4 @@
-within Buildings.Fluid.Interfaces;
+﻿within Buildings.Fluid.Interfaces;
 partial model PartialTwoPortTwoMedium
   "Partial model with two ports with two separate medium models without storing mass or energy"
 
@@ -80,12 +80,33 @@ protected
   "Start value for dp, used to avoid a warning if not set in dp, and to avoid dp.start in parameter window";
 
   annotation (Documentation(info="<html>
-This partial model defines an interface for components with two ports and two separate medium in each port. 
-The component transports fluid between two ports without storing mass or energy. 
-The treatment of the design flow direction and of flow reversal are predefined based on the parameter <code>allowFlowReversal</code>.
-
-This model is ideal to implement systems with phase change process. Also includes assumptions and initilization parameters for the phase change process.   
-
+<p>
+This partial model defines an interface for components 
+with two ports and separate medium definitions at each port. 
+The component transports fluid between two ports 
+without storing mass or energy. The treatment of the 
+design flow direction and of flow reversal are 
+predefined based on the parameter <code>allowFlowReversal</code>.
+</p>
+<p>
+This model is intended for steam heating applications, where
+phase change is inherently present. The split-medium approach
+enables a numerically-efficient liquid water model (i.e., 
+<a href=\"modelica://Buildings.Media.Specialized.Water.TemperatureDependentDensity\">
+Buildings.Media.Specialized.Water.TemperatureDependentDensity</a>) 
+to be implemented alongside an efficient model (i.e., 
+<a href=\"modelica://Buildings.Media.Steam\">Buildings.Media.Steam</a>). 
+Through their combined used, pressure and density calculations are decoupled, 
+eliminating costly nonlinear systems of equations. 
+This interface model also includes parameters for mass and 
+energy dynamics as well as initialization.   
+</p>
+<h4>Reference</h4>
+Hinkelman, Kathryn, Saranya Anbarasu, Michael Wetter, 
+Antoine Gautier, and Wangda Zuo. 2021. “A New Steam 
+Medium Model for Fast and Accurate Simulation of District 
+Heating Systems.” engrXiv. October 8. 
+<a href=\"https://engrxiv.org/cqfmv/\">doi:10.31224/osf.io/cqfmv</a>
 </html>", revisions="<html>
 <ul>
 <li>July 22, 2021 by Kathryn Hinkelman: </li>
