@@ -6,6 +6,7 @@ ConvertTimeNegativeStart
 ConvertTimePositiveStart
 EquationOfTime
 GetAbsolutePath
+GetAltitudeTMY3
 GetHeaderElement
 GetTimeSpanTMY3
 GetTimeSpanTMY3LongHeader

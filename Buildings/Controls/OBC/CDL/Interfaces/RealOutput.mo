@@ -1,6 +1,6 @@
 within Buildings.Controls.OBC.CDL.Interfaces;
 connector RealOutput=output Real
-  "'output Real' as connector"
+  "Real output connector"
 annotation (defaultComponentName="y",
  Icon(coordinateSystem(preserveAspectRatio=true,
                        initialScale=0.2,

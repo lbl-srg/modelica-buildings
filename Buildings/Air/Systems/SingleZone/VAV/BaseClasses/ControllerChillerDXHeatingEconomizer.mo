@@ -200,7 +200,7 @@ model ControllerChillerDXHeatingEconomizer
     final reverseActing=false)
     "Cooling coil valve controller"
     annotation (Placement(transformation(extent={{0,-30},{20,-10}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi
     "Switch the outdoor air fraction to 0 when in unoccupied mode"
     annotation (Placement(transformation(extent={{0,20},{20,40}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uOcc
@@ -210,7 +210,7 @@ model ControllerChillerDXHeatingEconomizer
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con(k=0)
     "Zero outside air fraction"
     annotation (Placement(transformation(extent={{-60,-30},{-40,-10}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swiFan "Switch fan on"
+  Buildings.Controls.OBC.CDL.Continuous.Switch swiFan "Switch fan on"
     annotation (Placement(transformation(extent={{70,120},{90,140}})));
   Buildings.Controls.OBC.CDL.Continuous.Hysteresis hysHea(
     final uLow=0.01,

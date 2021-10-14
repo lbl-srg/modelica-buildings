@@ -12,8 +12,8 @@ model SingleCommon "Single common OA damper (modulated) with AFMS"
     annotation (
       Placement(transformation(extent={{70,-10},{90,10}})));
   BaseClasses.Sensors.Temperature TOut(
-      redeclare final package Medium =MediumAir,
-      final loc=Buildings.Templates.Types.Location.OutdoorAir)
+    redeclare final package Medium =MediumAir,
+    final loc=Buildings.Templates.Types.Location.OutdoorAir)
     "Outdoor air temperature sensor"
     annotation (
       Placement(transformation(extent={{30,-10},{50,10}})));
@@ -40,12 +40,12 @@ equation
       points={{0,10},{0,76},{0,140},{0,140}},
       color={255,204,51},
       thickness=0.5));
-  connect(TOut.busCon, busCon) annotation (Line(
-      points={{40,10},{40,20},{0,20},{0,140}},
+  connect(TOut.busCon, busCon.inp.TOut) annotation (Line(
+      points={{40,10},{40,20},{0.1,20},{0.1,140.1}},
       color={255,204,51},
       thickness=0.5));
-  connect(VOut_flow.busCon, busCon) annotation (Line(
-      points={{80,10},{80,20},{0,20},{0,140}},
+  connect(VOut_flow.busCon, busCon.inp.VOut_flow) annotation (Line(
+      points={{80,10},{80,20},{0.1,20},{0.1,140.1}},
       color={255,204,51},
       thickness=0.5));
   connect(port_a, pas.port_a)

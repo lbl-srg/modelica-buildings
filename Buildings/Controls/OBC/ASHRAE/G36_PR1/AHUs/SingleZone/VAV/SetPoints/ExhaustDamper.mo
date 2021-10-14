@@ -45,7 +45,7 @@ block ExhaustDamper
   Buildings.Controls.OBC.CDL.Continuous.Line exhDamPos
     "Linearly map exhaust damper position to the outdoor air damper position"
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi1
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi1
     "Check if exhaust damper should be open"
     annotation (Placement(transformation(extent={{60,-60},{80,-40}})));
   Buildings.Controls.OBC.CDL.Continuous.Hysteresis greThr(

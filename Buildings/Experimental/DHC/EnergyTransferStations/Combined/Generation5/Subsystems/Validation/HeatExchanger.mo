@@ -41,7 +41,7 @@ model HeatExchanger
     T_b2_nominal=279.15)
     "Heat exchanger with primary pump"
     annotation (Placement(transformation(extent={{30,-90},{50,-70}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi
     "Switch secondary temperature value depending on heat/cold rejection mode"
     annotation (Placement(transformation(extent={{-120,-90},{-100,-70}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort senT1OutPum(redeclare final
@@ -145,7 +145,7 @@ model HeatExchanger
     offset=0.5)
     "Control signal"
     annotation (Placement(transformation(extent={{-80,130},{-60,150}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi1 "Activate heat/cold rejection"
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi1 "Activate heat/cold rejection"
     annotation (Placement(transformation(extent={{-20,70},{0,90}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zer(
     k=0) "Zero"

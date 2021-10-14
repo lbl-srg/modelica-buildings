@@ -50,8 +50,9 @@ equation
     annotation (Line(points={{-100,0},{-50,0}}, color={0,127,255}));
   connect(VDis_flow.port_b, damPreInd.port_a)
     annotation (Line(points={{-30,0},{-10,0}}, color={0,127,255}));
-  connect(VDis_flow.V_flow, busCon.inp.VDis_flow) annotation (Line(points={{
-          -40,11},{-40,80},{0.1,80},{0.1,100.1}}, color={0,0,127}), Text(
+  connect(VDis_flow.V_flow, busCon.inp.VDis_flow) annotation (Line(points={{-40,11},
+          {-40,80},{-4,80},{-4,100},{0.1,100},{0.1,100.1}},
+                                                  color={0,0,127}), Text(
       string="%second",
       index=1,
       extent={{-3,6},{-3,6}},

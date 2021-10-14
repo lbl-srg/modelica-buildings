@@ -8,7 +8,7 @@ model ControlsGuideline36
   Fluid.Sources.Boundary_pT bou3(redeclare final package Medium = MediumHea,
       nPorts=1)
     annotation (Placement(transformation(extent={{-80,-90},{-60,-70}})));
-  UserProject.DummyControlPoints conPoiDum "Dummy control points"
+  UserProject.DummyControlPointsAHU conPoiDum "Dummy control points"
     annotation (Placement(transformation(extent={{-80,30},{-60,50}})));
 equation
   connect(bou2.ports[1], ter.port_coiRehSup) annotation (Line(points={{-60,-40},

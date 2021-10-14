@@ -23,8 +23,7 @@ model SingleBuriedPipe "Example model of a single buried pipe"
     kIns=100,
     cPip=500,
     rhoPip=8000,
-    thickness=0.0032,
-    nPorts=1) "Buried pipe"
+    thickness=0.0032) "Buried pipe"
     annotation (Placement(transformation(extent={{-10,30},{10,50}})));
 
   Buildings.Fluid.Geothermal.BuriedPipes.GroundCoupling gro(
@@ -78,8 +77,7 @@ model SingleBuriedPipe "Example model of a single buried pipe"
     kIns=100,
     cPip=500,
     rhoPip=8000,
-    thickness=0.0032,
-    nPorts=1) "Buried pipe"
+    thickness=0.0032) "Buried pipe"
     annotation (Placement(transformation(extent={{-10,-30},{10,-50}})));
   GroundCoupling groRev(
     nPip=1,
@@ -134,16 +132,11 @@ equation
   connect(senTemInl.port_b, pip.port_a)
     annotation (Line(points={{-30,40},{-10,40}},
                                                color={0,127,255}));
-  connect(pip.ports_b[1], senTemOut.port_a)
-    annotation (Line(points={{10,40},{30,40}},
-                                             color={0,127,255}));
   connect(pip.heatPort, gro.ports[1,1]) annotation (Line(points={{0,50},{0,80},
           {0,80}},         color={191,0,0}));
   connect(senTemOutRev.port_b, pipRev.port_a)
     annotation (Line(points={{-30,-40},{-10,-40}},
                                                  color={0,127,255}));
-  connect(pipRev.ports_b[1], senTemInlRev.port_a)
-    annotation (Line(points={{10,-40},{30,-40}}, color={0,127,255}));
   connect(pipRev.heatPort, groRev.ports[1,1])
     annotation (Line(points={{0,-50},{0,-80},{0,-80}},
                                                  color={191,0,0}));
@@ -153,18 +146,26 @@ equation
     annotation (Line(points={{-60,-40},{-50,-40}}, color={0,127,255}));
   connect(TInlSig.y, souRev.T_in) annotation (Line(points={{-99,0},{100,0},{100,-44},
           {82,-44}}, color={0,0,127}));
+  connect(pip.port_b, senTemOut.port_a)
+    annotation (Line(points={{10,40},{30,40}}, color={0,127,255}));
+  connect(pipRev.port_b, senTemInlRev.port_a)
+    annotation (Line(points={{10,-40},{30,-40}}, color={0,127,255}));
   annotation (Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-140,-120},{140,120}})),
     experiment(StopTime=63072000, Tolerance=1e-06),
     Documentation(info="<html>
 <p>
-This example showcases the ground thermal coupling for a single uninsulated 
+This example showcases the ground thermal coupling for a single uninsulated
 buried pipe operating around ambient temperature (<i>20</i>°C).
-Both design flow direction and reverse flow direction 
+Both design flow direction and reverse flow direction
 (components with suffix <code>Rev</code>) are simulated.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+September 14, 2021, by Michael Wetter:<br/>
+Updated example for new pipe model.
+</li>
 <li>
 March 17, 2021, by Baptiste Ravache:<br/>
 First implementation.

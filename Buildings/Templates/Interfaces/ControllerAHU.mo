@@ -14,6 +14,15 @@ partial block ControllerAHU
   outer parameter ExternData.JSONFile dat
     "External parameter file";
 
+  // See FIXME below for those parameters.
+  final parameter String idTerArr[nZon]={"Box_1"}
+    "Served terminal units - Array of system identifiers"
+    annotation(Evaluate=true);
+  final parameter String namGro[nGro]={"First floor"}
+    "Array of group names"
+    annotation(Evaluate=true);
+
+  /*  
   final parameter String idTerArr[nZon]=
     dat.getStringArray1D(id + ".Identification.Terminal unit identifiers.value", nZon)
     "Served terminal units - Array of system identifiers"
@@ -22,6 +31,7 @@ partial block ControllerAHU
     dat.getStringArray1D(id + ".Identification.Zone group names.value", nGro)
     "Array of group names"
     annotation(Evaluate=true);
+    */
 
   BaseClasses.Connectors.BusAHU busAHU
     "AHU control bus"

@@ -99,7 +99,6 @@ model Case600FF
       fFra={0.001},
       til={Z_},
       azi={S_}),
-    lat=weaDat.lat,
     massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState) "Room model"
     annotation (Placement(transformation(extent={{36,-30},{66,0}})));
   Modelica.Blocks.Sources.Constant qConGai_flow(k=80/48) "Convective heat gain"

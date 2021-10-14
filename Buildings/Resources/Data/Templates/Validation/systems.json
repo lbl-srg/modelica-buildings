@@ -91,7 +91,7 @@
                 "value": 0.1,
                 "unit": "ppm"
             },
-            "Perimeter zone": {
+            "Perimeter zone with reheat": {
                 "value": true
             },
             "Zone floor area": {

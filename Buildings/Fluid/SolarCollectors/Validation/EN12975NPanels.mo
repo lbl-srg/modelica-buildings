@@ -16,7 +16,6 @@ model EN12975NPanels
     nColType=Buildings.Fluid.SolarCollectors.Types.NumberSelection.Number,
     nPanels=1,
     nSeg=30,
-    lat=0.6457718232379,
     til=0.78539816339745)
     "Flat plate solar collector model, has been modified for validation purposes"
     annotation (Placement(transformation(extent={{20,20},{40,40}})));
@@ -49,7 +48,6 @@ model EN12975NPanels
     rho=0.2,
     nColType=Buildings.Fluid.SolarCollectors.Types.NumberSelection.Number,
     nSeg=30,
-    lat=0.6457718232379,
     til=0.78539816339745,
     nPanels=nPanels)
     "Flat plate solar collector model, has been modified for validation purposes"
@@ -97,7 +95,7 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(gaiNPan.y, bou1.m_flow_in)
-    annotation (Line(points={{-31,-22},{-12,-22}}, color={0,0,127}));
+    annotation (Line(points={{-31,-22},{-14,-22}}, color={0,0,127}));
   connect(solCol.port_a, bou.ports[1])
     annotation (Line(points={{20,30},{8,30}}, color={0,127,255}));
   connect(solCol.port_b, sou.ports[1])
@@ -107,7 +105,7 @@ equation
       color={255,204,51},
       thickness=0.5));
   connect(m_flow_nominal.y, bou.m_flow_in) annotation (Line(points={{-67,40},{-22,
-          40},{-22,38},{-12,38}}, color={0,0,127}));
+          40},{-22,38},{-14,38}}, color={0,0,127}));
   connect(gaiNPan.u, m_flow_nominal.y) annotation (Line(points={{-54,-22},{-60,
           -22},{-60,40},{-67,40}}, color={0,0,127}));
   annotation (
@@ -125,6 +123,12 @@ The output of these blocks should be zero, except for rounding errors.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+September 16, 2021, by Michael Wetter:<br/>
+Removed parameter assignment for <code>lat</code>.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1477\">IBPSA, #1477</a>.
+</li>
 <li>
 November 21, 2017, by Michael Wetter:<br/>
 First implementation to validate

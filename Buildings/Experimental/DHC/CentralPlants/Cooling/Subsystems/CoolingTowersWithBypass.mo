@@ -140,7 +140,7 @@ model CoolingTowersWithBypass
     final Ti=Ti)
     "Cooling tower fan speed controller"
     annotation (Placement(transformation(extent={{-10,40},{10,60}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi
     "Output the input of higher value"
     annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
   Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys(

@@ -14,7 +14,6 @@ model FlatPlateTotalArea "Example showing the use of TotalArea and nSeg"
     nColType=Buildings.Fluid.SolarCollectors.Types.NumberSelection.Number,
     nPanels=10,
     nSeg=9,
-    lat=0.73097781993588,
     azi=0.3,
     til=0.5) "Flat plate solar collector model"
     annotation (Placement(transformation(extent={{-20,20},{0,40}})));
@@ -60,7 +59,6 @@ model FlatPlateTotalArea "Example showing the use of TotalArea and nSeg"
     nColType=Buildings.Fluid.SolarCollectors.Types.NumberSelection.Number,
     nPanels=10,
     nSeg=27,
-    lat=0.73097781993588,
     azi=0.3,
     til=0.5) "Flat plate solar collector model"
     annotation (Placement(transformation(extent={{-20,-22},{0,-2}})));
@@ -130,6 +128,12 @@ equation
     </html>",
 revisions="<html>
 <ul>
+<li>
+September 16, 2021, by Michael Wetter:<br/>
+Removed parameter assignment for <code>lat</code>.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1477\">IBPSA, #1477</a>.
+</li>
 <li>
 December 22, 2014 by Michael Wetter:<br/>
 Removed <code>Modelica.Fluid.System</code>

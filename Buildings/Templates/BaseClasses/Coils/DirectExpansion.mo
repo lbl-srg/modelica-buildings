@@ -10,7 +10,7 @@ model DirectExpansion "Direct expansion"
   inner parameter Boolean have_dryCon = true
     "Set to true for purely sensible cooling of the condenser";
 
-  // DX coils get their nomianl flow rate assigned from the data record.
+  // DX coils get their nominal flow rate assigned from the data record.
   // Only the air pressure drop needs to be declared.
   inner parameter Modelica.SIunits.PressureDifference dpAir_nominal(
     displayUnit="Pa")=

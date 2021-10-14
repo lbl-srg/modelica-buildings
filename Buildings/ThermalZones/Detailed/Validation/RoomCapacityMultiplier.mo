@@ -19,8 +19,7 @@ model RoomCapacityMultiplier
            each til=Buildings.Types.Tilt.Wall),
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     mSenFac=1,
-    T_start=293.15,
-    lat=0.73268921998722) "Room model";
+    T_start=293.15) "Room model";
 
   Room roo1 "Room model"
     annotation (Placement(transformation(extent={{64,24},{104,64}})));

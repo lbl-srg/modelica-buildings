@@ -22,14 +22,13 @@ model PlugFlowDiscretized "Simple example of discretized plug flow pipe"
     redeclare package Medium = Medium,
     nSeg=nSeg,
     dh=0.1,
-    length=fill(10, nSeg),
+    totLen=100,
     dIns=0.05,
     kIns=0.028,
-    m_flow_nominal=1,
+    m_flow_nominal=10,
     thickness=0.0032,
     initDelay=true,
-    T_start_in=323.15,
-    T_start_out=323.15) "Pipe segments"
+    T_start_in=fill(323.15, nSeg)) "Pipe segments"
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
   Buildings.HeatTransfer.Sources.FixedTemperature
     bou[nSeg](T={283.15 + 2 * i for i in 1:nSeg})
@@ -39,7 +38,8 @@ model PlugFlowDiscretized "Simple example of discretized plug flow pipe"
     nPorts=1,
     redeclare package Medium = Medium,
     use_T_in=true,
-    m_flow=3) "Flow source"
+    m_flow=10)
+              "Flow source"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
 
   Buildings.Fluid.Sensors.TemperatureTwoPort senTemOut(

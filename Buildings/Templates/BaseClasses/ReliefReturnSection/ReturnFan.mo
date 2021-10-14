@@ -27,7 +27,7 @@ model ReturnFan "Return fan - Modulated relief damper"
         choice(redeclare Templates.BaseClasses.Fans.MultipleVariable fanRet
           "Multiple fans (identical) - Variable speed")),
       Placement(transformation(extent={{130,-10},{110,10}})));
-  Templates.BaseClasses.Sensors.Wrapper pRet_rel(
+  Sensors.DifferentialPressure pRet_rel(
     redeclare final package Medium = MediumAir,
     final typ=if fanRet.typCtr==Templates.Types.ReturnFanControlSensor.Pressure then
       Templates.Types.Sensor.DifferentialPressure else
@@ -36,7 +36,7 @@ model ReturnFan "Return fan - Modulated relief damper"
     "Return static pressure sensor"
     annotation (
       Placement(transformation(extent={{50,-10},{30,10}})));
-  Templates.BaseClasses.Sensors.Wrapper VRet_flow(
+  Sensors.VolumeFlowRate VRet_flow(
     redeclare final package Medium = MediumAir,
     final typ=if fanRet.typCtr==Templates.Types.ReturnFanControlSensor.Airflow then
       Templates.Types.Sensor.VolumeFlowRate else
@@ -70,12 +70,12 @@ equation
     annotation (Line(points={{90,0},{110,0}}, color={0,127,255}));
   connect(pRet_rel.port_bRef, port_bPre) annotation (Line(points={{40,-10},{40,-120},
           {80,-120},{80,-140}}, color={0,127,255}));
-  connect(pRet_rel.busCon, busCon) annotation (Line(
-      points={{40,10},{40,20},{0,20},{0,140}},
+  connect(pRet_rel.busCon, busCon.inp.pRet_rel) annotation (Line(
+      points={{40,10},{40,20},{0.1,20},{0.1,140.1}},
       color={255,204,51},
       thickness=0.5));
-  connect(VRet_flow.busCon, busCon) annotation (Line(
-      points={{80,10},{80,20},{0,20},{0,140}},
+  connect(VRet_flow.busCon, busCon.inp.VRet_flow) annotation (Line(
+      points={{80,10},{80,20},{0.1,20},{0.1,140.1}},
       color={255,204,51},
       thickness=0.5));
   annotation (Documentation(info="<html>

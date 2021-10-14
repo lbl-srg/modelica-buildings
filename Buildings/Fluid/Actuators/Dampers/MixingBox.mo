@@ -20,7 +20,7 @@ model MixingBox "Outside air mixing box with interlocked air dampers"
     "Set to true for round duct, false for square cross section"
     annotation(Dialog(enable=not use_deltaM));
   parameter Real ReC=4000
-    "Reynolds number where transition to turbulent starts"
+    "Reynolds number where transition to turbulence starts"
     annotation(Dialog(enable=not use_deltaM));
   parameter Modelica.SIunits.MassFlowRate mOut_flow_nominal
     "Mass flow rate outside air damper"
@@ -291,6 +291,12 @@ equation
 defaultComponentName="eco",
 Documentation(revisions="<html>
 <ul>
+<li>
+September 21, 2021, by Michael Wetter:<br/>
+Corrected typo in comments.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1525\">#1525</a>.
+</li>
 <li>
 June 10, 2021, by Michael Wetter:<br/>
 Changed implementation of the filter and changed the parameter <code>order</code> to a constant

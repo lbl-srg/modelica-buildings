@@ -2,7 +2,6 @@ within Buildings.ThermalZones.Detailed.Validation.BaseClasses;
 model SingleZoneFloor "Model of a building floor as a single zone"
   replaceable package Medium = Modelica.Media.Interfaces.PartialMedium
     "Medium model for air" annotation (choicesAllMatching=true);
-  parameter Modelica.SIunits.Angle lat "Latitude";
   parameter Modelica.SIunits.Volume VRoo = 4555.7  "Room volum";
   parameter Modelica.SIunits.Height hRoo = 2.74 "Room height";
   parameter Modelica.SIunits.Length hWin = 1.5 "Height of windows";
@@ -96,7 +95,6 @@ model SingleZoneFloor "Model of a building floor as a single zone"
 
   Buildings.ThermalZones.Detailed.MixedAir flo(
     redeclare package Medium = Medium,
-    lat=lat,
     AFlo=AFlo,
     hRoo=hRoo,
     nConExt=0,
@@ -307,13 +305,20 @@ equation
   </p>
   </html>",
   revisions="<html>
-  <ul>
-  <li>March 10, 2020, by Kun Zhang:<br/>
-  First implementation. This is for issue
-  <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1717\">1717</a>.
-  </li>
-  </ul>
-  </html>"),
+<ul>
+<li>
+September 16, 2021, by Michael Wetter:<br/>
+Removed parameter <code>lat</code> as this is now obtained from the weather data reader.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1477\">IBPSA, #1477</a>.
+</li>
+<li>
+March 10, 2020, by Kun Zhang:<br/>
+First implementation. This is for issue
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1717\">1717</a>.
+</li>
+</ul>
+</html>"),
   Icon(coordinateSystem(preserveAspectRatio=true, extent={{-200,-200},{200,200}}),
         graphics={
         Rectangle(
