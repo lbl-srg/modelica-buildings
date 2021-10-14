@@ -1,48 +1,56 @@
-within Buildings.Fluid.Boilers;
+﻿within Buildings.Fluid.Boilers;
 model BoilerPolynomialSteam
-  "A simple boiler exhibiting the phase change of water from liquid to vapor and the efficiency curve is described by the polynomial of temperature."
-
-      // Package medium declaration
-  replaceable package MediumWat = Buildings.Media.Water
-    "Water medium - port_a(inlet)";
-  replaceable package MediumSte = Buildings.Media.Steam
-     "Steam medium - port_b(oulet)";
-
+  "A equilibrium boiler with water phase change from liquid to vapor, discharging
+  saturated steam vapor, with the efficiency curve described by a polynomial."
   extends Buildings.Fluid.Interfaces.PartialTwoPortTwoMedium(
     redeclare final package Medium_a=MediumWat,
     redeclare final package Medium_b=MediumSte);
 
+  // Medium declarations
+  replaceable package MediumWat =
+    Buildings.Media.Specialized.Water.TemperatureDependentDensity
+    "Water medium - port_a (inlet)";
+  replaceable package MediumSte = Buildings.Media.Steam
+     "Steam medium - port_b (oulet)";
+
+  // Nominal conditions
   parameter Modelica.SIunits.PressureDifference dp_nominal(displayUnit="Pa")
     "Pressure drop at nominal mass flow rate"
     annotation(Dialog(group = "Nominal condition"));
   parameter Modelica.SIunits.Power Q_flow_nominal "Nominal heating power";
   parameter Modelica.SIunits.Temperature T_nominal = 353.15
-    "Temperature used to compute nominal efficiency (only used if efficiency curve depends on temperature)";
-  // Assumptions
-  parameter Buildings.Fluid.Types.EfficiencyCurves effCur=Buildings.Fluid.Types.EfficiencyCurves.Constant
+    "Temperature used to compute nominal efficiency 
+    (only used if efficiency curve depends on temperature)";
+
+  // Efficiency, fuel, and boiler properties
+  parameter Buildings.Fluid.Types.EfficiencyCurves effCur=
+    Buildings.Fluid.Types.EfficiencyCurves.Constant
     "Curve used to compute the efficiency";
   parameter Real a[:] = {0.9} "Coefficients for efficiency curve";
-
   parameter Buildings.Fluid.Data.Fuels.Generic fue "Fuel type"
    annotation (choicesAllMatching = true);
-
   parameter Modelica.SIunits.ThermalConductance UA=0.05*Q_flow_nominal/30
     "Overall UA value";
   parameter Modelica.SIunits.Volume V = 1.5E-6*Q_flow_nominal
     "Total internal volume of boiler"
     annotation(Dialog(tab = "Dynamics", enable = not (energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState)));
-  parameter Modelica.SIunits.Mass mDry =   1.5E-3*Q_flow_nominal
+  parameter Modelica.SIunits.Mass mDry = 1.5E-3*Q_flow_nominal
     "Mass of boiler that will be lumped to water heat capacity"
     annotation(Dialog(tab = "Dynamics", enable = not (energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState)));
 
-  Modelica.SIunits.Efficiency eta=if effCur == Buildings.Fluid.Types.EfficiencyCurves.Constant
-       then a[1] elseif effCur == Buildings.Fluid.Types.EfficiencyCurves.Polynomial
-       then Buildings.Utilities.Math.Functions.polynomial(a=a, x=y_internal) elseif
-      effCur == Buildings.Fluid.Types.EfficiencyCurves.QuadraticLinear then
+  // Variables
+  Modelica.SIunits.Efficiency eta=
+    if effCur == Buildings.Fluid.Types.EfficiencyCurves.Constant then
+      a[1]
+    elseif effCur == Buildings.Fluid.Types.EfficiencyCurves.Polynomial then
+      Buildings.Utilities.Math.Functions.polynomial(a=a, x=y_internal)
+    elseif effCur == Buildings.Fluid.Types.EfficiencyCurves.QuadraticLinear then
       Buildings.Utilities.Math.Functions.quadraticLinear(
-      a=aQuaLin,
-      x1=y_internal,
-      x2=MediumSte.saturationTemperature(port_a.p)) else 0 "Boiler efficiency";
+        a=aQuaLin,
+        x1=y_internal,
+        x2=MediumSte.saturationTemperature(port_a.p))
+    else 0
+    "Boiler efficiency";
   Modelica.SIunits.Power QFue_flow = y_internal * Q_flow_nominal/eta_nominal
     "Heat released by fuel";
   Modelica.SIunits.Power QWat_flow = eta * QFue_flow
@@ -55,22 +63,20 @@ model BoilerPolynomialSteam
   Modelica.Blocks.Interfaces.RealInput y(min=0, max=1) if not steadyDynamics
     "Part load ratio"
     annotation (Placement(transformation(extent={{-140,60},{-100,100}})));
-
   Modelica.Blocks.Interfaces.RealOutput VLiq(
     final quantity="Volume",
     final unit="m3",
-    min=0) "Output liquid water volume"
+    min=0)
+    "Output liquid water volume"
     annotation (Placement(transformation(extent={{100,70},{120,90}})));
-
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heatPort if not steadyDynamics
     "Heat port, can be used to connect to ambient"
     annotation (Placement(transformation(extent={{-10,62}, {10,82}})));
   Modelica.Thermal.HeatTransfer.Components.HeatCapacitor heaCapDry(
     C=500*mDry,
     T(start=T_start)) if not steadyDynamics
-    "heat capacity of boiler metal"
+    "Heat capacity of boiler metal"
     annotation (Placement(transformation(extent={{-80,12},{-60,32}})));
-
   MixingVolumes.MixingVolumeEvaporation vol(
     redeclare package MediumSte = MediumSte,
     redeclare package MediumWat = MediumWat,
@@ -81,13 +87,16 @@ model BoilerPolynomialSteam
     T_start=T_start,
     m_flow_nominal=m_flow_nominal,
     show_T=show_T,
-    V=V) "Steam water mixing volume" annotation (Placement(transformation(extent={{0,-10},{20,10}})));
+    V=V)
+    "Steam/water mixing volume"
+    annotation (Placement(transformation(extent={{0,-10},{20,10}})));
   Buildings.Fluid.FixedResistances.PressureDrop res(
     redeclare package Medium = MediumWat,
     allowFlowReversal=allowFlowReversal,
     m_flow_nominal=m_flow_nominal,
     show_T=show_T,
-    dp_nominal=dp_nominal) "Flow resistance"
+    dp_nominal=dp_nominal)
+    "Flow resistance"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
 
 protected
@@ -103,10 +112,10 @@ protected
     "Internal block needed for conditional input part load ratio";
 
   Buildings.HeatTransfer.Sources.PrescribedHeatFlow preHeaFlo if not steadyDynamics
-  "Prescribed heat flow(if heatPort is connected)"
+  "Prescribed heat flow (if heatPort is connected)"
     annotation (Placement(transformation(extent={{-49,-40},{-29,-20}})));
   Modelica.Blocks.Sources.RealExpression Q_flow_in(y=QWat_flow) if not steadyDynamics
-  "Heat transfer from gas into water(if heatPort is connected)"
+  "Heat transfer from gas into water (if heatPort is connected)"
     annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
 
   Modelica.Thermal.HeatTransfer.Components.ThermalConductor UAOve(G=UA) if not steadyDynamics
@@ -197,19 +206,54 @@ equation
           preserveAspectRatio=false)),
     Documentation(info="<html>
 <p>
-This model is similar to the <a href = \"modelica:// Buildings.Fluid.Boilers.BoilerPolynomial\"> Buildings.Fluid.Boilers.BoilerPolynomial</a> for
-the efficiency and fuel mass flow rate computation with the following exceptions:
-include:</p>
-
-<ul>
-<p>
-<li>Water enters <code>port_a</code> in liquid state and exits <code>port_b</code> in vapour state. 
-This implementation follows the split medium approach using <a href = \"modelica://Buildings.Fluid.Interfaces.PartialTwoPortTwoMedium_rev\">Buildings.Fluid.Interfaces.PartialTwoPortTwoMedium_rev</a> interface model.
-<li> <a href = \"modelica:// Buildings.Fluid.MixingVolumes.MixingVolumeEvaporation_rev\">Buildings.Fluid.MixingVolumes.MixingVolumeEvaporation_rev</a> is used to implement the phase change process of water from liquid to vapor in equilibrium.
-<li>Steady state and Dynamic balance are parameterized. Part load input <code>y, Heatport, preHeaFlo</code> and <code>heaCapDry</code> of the boiler are disabled in steady state balance. 
-</ul>
-
+This model represents a steam boiler that discharges saturated 
+steam and has an efficiency curve defined by a polynomial.
+This model is similar to the 
+<a href = \"modelica:// Buildings.Fluid.Boilers.BoilerPolynomial\"> 
+Buildings.Fluid.Boilers.BoilerPolynomial</a> for the efficiency 
+and fuel mass flow rate computation with the following exceptions:
 </p>
+<p>
+<ul>
+<li>
+Water enters <code>port_a</code> in liquid state and exits 
+<code>port_b</code> in vapor state.
+</li> 
+<li>
+The liquid and vapor phases are at equilibrium; thus, the steam
+boiler is constrained to saturated states only. 
+</li>
+<li>
+If the boiler is configured in steady state, several blocks involving
+the heat flow rate are conditionally removed to avoid overconstraining
+the model. The removed blocks are within the green region in the below
+figure:
+</li>
+</ul>
+</p>
+<p align=\"center\">
+<img src=\"modelica://Buildings/Resources/Images/Fluid/Boilers/BoilerPolynomialSteam.png\" border=\"1\"
+alt=\"Boiler polynomial steam with blocks in green conditionally removed if steady state\"/>
+</p>
+<h4>Implementation</h4>
+<p>
+In order to improve the numerical efficiency, this model follows 
+the split-medium approach using the
+<a href = \"modelica://Buildings.Fluid.Interfaces.PartialTwoPortTwoMedium\">
+Buildings.Fluid.Interfaces.PartialTwoPortTwoMedium</a> interface model.
+The saturated mixing volume for an evaporation process 
+<a href = \"modelica:// Buildings.Fluid.MixingVolumes.MixingVolumeEvaporation\">
+Buildings.Fluid.MixingVolumes.MixingVolumeEvaporation</a> is 
+represents the phase change process of water from liquid 
+to vapor at equilibrium.
+</p>
+<h4>Reference</h4>
+<p>
+Hinkelman, Kathryn, Saranya Anbarasu, Michael Wetter, 
+Antoine Gautier, and Wangda Zuo. 2021. “A New Steam 
+Medium Model for Fast and Accurate Simulation of District 
+Heating Systems.” engrXiv. October 8. 
+<a href=\"https://engrxiv.org/cqfmv/\">doi:10.31224/osf.io/cqfmv</a>
 </p>
 </html>", revisions="<html>
 <ul>
