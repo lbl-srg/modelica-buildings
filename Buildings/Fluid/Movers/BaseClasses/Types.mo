@@ -7,11 +7,10 @@ package Types "Package with type definitions"
       FlowRate "Flow rate is prescribed",
       PressureDifference "Pressure difference is prescribed")
     "Enumeration to choose what variable is prescribed";
-
   type EfficiencyMethod = enumeration(
       PowerCharacteristics "User provides a dataset for power",
       EulerCorrelation "User provides peak operation point",
-      ConstantEfficiency "User provides constant efficiency")
+      MotorEfficiency "User provides motor efficiency")
     "Enumeration to choose the method for efficiency computation";
  annotation (preferredView="info", Documentation(info="<html>
 <p>

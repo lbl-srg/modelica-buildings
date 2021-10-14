@@ -12,14 +12,18 @@ record Generic "Generic data record for movers"
 
   parameter Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod
     effMet=
-      Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.ConstantEfficiency
+      Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.MotorEfficiency
     "Method for efficiency calculation"
     annotation (Dialog(group="Power computation"));
 
   parameter Boolean use_powerCharacteristic= (effMet ==
     Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.PowerCharacteristics)
-    "Use power data instead of motor efficiency";
+    "Use power data";
 //    annotation (Dialog(group="Power computation"));
+
+  parameter Boolean use_motorEfficiency= (effMet ==
+    Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.MotorEfficiency)
+    "Use motor efficiency";
 
   parameter
     Buildings.Fluid.Movers.BaseClasses.Characteristics.efficiencyParameters
@@ -27,7 +31,7 @@ record Generic "Generic data record for movers"
       V_flow={0},
       eta={0.7}) "Hydraulic efficiency (used if use_powerCharacteristic=false)"
     annotation (Dialog(group="Power computation",
-                       enable=not use_powerCharacteristic));
+                       enable=use_motorEfficiency));
   parameter
     Buildings.Fluid.Movers.BaseClasses.Characteristics.efficiencyParameters
     motorEfficiency(
@@ -35,7 +39,7 @@ record Generic "Generic data record for movers"
       eta={0.7})
     "Electric motor efficiency (used if use_powerCharacteristic=false)"
     annotation (Dialog(group="Power computation",
-                       enable=not use_powerCharacteristic));
+                       enable=use_motorEfficiency));
 
   // Power requires default values to avoid in Dymola the message
   // Failed to expand the variable Power.V_flow

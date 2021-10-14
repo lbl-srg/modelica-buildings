@@ -22,7 +22,8 @@ model PowerSimplified
     redeclare package Medium = Medium,
     redeclare Data.Pumps.Wilo.Stratos30slash1to8 per(
       pressure(V_flow={0,0}, dp={0,0}),
-      use_powerCharacteristic=false,
+      effMet=
+        Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.MotorEfficiency,
       hydraulicEfficiency(V_flow={0}, eta={0.3577})),
     use_inputFilter=false,
     m_flow_nominal=m_flow_nominal,
@@ -34,7 +35,8 @@ model PowerSimplified
     m_flow_nominal=m_flow_nominal,
     redeclare Data.Pumps.Wilo.Stratos30slash1to8 per(
       pressure(V_flow={0,0}, dp={0,0}),
-      use_powerCharacteristic=false,
+      effMet=
+        Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.MotorEfficiency,
       hydraulicEfficiency(V_flow={0}, eta={0.3577})),
     use_inputFilter=false,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyStateInitial)
@@ -146,6 +148,16 @@ the nominal speed <i>N<sub>nominal</sub></i>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+October 14, 2021, by Hongxiang Fu:<br/>
+Swapped all <code>not use_powerCharacteristic</code>
+with <code>use_motorEfficiency</code>
+to support the implementation of 
+<a href=\"Modelica://Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod\">
+<code>Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod</code></a>.
+This is for 
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2668\">#2668</a>.
+</li>
 <li>
 March 11, 2016, by Michael Wetter:<br/>
 Revised implementation by assigning the data record directly in the

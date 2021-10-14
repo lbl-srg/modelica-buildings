@@ -513,7 +513,7 @@ equation
     // and infinite derivative.
     etaHyd = 1;
     etaMot = eta;
-  else
+  elseif per.use_motorEfficiency then
     if homotopyInitialization then
       etaHyd = homotopy(actual=cha.efficiency(per=per.hydraulicEfficiency,     V_flow=V_flow, d=hydDer, r_N=r_N, delta=delta),
                         simplified=cha.efficiency(per=per.hydraulicEfficiency, V_flow=V_flow_max,   d=hydDer, r_N=r_N, delta=delta));
