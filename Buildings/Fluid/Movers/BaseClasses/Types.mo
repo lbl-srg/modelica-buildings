@@ -8,6 +8,11 @@ package Types "Package with type definitions"
       PressureDifference "Pressure difference is prescribed")
     "Enumeration to choose what variable is prescribed";
 
+  type EfficiencyMethod = enumeration(
+      PowerCharacteristics "User provides a dataset for power",
+      EulerCorrelation "User provides peak operation point",
+      ConstantEfficiency "User provides constant efficiency")
+    "Enumeration to choose the method for efficiency computation";
  annotation (preferredView="info", Documentation(info="<html>
 <p>
 This package contains type definitions for movers.
