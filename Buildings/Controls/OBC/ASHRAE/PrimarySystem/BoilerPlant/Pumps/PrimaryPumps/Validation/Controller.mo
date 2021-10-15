@@ -386,63 +386,108 @@ model Controller
     final trueHoldDuration=10,
     final falseHoldDuration=0)
     "True-hold for signal visualization"
-    annotation (Placement(transformation(extent={{-130,280},{-110,300}})));
+    annotation (Placement(transformation(extent={{-50,210},{-30,230}})));
 
   Buildings.Controls.OBC.CDL.Logical.TrueFalseHold truFalHol1(
     final trueHoldDuration=10,
     final falseHoldDuration=0)
     "True-hold for signal visualization"
-    annotation (Placement(transformation(extent={{230,260},{250,280}})));
+    annotation (Placement(transformation(extent={{280,190},{300,210}})));
 
   Buildings.Controls.OBC.CDL.Logical.TrueFalseHold truFalHol2(
     final trueHoldDuration=10,
     final falseHoldDuration=0)
     "True-hold for signal visualization"
-    annotation (Placement(transformation(extent={{-130,120},{-110,140}})));
+    annotation (Placement(transformation(extent={{-38,80},{-18,100}})));
 
   Buildings.Controls.OBC.CDL.Logical.TrueFalseHold truFalHol3(
     final trueHoldDuration=10,
     final falseHoldDuration=0)
     "True-hold for signal visualization"
-    annotation (Placement(transformation(extent={{230,100},{250,120}})));
+    annotation (Placement(transformation(extent={{300,60},{320,80}})));
 
   Buildings.Controls.OBC.CDL.Logical.TrueFalseHold truFalHol4(
     final trueHoldDuration=10,
     final falseHoldDuration=0)
     "True-hold for signal visualization"
-    annotation (Placement(transformation(extent={{-140,-60},{-120,-40}})));
+    annotation (Placement(transformation(extent={{-60,-100},{-40,-80}})));
 
   Buildings.Controls.OBC.CDL.Logical.TrueFalseHold truFalHol5(
     final trueHoldDuration=10,
     final falseHoldDuration=0)
     "True-hold for signal visualization"
-    annotation (Placement(transformation(extent={{250,-80},{270,-60}})));
+    annotation (Placement(transformation(extent={{320,-110},{340,-90}})));
 
   Buildings.Controls.OBC.CDL.Logical.TrueFalseHold truFalHol6(
     final trueHoldDuration=10,
     final falseHoldDuration=0)
     "True-hold for signal visualization"
-    annotation (Placement(transformation(extent={{-140,-240},{-120,-220}})));
+    annotation (Placement(transformation(extent={{-60,-280},{-40,-260}})));
 
   Buildings.Controls.OBC.CDL.Logical.TrueFalseHold truFalHol7(
     final trueHoldDuration=10,
     final falseHoldDuration=0)
     "True-hold for signal visualization"
-    annotation (Placement(transformation(extent={{250,-250},{270,-230}})));
+    annotation (Placement(transformation(extent={{322,-290},{342,-270}})));
 
   Buildings.Controls.OBC.CDL.Logical.TrueFalseHold truFalHol8(
     final trueHoldDuration=10,
     final falseHoldDuration=0)
     "True-hold for signal visualization"
-    annotation (Placement(transformation(extent={{-130,-400},{-110,-380}})));
+    annotation (Placement(transformation(extent={{-60,-440},{-40,-420}})));
 
   Buildings.Controls.OBC.CDL.Logical.TrueFalseHold truFalHol9(
     final trueHoldDuration=10,
     final falseHoldDuration=0)
     "True-hold for signal visualization"
-    annotation (Placement(transformation(extent={{230,-430},{250,-410}})));
+    annotation (Placement(transformation(extent={{308,-450},{328,-430}})));
 
 protected
+  Buildings.Controls.OBC.CDL.Logical.TrueDelay truDel6[2](
+    final delayTime=fill(30, 2))
+    "True delay to simulate pump proven on process"
+    annotation (Placement(transformation(extent={{224,220},{244,240}})));
+
+  Buildings.Controls.OBC.CDL.Logical.TrueDelay truDel7[2](
+    final delayTime=fill(30, 2))
+    "True delay to simulate pump proven on process"
+    annotation (Placement(transformation(extent={{-140,80},{-120,100}})));
+
+  Buildings.Controls.OBC.CDL.Logical.TrueDelay truDel8[2](
+    final delayTime=fill(30, 2))
+    "True delay to simulate pump proven on process"
+    annotation (Placement(transformation(extent={{216,64},{236,84}})));
+
+  Buildings.Controls.OBC.CDL.Logical.TrueDelay truDel9[2](
+    final delayTime=fill(30, 2))
+    "True delay to simulate pump proven on process"
+    annotation (Placement(transformation(extent={{-152,-100},{-132,-80}})));
+
+  Buildings.Controls.OBC.CDL.Logical.TrueDelay truDel10[2](
+    final delayTime=fill(5, 2))
+    "True delay to simulate pump proven on process"
+    annotation (Placement(transformation(extent={{236,-116},{256,-96}})));
+
+  Buildings.Controls.OBC.CDL.Logical.TrueDelay truDel11[2](
+    delayTime=fill(5, 2))
+    "True delay to simulate pump proven on process"
+    annotation (Placement(transformation(extent={{-152,-278},{-132,-258}})));
+
+  Buildings.Controls.OBC.CDL.Logical.TrueDelay truDel12[2](
+    final delayTime=fill(5, 2))
+    "True delay to simulate pump proven on process"
+    annotation (Placement(transformation(extent={{236,-286},{256,-266}})));
+
+  Buildings.Controls.OBC.CDL.Logical.TrueDelay truDel13[2](
+    final delayTime=fill(5, 2))
+    "True delay to simulate pump proven on process"
+    annotation (Placement(transformation(extent={{-144,-434},{-124,-414}})));
+
+  Buildings.Controls.OBC.CDL.Logical.TrueDelay truDel14[2](
+    final delayTime=fill(5, 2))
+    "True delay to simulate pump proven on process"
+    annotation (Placement(transformation(extent={{218,-466},{238,-446}})));
+
   Buildings.Controls.OBC.CDL.Logical.TrueFalseHold truFalHol10(
     final trueHoldDuration=3300,
     final falseHoldDuration=0)
@@ -457,12 +502,12 @@ protected
 
   Buildings.Controls.OBC.CDL.Logical.Change cha[2]
     "Detect changes in pump status"
-    annotation (Placement(transformation(extent={{-120,210},{-100,230}})));
+    annotation (Placement(transformation(extent={{-110,210},{-90,230}})));
 
   Buildings.Controls.OBC.CDL.Logical.MultiOr mulOr(
     final nin=2)
     "Multi Or"
-    annotation (Placement(transformation(extent={{-90,210},{-70,230}})));
+    annotation (Placement(transformation(extent={{-78,210},{-58,230}})));
 
   Buildings.Controls.OBC.CDL.Logical.Change cha6[2]
     "Detect changes in pump status"
@@ -475,80 +520,80 @@ protected
 
   Buildings.Controls.OBC.CDL.Logical.Change cha7[2]
     "Detect changes in pump status"
-    annotation (Placement(transformation(extent={{-140,80},{-120,100}})));
+    annotation (Placement(transformation(extent={{-98,60},{-78,80}})));
 
   Buildings.Controls.OBC.CDL.Logical.MultiOr mulOr2(
     final nin=2)
     "Multi Or"
-    annotation (Placement(transformation(extent={{-110,80},{-90,100}})));
+    annotation (Placement(transformation(extent={{-68,60},{-48,80}})));
 
   Buildings.Controls.OBC.CDL.Logical.Change cha8[2]
     "Detect changes in pump status"
-    annotation (Placement(transformation(extent={{220,60},{240,80}})));
+    annotation (Placement(transformation(extent={{240,60},{260,80}})));
 
   Buildings.Controls.OBC.CDL.Logical.MultiOr mulOr3(
     final nin=2)
     "Multi Or"
-    annotation (Placement(transformation(extent={{250,60},{270,80}})));
+    annotation (Placement(transformation(extent={{270,60},{290,80}})));
 
   Buildings.Controls.OBC.CDL.Logical.Change cha9[2]
     "Detect changes in pump status"
-    annotation (Placement(transformation(extent={{-150,-100},{-130,-80}})));
+    annotation (Placement(transformation(extent={{-120,-100},{-100,-80}})));
 
   Buildings.Controls.OBC.CDL.Logical.MultiOr mulOr4(
     final nin=2)
     "Multi Or"
-    annotation (Placement(transformation(extent={{-120,-100},{-100,-80}})));
+    annotation (Placement(transformation(extent={{-90,-100},{-70,-80}})));
 
   Buildings.Controls.OBC.CDL.Logical.Change cha10[2]
     "Detect changes in pump status"
-    annotation (Placement(transformation(extent={{240,-110},{260,-90}})));
+    annotation (Placement(transformation(extent={{260,-110},{280,-90}})));
 
   Buildings.Controls.OBC.CDL.Logical.MultiOr mulOr5(
     final nin=2)
     "Multi Or"
-    annotation (Placement(transformation(extent={{270,-110},{290,-90}})));
+    annotation (Placement(transformation(extent={{290,-110},{310,-90}})));
 
   Buildings.Controls.OBC.CDL.Logical.Change cha11[2]
     "Detect changes in pump status"
-    annotation (Placement(transformation(extent={{-150,-280},{-130,-260}})));
+    annotation (Placement(transformation(extent={{-120,-280},{-100,-260}})));
 
   Buildings.Controls.OBC.CDL.Logical.MultiOr mulOr6(
     final nin=2)
     "Multi Or"
-    annotation (Placement(transformation(extent={{-120,-280},{-100,-260}})));
+    annotation (Placement(transformation(extent={{-90,-280},{-70,-260}})));
 
   Buildings.Controls.OBC.CDL.Logical.Change cha22[2]
     "Detect changes in pump status"
-    annotation (Placement(transformation(extent={{240,-270},{260,-250}})));
+    annotation (Placement(transformation(extent={{262,-290},{282,-270}})));
 
   Buildings.Controls.OBC.CDL.Logical.MultiOr mulOr7(
     final nin=2)
     "Multi Or"
-    annotation (Placement(transformation(extent={{270,-270},{290,-250}})));
+    annotation (Placement(transformation(extent={{292,-290},{312,-270}})));
 
   Buildings.Controls.OBC.CDL.Logical.Change cha23[2]
     "Detect changes in pump status"
-    annotation (Placement(transformation(extent={{-140,-440},{-120,-420}})));
+    annotation (Placement(transformation(extent={{-120,-440},{-100,-420}})));
 
   Buildings.Controls.OBC.CDL.Logical.MultiOr mulOr8(
     final nin=2)
     "Multi Or"
-    annotation (Placement(transformation(extent={{-110,-440},{-90,-420}})));
+    annotation (Placement(transformation(extent={{-90,-440},{-70,-420}})));
 
   Buildings.Controls.OBC.CDL.Logical.Change cha24[2]
     "Detect changes in pump status"
-    annotation (Placement(transformation(extent={{220,-450},{240,-430}})));
+    annotation (Placement(transformation(extent={{248,-450},{268,-430}})));
 
   Buildings.Controls.OBC.CDL.Logical.MultiOr mulOr9(
     final nin=2)
     "Multi Or"
-    annotation (Placement(transformation(extent={{250,-450},{270,-430}})));
+    annotation (Placement(transformation(extent={{278,-450},{298,-430}})));
 
   Buildings.Controls.OBC.CDL.Logical.TrueDelay truDel5[2](
     final delayTime=fill(1, 2))
     "True delay to represent pump turning on"
-    annotation (Placement(transformation(extent={{-150,240},{-130,260}})));
+    annotation (Placement(transformation(extent={{-140,240},{-120,260}})));
 
   Buildings.Controls.OBC.CDL.Integers.Switch intSwi
     "Integer switch"
@@ -588,9 +633,9 @@ protected
   Buildings.Controls.OBC.CDL.Continuous.Sources.Sine sin[2](
     final amplitude=fill(0.5, 2),
     final freqHz=fill(1/900, 2),
-    phase=fill(0, 2),
+    final phase=fill(0, 2),
     final offset=fill(1, 2),
-    startTime=fill(0, 2))
+    final startTime=fill(0, 2))
     "Sine signal"
     annotation (Placement(transformation(extent={{-220,360},{-200,380}})));
 
@@ -614,9 +659,9 @@ protected
   Buildings.Controls.OBC.CDL.Continuous.Sources.Sine sin2[2](
     final amplitude=fill(0.5, 2),
     final freqHz=fill(1/900, 2),
-    phase=fill(0, 2),
+    final phase=fill(0, 2),
     final offset=fill(1, 2),
-    startTime=fill(0, 2))
+    final startTime=fill(0, 2))
     "Sine signal"
     annotation (Placement(transformation(extent={{146,348},{166,368}})));
 
@@ -642,7 +687,7 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Pre pre3[2](
     final pre_u_start=fill(false, 2))
     "Logical pre block"
-    annotation (Placement(transformation(extent={{-140,240},{-120,260}})));
+    annotation (Placement(transformation(extent={{-110,240},{-90,260}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con8(
     final k=0.25)
@@ -682,7 +727,7 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Pre pre4[2](
     final pre_u_start=fill(false, 2))
     "Logical pre block"
-    annotation (Placement(transformation(extent={{220,220},{240,240}})));
+    annotation (Placement(transformation(extent={{260,220},{280,240}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con12(
     final k=0.25)
@@ -705,7 +750,7 @@ protected
 
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul3(
     final period=1800,
-    final shift=15)
+    final shift=60)
     "Boolean pulse signal"
     annotation (Placement(transformation(extent={{80,150},{100,170}})));
 
@@ -722,7 +767,7 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Pre pre5[2](
     final pre_u_start=fill(false, 2))
     "Logical pre block"
-    annotation (Placement(transformation(extent={{-140,80},{-120,100}})));
+    annotation (Placement(transformation(extent={{-98,100},{-78,120}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con16(
     final k=0.25)
@@ -746,7 +791,7 @@ protected
 
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul5(
     final period=1800,
-    final shift=15)
+    final shift=60)
     "Boolean pulse signal"
     annotation (Placement(transformation(extent={{-280,10},{-260,30}})));
 
@@ -768,7 +813,7 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Pre pre6[2](
     final pre_u_start=fill(false, 2))
     "Logical pre block"
-    annotation (Placement(transformation(extent={{220,60},{240,80}})));
+    annotation (Placement(transformation(extent={{240,90},{260,110}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con21(
     final k=0.25)
@@ -793,7 +838,7 @@ protected
 
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul7(
     final period=1800,
-    final shift=15)
+    final shift=60)
     "Boolean pulse signal"
     annotation (Placement(transformation(extent={{80,-10},{100,10}})));
 
@@ -815,7 +860,7 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Pre pre7[2](
     final pre_u_start=fill(false, 2))
     "Logical pre block"
-    annotation (Placement(transformation(extent={{-150,-100},{-130,-80}})));
+    annotation (Placement(transformation(extent={{-120,-70},{-100,-50}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Sine sin14(
     final amplitude=0.1,
@@ -826,7 +871,7 @@ protected
 
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul9(
     final period=1800,
-    final shift=15)
+    final shift=60)
     "Boolean pulse signal"
     annotation (Placement(transformation(extent={{-290,-170},{-270,-150}})));
 
@@ -843,7 +888,7 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Pre pre8[2](
     final pre_u_start=fill(false, 2))
     "Logical pre block"
-    annotation (Placement(transformation(extent={{240,-120},{260,-100}})));
+    annotation (Placement(transformation(extent={{260,-80},{280,-60}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con29(
     final k=0.25)
@@ -878,7 +923,7 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Pre pre9[2](
     final pre_u_start=fill(false, 2))
     "Logical pre block"
-    annotation (Placement(transformation(extent={{-150,-280},{-130,-260}})));
+    annotation (Placement(transformation(extent={{-120,-250},{-100,-230}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con32(
     final k=0.25)
@@ -913,7 +958,7 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Pre pre10[2](
     final pre_u_start=fill(false, 2))
     "Logical pre block"
-    annotation (Placement(transformation(extent={{240,-290},{260,-270}})));
+    annotation (Placement(transformation(extent={{254,-250},{274,-230}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con35(
     final k=0.25)
@@ -954,7 +999,7 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Pre pre11[2](
     final pre_u_start=fill(false, 2))
     "Logical pre block"
-    annotation (Placement(transformation(extent={{-140,-440},{-120,-420}})));
+    annotation (Placement(transformation(extent={{-120,-410},{-100,-390}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con39(
     final k=0.25)
@@ -996,7 +1041,7 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Pre pre12[2](
     final pre_u_start=fill(false, 2))
     "Logical pre block"
-    annotation (Placement(transformation(extent={{220,-470},{240,-450}})));
+    annotation (Placement(transformation(extent={{248,-420},{268,-400}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Sine sin22(
     final amplitude=0.1,
@@ -1054,10 +1099,6 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Edge edg
     "Edge detector"
     annotation (Placement(transformation(extent={{180,-360},{200,-340}})));
-
-  Buildings.Controls.OBC.CDL.Logical.Edge edg1
-    "Edge detector"
-    annotation (Placement(transformation(extent={{180,-190},{200,-170}})));
 
   Buildings.Controls.OBC.CDL.Logical.Edge edg2
     "Edge detector"
@@ -1310,13 +1351,17 @@ protected
     "Change detector"
     annotation (Placement(transformation(extent={{110,-430},{130,-410}})));
 
+  Buildings.Controls.OBC.CDL.Logical.Pre pre13 "Logical pre block"
+    annotation (Placement(transformation(extent={{112,150},{132,170}})));
+
 equation
   connect(conInt.y, priPumCon.uPumLeaLag) annotation (Line(points={{-198,450},{
           -180,450},{-180,427.067},{-172,427.067}},
                                        color={255,127,0}));
 
   connect(priPumCon.yHotWatPum, pre1.u)
-    annotation (Line(points={{-148,400},{-132,400}}, color={255,0,255}));
+    annotation (Line(points={{-148,403.733},{-140,403.733},{-140,400},{-132,400}},
+                                                     color={255,0,255}));
 
   connect(sin1.y, priPumCon.VHotWat_flow) annotation (Line(points={{-248,400},{
           -194,400},{-194,415.867},{-172,415.867}},          color={0,0,127}));
@@ -1330,7 +1375,8 @@ equation
                                          color={255,127,0}));
 
   connect(priPumCon1.yHotWatPum, pre2.u)
-    annotation (Line(points={{212,390},{228,390}}, color={255,0,255}));
+    annotation (Line(points={{212,393.733},{220,393.733},{220,390},{228,390}},
+                                                   color={255,0,255}));
 
   connect(sin3.y, priPumCon1.VHotWat_flow) annotation (Line(points={{102,360},{
           142,360},{142,394},{166,394},{166,405.867},{188,405.867}},
@@ -1360,10 +1406,6 @@ equation
           218},{-184,218},{-184,234.133},{-172,234.133}},
                                              color={0,0,127}));
 
-  connect(priPumCon2.yPumChaPro, truFalHol.u) annotation (Line(points={{-148,
-          263.067},{-140,263.067},{-140,290},{-132,290}},
-                                             color={255,0,255}));
-
   connect(booPul1.y, priPumCon2.uStaUp) annotation (Line(points={{-258,180},{
           -254,180},{-254,248},{-180,248},{-180,260.267},{-172,260.267}},
                                                              color={255,0,255}));
@@ -1384,9 +1426,6 @@ equation
           {180,280},{180,257.067},{188,257.067}},
                                          color={255,127,0}));
 
-  connect(priPumCon3.yHotWatPum,pre4. u)
-    annotation (Line(points={{212,230},{218,230}}, color={255,0,255}));
-
   connect(con12.y, priPumCon3.uMinPriPumSpeCon) annotation (Line(points={{72,180},
           {180,180},{180,216.933},{188,216.933}},
                                           color={0,0,127}));
@@ -1394,10 +1433,6 @@ equation
   connect(sin8.y,priPumCon3. VHotWat_flow) annotation (Line(points={{102,200},{
           104,200},{104,218},{142,218},{142,234},{166,234},{166,245.867},{188,
           245.867}},                                     color={0,0,127}));
-
-  connect(priPumCon3.yPumChaPro, truFalHol1.u) annotation (Line(points={{212,
-          243.067},{220,243.067},{220,270},{228,270}},
-                                          color={255,0,255}));
 
   connect(booPul3.y, priPumCon3.uStaUp) annotation (Line(points={{102,160},{106,
           160},{106,228},{180,228},{180,240.267},{188,240.267}},
@@ -1422,9 +1457,6 @@ equation
           {-180,140},{-180,117.067},{-172,117.067}},
                                          color={255,127,0}));
 
-  connect(priPumCon4.yHotWatPum,pre5. u)
-    annotation (Line(points={{-148,90},{-142,90}}, color={255,0,255}));
-
   connect(con16.y, priPumCon4.uMinPriPumSpeCon) annotation (Line(points={{-288,40},
           {-180,40},{-180,76.9333},{-172,76.9333}},
                                           color={0,0,127}));
@@ -1433,10 +1465,6 @@ equation
           {-256,60},{-256,78},{-218,78},{-218,94},{-194,94},{-194,105.867},{
           -172,105.867}},
         color={0,0,127}));
-
-  connect(priPumCon4.yPumChaPro, truFalHol2.u) annotation (Line(points={{-148,
-          103.067},{-140,103.067},{-140,130},{-132,130}},
-                                             color={255,0,255}));
 
   connect(booPul5.y, priPumCon4.uStaUp) annotation (Line(points={{-258,20},{
           -254,20},{-254,88},{-180,88},{-180,100.267},{-172,100.267}},
@@ -1465,9 +1493,6 @@ equation
           {180,120},{180,97.0667},{188,97.0667}},
                                          color={255,127,0}));
 
-  connect(priPumCon5.yHotWatPum,pre6. u)
-    annotation (Line(points={{212,70},{218,70}},   color={255,0,255}));
-
   connect(con21.y, priPumCon5.uMinPriPumSpeCon) annotation (Line(points={{72,20},
           {180,20},{180,56.9333},{188,56.9333}},
                                        color={0,0,127}));
@@ -1476,10 +1501,6 @@ equation
           104,40},{104,58},{142,58},{142,74},{166,74},{166,85.8667},{188,
           85.8667}},                                                  color={0,0,
           127}));
-
-  connect(priPumCon5.yPumChaPro, truFalHol3.u) annotation (Line(points={{212,
-          83.0667},{220,83.0667},{220,110},{228,110}},
-                                         color={255,0,255}));
 
   connect(booPul7.y, priPumCon5.uStaUp) annotation (Line(points={{102,0},{106,0},
           {106,68},{180,68},{180,80.2667},{188,80.2667}},
@@ -1508,18 +1529,10 @@ equation
           {-190,-40},{-190,-62.9333},{-182,-62.9333}},
                                          color={255,127,0}));
 
-  connect(priPumCon6.yHotWatPum,pre7. u)
-    annotation (Line(points={{-158,-90},{-152,-90}},
-                                                   color={255,0,255}));
-
   connect(sin14.y, priPumCon6.VHotWat_flow) annotation (Line(points={{-268,-120},
           {-266,-120},{-266,-102},{-228,-102},{-228,-86},{-204,-86},{-204,
           -74.1333},{-182,-74.1333}},
                       color={0,0,127}));
-
-  connect(priPumCon6.yPumChaPro, truFalHol4.u) annotation (Line(points={{-158,
-          -76.9333},{-150,-76.9333},{-150,-50},{-142,-50}},
-                                             color={255,0,255}));
 
   connect(booPul9.y, priPumCon6.uStaUp) annotation (Line(points={{-268,-160},{
           -264,-160},{-264,-92},{-190,-92},{-190,-79.7333},{-182,-79.7333}},
@@ -1538,10 +1551,6 @@ equation
                                                                    color={255,0,
           255}));
 
-  connect(priPumCon7.yHotWatPum,pre8. u)
-    annotation (Line(points={{232,-110},{238,-110}},
-                                                   color={255,0,255}));
-
   connect(con29.y, priPumCon7.uMinPriPumSpeCon) annotation (Line(points={{92,-160},
           {200,-160},{200,-123.067},{208,-123.067}},
                                              color={0,0,127}));
@@ -1555,14 +1564,6 @@ equation
           -142},{198,-142},{198,-125.867},{208,-125.867}},
                                              color={0,0,127}));
 
-  connect(priPumCon7.yPumChaPro, truFalHol5.u) annotation (Line(points={{232,
-          -96.9333},{240,-96.9333},{240,-70},{248,-70}},
-                                          color={255,0,255}));
-
-  connect(priPumCon8.yHotWatPum,pre9. u)
-    annotation (Line(points={{-158,-270},{-152,-270}},
-                                                   color={255,0,255}));
-
   connect(con32.y, priPumCon8.uMinPriPumSpeCon) annotation (Line(points={{-298,
           -320},{-190,-320},{-190,-283.067},{-182,-283.067}},
                                                 color={0,0,127}));
@@ -1572,16 +1573,9 @@ equation
           -254.133},{-182,-254.133}},
                         color={0,0,127}));
 
-  connect(priPumCon8.yPumChaPro, truFalHol6.u) annotation (Line(points={{-158,
-          -256.933},{-150,-256.933},{-150,-230},{-142,-230}},
-                                                color={255,0,255}));
-
   connect(sin16.y, priPumCon8.VHotWatDec_flow) annotation (Line(points={{-208,
           -302},{-194,-302},{-194,-288.667},{-182,-288.667}},
                                                 color={0,0,127}));
-
-  connect(priPumCon9.yHotWatPum, pre10.u)
-    annotation (Line(points={{232,-280},{238,-280}}, color={255,0,255}));
 
   connect(con35.y, priPumCon9.uMinPriPumSpeCon) annotation (Line(points={{92,-330},
           {200,-330},{200,-293.067},{208,-293.067}},
@@ -1592,10 +1586,6 @@ equation
           {208,-264.133}},
                   color={0,0,127}));
 
-  connect(priPumCon9.yPumChaPro, truFalHol7.u) annotation (Line(points={{232,
-          -266.933},{240,-266.933},{240,-240},{248,-240}},
-                                             color={255,0,255}));
-
   connect(sin18.y, priPumCon9.THotWatPri) annotation (Line(points={{188,-312},{
           198,-312},{198,-301.467},{208,-301.467}},
                                         color={0,0,127}));
@@ -1603,9 +1593,6 @@ equation
   connect(con37.y, priPumCon9.THotWatSec) annotation (Line(points={{92,-370},{
           156,-370},{156,-332},{204,-332},{204,-304.267},{208,-304.267}},
                                         color={0,0,127}));
-
-  connect(priPumCon10.yHotWatPum, pre11.u)
-    annotation (Line(points={{-148,-430},{-142,-430}}, color={255,0,255}));
 
   connect(con39.y, priPumCon10.uMinPriPumSpeCon) annotation (Line(points={{-288,
           -480},{-180,-480},{-180,-443.067},{-172,-443.067}},
@@ -1616,10 +1603,6 @@ equation
           -194,-414.133},{-172,-414.133}},
                         color={0,0,127}));
 
-  connect(priPumCon10.yPumChaPro, truFalHol8.u) annotation (Line(points={{-148,
-          -416.933},{-140,-416.933},{-140,-390},{-132,-390}},
-                                                color={255,0,255}));
-
   connect(sin20.y, priPumCon10.THotWatBoiSup) annotation (Line(points={{-192,
           -462},{-182,-462},{-182,-457.067},{-172,-457.067}},
                                                 color={0,0,127}));
@@ -1628,17 +1611,10 @@ equation
           {-224,-520},{-224,-482},{-174,-482},{-174,-454.267},{-172,-454.267}},
                                                 color={0,0,127}));
 
-  connect(priPumCon11.yHotWatPum, pre12.u)
-    annotation (Line(points={{212,-460},{218,-460}}, color={255,0,255}));
-
   connect(sin22.y, priPumCon11.VHotWat_flow) annotation (Line(points={{102,-490},
           {104,-490},{104,-472},{142,-472},{142,-456},{166,-456},{166,-444.133},
           {188,-444.133}},
                   color={0,0,127}));
-
-  connect(priPumCon11.yPumChaPro, truFalHol9.u) annotation (Line(points={{212,
-          -446.933},{220,-446.933},{220,-420},{228,-420}},
-                                             color={255,0,255}));
 
   connect(cha12.y, priPumCon2.uPumChaPro) annotation (Line(points={{-198,180},{
           -176,180},{-176,254.667},{-172,254.667}},
@@ -1662,9 +1638,6 @@ equation
 
   connect(booPul1.y, cha12.u)
     annotation (Line(points={{-258,180},{-222,180}}, color={255,0,255}));
-
-  connect(booPul3.y, cha13.u)
-    annotation (Line(points={{102,160},{138,160}}, color={255,0,255}));
 
   connect(booPul5.y, cha14.u)
     annotation (Line(points={{-258,20},{-222,20}}, color={255,0,255}));
@@ -1701,17 +1674,6 @@ equation
   connect(edg.y, priPumCon9.uOnOff) annotation (Line(points={{202,-350},{202,
           -272.533},{208,-272.533}},
                              color={255,0,255}));
-
-  connect(booPul11.y, edg1.u) annotation (Line(points={{122,-180},{126,-180},{
-          126,-196},{172,-196},{172,-180},{178,-180}}, color={255,0,255}));
-
-  connect(edg1.y, priPumCon7.uStaUp) annotation (Line(points={{202,-180},{204,
-          -180},{204,-99.7333},{208,-99.7333}},
-                                        color={255,0,255}));
-
-  connect(edg1.y, priPumCon7.uOnOff) annotation (Line(points={{202,-180},{204,
-          -180},{204,-102.533},{208,-102.533}},
-                                        color={255,0,255}));
 
   connect(booPul13.y, edg2.u) annotation (Line(points={{-268,-340},{-264,-340},
           {-264,-354},{-214,-354},{-214,-340},{-212,-340}}, color={255,0,255}));
@@ -1775,8 +1737,8 @@ equation
           -224,270},{-224,268.667},{-172,268.667}},
                                             color={0,0,127}));
 
-  connect(pre3.y, priPumCon2.uHotWatPum) annotation (Line(points={{-118,250},{
-          -88,250},{-88,320},{-240,320},{-240,274.267},{-172,274.267}},
+  connect(pre3.y, priPumCon2.uHotWatPum) annotation (Line(points={{-88,250},{
+          -86,250},{-86,320},{-240,320},{-240,274.267},{-172,274.267}},
                                                                 color={255,0,
           255}));
 
@@ -1784,29 +1746,29 @@ equation
           250},{136,248.667},{188,248.667}},
                                      color={0,0,127}));
 
-  connect(pre4.y, priPumCon3.uHotWatPum) annotation (Line(points={{242,230},{
-          260,230},{260,300},{130,300},{130,254.267},{188,254.267}},
+  connect(pre4.y, priPumCon3.uHotWatPum) annotation (Line(points={{282,230},{
+          290,230},{290,300},{130,300},{130,254.267},{188,254.267}},
                                                              color={255,0,255}));
 
   connect(pul4.y, priPumCon4.uHotIsoVal) annotation (Line(points={{-308,110},{
           -224,110},{-224,108.667},{-172,108.667}},
                                             color={0,0,127}));
 
-  connect(pre5.y, priPumCon4.uHotWatPum) annotation (Line(points={{-118,90},{
-          -100,90},{-100,160},{-230,160},{-230,114.267},{-172,114.267}},
+  connect(pre5.y, priPumCon4.uHotWatPum) annotation (Line(points={{-76,110},{
+          -70,110},{-70,160},{-230,160},{-230,114.267},{-172,114.267}},
                                                                  color={255,0,
           255}));
 
-  connect(pre6.y, priPumCon5.uHotWatPum) annotation (Line(points={{242,70},{260,
-          70},{260,140},{130,140},{130,94.2667},{188,94.2667}},
+  connect(pre6.y, priPumCon5.uHotWatPum) annotation (Line(points={{262,100},{
+          270,100},{270,140},{130,140},{130,94.2667},{188,94.2667}},
                                                       color={255,0,255}));
 
   connect(pul5.y, priPumCon5.uHotIsoVal) annotation (Line(points={{42,90},{136,
           90},{136,88.6667},{188,88.6667}},
                                   color={0,0,127}));
 
-  connect(pre7.y, priPumCon6.uHotWatPum) annotation (Line(points={{-128,-90},{
-          -100,-90},{-100,-20},{-240,-20},{-240,-65.7333},{-182,-65.7333}},
+  connect(pre7.y, priPumCon6.uHotWatPum) annotation (Line(points={{-98,-60},{
+          -90,-60},{-90,-20},{-240,-20},{-240,-65.7333},{-182,-65.7333}},
                                                                   color={255,0,
           255}));
 
@@ -1814,27 +1776,27 @@ equation
           -220,-70},{-220,-71.3333},{-182,-71.3333}},
                                             color={0,0,127}));
 
-  connect(pre8.y, priPumCon7.uHotWatPum) annotation (Line(points={{262,-110},{
-          280,-110},{280,-32},{150,-32},{150,-85.7333},{208,-85.7333}},
-                                                              color={255,0,255}));
+  connect(pre8.y, priPumCon7.uHotWatPum) annotation (Line(points={{282,-70},{
+          300,-70},{300,-32},{164,-32},{164,-86},{186,-86},{186,-85.7333},{208,
+          -85.7333}},                                         color={255,0,255}));
 
-  connect(pre9.y, priPumCon8.uHotWatPum) annotation (Line(points={{-128,-270},{
-          -100,-270},{-100,-210},{-190,-210},{-190,-245.733},{-182,-245.733}},
+  connect(pre9.y, priPumCon8.uHotWatPum) annotation (Line(points={{-98,-240},{
+          -88,-240},{-88,-210},{-190,-210},{-190,-245.733},{-182,-245.733}},
                                                                        color={
           255,0,255}));
 
-  connect(pre10.y, priPumCon9.uHotWatPum) annotation (Line(points={{262,-280},{
-          280,-280},{280,-220},{200,-220},{200,-255.733},{208,-255.733}},
+  connect(pre10.y, priPumCon9.uHotWatPum) annotation (Line(points={{276,-240},{
+          280,-240},{280,-220},{200,-220},{200,-255.733},{208,-255.733}},
                                                                   color={255,0,
           255}));
 
-  connect(pre11.y, priPumCon10.uHotWatPum) annotation (Line(points={{-118,-430},
-          {-100,-430},{-100,-370},{-220,-370},{-220,-406},{-196,-406},{-196,
+  connect(pre11.y, priPumCon10.uHotWatPum) annotation (Line(points={{-98,-400},
+          {-80,-400},{-80,-370},{-220,-370},{-220,-406},{-196,-406},{-196,
           -405.733},{-172,-405.733}},                                   color={
           255,0,255}));
 
-  connect(pre12.y, priPumCon11.uHotWatPum) annotation (Line(points={{242,-460},
-          {260,-460},{260,-390},{180,-390},{180,-436},{184,-436},{184,-435.733},
+  connect(pre12.y, priPumCon11.uHotWatPum) annotation (Line(points={{270,-410},
+          {280,-410},{280,-392},{180,-392},{180,-436},{184,-436},{184,-435.733},
           {188,-435.733}},                                         color={255,0,
           255}));
 
@@ -2138,73 +2100,118 @@ equation
   connect(truDel4.y, cha5.u) annotation (Line(points={{142,-530},{146,-530},{
           146,-432},{100,-432},{100,-420},{108,-420}}, color={255,0,255}));
 
-  connect(cha.y, mulOr.u[1:2]) annotation (Line(points={{-98,220},{-96,220},{
-          -96,216.5},{-92,216.5}},
+  connect(cha.y, mulOr.u[1:2]) annotation (Line(points={{-88,220},{-84,220},{
+          -84,216.5},{-80,216.5}},
                                color={255,0,255}));
   connect(mulOr.y, truFalHol.u)
-    annotation (Line(points={{-68,220},{-62,220}}, color={255,0,255}));
+    annotation (Line(points={{-56,220},{-52,220}}, color={255,0,255}));
   connect(cha6.y, mulOr1.u[1:2]) annotation (Line(points={{242,200},{244,200},{244,
           196.5},{248,196.5}}, color={255,0,255}));
-  connect(priPumCon3.yHotWatPum, cha6.u) annotation (Line(points={{212,231.867},
-          {216,231.867},{216,200},{218,200}},
-                                            color={255,0,255}));
   connect(mulOr1.y, truFalHol1.u)
     annotation (Line(points={{272,200},{278,200}}, color={255,0,255}));
-  connect(cha7.y, mulOr2.u[1:2]) annotation (Line(points={{-118,90},{-116,90},{
-          -116,86.5},{-112,86.5}}, color={255,0,255}));
-  connect(cha8.y, mulOr3.u[1:2]) annotation (Line(points={{242,70},{244,70},{
-          244,66.5},{248,66.5}}, color={255,0,255}));
-  connect(cha9.y, mulOr4.u[1:2]) annotation (Line(points={{-128,-90},{-126,-90},
-          {-126,-93.5},{-122,-93.5}}, color={255,0,255}));
-  connect(cha10.y, mulOr5.u[1:2]) annotation (Line(points={{262,-100},{264,-100},
-          {264,-103.5},{268,-103.5}}, color={255,0,255}));
-  connect(cha11.y, mulOr6.u[1:2]) annotation (Line(points={{-128,-270},{-124,
-          -270},{-124,-273.5},{-122,-273.5}}, color={255,0,255}));
-  connect(cha22.y, mulOr7.u[1:2]) annotation (Line(points={{262,-260},{264,-260},
-          {264,-263.5},{268,-263.5}}, color={255,0,255}));
-  connect(cha23.y, mulOr8.u[1:2]) annotation (Line(points={{-118,-430},{-116,
-          -430},{-116,-433.5},{-112,-433.5}}, color={255,0,255}));
-  connect(cha24.y, mulOr9.u[1:2]) annotation (Line(points={{242,-440},{244,-440},
-          {244,-443.5},{248,-443.5}}, color={255,0,255}));
+  connect(cha8.y, mulOr3.u[1:2]) annotation (Line(points={{262,70},{264,70},{
+          264,66.5},{268,66.5}}, color={255,0,255}));
+  connect(cha9.y, mulOr4.u[1:2]) annotation (Line(points={{-98,-90},{-96,-90},{
+          -96,-93.5},{-92,-93.5}},    color={255,0,255}));
+  connect(cha10.y, mulOr5.u[1:2]) annotation (Line(points={{282,-100},{284,-100},
+          {284,-103.5},{288,-103.5}}, color={255,0,255}));
+  connect(cha11.y, mulOr6.u[1:2]) annotation (Line(points={{-98,-270},{-94,-270},
+          {-94,-273.5},{-92,-273.5}},         color={255,0,255}));
+  connect(cha22.y, mulOr7.u[1:2]) annotation (Line(points={{284,-280},{278,-280},
+          {278,-283.5},{290,-283.5}}, color={255,0,255}));
+  connect(cha23.y, mulOr8.u[1:2]) annotation (Line(points={{-98,-430},{-96,-430},
+          {-96,-433.5},{-92,-433.5}},         color={255,0,255}));
+  connect(cha24.y, mulOr9.u[1:2]) annotation (Line(points={{270,-440},{272,-440},
+          {272,-443.5},{276,-443.5}}, color={255,0,255}));
   connect(mulOr2.y, truFalHol2.u)
-    annotation (Line(points={{-88,90},{-82,90}}, color={255,0,255}));
-  connect(priPumCon4.yHotWatPum, cha7.u) annotation (Line(points={{-148,91.8667},
-          {-148,92},{-146,92},{-146,90},{-142,90}}, color={255,0,255}));
+    annotation (Line(points={{-46,70},{-44,70},{-44,90},{-40,90}},
+                                                 color={255,0,255}));
   connect(mulOr3.y, truFalHol3.u)
-    annotation (Line(points={{272,70},{278,70}}, color={255,0,255}));
-  connect(priPumCon5.yHotWatPum, cha8.u) annotation (Line(points={{212,71.8667},
-          {216,71.8667},{216,70},{218,70}}, color={255,0,255}));
+    annotation (Line(points={{292,70},{298,70}}, color={255,0,255}));
   connect(mulOr4.y, truFalHol4.u)
-    annotation (Line(points={{-98,-90},{-92,-90}}, color={255,0,255}));
-  connect(priPumCon6.yHotWatPum, cha9.u) annotation (Line(points={{-158,
-          -88.1333},{-156,-88.1333},{-156,-90},{-152,-90}}, color={255,0,255}));
+    annotation (Line(points={{-68,-90},{-62,-90}}, color={255,0,255}));
   connect(mulOr5.y, truFalHol5.u)
-    annotation (Line(points={{292,-100},{298,-100}}, color={255,0,255}));
+    annotation (Line(points={{312,-100},{318,-100}}, color={255,0,255}));
   connect(mulOr6.y, truFalHol6.u)
-    annotation (Line(points={{-98,-270},{-92,-270}}, color={255,0,255}));
-  connect(priPumCon8.yHotWatPum, cha11.u) annotation (Line(points={{-158,
-          -268.133},{-154,-268.133},{-154,-270},{-152,-270}}, color={255,0,255}));
+    annotation (Line(points={{-68,-270},{-62,-270}}, color={255,0,255}));
   connect(mulOr7.y, truFalHol7.u)
-    annotation (Line(points={{292,-260},{298,-260}}, color={255,0,255}));
-  connect(priPumCon9.yHotWatPum, cha22.u) annotation (Line(points={{232,
-          -278.133},{236,-278.133},{236,-260},{238,-260}}, color={255,0,255}));
+    annotation (Line(points={{314,-280},{320,-280}}, color={255,0,255}));
   connect(mulOr8.y, truFalHol8.u)
-    annotation (Line(points={{-88,-430},{-82,-430}}, color={255,0,255}));
-  connect(priPumCon10.yHotWatPum, cha23.u) annotation (Line(points={{-148,
-          -428.133},{-148,-428},{-146,-428},{-146,-430},{-142,-430}}, color={
-          255,0,255}));
+    annotation (Line(points={{-68,-430},{-62,-430}}, color={255,0,255}));
   connect(mulOr9.y, truFalHol9.u)
-    annotation (Line(points={{272,-440},{278,-440}}, color={255,0,255}));
-  connect(priPumCon11.yHotWatPum, cha24.u) annotation (Line(points={{212,
-          -458.133},{216,-458.133},{216,-440},{218,-440}}, color={255,0,255}));
-  connect(priPumCon7.yHotWatPum, cha10.u) annotation (Line(points={{232,
-          -108.133},{236,-108.133},{236,-100},{238,-100}}, color={255,0,255}));
+    annotation (Line(points={{300,-440},{306,-440}}, color={255,0,255}));
   connect(priPumCon2.yHotWatPum, truDel5.u) annotation (Line(points={{-148,
-          251.867},{-152,251.867},{-152,250}}, color={255,0,255}));
+          253.733},{-146,253.733},{-146,250},{-142,250}},
+                                               color={255,0,255}));
   connect(truDel5.y, pre3.u)
-    annotation (Line(points={{-128,250},{-122,250}}, color={255,0,255}));
-  connect(truDel5.y, cha.u) annotation (Line(points={{-128,250},{-124,250},{
-          -124,220},{-122,220}}, color={255,0,255}));
+    annotation (Line(points={{-118,250},{-112,250}}, color={255,0,255}));
+  connect(truDel5.y, cha.u) annotation (Line(points={{-118,250},{-116,250},{
+          -116,220},{-112,220}}, color={255,0,255}));
+  connect(cha7.y, mulOr2.u[1:2]) annotation (Line(points={{-76,70},{-74,70},{
+          -74,66.5},{-70,66.5}}, color={255,0,255}));
+  connect(cha13.u, pre13.y)
+    annotation (Line(points={{138,160},{134,160}}, color={255,0,255}));
+  connect(booPul3.y, pre13.u)
+    annotation (Line(points={{102,160},{110,160}}, color={255,0,255}));
+  connect(truDel6.u, priPumCon3.yHotWatPum) annotation (Line(points={{222,230},
+          {218,230},{218,233.733},{212,233.733}}, color={255,0,255}));
+  connect(truDel6.y, pre4.u)
+    annotation (Line(points={{246,230},{258,230}}, color={255,0,255}));
+  connect(truDel6.y, cha6.u) annotation (Line(points={{246,230},{252,230},{252,
+          214},{214,214},{214,200},{218,200}}, color={255,0,255}));
+  connect(priPumCon4.yHotWatPum, truDel7.u) annotation (Line(points={{-148,
+          93.7333},{-147,93.7333},{-147,90},{-142,90}}, color={255,0,255}));
+  connect(truDel7.y, pre5.u) annotation (Line(points={{-118,90},{-108,90},{-108,
+          110},{-100,110}}, color={255,0,255}));
+  connect(truDel7.y, cha7.u) annotation (Line(points={{-118,90},{-108,90},{-108,
+          70},{-100,70}}, color={255,0,255}));
+  connect(priPumCon5.yHotWatPum, truDel8.u) annotation (Line(points={{212,
+          73.7333},{214,73.7333},{214,74}}, color={255,0,255}));
+  connect(truDel8.y, pre6.u)
+    annotation (Line(points={{238,74},{238,100}}, color={255,0,255}));
+  connect(truDel8.y, cha8.u)
+    annotation (Line(points={{238,74},{238,70}}, color={255,0,255}));
+  connect(priPumCon6.yHotWatPum, truDel9.u) annotation (Line(points={{-158,
+          -86.2667},{-156,-86.2667},{-156,-90},{-154,-90}}, color={255,0,255}));
+  connect(truDel9.y, cha9.u) annotation (Line(points={{-130,-90},{-122,-90},{
+          -122,-90}}, color={255,0,255}));
+  connect(truDel9.y, pre7.u) annotation (Line(points={{-130,-90},{-128,-90},{
+          -128,-60},{-122,-60}}, color={255,0,255}));
+  connect(booPul11.y, priPumCon7.uStaUp) annotation (Line(points={{122,-180},{
+          204,-180},{204,-99.7333},{208,-99.7333}}, color={255,0,255}));
+  connect(booPul11.y, priPumCon7.uOnOff) annotation (Line(points={{122,-180},{
+          204,-180},{204,-102.533},{208,-102.533}}, color={255,0,255}));
+  connect(priPumCon7.yHotWatPum, truDel10.u) annotation (Line(points={{232,
+          -106.267},{234,-106.267},{234,-106}}, color={255,0,255}));
+  connect(truDel10.y, pre8.u)
+    annotation (Line(points={{258,-106},{258,-70}}, color={255,0,255}));
+  connect(truDel10.y, cha10.u)
+    annotation (Line(points={{258,-106},{258,-100}}, color={255,0,255}));
+  connect(priPumCon8.yHotWatPum, truDel11.u) annotation (Line(points={{-158,
+          -266.267},{-156,-266.267},{-156,-268},{-154,-268}}, color={255,0,255}));
+  connect(truDel11.y, cha11.u) annotation (Line(points={{-130,-268},{-128,-268},
+          {-128,-272},{-122,-272},{-122,-270}}, color={255,0,255}));
+  connect(truDel11.y, pre9.u) annotation (Line(points={{-130,-268},{-126,-268},
+          {-126,-240},{-122,-240}}, color={255,0,255}));
+  connect(priPumCon9.yHotWatPum, truDel12.u) annotation (Line(points={{232,
+          -276.267},{234,-276.267},{234,-276}}, color={255,0,255}));
+  connect(truDel12.y, cha22.u) annotation (Line(points={{258,-276},{260,-276},{
+          260,-280},{260,-280}}, color={255,0,255}));
+  connect(truDel12.y, pre10.u) annotation (Line(points={{258,-276},{256,-276},{
+          256,-240},{252,-240}}, color={255,0,255}));
+  connect(priPumCon10.yHotWatPum, truDel13.u) annotation (Line(points={{-148,
+          -426.267},{-148,-425.133},{-146,-425.133},{-146,-424}}, color={255,0,
+          255}));
+  connect(truDel13.y, cha23.u) annotation (Line(points={{-122,-424},{-122,-430},
+          {-122,-430}}, color={255,0,255}));
+  connect(truDel13.y, pre11.u) annotation (Line(points={{-122,-424},{-122,-400},
+          {-122,-400}}, color={255,0,255}));
+  connect(priPumCon11.yHotWatPum, truDel14.u) annotation (Line(points={{212,
+          -456.267},{214,-456.267},{214,-456},{216,-456}}, color={255,0,255}));
+  connect(truDel14.y, pre12.u) annotation (Line(points={{240,-456},{244,-456},{
+          244,-410},{246,-410}}, color={255,0,255}));
+  connect(truDel14.y, cha24.u) annotation (Line(points={{240,-456},{244,-456},{
+          244,-440},{246,-440}}, color={255,0,255}));
 annotation (
   experiment(
       StopTime=3600,

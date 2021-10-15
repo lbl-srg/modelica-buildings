@@ -178,7 +178,7 @@ protected
     annotation (Placement(transformation(extent={{40,160},{60,180}})));
 
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul2(
-    final width=1,
+    final width=0.9,
     final period=3600,
     final shift=10)
     "Boolean pulse"
@@ -198,7 +198,7 @@ protected
     annotation (Placement(transformation(extent={{-260,10},{-240,30}})));
 
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul3(
-    final width=1,
+    final width=0.9,
     final period=3600,
     final shift=10)
     "Boolean pulse"
@@ -343,7 +343,7 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Pre pre3[2](
     final pre_u_start=fill(false, 2))
     "Logical pre block"
-    annotation (Placement(transformation(extent={{-60,-20},{-40,0}})));
+    annotation (Placement(transformation(extent={{-40,-20},{-20,0}})));
 
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt3[2](
     final k={2,1})
@@ -441,9 +441,6 @@ equation
           {-110,30},{-110,8.2},{-102,8.2}},
                                          color={255,127,0}));
 
-  connect(secPumCon2.yHotWatPum,pre3. u)
-    annotation (Line(points={{-78,-10},{-62,-10}}, color={255,0,255}));
-
   connect(conInt3.y,secPumCon3. uPumLeaLag) annotation (Line(points={{172,20},{190,
           20},{190,-11.8},{198,-11.8}},  color={255,127,0}));
 
@@ -471,8 +468,8 @@ equation
   connect(con3.y,secPumCon1. dpHotWatSet) annotation (Line(points={{142,120},{170,
           120},{170,136},{198,136}},     color={0,0,127}));
 
-  connect(pre3.y,secPumCon2. uHotWatPum) annotation (Line(points={{-38,-10},{
-          -30,-10},{-30,60},{-160,60},{-160,4},{-102,4}},       color={255,0,
+  connect(pre3.y,secPumCon2. uHotWatPum) annotation (Line(points={{-18,-10},{
+          -10,-10},{-10,60},{-160,60},{-160,4},{-102,4}},       color={255,0,
           255}));
 
   connect(pre4.y,secPumCon3. uHotWatPum) annotation (Line(points={{262,-30},{270,
@@ -571,6 +568,8 @@ equation
   connect(pul8.y,secPumCon3. uMaxSecPumSpeCon) annotation (Line(points={{62,-160},
           {190,-160},{190,-48},{198,-48}},     color={0,0,127}));
 
+  connect(secPumCon2.yHotWatPum, pre3.u)
+    annotation (Line(points={{-78,-10},{-42,-10}}, color={255,0,255}));
 annotation (
   experiment(
       StopTime=3600,
