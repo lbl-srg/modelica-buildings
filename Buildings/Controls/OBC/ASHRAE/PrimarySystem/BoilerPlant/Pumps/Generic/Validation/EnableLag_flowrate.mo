@@ -1,8 +1,8 @@
-within Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Pumps.PrimaryPumps.Subsequences.Validation;
-model EnableLag_headered
-    "Validate sequence for enabling lag pump for primary-only plants using differential pressure pump speed control"
+within Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Pumps.Generic.Validation;
+model EnableLag_flowrate
+  "Validate sequence for enabling lag pump using measured volume flow-rate"
 
-  Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Pumps.PrimaryPumps.Subsequences.EnableLag_headered
+  Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Pumps.Generic.EnableLag_flowrate
     enaLagPriPum(
     final nPum=3)
     "Enable lag pump for primary-only plants with headered variable speed primary pumps"
@@ -56,13 +56,13 @@ equation
           {16,0},{28,0}}, color={255,0,255}));
 annotation (
   experiment(StopTime=3600.0, Tolerance=1e-06),
-  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/PrimarySystem/BoilerPlant/Pumps/PrimaryPumps/Subsequences/Validation/EnableLag_headered.mos"
+  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/PrimarySystem/BoilerPlant/Pumps/Generic/Validation/EnableLag_flowrate.mos"
     "Simulate and plot"),
   Documentation(info="<html>
 <p>
 This example validates
-<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Pumps.PrimaryPumps.Subsequences.EnableLag_headered\">
-Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Pumps.PrimaryPumps.Subsequences.EnableLag_headered</a>.
+<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Pumps.Generic.EnableLag_flowrate\">
+Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Pumps.Generic.EnableLag_flowrate</a>.
 </p>
 </html>", revisions="<html>
 <ul>
@@ -84,4 +84,4 @@ First implementation.
                 fillPattern = FillPattern.Solid,
                 points = {{-36,60},{64,0},{-36,-60},{-36,60}})}), Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}})));
-end EnableLag_headered;
+end EnableLag_flowrate;

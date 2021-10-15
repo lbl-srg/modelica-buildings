@@ -405,7 +405,7 @@ block Controller
     annotation (Placement(transformation(extent={{280,-566},{320,-526}}),
       iconTransformation(extent={{100,-60},{140,-20}})));
 
-  Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Pumps.PrimaryPumps.Subsequences.EnableLag_headered
+  Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Pumps.Generic.EnableLag_flowrate
     enaLagHotPum(
     final nPum=nPum,
     final nPum_nominal=nPum_nominal,
@@ -1237,8 +1237,8 @@ primary-only")}),
     <ul>
     <li>
     for primary-only plants with headered, variable-speed pumps
-    <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Pumps.PrimaryPumps.Subsequences.EnableLag_headered\">
-    Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Pumps.PrimaryPumps.Subsequences.EnableLag_headered</a>.
+    <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Pumps.Generic.EnableLag_flowrate\">
+    Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Pumps.Generic.EnableLag_flowrate</a>.
     </li>
     <li>
     for other plants with headered pumps.

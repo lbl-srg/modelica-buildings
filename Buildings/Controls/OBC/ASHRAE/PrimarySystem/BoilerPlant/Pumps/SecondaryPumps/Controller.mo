@@ -289,7 +289,7 @@ block Controller
     annotation (Placement(transformation(extent={{280,-420},{320,-380}}),
         iconTransformation(extent={{100,-120},{140,-80}})));
 
-  Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Pumps.SecondaryPumps.Subsequences.EnableLag_flowrate
+  Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Pumps.Generic.EnableLag_flowrate
     enaLagHotPum(
     final nPum=nPum,
     final nPum_nominal=nPum_nominal,

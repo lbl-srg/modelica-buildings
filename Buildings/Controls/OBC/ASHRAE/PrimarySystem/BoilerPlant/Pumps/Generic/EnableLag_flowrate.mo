@@ -1,6 +1,6 @@
-within Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Pumps.PrimaryPumps.Subsequences;
-block EnableLag_headered
-  "Sequences for enabling and disabling lag pumps for primary-only plants with headered primary pumps"
+within Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Pumps.Generic;
+block EnableLag_flowrate
+  "Sequences for enabling and disabling lag pumps using measured volue flow-rate"
 
   parameter Integer nPum = 2
     "Total number of pumps";
@@ -134,7 +134,7 @@ protected
     annotation (Placement(transformation(extent={{-80,-90},{-60,-70}})));
 
   Buildings.Controls.OBC.CDL.Logical.Change cha[nPum]
-    "Detect changes in primary pump status"
+    "Detect changes in pump status"
     annotation (Placement(transformation(extent={{-120,120},{-100,140}})));
 
   Buildings.Controls.OBC.CDL.Logical.MultiOr mulOr(
@@ -242,9 +242,8 @@ annotation (
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-140,-160},{140,160}})),
   Documentation(info="<html>
 <p>
-Block that enables and disables lag primary hot water pump, for primary-only plants
-with headered, variable-speed primary pumps, according to ASHRAE RP-1711, March, 2020
-draft, section 5.3.6.4.
+Block that enables and disables lag hot water pump according to ASHRAE RP-1711, 
+March, 2020 draft, section 5.3.6.4 and section 5.3.7.3.
 </p>
 <p>
 Hot water pump shall be staged as a function of hot water flow ratio (HWFR), 
@@ -278,4 +277,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end EnableLag_headered;
+end EnableLag_flowrate;
