@@ -264,7 +264,7 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul[nBoi](
     final width=fill(0.1/1800, nBoi),
     final period=fill(1800, nBoi),
-    shift=fill(1, nBoi))
+    final shift=fill(1, nBoi))
     "Boolean pulse to start initial stage change"
     annotation (Placement(transformation(extent={{-370,250},{-350,270}})));
 
@@ -361,7 +361,7 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul1[nBoi](
     final width=fill(0.1/1800, nBoi),
     final period=fill(1800, nBoi),
-    shift=fill(1, nBoi))
+    final shift=fill(1, nBoi))
     "Boolean pulse to start initial stage change"
     annotation (Placement(transformation(extent={{0,250},{20,270}})));
 
@@ -462,7 +462,7 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul2[nBoi](
     final width=fill(0.1/1800, nBoi),
     final period=fill(1800, nBoi),
-    shift=fill(1, nBoi))
+    final shift=fill(1, nBoi))
     "Boolean pulse to start initial stage change"
     annotation (Placement(transformation(extent={{-380,-80},{-360,-60}})));
 
@@ -563,7 +563,7 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul3[nBoi](
     final width=fill(0.1/1800, nBoi),
     final period=fill(1800, nBoi),
-    shift=fill(1, nBoi))
+    final shift=fill(1, nBoi))
     "Boolean pulse to start initial stage change"
     annotation (Placement(transformation(extent={{200,-80},{220,-60}})));
 
@@ -660,7 +660,7 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul4[nBoi](
     final width=fill(0.1/1800, nBoi),
     final period=fill(1800, nBoi),
-    shift=fill(1, nBoi))
+    final shift=fill(1, nBoi))
     "Boolean pulse to start initial stage change"
     annotation (Placement(transformation(extent={{390,250},{410,270}})));
 
@@ -745,9 +745,10 @@ protected
     "Logical pre block"
     annotation (Placement(transformation(extent={{440,-270},{460,-250}})));
 
-  Buildings.Controls.OBC.CDL.Logical.FallingEdge                        falEdg1
+  Buildings.Controls.OBC.CDL.Logical.FallingEdge falEdg1
     "Falling edge detector"
     annotation (Placement(transformation(extent={{-90,210},{-70,230}})));
+
 equation
   connect(con2.y, logSwi1.u1) annotation (Line(points={{-238,130},{-230,130},{
           -230,118},{-222,118}},
