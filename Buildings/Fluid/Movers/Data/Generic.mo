@@ -10,22 +10,22 @@ record Generic "Generic data record for movers"
     annotation(Evaluate=true,
                Dialog(group="Pressure curve"));
 
-  parameter Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod
-    effMet=
-      Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.MotorEfficiency
-    "Method for efficiency calculation"
+  parameter Buildings.Fluid.Movers.BaseClasses.Types.PowerMethod
+    powMet=
+      Buildings.Fluid.Movers.BaseClasses.Types.PowerMethod.MotorEfficiency
+    "Method for power computation"
     annotation (Dialog(group="Power computation"));
 
-  final parameter Boolean use_powerCharacteristic= (effMet ==
-    Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.PowerCharacteristic)
+  final parameter Boolean use_powerCharacteristic= (powMet ==
+    Buildings.Fluid.Movers.BaseClasses.Types.PowerMethod.PowerCharacteristic)
     "Use power data";
 
-  final parameter Boolean use_eulerCorrelation= (effMet ==
-    Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.EulerCorrelation)
+  final parameter Boolean use_eulerCorrelation= (powMet ==
+    Buildings.Fluid.Movers.BaseClasses.Types.PowerMethod.EulerCorrelation)
     "Use peak efficiency condition";
 
-  final parameter Boolean use_motorEfficiency= (effMet ==
-    Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.MotorEfficiency)
+  final parameter Boolean use_motorEfficiency= (powMet ==
+    Buildings.Fluid.Movers.BaseClasses.Types.PowerMethod.MotorEfficiency)
     "Use motor efficiency";
 
   parameter

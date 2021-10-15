@@ -20,8 +20,8 @@ model FlowControlled_m_flow
           Buildings.Fluid.Movers.BaseClasses.Characteristics.flowParameters(
             V_flow = {i/(nOri-1)*2.0*m_flow_nominal/rho_default for i in 0:(nOri-1)},
             dp =     {i/(nOri-1)*2.0*dp_nominal for i in (nOri-1):-1:0}),
-      final effMet = if per.havePressureCurve then per.effMet else
-        Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.MotorEfficiency),
+      final powMet = if per.havePressureCurve then per.powMet else
+        Buildings.Fluid.Movers.BaseClasses.Types.PowerMethod.MotorEfficiency),
       r_N(start=if abs(m_flow_nominal) > 1E-8 then m_flow_start/m_flow_nominal else 0)),
     preSou(m_flow_start=m_flow_start));
 

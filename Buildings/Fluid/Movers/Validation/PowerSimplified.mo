@@ -22,8 +22,8 @@ model PowerSimplified
     redeclare package Medium = Medium,
     redeclare Data.Pumps.Wilo.Stratos30slash1to8 per(
       pressure(V_flow={0,0}, dp={0,0}),
-      effMet=
-        Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.MotorEfficiency,
+      powMet=
+        Buildings.Fluid.Movers.BaseClasses.Types.PowerMethod.MotorEfficiency,
       hydraulicEfficiency(V_flow={0}, eta={0.3577})),
     use_inputFilter=false,
     m_flow_nominal=m_flow_nominal,
@@ -35,8 +35,8 @@ model PowerSimplified
     m_flow_nominal=m_flow_nominal,
     redeclare Data.Pumps.Wilo.Stratos30slash1to8 per(
       pressure(V_flow={0,0}, dp={0,0}),
-      effMet=
-        Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.MotorEfficiency,
+      powMet=
+        Buildings.Fluid.Movers.BaseClasses.Types.PowerMethod.MotorEfficiency,
       hydraulicEfficiency(V_flow={0}, eta={0.3577})),
     use_inputFilter=false,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyStateInitial)

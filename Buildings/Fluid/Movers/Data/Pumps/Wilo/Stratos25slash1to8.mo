@@ -2,8 +2,8 @@ within Buildings.Fluid.Movers.Data.Pumps.Wilo;
 record Stratos25slash1to8 "Pump data for a Wilo Stratos 25/1-8 pump"
   extends Generic(
     speed_rpm_nominal=3040,
-    effMet=
-      Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.PowerCharacteristic,
+    powMet=
+      Buildings.Fluid.Movers.BaseClasses.Types.PowerMethod.PowerCharacteristic,
     power(V_flow={2.66111582909e-06,0.000621486635037,0.000887056469533,
           0.0011525489114,0.00140859349908,0.00168018209891,0.00191740837085,
           0.00219831980599}, P={42.7878285797,72.7712666315,87.0576021552,
@@ -33,8 +33,8 @@ Documentation(info="<html>
 October 14, 2021, by Hongxiang Fu:<br/>
 Rewrote the statements using <code>use_powerCharacteristic</code>
 to support the implementation of 
-<a href=\"Modelica://Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod\">
-<code>Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod</code></a>.
+<a href=\"Modelica://Buildings.Fluid.Movers.BaseClasses.Types.PowerMethod\">
+<code>Buildings.Fluid.Movers.BaseClasses.Types.PowerMethod</code></a>.
 This is for 
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2668\">#2668</a>.
 </li>
