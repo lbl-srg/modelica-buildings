@@ -69,7 +69,7 @@ equation
         Text(
           extent={{-20,-56},{-140,-106}},
           lineColor={0,0,0},
-          textString=DynamicSelect("", String(T_rel, leftjustified=false, significantDigits=3)))}),
+          textString=DynamicSelect("", String(T_rel, leftJustified=false, significantDigits=3)))}),
     Documentation(info="<html>
 <p>
 The relative temperature <code>T(port_a) - T(port_b)</code> is determined between

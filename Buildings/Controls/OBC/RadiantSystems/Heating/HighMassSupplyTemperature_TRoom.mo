@@ -221,14 +221,14 @@ equation
           lineColor={0,0,127},
           textString=DynamicSelect("",
             String(TSupSet,
-              leftjustified=false,
+              leftJustified=false,
               significantDigits=3))),
         Text(
           extent={{230,64},{110,14}},
           lineColor={0,0,127},
           textString=DynamicSelect("",
             String(y,
-              leftjustified=false,
+              leftJustified=false,
               significantDigits=2))),
         Line(points={{-100,0},{-30,0}},                     color={28,108,200}),
         Text(
