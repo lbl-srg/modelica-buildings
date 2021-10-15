@@ -32,7 +32,7 @@ record Generic "Generic data record for movers"
     Buildings.Fluid.Movers.BaseClasses.Characteristics.efficiencyParameters
     hydraulicEfficiency(
       V_flow={0},
-      eta={0.7}) "Hydraulic efficiency (used if use_powerCharacteristic=false)"
+      eta={0.7}) "Hydraulic efficiency (used if use_motorEfficiency=true)"
     annotation (Dialog(group="Power computation",
                        enable=use_motorEfficiency));
   parameter
@@ -40,7 +40,7 @@ record Generic "Generic data record for movers"
     motorEfficiency(
       V_flow={0},
       eta={0.7})
-    "Electric motor efficiency (used if use_powerCharacteristic=false)"
+    "Electric motor efficiency (used if use_motorEfficiency=true)"
     annotation (Dialog(group="Power computation",
                        enable=use_motorEfficiency));
 
@@ -52,6 +52,14 @@ record Generic "Generic data record for movers"
     "Volume flow rate vs. electrical power consumption (used if use_powerCharacteristic=true)"
    annotation (Dialog(group="Power computation",
                       enable=use_powerCharacteristic));
+
+  parameter Buildings.Fluid.Movers.BaseClasses.Euler.peakEfficiency peak(
+    V_flow_peak=4.7194745,
+    dp_peak=746.52,
+    eta_peak=0.790)
+    "Volume flow rate, pressure rise, and efficiency at peak condition"
+    annotation (Dialog(group="Power computation",
+                      enable=use_eulerCorrelation));
 
   parameter Boolean motorCooledByFluid=true
     "If true, then motor heat is added to fluid stream"
