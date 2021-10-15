@@ -18,7 +18,7 @@ model PlugFlowDiscretized
     annotation (Dialog(tab="Advanced"));
   parameter Boolean have_symmetry=true
     "= false, the mixing volume is only on port_b of each segment,
-    which improve performances, but reduces dynamic accuracy."
+    which improve performances, but reduces dynamic accuracy"
     annotation (Dialog(tab="Advanced", enable=have_pipCap));
 
   parameter Modelica.SIunits.Length dh
@@ -99,6 +99,7 @@ model PlugFlowDiscretized
   Modelica.SIunits.Velocity v = pipSeg[1].v "Flow velocity of medium in pipe";
 
   PlugFlowPipe pipSeg[nSeg](
+    redeclare final package Medium = Medium,
     redeclare final FixedResistances.LosslessPipe res,
     final length=segLen,
     final T_start_in=T_start_in,
@@ -109,7 +110,6 @@ model PlugFlowDiscretized
     each final rhoPip=rhoPip,
     each final dh=dh,
     each final v_nominal=v_nominal,
-    redeclare final package Medium = Medium,
     each final allowFlowReversal=allowFlowReversal,
     each final m_flow_nominal=m_flow_nominal,
     each final thickness=thickness,
