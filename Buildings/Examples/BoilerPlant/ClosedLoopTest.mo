@@ -105,8 +105,8 @@ protected
     final fileName=ModelicaServices.ExternalReferences.loadResource(
           "modelica://Buildings/Resources/Data/Examples/BoilerPlant/ClosedLoopTest.txt"),
     final columns={2,5},
-    final extrapolation=Buildings.Controls.OBC.CDL.Types.Extrapolation.Periodic,
-    final smoothness=Buildings.Controls.OBC.CDL.Types.Smoothness.ConstantSegments,
+    final extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic,
+    final smoothness=Modelica.Blocks.Types.Smoothness.LinearSegments,
     final table=[-6,0;8,10000;18,0],
     final timeScale=60)
     "Time table for internal heat gain"
@@ -288,9 +288,10 @@ First implementation.
      "modelica://Buildings/Resources/Scripts/Dymola/Examples/BoilerPlant/ClosedLoopTest.mos"
         "Simulate and plot"),
     experiment(
-      StartTime=432000,
+      StartTime=518400,
       StopTime=691200,
-      Interval=600,
+      Interval=60,
+      Tolerance=1e-06,
       __Dymola_Algorithm="Cvode"),
     Icon(coordinateSystem(extent={{-100,-100},{100,100}})));
 end ClosedLoopTest;
