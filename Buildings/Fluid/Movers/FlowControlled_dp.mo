@@ -21,7 +21,8 @@ model FlowControlled_dp
           Buildings.Fluid.Movers.BaseClasses.Characteristics.flowParameters(
             V_flow = {i/(nOri-1)*2.0*m_flow_nominal/rho_default for i in 0:(nOri-1)},
             dp =     {i/(nOri-1)*2.0*dp_nominal for i in (nOri-1):-1:0}),
-      final use_powerCharacteristic = if per.havePressureCurve then per.use_powerCharacteristic else false),
+      final effMet = if per.havePressureCurve then per.effMet else
+        Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.MotorEfficiency),
       r_N(start=if abs(dp_nominal) > 1E-8 then dp_start/dp_nominal else 0)));
 
   parameter Modelica.SIunits.PressureDifference dp_start(
@@ -165,6 +166,15 @@ Buildings.Fluid.Movers.Validation.FlowControlled_dpSystem</a>.
 </html>",
       revisions="<html>
 <ul>
+<li>
+October 14, 2021, by Hongxiang Fu:<br/>
+Rewrote the statements using <code>use_powerCharacteristic</code>
+to support the implementation of 
+<a href=\"Modelica://Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod\">
+<code>Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod</code></a>.
+This is for 
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2668\">#2668</a>.
+</li>
 <li>
 June 17, 2021, by Michael Wetter:<br/>
 Changed implementation of the filter.<br/>

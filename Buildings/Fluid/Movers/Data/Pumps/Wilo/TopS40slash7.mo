@@ -2,7 +2,8 @@ within Buildings.Fluid.Movers.Data.Pumps.Wilo;
 record TopS40slash7 "Pump data for a staged Wilo-Top-S 40/7 pump"
   extends Generic(
     speed_rpm_nominal=2800,
-    use_powerCharacteristic = true,
+    effMet=
+      Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.PowerCharacteristic,
     power(V_flow={9.97406742472e-07,0.000621384400559,0.00113006183922,
                   0.00162078595651,0.00206961899062,0.00244663873928,
                   0.0029074406543,0.00330241372432,0.00375723119888,
@@ -35,6 +36,15 @@ Documentation(info="<html>
   </html>",
   revisions="<html>
 <ul>
+<li>
+October 14, 2021, by Hongxiang Fu:<br/>
+Rewrote the statements using <code>use_powerCharacteristic</code>
+to support the implementation of 
+<a href=\"Modelica://Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod\">
+<code>Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod</code></a>.
+This is for 
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2668\">#2668</a>.
+</li>
 <li>
 February 17, 2016, by Michael Wetter:<br/>
 Updated parameter names for

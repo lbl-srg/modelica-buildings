@@ -14,7 +14,7 @@ model SpeedControlled_Nrpm
       y(final unit="1")),
     eff(
       per(final pressure = per.pressure,
-          final use_powerCharacteristic = per.use_powerCharacteristic),
+          final effMet = per.effMet),
           r_N(start=y_start)),
     gaiSpe(u(final unit="1/min"),
            final k=1/per.speed_rpm_nominal));
@@ -87,6 +87,15 @@ User's Guide</a> for more information.
 </html>",
       revisions="<html>
 <ul>
+<li>
+October 14, 2021, by Hongxiang Fu:<br/>
+Rewrote the statements using <code>use_powerCharacteristic</code>
+to support the implementation of 
+<a href=\"Modelica://Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod\">
+<code>Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod</code></a>.
+This is for 
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2668\">#2668</a>.
+</li>
 <li>
 June 17, 2021, by Michael Wetter:<br/>
 Changed implementation of the filter.<br/>

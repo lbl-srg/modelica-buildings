@@ -8,7 +8,7 @@ package Types "Package with type definitions"
       PressureDifference "Pressure difference is prescribed")
     "Enumeration to choose what variable is prescribed";
   type EfficiencyMethod = enumeration(
-      PowerCharacteristics "User provides a dataset for power",
+      PowerCharacteristic "User provides a dataset for power",
       EulerCorrelation "User provides peak operation point",
       MotorEfficiency "User provides motor efficiency")
     "Enumeration to choose the method for efficiency computation";
