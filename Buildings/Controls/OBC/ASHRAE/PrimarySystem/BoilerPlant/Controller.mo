@@ -1587,8 +1587,8 @@ equation
                                   color={0,0,127}));
   connect(booRep.y, swi.u2) annotation (Line(points={{142,270},{160,270},{160,230},
           {178,230}},                   color={255,0,255}));
-  connect(priPumCon.yPumSpe, yPriPumSpe) annotation (Line(points={{142,-181.867},
-          {264,-181.867},{264,-170},{420,-170}},
+  connect(priPumCon.yPumSpe, yPriPumSpe) annotation (Line(points={{142,-183.733},
+          {264,-183.733},{264,-170},{420,-170}},
                                             color={0,0,127}));
   connect(bypValPos.yBypValPos, yBypValPos) annotation (Line(points={{142,-40},{
           148,-40},{148,-30},{420,-30}}, color={0,0,127}));
@@ -1674,7 +1674,7 @@ equation
                                          color={255,0,255}));
 
   connect(priPumCon.yHotWatPum, yPriPum)
-    annotation (Line(points={{142,-180},{260,-180},{260,-130},{420,-130}},
+    annotation (Line(points={{142,-176.267},{260,-176.267},{260,-130},{420,-130}},
                                                      color={255,0,255}));
 
   connect(reaToInt1.u, uniDel.y)

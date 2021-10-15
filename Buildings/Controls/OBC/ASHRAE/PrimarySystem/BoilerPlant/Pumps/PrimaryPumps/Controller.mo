@@ -395,14 +395,15 @@ block Controller
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yHotWatPum[nPum]
     "Hot water pump status"
     annotation (Placement(transformation(extent={{280,-20},{320,20}}),
-      iconTransformation(extent={{100,-20},{140,20}})));
+      iconTransformation(extent={{100,20},{140,60}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yPumSpe(
     final min=0,
     final max=1,
-    final unit="1") if have_varPriPum "Hot water pump speed"
+    final unit="1") if have_varPriPum
+    "Hot water pump speed"
     annotation (Placement(transformation(extent={{280,-566},{320,-526}}),
-        iconTransformation(extent={{100,-40},{140,0}})));
+      iconTransformation(extent={{100,-60},{140,-20}})));
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Pumps.PrimaryPumps.Subsequences.EnableLag_headered
     enaLagHotPum(
