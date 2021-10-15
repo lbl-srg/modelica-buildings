@@ -1,6 +1,6 @@
 within Buildings.Fluid.Movers.BaseClasses.Characteristics;
 function eulerCorrelation
-  "Correlation of fan static efficiency ratio v. log of Euler number"
+  "Correlation of static efficiency ratio vs log of Euler number ratio"
   extends Modelica.Icons.Function;
   input Real x "log10(Eu/Eu_peak)";
   output Real y "eta/eta_peak";
@@ -25,9 +25,9 @@ This function computes the following correlation:
 <img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Fluid/Movers/UsersGuide/eulerCorrelationEquation.svg\"/>
 </p>
 <p>
-where
-<i>&eta;</i> is the efficiency,
-the subscript <i>p</i> denotes the condition where 
+where <i>y=&eta;/&eta;<sub>p</sub></i>,
+<i>x=log10(Eu/Eu<sub>p</sub>)</i>, 
+with the subscript <i>p</i> denoting the condition where 
 the mover is operating at peak efficiency, and 
 </p>
 <p align=\"center\">
@@ -50,6 +50,32 @@ the mover is operating at peak efficiency, and
 </p>
 <p align=\"center\">
 <i>d=5.267518</i>
+</p>
+<p>
+The modified dimensionless Euler number is defined as
+</p>
+<p align=\"center\">
+<i>Eu=(&Delta;P&sdot;D<sup>4</sup>)/(&rho;&sdot;V&#775;<sup>2</sup>)</i>
+</p>
+<p>
+where <i>&Delta;P</i> is the fan pressure rise in Pa,
+<i>D</i> is the fan wheel outer diameter in m, 
+<i>&rho;</i> is the inlet air density in kg/m<sup>3</sup>,
+and <i>V&#775;</i> is the fan flow in m<sup>3</sup>/s.
+Since <i>D</i> is constant for the same mover 
+and <i>&rho;</i> is approximately constant, 
+the Euler number ratio can be simplified to
+</p>
+<p align=\"center\">
+<i>Eu/Eu<sub>p</sub>=(&Delta;P&sdot;V&#775;<sub>p</sub><sup>2</sup>)
+/(&Delta;P<sub>p</sub>&sdot;V&#775;<sup>2</sup>)</i>
+</p>
+<p>
+Although this ratio could be further simplified
+by applying affinity laws,
+since the affinity laws assume constant efficiency,
+this would contradict the definition of <i>y</i>
+where the efficiency varies.
 </p>
 <p>
 For more information refer to 
