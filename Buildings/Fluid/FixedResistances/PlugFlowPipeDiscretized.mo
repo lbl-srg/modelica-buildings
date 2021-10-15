@@ -1,5 +1,5 @@
 within Buildings.Fluid.FixedResistances;
-model PlugFlowDiscretized
+model PlugFlowPipeDiscretized
   "Discretized pipe model using spatialDistribution for temperature delay"
   extends Buildings.Fluid.Interfaces.PartialTwoPort;
 
@@ -276,4 +276,4 @@ Buildings.Fluid.FixedResistances.HydraulicDiameter</a> rather than being
 instantiated separately for each segment.
 </p>
 </html>"));
-end PlugFlowDiscretized;
+end PlugFlowPipeDiscretized;
