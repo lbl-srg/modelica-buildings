@@ -289,9 +289,8 @@ First implementation.
         "Simulate and plot"),
     experiment(
       StartTime=432000,
-      StopTime=777600,
-      Interval=1,
-      Tolerance=1e-06,
+      StopTime=691200,
+      Interval=600,
       __Dymola_Algorithm="Cvode"),
     Icon(coordinateSystem(extent={{-100,-100},{100,100}})));
 end ClosedLoopTest;
