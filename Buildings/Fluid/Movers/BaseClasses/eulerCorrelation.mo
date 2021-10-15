@@ -1,4 +1,4 @@
-within Buildings.Fluid.Movers.BaseClasses.Characteristics;
+within Buildings.Fluid.Movers.BaseClasses;
 function eulerCorrelation
   "Correlation of static efficiency ratio vs log of Euler number ratio"
   extends Modelica.Icons.Function;
