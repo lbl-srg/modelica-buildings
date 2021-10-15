@@ -230,14 +230,13 @@ Each class (i.e., model, block and function) must be used in an example or valid
     <b style=\"color:blue\">backward compatible</b> way:
     </p>
     <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
-    <tr><td colspan=\"2\"><b>xxx</b>
+    <tr><td colspan=\"2\"><b>Buildings.Utilities.Math</b>
         </td>
     </tr>
-    <tr><td valign=\"top\">xxx
+    <tr><td valign=\"top\">Buildings.Utilities.Math.Functions.BaseClasses.der_spliceFunction
         </td>
-        <td valign=\"top\">xxx.<br/>
-                           This is for
-                           <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/xxx\">Buildings, #xxx</a>.
+        <td valign=\"top\">Reimplemented function to avoid a potential overflow caused by the <code>cosh</code> function.<br/>
+                           This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/pull/1531\">IBPSA #1531</a>.
         </td>
     </tr>
     </table>
