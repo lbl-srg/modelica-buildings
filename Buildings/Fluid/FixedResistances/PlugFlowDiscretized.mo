@@ -119,17 +119,6 @@ model PlugFlowDiscretized
     each final have_symmetry=have_symmetry)
     "Pipe segments"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
-protected
-  parameter Modelica.SIunits.Length rInt = dh / 2 "Pipe interior radius";
-
-  parameter Modelica.SIunits.Area APip = Modelica.Constants.pi * rInt^2
-    "Pipe hydraulic cross-sectional area";
-
-  parameter Modelica.SIunits.Density rho_default=Medium.density_pTX(
-      p=Medium.p_default,
-      T=Medium.T_default,
-      X=Medium.X_default)
-    "Default density (e.g., rho_liquidWater = 995, rho_air = 1.2)";
 
   FixedResistances.HydraulicDiameter res(
     redeclare final package Medium = Medium,
@@ -148,6 +137,18 @@ protected
     dp(nominal= if rho_default > 500 then totLen * fac * 200 else totLen * fac * 2))
     "Pressure drop calculation for this pipe"
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
+
+protected
+  parameter Modelica.SIunits.Length rInt = dh / 2 "Pipe interior radius";
+
+  parameter Modelica.SIunits.Area APip = Modelica.Constants.pi * rInt^2
+    "Pipe hydraulic cross-sectional area";
+
+  parameter Modelica.SIunits.Density rho_default=Medium.density_pTX(
+      p=Medium.p_default,
+      T=Medium.T_default,
+      X=Medium.X_default)
+    "Default density (e.g., rho_liquidWater = 995, rho_air = 1.2)";
 
 equation
   connect(res.port_b, port_b)
