@@ -144,6 +144,17 @@ its class name ends with the string <code>Beta</code>.
     have been <b style=\"color:blue\">improved</b> in a
     <b style=\"color:blue\">backward compatible</b> way:
     </p>
+    <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
+    <tr><td colspan=\"2\"><b>Buildings.Utilities.Math</b>
+        </td>
+    </tr>
+    <tr><td valign=\"top\">Buildings.Utilities.Math.Functions.BaseClasses.der_spliceFunction
+        </td>
+        <td valign=\"top\">Reimplemented function to avoid a potential overflow caused by the <code>cosh</code> function.<br/>
+                           This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/pull/1531\">IBPSA #1531</a>.
+        </td>
+    </tr>
+    </table>
     <!-- Non-backward compatible changes to existing components -->
     <!-- Errors that have been fixed -->
     <p>
