@@ -98,28 +98,6 @@ model PlugFlowPipeDiscretized
 
   Modelica.SIunits.Velocity v = pipSeg[1].v "Flow velocity of medium in pipe";
 
-  PlugFlowPipe pipSeg[nSeg](
-    redeclare final package Medium = Medium,
-    redeclare final FixedResistances.LosslessPipe res,
-    final length=segLen,
-    final T_start_in=T_start_in,
-    final T_start_out=T_start_out,
-    each final dIns=dIns,
-    each final kIns=kIns,
-    each final cPip=cPip,
-    each final rhoPip=rhoPip,
-    each final dh=dh,
-    each final v_nominal=v_nominal,
-    each final allowFlowReversal=allowFlowReversal,
-    each final m_flow_nominal=m_flow_nominal,
-    each final thickness=thickness,
-    each final m_flow_small=m_flow_small,
-    each final initDelay=initDelay,
-    each final have_pipCap=have_pipCap,
-    each final have_symmetry=have_symmetry)
-    "Pipe segments"
-    annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
-
   FixedResistances.HydraulicDiameter res(
     redeclare final package Medium = Medium,
     final m_flow_nominal=m_flow_nominal,
@@ -149,6 +127,28 @@ protected
       T=Medium.T_default,
       X=Medium.X_default)
     "Default density (e.g., rho_liquidWater = 995, rho_air = 1.2)";
+
+  PlugFlowPipe pipSeg[nSeg](
+    redeclare final package Medium = Medium,
+    redeclare final FixedResistances.LosslessPipe res,
+    final length=segLen,
+    final T_start_in=T_start_in,
+    final T_start_out=T_start_out,
+    each final dIns=dIns,
+    each final kIns=kIns,
+    each final cPip=cPip,
+    each final rhoPip=rhoPip,
+    each final dh=dh,
+    each final v_nominal=v_nominal,
+    each final allowFlowReversal=allowFlowReversal,
+    each final m_flow_nominal=m_flow_nominal,
+    each final thickness=thickness,
+    each final m_flow_small=m_flow_small,
+    each final initDelay=initDelay,
+    each final have_pipCap=have_pipCap,
+    each final have_symmetry=have_symmetry)
+    "Pipe segments"
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 
 equation
   connect(res.port_b, port_b)
