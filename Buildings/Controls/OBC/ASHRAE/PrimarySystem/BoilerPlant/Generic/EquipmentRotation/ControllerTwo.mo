@@ -116,7 +116,7 @@ block ControllerTwo
 
 protected
   final parameter Integer nDev = 2
-    "Total number of devices, such as chillers, isolation valves, CW pumps, or CHW pumps";
+    "Total number of devices, such as boilers, isolation valves, or HW pumps";
 
   final constant Integer firstYear = 2010
     "First year that is supported, i.e. the first year in timeStampsNewYear[:]"
@@ -270,7 +270,7 @@ annotation(Diagram(coordinateSystem(extent={{-160,-100},{160,100}})),
         Line(points={{-40,-60},{0,-60},{0,60},{40,60}}, color={128,128,128})}),
   Documentation(info="<html>
 <p>
-This controller block rotates equipment, such as chillers, pumps or valves, in order
+This controller block rotates equipment, such as boilers, pumps or valves, in order
 to ensure equal wear and tear. It is intended to be used for lead/lag and
 lead/standby operation of two devices or groups of devices. The implementation is
 based on the specification from ASHRAE RP-1711, March 2020 Draft, section 5.1.2.1.-4.
@@ -287,31 +287,31 @@ To rotate lead/lag device configurations, and lead/standby device configurations
 not operate continuously, the controller can use:
 <ul>
 <li>
-the <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.EquipmentRotation.Subsequences.LeastRuntime\">
-Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.EquipmentRotation.Subsequences.LeastRuntime</a> subsequence.
+the <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Generic.EquipmentRotation.Subsequences.LeastRuntime\">
+Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Generic.EquipmentRotation.Subsequences.LeastRuntime</a> subsequence.
 In this subsequence the rotation signal is generated based on RP-1711 5.1.2.3 and 5.1.2.4.1. as applied to two devices/groups of devices.
 </li>
 <li>
-the <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.EquipmentRotation.Subsequences.MinimumLeadRuntime\">
-Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.EquipmentRotation.Subsequences.MinimumLeadRuntime</a> subsequence.
+the <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Generic.EquipmentRotation.Subsequences.MinimumLeadRuntime\">
+Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Generic.EquipmentRotation.Subsequences.MinimumLeadRuntime</a> subsequence.
 This subsequences uses a minimum cumulative runtime period <code>minLeaRuntime</code> for a current lead device before rotation may occur.
 </li>
 </ul>
 </li>
 <li>
 To rotate lead/standby device configurations where the lead operates continuously the controller uses
-the <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.EquipmentRotation.Subsequences.Scheduler\">
-Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.EquipmentRotation.Subsequences.Scheduler</a> subsequence.
+the <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Generic.EquipmentRotation.Subsequences.Scheduler\">
+Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Generic.EquipmentRotation.Subsequences.Scheduler</a> subsequence.
 In this subsequence the rotation signal is generated in regular time intervals, either measured from the simulation start or prescribed using a schedule.
 Before a device is put to stand-by, the new lead device must be proven on, as implemented by the
-<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.EquipmentRotation.Subsequences.ContinuousLeadSwapTwo\">
-Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.EquipmentRotation.Subsequences.ContinuousLeadSwapTwo</a> subsequence.
+<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Generic.EquipmentRotation.Subsequences.ContinuousLeadSwapTwo\">
+Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Generic.EquipmentRotation.Subsequences.ContinuousLeadSwapTwo</a> subsequence.
 The implementations are based on section 5.1.2.4.2.
 </li>
 </ul>
 <p>
-The <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.EquipmentRotation.Subsequences.Two\">
-Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.EquipmentRotation.Subsequences.Two</a> subsequence allocates
+The <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Generic.EquipmentRotation.Subsequences.Two\">
+Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Generic.EquipmentRotation.Subsequences.Two</a> subsequence allocates
 the status setpoints <code>yDevStaSet</code> to devices based on the rotation signal.
 </p>
 <p>

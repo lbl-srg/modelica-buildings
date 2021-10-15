@@ -19,7 +19,7 @@ block ContinuousLeadSwapTwo
 
 protected
   final parameter Integer nDev = 2
-    "Total number of devices, such as chillers, isolation valves, CW pumps, or CHW pumps";
+    "Total number of devices, such as boilers, isolation valves, HW pumps";
 
   Buildings.Controls.OBC.CDL.Logical.Or or1[nDev] "Logical or"
     annotation (Placement(transformation(extent={{20,10},{40,30}})));

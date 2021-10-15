@@ -23,7 +23,7 @@ block Two
 
 protected
   final parameter Integer nDev = 2
-    "Total number of devices, such as chillers, isolation valves, CW pumps, or CHW pumps";
+    "Total number of devices, such as boilers, isolation valves, or HW pumps";
 
   Buildings.Controls.OBC.CDL.Logical.Not not0[nDev] "Logical not"
     annotation (Placement(transformation(extent={{-60,-20},{-40,0}})));
@@ -100,8 +100,8 @@ This subsequence takes a rotation trigger signal <code>uRot</code> as input to
 rotate the device roles for two devices or groups of devices. It outputs the current device roles <code>yDevRol</code>
 vector and its previous time instance value <code>yPreDevRolSig</code>, which is used
 as an input signal to any upstream subsequences in the 
-<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.EquipmentRotation.ControllerTwo\">
-Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.EquipmentRotation.ControllerTwo</a>.
+<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Generic.EquipmentRotation.ControllerTwo\">
+Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Generic.EquipmentRotation.ControllerTwo</a>.
 </p>
 </html>", revisions="<html>
 <ul>

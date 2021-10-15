@@ -35,7 +35,7 @@ block LeastRuntime
 
 protected
   final parameter Integer nDev = 2
-    "Total number of devices, such as chillers, isolation valves, CW pumps, or CHW pumps";
+    "Total number of devices, such as boilers, isolation valves, or HW pumps";
 
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant con[nDev](
     final k=fill(false, nDev))
