@@ -53,10 +53,7 @@ record Generic "Generic data record for movers"
    annotation (Dialog(group="Power computation",
                       enable=use_powerCharacteristic));
 
-  parameter Buildings.Fluid.Movers.BaseClasses.Euler.peakEfficiency peak(
-    V_flow_peak=4.7194745,
-    dp_peak=746.52,
-    eta_peak=0.790)
+  parameter Buildings.Fluid.Movers.BaseClasses.Euler.peakEfficiency peak
     "Volume flow rate, pressure rise, and efficiency at peak condition"
     annotation (Dialog(group="Power computation",
                       enable=use_eulerCorrelation));
