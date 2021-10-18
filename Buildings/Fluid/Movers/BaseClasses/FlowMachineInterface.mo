@@ -639,21 +639,36 @@ A cubic hermite spline with linear extrapolation is used to compute
 the performance at other operating points.
 </p>
 <p>
-The fan or pump energy balance can be specified in two alternative ways:
+The fan or pump energy balance can be specified in three ways:
 </p>
 <ul>
-<li>
-If <code>per.use_powerCharacteristic = false</code>, then the data points for
-normalized volume flow rate versus efficiency is used to determine the efficiency,
-and then the power consumption. The default is a constant efficiency of <i>0.7</i>.
-</li>
 <li>
 If <code>per.use_powerCharacteristic = true</code>, then the data points for
 normalized volume flow rate versus power consumption
 is used to determine the power consumption, and then the efficiency
 is computed based on the actual power consumption and the flow work.
 </li>
+<li>
+If <code>per.use_eulerCorrelation = true</code>, 
+then the operation condition at peak efficiency
+is used in the Euler correlation 
+(<a href=\"Modelica://Buildings.Fluid.Movers.BaseClasses.Euler.eulerCorrelation\">
+<code>Buildings.Fluid.Movers.BaseClasses.Euler.eulerCorrelation</code></a>)
+to compute the efficiency and then the power.
+</li>
+<li>
+Else, the data points for
+normalized volume flow rate versus efficiency is used to determine the efficiency,
+and then the power consumption. The default is a constant efficiency of <i>0.7</i>.
+This path corresponds to <code>per.use_motorPower = true</code> 
+but is used as the fallback option.
+</li>
 </ul>
+<p>
+These <code>use_</code> switches are handled by
+<a href=\"Modelica://Buildings.Fluid.Movers.BaseClasses.Types.PowerMethod\">
+<code>Buildings.Fluid.Movers.BaseClasses.Types.PowerMethod</code></a>.
+</p>
 <p>
 For exceptions to this general rule, check the
 <a href=\"modelica://Buildings.Fluid.Movers.UsersGuide\">
