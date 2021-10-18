@@ -522,7 +522,9 @@ equation
     // this path also simply assumes etaHyd = 1.
     etaHyd = 1;
     etaMot = eta;
-  elseif per.use_motorEfficiency then
+  else
+  // This path corresponds to per.use_motorEfficiency==true
+  // but is also used as the fallback option.
     if homotopyInitialization then
       etaHyd = homotopy(actual=cha.efficiency(per=per.hydraulicEfficiency,     V_flow=V_flow, d=hydDer, r_N=r_N, delta=delta),
                         simplified=cha.efficiency(per=per.hydraulicEfficiency, V_flow=V_flow_max,   d=hydDer, r_N=r_N, delta=delta));
