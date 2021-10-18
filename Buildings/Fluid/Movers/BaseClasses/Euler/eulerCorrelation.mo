@@ -14,7 +14,7 @@ algorithm
   Z2:=((exp(c*x)*d*x)-a)/b;
   Z3:=-a/b;
 
-  y:=(exp(-0.5*Z1^2)*(1+Z2/abs(Z2)*Modelica.Math.Special.erf(u=abs(Z2)/sqrt(2))))
+  y:=(exp(-0.5*Z1^2)*(1+sign(Z2)*Modelica.Math.Special.erf(u=abs(Z2)/sqrt(2))))
     /(exp(-0.5*Z3^2)*(1+Modelica.Math.Special.erf(u=Z3/sqrt(2))));
 
   annotation(Documentation(info="<html>
@@ -62,6 +62,8 @@ where <i>&Delta;P</i> is the fan pressure rise in Pa,
 <i>D</i> is the fan wheel outer diameter in m, 
 <i>&rho;</i> is the inlet air density in kg/m<sup>3</sup>,
 and <i>V&#775;</i> is the fan flow in m<sup>3</sup>/s.
+Note that the units in the definition do not matter to this correlation
+because it is the ratio of the Euler numbers that is used.
 Since <i>D</i> is constant for the same mover 
 and <i>&rho;</i> is approximately constant, 
 the Euler number ratio can be simplified to
