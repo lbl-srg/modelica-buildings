@@ -681,6 +681,15 @@ to be used during the simulation.
 revisions="<html>
 <ul>
 <li>
+October 18, 2021, by Hongxiang Fu:<br/>
+Added a new <code>if</code> branch in power calculation
+to support the implementation of 
+<code><a href=\"modelica://Buildings.Fluid.Movers.BaseClasses.Euler\">
+Buildings.Fluid.Movers.BaseClasses.Euler</a></code>.
+This is for 
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2668\">#2668</a>.
+</li>
+<li>
 April 14, 2020, by Michael Wetter:<br/>
 Changed <code>homotopyInitialization</code> to a constant.<br/>
 This is for

@@ -49,8 +49,8 @@ The figure below illustrates a digitized pump curve.
 October 14, 2021, by Hongxiang Fu:<br/>
 Rewrote the statements using <code>use_powerCharacteristic</code>
 to support the implementation of 
-<a href=\"Modelica://Buildings.Fluid.Movers.BaseClasses.Types.PowerMethod\">
-<code>Buildings.Fluid.Movers.BaseClasses.Types.PowerMethod</code></a>.
+<a href=\"Modelica://Buildings.Fluid.Movers.BaseClasses.Euler\">
+<code>Buildings.Fluid.Movers.BaseClasses.Euler</code></a>.
 This is for 
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2668\">#2668</a>.
 </li>
