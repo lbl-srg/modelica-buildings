@@ -513,6 +513,15 @@ equation
     // and infinite derivative.
     etaHyd = 1;
     etaMot = eta;
+  elseif per.use_eulerCorrelation then
+    eta = per.peak.eta_peak
+          * Buildings.Fluid.Movers.BaseClasses.Euler.eulerCorrelation(
+          x=((dp_internal * per.peak.V_flow_peak)
+            /(per.peak.dp_peak * V_flow)));
+    // Similar to the powerCharacteristic path,
+    // this path also simply assumes etaHyd = 1.
+    etaHyd = 1;
+    etaMot = eta;
   elseif per.use_motorEfficiency then
     if homotopyInitialization then
       etaHyd = homotopy(actual=cha.efficiency(per=per.hydraulicEfficiency,     V_flow=V_flow, d=hydDer, r_N=r_N, delta=delta),
