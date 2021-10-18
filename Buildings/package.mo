@@ -145,6 +145,17 @@ its class name ends with the string <code>Beta</code>.
     <b style=\"color:blue\">backward compatible</b> way:
     </p>
     <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
+    <tr><td colspan=\"2\"><b>Buildings.Controls.Continuous</b>
+        </td>
+    </tr>
+    <tr><td valign=\"top\">Buildings.Controls.Continuous.SignalRanker
+        </td>
+        <td valign=\"top\">Changed implementation to use sort function from Modelica Standard Library,
+                           and updated its example to avoid simultaneous state and time events.<br/>
+                           This is for
+                           <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1534\">IBPSA, #1534</a>.
+        </td>
+    </tr>
     <tr><td colspan=\"2\"><b>Buildings.Utilities.Math</b>
         </td>
     </tr>
