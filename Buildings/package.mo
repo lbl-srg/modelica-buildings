@@ -320,6 +320,17 @@ have been <b style=\"color:blue\">improved</b> in a
                        This new version also outputs this altitude and the latitude of the location on the weather data bus.<br/>
                        This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1477\">IBPSA, issue #1477</a>.
     </td>
+<tr><td colspan=\"2\"><b>Buildings.Controls.Continuous</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Controls.Continuous.SignalRanker
+    </td>
+    <td valign=\"top\">Changed implementation to use sort function from Modelica Standard Library,
+                       and updated its example to avoid simultaneous state and time events.<br/>
+                       This is for
+                       <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1534\">IBPSA, #1534</a>.
+    </td>
+</tr>
 <tr><td colspan=\"2\"><b>Buildings.Controls.OBC</b>
     </td>
 </tr>
