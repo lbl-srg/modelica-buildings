@@ -1,5 +1,5 @@
-within Buildings.Templates.Interfaces;
-partial block ControllerAHU
+within Buildings.Templates.AHUs.Interfaces;
+partial block Controller
 
   parameter AHUs.Types.Controller typ
     "Type of controller"
@@ -33,26 +33,22 @@ partial block ControllerAHU
     annotation(Evaluate=true);
     */
 
-  BaseClasses.Connectors.BusAHU busAHU
-    "AHU control bus"
-    annotation (Placement(
-        transformation(
+  Bus busAHU "AHU control bus"
+    annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
         rotation=90,
         origin={-200,0}), iconTransformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={-100,0})));
-  BaseClasses.Connectors.BusAHU busTer[nZon]
-    "Terminal unit control bus"
-    annotation (Placement(transformation(
+  TerminalUnits.Interfaces.Bus busTer[nZon]
+    "Terminal unit control bus" annotation (Placement(transformation(
         extent={{-20,20},{20,-20}},
         rotation=90,
         origin={220,0}), iconTransformation(
         extent={{-10,10},{10,-10}},
         rotation=90,
         origin={100,0})));
-
 
   annotation (
     __Dymola_translate=true,
@@ -68,4 +64,4 @@ partial block ControllerAHU
           textString="%name")}),                                 Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-200,-200},{220,
             200}})));
-end ControllerAHU;
+end Controller;

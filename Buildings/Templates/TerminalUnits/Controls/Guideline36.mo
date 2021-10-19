@@ -497,11 +497,11 @@ block Guideline36
     "Optimal start using global outdoor air temperature not associated with any AHU"
     annotation (Placement(transformation(extent={{-240,-90},{-220,-70}})));
 protected
-  .Buildings.Templates.BaseClasses.Connectors.SubBusOutput busOut
+  Interfaces.BusOutput busOut
     "Output points" annotation (Placement(transformation(extent={{30,0},{70,40}}),
         iconTransformation(extent={{-10,22},{10,42}})));
 
-  .Buildings.Templates.BaseClasses.Connectors.SubBusSoftware busSof
+  Interfaces.BusSoftware busSof
     "Software points" annotation (Placement(transformation(extent={{30,-40},{70,
             0}}), iconTransformation(extent={{-10,42},{10,62}})));
 
@@ -528,7 +528,7 @@ equation
       points={{-200.1,0.1},{-20,0.1},{-20,-4},{-12,-4}},
       color={255,204,51},
       thickness=0.5));
-  connect(busTer.inp.TDis.T,conTerUni. TDis) annotation (Line(
+  connect(busTer.inp.TDis, conTerUni.TDis) annotation (Line(
       points={{-200.1,0.1},{-20,0.1},{-20,-6},{-12,-6}},
       color={255,204,51},
       thickness=0.5));
@@ -614,7 +614,7 @@ equation
       points={{-200.1,0.1},{-20,0.1},{-20,40},{97.8261,40},{97.8261,30},{118,30}},
       color={255,204,51},
       thickness=0.5));
-  connect(busTer.inp.TDis.T, zonOutAirSet.TDis) annotation (Line(
+  connect(busTer.inp.TDis, zonOutAirSet.TDis) annotation (Line(
       points={{-200.1,0.1},{-20,0.1},{-20,40},{98,40},{98,27},{118,27}},
       color={255,204,51},
       thickness=0.5));

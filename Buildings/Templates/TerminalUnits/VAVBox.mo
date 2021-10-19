@@ -1,6 +1,6 @@
 within Buildings.Templates.TerminalUnits;
 model VAVBox "VAV terminal unit"
-  extends Buildings.Templates.Interfaces.TerminalUnitAir(
+  extends Buildings.Templates.TerminalUnits.Interfaces.SubSystemAir(
     final typ=Types.Configuration.SingleDuct);
 
   replaceable package MediumHea=Buildings.Media.Water
@@ -46,7 +46,7 @@ model VAVBox "VAV terminal unit"
         origin={-120,-200})));
 
   inner replaceable Controls.OpenLoop conTer constrainedby
-    Buildings.Templates.Interfaces.ControllerTerminalUnit
+    Buildings.Templates.TerminalUnits.Interfaces.Controller
     "Terminal unit controller"
     annotation (
       choicesAllMatching=true,
@@ -85,8 +85,10 @@ equation
     annotation (Line(points={{10,-200},{90,-200}}, color={0,127,255}));
   connect(TDis.port_b, port_Dis)
     annotation (Line(points={{110,-200},{300,-200}}, color={0,127,255}));
-  connect(TDis.busCon, busTer.inp.TDis) annotation (Line(
-      points={{100,-190},{100,0.1},{-300.1,0.1}},
-      color={255,204,51},
-      thickness=0.5));
+  connect(TDis.y, busTer.inp.TDis) annotation (Line(points={{100,-188},{100,0},
+          {-300.1,0},{-300.1,0.1}}, color={0,0,127}), Text(
+      string="%second",
+      index=1,
+      extent={{-3,6},{-3,6}},
+      horizontalAlignment=TextAlignment.Right));
 end VAVBox;

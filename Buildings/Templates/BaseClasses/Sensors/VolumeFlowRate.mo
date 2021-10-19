@@ -1,6 +1,7 @@
 within Buildings.Templates.BaseClasses.Sensors;
 model VolumeFlowRate
   extends Buildings.Templates.Interfaces.Sensor(
+    y(final unit="m3/s"),
     final isDifPreSen=false);
 
   Fluid.Sensors.VolumeFlowRate senVolFlo(
@@ -21,12 +22,8 @@ equation
           {-10,-40}}, color={0,127,255}));
   connect(pas.port_b, port_b) annotation (Line(points={{10,-40},{80,-40},{80,0},
           {100,0}}, color={0,127,255}));
-  connect(senVolFlo.V_flow, busCon.V_flow) annotation (Line(points={{0,11},{0,100}},
-        color={0,0,127}), Text(
-      string="%second",
-      index=1,
-      extent={{-3,6},{-3,6}},
-      horizontalAlignment=TextAlignment.Right));
+  connect(senVolFlo.V_flow, y)
+    annotation (Line(points={{0,11},{0,120}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)),
     Diagram(coordinateSystem(preserveAspectRatio=false)));
 end VolumeFlowRate;

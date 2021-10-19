@@ -4,7 +4,7 @@ package OutdoorSection
 
   model DedicatedAirflow
     "Dedicated minimum OA damper (modulated) with AFMS"
-    extends Buildings.Templates.Interfaces.OutdoorSection(
+    extends Buildings.Templates.AHUs.Interfaces.OutdoorSection(
       final typ=Types.OutdoorSection.DedicatedPressure,
       final typDamOut=damOut.typ,
       final typDamOutMin=damOutMin.typ);
@@ -45,10 +45,6 @@ package OutdoorSection
         points={{30,70},{30,80},{0,80},{0,140}},
         color={255,204,51},
         thickness=0.5));
-    connect(TOutMin.busCon, busCon.inp.TOutMin) annotation (Line(
-        points={{60,70},{60,80},{0.1,80},{0.1,140.1}},
-        color={255,204,51},
-        thickness=0.5));
     connect(damOut.port_b, port_b)
       annotation (Line(points={{10,0},{180,0}}, color={0,127,255}));
     connect(port_a, pas.port_a)
@@ -57,14 +53,14 @@ package OutdoorSection
       annotation (Line(points={{70,60},{80,60}}, color={0,127,255}));
     connect(VOutMin_flow.port_b, port_b) annotation (Line(points={{100,60},{120,60},
             {120,0},{180,0}}, color={0,127,255}));
-    connect(VOutMin_flow.busCon, busCon.inp.VOutMin_flow) annotation (Line(
-        points={{90,70},{90,80},{0.1,80},{0.1,140.1}},
-        color={255,204,51},
-        thickness=0.5));
     connect(damOutMin.port_b, TOutMin.port_a)
       annotation (Line(points={{40,60},{50,60}}, color={0,127,255}));
     connect(port_aIns, damOutMin.port_a) annotation (Line(points={{-80,0},{-20,0},
             {-20,60},{20,60}}, color={0,127,255}));
+    connect(TOutMin.y, busCon.inp.TOutMin) annotation (Line(points={{60,72},{60,
+            80},{0.1,80},{0.1,140.1}}, color={0,0,127}));
+    connect(VOutMin_flow.y, busCon.inp.VOutMin_flow) annotation (Line(points={{
+            90,72},{90,80},{0.1,80},{0.1,140.1}}, color={0,0,127}));
     annotation (Documentation(info="<html>
 <p>
 Two classes are used depending on the type of sensor used to control the
@@ -77,7 +73,7 @@ of AFMS.
 
   model DedicatedPressure
     "Dedicated minimum OA damper (two-position) with differential pressure sensor"
-    extends Buildings.Templates.Interfaces.OutdoorSection(
+    extends Buildings.Templates.AHUs.Interfaces.OutdoorSection(
       final typ=Types.OutdoorSection.DedicatedPressure,
       final typDamOut=damOut.typ,
       final typDamOutMin=damOutMin.typ);
@@ -124,22 +120,18 @@ of AFMS.
             -20,60},{10,60}}, color={0,127,255}));
     connect(dpOutMin.port_bRef, port_b) annotation (Line(points={{20,50},{20,40},{
             120,40},{120,0},{180,0}}, color={0,127,255}));
-    connect(dpOutMin.busCon, busCon.inp.dpOutMin) annotation (Line(
-        points={{20,70},{20,80},{0.1,80},{0.1,140.1}},
-        color={255,204,51},
-        thickness=0.5));
     connect(damOutMin.busCon, busCon) annotation (Line(
         points={{50,70},{50,80},{0,80},{0,140}},
-        color={255,204,51},
-        thickness=0.5));
-    connect(TOutMin.busCon, busCon.inp.TOutMin) annotation (Line(
-        points={{80,70},{80,80},{0.1,80},{0.1,140.1}},
         color={255,204,51},
         thickness=0.5));
     connect(damOut.port_b, port_b)
       annotation (Line(points={{10,0},{180,0}}, color={0,127,255}));
     connect(port_a, pas.port_a)
       annotation (Line(points={{-180,0},{-110,0}}, color={0,127,255}));
+    connect(TOutMin.y, busCon.inp.TOutMin) annotation (Line(points={{80,72},{80,
+            80},{0.1,80},{0.1,140.1}}, color={0,0,127}));
+    connect(dpOutMin.y, busCon.inp.dpOutMin) annotation (Line(points={{20,72},{
+            20,80},{0.1,80},{0.1,140.1}}, color={0,0,127}));
     annotation (Documentation(info="<html>
 <p>
 Two classes are used depending on the type of sensor used to control the
@@ -151,7 +143,7 @@ of AFMS.
   end DedicatedPressure;
 
   model NoEconomizer "No economizer"
-    extends Buildings.Templates.Interfaces.OutdoorSection(
+    extends Buildings.Templates.AHUs.Interfaces.OutdoorSection(
       final typ=Types.OutdoorSection.NoEconomizer,
       final typDamOut=damOut.typ,
       final typDamOutMin=Templates.Types.Damper.None);
@@ -176,7 +168,7 @@ of AFMS.
   end NoEconomizer;
 
   model SingleCommon "Single common OA damper (modulated) with AFMS"
-    extends Buildings.Templates.Interfaces.OutdoorSection(
+    extends Buildings.Templates.AHUs.Interfaces.OutdoorSection(
       final typ=Types.OutdoorSection.SingleCommon,
       final typDamOut=damOut.typ,
       final typDamOutMin=Templates.Types.Damper.None);
@@ -209,15 +201,11 @@ of AFMS.
         points={{0,10},{0,76},{0,140},{0,140}},
         color={255,204,51},
         thickness=0.5));
-    connect(TOut.busCon, busCon.inp.TOut) annotation (Line(
-        points={{40,10},{40,20},{0.1,20},{0.1,140.1}},
-        color={255,204,51},
-        thickness=0.5));
-    connect(VOut_flow.busCon, busCon.inp.VOut_flow) annotation (Line(
-        points={{80,10},{80,20},{0.1,20},{0.1,140.1}},
-        color={255,204,51},
-        thickness=0.5));
     connect(port_a, pas.port_a)
       annotation (Line(points={{-180,0},{-110,0}}, color={0,127,255}));
+    connect(TOut.y, busCon.inp.TOut) annotation (Line(points={{40,12},{40,20},{
+            0.1,20},{0.1,140.1}}, color={0,0,127}));
+    connect(VOut_flow.y, busCon.inp.VOut_flow) annotation (Line(points={{80,12},
+            {80,20},{0.1,20},{0.1,140.1}}, color={0,0,127}));
   end SingleCommon;
 end OutdoorSection;

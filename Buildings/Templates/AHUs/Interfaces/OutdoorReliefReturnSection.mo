@@ -1,6 +1,5 @@
-within Buildings.Templates.Interfaces;
-partial model OutdoorReliefReturnSection
-  "Outdoor/relief/return air section"
+within Buildings.Templates.AHUs.Interfaces;
+partial model OutdoorReliefReturnSection "Outdoor/relief/return air section"
 
   replaceable package MediumAir=Buildings.Media.Air
     constrainedby Modelica.Media.Interfaces.PartialMedium
@@ -67,16 +66,12 @@ partial model OutdoorReliefReturnSection
     annotation (Placement(transformation(extent={{170,70},{190,90}}),
         iconTransformation(extent={{170,90},{190,110}})));
   Modelica.Fluid.Interfaces.FluidPort_b port_bPre(
-    redeclare final package Medium = MediumAir)
- if have_porPre
+    redeclare final package Medium = MediumAir) if have_porPre
     "Optional fluid connector for differential pressure sensor"
     annotation (Placement(transformation(extent={{90,130},{70,150}}),
         iconTransformation(extent={{90,130},{70,150}})));
-  BaseClasses.Connectors.BusInterface busCon
-    "Control bus"
-    annotation (
-      Placement(
-        transformation(
+  Interfaces.Bus busCon "Control bus"
+    annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
         rotation=0,
         origin={0,140}), iconTransformation(

@@ -2,13 +2,7 @@ within Buildings.Templates.AHUs.Validation.UserProject;
 block DummyControlPointsTerminalUnit
   extends Modelica.Blocks.Icons.Block;
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant tNexOcc(final k=3600)
-    "Time next occupancy"
-    annotation (Placement(transformation(extent={{-140,130},{-120,150}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant uOccSch(final k=true)
-    "Scheduled occupancy"
-    annotation (Placement(transformation(extent={{-140,90},{-120,110}})));
-  .Buildings.Templates.BaseClasses.Connectors.BusTerminalUnit busTer
+  TerminalUnits.Interfaces.Bus busTer
     "Terminal unit control bus" annotation (Placement(transformation(
         extent={{-20,20},{20,-20}},
         rotation=90,
@@ -16,6 +10,14 @@ block DummyControlPointsTerminalUnit
         extent={{-10,10},{10,-10}},
         rotation=90,
         origin={100,0})));
+
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant tNexOcc(final k=3600)
+    "Time next occupancy"
+    annotation (Placement(transformation(extent={{-140,130},{-120,150}})));
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant uOccSch(final k=true)
+    "Scheduled occupancy"
+    annotation (Placement(transformation(extent={{-140,90},{-120,110}})));
+
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TZon(final k=303.15)
     "Zone temperature"
     annotation (Placement(transformation(extent={{-140,-30},{-120,-10}})));

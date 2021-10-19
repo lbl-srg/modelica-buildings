@@ -1,5 +1,5 @@
-within Buildings.Templates.Interfaces;
-partial block ControllerTerminalUnit
+within Buildings.Templates.TerminalUnits.Interfaces;
+partial block Controller
 
   parameter TerminalUnits.Types.Controller typ
     "Type of controller"
@@ -10,7 +10,7 @@ partial block ControllerTerminalUnit
   outer parameter ExternData.JSONFile dat
     "External parameter file";
 
-  BaseClasses.Connectors.BusTerminalUnit busTer
+  Bus busTer
     "Terminal unit control bus"
     annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
@@ -31,4 +31,4 @@ partial block ControllerTerminalUnit
           textString="%name")}),                                 Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-200,-200},{220,
             200}})));
-end ControllerTerminalUnit;
+end Controller;

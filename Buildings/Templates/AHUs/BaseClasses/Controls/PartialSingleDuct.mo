@@ -1,8 +1,8 @@
 within Buildings.Templates.AHUs.BaseClasses.Controls;
 partial block PartialSingleDuct "Partial control block for single duct AHU"
-  extends Templates.Interfaces.ControllerAHU;
+  extends Interfaces.Controller;
 
-  outer replaceable Templates.Interfaces.OutdoorReliefReturnSection secOutRel
+  outer replaceable Interfaces.OutdoorReliefReturnSection secOutRel
     "Outdoor/relief/return air section";
 
   outer replaceable Templates.BaseClasses.Coils.None coiCoo

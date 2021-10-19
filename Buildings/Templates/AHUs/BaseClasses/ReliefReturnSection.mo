@@ -3,7 +3,7 @@ package ReliefReturnSection
   extends Modelica.Icons.Package;
 
   model NoEconomizer "No economizer"
-    extends Buildings.Templates.Interfaces.ReliefReturnSection(
+    extends Buildings.Templates.AHUs.Interfaces.ReliefReturnSection(
       final typ=Types.ReliefReturnSection.NoEconomizer,
       final typDam=damRel.typ,
       final typFan=fanRet.typ,
@@ -54,14 +54,6 @@ package ReliefReturnSection
       annotation (Line(points={{50,0},{30,0}}, color={0,127,255}));
     connect(pRet_rel.port_b, port_aIns)
       annotation (Line(points={{10,0},{-80,0}}, color={0,127,255}));
-    connect(pRet_rel.busCon, busCon.inp.pRet_rel) annotation (Line(
-        points={{20,10},{20,20},{0.1,20},{0.1,140.1}},
-        color={255,204,51},
-        thickness=0.5));
-    connect(VRet_flow.busCon, busCon.inp.VRet_flow) annotation (Line(
-        points={{60,10},{60,20},{0.1,20},{0.1,140.1}},
-        color={255,204,51},
-        thickness=0.5));
     connect(fanRet.busCon, busCon) annotation (Line(
         points={{100,10},{100,20},{0,20},{0,140}},
         color={255,204,51},
@@ -76,10 +68,14 @@ package ReliefReturnSection
         points={{-150,10},{-150,20},{0,20},{0,140}},
         color={255,204,51},
         thickness=0.5));
+    connect(pRet_rel.y, busCon.inp.pRet_rel) annotation (Line(points={{20,12},{
+            20,20},{0.1,20},{0.1,140.1}}, color={0,0,127}));
+    connect(VRet_flow.y, busCon.inp.VRet_flow) annotation (Line(points={{60,12},
+            {60,20},{0.1,20},{0.1,140.1}}, color={0,0,127}));
   end NoEconomizer;
 
   model NoRelief "No relief branch"
-    extends Buildings.Templates.Interfaces.ReliefReturnSection(
+    extends Buildings.Templates.AHUs.Interfaces.ReliefReturnSection(
       final typ=Types.ReliefReturnSection.NoRelief,
       final typDam=Templates.Types.Damper.None,
       final typFan=fanRet.typ,
@@ -122,14 +118,6 @@ package ReliefReturnSection
       annotation (Line(points={{90,0},{70,0}}, color={0,127,255}));
     connect(VRet_flow.port_b, pRet_rel.port_a)
       annotation (Line(points={{50,0},{30,0}}, color={0,127,255}));
-    connect(pRet_rel.busCon, busCon.inp.pRet_rel) annotation (Line(
-        points={{20,10},{20,20},{0.1,20},{0.1,140.1}},
-        color={255,204,51},
-        thickness=0.5));
-    connect(VRet_flow.busCon, busCon.inp.VRet_flow) annotation (Line(
-        points={{60,10},{60,20},{0.1,20},{0.1,140.1}},
-        color={255,204,51},
-        thickness=0.5));
     connect(fanRet.busCon, busCon) annotation (Line(
         points={{100,10},{100,20},{0,20},{0,140}},
         color={255,204,51},
@@ -138,10 +126,14 @@ package ReliefReturnSection
             -120},{80,-120},{80,-140}}, color={0,127,255}));
     connect(pRet_rel.port_b, port_bRet)
       annotation (Line(points={{10,0},{0,0},{0,-140}}, color={0,127,255}));
+    connect(pRet_rel.y, busCon.inp.pRet_rel) annotation (Line(points={{20,12},{
+            20,20},{0.1,20},{0.1,140.1}}, color={0,0,127}));
+    connect(VRet_flow.y, busCon.inp.VRet_flow) annotation (Line(points={{60,12},
+            {60,20},{0,20},{0,80},{0.1,80},{0.1,140.1}}, color={0,0,127}));
   end NoRelief;
 
   model ReliefDamper "No relief fan - Modulated relief damper"
-    extends Buildings.Templates.Interfaces.ReliefReturnSection(
+    extends Buildings.Templates.AHUs.Interfaces.ReliefReturnSection(
       final typ=Types.ReliefReturnSection.ReliefDamper,
       final typDam=damRel.typ,
       final typFan=Templates.Types.Fan.None,
@@ -179,7 +171,7 @@ building static pressure. Close damper when disabled.
   end ReliefDamper;
 
   model ReliefFan "Relief fan - Two-position relief damper"
-    extends Buildings.Templates.Interfaces.ReliefReturnSection(
+    extends Buildings.Templates.AHUs.Interfaces.ReliefReturnSection(
       final typ=Types.ReliefReturnSection.ReliefFan,
       final typDam=damRel.typ,
       final typFan=fanRet.typ,
@@ -237,7 +229,7 @@ building static pressure. Close damper when disabled.
   end ReliefFan;
 
   model ReturnFan "Return fan - Modulated relief damper"
-    extends Buildings.Templates.Interfaces.ReliefReturnSection(
+    extends Buildings.Templates.AHUs.Interfaces.ReliefReturnSection(
       final typ=Types.ReliefReturnSection.ReturnFan,
       final typDam=damRel.typ,
       final typFan=fanRet.typ,
@@ -301,14 +293,10 @@ building static pressure. Close damper when disabled.
       annotation (Line(points={{90,0},{110,0}}, color={0,127,255}));
     connect(pRet_rel.port_bRef, port_bPre) annotation (Line(points={{40,-10},{40,-120},
             {80,-120},{80,-140}}, color={0,127,255}));
-    connect(pRet_rel.busCon, busCon.inp.pRet_rel) annotation (Line(
-        points={{40,10},{40,20},{0.1,20},{0.1,140.1}},
-        color={255,204,51},
-        thickness=0.5));
-    connect(VRet_flow.busCon, busCon.inp.VRet_flow) annotation (Line(
-        points={{80,10},{80,20},{0.1,20},{0.1,140.1}},
-        color={255,204,51},
-        thickness=0.5));
+    connect(pRet_rel.y, busCon.inp.pRet_rel) annotation (Line(points={{40,12},{
+            40,20},{0,20},{0,80},{0.1,80},{0.1,140.1}}, color={0,0,127}));
+    connect(VRet_flow.y, busCon.inp.VRet_flow) annotation (Line(points={{80,12},
+            {80,20},{0.1,20},{0.1,140.1}}, color={0,0,127}));
     annotation (Documentation(info="<html>
 <p>
 5.16.10 Return-Fan Control—Direct Building Pressure

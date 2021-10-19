@@ -1,6 +1,5 @@
-within Buildings.Templates.Interfaces;
-partial model TerminalUnitAir
-  "Interface class for terminal unit in air system"
+within Buildings.Templates.TerminalUnits.Interfaces;
+partial model SubSystemAir "Interface class for terminal unit in air system"
   replaceable package MediumAir=Buildings.Media.Air
     constrainedby Modelica.Media.Interfaces.PartialMedium
     "Air medium";
@@ -45,10 +44,9 @@ partial model TerminalUnitAir
     annotation (Placement(
         transformation(extent={{290,-90},{310,-70}}), iconTransformation(
           extent={{190,90},{210,110}})));
-  BaseClasses.Connectors.BusTerminalUnit busTer
+  Interfaces.Bus busTer
     "Terminal unit control bus"
-    annotation (Placement(
-        transformation(
+    annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
         rotation=90,
         origin={-300,0}), iconTransformation(
@@ -75,4 +73,4 @@ partial model TerminalUnitAir
           fillPattern=FillPattern.Solid,
           fillColor={245,239,184},
           pattern=LinePattern.None)}));
-end TerminalUnitAir;
+end SubSystemAir;

@@ -2,6 +2,15 @@ within Buildings.Templates.TerminalUnits.Validation.UserProject;
 block DummyControlPointsAHU
   extends Modelica.Blocks.Icons.Block;
 
+  AHUs.Interfaces.Bus busAHU "AHU control bus"
+    annotation (Placement(transformation(
+        extent={{-20,20},{20,-20}},
+        rotation=90,
+        origin={200,0}), iconTransformation(
+        extent={{-10,10},{10,-10}},
+        rotation=90,
+        origin={100,0})));
+
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TZonHeaOccSet(final k=
         293.15) "Occupied heating setpoint"
     annotation (Placement(transformation(extent={{-140,130},{-120,150}})));
@@ -14,14 +23,7 @@ block DummyControlPointsAHU
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TZonCooUnoSet(final k=
         303.15) "Unoccupied cooling setpoint"
     annotation (Placement(transformation(extent={{-140,10},{-120,30}})));
-  .Buildings.Templates.BaseClasses.Connectors.BusTerminalUnit busTer
-    "Terminal unit control bus" annotation (Placement(transformation(
-        extent={{-20,20},{20,-20}},
-        rotation=90,
-        origin={200,0}), iconTransformation(
-        extent={{-10,10},{10,-10}},
-        rotation=90,
-        origin={100,0})));
+
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TZon(final k=303.15)
     "Zone temperature"
     annotation (Placement(transformation(extent={{-140,-30},{-120,-10}})));
@@ -45,24 +47,24 @@ block DummyControlPointsAHU
     "yReqOutAir from AHU controller"
     annotation (Placement(transformation(extent={{40,90},{60,110}})));
 equation
-  connect(TZon.y, busTer.inp.TZon);
+  connect(TZon.y,busAHU. inp.TZon);
 
-  connect(TZonHeaOccSet.y, busTer.sof.TZonHeaOccSet);
-  connect(TZonCooOccSet.y, busTer.sof.TZonCooOccSet);
-  connect(TZonHeaUnoSet.y, busTer.sof.TZonHeaUnoSet);
-  connect(TZonCooUnoSet.y, busTer.sof.TZonCooUnoSet);
-  connect(TSupSet.y, busTer.sof.TSupSet);
-  connect(yOpeMod.y, busTer.sof.yOpeMod);
-  connect(uHeaDemLimLev.y, busTer.sof.uHeaDemLimLev);
-  connect(uCooDemLimLev.y, busTer.sof.uCooDemLimLev);
+  connect(TZonHeaOccSet.y,busAHU. sof.TZonHeaOccSet);
+  connect(TZonCooOccSet.y,busAHU. sof.TZonCooOccSet);
+  connect(TZonHeaUnoSet.y,busAHU. sof.TZonHeaUnoSet);
+  connect(TZonCooUnoSet.y,busAHU. sof.TZonCooUnoSet);
+  connect(TSupSet.y,busAHU. sof.TSupSet);
+  connect(yOpeMod.y,busAHU. sof.yOpeMod);
+  connect(uHeaDemLimLev.y,busAHU. sof.uHeaDemLimLev);
+  connect(uCooDemLimLev.y,busAHU. sof.uCooDemLimLev);
 
-  connect(yReqOutAir.y, busTer.sof.yReqOutAir) annotation (Line(points={{62,100},
+  connect(yReqOutAir.y,busAHU. sof.yReqOutAir) annotation (Line(points={{62,100},
           {174,100},{174,0.1},{200.1,0.1}}, color={255,0,255}), Text(
       string="%second",
       index=1,
       extent={{6,3},{6,3}},
       horizontalAlignment=TextAlignment.Left));
-  connect(VDesUncOutAir_flow.y, busTer.sof.VDesUncOutAir_flow) annotation (Line(
+  connect(VDesUncOutAir_flow.y,busAHU. sof.VDesUncOutAir_flow) annotation (Line(
         points={{62,140},{180,140},{180,0.1},{200.1,0.1}}, color={0,0,127}),
       Text(
       string="%second",

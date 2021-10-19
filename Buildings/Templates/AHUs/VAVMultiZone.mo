@@ -1,6 +1,6 @@
 within Buildings.Templates.AHUs;
 model VAVMultiZone "Multiple-Zone VAV"
-  extends Buildings.Templates.Interfaces.AHU(
+  extends Buildings.Templates.AHUs.Interfaces.SubSystem(
     final typ=Types.Configuration.SingleDuct,
     final have_porRel=secOutRel.typ<>Types.OutdoorReliefReturnSection.NoRelief);
 
@@ -75,7 +75,7 @@ model VAVMultiZone "Multiple-Zone VAV"
       iconTransformation(extent={{-20,182},{20,218}})));
 
   inner replaceable BaseClasses.OutdoorReliefReturnSection.Economizer secOutRel
-    constrainedby Templates.Interfaces.OutdoorReliefReturnSection(redeclare
+    constrainedby Interfaces.OutdoorReliefReturnSection(          redeclare
       final package MediumAir = MediumAir) "Outdoor/relief/return air section"
     annotation (
     choicesAllMatching=true,
@@ -178,11 +178,11 @@ model VAVMultiZone "Multiple-Zone VAV"
     have_sen=true,
     final loc=Templates.Types.Location.Supply)
     "Supply air volume flow rate sensor" annotation (Dialog(group=
-          "Supply air section", enable=false), Placement(transformation(extent=
-            {{142,-210},{162,-190}})));
+          "Supply air section", enable=false), Placement(transformation(extent={{140,
+            -210},{160,-190}})));
 
   inner replaceable Controls.OpenLoop conAHU
-    constrainedby Buildings.Templates.Interfaces.ControllerAHU
+    constrainedby Buildings.Templates.AHUs.Interfaces.Controller
     "AHU controller"
     annotation (
       choicesAllMatching=true,
@@ -269,7 +269,7 @@ model VAVMultiZone "Multiple-Zone VAV"
     have_sen=false,
     final loc=Templates.Types.Location.Return) "Return air temperature sensor"
     annotation (Dialog(group="Exhaust/relief/return section", enable=false),
-      Placement(transformation(extent={{222,-90},{202,-70}})));
+      Placement(transformation(extent={{220,-90},{200,-70}})));
 
   // FIXME: bind have_sen to control option.
   .Buildings.Templates.BaseClasses.Sensors.SpecificEnthalpy hRet(
@@ -277,9 +277,22 @@ model VAVMultiZone "Multiple-Zone VAV"
     have_sen=false,
     final loc=Templates.Types.Location.Return) "Return air enthalpy sensor"
     annotation (Dialog(group="Exhaust/relief/return section", enable=false),
-      Placement(transformation(extent={{252,-90},{232,-70}})));
+      Placement(transformation(extent={{250,-90},{230,-70}})));
 
+  Interfaces.BusInput busInp
+    annotation (Placement(transformation(extent={{-106,126},{-66,166}})));
 equation
+  /* Sensor point connections - start */
+  connect(TMix.y, busAHU.inp.TMix);
+  connect(THea.y, busAHU.inp.THea);
+  connect(VSup_flow.y, busAHU.inp.VSup_flow);
+  connect(TSup.y, busAHU.inp.TSup);
+  connect(xSup.y, busAHU.inp.xSup);
+  connect(pSup_rel.y, busAHU.inp.pSup_rel);
+  connect(hRet.y, busAHU.inp.hRet);
+  connect(TRet.y, busAHU.inp.TRet);
+  connect(pInd_rel.p_rel, busAHU.inp.pInd_rel);
+  /* Sensor point connections - end */
   connect(port_coiCooSup, coiCoo.port_aSou) annotation (Line(points={{20,-280},{
           20,-220},{26,-220},{26,-210}},   color={0,127,255}));
   connect(coiCoo.port_bSou, port_coiCooRet) annotation (Line(points={{34,-210},{
@@ -309,9 +322,9 @@ equation
   connect(coiReh.port_b, fanSupDra.port_a)
     annotation (Line(points={{100,-200},{110,-200}}, color={0,127,255}));
   connect(fanSupDra.port_b, VSup_flow.port_a)
-    annotation (Line(points={{130,-200},{142,-200}}, color={0,127,255}));
+    annotation (Line(points={{130,-200},{140,-200}}, color={0,127,255}));
   connect(VSup_flow.port_b, resSup.port_a)
-    annotation (Line(points={{162,-200},{172,-200}}, color={0,127,255}));
+    annotation (Line(points={{160,-200},{172,-200}}, color={0,127,255}));
   connect(fanSupBlo.port_b, coiHea.port_a)
     annotation (Line(points={{-50,-200},{-40,-200}}, color={0,127,255}));
   connect(weaBus, out.weaBus) annotation (Line(
@@ -325,8 +338,6 @@ equation
   connect(ind.ports[2], pSup_rel.port_bRef) annotation (Line(points={{40,240},{288,
           240},{288,-220},{270,-220},{270,-210}}, color={0,127,255}));
 
-  connect(pInd_rel.p_rel, busAHU.inp.pInd_rel) annotation (Line(points={{20,231},
-          {20,0},{-300.1,0},{-300.1,0.1}},     color={0,0,127}));
   connect(conAHU.busTer, busTer) annotation (Line(
       points={{-240,120},{-220,120},{-220,0},{300,0}},
       color={255,204,51},
@@ -363,28 +374,8 @@ equation
       points={{-30,-190},{-30,0},{-300,0}},
       color={255,204,51},
       thickness=0.5));
-  connect(TMix.busCon, busAHU.inp.TMix) annotation (Line(
-      points={{-90,-190},{-90,0.1},{-300.1,0.1}},
-      color={255,204,51},
-      thickness=0.5));
   connect(coiReh.busCon, busAHU) annotation (Line(
       points={{90,-190},{90,0},{-300,0}},
-      color={255,204,51},
-      thickness=0.5));
-  connect(VSup_flow.busCon, busAHU.inp.VSup_flow) annotation (Line(
-      points={{152,-190},{152,0.1},{-300.1,0.1}},
-      color={255,204,51},
-      thickness=0.5));
-  connect(TSup.busCon, busAHU.inp.TSup) annotation (Line(
-      points={{210,-190},{210,0.1},{-300.1,0.1}},
-      color={255,204,51},
-      thickness=0.5));
-  connect(xSup.busCon, busAHU.inp.xSup) annotation (Line(
-      points={{240,-190},{240,0.1},{-300.1,0.1}},
-      color={255,204,51},
-      thickness=0.5));
-  connect(pSup_rel.busCon, busAHU.inp.pSup_rel) annotation (Line(
-      points={{270,-190},{270,0.1},{-300.1,0.1}},
       color={255,204,51},
       thickness=0.5));
   connect(coiCoo.busCon, busAHU) annotation (Line(
@@ -392,19 +383,11 @@ equation
       color={255,204,51},
       thickness=0.5));
   connect(resRet.port_a, TRet.port_b)
-    annotation (Line(points={{190,-80},{202,-80}}, color={0,127,255}));
+    annotation (Line(points={{190,-80},{200,-80}}, color={0,127,255}));
   connect(port_Ret, hRet.port_a)
-    annotation (Line(points={{300,-80},{252,-80}}, color={0,127,255}));
+    annotation (Line(points={{300,-80},{250,-80}}, color={0,127,255}));
   connect(hRet.port_b, TRet.port_a)
-    annotation (Line(points={{232,-80},{222,-80}}, color={0,127,255}));
-  connect(TRet.busCon, busAHU.inp.TRet) annotation (Line(
-      points={{212,-70},{212,0.1},{-300.1,0.1}},
-      color={255,204,51},
-      thickness=0.5));
-  connect(hRet.busCon, busAHU.inp.hRet) annotation (Line(
-      points={{242,-70},{242,0.1},{-300.1,0.1}},
-      color={255,204,51},
-      thickness=0.5));
+    annotation (Line(points={{230,-80},{220,-80}}, color={0,127,255}));
   connect(coiHea.port_b, THea.port_a)
     annotation (Line(points={{-20,-200},{-10,-200}}, color={0,127,255}));
   connect(THea.port_b, coiCoo.port_a)
@@ -413,14 +396,6 @@ equation
     annotation (Line(points={{40,-200},{50,-200}}, color={0,127,255}));
   connect(TCoo.port_b, coiReh.port_a)
     annotation (Line(points={{70,-200},{80,-200}}, color={0,127,255}));
-  connect(THea.busCon, busAHU.inp.THea) annotation (Line(
-      points={{0,-190},{0,0.1},{-300.1,0.1}},
-      color={255,204,51},
-      thickness=0.5));
-  connect(TCoo.busCon, busAHU.inp.TCoo) annotation (Line(
-      points={{60,-190},{60,0.1},{-300.1,0.1}},
-      color={255,204,51},
-      thickness=0.5));
   connect(port_Rel, secOutRel.port_Rel)
     annotation (Line(points={{-300,-80},{-178,-80}}, color={0,127,255}));
   connect(secOutRel.port_Out, port_Out) annotation (Line(points={{-178,-100},{-200,
@@ -435,6 +410,7 @@ equation
       points={{-160,-76},{-160,0},{-300,0}},
       color={255,204,51},
       thickness=0.5));
+
   annotation (
     defaultComponentName="ahu",
     Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(

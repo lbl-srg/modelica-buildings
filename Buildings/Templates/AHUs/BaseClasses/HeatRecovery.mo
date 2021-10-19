@@ -3,7 +3,7 @@ package HeatRecovery
   extends Modelica.Icons.Package;
 
   model None "No heat recovery"
-    extends Templates.Interfaces.HeatRecovery(
+    extends Interfaces.HeatRecovery(
       final typ=Types.HeatRecovery.None);
 
   end None;

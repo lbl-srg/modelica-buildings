@@ -26,8 +26,8 @@ partial model Damper
     "Leaving air"
     annotation (Placement(transformation(extent={{90,-10},
             {110,10}}), iconTransformation(extent={{90,-10},{110,10}})));
-  BaseClasses.Connectors.BusInterface busCon if
-    typ <> Types.Damper.None and
+  Bus                                 busCon
+ if typ <> Types.Damper.None and
     typ <> Types.Damper.Barometric and
     typ <> Types.Damper.NoPath
     "Control bus"

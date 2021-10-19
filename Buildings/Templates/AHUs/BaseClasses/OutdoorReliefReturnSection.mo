@@ -3,7 +3,7 @@ package OutdoorReliefReturnSection
   extends Modelica.Icons.Package;
 
   model Economizer "Air economizer"
-    extends Templates.Interfaces.OutdoorReliefReturnSection(
+    extends Interfaces.OutdoorReliefReturnSection(
       final typ=Types.OutdoorReliefReturnSection.Economizer,
       final have_porPre=secRel.have_porPre,
       final typDamOut=secOut.typDamOut,
@@ -12,7 +12,7 @@ package OutdoorReliefReturnSection
       final typFanRet=secRel.typFan);
 
     replaceable AHUs.BaseClasses.OutdoorSection.SingleCommon secOut
-      constrainedby Templates.Interfaces.OutdoorSection(redeclare final package
+      constrainedby Interfaces.OutdoorSection(          redeclare final package
         MediumAir = MediumAir, final have_recHea=false) "Outdoor air section"
       annotation (
       choices(
@@ -27,7 +27,7 @@ package OutdoorReliefReturnSection
 
     replaceable
       Buildings.Templates.AHUs.BaseClasses.ReliefReturnSection.ReturnFan secRel
-      constrainedby Templates.Interfaces.ReliefReturnSection(redeclare final
+      constrainedby Interfaces.ReliefReturnSection(          redeclare final
         package MediumAir = MediumAir, final have_recHea=false)
       "Relief/return air section" annotation (
       choices(
@@ -77,7 +77,7 @@ package OutdoorReliefReturnSection
   end Economizer;
 
   model HeatRecovery "Heat recovery"
-    extends Templates.Interfaces.OutdoorReliefReturnSection(
+    extends Interfaces.OutdoorReliefReturnSection(
       final typ=Types.OutdoorReliefReturnSection.HeatRecovery,
       final have_porPre=secRel.have_porPre,
       final typDamOut=secOut.typDamOut,
@@ -86,7 +86,7 @@ package OutdoorReliefReturnSection
       final typFanRet=secRel.typFan);
 
     replaceable AHUs.BaseClasses.OutdoorSection.SingleCommon secOut
-      constrainedby Templates.Interfaces.OutdoorSection(redeclare final package
+      constrainedby Interfaces.OutdoorSection(          redeclare final package
         MediumAir = MediumAir, final have_recHea=true) "Outdoor air section"
       annotation (
       choices(
@@ -101,7 +101,7 @@ package OutdoorReliefReturnSection
 
     replaceable
       Buildings.Templates.AHUs.BaseClasses.ReliefReturnSection.ReturnFan secRel
-      constrainedby Templates.Interfaces.ReliefReturnSection(redeclare final
+      constrainedby Interfaces.ReliefReturnSection(          redeclare final
         package MediumAir = MediumAir, final have_recHea=true)
       "Relief/return air section" annotation (
       choices(
@@ -115,7 +115,7 @@ package OutdoorReliefReturnSection
       Placement(transformation(extent={{-18,66},{18,94}})));
 
     replaceable Buildings.Templates.AHUs.BaseClasses.HeatRecovery.None none
-      constrainedby Templates.Interfaces.HeatRecovery(redeclare final package
+      constrainedby Interfaces.HeatRecovery(          redeclare final package
         MediumAir = MediumAir) "Heat recovery" annotation (choicesAllMatching=true,
         Placement(transformation(extent={{-50,-10},{-30,10}})));
 
@@ -153,7 +153,7 @@ package OutdoorReliefReturnSection
   end HeatRecovery;
 
   model NoRelief " No relief branch"
-    extends Templates.Interfaces.OutdoorReliefReturnSection(
+    extends Interfaces.OutdoorReliefReturnSection(
       final typ=Types.OutdoorReliefReturnSection.NoRelief,
       final have_porPre=secRel.have_porPre,
       final typDamOut=secOut.typDamOut,
@@ -162,7 +162,7 @@ package OutdoorReliefReturnSection
       final typFanRet=secRel.typFan);
 
     replaceable AHUs.BaseClasses.OutdoorSection.SingleCommon secOut
-      constrainedby Templates.Interfaces.OutdoorSection(redeclare final package
+      constrainedby Interfaces.OutdoorSection(          redeclare final package
         MediumAir = MediumAir, final have_recHea=false) "Outdoor air section"
       annotation (
       choices(

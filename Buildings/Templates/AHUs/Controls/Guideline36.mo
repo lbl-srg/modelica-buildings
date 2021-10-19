@@ -570,7 +570,7 @@ block Guideline36 "Guideline 36 VAV single duct controller"
     "Various economizer configurations not handled: yDamRel (or exhaust), yDamOutMin"
     annotation (Placement(transformation(extent={{300,142},{280,162}})));
 protected
-    .Buildings.Templates.BaseClasses.Connectors.SubBusOutput busOutAHU
+  Interfaces.BusOutput busOutAHU
     "AHU output points" annotation (Placement(transformation(extent={{80,140},{
             120,180}}), iconTransformation(extent={{-10,24},{10,44}})));
 

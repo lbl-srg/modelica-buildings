@@ -46,11 +46,13 @@ partial model Sensor
     h_outflow(start=Medium.h_default, nominal=Medium.h_default)) if have_sen and isDifPreSen
     "Port at the reference pressure for differential pressure sensor"
     annotation (Placement(transformation(extent={{10,-110},{-10,-90}})));
-  Buildings.Templates.BaseClasses.Connectors.BusInterface busCon
-    "Control bus"
-    annotation (Placement(transformation(extent={{-20,80},{20, 120}}),
-      iconTransformation(extent={{-10,90},{10,110}})));
 
+  Controls.OBC.CDL.Interfaces.RealOutput y if have_sen
+    "Connector for measured value"
+    annotation (Placement(transformation(
+        extent={{-20,-20},{20,20}},
+        rotation=90,
+        origin={0,120})));
   annotation (
     Icon(coordinateSystem(preserveAspectRatio=false), graphics={
           Rectangle(

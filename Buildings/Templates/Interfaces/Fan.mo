@@ -59,7 +59,7 @@ partial model Fan
   outer parameter ExternData.JSONFile dat
     "External parameter file";
 
-  BaseClasses.Connectors.BusInterface busCon if typ <> Types.Fan.None
+  Bus                                 busCon if typ <> Types.Fan.None
     "Control bus"
     annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},

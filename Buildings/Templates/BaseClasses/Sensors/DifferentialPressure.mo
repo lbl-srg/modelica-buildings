@@ -1,6 +1,7 @@
 within Buildings.Templates.BaseClasses.Sensors;
 model DifferentialPressure
   extends Buildings.Templates.Interfaces.Sensor(
+    y(final unit="Pa", displayUnit="Pa"),
     final isDifPreSen=true);
 
   Fluid.Sensors.RelativePressure senRelPre(
@@ -14,12 +15,8 @@ equation
     annotation (Line(points={{-100,0},{100,0}}, color={0,127,255}));
   connect(senRelPre.port_b, port_bRef)
     annotation (Line(points={{-30,-40},{0,-40},{0,-100}}, color={0,127,255}));
-  connect(senRelPre.p_rel, busCon.p_rel) annotation (Line(points={{-40,-31},{-40,
-          80},{0,80},{0,100}}, color={0,0,127}), Text(
-      string="%second",
-      index=1,
-      extent={{-3,6},{-3,6}},
-      horizontalAlignment=TextAlignment.Right));
+  connect(senRelPre.p_rel, y) annotation (Line(points={{-40,-31},{-40,80},{0,80},
+          {0,120}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)),
     Diagram(coordinateSystem(preserveAspectRatio=false)));
 end DifferentialPressure;

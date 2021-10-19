@@ -71,7 +71,8 @@ model BaseNoEquipment
     dp_nominal=100)
     annotation (Placement(transformation(extent={{50,0},{30,20}})));
 protected
-  Buildings.Templates.BaseClasses.Connectors.BusAHU busAHU
+  Interfaces.Bus busAHU
+  "Gateway bus only needed for Dymola SR00763223"
   annotation (
     Placement(
       transformation(extent={{-40,20},{0,60}}), iconTransformation(

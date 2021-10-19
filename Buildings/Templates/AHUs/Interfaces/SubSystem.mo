@@ -1,5 +1,5 @@
-within Buildings.Templates.Interfaces;
-partial model AHU "Interface class for air handling unit"
+within Buildings.Templates.AHUs.Interfaces;
+partial model SubSystem "Base interface class for air handling unit"
   replaceable package MediumAir=Buildings.Media.Air
     constrainedby Modelica.Media.Interfaces.PartialMedium
     "Air medium";
@@ -108,10 +108,7 @@ partial model AHU "Interface class for air handling unit"
           extent={{-310,-90},{-290,-70}}), iconTransformation(extent={{-210,90},
             {-190,110}})));
 
-  BaseClasses.Connectors.BusAHU busAHU
-    "AHU control bus"
-    annotation (Placement(
-        transformation(
+  Bus busAHU "AHU control bus" annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
         rotation=90,
         origin={-300,0}), iconTransformation(
@@ -119,9 +116,8 @@ partial model AHU "Interface class for air handling unit"
         rotation=90,
         origin={-199,160})));
 
-  BaseClasses.Connectors.BusTerminalUnit busTer[nZon]
-    "Terminal unit control bus"
-    annotation (Placement(transformation(
+  TerminalUnits.Interfaces.Bus busTer[nZon]
+    "Terminal unit control bus" annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
         rotation=-90,
         origin={300,0}), iconTransformation(
@@ -149,4 +145,4 @@ partial model AHU "Interface class for air handling unit"
           fillPattern=FillPattern.Solid,
           fillColor={245,239,184},
           pattern=LinePattern.None)}));
-end AHU;
+end SubSystem;
