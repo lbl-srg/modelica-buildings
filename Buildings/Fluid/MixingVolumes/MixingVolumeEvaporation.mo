@@ -176,7 +176,7 @@ equation
     connect(heaFloSen.port_a, heatPort)
       annotation (Line(points={{-10,-50},{0,-50},{0,-100}}, color={191,0,0}));
 
-annotation (
+annotation (defaultComponentName="vol",
     Icon(coordinateSystem(
         preserveAspectRatio=false,
         extent={{-100,-100},{100,100}}), graphics={
