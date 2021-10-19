@@ -78,24 +78,24 @@ model BoilerPolynomialSteam
     "Heat capacity of boiler metal"
     annotation (Placement(transformation(extent={{-80,12},{-60,32}})));
   MixingVolumes.MixingVolumeEvaporation vol(
-    redeclare package MediumSte = MediumSte,
-    redeclare package MediumWat = MediumWat,
-    allowFlowReversal=allowFlowReversal,
-    energyDynamics=energyDynamics,
-    massDynamics=massDynamics,
-    p_start=p_start,
-    T_start=T_start,
-    m_flow_nominal=m_flow_nominal,
-    show_T=show_T,
-    V=V)
+    redeclare final package MediumSte = MediumSte,
+    redeclare final package MediumWat = MediumWat,
+    final allowFlowReversal=allowFlowReversal,
+    final energyDynamics=energyDynamics,
+    final massDynamics=massDynamics,
+    final p_start=p_start,
+    final T_start=T_start,
+    final m_flow_nominal=m_flow_nominal,
+    final show_T=show_T,
+    final V=V)
     "Steam/water mixing volume"
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
   Buildings.Fluid.FixedResistances.PressureDrop res(
-    redeclare package Medium = MediumWat,
-    allowFlowReversal=allowFlowReversal,
-    m_flow_nominal=m_flow_nominal,
-    show_T=show_T,
-    dp_nominal=dp_nominal)
+    redeclare final package Medium = MediumWat,
+    final allowFlowReversal=allowFlowReversal,
+    final m_flow_nominal=m_flow_nominal,
+    final show_T=show_T,
+    final dp_nominal=dp_nominal)
     "Flow resistance"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
 
