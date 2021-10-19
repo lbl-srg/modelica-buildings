@@ -10,24 +10,43 @@ record Generic "Generic data record for movers"
     annotation(Evaluate=true,
                Dialog(group="Pressure curve"));
 
+  // "Power computation" group
+  // powMet selects one of three paths
   parameter Buildings.Fluid.Movers.BaseClasses.Types.PowerMethod
     powMet=
       Buildings.Fluid.Movers.BaseClasses.Types.PowerMethod.MotorEfficiency
     "Method for power computation"
     annotation (Dialog(group="Power computation"));
-
   final parameter Boolean use_powerCharacteristic= (powMet ==
     Buildings.Fluid.Movers.BaseClasses.Types.PowerMethod.PowerCharacteristic)
     "Use power data";
-
   final parameter Boolean use_eulerCorrelation= (powMet ==
     Buildings.Fluid.Movers.BaseClasses.Types.PowerMethod.EulerCorrelation)
     "Use peak efficiency condition";
-
   final parameter Boolean use_motorEfficiency= (powMet ==
     Buildings.Fluid.Movers.BaseClasses.Types.PowerMethod.MotorEfficiency)
     "Use motor efficiency";
 
+  // 1.powerCharacteristic path
+  // Power requires default values to avoid in Dymola the message
+  // Failed to expand the variable Power.V_flow
+  parameter BaseClasses.Characteristics.powerParameters power(
+    V_flow={0},
+    P={0})
+    "Volume flow rate vs. electrical power consumption (used if use_powerCharacteristic=true)"
+   annotation (Dialog(group="Power computation",
+                      enable=use_powerCharacteristic));
+
+  // 2.eulerCorrelation path
+  parameter Buildings.Fluid.Movers.BaseClasses.Euler.peakCondition peak(
+    V_flow_peak=0.021428571,
+    dp_peak=128439.4985,
+    eta_peak=0.766063002)
+    "Volume flow rate, pressure rise, and efficiency at peak condition"
+    annotation (Dialog(group="Power computation",
+                      enable=use_eulerCorrelation));
+
+  // 3.motorEfficiency path
   parameter
     Buildings.Fluid.Movers.BaseClasses.Characteristics.efficiencyParameters
     hydraulicEfficiency(
@@ -43,20 +62,7 @@ record Generic "Generic data record for movers"
     "Electric motor efficiency (used if use_motorEfficiency=true)"
     annotation (Dialog(group="Power computation",
                        enable=use_motorEfficiency));
-
-  // Power requires default values to avoid in Dymola the message
-  // Failed to expand the variable Power.V_flow
-  parameter BaseClasses.Characteristics.powerParameters power(
-    V_flow={0},
-    P={0})
-    "Volume flow rate vs. electrical power consumption (used if use_powerCharacteristic=true)"
-   annotation (Dialog(group="Power computation",
-                      enable=use_powerCharacteristic));
-
-  parameter Buildings.Fluid.Movers.BaseClasses.Euler.peakEfficiency peak
-    "Volume flow rate, pressure rise, and efficiency at peak condition"
-    annotation (Dialog(group="Power computation",
-                      enable=use_eulerCorrelation));
+  // End of "Power computation" group
 
   parameter Boolean motorCooledByFluid=true
     "If true, then motor heat is added to fluid stream"

@@ -1,17 +1,18 @@
 within Buildings.Fluid.Movers.BaseClasses.Euler;
-record peakEfficiency
+record peakCondition
   "Record for the operation condition at peak efficiency"
   extends Modelica.Icons.Record;
   parameter Modelica.SIunits.VolumeFlowRate
-    V_flow_peak(min=0)=0.021428571
+    V_flow_peak(min=0)
     "Volume flow rate at peak efficiency";
   parameter Modelica.SIunits.PressureDifference
-    dp_peak(min=0,displayUnit="Pa")=128439.4985
+    dp_peak(min=0,displayUnit="Pa")
     "Pressure rise at peak efficiency";
   parameter Modelica.SIunits.Efficiency
-    eta_peak=0.766063002
+    eta_peak
     "Peak efficiency";
-  annotation (Documentation(info="<html>
+  annotation (
+Documentation(info="<html>
 <p>
 Data record for performance data that describe the condition at peak efficiency.
 The default values are taken from 
@@ -28,4 +29,4 @@ First implementation. This is for
 </li>
 </ul>
 </html>"));
-end peakEfficiency;
+end peakCondition;
