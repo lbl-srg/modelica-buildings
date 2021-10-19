@@ -188,7 +188,9 @@ annotation (defaultComponentName="vol",
           extent={{-100,100},{100,-100}},
           lineColor={0,0,0},
           fillPattern=FillPattern.Sphere,
-          fillColor=DynamicSelect({170,213,255}, min(1, max(0, (1-(T-273.15)/50)))*{28,108,200}+min(1, max(0, (T-273.15)/50))*{255,0,0})),
+          fillColor=DynamicSelect({170,213,255},
+          min(1, max(0, (1-(T-273.15)/50)))*{28,108,200}
+          +min(1, max(0, (T-273.15)/50))*{255,0,0})),
       Line(
         points={{0,40},{-40,20},{0,-20},{-40,-40}},
         color={0,0,0},
