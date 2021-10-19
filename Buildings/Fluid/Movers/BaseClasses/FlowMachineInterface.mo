@@ -518,6 +518,7 @@ equation
           * Buildings.Fluid.Movers.BaseClasses.Euler.eulerCorrelation(
           x=log10((dp_internal * per.peak.V_flow_peak)
             /(per.peak.dp_peak * V_flow)));
+    eta = WFlo / Buildings.Utilities.Math.Functions.smoothMax(x1=PEle, x2=1E-5, deltaX=1E-6);
     // Similar to the powerCharacteristic path,
     // this path also simply assumes etaHyd = 1.
     etaHyd = 1;
