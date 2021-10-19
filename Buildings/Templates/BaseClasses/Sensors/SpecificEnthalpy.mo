@@ -1,15 +1,15 @@
 within Buildings.Templates.BaseClasses.Sensors;
 model SpecificEnthalpy
   extends Buildings.Templates.Interfaces.Sensor(
-    typ=Types.Sensor.SpecificEnthalpy);
+    final isDifPreSen=false);
 
   Fluid.Sensors.SpecificEnthalpyTwoPort senSpeEnt(
     redeclare final package Medium=Medium,
-    final m_flow_nominal=m_flow_nominal) if typ==Types.Sensor.SpecificEnthalpy
+    final m_flow_nominal=m_flow_nominal) if have_sen
     "Specific enthalpy sensor"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 
-  PassThroughFluid pas(redeclare final package Medium = Medium) if typ==Types.Sensor.None
+  PassThroughFluid pas(redeclare final package Medium = Medium) if not have_sen
     "Pass through"
     annotation (Placement(transformation(extent={{-10,-50},{10,-30}})));
 equation

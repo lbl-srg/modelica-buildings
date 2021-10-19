@@ -1,7 +1,7 @@
 within Buildings.Templates.Interfaces;
 partial block ControllerAHU
 
-  parameter Types.ControllerAHU typ
+  parameter AHUs.Types.Controller typ
     "Type of controller"
     annotation (Evaluate=true, Dialog(group="Configuration"));
 

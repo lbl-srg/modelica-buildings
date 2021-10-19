@@ -14,38 +14,38 @@ model SingleVariable "Single fan - Variable speed"
       choicesAllMatching=true,
       Placement(transformation(extent={{-10,-10},{10,10}})));
 
-  Modelica.Blocks.Routing.RealPassThrough ySpeFanSup if
-    loc==Templates.Types.Location.Supply
+  Modelica.Blocks.Routing.RealPassThrough ySpeFanSup
+ if loc==Templates.Types.Location.Supply
     "Supply fan speed" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={-20,70})));
-  Modelica.Blocks.Routing.RealPassThrough ySpeFanRet if
-    loc==Templates.Types.Location.Return or loc==Templates.Types.Location.Relief
+  Modelica.Blocks.Routing.RealPassThrough ySpeFanRet
+ if loc==Templates.Types.Location.Return or loc==Templates.Types.Location.Relief
     "Return fan speed" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={20,70})));
-  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal yFanSup if
-    loc==Templates.Types.Location.Supply
+  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal yFanSup
+ if loc==Templates.Types.Location.Supply
     "Supply fan start/stop" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={-46,70})));
-  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal yFanRet if
-    loc==Templates.Types.Location.Return or loc==Templates.Types.Location.Relief
+  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal yFanRet
+ if loc==Templates.Types.Location.Return or loc==Templates.Types.Location.Relief
     "Return fan start/stop" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={46,70})));
-  Buildings.Controls.OBC.CDL.Continuous.Product conSup if
-    loc==Templates.Types.Location.Supply
+  Buildings.Controls.OBC.CDL.Continuous.Product conSup
+ if loc==Templates.Types.Location.Supply
     "Resulting control signal" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={-40,40})));
-  Buildings.Controls.OBC.CDL.Continuous.Product conRet if
-    loc==Templates.Types.Location.Return or loc==Templates.Types.Location.Relief
+  Buildings.Controls.OBC.CDL.Continuous.Product conRet
+ if loc==Templates.Types.Location.Return or loc==Templates.Types.Location.Relief
     "Resulting control signal" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
@@ -58,14 +58,14 @@ model SingleVariable "Single fan - Variable speed"
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={0,-50})));
-  Modelica.Blocks.Routing.BooleanPassThrough yFanSup_actual if
-    loc==Templates.Types.Location.Supply
+  Modelica.Blocks.Routing.BooleanPassThrough yFanSup_actual
+ if loc==Templates.Types.Location.Supply
     "Supply fan status" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=180,
         origin={-30,-80})));
-  Modelica.Blocks.Routing.BooleanPassThrough yFanRet_actual if
-    loc==Templates.Types.Location.Return or loc==Templates.Types.Location.Relief
+  Modelica.Blocks.Routing.BooleanPassThrough yFanRet_actual
+ if loc==Templates.Types.Location.Return or loc==Templates.Types.Location.Relief
     "Return fan status" annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=180,

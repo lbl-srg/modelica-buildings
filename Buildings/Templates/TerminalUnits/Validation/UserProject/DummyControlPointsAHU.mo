@@ -14,12 +14,11 @@ block DummyControlPointsAHU
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TZonCooUnoSet(final k=
         303.15) "Unoccupied cooling setpoint"
     annotation (Placement(transformation(extent={{-140,10},{-120,30}})));
-  BaseClasses.Connectors.BusTerminalUnit busTer
-    "Terminal unit control bus"
-    annotation (Placement(transformation(
+  .Buildings.Templates.BaseClasses.Connectors.BusTerminalUnit busTer
+    "Terminal unit control bus" annotation (Placement(transformation(
         extent={{-20,20},{20,-20}},
         rotation=90,
-        origin={200,0}),  iconTransformation(
+        origin={200,0}), iconTransformation(
         extent={{-10,10},{10,-10}},
         rotation=90,
         origin={100,0})));

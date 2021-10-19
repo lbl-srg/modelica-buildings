@@ -1,7 +1,7 @@
 within Buildings.Templates.TerminalUnits.Controls;
 block Guideline36
-  extends Buildings.Templates.BaseClasses.Controls.TerminalUnits.SingleDuct(
-    final typ=Templates.Types.ControllerTU.Guideline36);
+  extends Buildings.Templates.TerminalUnits.BaseClasses.Controls.PartialSingleDuct(
+    final typ=Types.Controller.Guideline36);
 
   // See FIXME below for those parameters.
   parameter Boolean have_occSen=false
@@ -497,17 +497,13 @@ block Guideline36
     "Optimal start using global outdoor air temperature not associated with any AHU"
     annotation (Placement(transformation(extent={{-240,-90},{-220,-70}})));
 protected
-  BaseClasses.Connectors.SubBusOutput busOut
-    "Output points"
-    annotation (Placement(
-        transformation(extent={{30,0},{70,40}}), iconTransformation(extent={{-10,22},
-            {10,42}})));
+  .Buildings.Templates.BaseClasses.Connectors.SubBusOutput busOut
+    "Output points" annotation (Placement(transformation(extent={{30,0},{70,40}}),
+        iconTransformation(extent={{-10,22},{10,42}})));
 
-  BaseClasses.Connectors.SubBusSoftware busSof
-    "Software points"
-    annotation (Placement(
-        transformation(extent={{30,-40},{70,0}}), iconTransformation(extent={{-10,42},
-            {10,62}})));
+  .Buildings.Templates.BaseClasses.Connectors.SubBusSoftware busSof
+    "Software points" annotation (Placement(transformation(extent={{30,-40},{70,
+            0}}), iconTransformation(extent={{-10,42},{10,62}})));
 
 equation
   connect(busTer.inp.ppmCO2,conTerUni. ppmCO2) annotation (Line(

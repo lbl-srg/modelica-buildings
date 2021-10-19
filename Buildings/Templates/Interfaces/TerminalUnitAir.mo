@@ -5,7 +5,7 @@ partial model TerminalUnitAir
     constrainedby Modelica.Media.Interfaces.PartialMedium
     "Air medium";
 
-  parameter Types.TerminalUnit typ
+  parameter TerminalUnits.Types.Configuration typ
     "Type of system"
     annotation (Evaluate=true, Dialog(group="Configuration"));
 
@@ -16,23 +16,22 @@ partial model TerminalUnitAir
       Dialog(group="Configuration"));
 
   Modelica.Fluid.Interfaces.FluidPort_a port_Sup(
-    redeclare final package Medium =MediumAir) if typ <> Types.TerminalUnit.DualDuct
+    redeclare final package Medium =MediumAir) if typ <> TerminalUnits.Types.Configuration.DualDuct
     "Supply air"
     annotation (
       Placement(transformation(extent={{-310,-210},{-290,-190}}),
         iconTransformation(extent={{-210,-10},{-190,10}})));
   Modelica.Fluid.Interfaces.FluidPort_a port_SupCol(
-    redeclare final package Medium =MediumAir) if typ == Types.TerminalUnit.DualDuct
+    redeclare final package Medium =MediumAir) if typ == TerminalUnits.Types.Configuration.DualDuct
     "Dual duct cold deck air supply"
     annotation (Placement(transformation(
           extent={{-310,-250},{-290,-230}}), iconTransformation(extent={{-210,-110},
             {-190,-90}})));
   Modelica.Fluid.Interfaces.FluidPort_a port_SupHot(
-    redeclare final package Medium =MediumAir) if typ == Types.TerminalUnit.DualDuct
+    redeclare final package Medium =MediumAir) if typ == TerminalUnits.Types.Configuration.DualDuct
     "Dual duct hot deck air supply"
     annotation (Placement(
-        transformation(extent={{-310,-170},{-290,-150}}),
-                                                        iconTransformation(
+        transformation(extent={{-310,-170},{-290,-150}}), iconTransformation(
           extent={{-210,90},{-190,110}})));
   Modelica.Fluid.Interfaces.FluidPort_b port_Dis(
     redeclare final package Medium =MediumAir)
@@ -40,13 +39,12 @@ partial model TerminalUnitAir
     annotation (Placement(transformation(extent={{290,-210},{310,-190}}),
         iconTransformation(extent={{190,-10},{210,10}})));
   Modelica.Fluid.Interfaces.FluidPort_a port_Ret(
-    redeclare final package Medium =MediumAir) if typ == Types.TerminalUnit.FanPowered
-    or typ == Types.TerminalUnit.Induction
+    redeclare final package Medium =MediumAir) if typ == TerminalUnits.Types.Configuration.FanPowered
+    or typ == TerminalUnits.Types.Configuration.Induction
     "Return air"
     annotation (Placement(
-        transformation(extent={{290,-90},{310,-70}}),     iconTransformation(
+        transformation(extent={{290,-90},{310,-70}}), iconTransformation(
           extent={{190,90},{210,110}})));
-
   BaseClasses.Connectors.BusTerminalUnit busTer
     "Terminal unit control bus"
     annotation (Placement(

@@ -1,7 +1,7 @@
 within Buildings.Templates.TerminalUnits.Controls;
 block OpenLoop "Open loop controller (output signals only)"
-  extends Buildings.Templates.BaseClasses.Controls.TerminalUnits.SingleDuct(
-    final typ=Templates.Types.ControllerTU.OpenLoop);
+  extends Buildings.Templates.TerminalUnits.BaseClasses.Controls.PartialSingleDuct(
+    final typ=Types.Controller.OpenLoop);
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant yDamVAV(k=1)
     annotation (Placement(transformation(

@@ -24,18 +24,14 @@ model NoEconomizer "No economizer"
       Placement(transformation(extent={{110,-10},{90,10}})));
   Sensors.DifferentialPressure pRet_rel(
     redeclare final package Medium = MediumAir,
-    final typ=if fanRet.typCtr==Templates.Types.ReturnFanControlSensor.Pressure
-      then Templates.Types.Sensor.DifferentialPressure else
-      Templates.Types.Sensor.None,
+    final have_sen=fanRet.typCtr==Templates.Types.ReturnFanControlSensor.Pressure,
     final loc=Templates.Types.Location.Return)
     "Return static pressure sensor"
     annotation (
       Placement(transformation(extent={{30,-10},{10,10}})));
   Sensors.VolumeFlowRate VRet_flow(
     redeclare final package Medium = MediumAir,
-    final typ=if fanRet.typCtr==Templates.Types.ReturnFanControlSensor.Airflow
-      then Templates.Types.Sensor.VolumeFlowRate else
-      Templates.Types.Sensor.None,
+    final have_sen=fanRet.typCtr==Templates.Types.ReturnFanControlSensor.Airflow,
     final loc=Templates.Types.Location.Return)
     "Return air volume flow rate sensor"
     annotation (

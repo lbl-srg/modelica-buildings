@@ -1,7 +1,7 @@
 within Buildings.Templates.TerminalUnits;
 model VAVBox "VAV terminal unit"
   extends Buildings.Templates.Interfaces.TerminalUnitAir(
-    final typ=Types.TerminalUnit.SingleDuct);
+    final typ=Types.Configuration.SingleDuct);
 
   replaceable package MediumHea=Buildings.Media.Water
     constrainedby Modelica.Media.Interfaces.PartialMedium
@@ -35,17 +35,15 @@ model VAVBox "VAV terminal unit"
       Dialog(group="Reheat coil"),
       Placement(transformation(extent={{-10,-210},{10,-190}})));
 
-  inner replaceable BaseClasses.Dampers.PressureIndependent damVAV
-    constrainedby Buildings.Templates.Interfaces.Damper(
-      redeclare final package Medium = MediumAir,
-      final loc=Templates.Types.Location.Terminal)
-    "VAV damper"
-    annotation (
-      Dialog(group="VAV damper"),
-      Placement(transformation(
-          extent={{-10,-10},{10,10}},
-          rotation=0,
-          origin={-120,-200})));
+  inner replaceable
+    .Buildings.Templates.BaseClasses.Dampers.PressureIndependent damVAV
+    constrainedby Buildings.Templates.Interfaces.Damper(redeclare final package
+      Medium = MediumAir, final loc=Templates.Types.Location.Terminal)
+    "VAV damper" annotation (Dialog(group="VAV damper"), Placement(
+        transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=0,
+        origin={-120,-200})));
 
   inner replaceable Controls.OpenLoop conTer constrainedby
     Buildings.Templates.Interfaces.ControllerTerminalUnit
@@ -55,11 +53,9 @@ model VAVBox "VAV terminal unit"
       Dialog(group="Controller"),
       Placement(transformation(extent={{-10,90},{10,110}})));
 
-  BaseClasses.Sensors.Temperature TDis(
+  .Buildings.Templates.BaseClasses.Sensors.Temperature TDis(
     redeclare final package Medium = MediumAir,
-    final typ=if conTer.typ==Templates.Types.ControllerTU.Guideline36 then
-      Templates.Types.Sensor.Temperature else
-      Templates.Types.Sensor.None,
+    final have_sen=conTer.typ == Types.Controller.Guideline36,
     final loc=Templates.Types.Location.Terminal)
     "Discharge air temperature sensor"
     annotation (Placement(transformation(extent={{90,-210},{110,-190}})));

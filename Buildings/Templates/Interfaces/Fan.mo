@@ -7,8 +7,8 @@ partial model Fan
   parameter Templates.Types.Location loc
     "Equipment location"
     annotation (Evaluate=true, Dialog(group="Configuration"));
-  parameter Templates.Types.ReturnFanControlSensor typCtr=
-    Templates.Types.ReturnFanControlSensor.None
+  parameter AHUs.Types.ReturnFanControlSensor typCtr=
+    AHUs.Types.ReturnFanControlSensor.None
     "Sensor type used for return fan control"
     annotation (
       Evaluate=true,

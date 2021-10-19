@@ -1,10 +1,10 @@
 within Buildings.Templates.BaseClasses.Sensors;
 model DifferentialPressure
   extends Buildings.Templates.Interfaces.Sensor(
-    typ=Types.Sensor.DifferentialPressure);
+    final isDifPreSen=true);
 
   Fluid.Sensors.RelativePressure senRelPre(
-    redeclare final package Medium=Medium) if typ==Types.Sensor.DifferentialPressure
+    redeclare final package Medium=Medium) if have_sen
     "Relative pressure sensor"
     annotation (Placement(transformation(extent={{-50,-30},{-30,-50}})));
 equation

@@ -1,14 +1,14 @@
 ﻿within Buildings.Templates.BaseClasses.ReliefReturnSection;
 model ReturnFan "Return fan - Modulated relief damper"
   extends Buildings.Templates.Interfaces.ReliefReturnSection(
-    final typ=Templates.Types.ReliefReturnSection.ReturnFan,
+    final typ=Types.ReliefReturnSection.ReturnFan,
     final typDam=damRel.typ,
     final typFan=fanRet.typ,
     final have_porPre=fanRet.typCtr==Templates.Types.ReturnFanControlSensor.Pressure);
 
    Dampers.TwoPosition damRel(
     redeclare final package Medium = MediumAir,
-    final loc=Buildings.Templates.Types.Location.Relief)
+    final loc=Types.Location.Relief)
     "Relief damper"
     annotation (
       Placement(transformation(
@@ -18,7 +18,7 @@ model ReturnFan "Return fan - Modulated relief damper"
    replaceable Templates.BaseClasses.Fans.SingleVariable fanRet
      constrainedby Templates.Interfaces.Fan(
        redeclare final package Medium = MediumAir,
-       final loc=Templates.Types.Location.Return)
+       final loc=Types.Location.Return)
      "Return/relief fan"
     annotation (
       choices(
@@ -29,19 +29,15 @@ model ReturnFan "Return fan - Modulated relief damper"
       Placement(transformation(extent={{130,-10},{110,10}})));
   Sensors.DifferentialPressure pRet_rel(
     redeclare final package Medium = MediumAir,
-    final typ=if fanRet.typCtr==Templates.Types.ReturnFanControlSensor.Pressure then
-      Templates.Types.Sensor.DifferentialPressure else
-      Templates.Types.Sensor.None,
-    final loc=Templates.Types.Location.Return)
+    final have_sen=fanRet.typCtr==Templates.Types.ReturnFanControlSensor.Pressure,
+    final loc=Types.Location.Return)
     "Return static pressure sensor"
     annotation (
       Placement(transformation(extent={{50,-10},{30,10}})));
   Sensors.VolumeFlowRate VRet_flow(
     redeclare final package Medium = MediumAir,
-    final typ=if fanRet.typCtr==Templates.Types.ReturnFanControlSensor.Airflow then
-      Templates.Types.Sensor.VolumeFlowRate else
-      Templates.Types.Sensor.None,
-    final loc=Templates.Types.Location.Return)
+    final have_sen=fanRet.typCtr==Templates.Types.ReturnFanControlSensor.Airflow,
+    final loc=Types.Location.Return)
     "Return air volume flow rate sensor"
     annotation (
       Placement(transformation(extent={{90,-10},{70,10}})));

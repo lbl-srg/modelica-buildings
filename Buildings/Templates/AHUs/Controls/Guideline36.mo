@@ -1,7 +1,7 @@
 within Buildings.Templates.AHUs.Controls;
 block Guideline36 "Guideline 36 VAV single duct controller"
-  extends Buildings.Templates.BaseClasses.Controls.AHUs.SingleDuct(
-    final typ=Templates.Types.ControllerAHU.Guideline36);
+  extends Buildings.Templates.AHUs.BaseClasses.Controls.PartialSingleDuct(
+    final typ=Types.Controller.Guideline36);
 
   // See FIXME below for those parameters.
   parameter String namGroZon[nZon] = {
@@ -570,13 +570,9 @@ block Guideline36 "Guideline 36 VAV single duct controller"
     "Various economizer configurations not handled: yDamRel (or exhaust), yDamOutMin"
     annotation (Placement(transformation(extent={{300,142},{280,162}})));
 protected
-    BaseClasses.Connectors.SubBusOutput busOutAHU
-    "AHU output points"
-    annotation (
-      Placement(
-        transformation(extent={{80,140},{120,180}}),
-                                                   iconTransformation(extent={{-10,24},
-            {10,44}})));
+    .Buildings.Templates.BaseClasses.Connectors.SubBusOutput busOutAHU
+    "AHU output points" annotation (Placement(transformation(extent={{80,140},{
+            120,180}}), iconTransformation(extent={{-10,24},{10,44}})));
 
 // DEBUG
 Buildings.Controls.OBC.CDL.Logical.Sources.Constant zonOcc(k=true);

@@ -1,15 +1,15 @@
 within Buildings.Templates.BaseClasses.Sensors;
 model Temperature
   extends Buildings.Templates.Interfaces.Sensor(
-    typ=Types.Sensor.Temperature);
+    final isDifPreSen=false);
 
   Fluid.Sensors.TemperatureTwoPort senTem(
     redeclare final package Medium=Medium,
-    final m_flow_nominal=m_flow_nominal) if typ==Types.Sensor.Temperature
+    final m_flow_nominal=m_flow_nominal) if have_sen
     "Temperature sensor"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   PassThroughFluid pas(
-    redeclare final package Medium=Medium) if typ==Types.Sensor.None
+    redeclare final package Medium=Medium) if not have_sen
     "Pass through"
     annotation (Placement(transformation(extent={{-10,-50},{10,-30}})));
 equation

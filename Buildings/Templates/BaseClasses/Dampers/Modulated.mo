@@ -1,7 +1,7 @@
 within Buildings.Templates.BaseClasses.Dampers;
 model Modulated
   extends Buildings.Templates.Interfaces.Damper(
-    final typ=Types.Damper.Modulated);
+    final typ=Templates.Types.Damper.Modulated);
 
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal=
     if loc==Templates.Types.Location.OutdoorAir then
@@ -35,57 +35,57 @@ model Modulated
     final dpDamper_nominal=dpDamper_nominal)
     "Exponential damper"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
-  Modelica.Blocks.Routing.RealPassThrough yDamOut if
-    loc==Templates.Types.Location.OutdoorAir
+  Modelica.Blocks.Routing.RealPassThrough yDamOut
+ if loc==Templates.Types.Location.OutdoorAir
     "Pass through to connect with specific control signal" annotation (
       Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={-60,50})));
-  Modelica.Blocks.Routing.RealPassThrough yDamOutMin if
-    loc==Templates.Types.Location.MinimumOutdoorAir
+  Modelica.Blocks.Routing.RealPassThrough yDamOutMin
+ if loc==Templates.Types.Location.MinimumOutdoorAir
     "Pass through to connect with specific control signal" annotation (
       Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={-20,50})));
-  Modelica.Blocks.Routing.RealPassThrough yDamRet if
-    loc==Templates.Types.Location.Return
+  Modelica.Blocks.Routing.RealPassThrough yDamRet
+ if loc==Templates.Types.Location.Return
     "Pass through to connect with specific control signal" annotation (
       Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={20,50})));
-  Modelica.Blocks.Routing.RealPassThrough yDamRel if
-    loc==Templates.Types.Location.Relief
+  Modelica.Blocks.Routing.RealPassThrough yDamRel
+ if loc==Templates.Types.Location.Relief
     "Pass through to connect with specific control signal" annotation (
       Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={60,50})));
-  Modelica.Blocks.Routing.RealPassThrough yDamOut_actual if
-    loc==Templates.Types.Location.OutdoorAir
+  Modelica.Blocks.Routing.RealPassThrough yDamOut_actual
+ if loc==Templates.Types.Location.OutdoorAir
     "Pass through to connect with specific control signal" annotation (
       Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={-60,-30})));
-  Modelica.Blocks.Routing.RealPassThrough yDamOutMin_actual if
-    loc==Templates.Types.Location.MinimumOutdoorAir
+  Modelica.Blocks.Routing.RealPassThrough yDamOutMin_actual
+ if loc==Templates.Types.Location.MinimumOutdoorAir
     "Pass through to connect with specific control signal" annotation (
       Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={-20,-30})));
-  Modelica.Blocks.Routing.RealPassThrough yDamRet_actual if
-    loc==Templates.Types.Location.Return
+  Modelica.Blocks.Routing.RealPassThrough yDamRet_actual
+ if loc==Templates.Types.Location.Return
     "Pass through to connect with specific control signal" annotation (
       Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={20,-30})));
-  Modelica.Blocks.Routing.RealPassThrough yDamRel_actual if
-    loc==Templates.Types.Location.Relief
+  Modelica.Blocks.Routing.RealPassThrough yDamRel_actual
+ if loc==Templates.Types.Location.Relief
     "Pass through to connect with specific control signal" annotation (
       Placement(transformation(
         extent={{-10,-10},{10,10}},

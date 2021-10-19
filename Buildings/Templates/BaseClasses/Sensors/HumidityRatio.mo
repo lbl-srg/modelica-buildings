@@ -1,14 +1,14 @@
 within Buildings.Templates.BaseClasses.Sensors;
 model HumidityRatio
   extends Buildings.Templates.Interfaces.Sensor(
-    typ=Types.Sensor.HumidityRatio);
+    final isDifPreSen=false);
 
   Fluid.Sensors.MassFractionTwoPort senMasFra(
     redeclare final package Medium=Medium,
-    final m_flow_nominal=m_flow_nominal) if typ==Types.Sensor.HumidityRatio
+    final m_flow_nominal=m_flow_nominal) if have_sen
     "Mass fraction sensor"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
-  Utilities.Psychrometrics.ToDryAir toDryAir if typ==Types.Sensor.HumidityRatio
+  Utilities.Psychrometrics.ToDryAir toDryAir if have_sen
     "Conversion into kg/kg dry air"
     annotation (Placement(
         transformation(
@@ -16,7 +16,7 @@ model HumidityRatio
         rotation=90,
         origin={0,30})));
 
-  PassThroughFluid pas(redeclare final package Medium = Medium) if typ==Types.Sensor.None
+  PassThroughFluid pas(redeclare final package Medium = Medium) if not have_sen
     "Pass through"
     annotation (Placement(transformation(extent={{-10,-50},{10,-30}})));
 equation

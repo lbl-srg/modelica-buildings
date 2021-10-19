@@ -1,14 +1,14 @@
 within Buildings.Templates.BaseClasses.Sensors;
 model VolumeFlowRate
   extends Buildings.Templates.Interfaces.Sensor(
-    typ=Types.Sensor.VolumeFlowRate);
+    final isDifPreSen=false);
 
   Fluid.Sensors.VolumeFlowRate senVolFlo(
     redeclare final package Medium=Medium,
-    final m_flow_nominal=m_flow_nominal) if typ==Types.Sensor.VolumeFlowRate
+    final m_flow_nominal=m_flow_nominal) if have_sen
     "Volume flow rate sensor"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
-  PassThroughFluid pas(redeclare final package Medium = Medium) if typ==Types.Sensor.None
+  PassThroughFluid pas(redeclare final package Medium = Medium) if not have_sen
     "Pass through"
     annotation (Placement(transformation(extent={{-10,-50},{10,-30}})));
 equation

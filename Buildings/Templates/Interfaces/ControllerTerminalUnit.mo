@@ -1,7 +1,7 @@
 within Buildings.Templates.Interfaces;
 partial block ControllerTerminalUnit
 
-  parameter Types.ControllerTU typ
+  parameter TerminalUnits.Types.Controller typ
     "Type of controller"
     annotation (Evaluate=true, Dialog(group="Configuration"));
 

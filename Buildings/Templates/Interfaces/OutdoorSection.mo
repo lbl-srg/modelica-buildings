@@ -5,7 +5,7 @@ partial model OutdoorSection "Outdoor air section"
     constrainedby Modelica.Media.Interfaces.PartialMedium
     "Air medium";
 
-  parameter Types.OutdoorSection typ
+  parameter AHUs.Types.OutdoorSection typ
     "Outdoor air section type"
     annotation (Evaluate=true, Dialog(group="Configuration"));
   parameter Templates.Types.Damper typDamOut
