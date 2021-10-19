@@ -39,9 +39,9 @@ record Generic "Generic data record for movers"
 
   // 2.eulerCorrelation path
   parameter Buildings.Fluid.Movers.BaseClasses.Euler.peakCondition peak(
-    V_flow_peak=0.021428571,
-    dp_peak=128439.4985,
-    eta_peak=0.766063002)
+    V_flow_peak=0.001408593,
+    dp_peak=39882.66949,
+    eta_peak=0.517463499)
     "Volume flow rate, pressure rise, and efficiency at peak condition"
     annotation (Dialog(group="Power computation",
                       enable=use_eulerCorrelation));
