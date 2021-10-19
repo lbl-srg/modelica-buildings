@@ -7,10 +7,14 @@ model CompleteAHU
                                                          secRel(redeclare
           Templates.BaseClasses.Fans.SingleVariable fanRet
           "Single fan - Variable speed")),
-    redeclare Templates.BaseClasses.Coils.WaterBasedCooling coiCoo(redeclare
-        Buildings.Templates.BaseClasses.Coils.Actuators.TwoWayValve act,
-        redeclare Templates.BaseClasses.Coils.HeatExchangers.WetCoilCounterFlow
-        hex "Discretized heat exchanger model") "Water-based",
+    redeclare Templates.BaseClasses.Coils.WaterBasedCooling coiCoo(
+      dpAir_nominal(displayUnit="Pa"),
+      dpWat_nominal(displayUnit="Pa"),
+      redeclare Buildings.Templates.BaseClasses.Coils.Actuators.TwoWayValve act,
+
+      redeclare
+        Templates.BaseClasses.Coils.HeatExchangers.WetCoilEffectivenessNTU hex
+        "Effectiveness-NTU wet heat exchanger model") "Water-based",
     redeclare Templates.BaseClasses.Coils.WaterBasedHeating coiHea(redeclare
         Buildings.Templates.BaseClasses.Coils.Actuators.TwoWayValve act,
         redeclare

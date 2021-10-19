@@ -395,8 +395,8 @@
                     "value": 305.15,
                     "unit": "K"
                 },
-                "Entering air relative humidity": {
-                    "value": 0.5,
+                "Entering air humidity ratio": {
+                    "value": 0.01,
                     "unit": "1"
                 },
                 "Air pressure drop": {

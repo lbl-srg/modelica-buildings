@@ -21,6 +21,14 @@ package Types "Generic types for template components"
       WaterBased
       "Water-based coil")
     "Enumeration to configure the coil";
+  type CoilFunction = enumeration(
+      Cooling
+      "Cooling",
+      Heating
+      "Heating",
+      Reheat
+      "Reheat")
+    "Enumeration to specify the coil function";
   type Damper = enumeration(
       NoPath
       "No fluid path",
@@ -43,11 +51,11 @@ package Types "Generic types for template components"
       DXVariableSpeed
       "Direct expansion - Variable speed",
       WetCoilEffectivenessNTU
-      "Water based - Effectiveness-NTU dry/wet coil",
+      "Water based - Effectiveness-NTU wet",
       DryCoilEffectivenessNTU
-      "Water based - Effectiveness-NTU dry coil",
+      "Water based - Effectiveness-NTU dry",
       WetCoilCounterFlow
-      "Water based - Discretized")
+      "Water based - Discretized wet")
     "Enumeration to configure the heat exchanger";
   type Fan = enumeration(
       None

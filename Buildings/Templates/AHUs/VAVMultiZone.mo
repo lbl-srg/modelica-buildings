@@ -109,7 +109,8 @@ model VAVMultiZone "Multiple-Zone VAV"
   inner replaceable Templates.BaseClasses.Coils.None coiHea
     constrainedby Templates.Interfaces.Coil(
       redeclare final package MediumAir = MediumAir,
-      redeclare final package MediumSou = MediumHea)
+      redeclare final package MediumSou = MediumHea,
+      final fun=Templates.Types.CoilFunction.Heating)
     "Heating coil"
     annotation (
       choices(
@@ -130,7 +131,8 @@ model VAVMultiZone "Multiple-Zone VAV"
   inner replaceable Buildings.Templates.BaseClasses.Coils.None coiCoo
     constrainedby Buildings.Templates.Interfaces.Coil(
       redeclare final package MediumAir = MediumAir,
-      redeclare final package MediumSou = MediumCoo)
+      redeclare final package MediumSou = MediumCoo,
+      final fun=Templates.Types.CoilFunction.Cooling)
     "Cooling coil"
     annotation (
       choices(
@@ -151,7 +153,8 @@ model VAVMultiZone "Multiple-Zone VAV"
   inner replaceable Buildings.Templates.BaseClasses.Coils.None coiReh
     constrainedby Buildings.Templates.Interfaces.Coil(
       redeclare final package MediumAir = MediumAir,
-      redeclare final package MediumSou = MediumHea)
+      redeclare final package MediumSou = MediumHea,
+      final fun=Templates.Types.CoilFunction.Reheat)
     "Reheat coil"
     annotation (
       choices(

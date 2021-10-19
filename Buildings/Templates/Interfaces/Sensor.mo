@@ -32,9 +32,6 @@ partial model Sensor
     annotation (
      Dialog(group="Nominal condition", enable=have_sen and not isDifPreSen));
 
-  final parameter String insNam = getInstanceName()
-    "Instance name"
-    annotation (Evaluate=true);
   outer parameter String id
     "System identifier";
   outer parameter ExternData.JSONFile dat

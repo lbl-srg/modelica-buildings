@@ -14,6 +14,9 @@ partial model Coil
   parameter Types.Coil typ
     "Equipment type"
     annotation (Evaluate=true, Dialog(group="Configuration"));
+  parameter Types.CoilFunction fun
+    "Coil function"
+    annotation (Evaluate=true, Dialog(group="Configuration"));
   parameter Types.Actuator typAct
     "Type of actuator"
     annotation (Dialog(group="Configuration"));
@@ -32,17 +35,14 @@ partial model Coil
   outer parameter ExternData.JSONFile dat
     "External parameter file";
   final inner parameter String funStr=
-    if Modelica.Utilities.Strings.find(insNam, "coiCoo")<>0 then "Cooling"
-    elseif Modelica.Utilities.Strings.find(insNam, "coiHea")<>0 then "Heating"
-    elseif Modelica.Utilities.Strings.find(insNam, "coiReh")<>0 then "Reheat"
+    if fun==Types.CoilFunction.Cooling then "Cooling"
+    elseif fun==Types.CoilFunction.Heating then "Heating"
+    elseif fun==Types.CoilFunction.Reheat then "Reheat"
     else "Undefined"
-    "String used to identify the coil function"
+    "Coil function cast as string"
     annotation (
       Dialog(group="Configuration"),
       Evaluate=true);
-  final parameter String insNam = getInstanceName()
-    "Instance name"
-    annotation(Evaluate=true);
 
   Modelica.Fluid.Interfaces.FluidPort_a port_aSou(
     redeclare final package Medium = MediumSou) if have_sou

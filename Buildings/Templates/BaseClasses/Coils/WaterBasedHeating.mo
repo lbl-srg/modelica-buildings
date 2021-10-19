@@ -54,7 +54,7 @@ model WaterBasedHeating "Water-based"
     annotation (
       choices(
         choice(redeclare Templates.BaseClasses.Coils.HeatExchangers.DryCoilEffectivenessNTU hex
-          "Epsilon-NTU heat exchanger model")),
+          "Epsilon-NTU dry heat exchanger model")),
       Placement(transformation(extent={{10,4},{-10,-16}})));
 
   Modelica.Blocks.Routing.RealPassThrough yCoiCoo if funStr=="Cooling"

@@ -54,7 +54,9 @@ model WaterBasedCooling "Water-based"
     annotation (
       choices(
         choice(redeclare Templates.BaseClasses.Coils.HeatExchangers.WetCoilCounterFlow hex
-          "Discretized heat exchanger model")),
+          "Discretized wet heat exchanger model"),
+        choice(redeclare Templates.BaseClasses.Coils.HeatExchangers.WetCoilEffectivenessNTU hex
+          "Effectiveness-NTU wet heat exchanger model")),
       Placement(transformation(extent={{10,4},{-10,-16}})));
 
   Modelica.Blocks.Routing.RealPassThrough yCoiCoo if funStr=="Cooling"

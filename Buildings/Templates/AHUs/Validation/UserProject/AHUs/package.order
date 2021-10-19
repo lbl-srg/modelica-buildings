@@ -1,6 +1,7 @@
 BaseNoEquipment
 BaseNoRelief
 CoilCoolingCounterFlow
+CoilCoolingEffectivenessNTU
 CoilCoolingDXMultiStage
 CoilCoolingDXVariableSpeed
 CoilHeatingEffectivenessNTU

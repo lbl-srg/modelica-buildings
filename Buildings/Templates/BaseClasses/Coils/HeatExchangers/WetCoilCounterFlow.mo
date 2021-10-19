@@ -1,5 +1,5 @@
 within Buildings.Templates.BaseClasses.Coils.HeatExchangers;
-model WetCoilCounterFlow "Discretized heat exchanger model"
+model WetCoilCounterFlow "Discretized wet heat exchanger model"
   extends Buildings.Templates.Interfaces.HeatExchangerWater(
     final typ=Types.HeatExchanger.WetCoilCounterFlow);
 
@@ -23,6 +23,7 @@ model WetCoilCounterFlow "Discretized heat exchanger model"
     final r_nominal=r_nominal,
     final nEle=nEle,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    "Coil"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 
 equation
