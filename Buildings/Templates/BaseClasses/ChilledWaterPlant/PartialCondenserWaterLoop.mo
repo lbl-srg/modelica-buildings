@@ -23,7 +23,7 @@ model PartialCondenserWaterLoop
     "Condenser water return mixer"
     annotation (Placement(transformation(extent={{-60,-60},{-40,-80}})));
 
-  Fluid.Sensors.TemperatureTwoPort TCWSup(
+  Sensors.Temperature              TCWSup(
       redeclare final package Medium = MediumCW)
     "Condenser water supply temperature"
     annotation (Placement(transformation(extent={{-100,-20},{-80,0}})));

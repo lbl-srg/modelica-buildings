@@ -23,4 +23,31 @@ equation
       index=1,
       extent={{-3,6},{-3,6}},
       horizontalAlignment=TextAlignment.Right));
+  annotation (Icon(graphics={                                             Line(
+          points={{-100,0},{-60,0}},
+          color={28,108,200},
+          thickness=1),
+        Line(
+          points={{-60,40},{-60,-40}},
+          color={175,175,175},
+          thickness=0.5),
+        Line(
+          points={{60,40},{60,-40}},
+          color={175,175,175},
+          thickness=0.5),
+        Line(
+          points={{-60,40},{60,-40}},
+          color={175,175,175},
+          thickness=0.5),
+        Line(
+          points={{-60,-40},{60,40}},
+          color={175,175,175},
+          thickness=0.5),
+        Line(
+          points={{-78,0}},
+          color={175,175,175},
+          thickness=0.5),                                                 Line(
+          points={{60,0},{100,0}},
+          color={28,108,200},
+          thickness=1)}));
 end EqualPercentage;

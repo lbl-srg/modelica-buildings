@@ -2,7 +2,8 @@ within Buildings.Templates.ChilledWaterPlant;
 model AirCooledChilledWaterPlant
   extends Buildings.Templates.Interfaces.ChilledWaterPlant(
     final typ=Buildings.Templates.Types.ChilledWaterPlant.AirCooledChiller);
-  extends Buildings.Templates.BaseClasses.ChilledWaterPlant.PartialChilledWaterLoop(
+  extends
+    Buildings.Templates.BaseClasses.ChilledWaterPlant.PartialChilledWaterLoop(
     final is_airCoo=true);
 equation
   connect(secPum.port_b, port_a)
@@ -18,7 +19,7 @@ equation
       extent={{6,3},{6,3}},
       horizontalAlignment=TextAlignment.Left));
   connect(priPum.busCon, chwCon.priPum) annotation (Line(
-      points={{90,0},{90,40.1},{200.1,40.1}},
+      points={{50,0},{50,40.1},{200.1,40.1}},
       color={255,204,51},
       thickness=0.5), Text(
       string="%second",
@@ -34,7 +35,7 @@ equation
       extent={{6,3},{6,3}},
       horizontalAlignment=TextAlignment.Left));
   connect(comLeg.busCon, chwCon.comLeg) annotation (Line(
-      points={{50,-30},{50,40},{124,40},{124,40.1},{200.1,40.1}},
+      points={{70,-40},{70,40},{124,40},{124,40.1},{200.1,40.1}},
       color={255,204,51},
       thickness=0.5), Text(
       string="%second",
@@ -49,8 +50,18 @@ equation
       index=1,
       extent={{6,3},{6,3}},
       horizontalAlignment=TextAlignment.Left));
-  connect(TCHWRet.T, chwCon.inp.TCHWRet) annotation (Line(points={{150,-59},{150,
-          40},{200,40}}, color={0,0,127}), Text(
+  connect(chwCon.TCHWRet, TCHWRet.busCon) annotation (Line(
+      points={{200,40},{150,40},{150,-60}},
+      color={255,204,51},
+      thickness=0.5), Text(
+      string="%first",
+      index=-1,
+      extent={{6,3},{6,3}},
+      horizontalAlignment=TextAlignment.Left));
+  connect(TCHWSup.busCon, chwCon.TCHWSup) annotation (Line(
+      points={{90,0},{90,40},{200,40}},
+      color={255,204,51},
+      thickness=0.5), Text(
       string="%second",
       index=1,
       extent={{6,3},{6,3}},

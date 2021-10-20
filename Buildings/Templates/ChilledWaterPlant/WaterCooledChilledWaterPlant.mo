@@ -22,7 +22,7 @@ equation
       extent={{6,3},{6,3}},
       horizontalAlignment=TextAlignment.Left));
   connect(priPum.busCon, chwCon.priPum) annotation (Line(
-      points={{90,0},{90,40.1},{200.1,40.1}},
+      points={{50,0},{50,40.1},{200.1,40.1}},
       color={255,204,51},
       thickness=0.5), Text(
       string="%second",
@@ -38,7 +38,7 @@ equation
       extent={{6,3},{6,3}},
       horizontalAlignment=TextAlignment.Left));
   connect(comLeg.busCon, chwCon.comLeg) annotation (Line(
-      points={{50,-30},{50,40.1},{200.1,40.1}},
+      points={{70,-40},{70,40.1},{200.1,40.1}},
       color={255,204,51},
       thickness=0.5), Text(
       string="%second",
@@ -49,12 +49,6 @@ equation
       points={{-12,-70},{-20,-70},{-20,40},{90,40},{90,40.1},{200.1,40.1}},
       color={255,204,51},
       thickness=0.5), Text(
-      string="%second",
-      index=1,
-      extent={{6,3},{6,3}},
-      horizontalAlignment=TextAlignment.Left));
-  connect(TCHWRet.T, chwCon.inp.TCHWRet) annotation (Line(points={{150,-59},{150,
-          40},{200,40}}, color={0,0,127}), Text(
       string="%second",
       index=1,
       extent={{6,3},{6,3}},
@@ -81,14 +75,36 @@ equation
       index=-1,
       extent={{-6,3},{-6,3}},
       horizontalAlignment=TextAlignment.Right));
-  connect(TCWSup.T, cwCon.inp.TCWSup) annotation (Line(points={{-90,1},{-90,40},
-          {-200,40}}, color={0,0,127}), Text(
-      string="%second",
-      index=1,
-      extent={{-6,3},{-6,3}},
-      horizontalAlignment=TextAlignment.Right));
   connect(weaBus, cooTow.weaBus) annotation (Line(
       points={{0,100},{0,50},{-165,50},{-165,0}},
+      color={255,204,51},
+      thickness=0.5), Text(
+      string="%first",
+      index=-1,
+      extent={{6,3},{6,3}},
+      horizontalAlignment=TextAlignment.Left));
+  connect(chwCon.TCHWRet, TCHWRet.busCon) annotation (Line(
+      points={{200,40},{150,40},{150,-60}},
+      color={255,204,51},
+      thickness=0.5), Text(
+      string="%first",
+      index=-1,
+      extent={{6,3},{6,3}},
+      horizontalAlignment=TextAlignment.Left));
+  connect(cwCon.TCWSup, TCWSup.busCon) annotation (Line(
+      points={{-200,40},{-90,40},{-90,0}},
+      color={255,204,51},
+      thickness=0.5), Text(
+      string="%first",
+      index=-1,
+      extent={{-6,3},{-6,3}},
+      horizontalAlignment=TextAlignment.Right));
+  connect(cwSupSpl.port_2, chi.port_a1) annotation (Line(points={{-40,-10},{-28,
+          -10},{-28,6},{-8,6},{-8,0}}, color={0,127,255}));
+  connect(chi.port_b1, wse.port_a1)
+    annotation (Line(points={{-8,-20},{-8,-60}}, color={0,127,255}));
+  connect(chwCon.TCHWSup, TCHWSup.busCon) annotation (Line(
+      points={{200,40},{90,40},{90,0}},
       color={255,204,51},
       thickness=0.5), Text(
       string="%first",

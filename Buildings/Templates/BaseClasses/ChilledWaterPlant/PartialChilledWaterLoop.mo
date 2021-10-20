@@ -27,7 +27,7 @@ model PartialChilledWaterLoop
   inner replaceable Buildings.Templates.BaseClasses.Pump.None priPum
     constrainedby Buildings.Templates.Interfaces.Pump(
       redeclare final package Medium = MediumCHW)
-    annotation (Placement(transformation(extent={{80,-20},{100,0}})));
+    annotation (Placement(transformation(extent={{40,-20},{60,0}})));
   inner replaceable Buildings.Templates.BaseClasses.Pump.None secPum
     constrainedby Buildings.Templates.Interfaces.Pump(
       redeclare final package Medium = MediumCHW)
@@ -36,7 +36,7 @@ model PartialChilledWaterLoop
     constrainedby Buildings.Templates.Interfaces.Valve(
       redeclare final package Medium = MediumCHW)
     "Common leg valve or passthrough"
-    annotation (Placement(transformation(extent={{40,-50},{60,-30}})));
+    annotation (Placement(transformation(extent={{60,-60},{80,-40}})));
   Fluid.FixedResistances.Junction comLegMix(
       redeclare package Medium = MediumCHW,
       energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)
@@ -52,20 +52,22 @@ model PartialChilledWaterLoop
         rotation=0,
         origin={130,-10})));
 
-  Fluid.Sensors.TemperatureTwoPort TCHWRet(
+  Sensors.Temperature              TCHWRet(
       redeclare final package Medium = MediumCHW)
     "Chilled water return temperature"
     annotation (Placement(transformation(extent={{140,-80},{160,-60}})));
+  Sensors.Temperature TCHWSup(redeclare final package Medium = MediumCHW)
+    "Chilled water supply temperature"
+    annotation (Placement(transformation(extent={{80,-20},{100,0}})));
 equation
-  connect(priPum.port_b,comLegSpl. port_1)
-    annotation (Line(points={{100,-10},{120,-10}},color={0,127,255}));
   connect(comLegSpl.port_2, secPum.port_a)
     annotation (Line(points={{140,-10},{160,-10}}, color={0,127,255}));
   connect(comLeg.port_b,comLegSpl. port_3)
-    annotation (Line(points={{60,-40},{130,-40},{130,-20}},
+    annotation (Line(points={{80,-50},{130,-50},{130,-20}},
       color={0,127,255}));
   connect(comLegMix.port_3, comLeg.port_a)
-    annotation (Line(points={{14,-40},{40,-40}}, color={0,127,255}));
+    annotation (Line(points={{14,-40},{40,-40},{40,-50},{60,-50}},
+                                                 color={0,127,255}));
   connect(wse.port_b2, comLegMix.port_2)
     annotation (Line(points={{4,-60},{4,-50}}, color={0,127,255}));
   connect(TCHWRet.port_a, wse.port_a2)
@@ -73,8 +75,12 @@ equation
       color={0,127,255}));
   connect(chi.port_a2, comLegMix.port_1)
     annotation (Line(points={{4,-20},{4,-30}}, color={0,127,255}));
-  connect(chi.port_b2, priPum.port_a) annotation (Line(points={{4,0},{4,10},{60,
-          10},{60,-10},{80,-10}}, color={0,127,255}));
+  connect(chi.port_b2, priPum.port_a) annotation (Line(points={{4,0},{4,4},{36,
+          4},{36,-10},{40,-10}},  color={0,127,255}));
+  connect(priPum.port_b, TCHWSup.port_a)
+    annotation (Line(points={{60,-10},{80,-10}}, color={0,127,255}));
+  connect(TCHWSup.port_b, comLegSpl.port_1)
+    annotation (Line(points={{100,-10},{120,-10}}, color={0,127,255}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false,
     extent={{-40,-100},{200,20}})),
     Diagram(

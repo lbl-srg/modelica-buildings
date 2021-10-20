@@ -111,7 +111,11 @@ equation
       index=-1,
       extent={{6,3},{6,3}},
       horizontalAlignment=TextAlignment.Left));
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
+  annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
+                    Bitmap(
+        extent={{-80,-80},{80,80}},
+        fileName="modelica://Buildings/Resources/Images/Templates/BaseClasses/Fans/SingleVariable.svg")}),
+                                                                 Diagram(
         coordinateSystem(preserveAspectRatio=false), graphics={Text(
           extent={{-60,-60},{100,-100}},
           lineColor={238,46,47},
