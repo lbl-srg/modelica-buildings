@@ -3,13 +3,13 @@ record peakCondition
   "Record for the operation condition at peak efficiency"
   extends Modelica.Icons.Record;
   parameter Modelica.SIunits.VolumeFlowRate
-    V_flow_peak(min=0)
+    V_flow_peak(min=0)=0
     "Volume flow rate at peak efficiency";
   parameter Modelica.SIunits.PressureDifference
-    dp_peak(min=0,displayUnit="Pa")
+    dp_peak(min=0,displayUnit="Pa")=0
     "Pressure rise at peak efficiency";
   parameter Modelica.SIunits.Efficiency
-    eta_peak
+    eta_peak=0.7
     "Peak efficiency";
   annotation (
 Documentation(info="<html>

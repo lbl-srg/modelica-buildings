@@ -1,6 +1,7 @@
 within Buildings.Fluid.Movers.BaseClasses.Validation;
 model EulerCorrelation "Simple model to validate the Euler correlation"
   extends Modelica.Icons.Example;
+  import MoverRecord = Buildings.Fluid.Movers.Data.Pumps.Wilo.Stratos50slash1to12;
 
   parameter Integer nOri(min=1)=size(per1.power.V_flow,1)
     "Number of data points for pressure curve"
@@ -8,8 +9,7 @@ model EulerCorrelation "Simple model to validate the Euler correlation"
   parameter Modelica.SIunits.Density rhoCon=1.2
     "Constant density";
 
-  Buildings.Fluid.Movers.Data.Pumps.Wilo.Stratos30slash1to8 per1
-    "Power characteristic";
+  MoverRecord per1 "Power characteristic";
   Buildings.Fluid.Movers.BaseClasses.FlowMachineInterface eff1(
     per=per1,
     rho_default=rhoCon,
@@ -19,8 +19,11 @@ model EulerCorrelation "Simple model to validate the Euler correlation"
     computePowerUsingSimilarityLaws=false)
     "Flow machine interface using power characteristic"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
-  Buildings.Fluid.Movers.Data.Pumps.Wilo.Stratos30slash1to8 per2(
-    powMet=Buildings.Fluid.Movers.BaseClasses.Types.PowerMethod.EulerCorrelation)
+  MoverRecord per2(
+    powMet=Buildings.Fluid.Movers.BaseClasses.Types.PowerMethod.EulerCorrelation,
+    peak=Buildings.Fluid.Movers.BaseClasses.Euler.findPeakCondition(
+      pressure=per2.pressure,
+      power=per2.power))
     "Peak condition";
   Buildings.Fluid.Movers.BaseClasses.FlowMachineInterface eff2(
     per=per2,
@@ -37,11 +40,14 @@ model EulerCorrelation "Simple model to validate the Euler correlation"
   Modelica.Blocks.Sources.Constant rho(k=rhoCon) "Density"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
   Modelica.Blocks.Sources.TimeTable m_flow(
-    table=[linspace(0,1,nOri),per1.power.V_flow*rhoCon])
+    table=[{0,1},{per1.power.V_flow[1]*rhoCon,per1.power.V_flow[end]*rhoCon}])
     "mass flow rate"
     annotation (Placement(transformation(extent={{-60,-46},{-40,-26}})));
 
+  Real etaDif "Comparing eta values from powerCharacteristic and eulerCorrelation";
+
 equation
+  etaDif=(eff2.eta-eff1.eta)/eff1.eta;
   connect(eff1.rho, rho.y)
     annotation (Line(points={{-12,-6},{-26,-6},{-26,0},{-39,0}},
                                                color={0,0,127}));
