@@ -1,4 +1,4 @@
-within Buildings.Fluid.Boilers.Examples;
+within Buildings.Fluid.Boilers.Validation;
 model BoilerTable
  "Boilers with efficiency curves specified by look-up table"
  extends Modelica.Icons.Example;
@@ -136,7 +136,7 @@ equation
           50},{-37,50}},      color={0,0,127}));
   connect(boi2.port_a, sou.ports[4]) annotation (Line(points={{10,-6},{-18,-6},{
           -18,-9},{-44,-9}}, color={0,127,255}));
-  annotation (__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Boilers/Examples/BoilerTable.mos"
+  annotation (__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Boilers/Validation/BoilerTable.mos"
         "Simulate and plot"),
     experiment(Tolerance=1e-6, StopTime=3600),
     Documentation(info="<html>
