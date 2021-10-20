@@ -15,12 +15,12 @@ protected
   Real rIn "The root within the target interval";
 
   // Within the target interval
-  Real x0 "Starting abscissa";
-  Real x1 "Ending abscissa";
-  Real y0 "Starting ordinate";
-  Real y1 "Ending ordinate";
-  Real d0 "Starting tangent";
-  Real d1 "Ending tangent";
+  Real x1 "Lower abscissa value";
+  Real x2 "Higher abscissa value";
+  Real y1 "Lower ordinate value";
+  Real y2 "Higher ordinate value";
+  Real y1d "Lower gradient";
+  Real y2d "Higher gradient";
 
 algorithm
 
@@ -34,12 +34,12 @@ algorithm
       //Identify the target interval at sign change
       //flag:=true;
       cnt := cnt+1;
-      x0 :=x[i];
-      x1 :=x[i + 1];
-      y0 :=y[i];
-      y1 :=y[i + 1];
-      d0 :=d[i]*(x1-x0);
-      d1 :=d[i + 1]*(x1-x0);
+      x1 :=x[i];
+      x2 :=x[i + 1];
+      y1 :=y[i];
+      y2 :=y[i + 1];
+      y1d :=d[i]*(x2-x1);
+      y2d :=d[i + 1]*(x2-x1);
     end if;
   end for;
   //  assert(flag,"Mode not found");
@@ -47,14 +47,14 @@ algorithm
 
   //Root of the derivative mapped to [0,1]
   r :=Modelica.Math.Vectors.Utilities.roots(
-    {6*y0 + 3*d0 - 6*y1 + 3*d1,-6*y0 - 4*d0 + 6*y1 - 2*d1,d0});
+    {6*y1 + 3*y1d - 6*y2 + 3*y2d,-6*y1 - 4*y1d + 6*y2 - 2*y2d,y1d});
   //With unimodality, exactly one of the two roots will be in (0,1)
   if (r[1,1]>0) and (r[1,1]<1) then
     rIn :=r[1,1];
   else
     rIn :=r[2,1];
   end if;
-  rIn := rIn * (x1-x0)+x0; //Mapping the root back to [x0,x1]
+  rIn := rIn * (x2-x1)+x1; //Mapping the root back to [x1,x2]
   m[1]:=rIn;
   m[2]:=Buildings.Utilities.Math.Functions.smoothInterpolation(
     x=rIn,xSup=x,ySup=y,ensureMonotonicity=false);
