@@ -89,6 +89,5 @@ First implementation. This is for
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2668\">#2668</a>.
 </li>
 </ul>
-</html>"),
-experiment(Tolerance=1e-6, StopTime=1.0));
+</html>"));
 end EulerMethod;
