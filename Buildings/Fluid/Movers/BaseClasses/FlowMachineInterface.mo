@@ -652,10 +652,10 @@ is computed based on the actual power consumption and the flow work.
 <li>
 If <code>per.use_eulerNumber = true</code>, 
 then the operation condition at peak efficiency
-is used in the Euler correlation 
-(<a href=\"Modelica://Buildings.Fluid.Movers.BaseClasses.Euler.correlation\">
-<code>Buildings.Fluid.Movers.BaseClasses.Euler.correlation</code></a>)
-to compute the efficiency and then the power.
+is used to compute the efficiency and then the power 
+by evaluating 
+<a href=\"Modelica://Buildings.Fluid.Movers.BaseClasses.Euler.correlation\">
+Buildings.Fluid.Movers.BaseClasses.Euler.correlation</a>.
 </li>
 <li>
 Else, the data points for
@@ -666,9 +666,9 @@ but is used as the fallback option.
 </li>
 </ul>
 <p>
-These <code>use_</code> switches are handled by
+These <code>use_</code> switches are handled by the enumeration
 <a href=\"Modelica://Buildings.Fluid.Movers.BaseClasses.Types.PowerMethod\">
-<code>Buildings.Fluid.Movers.BaseClasses.Types.PowerMethod</code></a>.
+Buildings.Fluid.Movers.BaseClasses.Types.PowerMethod</a>.
 </p>
 <p>
 For exceptions to this general rule, check the
@@ -700,7 +700,7 @@ revisions="<html>
 <ul>
 <li>
 October 18, 2021, by Hongxiang Fu:<br/>
-Added a new <code>if</code> branch in power calculation
+Added a new <code>elseif</code> branch in power calculation
 to support the implementation of 
 <code><a href=\"modelica://Buildings.Fluid.Movers.BaseClasses.Euler\">
 Buildings.Fluid.Movers.BaseClasses.Euler</a></code>.

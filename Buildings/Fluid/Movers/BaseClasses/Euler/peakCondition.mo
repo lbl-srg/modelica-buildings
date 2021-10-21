@@ -14,10 +14,7 @@ record peakCondition
   annotation (
 Documentation(info="<html>
 <p>
-Data record for performance data that describe the condition at peak efficiency.
-The default values are taken from 
-<a href=\"Modelica://Buildings.Fluid.Movers.Data.Pumps.Wilo.CronolineIL80slash220dash4slash4\">
-<code>Buildings.Fluid.Movers.Data.Pumps.Wilo.CronolineIL80slash220dash4slash4</code></a>.
+Record for performance data that describe the operation at peak efficiency.
 </p>
 </html>",
 revisions="<html>

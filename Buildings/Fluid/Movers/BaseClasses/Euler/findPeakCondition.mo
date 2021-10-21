@@ -28,8 +28,8 @@ algorithm
   annotation(smoothOrder=1,
               Documentation(info="<html>
 <p>
-This function finds the flow rate <i>V<sub>flow</sub></i>,
-the pressure rise <i>dp</i>, and the efficiency <i>&eta;</i>
+This function finds the flow rate <i>V&#775;</i>,
+the pressure rise <i>&Delta;p</i>, and the efficiency <i>&eta;</i>
 on the mover curve provided via 
 <code><a href=\"modelica://Buildings.Fluid.Movers.BaseClasses.Characteristics.power\">
 Buildings.Fluid.Movers.BaseClasses.Characteristics.power</a></code> and 

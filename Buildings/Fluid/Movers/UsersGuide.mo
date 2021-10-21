@@ -460,41 +460,83 @@ control volume. Hence,
 <i>Q</i> is the heat released by the motor.
 </p>
 <p>
+There are three paths of computation. They are selected by the enumeration
+<a href=\"Modelica://Buildings.Fluid.Movers.BaseClasses.Types.PowerMethod\">
+Buildings.Fluid.Movers.BaseClasses.Types.PowerMethod</a>
+which handles three <code>use_</code> switches.
+</p>
+<ul>
+<li>
 If <code>per.use_powerCharacteristic=true</code>,
-then a set of data points for the power <i>P<sub>ele</sub></i> for different
+then a set of data points for the power <i>P<sub>ele</sub></i> versus different
 volume flow rates at full speed needs to be provided by the user.
 Using the flow work <i>W<sub>flo</sub></i> and the electrical power input
 <i>P<sub>ele</sub></i>, the total efficiency is computed as
-</p>
+<br/>
 <p align=\"center\" style=\"font-style:italic;\">
   &eta; = W<sub>flo</sub> &frasl; P<sub>ele</sub>, <br/>
 </p>
-<p>
-and the two efficiencies
+and the two other efficiencies
 <i>&eta;<sub>hyd</sub></i>
 and <i>&eta;<sub>mot</sub></i> are computed as
-</p>
+<br/>
 <p align=\"center\" style=\"font-style:italic;\">
   &eta;<sub>hyd</sub> = 1,<br/>
   &radic;&eta;<sub>mot</sub> = &eta;.
 </p>
-<p>
-However, if <code>per.use_powerCharacteristic=false</code>, then
+</li>
+<li>
+If <code>per.use_eulerNumber=true</code>,
+the model finds the total efficiency <i>&eta;</i>
+by evaluating the following correlation:
+<br/>
+<p align=\"center\">
+<img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Fluid/Movers/BaseClasses/Euler/eulerCorrelationEquation.svg\"/>
+<br/>
+</p>
+where <i>y=&eta; &frasl; &eta;<sub>p</sub></i>,
+<i>x=log10(Eu &frasl;E u<sub>p</sub>)</i>, 
+with the subscript <i>p</i> denoting the condition where 
+the mover is operating at peak efficiency. 
+The modified dimensionless Euler number is defined as
+<br/>
+<p align=\"center\">
+<i>Eu=(&Delta;p&sdot;D<sup>4</sup>) &frasl; (&rho;&sdot;V&#775;<sup>2</sup>)</i><br/>
+</p>
+The user needs to provide the flow rate, the pressure rise,
+and the efficiency at the operation point where 
+its efficiency is at its maximum. For more information, see
+<code><a href=\"Modelica://Buildings.Fluid.Movers.BaseClasses.Euler.correlation\">
+Buildings.Fluid.Movers.BaseClasses.Euler.correlation</a></code>
+and <a href=\"https://energyplus.net/assets/nrel_custom/pdfs/pdfs_v9.6.0/EngineeringReference.pdf\">
+EnergyPlus 9.6.0 Engineering Reference</a>
+chapter 16.4 equations 16.209 through 16.218.
+<br/>
+After the total efficiency is found, 
+the power and other two efficiencies are computed as
+<p align=\"center\" style=\"font-style:italic;\">
+  P<sub>ele</sub> = W<sub>flo</sub> &frasl; &eta;<br/>
+  &eta;<sub>hyd</sub> = 1<br/>
+  &eta;<sub>mot</sub> = &eta;
+</p>
+<br/>
+</li>
+<li>
+Finally, if <code>per.use_motorEfficiency=true</code>, then
 performance data for
 <i>&eta;<sub>hyd</sub></i> and
  <i>&eta;<sub>mot</sub></i> need to be provided by the user, and hence
 the model computes
-</p>
+<br/>
 <p align=\"center\" style=\"font-style:italic;\">
   &eta; = &eta;<sub>hyd</sub> &nbsp; &eta;<sub>mot</sub><br/>
   P<sub>ele</sub> = W<sub>flo</sub> &frasl; &eta;.
 </p>
-
-<p>
 The efficiency data for the motor are a list of points
 <i>V&#775;</i> and <i>&eta;<sub>mot</sub></i>.
-</p>
-
+<br/>
+</li>
+</ul>
 <h5>Fluid volume of the component</h5>
 <p>
 All models can be configured to have a fluid volume at the low-pressure side.

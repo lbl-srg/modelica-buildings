@@ -22,22 +22,22 @@ algorithm
 This function computes the following correlation:
 </p>
 <p align=\"center\">
-<img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Fluid/Movers/UsersGuide/eulerCorrelationEquation.svg\"/>
+<img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Fluid/Movers/BaseClasses/Euler/eulerCorrelationEquation.svg\"/>
 </p>
 <p>
-where <i>y=&eta;/&eta;<sub>p</sub></i>,
-<i>x=log10(Eu/Eu<sub>p</sub>)</i>, 
+where <i>y=&eta; &frasl; &eta;<sub>p</sub></i>,
+<i>x=log10(Eu &frasl; Eu<sub>p</sub>)</i>, 
 with the subscript <i>p</i> denoting the condition where 
 the mover is operating at peak efficiency, and 
 </p>
 <p align=\"center\">
-<i>Z<sub>1</sub>=(x-a)/b</i>
+<i>Z<sub>1</sub>=(x-a) &frasl; b</i>
 </p>
 <p align=\"center\">
-<i>Z<sub>2</sub>=(e<sup>c&sdot;x</sup>&sdot;d&sdot;x-a)/b</i>
+<i>Z<sub>2</sub>=(e<sup>c&sdot;x</sup>&sdot;d&sdot;x-a) &frasl; b</i>
 </p>
 <p align=\"center\">
-<i>Z<sub>3</sub>=-a/b</i>
+<i>Z<sub>3</sub>=-a &frasl; b</i>
 </p>
 <p align=\"center\">
 <i>a=-2.732094</i>
@@ -52,13 +52,19 @@ the mover is operating at peak efficiency, and
 <i>d=5.267518</i>
 </p>
 <p>
+This correlation has the following shape
+</p>
+<p align=\"center\">
+<img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Fluid/Movers/BaseClasses/Euler/EulerCurve.png\"/>
+</p>
+<p>
 The modified dimensionless Euler number is defined as
 </p>
 <p align=\"center\">
-<i>Eu=(&Delta;P&sdot;D<sup>4</sup>)/(&rho;&sdot;V&#775;<sup>2</sup>)</i>
+<i>Eu=(&Delta;p&sdot;D<sup>4</sup>) &frasl; (&rho;&sdot;V&#775;<sup>2</sup>)</i>
 </p>
 <p>
-where <i>&Delta;P</i> is the fan pressure rise in Pa,
+where <i>&Delta;p</i> is the fan pressure rise in Pa,
 <i>D</i> is the fan wheel outer diameter in m, 
 <i>&rho;</i> is the inlet air density in kg/m<sup>3</sup>,
 and <i>V&#775;</i> is the fan flow in m<sup>3</sup>/s.
@@ -69,8 +75,8 @@ and <i>&rho;</i> is approximately constant,
 the Euler number ratio can be simplified to
 </p>
 <p align=\"center\">
-<i>Eu/Eu<sub>p</sub>=(&Delta;P&sdot;V&#775;<sub>p</sub><sup>2</sup>)
-/(&Delta;P<sub>p</sub>&sdot;V&#775;<sup>2</sup>)</i>
+<i>Eu/Eu<sub>p</sub>=(&Delta;p&sdot;V&#775;<sub>p</sub><sup>2</sup>)
+&frasl;(&Delta;p<sub>p</sub>&sdot;V&#775;<sup>2</sup>)</i>
 </p>
 <p>
 Although this ratio could be further simplified

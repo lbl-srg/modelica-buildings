@@ -3,8 +3,9 @@ package Euler "Functions for Euler correlation"
 
   annotation (Documentation(info="<html>
 <p>
-This package implements the Euler correlation 
-and records for parameter that can be used with it.
+This package implements a power computation method
+using the Euler number and its correlation 
+and the records for parameter that can be used with it.
 </p>
 <p>
 See the
