@@ -88,13 +88,7 @@ equation
         Text(
           extent={{-150,150},{150,110}},
           textString="%name",
-          lineColor={0,0,255}),
-        Text(
-          extent={{226,60},{106,10}},
-          lineColor={0,0,0},
-          textString=DynamicSelect("",String(y,
-            leftJustified=false,
-            significantDigits=3)))}),
+          lineColor={0,0,255})}),
     Documentation(
       info="<html>
 <p>
@@ -122,6 +116,10 @@ at <i>t=0</i>.
 </html>",
       revisions="<html>
 <ul>
+<li>
+October 21, 2021, by Michael Wetter:<br/>
+Removed writing output value in icon (as it is an array of values).
+</li>
 <li>
 November 12, 2020, by Michael Wetter:<br/>
 Reformulated to remove dependency to <code>Modelica.SIunits</code>.<br/>
