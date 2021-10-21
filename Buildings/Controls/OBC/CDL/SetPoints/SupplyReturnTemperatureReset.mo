@@ -136,10 +136,9 @@ First implementation.
           lineColor={0,0,127},
           textString="TOut"),
         Text(
-          visible=use_TRoo_in,
           extent={{-152,-4},{-102,-54}},
           lineColor={0,0,127},
-          textString="TRoo"),
+          textString="TSetZon"),
         Text(
           extent={{40,86},{90,36}},
           lineColor={0,0,127},

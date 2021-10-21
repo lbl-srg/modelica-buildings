@@ -224,6 +224,10 @@ of <i>0.5</i> seconds outputs
 revisions="<html>
 <ul>
 <li>
+October 21, 2021, by Michael Wetter:<br/>
+Removed writing output value in icon (as it is an array of values).
+</li>
+<li>
 March 13, 2020, by Michael Wetter:<br/>
 Corrected implementation so that the table also works if the simulation
 starts at a negative time.<br/>
@@ -273,9 +277,6 @@ Initial CDL implementation.
       extent={{-48.0,-50.0},{2.0,70.0}}),
     Line(points={{-48.0,-50.0},{-48.0,70.0},{52.0,70.0},{52.0,-50.0},
         {-48.0,-50.0},{-48.0,-20.0},{52.0,-20.0},{52.0,10.0},{-48.0,10.0},
-        {-48.0,40.0},{52.0,40.0},{52.0,70.0},{2.0,70.0},{2.0,-51.0}}),
-        Text(
-          extent={{226,60},{106,10}},
-          lineColor={0,0,0},
-          textString=DynamicSelect("", if (nout==1) then String(y[1], leftJustified=false, significantDigits=3) else ""))}));
+        {-48.0,40.0},{52.0,40.0},{52.0,70.0},{2.0,70.0},{2.0,-51.0}})
+    }));
 end TimeTable;
