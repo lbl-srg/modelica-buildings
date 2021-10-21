@@ -1,15 +1,20 @@
 within Buildings.Fluid.Movers.BaseClasses.Validation;
 model EulerCorrelation "Simple model to validate the Euler correlation"
   extends Modelica.Icons.Example;
-  import MoverRecord = Buildings.Fluid.Movers.Data.Pumps.Wilo.Stratos50slash1to12;
+  import MoverRecord = Buildings.Fluid.Movers.Data.Pumps.Wilo.Stratos30slash1to8;
 
   parameter Integer nOri(min=1)=size(per1.power.V_flow,1)
     "Number of data points for pressure curve"
     annotation(Evaluate=true);
   parameter Modelica.SIunits.Density rhoCon=1.2
     "Constant density";
+  parameter Buildings.Fluid.Movers.BaseClasses.Characteristics.efficiencyParameters
+    efficiency(
+    V_flow=per1.pressure.V_flow,
+    eta=per1.pressure.V_flow.*per1.pressure.dp./per1.power.P)
+    "Efficiency vs. flow rate";
 
-  MoverRecord per1 "Power characteristic";
+  MoverRecord per1 "Mover curves with flow rate, pressure rise, and power";
   Buildings.Fluid.Movers.BaseClasses.FlowMachineInterface eff1(
     per=per1,
     rho_default=rhoCon,
@@ -44,10 +49,16 @@ model EulerCorrelation "Simple model to validate the Euler correlation"
     "mass flow rate"
     annotation (Placement(transformation(extent={{-60,-46},{-40,-26}})));
 
-  Real etaDif "Comparing eta values from powerCharacteristic and eulerCorrelation";
+  Modelica.SIunits.VolumeFlowRate V_flow "Volumetric flow rate";
+  Modelica.SIunits.Efficiency etaIpo "Efficiency values directly interpolated";
 
 equation
-  etaDif=(eff2.eta-eff1.eta)/eff1.eta;
+  V_flow = m_flow.y/rhoCon;
+  etaIpo=Buildings.Utilities.Math.Functions.smoothInterpolation(
+    x=V_flow,
+    xSup=efficiency.V_flow,
+    ySup=efficiency.eta,
+    ensureMonotonicity=false);
   connect(eff1.rho, rho.y)
     annotation (Line(points={{-12,-6},{-26,-6},{-26,0},{-39,0}},
                                                color={0,0,127}));
@@ -61,16 +72,20 @@ equation
           -6},{-18,-40},{-12,-40}}, color={0,0,127}));
   connect(m_flow.y, eff2.m_flow) annotation (Line(points={{-39,-36},{-22,-36},{-22,
           -30},{-12,-30}}, color={0,0,127}));
-  annotation (
-    Documentation(info="<html>
+  annotation (experiment(Tolerance=1e-6, StopTime=1.0),
+__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Movers/BaseClasses/Validation/EulerCorrelation.mos"
+ "Simulate and plot"),
+Documentation(
+info="<html>
 <p>
-Simple validation model for the flow machine interface model.
+Document pending.
 </p>
 </html>", revisions="<html>
 <ul>
 <li>
-February 19, 2016, by Michael Wetter:<br/>
-First implementation.
+October 21, 2021, by Hongxiang Fu:<br/>
+First implementation. This is for 
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2668\">#2668</a>.
 </li>
 </ul>
 </html>"),
