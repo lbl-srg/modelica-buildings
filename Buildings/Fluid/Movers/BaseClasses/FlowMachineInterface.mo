@@ -513,9 +513,9 @@ equation
     // and infinite derivative.
     etaHyd = 1;
     etaMot = eta;
-  elseif per.use_eulerCorrelation then
+  elseif per.use_eulerNumber then
     eta = per.peak.eta_peak
-          * Buildings.Fluid.Movers.BaseClasses.Euler.eulerCorrelation(
+          * Buildings.Fluid.Movers.BaseClasses.Euler.correlation(
           x=log10((dp_internal * per.peak.V_flow_peak^2)
             /(per.peak.dp_peak * V_flow^2)));
     PEle = WFlo / Buildings.Utilities.Math.Functions.smoothMax(x1=eta, x2=1E-5, deltaX=1E-6);
@@ -650,11 +650,11 @@ is used to determine the power consumption, and then the efficiency
 is computed based on the actual power consumption and the flow work.
 </li>
 <li>
-If <code>per.use_eulerCorrelation = true</code>, 
+If <code>per.use_eulerNumber = true</code>, 
 then the operation condition at peak efficiency
 is used in the Euler correlation 
-(<a href=\"Modelica://Buildings.Fluid.Movers.BaseClasses.Euler.eulerCorrelation\">
-<code>Buildings.Fluid.Movers.BaseClasses.Euler.eulerCorrelation</code></a>)
+(<a href=\"Modelica://Buildings.Fluid.Movers.BaseClasses.Euler.correlation\">
+<code>Buildings.Fluid.Movers.BaseClasses.Euler.correlation</code></a>)
 to compute the efficiency and then the power.
 </li>
 <li>

@@ -9,7 +9,7 @@ package Types "Package with type definitions"
     "Enumeration to choose what variable is prescribed";
   type PowerMethod = enumeration(
       PowerCharacteristic "User provides a dataset for power",
-      EulerCorrelation "User provides peak operation point",
+      EulerNumber "User provides peak operation point",
       MotorEfficiency "User provides motor efficiency")
     "Enumeration to choose the method for power computation";
  annotation (preferredView="info", Documentation(info="<html>

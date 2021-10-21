@@ -1,5 +1,5 @@
 within Buildings.Fluid.Movers.BaseClasses.Euler;
-function eulerCorrelation
+function correlation
   "Correlation of static efficiency ratio vs log of Euler number ratio"
   extends Modelica.Icons.Function;
   input Real x "log10(Eu/Eu_peak)";
@@ -97,4 +97,4 @@ First implementation. This is for
 </li>
 </ul>
 </html>"));
-end eulerCorrelation;
+end correlation;

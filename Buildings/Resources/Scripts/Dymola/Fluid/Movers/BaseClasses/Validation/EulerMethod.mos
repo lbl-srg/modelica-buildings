@@ -1,7 +1,7 @@
-simulateModel("Buildings.Fluid.Movers.BaseClasses.Validation.EulerCorrelation",
+simulateModel("Buildings.Fluid.Movers.BaseClasses.Validation.EulerMethod",
   method="Dassl",
   tolerance=1e-06, 
-  resultFile="EulerCorrelation");
+  resultFile="EulerMethod");
 // Plot commands
 createPlot(id=1, 
   position={33, 5, 610, 541}, 

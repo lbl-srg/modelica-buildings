@@ -20,8 +20,8 @@ record Generic "Generic data record for movers"
   final parameter Boolean use_powerCharacteristic= (powMet ==
     Buildings.Fluid.Movers.BaseClasses.Types.PowerMethod.PowerCharacteristic)
     "Use power data";
-  final parameter Boolean use_eulerCorrelation= (powMet ==
-    Buildings.Fluid.Movers.BaseClasses.Types.PowerMethod.EulerCorrelation)
+  final parameter Boolean use_eulerNumber= (powMet ==
+    Buildings.Fluid.Movers.BaseClasses.Types.PowerMethod.EulerNumber)
     "Use peak efficiency condition";
   final parameter Boolean use_motorEfficiency= (powMet ==
     Buildings.Fluid.Movers.BaseClasses.Types.PowerMethod.MotorEfficiency)

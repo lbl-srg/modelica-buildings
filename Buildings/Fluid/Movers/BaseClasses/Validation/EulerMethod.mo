@@ -1,5 +1,6 @@
 within Buildings.Fluid.Movers.BaseClasses.Validation;
-model EulerCorrelation "Simple model to validate the Euler correlation"
+model EulerMethod
+  "Simple model to validate the power computation method using the Euler number"
   extends Modelica.Icons.Example;
   import MoverRecord = Buildings.Fluid.Movers.Data.Pumps.Wilo.Stratos30slash1to8;
 
@@ -25,7 +26,7 @@ model EulerCorrelation "Simple model to validate the Euler correlation"
     "Flow machine interface using power characteristic"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   MoverRecord per2(
-    powMet=Buildings.Fluid.Movers.BaseClasses.Types.PowerMethod.EulerCorrelation,
+    powMet=Buildings.Fluid.Movers.BaseClasses.Types.PowerMethod.EulerNumber,
     peak=Buildings.Fluid.Movers.BaseClasses.Euler.findPeakCondition(
       pressure=per2.pressure,
       power=per2.power))
@@ -73,7 +74,7 @@ equation
   connect(m_flow.y, eff2.m_flow) annotation (Line(points={{-39,-36},{-22,-36},{-22,
           -30},{-12,-30}}, color={0,0,127}));
   annotation (experiment(Tolerance=1e-6, StopTime=1.0),
-__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Movers/BaseClasses/Validation/EulerCorrelation.mos"
+__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Movers/BaseClasses/Validation/EulerMethod.mos"
  "Simulate and plot"),
 Documentation(
 info="<html>
@@ -90,4 +91,4 @@ First implementation. This is for
 </ul>
 </html>"),
 experiment(Tolerance=1e-6, StopTime=1.0));
-end EulerCorrelation;
+end EulerMethod;
