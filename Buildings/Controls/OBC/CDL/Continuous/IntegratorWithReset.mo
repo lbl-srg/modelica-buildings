@@ -46,7 +46,6 @@ equation
           extent={{-88,-94},{212,-54}},
           lineColor={0,0,0},
           textString="y_reset_in",
-          visible=(reset == Types.Reset.Input),
           horizontalAlignment=TextAlignment.Left),
         Bitmap(
           extent={{-54,-50},{60,50}},
@@ -106,6 +105,10 @@ has been copied into this model rather than extended.
 </html>",
       revisions="<html>
 <ul>
+<li>
+October 21, 2021, by Michael Wetter:<br/>
+Removed errorneous <code>visible</code> attribute in icon.
+</li>
 <li>
 August 3, 2020, by Jianjun:<br/>
 Fixed the input <code>y_reset_in</code>.
