@@ -1,13 +1,13 @@
-within Buildings.Templates.BaseClasses;
-function getReal
+within Buildings.Templates.Components;
+function getArraySize1D
   input String varName "Key";
   input String fileName "File name";
-  output Real var "Variable value";
+  output Integer n "Number of elements in array";
 protected
   ExternData.Types.ExternJSONFile extObj=
    ExternData.Types.ExternJSONFile(fileName, verboseRead=true)
    "External file object";
 algorithm
-  var := ExternData.Functions.JSON.getReal(varName, extObj);
+  n := ExternData.Functions.JSON.getArraySize1D(varName, extObj);
 annotation(__Dymola_translate=true);
-end getReal;
+end getArraySize1D;

@@ -4,7 +4,7 @@ model FanSupplyDrawMultipleVariable
     nZon=1,
     nGro=1,
     final id="VAV_1",
-    redeclare replaceable Buildings.Templates.BaseClasses.Fans.MultipleVariable
+    redeclare replaceable Buildings.Templates.Components.Fans.MultipleVariable
       fanSupDra(nFan=2));
 
   annotation (

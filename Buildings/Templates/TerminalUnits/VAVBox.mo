@@ -23,22 +23,18 @@ model VAVBox "VAV terminal unit"
     annotation (Placement(transformation(extent={{10,-290},{30,-270}}),
       iconTransformation(extent={{10,-208},{30,-188}})));
 
-  inner replaceable Templates.BaseClasses.Coils.None coiReh
-    constrainedby Templates.Interfaces.Coil(
-      redeclare final package MediumAir = MediumAir,
-      redeclare final package MediumSou = MediumHea)
-    "Reheat coil"
-    annotation (
-      choices(
-        choice(redeclare Templates.BaseClasses.Coils.None coiReh "No coil"),
-        choice(redeclare Templates.BaseClasses.Coils.WaterBasedHeating coiReh "Water-based")),
-      Dialog(group="Reheat coil"),
-      Placement(transformation(extent={{-10,-210},{10,-190}})));
+  inner replaceable Components.Coils.None coiReh constrainedby
+    Templates.Interfaces.Coil(redeclare final package MediumAir = MediumAir,
+      redeclare final package MediumSou = MediumHea) "Reheat coil" annotation (
+    choices(choice(redeclare Templates.BaseClasses.Coils.None coiReh "No coil"),
+        choice(redeclare Templates.BaseClasses.Coils.WaterBasedHeating coiReh
+          "Water-based")),
+    Dialog(group="Reheat coil"),
+    Placement(transformation(extent={{-10,-210},{10,-190}})));
 
-  inner replaceable
-    .Buildings.Templates.BaseClasses.Dampers.PressureIndependent damVAV
-    constrainedby Buildings.Templates.Interfaces.Damper(redeclare final package
-      Medium = MediumAir, final loc=Templates.Types.Location.Terminal)
+  inner replaceable .Buildings.Templates.Components.Dampers.PressureIndependent
+    damVAV constrainedby Buildings.Templates.Interfaces.Damper(redeclare final
+      package Medium = MediumAir, final loc=Templates.Types.Location.Terminal)
     "VAV damper" annotation (Dialog(group="VAV damper"), Placement(
         transformation(
         extent={{-10,-10},{10,10}},
@@ -53,7 +49,7 @@ model VAVBox "VAV terminal unit"
       Dialog(group="Controller"),
       Placement(transformation(extent={{-10,90},{10,110}})));
 
-  .Buildings.Templates.BaseClasses.Sensors.Temperature TDis(
+  .Buildings.Templates.Components.Sensors.Temperature TDis(
     redeclare final package Medium = MediumAir,
     final have_sen=conTer.typ == Types.Controller.Guideline36,
     final loc=Templates.Types.Location.Terminal)

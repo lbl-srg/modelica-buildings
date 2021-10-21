@@ -1,4 +1,4 @@
-within Buildings.Templates.BaseClasses;
+within Buildings.Templates.Components;
 package Fans
   extends Modelica.Icons.Package;
 

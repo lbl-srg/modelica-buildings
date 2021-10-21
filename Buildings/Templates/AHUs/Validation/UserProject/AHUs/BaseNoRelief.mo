@@ -2,7 +2,7 @@ within Buildings.Templates.AHUs.Validation.UserProject.AHUs;
 model BaseNoRelief
   extends VAVMultiZone(
     redeclare
-      .Buildings.Templates.AHUs.BaseClasses.OutdoorReliefReturnSection.NoRelief
+      .Buildings.Templates.AHUs.Components.OutdoorReliefReturnSection.NoRelief
       secOutRel,
     final id="VAV_1",
     nZon=1,

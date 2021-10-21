@@ -40,7 +40,7 @@ package OutdoorReliefReturnSection
       Dialog(group="Exhaust/relief/return section"),
       Placement(transformation(extent={{-18,66},{18,94}})));
 
-    replaceable Buildings.Templates.BaseClasses.Dampers.Modulated damRet(
+    replaceable Buildings.Templates.Components.Dampers.Modulated damRet(
         redeclare final package Medium = MediumAir, final loc=Templates.Types.Location.Return)
       "Return air damper" annotation (Placement(transformation(
           extent={{-10,-10},{10,10}},
@@ -180,7 +180,7 @@ package OutdoorReliefReturnSection
       "Relief/return air section" annotation (Dialog(group="Exhaust/relief/return section"),
         Placement(transformation(extent={{-18,66},{18,94}})));
 
-    replaceable Buildings.Templates.BaseClasses.Dampers.Modulated damRet(
+    replaceable Buildings.Templates.Components.Dampers.Modulated damRet(
         redeclare final package Medium = MediumAir, final loc=Templates.Types.Location.Return)
       "Return air damper" annotation (Placement(transformation(
           extent={{-10,-10},{10,10}},

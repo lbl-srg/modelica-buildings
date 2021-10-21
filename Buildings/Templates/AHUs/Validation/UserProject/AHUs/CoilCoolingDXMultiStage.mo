@@ -4,9 +4,9 @@ model CoilCoolingDXMultiStage
     final id="VAV_1",
     nZon=1,
     nGro=1,
-    redeclare
-      Buildings.Templates.BaseClasses.Coils.DirectExpansion coiCoo(redeclare replaceable
-        Buildings.Templates.BaseClasses.Coils.HeatExchangers.DXMultiStage hex));
+    redeclare Buildings.Templates.Components.Coils.DirectExpansion coiCoo(
+        redeclare replaceable
+        Buildings.Templates.Components.Coils.HeatExchangers.DXMultiStage hex));
 
   annotation (
     defaultComponentName="ahu");

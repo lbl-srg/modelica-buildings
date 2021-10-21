@@ -9,26 +9,26 @@ package OutdoorSection
       final typDamOut=damOut.typ,
       final typDamOutMin=damOutMin.typ);
 
-     Buildings.Templates.BaseClasses.Dampers.Modulated damOut(redeclare final
+    Buildings.Templates.Components.Dampers.Modulated damOut(redeclare final
         package Medium = MediumAir, final loc=Buildings.Templates.Types.Location.OutdoorAir)
       "Outdoor air damper" annotation (Placement(transformation(
           extent={{-10,-10},{10,10}},
           rotation=0,
           origin={0,0})));
 
-    Buildings.Templates.BaseClasses.Dampers.Modulated damOutMin(redeclare
-        final package Medium = MediumAir, final loc=Buildings.Templates.Types.Location.MinimumOutdoorAir)
+    Buildings.Templates.Components.Dampers.Modulated damOutMin(redeclare final
+        package Medium = MediumAir, final loc=Buildings.Templates.Types.Location.MinimumOutdoorAir)
       "Minimum outdoor air damper" annotation (Placement(transformation(
           extent={{-10,-10},{10,10}},
           rotation=0,
           origin={30,60})));
 
-    Buildings.Templates.BaseClasses.Sensors.Temperature TOutMin(redeclare
-        final package Medium = MediumAir, final loc=Buildings.Templates.Types.Location.MinimumOutdoorAir)
+    Buildings.Templates.Components.Sensors.Temperature TOutMin(redeclare final
+        package Medium = MediumAir, final loc=Buildings.Templates.Types.Location.MinimumOutdoorAir)
       "Minimum outdoor air temperature sensor"
       annotation (Placement(transformation(extent={{50,50},{70,70}})));
 
-    Buildings.Templates.BaseClasses.Sensors.VolumeFlowRate VOutMin_flow(
+    Buildings.Templates.Components.Sensors.VolumeFlowRate VOutMin_flow(
         redeclare final package Medium = MediumAir, final loc=Buildings.Templates.Types.Location.MinimumOutdoorAir)
       "Minimum outdoor air volume flow rate sensor"
       annotation (Placement(transformation(extent={{80,50},{100,70}})));
@@ -78,26 +78,26 @@ of AFMS.
       final typDamOut=damOut.typ,
       final typDamOutMin=damOutMin.typ);
 
-     Buildings.Templates.BaseClasses.Dampers.Modulated damOut(redeclare final
+    Buildings.Templates.Components.Dampers.Modulated damOut(redeclare final
         package Medium = MediumAir, final loc=Buildings.Templates.Types.Location.OutdoorAir)
       "Outdoor air damper" annotation (Placement(transformation(
           extent={{-10,-10},{10,10}},
           rotation=0,
           origin={0,0})));
 
-    Buildings.Templates.BaseClasses.Dampers.TwoPosition damOutMin(redeclare
+    Buildings.Templates.Components.Dampers.TwoPosition damOutMin(redeclare
         final package Medium = MediumAir, final loc=Buildings.Templates.Types.Location.MinimumOutdoorAir)
       "Minimum outdoor air damper" annotation (Placement(transformation(
           extent={{-10,-10},{10,10}},
           rotation=0,
           origin={50,60})));
 
-    Buildings.Templates.BaseClasses.Sensors.Temperature TOutMin(redeclare
-        final package Medium = MediumAir, final loc=Buildings.Templates.Types.Location.MinimumOutdoorAir)
+    Buildings.Templates.Components.Sensors.Temperature TOutMin(redeclare final
+        package Medium = MediumAir, final loc=Buildings.Templates.Types.Location.MinimumOutdoorAir)
       "Minimum outdoor air temperature sensor"
       annotation (Placement(transformation(extent={{70,50},{90,70}})));
 
-    Buildings.Templates.BaseClasses.Sensors.DifferentialPressure dpOutMin(
+    Buildings.Templates.Components.Sensors.DifferentialPressure dpOutMin(
         redeclare final package Medium = MediumAir, final loc=Buildings.Templates.Types.Location.MinimumOutdoorAir)
       "Minimum outdoor air damper differential pressure sensor"
       annotation (Placement(transformation(extent={{10,50},{30,70}})));
@@ -148,7 +148,7 @@ of AFMS.
       final typDamOut=damOut.typ,
       final typDamOutMin=Templates.Types.Damper.None);
 
-    Buildings.Templates.BaseClasses.Dampers.TwoPosition damOut(redeclare final
+    Buildings.Templates.Components.Dampers.TwoPosition damOut(redeclare final
         package Medium = MediumAir, final loc=Buildings.Templates.Types.Location.OutdoorAir)
       "Outdoor air damper" annotation (Placement(transformation(
           extent={{-10,-10},{10,10}},
@@ -173,15 +173,15 @@ of AFMS.
       final typDamOut=damOut.typ,
       final typDamOutMin=Templates.Types.Damper.None);
 
-    Buildings.Templates.BaseClasses.Sensors.VolumeFlowRate VOut_flow(redeclare
+    Buildings.Templates.Components.Sensors.VolumeFlowRate VOut_flow(redeclare
         final package Medium = MediumAir, final loc=Buildings.Templates.Types.Location.OutdoorAir)
       "Outdoor air volume flow rate sensor"
       annotation (Placement(transformation(extent={{70,-10},{90,10}})));
-    Buildings.Templates.BaseClasses.Sensors.Temperature TOut(redeclare final
+    Buildings.Templates.Components.Sensors.Temperature TOut(redeclare final
         package Medium = MediumAir, final loc=Buildings.Templates.Types.Location.OutdoorAir)
       "Outdoor air temperature sensor"
       annotation (Placement(transformation(extent={{30,-10},{50,10}})));
-     Buildings.Templates.BaseClasses.Dampers.Modulated damOut(redeclare final
+    Buildings.Templates.Components.Dampers.Modulated damOut(redeclare final
         package Medium = MediumAir, final loc=Buildings.Templates.Types.Location.OutdoorAir)
       "Outdoor air damper" annotation (Placement(transformation(
           extent={{-10,-10},{10,10}},
