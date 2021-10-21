@@ -10,7 +10,6 @@ protected
   Integer cnt "Count of extrema";
   Integer n = size(x, 1) "Number of data points";
   Real d[size(x, 1)] "Derivative at the support points";
-  Real Delta "Search accuracy";
   Real r[2,2] "Roots of the derivative equation";
   Real rIn "The root within the target interval";
 
@@ -24,7 +23,8 @@ protected
 
 algorithm
 
-  assert(n>=3,"There must be at least three points");
+  assert(n>=3,"There must be at least three points. Only "
+         + String(n) + " point(s) are supplied.");
   d := Buildings.Utilities.Math.Functions.splineDerivatives(
     x=x,y=y,ensureMonotonicity=false);
   cnt := 0;
@@ -43,7 +43,9 @@ algorithm
     end if;
   end for;
   //  assert(flag,"Mode not found");
-  assert(cnt==1,"The curve provided is not unimodal.");
+  assert(cnt==1,"The curve provided is not unimodal. 
+         The derivative of the provided spline changed sign "
+         + String(cnt) + " times.");
 
   //Root of the derivative mapped to [0,1]
   r :=Modelica.Math.Vectors.Utilities.roots(
