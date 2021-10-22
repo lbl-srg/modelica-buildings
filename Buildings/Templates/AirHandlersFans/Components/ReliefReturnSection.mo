@@ -42,6 +42,9 @@ package ReliefReturnSection
           rotation=0,
           origin={-150,0})));
   equation
+    /* Equipment connection - start */
+    connect(fanRet.bus, bus.fanRet);
+    /* Equipment connection - end */
     connect(port_a, fanRet.port_a)
       annotation (Line(points={{180,0},{110,0}}, color={0,127,255}));
     connect(fanRet.port_b, VRet_flow.port_a)
@@ -50,24 +53,20 @@ package ReliefReturnSection
       annotation (Line(points={{50,0},{30,0}}, color={0,127,255}));
     connect(pRet_rel.port_b, port_aIns)
       annotation (Line(points={{10,0},{-80,0}}, color={0,127,255}));
-    connect(fanRet.busCon, busCon) annotation (Line(
-        points={{100,10},{100,20},{0,20},{0,140}},
-        color={255,204,51},
-        thickness=0.5));
     connect(pRet_rel.port_bRef, port_bPre) annotation (Line(points={{20,-10},{20,
             -120},{80,-120},{80,-140}}, color={0,127,255}));
     connect(port_b, damRel.port_b)
       annotation (Line(points={{-180,0},{-160,0}}, color={0,127,255}));
     connect(damRel.port_a, pas.port_a)
       annotation (Line(points={{-140,0},{-110,0}}, color={0,127,255}));
-    connect(damRel.busCon, busCon) annotation (Line(
+    connect(damRel.bus, bus) annotation (Line(
         points={{-150,10},{-150,20},{0,20},{0,140}},
         color={255,204,51},
         thickness=0.5));
-    connect(pRet_rel.y, busCon.inp.pRet_rel) annotation (Line(points={{20,12},{
-            20,20},{0.1,20},{0.1,140.1}}, color={0,0,127}));
-    connect(VRet_flow.y, busCon.inp.VRet_flow) annotation (Line(points={{60,12},
-            {60,20},{0.1,20},{0.1,140.1}}, color={0,0,127}));
+    connect(pRet_rel.y, bus.inp.pRet_rel) annotation (Line(points={{20,12},{20,
+            20},{0.1,20},{0.1,140.1}}, color={0,0,127}));
+    connect(VRet_flow.y, bus.inp.VRet_flow) annotation (Line(points={{60,12},{
+            60,20},{0.1,20},{0.1,140.1}}, color={0,0,127}));
   end NoEconomizer;
 
   model NoRelief "No relief branch"
@@ -104,24 +103,23 @@ package ReliefReturnSection
       "Return air volume flow rate sensor"
       annotation (Placement(transformation(extent={{70,-10},{50,10}})));
   equation
+    /* Equipment signal connection - start */
+    connect(fanRet.bus, bus.fanRet);
+    /* Equipment signal connection - end */
     connect(port_a, fanRet.port_a)
       annotation (Line(points={{180,0},{110,0}}, color={0,127,255}));
     connect(fanRet.port_b, VRet_flow.port_a)
       annotation (Line(points={{90,0},{70,0}}, color={0,127,255}));
     connect(VRet_flow.port_b, pRet_rel.port_a)
       annotation (Line(points={{50,0},{30,0}}, color={0,127,255}));
-    connect(fanRet.busCon, busCon) annotation (Line(
-        points={{100,10},{100,20},{0,20},{0,140}},
-        color={255,204,51},
-        thickness=0.5));
     connect(pRet_rel.port_bRef, port_bPre) annotation (Line(points={{20,-10},{20,
             -120},{80,-120},{80,-140}}, color={0,127,255}));
     connect(pRet_rel.port_b, port_bRet)
       annotation (Line(points={{10,0},{0,0},{0,-140}}, color={0,127,255}));
-    connect(pRet_rel.y, busCon.inp.pRet_rel) annotation (Line(points={{20,12},{
-            20,20},{0.1,20},{0.1,140.1}}, color={0,0,127}));
-    connect(VRet_flow.y, busCon.inp.VRet_flow) annotation (Line(points={{60,12},
-            {60,20},{0,20},{0,80},{0.1,80},{0.1,140.1}}, color={0,0,127}));
+    connect(pRet_rel.y, bus.inp.pRet_rel) annotation (Line(points={{20,12},{20,
+            20},{0.1,20},{0.1,140.1}}, color={0,0,127}));
+    connect(VRet_flow.y, bus.inp.VRet_flow) annotation (Line(points={{60,12},{
+            60,20},{0,20},{0,80},{0.1,80},{0.1,140.1}}, color={0,0,127}));
   end NoRelief;
 
   model ReliefDamper "No relief fan - Modulated relief damper"
@@ -138,7 +136,7 @@ package ReliefReturnSection
           rotation=0,
           origin={-60,0})));
   equation
-    connect(damRel.busCon, busCon) annotation (Line(
+    connect(damRel.bus, bus) annotation (Line(
         points={{-60,10},{-60,20},{0,20},{0,140}},
         color={255,204,51},
         thickness=0.5));
@@ -187,7 +185,10 @@ building static pressure. Close damper when disabled.
             "Multiple fans (identical) - Variable speed")), Placement(
           transformation(extent={{-10,-10},{-30,10}})));
   equation
-    connect(damRel.busCon, busCon) annotation (Line(
+    /* Equipment signal connection - start */
+    connect(fanRet.bus, bus.fanRet);
+    /* Equipment signal connection - end */
+    connect(damRel.bus, bus) annotation (Line(
         points={{-60,10},{-60,20},{0,20},{0,140}},
         color={255,204,51},
         thickness=0.5));
@@ -199,10 +200,6 @@ building static pressure. Close damper when disabled.
       annotation (Line(points={{-50,0},{-30,0}}, color={0,127,255}));
     connect(fanRet.port_a, port_a)
       annotation (Line(points={{-10,0},{180,0}}, color={0,127,255}));
-    connect(fanRet.busCon, busCon) annotation (Line(
-        points={{-20,10},{-20,20},{0,20},{0,140}},
-        color={255,204,51},
-        thickness=0.5));
     connect(fanRet.port_a, port_bRet)
       annotation (Line(points={{-10,0},{0,0},{0,-140}}, color={0,127,255}));
     annotation (Documentation(info="<html>
@@ -254,7 +251,10 @@ building static pressure. Close damper when disabled.
       annotation (Placement(transformation(extent={{90,-10},{70,10}})));
 
   equation
-    connect(damRel.busCon, busCon) annotation (Line(
+    /* Equipment signal connection - start */
+    connect(fanRet.bus, bus.fanRet);
+    /* Equipment signal connection - end */
+    connect(damRel.bus, bus) annotation (Line(
         points={{-60,10},{-60,20},{0,20},{0,140}},
         color={255,204,51},
         thickness=0.5));
@@ -262,10 +262,6 @@ building static pressure. Close damper when disabled.
       annotation (Line(points={{-70,0},{-80,0}}, color={0,127,255}));
     connect(pas.port_a, port_b)
       annotation (Line(points={{-110,0},{-180,0}}, color={0,127,255}));
-    connect(fanRet.busCon, busCon) annotation (Line(
-        points={{120,10},{120,20},{0,20},{0,140}},
-        color={255,204,51},
-        thickness=0.5));
     connect(fanRet.port_a, port_a)
       annotation (Line(points={{130,0},{180,0}},color={0,127,255}));
     connect(port_bRet, damRel.port_a)
@@ -278,10 +274,10 @@ building static pressure. Close damper when disabled.
       annotation (Line(points={{90,0},{110,0}}, color={0,127,255}));
     connect(pRet_rel.port_bRef, port_bPre) annotation (Line(points={{40,-10},{40,-120},
             {80,-120},{80,-140}}, color={0,127,255}));
-    connect(pRet_rel.y, busCon.inp.pRet_rel) annotation (Line(points={{40,12},{
-            40,20},{0,20},{0,80},{0.1,80},{0.1,140.1}}, color={0,0,127}));
-    connect(VRet_flow.y, busCon.inp.VRet_flow) annotation (Line(points={{80,12},
-            {80,20},{0.1,20},{0.1,140.1}}, color={0,0,127}));
+    connect(pRet_rel.y, bus.inp.pRet_rel) annotation (Line(points={{40,12},{40,
+            20},{0,20},{0,80},{0.1,80},{0.1,140.1}}, color={0,0,127}));
+    connect(VRet_flow.y, bus.inp.VRet_flow) annotation (Line(points={{80,12},{
+            80,20},{0.1,20},{0.1,140.1}}, color={0,0,127}));
     annotation (Documentation(info="<html>
 <p>
 5.16.10 Return-Fan Control—Direct Building Pressure

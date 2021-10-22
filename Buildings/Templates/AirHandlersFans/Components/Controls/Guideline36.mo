@@ -663,23 +663,23 @@ equation
   connect(zonToSys.uOutAirFra_max, conAHU.uOutAirFra_max) annotation (Line(
         points={{-2,-56},{-72,-56},{-72,82},{-44,82}},                   color=
           {0,0,127}));
-  connect(busAHU.inp.TSup.T, conAHU.TSup) annotation (Line(
+  connect(bus.inp.TSup.T, conAHU.TSup) annotation (Line(
       points={{-200.1,0.1},{-180,0.1},{-180,80},{-100,80},{-100,70},{-44,70}},
       color={255,204,51},
       thickness=0.5));
-  connect(busAHU.inp.TOut.T, conAHU.TOut) annotation (Line(
+  connect(bus.inp.TOut.T, conAHU.TOut) annotation (Line(
       points={{-200.1,0.1},{-180,0.1},{-180,136},{-44,136}},
       color={255,204,51},
       thickness=0.5));
-  connect(busAHU.inp.pSup_rel.p_rel, conAHU.ducStaPre) annotation (Line(
+  connect(bus.inp.pSup_rel.p_rel, conAHU.ducStaPre) annotation (Line(
       points={{-200.1,0.1},{-180,0.1},{-180,130},{-44,130}},
       color={255,204,51},
       thickness=0.5));
-  connect(busAHU.inp.VOut_flow.V_flow, conAHU.VOut_flow) annotation (Line(
+  connect(bus.inp.VOut_flow.V_flow, conAHU.VOut_flow) annotation (Line(
       points={{-200.1,0.1},{-180,0.1},{-180,46},{-44,46}},
       color={255,204,51},
       thickness=0.5));
-  connect(busAHU.inp.TMix.T, conAHU.TMix) annotation (Line(
+  connect(bus.inp.TMix.T, conAHU.TMix) annotation (Line(
       points={{-200.1,0.1},{-180,0.1},{-180,38},{-44,38}},
       color={255,204,51},
       thickness=0.5));
@@ -741,12 +741,11 @@ equation
                                             color={0,0,127}));
   connect(conAHU.yOutDamPos, busOutAHU.yDamOut)
     annotation (Line(points={{44,20},{100,20},{100,160}}, color={0,0,127}));
-  connect(busOutAHU, busAHU.out)
-    annotation (Line(
+  connect(busOutAHU, bus.out) annotation (Line(
       points={{100,160},{-180,160},{-180,0.1},{-200.1,0.1}},
       color={255,204,51},
       thickness=0.5));
-  connect(busAHU.sof.TSupSet, TSupSet.u) annotation (Line(
+  connect(bus.sof.TSupSet, TSupSet.u) annotation (Line(
       points={{-200.1,0.1},{-180,0.1},{-180,-100},{158,-100}},
       color={255,204,51},
       thickness=0.5));
@@ -765,7 +764,7 @@ equation
   connect(FIXME4.y, conAHU.TOutCut)
     annotation (Line(points={{178,222},{178,218},{-56,218},{-56,64},{-44,64}},
                               color={0,0,127}));
-  connect(busAHU.inp.hOut.h, conAHU.hOut) annotation (Line(
+  connect(bus.inp.hOut.h, conAHU.hOut) annotation (Line(
       points={{-200.1,0.1},{-180,0.1},{-180,80},{-100,80},{-100,58},{-44,58}},
       color={255,204,51},
       thickness=0.5));
@@ -802,8 +801,8 @@ equation
     annotation (Line(points={{22,-56},{200,-56},{200,0.1},{220.1,0.1}}, color={0,0,127}));
   connect(zonToSys.VPriAir_flow, busTer.sof.VPriAir_flow)
     annotation (Line(points={{22,-58},{200,-58},{200,0.1},{220.1,0.1}}, color={0,0,127}));
-  connect(conAHU.TSupSet, busAHU.sof.TSupSet)
-    annotation (Line(points={{44,116},{60,116},{60,0.1},{-200.1,0.1}}, color={0,0,127}));
+  connect(conAHU.TSupSet, bus.sof.TSupSet) annotation (Line(points={{44,116},{
+          60,116},{60,0.1},{-200.1,0.1}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false), graphics={Text(
           extent={{-12,-94},{194,-148}},

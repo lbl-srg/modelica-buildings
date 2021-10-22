@@ -1,5 +1,5 @@
 within Buildings.Templates.AirHandlersFans.Interfaces;
-partial model SubSystem "Base interface class for air handling unit"
+partial model AirHandler "Base interface class for air handler"
   replaceable package MediumAir=Buildings.Media.Air
     constrainedby Modelica.Media.Interfaces.PartialMedium
     "Air medium";
@@ -108,7 +108,7 @@ partial model SubSystem "Base interface class for air handling unit"
           extent={{-310,-90},{-290,-70}}), iconTransformation(extent={{-210,90},
             {-190,110}})));
 
-  Bus busAHU "AHU control bus" annotation (Placement(transformation(
+  Bus bus "AHU control bus" annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
         rotation=90,
         origin={-300,0}), iconTransformation(
@@ -145,4 +145,4 @@ partial model SubSystem "Base interface class for air handling unit"
           fillPattern=FillPattern.Solid,
           fillColor={245,239,184},
           pattern=LinePattern.None)}));
-end SubSystem;
+end AirHandler;

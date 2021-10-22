@@ -32,7 +32,7 @@ package HeatExchangers
       annotation (Line(points={{-100,0},{-10,0}}, color={0,127,255}));
     connect(coi.port_b, port_b)
       annotation (Line(points={{10,0},{100,0}}, color={0,127,255}));
-    connect(weaBus.TWetBul, TWet.u) annotation (Line(
+    connect(busWea.TWetBul, TWet.u) annotation (Line(
         points={{-60,100},{-60,40},{-80,40},{-80,20},{-62,20}},
         color={255,204,51},
         thickness=0.5), Text(
@@ -40,7 +40,7 @@ package HeatExchangers
         index=-1,
         extent={{-6,3},{-6,3}},
         horizontalAlignment=TextAlignment.Right));
-    connect(weaBus.TDryBul, TDry.u) annotation (Line(
+    connect(busWea.TDryBul, TDry.u) annotation (Line(
         points={{-60,100},{-60,40},{-80,40},{-80,-20},{-62,-20}},
         color={255,204,51},
         thickness=0.5), Text(
@@ -52,7 +52,7 @@ package HeatExchangers
             {-11,3}}, color={0,0,127}));
     connect(TDry.y, coi.TConIn) annotation (Line(points={{-39,-20},{-30,-20},{-30,
             3},{-11,3}}, color={0,0,127}));
-    connect(busCon.out.yCoiCoo, coi.stage) annotation (Line(
+    connect(bus.out.yCoiCoo, coi.stage) annotation (Line(
         points={{0.1,100.1},{0.1,100.1},{0.1,20},{-20,20},{-20,8},{-11,8}},
         color={255,204,51},
         thickness=0.5), Text(
@@ -99,7 +99,7 @@ package HeatExchangers
       annotation (Line(points={{-100,0},{-10,0}}, color={0,127,255}));
     connect(coi.port_b, port_b)
       annotation (Line(points={{10,0},{100,0}}, color={0,127,255}));
-    connect(weaBus.TWetBul, TWet.u) annotation (Line(
+    connect(busWea.TWetBul, TWet.u) annotation (Line(
         points={{-60,100},{-60,40},{-80,40},{-80,20},{-62,20}},
         color={255,204,51},
         thickness=0.5), Text(
@@ -107,7 +107,7 @@ package HeatExchangers
         index=-1,
         extent={{-6,3},{-6,3}},
         horizontalAlignment=TextAlignment.Right));
-    connect(weaBus.TDryBul, TDry.u) annotation (Line(
+    connect(busWea.TDryBul, TDry.u) annotation (Line(
         points={{-60,100},{-60,40},{-80,40},{-80,-20},{-62,-20}},
         color={255,204,51},
         thickness=0.5), Text(
@@ -119,7 +119,7 @@ package HeatExchangers
             {-11,3}}, color={0,0,127}));
     connect(TDry.y, coi.TConIn) annotation (Line(points={{-39,-20},{-30,-20},{-30,
             3},{-11,3}}, color={0,0,127}));
-    connect(busCon.out.yCoiCoo, coi.speRat) annotation (Line(
+    connect(bus.out.yCoiCoo, coi.speRat) annotation (Line(
         points={{0.1,100.1},{-20,100.1},{-20,8},{-11,8}},
         color={255,204,51},
         thickness=0.5), Text(

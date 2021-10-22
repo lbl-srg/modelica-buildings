@@ -1,8 +1,8 @@
 within Buildings.Templates.AirHandlersFans;
 model VAVMultiZone "Multiple-Zone VAV"
-  extends Buildings.Templates.AirHandlersFans.Interfaces.SubSystem(final typ=
-        Types.Configuration.SingleDuct, final have_porRel=secOutRel.typ <>
-        Types.OutdoorReliefReturnSection.NoRelief);
+  extends Buildings.Templates.AirHandlersFans.Interfaces.AirHandler(
+    final typ=Types.Configuration.SingleDuct,
+    final have_porRel=secOutRel.typ <> Types.OutdoorReliefReturnSection.NoRelief);
 
   replaceable package MediumCoo=Buildings.Media.Water
     constrainedby Modelica.Media.Interfaces.PartialMedium
@@ -67,14 +67,15 @@ model VAVMultiZone "Multiple-Zone VAV"
     "Reheat coil supply port"
     annotation (Placement(transformation(extent={{70,-290},
             {90,-270}}), iconTransformation(extent={{100,-208},{120,-188}})));
-  BoundaryConditions.WeatherData.Bus weaBus
+  BoundaryConditions.WeatherData.Bus busWea
     "Weather bus"
     annotation (Placement(transformation(extent={{-20,260},{20,300}}),
       iconTransformation(extent={{-20,182},{20,218}})));
 
   inner replaceable Components.OutdoorReliefReturnSection.Economizer secOutRel
-    constrainedby Interfaces.OutdoorReliefReturnSection(redeclare final package
-      MediumAir = MediumAir) "Outdoor/relief/return air section" annotation (
+    constrainedby Interfaces.OutdoorReliefReturnSection(
+      redeclare final package MediumAir = MediumAir)
+    "Outdoor/relief/return air section" annotation (
     choicesAllMatching=true,
     Dialog(group="Outdoor/relief/return air section"),
     Placement(transformation(extent={{-178,-104},{-142,-76}})));
@@ -89,8 +90,9 @@ model VAVMultiZone "Multiple-Zone VAV"
             {{-100,-210},{-80,-190}})));
 
   inner replaceable Buildings.Templates.Components.Fans.None fanSupBlo
-    constrainedby Buildings.Templates.Components.Interfaces.Fan(redeclare
-      final package Medium = MediumAir, final loc=Buildings.Templates.Components.Types.Location.Supply)
+    constrainedby Buildings.Templates.Components.Interfaces.Fan(
+      redeclare final package  Medium = MediumAir,
+      final loc=Buildings.Templates.Components.Types.Location.Supply)
     "Supply fan - Blow through" annotation (
     choicesAllMatching=true,
     Dialog(group="Supply air section", enable=fanSupDra == Buildings.Templates.Components.Types.Fan.None),
@@ -151,9 +153,11 @@ model VAVMultiZone "Multiple-Zone VAV"
     Placement(transformation(extent={{80,-210},{100,-190}})));
 
   inner replaceable Buildings.Templates.Components.Fans.None fanSupDra
-    constrainedby Buildings.Templates.Components.Interfaces.Fan(redeclare
-      final package Medium = MediumAir, final loc=Buildings.Templates.Components.Types.Location.Supply)
-    "Supply fan - Draw through" annotation (
+    constrainedby Buildings.Templates.Components.Interfaces.Fan(
+      redeclare final package Medium = MediumAir,
+      final loc=Buildings.Templates.Components.Types.Location.Supply)
+    "Supply fan - Draw through"
+    annotation (
     choicesAllMatching=true,
     Dialog(group="Supply air section", enable=fanSupBlo == Buildings.Templates.Components.Types.Fan.None),
     Placement(transformation(extent={{110,-210},{130,-190}})));
@@ -262,22 +266,27 @@ model VAVMultiZone "Multiple-Zone VAV"
   Interfaces.BusInput busInp
     annotation (Placement(transformation(extent={{-106,126},{-66,166}})));
 equation
-  /* Sensor point connections - start */
-  connect(TMix.y, busAHU.inp.TMix);
-  connect(THea.y, busAHU.inp.THea);
-  connect(VSup_flow.y, busAHU.inp.VSup_flow);
-  connect(TSup.y, busAHU.inp.TSup);
-  connect(xSup.y, busAHU.inp.xSup);
-  connect(pSup_rel.y, busAHU.inp.pSup_rel);
-  connect(hRet.y, busAHU.inp.hRet);
-  connect(TRet.y, busAHU.inp.TRet);
-  connect(pInd_rel.p_rel, busAHU.inp.pInd_rel);
-  /* Sensor point connections - end */
+  /* Sensor connection - start */
+  connect(TMix.y, bus.inp.TMix);
+  connect(THea.y, bus.inp.THea);
+  connect(VSup_flow.y, bus.inp.VSup_flow);
+  connect(TSup.y, bus.inp.TSup);
+  connect(xSup.y, bus.inp.xSup);
+  connect(pSup_rel.y, bus.inp.pSup_rel);
+  connect(hRet.y, bus.inp.hRet);
+  connect(TRet.y, bus.inp.TRet);
+  connect(pInd_rel.p_rel, bus.inp.pInd_rel);
+  /* Sensor connection - end */
+  /* Equipment connection - start */
+  connect(fanSupDra.bus, bus.fanSup);
+  connect(fanSupBlo.bus, bus.fanSup);
+  /* Equipment connection - end */
+
   connect(port_coiCooSup, coiCoo.port_aSou) annotation (Line(points={{20,-280},{
           20,-220},{26,-220},{26,-210}},   color={0,127,255}));
   connect(coiCoo.port_bSou, port_coiCooRet) annotation (Line(points={{34,-210},{
           34,-220},{40,-220},{40,-280}}, color={0,127,255}));
-  connect(weaBus, coiCoo.weaBus) annotation (Line(
+  connect(busWea,coiCoo.busWea)  annotation (Line(
       points={{0,280},{0,80},{24,80},{24,-190}},
       color={255,204,51},
       thickness=0.5));
@@ -307,7 +316,7 @@ equation
     annotation (Line(points={{160,-200},{172,-200}}, color={0,127,255}));
   connect(fanSupBlo.port_b, coiHea.port_a)
     annotation (Line(points={{-50,-200},{-40,-200}}, color={0,127,255}));
-  connect(weaBus, out.weaBus) annotation (Line(
+  connect(busWea, out.weaBus) annotation (Line(
       points={{0,280},{0,276},{-40,276},{-40,260},{-39.8,260}},
       color={255,204,51},
       thickness=0.5));
@@ -326,7 +335,7 @@ equation
       index=1,
       extent={{6,3},{6,3}},
       horizontalAlignment=TextAlignment.Left));
-  connect(conAHU.busAHU, busAHU) annotation (Line(
+  connect(conAHU.bus, bus) annotation (Line(
       points={{-260,120},{-280,120},{-280,0},{-300,0}},
       color={255,204,51},
       thickness=0.5), Text(
@@ -334,7 +343,7 @@ equation
       index=1,
       extent={{-6,3},{-6,3}},
       horizontalAlignment=TextAlignment.Right));
-  connect(busAHU.inp.pInd, ind.p_in) annotation (Line(
+  connect(bus.inp.pInd, ind.p_in) annotation (Line(
       points={{-300.1,0.1},{60,0.1},{60,268},{48,268},{48,262}},
       color={255,204,51},
       thickness=0.5), Text(
@@ -342,23 +351,19 @@ equation
       index=-1,
       extent={{-3,6},{-3,6}},
       horizontalAlignment=TextAlignment.Right));
-  connect(fanSupBlo.busCon, busAHU) annotation (Line(
+  connect(fanSupBlo.bus, bus) annotation (Line(
       points={{-60,-190},{-60,0},{-300,0}},
       color={255,204,51},
       thickness=0.5));
-  connect(fanSupDra.busCon, busAHU) annotation (Line(
-      points={{120,-190},{120,0},{-300,0}},
-      color={255,204,51},
-      thickness=0.5));
-  connect(coiHea.busCon, busAHU) annotation (Line(
+  connect(coiHea.bus, bus) annotation (Line(
       points={{-30,-190},{-30,0},{-300,0}},
       color={255,204,51},
       thickness=0.5));
-  connect(coiReh.busCon, busAHU) annotation (Line(
+  connect(coiReh.bus, bus) annotation (Line(
       points={{90,-190},{90,0},{-300,0}},
       color={255,204,51},
       thickness=0.5));
-  connect(coiCoo.busCon, busAHU) annotation (Line(
+  connect(coiCoo.bus, bus) annotation (Line(
       points={{30,-190},{30,0},{-300,0}},
       color={255,204,51},
       thickness=0.5));
@@ -386,7 +391,7 @@ equation
     annotation (Line(points={{-142,-80},{170,-80}}, color={0,127,255}));
   connect(secOutRel.port_bPre, out.ports[2]) annotation (Line(points={{-152,-76},
           {-152,-60},{-40,-60},{-40,240},{-40,240}}, color={0,127,255}));
-  connect(secOutRel.busCon, busAHU) annotation (Line(
+  connect(secOutRel.bus, bus) annotation (Line(
       points={{-160,-76},{-160,0},{-300,0}},
       color={255,204,51},
       thickness=0.5));

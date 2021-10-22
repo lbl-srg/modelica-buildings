@@ -89,23 +89,25 @@ block OpenLoop "Open loop controller (output signals only)"
 
 equation
     // Non graphical connections - START
-  connect(yDamOutMin.y,busAHU.out.yDamOutMin);
-  connect(yDamOutMin1.y,busAHU.out.yDamOutMin);
-  connect(yDamRel.y,busAHU.out.yDamRel);
-  connect(yDamRel1.y,busAHU.out.yDamRel);
-  connect(yCoiCoo.y, busAHU.out.yCoiCoo);
-  connect(yCoiHea.y, busAHU.out.yCoiHea);
-  connect(yFanSup.y,busAHU.out.yFanSup);
-  connect(ySpeFanSup.y,busAHU.out.ySpeFanSup);
-  connect(ySpeFanRet.y, busAHU.out.ySpeFanRet);
-  connect(yFanRet.y, busAHU.out.yFanRet);
+  connect(yDamOutMin.y, bus.out.yDamOutMin);
+  connect(yDamOutMin1.y, bus.out.yDamOutMin);
+  connect(yDamRel.y, bus.out.yDamRel);
+  connect(yDamRel1.y, bus.out.yDamRel);
+  connect(yCoiCoo.y, bus.out.yCoiCoo);
+  connect(yCoiHea.y, bus.out.yCoiHea);
 
-  connect(yCoiCooSta.y,busAHU.out.yCoiCoo);
+  connect(yFanSup.y, bus.fanSup.out.y);
+  connect(ySpeFanSup.y, bus.fanSup.out.ySpe);
 
-  connect(yDamOut.y,busAHU.out.yDamOut);
-  connect(yDamOut1.y,busAHU.out.yDamOut);
+  connect(yFanRet.y, bus.fanRet.out.y);
+  connect(ySpeFanRet.y, bus.fanRet.out.ySpe);
 
-  connect(yDamRet.y,busAHU.out.yDamRet);
+  connect(yCoiCooSta.y, bus.out.yCoiCoo);
+
+  connect(yDamOut.y, bus.out.yDamOut);
+  connect(yDamOut1.y, bus.out.yDamOut);
+
+  connect(yDamRet.y, bus.out.yDamRet);
 
   annotation (
   defaultComponentName="conAHU",

@@ -9,9 +9,7 @@ partial block Controller
   outer parameter ExternData.JSONFile dat
     "External parameter file";
 
-  Bus busTer
-    "Terminal unit control bus"
-    annotation (Placement(transformation(
+  Bus bus "Terminal unit control bus" annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
         rotation=90,
         origin={-200,0}), iconTransformation(

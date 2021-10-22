@@ -71,8 +71,7 @@ partial model ReliefReturnSection "Relief/return air section"
     "Optional fluid connector for differential pressure sensor"
     annotation (Placement(transformation(extent={{90,-150},{70,-130}})));
 
-  Interfaces.Bus busCon "Control bus"
-    annotation (Placement(transformation(
+  Interfaces.Bus bus "Control bus" annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
         rotation=0,
         origin={0,140}), iconTransformation(

@@ -15,7 +15,7 @@ equation
           {-2,-40},{-2,-19.8}}, color={0,127,255}));
   connect(ter.port_coiRehRet, bou3.ports[1]) annotation (Line(points={{2,-19.8},
           {2,-80},{-60,-80},{-60,-80}}, color={0,127,255}));
-  connect(conPoiDum.busAHU, ter.busTer) annotation (Line(
+  connect(conPoiDum.busAHU, ter.bus) annotation (Line(
       points={{-60,40},{-40,40},{-40,16},{-19.9,16}},
       color={255,204,51},
       thickness=0.5));

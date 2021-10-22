@@ -89,7 +89,7 @@ equation
   connect(yCoiHea.y, act.y) annotation (Line(points={{-1.9984e-15,39},{
           -1.9984e-15,30},{0,30},{0,20},{-40,20},{-40,-60},{-11,-60}},
                                                            color={0,0,127}));
-  connect(busCon.out.yCoiHea, yCoiHea.u) annotation (Line(
+  connect(bus.out.yCoiHea, yCoiHea.u) annotation (Line(
       points={{0.1,100.1},{0.1,82},{0,82},{0,62}},
       color={255,204,51},
       thickness=0.5), Text(
@@ -97,7 +97,7 @@ equation
       index=-1,
       extent={{-3,6},{-3,6}},
       horizontalAlignment=TextAlignment.Right));
-  connect(busCon.out.yCoiCoo, yCoiCoo.u) annotation (Line(
+  connect(bus.out.yCoiCoo, yCoiCoo.u) annotation (Line(
       points={{0.1,100.1},{-2,100.1},{-2,80},{-40,80},{-40,62}},
       color={255,204,51},
       thickness=0.5), Text(
@@ -105,7 +105,7 @@ equation
       index=-1,
       extent={{6,3},{6,3}},
       horizontalAlignment=TextAlignment.Left));
-  connect(busCon.out.yCoiReh, yCoiReh.u) annotation (Line(
+  connect(bus.out.yCoiReh, yCoiReh.u) annotation (Line(
       points={{0.1,100.1},{0.1,100.1},{2,100.1},{2,80},{40,80},{40,62}},
       color={255,204,51},
       thickness=0.5), Text(

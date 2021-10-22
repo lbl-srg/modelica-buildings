@@ -1,6 +1,7 @@
 within Buildings.Templates.ZoneEquipment;
 model VAVBox "VAV terminal unit"
-  extends Buildings.Templates.ZoneEquipment.Interfaces.AirSystem(final typ=
+  extends Buildings.Templates.ZoneEquipment.Interfaces.AirTerminal(
+                                                                 final typ=
         Types.Configuration.SingleDuct);
 
   replaceable package MediumHea=Buildings.Media.Water
@@ -63,7 +64,7 @@ equation
   connect(coiReh.port_bSou, port_coiRehRet) annotation (Line(points={{4,-210},{
           4,-220},{20,-220},{20,-280}},
                                       color={0,127,255}));
-  connect(coiReh.busCon, busTer) annotation (Line(
+  connect(coiReh.bus, bus) annotation (Line(
       points={{0,-190},{0,0},{-300,0}},
       color={255,204,51},
       thickness=0.5));
@@ -71,11 +72,11 @@ equation
     annotation (Line(points={{-300,-200},{-130,-200}}, color={0,127,255}));
   connect(damVAV.port_b, coiReh.port_a)
     annotation (Line(points={{-110,-200},{-10,-200}}, color={0,127,255}));
-  connect(damVAV.busCon, busTer) annotation (Line(
+  connect(damVAV.bus, bus) annotation (Line(
       points={{-120,-190},{-120,0},{-300,0}},
       color={255,204,51},
       thickness=0.5));
-  connect(busTer, conTer.busTer) annotation (Line(
+  connect(bus, conTer.bus) annotation (Line(
       points={{-300,0},{-20,0},{-20,100},{-10,100}},
       color={255,204,51},
       thickness=0.5));
@@ -83,8 +84,8 @@ equation
     annotation (Line(points={{10,-200},{90,-200}}, color={0,127,255}));
   connect(TDis.port_b, port_Dis)
     annotation (Line(points={{110,-200},{300,-200}}, color={0,127,255}));
-  connect(TDis.y, busTer.inp.TDis) annotation (Line(points={{100,-188},{100,0},
-          {-300.1,0},{-300.1,0.1}}, color={0,0,127}), Text(
+  connect(TDis.y, bus.inp.TDis) annotation (Line(points={{100,-188},{100,0},{-300.1,
+          0},{-300.1,0.1}}, color={0,0,127}), Text(
       string="%second",
       index=1,
       extent={{-3,6},{-3,6}},

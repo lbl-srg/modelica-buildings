@@ -13,7 +13,7 @@ model CoilCoolingDXVariableSpeed
       "modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"))
     annotation (Placement(transformation(extent={{-80,50},{-60,70}})));
 equation
-  connect(weaDat.weaBus, ahu.weaBus) annotation (Line(
+  connect(weaDat.weaBus,ahu.busWea)  annotation (Line(
       points={{-60,60},{0,60},{0,20}},
       color={255,204,51},
       thickness=0.5));

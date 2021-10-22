@@ -104,21 +104,21 @@ equation
           -50},{-40,-50},{-40,-58}}, color={255,0,255}));
   connect(evaSta.y, yDamRel_actual.u) annotation (Line(points={{0,-42},{0,-50},
           {40,-50},{40,-58}}, color={255,0,255}));
-  connect(yDamOutMin_actual.y, busCon.inp.yDamOutMin_actual) annotation (Line(
+  connect(yDamOutMin_actual.y, bus.inp.yDamOutMin_actual) annotation (Line(
         points={{-40,-81},{-40,-90},{-60,-90},{-60,88},{0.1,88},{0.1,100.1}},
         color={255,0,255}), Text(
       string="%second",
       index=1,
       extent={{-3,-6},{-3,-6}},
       horizontalAlignment=TextAlignment.Right));
-  connect(yDamRel_actual.y, busCon.inp.yDamRel_actual) annotation (Line(
-        points={{40,-81},{40,-90},{80,-90},{80,88},{0.1,88},{0.1,100.1}},
-        color={255,0,255}), Text(
+  connect(yDamRel_actual.y, bus.inp.yDamRel_actual) annotation (Line(points={{
+          40,-81},{40,-90},{80,-90},{80,88},{0.1,88},{0.1,100.1}}, color={255,0,
+          255}), Text(
       string="%second",
       index=1,
       extent={{-3,-6},{-3,-6}},
       horizontalAlignment=TextAlignment.Right));
-  connect(busCon.out.yDamOutMin, yDamOutMin.u) annotation (Line(
+  connect(bus.out.yDamOutMin, yDamOutMin.u) annotation (Line(
       points={{0.1,100.1},{0.1,96},{-40,96},{-40,82}},
       color={255,204,51},
       thickness=0.5), Text(
@@ -126,7 +126,7 @@ equation
       index=-1,
       extent={{-3,6},{-3,6}},
       horizontalAlignment=TextAlignment.Right));
-  connect(busCon.out.yDamRel, yDamRel.u) annotation (Line(
+  connect(bus.out.yDamRel, yDamRel.u) annotation (Line(
       points={{0.1,100.1},{2,100.1},{2,100},{4,100},{4,96},{40,96},{40,82}},
       color={255,204,51},
       thickness=0.5), Text(
@@ -136,7 +136,7 @@ equation
       horizontalAlignment=TextAlignment.Right));
   connect(yDamOut.y, booToRea.u)
     annotation (Line(points={{0,59},{0,42}}, color={255,0,255}));
-  connect(busCon.out.yDamOut, yDamOut.u) annotation (Line(
+  connect(bus.out.yDamOut, yDamOut.u) annotation (Line(
       points={{0.1,100.1},{0.1,92},{0,92},{0,82}},
       color={255,204,51},
       thickness=0.5), Text(
@@ -146,8 +146,8 @@ equation
       horizontalAlignment=TextAlignment.Right));
   connect(evaSta.y, yDamOut_actual.u)
     annotation (Line(points={{0,-42},{0,-58}}, color={255,0,255}));
-  connect(yDamOut_actual.y, busCon.inp.yDamOut_actual) annotation (Line(points={
-          {0,-81},{0,-92},{82,-92},{82,90},{0.1,90},{0.1,100.1}}, color={255,0,255}),
+  connect(yDamOut_actual.y, bus.inp.yDamOut_actual) annotation (Line(points={{0,
+          -81},{0,-92},{82,-92},{82,90},{0.1,90},{0.1,100.1}}, color={255,0,255}),
       Text(
       string="%second",
       index=1,

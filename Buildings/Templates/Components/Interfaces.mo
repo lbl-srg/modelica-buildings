@@ -115,13 +115,12 @@ package Interfaces "Base classes defining the component interfaces"
       redeclare final package Medium = MediumSou) if have_sou
       "Fluid connector b (positive design flow direction is from port_a to port_b)"
       annotation (Placement(transformation(extent={{50,-110},{30,-90}})));
-    BoundaryConditions.WeatherData.Bus weaBus if have_weaBus
+    BoundaryConditions.WeatherData.Bus busWea if have_weaBus
       annotation (Placement(
           transformation(extent={{-80,80},{-40,120}}), iconTransformation(extent={{-70,90},
               {-50,110}})));
-    Bus busCon if typ <> Buildings.Templates.Components.Types.Coil.None
-      "Control bus"
-      annotation (Placement(transformation(
+    Bus bus if typ <> Buildings.Templates.Components.Types.Coil.None
+      "Control bus" annotation (Placement(transformation(
           extent={{-20,-20},{20,20}},
           rotation=0,
           origin={0,100}), iconTransformation(
@@ -167,18 +166,16 @@ package Interfaces "Base classes defining the component interfaces"
       "Leaving air"
       annotation (Placement(transformation(extent={{90,-10},
               {110,10}}), iconTransformation(extent={{90,-10},{110,10}})));
-    Bus                                 busCon if typ <> Buildings.Templates.Components.Types.Damper.None
-       and typ <> Buildings.Templates.Components.Types.Damper.Barometric and
-      typ <> Buildings.Templates.Components.Types.Damper.NoPath
-      "Control bus"
-      annotation (
-        Placement(
-          visible=DynamicSelect(true, typ <> Types.Damper.None and
-            typ <> Types.Damper.NoPath),
-          transformation(
+    Bus bus if typ <> Buildings.Templates.Components.Types.Damper.None and typ
+       <> Buildings.Templates.Components.Types.Damper.Barometric and typ <>
+      Buildings.Templates.Components.Types.Damper.NoPath "Control bus"
+      annotation (Placement(
+        visible=DynamicSelect(true, typ <> Types.Damper.None and typ <> Types.Damper.NoPath),
+        transformation(
           extent={{-20,-20},{20,20}},
           rotation=0,
-          origin={0,100}), iconTransformation(
+          origin={0,100}),
+        iconTransformation(
           extent={{-10,-10},{10,10}},
           rotation=0,
           origin={0,100})));
@@ -266,10 +263,8 @@ package Interfaces "Base classes defining the component interfaces"
     outer parameter ExternData.JSONFile dat
       "External parameter file";
 
-    Bus                                 busCon
-      if typ <> Buildings.Templates.Components.Types.Fan.None
-      "Control bus"
-      annotation (Placement(transformation(
+    Bus bus if typ <> Buildings.Templates.Components.Types.Fan.None
+      "Control bus" annotation (Placement(transformation(
           extent={{-20,-20},{20,20}},
           rotation=0,
           origin={0,100}), iconTransformation(
@@ -307,14 +302,13 @@ package Interfaces "Base classes defining the component interfaces"
     outer parameter ExternData.JSONFile dat
       "External parameter file";
 
-    BoundaryConditions.WeatherData.Bus weaBus
+    BoundaryConditions.WeatherData.Bus busWea
       "Weather bus"
       annotation (Placement(
           transformation(extent={{-80,80},{-40,120}}),
           iconTransformation(extent={{-70,90},
               {-50,110}})));
-    Bus                                                      busCon "Control bus"
-      annotation (Placement(transformation(
+    Bus bus "Control bus" annotation (Placement(transformation(
           extent={{-20,-20},{20,20}},
           rotation=0,
           origin={0,100}), iconTransformation(

@@ -13,9 +13,8 @@ partial model HeatRecovery
   outer parameter ExternData.JSONFile dat
     "External parameter file";
 
-  Bus busCon if typ <> Buildings.Templates.Components.Types.HeatRecovery.None
-                                                         "Control bus"
-    annotation (Placement(transformation(
+  Bus bus if typ <> Buildings.Templates.Components.Types.HeatRecovery.None
+    "Control bus" annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
         rotation=0,
         origin={0,100}), iconTransformation(

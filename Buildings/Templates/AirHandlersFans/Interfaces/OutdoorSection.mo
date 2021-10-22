@@ -50,9 +50,7 @@ partial model OutdoorSection "Outdoor air section"
     h_outflow(start=MediumAir.h_default, nominal=MediumAir.h_default)) if have_recHea
     "Optional fluid connector for heat recovery"
     annotation (Placement(transformation(extent={{-110,130},{-130,150}})));
-  Interfaces.Bus busCon
-    "Control bus"
-    annotation (Placement(transformation(
+  Interfaces.Bus bus "Control bus" annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
         rotation=0,
         origin={0,140}), iconTransformation(

@@ -88,7 +88,7 @@ equation
                             color={0,127,255}));
   connect(bou1.ports[2], pInd.port) annotation (Line(points={{70,-2.22045e-16},
           {70,30}}, color={0,127,255}));
-  connect(weaDat.weaBus, ahu.weaBus) annotation (Line(
+  connect(weaDat.weaBus,ahu.busWea)  annotation (Line(
       points={{-70,30},{0,30},{0,20}},
       color={255,204,51},
       thickness=0.5));
@@ -98,7 +98,7 @@ equation
       index=1,
       extent={{-6,3},{-6,3}},
       horizontalAlignment=TextAlignment.Right));
-  connect(busAHU, ahu.busAHU) annotation (Line(
+  connect(busAHU, ahu.bus) annotation (Line(
       points={{-20,40},{-20,28},{-20,16},{-19.9,16}},
       color={255,204,51},
       thickness=0.5));

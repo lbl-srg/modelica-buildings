@@ -1,6 +1,6 @@
-within Buildings.Templates.AirHandlersFans.Validation;
+within Buildings.Templates.Validation;
 model BugGroupStatus
-
+  extends Modelica.Icons.Example;
   parameter Integer nGro = 1;
   parameter Integer nZonGro[nGro] = fill(1, nGro);
 

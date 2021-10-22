@@ -138,19 +138,19 @@ equation
     annotation (Line(points={{46,68},{46,62}}, color={0,0,127}));
   connect(ySpeFanRet.y, conRet1.u2) annotation (Line(points={{20,69},{20,64},{
           34,64},{34,62}}, color={0,0,127}));
-  connect(busCon.out.yFanSup, yFanSup.u) annotation (Line(
+  connect(bus.out.yFanSup, yFanSup.u) annotation (Line(
       points={{0.1,100.1},{-46,100.1},{-46,92}},
       color={255,204,51},
       thickness=0.5));
-  connect(busCon.out.ySpeFanSup, ySpeFanSup.u) annotation (Line(
+  connect(bus.out.ySpeFanSup, ySpeFanSup.u) annotation (Line(
       points={{0.1,100.1},{-20,100.1},{-20,92}},
       color={255,204,51},
       thickness=0.5));
-  connect(busCon.out.ySpeFanRet, ySpeFanRet.u) annotation (Line(
+  connect(bus.out.ySpeFanRet, ySpeFanRet.u) annotation (Line(
       points={{0.1,100.1},{20,100.1},{20,92}},
       color={255,204,51},
       thickness=0.5));
-  connect(busCon.out.yFanRet, yFanRet.u) annotation (Line(
+  connect(bus.out.yFanRet, yFanRet.u) annotation (Line(
       points={{0.1,100.1},{46,100.1},{46,92}},
       color={255,204,51},
       thickness=0.5));
@@ -166,15 +166,14 @@ equation
           {-14,-94},{-14,-80},{-28,-80}}, color={255,0,255}));
   connect(mulMin.y, evaSta.u)
     annotation (Line(points={{0,-62},{0,-68}}, color={0,0,127}));
-  connect(yFanSup_actual.y, busCon.inp.yFanSup_actual) annotation (Line(points=
-          {{-51,-80},{-60,-80},{-60,100.1},{0.1,100.1}}, color={255,0,255}),
-      Text(
+  connect(yFanSup_actual.y, bus.inp.yFanSup_actual) annotation (Line(points={{-51,
+          -80},{-60,-80},{-60,100.1},{0.1,100.1}}, color={255,0,255}), Text(
       string="%second",
       index=1,
       extent={{-6,3},{-6,3}},
       horizontalAlignment=TextAlignment.Right));
-  connect(yFanRet_actual.y, busCon.inp.yFanRet_actual) annotation (Line(points=
-          {{51,-80},{80,-80},{80,100.1},{0.1,100.1}}, color={255,0,255}), Text(
+  connect(yFanRet_actual.y, bus.inp.yFanRet_actual) annotation (Line(points={{
+          51,-80},{80,-80},{80,100.1},{0.1,100.1}}, color={255,0,255}), Text(
       string="%second",
       index=1,
       extent={{6,3},{6,3}},

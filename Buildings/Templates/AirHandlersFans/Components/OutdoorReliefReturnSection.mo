@@ -26,8 +26,10 @@ package OutdoorReliefReturnSection
 
     replaceable
       Buildings.Templates.AirHandlersFans.Components.ReliefReturnSection.ReturnFan
-      secRel constrainedby Interfaces.ReliefReturnSection(redeclare final
-        package MediumAir = MediumAir, final have_recHea=false)
+      secRel constrainedby
+      Interfaces.ReliefReturnSection(
+        redeclare final package MediumAir = MediumAir,
+        final have_recHea=false)
       "Relief/return air section" annotation (
       choices(
         choice(redeclare BaseClasses.ReliefReturnSection.ReturnFan secRel
@@ -59,15 +61,15 @@ package OutdoorReliefReturnSection
       annotation (Line(points={{-22,-80},{180,-80}}, color={0,127,255}));
     connect(damRet.port_b, port_Sup)
       annotation (Line(points={{0,-10},{0,-80},{180,-80}}, color={0,127,255}));
-    connect(busCon, secRel.busCon) annotation (Line(
+    connect(bus, secRel.bus) annotation (Line(
         points={{0,140},{0,94}},
         color={255,204,51},
         thickness=0.5));
-    connect(secOut.busCon, busCon) annotation (Line(
+    connect(secOut.bus, bus) annotation (Line(
         points={{-40,-66},{-40,120},{0,120},{0,140}},
         color={255,204,51},
         thickness=0.5));
-    connect(damRet.busCon, busCon) annotation (Line(
+    connect(damRet.bus, bus) annotation (Line(
         points={{10,0},{40,0},{40,120},{0,120},{0,140}},
         color={255,204,51},
         thickness=0.5));
@@ -114,8 +116,8 @@ package OutdoorReliefReturnSection
 
     replaceable
       Buildings.Templates.AirHandlersFans.Components.HeatRecovery.None none
-      constrainedby Interfaces.HeatRecovery(redeclare final package MediumAir
-        = MediumAir) "Heat recovery" annotation (choicesAllMatching=true,
+      constrainedby Interfaces.HeatRecovery(redeclare final package MediumAir =
+          MediumAir) "Heat recovery" annotation (choicesAllMatching=true,
         Placement(transformation(extent={{-50,-10},{-30,10}})));
 
   equation
@@ -127,11 +129,11 @@ package OutdoorReliefReturnSection
       annotation (Line(points={{-180,-80},{-58,-80}}, color={0,127,255}));
     connect(secOut.port_b, port_Sup)
       annotation (Line(points={{-22,-80},{180,-80}}, color={0,127,255}));
-    connect(busCon, secRel.busCon) annotation (Line(
+    connect(bus, secRel.bus) annotation (Line(
         points={{0,140},{0,94}},
         color={255,204,51},
         thickness=0.5));
-    connect(secOut.busCon, busCon) annotation (Line(
+    connect(secOut.bus, bus) annotation (Line(
         points={{-40,-66},{-40,-60},{-60,-60},{-60,120},{0,120},{0,140}},
         color={255,204,51},
         thickness=0.5));
@@ -139,7 +141,7 @@ package OutdoorReliefReturnSection
             80,40},{80,140}},               color={0,127,255}));
     connect(secRel.port_bHeaRec, none.port_aRel)
       annotation (Line(points={{-8,66},{-8,6},{-30,6}}, color={0,127,255}));
-    connect(none.busCon, busCon) annotation (Line(
+    connect(none.bus, bus) annotation (Line(
         points={{-40,10},{-40,120},{0,120},{0,140}},
         color={255,204,51},
         thickness=0.5));
@@ -197,17 +199,17 @@ package OutdoorReliefReturnSection
       annotation (Line(points={{-22,-80},{180,-80}}, color={0,127,255}));
     connect(port_Out, secOut.port_a)
       annotation (Line(points={{-180,-80},{-58,-80}}, color={0,127,255}));
-    connect(secOut.busCon, busCon) annotation (Line(
+    connect(secOut.bus, bus) annotation (Line(
         points={{-40,-66},{-40,120},{0,120},{0,140}},
         color={255,204,51},
         thickness=0.5));
-    connect(secRel.busCon, busCon) annotation (Line(
+    connect(secRel.bus, bus) annotation (Line(
         points={{0,94},{0,140}},
         color={255,204,51},
         thickness=0.5));
-    connect(damRet.busCon, busCon) annotation (Line(
-        points={{10,-1.77636e-15},{26,-1.77636e-15},{26,0},{40,0},{40,120},{0,120},
-            {0,140}},
+    connect(damRet.bus, bus) annotation (Line(
+        points={{10,-1.77636e-15},{26,-1.77636e-15},{26,0},{40,0},{40,120},{0,
+            120},{0,140}},
         color={255,204,51},
         thickness=0.5));
     connect(secRel.port_bPre, port_bPre) annotation (Line(points={{8,66},{8,60},{

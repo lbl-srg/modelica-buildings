@@ -32,8 +32,7 @@ partial block Controller
     annotation(Evaluate=true);
     */
 
-  Bus busAHU "AHU control bus"
-    annotation (Placement(transformation(
+  Bus bus "AHU control bus" annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
         rotation=90,
         origin={-200,0}), iconTransformation(

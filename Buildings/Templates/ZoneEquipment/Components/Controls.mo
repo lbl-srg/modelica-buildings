@@ -19,14 +19,14 @@ package Controls
           rotation=-90,
           origin={20,110})));
   equation
-    connect(yDamVAV.y, busTer.out.yDamVAV) annotation (Line(points={{-100,98},{-100,
+    connect(yDamVAV.y, bus.out.yDamVAV) annotation (Line(points={{-100,98},{-100,
             0.1},{-200.1,0.1}}, color={0,0,127}), Text(
         string="%second",
         index=1,
         extent={{-3,-6},{-3,-6}},
         horizontalAlignment=TextAlignment.Right));
-    connect(yCoiReh.y, busTer.out.yCoiReh) annotation (Line(points={{20,98},{20,0.1},
-            {-200.1,0.1}}, color={0,0,127}), Text(
+    connect(yCoiReh.y, bus.out.yCoiReh) annotation (Line(points={{20,98},{20,
+            0.1},{-200.1,0.1}}, color={0,0,127}), Text(
         string="%second",
         index=1,
         extent={{-3,-6},{-3,-6}},
@@ -545,37 +545,37 @@ package Controls
               0}}), iconTransformation(extent={{-10,42},{10,62}})));
 
   equation
-    connect(busTer.inp.ppmCO2,conTerUni. ppmCO2) annotation (Line(
+    connect(bus.inp.ppmCO2, conTerUni.ppmCO2) annotation (Line(
         points={{-200.1,0.1},{-20,0.1},{-20,6},{-12,6}},
         color={255,204,51},
         thickness=0.5));
-    connect(busTer.inp.uWin,conTerUni. uWin) annotation (Line(
+    connect(bus.inp.uWin, conTerUni.uWin) annotation (Line(
         points={{-200.1,0.1},{-20,0.1},{-20,2},{-12,2}},
         color={255,204,51},
         thickness=0.5));
-    connect(busTer.inp.TZon,conTerUni. TZon) annotation (Line(
+    connect(bus.inp.TZon, conTerUni.TZon) annotation (Line(
         points={{-200.1,0.1},{-56,0.1},{-56,0},{-12,0}},
         color={255,204,51},
         thickness=0.5));
     connect(FIXME.y,conTerUni. nOcc) annotation (Line(points={{-218,40},{-30,40},{
             -30,4},{-12,4}}, color={0,0,127}));
-    connect(busTer.inp.VDis_flow,conTerUni. VDis_flow) annotation (Line(
+    connect(bus.inp.VDis_flow, conTerUni.VDis_flow) annotation (Line(
         points={{-200.1,0.1},{-20,0.1},{-20,-2},{-12,-2}},
         color={255,204,51},
         thickness=0.5));
-    connect(busTer.inp.yDamVAV_actual,conTerUni. yDam_actual) annotation (Line(
+    connect(bus.inp.yDamVAV_actual, conTerUni.yDam_actual) annotation (Line(
         points={{-200.1,0.1},{-20,0.1},{-20,-4},{-12,-4}},
         color={255,204,51},
         thickness=0.5));
-    connect(busTer.inp.TDis, conTerUni.TDis) annotation (Line(
+    connect(bus.inp.TDis, conTerUni.TDis) annotation (Line(
         points={{-200.1,0.1},{-20,0.1},{-20,-6},{-12,-6}},
         color={255,204,51},
         thickness=0.5));
-    connect(busTer.sof.TSupSet,conTerUni. TSupAHU) annotation (Line(
+    connect(bus.sof.TSupSet, conTerUni.TSupAHU) annotation (Line(
         points={{-200.1,0.1},{-20,0.1},{-20,-8},{-12,-8}},
         color={255,204,51},
         thickness=0.5));
-    connect(busTer.sof.yOpeMod, conTerUni.uOpeMod) annotation (Line(
+    connect(bus.sof.yOpeMod, conTerUni.uOpeMod) annotation (Line(
         points={{-200.1,0.1},{-20,0.1},{-20,-10},{-12,-10}},
         color={255,204,51},
         thickness=0.5));
@@ -583,47 +583,47 @@ package Controls
             -32},{-22,-32},{-22,8},{-12,8}}, color={0,0,127}));
     connect(TZonSet.TZonHeaSet,conTerUni. TZonHeaSet) annotation (Line(points={{-38,
             -40},{-24,-40},{-24,10},{-12,10}}, color={0,0,127}));
-    connect(busTer.sof.yOpeMod, TZonSet.uOpeMod) annotation (Line(
+    connect(bus.sof.yOpeMod, TZonSet.uOpeMod) annotation (Line(
         points={{-200.1,0.1},{-80,0.1},{-80,-27},{-62,-27}},
         color={255,204,51},
         thickness=0.5));
-    connect(busTer.sof.TZonCooOccSet, TZonSet.TZonCooSetOcc) annotation (Line(
+    connect(bus.sof.TZonCooOccSet, TZonSet.TZonCooSetOcc) annotation (Line(
         points={{-200.1,0.1},{-80,0.1},{-80,-31},{-62,-31}},
         color={255,204,51},
         thickness=0.5));
-    connect(busTer.sof.TZonCooUnoSet, TZonSet.TZonCooSetUno) annotation (Line(
+    connect(bus.sof.TZonCooUnoSet, TZonSet.TZonCooSetUno) annotation (Line(
         points={{-200.1,0.1},{-80,0.1},{-80,-33},{-62,-33}},
         color={255,204,51},
         thickness=0.5));
-    connect(busTer.sof.TZonHeaOccSet, TZonSet.TZonHeaSetOcc) annotation (Line(
+    connect(bus.sof.TZonHeaOccSet, TZonSet.TZonHeaSetOcc) annotation (Line(
         points={{-200.1,0.1},{-80,0.1},{-80,-36},{-62,-36}},
         color={255,204,51},
         thickness=0.5));
-    connect(busTer.sof.TZonHeaUnoSet, TZonSet.TZonHeaSetUno) annotation (Line(
+    connect(bus.sof.TZonHeaUnoSet, TZonSet.TZonHeaSetUno) annotation (Line(
         points={{-200.1,0.1},{-80,0.1},{-80,-38},{-62,-38}},
         color={255,204,51},
         thickness=0.5));
-    connect(busTer.sof.dTSetAdj, TZonSet.setAdj) annotation (Line(
+    connect(bus.sof.dTSetAdj, TZonSet.setAdj) annotation (Line(
         points={{-200.1,0.1},{-80,0.1},{-80,-41},{-62,-41}},
         color={255,204,51},
         thickness=0.5));
-    connect(busTer.sof.dTHeaSetAdj, TZonSet.heaSetAdj) annotation (Line(
+    connect(bus.sof.dTHeaSetAdj, TZonSet.heaSetAdj) annotation (Line(
         points={{-200.1,0.1},{-80,0.1},{-80,-43},{-62,-43}},
         color={255,204,51},
         thickness=0.5));
-    connect(busTer.sof.uCooDemLimLev, TZonSet.uCooDemLimLev) annotation (Line(
+    connect(bus.sof.uCooDemLimLev, TZonSet.uCooDemLimLev) annotation (Line(
         points={{-200.1,0.1},{-80,0.1},{-80,-46},{-62,-46}},
         color={255,204,51},
         thickness=0.5));
-    connect(busTer.sof.uHeaDemLimLev, TZonSet.uHeaDemLimLev) annotation (Line(
+    connect(bus.sof.uHeaDemLimLev, TZonSet.uHeaDemLimLev) annotation (Line(
         points={{-200.1,0.1},{-80,0.1},{-80,-48},{-62,-48}},
         color={255,204,51},
         thickness=0.5));
-    connect(busTer.inp.uOcc, TZonSet.uOccSen) annotation (Line(
+    connect(bus.inp.uOcc, TZonSet.uOccSen) annotation (Line(
         points={{-200.1,0.1},{-80,0.1},{-80,-51},{-62,-51}},
         color={255,204,51},
         thickness=0.5));
-    connect(busTer.inp.uWin, TZonSet.uWinSta) annotation (Line(
+    connect(bus.inp.uWin, TZonSet.uWinSta) annotation (Line(
         points={{-200.1,0.1},{-80,0.1},{-80,-53},{-62,-53}},
         color={255,204,51},
         thickness=0.5));
@@ -635,25 +635,27 @@ package Controls
           points={{12,-4},{20,-4},{20,-20},{50,-20}}, color={255,127,0}));
     connect(conTerUni.yZonPreResReq, busSof.yReqZonPreRes) annotation (Line(
           points={{12,-8},{16,-8},{16,-24},{50,-24},{50,-20}}, color={255,127,0}));
-    connect(busOut, busTer.out) annotation (Line(
+    connect(busOut, bus.out) annotation (Line(
         points={{50,20},{80,20},{80,60},{-180,60},{-180,0.1},{-200.1,0.1}},
         color={255,204,51},
         thickness=0.5));
-    connect(busSof, busTer.sof) annotation (Line(
+    connect(busSof, bus.sof) annotation (Line(
         points={{50,-20},{80,-20},{80,-60},{-180,-60},{-180,0.1},{-200.1,0.1}},
         color={255,204,51},
         thickness=0.5));
+
     connect(FIXME2.y, zonOutAirSet.nOcc)
       annotation (Line(points={{-218,80},{100,80},{100,39},{118,39}}, color={255,127,0}));
-    connect(busTer.inp.uWin, zonOutAirSet.uWin) annotation (Line(
+    connect(bus.inp.uWin, zonOutAirSet.uWin) annotation (Line(
         points={{-200.1,0.1},{-20,0.1},{-20,40},{98,40},{98,36},{118,36}},
         color={255,204,51},
         thickness=0.5));
-    connect(busTer.inp.TZon, zonOutAirSet.TZon) annotation (Line(
-        points={{-200.1,0.1},{-20,0.1},{-20,40},{97.8261,40},{97.8261,30},{118,30}},
+    connect(bus.inp.TZon, zonOutAirSet.TZon) annotation (Line(
+        points={{-200.1,0.1},{-20,0.1},{-20,40},{97.8261,40},{97.8261,30},{118,
+            30}},
         color={255,204,51},
         thickness=0.5));
-    connect(busTer.inp.TDis, zonOutAirSet.TDis) annotation (Line(
+    connect(bus.inp.TDis, zonOutAirSet.TDis) annotation (Line(
         points={{-200.1,0.1},{-20,0.1},{-20,40},{98,40},{98,27},{118,27}},
         color={255,204,51},
         thickness=0.5));
@@ -662,8 +664,9 @@ package Controls
         points={{50,-20},{100,-20},{100,33},{118,33}},
         color={255,204,51},
         thickness=0.5));
-    connect(busTer.inp.VDis_flow, zonOutAirSet.VDis_flow) annotation (Line(
-        points={{-200.1,0.1},{-200.1,0.196078},{-20,0.196078},{-20,40},{98,40},{98,24},{118,24}},
+    connect(bus.inp.VDis_flow, zonOutAirSet.VDis_flow) annotation (Line(
+        points={{-200.1,0.1},{-200.1,0.196078},{-20,0.196078},{-20,40},{98,40},
+            {98,24},{118,24}},
         color={255,204,51},
         thickness=0.5));
     connect(busSof.VDesUncOutAir_flow, zonOutAirSet.VUncOut_flow_nominal)
@@ -689,11 +692,11 @@ package Controls
       annotation (Line(points={{142,24},{162,24},{162,-20},{50,-20}}, color={0,0,127}));
     connect(zonOutAirSet.VPriAir_flow, busSof.VPriAir_flow)
       annotation (Line(points={{142,21},{160,21},{160,-20},{50,-20}}, color={0,0,127}));
-    connect(busTer.inp.uWin, zonSta.uWin) annotation (Line(
+    connect(bus.inp.uWin, zonSta.uWin) annotation (Line(
         points={{-200.1,0.1},{-20,0.1},{-20,-84},{118,-84}},
         color={255,204,51},
         thickness=0.5));
-    connect(busTer.inp.TZon, zonSta.TZon) annotation (Line(
+    connect(bus.inp.TZon, zonSta.TZon) annotation (Line(
         points={{-200.1,0.1},{-20,0.1},{-20,-88},{118,-88}},
         color={255,204,51},
         thickness=0.5));
