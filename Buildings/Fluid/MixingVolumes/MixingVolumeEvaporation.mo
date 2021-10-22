@@ -218,9 +218,9 @@ energy balances. In steady state, the heat port is conditional removed
 in order to maintain a consistent set of equations.
 
 This model is similar to 
-<a href = \"modelica://Modelica.Fluid.Examples.DrumBoiler.BaseClasses.EquilibriumDrumBoiler\">
+<a href=\"modelica://Modelica.Fluid.Examples.DrumBoiler.BaseClasses.EquilibriumDrumBoiler\">
 Modelica.Fluid.Examples.DrumBoiler.BaseClasses.EquilibriumDrumBoiler</a> 
-with the following exceptions:
+with the following exceptions:</p>
 <ul>
 <li>
 Rather than a two-phase medium, fluid mediums are modeled as two
@@ -240,10 +240,11 @@ The steady state balances accurately hold mass and internal energy
 constant.
 </li>
 </ul>
-</p>
 
-<p>
+
+
 <h4> Implementation</h4>
+<p>
 This model is configured to allow both steady state and dynamic mass 
 and energy balances. The heat transfer through the 
 <code>heatPort</code> is disabled in steady state balance.
@@ -256,26 +257,26 @@ calculated as
 <p align = \"center\" style = \"font-style:italic;\">
 m = ρ<sub>s</sub>V<sub>s</sub> + ρ<sub>w</sub>V<sub>w</sub>
 </p>
-
+<p>
 where <i>ρ</i> is density,<i>V</i> is volume, and subscripts represent 
 the steam and liquid water components, respectively. 
-The total internal energy <i>U</i> is
+The total internal energy <i>U</i> is</p>
 <p align = \"center\" style = \"font-style:italic;\">
 U = ρ<sub>s</sub>V<sub>s</sub>h<sub>s</sub> + ρ<sub>w</sub>V<sub>w</sub> − pV
 </p>
-
+<p>
 where <i>h</i> is specific enthalpy, <i>p</i> is pressure, and the 
-total volume of fluid <i>V=V<sub>s</sub>+V<sub>w</sub></i>.
+total volume of fluid <i>V=V<sub>s</sub>+V<sub>w</sub></i>.</p>
 
-<p><li>The steady state mass balance and energy balance is given as
+<p>The steady state mass balance and energy balance is given as</p>
 <p align = \"center\" style = \"font-style:italic;\">
-m&#775;<sub>s</sub> + m&#775;<sub>w</sub> = 0,
-<li>U = U_start, Q&#775; = 0</p>
+m&#775;<sub>s</sub> + m&#775;<sub>w</sub> = 0,<Br>
+U = U_start, Q&#775; = 0</p>
 
 The dynamic mass and energy balance is given as
 <p align = \"center\" style = \"font-style:italic;\">
-dm/dt = m&#775;<sub>s</sub> + m&#775;<sub>w</sub>
-<li>dU/dt = Q&#775; + m&#775;<sub>s</sub> h<sub>s</sub> + m&#775;
+dm/dt = m&#775;<sub>s</sub> + m&#775;<sub>w</sub><Br>
+dU/dt = Q&#775; + m&#775;<sub>s</sub> h<sub>s</sub> + m&#775;
 <sub>w</sub> h<sub>w</sub></p> 
 
 <p>where ̇<i>m&#775;<sub>s</sub></i> and <i>m&#775;<sub>w</sub></i> 
@@ -293,19 +294,17 @@ while the vapor phase (steam) is always at the <code>port_b</code> (outlet).
 <p>
 Two principal assumptions are made with this model:
 </p>
-<p>
 <ul>
 <li>
 The water is always at a saturated state within the 
 boiler, and saturated steam vapor with a quality of 
 1 is discharged from the outlet port with 
-<i>h<sub>s</sub>=h<sub>v</sub>.
+<i>h<sub>s</sub>=h<sub>v</sub></i>.
 </li>
 <li>
 The liquid and vapor components in the volume are at equilibrium.
 </li>
 </ul>
-</p>
 <p>
 This model is instantiated in 
 <a href = \"modelica://Buildings.Fluid.Boilers.BoilerPolynomialSteam\">

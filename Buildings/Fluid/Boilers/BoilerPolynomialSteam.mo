@@ -209,11 +209,10 @@ equation
 This model represents a steam boiler that discharges saturated 
 steam and has an efficiency curve defined by a polynomial.
 This model is similar to the 
-<a href = \"modelica:// Buildings.Fluid.Boilers.BoilerPolynomial\"> 
+<a href=\"modelica://Buildings.Fluid.Boilers.BoilerPolynomial\"> 
 Buildings.Fluid.Boilers.BoilerPolynomial</a> for the efficiency 
 and fuel mass flow rate computation with the following exceptions:
 </p>
-<p>
 <ul>
 <li>
 Water enters <code>port_a</code> in liquid state and exits 
@@ -230,7 +229,7 @@ the model. The removed blocks are within the green region in the below
 figure:
 </li>
 </ul>
-</p>
+
 <p align=\"center\">
 <img src=\"modelica://Buildings/Resources/Images/Fluid/Boilers/BoilerPolynomialSteam.png\" border=\"1\"
 alt=\"Boiler polynomial steam with blocks in green conditionally removed if steady state\"/>
@@ -239,10 +238,10 @@ alt=\"Boiler polynomial steam with blocks in green conditionally removed if stea
 <p>
 In order to improve the numerical efficiency, this model follows 
 the split-medium approach using the
-<a href = \"modelica://Buildings.Fluid.Interfaces.PartialTwoPortTwoMedium\">
+<a href=\"modelica://Buildings.Fluid.Interfaces.PartialTwoPortTwoMedium\">
 Buildings.Fluid.Interfaces.PartialTwoPortTwoMedium</a> interface model.
 The saturated mixing volume for an evaporation process 
-<a href = \"modelica:// Buildings.Fluid.MixingVolumes.MixingVolumeEvaporation\">
+<a href=\"modelica://Buildings.Fluid.MixingVolumes.MixingVolumeEvaporation\">
 Buildings.Fluid.MixingVolumes.MixingVolumeEvaporation</a> is 
 represents the phase change process of water from liquid 
 to vapor at equilibrium.
