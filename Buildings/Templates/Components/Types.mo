@@ -1,4 +1,4 @@
-within Buildings.Templates;
+within Buildings.Templates.Components;
 package Types "Generic types for template components"
   extends Modelica.Icons.TypesPackage;
   type Actuator = enumeration(

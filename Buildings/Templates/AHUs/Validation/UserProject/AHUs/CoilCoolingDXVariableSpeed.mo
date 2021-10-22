@@ -6,7 +6,7 @@ model CoilCoolingDXVariableSpeed
     nGro=1,
     redeclare Buildings.Templates.Components.Coils.DirectExpansion coiCoo(
         redeclare replaceable
-        Buildings.Templates.Components.Coils.HeatExchangers.DXVariableSpeed hex));
+        Buildings.Templates.Components.HeatExchangers.DXVariableSpeed hex));
 
   annotation (
     defaultComponentName="ahu");

@@ -1,6 +1,6 @@
 within Buildings.Templates.Components.Sensors;
 model SpecificEnthalpy
-  extends Buildings.Templates.Interfaces.Sensor(
+  extends Buildings.Templates.Components.Interfaces.Sensor(
     y(final unit="J/kg"),
     final isDifPreSen=false);
 

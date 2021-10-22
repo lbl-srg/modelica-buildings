@@ -24,7 +24,8 @@ model VAVBox "VAV terminal unit"
       iconTransformation(extent={{10,-208},{30,-188}})));
 
   inner replaceable Components.Coils.None coiReh constrainedby
-    Templates.Interfaces.Coil(redeclare final package MediumAir = MediumAir,
+    Components.Interfaces.Coil(
+                              redeclare final package MediumAir = MediumAir,
       redeclare final package MediumSou = MediumHea) "Reheat coil" annotation (
     choices(choice(redeclare Templates.BaseClasses.Coils.None coiReh "No coil"),
         choice(redeclare Templates.BaseClasses.Coils.WaterBasedHeating coiReh
@@ -33,8 +34,8 @@ model VAVBox "VAV terminal unit"
     Placement(transformation(extent={{-10,-210},{10,-190}})));
 
   inner replaceable .Buildings.Templates.Components.Dampers.PressureIndependent
-    damVAV constrainedby Buildings.Templates.Interfaces.Damper(redeclare final
-      package Medium = MediumAir, final loc=Templates.Types.Location.Terminal)
+    damVAV constrainedby Buildings.Templates.Components.Interfaces.Damper(
+      redeclare final package Medium = MediumAir, final loc=Components.Types.Location.Terminal)
     "VAV damper" annotation (Dialog(group="VAV damper"), Placement(
         transformation(
         extent={{-10,-10},{10,10}},
@@ -52,7 +53,7 @@ model VAVBox "VAV terminal unit"
   .Buildings.Templates.Components.Sensors.Temperature TDis(
     redeclare final package Medium = MediumAir,
     final have_sen=conTer.typ == Types.Controller.Guideline36,
-    final loc=Templates.Types.Location.Terminal)
+    final loc=Components.Types.Location.Terminal)
     "Discharge air temperature sensor"
     annotation (Placement(transformation(extent={{90,-210},{110,-190}})));
 equation

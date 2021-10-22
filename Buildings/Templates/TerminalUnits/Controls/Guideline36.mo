@@ -390,7 +390,7 @@ block Guideline36
   *  Final parameters
   */
   final parameter Boolean have_heaWatCoi=
-    coiReh.typ==Buildings.Templates.Types.Coil.WaterBased
+    coiReh.typ==Buildings.Templates.Components.Types.Coil.WaterBased
     "Flag, true if there is a hot water coil"
     annotation (Dialog(tab="System requests", group="Parameters"));
 

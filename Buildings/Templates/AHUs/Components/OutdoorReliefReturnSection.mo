@@ -21,7 +21,6 @@ package OutdoorReliefReturnSection
             "Dedicated minimum OA damper (modulated) with AFMS"),
         choice(redeclare BaseClasses.OutdoorSection.DedicatedPressure secOut
             "Dedicated minimum OA damper (two-position) with differential pressure sensor")),
-
       Dialog(group="Outdoor air section"),
       Placement(transformation(extent={{-58,-94},{-22,-66}})));
 
@@ -41,7 +40,7 @@ package OutdoorReliefReturnSection
       Placement(transformation(extent={{-18,66},{18,94}})));
 
     replaceable Buildings.Templates.Components.Dampers.Modulated damRet(
-        redeclare final package Medium = MediumAir, final loc=Templates.Types.Location.Return)
+        redeclare final package Medium = MediumAir, final loc=Buildings.Templates.Components.Types.Location.Return)
       "Return air damper" annotation (Placement(transformation(
           extent={{-10,-10},{10,10}},
           rotation=-90,
@@ -95,7 +94,6 @@ package OutdoorReliefReturnSection
             "Dedicated minimum OA damper (modulated) with AFMS"),
         choice(redeclare BaseClasses.OutdoorSection.DedicatedPressure secOut
             "Dedicated minimum OA damper (two-position) with differential pressure sensor")),
-
       Dialog(group="Outdoor air section"),
       Placement(transformation(extent={{-58,-94},{-22,-66}})));
 
@@ -115,8 +113,8 @@ package OutdoorReliefReturnSection
       Placement(transformation(extent={{-18,66},{18,94}})));
 
     replaceable Buildings.Templates.AHUs.Components.HeatRecovery.None none
-      constrainedby Interfaces.HeatRecovery(redeclare final package MediumAir
-        = MediumAir) "Heat recovery" annotation (choicesAllMatching=true,
+      constrainedby Interfaces.HeatRecovery(redeclare final package MediumAir =
+          MediumAir) "Heat recovery" annotation (choicesAllMatching=true,
         Placement(transformation(extent={{-50,-10},{-30,10}})));
 
   equation
@@ -171,7 +169,6 @@ package OutdoorReliefReturnSection
             "Dedicated minimum OA damper (modulated) with AFMS"),
         choice(redeclare BaseClasses.OutdoorSection.DedicatedPressure secOut
             "Dedicated minimum OA damper (two-position) with differential pressure sensor")),
-
       Dialog(group="Outdoor air section"),
       Placement(transformation(extent={{-58,-94},{-22,-66}})));
 
@@ -183,7 +180,7 @@ package OutdoorReliefReturnSection
               {-18,66},{18,94}})));
 
     replaceable Buildings.Templates.Components.Dampers.Modulated damRet(
-        redeclare final package Medium = MediumAir, final loc=Templates.Types.Location.Return)
+        redeclare final package Medium = MediumAir, final loc=Buildings.Templates.Components.Types.Location.Return)
       "Return air damper" annotation (Placement(transformation(
           extent={{-10,-10},{10,10}},
           rotation=-90,

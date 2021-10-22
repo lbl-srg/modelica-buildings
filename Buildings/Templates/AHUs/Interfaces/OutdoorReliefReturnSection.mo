@@ -11,16 +11,16 @@ partial model OutdoorReliefReturnSection "Outdoor/relief/return air section"
   parameter Boolean have_porPre
     "Set to true in case of fluid port for differential pressure sensor"
     annotation (Evaluate=true, Dialog(group="Configuration"));
-  parameter Templates.Types.Damper typDamOut
+  parameter Buildings.Templates.Components.Types.Damper typDamOut
     "Outdoor air damper type"
     annotation (Evaluate=true, Dialog(group="Configuration"));
-  parameter Templates.Types.Damper typDamOutMin
+  parameter Buildings.Templates.Components.Types.Damper typDamOutMin
     "Minimum outdoor air damper type"
     annotation (Evaluate=true, Dialog(group="Configuration"));
-  parameter Templates.Types.Damper typDamRel
+  parameter Buildings.Templates.Components.Types.Damper typDamRel
     "Relief damper type"
     annotation (Evaluate=true, Dialog(group="Configuration"));
-  parameter Templates.Types.Fan typFanRet
+  parameter Buildings.Templates.Components.Types.Fan typFanRet
     "Relief/return fan type"
     annotation (Evaluate=true, Dialog(group="Configuration"));
 

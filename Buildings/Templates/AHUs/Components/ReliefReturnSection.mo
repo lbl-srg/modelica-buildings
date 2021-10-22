@@ -10,9 +10,9 @@ package ReliefReturnSection
       final have_porPre=fanRet.typCtr==Types.ReturnFanControlSensor.Pressure);
 
     replaceable .Buildings.Templates.Components.Fans.None fanRet constrainedby
-      Templates.Interfaces.Fan(redeclare final package Medium = MediumAir,
-        final loc=Templates.Types.Location.Return) "Return/relief fan"
-      annotation (
+      Buildings.Templates.Components.Interfaces.Fan(redeclare final package
+        Medium = MediumAir, final loc=Buildings.Templates.Components.Types.Location.Return)
+      "Return/relief fan" annotation (
       choices(
         choice(redeclare Templates.BaseClasses.Fans.None fanRet "No fan"),
         choice(redeclare Templates.BaseClasses.Fans.SingleVariable fanRet
@@ -24,19 +24,19 @@ package ReliefReturnSection
     Buildings.Templates.Components.Sensors.DifferentialPressure pRet_rel(
       redeclare final package Medium = MediumAir,
       final have_sen=fanRet.typCtr == Types.ReturnFanControlSensor.Pressure,
-      final loc=Templates.Types.Location.Return)
+      final loc=Buildings.Templates.Components.Types.Location.Return)
       "Return static pressure sensor"
       annotation (Placement(transformation(extent={{30,-10},{10,10}})));
 
     Buildings.Templates.Components.Sensors.VolumeFlowRate VRet_flow(
       redeclare final package Medium = MediumAir,
       final have_sen=fanRet.typCtr == Types.ReturnFanControlSensor.Airflow,
-      final loc=Templates.Types.Location.Return)
+      final loc=Buildings.Templates.Components.Types.Location.Return)
       "Return air volume flow rate sensor"
       annotation (Placement(transformation(extent={{70,-10},{50,10}})));
 
     Buildings.Templates.Components.Dampers.TwoPosition damRel(redeclare final
-        package Medium = MediumAir, final loc=Buildings.Templates.Types.Location.Relief)
+        package Medium = MediumAir, final loc=Buildings.Templates.Components.Types.Location.Relief)
       "Relief damper" annotation (Placement(transformation(
           extent={{10,-10},{-10,10}},
           rotation=0,
@@ -73,14 +73,14 @@ package ReliefReturnSection
   model NoRelief "No relief branch"
     extends Buildings.Templates.AHUs.Interfaces.ReliefReturnSection(
       final typ=Types.ReliefReturnSection.NoRelief,
-      final typDam=Templates.Types.Damper.None,
+      final typDam=Buildings.Templates.Components.Types.Damper.None,
       final typFan=fanRet.typ,
       have_recHea=false,
-      final have_porPre=fanRet.typCtr==Types.ReturnFanControlSensor.Pressure);
+      final have_porPre=fanRet.typCtr == Types.ReturnFanControlSensor.Pressure);
 
     replaceable .Buildings.Templates.Components.Fans.None fanRet constrainedby
-      Templates.Interfaces.Fan(redeclare final package Medium = MediumAir,
-        final loc=Buildings.Templates.Types.Location.Return)
+      Buildings.Templates.Components.Interfaces.Fan(redeclare final package
+        Medium = MediumAir, final loc=Buildings.Templates.Components.Types.Location.Return)
       "Return/relief fan" annotation (
       choices(
         choice(redeclare Templates.BaseClasses.Fans.None fanRet "No fan"),
@@ -93,14 +93,14 @@ package ReliefReturnSection
     Buildings.Templates.Components.Sensors.DifferentialPressure pRet_rel(
       redeclare final package Medium = MediumAir,
       final have_sen=fanRet.typCtr == Types.ReturnFanControlSensor.Pressure,
-      final loc=Buildings.Templates.Types.Location.Return)
+      final loc=Buildings.Templates.Components.Types.Location.Return)
       "Return static pressure sensor"
       annotation (Placement(transformation(extent={{30,-10},{10,10}})));
 
     Buildings.Templates.Components.Sensors.VolumeFlowRate VRet_flow(
       redeclare final package Medium = MediumAir,
       final have_sen,
-      final loc=Buildings.Templates.Types.Location.Return)
+      final loc=Buildings.Templates.Components.Types.Location.Return)
       "Return air volume flow rate sensor"
       annotation (Placement(transformation(extent={{70,-10},{50,10}})));
   equation
@@ -128,11 +128,11 @@ package ReliefReturnSection
     extends Buildings.Templates.AHUs.Interfaces.ReliefReturnSection(
       final typ=Types.ReliefReturnSection.ReliefDamper,
       final typDam=damRel.typ,
-      final typFan=Templates.Types.Fan.None,
+      final typFan=Buildings.Templates.Components.Types.Fan.None,
       final have_porPre=false);
 
     Buildings.Templates.Components.Dampers.Modulated damRel(redeclare final
-        package Medium = MediumAir, final loc=Buildings.Templates.Types.Location.Relief)
+        package Medium = MediumAir, final loc=Buildings.Templates.Components.Types.Location.Relief)
       "Relief damper" annotation (Placement(transformation(
           extent={{10,-10},{-10,10}},
           rotation=0,
@@ -170,17 +170,17 @@ building static pressure. Close damper when disabled.
       final have_porPre=fanRet.typCtr==Types.ReturnFanControlSensor.Pressure);
 
     Buildings.Templates.Components.Dampers.TwoPosition damRel(redeclare final
-        package Medium = MediumAir, final loc=Buildings.Templates.Types.Location.Relief)
+        package Medium = MediumAir, final loc=Buildings.Templates.Components.Types.Location.Relief)
       "Relief damper" annotation (Placement(transformation(
           extent={{10,-10},{-10,10}},
           rotation=0,
           origin={-60,0})));
     replaceable .Buildings.Templates.Components.Fans.SingleVariable fanRet
-      constrainedby Templates.Interfaces.Fan(
+      constrainedby Buildings.Templates.Components.Interfaces.Fan(
       redeclare final package Medium = MediumAir,
       final typCtr=Types.ReturnFanControlSensor.None,
-      final loc=Templates.Types.Location.Relief) "Return/relief fan"
-      annotation (choices(choice(redeclare
+      final loc=Buildings.Templates.Components.Types.Location.Relief)
+      "Return/relief fan" annotation (choices(choice(redeclare
             Templates.BaseClasses.Fans.SingleVariable fanRet
             "Single fan - Variable speed"), choice(redeclare
             Templates.BaseClasses.Fans.MultipleVariable fanRet
@@ -225,14 +225,14 @@ building static pressure. Close damper when disabled.
       final have_porPre=fanRet.typCtr==Types.ReturnFanControlSensor.Pressure);
 
     Buildings.Templates.Components.Dampers.TwoPosition damRel(redeclare final
-        package Medium = MediumAir, final loc=Buildings.Templates.Types.Location.Relief)
+        package Medium = MediumAir, final loc=Buildings.Templates.Components.Types.Location.Relief)
       "Relief damper" annotation (Placement(transformation(
           extent={{10,-10},{-10,10}},
           rotation=0,
           origin={-60,0})));
     replaceable .Buildings.Templates.Components.Fans.SingleVariable fanRet
-      constrainedby Templates.Interfaces.Fan(redeclare final package Medium =
-          MediumAir, final loc=Buildings.Templates.Types.Location.Return)
+      constrainedby Buildings.Templates.Components.Interfaces.Fan(redeclare
+        final package Medium = MediumAir, final loc=Buildings.Templates.Components.Types.Location.Return)
       "Return/relief fan" annotation (choices(choice(redeclare
             Templates.BaseClasses.Fans.SingleVariable fanRet
             "Single fan - Variable speed"), choice(redeclare
@@ -242,14 +242,14 @@ building static pressure. Close damper when disabled.
     Buildings.Templates.Components.Sensors.DifferentialPressure pRet_rel(
       redeclare final package Medium = MediumAir,
       final have_sen=fanRet.typCtr == Types.ReturnFanControlSensor.Pressure,
-      final loc=Buildings.Templates.Types.Location.Return)
+      final loc=Buildings.Templates.Components.Types.Location.Return)
       "Return static pressure sensor"
       annotation (Placement(transformation(extent={{50,-10},{30,10}})));
 
     Buildings.Templates.Components.Sensors.VolumeFlowRate VRet_flow(
       redeclare final package Medium = MediumAir,
       final have_sen=fanRet.typCtr == Types.ReturnFanControlSensor.Airflow,
-      final loc=Buildings.Templates.Types.Location.Return)
+      final loc=Buildings.Templates.Components.Types.Location.Return)
       "Return air volume flow rate sensor"
       annotation (Placement(transformation(extent={{90,-10},{70,10}})));
 

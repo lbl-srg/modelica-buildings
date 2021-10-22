@@ -1,6 +1,6 @@
 within Buildings.Templates.Components.Fans;
 model SingleConstant "Single fan - Constant speed"
-  extends Buildings.Templates.Interfaces.Fan(final typ=Types.Fan.SingleConstant);
+  extends Buildings.Templates.Components.Interfaces.Fan(final typ=Buildings.Templates.Components.Types.Fan.SingleConstant);
 
   replaceable Fluid.Movers.SpeedControlled_y fan(
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
@@ -20,13 +20,13 @@ model SingleConstant "Single fan - Constant speed"
         rotation=-90,
         origin={0,30})));
   Modelica.Blocks.Routing.BooleanPassThrough yFanSup
- if loc==Templates.Types.Location.Supply
+    if loc == Buildings.Templates.Components.Types.Location.Supply
     "Supply fan start/stop" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={-60,70})));
-  Modelica.Blocks.Routing.BooleanPassThrough yFanRet
- if loc==Templates.Types.Location.Return or loc==Templates.Types.Location.Relief
+  Modelica.Blocks.Routing.BooleanPassThrough yFanRet if loc == Buildings.Templates.Components.Types.Location.Return
+     or loc == Buildings.Templates.Components.Types.Location.Relief
     "Return fan start/stop" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
@@ -39,13 +39,13 @@ model SingleConstant "Single fan - Constant speed"
         rotation=-90,
         origin={0,-30})));
   Modelica.Blocks.Routing.BooleanPassThrough yFanSup_actual
- if loc==Templates.Types.Location.Supply
+    if loc == Buildings.Templates.Components.Types.Location.Supply
     "Supply fan status" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={-20,-70})));
-  Modelica.Blocks.Routing.BooleanPassThrough yFanRet_actual
- if loc==Templates.Types.Location.Return or loc==Templates.Types.Location.Relief
+  Modelica.Blocks.Routing.BooleanPassThrough yFanRet_actual if loc == Buildings.Templates.Components.Types.Location.Return
+     or loc == Buildings.Templates.Components.Types.Location.Relief
     "Return fan status" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,

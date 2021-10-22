@@ -1,6 +1,6 @@
 within Buildings.Templates.Components.Coils;
 model WaterBasedCooling "Water-based"
-  extends Buildings.Templates.Interfaces.Coil(
+  extends Buildings.Templates.Components.Interfaces.Coil(
     final typ=Types.Coil.WaterBased,
     final typHex=hex.typ,
     final typAct=act.typ,
@@ -33,16 +33,13 @@ model WaterBasedCooling "Water-based"
     "Liquid pressure drop"
     annotation(Dialog(group = "Nominal condition"), Evaluate=true);
 
-  replaceable Actuators.None act
-    constrainedby Templates.Interfaces.Actuator(
-       redeclare final package Medium = MediumSou)
-    "Actuator"
-    annotation (
-      choicesAllMatching=true,
-      Placement(transformation(extent={{-10,-70},{10,-50}})));
+  replaceable Buildings.Templates.Components.Actuators.None act constrainedby
+    Interfaces.Actuator(redeclare final package Medium = MediumSou) "Actuator"
+    annotation (choicesAllMatching=true, Placement(transformation(extent={{-10,
+            -70},{10,-50}})));
 
-  replaceable HeatExchangers.WetCoilCounterFlow hex constrainedby
-    Templates.Interfaces.HeatExchangerWater(
+  replaceable Buildings.Templates.Components.HeatExchangers.WetCoilCounterFlow
+    hex constrainedby Interfaces.HeatExchangerWater(
     redeclare final package Medium1 = MediumSou,
     redeclare final package Medium2 = MediumAir,
     final m1_flow_nominal=mWat_flow_nominal,

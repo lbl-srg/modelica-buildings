@@ -12,9 +12,9 @@ partial block PartialSingleDuct "Partial control block for single duct AHU"
   outer replaceable .Buildings.Templates.Components.Coils.None coiReh
     "Reheat coil";
 
-  outer parameter Templates.Types.Fan typFanSup
+  outer parameter Buildings.Templates.Components.Types.Fan typFanSup
     "Type of supply fan";
-  outer parameter Templates.Types.Fan typFanRet
+  outer parameter Buildings.Templates.Components.Types.Fan typFanRet
     "Type of relief/return fan";
 
   annotation (Documentation(info="<html>

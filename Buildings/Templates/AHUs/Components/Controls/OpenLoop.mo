@@ -3,26 +3,26 @@ block OpenLoop "Open loop controller (output signals only)"
   extends Buildings.Templates.AHUs.Components.Controls.PartialSingleDuct(final
       typ=Types.Controller.OpenLoop);
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant yDamOut(k=1)
- if secOutRel.typDamOut==Templates.Types.Damper.Modulated
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant yDamOut(k=1) if
+    secOutRel.typDamOut == Buildings.Templates.Components.Types.Damper.Modulated
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={-180,170})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant yDamOut1(k=true)
- if secOutRel.typDamOut==Templates.Types.Damper.TwoPosition
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant yDamOut1(k=true) if
+    secOutRel.typDamOut == Buildings.Templates.Components.Types.Damper.TwoPosition
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={-170,144})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant yDamOutMin(k=1)
- if secOutRel.typDamOutMin==Templates.Types.Damper.Modulated
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant yDamOutMin(k=1) if
+    secOutRel.typDamOutMin == Buildings.Templates.Components.Types.Damper.Modulated
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={-150,170})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant yDamOutMin1(k=true)
- if secOutRel.typDamOutMin==Templates.Types.Damper.TwoPosition
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant yDamOutMin1(k=true) if
+    secOutRel.typDamOutMin == Buildings.Templates.Components.Types.Damper.TwoPosition
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
@@ -32,28 +32,28 @@ block OpenLoop "Open loop controller (output signals only)"
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={-120,170})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant yDamRel(k=1)
- if secOutRel.typDamRel==Templates.Types.Damper.Modulated
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant yDamRel(k=1) if
+    secOutRel.typDamRel == Buildings.Templates.Components.Types.Damper.Modulated
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={-90,170})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant yDamRel1(k=true)
- if secOutRel.typDamRel==Templates.Types.Damper.TwoPosition
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant yDamRel1(k=true) if
+    secOutRel.typDamRel == Buildings.Templates.Components.Types.Damper.TwoPosition
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={-60,170})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant yCoiCoo(k=1)
-  if coiCoo.typ == Templates.Types.Coil.WaterBased or
-     coiCoo.typHex == Templates.Types.HeatExchanger.DXVariableSpeed
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant yCoiCoo(k=1) if coiCoo.typ
+     == Buildings.Templates.Components.Types.Coil.WaterBased or coiCoo.typHex
+     == Buildings.Templates.Components.Types.HeatExchanger.DXVariableSpeed
      annotation (
       Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={-60,110})));
-  Buildings.Controls.OBC.CDL.Integers.Sources.Constant yCoiCooSta(k=1)
- if coiCoo.typHex == Templates.Types.HeatExchanger.DXMultiStage
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant yCoiCooSta(k=1) if
+    coiCoo.typHex == Buildings.Templates.Components.Types.HeatExchanger.DXMultiStage
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={-20,110})));
@@ -67,9 +67,9 @@ block OpenLoop "Open loop controller (output signals only)"
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={100,70})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant yCoiHea(k=1)
- if coiHea.typ == Templates.Types.Coil.WaterBased or
-    coiHea.typHex == Templates.Types.HeatExchanger.DXVariableSpeed
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant yCoiHea(k=1) if coiHea.typ
+     == Buildings.Templates.Components.Types.Coil.WaterBased or coiHea.typHex
+     == Buildings.Templates.Components.Types.HeatExchanger.DXVariableSpeed
     annotation (
       Placement(transformation(
         extent={{-10,-10},{10,10}},

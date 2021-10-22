@@ -1,6 +1,6 @@
 within Buildings.Templates.Components.Sensors;
 model VolumeFlowRate
-  extends Buildings.Templates.Interfaces.Sensor(
+  extends Buildings.Templates.Components.Interfaces.Sensor(
     y(final unit="m3/s"),
     final isDifPreSen=false);
 

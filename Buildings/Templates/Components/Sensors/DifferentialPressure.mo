@@ -1,6 +1,6 @@
 within Buildings.Templates.Components.Sensors;
 model DifferentialPressure
-  extends Buildings.Templates.Interfaces.Sensor(
+  extends Buildings.Templates.Components.Interfaces.Sensor(
     y(final unit="Pa", displayUnit="Pa"),
     final isDifPreSen=true);
 

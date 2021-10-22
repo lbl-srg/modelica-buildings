@@ -23,15 +23,13 @@ model VAVMultiZone "Multiple-Zone VAV"
     "Set to true if reheat coil requires fluid ports on the source side"
     annotation (Evaluate=true, Dialog(group="Reheat coil"));
 
-  final inner parameter Templates.Types.Fan typFanSup=
-    if fanSupDra.typ <> Templates.Types.Fan.None then fanSupDra.typ
-    elseif fanSupBlo.typ <> Templates.Types.Fan.None then fanSupBlo.typ
-    else Templates.Types.Fan.None
-    "Type of supply fan"
-    annotation (Evaluate=true);
-  final inner parameter Templates.Types.Fan typFanRet = secOutRel.typFanRet
-    "Type of return fan"
-    annotation (Evaluate=true);
+  final inner parameter Buildings.Templates.Components.Types.Fan typFanSup=if
+      fanSupDra.typ <> Buildings.Templates.Components.Types.Fan.None then
+      fanSupDra.typ elseif fanSupBlo.typ <> Buildings.Templates.Components.Types.Fan.None
+       then fanSupBlo.typ else Buildings.Templates.Components.Types.Fan.None
+    "Type of supply fan" annotation (Evaluate=true);
+  final inner parameter Buildings.Templates.Components.Types.Fan typFanRet=
+      secOutRel.typFanRet "Type of return fan" annotation (Evaluate=true);
 
   final inner parameter Boolean have_airFloMeaSta=VSup_flow.have_sen
     "Check if the AHU has supply airflow measuring station"
@@ -85,24 +83,26 @@ model VAVMultiZone "Multiple-Zone VAV"
   Buildings.Templates.Components.Sensors.Temperature TMix(
     redeclare final package Medium = MediumAir,
     have_sen=true,
-    final loc=Templates.Types.Location.Supply) "Mixed air temperature sensor"
-    annotation (Dialog(group="Supply air section", enable=false), Placement(
-        transformation(extent={{-100,-210},{-80,-190}})));
+    final loc=Buildings.Templates.Components.Types.Location.Supply)
+    "Mixed air temperature sensor" annotation (Dialog(group=
+          "Supply air section", enable=false), Placement(transformation(extent=
+            {{-100,-210},{-80,-190}})));
 
   inner replaceable Buildings.Templates.Components.Fans.None fanSupBlo
-    constrainedby Buildings.Templates.Interfaces.Fan(redeclare final package
-      Medium = MediumAir, final loc=Templates.Types.Location.Supply)
+    constrainedby Buildings.Templates.Components.Interfaces.Fan(redeclare
+      final package Medium = MediumAir, final loc=Buildings.Templates.Components.Types.Location.Supply)
     "Supply fan - Blow through" annotation (
     choicesAllMatching=true,
-    Dialog(group="Supply air section", enable=fanSupDra == Templates.Types.Fan.None),
+    Dialog(group="Supply air section", enable=fanSupDra == Buildings.Templates.Components.Types.Fan.None),
 
     Placement(transformation(extent={{-70,-210},{-50,-190}})));
 
   inner replaceable .Buildings.Templates.Components.Coils.None coiHea
-    constrainedby Templates.Interfaces.Coil(
+    constrainedby Buildings.Templates.Components.Interfaces.Coil(
     redeclare final package MediumAir = MediumAir,
     redeclare final package MediumSou = MediumHea,
-    final fun=Templates.Types.CoilFunction.Heating) "Heating coil" annotation (
+    final fun=Buildings.Templates.Components.Types.CoilFunction.Heating)
+    "Heating coil" annotation (
     choices(choice(redeclare Templates.BaseClasses.Coils.None coiHea "No coil"),
         choice(redeclare Templates.BaseClasses.Coils.WaterBasedHeating coiHea
           "Water-based")),
@@ -111,18 +111,19 @@ model VAVMultiZone "Multiple-Zone VAV"
 
   .Buildings.Templates.Components.Sensors.Temperature THea(
     redeclare final package Medium = MediumAir,
-    final have_sen=coiHea.typ <> Templates.Types.Coil.None and coiCoo.typ <>
-        Templates.Types.Coil.None,
-    final loc=Templates.Types.Location.Supply)
+    final have_sen=coiHea.typ <> Buildings.Templates.Components.Types.Coil.None
+         and coiCoo.typ <> Buildings.Templates.Components.Types.Coil.None,
+    final loc=Buildings.Templates.Components.Types.Location.Supply)
     "Heating coil leaving air temperature sensor" annotation (Dialog(group=
           "Supply air section", enable=false), Placement(transformation(extent=
             {{-10,-210},{10,-190}})));
 
   inner replaceable Buildings.Templates.Components.Coils.None coiCoo
-    constrainedby Buildings.Templates.Interfaces.Coil(
+    constrainedby Buildings.Templates.Components.Interfaces.Coil(
     redeclare final package MediumAir = MediumAir,
     redeclare final package MediumSou = MediumCoo,
-    final fun=Templates.Types.CoilFunction.Cooling) "Cooling coil" annotation (
+    final fun=Buildings.Templates.Components.Types.CoilFunction.Cooling)
+    "Cooling coil" annotation (
     choices(choice(redeclare Templates.BaseClasses.Coils.None coiCoo "No coil"),
         choice(redeclare Templates.BaseClasses.Coils.WaterBasedCooling coiCoo
           "Water-based")),
@@ -131,18 +132,19 @@ model VAVMultiZone "Multiple-Zone VAV"
 
   .Buildings.Templates.Components.Sensors.Temperature TCoo(
     redeclare final package Medium = MediumAir,
-    final have_sen=coiCoo.typ <> Templates.Types.Coil.None and coiReh.typ <>
-        Templates.Types.Coil.None,
-    final loc=Templates.Types.Location.Supply)
+    final have_sen=coiCoo.typ <> Buildings.Templates.Components.Types.Coil.None
+         and coiReh.typ <> Buildings.Templates.Components.Types.Coil.None,
+    final loc=Buildings.Templates.Components.Types.Location.Supply)
     "Cooling coil leaving air temperature sensor" annotation (Dialog(group=
           "Supply air section", enable=false), Placement(transformation(extent=
             {{50,-210},{70,-190}})));
 
   inner replaceable Buildings.Templates.Components.Coils.None coiReh
-    constrainedby Buildings.Templates.Interfaces.Coil(
+    constrainedby Buildings.Templates.Components.Interfaces.Coil(
     redeclare final package MediumAir = MediumAir,
     redeclare final package MediumSou = MediumHea,
-    final fun=Templates.Types.CoilFunction.Reheat) "Reheat coil" annotation (
+    final fun=Buildings.Templates.Components.Types.CoilFunction.Reheat)
+    "Reheat coil" annotation (
     choices(choice(redeclare Templates.BaseClasses.Coils.None coiReh "No coil"),
         choice(redeclare Templates.BaseClasses.Coils.WaterBasedHeating coiReh
           "Water-based")),
@@ -150,11 +152,11 @@ model VAVMultiZone "Multiple-Zone VAV"
     Placement(transformation(extent={{80,-210},{100,-190}})));
 
   inner replaceable Buildings.Templates.Components.Fans.None fanSupDra
-    constrainedby Buildings.Templates.Interfaces.Fan(redeclare final package
-      Medium = MediumAir, final loc=Templates.Types.Location.Supply)
+    constrainedby Buildings.Templates.Components.Interfaces.Fan(redeclare
+      final package Medium = MediumAir, final loc=Buildings.Templates.Components.Types.Location.Supply)
     "Supply fan - Draw through" annotation (
     choicesAllMatching=true,
-    Dialog(group="Supply air section", enable=fanSupBlo == Templates.Types.Fan.None),
+    Dialog(group="Supply air section", enable=fanSupBlo == Buildings.Templates.Components.Types.Fan.None),
 
     Placement(transformation(extent={{110,-210},{130,-190}})));
 
@@ -162,14 +164,13 @@ model VAVMultiZone "Multiple-Zone VAV"
   .Buildings.Templates.Components.Sensors.VolumeFlowRate VSup_flow(
     redeclare final package Medium = MediumAir,
     have_sen=true,
-    final loc=Templates.Types.Location.Supply)
+    final loc=Buildings.Templates.Components.Types.Location.Supply)
     "Supply air volume flow rate sensor" annotation (Dialog(group=
           "Supply air section", enable=false), Placement(transformation(extent=
             {{140,-210},{160,-190}})));
 
   inner replaceable Components.Controls.OpenLoop conAHU constrainedby
-    Buildings.Templates.AHUs.Interfaces.Controller "AHU controller" annotation
-    (
+    Buildings.Templates.AHUs.Interfaces.Controller "AHU controller" annotation (
     choicesAllMatching=true,
     Dialog(group="Controller"),
     Placement(transformation(extent={{-260,110},{-240,130}})));
@@ -192,15 +193,16 @@ model VAVMultiZone "Multiple-Zone VAV"
   Buildings.Templates.Components.Sensors.Temperature TSup(
     redeclare final package Medium = MediumAir,
     final have_sen=true,
-    final loc=Templates.Types.Location.Supply) "Supply air temperature sensor"
-    annotation (Dialog(group="Supply air section", enable=false), Placement(
-        transformation(extent={{200,-210},{220,-190}})));
+    final loc=Buildings.Templates.Components.Types.Location.Supply)
+    "Supply air temperature sensor" annotation (Dialog(group=
+          "Supply air section", enable=false), Placement(transformation(extent=
+            {{200,-210},{220,-190}})));
 
   // FIXME: bind have_sen to control option.
   .Buildings.Templates.Components.Sensors.HumidityRatio xSup(
     redeclare final package Medium = MediumAir,
     have_sen=true,
-    final loc=Templates.Types.Location.Supply)
+    final loc=Buildings.Templates.Components.Types.Location.Supply)
     "Supply air humidity ratio sensor" annotation (Dialog(group=
           "Supply air section", enable=false), Placement(transformation(extent=
             {{230,-210},{250,-190}})));
@@ -209,9 +211,9 @@ model VAVMultiZone "Multiple-Zone VAV"
   Buildings.Templates.Components.Sensors.DifferentialPressure pSup_rel(
     redeclare final package Medium = MediumAir,
     have_sen=false,
-    final loc=Templates.Types.Location.Supply) "Duct static pressure sensor"
-    annotation (Dialog(group="Supply air section", enable=false), Placement(
-        transformation(extent={{260,-210},{280,-190}})));
+    final loc=Buildings.Templates.Components.Types.Location.Supply)
+    "Duct static pressure sensor" annotation (Dialog(group="Supply air section",
+        enable=false), Placement(transformation(extent={{260,-210},{280,-190}})));
 
   Fluid.Sensors.RelativePressure pInd_rel(
     redeclare final package Medium=MediumAir)
@@ -244,17 +246,19 @@ model VAVMultiZone "Multiple-Zone VAV"
   .Buildings.Templates.Components.Sensors.Temperature TRet(
     redeclare final package Medium = MediumAir,
     have_sen=false,
-    final loc=Templates.Types.Location.Return) "Return air temperature sensor"
-    annotation (Dialog(group="Exhaust/relief/return section", enable=false),
-      Placement(transformation(extent={{220,-90},{200,-70}})));
+    final loc=Buildings.Templates.Components.Types.Location.Return)
+    "Return air temperature sensor" annotation (Dialog(group=
+          "Exhaust/relief/return section", enable=false), Placement(
+        transformation(extent={{220,-90},{200,-70}})));
 
   // FIXME: bind have_sen to control option.
   .Buildings.Templates.Components.Sensors.SpecificEnthalpy hRet(
     redeclare final package Medium = MediumAir,
     have_sen=false,
-    final loc=Templates.Types.Location.Return) "Return air enthalpy sensor"
-    annotation (Dialog(group="Exhaust/relief/return section", enable=false),
-      Placement(transformation(extent={{250,-90},{230,-70}})));
+    final loc=Buildings.Templates.Components.Types.Location.Return)
+    "Return air enthalpy sensor" annotation (Dialog(group=
+          "Exhaust/relief/return section", enable=false), Placement(
+        transformation(extent={{250,-90},{230,-70}})));
 
   Interfaces.BusInput busInp
     annotation (Placement(transformation(extent={{-106,126},{-66,166}})));

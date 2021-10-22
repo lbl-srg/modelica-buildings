@@ -8,10 +8,10 @@ partial model ReliefReturnSection "Relief/return air section"
   parameter AHUs.Types.ReliefReturnSection typ
     "Relief/return air section type"
     annotation (Evaluate=true, Dialog(group="Configuration"));
-  parameter Templates.Types.Damper typDam
+  parameter Buildings.Templates.Components.Types.Damper typDam
     "Relief damper type"
     annotation (Evaluate=true, Dialog(group="Configuration"));
-  parameter Templates.Types.Fan typFan
+  parameter Buildings.Templates.Components.Types.Fan typFan
     "Relief/return fan type"
     annotation (Evaluate=true, Dialog(group="Configuration"));
   parameter Boolean have_porPre

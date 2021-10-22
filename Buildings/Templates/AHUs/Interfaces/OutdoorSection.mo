@@ -8,10 +8,10 @@ partial model OutdoorSection "Outdoor air section"
   parameter AHUs.Types.OutdoorSection typ
     "Outdoor air section type"
     annotation (Evaluate=true, Dialog(group="Configuration"));
-  parameter Templates.Types.Damper typDamOut
+  parameter Buildings.Templates.Components.Types.Damper typDamOut
     "Outdoor air damper type"
     annotation (Evaluate=true, Dialog(group="Configuration"));
-  parameter Templates.Types.Damper typDamOutMin
+  parameter Buildings.Templates.Components.Types.Damper typDamOutMin
     "Minimum outdoor air damper type"
     annotation (Evaluate=true, Dialog(group="Configuration"));
   parameter Boolean have_recHea

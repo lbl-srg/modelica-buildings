@@ -27,6 +27,14 @@ package Types "AHU types"
       RunAroundCoil
       "Run-around coil")
     "Enumeration to configure the heat recovery";
+  type Location = enumeration(
+      OutdoorAir,
+      MinimumOutdoorAir,
+      Relief,
+      Return,
+      Supply,
+      Terminal)
+  "Enumeration to specify the equipment location";
   type OutdoorSection = enumeration(
       NoEconomizer
       "No economizer",

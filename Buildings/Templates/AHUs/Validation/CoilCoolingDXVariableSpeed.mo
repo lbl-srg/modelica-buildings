@@ -3,8 +3,8 @@ model CoilCoolingDXVariableSpeed
   extends BaseNoEquipment(redeclare
     UserProject.AHUs.CoilCoolingDXVariableSpeed ahu(
       coiCoo(redeclare replaceable
-          Buildings.Templates.Components.Coils.HeatExchangers.DXVariableSpeed
-          hex(redeclare
+          Buildings.Templates.Components.HeatExchangers.DXVariableSpeed hex(
+            redeclare
             Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.Data.SingleSpeed.Carrier_Centurion_50PG06
             datCoi))));
 

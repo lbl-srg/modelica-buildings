@@ -5,7 +5,7 @@ model CoilCoolingEffectivenessNTU
       dpAir_nominal(displayUnit="Pa"),
       dpWat_nominal(displayUnit="Pa"),
       redeclare
-        .Buildings.Templates.Components.Coils.HeatExchangers.WetCoilEffectivenessNTU
+        .Buildings.Templates.Components.HeatExchangers.WetCoilEffectivenessNTU
         hex "Effectiveness-NTU wet heat exchanger model") "Water-based",
     final id="VAV_1",
     nZon=1,

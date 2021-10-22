@@ -6,7 +6,7 @@ model CoilCoolingDXMultiStage
     nGro=1,
     redeclare Buildings.Templates.Components.Coils.DirectExpansion coiCoo(
         redeclare replaceable
-        Buildings.Templates.Components.Coils.HeatExchangers.DXMultiStage hex));
+        Buildings.Templates.Components.HeatExchangers.DXMultiStage hex));
 
   annotation (
     defaultComponentName="ahu");

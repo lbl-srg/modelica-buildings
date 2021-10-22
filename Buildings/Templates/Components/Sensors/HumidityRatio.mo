@@ -1,6 +1,6 @@
 within Buildings.Templates.Components.Sensors;
 model HumidityRatio
-  extends Buildings.Templates.Interfaces.Sensor(
+  extends Buildings.Templates.Components.Interfaces.Sensor(
     y(final unit="kg/kg"),
     final isDifPreSen=false);
 

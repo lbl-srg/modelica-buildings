@@ -3,7 +3,7 @@ model CoilHeatingEffectivenessNTU
   extends VAVMultiZone(
     redeclare .Buildings.Templates.Components.Coils.WaterBasedHeating coiHea(
         redeclare
-        .Buildings.Templates.Components.Coils.HeatExchangers.DryCoilEffectivenessNTU
+        .Buildings.Templates.Components.HeatExchangers.DryCoilEffectivenessNTU
         hex "Epsilon-NTU heat exchanger model") "Water-based",
     final id="VAV_1",
     nZon=1,
