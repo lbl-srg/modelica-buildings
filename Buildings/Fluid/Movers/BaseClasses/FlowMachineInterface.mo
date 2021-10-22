@@ -19,7 +19,8 @@ model FlowMachineInterface
     "= true, compute power exactly, using similarity laws. Otherwise approximate.";
 
   final parameter Modelica.SIunits.VolumeFlowRate V_flow_nominal=
-    per.pressure.V_flow[nOri] "Nominal volume flow rate, used for homotopy";
+    if per.use_eulerNumber then per.peak.V_flow_peak
+    else per.pressure.V_flow[end] "Nominal volume flow rate, used for homotopy";
 
   parameter Modelica.SIunits.Density rho_default
     "Fluid density at medium default state";
@@ -212,9 +213,10 @@ protected
     "Coefficients for polynomial of power vs. flow rate";
 
   parameter Boolean haveMinimumDecrease=
-    Modelica.Math.BooleanVectors.allTrue({(per.pressure.dp[i + 1] -
-    per.pressure.dp[i])/(per.pressure.V_flow[i + 1] - per.pressure.V_flow[
-    i]) < -kRes for i in 1:nOri - 1}) "Flag used for reporting";
+    if per.use_eulerNumber then false
+    else Modelica.Math.BooleanVectors.allTrue({(per.pressure.dp[i + 1] -
+          per.pressure.dp[i])/(per.pressure.V_flow[i + 1] - per.pressure.V_flow[
+          i]) < -kRes for i in 1:nOri - 1}) "Flag used for reporting";
 
   parameter Boolean haveDPMax = (abs(per.pressure.V_flow[1])  < Modelica.Constants.eps)
     "Flag, true if user specified data that contain dpMax";
@@ -272,7 +274,7 @@ initial equation
 The following performance data have been entered:
 " + getArrayAsString(per.pressure.V_flow, "pressure.V_flow"));
 
-  if not haveVMax then
+  if (not per.use_eulerNumber) and (not haveVMax) then
     assert((per.pressure.V_flow[nOri]-per.pressure.V_flow[nOri-1])
          /((per.pressure.dp[nOri]-per.pressure.dp[nOri-1]))<0,
     "The last two pressure points for the fan or pump performance curve must be decreasing.
@@ -284,7 +286,7 @@ Received
 
   // Write warning if the volumetric flow rate versus pressure curve does not satisfy
   // the minimum decrease condition
-  if (not haveMinimumDecrease) then
+  if (not per.use_eulerNumber) and (not haveMinimumDecrease) then
     Modelica.Utilities.Streams.print("
 Warning:
 ========
