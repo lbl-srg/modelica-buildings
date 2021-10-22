@@ -40,7 +40,7 @@ model MixingVolumeEvaporation
     then StateSelect.default else StateSelect.prefer)
     "Pressure inside volume";
   MediumSte.Temperature T(start=T_start) "Temperature inside volume";
-  Modelica.SIunits.Volume VSte(start=VWat_start) "Volume of steam vapor";
+  Modelica.SIunits.Volume VSte(final start=VSte_start) "Volume of steam vapor";
   Modelica.SIunits.Volume VWat(
     start=VWat_start,
     stateSelect=if massDynamics == Modelica.Fluid.Types.Dynamics.SteadyState
@@ -57,8 +57,10 @@ model MixingVolumeEvaporation
 
   // Initialization
   parameter Modelica.SIunits.Volume VWat_start=V/2
-    "Start value of liquid volumeStart value of volume"
+    "Start value of liquid volume"
     annotation (Dialog(tab="Initialization"));
+  final parameter Modelica.SIunits.Volume VSte_start= V-VWat_start
+  "Start value of steam vapor volume";
   final parameter MediumWat.ThermodynamicState state_start = MediumWat.setState_pTX(
       T=T_start,
       p=p_start,
@@ -71,9 +73,9 @@ model MixingVolumeEvaporation
     MediumSte.specificEnthalpy_pTX(p_start, T_start, MediumSte.X_default)
     "Start value for specific enthalpy";
   final parameter Modelica.SIunits.Energy U_start=
-    VWat_start*(rhoWat_start*MediumWat.specificEnthalpy(state_start) +
-    rhoSte_start*MediumSte.specificEnthalpy(state_start)) -
-    p_start*VWat_start*2
+    VWat_start*rhoWat_start*MediumWat.specificEnthalpy(state_start) +
+    VSte_start*rhoSte_start*MediumSte.specificEnthalpy(state_start) -
+    p_start*V
     "Starting internal energy";
 
 protected
