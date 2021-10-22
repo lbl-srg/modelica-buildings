@@ -3,8 +3,8 @@ package HeatExchangers
   extends Modelica.Icons.Package;
 
   model DXMultiStage "Multi-stage"
-    extends Buildings.Templates.Components.Interfaces.HeatExchangerDX(final typ
-        =Types.HeatExchanger.DXMultiStage);
+    extends Buildings.Templates.Components.Interfaces.HeatExchangerDX(final typ=
+         Types.HeatExchanger.DXMultiStage);
 
     replaceable parameter
       Fluid.HeatExchangers.DXCoils.AirCooled.Data.Generic.DXCoil datCoi
@@ -65,8 +65,8 @@ package HeatExchangers
   end DXMultiStage;
 
   model DXVariableSpeed "Modulating"
-    extends Buildings.Templates.Components.Interfaces.HeatExchangerDX(final typ
-        =Types.HeatExchanger.DXVariableSpeed);
+    extends Buildings.Templates.Components.Interfaces.HeatExchangerDX(final typ=
+         Types.HeatExchanger.DXVariableSpeed);
 
     parameter Real minSpeRat(min=0,max=1)=0.1 "Minimum speed ratio";
     parameter Real speRatDeaBan=0.05 "Deadband for minimum speed ratio";

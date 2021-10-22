@@ -209,14 +209,10 @@ package Interfaces "Base classes defining the component interfaces"
     parameter Buildings.Templates.Components.Types.Location loc
       "Equipment location"
       annotation (Evaluate=true, Dialog(group="Configuration"));
-    parameter AHUs.Types.ReturnFanControlSensor typCtr=
-      AHUs.Types.ReturnFanControlSensor.None
-      "Sensor type used for return fan control"
-      annotation (
-        Evaluate=true,
-        Dialog(
-          group="Configuration",
-          enable=loc == Buildings.Templates.Components.Types.Location.Return
+    parameter AirHandlersFans.Types.ReturnFanControlSensor typCtr=
+        AirHandlersFans.Types.ReturnFanControlSensor.None
+      "Sensor type used for return fan control" annotation (Evaluate=true,
+        Dialog(group="Configuration", enable=loc == Buildings.Templates.Components.Types.Location.Return
              and typ <> Buildings.Templates.Components.Types.Fan.None));
 
     parameter Modelica.SIunits.MassFlowRate m_flow_nominal=
