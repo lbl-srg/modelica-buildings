@@ -42,9 +42,9 @@ package ReliefReturnSection
           rotation=0,
           origin={-150,0})));
   equation
-    /* Equipment connection - start */
+    /* Equipment signal connection - start */
     connect(fanRet.bus, bus.fanRet);
-    /* Equipment connection - end */
+    /* Equipment signal connection - end */
     connect(port_a, fanRet.port_a)
       annotation (Line(points={{180,0},{110,0}}, color={0,127,255}));
     connect(fanRet.port_b, VRet_flow.port_a)

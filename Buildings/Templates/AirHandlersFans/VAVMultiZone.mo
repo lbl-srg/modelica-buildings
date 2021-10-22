@@ -266,7 +266,7 @@ model VAVMultiZone "Multiple-Zone VAV"
   Interfaces.BusInput busInp
     annotation (Placement(transformation(extent={{-106,126},{-66,166}})));
 equation
-  /* Sensor connection - start */
+  /* Sensor signal connection - start */
   connect(TMix.y, bus.inp.TMix);
   connect(THea.y, bus.inp.THea);
   connect(VSup_flow.y, bus.inp.VSup_flow);
@@ -276,11 +276,11 @@ equation
   connect(hRet.y, bus.inp.hRet);
   connect(TRet.y, bus.inp.TRet);
   connect(pInd_rel.p_rel, bus.inp.pInd_rel);
-  /* Sensor connection - end */
-  /* Equipment connection - start */
+  /* Sensor signal connection - end */
+  /* Equipment signal connection - start */
   connect(fanSupDra.bus, bus.fanSup);
   connect(fanSupBlo.bus, bus.fanSup);
-  /* Equipment connection - end */
+  /* Equipment signal connection - end */
 
   connect(port_coiCooSup, coiCoo.port_aSou) annotation (Line(points={{20,-280},{
           20,-220},{26,-220},{26,-210}},   color={0,127,255}));

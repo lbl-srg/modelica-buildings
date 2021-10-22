@@ -88,7 +88,7 @@ block OpenLoop "Open loop controller (output signals only)"
         origin={180,70})));
 
 equation
-    // Non graphical connections - START
+  /* Equipment signal connection - start */
   connect(yDamOutMin.y, bus.out.yDamOutMin);
   connect(yDamOutMin1.y, bus.out.yDamOutMin);
   connect(yDamRel.y, bus.out.yDamRel);
@@ -108,6 +108,7 @@ equation
   connect(yDamOut1.y, bus.out.yDamOut);
 
   connect(yDamRet.y, bus.out.yDamRet);
+  /* Equipment signal connection - stop */
 
   annotation (
   defaultComponentName="conAHU",
