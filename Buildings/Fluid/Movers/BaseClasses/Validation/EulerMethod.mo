@@ -25,11 +25,11 @@ model EulerMethod
     computePowerUsingSimilarityLaws=false)
     "Flow machine interface using power characteristic"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
-  Buildings.Fluid.Movers.Data.Generic per2(
+  MoverRecord per2(
     powMet=Buildings.Fluid.Movers.BaseClasses.Types.PowerMethod.EulerNumber,
     peak=Buildings.Fluid.Movers.BaseClasses.Euler.findPeakCondition(
-      pressure=per1.pressure,
-      power=per1.power))
+      pressure=per2.pressure,
+      power=per2.power))
     "Peak condition";
   Buildings.Fluid.Movers.BaseClasses.FlowMachineInterface eff2(
     per=per2,
