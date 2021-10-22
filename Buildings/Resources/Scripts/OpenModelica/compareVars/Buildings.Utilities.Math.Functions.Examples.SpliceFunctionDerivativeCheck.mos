@@ -3,5 +3,7 @@ compareVars :=
     "x",
     "y",
     "der(x)",
-    "der(y)"
+    "der(y)",
+    "d2y",
+    "d3y"
   };

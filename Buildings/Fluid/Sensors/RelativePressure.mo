@@ -69,7 +69,7 @@ equation
         Text(
           extent={{-20,-56},{-140,-106}},
           lineColor={0,0,0},
-          textString=DynamicSelect("", String(p_rel, leftjustified=false, significantDigits=3)))}),
+          textString=DynamicSelect("", String(p_rel, leftJustified=false, significantDigits=3)))}),
     Documentation(info="<html>
 <p>
 The relative pressure <code>port_a.p - port_b.p</code> is determined between
