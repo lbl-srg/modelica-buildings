@@ -1,6 +1,5 @@
 within Buildings.Controls.OBC.CDL.Integers;
-package Validation
-  "Collection of models that validate the integer blocks of the CDL"
+package Validation "Collection of models that validate the integer blocks of the CDL"
   annotation (
     preferredView="info",
     Documentation(

@@ -180,7 +180,7 @@ model HeatPump "Base subsystem with water-to-water heat pump"
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={-40,-20})));
-  Buildings.Controls.OBC.CDL.Logical.Switch enaHeaPum(
+  Buildings.Controls.OBC.CDL.Continuous.Switch enaHeaPum(
     u2(start=false))
     "Enable heat pump by switching to actual set point"
     annotation (Placement(transformation(extent={{-140,10},{-120,30}})));

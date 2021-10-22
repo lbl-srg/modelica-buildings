@@ -258,8 +258,6 @@ model PlugFlowAIT
   Buildings.Fluid.FixedResistances.Junction splPip1(
     redeclare package Medium = Medium,
     m_flow_nominal={pip1.m_flow_nominal,pip5.m_flow_nominal,pip4.m_flow_nominal},
-    from_dp=true,
-    linearized=true,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     dp_nominal(each displayUnit="Pa") = {0,0,0},
     portFlowDirection_1=if allowFlowReversal then Modelica.Fluid.Types.PortFlowDirection.Bidirectional
@@ -273,8 +271,6 @@ model PlugFlowAIT
   Buildings.Fluid.FixedResistances.Junction splPip2(
     redeclare package Medium = Medium,
     m_flow_nominal={pip5.m_flow_nominal,pip2.m_flow_nominal,pip3.m_flow_nominal},
-    from_dp=true,
-    linearized=true,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     dp_nominal(each displayUnit="Pa") = {0,0,0},
     portFlowDirection_1=if allowFlowReversal then Modelica.Fluid.Types.PortFlowDirection.Bidirectional

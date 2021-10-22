@@ -130,7 +130,7 @@ model FanCoil2PipeCooling
     annotation (Placement(transformation(extent={{-10,130},{10,150}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant con1(k=have_speVar)
     annotation (Placement(transformation(extent={{-50,150},{-30,170}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi
     "Logical switch"
     annotation (Placement(transformation(extent={{26,170},{46,190}})));
 equation

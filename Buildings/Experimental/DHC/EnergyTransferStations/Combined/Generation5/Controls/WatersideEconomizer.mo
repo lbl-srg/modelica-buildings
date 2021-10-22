@@ -90,7 +90,7 @@ model WatersideEconomizer
   Buildings.Controls.OBC.CDL.Continuous.Line lin
     "Linear variation bounded by minimum and 1"
     annotation (Placement(transformation(extent={{60,90},{80,110}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swiOff1
+  Buildings.Controls.OBC.CDL.Continuous.Switch swiOff1
     "Output zero if cooling not enabled or isolation valve open (cold rejection)"
     annotation (Placement(transformation(extent={{100,150},{120,170}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zer(final k=0) "Zero"
@@ -136,7 +136,7 @@ model WatersideEconomizer
   Buildings.Controls.OBC.CDL.Continuous.Gain nor2(k=1/m2_flow_nominal)
     "Normalize"
     annotation (Placement(transformation(extent={{-140,90},{-120,110}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swiOff2
+  Buildings.Controls.OBC.CDL.Continuous.Switch swiOff2
     "Switch between enabled and disabled mode"
     annotation (Placement(transformation(extent={{140,90},{160,110}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant one(final k=1) "One"
