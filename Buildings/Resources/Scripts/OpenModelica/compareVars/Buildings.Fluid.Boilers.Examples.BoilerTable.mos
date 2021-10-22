@@ -1,0 +1,6 @@
+compareVars :=
+  {
+    "boi1.eta",
+    "boi2.eta",
+    "boi3.eta"
+  };
