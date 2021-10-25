@@ -80,5 +80,8 @@ May 9, 2021, by David Blum:<br/>
 First implementation.
 </li>
 </ul>
-</html>"));
+</html>"), Icon(graphics={Text(
+          extent={{258,-18},{324,-62}},
+          lineColor={0,0,0},
+          textString="CO2")}));
 end Floor;

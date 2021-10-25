@@ -1,14 +1,27 @@
 within Buildings.ThermalZones.EnergyPlus.Examples.SmallOffice;
 model ASHRAE2006Winter
   "Variable air volume flow system with terminal reheat and five thermal zones using a control sequence published by ASHRAE in 2006"
-  extends Buildings.Examples.VAVReheat.ASHRAE2006(
-    redeclare replaceable Buildings.ThermalZones.EnergyPlus.Examples.SmallOffice.BaseClasses.Floor flo
-      constrainedby Buildings.ThermalZones.EnergyPlus.Examples.SmallOffice.BaseClasses.Floor,
-    ACHCor=4,
-    ACHSou=4,
-    ACHEas=6,
-    ACHNor=4,
-    ACHWes=6);
+  extends Modelica.Icons.Example;
+  extends Buildings.Examples.VAVReheat.BaseClasses.HVACBuilding(
+    mCor_flow_nominal=ACHCor*VRooCor*conv,
+    mSou_flow_nominal=ACHSou*VRooSou*conv,
+    mEas_flow_nominal=ACHEas*VRooEas*conv,
+    mNor_flow_nominal=ACHNor*VRooNor*conv,
+    mWes_flow_nominal=ACHWes*VRooWes*conv,
+    redeclare Buildings.Examples.VAVReheat.BaseClasses.ASHRAE2006 hvac,
+    redeclare Buildings.ThermalZones.EnergyPlus.Examples.SmallOffice.BaseClasses.Floor flo);
+
+  parameter Real ACHCor(final unit="1/h")=4
+    "Design air change per hour core";
+  parameter Real ACHSou(final unit="1/h")=4
+    "Design air change per hour south";
+  parameter Real ACHEas(final unit="1/h")=6
+    "Design air change per hour east";
+  parameter Real ACHNor(final unit="1/h")=4
+    "Design air change per hour north";
+  parameter Real ACHWes(final unit="1/h")=6
+    "Design air change per hour west";
+
   annotation (
     __Dymola_Commands(
       file="modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/EnergyPlus/Examples/SmallOffice/ASHRAE2006Winter.mos" "Simulate and plot"),
@@ -20,10 +33,6 @@ model ASHRAE2006Winter
       coordinateSystem(
         extent={{-100,-100},{100,100}},
         preserveAspectRatio=true)),
-    Diagram(
-      coordinateSystem(
-        preserveAspectRatio=true,
-        extent={{-380,-400},{1420,660}})),
     Documentation(
       info="<html>
 <p>
@@ -41,8 +50,8 @@ The figure below shows the schematic diagram of the HVAC system
 </p>
 <p>
 See the model
-<a href=\"modelica://Buildings.Examples.VAVReheat.BaseClasses.PartialOpenLoop\">
-Buildings.Examples.VAVReheat.BaseClasses.PartialOpenLoop</a>
+<a href=\"modelica://Buildings.Examples.VAVReheat.BaseClasses.PartialHVAC\">
+Buildings.Examples.VAVReheat.BaseClasses.PartialHVAC</a>
 for a description of the HVAC system,
 and see the model
 <a href=\"modelica://Buildings.ThermalZones.EnergyPlus.Examples.SmallOffice.BaseClasses.Floor\">
@@ -86,7 +95,13 @@ ASHRAE, Atlanta, GA, 2006.
 </p>
 </html>",
       revisions="<html>
-      <ul>
+<ul>
+<li>
+October 4, 2021, by Michael Wetter:<br/>
+Refactored <a href=\"modelica://Buildings.Examples.VAVReheat\">Buildings.Examples.VAVReheat</a>
+and its base classes to separate building from HVAC model.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2652\">issue #2652</a>.
+</li>
 <li>
 September 3, 2021, by Michael Wetter:<br/>
 Updated documentation.<br/>
