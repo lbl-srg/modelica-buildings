@@ -204,7 +204,7 @@ First implementation.
     __Dymola_Commands(
       file="modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/EnergyPlus/Examples/SingleFamilyHouse/AirHeating.mos" "Simulate and plot"),
     experiment(
-      StopTime=87600,
+      StopTime=86400,
       Tolerance=1e-06,
       __Dymola_Algorithm="Cvode"),
     Diagram(
