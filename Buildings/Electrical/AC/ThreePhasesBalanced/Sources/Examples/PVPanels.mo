@@ -11,15 +11,13 @@ model PVPanels "This example illustrates how to use PV panel models"
            annotation (Placement(transformation(extent={{-60,-20},{-40,0}})));
   Modelica.Blocks.Sources.Constant  load(k=0.5) "Load consumption"
     annotation (Placement(transformation(extent={{78,-50},{58,-30}})));
-  BoundaryConditions.SolarIrradiation.DiffusePerez HDifTil(
-    til=0.34906585039887,
-    lat=0.65798912800186,
-    azi=-0.78539816339745) "Diffuse irradiation on tilted surface"
+  BoundaryConditions.SolarIrradiation.DiffusePerez HDifTil(til=0.34906585039887,
+      azi=-0.78539816339745)
+                           "Diffuse irradiation on tilted surface"
     annotation (Placement(transformation(extent={{-52,72},{-32,92}})));
-  BoundaryConditions.SolarIrradiation.DirectTiltedSurface HDirTil(
-    til=0.34906585039887,
-    lat=0.65798912800186,
-    azi=-0.78539816339745) "Direct irradiation on tilted surface"
+  BoundaryConditions.SolarIrradiation.DirectTiltedSurface HDirTil(til=
+        0.34906585039887, azi=-0.78539816339745)
+                           "Direct irradiation on tilted surface"
     annotation (Placement(transformation(extent={{-52,32},{-32,52}})));
   BoundaryConditions.WeatherData.ReaderTMY3 weaDat(
       computeWetBulbTemperature=false,
@@ -34,7 +32,6 @@ model PVPanels "This example illustrates how to use PV panel models"
     A=10,
     V_nominal=480,
     til=0.34906585039887,
-    lat=0.65798912800186,
     azi=-0.78539816339745) "PV array oriented"
     annotation (Placement(transformation(extent={{-10,0},{10,20}})));
 equation
@@ -89,6 +86,12 @@ equation
         "Simulate and plot"),
     Documentation(revisions="<html>
 <ul>
+<li>
+September 16, 2021, by Michael Wetter:<br/>
+Removed parameter <code>lat</code> as this is now obtained from the weather data reader.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1477\">IBPSA, #1477</a>.
+</li>
 <li>
 September 22, 2014, by Marco Bonvini:<br/>
 Created model and documentation.

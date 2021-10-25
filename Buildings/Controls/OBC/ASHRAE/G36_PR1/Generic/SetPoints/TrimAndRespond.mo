@@ -39,7 +39,7 @@ block TrimAndRespond "Block to inplement trim and respond logic"
   Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr
     "Check if the real requests is more than ignored requests setting"
     annotation (Placement(transformation(extent={{20,-60},{40,-40}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch netRes "Net setpoint reset value"
+  Buildings.Controls.OBC.CDL.Continuous.Switch netRes "Net setpoint reset value"
     annotation (Placement(transformation(extent={{160,-20},{180,-40}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant resAmoCon(
     final k=resAmo)
@@ -57,16 +57,16 @@ block TrimAndRespond "Block to inplement trim and respond logic"
     final y_start=iniSet)
     "Output the input signal with a unit delay"
     annotation (Placement(transformation(extent={{-100,96},{-80,116}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi
     "Switch between initial setpoint and reseted setpoint"
     annotation (Placement(transformation(extent={{160,180},{180,160}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi1
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi1
     "Before instant (device ON + delTim + samplePeriod), the setpoint should not be trimmed"
     annotation (Placement(transformation(extent={{120,0},{140,20}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi2
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi2
     "Reinitialize setpoint to initial setting when device become OFF"
     annotation (Placement(transformation(extent={{100,130},{120,150}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi3 "Logical switch"
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi3 "Logical switch"
     annotation (Placement(transformation(extent={{120,-160},{140,-140}})));
   Buildings.Controls.OBC.CDL.Discrete.Sampler sampler(
     final samplePeriod=samplePeriod)

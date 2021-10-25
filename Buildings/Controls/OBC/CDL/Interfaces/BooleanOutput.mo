@@ -1,6 +1,6 @@
 within Buildings.Controls.OBC.CDL.Interfaces;
 connector BooleanOutput=output Boolean
-  "'output Boolean' as connector"
+  "Boolean output connector"
 annotation (defaultComponentName="y",
  Icon(coordinateSystem(preserveAspectRatio=true,
                        initialScale=0.2,

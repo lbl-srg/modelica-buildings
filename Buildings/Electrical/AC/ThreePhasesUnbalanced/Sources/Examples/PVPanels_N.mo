@@ -15,12 +15,10 @@ model PVPanels_N
     annotation (Placement(transformation(extent={{78,-50},{58,-30}})));
   BoundaryConditions.SolarIrradiation.DiffusePerez HDifTil(
     til=0.34906585039887,
-    lat=0.65798912800186,
     azi=-0.78539816339745) "Diffuse irradiation on tilted surface"
     annotation (Placement(transformation(extent={{-52,72},{-32,92}})));
   BoundaryConditions.SolarIrradiation.DirectTiltedSurface HDirTil(
     til=0.34906585039887,
-    lat=0.65798912800186,
     azi=-0.78539816339745) "Direct irradiation on tilted surface"
     annotation (Placement(transformation(extent={{-52,32},{-32,52}})));
   BoundaryConditions.WeatherData.ReaderTMY3 weaDat(
@@ -39,7 +37,6 @@ model PVPanels_N
     A=100,
     plugPhase2=false,
     til=0.34906585039887,
-    lat=0.65798912800186,
     azi=-0.78539816339745,
     areaFraction={0.4,0.0,0.6}) "PV array oriented"
     annotation (Placement(transformation(extent={{10,0},{-10,20}})));
@@ -97,6 +94,12 @@ equation
         "Simulate and plot"),
     Documentation(revisions="<html>
 <ul>
+<li>
+September 16, 2021, by Michael Wetter:<br/>
+Removed assignment of parameter <code>lat</code> as this is now obtained from the weather data reader.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1477\">IBPSA, #1477</a>.
+</li>
 <li>
 January 10, 2015, by Marco Bonvini:<br/>
 Created model and documentation.

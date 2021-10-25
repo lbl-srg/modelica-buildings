@@ -1,6 +1,6 @@
 within Buildings.Controls.OBC;
 package Shade
-  "Shading control sequences"
+  "Package with controllers for shades"
   annotation (
     Documentation(
       info="<html>

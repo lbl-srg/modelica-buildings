@@ -1,6 +1,6 @@
 within Buildings.Controls.OBC.CDL.Interfaces;
 connector IntegerOutput=output Integer
-  "'output Integer' as connector"
+  "Integer output connector"
 annotation (defaultComponentName="y",
  Icon(coordinateSystem(preserveAspectRatio=true,
                        initialScale=0.2,
