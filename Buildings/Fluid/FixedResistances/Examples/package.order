@@ -2,6 +2,6 @@ CheckValve
 FlowJunction
 HydraulicDiameter
 Pipe
-PlugFlowDiscretized
 PlugFlowPipe
+PlugFlowPipeDiscretized
 PressureDrop
