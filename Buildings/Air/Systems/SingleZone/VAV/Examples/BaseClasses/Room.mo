@@ -5,7 +5,6 @@ model Room
   replaceable package MediumA = Buildings.Media.Air "Medium model";
   parameter Modelica.SIunits.MassFlowRate mAir_flow_nominal
     "Design airflow rate of system";
-  parameter Modelica.SIunits.Angle lat "Building latitude";
   parameter Modelica.SIunits.Angle S_=
     Buildings.Types.Azimuth.S "Azimuth for south walls";
   parameter Modelica.SIunits.Angle E_=
@@ -172,7 +171,6 @@ model Room
       til={Z_},
       azi={S_}),
     massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
-    lat=lat,
     intConMod=Buildings.HeatTransfer.Types.InteriorConvection.Temperature,
     extConMod=Buildings.HeatTransfer.Types.ExteriorConvection.TemperatureWind,
     steadyStateWindow=false)
@@ -364,6 +362,12 @@ the <code>Schedules</code> and <code>Constructions</code> packages.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+September 16, 2021, by Michael Wetter:<br/>
+Removed parameter <code>lat</code> as this is now obtained from the weather data reader.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1477\">IBPSA, #1477</a>.
+</li>
 <li>
 July 21, 2020, by Kun Zhang:<br/>
 Replaced the internal gain block from BaseClasses by directly using the block 

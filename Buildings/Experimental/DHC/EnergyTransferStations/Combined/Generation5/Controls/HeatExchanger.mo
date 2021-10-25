@@ -33,7 +33,7 @@ model HeatExchanger
   Buildings.Controls.OBC.CDL.Continuous.Max max1
     "Maximum between control signal and minimum speed or opening"
     annotation (Placement(transformation(extent={{90,-70},{110,-50}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swiOff1
+  Buildings.Controls.OBC.CDL.Continuous.Switch swiOff1
     "Output zero if not enabled"
     annotation (Placement(transformation(extent={{160,-70},{180,-50}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant min1(
@@ -68,7 +68,7 @@ model HeatExchanger
     final k=spePum2Min)
     "Minimum pump speed"
     annotation (Placement(transformation(extent={{-10,70},{10,90}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swiOff2
+  Buildings.Controls.OBC.CDL.Continuous.Switch swiOff2
     "Output zero if not enabled"
     annotation (Placement(transformation(extent={{160,50},{180,70}})));
   Buildings.Controls.OBC.CDL.Continuous.Line mapSpe

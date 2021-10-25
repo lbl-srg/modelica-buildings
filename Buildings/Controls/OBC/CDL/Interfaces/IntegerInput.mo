@@ -1,6 +1,6 @@
 within Buildings.Controls.OBC.CDL.Interfaces;
 connector IntegerInput=input Integer
-  "'input Integer' as connector"
+  "Integer input connector"
 annotation (defaultComponentName="u",
  Icon(graphics={Polygon(lineColor={255,127,0},
                         fillColor={255,127,0},

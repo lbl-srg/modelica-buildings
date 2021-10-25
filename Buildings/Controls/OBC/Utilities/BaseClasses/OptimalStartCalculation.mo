@@ -160,7 +160,7 @@ protected
   CDL.Continuous.Max temSloAve
     "Temperature slope during heat up or cool down over the past sampled days"
     annotation (Placement(transformation(extent={{120,-16},{140,4}})));
-  CDL.Logical.Switch dTUse
+  CDL.Continuous.Switch dTUse
     "dT used in the calculations (to avoid negative dT)"
     annotation (Placement(transformation(extent={{80,70},{100,90}})));
   CDL.Continuous.GreaterThreshold reqStaUp(

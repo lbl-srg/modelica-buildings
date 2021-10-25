@@ -1,4 +1,4 @@
-﻿within Buildings.Examples.VAVReheat.Validation.BaseClasses;
+within Buildings.Examples.VAVReheat.Validation.BaseClasses;
 model Floor
   "Extends Buildings.Examples.VAVReheat.BaseClasses.Floor with CO2 generation from people and CO2 from outside air."
   extends Buildings.Examples.VAVReheat.BaseClasses.Floor(
@@ -80,5 +80,8 @@ May 9, 2021, by David Blum:<br/>
 First implementation.
 </li>
 </ul>
-</html>"));
+</html>"), Icon(graphics={Text(
+          extent={{258,-18},{324,-62}},
+          lineColor={0,0,0},
+          textString="CO2")}));
 end Floor;

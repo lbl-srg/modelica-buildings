@@ -54,7 +54,6 @@ model ClosedLoop "Closed loop model of a dual-fan dual-duct system"
     "Mixed air temperature at summer design conditions";
   parameter Modelica.SIunits.Temperature TSupCol_nominal = 12+273.15
     "Cold deck temperature at nominal condition";
-  parameter Modelica.SIunits.Angle lat=41.98*3.14159/180 "Latitude";
 
   Buildings.Fluid.Sources.Outside amb(redeclare package Medium = MediumA, nPorts=2)
     "Ambient conditions"
@@ -142,7 +141,7 @@ model ClosedLoop "Closed loop model of a dual-fan dual-duct system"
     TSupSetHea(TOn=284.15, TOff=279.15)
     "Set point for preheat coil outlet temperature "
     annotation (Placement(transformation(extent={{-200,-110},{-180,-90}})));
-  Buildings.Examples.VAVReheat.Controls.FanVFD conFanSupHot(
+  Buildings.Examples.VAVReheat.BaseClasses.Controls.FanVFD conFanSupHot(
     initType=Modelica.Blocks.Types.Init.InitialState,
     y_start=yFan_start,
     xSet_nominal(displayUnit="Pa") = 30,
@@ -153,9 +152,9 @@ model ClosedLoop "Closed loop model of a dual-fan dual-duct system"
   Buildings.Controls.SetPoints.OccupancySchedule occSch(occupancy=3600*{6,19})
     "Occupancy schedule"
     annotation (Placement(transformation(extent={{-318,-220},{-298,-200}})));
-  Buildings.Examples.VAVReheat.Controls.ModeSelector modeSelector
+  Buildings.Examples.VAVReheat.BaseClasses.Controls.ModeSelector modeSelector
     annotation (Placement(transformation(extent={{-302,-378},{-280,-356}})));
-  Buildings.Examples.VAVReheat.Controls.ControlBus controlBus
+  Buildings.Examples.VAVReheat.BaseClasses.Controls.ControlBus controlBus
     annotation (Placement(transformation(extent={{-250,-270},{-230,-250}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort TPreHeaCoi(redeclare package Medium =
                MediumA, m_flow_nominal=m_flow_nominal)
@@ -186,7 +185,7 @@ model ClosedLoop "Closed loop model of a dual-fan dual-duct system"
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={380,-220})));
-  Buildings.Examples.VAVReheat.Controls.Economizer conEco(
+  Buildings.Examples.VAVReheat.BaseClasses.Controls.Economizer conEco(
     have_frePro=true,
     VOut_flow_min=0.3*m_flow_nominal/1.2,
     k=0.05,
@@ -199,7 +198,7 @@ model ClosedLoop "Closed loop model of a dual-fan dual-duct system"
   Buildings.Fluid.Sensors.TemperatureTwoPort TMix(redeclare package Medium =
         MediumA, m_flow_nominal=m_flow_nominal) "Mixed air temperature sensor"
     annotation (Placement(transformation(extent={{30,-50},{50,-30}})));
-  Buildings.Examples.VAVReheat.Controls.RoomTemperatureSetpoint TSetRoo(THeaOff=
+  Buildings.Examples.VAVReheat.BaseClasses.Controls.RoomTemperatureSetpoint TSetRoo(THeaOff=
         289.15)
     annotation (Placement(transformation(extent={{-300,-276},{-280,-256}})));
   Buildings.Fluid.Sources.Boundary_pT souHea(
@@ -265,7 +264,7 @@ model ClosedLoop "Closed loop model of a dual-fan dual-duct system"
     VRoo=360.08,
     from_dp=true) "West-facing thermal zone"
     annotation (Placement(transformation(extent={{1102,46},{1170,114}})));
-  Buildings.Examples.VAVReheat.Controls.FanVFD conFanRet(
+  Buildings.Examples.VAVReheat.BaseClasses.Controls.FanVFD conFanRet(
                         xSet_nominal(displayUnit="Pa") = 30,
     initType=Modelica.Blocks.Types.Init.InitialState,
     y_start=yFan_start,
@@ -363,8 +362,7 @@ model ClosedLoop "Closed loop model of a dual-fan dual-duct system"
   BoundaryConditions.WeatherData.Bus weaBus "Weather Data Bus"
     annotation (Placement(transformation(extent={{-360,170},{-340,190}})));
   Buildings.Examples.VAVReheat.BaseClasses.Floor flo(
-    redeclare package Medium = MediumA,
-    lat=lat)
+    redeclare package Medium = MediumA)
     "Model of a floor of the building that is served by this VAV system"
     annotation (Placement(transformation(extent={{800,282},{1116,510}})));
   Modelica.Blocks.Routing.DeMultiplex5 TRooAir
@@ -513,7 +511,7 @@ model ClosedLoop "Closed loop model of a dual-fan dual-duct system"
   Modelica.Blocks.Sources.Constant pStaPre_Set(      y(final unit="Pa", min=0), k=30)
     "Setpoint for static pressure"
     annotation (Placement(transformation(extent={{60,110},{80,130}})));
-  Buildings.Examples.VAVReheat.Controls.FanVFD conFanSupCol(
+  Buildings.Examples.VAVReheat.BaseClasses.Controls.FanVFD conFanSupCol(
     initType=Modelica.Blocks.Types.Init.InitialState,
     y_start=yFan_start,
     xSet_nominal(displayUnit="Pa") = 30,
@@ -758,12 +756,12 @@ equation
       smooth=Smooth.None));
   connect(cor.port_b, flo.portsCor[1]) annotation (Line(
       points={{582,112},{582,252},{784,252},{784,364},{915.409,364},{915.409,
-          394.246}},
+          401.262}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(splRetRoo1.port_3, flo.portsCor[2]) annotation (Line(
-      points={{602,170},{602,240},{792,240},{792,352},{928,352},{928,394.246},{
-          929.148,394.246}},
+      points={{602,170},{602,240},{792,240},{792,352},{928,352},{928,401.262},{
+          929.148,401.262}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(sou.port_b, flo.portsSou[1]) annotation (Line(
@@ -775,31 +773,31 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(eas.port_b, flo.portsEas[1]) annotation (Line(
-      points={{858,114},{858,212},{1078,212},{1078,394.246},{1072.03,394.246}},
+      points={{858,114},{858,212},{1078,212},{1078,401.262},{1072.03,401.262}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(splRetEas.port_3, flo.portsEas[2]) annotation (Line(
-      points={{882,170},{882,210},{1085.77,210},{1085.77,394.246}},
+      points={{882,170},{882,210},{1085.77,210},{1085.77,401.262}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(nor.port_b, flo.portsNor[1]) annotation (Line(
-      points={{998,114},{998,412},{915.409,412},{915.409,453.877}},
+      points={{998,114},{998,412},{915.409,412},{915.409,460.892}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(splRetNor.port_3, flo.portsNor[2]) annotation (Line(
-      points={{1022,170},{1022,418},{929.148,418},{929.148,453.877}},
+      points={{1022,170},{1022,418},{929.148,418},{929.148,460.892}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(wes.port_b, flo.portsWes[1]) annotation (Line(
-      points={{1136,114},{1136,248},{830.226,248},{830.226,394.246}},
+      points={{1136,114},{1136,248},{830.226,248},{830.226,401.262}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(splRetNor.port_2, flo.portsWes[2]) annotation (Line(
-      points={{1032,160},{1130,160},{1130,240},{843.965,240},{843.965,394.246}},
+      points={{1032,160},{1130,160},{1130,240},{843.965,240},{843.965,401.262}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(weaBus, flo.weaBus) annotation (Line(
-      points={{-350,180},{-348,180},{-348,527.538},{999.217,527.538}},
+      points={{-350,180},{-348,180},{-348,545.077},{999.217,545.077}},
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None));
@@ -1162,8 +1160,8 @@ to track a building pressure of 30 Pascals above outside air pressure.
 There is also an economizer which is controlled to provide the following
 functions: freeze protection, minimum outside air requirement,
 and supply air cooling, see
-<a href=\"modelica://Buildings.Examples.VAVReheat.Controls.Economizer\">
-Buildings.Examples.VAVReheat.Controls.Economizer</a>.
+<a href=\"modelica://Buildings.Examples.VAVReheat.BaseClasses.Controls.Economizer\">
+Buildings.Examples.VAVReheat.BaseClasses.Controls.Economizer</a>.
 During night-time, the fans are switched off.
 The coils are controlled as follows: The preheat coil is controlled to
 maintain an air outlet temperature of 11&deg;C during day-time, and
@@ -1239,6 +1237,12 @@ shading devices, Technical Report, Oct. 17, 2006.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+September 16, 2021, by Michael Wetter:<br/>
+Removed assignment of parameter <code>lat</code> as this is now obtained from the weather data reader.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1477\">IBPSA, #1477</a>.
+</li>
 <li>
 June 30, 2021, by Antoine Gautier:<br/>
 Changed cooling coil model. This is for

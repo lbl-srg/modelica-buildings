@@ -31,7 +31,7 @@ model SupplyBranch "Supply branch of a dual duct system"
   Controls.RoomMixingBox con(m_flow_min=VRoo*3*1.2/3600)
     "Room temperature controller"
     annotation (Placement(transformation(extent={{-40,0},{-20,20}})));
-  VAVReheat.Controls.ControlBus controlBus
+  VAVReheat.BaseClasses.Controls.ControlBus controlBus
                                  annotation (Placement(transformation(extent={{
             -110,-50},{-90,-30}}), iconTransformation(extent={{-110,-38},{-90,-18}})));
   Buildings.Fluid.Actuators.Dampers.Exponential vavHot(

@@ -49,9 +49,9 @@ block PIDWithEnable
     final reverseActing=reverseActing,
     final y_reset=y_reset)
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi
     annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi1
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi1
     annotation (Placement(transformation(extent={{72,-10},{92,10}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant valDis(
     final k=0)

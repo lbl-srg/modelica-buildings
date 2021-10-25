@@ -16,14 +16,11 @@ model BuildingRCZ1Valve
     each outSkyCon=true,
     each outGroCon=true,
     each til=1.5707963267949,
-    each lat=0.87266462599716,
     azi={3.1415926535898,4.7123889803847})
     "Calculates diffuse solar radiation on titled surface for both directions"
     annotation (Placement(transformation(extent={{-94,98},{-74,118}})));
-  Buildings.BoundaryConditions.SolarIrradiation.DirectTiltedSurface HDirTil[2](
-    each til=1.5707963267949,
-    each lat=0.87266462599716,
-    azi={3.1415926535898,4.7123889803847})
+  Buildings.BoundaryConditions.SolarIrradiation.DirectTiltedSurface HDirTil[2](each til
+      =1.5707963267949, azi={3.1415926535898,4.7123889803847})
     "Calculates direct solar radiation on titled surface for both directions"
     annotation (Placement(transformation(extent={{-94,130},{-74,150}})));
   Buildings.ThermalZones.ReducedOrder.SolarGain.CorrectionGDoublePane corGDouPan(
@@ -339,6 +336,12 @@ including a mixing valve to control the supply temperature.
 </html>",
       revisions="<html>
 <ul>
+<li>
+September 16, 2021, by Michael Wetter:<br/>
+Removed assignment of parameter <code>lat</code> as this is now obtained from the weather data reader.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1477\">IBPSA, #1477</a>.
+</li>
 <li>
 February 21, 2020, by Antoine Gautier:<br/>
 First implementation.

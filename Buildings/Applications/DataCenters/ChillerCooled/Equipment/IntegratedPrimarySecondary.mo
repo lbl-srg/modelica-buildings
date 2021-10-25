@@ -103,7 +103,7 @@ model IntegratedPrimarySecondary
     final l=lVal5)
     "Bypass valve: closed when fully mechanic cooling is activated; open when fully mechanic cooling is activated"
     annotation (Placement(transformation(extent={{60,-30},{40,-10}})));
-  Buildings.Applications.DataCenters.ChillerCooled.Equipment.FlowMachine_m pum(
+  Buildings.Applications.BaseClasses.Equipment.FlowMachine_m pum(
     redeclare final package Medium = Medium2,
     final p_start=p2_start,
     final T_start=T2_start,

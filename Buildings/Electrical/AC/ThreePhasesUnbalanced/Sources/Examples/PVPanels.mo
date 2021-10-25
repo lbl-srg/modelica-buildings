@@ -1,7 +1,7 @@
 within Buildings.Electrical.AC.ThreePhasesUnbalanced.Sources.Examples;
 model PVPanels "This example illustrates how to use PV panel models"
   extends Modelica.Icons.Example;
-  ThreePhasesUnbalanced.Loads.Inductive                                             RL(
+  ThreePhasesUnbalanced.Loads.Inductive RL(
     mode=Types.Load.VariableZ_y_input,
     P_nominal=-2000,
     V_nominal=480,
@@ -11,15 +11,13 @@ model PVPanels "This example illustrates how to use PV panel models"
            annotation (Placement(transformation(extent={{-60,-20},{-40,0}})));
   Modelica.Blocks.Sources.Constant  load(k=0.5) "Load consumption"
     annotation (Placement(transformation(extent={{78,-50},{58,-30}})));
-  BoundaryConditions.SolarIrradiation.DiffusePerez HDifTil(
-    til=0.34906585039887,
-    lat=0.65798912800186,
-    azi=-0.78539816339745) "Diffuse irradiation on tilted surface"
+  BoundaryConditions.SolarIrradiation.DiffusePerez HDifTil(til=0.34906585039887,
+      azi=-0.78539816339745)
+                           "Diffuse irradiation on tilted surface"
     annotation (Placement(transformation(extent={{-52,72},{-32,92}})));
-  BoundaryConditions.SolarIrradiation.DirectTiltedSurface HDirTil(
-    til=0.34906585039887,
-    lat=0.65798912800186,
-    azi=-0.78539816339745) "Direct irradiation on tilted surface"
+  BoundaryConditions.SolarIrradiation.DirectTiltedSurface HDirTil(til=0.34906585039887,
+      azi=-0.78539816339745)
+                           "Direct irradiation on tilted surface"
     annotation (Placement(transformation(extent={{-52,32},{-32,52}})));
   BoundaryConditions.WeatherData.ReaderTMY3 weaDat(
       computeWetBulbTemperature=false,
@@ -27,15 +25,15 @@ model PVPanels "This example illustrates how to use PV panel models"
     annotation (Placement(transformation(extent={{-100,72},{-80,92}})));
   Modelica.Blocks.Math.Add G "Total irradiation on tilted surface"
     annotation (Placement(transformation(extent={{-12,52},{8,72}})));
-  PVsimple                               pvSimple(      V_nominal=480,
+  PVsimple pvSimple(
+    V_nominal=480,
     A=100,
     areaFraction={0.5,0.3,0.2}) "PV array simplified"
     annotation (Placement(transformation(extent={{60,0},{40,20}})));
-  PVsimpleOriented                               pvOriented(
+  PVsimpleOriented pvOriented(
     V_nominal=480,
     A=100,
     til=0.34906585039887,
-    lat=0.65798912800186,
     azi=-0.78539816339745,
     areaFraction={0.5,0.3,0.2}) "PV array oriented"
     annotation (Placement(transformation(extent={{10,0},{-10,20}})));
@@ -93,6 +91,12 @@ equation
         "Simulate and plot"),
     Documentation(revisions="<html>
 <ul>
+<li>
+September 16, 2021, by Michael Wetter:<br/>
+Removed assignment of parameter <code>lat</code> as this is now obtained from the weather data reader.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1477\">IBPSA, #1477</a>.
+</li>
 <li>
 September 25, 2014, by Marco Bonvini:<br/>
 Created model and documentation.
