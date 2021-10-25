@@ -12,7 +12,6 @@ model DataCenterRenewables
   Electrical.DC.Sources.PVSimpleOriented pv(
     A=200e3/800/0.12,
     til=0.34906585039887,
-    lat=0.65798912800186,
     azi=-0.78539816339745,
     V_nominal=480) "PV array"
     annotation (Placement(transformation(extent={{-22,50},{-42,70}})));
@@ -112,6 +111,12 @@ equation
         "Simulate and plot"),
     Documentation(revisions="<html>
 <ul>
+<li>
+September 16, 2021, by Michael Wetter:<br/>
+Removed assignment of parameter <code>lat</code> as this is now obtained from the weather data reader.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1477\">IBPSA, #1477</a>.
+</li>
 <li>
 July 7, 2015, by Michael Wetter:<br/>
 Set missing nominal voltages.

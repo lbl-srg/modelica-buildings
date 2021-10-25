@@ -83,8 +83,7 @@ model Case960 "Case 600, but with an unconditioned sun-space"
       layers={floorCase900},
       each A=2*8,
       each til=F_),
-    AFlo=16,
-    lat=0.69464104229374) "Room model for sun-space"
+    AFlo=16) "Room model for sun-space"
     annotation (Placement(transformation(extent={{154,-30},{184,0}})));
   Modelica.Blocks.Sources.Constant qConGai_flow1(k=0) "Convective heat gain"
     annotation (Placement(transformation(extent={{80,16},{88,24}})));
@@ -227,6 +226,12 @@ equation
           textString="BackZone")}),
             Documentation(revisions="<html>
 <ul>
+<li>
+September 16, 2021, by Michael Wetter:<br/>
+Removed assignment of parameter <code>lat</code> as this is now obtained from the weather data reader.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1477\">IBPSA, #1477</a>.
+</li>
 <li>
 October 9, 2013, by Michael Wetter:<br/>
 Corrected assignment of soil properties to avoid an error when checking

@@ -1,0 +1,11 @@
+compareVars :=
+  {
+    "doo.vAB",
+    "doo.vBA",
+    "dooDis.vAB",
+    "dooDis.vBA",
+    "bouA.T",
+    "bouB.T",
+    "doo.port_a1.p",
+    "doo.port_a2.p"
+  };

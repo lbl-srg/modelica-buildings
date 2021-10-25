@@ -1,0 +1,8 @@
+compareVars :=
+  {
+    "senTemChWIn.T",
+    "senTemChWOut.T",
+    "senTemHotWIn.T",
+    "senTemHotWOut.T",
+    "gro.soi.T"
+  };

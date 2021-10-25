@@ -1,0 +1,5 @@
+simulateModel("Buildings.Obsolete.DistrictHeatingCooling.Plants.Validation.LakeWaterHeatExchanger_T_Heating", tolerance=1e-6, stopTime=3600, method="Cvode", resultFile="LakeWaterHeatExchanger_T_Heating");
+createPlot(id=9, position={92, 53, 951, 1029}, y={"hex.m1_flow"}, range={0.0, 3600.0, -150.0, 150.0}, grid=true, filename="LakeWaterHeatExchanger_T_Heating.mat", colors={{28,108,200}});
+createPlot(id=9, position={92, 53, 951, 253}, y={"hex.TSetHea", "hex.TSetCoo", "temWar.T", "temCol.T"}, range={0.0, 3600.0, 0.0, 25.0}, grid=true, subPlot=2, colors={{28,108,200}, {238,46,47}, {0,140,72}, {180,56,148}});
+createPlot(id=9, position={92, 53, 951, 252}, y={"hex.valCoo.y", "hex.valHea.y"}, range={0.0, 3600.0, -0.2, 1.2000000000000002}, grid=true, subPlot=3, colors={{28,108,200}, {238,46,47}});
+createPlot(id=9, position={92, 53, 951, 253}, y={"hex.QWat_flow"}, range={0.0, 3600.0, -200000.0, 1000000.0}, grid=true, subPlot=4, colors={{28,108,200}});

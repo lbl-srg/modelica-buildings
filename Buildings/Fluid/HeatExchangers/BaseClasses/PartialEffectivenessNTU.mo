@@ -20,7 +20,7 @@ model PartialEffectivenessNTU
                 Dialog(group="Nominal thermal performance"));
 
   parameter Modelica.SIunits.HeatFlowRate Q_flow_nominal(fixed=use_Q_flow_nominal)
-    "Nominal heat transfer"
+    "Nominal heat flow rate (positive for heat transfer from 1 to 2)"
     annotation (Dialog(group="Nominal thermal performance",
                        enable=use_Q_flow_nominal));
   parameter Modelica.SIunits.Temperature T_a1_nominal(fixed=use_Q_flow_nominal)
@@ -105,6 +105,12 @@ initial equation
     Q_flow_nominal = -m2_flow_nominal*cp2_nominal*(T_a2_nominal - T_b2_nominal);
     eps_nominal = abs(Q_flow_nominal/((T_a1_nominal - T_a2_nominal)*
       CMin_flow_nominal));
+    assert(Q_flow_nominal / (T_a1_nominal - T_a2_nominal) >= 0,
+    "In " + getInstanceName() + ": Q_flow_nominal is defined with the wrong sign. " +
+    "By convention, a positive value describes a heat flow from Medium1 to Medium2. " +
+    "The parameter T_a1_nominal should then be larger than T_a2_nominal." +
+    "Future version of this library might enforce this convention and throw an error.",
+    level = AssertionLevel.warning);
   else
     T_a1_nominal = Medium1.T_default;
     T_a2_nominal = Medium2.T_default;
@@ -114,7 +120,7 @@ initial equation
   assert(eps_nominal > 0 and eps_nominal < 1,
     "eps_nominal out of bounds, eps_nominal = " + String(eps_nominal) +
     "\n  To achieve the required heat transfer rate at epsilon=0.8, set |T_a1_nominal-T_a2_nominal| = "
-     + String(abs(Q_flow_nominal/0.8*CMin_flow_nominal)) +
+     + String(abs(Q_flow_nominal/0.8/CMin_flow_nominal)) +
     "\n  or increase flow rates. The current parameters result in " +
     "\n  CMin_flow_nominal = " + String(CMin_flow_nominal) +
     "\n  CMax_flow_nominal = " + String(CMax_flow_nominal));
@@ -214,6 +220,10 @@ for <code>UA</code>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+February 25, 2021 by Baptiste Ravache:<br/>
+Added a warning for when Q_flow_nominal is specified with the wrong sign.
+</li>
 <li>
 January 10, 2018 by Michael Wetter:<br/>
 Removed variable <code>Z</code> that is not used.

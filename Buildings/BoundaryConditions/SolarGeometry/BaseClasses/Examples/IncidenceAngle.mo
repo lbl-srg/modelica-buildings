@@ -9,8 +9,8 @@ model IncidenceAngle "Test model for incidence angle"
     annotation (Placement(transformation(extent={{0,-40},{20,-20}})));
   Buildings.BoundaryConditions.SolarGeometry.BaseClasses.IncidenceAngle incAng(
     azi=Buildings.Types.Azimuth.S,
-    til=Buildings.Types.Tilt.Wall,
-    lat=0.73268921998722) "Incidence angle"
+    til=Buildings.Types.Tilt.Wall)
+    "Incidence angle"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
   Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(
     filNam=Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"))
@@ -47,6 +47,14 @@ equation
       textString="%first",
       index=-1,
       extent={{-6,3},{-6,3}}));
+  connect(weaBus.lat, incAng.lat) annotation (Line(
+      points={{-36,0},{38,0}},
+      color={255,204,51},
+      thickness=0.5), Text(
+      string="%first",
+      index=-1,
+      extent={{-6,3},{-6,3}},
+      horizontalAlignment=TextAlignment.Right));
   annotation (
   Documentation(info="<html>
 <p>

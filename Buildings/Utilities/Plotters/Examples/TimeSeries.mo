@@ -48,9 +48,9 @@ __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Utilities/
   Documentation(info="<html>
 <p>
 This example demonstrates the use of a plotter
-that plots <i>(t, sin(t), cos(t), sin(t)*cos(t)</i> in
+that plots <i>(t, sin(t), cos(t), sin(t)*cos(t))</i> in
 one plot, and
-<i>(t, sin(t), cos(t)</i> 
+<i>(t, sin(t), cos(t))</i>
 in another plot.
 Both plots will be in the file specified
 in the plot configuration <code>plotConfiguration</code>.

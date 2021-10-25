@@ -1,7 +1,6 @@
 within Buildings.BoundaryConditions.SolarGeometry.BaseClasses;
 block IncidenceAngle "The solar incidence angle on a tilted surface"
   extends Modelica.Blocks.Icons.Block;
-  parameter Modelica.SIunits.Angle lat "Latitude";
   parameter Modelica.SIunits.Angle azi(displayUnit="deg")
     "Surface azimuth. azi=-90 degree if surface outward unit normal points toward east; azi=0 if it points toward south";
   parameter Modelica.SIunits.Angle til(displayUnit="deg")
@@ -17,6 +16,11 @@ block IncidenceAngle "The solar incidence angle on a tilted surface"
     final unit="rad",
     displayUnit="deg") "Incidence angle on a tilted surface"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
+  Modelica.Blocks.Interfaces.RealInput lat(quantity="Angle",
+    unit="rad",
+    displayUnit="deg")
+    "Latitude"
+    annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
 protected
   Real dec_c=Modelica.Math.cos(decAng) "Cosine of declination angle";
   Real dec_s=Modelica.Math.sin(decAng) "Sine of declination angle";
@@ -37,10 +41,16 @@ This component computes the solar incidence angle on a tilted surface using the 
 </html>", revisions="<html>
 <ul>
 <li>
+September 6, 2021, by Ettore Zanetti:<br/>
+Changed <code>lat</code> from being a parameter to an input from weather bus.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1477\">IBPSA, #1477</a>.
+</li>
+<li>
 April 27, 2018, by Michael Wetter:<br/>
 Corrected <code>displayUnit</code>.<br/>
 This is for
-<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/912\">Buildings, issue 912</a>.
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/912\">IBPSA, issue 912</a>.
 </li>
 <li>
 Dec 7, 2010, by Michael Wetter:<br/>

@@ -48,7 +48,7 @@ model VariableSpeed "Test model for variable speed DX coil"
     offset=101325,
     startTime=100) "Mass flow rate of air"
     annotation (Placement(transformation(extent={{-100,-8},{-80,12}})));
-  Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.Data.Generic.DXCoil datCoi(
+  parameter Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.Data.Generic.DXCoil datCoi(
     nSta=4, sta={Data.Generic.BaseClasses.Stage(
         spe=900/60,
         nomVal=Data.Generic.BaseClasses.NominalValues(
