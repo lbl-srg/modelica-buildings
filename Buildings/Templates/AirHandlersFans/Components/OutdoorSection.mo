@@ -2,15 +2,16 @@ within Buildings.Templates.AirHandlersFans.Components;
 package OutdoorSection
   extends Modelica.Icons.Package;
 
-  model DedicatedAirflow
+  model DedicatedDamperAirflow
     "Dedicated minimum OA damper (modulated) with AFMS"
     extends Buildings.Templates.AirHandlersFans.Interfaces.OutdoorSection(
       final typ=Types.OutdoorSection.DedicatedPressure,
       final typDamOut=damOut.typ,
       final typDamOutMin=damOutMin.typ);
 
-    Buildings.Templates.Components.Dampers.Modulated damOut(redeclare final
-        package Medium = MediumAir, final loc=Buildings.Templates.Components.Types.Location.OutdoorAir)
+    Buildings.Templates.Components.Dampers.Modulated damOut(
+      redeclare final package Medium = MediumAir,
+      final loc=Buildings.Templates.Components.Types.Location.OutdoorAir)
       "Outdoor air damper" annotation (Placement(transformation(
           extent={{-10,-10},{10,10}},
           rotation=0,
@@ -33,18 +34,14 @@ package OutdoorSection
       "Minimum outdoor air volume flow rate sensor"
       annotation (Placement(transformation(extent={{80,50},{100,70}})));
   equation
+    /* Equipment signal connection - start */
+    connect(damOut.bus, bus.damOut);
+    connect(damOutMin.bus, bus.damOutMin);
+    /* Equipment signal connection - end */
     connect(port_aIns, damOut.port_a)
       annotation (Line(points={{-80,0},{-10,0}}, color={0,127,255}));
-    connect(damOut.bus, bus) annotation (Line(
-        points={{0,10},{0,76},{0,140},{0,140}},
-        color={255,204,51},
-        thickness=0.5));
     connect(port_aIns, port_aIns)
       annotation (Line(points={{-80,0},{-80,0}}, color={0,127,255}));
-    connect(damOutMin.bus, bus) annotation (Line(
-        points={{30,70},{30,80},{0,80},{0,140}},
-        color={255,204,51},
-        thickness=0.5));
     connect(damOut.port_b, port_b)
       annotation (Line(points={{10,0},{180,0}}, color={0,127,255}));
     connect(port_a, pas.port_a)
@@ -69,9 +66,9 @@ damper: two-position in case of differential pressure, modulated in case
 of AFMS.
 </p>
 </html>"));
-  end DedicatedAirflow;
+  end DedicatedDamperAirflow;
 
-  model DedicatedPressure
+  model DedicatedDamperPressure
     "Dedicated minimum OA damper (two-position) with differential pressure sensor"
     extends Buildings.Templates.AirHandlersFans.Interfaces.OutdoorSection(
       final typ=Types.OutdoorSection.DedicatedPressure,
@@ -102,12 +99,12 @@ of AFMS.
       "Minimum outdoor air damper differential pressure sensor"
       annotation (Placement(transformation(extent={{10,50},{30,70}})));
   equation
+    /* Equipment signal connection - start */
+    connect(damOut.bus, bus.damOut);
+    connect(damOutMin.bus, bus.damOutMin);
+    /* Equipment signal connection - end */
     connect(port_aIns, damOut.port_a)
       annotation (Line(points={{-80,0},{-10,0}}, color={0,127,255}));
-    connect(damOut.bus, bus) annotation (Line(
-        points={{0,10},{0,76},{0,140},{0,140}},
-        color={255,204,51},
-        thickness=0.5));
     connect(damOutMin.port_b,TOutMin. port_a)
       annotation (Line(points={{60,60},{70,60}},         color={0,127,255}));
     connect(dpOutMin.port_b,damOutMin. port_a)
@@ -120,10 +117,6 @@ of AFMS.
             -20,60},{10,60}}, color={0,127,255}));
     connect(dpOutMin.port_bRef, port_b) annotation (Line(points={{20,50},{20,40},{
             120,40},{120,0},{180,0}}, color={0,127,255}));
-    connect(damOutMin.bus, bus) annotation (Line(
-        points={{50,70},{50,80},{0,80},{0,140}},
-        color={255,204,51},
-        thickness=0.5));
     connect(damOut.port_b, port_b)
       annotation (Line(points={{10,0},{180,0}}, color={0,127,255}));
     connect(port_a, pas.port_a)
@@ -140,7 +133,7 @@ damper: two-position in case of differential pressure, modulated in case
 of AFMS.
 </p>
 </html>"));
-  end DedicatedPressure;
+  end DedicatedDamperPressure;
 
   model NoEconomizer "No economizer"
     extends Buildings.Templates.AirHandlersFans.Interfaces.OutdoorSection(
@@ -155,19 +148,18 @@ of AFMS.
           rotation=0,
           origin={-150,0})));
   equation
+    /* Equipment signal connection - start */
+    connect(damOut.bus, bus.damOut);
+    /* Equipment signal connection - end */
     connect(port_aIns, port_b)
       annotation (Line(points={{-80,0},{180,0}}, color={0,127,255}));
     connect(port_a, damOut.port_a)
       annotation (Line(points={{-180,0},{-160,0}}, color={0,127,255}));
     connect(damOut.port_b, pas.port_a)
       annotation (Line(points={{-140,0},{-110,0}}, color={0,127,255}));
-    connect(damOut.bus, bus) annotation (Line(
-        points={{-150,10},{-150,20},{0,20},{0,140}},
-        color={255,204,51},
-        thickness=0.5));
   end NoEconomizer;
 
-  model SingleCommon "Single common OA damper (modulated) with AFMS"
+  model SingleDamper "Single common OA damper (modulated) with AFMS"
     extends Buildings.Templates.AirHandlersFans.Interfaces.OutdoorSection(
       final typ=Types.OutdoorSection.SingleCommon,
       final typDamOut=damOut.typ,
@@ -189,6 +181,9 @@ of AFMS.
           origin={0,0})));
 
   equation
+    /* Equipment signal connection - start */
+    connect(damOut.bus, bus.damOut);
+    /* Equipment signal connection - end */
     connect(port_aIns, damOut.port_a)
       annotation (Line(points={{-80,0},{-10,0}}, color={0,127,255}));
     connect(damOut.port_b, TOut.port_a)
@@ -197,15 +192,11 @@ of AFMS.
       annotation (Line(points={{50,0},{70,0}}, color={0,127,255}));
     connect(VOut_flow.port_b, port_b)
       annotation (Line(points={{90,0},{180,0}}, color={0,127,255}));
-    connect(damOut.bus, bus) annotation (Line(
-        points={{0,10},{0,76},{0,140},{0,140}},
-        color={255,204,51},
-        thickness=0.5));
     connect(port_a, pas.port_a)
       annotation (Line(points={{-180,0},{-110,0}}, color={0,127,255}));
     connect(TOut.y, bus.inp.TOut) annotation (Line(points={{40,12},{40,20},{0.1,
             20},{0.1,140.1}}, color={0,0,127}));
     connect(VOut_flow.y, bus.inp.VOut_flow) annotation (Line(points={{80,12},{
             80,20},{0.1,20},{0.1,140.1}}, color={0,0,127}));
-  end SingleCommon;
+  end SingleDamper;
 end OutdoorSection;

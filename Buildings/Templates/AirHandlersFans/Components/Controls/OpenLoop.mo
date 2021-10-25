@@ -89,25 +89,23 @@ block OpenLoop "Open loop controller (output signals only)"
 
 equation
   /* Equipment signal connection - start */
-  connect(yDamOutMin.y, bus.out.yDamOutMin);
-  connect(yDamOutMin1.y, bus.out.yDamOutMin);
-  connect(yDamRel.y, bus.out.yDamRel);
-  connect(yDamRel1.y, bus.out.yDamRel);
+
   connect(yCoiCoo.y, bus.out.yCoiCoo);
   connect(yCoiHea.y, bus.out.yCoiHea);
+  connect(yCoiCooSta.y, bus.out.yCoiCoo);
 
   connect(yFanSup.y, bus.fanSup.out.y);
   connect(ySpeFanSup.y, bus.fanSup.out.ySpe);
-
   connect(yFanRet.y, bus.fanRet.out.y);
   connect(ySpeFanRet.y, bus.fanRet.out.ySpe);
 
-  connect(yCoiCooSta.y, bus.out.yCoiCoo);
-
-  connect(yDamOut.y, bus.out.yDamOut);
-  connect(yDamOut1.y, bus.out.yDamOut);
-
-  connect(yDamRet.y, bus.out.yDamRet);
+  connect(yDamOut.y, bus.damOut.out.y);
+  connect(yDamOut1.y, bus.damOut.out.y);
+  connect(yDamOutMin.y, bus.damOutMin.out.y);
+  connect(yDamOutMin1.y, bus.damOutMin.out.y);
+  connect(yDamRel.y, bus.damRel.out.y);
+  connect(yDamRel1.y, bus.damRel.out.y);
+  connect(yDamRet.y, bus.damRet.out.y);
   /* Equipment signal connection - stop */
 
   annotation (

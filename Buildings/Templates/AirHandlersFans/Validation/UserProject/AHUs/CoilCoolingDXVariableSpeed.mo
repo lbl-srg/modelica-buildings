@@ -1,7 +1,6 @@
 within Buildings.Templates.AirHandlersFans.Validation.UserProject.AHUs;
 model CoilCoolingDXVariableSpeed
-  extends VAVMultiZone(
-    final id="VAV_1",
+  extends NoFanNoReliefSingleDamper(
     nZon=1,
     nGro=1,
     redeclare Buildings.Templates.Components.Coils.DirectExpansion coiCoo(

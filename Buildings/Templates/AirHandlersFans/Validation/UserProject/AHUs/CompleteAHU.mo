@@ -1,11 +1,13 @@
 within Buildings.Templates.AirHandlersFans.Validation.UserProject.AHUs;
 model CompleteAHU
   extends Buildings.Templates.AirHandlersFans.VAVMultiZone(
-    secOutRel(redeclare
-        .Buildings.Templates.AirHandlersFans.Components.OutdoorSection.SingleCommon
-        secOut "Single common OA damper (modulated) with AFMS", secRel(
-          redeclare .Buildings.Templates.Components.Fans.SingleVariable fanRet
-          "Single fan - Variable speed")),
+    redeclare
+      Buildings.Templates.AirHandlersFans.Components.OutdoorReliefReturnSection.EconomizerWithRelief
+      secOutRel(redeclare
+        Buildings.Templates.AirHandlersFans.Components.OutdoorSection.SingleDamper
+        secOut "Single common OA damper (modulated) with AFMS", redeclare
+        Buildings.Templates.AirHandlersFans.Components.ReliefReturnSection.ReturnFan
+        secRel "Return fan - Modulated relief damper"),
     redeclare .Buildings.Templates.Components.Coils.WaterBasedCooling coiCoo(
       dpAir_nominal(displayUnit="Pa"),
       dpWat_nominal(displayUnit="Pa"),

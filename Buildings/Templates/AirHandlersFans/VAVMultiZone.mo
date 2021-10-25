@@ -2,7 +2,7 @@ within Buildings.Templates.AirHandlersFans;
 model VAVMultiZone "Multiple-Zone VAV"
   extends Buildings.Templates.AirHandlersFans.Interfaces.AirHandler(
     final typ=Types.Configuration.SingleDuct,
-    final have_porRel=secOutRel.typ <> Types.OutdoorReliefReturnSection.NoRelief);
+    final have_porRel=secOutRel.typ <> Types.OutdoorReliefReturnSection.EconomizerNoRelief);
 
   replaceable package MediumCoo=Buildings.Media.Water
     constrainedby Modelica.Media.Interfaces.PartialMedium
@@ -72,10 +72,10 @@ model VAVMultiZone "Multiple-Zone VAV"
     annotation (Placement(transformation(extent={{-20,260},{20,300}}),
       iconTransformation(extent={{-20,182},{20,218}})));
 
-  inner replaceable Components.OutdoorReliefReturnSection.Economizer secOutRel
-    constrainedby Interfaces.OutdoorReliefReturnSection(
-      redeclare final package MediumAir = MediumAir)
-    "Outdoor/relief/return air section" annotation (
+  inner replaceable Components.OutdoorReliefReturnSection.EconomizerWithRelief
+    secOutRel constrainedby Interfaces.OutdoorReliefReturnSection(redeclare
+      final package MediumAir = MediumAir) "Outdoor/relief/return air section"
+    annotation (
     choicesAllMatching=true,
     Dialog(group="Outdoor/relief/return air section"),
     Placement(transformation(extent={{-178,-104},{-142,-76}})));
@@ -152,7 +152,7 @@ model VAVMultiZone "Multiple-Zone VAV"
     Dialog(group="Reheat coil"),
     Placement(transformation(extent={{80,-210},{100,-190}})));
 
-  inner replaceable Buildings.Templates.Components.Fans.None fanSupDra
+  inner replaceable Buildings.Templates.Components.Fans.SingleVariable fanSupDra
     constrainedby Buildings.Templates.Components.Interfaces.Fan(
       redeclare final package Medium = MediumAir,
       final loc=Buildings.Templates.Components.Types.Location.Supply)
@@ -173,7 +173,8 @@ model VAVMultiZone "Multiple-Zone VAV"
 
   inner replaceable Components.Controls.OpenLoop conAHU constrainedby
     Buildings.Templates.AirHandlersFans.Interfaces.Controller
-                                                   "AHU controller" annotation (
+    "AHU controller"
+    annotation (
     choicesAllMatching=true,
     Dialog(group="Controller"),
     Placement(transformation(extent={{-260,110},{-240,130}})));

@@ -1,8 +1,8 @@
 within Buildings.Templates.AirHandlersFans.Validation.UserProject.AHUs;
-model EconomizerDedicatedOAPressure
-  extends Buildings.Templates.AirHandlersFans.VAVMultiZone(
+model DedicatedDamperPressure
+  extends NoFanNoReliefSingleDamper(
     secOutRel(redeclare
-        .Buildings.Templates.AirHandlersFans.Components.OutdoorSection.DedicatedPressure
+        .Buildings.Templates.AirHandlersFans.Components.OutdoorSection.DedicatedDamperPressure
         secOut
         "Dedicated minimum OA damper (two-position) with differential pressure sensor"),
     final id="VAV_1",
@@ -11,4 +11,4 @@ model EconomizerDedicatedOAPressure
 
   annotation (
     defaultComponentName="ahu");
-end EconomizerDedicatedOAPressure;
+end DedicatedDamperPressure;

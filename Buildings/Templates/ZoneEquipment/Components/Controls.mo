@@ -19,12 +19,9 @@ package Controls
           rotation=-90,
           origin={20,110})));
   equation
-    connect(yDamVAV.y, bus.out.yDamVAV) annotation (Line(points={{-100,98},{-100,
-            0.1},{-200.1,0.1}}, color={0,0,127}), Text(
-        string="%second",
-        index=1,
-        extent={{-3,-6},{-3,-6}},
-        horizontalAlignment=TextAlignment.Right));
+    /* Equipment signal connection - start */
+    connect(yDamVAV.y, bus.damVAV.out.y);
+    /* Equipment signal connection - end */
     connect(yCoiReh.y, bus.out.yCoiReh) annotation (Line(points={{20,98},{20,
             0.1},{-200.1,0.1}}, color={0,0,127}), Text(
         string="%second",
@@ -559,12 +556,12 @@ package Controls
         thickness=0.5));
     connect(FIXME.y,conTerUni. nOcc) annotation (Line(points={{-218,40},{-30,40},{
             -30,4},{-12,4}}, color={0,0,127}));
-    connect(bus.inp.VDis_flow, conTerUni.VDis_flow) annotation (Line(
-        points={{-200.1,0.1},{-20,0.1},{-20,-2},{-12,-2}},
+    connect(bus.damVAV.inp.V_flow, conTerUni.VDis_flow) annotation (Line(
+        points={{-200,0},{-20,0},{-20,-2},{-12,-2}},
         color={255,204,51},
         thickness=0.5));
-    connect(bus.inp.yDamVAV_actual, conTerUni.yDam_actual) annotation (Line(
-        points={{-200.1,0.1},{-20,0.1},{-20,-4},{-12,-4}},
+    connect(bus.damVAV.inp.y_actual, conTerUni.yDam_actual) annotation (Line(
+        points={{-200,0},{-20,0},{-20,-4},{-12,-4}},
         color={255,204,51},
         thickness=0.5));
     connect(bus.inp.TDis, conTerUni.TDis) annotation (Line(

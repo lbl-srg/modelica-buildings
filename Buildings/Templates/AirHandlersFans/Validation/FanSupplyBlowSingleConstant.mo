@@ -1,6 +1,6 @@
 within Buildings.Templates.AirHandlersFans.Validation;
 model FanSupplyBlowSingleConstant
-  extends BaseNoEquipment(
+  extends NoFanNoReliefSingleDamper(
     redeclare UserProject.AHUs.FanSupplyBlowSingleConstant ahu);
   annotation (
   experiment(Tolerance=1e-6, StopTime=1));

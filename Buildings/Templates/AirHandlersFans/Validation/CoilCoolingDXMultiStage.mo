@@ -1,6 +1,7 @@
 within Buildings.Templates.AirHandlersFans.Validation;
 model CoilCoolingDXMultiStage
-  extends BaseNoEquipment(redeclare
+  extends NoFanNoReliefSingleDamper(
+                          redeclare
     UserProject.AHUs.CoilCoolingDXMultiStage ahu(coiCoo(redeclare replaceable
           Buildings.Templates.Components.HeatExchangers.DXMultiStage hex(
             redeclare

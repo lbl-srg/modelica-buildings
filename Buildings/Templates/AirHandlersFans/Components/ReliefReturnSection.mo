@@ -44,6 +44,7 @@ package ReliefReturnSection
   equation
     /* Equipment signal connection - start */
     connect(fanRet.bus, bus.fanRet);
+    connect(damRel.bus, bus.damRel);
     /* Equipment signal connection - end */
     connect(port_a, fanRet.port_a)
       annotation (Line(points={{180,0},{110,0}}, color={0,127,255}));
@@ -59,10 +60,6 @@ package ReliefReturnSection
       annotation (Line(points={{-180,0},{-160,0}}, color={0,127,255}));
     connect(damRel.port_a, pas.port_a)
       annotation (Line(points={{-140,0},{-110,0}}, color={0,127,255}));
-    connect(damRel.bus, bus) annotation (Line(
-        points={{-150,10},{-150,20},{0,20},{0,140}},
-        color={255,204,51},
-        thickness=0.5));
     connect(pRet_rel.y, bus.inp.pRet_rel) annotation (Line(points={{20,12},{20,
             20},{0.1,20},{0.1,140.1}}, color={0,0,127}));
     connect(VRet_flow.y, bus.inp.VRet_flow) annotation (Line(points={{60,12},{
@@ -136,10 +133,9 @@ package ReliefReturnSection
           rotation=0,
           origin={-60,0})));
   equation
-    connect(damRel.bus, bus) annotation (Line(
-        points={{-60,10},{-60,20},{0,20},{0,140}},
-        color={255,204,51},
-        thickness=0.5));
+    /* Equipment signal connection - start */
+    connect(damRel.bus, bus.damRel);
+    /* Equipment signal connection - end */
     connect(damRel.port_b, port_aIns)
       annotation (Line(points={{-70,0},{-80,0}}, color={0,127,255}));
     connect(pas.port_a, port_b)
@@ -187,11 +183,8 @@ building static pressure. Close damper when disabled.
   equation
     /* Equipment signal connection - start */
     connect(fanRet.bus, bus.fanRet);
+    connect(damRel.bus, bus.damRel);
     /* Equipment signal connection - end */
-    connect(damRel.bus, bus) annotation (Line(
-        points={{-60,10},{-60,20},{0,20},{0,140}},
-        color={255,204,51},
-        thickness=0.5));
     connect(damRel.port_b, port_aIns)
       annotation (Line(points={{-70,0},{-80,0}}, color={0,127,255}));
     connect(pas.port_a, port_b)
@@ -253,11 +246,8 @@ building static pressure. Close damper when disabled.
   equation
     /* Equipment signal connection - start */
     connect(fanRet.bus, bus.fanRet);
+    connect(damRel.bus, bus.damRel);
     /* Equipment signal connection - end */
-    connect(damRel.bus, bus) annotation (Line(
-        points={{-60,10},{-60,20},{0,20},{0,140}},
-        color={255,204,51},
-        thickness=0.5));
     connect(damRel.port_b, port_aIns)
       annotation (Line(points={{-70,0},{-80,0}}, color={0,127,255}));
     connect(pas.port_a, port_b)

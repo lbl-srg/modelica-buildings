@@ -1,6 +1,6 @@
 within Buildings.Templates.AirHandlersFans.Validation.UserProject.AHUs;
 model FanSupplyDrawMultipleVariable
-  extends VAVMultiZone(
+  extends NoFanNoReliefSingleDamper(
     nZon=1,
     nGro=1,
     final id="VAV_1",

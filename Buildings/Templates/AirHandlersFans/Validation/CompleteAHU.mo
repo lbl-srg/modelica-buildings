@@ -1,6 +1,7 @@
 within Buildings.Templates.AirHandlersFans.Validation;
 model CompleteAHU
-  extends BaseNoEquipment(redeclare
+  extends NoFanNoReliefSingleDamper(
+                          redeclare
       UserProject.AHUs.CompleteAHU ahu);
 
   Fluid.Sources.Boundary_pT bou2(

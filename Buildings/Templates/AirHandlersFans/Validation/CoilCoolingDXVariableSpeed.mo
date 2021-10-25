@@ -1,6 +1,7 @@
 within Buildings.Templates.AirHandlersFans.Validation;
 model CoilCoolingDXVariableSpeed
-  extends BaseNoEquipment(redeclare
+  extends NoFanNoReliefSingleDamper(
+                          redeclare
     UserProject.AHUs.CoilCoolingDXVariableSpeed ahu(
       coiCoo(redeclare replaceable
           Buildings.Templates.Components.HeatExchangers.DXVariableSpeed hex(

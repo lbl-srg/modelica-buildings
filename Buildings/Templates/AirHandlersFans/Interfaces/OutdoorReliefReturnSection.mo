@@ -37,7 +37,7 @@ partial model OutdoorReliefReturnSection "Outdoor/relief/return air section"
     redeclare final package Medium = MediumAir,
     m_flow(max=if allowFlowReversal then +Modelica.Constants.inf else 0),
     h_outflow(start=MediumAir.h_default, nominal=MediumAir.h_default))
-    if typ <> AirHandlersFans.Types.OutdoorReliefReturnSection.NoRelief
+    if typ <> AirHandlersFans.Types.OutdoorReliefReturnSection.EconomizerNoRelief
     "Relief (exhaust) air"
     annotation (Placement(transformation(
       extent={{-190,70},{-170,90}}),iconTransformation(extent={{-190,90},{-170,

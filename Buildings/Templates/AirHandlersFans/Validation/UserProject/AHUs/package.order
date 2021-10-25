@@ -1,4 +1,4 @@
-BaseNoEquipment
+NoFanNoReliefSingleDamper
 CoilCoolingCounterFlow
 CoilCoolingEffectivenessNTU
 CoilCoolingDXMultiStage
@@ -8,8 +8,7 @@ CoilHeatingEffectivenessNTU2WV
 CoilHeatingEffectivenessNTU3WV
 CompleteAHU
 ControlsGuideline36
-EconomizerCommonOA
-EconomizerDedicatedOAPressure
+DedicatedDamperPressure
 FanReturnSingleVariable
 FanSupplyBlowSingleConstant
 FanSupplyDrawMultipleVariable

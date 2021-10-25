@@ -19,29 +19,14 @@ model MultipleVariable
       choicesAllMatching=true,
       Placement(transformation(extent={{-10,10},{10,30}})));
 
-  Modelica.Blocks.Routing.RealPassThrough ySpeFanSup
-    if loc == Buildings.Templates.Components.Types.Location.Supply
-    "Pass through to connect with specific control signal"
-    annotation (
-      Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=-90,
-        origin={-20,80})));
-  Modelica.Blocks.Routing.RealPassThrough ySpeFanRet if loc == Buildings.Templates.Components.Types.Location.Return
-     or loc == Buildings.Templates.Components.Types.Location.Relief
-    "Pass through to connect with specific control signal"
-    annotation (
-      Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=-90,
-        origin={20,80})));
   Experimental.DHC.EnergyTransferStations.BaseClasses.CollectorDistributor colDis(
     redeclare final package Medium=Medium,
     final mCon_flow_nominal=fill(m_flow_nominal, nFan),
     final nCon=nFan)
     annotation (Placement(transformation(extent={{-20,-30},{20,-10}})));
-  Buildings.Controls.OBC.CDL.Routing.RealScalarReplicator reaRep(
+  Buildings.Controls.OBC.CDL.Routing.RealScalarReplicator repSig(
     final nout=nFan)
+    "Replicate signal"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
@@ -58,62 +43,32 @@ model MultipleVariable
     nPorts=1)
     "Zero flow boundary condition"
     annotation (Placement(transformation(extent={{54,-30},{34,-10}})));
-  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal yFanSup
-    if loc == Buildings.Templates.Components.Types.Location.Supply
-    "Supply fan start/stop"
+  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal sigSta
+    "Start/stop signal"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={-46,80})));
-  Buildings.Controls.OBC.CDL.Continuous.Product conSup1
-    if loc == Buildings.Templates.Components.Types.Location.Supply
-    "Resulting control signal" annotation (Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=-90,
-        origin={-40,50})));
-  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal yFanRet if loc ==
-    Buildings.Templates.Components.Types.Location.Return or loc == Buildings.Templates.Components.Types.Location.Relief
-    "Return fan start/stop" annotation (Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=-90,
-        origin={46,80})));
-  Buildings.Controls.OBC.CDL.Continuous.Product conRet1 if loc == Buildings.Templates.Components.Types.Location.Return
-     or loc == Buildings.Templates.Components.Types.Location.Relief
+  Buildings.Controls.OBC.CDL.Continuous.Product sigCon
     "Resulting control signal"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
-        origin={40,50})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiMin mulMin(
-    nin=nFan)
-    "Minimum of all return signals"
-    annotation (
-      Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=-90,
-        origin={0,-50})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold evaSta(
-    t=1E-2,
-    h=0.5E-2)
+        origin={-40,50})));
+  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold evaSta[nFan](
+    each t=1E-2,
+    each h=0.5E-2)
     "Evaluate fan status"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
+        origin={0,-50})));
+  Controls.OBC.CDL.Logical.MultiAnd sigRet(final nin=nFan)
+    "Resulting control signal"
+    annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=-90,
         origin={0,-80})));
-  Modelica.Blocks.Routing.BooleanPassThrough yFanSup_actual
-    if loc == Buildings.Templates.Components.Types.Location.Supply
-    "Supply fan status"
-    annotation (Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=180,
-        origin={-40,-80})));
-  Modelica.Blocks.Routing.BooleanPassThrough yFanRet_actual if loc == Buildings.Templates.Components.Types.Location.Return
-     or loc == Buildings.Templates.Components.Types.Location.Relief
-    "Return fan status"
-    annotation (Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=0,
-        origin={40,-80})));
 equation
   connect(port_a, colDis.port_aDisSup) annotation (Line(points={{-100,0},{-28,0},
           {-28,-20},{-20,-20}}, color={0,127,255}));
@@ -124,60 +79,30 @@ equation
                            color={0,127,255}));
   connect(colDis.ports_bCon, fan.port_a) annotation (Line(points={{-12,-10},{-12,
           0},{-20,0},{-20,20},{-10,20}}, color={0,127,255}));
-  connect(reaRep.y, fan.y)
+  connect(repSig.y, fan.y)
     annotation (Line(points={{0,38},{0,32}}, color={0,0,127}));
   connect(floZer.ports[1], colDis.port_bDisRet) annotation (Line(points={{-32,-26},
           {-20,-26}},                     color={0,127,255}));
   connect(colDis.port_bDisSup, floZer1.ports[1])
     annotation (Line(points={{20,-20},{34,-20}}, color={0,127,255}));
-  connect(yFanSup.y, conSup1.u2)
+  connect(sigSta.y, sigCon.u2)
     annotation (Line(points={{-46,68},{-46,62}}, color={0,0,127}));
-  connect(ySpeFanSup.y, conSup1.u1) annotation (Line(points={{-20,69},{-20,64},
-          {-34,64},{-34,62}}, color={0,0,127}));
-  connect(yFanRet.y, conRet1.u1)
-    annotation (Line(points={{46,68},{46,62}}, color={0,0,127}));
-  connect(ySpeFanRet.y, conRet1.u2) annotation (Line(points={{20,69},{20,64},{
-          34,64},{34,62}}, color={0,0,127}));
-  connect(bus.out.yFanSup, yFanSup.u) annotation (Line(
+  connect(sigCon.y, repSig.u) annotation (Line(points={{-40,38},{-40,30},{-16,30},
+          {-16,64},{0,64},{0,62}}, color={0,0,127}));
+  connect(bus.out.ySpe, sigCon.u1) annotation (Line(
+      points={{0.1,100.1},{0.1,68},{-34,68},{-34,62}},
+      color={255,204,51},
+      thickness=0.5));
+  connect(fan.y_actual, evaSta.u) annotation (Line(points={{11,27},{24,27},{24,-36},
+          {0,-36},{0,-38}}, color={0,0,127}));
+  connect(evaSta.y, sigRet.u) annotation (Line(points={{-2.22045e-15,-62},{2.22045e-15,
+          -68}}, color={255,0,255}));
+  connect(sigRet.y, bus.inp.y_actual) annotation (Line(points={{0,-92},{0,-96},{
+          60,-96},{60,100.1},{0.1,100.1}}, color={255,0,255}));
+  connect(bus.out.y, sigSta.u) annotation (Line(
       points={{0.1,100.1},{-46,100.1},{-46,92}},
       color={255,204,51},
       thickness=0.5));
-  connect(bus.out.ySpeFanSup, ySpeFanSup.u) annotation (Line(
-      points={{0.1,100.1},{-20,100.1},{-20,92}},
-      color={255,204,51},
-      thickness=0.5));
-  connect(bus.out.ySpeFanRet, ySpeFanRet.u) annotation (Line(
-      points={{0.1,100.1},{20,100.1},{20,92}},
-      color={255,204,51},
-      thickness=0.5));
-  connect(bus.out.yFanRet, yFanRet.u) annotation (Line(
-      points={{0.1,100.1},{46,100.1},{46,92}},
-      color={255,204,51},
-      thickness=0.5));
-  connect(conSup1.y, reaRep.u) annotation (Line(points={{-40,38},{-40,30},{-16,
-          30},{-16,64},{0,64},{0,62}}, color={0,0,127}));
-  connect(conRet1.y, reaRep.u) annotation (Line(points={{40,38},{40,30},{16,30},
-          {16,64},{0,64},{0,62}}, color={0,0,127}));
-  connect(fan.y_actual, mulMin.u) annotation (Line(points={{11,27},{24,27},{24,
-          -36},{0,-36},{0,-38}}, color={0,0,127}));
-  connect(evaSta.y, yFanRet_actual.u) annotation (Line(points={{0,-92},{0,-94},
-          {16,-94},{16,-80},{28,-80}}, color={255,0,255}));
-  connect(evaSta.y, yFanSup_actual.u) annotation (Line(points={{0,-92},{0,-94},
-          {-14,-94},{-14,-80},{-28,-80}}, color={255,0,255}));
-  connect(mulMin.y, evaSta.u)
-    annotation (Line(points={{0,-62},{0,-68}}, color={0,0,127}));
-  connect(yFanSup_actual.y, bus.inp.yFanSup_actual) annotation (Line(points={{-51,
-          -80},{-60,-80},{-60,100.1},{0.1,100.1}}, color={255,0,255}), Text(
-      string="%second",
-      index=1,
-      extent={{-6,3},{-6,3}},
-      horizontalAlignment=TextAlignment.Right));
-  connect(yFanRet_actual.y, bus.inp.yFanRet_actual) annotation (Line(points={{
-          51,-80},{80,-80},{80,100.1},{0.1,100.1}}, color={255,0,255}), Text(
-      string="%second",
-      index=1,
-      extent={{6,3},{6,3}},
-      horizontalAlignment=TextAlignment.Left));
   annotation (Placement(transformation(extent={{-10,-10},{10,10}})),
               Icon(
     graphics={Bitmap(
@@ -185,7 +110,7 @@ equation
         fileName="modelica://Buildings/Resources/Images/Templates/BaseClasses/Fans/MultipleVariable.svg")},
               coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false), graphics={Text(
-          extent={{-94,-10},{80,-68}},
+          extent={{-192,-16},{-18,-74}},
           lineColor={238,46,47},
           horizontalAlignment=TextAlignment.Left,
           textString="Boundary conditions are only needed for OCT

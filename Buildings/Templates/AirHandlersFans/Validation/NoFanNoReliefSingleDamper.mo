@@ -1,5 +1,5 @@
 within Buildings.Templates.AirHandlersFans.Validation;
-model BaseNoEquipment
+model NoFanNoReliefSingleDamper
   extends Modelica.Icons.Example;
   replaceable package MediumAir=Buildings.Media.Air
     constrainedby Modelica.Media.Interfaces.PartialMedium
@@ -18,9 +18,9 @@ model BaseNoEquipment
       Evaluate=true,
       Placement(transformation(extent={{76,76},{96,96}})));
 
-  replaceable UserProject.AHUs.BaseNoEquipment ahu(
-    redeclare final package MediumAir = MediumAir,
-    redeclare final package MediumCoo = MediumCoo)
+  replaceable UserProject.AHUs.NoFanNoReliefSingleDamper ahu constrainedby
+    Buildings.Templates.AirHandlersFans.VAVMultiZone(redeclare final package
+      MediumAir = MediumAir, redeclare final package MediumCoo = MediumCoo)
     annotation (Placement(transformation(extent={{-20,-20},{20,20}})));
   Fluid.Sources.Boundary_pT bou(
     redeclare final package Medium=MediumAir, nPorts=2)
@@ -114,4 +114,4 @@ equation
   experiment(Tolerance=1e-6, StopTime=1),
   Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)));
-end BaseNoEquipment;
+end NoFanNoReliefSingleDamper;
