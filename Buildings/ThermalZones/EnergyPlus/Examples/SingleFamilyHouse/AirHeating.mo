@@ -205,8 +205,7 @@ First implementation.
       file="modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/EnergyPlus/Examples/SingleFamilyHouse/AirHeating.mos" "Simulate and plot"),
     experiment(
       StopTime=86400,
-      Tolerance=1e-06,
-      __Dymola_Algorithm="Cvode"),
+      Tolerance=1e-06),
     Diagram(
       coordinateSystem(
         extent={{-160,-140},{140,140}})),
