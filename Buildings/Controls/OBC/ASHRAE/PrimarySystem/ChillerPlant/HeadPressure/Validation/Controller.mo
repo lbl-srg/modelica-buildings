@@ -13,8 +13,7 @@ model Controller "Validation head pressure controller"
     annotation (Placement(transformation(extent={{100,30},{120,50}})));
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.HeadPressure.Controller
     varSpePum(
-    final have_WSE=false,
-    final fixSpePum=false)
+    final have_WSE=false)
     "Head pressure for plant without waterside economizer, variable speed condenser water pump"
     annotation (Placement(transformation(extent={{100,-110},{120,-90}})));
 
@@ -22,7 +21,7 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul(
     final width=0.7,
     final period=5,
-    final startTime=0.5) "Head pressure control enabling status"
+    final shift=0.5) "Head pressure control enabling status"
     annotation (Placement(transformation(extent={{-120,90},{-100,110}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Sine TConWatRet(
     final amplitude=-11,

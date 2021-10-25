@@ -1,4 +1,4 @@
-﻿within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Processes.Subsequences;
+within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Processes.Subsequences;
 block ReduceDemand "Sequence for reducing operating chiller demand"
 
   parameter Integer nChi "Total number of chillers in the plant";
@@ -14,9 +14,9 @@ block ReduceDemand "Sequence for reducing operating chiller demand"
     "Demand limit: true=limit chiller demand"
     annotation (Placement(transformation(extent={{-200,140},{-160,180}}),
       iconTransformation(extent={{-140,70},{-100,110}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput uChiLoa[nChi](
-    final quantity=fill("HeatFlowRate", nChi),
-    final unit=fill("W", nChi)) "Current chiller load"
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput uChiLoa[nChi](final quantity=
+        fill("ElectricCurrent", nChi), final unit=fill("A", nChi))
+                                "Current chiller load"
     annotation (Placement(transformation(extent={{-200,110},{-160,150}}),
       iconTransformation(extent={{-140,30},{-100,70}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput yOpeParLoaRatMin(
@@ -37,9 +37,9 @@ block ReduceDemand "Sequence for reducing operating chiller demand"
     "Chiller status: true=ON"
     annotation (Placement(transformation(extent={{-200,-130},{-160,-90}}),
       iconTransformation(extent={{-140,-110},{-100,-70}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yChiDem[nChi](
-    final quantity=fill("HeatFlowRate", nChi),
-    final unit=fill("W", nChi)) "Chiller demand setpoint"
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yChiDem[nChi](final quantity=
+       fill("ElectricCurrent", nChi), final unit=fill("A", nChi))
+                                "Chiller demand setpoint"
     annotation (Placement(transformation(extent={{160,70},{200,110}}),
       iconTransformation(extent={{100,20},{140,60}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yChiDemRed
@@ -52,7 +52,7 @@ protected
     final y_start=fill(1e-6,nChi))
     "Triggered sampler to sample current chiller demand"
     annotation (Placement(transformation(extent={{0,120},{20,140}})));
-  Buildings.Controls.OBC.CDL.Routing.BooleanReplicator booRep(
+  Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator booRep(
     final nout=nChi)
     "Replicate boolean input"
     annotation (Placement(transformation(extent={{-60,150},{-40,170}})));
@@ -75,13 +75,13 @@ protected
     annotation (Placement(transformation(extent={{-40,-120},{-20,-100}})));
   Buildings.Controls.OBC.CDL.Logical.Not not1[nChi] "Logical not"
     annotation (Placement(transformation(extent={{40,-120},{60,-100}})));
-  Buildings.Controls.OBC.CDL.Logical.MultiAnd mulAnd(final nu=nChi)
+  Buildings.Controls.OBC.CDL.Logical.MultiAnd mulAnd(final nin=nChi)
     "Current chillers demand have been lower than 80%"
     annotation (Placement(transformation(extent={{80,-120},{100,-100}})));
   Buildings.Controls.OBC.CDL.Logical.Edge edg
     "Rising edge, output true at the moment when input turns from false to true"
     annotation (Placement(transformation(extent={{-100,150},{-80,170}})));
-  Buildings.Controls.OBC.CDL.Routing.BooleanReplicator booRep1(final nout=nChi)
+  Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator booRep1(final nout=nChi)
     "Replicate boolean input "
     annotation (Placement(transformation(extent={{-80,90},{-60,110}})));
   Buildings.Controls.OBC.CDL.Logical.And and2 "Logical and"
@@ -100,7 +100,7 @@ protected
     annotation (Placement(transformation(extent={{-40,20},{-20,40}})));
   Buildings.Controls.OBC.CDL.Continuous.Max max "Maximum value of two real inputs"
     annotation (Placement(transformation(extent={{0,10},{20,30}})));
-  Buildings.Controls.OBC.CDL.Routing.RealReplicator reaRep(final nout=nChi)
+  Buildings.Controls.OBC.CDL.Routing.RealScalarReplicator reaRep(final nout=nChi)
     "Replicate real input"
     annotation (Placement(transformation(extent={{60,10},{80,30}})));
   Buildings.Controls.OBC.CDL.Continuous.Product pro[nChi]
@@ -293,7 +293,7 @@ annotation (
 <p>
 Block that reduces demand of current operating chillers when there is a stage-up
 command, according to ASHRAE RP-1711 Advanced Sequences of Operation for 
-HVAC Systems Phase II – Central Plants and Hydronic Systems (Draft version, March 2020),
+HVAC Systems Phase II – Central Plants and Hydronic Systems (Draft on March 23, 2020),
 section 5.2.4.16, item 1 which specifies how to start the stage-up
 process of the current operating chillers; and section 5.2.4.17, item 1.a which specifies
 how to start the stage-down process of the current operating chiller when the 

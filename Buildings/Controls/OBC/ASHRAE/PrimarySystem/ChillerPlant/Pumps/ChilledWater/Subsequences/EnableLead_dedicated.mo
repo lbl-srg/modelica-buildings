@@ -1,4 +1,4 @@
-﻿within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Pumps.ChilledWater.Subsequences;
+within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Pumps.ChilledWater.Subsequences;
 block EnableLead_dedicated
   "Sequence to enable or disable the lead pump of plants with dedicated primary chilled water pumps"
 
@@ -27,8 +27,7 @@ block EnableLead_dedicated
     annotation (Placement(transformation(extent={{100,60},{140,100}}),
         iconTransformation(extent={{100,-20},{140,20}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Latch leaPumSta(
-    final pre_y_start=true)
+  Buildings.Controls.OBC.CDL.Logical.Latch leaPumSta
     "Lead pump status"
     annotation (Placement(transformation(extent={{60,70},{80,90}})));
 

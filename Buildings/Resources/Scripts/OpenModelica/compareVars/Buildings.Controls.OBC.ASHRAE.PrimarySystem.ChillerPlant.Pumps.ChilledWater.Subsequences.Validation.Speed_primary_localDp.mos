@@ -2,7 +2,8 @@ compareVars :=
   {
     "chiPumSpe.dpChiWat_remote[1]",
     "chiPumSpe.dpChiWat_remote[2]",
-    "chiPumSpe.dpChiWatSet",
+    "chiPumSpe.dpChiWatSet_remote[1]",
+    "chiPumSpe.dpChiWatSet_remote[2]",
     "chiPumSpe.maxRemDP.u[1]",
     "chiPumSpe.maxRemDP.u[2]",
     "chiPumSpe.maxRemDP.y",

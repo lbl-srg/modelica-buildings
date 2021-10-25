@@ -46,15 +46,15 @@ protected
     final k=fill(false, 2)) "Standby status"
     annotation (Placement(transformation(extent={{-100,-20},{-80,0}})));
 
-  Buildings.Controls.OBC.CDL.Routing.BooleanReplicator repLag1(final nout=2)
+  Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator repLag1(final nout=2)
     "Replicates lag signal"
     annotation (Placement(transformation(extent={{-60,-80},{-40,-60}})));
 
-  Buildings.Controls.OBC.CDL.Routing.BooleanReplicator repLag(final nout=2)
+  Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator repLag(final nout=2)
     "Replicates lag signal"
     annotation (Placement(transformation(extent={{-60,30},{-40,50}})));
 
-  Buildings.Controls.OBC.CDL.Routing.BooleanReplicator repLead(final nout=2)
+  Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator repLead(final nout=2)
     "Replicates lead signal"
     annotation (Placement(transformation(extent={{-60,60},{-40,80}})));
 

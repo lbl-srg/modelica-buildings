@@ -39,7 +39,7 @@ block CapacityRequirement
         iconTransformation(extent={{-140,-30},{-100,10}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput y(
-    final quantity="Power",
+    final quantity="HeatFlowRate",
     final unit="W") "Chilled water cooling capacity requirement"
     annotation (Placement(transformation(extent={{140,110},{180,150}}),
         iconTransformation(extent={{100,-20},{140,20}})));
@@ -49,7 +49,7 @@ protected
     final unit="kg/m3",
     final quantity="Density",
     displayUnit="kg/m3")=1000 "Water density";
-  
+
   constant Real cpWat(
     final unit="J/(kg.K)",
     final quantity="SpecificEntropy",

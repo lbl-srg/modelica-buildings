@@ -5,6 +5,7 @@ model UpWithoutOnOff
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Processes.Up upProCon(
     final nChi=2,
     final totSta=4,
+    final have_fixSpeConWatPum=false,
     final chaChiWatIsoTim=300,
     final staVec={0,0.5,1,2},
     final desConWatPumSpe={0,0.5,0.75,0.6},
@@ -22,7 +23,7 @@ protected
     final offset=1,
     final startTime=500) "Chilled water flow rate"
     annotation (Placement(transformation(extent={{-140,-50},{-120,-30}})));
-  Buildings.Controls.OBC.CDL.Routing.BooleanReplicator booRep(
+  Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator booRep(
     final nout=2) "Replicate boolean input"
     annotation (Placement(transformation(extent={{-60,-230},{-40,-210}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul(
@@ -32,7 +33,8 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Not staUp "Stage up command"
     annotation (Placement(transformation(extent={{-100,100},{-80,120}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant chiLoa[2](
-    final k=fill(1000,2)) "Chiller load"
+    final k=fill(2, 2))
+    "Chiller load"
     annotation (Placement(transformation(extent={{-140,30},{-120,50}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant iniChiIsoVal[2](
     final k={1,0}) "Initial chilled water solation valve"
@@ -40,8 +42,8 @@ protected
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zer1[2](
     final k=fill(0,2)) "Constant zero"
     annotation (Placement(transformation(extent={{-140,-10},{-120,10}})));
-  Buildings.Controls.OBC.CDL.Logical.Pre chiStaRet[2](final pre_u_start={true,
-        false}) "Chiller status return value"
+  Buildings.Controls.OBC.CDL.Logical.Pre chiStaRet[2](
+    final pre_u_start={true,false}) "Chiller status return value"
     annotation (Placement(transformation(extent={{100,60},{120,80}})));
   Buildings.Controls.OBC.CDL.Logical.Switch swi1[2] "Logical switch"
     annotation (Placement(transformation(extent={{-60,10},{-40,30}})));
@@ -81,7 +83,7 @@ protected
   Buildings.Controls.OBC.CDL.Conversions.RealToInteger staSet
     "Stage setpoint index"
     annotation (Placement(transformation(extent={{-20,190},{0,210}})));
-  Buildings.Controls.OBC.CDL.Routing.BooleanReplicator booRep1(final nout=2)
+  Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator booRep1(final nout=2)
     "Replicate boolean input"
     annotation (Placement(transformation(extent={{-60,100},{-40,120}})));
   Buildings.Controls.OBC.CDL.Logical.LogicalSwitch chiSet[2]
@@ -140,10 +142,11 @@ equation
           {140,-60},{140,-140},{16,-140},{16,60},{38,60}},        color={0,0,127}));
   connect(zerOrdHol1.y, zerOrdHol2.u) annotation (Line(points={{122,-60},{140,-60},
           {140,-90},{80,-90},{80,-110},{98,-110}}, color={0,0,127}));
-  connect(zerOrdHol2.y, upProCon.uConWatPumSpe) annotation (Line(points={{122,-110},
-          {130,-110},{130,-134},{18,-134},{18,57},{38,57}},color={0,0,127}));
+  connect(zerOrdHol2.y, upProCon.uConWatPumSpe) annotation (Line(points={{122,
+          -110},{130,-110},{130,-134},{18,-134},{18,58},{38,58}},
+                                                           color={0,0,127}));
   connect(chiStaRet.y, upProCon.uChiHeaCon) annotation (Line(points={{122,70},{
-          140,70},{140,40},{20,40},{20,54},{38,54}}, color={255,0,255}));
+          140,70},{140,40},{20,40},{20,53},{38,53}}, color={255,0,255}));
   connect(staUp.y, booRep.u) annotation (Line(points={{-78,110},{-70,110},{-70,-220},
           {-62,-220}}, color={255,0,255}));
   connect(booRep.y, IsoVal.u2) annotation (Line(points={{-38,-220},{-30,-220},{-30,

@@ -45,7 +45,7 @@ protected
     annotation (Placement(transformation(extent={{-20,20},{0,40}})));
 
   Buildings.Controls.OBC.CDL.Logical.MultiOr mulOr(
-    final nu=nDev) "Multiple or"
+    final nin=nDev) "Multiple or"
     annotation (Placement(transformation(extent={{130,-10},{150,10}})));
 
   Buildings.Controls.OBC.CDL.Logical.Not not1 if lag "Logical not"

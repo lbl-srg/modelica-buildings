@@ -1,8 +1,8 @@
-﻿within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Processes.Subsequences;
+within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Processes.Subsequences;
 block DownStart "Sequence for starting stage-down process"
 
   parameter Integer nChi "Total number of chillers";
-  parameter Boolean is_parChi=true
+  parameter Boolean have_parChi=true
     "Flag: true means that the plant has parallel chillers";
   parameter Real chiDemRedFac=0.75
     "Demand reducing factor of current operating chillers"
@@ -24,13 +24,13 @@ block DownStart "Sequence for starting stage-down process"
     final quantity=fill("VolumeFlowRate", nChi),
     displayUnit=fill("m3/s", nChi))
     "Minimum chilled water flow through each chiller"
-    annotation (Evaluate=true, Dialog(group="Reset CHW minimum flow setpoint"));
+    annotation (Dialog(group="Reset CHW minimum flow setpoint"));
   parameter Real maxFloSet[nChi](
     final unit=fill("m3/s", nChi),
     final quantity=fill("VolumeFlowRate", nChi),
     displayUnit=fill("m3/s", nChi))
     "Maximum chilled water flow through each chiller"
-    annotation (Evaluate=true, Dialog(group="Reset CHW minimum flow setpoint"));
+    annotation (Dialog(group="Reset CHW minimum flow setpoint"));
   parameter Real aftByPasSetTim(
     final unit="s",
     final quantity="Time",
@@ -70,9 +70,9 @@ block DownStart "Sequence for starting stage-down process"
     "Current stage minimum cycling operative partial load ratio"
     annotation (Placement(transformation(extent={{-200,160},{-160,200}}),
       iconTransformation(extent={{-140,60},{-100,100}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput uChiLoa[nChi](
-    final quantity=fill("HeatFlowRate", nChi),
-    final unit=fill("W", nChi)) "Current chiller load"
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput uChiLoa[nChi](final quantity=
+        fill("ElectricCurrent", nChi), final unit=fill("A", nChi))
+                                "Current chiller load"
     annotation (Placement(transformation(extent={{-200,130},{-160,170}}),
       iconTransformation(extent={{-140,40},{-100,80}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uChi[nChi]
@@ -91,7 +91,7 @@ block DownStart "Sequence for starting stage-down process"
     annotation (Placement(transformation(extent={{-200,30},{-160,70}}),
       iconTransformation(extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uOnOff
-    "True: if the stage change require one chiller to be enabled while another is disabled"
+    "True: if the stage change require enabling one chiller and disable another one"
     annotation (Placement(transformation(extent={{-200,0},{-160,40}}),
       iconTransformation(extent={{-140,-40},{-100,0}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput nexEnaChi
@@ -112,9 +112,9 @@ block DownStart "Sequence for starting stage-down process"
     "Next disabling chiller when there is any stage up that need one chiller on and another off"
     annotation (Placement(transformation(extent={{-200,-190},{-160,-150}}),
       iconTransformation(extent={{-140,-120},{-100,-80}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yChiDem[nChi](
-    final quantity=fill("HeatFlowRate", nChi),
-    final unit=fill("W", nChi)) "Chiller demand setpoint"
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yChiDem[nChi](final quantity=
+       fill("ElectricCurrent", nChi), final unit=fill("A", nChi))
+                                "Chiller demand setpoint"
     annotation (Placement(transformation(extent={{180,120},{220,160}}),
       iconTransformation(extent={{100,70},{140,110}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yChiWatMinFloSet
@@ -179,7 +179,7 @@ protected
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.MinimumFlowBypass.FlowSetpoint
     minChiWatSet(
     final nChi=nChi,
-    final is_parChi=is_parChi,
+    final have_parChi=have_parChi,
     final maxFloSet=maxFloSet,
     final byPasSetTim=byPasSetTim,
     final minFloSet=minFloSet) "Reset minimum chilled water flow setpoint"
@@ -191,7 +191,7 @@ protected
     annotation (Placement(transformation(extent={{140,-20},{160,0}})));
   Buildings.Controls.OBC.CDL.Logical.Switch chiDem[nChi] "Chiller demand"
     annotation (Placement(transformation(extent={{140,130},{160,150}})));
-  Buildings.Controls.OBC.CDL.Routing.BooleanReplicator booRep4(final nout=nChi)
+  Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator booRep4(final nout=nChi)
     "Replicate boolean input"
     annotation (Placement(transformation(extent={{60,10},{80,30}})));
   Buildings.Controls.OBC.CDL.Logical.Switch chiWatIsoVal[nChi]
@@ -505,7 +505,7 @@ Documentation(info="<html>
 <p>
 Block that controls devices at the first step of chiller staging down process.
 This development is based on ASHRAE RP-1711 Advanced Sequences of Operation for
-HVAC Systems Phase II – Central Plants and Hydronic Systems (Draft version, March 2020),
+HVAC Systems Phase II – Central Plants and Hydronic Systems (Draft on March 23, 2020),
 section 5.2.4.17, item 1 and 2. The sections specifies the first step of
 staging down process.
 </p>

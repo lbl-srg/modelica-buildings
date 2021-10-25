@@ -79,7 +79,7 @@ block Initial "Outputs the initial stage"
     annotation (Placement(transformation(extent={{-60,-100},{-40,-80}})));
 
 //protected
-  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Economizer.Subsequences.PredictedOutletTemperature
+  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Economizers.Subsequences.PredictedOutletTemperature
     wseTOut(
     final heaExcAppDes=heaExcAppDes,
     final cooTowAppDes=cooTowAppDes,
@@ -191,12 +191,23 @@ annotation (defaultComponentName = "iniSta",
 <p>When the plant is enabled and the plant has no waterside economizer (<span style=\"font-family: monospace;\">have_WSE</span>=false), the initial stage will be the lowest available stage <span style=\"font-family: monospace;\">uUp</span>.</p>
 <p>When the plant is enabled and the plant has waterside economizer (<span style=\"font-family: monospace;\">have_WSE</span>=true), the initial stage will be: </p>
 <ul>
-<li>If predicted waterside economizer outlet temperature calculated using <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Economizer.Subsequences.PredictedOutletTemperature\">Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Economizer.Subsequences.PredictedOutletTemperature</a> with predicted heat exchanger part load ratio <span style=\"font-family: monospace;\">PLRHeaExc</span> set to 1 is at least <span style=\"font-family: monospace;\">wseDt</span> below the chilled water supply temperature setpoint <span style=\"font-family: monospace;\">TChiWatSupSet</span>, then the initial stage will be 0, meaning that the plant initiates in a waterside economizer only mode. </li>
+<li>If predicted waterside economizer outlet temperature calculated using <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Economizers.Subsequences.PredictedOutletTemperature\">Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Economizers.Subsequences.PredictedOutletTemperature</a> with predicted heat exchanger part load ratio <span style=\"font-family: monospace;\">PLRHeaExc</span> set to 1 is at least <span style=\"font-family: monospace;\">wseDt</span> below the chilled water supply temperature setpoint <span style=\"font-family: monospace;\">TChiWatSupSet</span>, then the initial stage will be 0, meaning that the plant initiates in a waterside economizer only mode. </li>
 <li>Otherwise, the initial stage will be the lowest available stage <span style=\"font-family: monospace;\">uUp</span>. </li>
 </ul>
+<p>
+The following state machine chart illustrates the initial stage selection for plants with a waterside economizer:
+</p>
+<p align=\"center\">
+<img alt=\"Image of initial stage selection state machine chart\"
+src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/PrimarySystem/ChillerPlant/Staging/SetPoints/Subsequences/InitialStageSelectionStateGraph.png\"/>
+</p>
 </html>",
 revisions="<html>
 <ul>
+<li>
+January 19, 2021, by Milica Grahovac:<br/>
+Added state chart illustration.
+</li>
 <li>
 March 12, 2020, by Milica Grahovac:<br/>
 First implementation.

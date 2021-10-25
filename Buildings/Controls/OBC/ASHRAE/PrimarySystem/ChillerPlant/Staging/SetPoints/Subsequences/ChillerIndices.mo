@@ -32,11 +32,11 @@ protected
   final parameter Integer lowDia[nSta, nSta] = {if i<=j then 1 else 0 for i in 1:nSta, j in 1:nSta}
     "Lower diagonal unit matrix";
 
-  Buildings.Controls.OBC.CDL.Routing.IntegerReplicator intRep(
+  Buildings.Controls.OBC.CDL.Routing.IntegerScalarReplicator intRep(
     final nout=nSta) "Replicates signal to a length equal the stage count"
     annotation (Placement(transformation(extent={{-180,10},{-160,30}})));
 
-  Buildings.Controls.OBC.CDL.Routing.IntegerReplicator intRep1[nSta](
+  Buildings.Controls.OBC.CDL.Routing.IntegerScalarReplicator intRep1[nSta](
     final nout=fill(nChi, nSta)) "Replicates signal to dimensions of the staging matrix"
     annotation (Placement(transformation(extent={{-140,10},{-120,30}})));
 

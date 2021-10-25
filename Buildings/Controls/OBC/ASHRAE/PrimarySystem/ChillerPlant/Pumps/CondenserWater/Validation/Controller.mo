@@ -8,7 +8,7 @@ model Controller "Validate condenser water pump control sequence"
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Pumps.CondenserWater.Controller
     dedHavWse(
-    final is_heaPum=false)
+    final have_heaPum=false)
     "Condenser water pumps controller for plant with dedicated condenser water pump and have waterside economizer"
     annotation (Placement(transformation(extent={{60,60},{80,80}})));
 
@@ -54,7 +54,7 @@ model Controller "Validate condenser water pump control sequence"
     final amplitude=0.2,
     final period=900,
     final offset=0.3,
-    final startTime=100) "Pump speed setpoint"
+    final shift=100) "Pump speed setpoint"
     annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant fal(
     final k=false) "Logical false"
@@ -77,13 +77,13 @@ equation
     annotation (Line(points={{12,90},{20,90},{20,76},{-20,76},{-20,60},{-12,60}},
       color={255,127,0}));
   connect(chiSta.y, heaHavWse.uChiSta)
-    annotation (Line(points={{12,90},{20,90},{20,99},{58,99}},   color={255,127,0}));
+    annotation (Line(points={{12,90},{20,90},{20,101},{58,101}}, color={255,127,0}));
   connect(chiSta.y, dedHavWse.uChiSta)
-    annotation (Line(points={{12,90},{20,90},{20,69},{58,69}}, color={255,127,0}));
+    annotation (Line(points={{12,90},{20,90},{20,71},{58,71}}, color={255,127,0}));
   connect(wseSta.y, heaHavWse.uWSE)
-    annotation (Line(points={{12,20},{32,20},{32,96},{58,96}}, color={255,0,255}));
+    annotation (Line(points={{12,20},{32,20},{32,98},{58,98}}, color={255,0,255}));
   connect(wseSta.y, dedHavWse.uWSE)
-    annotation (Line(points={{12,20},{32,20},{32,66},{58,66}}, color={255,0,255}));
+    annotation (Line(points={{12,20},{32,20},{32,68},{58,68}}, color={255,0,255}));
   connect(heaHavWse.yLeaPum, meaPumSpe.u2)
     annotation (Line(points={{82,109},{90,109},{90,36},{-40,36},{-40,-40},{-12,-40}},
       color={255,0,255}));
@@ -94,11 +94,11 @@ equation
     annotation (Line(points={{-58,-60},{-30,-60},{-30,-48},{-12,-48}},
       color={0,0,127}));
   connect(meaPumSpe.y, heaHavWse.uConWatPumSpe)
-    annotation (Line(points={{12,-40},{46,-40},{46,91},{58,91}}, color={0,0,127}));
+    annotation (Line(points={{12,-40},{46,-40},{46,93},{58,93}}, color={0,0,127}));
   connect(meaPumSpe.y, dedHavWse.uConWatPumSpe)
-    annotation (Line(points={{12,-40},{46,-40},{46,61},{58,61}}, color={0,0,127}));
+    annotation (Line(points={{12,-40},{46,-40},{46,63},{58,63}}, color={0,0,127}));
   connect(meaPumSpe.y, heaNoWse.uConWatPumSpe)
-    annotation (Line(points={{12,-40},{46,-40},{46,-69},{58,-69}}, color={0,0,127}));
+    annotation (Line(points={{12,-40},{46,-40},{46,-67},{58,-67}}, color={0,0,127}));
   connect(pumSpeSet.u2, heaHavWse.yLeaPum)
     annotation (Line(points={{-12,-10},{-40,-10},{-40,36},{90,36},{90,109},
       {82,109}}, color={255,0,255}));
@@ -108,23 +108,23 @@ equation
     annotation (Line(points={{-58,-60},{-30,-60},{-30,-18},{-12,-18}},
       color={0,0,127}));
   connect(pumSpeSet.y, heaHavWse.uConWatPumSpeSet)
-    annotation (Line(points={{12,-10},{40,-10},{40,93},{58,93}}, color={0,0,127}));
+    annotation (Line(points={{12,-10},{40,-10},{40,95},{58,95}}, color={0,0,127}));
   connect(pumSpeSet.y, dedHavWse.uConWatPumSpeSet)
-    annotation (Line(points={{12,-10},{40,-10},{40,63},{58,63}}, color={0,0,127}));
+    annotation (Line(points={{12,-10},{40,-10},{40,65},{58,65}}, color={0,0,127}));
   connect(pumSpeSet.y, heaNoWse.uConWatPumSpeSet)
-    annotation (Line(points={{12,-10},{40,-10},{40,-67},{58,-67}}, color={0,0,127}));
+    annotation (Line(points={{12,-10},{40,-10},{40,-65},{58,-65}}, color={0,0,127}));
   connect(chiOn.y, heaHavWse.uLeaChiSta)
-    annotation (Line(points={{12,60},{26,60},{26,105},{58,105}}, color={255,0,255}));
+    annotation (Line(points={{12,60},{26,60},{26,106},{58,106}}, color={255,0,255}));
   connect(chiOn.y, heaHavWse.uLeaConWatReq)
-    annotation (Line(points={{12,60},{26,60},{26,102},{58,102}}, color={255,0,255}));
+    annotation (Line(points={{12,60},{26,60},{26,104},{58,104}}, color={255,0,255}));
   connect(chiOn.y, dedHavWse.uLeaChiSta)
-    annotation (Line(points={{12,60},{26,60},{26,75},{58,75}}, color={255,0,255}));
+    annotation (Line(points={{12,60},{26,60},{26,76},{58,76}}, color={255,0,255}));
   connect(chiOn.y, dedHavWse.uLeaConWatReq)
-    annotation (Line(points={{12,60},{26,60},{26,72},{58,72}}, color={255,0,255}));
+    annotation (Line(points={{12,60},{26,60},{26,74},{58,74}}, color={255,0,255}));
   connect(chiOn.y, heaNoWse.uLeaChiSta)
-    annotation (Line(points={{12,60},{26,60},{26,-55},{58,-55}}, color={255,0,255}));
+    annotation (Line(points={{12,60},{26,60},{26,-54},{58,-54}}, color={255,0,255}));
   connect(chiOn.y, heaNoWse.uLeaConWatReq)
-    annotation (Line(points={{12,60},{26,60},{26,-58},{58,-58}}, color={255,0,255}));
+    annotation (Line(points={{12,60},{26,60},{26,-56},{58,-56}}, color={255,0,255}));
   connect(booPul.y, booToInt.u)
     annotation (Line(points={{-58,-100},{-52,-100}}, color={255,0,255}));
   connect(booToInt.y, addInt.u2)
@@ -134,13 +134,13 @@ equation
     annotation (Line(points={{12,90},{20,90},{20,-80},{-20,-80},{-20,-94},
       {-12,-94}}, color={255,127,0}));
   connect(addInt.y, heaNoWse.uChiSta)
-    annotation (Line(points={{12,-100},{26,-100},{26,-61},{58,-61}}, color={255,127,0}));
+    annotation (Line(points={{12,-100},{26,-100},{26,-59},{58,-59}}, color={255,127,0}));
   connect(chiOn.y, heaHavWse.uLeaChiEna)
-    annotation (Line(points={{12,60},{28,60},{28,107},{58,107}}, color={255,0,255}));
+    annotation (Line(points={{12,60},{28,60},{28,108},{58,108}}, color={255,0,255}));
   connect(chiOn.y, dedHavWse.uLeaChiEna)
-    annotation (Line(points={{12,60},{28,60},{28,77},{58,77}}, color={255,0,255}));
+    annotation (Line(points={{12,60},{28,60},{28,78},{58,78}}, color={255,0,255}));
   connect(chiOn.y, heaNoWse.uLeaChiEna)
-    annotation (Line(points={{12,60},{28,60},{28,-53},{58,-53}}, color={255,0,255}));
+    annotation (Line(points={{12,60},{28,60},{28,-52},{58,-52}}, color={255,0,255}));
   connect(chiOn.y, heaHavWse.uChiConIsoVal[1])
     annotation (Line(points={{12,60},{28,60},{28,110},{58,110}}, color={255,0,255}));
   connect(chiOn.y, dedHavWse.uChiConIsoVal[1])

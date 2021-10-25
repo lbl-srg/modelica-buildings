@@ -2,42 +2,47 @@ within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.SetPoints;
 block ChilledWaterSupply
   "Sequences to generate setpoints of chilled water supply temperature and the pump differential static pressure"
 
+  parameter Integer nRemDpSen=1
+    "Total number of remote pressure differential sensor";
   parameter Real dpChiWatPumMin(
     final min=0,
     final unit="Pa",
     final quantity="PressureDifference",
     displayUnit="Pa") = 34473.8
     "Minimum chilled water pump differential static pressure, default 5 psi";
-  parameter Real dpChiWatPumMax(
-    final min=dpChiWatPumMin,
-    final unit="Pa",
-    final quantity="PressureDifference",
-    displayUnit="Pa")
+  parameter Real dpChiWatPumMax[nRemDpSen](
+    final min=fill(dpChiWatPumMin,nRemDpSen),
+    final unit=fill("Pa",nRemDpSen),
+    final quantity=fill("PressureDifference",nRemDpSen),
+    displayUnit=fill("Pa",nRemDpSen))
     "Maximum chilled water pump differential static pressure";
-  parameter Modelica.SIunits.ThermodynamicTemperature TChiWatSupMin(
-    displayUnit="K")
-    "Minimum chilled water supply temperature";
-  parameter Modelica.SIunits.ThermodynamicTemperature TChiWatSupMax(
+  parameter Real TChiWatSupMin(
+    final quantity="ThermodynamicTemperature",
+    displayUnit="degC")
+    "Minimum chilled water supply temperature. This is the lowest minimum chilled water supply temperature of chillers in the plant";
+  parameter Real TChiWatSupMax(
     final min=TChiWatSupMin,
-    displayUnit="K") = 288.706
+    final quantity="ThermodynamicTemperature",
+    final unit="K",
+    displayUnit="degC") = 288.706
     "Maximum chilled water supply temperature, default 60 degF";
   parameter Real minSet = 0 "Minimum plant reset value";
   parameter Real maxSet = 1 "Maximum plant reset value";
   parameter Real halSet = 0.5 "Half plant reset value";
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uChiWatPlaRes(
-    final min = minSet,
-    final max = maxSet,
-    final unit = "1")
+    final min=minSet,
+    final max=maxSet,
+    final unit="1")
     "Chilled water plant reset"
     annotation (Placement(transformation(extent={{-120,-20},{-80,20}}),
-      iconTransformation(extent={{-140,-20},{-100,20}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput dpChiWatPumSet(
-    final unit="Pa",
-    final quantity="PressureDifference")
+        iconTransformation(extent={{-140,-20},{-100,20}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput dpChiWatPumSet[nRemDpSen](
+    final unit=fill("Pa", nRemDpSen),
+    final quantity=fill("PressureDifference",nRemDpSen))
     "Chilled water pump differential static pressure setpoint"
     annotation (Placement(transformation(extent={{80,30},{120,70}}),
-      iconTransformation(extent={{100,40},{140,80}})));
+        iconTransformation(extent={{100,40},{140,80}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput TChiWatSupSet(
     final unit="K",
     displayUnit="degC",
@@ -47,24 +52,24 @@ block ChilledWaterSupply
       iconTransformation(extent={{100,-80},{140,-40}})));
 
 protected
-  Buildings.Controls.OBC.CDL.Continuous.Line chiWatPumPre
+  Buildings.Controls.OBC.CDL.Continuous.Line chiWatPumPre[nRemDpSen]
     "Chilled water pump differential pressure setpoint"
     annotation (Placement(transformation(extent={{40,40},{60,60}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zerRes(
-    final k=minSet) "Minimum plant reset"
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zerRes[nRemDpSen](
+      final k=fill(minSet, nRemDpSen)) "Minimum plant reset"
     annotation (Placement(transformation(extent={{-60,80},{-40,100}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant halRes(
-    final k=halSet) "Half one plant reset"
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant halRes[nRemDpSen](
+      final k=fill(halSet, nRemDpSen)) "Half one plant reset"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant oneRes(
     final k=maxSet) "Maximum plant reset"
     annotation (Placement(transformation(extent={{-60,-100},{-40,-80}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minChiWatPumPre(
-    final k=dpChiWatPumMin)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minChiWatPumPre[nRemDpSen](
+     final k=fill(dpChiWatPumMin, nRemDpSen))
     "Minimum chilled water pump differential pressure setpoint"
     annotation (Placement(transformation(extent={{-20,60},{0,80}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant maxChiWatPumPre(
-    final k=dpChiWatPumMax)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant maxChiWatPumPre[nRemDpSen](
+     final k=dpChiWatPumMax)
     "Maximum chilled water pump differential pressure setpoint"
     annotation (Placement(transformation(extent={{-20,18},{0,38}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant maxChiWatTem(
@@ -78,6 +83,10 @@ protected
   Buildings.Controls.OBC.CDL.Continuous.Line chiWatTem
     "Chilled water temperature setpoint"
     annotation (Placement(transformation(extent={{40,-60},{60,-40}})));
+  Buildings.Controls.OBC.CDL.Routing.RealScalarReplicator reaRep(
+    final nout=nRemDpSen)
+    "Distribute reset value to each remote sensor"
+    annotation (Placement(transformation(extent={{-60,40},{-40,60}})));
 
 equation
   connect(zerRes.y, chiWatPumPre.x1)
@@ -92,9 +101,6 @@ equation
   connect(maxChiWatPumPre.y, chiWatPumPre.f2)
     annotation (Line(points={{2,28},{14,28},{14,42},{38,42}},
       color={0,0,127}));
-  connect(halRes.y, chiWatTem.x1)
-    annotation (Line(points={{-38,0},{20,0},{20,-42},{38,-42}},
-      color={0,0,127}));
   connect(maxChiWatTem.y, chiWatTem.f1)
     annotation (Line(points={{2,-30},{14,-30},{14,-46},{38,-46}},
       color={0,0,127}));
@@ -104,16 +110,18 @@ equation
   connect(minChiWatTem.y, chiWatTem.f2)
     annotation (Line(points={{2,-70},{20,-70},{20,-58},{38,-58}},
       color={0,0,127}));
-  connect(uChiWatPlaRes, chiWatPumPre.u)
-    annotation (Line(points={{-100,0},{-70,0},{-70,50},{38,50}},
-      color={0,0,127}));
-  connect(uChiWatPlaRes, chiWatTem.u)
-    annotation (Line(points={{-100,0},{-70,0},{-70,-50},{38,-50}},
-      color={0,0,127}));
   connect(chiWatPumPre.y, dpChiWatPumSet)
     annotation (Line(points={{62,50},{100,50}},color={0,0,127}));
   connect(chiWatTem.y, TChiWatSupSet)
     annotation (Line(points={{62,-50},{100,-50}},color={0,0,127}));
+  connect(uChiWatPlaRes, chiWatTem.u) annotation (Line(points={{-100,0},{-70,0},
+          {-70,-50},{38,-50}}, color={0,0,127}));
+  connect(uChiWatPlaRes, reaRep.u) annotation (Line(points={{-100,0},{-70,0},{-70,
+          50},{-62,50}}, color={0,0,127}));
+  connect(halRes[1].y, chiWatTem.x1) annotation (Line(points={{-38,0},{20,0},{20,
+          -42},{38,-42}}, color={0,0,127}));
+  connect(reaRep.y, chiWatPumPre.u)
+    annotation (Line(points={{-38,50},{38,50}}, color={0,0,127}));
 
 annotation (
   defaultComponentName="chiWatSupSet",
@@ -205,7 +213,7 @@ primary-secondary systems serving differential pressure controlled pumps.
 The outputs include supply temperature setpoint <code>TChiWatSupSet</code>
 and pump differential pressure setpoint <code>dpChiWatPumSet</code>, according
 to ASHRAE RP-1711 Advanced Sequences of Operation for HVAC Systems Phase II –
-Central Plants and Hydronic Systems (Draft 6 on July 25, 2019), section 5.2.5.2.
+Central Plants and Hydronic Systems (Draft March 23, 2020), section 5.2.5.2.
 </p>
 <p>
 Chilled water supply temperature setpoint <code>TChiWatSupSet</code> and pump

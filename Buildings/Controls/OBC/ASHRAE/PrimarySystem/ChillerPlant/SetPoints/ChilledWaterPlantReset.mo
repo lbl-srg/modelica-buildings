@@ -85,7 +85,7 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Not not1[nPum] "Logical not"
     annotation (Placement(transformation(extent={{-100,50},{-80,70}})));
   Buildings.Controls.OBC.CDL.Logical.MultiAnd mulAnd(
-    final nu=nPum) "Logical and"
+    final nin=nPum) "Logical and"
     annotation (Placement(transformation(extent={{-60,50},{-40,70}})));
   Buildings.Controls.OBC.CDL.Logical.Not not2
     "Check if these is any CHW pump is proven on"
@@ -174,7 +174,7 @@ Documentation(info="<html>
 <p>
 Block that output chilled water plant reset <code>yChiWatPlaRes</code> according
 to ASHRAE RP-1711 Advanced Sequences of Operation for HVAC Systems Phase II –
-Central Plants and Hydronic Systems (Draft 6 on July 25, 2019), section 5.2.5.2.
+Central Plants and Hydronic Systems (Draft March 23, 2020), section 5.2.5.2.
 </p>
 <p>
 Following implementation is for plants with primary-only and primary-secondary

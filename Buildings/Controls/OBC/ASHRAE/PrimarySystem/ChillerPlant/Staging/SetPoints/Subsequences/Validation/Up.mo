@@ -1,12 +1,12 @@
 within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.SetPoints.Subsequences.Validation;
 model Up "Validate change stage up condition sequence"
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.SetPoints.Subsequences.Up
-    staUp(effConTruDelay=900)
+    staUp(have_locSen=true, effConTruDelay=900)
           "Generates stage up signal"
     annotation (Placement(transformation(extent={{-40,20},{-20,40}})));
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.SetPoints.Subsequences.Up
-    staUp1(final have_WSE=true)
+    staUp1(final have_WSE=true, have_locSen=true)
     "Generates stage up signal"
     annotation (Placement(transformation(extent={{140,20},{160,40}})));
 
@@ -107,33 +107,33 @@ equation
   connect(Ope.y, staUp.uOpe) annotation (Line(points={{-98,70},{-60,70},{-60,40},
           {-42,40}}, color={0,0,127}));
   connect(TCWSupSet.y, staUp.TChiWatSupSet) annotation (Line(points={{-138,-30},
-          {-70,-30},{-70,35},{-42,35}}, color={0,0,127}));
+          {-70,-30},{-70,36},{-42,36}}, color={0,0,127}));
   connect(TCWSup.y, staUp.TChiWatSup) annotation (Line(points={{-138,-70},{-60,
-          -70},{-60,33},{-42,33}},color={0,0,127}));
-  connect(dpChiWatSet.y, staUp.dpChiWatPumSet) annotation (Line(points={{-98,-10},
-          {-56,-10},{-56,30},{-42,30}}, color={0,0,127}));
-  connect(dpChiWat.y, staUp.dpChiWatPum) annotation (Line(points={{-98,-50},{
-          -52,-50},{-52,28},{-42,28}}, color={0,0,127}));
+          -70},{-60,34},{-42,34}},color={0,0,127}));
+  connect(dpChiWatSet.y, staUp.dpChiWatPumSet_local) annotation (Line(points={{
+          -98,-10},{-56,-10},{-56,31},{-42,31}}, color={0,0,127}));
+  connect(dpChiWat.y, staUp.dpChiWatPum_local) annotation (Line(points={{-98,
+          -50},{-52,-50},{-52,29},{-42,29}}, color={0,0,127}));
   connect(stage0.y, staUp.u) annotation (Line(points={{-138,90},{-50,90},{-50,
-          24},{-42,24}}, color={255,127,0}));
+          22},{-42,22}}, color={255,127,0}));
   connect(StaUp1.y, staUp1.uStaUp) annotation (Line(points={{82,30},{92,30},{92,
           38},{138,38}}, color={0,0,127}));
   connect(Ope1.y, staUp1.uOpe) annotation (Line(points={{82,70},{120,70},{120,
           40},{138,40}}, color={0,0,127}));
   connect(TCWSupSet1.y, staUp1.TChiWatSupSet) annotation (Line(points={{42,-30},
-          {110,-30},{110,35},{138,35}}, color={0,0,127}));
+          {110,-30},{110,36},{138,36}}, color={0,0,127}));
   connect(TCWSup1.y, staUp1.TChiWatSup) annotation (Line(points={{42,-70},{120,
-          -70},{120,33},{138,33}}, color={0,0,127}));
-  connect(dpChiWatSet1.y, staUp1.dpChiWatPumSet) annotation (Line(points={{82,-10},
-          {124,-10},{124,30},{138,30}}, color={0,0,127}));
-  connect(dpChiWat1.y, staUp1.dpChiWatPum) annotation (Line(points={{82,-50},{
-          128,-50},{128,28},{138,28}}, color={0,0,127}));
-  connect(stage1.y, staUp1.u) annotation (Line(points={{42,90},{130,90},{130,24},
-          {138,24}},color={255,127,0}));
+          -70},{120,34},{138,34}}, color={0,0,127}));
+  connect(dpChiWatSet1.y, staUp1.dpChiWatPumSet_local) annotation (Line(points=
+          {{82,-10},{124,-10},{124,31},{138,31}}, color={0,0,127}));
+  connect(dpChiWat1.y, staUp1.dpChiWatPum_local) annotation (Line(points={{82,
+          -50},{128,-50},{128,29},{138,29}}, color={0,0,127}));
+  connect(stage1.y, staUp1.u) annotation (Line(points={{42,90},{130,90},{130,22},
+          {138,22}},color={255,127,0}));
   connect(avaCur.y, staUp.uAvaCur) annotation (Line(points={{-58,-90},{-46,-90},
-          {-46,21},{-42,21}}, color={255,0,255}));
+          {-46,20},{-42,20}}, color={255,0,255}));
   connect(avaCur1.y, staUp1.uAvaCur) annotation (Line(points={{122,-90},{132,
-          -90},{132,21},{138,21}}, color={255,0,255}));
+          -90},{132,20},{138,20}}, color={255,0,255}));
 annotation (
  experiment(StopTime=3600.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/PrimarySystem/ChillerPlant/Staging/SetPoints/Subsequences/Validation/Up.mos"

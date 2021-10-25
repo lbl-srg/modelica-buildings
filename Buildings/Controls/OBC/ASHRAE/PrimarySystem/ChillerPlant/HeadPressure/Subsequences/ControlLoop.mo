@@ -1,4 +1,4 @@
-﻿within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.HeadPressure.Subsequences;
+within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.HeadPressure.Subsequences;
 block ControlLoop
   "Sequence to generate head pressure control signal if it is not available from the chiller controller"
   parameter Real minChiLif(
@@ -114,7 +114,7 @@ annotation (
 Block that generates chiller head pressure control loop signal when the signal
 is not available from chiller controller,
 according to ASHRAE RP-1711 Advanced Sequences of Operation for HVAC Systems Phase II –
-Central Plants and Hydronic Systems (Draft 4 on January 7, 2019),
+Central Plants and Hydronic Systems (Draft on March 23, 2020),
 section 5.2.10 Head pressure control, part 5.2.10.1 and 5.2.10.2.
 </p>
 <p>

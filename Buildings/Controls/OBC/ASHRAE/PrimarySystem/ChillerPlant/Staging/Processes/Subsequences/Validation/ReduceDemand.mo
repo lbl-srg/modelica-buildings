@@ -66,10 +66,10 @@ protected
     final samplePeriod=fill(20,2))
     "Output the input signal with zero order hold"
     annotation (Placement(transformation(extent={{240,40},{260,60}})));
-  Buildings.Controls.OBC.CDL.Routing.BooleanReplicator booRep(
+  Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator booRep(
     final nout=2) "Replicate boolean input"
     annotation (Placement(transformation(extent={{140,20},{160,40}})));
-  Buildings.Controls.OBC.CDL.Routing.RealReplicator reaRep(
+  Buildings.Controls.OBC.CDL.Routing.RealScalarReplicator reaRep(
     final nout=2) "Replicate real input"
     annotation (Placement(transformation(extent={{80,-50},{100,-30}})));
 

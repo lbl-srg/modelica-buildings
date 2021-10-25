@@ -2,21 +2,21 @@ within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.SetPoint
 block Configurator "Configures chiller staging"
 
   parameter Integer nSta = 3
-    "Number of chiller stages";
+    "Number of chiller stages, does not include zero stage";
 
   parameter Integer nChi = 2
     "Number of chillers";
 
   parameter Real chiDesCap[nChi](
      final unit=fill("W",nChi),
-     final quantity=fill("Power",nChi),
+     final quantity=fill("HeatFlowRate",nChi),
      displayUnit=fill("W",nChi))
     "Design chiller capacities vector"
     annotation (Evaluate=true);
 
   parameter Real chiMinCap[nChi](
      final unit=fill("W",nChi),
-     final quantity=fill("Power",nChi),
+     final quantity=fill("HeatFlowRate",nChi),
      displayUnit=fill("W",nChi))
     "Chiller minimum cycling loads vector"
     annotation (Evaluate=true);
@@ -46,13 +46,13 @@ block Configurator "Configures chiller staging"
 
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yDesCap[nSta](
     final unit=fill("W", nSta),
-    final quantity=fill("Power", nSta)) "Stage design capacities vector"
+    final quantity=fill("HeatFlowRate", nSta)) "Stage design capacities vector"
     annotation (Placement(transformation(extent={{220,0},{260,40}}),
         iconTransformation(extent={{100,60},{140,100}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yMinCap[nSta](
     final unit=fill("W", nSta),
-    final quantity=fill("Power", nSta)) "Unload stage capacities vector"
+    final quantity=fill("HeatFlowRate", nSta)) "Unload stage capacities vector"
     annotation (Placement(transformation(extent={{220,-40},{260,0}}),
         iconTransformation(extent={{100,20},{140,60}})));
 
@@ -176,7 +176,7 @@ protected
     annotation (Placement(transformation(extent={{180,-160},{200,-140}})));
 
   Buildings.Controls.OBC.CDL.Logical.MultiAnd mulAnd(
-    final nu=nSta) "Logical and with a vector input"
+    final nin=nSta) "Logical and with a vector input"
     annotation (Placement(transformation(extent={{140,-160},{160,-140}})));
 
 equation

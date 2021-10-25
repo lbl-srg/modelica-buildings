@@ -4,8 +4,11 @@ package PrimarySystem "Package with primary system control sequences"
 annotation (
 preferredView="info", Documentation(info="<html>
 <p>
-This package contains control sequences for primary HVAC systems. They are
-developed according to ASHRAE RP-1711, Draft 4, January 7 2019 and Draft 5, March 26 2019.
+This package contains control sequences for primary HVAC systems. 
+</p>
+<p>
+The sequences are developed according to ASHRAE RP-1711 Advanced Sequences of Operation for HVAC Systems Phase II –
+Central Plants and Hydronic Systems (draft version on March 23, 2020).
 </p>
 </html>"),
 Icon(graphics={

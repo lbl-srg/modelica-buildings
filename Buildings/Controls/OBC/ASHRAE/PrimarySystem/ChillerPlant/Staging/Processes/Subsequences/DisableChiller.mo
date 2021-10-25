@@ -1,4 +1,4 @@
-﻿within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Processes.Subsequences;
+within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Processes.Subsequences;
 block DisableChiller "Sequence for disabling chiller in stage-down process"
 
   parameter Integer nChi "Total number of chillers";
@@ -48,7 +48,7 @@ protected
     annotation (Placement(transformation(extent={{100,190},{120,210}})));
   Buildings.Controls.OBC.CDL.Logical.And and2
     annotation (Placement(transformation(extent={{-160,130},{-140,150}})));
-  Buildings.Controls.OBC.CDL.Routing.BooleanReplicator booRep(
+  Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator booRep(
     final nout=nChi)
     "Replicate boolean input"
     annotation (Placement(transformation(extent={{-100,130},{-80,150}})));
@@ -75,7 +75,7 @@ protected
   Buildings.Controls.OBC.CDL.Logical.LogicalSwitch logSwi2[nChi]
     "Logical switch"
     annotation (Placement(transformation(extent={{160,40},{180,60}})));
-  Buildings.Controls.OBC.CDL.Routing.IntegerReplicator intRep(final nout=nChi)
+  Buildings.Controls.OBC.CDL.Routing.IntegerScalarReplicator intRep(final nout=nChi)
     "Replicate integer input"
     annotation (Placement(transformation(extent={{-160,190},{-140,210}})));
   Buildings.Controls.OBC.CDL.Integers.Equal intEqu[nChi]
@@ -87,16 +87,16 @@ protected
   Buildings.Controls.OBC.CDL.Discrete.TriggeredSampler triSam[nChi]
     "Record the old chiller chilled water isolation valve status"
     annotation (Placement(transformation(extent={{-20,90},{0,110}})));
-  Buildings.Controls.OBC.CDL.Routing.BooleanReplicator booRep1(final nout=nChi)
+  Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator booRep1(final nout=nChi)
     "Replicate boolean input"
     annotation (Placement(transformation(extent={{-60,60},{-40,80}})));
   Buildings.Controls.OBC.CDL.Logical.Edge edg
     "Rising edge, output true at the moment when input turns from false to true"
     annotation (Placement(transformation(extent={{-100,60},{-80,80}})));
-  Buildings.Controls.OBC.CDL.Routing.BooleanReplicator booRep2(final nout=nChi)
+  Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator booRep2(final nout=nChi)
     "Replicate boolean input"
     annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
-  Buildings.Controls.OBC.CDL.Routing.BooleanReplicator booRep3(final nout=nChi)
+  Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator booRep3(final nout=nChi)
     "Replicate boolean input"
     annotation (Placement(transformation(extent={{80,40},{100,60}})));
   Buildings.Controls.OBC.CDL.Logical.Not not1 "Logical not"
@@ -104,13 +104,13 @@ protected
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt[nChi](
     final k=chiInd) "Chiller index array"
     annotation (Placement(transformation(extent={{-160,160},{-140,180}})));
-  Buildings.Controls.OBC.CDL.Routing.IntegerReplicator intRep1(final nout=nChi)
+  Buildings.Controls.OBC.CDL.Routing.IntegerScalarReplicator intRep1(final nout=nChi)
     "Replicate integer input"
     annotation (Placement(transformation(extent={{-160,-90},{-140,-70}})));
   Buildings.Controls.OBC.CDL.Integers.Equal intEqu1[nChi]
     "Check next enabling isolation valve"
     annotation (Placement(transformation(extent={{-100,-90},{-80,-70}})));
-  Buildings.Controls.OBC.CDL.Routing.BooleanReplicator booRep4(final nout=nChi)
+  Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator booRep4(final nout=nChi)
     "Replicate boolean input"
     annotation (Placement(transformation(extent={{-160,-170},{-140,-150}})));
   Buildings.Controls.OBC.CDL.Logical.Edge edg1
@@ -122,7 +122,7 @@ protected
   Buildings.Controls.OBC.CDL.Discrete.TriggeredSampler triSam1[nChi]
     "Record the old chiller chilled water isolation valve status"
     annotation (Placement(transformation(extent={{-80,-220},{-60,-200}})));
-  Buildings.Controls.OBC.CDL.Routing.BooleanReplicator booRep5(final nout=nChi)
+  Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator booRep5(final nout=nChi)
     "Replicate boolean input"
     annotation (Placement(transformation(extent={{-120,-250},{-100,-230}})));
   Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greEquThr1[nChi](
@@ -141,7 +141,7 @@ protected
   Buildings.Controls.OBC.CDL.Logical.LogicalSwitch logSwi4[nChi]
     "Logical switch"
     annotation (Placement(transformation(extent={{160,-130},{180,-110}})));
-  Buildings.Controls.OBC.CDL.Routing.BooleanReplicator booRep6(
+  Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator booRep6(
     final nout=nChi)
     "Replicate boolean input"
     annotation (Placement(transformation(extent={{100,-130},{120,-110}})));
@@ -151,8 +151,13 @@ protected
   Buildings.Controls.OBC.CDL.Logical.LogicalSwitch logSwi6[nChi]
     "Logical switch"
     annotation (Placement(transformation(extent={{100,-250},{120,-230}})));
-  Buildings.Controls.OBC.CDL.Logical.LogicalSwitch logSwi7 "Logical switch"
+  Buildings.Controls.OBC.CDL.Logical.LogicalSwitch logSwi7
+    "Logical switch"
     annotation (Placement(transformation(extent={{160,-62},{180,-42}})));
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant con3(
+    final k=true)
+    "When the process does not require chiller on-off, there is no need to limit chiller demand"
+    annotation (Placement(transformation(extent={{20,-80},{40,-60}})));
 
 equation
   connect(nexEnaChi, intRep.u)
@@ -292,9 +297,6 @@ equation
   connect(uOnOff, logSwi7.u2)
     annotation (Line(points={{-220,-120},{80,-120},{80,-52},{158,-52}},
       color={255,0,255}));
-  connect(uStaDow, logSwi7.u3)
-    annotation (Line(points={{-220,140},{-180,140},{-180,-60},{158,-60}},
-      color={255,0,255}));
   connect(logSwi7.y, yReaDemLim)
     annotation (Line(points={{182,-52},{202,-52},{202,-50},{220,-50}},
       color={255,0,255}));
@@ -308,6 +310,8 @@ equation
     annotation (Line(points={{-78,-8},{-40,-8},{-40,-44},{158,-44}},
       color={255,0,255}));
 
+  connect(con3.y, logSwi7.u3) annotation (Line(points={{42,-70},{90,-70},{90,-60},
+          {158,-60}}, color={255,0,255}));
 annotation (
   defaultComponentName="disChi",
   Icon(graphics={
@@ -419,7 +423,7 @@ Documentation(info="<html>
 <p>
 Block that controlles chiller when there is staging down command <code>uStaDow=true</code>.
 This implementation is based on ASHRAE RP-1711 Advanced Sequences of Operation for HVAC Systems Phase II – 
-Central Plants and Hydronic Systems (Draft version, March 2020), section 5.2.4.17,
+Central Plants and Hydronic Systems (Draft on March 23, 2020), section 5.2.4.17,
 item 1.e and f. These two sections specify how to start the smaller chiller and shut
 off larger chiller when the stage change requires large chiller off and small chill on.
 In other stage change, when it does not require chiller on/off, the chiller will then

@@ -7,11 +7,11 @@ model Speed_primary_remoteDp
     "Chilled water pump speed control based remote pressure difference sensor"
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
 
-protected
+//protected
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse pumSta[2](
-    final width=fill(0.95, 2),
+    final width=fill(0.9, 2),
     final period=fill(10, 2),
-    final startTime=fill(1, 2)) "Pump status"
+    final shift=fill(1, 2)) "Pump status"
     annotation (Placement(transformation(extent={{-60,30},{-40,50}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant difPreSet(
     final k=8.5*6894.75)
@@ -28,20 +28,22 @@ protected
     final startTime=2,
     final amplitude=1*6894.75) "Remote pressure difference sensor reading"
     annotation (Placement(transformation(extent={{-60,-50},{-40,-30}})));
+  Buildings.Controls.OBC.CDL.Routing.RealScalarReplicator reaRep(
+    final nout=2) "Replicate real input"
+    annotation (Placement(transformation(extent={{-30,-90},{-10,-70}})));
 
 equation
-  connect(difPreSet.y, chiPumSpe.dpChiWatSet)
-    annotation (Line(points={{-38,-80},{-20,-80},{-20,-8},{18,-8}},
-      color={0,0,127}));
   connect(pumSta.y, chiPumSpe.uChiWatPum)
     annotation (Line(points={{-38,40},{-20,40},{-20,8},{18,8}},
       color={255,0,255}));
-  connect(remPreSen1.y, chiPumSpe.dpChiWat[1])
-    annotation (Line(points={{-38,0},{-10,0},{-10,-1},{18,-1}},
-      color={0,0,127}));
-  connect(remPreSen2.y, chiPumSpe.dpChiWat[2])
-    annotation (Line(points={{-38,-40},{-28,-40},{-28,1},{18,1}},
-      color={0,0,127}));
+  connect(remPreSen1.y, chiPumSpe.dpChiWat_remote[1]) annotation (Line(points={
+          {-38,0},{-10,0},{-10,-1},{18,-1}}, color={0,0,127}));
+  connect(remPreSen2.y, chiPumSpe.dpChiWat_remote[2]) annotation (Line(points={
+          {-38,-40},{-28,-40},{-28,1},{18,1}}, color={0,0,127}));
+  connect(difPreSet.y, reaRep.u)
+    annotation (Line(points={{-38,-80},{-32,-80}}, color={0,0,127}));
+  connect(reaRep.y, chiPumSpe.dpChiWatSet_remote) annotation (Line(points={{-8,
+          -80},{0,-80},{0,-8},{18,-8}}, color={0,0,127}));
 
 annotation (
   experiment(StopTime=10.0, Tolerance=1e-06),

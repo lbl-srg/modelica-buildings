@@ -1,8 +1,8 @@
-﻿within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Processes.Subsequences;
+within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Processes.Subsequences;
 block UpEnd "Sequence for ending stage-up process"
 
   parameter Integer nChi "Total number of chillers";
-  parameter Boolean is_parChi=true
+  parameter Boolean have_parChi=true
     "True: the plant has parallel chillers";
 
   parameter Real proOnTim(
@@ -28,13 +28,13 @@ block UpEnd "Sequence for ending stage-up process"
     final quantity=fill("VolumeFlowRate", nChi),
     displayUnit=fill("m3/s", nChi))
     "Minimum chilled water flow through each chiller"
-    annotation (Evaluate=true, Dialog(group="Reset CHW minimum flow setpoint"));
+    annotation (Dialog(group="Reset CHW minimum flow setpoint"));
   parameter Real maxFloSet[nChi](
     final unit=fill("m3/s", nChi),
     final quantity=fill("VolumeFlowRate", nChi),
     displayUnit=fill("m3/s", nChi))
     "Maximum chilled water flow through each chiller"
-    annotation (Evaluate=true, Dialog(group="Reset CHW minimum flow setpoint"));
+    annotation (Dialog(group="Reset CHW minimum flow setpoint"));
   parameter Real aftByPasSetTim(
     final unit="s",
     final quantity="Time",
@@ -149,7 +149,7 @@ protected
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.MinimumFlowBypass.FlowSetpoint
     minChiWatSet(
     final nChi=nChi,
-    final is_parChi=is_parChi,
+    final have_parChi=have_parChi,
     final byPasSetTim=byPasSetTim,
     final minFloSet=minFloSet,
     final maxFloSet=maxFloSet) "Reset minimum chilled water flow setpoint"
@@ -195,7 +195,7 @@ protected
   Buildings.Controls.OBC.CDL.Logical.LogicalSwitch logSwi3[nChi]
     "Logical switch"
     annotation (Placement(transformation(extent={{160,-60},{180,-40}})));
-  Buildings.Controls.OBC.CDL.Routing.BooleanReplicator booRep4(final nout=nChi)
+  Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator booRep4(final nout=nChi)
     "Replicate boolean input"
     annotation (Placement(transformation(extent={{-80,50},{-60,70}})));
   Buildings.Controls.OBC.CDL.Logical.Switch chiWatIso[nChi]
@@ -619,8 +619,8 @@ Documentation(info="<html>
 <p>
 Block that controls devices at the ending step of chiller staging up process.
 This development is based on ASHRAE RP-1711 Advanced Sequences of Operation for
-HVAC Systems Phase II – Central Plants and Hydronic Systems (Draft version,
-March 2020), section 5.2.4.16, item 6 and 7. These sections specify the controls of
+HVAC Systems Phase II – Central Plants and Hydronic Systems (Draft on March 23,
+2020), section 5.2.4.16, item 6 and 7. These sections specify the controls of
 devices at the ending step of staging up process.
 </p>
 <p>

@@ -3,7 +3,7 @@ block Status
   "Outputs current stage chiller index vector, current, next available lower and higher stage index and whether curent stage is the lowest and/or the highest available stage"
 
   parameter Integer nSta = 3
-    "Number of stages";
+    "Number of chiller stages, does not include zero stage";
 
   parameter Integer nChi = 2
     "Number of chillers";
@@ -77,7 +77,7 @@ protected
   Buildings.Controls.OBC.CDL.Logical.IntegerSwitch intSwi3 "Switch"
     annotation (Placement(transformation(extent={{360,70},{380,90}})));
 
-  Buildings.Controls.OBC.CDL.Routing.IntegerReplicator intRep(
+  Buildings.Controls.OBC.CDL.Routing.IntegerScalarReplicator intRep(
     final nout=nSta) "Replicates signal to a length equal the stage count"
     annotation (Placement(transformation(extent={{-300,190},{-280,210}})));
 
@@ -184,7 +184,7 @@ protected
     annotation (Placement(transformation(extent={{-340,-140},{-320,-120}})));
 
   Buildings.Controls.OBC.CDL.Logical.MultiOr mulOr(
-    final nu=nSta) "Logical or"
+    final nin=nSta) "Logical or"
     annotation (Placement(transformation(extent={{-380,-140},{-360,-120}})));
 
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt(

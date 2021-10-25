@@ -3,7 +3,7 @@ block Capacities
   "Returns design and minimal stage capacities for current and next available higher and lower stage"
 
   parameter Integer nSta = 3
-    "Total number of stages";
+    "Number of chiller stages, does not include zero stage";
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uLow
     "Current stage is the lowest available stage"
@@ -34,64 +34,61 @@ block Capacities
         iconTransformation(extent={{-140,-50},{-100,-10}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uDesCap[nSta](
-    final quantity=fill("Power", nSta),
+    final quantity=fill("HeatFlowRate", nSta),
     final unit=fill("W", nSta)) "Design stage capacities"
     annotation (Placement(transformation(extent={{-240,160},{-200,200}}),
         iconTransformation(extent={{-140,70},{-100,110}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uMinCap[nSta](
-    final quantity=fill("Power", nSta),
+    final quantity=fill("HeatFlowRate", nSta),
     final unit=fill("W", nSta)) "Unload stage capacities"
     annotation (Placement(transformation(extent={{-240,-200},{-200,-160}}),
         iconTransformation(extent={{-140,40},{-100,80}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yDes(
     final unit="W",
-    final quantity="Power") "Design capacity of the current stage"
+    final quantity="HeatFlowRate") "Design capacity of the current stage"
     annotation (Placement(transformation(extent={{200,130},{240,170}}),
         iconTransformation(extent={{100,60},{140,100}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yDowDes(
     final unit="W",
-    final quantity="Power") "Design capacity of the next available lower stage"
+    final quantity="HeatFlowRate") "Design capacity of the next available lower stage"
     annotation (Placement(transformation(extent={{200,0},{240,40}}),
         iconTransformation(extent={{100,-20},{140,20}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yUpDes(
     final unit="W",
-    final quantity="Power") "Design capacity of the next available higher stage"
+    final quantity="HeatFlowRate") "Design capacity of the next available higher stage"
     annotation (Placement(transformation(extent={{200,40},{240,80}}),
         iconTransformation(extent={{100,20},{140,60}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yMin(
     final unit="W",
-    final quantity="Power") "Minimum capacity of the current stage"
+    final quantity="HeatFlowRate") "Minimum capacity of the current stage"
     annotation (Placement(transformation(extent={{200,-40},{240,0}}),
         iconTransformation(extent={{100,-60},{140,-20}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yUpMin(
     final unit="W",
-    final quantity="Power") "Minimum capacity of the next available higher stage"
+    final quantity="HeatFlowRate") "Minimum capacity of the next available higher stage"
     annotation (Placement(transformation(extent={{200,-110},{240,-70}}),
         iconTransformation(extent={{100,-100},{140,-60}})));
 
 protected
-  final parameter Real small = 0.001
-  "Small number to avoid division with zero";
-
   final parameter Real larGai = 10
   "Large gain";
 
   Buildings.Controls.OBC.CDL.Routing.RealExtractor cap(
     final nin=nSta,
-    final outOfRangeValue=small,
+    final outOfRangeValue=0,
     final allowOutOfRange=true)
     "Extracts the design capacity at the current stage"
     annotation (Placement(transformation(extent={{-100,140},{-80,160}})));
 
   Buildings.Controls.OBC.CDL.Routing.RealExtractor dowCap(
     final nin=nSta,
-    final outOfRangeValue=small,
+    final outOfRangeValue=0,
     final allowOutOfRange=true)
     "Extracts the design capacity of one stage lower than the current stage"
     annotation (Placement(transformation(extent={{-100,70},{-80,90}})));
@@ -99,20 +96,20 @@ protected
   Buildings.Controls.OBC.CDL.Routing.RealExtractor upCapMin(
     final nin=nSta,
     final allowOutOfRange=true,
-    final outOfRangeValue=small)
+    final outOfRangeValue=0)
     "Extracts minimal capacity of the next higher stage"
     annotation (Placement(transformation(extent={{0,-40},{20,-20}})));
 
   Buildings.Controls.OBC.CDL.Routing.RealExtractor upCap(
     final nin=nSta,
     final allowOutOfRange=true,
-    final outOfRangeValue=small)
+    final outOfRangeValue=0)
     "Extracts the design capacity of the next stage"
     annotation (Placement(transformation(extent={{0,70},{20,90}})));
 
   Buildings.Controls.OBC.CDL.Routing.RealExtractor capMin(
     final nin=nSta,
-    final outOfRangeValue=small,
+    final outOfRangeValue=0,
     final allowOutOfRange=true)
     "Extracts the minimum capacity of the current stage"
     annotation (Placement(transformation(extent={{0,-80},{20,-60}})));
@@ -251,11 +248,6 @@ sequence implements the following:
 <li>
 if operating at the lowest available chiller stage, the minimal capacity
 of that stage is returned as the stage down design capacity.
-</li>
-<li>
-if operating at the stage 0, the minimal and design capacity
-of that stage, as well as the stage down design capacity
-equals a small value, to avoid downstream division 0.
 </li>
 <li>
 if operating at the highest stage, the design and minimal stage up conditionals are set to

@@ -1,17 +1,16 @@
-﻿within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Pumps.CondenserWater.Subsequences;
+within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Pumps.CondenserWater.Subsequences;
 block EnableLead_headered
   "Sequence for enabling lead pump of plants with headered condenser water pumps"
   parameter Boolean have_WSE = true
     "Flag of waterside economizer: true=have WSE, false=no WSE";
   parameter Integer nChi=2 "Total number of chiller";
 
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uWseConIsoVal if
-       have_WSE
-    "WSE condenser water isolation valve status"
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uWseConIsoVal
+    if have_WSE "WSE condenser water isolation valve commanded status"
     annotation (Placement(transformation(extent={{-140,-40},{-100,0}}),
       iconTransformation(extent={{-140,-60},{-100,-20}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uChiConIsoVal[nChi]
-    "Chiller condenser water isolation valve status"
+    "Chiller condenser water isolation valve commanded status"
     annotation (Placement(transformation(extent={{-140,0},{-100,40}}),
       iconTransformation(extent={{-140,20},{-100,60}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yLea "Lead pump status"
@@ -34,7 +33,7 @@ protected
     "Logical false"
     annotation (Placement(transformation(extent={{-80,-70},{-60,-50}})));
   Buildings.Controls.OBC.CDL.Logical.MultiOr mulOr(
-    final nu=nChi)
+    final nin=nChi)
     "Check if there is any chiller enabled"
     annotation (Placement(transformation(extent={{-80,10},{-60,30}})));
 
@@ -94,7 +93,7 @@ annotation (
 Block that enable and disable lead condenser water pump, for plants
 with headered condenser water pumps, 
 according to ASHRAE RP-1711 Advanced Sequences of Operation for HVAC Systems Phase II –
-Central Plants and Hydronic Systems (Draft on March 2020), 
+Central Plants and Hydronic Systems (Draft on March 23, 2020), 
 section 5.2.9 Condenser water pumps, part 5.2.9.2-3.
 </p>
 <ol>

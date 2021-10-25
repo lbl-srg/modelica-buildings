@@ -1,4 +1,4 @@
-﻿within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Pumps.ChilledWater.Subsequences;
+within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Pumps.ChilledWater.Subsequences;
 block Speed_primary_remoteDp
   "Pump speed control for primary-only plants where the remote DP sensor(s) is hardwired to the plant controller"
   parameter Integer nSen = 2
@@ -31,18 +31,17 @@ block Speed_primary_remoteDp
     "Chilled water pump status"
     annotation (Placement(transformation(extent={{-160,-20},{-120,20}}),
       iconTransformation(extent={{-140,60},{-100,100}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput dpChiWat[nSen](
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput dpChiWat_remote[nSen](
     final unit=fill("Pa", nSen),
     final quantity=fill("PressureDifference", nSen))
     "Chilled water differential static pressure"
     annotation (Placement(transformation(extent={{-160,-80},{-120,-40}}),
-      iconTransformation(extent={{-140,-20},{-100,20}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput dpChiWatSet(
-    final unit="Pa",
-    final quantity="PressureDifference")
-    "Chilled water differential static pressure setpoint"
+        iconTransformation(extent={{-140,-20},{-100,20}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput dpChiWatSet_remote[nSen](
+    final unit=fill("Pa", nSen),
+    final quantity=fill("PressureDifference",nSen)) "Chilled water differential static pressure setpoint"
     annotation (Placement(transformation(extent={{-160,-120},{-120,-80}}),
-      iconTransformation(extent={{-140,-100},{-100,-60}})));
+        iconTransformation(extent={{-140,-100},{-100,-60}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yChiWatPumSpe(
     final min=minPumSpe,
     final max=maxPumSpe,
@@ -66,10 +65,7 @@ block Speed_primary_remoteDp
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
 
 protected
-  Buildings.Controls.OBC.CDL.Routing.RealReplicator reaRep(
-    final nout=nSen) "Replicate real input"
-    annotation (Placement(transformation(extent={{-100,-110},{-80,-90}})));
-  Buildings.Controls.OBC.CDL.Routing.BooleanReplicator booRep(
+  Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator booRep(
     final nout=nSen)
     "Replicate boolean input"
     annotation (Placement(transformation(extent={{-20,-50},{0,-30}})));
@@ -88,12 +84,12 @@ protected
   Buildings.Controls.OBC.CDL.Continuous.Division div[nSen]
     "Normalized pressure difference"
     annotation (Placement(transformation(extent={{-20,-90},{0,-70}})));
-  Buildings.Controls.OBC.CDL.Routing.RealReplicator reaRep1(
+  Buildings.Controls.OBC.CDL.Routing.RealScalarReplicator reaRep1(
     final nout=nSen) "Replicate real input"
     annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
   Buildings.Controls.OBC.CDL.Logical.Switch swi "Logical switch"
     annotation (Placement(transformation(extent={{80,90},{100,110}})));
-  Buildings.Controls.OBC.CDL.Logical.MultiOr mulOr(final nu=nPum)
+  Buildings.Controls.OBC.CDL.Logical.MultiOr mulOr(final nin=nPum)
     "Check if there is any pump enabled"
     annotation (Placement(transformation(extent={{-100,-10},{-80,10}})));
 
@@ -102,8 +98,6 @@ equation
     annotation (Line(points={{42,0},{58,0}}, color={0,0,127}));
   connect(booRep.y, conPID.trigger)
     annotation (Line(points={{2,-40},{24,-40},{24,-12}}, color={255,0,255}));
-  connect(dpChiWatSet, reaRep.u)
-    annotation (Line(points={{-140,-100},{-102,-100}}, color={0,0,127}));
   connect(zer.y, pumSpe.x1)
     annotation (Line(points={{2,80},{20,80},{20,68},{58,68}}, color={0,0,127}));
   connect(pumSpe_min.y, pumSpe.f1)
@@ -115,12 +109,8 @@ equation
   connect(maxLoo.y, pumSpe.u)
     annotation (Line(points={{82,0},{100,0},{100,40},{40,40},{40,60},{58,60}},
       color={0,0,127}));
-  connect(dpChiWat, div.u1)
-    annotation (Line(points={{-140,-60},{-40,-60},{-40,-74},{-22,-74}},
-      color={0,0,127}));
-  connect(reaRep.y, div.u2)
-    annotation (Line(points={{-78,-100},{-40,-100},{-40,-86},{-22,-86}},
-      color={0,0,127}));
+  connect(dpChiWat_remote, div.u1) annotation (Line(points={{-140,-60},{-40,-60},
+          {-40,-74},{-22,-74}}, color={0,0,127}));
   connect(div.y, conPID.u_m)
     annotation (Line(points={{2,-80},{30,-80},{30,-12}}, color={0,0,127}));
   connect(one.y, reaRep1.u)
@@ -145,6 +135,8 @@ equation
   connect(uChiWatPum, mulOr.u)
     annotation (Line(points={{-140,0},{-102,0}}, color={255,0,255}));
 
+  connect(dpChiWatSet_remote, div.u2) annotation (Line(points={{-140,-100},{-40,
+          -100},{-40,-86},{-22,-86}}, color={0,0,127}));
 annotation (
   defaultComponentName="chiPumSpe",
   Icon(coordinateSystem(extent={{-100,-100},{100,100}}),
@@ -164,27 +156,27 @@ annotation (
           pattern=LinePattern.Dash,
           textString="uChiWatPum"),
         Text(
-          extent={{-98,10},{-44,-12}},
+          extent={{-98,10},{-26,-10}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
-          textString="dpChiWat"),
+          textString="dpChiWat_remote"),
         Text(
           extent={{22,12},{98,-10}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="yChiWatPumSpe"),
         Text(
-          extent={{-98,-68},{-34,-90}},
+          extent={{-98,-68},{-10,-88}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
-          textString="dpChiWatSet")}),
+          textString="dpChiWatSet_remote")}),
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-120,-120},{120,120}})),
   Documentation(info="<html>
 <p>
 Block that output chilled water pump speed setpoint for primary-only plants where
 the remote pressure differential sensor is hardwired to the plant controller, 
 according to ASHRAE RP-1711 Advanced Sequences of Operation for HVAC Systems Phase II –
-Central Plants and Hydronic Systems (Draft 6 on July 25, 2019), 
+Central Plants and Hydronic Systems (Draft on March 23, 2020), 
 section 5.2.6 Primary chilled water pumps, part 5.2.6.7 and 5.2.6.8.
 </p>
 <ol>
