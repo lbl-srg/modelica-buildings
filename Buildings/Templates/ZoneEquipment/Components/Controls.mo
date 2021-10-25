@@ -661,9 +661,9 @@ package Controls
         points={{50,-20},{100,-20},{100,33},{118,33}},
         color={255,204,51},
         thickness=0.5));
-    connect(bus.inp.VDis_flow, zonOutAirSet.VDis_flow) annotation (Line(
-        points={{-200.1,0.1},{-200.1,0.196078},{-20,0.196078},{-20,40},{98,40},
-            {98,24},{118,24}},
+    connect(bus.damVAV.inp.V_flow, zonOutAirSet.VDis_flow) annotation (Line(
+        points={{-200,0},{-200,0.196078},{-20,0.196078},{-20,40},{98,40},{98,24},
+            {118,24}},
         color={255,204,51},
         thickness=0.5));
     connect(busSof.VDesUncOutAir_flow, zonOutAirSet.VUncOut_flow_nominal)
