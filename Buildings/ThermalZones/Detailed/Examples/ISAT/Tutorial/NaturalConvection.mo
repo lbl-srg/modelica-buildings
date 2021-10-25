@@ -52,8 +52,7 @@ model NaturalConvection "Tutorial for the natural convection case"
    nConBou = nConBou,
    nSurBou = nSurBou,
    samplePeriod = 7200,
-    lat=0.012787839282646,
-    massDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+   massDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
   annotation (Placement(transformation(extent={{60,-58},{100,-18}})));
   HeatTransfer.Sources.FixedTemperature           TWesWal(T=274.15)
     "Boundary condition for the west wall" annotation (Placement(transformation(
@@ -82,12 +81,12 @@ equation
       smooth=Smooth.None));
   connect(TEasWal.port, roo.surf_surBou[1])
     annotation (Line(
-      points={{120,-70},{76.2,-70},{76.2,-52}},
+      points={{120,-70},{76.2,-70},{76.2,-52.8333}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(TWesWal.port, roo.surf_surBou[2])
     annotation (Line(
-      points={{120,-110},{76.2,-110},{76.2,-52}},
+      points={{120,-110},{76.2,-110},{76.2,-52.5}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(weaDat.weaBus, roo.weaBus) annotation (Line(

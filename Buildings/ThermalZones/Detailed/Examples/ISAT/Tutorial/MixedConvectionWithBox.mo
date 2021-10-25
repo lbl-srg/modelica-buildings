@@ -35,7 +35,6 @@ model MixedConvectionWithBox
      each absIR=1e-5,
      each absSol=1e-5,
      each boundaryCondition=Buildings.ThermalZones.Detailed.Types.CFDBoundaryConditions.Temperature),
-    lat = 0.012787839282646,
     AFlo = 1*1,
     hRoo = 1,
     linearizeRadiation = false,
@@ -102,27 +101,27 @@ equation
       thickness=0.5,
       smooth=Smooth.None));
   connect(TFlo.port, roo.surf_surBou[6]) annotation (Line(
-      points={{140,-90},{96.2,-90},{96.2,-32}},
+      points={{140,-90},{96.2,-90},{96.2,-31.1667}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(TOthWal[1].port, roo.surf_surBou[1]) annotation (Line(
-      points={{140,-50},{96.2,-50},{96.2,-32}},
+      points={{140,-50},{96.2,-50},{96.2,-32.8333}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(TOthWal[2].port, roo.surf_surBou[2]) annotation (Line(
-      points={{140,-50},{96.2,-50},{96.2,-32}},
+      points={{140,-50},{96.2,-50},{96.2,-32.5}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(TOthWal[3].port, roo.surf_surBou[3]) annotation (Line(
-      points={{140,-50},{96.2,-50},{96.2,-32}},
+      points={{140,-50},{96.2,-50},{96.2,-32.1667}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(TOthWal[4].port, roo.surf_surBou[4]) annotation (Line(
-      points={{140,-50},{96.2,-50},{96.2,-32}},
+      points={{140,-50},{96.2,-50},{96.2,-31.8333}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(TOthWal[5].port, roo.surf_surBou[5]) annotation (Line(
-      points={{140,-50},{96.2,-50},{96.2,-32}},
+      points={{140,-50},{96.2,-50},{96.2,-31.5}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(bouIn.ports[1], roo.ports[1]) annotation (Line(

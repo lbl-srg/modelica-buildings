@@ -248,12 +248,11 @@ The following <b style=\"color:blue\">new libraries</b> have been added:
     </td>
     <td valign=\"top\">Package with medium model for steam heating applications.
     </td>
-    </tr>
+</tr>
 <tr><td valign=\"top\"><p>Buildings.ThermalZones.Detailed.Examples.ISAT</p>
     </td>
     <td valign=\"top\"><p>Package with thermal airflow model using in situ adaptive tabulation.</p>
     </td>
-    </tr>
 </tr>
 <tr><td valign=\"top\">Buildings.Experimental.DHC.CentralPlants.Cooling
     </td>
