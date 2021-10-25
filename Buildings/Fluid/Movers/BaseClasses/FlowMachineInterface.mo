@@ -514,11 +514,11 @@ equation
     etaHyd = 1;
     etaMot = eta;
   elseif per.use_eulerNumber then
-    eta = per.peak.eta_peak
+    eta = per.peak.eta
           * Buildings.Fluid.Movers.BaseClasses.Euler.correlation(
           x=log10(Buildings.Utilities.Math.Functions.smoothMax(x1=
-            (dp_internal * per.peak.V_flow_peak^2)
-            /(per.peak.dp_peak * V_flow^2),
+            (dp_internal * per.peak.V_flow^2)
+            /(per.peak.dp * V_flow^2),
             x2=1E-5,deltaX=1E-6)));
     PEle = WFlo / Buildings.Utilities.Math.Functions.smoothMax(x1=eta, x2=1E-5, deltaX=1E-6);
     // Similar to the powerCharacteristic path,

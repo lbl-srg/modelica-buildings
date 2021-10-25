@@ -37,9 +37,9 @@ algorithm
     m:=Buildings.Utilities.Math.Functions.splineMode(
       x=pressure.V_flow,y=eta);
   end if;
-  peak.V_flow_peak:=m[1];
-  peak.eta_peak:=m[2];
-  peak.dp_peak:=Buildings.Utilities.Math.Functions.smoothInterpolation(
+  peak.V_flow:=m[1];
+  peak.eta:=m[2];
+  peak.dp:=Buildings.Utilities.Math.Functions.smoothInterpolation(
     x=m[1],xSup=pressure.V_flow,ySup=pressure.dp,ensureMonotonicity=false);
 
   annotation(smoothOrder=1,
