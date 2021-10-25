@@ -1,5 +1,5 @@
 within Buildings.Fluid.FixedResistances.Examples;
-model PlugFlowDiscretized "Simple example of discretized plug flow pipe"
+model PlugFlowPipeDiscretized "Simple example of discretized plug flow pipe"
   extends Modelica.Icons.Example;
   replaceable package Medium = Buildings.Media.Water "Medium in the pipe" annotation (
       choicesAllMatching=true);
@@ -18,7 +18,7 @@ model PlugFlowDiscretized "Simple example of discretized plug flow pipe"
     nPorts=1,
     p(displayUnit="Pa") = 101325) "Pressure boundary condition"
     annotation (Placement(transformation(extent={{82,-10},{62,10}})));
-  Buildings.Fluid.FixedResistances.PlugFlowDiscretized pip(
+  Buildings.Fluid.FixedResistances.PlugFlowPipeDiscretized pip(
     redeclare package Medium = Medium,
     nSeg=nSeg,
     dh=0.1,
@@ -67,13 +67,13 @@ equation
     annotation (Line(points={{20,0},{30,0}}, color={0,127,255}));
   annotation (
     __Dymola_Commands(file=
-          "Resources/Scripts/Dymola/Fluid/FixedResistances/Examples/PlugFlowDiscretized.mos"
+          "Resources/Scripts/Dymola/Fluid/FixedResistances/Examples/PlugFlowPipeDiscretized.mos"
         "Simulate and Plot"),
     experiment(StopTime=1000, Tolerance=1e-006),
     Documentation(info="<html>
 <p>Basic test of model
-<a href=\"modelica://Buildings.Fluid.FixedResistances.PlugFlowDiscretized\">
-Buildings.Fluid.FixedResistances.PlugFlowDiscretized</a>.
+<a href=\"modelica://Buildings.Fluid.FixedResistances.PlugFlowPipeDiscretized\">
+Buildings.Fluid.FixedResistances.PlugFlowPipeDiscretized</a>.
 This test includes an inlet temperature step under a constant mass flow rate.
 </p>
 </html>", revisions="<html>
@@ -84,4 +84,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end PlugFlowDiscretized;
+end PlugFlowPipeDiscretized;
