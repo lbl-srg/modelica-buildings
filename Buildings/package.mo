@@ -293,6 +293,28 @@ to <b style=\"color:blue\">existing</b> libraries:
          This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2544\">issue 2544</a>.
     </td>
 </tr>
+<tr><td colspan=\"2\"><b>Buildings.Fluid.Movers</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Fluid.Movers.BaseClasses.Euler.correlation<br/>
+                     Buildings.Fluid.Movers.BaseClasses.Euler.findPeakCondition<br/>
+                     Buildings.Fluid.Movers.BaseClasses.Euler.peakCondition<br/>
+                     Buildings.Fluid.Movers.BaseClasses.Validation.EulerMethod<br.>
+    </td>
+    <td valign=\"top\">Package that calculates the mover efficiency using Euler number and its correlation,
+                     as well as a validation model for this method.<br/>
+                     This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2668\">issue 2668</a>.
+    </td>
+</tr>
+<tr><td colspan=\"2\"><b>Buildings.Utilities.Math</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Utilities.Math.Functions.splineMode<br/>
+    </td>
+    <td valign=\"top\">Function that finds the mode of a unimodal spline.<br/>
+                     This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2668\">issue 2668</a>.
+    </td>
+</tr>
 </table>
 <!-- Backward compatible changes -->
 <p>
@@ -613,6 +635,53 @@ have been <b style=\"color:blue\">improved</b> in a
                        For Dymola, a conversion script makes this change.
     </td>
 </tr>
+<tr><td valign=\"top\">Buildings.Fluid.Movers.BaseClasses.Types
+    </td>
+    <td valign=\"top\">Created a new enumeration for 
+                     <code>Buildings.Fluid.Movers.BaseClasses.FlowMachineInterface</code>
+                     to choose its path of power computation.<br/>
+                     This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2668\">issue 2668</a>.
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Fluid.Movers.BaseClasses.FlowMachineInterface
+    </td>
+    <td valign=\"top\">Added a new path for power computation with 
+                     <code>Buildings.Fluid.Movers.BaseClasses.Euler</code><br/>
+                     This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2668\">issue 2668</a>.
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Fluid.Movers.FlowControlled_dp<br/>
+                     Buildings.Fluid.Movers.FlowControlled_m_flow<br/>
+                     Buildings.Fluid.Movers.SpeedControlled_Nrpm<br/>
+                     Buildings.Fluid.Movers.SpeedControlled_y<br/>
+                     Buildings.Fluid.Movers.Data.Generic<br/>
+                     Buildings.Fluid.Movers.Data.Pumps.Wilo.CronolineIL80slash220dash4slash4<br/>
+                     Buildings.Fluid.Movers.Data.Pumps.Wilo.Stratos25slash1to4<br/>
+                     Buildings.Fluid.Movers.Data.Pumps.Wilo.Stratos25slash1to6<br/>
+                     Buildings.Fluid.Movers.Data.Pumps.Wilo.Stratos25slash1to8<br/>
+                     Buildings.Fluid.Movers.Data.Pumps.Wilo.Stratos30slash1to4<br/>
+                     Buildings.Fluid.Movers.Data.Pumps.Wilo.Stratos30slash1to8<br/>
+                     Buildings.Fluid.Movers.Data.Pumps.Wilo.Stratos32slash1to12<br/>
+                     Buildings.Fluid.Movers.Data.Pumps.Wilo.Stratos40slash1to12<br/>
+                     Buildings.Fluid.Movers.Data.Pumps.Wilo.Stratos40slash1to8<br/>
+                     Buildings.Fluid.Movers.Data.Pumps.Wilo.Stratos50slash1to12<br/>
+                     Buildings.Fluid.Movers.Data.Pumps.Wilo.Stratos80slash1to12<br/>
+                     Buildings.Fluid.Movers.Data.Pumps.Wilo.TopS25slash10<br/>
+                     Buildings.Fluid.Movers.Data.Pumps.Wilo.TopS30slash10<br/>
+                     Buildings.Fluid.Movers.Data.Pumps.Wilo.TopS30slash5<br/>
+                     Buildings.Fluid.Movers.Data.Pumps.Wilo.TopS40slash10<br/>
+                     Buildings.Fluid.Movers.Data.Pumps.Wilo.TopS40slash7<br/>
+                     Buildings.Fluid.Movers.Data.Pumps.Wilo.VeroLine50slash150dash4slash2<br/>
+                     Buildings.Fluid.Movers.Data.Pumps.Wilo.VeroLine80slash115dash2comma2slash2<br/>
+                     Buildings.Fluid.Movers.Validation.PowerSimplified<br/>
+                     Buildings.Fluid.Movers.BaseClasses.FlowMachineInterface
+    </td>
+    <td valign=\"top\">Rewrote all statements that use <code>use_powerCharacteristic</code> 
+                     to select power computation path with the enumeration 
+                     <code>Buildings.Fluid.Movers.BaseClasses.Types.PowerMethod</code><br/>
+                     This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2668\">issue 2668</a>.
+    </td>
+</tr>
 <tr><td colspan=\"2\"><b>Buildings.Fluid.SolarCollectors</b>
     </td>
 </tr>
@@ -699,7 +768,7 @@ that can lead to wrong simulation results):
 <tr><td valign=\"top\">Buildings.Occupants.Office.Occupancy.Wang2005Occupancy
     </td>
     <td valign=\"top\">Reformulated model so it works also if the simulation does not start at <i>0</i>.<br/>
-                       To improve efficiency, this reformulation also changes the event triggering function so that
+                       To improve efficiency, this reformulation " + "also changes the event triggering function so that
                        it leads to time events rather than state events.<br/>
                        This is for
                        <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2590\">#2590</a>.
