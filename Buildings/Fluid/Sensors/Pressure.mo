@@ -28,7 +28,7 @@ equation
         Text(
           extent={{180,90},{60,40}},
           lineColor={0,0,0},
-          textString=DynamicSelect("", String(p, leftjustified=false, significantDigits=5)))}),
+          textString=DynamicSelect("", String(p, leftJustified=false, significantDigits=5)))}),
     Documentation(info="<html>
 <p>
 This model outputs the absolute pressure of the fluid connected to its port.
