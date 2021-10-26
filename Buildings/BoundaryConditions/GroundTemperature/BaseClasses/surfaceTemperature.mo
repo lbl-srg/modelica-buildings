@@ -7,8 +7,12 @@ function surfaceTemperature
     "Surface temperature climatic conditions";
   input Real nFacTha "Thawing n-factor (TAir > 0degC)";
   input Real nFacFre "Freezing n-factor (TAir <= 0degC)";
-  output ClimaticConstants.Generic corCliCon
-    "Corrected surface temperature climatic conditions";
+  output Modelica.SIunits.Temperature TSurMea
+    "Mean annual surface temperature";
+  output Modelica.SIunits.TemperatureDifference TSurAmp
+    "Surface temperature amplitude";
+  output Modelica.SIunits.Duration sinPha(displayUnit="d")
+    "Phase lag of soil surface temperature";
 
 protected
   constant Integer Year=365 "Year period in days";
@@ -36,13 +40,18 @@ algorithm
   C1 := sum({TSurDayMea[day] * cos(freq * day) for day in 1:Year});
   C2 := sum({TSurDayMea[day] * sin(freq * day) for day in 1:Year});
 
-  corCliCon := ClimaticConstants.Generic(
-    TSurMea = sum(TSurDayMea)/Year,
-    TSurAmp = 2 / Year .* (C1^2 + C2^2)^0.5,
-    sinPha = (Modelica.Math.atan(C2 / C1) + pi/2) * secInDay / freq);
+  TSurMea := sum(TSurDayMea)/Year;
+  TSurAmp := 2 / Year .* (C1^2 + C2^2)^0.5;
+  sinPha := (Modelica.Math.atan(C2 / C1) + pi/2) * secInDay / freq;
 
   annotation (Documentation(revisions="<html>
 <ul>
+<li>
+October 26, 2021, by Michael Wetter:<br/>
+Reformulated function to avoid translation error in OpenModelica.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2698\">issue 2698</a>.
+</li>
 <li>
 May 19, 2021, by Baptiste Ravache:<br/>
 First implementation.

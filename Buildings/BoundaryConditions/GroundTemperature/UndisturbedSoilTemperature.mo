@@ -32,15 +32,18 @@ protected
     then dep + soiDat.k / hSur
     else dep
     "Convection-corrected depth";
-  parameter ClimaticConstants.Generic corCliCon= if useNFac
-    then BaseClasses.surfaceTemperature(cliCon=cliCon, nFacTha=nFacTha, nFacFre=nFacFre)
-    else cliCon
-    "<i>n</i>-factor corrected climatic constants";
+
+  parameter Modelica.SIunits.Temperature corTSurMea(fixed=false)
+    "<i>n</i>-factor corrected mean annual surface temperature";
+  parameter Modelica.SIunits.TemperatureDifference corTSurAmp(fixed=false)
+    "<i>n</i>-factor corrected surface temperature amplitude";
+  parameter Modelica.SIunits.Duration corSinPha(displayUnit="d", fixed=false)
+    "<i>n</i>-factor corrected phase lag of soil surface temperature";
 
   parameter Modelica.SIunits.ThermalDiffusivity
     soiDif = soiDat.k / soiDat.c / soiDat.d "Soil diffusivity";
   parameter Modelica.SIunits.Duration
-    timLag = corCliCon.sinPha
+    timLag = corSinPha
     "Start time of surface temperature sinusoid";
   parameter Real pha = - corDep * (pi/soiDif/Year)^0.5
     "Phase angle of ground temperature sinusoid";
@@ -51,8 +54,17 @@ initial equation
     would typically not be used simultaneously",
     level = AssertionLevel.warning);
 
+initial equation
+  if useNFac then
+    (corTSurMea, corTSurAmp, corSinPha) = BaseClasses.surfaceTemperature(cliCon=cliCon, nFacTha=nFacTha, nFacFre=nFacFre);
+  else
+    corTSurMea = cliCon.TSurMea;
+    corTSurAmp = cliCon.TSurAmp;
+    corSinPha  = cliCon.sinPha;
+  end if;
+
 equation
-  T = corCliCon.TSurMea + corCliCon.TSurAmp * exp(pha) *
+  T = corTSurMea + corTSurAmp * exp(pha) *
     sin(2*pi*(time-timLag)/Year + pha);
     annotation (Placement(transformation(extent={{-6,-104},{6,-92}}),
         iconTransformation(extent={{-6,-104},{6,-92}})),
@@ -145,6 +157,12 @@ ASCE (1996). <i>Cold Regions Utilities Monograph</i>. D.W. Smith, Technical Edit
 
 </html>", revisions="<html>
 <ul>
+<li>
+October 26, 2021, by Michael Wetter:<br/>
+Reformulated model to avoid translation error in OpenModelica.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2698\">issue 2698</a>.
+</li>
 <li>
 March 17, 2021, by Baptiste Ravache:<br/>
 First implementation.
