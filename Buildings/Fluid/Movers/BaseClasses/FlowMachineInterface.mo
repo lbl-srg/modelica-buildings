@@ -108,7 +108,6 @@ model FlowMachineInterface
   Modelica.Blocks.Interfaces.RealOutput r_N(unit="1")
     "Ratio N_actual/N_nominal";
   Real r_V(start=1, unit="1") "Ratio V_flow/V_flow_max";
-  Real log_r_Eu(start=0, unit="1") "Log10 of ratio Eu/Eu_peak";
 
 protected
   final parameter Boolean preSpe=
@@ -222,6 +221,8 @@ protected
 
   Modelica.Blocks.Interfaces.RealOutput dp_internal
     "If dp is prescribed, use dp_in and solve for r_N, otherwise compute dp using r_N";
+  Real log_r_Eu(start=0, unit="1") "Log10 of ratio Eu/Eu_peak";
+
 function getPerformanceDataAsString
   input Buildings.Fluid.Movers.BaseClasses.Characteristics.flowParameters pressure
       "Performance data";
