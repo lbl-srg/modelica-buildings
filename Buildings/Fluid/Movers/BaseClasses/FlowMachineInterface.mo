@@ -108,6 +108,7 @@ model FlowMachineInterface
   Modelica.Blocks.Interfaces.RealOutput r_N(unit="1")
     "Ratio N_actual/N_nominal";
   Real r_V(start=1, unit="1") "Ratio V_flow/V_flow_max";
+  Real log_r_Eu(start=0, unit="1") "Log10 of ratio Eu/Eu_peak";
 
 protected
   final parameter Boolean preSpe=
@@ -488,7 +489,11 @@ equation
 
   // Flow work
   WFlo = dp_internal*V_flow;
-
+  log_r_Eu =log10(
+               Buildings.Utilities.Math.Functions.smoothMax(
+                 x1=dp_internal * per.peak.V_flow^2, x2=1E-6, deltaX=1E-7)
+              /Buildings.Utilities.Math.Functions.smoothMax(
+                 x1=per.peak.dp * V_flow^2, x2=1E-6, deltaX=1E-7));
   // Power consumption
   if per.use_powerCharacteristic then
     // For the homotopy, we want P/V_flow to be bounded as V_flow -> 0 to avoid a very high medium
@@ -515,12 +520,7 @@ equation
     etaMot = eta;
   elseif per.use_eulerNumber then
     eta = per.peak.eta
-          *Buildings.Fluid.Movers.BaseClasses.Euler.correlation(
-            x=log10(
-              Buildings.Utilities.Math.Functions.smoothMax(
-                x1=dp_internal * per.peak.V_flow^2, x2=1E-6, deltaX=1E-7)
-             /Buildings.Utilities.Math.Functions.smoothMax(
-                x1=per.peak.dp * V_flow^2, x2=1E-6, deltaX=1E-7)));
+            *Buildings.Fluid.Movers.BaseClasses.Euler.correlation(x=log_r_Eu);
     PEle = WFlo / Buildings.Utilities.Math.Functions.smoothMax(x1=eta, x2=1E-5, deltaX=1E-6);
     // Similar to the powerCharacteristic path,
     // this path also simply assumes etaHyd = 1.
