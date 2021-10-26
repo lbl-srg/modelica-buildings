@@ -54,7 +54,7 @@ block OpenLoop "Open loop controller (output signals only)"
         rotation=-90,
         origin={-60,110})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant yCoiCooSta(k=1)
- if coiCoo.typHex == Buildings.Templates.Components.Types.HeatExchanger.DXMultiStage
+    if coiCoo.typHex == Buildings.Templates.Components.Types.HeatExchanger.DXMultiStage
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={-20,110})));
@@ -90,9 +90,9 @@ block OpenLoop "Open loop controller (output signals only)"
 equation
   /* Equipment signal connection - start */
 
-  connect(yCoiCoo.y, bus.out.yCoiCoo);
-  connect(yCoiHea.y, bus.out.yCoiHea);
-  connect(yCoiCooSta.y, bus.out.yCoiCoo);
+  connect(yCoiCoo.y, bus.coiCoo.out.y);
+  connect(yCoiHea.y, bus.coiHea.out.y);
+  connect(yCoiCooSta.y, bus.coiCoo.out.y);
 
   connect(yFanSup.y, bus.fanSup.out.y);
   connect(ySpeFanSup.y, bus.fanSup.out.ySpe);

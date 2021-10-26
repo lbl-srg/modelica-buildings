@@ -264,8 +264,6 @@ model VAVMultiZone "Multiple-Zone VAV"
           "Exhaust/relief/return section", enable=false), Placement(
         transformation(extent={{250,-90},{230,-70}})));
 
-  Interfaces.BusInput busInp
-    annotation (Placement(transformation(extent={{-106,126},{-66,166}})));
 equation
   /* Sensor signal connection - start */
   connect(TMix.y, bus.inp.TMix);
@@ -281,6 +279,9 @@ equation
   /* Equipment signal connection - start */
   connect(fanSupDra.bus, bus.fanSup);
   connect(fanSupBlo.bus, bus.fanSup);
+  connect(coiHea.bus, bus.coiHea);
+  connect(coiCoo.bus, bus.coiCoo);
+  connect(coiReh.bus, bus.coiHea);
   /* Equipment signal connection - end */
 
   connect(port_coiCooSup, coiCoo.port_aSou) annotation (Line(points={{20,-280},{
@@ -352,22 +353,6 @@ equation
       index=-1,
       extent={{-3,6},{-3,6}},
       horizontalAlignment=TextAlignment.Right));
-  connect(fanSupBlo.bus, bus) annotation (Line(
-      points={{-60,-190},{-60,0},{-300,0}},
-      color={255,204,51},
-      thickness=0.5));
-  connect(coiHea.bus, bus) annotation (Line(
-      points={{-30,-190},{-30,0},{-300,0}},
-      color={255,204,51},
-      thickness=0.5));
-  connect(coiReh.bus, bus) annotation (Line(
-      points={{90,-190},{90,0},{-300,0}},
-      color={255,204,51},
-      thickness=0.5));
-  connect(coiCoo.bus, bus) annotation (Line(
-      points={{30,-190},{30,0},{-300,0}},
-      color={255,204,51},
-      thickness=0.5));
   connect(resRet.port_a, TRet.port_b)
     annotation (Line(points={{190,-80},{200,-80}}, color={0,127,255}));
   connect(port_Ret, hRet.port_a)
@@ -406,6 +391,11 @@ equation
           pattern=LinePattern.Dash,
           textString="No further connection allowed to those two boundary conditions")}),
     Documentation(info="<html>
+  connect(fanSupDra.bus, bus.fanSup);
+  connect(fanSupBlo.bus, bus.fanSup);
+
+Same for coiReh and coiHea: we can manage the same variable name for the control signal for different variants of equipment that correspond to different component names.
+
 
 Requires building indoor _absolute_ pressure as input
 

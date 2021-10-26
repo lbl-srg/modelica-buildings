@@ -28,6 +28,9 @@ package HeatExchangers
       annotation (Placement(transformation(extent={{-60,-30},{-40,-10}})));
 
   equation
+    /* Equipment signal connection - start */
+    connect(bus.out.y, coi.stage);
+    /* Equipment signal connection - end */
     connect(port_a, coi.port_a)
       annotation (Line(points={{-100,0},{-10,0}}, color={0,127,255}));
     connect(coi.port_b, port_b)
@@ -52,14 +55,6 @@ package HeatExchangers
             {-11,3}}, color={0,0,127}));
     connect(TDry.y, coi.TConIn) annotation (Line(points={{-39,-20},{-30,-20},{-30,
             3},{-11,3}}, color={0,0,127}));
-    connect(bus.out.yCoiCoo, coi.stage) annotation (Line(
-        points={{0.1,100.1},{0.1,100.1},{0.1,20},{-20,20},{-20,8},{-11,8}},
-        color={255,204,51},
-        thickness=0.5), Text(
-        string="%first",
-        index=-1,
-        extent={{-6,3},{-6,3}},
-        horizontalAlignment=TextAlignment.Right));
     annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
           coordinateSystem(preserveAspectRatio=false)));
   end DXMultiStage;
@@ -95,6 +90,9 @@ package HeatExchangers
     Modelica.Blocks.Routing.RealPassThrough TDry if have_dryCon
       annotation (Placement(transformation(extent={{-60,-30},{-40,-10}})));
   equation
+    /* Equipment signal connection - start */
+    connect(bus.out.y, coi.speRat);
+    /* Equipment signal connection - end */
     connect(port_a, coi.port_a)
       annotation (Line(points={{-100,0},{-10,0}}, color={0,127,255}));
     connect(coi.port_b, port_b)
@@ -119,14 +117,6 @@ package HeatExchangers
             {-11,3}}, color={0,0,127}));
     connect(TDry.y, coi.TConIn) annotation (Line(points={{-39,-20},{-30,-20},{-30,
             3},{-11,3}}, color={0,0,127}));
-    connect(bus.out.yCoiCoo, coi.speRat) annotation (Line(
-        points={{0.1,100.1},{-20,100.1},{-20,8},{-11,8}},
-        color={255,204,51},
-        thickness=0.5), Text(
-        string="%first",
-        index=-1,
-        extent={{-6,3},{-6,3}},
-        horizontalAlignment=TextAlignment.Right));
     annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
           coordinateSystem(preserveAspectRatio=false)));
   end DXVariableSpeed;
@@ -172,8 +162,8 @@ package HeatExchangers
   end WetCoilCounterFlow;
 
   model WetCoilEffectivenessNTU "Effectiveness-NTU wet heat exchanger model"
-    extends Buildings.Templates.Components.Interfaces.HeatExchangerWater(final
-        typ=Types.HeatExchanger.WetCoilEffectivenessNTU);
+    extends Buildings.Templates.Components.Interfaces.HeatExchangerWater(
+      final typ=Types.HeatExchanger.WetCoilEffectivenessNTU);
 
     parameter Modelica.SIunits.HeatFlowRate Q_flow_nominal(max=0)=
       -1 * dat.getReal(varName=id + ".Mechanical." + funStr + " coil.Capacity.value")

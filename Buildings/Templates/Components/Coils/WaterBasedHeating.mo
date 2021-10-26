@@ -53,25 +53,10 @@ model WaterBasedHeating "Water-based"
           hex "Epsilon-NTU dry heat exchanger model")), Placement(
         transformation(extent={{10,4},{-10,-16}})));
 
-  Modelica.Blocks.Routing.RealPassThrough yCoiCoo if funStr=="Cooling"
-    "Pass through to connect with specific control signal"
-    annotation (Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=-90,
-        origin={-40,50})));
-  Modelica.Blocks.Routing.RealPassThrough yCoiHea if funStr=="Heating"
-    "Pass through to connect with specific control signal"
-    annotation (Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=-90,
-        origin={0,50})));
-  Modelica.Blocks.Routing.RealPassThrough yCoiReh if funStr=="Reheat"
-    "Pass through to connect with specific control signal"
-    annotation (Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=-90,
-        origin={40,50})));
 equation
+  /* Equipment signal connection - start */
+  connect(bus.out.y, act.y);
+  /* Equipment signal connection - end */
   connect(port_aSou, act.port_aSup) annotation (Line(points={{-40,-100},{-40,-80},
           {-4,-80},{-4,-70}}, color={0,127,255}));
   connect(act.port_bRet, port_bSou) annotation (Line(points={{4,-70},{4,-80},{40,
@@ -83,37 +68,6 @@ equation
   connect(port_a,hex. port_a2)
     annotation (Line(points={{-100,0},{-10,0}}, color={0,127,255}));
 
-  connect(yCoiCoo.y, act.y)
-    annotation (Line(points={{-40,39},{-40,-60},{-11,-60}}, color={0,0,127}));
-  connect(yCoiHea.y, act.y) annotation (Line(points={{-1.9984e-15,39},{
-          -1.9984e-15,30},{0,30},{0,20},{-40,20},{-40,-60},{-11,-60}},
-                                                           color={0,0,127}));
-  connect(bus.out.yCoiHea, yCoiHea.u) annotation (Line(
-      points={{0.1,100.1},{0.1,82},{0,82},{0,62}},
-      color={255,204,51},
-      thickness=0.5), Text(
-      string="%first",
-      index=-1,
-      extent={{-3,6},{-3,6}},
-      horizontalAlignment=TextAlignment.Right));
-  connect(bus.out.yCoiCoo, yCoiCoo.u) annotation (Line(
-      points={{0.1,100.1},{-2,100.1},{-2,80},{-40,80},{-40,62}},
-      color={255,204,51},
-      thickness=0.5), Text(
-      string="%first",
-      index=-1,
-      extent={{6,3},{6,3}},
-      horizontalAlignment=TextAlignment.Left));
-  connect(bus.out.yCoiReh, yCoiReh.u) annotation (Line(
-      points={{0.1,100.1},{0.1,100.1},{2,100.1},{2,80},{40,80},{40,62}},
-      color={255,204,51},
-      thickness=0.5), Text(
-      string="%first",
-      index=-1,
-      extent={{-3,6},{-3,6}},
-      horizontalAlignment=TextAlignment.Right));
-  connect(yCoiReh.y, act.y) annotation (Line(points={{40,39},{40,20},{-40,20},{
-          -40,-60},{-11,-60}}, color={0,0,127}));
   connect(hex.port_b2, port_b)
     annotation (Line(points={{10,0},{100,0}}, color={0,127,255}));
   annotation (Icon(

@@ -20,7 +20,5 @@ equation
       color={255,204,51},
       thickness=0.5));
   annotation (
-  experiment(Tolerance=1e-6, StopTime=1),
-  Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
-        coordinateSystem(preserveAspectRatio=false)));
+  experiment(Tolerance=1e-6, StopTime=1));
 end ControlsGuideline36;

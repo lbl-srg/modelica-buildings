@@ -61,16 +61,12 @@ model VAVBox "VAV terminal unit"
 equation
   /* Equipment signal connection - start */
   connect(damVAV.bus, bus.damVAV);
+  connect(coiReh.bus, bus.coiReh);
   /* Equipment signal connection - end */
   connect(port_coiRehSup, coiReh.port_aSou) annotation (Line(points={{-20,-280},
           {-20,-220},{-4,-220},{-4,-210}}, color={0,127,255}));
   connect(coiReh.port_bSou, port_coiRehRet) annotation (Line(points={{4,-210},{
-          4,-220},{20,-220},{20,-280}},
-                                      color={0,127,255}));
-  connect(coiReh.bus, bus) annotation (Line(
-      points={{0,-190},{0,0},{-300,0}},
-      color={255,204,51},
-      thickness=0.5));
+          4,-220},{20,-220},{20,-280}}, color={0,127,255}));
   connect(port_Sup, damVAV.port_a)
     annotation (Line(points={{-300,-200},{-130,-200}}, color={0,127,255}));
   connect(damVAV.port_b, coiReh.port_a)

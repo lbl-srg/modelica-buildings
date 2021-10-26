@@ -21,17 +21,10 @@ package Controls
   equation
     /* Equipment signal connection - start */
     connect(yDamVAV.y, bus.damVAV.out.y);
+    connect(yCoiReh.y, bus.coiReh.out.y);
     /* Equipment signal connection - end */
-    connect(yCoiReh.y, bus.out.yCoiReh) annotation (Line(points={{20,98},{20,
-            0.1},{-200.1,0.1}}, color={0,0,127}), Text(
-        string="%second",
-        index=1,
-        extent={{-3,-6},{-3,-6}},
-        horizontalAlignment=TextAlignment.Right));
     annotation (
-    defaultComponentName="conTer",
-    Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
-          coordinateSystem(preserveAspectRatio=false)));
+    defaultComponentName="conTer");
   end OpenLoop;
 
   block Guideline36
@@ -532,16 +525,19 @@ package Controls
     Buildings.Controls.OBC.CDL.Continuous.Sources.Constant FIXME3(k=1800)
       "Optimal start using global outdoor air temperature not associated with any AHU"
       annotation (Placement(transformation(extent={{-240,-90},{-220,-70}})));
-  protected
-    Interfaces.BusOutput busOut
-      "Output points" annotation (Placement(transformation(extent={{30,0},{70,40}}),
-          iconTransformation(extent={{-10,22},{10,42}})));
 
+  protected
     Interfaces.BusSoftware busSof
       "Software points" annotation (Placement(transformation(extent={{30,-40},{70,
               0}}), iconTransformation(extent={{-10,42},{10,62}})));
 
   equation
+
+    /* Equipment signal connection - start */
+    connect(conTerUni.yDam, bus.damVAV.out.y);
+    connect(conTerUni.yVal, bus.coiReh.out.y);
+    /* Equipment signal connection - end */
+
     connect(bus.inp.ppmCO2, conTerUni.ppmCO2) annotation (Line(
         points={{-200.1,0.1},{-20,0.1},{-20,6},{-12,6}},
         color={255,204,51},
@@ -624,18 +620,10 @@ package Controls
         points={{-200.1,0.1},{-80,0.1},{-80,-53},{-62,-53}},
         color={255,204,51},
         thickness=0.5));
-    connect(conTerUni.yDam, busOut.yDamVAV)
-      annotation (Line(points={{12,6},{16,6},{16,20},{50,20}}, color={0,0,127}));
-    connect(conTerUni.yVal, busOut.yCoiReh) annotation (Line(points={{12,1},{20,1},{
-            20,16},{50,16},{50,20}}, color={0,0,127}));
     connect(conTerUni.yZonTemResReq, busSof.yReqZonTemRes) annotation (Line(
           points={{12,-4},{20,-4},{20,-20},{50,-20}}, color={255,127,0}));
     connect(conTerUni.yZonPreResReq, busSof.yReqZonPreRes) annotation (Line(
           points={{12,-8},{16,-8},{16,-24},{50,-24},{50,-20}}, color={255,127,0}));
-    connect(busOut, bus.out) annotation (Line(
-        points={{50,20},{80,20},{80,60},{-180,60},{-180,0.1},{-200.1,0.1}},
-        color={255,204,51},
-        thickness=0.5));
     connect(busSof, bus.sof) annotation (Line(
         points={{50,-20},{80,-20},{80,-60},{-180,-60},{-180,0.1},{-200.1,0.1}},
         color={255,204,51},

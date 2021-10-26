@@ -3,7 +3,8 @@ package Actuators
   extends Modelica.Icons.Package;
 
   model None "No actuator"
-    extends Buildings.Templates.Components.Interfaces.Actuator(final typ=Types.Actuator.None);
+    extends Buildings.Templates.Components.Interfaces.Actuator(
+      final typ=Types.Actuator.None);
 
   equation
     connect(port_bSup, port_aSup)
