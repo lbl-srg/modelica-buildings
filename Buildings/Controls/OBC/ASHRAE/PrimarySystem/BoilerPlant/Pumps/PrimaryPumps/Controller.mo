@@ -1211,72 +1211,73 @@ primary-only")}),
         lineColor={175,175,175},
         fillColor={175,175,175},
         fillPattern=FillPattern.Solid)}),
-  Documentation(info="<html>
-    <p>
-    Primary hot water pump control sequence per ASHRAE RP-1711, March, 2020 draft, 
-    section 5.3.6. It consists of:
-    </p>
-    <ul>
-    <li>
-    Subsequences to enable lead pump, 
-    <ul>
-    <li>
-    for plants with dedicated pumps 
-    <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Pumps.PrimaryPumps.Subsequences.EnableLead_dedicated\">
-    Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Pumps.PrimaryPumps.Subsequences.EnableLead_dedicated</a>.
-    </li>
-    <li>
-    for plants with headered pumps 
-    <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Pumps.PrimaryPumps.Subsequences.EnableLead_headered\">
-    Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Pumps.PrimaryPumps.Subsequences.EnableLead_headered</a>.
-    </li>
-    </ul>
-    </li>
-    <li>
-    Subsequences to stage lag pumps
-    <ul>
-    <li>
-    for primary-only plants with headered, variable-speed pumps
-    <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Pumps.Generic.EnableLag_flowrate\">
-    Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Pumps.Generic.EnableLag_flowrate</a>.
-    </li>
-    <li>
-    for other plants with headered pumps.
-    </li>
-    <li>
-    for plants with dedicated pumps.
-    </li>
-    </ul>
-    <li>
-    Subsequences to control pump speed,
-    <ul>
-    <li>
-    for primary-only plants, where the remote DP sensor(s) is not hardwired to the plant
-    controller, but a local DP sensor is hardwired
-    <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Pumps.Generic.Speed_localDp\">
-    Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Pumps.Generic.Speed_localDp</a>.
-    </li>
-    <li>
-    for primary-only plants, where the remote DP sensor(s) is hardwired to the plant controller
-    <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Pumps.Generic.Speed_remoteDp\">
-    Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Pumps.Generic.Speed_remoteDp</a>.
-    </li>
-    <li>
-    for primary-secondary plants, with flowrate sensor(s) for speed regulation
-    <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Pumps.PrimaryPumps.Subsequences.Speed_flow\">
-    Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Pumps.PrimaryPumps.Subsequences.Speed_flow</a>.
-    </li>
-    <li>
-    for primary-secondary plants, with temperature sensors for speed regulation
-    <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Pumps.PrimaryPumps.Subsequences.Speed_temperature\">
-    Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Pumps.PrimaryPumps.Subsequences.Speed_temperature</a>.
-    </li>
-    </ul>
-    </li>
-    </ul>
-    <p>
-    The parameter values for valid pump configurations are as follows:
-    <br>
+Documentation(info="<html>
+<p>
+Primary hot water pump control sequence per ASHRAE RP-1711, March, 2020 draft, 
+section 5.3.6. It consists of:
+</p>
+<ul>
+<li>
+Subsequences to enable lead pump, 
+<ul>
+<li>
+for plants with dedicated pumps 
+<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Pumps.PrimaryPumps.Subsequences.EnableLead_dedicated\">
+Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Pumps.PrimaryPumps.Subsequences.EnableLead_dedicated</a>.
+</li>
+<li>
+for plants with headered pumps 
+<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Pumps.PrimaryPumps.Subsequences.EnableLead_headered\">
+Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Pumps.PrimaryPumps.Subsequences.EnableLead_headered</a>.
+</li>
+</ul>
+</li>
+<li>
+Subsequences to stage lag pumps
+<ul>
+<li>
+for primary-only plants with headered, variable-speed pumps
+<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Pumps.Generic.EnableLag_flowrate\">
+Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Pumps.Generic.EnableLag_flowrate</a>.
+</li>
+<li>
+for other plants with headered pumps.
+</li>
+<li>
+for plants with dedicated pumps.
+</li>
+</ul>
+<li>
+Subsequences to control pump speed,
+<ul>
+<li>
+for primary-only plants, where the remote DP sensor(s) is not hardwired to the plant
+controller, but a local DP sensor is hardwired
+<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Pumps.Generic.Speed_localDp\">
+Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Pumps.Generic.Speed_localDp</a>.
+</li>
+<li>
+for primary-only plants, where the remote DP sensor(s) is hardwired to the plant controller
+<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Pumps.Generic.Speed_remoteDp\">
+Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Pumps.Generic.Speed_remoteDp</a>.
+</li>
+<li>
+for primary-secondary plants, with flowrate sensor(s) for speed regulation
+<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Pumps.PrimaryPumps.Subsequences.Speed_flow\">
+Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Pumps.PrimaryPumps.Subsequences.Speed_flow</a>.
+</li>
+<li>
+for primary-secondary plants, with temperature sensors for speed regulation
+<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Pumps.PrimaryPumps.Subsequences.Speed_temperature\">
+Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Pumps.PrimaryPumps.Subsequences.Speed_temperature</a>.
+</li>
+</ul>
+</li>
+</ul>
+<p>
+The parameter values for valid pump configurations are as follows:
+</p>
+<br>
       <table summary=\"allowedConfigurations\" border=\"1\">
         <thead>
           <tr>
@@ -1381,15 +1382,14 @@ primary-only")}),
             <td>FALSE</td>
             <td>NA</td>
             <td>NA</td>
-            <td>NA</td>
-            <td>TRUE</td>
-            <td>FALSE</td>
-            <td>NA</td>
-          </tr>
-        </tbody>
-      </table>
-    </p>      
-    </html>",
+<td>NA</td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>NA</td>
+</tr>
+</tbody>
+</table> 
+</html>",
 revisions="<html>
 <ul>
 <li>

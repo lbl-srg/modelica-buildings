@@ -872,6 +872,7 @@ Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Pumps.Generic.Speed_remo
 </ul>
 <p>
 The parameter values for valid pump configurations are as follows:
+</p>
 <br>
   <table summary=\"allowedConfigurations\" border=\"1\">
     <thead>
@@ -911,7 +912,6 @@ The parameter values for valid pump configurations are as follows:
       </tr>
     </tbody>
   </table>
-</p>      
 </html>",
 revisions="<html>
 <ul>

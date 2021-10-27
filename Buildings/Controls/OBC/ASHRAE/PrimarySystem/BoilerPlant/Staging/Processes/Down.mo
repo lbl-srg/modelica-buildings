@@ -596,9 +596,11 @@ is changed using the boiler status controller <code>disBoi</code> implemented in
 Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.Processes.Subsequences.DisableBoiler</a>.
 </li>
 </ul>
+</li>
 <li>
 If the stage down process does not involve turning on a smaller boiler, start the
 staging down process immediately by changing <code>yBoi</code> using <code>disBoi</code>.
+</li>
 <li>
 Wait for time <code>delBoiEna</code> before closing the isolation valve for the
 disabled boiler using <code>disHotWatIsoVal1</code> and initiating the pump stage

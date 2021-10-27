@@ -58,12 +58,14 @@ annotation (
   with variable-speed hot water pumps, according to ASHRAE RP-1711, March 2020 draft, 
   section 5.3.7.2.
   </p>
+  <ul>
   <li>
   The lead secondary hot water pump shall be enabled <code>yLea = true</code> when
   boiler plant is enabled <code>uPlaEna = true</code> and hot water reset requests 
   are being received from the loads, ie, <code>supResReq &gt; 0</code> and shall 
   be disabled otherwise.
   </li>
+  </ul>
   </html>", revisions="<html>
   <ul>
   <li>

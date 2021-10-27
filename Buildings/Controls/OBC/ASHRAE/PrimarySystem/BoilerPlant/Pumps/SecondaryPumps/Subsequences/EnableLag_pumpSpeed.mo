@@ -226,8 +226,8 @@ equation
   connect(tim2.passed, pre2.u) annotation (Line(points={{-28,-98},{0,-98},{0,
           -130},{8,-130}}, color={255,0,255}));
 annotation (
-  defaultComponentName="enaLagSecPum",
-  Icon(coordinateSystem(preserveAspectRatio=false,extent={{-100,-100},{100,100}}),
+defaultComponentName="enaLagSecPum",
+Icon(coordinateSystem(preserveAspectRatio=false,extent={{-100,-100},{100,100}}),
     graphics={
       Rectangle(
         extent={{-100,-100},{100,100}},
@@ -238,32 +238,30 @@ annotation (
         extent={{-100,150},{100,110}},
         lineColor={0,0,255},
         textString="%name")}),
-  Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-140,-160},{140,160}})),
-  Documentation(info="<html>
-    <p>
-    Block that enables and disables lag secondary hot water pump, for plants with 
-    variable-speed secondary pumps and no flowrate sensor in secondary loop, according
-    to ASHRAE RP-1711, March, 2020 draft, section 5.3.7.4.
-    </p>
-    <p>
-    <ol>
-    <li>
-    Stage up <code>yUp = true</code> when speed <code>uPumSpe</code> exceeds speed limit
-    <code>speLim</code> for time period <code>timPer</code> or <code>speLim1</code>
-    for <code>timPer1</code>.
-    </li>
-    <li>
-    Stage down <code>yDown = false</code> when <code>uPumSpe</code> falls below <code>speLim2</code>
-    for <code>timPer2</code>.
-    </li>
-    </ol>
-    </p>
-    </html>", revisions="<html>
-    <ul>
-    <li>
-    August 25, 2020, by Karthik Devaprasad:<br/>
-    First implementation.
-    </li>
-    </ul>
-    </html>"));
+Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-140,-160},{140,160}})),
+Documentation(info="<html>
+<p>
+Block that enables and disables lag secondary hot water pump, for plants with 
+variable-speed secondary pumps and no flowrate sensor in secondary loop, according
+to ASHRAE RP-1711, March, 2020 draft, section 5.3.7.4.
+</p>
+<ol>
+<li>
+Stage up <code>yUp = true</code> when speed <code>uPumSpe</code> exceeds speed limit
+<code>speLim</code> for time period <code>timPer</code> or <code>speLim1</code>
+for <code>timPer1</code>.
+</li>
+<li>
+Stage down <code>yDown = false</code> when <code>uPumSpe</code> falls below <code>speLim2</code>
+for <code>timPer2</code>.
+</li>
+</ol>
+</html>", revisions="<html>
+<ul>
+<li>
+August 25, 2020, by Karthik Devaprasad:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));
 end EnableLag_pumpSpeed;

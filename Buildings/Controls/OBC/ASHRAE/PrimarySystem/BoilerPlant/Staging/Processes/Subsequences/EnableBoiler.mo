@@ -469,23 +469,23 @@ and when the running smaller boiler should be diabled.
 <p>
 When the stage-up process does not requires a smaller boiler being staged off and
 a larger boiler being staged on (<code>uOnOff=false</code>):
+</p>
 <ul>
 <li>
 Start the next stage boiler after the upstream device is proved functional
 <code>uUpsDevSta=true</code>.
 </li>
 </ul>
-</p>
 <p>
 For any stage change during which a smaller boiler is diabled and a larger boiler
 is enabled (<code>uOnOff=true</code>):
+</p>
 <ul>
 <li>
 Wait 5 minutes (<code>proOnTim</code>) for the newly enabled boiler to prove that it is 
 operating correctly, then shut off the smaller boiler.
 </li>
 </ul>
-</p>
 </html>", revisions="<html>
 <ul>
 <li>

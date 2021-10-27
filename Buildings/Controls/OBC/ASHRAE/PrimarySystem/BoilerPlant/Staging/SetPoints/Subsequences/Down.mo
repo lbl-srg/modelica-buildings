@@ -530,8 +530,8 @@ equation
           -48},{98,-48}}, color={255,0,255}));
   connect(tim2.passed, or1.u2) annotation (Line(points={{2,-108},{40,-108},{40,-106},
           {58,-106}}, color={255,0,255}));
-  annotation(defaultComponentName = "staDow",
-    Icon(coordinateSystem(extent={{-100,-160},{100,190}}),
+annotation(defaultComponentName = "staDow",
+  Icon(coordinateSystem(extent={{-100,-160},{100,190}}),
       graphics={
         Rectangle(
           extent={{-100,-160},{100,190}},
@@ -578,124 +578,118 @@ equation
         Rectangle(
           extent={{-28,18},{-24,12}},
           lineColor={0,0,127})}),
-      Diagram(
-        coordinateSystem(preserveAspectRatio=false,
+  Diagram(coordinateSystem(preserveAspectRatio=false,
         extent={{-180,-200},{220,180}})),
-      Documentation(info="<html>
-        <p>
-        <ol>
-        <li>
-        If the current stage <code>uCur</code> has only condensing boilers, the
-        block outputs a boolean stage down signal <code>yStaDow</code> when all
-        the following are true:
-        <ul>
-        <li>
-        <ul>
-        <li>
-        Required heating capacity <code>uCapReq</code> is lower than <code>fraMinFir</code>
-        times the minimum firing rate <code>uCapMin</code> of the current stage
-        for a time period <code>delMinFir</code>, or
-        </li>
-        <li>
-        Primary circuit pump speed <code>uPumSpe</code> is at the minimum
-        allowed flow rate <code>boiMinPriPumSpeSta</code> and primary circuit hot
-        water return temperature <code>TPriHotWatRet</code>
-        <br>
-        exceeds the secondary circuit hot water return temperature <code>TSecHotWatRet</code> by 
-        <code>TCirDif</code> for a time period <code>delTRetDiff</code>.
-        </li>
-        </ul>
-        </li>
-        <li>
-        Failsafe condition is not <code>true</code>.
-        </li>
-        <li>
-        Required heating capacity <code>uCapReq</code> is less than <code>fraDesCap</code>
-        times the design capacity <code>uCapDowDes</code> of the next available
-        lower stage for a time period <code>delDesCapConBoi</code>.
-        </li>
-        </ul>
-        </li>
-        <br>
-        <li>
-        If the current stage <code>uCur</code> has a non-condensing boiler, the
-        block outputs a boolean stage down signal <code>yStaDow</code> when all
-        the following are true:
-        <ul>
-        <li>
-        Failsafe condition is not <code>true</code>.
-        </li>
-        <li>
-        Required heating capacity <code>uCapReq</code> is less than <code>fraDesCap</code>
-        times the design capacity <code>uCapDowDes</code> of the next available
-        lower stage for a time period <code>delDesCapNonConBoi</code>.
-        </li>
-        </ul>
-        </li>
-        <br>
-        <li>
-        If the plant is a primary-only, condensing type boiler plant,
-        <code>have_priOnl</code> is set to <code>true</code> and the block
-        outputs a boolean stage down signal <code>yStaDow</code>
-        when all the following are true:
-        <ul>
-        <li>
-        <ul>
-        <li>
-        Required heating capacity <code>uCapReq</code> is lower than <code>fraMinFir</code>
-        times the minimum firing rate <code>uCapMin</code> of the current stage
-        for a time period <code>delMinFir</code>, or
-        </li>
-        <li>
-        The minimum flow bypass valve position <code>uBypValPos</code> is greater
-        than <code>bypValClo</code>% open for a time period <code>delBypVal</code>.
-        </li>
-        </ul>
-        </li>
-        <li>
-        Failsafe condition is not <code>true</code>.
-        </li>
-        <li>
-        Required heating capacity <code>uCapReq</code> is less than <code>fraDesCap</code>
-        times the design capacity <code>uCapDowDes</code> of the next available
-        lower stage for a time period <code>delDesCapConBoi</code>.
-        </li>
-        </ul>
-        </li>
-        </ol>
-        </p>
-        <p>
-        The implementation is according to ASHRAE RP1711 March 2020 draft, section 5.3.3.10.
-        Timer reset has been implemented according to 5.3.3.10.2.
-        </p>
-        <p align=\"center\">
-        <img alt=\"Validation plot for EfficiencyCondition1\"
-        src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/PrimarySystem/BoilerPlant/Staging/SetPoints/Subsequences/Down1.png\"/>
-        <br/>
-        Validation plot generated from model <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.SetPoints.Subsequences.Validation.Down\">
-        Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.SetPoints.Subsequences.Validation.Down</a> for a stage with all condensing boilers.
-        </p>
-        <p align=\"center\">
-        <img alt=\"Validation plot for EfficiencyCondition1\"
-        src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/PrimarySystem/BoilerPlant/Staging/SetPoints/Subsequences/Down2.png\"/>
-        <br/>
-        Validation plot generated from model <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.SetPoints.Subsequences.Validation.Down\">
-        Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.SetPoints.Subsequences.Validation.Down</a> for a stage with a non-condensing boiler.
-        </p>
-        <p align=\"center\">
-        <img alt=\"Validation plot for EfficiencyCondition1\"
-        src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/PrimarySystem/BoilerPlant/Staging/SetPoints/Subsequences/Down3.png\"/>
-        <br/>
-        Validation plot generated from model <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.SetPoints.Subsequences.Validation.Down\">
-        Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.SetPoints.Subsequences.Validation.Down</a> for a primary-only, condensing-type boiler plant.
-        </p>
-        </html>",
-        revisions="<html>
-        <ul>
-        <li>
-        May 27, 2020, by Karthik Devaprasad:<br/>
-        First implementation.
-        </li>
-        </ul>
-        </html>"));
+  Documentation(info="<html>
+<ol>
+<li>
+If the current stage <code>uCur</code> has only condensing boilers, the
+block outputs a boolean stage down signal <code>yStaDow</code> when all
+the following are true:
+<ul>
+<li>
+<ul>
+<li>
+Required heating capacity <code>uCapReq</code> is lower than <code>fraMinFir</code>
+times the minimum firing rate <code>uCapMin</code> of the current stage
+for a time period <code>delMinFir</code>, or
+</li>
+<li>
+Primary circuit pump speed <code>uPumSpe</code> is at the minimum
+allowed flow rate <code>boiMinPriPumSpeSta</code> and primary circuit hot
+water return temperature <code>TPriHotWatRet</code>
+exceeds the secondary circuit hot water return temperature <code>TSecHotWatRet</code> by 
+<code>TCirDif</code> for a time period <code>delTRetDiff</code>.
+</li>
+</ul>
+</li>
+<li>
+Failsafe condition is not <code>true</code>.
+</li>
+<li>
+Required heating capacity <code>uCapReq</code> is less than <code>fraDesCap</code>
+times the design capacity <code>uCapDowDes</code> of the next available
+lower stage for a time period <code>delDesCapConBoi</code>.
+</li>
+</ul>
+</li>
+<li>
+If the current stage <code>uCur</code> has a non-condensing boiler, the
+block outputs a boolean stage down signal <code>yStaDow</code> when all
+the following are true:
+<ul>
+<li>
+Failsafe condition is not <code>true</code>.
+</li>
+<li>
+Required heating capacity <code>uCapReq</code> is less than <code>fraDesCap</code>
+times the design capacity <code>uCapDowDes</code> of the next available
+lower stage for a time period <code>delDesCapNonConBoi</code>.
+</li>
+</ul>
+</li>
+<li>
+If the plant is a primary-only, condensing type boiler plant,
+<code>have_priOnl</code> is set to <code>true</code> and the block
+outputs a boolean stage down signal <code>yStaDow</code>
+when all the following are true:
+<ul>
+<li>
+<ul>
+<li>
+Required heating capacity <code>uCapReq</code> is lower than <code>fraMinFir</code>
+times the minimum firing rate <code>uCapMin</code> of the current stage
+for a time period <code>delMinFir</code>, or
+</li>
+<li>
+The minimum flow bypass valve position <code>uBypValPos</code> is greater
+than <code>bypValClo</code>% open for a time period <code>delBypVal</code>.
+</li>
+</ul>
+</li>
+<li>
+Failsafe condition is not <code>true</code>.
+</li>
+<li>
+Required heating capacity <code>uCapReq</code> is less than <code>fraDesCap</code>
+times the design capacity <code>uCapDowDes</code> of the next available
+lower stage for a time period <code>delDesCapConBoi</code>.
+</li>
+</ul>
+</li>
+</ol>
+<p>
+The implementation is according to ASHRAE RP1711 March 2020 draft, section 5.3.3.10.
+Timer reset has been implemented according to 5.3.3.10.2.
+</p>
+<p align=\"center\">
+<img alt=\"Validation plot for EfficiencyCondition1\"
+src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/PrimarySystem/BoilerPlant/Staging/SetPoints/Subsequences/Down1.png\"/>
+<br/>
+Validation plot generated from model <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.SetPoints.Subsequences.Validation.Down\">
+Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.SetPoints.Subsequences.Validation.Down</a> for a stage with all condensing boilers.
+</p>
+<p align=\"center\">
+<img alt=\"Validation plot for EfficiencyCondition1\"
+src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/PrimarySystem/BoilerPlant/Staging/SetPoints/Subsequences/Down2.png\"/>
+<br/>
+Validation plot generated from model <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.SetPoints.Subsequences.Validation.Down\">
+Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.SetPoints.Subsequences.Validation.Down</a> for a stage with a non-condensing boiler.
+</p>
+<p align=\"center\">
+<img alt=\"Validation plot for EfficiencyCondition1\"
+src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/PrimarySystem/BoilerPlant/Staging/SetPoints/Subsequences/Down3.png\"/>
+<br/>
+Validation plot generated from model <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.SetPoints.Subsequences.Validation.Down\">
+Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.SetPoints.Subsequences.Validation.Down</a> for a primary-only, condensing-type boiler plant.
+</p>
+</html>",
+revisions="<html>
+<ul>
+<li>
+May 27, 2020, by Karthik Devaprasad:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));
 end Down;

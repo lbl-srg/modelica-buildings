@@ -261,7 +261,6 @@ For numerical reasons and to ensure expected behavior in corner cases such as
 when the plant operates at the highest or the lowest available stage, the
 sequence implements the following:
 </p>
-<p>
 <ul>
 <li>
 if operating at the lowest available boiler stage, the minimal capacity
@@ -278,7 +277,6 @@ are set to a value significantly larger than the design capacity of the highest
 stage. This ensures numerical stability and satisfies the staging down conditionals.
 </li>
 </ul>
-</p>
 <p align=\"center\">
 <img alt=\"Validation plot for Capacities\"
 src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/PrimarySystem/BoilerPlant/Staging/SetPoints/Subsequences/Capacities.png\"/>

@@ -367,6 +367,7 @@ to ASHRAE RP-1711, March, 2020 draft, sections 5.3.6.14, 5.3.6.15 and 5.3.6.16.
 When any hot water pump is proven on, <code>uHotWatPum = true</code>, 
 pump speed will be controlled by a Trim-and-Respond logic controller. The number
 of requests to the controller is calculated as follows:
+</p>
 <ul>
 <li>
 When the difference between the primary loop temperature <code>THotWatPri</code>
@@ -380,7 +381,6 @@ is greater than <code>oneReqLimHig</code>, 1 request is sent to the controller
 until the difference is less than <code>oneReqLimLow</code>.
 </li>
 </ul>
-</p>
 <p>
 When there is no single temperature sensor in the primary loop and instead there
 are temperature sensors at each boiler supply outlet <code>THotWatBoiSup</code>,

@@ -944,8 +944,8 @@ model Controller
   Buildings.Controls.OBC.CDL.Interfaces.RealInput dpHotWatPri_rem[nSenPri](
     final unit=fill("Pa", nSenPri),
     displayUnit=fill("Pa", nSenPri),
-    final quantity=fill("PressureDifference", nSenPri)) if
-    have_varPriPum and (have_remDPRegPri or have_locDPRegPri)
+    final quantity=fill("PressureDifference", nSenPri))
+ if have_varPriPum and (have_remDPRegPri or have_locDPRegPri)
     "Measured differential pressure between hot water supply and return in primary circuit"
     annotation (Placement(transformation(extent={{-440,90},{-400,130}}),
         iconTransformation(extent={{-140,90},{-100,130}})));
@@ -1580,190 +1580,123 @@ equation
   connect(booRep.y, logSwi1.u2) annotation (Line(points={{142,270},{178,270}},
                                                color={255,0,255}));
   connect(upProCon.yHotWatIsoVal, swi.u1) annotation (Line(points={{142,100},{172,
-          100},{172,238},{178,238}},
-                                   color={0,0,127}));
+          100},{172,238},{178,238}}, color={0,0,127}));
   connect(dowProCon.yHotWatIsoVal, swi.u3) annotation (Line(points={{142,44},{164,
-          44},{164,222},{178,222}},
-                                  color={0,0,127}));
+          44},{164,222},{178,222}}, color={0,0,127}));
   connect(booRep.y, swi.u2) annotation (Line(points={{142,270},{160,270},{160,230},
-          {178,230}},                   color={255,0,255}));
+          {178,230}}, color={255,0,255}));
   connect(priPumCon.yPumSpe, yPriPumSpe) annotation (Line(points={{142,-183.733},
-          {264,-183.733},{264,-170},{420,-170}},
-                                            color={0,0,127}));
+          {264,-183.733},{264,-170},{420,-170}}, color={0,0,127}));
   connect(bypValPos.yBypValPos, yBypValPos) annotation (Line(points={{142,-40},{
           148,-40},{148,-30},{420,-30}}, color={0,0,127}));
-
   connect(staSetCon.ySta, intToRea1.u) annotation (Line(points={{-188,6},{20,6},
           {20,300},{-250,300},{-250,370},{-242,370}},
                                                     color={255,127,0}));
-
   connect(reaToInt1.y, minBoiFloSet.uStaSet) annotation (Line(points={{-158,370},
           {-148,370},{-148,314},{248,314}},
                                         color={255,127,0}));
-
   connect(plaEna.yPla, staSetCon.uPla) annotation (Line(points={{-318,330},{-230,
           330},{-230,-10},{-212,-10}},      color={255,0,255}));
-
   connect(staSetCon.yChaEdg, pre4.u) annotation (Line(points={{-188,-2},{-180,-2},
-          {-180,150},{-220,150},{-220,180},{-218,180}},
-                              color={255,0,255}));
-
-  connect(pre4.y, lat1.u) annotation (Line(points={{-194,180},{-190,180}},
-                                    color={255,0,255}));
-
+          {-180,150},{-220,150},{-220,180},{-218,180}}, color={255,0,255}));
+  connect(pre4.y, lat1.u) annotation (Line(points={{-194,180},{-190,180}}, color={255,0,255}));
   connect(hotWatSupTemRes.TPlaHotWatSupSet, staSetCon.THotWatSupSet)
     annotation (Line(points={{-118,184},{-100,184},{-100,90},{-226,90},{-226,17},
-          {-212,17}},
-                color={0,0,127}));
-
+          {-212,17}}, color={0,0,127}));
   connect(reaToInt.y, conSet.uCurSta) annotation (Line(points={{-106,-40},{-80,-40},
           {-80,-102},{-62,-102}},         color={255,127,0}));
-
   connect(reaToInt1.y, intToRea.u) annotation (Line(points={{-158,370},{-148,370},
-          {-148,-22},{-196,-22},{-196,-40},{-192,-40}},
-                                                  color={255,127,0}));
-
+          {-148,-22},{-196,-22},{-196,-40},{-192,-40}}, color={255,127,0}));
   connect(reaToInt1.y, hotWatSupTemRes.uCurStaSet) annotation (Line(points={{-158,
-          370},{-148,370},{-148,172},{-142,172}},            color={255,127,0}));
-
+          370},{-148,370},{-148,172},{-142,172}}, color={255,127,0}));
   connect(minBoiFloSet.VHotWatMinSet_flow, upProCon.VMinHotWatSet_flow)
     annotation (Line(points={{272,320},{280,320},{280,290},{110,290},{110,111},{
           118,111}}, color={0,0,127}));
-
   connect(minBoiFloSet.VHotWatMinSet_flow, dowProCon.VMinHotWatSet_flow)
     annotation (Line(points={{272,320},{280,320},{280,290},{110,290},{110,54},{118,
           54}}, color={0,0,127}));
-
   connect(minBoiFloSet.VHotWatMinSet_flow, bypValPos.VHotWatMinSet_flow)
     annotation (Line(points={{272,320},{280,320},{280,290},{110,290},{110,-34},{
           118,-34}}, color={0,0,127}));
-
   connect(logSwi.y, pre6.u)
     annotation (Line(points={{44,330},{58,330}}, color={255,0,255}));
-
   connect(pre6.y, minBoiFloSet.uOnOff) annotation (Line(points={{82,330},{94,330},
           {94,322},{248,322}}, color={255,0,255}));
-
   connect(intSwi.y, intToRea2.u) annotation (Line(points={{42,380},{58,380}},
                           color={255,127,0}));
-
   connect(reaToInt2.y, minBoiFloSet.uLasDisBoi) annotation (Line(points={{142,380},
           {150,380},{150,326},{248,326}}, color={255,127,0}));
-
   connect(upProCon.yStaChaPro, or2.u1) annotation (Line(points={{142,104},{168,104},
-          {168,70},{178,70}},                                      color={255,0,
-          255}));
-
+          {168,70},{178,70}}, color={255,0,255}));
   connect(dowProCon.yStaChaPro, or2.u2) annotation (Line(points={{142,48},{158,48},
           {158,62},{178,62}},                  color={255,0,255}));
-
   connect(pre1.y, triSam.trigger) annotation (Line(points={{322,-10},{372,-10},{
-          372,-64},{-150,-64},{-150,-51.8}},
-                                       color={255,0,255}));
-
+          372,-64},{-150,-64},{-150,-51.8}}, color={255,0,255}));
   connect(pre1.y, staSetCon.uStaChaProEnd) annotation (Line(points={{322,-10},{372,
-          -10},{372,-64},{-209,-64},{-209,-20}},
-                                              color={255,0,255}));
-
+          -10},{372,-64},{-209,-64},{-209,-20}}, color={255,0,255}));
   connect(pre1.y, minBoiFloSet.uStaChaPro) annotation (Line(points={{322,-10},{372,
-          -10},{372,300},{140,300},{140,318},{248,318}},
-                                    color={255,0,255}));
-
+          -10},{372,300},{140,300},{140,318},{248,318}}, color={255,0,255}));
   connect(pre1.y, lat1.clr) annotation (Line(points={{322,-10},{372,-10},{372,164},
-          {-192,164},{-192,174},{-190,174}},
-                                         color={255,0,255}));
-
+          {-192,164},{-192,174},{-190,174}},  color={255,0,255}));
   connect(priPumCon.yHotWatPum, yPriPum)
     annotation (Line(points={{142,-176.267},{260,-176.267},{260,-130},{420,-130}},
-                                                     color={255,0,255}));
-
+          color={255,0,255}));
   connect(reaToInt1.u, uniDel.y)
-    annotation (Line(points={{-182,370},{-188,370}},
-                                                   color={0,0,127}));
-
+    annotation (Line(points={{-182,370},{-188,370}}, color={0,0,127}));
   connect(intToRea1.y, uniDel.u)
-    annotation (Line(points={{-218,370},{-212,370}},
-                                                   color={0,0,127}));
-
+    annotation (Line(points={{-218,370},{-212,370}}, color={0,0,127}));
   connect(reaToInt2.u, uniDel1.y)
-    annotation (Line(points={{118,380},{112,380}},
-                                                 color={0,0,127}));
-
+    annotation (Line(points={{118,380},{112,380}}, color={0,0,127}));
   connect(intToRea2.y, uniDel1.u)
     annotation (Line(points={{82,380},{88,380}}, color={0,0,127}));
-
   connect(uBoiAva, staSetCon.uBoiAva) annotation (Line(points={{-420,70},{-300,70},
           {-300,-16},{-212,-16}},      color={255,0,255}));
-
   connect(plaEna.yPla, upProCon.uPlaEna) annotation (Line(points={{-318,330},{
-          -230,330},{-230,83},{118,83}},                             color={255,
-          0,255}));
-
+          -230,330},{-230,83},{118,83}}, color={255,0,255}));
   connect(plaDis.yHotWatIsoVal, yHotWatIsoVal) annotation (Line(points={{262,68},
           {300,68},{300,120},{420,120}}, color={0,0,127}));
-
   connect(plaDis.yBoi, yBoi) annotation (Line(points={{262,76},{274,76},{274,200},
           {420,200}},      color={255,0,255}));
-
   connect(or2.y, plaDis.uStaChaProEnd) annotation (Line(points={{202,70},{208,70},
           {208,62},{238,62}},                   color={255,0,255}));
-
   connect(swi.y, plaDis.uHotWatIsoVal) annotation (Line(points={{202,230},{220,230},
           {220,70},{238,70}}, color={0,0,127}));
-
   connect(logSwi1.y, plaDis.uBoi) annotation (Line(points={{202,270},{230,270},{
           230,74},{238,74}}, color={255,0,255}));
-
   connect(plaDis.yStaChaPro, pre1.u) annotation (Line(points={{262,64},{266,64},
           {266,-10},{298,-10}},                  color={255,0,255}));
-
   connect(plaEna.yPla, plaDis.uPla) annotation (Line(points={{-318,330},{-230,330},
           {-230,140},{226,140},{226,78},{238,78}},                   color={255,
           0,255}));
-
   connect(plaEna.yPla, priPumCon.uPlaEna) annotation (Line(points={{-318,330},{
           -230,330},{-230,-78},{90,-78},{90,-158.533},{118,-158.533}},
-                                                          color={255,0,255}));
-
+                                                                  color={255,0,255}));
   connect(hotWatSupTemRes.TPlaHotWatSupSet, upProCon.THotWatSup) annotation (
-      Line(points={{-118,184},{-100,184},{-100,107},{118,107}},
-                                                           color={0,0,127}));
-
+      Line(points={{-118,184},{-100,184},{-100,107},{118,107}},  color={0,0,127}));
   connect(TRetPri, staSetCon.THotWatRetPri) annotation (Line(points={{-420,230},
-          {-260,230},{-260,-1},{-212,-1}},                    color={0,0,127}));
-
+          {-260,230},{-260,-1},{-212,-1}},   color={0,0,127}));
   connect(TRetSec, staSetCon.THotWatRetSec) annotation (Line(points={{-420,150},
-          {-290,150},{-290,-4},{-212,-4}},                       color={0,0,127}));
-
+          {-290,150},{-290,-4},{-212,-4}}, color={0,0,127}));
   connect(upProCon.yNexEnaBoi, intSwi1.u1) annotation (Line(points={{142,92},{160,
-          92},{160,160},{56,160},{56,298},{62,298}},     color={255,127,0}));
-
+          92},{160,160},{56,160},{56,298},{62,298}}, color={255,127,0}));
   connect(dowProCon.yNexEnaBoi, intSwi1.u3) annotation (Line(points={{142,36},{152,
-          36},{152,200},{44,200},{44,282},{62,282}},     color={255,127,0}));
-
+          36},{152,200},{44,200},{44,282},{62,282}}, color={255,127,0}));
   connect(lat.y, intSwi1.u2) annotation (Line(points={{-28,360},{-16,360},{-16,290},
-          {62,290}},                    color={255,0,255}));
-
+          {62,290}}, color={255,0,255}));
   connect(intSwi1.y, priPumCon.uNexEnaBoi) annotation (Line(points={{86,290},{
           96,290},{96,-178.133},{118,-178.133}},
-                                        color={255,127,0}));
-
+                                              color={255,127,0}));
   connect(staSetCon.yChaUpEdg, priPumCon.uStaUp) annotation (Line(points={{-188,2},
-          {58,2},{58,-74},{92,-74},{92,-169.733},{118,-169.733}},
-                                                          color={255,0,255}));
+          {58,2},{58,-74},{92,-74},{92,-169.733},{118,-169.733}}, color={255,0,255}));
   connect(logSwi.y, priPumCon.uOnOff) annotation (Line(points={{44,330},{50,330},
           {50,-76},{98,-76},{98,-172.533},{118,-172.533}},  color={255,0,255}));
-
   connect(plaDis.yBoi, priPumCon.uBoiSta) annotation (Line(points={{262,76},{
           274,76},{274,-88},{112,-88},{112,-166.933},{118,-166.933}},
-                                                          color={255,0,255}));
+                                                                  color={255,0,255}));
   connect(conSet.yMinPriPumSpe, priPumCon.uMinPriPumSpeCon) annotation (Line(
-        points={{-38,-102},{88,-102},{88,-193.067},{118,-193.067}},
-                                                           color={0,0,127}));
-
+        points={{-38,-102},{88,-102},{88,-193.067},{118,-193.067}},  color={0,0,127}));
   connect(conInt3.y, secPumCon.uPumLeaLag) annotation (Line(points={{82,-280},{90,
           -280},{90,-341.8},{118,-341.8}}, color={255,127,0}));
-
   connect(VHotWatSec_flow, priPumCon.VHotWatSec_flow) annotation (Line(points={{-420,
           -70},{8,-70},{8,-224},{114,-224},{114,-195.867},{118,-195.867}},
         color={0,0,127}));
@@ -1771,56 +1704,41 @@ equation
           -110},{-190,-110},{-190,-212},{6,-212},{6,-226},{116,-226},{116,
           -198.667},{118,-198.667}},
                              color={0,0,127}));
-
   connect(TSupPri, priPumCon.THotWatPri) annotation (Line(points={{-420,270},{
           -240,270},{-240,-84},{0,-84},{0,-186},{112,-186},{112,-201.467},{118,
-          -201.467}},                                         color={0,0,127}));
-
+          -201.467}},
+          color={0,0,127}));
   connect(TSupSec, priPumCon.THotWatSec) annotation (Line(points={{-420,-150},{
           -186,-150},{-186,-214},{2,-214},{2,-230},{108,-230},{108,-204.267},{
           118,-204.267}},
-                  color={0,0,127}));
-
+          color={0,0,127}));
   connect(TSupBoi, priPumCon.THotWatBoiSup) annotation (Line(points={{-420,-190},
           {-184,-190},{-184,-216},{0,-216},{0,-232},{110,-232},{110,-207.067},{
           118,-207.067}},
-                  color={0,0,127}));
-
+                      color={0,0,127}));
   connect(secPumCon.yHotWatPum, ySecPum)
-    annotation (Line(points={{142,-360},{220,-360},{220,-340},{420,-340}},
-                                                     color={255,0,255}));
-
+    annotation (Line(points={{142,-360},{220,-360},{220,-340},{420,-340}}, color={255,0,255}));
   connect(supResReq, secPumCon.supResReq) annotation (Line(points={{-420,350},{-154,
-          350},{-154,20},{14,20},{14,-354},{118,-354}},          color={255,127,
-          0}));
-
+          350},{-154,20},{14,20},{14,-354},{118,-354}}, color={255,127,0}));
   connect(plaEna.yPla, secPumCon.uPlaEna) annotation (Line(points={{-318,330},{-230,
-          330},{-230,-78},{12,-78},{12,-350},{118,-350}},      color={255,0,255}));
-
+          330},{-230,-78},{12,-78},{12,-350},{118,-350}}, color={255,0,255}));
   connect(VHotWatSec_flow, secPumCon.VHotWat_flow) annotation (Line(points={{-420,
-          -70},{8,-70},{8,-358},{118,-358}},        color={0,0,127}));
-
+          -70},{8,-70},{8,-358},{118,-358}}, color={0,0,127}));
   connect(conSet.yMaxSecPumSpe, secPumCon.uMaxSecPumSpeCon) annotation (Line(
         points={{-38,-108},{94,-108},{94,-378},{118,-378}},color={0,0,127}));
-
   connect(dpHotWatSet1.y, secPumCon.dpHotWatSet) annotation (Line(points={{82,-380},
-          {86,-380},{86,-374},{118,-374}},       color={0,0,127}));
-
+          {86,-380},{86,-374},{118,-374}}, color={0,0,127}));
   connect(dpHotWatSec_rem, secPumCon.dpHotWat_remote) annotation (Line(points={{-420,
           -230},{-190,-230},{-190,-300},{86,-300},{86,-370},{118,-370}},
         color={0,0,127}));
-
   connect(dpHotWatPri_loc, priPumCon.dpHotWat_local) annotation (Line(points={{-420,
           -270},{-180,-270},{-180,-234},{96,-234},{96,-184.667},{118,-184.667}},
         color={0,0,127}));
-
   connect(dpHotWatSec_loc, secPumCon.dpHotWat_local) annotation (Line(points={{-420,
           -310},{100,-310},{100,-366},{118,-366}}, color={0,0,127}));
-
   connect(reaToInt2.y, priPumCon.uLasDisBoi) annotation (Line(points={{142,380},
           {150,380},{150,340},{288,340},{288,-210},{102,-210},{102,-181.867},{
           118,-181.867}}, color={255,127,0}));
-
   connect(conInt1.y, minBoiFloSet1.uStaSet) annotation (Line(points={{-368,-30},
           {-350,-30},{-350,4},{-342,4}}, color={255,127,0}));
   connect(pre1.y, dowProCon.uStaChaPro) annotation (Line(points={{322,-10},{372,
@@ -1840,7 +1758,6 @@ equation
           -230,60},{-30,60}}, color={255,0,255}));
   connect(and2.y, dowProCon.uStaDowPro) annotation (Line(points={{-6,60},{74,60},
           {74,34},{118,34}}, color={255,0,255}));
-
   connect(TSupResReq, hotWatSupTemRes.nHotWatSupResReq) annotation (Line(points=
          {{-420,380},{-256,380},{-256,200},{-144,200},{-144,184},{-142,184}},
         color={255,127,0}));
@@ -1871,7 +1788,7 @@ equation
   connect(uSecPum, secPumCon.uHotWatPum) annotation (Line(points={{-420,-440},{-20,
           -440},{-20,-346},{118,-346}}, color={255,0,255}));
   connect(uPriPumSpe, mulMax.u[1:2]) annotation (Line(points={{-420,-560},{-402,
-          -560},{-402,-560},{-382,-560}}, color={0,0,127}));
+          -560},{-402,-561},{-382,-561}}, color={0,0,127}));
   connect(mulMax.y, staSetCon.uPumSpe) annotation (Line(points={{-358,-560},{-262,
           -560},{-262,-7},{-212,-7}}, color={0,0,127}));
   connect(uHotWatIsoVal, upProCon.uHotWatIsoVal) annotation (Line(points={{-420,
@@ -1910,8 +1827,8 @@ equation
           points={{-80,60},{-14,4},{-80,-60},{-80,60}},
           lineColor={175,175,175},
           fillColor={175,175,175},
-          fillPattern=FillPattern.Solid)}),                                  Diagram(
-        coordinateSystem(preserveAspectRatio=false, extent={{-400,-620},{400,400}}),
+          fillPattern=FillPattern.Solid)}),
+   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-400,-620},{400,400}}),
         graphics={
           Rectangle(
             extent={{-394,392},{-266,290}},
@@ -2063,227 +1980,227 @@ setpoint for all stages"),
           textString="Bypass
 valve
 controller")}),
-        Documentation(info="<html>
-        <p>
-        Block that controls the boiler plant components according to section 5.3
-        in ASHRAE RP-1711, March 2020 draft. It consists of the following components:
-        <ul>
-        <li>
-        Plant enable controller: <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Generic.PlantEnable\">
-        Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Generic.PlantEnable</a>.
-        </li>
-        <li>
-        Staging setpoint calculator: <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.SetPoints.SetpointController\">
-        Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.SetPoints.SetpointController</a>.
-        </li>
-        <li>
-        Stage-up process controller: <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.Processes.Up\">
-        Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.Processes.Up</a>.
-        </li>
-        <li>
-        Stage-down process controller: <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.Processes.Down\">
-        Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.Processes.Down</a>.
-        </li>
-        <li>
-        Primary pump controller: <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Pumps.PrimaryPumps.Controller\">
-        Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Pumps.PrimaryPumps.Controller</a>.
-        </li>
-        <li>
-        Secondary pump controller: <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Pumps.SecondaryPumps.Controller\">
-        Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Pumps.SecondaryPumps.Controller</a>.
-        </li>
-        <li>
-        Bypass valve controller: <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.BypassValve.BypassValvePosition\">
-        Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.BypassValve.BypassValvePosition</a>.
-        </li>
-        <li>
-        Minimum flow setpoint calculator: <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.SetPoints.MinimumFlowSetPoint\">
-        Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.SetPoints.MinimumFlowSetPoint</a>.
-        </li>
-        <li>
-        Hot water supply temperature setpoint calculator: <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.SetPoints.HotWaterSupplyTemperatureReset\">
-        Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.SetPoints.HotWaterSupplyTemperatureReset</a>.
-        </li>
-        <li>
-        Condensation control setpoint calculator: <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.SetPoints.CondensationControl\">
-        Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.SetPoints.CondensationControl</a>.
-        </li>
-        <li>
-        Plant disable process controller: <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Generic.PlantDisable\">
-        Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Generic.PlantDisable</a>.
-        </li>
-        </ul>
-        </p>
-        <p>
-        The parameter values for valid boiler plant configurations are as follows:
-        <br>
-          <table summary=\"allowedConfigurations\" border=\"1\">
-          <thead>
-            <tr>
-              <th>Boolean Parameters/Plant configurations</th>
-              <th>1</th>
-              <th>2</th>
-              <th>3</th>
-              <th>4</th>
-              <th>5</th>
-              <th>6</th>
-              <th>7</th>
-              <th>8</th>
-              <th>9</th>
-              <th>10</th>
-              <th>11</th>
-              <th>12</th>
-              <th>13</th>
-              <th>14</th>
-              <th>15</th>
-              <th>16</th>
-              <th>17</th>
-              <th>18</th>
-              <th>19</th>
-              <th>20</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>have_priOnl</td>
-              <td>True</td>
-              <td>True</td>
-              <td>False</td>
-              <td>False</td>
-              <td>False</td>
-              <td>False</td>
-              <td>False</td>
-              <td>False</td>
-              <td>False</td>
-              <td>False</td>
-              <td>False</td>
-              <td>False</td>
-              <td>False</td>
-              <td>False</td>
-              <td>False</td>
-              <td>False</td>
-              <td>False</td>
-              <td>False</td>
-              <td>False</td>
-              <td>False</td>
-            </tr>
-            <tr>
-              <td>have_heaPriPum</td>
-              <td>True</td>
-              <td>True</td>
-              <td>True</td>
-              <td>True</td>
-              <td>True</td>
-              <td>True</td>
-              <td>True</td>
-              <td>True</td>
-              <td>True</td>
-              <td>True</td>
-              <td>True</td>
-              <td>False</td>
-              <td>False</td>
-              <td>False</td>
-              <td>False</td>
-              <td>False</td>
-              <td>False</td>
-              <td>False</td>
-              <td>False</td>
-              <td>False</td>
-            </tr>
-            <tr>
-              <td>have_varPriPum</td>
-              <td>True</td>
-              <td>True</td>
-              <td>True</td>
-              <td>True</td>
-              <td>True</td>
-              <td>True</td>
-              <td>True</td>
-              <td>True</td>
-              <td>False</td>
-              <td>False</td>
-              <td>False</td>
-              <td>True</td>
-              <td>True</td>
-              <td>True</td>
-              <td>True</td>
-              <td>True</td>
-              <td>True</td>
-              <td>False</td>
-              <td>False</td>
-              <td>False</td>
-            </tr>
-            <tr>
-              <td>have_varSecPum</td>
-              <td>NA</td>
-              <td>NA</td>
-              <td>True</td>
-              <td>True</td>
-              <td>False</td>
-              <td>True</td>
-              <td>True</td>
-              <td>False</td>
-              <td>True</td>
-              <td>True</td>
-              <td>False</td>
-              <td>True</td>
-              <td>True</td>
-              <td>False</td>
-              <td>True</td>
-              <td>True</td>
-              <td>False</td>
-              <td>True</td>
-              <td>True</td>
-              <td>False</td>
-            </tr>
-            <tr>
-              <td>speConTypPri</td>
-              <td>localDP</td>
-              <td>remoteDP</td>
-              <td>flowrate</td>
-              <td>flowrate</td>
-              <td>flowrate</td>
-              <td>temperature</td>
-              <td>temperature</td>
-              <td>temperature</td>
-              <td>NA</td>
-              <td>NA</td>
-              <td>NA</td>
-              <td>flowrate</td>
-              <td>flowrate</td>
-              <td>flowrate</td>
-              <td>temperature</td>
-              <td>temperature</td>
-              <td>temperature</td>
-              <td>NA</td>
-              <td>NA</td>
-              <td>NA</td>
-            </tr>
-            <tr>
-              <td>speConTypSec</td>
-              <td>NA</td>
-              <td>NA</td>
-              <td>localDP</td>
-              <td>remoteDP</td>
-              <td>NA</td>
-              <td>localDP</td>
-              <td>remoteDP</td>
-              <td>NA</td>
-              <td>localDP</td>
-              <td>remoteDP</td>
-              <td>NA</td>
-              <td>localDP</td>
-              <td>remoteDP</td>
-              <td>NA</td>
-              <td>localDP</td>
-              <td>remoteDP</td>
-              <td>NA</td>
-              <td>localDP</td>
-              <td>remoteDP</td>
-              <td>NA</td>
-            </tr>
-          </tbody>
-          </table>
-          </p>
-        </html>"));
+Documentation(info="<html>
+<p>
+Block that controls the boiler plant components according to section 5.3 
+in ASHRAE RP-1711, March 2020 draft. It consists of the following components:
+</p>
+<ul>
+<li>
+Plant enable controller: <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Generic.PlantEnable\">
+Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Generic.PlantEnable</a>.
+</li>
+<li>
+Staging setpoint calculator: <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.SetPoints.SetpointController\">
+Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.SetPoints.SetpointController</a>.
+</li>
+<li>
+Stage-up process controller: <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.Processes.Up\">
+Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.Processes.Up</a>.
+</li>
+<li>
+Stage-down process controller: <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.Processes.Down\">
+Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.Processes.Down</a>.
+</li>
+<li>
+Primary pump controller: <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Pumps.PrimaryPumps.Controller\">
+Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Pumps.PrimaryPumps.Controller</a>.
+</li>
+<li>
+Secondary pump controller: <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Pumps.SecondaryPumps.Controller\">
+Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Pumps.SecondaryPumps.Controller</a>.
+</li>
+<li>
+Bypass valve controller: <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.BypassValve.BypassValvePosition\">
+Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.BypassValve.BypassValvePosition</a>.
+</li>
+<li>
+Minimum flow setpoint calculator: <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.SetPoints.MinimumFlowSetPoint\">
+Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.SetPoints.MinimumFlowSetPoint</a>.
+</li>
+<li>
+Hot water supply temperature setpoint calculator: <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.SetPoints.HotWaterSupplyTemperatureReset\">
+Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.SetPoints.HotWaterSupplyTemperatureReset</a>.
+</li>
+<li>
+Condensation control setpoint calculator: <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.SetPoints.CondensationControl\">
+Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.SetPoints.CondensationControl</a>.
+</li>
+<li>
+Plant disable process controller: <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Generic.PlantDisable\">
+Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Generic.PlantDisable</a>.
+</li>
+</ul>
+<p>
+The parameter values for valid boiler plant configurations are as follows:
+</p>
+<br>
+<table summary=\"allowedConfigurations\" border=\"1\">
+<thead>
+<tr>
+<th>Boolean Parameters/Plant configurations</th>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+<th>5</th>
+<th>6</th>
+<th>7</th>
+<th>8</th>
+<th>9</th>
+<th>10</th>
+<th>11</th>
+<th>12</th>
+<th>13</th>
+<th>14</th>
+<th>15</th>
+<th>16</th>
+<th>17</th>
+<th>18</th>
+<th>19</th>
+<th>20</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>have_priOnl</td>
+<td>True</td>
+<td>True</td>
+<td>False</td>
+<td>False</td>
+<td>False</td>
+<td>False</td>
+<td>False</td>
+<td>False</td>
+<td>False</td>
+<td>False</td>
+<td>False</td>
+<td>False</td>
+<td>False</td>
+<td>False</td>
+<td>False</td>
+<td>False</td>
+<td>False</td>
+<td>False</td>
+<td>False</td>
+<td>False</td>
+</tr>
+<tr>
+<td>have_heaPriPum</td>
+<td>True</td>
+<td>True</td>
+<td>True</td>
+<td>True</td>
+<td>True</td>
+<td>True</td>
+<td>True</td>
+<td>True</td>
+<td>True</td>
+<td>True</td>
+<td>True</td>
+<td>False</td>
+<td>False</td>
+<td>False</td>
+<td>False</td>
+<td>False</td>
+<td>False</td>
+<td>False</td>
+<td>False</td>
+<td>False</td>
+</tr>
+<tr>
+<td>have_varPriPum</td>
+<td>True</td>
+<td>True</td>
+<td>True</td>
+<td>True</td>
+<td>True</td>
+<td>True</td>
+<td>True</td>
+<td>True</td>
+<td>False</td>
+<td>False</td>
+<td>False</td>
+<td>True</td>
+<td>True</td>
+<td>True</td>
+<td>True</td>
+<td>True</td>
+<td>True</td>
+<td>False</td>
+<td>False</td>
+<td>False</td>
+</tr>
+<tr>
+<td>have_varSecPum</td>
+<td>NA</td>
+<td>NA</td>
+<td>True</td>
+<td>True</td>
+<td>False</td>
+<td>True</td>
+<td>True</td>
+<td>False</td>
+<td>True</td>
+<td>True</td>
+<td>False</td>
+<td>True</td>
+<td>True</td>
+<td>False</td>
+<td>True</td>
+<td>True</td>
+<td>False</td>
+<td>True</td>
+<td>True</td>
+<td>False</td>
+</tr>
+<tr>
+<td>speConTypPri</td>
+<td>localDP</td>
+<td>remoteDP</td>
+<td>flowrate</td>
+<td>flowrate</td>
+<td>flowrate</td>
+<td>temperature</td>
+<td>temperature</td>
+<td>temperature</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+<td>flowrate</td>
+<td>flowrate</td>
+<td>flowrate</td>
+<td>temperature</td>
+<td>temperature</td>
+<td>temperature</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+</tr>
+<tr>
+<td>speConTypSec</td>
+<td>NA</td>
+<td>NA</td>
+<td>localDP</td>
+<td>remoteDP</td>
+<td>NA</td>
+<td>localDP</td>
+<td>remoteDP</td>
+<td>NA</td>
+<td>localDP</td>
+<td>remoteDP</td>
+<td>NA</td>
+<td>localDP</td>
+<td>remoteDP</td>
+<td>NA</td>
+<td>localDP</td>
+<td>remoteDP</td>
+<td>NA</td>
+<td>localDP</td>
+<td>remoteDP</td>
+<td>NA</td>
+</tr>
+</tbody>
+</table>
+</html>"));
 end Controller;

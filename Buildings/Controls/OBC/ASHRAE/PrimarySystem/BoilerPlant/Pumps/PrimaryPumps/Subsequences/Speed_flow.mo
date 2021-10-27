@@ -243,6 +243,7 @@ pump speed<code>yHotWatPumSpe</code> will be controlled by a reverse acting PID
 loop maintaining the flowrate through the decoupler at zero. PID loop output 
 shall be mapped from minimum pump speed (<code>minPumSpe</code>) at 0% to maximum
 pump speed(<code>maxPumSpe</code>) at 100%.
+</p>
 <ol>
 <li>
 When the plant has flowrate sensors in the primary and secondary loops,
@@ -257,7 +258,6 @@ When the plant has a flowrate sensor in the decoupler,
 decoupler is used to calculate the control signal.
 </li>
 </ol>
-</p>
 </html>", revisions="<html>
 <ul>
 <li>

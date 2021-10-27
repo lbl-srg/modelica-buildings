@@ -93,36 +93,38 @@ equation
   Diagram(
     coordinateSystem(preserveAspectRatio=false,
     extent={{-100,-100},{100,100}})),
-  Documentation(
-    info="<html>
-    <p>
-    Block that generates proportional regulation signal for condensation control
-    in non-condensing boilers according to RP-1711, March, 2020 draft, section
-    5.3.5.
-    </p>
-    <p>
-    The minimum bypass valve position <code>yProReg</code> is calculated
-    as follows:
-    <li>
-    The measured hot-water return temperature <code>THotWatRet</code> is compared
-    to the minimum hot water return temperature for optimal operation <code>TRetSet</code>,
-    with the output <code>yProReg</code> varying linearly from 0% at
-    <code>TRetSet</code> to 100% at <code>TRetMinAll</code>.    
-    </li>
-    <p align=\"center\">
-    <img alt=\"Validation plot for ValvePosition\"
-    src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/PrimarySystem/BoilerPlant/SetPoints/Subsequences/ProportionalRegulator.png\"/>
-    <br/>
-    Validation plot generated from model <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.SetPoints.Subsequences.Validation.ProportionalRegulator\">
-    Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.SetPoints.Subsequences.Validation.ProportionalRegulator</a>.
-    </p>
-    </html>",
-    revisions="<html>
-    <ul>
-    <li>
-    July 21, 2020, by Karthik Devaprasad:<br/>
-    First implementation.
-    </li>
-    </ul>
-    </html>"));
+  Documentation(info="<html>
+<p>
+Block that generates proportional regulation signal for condensation control
+in non-condensing boilers according to RP-1711, March, 2020 draft, section
+5.3.5.
+</p>
+<p>
+The minimum bypass valve position <code>yProReg</code> is calculated
+as follows:
+</p>
+<ul>
+<li>
+The measured hot-water return temperature <code>THotWatRet</code> is compared
+to the minimum hot water return temperature for optimal operation <code>TRetSet</code>,
+with the output <code>yProReg</code> varying linearly from 0% at
+<code>TRetSet</code> to 100% at <code>TRetMinAll</code>.    
+</li>
+</ul>
+<p align=\"center\">
+<img alt=\"Validation plot for ValvePosition\"
+src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/PrimarySystem/BoilerPlant/SetPoints/Subsequences/ProportionalRegulator.png\"/>
+<br/>
+Validation plot generated from model <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.SetPoints.Subsequences.Validation.ProportionalRegulator\">
+Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.SetPoints.Subsequences.Validation.ProportionalRegulator</a>.
+</p>
+</html>",
+revisions="<html>
+<ul>
+<li>
+July 21, 2020, by Karthik Devaprasad:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));
 end ProportionalRegulator;

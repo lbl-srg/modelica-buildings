@@ -211,53 +211,53 @@ equation
     coordinateSystem(preserveAspectRatio=false,
     extent={{-100,-100},{100,100}})),
   Documentation(
-    info="<html>
-    <p>
-    Block that generates pump speed limits for condensation control
-    in non-condensing boilers according to RP-1711, March, 2020 draft, sections
-    5.3.5.3, 5.3.5.4, 5.3.5.5 and 5.3.5.6.
-    </p>
-    <p>
-    The maximum allowed secondary pump speed <code>yMaxSecPumSpe</code> is calculated
-    as follows:
-    <ol>
-    <li>
-    if the primary pumps are constant speed <code>have_varPriPum=false</code>, 
-    <code>yMaxSecPumSpe</code> is reset from 100% pump speed at 0% of regulation
-    signal <code>uRegSig</code> to minimum pump speed <code>minSecPumSpe</code>
-    at 100% of <code>uRegSig</code>.    
-    </li>
-    <li>
-    if the primary pumps are variable speed <code>have_varPriPum=true</code>,
-    <code>yMaxSecPumSpe</code> is reset from 100% pump speed at 50% of <code>uRegSig</code>
-    to <code>minSecPumSpe</code> at 100% of <code>uRegSig</code>.
-    </li>
-    </ol>
-    </p>
-    <p>
-    If <code>have_varPriPum=true</code>, the minimum allowed primary pump speed
-    <code>yMinPriPumSpe</code> is calculated as follows:
-    <ul>
-    <li>
-    <code>yMinPriPumSpe</code> is reset from <code>minPriPumSpeSta</code> at 0%
-    of <code>uRegSig</code> to 100% pump speed at 100% of <code>uRegSig</code>.
-    </li>
-    </ul>
-    </p>
-    <p align=\"center\">
-    <img alt=\"Validation plot for ValvePosition\"
-    src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/PrimarySystem/BoilerPlant/SetPoints/Subsequences/PumpSpeedLimits.png\"/>
-    <br/>
-    Validation plot generated from model <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.SetPoints.Subsequences.Validation.PumpSpeedLimits\">
-    Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.SetPoints.Subsequences.Validation.PumpSpeedLimits</a>.
-    </p>
-    </html>",
-    revisions="<html>
-    <ul>
-    <li>
-    July 22, 2020, by Karthik Devaprasad:<br/>
-    First implementation.
-    </li>
-    </ul>
-    </html>"));
+info="<html>
+<p>
+Block that generates pump speed limits for condensation control
+in non-condensing boilers according to RP-1711, March, 2020 draft, sections
+5.3.5.3, 5.3.5.4, 5.3.5.5 and 5.3.5.6.
+</p>
+<p>
+The maximum allowed secondary pump speed <code>yMaxSecPumSpe</code> is calculated
+as follows:
+</p>
+<ol>
+<li>
+if the primary pumps are constant speed <code>have_varPriPum=false</code>, 
+<code>yMaxSecPumSpe</code> is reset from 100% pump speed at 0% of regulation
+signal <code>uRegSig</code> to minimum pump speed <code>minSecPumSpe</code>
+at 100% of <code>uRegSig</code>.    
+</li>
+<li>
+if the primary pumps are variable speed <code>have_varPriPum=true</code>,
+<code>yMaxSecPumSpe</code> is reset from 100% pump speed at 50% of <code>uRegSig</code>
+to <code>minSecPumSpe</code> at 100% of <code>uRegSig</code>.
+</li>
+</ol>
+<p>
+If <code>have_varPriPum=true</code>, the minimum allowed primary pump speed
+<code>yMinPriPumSpe</code> is calculated as follows:
+</p>
+<ul>
+<li>
+<code>yMinPriPumSpe</code> is reset from <code>minPriPumSpeSta</code> at 0%
+of <code>uRegSig</code> to 100% pump speed at 100% of <code>uRegSig</code>.
+</li>
+</ul>
+<p align=\"center\">
+<img alt=\"Validation plot for ValvePosition\"
+src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/PrimarySystem/BoilerPlant/SetPoints/Subsequences/PumpSpeedLimits.png\"/>
+<br/>
+Validation plot generated from model <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.SetPoints.Subsequences.Validation.PumpSpeedLimits\">
+Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.SetPoints.Subsequences.Validation.PumpSpeedLimits</a>.
+</p>
+</html>",
+revisions="<html>
+<ul>
+<li>
+July 22, 2020, by Karthik Devaprasad:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));
 end PumpSpeedLimits;

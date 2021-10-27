@@ -91,12 +91,14 @@ Block that enables and disables lead primary hot water pump, for plants
 with headered primary hot water pumps, according to ASHRAE RP-1711, March 2020 draft, 
 section 5.3.6.2.
 </p>
+<ul>
 <li>
 The lead primary hot water pump shall be enabled when any boilers
 hot water isolation valve is commanded open <code>uHotWatIsoVal &gt; 0.975</code>,
 and shall be disabled when all boilers' hot water isolation valves are commanded closed
 <code>uHotWatIsoVal &le; 0.975</code>.
 </li>
+</ul>
 </html>", revisions="<html>
 <ul>
 <li>
