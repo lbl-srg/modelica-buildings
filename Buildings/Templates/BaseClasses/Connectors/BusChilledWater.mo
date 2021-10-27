@@ -7,11 +7,7 @@ expandable connector BusChilledWater
     annotation (HideResult=false);
   Buildings.Templates.BaseClasses.Connectors.BusInterface wse
     annotation (HideResult=false);
-  Buildings.Templates.BaseClasses.Connectors.BusInterface comLeg
-    annotation (HideResult=false);
-  Buildings.Templates.BaseClasses.Connectors.BusInterface priPum
-    annotation (HideResult=false);
-  Buildings.Templates.BaseClasses.Connectors.BusInterface secPum
+  Buildings.Templates.BaseClasses.Connectors.BusInterface pumGro
     annotation (HideResult=false);
 
   annotation (

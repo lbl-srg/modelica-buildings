@@ -6,44 +6,18 @@ model AirCooledChilledWaterPlant
     Buildings.Templates.BaseClasses.ChilledWaterPlant.PartialChilledWaterLoop(
     final is_airCoo=true);
 equation
-  connect(secPum.port_b, port_a)
-    annotation (Line(points={{180,-10},{200,-10}}, color={0,127,255}));
   connect(TCHWRet.port_b, port_b)
     annotation (Line(points={{160,-70},{200,-70}}, color={0,127,255}));
-  connect(secPum.busCon, chwCon.secPum) annotation (Line(
-      points={{170,0},{170,40.1},{200.1,40.1}},
-      color={255,204,51},
-      thickness=0.5), Text(
-      string="%second",
-      index=1,
-      extent={{6,3},{6,3}},
-      horizontalAlignment=TextAlignment.Left));
-  connect(priPum.busCon, chwCon.priPum) annotation (Line(
-      points={{50,0},{50,40.1},{200.1,40.1}},
-      color={255,204,51},
-      thickness=0.5), Text(
-      string="%second",
-      index=1,
-      extent={{6,3},{6,3}},
-      horizontalAlignment=TextAlignment.Left));
   connect(chi.busCon, chwCon.chi) annotation (Line(
-      points={{-12,-10},{-20,-10},{-20,40},{90,40},{90,40.1},{200.1,40.1}},
+      points={{-50,10},{-60,10},{-60,60.1},{200.1,60.1}},
       color={255,204,51},
       thickness=0.5), Text(
       string="%second",
       index=1,
       extent={{6,3},{6,3}},
       horizontalAlignment=TextAlignment.Left));
-  connect(comLeg.busCon, chwCon.comLeg) annotation (Line(
-      points={{70,-40},{70,40},{124,40},{124,40.1},{200.1,40.1}},
-      color={255,204,51},
-      thickness=0.5), Text(
-      string="%second",
-      index=1,
-      extent={{6,3},{6,3}},
-      horizontalAlignment=TextAlignment.Left));
-  connect(wse.busCon, chwCon.wse) annotation (Line(
-      points={{-12,-70},{-20,-70},{-20,40},{90,40},{90,40.1},{200.1,40.1}},
+  connect(WSE.busCon, chwCon.wse) annotation (Line(
+      points={{-50,-72},{-60,-72},{-60,60},{200.1,60},{200.1,60.1}},
       color={255,204,51},
       thickness=0.5), Text(
       string="%second",
@@ -51,7 +25,33 @@ equation
       extent={{6,3},{6,3}},
       horizontalAlignment=TextAlignment.Left));
   connect(chwCon.TCHWRet, TCHWRet.busCon) annotation (Line(
-      points={{200,40},{150,40},{150,-60}},
+      points={{200,60},{150,60},{150,-60}},
+      color={255,204,51},
+      thickness=0.5), Text(
+      string="%first",
+      index=-1,
+      extent={{6,3},{6,3}},
+      horizontalAlignment=TextAlignment.Left));
+  connect(VSCHW_flow.busCon, chwCon.VSCHW_flow) annotation (Line(
+      points={{150,20},{150,60},{200,60}},
+      color={255,204,51},
+      thickness=0.5), Text(
+      string="%second",
+      index=1,
+      extent={{6,3},{6,3}},
+      horizontalAlignment=TextAlignment.Left));
+  connect(dpCHW.busCon, chwCon.dpCHW) annotation (Line(
+      points={{180,20},{180,60},{200,60}},
+      color={255,204,51},
+      thickness=0.5), Text(
+      string="%second",
+      index=1,
+      extent={{6,3},{6,3}},
+      horizontalAlignment=TextAlignment.Left));
+  connect(dpCHW.port_b, port_a)
+    annotation (Line(points={{190,10},{200,10}}, color={0,127,255}));
+  connect(chwCon.pumGro, pumGro.busCon) annotation (Line(
+      points={{200.1,60.1},{10,60.1},{10,20}},
       color={255,204,51},
       thickness=0.5), Text(
       string="%first",
@@ -59,7 +59,7 @@ equation
       extent={{6,3},{6,3}},
       horizontalAlignment=TextAlignment.Left));
   connect(TCHWSup.busCon, chwCon.TCHWSup) annotation (Line(
-      points={{90,0},{90,40},{200,40}},
+      points={{130,20},{130,60},{200,60}},
       color={255,204,51},
       thickness=0.5), Text(
       string="%second",

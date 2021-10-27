@@ -1,6 +1,21 @@
 within Buildings.Templates.Interfaces;
 partial model Pump
-  extends PumpOrValve;
+  extends Fluid.Interfaces.PartialTwoPort(
+    redeclare package Medium=Buildings.Media.Water);
+
+  outer parameter String id
+    "System identifier";
+  outer parameter ExternData.JSONFile dat
+    "External parameter file";
+
+  Buildings.Templates.BaseClasses.Connectors.BusInterface busCon "Control bus"
+    annotation (Placement(transformation(
+        extent={{-20,-20},{20,20}},
+        rotation=0,
+        origin={0,100}), iconTransformation(
+        extent={{-10,-10},{10,10}},
+        rotation=0,
+        origin={0,100})));
 
   parameter Types.Pump typ "Type of pump"
     annotation (Evaluate=true, Dialog(group="Configuration"));
@@ -53,11 +68,6 @@ partial model Pump
       choicesAllMatching=true,
       Dialog(enable=typ <> Types.Pump.None),
       Placement(transformation(extent={{-90,-88},{-70,-68}})));
-
-  outer parameter String id
-    "System identifier";
-  outer parameter ExternData.JSONFile dat
-    "External parameter file";
 
   annotation (Icon(coordinateSystem(preserveAspectRatio=false),
     graphics={Rectangle(

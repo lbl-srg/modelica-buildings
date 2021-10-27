@@ -146,7 +146,11 @@ package Types "AHU types"
       "No relief branch")
     "Enumeration to configure the outdoor/relief/return air section";
   type Pump = enumeration(
-      Pump "Pump");
+      None "No pump",
+      SingleConstant "Single pump - constant speed",
+      SingleVariable "Single pump - variable speed",
+      MultipleConstant "Multiple pumps (identical) - Constant speed",
+      MultipleVariable "Multiple pumps (identical) - Variable speed");
   type PumpLocation = enumeration(
       CHWHeadered "Chilled water loop headered primary pump",
       CHWDedicated "Chilled water loop dedicated primary pump",
@@ -211,4 +215,9 @@ package Types "AHU types"
       NoEconomizer "No waterside economizer",
       WatersideEconomizer
       "Waterisde economizer");
+  type ChilledWaterPumpGroup = enumeration(
+      HeaderedPrimary "Headered primary pumps only",
+      DedicatedPrimary "Dedicated primary pumps only",
+      HeaderedPrimarySecondary "Headered primary pumps with secondary pumps",
+      DedicatedPrimarySecondary "Dedicated primary pumps with secondary pumps");
 end Types;

@@ -8,40 +8,44 @@ model PartialCondenserWaterLoop
     constrainedby Buildings.Templates.Interfaces.CoolingTowerGroup(
       redeclare final package Medium = MediumCW)
     annotation (Placement(transformation(extent={{-180,-20},{-160,0}})));
-  inner replaceable Buildings.Templates.BaseClasses.Pump.None conPum
+  inner replaceable Buildings.Templates.BaseClasses.Pump.None pumCon
     constrainedby Buildings.Templates.Interfaces.Pump(
       redeclare final package Medium = MediumCW)
-    annotation (Placement(transformation(extent={{-140,-20},{-120,0}})));
-  Fluid.FixedResistances.Junction cwSupSpl(
+    annotation (Placement(transformation(extent={{-150,-20},{-130,0}})));
+  Fluid.FixedResistances.Junction splCWSup(
     redeclare final package Medium = MediumCW,
       energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)
     "Condenser water supply splitter"
-    annotation (Placement(transformation(extent={{-60,-20},{-40,0}})));
-  Fluid.FixedResistances.Junction cwRetSpl(
+    annotation (Placement(transformation(extent={{-90,-20},{-70,0}})));
+  Fluid.FixedResistances.Junction splCWRet(
     redeclare final package Medium = MediumCW,
       energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)
     "Condenser water return mixer"
-    annotation (Placement(transformation(extent={{-60,-60},{-40,-80}})));
+    annotation (Placement(transformation(extent={{-90,-60},{-70,-80}})));
 
   Sensors.Temperature              TCWSup(
       redeclare final package Medium = MediumCW)
     "Condenser water supply temperature"
-    annotation (Placement(transformation(extent={{-100,-20},{-80,0}})));
+    annotation (Placement(transformation(extent={{-120,-20},{-100,0}})));
+  Sensors.Temperature TCWRet(redeclare final package Medium = MediumCW)
+    "Condenser water return temperature"
+    annotation (Placement(transformation(extent={{-140,-80},{-120,-60}})));
 equation
-  connect(cooTow.port_b, conPum.port_a)
-    annotation (Line(points={{-160,-10},{-140,-10}},
+  connect(cooTow.port_b,pumCon. port_a)
+    annotation (Line(points={{-160,-10},{-150,-10}},
       color={0,127,255}));
-  connect(cooTow.port_a, cwRetSpl.port_1)
-    annotation (Line(points={{-180,-10},{-186,-10},{-186,-70},{-60,-70}},
-      color={0,127,255}));
-  connect(conPum.port_b, TCWSup.port_a)
-    annotation (Line(points={{-120,-10},{-100,-10}}, color={0,127,255}));
-  connect(TCWSup.port_b, cwSupSpl.port_1)
-    annotation (Line(points={{-80,-10},{-60,-10}}, color={0,127,255}));
-  connect(cwSupSpl.port_3, cwRetSpl.port_3)
-    annotation (Line(points={{-50,-20},{-50,-60}}, color={0,127,255}));
+  connect(pumCon.port_b, TCWSup.port_a)
+    annotation (Line(points={{-130,-10},{-120,-10}}, color={0,127,255}));
+  connect(TCWSup.port_b,splCWSup. port_1)
+    annotation (Line(points={{-100,-10},{-90,-10}},color={0,127,255}));
+  connect(splCWSup.port_3,splCWRet. port_3)
+    annotation (Line(points={{-80,-20},{-80,-60}}, color={0,127,255}));
+  connect(TCWRet.port_b, splCWRet.port_1)
+    annotation (Line(points={{-120,-70},{-90,-70}}, color={0,127,255}));
+  connect(TCWRet.port_a, cooTow.port_a) annotation (Line(points={{-140,-70},{
+          -192,-70},{-192,-10},{-180,-10}}, color={0,127,255}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false,
-    extent={{-200,-100},{0,20}})),
+    extent={{-200,-100},{-60,20}})),
     Diagram(coordinateSystem(preserveAspectRatio=false,
-      extent={{-200,-100},{0,20}})));
+      extent={{-200,-100},{-60,20}})));
 end PartialCondenserWaterLoop;
