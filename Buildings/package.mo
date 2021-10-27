@@ -276,7 +276,7 @@ to <b style=\"color:blue\">existing</b> libraries:
 <tr><td colspan=\"2\"><b>Buildings.Fluid.FixedResistances</b>
     </td>
 </tr>
-<tr><td valign=\"top\">Buildings.Fluid.FixedResistances.PlugFlowDiscretized
+<tr><td valign=\"top\">Buildings.Fluid.FixedResistances.PlugFlowPipeDiscretized
     </td>
     <td valign=\"top\">Class for modeling multiple plug flow pipes in series,
                        which can be used to vary boundary conditions over the length of a pipe.
