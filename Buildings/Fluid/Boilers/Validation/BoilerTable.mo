@@ -82,7 +82,7 @@ model BoilerTable
     annotation (Placement(transformation(extent={{0,-48},{20,-28}})));
   Sensors.Temperature senTem(
     redeclare package Medium = Medium)
-    annotation (Placement(transformation(extent={{-44,40},{-24,60}})));
+    annotation (Placement(transformation(extent={{-44,39.6},{-24,59.6}})));
 
   Modelica.Blocks.Sources.Constant y1(k=0.05)
     "Setting the firing rate at constant 5%"
@@ -125,13 +125,13 @@ equation
   connect(boi3.port_a, sou.ports[2]) annotation (Line(points={{20,-66},{-16,-66},
           {-16,-10},{-34,-10},{-34,-5}}, color={0,127,255}));
   connect(senTem.port, sou.ports[3])
-    annotation (Line(points={{-34,40},{-34,-7}},  color={0,127,255}));
-  connect(boi2.T_inlet, senTem.T) annotation (Line(points={{18,-10.4},{6,-10.4},
-          {6,-10},{-4,-10},{-4,50},{-27,50}}, color={0,0,127}));
+    annotation (Line(points={{-34,39.6},{-34,-7}},color={0,127,255}));
+  connect(boi2.T_inlet, senTem.T) annotation (Line(points={{18,-10.4},{-4,-10.4},
+          {-4,49.6},{-27,49.6}},color={0,0,127}));
   connect(boi3.T_inlet, senTem.T) annotation (Line(points={{18,-70.4},{-4,-70.4},
-          {-4,50},{-27,50}},  color={0,0,127}));
-  connect(boi1.T_inlet, senTem.T) annotation (Line(points={{18,49.6},{6,49.6},{
-          6,50},{-27,50}},    color={0,0,127}));
+          {-4,49.6},{-27,49.6}},color={0,0,127}));
+  connect(boi1.T_inlet, senTem.T) annotation (Line(points={{18,49.6},{6,49.6},{6,
+          49.6},{-27,49.6}},  color={0,0,127}));
   connect(boi2.port_a, sou.ports[4]) annotation (Line(points={{20,-6},{-34,-6},{
           -34,-9}},          color={0,127,255}));
   connect(y1.y, boi1.y) annotation (Line(points={{-69,70},{-16,70},{-16,62},{18,
