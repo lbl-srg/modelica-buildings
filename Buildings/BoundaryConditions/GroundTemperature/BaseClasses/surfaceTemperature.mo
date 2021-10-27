@@ -7,12 +7,8 @@ function surfaceTemperature
     "Surface temperature climatic conditions";
   input Real nFacTha "Thawing n-factor (TAir > 0degC)";
   input Real nFacFre "Freezing n-factor (TAir <= 0degC)";
-  output Modelica.SIunits.Temperature TSurMea
-    "Mean annual surface temperature";
-  output Modelica.SIunits.TemperatureDifference TSurAmp
-    "Surface temperature amplitude";
-  output Modelica.SIunits.Duration sinPha(displayUnit="d")
-    "Phase lag of soil surface temperature";
+  output ClimaticConstants.Generic corCliCon
+    "Corrected surface temperature climatic conditions";
 
 protected
   constant Integer Year=365 "Year period in days";
@@ -24,6 +20,13 @@ protected
   Modelica.SIunits.Temperature TSurDayMea[Year] "Daily mean corrected surface temperature";
   Real C1;
   Real C2;
+
+  parameter Modelica.SIunits.Temperature corTSurMea = sum(TSurDayMea)/Year
+    "Mean annual surface temperature";
+  parameter Modelica.SIunits.TemperatureDifference corTSurAmp = 2/Year .* (C1^2 + C2^2)^0.5
+    "Surface temperature amplitude";
+  parameter Modelica.SIunits.Duration corSinPha(displayUnit="d") = (Modelica.Math.atan(C2/C1) + pi/2)*secInDay/freq
+    "Phase lag of soil surface temperature";
 
 algorithm
   // Analytical mean by integrating undisturbed soil temperature formula
@@ -40,15 +43,16 @@ algorithm
   C1 := sum({TSurDayMea[day] * cos(freq * day) for day in 1:Year});
   C2 := sum({TSurDayMea[day] * sin(freq * day) for day in 1:Year});
 
-  TSurMea := sum(TSurDayMea)/Year;
-  TSurAmp := 2 / Year .* (C1^2 + C2^2)^0.5;
-  sinPha := (Modelica.Math.atan(C2 / C1) + pi/2) * secInDay / freq;
+  corCliCon := ClimaticConstants.Generic(
+    TSurMea = corTSurMea, 
+    TSurAmp = corTSurAmp, 
+    sinPha = corSinPha);
 
   annotation (Documentation(revisions="<html>
 <ul>
 <li>
-October 26, 2021, by Michael Wetter:<br/>
-Reformulated function to avoid translation error in OpenModelica.<br/>
+October 17, 2021, by Baptiste Ravache:<br/>
+Declare record parameters to avoid translation error in OpenModelica.<br/>
 This is for
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2698\">issue 2698</a>.
 </li>
