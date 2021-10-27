@@ -1,0 +1,34 @@
+simulateModel("Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.SetPoints.Validation.SetpointController", method="Dassl", stopTime=14000, tolerance=1e-06, resultFile="SetpointController");
+
+createPlot(id=1, position={0, 0, 731, 959}, y={"staSetCon.u"}, range={0.0, 14000.0, -2.0, 4.0}, grid=true, colors={{28,108,200}});
+createPlot(id=1, position={0, 0, 731, 155}, y={"staSetCon.capReq1.y", "staSetCon.cap.yUpMin"}, range={0.0, 14000.0, -1000000.0, 2000000.0}, autoscale=false, grid=true, subPlot=2, colors={{28,108,200}, {238,46,47}}, range2={0.0, 0.15000000000000002});
+createPlot(id=1, position={0, 0, 731, 156}, y={"staSetCon.capReq1.y", "staSetCon.cap.yDowDes"}, range={0.0, 14000.0, -1000000.0, 3000000.0}, grid=true, subPlot=3, colors={{28,108,200}, {238,46,47}});
+createPlot(id=1, position={0, 0, 731, 156}, y={"staSetCon.capReq1.y", "staSetCon.cap.yMin"}, range={0.0, 14000.0, -1000000.0, 3000000.0}, autoscale=false, grid=true, subPlot=4, colors={{28,108,200}, {238,46,47}}, range2={0.2, 0.8});
+createPlot(id=1, position={0, 0, 731, 155}, y={"staSetCon.VHotWat_flow", "staSetCon.VMinSet_flow[1]", "staSetCon.VMinSet_flow[2]", "staSetCon.VMinSet_flow[3]"}, range={0.0, 14000.0, -0.02, 0.06}, grid=true, subPlot=5, colors={{28,108,200}, {238,46,47}, {0,140,72}, {217,67,180}});
+createPlot(id=1, position={0, 0, 731, 156}, y={"staSetCon.uPumSpe"}, range={0.0, 14000.0, -1.0, 2.0}, grid=true, subPlot=6, colors={{28,108,200}});
+createPlot(id=2, position={748, 0, 732, 959}, y={"staSetCon.ySta"}, range={0.0, 14000.0, -1.0, 4.0}, grid=true, colors={{28,108,200}});
+createPlot(id=2, position={748, 0, 732, 188}, y={"staCha.y"}, range={0.0, 14000.0, -0.5, 1.5}, grid=true, subPlot=2, colors={{28,108,200}});
+createPlot(id=2, position={748, 0, 732, 187}, y={"staUp.y"}, range={0.0, 14000.0, -0.5, 1.5}, grid=true, subPlot=3, colors={{28,108,200}});
+createPlot(id=2, position={748, 0, 732, 188}, y={"staDow.y"}, range={0.0, 14000.0, -0.5, 1.5}, grid=true, subPlot=4, colors={{28,108,200}});
+createPlot(id=2, position={748, 0, 732, 188}, y={"staSetCon.yBoi[1]", "staSetCon.yBoi[2]"}, range={0.0, 14000.0, -0.5, 1.5}, grid=true, subPlot=5, colors={{28,108,200}, {28,108,200}});
+
+createPlot(id=3, position={0, 0, 731, 959}, y={"staSetCon1.u"}, range={0.0, 14000.0, -0.5, 3.5}, grid=true, colors={{28,108,200}});
+createPlot(id=3, position={0, 0, 731, 317}, y={"staSetCon1.capReq1.y", "staSetCon1.cap.yDes"}, range={0.0, 14000.0, -500000.0, 3000000.0}, grid=true, subPlot=2, colors={{28,108,200}, {238,46,47}});
+createPlot(id=3, position={0, 0, 731, 316}, y={"staSetCon1.capReq1.y", "staSetCon1.cap.yDowDes"}, range={0.0, 14000.0, -500000.0, 2500000.0}, grid=true, subPlot=3, colors={{28,108,200}, {238,46,47}});
+createPlot(id=4, position={748, 0, 732, 959}, y={"staSetCon1.ySta"}, range={0.0, 14000.0, -1.0, 4.0}, grid=true, colors={{28,108,200}});
+createPlot(id=4, position={748, 0, 732, 188}, y={"staCha1.y"}, range={0.0, 14000.0, -0.5, 1.5}, grid=true, subPlot=2, colors={{28,108,200}});
+createPlot(id=4, position={748, 0, 732, 187}, y={"staUp1.y"}, range={0.0, 14000.0, -0.5, 1.5}, grid=true, subPlot=3, colors={{28,108,200}});
+createPlot(id=4, position={748, 0, 732, 188}, y={"staDow1.y"}, range={0.0, 14000.0, -0.5, 1.5}, grid=true, subPlot=4, colors={{28,108,200}});
+createPlot(id=4, position={748, 0, 732, 188}, y={"staSetCon1.yBoi[1]", "staSetCon1.yBoi[2]"}, range={0.0, 14000.0, -0.5, 1.5}, grid=true, subPlot=5, colors={{28,108,200}, {28,108,200}});
+
+createPlot(id=5, position={0, 0, 732, 959}, y={"staSetCon2.u"}, range={0.0, 14000.0, -1.0, 4.0}, grid=true, colors={{28,108,200}});
+createPlot(id=5, position={0, 0, 732, 155}, y={"staSetCon2.capReq1.y", "staSetCon2.cap.yUpMin"}, range={0.0, 14000.0, -500000.0, 1500000.0}, autoscale=false, grid=true, subPlot=2, colors={{28,108,200}, {238,46,47}}, range2={0.06, 0.12});
+createPlot(id=5, position={0, 0, 732, 156}, y={"staSetCon2.capReq1.y", "staSetCon2.cap.yMin"}, range={0.0, 14000.0, -1000000.0, 3000000.0}, grid=true, subPlot=3, colors={{28,108,200}, {238,46,47}});
+createPlot(id=5, position={0, 0, 732, 156}, y={"staSetCon2.capReq1.y", "staSetCon2.cap.yDowDes"}, range={0.0, 14000.0, -1000000.0, 3000000.0}, grid=true, subPlot=4, colors={{28,108,200}, {238,46,47}});
+createPlot(id=5, position={0, 0, 732, 155}, y={"staSetCon2.VHotWat_flow", "staSetCon2.VMinSet_flow[1]", "staSetCon2.VMinSet_flow[2]", "staSetCon2.VMinSet_flow[3]"}, range={0.0, 14000.0, -0.02, 0.06}, grid=true, subPlot=5, colors={{28,108,200}, {238,46,47}, {0,140,72}, {217,67,180}});
+createPlot(id=5, position={0, 0, 732, 156}, y={"staSetCon2.uBypValPos"}, range={0.0, 14000.0, -1.0, 2.0}, grid=true, subPlot=6, colors={{28,108,200}});
+createPlot(id=6, position={748, 0, 731, 959}, y={"staSetCon2.ySta"}, range={0.0, 14000.0, -1.0, 4.0}, grid=true, colors={{28,108,200}});
+createPlot(id=6, position={748, 0, 731, 188}, y={"staCha2.y"}, range={0.0, 14000.0, -0.5, 1.5}, grid=true, subPlot=2, colors={{28,108,200}});
+createPlot(id=6, position={748, 0, 731, 187}, y={"staUp2.y"}, range={0.0, 14000.0, -0.5, 1.5}, grid=true, subPlot=3, colors={{28,108,200}});
+createPlot(id=6, position={748, 0, 731, 188}, y={"staDow2.y"}, range={0.0, 14000.0, -0.5, 1.5}, grid=true, subPlot=4, colors={{28,108,200}});
+createPlot(id=6, position={748, 0, 731, 188}, y={"staSetCon2.yBoi[1]", "staSetCon2.yBoi[2]"}, range={0.0, 14000.0, -0.5, 1.5}, grid=true, subPlot=5, colors={{28,108,200}, {28,108,200}});

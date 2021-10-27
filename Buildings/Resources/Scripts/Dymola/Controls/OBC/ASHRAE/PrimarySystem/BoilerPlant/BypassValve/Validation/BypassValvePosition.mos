@@ -1,0 +1,4 @@
+﻿simulateModel("Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.BypassValve.Validation.BypassValvePosition", startTime=0,tolerance=1e-6, stopTime=300, method="cvode", resultFile="BypassValvePosition");
+createPlot(id=1, position={0, 0, 1545, 998}, y={"bypValPos.uPumSta[1]", "bypValPos.uPumSta[2]"}, range={0.0, 300.0, -1.0, 0.8}, grid=true, colors={{28,108,200}, {28,108,200}});
+createPlot(id=1, position={0, 0, 1545, 330}, y={"bypValPos.VHotWat_flow", "bypValPos.VHotWatMinSet_flow"}, range={0.0, 300.0, 0.6000000000000001, 1.8000000000000003}, grid=true, subPlot=2, colors={{28,108,200}, {238,46,47}});
+createPlot(id=1, position={0, 0, 1545, 329}, y={"bypValPos.yBypValPos", "bypValPos.uMinBypValPos"}, range={0.0, 300.0, -0.2, 1.2000000000000002}, grid=true, subPlot=3, colors={{28,108,200}, {238,46,47}});

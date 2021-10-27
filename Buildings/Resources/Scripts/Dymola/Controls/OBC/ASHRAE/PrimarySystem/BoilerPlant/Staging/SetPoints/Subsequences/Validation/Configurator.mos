@@ -1,0 +1,69 @@
+﻿simulateModel("Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.SetPoints.Subsequences.Validation.Configurator", startTime=0,tolerance=1e-6, stopTime=7200, outputInterval=1, method="dassl", resultFile="Configurator");
+removePlots(false);
+createPlot(id=1, position={0, 0, 813, 1000}, y={"conf.nSta", "conf.nBoi"}, range={0.0, 10.0, 2.0, 6.0}, grid=true, colors={{28,108,200}, {238,46,47}});
+createPlot(id=1, position={0, 0, 813, 196}, y={"conf.uBoiAva[1]", "conf.uBoiAva[2]", "conf.uBoiAva[3]"}, range={0.0, 10.0, -0.5, 1.5}, grid=true, subPlot=2, colors={{28,108,200}, {28,108,200}, {28,108,200}});
+createPlot(id=1, position={0, 0, 813, 196}, y={"conf.boiDesCap[1]", "conf.boiDesCap[2]", "conf.boiDesCap[3]"}, range={0.0, 10.0, -100.0, 300.0}, grid=true, subPlot=3, colors={{28,108,200}, {238,46,47}, {0,140,72}});
+createPlot(id=1, position={0, 0, 813, 196}, y={"conf.boiFirMin[1]", "conf.boiFirMin[2]", "conf.boiFirMin[3]"}, range={0.0, 10.0, -0.2, 0.6000000000000001}, grid=true, subPlot=4, colors={{28,108,200}, {238,46,47}, {0,140,72}});
+createPlot(id=1, position={0, 0, 813, 196}, y={"conf.boiTyp[1]", "conf.boiTyp[2]", "conf.boiTyp[3]"}, range={0.0, 10.0, -1.0, 3.0}, grid=true, subPlot=5, colors={{28,108,200}, {238,46,47}, {0,140,72}});
+
+createPlot(id=2, position={831, 0, 815, 1000}, y={"conf.yAva[1]", "conf.yAva[2]", "conf.yAva[3]", "conf.yAva[4]", "conf.yAva[5]"}, range={0.0, 10.0, 0.85, 1.15}, grid=true, colors={{28,108,200}, {28,108,200}, {28,108,200}, {28,108,200}, {28,108,200}});
+createPlot(id=2, position={831, 0, 815, 246}, y={"conf.yTyp[1]", "conf.yTyp[2]", "conf.yTyp[3]", "conf.yTyp[4]", "conf.yTyp[5]"}, range={0.0, 10.0, -0.5, 2.5}, grid=true, subPlot=2, colors={{28,108,200}, {238,46,47}, {0,140,72}, {217,67,180}, {0,0,0}});
+createPlot(id=2, position={831, 0, 815, 246}, y={"conf.yCapDes[1]", "conf.yCapDes[2]", "conf.yCapDes[3]", "conf.yCapDes[4]", "conf.yCapDes[5]"}, range={0.0, 10.0, -100.0, 600.0}, grid=true, subPlot=3, colors={{28,108,200}, {238,46,47}, {0,140,72}, {217,67,180}, {0,0,0}});
+createPlot(id=2, position={831, 0, 815, 246}, y={"conf.yCapMin[1]", "conf.yCapMin[2]", "conf.yCapMin[3]", "conf.yCapMin[4]", "conf.yCapMin[5]"}, range={0.0, 10.0, -50.0, 250.0}, grid=true, subPlot=4, colors={{28,108,200}, {238,46,47}, {0,140,72}, {217,67,180}, {0,0,0}});
+//ExportPlotAsImage("./Resources/Images/Controls/OBC/ASHRAE/PrimarySystem/BoilerPlant/Staging/SetPoints/Subsequences/Configurator1.png", 1, true, false);
+//ExportPlotAsImage("./Resources/Images/Controls/OBC/ASHRAE/PrimarySystem/BoilerPlant/Staging/SetPoints/Subsequences/Configurator2.png", 2, true, false);
+
+createPlot(id=3, position={0, 0, 813, 1000}, y={"conf1.nSta", "conf1.nBoi"}, range={0.0, 10.0, 2.0, 6.0}, grid=true, colors={{28,108,200}, {238,46,47}});
+createPlot(id=3, position={0, 0, 813, 196}, y={"conf1.uBoiAva[1]", "conf1.uBoiAva[2]", "conf1.uBoiAva[3]"}, range={0.0, 10.0, -0.5, 1.5}, grid=true, subPlot=2, colors={{28,108,200}, {28,108,200}, {28,108,200}});
+createPlot(id=3, position={0, 0, 813, 196}, y={"conf1.boiDesCap[1]", "conf1.boiDesCap[2]", "conf1.boiDesCap[3]"}, range={0.0, 10.0, -100.0, 300.0}, grid=true, subPlot=3, colors={{28,108,200}, {238,46,47}, {0,140,72}});
+createPlot(id=3, position={0, 0, 813, 196}, y={"conf1.boiFirMin[1]", "conf1.boiFirMin[2]", "conf1.boiFirMin[3]"}, range={0.0, 10.0, -0.2, 0.6000000000000001}, grid=true, subPlot=4, colors={{28,108,200}, {238,46,47}, {0,140,72}});
+createPlot(id=3, position={0, 0, 813, 196}, y={"conf1.boiTyp[1]", "conf1.boiTyp[2]", "conf1.boiTyp[3]"}, range={0.0, 10.0, -1.0, 3.0}, grid=true, subPlot=5, colors={{28,108,200}, {238,46,47}, {0,140,72}});
+
+createPlot(id=4, position={831, 0, 815, 1000}, y={"conf1.yAva[1]", "conf1.yAva[2]", "conf1.yAva[3]", "conf1.yAva[4]", "conf1.yAva[5]"}, range={0.0, 10.0, 0.85, 1.15}, grid=true, colors={{28,108,200}, {28,108,200}, {28,108,200}, {28,108,200}, {28,108,200}});
+createPlot(id=4, position={831, 0, 815, 246}, y={"conf1.yTyp[1]", "conf1.yTyp[2]", "conf1.yTyp[3]", "conf1.yTyp[4]", "conf1.yTyp[5]"}, range={0.0, 10.0, -0.5, 2.5}, grid=true, subPlot=2, colors={{28,108,200}, {238,46,47}, {0,140,72}, {217,67,180}, {0,0,0}});
+createPlot(id=4, position={831, 0, 815, 246}, y={"conf1.yCapDes[1]", "conf1.yCapDes[2]", "conf1.yCapDes[3]", "conf1.yCapDes[4]", "conf1.yCapDes[5]"}, range={0.0, 10.0, -100.0, 600.0}, grid=true, subPlot=3, colors={{28,108,200}, {238,46,47}, {0,140,72}, {217,67,180}, {0,0,0}});
+createPlot(id=4, position={831, 0, 815, 246}, y={"conf1.yCapMin[1]", "conf1.yCapMin[2]", "conf1.yCapMin[3]", "conf1.yCapMin[4]", "conf1.yCapMin[5]"}, range={0.0, 10.0, -50.0, 250.0}, grid=true, subPlot=4, colors={{28,108,200}, {238,46,47}, {0,140,72}, {217,67,180}, {0,0,0}});
+
+createPlot(id=5, position={0, 0, 813, 1000}, y={"conf2.nSta", "conf2.nBoi"}, range={0.0, 10.0, 2.0, 6.0}, grid=true, colors={{28,108,200}, {238,46,47}});
+createPlot(id=5, position={0, 0, 813, 196}, y={"conf2.uBoiAva[1]", "conf2.uBoiAva[2]", "conf2.uBoiAva[3]"}, range={0.0, 10.0, -0.5, 1.5}, grid=true, subPlot=2, colors={{28,108,200}, {28,108,200}, {28,108,200}});
+createPlot(id=5, position={0, 0, 813, 196}, y={"conf2.boiDesCap[1]", "conf2.boiDesCap[2]", "conf2.boiDesCap[3]"}, range={0.0, 10.0, -100.0, 300.0}, grid=true, subPlot=3, colors={{28,108,200}, {238,46,47}, {0,140,72}});
+createPlot(id=5, position={0, 0, 813, 196}, y={"conf2.boiFirMin[1]", "conf2.boiFirMin[2]", "conf2.boiFirMin[3]"}, range={0.0, 10.0, -0.2, 0.6000000000000001}, grid=true, subPlot=4, colors={{28,108,200}, {238,46,47}, {0,140,72}});
+createPlot(id=5, position={0, 0, 813, 196}, y={"conf2.boiTyp[1]", "conf2.boiTyp[2]", "conf2.boiTyp[3]"}, range={0.0, 10.0, -1.0, 3.0}, grid=true, subPlot=5, colors={{28,108,200}, {238,46,47}, {0,140,72}});
+
+createPlot(id=6, position={831, 0, 815, 1000}, y={"conf2.yAva[1]", "conf2.yAva[2]", "conf2.yAva[3]", "conf2.yAva[4]", "conf2.yAva[5]"}, range={0.0, 10.0, 0.85, 1.15}, grid=true, colors={{28,108,200}, {28,108,200}, {28,108,200}, {28,108,200}, {28,108,200}});
+createPlot(id=6, position={831, 0, 815, 246}, y={"conf2.yTyp[1]", "conf2.yTyp[2]", "conf2.yTyp[3]", "conf2.yTyp[4]", "conf2.yTyp[5]"}, range={0.0, 10.0, -0.5, 2.5}, grid=true, subPlot=2, colors={{28,108,200}, {238,46,47}, {0,140,72}, {217,67,180}, {0,0,0}});
+createPlot(id=6, position={831, 0, 815, 246}, y={"conf2.yCapDes[1]", "conf2.yCapDes[2]", "conf2.yCapDes[3]", "conf2.yCapDes[4]", "conf2.yCapDes[5]"}, range={0.0, 10.0, -100.0, 600.0}, grid=true, subPlot=3, colors={{28,108,200}, {238,46,47}, {0,140,72}, {217,67,180}, {0,0,0}});
+createPlot(id=6, position={831, 0, 815, 246}, y={"conf2.yCapMin[1]", "conf2.yCapMin[2]", "conf2.yCapMin[3]", "conf2.yCapMin[4]", "conf2.yCapMin[5]"}, range={0.0, 10.0, -50.0, 250.0}, grid=true, subPlot=4, colors={{28,108,200}, {238,46,47}, {0,140,72}, {217,67,180}, {0,0,0}});
+
+createPlot(id=7, position={0, 0, 813, 1000}, y={"conf3.nSta", "conf3.nBoi"}, range={0.0, 10.0, 2.0, 6.0}, grid=true, colors={{28,108,200}, {238,46,47}});
+createPlot(id=7, position={0, 0, 813, 196}, y={"conf3.uBoiAva[1]", "conf3.uBoiAva[2]", "conf3.uBoiAva[3]"}, range={0.0, 10.0, -0.5, 1.5}, grid=true, subPlot=2, colors={{28,108,200}, {28,108,200}, {28,108,200}});
+createPlot(id=7, position={0, 0, 813, 196}, y={"conf3.boiDesCap[1]", "conf3.boiDesCap[2]", "conf3.boiDesCap[3]"}, range={0.0, 10.0, -100.0, 300.0}, grid=true, subPlot=3, colors={{28,108,200}, {238,46,47}, {0,140,72}});
+createPlot(id=7, position={0, 0, 813, 196}, y={"conf3.boiFirMin[1]", "conf3.boiFirMin[2]", "conf3.boiFirMin[3]"}, range={0.0, 10.0, -0.2, 0.6000000000000001}, grid=true, subPlot=4, colors={{28,108,200}, {238,46,47}, {0,140,72}});
+createPlot(id=7, position={0, 0, 813, 196}, y={"conf3.boiTyp[1]", "conf3.boiTyp[2]", "conf3.boiTyp[3]"}, range={0.0, 10.0, -1.0, 3.0}, grid=true, subPlot=5, colors={{28,108,200}, {238,46,47}, {0,140,72}});
+
+createPlot(id=8, position={831, 0, 815, 1000}, y={"conf3.yAva[1]", "conf3.yAva[2]", "conf3.yAva[3]", "conf3.yAva[4]", "conf3.yAva[5]"}, range={0.0, 10.0, 0.85, 1.15}, grid=true, colors={{28,108,200}, {28,108,200}, {28,108,200}, {28,108,200}, {28,108,200}});
+createPlot(id=8, position={831, 0, 815, 246}, y={"conf3.yTyp[1]", "conf3.yTyp[2]", "conf3.yTyp[3]", "conf3.yTyp[4]", "conf3.yTyp[5]"}, range={0.0, 10.0, -0.5, 2.5}, grid=true, subPlot=2, colors={{28,108,200}, {238,46,47}, {0,140,72}, {217,67,180}, {0,0,0}});
+createPlot(id=8, position={831, 0, 815, 246}, y={"conf3.yCapDes[1]", "conf3.yCapDes[2]", "conf3.yCapDes[3]", "conf3.yCapDes[4]", "conf3.yCapDes[5]"}, range={0.0, 10.0, -100.0, 600.0}, grid=true, subPlot=3, colors={{28,108,200}, {238,46,47}, {0,140,72}, {217,67,180}, {0,0,0}});
+createPlot(id=8, position={831, 0, 815, 246}, y={"conf3.yCapMin[1]", "conf3.yCapMin[2]", "conf3.yCapMin[3]", "conf3.yCapMin[4]", "conf3.yCapMin[5]"}, range={0.0, 10.0, -50.0, 250.0}, grid=true, subPlot=4, colors={{28,108,200}, {238,46,47}, {0,140,72}, {217,67,180}, {0,0,0}});
+
+createPlot(id=9, position={0, 0, 813, 1000}, y={"conf4.nSta", "conf4.nBoi"}, range={0.0, 10.0, 2.0, 6.0}, grid=true, colors={{28,108,200}, {238,46,47}});
+createPlot(id=9, position={0, 0, 813, 196}, y={"conf4.uBoiAva[1]", "conf4.uBoiAva[2]", "conf4.uBoiAva[3]"}, range={0.0, 10.0, -0.5, 1.5}, grid=true, subPlot=2, colors={{28,108,200}, {28,108,200}, {28,108,200}});
+createPlot(id=9, position={0, 0, 813, 196}, y={"conf4.boiDesCap[1]", "conf4.boiDesCap[2]", "conf4.boiDesCap[3]"}, range={0.0, 10.0, -100.0, 300.0}, grid=true, subPlot=3, colors={{28,108,200}, {238,46,47}, {0,140,72}});
+createPlot(id=9, position={0, 0, 813, 196}, y={"conf4.boiFirMin[1]", "conf4.boiFirMin[2]", "conf4.boiFirMin[3]"}, range={0.0, 10.0, -0.2, 0.6000000000000001}, grid=true, subPlot=4, colors={{28,108,200}, {238,46,47}, {0,140,72}});
+createPlot(id=9, position={0, 0, 813, 196}, y={"conf4.boiTyp[1]", "conf4.boiTyp[2]", "conf4.boiTyp[3]"}, range={0.0, 10.0, -1.0, 3.0}, grid=true, subPlot=5, colors={{28,108,200}, {238,46,47}, {0,140,72}});
+
+createPlot(id=10, position={831, 0, 815, 1000}, y={"conf4.yAva[1]", "conf4.yAva[2]", "conf4.yAva[3]", "conf4.yAva[4]", "conf4.yAva[5]"}, range={0.0, 10.0, 0.85, 1.15}, grid=true, colors={{28,108,200}, {28,108,200}, {28,108,200}, {28,108,200}, {28,108,200}});
+createPlot(id=10, position={831, 0, 815, 246}, y={"conf4.yTyp[1]", "conf4.yTyp[2]", "conf4.yTyp[3]", "conf4.yTyp[4]", "conf4.yTyp[5]"}, range={0.0, 10.0, -0.5, 2.5}, grid=true, subPlot=2, colors={{28,108,200}, {238,46,47}, {0,140,72}, {217,67,180}, {0,0,0}});
+createPlot(id=10, position={831, 0, 815, 246}, y={"conf4.yCapDes[1]", "conf4.yCapDes[2]", "conf4.yCapDes[3]", "conf4.yCapDes[4]", "conf4.yCapDes[5]"}, range={0.0, 10.0, -100.0, 600.0}, grid=true, subPlot=3, colors={{28,108,200}, {238,46,47}, {0,140,72}, {217,67,180}, {0,0,0}});
+createPlot(id=10, position={831, 0, 815, 246}, y={"conf4.yCapMin[1]", "conf4.yCapMin[2]", "conf4.yCapMin[3]", "conf4.yCapMin[4]", "conf4.yCapMin[5]"}, range={0.0, 10.0, -50.0, 250.0}, grid=true, subPlot=4, colors={{28,108,200}, {238,46,47}, {0,140,72}, {217,67,180}, {0,0,0}});
+
+createPlot(id=11, position={0, 0, 813, 1000}, y={"conf5.nSta", "conf5.nBoi"}, range={0.0, 10.0, 2.0, 6.0}, grid=true, colors={{28,108,200}, {238,46,47}});
+createPlot(id=11, position={0, 0, 813, 196}, y={"conf5.uBoiAva[1]", "conf5.uBoiAva[2]", "conf5.uBoiAva[3]"}, range={0.0, 10.0, -0.5, 1.5}, grid=true, subPlot=2, colors={{28,108,200}, {28,108,200}, {28,108,200}});
+createPlot(id=11, position={0, 0, 813, 196}, y={"conf5.boiDesCap[1]", "conf5.boiDesCap[2]", "conf5.boiDesCap[3]"}, range={0.0, 10.0, -100.0, 300.0}, grid=true, subPlot=3, colors={{28,108,200}, {238,46,47}, {0,140,72}});
+createPlot(id=11, position={0, 0, 813, 196}, y={"conf5.boiFirMin[1]", "conf5.boiFirMin[2]", "conf5.boiFirMin[3]"}, range={0.0, 10.0, -0.2, 0.6000000000000001}, grid=true, subPlot=4, colors={{28,108,200}, {238,46,47}, {0,140,72}});
+createPlot(id=11, position={0, 0, 813, 196}, y={"conf5.boiTyp[1]", "conf5.boiTyp[2]", "conf5.boiTyp[3]"}, range={0.0, 10.0, -1.0, 3.0}, grid=true, subPlot=5, colors={{28,108,200}, {238,46,47}, {0,140,72}});
+
+createPlot(id=12, position={831, 0, 815, 1000}, y={"conf5.yAva[1]", "conf5.yAva[2]", "conf5.yAva[3]", "conf5.yAva[4]", "conf5.yAva[5]"}, range={0.0, 10.0, 0.85, 1.15}, grid=true, colors={{28,108,200}, {28,108,200}, {28,108,200}, {28,108,200}, {28,108,200}});
+createPlot(id=12, position={831, 0, 815, 246}, y={"conf5.yTyp[1]", "conf5.yTyp[2]", "conf5.yTyp[3]", "conf5.yTyp[4]", "conf5.yTyp[5]"}, range={0.0, 10.0, -0.5, 2.5}, grid=true, subPlot=2, colors={{28,108,200}, {238,46,47}, {0,140,72}, {217,67,180}, {0,0,0}});
+createPlot(id=12, position={831, 0, 815, 246}, y={"conf5.yCapDes[1]", "conf5.yCapDes[2]", "conf5.yCapDes[3]", "conf5.yCapDes[4]", "conf5.yCapDes[5]"}, range={0.0, 10.0, -100.0, 600.0}, grid=true, subPlot=3, colors={{28,108,200}, {238,46,47}, {0,140,72}, {217,67,180}, {0,0,0}});
+createPlot(id=12, position={831, 0, 815, 246}, y={"conf5.yCapMin[1]", "conf5.yCapMin[2]", "conf5.yCapMin[3]", "conf5.yCapMin[4]", "conf5.yCapMin[5]"}, range={0.0, 10.0, -50.0, 250.0}, grid=true, subPlot=4, colors={{28,108,200}, {238,46,47}, {0,140,72}, {217,67,180}, {0,0,0}});
