@@ -218,11 +218,13 @@ and at a saturated state. The volume can exchange heat through
 its <code>heatPort</code> when configured with dynamic mass and 
 energy balances. In steady state, the heat port is conditional removed
 in order to maintain a consistent set of equations.
-
+</p>
+<p>
 This model is similar to 
 <a href=\"modelica://Modelica.Fluid.Examples.DrumBoiler.BaseClasses.EquilibriumDrumBoiler\">
 Modelica.Fluid.Examples.DrumBoiler.BaseClasses.EquilibriumDrumBoiler</a> 
-with the following exceptions:</p>
+with the following exceptions:
+</p>
 <ul>
 <li>
 Rather than a two-phase medium, fluid mediums are modeled as two
@@ -243,8 +245,6 @@ constant.
 </li>
 </ul>
 
-
-
 <h4> Implementation</h4>
 <p>
 This model is configured to allow both steady state and dynamic mass 
@@ -262,26 +262,30 @@ m = ρ<sub>s</sub>V<sub>s</sub> + ρ<sub>w</sub>V<sub>w</sub>
 <p>
 where <i>ρ</i> is density,<i>V</i> is volume, and subscripts represent 
 the steam and liquid water components, respectively. 
-The total internal energy <i>U</i> is</p>
+The total internal energy <i>U</i> is
+</p>
 <p align = \"center\" style = \"font-style:italic;\">
 U = ρ<sub>s</sub>V<sub>s</sub>h<sub>s</sub> + ρ<sub>w</sub>V<sub>w</sub> − pV
 </p>
 <p>
 where <i>h</i> is specific enthalpy, <i>p</i> is pressure, and the 
-total volume of fluid <i>V=V<sub>s</sub>+V<sub>w</sub></i>.</p>
+total volume of fluid <i>V=V<sub>s</sub>+V<sub>w</sub></i>.
+</p>
 
 <p>The steady state mass balance and energy balance is given as</p>
 <p align = \"center\" style = \"font-style:italic;\">
 m&#775;<sub>s</sub> + m&#775;<sub>w</sub> = 0,<Br>
-U = U_start, Q&#775; = 0</p>
+U = U_start, Q&#775; = 0
+</p>
 
-The dynamic mass and energy balance is given as
+<p>The dynamic mass and energy balance is given as</p>
 <p align = \"center\" style = \"font-style:italic;\">
 dm/dt = m&#775;<sub>s</sub> + m&#775;<sub>w</sub><Br>
 dU/dt = Q&#775; + m&#775;<sub>s</sub> h<sub>s</sub> + m&#775;
 <sub>w</sub> h<sub>w</sub></p> 
 
-<p>where ̇<i>m&#775;<sub>s</sub></i> and <i>m&#775;<sub>w</sub></i> 
+<p>
+where ̇<i>m&#775;<sub>s</sub></i> and <i>m&#775;<sub>w</sub></i> 
 is the mass flow rates of steam and liquid water
 respectively; <i>Q&#775;</i> is the net heat flow rate through 
 the boiler’s enclosure and from the fuel; 
