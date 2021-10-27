@@ -17,11 +17,13 @@ model BoilerTable
     table=effCur.effCur,
     smoothness=smo,
     extrapolation=ext)
-    "Look-up table that represents a set of efficiency curves varying with both the firing rate (control signal) and the inlet water temperature."
+    "Look-up table that represents a set of efficiency curves varying with both the firing rate (control signal) and the inlet water temperature"
     annotation (Placement(transformation(extent={{-74,64},{-54,84}})));
 
-  Modelica.Blocks.Interfaces.RealInput
-    T_inlet(quantity="ThermodynamicTemperature", unit="K") "Inlet temperature"
+  Modelica.Blocks.Interfaces.RealInput T_inlet(
+    final quantity="ThermodynamicTemperature",
+    final unit="K")
+    "Inlet temperature"
     annotation (Placement(transformation(extent={{-140,16},{-100,56}}),
         iconTransformation(extent={{-140,-64},{-100,-24}})));
 

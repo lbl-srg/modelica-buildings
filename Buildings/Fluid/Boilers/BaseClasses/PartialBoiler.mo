@@ -7,8 +7,7 @@ partial model PartialBoiler "Boiler base class with efficiency unspecified"
 
   parameter Modelica.SIunits.Power Q_flow_nominal "Nominal heating power";
   parameter Modelica.SIunits.Temperature T_nominal = 353.15
-    "Temperature used to compute nominal efficiency 
-    (only used if efficiency curve depends on temperature)";
+    "Temperature used to compute nominal efficiency (only used if efficiency curve depends on temperature)";
   // Assumptions
   parameter Buildings.Fluid.Data.Fuels.Generic fue "Fuel type"
    annotation (choicesAllMatching = true);
