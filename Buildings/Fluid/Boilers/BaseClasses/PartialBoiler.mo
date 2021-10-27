@@ -46,7 +46,7 @@ partial model PartialBoiler "Boiler base class with efficiency unspecified"
     C=500*mDry,
     T(start=T_start))
     if not (energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState)
-    "heat capacity of boiler metal"
+    "Heat capacity of boiler metal"
     annotation (Placement(transformation(extent={{-80,12},{-60,32}})));
 
   Buildings.HeatTransfer.Sources.PrescribedHeatFlow preHeaFlo
