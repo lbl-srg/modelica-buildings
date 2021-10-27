@@ -1,5 +1,5 @@
-within Buildings.Templates.AirHandlersFans.Interfaces;
-partial model HeatRecovery
+within Buildings.Templates.AirHandlersFans.Components.HeatRecovery.Interfaces;
+partial model PartialHeatRecovery
 
   replaceable package MediumAir=Buildings.Media.Air
     constrainedby Modelica.Media.Interfaces.PartialMedium
@@ -13,7 +13,8 @@ partial model HeatRecovery
   outer parameter ExternData.JSONFile dat
     "External parameter file";
 
-  Bus bus if typ <> Buildings.Templates.Components.Types.HeatRecovery.None
+  Buildings.Templates.AirHandlersFans.Interfaces.Bus bus
+    if typ <> Buildings.Templates.Components.Types.HeatRecovery.None
     "Control bus" annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
         rotation=0,
@@ -59,4 +60,4 @@ partial model HeatRecovery
           extent={{-149,-110},{151,-150}},
           lineColor={0,0,255},
           textString="%name")}));
-end HeatRecovery;
+end PartialHeatRecovery;

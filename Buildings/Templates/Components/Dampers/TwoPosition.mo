@@ -1,6 +1,6 @@
 within Buildings.Templates.Components.Dampers;
 model TwoPosition "Two-position damper"
-  extends Buildings.Templates.Components.Interfaces.Damper(
+  extends Buildings.Templates.Components.Dampers.Interfaces.PartialDamper(
     final typ=Types.Damper.TwoPosition);
 
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal=
@@ -54,12 +54,12 @@ equation
   connect(damExp.y_actual, evaSta.u) annotation (Line(points={{5,7},{5,6},{20,6},
           {20,-20},{2.22045e-15,-20},{2.22045e-15,-38}},
                                     color={0,0,127}));
-  connect(bus.out.y, booToRea.u) annotation (Line(
+  connect(bus.y, booToRea.u) annotation (Line(
       points={{0.1,100.1},{2.22045e-15,62}},
       color={255,204,51},
       thickness=0.5));
   connect(booToRea.y, damExp.y)
     annotation (Line(points={{-2.22045e-15,38},{0,12}}, color={0,0,127}));
-  connect(evaSta.y, bus.inp.y_actual) annotation (Line(points={{-2.22045e-15,-62},
+  connect(evaSta.y, bus.y_actual) annotation (Line(points={{-2.22045e-15,-62},
           {0,-62},{0,-80},{40,-80},{40,100.1},{0.1,100.1}}, color={255,0,255}));
 end TwoPosition;

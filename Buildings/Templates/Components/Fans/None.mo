@@ -1,6 +1,7 @@
 within Buildings.Templates.Components.Fans;
 model None "No fan"
-  extends Buildings.Templates.Components.Interfaces.Fan(final typ=Buildings.Templates.Components.Types.Fan.None);
+  extends Buildings.Templates.Components.Fans.Interfaces.PartialFan(
+                                                        final typ=Buildings.Templates.Components.Types.Fan.None);
 equation
   connect(port_a, port_b)
   annotation (Line(points={{-100,0},{6,0},{6,0},{100,0}}, color={0,127,255}));

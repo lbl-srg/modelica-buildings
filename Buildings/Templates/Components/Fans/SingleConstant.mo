@@ -1,6 +1,6 @@
 within Buildings.Templates.Components.Fans;
 model SingleConstant "Single fan - Constant speed"
-  extends Buildings.Templates.Components.Interfaces.Fan(
+  extends Buildings.Templates.Components.Fans.Interfaces.PartialFan(
     final typ=Buildings.Templates.Components.Types.Fan.SingleConstant);
 
   replaceable Fluid.Movers.SpeedControlled_y fan(
@@ -36,7 +36,7 @@ equation
   connect(fan.y_actual, evaSta.u) annotation (Line(points={{11,7},{20,7},{20,-20},
           {2.22045e-15,-20},{2.22045e-15,-38}},
                                  color={0,0,127}));
-  connect(bus.out.y, sigSta.u) annotation (Line(
+  connect(bus.y, sigSta.u) annotation (Line(
       points={{0.1,100.1},{2.22045e-15,62}},
       color={255,204,51},
       thickness=0.5), Text(
@@ -44,7 +44,7 @@ equation
       index=-1,
       extent={{-3,6},{-3,6}},
       horizontalAlignment=TextAlignment.Right));
-  connect(evaSta.y, bus.inp.y_actual) annotation (Line(points={{0,-62},{0,-80},
+  connect(evaSta.y, bus.y_actual) annotation (Line(points={{0,-62},{0,-80},
           {40,-80},{40,100.1},{0.1,100.1}}, color={255,0,255}), Text(
       string="%second",
       index=1,

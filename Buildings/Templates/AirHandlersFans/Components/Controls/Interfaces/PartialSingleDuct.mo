@@ -1,9 +1,11 @@
-within Buildings.Templates.AirHandlersFans.Components.Controls;
+within Buildings.Templates.AirHandlersFans.Components.Controls.Interfaces;
 partial block PartialSingleDuct "Partial control block for single duct AHU"
-  extends Interfaces.Controller;
+  extends
+    .Buildings.Templates.AirHandlersFans.Components.Controls.Interfaces.PartialController;
 
-  outer replaceable Interfaces.OutdoorReliefReturnSection secOutRel
-    "Outdoor/relief/return air section";
+  outer replaceable
+    OutdoorReliefReturnSection.Interfaces.PartialOutdoorReliefReturnSection
+    secOutRel "Outdoor/relief/return air section";
 
   outer replaceable .Buildings.Templates.Components.Coils.None coiCoo
     "Cooling coil";

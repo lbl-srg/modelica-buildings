@@ -49,7 +49,7 @@ equation
           {-11,3}}, color={0,0,127}));
   connect(TDry.y, coi.TConIn) annotation (Line(points={{-39,-20},{-30,-20},{-30,
           3},{-11,3}}, color={0,0,127}));
-  connect(busCon.out.yCoiCoo, coi.stage) annotation (Line(
+  connect(busCon.yCoiCoo, coi.stage) annotation (Line(
       points={{0.1,100.1},{0.1,100.1},{0.1,20},{-20,20},{-20,8},{-11,8}},
       color={255,204,51},
       thickness=0.5), Text(

@@ -1,7 +1,7 @@
 within Buildings.Templates.AirHandlersFans.Components.Controls;
 block OpenLoop "Open loop controller (output signals only)"
   extends
-    Buildings.Templates.AirHandlersFans.Components.Controls.PartialSingleDuct(
+    Buildings.Templates.AirHandlersFans.Components.Controls.Interfaces.PartialSingleDuct(
       final typ=Types.Controller.OpenLoop);
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant yDamOut(k=1)
@@ -88,25 +88,25 @@ block OpenLoop "Open loop controller (output signals only)"
         origin={180,70})));
 
 equation
-  /* Equipment signal connection - start */
+  /* Hardware point connection - start */
 
-  connect(yCoiCoo.y, bus.coiCoo.out.y);
-  connect(yCoiHea.y, bus.coiHea.out.y);
-  connect(yCoiCooSta.y, bus.coiCoo.out.y);
+  connect(yCoiCoo.y, bus.coiCoo.y);
+  connect(yCoiHea.y, bus.coiHea.y);
+  connect(yCoiCooSta.y, bus.coiCoo.y);
 
-  connect(yFanSup.y, bus.fanSup.out.y);
-  connect(ySpeFanSup.y, bus.fanSup.out.ySpe);
-  connect(yFanRet.y, bus.fanRet.out.y);
-  connect(ySpeFanRet.y, bus.fanRet.out.ySpe);
+  connect(yFanSup.y, bus.fanSup.y);
+  connect(ySpeFanSup.y, bus.fanSup.ySpe);
+  connect(yFanRet.y, bus.fanRet.y);
+  connect(ySpeFanRet.y, bus.fanRet.ySpe);
 
-  connect(yDamOut.y, bus.damOut.out.y);
-  connect(yDamOut1.y, bus.damOut.out.y);
-  connect(yDamOutMin.y, bus.damOutMin.out.y);
-  connect(yDamOutMin1.y, bus.damOutMin.out.y);
-  connect(yDamRel.y, bus.damRel.out.y);
-  connect(yDamRel1.y, bus.damRel.out.y);
-  connect(yDamRet.y, bus.damRet.out.y);
-  /* Equipment signal connection - stop */
+  connect(yDamOut.y, bus.damOut.y);
+  connect(yDamOut1.y, bus.damOut.y);
+  connect(yDamOutMin.y, bus.damOutMin.y);
+  connect(yDamOutMin1.y, bus.damOutMin.y);
+  connect(yDamRel.y, bus.damRel.y);
+  connect(yDamRel1.y, bus.damRel.y);
+  connect(yDamRet.y, bus.damRet.y);
+  /* Hardware point connection - stop */
 
   annotation (
   defaultComponentName="conAHU",

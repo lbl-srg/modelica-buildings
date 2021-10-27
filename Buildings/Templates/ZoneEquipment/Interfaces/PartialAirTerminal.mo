@@ -1,5 +1,6 @@
 within Buildings.Templates.ZoneEquipment.Interfaces;
-partial model AirTerminal "Interface class for terminal unit in air system"
+partial model PartialAirTerminal
+  "Interface class for terminal unit in air system"
   replaceable package MediumAir=Buildings.Media.Air
     constrainedby Modelica.Media.Interfaces.PartialMedium
     "Air medium";
@@ -74,4 +75,4 @@ partial model AirTerminal "Interface class for terminal unit in air system"
           fillPattern=FillPattern.Solid,
           fillColor={245,239,184},
           pattern=LinePattern.None)}));
-end AirTerminal;
+end PartialAirTerminal;

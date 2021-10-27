@@ -1,6 +1,6 @@
 within Buildings.Templates.Components.Coils;
 model WaterBasedCooling "Water-based"
-  extends Buildings.Templates.Components.Interfaces.Coil(
+  extends Buildings.Templates.Components.Coils.Interfaces.PartialCoil(
     final typ=Types.Coil.WaterBased,
     final typHex=hex.typ,
     final typAct=act.typ,
@@ -34,12 +34,13 @@ model WaterBasedCooling "Water-based"
     annotation(Dialog(group = "Nominal condition"), Evaluate=true);
 
   replaceable Buildings.Templates.Components.Actuators.None act constrainedby
-    Interfaces.Actuator(redeclare final package Medium = MediumSou) "Actuator"
+    .Buildings.Templates.Components.Actuators.Interfaces.PartialActuator(
+                        redeclare final package Medium = MediumSou) "Actuator"
     annotation (choicesAllMatching=true, Placement(transformation(extent={{-10,
             -70},{10,-50}})));
 
   replaceable Buildings.Templates.Components.HeatExchangers.WetCoilCounterFlow
-    hex constrainedby Interfaces.HeatExchangerWater(
+    hex constrainedby .Buildings.Templates.Components.HeatExchangers.Interfaces.PartialHeatExchangerWater(
     redeclare final package Medium1 = MediumSou,
     redeclare final package Medium2 = MediumAir,
     final m1_flow_nominal=mWat_flow_nominal,
@@ -55,9 +56,9 @@ model WaterBasedCooling "Water-based"
         transformation(extent={{10,4},{-10,-16}})));
 
 equation
-  /* Equipment signal connection - start */
-  connect(bus.out.y, act.y);
-  /* Equipment signal connection - end */
+  /* Hardware point connection - start */
+  connect(bus.y, act.y);
+  /* Hardware point connection - end */
   connect(port_aSou, act.port_aSup) annotation (Line(points={{-40,-100},{-40,-80},
           {-4,-80},{-4,-70}}, color={0,127,255}));
   connect(act.port_bRet, port_bSou) annotation (Line(points={{4,-70},{4,-80},{40,

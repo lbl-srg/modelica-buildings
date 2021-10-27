@@ -3,7 +3,8 @@ package HeatExchangers
   extends Modelica.Icons.Package;
 
   model DXMultiStage "Multi-stage"
-    extends Buildings.Templates.Components.Interfaces.HeatExchangerDX(final typ=
+    extends Buildings.Templates.Components.HeatExchangers.Interfaces.PartialHeatExchangerDX(
+                                                                      final typ=
          Types.HeatExchanger.DXMultiStage);
 
     replaceable parameter
@@ -28,9 +29,9 @@ package HeatExchangers
       annotation (Placement(transformation(extent={{-60,-30},{-40,-10}})));
 
   equation
-    /* Equipment signal connection - start */
-    connect(bus.out.y, coi.stage);
-    /* Equipment signal connection - end */
+    /* Hardware point connection - start */
+    connect(bus.y, coi.stage);
+    /* Hardware point connection - end */
     connect(port_a, coi.port_a)
       annotation (Line(points={{-100,0},{-10,0}}, color={0,127,255}));
     connect(coi.port_b, port_b)
@@ -60,7 +61,8 @@ package HeatExchangers
   end DXMultiStage;
 
   model DXVariableSpeed "Modulating"
-    extends Buildings.Templates.Components.Interfaces.HeatExchangerDX(final typ=
+    extends Buildings.Templates.Components.HeatExchangers.Interfaces.PartialHeatExchangerDX(
+                                                                      final typ=
          Types.HeatExchanger.DXVariableSpeed);
 
     parameter Real minSpeRat(min=0,max=1)=0.1 "Minimum speed ratio";
@@ -90,9 +92,9 @@ package HeatExchangers
     Modelica.Blocks.Routing.RealPassThrough TDry if have_dryCon
       annotation (Placement(transformation(extent={{-60,-30},{-40,-10}})));
   equation
-    /* Equipment signal connection - start */
-    connect(bus.out.y, coi.speRat);
-    /* Equipment signal connection - end */
+    /* Hardware point connection - start */
+    connect(bus.y, coi.speRat);
+    /* Hardware point connection - end */
     connect(port_a, coi.port_a)
       annotation (Line(points={{-100,0},{-10,0}}, color={0,127,255}));
     connect(coi.port_b, port_b)
@@ -122,7 +124,8 @@ package HeatExchangers
   end DXVariableSpeed;
 
   model WetCoilCounterFlow "Discretized wet heat exchanger model"
-    extends Buildings.Templates.Components.Interfaces.HeatExchangerWater(final
+    extends Buildings.Templates.Components.HeatExchangers.Interfaces.PartialHeatExchangerWater(
+                                                                         final
         typ=Types.HeatExchanger.WetCoilCounterFlow);
 
     parameter Modelica.SIunits.ThermalConductance UA_nominal=
@@ -162,7 +165,7 @@ package HeatExchangers
   end WetCoilCounterFlow;
 
   model WetCoilEffectivenessNTU "Effectiveness-NTU wet heat exchanger model"
-    extends Buildings.Templates.Components.Interfaces.HeatExchangerWater(
+    extends Buildings.Templates.Components.HeatExchangers.Interfaces.PartialHeatExchangerWater(
       final typ=Types.HeatExchanger.WetCoilEffectivenessNTU);
 
     parameter Modelica.SIunits.HeatFlowRate Q_flow_nominal(max=0)=
@@ -220,7 +223,8 @@ package HeatExchangers
   end WetCoilEffectivenessNTU;
 
   model DryCoilEffectivenessNTU "Effectiveness-NTU dry heat exchanger model"
-    extends Buildings.Templates.Components.Interfaces.HeatExchangerWater(final
+    extends Buildings.Templates.Components.HeatExchangers.Interfaces.PartialHeatExchangerWater(
+                                                                         final
         typ=Types.HeatExchanger.DryCoilEffectivenessNTU);
 
     parameter Modelica.SIunits.HeatFlowRate Q_flow_nominal(min=0)=
@@ -266,4 +270,82 @@ package HeatExchangers
     annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
           coordinateSystem(preserveAspectRatio=false)));
   end DryCoilEffectivenessNTU;
+
+  package Interfaces "Classes defining the component interfaces"
+    extends Modelica.Icons.InterfacesPackage;
+
+    partial model PartialHeatExchangerDX
+      // Air medium needed for type compatibility with DX coil models.
+      // And binding of m_flow_nominal with performance data record parameter.
+      extends Fluid.Interfaces.PartialTwoPort(
+        redeclare package Medium=Buildings.Media.Air);
+
+      parameter Buildings.Templates.Components.Types.HeatExchanger typ
+        "Type of heat exchanger"
+        annotation (Evaluate=true, Dialog(group="Configuration"));
+      // DX coils get nominal air flow rate from data record.
+      // Only the air pressure drop needs to be declared.
+      parameter Modelica.SIunits.PressureDifference dp_nominal
+        "Air pressure drop"
+        annotation (Dialog(group="Nominal condition"));
+
+      outer parameter String funStr
+        "String used to identify the coil function";
+      outer parameter String id
+        "System identifier";
+      outer parameter ExternData.JSONFile dat
+        "External parameter file";
+
+      BoundaryConditions.WeatherData.Bus busWea
+        "Weather bus"
+        annotation (Placement(
+            transformation(extent={{-80,80},{-40,120}}),
+            iconTransformation(extent={{-70,90},
+                {-50,110}})));
+      Buildings.Templates.Components.Interfaces.Bus bus "Control bus"
+        annotation (Placement(transformation(
+            extent={{-20,-20},{20,20}},
+            rotation=0,
+            origin={0,100}), iconTransformation(
+            extent={{-10,-10},{10,10}},
+            rotation=0,
+            origin={0,100})));
+      annotation (Icon(coordinateSystem(preserveAspectRatio=false),
+        graphics={Rectangle(
+              extent={{-100,100},{100,-100}},
+              lineColor={0,0,255},
+              fillColor={255,255,255},
+              fillPattern=FillPattern.Solid)}), Diagram(
+            coordinateSystem(preserveAspectRatio=false)));
+    end PartialHeatExchangerDX;
+
+    partial model PartialHeatExchangerWater
+      extends Fluid.Interfaces.PartialFourPortInterface;
+
+      parameter Buildings.Templates.Components.Types.HeatExchanger typ
+        "Type of heat exchanger"
+        annotation (Evaluate=true, Dialog(group="Configuration"));
+      parameter Modelica.SIunits.PressureDifference dp1_nominal
+        "Liquid pressure drop"
+        annotation (Dialog(group="Nominal condition"));
+      parameter Modelica.SIunits.PressureDifference dp2_nominal
+        "Air pressure drop"
+        annotation (Dialog(group="Nominal condition"));
+
+      outer parameter String funStr
+        "String used to identify the coil function";
+      outer parameter String id
+        "System identifier";
+      outer parameter ExternData.JSONFile dat
+        "External parameter file";
+
+      annotation (Icon(coordinateSystem(preserveAspectRatio=false),
+        graphics={Rectangle(
+              extent={{-100,100},{100,-100}},
+              lineColor={0,0,255},
+              fillColor={255,255,255},
+              fillPattern=FillPattern.Solid)}), Diagram(
+            coordinateSystem(preserveAspectRatio=false)));
+    end PartialHeatExchangerWater;
+  end Interfaces;
 end HeatExchangers;

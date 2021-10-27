@@ -1,7 +1,8 @@
 within Buildings.Templates.Components.Fans;
 model MultipleVariable
   "Multiple fans (identical) - Variable speed"
-  extends Buildings.Templates.Components.Interfaces.Fan(final typ=Buildings.Templates.Components.Types.Fan.MultipleVariable);
+  extends Buildings.Templates.Components.Fans.Interfaces.PartialFan(
+    final typ=Buildings.Templates.Components.Types.Fan.MultipleVariable);
 
   parameter Integer nFan = 1
     "Number of fans"
@@ -89,7 +90,7 @@ equation
     annotation (Line(points={{-46,68},{-46,62}}, color={0,0,127}));
   connect(sigCon.y, repSig.u) annotation (Line(points={{-40,38},{-40,30},{-16,30},
           {-16,64},{0,64},{0,62}}, color={0,0,127}));
-  connect(bus.out.ySpe, sigCon.u1) annotation (Line(
+  connect(bus.ySpe, sigCon.u1) annotation (Line(
       points={{0.1,100.1},{0.1,68},{-34,68},{-34,62}},
       color={255,204,51},
       thickness=0.5));
@@ -97,9 +98,9 @@ equation
           {0,-36},{0,-38}}, color={0,0,127}));
   connect(evaSta.y, sigRet.u) annotation (Line(points={{-2.22045e-15,-62},{2.22045e-15,
           -68}}, color={255,0,255}));
-  connect(sigRet.y, bus.inp.y_actual) annotation (Line(points={{0,-92},{0,-96},{
+  connect(sigRet.y, bus.y_actual) annotation (Line(points={{0,-92},{0,-96},{
           60,-96},{60,100.1},{0.1,100.1}}, color={255,0,255}));
-  connect(bus.out.y, sigSta.u) annotation (Line(
+  connect(bus.y, sigSta.u) annotation (Line(
       points={{0.1,100.1},{-46,100.1},{-46,92}},
       color={255,204,51},
       thickness=0.5));

@@ -92,7 +92,7 @@ equation
       points={{-70,30},{0,30},{0,20}},
       color={255,204,51},
       thickness=0.5));
-  connect(pInd.p, busAHU.inp.pInd) annotation (Line(points={{59,40},{14,40},{14,
+  connect(pInd.p, busAHU.pInd) annotation (Line(points={{59,40},{14,40},{14,
           40.1},{-19.9,40.1}}, color={0,0,127}), Text(
       string="%second",
       index=1,

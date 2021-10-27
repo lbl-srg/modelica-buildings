@@ -43,16 +43,16 @@ block DummyControlPointsTerminalUnit
     "Zone window sensor"
     annotation (Placement(transformation(extent={{-20,90},{0,110}})));
 equation
-  connect(tNexOcc.y, busTer.sof.tNexOcc);
-  connect(uOccSch.y, busTer.sof.uOccSch);
-  connect(uOveZon.y, busTer.sof.uOveZon);
-  connect(uOcc.y, busTer.inp.uOcc);
-  connect(uWin.y, busTer.inp.uWin);
-  connect(TZon.y, busTer.inp.TZon);
-  connect(TDis.y, busTer.inp.TDis);
-  connect(VDis_flow.y, busTer.inp.VDis_flow);
-  connect(yReqZonTemRes.y, busTer.sof.yReqZonTemRes);
-  connect(yReqZonPreRes.y, busTer.sof.yReqZonPreRes);
+  connect(tNexOcc.y, busTer.tNexOcc);
+  connect(uOccSch.y, busTer.uOccSch);
+  connect(uOveZon.y, busTer.uOveZon);
+  connect(uOcc.y, busTer.uOcc);
+  connect(uWin.y, busTer.uWin);
+  connect(TZon.y, busTer.TZon);
+  connect(TDis.y, busTer.TDis);
+  connect(VDis_flow.y, busTer.VDis_flow);
+  connect(yReqZonTemRes.y, busTer.yReqZonTemRes);
+  connect(yReqZonPreRes.y, busTer.yReqZonPreRes);
 
   annotation (
     defaultComponentName="conPoiDum",

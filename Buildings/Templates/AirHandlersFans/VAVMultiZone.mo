@@ -73,7 +73,8 @@ model VAVMultiZone "Multiple-Zone VAV"
       iconTransformation(extent={{-20,182},{20,218}})));
 
   inner replaceable Components.OutdoorReliefReturnSection.EconomizerWithRelief
-    secOutRel constrainedby Interfaces.OutdoorReliefReturnSection(redeclare
+    secOutRel constrainedby Components.OutdoorReliefReturnSection.Interfaces.PartialOutdoorReliefReturnSection(
+                                                                  redeclare
       final package MediumAir = MediumAir) "Outdoor/relief/return air section"
     annotation (
     choicesAllMatching=true,
@@ -90,7 +91,7 @@ model VAVMultiZone "Multiple-Zone VAV"
             {{-100,-210},{-80,-190}})));
 
   inner replaceable Buildings.Templates.Components.Fans.None fanSupBlo
-    constrainedby Buildings.Templates.Components.Interfaces.Fan(
+    constrainedby Buildings.Templates.Components.Fans.Interfaces.PartialFan(
       redeclare final package  Medium = MediumAir,
       final loc=Buildings.Templates.Components.Types.Location.Supply)
     "Supply fan - Blow through" annotation (
@@ -99,7 +100,7 @@ model VAVMultiZone "Multiple-Zone VAV"
     Placement(transformation(extent={{-70,-210},{-50,-190}})));
 
   inner replaceable .Buildings.Templates.Components.Coils.None coiHea
-    constrainedby Buildings.Templates.Components.Interfaces.Coil(
+    constrainedby Buildings.Templates.Components.Coils.Interfaces.PartialCoil(
     redeclare final package MediumAir = MediumAir,
     redeclare final package MediumSou = MediumHea,
     final fun=Buildings.Templates.Components.Types.CoilFunction.Heating)
@@ -120,7 +121,7 @@ model VAVMultiZone "Multiple-Zone VAV"
             {{-10,-210},{10,-190}})));
 
   inner replaceable Buildings.Templates.Components.Coils.None coiCoo
-    constrainedby Buildings.Templates.Components.Interfaces.Coil(
+    constrainedby Buildings.Templates.Components.Coils.Interfaces.PartialCoil(
     redeclare final package MediumAir = MediumAir,
     redeclare final package MediumSou = MediumCoo,
     final fun=Buildings.Templates.Components.Types.CoilFunction.Cooling)
@@ -141,7 +142,7 @@ model VAVMultiZone "Multiple-Zone VAV"
             {{50,-210},{70,-190}})));
 
   inner replaceable Buildings.Templates.Components.Coils.None coiReh
-    constrainedby Buildings.Templates.Components.Interfaces.Coil(
+    constrainedby Buildings.Templates.Components.Coils.Interfaces.PartialCoil(
     redeclare final package MediumAir = MediumAir,
     redeclare final package MediumSou = MediumHea,
     final fun=Buildings.Templates.Components.Types.CoilFunction.Reheat)
@@ -153,7 +154,7 @@ model VAVMultiZone "Multiple-Zone VAV"
     Placement(transformation(extent={{80,-210},{100,-190}})));
 
   inner replaceable Buildings.Templates.Components.Fans.SingleVariable fanSupDra
-    constrainedby Buildings.Templates.Components.Interfaces.Fan(
+    constrainedby Buildings.Templates.Components.Fans.Interfaces.PartialFan(
       redeclare final package Medium = MediumAir,
       final loc=Buildings.Templates.Components.Types.Location.Supply)
     "Supply fan - Draw through"
@@ -172,7 +173,7 @@ model VAVMultiZone "Multiple-Zone VAV"
             {{140,-210},{160,-190}})));
 
   inner replaceable Components.Controls.OpenLoop conAHU constrainedby
-    Buildings.Templates.AirHandlersFans.Interfaces.Controller
+    Buildings.Templates.AirHandlersFans.Components.Controls.Interfaces.PartialController
     "AHU controller"
     annotation (
     choicesAllMatching=true,
@@ -265,24 +266,23 @@ model VAVMultiZone "Multiple-Zone VAV"
         transformation(extent={{250,-90},{230,-70}})));
 
 equation
-  /* Sensor signal connection - start */
-  connect(TMix.y, bus.inp.TMix);
-  connect(THea.y, bus.inp.THea);
-  connect(VSup_flow.y, bus.inp.VSup_flow);
-  connect(TSup.y, bus.inp.TSup);
-  connect(xSup.y, bus.inp.xSup);
-  connect(pSup_rel.y, bus.inp.pSup_rel);
-  connect(hRet.y, bus.inp.hRet);
-  connect(TRet.y, bus.inp.TRet);
-  connect(pInd_rel.p_rel, bus.inp.pInd_rel);
-  /* Sensor signal connection - end */
-  /* Equipment signal connection - start */
+  /* Hardware point connection - start */
+  connect(TMix.y, bus.TMix);
+  connect(THea.y, bus.THea);
+  connect(VSup_flow.y, bus.VSup_flow);
+  connect(TSup.y, bus.TSup);
+  connect(xSup.y, bus.xSup);
+  connect(pSup_rel.y, bus.pSup_rel);
+  connect(hRet.y, bus.hRet);
+  connect(TRet.y, bus.TRet);
+  connect(pInd_rel.p_rel, bus.pInd_rel);
+
   connect(fanSupDra.bus, bus.fanSup);
   connect(fanSupBlo.bus, bus.fanSup);
   connect(coiHea.bus, bus.coiHea);
   connect(coiCoo.bus, bus.coiCoo);
   connect(coiReh.bus, bus.coiHea);
-  /* Equipment signal connection - end */
+  /* Hardware point connection - end */
 
   connect(port_coiCooSup, coiCoo.port_aSou) annotation (Line(points={{20,-280},{
           20,-220},{26,-220},{26,-210}},   color={0,127,255}));
@@ -345,8 +345,8 @@ equation
       index=1,
       extent={{-6,3},{-6,3}},
       horizontalAlignment=TextAlignment.Right));
-  connect(bus.inp.pInd, ind.p_in) annotation (Line(
-      points={{-300.1,0.1},{60,0.1},{60,268},{48,268},{48,262}},
+  connect(bus.pInd, ind.p_in) annotation (Line(
+      points={{-300,0},{60,0},{60,268},{48,268},{48,262}},
       color={255,204,51},
       thickness=0.5), Text(
       string="%first",

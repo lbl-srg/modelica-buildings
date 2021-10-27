@@ -1,6 +1,6 @@
 within Buildings.Templates.Components.Dampers;
 model PressureIndependent "Pressure independent damper"
-  extends Buildings.Templates.Components.Interfaces.Damper(
+  extends Buildings.Templates.Components.Dampers.Interfaces.PartialDamper(
     final typ=Types.Damper.PressureIndependent);
 
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal=
@@ -35,12 +35,12 @@ equation
     annotation (Line(points={{-100,0},{-50,0}}, color={0,127,255}));
   connect(VDis_flow.port_b, damPreInd.port_a)
     annotation (Line(points={{-30,0},{-10,0}}, color={0,127,255}));
-  connect(bus.out.y, damPreInd.y) annotation (Line(
+  connect(bus.y, damPreInd.y) annotation (Line(
       points={{0.1,100.1},{0.1,56},{0,56},{0,12}},
       color={255,204,51},
       thickness=0.5));
-  connect(damPreInd.y_actual, bus.inp.y_actual) annotation (Line(points={{5,7},
+  connect(damPreInd.y_actual, bus.y_actual) annotation (Line(points={{5,7},
           {40,7},{40,100.1},{0.1,100.1}}, color={0,0,127}));
-  connect(VDis_flow.V_flow, bus.inp.V_flow) annotation (Line(points={{-40,11},{
+  connect(VDis_flow.V_flow, bus.V_flow) annotation (Line(points={{-40,11},{
           -40,100},{-20,100},{-20,100.1},{0.1,100.1}}, color={0,0,127}));
 end PressureIndependent;

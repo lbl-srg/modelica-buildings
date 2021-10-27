@@ -47,30 +47,20 @@ block DummyControlPointsAHU
     "yReqOutAir from AHU controller"
     annotation (Placement(transformation(extent={{40,90},{60,110}})));
 equation
-  connect(TZon.y,busAHU. inp.TZon);
+  connect(TZon.y,busAHU. TZon);
 
-  connect(TZonHeaOccSet.y,busAHU. sof.TZonHeaOccSet);
-  connect(TZonCooOccSet.y,busAHU. sof.TZonCooOccSet);
-  connect(TZonHeaUnoSet.y,busAHU. sof.TZonHeaUnoSet);
-  connect(TZonCooUnoSet.y,busAHU. sof.TZonCooUnoSet);
-  connect(TSupSet.y,busAHU. sof.TSupSet);
-  connect(yOpeMod.y,busAHU. sof.yOpeMod);
-  connect(uHeaDemLimLev.y,busAHU. sof.uHeaDemLimLev);
-  connect(uCooDemLimLev.y,busAHU. sof.uCooDemLimLev);
+  connect(TZonHeaOccSet.y, busAHU.TZonHeaOccSet);
+  connect(TZonCooOccSet.y, busAHU.TZonCooOccSet);
+  connect(TZonHeaUnoSet.y, busAHU.TZonHeaUnoSet);
+  connect(TZonCooUnoSet.y, busAHU.TZonCooUnoSet);
+  connect(TSupSet.y, busAHU.TSupSet);
+  connect(yOpeMod.y, busAHU.yOpeMod);
+  connect(uHeaDemLimLev.y, busAHU.uHeaDemLimLev);
+  connect(uCooDemLimLev.y, busAHU.uCooDemLimLev);
 
-  connect(yReqOutAir.y,busAHU. sof.yReqOutAir) annotation (Line(points={{62,100},
-          {174,100},{174,0.1},{200.1,0.1}}, color={255,0,255}), Text(
-      string="%second",
-      index=1,
-      extent={{6,3},{6,3}},
-      horizontalAlignment=TextAlignment.Left));
-  connect(VDesUncOutAir_flow.y,busAHU. sof.VDesUncOutAir_flow) annotation (Line(
-        points={{62,140},{180,140},{180,0.1},{200.1,0.1}}, color={0,0,127}),
-      Text(
-      string="%second",
-      index=1,
-      extent={{6,3},{6,3}},
-      horizontalAlignment=TextAlignment.Left));
+  connect(yReqOutAir.y, busAHU.yReqOutAir);
+  connect(VDesUncOutAir_flow.y, busAHU.VDesUncOutAir_flow);
+
   annotation (
     defaultComponentName="conPoiDum",
     Diagram(coordinateSystem(preserveAspectRatio=

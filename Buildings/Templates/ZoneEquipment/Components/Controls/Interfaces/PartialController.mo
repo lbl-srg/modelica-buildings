@@ -1,5 +1,5 @@
-within Buildings.Templates.ZoneEquipment.Interfaces;
-partial block Controller
+within Buildings.Templates.ZoneEquipment.Components.Controls.Interfaces;
+partial block PartialController
 
   parameter ZoneEquipment.Types.Controller typ "Type of controller"
     annotation (Evaluate=true, Dialog(group="Configuration"));
@@ -9,7 +9,8 @@ partial block Controller
   outer parameter ExternData.JSONFile dat
     "External parameter file";
 
-  Bus bus "Terminal unit control bus" annotation (Placement(transformation(
+  Buildings.Templates.ZoneEquipment.Interfaces.Bus bus
+    "Terminal unit control bus" annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
         rotation=90,
         origin={-200,0}), iconTransformation(
@@ -28,4 +29,4 @@ partial block Controller
           textString="%name")}),                                 Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-200,-200},{220,
             200}})));
-end Controller;
+end PartialController;

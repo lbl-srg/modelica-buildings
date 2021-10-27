@@ -15,7 +15,7 @@ model NestedUndeclaredExpandable
     Buildings.Controls.OBC.CDL.Interfaces.RealInput y;
     Buildings.Templates.Components.Interfaces.Bus bus;
   equation
-    connect(bus.out.y, y);
+    connect(bus.y, y);
   end Fan;
 
   block Controller
@@ -24,7 +24,7 @@ model NestedUndeclaredExpandable
     Buildings.Templates.AirHandlersFans.Interfaces.Bus bus;
   equation
     yFan = 1;
-    connect(yFan, bus.fan.out.y);
+    connect(yFan, bus.fan.y);
   end Controller;
 
   AHU ahu;

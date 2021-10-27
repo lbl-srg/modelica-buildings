@@ -1,6 +1,6 @@
 within Buildings.Templates.ZoneEquipment;
 model VAVBox "VAV terminal unit"
-  extends Buildings.Templates.ZoneEquipment.Interfaces.AirTerminal(
+  extends Buildings.Templates.ZoneEquipment.Interfaces.PartialAirTerminal(
                                                                  final typ=
         Types.Configuration.SingleDuct);
 
@@ -25,7 +25,7 @@ model VAVBox "VAV terminal unit"
       iconTransformation(extent={{10,-208},{30,-188}})));
 
   inner replaceable .Buildings.Templates.Components.Coils.None coiReh
-    constrainedby .Buildings.Templates.Components.Interfaces.Coil(
+    constrainedby .Buildings.Templates.Components.Coils.Interfaces.PartialCoil(
       redeclare final package MediumAir = MediumAir,
       redeclare final package MediumSou =  MediumHea,
       final fun=Templates.Components.Types.CoilFunction.Reheat)
@@ -37,7 +37,7 @@ model VAVBox "VAV terminal unit"
     Placement(transformation(extent={{-10,-210},{10,-190}})));
 
   inner replaceable .Buildings.Templates.Components.Dampers.PressureIndependent
-    damVAV constrainedby Buildings.Templates.Components.Interfaces.Damper(
+    damVAV constrainedby Buildings.Templates.Components.Dampers.Interfaces.PartialDamper(
       redeclare final package Medium = MediumAir, final loc=.Buildings.Templates.Components.Types.Location.Terminal)
     "VAV damper" annotation (Dialog(group="VAV damper"), Placement(
         transformation(
@@ -46,7 +46,7 @@ model VAVBox "VAV terminal unit"
         origin={-120,-200})));
 
   inner replaceable Components.Controls.OpenLoop conTer constrainedby
-    Buildings.Templates.ZoneEquipment.Interfaces.Controller
+    Buildings.Templates.ZoneEquipment.Components.Controls.Interfaces.PartialController
     "Terminal unit controller" annotation (
     choicesAllMatching=true,
     Dialog(group="Controller"),
@@ -59,10 +59,11 @@ model VAVBox "VAV terminal unit"
     "Discharge air temperature sensor"
     annotation (Placement(transformation(extent={{90,-210},{110,-190}})));
 equation
-  /* Equipment signal connection - start */
+  /* Hardware point connection - start */
   connect(damVAV.bus, bus.damVAV);
   connect(coiReh.bus, bus.coiReh);
-  /* Equipment signal connection - end */
+  connect(TDis.y, bus.TDis);
+  /* Hardware point connection - end */
   connect(port_coiRehSup, coiReh.port_aSou) annotation (Line(points={{-20,-280},
           {-20,-220},{-4,-220},{-4,-210}}, color={0,127,255}));
   connect(coiReh.port_bSou, port_coiRehRet) annotation (Line(points={{4,-210},{
@@ -79,10 +80,5 @@ equation
     annotation (Line(points={{10,-200},{90,-200}}, color={0,127,255}));
   connect(TDis.port_b, port_Dis)
     annotation (Line(points={{110,-200},{300,-200}}, color={0,127,255}));
-  connect(TDis.y, bus.inp.TDis) annotation (Line(points={{100,-188},{100,0},{-300.1,
-          0},{-300.1,0.1}}, color={0,0,127}), Text(
-      string="%second",
-      index=1,
-      extent={{-3,6},{-3,6}},
-      horizontalAlignment=TextAlignment.Right));
+
 end VAVBox;

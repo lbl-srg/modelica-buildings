@@ -1,6 +1,6 @@
 within Buildings.Templates.Components.Coils;
 model DirectExpansion "Direct expansion"
-  extends Buildings.Templates.Components.Interfaces.Coil(
+  extends Buildings.Templates.Components.Coils.Interfaces.PartialCoil(
     final typ=Types.Coil.DirectExpansion,
     final typHex=hex.typ,
     final typAct=Types.Actuator.None,
@@ -20,8 +20,10 @@ model DirectExpansion "Direct expansion"
       Dialog(group="Nominal condition"),
       Evaluate=true);
 
-  replaceable Interfaces.HeatExchangerDX hex(redeclare final package Medium =
-        MediumAir, final dp_nominal=dpAir_nominal) "Heat exchanger"
+  replaceable
+    .Buildings.Templates.Components.HeatExchangers.Interfaces.PartialHeatExchangerDX
+    hex(redeclare final package Medium = MediumAir, final dp_nominal=
+        dpAir_nominal) "Heat exchanger"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 equation
   connect(port_a, hex.port_a)
