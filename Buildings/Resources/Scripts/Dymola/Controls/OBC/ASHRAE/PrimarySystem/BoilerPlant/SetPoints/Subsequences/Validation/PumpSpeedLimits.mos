@@ -1,0 +1,8 @@
+﻿simulateModel("Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.SetPoints.Subsequences.Validation.PumpSpeedLimits", startTime=0,tolerance=1e-6, stopTime=60, method="dassl", resultFile="PumpSpeedLimits");
+
+createPlot(id=1, position={0, 0, 1545, 978}, y={"pumSpeLim.uRegSig"}, range={0.0, 60.0, 54.0, 66.0}, grid=true, colors={{28,108,200}});
+createPlot(id=1, position={0, 0, 1545, 329}, y={"pumSpeLim.yMaxSecPumSpe"}, range={0.0, 60.0, -0.1, 1.1}, autoscale=false, grid=true, subPlot=2, colors={{28,108,200}});
+createPlot(id=1, position={0, 0, 1545, 329}, y={"pumSpeLim.yMinPriPumSpe"}, range={0.0, 60.0, -0.1, 1.1}, autoscale=false, grid=true, subPlot=3, colors={{28,108,200}});
+
+createPlot(id=2, position={0, 0, 1545, 978}, y={"pumSpeLim1.uRegSig"}, range={0.0, 60.0, 54.0, 66.0}, grid=true, colors={{28,108,200}});
+createPlot(id=2, position={0, 0, 1545, 486}, y={"pumSpeLim1.yMaxSecPumSpe"}, range={0.0, 60.0, -0.1, 1.1}, autoscale=false, grid=true, subPlot=2, colors={{28,108,200}});

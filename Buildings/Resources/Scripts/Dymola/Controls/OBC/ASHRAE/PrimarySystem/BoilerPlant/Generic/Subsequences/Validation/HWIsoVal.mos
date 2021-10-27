@@ -1,0 +1,11 @@
+simulateModel("Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Generic.Subsequences.Validation.HWIsoVal", method="Cvode", stopTime=3600, tolerance=1e-06, resultFile="HWIsoValClose");
+
+createPlot(id=1, position={20, 10, 800, 1200}, subPlot=1, y={"cloHotIsoVal.uHotWatIsoVal"}, range={0.0, 4.0, 0, 0.02}, grid=true, colors={{28,108,200}});
+createPlot(id=1, position={20, 10, 800, 1200}, subPlot=2, y={"cloHotIsoVal.chaPro","cloHotIsoVal.uUpsDevSta"}, range={0.0, 4.0, 0, 0.02}, grid=true, colors={{28,108,200},{238,46,47}});
+createPlot(id=1, position={20, 10, 800, 1200}, subPlot=3, y={"cloHotIsoVal.yHotWatIsoVal"}, range={0.0, 4.0, 0, 0.02}, grid=true, colors={{28,108,200}});
+createPlot(id=1, position={20, 10, 800, 1200}, subPlot=4, y={"cloHotIsoVal.yDisHotWatIsoVal"}, range={0.0, 4.0, 0, 0.02}, grid=true, colors={{28,108,200}});
+
+createPlot(id=2, position={830, 10, 800, 1200}, subPlot=1, y={"cloHotIsoVal1.uHotWatIsoVal"}, range={0.0, 4.0, 0, 0.02}, grid=true, colors={{28,108,200}});
+createPlot(id=2, position={830, 10, 800, 1200}, subPlot=2, y={"cloHotIsoVal1.chaPro","cloHotIsoVal1.uUpsDevSta"}, range={0.0, 4.0, 0, 0.02}, grid=true, colors={{28,108,200},{238,46,47}});
+createPlot(id=2, position={830, 10, 800, 1200}, subPlot=3, y={"cloHotIsoVal1.yHotWatIsoVal"}, range={0.0, 4.0, 0, 0.02}, grid=true, colors={{28,108,200}});
+createPlot(id=2, position={830, 10, 800, 1200}, subPlot=4, y={"cloHotIsoVal1.yDisHotWatIsoVal"}, range={0.0, 4.0, 0, 0.02}, grid=true, colors={{28,108,200}});

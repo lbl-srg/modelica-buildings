@@ -5,7 +5,7 @@ createPlot(id=1, position={0, 0, 1596, 195}, y={"plaEna.TOutLoc", "plaEna.TOut"}
 createPlot(id=1, position={0, 0, 1596, 196}, y={"plaEna.enaSch.y[1]"}, range={0.0, 7200.0, -0.5, 1.5}, grid=true, subPlot=3, colors={{28,108,200}});
 createPlot(id=1, position={0, 0, 1596, 195}, y={"plaEna.tim.y", "plaEna.tim2.y", "plaEna.plaOffThrTim", "plaEna.plaOnThrTim"}, range={0.0, 7200.0, -1000.0, 4000.0}, grid=true, subPlot=4, colors={{28,108,200}, {238,46,47}, {0,140,72}, {217,67,180}});
 createPlot(id=1, position={0, 0, 1596, 196}, y={"plaEna.yPla"}, range={0.0, 7200.0, -0.5, 1.5}, grid=true, subPlot=5, colors={{28,108,200}});
-ExportPlotAsImage("./Resources/Images/Controls/OBC/ASHRAE/PrimarySystem/BoilerPlant/Generic/PlantEnable.png", 1, true, false);
+//ExportPlotAsImage("./Resources/Images/Controls/OBC/ASHRAE/PrimarySystem/BoilerPlant/Generic/PlantEnable.png", 1, true, false);
 
 createPlot(id=2, position={0, 0, 1596, 998}, y={"plaEna1.nIgnReq", "plaEna1.supResReq"}, range={0.0, 7200.0, -2.0, 6.0}, grid=true, colors={{28,108,200}, {28,108,200}});
 createPlot(id=2, position={0, 0, 1596, 195}, y={"plaEna1.TOutLoc", "plaEna1.TOut"}, range={0.0, 7200.0, 298.5, 301.0}, grid=true, subPlot=2, colors={{28,108,200}, {238,46,47}});

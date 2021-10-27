@@ -1,0 +1,18 @@
+﻿simulateModel("Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Generic.Validation.PlantDisable", startTime=0,tolerance=1e-6, stopTime=900, outputInterval=1, method="dassl", resultFile="PlantDisable");
+removePlots(false);
+createPlot(id=1, position={849, 0, 831, 939}, y={"plaDis.uPla"}, range={0.0, 900.0, -0.5, 1.5}, grid=true, colors={{28,108,200}});
+createPlot(id=1, position={849, 0, 831, 184}, y={"plaDis.uBoi[1]", "plaDis.uBoi[2]"}, range={0.0, 900.0, -0.5, 1.5}, grid=true, subPlot=2, colors={{28,108,200}, {28,108,200}});
+createPlot(id=1, position={849, 0, 831, 183}, y={"plaDis.uHotWatIsoVal[1]", "plaDis.uHotWatIsoVal[2]"}, range={0.0, 900.0, -0.5, 1.5}, grid=true, subPlot=3, colors={{28,108,200}, {238,46,47}});
+createPlot(id=1, position={849, 0, 831, 184}, y={"plaDis.yBoi[1]", "plaDis.yBoi[2]"}, range={0.0, 900.0, -0.5, 1.5}, grid=true, subPlot=4, colors={{28,108,200}, {28,108,200}});
+createPlot(id=1, position={849, 0, 831, 184}, y={"truFalHol.y"}, range={0.0, 900.0, -0.5, 1.5}, grid=true, subPlot=5, colors={{28,108,200}});
+
+createPlot(id=2, position={160, 947, 833, 939}, y={"plaDis1.uPla"}, range={0.0, 900.0, -0.5, 1.5}, grid=true, colors={{28,108,200}});
+createPlot(id=2, position={160, 947, 833, 184}, y={"plaDis1.uBoi[1]", "plaDis1.uBoi[2]"}, range={0.0, 900.0, -0.5, 1.5}, grid=true, subPlot=2, colors={{28,108,200}, {28,108,200}});
+createPlot(id=2, position={160, 947, 833, 183}, y={"plaDis1.uHotWatIsoVal[1]", "plaDis1.uHotWatIsoVal[2]"}, range={0.0, 900.0, -0.5, 1.5}, grid=true, subPlot=3, colors={{28,108,200}, {238,46,47}});
+createPlot(id=2, position={160, 947, 833, 184}, y={"plaDis1.yBoi[1]", "plaDis1.yBoi[2]"}, range={0.0, 900.0, -0.5, 1.5}, grid=true, subPlot=4, colors={{28,108,200}, {28,108,200}});
+createPlot(id=2, position={160, 947, 833, 184}, y={"truFalHol1.y"}, range={0.0, 900.0, -0.5, 1.5}, grid=true, subPlot=5, colors={{28,108,200}});
+
+createPlot(id=3, position={0, 0, 833, 939}, y={"plaDis2.uPla"}, range={0.0, 900.0, -0.2, 1.2000000000000002}, grid=true, colors={{28,108,200}});
+createPlot(id=3, position={0, 0, 833, 231}, y={"plaDis2.uBoi[1]", "plaDis2.uBoi[2]"}, range={0.0, 900.0, -0.2, 1.2000000000000002}, grid=true, subPlot=2, colors={{28,108,200}, {28,108,200}});
+createPlot(id=3, position={0, 0, 833, 231}, y={"plaDis2.yBoi[1]", "plaDis2.yBoi[2]"}, range={0.0, 900.0, -0.2, 1.2000000000000002}, grid=true, subPlot=3, colors={{28,108,200}, {28,108,200}});
+createPlot(id=3, position={0, 0, 833, 231}, y={"truFalHol2.y"}, range={0.0, 900.0, -0.2, 1.2000000000000002}, grid=true, subPlot=4, colors={{28,108,200}});
