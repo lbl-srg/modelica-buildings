@@ -78,24 +78,24 @@ model BoilerPolynomialSteam
     "Heat capacity of boiler metal"
     annotation (Placement(transformation(extent={{-80,12},{-60,32}})));
   MixingVolumes.MixingVolumeEvaporation vol(
-    redeclare package MediumSte = MediumSte,
-    redeclare package MediumWat = MediumWat,
-    allowFlowReversal=allowFlowReversal,
-    energyDynamics=energyDynamics,
-    massDynamics=massDynamics,
-    p_start=p_start,
-    T_start=T_start,
-    m_flow_nominal=m_flow_nominal,
-    show_T=show_T,
-    V=V)
+    redeclare final package MediumSte = MediumSte,
+    redeclare final package MediumWat = MediumWat,
+    final allowFlowReversal=allowFlowReversal,
+    final energyDynamics=energyDynamics,
+    final massDynamics=massDynamics,
+    final p_start=p_start,
+    final T_start=T_start,
+    final m_flow_nominal=m_flow_nominal,
+    final show_T=show_T,
+    final V=V)
     "Steam/water mixing volume"
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
   Buildings.Fluid.FixedResistances.PressureDrop res(
-    redeclare package Medium = MediumWat,
-    allowFlowReversal=allowFlowReversal,
-    m_flow_nominal=m_flow_nominal,
-    show_T=show_T,
-    dp_nominal=dp_nominal)
+    redeclare final package Medium = MediumWat,
+    final allowFlowReversal=allowFlowReversal,
+    final m_flow_nominal=m_flow_nominal,
+    final show_T=show_T,
+    final dp_nominal=dp_nominal)
     "Flow resistance"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
 
@@ -209,11 +209,10 @@ equation
 This model represents a steam boiler that discharges saturated 
 steam and has an efficiency curve defined by a polynomial.
 This model is similar to the 
-<a href = \"modelica:// Buildings.Fluid.Boilers.BoilerPolynomial\"> 
+<a href=\"modelica://Buildings.Fluid.Boilers.BoilerPolynomial\"> 
 Buildings.Fluid.Boilers.BoilerPolynomial</a> for the efficiency 
 and fuel mass flow rate computation with the following exceptions:
 </p>
-<p>
 <ul>
 <li>
 Water enters <code>port_a</code> in liquid state and exits 
@@ -230,7 +229,7 @@ the model. The removed blocks are within the green region in the below
 figure:
 </li>
 </ul>
-</p>
+
 <p align=\"center\">
 <img src=\"modelica://Buildings/Resources/Images/Fluid/Boilers/BoilerPolynomialSteam.png\" border=\"1\"
 alt=\"Boiler polynomial steam with blocks in green conditionally removed if steady state\"/>
@@ -239,10 +238,10 @@ alt=\"Boiler polynomial steam with blocks in green conditionally removed if stea
 <p>
 In order to improve the numerical efficiency, this model follows 
 the split-medium approach using the
-<a href = \"modelica://Buildings.Fluid.Interfaces.PartialTwoPortTwoMedium\">
+<a href=\"modelica://Buildings.Fluid.Interfaces.PartialTwoPortTwoMedium\">
 Buildings.Fluid.Interfaces.PartialTwoPortTwoMedium</a> interface model.
 The saturated mixing volume for an evaporation process 
-<a href = \"modelica:// Buildings.Fluid.MixingVolumes.MixingVolumeEvaporation\">
+<a href=\"modelica://Buildings.Fluid.MixingVolumes.MixingVolumeEvaporation\">
 Buildings.Fluid.MixingVolumes.MixingVolumeEvaporation</a> is 
 represents the phase change process of water from liquid 
 to vapor at equilibrium.
