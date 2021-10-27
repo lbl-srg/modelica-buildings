@@ -19,13 +19,13 @@ model BoilerTable
     nPorts=3,
     p(displayUnit="Pa") = 300000,
     T=354.15) "Sink"
-    annotation (Placement(transformation(extent={{72,-16},{52,4}})));
+    annotation (Placement(transformation(extent={{82,-16},{62,4}})));
   Buildings.Fluid.Sources.Boundary_pT sou(
     redeclare package Medium = Medium,
     p=300000 + dp_nominal,
     use_T_in=true,
     nPorts=4) "Source"
-    annotation (Placement(transformation(extent={{-64,-16},{-44,4}})));
+    annotation (Placement(transformation(extent={{-54,-16},{-34,4}})));
   Buildings.Fluid.Boilers.BoilerTable boi1(
     Q_flow_nominal=Q_flow_nominal,
     m_flow_nominal=m_flow_nominal,
@@ -40,10 +40,10 @@ model BoilerTable
     smo=Modelica.Blocks.Types.Smoothness.ContinuousDerivative,
     ext=Modelica.Blocks.Types.Extrapolation.HoldLastPoint,
     T_inlet_nominal=323.15) "Boiler 1 set at 5% firing rate"
-    annotation (Placement(transformation(extent={{10,44},{30,64}})));
+    annotation (Placement(transformation(extent={{20,44},{40,64}})));
   Buildings.HeatTransfer.Sources.FixedTemperature
     TAmb1(T=288.15) "Ambient temperature in boiler room"
-    annotation (Placement(transformation(extent={{-10,72},{10,92}})));
+    annotation (Placement(transformation(extent={{0,72},{20,92}})));
   Buildings.Fluid.Boilers.BoilerTable boi2(
     Q_flow_nominal=Q_flow_nominal,
     m_flow_nominal=m_flow_nominal,
@@ -58,10 +58,10 @@ model BoilerTable
     smo=Modelica.Blocks.Types.Smoothness.ContinuousDerivative,
     ext=Modelica.Blocks.Types.Extrapolation.HoldLastPoint,
     T_inlet_nominal=323.15) "Boiler 2 set at 50% firing rate"
-    annotation (Placement(transformation(extent={{10,-16},{30,4}})));
+    annotation (Placement(transformation(extent={{20,-16},{40,4}})));
   Buildings.HeatTransfer.Sources.FixedTemperature
     TAmb2(T=288.15) "Ambient temperature in boiler room"
-    annotation (Placement(transformation(extent={{-10,12},{10,32}})));
+    annotation (Placement(transformation(extent={{0,12},{20,32}})));
   Buildings.Fluid.Boilers.BoilerTable boi3(
     Q_flow_nominal=Q_flow_nominal,
     m_flow_nominal=m_flow_nominal,
@@ -76,15 +76,13 @@ model BoilerTable
     smo=Modelica.Blocks.Types.Smoothness.ContinuousDerivative,
     ext=Modelica.Blocks.Types.Extrapolation.HoldLastPoint,
     T_inlet_nominal=323.15) "Boiler 3 set at 100% firing rate"
-    annotation (Placement(transformation(extent={{10,-76},{30,-56}})));
+    annotation (Placement(transformation(extent={{20,-76},{40,-56}})));
   HeatTransfer.Sources.FixedTemperature
     TAmb3(T=288.15) "Ambient temperature in boiler room"
-    annotation (Placement(transformation(extent={{-10,-48},{10,-28}})));
+    annotation (Placement(transformation(extent={{0,-48},{20,-28}})));
   Sensors.Temperature senTem(
     redeclare package Medium = Medium)
-    annotation (Placement(transformation(extent={{-54,40},{-34,60}})));
-  Modelica.Blocks.Sources.TimeTable T_inlet(table=[0,294.3; 3600,344.3])
-    annotation (Placement(transformation(extent={{-58,-50},{-38,-30}})));
+    annotation (Placement(transformation(extent={{-44,40},{-24,60}})));
 
   Modelica.Blocks.Sources.Constant y1(k=0.05)
     "Setting the firing rate at constant 5%"
@@ -95,50 +93,55 @@ model BoilerTable
   Modelica.Blocks.Sources.Constant y3(k=1)
     "Setting the firing rate at constant 100%"
     annotation (Placement(transformation(extent={{-90,-80},{-70,-60}})));
+  Modelica.Blocks.Sources.Ramp T_inlet(
+    height=50,
+    duration=3600,
+    offset=294.3)
+    "Ramps the T_inlet from 294.3 K to 344.3 K "
+    annotation (Placement(transformation(extent={{-90,-20},{-70,0}})));
 equation
   connect(TAmb1.port, boi1.heatPort) annotation (Line(
-      points={{10,82},{20,82},{20,61.2}},
+      points={{20,82},{30,82},{30,61.2}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(TAmb2.port, boi2.heatPort) annotation (Line(
-      points={{10,22},{20,22},{20,1.2}},
+      points={{20,22},{30,22},{30,1.2}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(boi2.port_b, sin.ports[2]) annotation (Line(
-      points={{30,-6},{52,-6}},
+      points={{40,-6},{62,-6}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(boi1.port_b, sin.ports[1]) annotation (Line(
-      points={{30,54},{36,54},{36,-3.33333},{52,-3.33333}},
+      points={{40,54},{46,54},{46,-3.33333},{62,-3.33333}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(TAmb3.port, boi3.heatPort)
-    annotation (Line(points={{10,-38},{20,-38},{20,-58.8}}, color={191,0,0}));
-  connect(boi3.port_b, sin.ports[3]) annotation (Line(points={{30,-66},{36,-66},
-          {36,-8.66667},{52,-8.66667}}, color={0,127,255}));
-  connect(boi1.port_a, sou.ports[1]) annotation (Line(points={{10,54},{-26,54},{
-          -26,-3},{-44,-3}},  color={0,127,255}));
-  connect(boi3.port_a, sou.ports[2]) annotation (Line(points={{10,-66},{-26,-66},
-          {-26,-10},{-44,-10},{-44,-5}}, color={0,127,255}));
+    annotation (Line(points={{20,-38},{30,-38},{30,-58.8}}, color={191,0,0}));
+  connect(boi3.port_b, sin.ports[3]) annotation (Line(points={{40,-66},{46,-66},
+          {46,-8.66667},{62,-8.66667}}, color={0,127,255}));
+  connect(boi1.port_a, sou.ports[1]) annotation (Line(points={{20,54},{-16,54},{
+          -16,-3},{-34,-3}},  color={0,127,255}));
+  connect(boi3.port_a, sou.ports[2]) annotation (Line(points={{20,-66},{-16,-66},
+          {-16,-10},{-34,-10},{-34,-5}}, color={0,127,255}));
   connect(senTem.port, sou.ports[3])
-    annotation (Line(points={{-44,40},{-44,-7}},  color={0,127,255}));
-  connect(boi2.T_inlet, senTem.T) annotation (Line(points={{8,-10.4},{-4,-10.4},
-          {-4,-10},{-14,-10},{-14,50},{-37,50}},
-                                              color={0,0,127}));
-  connect(boi3.T_inlet, senTem.T) annotation (Line(points={{8,-70.4},{-14,-70.4},
-          {-14,50},{-37,50}}, color={0,0,127}));
-  connect(T_inlet.y, sou.T_in) annotation (Line(points={{-37,-40},{-32,-40},{-32,
-          -24},{-72,-24},{-72,-2},{-66,-2}},      color={0,0,127}));
-  connect(boi1.T_inlet, senTem.T) annotation (Line(points={{8,49.6},{-4,49.6},{-4,
-          50},{-37,50}},      color={0,0,127}));
-  connect(boi2.port_a, sou.ports[4]) annotation (Line(points={{10,-6},{-44,-6},
-          {-44,-9}},         color={0,127,255}));
-  connect(y1.y, boi1.y) annotation (Line(points={{-69,70},{-26,70},{-26,62},{8,
+    annotation (Line(points={{-34,40},{-34,-7}},  color={0,127,255}));
+  connect(boi2.T_inlet, senTem.T) annotation (Line(points={{18,-10.4},{6,-10.4},
+          {6,-10},{-4,-10},{-4,50},{-27,50}}, color={0,0,127}));
+  connect(boi3.T_inlet, senTem.T) annotation (Line(points={{18,-70.4},{-4,-70.4},
+          {-4,50},{-27,50}},  color={0,0,127}));
+  connect(boi1.T_inlet, senTem.T) annotation (Line(points={{18,49.6},{6,49.6},{
+          6,50},{-27,50}},    color={0,0,127}));
+  connect(boi2.port_a, sou.ports[4]) annotation (Line(points={{20,-6},{-34,-6},{
+          -34,-9}},          color={0,127,255}));
+  connect(y1.y, boi1.y) annotation (Line(points={{-69,70},{-16,70},{-16,62},{18,
           62}}, color={0,0,127}));
-  connect(y2.y, boi2.y) annotation (Line(points={{-69,30},{-36,30},{-36,2},{8,2}},
+  connect(y2.y, boi2.y) annotation (Line(points={{-69,30},{-26,30},{-26,2},{18,2}},
         color={0,0,127}));
-  connect(y3.y, boi3.y) annotation (Line(points={{-69,-70},{-34,-70},{-34,-58},
-          {8,-58}}, color={0,0,127}));
+  connect(y3.y, boi3.y) annotation (Line(points={{-69,-70},{-26,-70},{-26,-58},{
+          18,-58}}, color={0,0,127}));
+  connect(T_inlet.y, sou.T_in) annotation (Line(points={{-69,-10},{-62,-10},{-62,
+          -2},{-56,-2}}, color={0,0,127}));
   annotation (__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Boilers/Validation/BoilerTable.mos"
         "Simulate and plot"),
     experiment(Tolerance=1e-6, StopTime=3600),
