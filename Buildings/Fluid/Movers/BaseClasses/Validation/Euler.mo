@@ -19,8 +19,6 @@ model Euler
   Buildings.Fluid.Movers.BaseClasses.FlowMachineInterface eff1(
     per=per1,
     rho_default=rhoCon,
-    haveVMax=false,
-    V_flow_max=1,
     nOri=nOri,
     computePowerUsingSimilarityLaws=false)
     "Flow machine interface using power characteristic"
@@ -34,8 +32,6 @@ model Euler
   Buildings.Fluid.Movers.BaseClasses.FlowMachineInterface eff2(
     per=per2,
     rho_default=rhoCon,
-    haveVMax=false,
-    V_flow_max=1,
     nOri=nOri,
     computePowerUsingSimilarityLaws=false)
     "Flow machine interface using power Euler correlation"
