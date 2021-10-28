@@ -19,7 +19,6 @@ block ISATExchange "Block that exchanges data with the ISAT code"
     assert(A[i] > 0, "Surface must be bigger than zero.");
   end for;
 
-  Modelica.Utilities.Streams.print(string="Start cosimulation");
   coSimFlag := isatStartCosimulation(
       cfdFilNam,
       name,

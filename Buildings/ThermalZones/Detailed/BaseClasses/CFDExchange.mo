@@ -20,7 +20,6 @@ extends Buildings.ThermalZones.Detailed.BaseClasses.PartialExchange;
     assert(A[i] > 0, "Surface must be bigger than zero.");
   end for;
 
-  Modelica.Utilities.Streams.print(string="Start cosimulation");
   coSimFlag := cfdStartCosimulation(
       cfdFilNam,
       name,
