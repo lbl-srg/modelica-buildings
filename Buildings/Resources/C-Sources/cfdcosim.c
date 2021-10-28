@@ -96,10 +96,10 @@ void *cfdcosim() {
   cosim->modelica->shaConSig = NULL;
   cosim->modelica->shaAbsRad = NULL;
   cosim->ffd->TSha = NULL;
-  cosim->para->Sou = 0;	
+  cosim->para->Sou = 0;
   cosim->para->nSou = 0;
   cosim->para->souName = NULL;
-	cosim->modelica->sourceHeat = NULL;	
+  cosim->modelica->sourceHeat = NULL;
 
   return (void*) cosim;
 } /* End of cfdcosim()*/
