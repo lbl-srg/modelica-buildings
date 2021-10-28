@@ -11,7 +11,7 @@
  *
  *         Wangda Zuo
  *         University of Miami
- *         W.Zuo@miami.edu 
+ *         W.Zuo@miami.edu
  *
  * \date   9/21/2019
  *
@@ -33,7 +33,7 @@
 
 #if UINTPTR_MAX == 0xffffffff
 /* 32-bit */
-#error "*** ISAT is not yet on Windows 32 bit."
+#error "*** ISAT is not available on Windows 32 bit."
 #endif
 
 CosimulationData *cosim;
