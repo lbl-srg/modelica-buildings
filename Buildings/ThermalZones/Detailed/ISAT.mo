@@ -1,6 +1,6 @@
 within Buildings.ThermalZones.Detailed;
 model ISAT
-  "Model of a room in which the air is computed using in situ Adaptvie Tabulation (ISAT)"
+  "Model of a room in which the air is computed using in situ adaptive tabulation (ISAT)"
   extends Buildings.ThermalZones.Detailed.BaseClasses.PartialCFD(
   redeclare final BaseClasses.ISATAirHeatMassBalance air(
     final massDynamics = massDynamics,
@@ -21,7 +21,7 @@ model ISAT
         Bitmap(
           extent={{-140,-168},{144,160}}, fileName="modelica://Buildings/Resources/Images/ThermalZones/Detailed/isat.png")}),
           Documentation(info="<html>
-<p>Model derived from <span style=\"font-family: Courier New;\">CFD</span>, in which the air is computed using an self-learning regression model &quot; in situ Adaptvie Tabulation (ISAT)&quot;. </p>
+<p>Model derived from <span style=\"font-family: Courier New;\">CFD</span>, in which the air is computed using an self-learning regression model &quot; in situ adaptive tabulation (ISAT)&quot;. </p>
 <h4>References</h4>
 <p>Wei Tian, Thomas Alonso Sevilla, Dan Li, Wangda Zuo, Michael Wetter. </p>
 <p><a href=\"https://www.tandfonline.com/doi/full/10.1080/19401493.2017.1288761\">Fast and Self-Learning Indoor Airflow Simulation Based on In Situ Adaptive Tabulation. </a></p>
