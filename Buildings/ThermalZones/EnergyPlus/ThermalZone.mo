@@ -52,7 +52,7 @@ model ThermalZone
     annotation (Dialog(tab="Dynamics",group="Zone air"));
   Modelica.Blocks.Interfaces.RealInput qGai_flow[3](
     each unit="W/m2")
-    "Radiant, convective and latent heat input into room (positive if heat gain)"
+    "Radiant, convective sensible and latent heat input into room (positive if heat gain)"
     annotation (Placement(transformation(extent={{-240,80},{-200,120}})));
   Modelica.Blocks.Interfaces.RealInput[Medium.nC] C_flow if use_C_flow
     "Trace substance mass flow rate added to the medium"
@@ -125,9 +125,7 @@ protected
     y(final unit="kg/s"))
     "Water flow rate due to latent heat gain"
     annotation (Placement(transformation(extent={{-82,-64},{-62,-44}})));
-  Modelica.Blocks.Math.Add QConLat_flow(
-    final k1=1,
-    final k2=1)
+  Modelica.Blocks.Math.Add QLat_flow(final k1=1, final k2=1)
     "Total latent heat gains of the zone"
     annotation (Placement(transformation(extent={{-120,20},{-100,40}})));
   Modelica.Blocks.Math.Add QGaiSenLat_flow(
@@ -135,10 +133,10 @@ protected
     final k2=1)
     "Sensible and latent heat gains of the zone"
     annotation (Placement(transformation(extent={{-80,30},{-60,50}})));
-  Modelica.Blocks.Math.Add QConTot_flow(
+  Modelica.Blocks.Math.Add QConSen_flow(
     final k1=1,
     final k2=1)
-    "Total convective sensible heat gains of the zone"
+    "Convective sensible heat gains of the zone from EnergyPlus and Modelica input connector qGai_flow"
     annotation (Placement(transformation(extent={{-120,52},{-100,72}})));
   Buildings.HeatTransfer.Sources.PrescribedHeatFlow conQCon_flow
     "Converter for convective heat flow rate"
@@ -219,16 +217,16 @@ equation
     annotation (Line(points={{103,-44},{180,-44},{180,-40},{210,-40}},color={0,0,127}));
   connect(heaGai.QRad_flow,fmuZon.QGaiRad_flow)
     annotation (Line(points={{-158,106},{74,106},{74,-58},{80,-58}},color={0,0,127}));
-  connect(QGaiSenLat_flow.u1,QConTot_flow.y)
+  connect(QGaiSenLat_flow.u1,QConSen_flow.y)
     annotation (Line(points={{-82,46},{-90,46},{-90,62},{-99,62}},color={0,0,127}));
-  connect(QGaiSenLat_flow.u2,QConLat_flow.y)
-    annotation (Line(points={{-82,34},{-90,34},{-90,30},{-99,30}},color={0,0,127}));
+  connect(QGaiSenLat_flow.u2, QLat_flow.y) annotation (Line(points={{-82,34},{-90,
+          34},{-90,30},{-99,30}}, color={0,0,127}));
   connect(QGaiSenLat_flow.y,conQCon_flow.Q_flow)
     annotation (Line(points={{-59,40},{-40,40}},color={0,0,127}));
   connect(conQCon_flow.port,heaPorAir)
     annotation (Line(points={{-20,40},{0,40},{0,0}},color={191,0,0}));
-  connect(QConLat_flow.y,mWat_flow.u)
-    annotation (Line(points={{-99,30},{-96,30},{-96,-54},{-84,-54}},color={0,0,127}));
+  connect(QLat_flow.y, mWat_flow.u) annotation (Line(points={{-99,30},{-96,30},{
+          -96,-54},{-84,-54}}, color={0,0,127}));
   connect(mWat_flow.y,vol.mWat_flow)
     annotation (Line(points={{-61,-54},{-36,-54},{-36,-40},{-12,-40}},color={0,0,127}));
   connect(CTot_flow.y,vol.C_flow)
@@ -275,14 +273,14 @@ equation
     annotation (Line(points={{-99,-110},{-90,-110},{-90,-96},{-82,-96}},color={0,0,127}));
   connect(QPeaRep.u,fmuZon.QPeo_flow)
     annotation (Line(points={{-122,-110},{-132,-110},{-132,-130},{110,-130},{110,-56},{103,-56}},color={0,0,127}));
-  connect(QConTot_flow.u2,heaGai.QCon_flow)
+  connect(QConSen_flow.u2,heaGai.QCon_flow)
     annotation (Line(points={{-122,56},{-134,56},{-134,100},{-158,100}},color={0,0,127}));
-  connect(fmuZon.QCon_flow,QConTot_flow.u1)
+  connect(fmuZon.QCon_flow,QConSen_flow.u1)
     annotation (Line(points={{103,-48},{110,-48},{110,80},{-130,80},{-130,68},{-122,68}},color={0,0,127}));
-  connect(fmuZon.QLat_flow,QConLat_flow.u1)
-    annotation (Line(points={{103,-52},{114,-52},{114,84},{-140,84},{-140,36},{-122,36}},color={0,0,127}));
-  connect(heaGai.QLat_flow,QConLat_flow.u2)
-    annotation (Line(points={{-158,94},{-144,94},{-144,24},{-122,24}},color={0,0,127}));
+  connect(fmuZon.QLat_flow, QLat_flow.u1) annotation (Line(points={{103,-52},{114,
+          -52},{114,84},{-140,84},{-140,36},{-122,36}}, color={0,0,127}));
+  connect(heaGai.QLat_flow, QLat_flow.u2) annotation (Line(points={{-158,94},{-144,
+          94},{-144,24},{-122,24}}, color={0,0,127}));
   annotation (
     defaultComponentName="zon",
     Icon(
@@ -407,12 +405,6 @@ the long-wave and the short-wave radiation are computed by EnergyPlus.
 The zone uses a volume of air that is fully mixed. The size of this volume,
 and its floor area, which is used to scale the heat gains <code>q_flow</code>,
 are obtained from the EnergyPlus model.
-By default, the air uses a dynamic balance. With the parameter
-<code>energyBalance</code>, the type of energy balance can be configured.
-The parameter <code>mSenFac</code> is used to increase the sensible heat capacity
-of the zone air. By default, <code>mSenFac=1</code>. Higher values can be
-used to approximate the sensible heat capacity of furnitures.
-The latent heat capacity is not affected by this parameter.
 </p>
 
 <h5>Contaminant balance</h5>
@@ -443,6 +435,16 @@ However, the \"Generic Contaminant\" modeled in EnergyPlus is not
 added to the air volume. (Because EnergyPlus does not declare the
 name of the species or its molar mass and hence it cannot be matched
 to species in Modelica or converted to emitted mass flow rate.)
+</p>
+<p>
+Also, note that while CO2 emitted from people simulated in EnergyPlus is added automatically to
+the air balance of this model,
+there is no CO2 added automatically for the heat gain specified through the input connector
+<code>qGai_flow</code>. Hence, if <code>qGai_flow</code> accounts for people and CO2 should be modelled,
+then the CO2 emitted by the people specified in <code>qGai_flow</code>
+needs to be added manually to the input connector <code>C_flow</code>.
+(This manual addition is needed because <code>qGai_flow</code> can also contain heat gains not caused
+by people.)
 </p>
 </html>",
       revisions="<html>
