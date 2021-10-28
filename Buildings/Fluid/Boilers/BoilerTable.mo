@@ -30,7 +30,7 @@ model BoilerTable
 initial equation
   eta_nominal = Buildings.Utilities.Math.Functions.smoothInterpolation(
     x=T_inlet_nominal, xSup=effCur.effCur[1,2:end], ySup=effCur.effCur[end,2:end]);
-  assert(effCur.effCur[end,1] == 1,
+  assert(effCur.effCur[end,1] == 1.0,
     "Efficiency curve at full load (y == 1) must be provided.");
 
 equation
