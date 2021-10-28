@@ -12,7 +12,7 @@ function findPeakCondition
 protected
   Integer n = size(pressure.V_flow, 1) "Number of data points";
   Real m[2] "Mode as (x,y)";
-  Real eta[:] "Efficiency series";
+  Real eta[size(pressure.V_flow,1)] "Efficiency series";
   Boolean etaLes "Efficiency series has less than three points";
   Boolean etaMon "Efficiency series is monotonic";
 
