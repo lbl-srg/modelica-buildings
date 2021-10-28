@@ -10,7 +10,7 @@
  *         xuha3556@colorado.edu
  *         Wangda Zuo
  *         University of Miami
- *         W.Zuo@miami.edu 
+ *         W.Zuo@miami.edu
  *
  * \date   9/21/2019
  *
@@ -83,7 +83,7 @@ int isatExchangeData(double t0, double dt, double *u, size_t nU, size_t nY,
   cosim->ffd->flag = 0;*/
 
   *t1 = cosim->ffd->t;
-	
+
     return 0;
   }
 
@@ -128,10 +128,10 @@ int isatExchangeData(double t0, double dt, double *u, size_t nU, size_t nY,
 	if(cosim->para->Sou){
 		for(j=0; j<cosim->para->nSou; j++) {
 			cosim->modelica->sourceHeat[j] = (REAL) u[i+j];
-		}	
+		}
   }
 	i = i + cosim->para->nSou;
-	
+
   cosim->modelica->p = u[i];
   i++;
 
