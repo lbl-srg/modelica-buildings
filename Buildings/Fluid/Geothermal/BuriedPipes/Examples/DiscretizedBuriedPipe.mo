@@ -27,7 +27,7 @@ model DiscretizedBuriedPipe
     soiDat(k=1.58,c=1150,d=1600) "Soil thermal properties"
     annotation (Placement(transformation(extent={{-60,80},{-40,100}})));
 
-  FixedResistances.PlugFlowDiscretized pip(
+  FixedResistances.PlugFlowPipeDiscretized pip(
     redeclare package Medium = Medium,
     nSeg=nSeg,
     dh=0.1,
@@ -80,7 +80,7 @@ model DiscretizedBuriedPipe
     T_start=293.15) "Pipe outlet temperature sensor"
     annotation (Placement(transformation(extent={{30,30},{50,50}})));
 
-  FixedResistances.PlugFlowDiscretized pipRev(
+  FixedResistances.PlugFlowPipeDiscretized pipRev(
     redeclare package Medium = Medium,
     nSeg=nSegRev,
     dh=0.1,
