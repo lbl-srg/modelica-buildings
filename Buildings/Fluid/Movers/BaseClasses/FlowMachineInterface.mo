@@ -24,10 +24,18 @@ model FlowMachineInterface
   parameter Modelica.SIunits.Density rho_default
     "Fluid density at medium default state";
 
-  parameter Boolean haveVMax
+  parameter Boolean haveVMax = (abs(per.pressure.dp[nOri]) < Modelica.Constants.eps)
     "Flag, true if user specified data that contain V_flow_max";
 
-  parameter Modelica.SIunits.VolumeFlowRate V_flow_max
+  parameter Modelica.SIunits.VolumeFlowRate V_flow_max=
+    if per.havePressureCurve then
+    (if haveVMax then
+      per.pressure.V_flow[nOri]
+     else
+      per.pressure.V_flow[nOri] - (per.pressure.V_flow[nOri] - per.pressure.V_flow[
+      nOri - 1])/((per.pressure.dp[nOri] - per.pressure.dp[nOri - 1]))*per.pressure.dp[nOri])
+    else
+      m_flow_nominal/rho_default
     "Maximum volume flow rate, used for smoothing";
 
   parameter Integer nOri(min=1) "Number of data points for pressure curve"
