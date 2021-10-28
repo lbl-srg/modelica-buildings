@@ -50,13 +50,13 @@ algorithm
 This function finds the flow rate <i>V&#775;</i>,
 the pressure rise <i>&Delta;p</i>, and the efficiency <i>&eta;</i>
 on the mover curve provided via 
-<code><a href=\"modelica://Buildings.Fluid.Movers.BaseClasses.Characteristics.power\">
-Buildings.Fluid.Movers.BaseClasses.Characteristics.power</a></code> and 
-<code><a href=\"modelica://Buildings.Fluid.Movers.BaseClasses.Characteristics.pressure\">
-Buildings.Fluid.Movers.BaseClasses.Characteristics.pressure</a></code>.
+<a href=\"modelica://Buildings.Fluid.Movers.BaseClasses.Characteristics.power\">
+Buildings.Fluid.Movers.BaseClasses.Characteristics.power</a> and 
+<a href=\"modelica://Buildings.Fluid.Movers.BaseClasses.Characteristics.pressure\">
+Buildings.Fluid.Movers.BaseClasses.Characteristics.pressure</a>.
 The results are output as record to 
-<code><a href=\"modelica://Buildings.Fluid.Movers.BaseClasses.Euler.peakCondition\">
-Buildings.Fluid.Movers.BaseClasses.Euler.peakCondition</a></code>.
+<a href=\"modelica://Buildings.Fluid.Movers.BaseClasses.Euler.peakCondition\">
+Buildings.Fluid.Movers.BaseClasses.Euler.peakCondition</a>.
 If the input series has only two data points or is monotonic,
 the point with the highest efficiency is directly used 
 and the function issues a warning.

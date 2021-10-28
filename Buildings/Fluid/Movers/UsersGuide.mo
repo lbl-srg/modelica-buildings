@@ -506,8 +506,8 @@ The modified dimensionless Euler number is defined as
 The user needs to provide the flow rate, the pressure rise,
 and the efficiency at the operation point where 
 its efficiency is at its maximum. For more information, see
-<code><a href=\"Modelica://Buildings.Fluid.Movers.BaseClasses.Euler.correlation\">
-Buildings.Fluid.Movers.BaseClasses.Euler.correlation</a></code>
+<a href=\"Modelica://Buildings.Fluid.Movers.BaseClasses.Euler.correlation\">
+Buildings.Fluid.Movers.BaseClasses.Euler.correlation</a>
 and <a href=\"https://energyplus.net/assets/nrel_custom/pdfs/pdfs_v9.6.0/EngineeringReference.pdf\">
 EnergyPlus 9.6.0 Engineering Reference</a>
 chapter 16.4 equations 16.209 through 16.218.
