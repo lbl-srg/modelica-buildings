@@ -118,18 +118,10 @@ protected
     "Number of data points for pressure curve"
     annotation(Evaluate=true);
 
-  final parameter Boolean haveVMax = (abs(per.pressure.dp[nOri]) < Modelica.Constants.eps)
+  final parameter Boolean haveVMax = eff.haveVMax
     "Flag, true if user specified data that contain V_flow_max";
 
-  final parameter Modelica.SIunits.VolumeFlowRate V_flow_max=
-    if per.havePressureCurve then
-    (if haveVMax then
-      per.pressure.V_flow[nOri]
-     else
-      per.pressure.V_flow[nOri] - (per.pressure.V_flow[nOri] - per.pressure.V_flow[
-      nOri - 1])/((per.pressure.dp[nOri] - per.pressure.dp[nOri - 1]))*per.pressure.dp[nOri])
-    else
-      m_flow_nominal/rho_default "Maximum volume flow rate, used for smoothing";
+  final parameter Modelica.SIunits.VolumeFlowRate V_flow_max=eff.V_flow_max;
   final parameter Modelica.SIunits.Density rho_default=
     Medium.density_pTX(
       p=Medium.p_default,
@@ -252,8 +244,8 @@ protected
     final nOri = nOri,
     final rho_default=rho_default,
     final computePowerUsingSimilarityLaws=computePowerUsingSimilarityLaws,
-    final haveVMax=haveVMax,
-    final V_flow_max=V_flow_max,
+    final haveVMax,
+    final V_flow_max,
     r_V(start=m_flow_nominal/rho_default),
     final preVar=preVar) "Flow machine"
     annotation (Placement(transformation(extent={{-32,-68},{-12,-48}})));
