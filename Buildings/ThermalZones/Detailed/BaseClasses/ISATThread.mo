@@ -1,10 +1,10 @@
 within Buildings.ThermalZones.Detailed.BaseClasses;
-class ISATThread "class used to handle ISAT thread"
+class ISATThread "Class used to handle ISAT thread"
    extends ExternalObject;
    // constructor
-   function constructor "allocate memeory for cosimulation variables"
-    output ISATThread ISATThre "the handler of ISAT thread";
-    external"C" ISATThre = isatcosim()   annotation (Include="#include <isatcosim.c>",
+   function constructor "Allocate memeory for cosimulation variables"
+    output ISATThread ISATThre "Handler of ISAT thread";
+    external "C" ISATThre = isatcosim()   annotation (Include="#include <isatcosim.c>",
       IncludeDirectory="modelica://Buildings/Resources/C-Sources",
       LibraryDirectory="modelica://Buildings/Resources/Library", Library="isat");
      annotation (Documentation(info="<html>
@@ -21,15 +21,15 @@ First implementation.
    end constructor;
 
    // destructor
-   function destructor "release isat.dll or isat.so"
-    input ISATThread ISATThre "the handler of ISAT thread";
+   function destructor "Release isat library"
+    input ISATThread ISATThre "Handler of ISAT thread";
     external"C" isatSendStopCommand(ISATThre) annotation (Include="#include <isatSendStopCommand.c>",
       IncludeDirectory="modelica://Buildings/Resources/C-Sources",
       LibraryDirectory="modelica://Buildings/Resources/Library", Library="isat");
       annotation (Documentation(info="<html>
 <p>
-Destructor sends stop command to ISAT and releases memory for co-simulation variables at the end of the simulation
-
+Destructor sends stop command to ISAT and releases memory for co-simulation variables at the end of the simulation.
+</p>
 </html>",   revisions="<html>
 <ul>
 <li>
