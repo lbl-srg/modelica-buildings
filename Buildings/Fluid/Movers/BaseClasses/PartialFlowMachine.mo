@@ -537,6 +537,18 @@ and more robust simulation, in particular if the mass flow is equal to zero.
 revisions="<html>
 <ul>
 <li>
+October 28, 2021, by Hongxiang Fu:<br/>
+Moved the specification of <code>haveVMax</code> 
+and <code>V_flow_max</code> from here to 
+<a href=\"modelica://Buildings.Fluid.Movers.BaseClasses.FlowMachineInterface\">
+Buildings.Fluid.Movers.BaseClasses.FlowMachineInterface</a>
+to support the implementation of 
+<a href=\"modelica://Buildings.Fluid.Movers.BaseClasses.Euler\">
+Buildings.Fluid.Movers.BaseClasses.Euler</a>.
+This is for 
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2668\">#2668</a>.
+</li>
+<li>
 June 17, 2021, by Michael Wetter:<br/>
 Changed implementation of the filter.<br/>
 This is for

@@ -712,10 +712,20 @@ revisions="<html>
 <ul>
 <li>
 October 18, 2021, by Hongxiang Fu:<br/>
-Added a new <code>elseif</code> branch in power calculation
-to support the implementation of 
-<code><a href=\"modelica://Buildings.Fluid.Movers.BaseClasses.Euler\">
-Buildings.Fluid.Movers.BaseClasses.Euler</a></code>.
+To support the implementation of 
+<a href=\"modelica://Buildings.Fluid.Movers.BaseClasses.Euler\">
+Buildings.Fluid.Movers.BaseClasses.Euler</a>:
+<ul>
+<li>
+Added a new <code>elseif</code> branch in power calculation.
+</li>
+<li>
+Moved the specification of <code>haveVMax</code> 
+and <code>V_flow_max</code> here from 
+<a href=\"modelica://Buildings.Fluid.Movers.BaseClasses.PartialFlowMachine\">
+Buildings.Fluid.Movers.BaseClasses.PartialFlowMachine</a>.
+</li>
+</ul>
 This is for 
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2668\">#2668</a>.
 </li>
