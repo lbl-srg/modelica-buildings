@@ -8,6 +8,7 @@ extends Buildings.ThermalZones.Detailed.BaseClasses.PartialExchange;
 
   ///////////////////////////////////////////////////////////////////////////
   // Function that sends the parameters of the model from Modelica to CFD
+protected
   replaceable function sendParameters
     extends Buildings.ThermalZones.Detailed.BaseClasses.PartialsendParameters;
 

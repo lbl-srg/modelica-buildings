@@ -7,6 +7,7 @@ block ISATExchange "Block that exchanges data with the ISAT code"
 
   ///////////////////////////////////////////////////////////////////////////
   // Function that sends the parameters of the model from Modelica to CFD
+protected
   function sendParameters
     extends Buildings.ThermalZones.Detailed.BaseClasses.PartialsendParameters;
 
