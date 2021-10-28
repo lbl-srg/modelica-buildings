@@ -299,7 +299,7 @@ to <b style=\"color:blue\">existing</b> libraries:
 <tr><td valign=\"top\">Buildings.Fluid.Movers.BaseClasses.Euler.correlation<br/>
                      Buildings.Fluid.Movers.BaseClasses.Euler.findPeakCondition<br/>
                      Buildings.Fluid.Movers.BaseClasses.Euler.peakCondition<br/>
-                     Buildings.Fluid.Movers.BaseClasses.Validation.EulerMethod<br/>
+                     Buildings.Fluid.Movers.BaseClasses.Validation.Euler<br/>
     </td>
     <td valign=\"top\">Package that calculates the mover efficiency using Euler number and its correlation,
                      as well as a validation model for this method.<br/>

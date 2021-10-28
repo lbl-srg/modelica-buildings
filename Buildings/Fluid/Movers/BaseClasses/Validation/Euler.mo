@@ -1,5 +1,5 @@
 within Buildings.Fluid.Movers.BaseClasses.Validation;
-model EulerMethod
+model Euler
   "Simple model to validate the power computation method using the Euler number"
   extends Modelica.Icons.Example;
   import MoverRecord = Buildings.Fluid.Movers.Data.Pumps.Wilo.Stratos30slash1to8;
@@ -74,7 +74,7 @@ equation
   connect(m_flow.y, eff2.m_flow) annotation (Line(points={{-39,-36},{-22,-36},{-22,
           -30},{-12,-30}}, color={0,0,127}));
   annotation (experiment(Tolerance=1e-6, StopTime=1.0),
-__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Movers/BaseClasses/Validation/EulerMethod.mos"
+__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Movers/BaseClasses/Validation/Euler.mos"
  "Simulate and plot"),
 Documentation(
 info="<html>
@@ -95,4 +95,4 @@ First implementation. This is for
 </li>
 </ul>
 </html>"));
-end EulerMethod;
+end Euler;
