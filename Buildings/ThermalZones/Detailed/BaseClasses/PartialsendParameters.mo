@@ -1,6 +1,6 @@
 within Buildings.ThermalZones.Detailed.BaseClasses;
 partial function PartialsendParameters
-  "Partial function sendParameters from Modelica to external sovler"
+  "Partial function to send parameters from Modelica to external CFD solver"
     input String cfdFilNam "CFD input file name";
     input String[nSur] name "Surface names";
     input Modelica.SIunits.Area[nSur] A "Surface areas";
@@ -35,7 +35,10 @@ protected
     Integer coSimFlag=0;
 
     annotation (Documentation(info="<html>
-<p>Partial model for the function that calls a C function to conduct the data exchange between Modelica and CFD or ISAT program during the coupled simulation.</p>
+<p>
+Partial function to call a C function to conduct the data exchange between
+Modelica and CFD or ISAT program during the coupled simulation.
+</p>
 </html>",   revisions="<html>
 <ul>
 <li>

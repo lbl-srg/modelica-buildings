@@ -1,7 +1,7 @@
 within Buildings.ThermalZones.Detailed.BaseClasses;
 partial function Partialexchange "Partial function exchange"
     input Integer flag "Communication flag to write to CFD";
-    input Modelica.SIunits.Time t "Current simulation time in seconds to write";
+    input Modelica.SIunits.Time t "Current model time in seconds to write";
     input Modelica.SIunits.Time dt(min=100*Modelica.Constants.eps)
       "Requested time step length";
     input Real[nU] u "Input for CFD";
@@ -16,7 +16,10 @@ partial function Partialexchange "Partial function exchange"
       "The exit value, which is negative if an error occurred";
 
     annotation (Documentation(info="<html>
-<p>Partial model for the function that conducts the data exchange between Modelica and CFD or ISAT program during the coupled simulation.</p>
+<p>
+Partial model for the function that conducts the data exchange between Modelica and CFD or ISAT program
+during the coupled simulation.
+</p>
 </html>",   revisions="<html>
 <ul>
 <li>
