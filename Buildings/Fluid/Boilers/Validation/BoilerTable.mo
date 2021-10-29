@@ -6,13 +6,12 @@ model BoilerTable
  parameter Modelica.SIunits.Power Q_flow_nominal = 3000 "Nominal power";
  parameter Modelica.SIunits.Temperature dT_nominal = 20
     "Nominal temperature difference";
- parameter Modelica.SIunits.MassFlowRate
- m_flow_nominal = Q_flow_nominal/dT_nominal/4200
+ parameter Modelica.SIunits.MassFlowRate m_flow_nominal = Q_flow_nominal/dT_nominal/4200
     "Nominal mass flow rate";
  parameter Modelica.SIunits.PressureDifference dp_nominal = 3000
     "Pressure drop at m_flow_nominal";
- parameter Buildings.Fluid.Boilers.Data.EfficiencyCurves
-   effCur "Record containing a table that describes the efficiency curves";
+ parameter Buildings.Fluid.Boilers.Data.EfficiencyCurves effCur
+    "Record containing a table that describes the efficiency curves";
 
   Buildings.Fluid.Sources.Boundary_pT sin(
     redeclare package Medium = Medium,
