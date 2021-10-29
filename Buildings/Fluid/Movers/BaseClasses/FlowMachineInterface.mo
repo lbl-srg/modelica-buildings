@@ -220,9 +220,11 @@ protected
     "Coefficients for polynomial of power vs. flow rate";
 
   parameter Boolean haveMinimumDecrease=
-    Modelica.Math.BooleanVectors.allTrue({(per.pressure.dp[i + 1] -
-    per.pressure.dp[i])/(per.pressure.V_flow[i + 1] - per.pressure.V_flow[
-    i]) < -kRes for i in 1:nOri - 1}) "Flag used for reporting";
+    if nOri<2 then false
+    else
+      Modelica.Math.BooleanVectors.allTrue({(per.pressure.dp[i + 1] -
+      per.pressure.dp[i])/(per.pressure.V_flow[i + 1] - per.pressure.V_flow[
+      i]) < -kRes for i in 1:nOri - 1}) "Flag used for reporting";
 
   parameter Boolean haveDPMax = (abs(per.pressure.V_flow[1])  < Modelica.Constants.eps)
     "Flag, true if user specified data that contain dpMax";
@@ -283,13 +285,16 @@ The following performance data have been entered:
 " + getArrayAsString(per.pressure.V_flow, "pressure.V_flow"));
 
   if not haveVMax then
-    assert((per.pressure.V_flow[nOri]-per.pressure.V_flow[nOri-1])
-         /((per.pressure.dp[nOri]-per.pressure.dp[nOri-1]))<0,
+    assert(nOri>=2,
+      "When the maximum flow is not specified, 
+      at least two points are needed for the power curve.");
+    if nOri>=2 then
+      assert((per.pressure.V_flow[nOri]-per.pressure.V_flow[nOri-1])
+           /((per.pressure.dp[nOri]-per.pressure.dp[nOri-1]))<0,
     "The last two pressure points for the fan or pump performance curve must be decreasing.
-    You need to set more reasonable parameters.
 Received
 " + getArrayAsString(per.pressure.dp, "dp"));
-
+    end if;
   end if;
 
   // Write warning if the volumetric flow rate versus pressure curve does not satisfy
