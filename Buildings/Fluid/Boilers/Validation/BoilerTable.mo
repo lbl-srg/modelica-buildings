@@ -38,9 +38,9 @@ model BoilerTable
     T_start=293.15,
     effCur=effCur,
     smo=Modelica.Blocks.Types.Smoothness.ContinuousDerivative,
-    ext=Modelica.Blocks.Types.Extrapolation.HoldLastPoint,
     T_inlet_nominal=323.15) "Boiler 1 set at 5% firing rate"
     annotation (Placement(transformation(extent={{20,44},{40,64}})));
+    //ext=Modelica.Blocks.Types.Extrapolation.HoldLastPoint,
   Buildings.HeatTransfer.Sources.FixedTemperature
     TAmb1(T=288.15) "Ambient temperature in boiler room"
     annotation (Placement(transformation(extent={{0,72},{20,92}})));
@@ -56,9 +56,9 @@ model BoilerTable
     T_start=293.15,
     effCur=effCur,
     smo=Modelica.Blocks.Types.Smoothness.ContinuousDerivative,
-    ext=Modelica.Blocks.Types.Extrapolation.HoldLastPoint,
     T_inlet_nominal=323.15) "Boiler 2 set at 50% firing rate"
     annotation (Placement(transformation(extent={{20,-16},{40,4}})));
+    //ext=Modelica.Blocks.Types.Extrapolation.HoldLastPoint,
   Buildings.HeatTransfer.Sources.FixedTemperature
     TAmb2(T=288.15) "Ambient temperature in boiler room"
     annotation (Placement(transformation(extent={{0,12},{20,32}})));
@@ -74,9 +74,9 @@ model BoilerTable
     T_start=293.15,
     effCur=effCur,
     smo=Modelica.Blocks.Types.Smoothness.ContinuousDerivative,
-    ext=Modelica.Blocks.Types.Extrapolation.HoldLastPoint,
     T_inlet_nominal=323.15) "Boiler 3 set at 100% firing rate"
     annotation (Placement(transformation(extent={{20,-76},{40,-56}})));
+    //ext=Modelica.Blocks.Types.Extrapolation.HoldLastPoint,
   HeatTransfer.Sources.FixedTemperature
     TAmb3(T=288.15) "Ambient temperature in boiler room"
     annotation (Placement(transformation(extent={{0,-48},{20,-28}})));

@@ -9,16 +9,19 @@ model BoilerTable
   parameter Modelica.Blocks.Types.Smoothness
     smo = Modelica.Blocks.Types.Smoothness.ContinuousDerivative
     "Interpolation method";
-  parameter Modelica.Blocks.Types.Extrapolation
+
+  //The extrapolation setting is commented out
+  //  because it throws out an error in jmodelica unit tests.
+    /*  parameter Modelica.Blocks.Types.Extrapolation
     ext = Modelica.Blocks.Types.Extrapolation.HoldLastPoint
-    "Extrapolation method";
+    "Extrapolation method";*/
 
   Modelica.Blocks.Tables.CombiTable2D effTab(
     table=effCur.effCur,
-    smoothness=smo,
-    extrapolation=ext)
+    smoothness=smo)
     "Look-up table that represents a set of efficiency curves varying with both the firing rate (control signal) and the inlet water temperature"
     annotation (Placement(transformation(extent={{-74,64},{-54,84}})));
+    //extrapolation=ext
 
   Modelica.Blocks.Interfaces.RealInput T_inlet(
     final quantity="ThermodynamicTemperature",
