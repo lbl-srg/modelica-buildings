@@ -33,25 +33,25 @@ record Generic "Generic data record for movers"
   parameter BaseClasses.Characteristics.powerParameters power(
     V_flow={0},
     P={0})
-    "Volume flow rate vs. electrical power consumption (used if use_powerCharacteristic=true)"
+    "Volume flow rate vs. electrical power consumption (used as input under PowerCharacteristic path)"
    annotation (Dialog(group="Power computation",
                       enable=use_powerCharacteristic));
 
-  // 2.eulerCorrelation path
+  // 2.eulerNumber path
   parameter Buildings.Fluid.Movers.BaseClasses.Euler.peakCondition peak(
     V_flow=0,
     dp=0,
     eta=0.7)
-    "Volume flow rate, pressure rise, and efficiency at peak condition"
+    "Volume flow rate, pressure rise, and efficiency at peak condition (used as input under EulerNumber path)"
     annotation (Dialog(group="Power computation",
-                      enable=use_eulerCorrelation));
+                      enable=use_eulerNumber));
 
   // 3.motorEfficiency path
   parameter
     Buildings.Fluid.Movers.BaseClasses.Characteristics.efficiencyParameters
     hydraulicEfficiency(
       V_flow={0},
-      eta={0.7}) "Hydraulic efficiency (used if use_motorEfficiency=true)"
+      eta={0.7}) "Hydraulic efficiency (used as input under MotorEfficiency path)"
     annotation (Dialog(group="Power computation",
                        enable=use_motorEfficiency));
   parameter
@@ -59,7 +59,7 @@ record Generic "Generic data record for movers"
     motorEfficiency(
       V_flow={0},
       eta={0.7})
-    "Electric motor efficiency (used if use_motorEfficiency=true)"
+    "Electric motor efficiency (used as input under MotorEfficiency path)"
     annotation (Dialog(group="Power computation",
                        enable=use_motorEfficiency));
   // End of "Power computation" group
