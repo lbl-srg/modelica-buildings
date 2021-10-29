@@ -163,7 +163,7 @@ protected
              {(per.pressure.dp[i] + per.pressure.V_flow[i] * kRes) for i in 1:nOri}
              else
              zeros(nOri))
-    "Volume flow rate vs. total pressure rise with correction for pump resistance added";
+    "Volume flow rate vs. total pressure rise with correction for fan or pump resistance added";
 
   parameter
     Buildings.Fluid.Movers.BaseClasses.Characteristics.flowParametersInternal pCur2(
@@ -184,7 +184,7 @@ protected
               cat(1, {per.pressure.dp[i] + per.pressure.V_flow[i] * kRes for i in 1:nOri}, {0})
              else
                zeros(nOri+1))
-    "Volume flow rate vs. total pressure rise with correction for pump resistance added";
+    "Volume flow rate vs. total pressure rise with correction for fan or pump resistance added";
   parameter
     Buildings.Fluid.Movers.BaseClasses.Characteristics.flowParametersInternal pCur3(
     final n = nOri + 2,
@@ -200,7 +200,7 @@ protected
                zeros(nOri + 2)
              else
                cat(1, {dpMax}, {per.pressure.dp[i] + per.pressure.V_flow[i] * kRes for i in 1:nOri}, {0}))
-    "Volume flow rate vs. total pressure rise with correction for pump resistance added";
+    "Volume flow rate vs. total pressure rise with correction for fan or pump resistance added";
 
   parameter Real preDer1[nOri](each fixed=false)
     "Derivatives of flow rate vs. pressure at the support points";
