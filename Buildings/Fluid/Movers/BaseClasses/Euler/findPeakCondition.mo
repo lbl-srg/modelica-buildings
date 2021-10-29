@@ -3,11 +3,11 @@ function findPeakCondition
   "Find peak condition from power characteristics"
   extends Modelica.Icons.Function;
   input Buildings.Fluid.Movers.BaseClasses.Characteristics.flowParameters
-    pressure;
+    pressure "Pressure vs. flow rate";
   input BaseClasses.Characteristics.powerParameters
-    power;
+    power "Power vs. flow rate";
   output Buildings.Fluid.Movers.BaseClasses.Euler.peakCondition
-    peak;
+    peak "Operation point at maximum efficiency";
 
 protected
   Integer n = size(pressure.V_flow, 1) "Number of data points";
