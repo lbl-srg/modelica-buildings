@@ -85,35 +85,6 @@ Buildings.Obsolete.Fluid.FixedResistances.PlugFlowPipe</a>.
 <a href=\"modelica://Buildings.Obsolete.Fluid.FixedResistances.BaseClasses.PlugFlowCore\">
 Buildings.Obsolete.Fluid.FixedResistances.BaseClasses.PlugFlowCore</a>.
 </li>
-<li>
-April 14, 2020, by Michael Wetter:<br/>
-Changed <code>homotopyInitialization</code> to a constant.<br/>
-This is for
-<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1341\">IBPSA, #1341</a>.
-</li>
-<li>
-March 6, 2020, by Jelger Jansen:<br/>
-Revised calculation of thermal resistance <code>R</code>
-by using correct radiuses.
-See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1310\">#1310</a>.
-</li>
-<li>
-October 23, 2017, by Michael Wetter:<br/>
-Revised variable names and documentation to follow guidelines.
-Corrected malformed hyperlinks.
-</li>
-<li>
-July 4, 2016 by Bram van der Heijde:<br/>
-Introduce <code>pipVol</code>.
-</li>
-<li>
-October 10, 2015 by Marcus Fuchs:<br/>
-Copy Icon from KUL implementation and rename model.
-Replace resistance and temperature delay by an adiabatic pipe.
-</li>
-<li>September, 2015 by Marcus Fuchs:<br/>
-First implementation.
-</li>
 </ul>
 </html>", info="<html>
 <p>
