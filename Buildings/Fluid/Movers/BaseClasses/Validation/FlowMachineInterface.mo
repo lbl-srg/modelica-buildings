@@ -4,8 +4,6 @@ model FlowMachineInterface "Simple model to validate FlowMachineInterface"
   Buildings.Fluid.Movers.BaseClasses.FlowMachineInterface eff(
     per(pressure(V_flow={0,1}, dp={1000,0})),
     rho_default=1.2,
-    haveVMax=true,
-    V_flow_max=1,
     nOri=2,
     preVar=Buildings.Fluid.Movers.BaseClasses.Types.PrescribedVariable.Speed,
     computePowerUsingSimilarityLaws=true) "Flow machine interface model"
