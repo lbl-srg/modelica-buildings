@@ -296,8 +296,10 @@ to <b style=\"color:blue\">existing</b> libraries:
 <tr><td colspan=\"2\"><b>Buildings.Fluid.Movers</b>
     </td>
 </tr>
-<tr><td valign=\"top\">Buildings.Fluid.Movers.BaseClasses.Euler.correlation<br/>
+<tr><td valign=\"top\">Buildings.Fluid.Movers.BaseClasses.Euler.computeCurves<br/>
+                     Buildings.Fluid.Movers.BaseClasses.Euler.correlation<br/>
                      Buildings.Fluid.Movers.BaseClasses.Euler.findPeakCondition<br/>
+                     Buildings.Fluid.Movers.BaseClasses.Euler.computedCurves<br/>
                      Buildings.Fluid.Movers.BaseClasses.Euler.peakCondition<br/>
                      Buildings.Fluid.Movers.BaseClasses.Validation.Euler<br/>
     </td>
@@ -647,6 +649,21 @@ have been <b style=\"color:blue\">improved</b> in a
     </td>
     <td valign=\"top\">Added a new path for power computation with 
                      <code>Buildings.Fluid.Movers.BaseClasses.Euler</code><br/>
+                     This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2668\">issue 2668</a>.
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Fluid.Movers.BaseClasses.FlowMachineInterface<br/>
+                     Buildings.Fluid.Movers.BaseClasses.PartialFlowMachine<br/>
+                     Buildings.Fluid.Movers.BaseClasses.Validation.FlowMachineInterface
+    </td>
+    <td valign=\"top\">Moved the assignment of <code>V_flow_max</code> and <code>haveVMax</code> 
+                     from <code>Buildings.Fluid.Movers.BaseClasses.PartialFlowMachine</code>
+                     to <code>Buildings.Fluid.Movers.BaseClasses.FlowMachineInterface</code>.
+                     The latter is instantiated in the former. 
+                     This change is to support the implementation of 
+                     <code>Buildings.Fluid.Movers.BaseClasses.Validation.Euler</code>.
+                     It simplifies the code overall when the said variables are declared 
+                     in the lower model.<br/>
                      This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2668\">issue 2668</a>.
     </td>
 </tr>
