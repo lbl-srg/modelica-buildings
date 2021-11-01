@@ -628,6 +628,17 @@ feedback control of damper positions. The cooling coil is a dry coil model.
 </html>", revisions="<html>
 <ul>
 <li>
+November 1, 2021, by Hongxiang Fu:<br/>
+Rewrote statements using <code>not use_powerCharacteristic</code>
+with the enumeration 
+<code>Buildings.Fluid.Movers.BaseClasses.Types.PowerMethod</code>
+to support the implementation of 
+<a href=\"Modelica://Buildings.Fluid.Movers.BaseClasses.Euler\">
+Buildings.Fluid.Movers.BaseClasses.Euler</a>.
+This is for 
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2668\">#2668</a>.
+</li>
+<li>
 February 25, 2021, by Baptiste Ravache:<br/>
 Inverse the sign of <code>cooCoi.Q_flow_nominal</code> to respect the heat flow convention.
 </li>
