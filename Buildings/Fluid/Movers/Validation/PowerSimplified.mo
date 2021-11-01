@@ -156,11 +156,12 @@ at the <i>y</i>-axis. This is for
 </li>
 <li>
 October 14, 2021, by Hongxiang Fu:<br/>
-Swapped all <code>not use_powerCharacteristic</code>
-with <code>use_motorEfficiency</code>
+Rewrote statements using <code>not use_powerCharacteristic</code>
+with the enumeration 
+<code>Buildings.Fluid.Movers.BaseClasses.Types.PowerMethod</code>
 to support the implementation of 
 <a href=\"Modelica://Buildings.Fluid.Movers.BaseClasses.Euler\">
-<code>Buildings.Fluid.Movers.BaseClasses.Euler</code></a>.
+Buildings.Fluid.Movers.BaseClasses.Euler</a>.
 This is for 
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2668\">#2668</a>.
 </li>
