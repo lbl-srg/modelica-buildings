@@ -452,6 +452,17 @@ have been <b style=\"color:blue\">improved</b> in a
 <b style=\"color:blue\">non-backward compatible</b> way:
 </p>
 <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
+<tr><td colspan=\"2\"><b>Buildings.Air</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Air.Systems.SingleZone.VAV.ChillerDXHeatingEconomizer
+    </td>
+    <td valign=\"top\">Rewrote all statements that use <code>use_powerCharacteristic</code> 
+                     to select power computation path with the enumeration 
+                     <code>Buildings.Fluid.Movers.BaseClasses.Types.PowerMethod</code><br/>.
+                     This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2668\">issue 2668</a>.
+    </td>
+</tr>
 <tr><td colspan=\"2\"><b>Buildings.Applications</b>
     </td>
 </tr>
@@ -695,7 +706,7 @@ have been <b style=\"color:blue\">improved</b> in a
     </td>
     <td valign=\"top\">Rewrote all statements that use <code>use_powerCharacteristic</code> 
                      to select power computation path with the enumeration 
-                     <code>Buildings.Fluid.Movers.BaseClasses.Types.PowerMethod</code><br/>
+                     <code>Buildings.Fluid.Movers.BaseClasses.Types.PowerMethod</code><br/>.
                      This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2668\">issue 2668</a>.
     </td>
 </tr>
@@ -751,7 +762,8 @@ have been <b style=\"color:blue\">improved</b> in a
                        Buildings.ThermalZones.EnergyPlus.Examples.SmallOffice.ASHRAE2006Summer<br/>
                        Buildings.ThermalZones.EnergyPlus.Examples.SmallOffice.ASHRAE2006Winter<br/>
                        Buildings.ThermalZones.EnergyPlus.Examples.SmallOffice.Guideline36Spring<br/>
-                       Buildings.ThermalZones.EnergyPlus.Examples.SmallOffice.Guideline36Summer<br/>
+                       Buildings.ThermalZones.EnergyPlus.Examples.SmallOffice.Guideline36Summer<br/>"
+               + "
                        Buildings.ThermalZones.EnergyPlus.Examples.SmallOffice.Guideline36Winter
     </td>
     <td valign=\"top\">Changed models to include the hydraulic configurations of the cooling coil,
