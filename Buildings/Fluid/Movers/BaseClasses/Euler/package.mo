@@ -4,13 +4,46 @@ package Euler "Functions for Euler correlation"
   annotation (Documentation(info="<html>
 <p>
 This package implements a power computation path using the Euler number 
-and its correlation and the records for parameter that can be used with it.
-It also comes with a function that identifies the peak operation point 
-(where the efficiency is at its maximum) from mover curves.
-Although this path is intended to be used with only one data point 
-(the peak condition) supplied, the <code>findPeakCondition</code> function 
-makes it convenient to compare results with those obtained 
-by directly using the full curves. 
+and its correlation.
+</p>
+<ul>
+<li>
+The correlation function using the Euler number is implemented in 
+<a href=\"modelica://Buildings.Fluid.Movers.BaseClasses.Euler.correlation\">
+Buildings.Fluid.Movers.BaseClasses.Euler.correlation</a>.
+</li>
+<li>
+Efficiency and power curves are computed by 
+<a href=\"modelica://Buildings.Fluid.Movers.BaseClasses.Euler.computeCurves\">
+Buildings.Fluid.Movers.BaseClasses.Euler.computeCurves</a>.
+</li>
+<li>
+When curves of power and pressure against flow rate is available,
+the function 
+<a href=\"Buildings.Fluid.Movers.BaseClasses.Euler.findPeakCondition\">
+Buildings.Fluid.Movers.BaseClasses.Euler.findPeakCondition</a>
+can identify the peak operating condition from them. 
+This is useful comparing power computation results 
+against other methods. 
+</li>
+<li>
+The peak operating condition (where the efficiency <i>&eta;</i> is
+at its maximum) which is used by the correlation is stored in the record
+<a href=\"Buildings.Fluid.Movers.BaseClasses.Euler.peakCondition\">
+Buildings.Fluid.Movers.BaseClasses.Euler.peakCondition</a>.
+</li>
+<li>
+The results are stored in 
+<a href=\"Buildings.Fluid.Movers.BaseClasses.Euler.computedCurves\">
+Buildings.Fluid.Movers.BaseClasses.Euler.computedCurves</a>.
+</li>
+</ul>
+</p>
+<p>
+To avoid unreasonable power values being computed at low flow,
+<a href=\"modelica://Buildings.Fluid.Movers.BaseClasses.Euler.computeCurves\">
+Buildings.Fluid.Movers.BaseClasses.Euler.computeCurves</a>
+replaces the computed power at zero flow with extrapolation.
 </p>
 <p>
 See the
