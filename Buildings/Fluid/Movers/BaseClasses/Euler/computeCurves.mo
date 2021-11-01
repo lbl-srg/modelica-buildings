@@ -11,14 +11,15 @@ function computeCurves
   input Boolean use
     "Flag, if false return zeros";
   output Buildings.Fluid.Movers.BaseClasses.Euler.computedCurves curves(
-    V_flow=zeros(10),
-    eta=zeros(10),
-    P=zeros(10))
+    V_flow=zeros(11),
+    eta=zeros(11),
+    P=zeros(11))
     "Computed efficiency and power curves";
 
 protected
-  parameter Integer n = 10 "Number of data points";
-  parameter Modelica.SIunits.VolumeFlowRate V_flow_aux[:] = linspace(0,V_flow_max,n)
+  parameter Integer n = 11 "Number of data points";
+  parameter Modelica.SIunits.VolumeFlowRate V_flow_aux[:]=
+    linspace(0,V_flow_max,n)
     "Auxilliary variable";
   Modelica.SIunits.PressureDifference dp "Pressure difference";
   Real log_r_Eu "Log10 of ratio Eu/Eu_peak";
@@ -39,12 +40,6 @@ algorithm
           ySup=pressure.dp,
           ensureMonotonicity=Buildings.Utilities.Math.Functions.isMonotonic(
             x=pressure.dp,strict=false));
-/*    log_r_Eu:= if curves.V_flow[i]==0
-                 then Modelica.Constants.inf
-               elseif dp==0
-                 then Modelica.Constants.eps
-               else log10((dp * peak.V_flow^2)
-                         /(peak.dp * curves.V_flow[i]^2));*/
       log_r_Eu:= log10(Buildings.Utilities.Math.Functions.smoothMax(
                        x1=dp * peak.V_flow^2,x2=1E-5,deltaX=1E-6)
                       /Buildings.Utilities.Math.Functions.smoothMax(
@@ -55,12 +50,22 @@ algorithm
     curves.P[i] :=dp*curves.V_flow[i]/curves.eta[i];
   end for;
 
+  curves.P[1]:=Buildings.Utilities.Math.Functions.smoothInterpolation(
+                x=0,
+                xSup=curves.V_flow[2:end],
+                ySup=curves.P[2:end],
+                ensureMonotonicity=Buildings.Utilities.Math.Functions.isMonotonic(
+                  x=curves.P,strict=false));
+
   annotation(smoothOrder=1,
               Documentation(info="<html>
 <p>
 This function computes the curves for efficiency <i>&eta;</i> 
 and power <i>P</i> against flow rate <i>V&#775;</i>. 
-[Documentation pending.]
+Eleven points are computed using the correlation of Euler number, 
+representing 0% to 100% of the maximum flow with increments of 10%. 
+Because the computed power may approach infinity near zero flow, 
+it is replaced by extrapolation at zero flow. 
 </p>
 </html>",
 revisions="<html>
