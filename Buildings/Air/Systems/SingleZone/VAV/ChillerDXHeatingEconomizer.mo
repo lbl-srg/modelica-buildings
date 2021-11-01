@@ -126,7 +126,8 @@ model ChillerDXHeatingEconomizer
     final m_flow_nominal=mAir_flow_nominal,
     final nominalValuesDefineDefaultPressureCurve=true,
     final dp_nominal=875,
-    final per(use_powerCharacteristic=false),
+    final per(powMet=
+        Buildings.Fluid.Movers.BaseClasses.Types.PowerMethod.PowerCharacteristic),
     final energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     final allowFlowReversal=false,
     final use_inputFilter=false,
