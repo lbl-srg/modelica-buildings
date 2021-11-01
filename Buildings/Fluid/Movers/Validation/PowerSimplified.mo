@@ -158,7 +158,8 @@ at the <i>y</i>-axis. This is for
 October 14, 2021, by Hongxiang Fu:<br/>
 Rewrote statements using <code>not use_powerCharacteristic</code>
 with the enumeration 
-<code>Buildings.Fluid.Movers.BaseClasses.Types.PowerMethod</code>
+<a href=\"modelica://Buildings.Fluid.Movers.BaseClasses.Types.PowerMethod\">
+Buildings.Fluid.Movers.BaseClasses.Types.PowerMethod</a>
 to support the implementation of 
 <a href=\"Modelica://Buildings.Fluid.Movers.BaseClasses.Euler\">
 Buildings.Fluid.Movers.BaseClasses.Euler</a>.

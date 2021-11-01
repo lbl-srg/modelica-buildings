@@ -631,7 +631,8 @@ feedback control of damper positions. The cooling coil is a dry coil model.
 November 1, 2021, by Hongxiang Fu:<br/>
 Rewrote statements using <code>not use_powerCharacteristic</code>
 with the enumeration 
-<code>Buildings.Fluid.Movers.BaseClasses.Types.PowerMethod</code>
+<a href=\"modelica://Buildings.Fluid.Movers.BaseClasses.Types.PowerMethod\">
+Buildings.Fluid.Movers.BaseClasses.Types.PowerMethod</a>
 to support the implementation of 
 <a href=\"Modelica://Buildings.Fluid.Movers.BaseClasses.Euler\">
 Buildings.Fluid.Movers.BaseClasses.Euler</a>.

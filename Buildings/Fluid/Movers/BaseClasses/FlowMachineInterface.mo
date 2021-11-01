@@ -739,6 +739,12 @@ and <code>V_flow_max</code> here from
 <a href=\"modelica://Buildings.Fluid.Movers.BaseClasses.PartialFlowMachine\">
 Buildings.Fluid.Movers.BaseClasses.PartialFlowMachine</a>.
 </li>
+<li>
+Rewrote statements using <code>not use_powerCharacteristic</code>
+with the enumeration 
+<a href=\"modelica://Buildings.Fluid.Movers.BaseClasses.Types.PowerMethod\">
+Buildings.Fluid.Movers.BaseClasses.Types.PowerMethod</a>.
+</li>
 </ul>
 This is for 
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2668\">#2668</a>.

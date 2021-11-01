@@ -762,8 +762,7 @@ have been <b style=\"color:blue\">improved</b> in a
                        Buildings.ThermalZones.EnergyPlus.Examples.SmallOffice.ASHRAE2006Summer<br/>
                        Buildings.ThermalZones.EnergyPlus.Examples.SmallOffice.ASHRAE2006Winter<br/>
                        Buildings.ThermalZones.EnergyPlus.Examples.SmallOffice.Guideline36Spring<br/>
-                       Buildings.ThermalZones.EnergyPlus.Examples.SmallOffice.Guideline36Summer<br/>"
-               + "
+                       Buildings.ThermalZones.EnergyPlus.Examples.SmallOffice.Guideline36Summer<br/>
                        Buildings.ThermalZones.EnergyPlus.Examples.SmallOffice.Guideline36Winter
     </td>
     <td valign=\"top\">Changed models to include the hydraulic configurations of the cooling coil,
