@@ -31,7 +31,6 @@ the input data, but is instead decided by
 Buildings.Fluid.Movers.BaseClasses.Euler.computeCurves</a>.
 </li>
 </ul>
-</p>
 </html>",
 revisions="<html>
 <ul>

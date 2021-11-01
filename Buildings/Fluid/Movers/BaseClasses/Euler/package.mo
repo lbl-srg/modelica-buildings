@@ -38,7 +38,6 @@ The results are stored in
 Buildings.Fluid.Movers.BaseClasses.Euler.computedCurves</a>.
 </li>
 </ul>
-</p>
 <p>
 To avoid unreasonable power values being computed at low flow,
 <a href=\"modelica://Buildings.Fluid.Movers.BaseClasses.Euler.computeCurves\">
