@@ -2,7 +2,6 @@ compareVars :=
   {
     "eff1.eta",
     "eff2.eta",
-    "etaIpo",
     "eff1.PEle",
     "eff2.PEle"
   };

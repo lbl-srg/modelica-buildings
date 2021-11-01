@@ -47,15 +47,9 @@ model Euler
     annotation (Placement(transformation(extent={{-60,-46},{-40,-26}})));
 
   Modelica.SIunits.VolumeFlowRate V_flow "Volumetric flow rate";
-  Modelica.SIunits.Efficiency etaIpo "Efficiency values directly interpolated";
 
 equation
   V_flow = m_flow.y/rhoCon;
-  etaIpo=Buildings.Utilities.Math.Functions.smoothInterpolation(
-    x=V_flow,
-    xSup=efficiency.V_flow,
-    ySup=efficiency.eta,
-    ensureMonotonicity=false);
   connect(eff1.rho, rho.y)
     annotation (Line(points={{-12,-6},{-26,-6},{-26,0},{-39,0}},
                                                color={0,0,127}));
