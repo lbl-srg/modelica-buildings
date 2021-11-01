@@ -231,7 +231,14 @@ protected
 
   Modelica.Blocks.Interfaces.RealOutput dp_internal
     "If dp is prescribed, use dp_in and solve for r_N, otherwise compute dp using r_N";
-  Real log_r_Eu(start=0, unit="1") "Log10 of ratio Eu/Eu_peak";
+
+  parameter Buildings.Fluid.Movers.BaseClasses.Euler.computedCurves curEu=
+    Buildings.Fluid.Movers.BaseClasses.Euler.computeCurves(
+      peak=per.peak,
+      pressure=per.pressure,
+      V_flow_max=V_flow_max,
+      use=per.use_eulerNumber)
+      "Efficiency and power curves vs. flow rate calculated with Euler number";
 
 function getPerformanceDataAsString
   input Buildings.Fluid.Movers.BaseClasses.Characteristics.flowParameters pressure
@@ -503,11 +510,6 @@ equation
 
   // Flow work
   WFlo = dp_internal*V_flow;
-  log_r_Eu =log10(
-               Buildings.Utilities.Math.Functions.smoothMax(
-                 x1=dp_internal * per.peak.V_flow^2, x2=1E-6, deltaX=1E-7)
-              /Buildings.Utilities.Math.Functions.smoothMax(
-                 x1=per.peak.dp * V_flow^2, x2=1E-6, deltaX=1E-7));
   // Power consumption
   if per.use_powerCharacteristic then
     // For the homotopy, we want P/V_flow to be bounded as V_flow -> 0 to avoid a very high medium
@@ -533,9 +535,16 @@ equation
     etaHyd = 1;
     etaMot = eta;
   elseif per.use_eulerNumber then
-    eta = per.peak.eta
-            *Buildings.Fluid.Movers.BaseClasses.Euler.correlation(x=log_r_Eu);
-    PEle = WFlo / Buildings.Utilities.Math.Functions.smoothMax(x1=eta, x2=1E-5, deltaX=1E-6);
+    eta = Buildings.Utilities.Math.Functions.smoothInterpolation(
+            x=V_flow,
+            xSup=curEu.V_flow,
+            ySup=curEu.eta,
+            ensureMonotonicity=false);
+    PEle = Buildings.Utilities.Math.Functions.smoothInterpolation(
+            x=V_flow,
+            xSup=curEu.V_flow,
+            ySup=curEu.P,
+            ensureMonotonicity=false);
     // Similar to the powerCharacteristic path,
     // this path also simply assumes etaHyd = 1.
     etaHyd = 1;
