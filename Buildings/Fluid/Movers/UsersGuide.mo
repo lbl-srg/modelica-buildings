@@ -503,9 +503,7 @@ The modified dimensionless Euler number is defined as
 <p align=\"center\">
 <i>Eu=(&Delta;p&sdot;D<sup>4</sup>) &frasl; (&rho;&sdot;V&#775;<sup>2</sup>)</i><br/>
 </p>
-The user needs to provide the flow rate, the pressure rise,
-and the efficiency at the operation point where 
-its efficiency is at its maximum. For more information, see
+For more information, see
 <a href=\"Modelica://Buildings.Fluid.Movers.BaseClasses.Euler.correlation\">
 Buildings.Fluid.Movers.BaseClasses.Euler.correlation</a>
 and <a href=\"https://energyplus.net/assets/nrel_custom/pdfs/pdfs_v9.6.0/EngineeringReference.pdf\">
@@ -519,6 +517,12 @@ the power and other two efficiencies are computed as
   &eta;<sub>hyd</sub> = 1<br/>
   &eta;<sub>mot</sub> = &eta;
 </p>
+However, to avoid unstable computation at low flow, 
+the computed power is replaced by extrapolation 
+when flow rate is below 10% of its maximum.<br/>
+This computation path is implemented in 
+<a href=\"Modelica://Buildings.Fluid.Movers.BaseClasses.Euler\">
+Buildings.Fluid.Movers.BaseClasses.Euler</a>.<br/>
 <br/>
 </li>
 <li>
