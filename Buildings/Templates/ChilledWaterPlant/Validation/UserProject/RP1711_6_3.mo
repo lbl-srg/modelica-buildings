@@ -1,7 +1,7 @@
 within Buildings.Templates.ChilledWaterPlant.Validation.UserProject;
 model RP1711_6_3
-  extends Buildings.Templates.ChilledWaterPlant.WaterCooledChilledWaterPlant(
-    redeclare Templates.BaseClasses.ChillerGroup.ChillerParallel chi,
+  extends Buildings.Templates.ChilledWaterPlant.WaterCooledSeries(
+    redeclare Components.ChillerGroup.ChillerSeries chi,
     final has_byp=true,
     final id="CHW_1");
 

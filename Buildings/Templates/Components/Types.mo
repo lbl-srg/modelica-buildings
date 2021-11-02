@@ -13,30 +13,6 @@ package Types "Generic types for template components"
       PumpedCoilThreeWayValve
       "Pumped coil with three-way valve")
     "Enumeration to configure the actuator";
-  type ChilledWaterReturnSection = enumeration(
-      NoEconomizer "No waterside economizer",
-      WatersideEconomizer
-      "Waterisde economizer");
-  type ChilledWaterPumpGroup = enumeration(
-      HeaderedPrimary "Headered primary pumps only",
-      DedicatedPrimary "Dedicated primary pumps only",
-      HeaderedPrimarySecondary "Headered primary pumps with secondary pumps",
-      DedicatedPrimarySecondary "Dedicated primary pumps with secondary pumps");
-  type Chiller = enumeration(
-      ElectricChiller
-      "Electric water cooled chiller",
-      AbsorptionChiller
-      "Absorption chiller");
-  type ChillerGroup = enumeration(
-      ChillerParallel
-      "Chillers in parallel",
-      ChillerSeries
-      "Chillers in series");
-  type ChilledWaterPlant = enumeration(
-      WaterCooledChiller
-      "Water cooled chiller plant",
-      AirCooledChiller
-      "Air cooled chiller plant");
   type Coil = enumeration(
       DirectExpansion
       "Direct expansion",
@@ -53,9 +29,6 @@ package Types "Generic types for template components"
       Reheat
       "Reheat")
     "Enumeration to specify the coil function";
-  type CoolingTowerGroup = enumeration(
-      CoolingTowerParallel
-      "Cooling towers in parallel");
   type Damper = enumeration(
       NoPath
       "No fluid path",
