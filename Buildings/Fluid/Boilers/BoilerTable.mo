@@ -47,9 +47,18 @@ First implementation. This is for
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2651\">#2651</a>.
 </li>
 </ul>
-</html>"), Icon(graphics={Line(points={{-100,-44},{-80,-44}}, color={0,0,0}),
-        Text(
-          extent={{-22,-54},{-142,-104}},
-          lineColor={0,0,0},
-          textString="T_in")}));
+</html>"), Icon(graphics={
+        Rectangle(
+          origin={-80,-79},
+          lineColor={64,64,64},
+          fillColor={255,215,136},
+          fillPattern=FillPattern.Solid,
+          extent={{-12,-11},{12,11}},
+          radius=5.0),
+        Line(
+          points={{-80,-68},{-80,-90}}),
+        Line(
+          points={{-92,-76},{-68,-76}}),
+        Line(
+          points={{-92,-84},{-68,-84}})}));
 end BoilerTable;
