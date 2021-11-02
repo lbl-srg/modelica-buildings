@@ -56,6 +56,7 @@ partial model PartialSensor
         extent={{-20,-20},{20,20}},
         rotation=90,
         origin={0,120})));
+
   annotation (
     Icon(coordinateSystem(preserveAspectRatio=false), graphics={
           Rectangle(
@@ -68,7 +69,6 @@ partial model PartialSensor
 <p>
 The location parameter <code>loc</code> is used to assign nominal parameter values
 based on the external system parameter file.
-The instance name is used to connect to the propoer I/O control signal.
 </p>
 </html>"));
 end PartialSensor;

@@ -8,8 +8,9 @@ package OutdoorReliefReturnSection
       final have_porPre=secRel.have_porPre,
       final typDamOut=secOut.typDamOut,
       final typDamOutMin=secOut.typDamOutMin,
-      final typDamRel=secRel.typDam,
-      final typFanRet=secRel.typFan);
+      final typDamRel=secRel.typDamRel,
+      final typFanRel=secRel.typFanRel,
+      final typFanRet=secRel.typFanRet);
 
     replaceable
       Buildings.Templates.AirHandlersFans.Components.OutdoorSection.SingleDamper
@@ -77,8 +78,9 @@ package OutdoorReliefReturnSection
       final have_porPre=secRel.have_porPre,
       final typDamOut=secOut.typDamOut,
       final typDamOutMin=secOut.typDamOutMin,
-      final typDamRel=secRel.typDam,
-      final typFanRet=secRel.typFan);
+      final typDamRel=secRel.typDamRel,
+      final typFanRel=secRel.typFanRel,
+      final typFanRet=secRel.typFanRet);
 
     replaceable
       Buildings.Templates.AirHandlersFans.Components.OutdoorSection.SingleDamper
@@ -151,8 +153,8 @@ package OutdoorReliefReturnSection
         points={{-40,-66},{-40,120},{0,120},{0,140}},
         color={255,204,51},
         thickness=0.5));
-    connect(secRel.port_bPre, port_bPre) annotation (Line(points={{8,66},{8,40},{
-            80,40},{80,140}},               color={0,127,255}));
+    connect(secRel.port_bPre, port_bPre) annotation (Line(points={{8,66},{8,40},
+            {80,40},{80,140}},              color={0,127,255}));
   end EconomizerWithRelief;
 
   model HeatRecovery "Heat recovery"
@@ -161,8 +163,9 @@ package OutdoorReliefReturnSection
       final have_porPre=secRel.have_porPre,
       final typDamOut=secOut.typDamOut,
       final typDamOutMin=secOut.typDamOutMin,
-      final typDamRel=secRel.typDam,
-      final typFanRet=secRel.typFan);
+      final typDamRel=secRel.typDamRel,
+      final typFanRel=secRel.typFanRel,
+      final typFanRet=secRel.typFanRet);
 
     Buildings.Templates.AirHandlersFans.Components.OutdoorSection.NoEconomizer
       secOut(redeclare final package MediumAir = MediumAir, final have_recHea=
@@ -248,8 +251,11 @@ package OutdoorReliefReturnSection
       parameter Buildings.Templates.Components.Types.Damper typDamRel
         "Relief damper type"
         annotation (Evaluate=true, Dialog(group="Configuration"));
+      parameter Buildings.Templates.Components.Types.Fan typFanRel
+        "Relief fan type"
+        annotation (Evaluate=true, Dialog(group="Configuration"));
       parameter Buildings.Templates.Components.Types.Fan typFanRet
-        "Relief/return fan type"
+        "Return fan type"
         annotation (Evaluate=true, Dialog(group="Configuration"));
 
       outer parameter String id
@@ -268,16 +274,16 @@ package OutdoorReliefReturnSection
         if typ <> AirHandlersFans.Types.OutdoorReliefReturnSection.EconomizerNoRelief
         "Relief (exhaust) air"
         annotation (Placement(transformation(
-          extent={{-190,70},{-170,90}}),iconTransformation(extent={{-190,90},{-170,
-                110}})));
+          extent={{-190,70},{-170,90}}),iconTransformation(extent={{-810,590},{-790,
+                610}})));
       Modelica.Fluid.Interfaces.FluidPort_a port_Out(
         redeclare final package Medium = MediumAir,
         m_flow(min=if allowFlowReversal then -Modelica.Constants.inf else 0),
         h_outflow(start=MediumAir.h_default, nominal=MediumAir.h_default))
         "Outdoor air intake"
         annotation (Placement(transformation(
-          extent={{-190,-90},{-170,-70}}),iconTransformation(extent={{-190,-110},{
-                -170,-90}})));
+          extent={{-190,-90},{-170,-70}}),iconTransformation(extent={{-810,-610},{-790,
+                -590}})));
       Modelica.Fluid.Interfaces.FluidPort_b port_Sup(
         redeclare final package Medium = MediumAir,
         m_flow(max=if allowFlowReversal then +Modelica.Constants.inf else 0),
@@ -285,19 +291,19 @@ package OutdoorReliefReturnSection
         "Supply air"
         annotation (
           Placement(transformation(extent={{170,-90},{190,-70}}),
-            iconTransformation(extent={{170,-110},{190,-90}})));
+            iconTransformation(extent={{790,-610},{810,-590}})));
       Modelica.Fluid.Interfaces.FluidPort_a port_Ret(
         redeclare final package Medium =MediumAir,
         m_flow(min=if allowFlowReversal then -Modelica.Constants.inf else 0),
         h_outflow(start=MediumAir.h_default, nominal=MediumAir.h_default))
         "Return air"
         annotation (Placement(transformation(extent={{170,70},{190,90}}),
-            iconTransformation(extent={{170,90},{190,110}})));
+            iconTransformation(extent={{790,588},{810,608}})));
       Modelica.Fluid.Interfaces.FluidPort_b port_bPre(
         redeclare final package Medium = MediumAir) if have_porPre
         "Optional fluid connector for differential pressure sensor"
         annotation (Placement(transformation(extent={{90,130},{70,150}}),
-            iconTransformation(extent={{90,130},{70,150}})));
+            iconTransformation(extent={{390,790},{370,810}})));
       Buildings.Templates.AirHandlersFans.Interfaces.Bus bus "Control bus"
         annotation (Placement(transformation(
             extent={{-20,-20},{20,20}},
@@ -305,15 +311,41 @@ package OutdoorReliefReturnSection
             origin={0,140}), iconTransformation(
             extent={{-10,-10},{10,10}},
             rotation=0,
-            origin={0,140})));
-      annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-180,
-                -140},{180,140}}), graphics={
+            origin={0,800})));
+      annotation (Icon(coordinateSystem(preserveAspectRatio=false,
+        extent={{-800,-800}, {800,800}}),
+        graphics={
             Text(
-              extent={{-149,-150},{151,-190}},
+              extent={{-149,-834},{151,-874}},
               lineColor={0,0,255},
-              textString="%name")}),                                 Diagram(
-            coordinateSystem(preserveAspectRatio=false, extent={{-180,-140},{180,
-                140}})));
+              textString="%name"),
+                  Bitmap(
+            visible=typFanRet==Buildings.Templates.Components.Types.Fan.MultipleVariable,
+            extent={{396,520},{236,680}},
+            fileName="modelica://Buildings/Resources/Images/Templates/Components/Fans/MultipleVariable.svg"),
+                    Bitmap(
+            visible=typFanRet==Buildings.Templates.Components.Types.Fan.SingleVariable,
+            extent={{544,510},{360,690}},
+            fileName="modelica://Buildings/Resources/Images/Templates/Components/Fans/SingleVariable.svg"),
+            Rectangle(extent={{800,680},{-800,520}}, lineColor={28,108,200}),
+          Bitmap(
+            visible=typDamRel==Buildings.Templates.Components.Types.Damper.TwoPosition,
+            extent={{-612,420},{-548,680}},
+            fileName="modelica://Buildings/Resources/Images/Templates/Components/Dampers/TwoPosition.svg"),
+          Bitmap(
+            visible=typDamRel==Buildings.Templates.Components.Types.Damper.Modulated,
+            extent={{-672,420},{-608,680}},
+            fileName="modelica://Buildings/Resources/Images/Templates/Components/Dampers/Modulated.svg"),
+                  Bitmap(
+            visible=typFanRel==Buildings.Templates.Components.Types.Fan.MultipleVariable,
+            extent={{-344,520},{-504,680}},
+            fileName="modelica://Buildings/Resources/Images/Templates/Components/Fans/MultipleVariable.svg"),
+                    Bitmap(
+            visible=typFanRel==Buildings.Templates.Components.Types.Fan.SingleVariable,
+            extent={{-198,510},{-382,690}},
+            fileName="modelica://Buildings/Resources/Images/Templates/Components/Fans/SingleVariable.svg")}),
+       Diagram(
+            coordinateSystem(preserveAspectRatio=false, extent={{-180,-140},{180,140}})));
     end PartialOutdoorReliefReturnSection;
   end Interfaces;
 end OutdoorReliefReturnSection;

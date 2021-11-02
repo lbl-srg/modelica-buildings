@@ -24,6 +24,9 @@ equation
           {100,0}}, color={0,127,255}));
   connect(senTem.T, y)
     annotation (Line(points={{0,11},{0,11},{0,120}}, color={0,0,127}));
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false)),
+  annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
+      Bitmap(
+        extent={{-32,-210},{34,90}},
+        fileName="modelica://Buildings/Resources/Images/Templates/Components/Sensors/Temperature.svg")}),
     Diagram(coordinateSystem(preserveAspectRatio=false)));
 end Temperature;

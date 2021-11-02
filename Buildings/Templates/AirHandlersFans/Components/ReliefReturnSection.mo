@@ -2,76 +2,12 @@
 package ReliefReturnSection
   extends Modelica.Icons.Package;
 
-  model NoEconomizer "No economizer"
-    extends Buildings.Templates.AirHandlersFans.Components.ReliefReturnSection.Interfaces.PartialReliefReturnSection(
-      final typ=Types.ReliefReturnSection.NoEconomizer,
-      final typDam=damRel.typ,
-      final typFan=fanRet.typ,
-      final have_porPre=fanRet.typCtr == Types.ReturnFanControlSensor.Pressure);
-
-    replaceable .Buildings.Templates.Components.Fans.None fanRet constrainedby
-      Buildings.Templates.Components.Fans.Interfaces.PartialFan(
-                                                    redeclare final package
-        Medium = MediumAir, final loc=Buildings.Templates.Components.Types.Location.Return)
-      "Return/relief fan" annotation (
-      choices(
-        choice(redeclare Templates.BaseClasses.Fans.None fanRet "No fan"),
-        choice(redeclare Templates.BaseClasses.Fans.SingleVariable fanRet
-            "Single fan - Variable speed"),
-        choice(redeclare Templates.BaseClasses.Fans.MultipleVariable fanRet
-            "Multiple fans (identical) - Variable speed")),
-      Dialog(group="Exhaust/relief/return section"),
-      Placement(transformation(extent={{110,-10},{90,10}})));
-    Buildings.Templates.Components.Sensors.DifferentialPressure pRet_rel(
-      redeclare final package Medium = MediumAir,
-      final have_sen=fanRet.typCtr == Types.ReturnFanControlSensor.Pressure,
-      final loc=Buildings.Templates.Components.Types.Location.Return)
-      "Return static pressure sensor"
-      annotation (Placement(transformation(extent={{30,-10},{10,10}})));
-
-    Buildings.Templates.Components.Sensors.VolumeFlowRate VRet_flow(
-      redeclare final package Medium = MediumAir,
-      final have_sen=fanRet.typCtr == Types.ReturnFanControlSensor.Airflow,
-      final loc=Buildings.Templates.Components.Types.Location.Return)
-      "Return air volume flow rate sensor"
-      annotation (Placement(transformation(extent={{70,-10},{50,10}})));
-
-    Buildings.Templates.Components.Dampers.TwoPosition damRel(redeclare final
-        package Medium = MediumAir, final loc=Buildings.Templates.Components.Types.Location.Relief)
-      "Relief damper" annotation (Placement(transformation(
-          extent={{10,-10},{-10,10}},
-          rotation=0,
-          origin={-150,0})));
-  equation
-    /* Hardware point connection - start */
-    connect(fanRet.bus, bus.fanRet);
-    connect(damRel.bus, bus.damRel);
-    /* Hardware point connection - end */
-    connect(port_a, fanRet.port_a)
-      annotation (Line(points={{180,0},{110,0}}, color={0,127,255}));
-    connect(fanRet.port_b, VRet_flow.port_a)
-      annotation (Line(points={{90,0},{70,0}}, color={0,127,255}));
-    connect(VRet_flow.port_b, pRet_rel.port_a)
-      annotation (Line(points={{50,0},{30,0}}, color={0,127,255}));
-    connect(pRet_rel.port_b, port_aIns)
-      annotation (Line(points={{10,0},{-80,0}}, color={0,127,255}));
-    connect(pRet_rel.port_bRef, port_bPre) annotation (Line(points={{20,-10},{20,
-            -120},{80,-120},{80,-140}}, color={0,127,255}));
-    connect(port_b, damRel.port_b)
-      annotation (Line(points={{-180,0},{-160,0}}, color={0,127,255}));
-    connect(damRel.port_a, pas.port_a)
-      annotation (Line(points={{-140,0},{-110,0}}, color={0,127,255}));
-    connect(pRet_rel.y, bus.pRet_rel) annotation (Line(points={{20,12},{20,
-            20},{0.1,20},{0.1,140.1}}, color={0,0,127}));
-    connect(VRet_flow.y, bus.VRet_flow) annotation (Line(points={{60,12},{
-            60,20},{0.1,20},{0.1,140.1}}, color={0,0,127}));
-  end NoEconomizer;
-
   model NoRelief "No relief branch"
     extends Buildings.Templates.AirHandlersFans.Components.ReliefReturnSection.Interfaces.PartialReliefReturnSection(
       final typ=Types.ReliefReturnSection.NoRelief,
-      final typDam=Buildings.Templates.Components.Types.Damper.None,
-      final typFan=fanRet.typ,
+      final typDamRel=Buildings.Templates.Components.Types.Damper.None,
+      final typFanRel=Buildings.Templates.Components.Types.Fan.None,
+      final typFanRet=fanRet.typ,
       have_recHea=false,
       final have_porPre=fanRet.typCtr == Types.ReturnFanControlSensor.Pressure);
 
@@ -79,7 +15,7 @@ package ReliefReturnSection
       Buildings.Templates.Components.Fans.Interfaces.PartialFan(
                                                     redeclare final package
         Medium = MediumAir, final loc=Buildings.Templates.Components.Types.Location.Return)
-      "Return/relief fan" annotation (
+      "Return fan"        annotation (
       choices(
         choice(redeclare Templates.BaseClasses.Fans.None fanRet "No fan"),
         choice(redeclare Templates.BaseClasses.Fans.SingleVariable fanRet
@@ -115,17 +51,18 @@ package ReliefReturnSection
             -120},{80,-120},{80,-140}}, color={0,127,255}));
     connect(pRet_rel.port_b, port_bRet)
       annotation (Line(points={{10,0},{0,0},{0,-140}}, color={0,127,255}));
-    connect(pRet_rel.y, bus.pRet_rel) annotation (Line(points={{20,12},{20,
-            20},{0.1,20},{0.1,140.1}}, color={0,0,127}));
-    connect(VRet_flow.y, bus.VRet_flow) annotation (Line(points={{60,12},{
-            60,20},{0,20},{0,80},{0.1,80},{0.1,140.1}}, color={0,0,127}));
+    connect(pRet_rel.y, bus.pRet_rel) annotation (Line(points={{20,12},{20,20},
+            {0,20},{0,140}},           color={0,0,127}));
+    connect(VRet_flow.y, bus.VRet_flow) annotation (Line(points={{60,12},{60,20},
+            {0,20},{0,80},{0,80},{0,140}},              color={0,0,127}));
   end NoRelief;
 
   model ReliefDamper "No relief fan - Modulated relief damper"
     extends Buildings.Templates.AirHandlersFans.Components.ReliefReturnSection.Interfaces.PartialReliefReturnSection(
       final typ=Types.ReliefReturnSection.ReliefDamper,
-      final typDam=damRel.typ,
-      final typFan=Buildings.Templates.Components.Types.Fan.None,
+      final typDamRel=damRel.typ,
+      final typFanRel=Buildings.Templates.Components.Types.Fan.None,
+      final typFanRet=Buildings.Templates.Components.Types.Fan.None,
       final have_porPre=false);
 
     Buildings.Templates.Components.Dampers.Modulated damRel(redeclare final
@@ -161,9 +98,10 @@ building static pressure. Close damper when disabled.
   model ReliefFan "Relief fan - Two-position relief damper"
     extends Buildings.Templates.AirHandlersFans.Components.ReliefReturnSection.Interfaces.PartialReliefReturnSection(
       final typ=Types.ReliefReturnSection.ReliefFan,
-      final typDam=damRel.typ,
-      final typFan=fanRet.typ,
-      final have_porPre=fanRet.typCtr == Types.ReturnFanControlSensor.Pressure);
+      final typDamRel=damRel.typ,
+      final typFanRel=fanRel.typ,
+      final typFanRet=Buildings.Templates.Components.Types.Fan.None,
+      final have_porPre=fanRel.typCtr == Types.ReturnFanControlSensor.Pressure);
 
     Buildings.Templates.Components.Dampers.TwoPosition damRel(redeclare final
         package Medium = MediumAir, final loc=Buildings.Templates.Components.Types.Location.Relief)
@@ -171,12 +109,12 @@ building static pressure. Close damper when disabled.
           extent={{10,-10},{-10,10}},
           rotation=0,
           origin={-60,0})));
-    replaceable .Buildings.Templates.Components.Fans.SingleVariable fanRet
+    replaceable .Buildings.Templates.Components.Fans.SingleVariable fanRel
       constrainedby Buildings.Templates.Components.Fans.Interfaces.PartialFan(
       redeclare final package Medium = MediumAir,
       final typCtr=Types.ReturnFanControlSensor.None,
       final loc=Buildings.Templates.Components.Types.Location.Relief)
-      "Return/relief fan" annotation (choices(choice(redeclare
+      "Relief fan"        annotation (choices(choice(redeclare
             Templates.BaseClasses.Fans.SingleVariable fanRet
             "Single fan - Variable speed"), choice(redeclare
             Templates.BaseClasses.Fans.MultipleVariable fanRet
@@ -184,18 +122,18 @@ building static pressure. Close damper when disabled.
           transformation(extent={{-10,-10},{-30,10}})));
   equation
     /* Hardware point connection - start */
-    connect(fanRet.bus, bus.fanRet);
+    connect(fanRel.bus, bus.fanRet);
     connect(damRel.bus, bus.damRel);
     /* Hardware point connection - end */
     connect(damRel.port_b, port_aIns)
       annotation (Line(points={{-70,0},{-80,0}}, color={0,127,255}));
     connect(pas.port_a, port_b)
       annotation (Line(points={{-110,0},{-180,0}}, color={0,127,255}));
-    connect(damRel.port_a,fanRet. port_b)
+    connect(damRel.port_a,fanRel. port_b)
       annotation (Line(points={{-50,0},{-30,0}}, color={0,127,255}));
-    connect(fanRet.port_a, port_a)
+    connect(fanRel.port_a, port_a)
       annotation (Line(points={{-10,0},{180,0}}, color={0,127,255}));
-    connect(fanRet.port_a, port_bRet)
+    connect(fanRel.port_a, port_bRet)
       annotation (Line(points={{-10,0},{0,0},{0,-140}}, color={0,127,255}));
     annotation (Documentation(info="<html>
 <p>
@@ -212,12 +150,14 @@ building static pressure. Close damper when disabled.
   model ReturnFan "Return fan - Modulated relief damper"
     extends Buildings.Templates.AirHandlersFans.Components.ReliefReturnSection.Interfaces.PartialReliefReturnSection(
       final typ=Types.ReliefReturnSection.ReturnFan,
-      final typDam=damRel.typ,
-      final typFan=fanRet.typ,
+      final typDamRel=damRel.typ,
+      final typFanRel=Buildings.Templates.Components.Types.Fan.None,
+      final typFanRet=fanRet.typ,
       final have_porPre=fanRet.typCtr == Types.ReturnFanControlSensor.Pressure);
 
-    Buildings.Templates.Components.Dampers.TwoPosition damRel(redeclare final
-        package Medium = MediumAir, final loc=Buildings.Templates.Components.Types.Location.Relief)
+    Buildings.Templates.Components.Dampers.TwoPosition damRel(
+      redeclare final package Medium = MediumAir,
+      final loc=Buildings.Templates.Components.Types.Location.Relief)
       "Relief damper" annotation (Placement(transformation(
           extent={{10,-10},{-10,10}},
           rotation=0,
@@ -226,7 +166,7 @@ building static pressure. Close damper when disabled.
       constrainedby Buildings.Templates.Components.Fans.Interfaces.PartialFan(
                                                                   redeclare
         final package Medium = MediumAir, final loc=Buildings.Templates.Components.Types.Location.Return)
-      "Return/relief fan" annotation (choices(choice(redeclare
+      "Return fan"        annotation (choices(choice(redeclare
             Templates.BaseClasses.Fans.SingleVariable fanRet
             "Single fan - Variable speed"), choice(redeclare
             Templates.BaseClasses.Fans.MultipleVariable fanRet
@@ -267,10 +207,10 @@ building static pressure. Close damper when disabled.
       annotation (Line(points={{90,0},{110,0}}, color={0,127,255}));
     connect(pRet_rel.port_bRef, port_bPre) annotation (Line(points={{40,-10},{40,-120},
             {80,-120},{80,-140}}, color={0,127,255}));
-    connect(pRet_rel.y, bus.pRet_rel) annotation (Line(points={{40,12},{40,
-            20},{0,20},{0,80},{0.1,80},{0.1,140.1}}, color={0,0,127}));
-    connect(VRet_flow.y, bus.VRet_flow) annotation (Line(points={{80,12},{
-            80,20},{0.1,20},{0.1,140.1}}, color={0,0,127}));
+    connect(pRet_rel.y, bus.pRet_rel) annotation (Line(points={{40,12},{40,20},
+            {0,20},{0,80},{0,80},{0,140}},           color={0,0,127}));
+    connect(VRet_flow.y, bus.VRet_flow) annotation (Line(points={{80,12},{80,20},
+            {0,20},{0,140}},              color={0,0,127}));
     annotation (Documentation(info="<html>
 <p>
 5.16.10 Return-Fan Control—Direct Building Pressure
@@ -322,11 +262,14 @@ inverse of the return air damper per Section 5.16.2.3.4.
       parameter AirHandlersFans.Types.ReliefReturnSection typ
         "Relief/return air section type"
         annotation (Evaluate=true, Dialog(group="Configuration"));
-      parameter Buildings.Templates.Components.Types.Damper typDam
+      parameter Buildings.Templates.Components.Types.Damper typDamRel
         "Relief damper type"
         annotation (Evaluate=true, Dialog(group="Configuration"));
-      parameter Buildings.Templates.Components.Types.Fan typFan
-        "Relief/return fan type"
+      parameter Buildings.Templates.Components.Types.Fan typFanRel
+        "Relief fan type"
+        annotation (Evaluate=true, Dialog(group="Configuration"));
+      parameter Buildings.Templates.Components.Types.Fan typFanRet
+        "Return fan type"
         annotation (Evaluate=true, Dialog(group="Configuration"));
       parameter Boolean have_porPre
         "Set to true in case of fluid port for differential pressure sensor"

@@ -1,7 +1,7 @@
 within Buildings.Templates.Components.Dampers;
 model None "No damper"
   extends Buildings.Templates.Components.Dampers.Interfaces.PartialDamper(
-                                                           final typ=Types.Damper.None)
+    final typ=Buildings.Templates.Components.Types.Damper.None)
     annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)));
 equation

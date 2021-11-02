@@ -37,23 +37,25 @@ equation
           {2.22045e-15,-20},{2.22045e-15,-38}},
                                  color={0,0,127}));
   connect(bus.y, sigSta.u) annotation (Line(
-      points={{0.1,100.1},{2.22045e-15,62}},
+      points={{0,100},{2.22045e-15,62}},
       color={255,204,51},
       thickness=0.5), Text(
       string="%first",
       index=-1,
       extent={{-3,6},{-3,6}},
       horizontalAlignment=TextAlignment.Right));
-  connect(evaSta.y, bus.y_actual) annotation (Line(points={{0,-62},{0,-80},
-          {40,-80},{40,100.1},{0.1,100.1}}, color={255,0,255}), Text(
+  connect(evaSta.y, bus.y_actual) annotation (Line(points={{0,-62},{0,-80},{40,
+          -80},{40,100},{0,100}},           color={255,0,255}), Text(
       string="%second",
       index=1,
       extent={{-3,-6},{-3,-6}},
       horizontalAlignment=TextAlignment.Right));
   annotation (Placement(transformation(extent={{-10,-10},{10,10}})),
-     Icon(graphics={Bitmap(
-        extent={{-80,-80},{80,80}},
-        fileName="modelica://Buildings/Resources/Images/Templates/BaseClasses/Fans/SingleVariable.svg")},
-     coordinateSystem(preserveAspectRatio=false)), Diagram(
+     Icon(
+     coordinateSystem(preserveAspectRatio=false), graphics={
+                Bitmap(
+        extent={{-92,-90},{92,90}},
+        fileName="modelica://Buildings/Resources/Images/Templates/Components/Fans/SingleVariable.svg")}),
+                                                   Diagram(
         coordinateSystem(preserveAspectRatio=false)));
 end SingleConstant;

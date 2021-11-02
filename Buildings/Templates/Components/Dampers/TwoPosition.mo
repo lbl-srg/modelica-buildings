@@ -1,7 +1,7 @@
 within Buildings.Templates.Components.Dampers;
 model TwoPosition "Two-position damper"
   extends Buildings.Templates.Components.Dampers.Interfaces.PartialDamper(
-    final typ=Types.Damper.TwoPosition);
+    final typ=Buildings.Templates.Components.Types.Damper.TwoPosition);
 
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal=
     if loc==Types.Location.OutdoorAir           then
@@ -55,11 +55,19 @@ equation
           {20,-20},{2.22045e-15,-20},{2.22045e-15,-38}},
                                     color={0,0,127}));
   connect(bus.y, booToRea.u) annotation (Line(
-      points={{0.1,100.1},{2.22045e-15,62}},
+      points={{0,100},{2.22045e-15,62}},
       color={255,204,51},
       thickness=0.5));
   connect(booToRea.y, damExp.y)
     annotation (Line(points={{-2.22045e-15,38},{0,12}}, color={0,0,127}));
-  connect(evaSta.y, bus.y_actual) annotation (Line(points={{-2.22045e-15,-62},
-          {0,-62},{0,-80},{40,-80},{40,100.1},{0.1,100.1}}, color={255,0,255}));
+  connect(evaSta.y, bus.y_actual) annotation (Line(points={{-2.22045e-15,-62},{0,
+          -62},{0,-80},{40,-80},{40,100},{0,100}},          color={255,0,255}));
+  annotation (
+    Icon(
+      coordinateSystem(preserveAspectRatio=false), graphics={
+      Bitmap(
+        extent={{-32,-180},{32,80}},
+        fileName="modelica://Buildings/Resources/Images/Templates/Components/Dampers/TwoPosition.svg")}),
+    Diagram(
+        coordinateSystem(preserveAspectRatio=false)));
 end TwoPosition;

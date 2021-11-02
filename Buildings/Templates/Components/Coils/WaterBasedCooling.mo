@@ -77,7 +77,7 @@ equation
       graphics={
       Bitmap(
         extent={{-80,-80},{80,80}},
-        fileName="modelica://Buildings/Resources/Images/Templates/BaseClasses/Coils/WaterBasedCooling.svg")},
+        fileName="modelica://Buildings/Resources/Images/Templates/Components/Coils/WaterBasedCooling.svg")},
       coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
     Documentation(revisions="<html>
