@@ -47,7 +47,7 @@ protected
     modelicaNameBuilding=modelicaNameBuilding,
     modelicaInstanceName=modelicaInstanceName,
     idfName=idfName,
-    weaName=weaName,
+    epwName=epwName,
     relativeSurfaceTolerance=relativeSurfaceTolerance,
     epName=surfaceName,
     usePrecompiledFMU=usePrecompiledFMU,
