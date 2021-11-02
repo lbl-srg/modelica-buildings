@@ -298,7 +298,7 @@ equation
       color={0,127,255},
       thickness=0.5));
   for i in 1:numChi loop
-    connect(cooTow[i].TAir, weaBus.TWetBul.TWetBul)
+    connect(cooTow[i].TAir, weaBus.TWetBul)
       annotation (Line(points={{22,144},{44,144},{44,200},{-340,200},{-340,-20},
             {-328,-20}},
             color={255,204,51},
@@ -341,7 +341,7 @@ equation
       points={{0,24},{-8,24},{-8,0},{-16,0}},
       color={0,127,255},
       thickness=0.5));
-  connect(weaData.weaBus, weaBus.TWetBul)
+  connect(weaData.weaBus, weaBus)
     annotation (Line(
       points={{-340,-70},{-328,-70},{-328,-20}},
       color={255,204,51},
@@ -537,6 +537,13 @@ Taylor, S. T. (2014). How to design &amp; control waterside economizers. ASHRAE 
 </ul>
 </html>", revisions="<html>
 <ul>
+<li>
+November 1, 2021, by Michael Wetter:<br/>
+Corrected weather data bus connection which was structurally incorrect
+and did not parse in OpenModelica.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2706\">issue 2706</a>.
+</li>
 <li>
 January 12, 2019, by Michael Wetter:<br/>
 Removed wrong <code>each</code>.
