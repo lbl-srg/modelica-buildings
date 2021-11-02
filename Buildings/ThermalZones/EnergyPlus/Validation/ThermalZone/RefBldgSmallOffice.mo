@@ -59,7 +59,7 @@ model RefBldgSmallOffice
   Modelica.Blocks.Sources.CombiTimeTable datRea(
     tableOnFile=true,
     fileName=Modelica.Utilities.Files.loadResource(
-        "modelica://Buildings/Resources/Data/ThermalZones/EnergyPlus/Examples/RefBldgSmallOffice/RefBldgSmallOfficeNew2004_Chicago.dat"),
+      "modelica://Buildings/Resources/Data/ThermalZones/EnergyPlus/Examples/RefBldgSmallOffice/RefBldgSmallOfficeNew2004_Chicago.dat"),
     smoothness=Modelica.Blocks.Types.Smoothness.ConstantSegments,
     tableName="EnergyPlus",
     columns=2:9,
@@ -83,6 +83,7 @@ model RefBldgSmallOffice
     "North zone air temperature of EnergyPlus simulation";
   Modelica.SIunits.Temperature TWesEP=datRea.y[8]+273.15
     "West zone air temperature of EnergyPlus simulation";
+
 equation
   connect(qRadGai_flow.y,mul.u1[1])
     annotation (Line(points={{-59,40},{-40,40},{-40,7},{-30,7}},color={0,0,127},smooth=Smooth.None));

@@ -72,8 +72,8 @@
     YES,                     !- Do Zone Sizing Calculation
     YES,                     !- Do System Sizing Calculation
     YES,                     !- Do Plant Sizing Calculation
-    YES,                     !- Run Simulation for Sizing Periods
-    NO,                      !- Run Simulation for Weather File Run Periods
+    No,                     !- Run Simulation for Sizing Periods
+    Yes,                      !- Run Simulation for Weather File Run Periods
     No,                      !- Do HVAC Sizing Simulation for Sizing Periods
     1;                       !- Maximum Number of HVAC Sizing Simulation Passes
 
@@ -92,8 +92,8 @@
     1,                       !- Begin Month
     1,                       !- Begin Day of Month
     ,                        !- Begin Year
-    12,                      !- End Month
-    31,                      !- End Day of Month
+    7,                      !- End Month
+    1,                      !- End Day of Month
     ,                        !- End Year
     Sunday,                  !- Day of Week for Start Day
     No,                      !- Use Weather File Holidays and Special Days
@@ -1925,76 +1925,78 @@
 
 ! ***INFILTRATION***
 ! Infiltration through ceiling/roof
-
-  ZoneInfiltration:DesignFlowRate,
-    Core_ZN_Infiltration,    !- Name
-    Core_ZN,                 !- Zone or ZoneList Name
-    INFIL_QUARTER_ON_SCH,    !- Schedule Name
-    AirChanges/Hour,         !- Design Flow Rate Calculation Method
-    ,                        !- Design Flow Rate {m3/s}
-    ,                        !- Flow per Zone Floor Area {m3/s-m2}
-    ,                        !- Flow per Exterior Surface Area {m3/s-m2}
-    0.36,                    !- Air Changes per Hour {1/hr}
-    1.0000,                  !- Constant Term Coefficient
-    0.0000,                  !- Temperature Term Coefficient
-    0.0000,                  !- Velocity Term Coefficient
-    0.0000;                  !- Velocity Squared Term Coefficient
-
-  ZoneInfiltration:DesignFlowRate,
-    Perimeter_ZN_1_Infiltration,  !- Name
-    Perimeter_ZN_1,          !- Zone or ZoneList Name
-    INFIL_QUARTER_ON_SCH,    !- Schedule Name
-    Flow/ExteriorArea,       !- Design Flow Rate Calculation Method
-    ,                        !- Design Flow Rate {m3/s}
-    ,                        !- Flow per Zone Floor Area {m3/s-m2}
-    0.000302,                !- Flow per Exterior Surface Area {m3/s-m2}
-    ,                        !- Air Changes per Hour {1/hr}
-    1.0000,                  !- Constant Term Coefficient
-    0.0000,                  !- Temperature Term Coefficient
-    0.0000,                  !- Velocity Term Coefficient
-    0.0000;                  !- Velocity Squared Term Coefficient
-
-  ZoneInfiltration:DesignFlowRate,
-    Perimeter_ZN_2_Infiltration,  !- Name
-    Perimeter_ZN_2,          !- Zone or ZoneList Name
-    INFIL_QUARTER_ON_SCH,    !- Schedule Name
-    Flow/ExteriorArea,       !- Design Flow Rate Calculation Method
-    ,                        !- Design Flow Rate {m3/s}
-    ,                        !- Flow per Zone Floor Area {m3/s-m2}
-    0.000302,                !- Flow per Exterior Surface Area {m3/s-m2}
-    ,                        !- Air Changes per Hour {1/hr}
-    1.0000,                  !- Constant Term Coefficient
-    0.0000,                  !- Temperature Term Coefficient
-    0.0000,                  !- Velocity Term Coefficient
-    0.0000;                  !- Velocity Squared Term Coefficient
-
-  ZoneInfiltration:DesignFlowRate,
-    Perimeter_ZN_3_Infiltration,  !- Name
-    Perimeter_ZN_3,          !- Zone or ZoneList Name
-    INFIL_QUARTER_ON_SCH,    !- Schedule Name
-    Flow/ExteriorArea,       !- Design Flow Rate Calculation Method
-    ,                        !- Design Flow Rate {m3/s}
-    ,                        !- Flow per Zone Floor Area {m3/s-m2}
-    0.000302,                !- Flow per Exterior Surface Area {m3/s-m2}
-    ,                        !- Air Changes per Hour {1/hr}
-    1.0000,                  !- Constant Term Coefficient
-    0.0000,                  !- Temperature Term Coefficient
-    0.0000,                  !- Velocity Term Coefficient
-    0.0000;                  !- Velocity Squared Term Coefficient
-
-  ZoneInfiltration:DesignFlowRate,
-    Perimeter_ZN_4_Infiltration,  !- Name
-    Perimeter_ZN_4,          !- Zone or ZoneList Name
-    INFIL_QUARTER_ON_SCH,    !- Schedule Name
-    Flow/ExteriorArea,       !- Design Flow Rate Calculation Method
-    ,                        !- Design Flow Rate {m3/s}
-    ,                        !- Flow per Zone Floor Area {m3/s-m2}
-    0.000302,                !- Flow per Exterior Surface Area {m3/s-m2}
-    ,                        !- Air Changes per Hour {1/hr}
-    1.0000,                  !- Constant Term Coefficient
-    0.0000,                  !- Temperature Term Coefficient
-    0.0000,                  !- Velocity Term Coefficient
-    0.0000;                  !- Velocity Squared Term Coefficient
+!
+! In Spawn, infiltration is disabled
+!
+!  ZoneInfiltration:DesignFlowRate,
+!    Core_ZN_Infiltration,    !- Name
+!    Core_ZN,                 !- Zone or ZoneList Name
+!    INFIL_QUARTER_ON_SCH,    !- Schedule Name
+!    AirChanges/Hour,         !- Design Flow Rate Calculation Method
+!    ,                        !- Design Flow Rate {m3/s}
+!    ,                        !- Flow per Zone Floor Area {m3/s-m2}
+!    ,                        !- Flow per Exterior Surface Area {m3/s-m2}
+!    0.36,                    !- Air Changes per Hour {1/hr}
+!    1.0000,                  !- Constant Term Coefficient
+!    0.0000,                  !- Temperature Term Coefficient
+!    0.0000,                  !- Velocity Term Coefficient
+!    0.0000;                  !- Velocity Squared Term Coefficient
+!
+!  ZoneInfiltration:DesignFlowRate,
+!    Perimeter_ZN_1_Infiltration,  !- Name
+!    Perimeter_ZN_1,          !- Zone or ZoneList Name
+!    INFIL_QUARTER_ON_SCH,    !- Schedule Name
+!    Flow/ExteriorArea,       !- Design Flow Rate Calculation Method
+!    ,                        !- Design Flow Rate {m3/s}
+!    ,                        !- Flow per Zone Floor Area {m3/s-m2}
+!    0.000302,                !- Flow per Exterior Surface Area {m3/s-m2}
+!    ,                        !- Air Changes per Hour {1/hr}
+!    1.0000,                  !- Constant Term Coefficient
+!    0.0000,                  !- Temperature Term Coefficient
+!    0.0000,                  !- Velocity Term Coefficient
+!    0.0000;                  !- Velocity Squared Term Coefficient
+!
+!  ZoneInfiltration:DesignFlowRate,
+!    Perimeter_ZN_2_Infiltration,  !- Name
+!    Perimeter_ZN_2,          !- Zone or ZoneList Name
+!    INFIL_QUARTER_ON_SCH,    !- Schedule Name
+!    Flow/ExteriorArea,       !- Design Flow Rate Calculation Method
+!    ,                        !- Design Flow Rate {m3/s}
+!    ,                        !- Flow per Zone Floor Area {m3/s-m2}
+!    0.000302,                !- Flow per Exterior Surface Area {m3/s-m2}
+!    ,                        !- Air Changes per Hour {1/hr}
+!    1.0000,                  !- Constant Term Coefficient
+!    0.0000,                  !- Temperature Term Coefficient
+!    0.0000,                  !- Velocity Term Coefficient
+!    0.0000;                  !- Velocity Squared Term Coefficient
+!
+!  ZoneInfiltration:DesignFlowRate,
+!    Perimeter_ZN_3_Infiltration,  !- Name
+!    Perimeter_ZN_3,          !- Zone or ZoneList Name
+!    INFIL_QUARTER_ON_SCH,    !- Schedule Name
+!    Flow/ExteriorArea,       !- Design Flow Rate Calculation Method
+!    ,                        !- Design Flow Rate {m3/s}
+!    ,                        !- Flow per Zone Floor Area {m3/s-m2}
+!    0.000302,                !- Flow per Exterior Surface Area {m3/s-m2}
+!    ,                        !- Air Changes per Hour {1/hr}
+!    1.0000,                  !- Constant Term Coefficient
+!    0.0000,                  !- Temperature Term Coefficient
+!    0.0000,                  !- Velocity Term Coefficient
+!    0.0000;                  !- Velocity Squared Term Coefficient
+!
+!  ZoneInfiltration:DesignFlowRate,
+!    Perimeter_ZN_4_Infiltration,  !- Name
+!    Perimeter_ZN_4,          !- Zone or ZoneList Name
+!    INFIL_QUARTER_ON_SCH,    !- Schedule Name
+!    Flow/ExteriorArea,       !- Design Flow Rate Calculation Method
+!    ,                        !- Design Flow Rate {m3/s}
+!    ,                        !- Flow per Zone Floor Area {m3/s-m2}
+!    0.000302,                !- Flow per Exterior Surface Area {m3/s-m2}
+!    ,                        !- Air Changes per Hour {1/hr}
+!    1.0000,                  !- Constant Term Coefficient
+!    0.0000,                  !- Temperature Term Coefficient
+!    0.0000,                  !- Velocity Term Coefficient
+!    0.0000;                  !- Velocity Squared Term Coefficient
 
 ! ***INTERNAL MASS***
 
@@ -3917,32 +3919,32 @@
     Temperature,             !- Schedule Type Limits Name
     Through: 12/31,          !- Field 1
     For: Weekdays SummerDesignDay, !- Field 2
-    Until: 06:00,26.7,       !- Field 3
-    Until: 22:00,24.0,       !- Field 5
-    Until: 24:00,26.7,       !- Field 7
+    Until: 06:00,80.0,       !- Field 3
+    Until: 22:00,80.0,       !- Field 5
+    Until: 24:00,80.0,       !- Field 7
     For: Saturday,           !- Field 9
-    Until: 06:00,26.7,       !- Field 10
-    Until: 18:00,24.0,       !- Field 12
-    Until: 24:00,26.7,       !- Field 14
+    Until: 06:00,80.0,       !- Field 10
+    Until: 18:00,80.0,       !- Field 12
+    Until: 24:00,80.0,       !- Field 14
     For: AllOtherDays,       !- Field 16
-    Until: 24:00,26.7;       !- Field 17
+    Until: 24:00,80.0;       !- Field 17
 
   Schedule:Compact,
     HTGSETP_SCH,             !- Name
     Temperature,             !- Schedule Type Limits Name
     Through: 12/31,          !- Field 1
     For: Weekdays,           !- Field 2
-    Until: 06:00,15.6,       !- Field 3
-    Until: 22:00,21.0,       !- Field 5
-    Until: 24:00,15.6,       !- Field 7
+    Until: 06:00,0,       !- Field 3
+    Until: 22:00,0,       !- Field 5
+    Until: 24:00,0,       !- Field 7
     For: Saturday,           !- Field 9
-    Until: 06:00,15.6,       !- Field 10
-    Until: 18:00,21.0,       !- Field 12
-    Until: 24:00,15.6,       !- Field 14
+    Until: 06:00,0,       !- Field 10
+    Until: 18:00,0,       !- Field 12
+    Until: 24:00,0,       !- Field 14
     For: WinterDesignDay,    !- Field 16
     Until: 24:00,21.0,       !- Field 17
     For: AllOtherDays,       !- Field 19
-    Until: 24:00,15.6;       !- Field 20
+    Until: 24:00,0;       !- Field 20
 
   Schedule:Compact,
     MinOA_Sched,             !- Name
@@ -3950,11 +3952,11 @@
     Through: 12/31,          !- Field 1
     For: Weekdays SummerDesignDay, !- Field 2
     Until: 07:00,0.0,        !- Field 3
-    Until: 22:00,1.0,        !- Field 5
+    Until: 22:00,0.0,        !- Field 5
     Until: 24:00,0.0,        !- Field 7
     For: Saturday WinterDesignDay, !- Field 9
     Until: 07:00,0.0,        !- Field 10
-    Until: 18:00,1.0,        !- Field 12
+    Until: 18:00,0.0,        !- Field 12
     Until: 24:00,0.0,        !- Field 14
     For: AllOtherDays,       !- Field 16
     Until: 24:00,0.0;        !- Field 17
@@ -3972,11 +3974,11 @@
     Through: 12/31,          !- Field 1
     For: Weekdays SummerDesignDay, !- Field 2
     Until: 06:00,0.0,        !- Field 3
-    Until: 22:00,1.0,        !- Field 5
+    Until: 22:00,0.0,        !- Field 5
     Until: 24:00,0.0,        !- Field 7
     For: Saturday WinterDesignDay, !- Field 9
     Until: 06:00,0.0,        !- Field 10
-    Until: 18:00,1.0,        !- Field 12
+    Until: 18:00,0.0,        !- Field 12
     Until: 24:00,0.0,        !- Field 14
     For: AllOtherDays,       !- Field 16
     Until: 24:00,0.0;        !- Field 17
@@ -4361,291 +4363,6 @@
     For: AllDays,            !- Field 2
     Until: 24:00,60.0;       !- Field 3
 
-! ***ECONOMICS***
-!   IN_EIAMonthlyRateGas, Source EIA historical Nov2003 thru Oct2004
-! Indiana 1999 state average electricity emissions factors based on eGRID, 1065, AirData
-! PSI_CS_CommercialElectricService, source http://www.cinergypsi.com/pdfs/RateCS.pdf, effective 2004-05-24
-! PSI_LLF_LowLoadFactorService,source http://www.cinergypsi.com/pdfs/RATELLF.pdf, effective 2004-05-24
-
-  UtilityCost:Tariff,
-    PSI_LLF_LowLoadFactorService,  !- Name
-    Electricity:Facility,    !- Output Meter Name
-    kWh,                     !- Conversion Factor Choice
-    ,                        !- Energy Conversion Factor
-    ,                        !- Demand Conversion Factor
-    ,                        !- Time of Use Period Schedule Name
-    ,                        !- Season Schedule Name
-    ,                        !- Month Schedule Name
-    HalfHour,                !- Demand Window Length
-    15.00,                   !- Monthly Charge or Variable Name
-    ,                        !- Minimum Monthly Charge or Variable Name
-    ,                        !- Real Time Pricing Charge Schedule Name
-    ,                        !- Customer Baseline Load Schedule Name
-    Comm Elect;              !- Group Name
-
-  UtilityCost:Charge:Block,
-    AnnualEnergyCharge,      !- Utility Cost Charge Block Name
-    PSI_LLF_LowLoadFactorService,  !- Tariff Name
-    totalEnergy,             !- Source Variable
-    Annual,                  !- Season
-    EnergyCharges,           !- Category Variable Name
-    ,                        !- Remaining Into Variable
-    ,                        !- Block Size Multiplier Value or Variable Name
-    300,                     !- Block Size 1 Value or Variable Name
-    0.108222,                !- Block 1 Cost per Unit Value or Variable Name
-    700,                     !- Block Size 2 Value or Variable Name
-    0.087021,                !- Block 2 Cost per Unit Value or Variable Name
-    1500,                    !- Block Size 3 Value or Variable Name
-    0.078420,                !- Block 3 Cost per Unit Value or Variable Name
-    remaining,               !- Block Size 4 Value or Variable Name
-    0.058320;                !- Block 4 Cost per Unit Value or Variable Name
-
-  UtilityCost:Charge:Block,
-    AnnualDemandBaseCharge,  !- Utility Cost Charge Block Name
-    PSI_LLF_LowLoadFactorService,  !- Tariff Name
-    totalEnergy,             !- Source Variable
-    Annual,                  !- Season
-    EnergyCharges,           !- Category Variable Name
-    ,                        !- Remaining Into Variable
-    TotalDemand,             !- Block Size Multiplier Value or Variable Name
-    190,                     !- Block Size 1 Value or Variable Name
-    0.0,                     !- Block 1 Cost per Unit Value or Variable Name
-    110,                     !- Block Size 2 Value or Variable Name
-    0.051773,                !- Block 2 Cost per Unit Value or Variable Name
-    remaining,               !- Block Size 3 Value or Variable Name
-    0.046965;                !- Block 3 Cost per Unit Value or Variable Name
-
-  UtilityCost:Charge:Simple,
-    FuelCostAdjustEnergyCharge,  !- Utility Cost Charge Simple Name
-    PSI_LLF_LowLoadFactorService,  !- Tariff Name
-    totalEnergy,             !- Source Variable
-    Annual,                  !- Season
-    EnergyCharges,           !- Category Variable Name
-    0.002028;                !- Cost per Unit Value or Variable Name
-
-  UtilityCost:Charge:Simple,
-    QualPollutionControlAdjustEnergyCharge,  !- Utility Cost Charge Simple Name
-    PSI_LLF_LowLoadFactorService,  !- Tariff Name
-    totalEnergy,             !- Source Variable
-    Annual,                  !- Season
-    EnergyCharges,           !- Category Variable Name
-    0.000536;                !- Cost per Unit Value or Variable Name
-
-  UtilityCost:Charge:Simple,
-    SoxNoxRiderAdjustEnergyCharge,  !- Utility Cost Charge Simple Name
-    PSI_LLF_LowLoadFactorService,  !- Tariff Name
-    totalEnergy,             !- Source Variable
-    Annual,                  !- Season
-    EnergyCharges,           !- Category Variable Name
-    0.001127;                !- Cost per Unit Value or Variable Name
-
-  UtilityCost:Charge:Simple,
-    DSMRiderAdjustEnergyCharge,  !- Utility Cost Charge Simple Name
-    PSI_LLF_LowLoadFactorService,  !- Tariff Name
-    totalEnergy,             !- Source Variable
-    Annual,                  !- Season
-    EnergyCharges,           !- Category Variable Name
-    -0.000370;               !- Cost per Unit Value or Variable Name
-
-  UtilityCost:Charge:Simple,
-    PurchPowerTrackerAdjustEnergyCharge,  !- Utility Cost Charge Simple Name
-    PSI_LLF_LowLoadFactorService,  !- Tariff Name
-    totalEnergy,             !- Source Variable
-    Annual,                  !- Season
-    EnergyCharges,           !- Category Variable Name
-    -0.000031;               !- Cost per Unit Value or Variable Name
-
-  UtilityCost:Charge:Simple,
-    MidwestISOAdjustEnergyCharge,  !- Utility Cost Charge Simple Name
-    PSI_LLF_LowLoadFactorService,  !- Tariff Name
-    totalEnergy,             !- Source Variable
-    Annual,                  !- Season
-    EnergyCharges,           !- Category Variable Name
-    -0.000216;               !- Cost per Unit Value or Variable Name
-
-  UtilityCost:Charge:Simple,
-    CleanCoalRiderEnergyCharge,  !- Utility Cost Charge Simple Name
-    PSI_LLF_LowLoadFactorService,  !- Tariff Name
-    totalEnergy,             !- Source Variable
-    Annual,                  !- Season
-    EnergyCharges,           !- Category Variable Name
-    0.000833;                !- Cost per Unit Value or Variable Name
-
-  UtilityCost:Qualify,
-    MinDemand75kw,           !- Utility Cost Qualify Name
-    PSI_LLF_LowLoadFactorService,  !- Tariff Name
-    TotalDemand,             !- Variable Name
-    Minimum,                 !- Qualify Type
-    75,                      !- Threshold Value or Variable Name
-    Annual,                  !- Season
-    Count,                   !- Threshold Test
-    12;                      !- Number of Months
-
-  UtilityCost:Charge:Simple,
-    TaxofeightPercent,       !- Utility Cost Charge Simple Name
-    PSI_LLF_LowLoadFactorService,  !- Tariff Name
-    SubTotal,                !- Source Variable
-    Annual,                  !- Season
-    Taxes,                   !- Category Variable Name
-    0.08;                    !- Cost per Unit Value or Variable Name
-
-!end  PSI_LLF_LowLoadFactorService
-
-  UtilityCost:Tariff,
-    PSI_CS_CommercialElectricService,  !- Name
-    Electricity:Facility,    !- Output Meter Name
-    kWh,                     !- Conversion Factor Choice
-    ,                        !- Energy Conversion Factor
-    ,                        !- Demand Conversion Factor
-    ,                        !- Time of Use Period Schedule Name
-    ,                        !- Season Schedule Name
-    ,                        !- Month Schedule Name
-    ,                        !- Demand Window Length
-    9.40,                    !- Monthly Charge or Variable Name
-    ,                        !- Minimum Monthly Charge or Variable Name
-    ,                        !- Real Time Pricing Charge Schedule Name
-    ,                        !- Customer Baseline Load Schedule Name
-    Comm Elect;              !- Group Name
-
-  UtilityCost:Charge:Block,
-    AnnualEnergyCharge,      !- Utility Cost Charge Block Name
-    PSI_CS_CommercialElectricService,  !- Tariff Name
-    totalEnergy,             !- Source Variable
-    Annual,                  !- Season
-    EnergyCharges,           !- Category Variable Name
-    ,                        !- Remaining Into Variable
-    ,                        !- Block Size Multiplier Value or Variable Name
-    300,                     !- Block Size 1 Value or Variable Name
-    0.082409,                !- Block 1 Cost per Unit Value or Variable Name
-    700,                     !- Block Size 2 Value or Variable Name
-    0.072873,                !- Block 2 Cost per Unit Value or Variable Name
-    1500,                    !- Block Size 3 Value or Variable Name
-    0.061696,                !- Block 3 Cost per Unit Value or Variable Name
-    remaining,               !- Block Size 4 Value or Variable Name
-    0.041179;                !- Block 4 Cost per Unit Value or Variable Name
-
-  UtilityCost:Charge:Simple,
-    FuelCostAdjustEnergyCharge,  !- Utility Cost Charge Simple Name
-    PSI_CS_CommercialElectricService,  !- Tariff Name
-    totalEnergy,             !- Source Variable
-    Annual,                  !- Season
-    EnergyCharges,           !- Category Variable Name
-    0.002028;                !- Cost per Unit Value or Variable Name
-
-  UtilityCost:Charge:Simple,
-    QualPollutionControlAdjustEnergyCharge,  !- Utility Cost Charge Simple Name
-    PSI_CS_CommercialElectricService,  !- Tariff Name
-    totalEnergy,             !- Source Variable
-    Annual,                  !- Season
-    EnergyCharges,           !- Category Variable Name
-    0.000536;                !- Cost per Unit Value or Variable Name
-
-  UtilityCost:Charge:Simple,
-    SoxNoxRiderAdjustEnergyCharge,  !- Utility Cost Charge Simple Name
-    PSI_CS_CommercialElectricService,  !- Tariff Name
-    totalEnergy,             !- Source Variable
-    Annual,                  !- Season
-    EnergyCharges,           !- Category Variable Name
-    0.001127;                !- Cost per Unit Value or Variable Name
-
-  UtilityCost:Charge:Simple,
-    DSMRiderAdjustEnergyCharge,  !- Utility Cost Charge Simple Name
-    PSI_CS_CommercialElectricService,  !- Tariff Name
-    totalEnergy,             !- Source Variable
-    Annual,                  !- Season
-    EnergyCharges,           !- Category Variable Name
-    0.000021;                !- Cost per Unit Value or Variable Name
-
-  UtilityCost:Charge:Simple,
-    PurchPowerTrackerAdjustEnergyCharge,  !- Utility Cost Charge Simple Name
-    PSI_CS_CommercialElectricService,  !- Tariff Name
-    totalEnergy,             !- Source Variable
-    Annual,                  !- Season
-    EnergyCharges,           !- Category Variable Name
-    0.000034;                !- Cost per Unit Value or Variable Name
-
-  UtilityCost:Charge:Simple,
-    MidwestISOAdjustEnergyCharge,  !- Utility Cost Charge Simple Name
-    PSI_CS_CommercialElectricService,  !- Tariff Name
-    totalEnergy,             !- Source Variable
-    Annual,                  !- Season
-    EnergyCharges,           !- Category Variable Name
-    -0.000203;               !- Cost per Unit Value or Variable Name
-
-  UtilityCost:Charge:Simple,
-    CleanCoalRiderEnergyCharge,  !- Utility Cost Charge Simple Name
-    PSI_CS_CommercialElectricService,  !- Tariff Name
-    totalEnergy,             !- Source Variable
-    Annual,                  !- Season
-    EnergyCharges,           !- Category Variable Name
-    0.000807;                !- Cost per Unit Value or Variable Name
-
-  UtilityCost:Qualify,
-    MaxDemand75kw,           !- Utility Cost Qualify Name
-    PSI_CS_CommercialElectricService,  !- Tariff Name
-    TotalDemand,             !- Variable Name
-    Maximum,                 !- Qualify Type
-    75,                      !- Threshold Value or Variable Name
-    Annual,                  !- Season
-    Count,                   !- Threshold Test
-    1;                       !- Number of Months
-
-  UtilityCost:Charge:Simple,
-    TaxofeightPercent,       !- Utility Cost Charge Simple Name
-    PSI_CS_CommercialElectricService,  !- Tariff Name
-    SubTotal,                !- Source Variable
-    Annual,                  !- Season
-    Taxes,                   !- Category Variable Name
-    0.08;                    !- Cost per Unit Value or Variable Name
-
-  UtilityCost:Tariff,
-    IN_EIAMonthlyRateGas,    !- Name
-    NaturalGas:Facility,     !- Output Meter Name
-    MCF,                     !- Conversion Factor Choice
-    ,                        !- Energy Conversion Factor
-    ,                        !- Demand Conversion Factor
-    ,                        !- Time of Use Period Schedule Name
-    ,                        !- Season Schedule Name
-    ,                        !- Month Schedule Name
-    ,                        !- Demand Window Length
-    0.0,                     !- Monthly Charge or Variable Name
-    ,                        !- Minimum Monthly Charge or Variable Name
-    ,                        !- Real Time Pricing Charge Schedule Name
-    ,                        !- Customer Baseline Load Schedule Name
-    Comm Gas;                !- Group Name
-
-  UtilityCost:Charge:Simple,
-    MonthlyRateGasCharge,    !- Utility Cost Charge Simple Name
-    IN_EIAMonthlyRateGas,    !- Tariff Name
-    totalEnergy,             !- Source Variable
-    Annual,                  !- Season
-    EnergyCharges,           !- Category Variable Name
-    IN_MonthlyGasRates;      !- Cost per Unit Value or Variable Name
-
-  UtilityCost:Variable,
-    IN_MonthlyGasRates,      !- Name
-    IN_EIAMonthlyRateGas,    !- Tariff Name
-    Currency,                !- Variable Type
-    8.22,                    !- January Value
-    7.51,                    !- February Value
-    8.97,                    !- March Value
-    9.01,                    !- April Value
-    9.16,                    !- May Value
-    10.44,                   !- June Value
-    10.32,                   !- July Value
-    10.13,                   !- August Value
-    9.20,                    !- September Value
-    8.18,                    !- October Value
-    7.83,                    !- November Value
-    7.63;                    !- December Value
-
-  UtilityCost:Charge:Simple,
-    TaxofEightPercent,       !- Utility Cost Charge Simple Name
-    IN_EIAMonthlyRateGas,    !- Tariff Name
-    SubTotal,                !- Source Variable
-    Annual,                  !- Season
-    Taxes,                   !- Category Variable Name
-    0.08;                    !- Cost per Unit Value or Variable Name
 
 ! ***GENERAL REPORTING***
 
@@ -4666,28 +4383,27 @@
 
 ! ***REPORT METERS/VARIABLES***
 
-  Output:Variable,*,Site Outdoor Air Drybulb Temperature,HOURLY;
+  Output:Variable,*,Site Outdoor Air Drybulb Temperature,timestep;
 
-  Output:Variable,*,Site Outdoor Air Humidity Ratio,HOURLY;
+  Output:Variable,*,Site Outdoor Air Humidity Ratio,timestep;
 
-  Output:Variable,*,Site Outdoor Air Relative Humidity,HOURLY;
+  Output:Variable,*,Site Outdoor Air Relative Humidity,timestep;
 
-  Output:Variable,*,Air System Outdoor Air Flow Fraction,HOURLY;
+  Output:Variable,*,Air System Outdoor Air Flow Fraction,timestep;
 
-  Output:Variable,*,Air System Simulation Cycle On Off Status,HOURLY;
+  Output:Variable,*,Air System Simulation Cycle On Off Status,timestep;
 
-  Output:Variable,*,Air System Outdoor Air Economizer Status,HOURLY;
+  Output:Variable,*,Air System Outdoor Air Economizer Status,timestep;
 
-  Output:Variable,*,Air System Total Heating Energy,HOURLY;
+  Output:Variable,*,Air System Total Heating Energy,timestep;
 
-  Output:Variable,*,Air System Total Cooling Energy,HOURLY;
+  Output:Variable,*,Air System Total Cooling Energy,timestep;
 
-  Output:Variable,*,Air System Fan Electricity Energy,HOURLY;
+  Output:Variable,*,Air System Fan Electricity Energy,timestep;
 
-  Output:Variable,*,Zone Mean Air Temperature,hourly;
+  Output:Variable,*,Zone Mean Air Temperature,timestep;
 
 ! ***REPORT TABLES***
 
   OutputControl:Table:Style,
     HTML;                    !- Column Separator
-

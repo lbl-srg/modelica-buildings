@@ -25,6 +25,7 @@ size_t AllocateBuildingDataStructure(
   const char* modelicaNameBuilding,
   const char* idfName,
   const char* epwName,
+  double relativeSurfaceTolerance,
   int usePrecompiledFMU,
   const char* fmuName,
   const char* buildingsLibraryRoot,

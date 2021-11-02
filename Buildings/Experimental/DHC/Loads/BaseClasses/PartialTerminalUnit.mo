@@ -103,6 +103,10 @@ partial model PartialTerminalUnit
   parameter Modelica.SIunits.Temperature T_aLoaCoo_nominal=273.15 + 26.7
     "Load side inlet temperature at nominal conditions in cooling mode"
     annotation (Dialog(group="Nominal condition",enable=have_chiWat));
+
+  parameter Modelica.SIunits.MassFraction w_aLoaCoo_nominal=0.011
+    "Load side inlet humidity ratio at nominal conditions in cooling mode"
+    annotation (Dialog(group="Nominal condition",enable=have_chiWat));
   // IO connectors
   Modelica.Blocks.Interfaces.RealInput TSen(
     final quantity="ThermodynamicTemperature",
@@ -373,10 +377,10 @@ partial model PartialTerminalUnit
     "Load side mass flow rate multiplier"
     annotation (Placement(transformation(extent={{180,-10},{160,10}})));
   Fluid.HeatExchangers.RadiantSlabs.BaseClasses.HeatFlowRateMultiplier mulHeaFloCon(final k=
-        facMul) if     have_heaPor "Convective heat flow rate multiplier"
+        facMul)     if have_heaPor "Convective heat flow rate multiplier"
     annotation (Placement(transformation(extent={{160,30},{180,50}})));
   Fluid.HeatExchangers.RadiantSlabs.BaseClasses.HeatFlowRateMultiplier mulHeaFloRad(final k=
-        facMul) if     have_heaPor "Radiative heat flow rate multiplier"
+        facMul)     if have_heaPor "Radiative heat flow rate multiplier"
     annotation (Placement(transformation(extent={{160,-50},{180,-30}})));
 protected
   parameter Modelica.SIunits.SpecificHeatCapacity cpHeaWat_nominal=

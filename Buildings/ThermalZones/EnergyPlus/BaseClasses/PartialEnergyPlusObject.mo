@@ -2,9 +2,9 @@ within Buildings.ThermalZones.EnergyPlus.BaseClasses;
 partial block PartialEnergyPlusObject
   "Partial definitions of an EnergyPlus object"
   extends Modelica.Blocks.Icons.Block;
-
   outer Buildings.ThermalZones.EnergyPlus.Building building
     "Building-level declarations";
+
 protected
   constant String modelicaNameBuilding=building.modelicaNameBuilding
     "Name of the building to which this output variable belongs to"
@@ -15,7 +15,9 @@ protected
   final parameter String idfName=building.idfName
     "Name of the IDF file that contains this zone";
   final parameter String epwName=building.epwName
-    "Name of the EnergyPlus weather file with epw extension";
+    "Name of the EnergyPlus weather file (but with mos extension)";
+  final parameter Real relativeSurfaceTolerance=building.relativeSurfaceTolerance
+    "Relative tolerance of surface temperature calculations";
   final parameter Boolean usePrecompiledFMU=building.usePrecompiledFMU
     "Set to true to use pre-compiled FMU with name specified by fmuName"
     annotation (Dialog(tab="Debug"));
@@ -28,11 +30,11 @@ protected
   parameter Modelica.SIunits.Time startTime(
     fixed=false)
     "Simulation start time";
-
   function round
     input Real u;
     input Real accuracy;
     output Real y;
+
   algorithm
     y :=
       if
@@ -43,6 +45,7 @@ protected
         ceil(
           u/accuracy-0.5)*accuracy;
   end round;
+
 initial equation
   startTime=time;
   annotation (

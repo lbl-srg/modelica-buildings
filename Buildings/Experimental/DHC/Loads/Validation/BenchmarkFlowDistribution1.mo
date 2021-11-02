@@ -82,11 +82,11 @@ model BenchmarkFlowDistribution1
       displayUnit="degC"))
     "Minimum temperature set point"
     annotation (Placement(transformation(extent={{-100,50},{-80,70}})));
-  Buildings.Controls.OBC.CDL.Routing.RealReplicator reaRep(
+  Buildings.Controls.OBC.CDL.Routing.RealScalarReplicator reaRep(
     nout=nLoa)
     "Repeat input to output an array"
     annotation (Placement(transformation(extent={{-60,50},{-40,70}})));
-  Buildings.Controls.OBC.CDL.Routing.RealReplicator reaRep1(
+  Buildings.Controls.OBC.CDL.Routing.RealScalarReplicator reaRep1(
     nout=nLoa)
     "Repeat input to output an array"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));

@@ -11,7 +11,6 @@ model PartialSolarCollector "Partial model for solar collectors"
   parameter Integer nSeg(min=3) = 3
     "Number of segments used to discretize the collector model";
 
-  parameter Modelica.SIunits.Angle lat(displayUnit="deg") "Latitude";
   parameter Modelica.SIunits.Angle azi(displayUnit="deg")
     "Surface azimuth (0 for south-facing; -90 degree for east-facing; +90 degree for west facing";
   parameter Modelica.SIunits.Angle til(displayUnit="deg")
@@ -55,14 +54,12 @@ model PartialSolarCollector "Partial model for solar collectors"
     final outSkyCon=true,
     final outGroCon=true,
     final til=til,
-    final lat=lat,
     final azi=azi,
     final rho=rho) "Diffuse solar irradiation on a tilted surface"
     annotation (Placement(transformation(extent={{-80,70},{-60,90}})));
 
   Buildings.BoundaryConditions.SolarIrradiation.DirectTiltedSurface HDirTil(
     final til=til,
-    final lat=lat,
     final azi=azi) "Direct solar irradiation on a tilted surface"
     annotation (Placement(transformation(extent={{-80,42},{-60,62}})));
 
@@ -242,6 +239,12 @@ CEN 2006, European Standard 12975-1:2006, European Committee for Standardization
 </html>",
 revisions="<html>
 <ul>
+<li>
+September 16, 2021, by Michael Wetter:<br/>
+Changed <code>lat</code> from being a parameter to an input from weather bus.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1477\">IBPSA, #1477</a>.
+</li>
 <li>
 April 14, 2020, by Michael Wetter:<br/>
 Changed <code>homotopyInitialization</code> to a constant.<br/>

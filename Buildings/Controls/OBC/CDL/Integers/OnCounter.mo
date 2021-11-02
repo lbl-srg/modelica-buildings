@@ -40,7 +40,6 @@ equation
           fillPattern=FillPattern.Solid,
           borderPattern=BorderPattern.Raised),
         Text(
-          visible=use_reset,
           extent={{-64,-62},{58,-86}},
           lineColor={0,0,0},
           textString="reset"),
@@ -67,6 +66,10 @@ simultaneously, then the ouput is <code>y = y_start</code>.
 </html>",
       revisions="<html>
 <ul>
+<li>
+October 21, 2021, by Michael Wetter:<br/>
+Removed errorneous <code>visible</code> attribute in icon.
+</li>
 <li>
 January 3, 2017, by Michael Wetter:<br/>
 First implementation, based on the implementation of the

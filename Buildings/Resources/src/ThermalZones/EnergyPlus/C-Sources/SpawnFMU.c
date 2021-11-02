@@ -26,6 +26,7 @@ size_t AllocateBuildingDataStructure(
   const char* modelicaNameBuilding,
   const char* idfName,
   const char* epwName,
+  double relativeSurfaceTolerance,
   int usePrecompiledFMU,
   const char* fmuName,
   const char* buildingsLibraryRoot,
@@ -116,6 +117,8 @@ size_t AllocateBuildingDataStructure(
     SpawnFormatError);
   strcpy(Buildings_FMUS[nFMU]->weather, epwName);
 
+  /* Set relative surface tolerance */
+  Buildings_FMUS[nFMU]->relativeSurfaceTolerance = relativeSurfaceTolerance;
   /* Set the model hash to null */
   Buildings_FMUS[nFMU]->modelHash = NULL;
   /* Set the number of this FMU */

@@ -36,7 +36,7 @@ jobs:
           architecture: 'x64' # optional x64 or x86. Defaults to x64 if not specified
 
       - name: "Install pip"
-        run: pip3 install --upgrade pip setuptools wheel
+        run: pip3 install --upgrade pip wheel
 
       - name: "Install sphinx and its dependencies"
         run: pip3 install \
@@ -80,7 +80,7 @@ jobs:
               rm Resources/Scripts/OpenModelica/compareVars/*.mos
               python -c 'import buildingspy.development.regressiontest as u; u.Tester().writeOpenModelicaResultDictionary()'
               git status --porcelain Resources/Scripts/OpenModelica
-              test -z $(git status --porcelain Resources/Scripts/OpenModelica)
+              test -z "$(git status --porcelain Resources/Scripts/OpenModelica)"
 
       - name: "Test user guide"
         run : (cd Resources/Documentation/userGuide; make regressiontest)
@@ -93,6 +93,6 @@ jobs:
               cd ..
               python Buildings/Resources/src/Controls/OBC/UnitConversions/unit_converters.py
               git diff --exit-code Buildings
-              
+
       - name: Check for UTF-8 BOM
-        run: "! find . -name '*.mo' -print0 | xargs -0 grep -l $'^\\xEF\\xBB\\xBF' | grep ."              
+        run: "! find . -name '*.mo' -print0 | xargs -0 grep -l $'^\\xEF\\xBB\\xBF' | grep ."

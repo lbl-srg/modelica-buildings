@@ -71,10 +71,10 @@ model ZoneTemperatures "Validate block for zone set point"
     final k=0)
     "Zero adjustment"
     annotation (Placement(transformation(extent={{-120,-10},{-100,10}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi1
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi1
     "Switch to zero adjustment when window is open"
     annotation (Placement(transformation(extent={{-20,-30},{0,-10}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi2
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi2
     "Switch to zero adjustment when window is open"
     annotation (Placement(transformation(extent={{-20,10},{0,30}})));
 

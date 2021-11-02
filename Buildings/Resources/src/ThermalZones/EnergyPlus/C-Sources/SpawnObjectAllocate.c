@@ -93,6 +93,7 @@ void* EnergyPlusSpawnAllocate(
   const char* modelicaName,
   const char* idfName,
   const char* epwName,
+  double relativeSurfaceTolerance,
   const char* epName,
   int usePrecompiledFMU,
   const char* fmuName,
@@ -174,6 +175,7 @@ void* EnergyPlusSpawnAllocate(
     SpawnError("Not enough memory in EnergyPlusSpawnAllocate.c. to allocate Spawn object.");
 
   ptrSpaObj->printUnit = printUnit;
+  ptrSpaObj->unitPrinted = fmi2False;
   /* Some tools such as OpenModelica may optimize the code resulting in initialize()
      not being called. Hence, we set a flag so we can force it to be called in exchange()
      in case it is not called in initialize().
@@ -319,6 +321,7 @@ void* EnergyPlusSpawnAllocate(
       modelicaNameBuilding,
       idfName,
       epwName,
+      relativeSurfaceTolerance,
       usePrecompiledFMU,
       fmuName,
       buildingsLibraryRoot,

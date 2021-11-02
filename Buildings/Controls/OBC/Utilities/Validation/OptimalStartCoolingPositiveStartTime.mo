@@ -114,7 +114,7 @@ Buildings.Controls.OBC.Utilities.OptimalStart</a> for space cooling system
 with a positive simulation start time.
 </p>
 <p>
-The room is modelled as a simple differential equation with a time constant of
+The room is modeled as a simple differential equation with a time constant of
 around 5.6 hours. The cooling power is relatively large compared to the heat gain from
 the outdoor temperature. The outdoor temperature is repetitive each day;
 the optimal start time converges to a small amount of time <code>tOpt</code> after a few days.
