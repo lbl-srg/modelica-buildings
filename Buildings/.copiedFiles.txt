@@ -487,6 +487,7 @@ Buildings/Fluid/FMI/package.mo
 Buildings/Fluid/FMI/package.order
 Buildings/Fluid/FixedResistances/BaseClasses/PlugFlow.mo
 Buildings/Fluid/FixedResistances/BaseClasses/PlugFlowHeatLoss.mo
+Buildings/Fluid/FixedResistances/BaseClasses/PlugFlowPipe.mo
 Buildings/Fluid/FixedResistances/BaseClasses/PlugFlowTransportDelay.mo
 Buildings/Fluid/FixedResistances/BaseClasses/package.mo
 Buildings/Fluid/FixedResistances/BaseClasses/package.order
@@ -495,6 +496,7 @@ Buildings/Fluid/FixedResistances/Examples/CheckValve.mo
 Buildings/Fluid/FixedResistances/Examples/FlowJunction.mo
 Buildings/Fluid/FixedResistances/Examples/HydraulicDiameter.mo
 Buildings/Fluid/FixedResistances/Examples/PlugFlowPipe.mo
+Buildings/Fluid/FixedResistances/Examples/PlugFlowPipeDiscretized.mo
 Buildings/Fluid/FixedResistances/Examples/PressureDrop.mo
 Buildings/Fluid/FixedResistances/Examples/package.mo
 Buildings/Fluid/FixedResistances/Examples/package.order
@@ -502,6 +504,7 @@ Buildings/Fluid/FixedResistances/HydraulicDiameter.mo
 Buildings/Fluid/FixedResistances/Junction.mo
 Buildings/Fluid/FixedResistances/LosslessPipe.mo
 Buildings/Fluid/FixedResistances/PlugFlowPipe.mo
+Buildings/Fluid/FixedResistances/PlugFlowPipeDiscretized.mo
 Buildings/Fluid/FixedResistances/PressureDrop.mo
 Buildings/Fluid/FixedResistances/Validation/FlowJunctionSteadyState.mo
 Buildings/Fluid/FixedResistances/Validation/FlowJunctionSteadyStateNoPressureDrop.mo
@@ -1649,6 +1652,7 @@ Buildings/Resources/Scripts/Dymola/Fluid/FixedResistances/Examples/CheckValve.mo
 Buildings/Resources/Scripts/Dymola/Fluid/FixedResistances/Examples/FlowJunction.mos
 Buildings/Resources/Scripts/Dymola/Fluid/FixedResistances/Examples/HydraulicDiameter.mos
 Buildings/Resources/Scripts/Dymola/Fluid/FixedResistances/Examples/PlugFlowPipe.mos
+Buildings/Resources/Scripts/Dymola/Fluid/FixedResistances/Examples/PlugFlowPipeDiscretized.mos
 Buildings/Resources/Scripts/Dymola/Fluid/FixedResistances/Examples/PressureDrop.mos
 Buildings/Resources/Scripts/Dymola/Fluid/FixedResistances/Validation/FlowJunctionSteadyState.mos
 Buildings/Resources/Scripts/Dymola/Fluid/FixedResistances/Validation/FlowJunctionSteadyStateNoPressureDrop.mos
