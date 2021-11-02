@@ -1,7 +1,15 @@
 within Buildings.Fluid.Boilers;
 model BoilerPolynomial
   "Boiler with efficiency curve described by a polynomial of the control signal and (optional) temperature"
-  extends Buildings.Fluid.Boilers.BaseClasses.PartialBoiler;
+  extends Buildings.Fluid.Boilers.BaseClasses.PartialBoiler(
+    eta=if effCur ==Buildings.Fluid.Types.EfficiencyCurves.Constant then
+          a[1]
+        elseif effCur ==Buildings.Fluid.Types.EfficiencyCurves.Polynomial then
+          Buildings.Utilities.Math.Functions.polynomial(a=a, x=y)
+        elseif effCur ==Buildings.Fluid.Types.EfficiencyCurves.QuadraticLinear then
+          Buildings.Utilities.Math.Functions.quadraticLinear(a=aQuaLin, x1=y, x2=T)
+        else
+          0);
   parameter Buildings.Fluid.Types.EfficiencyCurves
     effCur=Buildings.Fluid.Types.EfficiencyCurves.Constant
     "Curve used to compute the efficiency";
@@ -33,16 +41,6 @@ initial equation
      eta_nominal = 999;
   end if;
 
-equation
-  eta=
-    if effCur ==Buildings.Fluid.Types.EfficiencyCurves.Constant then
-      a[1]
-    elseif effCur ==Buildings.Fluid.Types.EfficiencyCurves.Polynomial then
-      Buildings.Utilities.Math.Functions.polynomial(a=a, x=y)
-    elseif effCur ==Buildings.Fluid.Types.EfficiencyCurves.QuadraticLinear then
-      Buildings.Utilities.Math.Functions.quadraticLinear(a=aQuaLin, x1=y, x2=T)
-    else
-      0;
   annotation (Documentation(info="<html>
 <p>
 This is a model of a boiler whose efficiency is described by a polynomial. 

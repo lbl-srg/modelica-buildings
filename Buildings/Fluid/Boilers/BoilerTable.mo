@@ -1,7 +1,8 @@
 within Buildings.Fluid.Boilers;
 model BoilerTable
   "Boiler with efficiency described by a table with control signal and inlet temperature"
-  extends Buildings.Fluid.Boilers.BaseClasses.PartialBoiler;
+  extends Buildings.Fluid.Boilers.BaseClasses.PartialBoiler(
+    eta=effTab.y);
   parameter Modelica.SIunits.Temperature
     T_inlet_nominal = 323.15 "Norminal inlet temp";
   parameter Buildings.Fluid.Boilers.Data.EfficiencyCurves
@@ -37,7 +38,6 @@ initial equation
     "Efficiency curve at full load (y = 1) must be provided.");
 
 equation
-  eta=effTab.y;
   connect(effTab.u1, y) annotation (Line(points={{-76,80},{-120,80}},
                 color={0,0,127}));
   connect(T_inlet, effTab.u2) annotation (Line(points={{-120,36},{-82,36},{-82,

@@ -25,7 +25,7 @@ partial model PartialBoiler "Boiler base class with efficiency unspecified"
   parameter Modelica.SIunits.Efficiency eta_nominal(fixed=false)
     "Boiler efficiency at nominal condition";
 
-  Modelica.SIunits.Efficiency eta "Boiler efficiency";
+  input Modelica.SIunits.Efficiency eta "Boiler efficiency";
   Modelica.SIunits.Power QFue_flow = y * Q_flow_nominal/eta_nominal
     "Heat released by fuel";
   Modelica.SIunits.Power QWat_flow = eta * QFue_flow
