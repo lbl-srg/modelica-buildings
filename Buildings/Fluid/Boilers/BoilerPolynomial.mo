@@ -7,6 +7,7 @@ model BoilerPolynomial
     "Curve used to compute the efficiency";
   parameter Real a[:] = {0.9} "Coefficients for efficiency curve";
 
+protected
   parameter Real aQuaLin[6] = if size(a, 1) == 6 then a else fill(0, 6)
   "Auxiliary variable for efficiency curve because quadraticLinear requires exactly 6 elements";
 
