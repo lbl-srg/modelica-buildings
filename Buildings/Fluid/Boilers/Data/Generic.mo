@@ -6,6 +6,7 @@ record Generic "Generic data record for boiler efficiency curves"
         "Efficiency curves as a table: First row = inlet temp(K), First column = firing rates or PLR";
 
   annotation (
+  defaultComponentName="effCur",
   defaultComponentPrefixes = "parameter",
   Documentation(info="<html>
 <p>

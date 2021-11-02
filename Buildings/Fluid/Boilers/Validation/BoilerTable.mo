@@ -26,7 +26,7 @@ model BoilerTable
     redeclare package Medium = Medium,
     p=300000 + dp_nominal,
     use_T_in=true,
-    nPorts=4) "Source"
+    nPorts=3) "Source"
     annotation (Placement(transformation(extent={{-54,-16},{-34,4}})));
   Buildings.Fluid.Boilers.BoilerTable boi1(
     Q_flow_nominal=Q_flow_nominal,
@@ -39,7 +39,7 @@ model BoilerTable
     from_dp=true,
     T_start=293.15,
     effCur=effCur,
-    T_inlet_nominal=323.15) "Boiler 1 set at 5% firing rate"
+    TIn_nominal=323.15) "Boiler 1 set at 5% firing rate"
     annotation (Placement(transformation(extent={{20,44},{40,64}})));
   Buildings.HeatTransfer.Sources.FixedTemperature
     TAmb1(T=288.15) "Ambient temperature in boiler room"
@@ -55,7 +55,7 @@ model BoilerTable
     from_dp=true,
     T_start=293.15,
     effCur=effCur,
-    T_inlet_nominal=323.15) "Boiler 2 set at 50% firing rate"
+    TIn_nominal=323.15) "Boiler 2 set at 50% firing rate"
     annotation (Placement(transformation(extent={{20,-16},{40,4}})));
   Buildings.HeatTransfer.Sources.FixedTemperature
     TAmb2(T=288.15) "Ambient temperature in boiler room"
@@ -71,14 +71,11 @@ model BoilerTable
     from_dp=true,
     T_start=293.15,
     effCur=effCur,
-    T_inlet_nominal=323.15) "Boiler 3 set at 100% firing rate"
+    TIn_nominal=323.15) "Boiler 3 set at 100% firing rate"
     annotation (Placement(transformation(extent={{20,-76},{40,-56}})));
   HeatTransfer.Sources.FixedTemperature
     TAmb3(T=288.15) "Ambient temperature in boiler room"
     annotation (Placement(transformation(extent={{0,-48},{20,-28}})));
-  Sensors.Temperature senTem(
-    redeclare package Medium = Medium)
-    annotation (Placement(transformation(extent={{-44,39.6},{-24,59.6}})));
 
   Modelica.Blocks.Sources.Constant y1(k=0.05)
     "Setting the firing rate at constant 5%"
@@ -116,20 +113,13 @@ equation
     annotation (Line(points={{20,-38},{30,-38},{30,-58.8}}, color={191,0,0}));
   connect(boi3.port_b, sin.ports[3]) annotation (Line(points={{40,-66},{46,-66},
           {46,-8.66667},{62,-8.66667}}, color={0,127,255}));
-  connect(boi1.port_a, sou.ports[1]) annotation (Line(points={{20,54},{-16,54},{
-          -16,-3},{-34,-3}},  color={0,127,255}));
+  connect(boi1.port_a, sou.ports[1]) annotation (Line(points={{20,54},{-16,54},
+          {-16,-3.33333},{-34,-3.33333}},
+                              color={0,127,255}));
   connect(boi3.port_a, sou.ports[2]) annotation (Line(points={{20,-66},{-16,-66},
-          {-16,-10},{-34,-10},{-34,-5}}, color={0,127,255}));
-  connect(senTem.port, sou.ports[3])
-    annotation (Line(points={{-34,39.6},{-34,-7}},color={0,127,255}));
-  connect(boi2.T_inlet, senTem.T) annotation (Line(points={{18,-10.4},{-4,-10.4},
-          {-4,49.6},{-27,49.6}},color={0,0,127}));
-  connect(boi3.T_inlet, senTem.T) annotation (Line(points={{18,-70.4},{-4,-70.4},
-          {-4,49.6},{-27,49.6}},color={0,0,127}));
-  connect(boi1.T_inlet, senTem.T) annotation (Line(points={{18,49.6},{6,49.6},{6,
-          49.6},{-27,49.6}},  color={0,0,127}));
-  connect(boi2.port_a, sou.ports[4]) annotation (Line(points={{20,-6},{-34,-6},{
-          -34,-9}},          color={0,127,255}));
+          {-16,-10},{-34,-10},{-34,-6}}, color={0,127,255}));
+  connect(boi2.port_a, sou.ports[3]) annotation (Line(points={{20,-6},{-34,-6},
+          {-34,-8.66667}},   color={0,127,255}));
   connect(y1.y, boi1.y) annotation (Line(points={{-69,70},{-16,70},{-16,62},{18,
           62}}, color={0,0,127}));
   connect(y2.y, boi2.y) annotation (Line(points={{-69,34},{-26,34},{-26,2},{18,2}},

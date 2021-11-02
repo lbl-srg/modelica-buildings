@@ -3,7 +3,7 @@ model BoilerTable
   "Boiler with efficiency described by a table with control signal and inlet temperature"
   extends Buildings.Fluid.Boilers.BaseClasses.PartialBoiler(
     eta=effTab.y);
-  parameter Modelica.SIunits.Temperature T_inlet_nominal = 323.15
+  parameter Modelica.SIunits.Temperature TIn_nominal = 323.15
     "Norminal inlet temperature";
   parameter Buildings.Fluid.Boilers.Data.Generic effCur
     "Records of efficiency curves"
@@ -13,27 +13,24 @@ model BoilerTable
     final table=effCur.effCur,
     final smoothness=Modelica.Blocks.Types.Smoothness.ContinuousDerivative)
     "Look-up table that represents a set of efficiency curves varying with both the firing rate (control signal) and the inlet water temperature"
-    annotation (Placement(transformation(extent={{-74,64},{-54,84}})));
+    annotation (Placement(transformation(extent={{-42,64},{-22,84}})));
 
-  Modelica.Blocks.Interfaces.RealInput T_inlet(
-    final quantity="ThermodynamicTemperature",
-    final unit="K")
-    "Inlet temperature"
-    annotation (Placement(transformation(extent={{-140,16},{-100,56}}),
-        iconTransformation(extent={{-140,-64},{-100,-24}})));
-
+  Modelica.Blocks.Sources.RealExpression TIn(
+    y=Medium.temperature(state=Medium.setState_phX(
+        p=port_a.p, h=inStream(port_a.h_outflow), X=inStream(port_a.Xi_outflow))))
+    "Water inlet temperature"
+    annotation (Placement(transformation(extent={{-94,58},{-74,78}})));
 initial equation
   eta_nominal = Buildings.Utilities.Math.Functions.smoothInterpolation(
-    x=T_inlet_nominal, xSup=effCur.effCur[1,2:end], ySup=effCur.effCur[end,2:end]);
+    x=TIn_nominal, xSup=effCur.effCur[1,2:end], ySup=effCur.effCur[end,2:end]);
   assert(abs(effCur.effCur[end,1] - 1) < 1E-6,
     "Efficiency curve at full load (y = 1) must be provided.");
 
 equation
-  connect(effTab.u1, y) annotation (Line(points={{-76,80},{-120,80}},
+  connect(effTab.u1, y) annotation (Line(points={{-44,80},{-120,80}},
                 color={0,0,127}));
-  connect(T_inlet, effTab.u2) annotation (Line(points={{-120,36},{-82,36},{-82,
-          68},{-76,68}},
-                     color={0,0,127}));
+  connect(TIn.y, effTab.u2)
+    annotation (Line(points={{-73,68},{-44,68}}, color={0,0,127}));
   annotation (Documentation(info="<html>
 <p>
 This is a model of a boiler whose efficiency is described 
