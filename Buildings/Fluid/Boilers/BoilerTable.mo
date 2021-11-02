@@ -3,27 +3,17 @@ model BoilerTable
   "Boiler with efficiency described by a table with control signal and inlet temperature"
   extends Buildings.Fluid.Boilers.BaseClasses.PartialBoiler(
     eta=effTab.y);
-  parameter Modelica.SIunits.Temperature
-    T_inlet_nominal = 323.15 "Norminal inlet temp";
-  parameter Buildings.Fluid.Boilers.Data.Generic
-    effCur "Efficiency curves as a table"
+  parameter Modelica.SIunits.Temperature T_inlet_nominal = 323.15
+    "Norminal inlet temperature";
+  parameter Buildings.Fluid.Boilers.Data.Generic effCur
+    "Records of efficiency curves"
     annotation(choicesAllMatching=true);
-  parameter Modelica.Blocks.Types.Smoothness
-    smo = Modelica.Blocks.Types.Smoothness.ContinuousDerivative
-    "Interpolation method";
-
-  //The extrapolation setting is commented out
-  //  because it throws out an error in jmodelica unit tests.
-    /*  parameter Modelica.Blocks.Types.Extrapolation
-    ext = Modelica.Blocks.Types.Extrapolation.HoldLastPoint
-    "Extrapolation method";*/
 
   Modelica.Blocks.Tables.CombiTable2D effTab(
-    table=effCur.effCur,
-    smoothness=smo)
+    final table=effCur.effCur,
+    final smoothness=Modelica.Blocks.Types.Smoothness.ContinuousDerivative)
     "Look-up table that represents a set of efficiency curves varying with both the firing rate (control signal) and the inlet water temperature"
     annotation (Placement(transformation(extent={{-74,64},{-54,84}})));
-    //extrapolation=ext
 
   Modelica.Blocks.Interfaces.RealInput T_inlet(
     final quantity="ThermodynamicTemperature",
