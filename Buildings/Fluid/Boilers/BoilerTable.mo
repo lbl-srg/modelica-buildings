@@ -5,8 +5,9 @@ model BoilerTable
     eta=effTab.y);
   parameter Modelica.SIunits.Temperature
     T_inlet_nominal = 323.15 "Norminal inlet temp";
-  parameter Buildings.Fluid.Boilers.Data.EfficiencyCurves
-    effCur "Efficiency curves as a table";
+  parameter Buildings.Fluid.Boilers.Data.Generic
+    effCur "Efficiency curves as a table"
+    annotation(choicesAllMatching=true);
   parameter Modelica.Blocks.Types.Smoothness
     smo = Modelica.Blocks.Types.Smoothness.ContinuousDerivative
     "Interpolation method";

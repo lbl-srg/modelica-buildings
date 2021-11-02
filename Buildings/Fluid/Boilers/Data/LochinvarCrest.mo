@@ -1,5 +1,6 @@
-within Buildings.Fluid.Boilers.Data;
-record LochinvarCrest "Example table for boiler efficiency curves"
+﻿within Buildings.Fluid.Boilers.Data;
+record LochinvarCrest
+  "Boiler efficiency curves for Crest® condensing boiler of Lochinvar"
   extends Buildings.Fluid.Boilers.Data.Generic(
     effCur=
       [0,   294.3,  299.8,  305.4,  310.9,  316.5,  322.0,  327.6,  333.2,  338.7,  344.3;
@@ -18,7 +19,7 @@ https://www.lochinvar.com/products/commercial-boilers/crest-condensing-boiler/</
 </html>", revisions="<html>
 <ul>
 <li>
-October 12, 2021 by Hongxiang Fu:<br/>
+November 1, 2021 by Hongxiang Fu:<br/>
 First implementation. 
 This is for
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2651\">#2651</a>.
