@@ -1,6 +1,8 @@
 within Buildings.HeatTransfer.Windows.BaseClasses;
 function nusseltHorizontalCavityReduced
   "Nusselt number for horizontal cavity, bottom surface colder than top surface"
+  extends Modelica.Icons.Function;
+
   input Buildings.HeatTransfer.Data.Gases.Generic gas
     "Thermophysical properties of gas fill"
    annotation(choicesAllMatching=true);
