@@ -132,17 +132,19 @@ protected
     final m_flow_nominal = m1_flow_nominal,
     final energyDynamics = energyDynamics,
     final massDynamics = massDynamics,
-    final Q_flow_nominal=-1)
+    final Q_flow_nominal=-1,
+    u(final unit="W"))
     "Heat exchange with water stream"
     annotation (Placement(transformation(extent={{60,50},{80,70}})));
 
   Buildings.Fluid.Humidifiers.Humidifier_u heaCooHum_u(
     redeclare final package Medium = Medium2,
-    mWat_flow_nominal = 1,
-    dp_nominal = dp2_nominal,
-    m_flow_nominal = m2_flow_nominal,
-    energyDynamics = energyDynamics,
-    massDynamics = massDynamics)
+    final mWat_flow_nominal = 1,
+    final dp_nominal = dp2_nominal,
+    final m_flow_nominal = m2_flow_nominal,
+    final energyDynamics = energyDynamics,
+    final massDynamics = massDynamics,
+    u(final unit="kg/s"))
     "Heat and moisture exchange with air stream"
     annotation (Placement(transformation(extent={{-60,-70},{-80,-50}})));
   Buildings.Fluid.HeatExchangers.BaseClasses.HADryCoil hA(
@@ -163,8 +165,9 @@ protected
     Qfac=Qfac)
     "Dry/wet calculations block"
     annotation (Placement(transformation(extent={{-20,-40},{60,40}})));
-  Modelica.Blocks.Sources.RealExpression cp_a1Exp(final y=
-        Medium1.specificHeatCapacityCp(state_a1_inflow))
+
+  Modelica.Blocks.Sources.RealExpression cp_a1Exp(
+    final y=Medium1.specificHeatCapacityCp(state_a1_inflow))
     "Expression for cp of air"
     annotation (Placement(transformation(extent={{-44,18},{-30,30}})));
   Modelica.Blocks.Sources.RealExpression XWat_a2Exp(
@@ -624,8 +627,16 @@ Fuzzy identification of systems and its applications to modeling and control.
 &nbsp;IEEE transactions on systems, man, and cybernetics, (1), pp.116-132.</p>
 </html>",                    revisions="<html>
 <ul>
-<li>Jan 21, 2021, by Donghun Kim:<br/>First implementation of the fuzzy model.
-See <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/622\">issue 622</a> for more information. </li>
+<li>
+November 2, 2021, by Michael Wetter:<br/>
+Corrected unit assignment during the model instantiation.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2710\">issue 2710</a>.
+</li>
+<li>
+Jan 21, 2021, by Donghun Kim:<br/>
+First implementation of the fuzzy model.<br/>
+See <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/622\">issue 622</a> for more information.
+</li>
 </ul>
 </html>"));
 end WetCoilEffectivenessNTU;
