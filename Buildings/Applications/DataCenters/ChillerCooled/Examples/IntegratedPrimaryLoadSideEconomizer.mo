@@ -92,7 +92,7 @@ equation
     annotation (Line(
       points={{-299,110},{-216,110}},
       color={0,0,127}));
-  connect(weaBus.TWetBul.TWetBul, cooModCon.TWetBul)
+  connect(weaBus.TWetBul, cooModCon.TWetBul)
     annotation (Line(
       points={{-328,-20},{-340,-20},{-340,200},{-224,200},{-224,114},{-216,114}},
       color={255,204,51},thickness=0.5));
@@ -228,6 +228,13 @@ are not implemented in this example.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+November 1, 2021, by Michael Wetter:<br/>
+Corrected weather data bus connection which was structurally incorrect
+and did not parse in OpenModelica.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2706\">issue 2706</a>.
+</li>
 <li>
 December 1, 2017, by Yangyang Fu:<br/>
 Removed redundant connection <code>connect(dpSet.y, pumSpe.u_s)</code>

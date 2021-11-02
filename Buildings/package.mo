@@ -286,6 +286,21 @@ Each class (i.e., model, block and function) must be used in an example or valid
                            This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1496\">Buidings, issue #1496</a>.
         </td>
     </tr>
+    <tr>
+      <td colspan=\"2\"><b>Buildings.Applications.DataCenters</b>
+      </td>
+    </tr>
+    <tr>
+      <td valign=\"top\">Buildings.Applications.DataCenters.ChillerCooled.Examples.IntegratedPrimaryLoadSideEconomizer<br/>
+                         Buildings.Applications.DataCenters.ChillerCooled.Examples.IntegratedPrimarySecondaryEconomizer<br/>
+                         Buildings.Applications.DataCenters.ChillerCooled.Examples.NonIntegratedPrimarySecondaryEconomizer
+      </td>
+      <td valign=\"top\">Corrected weather data bus connection which was structurally incorrect
+                         and did not parse in OpenModelica.<br/>
+                         This is for
+                         <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2706\">issue 2706</a>.
+       </td>
+    </tr>
     <tr><td colspan=\"2\"><b>Buildings.Electrical</b>
         </td>
     </tr>

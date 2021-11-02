@@ -295,7 +295,7 @@ equation
       color={0,127,255},
       thickness=0.5));
   for i in 1:numChi loop
-    connect(cooTow[i].TAir, weaBus.TWetBul.TWetBul)
+    connect(cooTow[i].TAir, weaBus.TWetBul)
       annotation (Line(points={{22,144},{44,144},{44,200},{-340,200},{-340,-20},
             {-328,-20}},
             color={255,204,51},
@@ -338,7 +338,7 @@ equation
       points={{0,24},{-8,24},{-8,0},{-16,0}},
       color={0,127,255},
       thickness=0.5));
-  connect(weaData.weaBus, weaBus.TWetBul)
+  connect(weaData.weaBus, weaBus)
     annotation (Line(
       points={{-340,-70},{-328,-70},{-328,-20}},
       color={255,204,51},
@@ -482,13 +482,13 @@ equation
       color={255,127,0}));
   connect(ahu.port_a2, roo.airPorts[1])
     annotation (Line(
-      points={{20,-126},{32,-126},{32,-196},{1.525,-196},{1.525,-188.7}},
+      points={{20,-126},{32,-126},{32,-196},{4.5625,-196},{4.5625,-188.7}},
       color={0,127,255},
       thickness=0.5));
 
   connect(roo.airPorts[2], TAirSup.port_b)
     annotation (Line(
-      points={{5.575,-188.7},{5.575,-196},{-50,-196},{-50,-160}},
+      points={{2.5375,-188.7},{2.5375,-196},{-50,-196},{-50,-160}},
       color={0,127,255},
       thickness=0.5));
   connect(roo.TRooAir, ahuFanSpeCon.u_m)
@@ -534,6 +534,13 @@ Taylor, S. T. (2014). How to design &amp; control waterside economizers. ASHRAE 
 </ul>
 </html>", revisions="<html>
 <ul>
+<li>
+November 1, 2021, by Michael Wetter:<br/>
+Corrected weather data bus connection which was structurally incorrect
+and did not parse in OpenModelica.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2706\">issue 2706</a>.
+</li>
 <li>
 October 6, 2020, by Michael Wetter:<br/>
 Set <code>val.use_inputFilter=false</code> because pump worked against closed valve at <i>t=60</i> seconds,

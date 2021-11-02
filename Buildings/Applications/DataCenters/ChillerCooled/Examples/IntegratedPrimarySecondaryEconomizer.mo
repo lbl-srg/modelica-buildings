@@ -113,7 +113,7 @@ equation
     annotation (Line(
       points={{-307,110},{-210,110}},
       color={0,0,127}));
-  connect(weaBus.TWetBul.TWetBul, cooModCon.TWetBul)
+  connect(weaBus.TWetBul, cooModCon.TWetBul)
     annotation (Line(
       points={{-328,-20},{-340,-20},{-340,200},{-218,200},{-218,114},{-210,114}},
       color={255,204,51},
@@ -269,6 +269,13 @@ differential pressure reset control are not implemented in this example.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+November 1, 2021, by Michael Wetter:<br/>
+Corrected weather data bus connection which was structurally incorrect
+and did not parse in OpenModelica.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2706\">issue 2706</a>.
+</li>
 <li>
 November 29, 2017, by Michael Wetter:<br/>
 Corrected conversion of enumeration.<br/>
