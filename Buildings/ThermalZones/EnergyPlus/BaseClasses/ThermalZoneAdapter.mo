@@ -11,7 +11,7 @@ model ThermalZoneAdapter
     annotation (HideResult=true);
   parameter String idfName
     "Name of the IDF file that contains this zone";
-  parameter String weaName
+  parameter String epwName
     "Name of the Energyplus weather file including the epw extension";
   parameter Real relativeSurfaceTolerance
     "Relative tolerance of surface temperature calculations";

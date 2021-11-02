@@ -39,6 +39,9 @@ test-optimica-spawn-fmu:
 	  python3 Buildings/Resources/Scripts/travis/pyfmi/runSpawnFromOtherDirectory.py)
 
 test-spawn-portability:
+    @echo "*** Skipping test"
+	exit 1
+
 	@echo "*** Check if Spawn works if the root folder is not Buildings"
 	(cd  "$(ROOT)" && \
 	  fixme: this should copy it to a temp directory, not move the current version. ***** mv Buildings "Buildings 8.0.0" && \

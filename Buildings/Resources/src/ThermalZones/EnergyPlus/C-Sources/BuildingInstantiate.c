@@ -323,7 +323,7 @@ int generateFMU(FMUBuilding* bui, const char* spawnExe, bool returnOnError, cons
   optionFlags = " --no-compress "; /* Flag for command */
   outputFlag = " --output-path "; /* Flag for command */
   createFlag = " --create "; /* Flag for command */
-  len = strlen("\"") + strlen(bui->buildingsLibraryRoot) + strlen(cmd) + strlen("\"") + strlen(optionFlags)
+  len = strlen(bui->buildingsLibraryRoot) + strlen(spawnExe) + strlen(optionFlags)
     + strlen(outputFlag) + strlen("\"") + strlen(bui->fmuAbsPat) + strlen("\"")
     + strlen(createFlag) + strlen("\"") + strlen(modelicaBuildingsJsonFile) + strlen("\"")
     + 1;
@@ -340,7 +340,7 @@ int generateFMU(FMUBuilding* bui, const char* spawnExe, bool returnOnError, cons
   memset(fulCmd, '\0', len);
 
   strcpy(exe_name, bui->buildingsLibraryRoot); /* This is for example /mtn/shared/Buildings */
-  strcat(exe_name, cmd);
+  strcat(exe_name, spawnExe);
 
   /* Check if the executable exists and is executable. For this, the leading and trailing space needs to be removed.
      (But later on, for invoking the executable, the spaces need to be present if there is a white space in the directory name.)

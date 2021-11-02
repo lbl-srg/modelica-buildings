@@ -35,12 +35,8 @@ extern void* EnergyPlusSpawnAllocate(
   const char* modelicaNameBuilding,
   const char* modelicaNameThermalZone,
   const char* idfName,
-<<<<<<< HEAD
   const char* epwName,
-=======
-  const char* weaName,
   double relativeSurfaceTolerance,
->>>>>>> master
   const char* epName,
   int usePrecompiledFMU,
   const char* fmuName,
