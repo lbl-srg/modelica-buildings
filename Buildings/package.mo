@@ -732,7 +732,7 @@ units are wrong or errors in documentation):
     <td valign=\"top\">Corrected weather data bus connection which was structurally incorrect
                        and did not parse in OpenModelica.<br/>
                        This is for
-                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2706\">issue 2706</a>.
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2706\">Buildings, issue 2706</a>.
     </td>
 </tr>
 <tr><td colspan=\"2\"><b>Buildings.Electrical</b>
