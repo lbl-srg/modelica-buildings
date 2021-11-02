@@ -35,9 +35,13 @@ equation
 <p>
 This is a model of a boiler whose efficiency is described 
 by a table with control signal and inlet temperature. 
-An example table is supplied in 
-<a href=\"Buildings.Fluid.Boilers.Data.EfficiencyCurves\">
-<code>Buildings.Fluid.Boilers.Data.EfficiencyCurves</code></a>.
+See <a href=\"Modelica://Buildings.Fluid.Boilers.UsersGuide\">
+Buildings.Fluid.Boilers.UsersGuide</a> for details.
+</p>
+<p>
+The efficiency tables are supplied via 
+<a href=\"Buildings.Fluid.Boilers.Data\">
+Buildings.Fluid.Boilers.Data</a>.
 </p>
 </html>", revisions="<html>
 <ul>

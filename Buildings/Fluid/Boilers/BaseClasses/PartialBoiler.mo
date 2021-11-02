@@ -123,7 +123,10 @@ equation
 defaultComponentName="boi",
 Documentation(info="<html>
 <p>
-This is a base model of a boiler whose efficiency is left unspecified.
+This is a base model of a boiler. 
+The efficiency specified in extended models. 
+See <a href=\"Modelica://Buildings.Fluid.Boilers.UsersGuide\">
+Buildings.Fluid.Boilers.UsersGuide</a> for details.
 </p>
 </html>",
 revisions="<html>

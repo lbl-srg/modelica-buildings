@@ -44,6 +44,8 @@ initial equation
   annotation (Documentation(info="<html>
 <p>
 This is a model of a boiler whose efficiency is described by a polynomial. 
+See <a href=\"Modelica://Buildings.Fluid.Boilers.UsersGuide\">
+Buildings.Fluid.Boilers.UsersGuide</a> for details.
 </p>
 <p>
 The parameter <span style=\"font-family: monospace;\">effCur</span> 
@@ -94,7 +96,7 @@ T </i>
 </td></tr>
 </table>
 <p>
-<br><br><br>where <i>T</i> is the boiler outlet temperature in Kelvin. 
+where <i>T</i> is the boiler outlet temperature in Kelvin. 
 For <span style=\"font-family: monospace;\">
 effCur = Buildings.Fluid.Types.EfficiencyCurves.Polynomial</span>, 
 an arbitrary number of polynomial coefficients can be specified. 

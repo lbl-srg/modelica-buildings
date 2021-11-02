@@ -6,6 +6,10 @@ annotation (preferredView="info",
   Documentation(info="<html>
 <p>
 This package contains models for boilers. 
+The main equations are computed in the base class
+<a href=\"Modelica://Buildings.Fluid.Boilers.BaseClasses.PartialBoiler\">
+Buildings.Fluid.Boilers.BaseClasses.PartialBoiler</a>
+and the efficiency is computed in the extended models. 
 </p>
 <p>
 The heat transferred to the working fluid (typically water or air) is
@@ -30,14 +34,21 @@ The efficiency is defined as
 </p>
 <p>
 where <i>Q̇<sub>f</sub></i> is the heat of combustion released by the fuel. 
-The efficiency is unspecified in this base model 
-and must be specified in the extended models. 
-The user can choose to specify it by using a polynomial in 
-<a href=\"Modelica://Buildings.Fluid.Boilers.BoilerPolynomial\">
-<code>Buildings.Fluid.Boilers.BoilerPolynomial</code></a> 
-or by inputting the efficiency curves as a table in 
-<a href=\"Modelica://Buildings.Fluid.Boilers.BoilerTable\">
-<code>Buildings.Fluid.Boilers.BoilerTable</code></a>.
+There are two methods of specifying the efficiency.
+<ul>
+<li>
+In <a href=\"Modelica://Buildings.Fluid.Boilers.BoilerPolynomial\">
+Buildings.Fluid.Boilers.BoilerPolynomial</a>,
+the efficiency is specified using a polynomial 
+of the firing rate <i>y</i> and optionally the temperature of the fluid <i>T</i>.
+</li>
+<li>
+In <a href=\"Modelica://Buildings.Fluid.Boilers.BoilerTable\">
+Buildings.Fluid.Boilers.BoilerTable</a>,
+the efficiency is specified with curves 
+of the firing rate <i>y</i> and the inlet temperature <i>T<sub>inlet</sub></i>.
+</li>
+</ul>
 </p>
 <p>
 The parameter <span style=\"font-family: monospace;\">Q_flow_nominal</span> 
@@ -45,7 +56,7 @@ is the power transferred to the fluid for
 <i><span style=\"font-family: monospace;\">y</span></i>=1 
 and, if the efficiency depends on temperature 
 in the extended polynomial boiler model, 
-for <span style=\"font-family: monospace;\">T=T0</span>. 
+for <span style=\"font-family: monospace;\">T=T<sub>0</sub></span>. 
 </p>
 <p>
 The fuel mass flow rate and volume flow rate are computed as 
