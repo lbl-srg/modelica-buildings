@@ -1,5 +1,7 @@
 within Buildings.HeatTransfer.Windows.BaseClasses;
 function convectionVerticalCavity "Free convection in vertical cavity"
+  extends Modelica.Icons.Function;
+
   input Buildings.HeatTransfer.Data.Gases.Generic gas
     "Thermophysical properties of gas fill"
    annotation(choicesAllMatching=true);

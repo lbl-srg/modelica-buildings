@@ -1,6 +1,8 @@
 within Buildings.HeatTransfer.Windows.BaseClasses;
 partial record RadiationBaseData
   "Basic parameters for window radiation calculation"
+  extends Modelica.Icons.Record;
+
 
   parameter Integer N(min=1) "Number of glass layers"
     annotation (Dialog(group="Glass"));
