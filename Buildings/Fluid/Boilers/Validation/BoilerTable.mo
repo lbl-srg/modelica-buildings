@@ -10,7 +10,7 @@ model BoilerTable
     "Nominal mass flow rate";
  parameter Modelica.SIunits.PressureDifference dp_nominal = 3000
     "Pressure drop at m_flow_nominal";
- parameter Buildings.Fluid.Boilers.Data.EfficiencyCurves effCur
+  parameter Buildings.Fluid.Boilers.Data.LochinvarCrest effCur
     "Record containing a table that describes the efficiency curves";
 
   Buildings.Fluid.Sources.Boundary_pT sin(
