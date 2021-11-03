@@ -2,12 +2,17 @@ within Buildings.Fluid.Boilers;
 model BoilerTable
   "Boiler with efficiency described by a table with control signal and inlet temperature"
   extends Buildings.Fluid.Boilers.BaseClasses.PartialBoiler(
-    eta=effTab.y);
-  parameter Modelica.SIunits.Temperature TIn_nominal = 323.15
-    "Norminal inlet temperature";
+    eta=effTab.y,
+    Q_flow_nominal=per.Q_flow_nominal,
+    UA=per.UA,
+    VWat = per.VWat,
+    mDry = per.mDry);
+
   parameter Buildings.Fluid.Boilers.Data.Generic per
     "Records of efficiency curves"
     annotation(choicesAllMatching=true);
+  parameter Modelica.SIunits.Temperature TIn_nominal = 323.15
+    "Norminal inlet temperature";
 
   Modelica.Blocks.Tables.CombiTable2D effTab(
     final table=per.effCur,
@@ -20,6 +25,7 @@ model BoilerTable
         p=port_a.p, h=inStream(port_a.h_outflow), X=inStream(port_a.Xi_outflow))))
     "Water inlet temperature"
     annotation (Placement(transformation(extent={{-94,58},{-74,78}})));
+
 initial equation
   eta_nominal = Buildings.Utilities.Math.Functions.smoothInterpolation(
     x=TIn_nominal, xSup=per.effCur[1,2:end], ySup=per.effCur[end,2:end]);

@@ -5,11 +5,11 @@ partial model PartialBoiler "Boiler base class with efficiency unspecified"
     show_T = true,
     final tau=VWat*rho_default/m_flow_nominal);
 
-  parameter Modelica.SIunits.Power Q_flow_nominal "Nominal heating power";
-  // Assumptions
   parameter Buildings.Fluid.Data.Fuels.Generic fue "Fuel type"
    annotation (choicesAllMatching = true);
 
+  // These parameters can be supplied via Data records
+  parameter Modelica.SIunits.Power Q_flow_nominal "Nominal heating power";
   parameter Modelica.SIunits.ThermalConductance UA=0.05*Q_flow_nominal/30
     "Overall UA value";
   parameter Modelica.SIunits.Volume VWat = 1.5E-6*Q_flow_nominal
