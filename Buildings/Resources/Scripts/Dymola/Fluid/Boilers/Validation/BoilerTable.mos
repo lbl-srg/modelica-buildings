@@ -1,13 +1,21 @@
-simulateModel("Buildings.Fluid.Boilers.Validation.BoilerTable", tolerance=1e-6, stopTime=3600, method="dassl", resultFile="BoilerTable");
+simulateModel("Buildings.Fluid.Boilers.Validation.BoilerTable",
+ tolerance=1e-6, 
+ stopTime=3600, 
+ method="dassl", 
+ resultFile="BoilerTable");
 createPlot(id=1,
  position={15, 10, 717, 370},
- x="T_inlet.y",
+ x="TIn.y",
+ bottomTitleType=2, 
+ bottomTitle="Inlet Temperature [K]",
  y={"boi1.eta", "boi2.eta", "boi3.eta"}, 
+ leftTitleType=2, 
+ leftTitle="Efficiency [1]",
  range={290.0, 345.0, 0.86, 1.0}, 
  erase=false, 
  grid=true, 
  filename="BoilerTable.mat", 
- legends={"eta (y=5%)", "eta (y=50%)", "eta (y=100%)"}, 
+ legends={"y=5%", "y=50%", "y=100%"}, 
  colors={{28,108,200}, {238,46,47}, {0,140,72}}, 
  displayUnits={"1", "1", "1"});
 
