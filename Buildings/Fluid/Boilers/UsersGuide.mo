@@ -35,6 +35,7 @@ The efficiency is defined as
 <p>
 where <i>Q̇<sub>f</sub></i> is the heat of combustion released by the fuel. 
 There are two methods of specifying the efficiency.
+</p>
 <ul>
 <li>
 In <a href=\"Modelica://Buildings.Fluid.Boilers.BoilerPolynomial\">
@@ -49,7 +50,6 @@ the efficiency is specified with curves
 of the firing rate <i>y</i> and the inlet temperature <i>T<sub>inlet</sub></i>.
 </li>
 </ul>
-</p>
 <p>
 The parameter <span style=\"font-family: monospace;\">Q_flow_nominal</span> 
 is the power transferred to the fluid for 
