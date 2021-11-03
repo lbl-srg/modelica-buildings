@@ -1,0 +1,9 @@
+within Buildings.Fluid.Boilers.Data.Lochinvar.KnightXL;
+record KBXdash0800 "Specifications for Lochinvar Knight XL KBX-0800 boiler"
+  extends Buildings.Fluid.Boilers.Data.Lochinvar.KnightXL.Curves(
+    Q_flow_nominal = 22742.31503,
+    VWat = 0.027633506,
+    dT_nominal =  11.111111,
+    m_flow_nominal = 4.794855,
+    dp_nominal = 50812.66);
+end KBXdash0800;

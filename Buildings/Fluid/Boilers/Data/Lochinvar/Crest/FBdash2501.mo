@@ -1,9 +1,10 @@
 within Buildings.Fluid.Boilers.Data.Lochinvar.Crest;
 record FBdash2501 "Specifications for Lochinvar Crest FB-2501 boiler"
   extends Buildings.Fluid.Boilers.Data.Lochinvar.Crest.Curves(
-    Q_flow_nominal = 116651.078,
-    VWat = 0.016655812,
+    Q_flow_nominal = 70337.0568,
+    VWat = 0.59430965,
+    mDry = 1168.907537,
     dT_nominal = 11.111111,
-    m_flow_nominal = 2.397427,
-    dp_nominal =  29889.80);
+    m_flow_nominal = 15.141647,
+    dp_nominal = 25107.43);
 end FBdash2501;
