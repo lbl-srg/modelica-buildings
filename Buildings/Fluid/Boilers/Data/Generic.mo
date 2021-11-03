@@ -1,5 +1,5 @@
 within Buildings.Fluid.Boilers.Data;
-record Generic "Generic data record for boiler efficiency curves"
+record Generic "Generic data record for boiler performance"
   extends Modelica.Icons.Record;
 
   parameter Modelica.SIunits.Efficiency effCur[:,:]=
