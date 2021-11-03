@@ -5,12 +5,12 @@ model BoilerTable
     eta=effTab.y);
   parameter Modelica.SIunits.Temperature TIn_nominal = 323.15
     "Norminal inlet temperature";
-  parameter Buildings.Fluid.Boilers.Data.Generic effCur
+  parameter Buildings.Fluid.Boilers.Data.Generic per
     "Records of efficiency curves"
     annotation(choicesAllMatching=true);
 
   Modelica.Blocks.Tables.CombiTable2D effTab(
-    final table=effCur.effCur,
+    final table=per.effCur,
     final smoothness=Modelica.Blocks.Types.Smoothness.ContinuousDerivative)
     "Look-up table that represents a set of efficiency curves varying with both the firing rate (control signal) and the inlet water temperature"
     annotation (Placement(transformation(extent={{-42,64},{-22,84}})));
@@ -22,8 +22,8 @@ model BoilerTable
     annotation (Placement(transformation(extent={{-94,58},{-74,78}})));
 initial equation
   eta_nominal = Buildings.Utilities.Math.Functions.smoothInterpolation(
-    x=TIn_nominal, xSup=effCur.effCur[1,2:end], ySup=effCur.effCur[end,2:end]);
-  assert(abs(effCur.effCur[end,1] - 1) < 1E-6,
+    x=TIn_nominal, xSup=per.effCur[1,2:end], ySup=per.effCur[end,2:end]);
+  assert(abs(per.effCur[end,1] - 1) < 1E-6,
     "Efficiency curve at full load (y = 1) must be provided.");
 
 equation

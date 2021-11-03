@@ -12,7 +12,7 @@ model BoilerTable
     "Nominal mass flow rate";
   parameter Modelica.SIunits.PressureDifference dp_nominal = 3000
     "Pressure drop at m_flow_nominal";
-  parameter Buildings.Fluid.Boilers.Data.LochinvarCrest effCur
+  parameter Buildings.Fluid.Boilers.Data.LochinvarCrest per
     "Record containing a table that describes the efficiency curves"
     annotation(choicesAllMatching=true);
 
@@ -38,7 +38,7 @@ model BoilerTable
     fue=Buildings.Fluid.Data.Fuels.NaturalGasLowerHeatingValue(),
     from_dp=true,
     T_start=293.15,
-    effCur=effCur,
+    per=per,
     TIn_nominal=323.15) "Boiler 1 set at 5% firing rate"
     annotation (Placement(transformation(extent={{20,44},{40,64}})));
   Buildings.HeatTransfer.Sources.FixedTemperature
@@ -54,7 +54,7 @@ model BoilerTable
     fue=Buildings.Fluid.Data.Fuels.NaturalGasLowerHeatingValue(),
     from_dp=true,
     T_start=293.15,
-    effCur=effCur,
+    per=per,
     TIn_nominal=323.15) "Boiler 2 set at 50% firing rate"
     annotation (Placement(transformation(extent={{20,-16},{40,4}})));
   Buildings.HeatTransfer.Sources.FixedTemperature
@@ -70,7 +70,7 @@ model BoilerTable
     fue=Buildings.Fluid.Data.Fuels.NaturalGasLowerHeatingValue(),
     from_dp=true,
     T_start=293.15,
-    effCur=effCur,
+    per=per,
     TIn_nominal=323.15) "Boiler 3 set at 100% firing rate"
     annotation (Placement(transformation(extent={{20,-76},{40,-56}})));
   HeatTransfer.Sources.FixedTemperature
@@ -87,9 +87,9 @@ model BoilerTable
     "Setting the firing rate at constant 100%"
     annotation (Placement(transformation(extent={{-90,-68},{-70,-48}})));
   Modelica.Blocks.Sources.Ramp TIn(
-    height=effCur.effCur[1,end]-effCur.effCur[1,2],
+    height=per.effCur[1,end]-per.effCur[1,2],
     duration=3600,
-    offset=effCur.effCur[1,2])
+    offset=per.effCur[1,2])
     "Ramps the T_inlet from the first to the last temperature provided by the efficiency curve table"
     annotation (Placement(transformation(extent={{-62,-26},{-42,-6}})));
 equation
