@@ -3,6 +3,7 @@ simulateModel("Buildings.Fluid.Boilers.Validation.BoilerTable",
  stopTime=3600, 
  method="dassl", 
  resultFile="BoilerTable");
+removePlots(true);
 createPlot(id=1,
  position={15, 10, 717, 370},
  x="TIn.y",

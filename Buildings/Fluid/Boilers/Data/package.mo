@@ -1,5 +1,5 @@
 within Buildings.Fluid.Boilers;
-package Data "Package containing example table for efficiency curves"
+package Data "Package containing data for boilers"
 extends Modelica.Icons.MaterialPropertiesPackage;
 
 annotation (preferredView="info", Documentation(info="<html>

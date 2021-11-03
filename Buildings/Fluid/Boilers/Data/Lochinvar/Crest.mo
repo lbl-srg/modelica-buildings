@@ -1,5 +1,5 @@
-﻿within Buildings.Fluid.Boilers.Data;
-record LochinvarCrest
+﻿within Buildings.Fluid.Boilers.Data.Lochinvar;
+record Crest
   "Boiler efficiency curves for Crest® condensing boiler of Lochinvar"
   extends Buildings.Fluid.Boilers.Data.Generic(
     effCur=
@@ -26,4 +26,4 @@ This is for
 </li>
 </ul>
 </html>"));
-end LochinvarCrest;
+end Crest;

@@ -1,5 +1,5 @@
-﻿within Buildings.Fluid.Boilers.Data;
-record LochinvarKnightXL
+﻿within Buildings.Fluid.Boilers.Data.Lochinvar;
+record KnightXL
   "Boiler efficiency curves for Knight™ XL commercial boiler of Lochinvar"
   extends Buildings.Fluid.Boilers.Data.Generic(
     effCur=
@@ -30,4 +30,4 @@ This is for
 </li>
 </ul>
 </html>"));
-end LochinvarKnightXL;
+end KnightXL;

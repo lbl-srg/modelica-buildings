@@ -56,7 +56,7 @@ is the power transferred to the fluid for
 <i><span style=\"font-family: monospace;\">y</span></i>=1 
 and, if the efficiency depends on temperature 
 in the extended polynomial boiler model, 
-for <span style=\"font-family: monospace;\">T=T<sub>0</sub></span>. 
+for <i><span style=\"font-family: monospace;\">T=T<sub>0</sub></span></i>. 
 </p>
 <p>
 The fuel mass flow rate and volume flow rate are computed as 

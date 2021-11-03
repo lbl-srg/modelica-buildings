@@ -12,9 +12,9 @@ model BoilerTable
     "Nominal mass flow rate";
   parameter Modelica.SIunits.PressureDifference dp_nominal = 3000
     "Pressure drop at m_flow_nominal";
-  parameter Buildings.Fluid.Boilers.Data.LochinvarCrest per
+  parameter Buildings.Fluid.Boilers.Data.Lochinvar.Crest per
     "Record containing a table that describes the efficiency curves"
-    annotation(choicesAllMatching=true);
+    annotation (choicesAllMatching=true);
 
   Buildings.Fluid.Sources.Boundary_pT sin(
     redeclare package Medium = Medium,
