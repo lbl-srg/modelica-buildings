@@ -14,6 +14,8 @@ model BoilerPolynomial
     effCur=Buildings.Fluid.Types.EfficiencyCurves.Constant
     "Curve used to compute the efficiency";
   parameter Real a[:] = {0.9} "Coefficients for efficiency curve";
+  parameter Modelica.SIunits.Temperature T_nominal = 353.15
+    "Temperature used to compute nominal efficiency (only used if efficiency curve depends on temperature)";
 
 protected
   parameter Real aQuaLin[6] = if size(a, 1) == 6 then a else fill(0, 6)
