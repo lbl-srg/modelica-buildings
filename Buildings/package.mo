@@ -156,6 +156,17 @@ its class name ends with the string <code>Beta</code>.
                            <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1534\">IBPSA, #1534</a>.
         </td>
     </tr>
+    <tr><td colspan=\"2\"><b>Buildings.ThermalZones.ReducedOrder</b>
+        </td>
+    </tr>
+    <tr><td valign=\"top\">Buildings.ThermalZones.ReducedOrder.Validation.VDI6007.BaseClasses.VerifyDifferenceThreePeriods
+        </td>
+        <td valign=\"top\">Improved model to guard against approximation errors of event handling.
+                           With this change, the models in <code>Buildings.ThermalZones.ReducedOrder.Validation.VDI6007</code>
+                           all simulate with OpenModelica.<br/>
+                           This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2713\">Buidings, issue #2713</a>.
+        </td>
+    </tr>
     <tr><td colspan=\"2\"><b>Buildings.Utilities.Math</b>
         </td>
     </tr>
@@ -232,17 +243,6 @@ its class name ends with the string <code>Beta</code>.
         </td>
         <td valign=\"top\">Added missing parameter declaration.<br/>
                            This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2556\">Buidings, issue #2556</a>.
-        </td>
-    </tr>
-    <tr><td colspan=\"2\"><b>Buildings.ThermalZones.ReducedOrder</b>
-        </td>
-    </tr>
-    <tr><td valign=\"top\">Buildings.ThermalZones.ReducedOrder.Validation.VDI6007.BaseClasses.VerifyDifferenceThreePeriods
-        </td>
-        <td valign=\"top\">Improved model to guard against approximation errors of event handling.
-                           With this change, the models in <code>Buildings.ThermalZones.ReducedOrder.Validation.VDI6007</code>
-                           all simulate with OpenModelica.<br/>
-                           This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2713\">Buidings, issue #2713</a>.
         </td>
     </tr>
     </table>
