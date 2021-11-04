@@ -1,6 +1,6 @@
 within Buildings.Fluid.Boilers.Examples;
 model BoilerTable
-  "Boiler with efficiency described by a polynomial and a table compared"
+  "Boilers with efficiency described by table"
   extends Modelica.Icons.Example;
   package Medium = Buildings.Media.Water "Medium model";
   parameter Buildings.Fluid.Boilers.Data.Lochinvar.Crest.FBdash2501 per
@@ -73,11 +73,15 @@ equation
         "Simulate and plot"),
     experiment(Tolerance=1e-6, StopTime=6000),
     Documentation(info="<html>
-<p>    
-This simple model displays the efficiency curves supplied to
-<a href=\"Buildings.Fluid.Boilers.BoilerTable\">
-Buildings.Fluid.Boilers.BoilerTable</a>
-at firing rates of 5%, 50%, and 100%.
+<p>
+Similar to 
+<a href=\"Buildings.Fluid.Boilers.Examples.BoilerPolynomial\">
+Buildings.Fluid.Boilers.Examples.BoilerPolynomial</a>,
+this example demonstrates the open loop response of the boiler model 
+with <code>boi1</code> a dynamic model and
+<code>boi2</code> a steady-state model.
+In addition to the control signal, 
+the inlet temperature is also varied.
 </p>
 </html>", revisions="<html>
 <ul>
