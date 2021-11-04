@@ -1,8 +1,8 @@
-simulateModel("Buildings.Fluid.Boilers.Validation.BoilerTable",
+simulateModel("Buildings.Fluid.Boilers.Validation.BoilerTableValidate",
  tolerance=1e-6, 
  stopTime=3600, 
  method="dassl", 
- resultFile="BoilerTable");
+ resultFile="BoilerTableValidate");
 removePlots(true);
 createPlot(id=1,
  position={15, 10, 717, 370},
@@ -15,7 +15,7 @@ createPlot(id=1,
  range={290.0, 345.0, 0.86, 1.0}, 
  erase=false, 
  grid=true, 
- filename="BoilerTable.mat", 
+ filename="BoilerTableValidate.mat", 
  legends={"y=5%", "y=50%", "y=100%"}, 
  colors={{28,108,200}, {238,46,47}, {0,140,72}}, 
  displayUnits={"1", "1", "1"});

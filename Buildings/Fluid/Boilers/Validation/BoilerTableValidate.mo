@@ -1,5 +1,5 @@
 within Buildings.Fluid.Boilers.Validation;
-model BoilerTable
+model BoilerTableValidate
   "Boilers with efficiency curves specified by look-up table"
   extends Modelica.Icons.Example;
   package Medium = Buildings.Media.Water "Medium model";
@@ -111,7 +111,7 @@ equation
                     color={0,0,127}));
   connect(TIn.y, sou.T_in)
     annotation (Line(points={{-41,-16},{-34,-16}}, color={0,0,127}));
-  annotation (__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Boilers/Validation/BoilerTable.mos"
+  annotation (__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Boilers/Validation/BoilerTableValidate.mos"
         "Simulate and plot"),
     experiment(Tolerance=1e-6, StopTime=3600),
     Documentation(info="<html>
@@ -130,4 +130,4 @@ First implementation. This is for
 </li>
 </ul>
 </html>"));
-end BoilerTable;
+end BoilerTableValidate;
