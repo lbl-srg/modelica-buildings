@@ -267,7 +267,29 @@ to <b style=\"color:blue\">existing</b> libraries:
     </td>
 </tr>
 <tr><td valign=\"top\">Buildings.Fluid.Boilers.BoilerTable<br/>
-                       Buildings.Fluid.Boilers.BaseClasses.PartialBoiler
+                       Buildings.Fluid.Boilers.Examples.BoilerTable<br/>
+                       Buildings.Fluid.Boilers.Validation.BoilerTableValidate<br/>
+                       Buildings.Fluid.Boilers.BaseClasses.PartialBoiler<br/>
+                       Buildings.Fluid.Boilers.Data.Generic<br/>
+                       Buildings.Fluid.Boilers.Data.Lochinvar.Crest.Curves<br/>
+                       Buildings.Fluid.Boilers.Data.Lochinvar.Crest.FBdash2501<br/>
+                       Buildings.Fluid.Boilers.Data.Lochinvar.Crest.FBdash3001<br/>
+                       Buildings.Fluid.Boilers.Data.Lochinvar.Crest.FBdash3501<br/>
+                       Buildings.Fluid.Boilers.Data.Lochinvar.Crest.FBdash4001<br/>
+                       Buildings.Fluid.Boilers.Data.Lochinvar.Crest.FBdash5001<br/>
+                       Buildings.Fluid.Boilers.Data.Lochinvar.Crest.FBdash6001<br/>
+                       Buildings.Fluid.Boilers.Data.Lochinvar.FTXL.Curves<br/>
+                       Buildings.Fluid.Boilers.Data.Lochinvar.FTXL.FTX400<br/>
+                       Buildings.Fluid.Boilers.Data.Lochinvar.FTXL.FTX500<br/>
+                       Buildings.Fluid.Boilers.Data.Lochinvar.FTXL.FTX600<br/>
+                       Buildings.Fluid.Boilers.Data.Lochinvar.FTXL.FTX725<br/>
+                       Buildings.Fluid.Boilers.Data.Lochinvar.FTXL.FTX850<br/>
+                       Buildings.Fluid.Boilers.Data.Lochinvar.KnightXL.Curves<br/>
+                       Buildings.Fluid.Boilers.Data.Lochinvar.KnightXL.KBXdash0400<br/>
+                       Buildings.Fluid.Boilers.Data.Lochinvar.KnightXL.KBXdash0500<br/>
+                       Buildings.Fluid.Boilers.Data.Lochinvar.KnightXL.KBXdash0650<br/>
+                       Buildings.Fluid.Boilers.Data.Lochinvar.KnightXL.KBXdash0800<br/>
+                       Buildings.Fluid.Boilers.Data.Lochinvar.KnightXL.KBXdash1000                       
     </td>
     <td valign=\"top\">Classes for modeling boilers whose efficiency curves are provided as a table. <br/>
                        This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2651\">issue 2651</a>.
