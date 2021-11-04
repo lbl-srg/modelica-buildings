@@ -73,8 +73,10 @@ model VAVMultiZone "Multiple-Zone VAV"
       iconTransformation(extent={{-20,182},{20,218}})));
 
   inner replaceable Components.OutdoorReliefReturnSection.EconomizerWithRelief
-    secOutRel constrainedby Components.OutdoorReliefReturnSection.Interfaces.PartialOutdoorReliefReturnSection(
-      redeclare final package MediumAir = MediumAir) "Outdoor/relief/return air section"
+    secOutRel constrainedby
+    Components.OutdoorReliefReturnSection.Interfaces.PartialOutdoorReliefReturnSection(
+      redeclare final package MediumAir = MediumAir)
+    "Outdoor/relief/return air section"
     annotation (
     choicesAllMatching=true,
     Dialog(group="Outdoor/relief/return air section"),
@@ -96,7 +98,8 @@ model VAVMultiZone "Multiple-Zone VAV"
       final loc=Buildings.Templates.Components.Types.Location.Supply)
     "Supply fan - Blow through" annotation (
     choicesAllMatching=true,
-    Dialog(group="Supply air section", enable=fanSupDra == Buildings.Templates.Components.Types.Fan.None),
+    Dialog(group="Supply air section",
+      enable=fanSupDra.typ == Buildings.Templates.Components.Types.Fan.None),
     Placement(transformation(extent={{-70,-210},{-50,-190}})));
 
   inner replaceable .Buildings.Templates.Components.Coils.None coiHea
@@ -105,8 +108,8 @@ model VAVMultiZone "Multiple-Zone VAV"
     redeclare final package MediumSou = MediumHea,
     final fun=Buildings.Templates.Components.Types.CoilFunction.Heating)
     "Heating coil" annotation (
-    choices(choice(redeclare Templates.BaseClasses.Coils.None coiHea "No coil"),
-        choice(redeclare Templates.BaseClasses.Coils.WaterBasedHeating coiHea
+    choices(choice(redeclare Buildings.Templates.BaseClasses.Coils.None coiHea "No coil"),
+        choice(redeclare Buildings.Templates.BaseClasses.Coils.WaterBasedHeating coiHea
           "Water-based")),
     Dialog(group="Heating coil"),
     Placement(transformation(extent={{-40,-210},{-20,-190}})));
@@ -117,9 +120,8 @@ model VAVMultiZone "Multiple-Zone VAV"
          and coiCoo.typ <> Buildings.Templates.Components.Types.Coil.None,
     final loc=Buildings.Templates.Components.Types.Location.Supply)
     "Heating coil leaving air temperature sensor"
-    annotation (Dialog(group=
-          "Supply air section", enable=false), Placement(transformation(extent=
-            {{-10,-210},{10,-190}})));
+    annotation (Dialog(group="Supply air section", enable=false),
+      Placement(transformation(extent={{-10,-210},{10,-190}})));
 
   inner replaceable Buildings.Templates.Components.Coils.None coiCoo
     constrainedby Buildings.Templates.Components.Coils.Interfaces.PartialCoil(
@@ -127,8 +129,8 @@ model VAVMultiZone "Multiple-Zone VAV"
     redeclare final package MediumSou = MediumCoo,
     final fun=Buildings.Templates.Components.Types.CoilFunction.Cooling)
     "Cooling coil" annotation (
-    choices(choice(redeclare Templates.BaseClasses.Coils.None coiCoo "No coil"),
-        choice(redeclare Templates.BaseClasses.Coils.WaterBasedCooling coiCoo
+    choices(choice(redeclare Buildings.Templates.BaseClasses.Coils.None coiCoo "No coil"),
+        choice(redeclare Buildings.Templates.BaseClasses.Coils.WaterBasedCooling coiCoo
           "Water-based")),
     Dialog(group="Cooling coil"),
     Placement(transformation(extent={{20,-210},{40,-190}})));
@@ -162,7 +164,8 @@ model VAVMultiZone "Multiple-Zone VAV"
     "Supply fan - Draw through"
     annotation (
     choicesAllMatching=true,
-    Dialog(group="Supply air section", enable=fanSupBlo == Buildings.Templates.Components.Types.Fan.None),
+    Dialog(group="Supply air section",
+      enable=fanSupBlo.typ == Buildings.Templates.Components.Types.Fan.None),
     Placement(transformation(extent={{110,-210},{130,-190}})));
 
   // FIXME: bind have_sen to control option.
