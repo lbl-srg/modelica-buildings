@@ -47,7 +47,10 @@ of the firing rate <i>y</i> and optionally the temperature of the fluid <i>T</i>
 In <a href=\"Modelica://Buildings.Fluid.Boilers.BoilerTable\">
 Buildings.Fluid.Boilers.BoilerTable</a>,
 the efficiency is specified with curves 
-of the firing rate <i>y</i> and the inlet temperature <i>T<sub>inlet</sub></i>.
+of the firing rate <i>y</i> and the inlet temperature <i>T<sub>inlet</sub></i>. 
+Example curves are implemented in 
+<a href=\"Modelica://Buildings.Fluid.Boilers.Data.Lochinvar\">
+Buildings.Fluid.Boilers.Data.Lochinvar</a>.
 </li>
 </ul>
 <p>

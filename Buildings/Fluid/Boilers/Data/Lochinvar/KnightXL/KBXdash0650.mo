@@ -6,4 +6,10 @@ record KBXdash0650 "Specifications for Lochinvar Knight XL KBX-0650 boiler"
     dT_nominal =  11.111111,
     m_flow_nominal = 3.911592,
     dp_nominal = 47823.68);
+  annotation (Documentation(info="<html>
+Performance data for boiler model.
+See the documentation 
+<a href=\"modelica://Buildings.Fluid.Boilers.Data.Lochinvar\">
+Buildings.Fluid.Boilers.Data.Lochinvar</a>
+</html>"));
 end KBXdash0650;
