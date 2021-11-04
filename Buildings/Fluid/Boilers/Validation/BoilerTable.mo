@@ -7,72 +7,54 @@ model BoilerTable
     "Record containing a table that describes the efficiency curves"
     annotation (choicesAllMatching=true);
 
-  parameter Modelica.SIunits.Power Q_flow_nominal = per.Q_flow_nominal
-    "Nominal power";
-  parameter Modelica.SIunits.Temperature dT_nominal = per.dT_nominal
-    "Nominal temperature difference";
-  parameter Modelica.SIunits.MassFlowRate m_flow_nominal= per.m_flow_nominal
-    "Nominal mass flow rate";
-  parameter Modelica.SIunits.PressureDifference dp_nominal = per.dp_nominal
-    "Pressure drop at m_flow_nominal";
-
   Buildings.Fluid.Sources.Boundary_pT sin(
     redeclare package Medium = Medium,
     nPorts=3,
     p(displayUnit="Pa") = 300000,
-    T=sou.T+dT_nominal) "Sink"
+    T=sou.T+per.dT_nominal) "Sink"
     annotation (Placement(transformation(extent={{82,-30},{62,-10}})));
   Buildings.Fluid.Sources.Boundary_pT sou(
     redeclare package Medium = Medium,
-    p=300000 + dp_nominal,
+    p=300000 + per.dp_nominal,
     use_T_in=true,
     nPorts=3) "Source"
     annotation (Placement(transformation(extent={{-32,-30},{-12,-10}})));
   Buildings.Fluid.Boilers.BoilerTable boi1(
-    m_flow_nominal=m_flow_nominal,
     redeclare package Medium = Medium,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
-    dp_nominal=dp_nominal,
     fue=Buildings.Fluid.Data.Fuels.NaturalGasLowerHeatingValue(),
     from_dp=true,
     T_start=293.15,
     per=per,
     TIn_nominal=323.15) "Boiler 1 set at 5% firing rate"
     annotation (Placement(transformation(extent={{20,44},{40,64}})));
-//    Q_flow_nominal=Q_flow_nominal,
   Buildings.HeatTransfer.Sources.FixedTemperature
     TAmb1(T=288.15) "Ambient temperature in boiler room"
     annotation (Placement(transformation(extent={{0,72},{20,92}})));
   Buildings.Fluid.Boilers.BoilerTable boi2(
-    m_flow_nominal=m_flow_nominal,
     redeclare package Medium = Medium,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
-    dp_nominal=dp_nominal,
     fue=Buildings.Fluid.Data.Fuels.NaturalGasLowerHeatingValue(),
     from_dp=true,
     T_start=293.15,
     per=per,
     TIn_nominal=323.15) "Boiler 2 set at 50% firing rate"
     annotation (Placement(transformation(extent={{20,-16},{40,4}})));
-//    Q_flow_nominal=Q_flow_nominal,
   Buildings.HeatTransfer.Sources.FixedTemperature
     TAmb2(T=288.15) "Ambient temperature in boiler room"
     annotation (Placement(transformation(extent={{0,12},{20,32}})));
   Buildings.Fluid.Boilers.BoilerTable boi3(
-    m_flow_nominal=m_flow_nominal,
     redeclare package Medium = Medium,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
-    dp_nominal=dp_nominal,
     fue=Buildings.Fluid.Data.Fuels.NaturalGasLowerHeatingValue(),
     from_dp=true,
     T_start=293.15,
     per=per,
     TIn_nominal=323.15) "Boiler 3 set at 100% firing rate"
     annotation (Placement(transformation(extent={{20,-76},{40,-56}})));
-//    Q_flow_nominal=Q_flow_nominal,
   HeatTransfer.Sources.FixedTemperature
     TAmb3(T=288.15) "Ambient temperature in boiler room"
     annotation (Placement(transformation(extent={{0,-48},{20,-28}})));

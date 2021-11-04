@@ -3,10 +3,12 @@ model BoilerTable
   "Boiler with efficiency described by a table with control signal and inlet temperature"
   extends Buildings.Fluid.Boilers.BaseClasses.PartialBoiler(
     eta=effTab.y,
-    Q_flow_nominal=per.Q_flow_nominal,
+    Q_flow_nominal = per.Q_flow_nominal,
     UA=per.UA,
     VWat = per.VWat,
-    mDry = per.mDry);
+    mDry = per.mDry,
+    m_flow_nominal = per.m_flow_nominal,
+    dp_nominal = per.dp_nominal);
 
   parameter Buildings.Fluid.Boilers.Data.Generic per
     "Records of efficiency curves"
