@@ -100,11 +100,6 @@ equation
     annotation (Line(
       points={{-239,160},{-220,160},{-220,118},{-214,118}},
       color={0,0,127}));
-  connect(weaBus.TWetBul.TWetBul, cooModCon.TWetBul)
-    annotation (Line(
-      points={{-328,-20},{-340,-20},{-340,200},{-226,200},{-226,114},{-214,114}},
-      color={255,204,51},
-      thickness=0.5));
   connect(chiStaCon.y, chiOn.u)
     annotation (Line(
       points={{-149,140},{-149,140},{-132,140}},
@@ -201,6 +196,11 @@ equation
           {-188,65},{-188,25},{-174,25}}, color={255,127,0}));
   connect(cooModCon.y, cooTowSpeCon.cooMod) annotation (Line(points={{-191,110},
           {-186,110},{-186,182.444},{-172,182.444}}, color={255,127,0}));
+  connect(weaBus.TWetBul, cooModCon.TWetBul) annotation (Line(
+      points={{-328,-20},{-340,-20},{-340,200},{-224,200},{-224,114},{-214,114}},
+
+      color={255,204,51},
+      thickness=0.5));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false,
     extent={{-360,-200},{300,220}})),
     __Dymola_Commands(file=
@@ -288,6 +288,13 @@ are not implemented in this example.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+November 1, 2021, by Michael Wetter:<br/>
+Corrected weather data bus connection which was structurally incorrect
+and did not parse in OpenModelica.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2706\">issue 2706</a>.
+</li>
 <li>
 December 1, 2017, by Yangyang Fu:<br/>
 Removed redundant connection <code>connect(dpSet.y, pumSpe.u_s)</code>
