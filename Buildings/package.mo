@@ -301,16 +301,7 @@ Each class (i.e., model, block and function) must be used in an example or valid
                          <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2706\">Buildings, issue 2706</a>.
        </td>
     </tr>
-    <tr><td colspan=\"2\"><b>Buildings.Electrical</b>
-        </td>
-    </tr>
-    <tr><td valign=\"top\">Buildings.ThermalZones.Detailed.FLEXLAB.Rooms.X3B.Electrical
-        </td>
-        <td valign=\"top\">Added missing parameter declaration.<br/>
-                           This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2556\">Buidings, issue #2556</a>.
-        </td>
-    </tr>
-    <tr><td colspan=\"2\"><b>Buildings.ThermalZones</b>
+    <tr><td colspan=\"2\"><b>Buildings.ThermalZones.Detailed</b>
         </td>
     </tr>
     <tr><td valign=\"top\">Buildings.ThermalZones.Detailed.BaseClasses.RadiationTemperature
@@ -321,10 +312,22 @@ Each class (i.e., model, block and function) must be used in an example or valid
     </tr>
     <tr><td valign=\"top\">Buildings.ThermalZones.Detailed.Constructions.Examples.ExteriorWallTwoWindows<br/>
                            Buildings.ThermalZones.Detailed.Constructions.Examples.ExteriorWallWithWindow<br/>
+                           Buildings.ThermalZones.Detailed.FLEXLAB.Rooms.X3B.Electrical</br>
                            Buildings.ThermalZones.Detailed.Validation.BESTEST.Cases6xx.Case600FF
         </td>
         <td valign=\"top\">Added missing parameter declaration.<br/>
                            This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2556\">Buidings, issue #2556</a>.
+        </td>
+    </tr>
+    <tr><td colspan=\"2\"><b>Buildings.ThermalZones.ReducedOrder</b>
+        </td>
+    </tr>
+    <tr><td valign=\"top\">Buildings.ThermalZones.ReducedOrder.Validation.VDI6007.BaseClasses.VerifyDifferenceThreePeriods
+        </td>
+        <td valign=\"top\">Improved model to guard against approximation errors of event handling.
+                           With this change, the models in <code>Buildings.ThermalZones.ReducedOrder.Validation.VDI6007</code>
+                           all simulate with OpenModelica.<br/>
+                           This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2713\">Buidings, issue #2713</a>.
         </td>
     </tr>
     </table>
