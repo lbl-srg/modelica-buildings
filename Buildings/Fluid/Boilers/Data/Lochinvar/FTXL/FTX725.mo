@@ -1,7 +1,7 @@
 within Buildings.Fluid.Boilers.Data.Lochinvar.FTXL;
 record FTX725 "Specifications for Lochinvar FTXL FTX725 boiler"
   extends Buildings.Fluid.Boilers.Data.Lochinvar.FTXL.Curves(
-    Q_flow_nominal=20661.51044,
+    Q_flow_nominal=206615.1044,
     VWat=0.064352,
     mDry=260.8156128,
     dT_nominal=11.111111,
