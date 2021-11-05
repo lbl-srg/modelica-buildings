@@ -10,6 +10,6 @@ record KBXdash0800 "Specifications for Lochinvar Knight XL KBX-0800 boiler"
 Performance data for boiler model.
 See the documentation 
 <a href=\"modelica://Buildings.Fluid.Boilers.Data.Lochinvar\">
-Buildings.Fluid.Boilers.Data.Lochinvar</a>
+Buildings.Fluid.Boilers.Data.Lochinvar</a>.
 </html>"));
 end KBXdash0800;

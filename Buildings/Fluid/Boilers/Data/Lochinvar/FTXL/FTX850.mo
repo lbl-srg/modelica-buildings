@@ -11,6 +11,6 @@ record FTX850 "Specifications for Lochinvar FTXL FTX850 boiler"
 Performance data for boiler model.
 See the documentation 
 <a href=\"modelica://Buildings.Fluid.Boilers.Data.Lochinvar\">
-Buildings.Fluid.Boilers.Data.Lochinvar</a>
+Buildings.Fluid.Boilers.Data.Lochinvar</a>.
 </html>"));
 end FTX850;
