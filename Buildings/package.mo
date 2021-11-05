@@ -249,7 +249,7 @@ Each class (i.e., model, block and function) must be used in an example or valid
         <td valign=\"top\">Improved model to guard against approximation errors of event handling.
                            With this change, the models in <code>Buildings.ThermalZones.ReducedOrder.Validation.VDI6007</code>
                            all simulate with OpenModelica.<br/>
-                           This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2713\">Buidings, issue #2713</a>.
+                           This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2713\">Buildings, issue #2713</a>.
         </td>
     </tr>
     <tr><td colspan=\"2\"><b>Buildings.Utilities.Math</b>
@@ -294,7 +294,7 @@ Each class (i.e., model, block and function) must be used in an example or valid
     <tr><td valign=\"top\">Buildings.Airflow.Multizone.DoorOperable
         </td>
         <td valign=\"top\">Removed duplicate declaration of <code>VABp_flow</code>.<br/>
-                           This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1496\">Buidings, issue #1496</a>.
+                           This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1496\">Buildings, issue #1496</a>.
         </td>
     </tr>
     <tr>
@@ -318,7 +318,7 @@ Each class (i.e., model, block and function) must be used in an example or valid
     <tr><td valign=\"top\">Buildings.ThermalZones.Detailed.BaseClasses.RadiationTemperature
         </td>
         <td valign=\"top\">Corrected annotation.<br/>
-                           This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2550\">Buidings, issue #2550</a>.
+                           This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2550\">Buildings, issue #2550</a>.
         </td>
     </tr>
     <tr><td valign=\"top\">Buildings.ThermalZones.Detailed.Constructions.Examples.ExteriorWallTwoWindows<br/>
@@ -327,7 +327,7 @@ Each class (i.e., model, block and function) must be used in an example or valid
                            Buildings.ThermalZones.Detailed.Validation.BESTEST.Cases6xx.Case600FF
         </td>
         <td valign=\"top\">Added missing parameter declaration.<br/>
-                           This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2556\">Buidings, issue #2556</a>.
+                           This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2556\">Buildings, issue #2556</a>.
         </td>
     </tr>
     <tr><td colspan=\"2\"><b>Buildings.ThermalZones.ReducedOrder</b>
@@ -338,7 +338,7 @@ Each class (i.e., model, block and function) must be used in an example or valid
         <td valign=\"top\">Improved model to guard against approximation errors of event handling.
                            With this change, the models in <code>Buildings.ThermalZones.ReducedOrder.Validation.VDI6007</code>
                            all simulate with OpenModelica.<br/>
-                           This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2713\">Buidings, issue #2713</a>.
+                           This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2713\">Buildings, issue #2713</a>.
         </td>
     </tr>
     </table>
@@ -1178,7 +1178,7 @@ as reported in <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1432\">I
     <tr><td valign=\"top\">Buildings.Fluid.Geothermal.Borefields.BaseClasses.PartialBorefield
         </td>
         <td valign=\"top\">Corrected placement of <code>each</code> keyword.
-                           See <a href=\"https://github.com/lbl-srg/modelica-buildings/pull/2440\">Buidings, #2440</a>.
+                           See <a href=\"https://github.com/lbl-srg/modelica-buildings/pull/2440\">Buildings, #2440</a>.
                            <br/>
                            Switched port connections for <code>masFloDiv</code>.
                            See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/41\">IBPSA, #41</a>.
@@ -1225,7 +1225,7 @@ as reported in <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1432\">I
                            Buildings.Fluid.HeatExchangers.DXCoils.WaterCooled.Validation.VariableSpeedEnergyPlusPartLoad<br/>
         </td>
         <td valign=\"top\">Corrected placement of <code>each</code> keyword.<br/>
-                           See <a href=\"https://github.com/lbl-srg/modelica-buildings/pull/2440\">Buidings, PR #2440</a>.<br/>
+                           See <a href=\"https://github.com/lbl-srg/modelica-buildings/pull/2440\">Buildings, PR #2440</a>.<br/>
                            Added missing parameter declaration for data record.
         </td>
     </tr>
