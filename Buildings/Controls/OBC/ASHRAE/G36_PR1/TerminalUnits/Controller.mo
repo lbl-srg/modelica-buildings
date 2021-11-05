@@ -633,6 +633,11 @@ Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.Reheat.SystemRequests</a>.
 </html>", revisions="<html>
 <ul>
 <li>
+November 5, 2021 by Karthik Devaprasad:<br/>
+Added missing outputs <code>yHeaValResReq</code> and <code>yHeaPlaReq</code>
+for requests to heating plant.
+</li>
+<li>
 October 9, 2020, by Jianjun Hu:<br/>
 Changed the default heating maximum airflow setpoint to 30% of the zone nominal airflow.<br/>
 This is for
