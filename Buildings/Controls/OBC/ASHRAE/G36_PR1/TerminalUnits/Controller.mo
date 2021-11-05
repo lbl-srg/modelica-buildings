@@ -579,10 +579,12 @@ annotation (defaultComponentName="terUniCon",
         Text(
           extent={{24,-42},{96,-76}},
           lineColor={0,0,127},
+          visible = have_heaWatCoi,
           textString="yHeaValResReq"),
         Text(
           extent={{44,-84},{98,-116}},
           lineColor={0,0,127},
+          visible = (have_heaWatCoi and have_heaPla),
           textString="yHeaPlaReq")}),
     Diagram(coordinateSystem(extent={{-140,-180},{140,180}})),
 Documentation(info="<html>
