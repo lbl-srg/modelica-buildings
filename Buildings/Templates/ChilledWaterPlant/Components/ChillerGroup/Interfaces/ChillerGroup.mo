@@ -49,14 +49,14 @@ partial model ChillerGroup
   Modelica.Fluid.Interfaces.FluidPort_b port_b2(
     redeclare final package Medium = Medium2,
     m_flow(max=if allowFlowReversal2 then +Modelica.Constants.inf else 0),
-    h_outflow(start = Medium2.h_default, nominal = Medium2.h_default)) if typ == Buildings.Templates.Types.ChillerGroup.ChillerSeries
+    h_outflow(start = Medium2.h_default, nominal = Medium2.h_default)) if typ == Buildings.Templates.ChilledWaterPlant.Components.Types.ChillerGroup.ChillerSeries
     "Fluid connector b2 (positive design flow direction is from port_a2 to port_b2)"
     annotation (Placement(transformation(extent={{-90,-70},{-110,-50}})));
 
   Modelica.Fluid.Interfaces.FluidPorts_b ports_b2[num](
     redeclare each final package Medium = Medium2,
     each m_flow(max=if allowFlowReversal2 then +Modelica.Constants.inf else 0),
-    each h_outflow(start=Medium2.h_default, nominal=Medium2.h_default)) if typ == Buildings.Templates.Types.ChillerGroup.ChillerParallel
+    each h_outflow(start=Medium2.h_default, nominal=Medium2.h_default)) if typ == Buildings.Templates.ChilledWaterPlant.Components.Types.ChillerGroup.ChillerParallel
     "Fluid connector b2 for multiple outlets (positive design flow direction is from port_a2 to port_b2)"
     annotation (Placement(transformation(extent={{-92,-32},{-108,32}}),
         iconTransformation(extent={{8,-32},{-8,32}},
@@ -76,7 +76,7 @@ partial model ChillerGroup
     "Small mass flow rate for regularization of zero flow"
     annotation(Dialog(tab = "Advanced"));
 
-  parameter Buildings.Types.ChillerGroup typ "Type of chiller group"
+  parameter Buildings.Templates.ChilledWaterPlant.Components.Types.ChillerGroup typ "Type of chiller group"
     annotation (Evaluate=true, Dialog(group="Configuration"));
   // ToDo: Other ChillerGroup parameters
 
@@ -85,8 +85,7 @@ partial model ChillerGroup
   outer parameter ExternData.JSONFile dat
     "External parameter file";
 
-  BaseClasses.Bus busCon "Control bus"
-    annotation (Placement(transformation(
+  Bus busCon "Control bus" annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
         rotation=0,
         origin={0,100}), iconTransformation(

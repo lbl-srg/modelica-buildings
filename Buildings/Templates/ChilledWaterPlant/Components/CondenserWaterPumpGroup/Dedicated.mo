@@ -2,11 +2,10 @@ within Buildings.Templates.ChilledWaterPlant.Components.CondenserWaterPumpGroup;
 model Dedicated
   extends
     Buildings.Templates.ChilledWaterPlant.Components.CondenserWaterPumpGroup.Interfaces.CondenserWaterPumpGroup(
-    final typ=Types.CondenserWaterPumpGroup.DedicatedPrimary,
+    final typ=Buildings.Templates.ChilledWaterPlant.Components.Types.CondenserWaterPumpGroup.Dedicated,
     final has_wse = false);
 
-  BaseClasses.DedicatedPumps pumPri
-                                   "Primary pumps"
+  BaseClasses.DedicatedCondenserPumps pumPri "Primary pumps"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 equation
   connect(busCon.out.ySpePumPri, pumPri.y) annotation (Line(
@@ -34,9 +33,35 @@ equation
   connect(pumPri.ports_b, ports_b)
     annotation (Line(points={{10,0},{100,0}}, color={0,127,255}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
+        Line(
+          points={{-60,0},{-100,0}},
+          color={28,108,200},
+          thickness=1),
+        Line(
+          points={{-8,40},{-60,40},{-60,-40},{-8,-40}},
+          color={28,108,200},
+          thickness=1),
                     Bitmap(
-        extent={{-80,-80},{80,80}},
-        fileName="modelica://Buildings/Resources/Images/Templates/BaseClasses/Fans/SingleVariable.svg")}),
-                                                                 Diagram(
+        extent={{-40,0},{40,80}},
+        fileName="modelica://Buildings/Resources/Images/Templates/BaseClasses/Fans/SingleVariable.svg"),
+                    Bitmap(
+        extent={{-40,-80},{40,0}},
+        fileName="modelica://Buildings/Resources/Images/Templates/BaseClasses/Fans/SingleVariable.svg"),
+        Line(
+          points={{60,20},{100,20}},
+          color={28,108,200},
+          thickness=1),
+        Line(
+          points={{60,-20},{100,-20}},
+          color={28,108,200},
+          thickness=1),
+        Line(
+          points={{40,60},{60,60},{60,20},{100,20}},
+          color={28,108,200},
+          thickness=1),
+        Line(
+          points={{40,-20},{100,-20}},
+          color={28,108,200},
+          thickness=1)}),                                        Diagram(
         coordinateSystem(preserveAspectRatio=false)));
 end Dedicated;

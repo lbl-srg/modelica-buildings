@@ -2,7 +2,7 @@ within Buildings.Templates.ChilledWaterPlant.Components.Controls;
 block OpenLoop "Open loop controller (output signals only)"
   extends
     Buildings.Templates.ChilledWaterPlant.Components.Controls.Interfaces.PartialController(
-      final typ=ChilledWaterPlant.Types.Controller.OpenLoop);
+      final typ=Buildings.Templates.ChilledWaterPlant.Components.Types.Controller.OpenLoop);
 
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant yDamRel1(k=true)
  if secOutRel.typDamRel == Buildings.Templates.Components.Types.Damper.TwoPosition

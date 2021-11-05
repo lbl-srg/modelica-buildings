@@ -1,7 +1,7 @@
 within Buildings.Templates.ChilledWaterPlant.Components.CoolingTowerGroup;
 model CoolingTowerParallel
   extends Buildings.Templates.ChilledWaterPlant.Components.CoolingTowerGroup.Interfaces.CoolingTowerGroup(
-    final typ=Buildings.Templates.Types.CoolingTowerGroup.CoolingTowerParallel);
+    final typ=Buildings.Templates.ChilledWaterPlant.Components.Types.CoolingTowerGroup.CoolingTowerParallel);
 
   parameter Integer num(
     final min=1)=2

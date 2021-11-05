@@ -2,7 +2,7 @@ within Buildings.Templates.ChilledWaterPlant.Components.Chiller;
 model ElectricChiller
   extends
     Buildings.Templates.ChilledWaterPlant.Components.Chiller.Interfaces.Chiller(
-    final typ=Buildings.Templates.Types.Chiller.ElectricChiller);
+    final typ=Buildings.Templates.ChilledWaterPlant.Components.Types.Chiller.ElectricChiller);
               Fluid.Chillers.ElectricEIR chi(
     final per=per,
     redeclare final package Medium1 = Medium1,

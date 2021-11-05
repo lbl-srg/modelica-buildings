@@ -5,7 +5,8 @@ model AirCooledParallel
   extends
     Buildings.Templates.ChilledWaterPlant.BaseClasses.PartialChilledWaterLoop(
     final is_airCoo=true,
-    redeclare final Buildings.Templates.ChilledWaterPlant.Components.ChillerGroup.ChillerParallel chi);
+    redeclare final Buildings.Templates.ChilledWaterPlant.Components.ChillerGroup.ChillerParallel chi(
+        has_dedPum=pumPri.is_dedicated));
 
   inner replaceable
     Buildings.Templates.ChilledWaterPlant.Components.Controls.OpenLoop
@@ -46,7 +47,7 @@ equation
       index=1,
       extent={{6,3},{6,3}},
       horizontalAlignment=TextAlignment.Left));
-  connect(pumChi.busCon, chwCon.pumGro) annotation (Line(
+  connect(pumPri.busCon, chwCon.pumGro) annotation (Line(
       points={{10,20},{10,60.1},{200.1,60.1}},
       color={255,204,51},
       thickness=0.5), Text(
@@ -55,7 +56,7 @@ equation
       extent={{6,3},{6,3}},
       horizontalAlignment=TextAlignment.Left));
   connect(chi.busCon, chwCon.chi) annotation (Line(
-      points={{-50,10},{-60,10},{-60,60},{200,60}},
+      points={{-50,10},{-60,10},{-60,60.1},{200.1,60.1}},
       color={255,204,51},
       thickness=0.5), Text(
       string="%second",

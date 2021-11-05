@@ -2,8 +2,7 @@ within Buildings.Templates.ChilledWaterPlant.Components.ChillerGroup;
 model ChillerSeries
   extends
     Buildings.Templates.ChilledWaterPlant.Components.ChillerGroup.Interfaces.ChillerGroup(
-    final typ=Buildings.Templates.Types.ChillerGroup.ChillerSeries);
-
+    final typ=Buildings.Templates.ChilledWaterPlant.Components.Types.ChillerGroup.ChillerSeries);
 
   inner replaceable
     Buildings.Templates.ChilledWaterPlant.Components.Chiller.ElectricChiller
@@ -39,7 +38,7 @@ model ChillerSeries
 equation
 
   connect(busCon.chi, chi.busCon) annotation (Line(
-      points={{0.1,100.1},{0.1,90},{80,90},{80,30},{0,30},{0,20}},
+      points={{0.1,100.1},{0.1,80},{80,80},{80,30},{0,30},{0,20}},
       color={255,204,51},
       thickness=0.5), Text(
       string="%first",
@@ -68,7 +67,16 @@ equation
   connect(port_b1, volCW.ports[1]) annotation (Line(points={{100,60},{20,60},{
           20,57.3333}}, color={0,127,255}));
   connect(chi.port_b1, volCW.ports[2:3]) annotation (Line(points={{20,12},{40,
-          12},{40,60},{20,60}}, color={0,127,255}));
+          12},{40,62.6667},{20,62.6667}},
+                                color={0,127,255}));
+  connect(busCon.valChi, valChi.y) annotation (Line(
+      points={{0,100},{0,80},{-30,80},{-30,-40},{0,-40},{0,-48}},
+      color={255,204,51},
+      thickness=0.5), Text(
+      string="%first",
+      index=-1,
+      extent={{-3,6},{-3,6}},
+      horizontalAlignment=TextAlignment.Right));
   annotation (Icon(graphics={
         Rectangle(
           extent={{-70,80},{70,-80}},

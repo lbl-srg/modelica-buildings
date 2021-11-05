@@ -5,7 +5,7 @@ model WaterCooledParallel
   extends
     Buildings.Templates.ChilledWaterPlant.BaseClasses.PartialChilledWaterLoop(
       redeclare final Buildings.Templates.ChilledWaterPlant.Components.ChillerGroup.ChillerParallel
-        chi(redeclare final package Medium1=MediumCW),
+        chi(redeclare final package Medium1=MediumCW, has_dedPum=pumPri.is_dedicated),
       final is_airCoo=false);
   extends
     Buildings.Templates.ChilledWaterPlant.BaseClasses.PartialCondenserWaterLoop;
@@ -21,7 +21,7 @@ equation
   connect(TCHWRet.port_b, port_b)
     annotation (Line(points={{160,-70},{200,-70}}, color={0,127,255}));
   connect(chi.busCon, chwCon.chi) annotation (Line(
-      points={{-50,10},{-60,10},{-60,60},{200,60},{200,60}},
+      points={{-50,10},{-60,10},{-60,60},{200.1,60},{200.1,60.1}},
       color={255,204,51},
       thickness=0.5), Text(
       string="%second",
@@ -80,7 +80,7 @@ equation
       index=1,
       extent={{6,3},{6,3}},
       horizontalAlignment=TextAlignment.Left));
-  connect(chwCon.pumGro,pumChi.busCon)  annotation (Line(
+  connect(chwCon.pumGro,pumPri.busCon)  annotation (Line(
       points={{200.1,60.1},{10,60.1},{10,20}},
       color={255,204,51},
       thickness=0.5), Text(
@@ -96,9 +96,9 @@ equation
       index=1,
       extent={{6,3},{6,3}},
       horizontalAlignment=TextAlignment.Left));
-  connect(pumChi.ports_b, chi.ports_a1) annotation (Line(points={{-80,-10},{-70,
+  connect(pumPri.ports_b, chi.ports_a1) annotation (Line(points={{-80,-10},{-70,
           -10},{-70,30},{-46,30},{-46,20}}, color={0,127,255}));
-  connect(pumChi.port_wse, WSE.port_a1) annotation (Line(points={{-80,-16},{-70,
+  connect(pumPri.port_wse, WSE.port_a1) annotation (Line(points={{-80,-16},{-70,
           -16},{-70,-50},{-46,-50},{-46,-62}}, color={0,127,255}));
   connect(chi.port_b1, mixCW.port_3) annotation (Line(points={{-46,0},{-46,-40},
           {-90,-40},{-90,-60}}, color={0,127,255}));

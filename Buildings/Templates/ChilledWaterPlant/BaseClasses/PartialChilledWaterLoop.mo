@@ -8,9 +8,9 @@ model PartialChilledWaterLoop
     "= true, chillers in group are air cooled, 
     = false, chillers in group are water cooled";
   parameter Boolean has_byp "Chilled water loop has bypass"
-    annotation(Dialog(enable=not pumSec.has_secPum));
-   parameter Boolean has_WSEByp
-     annotation(Dialog(enable=wse.typ == Types.WatersideEconomizer));
+    annotation(Dialog(enable=not secPum.is_none));
+  parameter Boolean has_WSEByp
+    annotation(Dialog(enable=not wse.is_none));
 
   inner replaceable
     Buildings.Templates.ChilledWaterPlant.Components.ChillerGroup.ChillerParallel
@@ -24,22 +24,26 @@ model PartialChilledWaterLoop
         rotation=90,
         origin={-40,10})));
   inner replaceable
-    Buildings.Templates.ChilledWaterPlant.Components.ChilledWaterReturnSection.NoEconomizer
+    Buildings.Templates.ChilledWaterPlant.Components.ReturnSection.NoEconomizer
     WSE constrainedby
-    Buildings.Templates.ChilledWaterPlant.Components.ChilledWaterReturnSection.Interfaces.ChilledWaterReturnSection(
-      redeclare final package Medium = MediumCHW)
-      annotation (Placement(
+    Buildings.Templates.ChilledWaterPlant.Components.ReturnSection.Interfaces.ChilledWaterReturnSection(
+      redeclare final package Medium = MediumCHW) annotation (Placement(
         transformation(
         extent={{10,-10},{-10,10}},
         rotation=90,
         origin={-40,-72})));
-  inner replaceable Components.ChilledWaterPumpGroup.HeaderedPrimary pumChi
-    constrainedby
-    Buildings.Templates.ChilledWaterPlant.Components.ChilledWaterPumpGroup.Interfaces.ChilledWaterPumpGroup(
-      redeclare final package Medium = MediumCHW,
-      final has_parChi = chi.typ == Buildings.Templates.Types.ChillerGroup.ChillerParallel,
-      final has_byp = has_byp) "Chilled water pump group"
+  inner replaceable Buildings.Templates.ChilledWaterPlant.Components.PrimaryPumpGroup.Headered pumPri constrainedby
+    Buildings.Templates.ChilledWaterPlant.Components.PrimaryPumpGroup.Interfaces.PrimaryPumpGroup(
+    redeclare final package Medium = MediumCHW,
+    final has_parChi=chi.typ == Buildings.Templates.ChilledWaterPlant.Components.Types.ChillerGroup.ChillerParallel,
+    final has_byp=has_byp) "Chilled water primary pump group"
     annotation (Placement(transformation(extent={{0,0},{20,20}})));
+
+  inner replaceable Buildings.Templates.ChilledWaterPlant.Components.SecondaryPumpGroup.None pumSec constrainedby
+    Buildings.Templates.ChilledWaterPlant.Components.SecondaryPumpGroup.Interfaces.SecondaryPumpGroup(
+    redeclare final package Medium = MediumCHW)
+    "Chilled water secondary pump group"
+    annotation (Placement(transformation(extent={{60,0},{80,20}})));
 
   Buildings.Templates.Components.Sensors.Temperature TCHWRet(
       redeclare final package Medium = MediumCHW,
@@ -68,8 +72,7 @@ model PartialChilledWaterLoop
 
   Fluid.FixedResistances.Junction mixByp(
     redeclare package Medium = MediumCHW,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)
-    "Common leg or bypass mixer"
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState) "Bypass mixer"
     annotation (Placement(transformation(
         extent={{10,10},{-10,-10}},
         rotation=0,
@@ -83,6 +86,13 @@ model PartialChilledWaterLoop
         extent={{10,10},{-10,-10}},
         rotation=0,
         origin={-20,-20})));
+
+  Fluid.FixedResistances.Junction mixComLeg(redeclare package Medium =
+        MediumCHW, energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)
+    "Common leg mixer" annotation (Placement(transformation(
+        extent={{10,10},{-10,-10}},
+        rotation=0,
+        origin={70,-50})));
 equation
   connect(TCHWRet.port_a,WSE. port_a2)
     annotation (Line(points={{140,-70},{-24,-70},{-24,-86},{-34,-86},{-34,-82}},
@@ -93,23 +103,29 @@ equation
     annotation (Line(points={{-34,-62},{-34,-50},{-20,-50}},color={0,127,255}));
   connect(headeredPrimary.port_byp, mixByp.port_3)
     annotation (Line(points={{0,0},{10,0},{10,-30},{-10,-30},{-10,-40}},color={0,127,255}));
-  connect(pumChi.port_b, TCHWSup.port_a)
-    annotation (Line(points={{20,10},{120,10}}, color={0,127,255}));
   connect(TCHWSup.port_b, dpCHW.port_a)
     annotation (Line(points={{140,10},{170,10}}, color={0,127,255}));
   connect(mixByp.port_1, TCHWRetByp.port_a)
     annotation (Line(points={{0,-50},{20,-50}}, color={0,127,255}));
-  connect(chi.ports_b2,pumChi. ports_parallel)
+  connect(chi.ports_b2,pumPri. ports_parallel)
     annotation (Line(points={{-30,16},{-20,16},{-20,10},{-8.88178e-16,10}},
       color={0,127,255}));
-  connect(chi.port_b2,pumChi. port_series) annotation (Line(points={{-34,20},{-34,
+  connect(chi.port_b2,pumPri. port_series) annotation (Line(points={{-34,20},{-34,
           30},{-10,30},{-10,16},{0,16}}, color={0,127,255}));
-  connect(TCHWRetByp.port_b, splWSEByp.port_1) annotation (Line(points={{40,-50},
-          {60,-50},{60,-20},{-10,-20}}, color={0,127,255}));
   connect(splWSEByp.port_2, chi.port_a2)
     annotation (Line(points={{-30,-20},{-34,-20},{-34,0}}, color={0,127,255}));
-  connect(splWSEByp.port_3,pumChi. port_WSEByp)
+  connect(splWSEByp.port_3,pumPri. port_WSEByp)
     annotation (Line(points={{-20,-10},{-20,4},{0,4}}, color={0,127,255}));
+  connect(pumPri.port_b, pumSec.port_a)
+    annotation (Line(points={{20,10},{60,10}}, color={0,127,255}));
+  connect(pumSec.port_b, TCHWSup.port_a)
+    annotation (Line(points={{80,10},{120,10}}, color={0,127,255}));
+  connect(TCHWRetByp.port_b, mixComLeg.port_2)
+    annotation (Line(points={{40,-50},{60,-50}}, color={0,127,255}));
+  connect(mixComLeg.port_1, splWSEByp.port_1) annotation (Line(points={{80,-50},
+          {100,-50},{100,-20},{-10,-20}}, color={0,127,255}));
+  connect(pumSec.port_comLeg, mixComLeg.port_3)
+    annotation (Line(points={{70,0},{70,-40}}, color={0,127,255}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false,
     extent={{-60,-100},{200,40}})),
     Diagram(

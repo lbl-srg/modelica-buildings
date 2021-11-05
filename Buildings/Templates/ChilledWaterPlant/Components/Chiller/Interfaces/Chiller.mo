@@ -6,7 +6,7 @@ partial model Chiller
     final hasMedium1=true,
     final hasMedium2=not is_airCoo);
 
-  parameter Buildings.Types.Chiller typ "Type of chiller"
+  parameter Buildings.Templates.ChilledWaterPlant.Components.Types.Chiller typ "Type of chiller"
     annotation (Evaluate=true, Dialog(group="Configuration"));
   // ToDo: Other Chiller parameters
 
@@ -19,8 +19,7 @@ partial model Chiller
   outer parameter ExternData.JSONFile dat
     "External parameter file";
 
-  BaseClasses.Bus busCon "Control bus"
-    annotation (Placement(transformation(
+  Bus busCon "Control bus" annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
         rotation=0,
         origin={0,100}), iconTransformation(

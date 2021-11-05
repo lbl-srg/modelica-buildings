@@ -1,7 +1,7 @@
 within Buildings.Templates.ChilledWaterPlant.Components.ChilledWaterReturnSection;
 model NoEconomizer
   extends Buildings.Templates.ChilledWaterPlant.Components.ChilledWaterReturnSection.Interfaces.ChilledWaterReturnSection(
-    final typ=Buildings.Templates.Types.WatersideEconomizer.NoEconomizer)
+    final typ=Buildings.Templates.ChilledWaterPlant.Components.Types.WatersideEconomizer.NoEconomizer)
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)));
   Buildings.Templates.BaseClasses.PassThroughFluid pas2 "Passthrough for Medium2"

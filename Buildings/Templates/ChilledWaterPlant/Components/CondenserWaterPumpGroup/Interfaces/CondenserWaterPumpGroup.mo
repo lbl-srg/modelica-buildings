@@ -10,8 +10,7 @@ partial model CondenserWaterPumpGroup
 
   parameter Boolean has_wse "= true if pump supply waterside economizer";
 
-  BaseClasses.Bus busCon "Control bus"
-    annotation (Placement(transformation(
+  Bus busCon "Control bus" annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
         rotation=0,
         origin={0,100}), iconTransformation(

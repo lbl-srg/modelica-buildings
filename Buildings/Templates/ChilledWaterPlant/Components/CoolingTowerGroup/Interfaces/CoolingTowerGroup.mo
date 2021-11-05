@@ -3,7 +3,7 @@ partial model CoolingTowerGroup
   extends Fluid.Interfaces.PartialTwoPort(
     redeclare package Medium=Buildings.Media.Water);
 
-  parameter Buildings.Types.CoolingTowerGroup typ "Type of cooling tower group"
+  parameter Buildings.Templates.ChilledWaterPlant.Components.Types.CoolingTowerGroup typ "Type of cooling tower group"
     annotation (Evaluate=true, Dialog(group="Configuration"));
   // ToDo: Other CoolingTowerGroup parameters
 
@@ -12,8 +12,7 @@ partial model CoolingTowerGroup
   outer parameter ExternData.JSONFile dat
     "External parameter file";
 
-  BaseClasses.Bus busCon "Control bus"
-    annotation (Placement(transformation(
+  Bus busCon "Control bus" annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
         rotation=0,
         origin={0,100}), iconTransformation(

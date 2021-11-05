@@ -1,9 +1,9 @@
 within Buildings.Templates.ChilledWaterPlant.Interfaces;
 partial model ChilledWaterPlant
-  parameter Buildings.Types.ChilledWaterPlant typ "Type of system"
+  parameter Buildings.Templates.Types.ChilledWaterPlant typ "Type of system"
     annotation (Evaluate=true, Dialog(group="Configuration"));
 
-  parameter Boolean have_cwLoop = typ==Types.ChilledWaterPlant.WaterCooledChiller
+  parameter Boolean have_cwLoop = typ== Buildings.Templates.ChilledWaterPlant.Components.Types.ChilledWaterPlant.WaterCooledChiller
     "Set to true for condenser water loop"
     annotation (
       Evaluate=true,

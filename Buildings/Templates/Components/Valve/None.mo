@@ -1,7 +1,7 @@
 within Buildings.Templates.Components.Valve;
 model None
-  extends .Buildings.Templates.Components.Interfaces.Valve(final typ=
-        Buildings.Templates.Types.Valve.None);
+  extends Buildings.Templates.Components.Valve.Interfaces.Valve(final typ=
+        Buildings.Templates.Components.Types.Valve.None);
   BaseClasses.PassThroughFluid pas
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 equation

@@ -43,7 +43,7 @@ equation
       index=1,
       extent={{6,3},{6,3}},
       horizontalAlignment=TextAlignment.Left));
-  connect(pumChi.busCon, chwCon.pumGro) annotation (Line(
+  connect(pumPri.busCon, chwCon.pumGro) annotation (Line(
       points={{10,20},{10,60.1},{200.1,60.1}},
       color={255,204,51},
       thickness=0.5), Text(

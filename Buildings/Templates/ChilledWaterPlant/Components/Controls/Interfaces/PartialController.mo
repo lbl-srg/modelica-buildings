@@ -8,12 +8,12 @@ model PartialController
 
   parameter Boolean is_airCoo;
 
-  BaseClasses.BusChilledWater busCHW annotation (Placement(transformation(
-          extent={{200,-20},{240,20}}), iconTransformation(extent={{80,-20},{
-            120,20}})));
-  BaseClasses.BusCondenserWater busCon if not is_airCoo annotation (Placement(
-        transformation(extent={{-218,-20},{-178,20}}), iconTransformation(
-          extent={{-120,-20},{-80,20}})));
+  .Buildings.Templates.ChilledWaterPlant.BaseClasses.BusChilledWater busCHW
+    annotation (Placement(transformation(extent={{200,-20},{240,20}}),
+        iconTransformation(extent={{80,-20},{120,20}})));
+  .Buildings.Templates.ChilledWaterPlant.BaseClasses.BusCondenserWater busCon
+    if not is_airCoo annotation (Placement(transformation(extent={{-218,-20},{-178,
+            20}}), iconTransformation(extent={{-120,-20},{-80,20}})));
   annotation (
     __Dymola_translate=true,
     Icon(coordinateSystem(preserveAspectRatio=false), graphics={

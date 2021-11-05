@@ -128,8 +128,6 @@ that fails to translate when CollectorDistributor ports are left unconnected.")}
   model None
     extends Buildings.Templates.Components.Pump.Interfaces.Pump(final typ=
           Buildings.Templates.Types.Pump.None);
-    BaseClasses.PassThroughFluid pas
-      annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   equation
     connect(port_a, pas.port_a)
       annotation (Line(points={{-100,0},{-10,0}}, color={0,127,255}));
@@ -269,6 +267,19 @@ that fails to translate when CollectorDistributor ports are left unconnected.")}
 
   package Interfaces "Classes defining the component interfaces"
     extends Modelica.Icons.InterfacesPackage;
+    expandable connector Bus "Generic control bus for pump classes"
+      extends Modelica.Icons.SignalBus;
+      annotation (
+      defaultComponentName="busCon",
+      Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,
+                -100},{100,100}}), graphics={Rectangle(
+                      extent={{-20,2},{22,-2}},
+                      lineColor={255,204,51},
+                      lineThickness=0.5)}), Documentation(info="<html>
+
+</html>"));
+    end Bus;
+
     partial model Pump
       extends Fluid.Interfaces.PartialTwoPort(
         redeclare package Medium=Buildings.Media.Water);
@@ -278,8 +289,7 @@ that fails to translate when CollectorDistributor ports are left unconnected.")}
       outer parameter ExternData.JSONFile dat
         "External parameter file";
 
-      BaseClasses.Bus busCon "Control bus"
-        annotation (Placement(transformation(
+      Bus busCon "Control bus" annotation (Placement(transformation(
             extent={{-20,-20},{20,20}},
             rotation=0,
             origin={0,100}), iconTransformation(
@@ -350,19 +360,4 @@ that fails to translate when CollectorDistributor ports are left unconnected.")}
     end Pump;
   end Interfaces;
 
-  package BaseClasses
-    extends Modelica.Icons.BasesPackage;
-    expandable connector BusPump "Generic control bus for pump classes"
-
-      annotation (
-      defaultComponentName="busCon",
-      Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,
-                -100},{100,100}}), graphics={Rectangle(
-                      extent={{-20,2},{22,-2}},
-                      lineColor={255,204,51},
-                      lineThickness=0.5)}), Documentation(info="<html>
-
-</html>"));
-    end BusPump;
-  end BaseClasses;
 end Pump;

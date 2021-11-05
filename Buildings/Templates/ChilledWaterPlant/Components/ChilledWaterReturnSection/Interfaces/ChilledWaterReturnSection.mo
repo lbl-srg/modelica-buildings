@@ -4,8 +4,9 @@ partial model ChilledWaterReturnSection
     redeclare package Medium1=Buildings.Media.Water,
     redeclare package Medium2=Buildings.Media.Water);
 
-  parameter Buildings.Types.WatersideEconomizer typ
-    "Type of waterside economizer"
+  parameter
+    Buildings.Templates.ChilledWaterPlant.Components.Types.ChilledWaterReturnSection
+    typ "Type of waterside economizer"
     annotation (Evaluate=true, Dialog(group="Configuration"));
   // ToDo: Other WSE parameters
 
@@ -14,8 +15,7 @@ partial model ChilledWaterReturnSection
   outer parameter ExternData.JSONFile dat
     "External parameter file";
 
-  BaseClasses.Bus busCon "Control bus"
-    annotation (Placement(transformation(
+  Bus busCon "Control bus" annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
         rotation=0,
         origin={0,100}), iconTransformation(
@@ -23,6 +23,8 @@ partial model ChilledWaterReturnSection
         rotation=0,
         origin={0,100})));
 
+protected
+  parameter Boolean is_none = typ <> Buildings.Templates.ChilledWaterPlant.Components.Types.ChilledWaterReturnSection.NoEconomizer
   annotation (Icon(coordinateSystem(preserveAspectRatio=false),
     graphics={Rectangle(
           extent={{-100,100},{100,-100}},
@@ -30,4 +32,5 @@ partial model ChilledWaterReturnSection
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid)}), Diagram(
         coordinateSystem(preserveAspectRatio=false)));
+
 end ChilledWaterReturnSection;

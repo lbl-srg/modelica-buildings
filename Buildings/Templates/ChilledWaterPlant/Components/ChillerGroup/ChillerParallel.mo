@@ -2,7 +2,9 @@ within Buildings.Templates.ChilledWaterPlant.Components.ChillerGroup;
 model ChillerParallel
   extends
     Buildings.Templates.ChilledWaterPlant.Components.ChillerGroup.Interfaces.ChillerGroup(
-    final typ=Buildings.Templates.Types.ChillerGroup.ChillerParallel);
+    final typ=Buildings.Templates.ChilledWaterPlant.Components.Types.ChillerGroup.ChillerParallel);
+
+  parameter Boolean has_dedPum "Parallel chillers are connected to dedicated pumps";
 
   inner replaceable
     Buildings.Templates.ChilledWaterPlant.Components.Chiller.ElectricChiller
@@ -23,6 +25,13 @@ model ChillerParallel
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={10,60})));
+  Fluid.Actuators.Valves.TwoWayLinear valChi[num] if not has_dedPum
+    "Chillers valves" annotation (Placement(transformation(
+        extent={{10,-10},{-10,10}},
+        rotation=0,
+        origin={-70,20})));
+  Buildings.Templates.BaseClasses.PassThroughFluid pas[num] if has_dedPum
+    annotation (Placement(transformation(extent={{-60,-30},{-80,-10}})));
 equation
 
   connect(busCon.chi, chi.busCon) annotation (Line(
@@ -33,8 +42,6 @@ equation
       index=-1,
       extent={{-6,3},{-6,3}},
       horizontalAlignment=TextAlignment.Right));
-  connect(chi.port_b2, ports_b2) annotation (Line(points={{-20,-12},{-40,-12},{
-          -40,0},{-100,0}}, color={0,127,255}));
   connect(port_a2, volCHW.ports[1]) annotation (Line(points={{100,-60},{20,-60},
           {20,-62.6667}}, color={0,127,255}));
   connect(volCHW.ports[2:3], chi.port_a2) annotation (Line(points={{20,-57.3333},
@@ -45,6 +52,14 @@ equation
           {100,60}}, color={0,127,255}));
   connect(chi.port_b1, volCW.ports[2:3]) annotation (Line(points={{20,12},{40,
           12},{40,62.6667},{20,62.6667}}, color={0,127,255}));
+  connect(chi.port_b2, valChi.port_a) annotation (Line(points={{-20,-12},{-40,-12},
+          {-40,0},{-54,0},{-54,20},{-60,20}}, color={0,127,255}));
+  connect(valChi.port_b, ports_b2) annotation (Line(points={{-80,20},{-86,20},{-86,
+          0},{-100,0}}, color={0,127,255}));
+  connect(chi.port_b2, pas.port_a) annotation (Line(points={{-20,-12},{-40,-12},
+          {-40,0},{-54,0},{-54,-20},{-60,-20}}, color={0,127,255}));
+  connect(pas.port_b, ports_b2) annotation (Line(points={{-80,-20},{-86,-20},{-86,
+          0},{-100,0}}, color={0,127,255}));
   annotation (Icon(graphics={
         Rectangle(
           extent={{-70,80},{70,-80}},
