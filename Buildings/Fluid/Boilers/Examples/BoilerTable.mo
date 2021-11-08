@@ -13,8 +13,7 @@ model BoilerTable
     fue=Buildings.Fluid.Data.Fuels.NaturalGasLowerHeatingValue(),
     from_dp=true,
     T_start=293.15,
-    per=per,
-    TIn_nominal=323.15) "Boiler with transient computation"
+    per=per)            "Boiler with transient computation"
     annotation (Placement(transformation(extent={{10,36},{30,56}})));
   Buildings.Fluid.Boilers.BoilerTable boi2(
     redeclare package Medium = Medium,
@@ -23,8 +22,7 @@ model BoilerTable
     fue=Buildings.Fluid.Data.Fuels.NaturalGasLowerHeatingValue(),
     from_dp=true,
     T_start=293.15,
-    per=per,
-    TIn_nominal=323.15) "Boiler with steady-state computation"
+    per=per)            "Boiler with steady-state computation"
     annotation (Placement(transformation(extent={{10,-44},{30,-24}})));
 
   Buildings.Fluid.Sources.Boundary_pT sin(

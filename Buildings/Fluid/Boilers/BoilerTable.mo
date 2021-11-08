@@ -4,8 +4,7 @@ model BoilerTable
   extends Buildings.Fluid.Boilers.BaseClasses.PartialBoiler(
     final eta=effTab.y,
     final Q_flow_nominal = per.Q_flow_nominal,
-    final eta_nominal= Buildings.Utilities.Math.Functions.smoothInterpolation(
-    x=per.TIn_nominal, xSup=per.effCur[1,2:end], ySup=per.effCur[end,2:end]),
+    final eta_nominal= per.eta_nominal,
     final UA=per.UA,
     final VWat = per.VWat,
     final mDry = per.mDry,

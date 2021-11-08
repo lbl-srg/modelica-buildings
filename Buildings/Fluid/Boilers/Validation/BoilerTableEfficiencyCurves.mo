@@ -5,7 +5,7 @@ model BoilerTableEfficiencyCurves
   package Medium = Buildings.Media.Water "Medium model";
   parameter Buildings.Fluid.Boilers.Data.Lochinvar.Crest.FBdash2501 per
     "Record containing a table that describes the efficiency curves"
-    annotation (choicesAllMatching=true);
+   annotation (Placement(transformation(extent={{70,60},{90,80}})));
 
   Buildings.Fluid.Sources.Boundary_pT sin(
     redeclare package Medium = Medium,
@@ -26,7 +26,7 @@ model BoilerTableEfficiencyCurves
     fue=Buildings.Fluid.Data.Fuels.NaturalGasLowerHeatingValue(),
     from_dp=true,
     T_start=293.15,
-    per=per)            "Boiler 1 set at 5% firing rate"
+    per=per) "Boiler 1 set at 5% firing rate"
     annotation (Placement(transformation(extent={{20,44},{40,64}})));
   Buildings.HeatTransfer.Sources.FixedTemperature
     TAmb1(T=288.15) "Ambient temperature in boiler room"
@@ -38,7 +38,7 @@ model BoilerTableEfficiencyCurves
     fue=Buildings.Fluid.Data.Fuels.NaturalGasLowerHeatingValue(),
     from_dp=true,
     T_start=293.15,
-    per=per)            "Boiler 2 set at 50% firing rate"
+    per=per) "Boiler 2 set at 50% firing rate"
     annotation (Placement(transformation(extent={{20,-16},{40,4}})));
   Buildings.HeatTransfer.Sources.FixedTemperature
     TAmb2(T=288.15) "Ambient temperature in boiler room"
@@ -50,7 +50,8 @@ model BoilerTableEfficiencyCurves
     fue=Buildings.Fluid.Data.Fuels.NaturalGasLowerHeatingValue(),
     from_dp=true,
     T_start=293.15,
-    per=per)            "Boiler 3 set at 100% firing rate"
+    per=per)
+            "Boiler 3 set at 100% firing rate"
     annotation (Placement(transformation(extent={{20,-76},{40,-56}})));
   HeatTransfer.Sources.FixedTemperature
     TAmb3(T=288.15) "Ambient temperature in boiler room"
@@ -71,6 +72,7 @@ model BoilerTableEfficiencyCurves
     offset=per.effCur[1,2])
     "Ramps the T_inlet from the first to the last temperature provided by the efficiency curve table"
     annotation (Placement(transformation(extent={{-62,-26},{-42,-6}})));
+
 equation
   connect(TAmb1.port, boi1.heatPort) annotation (Line(
       points={{20,82},{30,82},{30,61.2}},

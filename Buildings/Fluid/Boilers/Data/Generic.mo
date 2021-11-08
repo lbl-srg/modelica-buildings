@@ -5,7 +5,9 @@ record Generic "Generic data record for boiler performance"
   parameter Modelica.SIunits.Efficiency effCur[:,:]=
     [0, 1; 1, 1]
     "Efficiency curves as a table: First row = inlet temp(K), First column = firing rates or PLR";
-
+  final parameter Modelica.SIunits.Efficiency eta_nominal = Buildings.Utilities.Math.Functions.smoothInterpolation(
+    x=TIn_nominal, xSup=effCur[1,2:end], ySup=effCur[end,2:end])
+    "Efficiency at TIn_nominal";
   parameter Modelica.SIunits.Temperature TIn_nominal = 323.15
     "Nominal inlet temperature for efficiency calculations";
 
