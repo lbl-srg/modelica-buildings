@@ -38,31 +38,31 @@ model Euler
     annotation (Placement(transformation(extent={{-10,-44},{10,-24}})));
 
   Modelica.Blocks.Sources.Constant y(k=1) "Control signal"
-    annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
+    annotation (Placement(transformation(extent={{-60,40},{-40,60}})));
   Modelica.Blocks.Sources.Constant rho(k=rhoCon) "Density"
-    annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
-  Modelica.Blocks.Sources.TimeTable m_flow(
-    table=[{0,1},{per1.power.V_flow[1]*rhoCon,per1.power.V_flow[end]*rhoCon}])
-    "mass flow rate"
-    annotation (Placement(transformation(extent={{-60,-46},{-40,-26}})));
+    annotation (Placement(transformation(extent={{-60,0},{-40,20}})));
 
-  Modelica.SIunits.VolumeFlowRate V_flow "Volumetric flow rate";
+  Modelica.SIunits.VolumeFlowRate V_flow = m_flow.y/rhoCon "Volumetric flow rate";
 
+  Modelica.Blocks.Sources.Ramp m_flow(
+    height=eff1.V_flow_max*rhoCon,
+    duration=1)
+    "Mass flow rate"
+    annotation (Placement(transformation(extent={{-60,-40},{-40,-20}})));
 equation
-  V_flow = m_flow.y/rhoCon;
   connect(eff1.rho, rho.y)
-    annotation (Line(points={{-12,-6},{-26,-6},{-26,0},{-39,0}},
+    annotation (Line(points={{-12,-6},{-26,-6},{-26,10},{-39,10}},
                                                color={0,0,127}));
   connect(y.y, eff1.y_in)
-    annotation (Line(points={{-39,30},{-4,30},{-4,12}},   color={0,0,127}));
-  connect(m_flow.y, eff1.m_flow) annotation (Line(points={{-39,-36},{-22,-36},{-22,
+    annotation (Line(points={{-39,50},{-4,50},{-4,12}},   color={0,0,127}));
+  connect(m_flow.y, eff1.m_flow) annotation (Line(points={{-39,-30},{-18,-30},{-18,
           4},{-12,4}}, color={0,0,127}));
-  connect(y.y, eff2.y_in) annotation (Line(points={{-39,30},{-4,30},{-4,18},{18,
+  connect(y.y, eff2.y_in) annotation (Line(points={{-39,50},{-4,50},{-4,18},{18,
           18},{18,-14},{-4,-14},{-4,-22}}, color={0,0,127}));
-  connect(rho.y, eff2.rho) annotation (Line(points={{-39,0},{-26,0},{-26,-6},{-18,
-          -6},{-18,-40},{-12,-40}}, color={0,0,127}));
-  connect(m_flow.y, eff2.m_flow) annotation (Line(points={{-39,-36},{-22,-36},{-22,
-          -30},{-12,-30}}, color={0,0,127}));
+  connect(rho.y, eff2.rho) annotation (Line(points={{-39,10},{-26,10},{-26,-40},
+          {-12,-40}},               color={0,0,127}));
+  connect(m_flow.y, eff2.m_flow) annotation (Line(points={{-39,-30},{-12,-30}},
+                           color={0,0,127}));
   annotation (experiment(Tolerance=1e-6, StopTime=1.0),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Movers/BaseClasses/Validation/Euler.mos"
  "Simulate and plot"),

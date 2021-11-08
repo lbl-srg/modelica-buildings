@@ -27,7 +27,7 @@ protected
 algorithm
   if not use then
     return;
-  //This function skips itself instead of letting its caller skip it directly
+  //This function skips itself instead of letting its caller skip it
   //  to make the declaration of the output (which has multiple components)
   //  in its caller more straightforward and less verbose.
   end if;
@@ -52,8 +52,14 @@ algorithm
 
   curves.P[1]:=Buildings.Utilities.Math.Functions.smoothInterpolation(
                 x=0,
-                xSup=curves.V_flow[2:end],
-                ySup=curves.P[2:end],
+                xSup=curves.V_flow[2:(end-1)],
+                ySup=curves.P[2:(end-1)],
+                ensureMonotonicity=Buildings.Utilities.Math.Functions.isMonotonic(
+                  x=curves.P,strict=false));
+  curves.P[end]:=Buildings.Utilities.Math.Functions.smoothInterpolation(
+                x=curves.V_flow[end],
+                xSup=curves.V_flow[2:(end-1)],
+                ySup=curves.P[2:(end-1)],
                 ensureMonotonicity=Buildings.Utilities.Math.Functions.isMonotonic(
                   x=curves.P,strict=false));
 
@@ -64,8 +70,8 @@ This function computes the curves for efficiency <i>&eta;</i>
 and power <i>P</i> against flow rate <i>V&#775;</i>. 
 Eleven points are computed using the correlation of Euler number, 
 representing 0% to 100% of the maximum flow with increments of 10%. 
-Because the computed power may approach infinity near zero flow, 
-it is replaced by extrapolation at zero flow. 
+Because the computed power may approach infinity near zero flow and max flow 
+due to zero efficiency, these two points are replaced by extrapolation. 
 </p>
 </html>",
 revisions="<html>
