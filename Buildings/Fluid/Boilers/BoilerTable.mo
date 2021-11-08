@@ -4,6 +4,8 @@ model BoilerTable
   extends Buildings.Fluid.Boilers.BaseClasses.PartialBoiler(
     final eta=effTab.y,
     final Q_flow_nominal = per.Q_flow_nominal,
+    final eta_nominal= Buildings.Utilities.Math.Functions.smoothInterpolation(
+    x=per.TIn_nominal, xSup=per.effCur[1,2:end], ySup=per.effCur[end,2:end]),
     final UA=per.UA,
     final VWat = per.VWat,
     final mDry = per.mDry,
@@ -14,8 +16,6 @@ model BoilerTable
     "Records of efficiency curves"
     annotation(choicesAllMatching=true,
                Placement(transformation(extent={{-40,74},{-20,94}})));
-  parameter Modelica.SIunits.Temperature TIn_nominal = 323.15
-    "Nominal inlet temperature";
 
   Modelica.Blocks.Tables.CombiTable2D effTab(
     final table=per.effCur,
@@ -30,8 +30,6 @@ model BoilerTable
     annotation (Placement(transformation(extent={{-98,58},{-78,78}})));
 
 initial equation
-  eta_nominal = Buildings.Utilities.Math.Functions.smoothInterpolation(
-    x=TIn_nominal, xSup=per.effCur[1,2:end], ySup=per.effCur[end,2:end]);
   assert(abs(per.effCur[end,1] - 1) < 1E-6,
     "Efficiency curve at full load (y = 1) must be provided.");
 

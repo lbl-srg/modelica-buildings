@@ -20,7 +20,7 @@ partial model PartialBoiler "Boiler base class with efficiency unspecified"
     "Mass of boiler that will be lumped to water heat capacity"
     annotation(Dialog(tab = "Dynamics",
     enable = not (energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState)));
-  parameter Modelica.SIunits.Efficiency eta_nominal(fixed=false)
+  parameter Modelica.SIunits.Efficiency eta_nominal
     "Boiler efficiency at nominal condition";
 
   input Modelica.SIunits.Efficiency eta "Boiler efficiency";

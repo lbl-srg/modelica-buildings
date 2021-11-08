@@ -9,7 +9,16 @@ model BoilerPolynomial
         elseif effCur ==Buildings.Fluid.Types.EfficiencyCurves.QuadraticLinear then
           Buildings.Utilities.Math.Functions.quadraticLinear(a=aQuaLin, x1=y, x2=T)
         else
-          0);
+          0,
+    final eta_nominal = if effCur ==Buildings.Fluid.Types.EfficiencyCurves.Constant then
+          a[1]
+        elseif effCur ==Buildings.Fluid.Types.EfficiencyCurves.Polynomial then
+          Buildings.Utilities.Math.Functions.polynomial(a=a, x=1)
+        elseif effCur ==Buildings.Fluid.Types.EfficiencyCurves.QuadraticLinear then
+          Buildings.Utilities.Math.Functions.quadraticLinear(a=aQuaLin, x1=1, x2=T_nominal)
+        else
+          999);
+
   parameter Buildings.Fluid.Types.EfficiencyCurves
     effCur=Buildings.Fluid.Types.EfficiencyCurves.Constant
     "Curve used to compute the efficiency";
@@ -28,19 +37,6 @@ initial equation
     when the boiler efficiency curve is set to 
     'Buildings.Fluid.Types.EfficiencyCurves.QuadraticLinear'. 
     The number of elements currently supplied is " + String(size(a, 1)) + ".");
-  end if;
-
-  if effCur ==Buildings.Fluid.Types.EfficiencyCurves.Constant then
-    eta_nominal = a[1];
-  elseif effCur ==Buildings.Fluid.Types.EfficiencyCurves.Polynomial then
-    eta_nominal = Buildings.Utilities.Math.Functions.polynomial(
-                                                          a=a, x=1);
-  elseif effCur ==Buildings.Fluid.Types.EfficiencyCurves.QuadraticLinear then
-    // For this efficiency curve, 'a' must have exactly 6 elements.
-    eta_nominal = Buildings.Utilities.Math.Functions.quadraticLinear(
-                                                  a=aQuaLin, x1=1, x2=T_nominal);
-  else
-     eta_nominal = 999;
   end if;
 
   annotation (Documentation(info="<html>

@@ -26,8 +26,7 @@ model BoilerTableEfficiencyCurves
     fue=Buildings.Fluid.Data.Fuels.NaturalGasLowerHeatingValue(),
     from_dp=true,
     T_start=293.15,
-    per=per,
-    TIn_nominal=323.15) "Boiler 1 set at 5% firing rate"
+    per=per)            "Boiler 1 set at 5% firing rate"
     annotation (Placement(transformation(extent={{20,44},{40,64}})));
   Buildings.HeatTransfer.Sources.FixedTemperature
     TAmb1(T=288.15) "Ambient temperature in boiler room"
@@ -39,8 +38,7 @@ model BoilerTableEfficiencyCurves
     fue=Buildings.Fluid.Data.Fuels.NaturalGasLowerHeatingValue(),
     from_dp=true,
     T_start=293.15,
-    per=per,
-    TIn_nominal=323.15) "Boiler 2 set at 50% firing rate"
+    per=per)            "Boiler 2 set at 50% firing rate"
     annotation (Placement(transformation(extent={{20,-16},{40,4}})));
   Buildings.HeatTransfer.Sources.FixedTemperature
     TAmb2(T=288.15) "Ambient temperature in boiler room"
@@ -52,8 +50,7 @@ model BoilerTableEfficiencyCurves
     fue=Buildings.Fluid.Data.Fuels.NaturalGasLowerHeatingValue(),
     from_dp=true,
     T_start=293.15,
-    per=per,
-    TIn_nominal=323.15) "Boiler 3 set at 100% firing rate"
+    per=per)            "Boiler 3 set at 100% firing rate"
     annotation (Placement(transformation(extent={{20,-76},{40,-56}})));
   HeatTransfer.Sources.FixedTemperature
     TAmb3(T=288.15) "Ambient temperature in boiler room"

@@ -6,6 +6,9 @@ record Generic "Generic data record for boiler performance"
     [0, 1; 1, 1]
     "Efficiency curves as a table: First row = inlet temp(K), First column = firing rates or PLR";
 
+  parameter Modelica.SIunits.Temperature TIn_nominal = 323.15
+    "Nominal inlet temperature for efficiency calculations";
+
   parameter Modelica.SIunits.Power Q_flow_nominal = 3000 "Nominal heating power";
   parameter Modelica.SIunits.ThermalConductance UA=0.05*Q_flow_nominal/30
     "Overall UA value";
