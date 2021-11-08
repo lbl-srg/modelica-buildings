@@ -9607,6 +9607,8 @@ The following people have directly contributed to the implementation of the Buil
 </li>
 <li>Hagar Elarga, Lawrence Berkeley National Laboratory, USA
 </li>
+<li>Hongxiang \"Casper\" Fu, Lawrence Berkeley National Laboratory, USA
+</li>
 <li>Yangyang Fu, University of Colorado Boulder, Colorado, USA
 </li>
 <li>Antoine Gautier, Lawrence Berkeley National Laboratory, USA
