@@ -268,7 +268,7 @@ to <b style=\"color:blue\">existing</b> libraries:
 </tr>
 <tr><td valign=\"top\">Buildings.Fluid.Boilers.BoilerTable<br/>
                        Buildings.Fluid.Boilers.Examples.BoilerTable<br/>
-                       Buildings.Fluid.Boilers.Validation.BoilerTableValidate<br/>
+                       Buildings.Fluid.Boilers.Validation.BoilerTableEfficiencyCurves<br/>
                        Buildings.Fluid.Boilers.BaseClasses.PartialBoiler<br/>
                        Buildings.Fluid.Boilers.Data.Generic<br/>
                        Buildings.Fluid.Boilers.Data.Lochinvar.Crest.Curves<br/>
