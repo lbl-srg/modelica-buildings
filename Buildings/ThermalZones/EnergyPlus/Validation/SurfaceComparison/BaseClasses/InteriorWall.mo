@@ -1,12 +1,12 @@
 within Buildings.ThermalZones.EnergyPlus.Validation.SurfaceComparison.BaseClasses;
-model InteriorWall
+model InteriorWall "Model of an interior wall with Spawn-controlled surface conditions"
 
   extends Buildings.HeatTransfer.Conduction.BaseClasses.PartialConstruction;
 
   parameter String surNam_a "Name of EnergyPlus Surface (port a)";
   parameter String surNam_b "Name of EnergyPlus Surface (port b)";
 
-  parameter Real A "Wall area";
+  parameter Modelica.SIunits.Area A "Wall area";
 
   replaceable parameter Buildings.HeatTransfer.Data.OpaqueConstructions.Generic
     layers "Construction definition from Data.OpaqueConstructions"
