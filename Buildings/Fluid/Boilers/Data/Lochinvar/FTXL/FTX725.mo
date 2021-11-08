@@ -8,9 +8,11 @@ record FTX725 "Specifications for Lochinvar FTXL FTX725 boiler"
     m_flow_nominal=4.479404,
     dp_nominal=14646.00);
   annotation (Documentation(info="<html>
+<p>
 Performance data for boiler model.
 See the documentation 
 <a href=\"modelica://Buildings.Fluid.Boilers.Data.Lochinvar\">
 Buildings.Fluid.Boilers.Data.Lochinvar</a>.
+</p>
 </html>"));
 end FTX725;

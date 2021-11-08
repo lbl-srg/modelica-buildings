@@ -8,9 +8,11 @@ record FBdash6001 "Specifications for Lochinvar Crest FB-6001 boiler"
     m_flow_nominal = 36.339953,
     dp_nominal = 51410.46);
   annotation (Documentation(info="<html>
+<p>
 Performance data for boiler model.
 See the documentation 
 <a href=\"modelica://Buildings.Fluid.Boilers.Data.Lochinvar\">
 Buildings.Fluid.Boilers.Data.Lochinvar</a>.
+</p>
 </html>"));
 end FBdash6001;

@@ -105,7 +105,7 @@ cellspacing=\"0\" cellpadding=\"2\" border=\"1\"><tr><td>
 </td>
 <td>
 <p>
-GAS - BTU/HR OUTPUT (HIGH FIRE)
+Gas - BTU/Hh output (high fire)
 </p>
 </td></tr>
 <tr><td>
@@ -115,7 +115,7 @@ GAS - BTU/HR OUTPUT (HIGH FIRE)
 </td>
 <td>
 <p>
-WATER - GALLON CAPACITY
+Water - Gallon capacity
 </p>
 </td></tr>
 <tr><td>
@@ -124,7 +124,7 @@ WATER - GALLON CAPACITY
 </p>
 </td><td>
 <p>
-DIMENSIONS - SHIPPING WEIGHT
+Dimensions - shipping weight
 </p>
 </td></tr>
 <tr><td>
@@ -133,7 +133,7 @@ DIMENSIONS - SHIPPING WEIGHT
 </p>
 </td><td>
 <p>
-20&deg;F &Delta;T WATER FLOW
+Water flow rate at 20&deg;F &Delta;T (11.1&deg;C)
 </p>
 </td></tr>
 <tr><td>
@@ -142,7 +142,7 @@ DIMENSIONS - SHIPPING WEIGHT
 </p>
 </td><td>
 <p>
-HEAD LOSS
+Pressure drop
 </p>
 </td></tr>
 </table>

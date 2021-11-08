@@ -8,9 +8,11 @@ record FTX500 "Specifications for Lochinvar FTXL FTX500 boiler"
     m_flow_nominal=3.091420,
     dp_nominal=3.091420);
   annotation (Documentation(info="<html>
+<p>
 Performance data for boiler model.
 See the documentation 
 <a href=\"modelica://Buildings.Fluid.Boilers.Data.Lochinvar\">
 Buildings.Fluid.Boilers.Data.Lochinvar</a>.
+</p>
 </html>"));
 end FTX500;

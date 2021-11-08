@@ -9,9 +9,11 @@ record FBdash4001 "Specifications for Lochinvar Crest FB-4001 boiler"
     dp_nominal = 32579.88);
     // Data of this model are based on 22F of dT instead of 20F.
   annotation (Documentation(info="<html>
+<p>
 Performance data for boiler model.
 See the documentation 
 <a href=\"modelica://Buildings.Fluid.Boilers.Data.Lochinvar\">
 Buildings.Fluid.Boilers.Data.Lochinvar</a>.
+</p>
 </html>"));
 end FBdash4001;
