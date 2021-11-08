@@ -86,7 +86,7 @@ Boilers with the same brand name use the same set of efficiency curves
 (e.g. all records under \"Crest\" have the same curves).
 The original documents use the IP units and conversions are made 
 in this implementation. Values corresponding to temperature rise of 
-20&deg;F (11&deg;C) are used as nominal (except for 
+20&deg;F (11.1&deg;C) are used as nominal (except for 
 <a href=\"modelica://Buildings.Fluid.Boilers.Data.Lochinvar.Crest.FBdash4001\">
 Buildings.Fluid.Boilers.Data.Lochinvar.Crest.FBdash4001</a>
 whose data are based on 22&deg;F [12.2&deg;C]). 

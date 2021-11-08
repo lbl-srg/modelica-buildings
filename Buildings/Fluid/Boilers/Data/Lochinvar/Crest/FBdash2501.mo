@@ -15,7 +15,7 @@ record FBdash2501 "Specifications for Lochinvar Crest FB-2501 boiler"
   annotation (Documentation(info="<html>
 <p>
 Performance data for boiler model.
-See the documentation 
+See the documentation of
 <a href=\"modelica://Buildings.Fluid.Boilers.Data.Lochinvar\">
 Buildings.Fluid.Boilers.Data.Lochinvar</a>.
 </p>

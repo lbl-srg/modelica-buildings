@@ -5,5 +5,9 @@ package FTXL "Package with performance data for Lochinvar FTXL™ Fire Tube boil
     annotation (
     preferredView="info",
     Documentation(info="<html>
+This package contains performance data for Lochinvar FTXL™ Fire Tube boilers.
+See the documentation of 
+<a href=\"modelica://Buildings.Fluid.Boilers.Data.Lochinvar\">
+Buildings.Fluid.Boilers.Data.Lochinvar</a>.
 </html>"));
 end FTXL;
