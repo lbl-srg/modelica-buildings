@@ -1,6 +1,6 @@
 within Buildings.Fluid.Boilers.Data.Lochinvar.FTXL;
 record FTX500 "Specifications for Lochinvar FTXL FTX500 boiler"
-  extends Buildings.Fluid.Boilers.Data.Lochinvar.FTXL.Curves(
+  extends Buildings.Fluid.Boilers.Data.Lochinvar.FTXL.FTX400(
     Q_flow_nominal=143311.7532,
     VWat=0.045424941,
     mDry=228.6105545,
