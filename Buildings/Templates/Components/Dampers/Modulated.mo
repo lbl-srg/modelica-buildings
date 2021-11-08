@@ -3,6 +3,11 @@ model Modulated
   extends Buildings.Templates.Components.Dampers.Interfaces.PartialDamper(
     final typ=Buildings.Templates.Components.Types.Damper.Modulated);
 
+  parameter Buildings.Templates.Components.Types.DamperBlades typBla=
+    Buildings.Templates.Components.Types.DamperBlades.ParallelBlade
+    "Type of blades"
+    annotation(Dialog(enable=false), Evaluate=true);
+
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal=
     if loc==Types.Location.OutdoorAir           then
       dat.getReal(varName=id + ".Mechanical.Supply air mass flow rate.value")
@@ -46,8 +51,16 @@ equation
       thickness=0.5));
   connect(damExp.y_actual, bus.y_actual) annotation (Line(points={{5,7},{40,7},{
           40,100},{0,100}},           color={0,0,127}));
-  annotation (Icon(graphics={
+annotation(Icon(graphics={
+     Bitmap(
+        extent={{-40,-220},{40,-140}},
+        fileName="modelica://Buildings/Resources/Images/Templates/Components/Dampers/Modulated.svg"),
       Bitmap(
-        extent={{-32,-180},{32,80}},
-        fileName="modelica://Buildings/Resources/Images/Templates/Components/Dampers/Modulated.svg")}));
+        extent={{-40,-140},{40,100}},
+        visible=typBla==Buildings.Templates.Components.Types.DamperBlades.ParallelBlade,
+        fileName="modelica://Buildings/Resources/Images/Templates/Components/Dampers/ParallelBlade.svg"),
+      Bitmap(
+        extent={{-40,-140},{40,100}},
+        visible=typBla==Buildings.Templates.Components.Types.DamperBlades.OpposedBlade,
+        fileName="modelica://Buildings/Resources/Images/Templates/Components/Dampers/OpposedBlade.svg")}));
 end Modulated;

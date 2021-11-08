@@ -43,6 +43,12 @@ package Types "Generic types for template components"
       TwoPosition
       "Two-position damper")
     "Enumeration to configure the damper";
+  type DamperBlades = enumeration(
+      OpposedBlade
+      "Opposed blade damper",
+      ParallelBlade
+      "Parallel blade damper")
+    "Enumeration to specify the damper blades";
   type HeatExchanger = enumeration(
       None
       "No heat exchanger",
@@ -99,4 +105,12 @@ package Types "Generic types for template components"
       VolumeFlowRate
       "Volume flow rate")
     "Enumeration to configure the sensor";
+  type SensorTemperature = enumeration(
+      Standard
+      "Standard sensor",
+      Averaging
+      "Averaging sensor",
+      InWell
+      "Sensor in well")
+    "Enumeration to configure the temperature sensor";
 end Types;

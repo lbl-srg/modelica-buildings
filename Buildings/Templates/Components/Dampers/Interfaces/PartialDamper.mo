@@ -30,7 +30,6 @@ partial model PartialDamper
      <> Buildings.Templates.Components.Types.Damper.NoPath "Control bus"
     annotation (Placement(
       visible=DynamicSelect(true, typ <> Types.Damper.None and typ <> Types.Damper.NoPath),
-
       transformation(
         extent={{-20,-20},{20,20}},
         rotation=0,

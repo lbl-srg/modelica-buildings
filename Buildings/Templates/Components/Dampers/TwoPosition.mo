@@ -3,6 +3,11 @@ model TwoPosition "Two-position damper"
   extends Buildings.Templates.Components.Dampers.Interfaces.PartialDamper(
     final typ=Buildings.Templates.Components.Types.Damper.TwoPosition);
 
+  parameter Buildings.Templates.Components.Types.DamperBlades typBla=
+    Buildings.Templates.Components.Types.DamperBlades.OpposedBlade
+    "Type of blades"
+    annotation(Dialog(enable=false), Evaluate=true);
+
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal=
     if loc==Types.Location.OutdoorAir           then
       dat.getReal(varName=id + ".Mechanical.Supply air mass flow rate.value")
@@ -62,12 +67,16 @@ equation
     annotation (Line(points={{-2.22045e-15,38},{0,12}}, color={0,0,127}));
   connect(evaSta.y, bus.y_actual) annotation (Line(points={{-2.22045e-15,-62},{0,
           -62},{0,-80},{40,-80},{40,100},{0,100}},          color={255,0,255}));
-  annotation (
-    Icon(
-      coordinateSystem(preserveAspectRatio=false), graphics={
+annotation(Icon(graphics={
+     Bitmap(
+        extent={{-40,-220},{40,-140}},
+        fileName="modelica://Buildings/Resources/Images/Templates/Components/Dampers/TwoPosition.svg"),
       Bitmap(
-        extent={{-32,-180},{32,80}},
-        fileName="modelica://Buildings/Resources/Images/Templates/Components/Dampers/TwoPosition.svg")}),
-    Diagram(
-        coordinateSystem(preserveAspectRatio=false)));
+        extent={{-40,-140},{40,100}},
+        visible=typBla==Buildings.Templates.Components.Types.DamperBlades.ParallelBlade,
+        fileName="modelica://Buildings/Resources/Images/Templates/Components/Dampers/ParallelBlade.svg"),
+      Bitmap(
+        extent={{-40,-140},{40,100}},
+        visible=typBla==Buildings.Templates.Components.Types.DamperBlades.OpposedBlade,
+        fileName="modelica://Buildings/Resources/Images/Templates/Components/Dampers/OpposedBlade.svg")}));
 end TwoPosition;

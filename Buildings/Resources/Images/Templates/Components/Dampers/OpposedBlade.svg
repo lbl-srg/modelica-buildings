@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="32.556637mm"
+   height="264.58334mm"
+   viewBox="0 0 32.556639 264.58333"
+   version="1.1"
+   id="svg19564"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs19561">
+    <clipPath
+       id="clipId0">
+      <path
+         d="M 0,768 H 1024 V 0 H 0 Z"
+         id="path2" />
+    </clipPath>
+  </defs>
+  <g
+     id="layer1"
+     transform="translate(-133.12755,168.14795)">
+    <g
+       id="g6489"
+       transform="matrix(8.8028087,0,0,8.6496235,53499.975,27779.18)"
+       style="stroke-width:0.303217;stroke-miterlimit:4;stroke-dasharray:none">
+      <polyline
+         points="389.393,528.407 385.909,524.923 "
+         id="polyline496"
+         style="fill:none;stroke:#000000;stroke-width:0.303217;stroke-miterlimit:4;stroke-dasharray:none"
+         transform="translate(-6448.2813,-3737.1196)" />
+      <polyline
+         points="385.909,523.971 389.393,520.487 "
+         id="polyline498"
+         style="fill:none;stroke:#000000;stroke-width:0.303217;stroke-miterlimit:4;stroke-dasharray:none"
+         transform="translate(-6448.2813,-3737.1196)" />
+      <polyline
+         points="389.393,519.697 385.909,516.212 "
+         id="polyline500"
+         style="fill:none;stroke:#000000;stroke-width:0.303217;stroke-miterlimit:4;stroke-dasharray:none"
+         transform="translate(-6448.2813,-3737.1196)" />
+      <polyline
+         points="385.909,515.261 389.393,511.777 "
+         id="polyline502"
+         style="fill:none;stroke:#000000;stroke-width:0.303217;stroke-miterlimit:4;stroke-dasharray:none"
+         transform="translate(-6448.2813,-3737.1196)" />
+      <polyline
+         points="389.393,510.986 385.909,507.502 "
+         id="polyline504"
+         style="fill:none;stroke:#000000;stroke-width:0.303217;stroke-miterlimit:4;stroke-dasharray:none"
+         transform="translate(-6448.2813,-3737.1196)" />
+      <polyline
+         points="387.651,506.074 387.651,536.663 "
+         id="polyline506"
+         style="fill:none;stroke:#000000;stroke-width:0.303217;stroke-miterlimit:4;stroke-dasharray:none"
+         transform="translate(-6448.2813,-3737.1196)" />
+    </g>
+  </g>
+</svg>

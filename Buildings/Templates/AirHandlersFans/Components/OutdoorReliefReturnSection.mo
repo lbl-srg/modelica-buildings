@@ -330,12 +330,20 @@ package OutdoorReliefReturnSection
             Rectangle(extent={{800,680},{-800,520}}, lineColor={28,108,200}),
           Bitmap(
             visible=typDamRel==Buildings.Templates.Components.Types.Damper.TwoPosition,
-            extent={{-612,420},{-548,680}},
+            extent={{-620,400},{-540,480}},
             fileName="modelica://Buildings/Resources/Images/Templates/Components/Dampers/TwoPosition.svg"),
           Bitmap(
             visible=typDamRel==Buildings.Templates.Components.Types.Damper.Modulated,
-            extent={{-672,420},{-608,680}},
+            extent={{-700,400},{-620,480}},
             fileName="modelica://Buildings/Resources/Images/Templates/Components/Dampers/Modulated.svg"),
+                  Bitmap(
+            extent={{-620,480},{-700,680}},
+            visible=typDamRel==Buildings.Templates.Components.Types.Damper.Modulated,
+            fileName="modelica://Buildings/Resources/Images/Templates/Components/Dampers/OpposedBlade.svg"),
+                  Bitmap(
+            extent={{-540,480},{-620,680}},
+            visible=typDamRel==Buildings.Templates.Components.Types.Damper.TwoPosition,
+            fileName="modelica://Buildings/Resources/Images/Templates/Components/Dampers/OpposedBlade.svg"),
                   Bitmap(
             visible=typFanRel==Buildings.Templates.Components.Types.Fan.MultipleVariable,
             extent={{-344,520},{-504,680}},

@@ -86,6 +86,7 @@ model VAVMultiZone "Multiple-Zone VAV"
   Buildings.Templates.Components.Sensors.Temperature TMix(
     redeclare final package Medium = MediumAir,
     have_sen=true,
+    final typ=Buildings.Templates.Components.Types.SensorTemperature.Averaging,
     final loc=Buildings.Templates.Components.Types.Location.Supply)
     "Mixed air temperature sensor"
     annotation (Dialog(group=
@@ -118,6 +119,7 @@ model VAVMultiZone "Multiple-Zone VAV"
     redeclare final package Medium = MediumAir,
     final have_sen=coiHea.typ <> Buildings.Templates.Components.Types.Coil.None
          and coiCoo.typ <> Buildings.Templates.Components.Types.Coil.None,
+    final typ=Buildings.Templates.Components.Types.SensorTemperature.Averaging,
     final loc=Buildings.Templates.Components.Types.Location.Supply)
     "Heating coil leaving air temperature sensor"
     annotation (Dialog(group="Supply air section", enable=false),
@@ -139,6 +141,7 @@ model VAVMultiZone "Multiple-Zone VAV"
     redeclare final package Medium = MediumAir,
     final have_sen=coiCoo.typ <> Buildings.Templates.Components.Types.Coil.None
          and coiReh.typ <> Buildings.Templates.Components.Types.Coil.None,
+    final typ=Buildings.Templates.Components.Types.SensorTemperature.Averaging,
     final loc=Buildings.Templates.Components.Types.Location.Supply)
     "Cooling coil leaving air temperature sensor"
     annotation (Dialog(group=
@@ -203,6 +206,7 @@ model VAVMultiZone "Multiple-Zone VAV"
   Buildings.Templates.Components.Sensors.Temperature TSup(
     redeclare final package Medium = MediumAir,
     final have_sen=true,
+    final typ=Buildings.Templates.Components.Types.SensorTemperature.Standard,
     final loc=Buildings.Templates.Components.Types.Location.Supply)
     "Supply air temperature sensor"
     annotation (Dialog(group=
@@ -257,6 +261,7 @@ model VAVMultiZone "Multiple-Zone VAV"
   .Buildings.Templates.Components.Sensors.Temperature TRet(
     redeclare final package Medium = MediumAir,
     have_sen=false,
+    final typ=Buildings.Templates.Components.Types.SensorTemperature.Standard,
     final loc=Buildings.Templates.Components.Types.Location.Return)
     "Return air temperature sensor" annotation (Dialog(group=
           "Exhaust/relief/return section", enable=false), Placement(
