@@ -25,8 +25,6 @@ record Generic "Generic data record for boiler performance"
   parameter Modelica.SIunits.Mass mDry =   1.5E-3*Q_flow_nominal
     "Mass of boiler that will be lumped to water heat capacity";
 
-  parameter Modelica.SIunits.Temperature dT_nominal = 20
-    "Nominal temperature difference";
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal=
     Q_flow_nominal/dT_nominal/4200
     "Nominal mass flow rate";

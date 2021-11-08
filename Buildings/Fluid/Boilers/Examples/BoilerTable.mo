@@ -26,7 +26,7 @@ model BoilerTable
   Buildings.Fluid.Sources.Boundary_pT sin(
     redeclare package Medium = Medium,
     p(displayUnit="Pa") = 300000,
-    T=sou.T+per.dT_nominal,
+    T=sou.T,
     nPorts=2) "Sink"
     annotation (Placement(transformation(extent={{80,-10},{60,10}})));
   Buildings.Fluid.Sources.Boundary_pT sou(

@@ -9,7 +9,6 @@ record KBXdash0400 "Specifications for Lochinvar Knight XL KBX-0400 boiler"
     final fue = Buildings.Fluid.Data.Fuels.NaturalGasLowerHeatingValue(),
     Q_flow_nominal = 113427.2962,
     VWat = 0.016655812,
-    dT_nominal =  11.111111,
     m_flow_nominal= 2.397427,
     dp_nominal = 29889.80);
   annotation (Documentation(info="<html>
