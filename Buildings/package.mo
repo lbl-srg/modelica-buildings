@@ -271,25 +271,22 @@ to <b style=\"color:blue\">existing</b> libraries:
                        Buildings.Fluid.Boilers.Validation.BoilerTableEfficiencyCurves<br/>
                        Buildings.Fluid.Boilers.BaseClasses.PartialBoiler<br/>
                        Buildings.Fluid.Boilers.Data.Generic<br/>
-                       Buildings.Fluid.Boilers.Data.Lochinvar.Crest.Curves<br/>
                        Buildings.Fluid.Boilers.Data.Lochinvar.Crest.FBdash2501<br/>
                        Buildings.Fluid.Boilers.Data.Lochinvar.Crest.FBdash3001<br/>
                        Buildings.Fluid.Boilers.Data.Lochinvar.Crest.FBdash3501<br/>
                        Buildings.Fluid.Boilers.Data.Lochinvar.Crest.FBdash4001<br/>
                        Buildings.Fluid.Boilers.Data.Lochinvar.Crest.FBdash5001<br/>
                        Buildings.Fluid.Boilers.Data.Lochinvar.Crest.FBdash6001<br/>
-                       Buildings.Fluid.Boilers.Data.Lochinvar.FTXL.Curves<br/>
                        Buildings.Fluid.Boilers.Data.Lochinvar.FTXL.FTX400<br/>
                        Buildings.Fluid.Boilers.Data.Lochinvar.FTXL.FTX500<br/>
                        Buildings.Fluid.Boilers.Data.Lochinvar.FTXL.FTX600<br/>
                        Buildings.Fluid.Boilers.Data.Lochinvar.FTXL.FTX725<br/>
                        Buildings.Fluid.Boilers.Data.Lochinvar.FTXL.FTX850<br/>
-                       Buildings.Fluid.Boilers.Data.Lochinvar.KnightXL.Curves<br/>
                        Buildings.Fluid.Boilers.Data.Lochinvar.KnightXL.KBXdash0400<br/>
                        Buildings.Fluid.Boilers.Data.Lochinvar.KnightXL.KBXdash0500<br/>
                        Buildings.Fluid.Boilers.Data.Lochinvar.KnightXL.KBXdash0650<br/>
                        Buildings.Fluid.Boilers.Data.Lochinvar.KnightXL.KBXdash0800<br/>
-                       Buildings.Fluid.Boilers.Data.Lochinvar.KnightXL.KBXdash1000                       
+                       Buildings.Fluid.Boilers.Data.Lochinvar.KnightXL.KBXdash1000
     </td>
     <td valign=\"top\">Classes for modeling boilers whose efficiency curves are provided as a table. <br/>
                        This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2651\">issue 2651</a>.
@@ -377,7 +374,7 @@ have been <b style=\"color:blue\">improved</b> in a
 </tr>
 <tr><td valign=\"top\">Buildings.Fluid.Boilers.Polynomial
     </td>
-    <td valign=\"top\">Moved part of the code to <code>Buildings.Fluid.Boilers.BaseClasses.PartialBoiler</code> 
+    <td valign=\"top\">Moved part of the code to <code>Buildings.Fluid.Boilers.BaseClasses.PartialBoiler</code>
                        to support the new model <code>Buildings.Fluid.Boilers.BoilerTable</code>. <br/>
                        This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2651\">issue 2651</a>.
     </td>
