@@ -23,10 +23,12 @@ algorithm
   etaMon:=Buildings.Utilities.Math.Functions.isMonotonic(
     x=eta,strict=false);
   assert(not etaLes,"Less than 3 data points were supplied. 
-  The point with maximum efficiency will be directly used.",
+  The point with maximum efficiency will be directly used.
+  This may cause the computed values to be highly inaccurate.",
           level = AssertionLevel.warning);
   assert(not etaMon,"The supplied curve is monotonic.
-  The point with maximum efficiency will be directly used.",
+  The point with maximum efficiency will be directly used.
+  This may cause the computed values to be highly inaccurate.",
           level = AssertionLevel.warning);
   if etaLes or etaMon then
     m[2]:=max(eta);
@@ -58,8 +60,8 @@ The results are output as record to
 <a href=\"modelica://Buildings.Fluid.Movers.BaseClasses.Euler.peakCondition\">
 Buildings.Fluid.Movers.BaseClasses.Euler.peakCondition</a>.
 If the input series has only two data points or is monotonic,
-the point with the highest efficiency is directly used 
-and the function issues a warning.
+the point with the highest efficiency is directly used and the function 
+issues a warning stating that the computation may be highly inaccurate.
 </p>
 </html>",
 revisions="<html>
