@@ -5,24 +5,22 @@ model BoilerTable
   package Medium = Buildings.Media.Water "Medium model";
   parameter Buildings.Fluid.Boilers.Data.Lochinvar.Crest.FBdash2501 per
     "Record containing a table that describes the efficiency curves"
-    annotation (choicesAllMatching=true);
+    annotation (Placement(transformation(extent={{60,60},{80,80}})));
 
   Buildings.Fluid.Boilers.BoilerTable boi1(
     redeclare package Medium = Medium,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    fue=Buildings.Fluid.Data.Fuels.NaturalGasLowerHeatingValue(),
     from_dp=true,
     T_start=293.15,
-    per=per)            "Boiler with transient computation"
+    per=per) "Boiler with transient computation"
     annotation (Placement(transformation(extent={{10,36},{30,56}})));
   Buildings.Fluid.Boilers.BoilerTable boi2(
     redeclare package Medium = Medium,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
-    fue=Buildings.Fluid.Data.Fuels.NaturalGasLowerHeatingValue(),
     from_dp=true,
     T_start=293.15,
-    per=per)            "Boiler with steady-state computation"
+    per=per) "Boiler with steady-state computation"
     annotation (Placement(transformation(extent={{10,-44},{30,-24}})));
 
   Buildings.Fluid.Sources.Boundary_pT sin(
@@ -45,7 +43,7 @@ model BoilerTable
     annotation (Placement(transformation(extent={{-90,44},{-70,64}})));
   Modelica.Blocks.Sources.TimeTable TIn(table=[0,303.15; 3000,303.15; 4200,293.15;
         4800,293.15; 5400,303.15; 6000,303.15])
-                      "Inlet temperature"
+        "Inlet temperature"
     annotation (Placement(transformation(extent={{-90,-6},{-70,14}})));
 
 equation

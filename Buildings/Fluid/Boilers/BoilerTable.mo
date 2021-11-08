@@ -5,6 +5,7 @@ model BoilerTable
     final eta=effTab.y,
     final Q_flow_nominal = per.Q_flow_nominal,
     final eta_nominal= per.eta_nominal,
+    final fue=per.fue,
     final UA=per.UA,
     final VWat = per.VWat,
     final mDry = per.mDry,

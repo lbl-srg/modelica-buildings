@@ -14,6 +14,9 @@ record Generic "Generic data record for boiler performance"
   parameter Modelica.SIunits.Temperature TIn_nominal = 323.15
     "Nominal inlet temperature for efficiency calculations";
 
+  parameter Buildings.Fluid.Data.Fuels.Generic fue "Fuel type"
+   annotation (choicesAllMatching = true);
+
   parameter Modelica.SIunits.Power Q_flow_nominal = 3000 "Nominal heating power";
   parameter Modelica.SIunits.ThermalConductance UA=0.05*Q_flow_nominal/30
     "Overall UA value";
