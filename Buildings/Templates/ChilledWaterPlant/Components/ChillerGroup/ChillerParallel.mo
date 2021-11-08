@@ -10,27 +10,31 @@ model ChillerParallel
     Buildings.Templates.ChilledWaterPlant.Components.Chiller.ElectricChiller
     chi[num] constrainedby
     Buildings.Templates.ChilledWaterPlant.Components.Chiller.Interfaces.Chiller(
-    redeclare each final package Medium1 = Medium1,
-    redeclare each final package Medium2 = Medium2,
+    redeclare each final package Medium1 = MediumCW,
+    redeclare each final package Medium2 = MediumCHW,
     final is_airCoo=is_airCoo) annotation (Placement(transformation(extent={{
             -20,-20},{20,20}}, rotation=0)));
 
-  Fluid.MixingVolumes.MixingVolume volCHW(nPorts=3)
-    "Chilled water side mixing volume" annotation (Placement(transformation(
+  Fluid.Delays.DelayFirstOrder volCHW(redeclare final package Medium =
+        MediumCHW, nPorts=1+num) "Chilled water side mixing volume" annotation (
+      Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={10,-60})));
-  Fluid.MixingVolumes.MixingVolume volCW(nPorts=3) if not is_airCoo
-    "Condenser water side mixing volume" annotation (Placement(transformation(
+  Fluid.Delays.DelayFirstOrder volCW(redeclare final package Medium = MediumCW,
+      nPorts=1+num) if not is_airCoo "Condenser water side mixing volume"
+    annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={10,60})));
-  Fluid.Actuators.Valves.TwoWayLinear valChi[num] if not has_dedPum
+  Fluid.Actuators.Valves.TwoWayLinear valChi[num](
+    redeclare each final package Medium = MediumCHW) if not has_dedPum
     "Chillers valves" annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=0,
         origin={-70,20})));
-  Buildings.Templates.BaseClasses.PassThroughFluid pas[num] if has_dedPum
+  Buildings.Templates.BaseClasses.PassThroughFluid pas[num](
+    redeclare each final package Medium = MediumCHW) if has_dedPum
     annotation (Placement(transformation(extent={{-60,-30},{-80,-10}})));
 equation
 
@@ -43,15 +47,15 @@ equation
       extent={{-6,3},{-6,3}},
       horizontalAlignment=TextAlignment.Right));
   connect(port_a2, volCHW.ports[1]) annotation (Line(points={{100,-60},{20,-60},
-          {20,-62.6667}}, color={0,127,255}));
-  connect(volCHW.ports[2:3], chi.port_a2) annotation (Line(points={{20,-57.3333},
-          {20,-58},{40,-58},{40,-12},{20,-12}}, color={0,127,255}));
+          {20,-60}},      color={0,127,255}));
+  connect(volCHW.ports[2:3], chi.port_a2) annotation (Line(points={{20,-60},{20,
+          -58},{40,-58},{40,-12},{20,-12}},     color={0,127,255}));
   connect(ports_a1, chi.port_a1) annotation (Line(points={{-100,60},{-40,60},{
           -40,12},{-20,12}}, color={0,127,255}));
-  connect(volCW.ports[1], port_b1) annotation (Line(points={{20,57.3333},{20,60},
-          {100,60}}, color={0,127,255}));
+  connect(volCW.ports[1], port_b1) annotation (Line(points={{20,60},{20,60},{
+          100,60}},  color={0,127,255}));
   connect(chi.port_b1, volCW.ports[2:3]) annotation (Line(points={{20,12},{40,
-          12},{40,62.6667},{20,62.6667}}, color={0,127,255}));
+          12},{40,60},{20,60}},       color={0,127,255}));
   connect(chi.port_b2, valChi.port_a) annotation (Line(points={{-20,-12},{-40,-12},
           {-40,0},{-54,0},{-54,20},{-60,20}}, color={0,127,255}));
   connect(valChi.port_b, ports_b2) annotation (Line(points={{-80,20},{-86,20},{-86,

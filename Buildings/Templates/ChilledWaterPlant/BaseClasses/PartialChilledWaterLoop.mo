@@ -7,9 +7,9 @@ model PartialChilledWaterLoop
   parameter Boolean is_airCoo
     "= true, chillers in group are air cooled, 
     = false, chillers in group are water cooled";
-  parameter Boolean has_byp "Chilled water loop has bypass"
+  parameter Boolean has_byp = false "Chilled water loop has bypass"
     annotation(Dialog(enable=not secPum.is_none));
-  parameter Boolean has_WSEByp
+  parameter Boolean has_WSEByp = false "Waterside economizer has a bypass to supply chilled water"
     annotation(Dialog(enable=not wse.is_none));
 
   inner replaceable
@@ -87,12 +87,6 @@ model PartialChilledWaterLoop
         rotation=0,
         origin={-20,-20})));
 
-  Fluid.FixedResistances.Junction mixComLeg(redeclare package Medium =
-        MediumCHW, energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)
-    "Common leg mixer" annotation (Placement(transformation(
-        extent={{10,10},{-10,-10}},
-        rotation=0,
-        origin={70,-50})));
 equation
   connect(TCHWRet.port_a,WSE. port_a2)
     annotation (Line(points={{140,-70},{-24,-70},{-24,-86},{-34,-86},{-34,-82}},
@@ -120,12 +114,8 @@ equation
     annotation (Line(points={{20,10},{60,10}}, color={0,127,255}));
   connect(pumSec.port_b, TCHWSup.port_a)
     annotation (Line(points={{80,10},{120,10}}, color={0,127,255}));
-  connect(TCHWRetByp.port_b, mixComLeg.port_2)
-    annotation (Line(points={{40,-50},{60,-50}}, color={0,127,255}));
-  connect(mixComLeg.port_1, splWSEByp.port_1) annotation (Line(points={{80,-50},
-          {100,-50},{100,-20},{-10,-20}}, color={0,127,255}));
-  connect(pumSec.port_comLeg, mixComLeg.port_3)
-    annotation (Line(points={{70,0},{70,-40}}, color={0,127,255}));
+  connect(TCHWRetByp.port_b, splWSEByp.port_1) annotation (Line(points={{40,-50},
+          {60,-50},{60,-20},{-10,-20}}, color={0,127,255}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false,
     extent={{-60,-100},{200,40}})),
     Diagram(

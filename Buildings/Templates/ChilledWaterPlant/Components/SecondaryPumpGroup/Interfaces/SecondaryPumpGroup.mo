@@ -15,19 +15,14 @@ partial model SecondaryPumpGroup
 
   parameter Integer nPum = 1 "Number of primary pumps";
 
-  Bus busCon "Control bus" annotation (Placement(transformation(
+  Bus busCon if not is_none
+             "Control bus" annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
         rotation=0,
         origin={0,100}), iconTransformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={0,100})));
-  Modelica.Fluid.Interfaces.FluidPort_b port_comLeg(
-    redeclare final package Medium = Medium,
-    m_flow(max=if allowFlowReversal then +Modelica.Constants.inf else 0),
-    h_outflow(start=Medium.h_default, nominal=Medium.h_default)) if not is_none
-    "Common leg outlet"
-    annotation (Placement(transformation(extent={{10,-110},{-10,-90}})));
 
 protected
   parameter Boolean is_none = typ <>Buildings.Templates.ChilledWaterPlant.Components.Types.SecondaryPumpGroup.None

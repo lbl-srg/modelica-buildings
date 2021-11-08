@@ -17,6 +17,7 @@ partial model PrimaryPumpGroup
   parameter Boolean has_ParChi "Chillers in inlet are connected in parallel";
   parameter Boolean has_WSEByp "= true if there is a waterside economizer bypass";
   parameter Boolean has_byp "= true if there is a bypass";
+  parameter Boolean has_comLeg "= true if there is a commong leg";
   parameter Boolean has_floSen "= true if primary flow is measured";
 
   parameter Integer nChi = 2 "Number of chillers";
@@ -66,7 +67,7 @@ partial model PrimaryPumpGroup
     redeclare final package Medium = Medium,
     m_flow(max=if allowFlowReversal then +Modelica.Constants.inf else 0),
     h_outflow(start=Medium.h_default, nominal=Medium.h_default))
-    if has_byp
+    if has_byp or has_comLeg
     "Pump group outlet for bypass or commong leg"
     annotation (Placement(transformation(extent={{10,-110},{-10,-90}})));
 

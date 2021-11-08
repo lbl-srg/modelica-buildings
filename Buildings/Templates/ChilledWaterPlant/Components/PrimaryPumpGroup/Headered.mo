@@ -21,7 +21,7 @@ model Headered
       if has_byp "Bypass valve"
     annotation (
       Placement(transformation(
-        extent={{-10,-10},{10,10}},
+        extent={{-10,10},{10,-10}},
         rotation=270,
         origin={0,-60})));
   Buildings.Templates.ChilledWaterPlant.Components.BaseClasses.ParallelPumps pum(
@@ -44,6 +44,12 @@ model Headered
     have_sen=has_floSen)
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
 
+  Buildings.Templates.BaseClasses.PassThroughFluid pas(redeclare each final
+      package Medium = Medium) if has_comLeg annotation (Placement(
+        transformation(
+        extent={{10,-10},{-10,10}},
+        rotation=90,
+        origin={80,-60})));
 protected
   parameter Integer nPorWSE = if has_WSEByp then 1 else 0;
   parameter Integer nPorChi = if has_ParChi then nChi else 1;
@@ -74,7 +80,7 @@ equation
       extent={{-6,3},{-6,3}},
       horizontalAlignment=TextAlignment.Right));
   connect(busCon.yValByp, valByp.y) annotation (Line(
-      points={{0,100},{0,80},{20,80},{20,-60},{12,-60}},
+      points={{0,100},{0,80},{-20,80},{-20,-60},{-12,-60}},
       color={255,204,51},
       thickness=0.5), Text(
       string="%first",
@@ -106,6 +112,10 @@ equation
       index=1,
       extent={{-6,3},{-6,3}},
       horizontalAlignment=TextAlignment.Right));
+  connect(port_byp, pas.port_b) annotation (Line(points={{0,-100},{0,-80},{80,
+          -80},{80,-70}}, color={0,127,255}));
+  connect(splByp.port_3, pas.port_a)
+    annotation (Line(points={{80,-10},{80,-50}}, color={0,127,255}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
                     Bitmap(
         extent={{-40,0},{40,80}},

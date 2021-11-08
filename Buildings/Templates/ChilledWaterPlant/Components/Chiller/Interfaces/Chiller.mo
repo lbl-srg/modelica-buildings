@@ -8,16 +8,17 @@ partial model Chiller
 
   parameter Buildings.Templates.ChilledWaterPlant.Components.Types.Chiller typ "Type of chiller"
     annotation (Evaluate=true, Dialog(group="Configuration"));
-  // ToDo: Other Chiller parameters
-
-  parameter Boolean is_airCoo = false
-    "= true, chillers in group are air cooled,
-    = false, chillers in group are water cooled";
-
   outer parameter String id
     "System identifier";
   outer parameter ExternData.JSONFile dat
     "External parameter file";
+
+  parameter Boolean is_airCoo = false
+    "= true, chillers in group are air cooled,
+    = false, chillers in group are water cooled";
+  replaceable parameter Buildings.Fluid.Chillers.Data.BaseClasses.Chiller
+    per "Chiller performance data"
+    annotation (Placement(transformation(extent={{60,80},{80,100}})));
 
   Bus busCon "Control bus" annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
