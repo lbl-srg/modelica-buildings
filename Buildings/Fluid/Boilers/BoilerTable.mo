@@ -20,7 +20,7 @@ model BoilerTable
     final table=per.effCur,
     final smoothness=Modelica.Blocks.Types.Smoothness.ContinuousDerivative)
     "Look-up table that represents a set of efficiency curves varying with both the firing rate (control signal) and the inlet water temperature"
-    annotation (Placement(transformation(extent={{-42,64},{-22,84}})));
+    annotation (Placement(transformation(extent={{-60,64},{-40,84}})));
 
   Modelica.Blocks.Sources.RealExpression TIn(
     y=Medium.temperature(state=Medium.setState_phX(
@@ -35,10 +35,10 @@ initial equation
     "Efficiency curve at full load (y = 1) must be provided.");
 
 equation
-  connect(effTab.u1, y) annotation (Line(points={{-44,80},{-120,80}},
+  connect(effTab.u1, y) annotation (Line(points={{-62,80},{-120,80}},
                 color={0,0,127}));
   connect(TIn.y, effTab.u2)
-    annotation (Line(points={{-73,68},{-44,68}}, color={0,0,127}));
+    annotation (Line(points={{-73,68},{-62,68}}, color={0,0,127}));
   annotation (Documentation(info="<html>
 <p>
 This is a model of a boiler whose efficiency is described 
@@ -61,16 +61,16 @@ First implementation. This is for
 </ul>
 </html>"), Icon(graphics={
         Rectangle(
-          origin={-80,-79},
+          origin={-48,37},
           lineColor={64,64,64},
           fillColor={255,215,136},
           fillPattern=FillPattern.Solid,
           extent={{-12,-11},{12,11}},
           radius=5.0),
         Line(
-          points={{-80,-68},{-80,-90}}),
+          points={{-48,48},{-48,26}}),
         Line(
-          points={{-92,-76},{-68,-76}}),
+          points={{-60,40},{-36,40}}),
         Line(
-          points={{-92,-84},{-68,-84}})}));
+          points={{-60,32},{-36,32}})}));
 end BoilerTable;
