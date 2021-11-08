@@ -41,7 +41,6 @@ model ElectroChromicWindow
     intConMod=Buildings.HeatTransfer.Types.InteriorConvection.Temperature,
     extConMod=Buildings.HeatTransfer.Types.ExteriorConvection.TemperatureWind,
     conBou(opa(T(each start = T_start))),
-    lat=0.65484753534827,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
                                                "Room model"
     annotation (Placement(transformation(extent={{62,-16},{102,24}})));

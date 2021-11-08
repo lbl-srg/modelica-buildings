@@ -105,7 +105,7 @@ model PartialIntegratedPrimary
     annotation (Placement(transformation(extent={{-60,-50},{-80,-70}})));
 equation
   connect(val5.y, yVal5)
-    annotation (Line(points={{50,-8},{50,0},{50,0},{-94,0},{-94,20},{-120,20}},
+    annotation (Line(points={{50,-8},{50,2},{-94,2},{-94,20},{-120,20}},
       color={0,0,127}));
   connect(yVal6, val6.y)
     annotation (Line(points={{-120,-10},{-94,-10},{-94,0},{-40,0},{-40,-8}},
@@ -128,6 +128,10 @@ Partial model that implements integrated waterside economizer in primary-ony chi
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+November 1, 2021, by Michael Wetter:<br/>
+Rerouted connection to avoid connections on top of each other in extending classes.
+</li>
 <li>
 April 13, 2021, by Kathryn Hinkelman:<br/>
 Added junctions.

@@ -4,7 +4,7 @@ model CoolingCoilHumidifyingHeating
     redeclare Buildings.Fluid.Actuators.Valves.TwoWayEqualPercentage watVal(
       final R=R,
       final delta0=delta0),
-    redeclare final Buildings.Fluid.Movers.SpeedControlled_y fan);
+    redeclare final Buildings.Fluid.Movers.SpeedControlled_y fan(y_start=yFan_start));
 
   // Parameters for water-side valve
   parameter Real R=50 "Rangeability, R=50...100 typically"

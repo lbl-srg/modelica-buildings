@@ -70,9 +70,8 @@ The convective heat transfer coefficients scale proportional to
 </p>
 <p>
 For a heat and moisture exchanger, use
-<a href=\"modelica://Buildings.Fluid.HeatExchangers.WetCoilEffectivenessNTU\">
-Buildings.Fluid.HeatExchangers.WetCoilEffectivenessNTU</a>
-instead of this model.
+<a href=\"modelica://Buildings.Fluid.MassExchangers.ConstantEffectiveness\">
+Buildings.Fluid.MassExchangers.ConstantEffectiveness</a>.
 </p>
 </html>", revisions="<html>
 <ul>

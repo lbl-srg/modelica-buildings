@@ -32,7 +32,7 @@ model MixedAirTemperatureSetpoint
   Modelica.Blocks.Sources.Constant TPreCoo(k=273.15 + 13)
     "Setpoint during pre-cooling"
     annotation (Placement(transformation(extent={{-80,-20},{-60,0}})));
-  VAVReheat.Controls.ControlBus controlBus
+  VAVReheat.BaseClasses.Controls.ControlBus controlBus
     annotation (Placement(transformation(extent={{-10,-90},{10,-70}})));
   Modelica.Blocks.Routing.Multiplex2 multiplex2_1
     annotation (Placement(transformation(extent={{-60,-70},{-40,-50}})));

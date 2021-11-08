@@ -71,9 +71,9 @@ block RoomMixingBox "Controller for room mixing box"
   Buildings.Controls.OBC.CDL.Continuous.Division gaiCooUnl
     "Gain of cooling, unlimited"
     annotation (Placement(transformation(extent={{-28,-80},{-8,-60}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swiHot "Switch for heating"
+  Buildings.Controls.OBC.CDL.Continuous.Switch swiHot "Switch for heating"
     annotation (Placement(transformation(extent={{74,30},{94,50}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swiCoo "Switch for cooling"
+  Buildings.Controls.OBC.CDL.Continuous.Switch swiCoo "Switch for cooling"
     annotation (Placement(transformation(extent={{72,-60},{92,-40}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput yFan
     "Fan operation, true if fan is running" annotation (Placement(
