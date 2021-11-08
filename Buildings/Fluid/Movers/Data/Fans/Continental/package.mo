@@ -6,7 +6,7 @@ package Continental "Package with performance data for fans of Continental Fan M
 <p>
 This package contains performance data for Continental fans.
 The data are taken from 
-<a href=\"https://https://continentalfan.com/e-catalog/industrial/centrifugal-blowers-fans-industrial/tfd-flange-mount-bc-airfoil-blowers/\">
+<a href=\"https://continentalfan.com/e-catalog/industrial/centrifugal-blowers-fans-industrial/tfd-flange-mount-bc-airfoil-blowers/\">
 https://continentalfan.com/e-catalog/industrial/centrifugal-blowers-fans-industrial/tfd-flange-mount-bc-airfoil-blowers/</a>.
 The original documents use the IP units and conversions are made 
 in this implementation.
