@@ -105,7 +105,7 @@ cellspacing=\"0\" cellpadding=\"2\" border=\"1\"><tr><td>
 </td>
 <td>
 <p>
-Gas - BTU/Hh output (high fire)
+Gas - BTU/hr output (high fire)
 </p>
 </td></tr>
 <tr><td>
