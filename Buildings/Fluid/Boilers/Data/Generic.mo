@@ -40,6 +40,10 @@ for the boiler model
 <a href=\"Modelica://Buildings.Fluid.Boilers.BoilerTable\">
 Buildings.Fluid.Boilers.BoilerTable</a>.
 </p>
+<p>
+Note that if the parameter <code>fue</code> is for the upper (or lower) heating value of the fuel,
+then the effiency curve must be specified for the upper (or lower) heating value.
+</p>
 </html>", revisions="<html>
 <ul>
 <li>
