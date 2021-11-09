@@ -16,7 +16,7 @@ partial model PartialBoiler "Boiler base class with efficiency unspecified"
     "Water volume of boiler"
     annotation(Dialog(tab = "Dynamics",
     enable = not (energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState)));
-  parameter Modelica.SIunits.Mass mDry =   1.5E-3*Q_flow_nominal
+  parameter Modelica.SIunits.Mass mDry = 1.5E-3*Q_flow_nominal
     "Mass of boiler that will be lumped to water heat capacity"
     annotation(Dialog(tab = "Dynamics",
     enable = not (energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState)));

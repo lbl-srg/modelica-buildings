@@ -22,7 +22,7 @@ record Generic "Generic data record for boiler performance"
     "Overall UA value";
   parameter Modelica.SIunits.Volume VWat = 1.5E-6*Q_flow_nominal
     "Water volume of boiler";
-  parameter Modelica.SIunits.Mass mDry =   1.5E-3*Q_flow_nominal
+  parameter Modelica.SIunits.Mass mDry = 1.5E-3*Q_flow_nominal
     "Mass of boiler that will be lumped to water heat capacity";
 
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal
