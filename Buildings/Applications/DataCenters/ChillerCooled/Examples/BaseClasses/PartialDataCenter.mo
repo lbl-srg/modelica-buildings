@@ -295,11 +295,6 @@ equation
       color={0,127,255},
       thickness=0.5));
   for i in 1:numChi loop
-    connect(cooTow[i].TAir, weaBus.TWetBul.TWetBul)
-      annotation (Line(points={{22,144},{44,144},{44,200},{-340,200},{-340,-20},
-            {-328,-20}},
-            color={255,204,51},
-        thickness=0.5));
     connect(TCWSup.port_a, cooTow[i].port_b)
       annotation (Line(
         points={{-22,140},{0,140}},
@@ -314,6 +309,14 @@ equation
             60},{110,140},{70,140}},
             color={0,127,255},
             thickness=0.5));
+  connect(weaBus.TWetBul, cooTow[i].TAir) annotation (Line(
+      points={{-328,-20},{-340,-20},{-340,200},{32,200},{32,144},{22,144}},
+      color={255,204,51},
+      thickness=0.5), Text(
+      string="%first",
+      index=-1,
+      extent={{6,3},{6,3}},
+      horizontalAlignment=TextAlignment.Left));
   end for;
   connect(senRelPre.port_b, ahu.port_b1)
     annotation (Line(points={{18,-96},{30,-96},{30,-114},{20,-114}},
@@ -338,14 +341,6 @@ equation
       points={{0,24},{-8,24},{-8,0},{-16,0}},
       color={0,127,255},
       thickness=0.5));
-  connect(weaData.weaBus, weaBus.TWetBul)
-    annotation (Line(
-      points={{-340,-70},{-328,-70},{-328,-20}},
-      color={255,204,51},
-      thickness=0.5), Text(
-      textString="%second",
-      index=1,
-      extent={{6,3},{6,3}}));
   connect(chiWSE.port_b1, TCWRet.port_a)
     annotation (Line(
       points={{20,36},{40,36},{40,60},{82,60}},
@@ -519,6 +514,15 @@ equation
           -236,-32}}, color={0,0,127}));
   connect(gai1.u, senRelPre.p_rel)
     annotation (Line(points={{-198,-60},{8,-60},{8,-87}}, color={0,0,127}));
+  connect(weaData.weaBus, weaBus) annotation (Line(
+      points={{-340,-70},{-328,-70},{-328,-20}},
+      color={255,204,51},
+      thickness=0.5), Text(
+      string="%second",
+      index=1,
+      extent={{6,3},{6,3}},
+      horizontalAlignment=TextAlignment.Left));
+
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false,
     extent={{-360,-200},{160,220}})),
     Documentation(info="<html>
@@ -534,6 +538,13 @@ Taylor, S. T. (2014). How to design &amp; control waterside economizers. ASHRAE 
 </ul>
 </html>", revisions="<html>
 <ul>
+<li>
+November 1, 2021, by Michael Wetter:<br/>
+Corrected weather data bus connection which was structurally incorrect
+and did not parse in OpenModelica.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2706\">issue 2706</a>.
+</li>
 <li>
 October 6, 2020, by Michael Wetter:<br/>
 Set <code>val.use_inputFilter=false</code> because pump worked against closed valve at <i>t=60</i> seconds,
