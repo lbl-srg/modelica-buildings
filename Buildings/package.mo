@@ -302,9 +302,22 @@ to <b style=\"color:blue\">existing</b> libraries:
                      Buildings.Fluid.Movers.BaseClasses.Euler.computedCurves<br/>
                      Buildings.Fluid.Movers.BaseClasses.Euler.peakCondition<br/>
                      Buildings.Fluid.Movers.BaseClasses.Validation.Euler<br/>
+                     Buildings.Fluid.Movers.Data.Fans.Continental.TFD200<br/>
+                     Buildings.Fluid.Movers.Data.Fans.Continental.TFD225<br/>
+                     Buildings.Fluid.Movers.Data.Fans.Continental.TFD250<br/>
+                     Buildings.Fluid.Movers.Data.Fans.Continental.TFD280<br/>
+                     Buildings.Fluid.Movers.Data.Fans.Continental.TFD315<br/>
+                     Buildings.Fluid.Movers.Data.Fans.Continental.TFD335<br/>
+                     Buildings.Fluid.Movers.Data.Fans.Continental.TFD400<br/>
+                     Buildings.Fluid.Movers.Data.Fans.Continental.TFD450<br/>
+                     Buildings.Fluid.Movers.Data.Fans.Greenheck.BIDW12<br/>
+                     Buildings.Fluid.Movers.Data.Fans.Greenheck.BIDW13<br/>
+                     Buildings.Fluid.Movers.Data.Fans.Greenheck.BIDW15<br/>
+                     Buildings.Fluid.Movers.Data.Fans.Greenheck.BIDW16<br/>
+                     Buildings.Fluid.Movers.Data.Fans.Greenheck.BIDW18                     
     </td>
     <td valign=\"top\">Package that calculates the mover efficiency using Euler number and its correlation,
-                     as well as a validation model for this method.<br/>
+                     its validation model, and relevant data packages.<br/>
                      This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2668\">issue 2668</a>.
     </td>
 </tr>
@@ -748,7 +761,7 @@ have been <b style=\"color:blue\">improved</b> in a
                        Buildings.ThermalZones.Detailed.CFD<br/>
                        Buildings.ThermalZones.Detailed.BaseClasses.ExteriorBoundaryConditions<br/>
                        Buildings.ThermalZones.Detailed.BaseClasses.ExteriorBoundaryConditionsWithWindow<br/>
-                       Buildings.ThermalZones.Detailed.Validation.BaseClasses.SingleZoneFloor
+                       " + "Buildings.ThermalZones.Detailed.Validation.BaseClasses.SingleZoneFloor
     </td>
     <td valign=\"top\">Removed parameter <code>lat</code> for the latitude as this is now obtained from the weather data bus.<br/>
                        This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1477\">IBPSA, issue #1477</a>.<br/>
