@@ -49,7 +49,7 @@ record ConstructionRecords "Data records for construction data"
     annotation (HideResult=true);
   annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-200,-200},
             {100,100}})),       Icon(coordinateSystem(preserveAspectRatio=true,
-          extent={{-200,-200},{100,100}})),
+          extent={{-100,-100},{100,100}})),
 Documentation(
 info="<html>
 <p>
