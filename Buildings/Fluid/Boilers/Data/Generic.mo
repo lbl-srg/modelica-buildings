@@ -17,7 +17,7 @@ record Generic "Generic data record for boiler performance"
   parameter Buildings.Fluid.Data.Fuels.Generic fue "Fuel type"
    annotation (choicesAllMatching = true);
 
-  parameter Modelica.SIunits.Power Q_flow_nominal = 3000 "Nominal heating power";
+  parameter Modelica.SIunits.Power Q_flow_nominal "Nominal heating power";
   parameter Modelica.SIunits.ThermalConductance UA=0.05*Q_flow_nominal/30
     "Overall UA value";
   parameter Modelica.SIunits.Volume VWat = 1.5E-6*Q_flow_nominal
@@ -25,8 +25,7 @@ record Generic "Generic data record for boiler performance"
   parameter Modelica.SIunits.Mass mDry =   1.5E-3*Q_flow_nominal
     "Mass of boiler that will be lumped to water heat capacity";
 
-  parameter Modelica.SIunits.MassFlowRate m_flow_nominal=
-    Q_flow_nominal/dT_nominal/4200
+  parameter Modelica.SIunits.MassFlowRate m_flow_nominal
     "Nominal mass flow rate";
   parameter Modelica.SIunits.PressureDifference dp_nominal = 3000
     "Pressure drop at m_flow_nominal";
