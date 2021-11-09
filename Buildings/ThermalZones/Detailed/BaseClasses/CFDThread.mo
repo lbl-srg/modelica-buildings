@@ -1,8 +1,10 @@
 within Buildings.ThermalZones.Detailed.BaseClasses;
 class CFDThread "class used to handle CFD thread"
    extends ExternalObject;
+
    // constructor
    function constructor "allocate memeory for cosimulation variables"
+    extends Modelica.Icons.Function;
     output CFDThread FFDThre "the handler of FFD thread";
     external"C" FFDThre = cfdcosim()   annotation (Include="#include <cfdcosim.c>",
       IncludeDirectory="modelica://Buildings/Resources/C-Sources",
@@ -22,6 +24,7 @@ First implementation.
 
    // destructor
    function destructor "release ffd.dll or ffd.so"
+    extends Modelica.Icons.Function;
     input CFDThread FFDThre "the handler of FFD thread";
     external"C" cfdSendStopCommand(FFDThre) annotation (Include="#include <cfdSendStopCommand.c>",
       IncludeDirectory="modelica://Buildings/Resources/C-Sources",

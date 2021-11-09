@@ -1,5 +1,6 @@
 within Buildings.ThermalZones.Detailed.BaseClasses;
 function cfdExchangeData "Exchange data between CFD and Modelica"
+  extends Modelica.Icons.Function;
   input Integer flag "Communication flag to CFD";
   input Modelica.SIunits.Time t "Current Modelica simulation time to CFD";
   input Modelica.SIunits.Time dt(min=100*Modelica.Constants.eps)
