@@ -70,8 +70,9 @@ This function computes the curves for efficiency <i>&eta;</i>
 and power <i>P</i> against flow rate <i>V&#775;</i>. 
 Eleven points are computed using the correlation of Euler number, 
 representing 0% to 100% of the maximum flow with increments of 10%. 
-Because the computed power may approach infinity near zero flow and max flow 
-due to zero efficiency, these two points are replaced by extrapolation. 
+Because the computed power may approach infinity 
+near zero flow and max flow (zero pressure rise) due to zero efficiency, 
+these two points are replaced by extrapolation. 
 </p>
 </html>",
 revisions="<html>
