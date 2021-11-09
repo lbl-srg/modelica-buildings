@@ -56,6 +56,7 @@ partial model PartialBoiler "Boiler base class with efficiency unspecified"
     "Prescribed heat flow"
     annotation (Placement(transformation(extent={{-43,-40},{-23,-20}})));
   Modelica.Blocks.Sources.RealExpression Q_flow_in(y=QWat_flow)
+    "Heat transfer from gas into water"
     annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
   Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor temSen
     "Temperature of fluid"
