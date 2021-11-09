@@ -49,8 +49,8 @@ model BoilerTableEfficiencyCurves
     T_start=293.15,
     per=per) "Boiler 3 set at 100% firing rate"
     annotation (Placement(transformation(extent={{20,-76},{40,-56}})));
-  HeatTransfer.Sources.FixedTemperature
-    TAmb3(T=288.15) "Ambient temperature in boiler room"
+  HeatTransfer.Sources.FixedTemperature TAmb3(T=288.15)
+    "Ambient temperature in boiler room"
     annotation (Placement(transformation(extent={{0,-48},{20,-28}})));
 
   Modelica.Blocks.Sources.Constant y1(k=0.05)
@@ -65,7 +65,9 @@ model BoilerTableEfficiencyCurves
   Modelica.Blocks.Sources.Ramp TIn(
     height=per.effCur[1,end]-per.effCur[1,2],
     duration=3600,
-    offset=per.effCur[1,2])
+    offset=per.effCur[1,2],
+    y(final unit="K",
+      displayUnit="degC"))
     "Ramps the T_inlet from the first to the last temperature provided by the efficiency curve table"
     annotation (Placement(transformation(extent={{-62,-26},{-42,-6}})));
 
@@ -83,20 +85,20 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(boi1.port_b, sin.ports[1]) annotation (Line(
-      points={{40,54},{52,54},{52,-17.3333},{62,-17.3333}},
+      points={{40,54},{52,54},{52,-21.3333},{62,-21.3333}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(TAmb3.port, boi3.heatPort)
     annotation (Line(points={{20,-38},{30,-38},{30,-58.8}}, color={191,0,0}));
   connect(boi3.port_b, sin.ports[3]) annotation (Line(points={{40,-66},{52,-66},
-          {52,-22.6667},{62,-22.6667}}, color={0,127,255}));
+          {52,-18.6667},{62,-18.6667}}, color={0,127,255}));
   connect(boi1.port_a, sou.ports[1]) annotation (Line(points={{20,54},{-6,54},{
-          -6,-17.3333},{-12,-17.3333}},
+          -6,-21.3333},{-12,-21.3333}},
                               color={0,127,255}));
   connect(boi3.port_a, sou.ports[2]) annotation (Line(points={{20,-66},{-6,-66},
           {-6,-20},{-12,-20}},           color={0,127,255}));
   connect(boi2.port_a, sou.ports[3]) annotation (Line(points={{20,-6},{-6,-6},{
-          -6,-22.6667},{-12,-22.6667}},
+          -6,-18.6667},{-12,-18.6667}},
                              color={0,127,255}));
   connect(y1.y, boi1.y) annotation (Line(points={{-69,62},{18,62}},
                 color={0,0,127}));
@@ -111,10 +113,17 @@ equation
     experiment(Tolerance=1e-6, StopTime=3600),
     Documentation(info="<html>
 <p>    
-This simple model displays the efficiency curves supplied to
+This model computes the efficiency of boilers for using the model
 <a href=\"Buildings.Fluid.Boilers.BoilerTable\">
 Buildings.Fluid.Boilers.BoilerTable</a>
 at firing rates of 5%, 50%, and 100%.
+</p>
+<p>
+The models are configured to compute the following efficiency curves.
+</p>
+<p align=\"center\">
+<img alt=\"Image of efficiency curves\"
+src=\"modelica://Buildings/Resources/Images/Fluid/Boilers/Validation/BoilerTableEfficiencyCurves.png\"/>
 </p>
 </html>", revisions="<html>
 <ul>
