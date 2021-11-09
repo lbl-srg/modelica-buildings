@@ -2,7 +2,7 @@ within Buildings.Fluid.Movers.BaseClasses.Validation;
 model Euler
   "Simple model to validate the power computation method using the Euler number"
   extends Modelica.Icons.Example;
-  import MoverRecord = Buildings.Fluid.Movers.Data.Pumps.Wilo.Stratos30slash1to8;
+  import MoverRecord = Buildings.Fluid.Movers.Data.Fans.Greenheck.BIDW13;
 
   parameter Integer nOri(min=1)=size(per1.power.V_flow,1)
     "Number of data points for pressure curve"
