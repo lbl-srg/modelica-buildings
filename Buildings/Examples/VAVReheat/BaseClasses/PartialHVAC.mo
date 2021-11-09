@@ -574,13 +574,13 @@ equation
     extent={{-380,-300},{1420,360}})),
     Documentation(info="<html>
 <p>
-This partial model consist of an HVAC system that serves five thermal zones.
+This partial model consist of an HVAC system that serves multiple thermal zones.
 </p>
 <p>
 The HVAC system is a variable air volume (VAV) flow system with economizer
 and a heating and cooling coil in the air handler unit. There is also a
-reheat coil and an air damper in each of the five zone inlet branches.
-The figure below shows the schematic diagram of the HVAC system
+reheat coil and an air damper in each of the zone inlet branches.
+The figure below shows the schematic diagram of an HVAC system that supplies 5 zones:
 </p>
 <p align=\"center\">
 <img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Examples/VAVReheat/vavSchematics.png\" border=\"1\"/>
@@ -596,6 +596,11 @@ Buildings.Examples.VAVReheat.Guideline36</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+November 9, 2021, by Baptiste:<br/>
+Vectorized the terminal boxes to be expanded to any number of zones.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2735\">issue #2735</a>.
+</li>
 <li>
 October 4, 2021, by Michael Wetter:<br/>
 Refactored <a href=\"modelica://Buildings.Examples.VAVReheat\">Buildings.Examples.VAVReheat</a>

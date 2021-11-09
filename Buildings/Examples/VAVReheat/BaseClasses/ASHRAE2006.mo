@@ -300,7 +300,7 @@ equation
 This model consist of an HVAC system is a variable air volume (VAV) flow system with economizer
 and a heating and cooling coil in the air handler unit. There is also a
 reheat coil and an air damper in each of the five zone inlet branches.
-The figure below shows the schematic diagram of the HVAC system
+The figure below shows the schematic diagram of an HVAC system that supplies 5 zones:
 </p>
 <p>
 <img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Examples/VAVReheat/vavSchematics.png\" border=\"1\"/>
@@ -309,11 +309,7 @@ The figure below shows the schematic diagram of the HVAC system
 See the model
 <a href=\"modelica://Buildings.Examples.VAVReheat.BaseClasses.PartialHVAC\">
 Buildings.Examples.VAVReheat.BaseClasses.PartialHVAC</a>
-for a description of the HVAC system,
-and see the model
-<a href=\"modelica://Buildings.Examples.VAVReheat.BaseClasses.Floor\">
-Buildings.Examples.VAVReheat.BaseClasses.Floor</a>
-for a description of the building envelope.
+for a description of the HVAC system.
 </p>
 <p>
 The control is an implementation of the control sequence
@@ -359,6 +355,11 @@ ASHRAE, Atlanta, GA, 2006.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+November 9, 2021, by Baptiste:<br/>
+Vectorized the terminal boxes to be expanded to any number of zones.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2735\">issue #2735</a>.
+</li>
 <li>
 October 4, 2021, by Michael Wetter:<br/>
 Refactored <a href=\"modelica://Buildings.Examples.VAVReheat\">Buildings.Examples.VAVReheat</a>
