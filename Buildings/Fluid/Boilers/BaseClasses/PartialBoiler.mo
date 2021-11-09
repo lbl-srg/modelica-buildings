@@ -39,6 +39,7 @@ partial model PartialBoiler "Boiler base class with efficiency unspecified"
   Modelica.Blocks.Interfaces.RealOutput T(
     final quantity="ThermodynamicTemperature",
     final unit = "K", displayUnit = "degC", min=0)
+    "Temperature of the fluid"
     annotation (Placement(transformation(extent={{100,70},{120,90}})));
 
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heatPort
