@@ -10,8 +10,8 @@ model Large2Floors
 
 protected
   parameter String idfName=Modelica.Utilities.Files.loadResource(
-    "modelica://Buildings/Resources/Data/ThermalZones/EnergyPlus/Validation/" +
-    "ScalableLargeOffice/ScaledLargeOfficeNew2004_Chicago_" + String(numFlo) + "floors.idf")
+    "modelica://Buildings/Resources/Data/Examples/ZoneScaling/" +
+    "ScaledLargeOfficeNew2004_Chicago_" + String(numFlo) + "floors.idf")
     "Name of the IDF file";
 
   inner Buildings.ThermalZones.EnergyPlus.Building building(
@@ -24,7 +24,8 @@ protected
     annotation (
 experiment(
       StopTime=432000,
-      Tolerance=1e-05),
+      Tolerance=1e-05,
+      __Dymola_Algorithm="Cvode"),
 Documentation(revisions="<html>
 <ul>
 <li>
