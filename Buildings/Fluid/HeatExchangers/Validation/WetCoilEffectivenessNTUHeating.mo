@@ -247,7 +247,7 @@ equation
   "Simulate and plot"),
   Documentation(info="<html>
 <p>
-This model simulates various coil models in heating conditions, with 
+This model simulates various coil models in heating conditions, with
 </p>
 <ul>
 <li>
