@@ -1,7 +1,6 @@
 within Buildings.Templates.AirHandlersFans.Validation;
 model CoilCoolingCounterFlow
-  extends NoFanNoReliefSingleDamper(
-                          redeclare
+  extends NoEconomizer(   redeclare
     UserProject.AHUs.CoilCoolingCounterFlow ahu);
 
   Fluid.Sources.Boundary_pT bou2(

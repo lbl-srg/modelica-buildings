@@ -72,15 +72,15 @@ model VAVMultiZone "Multiple-Zone VAV"
     annotation (Placement(transformation(extent={{-20,260},{20,300}}),
       iconTransformation(extent={{-20,182},{20,218}})));
 
-  inner replaceable Components.OutdoorReliefReturnSection.EconomizerWithRelief
-    secOutRel constrainedby
+  // Currently only the configuration with economizer is supported.
+  inner replaceable Components.OutdoorReliefReturnSection.Economizer secOutRel
+    constrainedby
     Components.OutdoorReliefReturnSection.Interfaces.PartialOutdoorReliefReturnSection(
-      redeclare final package MediumAir = MediumAir)
+     redeclare final package MediumAir = MediumAir)
     "Outdoor/relief/return air section"
     annotation (
-    choicesAllMatching=true,
-    Dialog(group="Outdoor/relief/return air section"),
-    Placement(transformation(extent={{-280,-220},{-120,-60}})));
+      Dialog(group="Outdoor/relief/return air section"),
+      Placement(transformation(extent={{-280,-220},{-120,-60}})));
 
   // FIXME: bind have_sen to control option.
   Buildings.Templates.Components.Sensors.Temperature TMix(
@@ -109,8 +109,8 @@ model VAVMultiZone "Multiple-Zone VAV"
     redeclare final package MediumSou = MediumHea,
     final fun=Buildings.Templates.Components.Types.CoilFunction.Heating)
     "Heating coil" annotation (
-    choices(choice(redeclare Buildings.Templates.BaseClasses.Coils.None coiHea "No coil"),
-        choice(redeclare Buildings.Templates.BaseClasses.Coils.WaterBasedHeating coiHea
+    choices(choice(redeclare Buildings.Templates.Components.Coils.None coiHea "No coil"),
+        choice(redeclare Buildings.Templates.Components.Coils.WaterBasedHeating coiHea
           "Water-based")),
     Dialog(group="Heating coil"),
     Placement(transformation(extent={{-40,-210},{-20,-190}})));
@@ -131,8 +131,8 @@ model VAVMultiZone "Multiple-Zone VAV"
     redeclare final package MediumSou = MediumCoo,
     final fun=Buildings.Templates.Components.Types.CoilFunction.Cooling)
     "Cooling coil" annotation (
-    choices(choice(redeclare Buildings.Templates.BaseClasses.Coils.None coiCoo "No coil"),
-        choice(redeclare Buildings.Templates.BaseClasses.Coils.WaterBasedCooling coiCoo
+    choices(choice(redeclare Buildings.Templates.Components.Coils.None coiCoo "No coil"),
+        choice(redeclare Buildings.Templates.Components.Coils.WaterBasedCooling coiCoo
           "Water-based")),
     Dialog(group="Cooling coil"),
     Placement(transformation(extent={{20,-210},{40,-190}})));

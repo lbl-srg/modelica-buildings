@@ -1,6 +1,6 @@
 within Buildings.Templates.AirHandlersFans.Validation;
 model CoilCoolingEffectivenessNTU
-  extends NoFanNoReliefSingleDamper(
+  extends NoEconomizer(
     redeclare  UserProject.AHUs.CoilCoolingEffectivenessNTU ahu);
 
   Fluid.Sources.Boundary_pT bou2(

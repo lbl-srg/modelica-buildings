@@ -1,6 +1,7 @@
 within Buildings.Templates.AirHandlersFans.Validation.UserProject.AHUs;
 model CoilCoolingDXMultiStage
-  extends NoFanNoReliefSingleDamper(
+  extends Buildings.Templates.AirHandlersFans.VAVMultiZone(
+    id="VAV_1",
     nZon=1,
     nGro=1,
     redeclare Buildings.Templates.Components.Coils.DirectExpansion coiCoo(

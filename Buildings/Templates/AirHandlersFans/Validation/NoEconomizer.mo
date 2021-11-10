@@ -1,5 +1,5 @@
 within Buildings.Templates.AirHandlersFans.Validation;
-model NoFanNoReliefSingleDamper
+model NoEconomizer
   extends Modelica.Icons.Example;
   replaceable package MediumAir=Buildings.Media.Air
     constrainedby Modelica.Media.Interfaces.PartialMedium
@@ -18,7 +18,7 @@ model NoFanNoReliefSingleDamper
       Evaluate=true,
       Placement(transformation(extent={{76,76},{96,96}})));
 
-  replaceable UserProject.AHUs.NoFanNoReliefSingleDamper ahu constrainedby
+  replaceable UserProject.AHUs.NoEconomizer ahu constrainedby
     Buildings.Templates.AirHandlersFans.VAVMultiZone(redeclare final package
       MediumAir = MediumAir, redeclare final package MediumCoo = MediumCoo)
     annotation (Placement(transformation(extent={{-20,-20},{20,20}})));
@@ -92,8 +92,8 @@ equation
       points={{-70,30},{0,30},{0,20}},
       color={255,204,51},
       thickness=0.5));
-  connect(pInd.p, busAHU.pInd) annotation (Line(points={{59,40},{14,40},{14,
-          40.1},{-19.9,40.1}}, color={0,0,127}), Text(
+  connect(pInd.p, busAHU.pInd) annotation (Line(points={{59,40},{14,40},{14,40},
+          {-20,40}},           color={0,0,127}), Text(
       string="%second",
       index=1,
       extent={{-6,3},{-6,3}},
@@ -114,4 +114,4 @@ equation
   experiment(Tolerance=1e-6, StopTime=1),
   Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)));
-end NoFanNoReliefSingleDamper;
+end NoEconomizer;

@@ -1,7 +1,6 @@
 within Buildings.Templates.AirHandlersFans.Validation;
 model ControlsGuideline36
-  extends NoFanNoReliefSingleDamper(
-                          redeclare
+  extends NoEconomizer(   redeclare
       UserProject.AHUs.ControlsGuideline36 ahu);
 
   Fluid.Sources.Boundary_pT bou2(

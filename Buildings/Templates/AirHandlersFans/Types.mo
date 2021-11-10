@@ -46,12 +46,12 @@ package Types "AHU types"
       "Dedicated minimum OA damper (modulated) with AFMS")
     "Enumeration to configure the outdoor air section";
   type OutdoorReliefReturnSection = enumeration(
-      EconomizerWithRelief
-      "Air economizer with relief branch",
+      Economizer
+      "Air economizer",
       EconomizerNoRelief
-      "Air economizer with no relief branch",
-      HeatRecovery
-      "Heat recovery")
+      "Air economizer - No relief branch",
+      NoEconomizer
+      "No air economizer")
     "Enumeration to configure the outdoor/relief/return air section";
   type ReliefReturnSection = enumeration(
       NoEconomizer
