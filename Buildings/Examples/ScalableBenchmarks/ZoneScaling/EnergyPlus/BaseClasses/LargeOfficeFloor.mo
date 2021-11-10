@@ -54,33 +54,33 @@ model LargeOfficeFloor "Model of a single floor of a large office building"
   Modelica.SIunits.Temperature TAirWes = wes.TAir
     "Air temperature west zone";
 
-  ThermalZones.EnergyPlus.ThermalZone sou(
+  Buildings.ThermalZones.EnergyPlus.ThermalZone sou(
     redeclare package Medium = Medium,
     nPorts=5,
     zoneName="Perimeter_fl" + String(floId) + "_ZN_1") "South zone"
     annotation (Placement(transformation(extent={{144,-44},{184,-4}})));
-  ThermalZones.EnergyPlus.ThermalZone eas(
+  Buildings.ThermalZones.EnergyPlus.ThermalZone eas(
     redeclare package Medium = Medium,
     nPorts=5,
     zoneName="Perimeter_fl" + String(floId) + "_ZN_2") "East zone"
     annotation (Placement(transformation(extent={{300,68},{340,108}})));
-  ThermalZones.EnergyPlus.ThermalZone nor(
+  Buildings.ThermalZones.EnergyPlus.ThermalZone nor(
     redeclare package Medium = Medium,
     nPorts=5,
     zoneName="Perimeter_fl" + String(floId) + "_ZN_3") "North zone"
     annotation (Placement(transformation(extent={{144,116},{184,156}})));
-  ThermalZones.EnergyPlus.ThermalZone wes(
+  Buildings.ThermalZones.EnergyPlus.ThermalZone wes(
     redeclare package Medium = Medium,
     nPorts=5,
     zoneName="Perimeter_fl" + String(floId) + "_ZN_4") "West zone"
     annotation (Placement(transformation(extent={{12,58},{52,98}})));
-  ThermalZones.EnergyPlus.ThermalZone cor(
+  Buildings.ThermalZones.EnergyPlus.ThermalZone cor(
     redeclare package Medium = Medium,
     nPorts=11,
     zoneName="Core_fl" + String(floId)) "Core zone"
     annotation (Placement(transformation(extent={{144,60},{184,100}})));
 
-  ThermalZones.EnergyPlus.ThermalZone att(
+  Buildings.ThermalZones.EnergyPlus.ThermalZone att(
     redeclare package Medium = Medium,
     zoneName="Plenum_fl" + String(floId),
     T_start=275.15) "Attic zone"
@@ -101,23 +101,23 @@ initial equation
 
 equation
   connect(sou.heaPorAir, temAirSou.port) annotation (Line(
-      points={{164,-24},{224,-24},{224,100},{264,100},{264,320},{292,320}},
+      points={{164,-24},{224,-24},{224,100},{264,100},{264,350},{290,350}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(eas.heaPorAir, temAirEas.port) annotation (Line(
-      points={{320,88},{286,88},{286,290},{292,290}},
+      points={{320,88},{286,88},{286,320},{292,320}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(nor.heaPorAir, temAirNor.port) annotation (Line(
-      points={{164,136},{164,136},{164,258},{292,258}},
+      points={{164,136},{164,136},{164,290},{292,290}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(wes.heaPorAir, temAirWes.port) annotation (Line(
-      points={{32,78},{70,78},{70,114},{186,114},{186,228},{294,228}},
+      points={{32,78},{70,78},{70,114},{186,114},{186,258},{292,258}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(cor.heaPorAir, temAirCor.port) annotation (Line(
-      points={{164,80},{164,350},{290,350}},
+      points={{164,80},{164,228},{294,228}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(sou.ports[1], portsSou[1]) annotation (Line(
@@ -390,6 +390,20 @@ equation
           fileName="modelica://Buildings/Resources/Images/ThermalZones/EnergyPlus/spawn_icon_darkbluetxmedres.png",
           visible=not usePrecompiledFMU)}),
     Documentation(info="<html>
+<p>
+Model of a large office floor composed of 5 thermal zones based on
+the reference large office building.<br/>
+The exterior envelope construction is representative of the New (2004)
+construction reference for the climate zone 5A (Chicago).<br/>
+The envelope heat transfer is modeled with EnergyPlus.
+</p>
+<h4>References</h4>
+<p>
+Deru, M. et al. (2011). U.S. Department of Energy Commercial
+Reference Building Models of the National Building Stock. 
+<i>NREL</i>, TP-5500-46861.
+https://www.nrel.gov/docs/fy11osti/46861.pdf.
+</p>
 </html>",
 revisions="<html>
 <ul>

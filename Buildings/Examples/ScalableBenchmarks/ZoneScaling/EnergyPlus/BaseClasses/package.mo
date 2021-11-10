@@ -7,6 +7,9 @@ package BaseClasses "Package with base classes"
     preferredView="info",
     Documentation(
       info="<html>
+<p>
+Package with base classes for scalable building models implementation.
+</p>
 </html>", revisions="<html>
 <ul>
 <li>

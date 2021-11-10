@@ -72,15 +72,16 @@ partial model HVACMultiFloorBuilding
     each final THotWatInl_nominal=THotWatInl_nominal) "HVAC system"
     annotation (Placement(transformation(extent={{-48,-28},{40,22}})));
 
-  replaceable VAVReheat.BaseClasses.PartialFloor flo[numFlo] constrainedby
-    VAVReheat.BaseClasses.PartialFloor(redeclare final package Medium = MediumA)
+  replaceable Buildings.Examples.VAVReheat.BaseClasses.PartialFloor flo[numFlo] constrainedby
+    Buildings.Examples.VAVReheat.BaseClasses.PartialFloor(redeclare final
+      package Medium =                                                                     MediumA)
     "Building floors"
     annotation (Placement(transformation(extent={{20,38},{94,82}})));
 
   Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(
    filNam=weaName, computeWetBulbTemperature=false) "Weather data reader"
     annotation (Placement(transformation(extent={{-90,0},{-70,20}})));
-  Fluid.Sources.Boundary_pT sinHea(
+  Buildings.Fluid.Sources.Boundary_pT sinHea(
     redeclare package Medium = MediumW,
     p=300000,
     T=THotWatInl_nominal,
@@ -89,7 +90,7 @@ partial model HVACMultiFloorBuilding
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={-50,-80})));
-  Fluid.Sources.Boundary_pT souHea(
+  Buildings.Fluid.Sources.Boundary_pT souHea(
     redeclare package Medium = MediumW,
     p(displayUnit="Pa") = 300000 + 6000,
     T=THotWatInl_nominal,
@@ -98,7 +99,7 @@ partial model HVACMultiFloorBuilding
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={-80,-80})));
-  Fluid.Sources.Boundary_pT sinCoo(
+  Buildings.Fluid.Sources.Boundary_pT sinCoo(
     redeclare package Medium = MediumW,
     p=300000,
     T=285.15,
@@ -107,7 +108,7 @@ partial model HVACMultiFloorBuilding
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={20,-80})));
-  Fluid.Sources.Boundary_pT souCoo(
+  Buildings.Fluid.Sources.Boundary_pT souCoo(
     redeclare package Medium = MediumW,
     p(displayUnit="Pa") = 300000 + 6000,
     T=285.15,
@@ -117,7 +118,7 @@ partial model HVACMultiFloorBuilding
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={-20,-80})));
-  Fluid.Sources.Boundary_pT souHeaTer(
+  Buildings.Fluid.Sources.Boundary_pT souHeaTer(
     redeclare package Medium = MediumW,
     p(displayUnit="Pa") = 300000 + 6000,
     T=THotWatInl_nominal,
@@ -127,7 +128,7 @@ partial model HVACMultiFloorBuilding
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={50,-80})));
-  Fluid.Sources.Boundary_pT sinHeaTer(
+  Buildings.Fluid.Sources.Boundary_pT sinHeaTer(
     redeclare package Medium = MediumW,
     p(displayUnit="Pa") = 300000,
     T=THotWatInl_nominal,
@@ -207,16 +208,14 @@ equation
   annotation (
     Documentation(info="<html>
 <p>
-Partial model that contains an HVAC system connected to a building
-with five conditioned thermal zones.
+Partial model that contains <code>numFlo</code> air handlers connected
+to <code>numFlo</code> floors with five conditioned thermal zones each.
 </p>
 </html>", revisions="<html>
 <ul>
 <li>
-October 4, 2021, by Michael Wetter:<br/>
-Refactored <a href=\"modelica://Buildings.Examples.VAVReheat\">Buildings.Examples.VAVReheat</a>
-and its base classes to separate building from HVAC model.<br/>
-This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2652\">issue #2652</a>.
+November 10, 2021, by Baptiste Ravache:<br/>
+First implementation.
 </li>
 </ul>
 </html>"),

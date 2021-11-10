@@ -9,6 +9,11 @@ package EnergyPlus "Package with scalable large office buildings modeled with En
     preferredView="info",
     Documentation(
       info="<html>
+<p>
+Collection of scaled models using 
+<a href=\"modelica://Buildings.ThermalZones.EnergyPlus.ThermalZone\">
+Buildings.ThermalZones.EnergyPlus.ThermalZone</a> thermal zones.
+</p>
 </html>", revisions="<html>
 <ul>
 <li>

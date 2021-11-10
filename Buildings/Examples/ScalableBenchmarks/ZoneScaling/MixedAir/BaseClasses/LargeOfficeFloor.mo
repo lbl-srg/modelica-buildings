@@ -15,14 +15,14 @@ model LargeOfficeFloor "Model of a floor of the building"
     final conExtWal(material={matStu,matHWCon,matIns,matGyp}),
     gai(K=28.25*[0.6; 0.3; 0.1]));
 
-  final parameter HeatTransfer.Data.Solids.Generic matStu(
+  final parameter Buildings.HeatTransfer.Data.Solids.Generic matStu(
     x=0.0253,
     k=0.6918,
     c=837,
     d=1858.0,
     nStaRef=5)
   "Exterior stucco siding";
-  final parameter HeatTransfer.Data.Solids.Concrete matHWCon(
+  final parameter Buildings.HeatTransfer.Data.Solids.Concrete matHWCon(
     x=0.2032,
     k=1.311,
     c=837,
@@ -74,5 +74,19 @@ March 25, 2021, by Baptiste Ravache:<br/>
 First implementation.
 </li>
 </ul>
+</html>", info="<html>
+<p>
+Model of a large office floor composed of 5 thermal zones based on
+the reference large office building.<br/>
+The exterior envelope construction is representative of the New (2004)
+construction reference for the climate zone 5A (Chicago).
+</p>
+<h4>References</h4>
+<p>
+Deru, M. et al. (2011). U.S. Department of Energy Commercial
+Reference Building Models of the National Building Stock. 
+<i>NREL</i>, TP-5500-46861.
+https://www.nrel.gov/docs/fy11osti/46861.pdf.
+</p>
 </html>"));
 end LargeOfficeFloor;
