@@ -12,7 +12,7 @@ partial model HVACMultiFloorBuilding
   parameter Integer numFlo = 2 "Number of floors";
 
   final parameter Modelica.SIunits.Volume VRooCor[numFlo] = flo.VRooCor
-    "Room volume corridor";
+    "Room volume core";
   final parameter Modelica.SIunits.Volume VRooSou[numFlo] = flo.VRooSou
     "Room volume south";
   final parameter Modelica.SIunits.Volume VRooNor[numFlo] = flo.VRooNor
@@ -22,7 +22,7 @@ partial model HVACMultiFloorBuilding
   final parameter Modelica.SIunits.Volume VRooWes[numFlo] = flo.VRooWes
     "Room volume west";
 
-  final parameter Modelica.SIunits.Area AFloCor[numFlo] = flo.AFloCor "Floor area corridor";
+  final parameter Modelica.SIunits.Area AFloCor[numFlo] = flo.AFloCor "Floor area core";
   final parameter Modelica.SIunits.Area AFloSou[numFlo] = flo.AFloSou "Floor area south";
   final parameter Modelica.SIunits.Area AFloNor[numFlo] = flo.AFloNor "Floor area north";
   final parameter Modelica.SIunits.Area AFloEas[numFlo] = flo.AFloEas "Floor area east";

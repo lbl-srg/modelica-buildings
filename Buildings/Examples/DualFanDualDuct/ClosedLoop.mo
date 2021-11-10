@@ -12,7 +12,7 @@ model ClosedLoop "Closed loop model of a dual-fan dual-duct system"
   parameter Boolean linearizeFlowResistance=false
     "= true, use linear relation between m_flow and dp for any flow rate";
 
-  parameter Modelica.SIunits.Volume VRooCor=2698 "Room volume corridor";
+  parameter Modelica.SIunits.Volume VRooCor=2698 "Room volume core";
   parameter Modelica.SIunits.Volume VRooSou=568.77 "Room volume south";
   parameter Modelica.SIunits.Volume VRooNor=568.77 "Room volume north";
   parameter Modelica.SIunits.Volume VRooEas=360.08 "Room volume east";

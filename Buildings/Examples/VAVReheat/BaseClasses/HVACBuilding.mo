@@ -6,7 +6,7 @@ partial model HVACBuilding
   replaceable package MediumW = Buildings.Media.Water "Medium model for water";
 
   final parameter Modelica.SIunits.Volume VRooCor = flo.VRooCor
-    "Room volume corridor";
+    "Room volume core";
   final parameter Modelica.SIunits.Volume VRooSou = flo.VRooSou
     "Room volume south";
   final parameter Modelica.SIunits.Volume VRooNor = flo.VRooNor
@@ -16,7 +16,7 @@ partial model HVACBuilding
   final parameter Modelica.SIunits.Volume VRooWes = flo.VRooWes
     "Room volume west";
 
-  final parameter Modelica.SIunits.Area AFloCor = flo.AFloCor "Floor area corridor";
+  final parameter Modelica.SIunits.Area AFloCor = flo.AFloCor "Floor area core";
   final parameter Modelica.SIunits.Area AFloSou = flo.AFloSou "Floor area south";
   final parameter Modelica.SIunits.Area AFloNor = flo.AFloNor "Floor area north";
   final parameter Modelica.SIunits.Area AFloEas = flo.AFloEas "Floor area east";

@@ -10,13 +10,13 @@ partial model PartialFloor "Interface for a model of a floor of a building"
   parameter Real kIntNor(min=0, max=1) = 1
     "Gain factor to scale internal heat gain in north zone";
 
-  parameter Modelica.SIunits.Volume VRooCor "Room volume corridor";
+  parameter Modelica.SIunits.Volume VRooCor "Room volume core";
   parameter Modelica.SIunits.Volume VRooSou "Room volume south";
   parameter Modelica.SIunits.Volume VRooNor "Room volume north";
   parameter Modelica.SIunits.Volume VRooEas "Room volume east";
   parameter Modelica.SIunits.Volume VRooWes "Room volume west";
 
-  parameter Modelica.SIunits.Area AFloCor "Floor area corridor";
+  parameter Modelica.SIunits.Area AFloCor "Floor area core";
   parameter Modelica.SIunits.Area AFloSou "Floor area south";
   parameter Modelica.SIunits.Area AFloNor "Floor area north";
   parameter Modelica.SIunits.Area AFloEas "Floor area east";

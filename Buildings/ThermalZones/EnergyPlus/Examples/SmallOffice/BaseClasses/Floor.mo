@@ -44,10 +44,10 @@ model Floor
     "Heat port to air volume West"
     annotation (Placement(transformation(extent={{-40,56},{-20,76}}),iconTransformation(extent={{-36,64},{-16,84}})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heaPorCor
-    "Heat port to air volume corridor"
+    "Heat port to air volume core"
     annotation (Placement(transformation(extent={{106,36},{126,56}}),iconTransformation(extent={{130,38},{150,58}})));
   Modelica.SIunits.Temperature TAirCor=cor.TAir
-    "Air temperature corridor";
+    "Air temperature core";
   Modelica.SIunits.Temperature TAirSou=sou.TAir
     "Air temperature south zone";
   Modelica.SIunits.Temperature TAirNor=nor.TAir

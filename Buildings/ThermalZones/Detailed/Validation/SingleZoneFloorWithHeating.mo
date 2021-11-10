@@ -4,14 +4,14 @@ model SingleZoneFloorWithHeating
   extends Modelica.Icons.Example;
   package Medium = Buildings.Media.Air "Buildings library air media package";
 
-  parameter Modelica.SIunits.Area AFloCor=flo.cor.AFlo "Floor area corridor";
+  parameter Modelica.SIunits.Area AFloCor=flo.cor.AFlo "Floor area core";
   parameter Modelica.SIunits.Area AFloSou=flo.sou.AFlo "Floor area south";
   parameter Modelica.SIunits.Area AFloNor=flo.nor.AFlo "Floor area north";
   parameter Modelica.SIunits.Area AFloEas=flo.eas.AFlo "Floor area east";
   parameter Modelica.SIunits.Area AFloWes=flo.wes.AFlo "Floor area west";
 
   parameter Modelica.SIunits.Volume VRooCor=AFloCor*flo.hRoo
-    "Room volume corridor";
+    "Room volume core";
   parameter Modelica.SIunits.Volume VRooSou=AFloSou*flo.hRoo
     "Room volume south";
   parameter Modelica.SIunits.Volume VRooNor=AFloNor*flo.hRoo

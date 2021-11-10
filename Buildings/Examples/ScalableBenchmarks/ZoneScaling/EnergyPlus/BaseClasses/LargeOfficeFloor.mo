@@ -44,7 +44,7 @@ model LargeOfficeFloor "Model of a single floor of a large office building"
         iconTransformation(extent={{130,38},{150,58}})));
 
   Modelica.SIunits.Temperature TAirCor = cor.TAir
-    "Air temperature corridor";
+    "Air temperature core";
   Modelica.SIunits.Temperature TAirSou = sou.TAir
     "Air temperature south zone";
   Modelica.SIunits.Temperature TAirNor = nor.TAir
