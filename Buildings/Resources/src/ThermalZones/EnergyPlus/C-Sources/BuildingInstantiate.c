@@ -382,6 +382,33 @@ char* findSpawnExe(FMUBuilding* bui, const char* SEARCHPATH, const char* spawnEx
   }
 }
 
+void checkForSpacesInInstallation(FMUBuilding* bui){
+  const char sep = '/';
+  char* libBaseName;
+  void (*SpawnFormatError)(const char *string, ...) = bui->SpawnFormatError;
+  size_t lasPosInd;
+
+  const char* ptr = strrchr(bui->buildingsLibraryRoot, sep);
+
+  if (ptr == NULL){
+        SpawnFormatError("Error. Excepted separator '%s' in '%s'.", sep, bui->buildingsLibraryRoot);
+  }
+
+  /* Index of last position of the separator */
+  lasPosInd = (size_t)(ptr - bui->buildingsLibraryRoot);
+
+  mallocString(lasPosInd + 1, "Failed to allocate memory in checkForSpacesInInstallation().", &libBaseName, SpawnFormatError);
+  /* Copy the path except for the last part of the path, which is Buildings or Buildings 8.0.0 */
+  memcpy(libBaseName, bui->buildingsLibraryRoot, lasPosInd);
+  libBaseName[lasPosInd] = '\0';
+
+
+  if ( strchr(libBaseName, ' ') != NULL){
+    SpawnFormatError("To use EnergyPlus, the Modelica Buildings Library must be installed in a directory that has no spaces. Installing in '%s' is not supported.",
+      libBaseName);
+  }
+}
+
 void generateFMU(FMUBuilding* bui, const char* spawnFullPath, const char* modelicaBuildingsJsonFile){
   /* Generate the FMU */
   char* optionFlags;
@@ -766,6 +793,7 @@ void generateAndInstantiateBuilding(FMUBuilding* bui){
       SpawnFormatError("%s", "Failed to find spawn executable.");
       /* To do: implement other search locations */
     }
+    checkForSpacesInInstallation(bui);
     /* Generate FMU using spawnFullPath */
     generateFMU(bui, spawnFullPath, modelicaBuildingsJsonFile);
     free(spawnFullPath);

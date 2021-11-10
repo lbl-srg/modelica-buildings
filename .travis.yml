@@ -32,7 +32,7 @@ env:
 
   jobs:
 #    - TEST_ARG="make test-cdl-conformance"
-    - TEST_ARG="make test-energyplus-validations test-spawn-portability test-optimica-spawn-fmu"
+    - TEST_ARG="make test-energyplus-validations test-spawn-portability-success test-spawn-portability-failure test-optimica-spawn-fmu"
 #    - TEST_ARG="make test-bestest"
 #    - TEST_ARG="make test-dymola    PACKAGE=\"Buildings.{Air,Examples}\""
 #    - TEST_ARG="make test-optimica  PACKAGE=\"Buildings.{Air,Examples}\""

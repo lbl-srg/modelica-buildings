@@ -38,13 +38,14 @@ test-optimica-spawn-fmu:
 	(cd  $(ROOT) && \
 	  python3 Buildings/Resources/Scripts/travis/pyfmi/runSpawnFromOtherDirectory.py)
 
-test-spawn-portability:
-    @echo "*** Skipping test"
-	exit 1
-
+test-spawn-portability-success:
 	@echo "*** Check if Spawn works if the root folder is not Buildings"
-	(cd  "$(ROOT)" && \
-	  fixme: this should copy it to a temp directory, not move the current version. ***** mv Buildings "Buildings 8.0.0" && \
+	$(eval TMP := $(shell mktemp --suffix=-LBL-Buildings -d))
+#	$(eval TMPDIR := $(TMP)/dir\ with\ spaces) This is not supported
+	@mkdir -p $(TMP)
+	@cp -rp $(ROOT)/Buildings $(TMP)/
+	@mv $(TMP)/Buildings $(TMP)/Buildings\ 8.0.0
+	@(cd  $(TMP) && \
 	  echo "within ;" > SpawnTest.mo && \
 	  echo "model SpawnTest" >> SpawnTest.mo && \
 	  echo "  extends" >> SpawnTest.mo && \
@@ -53,9 +54,32 @@ test-spawn-portability:
 	  echo "simulateModel(\"SpawnTest\", stopTime=432000, method=\"Cvode\", tolerance=1e-06);" > run.mos && \
 	  echo "exit()" >> run.mos && \
 	  rm -f dslog.txt && \
-	  dymola run.mos && \
-	  mv "Buildings 8.0.0" Buildings && \
-	  grep "terminated successfully" dslog.txt )
+	  dymola run.mos)
+	@cd $(TMP) && cat dslog.txt
+	@cd $(TMP) && grep -q "Integration terminated successfully" dslog.txt
+	@rm -rf $(TMP)
+
+test-spawn-portability-failure:
+	@echo "*** Check if Spawn properly fails if the root folder contains a string"
+	$(eval TMP := $(shell mktemp --suffix=-LBL-Buildings -d))
+	$(eval TMPDIR := $(TMP)/dir\ with\ spaces)
+	@mkdir -p $(TMPDIR)
+	@cp -rp $(ROOT)/Buildings $(TMPDIR)/
+	@mv $(TMPDIR)/Buildings $(TMPDIR)/Buildings\ 8.0.0
+	@(cd  $(TMPDIR) && \
+	  echo "within ;" > SpawnTest.mo && \
+	  echo "model SpawnTest" >> SpawnTest.mo && \
+	  echo "  extends" >> SpawnTest.mo && \
+	  echo "    Buildings.ThermalZones.EnergyPlus.Examples.SingleFamilyHouse.Unconditioned;" >> SpawnTest.mo && \
+	  echo "end SpawnTest;" >> SpawnTest.mo && \
+	  echo "simulateModel(\"SpawnTest\", stopTime=432000, method=\"Cvode\", tolerance=1e-06);" > run.mos && \
+	  echo "" >> run.mos && \
+	  rm -f dslog.txt && \
+	  dymola run.mos)
+	@cd $(TMPDIR) && cat dslog.txt
+	@cd $(TMPDIR) && grep -q "To use EnergyPlus, the Modelica Buildings Library must be installed in a directory that has no spaces." dslog.txt
+	@rm -rf $(TMPDIR)
+
 
 test-omc:
 	(cd $(ROOT) && \
