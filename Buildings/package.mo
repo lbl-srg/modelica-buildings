@@ -411,6 +411,17 @@ have been <b style=\"color:blue\">improved</b> in a
                        This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/pull/1516\">IBPSA #1516</a>.
     </td>
 </tr>
+  <tr><td colspan=\"2\"><b>Buildings.ThermalZones.ReducedOrder</b>
+      </td>
+  </tr>
+  <tr><td valign=\"top\">Buildings.ThermalZones.ReducedOrder.Validation.VDI6007.BaseClasses.VerifyDifferenceThreePeriods
+  </td>
+  <td valign=\"top\">Improved model to guard against approximation errors of event handling.
+                     With this change, the models in <code>Buildings.ThermalZones.ReducedOrder.Validation.VDI6007</code>
+                     all simulate with OpenModelica.<br/>
+                     This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2713\">Buidings, issue #2713</a>.
+  </td>
+  </tr>
 <tr><td colspan=\"2\"><b>Buildings.Utilities.Math</b>
     </td>
 </tr>
@@ -715,37 +726,42 @@ units are wrong or errors in documentation):
 <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
 <tr><td colspan=\"2\"><b>Buildings.Airflow</b>
     </td>
-</tr>
-<tr><td valign=\"top\">Buildings.Airflow.Multizone.DoorOperable
+  </tr>
+  <tr><td valign=\"top\">Buildings.Airflow.Multizone.DoorOperable
     </td>
     <td valign=\"top\">Removed duplicate declaration of <code>VABp_flow</code>.<br/>
-                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1496\">Buidings, issue #1496</a>.
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1496\">Buildings, issue #1496</a>.
+    </td>
+  </tr>
+  <tr><td colspan=\"2\"><b>Buildings.Applications.DataCenters</b>
     </td>
 </tr>
-<tr><td colspan=\"2\"><b>Buildings.Electrical</b>
+<tr><td valign=\"top\">Buildings.Applications.DataCenters.ChillerCooled.Examples.IntegratedPrimaryLoadSideEconomizer<br/>
+                         Buildings.Applications.DataCenters.ChillerCooled.Examples.IntegratedPrimarySecondaryEconomizer<br/>
+                         Buildings.Applications.DataCenters.ChillerCooled.Examples.NonIntegratedPrimarySecondaryEconomizer
+    </td>
+    <td valign=\"top\">Corrected weather data bus connection which was structurally incorrect
+                       and did not parse in OpenModelica.<br/>
+                       This is for
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2706\">Buildings, issue 2706</a>.
     </td>
 </tr>
-<tr><td valign=\"top\">Buildings.ThermalZones.Detailed.FLEXLAB.Rooms.X3B.Electrical
-    </td>
-    <td valign=\"top\">Added missing parameter declaration.<br/>
-                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2556\">Buidings, issue #2556</a>.
-    </td>
-</tr>
-<tr><td colspan=\"2\"><b>Buildings.ThermalZones</b>
+<tr><td colspan=\"2\"><b>Buildings.ThermalZones.Detailed</b>
     </td>
 </tr>
 <tr><td valign=\"top\">Buildings.ThermalZones.Detailed.BaseClasses.RadiationTemperature
     </td>
     <td valign=\"top\">Corrected annotation.<br/>
-                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2550\">Buidings, issue #2550</a>.
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2550\">Buildings, issue #2550</a>.
     </td>
 </tr>
     <tr><td valign=\"top\">Buildings.ThermalZones.Detailed.Constructions.Examples.ExteriorWallTwoWindows<br/>
                            Buildings.ThermalZones.Detailed.Constructions.Examples.ExteriorWallWithWindow<br/>
+                           Buildings.ThermalZones.Detailed.FLEXLAB.Rooms.X3B.Electrical<br/>
                            Buildings.ThermalZones.Detailed.Validation.BESTEST.Cases6xx.Case600FF
         </td>
         <td valign=\"top\">Added missing parameter declaration.<br/>
-                           This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2556\">Buidings, issue #2556</a>.
+                           This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2556\">Buildings, issue #2556</a>.
         </td>
 </tr>
 </table>
@@ -1592,7 +1608,7 @@ as reported in <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1432\">I
     <tr><td valign=\"top\">Buildings.Fluid.Geothermal.Borefields.BaseClasses.PartialBorefield
         </td>
         <td valign=\"top\">Corrected placement of <code>each</code> keyword.
-                           See <a href=\"https://github.com/lbl-srg/modelica-buildings/pull/2440\">Buidings, #2440</a>.
+                           See <a href=\"https://github.com/lbl-srg/modelica-buildings/pull/2440\">Buildings, #2440</a>.
                            <br/>
                            Switched port connections for <code>masFloDiv</code>.
                            See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/41\">IBPSA, #41</a>.
@@ -1639,7 +1655,7 @@ as reported in <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1432\">I
                            Buildings.Fluid.HeatExchangers.DXCoils.WaterCooled.Validation.VariableSpeedEnergyPlusPartLoad<br/>
         </td>
         <td valign=\"top\">Corrected placement of <code>each</code> keyword.<br/>
-                           See <a href=\"https://github.com/lbl-srg/modelica-buildings/pull/2440\">Buidings, PR #2440</a>.<br/>
+                           See <a href=\"https://github.com/lbl-srg/modelica-buildings/pull/2440\">Buildings, PR #2440</a>.<br/>
                            Added missing parameter declaration for data record.
         </td>
     </tr>
