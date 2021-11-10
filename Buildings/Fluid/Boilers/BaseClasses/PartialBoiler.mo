@@ -26,8 +26,10 @@ partial model PartialBoiler "Boiler base class with efficiency unspecified"
   input Modelica.SIunits.Efficiency eta "Boiler efficiency";
   Modelica.SIunits.Power QFue_flow = y * Q_flow_nominal/eta_nominal
     "Heat released by fuel";
-  Modelica.SIunits.Power QWat_flow = eta * QFue_flow
+  Modelica.SIunits.Power QWat_flow = eta * QFue_flow + UAOve.Q_flow
     "Heat transfer from gas into water";
+    // The direction of UAOve.Q_flow is from the ambient to the boiler
+    //   and therefore it takes a plus size here.
   Modelica.SIunits.MassFlowRate mFue_flow = QFue_flow/fue.h
     "Fuel mass flow rate";
   Modelica.SIunits.VolumeFlowRate VFue_flow = mFue_flow/fue.d
