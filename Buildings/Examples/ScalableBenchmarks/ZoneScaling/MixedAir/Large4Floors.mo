@@ -7,8 +7,7 @@ model Large4Floors
     annotation (
 experiment(
       StopTime=432000,
-      Tolerance=1e-05,
-      __Dymola_Algorithm="Cvode"),
+      Tolerance=1e-05),
 Documentation(info="<html>
 <p>
 Example model of a large office building with 20 thermal zones

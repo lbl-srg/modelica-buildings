@@ -7,8 +7,7 @@ model Large10Floors
 experiment(
       StartTime=432000,
       StopTime=864000,
-      Tolerance=1e-05,
-      __Dymola_Algorithm="Cvode"),
+      Tolerance=1e-05),
 Documentation(info="<html>
 </html>", revisions="<html>
 <ul>
