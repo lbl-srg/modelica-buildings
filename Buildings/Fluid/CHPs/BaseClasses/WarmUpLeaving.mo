@@ -44,11 +44,11 @@ protected
   Buildings.Controls.OBC.CDL.Continuous.Hysteresis hysTem(
     final uLow=-0.5,
     final uHigh=0) if not warmUpByTimeDelay
-    "Check if actual engine temperature is higher than norminal value"
+    "Check if actual engine temperature is higher than the nominal value"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Buildings.Controls.OBC.CDL.Continuous.Add add(final k2=-1) if
     not warmUpByTimeDelay
-    "Difference between actual engine temperature and nominal value"
+    "Difference between actual engine temperature and the nominal value"
     annotation (Placement(transformation(extent={{-50,-10},{-30,10}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant temEngNom(
     y(final unit="K", displayUnit="degC"),
