@@ -263,6 +263,35 @@ The following <b style=\"color:blue\">new components</b> have been added
 to <b style=\"color:blue\">existing</b> libraries:
 </p>
 <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
+<tr><td colspan=\"2\"><b>Buildings.Fluid.Boilers</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Fluid.Boilers.BoilerTable<br/>
+                       Buildings.Fluid.Boilers.Examples.BoilerTable<br/>
+                       Buildings.Fluid.Boilers.Validation.BoilerTableEfficiencyCurves<br/>
+                       Buildings.Fluid.Boilers.BaseClasses.PartialBoiler<br/>
+                       Buildings.Fluid.Boilers.Data.Generic<br/>
+                       Buildings.Fluid.Boilers.Data.Lochinvar.Crest.FBdash2501<br/>
+                       Buildings.Fluid.Boilers.Data.Lochinvar.Crest.FBdash3001<br/>
+                       Buildings.Fluid.Boilers.Data.Lochinvar.Crest.FBdash3501<br/>
+                       Buildings.Fluid.Boilers.Data.Lochinvar.Crest.FBdash4001<br/>
+                       Buildings.Fluid.Boilers.Data.Lochinvar.Crest.FBdash5001<br/>
+                       Buildings.Fluid.Boilers.Data.Lochinvar.Crest.FBdash6001<br/>
+                       Buildings.Fluid.Boilers.Data.Lochinvar.FTXL.FTX400<br/>
+                       Buildings.Fluid.Boilers.Data.Lochinvar.FTXL.FTX500<br/>
+                       Buildings.Fluid.Boilers.Data.Lochinvar.FTXL.FTX600<br/>
+                       Buildings.Fluid.Boilers.Data.Lochinvar.FTXL.FTX725<br/>
+                       Buildings.Fluid.Boilers.Data.Lochinvar.FTXL.FTX850<br/>
+                       Buildings.Fluid.Boilers.Data.Lochinvar.KnightXL.KBXdash0400<br/>
+                       Buildings.Fluid.Boilers.Data.Lochinvar.KnightXL.KBXdash0500<br/>
+                       Buildings.Fluid.Boilers.Data.Lochinvar.KnightXL.KBXdash0650<br/>
+                       Buildings.Fluid.Boilers.Data.Lochinvar.KnightXL.KBXdash0800<br/>
+                       Buildings.Fluid.Boilers.Data.Lochinvar.KnightXL.KBXdash1000
+    </td>
+    <td valign=\"top\">Classes for modeling boilers whose efficiency curves are provided as a table. <br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2651\">issue 2651</a>.
+    </td>
+</tr>
 <tr><td colspan=\"2\"><b>Buildings.Fluid.FixedResistances</b>
     </td>
 </tr>
@@ -338,6 +367,16 @@ have been <b style=\"color:blue\">improved</b> in a
     </td>
     <td valign=\"top\">Added filters to select which zones are used in group.<br/>
                        This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2544\">issue 2544</a>.
+    </td>
+</tr>
+<tr><td colspan=\"2\"><b>Buildings.Fluid.Boilers</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Fluid.Boilers.Polynomial
+    </td>
+    <td valign=\"top\">Moved part of the code to <code>Buildings.Fluid.Boilers.BaseClasses.PartialBoiler</code>
+                       to support the new model <code>Buildings.Fluid.Boilers.BoilerTable</code>. <br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2651\">issue 2651</a>.
     </td>
 </tr>
 <tr><td colspan=\"2\"><b>Buildings.Examples</b>
@@ -9567,6 +9606,8 @@ The following people have directly contributed to the implementation of the Buil
 <li>Rainer Czetina, University of Applied Sciences Technikum Wien, Austria
 </li>
 <li>Hagar Elarga, Lawrence Berkeley National Laboratory, USA
+</li>
+<li>Hongxiang \"Casper\" Fu, Lawrence Berkeley National Laboratory, USA
 </li>
 <li>Yangyang Fu, University of Colorado Boulder, Colorado, USA
 </li>
