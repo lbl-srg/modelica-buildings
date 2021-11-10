@@ -134,8 +134,14 @@ Buildings.Fluid.Boilers.UsersGuide</a> for details.
 revisions="<html>
 <ul>
 <li>
-October 4, 2021, by Hongxiang Fu:
-<br>Renamed from the old 
+November 10, 2021, by Hongxiang Fu:<br/>
+The heating output of the boiler is now corrected by the heat loss to the ambient.
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2725\">
+#2725</a>. 
+</li>
+<li>
+October 4, 2021, by Hongxiang Fu:<br/>
+Renamed from the old 
 <span style=\"font-family: monospace;\">
 Buildings.Fluid.Boilers.BoilerPolynomial</span> 
 and with the efficiency specification removed. 

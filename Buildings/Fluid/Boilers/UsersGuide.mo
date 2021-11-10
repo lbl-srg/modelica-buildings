@@ -31,10 +31,25 @@ depending on the choice of model.
 The heat transferred to the working fluid (typically water or air) is
 </p>
 <p align=\"center\">
-<i>Q&#775; = &eta; &sdot; Q&#775; <sub>f</sub> </i>
+<i>Q&#775; = &eta; &sdot; Q&#775;<sub>f</sub> - Q&#775;<sub>amb</sub> </i>
 </p>
 <p>
-where <i>&eta;</i> is the efficiency at the current operating point.
+where <i>&eta;</i> is the efficiency at the current operating point 
+and <i>Q&#775;<sub>amb</sub> > 0</i> is the heat loss from the boiler 
+to the ambient. 
+<p>
+<i>Q&#775;<sub>amb</sub></i> is considered only when the port <code>heatPort</code>
+is connected to a heat port outside of this model
+to impose a boundary condition in order to model heat losses to the ambient.
+When using this <code>heatPort</code>,
+make sure that the efficiency does not already account for this heat loss.
+Also note that in 
+<a href=\"Modelica://Buildings.Fluid.Boilers.BaseClasses.PartialBoiler\">
+Buildings.Fluid.Boilers.BaseClasses.PartialBoiler</a>, 
+the equation
+<code>QWat_flow = eta * QFue_flow + UAOve.Q_flow</code> 
+uses a summation instead of a subtraction because the direction 
+of <code>UAOve.Q_flow</code> is from the ambient to the boiler. 
 </p>
 <p>
 The fuel is specified in
@@ -82,13 +97,6 @@ Specifying the performance using a table as implemtend in
 Buildings.Fluid.Boilers.BoilerTable</a>
 is generally easier for representing condensing boilers because the change in
 efficiency near the condensation point can be described conveniently.
-</p>
-<p>
-Optionally, the port <code>heatPort</code>
-can be connected to a heat port outside of this model
-to impose a boundary condition in order to model heat losses to the ambient.
-When using this <code>heatPort</code>,
-make sure that the efficiency does not already account for this heat loss.
 </p>
 <p>
 On the Assumptions tag, the model can be parameterized to compute a transient
