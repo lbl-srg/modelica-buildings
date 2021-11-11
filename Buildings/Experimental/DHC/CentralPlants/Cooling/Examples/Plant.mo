@@ -5,7 +5,7 @@ model Plant
   package Medium=Buildings.Media.Water
     "Medium model for water";
   // chiller and cooling tower
-  parameter Buildings.Fluid.Chillers.Data.ElectricEIR.ElectricEIRChiller_York_YT_1055kW_5_96COP_Vanes perChi
+  replaceable parameter Buildings.Fluid.Chillers.Data.ElectricEIR.ElectricEIRChiller_York_YT_1055kW_5_96COP_Vanes perChi
     "Performance data of chiller";
   parameter Modelica.SIunits.MassFlowRate mCHW_flow_nominal=18.3
     "Nominal chilled water mass flow rate";
@@ -19,6 +19,10 @@ model Plant
     "Nominal cooling capaciaty (Negative means cooling)";
   parameter Modelica.SIunits.MassFlowRate mMin_flow=0.03
     "Minimum mass flow rate of single chiller";
+  parameter Modelica.SIunits.TemperatureDifference dTApp=3
+    "Approach temperature";
+  parameter Modelica.SIunits.Power PFan_nominal=5000
+    "Fan power";
   // control settings
   parameter Modelica.SIunits.Pressure dpSetPoi=68900
     "Differential pressure setpoint";
@@ -43,9 +47,9 @@ model Plant
     "Nominal pressure drop of chilled water pump valve";
   parameter Modelica.SIunits.PressureDifference dpCooTowVal_nominal=6000
    "Nominal pressure difference of the cooling tower valve";
-  Buildings.Experimental.DHC.CentralPlants.Cooling.Plant pla(
+  replaceable Buildings.Experimental.DHC.CentralPlants.Cooling.Plant pla(
     perChi=perChi,
-    dTApp=3,
+    dTApp=dTApp,
     perCHWPum=perCHWPum,
     perCWPum=perCWPum,
     mCHW_flow_nominal=mCHW_flow_nominal,
@@ -58,7 +62,7 @@ model Plant
     TCW_nominal=308.15,
     dT_nominal=5.56,
     TMin=288.15,
-    PFan_nominal=5000,
+    PFan_nominal=PFan_nominal,
     dpCooTowVal_nominal=dpCooTowVal_nominal,
     dpCHWPumVal_nominal=dpCHWPumVal_nominal,
     dpCWPumVal_nominal=dpCWPumVal_nominal,
@@ -160,12 +164,16 @@ Buildings.Experimental.DHC.CentralPlants.Cooling.Plant</a>.
       revisions="<html>
 <ul>
 <li>
+October, 2021, by Chengnan Shi:<br/>
+Revise the model for extensibility.
+</li>
+<li>
 August 6, 2020 by Jing Wang:<br/>
 First implementation. 
 </li>
 </ul>
 </html>"),
     __Dymola_Commands(
-      file="Resources/Scripts/Dymola/Experimental/DHC/CentralPlants/Cooling/Examples/Plant.mos" 
+      file="Resources/Scripts/Dymola/Experimental/DHC/CentralPlants/Cooling/Examples/Plant.mos"
       "Simulate and Plot"));
 end Plant;
