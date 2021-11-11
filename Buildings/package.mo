@@ -288,8 +288,14 @@ to <b style=\"color:blue\">existing</b> libraries:
                        Buildings.Fluid.Boilers.Data.Lochinvar.KnightXL.KBXdash0800<br/>
                        Buildings.Fluid.Boilers.Data.Lochinvar.KnightXL.KBXdash1000
     </td>
-    <td valign=\"top\">Classes for modeling boilers whose efficiency curves are provided as a table. <br/>
-                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2651\">issue 2651</a>.
+    <td valign=\"top\">Classes for modeling boilers whose efficiency curves are provided as a table. 
+                       Part of the code from the old <code>Buildings.Fluid.Boilers.BoilerPolynomial</code>
+                       has been moved to <code>Buildings.Fluid.Boilers.BaseClasses.PartialBoiler</code>
+                       to support the new model <code>Buildings.Fluid.Boilers.BoilerTable</code>. <br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2651\">issue 2651</a>.<br/>
+                       In the moved code, the boiler's heating power output is now corrected by 
+                       its loss to the ambient. <br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2725\">#2725</a>.
     </td>
 </tr>
 <tr><td colspan=\"2\"><b>Buildings.Fluid.FixedResistances</b>

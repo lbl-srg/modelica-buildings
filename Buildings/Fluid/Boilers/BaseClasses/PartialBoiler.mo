@@ -135,7 +135,8 @@ revisions="<html>
 <ul>
 <li>
 November 10, 2021, by Hongxiang Fu:<br/>
-The heating output of the boiler is now corrected by the heat loss to the ambient.
+The heating power output of the boiler is now corrected 
+by its heat loss to the ambient.
 This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2725\">
 #2725</a>. 
 </li>
