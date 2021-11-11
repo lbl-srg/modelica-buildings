@@ -27,8 +27,9 @@ jobs:
     runs-on: ubuntu-18.04
 
     steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v2
+      # Checks-out repository under $GITHUB_WORKSPACE, so job can access it
+      - name: Checkout code
+        uses: nschloe/action-cached-lfs-checkout@v1
 
       - uses: actions/setup-python@v2
         with:
