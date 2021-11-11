@@ -81,7 +81,7 @@ jobs:
               rm Resources/Scripts/OpenModelica/compareVars/*.mos
               python -c 'import buildingspy.development.regressiontest as u; u.Tester().writeOpenModelicaResultDictionary()'
               git status --porcelain Resources/Scripts/OpenModelica
-              test -z $(git status --porcelain Resources/Scripts/OpenModelica)
+              test -z "$(git status --porcelain Resources/Scripts/OpenModelica)"
 
       - name: "Test user guide"
         run : (cd Resources/Documentation/userGuide; make regressiontest)
@@ -97,3 +97,33 @@ jobs:
 
       - name: Check for UTF-8 BOM
         run: "! find . -name '*.mo' -print0 | xargs -0 grep -l $'^\\xEF\\xBB\\xBF' | grep ."
+
+      - name: Check for file permissions
+        run : |
+              set -o noglob
+              LIST="*.mo *.mos *.fmu *.json *.txt *.jar *.c *.h *.def *.cc *.vcxproj \
+                *.java package-list element-list \
+                *.csv *.dat *.TMY *.mat \
+                *.cfd *.ffd *.mcr \
+                *.rst *.svg *.png *.gif *.jpg *.tiff *.xcf *.ico *.psd *.pdf *.odp \
+                *.tex *.md *.html *.css \
+                *.bat *.linux *.darwin \
+                *.js *.map *.eot *.ttf *.woff *.woff2 *.inv \
+                *.idd *.idf *.epw \
+                *.dll *.lib \
+                *.zip
+                package.order Makefile makefile RootMakefile"
+              for tt in ${LIST}; do
+                for ff in `find . -type f -name ${tt}`; do
+                   chmod u=rw,og=r $ff
+                done
+              done
+
+              LIST="*.so *.exe spawn dymola *.sh"
+              for tt in ${LIST}; do
+                for ff in `find . -type f -name ${tt}`; do
+                   chmod u=rwx,og=rx $ff
+                done
+              done
+              git diff --exit-code
+
