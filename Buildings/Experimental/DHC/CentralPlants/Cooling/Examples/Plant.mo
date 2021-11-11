@@ -164,7 +164,7 @@ Buildings.Experimental.DHC.CentralPlants.Cooling.Plant</a>.
       revisions="<html>
 <ul>
 <li>
-October, 2021, by Chengnan Shi:<br/>
+October 20, 2021, by Chengnan Shi:<br/>
 Revise the model for extensibility.
 </li>
 <li>
