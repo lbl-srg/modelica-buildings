@@ -125,5 +125,5 @@ jobs:
                    chmod u=rwx,og=rx $ff
                 done
               done
-              git diff --exit-code Buildings
+              git diff --exit-code
 
