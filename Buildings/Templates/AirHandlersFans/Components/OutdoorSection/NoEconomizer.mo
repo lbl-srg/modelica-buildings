@@ -5,9 +5,11 @@ model NoEconomizer "No air economizer"
     final typDamOut=damOut.typ,
     final typDamOutMin=Buildings.Templates.Components.Types.Damper.None);
 
-  Buildings.Templates.Components.Dampers.TwoPosition damOut(redeclare final
-      package Medium = MediumAir, final loc=Buildings.Templates.Components.Types.Location.OutdoorAir)
-    "Outdoor air damper" annotation (Placement(transformation(
+  Buildings.Templates.Components.Dampers.TwoPosition damOut(
+    redeclare final package Medium = MediumAir,
+    final loc=Buildings.Templates.Components.Types.Location.OutdoorAir)
+    "Outdoor air damper"
+    annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-150,0})));

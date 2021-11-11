@@ -12,7 +12,6 @@ partial model PartialSensor
     "Set to true for differential pressure sensor, false for any other sensor"
     annotation (Evaluate=true, Dialog(group="Configuration"));
 
-
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal=
     if have_sen and not isDifPreSen then (
       if loc ==Buildings.Templates.Components.Types.Location.Supply

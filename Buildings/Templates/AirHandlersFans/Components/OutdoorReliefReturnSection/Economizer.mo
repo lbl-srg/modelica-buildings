@@ -1,8 +1,10 @@
 within Buildings.Templates.AirHandlersFans.Components.OutdoorReliefReturnSection;
 model Economizer "Air economizer"
   extends
-    .Buildings.Templates.AirHandlersFans.Components.OutdoorReliefReturnSection.Interfaces.PartialOutdoorReliefReturnSection(
-    final typ=Types.OutdoorReliefReturnSection.Economizer,
+    Buildings.Templates.AirHandlersFans.Components.OutdoorReliefReturnSection.Interfaces.PartialOutdoorReliefReturnSection(
+    final typ=Buildings.Templates.AirHandlersFans.Types.OutdoorReliefReturnSection.Economizer,
+    final typSecOut=secOut.typ,
+    final typSecRel=secRel.typ,
     final have_porPre=secRel.have_porPre,
     final typDamOut=secOut.typDamOut,
     final typDamOutMin=secOut.typDamOutMin,

@@ -105,6 +105,16 @@ package Types "Generic types for template components"
       VolumeFlowRate
       "Volume flow rate")
     "Enumeration to configure the sensor";
+  type SensorDifferentialPressure = enumeration(
+      External
+      "Two static pressure tips - In-duct and external",
+      Static
+      "Two static pressure tips - In-duct",
+      StaticLong
+      "Two static pressure tips - In-duct - Long tubes",
+      Total
+      "Two total pressure tubes - In-duct")
+    "Enumeration to configure the differential pressure sensor";
   type SensorTemperature = enumeration(
       Standard
       "Standard sensor",
