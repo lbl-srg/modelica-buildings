@@ -79,7 +79,7 @@ test-spawn-portability-omc-success:
 	@mkdir -p $(TMP)
 	@cp -rp $(ROOT)/Buildings $(TMP)/
 	mv $(TMP)/Buildings $(TMP)/Buildings\ 8.0.0
-	@cp $(ROOT)/Buildings/Resources/Scripts/travis/SpawnTest.mo $(TMP)
+	cp $(ROOT)/Buildings/Resources/Scripts/travis/SpawnTest.mo $(TMP)
 	@(cd  $(TMP) && \
 	  echo "clearCommandLineOptions();\n" \
 	"setCommandLineOptions(\"--matchingAlgorithm=PFPlusExt -d=initialization,NLSanalyticJacobian,newInst\");\n" \
@@ -95,8 +95,9 @@ test-spawn-portability-omc-success:
 	"loadModel(Modelica, {\"3.2.3\"});\n" \
         "loadFile(\"Buildings 8.0.0/package.mo\");\n" \
 	"loadFile(\"SpawnTest.mo\");\n" \
-	"simulate(SpawnTest)" > openmod.mos )
-	(export OPENMODELICALIBRARY=$(TMP):/usr/lib/omlibrary && omc openmod.mos)
+	"simulate(SpawnTest);\n" \
+        "getErrorString();" > openmod.mos )
+	(cd $(TMP) && export OPENMODELICALIBRARY=$(TMP):/usr/lib/omlibrary && omc openmod.mos)
 	@cd $(TMP) && grep -q "The simulation finished successfully." SpawnTest.log
 	@rm -rf $(TMP)
 
