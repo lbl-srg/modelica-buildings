@@ -158,6 +158,25 @@ def replace_table_in_mo(html, varType, moFile):
     with open(mo_name, "w") as mo_fil:
         mo_fil.write(mo_new)
 
+def update_version_in_modelica_file(spawn_exe):
+    import os
+    import re
+
+    # Path to Building.mo
+    mo_file = os.path.abspath( \
+        os.path.join(__file__, \
+            os.pardir, os.pardir, os.pardir, os.pardir, os.pardir, os.pardir, \
+            "Buildings", "ThermalZones", "EnergyPlus", "Building.mo"))
+
+    # Replace the string "spawn-0.2.0-d7f1e095f3" with the current version
+    with open (mo_file, 'r' ) as f:
+        content = f.read()
+
+    content_new = re.sub(r"\"spawn-\d+.\d+.\d+-.{10}\"", f"\"{spawn_exe}\"", content)
+
+    with open(mo_file, 'w' ) as f:
+        f.write(content_new)
+
 
 def update_git(spawn_exe):
     import os
@@ -181,7 +200,6 @@ def update_git(spawn_exe):
             repo.index.remove([file])
 
 if __name__ == "__main__":
-    import sys
 
     spawn_exe = f"spawn-{version}-{commit[0:10]}"
 
@@ -215,6 +233,10 @@ if __name__ == "__main__":
     p = Pool(2)
     p.map(get_distribution, dists)
 
+    # Update version in
+    # constant String spawnExe="spawn-0.2.0-d7f1e095f3" ...
+    # in Building.mo
+    update_version_in_modelica_file(spawn_exe)
     # Remove old binaries and add new binaries to git
     update_git(spawn_exe)
 
