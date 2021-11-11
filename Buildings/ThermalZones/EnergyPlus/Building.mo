@@ -162,6 +162,10 @@ while Modelica will use the file specified by <code>weaName</code>.
       revisions="<html>
 <ul>
 <li>
+November 11, 2021, by Michael Wetter:<br/>
+Added constant <code>spawnExe</code> to allow different installation of Spawn.
+</li>
+<li>
 August 19, 2021, by Michael Wetter:<br/>
 Introduced parameter <code>epwName</code>.<br/>
 This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2054\">#2054</a>.
