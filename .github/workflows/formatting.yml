@@ -119,7 +119,7 @@ jobs:
                 done
               done
 
-              LIST="*.so *.exe spawn dymola .sh"
+              LIST="*.so *.exe spawn dymola *.sh"
               for tt in ${LIST}; do
                 for ff in `find . -type f -name ${tt}`; do
                    chmod u=rwx,og=rx $ff
