@@ -20,6 +20,7 @@ model FMUZoneAdapterZones2
     annotation (Placement(transformation(extent={{-80,70},{-60,90}})));
   Buildings.ThermalZones.EnergyPlus.BaseClasses.ThermalZoneAdapter fmuZonCor(
     modelicaNameBuilding=modelicaNameBuilding,
+    final spawnExe=building.spawnExe,
     final idfName=building.idfName,
     final epwName=building.epwName,
     final relativeSurfaceTolerance=building.relativeSurfaceTolerance,
@@ -61,6 +62,7 @@ model FMUZoneAdapterZones2
     annotation (Placement(transformation(extent={{60,20},{80,40}})));
   Buildings.ThermalZones.EnergyPlus.BaseClasses.ThermalZoneAdapter fmuZonSou(
     modelicaNameBuilding=modelicaNameBuilding,
+    final spawnExe=building.spawnExe,
     final idfName=building.idfName,
     final epwName=building.epwName,
     final relativeSurfaceTolerance=building.relativeSurfaceTolerance,
