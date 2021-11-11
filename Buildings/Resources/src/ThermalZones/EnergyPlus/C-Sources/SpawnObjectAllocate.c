@@ -91,6 +91,7 @@ void* EnergyPlusSpawnAllocate(
   double startTime,
   const char* modelicaNameBuilding,
   const char* modelicaName,
+  const char* spawnExe,
   const char* idfName,
   const char* epwName,
   double relativeSurfaceTolerance,
@@ -319,6 +320,7 @@ void* EnergyPlusSpawnAllocate(
     i = AllocateBuildingDataStructure(
       startTime,
       modelicaNameBuilding,
+      spawnExe,
       idfName,
       epwName,
       relativeSurfaceTolerance,

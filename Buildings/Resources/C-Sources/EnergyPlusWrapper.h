@@ -36,6 +36,7 @@ extern void* EnergyPlusSpawnAllocate(
   double startTime,
   const char* modelicaNameBuilding,
   const char* modelicaNameThermalZone,
+  const char* spawnExe,
   const char* idfName,
   const char* epwName,
   double relativeSurfaceTolerance,

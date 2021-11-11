@@ -788,7 +788,7 @@ void generateAndInstantiateBuilding(FMUBuilding* bui){
     /* Find where the spawn executable is located, and return it in spawnFullPath.
        If not found, then spawnFullPath == NULL.
     */
-    spawnFullPath = findSpawnExe(bui, NULL, "spawn");
+    spawnFullPath = findSpawnExe(bui, NULL, bui->spawnExe);
     if (spawnFullPath == NULL){
       SpawnFormatError("%s", "Failed to find spawn executable.");
       /* To do: implement other search locations */

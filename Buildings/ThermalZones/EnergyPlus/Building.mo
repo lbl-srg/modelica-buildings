@@ -2,6 +2,11 @@ within Buildings.ThermalZones.EnergyPlus;
 model Building
   "Model that declares a building to which EnergyPlus objects belong to"
   extends Modelica.Blocks.Icons.Block;
+
+  constant String spawnExe="spawn-0.2.0-d7f1e095f3"
+      "Name of the spawn executable, without extension, such as spawn-0.2.0-d7f1e095f3"
+    annotation (HideResult=true);
+
   final constant String modelicaNameBuilding=getInstanceName()
     "Name of this instance"
     annotation (HideResult=true);

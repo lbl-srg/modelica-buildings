@@ -3,12 +3,17 @@ model ThermalZoneAdapter
   "Block that interacts with this EnergyPlus zone"
   extends Modelica.Blocks.Icons.Block;
   extends Buildings.ThermalZones.EnergyPlus.BaseClasses.Synchronize.ObjectSynchronizer;
+
   constant String modelicaNameBuilding
     "Name of the building to which this thermal zone belongs to"
     annotation (HideResult=true);
   constant String modelicaInstanceName=getInstanceName()
     "Name of this instance"
     annotation (HideResult=true);
+  constant String spawnExe
+      "Name of the spawn executable, without extension, such as spawn-0.2.0-d7f1e095f3"
+    annotation (HideResult=true);
+
   parameter String idfName
     "Name of the IDF file that contains this zone";
   parameter String epwName
@@ -100,6 +105,7 @@ protected
     startTime=startTime,
     modelicaNameBuilding=modelicaNameBuilding,
     modelicaInstanceName=modelicaInstanceName,
+    spawnExe=spawnExe,
     idfName=idfName,
     epwName=epwName,
     relativeSurfaceTolerance=relativeSurfaceTolerance,

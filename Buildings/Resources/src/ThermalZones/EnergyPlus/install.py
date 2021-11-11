@@ -16,8 +16,9 @@ import shutil
 # Commit, see https://gitlab.com/kylebenne/spawn/-/pipelines?scope=all&page=1
 # Also available is latest/Spawn-latest-{Linux,win64,Darwin}
 # The setup below will lead to a specific commit being pulled.
-commit = "894d972d4160a7e1b3e9ea0f24057156ce1be133"
-NAME_VERSION = f"Spawn-0.1.2-{commit[0:10]}"
+version = "0.2.0"
+commit = "d7f1e095f3ff605f747e46e3ed140a982aa2b7a9"
+NAME_VERSION = f"Spawn-light-{version}-{commit[0:10]}"
 
 
 
@@ -87,14 +88,14 @@ def get_distribution(dis):
     os.remove(tar_fil)
 
 
-def get_vars_as_json(spawnFlag):
+def get_vars_as_json(spawnFlag, spawn_exe):
     """Return a json structure that contains the output variables supported by spawn"""
     import os
     import subprocess
     import json
 
     bin_dir = get_bin_directory()
-    spawn = os.path.join(bin_dir, "spawn-linux64", "bin", "spawn")
+    spawn = os.path.join(bin_dir, "spawn-linux64", "bin", spawn_exe)
 
     ret = subprocess.run([spawn, spawnFlag], stdout=subprocess.PIPE, check=True)
     vars = json.loads(ret.stdout)
@@ -158,7 +159,31 @@ def replace_table_in_mo(html, varType, moFile):
         mo_fil.write(mo_new)
 
 
+def update_git(spawn_exe):
+    import os
+    import glob
+    from git import Repo
+    import sys
+
+    git_folder = os.path.abspath( \
+        os.path.join(__file__, \
+            os.pardir, os.pardir, os.pardir, os.pardir, os.pardir, os.pardir, ".git"))
+    repo = Repo(git_folder)
+
+    # Get the old Spawn executuables
+    for file in glob.glob(os.path.join("Buildings", "Resources", "bin", "**/spawn-?.?.?-*"), recursive=True):
+        if spawn_exe in file:
+            # Add to git
+            print(f"Adding {file} to git")
+            repo.index.add([file])
+        else:
+            print(f"Removing {file} from git")
+            repo.index.remove([file])
+
 if __name__ == "__main__":
+    import sys
+
+    spawn_exe = f"spawn-{version}-{commit[0:10]}"
 
     dists = list()
     dists.append(
@@ -166,7 +191,7 @@ if __name__ == "__main__":
             "src": f"https://spawn.s3.amazonaws.com/builds/{NAME_VERSION}-Linux.tar.gz",
             "des": "spawn-linux64",
             "files": {
-                "bin/spawn": "",
+                f"bin/{spawn_exe}": "",
                 "README.md": "",
                 "lib/epfmi.so": "",
                 "etc/Energy+.idd": "",
@@ -179,7 +204,7 @@ if __name__ == "__main__":
             "des": "spawn-win64",
             "files": {
                 "bin/epfmi.dll": "",
-                "bin/spawn.exe": "",
+                f"bin/{spawn_exe}.exe": "",
                 "README.md": "",
                 "lib/epfmi.lib": "",
                 "etc/Energy+.idd": "",
@@ -189,6 +214,10 @@ if __name__ == "__main__":
 
     p = Pool(2)
     p.map(get_distribution, dists)
+
+    # Remove old binaries and add new binaries to git
+    update_git(spawn_exe)
+
     vars = [
         {
             "spawnFlag": "--output-vars",
@@ -204,6 +233,6 @@ if __name__ == "__main__":
         },
     ]
     for v in vars:
-        js = get_vars_as_json(v["spawnFlag"])
+        js = get_vars_as_json(v["spawnFlag"], spawn_exe)
         html = get_html_table(js, v["htmlTemplate"])
         replace_table_in_mo(html, v["varType"], v["moFile"])

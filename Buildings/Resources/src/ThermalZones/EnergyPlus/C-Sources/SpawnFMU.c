@@ -24,6 +24,7 @@ static struct FMUBuilding** Buildings_FMUS; /* Array with pointers to all FMUs *
 size_t AllocateBuildingDataStructure(
   double startTime,
   const char* modelicaNameBuilding,
+  const char* spawnExe,
   const char* idfName,
   const char* epwName,
   double relativeSurfaceTolerance,
@@ -90,6 +91,15 @@ size_t AllocateBuildingDataStructure(
     &(Buildings_FMUS[nFMU]->buildingsLibraryRoot),
     SpawnFormatError);
   strcpy(Buildings_FMUS[nFMU]->buildingsLibraryRoot, buildingsLibraryRoot);
+
+  /* Assign the spawn exe name */
+  mallocString(
+    (strlen(spawnExe)+1),
+    "Not enough memory in SpawnFMU.c. to allocate spawnExe.",
+    &(Buildings_FMUS[nFMU]->spawnExe),
+    SpawnFormatError);
+  strcpy(Buildings_FMUS[nFMU]->spawnExe, spawnExe);
+
 
   /* Assign the idfName name */
   if (usePrecompiledFMU){

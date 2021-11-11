@@ -88,6 +88,7 @@ protected
   Buildings.ThermalZones.EnergyPlus.BaseClasses.ThermalZoneAdapter fmuZon(
     final modelicaNameBuilding=modelicaNameBuilding,
     final modelicaInstanceName=modelicaInstanceName,
+    final spawnExe=spawnExe,
     final idfName=idfName,
     final epwName=epwName,
     final relativeSurfaceTolerance=relativeSurfaceTolerance,
