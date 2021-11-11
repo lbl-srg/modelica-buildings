@@ -12,7 +12,7 @@ branches:
     - /^maint_.*$/
     - release
 
-cache: 
+cache:
   pip: true
   directories:
     - .git/lfs
@@ -36,7 +36,7 @@ env:
 
   jobs:
 #    - TEST_ARG="make test-cdl-conformance"
-    - TEST_ARG="make test-energyplus-validations test-spawn-portability-dymola test-spawn-portability-omc test-optimica-spawn-fmu"
+    - TEST_ARG="make test-energyplus-validations test-dymola-spawn-spaces test-omc-spawn-spaces test-optimica-spawn-fmu"
 #    - TEST_ARG="make test-bestest"
 #    - TEST_ARG="make test-dymola    PACKAGE=\"Buildings.{Air,Examples}\""
 #    - TEST_ARG="make test-optimica  PACKAGE=\"Buildings.{Air,Examples}\""

@@ -34,17 +34,71 @@ test-bestest:
 	git diff --exit-code $(ROOT)/Buildings/Resources/Data/BoundaryConditions/Validation/BESTEST
 
 test-optimica-spawn-fmu:
-	@echo "*** Check if Spawn is portable to another location in the file system"
-	(cd  $(ROOT) && \
-	  python3 Buildings/Resources/Scripts/travis/pyfmi/runSpawnFromOtherDirectory.py)
+	@echo "*** Check if Spawn is portable to another location in the file system."
+	@(cd  $(ROOT) && \
+	  python3 Buildings/Resources/Scripts/travis/pyfmi/runSpawnFromOtherDirectory.py > /dev/null )
+	@echo "    Success."
 
-test-spawn-portability-dymola: test-spawn-portability-success test-spawn-portability-failure
+test-omc-spawn-spaces: test-omc-spawn-spaces-success test-omc-spawn-spaces-failure
 
-test-spawn-portability-omc: test-spawn-portability-omc-success
+test-omc-spawn-spaces-success:
+	@echo "*** Check if for OpenModelica, Spawn works with OpenModelica if the root folder is not Buildings."
+	@$(eval TMP := $(shell mktemp --suffix=-LBL-Buildings -d))
+	@mkdir -p $(TMP)
+	@cp -rp $(ROOT)/Buildings $(TMP)/
+	@mv $(TMP)/Buildings $(TMP)/Buildings\ 8.0.0
+	@cp $(ROOT)/Buildings/Resources/Scripts/travis/SpawnTest.mo $(TMP)
+	@(cd  $(TMP) && \
+	  echo "clearCommandLineOptions();\n" \
+    "setCommandLineOptions(\"-d=nogen\");\n" \
+	"setCommandLineOptions(\"-d=initialization\");\n" \
+	"setCommandLineOptions(\"-d=backenddaeinfo\");\n" \
+	"setCommandLineOptions(\"-d=discreteinfo\");\n" \
+	"setCommandLineOptions(\"-d=stateselection\");\n" \
+	"setCommandLineOptions(\"-d=execstat\");\n" \
+	"setMatchingAlgorithm(\"PFPlusExt\");\n" \
+	"setIndexReductionMethod(\"dynamicStateSelection\");\n" \
+	"loadModel(Modelica, {\"3.2.3\"});\n" \
+	"loadFile(\"Buildings 8.0.0/package.mo\");\n" \
+	"loadFile(\"SpawnTest.mo\");\n" \
+	"simulate(SpawnTest);\n" \
+	"getErrorString();" > openmod.mos )
+	@(cd $(TMP) && export OPENMODELICALIBRARY=$(TMP):/usr/lib/omlibrary && omc openmod.mos > /dev/null )
+	@cd $(TMP) && grep -q "The simulation finished successfully." SpawnTest.log
+	@rm -rf $(TMP)
+	@echo "    Success."
 
-test-spawn-portability-dymola-success:
-	@echo "*** Check if for Dymola, Spawn works if the root folder is not Buildings"
+test-omc-spawn-spaces-failure:
+	@echo "*** Check if for OpenModelica, Spawn properly fails if the root folder contains a space."
 	$(eval TMP := $(shell mktemp --suffix=-LBL-Buildings -d))
+	$(eval TMP := $(TMP)/dir\ with\ spaces)
+	@mkdir -p $(TMP)
+	@cp -rp $(ROOT)/Buildings $(TMP)/
+	@mv $(TMP)/Buildings $(TMP)/Buildings\ 8.0.0
+	@cp $(ROOT)/Buildings/Resources/Scripts/travis/SpawnTest.mo $(TMP)
+	@(cd  $(TMP) && \
+	  echo "clearCommandLineOptions();\n" \
+    "setCommandLineOptions(\"-d=nogen\");\n" \
+	"setCommandLineOptions(\"-d=initialization\");\n" \
+	"setCommandLineOptions(\"-d=backenddaeinfo\");\n" \
+	"setCommandLineOptions(\"-d=discreteinfo\");\n" \
+	"setCommandLineOptions(\"-d=stateselection\");\n" \
+	"setCommandLineOptions(\"-d=execstat\");\n" \
+	"setMatchingAlgorithm(\"PFPlusExt\");\n" \
+	"setIndexReductionMethod(\"dynamicStateSelection\");\n" \
+	"loadModel(Modelica, {\"3.2.3\"});\n" \
+	"loadFile(\"Buildings 8.0.0/package.mo\");\n" \
+	"loadFile(\"SpawnTest.mo\");\n" \
+	"simulate(SpawnTest);\n" \
+	"getErrorString();" > openmod.mos )
+	@(cd $(TMP) && export OPENMODELICALIBRARY=$(TMP):/usr/lib/omlibrary && omc openmod.mos > /dev/null )
+	@cd $(TMP) && grep -q "To use EnergyPlus, the Modelica Buildings Library must be installed in a directory that has no spaces." SpawnTest.log
+	@rm -rf $(TMP)
+	@echo "    Success."
+
+test-dymola-spawn-spaces:
+	@echo "*** Check if for Dymola, Spawn works if the root folder is not Buildings."
+	@$(eval TMP := $(shell mktemp --suffix=-LBL-Buildings -d))
 	@mkdir -p $(TMP)
 	@cp -rp $(ROOT)/Buildings $(TMP)/
 	@mv $(TMP)/Buildings $(TMP)/Buildings\ 8.0.0
@@ -53,53 +107,10 @@ test-spawn-portability-dymola-success:
 	  echo "simulateModel(\"SpawnTest\", stopTime=432000, method=\"Cvode\", tolerance=1e-06);" > run.mos && \
 	  echo "exit()" >> run.mos && \
 	  rm -f dslog.txt && \
-	  dymola run.mos)
+	  dymola run.mos /nowindow)
 	@cd $(TMP) && grep -q "Integration terminated successfully" dslog.txt
 	@rm -rf $(TMP)
-
-test-spawn-portability-dymola-failure:
-	@echo "*** Check if for Dymola, Spawn properly fails if the root folder contains a string"
-	$(eval TMP := $(shell mktemp --suffix=-LBL-Buildings -d))
-	$(eval TMPDIR := $(TMP)/dir\ with\ spaces)
-	@mkdir -p $(TMPDIR)
-	@cp -rp $(ROOT)/Buildings $(TMPDIR)/
-	@mv $(TMPDIR)/Buildings $(TMPDIR)/Buildings\ 8.0.0
-	@cp $(ROOT)/Buildings/Resources/Scripts/travis/SpawnTest.mo $(TMP)
-	@(cd  $(TMPDIR) && \
-	  echo "simulateModel(\"SpawnTest\", stopTime=432000, method=\"Cvode\", tolerance=1e-06);" > run.mos && \
-	  echo "exit()" >> run.mos && \
-	  rm -f dslog.txt && \
-	  dymola run.mos)
-	@cd $(TMPDIR) && grep -q "To use EnergyPlus, the Modelica Buildings Library must be installed in a directory that has no spaces." dslog.txt
-	@rm -rf $(TMPDIR)
-
-test-spawn-portability-omc-success:
-	@echo "*** Check if for OpenModelica, Spawn works with OpenModelica if the root folder is not Buildings"
-	$(eval TMP := $(shell mktemp --suffix=-LBL-Buildings -d))
-	@mkdir -p $(TMP)
-	@cp -rp $(ROOT)/Buildings $(TMP)/
-	mv $(TMP)/Buildings $(TMP)/Buildings\ 8.0.0
-	cp $(ROOT)/Buildings/Resources/Scripts/travis/SpawnTest.mo $(TMP)
-	@(cd  $(TMP) && \
-	  echo "clearCommandLineOptions();\n" \
-	"setCommandLineOptions(\"--matchingAlgorithm=PFPlusExt -d=initialization,NLSanalyticJacobian,newInst\");\n" \
-	"setCommandLineOptions(\"+d=nogen,initialization,backenddaeinfo,discreteinfo,stateselection\");\n" \
-	"setCommandLineOptions(\"--simCodeTarget=C\");\n" \
-	"setCommandLineOptions(\"--target=gcc\");\n" \
-	"setCompiler(\"clang\");\n" \
-	"setCXXCompiler(\"clang++\");\n" \
-	"setCommandLineOptions(\"+ignoreCommandLineOptionsAnnotation=false\");\n" \
-	"setCommandLineOptions(\"+ignoreSimulationFlagsAnnotation=false\");\n" \
-	"setCommandLineOptions(\"-d=nfAPI\");\n" \
-	"setCommandLineOptions(\"--newBackend\");\n" \
-	"loadModel(Modelica, {\"3.2.3\"});\n" \
-        "loadFile(\"Buildings 8.0.0/package.mo\");\n" \
-	"loadFile(\"SpawnTest.mo\");\n" \
-	"simulate(SpawnTest);\n" \
-        "getErrorString();" > openmod.mos )
-	(cd $(TMP) && export OPENMODELICALIBRARY=$(TMP):/usr/lib/omlibrary && omc openmod.mos)
-	@cd $(TMP) && grep -q "The simulation finished successfully." SpawnTest.log
-	@rm -rf $(TMP)
+	@echo "    Success."
 
 test-omc:
 	(cd $(ROOT) && \
