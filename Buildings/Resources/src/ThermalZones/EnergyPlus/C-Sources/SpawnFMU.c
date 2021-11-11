@@ -278,6 +278,8 @@ void FMUBuildingFree(FMUBuilding* bui){
       free(bui->buildingsLibraryRoot);
     if (bui->modelicaNameBuilding != NULL)
       free(bui->modelicaNameBuilding);
+    if (bui->spawnExe != NULL)
+      free(bui->spawnExe);
     if (bui->idfName != NULL)
       free(bui->idfName);
     if (bui->weather != NULL)
