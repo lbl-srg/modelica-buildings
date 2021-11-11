@@ -24,7 +24,8 @@ model Electrical "Model of the electrical room attached to test cell X3A"
      til = {Buildings.Types.Tilt.Floor},
      azi = {Buildings.Types.Azimuth.N},
      each stateAtSurface_a = false));
-  replaceable
+
+  replaceable parameter
     Data.Constructions.OpaqueConstructions.ExteriorConstructions.Construction3
     eleExt "Construction describing the exterior walls in the electrical room"
     annotation (Placement(transformation(extent={{430,-210},{450,-190}})));
@@ -134,10 +135,19 @@ model Electrical "Model of the electrical room attached to test cell X3A"
   </html>",
   revisions = "<html>
   <ul>
-  <li>Setp 16, 2013 by Peter Grant:<br/>
-  Added a model representing the floor.</li>
-  <li>July 26, 2013 by Peter Grant:<br/>
-  First implementation.</li>
+  <li>
+  October 13, 2021, by Michael Wetter:<br/>
+  Added missing <code>parameter</code> keyword.<br/>
+  This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2669\">issue 2669</a>.
+  </li>
+  <li>
+  September 16, 2013 by Peter Grant:<br/>
+  Added a model representing the floor.
+  </li>
+  <li>
+  July 26, 2013 by Peter Grant:<br/>
+  First implementation.
+  </li>
   </ul>
   </html>"), Icon(coordinateSystem(preserveAspectRatio=false, extent={{-200,
             -200},{200,200}}), graphics={

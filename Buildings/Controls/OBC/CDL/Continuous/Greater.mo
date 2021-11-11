@@ -164,13 +164,13 @@ equation
           extent={{-88,-18},{-21,24}},
           lineColor={0,0,0},
           textString=DynamicSelect("",String(u1,
-            leftjustified=false,
+            leftJustified=false,
             significantDigits=3))),
         Text(
           extent={{-86,-76},{-19,-34}},
           lineColor={0,0,0},
           textString=DynamicSelect("",String(u2,
-            leftjustified=false,
+            leftJustified=false,
             significantDigits=3))),
         Text(
           extent={{22,20},{89,62}},
@@ -180,7 +180,7 @@ equation
             else
               {0,0,0}),
           textString=DynamicSelect("",String(u2,
-            leftjustified=false,
+            leftJustified=false,
             significantDigits=3)),
           visible=h >= 1E-10),
         Text(
@@ -191,7 +191,7 @@ equation
             else
               {0,0,0}),
           textString=DynamicSelect("",String(u2,
-            leftjustified=false,
+            leftJustified=false,
             significantDigits=3)),
           visible=h >= 1E-10),
         Text(
@@ -202,7 +202,7 @@ equation
             else
               {0,0,0}),
           textString=DynamicSelect("",String(u2-h,
-            leftjustified=false,
+            leftJustified=false,
             significantDigits=3)),
           visible=h >= 1E-10)}),
     Documentation(

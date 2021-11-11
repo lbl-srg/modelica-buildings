@@ -263,10 +263,39 @@ The following <b style=\"color:blue\">new components</b> have been added
 to <b style=\"color:blue\">existing</b> libraries:
 </p>
 <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
+<tr><td colspan=\"2\"><b>Buildings.Fluid.Boilers</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Fluid.Boilers.BoilerTable<br/>
+                       Buildings.Fluid.Boilers.Examples.BoilerTable<br/>
+                       Buildings.Fluid.Boilers.Validation.BoilerTableEfficiencyCurves<br/>
+                       Buildings.Fluid.Boilers.BaseClasses.PartialBoiler<br/>
+                       Buildings.Fluid.Boilers.Data.Generic<br/>
+                       Buildings.Fluid.Boilers.Data.Lochinvar.Crest.FBdash2501<br/>
+                       Buildings.Fluid.Boilers.Data.Lochinvar.Crest.FBdash3001<br/>
+                       Buildings.Fluid.Boilers.Data.Lochinvar.Crest.FBdash3501<br/>
+                       Buildings.Fluid.Boilers.Data.Lochinvar.Crest.FBdash4001<br/>
+                       Buildings.Fluid.Boilers.Data.Lochinvar.Crest.FBdash5001<br/>
+                       Buildings.Fluid.Boilers.Data.Lochinvar.Crest.FBdash6001<br/>
+                       Buildings.Fluid.Boilers.Data.Lochinvar.FTXL.FTX400<br/>
+                       Buildings.Fluid.Boilers.Data.Lochinvar.FTXL.FTX500<br/>
+                       Buildings.Fluid.Boilers.Data.Lochinvar.FTXL.FTX600<br/>
+                       Buildings.Fluid.Boilers.Data.Lochinvar.FTXL.FTX725<br/>
+                       Buildings.Fluid.Boilers.Data.Lochinvar.FTXL.FTX850<br/>
+                       Buildings.Fluid.Boilers.Data.Lochinvar.KnightXL.KBXdash0400<br/>
+                       Buildings.Fluid.Boilers.Data.Lochinvar.KnightXL.KBXdash0500<br/>
+                       Buildings.Fluid.Boilers.Data.Lochinvar.KnightXL.KBXdash0650<br/>
+                       Buildings.Fluid.Boilers.Data.Lochinvar.KnightXL.KBXdash0800<br/>
+                       Buildings.Fluid.Boilers.Data.Lochinvar.KnightXL.KBXdash1000
+    </td>
+    <td valign=\"top\">Classes for modeling boilers whose efficiency curves are provided as a table. <br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2651\">issue 2651</a>.
+    </td>
+</tr>
 <tr><td colspan=\"2\"><b>Buildings.Fluid.FixedResistances</b>
     </td>
 </tr>
-<tr><td valign=\"top\">Buildings.Fluid.FixedResistances.PlugFlowDiscretized
+<tr><td valign=\"top\">Buildings.Fluid.FixedResistances.PlugFlowPipeDiscretized
     </td>
     <td valign=\"top\">Class for modeling multiple plug flow pipes in series,
                        which can be used to vary boundary conditions over the length of a pipe.
@@ -320,17 +349,34 @@ have been <b style=\"color:blue\">improved</b> in a
                        This new version also outputs this altitude and the latitude of the location on the weather data bus.<br/>
                        This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1477\">IBPSA, issue #1477</a>.
     </td>
-<tr><td colspan=\"2\"><b>Buildings.Fluid.Actuators</b>
+<tr><td colspan=\"2\"><b>Buildings.Controls.Continuous</b>
     </td>
 </tr>
-<tr><td valign=\"top\">Buildings.Fluid.Movers.FlowControlled_dp<br/>
-                       Buildings.Fluid.Movers.FlowControlled_m_flow<br/>
-                       Buildings.Fluid.Movers.SpeedControlled_Nrpm<br/>
-                       Buildings.Fluid.Movers.SpeedControlled_y
+<tr><td valign=\"top\">Buildings.Controls.Continuous.SignalRanker
     </td>
-    <td valign=\"top\">Changed implementation of the filter.
-                       The new implementation uses a simpler model.<br/>
-                       This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1498\">IBPSA #1498</a>.
+    <td valign=\"top\">Changed implementation to use sort function from Modelica Standard Library,
+                       and updated its example to avoid simultaneous state and time events.<br/>
+                       This is for
+                       <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1534\">IBPSA, #1534</a>.
+    </td>
+</tr>
+<tr><td colspan=\"2\"><b>Buildings.Controls.OBC</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Controls.OBC.ASHRAE.G36_PR1.Generic.SetPoints.GroupStatus
+    </td>
+    <td valign=\"top\">Added filters to select which zones are used in group.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2544\">issue 2544</a>.
+    </td>
+</tr>
+<tr><td colspan=\"2\"><b>Buildings.Fluid.Boilers</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Fluid.Boilers.Polynomial
+    </td>
+    <td valign=\"top\">Moved part of the code to <code>Buildings.Fluid.Boilers.BaseClasses.PartialBoiler</code>
+                       to support the new model <code>Buildings.Fluid.Boilers.BoilerTable</code>. <br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2651\">issue 2651</a>.
     </td>
 </tr>
 <tr><td colspan=\"2\"><b>Buildings.Examples</b>
@@ -358,6 +404,19 @@ have been <b style=\"color:blue\">improved</b> in a
                        Use explicit calculation of sensible and latent load to determine design load
                        on cooling coil.<br/>
                        This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2624\">issue #2624</a>.
+    </td>
+</tr>
+<tr><td colspan=\"2\"><b>Buildings.Fluid.Actuators</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Fluid.Movers.FlowControlled_dp<br/>
+                       Buildings.Fluid.Movers.FlowControlled_m_flow<br/>
+                       Buildings.Fluid.Movers.SpeedControlled_Nrpm<br/>
+                       Buildings.Fluid.Movers.SpeedControlled_y
+    </td>
+    <td valign=\"top\">Changed implementation of the filter.
+                       The new implementation uses a simpler model.<br/>
+                       This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1498\">IBPSA #1498</a>.
     </td>
 </tr>
 <tr><td colspan=\"2\"><b>Buildings.Fluid.FMI</b>
@@ -391,13 +450,24 @@ have been <b style=\"color:blue\">improved</b> in a
                        This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/pull/1516\">IBPSA #1516</a>.
     </td>
 </tr>
-<tr><td colspan=\"2\"><b>Buildings.Controls.OBC</b>
+  <tr><td colspan=\"2\"><b>Buildings.ThermalZones.ReducedOrder</b>
+      </td>
+  </tr>
+  <tr><td valign=\"top\">Buildings.ThermalZones.ReducedOrder.Validation.VDI6007.BaseClasses.VerifyDifferenceThreePeriods
+  </td>
+  <td valign=\"top\">Improved model to guard against approximation errors of event handling.
+                     With this change, the models in <code>Buildings.ThermalZones.ReducedOrder.Validation.VDI6007</code>
+                     all simulate with OpenModelica.<br/>
+                     This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2713\">Buidings, issue #2713</a>.
+  </td>
+  </tr>
+<tr><td colspan=\"2\"><b>Buildings.Utilities.Math</b>
     </td>
 </tr>
-<tr><td valign=\"top\">Buildings.Controls.OBC.ASHRAE.G36_PR1.Generic.SetPoints.GroupStatus
+<tr><td valign=\"top\">Buildings.Utilities.Math.Functions.BaseClasses.der_spliceFunction
     </td>
-    <td valign=\"top\">Add filters to select which zones are used in group.<br/>
-                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2544\">issue 2544</a>.
+    <td valign=\"top\">Reimplemented function to avoid a potential overflow caused by the <code>cosh</code> function.<br/>
+                       This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/pull/1531\">IBPSA #1531</a>.
     </td>
 </tr>
 </table>
@@ -695,37 +765,42 @@ units are wrong or errors in documentation):
 <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
 <tr><td colspan=\"2\"><b>Buildings.Airflow</b>
     </td>
-</tr>
-<tr><td valign=\"top\">Buildings.Airflow.Multizone.DoorOperable
+  </tr>
+  <tr><td valign=\"top\">Buildings.Airflow.Multizone.DoorOperable
     </td>
     <td valign=\"top\">Removed duplicate declaration of <code>VABp_flow</code>.<br/>
-                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1496\">Buidings, issue #1496</a>.
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1496\">Buildings, issue #1496</a>.
+    </td>
+  </tr>
+  <tr><td colspan=\"2\"><b>Buildings.Applications.DataCenters</b>
     </td>
 </tr>
-<tr><td colspan=\"2\"><b>Buildings.Electrical</b>
+<tr><td valign=\"top\">Buildings.Applications.DataCenters.ChillerCooled.Examples.IntegratedPrimaryLoadSideEconomizer<br/>
+                         Buildings.Applications.DataCenters.ChillerCooled.Examples.IntegratedPrimarySecondaryEconomizer<br/>
+                         Buildings.Applications.DataCenters.ChillerCooled.Examples.NonIntegratedPrimarySecondaryEconomizer
+    </td>
+    <td valign=\"top\">Corrected weather data bus connection which was structurally incorrect
+                       and did not parse in OpenModelica.<br/>
+                       This is for
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2706\">Buildings, issue 2706</a>.
     </td>
 </tr>
-<tr><td valign=\"top\">Buildings.ThermalZones.Detailed.FLEXLAB.Rooms.X3B.Electrical
-    </td>
-    <td valign=\"top\">Added missing parameter declaration.<br/>
-                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2556\">Buidings, issue #2556</a>.
-    </td>
-</tr>
-<tr><td colspan=\"2\"><b>Buildings.ThermalZones</b>
+<tr><td colspan=\"2\"><b>Buildings.ThermalZones.Detailed</b>
     </td>
 </tr>
 <tr><td valign=\"top\">Buildings.ThermalZones.Detailed.BaseClasses.RadiationTemperature
     </td>
     <td valign=\"top\">Corrected annotation.<br/>
-                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2550\">Buidings, issue #2550</a>.
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2550\">Buildings, issue #2550</a>.
     </td>
 </tr>
     <tr><td valign=\"top\">Buildings.ThermalZones.Detailed.Constructions.Examples.ExteriorWallTwoWindows<br/>
                            Buildings.ThermalZones.Detailed.Constructions.Examples.ExteriorWallWithWindow<br/>
+                           Buildings.ThermalZones.Detailed.FLEXLAB.Rooms.X3B.Electrical<br/>
                            Buildings.ThermalZones.Detailed.Validation.BESTEST.Cases6xx.Case600FF
         </td>
         <td valign=\"top\">Added missing parameter declaration.<br/>
-                           This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2556\">Buidings, issue #2556</a>.
+                           This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2556\">Buildings, issue #2556</a>.
         </td>
 </tr>
 </table>
@@ -1572,7 +1647,7 @@ as reported in <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1432\">I
     <tr><td valign=\"top\">Buildings.Fluid.Geothermal.Borefields.BaseClasses.PartialBorefield
         </td>
         <td valign=\"top\">Corrected placement of <code>each</code> keyword.
-                           See <a href=\"https://github.com/lbl-srg/modelica-buildings/pull/2440\">Buidings, #2440</a>.
+                           See <a href=\"https://github.com/lbl-srg/modelica-buildings/pull/2440\">Buildings, #2440</a>.
                            <br/>
                            Switched port connections for <code>masFloDiv</code>.
                            See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/41\">IBPSA, #41</a>.
@@ -1619,7 +1694,7 @@ as reported in <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1432\">I
                            Buildings.Fluid.HeatExchangers.DXCoils.WaterCooled.Validation.VariableSpeedEnergyPlusPartLoad<br/>
         </td>
         <td valign=\"top\">Corrected placement of <code>each</code> keyword.<br/>
-                           See <a href=\"https://github.com/lbl-srg/modelica-buildings/pull/2440\">Buidings, PR #2440</a>.<br/>
+                           See <a href=\"https://github.com/lbl-srg/modelica-buildings/pull/2440\">Buildings, PR #2440</a>.<br/>
                            Added missing parameter declaration for data record.
         </td>
     </tr>
@@ -9531,6 +9606,8 @@ The following people have directly contributed to the implementation of the Buil
 <li>Rainer Czetina, University of Applied Sciences Technikum Wien, Austria
 </li>
 <li>Hagar Elarga, Lawrence Berkeley National Laboratory, USA
+</li>
+<li>Hongxiang \"Casper\" Fu, Lawrence Berkeley National Laboratory, USA
 </li>
 <li>Yangyang Fu, University of Colorado Boulder, Colorado, USA
 </li>

@@ -377,6 +377,6 @@ This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1589\
           extent={{226,106},{106,56}},
           lineColor={0,0,0},
           textString=DynamicSelect("",String(tOpt,
-            leftjustified=false,
+            leftJustified=false,
             significantDigits=3)))}));
 end OptimalStart;

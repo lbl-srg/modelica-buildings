@@ -29,7 +29,7 @@ annotation (defaultComponentName="senDen",
         Text(
           extent={{180,90},{60,40}},
           lineColor={0,0,0},
-          textString=DynamicSelect("", String(d, leftjustified=false, significantDigits=3)))}),
+          textString=DynamicSelect("", String(d, leftJustified=false, significantDigits=3)))}),
   Documentation(info="<html>
 <p>
 This model outputs the density of the fluid connected to its port.

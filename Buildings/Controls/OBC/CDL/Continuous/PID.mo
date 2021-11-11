@@ -294,7 +294,7 @@ Modelica Standard Library.
             extent={{226,60},{106,10}},
             lineColor={0,0,0},
             textString=DynamicSelect("",String(y,
-              leftjustified=false,
+              leftJustified=false,
               significantDigits=3)))}));
   end Derivative;
 

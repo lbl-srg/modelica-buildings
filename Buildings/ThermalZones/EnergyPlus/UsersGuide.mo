@@ -9,7 +9,7 @@ package UsersGuide
       preferredView="info",
       Documentation(
         info="<html>
-<h4>How to instantiate models for one or several buidings</h4>
+<h4>How to instantiate models for one or several buildings</h4>
 <p>
 To instantiate one or several building models, proceed as follows:
 </p>

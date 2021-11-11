@@ -1,5 +1,5 @@
 within Buildings.Fluid.FixedResistances;
-model PlugFlowDiscretized
+model PlugFlowPipeDiscretized
   "Discretized pipe model using spatialDistribution for temperature delay"
   extends Buildings.Fluid.Interfaces.PartialTwoPort;
 
@@ -13,9 +13,13 @@ model PlugFlowDiscretized
     annotation (Dialog(tab="Advanced"));
 
   parameter Boolean have_pipCap=true
-    "= true, a mixing volume is added to port_b that corresponds
-    to the heat capacity of the pipe wall"
+    "= true, a mixing volume is added to each segment that corresponds 
+    to the heat capacity of the pipe segment wall"
     annotation (Dialog(tab="Advanced"));
+  parameter Boolean have_symmetry=true
+    "= false, the mixing volume is only on port_b of each segment,
+    which improve performances, but reduces dynamic accuracy"
+    annotation (Dialog(tab="Advanced", enable=have_pipCap));
 
   parameter Modelica.SIunits.Length dh
     "Hydraulic diameter" annotation (Dialog(group="Material"));
@@ -92,43 +96,7 @@ model PlugFlowDiscretized
     v_nominal = m_flow_nominal / (APip * rho_default)
     "Velocity at m_flow_nominal";
 
-  Modelica.SIunits.Velocity v = del[1].v "Flow velocity of medium in pipe";
-
-protected
-  parameter Modelica.SIunits.Length rInt = dh / 2 "Pipe interior radius";
-
-  parameter Modelica.SIunits.Area APip = Modelica.Constants.pi * rInt^2
-    "Pipe hydraulic cross-sectional area";
-
-  parameter Modelica.SIunits.HeatCapacity CPip[nSeg]=
-    segLen*((dh + 2*thickness)^2 - dh^2)*Modelica.Constants.pi/4*cPip*rhoPip "Heat capacity of pipe wall";
-
-  final parameter Modelica.SIunits.Volume VEqu[nSeg]=CPip ./ (rho_default*cp_default)
-    "Equivalent water volume to represent pipe wall thermal inertia";
-
-  parameter Modelica.SIunits.Density rho_default=Medium.density_pTX(
-      p=Medium.p_default,
-      T=Medium.T_default,
-      X=Medium.X_default)
-    "Default density (e.g., rho_liquidWater = 995, rho_air = 1.2)";
-
-  parameter Medium.ThermodynamicState sta_default=Medium.setState_pTX(
-      T=Medium.T_default,
-      p=Medium.p_default,
-      X=Medium.X_default) "Default medium state";
-
-  parameter Modelica.SIunits.SpecificHeatCapacity cp_default=
-      Medium.specificHeatCapacityCp(state=sta_default)
-    "Heat capacity of medium";
-
-  parameter Real C(unit="J/(K.m)")=
-    rho_default*Modelica.Constants.pi*(dh/2)^2*cp_default
-    "Thermal capacity per unit length of water in pipe";
-
-  parameter Real R(unit="(m.K)/W")=1/(kIns*2*Modelica.Constants.pi/
-    Modelica.Math.log((dh/2 + thickness + dIns)/(dh/2 + thickness)))
-    "Thermal resistance per unit length from fluid to boundary temperature"
-    annotation (Dialog(group="Thermal resistance"));
+  Modelica.SIunits.Velocity v = pipSeg[1].v "Flow velocity of medium in pipe";
 
   FixedResistances.HydraulicDiameter res(
     redeclare final package Medium = Medium,
@@ -148,129 +116,54 @@ protected
     "Pressure drop calculation for this pipe"
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
 
+protected
+  parameter Modelica.SIunits.Length rInt = dh / 2 "Pipe interior radius";
 
-  // In the volume, below, we scale down V and use
-  // mSenFac. Otherwise, for air, we would get very large volumes
-  // which affect the delay of water vapor and contaminants.
-  // See also Buildings.Fluid.FixedResistances.Validation.PlugFlowPipes.TransportWaterAir
-  // for why mSenFac is 10 and not 1000, as this gives more reasonable
-  // temperature step response
-  Fluid.MixingVolumes.MixingVolume vol[nSeg](
-    redeclare each final package Medium = Medium,
-    each final m_flow_nominal=m_flow_nominal,
-    final V=if rho_default > 500 then VEqu else VEqu/1000,
-    each final nPorts=2,
-    final T_start=T_start_out,
-    each final energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    each final mSenFac=if rho_default > 500 then 1 else 10) if have_pipCap
-    "Control volume connected to port_b. Represents equivalent pipe wall thermal capacity."
-    annotation (Placement(transformation(extent={{30,20},{50,40}})));
+  parameter Modelica.SIunits.Area APip = Modelica.Constants.pi * rInt^2
+    "Pipe hydraulic cross-sectional area";
 
-  LosslessPipe noMixPip[nSeg](
-    redeclare each final package Medium = Medium,
-    each final m_flow_nominal=m_flow_nominal,
-    each final m_flow_small=m_flow_small,
-    each final allowFlowReversal=allowFlowReversal) if not have_pipCap
-    "Lossless pipe for connecting the outlet port when have_pipCap=false"
-    annotation (Placement(transformation(extent={{30,-50},{50,-30}})));
+  parameter Modelica.SIunits.Density rho_default=Medium.density_pTX(
+      p=Medium.p_default,
+      T=Medium.T_default,
+      X=Medium.X_default)
+    "Default density (e.g., rho_liquidWater = 995, rho_air = 1.2)";
 
-  BaseClasses.PlugFlow del[nSeg](
+  Buildings.Fluid.FixedResistances.BaseClasses.PlugFlowPipe pipSeg[nSeg](
     redeclare each final package Medium = Medium,
-    each final m_flow_small=m_flow_small,
-    each final dh=dh,
+    redeclare each final FixedResistances.LosslessPipe res,
     final length=segLen,
-    each final allowFlowReversal=allowFlowReversal,
     final T_start_in=T_start_in,
-    final T_start_out=T_start_out) "Model for temperature wave propagation"
-    annotation (Placement(transformation(extent={{-30,-10},{-10,10}})));
-  BaseClasses.PlugFlowHeatLoss heaLos_a[nSeg](
-    redeclare each final package Medium = Medium,
-    each final C=C,
-    each final R=R,
-    each final m_flow_small=m_flow_small,
-    final T_start=T_start_in,
-    each final m_flow_nominal=m_flow_nominal,
-    each final m_flow_start=m_flow_start,
-    each final show_T=false,
-    each final show_V_flow=false) "Heat loss for flow from port_b to port_a"
-    annotation (Placement(transformation(extent={{-40,-10},{-60,10}})));
-  BaseClasses.PlugFlowHeatLoss heaLos_b[nSeg](
-    redeclare each final package Medium = Medium,
-    each final C=C,
-    each final R=R,
-    each final m_flow_small=m_flow_small,
-    final T_start=T_start_out,
-    each final m_flow_nominal=m_flow_nominal,
-    each final m_flow_start=m_flow_start,
-    each final show_T=false,
-    each final show_V_flow=false) "Heat loss for flow from port_a to port_b"
-    annotation (Placement(transformation(extent={{0,-10},{20,10}})));
-
-  BaseClasses.PlugFlowTransportDelay timDel[nSeg](
-    final length=segLen,
+    final T_start_out=T_start_out,
+    each final dIns=dIns,
+    each final kIns=kIns,
+    each final cPip=cPip,
+    each final rhoPip=rhoPip,
     each final dh=dh,
-    each final rho=rho_default,
-    each final initDelay=initDelay,
+    each final v_nominal=v_nominal,
+    each final allowFlowReversal=allowFlowReversal,
     each final m_flow_nominal=m_flow_nominal,
-    each final m_flow_start=m_flow_start) "Time delay"
-    annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
+    each final thickness=thickness,
+    each final m_flow_small=m_flow_small,
+    each final initDelay=initDelay,
+    each final have_pipCap=have_pipCap,
+    each final have_symmetry=have_symmetry)
+    "Pipe segments"
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 
-  Sensors.MassFlowRate senMasFlo(
-     redeclare final package Medium = Medium)
-    "Mass flow sensor"
-    annotation (Placement(transformation(extent={{-90,-10},{-70,10}})));
-  Modelica.Blocks.Routing.Replicator rep(nout=nSeg)
-    "Replicates the input signal"
-    annotation (Placement(transformation(extent={{-80,40},{-60,60}})));
 equation
   connect(res.port_b, port_b)
     annotation (Line(points={{80,0},{100,0}}, color={0,127,255}));
-  connect(port_a, senMasFlo.port_a)
-    annotation (Line(points={{-100,0},{-90,0}}, color={0,127,255}));
-  connect(senMasFlo.port_b, heaLos_a[1].port_b)
-    annotation (Line(points={{-70,0},{-60,0}}, color={0,127,255}));
-  for i in 1:nSeg loop
-  connect(heaLos_a[i].port_a, del[i].port_a)
-    annotation (Line(points={{-40,0},{-30,0}}, color={0,127,255}));
-  connect(del[i].port_b, heaLos_b[i].port_a)
-    annotation (Line(points={{-10,0},{0,0}}, color={0,127,255}));
-  connect(heaLos_b[i].port_b, vol[i].ports[1])
-    annotation (Line(points={{20,0},{38,0},{38,20}}, color={0,127,255}));
-  connect(heaLos_b[i].port_b, noMixPip[i].port_a) annotation (Line(points={{20,0},
-          {26,0},{26,-40},{30,-40}}, color={0,127,255}));
+
+  for i in 2:nSeg loop
+    connect(pipSeg[i-1].port_b, pipSeg[i].port_a);
   end for;
-  // Connections of last to first element
-  for i in 1:nSeg-1 loop
-    connect(vol[i].ports[2], heaLos_a[i+1].port_b) annotation (Line(points={{42,20},
-            {42,20},{42,-20},{-60,-20},{-60,0}},
-                                             color={0,127,255}));
-    connect(noMixPip[i].port_b, heaLos_a[i+1].port_b) annotation (Line(points={{50,-40},
-          {56,-40},{56,-60},{-60,-60},{-60,0}}, color={0,127,255}));
-  end for;
-  // Connection of last elements to resistance
-  connect(noMixPip[nSeg].port_b, res.port_a) annotation (Line(points={{50,-40},{56,
-          -40},{56,0},{60,0}}, color={0,127,255}));
-  connect(vol[nSeg].ports[2], res.port_a) annotation (Line(points={{42,20},{56,20},
-          {56,0},{60,0}},
-                      color={0,127,255}));
 
-  // Other connections
-
-
-  connect(senMasFlo.m_flow, rep.u) annotation (Line(points={{-80,11},{-80,30},{-90,
-          30},{-90,50},{-82,50}}, color={0,0,127}));
-  connect(rep.y, timDel.m_flow)
-    annotation (Line(points={{-59,50},{-42,50}}, color={0,0,127}));
-  connect(timDel.tauRev, heaLos_a.tau) annotation (Line(points={{-19,54},{-10,54},
-          {-10,30},{-44,30},{-44,10}}, color={0,0,127}));
-  connect(timDel.tau, heaLos_b.tau)
-    annotation (Line(points={{-19,46},{4,46},{4,10}}, color={0,0,127}));
-  connect(heaLos_a.heatPort, heatPorts) annotation (Line(points={{-50,10},{-50,24},
-          {-4,24},{-4,100},{0,100}},
-                                   color={191,0,0}));
-  connect(heaLos_b.heatPort, heatPorts) annotation (Line(points={{10,10},{10,24},
-          {2,24},{2,100},{0,100}},
-                                 color={191,0,0}));
+  connect(pipSeg.heatPort, heatPorts)
+    annotation (Line(points={{0,10},{0,100}}, color={191,0,0}));
+  connect(pipSeg[nSeg].port_b, res.port_a)
+    annotation (Line(points={{10,0},{60,0}}, color={0,127,255}));
+  connect(port_a, pipSeg[1].port_a)
+    annotation (Line(points={{-100,0},{-10,0}}, color={0,127,255}));
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
             100,100}})),
@@ -383,4 +276,4 @@ Buildings.Fluid.FixedResistances.HydraulicDiameter</a> rather than being
 instantiated separately for each segment.
 </p>
 </html>"));
-end PlugFlowDiscretized;
+end PlugFlowPipeDiscretized;

@@ -350,6 +350,10 @@ alt=\"Supply and return water temperatures.\"/>
       revisions="<html>
 <ul>
 <li>
+October 21, 2021, by Michael Wetter:<br/>
+Corrected icon.
+</li>
+<li>
 February 8, 2021, by Michael Wetter:<br/>
 Renamed to <code>Buildings.Controls.OBC.Utilities.SetPoints.SupplyReturnTemperatureReset</code>
 and reimplemented using elementary CDL blocks.<br/>
@@ -431,10 +435,9 @@ First implementation.
           lineColor={0,0,127},
           textString="TOut"),
         Text(
-          visible=use_TRoo_in,
           extent={{-152,-4},{-102,-54}},
           lineColor={0,0,127},
-          textString="TRoo"),
+          textString="TSetZon"),
         Text(
           extent={{40,86},{90,36}},
           lineColor={0,0,127},

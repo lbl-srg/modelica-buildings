@@ -155,6 +155,10 @@ The table scope is repeated periodically with periodicity <code>period</code>.
       revisions="<html>
 <ul>
 <li>
+October 21, 2021, by Michael Wetter:<br/>
+Removed writing output value in icon (as it is an array of values).
+</li>
+<li>
 November 12, 2020, by Michael Wetter:<br/>
 Reformulated to remove dependency to <code>Modelica.SIunits</code>.<br/>
 This is for
@@ -213,15 +217,6 @@ Initial CDL implementation based on continuous time table implementation in CDL.
           fillPattern=FillPattern.Solid,
           extent={{-48.0,-50.0},{2.0,70.0}}),
         Line(
-          points={{-48.0,-50.0},{-48.0,70.0},{52.0,70.0},{52.0,-50.0},{-48.0,-50.0},{-48.0,-20.0},{52.0,-20.0},{52.0,10.0},{-48.0,10.0},{-48.0,40.0},{52.0,40.0},{52.0,70.0},{2.0,70.0},{2.0,-51.0}}),
-        Text(
-          extent={{226,60},{106,10}},
-          lineColor={0,0,0},
-          textString=DynamicSelect("",
-            if(nout == 1) then
-              String(y[1],
-                leftjustified=false,
-                significantDigits=3)
-            else
-              ""))}));
+          points={{-48.0,-50.0},{-48.0,70.0},{52.0,70.0},{52.0,-50.0},{-48.0,-50.0},{-48.0,-20.0},{52.0,-20.0},{52.0,10.0},{-48.0,10.0},{-48.0,40.0},{52.0,40.0},{52.0,70.0},{2.0,70.0},{2.0,-51.0}})
+          }));
 end TimeTable;

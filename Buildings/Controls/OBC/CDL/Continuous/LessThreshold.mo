@@ -156,7 +156,7 @@ equation
           extent={{-88,-18},{-21,24}},
           lineColor={0,0,0},
           textString=DynamicSelect("",String(u,
-            leftjustified=false,
+            leftJustified=false,
             significantDigits=3))),
         Text(
           extent={{4,-18},{71,24}},
@@ -171,7 +171,7 @@ equation
             else
               {0,0,0}),
           textString=DynamicSelect("",String(t,
-            leftjustified=false,
+            leftJustified=false,
             significantDigits=3)),
           visible=h >= 1E-10),
         Text(
@@ -182,7 +182,7 @@ equation
             else
               {0,0,0}),
           textString=DynamicSelect("",String(t+h,
-            leftjustified=false,
+            leftJustified=false,
             significantDigits=3)),
           visible=h >= 1E-10)}),
     Documentation(
