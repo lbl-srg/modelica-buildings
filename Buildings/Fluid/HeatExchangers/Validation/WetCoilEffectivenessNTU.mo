@@ -252,7 +252,7 @@ equation
       StopTime=1000,
       Tolerance=1e-06),
     __Dymola_Commands(
-    file="Resources/Scripts/Dymola/Fluid/HeatExchangers/Validation/WetCoilEffectivenessNTU.mos"
+    file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/Validation/WetCoilEffectivenessNTU.mos"
   "Simulate and plot"),
   Documentation(info="<html>
 <p>
