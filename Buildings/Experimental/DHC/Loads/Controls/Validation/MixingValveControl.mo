@@ -209,5 +209,5 @@ First implementation.
       StopTime=1000,
       Tolerance=1e-06),
     __Dymola_Commands(
-      file="Resources/Scripts/Dymola/Experimental/DHC/Loads/Controls/Validation/MixingValveControl.mos" "Simulate and plot"));
+      file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/DHC/Loads/Controls/Validation/MixingValveControl.mos" "Simulate and plot"));
 end MixingValveControl;

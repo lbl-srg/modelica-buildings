@@ -126,7 +126,7 @@ First implementation.
 </li>
 </ul>
 </html>"),
-__Dymola_Commands(file="Resources/Scripts/Dymola/Fluid/Geothermal/Borefields/Examples/RectangularBorefield.mos"
+__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Geothermal/Borefields/Examples/RectangularBorefield.mos"
         "Simulate and plot"),
   experiment(
       StopTime=2678400,Tolerance=1e-6));

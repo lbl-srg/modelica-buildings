@@ -344,5 +344,5 @@ First implementation.
         preserveAspectRatio=false,
         extent={{-220,-240},{200,240}})),
     __Dymola_Commands(
-      file="Resources/Scripts/Dymola/Experimental/DHC/Loads/Validation/FlowDistributionPumpControl.mos" "Simulate and plot"));
+      file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/DHC/Loads/Validation/FlowDistributionPumpControl.mos" "Simulate and plot"));
 end FlowDistributionPumpControl;
