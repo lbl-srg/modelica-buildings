@@ -31,12 +31,12 @@ equation
     annotation (Line(points={{0,11},{0,11},{0,120}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
       Bitmap(
-        extent={{-34,-200},{50,100}},
-        visible=typ==Buildings.Templates.Components.Types.SensorTemperature.Averaging,
-        fileName="modelica://Buildings/Resources/Images/Templates/Components/Sensors/TemperatureAveraging.svg"),
-      Bitmap(
-        extent={{-40,-200},{40,100}},
+        extent={{-40,-220},{40,60}},
         visible=typ==Buildings.Templates.Components.Types.SensorTemperature.Standard,
-        fileName="modelica://Buildings/Resources/Images/Templates/Components/Sensors/TemperatureStandard.svg")}),
+        fileName="modelica://Buildings/Resources/Images/Templates/Components/Sensors/TemperatureStandard.svg"),
+      Bitmap(
+        extent={{-40,-220},{40,60}},
+        visible=typ==Buildings.Templates.Components.Types.SensorTemperature.Averaging,
+        fileName="modelica://Buildings/Resources/Images/Templates/Components/Sensors/TemperatureAveraging.svg")}),
     Diagram(coordinateSystem(preserveAspectRatio=false)));
 end Temperature;

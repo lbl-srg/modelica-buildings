@@ -44,10 +44,10 @@ package Types "Generic types for template components"
       "Two-position damper")
     "Enumeration to configure the damper";
   type DamperBlades = enumeration(
-      OpposedBlade
-      "Opposed blade damper",
-      ParallelBlade
-      "Parallel blade damper")
+      Opposed
+      "Opposed blades",
+      Parallel
+      "Parallel blades")
     "Enumeration to specify the damper blades";
   type HeatExchanger = enumeration(
       None
@@ -107,13 +107,11 @@ package Types "Generic types for template components"
     "Enumeration to configure the sensor";
   type SensorDifferentialPressure = enumeration(
       External
-      "Two static pressure tips - In-duct and external",
+      "Static pressure tips - In-duct and external",
       Static
-      "Two static pressure tips - In-duct",
-      StaticLong
-      "Two static pressure tips - In-duct - Long tubes",
+      "Static pressure tips - In-duct",
       Total
-      "Two total pressure tubes - In-duct")
+      "Total pressure tubes - In-duct")
     "Enumeration to configure the differential pressure sensor";
   type SensorTemperature = enumeration(
       Standard

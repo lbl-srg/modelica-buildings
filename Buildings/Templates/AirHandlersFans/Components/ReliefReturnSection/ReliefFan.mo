@@ -5,8 +5,7 @@ model ReliefFan "Relief fan - Two-position relief damper"
     final typ=Types.ReliefReturnSection.ReliefFan,
     final typDamRel=damRel.typ,
     final typFanRel=fanRel.typ,
-    final typFanRet=Buildings.Templates.Components.Types.Fan.None,
-    final have_porPre=fanRel.typCtr == Types.ReturnFanControlSensor.Pressure);
+    final typFanRet=Buildings.Templates.Components.Types.Fan.None);
 
   Buildings.Templates.Components.Dampers.TwoPosition damRel(redeclare final
       package Medium = MediumAir, final loc=Buildings.Templates.Components.Types.Location.Relief)

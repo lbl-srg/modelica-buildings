@@ -17,9 +17,6 @@ partial model PartialReliefReturnSection "Relief/return air section"
   parameter Buildings.Templates.Components.Types.Fan typFanRet
     "Return fan type"
     annotation (Evaluate=true, Dialog(group="Configuration"));
-  parameter Boolean have_porPre
-    "Set to true in case of fluid port for differential pressure sensor"
-    annotation (Evaluate=true, Dialog(group="Configuration"));
   parameter Boolean have_recHea
     "Set to true in case of heat recovery"
     annotation (Evaluate=true,
@@ -70,8 +67,7 @@ partial model PartialReliefReturnSection "Relief/return air section"
     annotation (Placement(transformation(extent={{10,-150},{-10,-130}})));
   Modelica.Fluid.Interfaces.FluidPort_b port_bPre(
     redeclare final package Medium = MediumAir)
- if have_porPre
-    "Optional fluid connector for differential pressure sensor"
+    "Fluid connector for differential pressure sensor"
     annotation (Placement(transformation(extent={{90,-150},{70,-130}})));
 
   Buildings.Templates.AirHandlersFans.Interfaces.Bus bus "Control bus"

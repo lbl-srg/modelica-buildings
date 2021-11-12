@@ -43,13 +43,6 @@ partial model PartialSensor
   outer parameter ExternData.JSONFile dat
     "External parameter file";
 
-  Modelica.Fluid.Interfaces.FluidPort_b port_bRef(
-    redeclare final package Medium = Medium,
-    m_flow(max=if allowFlowReversal then +Modelica.Constants.inf else 0),
-    h_outflow(start=Medium.h_default, nominal=Medium.h_default)) if have_sen and isDifPreSen
-    "Port at the reference pressure for differential pressure sensor"
-    annotation (Placement(transformation(extent={{10,-110},{-10,-90}})));
-
   Controls.OBC.CDL.Interfaces.RealOutput y if have_sen
     "Connector for measured value"
     annotation (Placement(transformation(
@@ -57,13 +50,32 @@ partial model PartialSensor
         rotation=90,
         origin={0,120})));
 
+equation
+  if isDifPreSen and (not have_sen) then
+    // Zero flow equations for connectors
+    port_a.m_flow = 0;
+    port_b.m_flow = 0;
+
+    // No contribution of specific quantities
+    port_a.h_outflow = 0;
+    port_b.h_outflow = 0;
+    port_a.Xi_outflow = zeros(Medium.nXi);
+    port_b.Xi_outflow = zeros(Medium.nXi);
+    port_a.C_outflow  = zeros(Medium.nC);
+    port_b.C_outflow  = zeros(Medium.nC);
+  end if;
+
   annotation (
     Icon(coordinateSystem(preserveAspectRatio=false), graphics={
-          Rectangle(
+                                                              Rectangle(
           extent={{-100,100},{100,-100}},
           lineColor={0,0,255},
           fillColor={255,255,255},
-          fillPattern=FillPattern.Solid)}),
+          fillPattern=FillPattern.Solid),
+      Rectangle(
+        visible=(not have_sen) and (not isDifPreSen),
+          extent={{-100,100},{100,-100}},
+          lineColor={0,0,255})}),
     Diagram(coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>
 <p>

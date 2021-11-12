@@ -3,12 +3,41 @@
 
 <svg
    width="158.74022mm"
-   height="331.78711mm"
-   viewBox="0 0 158.74023 331.7871"
+   height="369.09375mm"
+   viewBox="0 0 158.74023 369.09374"
    version="1.1"
    id="svg19564"
+   sodipodi:docname="TemperatureInWell.svg"
+   inkscape:version="1.1.1 (3bf5ae0, 2021-09-20)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns="http://www.w3.org/2000/svg"
    xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview36855"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:document-units="mm"
+     showgrid="true"
+     inkscape:zoom="0.28668295"
+     inkscape:cx="408.11635"
+     inkscape:cy="856.3467"
+     inkscape:window-width="1880"
+     inkscape:window-height="1016"
+     inkscape:window-x="40"
+     inkscape:window-y="27"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg19564">
+    <inkscape:grid
+       type="xygrid"
+       id="grid40032"
+       originx="-0.0049102585"
+       originy="41.010427" />
+  </sodipodi:namedview>
   <defs
      id="defs19561">
     <clipPath
@@ -19,91 +48,87 @@
     </clipPath>
   </defs>
   <g
-     id="layer1"
-     transform="translate(-70.03551,-95.37781)">
-    <g
-       id="g12097"
-       transform="matrix(8.6287988,0,0,8.6288472,12735.537,29199.369)"
-       style="stroke-width:0.306627;stroke-miterlimit:4;stroke-dasharray:none">
-      <path
-         d="m -1461.1642,-3372.718 a 1.27256,1.27256 0 0 0 -1.273,1.273"
-         id="path1112"
-         style="fill:none;stroke:#000000;stroke-width:0.306627;stroke-miterlimit:4;stroke-dasharray:none" />
-      <path
-         d="m -1462.4372,-3366.355 a 1.27256,1.27256 0 0 0 1.273,1.272"
-         id="path1114"
-         style="fill:none;stroke:#000000;stroke-width:0.306627;stroke-miterlimit:4;stroke-dasharray:none" />
-      <path
-         d="m -1456.0742,-3365.083 a 1.27256,1.27256 0 0 0 1.273,-1.272"
-         id="path1116"
-         style="fill:none;stroke:#000000;stroke-width:0.306627;stroke-miterlimit:4;stroke-dasharray:none" />
-      <polyline
-         points="538.271,375.944 533.181,375.944 "
-         id="polyline1118"
-         style="fill:none;stroke:#000000;stroke-width:0.306627;stroke-miterlimit:4;stroke-dasharray:none"
-         transform="translate(-1994.3452,-3741.027)" />
-      <polyline
-         points="533.181,368.309 538.271,368.309 "
-         id="polyline1120"
-         style="fill:none;stroke:#000000;stroke-width:0.306627;stroke-miterlimit:4;stroke-dasharray:none"
-         transform="translate(-1994.3452,-3741.027)" />
-      <polyline
-         points="531.908,374.672 531.908,369.582 "
-         id="polyline1122"
-         style="fill:none;stroke:#000000;stroke-width:0.306627;stroke-miterlimit:4;stroke-dasharray:none"
-         transform="translate(-1994.3452,-3741.027)" />
-      <polyline
-         points="539.544,369.582 539.544,374.672 "
-         id="polyline1124"
-         style="fill:none;stroke:#000000;stroke-width:0.306627;stroke-miterlimit:4;stroke-dasharray:none"
-         transform="translate(-1994.3452,-3741.027)" />
-      <path
-         d="m -1454.8012,-3371.445 a 1.27256,1.27256 0 0 0 -1.273,-1.273"
-         id="path1126"
-         style="fill:none;stroke:#000000;stroke-width:0.306627;stroke-miterlimit:4;stroke-dasharray:none" />
-    </g>
-    <text
-       xml:space="preserve"
-       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:35.2778px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:2.64583;stroke-miterlimit:4;stroke-dasharray:none"
-       x="138.63107"
-       y="142.50006"
-       id="text44048"><tspan
-         id="tspan44046"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:35.2778px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;stroke-width:2.64583;stroke-miterlimit:4;stroke-dasharray:none"
-         x="138.63107"
-         y="142.50006">T</tspan></text>
-    <g
-       clip-path="url(#clipId0)"
-       fill="none"
-       stroke="#00ff00"
-       stroke-width="0.0135017"
-       id="g1144"
-       transform="matrix(0,-17.578509,17.455489,0,-5263.0004,9775.9869)"
-       style="stroke:#000000;stroke-width:0.151045;stroke-miterlimit:4;stroke-dasharray:none">
-      <polyline
-         points="539.754,314.616 539.754,312.421 "
-         id="polyline1132"
-         style="stroke:#000000;stroke-width:0.151045;stroke-miterlimit:4;stroke-dasharray:none" />
-      <polyline
-         points="539.754,312.421 531.908,312.421 "
-         id="polyline1134"
-         style="stroke:#000000;stroke-width:0.151045;stroke-miterlimit:4;stroke-dasharray:none" />
-      <polyline
-         points="531.908,312.421 531.908,307.717 "
-         id="polyline1136"
-         style="stroke:#000000;stroke-width:0.151045;stroke-miterlimit:4;stroke-dasharray:none" />
-      <polyline
-         points="531.908,307.717 539.754,307.717 "
-         id="polyline1138"
-         style="stroke:#000000;stroke-width:0.151045;stroke-miterlimit:4;stroke-dasharray:none" />
-      <polyline
-         points="539.754,307.717 539.754,305.522 "
-         id="polyline1140"
-         style="stroke:#000000;stroke-width:0.151045;stroke-miterlimit:4;stroke-dasharray:none" />
-      <polyline
-         points="534.563,310.069 546.884,310.069 "
-         id="polyline1142"
-         style="stroke:#000000;stroke-width:0.151045;stroke-miterlimit:4;stroke-dasharray:none" />
-    </g>
+     id="g12097"
+     transform="matrix(13.514961,0,0,13.515061,19792.552,45583.812)"
+     style="stroke-width:0.19577;stroke-miterlimit:4;stroke-dasharray:none">
+    <path
+       d="m -1461.1642,-3372.718 a 1.27256,1.27256 0 0 0 -1.273,1.273"
+       id="path1112"
+       style="fill:none;stroke:#000000;stroke-width:0.19577;stroke-miterlimit:4;stroke-dasharray:none" />
+    <path
+       d="m -1462.4372,-3366.355 a 1.27256,1.27256 0 0 0 1.273,1.272"
+       id="path1114"
+       style="fill:none;stroke:#000000;stroke-width:0.19577;stroke-miterlimit:4;stroke-dasharray:none" />
+    <path
+       d="m -1456.0742,-3365.083 a 1.27256,1.27256 0 0 0 1.273,-1.272"
+       id="path1116"
+       style="fill:none;stroke:#000000;stroke-width:0.19577;stroke-miterlimit:4;stroke-dasharray:none" />
+    <polyline
+       points="538.271,375.944 533.181,375.944 "
+       id="polyline1118"
+       style="fill:none;stroke:#000000;stroke-width:0.19577;stroke-miterlimit:4;stroke-dasharray:none"
+       transform="translate(-1994.3452,-3741.027)" />
+    <polyline
+       points="533.181,368.309 538.271,368.309 "
+       id="polyline1120"
+       style="fill:none;stroke:#000000;stroke-width:0.19577;stroke-miterlimit:4;stroke-dasharray:none"
+       transform="translate(-1994.3452,-3741.027)" />
+    <polyline
+       points="531.908,374.672 531.908,369.582 "
+       id="polyline1122"
+       style="fill:none;stroke:#000000;stroke-width:0.19577;stroke-miterlimit:4;stroke-dasharray:none"
+       transform="translate(-1994.3452,-3741.027)" />
+    <polyline
+       points="539.544,369.582 539.544,374.672 "
+       id="polyline1124"
+       style="fill:none;stroke:#000000;stroke-width:0.19577;stroke-miterlimit:4;stroke-dasharray:none"
+       transform="translate(-1994.3452,-3741.027)" />
+    <path
+       d="m -1454.8012,-3371.445 a 1.27256,1.27256 0 0 0 -1.273,-1.273"
+       id="path1126"
+       style="fill:none;stroke:#000000;stroke-width:0.19577;stroke-miterlimit:4;stroke-dasharray:none" />
+  </g>
+  <text
+     xml:space="preserve"
+     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:70.5556px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:2.64583;stroke-miterlimit:4;stroke-dasharray:none"
+     x="57.821404"
+     y="78.634819"
+     id="text44048"><tspan
+       sodipodi:role="line"
+       id="tspan37760"
+       x="57.821404"
+       y="78.634819">T</tspan></text>
+  <g
+     clip-path="url(#clipId0)"
+     fill="none"
+     stroke="#00ff00"
+     stroke-width="0.0135017"
+     id="g1144"
+     transform="matrix(0,-17.578509,17.455489,0,-5333.0359,9717.9157)"
+     style="stroke:#000000;stroke-width:0.151045;stroke-miterlimit:4;stroke-dasharray:none">
+    <polyline
+       points="539.754,314.616 539.754,312.421 "
+       id="polyline1132"
+       style="stroke:#000000;stroke-width:0.151045;stroke-miterlimit:4;stroke-dasharray:none" />
+    <polyline
+       points="539.754,312.421 531.908,312.421 "
+       id="polyline1134"
+       style="stroke:#000000;stroke-width:0.151045;stroke-miterlimit:4;stroke-dasharray:none" />
+    <polyline
+       points="531.908,312.421 531.908,307.717 "
+       id="polyline1136"
+       style="stroke:#000000;stroke-width:0.151045;stroke-miterlimit:4;stroke-dasharray:none" />
+    <polyline
+       points="531.908,307.717 539.754,307.717 "
+       id="polyline1138"
+       style="stroke:#000000;stroke-width:0.151045;stroke-miterlimit:4;stroke-dasharray:none" />
+    <polyline
+       points="539.754,307.717 539.754,305.522 "
+       id="polyline1140"
+       style="stroke:#000000;stroke-width:0.151045;stroke-miterlimit:4;stroke-dasharray:none" />
+    <polyline
+       points="534.563,310.069 546.884,310.069 "
+       id="polyline1142"
+       style="stroke:#000000;stroke-width:0.151045;stroke-miterlimit:4;stroke-dasharray:none" />
   </g>
 </svg>

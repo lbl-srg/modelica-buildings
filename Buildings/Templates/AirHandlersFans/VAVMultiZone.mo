@@ -95,7 +95,7 @@ model VAVMultiZone "Multiple-Zone VAV"
 
   inner replaceable Buildings.Templates.Components.Fans.None fanSupBlo
     constrainedby Buildings.Templates.Components.Fans.Interfaces.PartialFan(
-      redeclare final package  Medium = MediumAir,
+      redeclare final package Medium =  MediumAir,
       final loc=Buildings.Templates.Components.Types.Location.Supply)
     "Supply fan - Blow through" annotation (
     choicesAllMatching=true,
@@ -214,13 +214,6 @@ model VAVMultiZone "Multiple-Zone VAV"
             {{200,-210},{220,-190}})));
 
   // FIXME: bind have_sen to control option.
-  .Buildings.Templates.Components.Sensors.HumidityRatio xSup(
-    redeclare final package Medium = MediumAir,
-    have_sen=true,
-    final loc=Buildings.Templates.Components.Types.Location.Supply)
-    "Supply air humidity ratio sensor" annotation (Dialog(group=
-          "Supply air section", enable=false), Placement(transformation(extent=
-            {{230,-210},{250,-190}})));
 
   // FIXME: bind have_sen to control option.
   Buildings.Templates.Components.Sensors.DifferentialPressure pSup_rel(
@@ -228,7 +221,7 @@ model VAVMultiZone "Multiple-Zone VAV"
     have_sen=false,
     final loc=Buildings.Templates.Components.Types.Location.Supply)
     "Duct static pressure sensor" annotation (Dialog(group="Supply air section",
-        enable=false), Placement(transformation(extent={{260,-210},{280,-190}})));
+        enable=false), Placement(transformation(extent={{250,-230},{270,-210}})));
 
   Fluid.Sensors.RelativePressure pInd_rel(
     redeclare final package Medium=MediumAir)
@@ -237,8 +230,7 @@ model VAVMultiZone "Multiple-Zone VAV"
 
   Fluid.Sources.Outside out(
     redeclare final package Medium=MediumAir,
-    final nPorts=1 +
-      (if secOutRel.have_porPre then 1 else 0))
+    final nPorts=2)
     "Outdoor conditions"
     annotation (
       Placement(transformation(
@@ -249,8 +241,7 @@ model VAVMultiZone "Multiple-Zone VAV"
   Fluid.Sources.Boundary_pT ind(
     redeclare final package Medium = MediumAir,
     final use_p_in=true,
-    final nPorts=1 +
-      (if pSup_rel.have_sen then 1 else 0))
+    final nPorts=2)
     "Indoor pressure"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
@@ -282,7 +273,6 @@ equation
   connect(THea.y, bus.THea);
   connect(VSup_flow.y, bus.VSup_flow);
   connect(TSup.y, bus.TSup);
-  connect(xSup.y, bus.xSup);
   connect(pSup_rel.y, bus.pSup_rel);
   connect(hRet.y, bus.hRet);
   connect(TRet.y, bus.TRet);
@@ -307,12 +297,6 @@ equation
     annotation (Line(points={{-80,-200},{-70,-200}},   color={0,127,255}));
   connect(resSup.port_b, TSup.port_a)
     annotation (Line(points={{192,-200},{200,-200}}, color={0,127,255}));
-  connect(TSup.port_b, xSup.port_a)
-    annotation (Line(points={{220,-200},{230,-200}}, color={0,127,255}));
-  connect(xSup.port_b, pSup_rel.port_a)
-    annotation (Line(points={{250,-200},{260,-200}}, color={0,127,255}));
-  connect(pSup_rel.port_b, port_Sup)
-    annotation (Line(points={{280,-200},{300,-200}}, color={0,127,255}));
   connect(port_coiHeaSup, coiHea.port_aSou) annotation (Line(points={{-40,-280},
           {-40,-220},{-34,-220},{-34,-210}}, color={0,127,255}));
   connect(coiHea.port_bSou, port_coiHeaRet) annotation (Line(points={{-26,-210},
@@ -334,11 +318,9 @@ equation
       color={255,204,51},
       thickness=0.5));
   connect(pInd_rel.port_b, out.ports[1])
-    annotation (Line(points={{10,240},{-40,240}}, color={0,127,255}));
+    annotation (Line(points={{10,240},{-38,240}}, color={0,127,255}));
   connect(ind.ports[1], pInd_rel.port_a)
-    annotation (Line(points={{40,240},{30,240}},      color={0,127,255}));
-  connect(ind.ports[2], pSup_rel.port_bRef) annotation (Line(points={{40,240},{288,
-          240},{288,-220},{270,-220},{270,-210}}, color={0,127,255}));
+    annotation (Line(points={{42,240},{30,240}},      color={0,127,255}));
 
   connect(conAHU.busTer, busTer) annotation (Line(
       points={{-240,120},{-220,120},{-220,0},{300,0}},
@@ -384,7 +366,7 @@ equation
     annotation (Line(points={{-120,-80.2},{10,-80.2},{10,-80},{170,-80}},
                                                     color={0,127,255}));
   connect(secOutRel.port_bPre, out.ports[2]) annotation (Line(points={{-162,-60},
-          {-162,-60},{-40,-60},{-40,240}},           color={0,127,255}));
+          {-162,-60},{-42,-60},{-42,240}},           color={0,127,255}));
   connect(secOutRel.bus, bus) annotation (Line(
       points={{-200,-60},{-200,0},{-300,0}},
       color={255,204,51},
@@ -394,6 +376,12 @@ equation
     annotation (Line(points={{-300,-80},{-280,-80}}, color={0,127,255}));
   connect(port_Out, secOutRel.port_Out)
     annotation (Line(points={{-300,-200},{-280,-200}}, color={0,127,255}));
+  connect(ind.ports[2], pSup_rel.port_b) annotation (Line(points={{38,240},{280,
+          240},{280,-220},{270,-220}}, color={0,127,255}));
+  connect(TSup.port_b, port_Sup)
+    annotation (Line(points={{220,-200},{300,-200}}, color={0,127,255}));
+  connect(TSup.port_b, pSup_rel.port_a) annotation (Line(points={{220,-200},{
+          240,-200},{240,-220},{250,-220}}, color={0,127,255}));
   annotation (
     defaultComponentName="ahu",
     Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(

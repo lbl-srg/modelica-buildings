@@ -36,14 +36,14 @@ package Types "AHU types"
       Terminal)
   "Enumeration to specify the equipment location";
   type OutdoorSection = enumeration(
+      DedicatedDamperAirflow
+      "Dedicated minimum OA damper (modulated) with AFMS",
+      DedicatedDamperPressure
+      "Dedicated minimum OA damper (two-position) with differential pressure sensor",
       NoEconomizer
       "No economizer",
-      SingleCommon
-      "Single common OA damper (modulated) with AFMS",
-      DedicatedPressure
-      "Dedicated minimum OA damper (two-position) with differential pressure sensor",
-      DedicatedAirflow
-      "Dedicated minimum OA damper (modulated) with AFMS")
+      SingleDamper
+      "Single common damper (modulated) with AFMS")
     "Enumeration to configure the outdoor air section";
   type OutdoorReliefReturnSection = enumeration(
       Economizer

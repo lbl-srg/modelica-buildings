@@ -5,7 +5,6 @@ model NoEconomizer "No air economizer"
     final typ=Buildings.Templates.AirHandlersFans.Types.OutdoorReliefReturnSection.NoEconomizer,
     final typSecOut=secOut.typ,
     final typSecRel=secRel.typ,
-    final have_porPre=secRel.have_porPre,
     final typDamOut=secOut.typDamOut,
     final typDamOutMin=secOut.typDamOutMin,
     final typDamRel=secRel.typDamRel,

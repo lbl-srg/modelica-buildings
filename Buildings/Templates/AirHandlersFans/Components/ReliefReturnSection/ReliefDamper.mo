@@ -1,14 +1,16 @@
 within Buildings.Templates.AirHandlersFans.Components.ReliefReturnSection;
 model ReliefDamper "No relief fan - Modulated relief damper"
-  extends Buildings.Templates.AirHandlersFans.Components.ReliefReturnSection.Interfaces.PartialReliefReturnSection(
+  extends
+    Buildings.Templates.AirHandlersFans.Components.ReliefReturnSection.Interfaces.PartialReliefReturnSection(
     final typ=Types.ReliefReturnSection.ReliefDamper,
     final typDamRel=damRel.typ,
     final typFanRel=Buildings.Templates.Components.Types.Fan.None,
-    final typFanRet=Buildings.Templates.Components.Types.Fan.None,
-    final have_porPre=false);
+    final typFanRet=Buildings.Templates.Components.Types.Fan.None);
 
-  Buildings.Templates.Components.Dampers.Modulated damRel(redeclare final
-      package Medium = MediumAir, final loc=Buildings.Templates.Components.Types.Location.Relief)
+  Buildings.Templates.Components.Dampers.Modulated damRel(
+    redeclare final package Medium = MediumAir,
+    final loc=Buildings.Templates.Components.Types.Location.Relief,
+    typBla=Buildings.Templates.Components.Types.DamperBlades.Opposed)
     "Relief damper" annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=0,

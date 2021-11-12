@@ -2,7 +2,7 @@ within Buildings.Templates.AirHandlersFans.Components.OutdoorSection;
 model DedicatedDamperAirflow
   "Dedicated minimum OA damper (modulated) with AFMS"
   extends Buildings.Templates.AirHandlersFans.Components.OutdoorSection.Interfaces.PartialOutdoorSection(
-    final typ=Types.OutdoorSection.DedicatedPressure,
+    final typ=Buildings.Templates.AirHandlersFans.Types.OutdoorSection.DedicatedDamperAirflow,
     final typDamOut=damOut.typ,
     final typDamOutMin=damOutMin.typ);
 
