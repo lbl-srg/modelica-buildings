@@ -83,7 +83,8 @@ transfer through the garage exterior (east and west facing) and interior walls.
 <p>
 The temperature results of this model are to be compared to the results of
 <a href=\"modelica://Buildings.ThermalZones.EnergyPlus.Validation.SurfaceComparison.EnergyPlusSurfaces\">
-EnergyPlusSurfaces</a> which runs the same model without the Spawn objects.
+Buildings.ThermalZones.EnergyPlus.Validation.SurfaceComparison.EnergyPlusSurfaces</a>
+which runs the same model without the Spawn objects.
 </p>
 </html>",
       revisions="<html>
@@ -95,7 +96,7 @@ First implementation.
 </ul>
 </html>"),
     __Dymola_Commands(
-      file="Resources/Scripts/Dymola/ThermalZones/EnergyPlus/Validation/SurfaceComparison/ZoneSurfaces.mos"
+      file="modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/EnergyPlus/Validation/SurfaceComparison/ZoneSurfaces.mos"
         "Simulate and Plot"),
     experiment(
       StopTime=2592000,

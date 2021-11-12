@@ -47,7 +47,8 @@ model EnergyPlusSurfaces
 This model simulates the envelope of a single family house with EnergyPlus and is used
 as a baseline to the 
 <a href=\"modelica://Buildings.ThermalZones.EnergyPlus.Validation.SurfaceComparison.ZoneSurfaces\">
-ZoneSurfaces</a> validation model which replaces some of the interior and exterior walls 
+Buildings.ThermalZones.EnergyPlus.Validation.SurfaceComparison.ZoneSurfaces</a>
+validation model which replaces some of the interior and exterior walls
 with Spawn connectors.
 </p>
 </html>",
@@ -60,7 +61,7 @@ First implementation.
 </ul>
 </html>"),
     __Dymola_Commands(
-      file="Resources/Scripts/Dymola/ThermalZones/EnergyPlus/Validation/SurfaceComparison/EnergyPlusSurfaces.mos"
+      file="modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/EnergyPlus/Validation/SurfaceComparison/EnergyPlusSurfaces.mos"
         "Simulate and Plot"),
     experiment(
       StopTime=2592000,
