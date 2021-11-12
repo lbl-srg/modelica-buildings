@@ -218,7 +218,7 @@ model VAVMultiZone "Multiple-Zone VAV"
   // FIXME: bind have_sen to control option.
   Buildings.Templates.Components.Sensors.DifferentialPressure pSup_rel(
     redeclare final package Medium = MediumAir,
-    have_sen=false,
+    have_sen=true,
     final loc=Buildings.Templates.Components.Types.Location.Supply)
     "Duct static pressure sensor" annotation (Dialog(group="Supply air section",
         enable=false), Placement(transformation(extent={{250,-230},{270,-210}})));

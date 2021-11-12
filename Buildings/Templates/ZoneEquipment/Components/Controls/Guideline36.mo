@@ -522,7 +522,6 @@ equation
   connect(bus.TDis, zonOutAirSet.TDis);
   connect(bus.uWin, zonSta.uWin);
   connect(bus.TZon, zonSta.TZon);
-
   /* Hardware point connection - end */
 
   /* Software point connection - start */
