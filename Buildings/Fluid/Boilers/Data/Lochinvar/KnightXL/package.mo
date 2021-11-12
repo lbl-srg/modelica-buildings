@@ -7,7 +7,7 @@ package KnightXL "Package with performance data for Lochinvar Knight™ XL boile
     Documentation(info="<html>
 <p>
 This package contains performance data for Lochinvar Knight™ XL boilers.
-See the documentation of 
+See the documentation of
 <a href=\"modelica://Buildings.Fluid.Boilers.Data.Lochinvar\">
 Buildings.Fluid.Boilers.Data.Lochinvar</a>.
 </p>

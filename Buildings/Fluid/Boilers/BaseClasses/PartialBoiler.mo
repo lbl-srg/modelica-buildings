@@ -125,8 +125,8 @@ equation
 defaultComponentName="boi",
 Documentation(info="<html>
 <p>
-This is a base model of a boiler. 
-The efficiency specified in extended models. 
+This is a base model of a boiler.
+The efficiency specified in extended models.
 See <a href=\"Modelica://Buildings.Fluid.Boilers.UsersGuide\">
 Buildings.Fluid.Boilers.UsersGuide</a> for details.
 </p>
@@ -135,19 +135,19 @@ revisions="<html>
 <ul>
 <li>
 November 10, 2021, by Hongxiang Fu:<br/>
-The heating power output of the boiler is now corrected 
+The heating power output of the boiler is now corrected
 by its heat loss to the ambient.
 This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2725\">
-#2725</a>. 
+#2725</a>.
 </li>
 <li>
 October 4, 2021, by Hongxiang Fu:<br/>
-Renamed from the old 
+Renamed from the old
 <span style=\"font-family: monospace;\">
-Buildings.Fluid.Boilers.BoilerPolynomial</span> 
-and with the efficiency specification removed. 
+Buildings.Fluid.Boilers.BoilerPolynomial</span>
+and with the efficiency specification removed.
 This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2651\">
-#2651</a>. 
+#2651</a>.
 </li>
 </ul>
 </html>"));

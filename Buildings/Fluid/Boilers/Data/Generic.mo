@@ -48,7 +48,7 @@ then the effiency curve must be specified for the upper (or lower) heating value
 <ul>
 <li>
 November 2, 2021 by Hongxiang Fu:<br/>
-First implementation. 
+First implementation.
 This is for
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2651\">#2651</a>.
 </li>
