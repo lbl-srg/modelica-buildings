@@ -107,9 +107,9 @@ protected
   Buildings.Controls.OBC.CDL.Continuous.MultiMin maxSpe(final nin=nChi)
     "Lowest value of the maximum cooling tower speed from each chiller head pressure control loop"
     annotation (Placement(transformation(extent={{-20,-70},{0,-50}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi  "Logical switch"
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi  "Logical switch"
     annotation (Placement(transformation(extent={{80,-50},{100,-30}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi1[nChi] "Logical switch"
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi1[nChi] "Logical switch"
     annotation (Placement(transformation(extent={{-60,-70},{-40,-50}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant one1[nChi](
     final k=fill(1, nChi)) "Constant one"

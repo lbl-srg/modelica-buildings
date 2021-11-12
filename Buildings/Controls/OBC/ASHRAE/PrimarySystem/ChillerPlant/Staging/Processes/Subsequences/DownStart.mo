@@ -187,14 +187,14 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant con3(final k=false)
     "False constant"
     annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
-  Buildings.Controls.OBC.CDL.Logical.LogicalSwitch heaPreCon[nChi] "Logical switch"
+  Buildings.Controls.OBC.CDL.Logical.Switch heaPreCon[nChi] "Logical switch"
     annotation (Placement(transformation(extent={{140,-20},{160,0}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch chiDem[nChi] "Chiller demand"
+  Buildings.Controls.OBC.CDL.Continuous.Switch chiDem[nChi] "Chiller demand"
     annotation (Placement(transformation(extent={{140,130},{160,150}})));
   Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator booRep4(final nout=nChi)
     "Replicate boolean input"
     annotation (Placement(transformation(extent={{60,10},{80,30}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch chiWatIsoVal[nChi]
+  Buildings.Controls.OBC.CDL.Continuous.Switch chiWatIsoVal[nChi]
     "Chilled water isolation valve"
     annotation (Placement(transformation(extent={{140,-80},{160,-60}})));
   Buildings.Controls.OBC.CDL.Logical.Not not1 "Logical not"

@@ -11,7 +11,7 @@ block EnableLead_headered
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
 protected
-  Buildings.Controls.OBC.CDL.Logical.LogicalSwitch leaPumSta "Lead pump status"
+  Buildings.Controls.OBC.CDL.Logical.Switch leaPumSta "Lead pump status"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant con(final k=true)
     "Logical true"

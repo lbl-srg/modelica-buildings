@@ -150,7 +150,7 @@ protected
   Buildings.Controls.OBC.CDL.Logical.And and0 "And for staging down"
     annotation (Placement(transformation(extent={{20,80},{40,100}})));
 
-  Buildings.Controls.OBC.CDL.Logical.LogicalSwitch logSwi "Logical switch"
+  Buildings.Controls.OBC.CDL.Logical.Switch logSwi "Logical switch"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 
   Buildings.Controls.OBC.CDL.Integers.GreaterThreshold intGreThr(

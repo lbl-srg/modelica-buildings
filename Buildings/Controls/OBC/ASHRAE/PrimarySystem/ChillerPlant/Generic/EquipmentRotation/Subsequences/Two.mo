@@ -29,7 +29,7 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Not not0[nDev] "Logical not"
     annotation (Placement(transformation(extent={{-60,-20},{-40,0}})));
 
-  Buildings.Controls.OBC.CDL.Logical.LogicalSwitch logSwi[nDev] "Switch"
+  Buildings.Controls.OBC.CDL.Logical.Switch logSwi[nDev] "Switch"
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
 
   Buildings.Controls.OBC.CDL.Logical.Pre pre[nDev](

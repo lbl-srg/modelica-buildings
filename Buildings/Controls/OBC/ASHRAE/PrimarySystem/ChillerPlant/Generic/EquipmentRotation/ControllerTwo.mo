@@ -152,7 +152,7 @@ protected
     final nout=nDev) if lag "Replicates lag signal"
     annotation (Placement(transformation(extent={{-120,-50},{-100,-30}})));
 
-  Buildings.Controls.OBC.CDL.Logical.LogicalSwitch logSwi1[nDev] if not continuous
+  Buildings.Controls.OBC.CDL.Logical.Switch logSwi1[nDev] if not continuous
     "Switch"
     annotation (Placement(transformation(extent={{-60,-42},{-40,-22}})));
 

@@ -59,7 +59,7 @@ protected
     final k=chiMinCap)
     "Minimum cycling load of each chiller"
     annotation (Placement(transformation(extent={{-120,130},{-100,150}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi[nChi] "Logical switch"
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi[nChi] "Logical switch"
     annotation (Placement(transformation(extent={{-60,90},{-40,110}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zer[nChi](
     final k=fill(0, nChi)) "Zero constant"
@@ -114,7 +114,7 @@ protected
   Buildings.Controls.OBC.CDL.Logical.And and1
     "Check if it switches from WSE only mode to integrated operation mode"
     annotation (Placement(transformation(extent={{0,-120},{20,-100}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch fanSpe "Logical switch"
+  Buildings.Controls.OBC.CDL.Continuous.Switch fanSpe "Logical switch"
     annotation (Placement(transformation(extent={{120,-90},{140,-70}})));
   Buildings.Controls.OBC.CDL.Logical.Latch lat
     "Logical latch, maintain ON signal until condition changes"

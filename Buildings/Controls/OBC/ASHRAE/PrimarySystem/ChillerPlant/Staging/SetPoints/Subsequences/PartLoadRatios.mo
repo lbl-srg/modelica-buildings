@@ -221,7 +221,7 @@ protected
     "Stage down chiller type"
     annotation (Placement(transformation(extent={{-80,120},{-60,140}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Switch swi
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi
     "Logical switch"
     annotation (Placement(transformation(extent={{200,140},{220,160}})));
 
@@ -248,13 +248,13 @@ protected
     "Constant speed centrifugal chiller type SPLR multiplier"
     annotation (Placement(transformation(extent={{-140,-40},{-120,-20}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Switch swi1 "Logical switch"
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi1 "Logical switch"
     annotation (Placement(transformation(extent={{160,60},{180,80}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Switch swi2 "Logical switch"
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi2 "Logical switch"
     annotation (Placement(transformation(extent={{100,-190},{120,-170}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Switch swi3 "Logical switch"
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi3 "Logical switch"
     annotation (Placement(transformation(extent={{60,-240},{80,-220}})));
 
   Buildings.Controls.OBC.CDL.Integers.Equal intEqu1 "Logical equality"
@@ -349,7 +349,7 @@ protected
     "Type conversion"
     annotation (Placement(transformation(extent={{-260,290},{-240,310}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Switch swi4 "Switch"
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi4 "Switch"
     annotation (Placement(transformation(extent={{160,-170},{180,-150}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant const5(
@@ -393,11 +393,11 @@ protected
     "Outside of G36 recommended staging order chiller type SPLR multiplier"
     annotation (Placement(transformation(extent={{200,20},{220,40}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Switch swi5
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi5
     "Logical switch"
     annotation (Placement(transformation(extent={{320,220},{340,240}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Switch swi6
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi6
     "Logical switch"
     annotation (Placement(transformation(extent={{260,-110},{280,-90}})));
 

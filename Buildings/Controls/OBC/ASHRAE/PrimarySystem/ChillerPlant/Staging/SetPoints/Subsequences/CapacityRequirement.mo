@@ -60,7 +60,7 @@ protected
     "Triggered sampler"
     annotation (Placement(transformation(extent={{-40,120},{-20,140}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Switch swi "Switch"
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi "Switch"
     annotation (Placement(transformation(extent={{80,120},{100,140}})));
 
   Buildings.Controls.OBC.CDL.Logical.Edge edg "Edge"

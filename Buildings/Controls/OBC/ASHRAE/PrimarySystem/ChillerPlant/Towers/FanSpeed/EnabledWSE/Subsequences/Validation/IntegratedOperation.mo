@@ -20,7 +20,7 @@ model IntegratedOperation
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con(final k=0)
     "Zero constant"
     annotation (Placement(transformation(extent={{-80,-70},{-60,-50}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi "Logical switch"
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi "Logical switch"
     annotation (Placement(transformation(extent={{0,-40},{20,-20}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Sine sin(
     final amplitude=0.2*1e4,

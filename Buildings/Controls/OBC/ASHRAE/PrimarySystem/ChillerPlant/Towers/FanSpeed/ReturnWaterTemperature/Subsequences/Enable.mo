@@ -78,7 +78,7 @@ protected
     final uHigh=fill(2*fanSpeChe, nChi))
     "Check if chiller has been enabled, an enabled chiller will have the head pressure control maximum cooling tower speed that is greater than zero"
     annotation (Placement(transformation(extent={{-140,170},{-120,190}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi[nChi] "Logical switch"
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi[nChi] "Logical switch"
     annotation (Placement(transformation(extent={{-100,150},{-80,170}})));
   Buildings.Controls.OBC.CDL.Continuous.Feedback feedback1
     "Difference between tower fan speed and the minimum fan speed"
@@ -150,13 +150,13 @@ protected
     final t=cheMinFanSpe)
     "Count the time when the tower fan is at minimum speed"
     annotation (Placement(transformation(extent={{40,110},{60,130}})));
-  Buildings.Controls.OBC.CDL.Logical.LogicalSwitch logSwi2 "Logical switch"
+  Buildings.Controls.OBC.CDL.Logical.Switch logSwi2 "Logical switch"
     annotation (Placement(transformation(extent={{140,-170},{160,-150}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant disFan1(
     final k=false)
     "Disable tower fan when no condenser water pump is ON"
     annotation (Placement(transformation(extent={{80,-190},{100,-170}})));
-  Buildings.Controls.OBC.CDL.Logical.LogicalSwitch logSwi1 "Logical switch"
+  Buildings.Controls.OBC.CDL.Logical.Switch logSwi1 "Logical switch"
     annotation (Placement(transformation(extent={{140,-100},{160,-80}})));
   Buildings.Controls.OBC.CDL.Logical.Or chaTow "Change tower status"
     annotation (Placement(transformation(extent={{120,30},{140,50}})));

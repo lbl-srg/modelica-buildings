@@ -16,7 +16,7 @@ protected
   Buildings.Controls.OBC.CDL.Conversions.RealToInteger reaToInt1
     "Convert real input to integer output"
     annotation (Placement(transformation(extent={{-60,150},{-40,170}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi1 "Logical switch"
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi1 "Logical switch"
     annotation (Placement(transformation(extent={{-100,150},{-80,170}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant nexEnaChi1(final k=2)
     "Next enable chiller"
@@ -45,7 +45,7 @@ protected
   Buildings.Controls.OBC.CDL.Conversions.RealToInteger reaToInt2
     "Convert real input to integer output"
     annotation (Placement(transformation(extent={{-60,-20},{-40,0}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi3 "Logical switch"
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi3 "Logical switch"
     annotation (Placement(transformation(extent={{-100,-20},{-80,0}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zer4(final k=0)
     "Constant zero"
@@ -56,7 +56,7 @@ protected
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant fulOpe(final k=1)
     "Full open"
     annotation (Placement(transformation(extent={{-180,-80},{-160,-60}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch chiIsoVal1
+  Buildings.Controls.OBC.CDL.Continuous.Switch chiIsoVal1
     "Chilled water isolation valve one"
     annotation (Placement(transformation(extent={{-100,-80},{-80,-60}})));
   Buildings.Controls.OBC.CDL.Discrete.ZeroOrderHold zerOrdHol1[2](
@@ -66,7 +66,7 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant enaHeaCon(final k=true)
     "Enable head pressure control"
     annotation (Placement(transformation(extent={{-180,-170},{-160,-150}})));
-  Buildings.Controls.OBC.CDL.Logical.LogicalSwitch chiOneHeaCon
+  Buildings.Controls.OBC.CDL.Logical.Switch chiOneHeaCon
     "Chiller one head pressure control"
     annotation (Placement(transformation(extent={{-100,-170},{-80,-150}})));
   Buildings.Controls.OBC.CDL.Logical.Pre chiOneHea1(final pre_u_start=true)

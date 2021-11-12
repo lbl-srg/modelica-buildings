@@ -82,13 +82,13 @@ protected
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zer2(final k=0)
     "Constant value"
     annotation (Placement(transformation(extent={{-40,-110},{-20,-90}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi "Logical switch"
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi "Logical switch"
     annotation (Placement(transformation(extent={{60,-90},{80,-70}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minPumSpe(
     final k=minConWatPumSpe) if not have_fixSpeConWatPum
     "Minimum condenser water pump speed"
     annotation (Placement(transformation(extent={{-40,-60},{-20,-40}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi1 "Logical switch"
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi1 "Logical switch"
     annotation (Placement(transformation(extent={{60,90},{80,110}})));
 
 equation

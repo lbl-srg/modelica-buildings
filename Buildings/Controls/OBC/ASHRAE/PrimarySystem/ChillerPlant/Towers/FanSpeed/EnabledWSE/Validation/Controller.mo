@@ -20,7 +20,7 @@ model Controller
     final k=273.15 + 7)
     "Chilled water supply water setpoint"
     annotation (Placement(transformation(extent={{0,-150},{20,-130}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi "Logical switch"
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi "Logical switch"
     annotation (Placement(transformation(extent={{0,-60},{20,-40}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con(final k=0.1)
     "Minimum fan speed"
@@ -38,7 +38,7 @@ model Controller
     annotation (Placement(transformation(extent={{-100,-150},{-80,-130}})));
   Buildings.Controls.OBC.CDL.Continuous.Add add2 "Add real inputs"
     annotation (Placement(transformation(extent={{-40,-130},{-20,-110}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi1 "Logical switch"
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi1 "Logical switch"
     annotation (Placement(transformation(extent={{0,100},{20,120}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con1(final k=0)
     "Zero constant"

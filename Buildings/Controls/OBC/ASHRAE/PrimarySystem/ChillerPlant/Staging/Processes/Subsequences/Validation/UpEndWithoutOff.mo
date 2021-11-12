@@ -34,7 +34,7 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Pre chiOneSta(
     final pre_u_start=true) "Chiller one status"
     annotation (Placement(transformation(extent={{140,110},{160,130}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi2 "Logical switch"
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi2 "Logical switch"
     annotation (Placement(transformation(extent={{-60,140},{-40,160}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant nexEnaChi(
     final k=2) "Next enable chiller"

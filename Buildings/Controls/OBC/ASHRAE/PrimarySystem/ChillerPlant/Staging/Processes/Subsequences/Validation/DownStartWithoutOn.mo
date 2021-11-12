@@ -23,7 +23,7 @@ protected
     final k=fill(true,2))
     "Operating chiller one"
     annotation (Placement(transformation(extent={{-120,50},{-100,70}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi "Logical switch"
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi "Logical switch"
     annotation (Placement(transformation(extent={{-40,-250},{-20,-230}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant chiLoa[2](
     final k=fill(1000,2)) "Chiller load"
@@ -65,9 +65,9 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Pre chiStaRet[2](final pre_u_start=fill(
         true, 2)) "Chiller status return value"
     annotation (Placement(transformation(extent={{100,170},{120,190}})));
-  Buildings.Controls.OBC.CDL.Logical.LogicalSwitch logSwi[2] "Logical switch"
+  Buildings.Controls.OBC.CDL.Logical.Switch logSwi[2] "Logical switch"
     annotation (Placement(transformation(extent={{-40,50},{-20,70}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi1[2] "Logical switch"
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi1[2] "Logical switch"
     annotation (Placement(transformation(extent={{-40,130},{-20,150}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul2(
     final width=0.95,

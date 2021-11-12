@@ -36,7 +36,7 @@ block StageProcesses "Sequence for process of staging cells"
       iconTransformation(extent={{100,-80},{140,-40}})));
 
 protected
-  Buildings.Controls.OBC.CDL.Logical.Switch swi2[nTowCel] "Logical switch"
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi2[nTowCel] "Logical switch"
     annotation (Placement(transformation(extent={{60,120},{80,140}})));
   Buildings.Controls.OBC.CDL.Logical.Timer tim
     "Count the time after changing up-stream device status"
@@ -57,7 +57,7 @@ protected
     final nout=nTowCel)
     "Replicate real input"
     annotation (Placement(transformation(extent={{100,160},{120,180}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi[nTowCel] "Logical switch"
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi[nTowCel] "Logical switch"
     annotation (Placement(transformation(extent={{120,100},{140,120}})));
   Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator booRep(
     final nout=nTowCel)
@@ -91,7 +91,7 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant con1[nTowCel](
     final k=fill(true, nTowCel)) "Enable cells"
     annotation (Placement(transformation(extent={{-60,-130},{-40,-110}})));
-  Buildings.Controls.OBC.CDL.Logical.LogicalSwitch enaNexCel[nTowCel]
+  Buildings.Controls.OBC.CDL.Logical.Switch enaNexCel[nTowCel]
     "Enable next cells"
     annotation (Placement(transformation(extent={{80,-150},{100,-130}})));
   Buildings.Controls.OBC.CDL.Logical.And and2[nTowCel] "Logical and"
@@ -101,7 +101,7 @@ protected
   Buildings.Controls.OBC.CDL.Logical.MultiAnd enaCel(
     final nin=nTowCel) "New cells should be enabled"
     annotation (Placement(transformation(extent={{-20,160},{0,180}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch celPosSet
+  Buildings.Controls.OBC.CDL.Continuous.Switch celPosSet
     "Slowly change the opening setpoint to 1 of the enabling cells isolation valve, or change the setpoint to 0 of the disabling cells"
     annotation (Placement(transformation(extent={{60,160},{80,180}})));
   Buildings.Controls.OBC.CDL.Logical.And enaPro "Enabling cells process"
@@ -110,13 +110,13 @@ protected
     annotation (Placement(transformation(extent={{-60,100},{-40,120}})));
   Buildings.Controls.OBC.CDL.Logical.And disPro "Disabling cells process"
     annotation (Placement(transformation(extent={{-20,100},{0,120}})));
-  Buildings.Controls.OBC.CDL.Logical.LogicalSwitch newTowCell[nTowCel]
+  Buildings.Controls.OBC.CDL.Logical.Switch newTowCell[nTowCel]
     "New tower cell status"
     annotation (Placement(transformation(extent={{100,-190},{120,-170}})));
   Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator booRep2(
     final nout=nTowCel) "In the enabling process"
     annotation (Placement(transformation(extent={{40,-190},{60,-170}})));
-  Buildings.Controls.OBC.CDL.Logical.LogicalSwitch disExiCel[nTowCel]
+  Buildings.Controls.OBC.CDL.Logical.Switch disExiCel[nTowCel]
     "Disable existing cells"
     annotation (Placement(transformation(extent={{40,-220},{60,-200}})));
   Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator booRep3(

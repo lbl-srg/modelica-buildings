@@ -81,7 +81,7 @@ protected
   Buildings.Controls.OBC.CDL.Discrete.TriggeredSampler triSam "Triggered sampler"
     annotation (Placement(transformation(extent={{140,50},{160,70}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Switch switch1 "Switch"
+  Buildings.Controls.OBC.CDL.Continuous.Switch switch1 "Switch"
     annotation (Placement(transformation(extent={{-200,50},{-180,70}})));
 
   Buildings.Controls.OBC.CDL.Conversions.IntegerToReal intToRea "Type converter"
@@ -103,7 +103,7 @@ protected
     "Holds stage switched to initial upon plant start"
     annotation (Placement(transformation(extent={{-320,150},{-300,170}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Switch switch2 "Switch"
+  Buildings.Controls.OBC.CDL.Continuous.Switch switch2 "Switch"
     annotation (Placement(transformation(extent={{340,190},{360,210}})));
 
   Buildings.Controls.OBC.CDL.Logical.Or or1 "Logical or"

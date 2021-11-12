@@ -22,7 +22,7 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant chiOn(
     final k=true) "Operating chiller one"
     annotation (Placement(transformation(extent={{-260,-150},{-240,-130}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi "Logical switch"
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi "Logical switch"
     annotation (Placement(transformation(extent={{-160,50},{-140,70}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant chiLoa(
     final k=1000) "Chiller load"
@@ -49,7 +49,7 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant chiOn1[2](
     final k=fill(true,2)) "Operating chiller one"
     annotation (Placement(transformation(extent={{40,-150},{60,-130}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi1[2] "Logical switch"
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi1[2] "Logical switch"
     annotation (Placement(transformation(extent={{140,-50},{160,-30}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant chiLoa1(
     final k=1000) "Chiller load"

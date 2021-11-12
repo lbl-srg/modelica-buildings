@@ -18,7 +18,7 @@ block EnableLead_headered
       iconTransformation(extent={{100,-20},{140,20}})));
 
 protected
-  Buildings.Controls.OBC.CDL.Logical.LogicalSwitch leaPumSta "Lead pump status"
+  Buildings.Controls.OBC.CDL.Logical.Switch leaPumSta "Lead pump status"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant con1(
     final k=false) "Logical false"

@@ -311,14 +311,14 @@ protected
     annotation (Placement(transformation(extent={{-40,-20},{-20,0}})));
   Buildings.Controls.OBC.CDL.Logical.And and4 "Logical and"
     annotation (Placement(transformation(extent={{-40,20},{-20,40}})));
-  Buildings.Controls.OBC.CDL.Logical.LogicalSwitch logSwi2 "Logical switch"
+  Buildings.Controls.OBC.CDL.Logical.Switch logSwi2 "Logical switch"
     annotation (Placement(transformation(extent={{60,10},{80,30}})));
   Buildings.Controls.OBC.CDL.Logical.And and1 "Logical and"
     annotation (Placement(transformation(extent={{140,10},{160,30}})));
   Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator booRep4(final nout=nChi)
     "Replicate boolean input"
     annotation (Placement(transformation(extent={{40,70},{60,90}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi[nChi]
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi[nChi]
     "Chilled water isolvation valve position"
     annotation (Placement(transformation(extent={{140,70},{160,90}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea2[nChi]
@@ -336,7 +336,7 @@ protected
   Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator booRep1(final nout=nChi)
     "Replicate boolean input"
     annotation (Placement(transformation(extent={{60,-80},{80,-60}})));
-  Buildings.Controls.OBC.CDL.Logical.LogicalSwitch logSwi [nChi]
+  Buildings.Controls.OBC.CDL.Logical.Switch logSwi [nChi]
     "Chillers head pressure control status"
     annotation (Placement(transformation(extent={{140,-80},{160,-60}})));
   Buildings.Controls.OBC.CDL.Logical.MultiOr  mulOr(final nin=nChi) "Multiple or"
@@ -360,7 +360,7 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Latch lat2
     "Maintain ON signal when chiller demand has been limited"
     annotation (Placement(transformation(extent={{120,150},{140,170}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch chiWatMinSet
+  Buildings.Controls.OBC.CDL.Continuous.Switch chiWatMinSet
     "Chilled water minimum flow set"
     annotation (Placement(transformation(extent={{200,-340},{220,-320}})));
   Buildings.Controls.OBC.CDL.Logical.Latch lat3

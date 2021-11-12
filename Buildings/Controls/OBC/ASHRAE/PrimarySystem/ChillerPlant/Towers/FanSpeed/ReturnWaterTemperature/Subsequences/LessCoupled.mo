@@ -151,7 +151,7 @@ protected
   Buildings.Controls.OBC.CDL.Continuous.MultiMin fanSpe(final nin=3)
     "Cooling tower fan speed"
     annotation (Placement(transformation(extent={{60,-130},{80,-110}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi "Logical switch"
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi "Logical switch"
     annotation (Placement(transformation(extent={{120,-150},{140,-130}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zer2(final k=0)
     "Zero constant"
@@ -159,7 +159,7 @@ protected
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant one2[nChi](
     final k=fill(1,nChi)) "Constant one"
     annotation (Placement(transformation(extent={{-160,-160},{-140,-140}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi1[nChi] "Logical switch"
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi1[nChi] "Logical switch"
     annotation (Placement(transformation(extent={{-40,-130},{-20,-110}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea[nChi]
     "Convert chiller status to real number, true becomes 1 and false becomes 0"
@@ -184,7 +184,7 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Timer tim(final t=iniPlaTim)
     "Count the time after plant being enabled"
     annotation (Placement(transformation(extent={{-140,90},{-120,110}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch delTem "Temperature difference value"
+  Buildings.Controls.OBC.CDL.Continuous.Switch delTem "Temperature difference value"
     annotation (Placement(transformation(extent={{60,90},{80,110}})));
   Buildings.Controls.OBC.CDL.Continuous.Add meaTemDif(
     final k2=-1)

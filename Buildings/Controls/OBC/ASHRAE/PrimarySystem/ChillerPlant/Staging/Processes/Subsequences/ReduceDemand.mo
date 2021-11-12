@@ -56,13 +56,13 @@ protected
     final nout=nChi)
     "Replicate boolean input"
     annotation (Placement(transformation(extent={{-60,150},{-40,170}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi4[nChi]
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi4[nChi]
     "Current setpoint to chillers"
     annotation (Placement(transformation(extent={{120,80},{140,100}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con[nChi](
     final k=fill(0.2, nChi)) "Constant value to avoid zero as the denominator"
     annotation (Placement(transformation(extent={{-140,-170},{-120,-150}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi[nChi]
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi[nChi]
     "Change zero input to a given constant if the chiller is not enabled"
     annotation (Placement(transformation(extent={{-80,-120},{-60,-100}})));
   Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys[nChi](
@@ -88,7 +88,7 @@ protected
     annotation (Placement(transformation(extent={{120,40},{140,60}})));
   Buildings.Controls.OBC.CDL.Logical.And and1 "Logical and"
     annotation (Placement(transformation(extent={{-100,-10},{-80,10}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi1
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi1
     "Minimum cycling operative partial load ratio"
     annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con1(

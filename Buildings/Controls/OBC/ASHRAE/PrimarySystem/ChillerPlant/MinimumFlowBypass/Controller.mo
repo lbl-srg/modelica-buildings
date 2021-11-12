@@ -79,7 +79,7 @@ protected
   Buildings.Controls.OBC.CDL.Continuous.Division div1
     "Normalized minimum bypass flow "
     annotation (Placement(transformation(extent={{20,-20},{40,0}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi "Logical switch"
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi "Logical switch"
     annotation (Placement(transformation(extent={{40,70},{60,90}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant opeVal(
     final k=1) "Valve open"

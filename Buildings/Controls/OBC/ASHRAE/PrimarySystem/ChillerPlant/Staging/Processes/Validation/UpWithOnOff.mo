@@ -41,7 +41,7 @@ protected
     final pre_u_start=true)
     "Break algebraic loop"
     annotation (Placement(transformation(extent={{80,60},{100,80}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch loaOne "Chiller load one"
+  Buildings.Controls.OBC.CDL.Continuous.Switch loaOne "Chiller load one"
     annotation (Placement(transformation(extent={{-120,10},{-100,30}})));
   Buildings.Controls.OBC.CDL.Discrete.ZeroOrderHold zerOrdHol[2](
     final samplePeriod=fill(10, 2))
@@ -57,7 +57,7 @@ protected
   Buildings.Controls.OBC.CDL.Discrete.ZeroOrderHold conPumSpe(
     final samplePeriod=20) "Condenser water pump speed"
     annotation (Placement(transformation(extent={{80,-70},{100,-50}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch loaTwo "Chiller load two"
+  Buildings.Controls.OBC.CDL.Continuous.Switch loaTwo "Chiller load two"
     annotation (Placement(transformation(extent={{-120,-30},{-100,-10}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zer3[2](
     final k=fill(0,2)) "Constant zero"
@@ -69,7 +69,7 @@ protected
     final k=1000)
     "Chiller load"
     annotation (Placement(transformation(extent={{80,160},{100,180}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch chiLoa[2] "Limited chiller load"
+  Buildings.Controls.OBC.CDL.Continuous.Switch chiLoa[2] "Limited chiller load"
     annotation (Placement(transformation(extent={{140,130},{160,150}})));
   Buildings.Controls.OBC.CDL.Discrete.ZeroOrderHold chiTwoDem1(
     final samplePeriod=10) "Limited chiller two demand"
@@ -83,9 +83,9 @@ protected
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant fulOpe(
     final k=1) "Full open isolation valve"
     annotation (Placement(transformation(extent={{-200,-230},{-180,-210}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch IsoValOne "Logical switch"
+  Buildings.Controls.OBC.CDL.Continuous.Switch IsoValOne "Logical switch"
     annotation (Placement(transformation(extent={{-120,-230},{-100,-210}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch IsoValTwo "Logical switch"
+  Buildings.Controls.OBC.CDL.Continuous.Switch IsoValTwo "Logical switch"
     annotation (Placement(transformation(extent={{-120,-270},{-100,-250}})));
   Buildings.Controls.OBC.CDL.Logical.Pre chiOneHea(
     final pre_u_start=true)
@@ -99,7 +99,7 @@ protected
     final samplePeriod=20)
     "Output the input signal with a zero order hold"
     annotation (Placement(transformation(extent={{80,-230},{100,-210}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch chiWatFlo1 "Chilled water flow rate"
+  Buildings.Controls.OBC.CDL.Continuous.Switch chiWatFlo1 "Chilled water flow rate"
     annotation (Placement(transformation(extent={{-120,-70},{-100,-50}})));
   Buildings.Controls.OBC.CDL.Logical.Pre  chiOneHea1(
     final pre_u_start=false)
@@ -117,7 +117,7 @@ protected
     final nout=2)
     "Replicate boolean input"
     annotation (Placement(transformation(extent={{-120,110},{-100,130}})));
-  Buildings.Controls.OBC.CDL.Logical.LogicalSwitch chiSet[2]
+  Buildings.Controls.OBC.CDL.Logical.Switch chiSet[2]
     "Chiller status setpoint"
     annotation (Placement(transformation(extent={{-80,130},{-60,150}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant dowSta(
@@ -128,7 +128,7 @@ protected
     final k=2)
     "Stage two"
     annotation (Placement(transformation(extent={{-200,220},{-180,240}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi "Logical switch"
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi "Logical switch"
     annotation (Placement(transformation(extent={{-120,200},{-100,220}})));
   Buildings.Controls.OBC.CDL.Conversions.RealToInteger staSet
     "Stage setpoint index"
@@ -140,7 +140,7 @@ protected
     final k=2)
     "Stage two"
     annotation (Placement(transformation(extent={{-200,-110},{-180,-90}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch chiSta "Current chiller stage"
+  Buildings.Controls.OBC.CDL.Continuous.Switch chiSta "Current chiller stage"
     annotation (Placement(transformation(extent={{-120,-130},{-100,-110}})));
   Buildings.Controls.OBC.CDL.Conversions.RealToInteger sta "Current chiller stage"
     annotation (Placement(transformation(extent={{-80,-130},{-60,-110}})));

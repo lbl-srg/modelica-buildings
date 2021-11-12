@@ -50,7 +50,7 @@ model Coupled
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zer[2](
     final k=fill(0,2)) "Constant zero"
     annotation (Placement(transformation(extent={{-40,-60},{-20,-40}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi[2] "Logical switch"
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi[2] "Logical switch"
     annotation (Placement(transformation(extent={{0,-20},{20,0}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse chiSta2(
     final width=0.1, final period=3600)  "Chiller one enabling status"

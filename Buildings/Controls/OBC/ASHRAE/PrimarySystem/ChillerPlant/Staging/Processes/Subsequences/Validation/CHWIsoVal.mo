@@ -52,7 +52,7 @@ protected
     final samplePeriod=2)
     "Output the input signal with a zero order hold"
     annotation (Placement(transformation(extent={{160,-20},{180,0}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi
     "Second chiller isolation valve position"
     annotation (Placement(transformation(extent={{160,30},{180,50}})));
 

@@ -53,7 +53,7 @@ model LessCoupled
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
   Buildings.Controls.OBC.CDL.Continuous.Add add1 "Add real inputs"
     annotation (Placement(transformation(extent={{-20,20},{0,40}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi[2] "Logical switch"
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi[2] "Logical switch"
     annotation (Placement(transformation(extent={{0,-60},{20,-40}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zer[2](
     final k=fill(0,2))   "Constant zero"

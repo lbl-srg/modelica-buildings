@@ -44,7 +44,7 @@ block DisableChiller "Sequence for disabling chiller in stage-down process"
 protected
   final parameter Integer chiInd[nChi]={i for i in 1:nChi}
     "Chiller index, {1,2,...,n}";
-  Buildings.Controls.OBC.CDL.Logical.LogicalSwitch logSwi[nChi] "Logical switch"
+  Buildings.Controls.OBC.CDL.Logical.Switch logSwi[nChi] "Logical switch"
     annotation (Placement(transformation(extent={{100,190},{120,210}})));
   Buildings.Controls.OBC.CDL.Logical.And and2
     annotation (Placement(transformation(extent={{-160,130},{-140,150}})));
@@ -64,7 +64,7 @@ protected
     final t=fill(0.5, nChi))
     "Convert real input to boolean output"
     annotation (Placement(transformation(extent={{20,90},{40,110}})));
-  Buildings.Controls.OBC.CDL.Logical.LogicalSwitch logSwi1[nChi]
+  Buildings.Controls.OBC.CDL.Logical.Switch logSwi1[nChi]
     "Logical switch"
     annotation (Placement(transformation(extent={{100,0},{120,20}})));
   Buildings.Controls.OBC.CDL.Logical.And and3[nChi] "Logical and"
@@ -72,7 +72,7 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant con1[nChi](
     final k=fill(false, nChi)) "False constant"
     annotation (Placement(transformation(extent={{40,20},{60,40}})));
-  Buildings.Controls.OBC.CDL.Logical.LogicalSwitch logSwi2[nChi]
+  Buildings.Controls.OBC.CDL.Logical.Switch logSwi2[nChi]
     "Logical switch"
     annotation (Placement(transformation(extent={{160,40},{180,60}})));
   Buildings.Controls.OBC.CDL.Routing.IntegerScalarReplicator intRep(final nout=nChi)
@@ -135,23 +135,23 @@ protected
     final k=fill(false, nChi))
     "False constant"
     annotation (Placement(transformation(extent={{40,-160},{60,-140}})));
-  Buildings.Controls.OBC.CDL.Logical.LogicalSwitch logSwi3[nChi]
+  Buildings.Controls.OBC.CDL.Logical.Switch logSwi3[nChi]
     "Logical switch"
     annotation (Placement(transformation(extent={{100,-190},{120,-170}})));
-  Buildings.Controls.OBC.CDL.Logical.LogicalSwitch logSwi4[nChi]
+  Buildings.Controls.OBC.CDL.Logical.Switch logSwi4[nChi]
     "Logical switch"
     annotation (Placement(transformation(extent={{160,-130},{180,-110}})));
   Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator booRep6(
     final nout=nChi)
     "Replicate boolean input"
     annotation (Placement(transformation(extent={{100,-130},{120,-110}})));
-  Buildings.Controls.OBC.CDL.Logical.LogicalSwitch logSwi5[nChi]
+  Buildings.Controls.OBC.CDL.Logical.Switch logSwi5[nChi]
     "Logical switch"
     annotation (Placement(transformation(extent={{100,-100},{120,-80}})));
-  Buildings.Controls.OBC.CDL.Logical.LogicalSwitch logSwi6[nChi]
+  Buildings.Controls.OBC.CDL.Logical.Switch logSwi6[nChi]
     "Logical switch"
     annotation (Placement(transformation(extent={{100,-250},{120,-230}})));
-  Buildings.Controls.OBC.CDL.Logical.LogicalSwitch logSwi7
+  Buildings.Controls.OBC.CDL.Logical.Switch logSwi7
     "Logical switch"
     annotation (Placement(transformation(extent={{160,-62},{180,-42}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant con3(

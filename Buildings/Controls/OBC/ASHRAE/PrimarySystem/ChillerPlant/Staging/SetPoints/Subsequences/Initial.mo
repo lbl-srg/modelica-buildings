@@ -109,7 +109,7 @@ block Initial "Outputs the initial stage"
     "Difference between predicted heat exchanger leaving water temperature and chilled water supply temperature setpoint"
     annotation (Placement(transformation(extent={{-110,80},{-90,100}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Switch swi "Logical switch"
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi "Logical switch"
     annotation (Placement(transformation(extent={{60,80},{80,100}})));
 
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant noWSE(

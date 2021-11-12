@@ -35,7 +35,7 @@ protected
     final k=true) "Constant"
     annotation (Placement(transformation(extent={{-120,-90},{-100,-70}})));
 
-  Buildings.Controls.OBC.CDL.Logical.LogicalSwitch logSwi "Logical switch"
+  Buildings.Controls.OBC.CDL.Logical.Switch logSwi "Logical switch"
     annotation (Placement(transformation(extent={{60,-90},{80,-70}})));
 
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse ecoSta(

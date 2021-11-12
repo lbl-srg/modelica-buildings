@@ -1462,7 +1462,7 @@ block Controller "Chiller plant controller"
     "Chilled water supply temperature"
     annotation (Placement(transformation(extent={{-640,194},{-620,214}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Switch desConWatPumSpeSwi
+  Buildings.Controls.OBC.CDL.Continuous.Switch desConWatPumSpeSwi
     if not have_fixSpeConWatPum
     "Design condenser water pump speed"
     annotation (Placement(transformation(extent={{580,190},{600,210}})));
@@ -1478,7 +1478,7 @@ block Controller "Chiller plant controller"
     if not have_fixSpeConWatPum
     annotation (Placement(transformation(extent={{-360,150},{-340,170}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Switch chiMinFloSet "Chiller water minimum flow setpoint"
+  Buildings.Controls.OBC.CDL.Continuous.Switch chiMinFloSet "Chiller water minimum flow setpoint"
     annotation (Placement(transformation(extent={{580,110},{600,130}})));
 
   Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator uChiSwi(
@@ -1486,7 +1486,7 @@ block Controller "Chiller plant controller"
     "In chiller stage up process"
     annotation (Placement(transformation(extent={{560,340},{580,360}})));
 
-  Buildings.Controls.OBC.CDL.Logical.LogicalSwitch uChiStaPro[nChi]
+  Buildings.Controls.OBC.CDL.Logical.Switch uChiStaPro[nChi]
     "Chiller head pressure control status"
     annotation (Placement(transformation(extent={{740,340},{760,360}})));
 
@@ -1512,7 +1512,7 @@ block Controller "Chiller plant controller"
     "Two pumps or groups of pumps only"
     annotation (Placement(transformation(extent={{420,540},{440,560}})));
 
-  Buildings.Controls.OBC.CDL.Logical.IntegerSwitch intSwi[2] if have_heaChiWatPum
+  Buildings.Controls.OBC.CDL.Integers.Switch intSwi[2] if have_heaChiWatPum
     "Two devices or groups of devices"
     annotation (Placement(transformation(extent={{480,560},{500,580}})));
 
@@ -1541,11 +1541,11 @@ block Controller "Chiller plant controller"
     "Check if more than one pump is enabled, if yes, then it means lag pump is enabled"
     annotation (Placement(transformation(extent={{680,590},{700,610}})));
 
-  Buildings.Controls.OBC.CDL.Logical.LogicalSwitch chiHeaCon[nChi]
+  Buildings.Controls.OBC.CDL.Logical.Switch chiHeaCon[nChi]
     "Chiller head control enabling status"
     annotation (Placement(transformation(extent={{620,270},{640,290}})));
 
-  Buildings.Controls.OBC.CDL.Logical.IntegerSwitch conWatPumNum
+  Buildings.Controls.OBC.CDL.Integers.Switch conWatPumNum
     "Total number of enablded condenser water pump"
     annotation (Placement(transformation(extent={{540,50},{560,70}})));
 
@@ -1553,7 +1553,7 @@ block Controller "Chiller plant controller"
     "Rotates two pumps or groups of pumps"
     annotation (Placement(transformation(extent={{640,50},{660,70}})));
 
-  Buildings.Controls.OBC.CDL.Logical.LogicalSwitch conPumLeaSta
+  Buildings.Controls.OBC.CDL.Logical.Switch conPumLeaSta
     "Pick the condenser water pump lead status"
     annotation (Placement(transformation(extent={{540,-260},{560,-240}})));
 
@@ -1562,14 +1562,14 @@ block Controller "Chiller plant controller"
     "Check if more than one pump is enabled, if yes, then it means lag pump is enabled"
     annotation (Placement(transformation(extent={{580,50},{600,70}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Switch chiIsoVal[nChi]
+  Buildings.Controls.OBC.CDL.Continuous.Switch chiIsoVal[nChi]
     "Chiller isolation valve position setpoint"
     annotation (Placement(transformation(extent={{640,-10},{660,10}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Switch chiDem[nChi] "Chiller demand"
+  Buildings.Controls.OBC.CDL.Continuous.Switch chiDem[nChi] "Chiller demand"
     annotation (Placement(transformation(extent={{740,410},{760,430}})));
 
-  Buildings.Controls.OBC.CDL.Logical.LogicalSwitch relDem
+  Buildings.Controls.OBC.CDL.Logical.Switch relDem
     "Release chiller demand limit"
     annotation (Placement(transformation(extent={{580,-220},{600,-200}})));
 

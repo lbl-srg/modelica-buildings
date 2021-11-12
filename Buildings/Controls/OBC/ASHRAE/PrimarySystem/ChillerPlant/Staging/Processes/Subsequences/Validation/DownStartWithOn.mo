@@ -22,7 +22,7 @@ protected
     annotation (Placement(transformation(extent={{-180,210},{-160,230}})));
   Buildings.Controls.OBC.CDL.Logical.Not staDow1 "Stage down command"
     annotation (Placement(transformation(extent={{-140,210},{-120,230}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi3 "Logical switch"
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi3 "Logical switch"
     annotation (Placement(transformation(extent={{-100,-250},{-80,-230}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zerLoa(
     final k=0) "Zero load"
@@ -48,12 +48,12 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Pre chiOneSta(
     final pre_u_start=false) "Break algebraic loop"
     annotation (Placement(transformation(extent={{80,50},{100,70}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch chiOneLoa "Chiller one"
+  Buildings.Controls.OBC.CDL.Continuous.Switch chiOneLoa "Chiller one"
     annotation (Placement(transformation(extent={{-100,100},{-80,120}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant chiLoa2(
     final k=1000) "Chiller load"
     annotation (Placement(transformation(extent={{-180,60},{-160,80}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch chiTwoLoa "Chiller two load"
+  Buildings.Controls.OBC.CDL.Continuous.Switch chiTwoLoa "Chiller two load"
     annotation (Placement(transformation(extent={{-100,60},{-80,80}})));
   Buildings.Controls.OBC.CDL.Logical.Pre chiTwoSta(
     final pre_u_start=true) "Break algebraic loop"
@@ -64,7 +64,7 @@ protected
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zer4(final k=0)
     "Constant zero"
     annotation (Placement(transformation(extent={{-180,-110},{-160,-90}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi4 "Logical switch"
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi4 "Logical switch"
     annotation (Placement(transformation(extent={{-100,-90},{-80,-70}})));
   Buildings.Controls.OBC.CDL.Conversions.RealToInteger reaToInt2
     "Convert real input to integer output"
@@ -75,10 +75,10 @@ protected
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zerOpe(
     final k=0) "Zero open"
     annotation (Placement(transformation(extent={{-180,-150},{-160,-130}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch chiIsoVal2
+  Buildings.Controls.OBC.CDL.Continuous.Switch chiIsoVal2
     "Chilled water isolation valve one"
     annotation (Placement(transformation(extent={{-100,-190},{-80,-170}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch chiIsoVal1
+  Buildings.Controls.OBC.CDL.Continuous.Switch chiIsoVal1
     "Chilled water isolation valve one"
     annotation (Placement(transformation(extent={{-100,-150},{-80,-130}})));
   Buildings.Controls.OBC.CDL.Discrete.ZeroOrderHold zerOrdHol(
@@ -88,7 +88,7 @@ protected
     final samplePeriod=fill(10,2))
     "Output the input signal with a zero order hold"
     annotation (Placement(transformation(extent={{120,-120},{140,-100}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch chiLoa1[2] "Chiller load"
+  Buildings.Controls.OBC.CDL.Continuous.Switch chiLoa1[2] "Chiller load"
     annotation (Placement(transformation(extent={{120,150},{140,170}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zer3[2](
     final k=fill(0,2)) "Constant zero"

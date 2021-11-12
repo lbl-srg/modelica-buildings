@@ -43,7 +43,7 @@ block EnableChiller "Sequence for enabling chiller"
 protected
   final parameter Integer chiInd[nChi]={i for i in 1:nChi}
     "Chiller index, {1,2,...,n}";
-  Buildings.Controls.OBC.CDL.Logical.LogicalSwitch logSwi[nChi]
+  Buildings.Controls.OBC.CDL.Logical.Switch logSwi[nChi]
     "Logical switch"
     annotation (Placement(transformation(extent={{100,110},{120,130}})));
   Buildings.Controls.OBC.CDL.Logical.And and2
@@ -63,7 +63,7 @@ protected
     final t=fill(0.5, nChi))
     "Convert real input to boolean output"
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
-  Buildings.Controls.OBC.CDL.Logical.LogicalSwitch logSwi1[nChi]
+  Buildings.Controls.OBC.CDL.Logical.Switch logSwi1[nChi]
     "Logical switch"
     annotation (Placement(transformation(extent={{100,-120},{120,-100}})));
   Buildings.Controls.OBC.CDL.Logical.And and3[nChi] "Logical and"
@@ -71,7 +71,7 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant con1[nChi](
     final k=fill(false, nChi)) "False constant"
     annotation (Placement(transformation(extent={{40,-90},{60,-70}})));
-  Buildings.Controls.OBC.CDL.Logical.LogicalSwitch logSwi2[nChi]
+  Buildings.Controls.OBC.CDL.Logical.Switch logSwi2[nChi]
     "Logical switch"
     annotation (Placement(transformation(extent={{160,-60},{180,-40}})));
   Buildings.Controls.OBC.CDL.Logical.Or or2 "Logical or"
@@ -113,13 +113,13 @@ protected
   Buildings.Controls.OBC.CDL.Integers.Equal intEqu1[nChi]
     "Check next enabling isolation valve"
     annotation (Placement(transformation(extent={{-100,-160},{-80,-140}})));
-  Buildings.Controls.OBC.CDL.Logical.LogicalSwitch logSwi3[nChi]
+  Buildings.Controls.OBC.CDL.Logical.Switch logSwi3[nChi]
     "Logical switch"
     annotation (Placement(transformation(extent={{60,30},{80,50}})));
   Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator  booRep4(final nout=nChi)
     "Replicate boolean input"
     annotation (Placement(transformation(extent={{-40,30},{-20,50}})));
-  Buildings.Controls.OBC.CDL.Logical.LogicalSwitch logSwi4 "Logical switch"
+  Buildings.Controls.OBC.CDL.Logical.Switch logSwi4 "Logical switch"
     annotation (Placement(transformation(extent={{160,-180},{180,-160}})));
 
 equation

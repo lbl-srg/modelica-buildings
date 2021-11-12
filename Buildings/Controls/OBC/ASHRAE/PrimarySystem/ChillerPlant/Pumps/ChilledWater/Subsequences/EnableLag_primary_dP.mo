@@ -90,10 +90,10 @@ protected
     annotation (Placement(transformation(extent={{-80,30},{-60,50}})));
   Buildings.Controls.OBC.CDL.Continuous.Add add1(final k2=-1) "Add real inputs"
     annotation (Placement(transformation(extent={{-80,-90},{-60,-70}})));
-  Buildings.Controls.OBC.CDL.Logical.LogicalSwitch enaNexLag
+  Buildings.Controls.OBC.CDL.Logical.Switch enaNexLag
     "Enabling next lag pump"
     annotation (Placement(transformation(extent={{100,30},{120,50}})));
-  Buildings.Controls.OBC.CDL.Logical.LogicalSwitch shuLasLag
+  Buildings.Controls.OBC.CDL.Logical.Switch shuLasLag
     "Shut off last lag pump"
     annotation (Placement(transformation(extent={{100,-90},{120,-70}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant con(final k=true)

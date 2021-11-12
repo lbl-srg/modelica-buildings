@@ -248,9 +248,9 @@ protected
   Buildings.Controls.OBC.CDL.Continuous.Line plrTowMaxSpe
     "Tower maximum speed resetted by partial load ratio"
     annotation (Placement(transformation(extent={{-20,100},{0,120}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi
     annotation (Placement(transformation(extent={{120,-10},{140,10}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi1
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi1
     "Switch between when waterside economizer is enabled and disabled"
     annotation (Placement(transformation(extent={{100,200},{120,220}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant lowPlrTowMaxSpe(

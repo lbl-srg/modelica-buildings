@@ -71,7 +71,7 @@ protected
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zeoCon[nChi](
     final k=fill(0, nChi)) "Zero constant"
     annotation (Placement(transformation(extent={{-120,50},{-100,70}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi[nChi] "Logical switch"
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi[nChi] "Logical switch"
     annotation (Placement(transformation(extent={{-80,70},{-60,90}})));
   Buildings.Controls.OBC.CDL.Continuous.MultiMax lifMin(
     final nin=nChi) "Minimum enabled chiller LIFT"

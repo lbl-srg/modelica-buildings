@@ -130,10 +130,10 @@ protected
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant zer1(final k=0)
     "Constant zero"
     annotation (Placement(transformation(extent={{-60,2},{-40,22}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi if not fixSpe
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi if not fixSpe
     "Real switch"
     annotation (Placement(transformation(extent={{80,50},{100,70}})));
-  Buildings.Controls.OBC.CDL.Logical.IntegerSwitch intSwi "Integer switch"
+  Buildings.Controls.OBC.CDL.Integers.Switch intSwi "Integer switch"
     annotation (Placement(transformation(extent={{80,10},{100,30}})));
   Buildings.Controls.OBC.CDL.Logical.And and2 "Logical and"
     annotation (Placement(transformation(extent={{80,-60},{100,-40}})));

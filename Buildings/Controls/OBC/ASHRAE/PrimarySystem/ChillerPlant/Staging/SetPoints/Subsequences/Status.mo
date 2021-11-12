@@ -71,10 +71,10 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Not not1 "Not unavailable"
     annotation (Placement(transformation(extent={{20,-250},{40,-230}})));
 
-  Buildings.Controls.OBC.CDL.Logical.IntegerSwitch intSwi2 "Switch"
+  Buildings.Controls.OBC.CDL.Integers.Switch intSwi2 "Switch"
     annotation (Placement(transformation(extent={{100,-220},{120,-200}})));
 
-  Buildings.Controls.OBC.CDL.Logical.IntegerSwitch intSwi3 "Switch"
+  Buildings.Controls.OBC.CDL.Integers.Switch intSwi3 "Switch"
     annotation (Placement(transformation(extent={{360,70},{380,90}})));
 
   Buildings.Controls.OBC.CDL.Routing.IntegerScalarReplicator intRep(
@@ -150,7 +150,7 @@ protected
     final t=nSta) "True if there are no higher available stages"
     annotation (Placement(transformation(extent={{100,100},{120,120}})));
 
-  Buildings.Controls.OBC.CDL.Logical.IntegerSwitch intSwi
+  Buildings.Controls.OBC.CDL.Integers.Switch intSwi
     "If no higher stage is available, output current stage"
     annotation (Placement(transformation(extent={{180,100},{200,120}})));
 
@@ -159,7 +159,7 @@ protected
     "If the current stage is the lowest available the input value equals 0"
     annotation (Placement(transformation(extent={{100,-80},{120,-60}})));
 
-  Buildings.Controls.OBC.CDL.Logical.IntegerSwitch intSwi1 "Logical switch"
+  Buildings.Controls.OBC.CDL.Integers.Switch intSwi1 "Logical switch"
     annotation (Placement(transformation(extent={{180,-80},{200,-60}})));
 
   Buildings.Controls.OBC.CDL.Routing.RealExtractor extStaAva(

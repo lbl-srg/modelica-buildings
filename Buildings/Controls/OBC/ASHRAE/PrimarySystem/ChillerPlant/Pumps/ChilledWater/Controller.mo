@@ -264,15 +264,15 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Pre pre1[nPum] if have_heaPum
     "Breaks algebraic loops"
     annotation (Placement(transformation(extent={{220,-130},{240,-110}})));
-  Buildings.Controls.OBC.CDL.Logical.LogicalSwitch leaPumSta[nPum]
+  Buildings.Controls.OBC.CDL.Logical.Switch leaPumSta[nPum]
  if have_heaPum
     "Lead pump status"
     annotation (Placement(transformation(extent={{120,180},{140,200}})));
-  Buildings.Controls.OBC.CDL.Logical.LogicalSwitch nexLagPumSta[nPum]
+  Buildings.Controls.OBC.CDL.Logical.Switch nexLagPumSta[nPum]
  if have_heaPum
     "Next lag pump status"
     annotation (Placement(transformation(extent={{120,-40},{140,-20}})));
-  Buildings.Controls.OBC.CDL.Logical.LogicalSwitch lasLagPumSta[nPum]
+  Buildings.Controls.OBC.CDL.Logical.Switch lasLagPumSta[nPum]
  if have_heaPum
     "Last lag pump status"
     annotation (Placement(transformation(extent={{120,-100},{140,-80}})));
@@ -282,10 +282,10 @@ protected
   Buildings.Controls.OBC.CDL.Logical.And pumSta[nPum] if have_heaPum
     "Chilled water pump status"
     annotation (Placement(transformation(extent={{180,-100},{200,-80}})));
-  Buildings.Controls.OBC.CDL.Logical.LogicalSwitch addPum[nPum] if have_heaPum
+  Buildings.Controls.OBC.CDL.Logical.Switch addPum[nPum] if have_heaPum
     "Add pump"
     annotation (Placement(transformation(extent={{240,-10},{260,10}})));
-  Buildings.Controls.OBC.CDL.Logical.LogicalSwitch remPum[nPum] if have_heaPum
+  Buildings.Controls.OBC.CDL.Logical.Switch remPum[nPum] if have_heaPum
     "Remove pump"
     annotation (Placement(transformation(extent={{220,-80},{240,-60}})));
   Buildings.Controls.OBC.CDL.Logical.MultiAnd mulAnd(

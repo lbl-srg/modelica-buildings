@@ -43,12 +43,12 @@ model Controller "Validate condenser water pump control sequence"
     final period=1800)
     "Waterside economizer status"
     annotation (Placement(transformation(extent={{-10,10},{10,30}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch meaPumSpe "Measured pump speed"
+  Buildings.Controls.OBC.CDL.Continuous.Switch meaPumSpe "Measured pump speed"
     annotation (Placement(transformation(extent={{-10,-50},{10,-30}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zer(final k=0)
     "Zero pump speed"
     annotation (Placement(transformation(extent={{-80,-70},{-60,-50}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch pumSpeSet "Pump speed setpoint"
+  Buildings.Controls.OBC.CDL.Continuous.Switch pumSpeSet "Pump speed setpoint"
     annotation (Placement(transformation(extent={{-10,-20},{10,0}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Pulse pumSpeSetVal(
     final amplitude=0.2,

@@ -62,7 +62,7 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Pre heaPreConRet1
     "Return value of chiller head pressure control status"
     annotation (Placement(transformation(extent={{100,90},{120,110}})));
-  Buildings.Controls.OBC.CDL.Logical.LogicalSwitch chiTwo "Chiller two status"
+  Buildings.Controls.OBC.CDL.Logical.Switch chiTwo "Chiller two status"
     annotation (Placement(transformation(extent={{140,70},{160,90}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul2(
     final width=0.15,
@@ -91,7 +91,7 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Pre heaPreConRet3
     "Return value of chiller head pressure control status"
     annotation (Placement(transformation(extent={{140,-130},{160,-110}})));
-  Buildings.Controls.OBC.CDL.Logical.LogicalSwitch chiTwo1 "Chiller two status"
+  Buildings.Controls.OBC.CDL.Logical.Switch chiTwo1 "Chiller two status"
     annotation (Placement(transformation(extent={{40,-160},{60,-140}})));
 
 equation

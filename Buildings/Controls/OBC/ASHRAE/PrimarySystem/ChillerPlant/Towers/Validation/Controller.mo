@@ -79,9 +79,9 @@ protected
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zer(
     final k=0) "Constant zero"
     annotation (Placement(transformation(extent={{-320,10},{-300,30}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi1 "Logical switch"
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi1 "Logical switch"
     annotation (Placement(transformation(extent={{-240,30},{-220,50}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch chiOneLoa "Chiller one load"
+  Buildings.Controls.OBC.CDL.Continuous.Switch chiOneLoa "Chiller one load"
     annotation (Placement(transformation(extent={{-260,320},{-240,340}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant chiTwoLoa(final k=0)
     "Chiller two load"
@@ -139,12 +139,12 @@ protected
     final k={false,true,true,false})
     "Enabling cells index"
     annotation (Placement(transformation(extent={{-140,-370},{-120,-350}})));
-  Buildings.Controls.OBC.CDL.Logical.LogicalSwitch chaCel[4]
+  Buildings.Controls.OBC.CDL.Logical.Switch chaCel[4]
     "Vector of changing tower cells when WSE is enabled"
     annotation (Placement(transformation(extent={{-20,-390},{0,-370}})));
   Buildings.Controls.OBC.CDL.Logical.Not wseSta1 "Water side economizer status"
     annotation (Placement(transformation(extent={{-320,200},{-300,220}})));
-  Buildings.Controls.OBC.CDL.Logical.LogicalSwitch chaCel1[4]
+  Buildings.Controls.OBC.CDL.Logical.Switch chaCel1[4]
     "Vector of changing tower cells when chiller is enabled"
     annotation (Placement(transformation(extent={{40,-310},{60,-290}})));
   Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator booRep1(final nout=4)

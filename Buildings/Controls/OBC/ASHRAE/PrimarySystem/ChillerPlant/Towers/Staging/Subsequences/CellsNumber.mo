@@ -50,7 +50,7 @@ block CellsNumber
     annotation (Placement(transformation(extent={{260,-140},{300,-100}}),
       iconTransformation(extent={{100,-80},{140,-40}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Switch swi
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi
     "Chiller stage index to identify total number of enabling cells"
     annotation (Placement(transformation(extent={{-120,90},{-100,110}})));
 
@@ -114,7 +114,7 @@ protected
   Buildings.Controls.OBC.CDL.Integers.Equal norOpe
     "Normal operation, not in the chiller stage changeprocess"
     annotation (Placement(transformation(extent={{-220,90},{-200,110}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi1
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi1
     "Chiller stage index in the staging process"
     annotation (Placement(transformation(extent={{-160,10},{-140,30}})));
   Buildings.Controls.OBC.CDL.Logical.MultiOr mulOr(
