@@ -132,7 +132,8 @@ protected
     final m_flow_nominal = m1_flow_nominal,
     final energyDynamics = energyDynamics,
     final massDynamics = massDynamics,
-    final Q_flow_nominal=-1)
+    final Q_flow_nominal=-1,
+    u(final unit="W"))
     "Heat exchange with water stream"
     annotation (Placement(transformation(extent={{60,50},{80,70}})));
 
@@ -142,7 +143,8 @@ protected
     final dp_nominal = dp2_nominal,
     final m_flow_nominal = m2_flow_nominal,
     final energyDynamics = energyDynamics,
-    final massDynamics = massDynamics)
+    final massDynamics = massDynamics,
+    u(final unit="kg/s"))
     "Heat and moisture exchange with air stream"
     annotation (Placement(transformation(extent={{-60,-70},{-80,-50}})));
   Buildings.Fluid.HeatExchangers.BaseClasses.HADryCoil hA(
@@ -626,8 +628,16 @@ Fuzzy identification of systems and its applications to modeling and control.
 &nbsp;IEEE transactions on systems, man, and cybernetics, (1), pp.116-132.</p>
 </html>",                    revisions="<html>
 <ul>
-<li>Jan 21, 2021, by Donghun Kim:<br/>First implementation of the fuzzy model.
-See <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/622\">issue 622</a> for more information. </li>
+<li>
+November 2, 2021, by Michael Wetter:<br/>
+Corrected unit assignment during the model instantiation.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2710\">issue 2710</a>.
+</li>
+<li>
+Jan 21, 2021, by Donghun Kim:<br/>
+First implementation of the fuzzy model.<br/>
+See <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/622\">issue 622</a> for more information.
+</li>
 </ul>
 </html>"));
 end WetCoilEffectivenessNTU;

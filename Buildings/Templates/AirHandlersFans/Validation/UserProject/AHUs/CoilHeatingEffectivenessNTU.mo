@@ -1,6 +1,7 @@
 within Buildings.Templates.AirHandlersFans.Validation.UserProject.AHUs;
 model CoilHeatingEffectivenessNTU
-  extends NoFanNoReliefSingleDamper(
+  extends Buildings.Templates.AirHandlersFans.VAVMultiZone(
+    id="VAV_1",
     redeclare .Buildings.Templates.Components.Coils.WaterBasedHeating coiHea(
         redeclare
         .Buildings.Templates.Components.HeatExchangers.DryCoilEffectivenessNTU

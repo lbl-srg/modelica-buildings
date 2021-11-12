@@ -8,9 +8,10 @@ partial model PartialFan
     "Equipment location"
     annotation (Evaluate=true, Dialog(group="Configuration"));
   parameter AirHandlersFans.Types.ReturnFanControlSensor typCtr=
-      AirHandlersFans.Types.ReturnFanControlSensor.None
+    Buildings.Templates.AirHandlersFans.Types.ReturnFanControlSensor.None
     "Sensor type used for return fan control" annotation (Evaluate=true,
-      Dialog(group="Configuration", enable=loc == Buildings.Templates.Components.Types.Location.Return
+      Dialog(group="Configuration",
+        enable=loc == Buildings.Templates.Components.Types.Location.Return
            and typ <> Buildings.Templates.Components.Types.Fan.None));
 
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal=

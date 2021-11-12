@@ -1,7 +1,7 @@
 within Buildings.Templates.Components.Dampers;
 model NoPath
   extends Buildings.Templates.Components.Dampers.Interfaces.PartialDamper(
-                                                           final typ=Types.Damper.NoPath);
+    final typ=Buildings.Templates.Components.Types.Damper.NoPath);
 
   Fluid.Sources.MassFlowSource_T floZer(
     redeclare final package Medium=Medium,

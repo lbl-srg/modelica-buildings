@@ -2,7 +2,7 @@ within Buildings.Templates.AirHandlersFans.Validation.UserProject.AHUs;
 model CompleteAHU
   extends Buildings.Templates.AirHandlersFans.VAVMultiZone(
     redeclare
-      Buildings.Templates.AirHandlersFans.Components.OutdoorReliefReturnSection.EconomizerWithRelief
+      Buildings.Templates.AirHandlersFans.Components.OutdoorReliefReturnSection.Economizer
       secOutRel(redeclare
         Buildings.Templates.AirHandlersFans.Components.OutdoorSection.SingleDamper
         secOut "Single common OA damper (modulated) with AFMS", redeclare

@@ -9,15 +9,13 @@ model MultipleVariable
     annotation(Evaluate=true,
       Dialog(group="Configuration"));
 
-  replaceable Fluid.Movers.SpeedControlled_y fan[nFan](
-    each energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
-    constrainedby Fluid.Movers.BaseClasses.PartialFlowMachine(
-      redeclare each final package Medium=Medium,
-      each final inputType=Buildings.Fluid.Types.InputType.Continuous,
-      each final per=per)
+  Buildings.Fluid.Movers.SpeedControlled_y fan[nFan](
+    each energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    redeclare each final package Medium=Medium,
+    each final inputType=Buildings.Fluid.Types.InputType.Continuous,
+    each final per=per)
     "Fan"
     annotation (
-      choicesAllMatching=true,
       Placement(transformation(extent={{-10,10},{10,30}})));
 
   Experimental.DHC.EnergyTransferStations.BaseClasses.CollectorDistributor colDis(
@@ -91,24 +89,24 @@ equation
   connect(sigCon.y, repSig.u) annotation (Line(points={{-40,38},{-40,30},{-16,30},
           {-16,64},{0,64},{0,62}}, color={0,0,127}));
   connect(bus.ySpe, sigCon.u1) annotation (Line(
-      points={{0.1,100.1},{0.1,68},{-34,68},{-34,62}},
+      points={{0,100},{0,68},{-34,68},{-34,62}},
       color={255,204,51},
       thickness=0.5));
   connect(fan.y_actual, evaSta.u) annotation (Line(points={{11,27},{24,27},{24,-36},
           {0,-36},{0,-38}}, color={0,0,127}));
   connect(evaSta.y, sigRet.u) annotation (Line(points={{-2.22045e-15,-62},{2.22045e-15,
           -68}}, color={255,0,255}));
-  connect(sigRet.y, bus.y_actual) annotation (Line(points={{0,-92},{0,-96},{
-          60,-96},{60,100.1},{0.1,100.1}}, color={255,0,255}));
+  connect(sigRet.y, bus.y_actual) annotation (Line(points={{0,-92},{0,-96},{60,-96},
+          {60,100},{0,100}},               color={255,0,255}));
   connect(bus.y, sigSta.u) annotation (Line(
-      points={{0.1,100.1},{-46,100.1},{-46,92}},
+      points={{0,100},{-46,100},{-46,92}},
       color={255,204,51},
       thickness=0.5));
   annotation (Placement(transformation(extent={{-10,-10},{10,10}})),
               Icon(
     graphics={Bitmap(
-        extent={{-80,-80},{80,80}},
-        fileName="modelica://Buildings/Resources/Images/Templates/BaseClasses/Fans/MultipleVariable.svg")},
+        extent={{-78,-80},{82,80}},
+        fileName="modelica://Buildings/Resources/Images/Templates/Components/Fans/MultipleVariable.svg")},
               coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false), graphics={Text(
           extent={{-192,-16},{-18,-74}},

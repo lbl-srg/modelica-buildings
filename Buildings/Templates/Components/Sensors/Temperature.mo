@@ -4,6 +4,11 @@ model Temperature
     y(final unit="K", displayUnit="degC"),
     final isDifPreSen=false);
 
+  parameter Buildings.Templates.Components.Types.SensorTemperature typ=
+    Buildings.Templates.Components.Types.SensorTemperature.Standard
+    "Type of temperature sensor"
+    annotation(Dialog(enable=false), Evaluate=true);
+
   Fluid.Sensors.TemperatureTwoPort senTem(
     redeclare final package Medium=Medium,
     final m_flow_nominal=m_flow_nominal) if have_sen
@@ -24,6 +29,14 @@ equation
           {100,0}}, color={0,127,255}));
   connect(senTem.T, y)
     annotation (Line(points={{0,11},{0,11},{0,120}}, color={0,0,127}));
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false)),
+  annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
+      Bitmap(
+        extent={{-40,-220},{40,60}},
+        visible=typ==Buildings.Templates.Components.Types.SensorTemperature.Standard,
+        fileName="modelica://Buildings/Resources/Images/Templates/Components/Sensors/TemperatureStandard.svg"),
+      Bitmap(
+        extent={{-40,-220},{40,60}},
+        visible=typ==Buildings.Templates.Components.Types.SensorTemperature.Averaging,
+        fileName="modelica://Buildings/Resources/Images/Templates/Components/Sensors/TemperatureAveraging.svg")}),
     Diagram(coordinateSystem(preserveAspectRatio=false)));
 end Temperature;

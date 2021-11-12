@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="74.536911mm"
+   height="264.58347mm"
+   viewBox="0 0 74.536911 264.58347"
+   version="1.1"
+   id="svg6459"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs6456" />
+  <g
+     id="layer1"
+     transform="translate(-103.96761,-127.64642)">
+    <ellipse
+       rx="117.96737"
+       ry="35.945541"
+       transform="rotate(90)"
+       id="ellipse686"
+       cx="246.93671"
+       cy="-141.23607"
+       style="fill:none;stroke:#000000;stroke-width:2.64583;stroke-miterlimit:4;stroke-dasharray:none" />
+    <polyline
+       points="535.267,522.767 535.267,547.108 "
+       id="polyline688"
+       style="fill:none;stroke:#000000;stroke-width:0.243257;stroke-miterlimit:4;stroke-dasharray:none"
+       transform="matrix(10.938397,0,0,10.815352,-5713.7267,-5524.9357)" />
+    <polyline
+       points="531.981,533.674 538.553,533.674 "
+       id="polyline690"
+       style="fill:none;stroke:#000000;stroke-width:0.243257;stroke-miterlimit:4;stroke-dasharray:none"
+       transform="matrix(10.938397,0,0,10.815352,-5713.7267,-5524.9357)" />
+  </g>
+</svg>

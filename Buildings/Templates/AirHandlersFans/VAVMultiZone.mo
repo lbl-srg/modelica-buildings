@@ -72,31 +72,35 @@ model VAVMultiZone "Multiple-Zone VAV"
     annotation (Placement(transformation(extent={{-20,260},{20,300}}),
       iconTransformation(extent={{-20,182},{20,218}})));
 
-  inner replaceable Components.OutdoorReliefReturnSection.EconomizerWithRelief
-    secOutRel constrainedby Components.OutdoorReliefReturnSection.Interfaces.PartialOutdoorReliefReturnSection(
-                                                                  redeclare
-      final package MediumAir = MediumAir) "Outdoor/relief/return air section"
+  // Currently only the configuration with economizer is supported.
+  inner replaceable Components.OutdoorReliefReturnSection.Economizer secOutRel
+    constrainedby
+    Components.OutdoorReliefReturnSection.Interfaces.PartialOutdoorReliefReturnSection(
+     redeclare final package MediumAir = MediumAir)
+    "Outdoor/relief/return air section"
     annotation (
-    choicesAllMatching=true,
-    Dialog(group="Outdoor/relief/return air section"),
-    Placement(transformation(extent={{-178,-104},{-142,-76}})));
+      Dialog(group="Outdoor/relief/return air section"),
+      Placement(transformation(extent={{-280,-220},{-120,-60}})));
 
   // FIXME: bind have_sen to control option.
   Buildings.Templates.Components.Sensors.Temperature TMix(
     redeclare final package Medium = MediumAir,
     have_sen=true,
+    final typ=Buildings.Templates.Components.Types.SensorTemperature.Averaging,
     final loc=Buildings.Templates.Components.Types.Location.Supply)
-    "Mixed air temperature sensor" annotation (Dialog(group=
+    "Mixed air temperature sensor"
+    annotation (Dialog(group=
           "Supply air section", enable=false), Placement(transformation(extent=
             {{-100,-210},{-80,-190}})));
 
   inner replaceable Buildings.Templates.Components.Fans.None fanSupBlo
     constrainedby Buildings.Templates.Components.Fans.Interfaces.PartialFan(
-      redeclare final package  Medium = MediumAir,
+      redeclare final package Medium =  MediumAir,
       final loc=Buildings.Templates.Components.Types.Location.Supply)
     "Supply fan - Blow through" annotation (
     choicesAllMatching=true,
-    Dialog(group="Supply air section", enable=fanSupDra == Buildings.Templates.Components.Types.Fan.None),
+    Dialog(group="Supply air section",
+      enable=fanSupDra.typ == Buildings.Templates.Components.Types.Fan.None),
     Placement(transformation(extent={{-70,-210},{-50,-190}})));
 
   inner replaceable .Buildings.Templates.Components.Coils.None coiHea
@@ -105,8 +109,8 @@ model VAVMultiZone "Multiple-Zone VAV"
     redeclare final package MediumSou = MediumHea,
     final fun=Buildings.Templates.Components.Types.CoilFunction.Heating)
     "Heating coil" annotation (
-    choices(choice(redeclare Templates.BaseClasses.Coils.None coiHea "No coil"),
-        choice(redeclare Templates.BaseClasses.Coils.WaterBasedHeating coiHea
+    choices(choice(redeclare Buildings.Templates.Components.Coils.None coiHea "No coil"),
+        choice(redeclare Buildings.Templates.Components.Coils.WaterBasedHeating coiHea
           "Water-based")),
     Dialog(group="Heating coil"),
     Placement(transformation(extent={{-40,-210},{-20,-190}})));
@@ -115,10 +119,11 @@ model VAVMultiZone "Multiple-Zone VAV"
     redeclare final package Medium = MediumAir,
     final have_sen=coiHea.typ <> Buildings.Templates.Components.Types.Coil.None
          and coiCoo.typ <> Buildings.Templates.Components.Types.Coil.None,
+    final typ=Buildings.Templates.Components.Types.SensorTemperature.Averaging,
     final loc=Buildings.Templates.Components.Types.Location.Supply)
-    "Heating coil leaving air temperature sensor" annotation (Dialog(group=
-          "Supply air section", enable=false), Placement(transformation(extent=
-            {{-10,-210},{10,-190}})));
+    "Heating coil leaving air temperature sensor"
+    annotation (Dialog(group="Supply air section", enable=false),
+      Placement(transformation(extent={{-10,-210},{10,-190}})));
 
   inner replaceable Buildings.Templates.Components.Coils.None coiCoo
     constrainedby Buildings.Templates.Components.Coils.Interfaces.PartialCoil(
@@ -126,8 +131,8 @@ model VAVMultiZone "Multiple-Zone VAV"
     redeclare final package MediumSou = MediumCoo,
     final fun=Buildings.Templates.Components.Types.CoilFunction.Cooling)
     "Cooling coil" annotation (
-    choices(choice(redeclare Templates.BaseClasses.Coils.None coiCoo "No coil"),
-        choice(redeclare Templates.BaseClasses.Coils.WaterBasedCooling coiCoo
+    choices(choice(redeclare Buildings.Templates.Components.Coils.None coiCoo "No coil"),
+        choice(redeclare Buildings.Templates.Components.Coils.WaterBasedCooling coiCoo
           "Water-based")),
     Dialog(group="Cooling coil"),
     Placement(transformation(extent={{20,-210},{40,-190}})));
@@ -136,8 +141,10 @@ model VAVMultiZone "Multiple-Zone VAV"
     redeclare final package Medium = MediumAir,
     final have_sen=coiCoo.typ <> Buildings.Templates.Components.Types.Coil.None
          and coiReh.typ <> Buildings.Templates.Components.Types.Coil.None,
+    final typ=Buildings.Templates.Components.Types.SensorTemperature.Averaging,
     final loc=Buildings.Templates.Components.Types.Location.Supply)
-    "Cooling coil leaving air temperature sensor" annotation (Dialog(group=
+    "Cooling coil leaving air temperature sensor"
+    annotation (Dialog(group=
           "Supply air section", enable=false), Placement(transformation(extent=
             {{50,-210},{70,-190}})));
 
@@ -160,7 +167,8 @@ model VAVMultiZone "Multiple-Zone VAV"
     "Supply fan - Draw through"
     annotation (
     choicesAllMatching=true,
-    Dialog(group="Supply air section", enable=fanSupBlo == Buildings.Templates.Components.Types.Fan.None),
+    Dialog(group="Supply air section",
+      enable=fanSupBlo.typ == Buildings.Templates.Components.Types.Fan.None),
     Placement(transformation(extent={{110,-210},{130,-190}})));
 
   // FIXME: bind have_sen to control option.
@@ -198,19 +206,14 @@ model VAVMultiZone "Multiple-Zone VAV"
   Buildings.Templates.Components.Sensors.Temperature TSup(
     redeclare final package Medium = MediumAir,
     final have_sen=true,
+    final typ=Buildings.Templates.Components.Types.SensorTemperature.Standard,
     final loc=Buildings.Templates.Components.Types.Location.Supply)
-    "Supply air temperature sensor" annotation (Dialog(group=
+    "Supply air temperature sensor"
+    annotation (Dialog(group=
           "Supply air section", enable=false), Placement(transformation(extent=
             {{200,-210},{220,-190}})));
 
   // FIXME: bind have_sen to control option.
-  .Buildings.Templates.Components.Sensors.HumidityRatio xSup(
-    redeclare final package Medium = MediumAir,
-    have_sen=true,
-    final loc=Buildings.Templates.Components.Types.Location.Supply)
-    "Supply air humidity ratio sensor" annotation (Dialog(group=
-          "Supply air section", enable=false), Placement(transformation(extent=
-            {{230,-210},{250,-190}})));
 
   // FIXME: bind have_sen to control option.
   Buildings.Templates.Components.Sensors.DifferentialPressure pSup_rel(
@@ -218,7 +221,7 @@ model VAVMultiZone "Multiple-Zone VAV"
     have_sen=false,
     final loc=Buildings.Templates.Components.Types.Location.Supply)
     "Duct static pressure sensor" annotation (Dialog(group="Supply air section",
-        enable=false), Placement(transformation(extent={{260,-210},{280,-190}})));
+        enable=false), Placement(transformation(extent={{250,-230},{270,-210}})));
 
   Fluid.Sensors.RelativePressure pInd_rel(
     redeclare final package Medium=MediumAir)
@@ -227,8 +230,7 @@ model VAVMultiZone "Multiple-Zone VAV"
 
   Fluid.Sources.Outside out(
     redeclare final package Medium=MediumAir,
-    final nPorts=1 +
-      (if secOutRel.have_porPre then 1 else 0))
+    final nPorts=2)
     "Outdoor conditions"
     annotation (
       Placement(transformation(
@@ -239,8 +241,7 @@ model VAVMultiZone "Multiple-Zone VAV"
   Fluid.Sources.Boundary_pT ind(
     redeclare final package Medium = MediumAir,
     final use_p_in=true,
-    final nPorts=1 +
-      (if pSup_rel.have_sen then 1 else 0))
+    final nPorts=2)
     "Indoor pressure"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
@@ -251,6 +252,7 @@ model VAVMultiZone "Multiple-Zone VAV"
   .Buildings.Templates.Components.Sensors.Temperature TRet(
     redeclare final package Medium = MediumAir,
     have_sen=false,
+    final typ=Buildings.Templates.Components.Types.SensorTemperature.Standard,
     final loc=Buildings.Templates.Components.Types.Location.Return)
     "Return air temperature sensor" annotation (Dialog(group=
           "Exhaust/relief/return section", enable=false), Placement(
@@ -271,7 +273,6 @@ equation
   connect(THea.y, bus.THea);
   connect(VSup_flow.y, bus.VSup_flow);
   connect(TSup.y, bus.TSup);
-  connect(xSup.y, bus.xSup);
   connect(pSup_rel.y, bus.pSup_rel);
   connect(hRet.y, bus.hRet);
   connect(TRet.y, bus.TRet);
@@ -296,12 +297,6 @@ equation
     annotation (Line(points={{-80,-200},{-70,-200}},   color={0,127,255}));
   connect(resSup.port_b, TSup.port_a)
     annotation (Line(points={{192,-200},{200,-200}}, color={0,127,255}));
-  connect(TSup.port_b, xSup.port_a)
-    annotation (Line(points={{220,-200},{230,-200}}, color={0,127,255}));
-  connect(xSup.port_b, pSup_rel.port_a)
-    annotation (Line(points={{250,-200},{260,-200}}, color={0,127,255}));
-  connect(pSup_rel.port_b, port_Sup)
-    annotation (Line(points={{280,-200},{300,-200}}, color={0,127,255}));
   connect(port_coiHeaSup, coiHea.port_aSou) annotation (Line(points={{-40,-280},
           {-40,-220},{-34,-220},{-34,-210}}, color={0,127,255}));
   connect(coiHea.port_bSou, port_coiHeaRet) annotation (Line(points={{-26,-210},
@@ -323,11 +318,9 @@ equation
       color={255,204,51},
       thickness=0.5));
   connect(pInd_rel.port_b, out.ports[1])
-    annotation (Line(points={{10,240},{-40,240}}, color={0,127,255}));
+    annotation (Line(points={{10,240},{-38,240}}, color={0,127,255}));
   connect(ind.ports[1], pInd_rel.port_a)
-    annotation (Line(points={{40,240},{30,240}},      color={0,127,255}));
-  connect(ind.ports[2], pSup_rel.port_bRef) annotation (Line(points={{40,240},{288,
-          240},{288,-220},{270,-220},{270,-210}}, color={0,127,255}));
+    annotation (Line(points={{42,240},{30,240}},      color={0,127,255}));
 
   connect(conAHU.busTer, busTer) annotation (Line(
       points={{-240,120},{-220,120},{-220,0},{300,0}},
@@ -367,21 +360,28 @@ equation
     annotation (Line(points={{40,-200},{50,-200}}, color={0,127,255}));
   connect(TCoo.port_b, coiReh.port_a)
     annotation (Line(points={{70,-200},{80,-200}}, color={0,127,255}));
-  connect(port_Rel, secOutRel.port_Rel)
-    annotation (Line(points={{-300,-80},{-178,-80}}, color={0,127,255}));
-  connect(secOutRel.port_Out, port_Out) annotation (Line(points={{-178,-100},{-200,
-          -100},{-200,-200},{-300,-200}}, color={0,127,255}));
-  connect(secOutRel.port_Sup, TMix.port_a) annotation (Line(points={{-142,-100},
-          {-120,-100},{-120,-200},{-100,-200}}, color={0,127,255}));
+  connect(secOutRel.port_Sup, TMix.port_a) annotation (Line(points={{-120,-200},
+          {-120,-200},{-120,-200},{-100,-200}}, color={0,127,255}));
   connect(secOutRel.port_Ret, resRet.port_b)
-    annotation (Line(points={{-142,-80},{170,-80}}, color={0,127,255}));
-  connect(secOutRel.port_bPre, out.ports[2]) annotation (Line(points={{-152,-76},
-          {-152,-60},{-40,-60},{-40,240},{-40,240}}, color={0,127,255}));
+    annotation (Line(points={{-120,-80.2},{10,-80.2},{10,-80},{170,-80}},
+                                                    color={0,127,255}));
+  connect(secOutRel.port_bPre, out.ports[2]) annotation (Line(points={{-162,-60},
+          {-162,-60},{-42,-60},{-42,240}},           color={0,127,255}));
   connect(secOutRel.bus, bus) annotation (Line(
-      points={{-160,-76},{-160,0},{-300,0}},
+      points={{-200,-60},{-200,0},{-300,0}},
       color={255,204,51},
       thickness=0.5));
 
+  connect(port_Rel, secOutRel.port_Rel)
+    annotation (Line(points={{-300,-80},{-280,-80}}, color={0,127,255}));
+  connect(port_Out, secOutRel.port_Out)
+    annotation (Line(points={{-300,-200},{-280,-200}}, color={0,127,255}));
+  connect(ind.ports[2], pSup_rel.port_b) annotation (Line(points={{38,240},{280,
+          240},{280,-220},{270,-220}}, color={0,127,255}));
+  connect(TSup.port_b, port_Sup)
+    annotation (Line(points={{220,-200},{300,-200}}, color={0,127,255}));
+  connect(TSup.port_b, pSup_rel.port_a) annotation (Line(points={{220,-200},{
+          240,-200},{240,-220},{250,-220}}, color={0,127,255}));
   annotation (
     defaultComponentName="ahu",
     Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(

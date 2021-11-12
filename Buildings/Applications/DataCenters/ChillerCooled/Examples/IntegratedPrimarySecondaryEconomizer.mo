@@ -113,11 +113,6 @@ equation
     annotation (Line(
       points={{-307,110},{-210,110}},
       color={0,0,127}));
-  connect(weaBus.TWetBul.TWetBul, cooModCon.TWetBul)
-    annotation (Line(
-      points={{-328,-20},{-340,-20},{-340,200},{-218,200},{-218,114},{-210,114}},
-      color={255,204,51},
-      thickness=0.5));
   connect(TCHWRet.port_b, chiWSE.port_a2)
     annotation (Line(
       points={{80,0},{76,0},{76,24},{20,24}},
@@ -176,6 +171,11 @@ equation
           32},{-114,26},{-106,26}}, color={0,0,127}));
   connect(priPumSpe.y, chiWSE.yPum) annotation (Line(points={{-83,32},{-20,32},
           {-20,26.5},{-1.5,26.5}}, color={0,0,127}));
+  connect(weaBus.TWetBul, cooModCon.TWetBul) annotation (Line(
+      points={{-328,-20},{-340,-20},{-340,200},{-218,200},{-218,114},{-210,114}},
+
+      color={255,204,51},
+      thickness=0.5));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false,
     extent={{-360,-200},{300,220}})),
   __Dymola_Commands(file=
@@ -269,6 +269,13 @@ differential pressure reset control are not implemented in this example.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+November 1, 2021, by Michael Wetter:<br/>
+Corrected weather data bus connection which was structurally incorrect
+and did not parse in OpenModelica.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2706\">issue 2706</a>.
+</li>
 <li>
 November 29, 2017, by Michael Wetter:<br/>
 Corrected conversion of enumeration.<br/>

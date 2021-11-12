@@ -129,8 +129,8 @@ protected
     "Default density (e.g., rho_liquidWater = 995, rho_air = 1.2)";
 
   Buildings.Fluid.FixedResistances.BaseClasses.PlugFlowPipe pipSeg[nSeg](
-    redeclare final package Medium = Medium,
-    redeclare final FixedResistances.LosslessPipe res,
+    redeclare each final package Medium = Medium,
+    redeclare each final FixedResistances.LosslessPipe res,
     final length=segLen,
     final T_start_in=T_start_in,
     final T_start_out=T_start_out,

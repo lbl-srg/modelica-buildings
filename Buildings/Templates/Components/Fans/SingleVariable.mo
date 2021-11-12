@@ -1,17 +1,15 @@
 within Buildings.Templates.Components.Fans;
 model SingleVariable "Single fan - Variable speed"
   extends Buildings.Templates.Components.Fans.Interfaces.PartialFan(
-                                                        final typ=Buildings.Templates.Components.Types.Fan.SingleVariable);
+    final typ=Buildings.Templates.Components.Types.Fan.SingleVariable);
 
-  replaceable Fluid.Movers.SpeedControlled_y fan(
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
-    constrainedby Fluid.Movers.BaseClasses.PartialFlowMachine(
-      redeclare final package Medium =Medium,
-      final inputType=Buildings.Fluid.Types.InputType.Continuous,
-      final per=per)
+  Buildings.Fluid.Movers.SpeedControlled_y fan(
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    redeclare final package Medium =Medium,
+    final inputType=Buildings.Fluid.Types.InputType.Continuous,
+    final per=per)
     "Fan"
     annotation (
-      choicesAllMatching=true,
       Placement(transformation(extent={{-10,-10},{10,10}})));
 
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal sigSta
@@ -43,15 +41,15 @@ equation
   connect(fan.y_actual, evaSta.u) annotation (Line(points={{11,7},{20,7},{20,
           -20},{2.22045e-15,-20},{2.22045e-15,-38}}, color={0,0,127}));
   connect(bus.y, sigSta.u) annotation (Line(
-      points={{0.1,100.1},{0.1,90},{-20,90},{-20,82}},
+      points={{0,100},{0,90},{-20,90},{-20,82}},
       color={255,204,51},
       thickness=0.5), Text(
       string="%first",
       index=-1,
       extent={{-3,6},{-3,6}},
       horizontalAlignment=TextAlignment.Right));
-  connect(evaSta.y, bus.y_actual) annotation (Line(points={{0,-62},{0,-80},
-          {60,-80},{60,100.1},{0.1,100.1}}, color={255,0,255}), Text(
+  connect(evaSta.y, bus.y_actual) annotation (Line(points={{0,-62},{0,-80},{60,
+          -80},{60,100},{0,100}},           color={255,0,255}), Text(
       string="%second",
       index=1,
       extent={{-3,-6},{-3,-6}},
@@ -59,7 +57,7 @@ equation
   connect(sigCon.y, fan.y)
     annotation (Line(points={{-2.22045e-15,18},{0,12}}, color={0,0,127}));
   connect(bus.ySpe, sigCon.u1) annotation (Line(
-      points={{0.1,100.1},{0.1,90},{20,90},{20,50},{6,50},{6,42}},
+      points={{0,100},{0,90},{20,90},{20,50},{6,50},{6,42}},
       color={255,204,51},
       thickness=0.5), Text(
       string="%first",
@@ -70,10 +68,10 @@ equation
           {-6,42}}, color={0,0,127}));
   annotation (Placement(transformation(extent={{-10,-10},{10,10}})),
     Icon(
-      graphics={Bitmap(
-        extent={{-80,-80},{80,80}},
-        fileName="modelica://Buildings/Resources/Images/Templates/BaseClasses/Fans/SingleVariable.svg")},
-      coordinateSystem(preserveAspectRatio=false)),
+      coordinateSystem(preserveAspectRatio=false), graphics={
+                Bitmap(
+        extent={{-92,-90},{92,90}},
+        fileName="modelica://Buildings/Resources/Images/Templates/Components/Fans/SingleVariable.svg")}),
     Diagram(
         coordinateSystem(preserveAspectRatio=false)));
 end SingleVariable;
