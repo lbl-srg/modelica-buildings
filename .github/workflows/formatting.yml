@@ -102,6 +102,7 @@ jobs:
         run : |
               set -o noglob
               LIST="*.mo *.mos *.fmu *.json *.txt *.jar *.c *.h *.def *.cc *.vcxproj \
+                *.so *.exe \
                 *.java package-list element-list \
                 *.csv *.dat *.TMY *.mat \
                 *.cfd *.ffd *.mcr \
@@ -119,7 +120,7 @@ jobs:
                 done
               done
 
-              LIST="*.so *.exe spawn dymola *.sh"
+              LIST="spawn dymola *.sh"
               for tt in ${LIST}; do
                 for ff in `find . -type f -name ${tt}`; do
                    chmod u=rwx,og=rx $ff
@@ -127,3 +128,10 @@ jobs:
               done
               git diff --exit-code
 
+              # The Windows compiler generates files with u=rw,og=rw permission
+              LIST="*.dll"
+              for tt in ${LIST}; do
+                for ff in `find . -type f -name ${tt}`; do
+                   chmod u=rw,og=rw $ff
+                done
+              done
