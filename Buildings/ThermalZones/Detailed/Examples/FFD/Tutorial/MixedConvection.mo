@@ -1,5 +1,5 @@
 within Buildings.ThermalZones.Detailed.Examples.FFD.Tutorial;
-model MixedConvection "Tutorial for Mixed Convection case"
+model MixedConvection "Tutorial for the mixed convection case"
   extends Modelica.Icons.Example;
   package MediumA = Buildings.Media.Air (
         T_default=283.15) "Medium model";
@@ -9,7 +9,7 @@ model MixedConvection "Tutorial for Mixed Convection case"
   parameter Integer nSurBou=6
     "Number of surface that are connected to the room air volume";
   parameter Integer nConExt=0
-    "Number of exterior constructions withour a window";
+    "Number of exterior constructions without a window";
   parameter Integer nConPar=0 "Number of partition constructions";
   Modelica.Blocks.Sources.Constant qRadGai_flow(k=0) "Radiative heat gain"
     annotation (Placement(transformation(extent={{-40,20},{-20,40}})));
@@ -38,6 +38,8 @@ model MixedConvection "Tutorial for Mixed Convection case"
     hRoo = 1,
     linearizeRadiation = false,
     useCFD = true,
+    haveSource=false,
+    nSou=0,
     sensorName = {"Occupied zone air temperature", "Velocity"},
     cfdFilNam = "modelica://Buildings/Resources/Data/ThermalZones/Detailed/Examples/FFD/Tutorial/MixedConvection.ffd",
     nConExt = nConExt,
@@ -387,7 +389,8 @@ First implementation.
 </ul>
 </html>"),
     experiment(Tolerance=1e-06, StopTime=180),
-    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/Detailed/Examples/FFD/Tutorial/MixedConvection.mos"
+    __Dymola_Commands(file=
+          "Resources/Scripts/Dymola/ThermalZones/Detailed/Examples/FFD/Tutorial/MixedConvection.mos"
         "Simulate and plot"),
     Diagram(coordinateSystem(extent={{-80,-160},{200,120}}, preserveAspectRatio=false),
         graphics));

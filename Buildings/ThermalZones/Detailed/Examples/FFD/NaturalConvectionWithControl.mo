@@ -9,30 +9,29 @@ model NaturalConvectionWithControl
         cfdFilNam = "modelica://Buildings/Resources/Data/ThermalZones/Detailed/Examples/FFD/NaturalConvectionWithControl.ffd",
         massDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial));
 
-  HeatTransfer.Sources.PrescribedHeatFlow preHeatFlo
+  HeatTransfer.Sources.PrescribedHeatFlow preHeatFlo "Prescribed heat flow rate"
     annotation (Placement(transformation(extent={{30,-10},{50,10}})));
-  Buildings.Controls.Continuous.LimPID conPID(
+  Buildings.Controls.OBC.CDL.Continuous.PID conPID(
     yMin=0,
     Ti=120,
     k=1,
-    yMax=2)
+    yMax=2) "PI controller"
     annotation (Placement(transformation(
-        extent={{-10,10},{10,-10}},
+        extent={{10,10},{-10,-10}},
         rotation=180,
-        origin={50,50})));
-  Modelica.Blocks.Sources.Constant TSet(k=275.15) "Temperature set point"
+        origin={-10,60})));
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TSet(k=275.15) "Temperature set point"
     annotation (Placement(transformation(
-        extent={{-10,10},{10,-10}},
+        extent={{10,10},{-10,-10}},
         rotation=180,
-        origin={90,50})));
+        origin={-50,60})));
 equation
   connect(roo.yCFD[1], conPID.u_m) annotation (Line(
-      points={{101,-26.5},{100,-26.5},{100,-26},{110,-26},{110,20},{50,20},{50,
-          38}},
+      points={{101,-26},{110,-26},{110,20},{-10,20},{-10,48}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(TSet.y, conPID.u_s) annotation (Line(
-      points={{79,50},{62,50}},
+      points={{-38,60},{-22,60}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(preHeatFlo.port, roo.heaPorAir) annotation (Line(
@@ -40,7 +39,7 @@ equation
       color={191,0,0},
       smooth=Smooth.None));
   connect(conPID.y, preHeatFlo.Q_flow) annotation (Line(
-      points={{39,50},{20,50},{20,0},{30,0}},
+      points={{2,60},{20,60},{20,0},{30,0}},
       color={0,0,127},
       smooth=Smooth.None));
   annotation (

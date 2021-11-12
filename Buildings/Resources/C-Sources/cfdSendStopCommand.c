@@ -21,7 +21,7 @@
 void cfdSendStopCommand(void *thread) {
 
   size_t i = 0;
-  size_t imax = 10000;
+  size_t imax = 1000000;
 
   /*send stop command to FFD*/
   cosim->para->flag = 0;
@@ -133,6 +133,16 @@ void cfdSendStopCommand(void *thread) {
   if (cosim->ffd->temHea != NULL){
     free(cosim->ffd->temHea);
   }
+
+  if(cosim->para->nSou>0){
+    if (cosim->para->souName != NULL){
+      free(cosim->para->souName);
+    }
+    if (cosim->modelica->sourceHeat != NULL){
+      free(cosim->modelica->sourceHeat);
+    }
+  }
+
   if (cosim->para != NULL){
     free(cosim->para);
   }

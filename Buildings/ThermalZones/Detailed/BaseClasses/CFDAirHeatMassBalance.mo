@@ -34,8 +34,14 @@ model CFDAirHeatMassBalance
     "Names of fluid ports as declared in the CFD input file";
   parameter Real uSha_fixed[nConExtWin]
     "Constant control signal for the shading device (0: unshaded; 1: fully shaded)";
+  parameter Boolean haveSource
+    "Flag, true if the model has at least one source";
+  parameter Integer nSou(min=0)
+    "Number of sources that are connected to CFD output";
+  parameter String sourceName[nSou]
+    "Names of sources as declared in the CFD input file";
 
-  CFDExchange cfd(
+  replaceable CFDExchange cfd(
     final cfdFilNam=cfdFilNam,
     final startTime=startTime,
     final activateInterface=useCFD,
@@ -51,6 +57,9 @@ model CFDAirHeatMassBalance
     final yFixed=yFixed,
     final nXi=Medium.nXi,
     final nC=Medium.nC,
+    final haveSource=haveSource,
+    final nSou=nSou,
+    final sourceName=sourceName,
     rho_start=rho_start,
     nConExtWin=NConExtWin) "Block that exchanges data with the CFD simulation"
     annotation (Placement(transformation(extent={{-40,180},{-20,200}})));
@@ -235,7 +244,10 @@ protected
   final parameter Integer kQLatGai_flow=kQConGai_flow + 1
     "Offset used to connect CFD signals to input signal for connect radiative heat gain";
 
-  final parameter Integer kFluIntP=kQLatGai_flow + 1
+  final parameter Integer kQIntSou=kQLatGai_flow + 1
+    "Offset used to connect CFD signals to input signal for internal source heat gain";
+
+  final parameter Integer kFluIntP=kQIntSou + nSou
     "Offset used to connect CFD signals to input signal for pressure from the fluid ports";
 
   final parameter Integer kFluIntM_flow=kFluIntP + 1
@@ -383,6 +395,10 @@ public
     annotation (Placement(transformation(extent={{-210,-10},{-190,10}})));
   to_W QTotCon_flow_W
     annotation (Placement(transformation(extent={{-140,-60},{-120,-40}})));
+  Modelica.Blocks.Interfaces.RealInput QIntSou[nSou] if haveSource
+    "Heat gains from internal heat sources" annotation (Placement(
+        transformation(extent={{-280,-238},{-240,-198}}), iconTransformation(
+          extent={{-280,-238},{-240,-198}})));
 initial equation
    startTime = time;
 
@@ -698,6 +714,15 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
 
+  // Connections to internal heat sources
+  if haveSource then
+    for i in 1:nSou loop
+      connect(QIntSou[i], cfd.u[kQIntSou + i]) annotation (Line(points={{-260,-218},
+              {-60,-218},{-60,190},{-42,190}},
+                               color={0,0,127}));
+    end for;
+  end if;
+
   // Connections to fluid port
   connect(ports, fluInt.ports) annotation (Line(
       points={{0,-238},{0,-198}},
@@ -792,14 +817,20 @@ equation
   annotation (
     preferredView="info",
     Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-240,-240},{240,
-            240}}), graphics),
+            240}})),
     Icon(coordinateSystem(preserveAspectRatio=false,extent={{-240,-240},{240,
             240}}), graphics={Rectangle(
           extent={{-144,184},{148,-200}},
           pattern=LinePattern.None,
           lineColor={0,0,0},
           fillColor={170,213,255},
-          fillPattern=FillPattern.Sphere)}),
+          fillPattern=FillPattern.Sphere),
+        Text(
+          extent={{-230,-242},{-180,-192}},
+          lineColor={0,0,127},
+          fillColor={0,0,255},
+          fillPattern=FillPattern.Solid,
+          textString="QSou")}),
     Documentation(info="<html>
 <p>
 This model computes the heat and mass balance of the air using Computational Fluid Dynamics program.

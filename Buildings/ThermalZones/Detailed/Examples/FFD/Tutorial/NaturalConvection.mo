@@ -1,5 +1,5 @@
 within Buildings.ThermalZones.Detailed.Examples.FFD.Tutorial;
-model NaturalConvection "Tutorial for Natural Convection case"
+model NaturalConvection "Tutorial for the natural convection case"
   extends Modelica.Icons.Example;
   package MediumA =
       Buildings.Media.Air (
@@ -42,6 +42,8 @@ model NaturalConvection "Tutorial for Natural Convection case"
    hRoo = 1,
    linearizeRadiation = false,
    useCFD = true,
+   haveSource=false,
+   nSou=0,
    sensorName = {"Occupied zone air temperature", "Velocity"},
    cfdFilNam = "modelica://Buildings/Resources/Data/ThermalZones/Detailed/Examples/FFD/Tutorial/NaturalConvection.ffd",
    nConExt = nConExt,

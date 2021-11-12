@@ -44,7 +44,7 @@
 int cfdStartCosimulation(char *cfdFilNam, char **name, double *A, double *til,
                 int *bouCon, int nPorts, char** portName, int haveSensor,
                 char **sensorName, int haveShade, size_t nSur, size_t nSen,
-                size_t nConExtWin, size_t nXi, size_t nC, double rho_start) {
+                size_t nConExtWin, size_t nXi, size_t nC, int haveSource, size_t nSou, char **sourceName, double rho_start) {
   size_t i;
   size_t nBou;
 
@@ -66,6 +66,18 @@ int cfdStartCosimulation(char *cfdFilNam, char **name, double *A, double *til,
   cosim->para->nXi = nXi;
   cosim->para->rho_start = rho_start;
 
+  cosim->para->Sou = haveSource;	
+  cosim->para->nSou = nSou;
+
+  if(cosim->para->nSou>0){
+    cosim->para->souName = (char**) malloc(nSou*sizeof(char *));
+    cosim->modelica->sourceHeat = (REAL *) malloc(nSou*sizeof(REAL));
+    for(i=0; i<nSou; i++) {
+      cosim->para->souName[i] = (char *)malloc(sizeof(char)*(strlen(sourceName[i])+1));
+      strcpy(cosim->para->souName[i], sourceName[i]);
+    }
+  }
+	
   nBou = nSur + nPorts;
 
   cosim->para->name = (char**) malloc(nSur*sizeof(char *));

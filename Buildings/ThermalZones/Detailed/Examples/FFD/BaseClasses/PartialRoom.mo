@@ -10,11 +10,16 @@ partial model PartialRoom "Partial model for a room"
   parameter Integer nConExt=0
     "Number of exterior constructions withour a window";
   parameter Integer nConPar=0 "Number of partition constructions";
+  parameter Integer nSou=0
+    "Number of sources that are connected to CFD input";
+
   Buildings.ThermalZones.Detailed.CFD roo(
     redeclare package Medium = MediumA,
     nConBou=nConBou,
     nSurBou=nSurBou,
     nConExt=nConExt,
+    nSou=nSou,
+    haveSource=false,
     sensorName={"Occupied zone air temperature","Velocity"},
     useCFD=true,
     nConPar=nConPar,

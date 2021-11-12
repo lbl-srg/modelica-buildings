@@ -1,8 +1,8 @@
 within Buildings.ThermalZones.Detailed;
 model CFD
   "Model of a room in which the air is computed using Computational Fluid Dynamics (CFD)"
-  extends Buildings.ThermalZones.Detailed.BaseClasses.RoomHeatMassBalance(
-  redeclare BaseClasses.CFDAirHeatMassBalance air(
+  extends Buildings.ThermalZones.Detailed.BaseClasses.PartialCFD(
+  redeclare final BaseClasses.CFDAirHeatMassBalance air(
     final massDynamics = massDynamics,
     final cfdFilNam = absCfdFilNam,
     final useCFD=useCFD,
@@ -12,85 +12,10 @@ model CFD
     final sensorName=sensorName,
     final portName=portName,
     final uSha_fixed=uSha_fixed,
-    final p_start=p_start));
-
-  // Assumptions
-  parameter Modelica.Fluid.Types.Dynamics massDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial
-    "Formulation of mass balance"
-    annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Equations"));
-  // Initialization
-  parameter Medium.AbsolutePressure p_start = Medium.p_default
-    "Start value of pressure"
-    annotation(Dialog(tab = "Initialization"));
-
-  parameter Boolean useCFD = true
-    "Set to false to deactivate the CFD computation and use instead yFixed as output"
-    annotation(Dialog(group = "CFD"), Evaluate = true);
-  parameter Modelica.SIunits.Time samplePeriod(min=100*Modelica.Constants.eps)
-    "Sample period of component"
-    annotation(Dialog(group = "Sampling"));
-  parameter Real uSha_fixed[nConExtWin] = zeros(nConExtWin)
-    "Constant control signal for the shading device (0: unshaded; 1: fully shaded)";
-  parameter String sensorName[:]
-    "Names of sensors as declared in the CFD input file"
-    annotation(Dialog(group = "CFD"));
-  parameter String portName[nPorts] = {"port_" + String(i) for i in 1:nPorts}
-    "Names of fluid ports as declared in the CFD input file"
-    annotation(Dialog(group = "CFD"));
-  parameter String cfdFilNam "CFD input file name"
-    annotation (Dialog(group = "CFD",
-        loadSelector(caption=
-            "Select CFD input file")));
-  Modelica.Blocks.Interfaces.RealOutput yCFD[nSen]
-    if haveSensor "Sensor for output from CFD"
-    annotation (Placement(transformation(
-     extent={{460,110},{480,130}}), iconTransformation(extent={{200,110},{220,130}})));
-protected
-  final parameter String absCfdFilNam = Buildings.BoundaryConditions.WeatherData.BaseClasses.getAbsolutePath(cfdFilNam)
-    "Absolute path to the CFD file";
-
-  final parameter Boolean haveSensor = Modelica.Utilities.Strings.length(sensorName[1]) > 0
-    "Flag, true if the model has at least one sensor";
-  final parameter Integer nSen(min=0) = size(sensorName, 1)
-    "Number of sensors that are connected to CFD output";
-  Modelica.Blocks.Sources.Constant conSha[nConExtWin](final k=uSha_fixed)
-    if haveShade "Constant signal for shade"
-    annotation (Placement(transformation(extent={{-260,170},{-240,190}})));
-
-equation
-  connect(air.yCFD, yCFD) annotation (Line(
-      points={{61,-142.5},{61,-206},{440,-206},{440,120},{470,120}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(conSha.y, conExtWin.uSha) annotation (Line(
-      points={{-239,180},{328,180},{328,62},{281,62}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(conSha.y, bouConExtWin.uSha) annotation (Line(
-      points={{-239,180},{328,180},{328,64},{351,64}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(conSha.y, conExtWinRad.uSha) annotation (Line(
-      points={{-239,180},{420,180},{420,-42},{310.2,-42},{310.2,-25.6}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(irRadGai.uSha,conSha.y)
-                             annotation (Line(
-      points={{-100.833,-22.5},{-112,-22.5},{-112,180},{-239,180}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(conSha.y, radTem.uSha) annotation (Line(
-      points={{-239,180},{-112,180},{-112,-62},{-100.833,-62},{-100.833,-62.5}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(conSha.y, shaSig.u) annotation (Line(
-      points={{-239,180},{-228,180},{-228,160},{-222,160}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(air.uSha,conSha.y)  annotation (Line(
-      points={{39.6,-120},{28,-120},{28,180},{-239,180}},
-      color={0,0,127},
-      smooth=Smooth.None));
+    final p_start=p_start,
+    final haveSource=haveSource,
+    final nSou=nSou,
+    final sourceName=sourceName));
   annotation (
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-200,-200},{200,200}}),
                                graphics={Rectangle(
@@ -116,7 +41,11 @@ equation
         Text(
           extent={{-114,-134},{-36,-116}},
           lineColor={0,0,0},
-          textString="surface")}),
+          textString="surface"),
+        Text(
+          extent={{-218,198},{-142,166}},
+          lineColor={0,0,127},
+          textString="s")}),
     Documentation(info="<html>
 <p>
 Room model that computes the room air flow using computational fluid dynamics (CFD). The CFD simulation is coupled to the thermal simulation of the room
@@ -140,10 +69,9 @@ Ph.D. Thesis, School of Mechanical Engineering, Purdue University, 2010.
 revisions="<html>
 <ul>
 <li>
-September 16, 2021, by Michael Wetter:<br/>
-Removed parameter <code>lat</code> because the latitude is now obtained from the weather data bus.<br/>
-This is for
-<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1477\">IBPSA, #1477</a>.
+April 5, 2020, by Xu Han, Wei Tian, Cary Faulkner, Wangda Zuo and Michael Wetter:<br/>
+Added interface for internal sources and changed strucuture in the modelica model. The FFD source codes has been updated, which 
+includes new features to simulate data center airflow and thermal environment.
 </li>
 <li>
 May 2, 2016, by Michael Wetter:<br/>
@@ -169,5 +97,5 @@ First Implementation.
 </ul>
 </html>"),
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-260,-220},{460,
-            200}}), graphics));
+            200}})));
 end CFD;

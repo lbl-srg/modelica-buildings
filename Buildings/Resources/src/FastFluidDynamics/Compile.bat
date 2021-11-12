@@ -3,10 +3,19 @@
 ::*******************************************************************
 ::Set the Output Directory, Compile Mode and MSbuild File Name
 ::*******************************************************************
+::-------------------------------------------------------------------
+::To run with JModelica version 2.1
 set DIR=..\..\Library\win32
+set Platform=Win32
+::-------------------------------------------------------------------
+::To run with JModelica after version 2.1
+::set DIR=..\..\Library\win64
+::set Platform=x64
+::-------------------------------------------------------------------
 set MSbuildName=ffd
 set BuildConfiguration=Release
-set Platform=Win32
+
+
 ::Note: Two build mode, Debug or Release
 
 ::*******************************************************************
@@ -41,8 +50,8 @@ if exist "%DIR%\%MSbuildName%.lib" (
 ::Set Default Compiler Version and Toolset (edited by user)
 ::-------------------------------------------------------------------
 ::Note: Toolset: V100 for VC10.0, v110 for VC11.0
-set VCVersion=10.0
-set Toolset=v100
+set VCVersion=14.0
+set Toolset=v140
 
 ::-------------------------------------------------------------------
 ::Call vcvarsall.bat (Not user editable)
@@ -125,6 +134,26 @@ if /i %BuildConfiguration%_%Platform%==Release_Win32 (
   goto compile
   )
 
+if /i %BuildConfiguration%_%Platform%==Release_x64 (
+  set UseDebugLibrariesSetValue=false
+  set WholeProgramOptimizationSetValue=true
+  set CharacterSetSetValue=Unicode
+  set LinkIncrementalSetValue=false
+
+  set WarningLevelSetValue=Level3
+  set OptimizationSetValue=MaxSpeed
+  set FunctionLevelLinkingSetValue=true
+  set IntrinsicFunctionsSetValue=true
+  set PreprocessorDefinitionsSetValue=x64;NDEBUG;_WINDOWS;_USRDLL;_CRT_SECURE_NO_WARNINGS;
+
+  set SubSystemSetValue=Windows
+  set GenerateDebugInformationSetValue=true
+  set EnableCOMDATFoldingSetValue=true
+  set OptimizeReferencesSetValue=true
+
+  goto compile
+  )
+
 goto missingBuildConfiguration
 
 :compile
@@ -141,15 +170,26 @@ msbuild %MSbuildName%.vcxproj /t:rebuild /p:PlatformToolset=%Toolset%;Configurat
 ::Copy ffd.dll to Output Directory
 ::*******************************************************************
 echo Copy %MSbuildName%.dll and %MSbuildName%.lib to %DIR%
-copy "%BuildConfiguration%\%MSbuildName%.dll" "%DIR%" /Y
-copy "%BuildConfiguration%\%MSbuildName%.lib" "%DIR%" /Y
+if /i %Platform%==Win32 (
+  copy "%BuildConfiguration%\%MSbuildName%.dll" "%DIR%" /Y
+  copy "%BuildConfiguration%\%MSbuildName%.lib" "%DIR%" /Y
+  )
+if /i %Platform%==x64 (
+  copy "%Platform%\%BuildConfiguration%\%MSbuildName%.dll" "%DIR%" /Y
+  copy "%Platform%\%BuildConfiguration%\%MSbuildName%.lib" "%DIR%" /Y
+  )
 ::Note: /y: Suppresses prompting to confirm that you want to overwrite an existing destination file.
 
 ::*******************************************************************
 ::Clean Build Folder
 ::*******************************************************************
-echo Clean %BuildConfiguration% Build Folder
-rmdir %BuildConfiguration% /s /q
+echo Clean Build Folder
+if /i %Platform%==Win32 (
+  rmdir %BuildConfiguration% /s /q
+  )
+if /i %Platform%==x64 (
+  rmdir %Platform% /s /q
+  )
 goto :eof
 ::Note: /s: Removes the specified directory and all subdirectories including any files.
 
