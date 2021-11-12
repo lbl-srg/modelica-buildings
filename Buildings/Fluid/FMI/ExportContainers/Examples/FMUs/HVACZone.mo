@@ -291,7 +291,7 @@ This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2624\
 </li>
 <li>
 May 15, 2019, by Jianjun Hu:<br/>
-Replaced fluid source. This is for 
+Replaced fluid source. This is for
 <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1072\"> #1072</a>.
 </li>
 <li>
