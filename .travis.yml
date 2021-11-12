@@ -125,6 +125,7 @@ before_install:
     fi;
   - if [[ "$TEST_ARG" == *test-omc* ]]; then
        docker pull "$DOCKER_USERNAME"/ubuntu-2004-omc:1.18.0;
+       cp Buildings/Resources/Scripts/travis/omc/omc $HOME/bin/omc;
     fi;
 
 # Install dependencies

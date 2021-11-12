@@ -61,11 +61,11 @@ DOCKER_MODELICAPATH=`update_path_variable ${MODELICAPATH}`
 # If the current directory is part of the argument list,
 # replace it with . as the docker may have a different file structure
 cur_dir=`pwd`
-bas_nam=`basename ${cur_dir}`
+bas_nam=`basename "${cur_dir}"`
 arg_lis=`echo $@ | sed -e "s|${cur_dir}|.|g"`
 
 # Set variable for shared directory
-sha_dir=`dirname ${cur_dir}`
+sha_dir=`dirname "${cur_dir}"`
 
 # Check if the python script should be run interactively (if -i is specified)
 while [ $# -ne 0 ]
@@ -92,6 +92,6 @@ docker run \
   --rm \
   ${DOCKER_USERNAME}/${IMG_NAME} /bin/bash -c \
   "export OPENMODELICALIBRARY=${DOCKER_MODELICAPATH}:/usr/lib/omlibrary && \
-  cd /mnt/shared/${bas_nam} && \
+  cd \"/mnt/shared/${bas_nam}\" && \
   omc ${arg_lis}"
 exit $?

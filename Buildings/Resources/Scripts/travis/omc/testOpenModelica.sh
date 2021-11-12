@@ -41,7 +41,7 @@ done
 
 export OPENMODELICALIBRARY=`pwd`:/usr/lib/omlibrary
 #omc +d=nogen,initialization,backenddaeinfo,discreteinfo,stateselection --newBackend $mosScript
-${TRAVIS_BUILD_DIR}/Buildings/Resources/Scripts/travis/omc/omc.sh $mosScript
+omc $mosScript
 
 # Check for failures
 exiFla=0
