@@ -216,7 +216,7 @@ block Guideline36 "Guideline 36 VAV single duct controller"
     final unit="Pa",
     final displayUnit="Pa",
     final quantity="PressureDifference")=
-    dat.getReal(varName=id + ".Control.Airflow.Duct Design Maximum Static Pressure")
+    dat.getReal(varName=id + ".Control.Airflow.Duct Design Maximum Static Pressure.value")
     "Maximum pressure setpoint for fan speed control"
     annotation (Dialog(tab="Fan speed", group="Trim and respond for reseting duct static pressure setpoint"));
 
@@ -275,11 +275,13 @@ block Guideline36 "Guideline 36 VAV single duct controller"
       enable=controllerTypeFanSpe == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
           or controllerTypeFanSpe == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
 
-  parameter Real yFanMax = dat.getReal(varName=id + ".Control.Airflow.Maximum Fan Speed - Supply fan")
+  parameter Real yFanMax=
+    dat.getReal(varName=id + ".Control.Airflow.Maximum Fan Speed - Supply fan.value")
     "Maximum allowed fan speed"
     annotation (Dialog(group="Fan speed PID controller"));
 
-  parameter Real yFanMin = dat.getReal(varName=id + ".Control.Airflow.Minimum Fan Speed - Supply fan")
+  parameter Real yFanMin=
+    dat.getReal(varName=id + ".Control.Airflow.Minimum Fan Speed - Supply fan.value")
     "Lowest allowed fan speed if fan is on"
     annotation (Dialog(group="Fan speed PID controller"));
 
@@ -287,12 +289,12 @@ block Guideline36 "Guideline 36 VAV single duct controller"
   parameter Real VPriSysMax_flow(
     final unit="m3/s",
     final quantity="VolumeFlowRate")=
-    dat.getReal(varName=id + ".Control.Maximum expected system primary airflow at design stage")
+    dat.getReal(varName=id + ".Control.Ventilation.Maximum expected system primary airflow at design stage.value")
     "Maximum expected system primary airflow at design stage"
     annotation (Dialog(tab="Minimum outdoor airflow rate", group="Nominal conditions"));
 
   parameter Real peaSysPop=
-    dat.getReal(varName=id + ".Control.Peak system population")
+    dat.getReal(varName=id + ".Control.Ventilation.Peak system population.value")
     "Peak system population"
     annotation (Dialog(tab="Minimum outdoor airflow rate", group="Nominal conditions"));
 
@@ -301,7 +303,7 @@ block Guideline36 "Guideline 36 VAV single duct controller"
     final unit="K",
     final displayUnit="degC",
     final quantity="ThermodynamicTemperature")=
-    dat.getReal(varName=id + ".Control.Supply air temperature.Lowest cooling set point")
+    dat.getReal(varName=id + ".Control.Supply air temperature.Lowest cooling set point.value")
     "Lowest cooling supply air temperature setpoint"
     annotation (Dialog(tab="Supply air temperature", group="Temperature limits"));
 
@@ -309,7 +311,7 @@ block Guideline36 "Guideline 36 VAV single duct controller"
     final unit="K",
     final displayUnit="degC",
     final quantity="ThermodynamicTemperature")=
-    dat.getReal(varName=id + ".Control.Supply air temperature.Highest cooling set point")
+    dat.getReal(varName=id + ".Control.Supply air temperature.Highest cooling set point.value")
     "Highest cooling supply air temperature setpoint. It is typically 18 degC (65 degF) in mild and dry climates, 16 degC (60 degF) or lower in humid climates"
     annotation (Dialog(tab="Supply air temperature", group="Temperature limits"));
 
@@ -325,7 +327,7 @@ block Guideline36 "Guideline 36 VAV single duct controller"
     final unit="K",
     final displayUnit="degC",
     final quantity="ThermodynamicTemperature")=
-    dat.getReal(varName=id + ".Control.Supply air temperature.Lower value of OAT reset range")
+    dat.getReal(varName=id + ".Control.Supply air temperature.Lower value of OAT reset range.value")
     "Lower value of the outdoor air temperature reset range. Typically value is 16 degC (60 degF)"
     annotation (Dialog(tab="Supply air temperature", group="Temperature limits"));
 
@@ -333,7 +335,7 @@ block Guideline36 "Guideline 36 VAV single duct controller"
     final unit="K",
     final displayUnit="degC",
     final quantity="ThermodynamicTemperature")=
-    dat.getReal(varName=id + ".Control.Supply air temperature.Higher value of OAT reset range")
+    dat.getReal(varName=id + ".Control.Supply air temperature.Higher value of OAT reset range.value")
     "Higher value of the outdoor air temperature reset range. Typically value is 21 degC (70 degF)"
     annotation (Dialog(tab="Supply air temperature", group="Temperature limits"));
 
@@ -485,6 +487,7 @@ block Guideline36 "Guideline 36 VAV single duct controller"
     final yFanMax=yFanMax,
     final yFanMin=yFanMin,
     final VPriSysMax_flow=VPriSysMax_flow,
+    final peaSysPop=peaSysPop,
     final TSupSetMin=TSupSetMin,
     final TSupSetMax=TSupSetMax,
     final TSupSetDes=TSupSetDes,

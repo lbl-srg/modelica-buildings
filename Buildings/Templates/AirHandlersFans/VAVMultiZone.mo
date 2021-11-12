@@ -130,9 +130,11 @@ model VAVMultiZone "Multiple-Zone VAV"
     redeclare final package MediumAir = MediumAir,
     redeclare final package MediumSou = MediumCoo,
     final fun=Buildings.Templates.Components.Types.CoilFunction.Cooling)
-    "Cooling coil" annotation (
-    choices(choice(redeclare Buildings.Templates.Components.Coils.None coiCoo "No coil"),
-        choice(redeclare Buildings.Templates.Components.Coils.WaterBasedCooling coiCoo
+    "Cooling coil"
+    annotation (
+    choices(
+      choice(redeclare Buildings.Templates.Components.Coils.None coiCoo "No coil"),
+      choice(redeclare Buildings.Templates.Components.Coils.WaterBasedCooling coiCoo
           "Water-based")),
     Dialog(group="Cooling coil"),
     Placement(transformation(extent={{20,-210},{40,-190}})));
@@ -153,9 +155,11 @@ model VAVMultiZone "Multiple-Zone VAV"
     redeclare final package MediumAir = MediumAir,
     redeclare final package MediumSou = MediumHea,
     final fun=Buildings.Templates.Components.Types.CoilFunction.Reheat)
-    "Reheat coil" annotation (
-    choices(choice(redeclare Templates.BaseClasses.Coils.None coiReh "No coil"),
-        choice(redeclare Templates.BaseClasses.Coils.WaterBasedHeating coiReh
+    "Reheat coil"
+    annotation (
+    choices(
+      choice(redeclare Buildings.Templates.BaseClasses.Coils.None coiReh "No coil"),
+      choice(redeclare Buildings.Templates.BaseClasses.Coils.WaterBasedHeating coiReh
           "Water-based")),
     Dialog(group="Reheat coil"),
     Placement(transformation(extent={{80,-210},{100,-190}})));
@@ -180,10 +184,9 @@ model VAVMultiZone "Multiple-Zone VAV"
           "Supply air section", enable=false), Placement(transformation(extent=
             {{140,-210},{160,-190}})));
 
-  inner replaceable Components.Controls.OpenLoop conAHU constrainedby
+  inner replaceable Components.Controls.OpenLoop con constrainedby
     Buildings.Templates.AirHandlersFans.Components.Controls.Interfaces.PartialController
-    "AHU controller"
-    annotation (
+    "AHU controller" annotation (
     choicesAllMatching=true,
     Dialog(group="Controller"),
     Placement(transformation(extent={{-260,110},{-240,130}})));
@@ -322,7 +325,7 @@ equation
   connect(ind.ports[1], pInd_rel.port_a)
     annotation (Line(points={{42,240},{30,240}},      color={0,127,255}));
 
-  connect(conAHU.busTer, busTer) annotation (Line(
+  connect(con.busTer, busTer) annotation (Line(
       points={{-240,120},{-220,120},{-220,0},{300,0}},
       color={255,204,51},
       thickness=0.5), Text(
@@ -330,7 +333,7 @@ equation
       index=1,
       extent={{6,3},{6,3}},
       horizontalAlignment=TextAlignment.Left));
-  connect(conAHU.bus, bus) annotation (Line(
+  connect(con.bus, bus) annotation (Line(
       points={{-260,120},{-280,120},{-280,0},{-300,0}},
       color={255,204,51},
       thickness=0.5), Text(

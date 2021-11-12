@@ -6,7 +6,7 @@ model NoEconomizer
       Buildings.Templates.AirHandlersFans.Components.OutdoorReliefReturnSection.NoEconomizer
       secOutRel "No air economizer",
     id="VAV_1",
-    nZon=1,
+    nZon=2,
     nGro=1);
 
   annotation (

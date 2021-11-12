@@ -43,14 +43,14 @@ block DummyControlPointsTerminalUnit
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant uWin(final k=true)
     "Zone window sensor"
     annotation (Placement(transformation(extent={{-20,90},{0,110}})));
-  Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.VAV.SetPoints.OutdoorAirFlow.Zone setZonMinOA(AFlo=10,
+  Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.VAV.SetPoints.OutdoorAirFlow.Zone setMinOA(AFlo=10,
       minZonPriFlo=1)
     "Zone level calculation of the minimum outdoor airflow setpoint"
     annotation (Placement(transformation(extent={{80,-10},{100,10}})));
   Controls.OBC.CDL.Integers.Sources.Constant FIXME_nOcc(k=1)
     "nOcc shall be Boolean, not integer"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
-  Controls.OBC.ASHRAE.G36_PR1.Generic.SetPoints.ZoneStatus staZon
+  Controls.OBC.ASHRAE.G36_PR1.Generic.SetPoints.ZoneStatus sta
     "Evaluate zone temperature status"
     annotation (Placement(transformation(extent={{80,-60},{100,-32}})));
   Controls.OBC.CDL.Continuous.Sources.Constant           cooDowTim(final k=1800)
@@ -71,37 +71,39 @@ equation
   connect(yReqZonTemRes.y, bus.yReqZonTemRes);
   connect(yReqZonPreRes.y, bus.yReqZonPreRes);
 
-  connect(VDis_flow.y, setZonMinOA.VDis_flow);
-  connect(FIXME_nOcc.y, setZonMinOA.nOcc);
-  connect(uWin.y, setZonMinOA.uWin);
-  connect(TZon.y, setZonMinOA.TZon);
-  connect(TDis.y, setZonMinOA.TDis);
+  connect(FIXME_nOcc.y, setMinOA.nOcc);
+  connect(bus.uWin, setMinOA.uWin);
+  connect(bus.yReqOutAir, setMinOA.uReqOutAir);
+  connect(bus.TZon, setMinOA.TZon);
+  connect(bus.TDis, setMinOA.TDis);
+  connect(bus.VDis_flow, setMinOA.VDis_flow);
+  connect(bus.VDesUncOutAir_flow, setMinOA.VUncOut_flow_nominal);
 
-  connect(setZonMinOA.yDesZonPeaOcc, bus.yDesZonPeaOcc);
-  connect(setZonMinOA.VDesPopBreZon_flow, bus.VDesPopBreZon_flow);
-  connect(setZonMinOA.VDesAreBreZon_flow, bus.VDesAreBreZon_flow);
-  connect(setZonMinOA.yDesPriOutAirFra, bus.yDesPriOutAirFra);
-  connect(setZonMinOA.VUncOutAir_flow, bus.VUncOutAir_flow);
-  connect(setZonMinOA.yPriOutAirFra, bus.yPriOutAirFra);
-  connect(setZonMinOA.VPriAir_flow, bus.VPriAir_flow);
+  connect(setMinOA.yDesZonPeaOcc, bus.yDesZonPeaOcc);
+  connect(setMinOA.VDesPopBreZon_flow, bus.VDesPopBreZon_flow);
+  connect(setMinOA.VDesAreBreZon_flow, bus.VDesAreBreZon_flow);
+  connect(setMinOA.yDesPriOutAirFra, bus.yDesPriOutAirFra);
+  connect(setMinOA.VUncOutAir_flow, bus.VUncOutAir_flow);
+  connect(setMinOA.yPriOutAirFra, bus.yPriOutAirFra);
+  connect(setMinOA.VPriAir_flow, bus.VPriAir_flow);
 
-  connect(cooDowTim.y,staZon. cooDowTim);
-  connect(warUpTim.y,staZon. warUpTim);
-  connect(bus.uWin,staZon. uWin);
-  connect(bus.TZon,staZon. TZon);
+  connect(cooDowTim.y, sta.cooDowTim);
+  connect(warUpTim.y, sta.warUpTim);
+  connect(bus.uWin, sta.uWin);
+  connect(bus.TZon, sta.TZon);
 
-  connect(staZon.yCooTim, bus.yCooTim);
-  connect(staZon.yWarTim, bus.yWarTim);
-  connect(staZon.THeaSetOn, bus.THeaSetOn);
-  connect(staZon.yOccHeaHig, bus.yOccHeaHig);
-  connect(staZon.TCooSetOn, bus.TCooSetOn);
-  connect(staZon.yHigOccCoo, bus.yHigOccCoo);
-  connect(staZon.THeaSetOff, bus.THeaSetOff);
-  connect(staZon.yUnoHeaHig, bus.yUnoHeaHig);
-  connect(staZon.yEndSetBac, bus.yEndSetBac);
-  connect(staZon.TCooSetOff, bus.TCooSetOff);
-  connect(staZon.yHigUnoCoo, bus.yHigUnoCoo);
-  connect(staZon.yEndSetUp, bus.yEndSetUp);
+  connect(sta.yCooTim, bus.yCooTim);
+  connect(sta.yWarTim, bus.yWarTim);
+  connect(sta.THeaSetOn, bus.THeaSetOn);
+  connect(sta.yOccHeaHig, bus.yOccHeaHig);
+  connect(sta.TCooSetOn, bus.TCooSetOn);
+  connect(sta.yHigOccCoo, bus.yHigOccCoo);
+  connect(sta.THeaSetOff, bus.THeaSetOff);
+  connect(sta.yUnoHeaHig, bus.yUnoHeaHig);
+  connect(sta.yEndSetBac, bus.yEndSetBac);
+  connect(sta.TCooSetOff, bus.TCooSetOff);
+  connect(sta.yHigUnoCoo, bus.yHigUnoCoo);
+  connect(sta.yEndSetUp, bus.yEndSetUp);
 
   annotation (
     defaultComponentName="conPoiDum",

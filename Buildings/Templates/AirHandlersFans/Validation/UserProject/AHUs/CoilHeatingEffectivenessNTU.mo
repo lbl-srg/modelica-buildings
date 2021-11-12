@@ -6,7 +6,7 @@ model CoilHeatingEffectivenessNTU
         redeclare
         .Buildings.Templates.Components.HeatExchangers.DryCoilEffectivenessNTU
         hex "Epsilon-NTU heat exchanger model") "Water-based",
-    nZon=1,
+    nZon=2,
     nGro=1);
   annotation (
     defaultComponentName="ahu");

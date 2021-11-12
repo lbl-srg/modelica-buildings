@@ -8,7 +8,7 @@ model CoilCoolingEffectivenessNTU
         .Buildings.Templates.Components.HeatExchangers.WetCoilEffectivenessNTU
         hex "Effectiveness-NTU wet heat exchanger model") "Water-based",
     id="VAV_1",
-    nZon=1,
+    nZon=2,
     nGro=1);
 
   annotation (

@@ -21,7 +21,7 @@ model CompleteAHU
         .Buildings.Templates.Components.HeatExchangers.DryCoilEffectivenessNTU
         hex "Epsilon-NTU heat exchanger model") "Water-based",
     redeclare .Buildings.Templates.Components.Fans.SingleVariable fanSupDra,
-    nZon=1,
+    nZon=2,
     nGro=1,
     id="VAV_1");
 

@@ -6,7 +6,7 @@ model FanReturnSingleVariable
         secRel(redeclare Buildings.Templates.Components.Fans.SingleVariable
           fanRet "Single fan - Variable speed")
         "Return fan - Modulated relief damper"),
-    nZon=1,
+    nZon=2,
     nGro=1,
     id="VAV_1");
 
