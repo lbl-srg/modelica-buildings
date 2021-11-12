@@ -1,6 +1,5 @@
 within Buildings.ThermalZones.EnergyPlus.Validation.SurfaceComparison.BaseClasses;
 model ExteriorWall "Model of an exterior wall with Spawn-controlled surface conditions"
-
   extends Buildings.HeatTransfer.Conduction.BaseClasses.PartialConstruction;
 
   parameter String surNam "Name of EnergyPlus Surface";
@@ -14,7 +13,7 @@ model ExteriorWall "Model of an exterior wall with Spawn-controlled surface cond
 
   Buildings.ThermalZones.EnergyPlus.ZoneSurface sur(surfaceName=surNam)
     "Wall interior surface"
-    annotation (Placement(transformation(extent={{-10,-40},{10,-60}})));
+    annotation (Placement(transformation(extent={{-10,-60},{10,-40}})));
   HeatTransfer.Conduction.MultiLayer walCon(
     A=A,
     layers=layers) "Wall construction"
@@ -37,7 +36,9 @@ model ExteriorWall "Model of an exterior wall with Spawn-controlled surface cond
         extent={{-10,-10},{10,10}},
         rotation=270,
         origin={-40,-30})));
-  HeatTransfer.Sources.PrescribedHeatFlow heaSurInt annotation (Placement(
+  HeatTransfer.Sources.PrescribedHeatFlow heaSurInt
+   "Prescribed heat flow rate"
+    annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
@@ -52,7 +53,7 @@ equation
   connect(heaSurExt.port, walCon.port_a)
     annotation (Line(points={{40,20},{40,10},{0,10}}, color={191,0,0}));
   connect(sur.Q_flow, heaSurInt.Q_flow)
-    annotation (Line(points={{12,-56},{40,-56},{40,-40}}, color={0,0,127}));
+    annotation (Line(points={{12,-44},{40,-44},{40,-40}}, color={0,0,127}));
   connect(heaSurInt.port, walCon.port_b)
     annotation (Line(points={{40,-20},{40,-10},{0,-10}}, color={191,0,0}));
   connect(TSurInt.port, walCon.port_b)

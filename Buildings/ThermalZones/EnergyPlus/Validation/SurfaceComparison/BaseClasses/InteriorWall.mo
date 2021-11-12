@@ -1,6 +1,5 @@
 within Buildings.ThermalZones.EnergyPlus.Validation.SurfaceComparison.BaseClasses;
 model InteriorWall "Model of an interior wall with Spawn-controlled surface conditions"
-
   extends Buildings.HeatTransfer.Conduction.BaseClasses.PartialConstruction;
 
   parameter String surNam_a "Name of EnergyPlus Surface (port a)";
@@ -18,7 +17,7 @@ model InteriorWall "Model of an interior wall with Spawn-controlled surface cond
     annotation (Placement(transformation(extent={{-10,40},{10,60}})));
   Buildings.ThermalZones.EnergyPlus.ZoneSurface sur_b(surfaceName=surNam_b)
     "Wall surface (port b)"
-    annotation (Placement(transformation(extent={{-10,-40},{10,-60}})));
+    annotation (Placement(transformation(extent={{-10,-60},{10,-40}})));
   Buildings.HeatTransfer.Conduction.MultiLayer walCon(
     A=A,
     layers=layers) "Wall conduction"
@@ -64,7 +63,7 @@ equation
   connect(heaSur_a.port, walCon.port_a)
     annotation (Line(points={{40,20},{40,10},{0,10}}, color={191,0,0}));
   connect(sur_b.Q_flow, heaSur_b.Q_flow)
-    annotation (Line(points={{12,-56},{40,-56},{40,-40}}, color={0,0,127}));
+    annotation (Line(points={{12,-44},{40,-44},{40,-40}}, color={0,0,127}));
   connect(heaSur_b.port, walCon.port_b)
     annotation (Line(points={{40,-20},{40,-10},{0,-10}}, color={191,0,0}));
   connect(TSur_b.port, walCon.port_b)
