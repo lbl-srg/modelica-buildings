@@ -299,49 +299,31 @@ void setValueReferences(FMUBuilding* bui){
   return;
 }
 
-/* Find the executable to spawn.
-   If SEARCHPATH is NULL, then this function searches spawnExe in the Buildings library.
-   Otherwise, it searches it on SEARCHPATH. On Windows, SEARCHPATH is semi-colon separated,
-   and on Linux, it is colon separated, so the same at the PATH entry.
-   spawnExe is a string such as spawn-0.2.0-a23bb23, without extension. On Windows, .exe is appended by this function.
+/* Return the path the the Spawn executable, consisting of path + delimiter + spawnExe.
    If an executable is found, this function returns a char* pointer to the full path.
    The calling routine is responsible to free memory for that point once it is no longer used.
    Otherwise it returns NULL.
 */
-char* findSpawnExe(FMUBuilding* bui, const char* SEARCHPATH, const char* spawnExe){
+char* returnSpawnExecutable(FMUBuilding* bui, const char* path, const char* spawnExe){
   size_t len;
   bool found;
-  char *spawnFullPath;
-
-#ifdef _WIN32 /* Win32 or Win64 */
-  const char* binDir = "/Resources/bin/spawn-win64/bin/";
-#elif __APPLE__
-  const char* binDir = "/Resources/bin/spawn-darwin64/bin/";
-#else
-  const char* binDir = "/Resources/bin/spawn-linux64/bin/";
-#endif
+  char *spawnFullPath; /* Path to the executable, including the name of the executable file */
 
   void (*SpawnFormatMessage)(const char *string, ...) = bui->SpawnFormatMessage;
   void (*SpawnFormatError)(const char *string, ...) = bui->SpawnFormatError;
 
-  if (bui->logLevel >= MEDIUM)
-    SpawnFormatMessage("%.3f %s: Entered findSpawnExe.\n", bui->time, bui->modelicaNameBuilding);
-
-  if (SEARCHPATH != NULL)
-    SpawnFormatError("%.3f %s: Using SEARCHPATH is not yet implemented.\n", bui->time, bui->modelicaNameBuilding);
-
-  len = strlen(bui->buildingsLibraryRoot) + strlen(binDir) + strlen(spawnExe) + 1;
+  len = strlen(path) + strlen(SEPARATOR) + strlen(spawnExe) + 1;
 #ifdef _WIN32 /* Win32 or Win64 */
   len = len + strlen(".exe");
 #endif
 
-  mallocString(len, "Failed to allocate memory in findSpawnExe() for spawnFullPath.",
+  mallocString(len, "Failed to allocate memory in returnSpawnExecutable() for spawnFullPath.",
     &spawnFullPath, SpawnFormatError);
 
   memset(spawnFullPath, '\0', len);
 
-  strcpy(spawnFullPath, bui->buildingsLibraryRoot); /* This is for example /mtn/shared/Buildings */
-  strcat(spawnFullPath, binDir);
+  strcpy(spawnFullPath, path);
+  strcat(spawnFullPath, SEPARATOR);
   strcat(spawnFullPath, spawnExe);
 #ifdef _WIN32 /* Win32 or Win64 */
   strcat(spawnFullPath, ".exe");
@@ -372,7 +354,14 @@ char* findSpawnExe(FMUBuilding* bui, const char* SEARCHPATH, const char* spawnEx
   }
 #endif
 
-  /* Set the return value if not found */
+  if (bui->logLevel >= MEDIUM){
+    if (found)
+      SpawnFormatMessage("%.3f %s: Found executable '%s' in '%s'.\n", bui->time, bui->modelicaNameBuilding, spawnExe, path);
+    else
+      SpawnFormatMessage("%.3f %s: Did not find executable '%s' in '%s'.\n", bui->time, bui->modelicaNameBuilding, spawnExe, path);
+  }
+
+  /* Return the allocated string, or NULL */
   if (found){
     return spawnFullPath;
   }
@@ -382,7 +371,112 @@ char* findSpawnExe(FMUBuilding* bui, const char* SEARCHPATH, const char* spawnEx
   }
 }
 
-void checkForSpacesInInstallation(FMUBuilding* bui){
+/* Find the executable to spawn.
+   If SEARCHPATH is NULL, then this function searches spawnExe in the Buildings library.
+   Otherwise, it searches it on SEARCHPATH. On Windows, SEARCHPATH is semi-colon separated,
+   and on Linux, it is colon separated, so the same at the PATH entry.
+   spawnExe is a string such as spawn-0.2.0-a23bb23, without extension. On Windows, .exe is appended by this function.
+   If an executable is found, this function returns a char* pointer to the full path.
+   The calling routine is responsible to free memory for that point once it is no longer used.
+   Otherwise it returns NULL.
+*/
+char* findSpawnExe(FMUBuilding* bui, const char* SEARCHPATH, const char* spawnExe){
+  size_t len;
+  char *spawnFullPath; /* Path to the executable, including the name of the executable file */
+  char *pathToExe;     /* Path to the executable, without the name of the executable file */
+
+  char *str;
+  char *token;
+  char *saveptr;
+  char *searchPathCopy;
+
+#ifdef _WIN32 /* Win32 or Win64 */
+  const char* binDir = "/Resources/bin/spawn-win64/bin";
+  const char delimiter[2] = ";";
+#elif __APPLE__
+  const char* binDir = "/Resources/bin/spawn-darwin64/bin";
+  const char delimiter[2] = ":";
+#else
+  const char* binDir = "/Resources/bin/spawn-linux64/bin";
+  const char delimiter[2] = ":";
+#endif
+
+  void (*SpawnFormatMessage)(const char *string, ...) = bui->SpawnFormatMessage;
+  void (*SpawnFormatError)(const char *string, ...) = bui->SpawnFormatError;
+
+  if (bui->logLevel >= MEDIUM)
+    SpawnFormatMessage("%.3f %s: Entered findSpawnExe.\n", bui->time, bui->modelicaNameBuilding);
+
+  if (SEARCHPATH == NULL){
+    /* SEARCHPATH is NULL. Try to find the executable in the Modelica Buildings Library installation. */
+    if (bui->logLevel >= MEDIUM)
+      SpawnFormatMessage("%.3f %s: In findSpawnExe, trying to to use buildingsLibraryRoot to find spawn.\n", bui->time, bui->modelicaNameBuilding);
+
+    len = strlen(bui->buildingsLibraryRoot) + strlen(binDir) + 1;
+    mallocString(len, "Failed to allocate memory in findSpawnExe() for pathToExe.",
+      &pathToExe, SpawnFormatError);
+    memset(pathToExe, '\0', len);
+    strcpy(pathToExe, bui->buildingsLibraryRoot);
+    strcat(pathToExe, binDir);
+
+    /* Recursively call this function, but now with SEARCHPATH set */
+    spawnFullPath = findSpawnExe(bui, pathToExe, spawnExe);
+    if (spawnFullPath == NULL){
+      /* Did not find it. */
+      free(pathToExe);
+      return NULL;
+    }
+    else{
+      /* Found the executable */
+      return spawnFullPath;
+    }
+  }
+  /* ****************************************************************************************** */
+  /* If we are here, then SEARCHPATH is not NULL. Split it into tokens, and invoke this function
+     for each token.
+     Code adapted from https://man7.org/linux/man-pages/man3/strtok_r.3.html */
+
+  saveptr = NULL;
+  /* If SEARCHPATH contains tokens, then parse them, else try the value of SEARCHPATH */
+  /* Use delimiter[0] because delimiter[2] = ":" is a char pointer */
+  if ( strchr(SEARCHPATH, delimiter[0]) != NULL){
+    /* The string has at least one delimiter */
+    /* strtok_r modifies the first argument. Hence, we make a copy of it. */
+    len = strlen(SEARCHPATH) + 1;
+    mallocString(len, "Failed to allocate memory in findSpawnExe() for searchPathCopy.",
+      &searchPathCopy, SpawnFormatError);
+    memset(searchPathCopy, '\0', len);
+    strcpy(searchPathCopy, SEARCHPATH);
+
+    for (str = searchPathCopy; ; str = NULL) {
+      token = strtok_r(str, delimiter, &saveptr);
+      if (token == NULL){
+        /* All tokens have been parsed, but did not find the executable. */
+          free(searchPathCopy);
+          return NULL;
+      }
+      else{
+        /* Found a token. Try to see if this is the right path */
+        spawnFullPath = findSpawnExe(bui, token, spawnExe);
+        if (spawnFullPath != NULL){
+          /* Did find it. Return */
+          free(searchPathCopy);
+          return spawnFullPath;
+        }
+      }
+    } /* end of for loop */
+    free(searchPathCopy);
+  }
+
+  /* ****************************************************************************************** */
+  /* Now, we know SEARCHPATH is a single token. Try to see if it contains spawnExe */
+  spawnFullPath = returnSpawnExecutable(bui, SEARCHPATH, spawnExe);
+  /* This is NULL if it is not the executable */
+  return spawnFullPath;
+}
+
+
+void terminateIfSpacesInInstallation(FMUBuilding* bui){
   const char sep = '/';
   char* libBaseName;
   void (*SpawnFormatError)(const char *string, ...) = bui->SpawnFormatError;
@@ -397,7 +491,7 @@ void checkForSpacesInInstallation(FMUBuilding* bui){
   /* Index of last position of the separator */
   lasPosInd = (size_t)(ptr - bui->buildingsLibraryRoot);
 
-  mallocString(lasPosInd + 1, "Failed to allocate memory in checkForSpacesInInstallation().", &libBaseName, SpawnFormatError);
+  mallocString(lasPosInd + 1, "Failed to allocate memory in terminateIfSpacesInInstallation().", &libBaseName, SpawnFormatError);
   /* Copy the path except for the last part of the path, which is Buildings or Buildings 8.0.0 */
   memcpy(libBaseName, bui->buildingsLibraryRoot, lasPosInd);
   libBaseName[lasPosInd] = '\0';
@@ -756,6 +850,7 @@ void generateAndInstantiateBuilding(FMUBuilding* bui){
   */
   char* modelicaBuildingsJsonFile;
   char* spawnFullPath;
+  char* env;
 
   void (*SpawnFormatMessage)(const char *string, ...) = bui->SpawnFormatMessage;
   void (*SpawnFormatError)(const char *string, ...) = bui->SpawnFormatError;
@@ -787,13 +882,29 @@ void generateAndInstantiateBuilding(FMUBuilding* bui){
   else{
     /* Find where the spawn executable is located, and return it in spawnFullPath.
        If not found, then spawnFullPath == NULL.
+
+      Search in this order:
+      1. Check for Buildings[ x.y.z]/Resources/bin/spawn-[linux64,win64]/bin/spawn-0.2.0-a23bb23[.exe]
+         where Buildings[ x.y.z] is the installation folder of the Modelica Buildings Library.
+      2. Check on the environment variable SPAWNPATH for spawn-0.2.0-a23bb23[.exe].
+      3. Check on the environment variable PATH for spawn-0.2.0-a23bb23[.exe].
+
     */
     spawnFullPath = findSpawnExe(bui, NULL, bui->spawnExe);
     if (spawnFullPath == NULL){
-      SpawnFormatError("%s", "Failed to find spawn executable.");
-      /* To do: implement other search locations */
+      env = getenv("SPAWNPATH");
+      if (env != NULL)
+        spawnFullPath = findSpawnExe(bui, env, bui->spawnExe);
     }
-    checkForSpacesInInstallation(bui);
+    if (spawnFullPath == NULL){
+      env = getenv("PATH");
+      if (env != NULL)
+        spawnFullPath = findSpawnExe(bui, env, bui->spawnExe);
+    }
+    if (spawnFullPath == NULL){
+      SpawnFormatError("%s", "Failed to find spawn executable '%s' in Buildings Library installation, on SPAWNPATH and on PATH.");
+    }
+    terminateIfSpacesInInstallation(bui);
     /* Generate FMU using spawnFullPath */
     generateFMU(bui, spawnFullPath, modelicaBuildingsJsonFile);
     free(spawnFullPath);
