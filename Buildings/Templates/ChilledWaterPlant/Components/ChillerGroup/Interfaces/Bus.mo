@@ -2,7 +2,9 @@ within Buildings.Templates.ChilledWaterPlant.Components.ChillerGroup.Interfaces;
 expandable connector Bus "Generic control bus for chiller group classes"
   extends Modelica.Icons.SignalBus;
 
-  Buildings.Templates.ChilledWaterPlant.Components.Chiller.Interfaces.Bus chi[:]
+  parameter Integer nChi;
+
+  Buildings.Templates.ChilledWaterPlant.Components.Chiller.Interfaces.Bus chi[nChi]
     annotation (HideResult=false);
 
   annotation (

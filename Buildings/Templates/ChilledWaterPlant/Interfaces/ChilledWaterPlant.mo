@@ -3,25 +3,30 @@ partial model ChilledWaterPlant
   parameter Buildings.Templates.Types.ChilledWaterPlant typ "Type of system"
     annotation (Evaluate=true, Dialog(group="Configuration"));
 
-  parameter Boolean have_cwLoop = typ== Buildings.Templates.ChilledWaterPlant.Components.Types.ChilledWaterPlant.WaterCooledChiller
-    "Set to true for condenser water loop"
+  replaceable package Medium = Buildings.Media.Water;
+
+  inner parameter String id
+    "System name"
     annotation (
       Evaluate=true,
-      Dialog(
-        group="Configuration",
-        enable=false));
+      Dialog(group="Configuration"));
 
-  Modelica.Fluid.Interfaces.FluidPort_a port_a "Chilled water supply"
+  parameter Integer nChi "Number of chillers";
+
+  Modelica.Fluid.Interfaces.FluidPort_a port_a(
+    redeclare final package Medium=Medium) "Chilled water supply"
     annotation (Placement(transformation(extent={{190,0},{210,20}})));
-  Modelica.Fluid.Interfaces.FluidPort_b port_b "Chilled water return"
+  Modelica.Fluid.Interfaces.FluidPort_b port_b(
+    redeclare final package Medium=Medium) "Chilled water return"
     annotation (Placement(transformation(extent={{190,-80},{210,-60}})));
-  Buildings.Templates.ChilledWaterPlant.BaseClasses.BusChilledWater chwCon
+  Buildings.Templates.ChilledWaterPlant.BaseClasses.BusChilledWater chwCon(final
+      nChi=nChi)
     "Chilled water loop control bus"
     annotation (Placement(transformation(
         extent={{-20,20},{20,-20}},
         rotation=90,
         origin={200,60})));
-  Buildings.Templates.ChilledWaterPlant.BaseClasses.BusCondenserWater cwCon if have_cwLoop
+  Buildings.Templates.ChilledWaterPlant.BaseClasses.BusCondenserWater cwCon if not is_airCoo
     "Condenser loop control bus"
     annotation (Placement(transformation(
         extent={{-20,20},{20,-20}},
@@ -32,6 +37,14 @@ partial model ChilledWaterPlant
         extent={{-20,20},{20,-20}},
         rotation=180,
         origin={0,100})));
+
+protected
+  parameter Boolean is_airCoo=
+    typ == Buildings.Templates.Types.ChilledWaterPlant.AirCooledParallel or
+    typ == Buildings.Templates.Types.ChilledWaterPlant.AirCooledSeries
+    "= true, chillers in group are air cooled, 
+    = false, chillers in group are water cooled";
+
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-200,-100},
             {200,100}}),                                        graphics={
               Rectangle(

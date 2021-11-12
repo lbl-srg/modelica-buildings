@@ -1,11 +1,9 @@
 within Buildings.Templates.ChilledWaterPlant.Components.CoolingTowerGroup;
 model CoolingTowerParallel
-  extends Buildings.Templates.ChilledWaterPlant.Components.CoolingTowerGroup.Interfaces.CoolingTowerGroup(
+  extends
+    Buildings.Templates.ChilledWaterPlant.Components.CoolingTowerGroup.Interfaces.CoolingTowerGroup(
     final typ=Buildings.Templates.ChilledWaterPlant.Components.Types.CoolingTowerGroup.CoolingTowerParallel);
 
-  parameter Integer num(
-    final min=1)=2
-    "Number of cooling towers";
   parameter Modelica.Fluid.Types.Dynamics energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial
     "Type of energy balance: dynamic (3 initialization options) or steady state"
     annotation (Evaluate=true,Dialog(tab="Dynamics",group="Equations"));
@@ -35,7 +33,7 @@ model CoolingTowerParallel
     "= true, if opening is filtered with a 2nd order CriticalDamping filter"
     annotation (Dialog(tab="Dynamics",group="Filtered opening"));
 
-  replaceable Buildings.Fluid.HeatExchangers.CoolingTowers.Merkel cooTow[num](
+  replaceable Buildings.Fluid.HeatExchangers.CoolingTowers.Merkel cooTow[nCooTow](
     each final allowFlowReversal=allowFlowReversal,
     each final m_flow_small=m_flow_small,
     each final ratWatAir_nominal=ratWatAir_nominal,
@@ -52,7 +50,7 @@ model CoolingTowerParallel
       each final energyDynamics=energyDynamics)
     "Cooling tower type"
     annotation (Placement(transformation(extent={{8,-10},{28,10}})));
-  Buildings.Fluid.Actuators.Valves.TwoWayEqualPercentage val[num](
+  Buildings.Fluid.Actuators.Valves.TwoWayEqualPercentage val[nCooTow](
     redeclare each final package Medium=Medium,
     each final allowFlowReversal=allowFlowReversal,
     each final m_flow_nominal=m_flow_nominal,
@@ -62,7 +60,7 @@ model CoolingTowerParallel
     "Cooling tower valves"
     annotation (Placement(transformation(extent={{-30,-10},{-10,10}})));
 
-  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal yVal[num] annotation (
+  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal yVal[nCooTow] annotation (
       Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=270,
@@ -74,8 +72,8 @@ model CoolingTowerParallel
     annotation (Placement(transformation(extent={{-60,-66},{-40,-46}})));
   Experimental.DHC.EnergyTransferStations.BaseClasses.CollectorDistributor colDis(
     redeclare final package Medium = Medium,
-    final mCon_flow_nominal=fill(m_flow_nominal, num),
-    final nCon=num)
+    final mCon_flow_nominal=fill(m_flow_nominal, nCooTow),
+    final nCon=nCooTow)
     annotation (Placement(transformation(extent={{-20,-60},{20,-40}})));
   Fluid.Sources.MassFlowSource_T floZer_b(
     redeclare final package Medium = Medium,
@@ -84,34 +82,18 @@ model CoolingTowerParallel
     annotation (Placement(transformation(extent={{60,-40},{40,-60}})));
 protected
   Buildings.Controls.OBC.CDL.Routing.RealScalarReplicator TWetBul(final nout=
-        num) "Duplicator" annotation (Placement(transformation(
+        nCooTow) "Duplicator" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=270,
         origin={70,50})));
 equation
-  for i in 1:num loop
+  for i in 1:nCooTow loop
     connect(val[i].port_b,cooTow[i].port_a)
       annotation (Line(points={{-10,0},{8,0}},  color={0,127,255}));
   end for;
   connect(yVal.y, val.y)
     annotation (Line(points={{-50,38},{-50,18},{-20,18},{-20,12}},
                                                  color={0,0,127}));
-  connect(busCon.out.yFan[:], cooTow.y) annotation (Line(
-      points={{0.1,100.1},{0.1,8},{6,8}},
-      color={255,204,51},
-      thickness=0.5), Text(
-      string="%first",
-      index=-1,
-      extent={{6,3},{6,3}},
-      horizontalAlignment=TextAlignment.Left));
-  connect(busCon.out.yVal[:], yVal.u) annotation (Line(
-      points={{0.1,100.1},{0.1,80},{-50,80},{-50,62}},
-      color={255,204,51},
-      thickness=0.5), Text(
-      string="%first",
-      index=-1,
-      extent={{6,3},{6,3}},
-      horizontalAlignment=TextAlignment.Left));
   connect(weaBus.TWetBul, TWetBul.u) annotation (Line(
       points={{50,100},{50,80},{70,80},{70,62}},
       color={255,204,51},
@@ -120,20 +102,8 @@ equation
       index=-1,
       extent={{6,3},{6,3}},
       horizontalAlignment=TextAlignment.Left));
-  connect(TWetBul.y, cooTow.TAir) annotation (Line(points={{70,38},{70,32},{-6,
-          32},{-6,4},{6,4}},    color={0,0,127}));
-  connect(cooTow.PFan, busCon.inp.PFan[:]) annotation (Line(points={{29,8},{50,
-          8},{50,60},{0.1,60},{0.1,100.1}}, color={0,0,127}), Text(
-      string="%second",
-      index=1,
-      extent={{-6,3},{-6,3}},
-      horizontalAlignment=TextAlignment.Right));
-  connect(cooTow.TLvg, busCon.inp.TLvg[:]) annotation (Line(points={{29,-6},{50,
-          -6},{50,60},{0.1,60},{0.1,100.1}}, color={0,0,127}), Text(
-      string="%second",
-      index=1,
-      extent={{-6,3},{-6,3}},
-      horizontalAlignment=TextAlignment.Right));
+  connect(TWetBul.y, cooTow.TAir) annotation (Line(points={{70,38},{70,32},{-6,32},
+          {-6,4},{6,4}},        color={0,0,127}));
   connect(floZer_a.ports[1],colDis. port_bDisRet)
     annotation (Line(points={{-40,-56},{-20,-56}}, color={0,127,255}));
   connect(colDis.port_bDisSup,floZer_b. ports[1])
@@ -146,6 +116,34 @@ equation
           0},{40,-20},{12,-20},{12,-40}}, color={0,127,255}));
   connect(colDis.port_aDisRet, port_b) annotation (Line(points={{20,-56},{34,
           -56},{34,-40},{80,-40},{80,0},{100,0}}, color={0,127,255}));
+  connect(busCon.yFan, cooTow.y) annotation (Line(
+      points={{0,100},{0,8},{6,8}},
+      color={255,204,51},
+      thickness=0.5), Text(
+      string="%first",
+      index=-1,
+      extent={{-6,3},{-6,3}},
+      horizontalAlignment=TextAlignment.Right));
+  connect(busCon.yVal, yVal.u) annotation (Line(
+      points={{0,100},{0,68},{-50,68},{-50,62}},
+      color={255,204,51},
+      thickness=0.5), Text(
+      string="%first",
+      index=-1,
+      extent={{6,3},{6,3}},
+      horizontalAlignment=TextAlignment.Left));
+  connect(cooTow.PFan, busCon.PFan) annotation (Line(points={{29,8},{50,8},{50,68},
+          {0,68},{0,100}}, color={0,0,127}), Text(
+      string="%second",
+      index=1,
+      extent={{-6,3},{-6,3}},
+      horizontalAlignment=TextAlignment.Right));
+  connect(cooTow.TLvg, busCon.TLvg) annotation (Line(points={{29,-6},{50,-6},{50,
+          68},{0,68},{0,100}}, color={0,0,127}), Text(
+      string="%second",
+      index=1,
+      extent={{-6,3},{-6,3}},
+      horizontalAlignment=TextAlignment.Right));
   annotation (Diagram(graphics={                               Text(
           extent={{-72,-58},{88,-98}},
           lineColor={238,46,47},

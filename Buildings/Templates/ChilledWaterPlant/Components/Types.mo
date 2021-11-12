@@ -15,11 +15,6 @@ package Types
       "Chillers in parallel",
       ChillerSeries
       "Chillers in series");
-  type ChilledWaterPlant = enumeration(
-      WaterCooledChiller
-      "Water cooled chiller plant",
-      AirCooledChiller
-      "Air cooled chiller plant");
   type CondenserWaterPumpGroup = enumeration(
       Headered "Headered condensing water pumps",
       Dedicated "Dedicated condensing water pumps");

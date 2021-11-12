@@ -1,8 +1,8 @@
 within Buildings.Templates.ChilledWaterPlant.Components.Chiller.Interfaces;
 partial model Chiller
   extends Buildings.Fluid.Interfaces.PartialOptionalFourPortInterface(
-    redeclare final package Medium1=Buildings.Media.Water,
-    redeclare final package Medium2=Buildings.Media.Water,
+    redeclare replaceable package Medium1=Buildings.Media.Water,
+    redeclare replaceable package Medium2=Buildings.Media.Water,
     final hasMedium1=true,
     final hasMedium2=not is_airCoo);
 
@@ -18,7 +18,7 @@ partial model Chiller
     = false, chillers in group are water cooled";
   replaceable parameter Buildings.Fluid.Chillers.Data.BaseClasses.Chiller
     per "Chiller performance data"
-    annotation (Placement(transformation(extent={{60,80},{80,100}})));
+    annotation (Placement(transformation(extent={{-82,-90},{-62,-70}})));
 
   Bus busCon "Control bus" annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},

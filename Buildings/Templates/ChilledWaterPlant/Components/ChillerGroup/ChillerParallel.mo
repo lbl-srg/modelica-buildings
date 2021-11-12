@@ -8,38 +8,39 @@ model ChillerParallel
 
   inner replaceable
     Buildings.Templates.ChilledWaterPlant.Components.Chiller.ElectricChiller
-    chi[num] constrainedby
+    chi[nChi] constrainedby
     Buildings.Templates.ChilledWaterPlant.Components.Chiller.Interfaces.Chiller(
     redeclare each final package Medium1 = MediumCW,
-    redeclare each final package Medium2 = MediumCHW,
-    final is_airCoo=is_airCoo) annotation (Placement(transformation(extent={{
+    redeclare each final package Medium2 = MediumCHW)
+    "Chillers"
+      annotation (Placement(transformation(extent={{
             -20,-20},{20,20}}, rotation=0)));
 
-  Fluid.Delays.DelayFirstOrder volCHW(redeclare final package Medium =
-        MediumCHW, nPorts=1+num) "Chilled water side mixing volume" annotation (
-      Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=90,
-        origin={10,-60})));
-  Fluid.Delays.DelayFirstOrder volCW(redeclare final package Medium = MediumCW,
-      nPorts=1+num) if not is_airCoo "Condenser water side mixing volume"
+  Fluid.Delays.DelayFirstOrder volCHW(
+    redeclare final package Medium = MediumCHW,
+    nPorts=1+nChi)
+    "Chilled water side mixing volume"
     annotation (Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=90,
-        origin={10,60})));
-  Fluid.Actuators.Valves.TwoWayLinear valChi[num](
+      extent={{-10,-10},{10,10}},rotation=90,origin={10,-60})));
+  Fluid.Delays.DelayFirstOrder volCW(
+    redeclare final package Medium = MediumCW,
+    nPorts=1+nChi) if not is_airCoo
+    "Condenser water side mixing volume"
+    annotation (Placement(transformation(
+      extent={{-10,-10},{10,10}},rotation=0,origin={60,84})));
+  Fluid.Actuators.Valves.TwoWayLinear valChi[nChi](
     redeclare each final package Medium = MediumCHW) if not has_dedPum
-    "Chillers valves" annotation (Placement(transformation(
-        extent={{10,-10},{-10,10}},
-        rotation=0,
-        origin={-70,20})));
-  Buildings.Templates.BaseClasses.PassThroughFluid pas[num](
+    "Chillers valves"
+    annotation (Placement(transformation(
+      extent={{10,-10},{-10,10}},rotation=0,origin={-70,20})));
+  Buildings.Templates.BaseClasses.PassThroughFluid pas[nChi](
     redeclare each final package Medium = MediumCHW) if has_dedPum
+    "Passthrough"
     annotation (Placement(transformation(extent={{-60,-30},{-80,-10}})));
 equation
 
   connect(busCon.chi, chi.busCon) annotation (Line(
-      points={{0.1,100.1},{0.1,90},{80,90},{80,30},{0,30},{0,20}},
+      points={{0.1,100.1},{0.1,100},{0,100},{0,20}},
       color={255,204,51},
       thickness=0.5), Text(
       string="%first",
@@ -48,14 +49,14 @@ equation
       horizontalAlignment=TextAlignment.Right));
   connect(port_a2, volCHW.ports[1]) annotation (Line(points={{100,-60},{20,-60},
           {20,-60}},      color={0,127,255}));
-  connect(volCHW.ports[2:3], chi.port_a2) annotation (Line(points={{20,-60},{20,
+  connect(volCHW.ports[2:(nChi+1)], chi.port_a2) annotation (Line(points={{20,-60},{20,
           -58},{40,-58},{40,-12},{20,-12}},     color={0,127,255}));
   connect(ports_a1, chi.port_a1) annotation (Line(points={{-100,60},{-40,60},{
           -40,12},{-20,12}}, color={0,127,255}));
-  connect(volCW.ports[1], port_b1) annotation (Line(points={{20,60},{20,60},{
-          100,60}},  color={0,127,255}));
-  connect(chi.port_b1, volCW.ports[2:3]) annotation (Line(points={{20,12},{40,
-          12},{40,60},{20,60}},       color={0,127,255}));
+  connect(volCW.ports[1], port_b1) annotation (Line(points={{60,74},{60,60},{100,
+          60}},      color={0,127,255}));
+  connect(chi.port_b1, volCW.ports[2:3]) annotation (Line(points={{20,12},{60,12},
+          {60,74}},                   color={0,127,255}));
   connect(chi.port_b2, valChi.port_a) annotation (Line(points={{-20,-12},{-40,-12},
           {-40,0},{-54,0},{-54,20},{-60,20}}, color={0,127,255}));
   connect(valChi.port_b, ports_b2) annotation (Line(points={{-80,20},{-86,20},{-86,

@@ -1,14 +1,21 @@
 within Buildings.Templates.ChilledWaterPlant.Components.ReturnSection.Interfaces;
 partial model ChilledWaterReturnSection
-  extends Fluid.Interfaces.PartialFourPortInterface(
+  extends Fluid.Interfaces.PartialOptionalFourPortInterface(
     redeclare package Medium1=Buildings.Media.Water,
-    redeclare package Medium2=Buildings.Media.Water);
+    redeclare package Medium2=Buildings.Media.Water,
+    final hasMedium1=is_airCoo,
+    final hasMedium2=true);
 
   parameter
     Buildings.Templates.ChilledWaterPlant.Components.Types.ChilledWaterReturnSection
     typ "Type of waterside economizer"
     annotation (Evaluate=true, Dialog(group="Configuration"));
-  // ToDo: Other WSE parameters
+
+  parameter Boolean is_airCoo "Is chiller plant air cooled";
+
+  final parameter Boolean is_none=
+    typ <> Buildings.Templates.ChilledWaterPlant.Components.Types.ChilledWaterReturnSection.NoEconomizer;
+
 
   outer parameter String id
     "System identifier";
@@ -23,8 +30,6 @@ partial model ChilledWaterReturnSection
         rotation=0,
         origin={0,100})));
 
-protected
-  parameter Boolean is_none = typ <> Buildings.Templates.ChilledWaterPlant.Components.Types.ChilledWaterReturnSection.NoEconomizer
   annotation (Icon(coordinateSystem(preserveAspectRatio=false),
     graphics={Rectangle(
           extent={{-100,100},{100,-100}},

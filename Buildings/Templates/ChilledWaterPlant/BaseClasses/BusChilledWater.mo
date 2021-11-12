@@ -3,12 +3,18 @@ expandable connector BusChilledWater
   "Generic control bus for chilled water classes"
   extends Modelica.Icons.SignalBus;
 
+  parameter Integer nChi "Number of chillers";
+  parameter Integer nPumPri "Number of primary pumps";
+  parameter Integer nPumSec "Number of secondary pumps";
+
   Buildings.Templates.ChilledWaterPlant.Components.ChillerGroup.Interfaces.Bus
-    chi annotation (HideResult=false);
+    chiGro(final nChi=nChi) annotation (HideResult=false);
   Buildings.Templates.ChilledWaterPlant.Components.ReturnSection.Interfaces.Bus
     wse annotation (HideResult=false);
   Buildings.Templates.ChilledWaterPlant.Components.PrimaryPumpGroup.Interfaces.Bus
-    pumGro annotation (HideResult=false);
+    pumPri(final nPum=nPumPri) annotation (HideResult=false);
+  Buildings.Templates.ChilledWaterPlant.Components.SecondaryPumpGroup.Interfaces.Bus
+    pumSec(final nPum=nPumSec) annotation (HideResult=false);
 
   annotation (
   defaultComponentName="busCon",

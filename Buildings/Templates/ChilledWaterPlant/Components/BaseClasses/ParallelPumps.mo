@@ -4,7 +4,7 @@ model ParallelPumps
   extends Buildings.Fluid.Actuators.BaseClasses.ValveParameters;
 
   // Pump parameters
-  parameter Integer nPum = 2 "Number of pumps";
+  parameter Integer nPum "Number of pumps";
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal "Nominal mass flow rate per pump";
   parameter Modelica.SIunits.PressureDifference dp_nominal "Nominal pressure drop per pump";
 

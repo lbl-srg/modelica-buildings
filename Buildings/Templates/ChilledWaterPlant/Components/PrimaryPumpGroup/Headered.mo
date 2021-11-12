@@ -4,7 +4,7 @@ model Headered
     Buildings.Templates.ChilledWaterPlant.Components.PrimaryPumpGroup.Interfaces.PrimaryPumpGroup(
     final typ=Buildings.Templates.ChilledWaterPlant.Components.Types.PrimaryPumpGroup.Headered);
 
-  Fluid.Delays.DelayFirstOrder     del(
+  Fluid.Delays.DelayFirstOrder del(
     redeclare final package Medium = Medium,
     final m_flow_nominal = m_flow_nominal*nPum,
     nPorts=nPorVol) "Inlet node mixing volume"
@@ -61,18 +61,6 @@ equation
           {1.77636e-15,-40},{1.77636e-15,-50}}, color={0,127,255}));
   connect(valByp.port_b, port_byp)
     annotation (Line(points={{-1.83187e-15,-70},{0,-100}}, color={0,127,255}));
-  connect(port_series,del. ports[1]) annotation (Line(points={{-100,60},{-60,60},
-          {-60,20},{-40,20},{-40,40},{-40,40}}, color={0,127,255}));
-  connect(del.ports[2], pum.port_a) annotation (Line(points={{-40,40},{-40,40},{
-          -40,0},{-10,0}}, color={0,127,255}));
-  connect(busCon.ySpePumPri, pum.y) annotation (Line(
-      points={{0,100},{0,56},{0,56},{0,12}},
-      color={255,204,51},
-      thickness=0.5), Text(
-      string="%first",
-      index=-1,
-      extent={{6,3},{6,3}},
-      horizontalAlignment=TextAlignment.Left));
   connect(pum.y_actual, busCon.uStaPumPri) annotation (Line(points={{11,8},{20,8},
           {20,80},{0,80},{0,100}}, color={255,0,255}), Text(
       string="%second",
@@ -87,13 +75,17 @@ equation
       index=-1,
       extent={{-6,3},{-6,3}},
       horizontalAlignment=TextAlignment.Right));
-  connect(ports_parallel,del. ports[3:3]) annotation (Line(points={{-100,0},{-40,
-          0},{-40,40},{-40,40}}, color={0,127,255}));
+
+  connect(del.ports[1],pum.port_a) annotation (Line(points={{-40,40},{-40,40},{
+          -40,0},{-10,0}}, color={0,127,255}));
+  connect(del.ports[2],port_series) annotation (Line(points={{-40,40},{-40,20},
+          {-60,20},{-60,60},{-100,60}},         color={0,127,255}));
+  connect(del.ports[2:(nChi+1)],ports_parallel) annotation (Line(points={{-40,40},
+          {-40,40},{-40,0},{-100,0}}, color={0,127,255}));
+  connect(del.ports[nPorVol],valWSEByp.port_b) annotation (Line(points={{-40,40},
+          {-40,40},{-40,-60},{-60,-60}}, color={0,127,255}));
   connect(port_WSEByp, valWSEByp.port_a)
     annotation (Line(points={{-100,-60},{-80,-60}}, color={0,127,255}));
-  connect(valWSEByp.port_b,del. ports[4]) annotation (Line(points={{-60,-60},{-40,
-          -60},{-40,40},{-40,40}},
-                          color={0,127,255}));
   connect(busCon.yValWSEByp, valWSEByp.y) annotation (Line(
       points={{0,100},{0,80},{-70,80},{-70,-48}},
       color={255,204,51},
@@ -116,6 +108,14 @@ equation
           -80},{80,-70}}, color={0,127,255}));
   connect(splByp.port_3, pas.port_a)
     annotation (Line(points={{80,-10},{80,-50}}, color={0,127,255}));
+  connect(busCon.ySpe, pum.y) annotation (Line(
+      points={{0,100},{0,12}},
+      color={255,204,51},
+      thickness=0.5), Text(
+      string="%first",
+      index=-1,
+      extent={{-3,6},{-3,6}},
+      horizontalAlignment=TextAlignment.Right));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
                     Bitmap(
         extent={{-40,0},{40,80}},

@@ -5,12 +5,17 @@ partial model CondenserWaterPumpGroup
   outer parameter ExternData.JSONFile dat
     "External parameter file";
 
+  replaceable package Medium = Buildings.Media.Water "Medium in the component";
+
   parameter Integer nChi = 1 "Number of chillers";
-  parameter Integer nPumPri = 1 "Number of primary pumps";
+  parameter Integer nPum = 1 "Number of primary pumps";
 
-  parameter Boolean has_wse "= true if pump supply waterside economizer";
+  parameter Boolean has_WSE "= true if pump supply waterside economizer";
 
-  Bus busCon "Control bus" annotation (Placement(transformation(
+  final parameter Boolean is_dedicated = typ == Buildings.Templates.ChilledWaterPlant.Components.Types.PrimaryPumpGroup.Dedicated;
+
+  Bus busCon(final nPum=nPum)
+             "Control bus" annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
         rotation=0,
         origin={0,100}), iconTransformation(
@@ -18,26 +23,26 @@ partial model CondenserWaterPumpGroup
         rotation=0,
         origin={0,100})));
 
-  parameter Buildings.Types.CondenserWaterPumpGroup typ "Type of pump"
+  parameter Buildings.Templates.ChilledWaterPlant.Components.Types.CondenserWaterPumpGroup typ "Type of pump"
     annotation (Evaluate=true, Dialog(group="Configuration"));
 
   Modelica.Fluid.Interfaces.FluidPort_a port_a(
     redeclare final package Medium = Medium,
-    m_flow(min=if allowFlowReversal then -Modelica.Constants.inf else 0),
+    m_flow(min=0),
     h_outflow(start=Medium.h_default, nominal=Medium.h_default))
     "Pump group inlet" annotation (Placement(transformation(extent={{-110,-10},{
             -90,10}}), iconTransformation(extent={{-110,-10},{-90,10}})));
   Modelica.Fluid.Interfaces.FluidPorts_b ports_b[nChi](
-    redeclare final package Medium = Medium,
-    m_flow(max=if allowFlowReversal then +Modelica.Constants.inf else 0),
-    h_outflow(start=Medium.h_default, nominal=Medium.h_default))
+    redeclare each final package Medium = Medium,
+    each m_flow(max=0),
+    each h_outflow(start=Medium.h_default, nominal=Medium.h_default))
     "Pump group outlets" annotation (Placement(transformation(extent={{108,-32},
             {92,32}}), iconTransformation(extent={{108,-32},{92,32}})));
 
   Modelica.Fluid.Interfaces.FluidPort_b port_wse(
     redeclare final package Medium = Medium,
-    m_flow(min=if allowFlowReversal then -Modelica.Constants.inf else 0),
-    h_outflow(start=Medium.h_default, nominal=Medium.h_default)) if has_wse
+    m_flow(min=0),
+    h_outflow(start=Medium.h_default, nominal=Medium.h_default)) if has_WSE
     "Waterside economizer outlet" annotation (Placement(transformation(extent={{
             90,-70},{110,-50}})));
 equation

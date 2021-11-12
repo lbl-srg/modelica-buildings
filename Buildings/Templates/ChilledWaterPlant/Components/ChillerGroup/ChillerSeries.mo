@@ -6,26 +6,26 @@ model ChillerSeries
 
   inner replaceable
     Buildings.Templates.ChilledWaterPlant.Components.Chiller.ElectricChiller
-    chi[num] constrainedby
+    chi[nChi] constrainedby
     Buildings.Templates.ChilledWaterPlant.Components.Chiller.Interfaces.Chiller(
     redeclare each final package Medium1 = Medium1,
     redeclare each final package Medium2 = Medium2,
     final is_airCoo=is_airCoo) annotation (Placement(transformation(extent={{
             -20,-20},{20,20}}, rotation=0)));
 
-  Fluid.FixedResistances.Junction splChi[num](redeclare package Medium = Medium,
+  Fluid.FixedResistances.Junction splChi[nChi](redeclare package Medium = Medium,
       energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)
     "Chiller splitter"              annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=180,
         origin={60,-60})));
-  Fluid.FixedResistances.Junction mixChi[num](redeclare package Medium = Medium,
+  Fluid.FixedResistances.Junction mixChi[nChi](redeclare package Medium = Medium,
       energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState) "Chiller mixer"
     annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=180,
         origin={-60,-60})));
-  Fluid.Actuators.Valves.TwoWayLinear valChi[num] if has_byp "Chiller valve"
+  Fluid.Actuators.Valves.TwoWayLinear valChi[nChi] if has_byp "Chiller valve"
     annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=0,
@@ -55,9 +55,9 @@ equation
     annotation (Line(points={{10,-60},{50,-60}}, color={0,127,255}));
   connect(port_a2,splChi [1].port_1)
     annotation (Line(points={{100,-60},{70,-60}}, color={0,127,255}));
-  connect(mixChi[num].port_1, port_b2)
+  connect(mixChi[nChi].port_1, port_b2)
     annotation (Line(points={{-70,-60},{-100,-60}}, color={0,127,255}));
-  for i in 2:num loop
+  for i in 2:nChi loop
     connect(mixChi.port_1[i - 1], splChi.port_1[i]) annotation (Line(points={{-70,
             -60},{-80,-60},{-80,-80},{80,-80},{80,-60},{70,-60}}, color={0,127,
             255}));

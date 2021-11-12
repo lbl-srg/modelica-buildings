@@ -10,7 +10,15 @@ partial model ChillerGroup
     "= true, chillers in group are air cooled, 
     = false, chillers in group are water cooled";
 
-  parameter Integer num = 2 "Number of chillers in group";
+  parameter Integer nChi "Number of chillers in group";
+
+  parameter Buildings.Templates.ChilledWaterPlant.Components.Types.ChillerGroup typ "Type of chiller group"
+    annotation (Evaluate=true, Dialog(group="Configuration"));
+
+  outer parameter String id
+    "System identifier";
+  outer parameter ExternData.JSONFile dat
+    "External parameter file";
 
   replaceable package MediumCW = Buildings.Media.Water
     constrainedby Modelica.Media.Interfaces.PartialMedium "Medium 1 in the component"
@@ -25,10 +33,10 @@ partial model ChillerGroup
     "= false to simplify equations, assuming, but not enforcing, no flow reversal for medium 2"
     annotation(Dialog(tab="Assumptions"), Evaluate=true);
 
-  Modelica.Fluid.Interfaces.FluidPorts_a ports_a1[num](
-    redeclare final package Medium = MediumCW,
-    m_flow(min=if allowFlowReversal1 then -Modelica.Constants.inf else 0),
-    h_outflow(start=MediumCW.h_default, nominal=MediumCW.h_default))
+  Modelica.Fluid.Interfaces.FluidPorts_a ports_a1[nChi](
+    redeclare each final package Medium = MediumCW,
+    each m_flow(min=if allowFlowReversal1 then -Modelica.Constants.inf else 0),
+    each h_outflow(start=MediumCW.h_default, nominal=MediumCW.h_default))
     if not is_airCoo
     "Fluid connectors a1 (positive design flow direction is from port_a1 to port_b1)"
     annotation (Placement(transformation(extent={{-108,28},{-92,92}}),
@@ -53,7 +61,7 @@ partial model ChillerGroup
     "Fluid connector b2 (positive design flow direction is from port_a2 to port_b2)"
     annotation (Placement(transformation(extent={{-90,-70},{-110,-50}})));
 
-  Modelica.Fluid.Interfaces.FluidPorts_b ports_b2[num](
+  Modelica.Fluid.Interfaces.FluidPorts_b ports_b2[nChi](
     redeclare each final package Medium = MediumCHW,
     each m_flow(max=if allowFlowReversal2 then +Modelica.Constants.inf else 0),
     each h_outflow(start=MediumCHW.h_default, nominal=MediumCHW.h_default)) if typ == Buildings.Templates.ChilledWaterPlant.Components.Types.ChillerGroup.ChillerParallel
@@ -76,16 +84,7 @@ partial model ChillerGroup
     "Small mass flow rate for regularization of zero flow"
     annotation(Dialog(tab = "Advanced"));
 
-  parameter Buildings.Templates.ChilledWaterPlant.Components.Types.ChillerGroup typ "Type of chiller group"
-    annotation (Evaluate=true, Dialog(group="Configuration"));
-  // ToDo: Other ChillerGroup parameters
-
-  outer parameter String id
-    "System identifier";
-  outer parameter ExternData.JSONFile dat
-    "External parameter file";
-
-  Bus busCon "Control bus" annotation (Placement(transformation(
+  Buildings.Templates.ChilledWaterPlant.Components.ChillerGroup.Interfaces.Bus busCon(nChi=nChi) "Control bus" annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
         rotation=0,
         origin={0,100}), iconTransformation(

@@ -2,6 +2,9 @@ within Buildings.Templates.ChilledWaterPlant.Components.CondenserWaterPumpGroup.
 expandable connector Bus "Generic control bus for chilled water return section"
   extends Modelica.Icons.SignalBus;
 
+  parameter Integer nPum "Number of pumps";
+
+  Real ySpe[nPum]
   annotation (
   defaultComponentName="busCon",
   Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,
@@ -11,4 +14,5 @@ expandable connector Bus "Generic control bus for chilled water return section"
                   lineThickness=0.5)}), Documentation(info="<html>
 
 </html>"));
+
 end Bus;

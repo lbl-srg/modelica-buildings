@@ -2,6 +2,8 @@ within Buildings.Templates.ChilledWaterPlant.Components.CoolingTowerGroup.Interf
 expandable connector Bus "Generic control bus for cooling tower group classes"
   extends Modelica.Icons.SignalBus;
 
+  parameter Integer nCooTow "Number of cooling tower";
+
   annotation (
   defaultComponentName="busCon",
   Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,

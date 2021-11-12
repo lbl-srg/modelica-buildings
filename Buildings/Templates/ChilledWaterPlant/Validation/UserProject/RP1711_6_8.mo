@@ -1,7 +1,10 @@
 within Buildings.Templates.ChilledWaterPlant.Validation.UserProject;
 model RP1711_6_8
   extends Buildings.Templates.ChilledWaterPlant.WaterCooledParallel(
-    redeclare Components.ChillerGroup.ChillerParallel chi,
+    final nChi=2,
+    final nCooTow=2,
+    final nPumCon=2,
+    final nPumPri=2,
     final has_byp=false,
     final id="CHW_1");
 

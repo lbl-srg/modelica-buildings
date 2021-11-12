@@ -1,6 +1,6 @@
 within Buildings.Templates.ChilledWaterPlant.Components.CoolingTowerGroup.Interfaces;
 partial model CoolingTowerGroup
-  extends Fluid.Interfaces.PartialTwoPort(
+  extends Fluid.Interfaces.PartialTwoPortInterface(
     redeclare package Medium=Buildings.Media.Water);
 
   parameter Buildings.Templates.ChilledWaterPlant.Components.Types.CoolingTowerGroup typ "Type of cooling tower group"
@@ -11,6 +11,8 @@ partial model CoolingTowerGroup
     "System identifier";
   outer parameter ExternData.JSONFile dat
     "External parameter file";
+
+  parameter Integer nCooTow(final min=1) "Number of cooling towers";
 
   Bus busCon "Control bus" annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},

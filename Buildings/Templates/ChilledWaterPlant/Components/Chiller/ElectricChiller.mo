@@ -10,39 +10,16 @@ model ElectricChiller
       final per=per,
       redeclare final package Medium1 = Medium1,
       redeclare final package Medium2 = Medium2,
-      final allowFlowReversal1=allowFlowReversal1,
-      final allowFlowReversal2=allowFlowReversal2,
-      final show_T=show_T,
-      final from_dp1=from_dp1,
       final dp1_nominal=0,
-      final linearizeFlowResistance1=linearizeFlowResistance1,
-      final deltaM1=deltaM1,
-      final from_dp2=from_dp2,
       final dp2_nominal=0,
-      final linearizeFlowResistance2=linearizeFlowResistance2,
-      final deltaM2=deltaM2,
-      final homotopyInitialization=homotopyInitialization,
       final m1_flow_nominal=m1_flow_nominal,
       final m2_flow_nominal=m2_flow_nominal,
-      final m1_flow_small=m1_flow_small,
-      final m2_flow_small=m2_flow_small,
-      final tau1=tau1,
-      final tau2=tau2,
-      final energyDynamics=energyDynamics,
-      final massDynamics=massDynamics,
-      final p1_start=p1_start,
-      final T1_start=T1_start,
-      final X1_start=X1_start,
-      final C1_start=C1_start,
-      final C1_nominal=C1_nominal,
-      final p2_start=p2_start,
-      final T2_start=T2_start,
-      final X2_start=X2_start,
-      final C2_start=C2_start,
-      final C2_nominal=C2_nominal) "Chiller"
+      final energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    final massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)
+                                   "Chiller"
     annotation (Placement(transformation(extent={{-10,-8},{10,12}})));
 equation
-  connect(busCon.out.on, chi.on) annotation (Line(
+  connect(busCon.on, chi.on) annotation (Line(
       points={{0,100},{0,80},{-60,80},{-60,5},{-12,5}},
       color={255,204,51},
       thickness=0.5), Text(
@@ -50,7 +27,7 @@ equation
       index=-1,
       extent={{6,3},{6,3}},
       horizontalAlignment=TextAlignment.Left));
-  connect(busCon.out.TSet, chi.TSet) annotation (Line(
+  connect(busCon.TSet, chi.TSet) annotation (Line(
       points={{0,100},{0,80},{-60,80},{-60,-1},{-12,-1}},
       color={255,204,51},
       thickness=0.5), Text(
@@ -58,7 +35,7 @@ equation
       index=-1,
       extent={{6,3},{6,3}},
       horizontalAlignment=TextAlignment.Left));
-  connect(busCon.inp.P, chi.P) annotation (Line(
+  connect(busCon.P, chi.P) annotation (Line(
       points={{0,100},{0,80},{60,80},{60,11},{11,11}},
       color={255,204,51},
       thickness=0.5), Text(

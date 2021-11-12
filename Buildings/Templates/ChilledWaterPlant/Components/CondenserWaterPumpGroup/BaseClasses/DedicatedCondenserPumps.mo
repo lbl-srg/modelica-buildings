@@ -7,6 +7,8 @@ model DedicatedCondenserPumps
     "= false to simplify equations, assuming, but not enforcing, no flow reversal"
     annotation(Dialog(tab="Assumptions"), Evaluate=true);
 
+  parameter Integer nPum "Number of pumps";
+
   Modelica.Fluid.Interfaces.FluidPort_a port_a(
     redeclare each final package Medium = Medium,
     each m_flow(min=if allowFlowReversal then -Modelica.Constants.inf else 0),
@@ -81,20 +83,11 @@ model DedicatedCondenserPumps
   Modelica.Blocks.Interfaces.BooleanOutput y_actual[nPum] annotation (Placement(
         transformation(extent={{100,50},{140,90}}), iconTransformation(extent={{100,70},
             {120,90}})));
-  Fluid.MixingVolumes.MixingVolume vol(nPorts=nPum)
+  Fluid.MixingVolumes.MixingVolume vol(nPorts=1)
                                          annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=180,
         origin={-60,-30})));
-  Fluid.Sensors.VolumeFlowRate senVolFlo(redeclare final package Medium =
-        Medium, final m_flow_nominal=m_flow_nominal)
-    "Volume flow rate sensor"
-    annotation (Placement(transformation(extent={{-10,-10},{10,10}},
-        rotation=0,
-        origin={-80,0})));
-  Modelica.Blocks.Interfaces.RealOutput V_flow annotation (Placement(
-        transformation(extent={{100,10},{140,50}}), iconTransformation(extent={
-            {100,40},{120,60}})));
 equation
   connect(pum.port_b,val. port_a)
     annotation (Line(points={{-10,0},{10,0}}, color={0,127,255}));
@@ -109,18 +102,15 @@ equation
           {120,70}},color={255,0,255}));
   connect(y, hys.u) annotation (Line(points={{0,100},{0,72},{-80,72},{-80,50},{-62,
           50}}, color={0,0,127}));
-  connect(y, pum.y) annotation (Line(points={{0,100},{0,72},{-80,72},{-80,30},{-20,
-          30},{-20,12}}, color={0,0,127}));
-  connect(port_a, senVolFlo.port_a)
-    annotation (Line(points={{-100,0},{-90,0}}, color={0,127,255}));
+  connect(y, pum.y) annotation (Line(points={{0,100},{0,72},{-80,72},{-80,20},{
+          -20,20},{-20,12}},
+                         color={0,0,127}));
   connect(val.port_b, ports_b)
     annotation (Line(points={{30,0},{100,0}}, color={0,127,255}));
-  connect(senVolFlo.V_flow, V_flow) annotation (Line(points={{-80,11},{-80,20},{
-          80,20},{80,30},{120,30}}, color={0,0,127}));
-  connect(senVolFlo.port_b, vol.ports[1])
-    annotation (Line(points={{-70,0},{-60,0},{-60,-20}}, color={0,127,255}));
   connect(vol.ports, pum.port_a)
     annotation (Line(points={{-60,-20},{-60,0},{-30,0}}, color={0,127,255}));
+  connect(port_a, vol.ports[1])
+    annotation (Line(points={{-100,0},{-60,0},{-60,-20}}, color={0,127,255}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
               Rectangle(
           extent={{-100,100},{100,-100}},

@@ -20,8 +20,10 @@ partial model PrimaryPumpGroup
   parameter Boolean has_comLeg "= true if there is a commong leg";
   parameter Boolean has_floSen "= true if primary flow is measured";
 
-  parameter Integer nChi = 2 "Number of chillers";
-  parameter Integer nPum = nChi "Number of primary pumps"
+  final parameter Boolean is_dedicated = typ == Buildings.Templates.ChilledWaterPlant.Components.Types.PrimaryPumpGroup.Dedicated;
+
+  parameter Integer nChi "Number of chillers";
+  parameter Integer nPum = nChi "Number of pumps"
   annotation(Dialog(enable=not is_dedicated));
 
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal "Nominal mass flow rate per pump";
@@ -37,9 +39,9 @@ partial model PrimaryPumpGroup
         origin={0,100})));
 
   Modelica.Fluid.Interfaces.FluidPorts_a ports_parallel[nChi](
-    redeclare final package Medium = Medium,
-    m_flow(min=if allowFlowReversal then -Modelica.Constants.inf else 0),
-    h_outflow(start=Medium.h_default, nominal=Medium.h_default)) if has_ParChi
+    redeclare each final package Medium = Medium,
+    each m_flow(min=if allowFlowReversal then -Modelica.Constants.inf else 0),
+    each h_outflow(start=Medium.h_default, nominal=Medium.h_default)) if has_ParChi
     "Pump group inlet for chiller connected in parallel" annotation (Placement(
         transformation(extent={{-108,-30},{-92,30}}), iconTransformation(extent=
            {{-108,-30},{-92,30}})));
@@ -70,9 +72,6 @@ partial model PrimaryPumpGroup
     if has_byp or has_comLeg
     "Pump group outlet for bypass or commong leg"
     annotation (Placement(transformation(extent={{10,-110},{-10,-90}})));
-
-protected
-  parameter Boolean is_dedicated = typ == Buildings.Templates.ChilledWaterPlant.Components.Types.PrimaryPumpGroup.Dedicated;
 
 
 equation

@@ -3,6 +3,8 @@ expandable connector Bus
   "Generic control bus for chilled water return section"
   extends Modelica.Icons.SignalBus;
 
+  parameter Integer nPum "Number of pumps";
+
   annotation (
   defaultComponentName="busCon",
   Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,

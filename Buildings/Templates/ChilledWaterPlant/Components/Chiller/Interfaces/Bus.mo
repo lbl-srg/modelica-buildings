@@ -2,6 +2,9 @@ within Buildings.Templates.ChilledWaterPlant.Components.Chiller.Interfaces;
 expandable connector Bus "Generic control bus for chiller classes"
   extends Modelica.Icons.SignalBus;
 
+  Real TSet;
+  Boolean on;
+
   annotation (
   defaultComponentName="busCon",
   Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,

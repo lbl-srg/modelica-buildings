@@ -13,9 +13,13 @@ partial model SecondaryPumpGroup
   outer parameter ExternData.JSONFile dat
     "External parameter file";
 
-  parameter Integer nPum = 1 "Number of primary pumps";
+  parameter Integer nPum "Number of primary pumps";
 
-  Bus busCon if not is_none
+  final parameter Boolean is_none=
+    typ <> Buildings.Templates.ChilledWaterPlant.Components.Types.SecondaryPumpGroup.None;
+
+  Bus busCon(final nPum=nPum)
+             if not is_none
              "Control bus" annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
         rotation=0,
@@ -24,16 +28,14 @@ partial model SecondaryPumpGroup
         rotation=0,
         origin={0,100})));
 
-protected
-  parameter Boolean is_none = typ <>Buildings.Templates.ChilledWaterPlant.Components.Types.SecondaryPumpGroup.None
   annotation (Icon(coordinateSystem(preserveAspectRatio=false),
     graphics={Rectangle(
           extent={{-100,100},{100,-100}},
           lineColor={0,0,255},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid)}), Diagram(
-        coordinateSystem(preserveAspectRatio=false)));
-  annotation (Icon(graphics={
+        coordinateSystem(preserveAspectRatio=false)),
+              Icon(graphics={
               Rectangle(
           extent={{-100,100},{100,-100}},
           lineColor={0,0,255},

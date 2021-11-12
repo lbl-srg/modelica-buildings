@@ -37,14 +37,6 @@ equation
           {1.77636e-15,-40},{1.77636e-15,-50}}, color={0,127,255}));
   connect(valByp.port_b, port_byp)
     annotation (Line(points={{-1.83187e-15,-70},{0,-100}}, color={0,127,255}));
-  connect(busCon.ySpePumPri, pum.y) annotation (Line(
-      points={{0,100},{0,80},{0,80},{0,12}},
-      color={255,204,51},
-      thickness=0.5), Text(
-      string="%first",
-      index=-1,
-      extent={{6,3},{6,3}},
-      horizontalAlignment=TextAlignment.Left));
   connect(pum.y_actual, busCon.uStaPumPri) annotation (Line(points={{11,8},{20,8},
           {20,80},{0,80},{0,100}}, color={255,0,255}), Text(
       string="%second",
@@ -75,6 +67,14 @@ equation
           -80},{80,-70}}, color={0,127,255}));
   connect(splByp.port_3, pas.port_a)
     annotation (Line(points={{80,-10},{80,-50}}, color={0,127,255}));
+  connect(busCon.ySpe, pum.y) annotation (Line(
+      points={{0,100},{0,12}},
+      color={255,204,51},
+      thickness=0.5), Text(
+      string="%first",
+      index=-1,
+      extent={{-3,6},{-3,6}},
+      horizontalAlignment=TextAlignment.Right));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
                     Bitmap(
         extent={{-40,0},{40,80}},
