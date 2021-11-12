@@ -71,9 +71,18 @@ int cfdStartCosimulation(char *cfdFilNam, char **name, double *A, double *til,
 
   if(cosim->para->nSou>0){
     cosim->para->souName = (char**) malloc(nSou*sizeof(char *));
+	if (cosim->para->souName == NULL){
+      ModelicaError("Failed to allocate memory for cosim->para->souName in cfdStartCosimulation.c");
+    }
     cosim->modelica->sourceHeat = (REAL *) malloc(nSou*sizeof(REAL));
+	if (cosim->modelica->sourceHeat == NULL){
+      ModelicaError("Failed to allocate memory for cosim->modelica->sourceHeat in cfdStartCosimulation.c");
+    }
     for(i=0; i<nSou; i++) {
       cosim->para->souName[i] = (char *)malloc(sizeof(char)*(strlen(sourceName[i])+1));
+	  if (cosim->para->souName[i] == NULL){
+        ModelicaError("Failed to allocate memory for cosim->para->souName[%d] in cfdStartCosimulation.c", i);
+	  }
       strcpy(cosim->para->souName[i], sourceName[i]);
     }
   }
