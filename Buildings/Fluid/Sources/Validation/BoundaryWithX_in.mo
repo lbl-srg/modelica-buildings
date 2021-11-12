@@ -57,8 +57,7 @@ This is for
 </li>
 </ul>
 </html>"),
-__Dymola_Commands(file=
-          "Resources/Scripts/Dymola/Fluid/Sources/Validation/BoundaryWithX_in.mos"
+__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Sources/Validation/BoundaryWithX_in.mos"
         "Simulate and plot"),
 experiment(
       StopTime=1,
