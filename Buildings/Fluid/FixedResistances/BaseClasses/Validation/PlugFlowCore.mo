@@ -101,8 +101,7 @@ equation
   connect(pip.port_b, senTemOut.port_a)
     annotation (Line(points={{20,0},{30,0}}, color={0,127,255}));
   annotation (
-    __Dymola_Commands(file=
-          "Resources/Scripts/Dymola/Fluid/FixedResistances/BaseClasses/Validation/PlugFlowCore.mos"
+    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/FixedResistances/BaseClasses/Validation/PlugFlowCore.mos"
         "Simulate and Plot"),
     experiment(StopTime=1000, Tolerance=1e-006),
     Documentation(info="<html>

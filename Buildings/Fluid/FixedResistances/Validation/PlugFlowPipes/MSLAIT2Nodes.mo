@@ -436,8 +436,7 @@ equation
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-160,-160},{
             220,200}})),
     experiment(StopTime=603900, Tolerance=1e-006),
-    __Dymola_Commands(file=
-          "Resources/Scripts/Dymola/Fluid/FixedResistances/Validation/PlugFlowPipes/MSLAIT2Nodes.mos"
+    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/FixedResistances/Validation/PlugFlowPipes/MSLAIT2Nodes.mos"
         "Simulate and plot"),
     Documentation(info="<html>
 <p>The example contains
