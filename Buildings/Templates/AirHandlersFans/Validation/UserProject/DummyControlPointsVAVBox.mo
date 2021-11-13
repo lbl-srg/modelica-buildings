@@ -1,5 +1,5 @@
 within Buildings.Templates.AirHandlersFans.Validation.UserProject;
-block DummyControlPointsTerminalUnit
+block DummyControlPointsVAVBox
   extends Modelica.Blocks.Icons.Block;
 
   ZoneEquipment.Interfaces.Bus bus "Terminal unit control bus"
@@ -110,4 +110,4 @@ equation
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
             {100,100}})),       Diagram(coordinateSystem(preserveAspectRatio=
             false, extent={{-200,-180},{200,180}})));
-end DummyControlPointsTerminalUnit;
+end DummyControlPointsVAVBox;
