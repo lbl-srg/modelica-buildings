@@ -41,7 +41,7 @@ equation
       StopTime=1200,
       Tolerance=1e-06),
     __Dymola_Commands(
-      file="Resources/Scripts/Dymola/Experimental/DHC/CentralPlants/Cooling/Controls/Validation/ChilledWaterPumpSpeed.mos" 
+      file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/DHC/CentralPlants/Cooling/Controls/Validation/ChilledWaterPumpSpeed.mos"
       "Simulate and Plot"),
     Documentation(
       revisions="<html>
@@ -53,7 +53,7 @@ First implementation.
 </ul>
 </html>",
       info="<html>
-<p>This model validates the variable speed pump control logic implemented in 
+<p>This model validates the variable speed pump control logic implemented in
 <a href=\"modelica://Buildings.Experimental.DHC.CentralPlants.Cooling.Controls.ChilledWaterPumpSpeed\">
 Buildings.Experimental.DHC.CentralPlants.Cooling.Controls.ChilledWaterPumpSpeed</a>.
 </p>
