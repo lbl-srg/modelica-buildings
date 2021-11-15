@@ -291,8 +291,7 @@ equation
   annotation (experiment(Tolerance=1e-6, StopTime=15000),
   Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-120,-160},{120,120}})),
-    __Dymola_Commands(file=
-          "Resources/Scripts/Dymola/Fluid/Geothermal/Borefields/BaseClasses/Boreholes/Examples/BoreholeDynamics.mos"
+    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Geothermal/Borefields/BaseClasses/Boreholes/Examples/BoreholeDynamics.mos"
         "Simulate and Plot"),
         Documentation(info="<html>
 <p>
