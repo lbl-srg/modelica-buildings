@@ -1,13 +1,12 @@
 within Buildings.Templates.ZoneEquipment;
 model VAVBox "VAV terminal unit"
   extends Buildings.Templates.ZoneEquipment.Interfaces.PartialAirTerminal(
-                                                                 final typ=
-        Types.Configuration.SingleDuct);
+    final typ=Types.Configuration.SingleDuct);
 
   replaceable package MediumHea=Buildings.Media.Water
     constrainedby Modelica.Media.Interfaces.PartialMedium
     "Heating medium (such as HHW)"
-    annotation(Dialog(enable=have_souCoiHea or have_souCoiReh));
+    annotation(Dialog(enable=have_souCoiReh));
 
   final parameter Boolean have_souCoiReh=coiReh.have_sou
     "Set to true for fluid ports on the source side"
@@ -30,8 +29,9 @@ model VAVBox "VAV terminal unit"
       redeclare final package MediumSou =  MediumHea,
       final fun=Templates.Components.Types.CoilFunction.Reheat)
       "Reheat coil" annotation (
-    choices(choice(redeclare Templates.BaseClasses.Coils.None coiReh "No coil"),
-        choice(redeclare Templates.BaseClasses.Coils.WaterBasedHeating coiReh
+    choices(
+      choice(redeclare Templates.BaseClasses.Coils.None coiReh "No coil"),
+      choice(redeclare Templates.BaseClasses.Coils.WaterBasedHeating coiReh
           "Water-based")),
     Dialog(group="Reheat coil"),
     Placement(transformation(extent={{-10,-210},{10,-190}})));
@@ -45,7 +45,7 @@ model VAVBox "VAV terminal unit"
         rotation=0,
         origin={-120,-200})));
 
-  inner replaceable Components.Controls.OpenLoop conTer constrainedby
+  inner replaceable Components.Controls.OpenLoop con constrainedby
     Buildings.Templates.ZoneEquipment.Components.Controls.Interfaces.PartialController
     "Terminal unit controller" annotation (
     choicesAllMatching=true,
@@ -54,7 +54,7 @@ model VAVBox "VAV terminal unit"
 
   .Buildings.Templates.Components.Sensors.Temperature TDis(
     redeclare final package Medium = MediumAir,
-    final have_sen=conTer.typ == Types.Controller.Guideline36,
+    final have_sen=con.typ == Types.Controller.Guideline36,
     final loc=.Buildings.Templates.Components.Types.Location.Terminal)
     "Discharge air temperature sensor"
     annotation (Placement(transformation(extent={{90,-210},{110,-190}})));
@@ -72,7 +72,7 @@ equation
     annotation (Line(points={{-300,-200},{-130,-200}}, color={0,127,255}));
   connect(damVAV.port_b, coiReh.port_a)
     annotation (Line(points={{-110,-200},{-10,-200}}, color={0,127,255}));
-  connect(bus, conTer.bus) annotation (Line(
+  connect(bus, con.bus) annotation (Line(
       points={{-300,0},{-20,0},{-20,100},{-10,100}},
       color={255,204,51},
       thickness=0.5));

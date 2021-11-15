@@ -518,14 +518,14 @@ block Guideline36 "Guideline 36 VAV single duct controller"
     final nZon=nZon,
     final nGro=nGro)
     "Replicate zone signals"
-    annotation (Placement(transformation(extent={{-32,-188},{-40,-148}})));
+    annotation (Placement(transformation(extent={{-18,-188},{-26,-148}})));
 
   Buildings.Controls.OBC.ASHRAE.G36_PR1.Generic.SetPoints.GroupStatus staGro[nGro](
     final numZon=fill(nZon, nGro),
     final numZonGro=nZonGro,
     final zonGroMsk=isZonInGro)
     "Evaluate zone group status"
-    annotation (Placement(transformation(extent={{-54,-188},{-74,-148}})));
+    annotation (Placement(transformation(extent={{-40,-188},{-60,-148}})));
 
   Buildings.Controls.OBC.ASHRAE.G36_PR1.Generic.SetPoints.OperationMode opeModSel[nGro](
     final numZon=nZonGro,
@@ -533,7 +533,7 @@ block Guideline36 "Guideline 36 VAV single duct controller"
     each final TZonFreProOn=TZonFreProOn,
     each final TZonFreProOff=TZonFreProOff)
     "Operation mode selection for each zone group"
-    annotation (Placement(transformation(extent={{-74,-136},{-54,-104}})));
+    annotation (Placement(transformation(extent={{-60,-136},{-40,-104}})));
 
   Buildings.Controls.OBC.CDL.Routing.RealScalarReplicator TSupSet(
     final nout=nZon)
@@ -662,36 +662,41 @@ equation
       points={{-200,0},{-180,0},{-180,80},{-100,80},{-100,58},{-44,58}},
       color={255,204,51},
       thickness=0.5));
-  connect(staGro.uGroOcc, opeModSel.uOcc) annotation (Line(points={{-76,-149},{-86,
-          -149},{-86,-106},{-76,-106}}, color={255,0,255}));
-  connect(staGro.nexOcc, opeModSel.tNexOcc) annotation (Line(points={{-76,-151},
-          {-102,-151},{-102,-108},{-76,-108}}, color={0,0,127}));
-  connect(staGro.yCooTim, opeModSel.maxCooDowTim) annotation (Line(points={{-76,
-          -155},{-112,-155},{-112,-110},{-76,-110}}, color={0,0,127}));
-  connect(staGro.yWarTim, opeModSel.maxWarUpTim) annotation (Line(points={{-76,-157},
-          {-108,-157},{-108,-114},{-76,-114}}, color={0,0,127}));
-  connect(staGro.yOccHeaHig, opeModSel.uOccHeaHig) annotation (Line(points={{-76,
-          -161},{-102,-161},{-102,-116},{-76,-116}}, color={255,0,255}));
-  connect(staGro.yHigOccCoo, opeModSel.uHigOccCoo) annotation (Line(points={{-76,
-          -163},{-102,-163},{-102,-112},{-76,-112}}, color={255,0,255}));
-  connect(staGro.yColZon, opeModSel.totColZon) annotation (Line(points={{-76,-166},
-          {-102,-166},{-102,-120},{-76,-120}}, color={255,127,0}));
-  connect(staGro.ySetBac, opeModSel.uSetBac) annotation (Line(points={{-76,-168},
-          {-100,-168},{-100,-122},{-76,-122}}, color={255,0,255}));
-  connect(staGro.yEndSetBac, opeModSel.uEndSetBac) annotation (Line(points={{-76,
-          -170},{-98,-170},{-98,-124},{-76,-124}}, color={255,0,255}));
-  connect(staGro.TZonMax, opeModSel.TZonMax) annotation (Line(points={{-76,-181},
-          {-96,-181},{-96,-126},{-76,-126}}, color={0,0,127}));
-  connect(staGro.TZonMin, opeModSel.TZonMin) annotation (Line(points={{-76,-183},
-          {-94,-183},{-94,-128},{-76,-128}}, color={0,0,127}));
-  connect(staGro.yHotZon, opeModSel.totHotZon) annotation (Line(points={{-76,-173},
-          {-90,-173},{-90,-130},{-76,-130}}, color={255,127,0}));
-  connect(staGro.ySetUp, opeModSel.uSetUp) annotation (Line(points={{-76,-175},{
-          -90,-175},{-90,-132},{-76,-132}}, color={255,0,255}));
-  connect(staGro.yEndSetUp, opeModSel.uEndSetUp) annotation (Line(points={{-76,-177},
-          {-88,-177},{-88,-134},{-76,-134}}, color={255,0,255}));
-  connect(staGro.yOpeWin, opeModSel.uOpeWin) annotation (Line(points={{-76,-187},
-          {-104,-187},{-104,-118},{-76,-118}}, color={255,127,0}));
+  connect(staGro.uGroOcc, opeModSel.uOcc) annotation (Line(points={{-62,-149},{
+          -72,-149},{-72,-106},{-62,-106}},
+                                        color={255,0,255}));
+  connect(staGro.nexOcc, opeModSel.tNexOcc) annotation (Line(points={{-62,-151},
+          {-88,-151},{-88,-108},{-62,-108}},   color={0,0,127}));
+  connect(staGro.yCooTim, opeModSel.maxCooDowTim) annotation (Line(points={{-62,
+          -155},{-98,-155},{-98,-110},{-62,-110}},   color={0,0,127}));
+  connect(staGro.yWarTim, opeModSel.maxWarUpTim) annotation (Line(points={{-62,
+          -157},{-94,-157},{-94,-114},{-62,-114}},
+                                               color={0,0,127}));
+  connect(staGro.yOccHeaHig, opeModSel.uOccHeaHig) annotation (Line(points={{-62,
+          -161},{-88,-161},{-88,-116},{-62,-116}},   color={255,0,255}));
+  connect(staGro.yHigOccCoo, opeModSel.uHigOccCoo) annotation (Line(points={{-62,
+          -163},{-88,-163},{-88,-112},{-62,-112}},   color={255,0,255}));
+  connect(staGro.yColZon, opeModSel.totColZon) annotation (Line(points={{-62,
+          -166},{-88,-166},{-88,-120},{-62,-120}},
+                                               color={255,127,0}));
+  connect(staGro.ySetBac, opeModSel.uSetBac) annotation (Line(points={{-62,-168},
+          {-86,-168},{-86,-122},{-62,-122}},   color={255,0,255}));
+  connect(staGro.yEndSetBac, opeModSel.uEndSetBac) annotation (Line(points={{-62,
+          -170},{-84,-170},{-84,-124},{-62,-124}}, color={255,0,255}));
+  connect(staGro.TZonMax, opeModSel.TZonMax) annotation (Line(points={{-62,-181},
+          {-82,-181},{-82,-126},{-62,-126}}, color={0,0,127}));
+  connect(staGro.TZonMin, opeModSel.TZonMin) annotation (Line(points={{-62,-183},
+          {-80,-183},{-80,-128},{-62,-128}}, color={0,0,127}));
+  connect(staGro.yHotZon, opeModSel.totHotZon) annotation (Line(points={{-62,
+          -173},{-76,-173},{-76,-130},{-62,-130}},
+                                             color={255,127,0}));
+  connect(staGro.ySetUp, opeModSel.uSetUp) annotation (Line(points={{-62,-175},
+          {-76,-175},{-76,-132},{-62,-132}},color={255,0,255}));
+  connect(staGro.yEndSetUp, opeModSel.uEndSetUp) annotation (Line(points={{-62,
+          -177},{-74,-177},{-74,-134},{-62,-134}},
+                                             color={255,0,255}));
+  connect(staGro.yOpeWin, opeModSel.uOpeWin) annotation (Line(points={{-62,-187},
+          {-90,-187},{-90,-118},{-62,-118}},   color={255,127,0}));
   connect(con.VDesUncOutAir_flow, VDesUncOutAir_flow.u)
     annotation (Line(points={{44,104},{158,104}}, color={0,0,127}));
   connect(con.yReqOutAir, yReqOutAir.u)
@@ -737,42 +742,41 @@ equation
   connect(con.TSupSet, bus.TSupSet) annotation (Line(points={{44,116},{60,116},{
           60,0},{-200,0}}, color={0,0,127}));
   connect(repSigZon.yzonOcc, staGro.zonOcc)
-    annotation (Line(points={{-42,-149},{-52,-149}}, color={255,0,255}));
+    annotation (Line(points={{-28,-149},{-38,-149}}, color={255,0,255}));
   connect(repSigZon.yOcc, staGro.uOcc)
-    annotation (Line(points={{-42,-151},{-52,-151}}, color={255,0,255}));
+    annotation (Line(points={{-28,-151},{-38,-151}}, color={255,0,255}));
   connect(repSigZon.ytNexOcc, staGro.tNexOcc)
-    annotation (Line(points={{-42,-153},{-52,-153}}, color={0,0,127}));
+    annotation (Line(points={{-28,-153},{-38,-153}}, color={0,0,127}));
   connect(repSigZon.yCooTim, staGro.uCooTim)
-    annotation (Line(points={{-42,-157},{-52,-157}}, color={0,0,127}));
+    annotation (Line(points={{-28,-157},{-38,-157}}, color={0,0,127}));
   connect(repSigZon.yWarTim, staGro.uWarTim)
-    annotation (Line(points={{-42,-159},{-52,-159}}, color={0,0,127}));
+    annotation (Line(points={{-28,-159},{-38,-159}}, color={0,0,127}));
   connect(repSigZon.yOccHeaHig, staGro.uOccHeaHig)
-    annotation (Line(points={{-42,-163},{-52,-163}}, color={255,0,255}));
-  connect(repSigZon.yHigOccCoo, staGro.uHigOccCoo) annotation (Line(points={{-42,
-          -165},{-48,-165},{-48,-165},{-52,-165}}, color={255,0,255}));
+    annotation (Line(points={{-28,-163},{-38,-163}}, color={255,0,255}));
+  connect(repSigZon.yHigOccCoo, staGro.uHigOccCoo) annotation (Line(points={{-28,
+          -165},{-38,-165}},                       color={255,0,255}));
   connect(repSigZon.yUnoHeaHig, staGro.uUnoHeaHig)
-    annotation (Line(points={{-42,-169},{-52,-169}}, color={255,0,255}));
+    annotation (Line(points={{-28,-169},{-38,-169}}, color={255,0,255}));
   connect(repSigZon.yTHeaSetOff, staGro.THeaSetOff)
-    annotation (Line(points={{-42,-171},{-52,-171}}, color={0,0,127}));
+    annotation (Line(points={{-28,-171},{-38,-171}}, color={0,0,127}));
   connect(repSigZon.yEndSetBac, staGro.uEndSetBac)
-    annotation (Line(points={{-42,-173},{-52,-173}}, color={255,0,255}));
+    annotation (Line(points={{-28,-173},{-38,-173}}, color={255,0,255}));
   connect(repSigZon.yHigUnoCoo, staGro.uHigUnoCoo)
-    annotation (Line(points={{-42,-177},{-52,-177}}, color={255,0,255}));
+    annotation (Line(points={{-28,-177},{-38,-177}}, color={255,0,255}));
   connect(repSigZon.yTCooSetOff, staGro.TCooSetOff)
-    annotation (Line(points={{-42,-179},{-52,-179}}, color={0,0,127}));
+    annotation (Line(points={{-28,-179},{-38,-179}}, color={0,0,127}));
   connect(repSigZon.yEndSetUp, staGro.uEndSetUp)
-    annotation (Line(points={{-42,-181},{-52,-181}}, color={255,0,255}));
+    annotation (Line(points={{-28,-181},{-38,-181}}, color={255,0,255}));
   connect(repSigZon.yTZon, staGro.TZon)
-    annotation (Line(points={{-42,-185},{-52,-185}}, color={0,0,127}));
+    annotation (Line(points={{-28,-185},{-38,-185}}, color={0,0,127}));
   connect(repSigZon.yWin, staGro.uWin)
-    annotation (Line(points={{-42,-187},{-52,-187}}, color={255,0,255}));
+    annotation (Line(points={{-28,-187},{-38,-187}}, color={255,0,255}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false), graphics={Text(
-          extent={{-12,-94},{194,-148}},
+          extent={{-20,-88},{186,-142}},
           lineColor={238,46,47},
-          textString="Todo: subset indices for different Boolean values (such as have_occSen)
-
-Map for zone appartenance to group")}),
+          textString=
+              "TODO: subset indices for different Boolean values (such as have_occSen)")}),
     Documentation(info="<html>
 <p>
 WARNING: Do not use. Not configured and connected yet!
