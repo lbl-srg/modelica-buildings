@@ -1,7 +1,7 @@
 within Buildings.Experimental.DHC.Loads.Validation.BaseClasses;
 model Distribution2Pipe
   "Model of a two-pipe distribution network, using fixed resistance pipe model"
-  extends Networks.BaseClasses.PartialDistribution2Pipe(
+  extends Buildings.Experimental.DHC.Networks.BaseClasses.PartialDistribution2Pipe(
     redeclare Connection2Pipe con[nCon](
       final dpDis_nominal=dpDis_nominal),
     redeclare model Model_pipDis=Fluid.FixedResistances.LosslessPipe);

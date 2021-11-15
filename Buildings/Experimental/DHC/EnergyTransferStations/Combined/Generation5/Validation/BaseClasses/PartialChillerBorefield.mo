@@ -65,7 +65,7 @@ partial model PartialChillerBorefield
     m_flow_nominal=datChi.mEva_flow_nominal)
     "Chilled water supply temperature"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},rotation=0,origin={90,40})));
-  replaceable Combined.Generation5.ChillerBorefield ets(
+  replaceable Buildings.Experimental.DHC.EnergyTransferStations.Combined.Generation5.ChillerBorefield ets(
     redeclare package MediumSer=Medium,
     redeclare package MediumBui=Medium,
     QChiWat_flow_nominal=QCoo_flow_nominal,

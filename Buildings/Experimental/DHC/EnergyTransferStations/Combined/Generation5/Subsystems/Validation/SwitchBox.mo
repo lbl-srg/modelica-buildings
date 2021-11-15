@@ -24,12 +24,12 @@ model SwitchBox "Validation of flow switch box"
         extent={{-10,10},{10,-10}},
         rotation=90,
         origin={70,0})));
-  DHC.EnergyTransferStations.BaseClasses.Pump_m_flow pum1(
+  Buildings.Experimental.DHC.EnergyTransferStations.BaseClasses.Pump_m_flow pum1(
     redeclare package Medium = Medium,
     final m_flow_nominal=m_flow_nominal)
     "Chilled water HX secondary pump"
     annotation (Placement(transformation(extent={{10,-10},{-10,10}})));
-  DHC.EnergyTransferStations.BaseClasses.Pump_m_flow pum2(
+  Buildings.Experimental.DHC.EnergyTransferStations.BaseClasses.Pump_m_flow pum2(
     redeclare package Medium = Medium,
     final m_flow_nominal=m_flow_nominal)
     "Chilled water HX secondary pump"

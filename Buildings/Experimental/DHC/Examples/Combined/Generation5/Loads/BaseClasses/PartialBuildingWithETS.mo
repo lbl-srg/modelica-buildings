@@ -1,11 +1,11 @@
 within Buildings.Experimental.DHC.Examples.Combined.Generation5.Loads.BaseClasses;
 model PartialBuildingWithETS
   "Partial model with ETS model and partial building model"
-  extends DHC.Loads.BaseClasses.PartialBuildingWithPartialETS(
+  extends Buildings.Experimental.DHC.Loads.BaseClasses.PartialBuildingWithPartialETS(
     nPorts_heaWat=1,
     nPorts_chiWat=1,
     redeclare
-      DHC.EnergyTransferStations.Combined.Generation5.HeatPumpHeatExchanger ets(
+      Buildings.Experimental.DHC.EnergyTransferStations.Combined.Generation5.HeatPumpHeatExchanger ets(
       final dT_nominal=dT_nominal,
       final TDisWatMin=datDes.TLooMin,
       final TDisWatMax=datDes.TLooMax,

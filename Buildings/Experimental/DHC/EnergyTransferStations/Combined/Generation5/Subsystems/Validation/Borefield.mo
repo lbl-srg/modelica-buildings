@@ -12,7 +12,7 @@ model Borefield
     nBorHol,
     dxy)
     "Coordinates of boreholes";
-  Generation5.Subsystems.Borefield borFie(
+  Buildings.Experimental.DHC.EnergyTransferStations.Combined.Generation5.Subsystems.Borefield borFie(
     redeclare final package Medium=Medium,
     final datBorFie=datBorFie,
     dp_nominal=5E4,

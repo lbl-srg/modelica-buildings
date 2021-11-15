@@ -1,15 +1,17 @@
 within Buildings.Experimental.DHC.Examples.Combined.Generation5.Networks;
 model UnidirectionalSeries
   "Hydronic network for unidirectional series DHC system"
-  extends DHC.Networks.BaseClasses.PartialDistribution1Pipe(
+  extends Buildings.Experimental.DHC.Networks.BaseClasses.PartialDistribution1Pipe(
     tau=5*60,
-    redeclare BaseClasses.ConnectionSeriesAutosize con[nCon](
+    redeclare Buildings.Experimental.DHC.Examples.Combined.Generation5.Networks.BaseClasses.ConnectionSeriesAutosize con[nCon](
       each final dp_length_nominal=dp_length_nominal,
       final lDis=lDis,
       final lCon=lCon,
       final dhDis=dhDis,
       final dhCon=dhCon),
-    redeclare model Model_pipDis = BaseClasses.PipeAutosize (
+    redeclare model Model_pipDis =
+        Buildings.Experimental.DHC.Examples.Combined.Generation5.Networks.BaseClasses.PipeAutosize
+        (
       roughness=7e-6,
       fac=1.5,
       final dp_length_nominal=dp_length_nominal,

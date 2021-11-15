@@ -1,8 +1,8 @@
 within Buildings.Experimental.DHC.Examples.Combined.Generation5.Loads;
 model BuildingTimeSeriesWithETS
   "Model of a building with loads provided as time series, connected to an ETS"
-  extends BaseClasses.PartialBuildingWithETS(
-    redeclare DHC.Loads.Examples.BaseClasses.BuildingTimeSeries bui(
+  extends Buildings.Experimental.DHC.Examples.Combined.Generation5.Loads.BaseClasses.PartialBuildingWithETS(
+    redeclare Buildings.Experimental.DHC.Loads.Examples.BaseClasses.BuildingTimeSeries bui(
       final filNam=filNam,
       have_hotWat=true,
       T_aHeaWat_nominal=ets.THeaWatSup_nominal,
@@ -28,7 +28,7 @@ model BuildingTimeSeriesWithETS
     annotation (Dialog(group="Design parameter"));
   final parameter Modelica.SIunits.HeatFlowRate QHot_flow_nominal(
     min=Modelica.Constants.eps)=bui.facMul *
-    DHC.Loads.BaseClasses.getPeakLoad(
+    Buildings.Experimental.DHC.Loads.BaseClasses.getPeakLoad(
       string="#Peak water heating load",
       filNam=Modelica.Utilities.Files.loadResource(filNam))
     "Hot water design load (>=0)"

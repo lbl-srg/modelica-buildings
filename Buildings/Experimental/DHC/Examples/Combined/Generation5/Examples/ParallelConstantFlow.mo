@@ -1,7 +1,7 @@
 within Buildings.Experimental.DHC.Examples.Combined.Generation5.Examples;
 model ParallelConstantFlow
   "Example of parallel connection with constant district water mass flow rate"
-  extends BaseClasses.PartialParallel(
+  extends Buildings.Experimental.DHC.Examples.Combined.Generation5.Examples.BaseClasses.PartialParallel(
     redeclare
       Buildings.Experimental.DHC.Examples.Combined.Generation5.Loads.BuildingTimeSeriesWithETS
       bui[nBui](final filNam=filNam),

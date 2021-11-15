@@ -46,7 +46,7 @@ model BenchmarkFlowDistribution2
     filNam=Modelica.Utilities.Files.loadResource(filNam))/facMul
     "Design heating heat flow rate (>=0)"
     annotation (Dialog(group="Design parameter"));
-  BaseClasses.FanCoil2PipeHeatingValve ter[nLoa](
+  Buildings.Experimental.DHC.Loads.Validation.BaseClasses.FanCoil2PipeHeatingValve ter[nLoa](
     each final facMul=facMul,
     redeclare each final package Medium1=Medium1,
     redeclare each final package Medium2=Medium2,
@@ -89,7 +89,7 @@ model BenchmarkFlowDistribution2
     nPorts=2)
     "Heating water supply"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},rotation=0,origin={-50,-80})));
-  BaseClasses.Distribution2Pipe dis(
+  Buildings.Experimental.DHC.Loads.Validation.BaseClasses.Distribution2Pipe dis(
     redeclare final package Medium=Medium1,
     nCon=nLoa,
     allowFlowReversal=false,

@@ -4,7 +4,7 @@ model CouplingSpawnZ6
   extends Modelica.Icons.Example;
   package Medium1=Buildings.Media.Water
     "Source side medium";
-  BaseClasses.BuildingSpawnZ6 bui(
+  Buildings.Experimental.DHC.Loads.Examples.BaseClasses.BuildingSpawnZ6 bui(
     nPorts_aHeaWat=1,
     nPorts_aChiWat=1,
     nPorts_bHeaWat=1,

@@ -278,7 +278,7 @@ model FlowDistribution
     final nout=nUni)
     "Repeat input to output an array"
     annotation (Placement(transformation(extent={{20,150},{40,170}})));
-  Controls.MixingValveControl conVal(
+  Buildings.Experimental.DHC.Loads.Controls.MixingValveControl conVal(
     final typDis=typDis) if have_val
     "Mixing valve controller"
     annotation (Placement(transformation(extent={{-48,-106},{-28,-86}})));
