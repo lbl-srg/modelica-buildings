@@ -2,6 +2,12 @@
 # Makefile for the regression tests that are run on travis
 ############################################################
 # $(TRAVIS_BUILD_DIR) is /home/travis/build/lbl-srg/modelica-buildings
+# Set it to top-level directory of the Buildings library if not set. (This is used for local testing.)
+TRAVIS_BUILD_DIR ?= $(shell dirname \
+  $(shell dirname \
+  $(shell dirname \
+  $(shell dirname \
+  $(shell dirname $(realpath $(firstword $(MAKEFILE_LIST))))))))
 ROOT = $(TRAVIS_BUILD_DIR)
 
 # Test whether all EnergyPlus validation files are up to date.
@@ -36,7 +42,7 @@ test-bestest:
 test-optimica-spawn-fmu:
 	@echo "*** Check if Spawn is portable to another location in the file system."
 	@(cd  $(ROOT) && \
-	  python3 Buildings/Resources/Scripts/travis/pyfmi/runSpawnFromOtherDirectory.py > /dev/null )
+	  python3 Buildings/Resources/Scripts/travis/pyfmi/runSpawnFromOtherDirectory.py )
 	@echo "    Success."
 
 test-omc-spawn-spaces: test-omc-spawn-spaces-success test-omc-spawn-spaces-failure
