@@ -17,6 +17,23 @@ block Guideline36
     "Set to true if the zone has CO2 sensor"
     annotation (Dialog(tab="Airflow setpoint", group="Zone sensors"));
 
+  /* FIXME: Evaluate function call at compile time, FE ExternData.
+  parameter Boolean have_occSen=
+     dat.getBoolean(varName=id + ".Control.Occupancy sensor.value")
+    "Set to true if zones have occupancy sensor"
+    annotation (Dialog(tab="Airflow setpoint", group="Zone sensors"));
+
+  parameter Boolean have_winSen=
+     dat.getBoolean(varName=id + ".Control.Window sensor.value")
+    "Set to true if zones have window status sensor"
+    annotation (Dialog(tab="Airflow setpoint", group="Zone sensors"));
+
+  parameter Boolean have_CO2Sen=
+    dat.getBoolean(varName=id + ".Control.CO2 sensor.value")
+    "Set to true if the zone has CO2 sensor"
+    annotation (Dialog(tab="Airflow setpoint", group="Zone sensors"));
+    */
+
   parameter Modelica.SIunits.VolumeFlowRate V_flow_nominal=
     dat.getReal(varName=id + ".Mechanical.Discharge air mass flow rate.value") / 1.2
     "Volume flow rate"
@@ -126,23 +143,6 @@ block Guideline36
     annotation (Dialog(group="Damper",
       enable=controllerTypeDam == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
           or controllerTypeDam == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
-
-  /* FIXME: Evaluate function call at compile time, FE ExternData.
-  parameter Boolean have_occSen=
-     dat.getBoolean(varName=id + ".Control.Occupancy sensor.value")
-    "Set to true if zones have occupancy sensor"
-    annotation (Dialog(tab="Airflow setpoint", group="Zone sensors"));
-
-  parameter Boolean have_winSen=
-     dat.getBoolean(varName=id + ".Control.Window sensor.value")
-    "Set to true if zones have window status sensor"
-    annotation (Dialog(tab="Airflow setpoint", group="Zone sensors"));
-
-  parameter Boolean have_CO2Sen=
-    dat.getBoolean(varName=id + ".Control.CO2 sensor.value")
-    "Set to true if the zone has CO2 sensor"
-    annotation (Dialog(tab="Airflow setpoint", group="Zone sensors"));
-    */
 
   parameter Real VDisCooSetMax_flow(
     final unit="m3/s",

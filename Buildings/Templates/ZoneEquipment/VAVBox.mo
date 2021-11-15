@@ -52,7 +52,7 @@ model VAVBox "VAV terminal unit"
     Dialog(group="Controller"),
     Placement(transformation(extent={{-10,90},{10,110}})));
 
-  .Buildings.Templates.Components.Sensors.Temperature TDis(
+  Buildings.Templates.Components.Sensors.Temperature TDis(
     redeclare final package Medium = MediumAir,
     final have_sen=con.typ == Types.Controller.Guideline36,
     final loc=.Buildings.Templates.Components.Types.Location.Terminal)

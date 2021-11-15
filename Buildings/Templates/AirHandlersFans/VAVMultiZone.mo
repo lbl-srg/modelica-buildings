@@ -392,7 +392,11 @@ equation
           extent={{-86,230},{124,210}},
           lineColor={0,127,255},
           pattern=LinePattern.Dash,
-          textString="No further connection allowed to those two boundary conditions")}),
+          textString="No further connection allowed to those two boundary conditions"),
+                                                               Text(
+          extent={{-298,214},{-92,160}},
+          lineColor={238,46,47},
+          textString="TODO: implement economizer enthalpy control")}),
     Documentation(info="<html>
   connect(fanSupDra.bus, bus.fanSup);
   connect(fanSupBlo.bus, bus.fanSup);

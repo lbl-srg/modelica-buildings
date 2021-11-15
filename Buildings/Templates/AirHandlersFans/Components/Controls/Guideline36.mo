@@ -9,7 +9,7 @@ block Guideline36 "Guideline 36 VAV single duct controller"
     "Name of group which each zone belongs to"
     annotation(Evaluate=true);
 
-  final parameter Boolean have_perZonRehBox = true
+  parameter Boolean have_perZonRehBox = true
     "Check if there is any VAV-reheat boxes on perimeter zones"
     annotation (Dialog(group="System and building parameters"));
 
@@ -20,6 +20,12 @@ block Guideline36 "Guideline 36 VAV single duct controller"
     for i in 1:nZon}
     "Name of group which each zone belongs to"
     annotation(Evaluate=true);
+    
+  parameter Boolean have_perZonRehBox = Modelica.Math.BooleanVectors.anyTrue({
+      dat.getBoolean(varName=idTerArr[i] + ".Control.Perimeter zone with reheat.value")
+      for i in 1:nZon})
+    "Check if there is any VAV-reheat boxes on perimeter zones"
+    annotation (Dialog(group="System and building parameters"));    
     
   */
 
@@ -44,13 +50,6 @@ block Guideline36 "Guideline 36 VAV single duct controller"
     final quantity="Time")=120
     "Sample period of component, set to the same value as the trim and respond sequence";
 
-  /* FIXME: Evaluate function call at compile time, FE ExternData
-  final parameter Boolean have_perZonRehBox = Modelica.Math.BooleanVectors.anyTrue({
-      dat.getBoolean(varName=idTerArr[i] + ".Control.Perimeter zone with reheat.value")
-      for i in 1:nZon})
-    "Check if there is any VAV-reheat boxes on perimeter zones"
-    annotation (Dialog(group="System and building parameters"));
-    */
   final parameter Boolean have_duaDucBox = Modelica.Math.BooleanVectors.anyTrue({
       Modelica.Utilities.Strings.find(
         dat.getString(varName=idTerArr[i] + ".Identification.Type.value"),
@@ -141,6 +140,7 @@ block Guideline36 "Guideline 36 VAV single duct controller"
       enable=controllerTypeMinOut == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
           or controllerTypeMinOut == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
 
+  // FIXME: set TMix.have_sen at top level based on that parameter.
   parameter Boolean use_TMix=true
     "Set to true if mixed air temperature measurement is enabled"
      annotation(Dialog(group="Economizer freeze protection"));
