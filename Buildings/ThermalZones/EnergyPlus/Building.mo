@@ -67,7 +67,7 @@ protected
 
   record Linux64Binaries
     final parameter String spawnLinuxExecutable=Modelica.Utilities.Files.loadResource(
-      "modelica://Buildings/Resources/bin/spawn-linux64/bin/spawn")
+      "modelica://Buildings/Resources/bin/spawn-linux64/bin/" + spawnExe)
       "Binary for Linux 64, specified so it is packed into the FMU";
     final parameter String spawnLinuxLibrary=Modelica.Utilities.Files.loadResource(
       "modelica://Buildings/Resources/bin/spawn-linux64/lib/epfmi.so")
