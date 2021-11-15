@@ -13,8 +13,18 @@ def _create_worDir():
     import os
     import tempfile
     import getpass
-    worDir = os.path.join(tempfile.mkdtemp(
-        prefix='tmp-modelica-buidings-spawn-test' + getpass.getuser()))
+    import shutil
+
+    worDir = os.path.abspath(os.path.join(os.path.curdir, "tmp-runSpawnFromOtherDirectory"))
+    if os.path.exists(worDir):
+        shutil.rmtree(worDir)
+
+    if "MODELICAPATH" in os.environ.keys():
+        os.environ["MODELICAPATH"] = os.environ["MODELICAPATH"] + ":" + worDir
+    else:
+        os.environ["MODELICAPATH"] = worDir
+
+    os.mkdir(worDir)
     print(f"Created temporary directory {worDir}")
     return worDir
 
@@ -43,32 +53,38 @@ def simulate():
     except subprocess.TimeoutExpired:
         process.kill()
         stdout, stderr = process.communicate()
-        print(f"stdout: {stdout}")
-        print(f"stderr: {stderr}")
+        print_output("stdout", stdout)
+        print_output("stderr", stderr)
         raise
     if process.returncode is not 0:
         print_output("stdout", stdout)
         print_output("stderr", stderr)
         raise RuntimeError("Failed to simulate fmu.")
 
-from buildingspy.simulate.Optimica import Simulator
-model = "Buildings.ThermalZones.EnergyPlus.Examples.SingleFamilyHouse.Unconditioned"
-#model = "Buildings.Controls.Continuous.Examples.LimPID"
-fmu = model.replace('.', '_') + ".fmu"
-s=Simulator(model)
-s.translate()
+if __name__ == "__main__":
 
-printZipContent(fmu)
+    from buildingspy.simulate.Optimica import Simulator
+    import sys
+    print("This script is disabled for the CI testing. It still allows spawn to invoke Buildings/Resources/bin/spawn-0.2.0-xxxxx")
+    print("Thefore, the script run with a local OCT installation, but not if OCT is in a docker.")
+    sys.exit(1)
+    model = "Buildings.ThermalZones.EnergyPlus.Examples.SingleFamilyHouse.Unconditioned"
+    #model = "Buildings.Controls.Continuous.Examples.LimPID"
+    fmu = model.replace('.', '_') + ".fmu"
+    s=Simulator(model)
+    s.translate()
 
-worDir = _create_worDir()
-shutil.move(fmu, worDir)
-os.chdir(worDir)
+    printZipContent(fmu)
 
-with open("simulate.py", 'w') as f:
-    f.write(f"""from pyfmi import load_fmu
-mod = load_fmu("{fmu}")
-mod.simulate()
-""")
+    worDir = _create_worDir()
+    shutil.move(fmu, worDir)
+    os.chdir(worDir)
 
-simulate()
+    with open("simulate.py", 'w') as f:
+        f.write(f"""from pyfmi import load_fmu
+    mod = load_fmu("{fmu}")
+    mod.simulate()
+    """)
+
+    simulate()
 
