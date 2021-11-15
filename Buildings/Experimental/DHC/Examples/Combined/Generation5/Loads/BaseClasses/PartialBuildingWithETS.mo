@@ -14,7 +14,7 @@ model PartialBuildingWithETS
       final dp_nominal=dp_nominal,
       final COPHeaWat_nominal=COPHeaWat_nominal,
       final COPHotWat_nominal=COPHotWat_nominal));
-  outer parameter Data.DesignDataSeries datDes "DHC system design data"
+  outer parameter Buildings.Experimental.DHC.Examples.Combined.Generation5.Data.DesignDataSeries datDes "DHC system design data"
     annotation (Placement(transformation(extent={{-250,262},{-230,282}})));
   parameter Modelica.SIunits.TemperatureDifference dT_nominal(min=0)=4
     "Water temperature drop/increase accross load and source-side HX (always positive)"
@@ -72,20 +72,20 @@ model PartialBuildingWithETS
         rotation=0,
         origin={-120,90})));
   // COMPONENTS
-  Controls.OBC.CDL.Continuous.Line resTHeaWatSup
+  Buildings.Controls.OBC.CDL.Continuous.Line resTHeaWatSup
     "HW supply temperature reset"
     annotation (Placement(transformation(extent={{-110,-50},{-90,-30}})));
-  Controls.OBC.CDL.Continuous.Sources.Constant zer(k=0)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zer(k=0)
     "Zero"
     annotation (Placement(transformation(extent={{-180,-30},{-160,-10}})));
-  Controls.OBC.CDL.Continuous.Sources.Constant one(k=1)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant one(k=1)
     "One"
     annotation (Placement(transformation(extent={{-180,-70},{-160,-50}})));
-  Controls.OBC.CDL.Continuous.Gain mulPPumETS(
+  Buildings.Controls.OBC.CDL.Continuous.Gain mulPPumETS(
     u(final unit="W"), final k=facMul) if have_pum
     "Scaling"
     annotation (Placement(transformation(extent={{270,-10},{290,10}})));
-  Controls.OBC.CDL.Interfaces.RealOutput PPumETS(
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput PPumETS(
     final unit="W") if have_pum
     "ETS pump power"
     annotation (Placement(
