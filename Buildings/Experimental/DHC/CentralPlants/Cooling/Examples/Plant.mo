@@ -165,7 +165,7 @@ Buildings.Experimental.DHC.CentralPlants.Cooling.Plant</a>.
 <ul>
 <li>
 October 20, 2021, by Chengnan Shi:<br/>
-Revise the model for extensibility.
+Revised the model for extensibility. This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2749\">issue #2749</a>.
 </li>
 <li>
 August 6, 2020 by Jing Wang:<br/>
