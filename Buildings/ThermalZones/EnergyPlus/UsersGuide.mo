@@ -27,10 +27,10 @@ EnergyPlus input file name and weather file name.
 </li>
 <li>
 For the weather file, both <code>.mos</code> and <code>.epw</code> files
-must be provided in the same directory. The files must have the same name, except
-for the different extension.
+must be specified.
 The <code>.epw</code> file will be used by the EnergyPlus envelope model, and the <code>.mos</code>
-file will be used by the Modelica model, and must be specified by the parameter <code>weaName</code>
+file will be used by the Modelica model, and must be specified by the parameters <code>epwName</code>
+and <code>weaName</code>
 in the instance <code>building</code>.
 </li>
 </ol>
