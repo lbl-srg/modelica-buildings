@@ -1,4 +1,4 @@
-﻿within Buildings.Fluid.Boilers.Data.Lochinvar;
+within Buildings.Fluid.Boilers.Data.Lochinvar;
 package KnightXL "Package with performance data for Lochinvar Knight™ XL boilers"
   extends Modelica.Icons.Package;
 
