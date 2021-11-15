@@ -1,7 +1,7 @@
 within Buildings.ThermalZones.EnergyPlus.Validation.SurfaceComparison;
 model ZoneSurfaces
   "Example model with two EnergyPlus unconditioned zones with their separating surfaces modeled in Modelica"
-  extends EnergyPlusSurfaces;
+  extends BaseClasses.ReferenceSurfaces;
 
   parameter Integer nSta = 3 "Number of states";
 
@@ -82,8 +82,8 @@ transfer through the garage exterior (east and west facing) and interior walls.
 </p>
 <p>
 The temperature results of this model are to be compared to the results of
-<a href=\"modelica://Buildings.ThermalZones.EnergyPlus.Validation.SurfaceComparison.EnergyPlusSurfaces\">
-Buildings.ThermalZones.EnergyPlus.Validation.SurfaceComparison.EnergyPlusSurfaces</a>
+<a href=\"modelica://Buildings.ThermalZones.EnergyPlus.Validation.SurfaceComparison.BaseClasses.ReferenceSurfaces\">
+Buildings.ThermalZones.EnergyPlus.Validation.SurfaceComparison.BaseClasses.ReferenceSurfaces</a>
 which runs the same model without the Spawn objects.
 </p>
 </html>",

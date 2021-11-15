@@ -1,5 +1,5 @@
-within Buildings.ThermalZones.EnergyPlus.Validation.SurfaceComparison;
-model EnergyPlusSurfaces
+within Buildings.ThermalZones.EnergyPlus.Validation.SurfaceComparison.BaseClasses;
+model ReferenceSurfaces
   "Model that contains Eplus OutputVariable used to validate ZoneSurface"
   extends Modelica.Icons.Example;
 
@@ -60,12 +60,9 @@ First implementation.
 </li>
 </ul>
 </html>"),
-    __Dymola_Commands(
-      file="modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/EnergyPlus/Validation/SurfaceComparison/EnergyPlusSurfaces.mos"
-        "Simulate and Plot"),
     experiment(
       StopTime=2592000,
       Tolerance=1e-06),
     Diagram(coordinateSystem(extent={{-100,-100},{100,100}})),
     Icon(coordinateSystem(extent={{-100,-100},{100,100}})));
-end EnergyPlusSurfaces;
+end ReferenceSurfaces;
