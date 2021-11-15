@@ -107,5 +107,5 @@ First implementation.
           lineColor={28,108,200},
           textString="")}),
     __Dymola_Commands(
-      file="Resources/Scripts/Dymola/Experimental/DHC/Loads/Examples/CouplingSpawnZ6.mos" "Simulate and plot"));
+      file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/DHC/Loads/Examples/CouplingSpawnZ6.mos" "Simulate and plot"));
 end CouplingSpawnZ6;

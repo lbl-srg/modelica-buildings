@@ -43,14 +43,14 @@ equation
     experiment(
       Tolerance=1e-06, StopTime=1200),
     __Dymola_Commands(
-      file="Resources/Scripts/Dymola/Experimental/DHC/CentralPlants/Cooling/Controls/Validation/ChilledWaterBypass.mos" 
+      file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/DHC/CentralPlants/Cooling/Controls/Validation/ChilledWaterBypass.mos"
       "Simulate and Plot"),
     Documentation(
       revisions="<html>
 <ul>
 <li>
 May 3, 2021 by Jing Wang:<br/>
-First implementation. 
+First implementation.
 </li>
 </ul>
 </html>",

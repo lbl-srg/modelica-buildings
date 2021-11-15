@@ -122,8 +122,7 @@ equation
           -16},{-62,-16}},
                       color={0,0,127}));
   annotation (
-    __Dymola_Commands(file=
-          "Resources/Scripts/Dymola/Fluid/FixedResistances/Examples/PlugFlowPipe.mos"
+    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/FixedResistances/Examples/PlugFlowPipe.mos"
         "Simulate and Plot"),
     experiment(StopTime=1000, Tolerance=1e-006),
     Documentation(info="<html>
