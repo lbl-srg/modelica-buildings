@@ -1,9 +1,7 @@
 within Buildings.Examples.ChillerPlants;
 package DataCenter "Chiller plant with water side economizer for data center"
 
-
-extends Modelica.Icons.ExamplesPackage;
-
+  extends Modelica.Icons.ExamplesPackage;
 
 annotation (Documentation(info="<html>
 <h4>System Configuration</h4>
