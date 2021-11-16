@@ -17,6 +17,12 @@ partial model PartialReliefReturnSection "Relief/return air section"
   parameter Buildings.Templates.Components.Types.Fan typFanRet
     "Return fan type"
     annotation (Evaluate=true, Dialog(group="Configuration"));
+  parameter Buildings.Templates.AirHandlersFans.Types.ControlReturnFan typCtrFanRet
+    "Return fan control type"
+    annotation (Evaluate=true,
+      Dialog(
+        group="Configuration",
+        enable=typFanRet <> Buildings.Templates.Components.Types.Fan.None));
   parameter Boolean have_recHea
     "Set to true in case of heat recovery"
     annotation (Evaluate=true,
@@ -27,6 +33,16 @@ partial model PartialReliefReturnSection "Relief/return air section"
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal
     "Air mass flow rate"
     annotation (Dialog(group="Nominal condition"));
+  parameter Modelica.SIunits.PressureDifference dpFan_nominal=
+    if typFanRel <> Buildings.Templates.Components.Types.Fan.None or
+      typFanRet <> Buildings.Templates.Components.Types.Fan.None then
+      dat.getReal(varName=id + ".Mechanical.Relief/return fan.Total pressure rise.value")
+    else 0
+    "Relief/return fan total pressure rise"
+    annotation (
+      Dialog(group="Nominal condition",
+        enable=typFanRel <> Buildings.Templates.Components.Types.Fan.None or
+          typFanRet <> Buildings.Templates.Components.Types.Fan.None));
 
   outer parameter String id
     "System identifier";

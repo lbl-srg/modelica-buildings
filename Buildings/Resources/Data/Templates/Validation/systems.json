@@ -468,7 +468,7 @@
                     "unit": "1"
                 }
             },
-            "Return fan": {
+            "Relief/return fan": {
                 "Total pressure rise": {
                     "value": 600,
                     "unit": "Pa"

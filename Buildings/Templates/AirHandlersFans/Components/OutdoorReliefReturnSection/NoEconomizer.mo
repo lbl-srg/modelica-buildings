@@ -22,6 +22,8 @@ model NoEconomizer "No air economizer"
   Buildings.Templates.AirHandlersFans.Components.ReliefReturnSection.NoEconomizer secRel(
     redeclare final package MediumAir = MediumAir,
     final m_flow_nominal=mRet_flow_nominal,
+    final dpFan_nominal=dpFan_nominal,
+    final typCtrFanRet=typCtrFanRet,
     final have_recHea=recHea.typ<>Buildings.Templates.AirHandlersFans.Types.HeatRecovery.None)
     "Relief/return air section"
     annotation (

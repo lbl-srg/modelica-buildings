@@ -20,7 +20,8 @@ model SingleVariable "Single fan - Variable speed"
         origin={-20,70})));
 
   Buildings.Controls.OBC.CDL.Continuous.Product sigCon
-    "Resulting control signal" annotation (Placement(transformation(
+    "Resulting control signal"
+    annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={0,30})));
@@ -36,8 +37,6 @@ model SingleVariable "Single fan - Variable speed"
 equation
   connect(port_a, fan.port_a)
     annotation (Line(points={{-100,0},{-10,0}}, color={0,127,255}));
-  connect(fan.port_b, port_b)
-    annotation (Line(points={{10,0},{100,0}}, color={0,127,255}));
   connect(fan.y_actual, evaSta.u) annotation (Line(points={{11,7},{20,7},{20,
           -20},{2.22045e-15,-20},{2.22045e-15,-38}}, color={0,0,127}));
   connect(bus.y, sigSta.u) annotation (Line(
@@ -66,6 +65,8 @@ equation
       horizontalAlignment=TextAlignment.Right));
   connect(sigSta.y, sigCon.u2) annotation (Line(points={{-20,58},{-20,50},{-6,50},
           {-6,42}}, color={0,0,127}));
+  connect(fan.port_b, V_flow.port_a)
+    annotation (Line(points={{10,0},{70,0}}, color={0,127,255}));
   annotation (Placement(transformation(extent={{-10,-10},{10,10}})),
     Icon(
       coordinateSystem(preserveAspectRatio=false), graphics={

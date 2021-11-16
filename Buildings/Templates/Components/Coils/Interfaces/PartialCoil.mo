@@ -8,7 +8,7 @@ partial model PartialCoil
     "Source-side medium";
   /* The following definition is needed only for Dymola that does not allow
   port_aSou and port_bSou to be instantiated without redeclaring their medium
-  to a non-partial class (which is done only in the derived class here).
+  to a non-partial class (which is done only in the derived class).
   */
   replaceable package MediumSou=Buildings.Media.Water
     constrainedby Modelica.Media.Interfaces.PartialMedium

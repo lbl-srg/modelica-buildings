@@ -17,12 +17,14 @@ model ReliefFan "Relief fan - Two-position relief damper"
   replaceable Buildings.Templates.Components.Fans.SingleVariable fanRel
     constrainedby Buildings.Templates.Components.Fans.Interfaces.PartialFan(
     redeclare final package Medium = MediumAir,
-    final typCtr=Types.ReturnFanControlSensor.None,
-    final loc=Buildings.Templates.Components.Types.Location.Relief)
-    "Relief fan"        annotation (choices(choice(redeclare
-         Buildings.Templates.Components.Fans.SingleVariable fanRet
+    final m_flow_nominal=m_flow_nominal,
+    final dp_nominal=dpFan_nominal,
+    final have_senFlo=false)
+    "Relief fan"
+    annotation (choices(choice(redeclare
+          Buildings.Templates.Components.Fans.SingleVariable fanRet
           "Single fan - Variable speed"), choice(redeclare
-         Buildings.Templates.Components.MultipleVariable fanRet
+          Buildings.Templates.Components.MultipleVariable fanRet
           "Multiple fans (identical) - Variable speed")), Placement(
         transformation(extent={{-100,-10},{-120,10}})));
 equation

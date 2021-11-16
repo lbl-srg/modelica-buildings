@@ -59,14 +59,12 @@ block Guideline36 "Guideline 36 VAV single duct controller"
     "Check if the AHU serves dual duct boxes"
     annotation (Dialog(group="System and building parameters"));
 
-  outer parameter Boolean have_airFloMeaSta
+  final parameter Boolean have_airFloMeaSta=
+    typCtrFanSup==Buildings.Templates.AirHandlersFans.Types.ControlSupplyFan.Airflow
     "Check if the AHU has supply airflow measuring station"
     annotation (Dialog(group="System and building parameters"));
 
   // ----------- Parameters for economizer control -----------
-  parameter Boolean use_enthalpy=false
-    "Set to true if enthalpy measurement is used in addition to temperature measurement"
-    annotation (Dialog(tab="Economizer"));
 
   parameter Real delta(
     final unit="s",
@@ -139,11 +137,6 @@ block Guideline36 "Guideline 36 VAV single duct controller"
     annotation (Dialog(group="Economizer PID controller",
       enable=controllerTypeMinOut == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
           or controllerTypeMinOut == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
-
-  // FIXME: set TMix.have_sen at top level based on that parameter.
-  parameter Boolean use_TMix=true
-    "Set to true if mixed air temperature measurement is enabled"
-     annotation(Dialog(group="Economizer freeze protection"));
 
   parameter Boolean use_G36FrePro=false
     "Set to true to use G36 freeze protection"

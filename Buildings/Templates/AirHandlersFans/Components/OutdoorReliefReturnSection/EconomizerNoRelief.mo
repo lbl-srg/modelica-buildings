@@ -37,6 +37,8 @@ model EconomizerNoRelief "Air economizer - No relief branch"
     secRel(
       redeclare final package MediumAir = MediumAir,
       final m_flow_nominal=mRet_flow_nominal,
+      final dpFan_nominal=dpFan_nominal,
+      final typCtrFanRet=typCtrFanRet,
       final have_recHea=false)
     "Relief/return air section"
     annotation (Dialog(group="Exhaust/relief/return section"),

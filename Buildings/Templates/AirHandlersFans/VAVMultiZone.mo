@@ -14,6 +14,25 @@ model VAVMultiZone "Multiple-Zone VAV"
     "Heating medium (such as HHW)"
     annotation(Dialog(enable=have_souCoiHea or have_souCoiReh));
 
+  parameter Modelica.SIunits.PressureDifference dpFanSup_nominal=
+    if typFanSup<>Buildings.Templates.Components.Types.Fan.None then
+      dat.getReal(varName=id + ".Mechanical.Supply fan.Total pressure rise.value")
+    else 0
+    "Supply fan total pressure rise"
+    annotation (
+      Dialog(group="Nominal condition",
+        enable=typFanSup <> Buildings.Templates.Components.Types.Fan.None));
+  parameter Modelica.SIunits.PressureDifference dpFanRet_nominal=
+    if typFanRel <> Buildings.Templates.Components.Types.Fan.None or
+      typFanRet <> Buildings.Templates.Components.Types.Fan.None then
+      dat.getReal(varName=id + ".Mechanical.Relief/return fan.Total pressure rise.value")
+    else 0
+    "Relief/return fan total pressure rise"
+    annotation (
+      Dialog(group="Nominal condition",
+        enable=typFanRel <> Buildings.Templates.Components.Types.Fan.None or
+          typFanRet <> Buildings.Templates.Components.Types.Fan.None));
+
   final inner parameter Boolean have_souCoiCoo = coiCoo.have_sou
     "Set to true if cooling coil requires fluid ports on the source side"
     annotation (Evaluate=true, Dialog(group="Cooling coil"));
@@ -33,9 +52,9 @@ model VAVMultiZone "Multiple-Zone VAV"
     secOutRel.typFanRet
     "Type of return fan"
     annotation (Evaluate=true);
-
-  final inner parameter Boolean have_airFloMeaSta=VSup_flow.have_sen
-    "Check if the AHU has supply airflow measuring station"
+  final inner parameter Buildings.Templates.Components.Types.Fan typFanRel=
+    secOutRel.typFanRel
+    "Type of relief fan"
     annotation (Evaluate=true);
 
   Modelica.Fluid.Interfaces.FluidPort_b port_coiCooRet(
@@ -81,16 +100,17 @@ model VAVMultiZone "Multiple-Zone VAV"
     Components.OutdoorReliefReturnSection.Interfaces.PartialOutdoorReliefReturnSection(
       redeclare final package MediumAir = MediumAir,
       final mSup_flow_nominal=mSup_flow_nominal,
-      final mRet_flow_nominal=mRet_flow_nominal)
+      final mRet_flow_nominal=mRet_flow_nominal,
+      final dpFan_nominal=dpFanRet_nominal,
+      final typCtrFanRet=con.typCtrFanRet)
     "Outdoor/relief/return air section"
     annotation (
       Dialog(group="Outdoor/relief/return air section"),
       Placement(transformation(extent={{-280,-220},{-120,-60}})));
 
-  // FIXME: bind have_sen to control option.
   Buildings.Templates.Components.Sensors.Temperature TMix(
     redeclare final package Medium = MediumAir,
-    have_sen=true,
+    final have_sen=con.use_TMix,
     final typ=Buildings.Templates.Components.Types.SensorTemperature.Averaging,
     final m_flow_nominal=mSup_flow_nominal)
     "Mixed air temperature sensor"
@@ -101,7 +121,10 @@ model VAVMultiZone "Multiple-Zone VAV"
   inner replaceable Buildings.Templates.Components.Fans.None fanSupBlo
     constrainedby Buildings.Templates.Components.Fans.Interfaces.PartialFan(
       redeclare final package Medium =  MediumAir,
-      final loc=Buildings.Templates.Components.Types.Location.Supply)
+      final m_flow_nominal=mSup_flow_nominal,
+      final dp_nominal=dpFanSup_nominal,
+      final have_senFlo=con.typCtrFanSup==
+        Buildings.Templates.AirHandlersFans.Types.ControlSupplyFan.Airflow)
     "Supply fan - Blow through"
     annotation (
       choicesAllMatching=true,
@@ -169,22 +192,18 @@ model VAVMultiZone "Multiple-Zone VAV"
   inner replaceable Buildings.Templates.Components.Fans.SingleVariable fanSupDra
     constrainedby Buildings.Templates.Components.Fans.Interfaces.PartialFan(
       redeclare final package Medium = MediumAir,
-      final loc=Buildings.Templates.Components.Types.Location.Supply)
+      final m_flow_nominal=mSup_flow_nominal,
+      final dp_nominal=dpFanSup_nominal,
+      final have_senFlo=con.typCtrFanSup==
+        Buildings.Templates.AirHandlersFans.Types.ControlSupplyFan.Airflow)
     "Supply fan - Draw through"
     annotation (
     choicesAllMatching=true,
     Dialog(group="Supply air section",
       enable=fanSupBlo.typ == Buildings.Templates.Components.Types.Fan.None),
-    Placement(transformation(extent={{110,-210},{130,-190}})));
+    Placement(transformation(extent={{122,-210},{142,-190}})));
 
   // FIXME: bind have_sen to control option.
-  .Buildings.Templates.Components.Sensors.VolumeFlowRate VSup_flow(
-    redeclare final package Medium = MediumAir,
-    have_sen=true,
-    final m_flow_nominal=mSup_flow_nominal)
-    "Supply air volume flow rate sensor"
-    annotation (Dialog(group="Supply air section", enable=false),
-      Placement(transformation(extent={{140,-210},{160,-190}})));
 
   inner replaceable Components.Controls.OpenLoop con constrainedby
     Buildings.Templates.AirHandlersFans.Components.Controls.Interfaces.PartialController
@@ -277,7 +296,6 @@ equation
   /* Hardware point connection - start */
   connect(TMix.y, bus.TMix);
   connect(THea.y, bus.THea);
-  connect(VSup_flow.y, bus.VSup_flow);
   connect(TSup.y, bus.TSup);
   connect(pSup_rel.y, bus.pSup_rel);
   connect(hRet.y, bus.hRet);
@@ -312,11 +330,7 @@ equation
   connect(coiReh.port_bSou, port_coiRehRet) annotation (Line(points={{94,-210},{
           94,-220},{100,-220},{100,-280}}, color={0,127,255}));
   connect(coiReh.port_b, fanSupDra.port_a)
-    annotation (Line(points={{100,-200},{110,-200}}, color={0,127,255}));
-  connect(fanSupDra.port_b, VSup_flow.port_a)
-    annotation (Line(points={{130,-200},{140,-200}}, color={0,127,255}));
-  connect(VSup_flow.port_b, resSup.port_a)
-    annotation (Line(points={{160,-200},{172,-200}}, color={0,127,255}));
+    annotation (Line(points={{100,-200},{122,-200}}, color={0,127,255}));
   connect(fanSupBlo.port_b, coiHea.port_a)
     annotation (Line(points={{-50,-200},{-40,-200}}, color={0,127,255}));
   connect(busWea, out.weaBus) annotation (Line(
@@ -388,6 +402,8 @@ equation
     annotation (Line(points={{220,-200},{300,-200}}, color={0,127,255}));
   connect(TSup.port_b, pSup_rel.port_a) annotation (Line(points={{220,-200},{
           240,-200},{240,-220},{250,-220}}, color={0,127,255}));
+  connect(fanSupDra.port_b, resSup.port_a)
+    annotation (Line(points={{142,-200},{172,-200}}, color={0,127,255}));
   annotation (
     defaultComponentName="ahu",
     Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
