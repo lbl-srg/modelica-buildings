@@ -8,6 +8,11 @@ model VAVBox "VAV terminal unit"
     "Heating medium (such as HHW)"
     annotation(Dialog(enable=have_souCoiReh));
 
+  parameter Modelica.SIunits.PressureDifference dpDamVAV_nominal=
+    dat.getReal(varName=id + ".Mechanical.VAV damper pressure drop.value")
+    "Damper pressure drop"
+    annotation (Dialog(group="Nominal condition"));
+
   final parameter Boolean have_souCoiReh=coiReh.have_sou
     "Set to true for fluid ports on the source side"
     annotation (Evaluate=true, Dialog(group="Reheat coil"));
@@ -34,10 +39,11 @@ model VAVBox "VAV terminal unit"
     Dialog(group="Reheat coil"),
     Placement(transformation(extent={{-10,-210},{10,-190}})));
 
-  inner replaceable .Buildings.Templates.Components.Dampers.PressureIndependent
-    damVAV constrainedby Buildings.Templates.Components.Dampers.Interfaces.PartialDamper(
+  inner replaceable .Buildings.Templates.Components.Dampers.PressureIndependent damVAV
+    constrainedby Buildings.Templates.Components.Dampers.Interfaces.PartialDamper(
       redeclare final package Medium = MediumAir,
-      final loc=Buildings.Templates.Components.Types.Location.Terminal)
+      final m_flow_nominal=m_flow_nominal,
+      final dpDamper_nominal=dpDamVAV_nominal)
     "VAV damper"
     annotation (Dialog(group="VAV damper"), Placement(
         transformation(

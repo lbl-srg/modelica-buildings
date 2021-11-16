@@ -33,16 +33,17 @@ partial model PartialReliefReturnSection "Relief/return air section"
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal
     "Air mass flow rate"
     annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.SIunits.PressureDifference dpFan_nominal=
-    if typFanRel <> Buildings.Templates.Components.Types.Fan.None or
-      typFanRet <> Buildings.Templates.Components.Types.Fan.None then
-      dat.getReal(varName=id + ".Mechanical.Relief/return fan.Total pressure rise.value")
-    else 0
+  parameter Modelica.SIunits.PressureDifference dpFan_nominal
     "Relief/return fan total pressure rise"
     annotation (
       Dialog(group="Nominal condition",
         enable=typFanRel <> Buildings.Templates.Components.Types.Fan.None or
           typFanRet <> Buildings.Templates.Components.Types.Fan.None));
+  parameter Modelica.SIunits.PressureDifference dpDamRel_nominal
+    "Relief air damper pressure drop"
+    annotation (
+      Dialog(group="Nominal condition",
+        enable=typDamRel<>Buildings.Templates.Components.Types.Damper.None));
 
   outer parameter String id
     "System identifier";

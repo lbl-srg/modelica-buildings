@@ -5,7 +5,8 @@ partial model PartialAirTerminal
     constrainedby Modelica.Media.Interfaces.PartialMedium
     "Air medium";
 
-  parameter Buildings.Templates.ZoneEquipment.Types.Configuration typ "Type of system"
+  parameter Buildings.Templates.ZoneEquipment.Types.Configuration typ
+    "Type of system"
     annotation (Evaluate=true, Dialog(group="Configuration"));
 
   inner parameter String id

@@ -1,13 +1,15 @@
 within Buildings.Templates.AirHandlersFans.Components.OutdoorSection;
 model NoEconomizer "No air economizer"
-  extends Buildings.Templates.AirHandlersFans.Components.OutdoorSection.Interfaces.PartialOutdoorSection(
+  extends
+    Buildings.Templates.AirHandlersFans.Components.OutdoorSection.Interfaces.PartialOutdoorSection(
     final typ=Buildings.Templates.AirHandlersFans.Types.OutdoorSection.NoEconomizer,
     final typDamOut=damOut.typ,
     final typDamOutMin=Buildings.Templates.Components.Types.Damper.None);
 
   Buildings.Templates.Components.Dampers.TwoPosition damOut(
     redeclare final package Medium = MediumAir,
-    final loc=Buildings.Templates.Components.Types.Location.OutdoorAir)
+    final m_flow_nominal=m_flow_nominal,
+    final dpDamper_nominal=dpDamOut_nominal)
     "Outdoor air damper"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},

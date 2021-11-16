@@ -4,7 +4,7 @@ package Actuators
 
   model None "No actuator"
     extends Buildings.Templates.Components.Actuators.Interfaces.PartialActuator(
-      final typ=Types.Actuator.None);
+      final typ=Buildings.Templates.Components.Types.Actuator.None);
 
   equation
     connect(port_bSup, port_aSup)
@@ -16,7 +16,7 @@ package Actuators
 
   model ThreeWayValve "Three-way valve"
     extends Buildings.Templates.Components.Actuators.Interfaces.PartialActuator(
-                                                               final typ=Types.Actuator.ThreeWayValve);
+      final typ=Buildings.Templates.Components.Types.Actuator.ThreeWayValve);
 
     parameter Modelica.SIunits.PressureDifference dpValve_nominal(
        displayUnit="Pa",
@@ -75,7 +75,7 @@ package Actuators
 
   model TwoWayValve "Two-way valve"
     extends Buildings.Templates.Components.Actuators.Interfaces.PartialActuator(
-                                                               final typ=Types.Actuator.TwoWayValve);
+      final typ=Buildings.Templates.Components.Types.Actuator.TwoWayValve);
 
     parameter Modelica.SIunits.PressureDifference dpValve_nominal(
        displayUnit="Pa",

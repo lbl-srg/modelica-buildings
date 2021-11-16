@@ -8,7 +8,8 @@ model DedicatedDamperAirflow
 
   Buildings.Templates.Components.Dampers.Modulated damOut(
     redeclare final package Medium = MediumAir,
-    final loc=Buildings.Templates.Components.Types.Location.OutdoorAir)
+    final m_flow_nominal=m_flow_nominal,
+    final dpDamper_nominal=dpDamOut_nominal)
     "Outdoor air damper" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
@@ -16,7 +17,8 @@ model DedicatedDamperAirflow
 
   Buildings.Templates.Components.Dampers.Modulated damOutMin(
     redeclare final package Medium = MediumAir,
-    final loc=Buildings.Templates.Components.Types.Location.MinimumOutdoorAir)
+    final m_flow_nominal=m_flow_nominal,
+    final dpDamper_nominal=dpDamOutMin_nominal)
     "Minimum outdoor air damper" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,

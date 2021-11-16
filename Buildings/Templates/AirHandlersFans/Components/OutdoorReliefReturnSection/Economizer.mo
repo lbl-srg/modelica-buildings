@@ -8,6 +8,7 @@ model Economizer "Air economizer"
     final typDamOut=secOut.typDamOut,
     final typDamOutMin=secOut.typDamOutMin,
     final typDamRel=secRel.typDamRel,
+    final typDamRet=damRet.typ,
     final typFanRel=secRel.typFanRel,
     final typFanRet=secRel.typFanRet);
 
@@ -17,6 +18,9 @@ model Economizer "Air economizer"
     Buildings.Templates.AirHandlersFans.Components.OutdoorSection.Interfaces.PartialOutdoorSection(
       redeclare final package MediumAir = MediumAir,
       final m_flow_nominal=mSup_flow_nominal,
+      final mOutMin_flow_nominal=mOutMin_flow_nominal,
+      final dpDamOut_nominal=dpDamOut_nominal,
+      final dpDamOutMin_nominal=dpDamOutMin_nominal,
       final have_recHea=recHea.typ<>Buildings.Templates.AirHandlersFans.Types.HeatRecovery.None)
     "Outdoor air section"
     annotation (
@@ -36,6 +40,7 @@ model Economizer "Air economizer"
     Buildings.Templates.AirHandlersFans.Components.ReliefReturnSection.Interfaces.PartialReliefReturnSection(
       redeclare final package MediumAir = MediumAir,
       final m_flow_nominal=mRet_flow_nominal,
+      final dpDamRel_nominal=dpDamRel_nominal,
       final dpFan_nominal=dpFan_nominal,
       final typCtrFanRet=typCtrFanRet,
       final have_recHea=recHea.typ<>Buildings.Templates.AirHandlersFans.Types.HeatRecovery.None)
@@ -57,7 +62,8 @@ model Economizer "Air economizer"
 
   Buildings.Templates.Components.Dampers.Modulated damRet(
     redeclare final package Medium = MediumAir,
-    final loc=Buildings.Templates.Components.Types.Location.Return)
+    final m_flow_nominal=mRet_flow_nominal,
+    final dpDamper_nominal=dpDamRet_nominal)
     "Return air damper"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},

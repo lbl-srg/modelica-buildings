@@ -8,12 +8,16 @@ model NoEconomizer "No air economizer"
     final typDamOut=secOut.typDamOut,
     final typDamOutMin=secOut.typDamOutMin,
     final typDamRel=secRel.typDamRel,
+    final typDamRet=Buildings.Templates.Components.Types.Damper.None,
     final typFanRel=secRel.typFanRel,
     final typFanRet=secRel.typFanRet);
 
   Buildings.Templates.AirHandlersFans.Components.OutdoorSection.NoEconomizer secOut(
     redeclare final package MediumAir = MediumAir,
     final m_flow_nominal=mSup_flow_nominal,
+    final mOutMin_flow_nominal=mOutMin_flow_nominal,
+    final dpDamOut_nominal=dpDamOut_nominal,
+    final dpDamOutMin_nominal=dpDamOutMin_nominal,
     final have_recHea=recHea.typ<>Buildings.Templates.AirHandlersFans.Types.HeatRecovery.None)
     "Outdoor air section"
     annotation (
@@ -22,6 +26,7 @@ model NoEconomizer "No air economizer"
   Buildings.Templates.AirHandlersFans.Components.ReliefReturnSection.NoEconomizer secRel(
     redeclare final package MediumAir = MediumAir,
     final m_flow_nominal=mRet_flow_nominal,
+    final dpDamRel_nominal=dpDamRel_nominal,
     final dpFan_nominal=dpFan_nominal,
     final typCtrFanRet=typCtrFanRet,
     final have_recHea=recHea.typ<>Buildings.Templates.AirHandlersFans.Types.HeatRecovery.None)

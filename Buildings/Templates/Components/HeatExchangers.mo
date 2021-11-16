@@ -254,8 +254,7 @@ package HeatExchangers
 
     partial model PartialHeatExchangerDX
       // Air medium needed for type compatibility with DX coil models.
-      extends Buildings.Fluid.Interfaces.PartialTwoPortInterface(
-        redeclare package Medium=Buildings.Media.Air);
+      extends Buildings.Fluid.Interfaces.PartialTwoPortInterface;
 
       parameter Buildings.Templates.Components.Types.HeatExchanger typ
         "Type of heat exchanger"

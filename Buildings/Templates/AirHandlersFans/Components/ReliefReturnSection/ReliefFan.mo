@@ -9,7 +9,8 @@ model ReliefFan "Relief fan - Two-position relief damper"
 
   Buildings.Templates.Components.Dampers.TwoPosition damRel(
     redeclare final package Medium = MediumAir,
-    final loc=Buildings.Templates.Components.Types.Location.Relief)
+    final m_flow_nominal=m_flow_nominal,
+    final dpDamper_nominal=dpDamRel_nominal)
     "Relief damper" annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=0,

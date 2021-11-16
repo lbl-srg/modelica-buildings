@@ -17,7 +17,8 @@ model SingleDamper "Single common damper (modulated) with AFMS"
     annotation (Placement(transformation(extent={{30,-10},{50,10}})));
   Buildings.Templates.Components.Dampers.Modulated damOut(
     redeclare final package Medium = MediumAir,
-    final loc=Buildings.Templates.Components.Types.Location.OutdoorAir)
+    final m_flow_nominal=m_flow_nominal,
+    final dpDamper_nominal=dpDamOut_nominal)
     "Outdoor air damper" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,

@@ -308,7 +308,7 @@
                     "unit": "Pa"
                 }
             },
-            "Economizer": {
+            "Economizer/dampers": {
                 "Minimum outdoor air mass flow rate": {
                     "value": 1,
                     "unit": "kg/s"
