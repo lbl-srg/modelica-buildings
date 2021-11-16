@@ -1,7 +1,8 @@
 within Buildings.Templates.Components.Coils.Interfaces;
 partial model PartialCoil
-  extends Buildings.Fluid.Interfaces.PartialTwoPort(
-    redeclare final package Medium=MediumAir);
+  extends Buildings.Fluid.Interfaces.PartialTwoPortInterface(
+    redeclare final package Medium=MediumAir,
+    final m_flow_nominal=mAir_flow_nominal);
 
   outer replaceable package MediumAir=Buildings.Media.Air
     "Source-side medium";
