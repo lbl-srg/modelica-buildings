@@ -15,6 +15,7 @@ model EconomizerNoRelief "Air economizer - No relief branch"
     secOut constrainedby
     Buildings.Templates.AirHandlersFans.Components.OutdoorSection.Interfaces.PartialOutdoorSection(
       redeclare final package MediumAir = MediumAir,
+      final m_flow_nominal=mSup_flow_nominal,
       final have_recHea=false)
     "Outdoor air section"
     annotation (
@@ -35,6 +36,7 @@ model EconomizerNoRelief "Air economizer - No relief branch"
   Buildings.Templates.AirHandlersFans.Components.ReliefReturnSection.NoRelief
     secRel(
       redeclare final package MediumAir = MediumAir,
+      final m_flow_nominal=mRet_flow_nominal,
       final have_recHea=false)
     "Relief/return air section"
     annotation (Dialog(group="Exhaust/relief/return section"),

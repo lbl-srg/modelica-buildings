@@ -2,26 +2,27 @@ within Buildings.Templates.AirHandlersFans.Components.ReliefReturnSection;
 model ReliefFan "Relief fan - Two-position relief damper"
   extends
     Buildings.Templates.AirHandlersFans.Components.ReliefReturnSection.Interfaces.PartialReliefReturnSection(
-    final typ=Types.ReliefReturnSection.ReliefFan,
+    final typ=Buildings.Templates.AirHandlersFans.Types.ReliefReturnSection.ReliefFan,
     final typDamRel=damRel.typ,
     final typFanRel=fanRel.typ,
     final typFanRet=Buildings.Templates.Components.Types.Fan.None);
 
-  Buildings.Templates.Components.Dampers.TwoPosition damRel(redeclare final
-      package Medium = MediumAir, final loc=Buildings.Templates.Components.Types.Location.Relief)
+  Buildings.Templates.Components.Dampers.TwoPosition damRel(
+    redeclare final package Medium = MediumAir,
+    final loc=Buildings.Templates.Components.Types.Location.Relief)
     "Relief damper" annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=0,
         origin={-150,0})));
-  replaceable .Buildings.Templates.Components.Fans.SingleVariable fanRel
+  replaceable Buildings.Templates.Components.Fans.SingleVariable fanRel
     constrainedby Buildings.Templates.Components.Fans.Interfaces.PartialFan(
     redeclare final package Medium = MediumAir,
     final typCtr=Types.ReturnFanControlSensor.None,
     final loc=Buildings.Templates.Components.Types.Location.Relief)
     "Relief fan"        annotation (choices(choice(redeclare
-          Templates.BaseClasses.Fans.SingleVariable fanRet
+         Buildings.Templates.Components.Fans.SingleVariable fanRet
           "Single fan - Variable speed"), choice(redeclare
-          Templates.BaseClasses.Fans.MultipleVariable fanRet
+         Buildings.Templates.Components.MultipleVariable fanRet
           "Multiple fans (identical) - Variable speed")), Placement(
         transformation(extent={{-100,-10},{-120,10}})));
 equation

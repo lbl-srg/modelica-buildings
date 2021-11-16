@@ -1,26 +1,16 @@
 within Buildings.Templates.Components.Coils;
 model WaterBasedHeating "Water-based"
   extends Buildings.Templates.Components.Coils.Interfaces.PartialCoil(
-    final typ=Types.Coil.WaterBased,
+    final typ=Buildings.Templates.Components.Types.Coil.WaterBased,
     final typHex=hex.typ,
     final typAct=act.typ,
     final have_sou=true,
-    final have_weaBus=false);
+    final have_weaBus=false,
+    port_aSou(redeclare final package Medium = MediumHea),
+    port_bSou(redeclare final package Medium = MediumHea));
 
-  inner parameter Modelica.SIunits.MassFlowRate mAir_flow_nominal(min=0)=
-    dat.getReal(varName=id + ".Mechanical." + funStr + " coil.Air mass flow rate.value")
-    "Air mass flow rate"
-    annotation (Dialog(
-      group="Nominal condition"),
-      Evaluate=true);
-
-  inner parameter Modelica.SIunits.PressureDifference dpAir_nominal(
-    displayUnit="Pa")=
-    dat.getReal(varName=id + ".Mechanical." + funStr + " coil.Air pressure drop.value")
-    "Air pressure drop"
-    annotation (
-      Dialog(group="Nominal condition"),
-      Evaluate=true);
+  outer replaceable package MediumHea=Buildings.Media.Water
+    "Source side medium";
 
   inner parameter Modelica.SIunits.MassFlowRate mWat_flow_nominal(min=0)=
     dat.getReal(varName=id + ".Mechanical." + funStr + " coil.Liquid mass flow rate.value")
@@ -34,23 +24,25 @@ model WaterBasedHeating "Water-based"
     annotation(Dialog(group = "Nominal condition"), Evaluate=true);
 
   replaceable Buildings.Templates.Components.Actuators.None act constrainedby
-    .Buildings.Templates.Components.Actuators.Interfaces.PartialActuator(
-                        redeclare final package Medium = MediumSou) "Actuator"
+    Buildings.Templates.Components.Actuators.Interfaces.PartialActuator(
+      redeclare final package Medium = MediumHea)
+    "Actuator"
     annotation (choicesAllMatching=true, Placement(transformation(extent={{-10,
             -70},{10,-50}})));
 
   replaceable
     Buildings.Templates.Components.HeatExchangers.DryCoilEffectivenessNTU hex
-    constrainedby .Buildings.Templates.Components.HeatExchangers.Interfaces.PartialHeatExchangerWater(
-    redeclare final package Medium1 = MediumSou,
+    constrainedby Buildings.Templates.Components.HeatExchangers.Interfaces.PartialHeatExchangerWater(
+    redeclare final package Medium1 = MediumHea,
     redeclare final package Medium2 = MediumAir,
     final m1_flow_nominal=mWat_flow_nominal,
     final m2_flow_nominal=mAir_flow_nominal,
-    final dp1_nominal=if typAct == Types.Actuator.None then dpWat_nominal else
-        0,
-    final dp2_nominal=dpAir_nominal) "Heat exchanger" annotation (choices(
+    final dp1_nominal=if typAct == Types.Actuator.None then dpWat_nominal else 0,
+    final dp2_nominal=dpAir_nominal)
+    "Heat exchanger"
+    annotation (choices(
         choice(redeclare
-          Templates.BaseClasses.Coils.HeatExchangers.DryCoilEffectivenessNTU
+          Buildings.Templates.Components.Coils.HeatExchangers.DryCoilEffectivenessNTU
           hex "Epsilon-NTU dry heat exchanger model")), Placement(
         transformation(extent={{10,4},{-10,-16}})));
 

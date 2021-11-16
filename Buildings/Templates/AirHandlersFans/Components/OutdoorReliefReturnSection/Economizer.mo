@@ -16,6 +16,7 @@ model Economizer "Air economizer"
     secOut constrainedby
     Buildings.Templates.AirHandlersFans.Components.OutdoorSection.Interfaces.PartialOutdoorSection(
       redeclare final package MediumAir = MediumAir,
+      final m_flow_nominal=mSup_flow_nominal,
       final have_recHea=recHea.typ<>Buildings.Templates.AirHandlersFans.Types.HeatRecovery.None)
     "Outdoor air section"
     annotation (
@@ -34,6 +35,7 @@ model Economizer "Air economizer"
     secRel constrainedby
     Buildings.Templates.AirHandlersFans.Components.ReliefReturnSection.Interfaces.PartialReliefReturnSection(
       redeclare final package MediumAir = MediumAir,
+      final m_flow_nominal=mRet_flow_nominal,
       final have_recHea=recHea.typ<>Buildings.Templates.AirHandlersFans.Types.HeatRecovery.None)
     "Relief/return air section" annotation (
     choices(

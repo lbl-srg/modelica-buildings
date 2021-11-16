@@ -31,6 +31,13 @@ partial model PartialOutdoorReliefReturnSection
     "Return fan type"
     annotation (Evaluate=true, Dialog(group="Configuration"));
 
+  parameter Modelica.SIunits.MassFlowRate mSup_flow_nominal
+    "Supply air mass flow rate"
+    annotation (Dialog(group="Nominal condition"));
+  parameter Modelica.SIunits.MassFlowRate mRet_flow_nominal
+    "Return air mass flow rate"
+    annotation (Dialog(group="Nominal condition"));
+
   outer parameter String id
     "System identifier";
   outer parameter ExternData.JSONFile dat

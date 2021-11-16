@@ -22,10 +22,10 @@ model NoEconomizer
     Buildings.Templates.AirHandlersFans.VAVMultiZone(redeclare final package
       MediumAir = MediumAir, redeclare final package MediumCoo = MediumCoo)
     annotation (Placement(transformation(extent={{-20,-20},{20,20}})));
-  Fluid.Sources.Boundary_pT bou(
+  Buildings.Fluid.Sources.Boundary_pT bou(
     redeclare final package Medium=MediumAir, nPorts=2)
     annotation (Placement(transformation(extent={{-90,-10},{-70,10}})));
-  Fluid.Sources.Boundary_pT bou1(
+  Buildings.Fluid.Sources.Boundary_pT bou1(
     redeclare final package Medium=MediumAir,
     nPorts=3)
     annotation (Placement(transformation(extent={{90,-10},{70,10}})));

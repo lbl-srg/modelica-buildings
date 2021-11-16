@@ -2,7 +2,7 @@ within Buildings.Templates.AirHandlersFans.Components.ReliefReturnSection;
 model ReliefDamper "No relief fan - Modulated relief damper"
   extends
     Buildings.Templates.AirHandlersFans.Components.ReliefReturnSection.Interfaces.PartialReliefReturnSection(
-    final typ=Types.ReliefReturnSection.ReliefDamper,
+    final typ=Buildings.Templates.AirHandlersFans.Types.ReliefReturnSection.ReliefDamper,
     final typDamRel=damRel.typ,
     final typFanRel=Buildings.Templates.Components.Types.Fan.None,
     final typFanRet=Buildings.Templates.Components.Types.Fan.None);

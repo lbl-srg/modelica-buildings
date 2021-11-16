@@ -29,13 +29,13 @@ model NoEconomizer "No air economizer"
   Buildings.Templates.Components.Sensors.VolumeFlowRate VRet_flow(
     redeclare final package Medium = MediumAir,
     final have_sen=fanRet.typCtr==Buildings.Templates.AirHandlersFans.Types.ReturnFanControlSensor.Airflow,
-    final loc=Buildings.Templates.Components.Types.Location.Return)
+    final m_flow_nominal=m_flow_nominal)
     "Return air volume flow rate sensor"
     annotation (Placement(transformation(extent={{90,-10},{70,10}})));
   Buildings.Templates.Components.Sensors.DifferentialPressure pRet_rel(
     redeclare final package Medium = MediumAir,
     final have_sen=fanRet.typCtr == Buildings.Templates.AirHandlersFans.Types.ReturnFanControlSensor.Pressure,
-    final loc=Buildings.Templates.Components.Types.Location.Return)
+    final m_flow_nominal=m_flow_nominal)
     "Return static pressure sensor"
     annotation (Placement(transformation(extent={{50,-50},{70,-30}})));
 

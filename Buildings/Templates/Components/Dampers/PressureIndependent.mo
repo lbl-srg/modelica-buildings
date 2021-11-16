@@ -4,14 +4,14 @@ model PressureIndependent "Pressure independent damper"
     final typ=Buildings.Templates.Components.Types.Damper.PressureIndependent);
 
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal=
-    if loc==Types.Location.Terminal           then
+    if loc==Types.Location.Terminal then
       dat.getReal(varName=id + ".Mechanical.Discharge air mass flow rate.value")
     else 0
     "Mass flow rate"
     annotation (Dialog(group="Nominal condition"), Evaluate=true);
   parameter Modelica.SIunits.PressureDifference dpDamper_nominal(
     min=0, displayUnit="Pa")=
-    if loc==Types.Location.Terminal           then
+    if loc==Types.Location.Terminal then
       dat.getReal(varName=id + ".Mechanical.VAV damper pressure drop.value")
     else 0
     "Pressure drop of open damper"

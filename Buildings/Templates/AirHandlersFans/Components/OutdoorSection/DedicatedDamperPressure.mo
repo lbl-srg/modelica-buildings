@@ -7,27 +7,31 @@ model DedicatedDamperPressure
     final typDamOut=damOut.typ,
     final typDamOutMin=damOutMin.typ);
 
-  Buildings.Templates.Components.Dampers.Modulated damOut(redeclare final
-      package Medium = MediumAir, final loc=Buildings.Templates.Components.Types.Location.OutdoorAir)
+  Buildings.Templates.Components.Dampers.Modulated damOut(
+    redeclare final package Medium = MediumAir,
+    final loc=Buildings.Templates.Components.Types.Location.OutdoorAir)
     "Outdoor air damper" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={0,0})));
 
-  Buildings.Templates.Components.Dampers.TwoPosition damOutMin(redeclare final
-      package Medium =       MediumAir, final loc=Buildings.Templates.Components.Types.Location.MinimumOutdoorAir)
+  Buildings.Templates.Components.Dampers.TwoPosition damOutMin(
+    redeclare final package Medium = MediumAir,
+    final loc=Buildings.Templates.Components.Types.Location.MinimumOutdoorAir)
     "Minimum outdoor air damper" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={50,60})));
 
-  Buildings.Templates.Components.Sensors.Temperature TOutMin(redeclare final
-      package Medium = MediumAir, final loc=Buildings.Templates.Components.Types.Location.MinimumOutdoorAir)
+  Buildings.Templates.Components.Sensors.Temperature TOutMin(
+    redeclare final package Medium = MediumAir,
+    final m_flow_nominal=m_flow_nominal)
     "Minimum outdoor air temperature sensor"
     annotation (Placement(transformation(extent={{90,50},{110,70}})));
 
   Buildings.Templates.Components.Sensors.DifferentialPressure dpOutMin(
-      redeclare final package Medium = MediumAir, final loc=Buildings.Templates.Components.Types.Location.MinimumOutdoorAir)
+    redeclare final package Medium = MediumAir,
+    final m_flow_nominal=m_flow_nominal)
     "Minimum outdoor air damper differential pressure sensor"
     annotation (Placement(transformation(extent={{40,10},{60,30}})));
 equation

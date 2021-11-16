@@ -24,13 +24,13 @@ model DedicatedDamperAirflow
 
   Buildings.Templates.Components.Sensors.Temperature TOutMin(
     redeclare final package Medium = MediumAir,
-    final loc=Buildings.Templates.Components.Types.Location.MinimumOutdoorAir)
+    final m_flow_nominal=m_flow_nominal)
     "Minimum outdoor air temperature sensor"
     annotation (Placement(transformation(extent={{50,50},{70,70}})));
 
   Buildings.Templates.Components.Sensors.VolumeFlowRate VOutMin_flow(
     redeclare final package Medium = MediumAir,
-    final loc=Buildings.Templates.Components.Types.Location.MinimumOutdoorAir)
+    final m_flow_nominal=m_flow_nominal)
     "Minimum outdoor air volume flow rate sensor"
     annotation (Placement(transformation(extent={{80,50},{100,70}})));
 equation

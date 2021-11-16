@@ -17,6 +17,10 @@ partial model PartialOutdoorSection "Outdoor air section"
     "Set to true in case of heat recovery"
     annotation (Evaluate=true, Dialog(group="Configuration"));
 
+  parameter Modelica.SIunits.MassFlowRate m_flow_nominal
+    "Air mass flow rate"
+    annotation (Dialog(group="Nominal condition"));
+
   outer parameter String id
     "System identifier";
   outer parameter ExternData.JSONFile dat

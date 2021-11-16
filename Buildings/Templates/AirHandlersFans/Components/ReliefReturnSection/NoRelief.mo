@@ -2,36 +2,38 @@ within Buildings.Templates.AirHandlersFans.Components.ReliefReturnSection;
 model NoRelief "No relief branch"
   extends
     Buildings.Templates.AirHandlersFans.Components.ReliefReturnSection.Interfaces.PartialReliefReturnSection(
-    final typ=Types.ReliefReturnSection.NoRelief,
+    final typ=Buildings.Templates.AirHandlersFans.Types.ReliefReturnSection.NoRelief,
     final typDamRel=Buildings.Templates.Components.Types.Damper.None,
     final typFanRel=Buildings.Templates.Components.Types.Fan.None,
     final typFanRet=fanRet.typ,
     have_recHea=false);
 
-  replaceable .Buildings.Templates.Components.Fans.None fanRet constrainedby
+  replaceable Buildings.Templates.Components.Fans.None fanRet constrainedby
     Buildings.Templates.Components.Fans.Interfaces.PartialFan(
-                                                  redeclare final package
-      Medium = MediumAir, final loc=Buildings.Templates.Components.Types.Location.Return)
-    "Return fan"        annotation (
+      redeclare final package Medium = MediumAir,
+      final loc=Buildings.Templates.Components.Types.Location.Return)
+    "Return fan"
+    annotation (
     choices(
-      choice(redeclare Templates.BaseClasses.Fans.None fanRet "No fan"),
-      choice(redeclare Templates.BaseClasses.Fans.SingleVariable fanRet
+      choice(redeclare Buildings.Templates.Components.Fans.None fanRet "No fan"),
+      choice(redeclare Buildings.Templates.Components.Fans.SingleVariable fanRet
           "Single fan - Variable speed"),
-      choice(redeclare Templates.BaseClasses.Fans.MultipleVariable fanRet
+      choice(redeclare Buildings.Templates.Components.Fans.MultipleVariable fanRet
           "Multiple fans (identical) - Variable speed")),
     Dialog(group="Exhaust/relief/return section"),
     Placement(transformation(extent={{130,-10},{110,10}})));
+
   Buildings.Templates.Components.Sensors.DifferentialPressure pRet_rel(
     redeclare final package Medium = MediumAir,
     final have_sen=fanRet.typCtr == Types.ReturnFanControlSensor.Pressure,
-    final loc=Buildings.Templates.Components.Types.Location.Return)
+    final m_flow_nominal=m_flow_nominal)
     "Return static pressure sensor"
     annotation (Placement(transformation(extent={{50,-50},{70,-30}})));
 
   Buildings.Templates.Components.Sensors.VolumeFlowRate VRet_flow(
     redeclare final package Medium = MediumAir,
     final have_sen,
-    final loc=Buildings.Templates.Components.Types.Location.Return)
+    final m_flow_nominal=m_flow_nominal)
     "Return air volume flow rate sensor"
     annotation (Placement(transformation(extent={{90,-10},{70,10}})));
 equation

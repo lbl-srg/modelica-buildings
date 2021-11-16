@@ -1,9 +1,9 @@
 within Buildings.Templates.Components.Coils;
 model None "No coil"
   extends Buildings.Templates.Components.Coils.Interfaces.PartialCoil(
-    final typ=Types.Coil.None,
-    final typHex=Types.HeatExchanger.None,
-    final typAct=Types.Actuator.None,
+    final typ=Buildings.Templates.Components.Types.Coil.None,
+    final typHex=Buildings.Templates.Components.Types.HeatExchanger.None,
+    final typAct=Buildings.Templates.Components.Types.Actuator.None,
     final have_weaBus=false,
     final have_sou=false);
 

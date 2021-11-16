@@ -27,7 +27,8 @@ partial model PartialDamper
             {110,10}}), iconTransformation(extent={{90,-10},{110,10}})));
   Buildings.Templates.Components.Interfaces.Bus bus if typ <> Buildings.Templates.Components.Types.Damper.None
      and typ <> Buildings.Templates.Components.Types.Damper.Barometric and typ
-     <> Buildings.Templates.Components.Types.Damper.NoPath "Control bus"
+     <> Buildings.Templates.Components.Types.Damper.NoPath
+    "Control bus"
     annotation (Placement(
       visible=DynamicSelect(true, typ <> Types.Damper.None and typ <> Types.Damper.NoPath),
       transformation(

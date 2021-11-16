@@ -5,38 +5,14 @@ partial model PartialSensor
   parameter Boolean have_sen=true
     "Set to true for sensor, false for direct pass through"
     annotation (Evaluate=true, Dialog(group="Configuration"));
-  parameter Buildings.Templates.Components.Types.Location loc
-    "Equipment location"
-    annotation (Evaluate=true, Dialog(group="Configuration"));
   parameter Boolean isDifPreSen=false
     "Set to true for differential pressure sensor, false for any other sensor"
     annotation (Evaluate=true, Dialog(group="Configuration"));
 
-  parameter Modelica.SIunits.MassFlowRate m_flow_nominal=
-    if have_sen and not isDifPreSen then (
-      if loc ==Buildings.Templates.Components.Types.Location.Supply
-                                                then
-        dat.getReal(varName=id + ".Mechanical.Supply air mass flow rate.value")
-      elseif loc ==Buildings.Templates.Components.Types.Location.OutdoorAir
-                                                        then
-        dat.getReal(varName=id + ".Mechanical.Supply air mass flow rate.value")
-      elseif loc ==Buildings.Templates.Components.Types.Location.MinimumOutdoorAir
-                                                               then
-        dat.getReal(varName=id + ".Mechanical.Supply air mass flow rate.value")
-      elseif loc ==Buildings.Templates.Components.Types.Location.Return
-                                                    then
-        dat.getReal(varName=id + ".Mechanical.Return air mass flow rate.value")
-      elseif loc ==Buildings.Templates.Components.Types.Location.Relief
-                                                    then
-        dat.getReal(varName=id + ".Mechanical.Return air mass flow rate.value")
-      elseif loc ==Buildings.Templates.Components.Types.Location.Terminal
-                                                      then
-        dat.getReal(varName=id + ".Mechanical.Discharge air mass flow rate.value")
-      else 0)
-      else 0
+  parameter Modelica.SIunits.MassFlowRate m_flow_nominal
     "Mass flow rate"
     annotation (
-     Dialog(group="Nominal condition", enable=have_sen and not isDifPreSen));
+     Dialog(group="Nominal condition"));
 
   outer parameter String id
     "System identifier";
