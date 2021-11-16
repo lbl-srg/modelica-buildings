@@ -3,7 +3,7 @@ model VAVBox "VAV terminal unit"
   extends Buildings.Templates.ZoneEquipment.Interfaces.PartialAirTerminal(
     final typ=Types.Configuration.SingleDuct);
 
-  replaceable package MediumHea=Buildings.Media.Water
+  inner replaceable package MediumHea=Buildings.Media.Water
     constrainedby Modelica.Media.Interfaces.PartialMedium
     "Heating medium (such as HHW)"
     annotation(Dialog(enable=have_souCoiReh));
@@ -23,23 +23,23 @@ model VAVBox "VAV terminal unit"
     annotation (Placement(transformation(extent={{10,-290},{30,-270}}),
       iconTransformation(extent={{10,-208},{30,-188}})));
 
-  inner replaceable .Buildings.Templates.Components.Coils.None coiReh
-    constrainedby .Buildings.Templates.Components.Coils.Interfaces.PartialCoil(
-      redeclare final package MediumAir = MediumAir,
-      redeclare final package MediumSou =  MediumHea,
+  inner replaceable Buildings.Templates.Components.Coils.None coiReh
+    constrainedby Buildings.Templates.Components.Coils.Interfaces.PartialCoil(
       final fun=Templates.Components.Types.CoilFunction.Reheat)
       "Reheat coil" annotation (
     choices(
-      choice(redeclare Templates.BaseClasses.Coils.None coiReh "No coil"),
-      choice(redeclare Templates.BaseClasses.Coils.WaterBasedHeating coiReh
+      choice(redeclare Buildings.Templates.Components.Coils.None coiReh "No coil"),
+      choice(redeclare Buildings.Templates.Components.Coils.WaterBasedHeating coiReh
           "Water-based")),
     Dialog(group="Reheat coil"),
     Placement(transformation(extent={{-10,-210},{10,-190}})));
 
   inner replaceable .Buildings.Templates.Components.Dampers.PressureIndependent
     damVAV constrainedby Buildings.Templates.Components.Dampers.Interfaces.PartialDamper(
-      redeclare final package Medium = MediumAir, final loc=.Buildings.Templates.Components.Types.Location.Terminal)
-    "VAV damper" annotation (Dialog(group="VAV damper"), Placement(
+      redeclare final package Medium = MediumAir,
+      final loc=Buildings.Templates.Components.Types.Location.Terminal)
+    "VAV damper"
+    annotation (Dialog(group="VAV damper"), Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
@@ -47,7 +47,8 @@ model VAVBox "VAV terminal unit"
 
   inner replaceable Components.Controls.OpenLoop con constrainedby
     Buildings.Templates.ZoneEquipment.Components.Controls.Interfaces.PartialController
-    "Terminal unit controller" annotation (
+    "Terminal unit controller"
+    annotation (
     choicesAllMatching=true,
     Dialog(group="Controller"),
     Placement(transformation(extent={{-10,90},{10,110}})));
@@ -55,7 +56,7 @@ model VAVBox "VAV terminal unit"
   Buildings.Templates.Components.Sensors.Temperature TDis(
     redeclare final package Medium = MediumAir,
     final have_sen=con.typ == Types.Controller.Guideline36,
-    final loc=.Buildings.Templates.Components.Types.Location.Terminal)
+    final m_flow_nominal=m_flow_nominal)
     "Discharge air temperature sensor"
     annotation (Placement(transformation(extent={{90,-210},{110,-190}})));
 equation

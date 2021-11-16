@@ -35,6 +35,7 @@ partial model AirHandler "Base interface class for air handler"
       Dialog(group="Configuration"));
   outer parameter ExternData.JSONFile dat
     "External parameter file";
+
   // See FIXME below for those parameters.
   inner parameter Integer nZon
     "Number of served zones"
