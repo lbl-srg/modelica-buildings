@@ -14,6 +14,8 @@ model BuildingSpawnZ1
     "Number of thermal zones";
   parameter String idfName="modelica://Buildings/Resources/Data/ThermalZones/EnergyPlus/Examples/RefBldgSmallOffice/RefBldgSmallOfficeNew2004_Chicago.idf"
     "Name of the IDF file";
+  parameter String epwName="modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.epw"
+    "Name of the weather file";
   parameter String weaName="modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"
     "Name of the weather file";
   Modelica.Blocks.Sources.Constant qConGai_flow(
@@ -39,6 +41,8 @@ model BuildingSpawnZ1
   inner Buildings.ThermalZones.EnergyPlus.Building building(
     idfName=Modelica.Utilities.Files.loadResource(
       idfName),
+    epwName=Modelica.Utilities.Files.loadResource(
+      epwName),
     weaName=Modelica.Utilities.Files.loadResource(
       weaName),
     showWeatherData=false)
@@ -158,6 +162,11 @@ and connected to the room model by means of fluid ports.
 </html>",
       revisions="<html>
 <ul>
+<li>
+November 15, 2021, by Michael Wetter:<br/>
+Added parameter <code>epwName</code>.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2054\">#2054</a>.
+</li>
 <li>
 February 21, 2020, by Antoine Gautier:<br/>
 First implementation.

@@ -152,7 +152,7 @@ equation
       Tolerance=1e-06),
     Documentation(
       info="<html>
-<p>This model validates the district central cooling plant implemented in 
+<p>This model validates the district central cooling plant implemented in
 <a href=\"modelica://Buildings.Experimental.DHC.CentralPlants.Cooling.Plant\">
 Buildings.Experimental.DHC.CentralPlants.Cooling.Plant</a>.
 </p>
@@ -161,11 +161,11 @@ Buildings.Experimental.DHC.CentralPlants.Cooling.Plant</a>.
 <ul>
 <li>
 August 6, 2020 by Jing Wang:<br/>
-First implementation. 
+First implementation.
 </li>
 </ul>
 </html>"),
     __Dymola_Commands(
-      file="Resources/Scripts/Dymola/Experimental/DHC/CentralPlants/Cooling/Examples/Plant.mos" 
+      file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/DHC/CentralPlants/Cooling/Examples/Plant.mos"
       "Simulate and Plot"));
 end Plant;

@@ -88,8 +88,9 @@ protected
   Buildings.ThermalZones.EnergyPlus.BaseClasses.ThermalZoneAdapter fmuZon(
     final modelicaNameBuilding=modelicaNameBuilding,
     final modelicaInstanceName=modelicaInstanceName,
+    final spawnExe=spawnExe,
     final idfName=idfName,
-    final weaName=weaName,
+    final epwName=epwName,
     final relativeSurfaceTolerance=relativeSurfaceTolerance,
     final zoneName=zoneName,
     final nFluPor=nPorts,
@@ -375,7 +376,7 @@ connects to the thermal zone with name <code>zoneName</code>.
 The <code>idfName</code> needs to be specified in an instance of
 <a href=\"Buildings.ThermalZones.EnergyPlus.Building\">
 Buildings.ThermalZones.EnergyPlus.Building</a>
-that is named <code>building</code>, and that is placed at this 
+that is named <code>building</code>, and that is placed at this
 or at a higher hierarchy-level of the model.
 If the FMU is already instantiated by another instance of this model,
 it will use the already instantiated FMU. Hence, for each thermal zone

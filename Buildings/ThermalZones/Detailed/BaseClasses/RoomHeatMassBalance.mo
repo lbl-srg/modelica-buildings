@@ -838,7 +838,6 @@ equation
         Text(
           extent={{-198,144},{-122,112}},
           lineColor={0,0,127},
-          visible=haveControllableWindow,
           textString="uWin"),
         Rectangle(
           extent={{-140,140},{140,-140}},
