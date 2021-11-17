@@ -25,7 +25,7 @@ def _create_worDir():
         os.environ["MODELICAPATH"] = worDir
 
     os.mkdir(worDir)
-    print(f"Created temporary directory {worDir}")
+#    print(f"Created temporary directory {worDir}")
     return worDir
 
 def printZipContent(zipFile):
@@ -61,17 +61,10 @@ def simulate():
         print_output("stderr", stderr)
         raise RuntimeError("Failed to simulate fmu.")
 
-if __name__ == "__main__":
 
-    from buildingspy.simulate.Optimica import Simulator
-    import sys
-    model = "Buildings.ThermalZones.EnergyPlus.Examples.SingleFamilyHouse.Unconditioned"
-    #model = "Buildings.Controls.Continuous.Examples.LimPID"
-    fmu = model.replace('.', '_') + ".fmu"
-    s=Simulator(model)
-    s.translate()
+def run_test(pathVariable):
 
-#    printZipContent(fmu)
+    print(f"Testing with environment variable {pathVariable} set")
 
     worDir = _create_worDir()
     shutil.copy(fmu, worDir)
@@ -87,8 +80,15 @@ mod = load_fmu("{fmu}")
 mod.simulate()
 """)
     retVal = 0
+    oldVar = None
     try:
-        os.environ["SPAWNPATH"]=os.path.abspath(os.path.join("my-bin", "bin"))
+        if pathVariable is not None:
+            if pathVariable in os.environ.keys():
+                oldVar = os.environ[pathVariable]
+            if oldVar is None:
+                os.environ[pathVariable]=os.path.abspath(os.path.join("my-bin", "bin"))
+            else:
+                os.environ[pathVariable]=oldVar + ":" + os.path.abspath(os.path.join("my-bin", "bin"))
         simulate()
     except BaseException as err:
         print("Error: {0}.\n*** Note that this script does not work if the OPTIMICA simulation is run in a docker".format(err))
@@ -96,5 +96,39 @@ mod.simulate()
     finally:
         # Move the binaries back, to emulate a local installation
         shutil.move(os.path.abspath(os.path.join("my-bin")), binDir)
+        # Reset the environment variable
+        if oldVar is not None:
+            os.environ[pathVariable] = oldVar
+        return retVal
+
+
+if __name__ == "__main__":
+
+    from buildingspy.simulate.Optimica import Simulator
+    import sys
+    model = "Buildings.ThermalZones.EnergyPlus.Examples.SingleFamilyHouse.Unconditioned"
+    #model = "Buildings.Controls.Continuous.Examples.LimPID"
+    fmu = model.replace('.', '_') + ".fmu"
+    s=Simulator(model)
+    s.translate()
+
+#    printZipContent(fmu)
+
+    # Test with SPAWNPATH set. This must work.
+    retVal = run_test("SPAWNPATH")
+    if retVal is not 0:
         sys.exit(retVal)
+    # Test with PATH set. This must work.
+    retVal = run_test("PATH")
+    if retVal is not 0:
+        sys.exit(retVal)
+    # Test without neither set. This must fail, hence return non-zero
+#    retVal = run_test(None)
+#    if retVal is 0:
+#        sys.exit(1)
+#    else:
+#        sys.exit(0)
+
+
+
 
