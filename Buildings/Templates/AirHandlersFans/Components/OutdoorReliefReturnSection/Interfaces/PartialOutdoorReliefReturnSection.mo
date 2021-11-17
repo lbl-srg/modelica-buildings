@@ -33,16 +33,23 @@ partial model PartialOutdoorReliefReturnSection
   parameter Buildings.Templates.Components.Types.Fan typFanRet
     "Return fan type"
     annotation (Evaluate=true, Dialog(group="Configuration"));
-  /* Those parameters are not declared with outer as Dymola does not interpret
+  inner parameter Boolean have_recHea = false
+    "Set to true in case of heat recovery"
+    annotation (Evaluate=true,
+      Dialog(group="Configuration",
+        enable=typ<>Buildings.Templates.AirHandlersFans.Types.OutdoorReliefReturnSection.EconomizerNoRelief));
+  /* Those parameters are not declared without outer as Dymola does not interpret
   inner/outer references to evaluate the visible annotation for graphical elements.
   */
-  parameter Buildings.Templates.AirHandlersFans.Types.ControlFanReturn typCtrFanRet
+  inner parameter Buildings.Templates.AirHandlersFans.Types.ControlFanReturn typCtrFanRet=
+    Buildings.Templates.AirHandlersFans.Types.ControlFanReturn.Airflow
     "Return fan control type"
     annotation (Evaluate=true,
       Dialog(
         group="Configuration",
         enable=typFanRet <> Buildings.Templates.Components.Types.Fan.None));
-  inner parameter Buildings.Templates.AirHandlersFans.Types.ControlEconomizer typCtrEco
+  inner parameter Buildings.Templates.AirHandlersFans.Types.ControlEconomizer typCtrEco=
+    Buildings.Templates.AirHandlersFans.Types.ControlEconomizer.FixedDryBulb
     "Economizer control type"
     annotation (Evaluate=true,
       Dialog(
@@ -168,11 +175,11 @@ partial model PartialOutdoorReliefReturnSection
           textString="%name"),
                 Bitmap(
         visible=typFanRet==Buildings.Templates.Components.Types.Fan.SingleVariable,
-        extent={{540,520},{358,680}},
+        extent={{540,500},{310,700}},
         fileName="modelica://Buildings/Resources/Images/Templates/Components/Fans/SingleVariable.svg"),
               Bitmap(
         visible=typFanRet==Buildings.Templates.Components.Types.Fan.MultipleVariable,
-        extent={{494,520},{434,680}},
+        extent={{490,500},{402,700}},
         fileName="modelica://Buildings/Resources/Images/Templates/Components/Fans/MultipleVariable.svg"),
       Bitmap(
         visible=typDamRel==Buildings.Templates.Components.Types.Damper.TwoPosition,
@@ -188,11 +195,11 @@ partial model PartialOutdoorReliefReturnSection
         fileName="modelica://Buildings/Resources/Images/Templates/Components/Dampers/BladesOpposed.svg"),
                 Bitmap(
         visible=typFanRel==Buildings.Templates.Components.Types.Fan.SingleVariable,
-        extent={{-140,520},{-322,680}},
+        extent={{-140,500},{-368,700}},
         fileName="modelica://Buildings/Resources/Images/Templates/Components/Fans/SingleVariable.svg"),
               Bitmap(
         visible=typFanRel==Buildings.Templates.Components.Types.Fan.MultipleVariable,
-        extent={{-186,520},{-246,680}},
+        extent={{-200,500},{-270,700}},
         fileName="modelica://Buildings/Resources/Images/Templates/Components/Fans/MultipleVariable.svg"),
       Bitmap(
         visible=typ<>Buildings.Templates.AirHandlersFans.Types.OutdoorReliefReturnSection.NoEconomizer,
@@ -233,6 +240,10 @@ partial model PartialOutdoorReliefReturnSection
         points={{-800,500},{-100,500}},
         color={28,108,200},
         visible=typ <> Buildings.Templates.AirHandlersFans.Types.OutdoorReliefReturnSection.EconomizerNoRelief),
+      Line(
+        points={{-100,700},{-100,500}},
+        color={28,108,200},
+        visible=typ==Buildings.Templates.AirHandlersFans.Types.OutdoorReliefReturnSection.EconomizerNoRelief),
       Line(points={{100,500},{800,500}},color={28,108,200}),
       Line(points={{100,-500},{800,-500}},color={28,108,200}),
       Line(points={{-800,-500},{-100,-500}},color={28,108,200}),
@@ -285,12 +296,14 @@ partial model PartialOutdoorReliefReturnSection
           origin={-150,-400},
           rotation=90),
       Bitmap(
-        visible=typCtrFanRet==Buildings.Templates.AirHandlersFans.Types.ControlFanReturn.Airflow,
-        extent={{498,386},{636,606}},
+        visible=typFanRet<>Buildings.Templates.Components.Types.Fan.None and
+          typCtrFanRet==Buildings.Templates.AirHandlersFans.Types.ControlFanReturn.Airflow,
+        extent={{484,380},{630,602}},
         fileName="modelica://Buildings/Resources/Images/Templates/Components/Fans/AirflowSensorBoxRight.svg"),
       Bitmap(
-        visible=typCtrFanRet==Buildings.Templates.AirHandlersFans.Types.ControlFanReturn.Airflow,
-        extent={{426,592},{500,608}},
+        visible=typFanRet<>Buildings.Templates.Components.Types.Fan.None and
+          typCtrFanRet==Buildings.Templates.AirHandlersFans.Types.ControlFanReturn.Airflow,
+        extent={{396,582},{490,616}},
         fileName="modelica://Buildings/Resources/Images/Templates/Components/Fans/AirflowSensor.svg"),
       Bitmap(
         visible=typDamOutMin<>Buildings.Templates.Components.Types.Damper.None,
@@ -301,6 +314,16 @@ partial model PartialOutdoorReliefReturnSection
           (typCtrEco==Buildings.Templates.AirHandlersFans.Types.ControlEconomizer.FixedEnthalpyWithFixedDryBulb or
           typCtrEco==Buildings.Templates.AirHandlersFans.Types.ControlEconomizer.DifferentialEnthalpyWithFixedDryBulb),
         extent={{-480,-180},{-400,-460}},
+        fileName="modelica://Buildings/Resources/Images/Templates/Components/Sensors/SpecificEnthalpy.svg"),
+      Bitmap(
+        visible=typDamOutMin==Buildings.Templates.Components.Types.Damper.None,
+        extent={{-360,-820},{-280,-540}},
+        fileName="modelica://Buildings/Resources/Images/Templates/Components/Sensors/TemperatureStandard.svg"),
+      Bitmap(
+        visible=typDamOutMin==Buildings.Templates.Components.Types.Damper.None and
+          (typCtrEco==Buildings.Templates.AirHandlersFans.Types.ControlEconomizer.FixedEnthalpyWithFixedDryBulb or
+          typCtrEco==Buildings.Templates.AirHandlersFans.Types.ControlEconomizer.DifferentialEnthalpyWithFixedDryBulb),
+        extent={{-480,-820},{-400,-540}},
         fileName="modelica://Buildings/Resources/Images/Templates/Components/Sensors/SpecificEnthalpy.svg")}),
    Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-180,-140},{180,140}})));

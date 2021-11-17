@@ -50,19 +50,20 @@ equation
   connect(damOut.bus, bus.damOut);
   connect(damOutMin.bus, bus.damOutMin);
   connect(TOut.y, bus.TOut);
+  connect(hOut.y, bus.hOut);
   connect(VOutMin_flow.y, bus.VOutMin_flow);
   /* Hardware point connection - end */
   connect(port_aIns, damOut.port_a)
-    annotation (Line(points={{-80,0},{-10,0}}, color={0,127,255}));
+    annotation (Line(points={{-40,0},{-10,0}}, color={0,127,255}));
   connect(damOut.port_b, port_b)
     annotation (Line(points={{10,0},{180,0}}, color={0,127,255}));
   connect(port_a, pas.port_a)
-    annotation (Line(points={{-180,0},{-110,0}}, color={0,127,255}));
+    annotation (Line(points={{-180,0},{-70,0}},  color={0,127,255}));
   connect(TOut.port_b, VOutMin_flow.port_a)
     annotation (Line(points={{70,60},{80,60}}, color={0,127,255}));
   connect(VOutMin_flow.port_b, port_b) annotation (Line(points={{100,60},{120,60},
           {120,0},{180,0}}, color={0,127,255}));
-  connect(port_aIns, damOutMin.port_a) annotation (Line(points={{-80,0},{-16,0},
+  connect(port_aIns, damOutMin.port_a) annotation (Line(points={{-40,0},{-16,0},
           {-16,60},{-10,60}},color={0,127,255}));
   connect(damOutMin.port_b, hOut.port_a)
     annotation (Line(points={{10,60},{20,60}}, color={0,127,255}));
@@ -75,5 +76,17 @@ OA flow rate because the type of sensor conditions the type of
 damper: two-position in case of differential pressure, modulated in case
 of AFMS.
 </p>
-</html>"));
+</html>"), Icon(graphics={
+              Line(
+          points={{0,140},{0,0}},
+          color={28,108,200},
+          thickness=1),
+              Line(
+          points={{-180,0},{180,0}},
+          color={28,108,200},
+          thickness=1),
+              Line(
+          points={{-180,60},{0,60}},
+          color={28,108,200},
+          thickness=1)}));
 end DedicatedDamperAirflow;

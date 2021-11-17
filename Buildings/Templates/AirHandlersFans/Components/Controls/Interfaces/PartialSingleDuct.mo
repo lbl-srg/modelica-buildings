@@ -35,7 +35,7 @@ partial block PartialSingleDuct "Partial control block for single duct AHU"
       tab="Economizer",
       enable=secOutRel.typ<>Buildings.Templates.AirHandlersFans.Types.OutdoorReliefReturnSection.NoEconomizer));
 
-  parameter Boolean use_TMix=true
+  parameter Boolean use_TMix=false
     "Set to true if mixed air temperature measurement is enabled"
      annotation(Dialog(
        group="Economizer freeze protection",

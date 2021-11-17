@@ -66,8 +66,16 @@ equation
   annotation (Icon(
     graphics={
       Bitmap(
-        extent={{-80,-80},{80,80}},
-        fileName="modelica://Buildings/Resources/Images/Templates/Components/Coils/WaterBasedHeating.svg")},
+        extent={{-53,-100},{53,100}},
+        fileName="modelica://Buildings/Resources/Images/Templates/Components/Coils/WaterBasedHeating.svg"),
+      Bitmap(
+        extent={{-200,-260},{40,-100}},
+        visible=typAct==Buildings.Templates.Components.Types.Actuator.ThreeWayValve,
+        fileName="modelica://Buildings/Resources/Images/Templates/Components/Actuators/ThreeWayValve.svg"),
+      Bitmap(
+        extent={{-200,-260},{40,-100}},
+        visible=typAct==Buildings.Templates.Components.Types.Actuator.TwoWayValve,
+        fileName="modelica://Buildings/Resources/Images/Templates/Components/Actuators/TwoWayValve.svg")},
     coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
     Documentation(revisions="<html>

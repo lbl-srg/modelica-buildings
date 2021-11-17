@@ -137,18 +137,6 @@ model VAVMultiZone "Multiple-Zone VAV"
         enable=fanSupDra.typ == Buildings.Templates.Components.Types.Fan.None),
       Placement(transformation(extent={{-70,-210},{-50,-190}})));
 
-  inner replaceable .Buildings.Templates.Components.Coils.None coiHea
-    constrainedby Buildings.Templates.Components.Coils.Interfaces.PartialCoil(
-    final fun=Buildings.Templates.Components.Types.CoilFunction.Heating)
-    "Heating coil"
-    annotation (
-    choices(
-      choice(redeclare Buildings.Templates.Components.Coils.None coiHea "No coil"),
-      choice(redeclare Buildings.Templates.Components.Coils.WaterBasedHeating coiHea
-        "Water-based")),
-    Dialog(group="Heating coil"),
-    Placement(transformation(extent={{-40,-210},{-20,-190}})));
-
   .Buildings.Templates.Components.Sensors.Temperature THea(
     redeclare final package Medium = MediumAir,
     final have_sen=coiHea.typ <> Buildings.Templates.Components.Types.Coil.None
@@ -158,18 +146,6 @@ model VAVMultiZone "Multiple-Zone VAV"
     "Heating coil leaving air temperature sensor"
     annotation (Dialog(group="Supply air section", enable=false),
       Placement(transformation(extent={{-10,-210},{10,-190}})));
-
-  inner replaceable Buildings.Templates.Components.Coils.None coiCoo
-    constrainedby Buildings.Templates.Components.Coils.Interfaces.PartialCoil(
-    final fun=Buildings.Templates.Components.Types.CoilFunction.Cooling)
-    "Cooling coil"
-    annotation (
-    choices(
-      choice(redeclare Buildings.Templates.Components.Coils.None coiCoo "No coil"),
-      choice(redeclare Buildings.Templates.Components.Coils.WaterBasedCooling coiCoo
-          "Water-based")),
-    Dialog(group="Cooling coil"),
-    Placement(transformation(extent={{20,-210},{40,-190}})));
 
   Buildings.Templates.Components.Sensors.Temperature TCoo(
     redeclare final package Medium = MediumAir,
@@ -181,18 +157,6 @@ model VAVMultiZone "Multiple-Zone VAV"
     annotation (Dialog(group=
           "Supply air section", enable=false), Placement(transformation(extent=
             {{50,-210},{70,-190}})));
-
-  inner replaceable Buildings.Templates.Components.Coils.None coiReh
-    constrainedby Buildings.Templates.Components.Coils.Interfaces.PartialCoil(
-    final fun=Buildings.Templates.Components.Types.CoilFunction.Reheat)
-    "Reheat coil"
-    annotation (
-    choices(
-      choice(redeclare Buildings.Templates.Components.Coils.None coiReh "No coil"),
-      choice(redeclare Buildings.Templates.Components.Coils.WaterBasedHeating coiReh
-          "Water-based")),
-    Dialog(group="Reheat coil"),
-    Placement(transformation(extent={{80,-210},{100,-190}})));
 
   inner replaceable Buildings.Templates.Components.Fans.SingleVariable fanSupDra
     constrainedby Buildings.Templates.Components.Fans.Interfaces.PartialFan(
@@ -296,9 +260,43 @@ model VAVMultiZone "Multiple-Zone VAV"
     annotation (Dialog(group=
           "Exhaust/relief/return section", enable=false), Placement(
         transformation(extent={{250,-90},{230,-70}})));
-
+  inner replaceable .Buildings.Templates.Components.Coils.None coiHea
+    constrainedby Buildings.Templates.Components.Coils.Interfaces.PartialCoil(
+    final fun=Buildings.Templates.Components.Types.CoilFunction.Heating)
+    "Heating coil"
+    annotation (
+    choices(
+      choice(redeclare Buildings.Templates.Components.Coils.None coiHea
+        "No coil"),
+      choice(redeclare Buildings.Templates.Components.Coils.WaterBasedHeating coiHea
+        "Water-based")),
+    Dialog(group="Heating coil"),
+    Placement(transformation(extent={{-40,-210},{-20,-190}})));
+  inner replaceable Buildings.Templates.Components.Coils.None coiCoo
+    constrainedby Buildings.Templates.Components.Coils.Interfaces.PartialCoil(
+    final fun=Buildings.Templates.Components.Types.CoilFunction.Cooling)
+    "Cooling coil"
+    annotation (
+    choices(
+      choice(redeclare Buildings.Templates.Components.Coils.None coiCoo
+        "No coil"),
+      choice(redeclare Buildings.Templates.Components.Coils.WaterBasedCooling coiCoo
+        "Water-based")),
+    Dialog(group="Cooling coil"),
+    Placement(transformation(extent={{20,-210},{40,-190}})));
+  inner replaceable Buildings.Templates.Components.Coils.None coiReh
+    constrainedby Buildings.Templates.Components.Coils.Interfaces.PartialCoil(
+    final fun=Buildings.Templates.Components.Types.CoilFunction.Reheat)
+    "Reheat coil"
+    annotation (
+    choices(
+      choice(redeclare Buildings.Templates.Components.Coils.None coiReh
+        "No coil"),
+      choice(redeclare Buildings.Templates.Components.Coils.WaterBasedHeating coiReh
+        "Water-based")),
+    Dialog(group="Reheat coil"),
+    Placement(transformation(extent={{80,-210},{100,-190}})));
 equation
-  /* Hardware point connection - start */
   connect(TMix.y, bus.TMix);
   connect(THea.y, bus.THea);
   connect(TSup.y, bus.TSup);
@@ -306,14 +304,17 @@ equation
   connect(hRet.y, bus.hRet);
   connect(TRet.y, bus.TRet);
   connect(pInd_rel.p_rel, bus.pInd_rel);
-
   connect(fanSupDra.bus, bus.fanSup);
   connect(fanSupBlo.bus, bus.fanSup);
   connect(coiHea.bus, bus.coiHea);
   connect(coiCoo.bus, bus.coiCoo);
   connect(coiReh.bus, bus.coiHea);
-  /* Hardware point connection - end */
+  connect(secOutRel.bus, bus);
 
+  connect(coiHea.port_bSou, port_coiHeaRet) annotation (Line(points={{-26,-210},
+          {-26,-220},{-20,-220},{-20,-280}}, color={0,127,255}));
+  connect(port_coiHeaSup, coiHea.port_aSou) annotation (Line(points={{-40,-280},
+          {-40,-220},{-34,-220},{-34,-210}}, color={0,127,255}));
   connect(port_coiCooSup, coiCoo.port_aSou) annotation (Line(points={{20,-280},{
           20,-220},{26,-220},{26,-210}},   color={0,127,255}));
   connect(coiCoo.port_bSou, port_coiCooRet) annotation (Line(points={{34,-210},{
@@ -326,10 +327,6 @@ equation
     annotation (Line(points={{-80,-200},{-70,-200}},   color={0,127,255}));
   connect(resSup.port_b, TSup.port_a)
     annotation (Line(points={{192,-200},{200,-200}}, color={0,127,255}));
-  connect(port_coiHeaSup, coiHea.port_aSou) annotation (Line(points={{-40,-280},
-          {-40,-220},{-34,-220},{-34,-210}}, color={0,127,255}));
-  connect(coiHea.port_bSou, port_coiHeaRet) annotation (Line(points={{-26,-210},
-          {-26,-220},{-20,-220},{-20,-280}}, color={0,127,255}));
   connect(port_coiRehSup, coiReh.port_aSou) annotation (Line(points={{80,-280},{
           80,-220},{86,-220},{86,-210}}, color={0,127,255}));
   connect(coiReh.port_bSou, port_coiRehRet) annotation (Line(points={{94,-210},{
@@ -345,7 +342,7 @@ equation
   connect(pInd_rel.port_b, out.ports[1])
     annotation (Line(points={{10,240},{-38,240}}, color={0,127,255}));
   connect(ind.ports[1], pInd_rel.port_a)
-    annotation (Line(points={{42,240},{30,240}},      color={0,127,255}));
+    annotation (Line(points={{42,240},{30,240}}, color={0,127,255}));
 
   connect(con.busTer, busTer) annotation (Line(
       points={{-240,120},{-220,120},{-220,0},{300,0}},
@@ -392,11 +389,6 @@ equation
                                                     color={0,127,255}));
   connect(secOutRel.port_bPre, out.ports[2]) annotation (Line(points={{-162,-60},
           {-162,-60},{-42,-60},{-42,240}},           color={0,127,255}));
-  connect(secOutRel.bus, bus) annotation (Line(
-      points={{-200,-60},{-200,0},{-300,0}},
-      color={255,204,51},
-      thickness=0.5));
-
   connect(port_Rel, secOutRel.port_Rel)
     annotation (Line(points={{-300,-80},{-280,-80}}, color={0,127,255}));
   connect(port_Out, secOutRel.port_Out)

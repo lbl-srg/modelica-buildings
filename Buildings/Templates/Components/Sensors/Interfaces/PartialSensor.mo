@@ -42,16 +42,19 @@ equation
   end if;
 
   annotation (
-    Icon(coordinateSystem(preserveAspectRatio=false), graphics={
-                                                              Rectangle(
+    Icon(coordinateSystem(preserveAspectRatio=false),
+      graphics={
+      Rectangle(
+          visible=have_sen,
           extent={{-100,100},{100,-100}},
           lineColor={0,0,255},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid),
-      Rectangle(
+      Line(
         visible=(not have_sen) and (not isDifPreSen),
-          extent={{-100,100},{100,-100}},
-          lineColor={0,0,255})}),
+          points={{-100,0},{100,0}},
+          color={28,108,200},
+          thickness=1)}),
     Diagram(coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>
 </html>"));

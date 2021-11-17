@@ -13,9 +13,8 @@ partial model PartialOutdoorSection "Outdoor air section"
   parameter Buildings.Templates.Components.Types.Damper typDamOutMin
     "Minimum outdoor air damper type"
     annotation (Evaluate=true, Dialog(group="Configuration"));
-  parameter Boolean have_recHea
-    "Set to true in case of heat recovery"
-    annotation (Evaluate=true, Dialog(group="Configuration"));
+  outer parameter Boolean have_recHea
+    "Set to true in case of heat recovery";
   outer parameter Buildings.Templates.AirHandlersFans.Types.ControlEconomizer typCtrEco
     "Economizer control type";
 
@@ -63,13 +62,13 @@ partial model PartialOutdoorSection "Outdoor air section"
     m_flow(min=if allowFlowReversal then -Modelica.Constants.inf else 0),
     h_outflow(start=MediumAir.h_default, nominal=MediumAir.h_default)) if have_recHea
     "Optional fluid connector for heat recovery"
-    annotation (Placement(transformation(extent={{-90,130},{-70,150}})));
+    annotation (Placement(transformation(extent={{-50,130},{-30,150}})));
   Modelica.Fluid.Interfaces.FluidPort_b port_bHeaRec(
     redeclare final package Medium = MediumAir,
     m_flow(max=if allowFlowReversal then +Modelica.Constants.inf else 0),
     h_outflow(start=MediumAir.h_default, nominal=MediumAir.h_default)) if have_recHea
     "Optional fluid connector for heat recovery"
-    annotation (Placement(transformation(extent={{-110,130},{-130,150}})));
+    annotation (Placement(transformation(extent={{-70,130},{-90,150}})));
   Buildings.Templates.AirHandlersFans.Interfaces.Bus bus "Control bus"
     annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
@@ -82,7 +81,7 @@ partial model PartialOutdoorSection "Outdoor air section"
   Buildings.Templates.BaseClasses.PassThroughFluid pas(
     redeclare final package Medium = MediumAir) if not have_recHea
     "Direct pass through (conditional)"
-    annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
+    annotation (Placement(transformation(extent={{-70,-10},{-50,10}})));
 
 protected
   Modelica.Fluid.Interfaces.FluidPort_a port_aIns(
@@ -90,14 +89,14 @@ protected
     m_flow(min=if allowFlowReversal then -Modelica.Constants.inf else 0),
     h_outflow(start=MediumAir.h_default, nominal=MediumAir.h_default))
     "Inside fluid connector a (positive design flow direction is from port_a to port_b)"
-    annotation (Placement(transformation(extent={{-90,-10},{-70,10}})));
+    annotation (Placement(transformation(extent={{-50,-10},{-30,10}})));
 equation
   connect(pas.port_b, port_aIns)
-    annotation (Line(points={{-90,0},{-80,0}}, color={0,127,255}));
+    annotation (Line(points={{-50,0},{-40,0}}, color={0,127,255}));
   connect(port_aHeaRec, port_aIns)
-    annotation (Line(points={{-80,140},{-80,0},{-80,0}}, color={0,127,255}));
-  connect(port_bHeaRec, pas.port_a) annotation (Line(points={{-120,140},{-120,0},
-          {-110,0}}, color={0,127,255}));
+    annotation (Line(points={{-40,140},{-40,0}},         color={0,127,255}));
+  connect(port_bHeaRec, pas.port_a) annotation (Line(points={{-80,140},{-80,0},{
+          -70,0}},   color={0,127,255}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-180,-140},
             {180,140}}), graphics={
         Text(

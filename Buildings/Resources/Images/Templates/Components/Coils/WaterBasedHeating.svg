@@ -11,13 +11,19 @@
    xmlns:svg="http://www.w3.org/2000/svg">
   <defs
      id="defs8792">
+    <rect
+       x="-313.01"
+       y="-189.15789"
+       width="987.7393"
+       height="1297.1672"
+       id="rect5225" />
     <filter
        style="color-interpolation-filters:sRGB"
        id="filter1843"
-       x="-1.1611951e-06"
-       width="1.0000023"
-       y="-8.8509041e-07"
-       height="1.0000018">
+       x="-1.741797e-06"
+       width="1.0000035"
+       y="-1.327639e-06"
+       height="1.0000027">
       <feGaussianBlur
          stdDeviation="5.3769531e-05"
          id="feGaussianBlur1845" />
@@ -36,36 +42,21 @@
   </defs>
   <g
      id="layer1"
-     transform="translate(-18.728325,0.12099384)">
+     transform="translate(-20.207525,0.11079384)">
     <g
        id="g1829"
        style="stroke:#000000;stroke-width:0.233273;stroke-miterlimit:4;stroke-dasharray:none"
-       transform="matrix(11.363103,0,0,11.321368,-2324.6999,-5246.4682)">
-      <polyline
-         points="397.477,477.96 385.909,477.96 "
-         id="polyline486-4"
-         style="fill:none;stroke:#000000;stroke-width:0.233273;stroke-miterlimit:4;stroke-dasharray:none"
-         transform="translate(-179.561,-14.441131)" />
-      <polyline
-         points="385.909,477.96 385.909,501.097 "
-         id="polyline488-0"
-         style="fill:none;stroke:#000000;stroke-width:0.233273;stroke-miterlimit:4;stroke-dasharray:none"
-         transform="translate(-179.561,-14.441131)" />
+       transform="matrix(11.363103,0,0,11.321368,-2323.2207,-5246.458)">
       <polyline
          points="385.909,501.097 397.477,477.96 "
          id="polyline490-5"
          style="fill:none;stroke:#000000;stroke-width:0.233273;stroke-miterlimit:4;stroke-dasharray:none"
          transform="translate(-179.561,-14.441131)" />
-      <polyline
-         points="397.477,477.96 397.477,501.097 "
+      <path
          id="polyline492-9"
-         style="fill:none;stroke:#000000;stroke-width:0.233273;stroke-miterlimit:4;stroke-dasharray:none"
-         transform="translate(-179.561,-14.441131)" />
-      <polyline
-         points="397.477,501.097 385.909,501.097 "
-         id="polyline494-4"
-         style="fill:none;stroke:#000000;stroke-width:0.233273;stroke-miterlimit:4;stroke-dasharray:none"
-         transform="translate(-179.561,-14.441131)" />
+         style="fill:none"
+         transform="translate(-179.561,-14.441131)"
+         d="M 397.477,501.097 V 477.96 h -11.568 v 23.137 h 11.68442" />
     </g>
     <text
        xml:space="preserve"
@@ -74,10 +65,10 @@
        y="372.91309"
        id="text1837"
        transform="matrix(0.26458333,0,0,0.26458333,23.533972,-10.720089)"><tspan
-         id="tspan1835"
+         id="tspan7277"
          x="68.764473"
          y="372.91309"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:200px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;stroke-width:10;stroke-miterlimit:4;stroke-dasharray:none">H</tspan></text>
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:200px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal">H</tspan></text>
     <text
        xml:space="preserve"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:133.333px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:10;stroke-miterlimit:4;stroke-dasharray:none;filter:url(#filter1843-2)"
@@ -89,5 +80,10 @@
          x="256.526"
          y="852.90997"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:200px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;stroke-width:10;stroke-miterlimit:4;stroke-dasharray:none">C</tspan></text>
+    <text
+       xml:space="preserve"
+       transform="matrix(0.26458333,0,0,0.26458333,20.207525,-0.11079384)"
+       id="text5223"
+       style="fill:black;fill-opacity:1;line-height:1.25;stroke:none;font-family:sans-serif;font-style:normal;font-weight:normal;font-size:40px;white-space:pre;shape-inside:url(#rect5225)" />
   </g>
 </svg>

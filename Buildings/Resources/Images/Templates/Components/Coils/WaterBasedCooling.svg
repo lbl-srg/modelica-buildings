@@ -36,36 +36,21 @@
   </defs>
   <g
      id="layer1"
-     transform="translate(-18.043725,0.1081941)">
+     transform="translate(-20.207525,0.11079384)">
     <g
        id="g1829"
        style="stroke:#000000;stroke-width:0.233273;stroke-miterlimit:4;stroke-dasharray:none"
-       transform="matrix(11.363103,0,0,11.321368,-2325.3845,-5246.4554)">
-      <polyline
-         points="397.477,477.96 385.909,477.96 "
-         id="polyline486-4"
-         style="fill:none;stroke:#000000;stroke-width:0.233273;stroke-miterlimit:4;stroke-dasharray:none"
-         transform="translate(-179.561,-14.441131)" />
-      <polyline
-         points="385.909,477.96 385.909,501.097 "
-         id="polyline488-0"
-         style="fill:none;stroke:#000000;stroke-width:0.233273;stroke-miterlimit:4;stroke-dasharray:none"
-         transform="translate(-179.561,-14.441131)" />
+       transform="matrix(11.363103,0,0,11.321368,-2323.2207,-5246.458)">
       <polyline
          points="385.909,501.097 397.477,477.96 "
          id="polyline490-5"
          style="fill:none;stroke:#000000;stroke-width:0.233273;stroke-miterlimit:4;stroke-dasharray:none"
          transform="translate(-179.561,-14.441131)" />
-      <polyline
-         points="397.477,477.96 397.477,501.097 "
+      <path
          id="polyline492-9"
-         style="fill:none;stroke:#000000;stroke-width:0.233273;stroke-miterlimit:4;stroke-dasharray:none"
-         transform="translate(-179.561,-14.441131)" />
-      <polyline
-         points="397.477,501.097 385.909,501.097 "
-         id="polyline494-4"
-         style="fill:none;stroke:#000000;stroke-width:0.233273;stroke-miterlimit:4;stroke-dasharray:none"
-         transform="translate(-179.561,-14.441131)" />
+         style="fill:none"
+         transform="translate(-179.561,-14.441131)"
+         d="M 397.477,501.097 V 477.96 h -11.568 v 23.137 h 11.68442" />
     </g>
     <text
        xml:space="preserve"

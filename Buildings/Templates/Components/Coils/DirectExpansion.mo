@@ -31,6 +31,10 @@ equation
       thickness=0.5));
   connect(hex.port_b, port_b)
     annotation (Line(points={{10,0},{100,0}}, color={0,127,255}));
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
+  annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
+      Bitmap(
+        extent={{-53,-100},{53,100}},
+        fileName="modelica://Buildings/Resources/Images/Templates/Components/Coils/WaterBasedCooling.svg")}),
+    Diagram(
         coordinateSystem(preserveAspectRatio=false)));
 end DirectExpansion;
