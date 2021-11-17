@@ -449,7 +449,11 @@ char* findSpawnExe(FMUBuilding* bui, const char* SEARCHPATH, const char* spawnEx
     strcpy(searchPathCopy, SEARCHPATH);
 
     for (str = searchPathCopy; ; str = NULL) {
+#ifdef _WIN32 /* Win32 or Win64 */
+      token = strtok_s(str, delimiter, &saveptr);
+#else
       token = strtok_r(str, delimiter, &saveptr);
+#endif
       if (token == NULL){
         /* All tokens have been parsed, but did not find the executable. */
           free(searchPathCopy);
