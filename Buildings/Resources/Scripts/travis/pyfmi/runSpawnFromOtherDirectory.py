@@ -1,7 +1,11 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 ##############################################################
-# Script that tests exporting Spawn and running it using pyfmi
+# Script that tests exporting Spawn and running without use
+# of the binary files of the Buildings library.
+#
+# Note that this file runs OCT from a local installation.
+# Running OCT from a docker with this script is not supported.
 ##############################################################
 
 import os
@@ -38,7 +42,13 @@ def printZipContent(zipFile):
         for elem in listOfiles:
             print(f"  {elem}")
 
-def simulate():
+def simulate(expectToFail):
+    """ Simulate the model.
+
+        If `expectedToFail = False` and the simulation fails, or
+        if `exptectedToFail = True` and the simulation succeeds, the
+        function raises `RuntimeError`. Otherwise it return without error.
+    """
     import subprocess
 
     def print_output(typ, stream):
@@ -56,22 +66,24 @@ def simulate():
         print_output("stdout", stdout)
         print_output("stderr", stderr)
         raise
-    if process.returncode is not 0:
+    if (process.returncode is not 0) and (not expectToFail):
         print_output("stdout", stdout)
         print_output("stderr", stderr)
-        raise RuntimeError("Failed to simulate fmu.")
+        raise RuntimeError("Failed to simulate fmu, but expected successful simulation.")
+    if (process.returncode is 0) and expectToFail:
+        print_output("stdout", stdout)
+        print_output("stderr", stderr)
+        raise RuntimeError("Simulation was successful, but it was expected to fail.")
 
 
 def run_test(pathVariable):
-
-    print(f"Testing with environment variable {pathVariable} set")
-
+    binDir=os.path.abspath(os.path.join("Buildings", "Resources", "bin", "spawn-linux64"))
+    curDir = os.path.abspath(os.curdir)
     worDir = _create_worDir()
     shutil.copy(fmu, worDir)
     os.chdir(worDir)
 
     # Move the binaries, to emulate a local installation
-    binDir=os.path.join("..", "Buildings", "Resources", "bin", "spawn-linux64")
     shutil.move(binDir, os.path.join(worDir, "my-bin"))
 
     with open("simulate.py", 'w') as f:
@@ -89,13 +101,15 @@ mod.simulate()
                 os.environ[pathVariable]=os.path.abspath(os.path.join("my-bin", "bin"))
             else:
                 os.environ[pathVariable]=oldVar + ":" + os.path.abspath(os.path.join("my-bin", "bin"))
-        simulate()
+        simulate(pathVariable is None)
     except BaseException as err:
         print("Error: {0}.\n*** Note that this script does not work if the OPTIMICA simulation is run in a docker".format(err))
         retVal = 1
     finally:
         # Move the binaries back, to emulate a local installation
         shutil.move(os.path.abspath(os.path.join("my-bin")), binDir)
+        os.chdir(curDir)
+
         # Reset the environment variable
         if oldVar is not None:
             os.environ[pathVariable] = oldVar
@@ -114,20 +128,12 @@ if __name__ == "__main__":
 
 #    printZipContent(fmu)
 
-    # Test with SPAWNPATH set. This must work.
-    retVal = run_test("SPAWNPATH")
-    if retVal is not 0:
-        sys.exit(retVal)
-    # Test with PATH set. This must work.
-    retVal = run_test("PATH")
-    if retVal is not 0:
-        sys.exit(retVal)
-    # Test without neither set. This must fail, hence return non-zero
-    retVal = run_test(None)
-    if retVal is 0:
-        sys.exit(1)
-    else:
-        sys.exit(0)
+    args = ["SPAWNPATH", "PATH", None]
+    for arg in args:
+        retVal = run_test(arg)
+        if retVal is not 0:
+            sys.exit(1)
+    sys.exit(0)
 
 
 
