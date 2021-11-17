@@ -65,26 +65,36 @@ if __name__ == "__main__":
 
     from buildingspy.simulate.Optimica import Simulator
     import sys
-    print("This script is disabled for the CI testing. It still allows spawn to invoke Buildings/Resources/bin/spawn-0.2.0-xxxxx")
-    print("Thefore, the script run with a local OCT installation, but not if OCT is in a docker.")
-    sys.exit(1)
     model = "Buildings.ThermalZones.EnergyPlus.Examples.SingleFamilyHouse.Unconditioned"
     #model = "Buildings.Controls.Continuous.Examples.LimPID"
     fmu = model.replace('.', '_') + ".fmu"
     s=Simulator(model)
     s.translate()
 
-    printZipContent(fmu)
+#    printZipContent(fmu)
 
     worDir = _create_worDir()
-    shutil.move(fmu, worDir)
+    shutil.copy(fmu, worDir)
     os.chdir(worDir)
+
+    # Move the binaries, to emulate a local installation
+    binDir=os.path.join("..", "Buildings", "Resources", "bin", "spawn-linux64")
+    shutil.move(binDir, os.path.join(worDir, "my-bin"))
 
     with open("simulate.py", 'w') as f:
         f.write(f"""from pyfmi import load_fmu
-    mod = load_fmu("{fmu}")
-    mod.simulate()
-    """)
-
-    simulate()
+mod = load_fmu("{fmu}")
+mod.simulate()
+""")
+    retVal = 0
+    try:
+        os.environ["SPAWNPATH"]=os.path.abspath(os.path.join("my-bin", "bin"))
+        simulate()
+    except BaseException as err:
+        print("Error: {0}.\n*** Note that this script does not work if the OPTIMICA simulation is run in a docker".format(err))
+        retVal = 1
+    finally:
+        # Move the binaries back, to emulate a local installation
+        shutil.move(os.path.abspath(os.path.join("my-bin")), binDir)
+        sys.exit(retVal)
 
