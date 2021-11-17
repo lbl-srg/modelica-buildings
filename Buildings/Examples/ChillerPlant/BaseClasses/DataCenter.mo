@@ -25,6 +25,7 @@ partial model DataCenter
     m_flow_nominal=mAir_flow_nominal,
     dp(start=249),
     m_flow(start=mAir_flow_nominal),
+    nominalValuesDefineDefaultPressureCurve=true,
     use_inputFilter=false,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     T_start=293.15) "Fan for air flow through the data center"
@@ -60,6 +61,7 @@ partial model DataCenter
     m_flow_nominal=mCHW_flow_nominal,
     m_flow(start=mCHW_flow_nominal),
     dp(start=325474),
+    nominalValuesDefineDefaultPressureCurve=true,
     use_inputFilter=false,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     "Chilled water pump" annotation (Placement(transformation(
@@ -85,6 +87,7 @@ partial model DataCenter
     redeclare package Medium = MediumW,
     m_flow_nominal=mCW_flow_nominal,
     dp(start=214992),
+    nominalValuesDefineDefaultPressureCurve=true,
     use_inputFilter=false,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     "Condenser water pump" annotation (Placement(transformation(
@@ -187,8 +190,8 @@ partial model DataCenter
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={98,180})));
-  Buildings.Fluid.Sensors.TemperatureTwoPort TAirSup(redeclare package Medium
-      = MediumA, m_flow_nominal=mAir_flow_nominal)
+  Buildings.Fluid.Sensors.TemperatureTwoPort TAirSup(redeclare package Medium =
+        MediumA, m_flow_nominal=mAir_flow_nominal)
     "Supply air temperature to data center" annotation (Placement(
         transformation(
         extent={{10,-10},{-10,10}},
@@ -200,8 +203,8 @@ partial model DataCenter
         extent={{10,10},{-10,-10}},
         rotation=270,
         origin={218,0})));
-  Buildings.Fluid.Sensors.TemperatureTwoPort TCWLeaTow(redeclare package Medium
-      = MediumW, m_flow_nominal=mCW_flow_nominal)
+  Buildings.Fluid.Sensors.TemperatureTwoPort TCWLeaTow(redeclare package Medium =
+        MediumW, m_flow_nominal=mCW_flow_nominal)
     "Temperature of condenser water leaving the cooling tower"      annotation (
      Placement(transformation(
         extent={{10,-10},{-10,10}},
