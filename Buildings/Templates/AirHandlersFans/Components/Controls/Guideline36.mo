@@ -14,19 +14,19 @@ block Guideline36 "Guideline 36 VAV single duct controller"
     annotation (Dialog(group="System and building parameters"));
 
   /* FIXME: Evaluate function call at compile time, FE ExternData.
-  
+
   parameter String namGroZon[nZon] = {
     dat.getString(varName=idTerArr[i] + ".Identification.Zone group name.value")
     for i in 1:nZon}
     "Name of group which each zone belongs to"
     annotation(Evaluate=true);
-    
+
   parameter Boolean have_perZonRehBox = Modelica.Math.BooleanVectors.anyTrue({
       dat.getBoolean(varName=idTerArr[i] + ".Control.Perimeter zone with reheat.value")
       for i in 1:nZon})
     "Check if there is any VAV-reheat boxes on perimeter zones"
-    annotation (Dialog(group="System and building parameters"));    
-    
+    annotation (Dialog(group="System and building parameters"));
+
   */
 
   final parameter Boolean isZonInGro[nGro, nZon] = {
@@ -60,7 +60,7 @@ block Guideline36 "Guideline 36 VAV single duct controller"
     annotation (Dialog(group="System and building parameters"));
 
   final parameter Boolean have_airFloMeaSta=
-    typCtrFanSup==Buildings.Templates.AirHandlersFans.Types.ControlSupplyFan.Airflow
+    typCtrFanSup==Buildings.Templates.AirHandlersFans.Types.ControlFanSupply.Airflow
     "Check if the AHU has supply airflow measuring station"
     annotation (Dialog(group="System and building parameters"));
 

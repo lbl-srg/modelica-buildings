@@ -32,7 +32,8 @@ partial block PartialController
     annotation(Evaluate=true);
     */
 
-  Buildings.Templates.AirHandlersFans.Interfaces.Bus bus "AHU control bus"
+  Buildings.Templates.AirHandlersFans.Interfaces.Bus bus
+    "AHU control bus"
     annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
         rotation=90,
@@ -41,7 +42,8 @@ partial block PartialController
         rotation=90,
         origin={-100,0})));
   ZoneEquipment.Interfaces.Bus busTer[nZon]
-    "Terminal unit control bus" annotation (Placement(transformation(
+    "Terminal unit control bus"
+    annotation (Placement(transformation(
         extent={{-20,20},{20,-20}},
         rotation=90,
         origin={220,0}), iconTransformation(

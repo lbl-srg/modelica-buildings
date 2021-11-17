@@ -54,9 +54,5 @@ equation
           lineColor={0,0,255})}),
     Diagram(coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>
-<p>
-The location parameter <code>loc</code> is used to assign nominal parameter values
-based on the external system parameter file.
-</p>
 </html>"));
 end PartialSensor;

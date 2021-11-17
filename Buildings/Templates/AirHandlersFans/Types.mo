@@ -17,7 +17,19 @@ package Types "AHU types"
       OpenLoop
       "Open loop")
     "Enumeration to configure the AHU controller";
-  type ControlReturnFan = enumeration(
+  type ControlEconomizer = enumeration(
+      FixedDryBulb
+      "Fixed dry bulb",
+      DifferentialDryBulb
+      "Differential dry bulb",
+      FixedDryBulbWithDifferentialDryBulb
+      "Fixed dry bulb with differential dry bulb",
+      FixedEnthalpyWithFixedDryBulb
+      "Fixed enthalpy with fixed dry bulb",
+      DifferentialEnthalpyWithFixedDryBulb
+      "Differential enthalpy with fixed dry bulb")
+    "Enumeration to configure the economizer control";
+  type ControlFanReturn = enumeration(
       Calculated
       "Calculated based on fan speed (requires unvarying flow characteristic)",
       Airflow
@@ -25,7 +37,7 @@ package Types "AHU types"
       Pressure
       "Direct building pressure (via discharge static pressure)")
     "Enumeration to configure the return fan control";
-  type ControlSupplyFan = enumeration(
+  type ControlFanSupply = enumeration(
       Calculated
       "Calculated based on VAV box air flow rates",
       Airflow

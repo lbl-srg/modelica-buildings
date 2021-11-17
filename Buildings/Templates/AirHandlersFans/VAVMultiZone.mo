@@ -56,6 +56,10 @@ model VAVMultiZone "Multiple-Zone VAV"
     secOutRel.typFanRel
     "Type of relief fan"
     annotation (Evaluate=true);
+  final parameter Buildings.Templates.AirHandlersFans.Types.ControlEconomizer typCtrEco=
+    con.typCtrEco
+    "Economizer control type"
+    annotation (Evaluate=true);
 
   Modelica.Fluid.Interfaces.FluidPort_b port_coiCooRet(
     redeclare final package Medium = MediumCoo) if have_souCoiCoo
@@ -102,7 +106,8 @@ model VAVMultiZone "Multiple-Zone VAV"
       final mSup_flow_nominal=mSup_flow_nominal,
       final mRet_flow_nominal=mRet_flow_nominal,
       final dpFan_nominal=dpFanRet_nominal,
-      final typCtrFanRet=con.typCtrFanRet)
+      final typCtrFanRet=con.typCtrFanRet,
+      final typCtrEco=typCtrEco)
     "Outdoor/relief/return air section"
     annotation (
       Dialog(group="Outdoor/relief/return air section"),
@@ -124,7 +129,7 @@ model VAVMultiZone "Multiple-Zone VAV"
       final m_flow_nominal=mSup_flow_nominal,
       final dp_nominal=dpFanSup_nominal,
       final have_senFlo=con.typCtrFanSup==
-        Buildings.Templates.AirHandlersFans.Types.ControlSupplyFan.Airflow)
+        Buildings.Templates.AirHandlersFans.Types.ControlFanSupply.Airflow)
     "Supply fan - Blow through"
     annotation (
       choicesAllMatching=true,
@@ -195,7 +200,7 @@ model VAVMultiZone "Multiple-Zone VAV"
       final m_flow_nominal=mSup_flow_nominal,
       final dp_nominal=dpFanSup_nominal,
       final have_senFlo=con.typCtrFanSup==
-        Buildings.Templates.AirHandlersFans.Types.ControlSupplyFan.Airflow)
+        Buildings.Templates.AirHandlersFans.Types.ControlFanSupply.Airflow)
     "Supply fan - Draw through"
     annotation (
     choicesAllMatching=true,
@@ -246,6 +251,7 @@ model VAVMultiZone "Multiple-Zone VAV"
     annotation (Dialog(group="Supply air section",
         enable=false), Placement(transformation(extent={{250,-230},{270,-210}})));
 
+  // FIXME: condition to control option.
   Buildings.Fluid.Sensors.RelativePressure pInd_rel(
     redeclare final package Medium=MediumAir)
     "Building static pressure"
@@ -260,7 +266,6 @@ model VAVMultiZone "Multiple-Zone VAV"
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={-40,250})));
-
   Buildings.Fluid.Sources.Boundary_pT ind(
     redeclare final package Medium = MediumAir,
     final use_p_in=true,
@@ -271,21 +276,21 @@ model VAVMultiZone "Multiple-Zone VAV"
         rotation=-90,
         origin={40,250})));
 
-  // FIXME: bind have_sen to control option.
   Buildings.Templates.Components.Sensors.Temperature TRet(
     redeclare final package Medium = MediumAir,
-    have_sen=false,
+    final have_sen=
+      con.typCtrEco==Buildings.Templates.AirHandlersFans.Types.ControlEconomizer.DifferentialDryBulb or
+      con.typCtrEco==Buildings.Templates.AirHandlersFans.Types.ControlEconomizer.FixedDryBulbWithDifferentialDryBulb,
     final typ=Buildings.Templates.Components.Types.SensorTemperature.Standard,
     final m_flow_nominal=mRet_flow_nominal)
     "Return air temperature sensor"
     annotation (Dialog(group=
           "Exhaust/relief/return section", enable=false), Placement(
         transformation(extent={{220,-90},{200,-70}})));
-
-  // FIXME: bind have_sen to control option.
   Buildings.Templates.Components.Sensors.SpecificEnthalpy hRet(
     redeclare final package Medium = MediumAir,
-    have_sen=false,
+    final have_sen=
+      con.typCtrEco==Buildings.Templates.AirHandlersFans.Types.ControlEconomizer.DifferentialEnthalpyWithFixedDryBulb,
     final m_flow_nominal=mRet_flow_nominal)
     "Return air enthalpy sensor"
     annotation (Dialog(group=
@@ -411,11 +416,7 @@ equation
           extent={{-86,230},{124,210}},
           lineColor={0,127,255},
           pattern=LinePattern.Dash,
-          textString="No further connection allowed to those two boundary conditions"),
-                                                               Text(
-          extent={{-298,214},{-92,160}},
-          lineColor={238,46,47},
-          textString="TODO: implement economizer enthalpy control")}),
+          textString="No further connection allowed to those two boundary conditions")}),
     Documentation(info="<html>
   connect(fanSupDra.bus, bus.fanSup);
   connect(fanSupBlo.bus, bus.fanSup);

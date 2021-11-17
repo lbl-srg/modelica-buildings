@@ -79,14 +79,6 @@ package Types "Generic types for template components"
       MultipleVariable
       "Multiple fans (identical) - Variable speed")
     "Enumeration to configure the fan";
-  type Location = enumeration(
-      OutdoorAir,
-      MinimumOutdoorAir,
-      Relief,
-      Return,
-      Supply,
-      Terminal)
-    "Enumeration to specify the equipment location";
   type Sensor = enumeration(
       DifferentialPressure
       "Differential pressure",

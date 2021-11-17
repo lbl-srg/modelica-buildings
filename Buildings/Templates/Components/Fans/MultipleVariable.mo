@@ -103,10 +103,18 @@ equation
           {30,-26},{30,0},{70,0}}, color={0,127,255}));
   annotation (Placement(transformation(extent={{-10,-10},{10,10}})),
               Icon(
-    graphics={Bitmap(
-        extent={{-78,-80},{82,80}},
-        fileName="modelica://Buildings/Resources/Images/Templates/Components/Fans/MultipleVariable.svg")},
-              coordinateSystem(preserveAspectRatio=false)), Diagram(
+    graphics={
+      Bitmap(
+        extent={{-78,-84},{82,76}},
+        fileName="modelica://Buildings/Resources/Images/Templates/Components/Fans/MultipleVariable.svg"),
+    Bitmap(
+        visible=have_senFlo,
+        extent={{-23,-6},{28,6}},   fileName="modelica://Buildings/Resources/Images/Templates/Components/Fans/AirflowSensor.svg"),
+    Bitmap(
+        visible=have_senFlo,
+        extent={{-164,-222},{-22,4}},
+        fileName="modelica://Buildings/Resources/Images/Templates/Components/Fans/AirflowSensorBoxLeft.svg")}),
+    Diagram(
         coordinateSystem(preserveAspectRatio=false), graphics={Text(
           extent={{-192,-16},{-18,-74}},
           lineColor={238,46,47},

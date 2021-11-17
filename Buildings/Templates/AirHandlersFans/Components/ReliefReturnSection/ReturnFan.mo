@@ -21,7 +21,7 @@ model ReturnFan "Return fan - Modulated relief damper"
       final m_flow_nominal=m_flow_nominal,
       final dp_nominal=dpFan_nominal,
       final have_senFlo=
-        typCtrFanRet==Buildings.Templates.AirHandlersFans.Types.ControlReturnFan.Airflow)
+        typCtrFanRet==Buildings.Templates.AirHandlersFans.Types.ControlFanReturn.Airflow)
     "Return fan"
     annotation (choices(choice(redeclare
       Buildings.Templates.Components.Fans.SingleVariable fanRet
@@ -32,7 +32,7 @@ model ReturnFan "Return fan - Modulated relief damper"
     transformation(extent={{70,-10},{50,10}})));
   Buildings.Templates.Components.Sensors.DifferentialPressure pRet_rel(
     redeclare final package Medium = MediumAir,
-    final have_sen=typCtrFanRet==Buildings.Templates.AirHandlersFans.Types.ControlReturnFan.Pressure,
+    final have_sen=typCtrFanRet==Buildings.Templates.AirHandlersFans.Types.ControlFanReturn.Pressure,
     final m_flow_nominal=m_flow_nominal) "Return static pressure sensor"
     annotation (Placement(transformation(extent={{50,-50},{70,-30}})));
 

@@ -16,6 +16,8 @@ partial model PartialOutdoorSection "Outdoor air section"
   parameter Boolean have_recHea
     "Set to true in case of heat recovery"
     annotation (Evaluate=true, Dialog(group="Configuration"));
+  outer parameter Buildings.Templates.AirHandlersFans.Types.ControlEconomizer typCtrEco
+    "Economizer control type";
 
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal
     "Air mass flow rate"
@@ -77,9 +79,8 @@ partial model PartialOutdoorSection "Outdoor air section"
         rotation=0,
         origin={0,140})));
 
-  Buildings.Templates.BaseClasses.PassThroughFluid pas(redeclare final package
-              Medium =
-               MediumAir) if not have_recHea
+  Buildings.Templates.BaseClasses.PassThroughFluid pas(
+    redeclare final package Medium = MediumAir) if not have_recHea
     "Direct pass through (conditional)"
     annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
 

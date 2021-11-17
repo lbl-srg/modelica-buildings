@@ -8,6 +8,7 @@ CoilHeatingEffectivenessNTU2WV
 CoilHeatingEffectivenessNTU3WV
 CompleteAHU
 ControlsGuideline36
+ControlsGuideline36Pressure
 DedicatedDamperAirflow
 DedicatedDamperPressure
 FanReturnSingleVariable

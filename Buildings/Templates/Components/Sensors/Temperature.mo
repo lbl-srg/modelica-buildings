@@ -32,11 +32,15 @@ equation
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
       Bitmap(
         extent={{-40,-220},{40,60}},
-        visible=typ==Buildings.Templates.Components.Types.SensorTemperature.Standard,
+        visible=have_sen and typ==Buildings.Templates.Components.Types.SensorTemperature.Standard,
         fileName="modelica://Buildings/Resources/Images/Templates/Components/Sensors/TemperatureStandard.svg"),
       Bitmap(
+        extent={{-62,-58},{60,220}},
+        visible=have_sen and typ==Buildings.Templates.Components.Types.SensorTemperature.InWell,
+        fileName="modelica://Buildings/Resources/Images/Templates/Components/Sensors/TemperatureInWell.svg"),
+      Bitmap(
         extent={{-40,-220},{40,60}},
-        visible=typ==Buildings.Templates.Components.Types.SensorTemperature.Averaging,
+        visible=have_sen and typ==Buildings.Templates.Components.Types.SensorTemperature.Averaging,
         fileName="modelica://Buildings/Resources/Images/Templates/Components/Sensors/TemperatureAveraging.svg")}),
     Diagram(coordinateSystem(preserveAspectRatio=false)));
 end Temperature;

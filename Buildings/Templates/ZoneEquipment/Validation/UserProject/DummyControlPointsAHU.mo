@@ -2,7 +2,7 @@ within Buildings.Templates.ZoneEquipment.Validation.UserProject;
 block DummyControlPointsAHU
   extends Modelica.Blocks.Icons.Block;
 
-  AirHandlersFans.Interfaces.Bus busAHU "AHU control bus" annotation (Placement(
+  AirHandlersFans.Interfaces.Bus bus "AHU control bus" annotation (Placement(
         transformation(
         extent={{-20,20},{20,-20}},
         rotation=90,
@@ -47,19 +47,19 @@ block DummyControlPointsAHU
     "yReqOutAir from AHU controller"
     annotation (Placement(transformation(extent={{40,90},{60,110}})));
 equation
-  connect(TZon.y,busAHU. TZon);
+  connect(TZon.y, bus.TZon);
 
-  connect(TZonHeaOccSet.y, busAHU.TZonHeaOccSet);
-  connect(TZonCooOccSet.y, busAHU.TZonCooOccSet);
-  connect(TZonHeaUnoSet.y, busAHU.TZonHeaUnoSet);
-  connect(TZonCooUnoSet.y, busAHU.TZonCooUnoSet);
-  connect(TSupSet.y, busAHU.TSupSet);
-  connect(yOpeMod.y, busAHU.yOpeMod);
-  connect(uHeaDemLimLev.y, busAHU.uHeaDemLimLev);
-  connect(uCooDemLimLev.y, busAHU.uCooDemLimLev);
+  connect(TZonHeaOccSet.y, bus.TZonHeaOccSet);
+  connect(TZonCooOccSet.y, bus.TZonCooOccSet);
+  connect(TZonHeaUnoSet.y, bus.TZonHeaUnoSet);
+  connect(TZonCooUnoSet.y, bus.TZonCooUnoSet);
+  connect(TSupSet.y, bus.TSupSet);
+  connect(yOpeMod.y, bus.yOpeMod);
+  connect(uHeaDemLimLev.y, bus.uHeaDemLimLev);
+  connect(uCooDemLimLev.y, bus.uCooDemLimLev);
 
-  connect(yReqOutAir.y, busAHU.yReqOutAir);
-  connect(VDesUncOutAir_flow.y, busAHU.VDesUncOutAir_flow);
+  connect(yReqOutAir.y, bus.yReqOutAir);
+  connect(VDesUncOutAir_flow.y, bus.VDesUncOutAir_flow);
 
   annotation (
     defaultComponentName="conPoiDum",

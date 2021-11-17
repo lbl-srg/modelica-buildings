@@ -17,6 +17,7 @@ model ControlsGuideline36
       nPorts=1)
     annotation (Placement(transformation(extent={{60,-90},{40,-70}})));
   UserProject.DummyControlPointsVAVBox sigVAVBox[ahu.nZon]
+    "Control signals from VAV box"
     annotation (Placement(transformation(extent={{-60,60},{-40,80}})));
 equation
   connect(bou2.ports[1], ahu.port_coiHeaSup) annotation (Line(points={{-40,-50},

@@ -70,9 +70,16 @@ equation
   annotation (Placement(transformation(extent={{-10,-10},{10,10}})),
     Icon(
       coordinateSystem(preserveAspectRatio=false), graphics={
-                Bitmap(
-        extent={{-92,-90},{92,90}},
-        fileName="modelica://Buildings/Resources/Images/Templates/Components/Fans/SingleVariable.svg")}),
+    Bitmap(
+        extent={{-92,-88},{92,92}},
+        fileName="modelica://Buildings/Resources/Images/Templates/Components/Fans/SingleVariable.svg"),
+    Bitmap(
+        visible=have_senFlo,
+        extent={{-194,-222},{-52,4}},
+        fileName="modelica://Buildings/Resources/Images/Templates/Components/Fans/AirflowSensorBoxLeft.svg"),
+    Bitmap(
+        visible=have_senFlo,
+        extent={{-52,-10},{24,10}}, fileName="modelica://Buildings/Resources/Images/Templates/Components/Fans/AirflowSensor.svg")}),
     Diagram(
         coordinateSystem(preserveAspectRatio=false)));
 end SingleVariable;

@@ -17,7 +17,7 @@ partial model PartialReliefReturnSection "Relief/return air section"
   parameter Buildings.Templates.Components.Types.Fan typFanRet
     "Return fan type"
     annotation (Evaluate=true, Dialog(group="Configuration"));
-  parameter Buildings.Templates.AirHandlersFans.Types.ControlReturnFan typCtrFanRet
+  parameter Buildings.Templates.AirHandlersFans.Types.ControlFanReturn typCtrFanRet
     "Return fan control type"
     annotation (Evaluate=true,
       Dialog(

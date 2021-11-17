@@ -10,7 +10,14 @@
    xmlns="http://www.w3.org/2000/svg"
    xmlns:svg="http://www.w3.org/2000/svg">
   <defs
-     id="defs2866" />
+     id="defs2866">
+    <rect
+       x="-172.27338"
+       y="891.6319"
+       width="753.2443"
+       height="549.22983"
+       id="rect40471" />
+  </defs>
   <g
      id="g6338"
      transform="matrix(1.0056329,0,0,1.0050817,-56.427345,-134.94727)"
@@ -96,13 +103,18 @@
       <text
          xml:space="preserve"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:127.692px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:6.38462;stroke-miterlimit:4;stroke-dasharray:none"
-         x="272.24173"
+         x="263.23236"
          y="1284.5665"
          id="text44048-8"><tspan
            id="tspan24498"
-           x="272.24173"
+           x="263.23236"
            y="1284.5665"
-           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:127.692px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;stroke-width:6.38462;stroke-miterlimit:4;stroke-dasharray:none">T</tspan></text>
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:127.692px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;stroke-width:6.38462;stroke-miterlimit:4;stroke-dasharray:none">H</tspan></text>
+      <text
+         xml:space="preserve"
+         transform="matrix(0.63846276,0,0,0.63846159,183.53363,475.061)"
+         id="text40469"
+         style="fill:black;fill-opacity:1;line-height:1.25;stroke:none;font-family:sans-serif;font-style:normal;font-weight:normal;font-size:40px;white-space:pre;shape-inside:url(#rect40471)" />
     </g>
   </g>
 </svg>
