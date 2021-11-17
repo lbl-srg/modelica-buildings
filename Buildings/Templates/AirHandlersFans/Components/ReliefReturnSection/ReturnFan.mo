@@ -1,4 +1,4 @@
-﻿within Buildings.Templates.AirHandlersFans.Components.ReliefReturnSection;
+within Buildings.Templates.AirHandlersFans.Components.ReliefReturnSection;
 model ReturnFan "Return fan - Modulated relief damper"
   extends
     Buildings.Templates.AirHandlersFans.Components.ReliefReturnSection.Interfaces.PartialReliefReturnSection(
