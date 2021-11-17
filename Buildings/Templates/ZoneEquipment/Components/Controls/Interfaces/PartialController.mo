@@ -17,6 +17,7 @@ partial block PartialController
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={-100,0})));
+
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Rectangle(
         extent={{-100,-100},{100,100}},

@@ -8,32 +8,6 @@ model TwoPosition "Two-position damper"
     "Type of blades"
     annotation(Dialog(enable=false), Evaluate=true);
 
-  parameter Modelica.SIunits.MassFlowRate m_flow_nominal=
-    if loc==Types.Location.OutdoorAir           then
-      dat.getReal(varName=id + ".Mechanical.Supply air mass flow rate.value")
-    elseif loc==Types.Location.MinimumOutdoorAir            then
-      dat.getReal(varName=id + ".Mechanical.Economizer.Minimum outdoor air mass flow rate.value")
-    elseif loc==Types.Location.Return           then
-      dat.getReal(varName=id + ".Mechanical.Return air mass flow rate.value")
-    elseif loc==Types.Location.Relief           then
-      dat.getReal(varName=id + ".Mechanical.Return air mass flow rate.value")
-    else 0
-    "Mass flow rate"
-    annotation (Dialog(group="Nominal condition"), Evaluate=true);
-  parameter Modelica.SIunits.PressureDifference dpDamper_nominal(
-    min=0, displayUnit="Pa")=
-    if loc==Types.Location.OutdoorAir then
-      dat.getReal(varName=id + ".Mechanical.Economizer.Outdoor air damper pressure drop.value")
-    elseif loc==Types.Location.MinimumOutdoorAir            then
-      dat.getReal(varName=id + ".Mechanical.Economizer.Minimum outdoor air damper pressure drop.value")
-    elseif loc==Types.Location.Return           then
-      dat.getReal(varName=id + ".Mechanical.Economizer.Return air damper pressure drop.value")
-    elseif loc==Types.Location.Relief           then
-      dat.getReal(varName=id + ".Mechanical.Economizer.Relief air damper pressure drop.value")
-    else 0
-    "Pressure drop of open damper"
-    annotation (Dialog(group="Nominal condition"));
-
   Fluid.Actuators.Dampers.Exponential damExp(
     redeclare final package Medium=Medium,
     final m_flow_nominal=m_flow_nominal,
@@ -41,12 +15,14 @@ model TwoPosition "Two-position damper"
     "Exponential damper"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea
-    "Signal conversion" annotation (Placement(transformation(
+    "Signal conversion"
+    annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={0,50})));
   .Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold evaSta(t=0.99, h=0.5E-2)
-    "Evaluate damper status" annotation (Placement(
+    "Evaluate damper status"
+    annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,

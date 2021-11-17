@@ -1,6 +1,6 @@
 within Buildings.Templates.AirHandlersFans.Interfaces;
 partial model AirHandler "Base interface class for air handler"
-  replaceable package MediumAir=Buildings.Media.Air
+  inner replaceable package MediumAir=Buildings.Media.Air
     constrainedby Modelica.Media.Interfaces.PartialMedium
     "Air medium";
 
@@ -8,7 +8,8 @@ partial model AirHandler "Base interface class for air handler"
     "Set to true to activate the control specification mode"
     annotation(Evaluate=true);
 
-  parameter AirHandlersFans.Types.Configuration typ "Type of system"
+  parameter Buildings.Templates.AirHandlersFans.Types.Configuration typ
+    "Type of system"
     annotation (Evaluate=true, Dialog(group="Configuration"));
   parameter Boolean have_porRel = typ==Types.Configuration.ExhaustOnly
     "Set to true for relief (exhaust) fluid port"
@@ -18,18 +19,30 @@ partial model AirHandler "Base interface class for air handler"
         group="Configuration",
         enable=false));
 
+  parameter Modelica.SIunits.MassFlowRate mSup_flow_nominal=
+    dat.getReal(varName=id + ".Mechanical.Supply air mass flow rate.value")
+    "Supply air mass flow rate"
+    annotation (Dialog(group="Nominal condition"));
+  parameter Modelica.SIunits.MassFlowRate mRet_flow_nominal=
+    dat.getReal(varName=id + ".Mechanical.Return air mass flow rate.value")
+    "Return air mass flow rate"
+    annotation (Dialog(group="Nominal condition"));
+
   inner parameter String id
     "System name"
     annotation (
       Evaluate=true,
       Dialog(group="Configuration"));
+  outer parameter ExternData.JSONFile dat
+    "External parameter file";
+
   // See FIXME below for those parameters.
-  inner parameter Integer nZon=1
+  inner parameter Integer nZon
     "Number of served zones"
     annotation (
       Evaluate=true,
       Dialog(group="Configuration"));
-  inner parameter Integer nGro=1
+  inner parameter Integer nGro(min=1)
     "Number of zone groups"
     annotation (
       Evaluate=true,
@@ -108,7 +121,9 @@ partial model AirHandler "Base interface class for air handler"
           extent={{-310,-90},{-290,-70}}), iconTransformation(extent={{-210,90},
             {-190,110}})));
 
-  Bus bus "AHU control bus" annotation (Placement(transformation(
+  Bus bus
+    "AHU control bus"
+    annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
         rotation=90,
         origin={-300,0}), iconTransformation(

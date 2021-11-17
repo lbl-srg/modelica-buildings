@@ -73,9 +73,6 @@ equation
           {-28,-20},{-20,-20}}, color={0,127,255}));
   connect(fan.port_b, colDis.ports_aCon) annotation (Line(points={{10,20},{20,20},
           {20,0},{12,0},{12,-10}}, color={0,127,255}));
-  connect(colDis.port_aDisRet, port_b) annotation (Line(points={{20,-26},{28,
-          -26},{28,0},{100,0}},
-                           color={0,127,255}));
   connect(colDis.ports_bCon, fan.port_a) annotation (Line(points={{-12,-10},{-12,
           0},{-20,0},{-20,20},{-10,20}}, color={0,127,255}));
   connect(repSig.y, fan.y)
@@ -102,12 +99,22 @@ equation
       points={{0,100},{-46,100},{-46,92}},
       color={255,204,51},
       thickness=0.5));
+  connect(colDis.port_aDisRet, V_flow.port_a) annotation (Line(points={{20,-26},
+          {30,-26},{30,0},{70,0}}, color={0,127,255}));
   annotation (Placement(transformation(extent={{-10,-10},{10,10}})),
               Icon(
-    graphics={Bitmap(
-        extent={{-78,-80},{82,80}},
-        fileName="modelica://Buildings/Resources/Images/Templates/Components/Fans/MultipleVariable.svg")},
-              coordinateSystem(preserveAspectRatio=false)), Diagram(
+    graphics={
+      Bitmap(
+        extent={{-78,-84},{82,76}},
+        fileName="modelica://Buildings/Resources/Images/Templates/Components/Fans/MultipleVariable.svg"),
+    Bitmap(
+        visible=have_senFlo,
+        extent={{-23,-6},{28,6}},   fileName="modelica://Buildings/Resources/Images/Templates/Components/Fans/AirflowSensor.svg"),
+    Bitmap(
+        visible=have_senFlo,
+        extent={{-164,-222},{-22,4}},
+        fileName="modelica://Buildings/Resources/Images/Templates/Components/Fans/AirflowSensorBoxLeft.svg")}),
+    Diagram(
         coordinateSystem(preserveAspectRatio=false), graphics={Text(
           extent={{-192,-16},{-18,-74}},
           lineColor={238,46,47},

@@ -4,17 +4,7 @@ package HeatExchangers
 
   model DXMultiStage "Multi-stage"
     extends Buildings.Templates.Components.HeatExchangers.Interfaces.PartialHeatExchangerDX(
-                                                                      final typ=
-         Types.HeatExchanger.DXMultiStage);
-
-    replaceable parameter
-      Fluid.HeatExchangers.DXCoils.AirCooled.Data.Generic.DXCoil datCoi
-      constrainedby Fluid.HeatExchangers.DXCoils.AirCooled.Data.Generic.DXCoil
-      "Performance record"
-      annotation(choicesAllMatching=true);
-
-    outer parameter Boolean have_dryCon
-      "Set to true for purely sensible cooling of the condenser";
+      final typ=Buildings.Templates.Components.Types.HeatExchanger.DXMultiStage);
 
     Fluid.HeatExchangers.DXCoils.AirCooled.MultiStage coi(
       redeclare final package Medium = Medium,
@@ -62,20 +52,10 @@ package HeatExchangers
 
   model DXVariableSpeed "Modulating"
     extends Buildings.Templates.Components.HeatExchangers.Interfaces.PartialHeatExchangerDX(
-                                                                      final typ=
-         Types.HeatExchanger.DXVariableSpeed);
+      final typ=Buildings.Templates.Components.Types.HeatExchanger.DXVariableSpeed);
 
     parameter Real minSpeRat(min=0,max=1)=0.1 "Minimum speed ratio";
     parameter Real speRatDeaBan=0.05 "Deadband for minimum speed ratio";
-
-    replaceable parameter
-      Fluid.HeatExchangers.DXCoils.AirCooled.Data.Generic.DXCoil datCoi
-      constrainedby Fluid.HeatExchangers.DXCoils.AirCooled.Data.Generic.DXCoil
-      "Performance record"
-      annotation(choicesAllMatching=true);
-
-    outer parameter Boolean have_dryCon
-      "Set to true for purely sensible cooling of the condenser";
 
     Fluid.HeatExchangers.DXCoils.AirCooled.VariableSpeed coi(
       redeclare final package Medium = Medium,
@@ -125,8 +105,7 @@ package HeatExchangers
 
   model WetCoilCounterFlow "Discretized wet heat exchanger model"
     extends Buildings.Templates.Components.HeatExchangers.Interfaces.PartialHeatExchangerWater(
-                                                                         final
-        typ=Types.HeatExchanger.WetCoilCounterFlow);
+      final typ=Buildings.Templates.Components.Types.HeatExchanger.WetCoilCounterFlow);
 
     parameter Modelica.SIunits.ThermalConductance UA_nominal=
       dat.getReal(varName=id + ".Mechanical." + funStr + " coil.UA (dry coil conditions).value")
@@ -166,7 +145,7 @@ package HeatExchangers
 
   model WetCoilEffectivenessNTU "Effectiveness-NTU wet heat exchanger model"
     extends Buildings.Templates.Components.HeatExchangers.Interfaces.PartialHeatExchangerWater(
-      final typ=Types.HeatExchanger.WetCoilEffectivenessNTU);
+      final typ=Buildings.Templates.Components.Types.HeatExchanger.WetCoilEffectivenessNTU);
 
     parameter Modelica.SIunits.HeatFlowRate Q_flow_nominal(max=0)=
       -1 * dat.getReal(varName=id + ".Mechanical." + funStr + " coil.Capacity.value")
@@ -224,8 +203,7 @@ package HeatExchangers
 
   model DryCoilEffectivenessNTU "Effectiveness-NTU dry heat exchanger model"
     extends Buildings.Templates.Components.HeatExchangers.Interfaces.PartialHeatExchangerWater(
-                                                                         final
-        typ=Types.HeatExchanger.DryCoilEffectivenessNTU);
+      final typ=Buildings.Templates.Components.Types.HeatExchanger.DryCoilEffectivenessNTU);
 
     parameter Modelica.SIunits.HeatFlowRate Q_flow_nominal(min=0)=
       dat.getReal(varName=id + ".Mechanical." + funStr + " coil.Capacity.value")
@@ -276,9 +254,7 @@ package HeatExchangers
 
     partial model PartialHeatExchangerDX
       // Air medium needed for type compatibility with DX coil models.
-      // And binding of m_flow_nominal with performance data record parameter.
-      extends Fluid.Interfaces.PartialTwoPort(
-        redeclare package Medium=Buildings.Media.Air);
+      extends Buildings.Fluid.Interfaces.PartialTwoPortInterface;
 
       parameter Buildings.Templates.Components.Types.HeatExchanger typ
         "Type of heat exchanger"
@@ -289,6 +265,14 @@ package HeatExchangers
         "Air pressure drop"
         annotation (Dialog(group="Nominal condition"));
 
+      replaceable parameter
+        Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.Data.Generic.DXCoil datCoi
+        constrainedby Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.Data.Generic.DXCoil
+        "Performance record"
+        annotation(choicesAllMatching=true);
+
+      outer parameter Boolean have_dryCon
+        "Set to true for purely sensible cooling of the condenser";
       outer parameter String funStr
         "String used to identify the coil function";
       outer parameter String id
@@ -302,7 +286,8 @@ package HeatExchangers
             transformation(extent={{-80,80},{-40,120}}),
             iconTransformation(extent={{-70,90},
                 {-50,110}})));
-      Buildings.Templates.Components.Interfaces.Bus bus "Control bus"
+      Buildings.Templates.Components.Interfaces.Bus bus
+        "Control bus"
         annotation (Placement(transformation(
             extent={{-20,-20},{20,20}},
             rotation=0,
@@ -320,7 +305,7 @@ package HeatExchangers
     end PartialHeatExchangerDX;
 
     partial model PartialHeatExchangerWater
-      extends Fluid.Interfaces.PartialFourPortInterface;
+      extends Buildings.Fluid.Interfaces.PartialFourPortInterface;
 
       parameter Buildings.Templates.Components.Types.HeatExchanger typ
         "Type of heat exchanger"

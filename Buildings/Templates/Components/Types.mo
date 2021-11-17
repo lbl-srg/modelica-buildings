@@ -79,6 +79,7 @@ package Types "Generic types for template components"
       MultipleVariable
       "Multiple fans (identical) - Variable speed")
     "Enumeration to configure the fan";
+<<<<<<< HEAD
   type Location = enumeration(
       OutdoorAir,
       MinimumOutdoorAir,
@@ -91,6 +92,8 @@ package Types "Generic types for template components"
       None "No valve",
       Linear "Linear two-way valve",
       EqualPercentage "Equal percentage two-way valve");
+=======
+>>>>>>> issue1374_templates
   type Sensor = enumeration(
       DifferentialPressure
       "Differential pressure",

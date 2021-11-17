@@ -25,6 +25,10 @@ equation
           {100,0}}, color={0,127,255}));
   connect(senSpeEnt.h_out, y)
     annotation (Line(points={{0,11},{0,11},{0,120}}, color={0,0,127}));
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false)),
+  annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
+      Bitmap(
+        extent={{-40,-220},{40,60}},
+        visible=have_sen,
+        fileName="modelica://Buildings/Resources/Images/Templates/Components/Sensors/SpecificEnthalpy.svg")}),
     Diagram(coordinateSystem(preserveAspectRatio=false)));
 end SpecificEnthalpy;

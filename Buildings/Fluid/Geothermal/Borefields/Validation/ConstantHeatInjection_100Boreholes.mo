@@ -81,8 +81,7 @@ equation
   connect(hea.u, heaRat.y) annotation (Line(points={{-52,-14},{-60,-14},{-60,20},
           {-67,20}}, color={0,0,127}));
   annotation (experiment(Tolerance=1e-6, StopTime=31536.0E+06),
-  __Dymola_Commands(file=
-          "Resources/Scripts/Dymola/Fluid/Geothermal/Borefields/Validation/ConstantHeatInjection_100Boreholes.mos"
+  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Geothermal/Borefields/Validation/ConstantHeatInjection_100Boreholes.mos"
         "Simulate and Plot"),
 Documentation(info="<html>
 <p>

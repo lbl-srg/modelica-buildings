@@ -1,30 +1,23 @@
 within Buildings.Templates.Components.Coils;
 model DirectExpansion "Direct expansion"
   extends Buildings.Templates.Components.Coils.Interfaces.PartialCoil(
-    final typ=Types.Coil.DirectExpansion,
+    final typ=Buildings.Templates.Components.Types.Coil.DirectExpansion,
     final typHex=hex.typ,
-    final typAct=Types.Actuator.None,
+    final typAct=Buildings.Templates.Components.Types.Actuator.None,
     final have_sou=false,
     final have_weaBus=true);
 
   inner parameter Boolean have_dryCon = true
     "Set to true for purely sensible cooling of the condenser";
 
-  // DX coils get their nominal flow rate assigned from the data record.
-  // Only the air pressure drop needs to be declared.
-  inner parameter Modelica.SIunits.PressureDifference dpAir_nominal(
-    displayUnit="Pa")=
-    dat.getReal(varName=id + ".Mechanical." + funStr + " coil.Air pressure drop.value")
-    "Air pressure drop"
-    annotation (
-      Dialog(group="Nominal condition"),
-      Evaluate=true);
-
-  replaceable
-    .Buildings.Templates.Components.HeatExchangers.Interfaces.PartialHeatExchangerDX
-    hex(redeclare final package Medium = MediumAir, final dp_nominal=
-        dpAir_nominal) "Heat exchanger"
+  replaceable Buildings.Templates.Components.HeatExchangers.Interfaces.PartialHeatExchangerDX
+    hex(
+      redeclare final package Medium = MediumAir,
+      final m_flow_nominal=mAir_flow_nominal,
+      final dp_nominal=dpAir_nominal)
+    "Heat exchanger"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
+
 equation
   connect(port_a, hex.port_a)
     annotation (Line(points={{-100,0},{-10,0}}, color={0,127,255}));
@@ -38,6 +31,10 @@ equation
       thickness=0.5));
   connect(hex.port_b, port_b)
     annotation (Line(points={{10,0},{100,0}}, color={0,127,255}));
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
+  annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
+      Bitmap(
+        extent={{-53,-100},{53,100}},
+        fileName="modelica://Buildings/Resources/Images/Templates/Components/Coils/WaterBasedCooling.svg")}),
+    Diagram(
         coordinateSystem(preserveAspectRatio=false)));
 end DirectExpansion;

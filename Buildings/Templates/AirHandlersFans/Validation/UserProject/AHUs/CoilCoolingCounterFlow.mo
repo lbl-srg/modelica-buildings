@@ -6,7 +6,7 @@ model CoilCoolingCounterFlow
         .Buildings.Templates.Components.HeatExchangers.WetCoilCounterFlow hex
         "Discretized heat exchanger model")     "Water-based",
     id="VAV_1",
-    nZon=1,
+    nZon=2,
     nGro=1);
 
   annotation (

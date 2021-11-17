@@ -8,14 +8,19 @@ model EconomizerNoRelief "Air economizer - No relief branch"
     final typDamOut=secOut.typDamOut,
     final typDamOutMin=secOut.typDamOutMin,
     final typDamRel=secRel.typDamRel,
+    final typDamRet=damRet.typ,
     final typFanRel=secRel.typFanRel,
-    final typFanRet=secRel.typFanRet);
+    final typFanRet=secRel.typFanRet,
+    final have_recHea=false);
 
   replaceable Buildings.Templates.AirHandlersFans.Components.OutdoorSection.SingleDamper
     secOut constrainedby
     Buildings.Templates.AirHandlersFans.Components.OutdoorSection.Interfaces.PartialOutdoorSection(
       redeclare final package MediumAir = MediumAir,
-      final have_recHea=false)
+      final m_flow_nominal=mSup_flow_nominal,
+      final mOutMin_flow_nominal=mOutMin_flow_nominal,
+      final dpDamOut_nominal=dpDamOut_nominal,
+      final dpDamOutMin_nominal=dpDamOutMin_nominal)
     "Outdoor air section"
     annotation (
     choices(
@@ -35,14 +40,17 @@ model EconomizerNoRelief "Air economizer - No relief branch"
   Buildings.Templates.AirHandlersFans.Components.ReliefReturnSection.NoRelief
     secRel(
       redeclare final package MediumAir = MediumAir,
-      final have_recHea=false)
+      final m_flow_nominal=mRet_flow_nominal,
+      final dpDamRel_nominal=dpDamRel_nominal,
+      final dpFan_nominal=dpFan_nominal)
     "Relief/return air section"
     annotation (Dialog(group="Exhaust/relief/return section"),
       Placement(transformation(extent={{-18,66},{18,94}})));
 
   Buildings.Templates.Components.Dampers.Modulated damRet(
     redeclare final package Medium = MediumAir,
-    final loc=Buildings.Templates.Components.Types.Location.Return)
+    final m_flow_nominal=mRet_flow_nominal,
+    final dpDamper_nominal=dpDamRet_nominal)
     "Return air damper"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},

@@ -6,7 +6,7 @@ model DedicatedDamperPressure
         secOut
         "Dedicated minimum OA damper (two-position) with differential pressure sensor"),
     id="VAV_1",
-    nZon=1,
+    nZon=2,
     nGro=1);
 
   annotation (

@@ -243,53 +243,36 @@ equation
       StopTime=1000,
       Tolerance=1e-06),
     __Dymola_Commands(
-    file="Resources/Scripts/Dymola/Fluid/HeatExchangers/Validation/WetCoilEffectivenessNTUHeating.mos"
+    file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/Validation/WetCoilEffectivenessNTUHeating.mos"
   "Simulate and plot"),
   Documentation(info="<html>
 <p>
-This model duplicates an example from Mitchell and Braun 2012, example SM-2-1
-(Mitchell and Braun 2012) to validate a single case for the
-<a href=\"modelica://Buildings.Fluid.HeatExchangers.WetCoilEffectivenessNTU\">
-Buildings.Fluid.HeatExchangers.WetCoilEffectivenessNTU</a>
-model.
+This model simulates various coil models in heating conditions, with
 </p>
-<h4>Validation</h4>
+<ul>
+<li>
+on the water-side: constant inlet temperature and mass flow rate,
+</li>
+<li>
+on the air-side: constant inlet humidity ratio and mass flow rate, and
+an increasing inlet temperature.
+</li>
+</ul>
 <p>
-The example simulates a wet coil with constant air
-and water inlet temperature and mass flow rate, and an increasing air inlet
-humidity which triggers the transition from a fully-dry to a fully-wet regime.
-The reference used for validation is the published experimental data.
-A discretized wet coil model is also simulated for comparison. 
-To provide an accurate reference, the latter model is configured with 30 elements.
+To provide an accurate reference, the instance of
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.DryCoilCounterFlow\">
+Buildings.Fluid.HeatExchangers.DryCoilCounterFlow</a>
+is configured with 30 elements.
 Under steady-state modeling assumptions, this creates a large system of 
 non-linear equations. To alleviate this effect, dynamics are considered but
 the simulation time is increased to 1000 s to reproduce quasi steady-state 
 conditions.
 </p>
-<p>
-Note that the outlet air relative humidity may slightly exceed 100% when using
-the epsilon-NTU model.
-</p>
-<h4>References</h4>
-<p>
-Mitchell, John W., and James E. Braun. 2012.
-\"Supplementary Material Chapter 2: Heat Exchangers for Cooling Applications\".
-Excerpt from <i>Principles of heating, ventilation, and air conditioning in buildings</i>.
-Hoboken, N.J.: Wiley. Available online:
-<a href=\"http://bcs.wiley.com/he-bcs/Books?action=index&amp;itemId=0470624574&amp;bcsId=7185\">
-http://bcs.wiley.com/he-bcs/Books?action=index&amp;itemId=0470624574&amp;bcsId=7185</a>
-</p>
 </html>", revisions="<html>
 <ul>
 <li>
-April 19, 2017, by Michael Wetter:<br/>
-Revised model to avoid mixing textual equations and connect statements.
-</li>
-<li>
-March 17, 2017, by Michael O'Keefe:<br/>
-First implementation. See
-<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/622\">
-issue 622</a> for more information.
+Jan 21, 2021, by Antoine Gautier:<br/>
+First implementation.
 </li>
 </ul>
 </html>"));

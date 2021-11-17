@@ -708,10 +708,18 @@ have been <b style=\"color:blue\">improved</b> in a
                        For Dymola, a conversion script makes this change.
     </td>
 </tr>
-<tr><td colspan=\"2\"><b>Buildings.ThermalZones.EnergyPlus.Examples.SmallOffice</b>
+<tr><td colspan=\"2\"><b>Buildings.ThermalZones.EnergyPlus</b>
     </td>
 </tr>
-<tr><td valign=\"top\">Buildings.ThermalZones.EnergyPlus.Examples.SmallOffice.ASHRAE2006Spring<br/>
+<tr><td valign=\"top\">Buildings.ThermalZones.EnergyPlus.Building
+    </td>
+    <td valign=\"top\">This model, which needs to be part of every model that uses EnergyPlus, now
+                       requires the specification of the EnergyPlus weather data file (<code>.epw</code> file)
+                       through the parameter <code>epwName</code>.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2443\">issue #2443</a>.<br/>
+    </td>
+  </tr>
+  <tr><td valign=\"top\">Buildings.ThermalZones.EnergyPlus.Examples.SmallOffice.ASHRAE2006Spring<br/>
                        Buildings.ThermalZones.EnergyPlus.Examples.SmallOffice.ASHRAE2006Summer<br/>
                        Buildings.ThermalZones.EnergyPlus.Examples.SmallOffice.ASHRAE2006Winter<br/>
                        Buildings.ThermalZones.EnergyPlus.Examples.SmallOffice.Guideline36Spring<br/>

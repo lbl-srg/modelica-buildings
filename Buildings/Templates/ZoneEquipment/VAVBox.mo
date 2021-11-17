@@ -1,13 +1,17 @@
 within Buildings.Templates.ZoneEquipment;
 model VAVBox "VAV terminal unit"
   extends Buildings.Templates.ZoneEquipment.Interfaces.PartialAirTerminal(
-                                                                 final typ=
-        Types.Configuration.SingleDuct);
+    final typ=Types.Configuration.SingleDuct);
 
-  replaceable package MediumHea=Buildings.Media.Water
+  inner replaceable package MediumHea=Buildings.Media.Water
     constrainedby Modelica.Media.Interfaces.PartialMedium
     "Heating medium (such as HHW)"
-    annotation(Dialog(enable=have_souCoiHea or have_souCoiReh));
+    annotation(Dialog(enable=have_souCoiReh));
+
+  parameter Modelica.SIunits.PressureDifference dpDamVAV_nominal=
+    dat.getReal(varName=id + ".Mechanical.VAV damper pressure drop.value")
+    "Damper pressure drop"
+    annotation (Dialog(group="Nominal condition"));
 
   final parameter Boolean have_souCoiReh=coiReh.have_sou
     "Set to true for fluid ports on the source side"
@@ -24,38 +28,41 @@ model VAVBox "VAV terminal unit"
     annotation (Placement(transformation(extent={{10,-290},{30,-270}}),
       iconTransformation(extent={{10,-208},{30,-188}})));
 
-  inner replaceable .Buildings.Templates.Components.Coils.None coiReh
-    constrainedby .Buildings.Templates.Components.Coils.Interfaces.PartialCoil(
-      redeclare final package MediumAir = MediumAir,
-      redeclare final package MediumSou =  MediumHea,
+  inner replaceable Buildings.Templates.Components.Coils.None coiReh
+    constrainedby Buildings.Templates.Components.Coils.Interfaces.PartialCoil(
       final fun=Templates.Components.Types.CoilFunction.Reheat)
       "Reheat coil" annotation (
-    choices(choice(redeclare Templates.BaseClasses.Coils.None coiReh "No coil"),
-        choice(redeclare Templates.BaseClasses.Coils.WaterBasedHeating coiReh
+    choices(
+      choice(redeclare Buildings.Templates.Components.Coils.None coiReh "No coil"),
+      choice(redeclare Buildings.Templates.Components.Coils.WaterBasedHeating coiReh
           "Water-based")),
     Dialog(group="Reheat coil"),
     Placement(transformation(extent={{-10,-210},{10,-190}})));
 
-  inner replaceable .Buildings.Templates.Components.Dampers.PressureIndependent
-    damVAV constrainedby Buildings.Templates.Components.Dampers.Interfaces.PartialDamper(
-      redeclare final package Medium = MediumAir, final loc=.Buildings.Templates.Components.Types.Location.Terminal)
-    "VAV damper" annotation (Dialog(group="VAV damper"), Placement(
+  inner replaceable .Buildings.Templates.Components.Dampers.PressureIndependent damVAV
+    constrainedby Buildings.Templates.Components.Dampers.Interfaces.PartialDamper(
+      redeclare final package Medium = MediumAir,
+      final m_flow_nominal=m_flow_nominal,
+      final dpDamper_nominal=dpDamVAV_nominal)
+    "VAV damper"
+    annotation (Dialog(group="VAV damper"), Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-120,-200})));
 
-  inner replaceable Components.Controls.OpenLoop conTer constrainedby
+  inner replaceable Components.Controls.OpenLoop con constrainedby
     Buildings.Templates.ZoneEquipment.Components.Controls.Interfaces.PartialController
-    "Terminal unit controller" annotation (
+    "Terminal unit controller"
+    annotation (
     choicesAllMatching=true,
     Dialog(group="Controller"),
     Placement(transformation(extent={{-10,90},{10,110}})));
 
-  .Buildings.Templates.Components.Sensors.Temperature TDis(
+  Buildings.Templates.Components.Sensors.Temperature TDis(
     redeclare final package Medium = MediumAir,
-    final have_sen=conTer.typ == Types.Controller.Guideline36,
-    final loc=.Buildings.Templates.Components.Types.Location.Terminal)
+    final have_sen=con.typ == Types.Controller.Guideline36,
+    final m_flow_nominal=m_flow_nominal)
     "Discharge air temperature sensor"
     annotation (Placement(transformation(extent={{90,-210},{110,-190}})));
 equation
@@ -72,7 +79,7 @@ equation
     annotation (Line(points={{-300,-200},{-130,-200}}, color={0,127,255}));
   connect(damVAV.port_b, coiReh.port_a)
     annotation (Line(points={{-110,-200},{-10,-200}}, color={0,127,255}));
-  connect(bus, conTer.bus) annotation (Line(
+  connect(bus, con.bus) annotation (Line(
       points={{-300,0},{-20,0},{-20,100},{-10,100}},
       color={255,204,51},
       thickness=0.5));

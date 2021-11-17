@@ -1,53 +1,18 @@
 within Buildings.Templates.Components.Fans.Interfaces;
 partial model PartialFan
-  extends Buildings.Fluid.Interfaces.PartialTwoPort;
+  extends Buildings.Fluid.Interfaces.PartialTwoPortInterface;
 
-  parameter Buildings.Templates.Components.Types.Fan typ "Equipment type"
+  parameter Buildings.Templates.Components.Types.Fan typ
+  "Equipment type"
     annotation (Evaluate=true, Dialog(group="Configuration"));
-  parameter Buildings.Templates.Components.Types.Location loc
-    "Equipment location"
+  parameter Boolean have_senFlo
+    "Set to true for air flow measurement"
     annotation (Evaluate=true, Dialog(group="Configuration"));
-  parameter AirHandlersFans.Types.ReturnFanControlSensor typCtr=
-    Buildings.Templates.AirHandlersFans.Types.ReturnFanControlSensor.None
-    "Sensor type used for return fan control" annotation (Evaluate=true,
-      Dialog(group="Configuration",
-        enable=loc == Buildings.Templates.Components.Types.Location.Return
-           and typ <> Buildings.Templates.Components.Types.Fan.None));
 
-  parameter Modelica.SIunits.MassFlowRate m_flow_nominal=
-    if typ <>Buildings.Templates.Components.Types.Fan.None
-                             then (
-      if loc ==Buildings.Templates.Components.Types.Location.Supply
-                                                then
-        dat.getReal(varName=id + ".Mechanical.Supply air mass flow rate.value")
-      elseif loc ==Buildings.Templates.Components.Types.Location.Return
-                                                    then
-        dat.getReal(varName=id + ".Mechanical.Return air mass flow rate.value")
-      elseif loc ==Buildings.Templates.Components.Types.Location.Relief
-                                                    then
-        dat.getReal(varName=id + ".Mechanical.Return air mass flow rate.value")
-      else 0)
-      else 0
-    "Mass flow rate"
-    annotation (Dialog(group="Nominal condition",
-        enable=typ <> Buildings.Templates.Components.Types.Fan.None));
-  parameter Modelica.SIunits.PressureDifference dp_nominal=
-    if typ <>Buildings.Templates.Components.Types.Fan.None
-                             then (
-      if loc ==Buildings.Templates.Components.Types.Location.Supply
-                                                then
-        dat.getReal(varName=id + ".Mechanical.Supply fan.Total pressure rise.value")
-      elseif loc ==Buildings.Templates.Components.Types.Location.Return
-                                                    then
-        dat.getReal(varName=id + ".Mechanical.Return fan.Total pressure rise.value")
-      elseif loc ==Buildings.Templates.Components.Types.Location.Relief
-                                                    then
-        dat.getReal(varName=id + ".Mechanical.Return fan.Total pressure rise.value")
-      else 0)
-      else 0
-    "Total pressure rise"
+  parameter Modelica.SIunits.PressureDifference dp_nominal
+    "Fan total pressure rise"
     annotation (
-      Dialog(group="Nominal condition", enable=typ <> Buildings.Templates.Components.Types.Fan.None));
+      Dialog(group="Nominal condition"));
 
   replaceable parameter Buildings.Fluid.Movers.Data.Generic per(
     pressure(
@@ -66,7 +31,8 @@ partial model PartialFan
     "External parameter file";
 
   Buildings.Templates.Components.Interfaces.Bus bus
-    if typ <> Buildings.Templates.Components.Types.Fan.None "Control bus"
+    if typ <> Buildings.Templates.Components.Types.Fan.None
+    "Control bus"
     annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
         rotation=0,
@@ -74,6 +40,18 @@ partial model PartialFan
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={0,100})));
+  Buildings.Templates.Components.Sensors.VolumeFlowRate V_flow(
+    redeclare final package Medium = Medium,
+    final have_sen=have_senFlo,
+    final m_flow_nominal=m_flow_nominal)
+    "Air volume flow rate sensor"
+    annotation (
+      Placement(transformation(extent={{70,-10},{90,10}})));
+equation
+  connect(port_b, V_flow.port_b)
+    annotation (Line(points={{100,0},{90,0}}, color={0,127,255}));
+  connect(V_flow.y, bus.V_flow)
+    annotation (Line(points={{80,12},{80,100},{0,100}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
           Rectangle(
           extent={{-100,100},{100,-100}},

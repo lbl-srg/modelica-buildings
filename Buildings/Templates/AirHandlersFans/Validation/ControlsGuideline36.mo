@@ -16,7 +16,8 @@ model ControlsGuideline36
   Fluid.Sources.Boundary_pT bou5(redeclare final package Medium = MediumCoo,
       nPorts=1)
     annotation (Placement(transformation(extent={{60,-90},{40,-70}})));
-  UserProject.DummyControlPointsTerminalUnit conPoiDum[ahu.nZon]
+  UserProject.DummyControlPointsVAVBox sigVAVBox[ahu.nZon]
+    "Control signals from VAV box"
     annotation (Placement(transformation(extent={{-60,60},{-40,80}})));
 equation
   connect(bou2.ports[1], ahu.port_coiHeaSup) annotation (Line(points={{-40,-50},
@@ -27,7 +28,7 @@ equation
     annotation (Line(points={{40,-50},{6,-50},{6,-19.8}}, color={0,127,255}));
   connect(ahu.port_coiCooSup, bou5.ports[1])
     annotation (Line(points={{2,-19.8},{2,-80},{40,-80}}, color={0,127,255}));
-  connect(conPoiDum.busTer, ahu.busTer) annotation (Line(
+  connect(sigVAVBox.bus, ahu.busTer) annotation (Line(
       points={{-40,70},{19.8,70},{19.8,16}},
       color={255,204,51},
       thickness=0.5));

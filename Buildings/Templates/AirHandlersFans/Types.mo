@@ -17,6 +17,32 @@ package Types "AHU types"
       OpenLoop
       "Open loop")
     "Enumeration to configure the AHU controller";
+  type ControlEconomizer = enumeration(
+      FixedDryBulb
+      "Fixed dry bulb",
+      DifferentialDryBulb
+      "Differential dry bulb",
+      FixedDryBulbWithDifferentialDryBulb
+      "Fixed dry bulb with differential dry bulb",
+      FixedEnthalpyWithFixedDryBulb
+      "Fixed enthalpy with fixed dry bulb",
+      DifferentialEnthalpyWithFixedDryBulb
+      "Differential enthalpy with fixed dry bulb")
+    "Enumeration to configure the economizer control";
+  type ControlFanReturn = enumeration(
+      Calculated
+      "Calculated based on fan speed (requires unvarying flow characteristic)",
+      Airflow
+      "Airflow tracking",
+      Pressure
+      "Direct building pressure (via discharge static pressure)")
+    "Enumeration to configure the return fan control";
+  type ControlFanSupply = enumeration(
+      Calculated
+      "Calculated based on VAV box air flow rates",
+      Airflow
+      "Airflow tracking")
+    "Enumeration to configure the supply fan control";
   type HeatRecovery = enumeration(
       None
       "No heat recovery",
@@ -67,12 +93,4 @@ package Types "AHU types"
       ReturnFan
       "Return fan - Modulated relief damper")
     "Enumeration to configure the relief/return air section";
-  type ReturnFanControlSensor = enumeration(
-      None
-      "Not applicable",
-      Airflow
-      "Airflow tracking",
-      Pressure
-      "Direct building pressure (via discharge static pressure)")
-    "Enumeration to configure the sensor used for return fan control";
 end Types;

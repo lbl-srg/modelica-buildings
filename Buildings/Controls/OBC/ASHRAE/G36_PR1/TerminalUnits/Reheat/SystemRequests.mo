@@ -815,7 +815,7 @@ annotation (
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
           horizontalAlignment=TextAlignment.Right,
-          visible = (have_heaWatCoi or have_heaPla),
+          visible = (have_heaWatCoi and have_heaPla),
           textString="yHeaPlaReq")}),
   Documentation(info="<html>
 <p>

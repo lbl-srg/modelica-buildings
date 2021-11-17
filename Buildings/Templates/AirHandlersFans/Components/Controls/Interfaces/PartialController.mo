@@ -14,25 +14,26 @@ partial block PartialController
     "External parameter file";
 
   // See FIXME below for those parameters.
-  final parameter String idTerArr[nZon]={"Box_1"}
+  parameter String idTerArr[nZon]={"Box_1", "Box_1"}
     "Served terminal units - Array of system identifiers"
     annotation(Evaluate=true);
-  final parameter String namGro[nGro]={"First floor"}
+  parameter String namGro[nGro]={"First floor"}
     "Array of group names"
     annotation(Evaluate=true);
 
   /*  
-  final parameter String idTerArr[nZon]=
+  parameter String idTerArr[nZon]=
     dat.getStringArray1D(id + ".Identification.Terminal unit identifiers.value", nZon)
     "Served terminal units - Array of system identifiers"
     annotation(Evaluate=true);
-  final parameter String namGro[nGro]=
+  parameter String namGro[nGro]=
     dat.getStringArray1D(id + ".Identification.Zone group names.value", nGro)
     "Array of group names"
     annotation(Evaluate=true);
     */
 
-  Buildings.Templates.AirHandlersFans.Interfaces.Bus bus "AHU control bus"
+  Buildings.Templates.AirHandlersFans.Interfaces.Bus bus
+    "AHU control bus"
     annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
         rotation=90,
@@ -41,7 +42,8 @@ partial block PartialController
         rotation=90,
         origin={-100,0})));
   ZoneEquipment.Interfaces.Bus busTer[nZon]
-    "Terminal unit control bus" annotation (Placement(transformation(
+    "Terminal unit control bus"
+    annotation (Placement(transformation(
         extent={{-20,20},{20,-20}},
         rotation=90,
         origin={220,0}), iconTransformation(

@@ -8,15 +8,20 @@ model Economizer "Air economizer"
     final typDamOut=secOut.typDamOut,
     final typDamOutMin=secOut.typDamOutMin,
     final typDamRel=secRel.typDamRel,
+    final typDamRet=damRet.typ,
     final typFanRel=secRel.typFanRel,
-    final typFanRet=secRel.typFanRet);
+    final typFanRet=secRel.typFanRet,
+    final have_recHea=recHea.typ<>Buildings.Templates.AirHandlersFans.Types.HeatRecovery.None);
 
   replaceable
     Buildings.Templates.AirHandlersFans.Components.OutdoorSection.SingleDamper
     secOut constrainedby
     Buildings.Templates.AirHandlersFans.Components.OutdoorSection.Interfaces.PartialOutdoorSection(
       redeclare final package MediumAir = MediumAir,
-      final have_recHea=recHea.typ<>Buildings.Templates.AirHandlersFans.Types.HeatRecovery.None)
+      final m_flow_nominal=mSup_flow_nominal,
+      final mOutMin_flow_nominal=mOutMin_flow_nominal,
+      final dpDamOut_nominal=dpDamOut_nominal,
+      final dpDamOutMin_nominal=dpDamOutMin_nominal)
     "Outdoor air section"
     annotation (
     choices(
@@ -34,7 +39,9 @@ model Economizer "Air economizer"
     secRel constrainedby
     Buildings.Templates.AirHandlersFans.Components.ReliefReturnSection.Interfaces.PartialReliefReturnSection(
       redeclare final package MediumAir = MediumAir,
-      final have_recHea=recHea.typ<>Buildings.Templates.AirHandlersFans.Types.HeatRecovery.None)
+      final m_flow_nominal=mRet_flow_nominal,
+      final dpDamRel_nominal=dpDamRel_nominal,
+      final dpFan_nominal=dpFan_nominal)
     "Relief/return air section" annotation (
     choices(
       choice(
@@ -53,7 +60,8 @@ model Economizer "Air economizer"
 
   Buildings.Templates.Components.Dampers.Modulated damRet(
     redeclare final package Medium = MediumAir,
-    final loc=Buildings.Templates.Components.Types.Location.Return)
+    final m_flow_nominal=mRet_flow_nominal,
+    final dpDamper_nominal=dpDamRet_nominal)
     "Return air damper"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
@@ -103,7 +111,7 @@ equation
   connect(secRel.port_aHeaRec, recHea.port_bRel) annotation (Line(points={{-8,66},
           {-8,60},{-100,60},{-100,6},{-90,6}}, color={0,127,255}));
   connect(recHea.port_aOut, secOut.port_bHeaRec) annotation (Line(points={{-90,-6},
-          {-100,-6},{-100,-60},{-52,-60},{-52,-66}}, color={0,127,255}));
+          {-100,-6},{-100,-60},{-48,-60},{-48,-66}}, color={0,127,255}));
   connect(recHea.port_bOut, secOut.port_aHeaRec) annotation (Line(points={{-70,-6},
-          {-60,-6},{-60,-56},{-48,-56},{-48,-66}}, color={0,127,255}));
+          {-60,-6},{-60,-56},{-44,-56},{-44,-66}}, color={0,127,255}));
 end Economizer;

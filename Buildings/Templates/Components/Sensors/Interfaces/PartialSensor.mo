@@ -5,38 +5,14 @@ partial model PartialSensor
   parameter Boolean have_sen=true
     "Set to true for sensor, false for direct pass through"
     annotation (Evaluate=true, Dialog(group="Configuration"));
-  parameter Buildings.Templates.Components.Types.Location loc
-    "Equipment location"
-    annotation (Evaluate=true, Dialog(group="Configuration"));
   parameter Boolean isDifPreSen=false
     "Set to true for differential pressure sensor, false for any other sensor"
     annotation (Evaluate=true, Dialog(group="Configuration"));
 
-  parameter Modelica.SIunits.MassFlowRate m_flow_nominal=
-    if have_sen and not isDifPreSen then (
-      if loc ==Buildings.Templates.Components.Types.Location.Supply
-                                                then
-        dat.getReal(varName=id + ".Mechanical.Supply air mass flow rate.value")
-      elseif loc ==Buildings.Templates.Components.Types.Location.OutdoorAir
-                                                        then
-        dat.getReal(varName=id + ".Mechanical.Supply air mass flow rate.value")
-      elseif loc ==Buildings.Templates.Components.Types.Location.MinimumOutdoorAir
-                                                               then
-        dat.getReal(varName=id + ".Mechanical.Supply air mass flow rate.value")
-      elseif loc ==Buildings.Templates.Components.Types.Location.Return
-                                                    then
-        dat.getReal(varName=id + ".Mechanical.Return air mass flow rate.value")
-      elseif loc ==Buildings.Templates.Components.Types.Location.Relief
-                                                    then
-        dat.getReal(varName=id + ".Mechanical.Return air mass flow rate.value")
-      elseif loc ==Buildings.Templates.Components.Types.Location.Terminal
-                                                      then
-        dat.getReal(varName=id + ".Mechanical.Discharge air mass flow rate.value")
-      else 0)
-      else 0
+  parameter Modelica.SIunits.MassFlowRate m_flow_nominal
     "Mass flow rate"
     annotation (
-     Dialog(group="Nominal condition", enable=have_sen and not isDifPreSen));
+     Dialog(group="Nominal condition"));
 
   outer parameter String id
     "System identifier";
@@ -66,21 +42,20 @@ equation
   end if;
 
   annotation (
-    Icon(coordinateSystem(preserveAspectRatio=false), graphics={
-                                                              Rectangle(
+    Icon(coordinateSystem(preserveAspectRatio=false),
+      graphics={
+      Rectangle(
+          visible=have_sen,
           extent={{-100,100},{100,-100}},
           lineColor={0,0,255},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid),
-      Rectangle(
+      Line(
         visible=(not have_sen) and (not isDifPreSen),
-          extent={{-100,100},{100,-100}},
-          lineColor={0,0,255})}),
+          points={{-100,0},{100,0}},
+          color={28,108,200},
+          thickness=1)}),
     Diagram(coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>
-<p>
-The location parameter <code>loc</code> is used to assign nominal parameter values
-based on the external system parameter file.
-</p>
 </html>"));
 end PartialSensor;

@@ -48,7 +48,7 @@ equation
       StopTime=1200,
       Tolerance=1e-06),
     __Dymola_Commands(
-      file="Resources/Scripts/Dymola/Experimental/DHC/CentralPlants/Cooling/Controls/Validation/ChillerStage.mos" 
+      file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/DHC/CentralPlants/Cooling/Controls/Validation/ChillerStage.mos"
       "Simulate and Plot"),
     Documentation(
       revisions="<html>

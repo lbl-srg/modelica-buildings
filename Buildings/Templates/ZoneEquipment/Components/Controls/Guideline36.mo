@@ -17,6 +17,23 @@ block Guideline36
     "Set to true if the zone has CO2 sensor"
     annotation (Dialog(tab="Airflow setpoint", group="Zone sensors"));
 
+  /* FIXME: Evaluate function call at compile time, FE ExternData.
+  parameter Boolean have_occSen=
+     dat.getBoolean(varName=id + ".Control.Occupancy sensor.value")
+    "Set to true if zones have occupancy sensor"
+    annotation (Dialog(tab="Airflow setpoint", group="Zone sensors"));
+
+  parameter Boolean have_winSen=
+     dat.getBoolean(varName=id + ".Control.Window sensor.value")
+    "Set to true if zones have window status sensor"
+    annotation (Dialog(tab="Airflow setpoint", group="Zone sensors"));
+
+  parameter Boolean have_CO2Sen=
+    dat.getBoolean(varName=id + ".Control.CO2 sensor.value")
+    "Set to true if the zone has CO2 sensor"
+    annotation (Dialog(tab="Airflow setpoint", group="Zone sensors"));
+    */
+
   parameter Modelica.SIunits.VolumeFlowRate V_flow_nominal=
     dat.getReal(varName=id + ".Mechanical.Discharge air mass flow rate.value") / 1.2
     "Volume flow rate"
@@ -127,23 +144,6 @@ block Guideline36
       enable=controllerTypeDam == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
           or controllerTypeDam == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
 
-  /* FIXME: Evaluate function call at compile time, FE ExternData.
-  parameter Boolean have_occSen=
-     dat.getBoolean(varName=id + ".Control.Occupancy sensor")
-    "Set to true if zones have occupancy sensor"
-    annotation (Dialog(tab="Airflow setpoint", group="Zone sensors"));
-
-  parameter Boolean have_winSen=
-     dat.getBoolean(varName=id + ".Control.Window sensor")
-    "Set to true if zones have window status sensor"
-    annotation (Dialog(tab="Airflow setpoint", group="Zone sensors"));
-
-  parameter Boolean have_CO2Sen=
-    dat.getBoolean(varName=id + ".Control.CO2 sensor")
-    "Set to true if the zone has CO2 sensor"
-    annotation (Dialog(tab="Airflow setpoint", group="Zone sensors"));
-    */
-
   parameter Real VDisCooSetMax_flow(
     final unit="m3/s",
     final quantity="VolumeFlowRate")=V_flow_nominal
@@ -168,7 +168,8 @@ block Guideline36
     "Minimum controllable airflow"
     annotation (Dialog(tab="Airflow setpoint", group="Nominal conditions"));
 
-  parameter Real CO2Set = dat.getReal(varName=id + ".Control.CO2 setpoint.value")
+  parameter Real CO2Set=
+    dat.getReal(varName=id + ".Control.CO2 setpoint.value")
     "CO2 setpoint in ppm"
     annotation (Dialog(tab="Airflow setpoint", group="Nominal conditions"));
 
@@ -189,7 +190,7 @@ block Guideline36
     annotation (Dialog(tab="Damper and valve", group="Parameters"));
 
   // FIXME: bind with have_souHea
-  parameter Boolean have_heaPla=false
+  parameter Boolean have_heaPla = false
     "Flag, true if there is a boiler plant"
     annotation (Dialog(tab="System requests", group="Parameters"));
 
@@ -400,7 +401,7 @@ block Guideline36
     final unit = "1") = occDen * AFlo
     "Design zone population during peak occupancy";
 
-  Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.Controller conTerUni(
+  Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.Controller con(
     final samplePeriod=samplePeriod,
     final AFlo=AFlo,
     final V_flow_nominal=V_flow_nominal,
@@ -440,8 +441,7 @@ block Guideline36
     final errTDis_2=errTDis_2,
     final durTimTem=durTimTem,
     final durTimFlo=durTimFlo,
-    final durTimDisAir=durTimDisAir)
-    "Terminal unit controller"
+    final durTimDisAir=durTimDisAir) "Terminal unit controller"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.SetPoints.ZoneTemperatures
     TZonSet(
@@ -464,7 +464,7 @@ block Guideline36
       final decTSetDem_2=decTSetDem_2,
       final decTSetDem_3=decTSetDem_3)
     "Compute zone temperature set points"
-    annotation (Placement(transformation(extent={{-60,-54},{-40,-26}})));
+    annotation (Placement(transformation(extent={{-60,-14},{-40,14}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant FIXME(k=1)
     "nOcc should be Boolean"
@@ -491,7 +491,7 @@ block Guideline36
     final TCooSetUno=TCooSetUno,
     final have_winSen=have_winSen)
     "Evaluate zone temperature status"
-    annotation (Placement(transformation(extent={{120,-94},{140,-66}})));
+    annotation (Placement(transformation(extent={{120,-48},{140,-20}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant FIXME2(k=1) "nOcc shall be Boolean, not integer"
     annotation (Placement(transformation(extent={{-240,70},{-220,90}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant FIXME3(k=1800)
@@ -500,18 +500,18 @@ block Guideline36
 
 equation
   /* Hardware point connection - start */
-  connect(conTerUni.yDam, bus.damVAV.y);
-  connect(conTerUni.yVal, bus.coiReh.y);
+  connect(con.yDam, bus.damVAV.y);
+  connect(con.yVal, bus.coiReh.y);
 
   connect(bus.damVAV.V_flow, zonOutAirSet.VDis_flow);
-  connect(bus.TDis, conTerUni.TDis);
-  connect(bus.damVAV.V_flow, conTerUni.VDis_flow);
-  connect(bus.damVAV.y_actual, conTerUni.yDam_actual);
+  connect(bus.TDis, con.TDis);
+  connect(bus.damVAV.V_flow, con.VDis_flow);
+  connect(bus.damVAV.y_actual, con.yDam_actual);
 
-  connect(bus.ppmCO2, conTerUni.ppmCO2);
-  connect(bus.uWin, conTerUni.uWin);
-  connect(bus.TZon, conTerUni.TZon);
-  connect(FIXME.y,conTerUni.nOcc);
+  connect(bus.ppmCO2, con.ppmCO2);
+  connect(bus.uWin, con.uWin);
+  connect(bus.TZon, con.TZon);
+  connect(FIXME.y, con.nOcc);
 
   connect(bus.uOcc, TZonSet.uOccSen);
   connect(bus.uWin, TZonSet.uWinSta);
@@ -522,17 +522,16 @@ equation
   connect(bus.TDis, zonOutAirSet.TDis);
   connect(bus.uWin, zonSta.uWin);
   connect(bus.TZon, zonSta.TZon);
-
   /* Hardware point connection - end */
 
   /* Software point connection - start */
   connect(FIXME3.y, zonSta.cooDowTim);
   connect(FIXME3.y, zonSta.warUpTim);
 
-  connect(bus.TSupSet, conTerUni.TSupAHU);
-  connect(bus.yOpeMod, conTerUni.uOpeMod);
-  connect(TZonSet.TZonCooSet, conTerUni.TZonCooSet);
-  connect(TZonSet.TZonHeaSet, conTerUni.TZonHeaSet);
+  connect(bus.TSupSet, con.TSupAHU);
+  connect(bus.yOpeMod, con.uOpeMod);
+  connect(TZonSet.TZonCooSet, con.TZonCooSet);
+  connect(TZonSet.TZonHeaSet, con.TZonHeaSet);
   connect(bus.yOpeMod, TZonSet.uOpeMod);
   connect(bus.TZonCooOccSet, TZonSet.TZonCooSetOcc);
   connect(bus.TZonCooUnoSet, TZonSet.TZonCooSetUno);
@@ -543,8 +542,8 @@ equation
   connect(bus.uCooDemLimLev, TZonSet.uCooDemLimLev);
   connect(bus.uHeaDemLimLev, TZonSet.uHeaDemLimLev);
 
-  connect(conTerUni.yZonTemResReq, bus.yReqZonTemRes);
-  connect(conTerUni.yZonPreResReq, bus.yReqZonPreRes);
+  connect(con.yZonTemResReq, bus.yReqZonTemRes);
+  connect(con.yZonPreResReq, bus.yReqZonPreRes);
   connect(bus.yReqOutAir, zonOutAirSet.uReqOutAir);
   connect(bus.VDesUncOutAir_flow, zonOutAirSet.VUncOut_flow_nominal);
 
@@ -574,7 +573,7 @@ equation
     defaultComponentName="conTer",
     Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false), graphics={Text(
-          extent={{-178,-100},{28,-154}},
+          extent={{-140,-20},{66,-74}},
           lineColor={238,46,47},
           textString=
               "Todo: subset indices for different Boolean values (such as have_occSen)")}));
