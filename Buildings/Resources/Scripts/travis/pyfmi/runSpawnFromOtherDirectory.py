@@ -123,11 +123,11 @@ if __name__ == "__main__":
     if retVal is not 0:
         sys.exit(retVal)
     # Test without neither set. This must fail, hence return non-zero
-#    retVal = run_test(None)
-#    if retVal is 0:
-#        sys.exit(1)
-#    else:
-#        sys.exit(0)
+    retVal = run_test(None)
+    if retVal is 0:
+        sys.exit(1)
+    else:
+        sys.exit(0)
 
 
 
