@@ -9618,6 +9618,8 @@ The following people have directly contributed to the implementation of the Buil
 </li>
 <li>Felix B&uuml;nning, RWTH Aachen, Germany
 </li>
+<li>Guokai Chen, University College London, UK
+</li>
 <li>Massimo Cimmino, Polytechnique Montr&eacute;al, Canada
 </li>
 <li>Rainer Czetina, University of Applied Sciences Technikum Wien, Austria
