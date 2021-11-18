@@ -1,8 +1,8 @@
 within Buildings.Fluid.Movers.BaseClasses.Euler;
-function computeCurves
+function computeTables
   "Computes efficiency and power curves with Euler number"
   extends Modelica.Icons.Function;
-  input Buildings.Fluid.Movers.BaseClasses.Euler.peakCondition peak
+  input Buildings.Fluid.Movers.BaseClasses.Euler.peak peak
     "Operation point with maximum efficiency";
   input Modelica.SIunits.PressureDifference dpMax
     "Max pressure rise";
@@ -10,7 +10,7 @@ function computeCurves
     "Max flow rate";
   input Boolean use
     "Flag, if false return zeros";
-  output Buildings.Fluid.Movers.BaseClasses.Euler.computedCurves curves
+  output Buildings.Fluid.Movers.BaseClasses.Euler.lookupTables curves
     "Computed efficiency and power curves";
 
 protected
@@ -74,4 +74,4 @@ First implementation. This is for
 </li>
 </ul>
 </html>"));
-end computeCurves;
+end computeTables;

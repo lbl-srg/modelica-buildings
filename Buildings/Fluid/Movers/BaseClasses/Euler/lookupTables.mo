@@ -1,5 +1,5 @@
 within Buildings.Fluid.Movers.BaseClasses.Euler;
-record computedCurves
+record lookupTables
   "Record for efficiency and power curves computed with Euler number"
   extends Modelica.Icons.Record;
   parameter Real eta[11,11](each min=0, each max=1)=
@@ -35,8 +35,8 @@ The efficiency curve and the power curve are stored in the same record.
 <li>
 The support points for flow rate in this record normally does not match 
 the input data, but is instead decided by 
-<a href=\"modelica://Buildings.Fluid.Movers.BaseClasses.Euler.computeCurves\">
-Buildings.Fluid.Movers.BaseClasses.Euler.computeCurves</a>.
+<a href=\"modelica://Buildings.Fluid.Movers.BaseClasses.Euler.computeTables\">
+Buildings.Fluid.Movers.BaseClasses.Euler.computeTables</a>.
 </li>
 </ul>
 </html>",
@@ -49,4 +49,4 @@ First implementation. This is for
 </li>
 </ul>
 </html>"));
-end computedCurves;
+end lookupTables;

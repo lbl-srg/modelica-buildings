@@ -232,8 +232,8 @@ protected
   Modelica.Blocks.Interfaces.RealOutput dp_internal
     "If dp is prescribed, use dp_in and solve for r_N, otherwise compute dp using r_N";
 
-  parameter Buildings.Fluid.Movers.BaseClasses.Euler.computedCurves curEu=
-    Buildings.Fluid.Movers.BaseClasses.Euler.computeCurves(
+  parameter Buildings.Fluid.Movers.BaseClasses.Euler.lookupTables curEu=
+    Buildings.Fluid.Movers.BaseClasses.Euler.computeTables(
       peak=per.peak,
       dpMax=dpMax,
       V_flow_max=V_flow_max,

@@ -1,5 +1,5 @@
 within Buildings.Fluid.Movers.BaseClasses.Euler;
-record peakCondition
+record peak
   "Record for the operation condition at peak efficiency"
   extends Modelica.Icons.Record;
   parameter Modelica.SIunits.VolumeFlowRate
@@ -26,4 +26,4 @@ First implementation. This is for
 </li>
 </ul>
 </html>"));
-end peakCondition;
+end peak;

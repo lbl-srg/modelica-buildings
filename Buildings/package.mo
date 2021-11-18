@@ -325,11 +325,11 @@ to <b style=\"color:blue\">existing</b> libraries:
 <tr><td colspan=\"2\"><b>Buildings.Fluid.Movers</b>
     </td>
 </tr>
-<tr><td valign=\"top\">Buildings.Fluid.Movers.BaseClasses.Euler.computeCurves<br/>
+<tr><td valign=\"top\">Buildings.Fluid.Movers.BaseClasses.Euler.computeTables<br/>
                      Buildings.Fluid.Movers.BaseClasses.Euler.correlation<br/>
-                     Buildings.Fluid.Movers.BaseClasses.Euler.findPeakCondition<br/>
-                     Buildings.Fluid.Movers.BaseClasses.Euler.computedCurves<br/>
-                     Buildings.Fluid.Movers.BaseClasses.Euler.peakCondition<br/>
+                     Buildings.Fluid.Movers.BaseClasses.Euler.findPeak<br/>
+                     Buildings.Fluid.Movers.BaseClasses.Euler.lookupTables<br/>
+                     Buildings.Fluid.Movers.BaseClasses.Euler.peak<br/>
                      Buildings.Fluid.Movers.BaseClasses.Validation.Euler<br/>
                      Buildings.Fluid.Movers.Data.Fans.Continental.TFD200<br/>
                      Buildings.Fluid.Movers.Data.Fans.Continental.TFD225<br/>

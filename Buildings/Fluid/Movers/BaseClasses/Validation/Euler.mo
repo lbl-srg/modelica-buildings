@@ -25,7 +25,7 @@ model Euler
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   MoverRecord per2(
     powMet=Buildings.Fluid.Movers.BaseClasses.Types.PowerMethod.EulerNumber,
-    peak=Buildings.Fluid.Movers.BaseClasses.Euler.findPeakCondition(
+    peak=Buildings.Fluid.Movers.BaseClasses.Euler.findPeak(
       pressure=per2.pressure,
       power=per2.power))
     "Peak condition";

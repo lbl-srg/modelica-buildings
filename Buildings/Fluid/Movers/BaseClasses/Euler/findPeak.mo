@@ -1,12 +1,12 @@
 within Buildings.Fluid.Movers.BaseClasses.Euler;
-function findPeakCondition
+function findPeak
   "Find peak condition from power characteristics"
   extends Modelica.Icons.Function;
   input Buildings.Fluid.Movers.BaseClasses.Characteristics.flowParameters
     pressure "Pressure vs. flow rate";
   input BaseClasses.Characteristics.powerParameters
     power "Power vs. flow rate";
-  output Buildings.Fluid.Movers.BaseClasses.Euler.peakCondition
+  output Buildings.Fluid.Movers.BaseClasses.Euler.peak
     peak "Operation point at maximum efficiency";
 
 protected
@@ -57,8 +57,8 @@ Buildings.Fluid.Movers.BaseClasses.Characteristics.power</a> and
 <a href=\"modelica://Buildings.Fluid.Movers.BaseClasses.Characteristics.pressure\">
 Buildings.Fluid.Movers.BaseClasses.Characteristics.pressure</a>.
 The results are output as record to 
-<a href=\"modelica://Buildings.Fluid.Movers.BaseClasses.Euler.peakCondition\">
-Buildings.Fluid.Movers.BaseClasses.Euler.peakCondition</a>.
+<a href=\"modelica://Buildings.Fluid.Movers.BaseClasses.Euler.peak\">
+Buildings.Fluid.Movers.BaseClasses.Euler.peak</a>.
 If the input series has only two data points or is monotonic,
 the point with the highest efficiency is directly used and the function 
 issues a warning stating that the computation may be highly inaccurate.
@@ -73,4 +73,4 @@ First implementation. This is for
 </li>
 </ul>
 </html>"));
-end findPeakCondition;
+end findPeak;

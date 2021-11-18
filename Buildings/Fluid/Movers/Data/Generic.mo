@@ -38,7 +38,7 @@ record Generic "Generic data record for movers"
                       enable=use_powerCharacteristic));
 
   // 2.eulerNumber path
-  parameter Buildings.Fluid.Movers.BaseClasses.Euler.peakCondition peak(
+  parameter Buildings.Fluid.Movers.BaseClasses.Euler.peak peak(
     V_flow=0,
     dp=0,
     eta=0.7)
