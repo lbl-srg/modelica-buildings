@@ -406,6 +406,15 @@ have been <b style=\"color:blue\">improved</b> in a
                        This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2624\">issue #2624</a>.
     </td>
 </tr>
+<tr><td colspan=\"2\"><b>Buildings.Experimental.DHC</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Experimental.DHC.CentralPlants.Cooling
+    </td>
+    <td valign=\"top\">Revised the model for extensibility. <br/>
+    This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2749\">issue #2749</a>.
+    </td>
+</tr>    
 <tr><td colspan=\"2\"><b>Buildings.Fluid.Actuators</b>
     </td>
 </tr>
