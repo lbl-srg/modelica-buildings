@@ -189,6 +189,11 @@ with five conditioned thermal zones.
 </html>", revisions="<html>
 <ul>
 <li>
+November 17, 2021, by David Blum:<br/>
+Changed chilled water supply temperature from 12 C to 6 C.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2763\">issue #2763</a>.
+</li>
+<li>
 October 4, 2021, by Michael Wetter:<br/>
 Refactored <a href=\"modelica://Buildings.Examples.VAVReheat\">Buildings.Examples.VAVReheat</a>
 and its base classes to separate building from HVAC model.<br/>
