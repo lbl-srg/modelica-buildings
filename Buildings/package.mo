@@ -817,7 +817,7 @@ units are wrong or errors in documentation):
 <tr><td valign=\"top\">Buildings.Examples.ChillerPlant.BaseClasses.DataCenter
     </td>
     <td valign=\"top\">Set to True in nominalValuesDefaultPressureCurve to avoid warnings.<br/>
-                       This is for <a href=\\\"https://github.com/lbl-srg/modelica-buildings/issues/2761\\\">Buildings, issue #2761</a>.
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2761\">Buildings, issue #2761</a>.
     </td>
 </tr>
 </table>
