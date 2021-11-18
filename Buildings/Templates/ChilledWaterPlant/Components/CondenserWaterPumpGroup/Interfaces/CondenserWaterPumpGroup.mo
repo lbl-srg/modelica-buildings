@@ -1,5 +1,9 @@
 within Buildings.Templates.ChilledWaterPlant.Components.CondenserWaterPumpGroup.Interfaces;
 partial model CondenserWaterPumpGroup
+
+  parameter Buildings.Templates.ChilledWaterPlant.Components.Types.CondenserWaterPumpGroup typ "Type of pump"
+    annotation (Evaluate=true, Dialog(group="Configuration"));
+
   outer parameter String id
     "System identifier";
   outer parameter ExternData.JSONFile dat
@@ -7,12 +11,23 @@ partial model CondenserWaterPumpGroup
 
   replaceable package Medium = Buildings.Media.Water "Medium in the component";
 
-  parameter Integer nChi = 1 "Number of chillers";
-  parameter Integer nPum = 1 "Number of primary pumps";
+  final parameter Boolean is_dedicated = typ == Buildings.Templates.ChilledWaterPlant.Components.Types.PrimaryPumpGroup.Dedicated;
+
+  parameter Integer nChi "Number of chillers";
+  parameter Integer nPum = nChi "Number of primary pumps";
 
   parameter Boolean has_WSE "= true if pump supply waterside economizer";
 
-  final parameter Boolean is_dedicated = typ == Buildings.Templates.ChilledWaterPlant.Components.Types.PrimaryPumpGroup.Dedicated;
+  parameter Modelica.SIunits.MassFlowRate m_flow_nominal=
+   dat.getReal(varName=id + ".CondenserPump.m_flow_nominal.value")
+   "Nominal mass flow rate per pump";
+  parameter Modelica.SIunits.PressureDifference dp_nominal "Nominal pressure drop per pump";
+  parameter Modelica.SIunits.PressureDifference dpValve_nominal=
+    dat.getReal(varName=id + ".CondenserPump.dpVal_nominal.value")
+    "Shutoff valve pressure drop";
+
+  Modelica.SIunits.MassFlowRate mTot_flow_nominal = m_flow_nominal*nPum "Total mass flow rate for pump group";
+
 
   Bus busCon(final nPum=nPum)
              "Control bus" annotation (Placement(transformation(
@@ -22,9 +37,6 @@ partial model CondenserWaterPumpGroup
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={0,100})));
-
-  parameter Buildings.Templates.ChilledWaterPlant.Components.Types.CondenserWaterPumpGroup typ "Type of pump"
-    annotation (Evaluate=true, Dialog(group="Configuration"));
 
   Modelica.Fluid.Interfaces.FluidPort_a port_a(
     redeclare final package Medium = Medium,

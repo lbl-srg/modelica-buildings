@@ -483,5 +483,94 @@
                 }
             }
         }
+    },
+    "CHW_1": {
+        "DemandSide": {
+            "dpSetPoi": {
+                "value": 68900,
+                "description": "Differential pressure setpoint",
+                "unit": "Pa"
+            }
+        },
+        "ChillerGroup": {
+            "Q_nominal": {
+                "value": 1000000,
+                "description": "Nominal cooling capacity",
+                "unit": "W"
+            },
+            "dpCHW_nominal": {
+                "value": 44800,
+                "description": "Nominal pressure drop of chiller group on evaporator side",
+                "unit": "Pa"
+            },
+            "dpCW_nominal": {
+                "value": 46200,
+                "description": "Nominal pressure drop of chiller group on condenser side",
+                "unit": "Pa"
+            },
+            "mMin_flow": {
+                "value": 0.03,
+                "description": "Minimum mass flow rate of a single chiller",
+                "unit": "kg/s"
+            },
+            "TCHWSet": {
+                "value": 281.15,
+                "description": "Chilled water temperature setpoint",
+                "unit": "K"
+            },
+            "dpVal_nominal": {
+                "value": 6000,
+                "description": "Nominal pressure drop of chiller valve",
+                "unit": "Pa"
+            }
+        },
+        "PrimaryPump": {
+            "m_flow_nominal": {
+                "value": 18.3,
+                "description": "Nominal mass flow rate per primary pump",
+                "unit": "kg/s"
+            },
+            "dpVal_nominal": {
+                "value": 6000,
+                "description": "Nominal pressure drop of primary pump valve",
+                "unit": "Pa"
+            },
+            "dpByp_nominal": {
+                "value": 6000,
+                "description": "Chilled water bypass valve nominal pressure drop",
+                "unit": "Pa"
+            }
+        },
+        "CondenserPump": {
+            "m_flow_nominal": {
+                "value": 34.7,
+                "description": "Nominal mass flow rate per condenser pump",
+                "unit": "kg/s"
+            },
+            "dpVal_nominal": {
+                "value": 6000,
+                "description": "Nominal pressure drop of condenser pump valve",
+                "unit": "Pa"
+            }
+        },
+        "SecondaryPump": {
+            "nominal_flow": {
+                "value": 18.3,
+                "description": "Nominal mass flow rate per secondary pump",
+                "unit": "kg/s"
+            },
+            "dpVal_nominal": {
+                "value": 6000,
+                "description": "Nominal pressure drop of condenser pump valve",
+                "unit": "Pa"
+            }
+        },
+        "WatersideEconomizer": {
+            "dpByp_nominal": {
+                "value": 6000,
+                "description": "Waterside economizer bypass valve nominal pressure drop",
+                "unit": "Pa"
+            }
+        }
     }
 }

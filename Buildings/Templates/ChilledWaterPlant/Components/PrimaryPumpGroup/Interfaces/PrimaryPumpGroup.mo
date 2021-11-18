@@ -19,6 +19,8 @@ partial model PrimaryPumpGroup
   parameter Boolean has_byp "= true if there is a bypass";
   parameter Boolean has_comLeg "= true if there is a commong leg";
   parameter Boolean has_floSen "= true if primary flow is measured";
+  parameter Boolean has_comLegFloSen = has_comLeg and not has_floSen "= true if common leg flow is measured"
+    annotation(Dialog(enable=has_comLeg));
 
   final parameter Boolean is_dedicated = typ == Buildings.Templates.ChilledWaterPlant.Components.Types.PrimaryPumpGroup.Dedicated;
 
@@ -26,9 +28,16 @@ partial model PrimaryPumpGroup
   parameter Integer nPum = nChi "Number of pumps"
   annotation(Dialog(enable=not is_dedicated));
 
-  parameter Modelica.SIunits.MassFlowRate m_flow_nominal "Nominal mass flow rate per pump";
+  parameter Modelica.SIunits.MassFlowRate m_flow_nominal=
+   dat.getReal(varName=id + ".PrimaryPump.m_flow_nominal.value")
+   "Nominal mass flow rate per pump";
   parameter Modelica.SIunits.PressureDifference dp_nominal "Nominal pressure drop per pump";
-  parameter Modelica.SIunits.PressureDifference dpValve_nominal "Shutoff valve pressure drop";
+  parameter Modelica.SIunits.PressureDifference dpValve_nominal=
+    dat.getReal(varName=id + ".PrimaryPump.dpVal_nominal.value")
+    "Shutoff valve pressure drop";
+
+  Modelica.SIunits.MassFlowRate mTot_flow_nominal = m_flow_nominal*nPum "Total mass flow rate for pump group";
+
 
   Bus busCon "Control bus" annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},

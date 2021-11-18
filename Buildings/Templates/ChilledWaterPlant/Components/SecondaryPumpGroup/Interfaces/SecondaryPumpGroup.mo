@@ -13,7 +13,14 @@ partial model SecondaryPumpGroup
   outer parameter ExternData.JSONFile dat
     "External parameter file";
 
-  parameter Integer nPum "Number of primary pumps";
+  parameter Integer nPum = 2 "Number of primary pumps";
+
+  parameter Modelica.SIunits.MassFlowRate m_flow_nominal=
+   dat.getReal(varName=id + ".SecondaryPump.m_flow_nominal.value")
+   "Nominal mass flow rate per pump";
+  parameter Modelica.SIunits.PressureDifference dp_nominal "Nominal pressure drop per pump";
+
+  Modelica.SIunits.MassFlowRate mTot_flow_nominal = m_flow_nominal*nPum "Total mass flow rate for pump group";
 
   final parameter Boolean is_none=
     typ <> Buildings.Templates.ChilledWaterPlant.Components.Types.SecondaryPumpGroup.None;

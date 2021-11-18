@@ -8,39 +8,47 @@ model WaterCooled
 
   replaceable package MediumCW=Buildings.Media.Water "Condenser water medium";
 
-  parameter Integer nPumCon = nChi "Number of condenser pumps"
-    annotation(Dialog(enable=not pumCon.is_dedicated));
-  parameter Integer nCooTow "Number of cooling towers";
+  final parameter Integer nPumCon = pumCon.nPum "Number of condenser pumps";
+  final parameter Integer nCooTow = cooTow.nCooTow "Number of cooling towers";
+
+  final parameter Modelica.SIunits.MassFlowRate mCon_flow_nominal=
+    pumCon.mTot_flow_nominal
+    "Condenser mass flow rate";
 
   inner replaceable
     Buildings.Templates.ChilledWaterPlant.Components.CoolingTowerGroup.CoolingTowerParallel
-    cooTow constrainedby
+    cooTow(final m_flow_nominal=mCon_flow_nominal)
+           constrainedby
     Buildings.Templates.ChilledWaterPlant.Components.CoolingTowerGroup.Interfaces.CoolingTowerGroup(
-      redeclare final package Medium = MediumCW,
-      final nCooTow=nCooTow)
+      redeclare final package Medium = MediumCW)
     "Cooling tower group"
     annotation (Placement(transformation(extent={{-180,-20},{-160,0}})));
   inner replaceable
     Buildings.Templates.ChilledWaterPlant.Components.CondenserWaterPumpGroup.Headered
-    pumCon constrainedby
+    pumCon(final has_WSE=not WSE.is_none)
+           constrainedby
     Buildings.Templates.ChilledWaterPlant.Components.CondenserWaterPumpGroup.Interfaces.CondenserWaterPumpGroup(
       redeclare final package Medium = MediumCW,
-      final nChi=nChi,
-      final nPum=nPumCon)
+      final nChi=nChi)
     "Condenser water pump group"
     annotation (Placement(transformation(extent={{-100,-20},{-80,0}})));
 
   Buildings.Templates.Components.Sensors.Temperature TCWSup(
-    redeclare final package Medium = MediumCW)
+    redeclare final package Medium = MediumCW,
+    final m_flow_nominal=mCon_flow_nominal,
+    final typ=Buildings.Templates.Components.Types.SensorTemperature.InWell)
     "Condenser water supply temperature"
     annotation (Placement(transformation(extent={{-140,-20},{-120,0}})));
   Buildings.Templates.Components.Sensors.Temperature TCWRet(
-    redeclare final package Medium = MediumCW)
+    redeclare final package Medium = MediumCW,
+    final m_flow_nominal=mCon_flow_nominal,
+    final typ=Buildings.Templates.Components.Types.SensorTemperature.InWell)
     "Condenser water return temperature"
     annotation (Placement(transformation(extent={{-140,-80},{-120,-60}})));
   Fluid.FixedResistances.Junction mixCW(
     redeclare package Medium = MediumCW,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
+    final m_flow_nominal={mCon_flow_nominal,0,mCon_flow_nominal})
     "Condenser water return mixer"
     annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},

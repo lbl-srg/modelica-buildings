@@ -1,24 +1,20 @@
 within Buildings.Templates.ChilledWaterPlant.Components.BaseClasses;
 model ParallelPumps
   extends Fluid.Interfaces.PartialTwoPortInterface;
-  extends Buildings.Fluid.Actuators.BaseClasses.ValveParameters;
 
   // Pump parameters
   parameter Integer nPum "Number of pumps";
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal "Nominal mass flow rate per pump";
   parameter Modelica.SIunits.PressureDifference dp_nominal "Nominal pressure drop per pump";
-
-  // Valve parameters
-  parameter Real l=0.0001 "Valve leakage, l=Kv(y=0)/Kv(y=1)"
-    annotation(Dialog(group="Two-way valve"));
+  parameter Modelica.SIunits.PressureDifference dpValve_nominal "Nominal pressure drop of valve";
 
   // Initialization
   parameter Real threshold(min = 0.01) = 0.05
     "Hysteresis threshold";
 
-  replaceable parameter Fluid.Movers.Data.Generic per(
-    pressure(V_flow=m_flow_nominal/1000 .* {0,1,2},
-      dp=dp_nominal .* {1.5,1,0.5}))
+  replaceable parameter Fluid.Movers.Data.Generic per(pressure(
+    V_flow=m_flow_nominal/1000 .* {0,1,2},
+    dp=dp_nominal .* {1.5,1,0.5}))
     constrainedby Fluid.Movers.Data.Generic
     "Performance data"
     annotation (
@@ -55,8 +51,8 @@ model ParallelPumps
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={50,70})));
-  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys[nPum](each final uLow=
-        threshold, each final uHigh=2*threshold)
+  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys[nPum](
+    each final uLow=threshold, each final uHigh=2*threshold)
     "Hysteresis for isolation valves"
     annotation (Placement(transformation(extent={{-60,40},{-40,60}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea[nPum]
@@ -65,12 +61,9 @@ model ParallelPumps
   Fluid.Actuators.Valves.TwoWayLinear val[nPum](
     redeclare each final replaceable package Medium = Medium,
     each final dpFixed_nominal=0,
-    each final l=l,
     each final CvData=Buildings.Fluid.Types.CvTypes.OpPoint,
     each final dpValve_nominal=dpValve_nominal,
-    each final m_flow_nominal=m_flow_nominal,
-    each final deltaM=deltaM,
-    each final rhoStd=rhoStd)
+    each final m_flow_nominal=m_flow_nominal)
     "Isolation valves"
     annotation (Placement(transformation(extent={{10,-10},{30,10}})));
   Modelica.Blocks.Interfaces.RealInput y[nPum](unit="1") annotation (Placement(

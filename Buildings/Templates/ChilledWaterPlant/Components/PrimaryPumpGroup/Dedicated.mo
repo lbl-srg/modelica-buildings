@@ -6,23 +6,30 @@ model Dedicated
     final has_ParChi=true,
     final has_WSEByp=false);
   Fluid.FixedResistances.Junction splByp(redeclare package Medium = Medium,
-      energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)
+      energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
+    each final m_flow_nominal=m_flow_nominal,
+    each final dp_nominal=0)
     "Bypass splitter"               annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={80,0})));
-  Fluid.Actuators.Valves.TwoWayLinear valByp if has_byp
+  Fluid.Actuators.Valves.TwoWayLinear valByp(final m_flow_nominal=
+        m_flow_nominal)                      if has_byp
                                              "Bypass valve" annotation (
       Placement(transformation(
         extent={{-10,10},{10,-10}},
         rotation=270,
-        origin={0,-60})));
+        origin={0,-50})));
   BaseClasses.DedicatedPrimaryPumps pum(
     redeclare final package Medium = Medium,
-    final nPum=nChi) "Pumps"
+    final nPum=nChi,
+    final m_flow_nominal=m_flow_nominal,
+    final dp_nominal=dp_nominal,
+    final dpValve_nominal=dpValve_nominal)
+                     "Pumps"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Buildings.Templates.Components.Sensors.VolumeFlowRate V_flow(have_sen=
-        has_floSen)
+        has_floSen, final m_flow_nominal=m_flow_nominal)
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
   Buildings.Templates.BaseClasses.PassThroughFluid pas(redeclare each final
       package Medium = Medium) if has_comLeg annotation (Placement(
@@ -30,13 +37,20 @@ model Dedicated
         extent={{10,-10},{-10,10}},
         rotation=90,
         origin={80,-60})));
+  Buildings.Templates.Components.Sensors.VolumeFlowRate VComLeg_flow(
+    redeclare final package Medium = Medium,
+    have_sen=has_comLegFloSen,
+    final m_flow_nominal=m_flow_nominal) if has_comLeg
+    "Common leg volume flow rate"
+    annotation (Placement(transformation(extent={{20,-90},{40,-70}})));
 equation
   connect(splByp.port_2, port_b)
     annotation (Line(points={{90,0},{100,0}}, color={0,127,255}));
-  connect(splByp.port_3, valByp.port_a) annotation (Line(points={{80,-10},{80,-40},
-          {1.77636e-15,-40},{1.77636e-15,-50}}, color={0,127,255}));
+  connect(splByp.port_3, valByp.port_a) annotation (Line(points={{80,-10},{80,
+          -30},{1.77636e-15,-30},{1.77636e-15,-40}},
+                                                color={0,127,255}));
   connect(valByp.port_b, port_byp)
-    annotation (Line(points={{-1.83187e-15,-70},{0,-100}}, color={0,127,255}));
+    annotation (Line(points={{-1.77636e-15,-60},{0,-100}}, color={0,127,255}));
   connect(pum.y_actual, busCon.uStaPumPri) annotation (Line(points={{11,8},{20,8},
           {20,80},{0,80},{0,100}}, color={255,0,255}), Text(
       string="%second",
@@ -46,7 +60,7 @@ equation
   connect(ports_parallel, pum.ports_a)
     annotation (Line(points={{-100,0},{-10,0}}, color={0,127,255}));
   connect(busCon.yValByp, valByp.y) annotation (Line(
-      points={{0,100},{0,80},{-40,80},{-40,-60},{-12,-60}},
+      points={{0,100},{0,80},{-40,80},{-40,-50},{-12,-50}},
       color={255,204,51},
       thickness=0.5), Text(
       string="%first",
@@ -63,8 +77,6 @@ equation
       index=1,
       extent={{-6,3},{-6,3}},
       horizontalAlignment=TextAlignment.Right));
-  connect(port_byp, pas.port_b) annotation (Line(points={{0,-100},{0,-80},{80,
-          -80},{80,-70}}, color={0,127,255}));
   connect(splByp.port_3, pas.port_a)
     annotation (Line(points={{80,-10},{80,-50}}, color={0,127,255}));
   connect(busCon.ySpe, pum.y) annotation (Line(
@@ -74,6 +86,16 @@ equation
       string="%first",
       index=-1,
       extent={{-3,6},{-3,6}},
+      horizontalAlignment=TextAlignment.Right));
+  connect(port_byp, VComLeg_flow.port_a)
+    annotation (Line(points={{0,-100},{0,-80},{20,-80}}, color={0,127,255}));
+  connect(VComLeg_flow.port_b, pas.port_b)
+    annotation (Line(points={{40,-80},{80,-80},{80,-70}}, color={0,127,255}));
+  connect(VComLeg_flow.y, busCon.VComLeg_flow) annotation (Line(points={{30,-68},
+          {30,80},{0,80},{0,100}}, color={0,0,127}), Text(
+      string="%second",
+      index=1,
+      extent={{-6,3},{-6,3}},
       horizontalAlignment=TextAlignment.Right));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
                     Bitmap(

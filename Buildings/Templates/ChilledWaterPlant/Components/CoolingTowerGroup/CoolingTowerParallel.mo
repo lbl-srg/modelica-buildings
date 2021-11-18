@@ -7,6 +7,10 @@ model CoolingTowerParallel
   parameter Modelica.Fluid.Types.Dynamics energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial
     "Type of energy balance: dynamic (3 initialization options) or steady state"
     annotation (Evaluate=true,Dialog(tab="Dynamics",group="Equations"));
+
+  final parameter Modelica.SIunits.MassFlowRate mTow_flow_nominal=
+    m_flow_nominal/nCooTow "Single tower nominal mass flow rate";
+
   parameter Modelica.SIunits.PressureDifference dp_nominal
     "Nominal pressure difference of the tower"
     annotation (Dialog(group="Nominal condition"));
@@ -46,14 +50,14 @@ model CoolingTowerParallel
     Buildings.Fluid.HeatExchangers.CoolingTowers.BaseClasses.CoolingTowerVariableSpeed(
       redeclare each final package Medium=Medium,
       each final show_T=show_T,
-      each final m_flow_nominal=m_flow_nominal,
+      each final m_flow_nominal=mTow_flow_nominal,
       each final energyDynamics=energyDynamics)
     "Cooling tower type"
     annotation (Placement(transformation(extent={{8,-10},{28,10}})));
   Buildings.Fluid.Actuators.Valves.TwoWayEqualPercentage val[nCooTow](
     redeclare each final package Medium=Medium,
     each final allowFlowReversal=allowFlowReversal,
-    each final m_flow_nominal=m_flow_nominal,
+    each final m_flow_nominal=mTow_flow_nominal,
     each final dpValve_nominal=dpValve_nominal,
     each final use_inputFilter=use_inputFilter,
     each final dpFixed_nominal=dp_nominal)
@@ -72,7 +76,8 @@ model CoolingTowerParallel
     annotation (Placement(transformation(extent={{-60,-66},{-40,-46}})));
   Experimental.DHC.EnergyTransferStations.BaseClasses.CollectorDistributor colDis(
     redeclare final package Medium = Medium,
-    final mCon_flow_nominal=fill(m_flow_nominal, nCooTow),
+    final mDis_flow_nominal=m_flow_nominal,
+    each final mCon_flow_nominal=mTow_flow_nominal,
     final nCon=nCooTow)
     annotation (Placement(transformation(extent={{-20,-60},{20,-40}})));
   Fluid.Sources.MassFlowSource_T floZer_b(

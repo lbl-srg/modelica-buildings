@@ -133,13 +133,9 @@ model Plant
     annotation (Placement(transformation(extent={{-40,160},{-20,180}})));
   Buildings.Applications.BaseClasses.Equipment.FlowMachine_y pumCHW(
     redeclare final package Medium=Medium,
-    final per=fill(
-      perCHWPum,
-      numChi),
+    final per=fill(perCHWPum, numChi),
     use_inputFilter=false,
-    yValve_start=fill(
-      1,
-      numChi),
+    yValve_start=fill(1, numChi),
     final energyDynamics=energyDynamics,
     final m_flow_nominal=mCHW_flow_nominal,
     final dpValve_nominal=dpCHWPumVal_nominal,
