@@ -12,7 +12,7 @@ branches:
     - /^maint_.*$/
     - release
 
-cache: 
+cache:
   pip: true
   directories:
     - .git/lfs
@@ -36,8 +36,8 @@ env:
 
   jobs:
     - TEST_ARG="make test-cdl-conformance"
-    - TEST_ARG="make test-energyplus-validations"
-    - TEST_ARG="make test-bestest test-spawn-portability"
+    - TEST_ARG="make test-energyplus-validations test-dymola-spawn-spaces test-omc-spawn-spaces"
+    - TEST_ARG="make test-bestest"
     - TEST_ARG="make test-dymola    PACKAGE=\"Buildings.{Air,Examples}\""
     - TEST_ARG="make test-optimica  PACKAGE=\"Buildings.{Air,Examples}\""
     - TEST_ARG="make test-jmodelica PACKAGE=\"Buildings.{Air,Examples}\""
@@ -125,6 +125,7 @@ before_install:
     fi;
   - if [[ "$TEST_ARG" == *test-omc* ]]; then
        docker pull "$DOCKER_USERNAME"/ubuntu-2004-omc:1.18.0;
+       cp Buildings/Resources/Scripts/travis/omc/omc $HOME/bin/omc;
     fi;
 
 # Install dependencies

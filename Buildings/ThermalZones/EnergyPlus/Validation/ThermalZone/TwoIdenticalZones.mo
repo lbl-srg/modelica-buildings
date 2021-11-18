@@ -5,6 +5,8 @@ model TwoIdenticalZones
   inner Building building(
     idfName=Modelica.Utilities.Files.loadResource(
       "modelica://Buildings/Resources/Data/ThermalZones/EnergyPlus/Validation/TwoIdenticalZones/TwoIdenticalZones.idf"),
+    epwName=Modelica.Utilities.Files.loadResource(
+      "modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.epw"),
     weaName=Modelica.Utilities.Files.loadResource(
       "modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"))
     "Building level declarations"
