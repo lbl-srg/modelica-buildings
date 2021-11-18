@@ -717,6 +717,13 @@ have been <b style=\"color:blue\">improved</b> in a
                        requires the specification of the EnergyPlus weather data file (<code>.epw</code> file)
                        through the parameter <code>epwName</code>.<br/>
                        This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2443\">issue #2443</a>.<br/>
+                       <br/>
+                       Removed the parameters <code>showWeatherData</code> and <code>generatePortableFMU</code>.
+                       Now, the weather data bus is always enabled as it is used in almost all simulations.
+                       For Dymola, a conversion script makes this change.<br/>
+                       Converted <code>usePrecompiledFMU</code> and the associated <code>fmuName</code> from
+                       parameter to a constant as these are only used for debugging by developers.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2759\">issue #2759</a>.
     </td>
   </tr>
   <tr><td valign=\"top\">Buildings.ThermalZones.EnergyPlus.Examples.SmallOffice.ASHRAE2006Spring<br/>
