@@ -9,11 +9,6 @@ model Euler
     annotation(Evaluate=true);
   parameter Modelica.SIunits.Density rhoCon=1.2
     "Constant density";
-  parameter Buildings.Fluid.Movers.BaseClasses.Characteristics.efficiencyParameters
-    efficiency(
-    V_flow=per1.pressure.V_flow,
-    eta=per1.pressure.V_flow.*per1.pressure.dp./per1.power.P)
-    "Efficiency vs. flow rate";
 
   MoverRecord per1 "Mover curves with flow rate, pressure rise, and power";
   Buildings.Fluid.Movers.BaseClasses.FlowMachineInterface eff1(
