@@ -230,15 +230,6 @@ Each class (i.e., model, block and function) must be used in an example or valid
     <b style=\"color:blue\">backward compatible</b> way:
     </p>
     <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
-    <tr><td colspan=\"2\"><b>Buildings.Examples.ChillerPlant</b>
-        </td>
-    </tr>
-    <tr><td valign=\"top\">Buildings.Examples.ChillerPlant.BaseClasses.DataCenter
-        </td>
-        <td valign=\"top\">Set <code>nominalValuesDefaultPressureCurve=true</code> to avoid warnings.<br/>
-                           This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2761\">Buildings, issue #2761</a>.
-        </td>
-    </tr>
     <tr><td colspan=\"2\"><b>Buildings.Controls.Continuous</b>
         </td>
     </tr>
@@ -248,6 +239,15 @@ Each class (i.e., model, block and function) must be used in an example or valid
                            and updated its example to avoid simultaneous state and time events.<br/>
                            This is for
                            <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1534\">IBPSA, #1534</a>.
+        </td>
+    </tr>
+    <tr><td colspan=\"2\"><b>Buildings.Examples.ChillerPlant</b>
+        </td>
+    </tr>
+    <tr><td valign=\"top\">Buildings.Examples.ChillerPlant.BaseClasses.DataCenter
+        </td>
+        <td valign=\"top\">Set <code>nominalValuesDefaultPressureCurve=true</code> to avoid warnings.<br/>
+                           This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2761\">Buildings, issue #2761</a>.
         </td>
     </tr>
     <tr><td colspan=\"2\"><b>Buildings.ThermalZones.ReducedOrder</b>
