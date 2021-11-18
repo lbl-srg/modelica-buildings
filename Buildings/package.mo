@@ -414,7 +414,7 @@ have been <b style=\"color:blue\">improved</b> in a
     <td valign=\"top\">Revised the model for extensibility. <br/>
     This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2749\">issue #2749</a>.
     </td>
-</tr>    
+</tr>
 <tr><td colspan=\"2\"><b>Buildings.Fluid.Actuators</b>
     </td>
 </tr>
@@ -9666,6 +9666,8 @@ The following people have directly contributed to the implementation of the Buil
 <li>Kaustubh Phalak, Lawrence Berkeley National Laboratory, USA
 </li>
 <li>Thomas Sevilla, University of Miami, Florida, USA
+</li>
+<li>Chengnan Shi, University of Colorado Boulder, Colorado, USA
 </li>
 <li>Martin Sj&ouml;lund, Link&ouml;ping University, Sweden
 </li>
