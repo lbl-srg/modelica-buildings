@@ -27,7 +27,7 @@ model WetCoilDryRegime
     "Temperature of air at inlet";
   // -- misc.
   input Buildings.Fluid.Types.HeatExchangerFlowRegime cfg
-    "The flow regime of the heat exchanger";
+    "Flow regime of the heat exchanger";
   input Modelica.SIunits.MassFlowRate mAir_flow_nominal
     "Nominal mass flow rate for air";
   input Modelica.SIunits.MassFlowRate mWat_flow_nominal

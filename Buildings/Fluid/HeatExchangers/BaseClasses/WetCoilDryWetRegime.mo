@@ -10,11 +10,11 @@ model WetCoilDryWetRegime
     annotation(Dialog(group = "Nominal condition"));
 
   input Real Qfac(final unit="1")
-    "a smoothing factor to prevent division-by-zero";
+    "Smoothing factor to prevent division-by-zero";
 
   input Buildings.Fluid.Types.HeatExchangerFlowRegime cfg=
     Buildings.Fluid.Types.HeatExchangerFlowRegime.CounterFlow
-      "heat exchanger configuration";
+    "Heat exchanger configuration";
 
   // -- Water
   Modelica.Blocks.Interfaces.RealInput UAWat(

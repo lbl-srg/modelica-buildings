@@ -27,6 +27,6 @@ First implementation for
       StopTime=3600,
       Tolerance=1e-06),
     __Dymola_Commands(
-      file="Resources/Scripts/Dymola/Fluid/MixingVolumes/Validation/CoupledVolumesSpecializedWaterConstantProperties_pT.mos"
+      file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/MixingVolumes/Validation/CoupledVolumesSpecializedWaterConstantProperties_pT.mos"
            "Simulate and plot"));
 end CoupledVolumesSpecializedWaterConstantProperties_pT;

@@ -9,14 +9,13 @@ model BoreholeOneUTube "Test for the single U-tube borehole model"
         energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial));
 
   annotation (
-    __Dymola_Commands( file=
-          "Resources/Scripts/Dymola/Fluid/Geothermal/Borefields/BaseClasses/Boreholes/Examples/BoreholeOneUTube.mos"
+    __Dymola_Commands( file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Geothermal/Borefields/BaseClasses/Boreholes/Examples/BoreholeOneUTube.mos"
         "Simulate and plot"),
     Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-100,-100},{100,
             100}})),
     Documentation(info="<html>
 <p>
-This example illustrates the use of the 
+This example illustrates the use of the
 <a href=\"modelica://Buildings.Fluid.Geothermal.Borefields.BaseClasses.Boreholes.OneUTube\">
 Buildings.Fluid.Geothermal.Borefields.BaseClasses.Boreholes.OneUTubes</a>
 model. It simulates the behavior of a borehole with a prescribed

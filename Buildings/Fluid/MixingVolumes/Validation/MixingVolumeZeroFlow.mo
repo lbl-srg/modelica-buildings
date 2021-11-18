@@ -228,7 +228,6 @@ If you use Dymola, set <code>Advanced.Define.AimForHighAccuracy = false</code> t
 increase the chance of the error being produced for this simple example.
 </p>
 </html>"),
-    __Dymola_Commands(file=
-          "Resources/Scripts/Dymola/Fluid/MixingVolumes/Validation/MixingVolumeZeroFlow.mos"
+    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/MixingVolumes/Validation/MixingVolumeZeroFlow.mos"
         "Simulate and plot"));
 end MixingVolumeZeroFlow;

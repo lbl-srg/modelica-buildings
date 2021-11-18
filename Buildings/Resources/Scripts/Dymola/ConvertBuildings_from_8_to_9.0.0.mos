@@ -5,6 +5,10 @@ clear
 
 convertClear();
 
+// Conversion for https://github.com/lbl-srg/modelica-buildings/issues/2759
+convertModifiers("Buildings.ThermalZones.EnergyPlus.Building", {"showWeatherData"}, fill("",0), true);
+convertModifiers("Buildings.ThermalZones.EnergyPlus.Building", {"generatePortableFMU"}, fill("",0), true);
+
 // Conversion for https://github.com/ibpsa/modelica-ibpsa/issues/1522
 convertClass("Buildings.Controls.Continuous.PIDHysteresisTimer",
              "Buildings.Obsolete.Controls.Continuous.PIDHysteresisTimer");

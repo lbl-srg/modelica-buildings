@@ -181,5 +181,5 @@ First implementation.
         preserveAspectRatio=false,
         extent={{-120,-120},{120,120}})),
     __Dymola_Commands(
-      file="Resources/Scripts/Dymola/Experimental/DHC/Loads/Validation/TerminalUnitScaling.mos" "Simulate and plot"));
+      file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/DHC/Loads/Validation/TerminalUnitScaling.mos" "Simulate and plot"));
 end TerminalUnitScaling;
