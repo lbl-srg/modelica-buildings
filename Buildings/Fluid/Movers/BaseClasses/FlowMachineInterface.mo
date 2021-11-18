@@ -235,10 +235,19 @@ protected
   parameter Buildings.Fluid.Movers.BaseClasses.Euler.computedCurves curEu=
     Buildings.Fluid.Movers.BaseClasses.Euler.computeCurves(
       peak=per.peak,
-      pressure=per.pressure,
+      dpMax=dpMax,
       V_flow_max=V_flow_max,
       use=per.use_eulerNumber)
-      "Efficiency and power curves vs. flow rate calculated with Euler number";
+      "Efficiency and power curves vs. flow rate & pressure rise calculated with Euler number";
+
+  Modelica.Blocks.Tables.CombiTable2D effTab(
+    final table=curEu.eta,
+    final smoothness=Modelica.Blocks.Types.Smoothness.ContinuousDerivative)
+    "Look-up table for mover efficiency";
+  Modelica.Blocks.Tables.CombiTable2D powTab(
+    final table=curEu.P,
+    final smoothness=Modelica.Blocks.Types.Smoothness.ContinuousDerivative)
+    "Look-up table for mover power";
 
 function getPerformanceDataAsString
   input Buildings.Fluid.Movers.BaseClasses.Characteristics.flowParameters pressure
@@ -371,6 +380,12 @@ equation
   y_out=r_N;
 
   V_flow = m_flow/rho;
+
+  //For power computation via EulerNumber path.
+  connect(effTab.u1, dp_internal);
+  effTab.u2 = V_flow;
+  connect(powTab.u1, dp_internal);
+  powTab.u2 = V_flow;
 
   // Hydraulic equations
   r_V = V_flow/V_flow_max;
@@ -535,16 +550,9 @@ equation
     etaHyd = 1;
     etaMot = eta;
   elseif per.use_eulerNumber then
-    eta = Buildings.Utilities.Math.Functions.smoothInterpolation(
-            x=V_flow,
-            xSup=curEu.V_flow,
-            ySup=curEu.eta,
-            ensureMonotonicity=false);
-    PEle = Buildings.Utilities.Math.Functions.smoothInterpolation(
-            x=V_flow,
-            xSup=curEu.V_flow,
-            ySup=curEu.P,
-            ensureMonotonicity=false);
+    eta = effTab.y;
+    PEle = powTab.y;
+
     // Similar to the powerCharacteristic path,
     // this path also simply assumes etaHyd = 1.
     etaHyd = 1;

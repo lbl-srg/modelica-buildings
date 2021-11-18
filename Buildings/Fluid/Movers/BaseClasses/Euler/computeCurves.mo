@@ -4,64 +4,54 @@ function computeCurves
   extends Modelica.Icons.Function;
   input Buildings.Fluid.Movers.BaseClasses.Euler.peakCondition peak
     "Operation point with maximum efficiency";
-  input Buildings.Fluid.Movers.BaseClasses.Characteristics.flowParameters pressure
-    "Relationship of dp vs. flow rate";
+  input Modelica.SIunits.PressureDifference dpMax
+    "Max pressure rise";
   input Modelica.SIunits.VolumeFlowRate V_flow_max
     "Max flow rate";
   input Boolean use
     "Flag, if false return zeros";
-  output Buildings.Fluid.Movers.BaseClasses.Euler.computedCurves curves(
-    V_flow=zeros(11),
-    eta=zeros(11),
-    P=zeros(11))
+  output Buildings.Fluid.Movers.BaseClasses.Euler.computedCurves curves
     "Computed efficiency and power curves";
 
 protected
-  parameter Integer n = 11 "Number of data points";
-  parameter Modelica.SIunits.VolumeFlowRate V_flow_aux[:]=
-    linspace(0,V_flow_max,n)
-    "Auxilliary variable";
-  Modelica.SIunits.PressureDifference dp "Pressure difference";
+  constant Integer n = 11 "Dimensions of the look-up table (n by n)";
+  parameter Modelica.SIunits.VolumeFlowRate V_flow_aux[:]=linspace(0,V_flow_max,n)
+    "Auxilliary variable for flow rate";
+  parameter Modelica.SIunits.PressureDifference dp_aux[:]=linspace(0,dpMax,n)
+    "Auxilliary variable for pressure rise";
+  Real etaSup[:,:] = zeros(n,n) "2D look-up table for efficiency";
+  Real powSup[:,:] = zeros(n,n) "2D look-up table for power";
   Real log_r_Eu "Log10 of ratio Eu/Eu_peak";
 
 algorithm
   if not use then
     return;
-  //This function skips itself instead of letting its caller skip it
-  //  to make the declaration of the output (which has multiple components)
-  //  in its caller more straightforward and less verbose.
+  //The skip is put within this function itself instead of its caller
+  //  to make its declaration more straightforward.
   end if;
 
-  for i in 1:n loop
-    curves.V_flow[i]:=V_flow_aux[i];
-    dp:=Buildings.Utilities.Math.Functions.smoothInterpolation(
-          x=curves.V_flow[i],
-          xSup=pressure.V_flow,
-          ySup=pressure.dp,
-          ensureMonotonicity=Buildings.Utilities.Math.Functions.isMonotonic(
-            x=pressure.dp,strict=false));
-      log_r_Eu:= log10(Buildings.Utilities.Math.Functions.smoothMax(
-                       x1=dp * peak.V_flow^2,x2=1E-5,deltaX=1E-6)
-                      /Buildings.Utilities.Math.Functions.smoothMax(
-                       x1=peak.dp * curves.V_flow[i]^2,x2=1E-5,deltaX=1E-6));
+  etaSup[1,1]:=0;
+  etaSup[1,2:end]:=V_flow_aux[2:end];
+  etaSup[2:end,1]:=dp_aux[2:end];
 
-    curves.eta[i] :=peak.eta*
-      Buildings.Fluid.Movers.BaseClasses.Euler.correlation(x=log_r_Eu);
-    curves.P[i] :=dp*curves.V_flow[i]/curves.eta[i];
+  powSup[1,1]:=0;
+  powSup[1,2:end]:=V_flow_aux[2:end];
+  powSup[2:end,1]:=dp_aux[2:end];
+
+  for i in 2:n loop
+    for j in 2:n loop
+      log_r_Eu:= log10(Buildings.Utilities.Math.Functions.smoothMax(
+                       x1=dp_aux[i] * peak.V_flow^2,x2=1E-5,deltaX=1E-6)
+                      /Buildings.Utilities.Math.Functions.smoothMax(
+                       x1=peak.dp * V_flow_aux[j]^2,x2=1E-5,deltaX=1E-6));
+      etaSup[i,j]:=peak.eta*
+        Buildings.Fluid.Movers.BaseClasses.Euler.correlation(x=log_r_Eu);
+      powSup[i,j]:=dp_aux[j]*V_flow_aux[i]/etaSup[i,j];
+    end for;
   end for;
 
-  curves.P[1]:=Buildings.Utilities.Math.Functions.smoothInterpolation(
-                x=0,
-                xSup=curves.V_flow[2:(end-1)],
-                ySup=curves.P[2:(end-1)],
-                ensureMonotonicity=Buildings.Utilities.Math.Functions.isMonotonic(
-                  x=curves.P,strict=false));
-  curves.P[end]:=Buildings.Utilities.Math.Functions.smoothInterpolation(
-                x=curves.V_flow[end],
-                xSup=curves.V_flow[2:(end-1)],
-                ySup=curves.P[2:(end-1)],
-                ensureMonotonicity=Buildings.Utilities.Math.Functions.isMonotonic(
-                  x=curves.P,strict=false));
+  curves.eta:=etaSup;
+  curves.P:=powSup;
 
   annotation(smoothOrder=1,
               Documentation(info="<html>

@@ -2,17 +2,25 @@ within Buildings.Fluid.Movers.BaseClasses.Euler;
 record computedCurves
   "Record for efficiency and power curves computed with Euler number"
   extends Modelica.Icons.Record;
-  parameter Modelica.SIunits.VolumeFlowRate V_flow[:](
-    each min=0) "Volumetric flow rate";
-  parameter Modelica.SIunits.Efficiency eta[size(V_flow,1)](
-    each max=1) "Fan or pump efficiency at these flow rates";
-  parameter Modelica.SIunits.Power P[size(V_flow,1)](each min=0)
-    "Fan or pump electrical power at these flow rates";
+  parameter Real eta[11,11](each min=0, each max=1)=
+    [0, ascSeq; transpose(ascSeq), zeros(10,10)]
+    "Look-up table for mover efficiency";
+  parameter Real P[11,11](each min=0)=
+    [0, ascSeq; transpose(ascSeq), zeros(10,10)]
+    "Look-up table for mover power";
+  final parameter Real ascSeq[1,:]=[1,2,3,4,5,6,7,8,9,10]
+    "2D ascending sequence used for initial table construction";
+  // CombiTable2D requires that the first element is zero
+  //   and the first row and first column are ascending.
+  //   This declaration cannot be achieved by linspace()
+  //   which returns a 1-D array that cannot be transposed.
+
   annotation (
 Documentation(info="<html>
 <p>
 Record for both efficiency and power curves computed from the Euler number. 
-[complete this part later]
+[Documentation pending.]
+[The content below is no longer valid.]
 This record differs from 
 <a href=\"modelica://Buildings.Fluid.Movers.BaseClasses.Characteristics.efficiencyParameters\">
 Buildings.Fluid.Movers.BaseClasses.Characteristics.efficiencyParameters</a>
