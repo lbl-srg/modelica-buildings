@@ -2,7 +2,7 @@ within Buildings.Fluid.Boilers.Data;
 record Generic "Generic data record for boiler performance"
   extends Modelica.Icons.Record;
 
-  parameter Modelica.SIunits.Efficiency effCur[:,:]=
+  parameter Real effCur[:,:]=
     [0, 1; 1, 1]
     "Efficiency curves as a table: First row = inlet temp(K), First column = firing rates or PLR";
   final parameter Modelica.SIunits.Efficiency eta_nominal=
