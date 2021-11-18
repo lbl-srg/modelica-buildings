@@ -77,15 +77,27 @@ def simulate(expectToFail):
 
 
 def run_test(pathVariable):
-    binDir=os.path.abspath(os.path.join("Buildings", "Resources", "bin", "spawn-linux64"))
+    # List of files to be moved
+    fileMoves = [
+        {"src": os.path.abspath(os.path.join("Buildings", "Resources", "bin", "spawn-linux64")),
+         "des": "my-bin"},
+        {"src": os.path.abspath(os.path.join("Buildings", "Resources", "weatherdata")),
+         "des": "some_weather_directory_that_the_fmu_does_not_know_about"},
+        {"src": os.path.abspath(os.path.join("Buildings", "Resources", "Data", "ThermalZones", "EnergyPlus")),
+         "des": "some_idf_directory_that_the_fmu_does_not_know_about"},
+    ]
+
     curDir = os.path.abspath(os.curdir)
     worDir = _create_worDir()
     shutil.copy(fmu, worDir)
     os.chdir(worDir)
 
-    # Move the binaries, to emulate a local installation
-    shutil.move(binDir, os.path.join(worDir, "my-bin"))
+    # Move the files, to emulate a local installation (for the binary files)
+    # and to hide the weather and idf files so the fmu cannot find it in the local installation
+    for pair in fileMoves:
+        shutil.move(pair['src'], pair['des'])
 
+    # Write the simulate script
     with open("simulate.py", 'w') as f:
         f.write(f"""from pyfmi import load_fmu
 mod = load_fmu("{fmu}")
@@ -106,8 +118,11 @@ mod.simulate()
         print("Error: {0}.\n*** Note that this script does not work if the OPTIMICA simulation is run in a docker".format(err))
         retVal = 1
     finally:
-        # Move the binaries back, to emulate a local installation
-        shutil.move(os.path.abspath(os.path.join("my-bin")), binDir)
+        # Restore the original version of the Buildings library
+        for pair in fileMoves:
+            shutil.move(pair['des'], pair['src'])
+
+        # Change back to the original directory
         os.chdir(curDir)
 
         # Reset the environment variable
