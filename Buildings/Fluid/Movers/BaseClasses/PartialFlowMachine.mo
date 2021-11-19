@@ -241,11 +241,11 @@ protected
       final constantSpeed =       0,
       final speeds =              {0},
       final power =               per.power),
-      final nOri = nOri,
-      final rho_default=rho_default,
-      final computePowerUsingSimilarityLaws=computePowerUsingSimilarityLaws,
-      r_V(start=m_flow_nominal/rho_default),
-      final preVar=preVar) "Flow machine"
+    final nOri = nOri,
+    final rho_default=rho_default,
+    final computePowerUsingSimilarityLaws=computePowerUsingSimilarityLaws,
+    r_V(start=m_flow_nominal/rho_default),
+    final preVar=preVar) "Flow machine"
     annotation (Placement(transformation(extent={{-32,-68},{-12,-48}})));
 
 protected
