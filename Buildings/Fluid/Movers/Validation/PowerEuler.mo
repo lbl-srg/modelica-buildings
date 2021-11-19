@@ -6,7 +6,6 @@ model PowerEuler
     pump_m_flow(per=perPea));
 
   parameter Data.Generic perPea(
-    pressure=per.pressure,
     powMet=Buildings.Fluid.Movers.BaseClasses.Types.PowerMethod.EulerNumber,
     peak=Buildings.Fluid.Movers.BaseClasses.Euler.findPeak(
       pressure=per.pressure,
