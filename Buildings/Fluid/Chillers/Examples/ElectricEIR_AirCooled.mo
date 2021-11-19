@@ -65,7 +65,7 @@ This example is for an air-cooled chiller.
 </html>", revisions="<html>
 <ul>
 <li>
-November 19, by David Blum:<br/>
+November 19, 2021 by David Blum:<br/>
 First implementation.
 </li>
 </ul>
