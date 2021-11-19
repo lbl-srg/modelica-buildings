@@ -51,8 +51,7 @@ equation
 experiment(
       StartTime=17020800,
       StopTime=17064000,
-      Tolerance=1e-06,
-      __Dymola_Algorithm="Dassl"),
+      Tolerance=1e-06),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Chillers/Examples/ElectricEIR_AirCooled.mos"
         "Simulate and plot"),
     Documentation(info="<html>
