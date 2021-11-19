@@ -67,7 +67,7 @@ model FlowControlled_dp
         origin={-80,120})));
 
   Modelica.Blocks.Interfaces.RealInput dp_in(final unit="Pa")
- if inputType == Buildings.Fluid.Types.InputType.Continuous
+    if inputType == Buildings.Fluid.Types.InputType.Continuous
     "Prescribed pressure rise"
     annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},

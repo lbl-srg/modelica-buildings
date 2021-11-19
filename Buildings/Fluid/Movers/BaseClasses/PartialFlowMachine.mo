@@ -39,7 +39,7 @@ partial model PartialFlowMachine
   parameter Boolean addPowerToMedium=true
     "Set to false to avoid any power (=heat and flow work) being added to medium (may give simpler equations)";
 
-  parameter Boolean nominalValuesDefineDefaultPressureCurve = false
+  parameter Boolean nominalValuesDefineDefaultPressureCurve=false
     "Set to true to avoid warning if m_flow_nominal and dp_nominal are used to construct the default pressure curve";
 
   parameter Modelica.SIunits.Time tau=1
@@ -61,7 +61,7 @@ partial model PartialFlowMachine
     annotation(Dialog(tab="Dynamics", group="Filtered speed",enable=use_inputFilter));
 
   // Connectors and ports
-    Modelica.Blocks.Interfaces.IntegerInput stage
+  Modelica.Blocks.Interfaces.IntegerInput stage
     if inputType == Buildings.Fluid.Types.InputType.Stages
     "Stage input signal for the pressure head"
     annotation (Placement(
@@ -241,11 +241,11 @@ protected
       final constantSpeed =       0,
       final speeds =              {0},
       final power =               per.power),
-    final nOri = nOri,
-    final rho_default=rho_default,
-    final computePowerUsingSimilarityLaws=computePowerUsingSimilarityLaws,
-    r_V(start=m_flow_nominal/rho_default),
-    final preVar=preVar) "Flow machine"
+      final nOri = nOri,
+      final rho_default=rho_default,
+      final computePowerUsingSimilarityLaws=computePowerUsingSimilarityLaws,
+      r_V(start=m_flow_nominal/rho_default),
+      final preVar=preVar) "Flow machine"
     annotation (Placement(transformation(extent={{-32,-68},{-12,-48}})));
 
 protected
