@@ -241,6 +241,15 @@ Each class (i.e., model, block and function) must be used in an example or valid
                            <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1534\">IBPSA, #1534</a>.
         </td>
     </tr>
+    <tr><td colspan=\"2\"><b>Buildings.Examples.ChillerPlant</b>
+        </td>
+    </tr>
+    <tr><td valign=\"top\">Buildings.Examples.ChillerPlant.BaseClasses.DataCenter
+        </td>
+        <td valign=\"top\">Set <code>nominalValuesDefaultPressureCurve=true</code> to avoid warnings.<br/>
+                           This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2761\">Buildings, issue #2761</a>.
+        </td>
+    </tr>
     <tr><td colspan=\"2\"><b>Buildings.ThermalZones.ReducedOrder</b>
         </td>
     </tr>
