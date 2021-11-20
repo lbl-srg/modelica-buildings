@@ -51,16 +51,16 @@ algorithm
 <p>
 This function finds the flow rate <i>V&#775;</i>,
 the pressure rise <i>&Delta;p</i>, and the efficiency <i>&eta;</i>
-on the mover curve provided via 
+on the mover curve provided via
 <a href=\"modelica://Buildings.Fluid.Movers.BaseClasses.Characteristics.power\">
-Buildings.Fluid.Movers.BaseClasses.Characteristics.power</a> and 
+Buildings.Fluid.Movers.BaseClasses.Characteristics.power</a> and
 <a href=\"modelica://Buildings.Fluid.Movers.BaseClasses.Characteristics.pressure\">
 Buildings.Fluid.Movers.BaseClasses.Characteristics.pressure</a>.
-The results are output as record to 
+The results are output as record to
 <a href=\"modelica://Buildings.Fluid.Movers.BaseClasses.Euler.peak\">
 Buildings.Fluid.Movers.BaseClasses.Euler.peak</a>.
 If the input series has only two data points or is monotonic,
-the point with the highest efficiency is directly used and the function 
+the point with the highest efficiency is directly used and the function
 issues a warning stating that the computation may be highly inaccurate.
 </p>
 </html>",
@@ -68,7 +68,7 @@ revisions="<html>
 <ul>
 <li>
 October 20, 2021, by Hongxiang Fu:<br/>
-First implementation. This is for 
+First implementation. This is for
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2668\">#2668</a>.
 </li>
 </ul>

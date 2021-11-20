@@ -21,7 +21,7 @@ revisions="<html>
 <ul>
 <li>
 October 15, 2021, by Hongxiang Fu:<br/>
-First implementation. This is for 
+First implementation. This is for
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2668\">#2668</a>.
 </li>
 </ul>

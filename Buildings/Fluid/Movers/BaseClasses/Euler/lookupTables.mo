@@ -18,33 +18,14 @@ record lookupTables
   annotation (
 Documentation(info="<html>
 <p>
-Record for both efficiency and power curves computed from the Euler number. 
-[Documentation pending.]
-[The content below is no longer valid.]
-This record differs from 
-<a href=\"modelica://Buildings.Fluid.Movers.BaseClasses.Characteristics.efficiencyParameters\">
-Buildings.Fluid.Movers.BaseClasses.Characteristics.efficiencyParameters</a>
-and 
-<a href=\"modelica://Buildings.Fluid.Movers.BaseClasses.Characteristics.powerParameters\">
-Buildings.Fluid.Movers.BaseClasses.Characteristics.powerParameters</a>
-in the following ways:
-<ul>
-<li>
-The efficiency curve and the power curve are stored in the same record.
-</li>
-<li>
-The support points for flow rate in this record normally does not match 
-the input data, but is instead decided by 
-<a href=\"modelica://Buildings.Fluid.Movers.BaseClasses.Euler.computeTables\">
-Buildings.Fluid.Movers.BaseClasses.Euler.computeTables</a>.
-</li>
-</ul>
+Record for both efficiency and power look-up tables computed from the Euler number.
+</p>
 </html>",
 revisions="<html>
 <ul>
 <li>
 October 29, 2021, by Hongxiang Fu:<br/>
-First implementation. This is for 
+First implementation. This is for
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2668\">#2668</a>.
 </li>
 </ul>

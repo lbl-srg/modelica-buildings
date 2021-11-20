@@ -56,20 +56,20 @@ algorithm
   annotation(smoothOrder=1,
               Documentation(info="<html>
 <p>
-This function computes the curves for efficiency <i>&eta;</i> 
-and power <i>P</i> against flow rate <i>V&#775;</i>. 
-Eleven points are computed using the correlation of Euler number, 
-representing 0% to 100% of the maximum flow with increments of 10%. 
-Because the computed power may approach infinity 
-near zero flow and max flow (zero pressure rise) due to zero efficiency, 
-these two points are replaced by extrapolation. 
+This function uses the correlation of Euler number to compute
+efficiency <i>&eta;</i> and power <i>P</i> in a grid from 10% to 100% of maximum
+flow rate <i>V&#775;</i> and pressure rise <i>&Delta;P</i> at 10% increments.
+The computation is not performed below 10% of flow rate or pressure rise
+to avoid the computed power approaching infinity as the efficiency approaches zero.
+The power and efficiency will be evaluated via extrapolation instead under
+such conditions.
 </p>
 </html>",
 revisions="<html>
 <ul>
 <li>
 November 1, 2021, by Hongxiang Fu:<br/>
-First implementation. This is for 
+First implementation. This is for
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2668\">#2668</a>.
 </li>
 </ul>

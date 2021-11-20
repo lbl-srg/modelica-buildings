@@ -117,6 +117,23 @@ model FlowMachineInterface
     "Ratio N_actual/N_nominal";
   Real r_V(start=1, unit="1") "Ratio V_flow/V_flow_max";
 
+  parameter Buildings.Fluid.Movers.BaseClasses.Euler.lookupTables curEu=
+    Buildings.Fluid.Movers.BaseClasses.Euler.computeTables(
+      peak=per.peak,
+      dpMax=dpMax,
+      V_flow_max=V_flow_max,
+      use=per.use_eulerNumber)
+      "Efficiency and power curves vs. flow rate & pressure rise calculated with Euler number";
+
+  Modelica.Blocks.Tables.CombiTable2D effTab(
+    final table=curEu.eta,
+    final smoothness=Modelica.Blocks.Types.Smoothness.ContinuousDerivative)
+    "Look-up table for mover efficiency";
+  Modelica.Blocks.Tables.CombiTable2D powTab(
+    final table=curEu.P,
+    final smoothness=Modelica.Blocks.Types.Smoothness.ContinuousDerivative)
+    "Look-up table for mover power";
+
 protected
   final parameter Boolean preSpe=
     preVar == Buildings.Fluid.Movers.BaseClasses.Types.PrescribedVariable.Speed
@@ -232,22 +249,7 @@ protected
   Modelica.Blocks.Interfaces.RealOutput dp_internal
     "If dp is prescribed, use dp_in and solve for r_N, otherwise compute dp using r_N";
 
-  parameter Buildings.Fluid.Movers.BaseClasses.Euler.lookupTables curEu=
-    Buildings.Fluid.Movers.BaseClasses.Euler.computeTables(
-      peak=per.peak,
-      dpMax=dpMax,
-      V_flow_max=V_flow_max,
-      use=per.use_eulerNumber)
-      "Efficiency and power curves vs. flow rate & pressure rise calculated with Euler number";
 
-  Modelica.Blocks.Tables.CombiTable2D effTab(
-    final table=curEu.eta,
-    final smoothness=Modelica.Blocks.Types.Smoothness.ContinuousDerivative)
-    "Look-up table for mover efficiency";
-  Modelica.Blocks.Tables.CombiTable2D powTab(
-    final table=curEu.P,
-    final smoothness=Modelica.Blocks.Types.Smoothness.ContinuousDerivative)
-    "Look-up table for mover power";
 
 function getPerformanceDataAsString
   input Buildings.Fluid.Movers.BaseClasses.Characteristics.flowParameters pressure
@@ -734,7 +736,7 @@ revisions="<html>
 <ul>
 <li>
 October 18, 2021, by Hongxiang Fu:<br/>
-To support the implementation of 
+To support the implementation of
 <a href=\"modelica://Buildings.Fluid.Movers.BaseClasses.Euler\">
 Buildings.Fluid.Movers.BaseClasses.Euler</a>:
 <ul>
@@ -742,19 +744,19 @@ Buildings.Fluid.Movers.BaseClasses.Euler</a>:
 Added a new <code>elseif</code> branch in power calculation.
 </li>
 <li>
-Moved the specification of <code>haveVMax</code> 
-and <code>V_flow_max</code> here from 
+Moved the specification of <code>haveVMax</code>
+and <code>V_flow_max</code> here from
 <a href=\"modelica://Buildings.Fluid.Movers.BaseClasses.PartialFlowMachine\">
 Buildings.Fluid.Movers.BaseClasses.PartialFlowMachine</a>.
 </li>
 <li>
 Rewrote statements using <code>not use_powerCharacteristic</code>
-with the enumeration 
+with the enumeration
 <a href=\"modelica://Buildings.Fluid.Movers.BaseClasses.Types.PowerMethod\">
 Buildings.Fluid.Movers.BaseClasses.Types.PowerMethod</a>.
 </li>
 </ul>
-This is for 
+This is for
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2668\">#2668</a>.
 </li>
 <li>

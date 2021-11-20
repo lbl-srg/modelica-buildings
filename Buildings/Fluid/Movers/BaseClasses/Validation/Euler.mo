@@ -64,18 +64,18 @@ __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Move
 Documentation(
 info="<html>
 <p>
-This simple model validates the power computation path 
-using the Euler number and its correlation implemented in 
+This simple model validates the power computation path
+using the Euler number and its correlation implemented in
 <a href=\"modelica://Buildings.Fluid.Movers.BaseClasses.Euler\">
-Buildings.Fluid.Movers.BaseClasses.Euler</a>. 
-Its results of calculated efficiency and power are compared 
-with those obtained by using the power characteristic path. 
+Buildings.Fluid.Movers.BaseClasses.Euler</a>.
+Its results of calculated efficiency and power are compared
+with those obtained by using the power characteristic path.
 </p>
 </html>", revisions="<html>
 <ul>
 <li>
 October 21, 2021, by Hongxiang Fu:<br/>
-First implementation. This is for 
+First implementation. This is for
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2668\">#2668</a>.
 </li>
 </ul>

@@ -26,9 +26,9 @@ This function computes the following correlation:
 </p>
 <p>
 where <i>y=&eta; &frasl; &eta;<sub>p</sub></i>,
-<i>x=log10(Eu &frasl; Eu<sub>p</sub>)</i>, 
-with the subscript <i>p</i> denoting the condition where 
-the mover is operating at peak efficiency, and 
+<i>x=log10(Eu &frasl; Eu<sub>p</sub>)</i>,
+with the subscript <i>p</i> denoting the condition where
+the mover is operating at peak efficiency, and
 </p>
 <p align=\"center\">
 <i>Z<sub>1</sub>=(x-a) &frasl; b</i>
@@ -65,13 +65,13 @@ The modified dimensionless Euler number is defined as
 </p>
 <p>
 where <i>&Delta;p</i> is the fan pressure rise in Pa,
-<i>D</i> is the fan wheel outer diameter in m, 
+<i>D</i> is the fan wheel outer diameter in m,
 <i>&rho;</i> is the inlet air density in kg/m<sup>3</sup>,
 and <i>V&#775;</i> is the fan flow in m<sup>3</sup>/s.
 Note that the units in the definition do not matter to this correlation
 because it is the ratio of the Euler numbers that is used.
-Since <i>D</i> is constant for the same mover 
-and <i>&rho;</i> is approximately constant, 
+Since <i>D</i> is constant for the same mover
+and <i>&rho;</i> is approximately constant,
 the Euler number ratio can be simplified to
 </p>
 <p align=\"center\">
@@ -86,7 +86,7 @@ this would contradict the definition of <i>y</i>
 where the efficiency varies.
 </p>
 <p>
-For more information refer to 
+For more information refer to
 <a href=\"https://energyplus.net/assets/nrel_custom/pdfs/pdfs_v9.6.0/EngineeringReference.pdf\">
 EnergyPlus 9.6.0 Engineering Reference</a>
 chapter 16.4 equations 16.209 through 16.218.
@@ -98,7 +98,7 @@ revisions="<html>
 <ul>
 <li>
 October 13, 2021, by Hongxiang Fu:<br/>
-First implementation. This is for 
+First implementation. This is for
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2668\">#2668</a>.
 </li>
 </ul>

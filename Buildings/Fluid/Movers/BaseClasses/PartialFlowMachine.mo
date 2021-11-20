@@ -96,6 +96,25 @@ partial model PartialFlowMachine
   Real etaHyd(unit="1", final quantity="Efficiency") = eff.etaHyd "Hydraulic efficiency";
   Real etaMot(unit="1", final quantity="Efficiency") = eff.etaMot "Motor efficiency";
 
+  // Because the speed data are not used by FlowMachineInterface, we set them
+  // to zero.
+  FlowMachineInterface eff(
+    per(
+      final hydraulicEfficiency = per.hydraulicEfficiency,
+      final motorEfficiency =     per.motorEfficiency,
+      final motorCooledByFluid =  per.motorCooledByFluid,
+      final speed_nominal =       0,
+      final constantSpeed =       0,
+      final speeds =              {0},
+      final power =               per.power,
+      final peak =                per.peak),
+    final nOri = nOri,
+    final rho_default=rho_default,
+    final computePowerUsingSimilarityLaws=computePowerUsingSimilarityLaws,
+    r_V(start=m_flow_nominal/rho_default),
+    final preVar=preVar) "Flow machine"
+    annotation (Placement(transformation(extent={{-32,-68},{-12,-48}})));
+
   // Quantity to control
 protected
   final parameter Modelica.SIunits.VolumeFlowRate _VMachine_flow = 0
@@ -230,24 +249,7 @@ protected
     redeclare final package Medium = Medium) "Head of mover"
     annotation (Placement(transformation(extent={{58,-27},{43,-14}})));
 
-  // Because the speed data are not used by FlowMachineInterface, we set them
-  // to zero.
-  FlowMachineInterface eff(
-    per(
-      final hydraulicEfficiency = per.hydraulicEfficiency,
-      final motorEfficiency =     per.motorEfficiency,
-      final motorCooledByFluid =  per.motorCooledByFluid,
-      final speed_nominal =       0,
-      final constantSpeed =       0,
-      final speeds =              {0},
-      final power =               per.power,
-      final peak =                per.peak),
-    final nOri = nOri,
-    final rho_default=rho_default,
-    final computePowerUsingSimilarityLaws=computePowerUsingSimilarityLaws,
-    r_V(start=m_flow_nominal/rho_default),
-    final preVar=preVar) "Flow machine"
-    annotation (Placement(transformation(extent={{-32,-68},{-12,-48}})));
+
 
 protected
   block Extractor
@@ -537,14 +539,22 @@ revisions="<html>
 <ul>
 <li>
 October 28, 2021, by Hongxiang Fu:<br/>
-Moved the specification of <code>haveVMax</code> 
-and <code>V_flow_max</code> from here to 
-<a href=\"modelica://Buildings.Fluid.Movers.BaseClasses.FlowMachineInterface\">
-Buildings.Fluid.Movers.BaseClasses.FlowMachineInterface</a>
-to support the implementation of 
+To support the implementation of
 <a href=\"modelica://Buildings.Fluid.Movers.BaseClasses.Euler\">
-Buildings.Fluid.Movers.BaseClasses.Euler</a>.
-This is for 
+Buildings.Fluid.Movers.BaseClasses.Euler</a>:
+<ul>
+<li>
+Moved the specification of <code>haveVMax</code>
+and <code>V_flow_max</code> from here to
+<a href=\"modelica://Buildings.Fluid.Movers.BaseClasses.FlowMachineInterface\">
+Buildings.Fluid.Movers.BaseClasses.FlowMachineInterface</a>.
+</li>
+<li>
+Added <code>per.peak</code> to be also passed down to <code>eff.per</code>
+at instantiation.
+</li>
+</ul>
+This is for
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2668\">#2668</a>.
 </li>
 <li>

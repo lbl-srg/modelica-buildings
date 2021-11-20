@@ -496,8 +496,8 @@ by evaluating the following correlation:
 </p>
 where <i>y=&eta; &frasl; &eta;<sub>p</sub></i>,
 <i>x=log10(Eu &frasl;E u<sub>p</sub>)</i>, 
-with the subscript <i>p</i> denoting the condition where 
-the mover is operating at peak efficiency. 
+with the subscript <i>p</i> denoting the condition where
+the mover is operating at peak efficiency.
 The modified dimensionless Euler number is defined as
 <br/>
 <p align=\"center\">
@@ -510,17 +510,17 @@ and <a href=\"https://energyplus.net/assets/nrel_custom/pdfs/pdfs_v9.6.0/Enginee
 EnergyPlus 9.6.0 Engineering Reference</a>
 chapter 16.4 equations 16.209 through 16.218.
 <br/>
-After the total efficiency is found, 
+After the total efficiency is found,
 the power and other two efficiencies are computed as
 <p align=\"center\" style=\"font-style:italic;\">
   P<sub>ele</sub> = W<sub>flo</sub> &frasl; &eta;<br/>
   &eta;<sub>hyd</sub> = 1<br/>
   &eta;<sub>mot</sub> = &eta;
 </p>
-However, to avoid unstable computation at low flow, 
-the computed power is replaced by extrapolation 
+However, to avoid unstable computation at low flow,
+the computed power is replaced by extrapolation
 when flow rate is below 10% of its maximum.<br/>
-This computation path is implemented in 
+This computation path is implemented in
 <a href=\"Modelica://Buildings.Fluid.Movers.BaseClasses.Euler\">
 Buildings.Fluid.Movers.BaseClasses.Euler</a>.<br/>
 <br/>
