@@ -136,7 +136,7 @@ install:
   - git lfs pull
   - pip3 install --upgrade pip wheel
   - pip3 install --only-binary=numpy,scipy,matplotlib numpy==1.13.3 scipy==0.19.1 matplotlib==2.1.0
-  - pip3 install git+https://github.com/lbl-srg/BuildingsPy@efd5ac564a4c4ba22bb88e40ad0d0a439a6faf9f
+  - pip3 install git+https://github.com/lbl-srg/BuildingsPy@a7d26fb8b33191610d88a7c5e1495706c16361a2
   - if [[ "$TEST_ARG" == *test-energyplus* ]]; then
       export PATH=${PATH}:${TRAVIS_BUILD_DIR}/${ENERGYPLUS_VERSION};
       pip3 install pandas==1.0.1;
