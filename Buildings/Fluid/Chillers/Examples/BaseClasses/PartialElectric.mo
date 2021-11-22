@@ -64,7 +64,7 @@ partial model PartialElectric
     "Pulse signal generator"
     annotation (Placement(transformation(extent={{-80,80},{-60,100}})));
   Modelica.Blocks.Logical.GreaterThreshold greaterThreshold(threshold=0.5)
-    "Greater threshold" annotation(
+    "Greater threshold" annotation (
     Placement(transformation(extent = {{-40, 80}, {-20, 100}})));
   Buildings.Fluid.FixedResistances.PressureDrop res1(
     redeclare package Medium = Medium1,
@@ -98,4 +98,6 @@ equation
       points={{-40,-20},{-60,-20}},
       color={0,127,255},
       smooth=Smooth.None));
+  annotation (Diagram(coordinateSystem(extent={{-100,-100},{100,120}})), Icon(
+        coordinateSystem(extent={{-100,-100},{100,120}})));
 end PartialElectric;
