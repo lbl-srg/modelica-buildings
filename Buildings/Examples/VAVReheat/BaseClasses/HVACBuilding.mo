@@ -22,6 +22,10 @@ partial model HVACBuilding
   final parameter Modelica.SIunits.Area AFloEas = flo.AFloEas "Floor area east";
   final parameter Modelica.SIunits.Area AFloWes = flo.AFloWes "Floor area west";
 
+  final parameter Modelica.SIunits.Area AFlo[:]={AFloCor,AFloSou,AFloEas,
+      AFloNor,AFloWes} "Floor area of each zone";
+  final parameter Modelica.SIunits.Area ATot=sum(AFlo) "Total floor area";
+
   constant Real conv=1.2/3600 "Conversion factor for nominal mass flow rate";
 
   parameter Modelica.SIunits.MassFlowRate mCor_flow_nominal
@@ -35,12 +39,6 @@ partial model HVACBuilding
   parameter Modelica.SIunits.MassFlowRate mWes_flow_nominal
     "Design mass flow rate west";
 
-  final parameter Modelica.SIunits.MassFlowRate mVAV_flow_nominal[5] = {
-    mSou_flow_nominal, mEas_flow_nominal, mNor_flow_nominal,
-    mWes_flow_nominal, mCor_flow_nominal}
-    "Design mass flow rate of each zone";
-
-
   parameter Modelica.SIunits.Temperature THotWatInl_nominal(
     displayUnit="degC")=45 + 273.15
     "Reheat coil nominal inlet water temperature";
@@ -50,10 +48,23 @@ partial model HVACBuilding
     constrainedby Buildings.Examples.VAVReheat.BaseClasses.PartialHVAC(
     redeclare final package MediumA = MediumA,
     redeclare final package MediumW = MediumW,
-    final VRoo={VRooSou, VRooEas, VRooNor, VRooWes, VRooCor},
-    final AFlo={AFloSou, AFloEas, AFloNor, AFloWes, AFloCor},
-    final mVAV_flow_nominal=mVAV_flow_nominal,
-    final m_flow_nominal=0.7*sum(mVAV_flow_nominal),
+    final VRooCor=VRooCor,
+    final VRooSou=VRooSou,
+    final VRooNor=VRooNor,
+    final VRooEas=VRooEas,
+    final VRooWes=VRooWes,
+    final AFloCor=AFloCor,
+    final AFloSou=AFloSou,
+    final AFloNor=AFloNor,
+    final AFloEas=AFloEas,
+    final AFloWes=AFloWes,
+    final mCor_flow_nominal=mCor_flow_nominal,
+    final mSou_flow_nominal=mSou_flow_nominal,
+    final mEas_flow_nominal=mEas_flow_nominal,
+    final mNor_flow_nominal=mNor_flow_nominal,
+    final mWes_flow_nominal=mWes_flow_nominal,
+    final m_flow_nominal=0.7*(mCor_flow_nominal + mSou_flow_nominal +
+        mEas_flow_nominal + mNor_flow_nominal + mWes_flow_nominal),
     final THotWatInl_nominal=THotWatInl_nominal)
     "HVAC system"
     annotation (Placement(transformation(extent={{-46,-28},{42,22}})));
@@ -133,42 +144,40 @@ equation
       points={{-70,10},{-56,10},{-56,11.4444},{-40.225,11.4444}},
       color={255,204,51},
       thickness=0.5));
-  connect(flo.TRooAir, hvac.TRoo) annotation (Line(points={{91.5217,61.6667},{
-          96,61.6667},{96,92},{-60,92},{-60,16.4444},{-48.75,16.4444}},
-                                                            color={0,0,127}));
+  connect(flo.TRooAir, hvac.TRoo) annotation (Line(points={{91.5217,60},{96,60},
+          {96,92},{-60,92},{-60,16.4444},{-48.75,16.4444}}, color={0,0,127}));
   connect(hvac.port_supAir[1], flo.portsSou[1]) annotation (Line(points={{42.275,
-          19.2222},{45.5652,19.2222},{45.5652,49.3333}}, color={0,127,255}));
+          19.2222},{45.5652,19.2222},{45.5652,48.6154}}, color={0,127,255}));
   connect(hvac.port_supAir[2], flo.portsEas[1]) annotation (Line(points={{42.275,
-          19.2222},{80.2609,19.2222},{80.2609,62.6667}}, color={0,127,255}));
+          19.2222},{80.2609,19.2222},{80.2609,60.9231}}, color={0,127,255}));
   connect(hvac.port_supAir[3], flo.portsNor[1]) annotation (Line(points={{42.275,
-          19.2222},{56,19.2222},{56,74},{45.5652,74}},           color={0,127,255}));
+          19.2222},{56,19.2222},{56,71.3846},{45.5652,71.3846}}, color={0,127,255}));
   connect(hvac.port_supAir[4], flo.portsWes[1]) annotation (Line(points={{42.275,
-          19.2222},{56,19.2222},{56,36},{26.6957,36},{26.6957,62.6667}}, color={
+          19.2222},{56,19.2222},{56,36},{26.6957,36},{26.6957,60.9231}}, color={
           0,127,255}));
   connect(hvac.port_supAir[5], flo.portsCor[1]) annotation (Line(points={{42.275,
-          19.2222},{56,19.2222},{56,62.6667},{45.5652,62.6667}}, color={0,127,255}));
+          19.2222},{56,19.2222},{56,60.9231},{45.5652,60.9231}}, color={0,127,255}));
   connect(hvac.port_retAir[1], flo.portsSou[2]) annotation (Line(points={{42.275,
-          -4.38889},{48.6087,-4.38889},{48.6087,49.3333}}, color={0,127,255}));
+          -4.38889},{48.6087,-4.38889},{48.6087,48.6154}}, color={0,127,255}));
   connect(hvac.port_retAir[2], flo.portsEas[2]) annotation (Line(points={{42.275,
-          -4.38889},{83.3043,-4.38889},{83.3043,62.6667}}, color={0,127,255}));
+          -4.38889},{83.3043,-4.38889},{83.3043,60.9231}}, color={0,127,255}));
   connect(hvac.port_retAir[3], flo.portsNor[2]) annotation (Line(points={{42.275,
-          -4.38889},{58,-4.38889},{58,74},{48.6087,74}},           color={0,127,
+          -4.38889},{58,-4.38889},{58,71.3846},{48.6087,71.3846}}, color={0,127,
           255}));
   connect(hvac.port_retAir[4], flo.portsWes[2]) annotation (Line(points={{42.275,
-          -4.38889},{60,-4.38889},{60,34},{29.7391,34},{29.7391,62.6667}},
+          -4.38889},{60,-4.38889},{60,34},{29.7391,34},{29.7391,60.9231}},
         color={0,127,255}));
   connect(hvac.port_retAir[5], flo.portsCor[2]) annotation (Line(points={{42.275,
-          -4.38889},{60,-4.38889},{60,58},{48.6087,58},{48.6087,62.6667}},
+          -4.38889},{60,-4.38889},{60,58},{48.6087,58},{48.6087,60.9231}},
         color={0,127,255}));
   connect(weaDat.weaBus, flo.weaBus) annotation (Line(
-      points={{-70,10},{-66,10},{-66,90},{64.1304,90}},
+      points={{-70,10},{-66,10},{-66,86.1538},{64.1304,86.1538}},
       color={255,204,51},
       thickness=0.5));
   connect(souCoo.ports[1], hvac.portCooCoiSup) annotation (Line(points={{-10,
           -70},{-10,-46},{-2,-46},{-2,-28}}, color={0,127,255}));
   connect(sinCoo.ports[1], hvac.portCooCoiRet) annotation (Line(points={{20,-70},
-          {20,-54},{6.25,-54},{6.25,-28}},
-                                     color={0,127,255}));
+          {20,-54},{6,-54},{6,-28}}, color={0,127,255}));
   annotation (
     Documentation(info="<html>
 <p>

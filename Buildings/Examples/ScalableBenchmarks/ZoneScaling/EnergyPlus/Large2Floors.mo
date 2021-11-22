@@ -14,9 +14,14 @@ protected
     "ScaledLargeOfficeNew2004_Chicago_" + String(numFlo) + "floors.idf")
     "Name of the IDF file";
 
+  parameter String epwName = Modelica.Utilities.Files.loadResource(
+    "modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.epw")
+    "Name of the weather file";
+
   inner Buildings.ThermalZones.EnergyPlus.Building building(
     idfName=idfName,
     weaName=weaName,
+    epwName=epwName,
     computeWetBulbTemperature=false)
     "Building-level declarations"
     annotation (Placement(transformation(extent={{-20,60},{0,80}})));
