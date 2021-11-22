@@ -288,12 +288,12 @@ to <b style=\"color:blue\">existing</b> libraries:
                        Buildings.Fluid.Boilers.Data.Lochinvar.KnightXL.KBXdash0800<br/>
                        Buildings.Fluid.Boilers.Data.Lochinvar.KnightXL.KBXdash1000
     </td>
-    <td valign=\"top\">Classes for modeling boilers whose efficiency curves are provided as a table. 
+    <td valign=\"top\">Classes for modeling boilers whose efficiency curves are provided as a table.
                        Part of the code from the old <code>Buildings.Fluid.Boilers.BoilerPolynomial</code>
                        has been moved to <code>Buildings.Fluid.Boilers.BaseClasses.PartialBoiler</code>
                        to support the new model <code>Buildings.Fluid.Boilers.BoilerTable</code>. <br/>
                        This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2651\">issue 2651</a>.<br/>
-                       In the moved code, the boiler's heating power output is now corrected by 
+                       In the moved code, the boiler's heating power output is now corrected by
                        its loss to the ambient. <br/>
                        This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2725\">#2725</a>.
     </td>
@@ -412,6 +412,10 @@ have been <b style=\"color:blue\">improved</b> in a
                        This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2624\">issue #2624</a>.
     </td>
 </tr>
+<tr><td valign=\"top\">Buildings.Examples.ChillerPlant.BaseClasses.DataCenter
+    </td>
+    <td valign=\"top\">Set <code>nominalValuesDefaultPressureCurve=true</code> to avoid warnings.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2761\">Buildings, issue #2761</a>.
 <tr><td colspan=\"2\"><b>Buildings.Experimental.DHC</b>
     </td>
 </tr>
@@ -9630,6 +9634,8 @@ The following people have directly contributed to the implementation of the Buil
 <li>Marco Bonvini, Lawrence Berkeley National Laboratory, USA
 </li>
 <li>Felix B&uuml;nning, RWTH Aachen, Germany
+</li>
+<li>Guokai Chen, University College London, UK
 </li>
 <li>Massimo Cimmino, Polytechnique Montr&eacute;al, Canada
 </li>
