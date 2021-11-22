@@ -11,7 +11,6 @@ model AirHeating
       "modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"),
     epwName=Modelica.Utilities.Files.loadResource(
       "modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.epw"),
-    showWeatherData=true,
     computeWetBulbTemperature=false)
     "Building model"
     annotation (Placement(transformation(extent={{-80,20},{-60,40}})));

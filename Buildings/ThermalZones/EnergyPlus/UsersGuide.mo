@@ -151,6 +151,39 @@ that connects the slab to the zone below.
 </html>"));
   end GettingStarted;
 
+  class InvokingEnergyPlus
+    "Getting started"
+    extends Modelica.Icons.Information;
+    annotation (
+      preferredView="info",
+      Documentation(
+        info="<html>
+<h4>Invoking EnergyPlus</h4>
+<p>
+The Modelica code tries to invoke EnergyPlus in this order:
+</p>
+<ol>
+<li>
+It searches for <code>Buildings[ x.y.z]/Resources/bin/spawn-[linux64,win64]/bin/spawn-0.2.0-a23bb23[.exe]</code>
+where <code>Buildings[ x.y.z]</code> is the installation folder of the Modelica Buildings Library.
+This file is distributed with the Modelica Buildings Library installation,
+together with all files needed to translate and simulate a model in a Modelica environment.
+</li>
+<li>
+If not found, it searches on the environment variable <code>SPAWNPATH</code> for
+<code>spawn-0.2.0-a23bb23[.exe]</code>.
+</li>
+<li>
+If not found, it searches on the environment variable <code>PATH</code> for
+<code>spawn-0.2.0-a23bb23[.exe]</code>.
+</li>
+</ol>
+<p>
+If none of this succeeds, it will stop with an error.
+</p>
+</html>"));
+  end InvokingEnergyPlus;
+
   class Conventions
     "Conventions"
     extends Modelica.Icons.Information;

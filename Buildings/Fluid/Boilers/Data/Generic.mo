@@ -2,7 +2,7 @@ within Buildings.Fluid.Boilers.Data;
 record Generic "Generic data record for boiler performance"
   extends Modelica.Icons.Record;
 
-  parameter Modelica.SIunits.Efficiency effCur[:,:]=
+  parameter Real effCur[:,:]=
     [0, 1; 1, 1]
     "Efficiency curves as a table: First row = inlet temp(K), First column = firing rates or PLR";
   final parameter Modelica.SIunits.Efficiency eta_nominal=
@@ -48,7 +48,7 @@ then the effiency curve must be specified for the upper (or lower) heating value
 <ul>
 <li>
 November 2, 2021 by Hongxiang Fu:<br/>
-First implementation. 
+First implementation.
 This is for
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2651\">#2651</a>.
 </li>
