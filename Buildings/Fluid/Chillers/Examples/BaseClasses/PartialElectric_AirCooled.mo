@@ -91,5 +91,6 @@ equation
       points={{-80,30},{-70,30},{-70,16.2},{-60,16.2}},
       color={255,204,51},
       thickness=0.5));
-  annotation ();
+  annotation (Diagram(coordinateSystem(extent={{-120,-100},{100,120}})), Icon(
+        coordinateSystem(extent={{-120,-100},{100,120}})));
 end PartialElectric_AirCooled;

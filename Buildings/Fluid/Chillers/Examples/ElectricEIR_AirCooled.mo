@@ -68,5 +68,7 @@ November 19, 2021 by David Blum:<br/>
 First implementation.
 </li>
 </ul>
-</html>"));
+</html>"),
+    Diagram(coordinateSystem(extent={{-120,-100},{100,120}})),
+    Icon(coordinateSystem(extent={{-100,-100},{100,100}})));
 end ElectricEIR_AirCooled;

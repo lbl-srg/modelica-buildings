@@ -94,4 +94,6 @@ equation
       points={{-40,-20},{-60,-20}},
       color={0,127,255},
       smooth=Smooth.None));
+  annotation (Diagram(coordinateSystem(extent={{-100,-100},{100,120}})), Icon(
+        coordinateSystem(extent={{-100,-100},{100,120}})));
 end PartialElectric;
