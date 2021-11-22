@@ -8625,10 +8625,10 @@ Chiller:Electric:EIR,
     0.0;                     !- Design Heat Recovery Water Flow Rate {m3/s}
 </pre>
 <br>
-Note that the reference condenser fluid volumetric flow rate listed in the 
+Note that the reference condenser fluid volumetric flow rate listed in the
 EnergyPlus performance data is not reasonable.  The value obtained
 from the manufacturer data sheet is used instead.  The data sheet
-is available 
+is available
 <a href=\"https://www.johnsoncontrols.com/en_hk/-/media/jci/be/united-states/hvac-equipment/chillers/files/be_eng_guide_-ycal_scroll-chillers-style-e-50-and-60-hz-111417.pdf\">here</a>
 .  Please see the Section for Physical Data and Nominal Ratings and row for Condender Fans Total Chiller CFM.
 </html>"));
