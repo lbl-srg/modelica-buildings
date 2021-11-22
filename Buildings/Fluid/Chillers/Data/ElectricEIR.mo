@@ -1,6 +1,7 @@
 within Buildings.Fluid.Chillers.Data;
 package ElectricEIR "Performance data for chiller ElectricEIR"
   extends Modelica.Icons.MaterialPropertiesPackage;
+
   record Generic "Generic data record for chiller ElectricEIR"
     extends Buildings.Fluid.Chillers.Data.BaseClasses.Chiller(
         final nCapFunT=6,
@@ -94,6 +95,7 @@ Chiller:Electric:EIR,
     0.0;                     !- Design Heat Recovery Water Flow Rate {m3/s}
 </pre>
 </html>"));
+
   record ElectricEIRChiller_York_YT_563kW_10_61COP_Vanes =
     Buildings.Fluid.Chillers.Data.ElectricEIR.Generic (
       QEva_flow_nominal =  -562600,
@@ -148,6 +150,7 @@ Chiller:Electric:EIR,
     0.0;                     !- Design Heat Recovery Water Flow Rate {m3/s}
 </pre>
 </html>"));
+
   record ElectricEIRChiller_McQuay_PEH_703kW_7_03COP_Vanes =
     Buildings.Fluid.Chillers.Data.ElectricEIR.Generic (
       QEva_flow_nominal =  -703300,
@@ -202,6 +205,7 @@ Chiller:Electric:EIR,
     0.0;                     !- Design Heat Recovery Water Flow Rate {m3/s}
 </pre>
 </html>"));
+
   record ElectricEIRChiller_Carrier_23XL_724kW_6_04COP_Vanes =
     Buildings.Fluid.Chillers.Data.ElectricEIR.Generic (
       QEva_flow_nominal =  -724400,
@@ -256,6 +260,7 @@ Chiller:Electric:EIR,
     0.0;                     !- Design Heat Recovery Water Flow Rate {m3/s}
 </pre>
 </html>"));
+
   record ElectricEIRChiller_Carrier_19XR_742kW_5_42COP_VSD =
     Buildings.Fluid.Chillers.Data.ElectricEIR.Generic (
       QEva_flow_nominal =  -742000,
@@ -310,6 +315,7 @@ Chiller:Electric:EIR,
     0.0;                     !- Design Heat Recovery Water Flow Rate {m3/s}
 </pre>
 </html>"));
+
   record ElectricEIRChiller_McQuay_WSC_816kW_6_74COP_Vanes =
     Buildings.Fluid.Chillers.Data.ElectricEIR.Generic (
       QEva_flow_nominal =  -815800,
@@ -364,6 +370,7 @@ Chiller:Electric:EIR,
     0.0;                     !- Design Heat Recovery Water Flow Rate {m3/s}
 </pre>
 </html>"));
+
   record ElectricEIRChiller_McQuay_PEH_819kW_8_11COP_Vanes =
     Buildings.Fluid.Chillers.Data.ElectricEIR.Generic (
       QEva_flow_nominal =  -819300,
@@ -418,6 +425,7 @@ Chiller:Electric:EIR,
     0.0;                     !- Design Heat Recovery Water Flow Rate {m3/s}
 </pre>
 </html>"));
+
   record ElectricEIRChiller_Carrier_19XR_823kW_6_28COP_Vanes =
     Buildings.Fluid.Chillers.Data.ElectricEIR.Generic (
       QEva_flow_nominal =  -822900,
@@ -472,6 +480,7 @@ Chiller:Electric:EIR,
     0.0;                     !- Design Heat Recovery Water Flow Rate {m3/s}
 </pre>
 </html>"));
+
   record ElectricEIRChiller_Carrier_19XR_869kW_5_57COP_VSD =
     Buildings.Fluid.Chillers.Data.ElectricEIR.Generic (
       QEva_flow_nominal =  -868600,
@@ -526,6 +535,7 @@ Chiller:Electric:EIR,
     0.0;                     !- Design Heat Recovery Water Flow Rate {m3/s}
 </pre>
 </html>"));
+
   record ElectricEIRChiller_Carrier_19XR_897kW_7_23COP_VSD =
     Buildings.Fluid.Chillers.Data.ElectricEIR.Generic (
       QEva_flow_nominal =  -896700,
@@ -580,6 +590,7 @@ Chiller:Electric:EIR,
     0.0;                     !- Design Heat Recovery Water Flow Rate {m3/s}
 </pre>
 </html>"));
+
   record ElectricEIRChiller_Carrier_19XR_897kW_6_50COP_Vanes =
     Buildings.Fluid.Chillers.Data.ElectricEIR.Generic (
       QEva_flow_nominal =  -896700,
@@ -634,6 +645,7 @@ Chiller:Electric:EIR,
     0.0;                     !- Design Heat Recovery Water Flow Rate {m3/s}
 </pre>
 </html>"));
+
   record ElectricEIRChiller_York_YT_897kW_7_60COP_VSD =
     Buildings.Fluid.Chillers.Data.ElectricEIR.Generic (
       QEva_flow_nominal =  -896700,
@@ -688,6 +700,7 @@ Chiller:Electric:EIR,
     0.0;                     !- Design Heat Recovery Water Flow Rate {m3/s}
 </pre>
 </html>"));
+
   record ElectricEIRChiller_York_YT_897kW_6_27COP_VSD =
     Buildings.Fluid.Chillers.Data.ElectricEIR.Generic (
       QEva_flow_nominal =  -896700,
@@ -742,6 +755,7 @@ Chiller:Electric:EIR,
     0.0;                     !- Design Heat Recovery Water Flow Rate {m3/s}
 </pre>
 </html>"));
+
   record ElectricEIRChiller_Carrier_19XR_897kW_6_23COP_VSD =
     Buildings.Fluid.Chillers.Data.ElectricEIR.Generic (
       QEva_flow_nominal =  -896700,
@@ -796,6 +810,7 @@ Chiller:Electric:EIR,
     0.0;                     !- Design Heat Recovery Water Flow Rate {m3/s}
 </pre>
 </html>"));
+
   record ElectricEIRChiller_McQuay_PFH_932kW_5_09COP_Vanes =
     Buildings.Fluid.Chillers.Data.ElectricEIR.Generic (
       QEva_flow_nominal =  -931900,
@@ -850,6 +865,7 @@ Chiller:Electric:EIR,
     0.0;                     !- Design Heat Recovery Water Flow Rate {m3/s}
 </pre>
 </html>"));
+
   record ElectricEIRChiller_York_YT_960kW_4_64COP_Vanes =
     Buildings.Fluid.Chillers.Data.ElectricEIR.Generic (
       QEva_flow_nominal =  -960000,
@@ -904,6 +920,7 @@ Chiller:Electric:EIR,
     0.0;                     !- Design Heat Recovery Water Flow Rate {m3/s}
 </pre>
 </html>"));
+
   record ElectricEIRChiller_York_YT_1023kW_5_81COP_Vanes =
     Buildings.Fluid.Chillers.Data.ElectricEIR.Generic (
       QEva_flow_nominal =  -1023300,
@@ -958,6 +975,7 @@ Chiller:Electric:EIR,
     0.0;                     !- Design Heat Recovery Water Flow Rate {m3/s}
 </pre>
 </html>"));
+
   record ElectricEIRChiller_McQuay_PEH_1030kW_8_58COP_Vanes =
     Buildings.Fluid.Chillers.Data.ElectricEIR.Generic (
       QEva_flow_nominal =  -1030300,
@@ -1012,6 +1030,7 @@ Chiller:Electric:EIR,
     0.0;                     !- Design Heat Recovery Water Flow Rate {m3/s}
 </pre>
 </html>"));
+
   record ElectricEIRChiller_York_YT_1048kW_6_06COP_Vanes =
     Buildings.Fluid.Chillers.Data.ElectricEIR.Generic (
       QEva_flow_nominal =  -1047900,
@@ -1066,6 +1085,7 @@ Chiller:Electric:EIR,
     0.0;                     !- Design Heat Recovery Water Flow Rate {m3/s}
 </pre>
 </html>"));
+
   record ElectricEIRChiller_York_YT_1055kW_5_96COP_Vanes =
     Buildings.Fluid.Chillers.Data.ElectricEIR.Generic (
       QEva_flow_nominal =  -1055000,
@@ -1120,6 +1140,7 @@ Chiller:Electric:EIR,
     0.0;                     !- Design Heat Recovery Water Flow Rate {m3/s}
 </pre>
 </html>"));
+
   record ElectricEIRChiller_Carrier_19XR_1076kW_5_52COP_Vanes =
     Buildings.Fluid.Chillers.Data.ElectricEIR.Generic (
       QEva_flow_nominal =  -1076100,
@@ -1174,6 +1195,7 @@ Chiller:Electric:EIR,
     0.0;                     !- Design Heat Recovery Water Flow Rate {m3/s}
 </pre>
 </html>"));
+
   record ElectricEIRChiller_Trane_CVHE_1080kW_7_39COP_Vanes =
     Buildings.Fluid.Chillers.Data.ElectricEIR.Generic (
       QEva_flow_nominal =  -1079600,
@@ -1228,6 +1250,7 @@ Chiller:Electric:EIR,
     0.0;                     !- Design Heat Recovery Water Flow Rate {m3/s}
 </pre>
 </html>"));
+
   record ElectricEIRChiller_York_YT_1090kW_7_57COP_VSD =
     Buildings.Fluid.Chillers.Data.ElectricEIR.Generic (
       QEva_flow_nominal =  -1090100,
@@ -1282,6 +1305,7 @@ Chiller:Electric:EIR,
     0.0;                     !- Design Heat Recovery Water Flow Rate {m3/s}
 </pre>
 </html>"));
+
   record ElectricEIRChiller_McQuay_PEH_1104kW_8_00COP_Vanes =
     Buildings.Fluid.Chillers.Data.ElectricEIR.Generic (
       QEva_flow_nominal =  -1104200,
@@ -1336,6 +1360,7 @@ Chiller:Electric:EIR,
     0.0;                     !- Design Heat Recovery Water Flow Rate {m3/s}
 </pre>
 </html>"));
+
   record ElectricEIRChiller_Trane_CVHE_1125kW_4_89COP_Vanes =
     Buildings.Fluid.Chillers.Data.ElectricEIR.Generic (
       QEva_flow_nominal =  -1125300,
@@ -1390,6 +1415,7 @@ Chiller:Electric:EIR,
     0.0;                     !- Design Heat Recovery Water Flow Rate {m3/s}
 </pre>
 </html>"));
+
   record ElectricEIRChiller_York_YT_1125kW_7_92COP_VSD =
     Buildings.Fluid.Chillers.Data.ElectricEIR.Generic (
       QEva_flow_nominal =  -1125300,
@@ -1444,6 +1470,7 @@ Chiller:Electric:EIR,
     0.0;                     !- Design Heat Recovery Water Flow Rate {m3/s}
 </pre>
 </html>"));
+
   record ElectricEIRChiller_Trane_CVHE_1129kW_7_19COP_Vanes =
     Buildings.Fluid.Chillers.Data.ElectricEIR.Generic (
       QEva_flow_nominal =  -1128800,
@@ -1498,6 +1525,7 @@ Chiller:Electric:EIR,
     0.0;                     !- Design Heat Recovery Water Flow Rate {m3/s}
 </pre>
 </html>"));
+
   record ElectricEIRChiller_Carrier_19XR_1143kW_6_57COP_VSD =
     Buildings.Fluid.Chillers.Data.ElectricEIR.Generic (
       QEva_flow_nominal =  -1142900,
@@ -1552,6 +1580,7 @@ Chiller:Electric:EIR,
     0.0;                     !- Design Heat Recovery Water Flow Rate {m3/s}
 </pre>
 </html>"));
+
   record ElectricEIRChiller_Carrier_19XR_1157kW_5_62COP_VSD =
     Buildings.Fluid.Chillers.Data.ElectricEIR.Generic (
       QEva_flow_nominal =  -1156900,
@@ -1606,6 +1635,7 @@ Chiller:Electric:EIR,
     0.0;                     !- Design Heat Recovery Water Flow Rate {m3/s}
 </pre>
 </html>"));
+
   record ElectricEIRChiller_Carrier_19XR_1196kW_6_50COP_Vanes =
     Buildings.Fluid.Chillers.Data.ElectricEIR.Generic (
       QEva_flow_nominal =  -1195600,
@@ -1660,6 +1690,7 @@ Chiller:Electric:EIR,
     0.0;                     !- Design Heat Recovery Water Flow Rate {m3/s}
 </pre>
 </html>"));
+
   record ElectricEIRChiller_Carrier_19XR_1213kW_7_78COP_Vanes =
     Buildings.Fluid.Chillers.Data.ElectricEIR.Generic (
       QEva_flow_nominal =  -1213200,
@@ -1714,6 +1745,7 @@ Chiller:Electric:EIR,
     0.0;                     !- Design Heat Recovery Water Flow Rate {m3/s}
 </pre>
 </html>"));
+
   record ElectricEIRChiller_McQuay_PEH_1231kW_6_18COP_Vanes =
     Buildings.Fluid.Chillers.Data.ElectricEIR.Generic (
       QEva_flow_nominal =  -1230800,
@@ -1768,6 +1800,7 @@ Chiller:Electric:EIR,
     0.0;                     !- Design Heat Recovery Water Flow Rate {m3/s}
 </pre>
 </html>"));
+
   record ElectricEIRChiller_Carrier_19XR_1234kW_5_39COP_VSD =
     Buildings.Fluid.Chillers.Data.ElectricEIR.Generic (
       QEva_flow_nominal =  -1234300,
@@ -1822,6 +1855,7 @@ Chiller:Electric:EIR,
     0.0;                     !- Design Heat Recovery Water Flow Rate {m3/s}
 </pre>
 </html>"));
+
   record ElectricEIRChiller_Carrier_19XR_1259kW_6_26COP_Vanes =
     Buildings.Fluid.Chillers.Data.ElectricEIR.Generic (
       QEva_flow_nominal =  -1258900,
@@ -1876,6 +1910,7 @@ Chiller:Electric:EIR,
     0.0;                     !- Design Heat Recovery Water Flow Rate {m3/s}
 </pre>
 </html>"));
+
   record ElectricEIRChiller_York_YK_1259kW_6_45COP_Vanes =
     Buildings.Fluid.Chillers.Data.ElectricEIR.Generic (
       QEva_flow_nominal =  -1258900,
@@ -1930,6 +1965,7 @@ Chiller:Electric:EIR,
     0.0;                     !- Design Heat Recovery Water Flow Rate {m3/s}
 </pre>
 </html>"));
+
   record ElectricEIRChiller_York_YT_1266kW_4_39COP_Vanes =
     Buildings.Fluid.Chillers.Data.ElectricEIR.Generic (
       QEva_flow_nominal =  -1266000,
@@ -1984,6 +2020,7 @@ Chiller:Electric:EIR,
     0.0;                     !- Design Heat Recovery Water Flow Rate {m3/s}
 </pre>
 </html>"));
+
   record ElectricEIRChiller_Carrier_19XR_1284kW_6_20COP_Vanes =
     Buildings.Fluid.Chillers.Data.ElectricEIR.Generic (
       QEva_flow_nominal =  -1283500,
@@ -2038,6 +2075,7 @@ Chiller:Electric:EIR,
     0.0;                     !- Design Heat Recovery Water Flow Rate {m3/s}
 </pre>
 </html>"));
+
   record ElectricEIRChiller_Carrier_19XR_1294kW_7_61COP_Vanes =
     Buildings.Fluid.Chillers.Data.ElectricEIR.Generic (
       QEva_flow_nominal =  -1294100,
@@ -2092,6 +2130,7 @@ Chiller:Electric:EIR,
     0.0;                     !- Design Heat Recovery Water Flow Rate {m3/s}
 </pre>
 </html>"));
+
   record ElectricEIRChiller_Trane_CVHE_1329kW_5_38COP_Vanes =
     Buildings.Fluid.Chillers.Data.ElectricEIR.Generic (
       QEva_flow_nominal =  -1329300,
@@ -2146,6 +2185,7 @@ Chiller:Electric:EIR,
     0.0;                     !- Design Heat Recovery Water Flow Rate {m3/s}
 </pre>
 </html>"));
+
   record ElectricEIRChiller_Carrier_19XR_1350kW_7_90COP_VSD =
     Buildings.Fluid.Chillers.Data.ElectricEIR.Generic (
       QEva_flow_nominal =  -1350400,
@@ -2200,6 +2240,7 @@ Chiller:Electric:EIR,
     0.0;                     !- Design Heat Recovery Water Flow Rate {m3/s}
 </pre>
 </html>"));
+
   record ElectricEIRChiller_York_YT_1368kW_7_35COP_VSD =
     Buildings.Fluid.Chillers.Data.ElectricEIR.Generic (
       QEva_flow_nominal =  -1367900,
@@ -2254,6 +2295,7 @@ Chiller:Electric:EIR,
     0.0;                     !- Design Heat Recovery Water Flow Rate {m3/s}
 </pre>
 </html>"));
+
   record ElectricEIRChiller_Trane_CVHE_1372kW_7_49COP_Vanes =
     Buildings.Fluid.Chillers.Data.ElectricEIR.Generic (
       QEva_flow_nominal =  -1371500,
@@ -2308,6 +2350,7 @@ Chiller:Electric:EIR,
     0.0;                     !- Design Heat Recovery Water Flow Rate {m3/s}
 </pre>
 </html>"));
+
   record ElectricEIRChiller_York_YT_1396kW_7_35COP_Vanes =
     Buildings.Fluid.Chillers.Data.ElectricEIR.Generic (
       QEva_flow_nominal =  -1396100,
@@ -2362,6 +2405,7 @@ Chiller:Electric:EIR,
     0.0;                     !- Design Heat Recovery Water Flow Rate {m3/s}
 </pre>
 </html>"));
+
   record ElectricEIRChiller_Carrier_19XR_1403kW_7_09COP_VSD =
     Buildings.Fluid.Chillers.Data.ElectricEIR.Generic (
       QEva_flow_nominal =  -1403100,
@@ -2416,6 +2460,7 @@ Chiller:Electric:EIR,
     0.0;                     !- Design Heat Recovery Water Flow Rate {m3/s}
 </pre>
 </html>"));
+
   record ElectricEIRChiller_York_YT_1403kW_6_94COP_VSD =
     Buildings.Fluid.Chillers.Data.ElectricEIR.Generic (
       QEva_flow_nominal =  -1403100,
@@ -2470,6 +2515,7 @@ Chiller:Electric:EIR,
     0.0;                     !- Design Heat Recovery Water Flow Rate {m3/s}
 </pre>
 </html>"));
+
   record ElectricEIRChiller_Trane_CVHE_1407kW_7_14COP_VSD =
     Buildings.Fluid.Chillers.Data.ElectricEIR.Generic (
       QEva_flow_nominal =  -1406600,
@@ -2524,6 +2570,7 @@ Chiller:Electric:EIR,
     0.0;                     !- Design Heat Recovery Water Flow Rate {m3/s}
 </pre>
 </html>"));
+
   record ElectricEIRChiller_McQuay_PFH_1407kW_6_60COP_Vanes =
     Buildings.Fluid.Chillers.Data.ElectricEIR.Generic (
       QEva_flow_nominal =  -1406600,
@@ -2578,6 +2625,7 @@ Chiller:Electric:EIR,
     0.0;                     !- Design Heat Recovery Water Flow Rate {m3/s}
 </pre>
 </html>"));
+
   record ElectricEIRChiller_Carrier_19XR_1407kW_6_04COP_VSD =
     Buildings.Fluid.Chillers.Data.ElectricEIR.Generic (
       QEva_flow_nominal =  -1406600,
@@ -2632,6 +2680,7 @@ Chiller:Electric:EIR,
     0.0;                     !- Design Heat Recovery Water Flow Rate {m3/s}
 </pre>
 </html>"));
+
   record ElectricEIRChiller_Carrier_19XR_1410kW_8_54COP_VSD =
     Buildings.Fluid.Chillers.Data.ElectricEIR.Generic (
       QEva_flow_nominal =  -1410100,
@@ -2686,6 +2735,7 @@ Chiller:Electric:EIR,
     0.0;                     !- Design Heat Recovery Water Flow Rate {m3/s}
 </pre>
 </html>"));
+
   record ElectricEIRChiller_Trane_CVHE_1442kW_6_61COP_VSD =
     Buildings.Fluid.Chillers.Data.ElectricEIR.Generic (
       QEva_flow_nominal =  -1441800,
@@ -2740,6 +2790,7 @@ Chiller:Electric:EIR,
     0.0;                     !- Design Heat Recovery Water Flow Rate {m3/s}
 </pre>
 </html>"));
+
   record ElectricEIRChiller_York_YT_1459kW_6_40COP_VSD =
     Buildings.Fluid.Chillers.Data.ElectricEIR.Generic (
       QEva_flow_nominal =  -1459400,
@@ -2794,6 +2845,7 @@ Chiller:Electric:EIR,
     0.0;                     !- Design Heat Recovery Water Flow Rate {m3/s}
 </pre>
 </html>"));
+
   record ElectricEIRChiller_Trane_CVHE_1484kW_9_96COP_VSD =
     Buildings.Fluid.Chillers.Data.ElectricEIR.Generic (
       QEva_flow_nominal =  -1484000,
@@ -2848,6 +2900,7 @@ Chiller:Electric:EIR,
     0.0;                     !- Design Heat Recovery Water Flow Rate {m3/s}
 </pre>
 </html>"));
+
   record ElectricEIRChiller_York_YT_1495kW_7_51COP_VSD =
     Buildings.Fluid.Chillers.Data.ElectricEIR.Generic (
       QEva_flow_nominal =  -1494500,
@@ -2902,6 +2955,7 @@ Chiller:Electric:EIR,
     0.0;                     !- Design Heat Recovery Water Flow Rate {m3/s}
 </pre>
 </html>"));
+
   record ElectricEIRChiller_McQuay_WSC_1519kW_7_10COP_Vanes =
     Buildings.Fluid.Chillers.Data.ElectricEIR.Generic (
       QEva_flow_nominal =  -1519200,
@@ -2956,6 +3010,7 @@ Chiller:Electric:EIR,
     0.0;                     !- Design Heat Recovery Water Flow Rate {m3/s}
 </pre>
 </html>"));
+
   record ElectricEIRChiller_Carrier_19XR_1558kW_5_81COP_VSD =
     Buildings.Fluid.Chillers.Data.ElectricEIR.Generic (
       QEva_flow_nominal =  -1557800,
@@ -3010,6 +3065,7 @@ Chiller:Electric:EIR,
     0.0;                     !- Design Heat Recovery Water Flow Rate {m3/s}
 </pre>
 </html>"));
+
   record ElectricEIRChiller_Carrier_19XR_1586kW_5_53COP_VSD =
     Buildings.Fluid.Chillers.Data.ElectricEIR.Generic (
       QEva_flow_nominal =  -1586000,
@@ -3064,6 +3120,7 @@ Chiller:Electric:EIR,
     0.0;                     !- Design Heat Recovery Water Flow Rate {m3/s}
 </pre>
 </html>"));
+
   record ElectricEIRChiller_McQuay_PEH_1635kW_7_47COP_Vanes =
     Buildings.Fluid.Chillers.Data.ElectricEIR.Generic (
       QEva_flow_nominal =  -1635200,
@@ -3118,6 +3175,7 @@ Chiller:Electric:EIR,
     0.0;                     !- Design Heat Recovery Water Flow Rate {m3/s}
 </pre>
 </html>"));
+
   record ElectricEIRChiller_Carrier_19XR_1635kW_6_36COP_Vanes =
     Buildings.Fluid.Chillers.Data.ElectricEIR.Generic (
       QEva_flow_nominal =  -1635200,
@@ -3172,6 +3230,7 @@ Chiller:Electric:EIR,
     0.0;                     !- Design Heat Recovery Water Flow Rate {m3/s}
 </pre>
 </html>"));
+
   record ElectricEIRChiller_Carrier_19XR_1656kW_8_24COP_VSD =
     Buildings.Fluid.Chillers.Data.ElectricEIR.Generic (
       QEva_flow_nominal =  -1656300,
@@ -3226,6 +3285,7 @@ Chiller:Electric:EIR,
     0.0;                     !- Design Heat Recovery Water Flow Rate {m3/s}
 </pre>
 </html>"));
+
   record ElectricEIRChiller_York_YT_1663kW_9_34COP_Vanes =
     Buildings.Fluid.Chillers.Data.ElectricEIR.Generic (
       QEva_flow_nominal =  -1663300,
@@ -3280,6 +3340,7 @@ Chiller:Electric:EIR,
     0.0;                     !- Design Heat Recovery Water Flow Rate {m3/s}
 </pre>
 </html>"));
+
   record ElectricEIRChiller_Carrier_19XL_1674kW_7_89COP_Vanes =
     Buildings.Fluid.Chillers.Data.ElectricEIR.Generic (
       QEva_flow_nominal =  -1673900,
@@ -3334,6 +3395,7 @@ Chiller:Electric:EIR,
     0.0;                     !- Design Heat Recovery Water Flow Rate {m3/s}
 </pre>
 </html>"));
+
   record ElectricEIRChiller_Trane_CVHF_1681kW_6_59COP_Vanes =
     Buildings.Fluid.Chillers.Data.ElectricEIR.Generic (
       QEva_flow_nominal =  -1680900,
@@ -3388,6 +3450,7 @@ Chiller:Electric:EIR,
     0.0;                     !- Design Heat Recovery Water Flow Rate {m3/s}
 </pre>
 </html>"));
+
   record ElectricEIRChiller_Carrier_19XR_1723kW_8_32COP_VSD =
     Buildings.Fluid.Chillers.Data.ElectricEIR.Generic (
       QEva_flow_nominal =  -1723100,
@@ -3442,6 +3505,7 @@ Chiller:Electric:EIR,
     0.0;                     !- Design Heat Recovery Water Flow Rate {m3/s}
 </pre>
 </html>"));
+
   record ElectricEIRChiller_Carrier_19XR_1727kW_9_04COP_Vanes =
     Buildings.Fluid.Chillers.Data.ElectricEIR.Generic (
       QEva_flow_nominal =  -1726600,
@@ -3496,6 +3560,7 @@ Chiller:Electric:EIR,
     0.0;                     !- Design Heat Recovery Water Flow Rate {m3/s}
 </pre>
 </html>"));
+
   record ElectricEIRChiller_McQuay_WSC_1751kW_6_73COP_Vanes =
     Buildings.Fluid.Chillers.Data.ElectricEIR.Generic (
       QEva_flow_nominal =  -1751300,
@@ -3550,6 +3615,7 @@ Chiller:Electric:EIR,
     0.0;                     !- Design Heat Recovery Water Flow Rate {m3/s}
 </pre>
 </html>"));
+
   record ElectricEIRChiller_Trane_CVHF_1758kW_5_96COP_Vanes =
     Buildings.Fluid.Chillers.Data.ElectricEIR.Generic (
       QEva_flow_nominal =  -1758300,
@@ -3604,6 +3670,7 @@ Chiller:Electric:EIR,
     0.0;                     !- Design Heat Recovery Water Flow Rate {m3/s}
 </pre>
 </html>"));
+
   record ElectricEIRChiller_York_YT_1758kW_5_76COP_VSD =
     Buildings.Fluid.Chillers.Data.ElectricEIR.Generic (
       QEva_flow_nominal =  -1758300,
@@ -3658,6 +3725,7 @@ Chiller:Electric:EIR,
     0.0;                     !- Design Heat Recovery Water Flow Rate {m3/s}
 </pre>
 </html>"));
+
   record ElectricEIRChiller_York_YT_1758kW_6_26COP_Vanes =
     Buildings.Fluid.Chillers.Data.ElectricEIR.Generic (
       QEva_flow_nominal =  -1758300,
@@ -3712,6 +3780,7 @@ Chiller:Electric:EIR,
     0.0;                     !- Design Heat Recovery Water Flow Rate {m3/s}
 </pre>
 </html>"));
+
   record ElectricEIRChiller_York_YT_1758kW_5_96COP_Vanes =
     Buildings.Fluid.Chillers.Data.ElectricEIR.Generic (
       QEva_flow_nominal =  -1758300,
@@ -3766,6 +3835,7 @@ Chiller:Electric:EIR,
     0.0;                     !- Design Heat Recovery Water Flow Rate {m3/s}
 </pre>
 </html>"));
+
   record ElectricEIRChiller_Trane_CVHE_1758kW_5_96COP_Vanes =
     Buildings.Fluid.Chillers.Data.ElectricEIR.Generic (
       QEva_flow_nominal =  -1758300,
@@ -3820,6 +3890,7 @@ Chiller:Electric:EIR,
     0.0;                     !- Design Heat Recovery Water Flow Rate {m3/s}
 </pre>
 </html>"));
+
   record ElectricEIRChiller_York_YT_1758kW_6_28COP_Vanes =
     Buildings.Fluid.Chillers.Data.ElectricEIR.Generic (
       QEva_flow_nominal =  -1758300,
@@ -3874,6 +3945,7 @@ Chiller:Electric:EIR,
     0.0;                     !- Design Heat Recovery Water Flow Rate {m3/s}
 </pre>
 </html>"));
+
   record ElectricEIRChiller_Carrier_19XR_1758kW_5_86COP_VSD =
     Buildings.Fluid.Chillers.Data.ElectricEIR.Generic (
       QEva_flow_nominal =  -1758300,
@@ -3928,6 +4000,7 @@ Chiller:Electric:EIR,
     0.0;                     !- Design Heat Recovery Water Flow Rate {m3/s}
 </pre>
 </html>"));
+
   record ElectricEIRChiller_Trane_CVHF_1758kW_6_46COP_VSD =
     Buildings.Fluid.Chillers.Data.ElectricEIR.Generic (
       QEva_flow_nominal =  -1758300,
@@ -3982,6 +4055,7 @@ Chiller:Electric:EIR,
     0.0;                     !- Design Heat Recovery Water Flow Rate {m3/s}
 </pre>
 </html>"));
+
   record ElectricEIRChiller_Trane_CVHF_1758kW_6_87COP_Vanes =
     Buildings.Fluid.Chillers.Data.ElectricEIR.Generic (
       QEva_flow_nominal =  -1758300,
@@ -4036,6 +4110,7 @@ Chiller:Electric:EIR,
     0.0;                     !- Design Heat Recovery Water Flow Rate {m3/s}
 </pre>
 </html>"));
+
   record ElectricEIRChiller_Carrier_19XR_1776kW_8_00COP_Vanes =
     Buildings.Fluid.Chillers.Data.ElectricEIR.Generic (
       QEva_flow_nominal =  -1775900,
@@ -4090,6 +4165,7 @@ Chiller:Electric:EIR,
     0.0;                     !- Design Heat Recovery Water Flow Rate {m3/s}
 </pre>
 </html>"));
+
   record ElectricEIRChiller_Carrier_19XL_1779kW_6_18COP_Vanes =
     Buildings.Fluid.Chillers.Data.ElectricEIR.Generic (
       QEva_flow_nominal =  -1779400,
@@ -4144,6 +4220,7 @@ Chiller:Electric:EIR,
     0.0;                     !- Design Heat Recovery Water Flow Rate {m3/s}
 </pre>
 </html>"));
+
   record ElectricEIRChiller_Trane_CVHF_1779kW_6_18COP_Vanes =
     Buildings.Fluid.Chillers.Data.ElectricEIR.Generic (
       QEva_flow_nominal =  -1779400,
@@ -4198,6 +4275,7 @@ Chiller:Electric:EIR,
     0.0;                     !- Design Heat Recovery Water Flow Rate {m3/s}
 </pre>
 </html>"));
+
   record ElectricEIRChiller_York_YT_1794kW_8_11COP_Vanes =
     Buildings.Fluid.Chillers.Data.ElectricEIR.Generic (
       QEva_flow_nominal =  -1793500,
@@ -4252,6 +4330,7 @@ Chiller:Electric:EIR,
     0.0;                     !- Design Heat Recovery Water Flow Rate {m3/s}
 </pre>
 </html>"));
+
   record ElectricEIRChiller_York_YT_1794kW_7_90COP_VSD =
     Buildings.Fluid.Chillers.Data.ElectricEIR.Generic (
       QEva_flow_nominal =  -1793500,
@@ -4306,6 +4385,7 @@ Chiller:Electric:EIR,
     0.0;                     !- Design Heat Recovery Water Flow Rate {m3/s}
 </pre>
 </html>"));
+
   record ElectricEIRChiller_Carrier_19XL_1797kW_5_69COP_Vanes =
     Buildings.Fluid.Chillers.Data.ElectricEIR.Generic (
       QEva_flow_nominal =  -1797000,
@@ -4360,6 +4440,7 @@ Chiller:Electric:EIR,
     0.0;                     !- Design Heat Recovery Water Flow Rate {m3/s}
 </pre>
 </html>"));
+
   record ElectricEIRChiller_Carrier_19XR_1801kW_6_34COP_VSD =
     Buildings.Fluid.Chillers.Data.ElectricEIR.Generic (
       QEva_flow_nominal =  -1800500,
@@ -4414,6 +4495,7 @@ Chiller:Electric:EIR,
     0.0;                     !- Design Heat Recovery Water Flow Rate {m3/s}
 </pre>
 </html>"));
+
   record ElectricEIRChiller_York_YT_1867kW_10_09COP_Vanes =
     Buildings.Fluid.Chillers.Data.ElectricEIR.Generic (
       QEva_flow_nominal =  -1867300,
@@ -4468,6 +4550,7 @@ Chiller:Electric:EIR,
     0.0;                     !- Design Heat Recovery Water Flow Rate {m3/s}
 </pre>
 </html>"));
+
   record ElectricEIRChiller_Carrier_19XL_1871kW_6_49COP_Vanes =
     Buildings.Fluid.Chillers.Data.ElectricEIR.Generic (
       QEva_flow_nominal =  -1870800,
@@ -4522,6 +4605,7 @@ Chiller:Electric:EIR,
     0.0;                     !- Design Heat Recovery Water Flow Rate {m3/s}
 </pre>
 </html>"));
+
   record ElectricEIRChiller_York_YT_1881kW_6_77COP_VSD =
     Buildings.Fluid.Chillers.Data.ElectricEIR.Generic (
       QEva_flow_nominal =  -1881400,
@@ -4576,6 +4660,7 @@ Chiller:Electric:EIR,
     0.0;                     !- Design Heat Recovery Water Flow Rate {m3/s}
 </pre>
 </html>"));
+
   record ElectricEIRChiller_York_YK_1881kW_6_53COP_Vanes =
     Buildings.Fluid.Chillers.Data.ElectricEIR.Generic (
       QEva_flow_nominal =  -1881400,
@@ -4630,6 +4715,7 @@ Chiller:Electric:EIR,
     0.0;                     !- Design Heat Recovery Water Flow Rate {m3/s}
 </pre>
 </html>"));
+
   record ElectricEIRChiller_McQuay_PEH_1895kW_6_42COP_Vanes =
     Buildings.Fluid.Chillers.Data.ElectricEIR.Generic (
       QEva_flow_nominal =  -1895400,
@@ -4684,6 +4770,7 @@ Chiller:Electric:EIR,
     0.0;                     !- Design Heat Recovery Water Flow Rate {m3/s}
 </pre>
 </html>"));
+
   record ElectricEIRChiller_York_YT_1934kW_7_55COP_Vanes =
     Buildings.Fluid.Chillers.Data.ElectricEIR.Generic (
       QEva_flow_nominal =  -1934100,
@@ -4738,6 +4825,7 @@ Chiller:Electric:EIR,
     0.0;                     !- Design Heat Recovery Water Flow Rate {m3/s}
 </pre>
 </html>"));
+
   record ElectricEIRChiller_McQuay_PEH_1934kW_6_01COP_Vanes =
     Buildings.Fluid.Chillers.Data.ElectricEIR.Generic (
       QEva_flow_nominal =  -1934100,
@@ -4792,6 +4880,7 @@ Chiller:Electric:EIR,
     0.0;                     !- Design Heat Recovery Water Flow Rate {m3/s}
 </pre>
 </html>"));
+
   record ElectricEIRChiller_McQuay_WDC_1973kW_6_28COP_Vanes =
     Buildings.Fluid.Chillers.Data.ElectricEIR.Generic (
       QEva_flow_nominal =  -1972800,
@@ -4846,6 +4935,7 @@ Chiller:Electric:EIR,
     0.0;                     !- Design Heat Recovery Water Flow Rate {m3/s}
 </pre>
 </html>"));
+
   record ElectricEIRChiller_York_YK_1997kW_7_24COP_Vanes =
     Buildings.Fluid.Chillers.Data.ElectricEIR.Generic (
       QEva_flow_nominal =  -1997400,
@@ -4900,6 +4990,7 @@ Chiller:Electric:EIR,
     0.0;                     !- Design Heat Recovery Water Flow Rate {m3/s}
 </pre>
 </html>"));
+
   record ElectricEIRChiller_McQuay_PFH_2043kW_8_44COP_Vanes =
     Buildings.Fluid.Chillers.Data.ElectricEIR.Generic (
       QEva_flow_nominal =  -2043100,
@@ -4954,6 +5045,7 @@ Chiller:Electric:EIR,
     0.0;                     !- Design Heat Recovery Water Flow Rate {m3/s}
 </pre>
 </html>"));
+
   record ElectricEIRChiller_Trane_CVHF_2043kW_9_08COP_Vanes =
     Buildings.Fluid.Chillers.Data.ElectricEIR.Generic (
       QEva_flow_nominal =  -2043100,
@@ -5008,6 +5100,7 @@ Chiller:Electric:EIR,
     0.0;                     !- Design Heat Recovery Water Flow Rate {m3/s}
 </pre>
 </html>"));
+
   record ElectricEIRChiller_Carrier_19XL_2057kW_6_05COP_Vanes =
     Buildings.Fluid.Chillers.Data.ElectricEIR.Generic (
       QEva_flow_nominal =  -2057200,
@@ -5062,6 +5155,7 @@ Chiller:Electric:EIR,
     0.0;                     !- Design Heat Recovery Water Flow Rate {m3/s}
 </pre>
 </html>"));
+
   record ElectricEIRChiller_York_YT_2110kW_7_15COP_Vanes =
     Buildings.Fluid.Chillers.Data.ElectricEIR.Generic (
       QEva_flow_nominal =  -2110000,
@@ -5116,6 +5210,7 @@ Chiller:Electric:EIR,
     0.0;                     !- Design Heat Recovery Water Flow Rate {m3/s}
 </pre>
 </html>"));
+
   record ElectricEIRChiller_McQuay_PFH_2124kW_6_03COP_Vanes =
     Buildings.Fluid.Chillers.Data.ElectricEIR.Generic (
       QEva_flow_nominal =  -2124000,
@@ -5170,6 +5265,7 @@ Chiller:Electric:EIR,
     0.0;                     !- Design Heat Recovery Water Flow Rate {m3/s}
 </pre>
 </html>"));
+
   record ElectricEIRChiller_York_YK_2159kW_6_85COP_Vanes =
     Buildings.Fluid.Chillers.Data.ElectricEIR.Generic (
       QEva_flow_nominal =  -2159200,
@@ -5224,6 +5320,7 @@ Chiller:Electric:EIR,
     0.0;                     !- Design Heat Recovery Water Flow Rate {m3/s}
 </pre>
 </html>"));
+
   record ElectricEIRChiller_Trane_CVHF_2184kW_6_78COP_Vanes =
     Buildings.Fluid.Chillers.Data.ElectricEIR.Generic (
       QEva_flow_nominal =  -2183800,
@@ -5278,6 +5375,7 @@ Chiller:Electric:EIR,
     0.0;                     !- Design Heat Recovery Water Flow Rate {m3/s}
 </pre>
 </html>"));
+
   record ElectricEIRChiller_York_YK_2201kW_6_69COP_Vanes =
     Buildings.Fluid.Chillers.Data.ElectricEIR.Generic (
       QEva_flow_nominal =  -2201400,
@@ -5332,6 +5430,7 @@ Chiller:Electric:EIR,
     0.0;                     !- Design Heat Recovery Water Flow Rate {m3/s}
 </pre>
 </html>"));
+
   record ElectricEIRChiller_York_YT_2233kW_9_54COP_VSD =
     Buildings.Fluid.Chillers.Data.ElectricEIR.Generic (
       QEva_flow_nominal =  -2233000,
@@ -5386,6 +5485,7 @@ Chiller:Electric:EIR,
     0.0;                     !- Design Heat Recovery Water Flow Rate {m3/s}
 </pre>
 </html>"));
+
   record ElectricEIRChiller_York_YK_2237kW_6_41COP_Vanes =
     Buildings.Fluid.Chillers.Data.ElectricEIR.Generic (
       QEva_flow_nominal =  -2236600,
@@ -5440,6 +5540,7 @@ Chiller:Electric:EIR,
     0.0;                     !- Design Heat Recovery Water Flow Rate {m3/s}
 </pre>
 </html>"));
+
   record ElectricEIRChiller_York_YK_2275kW_6_32COP_Vanes =
     Buildings.Fluid.Chillers.Data.ElectricEIR.Generic (
       QEva_flow_nominal =  -2275200,
@@ -5494,6 +5595,7 @@ Chiller:Electric:EIR,
     0.0;                     !- Design Heat Recovery Water Flow Rate {m3/s}
 </pre>
 </html>"));
+
   record ElectricEIRChiller_Trane_CVHF_2300kW_8_10COP_Vanes =
     Buildings.Fluid.Chillers.Data.ElectricEIR.Generic (
       QEva_flow_nominal =  -2299900,
@@ -5548,6 +5650,7 @@ Chiller:Electric:EIR,
     0.0;                     !- Design Heat Recovery Water Flow Rate {m3/s}
 </pre>
 </html>"));
+
   record ElectricEIRChiller_Trane_CVHF_2317kW_6_33COP_VSD =
     Buildings.Fluid.Chillers.Data.ElectricEIR.Generic (
       QEva_flow_nominal =  -2317400,
@@ -5602,6 +5705,7 @@ Chiller:Electric:EIR,
     0.0;                     !- Design Heat Recovery Water Flow Rate {m3/s}
 </pre>
 </html>"));
+
   record ElectricEIRChiller_Carrier_19XR_2391kW_6_77COP_Vanes =
     Buildings.Fluid.Chillers.Data.ElectricEIR.Generic (
       QEva_flow_nominal =  -2391300,
@@ -5656,6 +5760,7 @@ Chiller:Electric:EIR,
     0.0;                     !- Design Heat Recovery Water Flow Rate {m3/s}
 </pre>
 </html>"));
+
   record ElectricEIRChiller_Carrier_19XR_2391kW_6_44COP_VSD =
     Buildings.Fluid.Chillers.Data.ElectricEIR.Generic (
       QEva_flow_nominal =  -2391300,
@@ -5710,6 +5815,7 @@ Chiller:Electric:EIR,
     0.0;                     !- Design Heat Recovery Water Flow Rate {m3/s}
 </pre>
 </html>"));
+
   record ElectricEIRChiller_York_YK_2412kW_5_58COP_Vanes =
     Buildings.Fluid.Chillers.Data.ElectricEIR.Generic (
       QEva_flow_nominal =  -2412400,
@@ -5764,6 +5870,7 @@ Chiller:Electric:EIR,
     0.0;                     !- Design Heat Recovery Water Flow Rate {m3/s}
 </pre>
 </html>"));
+
   record ElectricEIRChiller_McQuay_PFH_2462kW_6_67COP_Vanes =
     Buildings.Fluid.Chillers.Data.ElectricEIR.Generic (
       QEva_flow_nominal =  -2461600,
@@ -5818,6 +5925,7 @@ Chiller:Electric:EIR,
     0.0;                     !- Design Heat Recovery Water Flow Rate {m3/s}
 </pre>
 </html>"));
+
   record ElectricEIRChiller_Trane_CVHF_2567kW_11_77COP_VSD =
     Buildings.Fluid.Chillers.Data.ElectricEIR.Generic (
       QEva_flow_nominal =  -2567100,
@@ -5872,6 +5980,7 @@ Chiller:Electric:EIR,
     0.0;                     !- Design Heat Recovery Water Flow Rate {m3/s}
 </pre>
 </html>"));
+
   record ElectricEIRChiller_York_YK_2771kW_6_84COP_VSD =
     Buildings.Fluid.Chillers.Data.ElectricEIR.Generic (
       QEva_flow_nominal =  -2771100,
@@ -5926,6 +6035,7 @@ Chiller:Electric:EIR,
     0.0;                     !- Design Heat Recovery Water Flow Rate {m3/s}
 </pre>
 </html>"));
+
   record ElectricEIRChiller_Trane_CVHF_2799kW_6_40COP_Vanes =
     Buildings.Fluid.Chillers.Data.ElectricEIR.Generic (
       QEva_flow_nominal =  -2799200,
@@ -5980,6 +6090,7 @@ Chiller:Electric:EIR,
     0.0;                     !- Design Heat Recovery Water Flow Rate {m3/s}
 </pre>
 </html>"));
+
   record ElectricEIRChiller_York_YT_3133kW_9_16COP_Vanes =
     Buildings.Fluid.Chillers.Data.ElectricEIR.Generic (
       QEva_flow_nominal =  -3133300,
@@ -6034,6 +6145,7 @@ Chiller:Electric:EIR,
     0.0;                     !- Design Heat Recovery Water Flow Rate {m3/s}
 </pre>
 </html>"));
+
   record ElectricEIRChiller_McQuay_PFH_3165kW_6_48COP_Vanes =
     Buildings.Fluid.Chillers.Data.ElectricEIR.Generic (
       QEva_flow_nominal =  -3165000,
@@ -6088,6 +6200,7 @@ Chiller:Electric:EIR,
     0.0;                     !- Design Heat Recovery Water Flow Rate {m3/s}
 </pre>
 </html>"));
+
   record ElectricEIRChiller_McQuay_PFH_4020kW_7_35COP_Vanes =
     Buildings.Fluid.Chillers.Data.ElectricEIR.Generic (
       QEva_flow_nominal =  -4019500,
@@ -6142,6 +6255,7 @@ Chiller:Electric:EIR,
     0.0;                     !- Design Heat Recovery Water Flow Rate {m3/s}
 </pre>
 </html>"));
+
   record ElectricEIRChiller_York_YK_4396kW_6_63COP_Vanes =
     Buildings.Fluid.Chillers.Data.ElectricEIR.Generic (
       QEva_flow_nominal =  -4395800,
@@ -6196,6 +6310,7 @@ Chiller:Electric:EIR,
     0.0;                     !- Design Heat Recovery Water Flow Rate {m3/s}
 </pre>
 </html>"));
+
   record ElectricEIRChiller_York_YK_4477kW_6_64COP_Vanes =
     Buildings.Fluid.Chillers.Data.ElectricEIR.Generic (
       QEva_flow_nominal =  -4476700,
@@ -6250,6 +6365,7 @@ Chiller:Electric:EIR,
     0.0;                     !- Design Heat Recovery Water Flow Rate {m3/s}
 </pre>
 </html>"));
+
   record ElectricEIRChiller_York_YK_4515kW_6_22COP_Vanes =
     Buildings.Fluid.Chillers.Data.ElectricEIR.Generic (
       QEva_flow_nominal =  -4515400,
@@ -6304,6 +6420,7 @@ Chiller:Electric:EIR,
     0.0;                     !- Design Heat Recovery Water Flow Rate {m3/s}
 </pre>
 </html>"));
+
   record ElectricEIRChiller_York_YK_4537kW_6_28COP_Vanes =
     Buildings.Fluid.Chillers.Data.ElectricEIR.Generic (
       QEva_flow_nominal =  -4536500,
@@ -6358,6 +6475,7 @@ Chiller:Electric:EIR,
     0.0;                     !- Design Heat Recovery Water Flow Rate {m3/s}
 </pre>
 </html>"));
+
   record ElectricEIRChiller_Trane_CVHF_4610kW_6_34COP_Vanes =
     Buildings.Fluid.Chillers.Data.ElectricEIR.Generic (
       QEva_flow_nominal =  -4610300,
@@ -6412,6 +6530,7 @@ Chiller:Electric:EIR,
     0.0;                     !- Design Heat Recovery Water Flow Rate {m3/s}
 </pre>
 </html>"));
+
   record ElectricEIRChiller_Carrier_19EX_4667kW_6_16COP_Vanes =
     Buildings.Fluid.Chillers.Data.ElectricEIR.Generic (
       QEva_flow_nominal =  -4666600,
@@ -6466,6 +6585,7 @@ Chiller:Electric:EIR,
     0.0;                     !- Design Heat Recovery Water Flow Rate {m3/s}
 </pre>
 </html>"));
+
   record ElectricEIRChiller_Trane_CVHF_4677kW_6_27COP_Vanes =
     Buildings.Fluid.Chillers.Data.ElectricEIR.Generic (
       QEva_flow_nominal =  -4677100,
@@ -6520,6 +6640,7 @@ Chiller:Electric:EIR,
     0.0;                     !- Design Heat Recovery Water Flow Rate {m3/s}
 </pre>
 </html>"));
+
   record ElectricEIRChiller_York_YK_4966kW_6_05COP_Vanes =
     Buildings.Fluid.Chillers.Data.ElectricEIR.Generic (
       QEva_flow_nominal =  -4965500,
@@ -6574,6 +6695,7 @@ Chiller:Electric:EIR,
     0.0;                     !- Design Heat Recovery Water Flow Rate {m3/s}
 </pre>
 </html>"));
+
   record ElectricEIRChiller_York_YK_4969kW_7_14COP_Vanes =
     Buildings.Fluid.Chillers.Data.ElectricEIR.Generic (
       QEva_flow_nominal =  -4969000,
@@ -6628,6 +6750,7 @@ Chiller:Electric:EIR,
     0.0;                     !- Design Heat Recovery Water Flow Rate {m3/s}
 </pre>
 </html>"));
+
   record ElectricEIRChiller_York_YK_4969kW_7_07COP_Vanes =
     Buildings.Fluid.Chillers.Data.ElectricEIR.Generic (
       QEva_flow_nominal =  -4969000,
@@ -6682,6 +6805,7 @@ Chiller:Electric:EIR,
     0.0;                     !- Design Heat Recovery Water Flow Rate {m3/s}
 </pre>
 </html>"));
+
   record ElectricEIRChiller_Carrier_19EX_4997kW_6_40COP_Vanes =
     Buildings.Fluid.Chillers.Data.ElectricEIR.Generic (
       QEva_flow_nominal =  -4997200,
@@ -6736,6 +6860,7 @@ Chiller:Electric:EIR,
     0.0;                     !- Design Heat Recovery Water Flow Rate {m3/s}
 </pre>
 </html>"));
+
   record ElectricEIRChiller_Carrier_19EX_5148kW_6_34COP_Vanes =
     Buildings.Fluid.Chillers.Data.ElectricEIR.Generic (
       QEva_flow_nominal =  -5148400,
@@ -6790,6 +6915,7 @@ Chiller:Electric:EIR,
     0.0;                     !- Design Heat Recovery Water Flow Rate {m3/s}
 </pre>
 </html>"));
+
   record ElectricEIRChiller_York_YK_5170kW_7_15COP_Vanes =
     Buildings.Fluid.Chillers.Data.ElectricEIR.Generic (
       QEva_flow_nominal =  -5169500,
@@ -6844,6 +6970,7 @@ Chiller:Electric:EIR,
     0.0;                     !- Design Heat Recovery Water Flow Rate {m3/s}
 </pre>
 </html>"));
+
   record ElectricEIRChiller_Carrier_19EX_5208kW_6_88COP_Vanes =
     Buildings.Fluid.Chillers.Data.ElectricEIR.Generic (
       QEva_flow_nominal =  -5208200,
@@ -6898,6 +7025,7 @@ Chiller:Electric:EIR,
     0.0;                     !- Design Heat Recovery Water Flow Rate {m3/s}
 </pre>
 </html>"));
+
   record ElectricEIRChiller_York_YK_5465kW_6_94COP_Vanes =
     Buildings.Fluid.Chillers.Data.ElectricEIR.Generic (
       QEva_flow_nominal =  -5464900,
@@ -6952,6 +7080,7 @@ Chiller:Electric:EIR,
     0.0;                     !- Design Heat Recovery Water Flow Rate {m3/s}
 </pre>
 </html>"));
+
   record ElectricEIRChiller_York_YK_5549kW_6_50COP_Vanes =
     Buildings.Fluid.Chillers.Data.ElectricEIR.Generic (
       QEva_flow_nominal =  -5549300,
@@ -7006,6 +7135,7 @@ Chiller:Electric:EIR,
     0.0;                     !- Design Heat Recovery Water Flow Rate {m3/s}
 </pre>
 </html>"));
+
   record ElectricEIRChiller_Carrier_19FA_5651kW_5_50COP_Vanes =
     Buildings.Fluid.Chillers.Data.ElectricEIR.Generic (
       QEva_flow_nominal =  -5651300,
@@ -7060,6 +7190,7 @@ Chiller:Electric:EIR,
     0.0;                     !- Design Heat Recovery Water Flow Rate {m3/s}
 </pre>
 </html>"));
+
   record DOE_2_Centrifugal_5_50COP =
     Buildings.Fluid.Chillers.Data.ElectricEIR.Generic (
       QEva_flow_nominal =  -100000.0,
@@ -7113,6 +7244,7 @@ Chiller:Electric:EIR,
 
 </pre>
 </html>"));
+
   record ElectricEIRChiller_Multistack_MS_172kW_3_67COP_None =
     Buildings.Fluid.Chillers.Data.ElectricEIR.Generic (
       QEva_flow_nominal =  -172300,
@@ -7167,6 +7299,7 @@ Chiller:Electric:EIR,
     0.0;                     !- Design Heat Recovery Water Flow Rate {m3/s}
 </pre>
 </html>"));
+
   record DOE_2_Reciprocating_3_67COP =
     Buildings.Fluid.Chillers.Data.ElectricEIR.Generic (
       QEva_flow_nominal =  -100000.0,
@@ -7220,6 +7353,7 @@ Chiller:Electric:EIR,
 
 </pre>
 </html>"));
+
   record ElectricEIRChiller_Trane_RTWA_383kW_4_17COP_Valve =
     Buildings.Fluid.Chillers.Data.ElectricEIR.Generic (
       QEva_flow_nominal =  -383300,
@@ -7274,6 +7408,7 @@ Chiller:Electric:EIR,
     0.0;                     !- Design Heat Recovery Water Flow Rate {m3/s}
 </pre>
 </html>"));
+
   record ElectricEIRChiller_Trane_RTHB_531kW_4_83COP_Valve =
     Buildings.Fluid.Chillers.Data.ElectricEIR.Generic (
       QEva_flow_nominal =  -531000,
@@ -7328,6 +7463,7 @@ Chiller:Electric:EIR,
     0.0;                     !- Design Heat Recovery Water Flow Rate {m3/s}
 </pre>
 </html>"));
+
   record ElectricEIRChiller_Trane_RTHB_538kW_5_12COP_Valve =
     Buildings.Fluid.Chillers.Data.ElectricEIR.Generic (
       QEva_flow_nominal =  -538000,
@@ -7382,6 +7518,7 @@ Chiller:Electric:EIR,
     0.0;                     !- Design Heat Recovery Water Flow Rate {m3/s}
 </pre>
 </html>"));
+
   record ElectricEIRChiller_Trane_RTHB_542kW_5_26COP_Valve =
     Buildings.Fluid.Chillers.Data.ElectricEIR.Generic (
       QEva_flow_nominal =  -541500,
@@ -7436,6 +7573,7 @@ Chiller:Electric:EIR,
     0.0;                     !- Design Heat Recovery Water Flow Rate {m3/s}
 </pre>
 </html>"));
+
   record ElectricEIRChiller_York_YS_672kW_7_90COP_Valve =
     Buildings.Fluid.Chillers.Data.ElectricEIR.Generic (
       QEva_flow_nominal =  -671600,
@@ -7490,6 +7628,7 @@ Chiller:Electric:EIR,
     0.0;                     !- Design Heat Recovery Water Flow Rate {m3/s}
 </pre>
 </html>"));
+
   record ElectricEIRChiller_Carrier_23XL_686kW_5_91COP_Valve =
     Buildings.Fluid.Chillers.Data.ElectricEIR.Generic (
       QEva_flow_nominal =  -685700,
@@ -7544,6 +7683,7 @@ Chiller:Electric:EIR,
     0.0;                     !- Design Heat Recovery Water Flow Rate {m3/s}
 </pre>
 </html>"));
+
   record ElectricEIRChiller_Trane_RTHC_707kW_7_77COP_Valve =
     Buildings.Fluid.Chillers.Data.ElectricEIR.Generic (
       QEva_flow_nominal =  -706800,
@@ -7598,6 +7738,7 @@ Chiller:Electric:EIR,
     0.0;                     !- Design Heat Recovery Water Flow Rate {m3/s}
 </pre>
 </html>"));
+
   record ElectricEIRChiller_York_YS_756kW_7_41COP_Valve =
     Buildings.Fluid.Chillers.Data.ElectricEIR.Generic (
       QEva_flow_nominal =  -756000,
@@ -7652,6 +7793,7 @@ Chiller:Electric:EIR,
     0.0;                     !- Design Heat Recovery Water Flow Rate {m3/s}
 </pre>
 </html>"));
+
   record ElectricEIRChiller_York_YS_781kW_5_42COP_Valve =
     Buildings.Fluid.Chillers.Data.ElectricEIR.Generic (
       QEva_flow_nominal =  -780700,
@@ -7706,6 +7848,7 @@ Chiller:Electric:EIR,
     0.0;                     !- Design Heat Recovery Water Flow Rate {m3/s}
 </pre>
 </html>"));
+
   record ElectricEIRChiller_Carrier_23XL_830kW_6_97COP_Valve =
     Buildings.Fluid.Chillers.Data.ElectricEIR.Generic (
       QEva_flow_nominal =  -829900,
@@ -7760,6 +7903,7 @@ Chiller:Electric:EIR,
     0.0;                     !- Design Heat Recovery Water Flow Rate {m3/s}
 </pre>
 </html>"));
+
   record ElectricEIRChiller_Carrier_23XL_862kW_6_11COP_Valve =
     Buildings.Fluid.Chillers.Data.ElectricEIR.Generic (
       QEva_flow_nominal =  -861500,
@@ -7814,6 +7958,7 @@ Chiller:Electric:EIR,
     0.0;                     !- Design Heat Recovery Water Flow Rate {m3/s}
 </pre>
 </html>"));
+
   record ElectricEIRChiller_Carrier_23XL_862kW_6_84COP_Valve =
     Buildings.Fluid.Chillers.Data.ElectricEIR.Generic (
       QEva_flow_nominal =  -861500,
@@ -7868,6 +8013,7 @@ Chiller:Electric:EIR,
     0.0;                     !- Design Heat Recovery Water Flow Rate {m3/s}
 </pre>
 </html>"));
+
   record ElectricEIRChiller_Carrier_23XL_865kW_6_05COP_Valve =
     Buildings.Fluid.Chillers.Data.ElectricEIR.Generic (
       QEva_flow_nominal =  -865100,
@@ -7922,6 +8068,7 @@ Chiller:Electric:EIR,
     0.0;                     !- Design Heat Recovery Water Flow Rate {m3/s}
 </pre>
 </html>"));
+
   record ElectricEIRChiller_York_YS_879kW_5_82COP_Valve =
     Buildings.Fluid.Chillers.Data.ElectricEIR.Generic (
       QEva_flow_nominal =  -879100,
@@ -7976,6 +8123,7 @@ Chiller:Electric:EIR,
     0.0;                     !- Design Heat Recovery Water Flow Rate {m3/s}
 </pre>
 </html>"));
+
   record ElectricEIRChiller_Trane_RTHC_1009kW_5_37COP_Valve =
     Buildings.Fluid.Chillers.Data.ElectricEIR.Generic (
       QEva_flow_nominal =  -1009200,
@@ -8030,6 +8178,7 @@ Chiller:Electric:EIR,
     0.0;                     !- Design Heat Recovery Water Flow Rate {m3/s}
 </pre>
 </html>"));
+
   record ElectricEIRChiller_Trane_RTHB_1051kW_5_05COP_Valve =
     Buildings.Fluid.Chillers.Data.ElectricEIR.Generic (
       QEva_flow_nominal =  -1051400,
@@ -8084,6 +8233,7 @@ Chiller:Electric:EIR,
     0.0;                     !- Design Heat Recovery Water Flow Rate {m3/s}
 </pre>
 </html>"));
+
   record ElectricEIRChiller_Carrier_23XL_1062kW_5_50COP_Valve =
     Buildings.Fluid.Chillers.Data.ElectricEIR.Generic (
       QEva_flow_nominal =  -1062000,
@@ -8138,6 +8288,7 @@ Chiller:Electric:EIR,
     0.0;                     !- Design Heat Recovery Water Flow Rate {m3/s}
 </pre>
 </html>"));
+
   record ElectricEIRChiller_Trane_RTHC_1066kW_5_73COP_Valve =
     Buildings.Fluid.Chillers.Data.ElectricEIR.Generic (
       QEva_flow_nominal =  -1065500,
@@ -8192,6 +8343,7 @@ Chiller:Electric:EIR,
     0.0;                     !- Design Heat Recovery Water Flow Rate {m3/s}
 </pre>
 </html>"));
+
   record ElectricEIRChiller_Trane_RTHC_1094kW_6_55COP_Valve =
     Buildings.Fluid.Chillers.Data.ElectricEIR.Generic (
       QEva_flow_nominal =  -1093600,
@@ -8246,6 +8398,7 @@ Chiller:Electric:EIR,
     0.0;                     !- Design Heat Recovery Water Flow Rate {m3/s}
 </pre>
 </html>"));
+
   record ElectricEIRChiller_Carrier_23XL_1108kW_6_92COP_Valve =
     Buildings.Fluid.Chillers.Data.ElectricEIR.Generic (
       QEva_flow_nominal =  -1107700,
@@ -8300,6 +8453,7 @@ Chiller:Electric:EIR,
     0.0;                     !- Design Heat Recovery Water Flow Rate {m3/s}
 </pre>
 </html>"));
+
   record ElectricEIRChiller_York_YS_1171kW_9_15COP_Valve =
     Buildings.Fluid.Chillers.Data.ElectricEIR.Generic (
       QEva_flow_nominal =  -1171000,
@@ -8354,6 +8508,7 @@ Chiller:Electric:EIR,
     0.0;                     !- Design Heat Recovery Water Flow Rate {m3/s}
 </pre>
 </html>"));
+
   record ElectricEIRChiller_Carrier_23XL_1196kW_6_39COP_Valve =
     Buildings.Fluid.Chillers.Data.ElectricEIR.Generic (
       QEva_flow_nominal =  -1195600,
@@ -8408,6 +8563,7 @@ Chiller:Electric:EIR,
     0.0;                     !- Design Heat Recovery Water Flow Rate {m3/s}
 </pre>
 </html>"));
+
   record ElectricEIRChiller_York_YS_1554kW_9_31COP_Valve =
     Buildings.Fluid.Chillers.Data.ElectricEIR.Generic (
       QEva_flow_nominal =  -1554300,
@@ -8462,6 +8618,7 @@ Chiller:Electric:EIR,
     0.0;                     !- Design Heat Recovery Water Flow Rate {m3/s}
 </pre>
 </html>"));
+
   record ElectricEIRChiller_York_YS_1758kW_5_84COP_Valve =
     Buildings.Fluid.Chillers.Data.ElectricEIR.Generic (
       QEva_flow_nominal =  -1758300,
@@ -8516,6 +8673,7 @@ Chiller:Electric:EIR,
     0.0;                     !- Design Heat Recovery Water Flow Rate {m3/s}
 </pre>
 </html>"));
+
   record ElectricEIRChiller_Trane_CGWD_207kW_3_99COP_None =
     Buildings.Fluid.Chillers.Data.ElectricEIR.Generic (
       QEva_flow_nominal =  -207400,
@@ -8570,6 +8728,7 @@ Chiller:Electric:EIR,
     0.0;                     !- Design Heat Recovery Water Flow Rate {m3/s}
 </pre>
 </html>"));
+
   record ElectricEIRChiller_York_YCAL0033EE_101kW_3_1COP_AirCooled =
     Buildings.Fluid.Chillers.Data.ElectricEIR.Generic (
       QEva_flow_nominal =  -100582,
@@ -8625,10 +8784,10 @@ Chiller:Electric:EIR,
     0.0;                     !- Design Heat Recovery Water Flow Rate {m3/s}
 </pre>
 <br>
-Note that the reference condenser fluid volumetric flow rate listed in the 
+Note that the reference condenser fluid volumetric flow rate listed in the
 EnergyPlus performance data is not reasonable.  The value obtained
 from the manufacturer data sheet is used instead.  The data sheet
-is available 
+is available
 <a href=\"https://www.johnsoncontrols.com/en_hk/-/media/jci/be/united-states/hvac-equipment/chillers/files/be_eng_guide_-ycal_scroll-chillers-style-e-50-and-60-hz-111417.pdf\">here</a>
 .  Please see the Section for Physical Data and Nominal Ratings and row for Condender Fans Total Chiller CFM.
 </html>"));
