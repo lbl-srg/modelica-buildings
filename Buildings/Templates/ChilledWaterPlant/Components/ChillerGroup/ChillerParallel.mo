@@ -4,11 +4,14 @@ model ChillerParallel
     Buildings.Templates.ChilledWaterPlant.Components.ChillerGroup.Interfaces.ChillerGroup(
     final typ=Buildings.Templates.ChilledWaterPlant.Components.Types.ChillerGroup.ChillerParallel);
 
-  parameter Boolean has_dedPum "Parallel chillers are connected to dedicated pumps";
-
   inner replaceable
     Buildings.Templates.ChilledWaterPlant.Components.Chiller.ElectricChiller
-    chi[nChi] constrainedby
+    chi[nChi](
+    each final m1_flow_nominal=m1_flow_nominal/nChi,
+    each final m2_flow_nominal=m2_flow_nominal/nChi,
+    each final dp1_nominal=dp1_nominal,
+    each final dp2_nominal=dp2_nominal)
+              constrainedby
     Buildings.Templates.ChilledWaterPlant.Components.Chiller.Interfaces.Chiller(
     redeclare each final package Medium1 = MediumCW,
     redeclare each final package Medium2 = MediumCHW)
@@ -29,7 +32,9 @@ model ChillerParallel
     annotation (Placement(transformation(
       extent={{-10,-10},{10,10}},rotation=0,origin={60,84})));
   Fluid.Actuators.Valves.TwoWayLinear valChi[nChi](
-    redeclare each final package Medium = MediumCHW) if not has_dedPum
+    redeclare each final package Medium = MediumCHW,
+    each final m_flow_nominal=m2_flow_nominal/nChi,
+    each final dpValve_nominal=dpValve_nominal)        if not has_dedPum
     "Chillers valves"
     annotation (Placement(transformation(
       extent={{10,-10},{-10,10}},rotation=0,origin={-70,20})));

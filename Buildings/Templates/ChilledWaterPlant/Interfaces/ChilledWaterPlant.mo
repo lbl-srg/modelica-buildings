@@ -10,6 +10,8 @@ partial model ChilledWaterPlant
     annotation (
       Evaluate=true,
       Dialog(group="Configuration"));
+  outer parameter ExternData.JSONFile dat
+    "External parameter file";
 
   parameter Integer nChi "Number of chillers";
 

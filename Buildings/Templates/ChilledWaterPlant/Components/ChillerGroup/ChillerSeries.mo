@@ -2,11 +2,17 @@ within Buildings.Templates.ChilledWaterPlant.Components.ChillerGroup;
 model ChillerSeries
   extends
     Buildings.Templates.ChilledWaterPlant.Components.ChillerGroup.Interfaces.ChillerGroup(
-    final typ=Buildings.Templates.ChilledWaterPlant.Components.Types.ChillerGroup.ChillerSeries);
+    final typ=Buildings.Templates.ChilledWaterPlant.Components.Types.ChillerGroup.ChillerSeries,
+    final has_dedPum=false);
 
   inner replaceable
     Buildings.Templates.ChilledWaterPlant.Components.Chiller.ElectricChiller
-    chi[nChi] constrainedby
+    chi[nChi](
+    each final m1_flow_nominal=m1_flow_nominal/nChi,
+    each final m2_flow_nominal=m2_flow_nominal/nChi,
+    each final dp1_nominal=dp1_nominal,
+    each final dp2_nominal=dp2_nominal)
+              constrainedby
     Buildings.Templates.ChilledWaterPlant.Components.Chiller.Interfaces.Chiller(
     redeclare each final package Medium1 = Medium1,
     redeclare each final package Medium2 = Medium2,
@@ -14,18 +20,24 @@ model ChillerSeries
             -20,-20},{20,20}}, rotation=0)));
 
   Fluid.FixedResistances.Junction splChi[nChi](redeclare package Medium = Medium,
-      energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)
+      energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
+    final m_flow_nominal=fill(m2_flow_nominal, 3),
+    final dp_nominal=fill(0, 3))
     "Chiller splitter"              annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=180,
         origin={60,-60})));
   Fluid.FixedResistances.Junction mixChi[nChi](redeclare package Medium = Medium,
-      energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState) "Chiller mixer"
+      energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
+    final m_flow_nominal=fill(m2_flow_nominal, 3),
+    final dp_nominal=fill(0, 3))                                "Chiller mixer"
     annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=180,
         origin={-60,-60})));
-  Fluid.Actuators.Valves.TwoWayLinear valChi[nChi] if has_byp "Chiller valve"
+  Fluid.Actuators.Valves.TwoWayLinear valChi[nChi](each final m_flow_nominal=
+        m2_flow_nominal/nChi, each final dpValve_nominal=dpValve_nominal)
+                                                   if has_byp "Chiller valve"
     annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=0,

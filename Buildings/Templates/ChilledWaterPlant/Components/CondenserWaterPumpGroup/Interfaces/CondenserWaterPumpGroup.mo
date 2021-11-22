@@ -18,15 +18,19 @@ partial model CondenserWaterPumpGroup
 
   parameter Boolean has_WSE "= true if pump supply waterside economizer";
 
-  parameter Modelica.SIunits.MassFlowRate m_flow_nominal=
-   dat.getReal(varName=id + ".CondenserPump.m_flow_nominal.value")
-   "Nominal mass flow rate per pump";
-  parameter Modelica.SIunits.PressureDifference dp_nominal "Nominal pressure drop per pump";
+  parameter Modelica.SIunits.MassFlowRate mTot_flow_nominal = m_flow_nominal*nPum "Total mass flow rate for pump group";
+
+  // FixMe: Flow and dp should be read from pump curve, but are currently
+  // assumed from system flow rate and pressure drop.
+  final parameter Modelica.SIunits.MassFlowRate m_flow_nominal = mTot_flow_nominal/nPum
+    "Nominal mass flow rate per pump";
+  parameter Modelica.SIunits.PressureDifference dp_nominal
+    "Nominal pressure drop per pump";
+
   parameter Modelica.SIunits.PressureDifference dpValve_nominal=
-    dat.getReal(varName=id + ".CondenserPump.dpVal_nominal.value")
+    dat.getReal(varName=id + ".CondenserPump.dpValve_nominal.value")
     "Shutoff valve pressure drop";
 
-  Modelica.SIunits.MassFlowRate mTot_flow_nominal = m_flow_nominal*nPum "Total mass flow rate for pump group";
 
 
   Bus busCon(final nPum=nPum)

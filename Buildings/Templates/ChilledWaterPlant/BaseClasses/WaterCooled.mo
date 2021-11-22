@@ -12,7 +12,7 @@ model WaterCooled
   final parameter Integer nCooTow = cooTow.nCooTow "Number of cooling towers";
 
   final parameter Modelica.SIunits.MassFlowRate mCon_flow_nominal=
-    pumCon.mTot_flow_nominal
+    dat.getReal(varName=id + ".CondenserWater.m_flow_nominal.value")
     "Condenser mass flow rate";
 
   inner replaceable
@@ -25,7 +25,9 @@ model WaterCooled
     annotation (Placement(transformation(extent={{-180,-20},{-160,0}})));
   inner replaceable
     Buildings.Templates.ChilledWaterPlant.Components.CondenserWaterPumpGroup.Headered
-    pumCon(final has_WSE=not WSE.is_none)
+    pumCon(final has_WSE=not WSE.is_none,
+    mTot_flow_nominal=mCon_flow_nominal,
+    dp_nominal=dpCon_nominal)
            constrainedby
     Buildings.Templates.ChilledWaterPlant.Components.CondenserWaterPumpGroup.Interfaces.CondenserWaterPumpGroup(
       redeclare final package Medium = MediumCW,
@@ -54,6 +56,11 @@ model WaterCooled
         extent={{-10,10},{10,-10}},
         rotation=0,
         origin={-90,-70})));
+
+protected
+  parameter Modelica.SIunits.PressureDifference dpCon_nominal=
+    chiGro.dp1_nominal + cooTow.dp_nominal
+    "Nominal pressure drop for condenser loop";
 equation
   connect(TCWRet.port_a, cooTow.port_a)
     annotation (Line(points={{-140,-70},{-192,-70},{-192,-10},{-180,-10}},

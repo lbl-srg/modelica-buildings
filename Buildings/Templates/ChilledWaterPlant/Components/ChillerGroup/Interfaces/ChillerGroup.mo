@@ -9,6 +9,7 @@ partial model ChillerGroup
   parameter Boolean is_airCoo
     "= true, chillers in group are air cooled, 
     = false, chillers in group are water cooled";
+  parameter Boolean has_dedPum "Parallel chillers are connected to dedicated pumps";
 
   parameter Integer nChi "Number of chillers in group";
 
@@ -77,6 +78,28 @@ partial model ChillerGroup
   parameter Modelica.SIunits.MassFlowRate m2_flow_nominal(min=0)
     "Nominal mass flow rate"
     annotation(Dialog(group = "Nominal condition"));
+
+
+  parameter Modelica.SIunits.PressureDifference dp1_nominal=
+    if is_airCoo then 0
+    else dat.getReal(varName=id + ".ChillerGroup.dpCW_nominal.value")
+    "Pressure difference"
+    annotation(Dialog(group = "Nominal condition", enable=not is_airCoo));
+  parameter Modelica.SIunits.PressureDifference dp2_nominal=
+    dat.getReal(varName=id + ".ChillerGroup.dpCHW_nominal.value")
+    "Pressure difference"
+    annotation(Dialog(group = "Nominal condition"));
+
+  parameter Modelica.SIunits.PressureDifference dpValve_nominal=
+    if has_dedPum then 0
+    else dat.getReal(varName=id + ".ChillerGroup.dpValve_nominal.value")
+    "Nominal pressure drop of chiller valves"
+    annotation(Dialog(group = "Nominal condition"));
+
+  final Modelica.SIunits.PressureDifference dpCHW_nominal=dp2_nominal + dpValve_nominal
+    "Total nominal pressure drop on chilled water side";
+
+
   parameter MediumCW.MassFlowRate m1_flow_small(min=0) = 1E-4*abs(m1_flow_nominal)
     "Small mass flow rate for regularization of zero flow"
     annotation(Dialog(tab = "Advanced", enable=not is_airCoo));

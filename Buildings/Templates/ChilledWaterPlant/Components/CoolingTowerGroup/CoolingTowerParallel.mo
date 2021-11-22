@@ -77,7 +77,7 @@ model CoolingTowerParallel
   Experimental.DHC.EnergyTransferStations.BaseClasses.CollectorDistributor colDis(
     redeclare final package Medium = Medium,
     final mDis_flow_nominal=m_flow_nominal,
-    each final mCon_flow_nominal=mTow_flow_nominal,
+    final mCon_flow_nominal=fill(mTow_flow_nominal, nCooTow),
     final nCon=nCooTow)
     annotation (Placement(transformation(extent={{-20,-60},{20,-40}})));
   Fluid.Sources.MassFlowSource_T floZer_b(

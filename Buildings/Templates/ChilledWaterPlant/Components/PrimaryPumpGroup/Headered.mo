@@ -12,15 +12,15 @@ model Headered
   Fluid.FixedResistances.Junction splByp(
     redeclare package Medium = Medium,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
-    each final m_flow_nominal=m_flow_nominal,
-    each final dp_nominal=0)
+    final m_flow_nominal=fill(mTot_flow_nominal, 3),
+    final dp_nominal=fill(0, 3))
     "Common leg or bypass splitter" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={80,0})));
   Fluid.Actuators.Valves.TwoWayLinear valByp(
     redeclare final package Medium = Medium,
-    final m_flow_nominal=m_flow_nominal,
+    final m_flow_nominal=mTot_flow_nominal,
     final dpValve_nominal=dpByp_nominal)
       if has_byp "Bypass valve"
     annotation (
@@ -33,8 +33,7 @@ model Headered
     final nPum=nPum,
     final m_flow_nominal=m_flow_nominal,
     final dp_nominal=dp_nominal,
-    final dpValve_nominal=dpValve_nominal,
-    final rhoStd=Medium.density_pTX(101325, 273.15+4, Medium.X_default))
+    final dpValve_nominal=dpValve_nominal)
     "Primary pumps"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Fluid.Actuators.Valves.TwoWayLinear valWSEByp(

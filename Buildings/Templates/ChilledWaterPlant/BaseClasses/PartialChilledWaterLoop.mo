@@ -14,12 +14,16 @@ model PartialChilledWaterLoop
   final parameter Integer nPumPri = pumPri.nPum "Number of primary pumps";
   final parameter Integer nPumSec = if pumSec.is_none then 0 else pumSec.nPum "Number of secondary pumps";
 
-  final parameter Modelica.SIunits.MassFlowRate mPri_flow_nominal=
-    pumPri.mTot_flow_nominal
+  parameter Modelica.SIunits.MassFlowRate mPri_flow_nominal=
+    dat.getReal(varName=id + ".ChilledWater.mPri_flow_nominal.value")
     "Primary mass flow rate";
-  final parameter Modelica.SIunits.MassFlowRate mSec_flow_nominal=
-    if pumSec.is_none then mPri_flow_nominal else pumSec.mTot_flow_nominal
+  parameter Modelica.SIunits.MassFlowRate mSec_flow_nominal=
+    if pumSec.is_none then mPri_flow_nominal else
+    dat.getReal(varName=id + ".ChilledWater.mSec_flow_nominal.value")
     "Secondary mass flow rate";
+  parameter Modelica.SIunits.PressureDifference dpDem_nominal=
+    dat.getReal(varName=id + ".ChilledWater.dpSetPoi.value")
+    "Differential pressure setpoint on the demand side";
 
   inner replaceable
     Buildings.Templates.ChilledWaterPlant.Components.ChillerGroup.ChillerParallel
@@ -42,7 +46,9 @@ model PartialChilledWaterLoop
       extent={{10,-10},{-10,10}},rotation=90,origin={-40,-72})));
   inner replaceable
     Buildings.Templates.ChilledWaterPlant.Components.PrimaryPumpGroup.Headered
-    pumPri constrainedby
+    pumPri(final mTot_flow_nominal=mPri_flow_nominal,
+                                                   dp_nominal=dpPri_nominal)
+           constrainedby
     Buildings.Templates.ChilledWaterPlant.Components.PrimaryPumpGroup.Interfaces.PrimaryPumpGroup(
       redeclare final package Medium = MediumCHW,
       final nChi=nChi,
@@ -54,7 +60,9 @@ model PartialChilledWaterLoop
     annotation (Placement(transformation(extent={{0,0},{20,20}})));
   inner replaceable
     Buildings.Templates.ChilledWaterPlant.Components.SecondaryPumpGroup.None
-    pumSec constrainedby
+    pumSec(final mTot_flow_nominal=mSec_flow_nominal,
+                                                   dp_nominal=dpSec_nominal)
+           constrainedby
     Buildings.Templates.ChilledWaterPlant.Components.SecondaryPumpGroup.Interfaces.SecondaryPumpGroup(
       redeclare final package Medium = MediumCHW)
     "Chilled water secondary pump group"
@@ -113,6 +121,16 @@ model PartialChilledWaterLoop
       extent={{10,10},{-10,-10}},
       rotation=180,
       origin={70,60})));
+
+protected
+  parameter Modelica.SIunits.PressureDifference dpPri_nominal=
+    if pumSec.is_none then chiGro.dpCHW_nominal + dpDem_nominal
+    else chiGro.dpCHW_nominal
+    "Nominal pressure drop for primary loop";
+  parameter Modelica.SIunits.PressureDifference dpSec_nominal=
+    if pumSec.is_none then 0 else dpDem_nominal
+    "Nominal pressure drop for secondary loop";
+
 equation
   connect(TCHWRet.port_a,WSE. port_a2)
     annotation (Line(points={{120,-70},{-20,-70},{-20,-88},{-34,-88},{-34,-82}},

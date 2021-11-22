@@ -5,6 +5,9 @@ partial model Chiller
     redeclare replaceable package Medium2=Buildings.Media.Water,
     final hasMedium1=true,
     final hasMedium2=not is_airCoo);
+  extends Buildings.Fluid.Interfaces.FourPortFlowResistanceParameters(
+     final computeFlowResistance1=true,
+     final computeFlowResistance2=not is_airCoo);
 
   parameter Buildings.Templates.ChilledWaterPlant.Components.Types.Chiller typ "Type of chiller"
     annotation (Evaluate=true, Dialog(group="Configuration"));

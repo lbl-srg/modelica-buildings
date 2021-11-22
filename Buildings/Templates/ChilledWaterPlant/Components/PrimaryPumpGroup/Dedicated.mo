@@ -7,14 +7,15 @@ model Dedicated
     final has_WSEByp=false);
   Fluid.FixedResistances.Junction splByp(redeclare package Medium = Medium,
       energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
-    each final m_flow_nominal=m_flow_nominal,
-    each final dp_nominal=0)
+    final m_flow_nominal=fill(mTot_flow_nominal, 3),
+    final dp_nominal=fill(0, 3))
     "Bypass splitter"               annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={80,0})));
   Fluid.Actuators.Valves.TwoWayLinear valByp(final m_flow_nominal=
-        m_flow_nominal)                      if has_byp
+        mTot_flow_nominal, final dpValve_nominal=dpByp_nominal)
+                                             if has_byp
                                              "Bypass valve" annotation (
       Placement(transformation(
         extent={{-10,10},{10,-10}},

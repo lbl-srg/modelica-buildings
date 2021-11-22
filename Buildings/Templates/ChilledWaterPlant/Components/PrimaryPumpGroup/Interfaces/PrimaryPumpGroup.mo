@@ -28,15 +28,24 @@ partial model PrimaryPumpGroup
   parameter Integer nPum = nChi "Number of pumps"
   annotation(Dialog(enable=not is_dedicated));
 
-  parameter Modelica.SIunits.MassFlowRate m_flow_nominal=
-   dat.getReal(varName=id + ".PrimaryPump.m_flow_nominal.value")
-   "Nominal mass flow rate per pump";
-  parameter Modelica.SIunits.PressureDifference dp_nominal "Nominal pressure drop per pump";
-  parameter Modelica.SIunits.PressureDifference dpValve_nominal=
-    dat.getReal(varName=id + ".PrimaryPump.dpVal_nominal.value")
-    "Shutoff valve pressure drop";
+  parameter Modelica.SIunits.MassFlowRate mTot_flow_nominal = m_flow_nominal*nPum "Total mass flow rate for pump group";
 
-  Modelica.SIunits.MassFlowRate mTot_flow_nominal = m_flow_nominal*nPum "Total mass flow rate for pump group";
+  // FixMe: Flow and dp should be read from pump curve, but are currently
+  // assumed from system flow rate and pressure drop.
+  final parameter Modelica.SIunits.MassFlowRate m_flow_nominal = mTot_flow_nominal/nPum
+    "Nominal mass flow rate per pump";
+  parameter Modelica.SIunits.PressureDifference dp_nominal
+    "Nominal pressure drop per pump";
+
+  parameter Modelica.SIunits.PressureDifference dpValve_nominal=
+    dat.getReal(varName=id + ".PrimaryPump.dpValve_nominal.value")
+    "Shutoff valve pressure drop";
+  parameter Modelica.SIunits.PressureDifference dpByp_nominal=
+    if has_byp
+    then dat.getReal(varName=id + ".PrimaryPump.dpByp_nominal.valve")
+    else 0
+    "Bypass valve pressure drop";
+
 
 
   Bus busCon "Control bus" annotation (Placement(transformation(
