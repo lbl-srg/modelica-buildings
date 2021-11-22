@@ -1,7 +1,7 @@
 within Buildings.Fluid.Movers.Validation;
 model PowerEuler
   "Power calculation comparison among three mover types, using Euler number computation for m_flow and dp"
-  extends PowerExact(
+  extends PowerSimplified(
     pump_dp(per=perPea),
     pump_m_flow(per=perPea));
 
