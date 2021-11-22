@@ -70,5 +70,7 @@ September 17, 2010, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
-</html>"));
+</html>"),
+    Diagram(coordinateSystem(extent={{-100,-100},{100,120}})),
+    Icon(coordinateSystem(extent={{-100,-100},{100,100}})));
 end ElectricReformulatedEIR;

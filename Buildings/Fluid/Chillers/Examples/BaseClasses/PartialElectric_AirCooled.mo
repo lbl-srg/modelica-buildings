@@ -16,25 +16,28 @@ partial model PartialElectric_AirCooled
   parameter Modelica.SIunits.MassFlowRate mCon_flow_nominal
     "Nominal mass flow rate at condenser";
 
-  Sources.MassFlowSource_WeatherData       sou1(
+  Sources.MassFlowSource_WeatherData sou1(
     redeclare package Medium = Medium1,
     m_flow=mCon_flow_nominal)
+    "Weather data"
     annotation (Placement(transformation(extent={{-60,6},{-40,26}})));
   Buildings.Fluid.Sources.MassFlowSource_T sou2(
     redeclare package Medium = Medium2,
     use_T_in=true,
     m_flow=mEva_flow_nominal,
-    T=291.15)
+    T=291.15) "Mass flow source"
     annotation (Placement(transformation(extent={{60,-6},{40,14}})));
   Buildings.Fluid.Sources.Boundary_pT sin1(
     redeclare package Medium = Medium1,
-    nPorts=1)                           annotation (Placement(
+    nPorts=1) "Pressure source"
+    annotation (Placement(
         transformation(
         extent={{10,-10},{-10,10}},
         origin={70,40})));
   Buildings.Fluid.Sources.Boundary_pT sin2(
     redeclare package Medium = Medium2,
-    nPorts=1)                           annotation (Placement(
+    nPorts=1) "Pressure source"
+    annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         origin={-70,-20})));
@@ -49,11 +52,13 @@ partial model PartialElectric_AirCooled
     height=6,
     startTime=197*24*3600,
     duration=12*3600)
-                   "Evaporator inlet temperature"
+    "Evaporator inlet temperature"
     annotation (Placement(transformation(extent={{50,-40},{70,-20}})));
   Modelica.Blocks.Sources.Pulse pulse(period=3600/2)
+    "Pulse signal"
     annotation (Placement(transformation(extent={{-80,80},{-60,100}})));
   Modelica.Blocks.Logical.GreaterThreshold greaterThreshold(threshold=0.5)
+    "Greater threshold"
     annotation (Placement(transformation(extent={{-40,80},{-20,100}})));
   Buildings.Fluid.FixedResistances.PressureDrop res1(
     redeclare package Medium = Medium1,
@@ -91,5 +96,6 @@ equation
       points={{-80,30},{-70,30},{-70,16.2},{-60,16.2}},
       color={255,204,51},
       thickness=0.5));
-  annotation ();
+  annotation (Diagram(coordinateSystem(extent={{-120,-100},{100,120}})), Icon(
+        coordinateSystem(extent={{-120,-100},{100,120}})));
 end PartialElectric_AirCooled;

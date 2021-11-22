@@ -20,23 +20,25 @@ partial model PartialElectric
     redeclare package Medium = Medium1,
     use_T_in=true,
     m_flow=mCon_flow_nominal,
-    T=298.15)
+    T=298.15) "Mass flow source"
     annotation (Placement(transformation(extent={{-60,6},{-40,26}})));
   Buildings.Fluid.Sources.MassFlowSource_T sou2(
     redeclare package Medium = Medium2,
     use_T_in=true,
     m_flow=mEva_flow_nominal,
-    T=291.15)
+    T=291.15) "Mass flow source"
     annotation (Placement(transformation(extent={{60,-6},{40,14}})));
   Buildings.Fluid.Sources.Boundary_pT sin1(
     redeclare package Medium = Medium1,
-    nPorts=1)                           annotation (Placement(
+    nPorts=1) "Pressure source"
+    annotation (Placement(
         transformation(
         extent={{10,-10},{-10,10}},
         origin={70,40})));
   Buildings.Fluid.Sources.Boundary_pT sin2(
     redeclare package Medium = Medium2,
-    nPorts=1)                           annotation (Placement(
+    nPorts=1) "Pressure source"
+    annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         origin={-70,-20})));
@@ -59,9 +61,11 @@ partial model PartialElectric
     duration=3600) "Evaporator inlet temperature"
     annotation (Placement(transformation(extent={{50,-40},{70,-20}})));
   Modelica.Blocks.Sources.Pulse pulse(period=3600/2)
+    "Pulse signal generator"
     annotation (Placement(transformation(extent={{-80,80},{-60,100}})));
   Modelica.Blocks.Logical.GreaterThreshold greaterThreshold(threshold=0.5)
-    annotation (Placement(transformation(extent={{-40,80},{-20,100}})));
+    "Greater threshold" annotation (
+    Placement(transformation(extent = {{-40, 80}, {-20, 100}})));
   Buildings.Fluid.FixedResistances.PressureDrop res1(
     redeclare package Medium = Medium1,
     m_flow_nominal=mCon_flow_nominal,
@@ -94,4 +98,6 @@ equation
       points={{-40,-20},{-60,-20}},
       color={0,127,255},
       smooth=Smooth.None));
+  annotation (Diagram(coordinateSystem(extent={{-100,-100},{100,120}})), Icon(
+        coordinateSystem(extent={{-100,-100},{100,120}})));
 end PartialElectric;
