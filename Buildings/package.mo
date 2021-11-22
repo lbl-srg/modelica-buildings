@@ -325,29 +325,31 @@ to <b style=\"color:blue\">existing</b> libraries:
 <tr><td colspan=\"2\"><b>Buildings.Fluid.Movers</b>
     </td>
 </tr>
-<tr><td valign=\"top\">Buildings.Fluid.Movers.BaseClasses.Euler.computeTables<br/>
-                     Buildings.Fluid.Movers.BaseClasses.Euler.correlation<br/>
-                     Buildings.Fluid.Movers.BaseClasses.Euler.findPeak<br/>
-                     Buildings.Fluid.Movers.BaseClasses.Euler.lookupTables<br/>
-                     Buildings.Fluid.Movers.BaseClasses.Euler.peak<br/>
-                     Buildings.Fluid.Movers.BaseClasses.Validation.Euler<br/>
-                     Buildings.Fluid.Movers.Data.Fans.Continental.TFD200<br/>
-                     Buildings.Fluid.Movers.Data.Fans.Continental.TFD225<br/>
-                     Buildings.Fluid.Movers.Data.Fans.Continental.TFD250<br/>
-                     Buildings.Fluid.Movers.Data.Fans.Continental.TFD280<br/>
-                     Buildings.Fluid.Movers.Data.Fans.Continental.TFD315<br/>
-                     Buildings.Fluid.Movers.Data.Fans.Continental.TFD335<br/>
-                     Buildings.Fluid.Movers.Data.Fans.Continental.TFD400<br/>
-                     Buildings.Fluid.Movers.Data.Fans.Continental.TFD450<br/>
-                     Buildings.Fluid.Movers.Data.Fans.Greenheck.BIDW12<br/>
-                     Buildings.Fluid.Movers.Data.Fans.Greenheck.BIDW13<br/>
-                     Buildings.Fluid.Movers.Data.Fans.Greenheck.BIDW15<br/>
-                     Buildings.Fluid.Movers.Data.Fans.Greenheck.BIDW16<br/>
-                     Buildings.Fluid.Movers.Data.Fans.Greenheck.BIDW18                     
+<tr><td valign=\"top\">Buildings.Fluid.Movers.Validation.PowerEuler<br/>
+                       Buildings.Fluid.Movers.BaseClasses.Euler.computeTables<br/>
+                       Buildings.Fluid.Movers.BaseClasses.Euler.correlation<br/>
+                       Buildings.Fluid.Movers.BaseClasses.Euler.findPeak<br/>
+                       Buildings.Fluid.Movers.BaseClasses.Euler.lookupTables<br/>
+                       Buildings.Fluid.Movers.BaseClasses.Euler.peak<br/>
+                       Buildings.Fluid.Movers.BaseClasses.Validation.Euler<br/>
+                       Buildings.Fluid.Movers.Data.Fans.Continental.TFD200<br/>
+                       Buildings.Fluid.Movers.Data.Fans.Continental.TFD225<br/>
+                       Buildings.Fluid.Movers.Data.Fans.Continental.TFD250<br/>
+                       Buildings.Fluid.Movers.Data.Fans.Continental.TFD280<br/>
+                       Buildings.Fluid.Movers.Data.Fans.Continental.TFD315<br/>
+                       Buildings.Fluid.Movers.Data.Fans.Continental.TFD335<br/>
+                       Buildings.Fluid.Movers.Data.Fans.Continental.TFD400<br/>
+                       Buildings.Fluid.Movers.Data.Fans.Continental.TFD450<br/>
+                       Buildings.Fluid.Movers.Data.Fans.Greenheck.BIDW12<br/>
+                       Buildings.Fluid.Movers.Data.Fans.Greenheck.BIDW13<br/>
+                       Buildings.Fluid.Movers.Data.Fans.Greenheck.BIDW15<br/>
+                       Buildings.Fluid.Movers.Data.Fans.Greenheck.BIDW16<br/>
+                       Buildings.Fluid.Movers.Data.Fans.Greenheck.BIDW18
     </td>
-    <td valign=\"top\">Package that calculates the mover efficiency using Euler number and its correlation,
-                     its validation model, and relevant data packages.<br/>
-                     This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2668\">issue 2668</a>.
+    <td valign=\"top\">Package that computes the mover efficiency and power
+                       using the Euler number and its correlation,
+                       its validation model, and relevant data packages.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2668\">issue 2668</a>.
     </td>
 </tr>
 <tr><td colspan=\"2\"><b>Buildings.Utilities.Math</b>
