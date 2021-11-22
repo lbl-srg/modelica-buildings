@@ -7,9 +7,10 @@ model ShadeControl
   inner Building building(
     idfName=Modelica.Utilities.Files.loadResource(
       "modelica://Buildings/Resources/Data/ThermalZones/EnergyPlus/Examples/EMSWindowShadeControl/EMSWindowShadeControl.idf"),
+    epwName=Modelica.Utilities.Files.loadResource(
+      "modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.epw"),
     weaName=Modelica.Utilities.Files.loadResource(
-      "modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"),
-    showWeatherData=true)
+      "modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"))
     "Building model"
     annotation (Placement(transformation(extent={{-168,10},{-148,30}})));
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal[:]=0.3*1.2/3600*{113.3,113.3,169.9}

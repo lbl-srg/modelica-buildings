@@ -23,7 +23,7 @@ equation
   connect(add.y, cheEqu.u2) annotation (Line(points={{1,10},{10,10},{10,14},{18,
           14}}, color={0,0,127}));
   annotation (
-    __Dymola_Commands(file="Resources/Scripts/Dymola/Utilities/Diagnostics/Validation/CheckEquality.mos"
+    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Utilities/Diagnostics/Validation/CheckEquality.mos"
         "Simulate and plot"),
   Documentation(
     info="<html>

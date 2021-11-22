@@ -25,9 +25,11 @@ partial model DataCenter
     m_flow_nominal=mAir_flow_nominal,
     dp(start=249),
     m_flow(start=mAir_flow_nominal),
+    nominalValuesDefineDefaultPressureCurve=true,
     use_inputFilter=false,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
-    T_start=293.15) "Fan for air flow through the data center"
+    T_start=293.15,
+    dp_nominal=750) "Fan for air flow through the data center"
     annotation (Placement(transformation(extent={{348,-235},{328,-215}})));
   Buildings.Fluid.HeatExchangers.DryCoilCounterFlow cooCoi(
     redeclare package Medium1 = MediumW,
@@ -60,8 +62,10 @@ partial model DataCenter
     m_flow_nominal=mCHW_flow_nominal,
     m_flow(start=mCHW_flow_nominal),
     dp(start=325474),
+    nominalValuesDefineDefaultPressureCurve=true,
     use_inputFilter=false,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    dp_nominal=130000)
     "Chilled water pump" annotation (Placement(transformation(
         extent={{10,10},{-10,-10}},
         rotation=270,
@@ -85,8 +89,10 @@ partial model DataCenter
     redeclare package Medium = MediumW,
     m_flow_nominal=mCW_flow_nominal,
     dp(start=214992),
+    nominalValuesDefineDefaultPressureCurve=true,
     use_inputFilter=false,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    dp_nominal=130000)
     "Condenser water pump" annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
         rotation=270,
@@ -187,8 +193,8 @@ partial model DataCenter
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={98,180})));
-  Buildings.Fluid.Sensors.TemperatureTwoPort TAirSup(redeclare package Medium
-      = MediumA, m_flow_nominal=mAir_flow_nominal)
+  Buildings.Fluid.Sensors.TemperatureTwoPort TAirSup(redeclare package Medium =
+        MediumA, m_flow_nominal=mAir_flow_nominal)
     "Supply air temperature to data center" annotation (Placement(
         transformation(
         extent={{10,-10},{-10,10}},
@@ -200,8 +206,8 @@ partial model DataCenter
         extent={{10,10},{-10,-10}},
         rotation=270,
         origin={218,0})));
-  Buildings.Fluid.Sensors.TemperatureTwoPort TCWLeaTow(redeclare package Medium
-      = MediumW, m_flow_nominal=mCW_flow_nominal)
+  Buildings.Fluid.Sensors.TemperatureTwoPort TCWLeaTow(redeclare package Medium =
+        MediumW, m_flow_nominal=mCW_flow_nominal)
     "Temperature of condenser water leaving the cooling tower"      annotation (
      Placement(transformation(
         extent={{10,-10},{-10,10}},
@@ -596,6 +602,12 @@ Buildings.Examples.ChillerPlant</a>.
 </html>", revisions="<html>
 <ul>
 <li>
+November 18, 2021, by Michael Wetter:<br/>
+Set <code>dp_nominal</code> for pumps and fan to a realistic value.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2761\">#2761</a>.
+</li>
+<li>
 September 21, 2017, by Michael Wetter:<br/>
 Set <code>from_dp = true</code> in <code>val6</code> and in <code>valByp</code>
 which is needed for Dymola 2018FD01 beta 2 for
@@ -607,7 +619,7 @@ to converge.
 January 22, 2016, by Michael Wetter:<br/>
 Corrected type declaration of pressure difference.
 This is
-for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/404\">#404</a>.
+for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/404\">IBPSA, #404</a>.
 </li>
 <li>
 January 13, 2015 by Michael Wetter:<br/>

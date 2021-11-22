@@ -27,8 +27,9 @@ jobs:
     runs-on: ubuntu-18.04
 
     steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v2
+      # Checks-out repository under $GITHUB_WORKSPACE, so job can access it
+      - name: Checkout code
+        uses: nschloe/action-cached-lfs-checkout@v1
 
       - uses: actions/setup-python@v2
         with:
@@ -96,3 +97,41 @@ jobs:
 
       - name: Check for UTF-8 BOM
         run: "! find . -name '*.mo' -print0 | xargs -0 grep -l $'^\\xEF\\xBB\\xBF' | grep ."
+
+      - name: Check for file permissions
+        run : |
+              set -o noglob
+              LIST="*.mo *.mos *.fmu *.json *.txt *.jar *.c *.h *.def *.cc *.vcxproj \
+                *.so *.exe \
+                *.java package-list element-list \
+                *.csv *.dat *.TMY *.mat \
+                *.cfd *.ffd *.mcr \
+                *.rst *.svg *.png *.gif *.jpg *.tiff *.xcf *.ico *.psd *.pdf *.odp \
+                *.tex *.md *.html *.css \
+                *.bat *.linux *.darwin \
+                *.js *.map *.eot *.ttf *.woff *.woff2 *.inv \
+                *.idd *.idf *.epw \
+                *.dll *.lib \
+                *.zip
+                package.order Makefile makefile RootMakefile"
+              for tt in ${LIST}; do
+                for ff in `find . -type f -name ${tt}`; do
+                   chmod u=rw,og=r $ff
+                done
+              done
+
+              LIST="spawn dymola *.sh"
+              for tt in ${LIST}; do
+                for ff in `find . -type f -name ${tt}`; do
+                   chmod u=rwx,og=rx $ff
+                done
+              done
+              git diff --exit-code
+
+              # The Windows compiler generates files with u=rw,og=rw permission
+              LIST="*.dll"
+              for tt in ${LIST}; do
+                for ff in `find . -type f -name ${tt}`; do
+                   chmod u=rw,og=rw $ff
+                done
+              done

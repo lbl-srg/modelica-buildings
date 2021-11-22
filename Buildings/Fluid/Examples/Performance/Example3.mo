@@ -133,7 +133,6 @@ Submitted: 11th Modelica Conference. Paris, France. Sep. 2015.
 </li>
 </ul>
 </html>"),
-    __Dymola_Commands(file=
-          "Resources/Scripts/Dymola/Fluid/Examples/Performance/Example3.mos"
+    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Examples/Performance/Example3.mos"
         "Simulate and plot"));
 end Example3;
