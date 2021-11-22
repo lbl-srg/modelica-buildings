@@ -3,5 +3,6 @@ AbsorptionIndirectSteamVaryingLoad
 Carnot_TEva
 Carnot_y
 ElectricEIR
+ElectricEIR_AirCooled
 ElectricReformulatedEIR
 BaseClasses
