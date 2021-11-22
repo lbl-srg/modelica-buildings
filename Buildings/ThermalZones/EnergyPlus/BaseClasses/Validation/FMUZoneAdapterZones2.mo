@@ -4,28 +4,26 @@ model FMUZoneAdapterZones2
   extends Modelica.Icons.Example;
   constant String modelicaNameBuilding=getInstanceName()
     "Name of the building";
-  parameter String idfName=Modelica.Utilities.Files.loadResource(
-    "modelica://Buildings/Resources/Data/ThermalZones/EnergyPlus/Examples/RefBldgSmallOffice/RefBldgSmallOfficeNew2004_Chicago.idf")
-    "Name of the IDF file";
-  parameter String weaName=Modelica.Utilities.Files.loadResource(
-    "modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos")
-    "Name of the weather file";
+
   parameter Modelica.SIunits.HeatCapacity CZon=6*6*2.7*1.2*1006
     "Heat capacity of zone air";
   inner Building building(
     idfName=Modelica.Utilities.Files.loadResource(
-      "modelica://Buildings/Resources/Data/ThermalZones/EnergyPlus/Examples/SingleFamilyHouse_TwoSpeed_ZoneAirBalance/SingleFamilyHouse_TwoSpeed_ZoneAirBalance.idf"),
+      "modelica://Buildings/Resources/Data/ThermalZones/EnergyPlus/Examples/RefBldgSmallOffice/RefBldgSmallOfficeNew2004_Chicago.idf"),
+    epwName=Modelica.Utilities.Files.loadResource(
+    "modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.epw"),
     weaName=Modelica.Utilities.Files.loadResource(
       "modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"),
-    usePrecompiledFMU=false,
-    showWeatherData=false)
+    computeWetBulbTemperature=false,
+    usePrecompiledFMU=false)
     "Building model"
     annotation (Placement(transformation(extent={{-80,70},{-60,90}})));
   Buildings.ThermalZones.EnergyPlus.BaseClasses.ThermalZoneAdapter fmuZonCor(
     modelicaNameBuilding=modelicaNameBuilding,
-    final idfName=idfName,
-    final weaName=weaName,
-    relativeSurfaceTolerance=building.relativeSurfaceTolerance,
+    final spawnExe=building.spawnExe,
+    final idfName=building.idfName,
+    final epwName=building.epwName,
+    final relativeSurfaceTolerance=building.relativeSurfaceTolerance,
     final zoneName="Core_ZN",
     usePrecompiledFMU=true,
     final fmuName=Modelica.Utilities.Files.loadResource(
@@ -64,9 +62,10 @@ model FMUZoneAdapterZones2
     annotation (Placement(transformation(extent={{60,20},{80,40}})));
   Buildings.ThermalZones.EnergyPlus.BaseClasses.ThermalZoneAdapter fmuZonSou(
     modelicaNameBuilding=modelicaNameBuilding,
-    final idfName=idfName,
-    final weaName=weaName,
-    relativeSurfaceTolerance=building.relativeSurfaceTolerance,
+    final spawnExe=building.spawnExe,
+    final idfName=building.idfName,
+    final epwName=building.epwName,
+    final relativeSurfaceTolerance=building.relativeSurfaceTolerance,
     final zoneName="South_ZN",
     usePrecompiledFMU=true,
     final fmuName=Modelica.Utilities.Files.loadResource(

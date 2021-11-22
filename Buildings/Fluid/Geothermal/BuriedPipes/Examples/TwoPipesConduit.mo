@@ -198,7 +198,6 @@ First implementation.
 </li>
 </ul>
 </html>"),
-    __Dymola_Commands(file=
-          "Resources/Scripts/Dymola/Fluid/Geothermal/BuriedPipes/Examples/TwoPipesConduit.mos"
+    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Geothermal/BuriedPipes/Examples/TwoPipesConduit.mos"
         "Simulate and plot"));
 end TwoPipesConduit;
