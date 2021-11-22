@@ -3,17 +3,11 @@ record lookupTables
   "Record for efficiency and power curves computed with Euler number"
   extends Modelica.Icons.Record;
   parameter Real eta[11,11](each min=0, each max=1)=
-    [0, ascSeq; transpose(ascSeq), zeros(10,10)]
+    Buildings.Fluid.Movers.BaseClasses.Euler.initialTable(11)
     "Look-up table for mover efficiency";
   parameter Real P[11,11](each min=0)=
-    [0, ascSeq; transpose(ascSeq), zeros(10,10)]
+    Buildings.Fluid.Movers.BaseClasses.Euler.initialTable(11)
     "Look-up table for mover power";
-  final parameter Real ascSeq[1,:]=[1,2,3,4,5,6,7,8,9,10]
-    "2D ascending sequence used for initial table construction";
-  // CombiTable2D requires that the first element is zero
-  //   and the first row and first column are ascending.
-  //   This declaration cannot be achieved by linspace()
-  //   which returns a 1-D array that cannot be transposed.
 
   annotation (
 Documentation(info="<html>
