@@ -40,13 +40,13 @@ equation
     annotation (Line(points={{-77,68},{-72,68}}, color={0,0,127}));
   annotation (Documentation(info="<html>
 <p>
-This is a model of a boiler whose efficiency is described 
-by a table with control signal and inlet temperature. 
+This is a model of a boiler whose efficiency is described
+by a table with control signal and inlet temperature.
 See <a href=\"Modelica://Buildings.Fluid.Boilers.UsersGuide\">
 Buildings.Fluid.Boilers.UsersGuide</a> for details.
 </p>
 <p>
-The efficiency tables are supplied via 
+The efficiency tables are supplied via
 <a href=\"Buildings.Fluid.Boilers.Data\">
 Buildings.Fluid.Boilers.Data</a>.
 </p>
@@ -54,7 +54,7 @@ Buildings.Fluid.Boilers.Data</a>.
 <ul>
 <li>
 October 13, 2021 by Hongxiang Fu:<br/>
-First implementation. This is for 
+First implementation. This is for
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2651\">#2651</a>.
 </li>
 </ul>
