@@ -41,7 +41,7 @@ equation
       StopTime=10540800,
       Tolerance=1e-06),
     __Dymola_Commands(
-      file="Resources/Scripts/Dymola/Experimental/DHC/CentralPlants/Cooling/Subsystems/Examples/CoolingTowersWithBypass.mos"
+      file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/DHC/CentralPlants/Cooling/Subsystems/Examples/CoolingTowersWithBypass.mos"
       "Simulate and Plot"),
     Documentation(
       revisions="<html>
@@ -53,7 +53,7 @@ First implementation.
 </ul>
 </html>",
       info="<html>
-<p>This model validates the parallel connected cooling tower subsystem in 
+<p>This model validates the parallel connected cooling tower subsystem in
 <a href=\"modelica://Buildings.Experimental.DHC.CentralPlants.Cooling.Subsystems.CoolingTowersWithBypass\">
 Buildings.Experimental.DHC.CentralPlants.Cooling.Subsystems.CoolingTowerWithBypass</a>.</p>
 </html>"));

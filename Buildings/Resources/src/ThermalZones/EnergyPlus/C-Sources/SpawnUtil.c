@@ -134,9 +134,15 @@ void setVariables(
   /* If debug mode, write exchanged values to log file */
   if (bui->logLevel >= TIMESTEP){
     for(i = 0; i < ptrReals->n; i++){
-      bui->SpawnFormatMessage("%.3f %s: Sending to EnergyPlus, %s = %.6g [%s].\n",
-        bui->time, modelicaInstanceName, ptrReals->fmiNames[i], ptrReals->valsEP[i],
-        fmi2_import_get_unit_name(ptrReals->units[i]));
+      if (ptrReals->units[i]){ /* Units are defined */
+        bui->SpawnFormatMessage("%.3f %s: Sending to EnergyPlus, %s = %.6g [%s].\n",
+          bui->time, modelicaInstanceName, ptrReals->fmiNames[i], ptrReals->valsEP[i],
+          fmi2_import_get_unit_name(ptrReals->units[i]));
+      }
+      else{
+        bui->SpawnFormatMessage("%.3f %s: Sending to EnergyPlus, %s = %.6g (no units declared).\n",
+          bui->time, modelicaInstanceName, ptrReals->fmiNames[i], ptrReals->valsEP[i]);
+      }
     }
   }
 
@@ -207,9 +213,15 @@ void getVariables(FMUBuilding* bui, const char* modelicaInstanceName, spawnReals
   /* If debug mode, write exchanged values to log file */
   if (bui->logLevel >= TIMESTEP){
     for(i = 0; i < ptrReals->n; i++){
-      bui->SpawnFormatMessage("%.3f %s: Received from EnergyPlus, %s = %.6g [%s].\n",
-        bui->time, modelicaInstanceName, ptrReals->fmiNames[i], ptrReals->valsEP[i],
-        fmi2_import_get_unit_name(ptrReals->units[i]));
+      if (ptrReals->units[i]){ /* Units are defined */
+        bui->SpawnFormatMessage("%.3f %s: Received from EnergyPlus, %s = %.6g [%s].\n",
+          bui->time, modelicaInstanceName, ptrReals->fmiNames[i], ptrReals->valsEP[i],
+          fmi2_import_get_unit_name(ptrReals->units[i]));
+      }
+      else{
+        bui->SpawnFormatMessage("%.3f %s: Received from EnergyPlus, %s = %.6g (no units declared).\n",
+          bui->time, modelicaInstanceName, ptrReals->fmiNames[i], ptrReals->valsEP[i]);
+      }
     }
   }
 
