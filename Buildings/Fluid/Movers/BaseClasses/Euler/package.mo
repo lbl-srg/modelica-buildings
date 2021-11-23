@@ -3,28 +3,43 @@ package Euler "Functions for Euler correlation"
 
   annotation (Documentation(info="<html>
 <p>
-This package implements a power computation path using the Euler number 
+This package implements a power computation path using the Euler number
 and its correlation.
 </p>
 <ul>
 <li>
-The correlation function using the Euler number is implemented in 
-<a href=\"modelica://Buildings.Fluid.Movers.BaseClasses.Euler.correlation\">
-Buildings.Fluid.Movers.BaseClasses.Euler.correlation</a>.
-</li>
-<li>
-Efficiency and power curves are computed by 
+Efficiency and power are computed and output as look-up tables by
 <a href=\"modelica://Buildings.Fluid.Movers.BaseClasses.Euler.computeTables\">
 Buildings.Fluid.Movers.BaseClasses.Euler.computeTables</a>.
+</li>
+<li>
+The correlation function using the Euler number is implemented in
+<a href=\"modelica://Buildings.Fluid.Movers.BaseClasses.Euler.correlation\">
+Buildings.Fluid.Movers.BaseClasses.Euler.correlation</a>.
 </li>
 <li>
 When curves of power and pressure against flow rate is available,
 the function 
 <a href=\"Buildings.Fluid.Movers.BaseClasses.Euler.findPeak\">
 Buildings.Fluid.Movers.BaseClasses.Euler.findPeak</a>
-can identify the peak operating condition from them. 
-This is useful comparing power computation results 
-against other methods. 
+can identify the peak operating condition from them.
+This is useful comparing power computation results
+against other methods.
+</li>
+<li>
+<a href=\"Buildings.Fluid.Movers.BaseClasses.Euler.initialTable\">
+Buildings.Fluid.Movers.BaseClasses.Euler.initialTable</a>
+assigns initial values to look-up tables that both satisfy format requirements
+of <code>CombiTable2D</code> and are consistent with the dimensions set out by
+<a href=\"Buildings.Fluid.Movers.BaseClasses.Euler.lookupTables\">
+Buildings.Fluid.Movers.BaseClasses.Euler.lookupTables</a>.
+This is to avoid error messages when the look-up tables are not used
+and left at default values. 
+</li>
+<li>
+The computed look-up tables are stored in
+<a href=\"Buildings.Fluid.Movers.BaseClasses.Euler.lookupTables\">
+Buildings.Fluid.Movers.BaseClasses.Euler.lookupTables</a>.
 </li>
 <li>
 The peak operating condition (where the efficiency <i>&eta;</i> is
@@ -32,18 +47,7 @@ at its maximum) which is used by the correlation is stored in the record
 <a href=\"Buildings.Fluid.Movers.BaseClasses.Euler.peak\">
 Buildings.Fluid.Movers.BaseClasses.Euler.peak</a>.
 </li>
-<li>
-The results are stored in 
-<a href=\"Buildings.Fluid.Movers.BaseClasses.Euler.lookupTables\">
-Buildings.Fluid.Movers.BaseClasses.Euler.lookupTables</a>.
-</li>
 </ul>
-<p>
-To avoid unreasonable power values being computed at low flow,
-<a href=\"modelica://Buildings.Fluid.Movers.BaseClasses.Euler.computeTables\">
-Buildings.Fluid.Movers.BaseClasses.Euler.computeTables</a>
-replaces the computed power at zero flow with extrapolation.
-</p>
 <p>
 See the
 <a href=\"modelica://Buildings.Fluid.Movers.UsersGuide\">

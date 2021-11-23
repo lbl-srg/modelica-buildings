@@ -517,9 +517,9 @@ the power and other two efficiencies are computed as
   &eta;<sub>hyd</sub> = 1<br/>
   &eta;<sub>mot</sub> = &eta;
 </p>
-However, to avoid unstable computation at low flow,
-the computed power is replaced by extrapolation
-when flow rate is below 10% of its maximum.<br/>
+However, to prevent the computed power from approaching infinity when the eficiency
+approaches zero, the computed power is replaced by extrapolation
+when flow rate or pressure rise is below 10% of their maximum.<br/>
 This computation path is implemented in
 <a href=\"Modelica://Buildings.Fluid.Movers.BaseClasses.Euler\">
 Buildings.Fluid.Movers.BaseClasses.Euler</a>.<br/>
