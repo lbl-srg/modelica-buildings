@@ -338,7 +338,7 @@ to <b style=\"color:blue\">existing</b> libraries:
                        Buildings.Fluid.Movers.BaseClasses.Euler.initialTable<br/>
                        Buildings.Fluid.Movers.BaseClasses.Euler.lookupTables<br/>
                        Buildings.Fluid.Movers.BaseClasses.Euler.peak<br/>
-                       Buildings.Fluid.Movers.BaseClasses.Validation.Euler<br/>
+                       Buildings.Fluid.Movers.BaseClasses.Validation.EulerComparison<br/>
                        Buildings.Fluid.Movers.Data.Fans.Continental.TFD200<br/>
                        Buildings.Fluid.Movers.Data.Fans.Continental.TFD225<br/>
                        Buildings.Fluid.Movers.Data.Fans.Continental.TFD250<br/>
@@ -757,7 +757,7 @@ have been <b style=\"color:blue\">improved</b> in a
                      to <code>Buildings.Fluid.Movers.BaseClasses.FlowMachineInterface</code>.
                      The latter is instantiated in the former. 
                      This change is to support the implementation of 
-                     <code>Buildings.Fluid.Movers.BaseClasses.Validation.Euler</code>.
+                     <code>Buildings.Fluid.Movers.BaseClasses.Validation.EulerComparison</code>.
                      It simplifies the code overall when the said variables are declared 
                      in the lower model.<br/>
                      This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2668\">issue 2668</a>.

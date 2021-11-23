@@ -1,6 +1,6 @@
 within Buildings.Fluid.Movers.BaseClasses.Validation;
-model Euler
-  "Simple model to validate the power computation method using the Euler number"
+model EulerComparison
+  "Simple model to validate the power computation method using the EulerComparison number"
   extends Modelica.Icons.Example;
   import MoverRecord = Buildings.Fluid.Movers.Data.Fans.Greenheck.BIDW13;
 
@@ -59,7 +59,7 @@ equation
   connect(m_flow.y, eff2.m_flow) annotation (Line(points={{-39,-30},{-12,-30}},
                            color={0,0,127}));
   annotation (experiment(Tolerance=1e-6, StopTime=1.0),
-__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Movers/BaseClasses/Validation/Euler.mos"
+__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Movers/BaseClasses/Validation/EulerComparison.mos"
  "Simulate and plot"),
 Documentation(
 info="<html>
@@ -80,4 +80,4 @@ First implementation. This is for
 </li>
 </ul>
 </html>"));
-end Euler;
+end EulerComparison;
