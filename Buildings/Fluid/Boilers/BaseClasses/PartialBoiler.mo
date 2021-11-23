@@ -26,8 +26,10 @@ partial model PartialBoiler "Boiler base class with efficiency unspecified"
   input Modelica.SIunits.Efficiency eta "Boiler efficiency";
   Modelica.SIunits.Power QFue_flow = y * Q_flow_nominal/eta_nominal
     "Heat released by fuel";
-  Modelica.SIunits.Power QWat_flow = eta * QFue_flow
+  Modelica.SIunits.Power QWat_flow = eta * QFue_flow + UAOve.Q_flow
     "Heat transfer from gas into water";
+    // The direction of UAOve.Q_flow is from the ambient to the boiler
+    //   and therefore it takes a plus size here.
   Modelica.SIunits.MassFlowRate mFue_flow = QFue_flow/fue.h
     "Fuel mass flow rate";
   Modelica.SIunits.VolumeFlowRate VFue_flow = mFue_flow/fue.d
@@ -123,8 +125,8 @@ equation
 defaultComponentName="boi",
 Documentation(info="<html>
 <p>
-This is a base model of a boiler. 
-The efficiency specified in extended models. 
+This is a base model of a boiler.
+The efficiency specified in extended models.
 See <a href=\"Modelica://Buildings.Fluid.Boilers.UsersGuide\">
 Buildings.Fluid.Boilers.UsersGuide</a> for details.
 </p>
@@ -132,13 +134,20 @@ Buildings.Fluid.Boilers.UsersGuide</a> for details.
 revisions="<html>
 <ul>
 <li>
-October 4, 2021, by Hongxiang Fu:
-<br>Renamed from the old 
+November 10, 2021, by Hongxiang Fu:<br/>
+The heating power output of the boiler is now corrected
+by its heat loss to the ambient.
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2725\">
+#2725</a>.
+</li>
+<li>
+October 4, 2021, by Hongxiang Fu:<br/>
+Renamed from the old
 <span style=\"font-family: monospace;\">
-Buildings.Fluid.Boilers.BoilerPolynomial</span> 
-and with the efficiency specification removed. 
+Buildings.Fluid.Boilers.BoilerPolynomial</span>
+and with the efficiency specification removed.
 This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2651\">
-#2651</a>. 
+#2651</a>.
 </li>
 </ul>
 </html>"));
