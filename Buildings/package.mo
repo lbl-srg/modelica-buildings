@@ -223,6 +223,21 @@ Each class (i.e., model, block and function) must be used in an example or valid
     </div>
     <!-- New libraries -->
     <!-- New components for existing libraries -->
+    <p>
+    The following <b style=\"color:blue\">new components</b> have been added
+    to <b style=\"color:blue\">existing</b> libraries:
+    </p>
+    <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
+    <tr><td colspan=\"2\"><b>Buildings.Fluid.Chillers</b>
+        </td>
+    </tr>
+    <tr><td valign=\"top\">Buildings.Fluid.Chillers.Data.ElectricEIR.ElectricEIRChiller_York_YCAL0033EE_101kW_3_1COP_AirCooled
+        </td>
+        <td valign=\"top\">Data for air cooled chiller. <br/>
+                           This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2770\">issue #2770</a>.
+        </td>
+    </tr>
+    </table>
     <!-- Backward compatible changes -->
     <p>
     The following <b style=\"color:blue\">existing components</b>
@@ -278,6 +293,19 @@ Each class (i.e., model, block and function) must be used in an example or valid
     that can lead to wrong simulation results):
     </p>
     <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
+    <tr><td colspan=\"2\"><b>Buildings.Fluid.Chillers</b>
+        </td>
+    </tr>
+    <tr><td valign=\"top\"> Buildings.Fluid.Chillers.BaseClasses.PartialElectric
+        </td>
+        <td valign=\"top\">Corrected calculation of entering condenser temperature 
+                           when using a moist air media model.  
+                           This is important for modeling air-cooled chillers using the model
+                           <code>Buildings.Fluid.Chillers.ElectricEIR</code>.
+                           <br/>
+                           This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2770\">issue #2770</a>.
+        </td>
+    </tr>  
     <tr><td colspan=\"2\"><b>Buildings.Occupants</b>
         </td>
     </tr>
