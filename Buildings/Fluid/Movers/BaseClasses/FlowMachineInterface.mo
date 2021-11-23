@@ -117,23 +117,6 @@ model FlowMachineInterface
     "Ratio N_actual/N_nominal";
   Real r_V(start=1, unit="1") "Ratio V_flow/V_flow_max";
 
-  parameter Buildings.Fluid.Movers.BaseClasses.Euler.lookupTables curEu=
-    Buildings.Fluid.Movers.BaseClasses.Euler.computeTables(
-      peak=per.peak,
-      dpMax=dpMax,
-      V_flow_max=V_flow_max,
-      use=per.use_eulerNumber)
-      "Efficiency and power curves vs. flow rate & pressure rise calculated with Euler number";
-
-  Modelica.Blocks.Tables.CombiTable2D effTab(
-    final table=curEu.eta,
-    final smoothness=Modelica.Blocks.Types.Smoothness.ContinuousDerivative)
-    "Look-up table for mover efficiency";
-  Modelica.Blocks.Tables.CombiTable2D powTab(
-    final table=curEu.P,
-    final smoothness=Modelica.Blocks.Types.Smoothness.ContinuousDerivative)
-    "Look-up table for mover power";
-
 protected
   final parameter Boolean preSpe=
     preVar == Buildings.Fluid.Movers.BaseClasses.Types.PrescribedVariable.Speed
@@ -249,7 +232,22 @@ protected
   Modelica.Blocks.Interfaces.RealOutput dp_internal
     "If dp is prescribed, use dp_in and solve for r_N, otherwise compute dp using r_N";
 
+  parameter Buildings.Fluid.Movers.BaseClasses.Euler.lookupTables curEu=
+    Buildings.Fluid.Movers.BaseClasses.Euler.computeTables(
+      peak=per.peak,
+      dpMax=dpMax,
+      V_flow_max=V_flow_max,
+      use=per.use_eulerNumber)
+      "Efficiency and power curves vs. flow rate & pressure rise calculated with Euler number";
 
+  Modelica.Blocks.Tables.CombiTable2D effTab(
+    final table=curEu.eta,
+    final smoothness=Modelica.Blocks.Types.Smoothness.ContinuousDerivative)
+    "Look-up table for mover efficiency";
+  Modelica.Blocks.Tables.CombiTable2D powTab(
+    final table=curEu.P,
+    final smoothness=Modelica.Blocks.Types.Smoothness.ContinuousDerivative)
+    "Look-up table for mover power";
 
 function getPerformanceDataAsString
   input Buildings.Fluid.Movers.BaseClasses.Characteristics.flowParameters pressure
