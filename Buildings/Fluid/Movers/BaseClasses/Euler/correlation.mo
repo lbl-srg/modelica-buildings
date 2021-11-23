@@ -22,7 +22,7 @@ algorithm
 This function computes the following correlation:
 </p>
 <p align=\"center\">
-<img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Fluid/Movers/BaseClasses/Euler/eulerCorrelationEquation.svg\"/>
+<img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Fluid/Movers/BaseClasses/Euler/eulerCorrelation.svg\"/>
 </p>
 <p>
 where <i>y=&eta; &frasl; &eta;<sub>p</sub></i>,
@@ -52,7 +52,7 @@ the mover is operating at peak efficiency, and
 <i>d=5.267518</i>
 </p>
 <p>
-This correlation has the following shape
+This correlation function has the shape as shown below
 </p>
 <p align=\"center\">
 <img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Fluid/Movers/BaseClasses/Euler/EulerCurve.png\"/>
