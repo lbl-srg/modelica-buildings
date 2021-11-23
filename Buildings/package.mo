@@ -340,14 +340,6 @@ to <b style=\"color:blue\">existing</b> libraries:
                        Buildings.Fluid.Movers.BaseClasses.Euler.peak<br/>
                        Buildings.Fluid.Movers.BaseClasses.Validation.EulerComparison<br/>
                        Buildings.Fluid.Movers.BaseClasses.Validation.EulerCurve<br/>
-                       Buildings.Fluid.Movers.Data.Fans.Continental.TFD200<br/>
-                       Buildings.Fluid.Movers.Data.Fans.Continental.TFD225<br/>
-                       Buildings.Fluid.Movers.Data.Fans.Continental.TFD250<br/>
-                       Buildings.Fluid.Movers.Data.Fans.Continental.TFD280<br/>
-                       Buildings.Fluid.Movers.Data.Fans.Continental.TFD315<br/>
-                       Buildings.Fluid.Movers.Data.Fans.Continental.TFD335<br/>
-                       Buildings.Fluid.Movers.Data.Fans.Continental.TFD400<br/>
-                       Buildings.Fluid.Movers.Data.Fans.Continental.TFD450<br/>
                        Buildings.Fluid.Movers.Data.Fans.Greenheck.BIDW12<br/>
                        Buildings.Fluid.Movers.Data.Fans.Greenheck.BIDW13<br/>
                        Buildings.Fluid.Movers.Data.Fans.Greenheck.BIDW15<br/>
