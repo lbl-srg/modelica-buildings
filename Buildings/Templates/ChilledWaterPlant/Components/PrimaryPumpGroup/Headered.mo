@@ -4,10 +4,14 @@ model Headered
     Buildings.Templates.ChilledWaterPlant.Components.PrimaryPumpGroup.Interfaces.PrimaryPumpGroup(
     final typ=Buildings.Templates.ChilledWaterPlant.Components.Types.PrimaryPumpGroup.Headered);
 
+  parameter Modelica.SIunits.PressureDifference dpWSEByp_nominal=
+    if has_WSEByp then dat.getReal(varName=id + ".WatersideEconomizer.dpByp_nominal.value")
+    else 0;
+
   Fluid.Delays.DelayFirstOrder del(
     redeclare final package Medium = Medium,
-    final m_flow_nominal = m_flow_nominal*nPum,
-    nPorts=nPorVol) "Inlet node mixing volume"
+    final m_flow_nominal=mTot_flow_nominal,
+    final nPorts=nPorVol) "Inlet node mixing volume"
     annotation (Placement(transformation(extent={{-50,40},{-30,60}})));
   Fluid.FixedResistances.Junction splByp(
     redeclare package Medium = Medium,
@@ -31,6 +35,7 @@ model Headered
   Buildings.Templates.ChilledWaterPlant.Components.BaseClasses.ParallelPumps pum(
     redeclare final package Medium = Medium,
     final nPum=nPum,
+    final per=per,
     final m_flow_nominal=m_flow_nominal,
     final dp_nominal=dp_nominal,
     final dpValve_nominal=dpValve_nominal)
@@ -38,7 +43,9 @@ model Headered
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Fluid.Actuators.Valves.TwoWayLinear valWSEByp(
     redeclare final package Medium = Medium, final m_flow_nominal=
-        m_flow_nominal)                      if has_WSEByp
+        m_flow_nominal,
+    final dpValve_nominal=dpWSEByp_nominal)
+                        if has_WSEByp
     "Waterside Economizer bypass valve" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,

@@ -27,30 +27,32 @@ model PartialChilledWaterLoop
 
   inner replaceable
     Buildings.Templates.ChilledWaterPlant.Components.ChillerGroup.ChillerParallel
-    chiGro(final m2_flow_nominal=mPri_flow_nominal)
+    chiGro(final has_dedPum=pumPri.is_dedicated)
            constrainedby
     Buildings.Templates.ChilledWaterPlant.Components.ChillerGroup.Interfaces.ChillerGroup(
      redeclare final package MediumCHW = MediumCHW,
+     final m2_flow_nominal=mPri_flow_nominal,
      final is_airCoo=is_airCoo)
     "Chiller group"
     annotation (Placement(transformation(
       extent={{10,-10},{-10,10}},rotation=90,origin={-40,10})));
   inner replaceable
     Buildings.Templates.ChilledWaterPlant.Components.ReturnSection.NoEconomizer
-    WSE(final m2_flow_nominal=mPri_flow_nominal,
-        final is_airCoo = is_airCoo) constrainedby
+    WSE   constrainedby
     Buildings.Templates.ChilledWaterPlant.Components.ReturnSection.Interfaces.ChilledWaterReturnSection(
-      redeclare final package Medium2 = MediumCHW)
+      redeclare final package Medium2 = MediumCHW,
+      final is_airCoo = is_airCoo,
+      final m2_flow_nominal=mPri_flow_nominal)
     "Chilled water return section"
     annotation (Placement(transformation(
       extent={{10,-10},{-10,10}},rotation=90,origin={-40,-72})));
   inner replaceable
     Buildings.Templates.ChilledWaterPlant.Components.PrimaryPumpGroup.Headered
-    pumPri(final mTot_flow_nominal=mPri_flow_nominal,
-                                                   dp_nominal=dpPri_nominal)
-           constrainedby
+    pumPri constrainedby
     Buildings.Templates.ChilledWaterPlant.Components.PrimaryPumpGroup.Interfaces.PrimaryPumpGroup(
       redeclare final package Medium = MediumCHW,
+      final mTot_flow_nominal=mPri_flow_nominal,
+      final dp_nominal=dpPri_nominal,
       final nChi=nChi,
       final has_ParChi=chiGro.typ == Buildings.Templates.ChilledWaterPlant.Components.Types.ChillerGroup.ChillerParallel,
       final has_byp=has_byp,
@@ -60,19 +62,32 @@ model PartialChilledWaterLoop
     annotation (Placement(transformation(extent={{0,0},{20,20}})));
   inner replaceable
     Buildings.Templates.ChilledWaterPlant.Components.SecondaryPumpGroup.None
-    pumSec(final mTot_flow_nominal=mSec_flow_nominal,
-                                                   dp_nominal=dpSec_nominal)
-           constrainedby
+    pumSec constrainedby
     Buildings.Templates.ChilledWaterPlant.Components.SecondaryPumpGroup.Interfaces.SecondaryPumpGroup(
-      redeclare final package Medium = MediumCHW)
+      redeclare final package Medium = MediumCHW,
+      final mTot_flow_nominal=mSec_flow_nominal,
+      final dp_nominal=dpSec_nominal)
     "Chilled water secondary pump group"
     annotation (Placement(transformation(extent={{60,0},{80,20}})));
+
+  inner replaceable Components.Controls.OpenLoop con
+    constrainedby
+    Buildings.Templates.ChilledWaterPlant.Components.Controls.Interfaces.PartialController(
+      final nChi=nChi,
+      final nPumPri=nPumPri,
+      final nPumSec=nPumSec,
+      final is_airCoo=is_airCoo)
+    annotation (Placement(
+      transformation(
+      extent={{10,10},{-10,-10}},
+      rotation=180,
+      origin={70,60})));
 
   Buildings.Templates.Components.Sensors.Temperature TCHWRet(
     redeclare final package Medium = MediumCHW,
     final have_sen=true,
     final typ=Buildings.Templates.Components.Types.SensorTemperature.InWell,
-    m_flow_nominal=mSec_flow_nominal)
+    final m_flow_nominal=mSec_flow_nominal)
     "Chilled water return temperature"
     annotation (Placement(transformation(extent={{120,-80},{140,-60}})));
   Buildings.Templates.Components.Sensors.DifferentialPressure dpCHW(
@@ -93,34 +108,37 @@ model PartialChilledWaterLoop
   Buildings.Templates.Components.Sensors.Temperature TCHWRetByp(
     redeclare final package Medium = MediumCHW,
     final have_sen = has_byp,
+    final m_flow_nominal=mPri_flow_nominal,
     final typ=Buildings.Templates.Components.Types.SensorTemperature.InWell)
     "Chilled water return temperature after bypass"
     annotation (Placement(transformation(
       extent={{-10,-10},{10,10}},rotation=0,origin={30,-50})));
   Fluid.FixedResistances.Junction mixByp(
     redeclare package Medium = MediumCHW,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
+    each final m_flow_nominal={mPri_flow_nominal,0,mPri_flow_nominal},
+    final dp_nominal={0,0,0})
     "Bypass mixer"
     annotation (Placement(transformation(
       extent={{10,10},{-10,-10}},rotation=0,origin={-10,-50})));
   Fluid.FixedResistances.Junction splWSEByp(
     redeclare package Medium = MediumCHW,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
+    each final m_flow_nominal={mPri_flow_nominal,0,mPri_flow_nominal},
+    final dp_nominal={0,0,0})
     "Splitter for waterside economizer bypass"
     annotation (Placement(transformation(
       extent={{10,10},{-10,-10}},rotation=0,origin={-20,-20})));
 
-  inner replaceable Components.Controls.OpenLoop con(
+  Buildings.Templates.ChilledWaterPlant.BaseClasses.BusChilledWater chwCon(
     final nChi=nChi,
     final nPumPri=nPumPri,
-    final nPumSec=nPumSec,
-    final is_airCoo=is_airCoo)
-    constrainedby Components.Controls.OpenLoop
-    annotation (Placement(
-      transformation(
-      extent={{10,10},{-10,-10}},
-      rotation=180,
-      origin={70,60})));
+    final nPumSec=nPumSec)
+    "Chilled water loop control bus"
+    annotation (Placement(transformation(
+        extent={{-20,20},{20,-20}},
+        rotation=90,
+        origin={200,60})));
 
 protected
   parameter Modelica.SIunits.PressureDifference dpPri_nominal=
@@ -170,14 +188,6 @@ equation
   connect(chiGro.busCon, chwCon.chiGro);
   connect(WSE.busCon, chwCon.wse);
   connect(pumSec.busCon, chwCon.pumSec);
-  connect(con.busCW, cwCon) annotation (Line(
-      points={{60,60},{-200,60}},
-      color={255,204,51},
-      thickness=0.5), Text(
-      string="%second",
-      index=1,
-      extent={{-6,3},{-6,3}},
-      horizontalAlignment=TextAlignment.Right));
   connect(con.busCHW, chwCon) annotation (Line(
       points={{80,60},{200,60}},
       color={255,204,51},

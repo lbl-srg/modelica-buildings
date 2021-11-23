@@ -92,6 +92,13 @@ partial model PrimaryPumpGroup
     annotation (Placement(transformation(extent={{10,-110},{-10,-90}})));
 
 
+  replaceable parameter Fluid.Movers.Data.Generic per(pressure(V_flow=
+          m_flow_nominal/1000 .* {0,1,2}, dp=dp_nominal .* {1.5,1,0.5}))
+    constrainedby Fluid.Movers.Data.Generic
+    "Performance data"
+    annotation (
+      choicesAllMatching=true,
+      Placement(transformation(extent={{-88,-90},{-68,-70}})));
 equation
   connect(port_b, port_b)
     annotation (Line(points={{100,0},{100,0}}, color={0,127,255}));

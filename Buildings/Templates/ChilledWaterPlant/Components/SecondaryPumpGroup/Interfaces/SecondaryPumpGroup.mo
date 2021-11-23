@@ -24,10 +24,6 @@ partial model SecondaryPumpGroup
   parameter Modelica.SIunits.PressureDifference dp_nominal
     "Nominal pressure drop per pump";
 
-  parameter Modelica.SIunits.PressureDifference dpValve_nominal=
-    dat.getReal(varName=id + ".SecondaryPump.dpValve_nominal.value")
-    "Shutoff valve pressure drop";
-
   final parameter Boolean is_none=
     typ <> Buildings.Templates.ChilledWaterPlant.Components.Types.SecondaryPumpGroup.None;
 

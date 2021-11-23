@@ -6,6 +6,7 @@ expandable connector Bus "Generic control bus for chiller group classes"
 
   Buildings.Templates.ChilledWaterPlant.Components.Chiller.Interfaces.Bus chi[nChi]
     annotation (HideResult=false);
+  Real yValChi[nChi];
 
   annotation (
   defaultComponentName="busCon",

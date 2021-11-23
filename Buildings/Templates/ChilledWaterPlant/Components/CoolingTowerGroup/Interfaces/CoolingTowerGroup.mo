@@ -5,7 +5,6 @@ partial model CoolingTowerGroup
 
   parameter Buildings.Templates.ChilledWaterPlant.Components.Types.CoolingTowerGroup typ "Type of cooling tower group"
     annotation (Evaluate=true, Dialog(group="Configuration"));
-  // ToDo: Other CoolingTowerGroup parameters
 
   outer parameter String id
     "System identifier";

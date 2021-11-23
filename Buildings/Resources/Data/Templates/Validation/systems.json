@@ -487,12 +487,12 @@
     "CHW_1": {
         "ChilledWater": {
             "mPri_flow_nominal": {
-                "value": 0,
+                "value": 18.3,
                 "description": "Primary nominal mass flow rate",
                 "unit": "kg/s"
             },
             "mSec_flow_nominal": {
-                "value": 0,
+                "value": 18.3,
                 "description": "Secondary nominal mass flow rate",
                 "unit": "kg/s"
             },
@@ -504,17 +504,12 @@
         },
         "CondenserWater": {
             "m_flow_nominal": {
-                "value": 0,
+                "value": 34.7,
                 "description": "Condenser nominal mass flow rate",
                 "unit": "kg/s"
             }
         },
         "ChillerGroup": {
-            "Q_nominal": {
-                "value": 1000000,
-                "description": "Nominal cooling capacity",
-                "unit": "W"
-            },
             "dpCHW_nominal": {
                 "value": 44800,
                 "description": "Nominal pressure drop of chiller group on evaporator side",
@@ -525,6 +520,16 @@
                 "description": "Nominal pressure drop of chiller group on condenser side",
                 "unit": "Pa"
             },
+            "dpValve_nominal": {
+                "value": 6000,
+                "description": "Nominal pressure drop of chiller valve",
+                "unit": "Pa"
+            },
+            "Q_nominal": {
+                "value": 1000000,
+                "description": "Nominal cooling capacity",
+                "unit": "W"
+            },
             "mMin_flow": {
                 "value": 0.03,
                 "description": "Minimum mass flow rate of a single chiller",
@@ -534,16 +539,58 @@
                 "value": 281.15,
                 "description": "Chilled water temperature setpoint",
                 "unit": "K"
+            }
+        },
+        "CoolingTower": {
+            "dp_nominal": {
+                "value": 46200,
+                "description": "Nominal pressure drop of cooling tower",
+                "unit": "Pa"
             },
             "dpValve_nominal": {
                 "value": 6000,
-                "description": "Nominal pressure drop of chiller valve",
+                "description": "Nominal pressure drop of cooling tower valve",
                 "unit": "Pa"
+            },
+            "TAirInWB_nominal": {
+                "value": 298.7,
+                "description": "Nominal inlet air wetbulb temperature",
+                "unit": "K"
+            },
+            "TCW_nominal": {
+                "value": 308.15,
+                "description": "Nominal tower inlet water temperature",
+                "unit": "K"
+            },
+            "dT_nominal": {
+                "value": 5.56,
+                "description": "Nominal water temperature drop in tower",
+                "unit": "K"
+            },
+            "PFan_nominal": {
+                "value": 5000,
+                "description": "Nominal fan power",
+                "unit": "W"
+            },
+            "dTApp": {
+                "value": 3,
+                "description": "Approach temperature",
+                "unit": "K"
+            },
+            "TMin": {
+                "value": 288.15,
+                "description": "Minimum tower outlet temperature",
+                "unit": "K"
             }
         },
         "PrimaryPump": {
             "pump_curve": {
-                "value": 0,
+                "value": [
+                    [170550,0.00366],
+                    [147810,0.01098],
+                    [113700,0.01464],
+                    [68220,0.0183]
+                ],
                 "description": "Primary pumps curve",
                 "unit": "1"
             },
@@ -560,8 +607,13 @@
         },
         "CondenserPump": {
             "pump_curve": {
-                "value": 0,
-                "description": "Primary pumps curve",
+                "value": [
+                    [110880,0.00694],
+                    [101640,0.0208],
+                    [92400,0.0347],
+                    [55440,0.0416]
+                ],
+                "description": "Condenser pumps curve",
                 "unit": "1"
             },
             "dpValve_nominal": {
@@ -572,8 +624,13 @@
         },
         "SecondaryPump": {
             "pump_curve": {
-                "value": 0,
-                "description": "Primary pumps curve",
+                "value": [
+                    [103350,0.00366],
+                    [89570,0.01098],
+                    [68900,0.01464],
+                    [41340,0.0183]
+                ],
+                "description": "Secondary pumps curve",
                 "unit": "1"
             },
             "dpValve_nominal": {
@@ -586,6 +643,11 @@
             "dpByp_nominal": {
                 "value": 6000,
                 "description": "Waterside economizer bypass valve nominal pressure drop",
+                "unit": "Pa"
+            },
+            "dpCW_nominal": {
+                "value": 6000,
+                "description": "Waterside economizer control valve on condenser water side",
                 "unit": "Pa"
             }
         }

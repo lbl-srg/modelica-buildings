@@ -3,8 +3,20 @@ model WaterCooled
   extends
     Buildings.Templates.ChilledWaterPlant.BaseClasses.PartialChilledWaterLoop(
     final is_airCoo=false,
-    chiGro(redeclare final package MediumCW = MediumCW),
-    con(final nPumCon=nPumCon, final nCooTow=nCooTow));
+    redeclare replaceable Buildings.Templates.ChilledWaterPlant.Components.ChillerGroup.ChillerParallel chiGro
+      constrainedby
+      Buildings.Templates.ChilledWaterPlant.Components.ChillerGroup.Interfaces.ChillerGroup(
+        redeclare final package MediumCW = MediumCW,
+        final m1_flow_nominal=mCon_flow_nominal),
+    redeclare replaceable Buildings.Templates.ChilledWaterPlant.Components.Controls.OpenLoop con
+      constrainedby
+      Buildings.Templates.ChilledWaterPlant.Components.Controls.Interfaces.PartialController(
+        final nPumCon=nPumCon,
+        final nCooTow=nCooTow),
+    redeclare replaceable Buildings.Templates.ChilledWaterPlant.Components.ReturnSection.NoEconomizer WSE
+      constrainedby
+      Buildings.Templates.ChilledWaterPlant.Components.ReturnSection.Interfaces.ChilledWaterReturnSection(
+        final m1_flow_nominal=mCon_flow_nominal));
 
   replaceable package MediumCW=Buildings.Media.Water "Condenser water medium";
 
@@ -17,32 +29,33 @@ model WaterCooled
 
   inner replaceable
     Buildings.Templates.ChilledWaterPlant.Components.CoolingTowerGroup.CoolingTowerParallel
-    cooTow(final m_flow_nominal=mCon_flow_nominal)
-           constrainedby
+    cooTow constrainedby
     Buildings.Templates.ChilledWaterPlant.Components.CoolingTowerGroup.Interfaces.CoolingTowerGroup(
-      redeclare final package Medium = MediumCW)
+      redeclare final package Medium = MediumCW,
+      final m_flow_nominal=mCon_flow_nominal)
     "Cooling tower group"
     annotation (Placement(transformation(extent={{-180,-20},{-160,0}})));
   inner replaceable
     Buildings.Templates.ChilledWaterPlant.Components.CondenserWaterPumpGroup.Headered
-    pumCon(final has_WSE=not WSE.is_none,
-    mTot_flow_nominal=mCon_flow_nominal,
-    dp_nominal=dpCon_nominal)
-           constrainedby
+    pumCon(final has_WSE=not WSE.is_none) constrainedby
     Buildings.Templates.ChilledWaterPlant.Components.CondenserWaterPumpGroup.Interfaces.CondenserWaterPumpGroup(
       redeclare final package Medium = MediumCW,
+      final mTot_flow_nominal=mCon_flow_nominal,
+      final dp_nominal=dpCon_nominal,
       final nChi=nChi)
     "Condenser water pump group"
     annotation (Placement(transformation(extent={{-100,-20},{-80,0}})));
 
   Buildings.Templates.Components.Sensors.Temperature TCWSup(
     redeclare final package Medium = MediumCW,
+    final have_sen,
     final m_flow_nominal=mCon_flow_nominal,
     final typ=Buildings.Templates.Components.Types.SensorTemperature.InWell)
     "Condenser water supply temperature"
     annotation (Placement(transformation(extent={{-140,-20},{-120,0}})));
   Buildings.Templates.Components.Sensors.Temperature TCWRet(
     redeclare final package Medium = MediumCW,
+    final have_sen,
     final m_flow_nominal=mCon_flow_nominal,
     final typ=Buildings.Templates.Components.Types.SensorTemperature.InWell)
     "Condenser water return temperature"
@@ -50,12 +63,22 @@ model WaterCooled
   Fluid.FixedResistances.Junction mixCW(
     redeclare package Medium = MediumCW,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
-    final m_flow_nominal={mCon_flow_nominal,0,mCon_flow_nominal})
+    final m_flow_nominal={mCon_flow_nominal,0,mCon_flow_nominal},
+    final dp_nominal={0,0,0})
     "Condenser water return mixer"
     annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
         rotation=0,
         origin={-90,-70})));
+
+  Buildings.Templates.ChilledWaterPlant.BaseClasses.BusCondenserWater cwCon(nPum=
+        nPumCon, nCooTow=nCooTow)
+    if not is_airCoo
+    "Condenser loop control bus"
+    annotation (Placement(transformation(
+        extent={{-20,20},{20,-20}},
+        rotation=90,
+        origin={-200,60})));
 
 protected
   parameter Modelica.SIunits.PressureDifference dpCon_nominal=
@@ -90,4 +113,12 @@ equation
   connect(TCWRet.y, cwCon.TCWRet);
   connect(cooTow.busCon, cwCon.cooTow);
   connect(pumCon.busCon, cwCon.pum);
+  connect(con.busCW, cwCon) annotation (Line(
+      points={{60,60},{-200,60}},
+      color={255,204,51},
+      thickness=0.5), Text(
+      string="%second",
+      index=1,
+      extent={{-6,3},{-6,3}},
+      horizontalAlignment=TextAlignment.Right));
 end WaterCooled;

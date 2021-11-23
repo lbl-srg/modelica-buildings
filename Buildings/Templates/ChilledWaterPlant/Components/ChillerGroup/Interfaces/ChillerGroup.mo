@@ -96,7 +96,8 @@ partial model ChillerGroup
     "Nominal pressure drop of chiller valves"
     annotation(Dialog(group = "Nominal condition"));
 
-  final Modelica.SIunits.PressureDifference dpCHW_nominal=dp2_nominal + dpValve_nominal
+  final parameter Modelica.SIunits.PressureDifference dpCHW_nominal=
+    dp2_nominal + dpValve_nominal
     "Total nominal pressure drop on chilled water side";
 
 
@@ -115,6 +116,9 @@ partial model ChillerGroup
         rotation=0,
         origin={0,100})));
 
+  replaceable parameter Fluid.Chillers.Data.BaseClasses.Chiller
+    per "Chiller performance data"
+    annotation (Placement(transformation(extent={{70,-8},{90,12}})));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false),
     graphics={Rectangle(
           extent={{-100,100},{100,-100}},

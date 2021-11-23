@@ -39,7 +39,10 @@ model BaseAirCooledParallel
     dp_nominal=100)
     annotation (Placement(transformation(extent={{48,-30},{28,-10}})));
 protected
-  BaseClasses.BusChilledWater            busCHW
+  BaseClasses.BusChilledWater            busCHW(
+    final nChi=chw.nChi,
+    final nPumPri=chw.nPumPri,
+    final nPumSec=chw.nPumSec)
   annotation (
     Placement(
       transformation(extent={{10,40},{50,80}}), iconTransformation(

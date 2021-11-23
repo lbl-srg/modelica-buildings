@@ -8,28 +8,35 @@ model Centralized "Centralized secondary pumping"
     dat.getReal(varName=id + ".SecondaryPump.dpValve_nominal.value")
     "Shutoff valve pressure drop";
 
-  BaseClasses.ParallelPumps pumSec(
+  BaseClasses.ParallelPumps pum(
     final m_flow_nominal=m_flow_nominal,
-                                   final nPum=nPum,
+    final per=per,
+    final nPum=nPum,
     final dp_nominal=dp_nominal,
-    final dpValve_nominal=dpValve_nominal)
-                                   "Secondary pumps"
+    final dpValve_nominal=dpValve_nominal) "Secondary pumps"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Buildings.Templates.Components.Sensors.VolumeFlowRate V_flow(
     redeclare final package Medium = Medium,
     have_sen=has_floSen,
     final m_flow_nominal=m_flow_nominal)
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
+  replaceable parameter Fluid.Movers.Data.Generic per(pressure(V_flow=
+          m_flow_nominal/1000 .* {0,1,2}, dp=dp_nominal .* {1.5,1,0.5}))
+    constrainedby Fluid.Movers.Data.Generic
+    "Performance data"
+    annotation (
+      choicesAllMatching=true,
+      Placement(transformation(extent={{-90,-88},{-70,-68}})));
 equation
-  connect(port_a, pumSec.port_a)
+  connect(port_a, pum.port_a)
     annotation (Line(points={{-100,0},{-10,0}}, color={0,127,255}));
-  connect(pumSec.y_actual, busCon.uStaPumSec) annotation (Line(points={{11,8},
-          {20,8},{20,80},{0,80},{0,100}}, color={255,0,255}), Text(
+  connect(pum.y_actual, busCon.uStaPumSec) annotation (Line(points={{11,8},{20,8},
+          {20,80},{0,80},{0,100}}, color={255,0,255}), Text(
       string="%second",
       index=1,
       extent={{-6,3},{-6,3}},
       horizontalAlignment=TextAlignment.Right));
-  connect(busCon.ySpe, pumSec.y) annotation (Line(
+  connect(busCon.ySpe, pum.y) annotation (Line(
       points={{0,100},{0,12}},
       color={255,204,51},
       thickness=0.5), Text(
@@ -37,7 +44,7 @@ equation
       index=-1,
       extent={{-3,6},{-3,6}},
       horizontalAlignment=TextAlignment.Right));
-  connect(pumSec.port_b, V_flow.port_a)
+  connect(pum.port_b, V_flow.port_a)
     annotation (Line(points={{10,0},{40,0}}, color={0,127,255}));
   connect(V_flow.port_b, port_b)
     annotation (Line(points={{60,0},{100,0}}, color={0,127,255}));

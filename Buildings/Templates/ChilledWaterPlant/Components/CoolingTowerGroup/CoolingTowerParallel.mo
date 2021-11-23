@@ -11,26 +11,32 @@ model CoolingTowerParallel
   final parameter Modelica.SIunits.MassFlowRate mTow_flow_nominal=
     m_flow_nominal/nCooTow "Single tower nominal mass flow rate";
 
-  parameter Modelica.SIunits.PressureDifference dp_nominal
+  parameter Modelica.SIunits.PressureDifference dp_nominal=
+    dat.getReal(varName=id + ".CoolingTower.dp_nominal.value")
     "Nominal pressure difference of the tower"
     annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.SIunits.PressureDifference dpValve_nominal
-   "Nominal pressure difference of the valve";
+  parameter Modelica.SIunits.PressureDifference dpValve_nominal=
+    dat.getReal(varName=id + ".CoolingTower.dpValve_nominal.value")
+    "Nominal pressure difference of the valve";
   parameter Real ratWatAir_nominal(
     final min=0,
     final unit="1")=0.625
     "Design water-to-air ratio"
     annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.SIunits.Temperature TAirInWB_nominal
+  parameter Modelica.SIunits.Temperature TAirInWB_nominal=
+    dat.getReal(varName=id + ".CoolingTower.TAirInWB_nominal.value")
     "Nominal outdoor (air inlet) wetbulb temperature"
     annotation (Dialog(group="Heat transfer"));
-  parameter Modelica.SIunits.Temperature TWatIn_nominal
+  parameter Modelica.SIunits.Temperature TWatIn_nominal=
+    dat.getReal(varName=id + ".CoolingTower.TCW_nominal.value")
     "Nominal water inlet temperature"
     annotation (Dialog(group="Heat transfer"));
-  parameter Modelica.SIunits.TemperatureDifference dT_nominal
+  parameter Modelica.SIunits.TemperatureDifference dT_nominal=
+    dat.getReal(varName=id + ".CoolingTower.dT_nominal.value")
     "Temperature difference between inlet and outlet of the tower"
     annotation (Dialog(group="Heat transfer"));
-  parameter Modelica.SIunits.Power PFan_nominal
+  parameter Modelica.SIunits.Power PFan_nominal=
+    dat.getReal(varName=id + ".CoolingTower.PFan_nominal.value")
     "Fan power"
     annotation (Dialog(group="Fan"));
   parameter Boolean use_inputFilter=true

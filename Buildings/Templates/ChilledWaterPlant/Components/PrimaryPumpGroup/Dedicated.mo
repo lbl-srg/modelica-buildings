@@ -24,6 +24,7 @@ model Dedicated
   BaseClasses.DedicatedPrimaryPumps pum(
     redeclare final package Medium = Medium,
     final nPum=nChi,
+    final per=per,
     final m_flow_nominal=m_flow_nominal,
     final dp_nominal=dp_nominal,
     final dpValve_nominal=dpValve_nominal)

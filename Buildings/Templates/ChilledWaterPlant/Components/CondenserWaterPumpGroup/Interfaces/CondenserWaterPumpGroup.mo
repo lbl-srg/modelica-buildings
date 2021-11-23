@@ -61,6 +61,13 @@ partial model CondenserWaterPumpGroup
     h_outflow(start=Medium.h_default, nominal=Medium.h_default)) if has_WSE
     "Waterside economizer outlet" annotation (Placement(transformation(extent={{
             90,-70},{110,-50}})));
+  replaceable parameter Fluid.Movers.Data.Generic per(pressure(V_flow=
+          m_flow_nominal/1000 .* {0,1,2}, dp=dp_nominal .* {1.5,1,0.5}))
+    constrainedby Fluid.Movers.Data.Generic
+    "Performance data"
+    annotation (
+      choicesAllMatching=true,
+      Placement(transformation(extent={{-88,-88},{-68,-68}})));
 equation
   connect(ports_b, ports_b)
     annotation (Line(points={{100,0},{100,0}}, color={0,127,255}));

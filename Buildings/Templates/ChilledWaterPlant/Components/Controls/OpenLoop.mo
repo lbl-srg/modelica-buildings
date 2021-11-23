@@ -21,8 +21,8 @@ block OpenLoop "Open loop controller (output signals only)"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
-        origin={70,110})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant yValByp(each k=1)
+        origin={90,110})));
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant yValByp(k=1)
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
@@ -41,12 +41,25 @@ block OpenLoop "Open loop controller (output signals only)"
       each k=1) annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
-        origin={48,70})));
+        origin={50,110})));
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant yValChi[nChi](each k=1)
+    annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=-90,
+        origin={-170,70})));
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant yValWSE(k=1)
+    annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=-90,
+        origin={-130,70})));
 equation
   connect(busCHW.pumPri.yValByp, yValByp.y);
+  connect(busCW.pum.yValWSE, yValWSE.y);
   for i in 1:nChi loop
     connect(busCHW.chiGro.chi[i].TSet, chiTSet[i].y);
     connect(busCHW.chiGro.chi[i].on, chiOn[i].y);
+    connect(busCHW.chiGro.yValChi[i], yValChi[i].y);
+    connect(busCW.pum.yValChi[i], yValChi[i].y);
   end for;
   for i in 1:nPumPri loop
     connect(busCHW.pumPri.ySpe[i], ySpePumPri[i].y);

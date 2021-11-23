@@ -11,7 +11,8 @@ model ChillerSeries
     each final m1_flow_nominal=m1_flow_nominal/nChi,
     each final m2_flow_nominal=m2_flow_nominal/nChi,
     each final dp1_nominal=dp1_nominal,
-    each final dp2_nominal=dp2_nominal)
+    each final dp2_nominal=dp2_nominal,
+    each final per=per)
               constrainedby
     Buildings.Templates.ChilledWaterPlant.Components.Chiller.Interfaces.Chiller(
     redeclare each final package Medium1 = Medium1,
@@ -81,8 +82,8 @@ equation
   connect(chi.port_b1, volCW.ports[2:3]) annotation (Line(points={{20,12},{40,
           12},{40,62.6667},{20,62.6667}},
                                 color={0,127,255}));
-  connect(busCon.valChi, valChi.y) annotation (Line(
-      points={{0,100},{0,80},{-30,80},{-30,-40},{0,-40},{0,-48}},
+  connect(busCon.yValChi, valChi.y) annotation (Line(
+      points={{0,100},{0,80},{-40,80},{-40,-42},{0,-42},{0,-48}},
       color={255,204,51},
       thickness=0.5), Text(
       string="%first",

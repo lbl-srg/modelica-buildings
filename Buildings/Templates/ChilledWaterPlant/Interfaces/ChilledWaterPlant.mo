@@ -21,20 +21,6 @@ partial model ChilledWaterPlant
   Modelica.Fluid.Interfaces.FluidPort_b port_b(
     redeclare final package Medium=Medium) "Chilled water return"
     annotation (Placement(transformation(extent={{190,-80},{210,-60}})));
-  Buildings.Templates.ChilledWaterPlant.BaseClasses.BusChilledWater chwCon(
-    final nChi=nChi)
-    "Chilled water loop control bus"
-    annotation (Placement(transformation(
-        extent={{-20,20},{20,-20}},
-        rotation=90,
-        origin={200,60})));
-  Buildings.Templates.ChilledWaterPlant.BaseClasses.BusCondenserWater cwCon
-    if not is_airCoo
-    "Condenser loop control bus"
-    annotation (Placement(transformation(
-        extent={{-20,20},{20,-20}},
-        rotation=90,
-        origin={-200,60})));
   Buildings.BoundaryConditions.WeatherData.Bus weaBus "Weather control bus"
     annotation (Placement(transformation(
         extent={{-20,20},{20,-20}},
