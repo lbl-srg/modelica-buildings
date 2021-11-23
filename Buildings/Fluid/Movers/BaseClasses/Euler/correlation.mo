@@ -71,7 +71,7 @@ and <i>V&#775;</i> is the fan flow in m<sup>3</sup>/s.
 Note that the units in the definition do not matter to this correlation
 because it is the ratio of the Euler numbers that is used.
 Since <i>D</i> is constant for the same mover
-and <i>&rho;</i> is approximately constant,
+and <i>&rho;</i> is approximately constant for commen HVAC applications,
 the Euler number ratio can be simplified to
 </p>
 <p align=\"center\">
@@ -79,11 +79,9 @@ the Euler number ratio can be simplified to
 &frasl;(&Delta;p<sub>p</sub>&sdot;V&#775;<sup>2</sup>)</i>
 </p>
 <p>
-Although this ratio could be further simplified
-by applying affinity laws,
-since the affinity laws assume constant efficiency,
-this would contradict the definition of <i>y</i>
-where the efficiency varies.
+Although it may appear that this ratio could be further simplified
+by applying affinity laws, since the affinity laws assume constant efficiency,
+this would contradict the definition of <i>y</i> where the efficiency varies.
 </p>
 <p>
 For more information refer to
