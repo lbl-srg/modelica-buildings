@@ -2,8 +2,8 @@ within Buildings.Fluid.Movers.BaseClasses.Euler;
 record lookupTables
   "Record for efficiency and power curves computed with Euler number"
   extends Modelica.Icons.Record;
-  parameter Real eta[11,11](each min=0, each max=1)=
-    Buildings.Fluid.Movers.BaseClasses.Euler.initialTable(11)
+  parameter Real eta[12,12](each min=0, each max=1)=
+    Buildings.Fluid.Movers.BaseClasses.Euler.initialTable(12)
     "Look-up table for mover efficiency";
   parameter Real P[11,11](each min=0)=
     Buildings.Fluid.Movers.BaseClasses.Euler.initialTable(11)

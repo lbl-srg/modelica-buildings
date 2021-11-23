@@ -19,8 +19,8 @@ protected
     "Auxilliary variable for flow rate";
   parameter Modelica.SIunits.PressureDifference dp_aux[:]=linspace(0,dpMax,n)
     "Auxilliary variable for pressure rise";
-  Real etaSup[:,:] = zeros(n,n) "2D look-up table for efficiency";
-  Real powSup[:,:] = zeros(n,n) "2D look-up table for power";
+  Real etaSup[:,:] = zeros(12,12) "2D look-up table for efficiency";
+  Real powSup[:,:] = zeros(11,11) "2D look-up table for power";
   Real log_r_Eu "Log10 of ratio Eu/Eu_peak";
 
 algorithm
@@ -31,8 +31,8 @@ algorithm
   end if;
 
   etaSup[1,1]:=0;
-  etaSup[1,2:end]:=V_flow_aux[2:end];
-  etaSup[2:end,1]:=dp_aux[2:end];
+  etaSup[1,2:end]:=V_flow_aux[:];
+  etaSup[2:end,1]:=dp_aux[:];
 
   powSup[1,1]:=0;
   powSup[1,2:end]:=V_flow_aux[2:end];
@@ -44,9 +44,9 @@ algorithm
                        x1=dp_aux[i] * peak.V_flow^2,x2=1E-5,deltaX=1E-6)
                       /Buildings.Utilities.Math.Functions.smoothMax(
                        x1=peak.dp * V_flow_aux[j]^2,x2=1E-5,deltaX=1E-6));
-      etaSup[i,j]:=peak.eta*
+      etaSup[i+1,j+1]:=peak.eta*
         Buildings.Fluid.Movers.BaseClasses.Euler.correlation(x=log_r_Eu);
-      powSup[i,j]:=dp_aux[j]*V_flow_aux[i]/etaSup[i,j];
+      powSup[i,j]:=dp_aux[j]*V_flow_aux[i]/etaSup[i+1,j+1];
     end for;
   end for;
 
@@ -56,13 +56,14 @@ algorithm
   annotation(smoothOrder=1,
               Documentation(info="<html>
 <p>
-This function uses the correlation of Euler number to compute
+This function uses the correlation of Euler number to compute look-up tables of
 efficiency <i>&eta;</i> and power <i>P</i> in a grid from 10% to 100% of maximum
-flow rate <i>V&#775;</i> and pressure rise <i>&Delta;P</i> at 10% increments.
-The computation is not performed below 10% of flow rate or pressure rise
-to avoid the computed power approaching infinity as the efficiency approaches zero.
-The power and efficiency will be evaluated via extrapolation instead under
-such conditions.
+flow rate <i>V&#775;</i> and pressure rise <i>&Delta;p</i> at 10% increments.
+The computation is not performed below 10% of maximum <i>V&#775;</i> or
+<i>&Delta;p</i> to avoid the computed power approaching infinity
+as the efficiency approaches zero.
+<i>P</i> will be extrapolated when <i>V&#775;</i> or <i>&Delta;p</i> is below 10%.
+<i>&eta;</i> is simply set to zero when <i>V&#775;</i> or <i>&Delta;p</i> is zero.
 </p>
 </html>",
 revisions="<html>
