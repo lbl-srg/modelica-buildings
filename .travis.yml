@@ -36,7 +36,7 @@ env:
 
   jobs:
     - TEST_ARG="make test-cdl-conformance"
-    - TEST_ARG="make test-energyplus-validations test-dymola-spawn-spaces test-omc-spawn-spaces" #test-optimica-spawn-fmu removed as it requires a local installation of OCT
+    - TEST_ARG="make test-energyplus-validations test-dymola-spawn-spaces test-omc-spawn-spaces" #target test-optimica-spawn-fmu removed as it requires a local installation of OCT
     - TEST_ARG="make test-bestest"
     - TEST_ARG="make test-dymola    PACKAGE=\"Buildings.{Air,Examples}\""
     - TEST_ARG="make test-optimica  PACKAGE=\"Buildings.{Air,Examples}\""
@@ -136,7 +136,7 @@ install:
   - git lfs pull
   - pip3 install --upgrade pip wheel
   - pip3 install --only-binary=numpy,scipy,matplotlib numpy==1.13.3 scipy==0.19.1 matplotlib==2.1.0
-  - pip3 install git+https://github.com/lbl-srg/BuildingsPy@master
+  - pip3 install git+https://github.com/lbl-srg/BuildingsPy@27d3c76
   - if [[ "$TEST_ARG" == *test-energyplus* ]]; then
       export PATH=${PATH}:${TRAVIS_BUILD_DIR}/${ENERGYPLUS_VERSION};
       pip3 install pandas==1.0.1;
