@@ -70,7 +70,7 @@ equation
       index=-1,
       extent={{6,3},{6,3}},
       horizontalAlignment=TextAlignment.Left));
-  connect(pDem.p, busCHW.inp.pDem) annotation (Line(points={{59,40},{54,40},{54,
+  connect(pDem.p, busCHW.pDem) annotation (Line(points={{59,40},{54,40},{54,
           60},{30,60}}, color={0,0,127}), Text(
       string="%second",
       index=1,

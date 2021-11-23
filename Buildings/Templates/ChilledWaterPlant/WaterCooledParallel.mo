@@ -4,7 +4,7 @@ model WaterCooledParallel
     final typ=Buildings.Templates.Types.ChilledWaterPlant.WaterCooledParallel,
     redeclare
       Buildings.Templates.ChilledWaterPlant.Components.ChillerGroup.ChillerParallel
-      chiGro(has_dedPum=pumPri.is_dedicated));
+      chiGro(final has_dedPum=pumPri.is_dedicated));
 
 equation
 

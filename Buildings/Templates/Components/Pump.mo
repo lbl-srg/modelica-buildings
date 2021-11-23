@@ -79,7 +79,7 @@ package Pump
       annotation (Line(points={{-40,-56},{-20,-56}}, color={0,127,255}));
     connect(colDis.port_bDisSup, floZer_b.ports[1])
       annotation (Line(points={{20,-50},{40,-50}}, color={0,127,255}));
-    connect(evaSta.y, busCon.inp.yPum_actual) annotation (Line(points={{70,82},{70,
+    connect(evaSta.y, busCon.yPum_actual) annotation (Line(points={{70,82},{70,
             90},{0.1,90},{0.1,100.1}}, color={255,0,255}), Text(
         string="%second",
         index=1,
@@ -180,7 +180,7 @@ that fails to translate when CollectorDistributor ports are left unconnected.")}
         index=-1,
         extent={{-3,6},{-3,6}},
         horizontalAlignment=TextAlignment.Right));
-    connect(evaSta.y, busCon.inp.yPum_actual) annotation (Line(points={{62,30},{80,
+    connect(evaSta.y, busCon.yPum_actual) annotation (Line(points={{62,30},{80,
             30},{80,80},{0.1,80},{0.1,100.1}}, color={255,0,255}), Text(
         string="%second",
         index=1,
@@ -251,7 +251,7 @@ that fails to translate when CollectorDistributor ports are left unconnected.")}
         index=-1,
         extent={{6,3},{6,3}},
         horizontalAlignment=TextAlignment.Left));
-    connect(evaSta.y, busCon.inp.yPum_actual) annotation (Line(points={{62,30},{
+    connect(evaSta.y, busCon.yPum_actual) annotation (Line(points={{62,30},{
             80,30},{80,80},{0.1,80},{0.1,100.1}}, color={255,0,255}), Text(
         string="%second",
         index=1,

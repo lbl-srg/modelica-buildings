@@ -116,8 +116,18 @@ partial model ChillerGroup
         rotation=0,
         origin={0,100})));
 
-  replaceable parameter Fluid.Chillers.Data.BaseClasses.Chiller
-    per "Chiller performance data"
+  parameter Modelica.SIunits.Power Q_nominal=
+    dat.getReal(varName=id + ".ChillerGroup.Q_nominal.value");
+
+  parameter Modelica.SIunits.Temperature TCHWSet=
+    dat.getReal(varName=id + ".ChillerGroup.TCHWSet.value");
+
+  replaceable parameter Buildings.Fluid.Chillers.Data.BaseClasses.Chiller
+    per constrainedby Buildings.Fluid.Chillers.Data.BaseClasses.Chiller(
+      QEva_flow_nominal=-Q_nominal,
+      TEvaLvg_nominal=TCHWSet,
+      mEva_flow_nominal=m2_flow_nominal,
+      mCon_flow_nominal=m1_flow_nominal) "Chiller performance data"
     annotation (Placement(transformation(extent={{70,-8},{90,12}})));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false),
     graphics={Rectangle(

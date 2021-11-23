@@ -17,7 +17,7 @@ equation
       index=-1,
       extent={{-3,6},{-3,6}},
       horizontalAlignment=TextAlignment.Right));
-  connect(val.y_actual, busCon.inp.y_actual) annotation (Line(points={{5,7},{20,
+  connect(val.y_actual, busCon.y_actual) annotation (Line(points={{5,7},{20,
           7},{20,80},{0,80},{0,100}},          color={0,0,127}), Text(
       string="%second",
       index=1,
