@@ -66,7 +66,7 @@ Buildings.Examples.VAVReheat.Validation.TraceSubstance</a>.  It extends
 <a href=\"modelica://Buildings.Examples.VAVReheat.BaseClasses.Floor\">
 Buildings.Examples.VAVReheat.BaseClasses.Floor</a> with CO<sub>2</sub> generation
 from people and CO<sub>2</sub> from outside air infiltration.  Calculation of the
-generation from people uses the internal gain schedule and uses 0.05 ppl/m^2
+generation from people uses the internal gain schedule and uses 0.05 people per m<sup>2</sup>
 along with the zone area to calculate the number of people.  Then, it assumes
 CO<sub>2</sub> generation is 0.0048 l/s per person (Table 5, Persily and De Jonge 2017)
 and density of CO<sub>2</sub> to be 1.8 kg/m<sup>3</sup>, making CO<sub>2</sub> generation equal to
