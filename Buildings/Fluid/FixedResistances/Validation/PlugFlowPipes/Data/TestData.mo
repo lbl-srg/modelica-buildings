@@ -34,7 +34,6 @@ December 18, 2015 by Daniele Basciotti:<br/>
 First implementation.
 </li>
 </ul>
-</html>"),__Dymola_Commands(file=
-          "Resources/Scripts/Dymola/Fluid/FixedResistances/Validation/PlugFlowPipes/Data/TestData.mos"
+</html>"),__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/FixedResistances/Validation/PlugFlowPipes/Data/TestData.mos"
         "Simulate and plot"));
 end TestData;

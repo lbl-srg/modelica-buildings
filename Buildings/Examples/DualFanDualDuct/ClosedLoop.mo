@@ -54,7 +54,6 @@ model ClosedLoop "Closed loop model of a dual-fan dual-duct system"
     "Mixed air temperature at summer design conditions";
   parameter Modelica.SIunits.Temperature TSupCol_nominal = 12+273.15
     "Cold deck temperature at nominal condition";
-  parameter Modelica.SIunits.Angle lat=41.98*3.14159/180 "Latitude";
 
   Buildings.Fluid.Sources.Outside amb(redeclare package Medium = MediumA, nPorts=2)
     "Ambient conditions"
@@ -81,7 +80,7 @@ model ClosedLoop "Closed loop model of a dual-fan dual-duct system"
     "Preheat coil"
     annotation (Placement(transformation(extent={{100,-56},{120,-36}})));
 
-  Buildings.Fluid.HeatExchangers.WetCoilCounterFlow cooCoi(
+  Fluid.HeatExchangers.WetCoilEffectivenessNTU cooCoi(
     redeclare package Medium1 = MediumW,
     redeclare package Medium2 = MediumA,
     m1_flow_nominal=mWatCol_flow_nominal,
@@ -137,12 +136,12 @@ model ClosedLoop "Closed loop model of a dual-fan dual-duct system"
       final unit="K",
       displayUnit="degC",
       min=0))
-    annotation (Placement(transformation(extent={{-300,150},{-280,170}})));
+    annotation (Placement(transformation(extent={{-320,170},{-300,190}})));
   Buildings.Examples.DualFanDualDuct.Controls.HeatingCoilTemperatureSetpoint
     TSupSetHea(TOn=284.15, TOff=279.15)
     "Set point for preheat coil outlet temperature "
     annotation (Placement(transformation(extent={{-200,-110},{-180,-90}})));
-  Buildings.Examples.VAVReheat.Controls.FanVFD conFanSupHot(
+  Buildings.Examples.VAVReheat.BaseClasses.Controls.FanVFD conFanSupHot(
     initType=Modelica.Blocks.Types.Init.InitialState,
     y_start=yFan_start,
     xSet_nominal(displayUnit="Pa") = 30,
@@ -153,12 +152,12 @@ model ClosedLoop "Closed loop model of a dual-fan dual-duct system"
   Buildings.Controls.SetPoints.OccupancySchedule occSch(occupancy=3600*{6,19})
     "Occupancy schedule"
     annotation (Placement(transformation(extent={{-318,-220},{-298,-200}})));
-  Buildings.Examples.VAVReheat.Controls.ModeSelector modeSelector
-    annotation (Placement(transformation(extent={{-140,-382},{-118,-360}})));
-  Buildings.Examples.VAVReheat.Controls.ControlBus controlBus
+  Buildings.Examples.VAVReheat.BaseClasses.Controls.ModeSelector modeSelector
+    annotation (Placement(transformation(extent={{-302,-378},{-280,-356}})));
+  Buildings.Examples.VAVReheat.BaseClasses.Controls.ControlBus controlBus
     annotation (Placement(transformation(extent={{-250,-270},{-230,-250}})));
-  Buildings.Fluid.Sensors.TemperatureTwoPort TPreHeaCoi(redeclare package
-      Medium = MediumA, m_flow_nominal=m_flow_nominal)
+  Buildings.Fluid.Sensors.TemperatureTwoPort TPreHeaCoi(redeclare package Medium =
+               MediumA, m_flow_nominal=m_flow_nominal)
     "Preheating coil outlet temperature"
     annotation (Placement(transformation(extent={{134,-50},{154,-30}})));
   Buildings.Utilities.Math.Min min(nin=5) "Computes lowest room temperature"
@@ -186,7 +185,7 @@ model ClosedLoop "Closed loop model of a dual-fan dual-duct system"
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={380,-220})));
-  Buildings.Examples.VAVReheat.Controls.Economizer conEco(
+  Buildings.Examples.VAVReheat.BaseClasses.Controls.Economizer conEco(
     have_frePro=true,
     VOut_flow_min=0.3*m_flow_nominal/1.2,
     k=0.05,
@@ -199,7 +198,7 @@ model ClosedLoop "Closed loop model of a dual-fan dual-duct system"
   Buildings.Fluid.Sensors.TemperatureTwoPort TMix(redeclare package Medium =
         MediumA, m_flow_nominal=m_flow_nominal) "Mixed air temperature sensor"
     annotation (Placement(transformation(extent={{30,-50},{50,-30}})));
-  Buildings.Examples.VAVReheat.Controls.RoomTemperatureSetpoint TSetRoo(THeaOff=
+  Buildings.Examples.VAVReheat.BaseClasses.Controls.RoomTemperatureSetpoint TSetRoo(THeaOff=
         289.15)
     annotation (Placement(transformation(extent={{-300,-276},{-280,-256}})));
   Buildings.Fluid.Sources.Boundary_pT souHea(
@@ -230,45 +229,42 @@ model ClosedLoop "Closed loop model of a dual-fan dual-duct system"
     redeclare package Medium = MediumA,
     m_flow_nominal=mAirCol_flow_nominal) "Cooling coil outlet temperature"
     annotation (Placement(transformation(extent={{410,-160},{430,-140}})));
-  Buildings.Fluid.Sensors.VolumeFlowRate VOut1(redeclare package Medium =
-        MediumA, m_flow_nominal=m_flow_nominal) "Outside air volume flow rate"
+  Buildings.Fluid.Sensors.VolumeFlowRate VOut1(
+    redeclare package Medium = MediumA,
+    m_flow_nominal=m_flow_nominal,
+    tau=1) "Outside air volume flow rate"
     annotation (Placement(transformation(extent={{-80,12},{-60,32}})));
-  Buildings.Examples.DualFanDualDuct.ThermalZones.SupplyBranch
-                                                    cor(
+  Buildings.Examples.DualFanDualDuct.ThermalZones.SupplyBranch cor(
     redeclare package MediumA = MediumA,
     m_flow_nominal=m0_flow_cor,
     VRoo=2698,
     from_dp=true) "Zone for core of buildings (azimuth will be neglected)"
     annotation (Placement(transformation(extent={{548,44},{616,112}})));
-  Buildings.Examples.DualFanDualDuct.ThermalZones.SupplyBranch
-                                                    sou(
+  Buildings.Examples.DualFanDualDuct.ThermalZones.SupplyBranch sou(
     redeclare package MediumA = MediumA,
     m_flow_nominal=m0_flow_sou,
     VRoo=568.77,
     from_dp=true) "South-facing thermal zone"
     annotation (Placement(transformation(extent={{686,42},{758,114}})));
-  Buildings.Examples.DualFanDualDuct.ThermalZones.SupplyBranch
-                                                    eas(
+  Buildings.Examples.DualFanDualDuct.ThermalZones.SupplyBranch eas(
     redeclare package MediumA = MediumA,
     m_flow_nominal=m0_flow_eas,
     VRoo=360.08,
     from_dp=true) "East-facing thermal zone"
     annotation (Placement(transformation(extent={{824,46},{892,114}})));
-  Buildings.Examples.DualFanDualDuct.ThermalZones.SupplyBranch
-                                                    nor(
+  Buildings.Examples.DualFanDualDuct.ThermalZones.SupplyBranch nor(
     redeclare package MediumA = MediumA,
     m_flow_nominal=m0_flow_nor,
     VRoo=568.77,
     from_dp=true) "North-facing thermal zone"
     annotation (Placement(transformation(extent={{964,46},{1032,114}})));
-  Buildings.Examples.DualFanDualDuct.ThermalZones.SupplyBranch
-                                                    wes(
+  Buildings.Examples.DualFanDualDuct.ThermalZones.SupplyBranch wes(
     redeclare package MediumA = MediumA,
     m_flow_nominal=m0_flow_wes,
     VRoo=360.08,
     from_dp=true) "West-facing thermal zone"
     annotation (Placement(transformation(extent={{1102,46},{1170,114}})));
-  Buildings.Examples.VAVReheat.Controls.FanVFD conFanRet(
+  Buildings.Examples.VAVReheat.BaseClasses.Controls.FanVFD conFanRet(
                         xSet_nominal(displayUnit="Pa") = 30,
     initType=Modelica.Blocks.Types.Init.InitialState,
     y_start=yFan_start,
@@ -277,7 +273,7 @@ model ClosedLoop "Closed loop model of a dual-fan dual-duct system"
     Ti=15,
     controllerType=Modelica.Blocks.Types.SimpleController.P)
     "Controller for return air fan"
-    annotation (Placement(transformation(extent={{240,220},{260,240}})));
+    annotation (Placement(transformation(extent={{300,220},{320,240}})));
   Buildings.Fluid.FixedResistances.Junction splRetRoo1(
     redeclare package Medium = MediumA,
     m_flow_nominal={m_flow_nominal,m_flow_nominal - m0_flow_cor,m0_flow_cor},
@@ -365,9 +361,8 @@ model ClosedLoop "Closed loop model of a dual-fan dual-duct system"
     annotation (Placement(transformation(extent={{-390,170},{-370,190}})));
   BoundaryConditions.WeatherData.Bus weaBus "Weather Data Bus"
     annotation (Placement(transformation(extent={{-360,170},{-340,190}})));
-  Buildings.Examples.VAVReheat.ThermalZones.Floor flo(
-    redeclare package Medium = MediumA,
-    lat=lat)
+  Buildings.Examples.VAVReheat.BaseClasses.Floor flo(
+    redeclare package Medium = MediumA)
     "Model of a floor of the building that is served by this VAV system"
     annotation (Placement(transformation(extent={{800,282},{1116,510}})));
   Modelica.Blocks.Routing.DeMultiplex5 TRooAir
@@ -379,7 +374,7 @@ model ClosedLoop "Closed loop model of a dual-fan dual-duct system"
     redeclare package Medium2 = MediumA,
     m1_flow_nominal=mWatHot_flow_nominal,
     m2_flow_nominal=mAirHot_flow_nominal,
-    Q_flow_nominal=mAirHot_flow_nominal*1000*(45 - 12),
+    Q_flow_nominal=mAirHot_flow_nominal*1000*(12 - 45),
     configuration=Buildings.Fluid.Types.HeatExchangerConfiguration.CounterFlow,
     dp2_nominal=0,
     from_dp2=from_dp,
@@ -419,7 +414,9 @@ model ClosedLoop "Closed loop model of a dual-fan dual-duct system"
     redeclare package Medium = MediumW,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     m_flow_nominal=mWatPre_flow_nominal,
-    inputType=Buildings.Fluid.Types.InputType.Continuous)
+    inputType=Buildings.Fluid.Types.InputType.Continuous,
+    nominalValuesDefineDefaultPressureCurve=true,
+    dp_nominal=6000)
     "Pump for preheat coil (to ensure constant flow through the coil)"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
@@ -514,7 +511,7 @@ model ClosedLoop "Closed loop model of a dual-fan dual-duct system"
   Modelica.Blocks.Sources.Constant pStaPre_Set(      y(final unit="Pa", min=0), k=30)
     "Setpoint for static pressure"
     annotation (Placement(transformation(extent={{60,110},{80,130}})));
-  Buildings.Examples.VAVReheat.Controls.FanVFD conFanSupCol(
+  Buildings.Examples.VAVReheat.BaseClasses.Controls.FanVFD conFanSupCol(
     initType=Modelica.Blocks.Types.Init.InitialState,
     y_start=yFan_start,
     xSet_nominal(displayUnit="Pa") = 30,
@@ -522,7 +519,7 @@ model ClosedLoop "Closed loop model of a dual-fan dual-duct system"
     annotation (Placement(transformation(extent={{100,60},{120,80}})));
   Modelica.Blocks.Sources.Constant pStaBui_Set(y(final unit="Pa", min=0), k=30)
     "Setpoint for static pressure of building"
-    annotation (Placement(transformation(extent={{140,220},{160,240}})));
+    annotation (Placement(transformation(extent={{240,220},{260,240}})));
 
   Controls.PreHeatCoil conPreHeatCoi "Controller for preheat coil"
                annotation (Placement(transformation(extent={{-10,-110},{10,-90}})));
@@ -554,7 +551,7 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(controlBus, modeSelector.cb) annotation (Line(
-      points={{-240,-260},{-240,-360},{-136.5,-360},{-136.5,-363.5}},
+      points={{-240,-260},{-240,-340},{-298.5,-340},{-298.5,-359.5}},
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None), Text(
@@ -569,7 +566,7 @@ equation
       index=1,
       extent={{6,3},{6,3}}));
   connect(TOut.y, controlBus.TOut) annotation (Line(
-      points={{-279,160},{-240,160},{-240,-260}},
+      points={{-299,180},{-240,180},{-240,-260}},
       color={0,0,127},
       smooth=Smooth.None), Text(
       textString="%second",
@@ -723,15 +720,18 @@ equation
           -6.10623e-16}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(cooCoi.port_b2, TCoiCoo.port_a)    annotation (Line(
+  connect(cooCoi.port_b2, TCoiCoo.port_a)
+    annotation (Line(
       points={{372,-150},{410,-150}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(valCoo.port_b, cooCoi.port_a1) annotation (Line(
+  connect(valCoo.port_b, cooCoi.port_a1)
+    annotation (Line(
       points={{380,-180},{380,-162},{372,-162}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(cooCoi.port_b1, sinCoo.ports[1]) annotation (Line(
+  connect(cooCoi.port_b1, sinCoo.ports[1])
+    annotation (Line(
       points={{352,-162},{340,-162},{340,-210}},
       color={0,127,255},
       smooth=Smooth.None));
@@ -745,7 +745,7 @@ equation
       thickness=0.5,
       smooth=Smooth.None));
   connect(weaBus.TDryBul, TOut.u) annotation (Line(
-      points={{-350,180},{-326,180},{-326,160},{-302,160}},
+      points={{-350,180},{-322,180}},
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None));
@@ -755,58 +755,58 @@ equation
       thickness=0.5,
       smooth=Smooth.None));
   connect(cor.port_b, flo.portsCor[1]) annotation (Line(
-      points={{582,112},{582,252},{784,252},{784,364},{935.429,364},{935.429,
-          337.48}},
+      points={{582,112},{582,252},{784,252},{784,364},{915.409,364},{915.409,
+          401.262}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(splRetRoo1.port_3, flo.portsCor[2]) annotation (Line(
-      points={{602,170},{602,240},{792,240},{792,352},{928,352},{928,337.48},{
-          946.714,337.48}},
+      points={{602,170},{602,240},{792,240},{792,352},{928,352},{928,401.262},{
+          929.148,401.262}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(sou.port_b, flo.portsSou[1]) annotation (Line(
-      points={{722,114},{722,228},{935.429,228},{935.429,307.08}},
+      points={{722,114},{722,228},{915.409,228},{915.409,331.108}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(splRetSou.port_3, flo.portsSou[2]) annotation (Line(
-      points={{742,170},{742,218},{934,218},{934,307.08},{946.714,307.08}},
+      points={{742,170},{742,218},{934,218},{934,331.108},{929.148,331.108}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(eas.port_b, flo.portsEas[1]) annotation (Line(
-      points={{858,114},{858,212},{1078,212},{1078,333.68},{1073.11,333.68}},
+      points={{858,114},{858,212},{1078,212},{1078,401.262},{1072.03,401.262}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(splRetEas.port_3, flo.portsEas[2]) annotation (Line(
-      points={{882,170},{882,210},{1084.4,210},{1084.4,333.68}},
+      points={{882,170},{882,210},{1085.77,210},{1085.77,401.262}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(nor.port_b, flo.portsNor[1]) annotation (Line(
-      points={{998,114},{998,412},{935.429,412},{935.429,367.88}},
+      points={{998,114},{998,412},{915.409,412},{915.409,460.892}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(splRetNor.port_3, flo.portsNor[2]) annotation (Line(
-      points={{1022,170},{1022,418},{946.714,418},{946.714,367.88}},
+      points={{1022,170},{1022,418},{929.148,418},{929.148,460.892}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(wes.port_b, flo.portsWes[1]) annotation (Line(
-      points={{1136,114},{1136,248},{867.714,248},{867.714,337.48}},
+      points={{1136,114},{1136,248},{830.226,248},{830.226,401.262}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(splRetNor.port_2, flo.portsWes[2]) annotation (Line(
-      points={{1032,160},{1130,160},{1130,240},{879,240},{879,337.48}},
+      points={{1032,160},{1130,160},{1130,240},{843.965,240},{843.965,401.262}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(weaBus, flo.weaBus) annotation (Line(
-      points={{-350,180},{-348,180},{-348,396},{1008.79,396}},
+      points={{-350,180},{-348,180},{-348,545.077},{999.217,545.077}},
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None));
   connect(flo.TRooAir, min.u) annotation (Line(
-      points={{1110.36,380.8},{1164.7,380.8},{1164.7,450},{1198,450}},
+      points={{1122.87,396},{1164.7,396},{1164.7,450},{1198,450}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(flo.TRooAir, ave.u) annotation (Line(
-      points={{1110.36,380.8},{1162,380.8},{1162,420},{1198,420}},
+      points={{1122.87,396},{1162,396},{1162,420},{1198,420}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(TRooAir.y1[1], sou.TRoo) annotation (Line(
@@ -830,11 +830,11 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(TRooAir.u, flo.TRooAir) annotation (Line(
-      points={{496,130},{478,130},{478,500},{1162,500},{1162,380.8},{1110.36,
-          380.8}},
+      points={{496,130},{478,130},{478,500},{1162,500},{1162,396},{1122.87,396}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(fanSupCol.port_b, cooCoi.port_a2) annotation (Line(
+  connect(fanSupCol.port_b, cooCoi.port_a2)
+    annotation (Line(
       points={{310,-150},{352,-150}},
       color={0,127,255},
       smooth=Smooth.None));
@@ -991,7 +991,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(flo.p_rel, conFanRet.u_m) annotation (Line(
-      points={{794.357,403.6},{180,403.6},{180,200},{250,200},{250,218}},
+      points={{793.13,396},{220,396},{220,200},{310,200},{310,218}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(controlBus.TOut, TSetHot.u) annotation (Line(
@@ -1003,7 +1003,7 @@ equation
       index=-1,
       extent={{-6,3},{-6,3}}));
   connect(conFanRet.y, fanRet.y) annotation (Line(
-      points={{261,230},{350,230},{350,172}},
+      points={{321,230},{350,230},{350,172}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(conFanSupHot.y, fanSupHot.y) annotation (Line(
@@ -1015,7 +1015,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(pStaBui_Set.y, conFanRet.u) annotation (Line(
-      points={{161,230},{238,230}},
+      points={{261,230},{298,230}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(TCoiCoo.port_b, splSupRoo1Col.port_1) annotation (Line(
@@ -1053,27 +1053,27 @@ equation
   connect(conPreHeatCoi.yVal, valPreHea.y) annotation (Line(points={{11,-105},{
           40,-105},{40,-170},{108,-170}},
                                        color={0,0,127}));
-  connect(modeSelector.yFan, conFanSupCol.uFan) annotation (Line(points={{-117,
-          -366},{-220,-366},{-220,76},{98,76}},                    color={255,0,
+  connect(modeSelector.yFan, conFanSupCol.uFan) annotation (Line(points={{-279,
+          -362},{-220,-362},{-220,76},{98,76}},                    color={255,0,
           255}));
-  connect(modeSelector.yFan, conFanSupHot.uFan) annotation (Line(points={{-117,
-          -366},{-220,-366},{-220,76},{94,76},{94,126},{118,126}},        color=
+  connect(modeSelector.yFan, conFanSupHot.uFan) annotation (Line(points={{-279,
+          -362},{-220,-362},{-220,76},{94,76},{94,126},{118,126}},        color=
          {255,0,255}));
-  connect(modeSelector.yFan, conFanRet.uFan) annotation (Line(points={{-117,
-          -366},{-220,-366},{-220,258},{108,258},{108,236},{238,236}}, color={
+  connect(modeSelector.yFan, conFanRet.uFan) annotation (Line(points={{-279,
+          -362},{-220,-362},{-220,258},{280,258},{280,236},{298,236}}, color={
           255,0,255}));
   connect(cor.yFan, modeSelector.yFan) annotation (Line(points={{543.467,71.2},
-          {530,71.2},{530,-366},{-117,-366}},   color={255,0,255}));
-  connect(modeSelector.yFan, sou.yFan) annotation (Line(points={{-117,-366},{
-          658,-366},{658,70.8},{681.2,70.8}}, color={255,0,255}));
-  connect(modeSelector.yFan, eas.yFan) annotation (Line(points={{-117,-366},{
-          800,-366},{800,73.2},{819.467,73.2}}, color={255,0,255}));
-  connect(modeSelector.yFan, nor.yFan) annotation (Line(points={{-117,-366},{
-          932,-366},{932,73.2},{959.467,73.2}},               color={255,0,255}));
-  connect(modeSelector.yFan, wes.yFan) annotation (Line(points={{-117,-366},{
-          1074,-366},{1074,73.2},{1097.47,73.2}}, color={255,0,255}));
-  connect(modeSelector.yEco, conEco.uEna) annotation (Line(points={{-117,-376},
-          {-216,-376},{-216,94},{-73.3333,94},{-73.3333,107.333}}, color={255,0,
+          {530,71.2},{530,-362},{-279,-362}},   color={255,0,255}));
+  connect(modeSelector.yFan, sou.yFan) annotation (Line(points={{-279,-362},{
+          658,-362},{658,70.8},{681.2,70.8}}, color={255,0,255}));
+  connect(modeSelector.yFan, eas.yFan) annotation (Line(points={{-279,-362},{
+          800,-362},{800,73.2},{819.467,73.2}}, color={255,0,255}));
+  connect(modeSelector.yFan, nor.yFan) annotation (Line(points={{-279,-362},{
+          932,-362},{932,73.2},{959.467,73.2}},               color={255,0,255}));
+  connect(modeSelector.yFan, wes.yFan) annotation (Line(points={{-279,-362},{
+          1074,-362},{1074,73.2},{1097.47,73.2}}, color={255,0,255}));
+  connect(modeSelector.yEco, conEco.uEna) annotation (Line(points={{-279,-372},
+          {-216,-372},{-216,94},{-73.3333,94},{-73.3333,107.333}}, color={255,0,
           255}));
   connect(conCooCoi.y, valCoo.y) annotation (Line(points={{311,-200},{360,-200},
           {360,-190},{368,-190}}, color={0,0,127}));
@@ -1160,8 +1160,8 @@ to track a building pressure of 30 Pascals above outside air pressure.
 There is also an economizer which is controlled to provide the following
 functions: freeze protection, minimum outside air requirement,
 and supply air cooling, see
-<a href=\"modelica://Buildings.Examples.VAVReheat.Controls.Economizer\">
-Buildings.Examples.VAVReheat.Controls.Economizer</a>.
+<a href=\"modelica://Buildings.Examples.VAVReheat.BaseClasses.Controls.Economizer\">
+Buildings.Examples.VAVReheat.BaseClasses.Controls.Economizer</a>.
 During night-time, the fans are switched off.
 The coils are controlled as follows: The preheat coil is controlled to
 maintain an air outlet temperature of 11&deg;C during day-time, and
@@ -1237,6 +1237,17 @@ shading devices, Technical Report, Oct. 17, 2006.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+September 16, 2021, by Michael Wetter:<br/>
+Removed assignment of parameter <code>lat</code> as this is now obtained from the weather data reader.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1477\">IBPSA, #1477</a>.
+</li>
+<li>
+June 30, 2021, by Antoine Gautier:<br/>
+Changed cooling coil model. This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2549\">issue #2549</a>.
+</li>
 <li>
 October 27, 2020, by Antoine Gautier:<br/>
 Refactored the model for compatibility with the updated control of supply air
@@ -1318,5 +1329,5 @@ __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Examples/D
         "Simulate and plot"),
     experiment(
       StopTime=172800,
-      Tolerance=1e-07));
+      Tolerance=1e-06));
 end ClosedLoop;

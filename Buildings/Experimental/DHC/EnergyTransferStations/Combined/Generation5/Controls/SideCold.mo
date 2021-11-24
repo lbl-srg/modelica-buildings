@@ -38,7 +38,7 @@ model SideCold
     final k={(i-1) for i in 1:nSouAmb})
     "x1"
     annotation (Placement(transformation(extent={{0,10},{20,30}})));
-  Buildings.Controls.OBC.CDL.Routing.RealReplicator rep(
+  Buildings.Controls.OBC.CDL.Routing.RealScalarReplicator rep(
     final nout=nSouAmb)
     "Replicate control signal"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},rotation=0,origin={-20,0})));
@@ -58,26 +58,24 @@ model SideCold
     final k=k,
     final Ti=Ti,
     final controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
-    final yMin=-1,
-    final yMax=0,
-    final reverseActing=true)
+    final yMin=0,
+    final yMax=1,
+    final reverseActing=false)
     "Controller for CHWST"
-    annotation (Placement(transformation(extent={{-128,-30},{-108,-10}})));
+    annotation (Placement(transformation(extent={{-130,-30},{-110,-10}})));
   Buildings.Controls.OBC.CDL.Continuous.Line mapFunTChiSupSet
     "Mapping function for CHWST reset"
     annotation (Placement(transformation(extent={{100,70},{120,90}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minTChiWatSup(
-    y(
-      final unit="K",
+    y(final unit="K",
       displayUnit="degC"),
     final k=TChiWatSupSetMin)
     "Minimum value of chilled water supply temperature"
     annotation (Placement(transformation(extent={{62,50},{82,70}})));
   Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar(
-    p=nSouAmb,
-    k=nSouAmb)
+    p=nSouAmb, k=-nSouAmb)
     "One minus control loop output"
-    annotation (Placement(transformation(extent={{-98,-30},{-78,-10}})));
+    annotation (Placement(transformation(extent={{-100,-30},{-80,-10}})));
   Buildings.Controls.OBC.CDL.Continuous.Max max1
     "CHWST reset signal"
     annotation (Placement(transformation(extent={{-30,70},{-10,90}})));
@@ -145,9 +143,9 @@ equation
   connect(x2.y,mapFun.x2)
     annotation (Line(points={{22,-60},{44,-60},{44,-4},{98,-4}},color={0,0,127}));
   connect(TSet,conTChiWatSup.u_s)
-    annotation (Line(points={{-200,40},{-148,40},{-148,-20},{-130,-20}},color={0,0,127}));
+    annotation (Line(points={{-200,40},{-148,40},{-148,-20},{-132,-20}},color={0,0,127}));
   connect(TBot,conTChiWatSup.u_m)
-    annotation (Line(points={{-200,-80},{-118,-80},{-118,-32}},color={0,0,127}));
+    annotation (Line(points={{-200,-80},{-120,-80},{-120,-32}},color={0,0,127}));
   connect(f2[1].y,mapFunTChiSupSet.x2)
     annotation (Line(points={{12,120},{40,120},{40,76},{98,76}},color={0,0,127}));
   connect(minTChiWatSup.y,mapFunTChiSupSet.f2)
@@ -155,7 +153,7 @@ equation
   connect(TSet,mapFunTChiSupSet.f1)
     annotation (Line(points={{-200,40},{20,40},{20,84},{98,84}},color={0,0,127}));
   connect(conTChiWatSup.y,addPar.u)
-    annotation (Line(points={{-106,-20},{-100,-20}},color={0,0,127}));
+    annotation (Line(points={{-108,-20},{-102,-20}},color={0,0,127}));
   connect(uCol,subNumSou.u)
     annotation (Line(points={{-200,0},{-160,0},{-160,100},{-82,100}},color={0,0,127}));
   connect(max1.y,mapFunTChiSupSet.u)
@@ -163,7 +161,7 @@ equation
   connect(uCol,min1.u1)
     annotation (Line(points={{-200,0},{-80,0},{-80,6},{-62,6}},color={0,0,127}));
   connect(addPar.y,min1.u2)
-    annotation (Line(points={{-76,-20},{-70,-20},{-70,-6},{-62,-6}},color={0,0,127}));
+    annotation (Line(points={{-78,-20},{-70,-20},{-70,-6},{-62,-6}},color={0,0,127}));
   connect(min1.y,rep.u)
     annotation (Line(points={{-38,0},{-32,0}},color={0,0,127}));
   connect(mapFun.y,yAmb)
@@ -171,7 +169,8 @@ equation
   connect(ramLimHea.y,TChiWatSupSet)
     annotation (Line(points={{162,80},{200,80}},color={0,0,127}));
   connect(uHeaCoo,conTChiWatSup.uEna)
-    annotation (Line(points={{-200,120},{-140,120},{-140,-42},{-122,-42},{-122,-32}},color={255,0,255}));
+    annotation (Line(points={{-200,120},{-140,120},{-140,-40},{-124,-40},{-124,
+          -32}},                                                                     color={255,0,255}));
   connect(zer.y,mapFunTChiSupSet.x1)
     annotation (Line(points={{-58,60},{0,60},{0,88},{98,88}},color={0,0,127}));
   connect(uCol,greThr.u)
@@ -195,7 +194,7 @@ equation
 <ul>
 <li>
 July 31, 2020, by Antoine Gautier:<br/>
-First implementation
+First implementation.
 </li>
 </ul>
 </html>",

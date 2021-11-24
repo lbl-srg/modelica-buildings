@@ -90,7 +90,7 @@ model DXCooledAirsideEconomizer
   Modelica.Blocks.Sources.Constant SATSetPoi(k=TAirSupSet)
     "Supply air temperature set point"
     annotation (Placement(transformation(extent={{-240,90},{-220,110}})));
-  Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.Data.Generic.DXCoil datCoi(
+  parameter Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.Data.Generic.DXCoil datCoi(
     nSta=4,
     sta={
     Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.Data.Generic.BaseClasses.Stage(

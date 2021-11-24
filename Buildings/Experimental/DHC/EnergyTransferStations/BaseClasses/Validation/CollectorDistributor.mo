@@ -681,21 +681,21 @@ an active primary circuit which mass flow rate varies from 0 to 1.1 times
 one with a mass flow rate varying from 0.5 to 1 times
 <code>m_flow_nominal</code>,
 another with a constant mass flow rate, equal to 0.5 times
-<code>m_flow_nominal</code>: this case illustrates a typical supply-through 
-loop and the supply temperature drop in one secondary circuit resulting 
-from flow recirculation when the sum of the secondary mass flow rates 
+<code>m_flow_nominal</code>: this case illustrates a typical supply-through
+loop and the supply temperature drop in one secondary circuit resulting
+from flow recirculation when the sum of the secondary mass flow rates
 exceeds the primary mass flow rate;
 </li>
 <li>
 an active primary circuit which mass flow rate varies from 0 to 1.1 times
-<code>m_flow_nominal</code> (similar to the previous case) and 
-two passive secondary circuits, with no recirculation loop at the 
-end of the distribution line, 
+<code>m_flow_nominal</code> (similar to the previous case) and
+two passive secondary circuits, with no recirculation loop at the
+end of the distribution line,
 </li>
 <li>
-a passive primary circuit and two active secondary circuits, 
-both with a varying mass flow rate, with no recirculation loop at the 
-end of the distribution line. 
+a passive primary circuit and two active secondary circuits,
+both with a varying mass flow rate, with no recirculation loop at the
+end of the distribution line.
 </li>
 </ol>
 </html>",
@@ -703,7 +703,7 @@ end of the distribution line.
 <ul>
 <li>
 July 31, 2020, by Antoine Gautier:<br/>
-First implementation
+First implementation.
 </li>
 </ul>
 </html>"),

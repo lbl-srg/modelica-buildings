@@ -22,8 +22,7 @@ model SprayAirWasher_X
   replaceable Buildings.Fluid.Humidifiers.SprayAirWasher_X hum(
     mWatMax_flow=mWat_flow_nominal,
     massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)
-      constrainedby
-    Buildings.Fluid.HeatExchangers.BaseClasses.PartialPrescribedOutlet(
+      constrainedby Buildings.Fluid.Humidifiers.SprayAirWasher_X(
         redeclare package Medium = Medium,
         m_flow_nominal=m_flow_nominal,
         dp_nominal=6000,
@@ -79,6 +78,13 @@ that is added to the air stream.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+April 29, 2021, by Michael Wetter:<br/>
+Reformulated constraint of replaceable model to avoid access of
+component that is not in constraining type.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1473\">IBPSA, #1473</a>.
+</li>
 <li>
 May 3, 2017, by Michael Wetter:<br/>
 First implementation.

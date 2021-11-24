@@ -1,15 +1,15 @@
 within Buildings.Controls.OBC.UnitConversions;
-block From_Btu "Block that converts work from British thermal units to joule"
+block From_Btu "Block that converts energy from British thermal units to joule"
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput u(
-    final quantity = "Work")
-    "Work in British thermal units"
+    final quantity = "Energy")
+    "Energy in British thermal units"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput y(
     final unit = "J",
-    final quantity = "Work")
-    "Work in joule"
+    final quantity = "Energy")
+    "Energy in joule"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
 protected
@@ -53,7 +53,7 @@ equation
         Line(points={{-90,0},{30,0}}, color={191,0,0})}),
         Documentation(info="<html>
 <p>
-Converts work given in British thermal units [Btu] to joule [J].
+Converts energy given in British thermal units [Btu] to joule [J].
 </p>
 </html>", revisions="<html>
 <ul>

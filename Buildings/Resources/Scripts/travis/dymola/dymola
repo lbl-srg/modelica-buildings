@@ -15,6 +15,6 @@ docker run \
   --detach=false \
   --rm \
   -v ${sha_dir}:/mnt/shared \
-  ${DOCKER_USERNAME}/travis_ubuntu-1804_dymola:2021-x86_64 /bin/bash -c \
+  ${DOCKER_USERNAME}/travis_ubuntu-1804_dymola:2022-x86_64 /bin/bash -c \
   "cd /mnt/shared/${bas_nam} && \
    dymola ${arg_lis}"

@@ -4,8 +4,7 @@ model FanCoil4PipeHeatPorts
   extends PartialFanCoil4Pipe(
     final have_heaPor=true,
     final have_fluPor=false,
-    final have_TSen=false,
-    final have_scaLoa=true);
+    final have_TSen=false);
   Buildings.HeatTransfer.Sources.PrescribedHeatFlow heaFloHeaCon
     "Convective heat flow rate to load"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},rotation=0,origin={50,70})));
@@ -58,13 +57,13 @@ equation
     annotation (Line(points={{160,20},{120,20},{120,160},{0,160},{0,168}},color={0,0,127}));
   connect(senT.T,conHea.u_m)
     annotation (Line(points={{160,20},{120,20},{120,204},{0,204},{0,208}},color={0,0,127}));
-  connect(heaFloCooCon.port,scaHeaFloCon.port_a)
+  connect(heaFloCooCon.port,mulHeaFloCon.port_a)
     annotation (Line(points={{60,50},{110,50},{110,40},{160,40}},color={191,0,0}));
-  connect(heaFloHeaCon.port,scaHeaFloCon.port_a)
+  connect(heaFloHeaCon.port,mulHeaFloCon.port_a)
     annotation (Line(points={{60,70},{110,70},{110,40},{160,40}},color={191,0,0}));
-  connect(heaFloHeaRad.port,scaHeaFloRad.port_a)
+  connect(heaFloHeaRad.port,mulHeaFloRad.port_a)
     annotation (Line(points={{120,-40},{160,-40}},color={191,0,0}));
-  connect(heaFloCooRad.port,scaHeaFloRad.port_a)
+  connect(heaFloCooRad.port,mulHeaFloRad.port_a)
     annotation (Line(points={{120,-80},{140,-80},{140,-40},{160,-40}},color={191,0,0}));
   annotation (
     Documentation(

@@ -43,13 +43,11 @@ model CouplingSpawnZ1
     annotation (Placement(transformation(extent={{-80,-70},{-60,-50}})));
   Buildings.Fluid.Sources.Boundary_pT sinHeaWat(
     redeclare package Medium=Medium1,
-    p=300000,
     nPorts=1)
     "Sink for heating water"
     annotation (Placement(transformation(extent={{10,-10},{-10,10}},rotation=0,origin={130,0})));
   Buildings.Fluid.Sources.Boundary_pT sinChiWat(
     redeclare package Medium=Medium1,
-    p=300000,
     nPorts=1)
     "Sink for chilled water"
     annotation (Placement(transformation(extent={{10,-10},{-10,10}},rotation=0,origin={130,-80})));

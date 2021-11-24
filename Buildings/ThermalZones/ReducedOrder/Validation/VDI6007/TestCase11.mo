@@ -278,6 +278,11 @@ equation
   </html>", revisions="<html>
   <ul>
   <li>
+  November 4, 2021, by Michael Wetter:<br/>
+  Increased solver tolerance so that the model passes the assertion in OpenModelica
+  after applying <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2713\">Buildings, #2713</a>.
+  </li>
+  <li>
   July 11, 2019, by Katharina Brinkmann:<br/>
   Renamed <code>alphaWall</code> to <code>hConWall</code>
   </li>
@@ -298,7 +303,7 @@ equation
   Implemented.
   </li>
   </ul>
-  </html>"),experiment(Tolerance=1e-6, StopTime=5.184e+006, Interval=60),
+  </html>"),experiment(Tolerance=1e-7, StopTime=5.184e+006, Interval=60),
   __Dymola_Commands(file=
   "modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/ReducedOrder/Validation/VDI6007/TestCase11.mos"
         "Simulate and plot"));

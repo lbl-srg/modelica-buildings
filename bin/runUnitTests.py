@@ -37,7 +37,8 @@ def _validate_experiment_setup(path):
     import buildingspy.development.validator as v
 
     val = v.Validator()
-    retVal = val.validateExperimentSetup(path)
+    # This throws a ValueError exception if the experiment setup is incorrect
+    val.validateExperimentSetup(path)
 
 
 def _validate_html(path):
@@ -190,8 +191,9 @@ if __name__ == '__main__':
 
     if args.validate_experiment_setup:
         # Match the mos file parameters with the mo files only, and then exit
-        ret_val = _validate_experiment_setup(args.path)
-        exit(ret_val)
+        # The call below throws a ValueError exception if the experiment setup is incorrect
+        _validate_experiment_setup(args.path)
+        exit(0)
 
     if args.single_package:
         single_package = args.single_package

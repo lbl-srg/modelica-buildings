@@ -3,7 +3,7 @@ model IntegratedPrimaryLoadSide
   "Integrated WSE on the load side in a primary-only chilled water system"
   extends Modelica.Icons.Example;
   extends Buildings.Applications.DataCenters.ChillerCooled.Equipment.Validation.BaseClasses.PartialPlant(
-    sou1(nPorts=2, m_flow=2*mCW_flow_nominal),
+    sou1(nPorts=2),
     sin1(nPorts=2),
     TSet(k=273.15 + 5.56),
     TEva_in(k=273.15 + 15.28),

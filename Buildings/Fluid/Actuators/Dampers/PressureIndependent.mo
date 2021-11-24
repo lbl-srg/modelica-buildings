@@ -13,16 +13,15 @@ model PressureIndependent
   parameter Real deltax(unit="1", min=1E-5) = 0.02 "Transition interval for flow rate"
     annotation(Dialog(tab="Advanced"));
 protected
-  Real kSquInv
-    "Square inverse of flow coefficient (damper plus fixed resistance)";
-  Real kDamSquInv
-    "Square inverse of flow coefficient (damper only)";
-  parameter Real y_min = 2E-2
+  constant Real y_min = 2E-2
     "Minimum value of control signal before zeroing of the opening";
-  parameter Integer sizeSupSplBnd = 5
+  constant Integer sizeSupSplBnd = 5
     "Number of support points on each quadratic domain for spline interpolation";
-  parameter Integer sizeSupSpl = 2 * sizeSupSplBnd + 3
+  constant Integer sizeSupSpl = 2 * sizeSupSplBnd + 3
     "Total number of support points for spline interpolation";
+  constant Real y2dd = 0
+    "Second derivative at second support point";
+
   parameter Real[sizeSupSpl] ySupSpl_raw = cat(
     1,
     linspace(1, yU, sizeSupSplBnd),
@@ -44,8 +43,12 @@ protected
     "Parameter for avoiding unnecessary computations";
   parameter Real coeff2 = 1/coeff1
     "Parameter for avoiding unnecessary computations";
-  constant Real y2dd = 0
-    "Second derivative at second support point";
+
+  Real kSquInv
+    "Square inverse of flow coefficient (damper plus fixed resistance)";
+  Real kDamSquInv
+    "Square inverse of flow coefficient (damper only)";
+
   Modelica.SIunits.MassFlowRate m_flow_set
     "Requested mass flow rate";
   Modelica.SIunits.PressureDifference dp_min(displayUnit="Pa")
@@ -122,8 +125,13 @@ end exponentialDamper_inv;
 
 initial equation
   (kSupSpl, idx_sorted) = Modelica.Math.Vectors.sort(kSupSpl_raw, ascending=true);
-  ySupSpl = ySupSpl_raw[idx_sorted];
-  invSplDer = Buildings.Utilities.Math.Functions.splineDerivatives(x=kSupSpl, y=ySupSpl);
+  // The sum below is a trick to avoid in OPTIMICA the warning
+  // Variable array index in equation can result in slow simulation time.
+  // This warning was issued for the formulation ySupSpl = ySupSpl_raw[idx_sorted];
+  for i in 1:sizeSupSpl loop
+    ySupSpl[i] = sum((if k == idx_sorted[i] then ySupSpl_raw[k] else 0) for k in 1:sizeSupSpl);
+  end for;
+  invSplDer = Buildings.Utilities.Math.Functions.splineDerivatives(x=kSupSpl_raw, y=ySupSpl_raw);
 equation
   // From TwoWayPressureIndependent valve model
   m_flow_set = m_flow_nominal*phi;
@@ -314,6 +322,20 @@ variations.
 revisions="<html>
 <ul>
 <li>
+August 11, 2021, by Michael Wetter:<br/>
+Reformulated initial equation section to avoid warning in OPTIMICA about
+variable array index.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1513\">IBPSA #1513</a>.
+</li>
+<li>
+June 10, 2021, by Michael Wetter:<br/>
+Changed implementation of the filter and changed the parameter <code>order</code> to a constant
+as most users need not change this value.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1498\">IBPSA #1498</a>.
+</li>
+<li>
 April 6, 2020, by Antoine Gautier:<br/>
 Added the computation of the damper opening.
 </li>
@@ -323,7 +345,7 @@ Refactored as the model can now extend directly
 <a href=\"modelica://Buildings.Fluid.Actuators.BaseClasses.PartialDamperExponential\">
 Buildings.Fluid.Actuators.BaseClasses.PartialDamperExponential</a>.<br/>
 This is for
-<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1188\">#1188</a>.
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1188\">IBPSA #1188</a>.
 </li>
 <li>
 March 21, 2017 by David Blum:<br/>

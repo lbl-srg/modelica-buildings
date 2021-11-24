@@ -23,7 +23,6 @@ partial model RoomHeatMassBalance "Base model for a room"
         extent={{-40,-10},{40,10}},
         rotation=90,
         origin={-150,-100})));
-  parameter Modelica.SIunits.Angle lat "Latitude";
   final parameter Modelica.SIunits.Volume V=AFlo*hRoo "Volume";
   parameter Modelica.SIunits.Area AFlo "Floor area";
   parameter Modelica.SIunits.Length hRoo "Average room height";
@@ -129,12 +128,12 @@ partial model RoomHeatMassBalance "Base model for a room"
 
   ////////////////////////////////////////////////////////////////////////
   // Models for boundary conditions
-  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a surf_conBou[nConBou] if
-    haveConBou "Heat port at surface b of construction conBou" annotation (
+  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a surf_conBou[nConBou]
+ if haveConBou "Heat port at surface b of construction conBou" annotation (
       Placement(transformation(extent={{-270,-190},{-250,-170}}),
         iconTransformation(extent={{50,-170},{70,-150}})));
-  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a surf_surBou[nSurBou] if
-    haveSurBou "Heat port of surface that is connected to the room air"
+  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a surf_surBou[nSurBou]
+ if haveSurBou "Heat port of surface that is connected to the room air"
     annotation (Placement(transformation(extent={{-270,-150},{-250,-130}}),
         iconTransformation(extent={{-48,-150},{-28,-130}})));
   Modelica.Blocks.Interfaces.RealInput qGai_flow[3](each unit="W/m2")
@@ -145,7 +144,6 @@ partial model RoomHeatMassBalance "Base model for a room"
   // room model has an exterior-facing surface that is a floor
   BaseClasses.ExteriorBoundaryConditions bouConExt(
     final nCon=nConExt,
-    final lat=lat,
     linearizeRadiation=linearizeRadiation,
     final conMod=extConMod,
     final conPar=datConExt,
@@ -156,7 +154,6 @@ partial model RoomHeatMassBalance "Base model for a room"
   // room model has an exterior-facing surface that is a floor
   BaseClasses.ExteriorBoundaryConditionsWithWindow bouConExtWin(
     final nCon=nConExtWin,
-    final lat=lat,
     final conPar=datConExtWin,
     linearizeRadiation=linearizeRadiation,
     final conMod=extConMod,
@@ -176,8 +173,8 @@ partial model RoomHeatMassBalance "Base model for a room"
     final rhoShaSol_a=datConExtWin.glaSys.shade.rhoSol_a,
     final rhoShaSol_b=datConExtWin.glaSys.shade.rhoSol_b,
     final haveExteriorShade=datConExtWin.glaSys.haveExteriorShade,
-    final haveInteriorShade=datConExtWin.glaSys.haveInteriorShade) if
-    haveConExtWin "Model for solar radiation through shades and window"
+    final haveInteriorShade=datConExtWin.glaSys.haveInteriorShade)
+ if haveConExtWin "Model for solar radiation through shades and window"
     annotation (Placement(transformation(extent={{320,-24},{300,-4}})));
 
   BoundaryConditions.WeatherData.Bus weaBus "Weather data"
@@ -220,8 +217,8 @@ partial model RoomHeatMassBalance "Base model for a room"
     final isFloorConPar_b=isFloorConPar_b,
     final isFloorConBou=isFloorConBou,
     final isFloorSurBou=isFloorSurBou,
-    final tauGla={datConExtWin[i].glaSys.glass[size(datConExtWin[i].glaSys.glass, 1)].tauSol[1] for i in 1:NConExtWin}) if
-       haveConExtWin "Solar radiative heat exchange"
+    final tauGla={datConExtWin[i].glaSys.glass[size(datConExtWin[i].glaSys.glass, 1)].tauSol[1] for i in 1:NConExtWin})
+    if haveConExtWin "Solar radiative heat exchange"
     annotation (Placement(transformation(extent={{-100,40},{-80,60}})));
 
   Buildings.ThermalZones.Detailed.BaseClasses.InfraredRadiationGainDistribution irRadGai(
@@ -279,8 +276,8 @@ partial model RoomHeatMassBalance "Base model for a room"
     final tauIR_air=tauIRSha_air,
     final tauIR_glass=tauIRSha_glass,
     each final linearize = linearizeRadiation,
-    each final homotopyInitialization=homotopyInitialization) if
-       haveShade "Radiation model for room-side window shade"
+    each final homotopyInitialization=homotopyInitialization)
+    if haveShade "Radiation model for room-side window shade"
     annotation (Placement(transformation(extent={{-60,90},{-40,110}})));
 
 protected
@@ -332,8 +329,8 @@ protected
     "Flag to indicate if floor for constructions that are modeled outside of this room";
 
   HeatTransfer.Windows.BaseClasses.ShadingSignal shaSig[NConExtWin](
-    each final haveShade=haveShade) if
-       haveConExtWin "Shading signal"
+    each final haveShade=haveShade)
+    if haveConExtWin "Shading signal"
     annotation (Placement(transformation(extent={{-220,150},{-200,170}})));
 
   Buildings.ThermalZones.Detailed.BaseClasses.HeatGain heaGai(final AFlo=AFlo)
@@ -347,23 +344,23 @@ protected
 
   Modelica.Blocks.Math.Add sumJToWin[NConExtWin](
     each final k1=1,
-    each final k2=1) if
-       haveConExtWin
+    each final k2=1)
+    if haveConExtWin
     "Sum of radiosity flows from room surfaces toward the window"
     annotation (Placement(transformation(extent={{-40,-30},{-20,-10}})));
 
-  HeatTransfer.Radiosity.RadiositySplitter radShaOut[NConExtWin] if
-     haveConExtWin
+  HeatTransfer.Radiosity.RadiositySplitter radShaOut[NConExtWin]
+  if haveConExtWin
     "Splitter for radiosity that strikes shading device or unshaded part of window"
     annotation (Placement(transformation(extent={{-100,120},{-80,140}})));
 
   Modelica.Blocks.Math.Sum sumJFroWin[NConExtWin](each nin=if haveShade then 2
-         else 1) if
-       haveConExtWin "Sum of radiosity fom window to room surfaces"
+         else 1)
+    if haveConExtWin "Sum of radiosity fom window to room surfaces"
     annotation (Placement(transformation(extent={{-20,4},{-40,24}})));
 
-  Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature TSha[NConExtWin] if
-       haveShade "Temperature of shading device"
+  Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature TSha[NConExtWin]
+    if haveShade "Temperature of shading device"
     annotation (Placement(transformation(extent={{-20,-78},{-40,-58}})));
 
 initial equation
@@ -841,7 +838,6 @@ equation
         Text(
           extent={{-198,144},{-122,112}},
           lineColor={0,0,127},
-          visible=haveControllableWindow,
           textString="uWin"),
         Rectangle(
           extent={{-140,140},{140,-140}},
@@ -873,6 +869,12 @@ for detailed explanations.
 </p>
 </html>",   revisions="<html>
 <ul>
+<li>
+September 16, 2021, by Michael Wetter:<br/>
+Removed parameter <code>lat</code> because the latitude is now obtained from the weather data bus.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1477\">IBPSA, #1477</a>.
+</li>
 <li>
 April 14, 2020, by Michael Wetter:<br/>
 Changed <code>homotopyInitialization</code> to a constant.<br/>

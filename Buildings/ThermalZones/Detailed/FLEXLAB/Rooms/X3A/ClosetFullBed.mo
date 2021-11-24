@@ -4,7 +4,6 @@ model ClosetFullBed
   extends Buildings.ThermalZones.Detailed.MixedAir(
   hRoo = 3.6576,
   AFlo = 3.93,
-  lat = 0.66098585832754,
   nConExt = 2,
   nConBou = 2,
   nSurBou = 3,

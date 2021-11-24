@@ -1,5 +1,5 @@
 within Buildings.Airflow.Multizone.Examples;
-model CO2TransportStep "Model that transport CO2 through buoyancy driven flow"
+model CO2TransportStep "Model with transport of CO2 through buoyancy driven flow"
   extends Buildings.Airflow.Multizone.Validation.ThreeRoomsContam(
     volWes(nPorts=5),
     volTop(nPorts=3),
@@ -18,7 +18,7 @@ model CO2TransportStep "Model that transport CO2 through buoyancy driven flow"
     amplitude=8.18E-6,
     width=1/24/10,
     period=86400,
-    startTime=3600)
+    startTime=3600) "Pulse signal for CO2 flow source"
     annotation (Placement(transformation(extent={{-140,-80},{-120,-60}})));
   Buildings.Fluid.Sources.TraceSubstancesFlowSource sou(
     redeclare package Medium = Medium,
@@ -65,6 +65,11 @@ the other rooms, and eventually its concentration decays.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+March 26, 2021 by Michael Wetter:<br/>
+Updated comments for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/515\">IBPSA, #515</a>.
+</li>
 <li>
 November 10, 2011, by Michael Wetter:<br/>
 Extended model from

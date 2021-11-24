@@ -59,12 +59,10 @@ partial model PartialFlowMachine
   parameter Modelica.Blocks.Types.Init init=Modelica.Blocks.Types.Init.InitialOutput
     "Type of initialization (no init/steady state/initial state/initial output)"
     annotation(Dialog(tab="Dynamics", group="Filtered speed",enable=use_inputFilter));
-  parameter Real y_start(min=0, max=1, unit="1")=0 "Initial value of speed"
-    annotation(Dialog(tab="Dynamics", group="Filtered speed",enable=use_inputFilter));
 
   // Connectors and ports
-    Modelica.Blocks.Interfaces.IntegerInput stage if
-       inputType == Buildings.Fluid.Types.InputType.Stages
+    Modelica.Blocks.Interfaces.IntegerInput stage
+    if inputType == Buildings.Fluid.Types.InputType.Stages
     "Stage input signal for the pressure head"
     annotation (Placement(
         transformation(
@@ -146,18 +144,21 @@ protected
   final parameter Modelica.SIunits.SpecificEnthalpy h_outflow_start = Medium.specificEnthalpy(sta_start)
     "Start value for outflowing enthalpy";
 
+  final parameter Modelica.SIunits.Frequency fCut = 5/(2*Modelica.Constants.pi*riseTime)
+    "Cut-off frequency of filter";
+
   Modelica.Blocks.Sources.Constant[size(stageInputs, 1)] stageValues(
-    final k=stageInputs) if
-      inputType == Buildings.Fluid.Types.InputType.Stages "Stage input values"
+    final k=stageInputs)
+   if inputType == Buildings.Fluid.Types.InputType.Stages "Stage input values"
     annotation (Placement(transformation(extent={{-80,40},{-60,60}})));
   Modelica.Blocks.Sources.Constant setConst(
-    final k=constInput) if
-      inputType == Buildings.Fluid.Types.InputType.Constant
+    final k=constInput)
+   if inputType == Buildings.Fluid.Types.InputType.Constant
     "Constant input set point"
     annotation (Placement(transformation(extent={{-80,70},{-60,90}})));
 
-  Extractor extractor(final nin=size(stageInputs,1)) if
-      inputType == Buildings.Fluid.Types.InputType.Stages "Stage input extractor"
+  Extractor extractor(final nin=size(stageInputs,1))
+   if inputType == Buildings.Fluid.Types.InputType.Stages "Stage input extractor"
     annotation (Placement(transformation(extent={{-50,60},{-30,40}})));
 
   Modelica.Blocks.Routing.RealPassThrough inputSwitch
@@ -183,19 +184,16 @@ protected
     nPorts=2) "Fluid volume for dynamic model"
     annotation (Placement(transformation(extent={{-70,0},{-90,20}})));
 
-  Modelica.Blocks.Continuous.Filter filter(
-     order=2,
-     f_cut=5/(2*Modelica.Constants.pi*riseTime),
-     final init=init,
-     x(each stateSelect=StateSelect.always),
-     final analogFilter=Modelica.Blocks.Types.AnalogFilter.CriticalDamping,
-     final filterType=Modelica.Blocks.Types.FilterType.LowPass) if
-        use_inputFilter
-    "Second order filter to approximate valve opening time, and to improve numerics"
-    annotation (Placement(transformation(extent={{20,81},{34,95}})));
+  Buildings.Fluid.BaseClasses.ActuatorFilter filter(
+    final n=2,
+    final f=fCut,
+    final normalized=true,
+    final initType=init) if use_inputFilter
+    "Second order filter to approximate dynamics of pump speed, and to improve numerics"
+    annotation (Placement(transformation(extent={{20,61},{40,80}})));
 
-  Modelica.Blocks.Math.Gain gaiSpe(y(final unit="1")) if
-    inputType == Buildings.Fluid.Types.InputType.Continuous and
+  Modelica.Blocks.Math.Gain gaiSpe(y(final unit="1"))
+ if inputType == Buildings.Fluid.Types.InputType.Continuous and
     speedIsInput
     "Gain to normalized speed using speed_nominal or speed_rpm_nominal"
     annotation (Placement(transformation(extent={{-4,74},{-16,86}})));
@@ -210,17 +208,17 @@ protected
 
   Buildings.Fluid.Movers.BaseClasses.PowerInterface heaDis(
     final motorCooledByFluid=per.motorCooledByFluid,
-    final delta_V_flow=1E-3*V_flow_max) if
-      addPowerToMedium "Heat dissipation into medium"
+    final delta_V_flow=1E-3*V_flow_max)
+   if addPowerToMedium "Heat dissipation into medium"
     annotation (Placement(transformation(extent={{20,-80},{40,-60}})));
 
-  Modelica.Blocks.Math.Add PToMed(final k1=1, final k2=1) if
-    addPowerToMedium "Heat and work input into medium"
+  Modelica.Blocks.Math.Add PToMed(final k1=1, final k2=1)
+ if addPowerToMedium "Heat and work input into medium"
     annotation (Placement(transformation(extent={{50,-90},{70,-70}})));
 
   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow prePow(
-    final alpha=0) if
-    addPowerToMedium
+    final alpha=0)
+ if addPowerToMedium
     "Prescribed power (=heat and flow work) flow for dynamic model"
     annotation (Placement(transformation(extent={{-14,-104},{-34,-84}})));
 
@@ -256,7 +254,6 @@ protected
     final computePowerUsingSimilarityLaws=computePowerUsingSimilarityLaws,
     final haveVMax=haveVMax,
     final V_flow_max=V_flow_max,
-    r_N(start=y_start),
     r_V(start=m_flow_nominal/rho_default),
     final preVar=preVar) "Flow machine"
     annotation (Placement(transformation(extent={{-32,-68},{-12,-48}})));
@@ -440,8 +437,8 @@ equation
                              color={0,0,127}));
   connect(eff.WFlo, PToMed.u2) annotation (Line(points={{-11,-56},{-8,-56},{-8,-86},
           {48,-86}},      color={0,0,127}));
-  connect(inputSwitch.y, filter.u) annotation (Line(points={{1,50},{16,50},{16,88},
-          {18.6,88}},     color={0,0,127}));
+  connect(inputSwitch.y, filter.u) annotation (Line(points={{1,50},{12,50},{12,70.5},
+          {18,70.5}},     color={0,0,127}));
 
   connect(senRelPre.p_rel, eff.dp_in) annotation (Line(points={{50.5,-26.35},{50.5,
           -38},{-18,-38},{-18,-46}},               color={0,0,127}));
@@ -545,6 +542,12 @@ and more robust simulation, in particular if the mass flow is equal to zero.
 </html>",
 revisions="<html>
 <ul>
+<li>
+June 17, 2021, by Michael Wetter:<br/>
+Changed implementation of the filter.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1498\">#1498</a>.
+</li>
 <li>
 October 25, 2019, by Jianjun Hu:<br/>
 Improved icon graphics annotation. This is for

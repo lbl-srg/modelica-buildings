@@ -36,8 +36,7 @@ model TestCellFullBed
         til={Buildings.Types.Tilt.Wall},
         azi={Buildings.Types.Azimuth.S}),
       intConMod=Buildings.HeatTransfer.Types.InteriorConvection.Temperature,
-      extConMod=Buildings.HeatTransfer.Types.ExteriorConvection.TemperatureWind,
-      lat=0.66098585832754);
+      extConMod=Buildings.HeatTransfer.Types.ExteriorConvection.TemperatureWind);
 
   replaceable parameter
     Data.Constructions.OpaqueConstructions.ExteriorConstructions.Construction10and23

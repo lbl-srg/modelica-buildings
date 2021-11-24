@@ -57,11 +57,11 @@ model Case600 "Case 600FF, but with dual-setpoint for heating and cooling"
     annotation (Placement(transformation(extent={{-20,-8},{-12,0}})));
 equation
   connect(TRooAir.T,conHea. u_m) annotation (Line(
-      points={{-78,-24},{-78,24},{-68,24},{-68,29.2}},
+      points={{2,-15},{-80,-15},{-80,24},{-68,24},{-68,29.2}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(conCoo.u_m, TRooAir.T)  annotation (Line(
-      points={{-68,7.2},{-68,0},{-78,0},{-78,-24}},
+      points={{-68,7.2},{-68,-15},{2,-15}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(conHea.y,gaiHea. u) annotation (Line(
@@ -113,7 +113,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(preHea.port, roo.heaPorAir) annotation (Line(
-      points={{6,24},{12,24},{12,-15},{50.25,-15}},
+      points={{6,24},{16,24},{16,-15},{50.25,-15}},
       color={191,0,0},
       smooth=Smooth.None));
   annotation (__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/Detailed/Validation/BESTEST/Cases6xx/Case600.mos"

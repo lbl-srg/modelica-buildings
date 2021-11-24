@@ -6,15 +6,15 @@ model DataCenterContinuousTimeControl
 
   BaseClasses.Controls.TrimAndRespondContinuousTimeApproximation triAndRes
     "Continuous time approximation for trim and respond controller"
-    annotation (Placement(transformation(extent={{-194,216},{-174,236}})));
+    annotation (Placement(transformation(extent={{-180,190},{-160,210}})));
 equation
   connect(feedback.y, triAndRes.u) annotation (Line(
-      points={{-191,200},{-194,200},{-194,226},{-196,226}},
+      points={{-191,200},{-182,200}},
       color={0,0,127},
       smooth=Smooth.None,
       pattern=LinePattern.Dash));
   connect(triAndRes.y, linPieTwo.u) annotation (Line(
-      points={{-173,226},{-148,226},{-148,200},{-122,200}},
+      points={{-159,200},{-122,200}},
       color={0,0,127},
       smooth=Smooth.None,
       pattern=LinePattern.Dash));

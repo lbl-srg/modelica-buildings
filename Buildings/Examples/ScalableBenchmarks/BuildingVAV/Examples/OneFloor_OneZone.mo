@@ -49,13 +49,13 @@ model OneFloor_OneZone "Closed-loop model with 1 zone in 1 floor"
     each allowFlowReversal2=false,
     each m2_flow_nominal=m_flow_nominal*1000*(10 - (-20))/4200/10,
     each configuration=Buildings.Fluid.Types.HeatExchangerConfiguration.CounterFlow,
-    each Q_flow_nominal=m_flow_nominal*1006*(16.7 - 8.5),
+    each Q_flow_nominal=m_flow_nominal*1006*(8.5 - 16.7),
     each dp1_nominal=0,
     each dp2_nominal=0,
     each T_a1_nominal=281.65,
     each T_a2_nominal=323.15) "Heating coil"
     annotation (Placement(transformation(extent={{-144,-46},{-124,-26}})));
-  Buildings.Fluid.HeatExchangers.WetCoilCounterFlow cooCoi[nFlo](
+  Fluid.HeatExchangers.WetCoilEffectivenessNTU cooCoi[nFlo](
     redeclare each package Medium1 = MediumW,
     redeclare each package Medium2 = MediumA,
     each UA_nominal=m_flow_nominal*1000*15/
@@ -176,10 +176,10 @@ model OneFloor_OneZone "Closed-loop model with 1 zone in 1 floor"
     redeclare each package Medium = MediumA,
     each m_flow_nominal=m_flow_nominal) "Supply air temperature sensor"
     annotation (Placement(transformation(extent={{4,-38},{20,-22}})));
-  Buildings.Examples.VAVReheat.Controls.ModeSelector modeSelector[nFlo]
+  Buildings.Examples.VAVReheat.BaseClasses.Controls.ModeSelector modeSelector[nFlo]
     "Finite State Machine for the operational modes"
     annotation (Placement(transformation(extent={{-180,40},{-164,56}})));
-  Buildings.Examples.VAVReheat.Controls.Economizer conEco[nFlo](
+  Buildings.Examples.VAVReheat.BaseClasses.Controls.Economizer conEco[nFlo](
     each have_reset=true,
     each VOut_flow_min=0.3*m_flow_nominal/1.2)
     "Controller for economizer"
@@ -201,7 +201,7 @@ model OneFloor_OneZone "Closed-loop model with 1 zone in 1 floor"
   Buildings.Utilities.Math.Min min1[nFlo](each nin=nZon)
     "Computes lowest room temperature"
     annotation (Placement(transformation(extent={{108,94},{120,106}})));
-  Buildings.Examples.VAVReheat.Controls.FanVFD conFanRet[nFlo](
+  Buildings.Examples.VAVReheat.BaseClasses.Controls.FanVFD conFanRet[nFlo](
     each xSet_nominal(displayUnit="m3/s") = m_flow_nominal/1.2,
     each r_N_min=0.2) "Controller for fan"
     annotation (Placement(transformation(extent={{14,152},{28,166}})));
@@ -222,10 +222,10 @@ model OneFloor_OneZone "Closed-loop model with 1 zone in 1 floor"
     fan_dP_On_Off[nFlo](each preRis=dP_pre)
     "controller outputs fan on or off"
     annotation (Placement(transformation(extent={{-70,-14},{-56,0}})));
-  VAVReheat.Controls.SupplyAirTemperature conTSup[nFlo](each k=0.01)
+  VAVReheat.BaseClasses.Controls.SupplyAirTemperature conTSup[nFlo](each k=0.01)
     "Supply air temperature controller"
     annotation (Placement(transformation(extent={{-240,-70},{-220,-50}})));
-  VAVReheat.Controls.SupplyAirTemperatureSetpoint TAirSupSet[nFlo]
+  VAVReheat.BaseClasses.Controls.SupplyAirTemperatureSetpoint TAirSupSet[nFlo]
     "Supply air temperature set point"
     annotation (Placement(transformation(extent={{-300,-70},{-280,-50}})));
 equation
@@ -263,17 +263,19 @@ equation
       annotation (Line(points={{28.7,159},{36,159},{36,180},{-20,180},{-20,138}},
         color={0,0,127}, pattern=LinePattern.Dash));
     connect(TCoiHeaOut[iFlo].port_b, cooCoi[iFlo].port_a2)
-      annotation (Line(points={{-88,-30},{-82,-30},{-76,-30}},
-        color={0,127,255}, thickness=0.5));
+      annotation (Line(
+        points={{-88,-30},{-82,-30},{-76,-30}},
+        color={0,127,255},
+        thickness=0.5));
     connect(cooCoi[iFlo].port_b2, fan[iFlo].port_a)
-      annotation (Line(points={{-56,-30},{-48,-30},{-40,-30}},
-        color={0,127,255}, thickness=0.5));
+      annotation (Line(
+        points={{-56,-30},{-48,-30},{-40,-30}},
+        color={0,127,255},
+        thickness=0.5));
     connect(cooCoi[iFlo].port_b1, sinCoo[iFlo].ports[1])
-      annotation (Line(points={{-76,-42},{-80,-42},{-80,-66}},
-        color={0,127,255}));
+      annotation (Line(points={{-76,-42},{-80,-42},{-80,-66}}, color={0,127,255}));
     connect(cooCoi[iFlo].port_a1, valCoo[iFlo].port_b)
-      annotation (Line(points={{-56,-42},{-51,-42},{-51,-50}},
-        color={0,127,255}));
+      annotation (Line(points={{-56,-42},{-51,-42},{-51,-50}}, color={0,127,255}));
     connect(controlBus[iFlo], conEco[iFlo].controlBus)
       annotation (Line(points={{-68,54},{-134,54},{-134,80},{-280,80},{-280,
             88.88},{-280.4,88.88}},
@@ -457,12 +459,12 @@ The heating coil valve, outside air damper, and cooling coil valve are
 modulated in sequence to maintain the supply air temperature set point.
 The economizer control ensures the following functions:
 minimum outside air requirement, and supply air cooling, see
-<a href=\"modelica://Buildings.Examples.VAVReheat.Controls.Economizer\">
-Buildings.Examples.VAVReheat.Controls.Economizer</a>.
+<a href=\"modelica://Buildings.Examples.VAVReheat.BaseClasses.Controls.Economizer\">
+Buildings.Examples.VAVReheat.BaseClasses.Controls.Economizer</a>.
 The controller of the terminal units tracks the room air temperature set point
 based on a \"single maximum\" logic, see
-<a href=\"modelica://Buildings.Examples.VAVReheat.Controls.RoomVAV\">
-Buildings.Examples.VAVReheat.Controls.RoomVAV</a>.
+<a href=\"modelica://Buildings.Examples.VAVReheat.BaseClasses.Controls.RoomVAV\">
+Buildings.Examples.VAVReheat.BaseClasses.Controls.RoomVAV</a>.
 </p>
 <p>
 There is also a finite state machine that transitions the mode of operation of
@@ -508,6 +510,15 @@ shading devices, Technical Report, Oct. 17, 2006.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+June 30, 2021, by Antoine Gautier:<br/>
+Changed cooling coil model. This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2549\">issue #2549</a>.
+</li>
+<li>
+February 25, 2021, by Baptiste Ravache:<br/>
+Inverse the sign of hex[nFlo].Q_flow_nominal to respect the heat flow convention.
+</li>
 <li>
 October 27, 2020, by Antoine Gautier:<br/>
 Refactored the model for compatibility with the updated control of supply air

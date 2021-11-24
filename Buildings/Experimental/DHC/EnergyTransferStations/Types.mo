@@ -9,7 +9,7 @@ package Types
     annotation (Documentation(info="<html>
 <p>
 Enumeration to define the type of connection with the district network.
-<br>
+<br/>
 </p>
 <table border=\"1\" summary=\"Explanation of the enumeration\">
 <tr>

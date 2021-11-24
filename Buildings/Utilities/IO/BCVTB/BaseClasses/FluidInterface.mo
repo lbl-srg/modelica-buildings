@@ -36,9 +36,9 @@ partial model FluidInterface
   Modelica.Fluid.Interfaces.FluidPorts_b ports[
                                 nPorts](
                      redeclare each package Medium = Medium,
-                     m_flow(each max=if flowDirection==Modelica.Fluid.Types.PortFlowDirection.Leaving then 0 else
+                     each m_flow(max=if flowDirection==Modelica.Fluid.Types.PortFlowDirection.Leaving then 0 else
                                      +Modelica.Constants.inf,
-                            each min=if flowDirection==Modelica.Fluid.Types.PortFlowDirection.Entering then 0 else
+                                 min=if flowDirection==Modelica.Fluid.Types.PortFlowDirection.Entering then 0 else
                                      -Modelica.Constants.inf))
     annotation (Placement(transformation(extent={{88,40},{108,-40}})));
 

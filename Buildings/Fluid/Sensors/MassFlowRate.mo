@@ -28,7 +28,7 @@ Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}})
       Text(
         extent={{-20,116},{-140,66}},
         lineColor={0,0,0},
-        textString=DynamicSelect("", String(m_flow, leftjustified=false, significantDigits=3)))}),
+        textString=DynamicSelect("", String(m_flow, leftJustified=false, significantDigits=3)))}),
 Documentation(info="<html>
 <p>
 This model outputs the mass flow rate flowing from

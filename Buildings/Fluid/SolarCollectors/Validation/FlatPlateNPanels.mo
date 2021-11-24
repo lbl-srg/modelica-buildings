@@ -13,7 +13,6 @@ model FlatPlateNPanels
     rho=0.2,
     nColType=Buildings.Fluid.SolarCollectors.Types.NumberSelection.Number,
     nSeg=30,
-    lat=0.6457718232379,
     til=0.78539816339745,
     nPanels=nPanels)
     "Flat plate solar collector model, has been modified for validation purposes"
@@ -79,6 +78,12 @@ The output of these blocks should be zero, except for rounding errors.
 </html>",
 revisions="<html>
 <ul>
+<li>
+September 16, 2021, by Michael Wetter:<br/>
+Removed parameter assignment for <code>lat</code>.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1477\">IBPSA, #1477</a>.
+</li>
 <li>
 November 21, 2017, by Michael Wetter:<br/>
 First implementation to validate

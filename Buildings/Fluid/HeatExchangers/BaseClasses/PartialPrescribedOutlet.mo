@@ -8,10 +8,6 @@ partial model PartialPrescribedOutlet
   constant Boolean homotopyInitialization = true "= true, use homotopy method"
     annotation(HideResult=true);
 
-  parameter Modelica.SIunits.MassFlowRate m_flow_nominal
-    "Nominal mass flow rate, used for regularization near zero flow"
-    annotation(Dialog(group = "Nominal condition"));
-
   parameter Modelica.SIunits.Time tau(min=0) = 10
     "Time constant at nominal flow rate (used if energyDynamics or massDynamics not equal Modelica.Fluid.Types.Dynamics.SteadyState)"
     annotation(Dialog(tab = "Dynamics"));
@@ -80,10 +76,15 @@ and connect its input signals, in they are enabled.
 revisions="<html>
 <ul>
 <li>
+April 29, 2021, by Michael Wetter:<br/>
+Removed duplicate declaration of <code>m_flow_nominal</code> which is already
+declared in the base class.<br/>
+</li>
+<li>
 April 14, 2020, by Michael Wetter:<br/>
 Changed <code>homotopyInitialization</code> to a constant.<br/>
 This is for
-<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1341\">Buildings, #1341</a>.
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1341\">IBPSA, #1341</a>.
 </li>
 <li>
 May 3, 2017, by Michael Wetter:<br/>

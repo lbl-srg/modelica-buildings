@@ -152,12 +152,12 @@ protected
     final limitAbove=true)
     "Calculates OA damper position required to supply minimum outdoor airflow setpoint at current fan speed"
     annotation (Placement(transformation(extent={{100,110},{120,130}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch enaDis
+  Buildings.Controls.OBC.CDL.Continuous.Switch enaDis
     "Logical switch to enable damper position limit calculation or disable it (set min limit to physical minimum)"
     annotation (Placement(transformation(extent={{82,-120},{102,-100}})));
   Buildings.Controls.OBC.CDL.Logical.Not not1 "Logical not block"
     annotation (Placement(transformation(extent={{-20,-80},{0,-60}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch enaDis1
+  Buildings.Controls.OBC.CDL.Continuous.Switch enaDis1
     "Logical switch to enable damper position limit calculation or disable it (set max limit to physical minimum)"
     annotation (Placement(transformation(extent={{80,-80},{100,-60}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt(

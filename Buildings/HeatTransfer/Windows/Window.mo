@@ -59,22 +59,21 @@ model Window "Model for a window"
     final A=AGla,
     final til=til,
     final linearize=linearize,
-    final homotopyInitialization=homotopyInitialization) if
-       haveShade "Model for shaded center of glass"
+    final homotopyInitialization=homotopyInitialization)
+    if haveShade "Model for shaded center of glass"
     annotation (Placement(transformation(extent={{-10,-30},{10,-10}})));
 
-  Modelica.Thermal.HeatTransfer.Components.ThermalConductor frame(G=AFra*
-        glaSys.UFra) "Thermal conductance of frame"
+  Modelica.Thermal.HeatTransfer.Components.ThermalConductor frame(
+    G=AFra*glaSys.UFra,
+    dT(start=0)) "Thermal conductance of frame"
     annotation (Placement(transformation(extent={{-10,-170},{10,-150}})));
 
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a glaUns_a
     "Heat port at unshaded glass of exterior-facing surface"
-                                                    annotation (Placement(transformation(extent={{-210,10},
-            {-190,30}})));
+    annotation (Placement(transformation(extent={{-210,10},{-190,30}})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b glaUns_b
     "Heat port at unshaded glass of room-facing surface"
-                                                annotation (Placement(transformation(extent={{190,10},
-            {210,30}})));
+    annotation (Placement(transformation(extent={{190,10},{210,30}})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a glaSha_a if haveShade
     "Heat port at shaded glass of exterior-facing surface"
     annotation (Placement(transformation(extent={{-210, -30}, {-190,-10}})));
@@ -84,19 +83,18 @@ model Window "Model for a window"
 
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a fra_a
     "Heat port at frame of exterior-facing surface"
-    annotation (Placement(transformation(extent={{-210,
-            -170},{-190,-150}})));
+    annotation (Placement(transformation(extent={{-210,-170},{-190,-150}})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b fra_b
     "Heat port at frame of room-facing surface"
-     annotation (Placement(transformation(extent={{192,
-            -170},{212,-150}})));
-  Modelica.Blocks.Interfaces.RealInput uSha(min=0, max=1) if
-       haveShade
+     annotation (Placement(transformation(extent={{192,-170},{212,-150}})));
+  Modelica.Blocks.Interfaces.RealInput uSha(min=0, max=1)
+    if haveShade
     "Control signal for the shading device. 0: unshaded; 1: fully shaded (removed if no shade is present)"
     annotation (Placement(transformation(extent={{-240,140},{-200,180}})));
 
-  Modelica.Blocks.Interfaces.RealInput QAbsUns_flow[size(glaSys.glass, 1)](each unit="W",
-      each quantity="Power")
+  Modelica.Blocks.Interfaces.RealInput QAbsUns_flow[size(glaSys.glass, 1)](
+    each unit="W",
+    each quantity="Power")
     "Solar radiation absorbed by unshaded part of glass"
      annotation (Placement(
         transformation(
@@ -122,16 +120,17 @@ model Window "Model for a window"
     final haveShade=glaSys.haveExteriorShade or glaSys.haveInteriorShade,
     C=AGla*glaSys.glass[1].x*matGla.d*matGla.c,
     der_TUns(fixed=true),
-    der_TSha(fixed=glaSys.haveExteriorShade or glaSys.haveInteriorShade)) if
-         not steadyState
+    der_TSha(fixed=glaSys.haveExteriorShade or glaSys.haveInteriorShade))
+      if not steadyState
     "Heat capacity of glass on room-side, used to reduce nonlinear system of equations"
     annotation (Placement(transformation(extent={{130,38},{150,58}})));
   // We assume the frame is made of wood. Data are used for Plywood, as
   // this is an order of magnitude estimate for the heat capacity of the frame,
   // which is only used to avoid algebraic loops in the room model.
   Modelica.Thermal.HeatTransfer.Components.HeatCapacitor capFra(
-    der_T(fixed=true), C=AFra*matFra.x*matFra.d*matFra.c) if
-         not steadyState
+    der_T(fixed=true),
+    C=AFra*matFra.x*matFra.d*matFra.c)
+      if not steadyState
     "Heat capacity of frame on room-side, used to reduce nonlinear system of equations"
     annotation (Placement(transformation(extent={{130,-142},{150,-122}})));
 
@@ -187,8 +186,7 @@ equation
       points={{-39,160},{-24,160},{-24,-12},{-11,-12}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(shaSig.u, uSha)
-                       annotation (Line(
+  connect(shaSig.u, uSha) annotation (Line(
       points={{-62,160},{-220,160}},
       color={0,0,127},
       smooth=Smooth.None));
@@ -252,9 +250,11 @@ equation
           160,-20},{200,-20}}, color={191,0,0}));
   connect(capGla.portUns, glaUns_b) annotation (Line(points={{150,44},{156,44},{
           156,20},{200,20}}, color={191,0,0}));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-200,
-            -200},{200,200}})),               Icon(coordinateSystem(
-          preserveAspectRatio=true, extent={{-200,-200},{200,200}}),                                           graphics={
+  annotation (
+    Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-200,-200},{200,200}})),
+    Icon(coordinateSystem(
+          preserveAspectRatio=true, extent={{-200,-200},{200,200}}),
+      graphics={
         Polygon(
           visible = glaSys.haveInteriorShade,
           points={{48,160},{48,60},{116,-4},{116,96},{48,160}},
@@ -521,6 +521,11 @@ Validation of the window model of the Modelica Buildings library.</a>
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+August 11, 2021, by Michael Wetter:<br/>
+Added start value for <code>frame.dT</code> to avoid a warning about missing start value in OCT
+when translating <code>Buildings.Examples.VAVReheat.Guideline36</code>.
+</li>
 <li>
 April 14, 2020, by Michael Wetter:<br/>
 Changed <code>homotopyInitialization</code> to a constant.<br/>

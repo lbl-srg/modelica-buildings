@@ -68,7 +68,7 @@ model EquationFitReversible
   Controls.OBC.CDL.Integers.GreaterThreshold intGreThr(t=-1)
     "Integer threshold"
     annotation (Placement(transformation(extent={{-60,0},{-40,20}})));
-  Controls.OBC.CDL.Logical.Switch swi "Switch for set point temperature"
+  Controls.OBC.CDL.Continuous.Switch swi "Switch for set point temperature"
     annotation (Placement(transformation(extent={{-20,0},{0,20}})));
   Controls.OBC.CDL.Continuous.Sources.Ramp TSouEntCoo(
     height=5,
@@ -81,10 +81,10 @@ model EquationFitReversible
     duration(displayUnit="h") = 14400,
     offset=-1) "Heat pump operates in heating mode"
     annotation (Placement(transformation(extent={{-118,0},{-98,20}})));
-  Controls.OBC.CDL.Logical.Switch swi1
+  Controls.OBC.CDL.Continuous.Switch swi1
    "Switch for set point temperature"
     annotation (Placement(transformation(extent={{20,60},{40,80}})));
-  Controls.OBC.CDL.Logical.Switch swi2
+  Controls.OBC.CDL.Continuous.Switch swi2
    "Switch for set point temperature"
     annotation (Placement(transformation(extent={{80,-60},{100,-40}})));
   Controls.OBC.CDL.Continuous.Sources.Ramp TSouEntHea(

@@ -6,7 +6,7 @@ import energyplus_csv_to_mos as e
 if __name__ == '__main__':
   dat_fil = "GSHPSimple-GLHE-ReverseHeatPump.dat"
   output_list =[
-    "GSHPHEATING:Heat Pump Electric Power [W](TimeStep)",
+    "GSHPHEATING:Heat Pump Electricity Rate [W](TimeStep)",
     "GSHPHEATING:Heat Pump Load Side Heat Transfer Rate [W](TimeStep)",
     "GSHPHEATING:Heat Pump Source Side Heat Transfer Rate [W](TimeStep)",
     "GSHPHEATING:Heat Pump Load Side Outlet Temperature [C](TimeStep)",

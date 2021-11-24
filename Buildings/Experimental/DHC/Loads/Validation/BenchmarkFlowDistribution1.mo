@@ -32,16 +32,16 @@ model BenchmarkFlowDistribution1
     annotation (Dialog(group="Nominal condition"));
   parameter Modelica.SIunits.PressureDifference dp_nominal=nLoa*1500*2+2*500+30000
     "Nominal pressure drop in the distribution line";
-  parameter Real facSca=10
-    "Scaling factor to be applied to each extensive quantity"
+  parameter Real facMul=10
+    "Mulitplier factor for terminal units"
     annotation (Dialog(group="Scaling"));
   final parameter Modelica.SIunits.MassFlowRate m_flow_nominal=sum(
-    ter.mHeaWat_flow_nominal)*facSca
+    ter.mHeaWat_flow_nominal)*facMul
     "Nominal mass flow rate in the distribution line";
   final parameter Modelica.SIunits.HeatFlowRate QHea_flow_nominal(
     min=Modelica.Constants.eps)=Buildings.Experimental.DHC.Loads.BaseClasses.getPeakLoad(
     string="#Peak space heating load",
-    filNam=Modelica.Utilities.Files.loadResource(filNam))/facSca
+    filNam=Modelica.Utilities.Files.loadResource(filNam))/facMul
     "Design heating heat flow rate (>=0)"
     annotation (Dialog(group="Design parameter"));
   Buildings.Experimental.DHC.Loads.FlowDistribution disFloHea(
@@ -54,7 +54,7 @@ model BenchmarkFlowDistribution1
     "Heating water distribution system"
     annotation (Placement(transformation(extent={{40,-90},{60,-70}})));
   BaseClasses.FanCoil2PipeHeating ter[nLoa](
-    each final facSca=facSca,
+    each final facMul=facMul,
     redeclare each final package Medium1=Medium1,
     redeclare each final package Medium2=Medium2,
     each final QHea_flow_nominal=QHea_flow_nominal,
@@ -70,8 +70,7 @@ model BenchmarkFlowDistribution1
     fileName=Modelica.Utilities.Files.loadResource(
       filNam),
     extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic,
-    y(
-      each unit="W"),
+    y(each unit="W"),
     offset={0,0,0},
     columns={2,3,4},
     smoothness=Modelica.Blocks.Types.Smoothness.MonotoneContinuousDerivative1)
@@ -79,16 +78,15 @@ model BenchmarkFlowDistribution1
     annotation (Placement(transformation(extent={{-100,-10},{-80,10}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minTSet(
     k=293.15,
-    y(
-      final unit="K",
+    y(final unit="K",
       displayUnit="degC"))
     "Minimum temperature set point"
     annotation (Placement(transformation(extent={{-100,50},{-80,70}})));
-  Buildings.Controls.OBC.CDL.Routing.RealReplicator reaRep(
+  Buildings.Controls.OBC.CDL.Routing.RealScalarReplicator reaRep(
     nout=nLoa)
     "Repeat input to output an array"
     annotation (Placement(transformation(extent={{-60,50},{-40,70}})));
-  Buildings.Controls.OBC.CDL.Routing.RealReplicator reaRep1(
+  Buildings.Controls.OBC.CDL.Routing.RealScalarReplicator reaRep1(
     nout=nLoa)
     "Repeat input to output an array"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
@@ -125,7 +123,8 @@ equation
   connect(disFloHea.port_b,sinHeaWat.ports[1])
     annotation (Line(points={{60,-80},{80,-80}},color={0,127,255}));
   connect(ter.mReqHeaWat_flow,disFloHea.mReq_flow)
-    annotation (Line(points={{60.8333,44.6667},{80,44.6667},{80,-60},{20,-60},{20,-84},{39,-84}},color={0,0,127}));
+    annotation (Line(points={{60.8333,44.6667},{80,44.6667},{80,-60},{20,-60},{
+          20,-84},{39,-84}},                                                                     color={0,0,127}));
   connect(THeaWatSup.y,supHeaWat.T_in)
     annotation (Line(points={{-78,-80},{-72,-80},{-72,-76},{-62,-76}},color={0,0,127}));
   connect(minTSet.y,reaRep.u)

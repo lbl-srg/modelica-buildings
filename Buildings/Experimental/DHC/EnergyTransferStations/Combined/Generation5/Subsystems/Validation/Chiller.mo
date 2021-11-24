@@ -150,7 +150,7 @@ equation
 <ul>
 <li>
 July 31, 2020, by Antoine Gautier:<br/>
-First implementation
+First implementation.
 </li>
 </ul>
 </html>",

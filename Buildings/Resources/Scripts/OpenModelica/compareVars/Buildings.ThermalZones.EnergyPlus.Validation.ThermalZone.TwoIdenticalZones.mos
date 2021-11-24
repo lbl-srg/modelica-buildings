@@ -2,20 +2,14 @@ compareVars :=
   {
     "zon1.TAir",
     "zon2.TAir",
-    "zon1.zon.fmuZon.TRad",
-    "zon2.zon.fmuZon.TRad",
+    "zon1.zon.TRad",
+    "zon2.zon.TRad",
     "TAirEnePlu.y",
     "relHumEnePlu.y",
     "zon1.phi",
     "zon2.phi",
-    "zon1.zon.fmuZon.QCon_flow",
-    "zon2.zon.fmuZon.QCon_flow",
-    "zon1.zon.fmuZon.QLat_flow",
-    "zon2.zon.fmuZon.QLat_flow",
-    "zon1.zon.fmuZon.QPeo_flow",
-    "zon2.zon.fmuZon.QPeo_flow",
-    "zon1.zon.fmuZon.AFlo",
-    "zon2.zon.fmuZon.AFlo",
-    "zon1.zon.fmuZon.V",
-    "zon2.zon.fmuZon.V"
+    "zon1.zon.AFlo",
+    "zon2.zon.AFlo",
+    "zon1.zon.V",
+    "zon2.zon.V"
   };

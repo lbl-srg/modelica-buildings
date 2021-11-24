@@ -83,7 +83,7 @@ Solar Energy, 44(5):271-289.
 April 27, 2018, by Michael Wetter:<br/>
 Corrected <code>displayUnit</code>.<br/>
 This is for
-<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/912\">Buildings, issue 912</a>.
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/912\">IBPSA, issue 912</a>.
 </li>
 <li>
 June 6, 2012, by Wangda Zuo:<br/>

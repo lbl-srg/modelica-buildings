@@ -1,23 +1,25 @@
 within Buildings.Controls.OBC.CDL.Conversions;
 block IsHoliday
   "Block that outputs true if the input is a holiday"
-
-  Interfaces.DayTypeInput u "Connector of DayType input signal"
-    annotation ( Placement(transformation(extent={{-140,-20},{-100,20}})));
-  Interfaces.BooleanOutput y "Connector of Boolean output signal"
+  Interfaces.DayTypeInput u
+    "Connector of DayType input signal"
+    annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
+  Interfaces.BooleanOutput y
+    "Connector of Boolean output signal"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
 equation
-  y = u == Buildings.Controls.OBC.CDL.Types.Day.Holiday;
-
-annotation (
-defaultComponentName="isHol",
-Documentation(info="<html>
+  y=u == Buildings.Controls.OBC.CDL.Types.Day.Holiday;
+  annotation (
+    defaultComponentName="isHol",
+    Documentation(
+      info="<html>
 <p>
 Block that outputs <code>true</code> if the input signal is
 of type holiday.
 </p>
-</html>", revisions="<html>
+</html>",
+      revisions="<html>
 <ul>
 <li>
 July 17, 2017, by Jianjun Hu:<br/>
@@ -25,7 +27,9 @@ First implementation.
 </li>
 </ul>
 </html>"),
-  Icon(graphics={Rectangle(
+    Icon(
+      graphics={
+        Rectangle(
           extent={{-100,100},{100,-100}},
           fillColor={210,210,210},
           lineThickness=5.0,

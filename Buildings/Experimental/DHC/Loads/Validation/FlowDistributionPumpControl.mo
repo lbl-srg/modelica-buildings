@@ -11,8 +11,8 @@ model FlowDistributionPumpControl
   parameter Integer nLoa=5
     "Number of served loads"
     annotation (Evaluate=true);
-  parameter Real facSca=10
-    "Scaling factor to be applied to each extensive quantity"
+  parameter Real facMul=10
+    "Scaling factor for terminal units"
     annotation (Dialog(group="Scaling"));
   parameter Modelica.SIunits.MassFlowRate mLoaHea_flow_nominal=1
     "Load side mass flow rate at nominal conditions in heating mode"
@@ -41,25 +41,26 @@ model FlowDistributionPumpControl
       nLoa-1))
     "Pressure drop between each connected unit at nominal conditions (supply line)";
   parameter Modelica.SIunits.PressureDifference dpSet=max(
-    terUniHea.dp_nominal)
+    terUniHea.dpSou_nominal)
     "Pressure difference set point";
-  final parameter Modelica.SIunits.MassFlowRate mCon_flow_nominal[nLoa]=terUniHea.mHeaWat_flow_nominal*facSca
+  final parameter Modelica.SIunits.MassFlowRate mCon_flow_nominal[nLoa]=
+    terUniHea.mHeaWat_flow_nominal*facMul
     "Nominal mass flow rate in each connection line";
   final parameter Modelica.SIunits.MassFlowRate m_flow_nominal=sum(
     mCon_flow_nominal)
     "Nominal mass flow rate in the distribution line";
   final parameter Modelica.SIunits.PressureDifference dp_nominal=max(
-    terUniHea.dp_nominal)+2*nLoa*5000
+    terUniHea.dpSou_nominal)+2*nLoa*5000
     "Nominal pressure drop in the distribution line";
   final parameter Modelica.SIunits.HeatFlowRate QHea_flow_nominal=Loads.BaseClasses.getPeakLoad(
     string="#Peak space heating load",
-    filNam=Modelica.Utilities.Files.loadResource(filNam))/facSca
+    filNam=Modelica.Utilities.Files.loadResource(filNam))/facMul
     "Design heating heat flow rate (>=0)"
     annotation (Dialog(group="Nominal condition"));
   BaseClasses.FanCoil2PipeHeatingValve terUniHea[nLoa](
     redeclare each final package Medium1=Medium1,
     redeclare each final package Medium2=Medium2,
-    each final facSca=facSca,
+    each final facMul=facMul,
     each final QHea_flow_nominal=QHea_flow_nominal,
     each final mLoaHea_flow_nominal=mLoaHea_flow_nominal,
     each final T_aHeaWat_nominal=T_aHeaWat_nominal,
@@ -74,8 +75,7 @@ model FlowDistributionPumpControl
     fileName=Modelica.Utilities.Files.loadResource(
       filNam),
     extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic,
-    y(
-      each unit="W"),
+    y(each unit="W"),
     offset={0,0,0},
     columns={2,3,4},
     smoothness=Modelica.Blocks.Types.Smoothness.MonotoneContinuousDerivative1)
@@ -83,16 +83,15 @@ model FlowDistributionPumpControl
     annotation (Placement(transformation(extent={{-180,20},{-160,40}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minTSet(
     k=20+273.15,
-    y(
-      final unit="K",
+    y(final unit="K",
       displayUnit="degC"))
     "Minimum temperature set point"
     annotation (Placement(transformation(extent={{-180,60},{-160,80}})));
-  Buildings.Controls.OBC.CDL.Routing.RealReplicator reaRep(
+  Buildings.Controls.OBC.CDL.Routing.RealScalarReplicator reaRep(
     nout=nLoa)
     "Repeat input to output an array"
     annotation (Placement(transformation(extent={{-128,60},{-108,80}})));
-  Buildings.Controls.OBC.CDL.Routing.RealReplicator reaRep1(
+  Buildings.Controls.OBC.CDL.Routing.RealScalarReplicator reaRep1(
     nout=nLoa)
     "Repeat input to output an array"
     annotation (Placement(transformation(extent={{-128,20},{-108,40}})));
@@ -157,7 +156,7 @@ model FlowDistributionPumpControl
   BaseClasses.FanCoil2PipeHeating terUniHea1[nLoa](
     redeclare each final package Medium1=Medium1,
     redeclare each final package Medium2=Medium2,
-    each final facSca=facSca,
+    each final facMul=facMul,
     each final QHea_flow_nominal=QHea_flow_nominal,
     each final mLoaHea_flow_nominal=mLoaHea_flow_nominal,
     each final T_aHeaWat_nominal=T_aHeaWat_nominal,
@@ -195,7 +194,7 @@ model FlowDistributionPumpControl
   BaseClasses.FanCoil2PipeHeating terUniHea2[nLoa](
     redeclare each final package Medium1=Medium1,
     redeclare each final package Medium2=Medium2,
-    each final facSca=facSca,
+    each final facMul=facMul,
     each final QHea_flow_nominal=QHea_flow_nominal,
     each final mLoaHea_flow_nominal=mLoaHea_flow_nominal,
     each final T_aHeaWat_nominal=T_aHeaWat_nominal,
@@ -243,13 +242,17 @@ equation
   connect(loa.y[2],reaRep1.u)
     annotation (Line(points={{-159,30},{-130,30}},color={0,0,127}));
   connect(reaRep.y,terUniHea.TSetHea)
-    annotation (Line(points={{-106,70},{-40,70},{-40,-106},{49.1667,-106},{49.1667,-107}},color={0,0,127}));
+    annotation (Line(points={{-106,70},{-40,70},{-40,-106},{49.1667,-106},{
+          49.1667,-107}},                                                                 color={0,0,127}));
   connect(reaRep1.y,terUniHea.QReqHea_flow)
-    annotation (Line(points={{-106,30},{-46,30},{-46,-113.667},{49.1667,-113.667}},color={0,0,127}));
+    annotation (Line(points={{-106,30},{-46,30},{-46,-113.667},{49.1667,
+          -113.667}},                                                              color={0,0,127}));
   connect(terUniHea.port_bHeaWat,dis.ports_aCon)
-    annotation (Line(points={{70,-120.333},{70,-120},{80,-120},{80,-140},{72,-140},{72,-160}},color={0,127,255}));
+    annotation (Line(points={{70,-120.333},{70,-120},{80,-120},{80,-140},{72,
+          -140},{72,-160}},                                                                   color={0,127,255}));
   connect(dis.ports_bCon,terUniHea.port_aHeaWat)
-    annotation (Line(points={{48,-160},{48,-140},{40,-140},{40,-120.333},{50,-120.333}},color={0,127,255}));
+    annotation (Line(points={{48,-160},{48,-140},{40,-140},{40,-120.333},{50,
+          -120.333}},                                                                   color={0,127,255}));
   connect(pumCstDp.port_b,dis.port_aDisSup)
     annotation (Line(points={{10,-160},{20,-160},{20,-170},{40,-170}},color={0,127,255}));
   connect(vol.ports[1],pumCstDp.port_a)
@@ -265,9 +268,11 @@ equation
   connect(reaRep.y,terUniHea1.TSetHea)
     annotation (Line(points={{-106,70},{-40,70},{-40,-7},{-10.8333,-7}},color={0,0,127}));
   connect(reaRep1.y,terUniHea1.QReqHea_flow)
-    annotation (Line(points={{-106,30},{-46,30},{-46,-13.6667},{-10.8333,-13.6667},{-10.8333,-13.6667}},color={0,0,127}));
+    annotation (Line(points={{-106,30},{-46,30},{-46,-13.6667},{-10.8333,
+          -13.6667},{-10.8333,-13.6667}},                                                               color={0,0,127}));
   connect(terUniHea1.mReqHeaWat_flow,disCstDp.mReq_flow)
-    annotation (Line(points={{10.8333,-15.3333},{26,-15.3333},{26,-80},{-20,-80},{-20,-64},{-11,-64}},color={0,0,127}));
+    annotation (Line(points={{10.8333,-15.3333},{26,-15.3333},{26,-80},{-20,-80},
+          {-20,-64},{-11,-64}},                                                                       color={0,0,127}));
   connect(supHeaWat1.ports[2],pumCstSpe.port_a)
     annotation (Line(points={{-120,-2.22045e-16},{-100,-2.22045e-16},{-100,180},{-80,180}},color={0,127,255}));
   connect(pumCstSpe.port_b,pipPre.port_a)
@@ -281,15 +286,19 @@ equation
   connect(disCstSpe.port_b,sinHeaWat.ports[3])
     annotation (Line(points={{10,80},{120,80},{120,-2.66667},{140,-2.66667}},color={0,127,255}));
   connect(disCstSpe.ports_b1[1:5],terUniHea2.port_aHeaWat)
-    annotation (Line(points={{-10,89.2},{-20,89.2},{-20,120},{-10,120},{-10,119.667}},color={0,127,255}));
+    annotation (Line(points={{-10,89.2},{-20,89.2},{-20,120},{-10,120},{-10,
+          119.667}},                                                                  color={0,127,255}));
   connect(terUniHea2.port_bHeaWat,disCstSpe.ports_a1[1:5])
     annotation (Line(points={{10,119.667},{20,119.667},{20,89.2},{10,89.2}},color={0,127,255}));
   connect(terUniHea2.mReqHeaWat_flow,disCstSpe.mReq_flow)
-    annotation (Line(points={{10.8333,124.667},{26,124.667},{26,60},{-20,60},{-20,76},{-11,76}},color={0,0,127}));
+    annotation (Line(points={{10.8333,124.667},{26,124.667},{26,60},{-20,60},{
+          -20,76},{-11,76}},                                                                    color={0,0,127}));
   connect(reaRep.y,terUniHea2.TSetHea)
-    annotation (Line(points={{-106,70},{-40,70},{-40,132},{-10.8333,132},{-10.8333,133}},color={0,0,127}));
+    annotation (Line(points={{-106,70},{-40,70},{-40,132},{-10.8333,132},{
+          -10.8333,133}},                                                                color={0,0,127}));
   connect(reaRep1.y,terUniHea2.QReqHea_flow)
-    annotation (Line(points={{-106,30},{-46,30},{-46,126},{-10.8333,126},{-10.8333,126.333}},color={0,0,127}));
+    annotation (Line(points={{-106,30},{-46,30},{-46,126},{-10.8333,126},{
+          -10.8333,126.333}},                                                                color={0,0,127}));
   connect(disCstSpe.mReqTot_flow,pipPre.m_flow_in)
     annotation (Line(points={{11,76},{40,76},{40,200},{-4,200},{-4,188}},color={0,0,127}));
   connect(THeaWatSup.y,supHeaWat1.T_in)
@@ -303,7 +312,8 @@ equation
   connect(minTSet.y,reaRep.u)
     annotation (Line(points={{-158,70},{-130,70}},color={0,0,127}));
   connect(dis.dp,pumCstDp.dpMea)
-    annotation (Line(points={{81,-167},{120,-167},{120,-190},{-20,-190},{-20,-140},{-8,-140},{-8,-148}},color={0,0,127}));
+    annotation (Line(points={{82,-167},{120,-167},{120,-190},{-20,-190},{-20,-140},
+          {-8,-140},{-8,-148}},                                                                         color={0,0,127}));
   connect(setDp.y,pumCstDp.dp_in)
     annotation (Line(points={{-158,-130},{0,-130},{0,-148}},color={0,0,127}));
   annotation (
@@ -334,5 +344,5 @@ First implementation.
         preserveAspectRatio=false,
         extent={{-220,-240},{200,240}})),
     __Dymola_Commands(
-      file="Resources/Scripts/Dymola/Experimental/DHC/Loads/Validation/FlowDistributionPumpControl.mos" "Simulate and plot"));
+      file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/DHC/Loads/Validation/FlowDistributionPumpControl.mos" "Simulate and plot"));
 end FlowDistributionPumpControl;

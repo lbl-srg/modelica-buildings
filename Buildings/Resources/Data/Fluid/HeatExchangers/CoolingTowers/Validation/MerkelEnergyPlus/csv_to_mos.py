@@ -12,8 +12,8 @@ if __name__ == '__main__':
    "CENTRAL TOWER:Cooling Tower Outlet Temperature [C](TimeStep)",
    "CENTRAL TOWER:Cooling Tower Mass Flow Rate [kg/s](TimeStep)",
    "CENTRAL TOWER:Cooling Tower Heat Transfer Rate [W](TimeStep)",
-   "CENTRAL TOWER:Cooling Tower Fan Electric Power [W](TimeStep)",
-   "CENTRAL TOWER:Cooling Tower Fan Electric Energy [J](TimeStep)",
+   "CENTRAL TOWER:Cooling Tower Fan Electricity Rate [W](TimeStep)",
+   "CENTRAL TOWER:Cooling Tower Fan Electricity Energy [J](TimeStep)",
    "CENTRAL TOWER:Cooling Tower Fan Speed Ratio [](TimeStep)"
   ]
 

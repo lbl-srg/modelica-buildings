@@ -461,6 +461,7 @@ Added <code>homotopy</code> operator.
 Feb. 3, 2011, by Michael Wetter:<br/>
 Corrected bug in start value of radiosity, reformulated equations to get
 smaller system of coupled equations.
+</li>
 <li>
 Dec. 1, 2010, by Michael Wetter:<br/>
 First implementation.

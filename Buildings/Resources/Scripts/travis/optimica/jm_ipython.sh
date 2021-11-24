@@ -10,7 +10,7 @@
 #################################################
 set -e
 
-IMG_NAME=travis-ubuntu-1804-optimica
+IMG_NAME=${OPTIMICA_VERSION}
 DOCKER_USERNAME=michaelwetter
 
 NAME=${DOCKER_USERNAME}/${IMG_NAME}
@@ -106,8 +106,10 @@ DOCKER_FLAGS="\
   -w /mnt/shared/${bas_nam} \
   ${NAME}"
 
+# The command below adds various folders in /opt/oct/ThirdParty/MSL to MODELICAPATH
+# to accomodate the change in OCT between oct-r19089 and oct-r26446
 docker run ${DOCKER_FLAGS} /bin/bash -c \
-  "export MODELICAPATH=${DOCKER_MODELICAPATH}:/opt/oct/ThirdParty/MSL && \
+  "export MODELICAPATH=${DOCKER_MODELICAPATH}:/opt/oct/ThirdParty/MSL/MSL323:/opt/oct/ThirdParty/MSL/MSL400:/opt/oct/ThirdParty/MSL && \
    export PYTHONPATH=${DOCKER_PYTHONPATH} && \
    export IPYTHONDIR=/mnt/shared &&
    alias ipython=ipython3 && \

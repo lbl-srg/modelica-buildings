@@ -13,12 +13,15 @@ model HexElementLatent "Element of a heat exchanger with humidity condensation o
      final simplify_mWat_flow=simplify_mWat_flow,
      prescribedHeatFlowRate=false));
 
+  constant Boolean simplify_mWat_flow=true
+    "Set to true to cause port_a.m_flow + port_b.m_flow = 0 even if mWat_flow is non-zero. Used only if Medium.nX > 1"
+    annotation (HideResult=true);
+
   MassExchange masExc(
      redeclare final package Medium=Medium2) "Model for mass exchange"
     annotation (Placement(transformation(extent={{50,-40},{70,-20}})));
+
 protected
-  constant Boolean simplify_mWat_flow = true
-    "Set to true to cause port_a.m_flow + port_b.m_flow = 0 even if mWat_flow is non-zero. Used only if Medium.nX > 1";
   Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor temSen(
     T(final quantity="ThermodynamicTemperature",
       final unit = "K", displayUnit = "degC", min=0))
@@ -91,6 +94,12 @@ surface. This is done using the heat flow sources <code>heaConVapAir</code> and
 </html>",
 revisions="<html>
 <ul>
+<li>
+March 11, 2021, by Michael Wetter:<br/>
+Changed constant <code>simplify_mWat_flow</code> from protected to public because it is assigned by
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.WetCoilCounterFlow\">Buildings.Fluid.HeatExchangers.WetCoilCounterFlow</a>.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2387\">#2387</a>.
+</li>
 <li>
 May 1, 2020, by Michael Wetter:<br/>
 Added constant <code>simplify_mWat_flow</code>.<br/>

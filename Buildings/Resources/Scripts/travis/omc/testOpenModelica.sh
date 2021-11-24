@@ -1,3 +1,4 @@
+#!/bin/bash
 # This file translates and simulates all models in FILES with omc
 # Upon success, it exits with 0, otherwise it exits with a non-zero value.
 #
@@ -41,7 +42,6 @@ done
 export OPENMODELICALIBRARY=`pwd`:/usr/lib/omlibrary
 #omc +d=nogen,initialization,backenddaeinfo,discreteinfo,stateselection --newBackend $mosScript
 omc $mosScript
-
 
 # Check for failures
 exiFla=0

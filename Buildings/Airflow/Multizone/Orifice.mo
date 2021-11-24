@@ -93,12 +93,12 @@ the Reynolds number, and the Reynolds number is not used by this model.
 Also removed the variable <code>Re</code> for the Reynolds number.<br/>
 This change is non-backward compatible.<br/>
 This is for
-<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/932\">Buildings, #932</a>.
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/932\">IBPSA, #932</a>.
 </li>
 <li>
 May 30, 2018, by Michael Wetter:<br/>
 Improved documentation for
-<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/546\">Buildings, #546</a>.
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/546\">IBPSA, #546</a>.
 </li>
 <li>
 October 8, 2013 by Michael Wetter:<br/>

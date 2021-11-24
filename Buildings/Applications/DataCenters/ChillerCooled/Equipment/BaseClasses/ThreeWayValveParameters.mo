@@ -3,6 +3,13 @@ partial model ThreeWayValveParameters
   "Model with parameters for a three-way valve"
   parameter Boolean activate_ThrWayVal
     "Activate the use of three-way valve: True-use three-way valve; False-not use the three-way valve";
+  parameter Modelica.SIunits.PressureDifference dpThrWayVal_nominal(
+     displayUnit="Pa",
+     min=0,
+     fixed=true)= 6000
+    "Nominal pressure drop of fully open valve"
+    annotation(Dialog(group="Three-way Valve",
+      enable=activate_ThrWayVal));
   parameter Real fraK_ThrWayVal(
     min=0,
     max=1) = 0.7
@@ -35,6 +42,10 @@ partial model ThreeWayValveParameters
 
   annotation (Documentation(revisions="<html>
 <ul>
+<li>
+April 22, 2021, by Kathryn Hinkelman:<br/>
+Added <code>dpThrWayVal_nominal</code> to set of parameters.
+</li>
 <li>
 June 30, 2017, by Yangyang Fu:<br/>
 First implementation.

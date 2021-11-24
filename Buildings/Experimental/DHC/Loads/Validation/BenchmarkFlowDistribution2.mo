@@ -28,10 +28,10 @@ model BenchmarkFlowDistribution2
   parameter Modelica.SIunits.Time tau=120
     "Time constant of fluid temperature variation at nominal flow rate"
     annotation (Dialog(tab="Dynamics",group="Nominal condition"));
-  parameter Real facSca=10
-    "Scaling factor to be applied to each extensive quantity"
+  parameter Real facMul=10
+    "Mulitplier factor for terminal units"
     annotation (Dialog(group="Scaling"));
-  final parameter Modelica.SIunits.MassFlowRate mCon_flow_nominal[nLoa]=ter.mHeaWat_flow_nominal*facSca
+  final parameter Modelica.SIunits.MassFlowRate mCon_flow_nominal[nLoa]=ter.mHeaWat_flow_nominal*facMul
     "Nominal mass flow rate in each connection line";
   final parameter Modelica.SIunits.MassFlowRate m_flow_nominal=sum(
     mCon_flow_nominal)
@@ -39,15 +39,15 @@ model BenchmarkFlowDistribution2
   final parameter Modelica.SIunits.PressureDifference dp_nominal=sum(
     dis.con.pipDisSup.dp_nominal)+sum(
     dis.con.pipDisRet.dp_nominal)+max(
-    ter.dp_nominal)
+    ter.dpSou_nominal)
     "Nominal pressure drop in the distribution line";
   final parameter Modelica.SIunits.HeatFlowRate QHea_flow_nominal=Loads.BaseClasses.getPeakLoad(
     string="#Peak space heating load",
-    filNam=Modelica.Utilities.Files.loadResource(filNam))/facSca
+    filNam=Modelica.Utilities.Files.loadResource(filNam))/facMul
     "Design heating heat flow rate (>=0)"
     annotation (Dialog(group="Design parameter"));
   BaseClasses.FanCoil2PipeHeatingValve ter[nLoa](
-    each final facSca=facSca,
+    each final facMul=facMul,
     redeclare each final package Medium1=Medium1,
     redeclare each final package Medium2=Medium2,
     each final QHea_flow_nominal=QHea_flow_nominal,
@@ -63,8 +63,7 @@ model BenchmarkFlowDistribution2
     fileName=Modelica.Utilities.Files.loadResource(
       filNam),
     extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic,
-    y(
-      each unit="W"),
+    y(each unit="W"),
     offset={0,0,0},
     columns={2,3,4},
     smoothness=Modelica.Blocks.Types.Smoothness.MonotoneContinuousDerivative1)
@@ -72,16 +71,15 @@ model BenchmarkFlowDistribution2
     annotation (Placement(transformation(extent={{-100,-10},{-80,10}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minTSet(
     k=293.15,
-    y(
-      final unit="K",
+    y(final unit="K",
       displayUnit="degC"))
     "Minimum temperature set point"
     annotation (Placement(transformation(extent={{-100,50},{-80,70}})));
-  Buildings.Controls.OBC.CDL.Routing.RealReplicator reaRep(
+  Buildings.Controls.OBC.CDL.Routing.RealScalarReplicator reaRep(
     nout=nLoa)
     "Repeat input to output an array"
     annotation (Placement(transformation(extent={{-60,50},{-40,70}})));
-  Buildings.Controls.OBC.CDL.Routing.RealReplicator reaRep1(
+  Buildings.Controls.OBC.CDL.Routing.RealScalarReplicator reaRep1(
     nout=nLoa)
     "Repeat input to output an array"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));

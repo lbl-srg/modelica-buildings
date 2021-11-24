@@ -69,7 +69,7 @@ equation
     Documentation(
     info="<html>
 <p>
-This model validates work unit conversion from British thermal units to joule.
+This model validates energy unit conversion from British thermal units to joule.
 </p>
 </html>",
 revisions="<html>

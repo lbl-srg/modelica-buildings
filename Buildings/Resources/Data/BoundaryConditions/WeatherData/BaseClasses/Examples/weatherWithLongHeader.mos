@@ -1,0 +1,9 @@
+#1
+double tab1(4,30)
+#LOCATION,COPENHAGEN,-,DNK,IWEC Data,061800,55.63,12.67,1.0,5.0
+#COMMENTS 1,"IWEC- WMO#061800 - Europe -- Original Source Data (c) 2001 American Society of Heating, Refrigerating and Air-Conditioning Engineers (ASHRAE), Inc., Atlanta, GA, USA.  www.ashrae.org  All rights reserved as noted in the License Agreement and Additional Conditions. DISCLAIMER OF WARRANTIES: The data is provided 'as is' without warranty of any kind, either expressed or implied. The entire risk as to the quality and performance of the data is with you. In no event will ASHRAE or its contractors be liable to you for any damages, including without limitation any lost profits, lost savings, or other incidental or consequential damages arising out of the use or inability to use this data."
+#COMMENTS 3, -- Ground temps produced with a standard soil diffusivity of 2.3225760E-03 {m**2/day}
+0.0	7.0	4.6	85	99500	0	1415	322	0	0	0	0	0	0	0	250	11.3	10	10	8.0	360	0	999999099	0	0.0680	0	88	0.000	0.0	0.0
+3600.0	7.0	4.6	85	99500	0	1415	322	0	0	0	0	0	0	0	250	11.3	10	10	8.0	360	0	999999099	0	0.0680	0	88	0.000	0.0	0.0
+7200.0	7.1	4.5	84	99400	0	1415	323	0	0	0	0	0	0	0	250	12.7	10	10	8.7	360	9	999999999	0	0.0680	0	88	0.000	0.0	0.0
+10800.0	7.2	4.5	83	99300	0	1415	323	0	0	0	0	0	0	0	250	14.0	10	10	9.3	360	9	999999999	0	0.0680	0	88	0.000	0.0	0.0

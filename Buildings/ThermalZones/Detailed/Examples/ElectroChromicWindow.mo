@@ -45,7 +45,6 @@ model ElectroChromicWindow
     conBou(opa(T(each start = T_start))),
     nPorts=2,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    lat=0.65484753534827,
     final AFlo=AFlo) "Room model"
     annotation (Placement(transformation(extent={{62,-16},{102,24}})));
   BoundaryConditions.WeatherData.ReaderTMY3 weaDat1(

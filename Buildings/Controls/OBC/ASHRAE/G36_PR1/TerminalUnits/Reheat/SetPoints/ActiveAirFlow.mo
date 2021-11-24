@@ -119,16 +119,16 @@ block ActiveAirFlow
   Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr1
     "Check if zone minimum airflow setpoint VDisSetMin_flow is non-zero"
     annotation (Placement(transformation(extent={{-80,-410},{-60,-390}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi
     "Reset occupied minimum airflow according to occupancy"
     annotation (Placement(transformation(extent={{80,-290},{100,-270}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi1
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi1
     "Reset occupied minimum airflow according to window status"
     annotation (Placement(transformation(extent={{200,-510},{220,-490}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi2
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi2
     "Reset occupied minimum airflow setpoint according to minimum controllable airflow"
     annotation (Placement(transformation(extent={{140,-410},{160,-390}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi3 if have_CO2Sen
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi3 if have_CO2Sen
     "Switch between zero signal and CO2 control loop signal depending on the operation mode"
     annotation (Placement(transformation(extent={{-80,-100},{-60,-120}})));
   Buildings.Controls.OBC.CDL.Logical.And and1 "Logical and"
@@ -248,40 +248,40 @@ protected
   Buildings.Controls.OBC.CDL.Integers.Equal intEqu4
     "Check if current operation mode is setback mode"
     annotation (Placement(transformation(extent={{40,220},{60,240}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi4
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi4
     "Select cooling maximum based on operation mode"
     annotation (Placement(transformation(extent={{-100,290},{-80,310}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi8
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi8
     "Select heating maximum based on operation mode"
     annotation (Placement(transformation(extent={{-100,260},{-80,280}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi9
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi9
     "Select cooling maximum based on operation mode"
     annotation (Placement(transformation(extent={{-100,220},{-80,240}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi17
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi17
     "Select heating minimum based on operation mode"
     annotation (Placement(transformation(extent={{120,290},{140,310}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi18
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi18
     "Select heating maximum based on operation mode"
     annotation (Placement(transformation(extent={{120,260},{140,280}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi22
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi22
     "Select heating minimum based on operation mode"
     annotation (Placement(transformation(extent={{120,220},{140,240}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi23
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi23
     "Select heating maximum based on operation mode"
     annotation (Placement(transformation(extent={{120,190},{140,210}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi24
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi24
     "Select cooling maximum based on operation mode"
     annotation (Placement(transformation(extent={{-100,150},{-80,170}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi25
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi25
     "Select cooling minimum based on operation mode"
     annotation (Placement(transformation(extent={{-100,120},{-80,140}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi26
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi26
     "Select minimum based on operation mode"
     annotation (Placement(transformation(extent={{-100,90},{-80,110}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi27
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi27
     "Select heating minimum based on operation mode"
     annotation (Placement(transformation(extent={{-100,60},{-80,80}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi28
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi28
     "Select heating maximum based on operation mode"
     annotation (Placement(transformation(extent={{-100,30},{-80,50}})));
   Buildings.Controls.OBC.CDL.Continuous.Max maxInp "Find greater input"

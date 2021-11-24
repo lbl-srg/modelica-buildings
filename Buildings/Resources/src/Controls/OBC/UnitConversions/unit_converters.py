@@ -264,10 +264,10 @@ class UnitConversionsModeler(object):
             'multiplier' : '1./0.000471947',
             'validation_input' : ['100.*0.000471947', '2000.*0.000471947'],
             'validation_output' : ['100.', '2000.']},
-            # work
+            # Energy
             {
-            'quantity' : 'work',
-            'modelica_quantity' : 'Work',
+            'quantity' : 'energy',
+            'modelica_quantity' : 'Energy',
             'unit' : 'British thermal units',
             'unit_symbol' : 'Btu',
             'direction' : 'From',
@@ -276,8 +276,8 @@ class UnitConversionsModeler(object):
             'validation_input' : ['1.', '2.'],
             'validation_output' : ['1.*1055.056', '2.*1055.056']},
             {
-            'quantity' : 'work',
-            'modelica_quantity' : 'Work',
+            'quantity' : 'energy',
+            'modelica_quantity' : 'Energy',
             'unit' : 'British thermal units',
             'unit_symbol' : 'Btu',
             'direction' : 'To',
@@ -286,8 +286,8 @@ class UnitConversionsModeler(object):
             'validation_input' : ['1.*1055.056', '2.*1055.056'],
             'validation_output' : ['1.', '2.']},
             {
-            'quantity' : 'work',
-            'modelica_quantity' : 'Work',
+            'quantity' : 'energy',
+            'modelica_quantity' : 'Energy',
             'unit' : 'quads',
             'unit_symbol' : 'quad',
             'direction' : 'From',
@@ -296,8 +296,8 @@ class UnitConversionsModeler(object):
             'validation_input' : ['1.', '2.'],
             'validation_output' : ['1.*1055.56e15', '2.*1055.56e15']},
             {
-            'quantity' : 'work',
-            'modelica_quantity' : 'Work',
+            'quantity' : 'energy',
+            'modelica_quantity' : 'Energy',
             'unit' : 'quads',
             'unit_symbol' : 'quad',
             'direction' : 'To',
@@ -379,7 +379,7 @@ class UnitConversionsModeler(object):
             'pressure' :
                 {'unit' : 'pascal',
                  'unit_symbol' : 'Pa'},
-            'work' :
+            'energy' :
                 {'unit' : 'joule',
                  'unit_symbol' : 'J'},
             'power' :

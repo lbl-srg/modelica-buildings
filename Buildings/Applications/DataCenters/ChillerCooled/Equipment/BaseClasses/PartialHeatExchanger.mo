@@ -33,6 +33,13 @@ partial model PartialHeatExchanger "Partial model for heat exchangers "
     "Initial value of output from the filter in the bypass valve"
     annotation(Dialog(tab="Dynamics", group="Filtered opening",
       enable=(activate_ThrWayVal and use_inputFilter)));
+  parameter Modelica.SIunits.PressureDifference dpValve_nominal(
+     displayUnit="Pa",
+     min=0,
+     fixed=true)= 6000
+    "Nominal pressure drop of fully open valve"
+    annotation(Dialog(group="Three-way Valve",
+      enable=activate_ThrWayVal));
 
  // Time constant
    parameter Modelica.SIunits.Time tauThrWayVal=10
@@ -68,7 +75,7 @@ partial model PartialHeatExchanger "Partial model for heat exchangers "
     final y_start=yThrWayVal_start,
     final CvData=Buildings.Fluid.Types.CvTypes.OpPoint,
     final l=l_ThrWayVal,
-    final dpValve_nominal=dp2_nominal,
+    final dpValve_nominal=dpValve_nominal,
     final deltaM=deltaM2,
     final m_flow_nominal=m2_flow_nominal,
     final portFlowDirection_1=portFlowDirection_1,
@@ -97,7 +104,7 @@ partial model PartialHeatExchanger "Partial model for heat exchangers "
     final deltaM2=deltaM2,
     final eps=eta,
     final homotopyInitialization=homotopyInitialization,
-    final dp2_nominal=0)
+    final dp2_nominal=if activate_ThrWayVal then 0 else dp2_nominal)
     "Heat exchanger"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 
@@ -218,6 +225,10 @@ This module simulates a heat exchanger with a three-way bypass used to modulate 
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+April 9, 2021, by Kathryn Hinkelman:<br/>
+Added <code>dpValve_nominal</code> to avoid redundant declaration of <code>dp2_nominal</code>.
+</li>
 <li>
 April 14, 2020, by Michael Wetter:<br/>
 Changed <code>homotopyInitialization</code> to a constant.<br/>

@@ -19,7 +19,7 @@ model Pipe
 
   parameter Modelica.SIunits.Length length "Length of the pipe";
   parameter Real ReC=4000
-    "Reynolds number where transition to turbulent starts"
+    "Reynolds number where transition to turbulence starts"
     annotation (Dialog(tab="Flow resistance"));
 
   Buildings.Fluid.FixedResistances.PressureDrop preDro(

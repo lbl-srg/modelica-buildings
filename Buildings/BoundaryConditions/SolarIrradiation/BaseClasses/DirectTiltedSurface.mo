@@ -28,7 +28,7 @@ This component computes the direct solar irradiation on a tilted surface.
 April 27, 2018, by Michael Wetter:<br/>
 Corrected <code>displayUnit</code>.<br/>
 This is for
-<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/912\">Buildings, issue 912</a>.
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/912\">IBPSA, issue 912</a>.
 </li>
 <li>
 May 5, 2015, by Filip Jorissen:<br/>

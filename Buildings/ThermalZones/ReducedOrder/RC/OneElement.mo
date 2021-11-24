@@ -547,7 +547,7 @@ revisions="<html>
 October 9, 2019, by Michael Wetter:<br/>
 Refactored addition of moisture to also account for the energy content of the
 water vapor.<br/>
-This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1209\">Buildings, issue 1209</a>.
+This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1209\">IBPSA, issue 1209</a>.
 </li>
   <li>
   September 24, 2019, by Martin Kremer:<br/>

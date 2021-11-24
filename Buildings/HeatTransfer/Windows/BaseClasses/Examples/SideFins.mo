@@ -1,12 +1,11 @@
 within Buildings.HeatTransfer.Windows.BaseClasses.Examples;
 model SideFins "Test model for side fins"
   extends Modelica.Icons.Example;
-  Buildings.BoundaryConditions.SolarGeometry.ZenithAngle zen(lat=0.73129295658562)
+  Buildings.BoundaryConditions.SolarGeometry.ZenithAngle zen
     "Zenith angle: angle between the earth surface normal and the sun's beam"
     annotation (Placement(transformation(extent={{-60,40},{-40,60}})));
   Buildings.BoundaryConditions.SolarGeometry.IncidenceAngle incAng(
     azi=0,
-    lat=0.73129295658562,
     til=1.5707963267949) "Solar incidence angle on a tilted surface"
     annotation (Placement(transformation(extent={{-40,0},{-20,20}})));
   Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"))
@@ -97,6 +96,12 @@ Angle measured in horizontal plane between projection of sun's rays and normal t
 </html>",
 revisions="<html>
 <ul>
+<li>
+September 16, 2021, by Michael Wetter:<br/>
+Removed assignment of parameter <code>lat</code> as this is now obtained from the weather data reader.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1477\">IBPSA, #1477</a>.
+</li>
 <li>
 July 5, 2012, by Michael Wetter:<br/>
 Changed definitions of side fin height <code>h</code> to be

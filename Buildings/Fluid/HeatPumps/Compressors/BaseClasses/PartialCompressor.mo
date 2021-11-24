@@ -72,13 +72,13 @@ equation
   // Saturation pressure of refrigerant vapor at condenser temperature
   pCon = ref.pressureSatVap_T(port_b.T);
 
-  // Specific enthaply of saturated liquid refrigerant at condenser temperature
+  // Specific enthalpy of saturated liquid refrigerant at condenser temperature
   hCon = ref.enthalpySatLiq_T(port_b.T);
 
   // Saturation pressure of refrigerant vapor at evaporator temperature
   pEva = ref.pressureSatVap_T(port_a.T);
 
-  // Specific enthaply of saturated refrigerant vapor at evaporator temperature
+  // Specific enthalpy of saturated refrigerant vapor at evaporator temperature
   hEva = ref.enthalpySatVap_T(port_a.T);
 
   // Assert statements to verify that the refrigerant temperatures are within

@@ -1,14 +1,14 @@
 within Buildings.ThermalZones.EnergyPlus.Validation.OutputVariable;
 model OneZoneOneOutputVariableSummer
   "Validation model for one zone with one output variable for a summer period"
-  extends OneZoneOneOutputVariable;
+  extends Buildings.ThermalZones.EnergyPlus.Validation.OutputVariable.OneZoneOneOutputVariable;
   annotation (
     Documentation(
       info="<html>
 <p>
 Test case identical to
-<a href=\"modelica://Buildings.ThermalZones.EnergyPlus.Validation.ThermalZone.OneZoneOneOutputVariable\">
-Buildings.ThermalZones.EnergyPlus.Validation.ThermalZone.OneZoneOneOutputVariable</a>
+<a href=\"modelica://Buildings.ThermalZones.EnergyPlus.Validation.OutputVariable.OneZoneOneOutputVariable\">
+Buildings.ThermalZones.EnergyPlus.Validation.OutputVariable.OneZoneOneOutputVariable</a>
 but simulating only a period in summer.
 </p>
 <p>

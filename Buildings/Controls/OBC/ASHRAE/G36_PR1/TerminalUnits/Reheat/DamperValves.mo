@@ -230,17 +230,17 @@ block DamperValves
     final y_reset=0) if not have_pressureIndependentDamper
     "Damper position controller"
     annotation (Placement(transformation(extent={{280,220},{300,240}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi
     "Output active cooling airflow according to cooling control signal"
     annotation (Placement(transformation(extent={{140,260},{160,280}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi1 "Output active airflow when it is in deadband state"
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi1 "Output active airflow when it is in deadband state"
     annotation (Placement(transformation(extent={{132,40},{152,60}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi2 "Acitive heating airflow rate"
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi2 "Acitive heating airflow rate"
     annotation (Placement(transformation(extent={{80,-260},{100,-240}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi4
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi4
     "Output active heating airflow according to heating control signal"
     annotation (Placement(transformation(extent={{140,-260},{160,-240}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi5 "Output active cooling airflow "
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi5 "Output active cooling airflow "
     annotation (Placement(transformation(extent={{60,200},{80,220}})));
 
 protected
@@ -327,9 +327,9 @@ protected
     final k=Buildings.Controls.OBC.ASHRAE.G36_PR1.Types.OperationModes.unoccupied)
     "Constant signal for unoccupied mode"
     annotation (Placement(transformation(extent={{170,-322},{190,-302}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch watValPosUno "Output hot water valve position"
+  Buildings.Controls.OBC.CDL.Continuous.Switch watValPosUno "Output hot water valve position"
     annotation (Placement(transformation(extent={{280,-30},{300,-10}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch damPosUno "Output damper position"
+  Buildings.Controls.OBC.CDL.Continuous.Switch damPosUno "Output damper position"
     annotation (Placement(transformation(extent={{280,60},{300,80}})));
   Buildings.Controls.OBC.CDL.Logical.Not not5 "Negation of input signal"
     annotation (Placement(transformation(extent={{200,-260},{220,-240}})));
@@ -337,14 +337,14 @@ protected
     final k=TDisMin)
     "Lowest allowed discharge air temperature"
     annotation (Placement(transformation(extent={{-68,-108},{-48,-88}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi6
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi6
     "Output hot water valve position in case of low discharge air temperature"
     annotation (Placement(transformation(extent={{-30,-90},{-10,-70}})));
   Buildings.Controls.OBC.CDL.Logical.Or or2 "Logical not"
     annotation (Placement(transformation(extent={{-68,-64},{-48,-44}})));
   Buildings.Controls.OBC.CDL.Logical.Not not3 "Logical not"
     annotation (Placement(transformation(extent={{-120,120},{-100,140}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi3
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi3
     "Output hot water valve position in case of low discharge air temperature"
     annotation (Placement(transformation(extent={{104,-82},{124,-62}})));
   Buildings.Controls.OBC.CDL.Logical.Not not6 "Negation of input signal"

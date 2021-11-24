@@ -1,7 +1,8 @@
 within Buildings.Fluid.CHPs;
 model ThermalElectricalFollowing
   extends Buildings.Fluid.Interfaces.TwoPortHeatMassExchanger(
-    final vol(V=per.capHeaRec/rhoWat/cWat),
+    redeclare Buildings.Fluid.MixingVolumes.MixingVolume vol(
+      final V=per.capHeaRec/rhoWat/cWat),
     final dp_nominal=3458*m_flow_nominal + 5282 "The correlation between nominal pressure drop and mass flow rate is derived from manufacturers data");
 
   replaceable parameter Buildings.Fluid.CHPs.Data.Generic per
@@ -156,7 +157,7 @@ model ThermalElectricalFollowing
     final k=per.PEleMax) if switchThermalElectricalFollowing
     "Electric power demand if thermal following"
     annotation (Placement(transformation(extent={{0,340},{20,360}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi
     "Switch between thermal and electrical following"
     annotation (Placement(transformation(extent={{100,250},{120,270}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant optFol(
@@ -219,8 +220,6 @@ equation
           {160,20},{200,20}},color={0,0,127}));
   connect(eneCon.PEleNet, PEleNet) annotation (Line(points={{-38,38},{160,38},{160,
           60},{200,60}}, color={0,0,127}));
-  connect(mFue_flow, mFue_flow) annotation (Line(points={{200,20},{200,20}},
-          color={0,0,127}));
   connect(TWatOut.port, vol.heatPort) annotation (Line(points={{60,-60},{-20,
           -60},{-20,-10},{-9,-10}}, color={191,0,0}));
   connect(powCon.opeMod, opeMod.opeMod) annotation (Line(points={{119,100},{80,
@@ -355,6 +354,11 @@ programs</i>, Section III. <a href=\"https://strathprints.strath.ac.uk/6704/\">
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+April 30, 2021, by Michael Wetter:<br/>
+Reformulated replaceable class to avoid access of components that are not in the constraining type.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2471\">issue #2471</a>.
+</li>
 <li>
 April 8, 2020, by Antoine Gautier:<br/>
 Refactored implementation.

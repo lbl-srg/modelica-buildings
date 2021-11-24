@@ -1,13 +1,16 @@
 within Buildings.BoundaryConditions.SolarGeometry.BaseClasses;
 block SolarAzimuth "Solar azimuth"
   extends Modelica.Blocks.Icons.Block;
-  parameter Modelica.SIunits.Angle lat "Latitude";
   Modelica.Blocks.Interfaces.RealInput zen(quantity="Angle", unit="rad")
     "Zenith angle"
-    annotation (Placement(transformation(extent={{-140,40},{-100,80}})));
+    annotation (Placement(transformation(extent={{-140,60},{-100,100}}),
+        iconTransformation(extent={{-140,60},{-100,100}})));
   Modelica.Blocks.Interfaces.RealInput solTim(quantity="Time", unit="s")
-    "Solar time" annotation (Placement(transformation(extent={{-140,-80},{-100,
-            -40}}), iconTransformation(extent={{-140,-80},{-100,-40}})));
+    "Solar time" annotation (Placement(transformation(extent={{-140,-60},{-100,
+            -20}}), iconTransformation(extent={{-140,-60},{-100,-20}})));
+  Modelica.Blocks.Interfaces.RealInput lat(quantity="Angle", unit="rad")
+    "Latitude" annotation (Placement(transformation(extent={{-140,-100},{-100,
+            -60}}), iconTransformation(extent={{-140,-100},{-100,-60}})));
   Modelica.Blocks.Interfaces.RealOutput solAzi(
     final quantity="Angle",
     final unit="rad",
@@ -15,7 +18,8 @@ block SolarAzimuth "Solar azimuth"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
   Modelica.Blocks.Interfaces.RealInput decAng(quantity="Angle", unit="rad")
     "Declination angle"
-    annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
+    annotation (Placement(transformation(extent={{-140,20},{-100,60}}),
+        iconTransformation(extent={{-140,18},{-100,58}})));
 
 protected
   Real arg "cos(solAzi) after data validity check";
@@ -25,7 +29,7 @@ protected
   constant Modelica.SIunits.Time day=86400 "Number of seconds in a day";
   constant Modelica.SIunits.Angle polarCircle = 1.1617
     "Latitude of polar circle (66 degree 33 min 44 sec)";
-  final parameter Boolean outsidePolarCircle = lat < polarCircle and lat > -polarCircle
+  Boolean outsidePolarCircle = lat < polarCircle and lat > -polarCircle
     "Flag, true if latitude is outside polar region";
 equation
   tmp = (Modelica.Math.sin(lat)*Modelica.Math.cos(zen) - Modelica.Math.sin(
@@ -49,6 +53,12 @@ This component computes the solar azimuth angle.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+September 16, 2021, by Michael Wetter:<br/>
+Removed parameter <code>lat</code> and added an input connector for this quantity.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1477\">IBPSA, #1477</a>.
+</li>
 <li>
 June 9, 2020, by David Blum:<br/>
 Reformulated to use one-line if-statements.<br/>
@@ -84,15 +94,19 @@ First implementation.
           textString="%name",
           lineColor={0,0,255}),
         Text(
-          extent={{-100,68},{-58,58}},
+          extent={{-102,84},{-60,74}},
           lineColor={0,0,127},
           textString="zen"),
         Text(
-          extent={{-102,-54},{-60,-64}},
+          extent={{-96,-36},{-54,-46}},
           lineColor={0,0,127},
           textString="solTim"),
         Text(
-          extent={{-102,6},{-60,-4}},
+          extent={{-96,24},{-54,14}},
           lineColor={0,0,127},
-          textString="decAng")}));
+          textString="decAng"),
+        Text(
+          extent={{-96,-86},{-54,-96}},
+          lineColor={0,0,127},
+          textString="lat")}));
 end SolarAzimuth;

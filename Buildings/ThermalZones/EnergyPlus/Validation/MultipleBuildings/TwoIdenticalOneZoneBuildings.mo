@@ -9,7 +9,7 @@ model TwoIdenticalOneZoneBuildings
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   model Zone
     "Model of a thermal zone"
-    extends Buildings.ThermalZones.EnergyPlus.Validation.ThermalZone.OneZone;
+    extends Buildings.ThermalZones.EnergyPlus.Examples.SingleFamilyHouse.Unconditioned;
     extends Modelica.Blocks.Icons.Block;
   end Zone;
   annotation (

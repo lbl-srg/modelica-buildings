@@ -37,7 +37,7 @@ model MixingValveControl
       displayUnit="degC"))
     "Chilled water primary supply temperature"
     annotation (Placement(transformation(extent={{-140,70},{-120,90}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch TPri(
+  Buildings.Controls.OBC.CDL.Continuous.Switch TPri(
     y(
       final unit="K",
       displayUnit="degC"))
@@ -54,7 +54,7 @@ model MixingValveControl
     k=291.15)
     "Chilled water secondary supply temperature set point"
     annotation (Placement(transformation(extent={{-140,-110},{-120,-90}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch TSetSecAct(
+  Buildings.Controls.OBC.CDL.Continuous.Switch TSetSecAct(
     y(
       final unit="K",
       displayUnit="degC"))
@@ -105,7 +105,7 @@ model MixingValveControl
     m_flow_nominal=m_flow_nominal)
     "Primary supply temperature (measured)"
     annotation (Placement(transformation(extent={{8,10},{28,30}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch dTSec(
+  Buildings.Controls.OBC.CDL.Continuous.Switch dTSec(
     y(
       final unit="K",
       displayUnit="degC"))
@@ -209,5 +209,5 @@ First implementation.
       StopTime=1000,
       Tolerance=1e-06),
     __Dymola_Commands(
-      file="Resources/Scripts/Dymola/Experimental/DHC/Loads/Controls/Validation/MixingValveControl.mos" "Simulate and plot"));
+      file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/DHC/Loads/Controls/Validation/MixingValveControl.mos" "Simulate and plot"));
 end MixingValveControl;

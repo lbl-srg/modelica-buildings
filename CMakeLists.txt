@@ -7,7 +7,6 @@
 cmake_policy(SET CMP0048 NEW)
 
 project( Modelica-Buildings
-  VERSION 8.0.0
   DESCRIPTION "Modelica Buildings Library"
   LANGUAGES C
 )
@@ -17,10 +16,13 @@ cmake_minimum_required(VERSION 3.8)
 # Create position independent code
 set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 
+if(NOT CMAKE_BUILD_TYPE)
+  set(CMAKE_BUILD_TYPE "Release")
+  message(STATUS "Build type not specified: Use Release by default")
+endif(NOT CMAKE_BUILD_TYPE)
+
 # find_package(Java REQUIRED)
 # include(UseJava)
-
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${CMAKE_BUILD_TYPE}")
 
 set(BUILDINGS_INSTALL_PREFIX "${CMAKE_SOURCE_DIR}/Buildings")
 
@@ -43,11 +45,13 @@ endif()
 
 # Set compiler options
 if ( CMAKE_COMPILER_IS_GNUCC )
-    set(CMAKE_CXX_FLAGS  "${CMAKE_CXX_FLAGS} -Wall -Wextra -pedantic -Wmisleading-indentation -Wconversion")
+    set(CMAKE_C_FLAGS  "${CMAKE_CXX_FLAGS} -O3 -Wall -Wextra -pedantic -Wmisleading-indentation -Wconversion -Wno-unused-function -Wno-unused-parameter")
 endif()
 
 if ( MSVC )
   add_compile_options("/wd4100")
+  add_definitions(-D_CRT_SECURE_NO_WARNINGS)
+  add_compile_definitions(EXTERNAL_FUNCTION_EXPORT)
 endif()
 
 # Set target directories.
@@ -88,22 +92,14 @@ message("Added GNU_SOURCE")
 endif()
 
 add_library( ModelicaBuildingsEnergyPlus SHARED
-  Buildings/Resources/src/ThermalZones/EnergyPlus/C-Sources/InputVariableExchange.c
-  Buildings/Resources/src/ThermalZones/EnergyPlus/C-Sources/EnergyPlusUtil.c
-  Buildings/Resources/src/ThermalZones/EnergyPlus/C-Sources/OutputVariableFree.c
-  Buildings/Resources/src/ThermalZones/EnergyPlus/C-Sources/ZoneFree.c
-  Buildings/Resources/src/ThermalZones/EnergyPlus/C-Sources/ZoneExchange.c
-  Buildings/Resources/src/ThermalZones/EnergyPlus/C-Sources/OutputVariableExchange.c
-  Buildings/Resources/src/ThermalZones/EnergyPlus/C-Sources/InputVariableAllocate.c
-  Buildings/Resources/src/ThermalZones/EnergyPlus/C-Sources/InputVariableFree.c
-  Buildings/Resources/src/ThermalZones/EnergyPlus/C-Sources/ZoneInstantiate.c
+  Buildings/Resources/src/ThermalZones/EnergyPlus/C-Sources/SpawnUtil.c
+  Buildings/Resources/src/ThermalZones/EnergyPlus/C-Sources/SpawnObjectFree.c
+  Buildings/Resources/src/ThermalZones/EnergyPlus/C-Sources/SpawnObjectExchange.c
+  Buildings/Resources/src/ThermalZones/EnergyPlus/C-Sources/SpawnObjectInstantiate.c
   Buildings/Resources/src/ThermalZones/EnergyPlus/C-Sources/BuildingInstantiate.c
-  Buildings/Resources/src/ThermalZones/EnergyPlus/C-Sources/InputVariableInstantiate.c
-  Buildings/Resources/src/ThermalZones/EnergyPlus/C-Sources/OutputVariableAllocate.c
-  Buildings/Resources/src/ThermalZones/EnergyPlus/C-Sources/EnergyPlusFMU.c
+  Buildings/Resources/src/ThermalZones/EnergyPlus/C-Sources/SpawnFMU.c
   Buildings/Resources/src/ThermalZones/EnergyPlus/C-Sources/cryptographicsHash.c
-  Buildings/Resources/src/ThermalZones/EnergyPlus/C-Sources/ZoneAllocate.c
-  Buildings/Resources/src/ThermalZones/EnergyPlus/C-Sources/OutputVariableInstantiate.c
+  Buildings/Resources/src/ThermalZones/EnergyPlus/C-Sources/SpawnObjectAllocate.c
 )
 
 target_include_directories( ModelicaBuildingsEnergyPlus

@@ -431,12 +431,12 @@ This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1133\">1133
 April 16, 2019, by Michael Wetter:<br/>
 Changed computation of <code>computeCSen</code> to avoid the volume to become
 a structural parameter.<br/>
-This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1122\">Buildings, issue 1122</a>.
+This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1122\">IBPSA, issue 1122</a>.
 </li>
 <li>
 April 16, 2018, by Michael Wetter:<br/>
 Reformulated mass calculation so that Dymola can differentiate the equations.<br/>
-This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/910\">Buildings, issue 910</a>.
+This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/910\">IBPSA, issue 910</a>.
 </li>
 <li>
 November 3, 2017, by Michael Wetter:<br/>

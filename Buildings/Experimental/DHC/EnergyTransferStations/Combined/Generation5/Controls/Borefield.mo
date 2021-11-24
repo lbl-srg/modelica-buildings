@@ -64,7 +64,7 @@ model Borefield
     final h=0.025)
     "Borefield enabled from supervisory"
     annotation (Placement(transformation(extent={{-50,-30},{-30,-10}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch runBor
+  Buildings.Controls.OBC.CDL.Continuous.Switch runBor
     "Enable borefield system pump"
     annotation (Placement(transformation(extent={{70,50},{90,70}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant limVal(
@@ -157,7 +157,7 @@ equation
 <ul>
 <li>
 July 31, 2020, by Antoine Gautier:<br/>
-First implementation
+First implementation.
 </li>
 </ul>
 </html>",

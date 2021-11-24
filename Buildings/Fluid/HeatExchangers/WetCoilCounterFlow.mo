@@ -4,7 +4,7 @@ model WetCoilCounterFlow
   extends Buildings.Fluid.HeatExchangers.DryCoilCounterFlow(
     redeclare replaceable package Medium2 =
       Modelica.Media.Interfaces.PartialCondensingGases,
-    redeclare final model HexElement =
+    redeclare model HexElement =
       Buildings.Fluid.HeatExchangers.BaseClasses.HexElementLatent(simplify_mWat_flow=simplify_mWat_flow));
 
   constant Boolean simplify_mWat_flow = true
@@ -77,6 +77,11 @@ Buildings.Fluid.HeatExchangers.DryCoilCounterFlow</a> instead of this model.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+March 12, 2021, by Michael Wetter:<br/>
+Removed <code>final</code> declaration in redeclaration.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2392\">#2392</a>.
+</li>
 <li>
 May 1, 2020, by Michael Wetter:<br/>
 Added constant <code>simplify_mWat_flow</code>.<br/>

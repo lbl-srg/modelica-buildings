@@ -165,9 +165,9 @@ protected
   Buildings.Controls.OBC.CDL.Continuous.Add add1(final k2=-1)
     "Add block that determines difference the between TOut and TOutCut"
     annotation (Placement(transformation(extent={{-140,244},{-120,264}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch outDamSwitch "Set maximum OA damper position to minimum at disable (after time delay)"
+  Buildings.Controls.OBC.CDL.Continuous.Switch outDamSwitch "Set maximum OA damper position to minimum at disable (after time delay)"
     annotation (Placement(transformation(extent={{40,-150},{60,-130}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch minRetDamSwitch
+  Buildings.Controls.OBC.CDL.Continuous.Switch minRetDamSwitch
     "Keep minimum RA damper position at physical maximum for a short time period after disable"
     annotation (Placement(transformation(extent={{40,-250},{60,-230}})));
   Buildings.Controls.OBC.CDL.Logical.Nor nor1 "Logical nor"

@@ -20,6 +20,28 @@ package Air
   constant Integer Air=2
     "Index of air (in substanceNames, massFractions X, etc.)";
 
+  // In the assignments below, we compute cv as OpenModelica
+  // cannot evaluate cv=cp-R as defined in GasProperties.
+  constant GasProperties dryair(
+    R =    Modelica.Media.IdealGases.Common.SingleGasesData.Air.R,
+    MM =   Modelica.Media.IdealGases.Common.SingleGasesData.Air.MM,
+    cp =   Buildings.Utilities.Psychrometrics.Constants.cpAir,
+    cv =   Buildings.Utilities.Psychrometrics.Constants.cpAir
+             -Modelica.Media.IdealGases.Common.SingleGasesData.Air.R)
+    "Dry air properties";
+  constant GasProperties steam(
+    R =    Modelica.Media.IdealGases.Common.SingleGasesData.H2O.R,
+    MM =   Modelica.Media.IdealGases.Common.SingleGasesData.H2O.MM,
+    cp =   Buildings.Utilities.Psychrometrics.Constants.cpSte,
+    cv =   Buildings.Utilities.Psychrometrics.Constants.cpSte
+             -Modelica.Media.IdealGases.Common.SingleGasesData.H2O.R)
+    "Steam properties";
+
+  constant Real k_mair =  steam.MM/dryair.MM "Ratio of molar weights";
+
+  constant Modelica.SIunits.MolarMass[2] MMX={steam.MM,dryair.MM}
+    "Molar masses of components";
+
   constant AbsolutePressure pStp = reference_p
     "Pressure for which fluid density is defined";
   constant Density dStp = 1.2 "Fluid density at pressure pStp";
@@ -45,7 +67,7 @@ package Air
   // Therefore, the statement
   //   p(stateSelect=if preferredMediumStates then StateSelect.prefer else StateSelect.default)
   // has been removed.
-  redeclare model BaseProperties "Base properties (p, d, T, h, u, R, MM and X and Xi) of a medium"
+  redeclare replaceable model BaseProperties "Base properties (p, d, T, h, u, R, MM and X and Xi) of a medium"
 
   parameter Boolean preferredMediumStates=false
     "= true if StateSelect.prefer shall be used for the independent property variables of the medium"
@@ -119,7 +141,7 @@ package Air
     X[2] = 1 - X[1];
 
     // Assertions to test for bounds
-    assert(noEvent(X[1] >= -1.e-5) and noEvent(X[1] <= 1 + 1.e-5), "Mass fraction X[1] = " + String(X[1]) + "of substance water"
+    assert(noEvent(X[1] >= -1.e-5) and noEvent(X[1] <= 1 + 1.e-5), "Mass fraction X[1] = " + String(X[1]) + " of substance water"
       + "\nof medium \"Buildings.Media.Air\" is not in the range 0..1");
 
     assert(noEvent(T >= 200.0), "In "   + getInstanceName() + ": Temperature T exceeded its minimum allowed value of -73.15 degC (200 Kelvin)
@@ -143,7 +165,7 @@ Model with basic thermodynamic properties.
 <p>
 This model provides equation for the following thermodynamic properties:
 </p>
-<table border=1 cellspacing=0 cellpadding=2 summary=\"Thermodynamic properties\">
+<table border=\"1\" cellspacing=\"0\" cellpadding=\"2\" summary=\"Thermodynamic properties\">
   <tr><td><strong>Variable</strong></td>
       <td><strong>Unit</strong></td>
       <td><strong>Description</strong></td></tr>
@@ -872,27 +894,6 @@ First implementation.
 </ul>
 </html>"));
   end GasProperties;
-  // In the assignments below, we compute cv as OpenModelica
-  // cannot evaluate cv=cp-R as defined in GasProperties.
-  constant GasProperties dryair(
-    R =    Modelica.Media.IdealGases.Common.SingleGasesData.Air.R,
-    MM =   Modelica.Media.IdealGases.Common.SingleGasesData.Air.MM,
-    cp =   Buildings.Utilities.Psychrometrics.Constants.cpAir,
-    cv =   Buildings.Utilities.Psychrometrics.Constants.cpAir
-             -Modelica.Media.IdealGases.Common.SingleGasesData.Air.R)
-    "Dry air properties";
-  constant GasProperties steam(
-    R =    Modelica.Media.IdealGases.Common.SingleGasesData.H2O.R,
-    MM =   Modelica.Media.IdealGases.Common.SingleGasesData.H2O.MM,
-    cp =   Buildings.Utilities.Psychrometrics.Constants.cpSte,
-    cv =   Buildings.Utilities.Psychrometrics.Constants.cpSte
-             -Modelica.Media.IdealGases.Common.SingleGasesData.H2O.R)
-    "Steam properties";
-
-  constant Real k_mair =  steam.MM/dryair.MM "Ratio of molar weights";
-
-  constant Modelica.SIunits.MolarMass[2] MMX={steam.MM,dryair.MM}
-    "Molar masses of components";
 
   constant Modelica.SIunits.SpecificEnergy h_fg=
     Buildings.Utilities.Psychrometrics.Constants.h_fg

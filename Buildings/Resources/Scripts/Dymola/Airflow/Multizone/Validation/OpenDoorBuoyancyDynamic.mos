@@ -1,0 +1,4 @@
+simulateModel("Buildings.Airflow.Multizone.Validation.OpenDoorBuoyancyDynamic", stopTime=14400, method="Cvode", tolerance=1e-08, resultFile="OpenDoorBuoyancyDynamic");
+createPlot(id=1, position={35, 35, 1110, 830}, y={"doo.vAB", "doo.vBA", "dooDis.vAB", "dooDis.vBA"}, range={0.0, 15000.0, -1.0, 2.0}, grid=true, colors={{28,108,200}, {238,46,47}, {0,140,72}, {217,67,180}}, displayUnits={"m/s", "m/s", "m/s", "m/s"});
+createPlot(id=1, position={35, 35, 1110, 830}, y={"bouA.T", "bouB.T"}, range={0.0, 15000.0, 17.0, 23.0}, grid=true, subPlot=2, colors={{28,108,200}, {238,46,47}}, displayUnits={"degC", "degC"});
+createPlot(id=1, position={35, 35, 1110, 830}, y={"doo.port_a1.p", "doo.port_a2.p"}, range={0.0, 15000.0, 1.0132400000000001, 1.0133200000000002}, grid=true, subPlot=3, colors={{28,108,200}, {238,46,47}}, displayUnits={"bar", "bar"});

@@ -7,32 +7,33 @@ model Wang2005Occupancy
   parameter Modelica.SIunits.Time zero_mu(displayUnit="min") = 2556 "Mean vacancy duration";
   parameter Integer seed = 10 "Seed for the random number generator";
 
-  Modelica.Blocks.Interfaces.BooleanOutput occ
+  Modelica.Blocks.Interfaces.BooleanOutput occ(start=true, fixed=true)
     "The State of occupancy, true for occupied"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 
 protected
   discrete Real mu;
-  discrete Real tNext(start=0);
-  discrete Real hold_time(start = 0);
+  discrete Real tNext(start=0, fixed=true);
+  discrete Real hold_time;
   Real r(min=0, max=1) "Generated random number";
-  Integer state[Modelica.Math.Random.Generators.Xorshift1024star.nState];
+  Integer state[Modelica.Math.Random.Generators.Xorshift1024star.nState](
+    each start=0,
+    each fixed=true);
 
-initial equation
-  tNext = 0;
-  hold_time = 0;
-  occ = true;
-  state = Modelica.Math.Random.Generators.Xorshift1024star.initialState(seed, seed);
-  r = 0;
-  mu = 0;
-
-equation
-  when time > pre(tNext) then
-    (r, state) = Modelica.Math.Random.Generators.Xorshift1024star.random(pre(state));
-    occ = not pre(occ);
-    mu = if occ then one_mu else zero_mu;
-    hold_time = -mu * Modelica.Math.log(1 - r);
-    tNext = time + hold_time;
+algorithm
+  when initial() then
+    (r, state) := Modelica.Math.Random.Generators.Xorshift1024star.random(
+      Modelica.Math.Random.Generators.Xorshift1024star.initialState(seed, seed));
+    occ :=false;
+    mu :=if occ then one_mu else zero_mu;
+    hold_time :=-mu*Modelica.Math.log(1 - r);
+    tNext :=time + hold_time;
+   elsewhen time >= pre(tNext) then
+    (r, state) :=Modelica.Math.Random.Generators.Xorshift1024star.random(pre(state));
+    occ :=not pre(occ);
+    mu :=if occ then one_mu else zero_mu;
+    hold_time :=-mu*Modelica.Math.log(1 - r);
+    tNext :=time + hold_time;
   end when;
 
   annotation (Icon(graphics={
@@ -61,6 +62,14 @@ single person offices at a large office building from 12/29/1998 to 12/20/1999.
 </html>",
 revisions="<html>
 <ul>
+<li>
+August 16, 2021, by Michael Wetter:<br/>
+Reformulated model so it works also if the simulation does not start at <i>0</i>.<br/>
+To improve efficiency, this reformulation also changes the event triggering function so that
+it leads to time events rather than state events.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2590\">#2590</a>.
+</li>
 <li>
 August 1, 2018, by Zhe Wang:<br/>
 First implementation.

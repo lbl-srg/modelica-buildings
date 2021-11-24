@@ -319,38 +319,38 @@ protected
     annotation (Placement(transformation(extent={{-80,240},{-60,260}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant con5(k=true) "Constant true"
     annotation (Placement(transformation(extent={{60,290},{80,310}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi
     "Use setpoint different value when half sample period time has passed"
     annotation (Placement(transformation(extent={{40,400},{60,420}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi1 "Output 3 or other request "
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi1 "Output 3 or other request "
     annotation (Placement(transformation(extent={{100,190},{120,210}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi2 "Output 2 or other request "
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi2 "Output 2 or other request "
     annotation (Placement(transformation(extent={{100,130},{120,150}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi3 "Output 0 or 1 request "
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi3 "Output 0 or 1 request "
     annotation (Placement(transformation(extent={{100,80},{120,100}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi4 "Output 3 or other request "
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi4 "Output 3 or other request "
     annotation (Placement(transformation(extent={{100,-50},{120,-30}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi5 "Output 2 or other request "
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi5 "Output 2 or other request "
     annotation (Placement(transformation(extent={{100,-110},{120,-90}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi6 "Output 0 or 1 request "
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi6 "Output 0 or 1 request "
     annotation (Placement(transformation(extent={{100,-160},{120,-140}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi7 if have_heaWatCoi
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi7 if have_heaWatCoi
     "Output 3 or other request "
     annotation (Placement(transformation(extent={{100,-250},{120,-230}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi8 if have_heaWatCoi
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi8 if have_heaWatCoi
     "Output 2 or other request "
     annotation (Placement(transformation(extent={{100,-310},{120,-290}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi9 if have_heaWatCoi
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi9 if have_heaWatCoi
     "Output 0 or 1 request "
     annotation (Placement(transformation(extent={{100,-360},{120,-340}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi10 if (have_heaWatCoi and
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi10 if (have_heaWatCoi and
     have_heaPla)
     "Output 0 or 1 request "
     annotation (Placement(transformation(extent={{100,-440},{120,-420}})));
   Buildings.Controls.OBC.CDL.Logical.TrueHoldWithReset truHol(duration=samplePeriod)
     "Hold true signal for sample period of time"
     annotation (Placement(transformation(extent={{120,330},{140,350}})));
-  Buildings.Controls.OBC.CDL.Logical.LogicalSwitch logSwi "Logical switch"
+  Buildings.Controls.OBC.CDL.Logical.Switch logSwi "Logical switch"
     annotation (Placement(transformation(extent={{120,300},{140,280}})));
   Buildings.Controls.OBC.CDL.Logical.TrueDelay tim1(delayTime=durTimTem)
     "Check if it is more than durTimTem"
@@ -815,7 +815,7 @@ annotation (
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
           horizontalAlignment=TextAlignment.Right,
-          visible = (have_heaWatCoi or have_heaPla),
+          visible = (have_heaWatCoi and have_heaPla),
           textString="yHeaPlaReq")}),
   Documentation(info="<html>
 <p>

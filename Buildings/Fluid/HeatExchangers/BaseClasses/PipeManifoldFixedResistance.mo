@@ -16,7 +16,7 @@ model PipeManifoldFixedResistance
   parameter Modelica.SIunits.Length dh=0.025 "Hydraulic diameter for each pipe"
         annotation(Dialog(enable = use_dh and not linearized));
   parameter Real ReC=4000
-    "Reynolds number where transition to turbulent starts"
+    "Reynolds number where transition to turbulence starts"
    annotation(Dialog(enable = use_dh and not linearized));
   parameter Boolean linearized = false
     "= true, use linear relation between m_flow and dp for any flow rate"

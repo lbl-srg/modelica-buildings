@@ -1,0 +1,11 @@
+compareVars :=
+  {
+    "con.TSetRooCoo",
+    "con.TSetRooHea",
+    "con.TRoo",
+    "con.yFan",
+    "con.yHea",
+    "con.yCooCoiVal",
+    "con.TSup",
+    "con.TSetSupAir"
+  };

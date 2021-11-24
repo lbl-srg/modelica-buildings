@@ -1,20 +1,26 @@
 within Buildings.ThermalZones.EnergyPlus.BaseClasses;
-partial model PartialEnergyPlusObject
+partial block PartialEnergyPlusObject
   "Partial definitions of an EnergyPlus object"
   extends Modelica.Blocks.Icons.Block;
   outer Buildings.ThermalZones.EnergyPlus.Building building
     "Building-level declarations";
+
 protected
   constant String modelicaNameBuilding=building.modelicaNameBuilding
     "Name of the building to which this output variable belongs to"
     annotation (HideResult=true);
-  constant String modelicaNameOutputVariable=getInstanceName()
+  constant String modelicaInstanceName=getInstanceName()
     "Name of this instance"
+    annotation (HideResult=true);
+  constant String spawnExe=building.spawnExe
+      "Name of the spawn executable, without extension, such as spawn-0.2.0-d7f1e095f3"
     annotation (HideResult=true);
   final parameter String idfName=building.idfName
     "Name of the IDF file that contains this zone";
-  final parameter String weaName=building.weaName
+  final parameter String epwName=building.epwName
     "Name of the EnergyPlus weather file (but with mos extension)";
+  final parameter Real relativeSurfaceTolerance=building.relativeSurfaceTolerance
+    "Relative tolerance of surface temperature calculations";
   final parameter Boolean usePrecompiledFMU=building.usePrecompiledFMU
     "Set to true to use pre-compiled FMU with name specified by fmuName"
     annotation (Dialog(tab="Debug"));
@@ -31,15 +37,18 @@ protected
     input Real u;
     input Real accuracy;
     output Real y;
+
   algorithm
     y :=
-      if(u > 0) then
+      if
+        (u > 0) then
         floor(
           u/accuracy+0.5)*accuracy
       else
         ceil(
           u/accuracy-0.5)*accuracy;
   end round;
+
 initial equation
   startTime=time;
   annotation (
@@ -57,6 +66,11 @@ Partial model for an EnergyPlus object.
 </html>",
       revisions="<html>
 <ul>
+<li>
+February 18, 2021, by Michael Wetter:<br/>
+Refactor synchronization of constructors.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2360\">#2360</a>.
+</li>
 <li>
 April 04, 2018, by Thierry S. Nouidui:<br/>
 Added additional parameters for parametrizing

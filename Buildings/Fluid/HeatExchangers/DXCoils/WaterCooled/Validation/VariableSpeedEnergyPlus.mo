@@ -27,7 +27,7 @@ model VariableSpeedEnergyPlus
     "Variable speed DX coil"
     annotation (Placement(transformation(extent={{-10,0},{10,20}})));
 
- Buildings.Fluid.HeatExchangers.DXCoils.WaterCooled.Data.Generic.DXCoil datCoi(
+ parameter Buildings.Fluid.HeatExchangers.DXCoils.WaterCooled.Data.Generic.DXCoil datCoi(
   nSta=10,minSpeRat=0.1,
     sta={Buildings.Fluid.HeatExchangers.DXCoils.WaterCooled.Data.Generic.BaseClasses.Stage(
         spe=500/60,

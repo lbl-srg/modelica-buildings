@@ -5,6 +5,8 @@ compareVars :=
     "weaDat.weaBus.HGloHor",
     "buiZon.theZon[1, 1].roo.heaPorAir.T",
     "buiZon.theZon[2, 1].roo.heaPorAir.T",
-    "buiZon.theZon[1, 1].heaCooPow",
-    "buiZon.theZon[2, 1].heaCooPow"
+    "buiZon.theZon[1, 1].EHea",
+    "buiZon.theZon[2, 1].EHea",
+    "buiZon.theZon[1, 1].ECoo",
+    "buiZon.theZon[2, 1].ECoo"
   };

@@ -10,7 +10,7 @@ def _convert(timestep, file_name):
     # [PEleDem (H), mWat_flow (), TWat_in (R), TRoo (V), PEleNet (H), QGro (L), GGen (M), GWat (U, S, R), QLos (T), TWatOut (S), TEng (Q), TWatOutSet ()]
     # [H, R, V, L, M, S, T, Q, U]
     # [H, L, M, Q, R, S, T, U, V]
-    column_head=['MICROCOGEN1:Generator Produced Electric Power [W](TimeStep)', 'MICROCOGEN1:Generator Gross Input Heat Rate [W](TimeStep)',
+    column_head=['MICROCOGEN1:Generator Produced AC Electricity Rate [W](TimeStep)', 'MICROCOGEN1:Generator Gross Input Heat Rate [W](TimeStep)',
                  'MICROCOGEN1:Generator Steady State Engine Heat Generation Rate [W](TimeStep)', 'MICROCOGEN1:Generator Engine Temperature [C](TimeStep)',
                  'MICROCOGEN1:Generator Coolant Inlet Temperature [C](TimeStep)', 'MICROCOGEN1:Generator Coolant Outlet Temperature [C](TimeStep)',
                  'MICROCOGEN1:Generator Zone Sensible Heat Transfer Rate [W](TimeStep)', 'MICROCHP SENERTECH PUMP-MICROCOGEN1NODE:System Node Mass Flow Rate [kg/s](TimeStep)',

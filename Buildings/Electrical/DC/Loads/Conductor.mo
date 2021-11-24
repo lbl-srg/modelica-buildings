@@ -134,7 +134,7 @@ The points are at <i>0.8 V<sub>nom</sub></i> and <i>1.2 V<sub>nom</sub></i>.
 Changed parent class to <a href=\"modelica://Buildings.Electrical.Interfaces.ResistiveLoad\">
 Buildings.Electrical.Interfaces.ResistiveLoad</a> in order
 to help openmodelica parsing the model. This fixes issue
-<a href=https://github.com/lbl-srg/modelica-buildings/issues/415>#415</a>.
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/415\">#415</a>.
 </li>
 <li>June 17, 2014, by Marco Bonvini:<br/>
 Adde parameter <code>initMode</code> that can be used to

@@ -52,7 +52,7 @@ the model in Dymola's pedantic mode.
 Changed parent class to <a href=\"modelica://Buildings.Electrical.Interfaces.ResistiveLoad\">
 Buildings.Electrical.Interfaces.ResistiveLoad</a> in order
 to help openmodelica parsing the model. This fixes issue
-<a href=https://github.com/lbl-srg/modelica-buildings/issues/415>#415</a>.
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/415\">#415</a>.
 </li>
 <li>
 February 1, 2013, by Thierry S. Nouidui:<br/>

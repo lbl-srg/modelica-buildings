@@ -9,7 +9,7 @@ ARCH = $(shell getconf LONG_BIT)
 # Python directories
 # PYTHONHOME must be defined before running the make file.
 # For instance:
-#   export PYTHONHOME=$HOME/miniconda3/envs/python2
+#   export PYTHONHOME=$HOME/miniconda3/envs/python3
 ifndef PYTHONHOME
 $(error PYTHONHOME is not set)
 endif

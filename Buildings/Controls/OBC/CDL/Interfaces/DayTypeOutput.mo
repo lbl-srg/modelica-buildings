@@ -1,38 +1,31 @@
 within Buildings.Controls.OBC.CDL.Interfaces;
-connector DayTypeOutput =output Types.Day  "Output connector for day types"
-annotation (
-  defaultComponentName="y",
-  Icon(
-    coordinateSystem(preserveAspectRatio=true,
-      initialScale=0.2,
-      extent={{-100.0,-100.0},{100.0,100.0}}),
-      graphics={
-    Polygon(
-      lineColor={0,127,0},
-      fillColor={255,255,255},
-      fillPattern=FillPattern.Solid,
-      points={{-100,50},{0,0},{-100,-50}})}),
-  Diagram(
-    coordinateSystem(preserveAspectRatio=true,
-      initialScale=0.2,
-      extent={{-100.0,-100.0},{100.0,100.0}}),
-      graphics={
-    Polygon(
-      lineColor={0,127,0},
-      fillColor={255,255,255},
-      fillPattern=FillPattern.Solid,
-      points={{-100.0,50.0},{0.0,0.0},{-100.0,-50.0}}),
-    Text(
-      lineColor={0,127,0},
-      extent={{30.0,60.0},{30.0,110.0}},
-      textString="%name")}),
-  Documentation(info="<html>
+connector DayTypeOutput=output Types.Day
+  "Output connector for day types"
+annotation (defaultComponentName="y",
+ Icon(coordinateSystem(preserveAspectRatio=true,
+                       initialScale=0.2,
+                       extent={{-100.0,-100.0},{100.0,100.0}}),
+      graphics={Polygon(lineColor={0,127,0},
+                        fillColor={255,255,255},
+                        fillPattern=FillPattern.Solid,
+                        points={{-100,50},{0,0},{-100,-50}})}),
+ Diagram(coordinateSystem(preserveAspectRatio=true,
+                          initialScale=0.2,
+                          extent={{-100.0,-100.0},{100.0,100.0}}),
+         graphics={Polygon(lineColor={0,127,0},
+                           fillColor={255,255,255},
+                           fillPattern=FillPattern.Solid,
+                           points={{-100.0,50.0},{0.0,0.0},{-100.0,-50.0}}),
+                   Text(lineColor={0,127,0},
+                        extent={{30.0,60.0},{30.0,110.0}},
+                        textString="%name")}),
+Documentation(info="<html>
 <p>
 Connector with one output signal of type
 <a href=\"modelica://Buildings.Controls.OBC.CDL.Types.Day\">
 Buildings.Controls.OBC.CDL.Types.Day</a>.
 </p>
-</html>", revisions="<html>
+</html>",revisions="<html>
 <ul>
 <li>
 July 19, 2019, by Jianjun Hu:<br/>

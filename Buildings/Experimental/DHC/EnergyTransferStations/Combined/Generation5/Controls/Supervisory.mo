@@ -2,7 +2,8 @@ within Buildings.Experimental.DHC.EnergyTransferStations.Combined.Generation5.Co
 model Supervisory
   "Supervisory controller"
   extends BaseClasses.PartialSupervisory;
-  parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI
+  parameter Buildings.Controls.OBC.CDL.Types.SimpleController
+    controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI
     "Type of controller"
     annotation (choices(choice=Buildings.Controls.OBC.CDL.Types.SimpleController.P,
     choice=Buildings.Controls.OBC.CDL.Types.SimpleController.PI));
@@ -117,7 +118,7 @@ equation
 <ul>
 <li>
 July 31, 2020, by Antoine Gautier:<br/>
-First implementation
+First implementation.
 </li>
 </ul>
 </html>",
@@ -131,12 +132,14 @@ Buildings.Experimental.DHC.EnergyTransferStations.Combined.Generation5.ChillerBo
 <li>
 Heating (resp. cooling) is enabled based on the input signal <code>uHea</code>
 (resp. <code>uCoo</code>) which is held for 15', meaning that,
-when enabled, the mode remains active for at least 15' and,
-when disabled, the mode cannot be enabled again for at least 15'.
+when enabled, the mode remains active for at least <i>15</i> minutes and,
+when disabled, the mode cannot be enabled again for at least <i>15</i> minutes.
 The heating and cooling enable signals should be computed externally based on a schedule
 (to lock out the system during off-hours), ideally in conjunction with the number
-of requests yielded by the terminal unit controllers. Indeed, the heating water supply set
-point is allowed to be reset down only when heating is disabled, in which
+of requests yielded by the terminal unit controllers, or any
+other signal representative of the load.
+Indeed, the heating water supply set point is allowed to be reset down 
+only when heating is disabled, in which
 case the system performance is improved due to a lower chiller lift.
 </li>
 <li>

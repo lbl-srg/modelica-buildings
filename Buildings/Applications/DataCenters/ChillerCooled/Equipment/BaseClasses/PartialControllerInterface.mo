@@ -85,8 +85,8 @@ partial model PartialControllerInterface
        reset == Buildings.Types.Reset.Parameter,
        group="Integrator reset",tab="Controller"));
 
- Modelica.Blocks.Interfaces.BooleanInput trigger if
-       reset <> Buildings.Types.Reset.Disabled
+ Modelica.Blocks.Interfaces.BooleanInput trigger
+    if reset <> Buildings.Types.Reset.Disabled
     "Resets the controller output when trigger becomes true"
     annotation (Placement(transformation(extent={{-20,-20},{20,20}},
         rotation=90,
@@ -94,8 +94,8 @@ partial model PartialControllerInterface
         extent={{-20,-20},{20,20}},
         rotation=90,
         origin={-60,-100})));
-  Modelica.Blocks.Interfaces.RealInput y_reset_in if
-       reset == Buildings.Types.Reset.Input
+  Modelica.Blocks.Interfaces.RealInput y_reset_in
+    if reset == Buildings.Types.Reset.Input
     "Input signal for state to which integrator is reset,
     enabled if reset = Buildings.Types.Reset.Input"
     annotation (Placement(transformation(extent={{-20,-20},{20,20}},

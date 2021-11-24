@@ -35,7 +35,7 @@ model Timer "Validation model for the Timer block"
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul2(
     final width=0.5,
     final period=2,
-    final delay=0.5)  "Block that outputs cyclic on and off"
+    final shift=0.5)  "Block that outputs cyclic on and off"
     annotation (Placement(transformation(extent={{-40,-50},{-20,-30}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant con(
     final k=false) "Block that outputs cyclic on and off"
