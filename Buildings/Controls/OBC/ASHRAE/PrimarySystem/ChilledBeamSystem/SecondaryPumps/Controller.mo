@@ -116,7 +116,7 @@ block Controller
     "Time constant of integrator block"
     annotation (Dialog(tab="Pump control parameters",
       group="PID parameters",
-      enable = controlTypePumSpe == Buildings.Controls.OBC.CDL.Types.SimpleController.PI or controlTypePumSpe == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
+      enable = controllerTypePumSpe == Buildings.Controls.OBC.CDL.Types.SimpleController.PI or controllerTypePumSpe == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
 
   parameter Real Td(
     final unit="s",
@@ -126,7 +126,7 @@ block Controller
     "Time constant of derivative block"
     annotation (Dialog(tab="Pump control parameters",
       group="PID parameters",
-      enable = controlTypePumSpe == Buildings.Controls.OBC.CDL.Types.SimpleController.PD or controlTypePumSpe == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
+      enable = controllerTypePumSpe == Buildings.Controls.OBC.CDL.Types.SimpleController.PD or controllerTypePumSpe == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
 
   parameter Real sigDif(
     final unit="1",
@@ -166,8 +166,8 @@ block Controller
     final unit="Pa",
     final quantity="PressureDifference",
     displayUnit="Pa")
-    "Chilled water differential static pressure from remote sensor" annotation
-    (Placement(transformation(extent={{-320,-180},{-280,-140}}),
+    "Chilled water differential static pressure from remote sensor" annotation (
+     Placement(transformation(extent={{-320,-180},{-280,-140}}),
         iconTransformation(extent={{-140,-60},{-100,-20}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput dpChiWatSet(

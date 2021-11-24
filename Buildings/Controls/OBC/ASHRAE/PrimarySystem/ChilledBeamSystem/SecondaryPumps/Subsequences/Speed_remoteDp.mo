@@ -24,7 +24,7 @@ block Speed_remoteDp
     displayUnit = "s") = 0.5
     "Time constant of integrator block"
     annotation(Dialog(group="Speed controller",
-      enable = controlType == Buildings.Controls.OBC.CDL.Types.SimpleController.PI or controlType == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
+      enable = controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PI or controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
 
   parameter Real Td(
     final unit="s",
@@ -33,7 +33,7 @@ block Speed_remoteDp
     final min=0) = 0.1
     "Time constant of derivative block"
     annotation (Dialog(group="Speed controller",
-      enable = controlType == Buildings.Controls.OBC.CDL.Types.SimpleController.PD or controlType == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
+      enable = controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PD or controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
 
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerType = Buildings.Controls.OBC.CDL.Types.SimpleController.PI
     "Controller type for pump speed control"

@@ -5,7 +5,6 @@ model Controller
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChilledBeamSystem.SecondaryPumps.Controller
     pumCon(
     final nPum=2,
-    final nSen=2,
     final minPumSpe=0.1,
     final maxPumSpe=1,
     final k=1,
@@ -32,10 +31,10 @@ protected
     "Logical pre block"
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine sin2[2](
-    final amplitude=fill(0.5, 2),
-    final freqHz=fill(1/1800, 2),
-    final offset=fill(1, 2))
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine sin2(
+    final amplitude=0.5,
+    final freqHz=1/1800,
+    final offset=1)
     "Sine signal"
     annotation (Placement(transformation(extent={{-80,-30},{-60,-10}})));
 
