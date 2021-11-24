@@ -83,6 +83,8 @@ https://doi.org/10.1111/ina.12383.
 <li>
 November 24, 2021, by David Blum:<br/>
 Update calculation of CO2 generation.
+This is
+for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/2781\">#2781</a>.
 </li>
 <li>
 May 9, 2021, by David Blum:<br/>
