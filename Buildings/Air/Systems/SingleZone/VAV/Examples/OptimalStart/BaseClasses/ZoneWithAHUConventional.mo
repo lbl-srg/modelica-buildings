@@ -50,7 +50,8 @@ block ZoneWithAHUConventional
     TSupChi_nominal=TSupChi_nominal)
     "Single zone VAV system"
     annotation (Placement(transformation(extent={{-18,-20},{22,20}})));
-  Buildings.Air.Systems.SingleZone.VAV.ChillerDXHeatingEconomizerController
+
+  Buildings.Air.Systems.SingleZone.VAV.BaseClasses.ControllerChillerDXHeatingEconomizer
     con(
     minAirFlo=0.1,
     minOAFra=0.4,
@@ -59,7 +60,7 @@ block ZoneWithAHUConventional
     "Controller"
     annotation (Placement(transformation(extent={{-78,-12},{-58,8}})));
   Buildings.ThermalZones.Detailed.Validation.BaseClasses.SingleZoneFloor
-    sinZonFlo(redeclare package Medium = MediumA, lat=lat)
+    sinZonFlo(redeclare package Medium = MediumA)
     "Single zone floor building"
     annotation (Placement(transformation(extent={{38,-16},{78,24}})));
   Buildings.BoundaryConditions.WeatherData.Bus weaBus
