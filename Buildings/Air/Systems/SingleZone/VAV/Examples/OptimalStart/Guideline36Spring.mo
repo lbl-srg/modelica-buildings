@@ -35,12 +35,10 @@ model Guideline36Spring
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con(k=0)
     "No optimal start"
     annotation (Placement(transformation(extent={{-20,-78},{0,-58}})));
-  Buildings.Air.Systems.SingleZone.VAV.Examples.OptimalStart.BaseClasses.ZoneWithAHUG36 zonAHUG36Opt(
-    final lat=weaDat.lat)
+  Buildings.Air.Systems.SingleZone.VAV.Examples.OptimalStart.BaseClasses.ZoneWithAHUG36 zonAHUG36Opt
     "A single zone building with a VAV system and a Guideline36 controller"
     annotation (Placement(transformation(extent={{40,40},{60,60}})));
-  Buildings.Air.Systems.SingleZone.VAV.Examples.OptimalStart.BaseClasses.ZoneWithAHUG36 zonAHUG36Con(
-    final lat=weaDat.lat)
+  Buildings.Air.Systems.SingleZone.VAV.Examples.OptimalStart.BaseClasses.ZoneWithAHUG36 zonAHUG36Con
     "A single zone building with a VAV system and a Guideline36 controller"
     annotation (Placement(transformation(extent={{40,-80},{60,-60}})));
 

@@ -17,8 +17,6 @@ block ZoneWithAHUG36
   parameter Modelica.SIunits.HeatFlowRate QCoo_flow_nominal = -100000
     "Design cooling flow rate";
 
-  parameter Modelica.SIunits.Angle lat "Latitude";
-
   Buildings.Controls.OBC.CDL.Interfaces.RealInput warUpTim(
     final unit="s",
     final quantity="Time")
@@ -70,7 +68,7 @@ block ZoneWithAHUG36
     "VAV controller"
     annotation (Placement(transformation(extent={{-66,-36},{-26,12}})));
   Buildings.ThermalZones.Detailed.Validation.BaseClasses.SingleZoneFloor sinZonFlo(
-    redeclare package Medium = MediumA, lat=lat)
+    redeclare package Medium = MediumA)
     "Single zone floor"
     annotation (Placement(transformation(extent={{76,-24},{116,16}})));
   Buildings.Air.Systems.SingleZone.VAV.ChillerDXHeatingEconomizer hvac(

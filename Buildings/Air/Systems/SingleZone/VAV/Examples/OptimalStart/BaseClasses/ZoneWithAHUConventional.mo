@@ -17,8 +17,6 @@ block ZoneWithAHUConventional
   parameter Modelica.SIunits.HeatFlowRate QCoo_flow_nominal = -100000
     "Design cooling flow rate";
 
-  parameter Modelica.SIunits.Angle lat "Latitude";
-
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TSetRooHea(
     final unit="K",
     displayUnit="degC")

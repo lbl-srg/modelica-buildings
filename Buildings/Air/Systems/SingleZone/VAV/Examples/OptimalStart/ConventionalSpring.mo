@@ -56,12 +56,10 @@ model ConventionalSpring
   Buildings.Controls.OBC.CDL.Continuous.Add add4(final k1=+1, final k2=+1)
     "New heating setpoint schedule for room"
     annotation (Placement(transformation(extent={{40,64},{60,84}})));
-  Buildings.Air.Systems.SingleZone.VAV.Examples.OptimalStart.BaseClasses.ZoneWithAHUConventional zonAHUOpt(
-    final lat=weaDat.lat)
+  Buildings.Air.Systems.SingleZone.VAV.Examples.OptimalStart.BaseClasses.ZoneWithAHUConventional zonAHUOpt
     "Model of a single zone with AHU and controller"
     annotation (Placement(transformation(extent={{80,50},{100,70}})));
-  Buildings.Air.Systems.SingleZone.VAV.Examples.OptimalStart.BaseClasses.ZoneWithAHUConventional zonAHUCon(
-    final lat=weaDat.lat)
+  Buildings.Air.Systems.SingleZone.VAV.Examples.OptimalStart.BaseClasses.ZoneWithAHUConventional zonAHUCon
     "Model of a single zone with AHU and controller"
     annotation (Placement(transformation(extent={{80,-70},{100,-50}})));
   Buildings.Controls.OBC.CDL.Logical.Or or2
