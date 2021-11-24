@@ -1,4 +1,4 @@
-﻿within Buildings.Examples.VAVReheat.Validation.BaseClasses;
+within Buildings.Examples.VAVReheat.Validation.BaseClasses;
 model Floor
   "Extends Buildings.Examples.VAVReheat.BaseClasses.Floor with CO2 generation from people and CO2 from outside air."
   extends Buildings.Examples.VAVReheat.BaseClasses.Floor(
@@ -84,7 +84,7 @@ https://doi.org/10.1111/ina.12383.
 November 24, 2021, by David Blum:<br/>
 Update calculation of CO2 generation.
 This is
-for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/2781\">#2781</a>.
+for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2781\">issue #2781</a>.
 </li>
 <li>
 May 9, 2021, by David Blum:<br/>
