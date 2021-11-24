@@ -3,19 +3,11 @@
     "jmodelica": {
       "translate": false
   },
-    "optimica": {
-      "translate": false,
-      "comment": "For testing only."
-  },
   "model_name": "Buildings.Air.Systems.SingleZone.VAV.Examples.OptimalStart.ConventionalWinter"
   },
   {
     "jmodelica": {
       "translate": false
-  },
-    "optimica": {
-      "translate": false,
-      "comment": "For testing only."
   },
   "model_name": "Buildings.Air.Systems.SingleZone.VAV.Examples.OptimalStart.ConventionalSpring"
   },
@@ -23,29 +15,17 @@
     "jmodelica": {
       "translate": false
   },
-    "optimica": {
-      "translate": false,
-      "comment": "For testing only."
-  },
   "model_name": "Buildings.Air.Systems.SingleZone.VAV.Examples.OptimalStart.Guideline36Winter"
   },
   {
     "jmodelica": {
       "translate": false
   },
-    "optimica": {
-      "translate": false,
-      "comment": "For testing only."
-  },
   "model_name": "Buildings.Air.Systems.SingleZone.VAV.Examples.OptimalStart.Guideline36Spring"
   },
   {
     "jmodelica": {
       "translate": false
-  },
-    "optimica": {
-      "translate": false,
-      "comment": "For testing only -- timed out."
   },
   "model_name": "Buildings.Air.Systems.SingleZone.VAV.Examples.OptimalStart.Guideline36Summer"
   },
