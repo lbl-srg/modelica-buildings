@@ -1,6 +1,6 @@
 within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChilledBeamSystem.SecondaryPumps.Subsequences.Validation;
 model ChangeStatus
-    "Validate sequence for changing pump status"
+  "Validate sequence for changing pump status"
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChilledBeamSystem.SecondaryPumps.Subsequences.ChangeStatus
     chaPumSta(

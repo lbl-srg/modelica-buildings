@@ -1,6 +1,6 @@
 within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChilledBeamSystem.SecondaryPumps.Subsequences;
 block EnableLead
-    "Sequence to enable or disable the lead pump of chilled beam systems"
+  "Sequence to enable or disable the lead pump of chilled beam systems"
 
   parameter Integer nVal = 3
     "Number of chilled water control valves on chilled beam manifolds";

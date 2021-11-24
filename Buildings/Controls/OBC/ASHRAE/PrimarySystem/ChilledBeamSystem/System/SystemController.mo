@@ -1,5 +1,6 @@
 within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChilledBeamSystem.System;
-block SystemController "Main chilled beam system controller"
+block SystemController
+  "Main chilled beam system controller"
 
   parameter Integer nPum=2
     "Number of chilled water pumps"

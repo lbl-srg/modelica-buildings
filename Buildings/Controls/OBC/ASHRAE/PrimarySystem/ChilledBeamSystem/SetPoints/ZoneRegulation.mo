@@ -1,5 +1,6 @@
 within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChilledBeamSystem.SetPoints;
-block ZoneRegulation "Controller for zone CAV box and chilled beam manifold"
+block ZoneRegulation
+  "Controller for zone CAV box and chilled beam manifold"
 
   parameter Real conSenOnThr(
     final unit="s",

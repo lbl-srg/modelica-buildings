@@ -1,5 +1,6 @@
 within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChilledBeamSystem.SetPoints.Validation;
-model OperatingMode "Validate system operating mode setpoint controller"
+model OperatingMode
+  "Validate system operating mode setpoint controller"
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChilledBeamSystem.SetPoints.OperatingMode
     operatingMode(        schTab=[0,0; 1,1; 2,0; 24,0])

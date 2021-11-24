@@ -3,7 +3,8 @@ model EnableLag_pumpSpeed
   "Validate sequence for enabling variable-speed lag pumps using pump speed"
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChilledBeamSystem.SecondaryPumps.Subsequences.EnableLag_pumpSpeed
-    enaLagPum "Test instance for speed-limit speLim"
+    enaLagPum
+    "Test instance for speed-limit speLim"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 
   Buildings.Controls.OBC.CDL.Logical.TrueFalseHold yUp(

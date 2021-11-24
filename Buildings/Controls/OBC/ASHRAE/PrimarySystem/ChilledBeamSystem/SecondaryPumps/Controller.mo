@@ -260,7 +260,8 @@ protected
     annotation (Placement(transformation(extent={{-200,160},{-180,180}})));
 
   Buildings.Controls.OBC.CDL.Routing.RealExtractor leaPum(
-    final nin=nPum) "Find lead pump index"
+    final nin=nPum)
+    "Find lead pump index"
     annotation (Placement(transformation(extent={{-60,160},{-40,180}})));
 
   Buildings.Controls.OBC.CDL.Conversions.RealToInteger reaToInt
@@ -294,7 +295,8 @@ protected
     annotation (Placement(transformation(extent={{-250,-130},{-230,-110}})));
 
   Buildings.Controls.OBC.CDL.Integers.MultiSum mulSumInt(
-    final nin=nPum) "Find number of pumps currently enabled"
+    final nin=nPum)
+    "Find number of pumps currently enabled"
     annotation (Placement(transformation(extent={{-200,-130},{-180,-110}})));
 
   Buildings.Controls.OBC.CDL.Integers.Add addInt

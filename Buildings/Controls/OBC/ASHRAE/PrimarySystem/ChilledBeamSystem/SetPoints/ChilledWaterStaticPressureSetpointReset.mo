@@ -1,6 +1,6 @@
 within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChilledBeamSystem.SetPoints;
 block ChilledWaterStaticPressureSetpointReset
-    "Sequence to generate static pressure setpoint for chilled water loop"
+  "Sequence to generate static pressure setpoint for chilled water loop"
 
   parameter Integer nVal = 3
     "Number of chilled water control valves on chilled beam manifolds";
@@ -133,7 +133,8 @@ protected
     annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
 
   Buildings.Controls.OBC.CDL.Logical.MultiOr mulOr(
-    final nin=nPum) "Check if any chilled water pump is enabled"
+    final nin=nPum)
+    "Check if any chilled water pump is enabled"
     annotation (Placement(transformation(extent={{-80,40},{-60,60}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys2[nVal](

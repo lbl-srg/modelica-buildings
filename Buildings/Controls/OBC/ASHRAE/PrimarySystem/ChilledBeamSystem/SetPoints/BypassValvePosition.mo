@@ -1,6 +1,6 @@
 within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChilledBeamSystem.SetPoints;
 block BypassValvePosition
-    "Block with sequences for calculating bypass valve position"
+  "Block with sequences for calculating bypass valve position"
 
   parameter Integer nPum = 2
     "Number of pumps in the chilled water loop";
@@ -96,11 +96,13 @@ protected
     annotation (Placement(transformation(extent={{20,40},{40,60}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con(
-    final k=0) "Constant real zero source"
+    final k=0)
+    "Constant real zero source"
     annotation (Placement(transformation(extent={{-20,60},{0,80}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con1(
-    final k=1) "Constant real one source"
+    final k=1)
+    "Constant real one source"
     annotation (Placement(transformation(extent={{-20,20},{0,40}})));
 
   Buildings.Controls.OBC.CDL.Continuous.PIDWithReset conPID(

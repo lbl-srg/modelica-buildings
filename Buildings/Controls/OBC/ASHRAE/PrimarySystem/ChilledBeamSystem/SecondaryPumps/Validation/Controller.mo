@@ -1,6 +1,6 @@
 within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChilledBeamSystem.SecondaryPumps.Validation;
 model Controller
-    "Validate chilled beam chilled water pump control sequence"
+  "Validate chilled beam chilled water pump control sequence"
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChilledBeamSystem.SecondaryPumps.Controller
     pumCon(

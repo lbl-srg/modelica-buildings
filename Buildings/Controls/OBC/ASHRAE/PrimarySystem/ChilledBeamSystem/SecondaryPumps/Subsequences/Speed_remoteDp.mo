@@ -21,7 +21,7 @@ block Speed_remoteDp
   parameter Real Ti(
     final quantity="Time",
     final unit="s",
-    displayUnit = "s") = 0.5
+    displayUnit="s") = 0.5
     "Time constant of integrator block"
     annotation(Dialog(group="Speed controller",
       enable = controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PI or controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
@@ -64,7 +64,8 @@ block Speed_remoteDp
     final min=minPumSpe,
     final max=maxPumSpe,
     final unit="1",
-    displayUnit="1") "Chilled water pump speed"
+    displayUnit="1")
+    "Chilled water pump speed"
     annotation (Placement(transformation(extent={{120,80},{160,120}}),
       iconTransformation(extent={{100,-20},{140,20}})));
 
@@ -95,7 +96,8 @@ protected
     annotation (Placement(transformation(extent={{-40,-50},{-20,-30}})));
 
   Buildings.Controls.OBC.CDL.Logical.MultiOr mulOr(
-    final nin=nPum) "Check if any chilled water pumps are enabled"
+    final nin=nPum)
+    "Check if any chilled water pumps are enabled"
     annotation (Placement(transformation(extent={{-100,-10},{-80,10}})));
 
   Buildings.Controls.OBC.CDL.Routing.RealScalarReplicator reaRep(

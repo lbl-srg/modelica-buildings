@@ -69,8 +69,9 @@ protected
     "Gnerate True signal for occupied mode and False otherwise"
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
 
-  Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt(final k=Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChilledBeamSystem.Types.OperationModes
-        .occupied) "Occupied mode signal"
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt(
+    final k=Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChilledBeamSystem.Types.OperationModes.occupied)
+    "Occupied mode signal"
     annotation (Placement(transformation(extent={{-40,-30},{-20,-10}})));
 
   Buildings.Controls.OBC.CDL.Logical.Switch swi

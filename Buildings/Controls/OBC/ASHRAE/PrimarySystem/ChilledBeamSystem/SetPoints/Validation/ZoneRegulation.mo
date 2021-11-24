@@ -1,11 +1,13 @@
 within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChilledBeamSystem.SetPoints.Validation;
-model ZoneRegulation "Validate zone regulation controller"
+model ZoneRegulation
+  "Validate zone regulation controller"
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChilledBeamSystem.SetPoints.ZoneRegulation
     zonRegCon(
     final VDes_occ=0.5,
     final VDes_unoccSch=0.1,
-    final VDes_unoccUnsch=0.2) "Zone temperature regulator"
+    final VDes_unoccUnsch=0.2)
+    "Zone temperature regulator"
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
 
 protected
