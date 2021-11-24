@@ -1,7 +1,7 @@
 within Buildings.Fluid.Chillers.Examples.BaseClasses;
-partial model PartialElectric
-  "Base class for test model of chiller electric EIR"
- package Medium1 = Buildings.Media.Water "Medium model";
+partial model PartialElectric_AirCooled
+  "Base class for test model of chiller electric EIR with air-cooled condenser"
+ package Medium1 = Buildings.Media.Air "Medium model";
  package Medium2 = Buildings.Media.Water "Medium model";
 
   parameter Modelica.SIunits.Power P_nominal
@@ -16,11 +16,10 @@ partial model PartialElectric
   parameter Modelica.SIunits.MassFlowRate mCon_flow_nominal
     "Nominal mass flow rate at condenser";
 
-  Buildings.Fluid.Sources.MassFlowSource_T sou1(
+  Sources.MassFlowSource_WeatherData sou1(
     redeclare package Medium = Medium1,
-    use_T_in=true,
-    m_flow=mCon_flow_nominal,
-    T=298.15) "Mass flow source"
+    m_flow=mCon_flow_nominal)
+    "Weather data"
     annotation (Placement(transformation(extent={{-60,6},{-40,26}})));
   Buildings.Fluid.Sources.MassFlowSource_T sou2(
     redeclare package Medium = Medium2,
@@ -43,29 +42,24 @@ partial model PartialElectric
         extent={{-10,-10},{10,10}},
         origin={-70,-20})));
   Modelica.Blocks.Sources.Ramp TSet(
-    duration=3600,
-    startTime=3*3600,
-    offset=273.15 + 10,
-    height=8) "Set point for leaving chilled water temperature"
+    duration=3600*6,
+    startTime=197.25*24*3600,
+    offset=273.15 + 5,
+    height=5) "Set point for leaving chilled water temperature"
     annotation (Placement(transformation(extent={{-80,50},{-60,70}})));
-  Modelica.Blocks.Sources.Ramp TCon_in(
-    height=10,
-    offset=273.15 + 20,
-    duration=3600,
-    startTime=2*3600) "Condenser inlet temperature"
-    annotation (Placement(transformation(extent={{-90,10},{-70,30}})));
   Modelica.Blocks.Sources.Ramp TEva_in(
-    offset=273.15 + 15,
-    height=5,
-    startTime=3600,
-    duration=3600) "Evaporator inlet temperature"
+    offset=273.15 + 10,
+    height=6,
+    startTime=197*24*3600,
+    duration=12*3600)
+    "Evaporator inlet temperature"
     annotation (Placement(transformation(extent={{50,-40},{70,-20}})));
   Modelica.Blocks.Sources.Pulse pulse(period=3600/2)
-    "Pulse signal generator"
+    "Pulse signal"
     annotation (Placement(transformation(extent={{-80,80},{-60,100}})));
   Modelica.Blocks.Logical.GreaterThreshold greaterThreshold(threshold=0.5)
-    "Greater threshold" annotation (
-    Placement(transformation(extent = {{-40, 80}, {-20, 100}})));
+    "Greater threshold"
+    annotation (Placement(transformation(extent={{-40,80},{-20,100}})));
   Buildings.Fluid.FixedResistances.PressureDrop res1(
     redeclare package Medium = Medium1,
     m_flow_nominal=mCon_flow_nominal,
@@ -76,11 +70,11 @@ partial model PartialElectric
     redeclare package Medium = Medium2,
     m_flow_nominal=mEva_flow_nominal) "Flow resistance"
     annotation (Placement(transformation(extent={{-20,-30},{-40,-10}})));
+  BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=
+        Modelica.Utilities.Files.loadResource(
+        "modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"))
+    annotation (Placement(transformation(extent={{-100,20},{-80,40}})));
 equation
-  connect(TCon_in.y, sou1.T_in) annotation (Line(
-      points={{-69,20},{-62,20}},
-      color={0,0,127},
-      smooth=Smooth.None));
   connect(TEva_in.y, sou2.T_in) annotation (Line(
       points={{71,-30},{80,-30},{80,8},{62,8}},
       color={0,0,127},
@@ -98,6 +92,10 @@ equation
       points={{-40,-20},{-60,-20}},
       color={0,127,255},
       smooth=Smooth.None));
-  annotation (Diagram(coordinateSystem(extent={{-100,-100},{100,120}})), Icon(
-        coordinateSystem(extent={{-100,-100},{100,120}})));
-end PartialElectric;
+  connect(weaDat.weaBus, sou1.weaBus) annotation (Line(
+      points={{-80,30},{-70,30},{-70,16.2},{-60,16.2}},
+      color={255,204,51},
+      thickness=0.5));
+  annotation (Diagram(coordinateSystem(extent={{-120,-100},{100,120}})), Icon(
+        coordinateSystem(extent={{-120,-100},{100,120}})));
+end PartialElectric_AirCooled;
