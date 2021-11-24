@@ -19,12 +19,12 @@ block Speed_remoteDp
     annotation(Dialog(group="Speed controller"));
 
   parameter Real Ti(
+    final quantity="Time",
     final unit="s",
-    displayUnit="s",
-    final quantity="time",
-    final min=0) = 0.5
+    displayUnit = "s") = 0.5
     "Time constant of integrator block"
-    annotation(Dialog(group="Speed controller"));
+    annotation(Dialog(group="Speed controller",
+      enable = controlType == Buildings.Controls.OBC.CDL.Types.SimpleController.PI or controlType == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
 
   parameter Real Td(
     final unit="s",
@@ -32,6 +32,11 @@ block Speed_remoteDp
     final quantity="time",
     final min=0) = 0.1
     "Time constant of derivative block"
+    annotation (Dialog(group="Speed controller",
+      enable = controlType == Buildings.Controls.OBC.CDL.Types.SimpleController.PD or controlType == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
+
+  parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerType = Buildings.Controls.OBC.CDL.Types.SimpleController.PI
+    "Controller type for pump speed control"
     annotation (Dialog(group="Speed controller"));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uChiWatPum[nPum]
@@ -69,22 +74,24 @@ block Speed_remoteDp
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Line pumSpe
-    "Pump speed"
+    "Convert PI signal into linear transformation between minimum and maximum pump speed"
     annotation (Placement(transformation(extent={{60,50},{80,70}})));
 
 protected
   Buildings.Controls.OBC.CDL.Continuous.PIDWithReset conPID[nSen](
-    final controllerType=fill(Buildings.Controls.OBC.CDL.Types.SimpleController.PID,nSen),
+    final controllerType=fill(controllerType, nSen),
     final k=fill(k, nSen),
     final Ti=fill(Ti, nSen),
     final Td=fill(Td, nSen),
     final yMax=fill(1,nSen),
-    final yMin=fill(0,nSen))
+    final yMin=fill(0,nSen),
+    final xi_start=fill(1,nSen),
+    final yd_start=fill(1,nSen))
     "PID controller for regulating remote differential pressure"
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
 
   Buildings.Controls.OBC.CDL.Logical.Edge edg
-    "Reset PID loop when it is activated"
+    "Reset PID loop when the pump system is enabled"
     annotation (Placement(transformation(extent={{-40,-50},{-20,-30}})));
 
   Buildings.Controls.OBC.CDL.Logical.MultiOr mulOr(

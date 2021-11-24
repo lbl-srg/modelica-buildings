@@ -222,7 +222,7 @@ protected
     final Td=TdHea,
     final yMax=1,
     final yMin=0)
-    "Damper control"
+    "Damper control to regulate measured air flowrate at required air flowrate"
     annotation (Placement(transformation(extent={{0,-40},{20,-20}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Product pro[3]
@@ -244,7 +244,7 @@ protected
     annotation (Placement(transformation(extent={{-80,-90},{-60,-70}})));
 
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea[3]
-    "Boolean to Real conversion"
+    "Output real \"one\" signal for currently active mode and \"zero\" for others"
     annotation (Placement(transformation(extent={{-50,-90},{-30,-70}})));
 
   Buildings.Controls.OBC.CDL.Logical.Not not1
@@ -265,7 +265,7 @@ protected
     annotation (Placement(transformation(extent={{50,60},{70,80}})));
 
   Buildings.Controls.OBC.CDL.Logical.Switch swi
-    "Switch to enable air damper control"
+    "Switch to completely open damper when condensation is detected, and regulate its position otherwise"
     annotation (Placement(transformation(extent={{80,-40},{100,-20}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con1(
@@ -279,18 +279,18 @@ protected
     annotation (Placement(transformation(extent={{-48,30},{-28,50}})));
 
   Buildings.Controls.OBC.CDL.Integers.Equal isUnOcc
-    "Output true if unoccupied"
+    "Reset PI controllers at start of zone non-occupancy"
     annotation (Placement(transformation(extent={{-20,-160},{0,-140}})));
 
-  Buildings.Controls.OBC.CDL.Integers.Sources.Constant conIntUn(
-    final k=Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChilledBeamSystem.Types.OperationModeTypes.occupied)
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant conIntUn(final k=
+        Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChilledBeamSystem.Types.OperationModes.occupied)
     "Constant signal for unoccupied mode"
     annotation (Placement(transformation(extent={{-60,-160},{-40,-140}})));
 
-  Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt[3](
-    final k={Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChilledBeamSystem.Types.OperationModeTypes.occupied,
-             Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChilledBeamSystem.Types.OperationModeTypes.unoccupiedScheduled,
-             Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChilledBeamSystem.Types.OperationModeTypes.unoccupiedUnscheduled})
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt[3](final k={
+        Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChilledBeamSystem.Types.OperationModes.occupied,
+        Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChilledBeamSystem.Types.OperationModes.unoccupiedScheduled,
+        Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChilledBeamSystem.Types.OperationModes.unoccupiedUnscheduled})
     "List of possible modes"
     annotation (Placement(transformation(extent={{-110,-120},{-90,-100}})));
 

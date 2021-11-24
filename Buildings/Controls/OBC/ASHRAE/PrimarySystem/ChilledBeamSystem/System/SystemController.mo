@@ -9,6 +9,10 @@ block SystemController "Main chilled beam system controller"
     "Total number of chilled water control valves on chilled beams"
     annotation (Dialog(group="System parameters"));
 
+  parameter Integer nSenRemDP=1
+    "Total number of remote differential pressure sensors"
+    annotation (Dialog(group="System parameters"));
+
   parameter Real minPumSpe(
     final unit="1",
     displayUnit="1",
@@ -115,7 +119,8 @@ block SystemController "Main chilled beam system controller"
     final min=0) = 0.5
     "Time constant of integrator block"
     annotation (Dialog(tab="Pump control parameters",
-      group="PID parameters"));
+      group="PID parameters",
+      enable = controllerTypePumSpe == Buildings.Controls.OBC.CDL.Types.SimpleController.PI or controllerTypePumSpe == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
 
   parameter Real TdPumSpe(
     final unit="s",
@@ -124,7 +129,8 @@ block SystemController "Main chilled beam system controller"
     final min=0) = 0.1
     "Time constant of derivative block"
     annotation (Dialog(tab="Pump control parameters",
-      group="PID parameters"));
+      group="PID parameters",
+      enable = controllerTypePumSpe == Buildings.Controls.OBC.CDL.Types.SimpleController.PD or controllerTypePumSpe == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
 
   parameter Real dPChiWatMax(
     final unit="Pa",
@@ -146,7 +152,8 @@ block SystemController "Main chilled beam system controller"
     final quantity="Time") = 0.5
     "Time constant of integrator block"
     annotation (Dialog(tab="Bypass valve parameters",
-      group="PID parameters"));
+      group="PID parameters",
+      enable = controllerTypeBypVal == Buildings.Controls.OBC.CDL.Types.SimpleController.PI or controllerTypeBypVal == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
 
   parameter Real TdBypVal(
     final unit="s",
@@ -155,12 +162,21 @@ block SystemController "Main chilled beam system controller"
     final min=0) = 0.1
     "Time constant of derivative block"
     annotation (Dialog(tab="Bypass valve parameters",
-      group="PID parameters"));
+      group="PID parameters",
+      enable = controllerTypeBypVal == Buildings.Controls.OBC.CDL.Types.SimpleController.PD or controllerTypeBypVal == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
 
-  parameter Real dPumSpe(
+  parameter Real sigDifPumSpe(
     final unit="1",
     displayUnit="1")=0.01
-    "Value added to minimum pump speed to get upper hysteresis limit"
+    "Constant value used in hysteresis for checking pump speed"
+    annotation (Dialog(tab="Pump control parameters",
+      group="Advanced"));
+
+  parameter Real samplePeriodUniDelPumSpe(
+    final unit="s",
+    displayUnit="s",
+    final quantity="Time")=60
+    "Sample period of unit delay for pump speed feedback"
     annotation (Dialog(tab="Pump control parameters",
       group="Advanced"));
 
@@ -251,9 +267,14 @@ block SystemController "Main chilled beam system controller"
     "Threshold time for generating two requests"
     annotation(Dialog(tab="Chilled water static pressure reset", group="Control valve parameters"));
 
-  parameter CDL.Types.SimpleController controllerTypeBypVal=Buildings.Controls.OBC.CDL.Types.SimpleController.PI
+  parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerTypeBypVal=Buildings.Controls.OBC.CDL.Types.SimpleController.PI
     "Type of controller for bypass valve position"
     annotation (Dialog(tab="Bypass valve parameters",
+      group="PID parameters"));
+
+  parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerTypePumSpe=Buildings.Controls.OBC.CDL.Types.SimpleController.PI
+    "Controller type for pump speed control"
+    annotation (Dialog(tab="Pump control parameters",
       group="PID parameters"));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uPumSta[nPum]
@@ -261,7 +282,7 @@ block SystemController "Main chilled beam system controller"
     annotation (Placement(transformation(extent={{-140,20},{-100,60}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput dPChiWatLoo
-    "Measured chilled water loop differential pressure"
+    "Measured chilled water loop differential pressure from remote sensors"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uValPos[nVal]
@@ -306,9 +327,12 @@ protected
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChilledBeamSystem.SecondaryPumps.Controller secPumCon(
     final nPum=nPum,
     final nVal=nVal,
-    final nSen=1,
     final minPumSpe=minPumSpe,
     final maxPumSpe=maxPumSpe,
+    valPosClo=valPosClo,
+    valPosOpe=valPosOpe,
+    valOpeThr=valOpeThr,
+    valCloThr=valCloThr,
     final speLim=speLim,
     final speLim1=speLim1,
     final speLim2=speLim2,
@@ -317,14 +341,17 @@ protected
     final timPer3=timPer3,
     final k=kPumSpe,
     final Ti=TiPumSpe,
-    final Td=TdPumSpe)
+    final Td=TdPumSpe,
+    sigDif=sigDifPumSpe,
+    samplePeriodUniDelPumSpe=samplePeriodUniDelPumSpe,
+    controllerTypePumSpe=controllerTypePumSpe)
     "Secondary pump controller"
     annotation (Placement(transformation(extent={{0,20},{20,40}})));
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChilledBeamSystem.SetPoints.BypassValvePosition bypValPos(
     final nPum=nPum,
     final minPumSpe=minPumSpe,
-    final dPumSpe=dPumSpe,
+    final dPumSpe=sigDifPumSpe,
     final dPChiWatMax=dPChiWatMax,
     final k=kBypVal,
     final Ti=TiBypVal,
@@ -355,8 +382,6 @@ equation
                                     color={0,0,127}));
   connect(dPChiWatLoo, bypValPos.dpChiWatLoo) annotation (Line(points={{-120,0},
           {-90,0},{-90,-35},{38,-35}},color={0,0,127}));
-  connect(dPChiWatLoo, secPumCon.dpChiWat_remote[1]) annotation (Line(points={{-120,0},
-          {-90,0},{-90,20},{-20,20},{-20,26},{-2,26}},           color={0,0,127}));
   connect(uValPos, secPumCon.uValPos) annotation (Line(points={{-120,-40},{-60,-40},
           {-60,30},{-2,30}},                   color={0,0,127}));
   connect(uValPos, chiWatStaPreSetRes.uValPos) annotation (Line(points={{-120,-40},
@@ -368,6 +393,8 @@ equation
           30,0},{120,0}}, color={0,0,127}));
   connect(bypValPos.yBypValPos, yBypValPos) annotation (Line(points={{62,-30},{80,
           -30},{80,-40},{120,-40}}, color={0,0,127}));
+  connect(dPChiWatLoo, secPumCon.dpChiWat_remote) annotation (Line(points={{-120,
+          0},{-90,0},{-90,26},{-2,26}}, color={0,0,127}));
   annotation (defaultComponentName="sysCon",
     Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Text(

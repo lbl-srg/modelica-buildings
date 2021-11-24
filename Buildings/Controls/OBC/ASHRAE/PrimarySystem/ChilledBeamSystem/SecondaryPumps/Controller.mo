@@ -10,10 +10,6 @@ block Controller
     "Total number of chilled water control valves on chilled beams"
     annotation (Dialog(group="System parameters"));
 
-  parameter Integer nSen=2
-    "Total number of remote differential pressure sensors"
-    annotation (Dialog(group="System parameters"));
-
   parameter Real minPumSpe(
     final unit="1",
     displayUnit="1",
@@ -116,26 +112,40 @@ block Controller
   parameter Real Ti(
     final unit="s",
     displayUnit="s",
-    final quantity="time",
-    final min=0) = 0.5
+    final quantity="Time") = 0.5
     "Time constant of integrator block"
     annotation (Dialog(tab="Pump control parameters",
-      group="PID parameters"));
+      group="PID parameters",
+      enable = controlTypePumSpe == Buildings.Controls.OBC.CDL.Types.SimpleController.PI or controlTypePumSpe == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
 
   parameter Real Td(
     final unit="s",
     displayUnit="s",
-    final quantity="time",
+    final quantity="Time",
     final min=0) = 0.1
     "Time constant of derivative block"
     annotation (Dialog(tab="Pump control parameters",
-      group="PID parameters"));
+      group="PID parameters",
+      enable = controlTypePumSpe == Buildings.Controls.OBC.CDL.Types.SimpleController.PD or controlTypePumSpe == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
 
   parameter Real sigDif(
     final unit="1",
     displayUnit="1")=0.01
     "Constant value used in hysteresis for checking pump speed"
     annotation (Dialog(tab="Advanced"));
+
+  parameter Real samplePeriodUniDelPumSpe(
+    final unit="s",
+    displayUnit="s",
+    final quantity="time",
+    final min=0)=60
+    "Sample period of unit delay for pump speed feedback"
+    annotation (Dialog(tab="Advanced"));
+
+  parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerTypePumSpe=Buildings.Controls.OBC.CDL.Types.SimpleController.PI
+    "Controller type for pump speed control"
+    annotation (Dialog(tab="Pump control parameters",
+      group="PID parameters"));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uChiWatPum[nPum]
     "Pumps operating status"
@@ -148,17 +158,17 @@ block Controller
       iconTransformation(extent={{-140,-20},{-100,20}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uPumLeaLag[nPum]
-    "Chilled water pump lead-lag order"
+    "Chilled water pump lead-lag order (Should be array of pump indices which indicates order of pump enable; Lowest index should be 1)"
     annotation (Placement(transformation(extent={{-320,150},{-280,190}}),
       iconTransformation(extent={{-140,60},{-100,100}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput dpChiWat_remote[nSen](
-    final unit=fill("Pa", nSen),
-    final quantity=fill("PressureDifference", nSen),
-    displayUnit=fill("Pa", nSen))
-    "Chilled water differential static pressure from remote sensor"
-    annotation (Placement(transformation(extent={{-320,-180},{-280,-140}}),
-      iconTransformation(extent={{-140,-60},{-100,-20}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput dpChiWat_remote(
+    final unit="Pa",
+    final quantity="PressureDifference",
+    displayUnit="Pa")
+    "Chilled water differential static pressure from remote sensor" annotation
+    (Placement(transformation(extent={{-320,-180},{-280,-140}}),
+        iconTransformation(extent={{-140,-60},{-100,-20}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput dpChiWatSet(
     final unit="Pa",
@@ -199,12 +209,12 @@ protected
     "Pump index, {1,2,...,n}";
 
   Buildings.Controls.OBC.CDL.Logical.LogicalSwitch logSwi[nPum]
-    "Logical switch"
+    "Logical switch for enabling and disabling complete pump system with lead pump"
     annotation (Placement(transformation(extent={{180,-10},{200,10}})));
 
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant con[nPum](
     final k=fill(false, nPum))
-    "Boolean source"
+    "Boolean false source for switching off all pumps"
     annotation (Placement(transformation(extent={{122,-40},{142,-20}})));
 
   Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator booRep(
@@ -212,8 +222,8 @@ protected
     "Boolean replicator"
     annotation (Placement(transformation(extent={{118,86},{138,106}})));
 
-  Buildings.Controls.OBC.CDL.Discrete.UnitDelay uniDel(
-    final samplePeriod=1)
+  Buildings.Controls.OBC.CDL.Discrete.UnitDelay uniDel(final samplePeriod=
+        samplePeriodUniDelPumSpe)
     "Unit delay for pump speed"
     annotation (Placement(transformation(extent={{-200,28},{-180,48}})));
 
@@ -229,13 +239,14 @@ protected
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChilledBeamSystem.SecondaryPumps.Subsequences.Speed_remoteDp
     pumSpeRemDp(
-    final nSen=nSen,
+    final nSen=1,
     final nPum=nPum,
     final minPumSpe=minPumSpe,
     final maxPumSpe=maxPumSpe,
     final k=k,
     final Ti=Ti,
-    final Td=Td)
+    final Td=Td,
+    controllerType=controllerTypePumSpe)
     "Chilled water pump speed control with remote DP sensor"
     annotation (Placement(transformation(extent={{-20,-200},{0,-180}})));
 
@@ -249,8 +260,7 @@ protected
     annotation (Placement(transformation(extent={{-200,160},{-180,180}})));
 
   Buildings.Controls.OBC.CDL.Routing.RealExtractor leaPum(
-    final nin=nPum)
-    "Lead pump index"
+    final nin=nPum) "Find lead pump index"
     annotation (Placement(transformation(extent={{-60,160},{-40,180}})));
 
   Buildings.Controls.OBC.CDL.Conversions.RealToInteger reaToInt
@@ -261,7 +271,7 @@ protected
     final allowOutOfRange=true,
     final nin=nPum,
     final outOfRangeValue=0)
-    "Next lag pump"
+    "Find index of next lag pump to be enabled from the pump staging order"
     annotation (Placement(transformation(extent={{-80,-60},{-60,-40}})));
 
   Buildings.Controls.OBC.CDL.Conversions.RealToInteger reaToInt1
@@ -272,7 +282,7 @@ protected
     final allowOutOfRange=true,
     final nin=nPum,
     final outOfRangeValue=0)
-    "Last lag pump"
+    "Find index of last lag pump to be disabled from pump staging order"
     annotation (Placement(transformation(extent={{-80,-110},{-60,-90}})));
 
   Buildings.Controls.OBC.CDL.Conversions.RealToInteger reaToInt2
@@ -284,12 +294,11 @@ protected
     annotation (Placement(transformation(extent={{-250,-130},{-230,-110}})));
 
   Buildings.Controls.OBC.CDL.Integers.MultiSum mulSumInt(
-    final nin=nPum)
-    "Sum of integer inputs"
+    final nin=nPum) "Find number of pumps currently enabled"
     annotation (Placement(transformation(extent={{-200,-130},{-180,-110}})));
 
   Buildings.Controls.OBC.CDL.Integers.Add addInt
-    "Integer add"
+    "Add one to number of currently enabled pumps to obtain next lag pump"
     annotation (Placement(transformation(extent={{-120,-80},{-100,-60}})));
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChilledBeamSystem.SecondaryPumps.Subsequences.ChangeStatus
@@ -315,11 +324,11 @@ protected
     annotation (Placement(transformation(extent={{-120,-2},{-100,18}})));
 
   Buildings.Controls.OBC.CDL.Logical.And and1
-    "Logical And"
+    "Enable lag pump only after the lead pump has been enabled"
     annotation (Placement(transformation(extent={{-30,32},{-10,52}})));
 
   Buildings.Controls.OBC.CDL.Logical.Or or3
-    "Logical Or"
+    "Disable only lag pumps and not the lead pump"
     annotation (Placement(transformation(extent={{-20,-8},{0,12}})));
 
 equation
@@ -427,9 +436,6 @@ equation
   connect(uChiWatPum, pumSpeRemDp.uChiWatPum) annotation (Line(points={{-300,130},
           {-260,130},{-260,-182},{-22,-182}}, color={255,0,255}));
 
-  connect(dpChiWat_remote, pumSpeRemDp.dpChiWat) annotation (Line(points={{-300,
-          -160},{-40,-160},{-40,-190},{-22,-190}}, color={0,0,127}));
-
   connect(dpChiWatSet, pumSpeRemDp.dpChiWatSet) annotation (Line(points={{-300,-190},
           {-62,-190},{-62,-198},{-22,-198}}, color={0,0,127}));
 
@@ -454,6 +460,8 @@ equation
   connect(enaLeaPum.yLea, booRep.u) annotation (Line(points={{-178,80},{-62,80},
           {-62,96},{116,96}}, color={255,0,255}));
 
+  connect(dpChiWat_remote, pumSpeRemDp.dpChiWat[1]) annotation (Line(points={{
+          -300,-160},{-34,-160},{-34,-190},{-22,-190}}, color={0,0,127}));
 annotation (defaultComponentName="secPumCon",
   Diagram(coordinateSystem(preserveAspectRatio=false,
           extent={{-280,-240},{280,200}}),

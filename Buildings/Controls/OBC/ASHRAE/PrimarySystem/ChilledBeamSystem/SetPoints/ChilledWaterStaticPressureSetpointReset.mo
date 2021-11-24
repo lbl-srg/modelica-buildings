@@ -133,8 +133,7 @@ protected
     annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
 
   Buildings.Controls.OBC.CDL.Logical.MultiOr mulOr(
-    final nin=nPum)
-    "Multi or"
+    final nin=nPum) "Check if any chilled water pump is enabled"
     annotation (Placement(transformation(extent={{-80,40},{-60,60}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys2[nVal](

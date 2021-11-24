@@ -324,9 +324,11 @@ protected
 
 equation
   connect(uDetOcc, opeMod.uDetOcc)
-    annotation (Line(points={{-120,80},{-82,80}}, color={255,0,255}));
-  connect(opeMod.yOpeMod, zonRegCon.uOpeMod) annotation (Line(points={{-58,80},{
-          -50,80},{-50,24},{-12,24}}, color={255,127,0}));
+    annotation (Line(points={{-120,80},{-102,80},{-102,80.9091},{-82,80.9091}},
+                                                  color={255,0,255}));
+  connect(opeMod.yOpeMod, zonRegCon.uOpeMod) annotation (Line(points={{-58,
+          80.9091},{-50,80.9091},{-50,24},{-12,24}},
+                                      color={255,127,0}));
   connect(uConSen, zonRegCon.uConSen) annotation (Line(points={{-120,40},{-60,40},
           {-60,32},{-12,32}},   color={255,0,255}));
   connect(TZon, zonRegCon.TZon) annotation (Line(points={{-120,0},{-40,0},{-40,36},
