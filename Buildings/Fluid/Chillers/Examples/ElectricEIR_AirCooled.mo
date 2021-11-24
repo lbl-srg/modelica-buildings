@@ -1,20 +1,19 @@
 within Buildings.Fluid.Chillers.Examples;
-model ElectricReformulatedEIR
-  "Test model for chiller electric reformulated EIR"
+model ElectricEIR_AirCooled
+  "Test model for chiller electric EIR with air-cooled condenser"
   extends Modelica.Icons.Example;
-  extends Buildings.Fluid.Chillers.Examples.BaseClasses.PartialElectric(
+  extends Buildings.Fluid.Chillers.Examples.BaseClasses.PartialElectric_AirCooled(
       P_nominal=-per.QEva_flow_nominal/per.COP_nominal,
       mEva_flow_nominal=per.mEva_flow_nominal,
       mCon_flow_nominal=per.mCon_flow_nominal,
     sou1(nPorts=1),
     sou2(nPorts=1));
 
-  parameter
-    Data.ElectricReformulatedEIR.ReformEIRChiller_McQuay_WSC_471kW_5_89COP_Vanes
+  parameter Data.ElectricEIR.ElectricEIRChiller_York_YCAL0033EE_101kW_3_1COP_AirCooled
     per "Chiller performance data"
     annotation (Placement(transformation(extent={{60,80},{80,100}})));
 
-  Buildings.Fluid.Chillers.ElectricReformulatedEIR chi(
+  Buildings.Fluid.Chillers.ElectricEIR chi(
        redeclare package Medium1 = Medium1,
        redeclare package Medium2 = Medium2,
        per=per,
@@ -41,36 +40,35 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(chi.on, greaterThreshold.y) annotation (Line(
-      points={{-2,13},{-8,13},{-8,90},{-19,90}},
+      points={{-2,13},{-10,13},{-10,90},{-19,90}},
       color={255,0,255},
       smooth=Smooth.None));
-  connect(TSet.y, chi.TSet) annotation (Line(
-      points={{-59,60},{-20,60},{-20,8},{-2,8},{-2,7}},
+  connect(chi.TSet, TSet.y) annotation (Line(
+      points={{-2,7},{-30,7},{-30,60},{-59,60}},
       color={0,0,127},
       smooth=Smooth.None));
   annotation (
-experiment(Tolerance=1e-6, StopTime=14400),
-__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Chillers/Examples/ElectricReformulatedEIR.mos"
-        "Simulate and plot"),    Documentation(info="<html>
+experiment(
+      StartTime=17020800,
+      StopTime=17064000,
+      Tolerance=1e-06),
+__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Chillers/Examples/ElectricEIR_AirCooled.mos"
+        "Simulate and plot"),
+    Documentation(info="<html>
 <p>
 Example that simulates a chiller whose efficiency is computed based on the
-condenser leaving and evaporator leaving fluid temperature.
+condenser entering and evaporator leaving fluid temperature.
 A bicubic polynomial is used to compute the chiller part load performance.
+This example is for an air-cooled chiller.
 </p>
 </html>", revisions="<html>
 <ul>
 <li>
-August 14, 2014, by Michael Wetter:<br/>
-Added missing <code>redeclare</code> keyword in
-performance data redeclaration.
-This avoids an error in OpenModelica.
-</li>
-<li>
-September 17, 2010, by Michael Wetter:<br/>
+November 19, 2021 by David Blum:<br/>
 First implementation.
 </li>
 </ul>
 </html>"),
-    Diagram(coordinateSystem(extent={{-100,-100},{100,120}})),
+    Diagram(coordinateSystem(extent={{-120,-100},{100,120}})),
     Icon(coordinateSystem(extent={{-100,-100},{100,100}})));
-end ElectricReformulatedEIR;
+end ElectricEIR_AirCooled;
