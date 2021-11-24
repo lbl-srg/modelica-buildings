@@ -11,12 +11,10 @@ model NoEconomizer
     constrainedby Modelica.Media.Interfaces.PartialMedium
     "Heating medium (such as HHW)";
 
-  inner parameter ExternData.JSONFile dat(
+  inner parameter Templates.BaseClasses.ExternDataLocal.JSONFile dat(
     fileName=Modelica.Utilities.Files.loadResource(
       "modelica://Buildings/Resources/Data/Templates/Validation/systems.json"))
-    annotation (
-      Evaluate=true,
-      Placement(transformation(extent={{76,76},{96,96}})));
+    annotation (Placement(transformation(extent={{76,76},{96,96}})));
 
   replaceable UserProject.AHUs.NoEconomizer ahu constrainedby
     Buildings.Templates.AirHandlersFans.VAVMultiZone(redeclare final package

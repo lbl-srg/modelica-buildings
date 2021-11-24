@@ -13,7 +13,7 @@ partial model PartialDamper
 
   outer parameter String id
     "System identifier";
-  outer parameter ExternData.JSONFile dat
+  outer parameter Templates.BaseClasses.ExternDataLocal.JSONFile dat
     "External parameter file";
 
   Buildings.Templates.Components.Interfaces.Bus bus

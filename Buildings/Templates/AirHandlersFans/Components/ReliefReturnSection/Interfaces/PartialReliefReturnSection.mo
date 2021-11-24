@@ -39,7 +39,7 @@ partial model PartialReliefReturnSection "Relief/return air section"
 
   outer parameter String id
     "System identifier";
-  outer parameter ExternData.JSONFile dat
+  outer parameter Templates.BaseClasses.ExternDataLocal.JSONFile dat
     "External parameter file";
 
   parameter Boolean allowFlowReversal = true

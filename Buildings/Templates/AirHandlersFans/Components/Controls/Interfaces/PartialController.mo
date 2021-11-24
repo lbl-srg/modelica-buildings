@@ -10,7 +10,7 @@ partial block PartialController
     "Number of zone groups";
   outer parameter String id
     "System identifier";
-  outer parameter ExternData.JSONFile dat
+  outer parameter Templates.BaseClasses.ExternDataLocal.JSONFile dat
     "External parameter file";
 
   // See FIXME below for those parameters.
@@ -21,7 +21,7 @@ partial block PartialController
     "Array of group names"
     annotation(Evaluate=true);
 
-  /*  
+  /*
   parameter String idTerArr[nZon]=
     dat.getStringArray1D(id + ".Identification.Terminal unit identifiers.value", nZon)
     "Served terminal units - Array of system identifiers"

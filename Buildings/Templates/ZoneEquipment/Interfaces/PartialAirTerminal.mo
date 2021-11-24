@@ -14,7 +14,7 @@ partial model PartialAirTerminal
     annotation (
       Evaluate=true,
       Dialog(group="Configuration"));
-  outer parameter ExternData.JSONFile dat
+  outer parameter Templates.BaseClasses.ExternDataLocal.JSONFile dat
     "External parameter file";
 
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal=
