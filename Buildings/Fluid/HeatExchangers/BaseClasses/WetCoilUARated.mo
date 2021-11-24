@@ -29,7 +29,7 @@ model WetCoilUARated
   parameter Modelica.SIunits.MassFlowRate mWat_flow
     "Water mass flow rate at a rated condition";
   parameter Modelica.SIunits.ThermalConductance UA
-    "the overall heat transfer coefficient for a fully dry condition";
+    "Overall heat transfer coefficient for a fully dry condition";
   parameter Real r_nominal(min=0, max=1)
     "Ratio between air-side and water-side convective heat transfer at nominal condition";
 
