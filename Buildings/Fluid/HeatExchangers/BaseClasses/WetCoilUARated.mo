@@ -29,7 +29,7 @@ model WetCoilUARated
   parameter Modelica.SIunits.MassFlowRate mWat_flow
     "Water mass flow rate at a rated condition";
   parameter Modelica.SIunits.ThermalConductance UA
-    "Overall heat transfer coefficient for a fully dry condition";
+    "the overall heat transfer coefficient for a fully dry condition";
   parameter Real r_nominal(min=0, max=1)
     "Ratio between air-side and water-side convective heat transfer at nominal condition";
 
@@ -126,21 +126,24 @@ initial equation
   if use_Q_flow_nominal then
     if isFulDry then
       TAirOut = TAirIn + QTot_flow / mAir_flow / cpAir;
-      LMED=Buildings.Fluid.HeatExchangers.BaseClasses.lmtd(
-        TWatIn,
-        TWatOut,
-        TAirIn,
-        TAirOut) / TUnit * hUnit;
+      LMED = (if abs(TWatIn - TAirOut - (TWatOut - TAirIn)) < Modelica.Constants.small then
+        TWatIn - TAirOut else Buildings.Fluid.HeatExchangers.BaseClasses.lmtd(
+          TWatIn,
+          TWatOut,
+          TAirIn,
+          TAirOut)) / TUnit * hUnit;
       QTot_flow=LMED*UASta;
       cpEff = 0;
       UA = UASta*cpUnit;
     else //fully wet
       // calculation of overall UAsta based on log mean enthalpy difference
-      LMED=Buildings.Fluid.HeatExchangers.BaseClasses.lmtd(
-        hSatTWatIn/hUnit*TUnit,
-        hSatTWatOut/hUnit*TUnit,
-        hAirIn/hUnit*TUnit,
-        hAirOut/hUnit*TUnit) / TUnit * hUnit;
+      LMED = (if abs(hSatTWatIn - hAirOut - (hSatTWatOut - hAirIn)) < Modelica.Constants.small then
+        (hSatTWatIn - hAirOut)/hUnit*TUnit else
+        Buildings.Fluid.HeatExchangers.BaseClasses.lmtd(
+          hSatTWatIn/hUnit*TUnit,
+          hSatTWatOut/hUnit*TUnit,
+          hAirIn/hUnit*TUnit,
+          hAirOut/hUnit*TUnit)) / TUnit * hUnit;
       QTot_flow=LMED*UASta;
       cpEff= (hSatTWatOut-hSatTWatIn)/(TWatOut-TWatIn);
       UASta = (UAAir/cpAir)/(1 + (cpEff*UAAir)/(cpAir*UAWat));
@@ -181,11 +184,11 @@ First implementation
 </ul>
 </html>", info="<html>
 <p>
-This model calculates the overall heat transfer coefficient, i.e., 
+This model calculates the overall heat transfer coefficient, i.e.,
 <i>UA</i>-value, from cooling coil data at rated conditions.
 </p>
 <p>
-The main limitation of the current implementation is that the rated 
+The main limitation of the current implementation is that the rated
 conditions should correspond to a fully-dry or a fully-wet coil regime.
 The modeling uncertainty yielded by partially-wet rated conditions
 has not been assessed yet.

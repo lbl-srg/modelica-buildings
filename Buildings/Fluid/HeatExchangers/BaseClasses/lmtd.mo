@@ -27,9 +27,7 @@ revisions="<html>
 <ul>
 <li>
 November 30, 2020, by Michael Wetter:<br/>
-Updated documentation.<br/>
-This is for
-<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2268\">#2268</a>.
+Updated documentation.
 </li>
 <li>
 May 28, 2010, by Michael Wetter:<br/>

@@ -10,11 +10,11 @@ model WetCoilDryWetRegime
     annotation(Dialog(group = "Nominal condition"));
 
   input Real Qfac(final unit="1")
-    "Smoothing factor to prevent division-by-zero";
+    "a smoothing factor to prevent division-by-zero";
 
   input Buildings.Fluid.Types.HeatExchangerFlowRegime cfg=
     Buildings.Fluid.Types.HeatExchangerFlowRegime.CounterFlow
-    "Heat exchanger configuration";
+      "heat exchanger configuration";
 
   // -- Water
   Modelica.Blocks.Interfaces.RealInput UAWat(
@@ -196,14 +196,14 @@ equation
   TAirInDewPoi=TDewIn.T;
 
   mu_FW= Buildings.Utilities.Math.Functions.spliceFunction(
-  pos=0,neg=1,x=fullyWet.TSurAirIn-TAirInDewPoi,
-  deltax=Buildings.Utilities.Math.Functions.smoothMax(abs(fullyDry.TSurAirOut-fullyWet.TSurAirIn), 1e-2,1e-3));
-  //max(abs(fullyDry.TSurAirOut- fullyWet.TSurAirIn),1e-3));
+    pos=0,neg=1,x=fullyWet.TSurAirIn-TAirInDewPoi,
+    deltax=Buildings.Utilities.Math.Functions.smoothMax(
+      abs(fullyDry.TSurAirOut-fullyWet.TSurAirIn), 1e-2,1e-3));
 
   mu_FD= Buildings.Utilities.Math.Functions.spliceFunction(
-  pos=1,neg=0,x=fullyDry.TSurAirOut-TAirInDewPoi,
-  deltax=Buildings.Utilities.Math.Functions.smoothMax(abs(fullyDry.TSurAirOut-fullyWet.TSurAirIn), 1e-2,1e-3));
-  //max(abs(fullyDry.TSurAirOut- fullyWet.TSurAirIn),1e-3));
+    pos=1,neg=0,x=fullyDry.TSurAirOut-TAirInDewPoi,
+    deltax=Buildings.Utilities.Math.Functions.smoothMax(
+      abs(fullyDry.TSurAirOut-fullyWet.TSurAirIn), 1e-2,1e-3));
 
   w_FW=mu_FW/(mu_FW+mu_FD);
   w_FD=mu_FD/(mu_FW+mu_FD);
@@ -378,8 +378,8 @@ equation
         coordinateSystem(preserveAspectRatio=false, extent={{-140,-120},{140,120}})),
     Documentation(revisions="<html>
 <ul>
-<li>Jan 21, 2021, by Donghun Kim:<br/>First implementation of the fuzzy model.
-See <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/622\">issue 622</a> for more information.
+<li>
+Jan 21, 2021, by Donghun Kim:<br/>First implementation.
 </li>
 </ul>
 </html>", info="<html>
