@@ -175,7 +175,7 @@ model VAVMultiZone "Multiple-Zone VAV"
   // FIXME: bind have_sen to control option.
 
   inner replaceable Components.Controls.OpenLoop con constrainedby
-    Buildings.Templates.AirHandlersFans.Components.Controls.Interfaces.PartialController
+    Buildings.Templates.AirHandlersFans.Components.Controls.Interfaces.PartialSingleDuct
     "AHU controller"
     annotation (
     choicesAllMatching=true,

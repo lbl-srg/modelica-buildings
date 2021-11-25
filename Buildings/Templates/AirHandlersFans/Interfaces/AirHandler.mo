@@ -20,24 +20,20 @@ partial model AirHandler "Base interface class for air handler"
         enable=false));
 
   parameter Modelica.SIunits.MassFlowRate mSup_flow_nominal=
-    Buildings.Templates.BaseClasses.getReal(
-      varName=id + ".Mechanical.Supply air mass flow rate.value",
-      fileName=Modelica.Utilities.Files.loadResource(
-        "modelica://Buildings/Resources/Data/Templates/Validation/systems.json"))
+    dat.getReal(varName=id + ".Mechanical.Supply air mass flow rate.value")
     "Supply air mass flow rate"
-    annotation (Dialog(group="Nominal condition"));
-    //dat.getReal(varName=id + ".Mechanical.Supply air mass flow rate.value")
+    annotation (Dialog(group="Nominal condition"), Evaluate=true);
   parameter Modelica.SIunits.MassFlowRate mRet_flow_nominal=
     dat.getReal(varName=id + ".Mechanical.Return air mass flow rate.value")
     "Return air mass flow rate"
-    annotation (Dialog(group="Nominal condition"));
+    annotation (Dialog(group="Nominal condition"), Evaluate=true);
 
   inner parameter String id
     "System name"
     annotation (
       Evaluate=true,
       Dialog(group="Configuration"));
-  outer parameter Templates.BaseClasses.ExternDataLocal.JSONFile dat
+  outer parameter ExternData.JSONFile dat
     "External parameter file";
 
   // See FIXME below for those parameters.

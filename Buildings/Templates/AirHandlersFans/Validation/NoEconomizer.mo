@@ -11,7 +11,7 @@ model NoEconomizer
     constrainedby Modelica.Media.Interfaces.PartialMedium
     "Heating medium (such as HHW)";
 
-  inner parameter Templates.BaseClasses.ExternDataLocal.JSONFile dat(
+  inner parameter ExternData.JSONFile dat(
     fileName=Modelica.Utilities.Files.loadResource(
       "modelica://Buildings/Resources/Data/Templates/Validation/systems.json"))
     annotation (Placement(transformation(extent={{76,76},{96,96}})));
