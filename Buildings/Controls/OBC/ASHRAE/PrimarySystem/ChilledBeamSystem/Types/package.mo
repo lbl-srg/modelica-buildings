@@ -30,5 +30,10 @@ package Types "Package with type definitions for chilled beam systems"
          points={{49.2597,22.3327},{31.2597,24.3327},{7.2597,18.3327},{-26.7403,
            10.3327},{-46.7403,14.3327},{-48.7403,6.3327},{-32.7403,0.3327},{-6.7403,
            4.3327},{33.2597,14.3327},{49.2597,14.3327},{49.2597,22.3327}},
-         smooth=Smooth.Bezier)}));
+         smooth=Smooth.Bezier)}),
+  Documentation(info="<html>
+    <p>
+    This package provides types used in the chilled beam control sequences.
+    </p>
+    </html>"));
 end Types;

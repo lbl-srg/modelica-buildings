@@ -33,5 +33,12 @@ annotation (Icon(graphics={
           lineColor={128,128,128},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid,
-          extent={{-80.0,0.0},{-20.0,60.0}})}));
+          extent={{-80.0,0.0},{-20.0,60.0}})}),
+  Documentation(info="<html>
+    <p>
+    This package contains control sequences for chilled beam systems. The sequence
+    of operations were compiled after a literature review of the best practices
+    in the industry.
+    </p>
+    </html>"));
 end ChilledBeamSystem;

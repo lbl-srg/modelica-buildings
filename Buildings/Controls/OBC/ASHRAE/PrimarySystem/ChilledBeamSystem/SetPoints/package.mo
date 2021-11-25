@@ -14,5 +14,10 @@ annotation (Icon(graphics={
         Text(
           extent={{-100,100},{100,-100}},
           lineColor={0,0,0},
-          textString="S")}));
+          textString="S")}),
+  Documentation(info="<html>
+    <p>
+    This package contains sequences for setpoint calculations for the system.
+    </p>
+    </html>"));
 end SetPoints;
