@@ -491,7 +491,7 @@ the model finds the total efficiency <i>&eta;</i>
 by evaluating the following correlation:
 <br/>
 <p align=\"center\">
-<img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Fluid/Movers/BaseClasses/Euler/eulerCorrelationEquation.svg\"/>
+<img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Fluid/Movers/BaseClasses/Euler/eulerCorrelation.svg\"/>
 <br/>
 </p>
 where <i>y=&eta; &frasl; &eta;<sub>p</sub></i>,
