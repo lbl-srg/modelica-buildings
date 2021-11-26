@@ -131,7 +131,7 @@ package Actuators
         "String used to identify the coil function";
       outer parameter String id
         "System identifier";
-      outer parameter Templates.BaseClasses.ExternDataLocal.JSONFile dat
+      outer parameter ExternData.JSONFile dat
         "External parameter file";
 
       outer parameter Modelica.SIunits.MassFlowRate mWat_flow_nominal

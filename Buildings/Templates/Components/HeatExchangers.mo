@@ -277,7 +277,7 @@ package HeatExchangers
         "String used to identify the coil function";
       outer parameter String id
         "System identifier";
-      outer parameter Templates.BaseClasses.ExternDataLocal.JSONFile dat
+      outer parameter ExternData.JSONFile dat
         "External parameter file";
 
       BoundaryConditions.WeatherData.Bus busWea
@@ -321,7 +321,7 @@ package HeatExchangers
         "String used to identify the coil function";
       outer parameter String id
         "System identifier";
-      outer parameter Templates.BaseClasses.ExternDataLocal.JSONFile dat
+      outer parameter ExternData.JSONFile dat
         "External parameter file";
 
       annotation (Icon(coordinateSystem(preserveAspectRatio=false),

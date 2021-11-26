@@ -31,7 +31,7 @@ model BaseNoEquipment
       redeclare final package MediumHea = MediumHea)
     "Terminal unit"
     annotation (Placement(transformation(extent={{-20,-20},{20,20}})));
-  inner parameter Templates.BaseClasses.ExternDataLocal.JSONFile dat(fileName=
+  inner parameter ExternData.JSONFile dat(fileName=
         Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/Data/Templates/Validation/systems.json"))
     annotation (
       Evaluate=true,

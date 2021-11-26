@@ -10,7 +10,7 @@ partial block PartialController
     "Number of zone groups";
   outer parameter String id
     "System identifier";
-  outer parameter Templates.BaseClasses.ExternDataLocal.JSONFile dat
+  outer parameter ExternData.JSONFile dat
     "External parameter file";
 
   // See FIXME below for those parameters.

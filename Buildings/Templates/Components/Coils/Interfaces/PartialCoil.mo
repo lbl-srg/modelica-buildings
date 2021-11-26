@@ -50,7 +50,7 @@ partial model PartialCoil
 
   outer parameter String id
     "System identifier";
-  outer parameter Templates.BaseClasses.ExternDataLocal.JSONFile dat
+  outer parameter ExternData.JSONFile dat
     "External parameter file";
   final inner parameter String funStr=
     if fun==Buildings.Templates.Components.Types.CoilFunction.Cooling

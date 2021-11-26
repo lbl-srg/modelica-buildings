@@ -27,7 +27,7 @@ partial model PartialFan
 
   outer parameter String id
     "System identifier";
-  outer parameter Templates.BaseClasses.ExternDataLocal.JSONFile dat
+  outer parameter ExternData.JSONFile dat
     "External parameter file";
 
   Buildings.Templates.Components.Interfaces.Bus bus
