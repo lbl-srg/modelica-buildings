@@ -27,8 +27,13 @@ equation
     annotation (Line(points={{0,11},{0,11},{0,120}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
       Bitmap(
-        extent={{-40,-220},{40,60}},
+        extent=if text_flip then {{40,-240},{-40,-160}} else {{-40,-240},{40,-160}},
         visible=have_sen,
-        fileName="modelica://Buildings/Resources/Images/Templates/Components/Sensors/SpecificEnthalpy.svg")}),
+        rotation=text_rotation,
+        fileName="modelica://Buildings/Resources/Images/Templates/Components/Sensors/SpecificEnthalpy.svg"),
+      Bitmap(
+        extent={{-20,-160},{20,40}},
+        visible=have_sen,
+        fileName="modelica://Buildings/Resources/Images/Templates/Components/Sensors/ProbeStandard.svg")}),
     Diagram(coordinateSystem(preserveAspectRatio=false)));
 end SpecificEnthalpy;

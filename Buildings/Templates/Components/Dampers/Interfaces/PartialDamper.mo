@@ -6,6 +6,13 @@ partial model PartialDamper
     "Equipment type"
     annotation (Evaluate=true, Dialog(group="Configuration"));
 
+  parameter Integer text_rotation = 0
+    "Text rotation angle in icon layer"
+    annotation(Dialog(tab="Graphics", enable=false));
+  parameter Boolean text_flip = false
+    "True to flip text horizontally in icon layer"
+    annotation(Dialog(tab="Graphics", enable=false));
+
   parameter Modelica.SIunits.PressureDifference dpDamper_nominal
     "Damper pressure drop"
     annotation (
@@ -22,7 +29,6 @@ partial model PartialDamper
      <> Buildings.Templates.Components.Types.Damper.NoPath
     "Control bus"
     annotation (Placement(
-      visible=DynamicSelect(true, typ <> Types.Damper.None and typ <> Types.Damper.NoPath),
       transformation(
         extent={{-20,-20},{20,20}},
         rotation=0,
@@ -35,7 +41,8 @@ partial model PartialDamper
   annotation (
     Icon(coordinateSystem(preserveAspectRatio=false,
       extent={{-100,-100},{100,100}}),
-      graphics={                                              Rectangle(
+      graphics={
+        Rectangle(
           extent={{-100,100},{100,-100}},
           lineColor={0,0,255},
           fillColor={255,255,255},

@@ -3,11 +3,18 @@ partial model PartialFan
   extends Buildings.Fluid.Interfaces.PartialTwoPortInterface;
 
   parameter Buildings.Templates.Components.Types.Fan typ
-  "Equipment type"
+    "Equipment type"
     annotation (Evaluate=true, Dialog(group="Configuration"));
   parameter Boolean have_senFlo
     "Set to true for air flow measurement"
     annotation (Evaluate=true, Dialog(group="Configuration"));
+
+  parameter Integer text_rotation = 0
+    "Text rotation angle in icon layer"
+    annotation(Dialog(tab="Graphics", enable=false));
+  parameter Boolean text_flip = false
+    "True to flip text horizontally in icon layer"
+    annotation(Dialog(tab="Graphics", enable=false));
 
   parameter Modelica.SIunits.PressureDifference dp_nominal
     "Fan total pressure rise"
@@ -57,6 +64,17 @@ equation
           extent={{-100,100},{100,-100}},
           lineColor={0,0,255},
           fillColor={255,255,255},
-          fillPattern=FillPattern.Solid)}),                      Diagram(
+          fillPattern=FillPattern.Solid),
+    Bitmap(
+        visible=have_senFlo and typ<>Buildings.Templates.Components.Types.Fan.None,
+        extent=if text_flip then {{-140,-240},{-220,-160}} else {{-220,-240},{-140,-160}},
+        rotation=text_rotation,
+        fileName="modelica://Buildings/Resources/Images/Templates/Components/Fans/AirflowSensorBox.svg"),
+        Line(
+          visible=have_senFlo and typ<>Buildings.Templates.Components.Types.Fan.None,
+          points={{-180,0},{-180,-160}},
+          color={0,0,0},
+          thickness=1)}),
+    Diagram(
         coordinateSystem(preserveAspectRatio=false)));
 end PartialFan;

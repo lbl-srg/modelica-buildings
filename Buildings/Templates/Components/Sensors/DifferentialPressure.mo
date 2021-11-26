@@ -4,11 +4,6 @@ model DifferentialPressure
     y(final unit="Pa", displayUnit="Pa"),
     final isDifPreSen=true);
 
-  parameter Buildings.Templates.Components.Types.SensorDifferentialPressure typ=
-    Buildings.Templates.Components.Types.SensorDifferentialPressure.Static
-    "Type of differential pressure sensor"
-    annotation(Dialog(enable=false), Evaluate=true);
-
   Buildings.Fluid.Sensors.RelativePressure senRelPre(
     redeclare final package Medium=Medium) if have_sen
     "Relative pressure sensor"
@@ -22,8 +17,9 @@ equation
     annotation (Line(points={{10,0},{100,0}}, color={0,127,255}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
       Bitmap(
-        extent={{-40,-40},{40,40}},
+        extent=if text_flip then {{40,-40},{-40,40}} else {{-40,-40},{40,40}},
         visible=have_sen,
+        rotation=text_rotation,
         fileName="modelica://Buildings/Resources/Images/Templates/Components/Sensors/DifferentialPressure.svg")}),
     Diagram(coordinateSystem(preserveAspectRatio=false)));
 end DifferentialPressure;

@@ -1,4 +1,4 @@
-within Buildings.Templates.AirHandlersFans.Components.ReliefReturnSection;
+﻿within Buildings.Templates.AirHandlersFans.Components.ReliefReturnSection;
 model NoEconomizer "No air economizer"
   extends
     Buildings.Templates.AirHandlersFans.Components.ReliefReturnSection.Interfaces.PartialReliefReturnSection(
@@ -10,7 +10,8 @@ model NoEconomizer "No air economizer"
   Buildings.Templates.Components.Dampers.TwoPosition damRel(
     redeclare final package Medium = MediumAir,
     final m_flow_nominal=m_flow_nominal,
-    final dpDamper_nominal=dpDamRel_nominal)
+    final dpDamper_nominal=dpDamRel_nominal,
+    final text_flip=true)
     "Relief damper" annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=0,
@@ -21,7 +22,8 @@ model NoEconomizer "No air economizer"
       final m_flow_nominal=m_flow_nominal,
       final dp_nominal=dpFan_nominal,
       final have_senFlo=
-        typCtrFanRet==Buildings.Templates.AirHandlersFans.Types.ControlFanReturn.Airflow)
+        typCtrFanRet==Buildings.Templates.AirHandlersFans.Types.ControlFanReturn.Airflow,
+      final text_flip=true)
     "Return fan"
     annotation (choices(choice(redeclare
       Buildings.Templates.Components.Fans.SingleVariable fanRet

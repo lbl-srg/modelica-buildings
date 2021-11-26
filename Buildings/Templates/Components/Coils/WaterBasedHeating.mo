@@ -23,12 +23,10 @@ model WaterBasedHeating "Water-based"
     "Liquid pressure drop"
     annotation(Dialog(group = "Nominal condition"), Evaluate=true);
 
-  replaceable Buildings.Templates.Components.Actuators.None act constrainedby
-    Buildings.Templates.Components.Actuators.Interfaces.PartialActuator(
-      redeclare final package Medium = MediumHea)
-    "Actuator"
-    annotation (choicesAllMatching=true, Placement(transformation(extent={{-10,
-            -70},{10,-50}})));
+  replaceable Buildings.Templates.Components.Valves.None act constrainedby
+    Buildings.Templates.Components.Valves.Interfaces.PartialValve(redeclare
+      final package Medium = MediumHea) "Actuator" annotation (
+      choicesAllMatching=true, Placement(transformation(extent={{-10,-70},{10,-50}})));
 
   replaceable
     Buildings.Templates.Components.HeatExchangers.DryCoilEffectivenessNTU hex

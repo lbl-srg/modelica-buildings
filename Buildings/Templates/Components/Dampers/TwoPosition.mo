@@ -6,7 +6,7 @@ model TwoPosition "Two-position damper"
   parameter Buildings.Templates.Components.Types.DamperBlades typBla=
     Buildings.Templates.Components.Types.DamperBlades.Opposed
     "Type of blades"
-    annotation(Dialog(enable=false), Evaluate=true);
+    annotation(Dialog(tab="Graphics", enable=false));
 
   Fluid.Actuators.Dampers.Exponential damExp(
     redeclare final package Medium=Medium,
@@ -45,8 +45,9 @@ equation
           -62},{0,-80},{40,-80},{40,100},{0,100}},          color={255,0,255}));
 annotation(Icon(graphics={
      Bitmap(
-        extent={{-40,-220},{40,-140}},
-        fileName="modelica://Buildings/Resources/Images/Templates/Components/Dampers/ActuatorTwoPosition.svg"),
+        extent=if text_flip then {{40,-220},{-40,-140}} else {{-40,-220},{40,-140}},
+        rotation=text_rotation,
+        fileName="modelica://Buildings/Resources/Images/Templates/Components/Actuators/TwoPosition.svg"),
       Bitmap(
         extent={{-40,-140},{40,100}},
         visible=typBla==Buildings.Templates.Components.Types.DamperBlades.Parallel,

@@ -9,6 +9,13 @@ partial model PartialSensor
     "Set to true for differential pressure sensor, false for any other sensor"
     annotation (Evaluate=true, Dialog(group="Configuration"));
 
+  parameter Integer text_rotation = 0
+    "Text rotation angle in icon layer"
+    annotation(Dialog(tab="Graphics", enable=false));
+  parameter Boolean text_flip = false
+    "True to flip text horizontally in icon layer"
+    annotation(Dialog(tab="Graphics", enable=false));
+
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal
     "Mass flow rate"
     annotation (
@@ -45,11 +52,8 @@ equation
     Icon(coordinateSystem(preserveAspectRatio=false),
       graphics={
       Rectangle(
-          visible=have_sen,
           extent={{-100,100},{100,-100}},
-          lineColor={0,0,255},
-          fillColor={255,255,255},
-          fillPattern=FillPattern.Solid),
+          lineColor={0,0,255}),
       Line(
         visible=(not have_sen) and (not isDifPreSen),
           points={{-100,0},{100,0}},

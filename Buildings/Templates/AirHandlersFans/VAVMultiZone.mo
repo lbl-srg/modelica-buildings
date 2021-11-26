@@ -408,7 +408,15 @@ equation
           extent={{-86,230},{124,210}},
           lineColor={0,127,255},
           pattern=LinePattern.Dash,
-          textString="No further connection allowed to those two boundary conditions")}),
+          textString="No further connection allowed to those two boundary conditions"),
+        Line(
+          points={{252,-206},{252,-220},{256,-220}},
+          color={0,0,0},
+          thickness=1),
+        Line(
+          points={{264,-220},{268,-220}},
+          color={0,0,0},
+          thickness=1)}),
     Documentation(info="<html>
   connect(fanSupDra.bus, bus.fanSup);
   connect(fanSupBlo.bus, bus.fanSup);

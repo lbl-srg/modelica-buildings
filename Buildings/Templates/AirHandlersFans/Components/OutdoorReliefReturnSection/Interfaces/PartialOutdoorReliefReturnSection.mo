@@ -184,11 +184,11 @@ partial model PartialOutdoorReliefReturnSection
       Bitmap(
         visible=typDamRel==Buildings.Templates.Components.Types.Damper.TwoPosition,
         extent={{-680,380},{-600,460}},
-        fileName="modelica://Buildings/Resources/Images/Templates/Components/Dampers/ActuatorTwoPosition.svg"),
+        fileName="modelica://Buildings/Resources/Images/Templates/Components/Actuators/TwoPosition.svg"),
       Bitmap(
         visible=typDamRel==Buildings.Templates.Components.Types.Damper.Modulated,
         extent={{-680,380},{-600,460}},
-        fileName="modelica://Buildings/Resources/Images/Templates/Components/Dampers/ActuatorModulated.svg"),
+        fileName="modelica://Buildings/Resources/Images/Templates/Components/Actuators/Modulated.svg"),
               Bitmap(
         extent={{-600,460},{-680,700}},
         visible=typDamRel<>Buildings.Templates.Components.Types.Damper.None,
@@ -204,7 +204,7 @@ partial model PartialOutdoorReliefReturnSection
       Bitmap(
         visible=typ<>Buildings.Templates.AirHandlersFans.Types.OutdoorReliefReturnSection.NoEconomizer,
         extent={{-218,-40},{-138,40}},
-        fileName="modelica://Buildings/Resources/Images/Templates/Components/Dampers/ActuatorModulated.svg"),
+        fileName="modelica://Buildings/Resources/Images/Templates/Components/Actuators/Modulated.svg"),
       Bitmap(
         extent={{-40,-120},{40,120}},
         visible=typ<>Buildings.Templates.AirHandlersFans.Types.OutdoorReliefReturnSection.NoEconomizer,
@@ -218,11 +218,11 @@ partial model PartialOutdoorReliefReturnSection
       Bitmap(
         visible=typDamOut==Buildings.Templates.Components.Types.Damper.TwoPosition,
         extent={{-680,-820},{-600,-740}},
-        fileName="modelica://Buildings/Resources/Images/Templates/Components/Dampers/ActuatorTwoPosition.svg"),
+        fileName="modelica://Buildings/Resources/Images/Templates/Components/Actuators/TwoPosition.svg"),
       Bitmap(
         visible=typDamOut==Buildings.Templates.Components.Types.Damper.Modulated,
         extent={{-680,-820},{-600,-740}},
-        fileName="modelica://Buildings/Resources/Images/Templates/Components/Dampers/ActuatorModulated.svg"),
+        fileName="modelica://Buildings/Resources/Images/Templates/Components/Actuators/Modulated.svg"),
       Bitmap(
         extent={{-600,-260},{-680,-500}},
         visible=typDamOutMin<>Buildings.Templates.Components.Types.Damper.None,
@@ -230,11 +230,11 @@ partial model PartialOutdoorReliefReturnSection
       Bitmap(
         visible=typDamOutMin==Buildings.Templates.Components.Types.Damper.TwoPosition,
         extent={{-680,-260},{-600,-180}},
-        fileName="modelica://Buildings/Resources/Images/Templates/Components/Dampers/ActuatorTwoPosition.svg"),
+        fileName="modelica://Buildings/Resources/Images/Templates/Components/Actuators/TwoPosition.svg"),
       Bitmap(
         visible=typDamOutMin==Buildings.Templates.Components.Types.Damper.Modulated,
         extent={{-680,-260},{-600,-180}},
-        fileName="modelica://Buildings/Resources/Images/Templates/Components/Dampers/ActuatorModulated.svg"),
+        fileName="modelica://Buildings/Resources/Images/Templates/Components/Actuators/Modulated.svg"),
       Line(points={{-100,700},{800,700}}, color={28,108,200}),
       Line(
         points={{-800,500},{-100,500}},
@@ -278,28 +278,25 @@ partial model PartialOutdoorReliefReturnSection
         visible=typDamOutMin == Buildings.Templates.Components.Types.Damper.None and
           typ <> Buildings.Templates.AirHandlersFans.Types.OutdoorReliefReturnSection.NoEconomizer),
       Bitmap(
-        extent={{-546,-120},{-626,-320}},
-        visible=typSecOut==Buildings.Templates.AirHandlersFans.Types.OutdoorSection.DedicatedDamperPressure,
-        fileName="modelica://Buildings/Resources/Images/Templates/Components/Sensors/DifferentialPressureStatic.svg"),
-      Bitmap(
         visible=typSecOut==Buildings.Templates.AirHandlersFans.Types.OutdoorSection.DedicatedDamperPressure,
         extent={{-680,-162},{-600,-82}},
         fileName="modelica://Buildings/Resources/Images/Templates/Components/Sensors/DifferentialPressure.svg"),
-      Bitmap(
-        extent={{-734,-120},{-654,-320}},
-        visible=typSecOut==Buildings.Templates.AirHandlersFans.Types.OutdoorSection.DedicatedDamperPressure,
-        fileName="modelica://Buildings/Resources/Images/Templates/Components/Sensors/DifferentialPressureStatic.svg"),
+      Line(
+          visible=typSecOut==Buildings.Templates.AirHandlersFans.Types.OutdoorSection.DedicatedDamperPressure,
+          points={{-600,-120},{-560,-120},{-560,-340}},
+          color={0,0,0},
+          thickness=1),
+      Line(
+          visible=typSecOut==Buildings.Templates.AirHandlersFans.Types.OutdoorSection.DedicatedDamperPressure,
+          points={{-680,-120},{-720,-120},{-720,-340}},
+          color={0,0,0},
+          thickness=1),
       Bitmap(
         visible=typSecOut==Buildings.Templates.AirHandlersFans.Types.OutdoorSection.DedicatedDamperAirflow,
         extent={{-102,-50},{102,50}},
         fileName="modelica://Buildings/Resources/Images/Templates/Components/Sensors/VolumeFlowRateAFMS.svg",
           origin={-150,-400},
           rotation=90),
-      Bitmap(
-        visible=typFanRet<>Buildings.Templates.Components.Types.Fan.None and
-          typCtrFanRet==Buildings.Templates.AirHandlersFans.Types.ControlFanReturn.Airflow,
-        extent={{484,380},{630,602}},
-        fileName="modelica://Buildings/Resources/Images/Templates/Components/Fans/AirflowSensorBoxRight.svg"),
       Bitmap(
         visible=typFanRet<>Buildings.Templates.Components.Types.Fan.None and
           typCtrFanRet==Buildings.Templates.AirHandlersFans.Types.ControlFanReturn.Airflow,

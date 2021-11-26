@@ -11,8 +11,10 @@ model ReliefDamper "No relief fan - Modulated relief damper"
     redeclare final package Medium = MediumAir,
     final m_flow_nominal=m_flow_nominal,
     final dpDamper_nominal=dpDamRel_nominal,
+    final text_flip=true,
     typBla=Buildings.Templates.Components.Types.DamperBlades.Opposed)
-    "Relief damper" annotation (Placement(transformation(
+    "Relief damper"
+    annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=0,
         origin={-150,0})));

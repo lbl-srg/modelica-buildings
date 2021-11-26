@@ -6,7 +6,7 @@ model Modulated
   parameter Buildings.Templates.Components.Types.DamperBlades typBla=
     Buildings.Templates.Components.Types.DamperBlades.Parallel
     "Type of blades"
-    annotation(Dialog(enable=false), Evaluate=true);
+    annotation(Dialog(tab="Graphics", enable=false));
 
   Fluid.Actuators.Dampers.Exponential damExp(
     redeclare final package Medium=Medium,
@@ -27,8 +27,9 @@ equation
           40,100},{0,100}},           color={0,0,127}));
 annotation(Icon(graphics={
      Bitmap(
-        extent={{-40,-220},{40,-140}},
-        fileName="modelica://Buildings/Resources/Images/Templates/Components/Dampers/ActuatorModulated.svg"),
+        extent=if text_flip then {{40,-220},{-40,-140}} else {{-40,-220},{40,-140}},
+        fileName="modelica://Buildings/Resources/Images/Templates/Components/Actuators/Modulated.svg",
+        rotation=text_rotation),
       Bitmap(
         extent={{-40,-140},{40,100}},
         visible=typBla==Buildings.Templates.Components.Types.DamperBlades.Parallel,

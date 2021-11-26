@@ -2,33 +2,24 @@
 <!-- Created with Inkscape (http://www.inkscape.org/) -->
 
 <svg
-   width="105.84606mm"
+   width="105.84607mm"
    height="105.83334mm"
-   viewBox="0 0 105.84606 105.83334"
+   viewBox="0 0 105.84607 105.83334"
    version="1.1"
-   id="svg2869"
+   id="svg872"
    xmlns="http://www.w3.org/2000/svg"
    xmlns:svg="http://www.w3.org/2000/svg">
   <defs
-     id="defs2866">
-    <rect
-       x="-172.27338"
-       y="891.6319"
-       width="753.24432"
-       height="549.22986"
-       id="rect40471" />
-  </defs>
+     id="defs869" />
   <g
      id="layer1"
-     transform="matrix(1.6249967,0,0,1.625,-390.1956,-631.05422)"
-     style="stroke-width:0.615385">
+     transform="translate(-40.018551,-87.528394)">
     <g
-       id="g6351-3"
-       transform="matrix(0.25502011,0,0,0.25502006,193.31609,105.18458)"
-       style="stroke-width:6.38462;stroke-miterlimit:4;stroke-dasharray:none">
+       id="layer1-6"
+       transform="translate(4.131187,-8.260177)">
       <g
          id="g12097-8-8"
-         transform="matrix(32.612783,0,0,32.612966,47880.873,111107.86)"
+         transform="matrix(13.514961,0,0,13.515061,19801.992,45679.601)"
          style="stroke-width:0.19577;stroke-miterlimit:4;stroke-dasharray:none">
         <path
            d="m -1461.1642,-3372.718 a 1.27256,1.27256 0 0 0 -1.273,1.273"
@@ -69,19 +60,13 @@
       </g>
       <text
          xml:space="preserve"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:127.692px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:6.38462;stroke-miterlimit:4;stroke-dasharray:none"
-         x="263.23236"
-         y="1284.5665"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:52.9165px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:2.64583;stroke-miterlimit:4;stroke-dasharray:none"
+         x="73.255844"
+         y="163.17459"
          id="text44048-8"><tspan
-           id="tspan24498"
-           x="263.23236"
-           y="1284.5665"
-           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:127.692px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;stroke-width:6.38462;stroke-miterlimit:4;stroke-dasharray:none">H</tspan></text>
-      <text
-         xml:space="preserve"
-         transform="matrix(0.63846276,0,0,0.63846159,183.53363,475.061)"
-         id="text40469"
-         style="font-style:normal;font-weight:normal;font-size:40px;line-height:1.25;font-family:sans-serif;white-space:pre;shape-inside:url(#rect40471);fill:#000000;fill-opacity:1;stroke:none" />
+           id="tspan1008"
+           x="73.255844"
+           y="163.17459">x</tspan></text>
     </g>
   </g>
 </svg>

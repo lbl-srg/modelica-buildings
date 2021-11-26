@@ -75,11 +75,12 @@ equation
         fileName="modelica://Buildings/Resources/Images/Templates/Components/Fans/SingleVariable.svg"),
     Bitmap(
         visible=have_senFlo,
-        extent={{-194,-222},{-52,4}},
-        fileName="modelica://Buildings/Resources/Images/Templates/Components/Fans/AirflowSensorBoxLeft.svg"),
-    Bitmap(
-        visible=have_senFlo,
-        extent={{-52,-10},{24,10}}, fileName="modelica://Buildings/Resources/Images/Templates/Components/Fans/AirflowSensor.svg")}),
+        extent={{-52,-10},{24,10}}, fileName="modelica://Buildings/Resources/Images/Templates/Components/Fans/AirflowSensor.svg"),
+    Line(
+      visible=have_senFlo,
+          points={{-180,0},{-52,0}},
+          color={0,0,0},
+          thickness=1)}),
     Diagram(
         coordinateSystem(preserveAspectRatio=false)));
 end SingleVariable;
