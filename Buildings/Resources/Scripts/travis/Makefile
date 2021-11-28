@@ -142,6 +142,7 @@ test-dymola:
 	$(eval BUILDINGSPY_SKIP_STATISTICS_VERIFICATION := $(buiPyMod))
 	(cd $(ROOT)/Buildings && \
 	  export PYTHONPATH=$(TRAVIS_BUILD_DIR)/Buildings/Resources/Python-Sources && \
+	  export BUILDINGSPY_SKIP_STATISTICS_VERIFICATION='$(BUILDINGSPY_SKIP_STATISTICS_VERIFICATION)' && \
 	  python3 ../bin/runUnitTests.py --batch --single-package $(PACKAGE) --tool dymola)
 
 test-optimica:
