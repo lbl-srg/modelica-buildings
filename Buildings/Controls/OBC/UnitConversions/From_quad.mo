@@ -58,6 +58,11 @@ Converts work given in quads [quad] to joule [J].
 </html>", revisions="<html>
 <ul>
 <li>
+November 29, 2021, by Michael Wetter:<br/>
+Regenerated files with <code>Text</code> annotation using now the <code>textColor</code> attribute
+rather than the deprecated <code>lineColor</code> attribute.
+</li>
+<li>
 July 05, 2018, by Milica Grahovac:<br/>
 Generated with <code>Buildings/Resources/src/Controls/OBC/UnitConversions/unit_converters.py</code>.<br/>
 First implementation.
