@@ -33,11 +33,11 @@ annotation (
           fillPattern=FillPattern.Solid),
         Text(
           extent={{-150,-140},{150,-110}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="%threshold"),
         Text(
           extent={{-150,150},{150,110}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%name"),
         Line(
           points={{-54,22},{-8,2},{-54,-18}},

@@ -211,7 +211,7 @@ equation
         coordinateSystem(preserveAspectRatio=false, extent={{-260,-180},{260,180}}),
         graphics={Text(
           extent={{-234,168},{346,116}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           horizontalAlignment=TextAlignment.Left,
           textString="Example high limit cutoff conditions:
                       ASHRAE 90.1-2013:
@@ -220,23 +220,23 @@ equation
                       hOut > 28 Btu/lb [65.1 kJ/kg]"),
         Text(
           extent={{-82,-82},{0,-96}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           horizontalAlignment=TextAlignment.Left,
           textString="Tests temperature hysteresis"),
         Text(
           extent={{80,-80},{156,-96}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           horizontalAlignment=TextAlignment.Left,
           textString="Tests enthalpy hysteresis"),
         Text(
           extent={{208,-82},{260,-100}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           horizontalAlignment=TextAlignment.Left,
           textString="No enthalpy
 sensor"),
         Text(
           extent={{116,146},{226,114}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           horizontalAlignment=TextAlignment.Left,
           textString="Tests fixed + differential drybulb")}),
 Documentation(info="<html>

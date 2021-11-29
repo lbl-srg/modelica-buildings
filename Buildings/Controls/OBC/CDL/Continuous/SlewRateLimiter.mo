@@ -81,7 +81,7 @@ Modelica Standard Library.
     preserveAspectRatio=true,
     extent={{-100,-100},{100,100}}), graphics={
         Text(
-          lineColor={0,0,255},
+          textColor={0,0,255},
           extent={{-150,110},{150,150}},
           textString="%name"),
         Rectangle(
@@ -104,11 +104,11 @@ Modelica Standard Library.
     Text(
       extent={{-150,150},{150,110}},
       textString="%name",
-      lineColor={0,0,255}),
+      textColor={0,0,255}),
     Line(
       points={{-50,-70},{50,70}}),
     Text(
       extent={{226,60},{106,10}},
-      lineColor={0,0,0},
+      textColor={0,0,0},
       textString=DynamicSelect("", String(y, leftJustified=false, significantDigits=3)))}));
 end SlewRateLimiter;

@@ -48,7 +48,7 @@ equation
           borderPattern=BorderPattern.Raised),
           Text(
             extent={{-250,-120},{250,-150}},
-            lineColor={0,0,0},
+            textColor={0,0,0},
           textString="%delayTime"),
           Line(points={{-80,-66},{-60,-66},{-60,-22},{38,-22},{38,-66},{66,-66}}),
           Line(points={{-80,32},{-4,32},{-4,76},{38,76},{38,32},{66,32}},
@@ -69,7 +69,7 @@ equation
           fillPattern=FillPattern.Solid),
         Text(
           extent={{-150,150},{150,110}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%name")}), Documentation(info="<html>
 <p>
 Block that delays a signal when it becomes <code>true</code>.

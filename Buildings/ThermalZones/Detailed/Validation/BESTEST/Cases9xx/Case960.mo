@@ -220,10 +220,10 @@ equation
     Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-120,-240},{260,
             120}}), graphics={Text(
           extent={{106,-200},{252,-220}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="SunZone"), Text(
           extent={{-12,-202},{134,-222}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="BackZone")}),
             Documentation(revisions="<html>
 <ul>

@@ -181,13 +181,13 @@ First implementation.
 </html>"),
     Icon(graphics={Text(
           extent={{-32,-80},{22,-96}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="uSha"), Text(
           extent={{56,28},{98,14}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="QTraDif"),
                               Text(
           extent={{54,-14},{96,-28}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="QTraDir")}));
 end TransmittedRadiation;

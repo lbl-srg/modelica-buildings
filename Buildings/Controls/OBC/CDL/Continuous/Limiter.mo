@@ -49,7 +49,7 @@ Modelica Standard Library.
 </ul>
 </html>"),
 Icon(graphics={
-   Text(  lineColor={0,0,255},
+   Text(  textColor={0,0,255},
           extent={{-150,110},{150,150}},
           textString="%name"),
         Rectangle(
@@ -73,21 +73,21 @@ Icon(graphics={
     Text(
       extent={{-150,150},{150,110}},
       textString="%name",
-      lineColor={0,0,255}),
+      textColor={0,0,255}),
     Line(
       points={{50,70},{80,70}}),
     Line(
       points={{-80,-70},{-50,-70}}),
     Text(
       extent={{12,72},{94,98}},
-      lineColor={0,0,0},
+      textColor={0,0,0},
           textString="%uMax"),
     Text(
       extent={{-100,-98},{-18,-72}},
-      lineColor={0,0,0},
+      textColor={0,0,0},
           textString="%uMin"),
     Text(
       extent={{226,60},{106,10}},
-      lineColor={0,0,0},
+      textColor={0,0,0},
       textString=DynamicSelect("", String(y, leftJustified=false, significantDigits=3)))}));
 end Limiter;

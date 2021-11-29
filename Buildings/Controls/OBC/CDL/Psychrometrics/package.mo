@@ -33,7 +33,7 @@ Firt implementation, based on the blocks from the Modelica Standard Library.
           fillPattern=FillPattern.Solid),
         Text(
           extent={{-74,84},{-52,66}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
           textString="X"),
@@ -49,7 +49,7 @@ Firt implementation, based on the blocks from the Modelica Standard Library.
           fillPattern=FillPattern.Solid),
         Text(
           extent={{72,-80},{82,-96}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
           textString="T")}));

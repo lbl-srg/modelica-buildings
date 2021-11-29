@@ -43,7 +43,7 @@ Modelica Standard Library.
             {100,100}}), graphics={
         Text(
           extent={{-86,92},{-6,10}},
-          lineColor={255,0,255},
+          textColor={255,0,255},
           textString="B"),
         Polygon(
           points={{-12,-46},{-32,-26},{-32,-36},{-64,-36},{-64,-56},{-32,-56},
@@ -53,7 +53,7 @@ Modelica Standard Library.
           fillPattern=FillPattern.Solid),
         Text(
           extent={{8,-4},{92,-94}},
-          lineColor={255,170,85},
+          textColor={255,170,85},
           textString="I"),               Rectangle(
           extent={{-100,100},{100,-100}},
           fillColor={210,210,210},
@@ -69,5 +69,5 @@ Modelica Standard Library.
           fillPattern=FillPattern.Solid),      Text(
           extent={{-150,150},{150,110}},
           textString="%name",
-          lineColor={0,0,255})}));
+          textColor={0,0,255})}));
 end BooleanToInteger;

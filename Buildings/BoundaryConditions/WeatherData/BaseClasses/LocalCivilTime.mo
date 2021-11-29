@@ -46,9 +46,9 @@ First implementation.
     Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
             100}}), graphics={Text(
           extent={{-98,6},{-60,-6}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="cloTim"), Text(
           extent={{74,6},{98,-4}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="calTim")}));
 end LocalCivilTime;

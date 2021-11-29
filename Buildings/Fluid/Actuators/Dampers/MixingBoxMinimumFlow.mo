@@ -117,7 +117,7 @@ equation
           fillPattern=FillPattern.Solid),
         Text(
           extent={{-126,144},{-86,112}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
           textString="yMin"),

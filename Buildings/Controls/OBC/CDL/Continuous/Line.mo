@@ -59,7 +59,7 @@ equation
         fillColor={255,255,255},
         fillPattern=FillPattern.Solid),
         Text(
-          lineColor={0,0,255},
+          textColor={0,0,255},
           extent={{-150,110},{150,150}},
           textString="%name"),
         Polygon(
@@ -175,7 +175,7 @@ equation
           fillPattern=FillPattern.Solid),
     Text(
       extent={{226,60},{106,10}},
-      lineColor={0,0,0},
+      textColor={0,0,0},
       textString=DynamicSelect("", String(y, leftJustified=false, significantDigits=3)))}),
     Documentation(info="<html>
 <p>

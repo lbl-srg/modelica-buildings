@@ -78,19 +78,19 @@ First implementation.
         Ellipse(extent={{-40,76},{-8,46}},  lineColor={0,0,255}),
         Text(
           extent={{-98,30},{-38,-26}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="q_flow"),
         Text(
           extent={{20,74},{94,52}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="QRad_flow"),
         Text(
           extent={{18,14},{92,-8}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="QCon_flow"),
         Text(
           extent={{20,-44},{94,-66}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="QLat_flow")}),
         Documentation(info = "<html>
 This is a dummy model that is required to implement the room

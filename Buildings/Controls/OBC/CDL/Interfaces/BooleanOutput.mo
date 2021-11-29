@@ -20,7 +20,7 @@ connector BooleanOutput = output Boolean "'output Boolean' as connector"
         fillColor={255,255,255},
         fillPattern=FillPattern.Solid), Text(
         extent={{30,110},{30,60}},
-        lineColor={255,0,255},
+        textColor={255,0,255},
         textString="%name")}),
   Documentation(info="<html>
 <p>

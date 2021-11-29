@@ -278,37 +278,37 @@ annotation (
         fillPattern=FillPattern.Solid),
         Text(
           extent={{-94,92},{-42,66}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="TZonSetAve"),
         Text(
           extent={{-96,46},{-68,34}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="TOut"),
         Text(
           extent={{-94,-22},{-14,-58}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="uZonTemResReq"),
         Text(
           extent={{-94,12},{-48,-12}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="uSupFan"),
         Text(
           extent={{-94,-70},{-50,-90}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="uOpeMod"),
         Text(
           extent={{68,8},{96,-8}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="TSupSet"),
         Text(
           extent={{-124,146},{96,108}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%name")}),
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-140,-140},{140,120}})),
   Documentation(info="<html>

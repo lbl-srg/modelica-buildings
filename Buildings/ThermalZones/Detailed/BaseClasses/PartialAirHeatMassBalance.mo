@@ -125,19 +125,19 @@ protected
                     graphics={
         Text(
           extent={{-230,182},{-188,216}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           fillColor={0,0,255},
           fillPattern=FillPattern.Solid,
           textString="uSha"),
         Text(
           extent={{-232,82},{-190,116}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           fillColor={0,0,255},
           fillPattern=FillPattern.Solid,
           textString="QRadAbs"),
         Text(
           extent={{-228,44},{-186,78}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           fillColor={0,0,255},
           fillPattern=FillPattern.Solid,
           textString="TSha"),
@@ -149,19 +149,19 @@ protected
           fillPattern=FillPattern.Sphere),
         Text(
           extent={{-84,232},{94,282}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           fillColor={0,0,255},
           fillPattern=FillPattern.Solid,
           textString="%name"),
         Text(
           extent={{-230,-124},{-180,-74}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           fillColor={0,0,255},
           fillPattern=FillPattern.Solid,
           textString="QCon"),
         Text(
           extent={{-228,-184},{-178,-134}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           fillColor={0,0,255},
           fillPattern=FillPattern.Solid,
           textString="QLat")}),

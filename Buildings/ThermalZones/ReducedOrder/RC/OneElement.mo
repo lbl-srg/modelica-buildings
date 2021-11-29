@@ -450,7 +450,7 @@ equation
     fillPattern=FillPattern.Solid),
   Text(
     extent={{-201,180},{-144,152}},
-    lineColor={0,0,255},
+    textColor={0,0,255},
     fillColor={215,215,215},
     fillPattern=FillPattern.Solid,
     textString="Solar Radiation"),
@@ -461,13 +461,13 @@ equation
     fillPattern=FillPattern.Solid),
   Text(
     extent={{-201,-59},{-146,-76}},
-    lineColor={0,0,255},
+    textColor={0,0,255},
     fillColor={215,215,215},
     fillPattern=FillPattern.Solid,
     textString="Exterior Walls"),
   Text(
     extent={{-202,82},{-168,64}},
-    lineColor={0,0,255},
+    textColor={0,0,255},
     fillColor={215,215,215},
     fillPattern=FillPattern.Solid,
     textString="Windows"),
@@ -478,7 +478,7 @@ equation
     fillPattern=FillPattern.Solid),
   Text(
     extent={{-11,18},{26,4}},
-    lineColor={0,0,255},
+    textColor={0,0,255},
     fillColor={215,215,215},
     fillPattern=FillPattern.Solid,
     textString="Indoor Air")}),
@@ -513,14 +513,14 @@ equation
     smooth=Smooth.None),
   Text(
     extent={{-260,266},{24,182}},
-    lineColor={0,0,255},
+    textColor={0,0,255},
     lineThickness=0.5,
     fillColor={236,99,92},
     fillPattern=FillPattern.Solid,
     textString="%name"),
   Text(
     extent={{-67,60},{57,-64}},
-    lineColor={0,0,0},
+    textColor={0,0,0},
     textString="1")}),
   Documentation(info="<html>
 <p>

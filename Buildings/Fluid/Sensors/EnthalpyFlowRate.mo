@@ -54,11 +54,11 @@ annotation (defaultComponentName="senEntFlo",
         Line(points={{0,100},{0,70}}, color={0,0,127}),
         Text(
           extent={{180,151},{20,99}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="H_flow"),
         Text(
           extent={{-20,120},{-140,70}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString=DynamicSelect("", String(H_flow, leftJustified=false, significantDigits=3)))}),
   Documentation(info="<html>
 <p>

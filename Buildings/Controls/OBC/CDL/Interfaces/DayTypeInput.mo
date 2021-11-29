@@ -23,7 +23,7 @@ annotation (
       fillPattern=FillPattern.Solid,
       points={{0,50},{100,0},{0,-50}}),
     Text(
-      lineColor={0,127,0},
+      textColor={0,127,0},
       extent={{-10.0,60.0},{-10.0,85.0}},
       textString="%name")}),
   Documentation(info="<html>

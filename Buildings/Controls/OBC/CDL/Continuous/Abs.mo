@@ -15,7 +15,7 @@ annotation (
     Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
             100}}), graphics={
         Text(
-          lineColor={0,0,255},
+          textColor={0,0,255},
           extent={{-150,110},{150,150}},
           textString="%name"),
         Rectangle(
@@ -37,12 +37,12 @@ annotation (
           fillPattern=FillPattern.Solid),
         Text(
           extent={{-34,-28},{38,-76}},
-          lineColor={192,192,192},
+          textColor={192,192,192},
           textString="abs"),
         Line(points={{-88,0},{76,0}}, color={192,192,192}),
         Text(
           extent={{226,60},{106,10}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString=DynamicSelect("", String(y, leftJustified=false, significantDigits=3)))}),
     Documentation(info="<html>
 <p>

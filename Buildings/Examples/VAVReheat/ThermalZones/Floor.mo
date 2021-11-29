@@ -829,7 +829,7 @@ equation
           fillPattern=FillPattern.Solid),
         Text(
           extent={{-84,234},{-62,200}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="dP")}),
     Documentation(revisions="<html>
 <ul>

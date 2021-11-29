@@ -141,7 +141,7 @@ equation
         Line(points={{100,0},{100,0}}, color={0,127,255}),
         Text(
           extent={{-51,42},{-21,20}},
-          lineColor={127,0,0},
+          textColor={127,0,0},
           textString="Q_flow"),
         Line(points={{-68,20},{68,20}}, color={191,0,0}),
         Line(points={{-68,-20},{68,-20}}, color={191,0,0}),
@@ -171,7 +171,7 @@ equation
           pattern=LinePattern.None),
         Text(
           extent={{-100,86},{-86,76}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="u")}),
     Documentation(info="<html>
 Model for convective heat tranfer in a single layer of window gas.

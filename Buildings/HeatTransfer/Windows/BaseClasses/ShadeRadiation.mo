@@ -138,7 +138,7 @@ equation
                                         Text(
         extent={{-100,132},{100,102}},
         textString="%name",
-        lineColor={0,0,255}),
+        textColor={0,0,255}),
         Polygon(
           points={{-20,54},{-20,46},{20,58},{20,66},{-20,54}},
           lineColor={0,0,0},
@@ -183,7 +183,7 @@ equation
           fillPattern=FillPattern.Solid),
         Text(
           extent={{-18,-82},{16,-100}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="QAbs"),
         Rectangle(
           extent={{-2,90},{2,-80}},
@@ -198,7 +198,7 @@ equation
           fillPattern=FillPattern.Solid),
         Text(
           extent={{-102,90},{-68,72}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="u"),
         Rectangle(
           extent={{88,100},{100,-100}},
@@ -207,11 +207,11 @@ equation
           fillPattern=FillPattern.Solid),
         Text(
           extent={{42,-82},{76,-100}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="T"),
         Text(
           extent={{-68,-80},{-34,-98}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="QAbsNet")}),
     Documentation(info="<html>
 <p>

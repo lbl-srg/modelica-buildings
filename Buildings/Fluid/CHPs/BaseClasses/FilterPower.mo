@@ -74,19 +74,19 @@ annotation (
   Icon(coordinateSystem(extent={{-100,-100},{100,100}}), graphics={
         Text(
           extent={{-86,-64},{-46,-44}},
-          lineColor={128,128,128},
+          textColor={128,128,128},
           textString="uMin"),
         Text(
           extent={{-34,76},{-9,56}},
-          lineColor={128,128,128},
+          textColor={128,128,128},
           textString="output"),
         Text(
           extent={{50,50},{90,70}},
-          lineColor={128,128,128},
+          textColor={128,128,128},
           textString="uMax"),
         Text(
           extent={{52,-8},{74,-20}},
-          lineColor={128,128,128},
+          textColor={128,128,128},
           textString="input"),
     Line(points={{-90,0},{68,0}}, color={192,192,192}),
     Line(

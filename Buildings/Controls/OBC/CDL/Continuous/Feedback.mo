@@ -50,14 +50,14 @@ Modelica Standard Library.
         Text(extent={{-14,-112},{74,-38}},
                                         textString="-"),
         Text(
-          lineColor={0,0,255},
+          textColor={0,0,255},
           extent={{-150,48},{150,98}},
           textString="%name"),
         Text(extent={{-100,-4},{-40,56}},
           textString="+",
-          lineColor={0,0,0}),
+          textColor={0,0,0}),
         Text(
           extent={{226,60},{106,10}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString=DynamicSelect("", String(y, leftJustified=false, significantDigits=3)))}));
 end Feedback;

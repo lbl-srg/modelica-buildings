@@ -123,23 +123,23 @@ annotation (
                     graphics={
         Text(
           extent={{-100,-62},{-66,-76}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="TRoo"),
         Text(
           extent={{64,-38},{92,-58}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="yVal"),
         Text(
           extent={{56,62},{90,40}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="yDam"),
         Text(
           extent={{-96,82},{-36,60}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="TRooHeaSet"),
         Text(
           extent={{-96,10},{-36,-10}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="TRooCooSet")}),
  Documentation(info="<html>
 <p>

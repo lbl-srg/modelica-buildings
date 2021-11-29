@@ -187,7 +187,7 @@ First implementation.
           smooth=Smooth.None),            Text(
           extent={{-150,204},{150,164}},
           textString="%name",
-          lineColor={0,0,255}),
+          textColor={0,0,255}),
         Rectangle(
           extent={{36,62},{102,18}},
           lineColor={0,0,0},

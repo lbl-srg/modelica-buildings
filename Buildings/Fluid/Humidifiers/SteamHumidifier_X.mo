@@ -77,11 +77,11 @@ equation
           fillPattern=FillPattern.Solid),
         Text(
           extent={{-100,98},{-64,80}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="X_w"),
         Text(
           extent={{72,68},{138,14}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="mWat_flow"),
         Rectangle(
           extent={{-100,62},{-70,58}},
@@ -138,7 +138,7 @@ equation
           fillPattern=FillPattern.Solid),
         Text(
           extent={{72,108},{120,92}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="Q_flow"),
         Polygon(
           points={{56,-26},{44,-34},{44,-34},{56,-40},{56,-38},{48,-34},{48,-34},

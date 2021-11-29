@@ -119,10 +119,10 @@ equation
         Text(
           extent={{-150,150},{150,110}},
           textString="%name",
-          lineColor={0,0,255}),
+          textColor={0,0,255}),
         Text(
           extent={{-88,-62},{92,-90}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%falseHoldDuration"),
         Ellipse(
           extent={{71,7},{85,-7}},
@@ -140,7 +140,7 @@ equation
           fillPattern=FillPattern.Solid),
         Text(
           extent={{-90,96},{96,68}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%trueHoldDuration")}),
         Diagram(coordinateSystem(
           preserveAspectRatio=false, extent={{-180,-120},{160,140}})),

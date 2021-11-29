@@ -80,23 +80,23 @@ equation
           preserveAspectRatio=true, extent={{-100,-100},{100,100}}), graphics={
         Text(
           extent={{-92,78},{-66,50}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="TRet"),
         Text(
           extent={{-88,34},{-62,6}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="TOut"),
         Text(
           extent={{-86,-6},{-60,-34}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="TMix"),
         Text(
           extent={{-84,-46},{-58,-74}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="TMixSet"),
         Text(
           extent={{64,14},{90,-14}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="yOA")}), Documentation(info="<html>
 <p>
 This controller outputs the control signal for the outside

@@ -318,7 +318,7 @@ Diagram(coordinateSystem(extent={{-140,-100},{140,100}})),
           color={238,46,47}),
         Text(
           extent={{-68,56},{-44,40}},
-          lineColor={28,108,200},
+          textColor={28,108,200},
           textString="TSet"),
         Polygon(points={{-70,92},{-78,70},{-62,70},{-70,92}},
           lineColor={192,192,192},
@@ -336,7 +336,7 @@ Diagram(coordinateSystem(extent={{-140,-100},{140,100}})),
           color={28,108,200},
           pattern=LinePattern.Dot),
         Text(
-          lineColor={0,0,255},
+          textColor={0,0,255},
           extent={{-150,110},{150,150}},
           textString="%name"),
         Ellipse(
@@ -348,6 +348,6 @@ Diagram(coordinateSystem(extent={{-140,-100},{140,100}})),
           fillPattern=FillPattern.Solid),
         Text(
           extent={{226,106},{106,56}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString=DynamicSelect("", String(tOpt, leftJustified=false, significantDigits=3)))}));
 end OptimalStart;

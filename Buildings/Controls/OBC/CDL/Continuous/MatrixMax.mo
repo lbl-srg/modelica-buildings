@@ -46,9 +46,9 @@ First implementation.
                             Text(
           extent={{-150,150},{150,110}},
           textString="%name",
-          lineColor={0,0,255}),Text(
+          textColor={0,0,255}),Text(
           extent={{-78,-62},{86,68}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="[  ] max()")}),
     Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{
             100,100}})));

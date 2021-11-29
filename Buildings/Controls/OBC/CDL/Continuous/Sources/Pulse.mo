@@ -56,15 +56,15 @@ equation
               44},{79,44}}),
         Text(
           extent={{-147,-152},{153,-112}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="period=%period"),
         Text(
-          lineColor={0,0,255},
+          textColor={0,0,255},
           extent={{-150,110},{150,150}},
           textString="%name"),
         Text(
           extent={{226,60},{106,10}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString=DynamicSelect("", String(y, leftJustified=false, significantDigits=3)))}),
     Documentation(info="<html>
 <p>

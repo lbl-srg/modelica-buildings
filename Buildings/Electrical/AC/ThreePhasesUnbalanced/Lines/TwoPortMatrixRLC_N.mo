@@ -202,15 +202,15 @@ equation
           fillPattern=FillPattern.Solid),
           Text(
             extent={{-140,100},{140,60}},
-            lineColor={0,0,0},
+            textColor={0,0,0},
           textString="%name"),
           Text(
             extent={{-72,30},{70,10}},
-            lineColor={0,0,0},
+            textColor={0,0,0},
           textString="R+jX 4x4"),
           Text(
             extent={{-72,-10},{70,-30}},
-            lineColor={0,0,0},
+            textColor={0,0,0},
           textString="C 4x4")}),
     Documentation(revisions="<html>
 <ul>

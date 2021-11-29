@@ -88,17 +88,17 @@ First implementation.
                               Text(
           extent={{-150,110},{150,150}},
           textString="%name",
-          lineColor={0,0,255}),
+          textColor={0,0,255}),
         Text(
           extent={{-100,68},{-58,58}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="zen"),
         Text(
           extent={{-102,-54},{-60,-64}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="solTim"),
         Text(
           extent={{-102,6},{-60,-4}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="decAng")}));
 end SolarAzimuth;

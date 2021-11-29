@@ -44,6 +44,6 @@ First implementation.
 </html>"),
     Icon(graphics={Text(
           extent={{-106,70},{-62,50}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="Q")}));
 end Heating;

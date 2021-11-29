@@ -20,7 +20,7 @@ connector BooleanInput = input Boolean "'input Boolean' as connector"
         fillColor={255,0,255},
         fillPattern=FillPattern.Solid), Text(
         extent={{-10,85},{-10,60}},
-        lineColor={255,0,255},
+        textColor={255,0,255},
         textString="%name")}),
   Documentation(info="<html>
 <p>
