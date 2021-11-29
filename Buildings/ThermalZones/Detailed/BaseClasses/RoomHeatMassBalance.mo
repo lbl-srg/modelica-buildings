@@ -785,17 +785,17 @@ equation
             200}}), graphics={
         Text(
           extent={{-104,210},{84,242}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid,
           textString="%name"),
         Text(
           extent={{-220,100},{-144,68}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="q"),
         Text(
           extent={{-14,-160},{44,-186}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           fillColor={61,61,61},
           fillPattern=FillPattern.Solid,
           textString="boundary"),
@@ -822,25 +822,25 @@ equation
           fillPattern=FillPattern.Solid),
         Text(
           extent={{-60,12},{-22,-10}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           fillColor={61,61,61},
           fillPattern=FillPattern.Solid,
           textString="air"),
         Text(
           extent={{-72,-22},{-22,-50}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           fillColor={61,61,61},
           fillPattern=FillPattern.Solid,
           textString="radiation"),
         Text(
           extent={{-104,-124},{-54,-152}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           fillColor={61,61,61},
           fillPattern=FillPattern.Solid,
           textString="surface"),
         Text(
           extent={{-198,144},{-122,112}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="uWin"),
         Rectangle(
           extent={{-140,140},{140,-140}},
@@ -851,7 +851,7 @@ equation
             min(1, max(0, (heaPorAir.T-295.15)/10))*{255,0,0})),
         Text(
           extent={{134,-84},{14,-134}},
-          lineColor={255,255,255},
+          textColor={255,255,255},
           textString=DynamicSelect("", String(heaPorAir.T-273.15, format=".1f")))}),
     preferredView="info",
     defaultComponentName="roo",

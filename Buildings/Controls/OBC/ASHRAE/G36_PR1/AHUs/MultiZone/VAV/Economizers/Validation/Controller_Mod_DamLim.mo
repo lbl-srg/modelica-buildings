@@ -150,13 +150,13 @@ equation
           fillPattern=FillPattern.Solid),
         Text(
           extent={{-128,-132},{-36,-152}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           horizontalAlignment=TextAlignment.Left,
           textString="Enable both damper limit
 and modulation control loops"),
         Text(
           extent={{92,14},{140,-10}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           horizontalAlignment=TextAlignment.Left,
           textString="Economizer fully enabled -
 validate damper position
@@ -165,7 +165,7 @@ and damper position limits
 enthalpy measurement)"),
         Text(
           extent={{20,46},{70,24}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           horizontalAlignment=TextAlignment.Left,
           textString="Economizer fully enabled -
 validate damper position

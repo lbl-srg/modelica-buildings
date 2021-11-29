@@ -119,12 +119,12 @@ experiment(StopTime=86400, Tolerance=1e-06),
           fillPattern=FillPattern.Solid),
         Text(
           extent={{-164,-86},{-92,-108}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           horizontalAlignment=TextAlignment.Left,
           textString="Feedback control for fresh air"),
         Text(
           extent={{84,-22},{140,-42}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           horizontalAlignment=TextAlignment.Left,
           textString="CO2 sensor for room air")}));
 end MixedAirCO2;

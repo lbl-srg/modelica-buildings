@@ -90,10 +90,10 @@ First implementation.
         Text(
           extent={{-150,150},{150,110}},
           textString="%name",
-          lineColor={0,0,255}),
+          textColor={0,0,255}),
         Text(
           extent={{-44,82},{-22,64}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
           textString="X"),
@@ -104,11 +104,11 @@ First implementation.
           fillPattern=FillPattern.Solid),
         Text(
           extent={{-90,-46},{-70,-72}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="phi"),
         Text(
           extent={{-92,82},{-62,38}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="TDryBul"),
         Polygon(
           points={{86,-74},{76,-72},{76,-76},{86,-74}},
@@ -117,7 +117,7 @@ First implementation.
           fillPattern=FillPattern.Solid),
         Text(
           extent={{76,-78},{86,-94}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
           textString="T"),
@@ -125,7 +125,7 @@ First implementation.
           points={{-48,84},{-48,-74}}),
         Text(
           extent={{60,14},{98,-12}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="TDewPoi"),
         Line(
           points={{82,-72},{-66,-72}}),

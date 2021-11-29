@@ -220,7 +220,7 @@ equation
           rotation=90),
         Text(
           extent={{-78,198},{24,156}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%name"),
         Rectangle(
           extent={{-85.6,-32.2572},{74.4,-40.2572}},

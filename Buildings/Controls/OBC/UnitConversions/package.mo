@@ -36,6 +36,6 @@ First implementation.
             color={191,0,0}),
         Text(
           extent={{-72,78},{72,6}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
         textString="SI")}));
 end UnitConversions;

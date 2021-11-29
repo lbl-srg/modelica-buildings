@@ -58,7 +58,7 @@ annotation (defaultComponentName="senSpeEnt",
         graphics={
         Text(
           extent={{120,120},{0,90}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="s"),
         Line(points={{0,100},{0,70}}, color={0,0,127}),
         Line(points={{-100,0},{-70,0}}, color={0,128,255}),
@@ -66,7 +66,7 @@ annotation (defaultComponentName="senSpeEnt",
         Ellipse(extent={{-70,70},{70,-70}}, lineColor={255,0,0}),
         Text(
           extent={{-20,120},{-140,70}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString=DynamicSelect("", String(s, format=".0f")))}),
   Documentation(info="<html>
 <p>

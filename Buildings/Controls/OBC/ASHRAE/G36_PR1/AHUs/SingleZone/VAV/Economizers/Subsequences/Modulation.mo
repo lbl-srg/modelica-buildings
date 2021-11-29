@@ -218,7 +218,7 @@ equation
           thickness=0.5),
         Text(
           extent={{-108,138},{102,110}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="%name"),
         Line(
           points={{-50,-84},{-94,80}},
@@ -238,13 +238,13 @@ equation
           fillPattern=FillPattern.Solid),
                                    Text(
           extent={{-104,128},{-60,88}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           horizontalAlignment=TextAlignment.Left,
           textString="Damper position
 supply air temperature
 control loop"),                    Text(
           extent={{32,128},{76,88}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           horizontalAlignment=TextAlignment.Left,
           textString="Damper position
 assignments and heating coil signal")}),

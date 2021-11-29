@@ -52,12 +52,12 @@ equation
         fillPattern=FillPattern.Solid),
         Text(
           extent={{-90,-50},{96,-96}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="prescribed_dP=%dP_pre"),
         Text(
         extent={{-120,140},{120,104}},
         textString="%name",
-        lineColor={0,0,255})}),
+        textColor={0,0,255})}),
 Documentation(info="<html>
 <p>This model outputs <code>ON/OFF</code> signal to control fan operation.
 When the system is in mode like <code>unoccupiedOff, safety</code>, it outputs

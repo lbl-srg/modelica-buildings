@@ -252,7 +252,7 @@ equation
           fillPattern=FillPattern.Solid),
         Text(
           extent={{22,132},{48,110}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
           textString="y"),
@@ -285,7 +285,7 @@ equation
           points={{0,40},{0,10},{0,12}},
           color={0,0,255}),  Text(
           extent={{-50,-84},{48,-132}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString=
                "%name")}),
 defaultComponentName="eco",

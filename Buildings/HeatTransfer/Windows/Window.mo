@@ -274,10 +274,10 @@ equation
           fillPattern=FillPattern.Solid),
         Text(
           extent={{-184,176},{-134,140}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="uSha"),            Text(
           extent={{-60,238},{38,190}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%name"),
         Polygon(
           points={{38,138},{38,-84},{78,-124},{78,96},{38,138}},
@@ -374,12 +374,12 @@ equation
           smooth=Smooth.None),
         Text(
           extent={{36,-162},{126,-202}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="QAbsSha"),
         Text(
           visible = haveShade,
           extent={{-124,-164},{-34,-204}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="QAbsUns")}),
     defaultComponentName="win",
     Documentation(info="<html>

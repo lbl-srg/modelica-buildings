@@ -527,27 +527,27 @@ model TwoRoomsWithStorage
                {100,100}}), graphics={
            Text(
              extent={{-94,38},{-64,80}},
-             lineColor={0,0,255},
+             textColor={0,0,255},
              textString="TRoo"),
            Text(
              extent={{-94,-82},{-64,-40}},
-             lineColor={0,0,255},
+             textColor={0,0,255},
              textString="TOut"),
            Text(
              extent={{66,42},{86,74}},
-             lineColor={0,0,255},
+             textColor={0,0,255},
              textString="yC"),
            Text(
              extent={{-32,100},{24,124}},
-             lineColor={0,0,255},
+             textColor={0,0,255},
              textString="%name"),
            Text(
              extent={{66,-16},{86,16}},
-             lineColor={0,0,255},
+             textColor={0,0,255},
              textString="yF"),
            Text(
              extent={{68,-74},{88,-42}},
-             lineColor={0,0,255},
+             textColor={0,0,255},
             textString="yHex")}),Documentation(info="<html>
 <p>
 This block computes a control signal for free cooling and for mechanical cooling.

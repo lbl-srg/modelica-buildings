@@ -55,7 +55,7 @@ equation
         Text(
           extent={{-148,98},{152,138}},
           textString="%name",
-          lineColor={0,0,255}),
+          textColor={0,0,255}),
         Rectangle(
           extent={{-80,80},{80,-80}},
           lineColor={0,0,0},

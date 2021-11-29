@@ -85,7 +85,7 @@ equation
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid), Text(
           extent={{128,114},{-128,166}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%name")}),
     Diagram(coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>

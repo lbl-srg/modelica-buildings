@@ -109,7 +109,7 @@ equation
         Text(
           extent={{-150,110},{150,150}},
           textString="%name",
-          lineColor={0,0,255}),
+          textColor={0,0,255}),
         Line(
           points={{60,0},{100,0}},
           color={0,0,255}),
@@ -120,7 +120,7 @@ equation
           fillColor={0,127,255}),
         Text(
           extent={{66,40},{100,0}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="outlet"),
         Line(
           points={{0,-60},{0,-100}},
@@ -129,7 +129,7 @@ equation
           visible=use_p_in),
         Text(
           extent={{10,-64},{44,-104}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="p",
           visible=use_p_in)}),
     Documentation(info="<html>

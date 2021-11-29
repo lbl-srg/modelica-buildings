@@ -83,12 +83,12 @@ equation
           fillPattern=FillPattern.Solid),
         Text(
           extent={{-68,54},{68,-38}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="day"),
         Text(
           extent={{-150,150},{150,110}},
           textString="%name",
-          lineColor={0,0,255})}),
+          textColor={0,0,255})}),
     Documentation(
       info="<html>
 <p>

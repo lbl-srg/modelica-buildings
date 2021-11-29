@@ -215,67 +215,67 @@ annotation (
           fillPattern=FillPattern.Solid),
         Text(
           extent={{-100,158},{100,118}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%name"),
         Text(
           extent={{-98,88},{-34,74}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="uDesZonPeaOcc"),
         Text(
           extent={{-98,68},{-22,54}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="VDesPopBreZon_flow"),
         Text(
           extent={{-98,26},{-30,14}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="yAveOutAirFraPlu"),
         Text(
           extent={{-98,48},{-24,32}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="VDesAreBreZon_flow"),
         Text(
           extent={{-98,-52},{-44,-66}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="uPriOutAirFra"),
         Text(
           extent={{-98,-74},{-50,-86}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="VPriAir_flow"),
         Text(
           extent={{-98,-32},{-30,-46}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="VUncOutAir_flow"),
         Text(
           extent={{-98,-12},{-28,-26}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="uDesPriOutAirFra"),
         Text(
           extent={{42,8},{96,-6}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="yDesSysVenEff"),
         Text(
           extent={{12,40},{96,24}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="VSumDesAreBreZon_flow"),
         Text(
           extent={{12,70},{96,54}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="VSumDesPopBreZon_flow"),
         Text(
           extent={{36,98},{96,82}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="ySumDesZonPop"),
         Text(
           extent={{36,-50},{96,-66}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="uOutAirFra_max"),
         Text(
           extent={{26,-20},{96,-36}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="VSumUncOutAir_flow"),
         Text(
           extent={{24,-80},{96,-96}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="VSumSysPriAir_flow")}),
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-140},{100,140}})),
   defaultComponentName="zonToSys",

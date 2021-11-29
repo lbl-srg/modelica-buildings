@@ -425,65 +425,65 @@ annotation (
           fillPattern=FillPattern.Solid),
         Text(
           extent={{-98,-82},{-14,-98}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="VUncOut_flow_nominal"),
         Text(
           extent={{-100,158},{100,118}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%name"),
         Text(
           extent={{-100,-54},{-58,-64}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="VDis_flow"),
         Text(
           extent={{-100,-24},{-72,-36}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="TDis"),
         Text(
           extent={{-100,8},{-70,-4}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="TZon"),
         Text(
           extent={{-100,36},{-40,24}},
-          lineColor={255,0,255},
+          textColor={255,0,255},
           textString="uReqOutAir"),
         Text(
           visible=have_winSen,
           extent={{-100,68},{-72,56}},
-          lineColor={255,0,255},
+          textColor={255,0,255},
           textString="uWin"),
         Text(
           visible=have_occSen,
           extent={{-100,98},{-70,86}},
-          lineColor={255,127,0},
+          textColor={255,127,0},
           textString="nOcc"),
         Text(
           extent={{28,98},{98,82}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="yDesZonPeaOcc"),
         Text(
           extent={{12,70},{96,54}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="VDesPopBreZon_flow"),
         Text(
           extent={{14,38},{98,22}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="VDesAreBreZon_flow"),
         Text(
           extent={{28,10},{98,-8}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="yDesPriOutAirFra"),
         Text(
           extent={{28,-20},{98,-36}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="VUncOutAir_flow"),
         Text(
           extent={{40,-50},{96,-66}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="yPriOutAirFra"),
         Text(
           extent={{48,-82},{98,-96}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="VPriAir_flow")}),
 Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-160,-260},{180,260}})),
 Documentation(info="<html>

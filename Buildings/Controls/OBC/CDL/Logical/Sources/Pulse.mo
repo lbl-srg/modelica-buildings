@@ -86,7 +86,7 @@ equation
           borderPattern=BorderPattern.Raised),
         Text(
           extent={{-150,-140},{150,-110}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="%period"),
         Line(
           points={{79,-70},{40,-70},{40,44},{-1,44},{-1,-70},{-41,-70},{-41,44},{-80,44}}),
@@ -120,12 +120,12 @@ equation
               {235,235,235}),
           fillPattern=FillPattern.Solid),
         Text(
-          lineColor={0,0,255},
+          textColor={0,0,255},
           extent={{-150,110},{150,150}},
           textString="%name"),
         Text(
           extent={{-66,80},{-8,56}},
-          lineColor={135,135,135},
+          textColor={135,135,135},
           textString="%period"),
         Polygon(
           points={{-2,52},{-14,56},{-14,48},{-2,52}},
@@ -153,7 +153,7 @@ equation
           lineColor={0,0,0}),
         Text(
           extent={{38,64},{96,40}},
-          lineColor={135,135,135},
+          textColor={135,135,135},
           textString="%shift")}),
     Documentation(
       info="<html>

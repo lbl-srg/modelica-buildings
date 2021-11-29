@@ -52,21 +52,21 @@ protected
         graphics={
           Text(
             extent={{-76,60},{64,38}},
-            lineColor={0,0,255},
+            textColor={0,0,255},
             fillColor={255,255,255},
             fillPattern=FillPattern.None,
             horizontalAlignment=TextAlignment.Left,
             textString="qRad_flow = %qRad_flow"),
           Text(
             extent={{-74,14},{66,-8}},
-            lineColor={0,0,255},
+            textColor={0,0,255},
             fillColor={255,255,255},
             fillPattern=FillPattern.None,
             horizontalAlignment=TextAlignment.Left,
             textString="qSen_flow = %qSen_flow"),
           Text(
             extent={{-74,-30},{66,-52}},
-            lineColor={0,0,255},
+            textColor={0,0,255},
             fillColor={255,255,255},
             fillPattern=FillPattern.None,
             horizontalAlignment=TextAlignment.Left,
