@@ -103,7 +103,7 @@ protected
   Buildings.Controls.OBC.CDL.Routing.RealScalarReplicator reaRep(
     final nout=nSen)
     "Replicate real input"
-    annotation (Placement(transformation(extent={{-100,-110},{-80,-90}})));
+    annotation (Placement(transformation(extent={{-70,-110},{-50,-90}})));
 
   Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator booRep(
     final nout=nSen)
@@ -143,9 +143,13 @@ protected
     "Logical switch"
     annotation (Placement(transformation(extent={{80,90},{100,110}})));
 
+  Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar(
+    final p=1e-6,
+    final k=1)
+    "Ensure zero setpoint does not cause division by zero"
+    annotation (Placement(transformation(extent={{-110,-110},{-90,-90}})));
+
 equation
-  connect(dpChiWatSet, reaRep.u)
-    annotation (Line(points={{-140,-100},{-102,-100}}, color={0,0,127}));
 
   connect(zer.y, pumSpe.x1)
     annotation (Line(points={{2,80},{20,80},{20,68},{58,68}}, color={0,0,127}));
@@ -165,10 +169,6 @@ equation
 
   connect(dpChiWat, div.u1)
     annotation (Line(points={{-140,-60},{-40,-60},{-40,-74},{-22,-74}},
-      color={0,0,127}));
-
-  connect(reaRep.y, div.u2)
-    annotation (Line(points={{-78,-100},{-40,-100},{-40,-86},{-22,-86}},
       color={0,0,127}));
 
   connect(one.y, reaRep1.u)
@@ -200,6 +200,12 @@ equation
     annotation (Line(points={{42,0},{50,0},{50,0},{58,0}},   color={0,0,127}));
   connect(pumSpe_max.y, swi.u3) annotation (Line(points={{2,40},{10,40},{10,92},
           {78,92}}, color={0,0,127}));
+  connect(reaRep.y, div.u2) annotation (Line(points={{-48,-100},{-40,-100},{-40,
+          -86},{-22,-86}}, color={0,0,127}));
+  connect(dpChiWatSet, addPar.u)
+    annotation (Line(points={{-140,-100},{-112,-100}}, color={0,0,127}));
+  connect(addPar.y, reaRep.u)
+    annotation (Line(points={{-88,-100},{-72,-100}}, color={0,0,127}));
 annotation (
   defaultComponentName="chiPumSpe",
   Icon(coordinateSystem(extent={{-100,-100},{100,100}}),
