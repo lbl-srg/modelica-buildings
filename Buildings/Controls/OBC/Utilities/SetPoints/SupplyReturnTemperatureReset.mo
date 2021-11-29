@@ -432,24 +432,24 @@ First implementation.
           smooth=Smooth.Bezier),
         Text(
           extent={{-152,120},{-102,70}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="TOut"),
         Text(
           extent={{-152,-4},{-102,-54}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="TSetZon"),
         Text(
           extent={{40,86},{90,36}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="TSup"),
         Text(
           extent={{42,-30},{92,-80}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="TRet"),
         Text(
           extent={{-150,150},{150,110}},
           textString="%name",
-          lineColor={0,0,255})}),
+          textColor={0,0,255})}),
     Diagram(
       coordinateSystem(
         extent={{-100,-200},{100,340}}),
@@ -462,7 +462,7 @@ First implementation.
           pattern=LinePattern.None),
         Text(
           extent={{-34,318},{66,306}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid,
           horizontalAlignment=TextAlignment.Left,
@@ -475,7 +475,7 @@ First implementation.
           pattern=LinePattern.None),
         Text(
           extent={{-26,-178},{74,-190}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid,
           horizontalAlignment=TextAlignment.Left,
@@ -488,7 +488,7 @@ First implementation.
           pattern=LinePattern.None),
         Text(
           extent={{-84,198},{-36,190}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid,
           horizontalAlignment=TextAlignment.Left,
@@ -501,7 +501,7 @@ First implementation.
           pattern=LinePattern.None),
         Text(
           extent={{-4,98},{56,90}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid,
           horizontalAlignment=TextAlignment.Left,
@@ -514,7 +514,7 @@ First implementation.
           pattern=LinePattern.None),
         Text(
           extent={{-6,-68},{60,-76}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid,
           horizontalAlignment=TextAlignment.Left,

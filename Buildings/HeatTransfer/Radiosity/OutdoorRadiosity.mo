@@ -44,11 +44,11 @@ equation
     Icon(graphics={
         Text(
           extent={{-96,-10},{-54,-52}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="TOut"),
         Text(
           extent={{64,16},{94,-12}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="J"),
         Line(
           points={{6,-36},{28,-8},{20,-8},{28,-8},{28,-16},{28,-16}},
@@ -84,10 +84,10 @@ equation
         Text(
           extent={{-150,142},{150,102}},
           textString="%name",
-          lineColor={0,0,255}),
+          textColor={0,0,255}),
         Text(
           extent={{-96,72},{-54,30}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="TBlaSky")}),
     defaultComponentName="radOut",
     Documentation(info="<html>

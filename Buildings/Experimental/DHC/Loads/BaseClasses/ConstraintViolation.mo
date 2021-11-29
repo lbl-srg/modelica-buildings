@@ -56,7 +56,7 @@ equation
         Text(
           extent={{-150,-112},{150,-152}},
           textString="%name",
-          lineColor={0,0,255})}),
+          textColor={0,0,255})}),
 Documentation(info="<html>
 <p>
 Block that outputs the running fractional time during which any element

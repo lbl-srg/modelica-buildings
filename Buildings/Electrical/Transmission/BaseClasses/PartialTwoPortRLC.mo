@@ -32,7 +32,7 @@ equation
                                                                   graphics={
           Text(
             extent={{-148,-28},{138,-60}},
-            lineColor={0,0,0},
+            textColor={0,0,0},
           textString="R=%R, L=%L"),
           Line(points={{-90,0},{-70,0}}, color={0,0,0}),
           Line(points={{70,0},{90,0}}, color={0,0,0}),
@@ -97,7 +97,7 @@ equation
           pattern=LinePattern.None),
           Text(
             extent={{-142,-56},{144,-88}},
-            lineColor={0,0,0},
+            textColor={0,0,0},
           textString="C=%C")}),
     Documentation(revisions="<html>
 <ul>

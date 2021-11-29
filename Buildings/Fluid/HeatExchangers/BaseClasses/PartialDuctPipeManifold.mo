@@ -57,7 +57,7 @@ partial model PartialDuctPipeManifold
           fillPattern=FillPattern.Solid),
         Text(
           extent={{-84,-48},{84,-120}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           fillColor={0,0,255},
           fillPattern=FillPattern.Solid)}),
             Documentation(info="<html>

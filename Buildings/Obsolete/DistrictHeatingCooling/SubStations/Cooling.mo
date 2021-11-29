@@ -54,7 +54,7 @@ equation
         fillPattern=FillPattern.Solid),
         Text(
           extent={{-106,70},{-62,50}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="Q")}),
     Documentation(info="<html>
 <p>

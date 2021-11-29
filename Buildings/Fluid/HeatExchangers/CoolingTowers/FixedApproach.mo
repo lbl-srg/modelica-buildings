@@ -25,7 +25,7 @@ equation
             -100},{100,100}}), graphics={
         Text(
           extent={{-100,70},{-70,32}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="TAir")}),
     Documentation(info="<html>
 <p>

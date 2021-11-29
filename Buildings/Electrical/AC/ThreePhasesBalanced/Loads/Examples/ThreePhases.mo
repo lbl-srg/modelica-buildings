@@ -179,15 +179,15 @@ equation
             -100},{100,100}}),        graphics={
         Text(
           extent={{-60,100},{60,80}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="Three phases, balanced (Y and D connection) "),
         Text(
           extent={{-100,10},{-4,-10}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="Three phases, balanced (Y connection) "),
         Text(
           extent={{4,10},{100,-10}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="Three phases, balanced (D connection) ")}), Documentation(
         revisions="<html>
 <ul>

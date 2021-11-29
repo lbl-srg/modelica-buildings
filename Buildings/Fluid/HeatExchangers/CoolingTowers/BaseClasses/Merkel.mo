@@ -273,7 +273,7 @@ equation
           fillPattern=FillPattern.Solid),
         Text(
           extent={{-54,-10},{58,-130}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           fillColor={0,127,0},
           fillPattern=FillPattern.Solid,
           textString="Merkel"),

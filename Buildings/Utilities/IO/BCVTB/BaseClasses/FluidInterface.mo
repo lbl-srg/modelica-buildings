@@ -98,7 +98,7 @@ equation
         Line(points={{-100,-40},{-92,-40}}, color={0,0,255}),
         Text(
           extent={{-168,50},{-66,10}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid,
           textString="T"),
@@ -119,7 +119,7 @@ equation
           fillPattern=FillPattern.Solid),
         Text(
           extent={{-54,32},{16,-30}},
-          lineColor={255,0,0},
+          textColor={255,0,0},
           fillColor={255,0,0},
           fillPattern=FillPattern.Solid,
           textString="m"),

@@ -212,9 +212,9 @@ First implementation.
 </html>"),    Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
             100}}), graphics={Text(
           extent={{-84,114},{-62,86}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="h"), Text(
           extent={{58,-92},{84,-120}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="h")}));
 end PartialHexElement;

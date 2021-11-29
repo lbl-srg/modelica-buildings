@@ -411,5 +411,5 @@ First implementation.
                                         Text(
         extent={{-156,234},{160,172}},
         textString="%name",
-        lineColor={0,0,255})}));
+        textColor={0,0,255})}));
 end Room;

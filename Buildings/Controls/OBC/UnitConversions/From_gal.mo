@@ -34,16 +34,16 @@ equation
           fillPattern=FillPattern.Solid),
         Line(points={{20,58}}, color={28,108,200}),
         Text(
-          lineColor={0,0,255},
+          textColor={0,0,255},
           extent={{-150,110},{150,150}},
           textString="%name"),
         Text(
           extent={{-80,50},{0,10}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="gal"),
         Text(
           extent={{10,-70},{90,-30}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="m3"),
         Polygon(
         points={{90,0},{30,20},{30,-20},{90,0}},

@@ -67,13 +67,13 @@ equation
           fillPattern=FillPattern.Solid),
           Text(
             extent={{-140,-28},{140,-60}},
-            lineColor={0,0,0},
+            textColor={0,0,0},
           textString="L=%L"),
           Line(points={{-92,0},{-72,0}}, color={0,0,0}),
           Line(points={{68,0},{88,0}}, color={0,0,0}),
           Text(
             extent={{-142,80},{138,40}},
-            lineColor={0,0,0},
+            textColor={0,0,0},
           textString="%name"),
           Line(
           points={{0,0},{12,1.46953e-15}},
