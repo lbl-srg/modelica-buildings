@@ -2,7 +2,6 @@ within Buildings.Fluid.Movers.BaseClasses.Validation;
 model EulerComparison
   "Simple model to validate the power computation method using the EulerComparison number"
   extends Modelica.Icons.Example;
-  import MoverRecord = Buildings.Fluid.Movers.Data.Fans.Greenheck.BIDW13;
 
   parameter Integer nOri(min=1)=size(per1.power.V_flow,1)
     "Number of data points for pressure curve"
@@ -10,7 +9,8 @@ model EulerComparison
   parameter Modelica.SIunits.Density rhoCon=1.2
     "Constant density";
 
-  MoverRecord per1 "Mover curves with flow rate, pressure rise, and power";
+  Buildings.Fluid.Movers.Data.Fans.Greenheck.BIDW13 per1
+    "Mover curves with flow rate, pressure rise, and power";
   Buildings.Fluid.Movers.BaseClasses.FlowMachineInterface eff1(
     per=per1,
     rho_default=rhoCon,
@@ -18,8 +18,10 @@ model EulerComparison
     computePowerUsingSimilarityLaws=false)
     "Flow machine interface using power characteristic"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
-  MoverRecord per2(
-    powMet=Buildings.Fluid.Movers.BaseClasses.Types.PowerMethod.EulerNumber,
+  Buildings.Fluid.Movers.Data.Generic per2(
+    final powMet=Buildings.Fluid.Movers.BaseClasses.Types.PowerMethod.EulerNumber,
+    pressure=per1.pressure,
+    power=per1.power,
     peak=Buildings.Fluid.Movers.BaseClasses.Euler.findPeak(
       pressure=per2.pressure,
       power=per2.power))
