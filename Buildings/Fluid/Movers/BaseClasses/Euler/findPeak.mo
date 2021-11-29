@@ -33,7 +33,7 @@ algorithm
   if etaLes or etaMon then
     m[2]:=max(eta);
     for i in 1:n loop
-      if eta[i]==m[2] then
+      if eta[i]-m[2]<1E-6 then
         m[1]:=pressure.V_flow[i];
       end if;
     end for;
