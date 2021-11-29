@@ -65,12 +65,12 @@ annotation (defaultComponentName="senS_flow",
         Line(points={{0,100},{0,70}}, color={0,0,127}),
         Text(
           extent={{180,151},{20,99}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="S_flow"),
         Ellipse(extent={{-70,70},{70,-70}}, lineColor={255,0,0}),
         Text(
          extent={{-20,120},{-140,70}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString=DynamicSelect("", String(S_flow, leftJustified=false, significantDigits=3)))}),
   Documentation(info="<html>
 <p>

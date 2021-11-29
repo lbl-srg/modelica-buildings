@@ -80,15 +80,15 @@ algorithm
   defaultComponentName="csvWri",
   Icon(coordinateSystem(preserveAspectRatio=false), graphics={Text(
           extent={{-86,-54},{90,-96}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           horizontalAlignment=TextAlignment.Right,
           textString="%fileName"),                                        Text(
           extent={{-86,-54},{90,-96}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           horizontalAlignment=TextAlignment.Right,
           textString="%fileName"),                                        Text(
           extent={{-86,-16},{90,-58}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           horizontalAlignment=TextAlignment.Right,
           textString="%samplePeriod")}),                         Diagram(
         coordinateSystem(preserveAspectRatio=false)),

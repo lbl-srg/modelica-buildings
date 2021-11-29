@@ -514,13 +514,13 @@ equation
           smooth=Smooth.Bezier)}),
         Diagram(graphics={Text(
           extent={{44,84},{86,76}},
-          lineColor={28,108,200},
+          textColor={28,108,200},
           textString="Water Side",
           textStyle={TextStyle.Italic},
           horizontalAlignment=TextAlignment.Left),
         Text(
           extent={{-42,-80},{0,-88}},
-          lineColor={28,108,200},
+          textColor={28,108,200},
           textStyle={TextStyle.Italic},
           horizontalAlignment=TextAlignment.Left,
           textString="Air Side")}),

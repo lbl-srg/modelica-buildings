@@ -90,14 +90,14 @@ annotation (defaultComponentName="senRelHum",
         grid={1,1}), graphics={
         Text(
           extent={{102,124},{6,95}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="phi"),
         Line(points={{0,100},{0,70}}, color={0,0,127}),
         Line(points={{-100,0},{-70,0}}, color={0,128,255}),
         Line(points={{70,0},{100,0}}, color={0,128,255}),
         Text(
           extent={{-20,120},{-140,70}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString=DynamicSelect("", String(phi, leftJustified=false, significantDigits=2)))}),
   Documentation(info="<html>
 <p>

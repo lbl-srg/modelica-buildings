@@ -553,12 +553,12 @@ Buildings.Fluid.MixingVolumes.BaseClasses.ClosedVolume</a>.
             100}}), graphics={
        Text(
           extent={{-60,-26},{56,-58}},
-          lineColor={255,255,255},
+          textColor={255,255,255},
           textString="V=%V"),
         Text(
           extent={{-152,100},{148,140}},
           textString="%name",
-          lineColor={0,0,255}),
+          textColor={0,0,255}),
        Ellipse(
           extent={{-100,98},{100,-102}},
           lineColor={0,0,0},
@@ -566,6 +566,6 @@ Buildings.Fluid.MixingVolumes.BaseClasses.ClosedVolume</a>.
           fillColor=DynamicSelect({170,213,255}, min(1, max(0, (1-(T-273.15)/50)))*{28,108,200}+min(1, max(0, (T-273.15)/50))*{255,0,0})),
         Text(
           extent={{62,28},{-58,-22}},
-          lineColor={255,255,255},
+          textColor={255,255,255},
           textString=DynamicSelect("", String(T-273.15, format=".1f")))}));
 end PartialMixingVolume;

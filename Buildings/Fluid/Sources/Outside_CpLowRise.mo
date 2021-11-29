@@ -150,15 +150,15 @@ First implementation.
     Icon(graphics={Text(
           visible=use_Cp_in,
           extent={{-140,92},{-92,62}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="C_p"),
           Text(
           visible=use_C_in,
           extent={{-154,-28},{-102,-62}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="C"),
         Text(
           extent={{-28,22},{28,-22}},
-          lineColor={255,255,255},
+          textColor={255,255,255},
           textString="Cp")}));
 end Outside_CpLowRise;

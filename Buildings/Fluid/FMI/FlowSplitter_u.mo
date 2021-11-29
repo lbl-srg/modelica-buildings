@@ -81,7 +81,7 @@ Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
             {100,100}}), graphics={
         Text(
           extent={{-100,98},{-60,60}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="u"),
         Rectangle(
           extent={{-100,14},{-22,-10}},

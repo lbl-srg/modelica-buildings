@@ -353,12 +353,12 @@ equation
           fillPattern=FillPattern.Solid),
         Text(
           extent={{-98,64},{-76,42}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           visible=use_X_wSet,
           textString="X_w"),
         Text(
           extent={{74,72},{120,44}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="mWat_flow"),
         Rectangle(
           extent={{-70,60},{70,-60}},
@@ -387,7 +387,7 @@ equation
           fillPattern=FillPattern.Solid),
         Text(
           extent={{-106,102},{-74,88}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           visible=use_TSet,
           textString="T"),
         Rectangle(
@@ -399,7 +399,7 @@ equation
           fillPattern=FillPattern.Solid),
         Text(
           extent={{72,108},{120,92}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="Q_flow"),
         Rectangle(
           extent={{70,82},{100,78}},

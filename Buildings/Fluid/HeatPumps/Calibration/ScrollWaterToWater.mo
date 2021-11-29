@@ -47,7 +47,7 @@ model ScrollWaterToWater
             {100,100}})),
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-140,-100},{100,100}}),
       graphics={Text(extent={{-88,92},{-64,90}},
-        lineColor={28,108,200})}),
+        textColor={28,108,200})}),
     preferredView="info",
     __Dymola_Commands(file= "modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatPumps/Calibration/ScrollWaterToWater.mos"
         "Simulate and plot"),

@@ -82,7 +82,7 @@ equation
           fillPattern=FillPattern.Solid,
           fillColor={255,255,255}), Text(
           extent={{-94,60},{94,-58}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="m_flow
 p")}),
     Documentation(info="<html>
