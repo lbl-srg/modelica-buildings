@@ -249,8 +249,6 @@ def _simulate(spec):
     s = Simulator(spec["model"])
     # Add all necessary parameters from Case Dict
     s.addPreProcessingStatement("OutputCPUtime:= true;")
-    s.addPreProcessingStatement("// For Dymola 2022 (or higher) unload MSL so that MSL from uses statement is loaded")
-    s.addPreProcessingStatement("if DymolaVersionNumber() <> 2021.0 then eraseClasses({\"Modelica\"}); end if;")
     s.setSolver(spec["solver"])
     if 'parameters' in spec:
         s.addParameters(spec['parameters'])

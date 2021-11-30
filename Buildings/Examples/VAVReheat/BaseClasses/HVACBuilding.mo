@@ -88,7 +88,7 @@ partial model HVACBuilding
   Fluid.Sources.Boundary_pT sinCoo(
     redeclare package Medium = MediumW,
     p=300000,
-    T=285.15,
+    T=279.15,
     nPorts=1) "Sink for cooling coil" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
@@ -96,7 +96,7 @@ partial model HVACBuilding
   Fluid.Sources.Boundary_pT souCoo(
     redeclare package Medium = MediumW,
     p(displayUnit="Pa") = 300000 + 6000,
-    T=285.15,
+    T=279.15,
     nPorts=1) "Source for cooling coil loop" annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
@@ -177,6 +177,11 @@ with five conditioned thermal zones.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+November 17, 2021, by David Blum:<br/>
+Changed chilled water supply temperature from 12 C to 6 C.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2763\">issue #2763</a>.
+</li>
 <li>
 October 4, 2021, by Michael Wetter:<br/>
 Refactored <a href=\"modelica://Buildings.Examples.VAVReheat\">Buildings.Examples.VAVReheat</a>
