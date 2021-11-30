@@ -17,7 +17,8 @@ model SingleDamper "Single common damper (modulated) with AFMS"
   Buildings.Templates.Components.Sensors.VolumeFlowRate VOut_flow(
     redeclare final package Medium = MediumAir,
     final have_sen=true,
-    final m_flow_nominal=m_flow_nominal)
+    final m_flow_nominal=m_flow_nominal,
+    final typ=Buildings.Templates.Components.Types.SensorVolumeFlowRate.AFMS)
     "Outdoor air volume flow rate sensor"
     annotation (Placement(transformation(extent={{80,-10},{100,10}})));
   Buildings.Templates.Components.Sensors.Temperature TOut(

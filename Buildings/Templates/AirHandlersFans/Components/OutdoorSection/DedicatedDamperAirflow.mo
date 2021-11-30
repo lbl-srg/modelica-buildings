@@ -34,7 +34,8 @@ model DedicatedDamperAirflow
   Buildings.Templates.Components.Sensors.VolumeFlowRate VOutMin_flow(
     redeclare final package Medium = MediumAir,
     final have_sen=true,
-    final m_flow_nominal=m_flow_nominal)
+    final m_flow_nominal=m_flow_nominal,
+    final typ=Buildings.Templates.Components.Types.SensorVolumeFlowRate.AFMS)
     "Minimum outdoor air volume flow rate sensor"
     annotation (Placement(transformation(extent={{80,50},{100,70}})));
   Buildings.Templates.Components.Sensors.SpecificEnthalpy hOut(

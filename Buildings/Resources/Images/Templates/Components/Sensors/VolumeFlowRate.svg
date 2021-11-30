@@ -4,16 +4,23 @@
 <svg
    width="105.84606mm"
    height="105.83334mm"
-   viewBox="0 0 105.84605 105.83334"
+   viewBox="0 0 105.84605 105.83332"
    version="1.1"
    id="svg1642"
    xmlns="http://www.w3.org/2000/svg"
    xmlns:svg="http://www.w3.org/2000/svg">
   <defs
-     id="defs1639" />
+     id="defs1639">
+    <rect
+       x="594.12494"
+       y="725.37573"
+       width="1134.2458"
+       height="1221.0034"
+       id="rect3654" />
+  </defs>
   <g
      id="g6351"
-     transform="matrix(0.25502011,0,0,0.25502006,32.319119,-123.79128)"
+     transform="matrix(0.25502011,0,0,0.25502006,23.8346,-123.79128)"
      style="stroke-width:10.375;stroke-miterlimit:4;stroke-dasharray:none">
     <g
        id="g19584"
@@ -21,7 +28,7 @@
        style="stroke-width:10.375;stroke-miterlimit:4;stroke-dasharray:none">
       <g
          id="g12097-8"
-         transform="matrix(52.995665,0,0,52.99607,77809.886,179246.66)"
+         transform="matrix(52.995665,0,0,52.99607,77843.156,179246.66)"
          style="stroke-width:0.19577;stroke-miterlimit:4;stroke-dasharray:none">
         <path
            d="m -1461.1642,-3372.718 a 1.27256,1.27256 0 0 0 -1.273,1.273"
@@ -63,13 +70,17 @@
       <text
          xml:space="preserve"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:207.499px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:10.375;stroke-miterlimit:4;stroke-dasharray:none"
-         x="319.6741"
-         y="783.70575"
+         x="403.70407"
+         y="783.80707"
          id="text44048"><tspan
-           id="tspan44046"
-           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:207.499px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;stroke-width:10.375;stroke-miterlimit:4;stroke-dasharray:none"
-           x="319.6741"
-           y="783.70575">AFS</tspan></text>
+           id="tspan1670"
+           x="403.70407"
+           y="783.80707">FR</tspan></text>
+      <text
+         xml:space="preserve"
+         transform="matrix(1.0374999,0,0,1.0375001,335.13658,500.67327)"
+         id="text3652"
+         style="font-style:normal;font-weight:normal;font-size:40px;line-height:1.25;font-family:sans-serif;white-space:pre;shape-inside:url(#rect3654);fill:#000000;fill-opacity:1;stroke:none" />
     </g>
   </g>
 </svg>

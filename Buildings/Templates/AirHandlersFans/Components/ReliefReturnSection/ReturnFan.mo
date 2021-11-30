@@ -36,7 +36,7 @@ model ReturnFan "Return fan - Modulated relief damper"
     redeclare final package Medium = MediumAir,
     final have_sen=typCtrFanRet==Buildings.Templates.AirHandlersFans.Types.ControlFanReturn.Pressure,
     final m_flow_nominal=m_flow_nominal) "Return static pressure sensor"
-    annotation (Placement(transformation(extent={{50,-50},{70,-30}})));
+    annotation (Placement(transformation(extent={{50,30},{70,50}})));
 
 equation
   /* Control point connection - start */
@@ -51,13 +51,13 @@ equation
   connect(damRel.port_a, pas.port_a)
     annotation (Line(points={{-140,0},{-70,0}}, color={0,127,255}));
   connect(pRet_rel.port_b, port_bPre)
-    annotation (Line(points={{70,-40},{80,-40},{80,-140}}, color={0,127,255}));
+    annotation (Line(points={{70,40},{80,40},{80,-140}},   color={0,127,255}));
   connect(fanRet.port_b, port_aIns)
     annotation (Line(points={{50,0},{-40,0}}, color={0,127,255}));
   connect(fanRet.port_b, port_bRet)
     annotation (Line(points={{50,0},{0,0},{0,-140}}, color={0,127,255}));
   connect(fanRet.port_b, pRet_rel.port_a) annotation (Line(points={{50,0},{40,0},
-          {40,-40},{50,-40}}, color={0,127,255}));
+          {40,40},{50,40}},   color={0,127,255}));
   annotation (Documentation(info="<html>
 <p>
 5.16.10 Return-Fan Control—Direct Building Pressure

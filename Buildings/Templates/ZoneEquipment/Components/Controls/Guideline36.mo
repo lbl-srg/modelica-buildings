@@ -2,7 +2,7 @@ within Buildings.Templates.ZoneEquipment.Components.Controls;
 block Guideline36
   extends
     Buildings.Templates.ZoneEquipment.Components.Controls.Interfaces.PartialSingleDuct(
-      final typ=Types.Controller.Guideline36);
+      final typ=Buildings.Templates.ZoneEquipment.Types.Controller.Guideline36);
 
   // See FIXME below for those parameters.
   parameter Boolean have_occSen=false
@@ -503,9 +503,9 @@ equation
   connect(con.yDam, bus.damVAV.y);
   connect(con.yVal, bus.coiReh.y);
 
-  connect(bus.damVAV.V_flow, zonOutAirSet.VDis_flow);
+  connect(bus.VDis_flow, zonOutAirSet.VDis_flow);
   connect(bus.TDis, con.TDis);
-  connect(bus.damVAV.V_flow, con.VDis_flow);
+  connect(bus.VDis_flow, con.VDis_flow);
   connect(bus.damVAV.y_actual, con.yDam_actual);
 
   connect(bus.ppmCO2, con.ppmCO2);

@@ -35,7 +35,9 @@ package Types "Generic types for template components"
       Opposed
       "Opposed blades",
       Parallel
-      "Parallel blades")
+      "Parallel blades",
+      VAV
+      "VAV damper")
     "Enumeration to specify the damper blades";
   type HeatExchanger = enumeration(
       None
@@ -93,6 +95,14 @@ package Types "Generic types for template components"
       InWell
       "Sensor in well")
     "Enumeration to configure the temperature sensor";
+  type SensorVolumeFlowRate = enumeration(
+      AFMS
+      "Airflow measuring station",
+      FlowCross
+      "Averaging sensor",
+      FlowMeter
+      "Flow meter")
+    "Enumeration to configure the volume flow rate sensor";
   type Valve = enumeration(
       None
       "No valve",
