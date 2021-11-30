@@ -1,5 +1,0 @@
-simulateModel("Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChilledBeamSystem.SetPoints.Validation.ChilledWaterStaticPressureSetpointReset", method="Cvode", stopTime=3600, tolerance=1e-06, resultFile="StaticPressureReset");
-
-createPlot(id=1, position={0, 0, 1489, 978}, y={"chiWatStaPreSetRes.uPumSta[1]"}, range={0.0, 3600.0, -0.2, 1.2000000000000002}, grid=true, colors={{28,108,200}});
-createPlot(id=1, position={0, 0, 1489, 322}, y={"chiWatStaPreSetRes.uValPos[1]"}, range={0.0, 3600.0, -0.2, 1.2000000000000002}, grid=true, subPlot=2, colors={{28,108,200}});
-createPlot(id=1, position={0, 0, 1489, 323}, y={"chiWatStaPreSetRes.yStaPreSetPoi"}, range={0.0, 3600.0, 18000.0, 32000.0}, grid=true, subPlot=3, colors={{28,108,200}});
