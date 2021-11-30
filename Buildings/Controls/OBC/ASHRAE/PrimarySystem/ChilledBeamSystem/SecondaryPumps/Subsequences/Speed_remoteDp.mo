@@ -78,19 +78,19 @@ block Speed_remoteDp
     "Convert PI signal into linear transformation between minimum and maximum pump speed"
     annotation (Placement(transformation(extent={{60,50},{80,70}})));
 
-protected
   Buildings.Controls.OBC.CDL.Continuous.PIDWithReset conPID[nSen](
-    final controllerType=fill(controllerType, nSen),
-    final k=fill(k, nSen),
-    final Ti=fill(Ti, nSen),
-    final Td=fill(Td, nSen),
+    controllerType=fill(controllerType, nSen),
+    k=fill(k, nSen),
+    Ti=fill(Ti, nSen),
+    Td=fill(Td, nSen),
     final yMax=fill(1,nSen),
     final yMin=fill(0,nSen),
-    final xi_start=fill(1,nSen),
-    final yd_start=fill(1,nSen))
+    xi_start=fill(1,nSen),
+    yd_start=fill(1,nSen))
     "PID controller for regulating remote differential pressure"
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
 
+protected
   Buildings.Controls.OBC.CDL.Logical.Edge edg
     "Reset PID loop when the pump system is enabled"
     annotation (Placement(transformation(extent={{-40,-50},{-20,-30}})));
