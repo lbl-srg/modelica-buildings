@@ -1,5 +1,5 @@
 within Buildings.Utilities.Math.Functions;
-function splineMode
+function splineSingleExtremum
   "Find the single extrema of a cubic Hermite spline"
   extends Modelica.Icons.Function;
   input Real x[:] "Support point, strict monotone increasing";
@@ -77,4 +77,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end splineMode;
+end splineSingleExtremum;

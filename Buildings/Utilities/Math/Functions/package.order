@@ -29,7 +29,7 @@ smoothMax
 smoothMin
 spliceFunction
 splineDerivatives
-splineMode
+splineSingleExtremum
 trapezoidalIntegration
 Examples
 BaseClasses
