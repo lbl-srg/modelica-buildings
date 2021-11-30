@@ -1,10 +1,10 @@
 within Buildings.Utilities.Math.Functions;
 function splineMode
-  "Find the mode of a unimodal cubic Hermite spline"
+  "Find the single extrema of a cubic Hermite spline"
   extends Modelica.Icons.Function;
   input Real x[:] "Support point, strict monotone increasing";
   input Real y[size(x, 1)] "Function values at x";
-  output Real m[2] "The mode as (x,y)";
+  output Real m[2] "The extrema (x,y) as array {x,y}";
 
 protected
   Integer cnt "Count of extrema";
@@ -13,7 +13,7 @@ protected
   Real r[2,2] "Roots of the derivative equation";
   Real rIn "The root within the target interval";
 
-  // Within the target interval
+  // Within the interval on which the extrema occurs
   Real x1 "Lower abscissa value";
   Real x2 "Higher abscissa value";
   Real y1 "Lower ordinate value";
@@ -28,11 +28,9 @@ algorithm
   d := Buildings.Utilities.Math.Functions.splineDerivatives(
     x=x,y=y,ensureMonotonicity=false);
   cnt := 0;
-  //flag:=false;
   for i in 1:n-1 loop
     if d[i]*d[i + 1] <= 0 then
       //Identify the target interval at sign change
-      //flag:=true;
       cnt := cnt+1;
       x1 :=x[i];
       x2 :=x[i + 1];
@@ -42,15 +40,14 @@ algorithm
       y2d :=d[i + 1]*(x2-x1);
     end if;
   end for;
-  //  assert(flag,"Mode not found");
-  assert(cnt==1,"The curve provided is not unimodal. 
+  assert(cnt==1,"The curve provided has more than one extremum.
          The derivative of the provided spline changed sign "
          + String(cnt) + " times.");
 
   //Root of the derivative mapped to [0,1]
   r :=Modelica.Math.Vectors.Utilities.roots(
     {6*y1 + 3*y1d - 6*y2 + 3*y2d,-6*y1 - 4*y1d + 6*y2 - 2*y2d,y1d});
-  //With unimodality, exactly one of the two roots will be in (0,1)
+  //With a single extremum, exactly one of the two roots will be in (0,1)
   if (r[1,1]>0) and (r[1,1]<1) then
     rIn :=r[1,1];
   else
@@ -64,13 +61,12 @@ algorithm
   annotation(smoothOrder=1,
               Documentation(info="<html>
 <p>
-This function finds the mode of a unimodal interval within two adjacent knots
-of a cubic Hermite spline.
-The spline provided must be unimodal.
-The function solves for the roots of the derivative on the interval 
-between the two knots where the mode occurs.
-Although by definition it is meant to find the maximum of a convex curve,
-it also works for finding the minimum of a concave curve.
+This function finds the single extremum of a cubic Hermite spline.
+The spline provided must have exactly one extremum.
+The function solves for the roots of the derivative on the target interval
+which is between two adjacent knots where the extremum occurs.
+Even though the derivative is quadratic, there should be exactly one root
+that falls within the target interval.
 </p>
 </html>",
 revisions="<html>
