@@ -75,6 +75,44 @@ This example validates
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChilledBeamSystem.Terminal.TerminalController\">
 Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChilledBeamSystem.Terminal.TerminalController</a>.
 </p>
+<p>
+It consists of an open-loop setup for the terminal controller block <code>terCon</code>,
+with boolean pulse signals <code>booPul1</code> and <code>booPul</code> for the 
+detected occupancy input <code>terCon.uDetOcc</code> and the detected condensation signal
+<code>terCon.uConSen</code>. It also has sinusoidal inputs <code>sin1</code> and <code>sin</code>
+for the measured zone temperature input <code>terCon.TZon</code> and the measured terminal
+discharge air flowrate <code>terCon.VDis_flow</code>. The chilled water valve position signal
+<code>terCon.yChiVal</code> is captured using a unit delay block <code>uniDel</code> and 
+is provided as input to the measured chilled water valve position input <code>terCon.uChiVal</code>.
+</p>
+<p>
+The following observations should be apparent from the simulation plots:
+<ol>
+<li>
+Valve position signal <code>terCon.yChiVal</code> is increased from <code>0</code> whenever <code>terCon.TZon</code>
+exceeds the zone cooling setpoint temperature <code>terCon.zonRegCon.TZonSet.TZonCooSet</code>.
+It is reduced to <code>0</code> whenever <code>terCon.uConSen</code> becomes <code>true</code>
+for duration <code>conSenOnThr</code>.
+</li>
+<li>
+It also determines the number of chilled water supply requests 
+<code>terCon.yChiWatSupReq</code> and temperature reset requests <code>terCon.TChiWatReq</code>.
+<code>terCon.TChiWatReq</code> should be zero whenever <code>terCon.uConSen</code>
+becomes <code>true</code> for duration <code>conSenOnThr</code>.
+</li>
+<li>
+Terminal reheat signal <code>terCon.yReh</code> is increased from <code>0</code> 
+whenever <code>terCon.TZon</code> falls below the zone heating setpoint temperature 
+<code>terCon.zonRegCon.TZonSet.TZonHeaSet</code>.
+</li>
+<li>
+Terminal damper position signal <code>terCon.yDam</code> is increased from <code>0</code>
+whenever <code>terCon.VDis_flow</code> falls below the discharge air flowrate setpoint
+<code>terCon.zonRegCon.mulSum.y</code>. It is changed to <code>1</code> whenever
+<code>terCon.uConSen</code> becomes <code>true</code> for duration <code>conSenOnThr</code>.
+</li>
+</ol>
+</p>
 </html>", revisions="<html>
 <ul>
 <li>

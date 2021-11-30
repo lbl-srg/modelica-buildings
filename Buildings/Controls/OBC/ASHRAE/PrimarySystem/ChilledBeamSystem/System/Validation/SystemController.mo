@@ -3,7 +3,7 @@ model SystemController
   "Validate zone temperature setpoint controller"
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChilledBeamSystem.System.SystemController
-    sysCon
+    sysCon(dPChiWatMax=31000)
     "System controller"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 
@@ -29,14 +29,14 @@ protected
 equation
   connect(pul.y, sysCon.uValPos)
     annotation (Line(points={{-58,0},{-40,0},{-40,-4},{-12,-4}}, color={0,0,127}));
-  connect(sin2.y, sysCon.dPChiWatLoo)
-    annotation (Line(points={{-58,40},{-28,40},{-28,0},{-12,0}}, color={0,0,127}));
   connect(sysCon.yChiWatPum, pre1.u)
     annotation (Line(points={{12,4},{20,4},{20,0},{28,0}}, color={255,0,255}));
   connect(pre1.y, sysCon.uPumSta)
     annotation (Line(points={{52,0},{60,0},{60,50},{-20,50},{-20,4},{-12,4}},
       color={255,0,255}));
 
+  connect(sin2.y, sysCon.dPChiWatLoo) annotation (Line(points={{-58,40},{-30,40},
+          {-30,0},{-12,0}}, color={0,0,127}));
 annotation (
   experiment(
       StopTime=3600,
@@ -50,6 +50,46 @@ annotation (
 This example validates
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChilledBeamSystem.System.SystemController\">
 Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChilledBeamSystem.System.SystemController</a>.
+</p>
+<p>
+It consists of an open-loop setup for the system controller <code>sysCon</code> block, with
+a time-varying sinusoidal input <code>sin2</code> (varying between <code>17500 Pa</code> and 
+<code>32500 Pa</code>) for the measured chilled water loop differential pressure <code>sysCon.dPChiWatLoo</code>, 
+and a periodic pulse input <code>pul</code> for the measured chilled water valve 
+position <code>sysCon.uValPos</code>. A logical pre block <code>pre1</code> is used to 
+capture the pump enable output signal <code>sysCon.yChiWatPum</code> and provide it 
+back as an input to the pump status signal <code>sysCon.uPumSta</code>. The trim-and-respond
+parameters for the chilled water static pressure setpoint reset in <code>sysCon</code>
+use nominal pressure <code>30000 Pa</code> and minimum pressure <code>20000 Pa</code>.
+</p>
+<p>
+The following observations should be apparent from the simulation plots:
+<ol>
+<li>
+The lead pump enable signal <code>sysCon.yChiWatPum[1]</code> becomes </code>true</code>
+when <code>sysCon.uValPos</code> changes to <code>1</code>. It becomes <code>false</code>
+when <code>sysCon.uValPos</code> changes to <code>0</code>.
+</li>
+<li>
+When <code>sysCon.dPChiWatLoo</code> falls below the calculated static pressure 
+setpoint <code>sysCon.chiWatStaPreSetRes.yStaPreSetPoi</code>,an increase in pump 
+speed output signal <code>sysCon.yPumSpe</code> is observed.
+</li>
+<li>
+The lag pump enable signal <code>sysCon.yChiWatPum[2]</code> becomes <code>true</code> when 
+<code>sysCon.yPumSpe</code> exceeds pump speed limit <code>sysCon.speLim1</code>
+for duration <code>sysCon.timPer2</code>, and becomes <code>false</code> when it
+falls below <code>sysCon.speLim2</code> for <code>sysCon.timPer3</code>.
+</li>
+<li>
+The bypass valve position signal <code>sysCon.yBypValPos</code> becomes <code>0</code>
+when <code>sysCon.yChiWatPum[1] == true</code> and is <code>1</code>
+when <code>sysCon.yChiWatPum[1] == false</code>.
+<code>sysCon.yBypValPos</code> is increased from <code>0</code> if <code>sysCon.yChiWatPum[1] == true</code>,
+<code>sysCon.yPumSpe</code> is at minimum pump speed <code>sysCon.minPumSpe</code>
+and <code>sysCon.dPChiWatLoo</code> exceeds maximum pressure allowed <code>sysCon.dPChiWatMax</code>.
+</li>
+</ol>
 </p>
 </html>", revisions="<html>
 <ul>

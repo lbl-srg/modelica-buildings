@@ -12,6 +12,6 @@ compareVars :=
     "pumCon.enaLagSecPum.tim.y",
     "pumCon.enaLagSecPum.tim2.y",
     "pumCon.yChiWatPum[1]",
-    "pumCon.dpChiWat_remote[1]",
+    "pumCon.dpChiWat_remote",
     "pumCon.dpChiWatSet"
   };

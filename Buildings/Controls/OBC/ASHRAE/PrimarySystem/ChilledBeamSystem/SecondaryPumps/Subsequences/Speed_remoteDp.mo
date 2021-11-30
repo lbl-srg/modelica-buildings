@@ -19,12 +19,12 @@ block Speed_remoteDp
     annotation(Dialog(group="Speed controller"));
 
   parameter Real Ti(
+    final quantity="Time",
     final unit="s",
-    displayUnit="s",
-    final quantity="time",
-    final min=0) = 0.5
+    displayUnit="s") = 0.5
     "Time constant of integrator block"
-    annotation(Dialog(group="Speed controller"));
+    annotation(Dialog(group="Speed controller",
+      enable = controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PI or controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
 
   parameter Real Td(
     final unit="s",
@@ -32,6 +32,11 @@ block Speed_remoteDp
     final quantity="time",
     final min=0) = 0.1
     "Time constant of derivative block"
+    annotation (Dialog(group="Speed controller",
+      enable = controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PD or controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
+
+  parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerType = Buildings.Controls.OBC.CDL.Types.SimpleController.PI
+    "Controller type for pump speed control"
     annotation (Dialog(group="Speed controller"));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uChiWatPum[nPum]
@@ -59,7 +64,8 @@ block Speed_remoteDp
     final min=minPumSpe,
     final max=maxPumSpe,
     final unit="1",
-    displayUnit="1") "Chilled water pump speed"
+    displayUnit="1")
+    "Chilled water pump speed"
     annotation (Placement(transformation(extent={{120,80},{160,120}}),
       iconTransformation(extent={{100,-20},{140,20}})));
 
@@ -69,32 +75,35 @@ block Speed_remoteDp
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Line pumSpe
-    "Pump speed"
+    "Convert PI signal into linear transformation between minimum and maximum pump speed"
     annotation (Placement(transformation(extent={{60,50},{80,70}})));
 
 protected
   Buildings.Controls.OBC.CDL.Continuous.PIDWithReset conPID[nSen](
-    final controllerType=fill(Buildings.Controls.OBC.CDL.Types.SimpleController.PID,nSen),
+    final controllerType=fill(controllerType, nSen),
     final k=fill(k, nSen),
     final Ti=fill(Ti, nSen),
     final Td=fill(Td, nSen),
     final yMax=fill(1,nSen),
-    final yMin=fill(0,nSen))
+    final yMin=fill(0,nSen),
+    final xi_start=fill(1,nSen),
+    final yd_start=fill(1,nSen))
     "PID controller for regulating remote differential pressure"
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
 
   Buildings.Controls.OBC.CDL.Logical.Edge edg
-    "Reset PID loop when it is activated"
+    "Reset PID loop when the pump system is enabled"
     annotation (Placement(transformation(extent={{-40,-50},{-20,-30}})));
 
   Buildings.Controls.OBC.CDL.Logical.MultiOr mulOr(
-    final nin=nPum) "Check if any chilled water pumps are enabled"
+    final nin=nPum)
+    "Check if any chilled water pumps are enabled"
     annotation (Placement(transformation(extent={{-100,-10},{-80,10}})));
 
   Buildings.Controls.OBC.CDL.Routing.RealScalarReplicator reaRep(
     final nout=nSen)
     "Replicate real input"
-    annotation (Placement(transformation(extent={{-100,-110},{-80,-90}})));
+    annotation (Placement(transformation(extent={{-70,-110},{-50,-90}})));
 
   Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator booRep(
     final nout=nSen)
@@ -134,9 +143,13 @@ protected
     "Logical switch"
     annotation (Placement(transformation(extent={{80,90},{100,110}})));
 
+  Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar(
+    final p=1e-6,
+    final k=1)
+    "Ensure zero setpoint does not cause division by zero"
+    annotation (Placement(transformation(extent={{-110,-110},{-90,-90}})));
+
 equation
-  connect(dpChiWatSet, reaRep.u)
-    annotation (Line(points={{-140,-100},{-102,-100}}, color={0,0,127}));
 
   connect(zer.y, pumSpe.x1)
     annotation (Line(points={{2,80},{20,80},{20,68},{58,68}}, color={0,0,127}));
@@ -156,10 +169,6 @@ equation
 
   connect(dpChiWat, div.u1)
     annotation (Line(points={{-140,-60},{-40,-60},{-40,-74},{-22,-74}},
-      color={0,0,127}));
-
-  connect(reaRep.y, div.u2)
-    annotation (Line(points={{-78,-100},{-40,-100},{-40,-86},{-22,-86}},
       color={0,0,127}));
 
   connect(one.y, reaRep1.u)
@@ -191,6 +200,12 @@ equation
     annotation (Line(points={{42,0},{50,0},{50,0},{58,0}},   color={0,0,127}));
   connect(pumSpe_max.y, swi.u3) annotation (Line(points={{2,40},{10,40},{10,92},
           {78,92}}, color={0,0,127}));
+  connect(reaRep.y, div.u2) annotation (Line(points={{-48,-100},{-40,-100},{-40,
+          -86},{-22,-86}}, color={0,0,127}));
+  connect(dpChiWatSet, addPar.u)
+    annotation (Line(points={{-140,-100},{-112,-100}}, color={0,0,127}));
+  connect(addPar.y, reaRep.u)
+    annotation (Line(points={{-88,-100},{-72,-100}}, color={0,0,127}));
 annotation (
   defaultComponentName="chiPumSpe",
   Icon(coordinateSystem(extent={{-100,-100},{100,100}}),

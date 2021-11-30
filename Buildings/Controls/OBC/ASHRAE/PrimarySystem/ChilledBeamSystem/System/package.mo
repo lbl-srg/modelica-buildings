@@ -33,5 +33,11 @@ annotation (Icon(graphics={
           lineColor={128,128,128},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid,
-          extent={{-80.0,0.0},{-20.0,60.0}})}));
+          extent={{-80.0,0.0},{-20.0,60.0}})}),
+  Documentation(info="<html>
+    <p>
+    This package contains control sequences for the main chilled beam system, consisting
+    of the chilled water pumps and the pressure-relief bypass valve.
+    </p>
+    </html>"));
 end System;

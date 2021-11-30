@@ -3,7 +3,9 @@ model Speed_remoteDp
   "Validate sequence of controlling chilled water pump speed using remote DP"
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChilledBeamSystem.SecondaryPumps.Subsequences.Speed_remoteDp
-    chiPumSpe(nSen=2, nPum=2)
+    chiPumSpe(
+    final nSen=2,
+    final nPum=2)
     "Chilled water pump speed control based on remote hardwired differential pressure sensor"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
 

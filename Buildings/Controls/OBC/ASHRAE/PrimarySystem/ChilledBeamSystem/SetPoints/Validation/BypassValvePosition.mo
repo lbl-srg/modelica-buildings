@@ -1,6 +1,6 @@
 within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChilledBeamSystem.SetPoints.Validation;
 model BypassValvePosition
-    "Validate bypass valve position setpoint controller"
+  "Validate bypass valve position setpoint controller"
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChilledBeamSystem.SetPoints.BypassValvePosition
     bypValPos
@@ -25,7 +25,8 @@ protected
 
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul[2](
     final period=fill(4000,2),
-    final shift=fill(10, 2)) "Boolean pulse source"
+    final shift=fill(10, 2))
+    "Boolean pulse source"
     annotation (Placement(transformation(extent={{-80,30},{-60,50}})));
 
 equation

@@ -1,6 +1,6 @@
 within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChilledBeamSystem.SetPoints;
 block BypassValvePosition
-    "Block with sequences for calculating bypass valve position"
+  "Block with sequences for calculating bypass valve position"
 
   parameter Integer nPum = 2
     "Number of pumps in the chilled water loop";
@@ -31,12 +31,18 @@ block BypassValvePosition
     final unit="s",
     displayUnit="s",
     final quantity="Time") = 0.5
-    "Time constant of integrator block";
+    "Time constant of integrator block"
+    annotation(Dialog(enable = controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PI or controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
 
-  parameter Real Td=0.1
-    "Time constant of derivative block";
+  parameter Real Td(
+    final unit="s",
+    displayUnit="s",
+    final quantity="Time",
+    final min=0)=0.1
+    "Time constant of derivative block"
+    annotation(Dialog(enable = controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PD or controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
 
-  parameter CDL.Types.SimpleController controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI
+  parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI
     "Type of controller";
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uPumSta[nPum]
@@ -68,7 +74,7 @@ block BypassValvePosition
 
 protected
   Buildings.Controls.OBC.CDL.Logical.Switch swi
-    "Real switch"
+    "Real switch for regulating bypass valve position once all conditions are satisfied"
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys(
@@ -78,38 +84,39 @@ protected
     annotation (Placement(transformation(extent={{-90,-10},{-70,10}})));
 
   Buildings.Controls.OBC.CDL.Logical.Not not1
-    "Logical not"
+    "Enable when pump speed is at minimum"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
 
   Buildings.Controls.OBC.CDL.Logical.And and2
-    "Logical And"
+    "Regulate bypass valve position only when pump is enabled and at minimum speed"
     annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
 
   Buildings.Controls.OBC.CDL.Logical.Switch swi1
-    "Real switch"
+    "Ensure bypass valve is open when no pumps are enabled and close it when any pump is enabled"
     annotation (Placement(transformation(extent={{20,40},{40,60}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con(
     final k=0)
-    "Constant real source"
+    "Constant real zero source"
     annotation (Placement(transformation(extent={{-20,60},{0,80}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con1(
     final k=1)
-    "Constant real source"
+    "Constant real one source"
     annotation (Placement(transformation(extent={{-20,20},{0,40}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.PID conPID(
+  Buildings.Controls.OBC.CDL.Continuous.PIDWithReset conPID(
     final controllerType=controllerType,
     final k=k,
     final Ti=Ti,
-    Td=Td,
-    final reverseActing=false)
-    "PID controller"
+    final Td=Td,
+    reverseActing=false)
+    "PID controller for regulating differential pressure at or below max pressure setpoint"
     annotation (Placement(transformation(extent={{20,-60},{40,-40}})));
 
   Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar(
-    final p=-dPChiWatMax, k=1)
+    final p=-dPChiWatMax,
+    final k=1)
     "Find error in meaured differential pressure from maximum allowed value"
     annotation (Placement(transformation(extent={{-80,-60},{-60,-40}})));
 
@@ -121,7 +128,7 @@ protected
 
   Buildings.Controls.OBC.CDL.Logical.MultiOr mulOr(
     final nin=nPum)
-    "Multi Or"
+    "Check if any chilled water pump is enabled"
     annotation (Placement(transformation(extent={{-80,40},{-60,60}})));
 
 equation
@@ -173,6 +180,8 @@ equation
   connect(addPar1.y, conPID.u_m) annotation (Line(points={{-18,-50},{-10,-50},{
           -10,-72},{30,-72},{30,-62}}, color={0,0,127}));
 
+  connect(and2.y, conPID.trigger) annotation (Line(points={{2,0},{6,0},{6,-66},{
+          24,-66},{24,-62}}, color={255,0,255}));
   annotation (defaultComponentName="bypValPos",
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
             {100,100}}), graphics={

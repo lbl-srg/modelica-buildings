@@ -33,5 +33,12 @@ annotation (Icon(graphics={
           lineColor={128,128,128},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid,
-          extent={{-80.0,0.0},{-20.0,60.0}})}));
+          extent={{-80.0,0.0},{-20.0,60.0}})}),
+  Documentation(info="<html>
+    <p>
+    This package contains control sequences for the zone regulation components,
+    including the chilled beam manifold control, and zone CAV terminal damper 
+    position and reheat controls.
+    </p>
+    </html>"));
 end Terminal;

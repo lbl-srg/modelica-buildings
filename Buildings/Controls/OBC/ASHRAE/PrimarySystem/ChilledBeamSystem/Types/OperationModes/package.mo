@@ -1,5 +1,5 @@
 within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChilledBeamSystem.Types;
-package OperationModeTypes "Definitions for operation mode types"
+package OperationModes "Definitions for operation modes"
 
   constant Integer occupied = 1
     "System is operated in this mode when zone is occupied.";
@@ -38,4 +38,4 @@ package OperationModeTypes "Definitions for operation mode types"
            lineColor={128,128,128},
            extent={{-100,-100},{100,100}},
            radius=25.0)}));
-end OperationModeTypes;
+end OperationModes;
