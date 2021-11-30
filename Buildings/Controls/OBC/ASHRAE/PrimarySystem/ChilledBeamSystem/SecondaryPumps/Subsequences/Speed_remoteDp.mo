@@ -85,8 +85,7 @@ block Speed_remoteDp
     Td=fill(Td, nSen),
     final yMax=fill(1,nSen),
     final yMin=fill(0,nSen),
-    xi_start=fill(1,nSen),
-    yd_start=fill(1,nSen))
+    xi_start=fill(1,nSen))
     "PID controller for regulating remote differential pressure"
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
 
