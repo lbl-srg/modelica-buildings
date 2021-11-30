@@ -413,6 +413,12 @@ have been <b style=\"color:blue\">improved</b> in a
                        This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2545\">issue #2545</a>.
     </td>
 </tr>
+<tr><td valign=\"top\">Buildings.Examples.VAVReheat.Validation.BaseClasses.Floor
+    </td>
+    <td valign=\"top\">Update CO2 generation expressions.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2781\">issue #2781</a>.
+    </td>
+</tr>
 <tr><td valign=\"top\">Buildings.Examples.DualFanDualDuct.ClosedLoop<br/>
                        Buildings.Examples.ScalableBenchmarks.BuildingVAV.Examples.OneFloor_OneZone<br/>
                        Buildings.Examples.VAVReheat.BaseClasses.PartialOpenLoop
