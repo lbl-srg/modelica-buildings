@@ -98,12 +98,24 @@ partial model PartialCoil
       visible=typ<>Buildings.Templates.Components.Types.Coil.None and
         fun==Buildings.Templates.Components.Types.CoilFunction.Cooling,
       extent={{-53,-100},{53,100}},
-      fileName="modelica://Buildings/Resources/Images/Templates/Components/Coils/WaterBasedCooling.svg"),
+      fileName="modelica://Buildings/Resources/Images/Templates/Components/Coils/Cooling.svg"),
     Bitmap(
       visible=typ<>Buildings.Templates.Components.Types.Coil.None and
-        fun==Buildings.Templates.Components.Types.CoilFunction.Heating,
+        fun==Buildings.Templates.Components.Types.CoilFunction.Cooling,
+      extent={{-60,-440},{60,-300}},
+      fileName="modelica://Buildings/Resources/Images/Templates/Components/Coils/ChilledWaterSupplyReturn.svg"),
+    Bitmap(
+      visible=typ<>Buildings.Templates.Components.Types.Coil.None and
+        (fun==Buildings.Templates.Components.Types.CoilFunction.Heating or
+        fun==Buildings.Templates.Components.Types.CoilFunction.Reheat),
       extent={{-53,-100},{53,100}},
-      fileName="modelica://Buildings/Resources/Images/Templates/Components/Coils/WaterBasedHeating.svg"),
+      fileName="modelica://Buildings/Resources/Images/Templates/Components/Coils/Heating.svg"),
+    Bitmap(
+      visible=typ<>Buildings.Templates.Components.Types.Coil.None and
+        (fun==Buildings.Templates.Components.Types.CoilFunction.Heating or
+        fun==Buildings.Templates.Components.Types.CoilFunction.Reheat),
+      extent={{-60,-440},{60,-300}},
+      fileName="modelica://Buildings/Resources/Images/Templates/Components/Coils/HotWaterSupplyReturn.svg"),
     Bitmap(
       visible=typVal==Buildings.Templates.Components.Types.Valve.TwoWay,
       extent={{-100,-300},{40,-100}},

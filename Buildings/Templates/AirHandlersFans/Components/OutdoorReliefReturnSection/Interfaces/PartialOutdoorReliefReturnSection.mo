@@ -171,18 +171,27 @@ partial model PartialOutdoorReliefReturnSection
   annotation (Icon(coordinateSystem(preserveAspectRatio=false,
     extent={{-800,-800}, {800,800}}),
     graphics={
-        Text(
+      Text(
           extent={{-149,-834},{151,-874}},
           lineColor={0,0,255},
           textString="%name"),
-                Bitmap(
+      Bitmap(
         visible=typFanRet==Buildings.Templates.Components.Types.Fan.SingleVariable,
         extent={{540,500},{310,700}},
         fileName="modelica://Buildings/Resources/Images/Templates/Components/Fans/SingleVariable.svg"),
-              Bitmap(
+      Bitmap(
         visible=typFanRet==Buildings.Templates.Components.Types.Fan.MultipleVariable,
-        extent={{490,500},{402,700}},
+        extent={{442,500},{376,700}},
         fileName="modelica://Buildings/Resources/Images/Templates/Components/Fans/MultipleVariable.svg"),
+      Bitmap(
+        visible=typFanRet<>Buildings.Templates.Components.Types.Fan.None,
+        extent={{358,240},{520,440}},
+        fileName="modelica://Buildings/Resources/Images/Templates/Components/Fans/VFD.svg"),
+      Line(
+        visible=typFanRet<>Buildings.Templates.Components.Types.Fan.None,
+          points={{440,440},{440,500}},
+          color={0,0,0},
+          thickness=1),
       Bitmap(
         visible=typDamRel==Buildings.Templates.Components.Types.Damper.TwoPosition,
         extent={{-680,360},{-600,440}},
@@ -201,8 +210,17 @@ partial model PartialOutdoorReliefReturnSection
         fileName="modelica://Buildings/Resources/Images/Templates/Components/Fans/SingleVariable.svg"),
               Bitmap(
         visible=typFanRel==Buildings.Templates.Components.Types.Fan.MultipleVariable,
-        extent={{-200,500},{-270,700}},
+        extent={{-238,500},{-304,700}},
         fileName="modelica://Buildings/Resources/Images/Templates/Components/Fans/MultipleVariable.svg"),
+      Bitmap(
+        visible=typFanRel<>Buildings.Templates.Components.Types.Fan.None,
+        extent={{-320,240},{-158,440}},
+        fileName="modelica://Buildings/Resources/Images/Templates/Components/Fans/VFD.svg"),
+      Line(
+        visible=typFanRel<>Buildings.Templates.Components.Types.Fan.None,
+          points={{-240,440},{-240,500}},
+          color={0,0,0},
+          thickness=1),
       Bitmap(
         visible=typ<>Buildings.Templates.AirHandlersFans.Types.OutdoorReliefReturnSection.NoEconomizer,
         extent={{-240,-40},{-160,40}},
@@ -246,7 +264,7 @@ partial model PartialOutdoorReliefReturnSection
         visible=typ==Buildings.Templates.AirHandlersFans.Types.OutdoorReliefReturnSection.EconomizerNoRelief,
         points={{-100,700},{-100,500}},
         color={0,0,0}),
-      Line(points={{100,500},{800,500}},color={0,0,0}),
+      Line(points={{96,500},{796,500}}, color={0,0,0}),
       Line(points={{100,-500},{800,-500}},color={0,0,0}),
       Line(points={{-800,-500},{-100,-500}},color={0,0,0}),
       Line(points={{-800,-700},{800,-700}}, color={0,0,0}),
@@ -295,8 +313,12 @@ partial model PartialOutdoorReliefReturnSection
           thickness=1),
       Bitmap(
         visible=typSecOut==Buildings.Templates.AirHandlersFans.Types.OutdoorSection.DedicatedDamperAirflow,
-        extent={{-200,-500},{-100,-300}},
+        extent={{-202,-240},{-100,-500}},
         fileName="modelica://Buildings/Resources/Images/Templates/Components/Sensors/VolumeFlowRateAFMS.svg"),
+      Bitmap(
+        visible=typSecOut==Buildings.Templates.AirHandlersFans.Types.OutdoorSection.DedicatedDamperAirflow,
+        extent={{-194,-240},{-106,-160}},
+        fileName="modelica://Buildings/Resources/Images/Templates/Components/Sensors/VolumeFlowRate.svg"),
       Bitmap(
         visible=typFanRet<>Buildings.Templates.Components.Types.Fan.None and
           typCtrFanRet==Buildings.Templates.AirHandlersFans.Types.ControlFanReturn.Airflow,
@@ -351,8 +373,12 @@ partial model PartialOutdoorReliefReturnSection
         fileName="modelica://Buildings/Resources/Images/Templates/Components/Sensors/ProbeStandard.svg"),
       Bitmap(
         visible=typSecOut==Buildings.Templates.AirHandlersFans.Types.OutdoorSection.SingleDamper,
-        extent={{-200,-700},{-100,-500}},
-        fileName="modelica://Buildings/Resources/Images/Templates/Components/Sensors/VolumeFlowRateAFMS.svg")}),
+        extent={{-202,-760},{-100,-500}},
+        fileName="modelica://Buildings/Resources/Images/Templates/Components/Sensors/VolumeFlowRateAFMS.svg"),
+      Bitmap(
+        visible=typSecOut==Buildings.Templates.AirHandlersFans.Types.OutdoorSection.SingleDamper,
+        extent={{-194,-840},{-106,-760}},
+        fileName="modelica://Buildings/Resources/Images/Templates/Components/Sensors/VolumeFlowRate.svg")}),
    Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-180,-140},{180,140}})));
 end PartialOutdoorReliefReturnSection;

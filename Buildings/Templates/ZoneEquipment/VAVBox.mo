@@ -20,18 +20,19 @@ model VAVBox "VAV terminal unit"
   Modelica.Fluid.Interfaces.FluidPort_a port_coiRehSup(
     redeclare final package Medium =MediumHea) if have_souCoiReh
     "Reheat coil supply port"
-    annotation (Placement(transformation(extent={{-30,-290},{-10,-270}}),
+    annotation (Placement(transformation(extent={{10,-290},{30,-270}}),
       iconTransformation(extent={{-30,-208},{-10,-188}})));
   Modelica.Fluid.Interfaces.FluidPort_b port_coiRehRet(
     redeclare final package Medium =MediumHea) if have_souCoiReh
     "Reheat coil return port"
-    annotation (Placement(transformation(extent={{10,-290},{30,-270}}),
+    annotation (Placement(transformation(extent={{-30,-290},{-10,-270}}),
       iconTransformation(extent={{10,-208},{30,-188}})));
 
   inner replaceable Buildings.Templates.Components.Coils.None coiReh
     constrainedby Buildings.Templates.Components.Coils.Interfaces.PartialCoil(
-      final fun=Templates.Components.Types.CoilFunction.Reheat)
-      "Reheat coil" annotation (
+      final fun=Buildings.Templates.Components.Types.CoilFunction.Reheat)
+    "Reheat coil"
+    annotation (
     choices(
       choice(redeclare Buildings.Templates.Components.Coils.None coiReh "No coil"),
       choice(redeclare Buildings.Templates.Components.Coils.WaterBasedHeating coiReh
@@ -39,19 +40,22 @@ model VAVBox "VAV terminal unit"
     Dialog(group="Reheat coil"),
     Placement(transformation(extent={{-10,-210},{10,-190}})));
 
-  inner replaceable .Buildings.Templates.Components.Dampers.PressureIndependent damVAV
-    constrainedby Buildings.Templates.Components.Dampers.Interfaces.PartialDamper(
+  inner replaceable Buildings.Templates.Components.Dampers.PressureIndependent damVAV
+    constrainedby
+    Buildings.Templates.Components.Dampers.Interfaces.PartialDamper(
       redeclare final package Medium = MediumAir,
       final m_flow_nominal=m_flow_nominal,
       final dpDamper_nominal=dpDamVAV_nominal)
     "VAV damper"
-    annotation (Dialog(group="VAV damper"), Placement(
+    annotation (Dialog(group="VAV damper"),
+      Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-120,-200})));
 
-  inner replaceable Components.Controls.OpenLoop con constrainedby
+  inner replaceable Buildings.Templates.ZoneEquipment.Components.Controls.OpenLoop con
+    constrainedby
     Buildings.Templates.ZoneEquipment.Components.Controls.Interfaces.PartialController
     "Terminal unit controller"
     annotation (
@@ -61,22 +65,29 @@ model VAVBox "VAV terminal unit"
 
   Buildings.Templates.Components.Sensors.Temperature TDis(
     redeclare final package Medium = MediumAir,
-    final have_sen=con.typ == Types.Controller.Guideline36,
-    final m_flow_nominal=m_flow_nominal)
+    final have_sen=con.typ==Buildings.Templates.ZoneEquipment.Types.Controller.Guideline36,
+    final m_flow_nominal=m_flow_nominal,
+    final typ=Buildings.Templates.Components.Types.SensorTemperature.Standard)
     "Discharge air temperature sensor"
     annotation (Placement(transformation(extent={{90,-210},{110,-190}})));
+  Buildings.Templates.Components.Sensors.VolumeFlowRate VDis_flow(
+    redeclare final package Medium = MediumAir,
+    final have_sen=con.typ==Buildings.Templates.ZoneEquipment.Types.Controller.Guideline36,
+    final m_flow_nominal=m_flow_nominal,
+    final typ=Buildings.Templates.Components.Types.SensorVolumeFlowRate.FlowCross)
+    annotation (Placement(transformation(extent={{-200,-210},{-180,-190}})));
 equation
   /* Control point connection - start */
   connect(damVAV.bus, bus.damVAV);
   connect(coiReh.bus, bus.coiReh);
   connect(TDis.y, bus.TDis);
+  connect(VDis_flow.y, bus.VDis_flow);
   /* Control point connection - end */
-  connect(port_coiRehSup, coiReh.port_aSou) annotation (Line(points={{-20,-280},
-          {-20,-220},{-4,-220},{-4,-210}}, color={0,127,255}));
-  connect(coiReh.port_bSou, port_coiRehRet) annotation (Line(points={{4,-210},{
-          4,-220},{20,-220},{20,-280}}, color={0,127,255}));
-  connect(port_Sup, damVAV.port_a)
-    annotation (Line(points={{-300,-200},{-130,-200}}, color={0,127,255}));
+  connect(port_coiRehSup, coiReh.port_aSou) annotation (Line(points={{20,-280},{
+          20,-260},{4,-260},{4,-210}},     color={0,127,255}));
+  connect(coiReh.port_bSou, port_coiRehRet) annotation (Line(points={{-4,-210},{
+          -4,-260},{-20,-260},{-20,-280}},
+                                        color={0,127,255}));
   connect(damVAV.port_b, coiReh.port_a)
     annotation (Line(points={{-110,-200},{-10,-200}}, color={0,127,255}));
   connect(bus, con.bus) annotation (Line(
@@ -88,4 +99,13 @@ equation
   connect(TDis.port_b, port_Dis)
     annotation (Line(points={{110,-200},{300,-200}}, color={0,127,255}));
 
+  connect(port_Sup, VDis_flow.port_a)
+    annotation (Line(points={{-300,-200},{-200,-200}}, color={0,127,255}));
+  connect(VDis_flow.port_b, damVAV.port_a)
+    annotation (Line(points={{-180,-200},{-130,-200}}, color={0,127,255}));
+  annotation (Diagram(graphics={
+        Line(points={{300,-190},{-300,-190}},
+                                            color={0,0,0}),
+        Line(points={{300,-210},{-300,-210}},
+                                            color={0,0,0})}));
 end VAVBox;

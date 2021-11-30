@@ -6,6 +6,11 @@ partial model PartialDamper
     "Equipment type"
     annotation (Evaluate=true, Dialog(group="Configuration"));
 
+  parameter Buildings.Templates.Components.Types.DamperBlades typBla=
+    Buildings.Templates.Components.Types.DamperBlades.Parallel
+    "Type of blades"
+    annotation(Dialog(tab="Graphics", enable=false));
+
   parameter Integer text_rotation = 0
     "Text rotation angle in icon layer"
     annotation(Dialog(tab="Graphics", enable=false));
@@ -29,6 +34,7 @@ partial model PartialDamper
      <> Buildings.Templates.Components.Types.Damper.NoPath
     "Control bus"
     annotation (Placement(
+      visible=false,
       transformation(
         extent={{-20,-20},{20,20}},
         rotation=0,
@@ -39,14 +45,37 @@ partial model PartialDamper
         origin={0,100})));
 
   annotation (
-    Icon(coordinateSystem(preserveAspectRatio=false,
-      extent={{-100,-100},{100,100}}),
-      graphics={
-        Rectangle(
-          extent={{-100,100},{100,-100}},
-          lineColor={0,0,255},
-          fillColor={255,255,255},
-          fillPattern=FillPattern.Solid)}),
+    Icon(
+    graphics={
+     Bitmap(
+        visible=typ==Buildings.Templates.Components.Types.Damper.TwoPosition,
+        extent=if text_flip then {{40,-240},{-40,-160}} else {{-40,-240},{40,-160}},
+        rotation=text_rotation,
+        fileName="modelica://Buildings/Resources/Images/Templates/Components/Actuators/TwoPosition.svg"),
+     Bitmap(
+        visible=typ==Buildings.Templates.Components.Types.Damper.Modulated or
+          typ==Buildings.Templates.Components.Types.Damper.PressureIndependent,
+        extent=if text_flip then {{40,-240},{-40,-160}} else {{-40,-240},{40,-160}},
+        rotation=text_rotation,
+        fileName="modelica://Buildings/Resources/Images/Templates/Components/Actuators/Modulated.svg"),
+     Bitmap(
+        extent={{-40,-160},{40,100}},
+        visible=typ<>Buildings.Templates.Components.Types.Damper.None and
+          typBla==Buildings.Templates.Components.Types.DamperBlades.Parallel,
+        fileName="modelica://Buildings/Resources/Images/Templates/Components/Dampers/BladesParallel.svg"),
+     Bitmap(
+        extent={{-40,-160},{40,100}},
+        visible=typ<>Buildings.Templates.Components.Types.Damper.None and
+          typBla==Buildings.Templates.Components.Types.DamperBlades.Opposed,
+          fileName="modelica://Buildings/Resources/Images/Templates/Components/Dampers/BladesOpposed.svg"),
+     Bitmap(
+        extent={{-60,-160},{60,100}},
+        visible=typ<>Buildings.Templates.Components.Types.Damper.None and
+          typBla==Buildings.Templates.Components.Types.DamperBlades.VAV,
+        fileName="modelica://Buildings/Resources/Images/Templates/Components/Dampers/BladesVAV.svg")},
+      coordinateSystem(preserveAspectRatio=false,
+      extent={{-100,-100},{100,100}})),
      Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}})));
+
 end PartialDamper;

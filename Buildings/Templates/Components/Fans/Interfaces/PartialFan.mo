@@ -52,7 +52,8 @@ partial model PartialFan
   Buildings.Templates.Components.Sensors.VolumeFlowRate V_flow(
     redeclare final package Medium = Medium,
     final have_sen=have_senFlo,
-    final m_flow_nominal=m_flow_nominal)
+    final m_flow_nominal=m_flow_nominal,
+    final typ=Buildings.Templates.Components.Types.SensorVolumeFlowRate.AFMS)
     "Air volume flow rate sensor"
     annotation (
       Placement(transformation(extent={{70,-10},{90,10}})));
@@ -64,28 +65,41 @@ equation
     annotation (Line(points={{100,0},{90,0}}, color={0,127,255}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
     Bitmap(
-        visible=have_senFlo and typ<>Buildings.Templates.Components.Types.Fan.None,
-        extent=if text_flip then {{-140,-240},{-220,-160}} else {{-220,-240},{-140,-160}},
-        rotation=text_rotation,
-        fileName="modelica://Buildings/Resources/Images/Templates/Components/Sensors/VolumeFlowRate.svg"),
-    Line(
-      visible=have_senFlo,
-          points={{-180,0},{-50,0}},
-          color={0,0,0},
-          thickness=1),
-    Line(visible=have_senFlo and typ<>Buildings.Templates.Components.Types.Fan.None,
-          points={{-180,0},{-180,-160}},
-          color={0,0,0},
-          thickness=1),
-    Bitmap(
       visible=typ==Buildings.Templates.Components.Types.Fan.MultipleVariable,
-        extent={{-50,-100},{16,100}},
+        extent={{-2,-100},{64,100}},
         fileName="modelica://Buildings/Resources/Images/Templates/Components/Fans/MultipleVariable.svg"),
     Bitmap(
       visible=typ==Buildings.Templates.Components.Types.Fan.SingleVariable or
         typ==Buildings.Templates.Components.Types.Fan.SingleConstant,
         extent={{-100,-100},{128,100}},
-        fileName="modelica://Buildings/Resources/Images/Templates/Components/Fans/SingleVariable.svg")}),
+        fileName="modelica://Buildings/Resources/Images/Templates/Components/Fans/SingleVariable.svg"),
+    Bitmap(
+      visible=have_senFlo and typ<>Buildings.Templates.Components.Types.Fan.None,
+        extent=if text_flip then {{-140,-240},{-220,-160}} else {{-220,-240},{-140,-160}},
+        rotation=text_rotation,
+        fileName="modelica://Buildings/Resources/Images/Templates/Components/Sensors/VolumeFlowRate.svg"),
+    Line(
+      visible=have_senFlo and typ<>Buildings.Templates.Components.Types.Fan.None,
+          points={{-180,-160},{-180,0},{-100,0}},
+          color={0,0,0},
+          thickness=1),
+    Bitmap(
+      visible=typ==Buildings.Templates.Components.Types.Fan.SingleVariable or
+        typ==Buildings.Templates.Components.Types.Fan.MultipleVariable,
+        extent=if text_flip then {{80,-360},{-80,-160}} else {{-80,-360},{80,-160}},
+        rotation=text_rotation,
+        fileName="modelica://Buildings/Resources/Images/Templates/Components/Fans/VFD.svg"),
+    Line(
+      visible=typ==Buildings.Templates.Components.Types.Fan.SingleVariable or
+        typ==Buildings.Templates.Components.Types.Fan.MultipleVariable,
+          points={{0,-100},{0,-160}},
+          color={0,0,0},
+          thickness=1),
+    Line(
+      visible=have_senFlo and typ==Buildings.Templates.Components.Types.Fan.MultipleVariable,
+          points={{-100,0},{0,0}},
+          color={0,0,0},
+          thickness=1)}),
     Diagram(
         coordinateSystem(preserveAspectRatio=false)));
 end PartialFan;

@@ -1,7 +1,8 @@
 within Buildings.Templates.Components.Dampers;
 model TwoPosition "Two-position damper"
   extends Buildings.Templates.Components.Dampers.Interfaces.PartialDamper(
-    final typ=Buildings.Templates.Components.Types.Damper.TwoPosition);
+    final typ=Buildings.Templates.Components.Types.Damper.TwoPosition,
+    typBla=Buildings.Templates.Components.Types.DamperBlades.Opposed);
 
   parameter Buildings.Templates.Components.Types.DamperBlades typBla=
     Buildings.Templates.Components.Types.DamperBlades.Opposed
@@ -43,17 +44,4 @@ equation
     annotation (Line(points={{-2.22045e-15,38},{0,12}}, color={0,0,127}));
   connect(evaSta.y, bus.y_actual) annotation (Line(points={{-2.22045e-15,-62},{0,
           -62},{0,-80},{40,-80},{40,100},{0,100}},          color={255,0,255}));
-annotation(Icon(graphics={
-     Bitmap(
-        extent=if text_flip then {{40,-220},{-40,-140}} else {{-40,-220},{40,-140}},
-        rotation=text_rotation,
-        fileName="modelica://Buildings/Resources/Images/Templates/Components/Actuators/TwoPosition.svg"),
-      Bitmap(
-        extent={{-40,-140},{40,100}},
-        visible=typBla==Buildings.Templates.Components.Types.DamperBlades.Parallel,
-        fileName="modelica://Buildings/Resources/Images/Templates/Components/Dampers/BladesParallel.svg"),
-      Bitmap(
-        extent={{-40,-140},{40,100}},
-        visible=typBla==Buildings.Templates.Components.Types.DamperBlades.Opposed,
-        fileName="modelica://Buildings/Resources/Images/Templates/Components/Dampers/BladesOpposed.svg")}));
 end TwoPosition;

@@ -1,5 +1,5 @@
 within Buildings.Templates.Components.Sensors;
-model Temperature
+model Temperature "Temperature sensor"
   extends Buildings.Templates.Components.Sensors.Interfaces.PartialSensor(
     y(final unit="K", displayUnit="degC"),
     final isDifPreSen=false);
@@ -44,13 +44,13 @@ equation
         fileName="modelica://Buildings/Resources/Images/Templates/Components/Sensors/ProbeAveraging.svg"),
       Bitmap(
         extent=if text_flip then {{40,-240},{-40,-160}} else {{-40,-240},{40,-160}},
-        visible=have_sen and typ<>Buildings.Templates.Components.Types.SensorTemperature.InWell,
         rotation=text_rotation,
+        visible=have_sen and typ<>Buildings.Templates.Components.Types.SensorTemperature.InWell,
         fileName="modelica://Buildings/Resources/Images/Templates/Components/Sensors/Temperature.svg"),
       Bitmap(
         extent=if text_flip then {{40,160},{-40,240}} else {{-40,160},{40,240}},
-        visible=have_sen and typ==Buildings.Templates.Components.Types.SensorTemperature.InWell,
         rotation=text_rotation,
+        visible=have_sen and typ==Buildings.Templates.Components.Types.SensorTemperature.InWell,
         fileName="modelica://Buildings/Resources/Images/Templates/Components/Sensors/Temperature.svg")}),
     Diagram(coordinateSystem(preserveAspectRatio=false)));
 end Temperature;

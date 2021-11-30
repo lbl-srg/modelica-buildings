@@ -57,11 +57,25 @@ package Interfaces "Classes defining the component interfaces"
           Text(
             extent={{-145,-116},{155,-156}},
             lineColor={0,0,255},
-            textString="%name"),                                Rectangle(
-            extent={{-100,100},{100,-100}},
-            lineColor={0,0,255},
-            fillColor={255,255,255},
-            fillPattern=FillPattern.Solid)}), Diagram(
+            textString="%name"),
+      Bitmap(
+        visible=typ==Buildings.Templates.Components.Types.Valve.TwoWay or
+          typ==Buildings.Templates.Components.Types.Valve.ThreeWay,
+        extent={{-180,-40},{-100,40}},
+        fileName="modelica://Buildings/Resources/Images/Templates/Components/Actuators/Modulated.svg"),
+      Bitmap(
+        visible=typVal==Buildings.Templates.Components.Types.Valve.TwoWay,
+        extent={{-100,-100},{40,100}},
+        fileName="modelica://Buildings/Resources/Images/Templates/Components/Valves/TwoWay.svg"),
+      Bitmap(
+        visible=typ==Buildings.Templates.Components.Types.Valve.ThreeWay,
+        extent={{-100,-100},{40,100}},
+        fileName="modelica://Buildings/Resources/Images/Templates/Components/Valves/ThreeWay.svg"),
+      Bitmap(
+        visible=typ==Buildings.Templates.Components.Types.Valve.None,
+        extent={{-100,-100},{40,100}},
+        fileName="modelica://Buildings/Resources/Images/Templates/Components/Valves/None.svg")}),
+      Diagram(
           coordinateSystem(preserveAspectRatio=false)));
   end PartialValve;
 end Interfaces;

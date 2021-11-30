@@ -77,9 +77,9 @@
    inkscape:window-height="1016"
    id="namedview1498"
    showgrid="true"
-   inkscape:zoom="0.90509668"
-   inkscape:cx="843.00387"
-   inkscape:cy="522.04368"
+   inkscape:zoom="1.28"
+   inkscape:cx="663.28125"
+   inkscape:cy="572.26563"
    inkscape:window-x="40"
    inkscape:window-y="27"
    inkscape:window-maximized="1"
@@ -3878,56 +3878,56 @@
    transform="matrix(2.3047922,0,0,1.960627,2386.38,668.96791)"><tspan
      x="-882.04297"
      y="-136.98803"
-     id="tspan36465">. Select object, copy to new file
+     id="tspan9223">. Select object, copy to new file
 </tspan><tspan
      x="-882.04297"
      y="-124.44354"
-     id="tspan36467">. Change line color to black
+     id="tspan9225">. Change line color to black
 </tspan><tspan
      x="-882.04297"
      y="-111.89904"
-     id="tspan36469">. Account for 100 px / each grid cell in Dymola icon layer
+     id="tspan9227">. Account for 100 px / each grid cell in Dymola icon layer
 </tspan><tspan
      x="-882.04297"
      y="-99.354535"
-     id="tspan36471">. For most of the AHU components, lock width/height ratio and change height to 1000 px (lower </tspan><tspan
+     id="tspan9229">. For most of the AHU components, lock width/height ratio and change height to 1000 px (lower </tspan><tspan
      x="-882.04297"
      y="-86.810032"
-     id="tspan36473">resolution is blurry in Dymola)
+     id="tspan9231">resolution is blurry in Dymola)
 </tspan><tspan
      x="-882.04297"
      y="-74.26553"
-     id="tspan36475">  * For transducers, 1000 px is for the probe, 400 px for the box
+     id="tspan9233">  * For transducers, 1000 px is for the probe, 400 px for the box
 </tspan><tspan
      x="-882.04297"
      y="-61.721028"
-     id="tspan36477">. Change stroke width to 10 px. Reset height to 1000 px
+     id="tspan9235">. Change stroke width to 10 px. Reset height to 1000 px
 </tspan><tspan
      x="-882.04297"
      y="-49.176529"
-     id="tspan36479">. For polygons, select each segment with Node tool, and Convert selected object to path, and </tspan><tspan
+     id="tspan9237">. For polygons, select each segment with Node tool, and Convert selected object to path, and </tspan><tspan
      x="-882.04297"
      y="-36.632031"
-     id="tspan36481">Join slelected nodes
+     id="tspan9239">Join slelected nodes, and for the last corner use Path/Union 
 </tspan><tspan
      x="-882.04297"
      y="-24.087533"
-     id="tspan36483">. Text in sans-serif with font size of 150 (if needed, select text object and transform to path with </tspan><tspan
+     id="tspan9241">. Text in sans-serif with font size of 150 (if needed, select text object and transform to path with </tspan><tspan
      x="-882.04297"
      y="-11.543034"
-     id="tspan36485">Path/Object to Path)
+     id="tspan9243">Path/Object to Path)
 </tspan><tspan
      x="-882.04297"
      y="9.8498568"
-     id="tspan36489"><tspan
+     id="tspan9247"><tspan
        dx="0 3.190027 3.190027 6.3702531 6.1742458 2.7882118 6.1742458 5.5176182 3.9348564 3.1900291 6.1399422 6.3702545 2.7882118 6.1742439 5.5176239 3.9348526 3.1900253 3.190033 6.3408508 6.3702545 2.788208 3.9348602 3.381134 6.5221558 6.1742477 5.228508 2.7882156 5.2677078 6.1742401 3.190033 5.6009216 6.1497498 6.3702545 6.1742401 3.190033 3.934845 6.1399536 3.1900177 6.3702545 6.1742554 2.788208 6.1742401 5.5176239 3.9348602 2.788208 6.1399384 6.3604584"
-       id="tspan36487">. Select object, Edit/Resize Page to Selection
+       id="tspan9245">. Select object, Edit/Resize Page to Selection
 </tspan></tspan><tspan
      x="-882.04297"
      y="22.394356"
-     id="tspan36493"><tspan
+     id="tspan9251"><tspan
        dx="0 3.190027 3.190027 6.3702531 6.1497459 5.9390354 6.1742458 3.1900272 5.5176201 6.139946 6.3702507 5.9390373 3.1900291 6.1497421 5.228508 3.1900253 6.3702545 2.7882156 6.1497421 2.788208 6.3604584 3.1900253 6.3702545 6.8651733 7.7766113"
-       id="tspan36491">. Save copy as plain SVG
+       id="tspan9249">. Save copy as plain SVG
 </tspan></tspan></text><text
    xml:space="preserve"
    id="text1649"

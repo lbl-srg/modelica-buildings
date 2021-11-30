@@ -422,14 +422,14 @@ equation
           points={{264,-220},{270,-220}},
           color={0,0,0},
           thickness=1),
-        Bitmap(extent={{-74,-210},{-66,-190}}, fileName="modelica://Buildings/Resources/Images/Templates/Components/Filters/Filter.svg"),
-        Bitmap(extent={{-74,-224},{-66,-216}}, fileName="modelica://Buildings/Resources/Images/Templates/Components/Sensors/DifferentialPressure.svg"),
+        Bitmap(extent={{-84,-210},{-76,-190}}, fileName="modelica://Buildings/Resources/Images/Templates/Components/Filters/Filter.svg"),
+        Bitmap(extent={{-84,-224},{-76,-216}}, fileName="modelica://Buildings/Resources/Images/Templates/Components/Sensors/DifferentialPressure.svg"),
         Line(
-          points={{-80,-206},{-80,-220},{-74,-220}},
+          points={{-90,-206},{-90,-220},{-84,-220}},
           color={0,0,0},
           thickness=1),
         Line(
-          points={{-60,-206},{-60,-220},{-66,-220}},
+          points={{-70,-206},{-70,-220},{-76,-220}},
           color={0,0,0},
           thickness=1),
         Line(points={{300,-70},{-120,-70}}, color={0,0,0}),
