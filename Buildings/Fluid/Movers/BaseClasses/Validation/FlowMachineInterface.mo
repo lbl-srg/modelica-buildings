@@ -35,8 +35,7 @@ November 1, 2021, by Hongxiang Fu:<br/>
 Removed assignments for <code>eff.haveVMax</code> 
 and <code>eff.V_flow_max</code> as they are now assigned inside 
 <a href=\"Modelica://Buildings.Fluid.Movers.BaseClasses.FlowMachineInterface\">
-Buildings.Fluid.Movers.BaseClasses.FlowMachineInterface</a>
-with the <code>final</code> keyword.<br/>
+Buildings.Fluid.Movers.BaseClasses.FlowMachineInterface</a>.<br/>
 This is for 
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2668\">#2668</a>.
 </li>

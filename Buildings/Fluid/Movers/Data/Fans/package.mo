@@ -1,10 +1,10 @@
 within Buildings.Fluid.Movers.Data;
-package Fans "Pump data for a Wilo Stratos 25/1-6 pump"
+package Fans "Package of fan performance data"
   extends Modelica.Icons.Package;
 
 annotation (preferredView="info", Documentation(info="<html>
 <p>
-This package contains data for fans.
+This package contains performance data for fans.
 </p>
 <p>
 See the
