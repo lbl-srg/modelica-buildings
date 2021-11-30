@@ -96,25 +96,6 @@ partial model PartialFlowMachine
   Real etaHyd(unit="1", final quantity="Efficiency") = eff.etaHyd "Hydraulic efficiency";
   Real etaMot(unit="1", final quantity="Efficiency") = eff.etaMot "Motor efficiency";
 
-  // Because the speed data are not used by FlowMachineInterface, we set them
-  // to zero.
-  FlowMachineInterface eff(
-    per(
-      final hydraulicEfficiency = per.hydraulicEfficiency,
-      final motorEfficiency =     per.motorEfficiency,
-      final motorCooledByFluid =  per.motorCooledByFluid,
-      final speed_nominal =       0,
-      final constantSpeed =       0,
-      final speeds =              {0},
-      final power =               per.power,
-      final peak =                per.peak),
-    final nOri = nOri,
-    final rho_default=rho_default,
-    final computePowerUsingSimilarityLaws=computePowerUsingSimilarityLaws,
-    r_V(start=m_flow_nominal/rho_default),
-    final preVar=preVar) "Flow machine"
-    annotation (Placement(transformation(extent={{-32,-68},{-12,-48}})));
-
   // Quantity to control
 protected
   final parameter Modelica.SIunits.VolumeFlowRate _VMachine_flow = 0
@@ -249,7 +230,24 @@ protected
     redeclare final package Medium = Medium) "Head of mover"
     annotation (Placement(transformation(extent={{58,-27},{43,-14}})));
 
-
+  // Because the speed data are not used by FlowMachineInterface, we set them
+  // to zero.
+  FlowMachineInterface eff(
+    per(
+      final hydraulicEfficiency = per.hydraulicEfficiency,
+      final motorEfficiency =     per.motorEfficiency,
+      final motorCooledByFluid =  per.motorCooledByFluid,
+      final speed_nominal =       0,
+      final constantSpeed =       0,
+      final speeds =              {0},
+      final power =               per.power,
+      final peak =                per.peak),
+    final nOri = nOri,
+    final rho_default=rho_default,
+    final computePowerUsingSimilarityLaws=computePowerUsingSimilarityLaws,
+    r_V(start=m_flow_nominal/rho_default),
+    final preVar=preVar) "Flow machine"
+    annotation (Placement(transformation(extent={{-32,-68},{-12,-48}})));
 
 protected
   block Extractor
