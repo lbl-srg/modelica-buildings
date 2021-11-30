@@ -81,7 +81,9 @@ partial model PartialCoil
   Buildings.Templates.Components.Interfaces.Bus bus
     if typ <> Buildings.Templates.Components.Types.Coil.None
     "Control bus"
-    annotation (Placement(transformation(
+    annotation (Placement(
+      visible=false,
+      transformation(
         extent={{-20,-20},{20,20}},
         rotation=0,
         origin={0,100}), iconTransformation(
@@ -109,7 +111,12 @@ partial model PartialCoil
     Bitmap(
       visible=typVal==Buildings.Templates.Components.Types.Valve.ThreeWay,
       extent={{-100,-300},{40,-100}},
-      fileName="modelica://Buildings/Resources/Images/Templates/Components/Valves/ThreeWay.svg")},
+      fileName="modelica://Buildings/Resources/Images/Templates/Components/Valves/ThreeWay.svg"),
+    Bitmap(
+      visible=typVal==Buildings.Templates.Components.Types.Valve.TwoWay or
+        typVal==Buildings.Templates.Components.Types.Valve.ThreeWay,
+      extent={{-180,-240},{-100,-160}},
+      fileName="modelica://Buildings/Resources/Images/Templates/Components/Actuators/Modulated.svg")},
     coordinateSystem(preserveAspectRatio=false)),
     Diagram(
         coordinateSystem(preserveAspectRatio=false)));

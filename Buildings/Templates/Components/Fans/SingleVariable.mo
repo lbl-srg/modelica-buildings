@@ -69,18 +69,7 @@ equation
     annotation (Line(points={{10,0},{70,0}}, color={0,127,255}));
   annotation (Placement(transformation(extent={{-10,-10},{10,10}})),
     Icon(
-      coordinateSystem(preserveAspectRatio=false), graphics={
-    Bitmap(
-        extent={{-92,-88},{92,92}},
-        fileName="modelica://Buildings/Resources/Images/Templates/Components/Fans/SingleVariable.svg"),
-    Bitmap(
-        visible=have_senFlo,
-        extent={{-52,-10},{24,10}}, fileName="modelica://Buildings/Resources/Images/Templates/Components/Fans/AirflowSensor.svg"),
-    Line(
-      visible=have_senFlo,
-          points={{-180,0},{-52,0}},
-          color={0,0,0},
-          thickness=1)}),
+      coordinateSystem(preserveAspectRatio=false)),
     Diagram(
         coordinateSystem(preserveAspectRatio=false)));
 end SingleVariable;

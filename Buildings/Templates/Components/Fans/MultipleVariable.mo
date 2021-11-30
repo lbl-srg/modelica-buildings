@@ -102,19 +102,6 @@ equation
   connect(colDis.port_aDisRet, V_flow.port_a) annotation (Line(points={{20,-26},
           {30,-26},{30,0},{70,0}}, color={0,127,255}));
   annotation (Placement(transformation(extent={{-10,-10},{10,10}})),
-              Icon(
-    graphics={
-      Bitmap(
-        extent={{-78,-84},{82,76}},
-        fileName="modelica://Buildings/Resources/Images/Templates/Components/Fans/MultipleVariable.svg"),
-    Bitmap(
-        visible=have_senFlo,
-        extent={{-23,-6},{28,6}},   fileName="modelica://Buildings/Resources/Images/Templates/Components/Fans/AirflowSensor.svg"),
-    Line(
-      visible=have_senFlo,
-          points={{-180,0},{-22,0}},
-          color={0,0,0},
-          thickness=1)}),
     Diagram(
         coordinateSystem(preserveAspectRatio=false), graphics={Text(
           extent={{-192,-16},{-18,-74}},

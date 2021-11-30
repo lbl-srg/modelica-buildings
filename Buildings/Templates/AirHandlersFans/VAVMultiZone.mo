@@ -65,33 +65,33 @@ model VAVMultiZone "Multiple-Zone VAV"
     redeclare final package Medium = MediumCoo) if have_souCoiCoo
     "Cooling coil return port"
     annotation (Placement(
-      transformation(extent={{90,-290},{110,-270}}),
+      transformation(extent={{50,-290},{70,-270}}),
       iconTransformation(extent={{50,-208},{70,-188}})));
   Modelica.Fluid.Interfaces.FluidPort_a port_coiCooSup(
     redeclare final package Medium = MediumCoo) if have_souCoiCoo
     "Cooling coil supply port"
     annotation (Placement(
-        transformation(extent={{50,-290},{70,-270}}), iconTransformation(
+        transformation(extent={{90,-290},{110,-270}}),iconTransformation(
           extent={{10,-208},{30,-188}})));
   Modelica.Fluid.Interfaces.FluidPort_b port_coiHeaRet(
     redeclare final package Medium =MediumHea) if have_souCoiHea
     "Heating coil return port"
-    annotation (Placement(transformation(extent={{10,-290},{30,-270}}),
+    annotation (Placement(transformation(extent={{-30,-290},{-10,-270}}),
                                 iconTransformation(extent={{-40,-208},{-20,-188}})));
   Modelica.Fluid.Interfaces.FluidPort_a port_coiHeaSup(
     redeclare final package Medium =MediumHea) if have_souCoiHea
     "Heating coil supply port"
-    annotation (Placement(transformation(extent={{-30,-290},{-10,-270}}),
+    annotation (Placement(transformation(extent={{10,-290},{30,-270}}),
                                 iconTransformation(extent={{-80,-208},{-60,-188}})));
   Modelica.Fluid.Interfaces.FluidPort_b port_coiRehRet(
     redeclare final package Medium =MediumHea) if have_souCoiReh
     "Reheat coil return port"
-    annotation (Placement(transformation(extent={{170,-290},{190,-270}}),
+    annotation (Placement(transformation(extent={{130,-290},{150,-270}}),
                           iconTransformation(extent={{140,-208},{160,-188}})));
   Modelica.Fluid.Interfaces.FluidPort_a port_coiRehSup(
     redeclare final package Medium = MediumHea) if have_souCoiReh
     "Reheat coil supply port"
-    annotation (Placement(transformation(extent={{130,-290},{150,-270}}),
+    annotation (Placement(transformation(extent={{170,-290},{190,-270}}),
                          iconTransformation(extent={{100,-208},{120,-188}})));
   BoundaryConditions.WeatherData.Bus busWea
     "Weather bus"
@@ -311,26 +311,25 @@ equation
   connect(coiReh.bus, bus.coiHea);
   connect(secOutRel.bus, bus);
 
-  connect(coiHea.port_bSou, port_coiHeaRet) annotation (Line(points={{24,-210},{
-          24,-260},{20,-260},{20,-280}},     color={0,127,255}));
-  connect(port_coiHeaSup, coiHea.port_aSou) annotation (Line(points={{-20,-280},
-          {-20,-260},{16,-260},{16,-210}},   color={0,127,255}));
-  connect(port_coiCooSup, coiCoo.port_aSou) annotation (Line(points={{60,-280},{
-          60,-260},{76,-260},{76,-210}},   color={0,127,255}));
-  connect(coiCoo.port_bSou, port_coiCooRet) annotation (Line(points={{84,-210},{
-          84,-260},{100,-260},{100,-280}},
-                                         color={0,127,255}));
+  connect(coiHea.port_bSou, port_coiHeaRet) annotation (Line(points={{16,-210},
+          {16,-260},{-20,-260},{-20,-280}},  color={0,127,255}));
+  connect(port_coiHeaSup, coiHea.port_aSou) annotation (Line(points={{20,-280},
+          {20,-260},{24,-260},{24,-210}},    color={0,127,255}));
+  connect(port_coiCooSup, coiCoo.port_aSou) annotation (Line(points={{100,-280},
+          {100,-260},{84,-260},{84,-210}}, color={0,127,255}));
+  connect(coiCoo.port_bSou, port_coiCooRet) annotation (Line(points={{76,-210},
+          {76,-260},{60,-260},{60,-280}},color={0,127,255}));
   connect(busWea,coiCoo.busWea)  annotation (Line(
       points={{0,280},{0,80},{74,80},{74,-190}},
       color={255,204,51},
       thickness=0.5));
   connect(TMix.port_b, fanSupBlo.port_a)
     annotation (Line(points={{-90,-200},{-50,-200}},   color={0,127,255}));
-  connect(port_coiRehSup, coiReh.port_aSou) annotation (Line(points={{140,-280},
-          {140,-260},{136,-260},{136,-210}},
+  connect(port_coiRehSup, coiReh.port_aSou) annotation (Line(points={{180,-280},
+          {180,-260},{144,-260},{144,-210}},
                                          color={0,127,255}));
-  connect(coiReh.port_bSou, port_coiRehRet) annotation (Line(points={{144,-210},
-          {144,-260},{180,-260},{180,-280}},
+  connect(coiReh.port_bSou, port_coiRehRet) annotation (Line(points={{136,-210},
+          {136,-260},{140,-260},{140,-280}},
                                            color={0,127,255}));
   connect(coiReh.port_b, fanSupDra.port_a)
     annotation (Line(points={{150,-200},{172,-200}}, color={0,127,255}));
@@ -396,8 +395,7 @@ equation
   connect(ind.ports[2], pSup_rel.port_b) annotation (Line(points={{38,240},{280,
           240},{280,-220},{270,-220}}, color={0,127,255}));
   connect(TSup.port_b, port_Sup)
-    annotation (Line(points={{230,-200},{248,-200},{248,-196},{276,-196},{276,-200},
-          {300,-200}},                               color={0,127,255}));
+    annotation (Line(points={{230,-200},{300,-200}}, color={0,127,255}));
   connect(TSup.port_b, pSup_rel.port_a) annotation (Line(points={{230,-200},{240,
           -200},{240,-220},{250,-220}},     color={0,127,255}));
   connect(fanSupBlo.port_b, resSup.port_a)
@@ -406,6 +404,8 @@ equation
     annotation (Line(points={{0,-200},{10,-200}}, color={0,127,255}));
   connect(fanSupDra.port_b, TSup.port_a)
     annotation (Line(points={{192,-200},{210,-200}}, color={0,127,255}));
+  connect(port_Ret, port_Ret)
+    annotation (Line(points={{300,-80},{300,-80}}, color={0,127,255}));
   annotation (
     defaultComponentName="ahu",
     Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
@@ -431,7 +431,11 @@ equation
         Line(
           points={{-60,-206},{-60,-220},{-66,-220}},
           color={0,0,0},
-          thickness=1)}),
+          thickness=1),
+        Line(points={{300,-70},{-120,-70}}, color={0,0,0}),
+        Line(points={{300,-90},{-120,-90}}, color={0,0,0}),
+        Line(points={{300,-210},{-120,-210}}, color={0,0,0}),
+        Line(points={{300,-190},{-120,-190}}, color={0,0,0})}),
     Documentation(info="<html>
   connect(fanSupDra.bus, bus.fanSup);
   connect(fanSupBlo.bus, bus.fanSup);

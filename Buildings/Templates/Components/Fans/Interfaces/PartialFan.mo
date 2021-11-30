@@ -40,7 +40,9 @@ partial model PartialFan
   Buildings.Templates.Components.Interfaces.Bus bus
     if typ <> Buildings.Templates.Components.Types.Fan.None
     "Control bus"
-    annotation (Placement(transformation(
+    annotation (Placement(
+      visible=false,
+      transformation(
         extent={{-20,-20},{20,20}},
         rotation=0,
         origin={0,100}), iconTransformation(
@@ -55,21 +57,35 @@ partial model PartialFan
     annotation (
       Placement(transformation(extent={{70,-10},{90,10}})));
 equation
+  /* Control point connection - start */
+  connect(V_flow.y, bus.V_flow);
+  /* Control point connection - stop */
   connect(port_b, V_flow.port_b)
     annotation (Line(points={{100,0},{90,0}}, color={0,127,255}));
-  connect(V_flow.y, bus.V_flow)
-    annotation (Line(points={{80,12},{80,100},{0,100}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
     Bitmap(
         visible=have_senFlo and typ<>Buildings.Templates.Components.Types.Fan.None,
         extent=if text_flip then {{-140,-240},{-220,-160}} else {{-220,-240},{-140,-160}},
         rotation=text_rotation,
-        fileName="modelica://Buildings/Resources/Images/Templates/Components/Fans/AirflowSensorBox.svg"),
-        Line(
-          visible=have_senFlo and typ<>Buildings.Templates.Components.Types.Fan.None,
+        fileName="modelica://Buildings/Resources/Images/Templates/Components/Sensors/VolumeFlowRate.svg"),
+    Line(
+      visible=have_senFlo,
+          points={{-180,0},{-50,0}},
+          color={0,0,0},
+          thickness=1),
+    Line(visible=have_senFlo and typ<>Buildings.Templates.Components.Types.Fan.None,
           points={{-180,0},{-180,-160}},
           color={0,0,0},
-          thickness=1)}),
+          thickness=1),
+    Bitmap(
+      visible=typ==Buildings.Templates.Components.Types.Fan.MultipleVariable,
+        extent={{-50,-100},{16,100}},
+        fileName="modelica://Buildings/Resources/Images/Templates/Components/Fans/MultipleVariable.svg"),
+    Bitmap(
+      visible=typ==Buildings.Templates.Components.Types.Fan.SingleVariable or
+        typ==Buildings.Templates.Components.Types.Fan.SingleConstant,
+        extent={{-100,-100},{128,100}},
+        fileName="modelica://Buildings/Resources/Images/Templates/Components/Fans/SingleVariable.svg")}),
     Diagram(
         coordinateSystem(preserveAspectRatio=false)));
 end PartialFan;

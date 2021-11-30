@@ -158,7 +158,9 @@ partial model PartialOutdoorReliefReturnSection
     annotation (Placement(transformation(extent={{90,130},{70,150}}),
         iconTransformation(extent={{390,790},{370,810}})));
   Buildings.Templates.AirHandlersFans.Interfaces.Bus bus "Control bus"
-    annotation (Placement(transformation(
+    annotation (Placement(
+      visible=false,
+      transformation(
         extent={{-20,-20},{20,20}},
         rotation=0,
         origin={0,140}), iconTransformation(
@@ -235,46 +237,46 @@ partial model PartialOutdoorReliefReturnSection
         visible=typDamOutMin==Buildings.Templates.Components.Types.Damper.Modulated,
         extent={{-680,-240},{-600,-160}},
         fileName="modelica://Buildings/Resources/Images/Templates/Components/Actuators/Modulated.svg"),
-      Line(points={{-100,700},{800,700}}, color={28,108,200}),
+      Line(points={{-100,700},{800,700}}, color={0,0,0}),
       Line(
+        visible=typ <> Buildings.Templates.AirHandlersFans.Types.OutdoorReliefReturnSection.EconomizerNoRelief,
         points={{-800,500},{-100,500}},
-        color={28,108,200},
-        visible=typ <> Buildings.Templates.AirHandlersFans.Types.OutdoorReliefReturnSection.EconomizerNoRelief),
+        color={0,0,0}),
       Line(
+        visible=typ==Buildings.Templates.AirHandlersFans.Types.OutdoorReliefReturnSection.EconomizerNoRelief,
         points={{-100,700},{-100,500}},
-        color={28,108,200},
-        visible=typ==Buildings.Templates.AirHandlersFans.Types.OutdoorReliefReturnSection.EconomizerNoRelief),
-      Line(points={{100,500},{800,500}},color={28,108,200}),
-      Line(points={{100,-500},{800,-500}},color={28,108,200}),
-      Line(points={{-800,-500},{-100,-500}},color={28,108,200}),
-      Line(points={{-800,-700},{800,-700}}, color={28,108,200}),
+        color={0,0,0}),
+      Line(points={{100,500},{800,500}},color={0,0,0}),
+      Line(points={{100,-500},{800,-500}},color={0,0,0}),
+      Line(points={{-800,-500},{-100,-500}},color={0,0,0}),
+      Line(points={{-800,-700},{800,-700}}, color={0,0,0}),
       Line(
         visible=typ <> Buildings.Templates.AirHandlersFans.Types.OutdoorReliefReturnSection.NoEconomizer,
         points={{100,500},{100,-500}},
-        color={28,108,200}),
+        color={0,0,0}),
       Line(
         visible=typ <> Buildings.Templates.AirHandlersFans.Types.OutdoorReliefReturnSection.NoEconomizer,
         points={{-100,500},{-100,-300}},
-        color={28,108,200}),
+        color={0,0,0}),
       Line(
         points={{-800,700},{-100,700}},
-        color={28,108,200},
+        color={0,0,0},
         visible=typ <> Buildings.Templates.AirHandlersFans.Types.OutdoorReliefReturnSection.EconomizerNoRelief),
       Line(
           points={{-100,500},{100,500}},
-          color={28,108,200},
+          color={0,0,0},
           visible=typ == Buildings.Templates.AirHandlersFans.Types.OutdoorReliefReturnSection.NoEconomizer),
       Line(
           points={{-100,-500},{100,-500}},
-          color={28,108,200},
+          color={0,0,0},
           visible=typ == Buildings.Templates.AirHandlersFans.Types.OutdoorReliefReturnSection.NoEconomizer),
       Line(
         points={{-800,-300},{-100,-300}},
-        color={28,108,200},
+        color={0,0,0},
         visible=typDamOutMin <> Buildings.Templates.Components.Types.Damper.None),
       Line(
         points={{-100,-300},{-100,-500}},
-        color={28,108,200},
+        color={0,0,0},
         visible=typDamOutMin == Buildings.Templates.Components.Types.Damper.None and
           typ <> Buildings.Templates.AirHandlersFans.Types.OutdoorReliefReturnSection.NoEconomizer),
       Bitmap(
@@ -293,20 +295,13 @@ partial model PartialOutdoorReliefReturnSection
           thickness=1),
       Bitmap(
         visible=typSecOut==Buildings.Templates.AirHandlersFans.Types.OutdoorSection.DedicatedDamperAirflow,
-        extent={{-102,-50},{102,50}},
-        fileName="modelica://Buildings/Resources/Images/Templates/Components/Sensors/VolumeFlowRateAFMS.svg",
-          origin={-150,-400},
-          rotation=90),
-      Bitmap(
-        visible=typFanRet<>Buildings.Templates.Components.Types.Fan.None and
-          typCtrFanRet==Buildings.Templates.AirHandlersFans.Types.ControlFanReturn.Airflow,
-        extent={{396,582},{490,616}},
-        fileName="modelica://Buildings/Resources/Images/Templates/Components/Fans/AirflowSensor.svg"),
+        extent={{-200,-500},{-100,-300}},
+        fileName="modelica://Buildings/Resources/Images/Templates/Components/Sensors/VolumeFlowRateAFMS.svg"),
       Bitmap(
         visible=typFanRet<>Buildings.Templates.Components.Types.Fan.None and
           typCtrFanRet==Buildings.Templates.AirHandlersFans.Types.ControlFanReturn.Airflow,
         extent={{580,360},{660,440}},
-        fileName="modelica://Buildings/Resources/Images/Templates/Components/Fans/AirflowSensorBox.svg"),
+        fileName="modelica://Buildings/Resources/Images/Templates/Components/Sensors/VolumeFlowRate.svg"),
       Line(
           visible=typFanRet<>Buildings.Templates.Components.Types.Fan.None and
           typCtrFanRet==Buildings.Templates.AirHandlersFans.Types.ControlFanReturn.Airflow,
@@ -353,7 +348,11 @@ partial model PartialOutdoorReliefReturnSection
           (typCtrEco==Buildings.Templates.AirHandlersFans.Types.ControlEconomizer.FixedEnthalpyWithFixedDryBulb or
           typCtrEco==Buildings.Templates.AirHandlersFans.Types.ControlEconomizer.DifferentialEnthalpyWithFixedDryBulb),
         extent={{-430,-760},{-410,-560}},
-        fileName="modelica://Buildings/Resources/Images/Templates/Components/Sensors/ProbeStandard.svg")}),
+        fileName="modelica://Buildings/Resources/Images/Templates/Components/Sensors/ProbeStandard.svg"),
+      Bitmap(
+        visible=typSecOut==Buildings.Templates.AirHandlersFans.Types.OutdoorSection.SingleDamper,
+        extent={{-200,-700},{-100,-500}},
+        fileName="modelica://Buildings/Resources/Images/Templates/Components/Sensors/VolumeFlowRateAFMS.svg")}),
    Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-180,-140},{180,140}})));
 end PartialOutdoorReliefReturnSection;
