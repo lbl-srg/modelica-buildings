@@ -37,7 +37,7 @@ model ASHRAE2006
   Controls.RoomVAV conVAV[numZon](
     ratVFloMin=ratVMinVAV_flow,
     each ratVFloHea=ratVFloHea) "Controller for terminal unit"
-    annotation (Placement(transformation(extent={{456,-124},{476,-104}})));
+    annotation (Placement(transformation(extent={{580,40},{600,60}})));
 
   Buildings.Controls.OBC.CDL.Logical.Or or2
     annotation (Placement(transformation(extent={{-100,-250},{-80,-230}})));
@@ -91,14 +91,14 @@ model ASHRAE2006
        numZon) "Replicate room temperature heating setpoint" annotation (
       Placement(transformation(
         extent={{-10,-10},{10,10}},
-        rotation=90,
-        origin={390,-230})));
+        rotation=0,
+        origin={490,64})));
   Buildings.Controls.OBC.CDL.Routing.RealScalarReplicator TRooCooSet(final nout=
        numZon) "Replicate room temperature cooling setpoint" annotation (
       Placement(transformation(
         extent={{-10,-10},{10,10}},
-        rotation=90,
-        origin={432,-230})));
+        rotation=0,
+        origin={490,30})));
 equation
   connect(controlBus, modeSelector.cb) annotation (Line(
       points={{-240,-340},{-152,-340},{-152,-303.182},{-196.818,-303.182}},
@@ -173,8 +173,8 @@ equation
   connect(or2.u2, modeSelector.yFan) annotation (Line(points={{-102,-248},{-120,
           -248},{-120,-305.455},{-179.091,-305.455}},
                                      color={255,0,255}));
-  connect(VAVBox.y_actual, pSetDuc.u) annotation (Line(points={{602,40},{620,40},
-          {620,74},{140,74},{140,-6},{158,-6}},     color={0,0,127}));
+  connect(VAVBox.y_actual, pSetDuc.u) annotation (Line(points={{762,40},{770,40},
+          {770,80},{140,80},{140,-6},{158,-6}},     color={0,0,127}));
   connect(TSup.T, conTSup.TSup) annotation (Line(
       points={{340,-29},{352,-29},{352,-188},{-80,-188},{-80,-214},{-62,-214}},
       color={0,0,127},
@@ -213,12 +213,6 @@ equation
                                           color={0,0,127}));
   connect(damExh.port_a, TRet.port_b) annotation (Line(points={{-30,-10},{-26,-10},
           {-26,140},{90,140}}, color={0,127,255}));
-  connect(VAVBox.yHea, conVAV.yVal) annotation (Line(points={{556,46},{504,46},{
-          504,-119},{477,-119}},
-                             color={0,0,127}));
-  connect(VAVBox.yVAV, conVAV.yDam) annotation (Line(points={{556,56},{500,56},{
-          500,-109.2},{477,-109.2}},
-                                 color={0,0,127}));
   connect(freSta.y, or2.u1) annotation (Line(points={{-38,-80},{-20,-80},{-20,-100},
           {-108,-100},{-108,-240},{-102,-240}},
                                    color={255,0,255}));
@@ -268,11 +262,11 @@ equation
   connect(damExh.port_b, amb.ports[3]) annotation (Line(points={{-50,-10},{-100,
           -10},{-100,-45},{-114,-45}}, color={0,127,255}));
   connect(TRoo, conVAV.TRoo) annotation (Line(
-      points={{-400,320},{440,320},{440,-121},{455,-121}},
-      color={0,0,127},
-      pattern=LinePattern.Dash));
+      points={{-400,320},{-360,320},{-360,304},{48,304},{48,96},{548,96},{548,
+          44},{579,44}},
+      color={0,0,127}));
   connect(controlBus.TRooSetHea, TRooHeaSet.u) annotation (Line(
-      points={{-240,-340},{390,-340},{390,-242}},
+      points={{-240,-340},{440,-340},{440,64},{478,64}},
       color={255,204,51},
       thickness=0.5), Text(
       string="%first",
@@ -280,17 +274,23 @@ equation
       extent={{-6,3},{-6,3}},
       horizontalAlignment=TextAlignment.Right));
   connect(controlBus.TRooSetCoo, TRooCooSet.u) annotation (Line(
-      points={{-240,-340},{432,-340},{432,-242}},
+      points={{-240,-340},{440,-340},{440,30},{478,30}},
       color={255,204,51},
       thickness=0.5), Text(
       string="%first",
       index=-1,
       extent={{-6,3},{-6,3}},
       horizontalAlignment=TextAlignment.Right));
-  connect(TRooHeaSet.y, conVAV.TRooHeaSet) annotation (Line(points={{390,-218},{
-          390,-107},{454,-107}}, color={0,0,127}));
-  connect(TRooCooSet.y, conVAV.TRooCooSet) annotation (Line(points={{432,-218},{
-          432,-114},{454,-114}}, color={0,0,127}));
+  connect(TRooHeaSet.y, conVAV.TRooHeaSet) annotation (Line(points={{502,64},{
+          552,64},{552,56},{578,56}},
+                                 color={0,0,127}));
+  connect(TRooCooSet.y, conVAV.TRooCooSet) annotation (Line(points={{502,30},{
+          544,30},{544,50},{578,50}},
+                                 color={0,0,127}));
+  connect(conVAV.yDam, VAVBox.yVAV)
+    annotation (Line(points={{601,54.8},{716,56}}, color={0,0,127}));
+  connect(conVAV.yVal, VAVBox.yHea) annotation (Line(points={{601,45},{608,45},
+          {608,46},{716,46}}, color={0,0,127}));
   annotation (
   defaultComponentName="hvac",
     Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-380,-400},{1420,
