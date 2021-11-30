@@ -141,5 +141,12 @@ equation
           </tbody>
         </table>
         </p>
-        </html>"));
+        </html>", revisions="<html>
+<ul>
+<li>
+June 16, 2021, by Karthik Devaprasad:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));
 end OperatingMode;
