@@ -16,7 +16,8 @@ algorithm
 This function assigns initial values to look-up tables in
 <a href=\"modelica://Buildings.Fluid.Movers.BaseClasses.Euler.lookupTables\">
 Buildings.Fluid.Movers.BaseClasses.Euler.lookupTables</a>.
-This function is useful when the look-up table must both 
+This function is useful when the look-up table must both
+</p>
 <ul>
 <li>
 have a fixed size so that it can be used as a component of a function output
@@ -28,7 +29,6 @@ Modelica.Blocks.Tables.CombiTable2D</a>
 even when it is not used.
 </li>
 </ul>
-</p>
 </html>",
 revisions="<html>
 <ul>
