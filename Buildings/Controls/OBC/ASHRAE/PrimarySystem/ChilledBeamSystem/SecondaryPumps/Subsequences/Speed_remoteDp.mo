@@ -102,7 +102,7 @@ protected
   Buildings.Controls.OBC.CDL.Routing.RealScalarReplicator reaRep(
     final nout=nSen)
     "Replicate real input"
-    annotation (Placement(transformation(extent={{-70,-110},{-50,-90}})));
+    annotation (Placement(transformation(extent={{-40,-100},{-20,-80}})));
 
   Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator booRep(
     final nout=nSen)
@@ -120,8 +120,7 @@ protected
     annotation (Placement(transformation(extent={{-20,30},{0,50}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant one(
-    final k=1)
-    "Constant one"
+    final k=1) "Constant one"
     annotation (Placement(transformation(extent={{-80,30},{-60,50}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zer(
@@ -131,7 +130,7 @@ protected
 
   Buildings.Controls.OBC.CDL.Continuous.Division div[nSen]
     "Normalized pressure difference"
-    annotation (Placement(transformation(extent={{-20,-90},{0,-70}})));
+    annotation (Placement(transformation(extent={{0,-90},{20,-70}})));
 
   Buildings.Controls.OBC.CDL.Routing.RealScalarReplicator reaRep1(
     final nout=nSen)
@@ -142,12 +141,13 @@ protected
     "Logical switch"
     annotation (Placement(transformation(extent={{80,90},{100,110}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar(
-    final p=1e-6,
-    final k=1)
+  CDL.Continuous.Add addSmaPre
     "Ensure zero setpoint does not cause division by zero"
-    annotation (Placement(transformation(extent={{-110,-110},{-90,-90}})));
+    annotation (Placement(transformation(extent={{-72,-100},{-52,-80}})));
 
+  CDL.Continuous.Sources.Constant smaPre(final k(final unit="Pa")=1E-6)
+    "Constant for small pressure, used to avoid division by zero"
+    annotation (Placement(transformation(extent={{-114,-90},{-94,-70}})));
 equation
 
   connect(zer.y, pumSpe.x1)
@@ -167,7 +167,7 @@ equation
       color={0,0,127}));
 
   connect(dpChiWat, div.u1)
-    annotation (Line(points={{-140,-60},{-40,-60},{-40,-74},{-22,-74}},
+    annotation (Line(points={{-140,-60},{-8,-60},{-8,-74},{-2,-74}},
       color={0,0,127}));
 
   connect(one.y, reaRep1.u)
@@ -194,17 +194,19 @@ equation
   connect(reaRep1.y, conPID.u_s)
     annotation (Line(points={{2,0},{18,0}}, color={0,0,127}));
   connect(div.y, conPID.u_m)
-    annotation (Line(points={{2,-80},{30,-80},{30,-12}}, color={0,0,127}));
+    annotation (Line(points={{22,-80},{30,-80},{30,-12}},color={0,0,127}));
   connect(conPID.y, maxLoo.u[1:nSen])
     annotation (Line(points={{42,0},{50,0},{50,0},{58,0}},   color={0,0,127}));
   connect(pumSpe_max.y, swi.u3) annotation (Line(points={{2,40},{10,40},{10,92},
           {78,92}}, color={0,0,127}));
-  connect(reaRep.y, div.u2) annotation (Line(points={{-48,-100},{-40,-100},{-40,
-          -86},{-22,-86}}, color={0,0,127}));
-  connect(dpChiWatSet, addPar.u)
-    annotation (Line(points={{-140,-100},{-112,-100}}, color={0,0,127}));
-  connect(addPar.y, reaRep.u)
-    annotation (Line(points={{-88,-100},{-72,-100}}, color={0,0,127}));
+  connect(reaRep.y, div.u2) annotation (Line(points={{-18,-90},{-10,-90},{-10,-86},
+          {-2,-86}},       color={0,0,127}));
+  connect(addSmaPre.y, reaRep.u)
+    annotation (Line(points={{-50,-90},{-42,-90}}, color={0,0,127}));
+  connect(addSmaPre.u1, smaPre.y) annotation (Line(points={{-74,-84},{-84,-84},{
+          -84,-80},{-92,-80}}, color={0,0,127}));
+  connect(addSmaPre.u2, dpChiWatSet) annotation (Line(points={{-74,-96},{-84,-96},
+          {-84,-100},{-140,-100}}, color={0,0,127}));
 annotation (
   defaultComponentName="chiPumSpe",
   Icon(coordinateSystem(extent={{-100,-100},{100,100}}),

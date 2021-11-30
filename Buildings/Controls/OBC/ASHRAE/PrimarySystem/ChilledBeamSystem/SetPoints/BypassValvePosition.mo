@@ -101,8 +101,7 @@ protected
     annotation (Placement(transformation(extent={{-20,60},{0,80}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con1(
-    final k=1)
-    "Constant real one source"
+    final k=1) "Constant real one source"
     annotation (Placement(transformation(extent={{-20,20},{0,40}})));
 
   Buildings.Controls.OBC.CDL.Continuous.PIDWithReset conPID(
@@ -110,20 +109,13 @@ protected
     final k=k,
     final Ti=Ti,
     final Td=Td,
+    r=dPChiWatMax,
     reverseActing=false)
     "PID controller for regulating differential pressure at or below max pressure setpoint"
     annotation (Placement(transformation(extent={{20,-60},{40,-40}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar(
-    final p=-dPChiWatMax,
-    final k=1)
+  CDL.Continuous.Add subDpChiWatMax
     "Find error in meaured differential pressure from maximum allowed value"
-    annotation (Placement(transformation(extent={{-80,-60},{-60,-40}})));
-
-  Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar1(
-    final p=0,
-    final k=1/dPChiWatMax)
-    "Normalize differential pressure error"
     annotation (Placement(transformation(extent={{-40,-60},{-20,-40}})));
 
   Buildings.Controls.OBC.CDL.Logical.MultiOr mulOr(
@@ -131,6 +123,9 @@ protected
     "Check if any chilled water pump is enabled"
     annotation (Placement(transformation(extent={{-80,40},{-60,60}})));
 
+  CDL.Continuous.Sources.Constant offSetdPChiWatMax(final k(final unit="Pa")=-dPChiWatMax)
+    "Offset for maximum dp chilled water"
+    annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
 equation
   connect(uPumSta, mulOr.u[1:nPum]) annotation (Line(points={{-120,50},{-82,50}},
                              color={255,0,255}));
@@ -171,17 +166,14 @@ equation
   connect(con.y, conPID.u_s) annotation (Line(points={{2,70},{10,70},{10,-50},{
           18,-50}}, color={0,0,127}));
 
-  connect(dpChiWatLoo, addPar.u)
-    annotation (Line(points={{-120,-50},{-82,-50}}, color={0,0,127}));
-
-  connect(addPar.y, addPar1.u)
-    annotation (Line(points={{-58,-50},{-42,-50}}, color={0,0,127}));
-
-  connect(addPar1.y, conPID.u_m) annotation (Line(points={{-18,-50},{-10,-50},{
-          -10,-72},{30,-72},{30,-62}}, color={0,0,127}));
-
   connect(and2.y, conPID.trigger) annotation (Line(points={{2,0},{6,0},{6,-66},{
           24,-66},{24,-62}}, color={255,0,255}));
+  connect(subDpChiWatMax.u2, dpChiWatLoo) annotation (Line(points={{-42,-56},{
+          -94,-56},{-94,-50},{-120,-50}}, color={0,0,127}));
+  connect(offSetdPChiWatMax.y, subDpChiWatMax.u1) annotation (Line(points={{-58,
+          -30},{-48,-30},{-48,-44},{-42,-44}}, color={0,0,127}));
+  connect(subDpChiWatMax.y, conPID.u_m) annotation (Line(points={{-18,-50},{-10,
+          -50},{-10,-72},{30,-72},{30,-62}}, color={0,0,127}));
   annotation (defaultComponentName="bypValPos",
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
             {100,100}}), graphics={
