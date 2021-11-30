@@ -53,6 +53,9 @@ the mover is operating at peak efficiency, and
 </p>
 <p>
 This correlation function has the shape as shown below
+(plotted by 
+<a href=\"modelica://Buildings.Fluid.Movers.BaseClasses.Validation.EulerCurve\">
+Buildings.Fluid.Movers.BaseClasses.Validation.EulerCurve</a>).
 </p>
 <p align=\"center\">
 <img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Fluid/Movers/BaseClasses/Euler/EulerCurve.png\"/>

@@ -109,6 +109,15 @@ record Generic "Generic data record for movers"
   Documentation(revisions="<html>
 <ul>
 <li>
+November 30, 2021, by Hongxiang Fu:<br/>
+The switches <code>use_powerCharacteristic</code> and
+<code>use_motorEfficiency</code> are given the <code>final</code> keyword
+and now must be assigned via the enumeration
+<a href=\"modelica://Buildings.Fluid.Movers.BaseClasses.Types.PowerMethod\">
+Buildings.Fluid.Movers.BaseClasses.Types.PowerMethod</a>.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2668\">issue 2668</a>.
+</li>
+<li>
 February 19, 2016, by Filip Jorissen:<br/>
 Refactored model such that <code>SpeedControlled_Nrpm</code>,
 <code>SpeedControlled_y</code> and <code>FlowControlled</code>

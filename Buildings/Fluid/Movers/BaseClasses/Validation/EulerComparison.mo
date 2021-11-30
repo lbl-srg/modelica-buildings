@@ -67,7 +67,7 @@ Documentation(
 info="<html>
 <p>
 This simple model validates the power computation path
-using the Euler number and its correlation implemented in
+using the Euler number and its correlation as implemented in
 <a href=\"modelica://Buildings.Fluid.Movers.BaseClasses.Euler\">
 Buildings.Fluid.Movers.BaseClasses.Euler</a>.
 Its results of calculated efficiency and power are compared

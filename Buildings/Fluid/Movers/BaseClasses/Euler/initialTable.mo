@@ -13,8 +13,21 @@ algorithm
 
   annotation(Documentation(info="<html>
 <p>
-This function assigns initial values to look-up tables that comply with
-the format requirements of <code>CombiTable2D</code>.
+This function assigns initial values to look-up tables in
+<a href=\"modelica://Buildings.Fluid.Movers.BaseClasses.Euler.lookupTables\">
+Buildings.Fluid.Movers.BaseClasses.Euler.lookupTables</a>.
+This function is useful when the look-up table must both 
+<ul>
+<li>
+have a fixed size so that it can be used as a component of a function output
+</li>
+<li>
+and comply with the format requirements of
+<a href=\"modelica://Modelica.Blocks.Tables.CombiTable2D\">
+Modelica.Blocks.Tables.CombiTable2D</a>
+even when it is not used.
+</li>
+</ul>
 </p>
 </html>",
 revisions="<html>

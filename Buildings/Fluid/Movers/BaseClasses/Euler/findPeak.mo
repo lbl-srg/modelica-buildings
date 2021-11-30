@@ -49,13 +49,13 @@ algorithm
   annotation(smoothOrder=1,
               Documentation(info="<html>
 <p>
-This function finds the flow rate <i>V&#775;</i>,
-the pressure rise <i>&Delta;p</i>, and the efficiency <i>&eta;</i>
-on the mover curve provided via
+On the mover curves provided via
 <a href=\"modelica://Buildings.Fluid.Movers.BaseClasses.Characteristics.power\">
 Buildings.Fluid.Movers.BaseClasses.Characteristics.power</a> and
 <a href=\"modelica://Buildings.Fluid.Movers.BaseClasses.Characteristics.pressure\">
-Buildings.Fluid.Movers.BaseClasses.Characteristics.pressure</a>.
+Buildings.Fluid.Movers.BaseClasses.Characteristics.pressure</a>,
+this function finds the peak point with the highest efficiency <i>&eta;</i>
+and the corresponding flow rate <i>V&#775;</i> and pressure rise <i>&Delta;p</i>.
 The results are output as record to
 <a href=\"modelica://Buildings.Fluid.Movers.BaseClasses.Euler.peak\">
 Buildings.Fluid.Movers.BaseClasses.Euler.peak</a>.

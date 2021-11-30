@@ -1,5 +1,5 @@
 within Buildings.Fluid.Movers.BaseClasses.Validation;
-model EulerCurve "Displays the curve of the Euler number correlation"
+model EulerCurve "Displays the curve of the Euler number's correlation"
   extends Modelica.Icons.Example;
   Real x "log10(Eu/Eu_peak)";
   Real etaRat "eta/eta_peak";
@@ -20,6 +20,11 @@ as shown below.
 </p>
 <p align=\"center\">
 <img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Fluid/Movers/BaseClasses/Euler/EulerCurve.png\"/>
+</p>
+<p>
+See details of this function in the documentation of
+<a href=\"modelica://Buildings.Fluid.Movers.BaseClasses.Euler.correlation\">
+Buildings.Fluid.Movers.BaseClasses.Euler.correlation</a>.
 </p>
 </html>", revisions="<html>
 <ul>
