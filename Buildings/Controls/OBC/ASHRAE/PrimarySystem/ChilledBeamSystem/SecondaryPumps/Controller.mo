@@ -158,7 +158,7 @@ block Controller
       iconTransformation(extent={{-140,-20},{-100,20}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uPumLeaLag[nPum]
-    "Chilled water pump lead-lag order (Should be array of pump indices which indicates order of pump enable; Lowest index should be 1)"
+    "Chilled water pump lead-lag order (array of pump indices which indicates order of pump enable, with lowest index being 1)"
     annotation (Placement(transformation(extent={{-320,150},{-280,190}}),
       iconTransformation(extent={{-140,60},{-100,100}})));
 
