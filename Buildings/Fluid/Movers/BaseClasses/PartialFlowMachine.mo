@@ -72,7 +72,7 @@ partial model PartialFlowMachine
 
   Modelica.Blocks.Interfaces.RealOutput y_actual(
     final unit="1")
-    "Actual normalised pump speed that is used for computations"
+    "Actual normalised fan or pump speed that is used for computations"
     annotation (Placement(transformation(extent={{100,60},{120,80}}),
         iconTransformation(extent={{100,60},{120,80}})));
 
@@ -181,7 +181,7 @@ protected
     final f=fCut,
     final normalized=true,
     final initType=init) if use_inputFilter
-    "Second order filter to approximate dynamics of pump speed, and to improve numerics"
+    "Second order filter to approximate dynamics of the fan or pump's speed, and to improve numerics"
     annotation (Placement(transformation(extent={{20,61},{40,80}})));
 
   Modelica.Blocks.Math.Gain gaiSpe(y(final unit="1"))
@@ -334,7 +334,7 @@ initial equation
   assert(m_flow_nominal >= Modelica.Constants.small, "In "+ getInstanceName()+
   ": The value of parameter m_flow_nominal should be greater or equal than " +
   String(Modelica.Constants.small) + " but it equals " + String(m_flow_nominal));
-  // The control signal is dp or m_flow but the user did not provide a pump curve.
+  // The control signal is dp or m_flow but the user did not provide a fan or pump curve.
   // Hence, the speed is computed using default values, which likely are wrong.
   // Therefore, scaling the power using the speed is inaccurate.
   assert(nominalValuesDefineDefaultPressureCurve or
@@ -348,7 +348,7 @@ initial equation
              Setting nominalValuesDefineDefaultPressureCurve=true will suppress this warning.",
          level=AssertionLevel.warning);
 
-  // The control signal is dp or m_flow but the user did not provide a pump curve.
+  // The control signal is dp or m_flow but the user did not provide a fan or pump curve.
   // Hence, the speed is computed using default values, which likely are wrong.
   // In addition, the user wants to use (V_flow, P) to compute the power.
   // This can lead to using a power that is less than the flow work. We avoid
