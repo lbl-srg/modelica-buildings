@@ -19,13 +19,13 @@ record Generic "Generic data record for movers"
     annotation (Dialog(group="Power computation"));
   final parameter Boolean use_powerCharacteristic= (powMet ==
     Buildings.Fluid.Movers.BaseClasses.Types.PowerMethod.PowerCharacteristic)
-    "Use power data";
+    "Switch - use power data";
   final parameter Boolean use_eulerNumber= (powMet ==
     Buildings.Fluid.Movers.BaseClasses.Types.PowerMethod.EulerNumber)
-    "Use peak efficiency condition";
+    "Switch - use Euler number";
   final parameter Boolean use_motorEfficiency= (powMet ==
     Buildings.Fluid.Movers.BaseClasses.Types.PowerMethod.MotorEfficiency)
-    "Use motor efficiency";
+    "Switch - use motor efficiency";
 
   // 1.powerCharacteristic path
   // Power requires default values to avoid in Dymola the message
