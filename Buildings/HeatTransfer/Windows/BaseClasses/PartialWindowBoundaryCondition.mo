@@ -77,11 +77,11 @@ equation
           pattern=LinePattern.None),
         Text(
           extent={{-94,88},{-86,74}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="u"),              Text(
         extent={{-160,144},{140,104}},
         textString="%name",
-        lineColor={0,0,255}),
+        textColor={0,0,255}),
         Polygon(
           points={{-20,48},{-20,40},{20,52},{20,60},{-20,48}},
           lineColor={0,0,0},

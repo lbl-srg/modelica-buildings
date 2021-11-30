@@ -34,7 +34,7 @@ First implementation.
 </ul>
 </html>"), Icon(graphics={               Text(
           extent={{94,-22},{14,-102}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="K"),
         Polygon(
           points={{84,-4},{24,16},{24,-24},{84,-4}},
@@ -43,7 +43,7 @@ First implementation.
           fillPattern=FillPattern.Solid),
                            Text(
           extent={{-16,94},{-96,14}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="degC"),
         Line(points={{-96,-4},{24,-4}},
                                       color={191,0,0})}));

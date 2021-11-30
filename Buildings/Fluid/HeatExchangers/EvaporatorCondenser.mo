@@ -90,7 +90,7 @@ equation
           fillPattern=FillPattern.Solid),
         Text(
           extent={{72,94},{116,66}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="Q_flow")}),
 defaultComponentName="evaCon",
 Documentation(info="<html>

@@ -35,7 +35,7 @@ equation
         Text(
           extent={{-140,-100},{160,-60}},
           textString="%name",
-          lineColor={0,0,255}),
+          textColor={0,0,255}),
         Polygon(
           points={{80,-52},{32,63},{-78,63},{-29,-52},{80,-52}},
           smooth=Smooth.None,

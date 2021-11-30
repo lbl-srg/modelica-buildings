@@ -186,9 +186,9 @@ equation
             {100,100}}),
                    graphics={
         Text(extent={{62,96},{112,82}},   textString="P",
-          lineColor={0,0,127}),
+          textColor={0,0,127}),
         Text(extent={{-94,-24},{-48,-36}},  textString="T_CHWS",
-          lineColor={0,0,127}),
+          textColor={0,0,127}),
         Rectangle(
           extent={{-99,-54},{102,-66}},
           lineColor={0,0,255},
@@ -262,7 +262,7 @@ equation
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid),
         Text(extent={{-108,36},{-62,24}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="on")}),
 Documentation(info="<html>
 <p>

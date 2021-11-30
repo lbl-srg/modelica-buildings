@@ -111,7 +111,7 @@ equation
                                                graphics={
           Text(
             extent={{-150,-28},{136,-60}},
-            lineColor={0,0,0},
+            textColor={0,0,0},
           textString="R=%R, L=%L"),
           Line(points={{-92,0},{-72,0}}, color={0,0,0}),
           Line(points={{68,0},{88,0}}, color={0,0,0}),
@@ -172,11 +172,11 @@ equation
           pattern=LinePattern.None),
           Text(
             extent={{-144,-56},{142,-88}},
-            lineColor={0,0,0},
+            textColor={0,0,0},
           textString="C=%C"),
           Text(
             extent={{-142,80},{138,40}},
-            lineColor={0,0,0},
+            textColor={0,0,0},
           textString="%name")}),
     Documentation(info="<html>
 <p>

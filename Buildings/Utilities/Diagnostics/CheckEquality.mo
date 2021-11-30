@@ -39,10 +39,10 @@ First implementation.
     Icon(graphics={
         Text(
           extent={{-84,108},{90,-28}},
-          lineColor={255,0,0},
+          textColor={255,0,0},
           textString="u1 = u2"),
         Text(
           extent={{-62,-38},{54,-68}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%threShold")}));
 end CheckEquality;

@@ -306,7 +306,7 @@ First implementation.
           fillPattern=FillPattern.Solid),
         Text(
           extent={{-148,-326},{152,-366}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%name"),
         Line(
           points={{-142,300},{-140,372}},

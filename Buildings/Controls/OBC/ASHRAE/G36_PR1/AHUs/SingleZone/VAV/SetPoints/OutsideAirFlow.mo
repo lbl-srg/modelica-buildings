@@ -223,11 +223,11 @@ Icon(graphics={Rectangle(
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid), Text(
           extent={{-84,78},{92,-72}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="VOutMinSet_flow"),
         Text(
           extent={{-100,140},{100,100}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%name")}),
         Diagram(
         coordinateSystem(preserveAspectRatio=false,

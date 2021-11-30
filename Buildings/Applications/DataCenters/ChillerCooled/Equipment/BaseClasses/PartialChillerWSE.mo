@@ -456,7 +456,7 @@ equation
           fillPattern=FillPattern.Solid),
         Text(
           extent={{6,16},{16,8}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid,
           textStyle={TextStyle.Bold},

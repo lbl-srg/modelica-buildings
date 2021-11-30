@@ -141,7 +141,7 @@ Modelica Standard Library.
           fillPattern=FillPattern.Solid),
         Text(
           extent={{-90,76},{-46,50}},
-          lineColor=DynamicSelect({0,0,0},
+          textColor=DynamicSelect({0,0,0},
             if u2 then
               {0,0,0}
             else
@@ -149,7 +149,7 @@ Modelica Standard Library.
           textString="true"),
         Text(
           extent={{-90,-42},{-38,-72}},
-          lineColor=DynamicSelect({0,0,0},
+          textColor=DynamicSelect({0,0,0},
             if u2 then
               {235,235,235}
             else
@@ -157,6 +157,6 @@ Modelica Standard Library.
           textString="false"),
         Text(
           extent={{-150,150},{150,110}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%name")}));
 end LogicalSwitch;

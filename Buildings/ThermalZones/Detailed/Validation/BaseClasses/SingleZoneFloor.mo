@@ -377,7 +377,7 @@ equation
           rotation=90),
           Text(
             extent={{-100,238},{100,184}},
-            lineColor={0,0,255},
+            textColor={0,0,255},
           textString="%name")}),
               Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)));

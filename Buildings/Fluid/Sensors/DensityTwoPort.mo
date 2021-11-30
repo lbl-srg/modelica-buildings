@@ -64,14 +64,14 @@ annotation (defaultComponentName="senDen",
         grid={1,1}), graphics={
         Text(
           extent={{102,124},{6,95}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="d"),
         Line(points={{0,100},{0,70}}, color={0,0,127}),
         Line(points={{-100,0},{-70,0}}, color={0,128,255}),
         Line(points={{70,0},{100,0}}, color={0,128,255}),
         Text(
           extent={{-20,120},{-140,70}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString=DynamicSelect("", String(d, leftJustified=false, significantDigits=3)))}),
   Documentation(info="<html>
 <p>

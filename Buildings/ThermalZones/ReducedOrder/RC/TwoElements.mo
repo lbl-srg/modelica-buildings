@@ -122,7 +122,7 @@ equation
     fillPattern=FillPattern.Solid),
   Text(
     extent={{173,-65},{224,-82}},
-    lineColor={0,0,255},
+    textColor={0,0,255},
     fillColor={215,215,215},
     fillPattern=FillPattern.Solid,
     textString="Interior Walls")}), Documentation(revisions="<html>
@@ -166,6 +166,6 @@ equation
   fillPattern=FillPattern.Solid,
   pattern=LinePattern.None), Text(
   extent={{-60,60},{64,-64}},
-  lineColor={0,0,0},
+  textColor={0,0,0},
   textString="2")}));
 end TwoElements;

@@ -122,7 +122,7 @@ Initial CDL implementation based on continuous time table implementation in CDL.
         Text(
           extent={{-150,150},{150,110}},
           textString="%name",
-          lineColor={0,0,255}),
+          textColor={0,0,255}),
         Polygon(
           lineColor={217,67,180},
           fillColor={217,67,180},

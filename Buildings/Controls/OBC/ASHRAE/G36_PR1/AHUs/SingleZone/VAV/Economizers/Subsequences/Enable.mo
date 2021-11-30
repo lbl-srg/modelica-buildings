@@ -314,7 +314,7 @@ annotation (
           thickness=0.5),
         Text(
           extent={{-170,142},{158,104}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="%name")}),
     Diagram(coordinateSystem(
         preserveAspectRatio=false,
@@ -346,29 +346,29 @@ annotation (
           fillPattern=FillPattern.Solid),
                                      Text(
           extent={{102,168},{178,156}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           horizontalAlignment=TextAlignment.Left,
           textString="Outdoor air
 conditions"),                        Text(
           extent={{100,70},{264,48}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           horizontalAlignment=TextAlignment.Left,
           textString="Freeze protection -
 disable if stage1
 and above"),                         Text(
           extent={{100,-34},{214,-86}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           horizontalAlignment=TextAlignment.Left,
           textString="Damper position
 limit assignments"),                 Text(
           extent={{102,16},{206,-22}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           horizontalAlignment=TextAlignment.Left,
           textString="Zone state -
 disable if
 heating"),                           Text(
           extent={{100,102},{182,92}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           horizontalAlignment=TextAlignment.Left,
           textString="Supply fan status")}),
     Documentation(info="<html>

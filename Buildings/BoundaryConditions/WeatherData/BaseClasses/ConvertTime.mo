@@ -106,11 +106,11 @@ First implementation.
             100}}), graphics={
         Text(
           extent={{-98,6},{-74,-4}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="modTim"),
         Text(
           extent={{74,6},{98,-4}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="calTim"),
         Rectangle(
           extent={{-66,76},{60,58}},

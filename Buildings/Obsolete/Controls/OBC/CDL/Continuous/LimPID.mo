@@ -353,7 +353,7 @@ equation
         Text(
           extent={{-150,150},{150,110}},
           textString="%name",
-          lineColor={0,0,255}),
+          textColor={0,0,255}),
         Line(
           points={{-80,-80},{-80,-22}},
           color={0,0,0}),

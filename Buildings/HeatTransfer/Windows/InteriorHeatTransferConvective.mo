@@ -142,10 +142,10 @@ First implementation.
          graphics={
         Text(
           extent={{-94,-82},{-28,-100}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="QRadAbs"),
         Text(
           extent={{-28,-84},{34,-100}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="TSha")}));
 end InteriorHeatTransferConvective;

@@ -155,11 +155,11 @@ equation
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Text(
           extent={{-98,100},{-86,84}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="y"),
         Text(
           extent={{-104,70},{-70,32}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="TWB"),
         Rectangle(
           extent={{-100,81},{-70,78}},
@@ -169,7 +169,7 @@ equation
           fillPattern=FillPattern.Solid),
         Text(
           extent={{-54,6},{58,-114}},
-          lineColor={255,255,255},
+          textColor={255,255,255},
           fillColor={0,127,0},
           fillPattern=FillPattern.Solid,
           textString="Merkel"),
@@ -203,7 +203,7 @@ equation
           fillPattern=FillPattern.Solid),
         Text(
           extent={{64,114},{98,76}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="PFan"),
         Rectangle(
           extent={{78,-60},{82,-4}},
@@ -213,7 +213,7 @@ equation
           fillPattern=FillPattern.Solid),
         Text(
           extent={{70,-58},{104,-96}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="TLvg"),
         Rectangle(
           extent={{78,-58},{102,-62}},

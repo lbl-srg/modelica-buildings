@@ -49,14 +49,14 @@ equation
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid), Text(
           extent={{-100,-40},{100,-80}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           lineThickness=0.5,
           fillColor={0,0,255},
           fillPattern=FillPattern.Solid,
           textString="Voltage
 CTRL"),                                   Text(
           extent={{-100,72},{100,40}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           lineThickness=0.5,
           fillColor={0,0,255},
           fillPattern=FillPattern.Solid,

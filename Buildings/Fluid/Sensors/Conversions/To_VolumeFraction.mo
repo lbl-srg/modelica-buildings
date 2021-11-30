@@ -24,19 +24,19 @@ equation
           fillPattern=FillPattern.Solid),
         Text(
           extent={{-84,52},{-14,14}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="M'"),
         Text(
           extent={{36,48},{102,8}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="V'"),
         Text(
           extent={{22,-14},{106,-52}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="V"),
         Text(
           extent={{-88,-12},{-22,-48}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="M"),
         Rectangle(
           extent={{-72,4},{-38,0}},
@@ -49,11 +49,11 @@ equation
           fillColor={0,0,255},
           fillPattern=FillPattern.Solid),Text(
           extent={{-48,146},{50,98}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%name"),
         Text(
           extent={{98,-46},{-22,-96}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString=DynamicSelect("", String(V, leftJustified=false, significantDigits=3)))}),
 defaultComponentName="toVolFra",
 Documentation(info="<html>

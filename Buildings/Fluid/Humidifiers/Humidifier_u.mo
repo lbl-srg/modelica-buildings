@@ -54,7 +54,7 @@ equation
           fillPattern=FillPattern.Solid),
         Text(
           extent={{-114,104},{-70,76}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="u"),
         Rectangle(
           visible=use_T_in,
@@ -94,7 +94,7 @@ equation
           fillPattern=FillPattern.Solid),
         Text(
           extent={{30,112},{96,58}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="mWat_flow"),
         Polygon(
           points={{42,10},{54,2},{54,2},{42,-4},{42,-2},{50,2},{50,2},{42,8},{

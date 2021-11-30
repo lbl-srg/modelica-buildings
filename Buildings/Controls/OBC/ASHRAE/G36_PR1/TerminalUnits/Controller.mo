@@ -496,70 +496,70 @@ annotation (defaultComponentName="terUniCon",
         fillPattern=FillPattern.Solid),
         Text(
           extent={{-100,-54},{-78,-64}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="TDis"),
         Text(
           extent={{-100,-70},{-70,-82}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="TSup"),
         Text(
           extent={{70,18},{98,4}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="yVal"),
         Text(
           extent={{68,70},{96,56}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="yDam"),
         Text(
           extent={{-98,100},{-46,88}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="TZonHeaSet"),
         Text(
           extent={{-98,-14},{-68,-26}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="VDis_flow"),
         Text(
           extent={{-120,160},{114,108}},
           textString="%name",
-          lineColor={0,0,255}),
+          textColor={0,0,255}),
         Text(
           extent={{-96,6},{-74,-8}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="TZon"),
         Text(
           extent={{-100,84},{-46,74}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="TZonCooSet"),
         Text(
           extent={{-100,-86},{-52,-98}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="uOpeMod"),
         Text(
           visible=have_occSen,
           extent={{-100,36},{-74,26}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="nOcc"),
         Text(
           visible=have_CO2Sen,
           extent={{-96,60},{-58,42}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="ppmCO2"),
         Text(
           visible=have_winSen,
           extent={{-100,14},{-72,4}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="uWin"),
         Text(
           extent={{22,-20},{96,-58}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="yZonTemResReq"),
         Text(
           extent={{24,-62},{96,-96}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="yZonPreResReq"),
         Text(
           extent={{-98,-34},{-50,-44}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="uDam_actual")}),
     Diagram(coordinateSystem(extent={{-140,-180},{140,180}})),
 Documentation(info="<html>

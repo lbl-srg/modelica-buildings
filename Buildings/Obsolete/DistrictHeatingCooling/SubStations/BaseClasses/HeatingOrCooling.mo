@@ -116,7 +116,7 @@ equation
         fillPattern=FillPattern.Solid),
         Text(
           extent={{52,70},{96,50}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="PPum")}),
     Documentation(info="<html>
 <p>

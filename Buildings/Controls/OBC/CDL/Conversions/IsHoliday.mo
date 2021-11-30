@@ -37,10 +37,10 @@ First implementation.
           borderPattern=BorderPattern.Raised),
         Text(
           extent={{-82,46},{82,-44}},
-          lineColor={0,127,0},
+          textColor={0,127,0},
           textString="isHoliday"),
         Text(
           extent={{-140,148},{160,108}},
           textString="%name",
-          lineColor={0,0,255})}));
+          textColor={0,0,255})}));
 end IsHoliday;

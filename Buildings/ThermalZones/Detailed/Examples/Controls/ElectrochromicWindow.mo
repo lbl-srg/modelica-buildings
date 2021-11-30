@@ -117,14 +117,14 @@ First implementation.
             100}}), graphics={
         Text(
           extent={{-118,58},{-42,26}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="T"),
         Text(
           extent={{-118,-24},{-42,-56}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="H"),
         Text(
           extent={{42,22},{118,-10}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="u")}));
 end ElectrochromicWindow;
