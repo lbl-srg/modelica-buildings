@@ -77,9 +77,9 @@
    inkscape:window-height="1016"
    id="namedview1498"
    showgrid="true"
-   inkscape:zoom="0.45254834"
-   inkscape:cx="280.633"
-   inkscape:cy="767.87377"
+   inkscape:zoom="0.90509668"
+   inkscape:cx="865.10095"
+   inkscape:cy="527.56795"
    inkscape:window-x="40"
    inkscape:window-y="27"
    inkscape:window-maximized="1"
@@ -3878,38 +3878,45 @@
    transform="matrix(2.3047922,0,0,1.960627,2386.38,668.96791)"><tspan
      x="-882.04297"
      y="-136.98803"
-     id="tspan7033">. Select object, copy to new file
+     id="tspan15474">. Select object, copy to new file
 </tspan><tspan
      x="-882.04297"
      y="-124.44354"
-     id="tspan7035">. Change line color to black
+     id="tspan15476">. Change line color to black
 </tspan><tspan
      x="-882.04297"
      y="-111.89904"
-     id="tspan7037">. Lock width/height ratio and change height to 1000 px (lower resolution is blurry in Dymola)
+     id="tspan15478">. Lock width/height ratio and change height to 1000 px (lower resolution is blurry in Dymola)
 </tspan><tspan
      x="-882.04297"
      y="-99.354535"
-     id="tspan7039">  * For transducers, 1000 px is for the probe, 400 px for the box
+     id="tspan15480">  * For transducers, 1000 px is for the probe, 400 px for the box
 </tspan><tspan
      x="-882.04297"
      y="-86.810032"
-     id="tspan7041">. Change stroke width to 10 px. Reset height to 1000 px
+     id="tspan15482">. Change stroke width to 10 px. Reset height to 1000 px
 </tspan><tspan
      x="-882.04297"
      y="-74.26553"
-     id="tspan7043">. Text in sans-serif with font size of 150 (if needed, select text object and transform to path with </tspan><tspan
+     id="tspan15484">. For polygons, select each segment with Node tool, and Convert selected object to path, and </tspan><tspan
      x="-882.04297"
      y="-61.721028"
-     id="tspan7045">Path/Object to Path)
+     id="tspan15486">Join slelected nodes
 </tspan><tspan
      x="-882.04297"
      y="-49.176529"
-     id="tspan7047">. Select object, Edit/Resize Page to Selection
-</tspan><tspan
+     id="tspan15488">. Text in sans-serif with font size of 150 (if needed, select text object and transform to path with </tspan><tspan
      x="-882.04297"
      y="-36.632031"
-     id="tspan7049">. Save copy as plain SVG
+     id="tspan15490">Path/Object to Path)
+</tspan><tspan
+     x="-882.04297"
+     y="-24.087533"
+     id="tspan15492">. Select object, Edit/Resize Page to Selection
+</tspan><tspan
+     x="-882.04297"
+     y="-11.543034"
+     id="tspan15494">. Save copy as plain SVG
 </tspan></text><text
    xml:space="preserve"
    id="text1649"

@@ -35,10 +35,10 @@ model NoRelief "No relief branch"
     annotation (Placement(transformation(extent={{50,-50},{70,-30}})));
 
 equation
-  /* Hardware point connection - start */
+  /* Control point connection - start */
   connect(fanRet.bus, bus.fanRet);
    connect(pRet_rel.y, bus.pRet_rel);
-  /* Hardware point connection - end */
+  /* Control point connection - end */
   connect(port_a, fanRet.port_a)
     annotation (Line(points={{180,0},{70,0}},  color={0,127,255}));
   connect(pRet_rel.port_b, port_bPre)

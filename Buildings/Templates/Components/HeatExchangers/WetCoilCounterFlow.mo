@@ -1,7 +1,7 @@
-within Buildings.Templates.Components.Coils.HeatExchangers;
+within Buildings.Templates.Components.HeatExchangers;
 model WetCoilCounterFlow "Discretized wet heat exchanger model"
-  extends Buildings.Templates.Interfaces.HeatExchangerWater(
-    final typ=Types.HeatExchanger.WetCoilCounterFlow);
+  extends Buildings.Templates.Components.HeatExchangers.Interfaces.PartialHeatExchangerWater(
+    final typ=Buildings.Templates.Components.Types.HeatExchanger.WetCoilCounterFlow);
 
   parameter Modelica.SIunits.ThermalConductance UA_nominal=
     dat.getReal(varName=id + ".Mechanical." + funStr + " coil.UA (dry coil conditions).value")

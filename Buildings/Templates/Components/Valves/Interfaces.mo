@@ -7,8 +7,9 @@ package Interfaces "Classes defining the component interfaces"
       constrainedby Modelica.Media.Interfaces.PartialMedium
       "Medium";
 
-    parameter Buildings.Templates.Components.Types.Actuator typ
-      "Equipment type" annotation (Evaluate=true, Dialog(group="Configuration"));
+    parameter Buildings.Templates.Components.Types.Valve typ
+      "Equipment type"
+      annotation (Evaluate=true, Dialog(group="Configuration"));
 
     outer parameter String funStr
       "String used to identify the coil function";
@@ -27,23 +28,24 @@ package Interfaces "Classes defining the component interfaces"
     Modelica.Fluid.Interfaces.FluidPort_a port_aSup(
       redeclare final package Medium = Medium)
       "Fluid connector a (positive design flow direction is from port_a to port_b)"
-      annotation (Placement(transformation(extent={{-50,-110},{-30,-90}})));
+      annotation (Placement(transformation(extent={{30,-110},{50,-90}})));
     Modelica.Fluid.Interfaces.FluidPort_b port_bRet(
       redeclare final package Medium = Medium)
       "Fluid connector b (positive design flow direction is from port_a to port_b)"
-      annotation (Placement(transformation(extent={{50,-110},{30,-90}})));
+      annotation (Placement(transformation(extent={{-30,-110},{-50,-90}})));
     Modelica.Fluid.Interfaces.FluidPort_a port_aRet(
       redeclare final package Medium = Medium)
       "Fluid connector a (positive design flow direction is from port_a to port_b)"
-      annotation (Placement(transformation(extent={{30,90},{50,110}})));
+      annotation (Placement(transformation(extent={{-50,90},{-30,110}})));
     Modelica.Fluid.Interfaces.FluidPort_b port_bSup(
       redeclare final package Medium = Medium)
       "Fluid connector b (positive design flow direction is from port_a to port_b)"
-      annotation (Placement(transformation(extent={{-30,90},{-50,110}})));
-    Modelica.Blocks.Interfaces.RealInput y(min=0, max=1)
-      if typ <> Buildings.Templates.Components.Types.Actuator.None
-      "Actuator control signal"
+      annotation (Placement(transformation(extent={{50,90},{30,110}})));
+    Buildings.Controls.OBC.CDL.Interfaces.RealInput y(min=0, max=1)
+      if typ <> Buildings.Templates.Components.Types.Valve.None
+      "Valve control signal"
       annotation (Placement(
+        visible=false,
         transformation(extent={{-20,-20},{20,20}}, rotation=0,   origin={-120,0}),
         iconTransformation(
           extent={{-10,-10},{10,10}},

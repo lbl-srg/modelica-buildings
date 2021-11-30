@@ -66,11 +66,11 @@ model VAVBox "VAV terminal unit"
     "Discharge air temperature sensor"
     annotation (Placement(transformation(extent={{90,-210},{110,-190}})));
 equation
-  /* Hardware point connection - start */
+  /* Control point connection - start */
   connect(damVAV.bus, bus.damVAV);
   connect(coiReh.bus, bus.coiReh);
   connect(TDis.y, bus.TDis);
-  /* Hardware point connection - end */
+  /* Control point connection - end */
   connect(port_coiRehSup, coiReh.port_aSou) annotation (Line(points={{-20,-280},
           {-20,-220},{-4,-220},{-4,-210}}, color={0,127,255}));
   connect(coiReh.port_bSou, port_coiRehRet) annotation (Line(points={{4,-210},{

@@ -19,9 +19,9 @@ model ReliefDamper "No relief fan - Modulated relief damper"
         rotation=0,
         origin={-150,0})));
 equation
-  /* Hardware point connection - start */
+  /* Control point connection - start */
   connect(damRel.bus, bus.damRel);
-  /* Hardware point connection - end */
+  /* Control point connection - end */
   connect(port_b, damRel.port_b)
     annotation (Line(points={{-180,0},{-160,0}}, color={0,127,255}));
   connect(damRel.port_a, pas.port_a)

@@ -60,11 +60,6 @@ equation
   connect(V_flow.y, bus.V_flow)
     annotation (Line(points={{80,12},{80,100},{0,100}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
-          Rectangle(
-          extent={{-100,100},{100,-100}},
-          lineColor={0,0,255},
-          fillColor={255,255,255},
-          fillPattern=FillPattern.Solid),
     Bitmap(
         visible=have_senFlo and typ<>Buildings.Templates.Components.Types.Fan.None,
         extent=if text_flip then {{-140,-240},{-220,-160}} else {{-220,-240},{-140,-160}},

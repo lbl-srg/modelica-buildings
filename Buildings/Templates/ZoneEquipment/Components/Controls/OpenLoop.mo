@@ -16,10 +16,10 @@ block OpenLoop "Open loop controller (output signals only)"
         rotation=-90,
         origin={20,110})));
 equation
-  /* Hardware point connection - start */
+  /* Control point connection - start */
   connect(yDamVAV.y, bus.damVAV.y);
   connect(yCoiReh.y, bus.coiReh.y);
-  /* Hardware point connection - end */
+  /* Control point connection - end */
   annotation (
   defaultComponentName="conTer");
 end OpenLoop;

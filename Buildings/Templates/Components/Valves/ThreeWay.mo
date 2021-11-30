@@ -1,7 +1,7 @@
-within Buildings.Templates.Components.Coils.Actuators;
-model ThreeWayValve "Three-way valve"
-  extends Buildings.Templates.Interfaces.Actuator(
-    final typ=Types.Actuator.ThreeWayValve);
+within Buildings.Templates.Components.Valves;
+model ThreeWay "Three-way valve"
+  extends Buildings.Templates.Components.Valves.Interfaces.PartialValve(
+    final typ=Buildings.Templates.Components.Types.Valve.ThreeWay);
 
   parameter Modelica.SIunits.PressureDifference dpValve_nominal(
      displayUnit="Pa",
@@ -15,9 +15,9 @@ model ThreeWayValve "Three-way valve"
     "Nominal pressure drop of pipes and other equipment in flow legs at port_1 and port_3"
     annotation(Dialog(group="Nominal condition"));
 
-  replaceable Fluid.Actuators.Valves.ThreeWayEqualPercentageLinear val(
+  replaceable Buildings.Fluid.Actuators.Valves.ThreeWayEqualPercentageLinear val(
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
-    constrainedby Fluid.Actuators.BaseClasses.PartialThreeWayValve(
+    constrainedby Buildings.Fluid.Actuators.BaseClasses.PartialThreeWayValve(
       redeclare final package Medium=Medium,
       final m_flow_nominal=mWat_flow_nominal,
       final dpValve_nominal=dpValve_nominal,
@@ -27,9 +27,9 @@ model ThreeWayValve "Three-way valve"
       choicesAllMatching=true,
       Placement(
         transformation(
-        extent={{-10,-10},{10,10}},
+        extent={{-10,10},{10,-10}},
         rotation=-90,
-        origin={40,0})));
+        origin={-40,0})));
   Fluid.FixedResistances.Junction jun(
     redeclare final package Medium=Medium,
     final m_flow_nominal=mWat_flow_nominal * {1, -1, -1},
@@ -38,22 +38,22 @@ model ThreeWayValve "Three-way valve"
     "Junction"
     annotation (
       Placement(transformation(
-        extent={{-10,-10},{10,10}},
+        extent={{-10,10},{10,-10}},
         rotation=90,
-        origin={-40,0})));
+        origin={40,0})));
 equation
-  connect(y, val.y)
-    annotation (Line(points={{-120,0},{-80,0},{-80,20},{60,20},{60,2.22045e-15},
-          {52,2.22045e-15}},                   color={0,0,127}));
   connect(port_aSup, jun.port_1)
-    annotation (Line(points={{-40,-100},{-40,-10}}, color={0,127,255}));
+    annotation (Line(points={{40,-100},{40,-10}},   color={0,127,255}));
   connect(jun.port_2, port_bSup)
-    annotation (Line(points={{-40,10},{-40,100}}, color={0,127,255}));
+    annotation (Line(points={{40,10},{40,100}},   color={0,127,255}));
   connect(jun.port_3, val.port_3)
-    annotation (Line(points={{-30,0},{30,0}}, color={0,127,255}));
-  connect(val.port_2, port_bRet) annotation (Line(points={{40,-10},{40,-100},{
-          40,-100}}, color={0,127,255}));
+    annotation (Line(points={{30,5.55112e-16},{-30,-1.77636e-15}},
+                                              color={0,127,255}));
+  connect(val.port_2, port_bRet) annotation (Line(points={{-40,-10},{-40,-100}},
+                     color={0,127,255}));
   connect(val.port_1, port_aRet)
-    annotation (Line(points={{40,10},{40,100},{40,100}}, color={0,127,255}));
+    annotation (Line(points={{-40,10},{-40,100}},        color={0,127,255}));
 
-end ThreeWayValve;
+  connect(y, val.y)
+    annotation (Line(points={{-120,0},{-52,2.10942e-15}}, color={0,0,127}));
+end ThreeWay;

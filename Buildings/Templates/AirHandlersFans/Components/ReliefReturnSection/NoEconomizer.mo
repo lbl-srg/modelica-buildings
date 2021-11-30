@@ -40,10 +40,10 @@ model NoEconomizer "No air economizer"
     annotation (Placement(transformation(extent={{50,-50},{70,-30}})));
 
 equation
-  /* Hardware point connection - start */
+  /* Control point connection - start */
   connect(fanRet.bus, bus.fanRet);
   connect(damRel.bus, bus.damRel);
-  /* Hardware point connection - end */
+  /* Control point connection - end */
   connect(fanRet.port_a, port_a)
     annotation (Line(points={{70,0},{180,0}}, color={0,127,255}));
   connect(port_b, damRel.port_b)

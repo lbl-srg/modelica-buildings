@@ -22,10 +22,10 @@ model NoEconomizer "No air economizer"
     "Outdoor air temperature sensor"
     annotation (Placement(transformation(extent={{-120,-10},{-100,10}})));
 equation
-  /* Hardware point connection - start */
+  /* Control point connection - start */
   connect(damOut.bus, bus.damOut);
   connect(TOut.y, bus.TOut);
-  /* Hardware point connection - end */
+  /* Control point connection - end */
   connect(port_aIns, port_b)
     annotation (Line(points={{-40,0},{180,0}}, color={0,127,255}));
   connect(port_a, damOut.port_a)

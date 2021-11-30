@@ -26,9 +26,11 @@ partial model PartialSensor
   outer parameter ExternData.JSONFile dat
     "External parameter file";
 
-  Controls.OBC.CDL.Interfaces.RealOutput y if have_sen
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput y if have_sen
     "Connector for measured value"
-    annotation (Placement(transformation(
+    annotation (Placement(
+      visible=false,
+      transformation(
         extent={{-20,-20},{20,20}},
         rotation=90,
         origin={0,120})));
@@ -51,9 +53,6 @@ equation
   annotation (
     Icon(coordinateSystem(preserveAspectRatio=false),
       graphics={
-      Rectangle(
-          extent={{-100,100},{100,-100}},
-          lineColor={0,0,255}),
       Line(
         visible=(not have_sen) and (not isDifPreSen),
           points={{-100,0},{100,0}},

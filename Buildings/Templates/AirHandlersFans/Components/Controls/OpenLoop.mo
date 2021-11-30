@@ -88,7 +88,7 @@ block OpenLoop "Open loop controller (output signals only)"
         origin={180,70})));
 
 equation
-  /* Hardware point connection - start */
+  /* Control point connection - start */
 
   connect(yCoiCoo.y, bus.coiCoo.y);
   connect(yCoiHea.y, bus.coiHea.y);
@@ -106,7 +106,7 @@ equation
   connect(yDamRel.y, bus.damRel.y);
   connect(yDamRel1.y, bus.damRel.y);
   connect(yDamRet.y, bus.damRet.y);
-  /* Hardware point connection - stop */
+  /* Control point connection - stop */
 
   annotation (
   defaultComponentName="conAHU",

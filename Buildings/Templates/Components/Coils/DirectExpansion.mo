@@ -3,7 +3,7 @@ model DirectExpansion "Direct expansion"
   extends Buildings.Templates.Components.Coils.Interfaces.PartialCoil(
     final typ=Buildings.Templates.Components.Types.Coil.DirectExpansion,
     final typHex=hex.typ,
-    final typAct=Buildings.Templates.Components.Types.Actuator.None,
+    final typVal=Buildings.Templates.Components.Types.Valve.None,
     final have_sou=false,
     final have_weaBus=true);
 

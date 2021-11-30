@@ -42,8 +42,8 @@ model NoEconomizer "No air economizer"
     annotation (
       Placement(transformation(extent={{-90,-10},{-70,10}})));
 equation
-  /* Hardware point connection - start */
-  /* Hardware point connection - end */
+  /* Control point connection - start */
+  /* Control point connection - end */
   connect(port_Rel, secRel.port_b)
     annotation (Line(points={{-180,80},{-18,80}}, color={0,127,255}));
   connect(secRel.port_a, port_Ret)

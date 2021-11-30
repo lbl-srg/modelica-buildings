@@ -8,7 +8,7 @@ model TwoPosition "Two-position damper"
     "Type of blades"
     annotation(Dialog(tab="Graphics", enable=false));
 
-  Fluid.Actuators.Dampers.Exponential damExp(
+  Buildings.Fluid.Actuators.Dampers.Exponential damExp(
     redeclare final package Medium=Medium,
     final m_flow_nominal=m_flow_nominal,
     final dpDamper_nominal=dpDamper_nominal)
@@ -20,7 +20,7 @@ model TwoPosition "Two-position damper"
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={0,50})));
-  .Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold evaSta(t=0.99, h=0.5E-2)
+  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold evaSta(t=0.99, h=0.5E-2)
     "Evaluate damper status"
     annotation (Placement(
         transformation(

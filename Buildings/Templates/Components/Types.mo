@@ -1,18 +1,6 @@
 within Buildings.Templates.Components;
 package Types "Generic types for template components"
   extends Modelica.Icons.TypesPackage;
-  type Actuator = enumeration(
-      None
-      "No valve",
-      TwoWayValve
-      "Two-way valve",
-      ThreeWayValve
-      "Three-way valve",
-      PumpedCoilTwoWayValve
-      "Pumped coil with two-way valve",
-      PumpedCoilThreeWayValve
-      "Pumped coil with three-way valve")
-    "Enumeration to configure the actuator";
   type Coil = enumeration(
       DirectExpansion
       "Direct expansion",
@@ -105,4 +93,16 @@ package Types "Generic types for template components"
       InWell
       "Sensor in well")
     "Enumeration to configure the temperature sensor";
+  type Valve = enumeration(
+      None
+      "No valve",
+      TwoWay
+      "Two-way valve",
+      ThreeWay
+      "Three-way valve",
+      PumpedCoilTwoWay
+      "Pumped coil with two-way valve",
+      PumpedCoilThreeWay
+      "Pumped coil with three-way valve")
+    "Enumeration to configure the valve";
 end Types;

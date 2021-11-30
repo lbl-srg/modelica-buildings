@@ -65,34 +65,34 @@ model VAVMultiZone "Multiple-Zone VAV"
     redeclare final package Medium = MediumCoo) if have_souCoiCoo
     "Cooling coil return port"
     annotation (Placement(
-      transformation(extent={{30,-290},{50,-270}}),
+      transformation(extent={{90,-290},{110,-270}}),
       iconTransformation(extent={{50,-208},{70,-188}})));
   Modelica.Fluid.Interfaces.FluidPort_a port_coiCooSup(
     redeclare final package Medium = MediumCoo) if have_souCoiCoo
     "Cooling coil supply port"
     annotation (Placement(
-        transformation(extent={{10,-290},{30,-270}}), iconTransformation(
+        transformation(extent={{50,-290},{70,-270}}), iconTransformation(
           extent={{10,-208},{30,-188}})));
   Modelica.Fluid.Interfaces.FluidPort_b port_coiHeaRet(
     redeclare final package Medium =MediumHea) if have_souCoiHea
     "Heating coil return port"
-    annotation (Placement(transformation(extent={{-30,
-            -290},{-10,-270}}), iconTransformation(extent={{-40,-208},{-20,-188}})));
+    annotation (Placement(transformation(extent={{10,-290},{30,-270}}),
+                                iconTransformation(extent={{-40,-208},{-20,-188}})));
   Modelica.Fluid.Interfaces.FluidPort_a port_coiHeaSup(
     redeclare final package Medium =MediumHea) if have_souCoiHea
     "Heating coil supply port"
-    annotation (Placement(transformation(extent={{-50,
-            -290},{-30,-270}}), iconTransformation(extent={{-80,-208},{-60,-188}})));
+    annotation (Placement(transformation(extent={{-30,-290},{-10,-270}}),
+                                iconTransformation(extent={{-80,-208},{-60,-188}})));
   Modelica.Fluid.Interfaces.FluidPort_b port_coiRehRet(
     redeclare final package Medium =MediumHea) if have_souCoiReh
     "Reheat coil return port"
-    annotation (Placement(transformation(extent={{90,-290},
-            {110,-270}}), iconTransformation(extent={{140,-208},{160,-188}})));
+    annotation (Placement(transformation(extent={{170,-290},{190,-270}}),
+                          iconTransformation(extent={{140,-208},{160,-188}})));
   Modelica.Fluid.Interfaces.FluidPort_a port_coiRehSup(
     redeclare final package Medium = MediumHea) if have_souCoiReh
     "Reheat coil supply port"
-    annotation (Placement(transformation(extent={{70,-290},
-            {90,-270}}), iconTransformation(extent={{100,-208},{120,-188}})));
+    annotation (Placement(transformation(extent={{130,-290},{150,-270}}),
+                         iconTransformation(extent={{100,-208},{120,-188}})));
   BoundaryConditions.WeatherData.Bus busWea
     "Weather bus"
     annotation (Placement(transformation(extent={{-20,260},{20,300}}),
@@ -120,8 +120,8 @@ model VAVMultiZone "Multiple-Zone VAV"
     final m_flow_nominal=mSup_flow_nominal)
     "Mixed air temperature sensor"
     annotation (Dialog(group=
-          "Supply air section", enable=false), Placement(transformation(extent=
-            {{-100,-210},{-80,-190}})));
+          "Supply air section", enable=false), Placement(transformation(extent={{-110,
+            -210},{-90,-190}})));
 
   inner replaceable Buildings.Templates.Components.Fans.None fanSupBlo
     constrainedby Buildings.Templates.Components.Fans.Interfaces.PartialFan(
@@ -135,7 +135,7 @@ model VAVMultiZone "Multiple-Zone VAV"
       choicesAllMatching=true,
       Dialog(group="Supply air section",
         enable=fanSupDra.typ == Buildings.Templates.Components.Types.Fan.None),
-      Placement(transformation(extent={{-70,-210},{-50,-190}})));
+      Placement(transformation(extent={{-50,-210},{-30,-190}})));
 
   .Buildings.Templates.Components.Sensors.Temperature THea(
     redeclare final package Medium = MediumAir,
@@ -145,7 +145,7 @@ model VAVMultiZone "Multiple-Zone VAV"
     final m_flow_nominal=mSup_flow_nominal)
     "Heating coil leaving air temperature sensor"
     annotation (Dialog(group="Supply air section", enable=false),
-      Placement(transformation(extent={{-10,-210},{10,-190}})));
+      Placement(transformation(extent={{40,-210},{60,-190}})));
 
   Buildings.Templates.Components.Sensors.Temperature TCoo(
     redeclare final package Medium = MediumAir,
@@ -155,8 +155,8 @@ model VAVMultiZone "Multiple-Zone VAV"
     final m_flow_nominal=mSup_flow_nominal)
     "Cooling coil leaving air temperature sensor"
     annotation (Dialog(group=
-          "Supply air section", enable=false), Placement(transformation(extent=
-            {{50,-210},{70,-190}})));
+          "Supply air section", enable=false), Placement(transformation(extent={{100,
+            -210},{120,-190}})));
 
   inner replaceable Buildings.Templates.Components.Fans.SingleVariable fanSupDra
     constrainedby Buildings.Templates.Components.Fans.Interfaces.PartialFan(
@@ -170,7 +170,7 @@ model VAVMultiZone "Multiple-Zone VAV"
     choicesAllMatching=true,
     Dialog(group="Supply air section",
       enable=fanSupBlo.typ == Buildings.Templates.Components.Types.Fan.None),
-    Placement(transformation(extent={{122,-210},{142,-190}})));
+    Placement(transformation(extent={{172,-210},{192,-190}})));
 
   // FIXME: bind have_sen to control option.
 
@@ -195,7 +195,7 @@ model VAVMultiZone "Multiple-Zone VAV"
     redeclare final package Medium = MediumAir,
     final m_flow_nominal=mSup_flow_nominal,
     dp_nominal=100)
-    annotation (Placement(transformation(extent={{172,-210},{192,-190}})));
+    annotation (Placement(transformation(extent={{-20,-210},{0,-190}})));
 
   Buildings.Templates.Components.Sensors.Temperature TSup(
     redeclare final package Medium = MediumAir,
@@ -204,7 +204,7 @@ model VAVMultiZone "Multiple-Zone VAV"
     final m_flow_nominal=mSup_flow_nominal)
     "Supply air temperature sensor"
     annotation (Dialog(group="Supply air section", enable=false),
-      Placement(transformation(extent={{200,-210},{220,-190}})));
+      Placement(transformation(extent={{210,-210},{230,-190}})));
 
   // FIXME: bind have_sen to control option.
   Buildings.Templates.Components.Sensors.DifferentialPressure pSup_rel(
@@ -271,7 +271,7 @@ model VAVMultiZone "Multiple-Zone VAV"
       choice(redeclare Buildings.Templates.Components.Coils.WaterBasedHeating coiHea
         "Water-based")),
     Dialog(group="Heating coil"),
-    Placement(transformation(extent={{-40,-210},{-20,-190}})));
+    Placement(transformation(extent={{10,-210},{30,-190}})));
   inner replaceable Buildings.Templates.Components.Coils.None coiCoo
     constrainedby Buildings.Templates.Components.Coils.Interfaces.PartialCoil(
     final fun=Buildings.Templates.Components.Types.CoilFunction.Cooling)
@@ -283,7 +283,7 @@ model VAVMultiZone "Multiple-Zone VAV"
       choice(redeclare Buildings.Templates.Components.Coils.WaterBasedCooling coiCoo
         "Water-based")),
     Dialog(group="Cooling coil"),
-    Placement(transformation(extent={{20,-210},{40,-190}})));
+    Placement(transformation(extent={{70,-210},{90,-190}})));
   inner replaceable Buildings.Templates.Components.Coils.None coiReh
     constrainedby Buildings.Templates.Components.Coils.Interfaces.PartialCoil(
     final fun=Buildings.Templates.Components.Types.CoilFunction.Reheat)
@@ -295,7 +295,7 @@ model VAVMultiZone "Multiple-Zone VAV"
       choice(redeclare Buildings.Templates.Components.Coils.WaterBasedHeating coiReh
         "Water-based")),
     Dialog(group="Reheat coil"),
-    Placement(transformation(extent={{80,-210},{100,-190}})));
+    Placement(transformation(extent={{130,-210},{150,-190}})));
 equation
   connect(TMix.y, bus.TMix);
   connect(THea.y, bus.THea);
@@ -311,30 +311,29 @@ equation
   connect(coiReh.bus, bus.coiHea);
   connect(secOutRel.bus, bus);
 
-  connect(coiHea.port_bSou, port_coiHeaRet) annotation (Line(points={{-26,-210},
-          {-26,-220},{-20,-220},{-20,-280}}, color={0,127,255}));
-  connect(port_coiHeaSup, coiHea.port_aSou) annotation (Line(points={{-40,-280},
-          {-40,-220},{-34,-220},{-34,-210}}, color={0,127,255}));
-  connect(port_coiCooSup, coiCoo.port_aSou) annotation (Line(points={{20,-280},{
-          20,-220},{26,-220},{26,-210}},   color={0,127,255}));
-  connect(coiCoo.port_bSou, port_coiCooRet) annotation (Line(points={{34,-210},{
-          34,-220},{40,-220},{40,-280}}, color={0,127,255}));
+  connect(coiHea.port_bSou, port_coiHeaRet) annotation (Line(points={{24,-210},{
+          24,-260},{20,-260},{20,-280}},     color={0,127,255}));
+  connect(port_coiHeaSup, coiHea.port_aSou) annotation (Line(points={{-20,-280},
+          {-20,-260},{16,-260},{16,-210}},   color={0,127,255}));
+  connect(port_coiCooSup, coiCoo.port_aSou) annotation (Line(points={{60,-280},{
+          60,-260},{76,-260},{76,-210}},   color={0,127,255}));
+  connect(coiCoo.port_bSou, port_coiCooRet) annotation (Line(points={{84,-210},{
+          84,-260},{100,-260},{100,-280}},
+                                         color={0,127,255}));
   connect(busWea,coiCoo.busWea)  annotation (Line(
-      points={{0,280},{0,80},{24,80},{24,-190}},
+      points={{0,280},{0,80},{74,80},{74,-190}},
       color={255,204,51},
       thickness=0.5));
   connect(TMix.port_b, fanSupBlo.port_a)
-    annotation (Line(points={{-80,-200},{-70,-200}},   color={0,127,255}));
-  connect(resSup.port_b, TSup.port_a)
-    annotation (Line(points={{192,-200},{200,-200}}, color={0,127,255}));
-  connect(port_coiRehSup, coiReh.port_aSou) annotation (Line(points={{80,-280},{
-          80,-220},{86,-220},{86,-210}}, color={0,127,255}));
-  connect(coiReh.port_bSou, port_coiRehRet) annotation (Line(points={{94,-210},{
-          94,-220},{100,-220},{100,-280}}, color={0,127,255}));
+    annotation (Line(points={{-90,-200},{-50,-200}},   color={0,127,255}));
+  connect(port_coiRehSup, coiReh.port_aSou) annotation (Line(points={{140,-280},
+          {140,-260},{136,-260},{136,-210}},
+                                         color={0,127,255}));
+  connect(coiReh.port_bSou, port_coiRehRet) annotation (Line(points={{144,-210},
+          {144,-260},{180,-260},{180,-280}},
+                                           color={0,127,255}));
   connect(coiReh.port_b, fanSupDra.port_a)
-    annotation (Line(points={{100,-200},{122,-200}}, color={0,127,255}));
-  connect(fanSupBlo.port_b, coiHea.port_a)
-    annotation (Line(points={{-50,-200},{-40,-200}}, color={0,127,255}));
+    annotation (Line(points={{150,-200},{172,-200}}, color={0,127,255}));
   connect(busWea, out.weaBus) annotation (Line(
       points={{0,280},{0,276},{-40,276},{-40,260},{-39.8,260}},
       color={255,204,51},
@@ -375,15 +374,16 @@ equation
   connect(hRet.port_b, TRet.port_a)
     annotation (Line(points={{230,-80},{220,-80}}, color={0,127,255}));
   connect(coiHea.port_b, THea.port_a)
-    annotation (Line(points={{-20,-200},{-10,-200}}, color={0,127,255}));
+    annotation (Line(points={{30,-200},{40,-200}},   color={0,127,255}));
   connect(THea.port_b, coiCoo.port_a)
-    annotation (Line(points={{10,-200},{20,-200}}, color={0,127,255}));
+    annotation (Line(points={{60,-200},{70,-200}}, color={0,127,255}));
   connect(coiCoo.port_b, TCoo.port_a)
-    annotation (Line(points={{40,-200},{50,-200}}, color={0,127,255}));
+    annotation (Line(points={{90,-200},{100,-200}},color={0,127,255}));
   connect(TCoo.port_b, coiReh.port_a)
-    annotation (Line(points={{70,-200},{80,-200}}, color={0,127,255}));
+    annotation (Line(points={{120,-200},{130,-200}},
+                                                   color={0,127,255}));
   connect(secOutRel.port_Sup, TMix.port_a) annotation (Line(points={{-120,-200},
-          {-120,-200},{-120,-200},{-100,-200}}, color={0,127,255}));
+          {-110,-200}},                         color={0,127,255}));
   connect(secOutRel.port_Ret, resRet.port_b)
     annotation (Line(points={{-120,-80.2},{10,-80.2},{10,-80},{170,-80}},
                                                     color={0,127,255}));
@@ -396,11 +396,16 @@ equation
   connect(ind.ports[2], pSup_rel.port_b) annotation (Line(points={{38,240},{280,
           240},{280,-220},{270,-220}}, color={0,127,255}));
   connect(TSup.port_b, port_Sup)
-    annotation (Line(points={{220,-200},{300,-200}}, color={0,127,255}));
-  connect(TSup.port_b, pSup_rel.port_a) annotation (Line(points={{220,-200},{
-          240,-200},{240,-220},{250,-220}}, color={0,127,255}));
-  connect(fanSupDra.port_b, resSup.port_a)
-    annotation (Line(points={{142,-200},{172,-200}}, color={0,127,255}));
+    annotation (Line(points={{230,-200},{248,-200},{248,-196},{276,-196},{276,-200},
+          {300,-200}},                               color={0,127,255}));
+  connect(TSup.port_b, pSup_rel.port_a) annotation (Line(points={{230,-200},{240,
+          -200},{240,-220},{250,-220}},     color={0,127,255}));
+  connect(fanSupBlo.port_b, resSup.port_a)
+    annotation (Line(points={{-30,-200},{-20,-200}}, color={0,127,255}));
+  connect(resSup.port_b, coiHea.port_a)
+    annotation (Line(points={{0,-200},{10,-200}}, color={0,127,255}));
+  connect(fanSupDra.port_b, TSup.port_a)
+    annotation (Line(points={{192,-200},{210,-200}}, color={0,127,255}));
   annotation (
     defaultComponentName="ahu",
     Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
@@ -410,11 +415,21 @@ equation
           pattern=LinePattern.Dash,
           textString="No further connection allowed to those two boundary conditions"),
         Line(
-          points={{252,-206},{252,-220},{256,-220}},
+          points={{250,-206},{250,-220},{256,-220}},
           color={0,0,0},
           thickness=1),
         Line(
-          points={{264,-220},{268,-220}},
+          points={{264,-220},{270,-220}},
+          color={0,0,0},
+          thickness=1),
+        Bitmap(extent={{-74,-210},{-66,-190}}, fileName="modelica://Buildings/Resources/Images/Templates/Components/Filters/Filter.svg"),
+        Bitmap(extent={{-74,-224},{-66,-216}}, fileName="modelica://Buildings/Resources/Images/Templates/Components/Sensors/DifferentialPressure.svg"),
+        Line(
+          points={{-80,-206},{-80,-220},{-74,-220}},
+          color={0,0,0},
+          thickness=1),
+        Line(
+          points={{-60,-206},{-60,-220},{-66,-220}},
           color={0,0,0},
           thickness=1)}),
     Documentation(info="<html>

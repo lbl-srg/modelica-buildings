@@ -572,7 +572,7 @@ block Guideline36 "Guideline 36 VAV single duct controller"
 
 equation
 
-  /* Hardware point connection - start */
+  /* Control point connection - start */
   connect(con.yHea, bus.coiHea.y);
   connect(con.yCoo, bus.coiCoo.y);
   connect(con.yRetDamPos, bus.damRet.y);
@@ -583,9 +583,7 @@ equation
   connect(FIXME_yFanRetBoo.y, bus.fanRet.y);
   connect(FIXME_yFanRetRea.y, bus.fanRet.ySpe);
   connect(FIXME_yDamRel.y, bus.damRel.y);
-  /* Hardware point connection - stop */
 
-  /* Software point connection - start */
   connect(FIXME_TSet.y, con.TZonHeaSet);
   connect(FIXME_TSet.y, con.TZonCooSet);
 
@@ -609,9 +607,7 @@ equation
   connect(busTer.yEndSetUp, repSigZon.uEndSetUp);
   connect(busTer.TZon, repSigZon.TZon);
   connect(busTer.uWin, repSigZon.uWin);
-
-  /* Software point connection - stop */
-
+  /* Control point connection - stop */
 
   connect(con.yAveOutAirFraPlu, zonToSys.yAveOutAirFraPlu) annotation (Line(
         points={{44,92},{200,92},{200,-48},{22,-48}}, color={0,0,127}));

@@ -3,7 +3,7 @@ model WaterBasedHeating "Water-based"
   extends Buildings.Templates.Components.Coils.Interfaces.PartialCoil(
     final typ=Buildings.Templates.Components.Types.Coil.WaterBased,
     final typHex=hex.typ,
-    final typAct=act.typ,
+    final typVal=val.typ,
     final have_sou=true,
     final have_weaBus=false,
     port_aSou(redeclare final package Medium = MediumHea),
@@ -23,9 +23,9 @@ model WaterBasedHeating "Water-based"
     "Liquid pressure drop"
     annotation(Dialog(group = "Nominal condition"), Evaluate=true);
 
-  replaceable Buildings.Templates.Components.Valves.None act constrainedby
+  replaceable Buildings.Templates.Components.Valves.None val constrainedby
     Buildings.Templates.Components.Valves.Interfaces.PartialValve(redeclare
-      final package Medium = MediumHea) "Actuator" annotation (
+      final package Medium = MediumHea) "Valve"    annotation (
       choicesAllMatching=true, Placement(transformation(extent={{-10,-70},{10,-50}})));
 
   replaceable
@@ -35,7 +35,8 @@ model WaterBasedHeating "Water-based"
     redeclare final package Medium2 = MediumAir,
     final m1_flow_nominal=mWat_flow_nominal,
     final m2_flow_nominal=mAir_flow_nominal,
-    final dp1_nominal=if typAct == Types.Actuator.None then dpWat_nominal else 0,
+    final dp1_nominal=if typVal == Buildings.Templates.Components.Types.Valve.None then
+      dpWat_nominal else 0,
     final dp2_nominal=dpAir_nominal)
     "Heat exchanger"
     annotation (choices(
@@ -45,17 +46,19 @@ model WaterBasedHeating "Water-based"
         transformation(extent={{10,4},{-10,-16}})));
 
 equation
-  /* Hardware point connection - start */
-  connect(bus.y, act.y);
-  /* Hardware point connection - end */
-  connect(port_aSou, act.port_aSup) annotation (Line(points={{-40,-100},{-40,-80},
-          {-4,-80},{-4,-70}}, color={0,127,255}));
-  connect(act.port_bRet, port_bSou) annotation (Line(points={{4,-70},{4,-80},{40,
-          -80},{40,-100}}, color={0,127,255}));
-  connect(act.port_bSup,hex. port_a1) annotation (Line(points={{-4,-50},{-4,-22},
-          {20,-22},{20,-12},{10,-12}}, color={0,127,255}));
-  connect(hex.port_b1, act.port_aRet) annotation (Line(points={{-10,-12},{-20,-12},
-          {-20,-24},{4,-24},{4,-50}}, color={0,127,255}));
+  /* Control point connection - start */
+  connect(bus.y,val. y);
+  /* Control point connection - end */
+  connect(port_aSou,val. port_aSup) annotation (Line(points={{40,-100},{40,-80},
+          {4,-80},{4,-70}},   color={0,127,255}));
+  connect(val.port_bRet, port_bSou) annotation (Line(points={{-4,-70},{-4,-80},{
+          -40,-80},{-40,-100}},
+                           color={0,127,255}));
+  connect(val.port_bSup,hex. port_a1) annotation (Line(points={{4,-50},{4,-22},{
+          20,-22},{20,-12},{10,-12}},  color={0,127,255}));
+  connect(hex.port_b1,val. port_aRet) annotation (Line(points={{-10,-12},{-20,-12},
+          {-20,-24},{-4,-24},{-4,-50}},
+                                      color={0,127,255}));
   connect(port_a,hex. port_a2)
     annotation (Line(points={{-100,0},{-10,0}}, color={0,127,255}));
 
@@ -65,15 +68,7 @@ equation
     graphics={
       Bitmap(
         extent={{-53,-100},{53,100}},
-        fileName="modelica://Buildings/Resources/Images/Templates/Components/Coils/WaterBasedHeating.svg"),
-      Bitmap(
-        extent={{-200,-260},{40,-100}},
-        visible=typAct==Buildings.Templates.Components.Types.Actuator.ThreeWayValve,
-        fileName="modelica://Buildings/Resources/Images/Templates/Components/Actuators/ThreeWayValve.svg"),
-      Bitmap(
-        extent={{-200,-260},{40,-100}},
-        visible=typAct==Buildings.Templates.Components.Types.Actuator.TwoWayValve,
-        fileName="modelica://Buildings/Resources/Images/Templates/Components/Actuators/TwoWayValve.svg")},
+        fileName="modelica://Buildings/Resources/Images/Templates/Components/Coils/WaterBasedHeating.svg")},
     coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
     Documentation(revisions="<html>

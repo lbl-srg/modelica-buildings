@@ -499,7 +499,7 @@ block Guideline36
     annotation (Placement(transformation(extent={{-240,-90},{-220,-70}})));
 
 equation
-  /* Hardware point connection - start */
+  /* Control point connection - start */
   connect(con.yDam, bus.damVAV.y);
   connect(con.yVal, bus.coiReh.y);
 
@@ -522,9 +522,7 @@ equation
   connect(bus.TDis, zonOutAirSet.TDis);
   connect(bus.uWin, zonSta.uWin);
   connect(bus.TZon, zonSta.TZon);
-  /* Hardware point connection - end */
 
-  /* Software point connection - start */
   connect(FIXME3.y, zonSta.cooDowTim);
   connect(FIXME3.y, zonSta.warUpTim);
 
@@ -567,7 +565,7 @@ equation
   connect(zonSta.TCooSetOff, bus.TCooSetOff);
   connect(zonSta.yHigUnoCoo, bus.yHigUnoCoo);
   connect(zonSta.yEndSetUp, bus.yEndSetUp);
-  /* Software point connection - end */
+  /* Control point connection - end */
 
   annotation (
     defaultComponentName="conTer",

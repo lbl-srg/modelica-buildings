@@ -3,7 +3,7 @@ model ControlsGuideline36
   extends Buildings.Templates.ZoneEquipment.VAVBox(
     redeclare Components.Controls.Guideline36 con,
     redeclare .Buildings.Templates.Components.Coils.WaterBasedHeating coiReh(
-        redeclare Buildings.Templates.Components.Valves.TwoWayValve act)
+        redeclare Buildings.Templates.Components.Valves.TwoWay val)
       "Water-based",
     id="Box_1");
   annotation (

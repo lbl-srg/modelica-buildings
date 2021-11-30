@@ -32,10 +32,10 @@ model ReliefFan "Relief fan - Two-position relief damper"
           "Multiple fans (identical) - Variable speed")), Placement(
         transformation(extent={{-100,-10},{-120,10}})));
 equation
-  /* Hardware point connection - start */
+  /* Control point connection - start */
   connect(fanRel.bus, bus.fanRet);
   connect(damRel.bus, bus.damRel);
-  /* Hardware point connection - end */
+  /* Control point connection - end */
   connect(port_b, damRel.port_b)
     annotation (Line(points={{-180,0},{-160,0}}, color={0,127,255}));
   connect(damRel.port_a, fanRel.port_b)

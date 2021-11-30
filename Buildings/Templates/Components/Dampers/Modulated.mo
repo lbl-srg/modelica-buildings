@@ -8,7 +8,7 @@ model Modulated
     "Type of blades"
     annotation(Dialog(tab="Graphics", enable=false));
 
-  Fluid.Actuators.Dampers.Exponential damExp(
+  Buildings.Fluid.Actuators.Dampers.Exponential damExp(
     redeclare final package Medium=Medium,
     final m_flow_nominal=m_flow_nominal,
     final dpDamper_nominal=dpDamper_nominal)

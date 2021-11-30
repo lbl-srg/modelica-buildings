@@ -35,12 +35,12 @@ model SingleDamper "Single common damper (modulated) with AFMS"
     "Outdoor air enthalpy sensor"
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
 equation
-  /* Hardware point connection - start */
+  /* Control point connection - start */
   connect(damOut.bus, bus.damOut);
   connect(TOut.y, bus.TOut);
   connect(hOut.y, bus.hOut);
   connect(VOut_flow.y, bus.VOut_flow);
-  /* Hardware point connection - end */
+  /* Control point connection - end */
   connect(port_aIns, damOut.port_a)
     annotation (Line(points={{-40,0},{-10,0}}, color={0,127,255}));
   connect(TOut.port_b, VOut_flow.port_a)

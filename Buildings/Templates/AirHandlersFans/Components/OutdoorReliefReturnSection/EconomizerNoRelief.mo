@@ -57,9 +57,9 @@ model EconomizerNoRelief "Air economizer - No relief branch"
         rotation=-90,
         origin={0,0})));
 equation
-  /* Hardware point connection - start */
+  /* Control point connection - start */
   connect(damRet.bus, bus.damRet);
-  /* Hardware point connection - end */
+  /* Control point connection - end */
   connect(secRel.port_a, port_Ret)
     annotation (Line(points={{18,80},{180,80}}, color={0,127,255}));
   connect(secRel.port_bRet, damRet.port_a)

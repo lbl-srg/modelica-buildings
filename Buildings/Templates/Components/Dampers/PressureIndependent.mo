@@ -3,13 +3,13 @@ model PressureIndependent "Pressure independent damper"
   extends Buildings.Templates.Components.Dampers.Interfaces.PartialDamper(
     final typ=Buildings.Templates.Components.Types.Damper.PressureIndependent);
 
-  Fluid.Actuators.Dampers.PressureIndependent damPreInd(
+  Buildings.Fluid.Actuators.Dampers.PressureIndependent damPreInd(
     redeclare final package Medium=Medium,
     final m_flow_nominal=m_flow_nominal,
     final dpDamper_nominal=dpDamper_nominal)
     "Pressure independent damper"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
-  Fluid.Sensors.VolumeFlowRate VDis_flow(
+  Buildings.Fluid.Sensors.VolumeFlowRate VDis_flow(
     redeclare final package Medium = Medium,
     final m_flow_nominal=m_flow_nominal)
     "Volume flow rate sensor"
