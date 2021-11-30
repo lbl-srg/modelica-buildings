@@ -144,13 +144,13 @@ protected
     "Small value used to for regularization and to approximate an internal flow resistance of the fan";
 
   parameter Real kRes(min=0, unit="kg/(s.m4)") =  dpMax/V_flow_max*delta^2/10
-    "Coefficient for internal pressure drop of fan or pump";
+    "Coefficient for internal pressure drop of the fan or pump";
 
   parameter Integer curve=
      if (haveVMax and haveDPMax) or (nOri == 2) then 1
      elseif haveVMax or haveDPMax then 2
      else 3
-    "Flag, used to pick the right representation of the fan or pump pressure curve";
+    "Flag, used to pick the right representation of the fan or pump's pressure curve";
 
   final parameter
     Buildings.Fluid.Movers.BaseClasses.Characteristics.flowParametersInternal pCur1(
@@ -163,7 +163,7 @@ protected
              {(per.pressure.dp[i] + per.pressure.V_flow[i] * kRes) for i in 1:nOri}
              else
              zeros(nOri))
-    "Volume flow rate vs. total pressure rise with correction for fan or pump resistance added";
+    "Volume flow rate vs. total pressure rise with correction for fan or pump's resistance added";
 
   parameter
     Buildings.Fluid.Movers.BaseClasses.Characteristics.flowParametersInternal pCur2(
@@ -184,7 +184,7 @@ protected
               cat(1, {per.pressure.dp[i] + per.pressure.V_flow[i] * kRes for i in 1:nOri}, {0})
              else
                zeros(nOri+1))
-    "Volume flow rate vs. total pressure rise with correction for fan or pump resistance added";
+    "Volume flow rate vs. total pressure rise with correction for fan or pump's resistance added";
   parameter
     Buildings.Fluid.Movers.BaseClasses.Characteristics.flowParametersInternal pCur3(
     final n = nOri + 2,
@@ -200,7 +200,7 @@ protected
                zeros(nOri + 2)
              else
                cat(1, {dpMax}, {per.pressure.dp[i] + per.pressure.V_flow[i] * kRes for i in 1:nOri}, {0}))
-    "Volume flow rate vs. total pressure rise with correction for fan or pump resistance added";
+    "Volume flow rate vs. total pressure rise with correction for fan or pump's resistance added";
 
   parameter Real preDer1[nOri](each fixed=false)
     "Derivatives of flow rate vs. pressure at the support points";
@@ -307,7 +307,7 @@ The following performance data have been entered:
     if nOri>=2 then
       assert((per.pressure.V_flow[nOri]-per.pressure.V_flow[nOri-1])
            /((per.pressure.dp[nOri]-per.pressure.dp[nOri-1]))<0,
-    "The last two pressure points for the fan or pump performance curve must be decreasing.
+    "The last two pressure points for the fan or pump's performance curve must be decreasing.
 Received
 " + getArrayAsString(per.pressure.dp, "dp"));
     end if;
@@ -329,12 +329,12 @@ d[i] = ------------------------------------------------- < " + String(-kRes) + "
  is
 " + getArrayAsString({(per.pressure.dp[i+1]-per.pressure.dp[i])
         /(per.pressure.V_flow[i+1]-per.pressure.V_flow[i]) for i in 1:nOri-1}, "d") + "
-Otherwise, a solution to the equations may not exist if the fan or pump speed is reduced.
+Otherwise, a solution to the equations may not exist if the fan or pump's speed is reduced.
 In this situation, the solver will fail due to non-convergence and
 the simulation stops.");
   end if;
 
-  // Correction for flow resistance of pump or fan
+  // Correction for flow resistance of the fan or pump
   if (haveVMax and haveDPMax) or (nOri == 2) then  // ----- Curve 1
     // V_flow_max and dpMax are provided by the user, or we only have two data points
     preDer1= Buildings.Utilities.Math.Functions.splineDerivatives(x=pCur1.V_flow,
@@ -674,7 +674,7 @@ A cubic hermite spline with linear extrapolation is used to compute
 the performance at other operating points.
 </p>
 <p>
-The fan or pump energy balance can be specified in three ways:
+The fan or pump's energy balance can be specified in three paths:
 </p>
 <ul>
 <li>
