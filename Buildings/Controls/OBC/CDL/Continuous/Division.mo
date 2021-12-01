@@ -54,19 +54,19 @@ Modelica Standard Library.
         Text(
         extent={{-150,150},{150,110}},
         textString="%name",
-        lineColor={0,0,255}),
+        textColor={0,0,255}),
         Line(points={{50,0},{100,0}}, color={0,0,127}),
         Line(points={{-30,0},{30,0}}),
         Ellipse(fillPattern=FillPattern.Solid, extent={{-5,20},{5,30}}),
         Ellipse(fillPattern=FillPattern.Solid, extent={{-5,-30},{5,-20}}),
         Text(
-          lineColor={0,0,255},
+          textColor={0,0,255},
           extent={{-150,110},{150,150}},
           textString="%name"),
         Line(points={{-100,60},{-66,60},{-40,30}}, color={0,0,127}),
         Line(points={{-100,-60},{0,-60},{0,-50}}, color={0,0,127}),
         Text(
           extent={{226,60},{106,10}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString=DynamicSelect("", String(y, leftJustified=false, significantDigits=3)))}));
 end Division;

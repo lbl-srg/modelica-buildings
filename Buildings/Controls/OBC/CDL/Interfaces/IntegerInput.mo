@@ -20,7 +20,7 @@ connector IntegerInput = input Integer "'input Integer' as connector"
         fillColor={255,127,0},
         fillPattern=FillPattern.Solid), Text(
         extent={{-10,85},{-10,60}},
-        lineColor={255,127,0},
+        textColor={255,127,0},
         textString="%name")}),
   Documentation(info="<html>
 <p>

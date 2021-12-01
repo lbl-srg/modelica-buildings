@@ -124,78 +124,78 @@ First implementation.
     Diagram(coordinateSystem(extent={{-180,-180},{180,180}}), graphics={
         Text(
           extent={{-110,130},{-42,118}},
-          lineColor={28,108,200},
+          textColor={28,108,200},
           textString="Clear input keeps false"),
         Text(
           extent={{-108,60},{-40,48}},
-          lineColor={28,108,200},
+          textColor={28,108,200},
           textString="Clear input keeps true"),
         Text(
           extent={{-108,-20},{-40,-32}},
-          lineColor={28,108,200},
+          textColor={28,108,200},
           textString="Clear input keeps false"),
         Text(
           extent={{-108,-26},{0,-48}},
-          lineColor={28,108,200},
+          textColor={28,108,200},
           textString="Start value of y is false (default)"),
         Text(
           extent={{-108,-100},{-40,-112}},
-          lineColor={28,108,200},
+          textColor={28,108,200},
           textString="Clear input keeps false"),
         Text(
           extent={{-110,-110},{-28,-124}},
-          lineColor={28,108,200},
+          textColor={28,108,200},
           textString="Start value of y is true"),
         Text(
           extent={{-108,50},{-28,38}},
-          lineColor={28,108,200},
+          textColor={28,108,200},
           textString="Start value of y is true"),
         Text(
           extent={{76,148},{136,140}},
-          lineColor={28,108,200},
+          textColor={28,108,200},
           textString="At 3rd second:"),
         Text(
           extent={{92,128},{172,118}},
-          lineColor={28,108,200},
+          textColor={28,108,200},
           textString="Clear input falls: true to false"),
         Text(
           extent={{92,138},{170,128}},
-          lineColor={28,108,200},
+          textColor={28,108,200},
           textString="Toggle input falls: true to false"),
         Text(
           extent={{92,64},{170,56}},
-          lineColor={28,108,200},
+          textColor={28,108,200},
           textString="Clear input rises: false to true"),
         Text(
           extent={{92,76},{172,66}},
-          lineColor={28,108,200},
+          textColor={28,108,200},
           textString="Toggle input rise: false to true"),
         Text(
           extent={{76,86},{136,78}},
-          lineColor={28,108,200},
+          textColor={28,108,200},
           textString="At 6th second:"),
         Text(
           extent={{92,-96},{172,-104}},
-          lineColor={28,108,200},
+          textColor={28,108,200},
           textString="Clear input falls: true to false"),
         Text(
           extent={{92,-84},{172,-94}},
-          lineColor={28,108,200},
+          textColor={28,108,200},
           textString="Toggle input rise: false to true"),
         Text(
           extent={{76,-74},{136,-82}},
-          lineColor={28,108,200},
+          textColor={28,108,200},
           textString="At 6th second:"),
         Text(
           extent={{76,-12},{136,-20}},
-          lineColor={28,108,200},
+          textColor={28,108,200},
           textString="At 3rd second:"),
         Text(
           extent={{92,-32},{172,-42}},
-          lineColor={28,108,200},
+          textColor={28,108,200},
           textString="Clear input rises: false to true"),
         Text(
           extent={{92,-22},{170,-32}},
-          lineColor={28,108,200},
+          textColor={28,108,200},
           textString="Toggle input falls: true to false")}));
 end Toggle;

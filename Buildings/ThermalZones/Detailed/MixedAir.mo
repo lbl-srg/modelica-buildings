@@ -243,11 +243,11 @@ First implementation.
             {200,200}}), graphics={
         Text(
           extent={{-198,198},{-122,166}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="uSha"),
         Text(
           extent={{-190,44},{-128,14}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="C_flow",
           visible=use_C_flow)}));
 end MixedAir;

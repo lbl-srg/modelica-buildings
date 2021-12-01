@@ -70,7 +70,7 @@ equation
         points={{90.0,-70.0},{68.0,-62.0},{68.0,-78.0},{90.0,-70.0}}),
         Text(
           extent={{-150,150},{150,110}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%name")}),
     Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{
             100,100}}), graphics={Line(points={{-80,-20},{-60,-20},{-30,40},{
@@ -93,10 +93,10 @@ equation
           0,0,0}),Line(points={{8,-20},{40,-20}}),Line(points=
           {{-20,40},{-20,-20}}),Line(points={{-20,-20},{-20,-70}}),Text(
             extent={{-44,50},{-44,40}},
-            lineColor={0,0,0},
+            textColor={0,0,0},
             textString="rising"),Text(
             extent={{24,-10},{24,-20}},
-            lineColor={0,0,0},
+            textColor={0,0,0},
             textString="falling"),Polygon(
             points={{-60,40},{-56,42},{-56,38},{-60,40}},
             lineColor={0,0,0},
@@ -135,23 +135,23 @@ equation
             fillColor={255,255,255},
             fillPattern=FillPattern.Solid),Text(
             extent={{-20,6},{-20,-4}},
-            lineColor={0,0,0},
+            textColor={0,0,0},
             textString="amplitude"),Rectangle(
             extent={{-40,-48},{0,-58}},
             lineColor={255,255,255},
             fillColor={255,255,255},
             fillPattern=FillPattern.Solid),Text(
             extent={{-20,-48},{-20,-58}},
-            lineColor={0,0,0},
+            textColor={0,0,0},
             textString="offset"),Text(
             extent={{60,-82},{94,-92}},
-            lineColor={0,0,0},
+            textColor={0,0,0},
             textString="time"),Text(
             extent={{-88,-4},{-54,-14}},
-            lineColor={0,0,0},
+            textColor={0,0,0},
             textString="y"),Text(
             extent={{-88,-46},{-54,-56}},
-            lineColor={0,0,0},
+            textColor={0,0,0},
             textString="u")}),
     Documentation(info="<html>
 <p>

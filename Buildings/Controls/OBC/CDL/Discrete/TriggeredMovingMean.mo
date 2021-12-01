@@ -55,7 +55,7 @@ equation
        Text(
        extent={{-150,150},{150,110}},
        textString="%name",
-       lineColor={0,0,255}),
+       textColor={0,0,255}),
        Line(points={{-88,0},{70,0}}, color={192,192,192}),
        Polygon(
           points={{92,0},{70,8},{70,-8},{92,0}},
@@ -103,11 +103,11 @@ equation
         Line(points={{0,-100},{0,-26}}, color={255,0,255}),
         Text(
           extent={{56,92},{92,60}},
-          lineColor={28,108,200},
+          textColor={28,108,200},
           textString="%n"),
         Text(
           extent={{226,60},{106,10}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString=DynamicSelect("", String(y, leftJustified=false, significantDigits=3)))}),
 Documentation(info="<html>
 <p>

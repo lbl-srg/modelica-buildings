@@ -93,7 +93,7 @@ First implementation.
         fillPattern=FillPattern.Solid),
         Text(
           extent={{-128,88},{-6,28}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%threShold"),
         Line(points={{-62,-6},{-4,24}}, color={0,0,255}),
         Line(points={{-4,24},{64,60}}, color={255,0,0}),
@@ -108,5 +108,5 @@ First implementation.
         Text(
           extent={{-150,150},{150,110}},
           textString="%name",
-          lineColor={0,0,255})}));
+          textColor={0,0,255})}));
 end NumberOfRequests;

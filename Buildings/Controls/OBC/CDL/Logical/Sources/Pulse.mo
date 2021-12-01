@@ -35,7 +35,7 @@ equation
           fillPattern=FillPattern.Solid,
           borderPattern=BorderPattern.Raised),     Text(
           extent={{-150,-140},{150,-110}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="%period"), Line(points={{-80,-70},{-40,-70},{-40,44},{0,
               44},{0,-70},{40,-70},{40,44},{79,44}}),
         Polygon(
@@ -58,7 +58,7 @@ equation
                else {235,235,235}),
           fillPattern=FillPattern.Solid),
         Text(
-          lineColor={0,0,255},
+          textColor={0,0,255},
           extent={{-150,110},{150,150}},
           textString="%name")}),
       Documentation(info="<html>

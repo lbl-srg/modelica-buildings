@@ -396,43 +396,43 @@ rather than computing it in model, added model to UTC library.
           fillPattern=FillPattern.Solid),
         Text(
           extent={{-108,100},{-46,80}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="TAir"),
         Text(
           extent={{-100,68},{-38,48}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="TRad"),
         Text(
           visible=use_vAir_in,
           extent={{-106,0},{-44,-20}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="vAir"),
         Text(
           visible=use_M_in,
           extent={{-114,-30},{-52,-50}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="M"),
         Text(
           extent={{-100,32},{-50,10}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="phi"),
         Text(
           visible=use_pAir_in,
           extent={{-104,-84},{-48,-100}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="pAir"),
         Text(
           visible=use_ICl_in,
           extent={{-108,-62},{-52,-78}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="ICl"),
         Text(
           extent={{40,48},{102,28}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="PMV"),
         Text(
           extent={{44,-34},{106,-54}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="PPD"),
         Line(
           points={{-50,42},{-50,-38}},

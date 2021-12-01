@@ -93,7 +93,7 @@ partial model PartialNetwork "Partial model that represent an electric network"
           smooth=Smooth.None),
         Text(
           extent={{-140,140},{140,100}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid,
           textString="%name")}), Documentation(revisions="<html>

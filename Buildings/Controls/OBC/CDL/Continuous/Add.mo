@@ -57,7 +57,7 @@ Modelica Standard Library.
       Text(
         extent={{-150,150},{150,110}},
         textString="%name",
-        lineColor={0,0,255}),
+        textColor={0,0,255}),
         Line(points={{-100,60},{-74,24},{-44,24}}, color={0,0,127}),
         Line(points={{-100,-60},{-74,-28},{-42,-28}}, color={0,0,127}),
         Line(points={{50,0},{100,0}}, color={0,0,127}),
@@ -66,6 +66,6 @@ Modelica Standard Library.
         Text(extent={{-100,-92},{5,-52}}, textString="%k2"),
         Text(
           extent={{226,60},{106,10}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString=DynamicSelect("", String(y, leftJustified=false, significantDigits=3)))}));
 end Add;

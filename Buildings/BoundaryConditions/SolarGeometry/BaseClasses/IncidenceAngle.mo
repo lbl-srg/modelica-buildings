@@ -59,13 +59,13 @@ First implementation.
         Text(
           extent={{-150,110},{150,150}},
           textString="%name",
-          lineColor={0,0,255}),
+          textColor={0,0,255}),
         Text(
           extent={{-98,60},{-56,50}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="decAng"),
         Text(
           extent={{-98,-42},{-42,-54}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="solHouAng")}));
 end IncidenceAngle;

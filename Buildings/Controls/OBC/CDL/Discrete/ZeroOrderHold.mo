@@ -56,12 +56,12 @@ equation
         fillPattern=FillPattern.Solid), Text(
         extent={{-150,150},{150,110}},
         textString="%name",
-        lineColor={0,0,255}),
+        textColor={0,0,255}),
       Line(points={{-78.0,-42.0},{-52.0,-42.0},{-52.0,0.0},{-26.0,0.0},{-26.0,24.0},{-6.0,24.0},{-6.0,64.0},{18.0,64.0},{18.0,20.0},{38.0,20.0},{38.0,0.0},{44.0,0.0},{44.0,0.0},{62.0,0.0}},
         color={0,0,127}),
       Text(
         extent={{226,60},{106,10}},
-        lineColor={0,0,0},
+        textColor={0,0,0},
         textString=DynamicSelect("", String(y, leftJustified=false, significantDigits=3)))}),
     Documentation(info="<html>
 <p>

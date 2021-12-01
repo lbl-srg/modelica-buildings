@@ -96,6 +96,6 @@ equation
       smooth=Smooth.None));
   annotation ( Icon(graphics={Text(
           extent={{-90,-50},{96,-96}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="r_N_min=%r_N_min")}));
 end FanVFD;

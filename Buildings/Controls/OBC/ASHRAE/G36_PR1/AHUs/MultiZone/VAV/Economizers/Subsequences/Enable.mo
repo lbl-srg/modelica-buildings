@@ -298,7 +298,7 @@ annotation (
           fillPattern=FillPattern.Solid),
         Text(
           extent={{-174,142},{154,104}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="%name"),
         Line(
           points={{0,60},{80,60}},
@@ -334,24 +334,24 @@ annotation (
           fillPattern=FillPattern.Solid),
                                      Text(
           extent={{102,168},{184,156}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           horizontalAlignment=TextAlignment.Left,
           textString="Outdoor air
 conditions"),                        Text(
           extent={{100,70},{278,36}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           horizontalAlignment=TextAlignment.Left,
           textString="Freeze protection -
 disable if stage1
 and above"),                         Text(
           extent={{100,-180},{268,-228}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           horizontalAlignment=TextAlignment.Left,
           textString="Damper position
 limit assignments
 with delays"),                   Text(
           extent={{100,102},{194,92}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           horizontalAlignment=TextAlignment.Left,
           textString="Supply fan status")}),
 Documentation(info="<html>

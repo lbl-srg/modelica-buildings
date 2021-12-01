@@ -67,14 +67,14 @@ equation
         Text(
           extent={{-140,152},{160,112}},
           textString="%name",
-          lineColor={0,0,255}),
+          textColor={0,0,255}),
         Text(
           extent={{-42,-63},{41,-106}},
-          lineColor={192,192,192},
+          textColor={192,192,192},
           textString="%delta s"),
         Text(
           extent={{226,60},{106,10}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString=DynamicSelect("", String(y, leftJustified=false, significantDigits=3)))}),
    Documentation(info="<html>
 <p>

@@ -102,29 +102,29 @@ First implementation.
         Text(
           extent={{-150,110},{150,150}},
           textString="%name",
-          lineColor={0,0,255}),
+          textColor={0,0,255}),
         Text(
           extent={{-48,74},{-100,86}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="HGloHor"),
         Text(
           extent={{-50,44},{-102,56}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="HDifHor"),
         Text(
           extent={{-50,14},{-102,26}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="briCof1"),
         Text(
           extent={{-50,-16},{-102,-4}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="briCof2"),
         Text(
           extent={{-50,-46},{-102,-34}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="zen"),
         Text(
           extent={{-52,-76},{-104,-64}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="incAng")}));
 end DiffusePerez;

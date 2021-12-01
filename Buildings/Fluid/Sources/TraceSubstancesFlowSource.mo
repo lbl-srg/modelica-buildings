@@ -183,7 +183,7 @@ First implementation.
           fillPattern=FillPattern.Solid),
         Text(
           extent={{-54,32},{16,-30}},
-          lineColor={255,0,0},
+          textColor={255,0,0},
           fillColor={255,0,0},
           fillPattern=FillPattern.Solid,
           textString="m"),
@@ -194,19 +194,19 @@ First implementation.
           fillPattern=FillPattern.Solid),
         Text(
           extent={{-212,62},{-72,30}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid,
           visible=use_m_flow_in,
           textString="m_flow"),
         Text(
           extent={{-100,14},{-60,-20}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid,
           textString="C"),
         Text(
           extent={{-150,110},{150,150}},
           textString="%name",
-          lineColor={0,0,255})}));
+          textColor={0,0,255})}));
 end TraceSubstancesFlowSource;

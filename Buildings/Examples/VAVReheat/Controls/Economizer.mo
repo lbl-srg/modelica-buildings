@@ -203,31 +203,31 @@ equation
           fillPattern=FillPattern.Solid),
         Text(
           extent={{-90,170},{-50,150}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="TRet"),
         Text(
           extent={{-86,104},{-46,84}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="TMix"),
         Text(
           extent={{-90,60},{-22,12}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="VOut_flow"),
         Text(
           extent={{-90,-2},{-28,-40}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="TSupHeaSet"),
         Text(
           extent={{-86,-58},{-24,-96}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="TSupCooSet"),
         Text(
           extent={{138,96},{184,62}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="yOA"),
         Text(
           extent={{140,20},{186,-14}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="yRet")}),
     Documentation(info="<html>
 <p>

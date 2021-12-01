@@ -58,13 +58,13 @@ Modelica Standard Library.
                             Text(
           extent={{-150,150},{150,110}},
           textString="%name",
-          lineColor={0,0,255}),
+          textColor={0,0,255}),
                               Text(
           extent={{-50,-30},{20,38}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="[  ]"), Text(
           extent={{8,-30},{80,10}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="*")}),
     Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{
             100,100}}), graphics={Rectangle(
@@ -74,9 +74,9 @@ Modelica Standard Library.
             fillPattern=FillPattern.Solid),
                               Text(
           extent={{-50,-30},{20,38}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="[  ]"), Text(
           extent={{8,-30},{80,10}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="*")}));
 end MatrixGain;

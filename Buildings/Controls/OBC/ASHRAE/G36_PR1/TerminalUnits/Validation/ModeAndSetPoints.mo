@@ -114,23 +114,23 @@ First implementation.
  Diagram(
         coordinateSystem(preserveAspectRatio=false), graphics={Text(
           extent={{50,86},{126,76}},
-          lineColor={85,0,255},
+          textColor={85,0,255},
           horizontalAlignment=TextAlignment.Left,
           textString="No window status sensor
 No occupancy sensor
 Zone 1"),              Text(
           extent={{48,44},{102,36}},
-          lineColor={85,0,255},
+          textColor={85,0,255},
           horizontalAlignment=TextAlignment.Left,
           textString="No local setpoint adjustment
 Zone 1"),              Text(
           extent={{46,-46},{100,-54}},
-          lineColor={85,0,255},
+          textColor={85,0,255},
           horizontalAlignment=TextAlignment.Left,
           textString="No local setpoint adjustment
 Zone 2"),                                                      Text(
           extent={{48,-4},{124,-14}},
-          lineColor={85,0,255},
+          textColor={85,0,255},
           horizontalAlignment=TextAlignment.Left,
           textString="No window status sensor
 No occupancy sensor

@@ -15,7 +15,7 @@ equation
                                                Text(
           extent={{-150,150},{150,110}},
           textString="%name",
-          lineColor={0,0,255}),          Rectangle(
+          textColor={0,0,255}),          Rectangle(
           extent={{-100,100},{100,-100}},
           fillColor={210,210,210},
           lineThickness=5.0,
@@ -43,7 +43,7 @@ equation
                                                    Line(points={{-80,0},{64,0}}),
           Text(
           extent={{-150,-140},{150,-110}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="%k")}),
       Documentation(info="<html>
 <p>

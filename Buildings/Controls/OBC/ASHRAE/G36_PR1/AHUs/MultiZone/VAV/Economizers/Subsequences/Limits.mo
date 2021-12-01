@@ -274,7 +274,7 @@ annotation (
           fillPattern=FillPattern.Solid),
         Text(
           extent={{-88,138},{88,108}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="%name"),
         Line(
           points={{-60,-60},{2,62},{2,62},{64,-60},{-60,-60}},
@@ -303,33 +303,33 @@ annotation (
           fillPattern=FillPattern.Solid),
         Text(
           extent={{26,230},{172,184}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           horizontalAlignment=TextAlignment.Left,
           textString="Damper position limit
 calculation and
 assignments"),
         Text(
           extent={{-170,160},{-4,130}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           horizontalAlignment=TextAlignment.Left,
           textString="Physical damper position
 limits set at commissioning"),
         Text(
           extent={{28,78},{150,30}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           horizontalAlignment=TextAlignment.Left,
           textString="Switches to deactivate
 limit modulation"),
         Text(
           extent={{-80,-196},{124,-226}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           horizontalAlignment=TextAlignment.Left,
           textString="Enable/disable conditions
 for damper position limits
 control loop"),
         Text(
           extent={{-170,126},{14,94}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           horizontalAlignment=TextAlignment.Left,
           textString="Damper position limits
 outdoor air volume flow

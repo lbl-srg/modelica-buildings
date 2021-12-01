@@ -95,11 +95,11 @@ equation
           pattern=LinePattern.None),
         Text(
           extent={{8,-70},{60,-98}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="QAbs"),
         Text(
           extent={{-96,88},{-64,70}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="u")}),
     Documentation(info="<html>
 Model of a single layer of window glass. The input port <code>QAbs_flow</code>

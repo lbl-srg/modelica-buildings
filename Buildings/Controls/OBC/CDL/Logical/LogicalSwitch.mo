@@ -98,6 +98,6 @@ Modelica Standard Library.
           fillPattern=FillPattern.Solid),
         Text(
           extent={{-150,150},{150,110}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%name")}));
 end LogicalSwitch;

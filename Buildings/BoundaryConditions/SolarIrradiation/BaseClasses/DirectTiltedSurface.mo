@@ -46,13 +46,13 @@ First implementation.
         Text(
           extent={{-150,110},{150,150}},
           textString="%name",
-          lineColor={0,0,255}),
+          textColor={0,0,255}),
         Text(
           extent={{-50,56},{-102,68}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="HDirNor"),
         Text(
           extent={{-54,-66},{-106,-54}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="incAng")}));
 end DirectTiltedSurface;

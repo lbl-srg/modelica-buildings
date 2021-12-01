@@ -59,7 +59,7 @@ First implementation.
         extent={{-100,-100},{100,100}},
         grid={1,1}), graphics={
         Text(extent={{-120,140},{120,100}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%name"),
         Ellipse(
           extent={{-70,68},{70,-72}},

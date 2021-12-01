@@ -90,7 +90,7 @@ Modelica Standard Library.
     points = {{-55.333,87.333},{-19.333,-40.667},{86.667,-52.667}},
     color = {0,0,127},
     smooth = Smooth.Bezier),
-  Text(lineColor={192,192,192},
+  Text(textColor={192,192,192},
     extent={{-30.0,14.0},{86.0,60.0}},
     textString="DT1"),
   Text(extent={{-150.0,-150.0},{150.0,-110.0}},
@@ -98,9 +98,9 @@ Modelica Standard Library.
   Text(
     extent={{-150,150},{150,110}},
     textString="%name",
-    lineColor={0,0,255}),
+    textColor={0,0,255}),
   Text(
     extent={{226,60},{106,10}},
-    lineColor={0,0,0},
+    textColor={0,0,0},
     textString=DynamicSelect("", String(y, leftJustified=false, significantDigits=3)))}));
 end Derivative;

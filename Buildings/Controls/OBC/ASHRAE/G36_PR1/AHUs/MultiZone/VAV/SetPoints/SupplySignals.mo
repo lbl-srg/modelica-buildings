@@ -179,37 +179,37 @@ annotation (
         fillPattern=FillPattern.Solid),
         Text(
           extent={{-96,8},{-64,-6}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="TSup"),
         Text(
           extent={{-94,-38},{-48,-62}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="uSupFan"),
         Text(
           extent={{76,8},{96,-2}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="yHea"),
         Text(
           extent={{74,46},{96,34}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="uTSup"),
         Text(
           extent={{76,-34},{96,-44}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="yCoo"),
         Text(
           extent={{-96,56},{-56,42}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="TSupSet"),
         Text(
           extent={{-124,146},{96,108}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%name")}),Documentation(info="<html>
 <p>
 Block that outputs the supply temperature control loop signal,

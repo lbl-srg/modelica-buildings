@@ -27,20 +27,20 @@ Icon(coordinateSystem(
             fillColor={255,255,255},
             fillPattern=FillPattern.Solid),
         Text(
-          lineColor={0,0,127},
+          textColor={0,0,127},
           extent={{-56,4},{72,106}},
           textString="round( )"),
         Text(
             extent={{-150,150},{150,110}},
             textString="%name",
-            lineColor={0,0,255}),
+            textColor={0,0,255}),
         Text(
-          lineColor={0,0,127},
+          textColor={0,0,127},
           extent={{-60,-88},{54,-34}},
           textString="%n"),
         Text(
           extent={{226,60},{106,10}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString=DynamicSelect("", String(y, leftJustified=false, significantDigits=3)))}),
 Documentation(info="<html>
 <p>

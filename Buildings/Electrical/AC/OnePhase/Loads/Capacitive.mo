@@ -92,7 +92,7 @@ equation
           rotation=90),
         Text(
           extent={{-120,80},{120,40}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="%name")}), Documentation(info="<html>
 
 <p>

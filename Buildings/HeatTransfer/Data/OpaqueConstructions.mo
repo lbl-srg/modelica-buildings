@@ -46,7 +46,7 @@ package OpaqueConstructions
           Text(
             extent={{-127,113},{127,53}},
             textString="%name",
-            lineColor={0,0,255}),
+            textColor={0,0,255}),
           Rectangle(
             extent={{-36,42},{4,-92}},
             lineColor={0,0,0},

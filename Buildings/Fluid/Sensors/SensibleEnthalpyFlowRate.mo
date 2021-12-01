@@ -73,7 +73,7 @@ annotation (defaultComponentName="senEntFlo",
         Line(points={{0,100},{0,70}}, color={0,0,127}),
         Text(
           extent={{180,151},{20,99}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="HS_flow"),
         Polygon(
           points={{-0.48,31.6},{18,26},{18,57.2},{-0.48,31.6}},
@@ -93,7 +93,7 @@ annotation (defaultComponentName="senEntFlo",
         Line(points={{-37.6,13.7},{-65.8,23.9}}),
         Text(
          extent={{-20,120},{-140,70}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString=DynamicSelect("", String(H_flow, leftJustified=false, significantDigits=3)))}),
   Documentation(info="<html>
 <p>

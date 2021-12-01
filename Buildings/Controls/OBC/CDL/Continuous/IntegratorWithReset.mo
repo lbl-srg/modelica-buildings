@@ -85,7 +85,7 @@ Icon(coordinateSystem(
         fillPattern=FillPattern.Solid),
           Text(
             extent={{-88,-94},{212,-54}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="y_reset_in",
           visible= (reset == Types.Reset.Input),
           horizontalAlignment=TextAlignment.Left),
@@ -93,26 +93,26 @@ Icon(coordinateSystem(
               "modelica://Buildings/Resources/Images/Controls/OBC/CDL/Continuous/int.png"),
           Text(
             extent={{-88,56},{206,92}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="k=%k",
           horizontalAlignment=TextAlignment.Left),
           Text(
             extent={{-92,-12},{208,28}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           horizontalAlignment=TextAlignment.Left,
           textString="u"),
           Text(
             extent={{70,-14},{370,26}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           horizontalAlignment=TextAlignment.Left,
           textString="y"),
         Text(
           extent={{-150,150},{150,110}},
           textString="%name",
-          lineColor={0,0,255}),
+          textColor={0,0,255}),
         Text(
           extent={{226,60},{106,10}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString=DynamicSelect("", String(y, leftJustified=false, significantDigits=3)))}),
     Documentation(info="<html>
 <p>

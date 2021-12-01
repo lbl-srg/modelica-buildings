@@ -27,7 +27,7 @@ annotation (
               69.5,73.4},{75.2,78.6},{80,80}},
           smooth=Smooth.Bezier),
         Text(
-          lineColor={0,0,255},
+          textColor={0,0,255},
           extent={{-150,110},{150,150}},
           textString="%name"),
         Polygon(
@@ -44,11 +44,11 @@ annotation (
           fillPattern=FillPattern.Solid),
         Text(
           extent={{-36,80},{36,32}},
-          lineColor={192,192,192},
+          textColor={192,192,192},
           textString="cos"),
         Text(
           extent={{226,60},{106,10}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString=DynamicSelect("", String(y, leftJustified=false, significantDigits=3)))}),
     Documentation(info="<html>
 <p>

@@ -443,7 +443,7 @@ protected
         extent={{-100,-100},{100,100}}), graphics={
         Text(
           extent={{-81,32},{84,-24}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
             textString="Latitude")}),
     Documentation(info="<html>
 <p>
@@ -487,7 +487,7 @@ First implementation.
         extent={{-100,-100},{100,100}}), graphics={
         Text(
           extent={{-81,32},{84,-24}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
             textString="Longitude")}),
     Documentation(info="<html>
 <p>
@@ -831,7 +831,7 @@ equation
         Text(
           extent={{-162,270},{138,230}},
           textString="%name",
-          lineColor={0,0,255}),
+          textColor={0,0,255}),
         Text(
           visible=(pAtmSou == Buildings.BoundaryConditions.Types.DataSource.Input),
           extent={{-190,216},{-164,184}},
@@ -888,7 +888,7 @@ equation
           fillColor={230,230,230}),
         Text(
           extent={{140,-106},{-126,-192}},
-          lineColor={255,255,255},
+          textColor={255,255,255},
           textString=DynamicSelect("", String(weaBus.TDryBul-273.15, format=".1f")))}),
     Documentation(info="<html>
 <p>

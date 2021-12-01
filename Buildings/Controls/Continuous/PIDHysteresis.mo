@@ -139,7 +139,7 @@ equation
         Line(points={{-90,-76},{82,-76}}, color={192,192,192}),
         Text(
           extent={{-20,-16},{80,-56}},
-          lineColor={192,192,192},
+          textColor={192,192,192},
           textString="PID"),
         Line(points={{-80,84},{-80,-84}}, color={192,192,192}),
         Line(points={{-80,-76},{-36,-76},{-36,-30},{36,12},{64,12}}, color={0,0,

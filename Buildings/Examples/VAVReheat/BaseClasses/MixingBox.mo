@@ -314,7 +314,7 @@ equation
           points={{0,100},{0,60},{-54,60},{-54,24}},
           color={0,0,255}),  Text(
           extent={{-50,-84},{48,-132}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString=
                "%name"),
         Line(

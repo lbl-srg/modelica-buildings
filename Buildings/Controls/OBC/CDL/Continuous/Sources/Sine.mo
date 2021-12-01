@@ -20,7 +20,7 @@ equation
         preserveAspectRatio=true,
         extent={{-100,-100},{100,100}}),graphics={
         Text(
-          lineColor={0,0,255},
+          textColor={0,0,255},
           extent={{-148,104},{152,144}},
           textString="%name"),
         Rectangle(extent={{-100,-100},{100,100}},
@@ -41,11 +41,11 @@ equation
               59.4},{-14.9,44.1},{-6.83,21.2},{10.1,-30.8},{17.3,-50.2},{23.7,
               -64.2},{29.3,-73.1},{35,-78.4},{40.6,-80},{46.2,-77.6},{51.9,-71.5},
               {57.5,-61.9},{63.9,-47.2},{72,-24.8},{80,0}}, smooth = Smooth.Bezier),
-        Text(extent={{-147,-152},{153,-112}},lineColor={0,0,0},
+        Text(extent={{-147,-152},{153,-112}},textColor={0,0,0},
           textString="freqHz=%freqHz"),
         Text(
           extent={{226,60},{106,10}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString=DynamicSelect("", String(y, leftJustified=false, significantDigits=3)))}),
     Documentation(info="<html>
 <p>

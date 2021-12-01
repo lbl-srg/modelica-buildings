@@ -367,15 +367,15 @@ equation
           fillPattern=FillPattern.Solid),
         Text(
           extent={{-94,176},{-40,138}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="TSetHea"),
         Text(
           extent={{-96,138},{-42,100}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="TSetCoo"),
         Text(
           extent={{-139,-100},{161,-140}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%name"),
         Rectangle(
           extent={{-18,137},{-10,84}},
@@ -398,15 +398,15 @@ equation
           pattern=LinePattern.None),
         Text(
           extent={{-90,296},{-36,258}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="TSouWat"),
         Text(
           extent={{-94,218},{-40,180}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="TSouCoo"),
         Text(
           extent={{-94,256},{-40,218}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="TSouHea")}),
     Documentation(info="<html>
 <p>

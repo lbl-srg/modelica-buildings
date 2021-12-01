@@ -54,7 +54,7 @@ equation
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
             {100,100}}), graphics={Text(
           extent={{-68,54},{68,-38}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="day")}),
     Documentation(info="<html>
 <p>

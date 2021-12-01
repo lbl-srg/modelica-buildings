@@ -23,11 +23,11 @@ Icon(coordinateSystem(
             fillColor={255,255,255},
             fillPattern=FillPattern.Solid),
         Text(
-          lineColor={0,0,127},
+          textColor={0,0,127},
           extent={{-100.0,-40.0},{0.0,40.0}},
           textString="R"),
         Text(
-          lineColor={255,127,0},
+          textColor={255,127,0},
           extent={{20.0,-40.0},{120.0,40.0}},
           textString="I"),
         Polygon(
@@ -39,7 +39,7 @@ Icon(coordinateSystem(
                                             Text(
             extent={{-150,150},{150,110}},
             textString="%name",
-            lineColor={0,0,255})}),
+            textColor={0,0,255})}),
 Documentation(info="<html>
 <p>
 Block that outputs <code>y</code>

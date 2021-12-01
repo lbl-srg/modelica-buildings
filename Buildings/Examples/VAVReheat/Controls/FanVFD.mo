@@ -73,7 +73,7 @@ equation
   connect(swi.y, y) annotation (Line(points={{61,0},{110,0}}, color={0,0,127}));
   annotation ( Icon(graphics={Text(
           extent={{-90,-50},{96,-96}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="r_N_min=%r_N_min")}), Documentation(revisions="<html>
 <ul>
 <li>

@@ -44,7 +44,7 @@ Modelica Standard Library.
             fillColor={255,255,255},
             fillPattern=FillPattern.Solid),
         Text(
-          lineColor={0,0,255},
+          textColor={0,0,255},
           extent={{-150,110},{150,150}},
           textString="%name"),
         Line(points={{-54,66},{-28,30},{2,30}},    color={0,0,127}),
@@ -52,7 +52,7 @@ Modelica Standard Library.
                                       color={0,0,127}),
         Text(extent={{-122,58},{-17,98}},
           textString="%p",
-          lineColor={0,0,0}),
+          textColor={0,0,0}),
         Polygon(
           points={{-86,-36},{-86,36},{-34,0},{-86,-36}},
           lineColor={0,0,127},
@@ -60,7 +60,7 @@ Modelica Standard Library.
           fillPattern=FillPattern.Solid),
         Text(
           extent={{-196,-84},{104,-44}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="k=%k"),
         Ellipse(lineColor={0,0,127}, extent={{-12,-52},{88,48}},
           fillColor={255,255,255},
@@ -68,6 +68,6 @@ Modelica Standard Library.
         Text(extent={{-2,-22},{74,46}},  textString="+"),
         Text(
           extent={{226,60},{106,10}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString=DynamicSelect("", String(y, leftJustified=false, significantDigits=3)))}));
 end AddParameter;

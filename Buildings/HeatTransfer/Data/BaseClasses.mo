@@ -94,19 +94,19 @@ First implementation.
 </html>"),   Icon(graphics={
           Text(
             extent={{-94,44},{-16,12}},
-            lineColor={0,0,0},
+            textColor={0,0,0},
             textString="x=%x"),
           Text(
             extent={{8,40},{86,8}},
-            lineColor={0,0,0},
+            textColor={0,0,0},
             textString="k=%k"),
           Text(
             extent={{-90,-58},{-12,-90}},
-            lineColor={0,0,0},
+            textColor={0,0,0},
             textString="R=%R"),
           Text(
             extent={{-92,-10},{-14,-42}},
-            lineColor={0,0,0},
+            textColor={0,0,0},
             textString="U=%U"),
           Rectangle(
             visible=(c == 0),
@@ -176,7 +176,7 @@ First implementation.
             textString="c=%c"),
           Text(
             extent={{-74,-12},{-14,-36}},
-            lineColor={0,0,0},
+            textColor={0,0,0},
             textString="k=%k"),
           Line(points={{-100,0},{100,0}},     color={0,0,0})}));
   end ThermalProperties;

@@ -43,14 +43,14 @@ Modelica Standard Library.
           fillPattern=FillPattern.Solid),
         Text(
           extent={{-150,-140},{150,-100}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="k=%k"),
         Text(
           extent={{-150,144},{150,104}},
           textString="%name",
-          lineColor={0,0,255}),
+          textColor={0,0,255}),
         Text(
           extent={{226,60},{106,10}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString=DynamicSelect("", String(y, leftJustified=false, significantDigits=3)))}));
 end Gain;

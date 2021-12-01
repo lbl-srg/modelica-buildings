@@ -191,20 +191,20 @@ First implementation.
     Icon(graphics={
         Text(
           extent={{-98,52},{-66,26}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="h"),
         Text(
           extent={{-92,94},{-28,68}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="m_flow"),
         Text(
           extent={{-104,-26},{-40,-52}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           visible=Medium.nXi > 0,
           textString="Xi"),
         Text(
           extent={{-104,-64},{-40,-90}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           visible=Medium.nC > 0,
           textString="C"),
         Polygon(

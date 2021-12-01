@@ -292,10 +292,10 @@ Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
           fillPattern=FillPattern.Solid),
         Text(
           extent={{62,-94},{88,-122}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="h"),
         Text(
           extent={{-80,112},{-58,84}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="h")}));
 end CoilRegister;

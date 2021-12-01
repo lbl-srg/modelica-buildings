@@ -17,16 +17,16 @@ annotation (defaultComponentName="senSpeEnt",
         Text(
           extent={{-150,80},{150,120}},
           textString="%name",
-          lineColor={0,0,255}),
+          textColor={0,0,255}),
         Text(
           extent={{156,-24},{54,-54}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="s"),
         Line(points={{70,0},{100,0}}, color={0,0,127}),
         Ellipse(extent={{-70,70},{70,-70}}, lineColor={255,0,0}),
         Text(
           extent={{180,90},{60,40}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString=DynamicSelect("", String(s, format=".0f")))}),
   Documentation(info="<html>
 <p>
