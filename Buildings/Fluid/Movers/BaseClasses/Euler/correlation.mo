@@ -78,8 +78,8 @@ and <i>&rho;</i> is approximately constant for common HVAC applications,
 the Euler number ratio can be simplified to
 </p>
 <p align=\"center\">
-<i>Eu/Eu<sub>p</sub>=(&Delta;p&sdot;V&#775;<sub>p</sub><sup>2</sup>)
-&frasl;(&Delta;p<sub>p</sub>&sdot;V&#775;<sup>2</sup>)</i>
+<i>Eu &frasl; Eu<sub>p</sub>=(&Delta;p&sdot;V&#775;<sub>p</sub><sup>2</sup>)
+&frasl; (&Delta;p<sub>p</sub>&sdot;V&#775;<sup>2</sup>)</i>
 </p>
 <p>
 Although it may appear that this ratio could be further simplified
