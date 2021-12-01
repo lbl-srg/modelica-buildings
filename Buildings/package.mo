@@ -226,7 +226,7 @@ Each class (i.e., model, block and function) must be used in an example or valid
     The following <b style=\"color:blue\">new libraries</b> have been added:
     </p>
     <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\">
-    <!-- fixme: Check if these should be ported down to 8.1
+    <!-- Check if these should be ported down to 8.1
     <tr><td colspan=\"2\"><b>Buildings.BoundaryConditions</b>
         </td>
     </tr>
