@@ -74,7 +74,7 @@ and <i>V&#775;</i> is the fan flow in m<sup>3</sup>/s.
 Note that the units in the definition do not matter to this correlation
 because it is the ratio of the Euler numbers that is used.
 Since <i>D</i> is constant for the same mover
-and <i>&rho;</i> is approximately constant for commen HVAC applications,
+and <i>&rho;</i> is approximately constant for common HVAC applications,
 the Euler number ratio can be simplified to
 </p>
 <p align=\"center\">
@@ -91,8 +91,7 @@ For more information refer to
 <a href=\"https://energyplus.net/assets/nrel_custom/pdfs/pdfs_v9.6.0/EngineeringReference.pdf\">
 EnergyPlus 9.6.0 Engineering Reference</a>
 chapter 16.4 equations 16.209 through 16.218.
-Note that the formula is simplified here upon the observation
-that <i>Z<sub>3</sub></i> is a positive constant.
+Note that the formula is simplified here from the source document.
 </p>
 </html>",
 revisions="<html>
