@@ -254,11 +254,6 @@ Each class (i.e., model, block and function) must be used in an example or valid
     <tr><td colspan=\"2\"><b>Buildings.Media</b>
         </td>
     </tr>
-    <tr><td valign=\"top\">Buildings.Media.Steam
-        </td>
-        <td valign=\"top\">Package with medium model for steam heating applications.
-        </td>
-    </tr>
     <tr><td colspan=\"2\"><b>Buildings.Experimental.DHC</b>
         </td>
     <tr><td valign=\"top\">Buildings.Experimental.DHC.CentralPlants.Cooling
