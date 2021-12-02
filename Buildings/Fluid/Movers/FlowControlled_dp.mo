@@ -117,7 +117,7 @@ equation
     Icon(graphics={
         Text(
           extent={{-40,126},{-160,76}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           visible=inputType == Buildings.Fluid.Types.InputType.Continuous or inputType == Buildings.Fluid.Types.InputType.Stages,
           textString=DynamicSelect("dp", if inputType == Buildings.Fluid.Types.InputType.Continuous then String(dp_in, format=".0f") else String(stage)))}),
   defaultComponentName="fan",

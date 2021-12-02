@@ -377,7 +377,7 @@ algorithm
     extent={{-100,-100}, {100,100}}),
                    graphics={Text(
           extent={{-70,64},{74,-54}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="BL")}),
     Documentation(info="<html>
 <p>

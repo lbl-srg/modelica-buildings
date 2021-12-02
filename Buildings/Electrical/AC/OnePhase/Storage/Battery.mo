@@ -142,7 +142,7 @@ defaultComponentName="bat",
           lineColor={0,0,0}),
         Text(
           extent={{-50,68},{-20,100}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid,
           textString="P"),
@@ -152,13 +152,13 @@ defaultComponentName="bat",
           smooth=Smooth.None),
         Text(
           extent={{44,70},{100,116}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid,
           textString="SOC"),
         Text(
           extent={{44,154},{134,112}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="%name")}),
     Documentation(
 info="<html>

@@ -38,7 +38,7 @@ equation
         extent={{-100,-100},{100,100}}),
       graphics={
         Text(
-          lineColor={0,0,255},
+          textColor={0,0,255},
           extent={{-148,104},{152,144}},
           textString="%name"),
         Rectangle(
@@ -67,11 +67,11 @@ equation
           smooth=Smooth.Bezier),
         Text(
           extent={{-147,-152},{153,-112}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="freqHz=%freqHz"),
         Text(
           extent={{226,60},{106,10}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString=DynamicSelect("",String(y,
             leftJustified=false,
             significantDigits=3)))}),

@@ -199,7 +199,7 @@ First implementation.
                               Text(
           extent={{-150,110},{150,150}},
           textString="%name",
-          lineColor={0,0,255}),
+          textColor={0,0,255}),
         Polygon(
           points={{-50,-34},{38,6},{36,66},{-52,36},{-50,-34}},
           lineColor={0,0,0},

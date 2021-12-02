@@ -114,23 +114,23 @@ equation
                                       graphics={
         Text(
           extent={{-100,-60},{100,-92}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="%name"),
         Text(
           extent={{-130,60},{-70,20}},
-          lineColor={11,193,87},
+          textColor={11,193,87},
           textString="1"),
         Text(
           extent={{-130,100},{-70,60}},
-          lineColor={11,193,87},
+          textColor={11,193,87},
           textString="AC"),
         Text(
           extent={{70,100},{130,60}},
-          lineColor={0,120,120},
+          textColor={0,120,120},
           textString="AC"),
         Text(
           extent={{70,60},{130,20}},
-          lineColor={0,120,120},
+          textColor={0,120,120},
           textString="2"),
         Line(
           points={{-72,40},{-66,40},{-64,44},{-60,36},{-56,44},{-52,36},{-48,44},
@@ -232,11 +232,11 @@ equation
           smooth=Smooth.None),
         Text(
           extent={{-64,60},{-48,48}},
-          lineColor={0,120,120},
+          textColor={0,120,120},
           textString="R"),
         Text(
           extent={{-20,60},{-4,48}},
-          lineColor={0,120,120},
+          textColor={0,120,120},
           textString="L")}),
     Documentation(info="<html>
 <p>

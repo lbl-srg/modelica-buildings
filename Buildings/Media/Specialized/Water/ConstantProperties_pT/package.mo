@@ -122,6 +122,6 @@ First implementation.
           fillColor={95,95,95}),
         Text(
           extent={{-110,40},{50,-36}},
-          lineColor={238,46,47},
+          textColor={238,46,47},
           textString="pT")}));
 end ConstantProperties_pT;

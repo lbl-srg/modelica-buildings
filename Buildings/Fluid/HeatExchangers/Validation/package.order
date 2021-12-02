@@ -7,4 +7,5 @@ PrescribedOutlet_dynamic
 WetCoilDiscretizedInitialization
 WetCoilDiscretizedInitializationPerfectGases
 WetCoilEffectivenessNTU
+WetCoilEffectivenessNTUCounterFlow
 WetCoilEffectivenessNTUHeating

@@ -594,23 +594,23 @@ First implementation.
           pattern=LinePattern.None),
         Text(
           extent={{-93,72},{-58,89}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="Q_flow"),
         Text(
           extent={{-93,37},{-58,54}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="mWat_flow"),
         Text(
           extent={{-41,103},{-10,117}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="hOut"),
         Text(
           extent={{10,103},{41,117}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="XiOut"),
         Text(
           extent={{61,103},{92,117}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="COut"),
         Line(points={{-42,55},{-42,-84}}, color={255,255,255}),
         Polygon(

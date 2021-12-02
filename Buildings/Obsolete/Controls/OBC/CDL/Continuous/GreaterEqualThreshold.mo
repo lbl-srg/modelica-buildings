@@ -21,7 +21,7 @@ annotation (
             {100,100}}), graphics={
         Text(
           extent={{-150,-140},{150,-110}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="%threshold"),
         Rectangle(
           extent={{-100,100},{100,-100}},
@@ -40,7 +40,7 @@ annotation (
         Text(
           extent={{-150,150},{150,110}},
           textString="%name",
-          lineColor={0,0,255}),
+          textColor={0,0,255}),
         Line(
           points={{-54,22},{-8,2},{-54,-18}},
           thickness=0.5),

@@ -93,6 +93,6 @@ First implementation.
 </ul>
 </html>"), Icon(graphics={Text(
           extent={{258,-18},{324,-62}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="CO2")}));
 end Floor;

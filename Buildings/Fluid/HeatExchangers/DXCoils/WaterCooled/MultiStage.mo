@@ -14,7 +14,7 @@ equation
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
                                 Text(
           extent={{54,100},{98,80}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="P"), Line(points={{-100,80},{-68,80},{-68,20}}, color={
               255,128,0})}),    Documentation(revisions="<html>
 <ul>

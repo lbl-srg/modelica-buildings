@@ -67,7 +67,7 @@ initial equation
           fillColor={0,128,255}),
         Text(
           extent={{-151,142},{149,102}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%name"),
         Rectangle(
           extent=DynamicSelect({{-100,10},{-100,10}}, {{-100,10},{-100+100*min(1, max(0, port_1.m_flow*3/(abs(m_flow_nominal[1])+abs(m_flow_nominal[2])+abs(m_flow_nominal[3])))),-10}}),

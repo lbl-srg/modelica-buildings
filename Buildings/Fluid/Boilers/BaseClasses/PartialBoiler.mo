@@ -116,11 +116,11 @@ equation
           smooth=Smooth.None),
         Text(
           extent={{160,144},{40,94}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString=DynamicSelect("T", String(T-273.15, format=".1f"))),
         Text(
           extent={{-38,146},{-158,96}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString=DynamicSelect("y", String(y, format=".2f")))}),
 defaultComponentName="boi",
 Documentation(info="<html>

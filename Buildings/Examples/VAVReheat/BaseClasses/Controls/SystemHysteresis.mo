@@ -77,7 +77,7 @@ equation
     Icon(coordinateSystem(extent={{-100,-100},{100,100}}), graphics={
         Text(
           extent={{-48,154},{42,100}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%name"),
         Rectangle(
           extent={{-100,100},{100,-100}},
@@ -113,7 +113,7 @@ equation
           fillPattern=FillPattern.Solid),
         Text(
           extent={{-32,30},{38,-18}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="y = %y")}),
     Documentation(info="<html>
 <p>

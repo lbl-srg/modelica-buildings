@@ -60,7 +60,7 @@ defaultComponentName="conACDC",
           smooth=Smooth.None),
         Text(
           extent={{36,54},{96,14}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="DC"),
         Line(
           points={{-2,60},{-2,60},{-82,60},{-2,60},{-82,-60},{-2,-60},{-2,60},{
@@ -69,19 +69,19 @@ defaultComponentName="conACDC",
           smooth=Smooth.None),
         Text(
           extent={{-100,52},{-40,12}},
-          lineColor={0,120,120},
+          textColor={0,120,120},
           textString="AC"),
         Text(
           extent={{-100,92},{100,60}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="%name"),
         Text(
           extent={{-100,-60},{100,-92}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="%conversionFactor"),
         Text(
           extent={{-100,-100},{100,-132}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="%eta"),
         Line(visible = ground_DC == true,
           points={{100,-100},{100,-12}},

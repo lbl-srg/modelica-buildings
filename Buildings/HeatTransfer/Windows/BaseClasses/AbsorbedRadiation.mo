@@ -334,22 +334,22 @@ First implementation.
     Icon(graphics={
         Text(
           extent={{26,86},{102,74}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="QAbsExtSha"),
         Text(
           extent={{-101,-73},{-54,-82}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="HRoo"),
         Text(
           extent={{24,-68},{102,-80}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="QAbsIntSha"),
         Text(
           extent={{34,46},{94,32}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="QAbsGlaUns"),
         Text(
           extent={{30,-32},{104,-44}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="QAbsGlaSha")}));
 end AbsorbedRadiation;

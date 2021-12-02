@@ -56,6 +56,6 @@ First implementation.
 </html>"),
     Icon(graphics={Text(
           extent={{-140,132},{-96,112}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="on")}));
 end SingleSpeed;

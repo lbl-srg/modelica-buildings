@@ -76,7 +76,7 @@ Revised model and documentation.
           Line(points={{-90,0},{-70,0}}, color={0,0,255}),
           Text(
             extent={{-144,-40},{142,-72}},
-            lineColor={0,0,0},
+            textColor={0,0,0},
           textString="R=%R"),
           Line(
             visible=useHeatPort,
@@ -86,7 +86,7 @@ Revised model and documentation.
             pattern=LinePattern.Dot),
           Text(
             extent={{-152,87},{148,47}},
-            lineColor={0,0,0},
+            textColor={0,0,0},
           textString="%name")}),
     Diagram(coordinateSystem(
         preserveAspectRatio=true,

@@ -352,6 +352,6 @@ equation
           fillPattern=FillPattern.Solid,
           fillColor={215,215,215}), Text(
           extent={{-176,80},{192,-84}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%name")}));
 end ModeSelector;

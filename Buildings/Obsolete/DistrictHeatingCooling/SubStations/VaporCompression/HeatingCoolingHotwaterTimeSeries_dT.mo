@@ -707,7 +707,7 @@ First implementation.
         fillPattern=FillPattern.Solid),
         Text(
           extent={{-169,-344},{131,-384}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%name"),
         Rectangle(
           extent={{2,8},{282,-8}},
