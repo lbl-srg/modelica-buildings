@@ -66,31 +66,31 @@ equation
           smooth=Smooth.None),
         Text(
           extent={{-100,92},{100,60}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="%name"),
         Text(
           extent={{-100,-60},{100,-92}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="%conversionFactor"),
         Text(
           extent={{-100,-100},{100,-132}},
-          lineColor={0,120,120},
+          textColor={0,120,120},
           textString="%eta"),
         Text(
           extent={{-132,78},{-72,38}},
-          lineColor={11,193,87},
+          textColor={11,193,87},
           textString="1"),
         Text(
           extent={{-88,52},{-28,12}},
-          lineColor={11,193,87},
+          textColor={11,193,87},
           textString="AC"),
         Text(
           extent={{32,52},{92,12}},
-          lineColor={0,120,120},
+          textColor={0,120,120},
           textString="AC"),
         Text(
           extent={{70,78},{130,38}},
-          lineColor={0,120,120},
+          textColor={0,120,120},
           textString="2")}),
     Documentation(info="<html>
 <p>

@@ -326,7 +326,7 @@ First implementation.
         Text(
           extent={{-152,-104},{148,-144}},
           textString="%name",
-          lineColor={0,0,255}),
+          textColor={0,0,255}),
         Rectangle(
           extent={{-76,12},{-20,-12}},
           fillColor={0,0,0},

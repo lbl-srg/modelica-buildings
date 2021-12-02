@@ -67,7 +67,7 @@ equation
             graphics={
         Text(
           extent={{-148,156},{-92,114}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid,
           textString="TCon"),

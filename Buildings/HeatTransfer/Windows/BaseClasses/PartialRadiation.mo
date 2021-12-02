@@ -99,19 +99,19 @@ First implementation.
     Icon(graphics={
         Text(
           extent={{-92,0},{-62,-20}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="incAng"),
         Text(
           extent={{-94,84},{-70,70}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="HDif"),
         Text(
           extent={{-96,42},{-62,30}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="HDir"),
         Text(
           extent={{-32,-82},{22,-94}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="uSha"),
         Polygon(
           points={{-46,66},{-46,-10},{-6,-50},{-6,22},{-46,66}},

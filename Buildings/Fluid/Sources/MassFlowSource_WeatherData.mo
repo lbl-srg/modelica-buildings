@@ -128,7 +128,7 @@ equation
           fillPattern=FillPattern.Solid),
         Text(
           extent={{-54,32},{16,-30}},
-          lineColor={255,0,0},
+          textColor={255,0,0},
           fillColor={255,0,0},
           fillPattern=FillPattern.Solid,
           textString="m"),
@@ -140,20 +140,20 @@ equation
         Text(
           visible=use_m_flow_in,
           extent={{-185,132},{-45,100}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid,
           textString="m_flow"),
         Text(
           visible=use_C_in,
           extent={{-155,-98},{-35,-126}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid,
           textString="C"),        Text(
           extent={{-161,110},{139,150}},
           textString="%name",
-          lineColor={0,0,255})}),
+          textColor={0,0,255})}),
     Documentation(info="<html>
 <p>
 Models an ideal flow source, with prescribed values of flow rate and trace

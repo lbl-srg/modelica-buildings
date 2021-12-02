@@ -53,7 +53,7 @@ equation
           points={{60,-70},{60,70}}),
         Text(
           extent={{-150,-140},{150,-110}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="%period"),
         Polygon(
           points={{-80,88},{-88,66},{-72,66},{-80,88}},
@@ -85,7 +85,7 @@ equation
               {235,235,235}),
           fillPattern=FillPattern.Solid),
         Text(
-          lineColor={0,0,255},
+          textColor={0,0,255},
           extent={{-150,110},{150,150}},
           textString="%name")}),
     Documentation(

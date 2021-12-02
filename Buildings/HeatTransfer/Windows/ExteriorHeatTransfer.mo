@@ -217,7 +217,7 @@ equation
   annotation ( Icon(graphics={
         Text(
           extent={{-94,48},{-52,32}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="vWind"), Ellipse(
           extent={{-110,110},{-90,90}},
           lineColor={255,255,0},
@@ -225,15 +225,15 @@ equation
           fillPattern=FillPattern.Sphere),
         Text(
           extent={{-96,-76},{-66,-88}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="TOut"),
         Text(
           extent={{-94,-34},{-54,-46}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="TBlaSky"),
         Text(
           extent={{-38,-84},{28,-102}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="QSolAbs")}),
 defaultComponentName="extHeaTra",
            Documentation(info="<html>

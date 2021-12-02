@@ -313,10 +313,10 @@ equation
           fillPattern=FillPattern.Solid),
                                 Text(
           extent={{52,42},{96,22}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="QEvaLat"),Text(
           extent={{54,72},{98,52}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="QEvaSen"),
         Rectangle(
           extent={{0,-56},{62,-66}},
@@ -332,7 +332,7 @@ equation
           fillPattern=FillPattern.Solid),
                                 Text(
           extent={{54,100},{98,80}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="P"),
         Rectangle(
           extent={{-64,-66},{-56,-90}},

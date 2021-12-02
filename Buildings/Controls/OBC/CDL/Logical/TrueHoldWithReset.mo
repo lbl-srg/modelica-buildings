@@ -68,10 +68,10 @@ equation
         Text(
           extent={{-150,150},{150,110}},
           textString="%name",
-          lineColor={0,0,255}),
+          textColor={0,0,255}),
         Text(
           extent={{-90,-62},{96,-90}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%duration"),
         Ellipse(
           extent={{71,7},{85,-7}},

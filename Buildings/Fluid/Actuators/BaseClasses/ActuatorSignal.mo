@@ -90,14 +90,14 @@ equation
         Text(
           visible=use_inputFilter,
           extent={{-20,94},{22,48}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           fillColor={135,135,135},
           fillPattern=FillPattern.Solid,
           textString="M",
           textStyle={TextStyle.Bold}),
         Text(
           extent={{-40,126},{-160,76}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString=DynamicSelect("", String(y, format=".2f")))}),
 Documentation(info="<html>
 <p>

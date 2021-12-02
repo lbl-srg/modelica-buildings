@@ -17,7 +17,7 @@ annotation (defaultComponentName="y",
                            fillColor={255,255,255},
                            fillPattern=FillPattern.Solid),
                    Text(extent={{30,110},{30,60}},
-                        lineColor={255,127,0},
+                        textColor={255,127,0},
                         textString="%name")}),
 Documentation(info="<html>
 <p>

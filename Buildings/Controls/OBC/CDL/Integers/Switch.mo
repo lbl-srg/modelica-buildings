@@ -101,7 +101,7 @@ First implementation.
           fillPattern=FillPattern.Solid),
         Text(
           extent={{-90,80},{-46,54}},
-          lineColor=DynamicSelect({0,0,0},
+          textColor=DynamicSelect({0,0,0},
             if u2 then
               {0,0,0}
             else
@@ -109,7 +109,7 @@ First implementation.
           textString="true"),
         Text(
           extent={{-90,-46},{-38,-76}},
-          lineColor=DynamicSelect({0,0,0},
+          textColor=DynamicSelect({0,0,0},
             if u2 then
               {235,235,235}
             else
@@ -117,6 +117,6 @@ First implementation.
           textString="false"),
         Text(
           extent={{-150,150},{150,110}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%name")}));
 end Switch;

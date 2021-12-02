@@ -134,19 +134,19 @@ First implementation.
           smooth=Smooth.Bezier),
         Text(
           extent={{-152,120},{-102,70}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="TOut"),
         Text(
           visible=use_TRoo_in,
           extent={{-152,-4},{-102,-54}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="TRoo"),
         Text(
           extent={{40,86},{90,36}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="TSup"),
         Text(
           extent={{42,-30},{92,-80}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="TRet")}));
 end SupplyReturnTemperatureReset;

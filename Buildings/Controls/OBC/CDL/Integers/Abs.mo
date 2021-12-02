@@ -29,7 +29,7 @@ equation
         Text(
           extent={{-150,150},{150,110}},
           textString="%name",
-          lineColor={0,0,255}),
+          textColor={0,0,255}),
         Polygon(
           points={{92,0},{70,8},{70,-8},{92,0}},
           lineColor={192,192,192},
@@ -45,7 +45,7 @@ equation
           fillPattern=FillPattern.Solid),
         Text(
           extent={{-34,-28},{38,-76}},
-          lineColor={192,192,192},
+          textColor={192,192,192},
           textString="abs"),
         Line(
           points={{-88,0},{76,0}},

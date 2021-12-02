@@ -260,7 +260,7 @@ equation
           fillPattern=FillPattern.Solid),
         Text(
           extent={{-149,141},{151,101}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           fillPattern=FillPattern.HorizontalCylinder,
           fillColor={0,127,255},
           textString="%name"),

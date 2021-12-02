@@ -35,6 +35,6 @@ First implementation.
 </html>"),
 Icon(graphics={Text(
           extent={{-94,34},{96,-164}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="y[i] >= y[i+1]")}));
 end SignalRanker;

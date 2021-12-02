@@ -204,11 +204,11 @@ equation
           preserveAspectRatio=false,extent={{-100,-100},{100,100}}), graphics={
         Text(
           extent={{-100,-80},{6,-98}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%material.x"),
         Text(
           extent={{8,-74},{86,-104}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%nSta"),
    Rectangle(
     extent={{-60,80},{60,-80}},     fillColor={215,215,215},

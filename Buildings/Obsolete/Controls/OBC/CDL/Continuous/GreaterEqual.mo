@@ -45,7 +45,7 @@ annotation (
         Text(
           extent={{-150,150},{150,110}},
           textString="%name",
-          lineColor={0,0,255})}),
+          textColor={0,0,255})}),
   Documentation(info="<html>
 <p>
 Block that outputs <code>true</code> if Real the input <code>u1</code>

@@ -91,14 +91,14 @@ annotation (defaultComponentName="senPPM",
         graphics={
         Text(
           extent={{82,122},{0,92}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="ppm"),
         Line(points={{0,100},{0,70}}, color={0,0,127}),
         Line(points={{-100,0},{-70,0}}, color={0,128,255}),
         Line(points={{70,0},{100,0}}, color={0,128,255}),
         Text(
           extent={{-20,120},{-140,70}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString=DynamicSelect("", String(ppm, leftJustified=false, significantDigits=3)))}),
   Documentation(info="<html>
 <p>

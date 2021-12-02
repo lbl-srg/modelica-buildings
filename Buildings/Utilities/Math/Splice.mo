@@ -25,7 +25,7 @@ equation
       fillPattern=FillPattern.Solid),
     Text(
       extent={{-35,90},{-6,72}},
-      lineColor={160,160,164},
+      textColor={160,160,164},
       textString="y"),
     Line(points={{0,-90},{0,84}}, color={192,192,192}),
         Line(
@@ -33,11 +33,11 @@ equation
               {46,48},{80,48}}),
     Text(
       extent={{-53,-78},{-24,-96}},
-      lineColor={160,160,164},
+      textColor={160,160,164},
           textString="-delta"),
     Text(
       extent={{34,-78},{60,-94}},
-      lineColor={160,160,164},
+      textColor={160,160,164},
           textString="delta"),
     Line(points={{46,-78},{46,56}},
                                   color={192,192,192}),
@@ -45,19 +45,19 @@ equation
                                   color={192,192,192}),
     Text(
       extent={{49,38},{88,22}},
-      lineColor={160,160,164},
+      textColor={160,160,164},
           textString="if x > 0"),
     Text(
       extent={{-81,-58},{-42,-74}},
-      lineColor={160,160,164},
+      textColor={160,160,164},
           textString="if x < 0"),
     Text(
       extent={{-74,-46},{-52,-58}},
-      lineColor={160,160,164},
+      textColor={160,160,164},
           textString="u2"),
     Text(
       extent={{54,48},{76,36}},
-      lineColor={160,160,164},
+      textColor={160,160,164},
           textString="u1")}),
 Documentation(info="<html>
 <p>

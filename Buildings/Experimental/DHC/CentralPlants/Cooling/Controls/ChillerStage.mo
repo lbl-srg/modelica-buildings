@@ -195,7 +195,7 @@ equation
           fillPattern=FillPattern.Solid),
         Text(
           extent={{-154,206},{146,166}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%name")}),
     Documentation(
       revisions="<html>

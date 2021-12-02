@@ -154,7 +154,7 @@ annotation (
           thickness=0.5),
         Text(
           extent={{-108,138},{102,110}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="%name")}),
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-120,-120},{
             120,120}}), graphics={
@@ -170,13 +170,13 @@ annotation (
           fillPattern=FillPattern.Solid),
         Text(
           extent={{-116,118},{-34,102}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           horizontalAlignment=TextAlignment.Left,
           textString="Damper position supply
 air temperature control loop"),
         Text(
           extent={{-24,118},{24,106}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           horizontalAlignment=TextAlignment.Left,
           textString="Damper position
 assignments"),
@@ -187,7 +187,7 @@ assignments"),
           fillPattern=FillPattern.Solid),
         Text(
           extent={{54,118},{120,96}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           horizontalAlignment=TextAlignment.Left,
           textString="Overwrite if the freeze protection
 that tracks TFre at the measured

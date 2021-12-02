@@ -96,15 +96,15 @@ equation
           points={{0,100},{0,-100},{0,-98}}),
         Text(
           extent={{24,-78},{106,-100}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="Bottom"),
         Text(
           extent={{32,104},{98,70}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="Top"),
         Text(
           extent={{42,26},{94,-10}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           fillColor={255,0,0},
           fillPattern=FillPattern.Solid,
           textString="h=%h"),

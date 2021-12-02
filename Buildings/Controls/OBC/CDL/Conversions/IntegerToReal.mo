@@ -20,18 +20,18 @@ equation
         Text(
           extent={{-150,150},{150,110}},
           textString="%name",
-          lineColor={0,0,255}),
+          textColor={0,0,255}),
         Rectangle(
           extent={{-100,-100},{100,100}},
           lineColor={0,0,127},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid),
         Text(
-          lineColor={255,127,0},
+          textColor={255,127,0},
           extent={{-120.0,-40.0},{-20.0,40.0}},
           textString="I"),
         Text(
-          lineColor={0,0,127},
+          textColor={0,0,127},
           fillPattern=FillPattern.Solid,
           extent={{0.0,-40.0},{100.0,40.0}},
           textString="R"),

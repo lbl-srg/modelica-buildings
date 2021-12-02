@@ -140,7 +140,7 @@ First implementation.
           visible=not allowFlowReversal),
         Text(
           extent={{-149,-114},{151,-154}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%name")}),
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
             100}})));
