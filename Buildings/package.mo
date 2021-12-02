@@ -216,7 +216,15 @@ Version 9.0.0 is ... xxx
 The following <b style=\"color:blue\">new libraries</b> have been added:
 </p>
 <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\">
-<tr><td colspan=\"2\"><b>Buildings.BoundaryConditions</b>
+<tr><td colspan=\"2\"><b>Buildings.Fluid.Geothermal</b>
+      </td>
+  </tr>
+  <tr><td valign=\"top\">Buildings.Fluid.Geothermal.BuriedPipes
+      </td>
+      <td valign=\"top\">Package with models for modeling thermal coupling between buried pipes and ground.
+      </td>
+  </tr>
+  <tr><td colspan=\"2\"><b>Buildings.Media</b>
     </td>
 </tr>
   <tr><td valign=\"top\">Buildings.Media.Steam
