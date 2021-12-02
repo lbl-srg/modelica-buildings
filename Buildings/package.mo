@@ -243,14 +243,6 @@ Each class (i.e., model, block and function) must be used in an example or valid
                            such for pipes embedded in the concrete slab.
         </td>
     </tr>
-    <tr><td colspan=\"2\"><b>Buildings.Fluid.Geothermal</b>
-        </td>
-    </tr>
-    <tr><td valign=\"top\">Buildings.Fluid.Geothermal.BuriedPipes
-        </td>
-        <td valign=\"top\">Package with models for modeling thermal coupling between buried pipes and ground.
-        </td>
-    </tr>
     <tr><td colspan=\"2\"><b>Buildings.Media</b>
         </td>
     </tr>
