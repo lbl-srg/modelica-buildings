@@ -695,7 +695,7 @@ Buildings.Fluid.Movers.BaseClasses.Euler.correlation</a>.
 Else, the data points for
 normalized volume flow rate versus efficiency is used to determine the efficiency,
 and then the power consumption. The default is a constant efficiency of <i>0.7</i>.
-This path corresponds to <code>per.use_motorPower = true</code> 
+This path corresponds to <code>per.use_motorEfficiency = true</code> 
 but is used as the fallback option.
 </li>
 </ul>
