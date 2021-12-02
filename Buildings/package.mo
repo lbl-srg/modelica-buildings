@@ -204,12 +204,12 @@ Each class (i.e., model, block and function) must be used in an example or valid
   package ReleaseNotes "Release notes"
     extends Modelica.Icons.ReleaseNotes;
 
-    class Version_8_0_1 "Version 8.0.1"
+    class Version_8_1_0 "Version 8.1.0"
       extends Modelica.Icons.ReleaseNotes;
         annotation (Documentation(info="<html>
     <div class=\"release-summary\">
     <p>
-    Version 8.0.1 is a bug fix release.
+    Version 8.1.0 is a minor release that is backwards compatible with version 8.0.0.
     The library has been tested with Dymola 2022, JModelica (revision 14023),
     and OPTIMICA (revision OCT-stable-r19089_JM-r14295).
     </p>
@@ -222,6 +222,55 @@ Each class (i.e., model, block and function) must be used in an example or valid
     </ul>
     </div>
     <!-- New libraries -->
+    <p>
+    The following <b style=\"color:blue\">new libraries</b> have been added:
+    </p>
+    <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\">
+    <!-- Check if these should be ported down to 8.1
+    <tr><td colspan=\"2\"><b>Buildings.BoundaryConditions</b>
+        </td>
+    </tr>
+    <tr><td valign=\"top\">Buildings.BoundaryConditions.GroundTemperature
+        </td>
+        <td valign=\"top\">Package with models and climatic data for computing ground temperature.
+        </td>
+    </tr>
+    <tr><td colspan=\"2\"><b>Buildings.Controls</b>
+        </td>
+    </tr>
+    <tr><td valign=\"top\">Buildings.Controls.OBC.RadiantSystems
+        </td>
+        <td valign=\"top\">Package with controllers for radiant cooling and heating systems
+                           such for pipes embedded in the concrete slab.
+        </td>
+    </tr>
+    <tr><td colspan=\"2\"><b>Buildings.Fluid.Geothermal</b>
+        </td>
+    </tr>
+    <tr><td valign=\"top\">Buildings.Fluid.Geothermal.BuriedPipes
+        </td>
+        <td valign=\"top\">Package with models for modeling thermal coupling between buried pipes and ground.
+        </td>
+    </tr>
+    <tr><td colspan=\"2\"><b>Buildings.Media</b>
+        </td>
+    </tr>
+    <tr><td valign=\"top\">Buildings.Media.Steam
+        </td>
+        <td valign=\"top\">Package with medium model for steam heating applications.
+        </td>
+    </tr>
+    -->
+    <tr><td valign=\"top\"><b>Buildings.Experimental.DHC</b>
+        </td>
+    <tr><td valign=\"top\">Buildings.Experimental.DHC.CentralPlants.Cooling
+        </td>
+        <td valign=\"top\">Package with models for a chilled water plant adapted to
+        district cooling applications.<br/>
+        This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2264\">issue 2264</a>
+        </td>
+    </tr>
+    </table>
     <!-- New components for existing libraries -->
     <p>
     The following <b style=\"color:blue\">new components</b> have been added
@@ -298,14 +347,14 @@ Each class (i.e., model, block and function) must be used in an example or valid
     </tr>
     <tr><td valign=\"top\"> Buildings.Fluid.Chillers.BaseClasses.PartialElectric
         </td>
-        <td valign=\"top\">Corrected calculation of entering condenser temperature 
-                           when using a moist air media model.  
+        <td valign=\"top\">Corrected calculation of entering condenser temperature
+                           when using a moist air media model.
                            This is important for modeling air-cooled chillers using the model
                            <code>Buildings.Fluid.Chillers.ElectricEIR</code>.
                            <br/>
                            This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2770\">issue #2770</a>.
         </td>
-    </tr>  
+    </tr>
     <tr><td colspan=\"2\"><b>Buildings.Occupants</b>
         </td>
     </tr>
@@ -381,7 +430,7 @@ Each class (i.e., model, block and function) must be used in an example or valid
     </table>
     <!-- Obsolete components -->
      </html>"));
-    end Version_8_0_1;
+    end Version_8_1_0;
 
 
     class Version_8_0_0 "Version 8.0.0"
@@ -8992,7 +9041,7 @@ on the Buildings library.
 </p>
 <ul>
 <li>
-<a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_8_0_1\">Version 8.0.1</a> (xxx)
+<a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_8_1_0\">Version 8.0.1</a> (xxx)
 </li>
 <li>
 <a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_8_0_0\">Version 8.0.0</a> (June 8, 2021)
@@ -9503,13 +9552,13 @@ end UsersGuide;
 
 annotation (
 preferredView="info",
-version="8.0.1",
+version="8.1.0",
 versionDate="2021-06-08",
 dateModified="2021-06-08",
 uses(Modelica(version="3.2.3")),
 conversion(
   from(version={"7.0.0"},
-      script="modelica://Buildings/Resources/Scripts/Dymola/ConvertBuildings_from_7_to_8.0.0.mos")),
+      script="modelica://Buildings/Resources/Scripts/Dymola/ConvertBuildings_from_7_to_8.1.0.mos")),
 preferredView="info",
 Documentation(info="<html>
 <p>
