@@ -112,8 +112,11 @@ equation
    color = {0, 0, 0}, thickness = 0.5, smooth = Smooth.None),
    Line(points = {{-19, -32}, {15, -32}}, pattern = LinePattern.None,
    thickness = 0.5, smooth = Smooth.None), Line(points = {{-19, -44}, {15, -44}},
-   pattern = LinePattern.None, thickness = 0.5, smooth = Smooth.None), Text(
-    extent = {{-90, 142}, {90, 104}}, lineColor = {0, 0, 255}, textString = "%name"),
+   pattern = LinePattern.None, thickness = 0.5, smooth = Smooth.None),
+   Text(
+    extent = {{-90, 142}, {90, 104}},
+    textColor = {0, 0, 255},
+    textString = "%name"),
    Line(points = {{18, -32}, {-20, -32}}, color = {0, 0, 0}, thickness = 0.5,
    smooth = Smooth.None),
    Line(points = {{14, -44}, {-15, -44}}, color = {0, 0, 0}, thickness = 0.5,

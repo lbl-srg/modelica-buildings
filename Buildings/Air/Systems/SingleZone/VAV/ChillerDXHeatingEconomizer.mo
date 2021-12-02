@@ -596,7 +596,7 @@ equation
                                         Text(
         extent={{-154,260},{164,196}},
         textString="%name",
-        lineColor={0,0,255})}),                                  Diagram(
+        textColor={0,0,255})}),                                  Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-200,-220},{200,180}})),
       Documentation(info="<html>
 <p>

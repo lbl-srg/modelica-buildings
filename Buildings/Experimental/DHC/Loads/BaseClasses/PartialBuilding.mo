@@ -311,7 +311,7 @@ First implementation.
           fillPattern=FillPattern.Solid),
         Text(
           extent={{-150,-328},{150,-368}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%name"),
         Rectangle(
           extent={{20,-52},{300,-68}},

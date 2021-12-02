@@ -41,7 +41,7 @@ Added User's guide.
 </ul>
 </html>"), Icon(graphics={
         Text(
-          lineColor={0,0,255},
+          textColor={0,0,255},
           extent={{-154,104},{146,144}},
           textString="%name")}));
 end PartialGrid;

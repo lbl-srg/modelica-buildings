@@ -138,11 +138,11 @@ equation
             -100},{100,100}}), graphics={
         Text(
           extent={{-104,70},{-70,32}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="TWB"),
         Text(
           extent={{-50,4},{42,-110}},
-          lineColor={255,255,255},
+          textColor={255,255,255},
           fillColor={0,127,0},
           fillPattern=FillPattern.Solid,
           textString="York"),
@@ -166,7 +166,7 @@ equation
           fillPattern=FillPattern.Solid),
         Text(
           extent={{70,-58},{104,-96}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="TLvg"),
         Rectangle(
           extent={{70,56},{82,52}},
@@ -182,7 +182,7 @@ equation
           fillPattern=FillPattern.Solid),
         Text(
           extent={{64,114},{98,76}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="PFan"),
         Ellipse(
           extent={{0,62},{54,50}},
@@ -202,7 +202,7 @@ equation
           fillPattern=FillPattern.Solid),
         Text(
           extent={{-98,100},{-86,84}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="y")}),
 Documentation(info="<html>
 <p>

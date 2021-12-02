@@ -172,7 +172,7 @@ equation
         coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
                     graphics={Text(
           extent={{12,30},{106,10}},
-          lineColor={28,108,200},
+          textColor={28,108,200},
           textString="<- vol.prescribedHeatFlowRate = true")}),
     experiment(
       Tolerance=1E-6, StopTime=2),

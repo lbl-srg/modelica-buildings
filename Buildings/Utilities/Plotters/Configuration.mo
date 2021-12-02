@@ -78,7 +78,7 @@ Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         smooth = Smooth.Bezier),
         Text(
           extent={{-42,-44},{34,-74}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="delay=%activationDelay"),
         Ellipse(
           extent={{-95,67},{-81,53}},

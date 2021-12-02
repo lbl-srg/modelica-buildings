@@ -43,6 +43,6 @@ First implementation.
     Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
             100}}), graphics={Text(
           extent={{-28,42},{26,-34}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="P")}));
 end CheckPressure;

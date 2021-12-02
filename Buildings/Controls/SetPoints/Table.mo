@@ -91,7 +91,7 @@ First implementation.
     Icon(graphics={
     Text(
       extent={{-78,-45},{-40,-56}},
-      lineColor={0,0,0},
+      textColor={0,0,0},
       textString="offset"),
     Line(
       points={{-42,-24},{-42,-74}},
@@ -105,7 +105,7 @@ First implementation.
     Line(points={{-82,64},{-82,-84}}, color={95,95,95}),
     Text(
       extent={{-80,88},{-39,68}},
-      lineColor={0,0,0},
+      textColor={0,0,0},
       textString="y"),
     Polygon(
       points={{-82,86},{-88,64},{-76,64},{-82,86}},
@@ -120,7 +120,7 @@ First implementation.
     Line(points={{-92,-74},{80,-74}}, color={95,95,95}),
     Text(
       extent={{68,-84},{92,-95}},
-      lineColor={0,0,0},
+      textColor={0,0,0},
           textString="u"),
     Polygon(
       points={{-42,-24},{-44,-34},{-39,-34},{-42,-24}},

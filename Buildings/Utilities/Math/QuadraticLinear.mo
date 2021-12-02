@@ -17,6 +17,6 @@ Implementation based on Functions.quadraticLinear.
 </ul>
 </html>"), Icon(graphics={   Text(
           extent={{-86,38},{94,-34}},
-          lineColor={160,160,164},
+          textColor={160,160,164},
           textString="quadraticLinear()")}));
 end QuadraticLinear;

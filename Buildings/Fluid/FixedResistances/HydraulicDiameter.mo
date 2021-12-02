@@ -188,6 +188,6 @@ First implementation for
 </html>"),
   Icon(graphics={Text(
           extent={{-40,18},{38,-20}},
-          lineColor={255,255,255},
+          textColor={255,255,255},
           textString="dh")}));
 end HydraulicDiameter;

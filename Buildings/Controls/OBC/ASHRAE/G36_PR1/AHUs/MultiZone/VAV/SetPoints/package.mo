@@ -19,6 +19,6 @@ This package contains sequences generating setpoints for VAV AHU control.
           radius=25.0),
       Text(
         extent={{-100,100},{100,-100}},
-        lineColor={0,0,0},
+        textColor={0,0,0},
         textString="S")}));
 end SetPoints;

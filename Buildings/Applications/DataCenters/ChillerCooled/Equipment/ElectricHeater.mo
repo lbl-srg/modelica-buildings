@@ -110,7 +110,7 @@ equation
           fillPattern=FillPattern.Solid),
         Text(
           extent={{18,-6},{62,-52}},
-          lineColor={255,255,255},
+          textColor={255,255,255},
           textString="+"),
         Rectangle(
           extent={{-100,82},{-70,78}},
@@ -126,11 +126,11 @@ equation
           fillPattern=FillPattern.Solid),
         Text(
           extent={{26,108},{94,84}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="Q_flow"),
         Text(
           extent={{-110,102},{-74,84}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="T"),
         Rectangle(
           extent={{-70,60},{-66,82}},

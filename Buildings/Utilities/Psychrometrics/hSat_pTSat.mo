@@ -48,9 +48,7 @@ equation
 <ul>
 <li>
 March 17, 2017, by Michael O'Keefe:<br/>
-First implementation. See
-<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/622\">
-issue 622</a> for more information.
+First implementation.
 </li>
 </ul>
 </html>", info="<html>

@@ -212,11 +212,11 @@ equation
           pattern=LinePattern.None),
                    Text(
           extent={{-42,-20},{2,-66}},
-          lineColor={255,255,255},
+          textColor={255,255,255},
           textString="+"),
                    Text(
           extent={{-66,-20},{-22,-66}},
-          lineColor={255,255,255},
+          textColor={255,255,255},
           textString="+"),
         Ellipse(
           extent={{-60,-52},{-80,-72}},

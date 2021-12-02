@@ -12,6 +12,6 @@ equation
 </ul>
 </html>"), Icon(graphics={   Text(
           extent={{-90,38},{90,-34}},
-          lineColor={160,160,164},
+          textColor={160,160,164},
           textString="besselY1()")}));
 end BesselY1;

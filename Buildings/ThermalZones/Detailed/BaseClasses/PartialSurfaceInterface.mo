@@ -112,7 +112,7 @@ initial algorithm
           pattern=LinePattern.None),
         Text(
           extent={{-234,328},{242,244}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="%name"),
         Rectangle(
           extent={{-144,184},{148,-198}},

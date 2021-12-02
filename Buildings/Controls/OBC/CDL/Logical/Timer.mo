@@ -84,11 +84,11 @@ equation
           color={0,0,127}),
         Text(
           extent={{-150,150},{150,110}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%name"),
         Text(
           extent={{-64,62},{62,92}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="t=%t"),
         Ellipse(
           extent={{-83,7},{-69,-7}},
@@ -118,7 +118,7 @@ equation
           fillPattern=FillPattern.Solid),
         Text(
           extent={{226,60},{106,10}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString=DynamicSelect("",String(y,
             leftJustified=false,
             significantDigits=3)))}),
