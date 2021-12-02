@@ -226,7 +226,6 @@ Each class (i.e., model, block and function) must be used in an example or valid
     The following <b style=\"color:blue\">new libraries</b> have been added:
     </p>
     <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\">
-    <!-- Check if these should be ported down to 8.1
     <tr><td colspan=\"2\"><b>Buildings.BoundaryConditions</b>
         </td>
     </tr>
@@ -260,8 +259,7 @@ Each class (i.e., model, block and function) must be used in an example or valid
         <td valign=\"top\">Package with medium model for steam heating applications.
         </td>
     </tr>
-    -->
-    <tr><td valign=\"top\"><b>Buildings.Experimental.DHC</b>
+    <tr><td colspan=\"2\"><b>Buildings.Experimental.DHC</b>
         </td>
     <tr><td valign=\"top\">Buildings.Experimental.DHC.CentralPlants.Cooling
         </td>
@@ -277,14 +275,70 @@ Each class (i.e., model, block and function) must be used in an example or valid
     to <b style=\"color:blue\">existing</b> libraries:
     </p>
     <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
+    <tr><td colspan=\"2\"><b>Buildings.Controls.OBC</b>
+      </td>
+    </tr>
+    <tr><td valign=\"top\">Buildings.Controls.OBC.ASHRAE.G36_PR1.Generic.SetPoints.ZoneStatusDuplicator
+      </td>
+      <td valign=\"top\">Block that duplicates the zone status to be connected to all zone groups.<br/>
+                         This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2544\">issue 2544</a>.
+      </td>
+    </tr>
+    <tr><td valign=\"top\">
+          Buildings.Controls.OBC.CDL.Routing.BooleanVectorFilter<br/>
+          Buildings.Controls.OBC.CDL.Routing.BooleanVectorReplicator<br/>
+          Buildings.Controls.OBC.CDL.Routing.IntegerVectorFilter<br/>
+          Buildings.Controls.OBC.CDL.Routing.IntegerVectorReplicator<br/>
+          Buildings.Controls.OBC.CDL.Routing.RealVectorFilter<br/>
+          Buildings.Controls.OBC.CDL.Routing.RealVectorReplicator
+      </td>
+      <td valign=\"top\">Blocks for filtering and replicating vectors of signals.<br/>
+           This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2544\">issue 2544</a>.
+      </td>
+    </tr>
+    <tr><td colspan=\"2\"><b>Buildings.Fluid.Boilers</b>
+      </td>
+    </tr>
+    <tr><td valign=\"top\">Buildings.Fluid.Boilers.BoilerTable<br/>
+                         Buildings.Fluid.Boilers.Examples.BoilerTable<br/>
+                         Buildings.Fluid.Boilers.Validation.BoilerTableEfficiencyCurves<br/>
+                         Buildings.Fluid.Boilers.BaseClasses.PartialBoiler<br/>
+                         Buildings.Fluid.Boilers.Data.Generic<br/>
+                         Buildings.Fluid.Boilers.Data.Lochinvar.Crest.FBdash2501<br/>
+                         Buildings.Fluid.Boilers.Data.Lochinvar.Crest.FBdash3001<br/>
+                         Buildings.Fluid.Boilers.Data.Lochinvar.Crest.FBdash3501<br/>
+                         Buildings.Fluid.Boilers.Data.Lochinvar.Crest.FBdash4001<br/>
+                         Buildings.Fluid.Boilers.Data.Lochinvar.Crest.FBdash5001<br/>
+                         Buildings.Fluid.Boilers.Data.Lochinvar.Crest.FBdash6001<br/>
+                         Buildings.Fluid.Boilers.Data.Lochinvar.FTXL.FTX400<br/>
+                         Buildings.Fluid.Boilers.Data.Lochinvar.FTXL.FTX500<br/>
+                         Buildings.Fluid.Boilers.Data.Lochinvar.FTXL.FTX600<br/>
+                         Buildings.Fluid.Boilers.Data.Lochinvar.FTXL.FTX725<br/>
+                         Buildings.Fluid.Boilers.Data.Lochinvar.FTXL.FTX850<br/>
+                         Buildings.Fluid.Boilers.Data.Lochinvar.KnightXL.KBXdash0400<br/>
+                         Buildings.Fluid.Boilers.Data.Lochinvar.KnightXL.KBXdash0500<br/>
+                         Buildings.Fluid.Boilers.Data.Lochinvar.KnightXL.KBXdash0650<br/>
+                         Buildings.Fluid.Boilers.Data.Lochinvar.KnightXL.KBXdash0800<br/>
+                         Buildings.Fluid.Boilers.Data.Lochinvar.KnightXL.KBXdash1000
+      </td>
+      <td valign=\"top\">Classes for modeling boilers whose efficiency curves are provided as a table.
+                         Part of the code from the old <code>Buildings.Fluid.Boilers.BoilerPolynomial</code>
+                         has been moved to <code>Buildings.Fluid.Boilers.BaseClasses.PartialBoiler</code>
+                         to support the new model <code>Buildings.Fluid.Boilers.BoilerTable</code>. <br/>
+                         This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2651\">issue 2651</a>.<br/>
+                         In the moved code, the boiler's heating power output is now corrected by
+                         its loss to the ambient. <br/>
+                         This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2725\">#2725</a>.
+      </td>
+    </tr>
     <tr><td colspan=\"2\"><b>Buildings.Fluid.Chillers</b>
-        </td>
+      </td>
     </tr>
     <tr><td valign=\"top\">Buildings.Fluid.Chillers.Data.ElectricEIR.ElectricEIRChiller_York_YCAL0033EE_101kW_3_1COP_AirCooled
-        </td>
-        <td valign=\"top\">Data for air cooled chiller. <br/>
-                           This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2770\">issue #2770</a>.
-        </td>
+      </td>
+      <td valign=\"top\">Data for air cooled chiller. <br/>
+                         This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2770\">issue #2770</a>.
+      </td>
     </tr>
     </table>
     <!-- Backward compatible changes -->
