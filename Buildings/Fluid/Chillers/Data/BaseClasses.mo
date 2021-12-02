@@ -68,27 +68,27 @@ First implementation.
       Icon(graphics={
           Text(
             extent={{-95,53},{-12,-2}},
-            lineColor={0,0,255},
+            textColor={0,0,255},
             textString="COP"),
           Text(
             extent={{7,55},{90,0}},
-            lineColor={0,0,255},
+            textColor={0,0,255},
             textString="%COP_nominal"),
           Text(
             extent={{-105,-9},{-48,-48}},
-            lineColor={0,0,255},
+            textColor={0,0,255},
             textString="Q"),
           Text(
             extent={{2,-16},{94,-38}},
-            lineColor={0,0,255},
+            textColor={0,0,255},
             textString="%QEva_flow_nominal"),
           Text(
             extent={{-95,-49},{-12,-104}},
-            lineColor={0,0,255},
+            textColor={0,0,255},
             textString="PLR_minUnl"),
           Text(
             extent={{7,-53},{84,-94}},
-            lineColor={0,0,255},
+            textColor={0,0,255},
             textString="%PLRMinUnl")}));
   end Chiller;
 

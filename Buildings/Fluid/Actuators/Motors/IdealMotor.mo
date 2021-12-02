@@ -126,11 +126,11 @@ First implementation.
           fillPattern=FillPattern.Solid),
         Text(
           extent={{66,-26},{94,-48}},
-          lineColor={160,160,164},
+          textColor={160,160,164},
           textString="u-y"),
         Text(
           extent={{-3,83},{50,65}},
-          lineColor={160,160,164},
+          textColor={160,160,164},
           textString="v"),
         Line(
           points={{-80,-74},{-8,-74}},
@@ -158,11 +158,11 @@ First implementation.
           thickness=0.5),
         Text(
           extent={{19,-35},{44,-18}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="+delta"),
         Text(
           extent={{-63,-18},{-40,-2}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="-delta"),
         Line(
           points={{-8,22},{-8,-74}},
@@ -172,11 +172,11 @@ First implementation.
           thickness=0.5),
         Text(
           extent={{-37,12},{-10,32}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="vOpen"),
         Text(
           extent={{-4,-86},{30,-64}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="vClose"),
         Line(
           points={{-20,-13},{-30,-18},{-20,-23}},

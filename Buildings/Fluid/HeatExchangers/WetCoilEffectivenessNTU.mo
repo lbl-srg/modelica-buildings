@@ -233,7 +233,7 @@ protected
   flo flowRegime(fixed=false, start=flowRegime_nominal)
     "Heat exchanger flow regime";
 
-  Buildings.HeatTransfer.Sources.PrescribedHeatFlow preHea
+  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow preHea
     "Prescribed heat flow"
     annotation (Placement(transformation(extent={{20,-90},{0,-70}})));
   Real fra_a1(min=0, max=1) = if allowFlowReversal1
@@ -514,13 +514,13 @@ equation
           smooth=Smooth.Bezier)}),
         Diagram(graphics={Text(
           extent={{44,84},{86,76}},
-          lineColor={28,108,200},
+          textColor={28,108,200},
           textString="Water Side",
           textStyle={TextStyle.Italic},
           horizontalAlignment=TextAlignment.Left),
         Text(
           extent={{-42,-80},{0,-88}},
-          lineColor={28,108,200},
+          textColor={28,108,200},
           textStyle={TextStyle.Italic},
           horizontalAlignment=TextAlignment.Left,
           textString="Air Side")}),
@@ -635,8 +635,7 @@ This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2710\
 </li>
 <li>
 Jan 21, 2021, by Donghun Kim:<br/>
-First implementation of the fuzzy model.<br/>
-See <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/622\">issue 622</a> for more information.
+First implementation.
 </li>
 </ul>
 </html>"));

@@ -55,7 +55,7 @@ algorithm
        Text(
        extent={{-150,150},{150,110}},
        textString="%name",
-       lineColor={0,0,255}),
+       textColor={0,0,255}),
        Line(points={{-88,0},{70,0}}, color={192,192,192}),
        Polygon(
           points={{92,0},{70,8},{70,-8},{92,0}},

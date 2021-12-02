@@ -169,7 +169,7 @@ First implementation.
 </html>"), Icon(graphics={
         Text(
           extent={{-234,40},{-178,10}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="Q_flow"),
         Rectangle(
           extent={{-242,4},{-2,-4}},
@@ -193,7 +193,7 @@ First implementation.
           thickness=0.5),
         Text(
           extent={{-230,210},{-174,148}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="uSha")}),
     Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-240,-240},{240,
             240}}),

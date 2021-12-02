@@ -73,7 +73,7 @@ equation
           preserveAspectRatio=false, extent={{-100,-100},{100,100}}), graphics={
           Text(
             extent={{-150,-19},{150,-59}},
-            lineColor={0,0,0},
+            textColor={0,0,0},
           textString="%name")}),
     Documentation(info="<html>
 <p>

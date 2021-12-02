@@ -14,13 +14,13 @@ partial model GeneralizedProbe
             -40},{80,-20}})));
   annotation (Icon(graphics={      Text(
           extent={{40,60},{100,40}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           pattern=LinePattern.Dash,
           fillColor={0,120,120},
           fillPattern=FillPattern.Solid,
           textString="V"), Text(
           extent={{18,-40},{140,-60}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           pattern=LinePattern.Dash,
           fillColor={0,120,120},
           fillPattern=FillPattern.Solid,

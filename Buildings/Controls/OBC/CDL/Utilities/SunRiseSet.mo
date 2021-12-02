@@ -332,7 +332,7 @@ issue <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/829\">829</
           fillPattern=FillPattern.Solid),
         Text(
           extent={{-100,160},{100,106}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%name"),
         Ellipse(
           extent={{70,-100},{-70,20}},

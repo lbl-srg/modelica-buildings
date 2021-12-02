@@ -949,6 +949,6 @@ First implementation.
           fillColor={95,95,95}),
         Text(
           extent={{-64,88},{-42,58}},
-          lineColor={255,0,0},
+          textColor={255,0,0},
           textString="T")}));
 end TemperatureDependentDensity;

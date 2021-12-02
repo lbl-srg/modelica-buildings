@@ -94,9 +94,9 @@ equation
   Icon(coordinateSystem(preserveAspectRatio=false,extent={{-100,-100},
             {100,100}}),       graphics={
         Text(extent={{62,-82},{72,-98}},    textString="P",
-          lineColor={0,0,127}),
+          textColor={0,0,127}),
         Text(extent={{62,98},{72,82}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="y"),
         Polygon(
           points={{-70,-80},{-70,80},{70,60},{70,-60},{-70,-80}},
@@ -114,7 +114,7 @@ equation
         Line(points={{60,58},{60,100}},        color={0,0,0}),
         Text(
           extent={{-149,-114},{151,-154}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%name")}),
     defaultComponentName="com",
       Documentation(info="<html>

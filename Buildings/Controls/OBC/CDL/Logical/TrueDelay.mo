@@ -68,7 +68,7 @@ equation
           borderPattern=BorderPattern.Raised),
         Text(
           extent={{-250,-120},{250,-150}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="%delayTime"),
         Line(
           points={{-80,-66},{-60,-66},{-60,-22},{38,-22},{38,-66},{66,-66}}),
@@ -103,7 +103,7 @@ equation
           fillPattern=FillPattern.Solid),
         Text(
           extent={{-150,150},{150,110}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%name")}),
     Documentation(
       info="<html>

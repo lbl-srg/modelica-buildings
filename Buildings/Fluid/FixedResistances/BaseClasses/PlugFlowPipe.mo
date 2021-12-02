@@ -330,11 +330,11 @@ equation
           fillColor={215,202,187}),
         Text(
           extent={{-102,-76},{98,-104}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="d = %dh"),
         Text(
           extent={{-100,-56},{100,-74}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="L = %length")}),
     Documentation(revisions="<html>
 <ul>

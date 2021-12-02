@@ -371,37 +371,37 @@ that it changes the time based on which the solar position is computed and TMY3 
     Icon(graphics={
         Text(
           extent={{-34,90},{96,80}},
-          lineColor={28,108,200},
+          textColor={28,108,200},
           horizontalAlignment=TextAlignment.Right,
           textString="Minute"),
         Text(
           extent={{-28,68},{96,58}},
-          lineColor={28,108,200},
+          textColor={28,108,200},
           horizontalAlignment=TextAlignment.Right,
           textString="Hour"),
         Text(
           extent={{-38,44},{96,32}},
-          lineColor={28,108,200},
+          textColor={28,108,200},
           horizontalAlignment=TextAlignment.Right,
           textString="Day"),
         Text(
           extent={{-50,18},{96,8}},
-          lineColor={28,108,200},
+          textColor={28,108,200},
           horizontalAlignment=TextAlignment.Right,
           textString="Month"),
         Text(
           extent={{-70,-8},{96,-18}},
-          lineColor={28,108,200},
+          textColor={28,108,200},
           horizontalAlignment=TextAlignment.Right,
           textString="Year"),
         Text(
           extent={{-68,-30},{96,-42}},
-          lineColor={28,108,200},
+          textColor={28,108,200},
           horizontalAlignment=TextAlignment.Right,
           textString="Weekday"),
         Text(
           extent={{-102,-60},{94,-72}},
-          lineColor={28,108,200},
+          textColor={28,108,200},
           horizontalAlignment=TextAlignment.Right,
           textString="Unix time stamp (local)"),
         Ellipse(
@@ -417,7 +417,7 @@ that it changes the time based on which the solar position is computed and TMY3 
           thickness=0.5),
         Text(
           extent={{-102,-82},{94,-94}},
-          lineColor={28,108,200},
+          textColor={28,108,200},
           horizontalAlignment=TextAlignment.Right,
           visible=outputUnixTimeStamp,
           textString="Unix time stamp (GMT)")}));

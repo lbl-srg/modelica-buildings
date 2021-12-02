@@ -87,15 +87,15 @@ equation
               -47.2},{88,-24.8},{96,0}}, smooth=Smooth.Bezier),
         Text(
           extent={{20,100},{82,30}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="PDE"),
         Text(
           extent={{-82,-30},{-20,-100}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="tau"),
         Text(
           extent={{-100,140},{100,100}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%name")}),
     Documentation(info="<html>
 <p>

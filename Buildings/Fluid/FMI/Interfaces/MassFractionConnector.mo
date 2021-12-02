@@ -14,7 +14,7 @@ connector MassFractionConnector =
       extent={{-100.0,-100.0},{100.0,100.0}}),
       graphics={
     Text(
-      lineColor={0,127,127},
+      textColor={0,127,127},
       extent={{-10.0,60.0},{-10.0,85.0}},
       textString="%name")}),
   Documentation(info="<html>

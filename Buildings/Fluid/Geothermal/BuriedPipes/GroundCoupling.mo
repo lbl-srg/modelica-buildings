@@ -39,7 +39,7 @@ equation
 
   annotation (Icon(graphics={
         Text(
-          lineColor={0,0,255},
+          textColor={0,0,255},
           extent={{-150,110},{150,150}},
           textString="%name"),
         Rectangle(
@@ -158,28 +158,28 @@ equation
           arrow={Arrow.None,Arrow.Filled}),
         Text(
           extent={{-76,-54},{-62,-64}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           lineThickness=0.5,
           fillColor={122,20,25},
           fillPattern=FillPattern.Solid,
           textString="pos[1]"),
         Text(
           extent={{-26,-64},{-12,-74}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           lineThickness=0.5,
           fillColor={122,20,25},
           fillPattern=FillPattern.Solid,
           textString="pos[2]"),
         Text(
           extent={{40,-74},{54,-84}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           lineThickness=0.5,
           fillColor={122,20,25},
           fillPattern=FillPattern.Solid,
           textString="pos[3]"),
         Text(
           extent={{7,-3},{-7,3}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           lineThickness=0.5,
           fillColor={122,20,25},
           fillPattern=FillPattern.Solid,
@@ -188,7 +188,7 @@ equation
           rotation=90),
         Text(
           extent={{7,-3},{-7,3}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           lineThickness=0.5,
           fillColor={122,20,25},
           fillPattern=FillPattern.Solid,
@@ -197,7 +197,7 @@ equation
           textString="dep[2]"),
         Text(
           extent={{7,-3},{-7,3}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           lineThickness=0.5,
           fillColor={122,20,25},
           fillPattern=FillPattern.Solid,
@@ -206,21 +206,21 @@ equation
           textString="dep[3]"),
         Text(
           extent={{-64,-2},{-52,-8}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           lineThickness=0.5,
           fillColor={122,20,25},
           fillPattern=FillPattern.Solid,
           textString="rad[1]"),
         Text(
           extent={{0,-32},{12,-38}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           lineThickness=0.5,
           fillColor={122,20,25},
           fillPattern=FillPattern.Solid,
           textString="rad[2]"),
         Text(
           extent={{54,-14},{66,-20}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           lineThickness=0.5,
           fillColor={122,20,25},
           fillPattern=FillPattern.Solid,

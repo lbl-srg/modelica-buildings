@@ -89,7 +89,7 @@ equation
           fillPattern=FillPattern.Solid,
           fillColor={255,255,255}), Text(
           extent={{-98,-90},{-62,-72}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="P",
           visible=use_p_in)}),
     Documentation(info="<html>

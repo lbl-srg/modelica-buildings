@@ -13,7 +13,7 @@ equation
   annotation ( Icon(graphics={
         Text(
           extent={{40,26},{92,-20}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="GCon")}),
            Documentation(info="<html>
 Model for the convective heat transfer coefficient at the room-facing surface of a window.

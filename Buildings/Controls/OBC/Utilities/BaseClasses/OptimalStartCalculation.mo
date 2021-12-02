@@ -308,7 +308,7 @@ First implementation.
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid),
         Text(
-          lineColor={0,0,255},
+          textColor={0,0,255},
           extent={{-150,110},{150,150}},
           textString="%name")}));
 end OptimalStartCalculation;
