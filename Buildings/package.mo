@@ -212,7 +212,6 @@ Version 9.0.0 is ... xxx
 </p>
 </div>
 <!-- New libraries -->
-  <!--
 <p>
 The following <b style=\"color:blue\">new libraries</b> have been added:
 </p>
@@ -220,13 +219,12 @@ The following <b style=\"color:blue\">new libraries</b> have been added:
 <tr><td colspan=\"2\"><b>Buildings.BoundaryConditions</b>
     </td>
 </tr>
-<tr><td valign=\"top\">Buildings.BoundaryConditions.GroundTemperature
-    </td>
-    <td valign=\"top\">Package with models and climatic data for computing ground temperature.
-    </td>
-</tr>
+  <tr><td valign=\"top\">Buildings.Media.Steam
+      </td>
+      <td valign=\"top\">Package with medium model for steam heating applications.
+      </td>
+  </tr>
 </table>
-  -->
 <!-- New components for existing libraries -->
 <p>
 The following <b style=\"color:blue\">new components</b> have been added
