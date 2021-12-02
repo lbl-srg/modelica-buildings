@@ -95,7 +95,7 @@ equation
     fillPattern=FillPattern.Solid),
   Text(
     extent={{-70,-110},{76,-146}},
-    lineColor={0,0,255},
+    textColor={0,0,255},
     lineThickness=0.5,
     fillColor={236,99,92},
     fillPattern=FillPattern.Solid,

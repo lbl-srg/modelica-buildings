@@ -47,7 +47,7 @@ equation
         Text(
           extent={{-150,150},{150,110}},
           textString="%name",
-          lineColor={0,0,255}),
+          textColor={0,0,255}),
         Rectangle(
           extent={{-100,100},{100,-100}},
           lineColor={0,0,0},
@@ -55,21 +55,21 @@ equation
           fillPattern=FillPattern.Solid),
         Text(
           extent={{-92,82},{-62,38}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="TDryBul"),
         Text(
           extent={{-90,-44},{-70,-70}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="phi"),
         Text(
           extent={{62,22},{92,-22}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="TWetBul"),
         Line(
           points={{78,-74},{-48,-74}}),
         Text(
           extent={{76,-78},{86,-94}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
           textString="T"),
@@ -85,7 +85,7 @@ equation
           points={{-48,84},{-48,-74}}),
         Text(
           extent={{-44,82},{-22,64}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
           textString="X"),

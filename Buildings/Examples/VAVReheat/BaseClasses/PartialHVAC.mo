@@ -707,7 +707,7 @@ This is for
         Text(
           extent={{56,226},{168,290}},
           textString="%name",
-          lineColor={0,0,255}),
+          textColor={0,0,255}),
         Rectangle(
           extent={{-200,222},{440,-140}},
           lineColor={0,0,0},

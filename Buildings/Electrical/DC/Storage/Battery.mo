@@ -98,7 +98,7 @@ equation
           lineColor={0,0,0}),
         Text(
           extent={{-50,68},{-20,100}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid,
           textString="P"),
@@ -108,21 +108,21 @@ equation
           smooth=Smooth.None),
         Text(
           extent={{-150,70},{-50,20}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="+"),
         Text(
           extent={{-150,-12},{-50,-62}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="-"),
         Text(
           extent={{44,70},{100,116}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid,
           textString="SOC"),
         Text(
           extent={{44,154},{134,112}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%name")}),
     Documentation(info="<html>
 <p>

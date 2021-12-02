@@ -59,7 +59,7 @@ equation
           fillPattern=FillPattern.Solid),
         Text(
           extent={{-56,-12},{54,-72}},
-          lineColor={255,255,255},
+          textColor={255,255,255},
           textString="Q=%Q_flow_nominal"),
         Rectangle(
           extent={{-100,60},{-70,58}},
@@ -69,11 +69,11 @@ equation
           fillPattern=FillPattern.Solid),
         Text(
           extent={{-122,106},{-78,78}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="u"),
         Text(
           extent={{72,96},{116,68}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="Q_flow")}),
 defaultComponentName="hea",
 Documentation(info="<html>

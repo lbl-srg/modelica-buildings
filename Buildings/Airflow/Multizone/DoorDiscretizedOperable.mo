@@ -63,7 +63,7 @@ equation
   annotation (Icon(graphics={
         Text(
           extent={{-118,34},{-98,16}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString=
                "y"),
         Rectangle(

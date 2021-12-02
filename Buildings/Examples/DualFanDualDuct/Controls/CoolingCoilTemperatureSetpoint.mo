@@ -39,6 +39,6 @@ equation
   annotation ( Icon(graphics={
         Text(
           extent={{44,16},{90,-18}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="TSetCoo")}));
 end CoolingCoilTemperatureSetpoint;

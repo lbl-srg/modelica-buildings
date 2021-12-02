@@ -94,12 +94,12 @@ equation
         Line(points={{-64,34},{-52,44},{-64,54}}, color={0,0,0}),
         Text(
           extent={{-98,64},{-76,42}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           visible=use_X_wSet,
           textString="X_w"),
         Text(
           extent={{-106,102},{-74,88}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           visible=use_TSet,
           textString="T"),
         Rectangle(
@@ -137,7 +137,7 @@ equation
           fillPattern=FillPattern.Solid),
         Text(
           extent={{74,72},{120,44}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="mWat_flow"),
         Rectangle(
           extent={{70,41},{100,38}},
@@ -147,7 +147,7 @@ equation
           fillPattern=FillPattern.Solid),
         Text(
           extent={{72,108},{120,92}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="Q_flow")}),
 defaultComponentName="preOut",
 Documentation(info="<html>

@@ -95,7 +95,7 @@ See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1114\">#1114</a>.
   Icon(graphics={
          Text(
           extent={{-88,90},{88,48}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           horizontalAlignment=TextAlignment.Right,
           textString="JSON")}));
 end JSONWriter;

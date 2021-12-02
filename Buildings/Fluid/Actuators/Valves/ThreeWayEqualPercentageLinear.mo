@@ -25,7 +25,7 @@ equation
   annotation (                       Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}), graphics={Text(
           extent={{-72,24},{-34,-20}},
-          lineColor=DynamicSelect({255,255,255}, (1-y)*{255,255,255}),
+          textColor=DynamicSelect({255,255,255}, (1-y)*{255,255,255}),
           fillPattern=FillPattern.Solid,
           textString="%%")}),
 defaultComponentName="val",

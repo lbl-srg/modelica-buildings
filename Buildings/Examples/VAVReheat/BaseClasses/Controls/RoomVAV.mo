@@ -170,24 +170,24 @@ annotation (
   Icon(coordinateSystem(extent={{-100,-100},{100,100}}),
                     graphics={
         Text(
-          extent={{-96,-52},{-62,-66}},
-          lineColor={0,0,127},
+          extent={{-100,-62},{-66,-76}},
+          textColor={0,0,127},
           textString="TRoo"),
         Text(
           extent={{64,-38},{92,-58}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="yVal"),
         Text(
           extent={{56,62},{90,40}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="yDam"),
         Text(
-          extent={{-94,72},{-34,50}},
-          lineColor={0,0,127},
+          extent={{-96,82},{-36,60}},
+          textColor={0,0,127},
           textString="TRooHeaSet"),
         Text(
           extent={{-96,10},{-36,-10}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="TRooCooSet")}),
  Documentation(info="<html>
 <p>

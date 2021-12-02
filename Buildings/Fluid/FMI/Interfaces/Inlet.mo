@@ -40,7 +40,7 @@ annotation (defaultComponentName="inlet",
           fillColor={0,0,255}),
           Text(
           extent={{-58,134},{48,94}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%name")}),
     Documentation(info="<html>
 <p>

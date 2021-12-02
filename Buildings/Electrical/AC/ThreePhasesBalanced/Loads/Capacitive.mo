@@ -18,7 +18,7 @@ model Capacitive "Model of a capacitive and resistive load"
           rotation=180),
         Text(
           extent={{-120,120},{120,80}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="%name"),
         Rectangle(
           extent={{-11,22},{11,-22}},

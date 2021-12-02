@@ -335,34 +335,34 @@ First implementation.
     Icon(graphics={
         Text(
           extent={{0,86},{90,72}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="QAbsExtSha"),
         Text(
           extent={{-4,-22},{92,-36}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="QAbsIntSha"),
         Text(
           extent={{2,58},{94,44}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="QAbsGlaUns"),
         Text(
           extent={{-2,20},{92,6}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="QAbsGlaSha"),
         Text(
           extent={{42,-52},{106,-66}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="QTraDif"),
         Text(
           extent={{-104,-70},{-50,-84}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="HRoo"),
         Text(
           extent={{8,-82},{62,-94}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="uSta"),
         Text(
           extent={{44,-80},{108,-94}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="QTraDir")}));
 end WindowRadiation;

@@ -108,7 +108,7 @@ See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1059\">#1059</a>.
           rotation=90),
         Text(
           extent={{-50,-24},{54,-72}},
-          lineColor={153,153,153},
+          textColor={153,153,153},
           textString=DynamicSelect("", if (
             (KPIs==Buildings.Utilities.IO.SignalExchange.SignalTypes.SignalsForKPIs.AirZoneTemperature) or
             (KPIs==Buildings.Utilities.IO.SignalExchange.SignalTypes.SignalsForKPIs.RadiativeZoneTemperature) or

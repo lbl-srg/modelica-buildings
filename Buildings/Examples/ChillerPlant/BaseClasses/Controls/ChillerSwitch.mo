@@ -101,11 +101,11 @@ First implementation.
         Line(points={{-47,55},{-47,-25}}, color={0,0,0}),
         Text(
           extent={{-90,-45},{-7,-88}},
-          lineColor={192,192,192},
+          textColor={192,192,192},
           textString="%uLow"),
         Text(
           extent={{4,-45},{93,-88}},
-          lineColor={192,192,192},
+          textColor={192,192,192},
           textString="%uHigh"),
         Rectangle(extent={{-89,-45},{-6,-88}}, lineColor={192,192,192}),
         Line(points={{-47,-25},{-47,-45}}, color={192,192,192}),

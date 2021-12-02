@@ -31,7 +31,7 @@ equation
           smooth=Smooth.Bezier),
         Text(
           extent={{-120,100},{120,60}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="%name"),
         Line(
           points={{60,0},{90,0}},
@@ -53,7 +53,7 @@ equation
           smooth=Smooth.Bezier),
         Text(
           extent={{-118,-60},{122,-100}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="V = %V")}),
       Documentation(info="<html>
 <p>

@@ -100,7 +100,7 @@ equation
           fillColor={217,236,255}),
         Text(
           extent={{-42,12},{40,-12}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="%nSeg")}),
     Documentation(info="<html>
 <p>

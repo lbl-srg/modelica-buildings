@@ -189,7 +189,7 @@ First implementation.
 </html>"),
     Icon(graphics={                       Text(
           extent={{-66,88},{60,-2}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid,
           textString="hA"),

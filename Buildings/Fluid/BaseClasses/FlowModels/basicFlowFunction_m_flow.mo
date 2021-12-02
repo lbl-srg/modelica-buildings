@@ -35,7 +35,7 @@ algorithm
           color={0,0,255},
           thickness=1), Text(
           extent={{-40,-40},{40,-80}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           fillPattern=FillPattern.Sphere,
           fillColor={232,0,0},
           textString="%name")}),

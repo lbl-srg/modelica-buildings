@@ -224,11 +224,11 @@ equation
         Line(points={{20,58}}, color={28,108,200}),
         Text(
           extent={{-108,138},{102,110}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="%name"),
         Text(
           extent={{-64,-132},{60,-18}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="Cooling coil valve")}),
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-120,-120},{120,
             120}}), graphics={
@@ -239,7 +239,7 @@ equation
           fillPattern=FillPattern.Solid),
         Text(
           extent={{80,-102},{120,-110}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="Limiter for
 low TSup"),
         Rectangle(
@@ -249,7 +249,7 @@ low TSup"),
           fillPattern=FillPattern.Solid),
         Text(
           extent={{-48,-106},{-20,-112}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="Enbale/Disable"),
         Rectangle(
           extent={{-120,120},{-12,2}},
@@ -258,7 +258,7 @@ low TSup"),
           fillPattern=FillPattern.Solid),
         Text(
           extent={{-112,12},{-92,6}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="Controller")}),
     Documentation(info="<html>
 <p>
