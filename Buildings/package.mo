@@ -243,9 +243,6 @@ Each class (i.e., model, block and function) must be used in an example or valid
                            such for pipes embedded in the concrete slab.
         </td>
     </tr>
-    <tr><td colspan=\"2\"><b>Buildings.Media</b>
-        </td>
-    </tr>
     <tr><td colspan=\"2\"><b>Buildings.Experimental.DHC</b>
         </td>
     <tr><td valign=\"top\">Buildings.Experimental.DHC.CentralPlants.Cooling
