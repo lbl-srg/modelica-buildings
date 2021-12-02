@@ -177,12 +177,12 @@ partial model PartialOutdoorReliefReturnSection
           textString="%name"),
       Bitmap(
         visible=typFanRet==Buildings.Templates.Components.Types.Fan.SingleVariable,
-        extent={{540,500},{310,700}},
-        fileName="modelica://Buildings/Resources/Images/Templates/Components/Fans/SingleVariable.svg"),
+        extent={{540,500},{340,700}},
+        fileName="modelica://Buildings/Resources/Images/Templates/Components/Fans/Housed.svg"),
       Bitmap(
         visible=typFanRet==Buildings.Templates.Components.Types.Fan.MultipleVariable,
-        extent={{442,500},{376,700}},
-        fileName="modelica://Buildings/Resources/Images/Templates/Components/Fans/MultipleVariable.svg"),
+        extent={{540,500},{340,700}},
+        fileName="modelica://Buildings/Resources/Images/Templates/Components/Fans/Array.svg"),
       Bitmap(
         visible=typFanRet<>Buildings.Templates.Components.Types.Fan.None,
         extent={{358,240},{520,440}},
@@ -206,12 +206,12 @@ partial model PartialOutdoorReliefReturnSection
         fileName="modelica://Buildings/Resources/Images/Templates/Components/Dampers/BladesOpposed.svg"),
                 Bitmap(
         visible=typFanRel==Buildings.Templates.Components.Types.Fan.SingleVariable,
-        extent={{-140,500},{-368,700}},
-        fileName="modelica://Buildings/Resources/Images/Templates/Components/Fans/SingleVariable.svg"),
+        extent={{-140,500},{-340,700}},
+        fileName="modelica://Buildings/Resources/Images/Templates/Components/Fans/Propeller.svg"),
               Bitmap(
         visible=typFanRel==Buildings.Templates.Components.Types.Fan.MultipleVariable,
-        extent={{-238,500},{-304,700}},
-        fileName="modelica://Buildings/Resources/Images/Templates/Components/Fans/MultipleVariable.svg"),
+        extent={{-140,500},{-340,700}},
+        fileName="modelica://Buildings/Resources/Images/Templates/Components/Fans/Array.svg"),
       Bitmap(
         visible=typFanRel<>Buildings.Templates.Components.Types.Fan.None,
         extent={{-320,240},{-158,440}},

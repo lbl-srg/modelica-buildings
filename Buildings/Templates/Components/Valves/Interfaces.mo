@@ -64,7 +64,7 @@ package Interfaces "Classes defining the component interfaces"
         extent={{-180,-40},{-100,40}},
         fileName="modelica://Buildings/Resources/Images/Templates/Components/Actuators/Modulated.svg"),
       Bitmap(
-        visible=typVal==Buildings.Templates.Components.Types.Valve.TwoWay,
+        visible=typ==Buildings.Templates.Components.Types.Valve.TwoWay,
         extent={{-100,-100},{40,100}},
         fileName="modelica://Buildings/Resources/Images/Templates/Components/Valves/TwoWay.svg"),
       Bitmap(
@@ -73,7 +73,7 @@ package Interfaces "Classes defining the component interfaces"
         fileName="modelica://Buildings/Resources/Images/Templates/Components/Valves/ThreeWay.svg"),
       Bitmap(
         visible=typ==Buildings.Templates.Components.Types.Valve.None,
-        extent={{-100,-100},{40,100}},
+        extent={{-70,-100},{70,100}},
         fileName="modelica://Buildings/Resources/Images/Templates/Components/Valves/None.svg")}),
       Diagram(
           coordinateSystem(preserveAspectRatio=false)));

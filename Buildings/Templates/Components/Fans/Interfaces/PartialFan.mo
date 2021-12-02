@@ -9,6 +9,11 @@ partial model PartialFan
     "Set to true for air flow measurement"
     annotation (Evaluate=true, Dialog(group="Configuration"));
 
+  parameter Buildings.Templates.Components.Types.FanSingle typSin=
+    Buildings.Templates.Components.Types.FanSingle.Housed
+    "Type of single fan"
+    annotation(Dialog(tab="Graphics", enable=false));
+
   parameter Integer text_rotation = 0
     "Text rotation angle in icon layer"
     annotation(Dialog(tab="Graphics", enable=false));
@@ -66,13 +71,26 @@ equation
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
     Bitmap(
       visible=typ==Buildings.Templates.Components.Types.Fan.MultipleVariable,
-        extent={{-2,-100},{64,100}},
-        fileName="modelica://Buildings/Resources/Images/Templates/Components/Fans/MultipleVariable.svg"),
+        extent={{-100,-100},{100,100}},
+        fileName="modelica://Buildings/Resources/Images/Templates/Components/Fans/Array.svg"),
     Bitmap(
-      visible=typ==Buildings.Templates.Components.Types.Fan.SingleVariable or
-        typ==Buildings.Templates.Components.Types.Fan.SingleConstant,
-        extent={{-100,-100},{128,100}},
-        fileName="modelica://Buildings/Resources/Images/Templates/Components/Fans/SingleVariable.svg"),
+      visible=(typ==Buildings.Templates.Components.Types.Fan.SingleVariable or
+        typ==Buildings.Templates.Components.Types.Fan.SingleConstant) and
+        typSin==Buildings.Templates.Components.Types.FanSingle.Housed,
+        extent={{-100,-100},{100,100}},
+        fileName="modelica://Buildings/Resources/Images/Templates/Components/Fans/Housed.svg"),
+    Bitmap(
+      visible=(typ==Buildings.Templates.Components.Types.Fan.SingleVariable or
+        typ==Buildings.Templates.Components.Types.Fan.SingleConstant) and
+        typSin==Buildings.Templates.Components.Types.FanSingle.Plug,
+        extent={{-100,-100},{100,100}},
+        fileName="modelica://Buildings/Resources/Images/Templates/Components/Fans/Plug.svg"),
+    Bitmap(
+      visible=(typ==Buildings.Templates.Components.Types.Fan.SingleVariable or
+        typ==Buildings.Templates.Components.Types.Fan.SingleConstant) and
+        typSin==Buildings.Templates.Components.Types.FanSingle.Propeller,
+        extent={{-100,-100},{100,100}},
+        fileName="modelica://Buildings/Resources/Images/Templates/Components/Fans/Propeller.svg"),
     Bitmap(
       visible=have_senFlo and typ<>Buildings.Templates.Components.Types.Fan.None,
         extent=if text_flip then {{-140,-240},{-220,-160}} else {{-220,-240},{-140,-160}},

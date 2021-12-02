@@ -24,9 +24,12 @@ model WaterBasedHeating "Water-based"
     annotation(Dialog(group = "Nominal condition"), Evaluate=true);
 
   replaceable Buildings.Templates.Components.Valves.None val constrainedby
-    Buildings.Templates.Components.Valves.Interfaces.PartialValve(redeclare
-      final package Medium = MediumHea) "Valve"    annotation (
-      choicesAllMatching=true, Placement(transformation(extent={{-10,-70},{10,-50}})));
+    Buildings.Templates.Components.Valves.Interfaces.PartialValve(
+      redeclare final package Medium = MediumHea)
+    "Valve"
+    annotation (
+      choicesAllMatching=true,
+      Placement(transformation(extent={{-10,-70},{10,-50}})));
 
   replaceable
     Buildings.Templates.Components.HeatExchangers.DryCoilEffectivenessNTU hex

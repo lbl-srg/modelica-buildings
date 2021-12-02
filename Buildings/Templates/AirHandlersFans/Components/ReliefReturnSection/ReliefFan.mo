@@ -23,7 +23,8 @@ model ReliefFan "Relief fan - Two-position relief damper"
     final m_flow_nominal=m_flow_nominal,
     final dp_nominal=dpFan_nominal,
     final have_senFlo=false,
-    final text_flip=true)
+    final text_flip=true,
+    typSin=Buildings.Templates.Components.Types.FanSingle.Propeller)
     "Relief fan"
     annotation (choices(choice(redeclare
           Buildings.Templates.Components.Fans.SingleVariable fanRet

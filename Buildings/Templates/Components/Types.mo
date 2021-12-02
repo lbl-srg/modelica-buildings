@@ -38,7 +38,7 @@ package Types "Generic types for template components"
       "Parallel blades",
       VAV
       "VAV damper")
-    "Enumeration to specify the damper blades";
+    "Enumeration to specify the type of damper blades";
   type HeatExchanger = enumeration(
       None
       "No heat exchanger",
@@ -69,6 +69,14 @@ package Types "Generic types for template components"
       MultipleVariable
       "Multiple fans (identical) - Variable speed")
     "Enumeration to configure the fan";
+  type FanSingle = enumeration(
+      Housed
+      "Housed centrifugal fan",
+      Plug
+      "Plug fan",
+      Propeller
+      "Propeller fan")
+    "Enumeration to specify the type of single fan";
   type Sensor = enumeration(
       DifferentialPressure
       "Differential pressure",
@@ -94,7 +102,7 @@ package Types "Generic types for template components"
       "Averaging sensor",
       InWell
       "Sensor in well")
-    "Enumeration to configure the temperature sensor";
+    "Enumeration to specify the type of temperature sensor";
   type SensorVolumeFlowRate = enumeration(
       AFMS
       "Airflow measuring station",
@@ -102,7 +110,7 @@ package Types "Generic types for template components"
       "Averaging sensor",
       FlowMeter
       "Flow meter")
-    "Enumeration to configure the volume flow rate sensor";
+    "Enumeration to specify the type of volume flow rate sensor";
   type Valve = enumeration(
       None
       "No valve",

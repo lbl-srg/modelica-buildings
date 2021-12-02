@@ -19,11 +19,10 @@ partial model PartialHeatExchangerWater
   outer parameter ExternData.JSONFile dat
     "External parameter file";
 
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false),
-    graphics={Rectangle(
-          extent={{-100,100},{100,-100}},
-          lineColor={0,0,255},
-          fillColor={255,255,255},
-          fillPattern=FillPattern.Solid)}), Diagram(
+  annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
+    Bitmap(
+      extent={{-100,-100},{100,100}},
+      fileName="modelica://Buildings/Resources/Images/Templates/Components/HeatExchangers/Generic.svg")}),
+                                            Diagram(
         coordinateSystem(preserveAspectRatio=false)));
 end PartialHeatExchangerWater;
