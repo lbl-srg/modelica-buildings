@@ -1,0 +1,8 @@
+compareVars :=
+  {
+    "reaFil.u[1]",
+    "reaFil.u[2]",
+    "reaFil.u[3]",
+    "reaFil.y[1]",
+    "reaFil.y[2]"
+  };

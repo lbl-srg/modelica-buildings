@@ -1,0 +1,10 @@
+compareVars :=
+  {
+    "conCoo.TRooSet",
+    "conCoo.TRoo",
+    "conCoo.TSupSet",
+    "dewPoi.TDewPoi",
+    "conCoo.y",
+    "conCoo.yPum",
+    "conCoo.on"
+  };

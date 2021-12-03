@@ -1,0 +1,13 @@
+last-generated=2021-06-25
+statistics-simulation=
+{
+  "linear": " ",
+  "nonlinear": " ",
+  "numerical Jacobians": "0"
+}
+time=[0e+00, 1e+00]
+booFil.u[1]=[1e+00, 1e+00]
+booFil.u[2]=[1e+00, 1e+00]
+booFil.u[3]=[0e+00, 0e+00]
+booFil.y[1]=[1e+00, 1e+00]
+booFil.y[2]=[0e+00, 0e+00]
