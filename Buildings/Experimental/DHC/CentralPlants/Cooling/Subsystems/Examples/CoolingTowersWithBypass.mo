@@ -22,11 +22,13 @@ equation
      Text(string="%first",index=-1,extent={{-6,3},{-6,3}},
       horizontalAlignment=TextAlignment.Right));
   connect(onOffCon.y, tow.on[1])
-   annotation (Line(points={{1,-190},{10,-190},{10,-236},{-96,-236},{-96,-34},
-    {10,-34},{10,-46},{20,-46}}, color={255,0,255}));
+   annotation (Line(points={{2,-190},{10,-190},{10,-236},{-96,-236},{-96,-34},{
+          10,-34},{10,-46},{20,-46}},
+                                 color={255,0,255}));
   connect(onOffCon.y, tow.on[2])
-   annotation (Line(points={{1,-190},{10,-190},{10,-236},{-96,-236},{-96,-34},
-    {10,-34},{10,-46},{20,-46}}, color={255,0,255}));
+   annotation (Line(points={{2,-190},{10,-190},{10,-236},{-96,-236},{-96,-34},{
+          10,-34},{10,-46},{20,-46}},
+                                 color={255,0,255}));
   annotation (
     Icon(
       coordinateSystem(
@@ -55,6 +57,6 @@ First implementation.
       info="<html>
 <p>This model validates the parallel connected cooling tower subsystem in
 <a href=\"modelica://Buildings.Experimental.DHC.CentralPlants.Cooling.Subsystems.CoolingTowersWithBypass\">
-Buildings.Experimental.DHC.CentralPlants.Cooling.Subsystems.CoolingTowerWithBypass</a>.</p>
+Buildings.Experimental.DHC.CentralPlants.Cooling.Subsystems.CoolingTowersWithBypass</a>.</p>
 </html>"));
 end CoolingTowersWithBypass;
