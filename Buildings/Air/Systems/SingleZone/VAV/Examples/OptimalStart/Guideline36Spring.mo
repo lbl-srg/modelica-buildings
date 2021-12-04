@@ -91,7 +91,7 @@ equation
           lineColor={0,0,0}),
         Text(
           extent={{0,-76},{54,-102}},
-          lineColor={238,46,47},
+          textColor={238,46,47},
           fillColor={229,229,229},
           fillPattern=FillPattern.Solid,
           textString="System without optimal start"),
@@ -103,7 +103,7 @@ equation
           lineColor={0,0,0}),
         Text(
           extent={{0,104},{48,80}},
-          lineColor={238,46,47},
+          textColor={238,46,47},
           fillColor={229,229,229},
           fillPattern=FillPattern.Solid,
           textString="System with optimal start")}),

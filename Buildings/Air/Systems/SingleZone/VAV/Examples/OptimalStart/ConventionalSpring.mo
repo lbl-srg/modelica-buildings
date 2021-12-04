@@ -122,7 +122,7 @@ equation
           fillPattern=FillPattern.Solid),
         Text(
           extent={{40,-2},{92,-20}},
-          lineColor={238,46,47},
+          textColor={238,46,47},
           fillColor={229,229,229},
           fillPattern=FillPattern.Solid,
           textString="System with optimal start"),
@@ -134,7 +134,7 @@ equation
           fillPattern=FillPattern.Solid),
         Text(
           extent={{40,-80},{98,-96}},
-          lineColor={238,46,47},
+          textColor={238,46,47},
           fillColor={229,229,229},
           fillPattern=FillPattern.Solid,
           textString="System without optimal start")}),
