@@ -58,7 +58,7 @@ equation
         iconTransformation(extent={{-6,-104},{6,-92}})),
               Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Text(
-          lineColor={0,0,255},
+          textColor={0,0,255},
           extent={{-150,110},{150,150}},
           textString="%name"),
         Rectangle(
@@ -87,7 +87,7 @@ equation
           fillPattern=FillPattern.Solid),
         Text(
           extent={{-38,-38},{-100,-100}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="K")}),                                     Diagram(
         coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>

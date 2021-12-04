@@ -52,9 +52,9 @@ First implementation.
 </html>"),
     Icon(graphics={Text(
           extent={{-88,26},{-60,-26}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="X"), Text(
           extent={{46,30},{90,-32}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="pW")}));
 end pW_X;

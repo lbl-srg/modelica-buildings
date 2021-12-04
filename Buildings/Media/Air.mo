@@ -158,7 +158,7 @@ as required from medium model \"Buildings.Media.Air\".");
           lineColor={0,0,255}), Text(
           extent={{-152,164},{152,102}},
           textString="%name",
-          lineColor={0,0,255})}), Documentation(info="<html>
+          textColor={0,0,255})}), Documentation(info="<html>
 <p>
 Model with basic thermodynamic properties.
 </p>

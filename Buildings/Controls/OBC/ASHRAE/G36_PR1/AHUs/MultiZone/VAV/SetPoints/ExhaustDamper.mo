@@ -95,19 +95,19 @@ annotation (
         fillPattern=FillPattern.Solid),
         Text(
           extent={{-94,74},{-64,46}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
           textString="dpBui"),
         Text(
           extent={{-94,-48},{-70,-70}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
           textString="uSupFan"),
         Text(
           extent={{52,16},{96,-18}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
           textString="yExhDamPos"),
@@ -126,7 +126,7 @@ annotation (
         Line(points={{-80,-78},{-80,-78},{14,62},{80,62}}, color={0,0,127}),
         Text(
           extent={{-100,140},{100,100}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%name")}),
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-80,-80},{80,80}})),
  Documentation(info="<html>

@@ -103,11 +103,11 @@ equation
              color={255,0,0}),
         Text(
           extent={{-94,64},{-60,22}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="ySha"),
         Text(
           extent={{-92,-16},{-58,-58}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="yCom"),
         Ellipse(
           extent={{-6,-35},{6,-46}},

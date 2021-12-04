@@ -73,7 +73,7 @@ equation
           fillPattern=FillPattern.Solid),
         Text(
           extent={{-86,12},{-2,-50}},
-          lineColor={255,0,0},
+          textColor={255,0,0},
           lineThickness=0.5,
           fillColor={0,0,255},
           fillPattern=FillPattern.Solid,

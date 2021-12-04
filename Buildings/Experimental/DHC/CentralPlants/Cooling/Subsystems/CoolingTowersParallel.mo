@@ -161,7 +161,7 @@ equation
           fillPattern=FillPattern.Solid),
         Text(
           extent={{-149,-114},{151,-154}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%name"),
         Ellipse(
           extent={{-22,-12},{0,-20}},

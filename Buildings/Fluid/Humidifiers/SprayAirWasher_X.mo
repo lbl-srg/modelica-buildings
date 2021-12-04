@@ -75,11 +75,11 @@ equation
           fillPattern=FillPattern.Solid),
         Text(
           extent={{-100,98},{-64,80}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="X_w"),
         Text(
           extent={{32,116},{98,62}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="mWat_flow"),
         Rectangle(
           extent={{-100,62},{-70,58}},

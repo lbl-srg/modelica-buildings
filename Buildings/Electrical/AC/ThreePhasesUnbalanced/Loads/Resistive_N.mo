@@ -28,7 +28,7 @@ equation
           rotation=180),
         Text(
           extent={{-114,116},{126,76}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="%name"),
         Line(
           points={{-66,50},{-26,50}},

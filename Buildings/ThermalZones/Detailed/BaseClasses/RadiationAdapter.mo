@@ -46,11 +46,11 @@ First implementation.
             fillPattern=FillPattern.Solid),
         Text(
           extent={{-90,24},{-40,-26}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="TRad"),
         Text(
           extent={{50,14},{92,-12}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="Q")}),
         Documentation(info = "<html>
 This is a dummy model that is required to implement the room

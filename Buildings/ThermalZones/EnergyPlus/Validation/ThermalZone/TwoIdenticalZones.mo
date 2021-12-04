@@ -197,11 +197,11 @@ First implementation.
           pattern=LinePattern.None),
         Text(
           extent={{-70,96},{-40,86}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="EnergyPlus results"),
         Text(
           extent={{-70,-6},{-40,-16}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="Spawn results")}),
     Icon(
       coordinateSystem(

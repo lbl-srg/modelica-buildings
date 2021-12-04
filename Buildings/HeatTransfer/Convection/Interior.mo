@@ -80,7 +80,7 @@ equation
         Line(points={{100,0},{100,0}}, color={0,127,255}),
         Text(
           extent={{-35,42},{-5,20}},
-          lineColor={255,0,0},
+          textColor={255,0,0},
           textString="Q_flow"),
         Line(points={{-60,20},{76,20}}, color={191,0,0}),
         Line(points={{-60,-20},{76,-20}}, color={191,0,0}),

@@ -99,7 +99,7 @@ equation
           fillPattern=FillPattern.Backward),
         Text(
           extent={{-314,336},{286,302}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%name")}),
     Documentation(info="<html>
 <p>

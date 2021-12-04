@@ -191,19 +191,19 @@ First implementation.
     Icon(graphics={
         Text(
           extent={{58,60},{90,34}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="T"),
         Text(
           extent={{20,96},{84,70}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="m_flow"),
         Text(
           extent={{28,-26},{92,-52}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="X_w"),
         Text(
           extent={{36,-66},{100,-92}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="C"),
         Line(points={{-80,0},{40,0}}, color={191,0,0}),
         Polygon(
@@ -214,7 +214,7 @@ First implementation.
         Text(
           visible=allowFlowReversal,
           extent={{-78,-70},{-46,-96}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="T"),
         Text(
           visible=allowFlowReversal and Medium.nXi > 0,

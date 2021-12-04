@@ -170,15 +170,15 @@ equation
           fillPattern=FillPattern.Solid),
         Text(
           extent={{-110,-74},{-26,-86}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%r_a"),
         Text(
           extent={{-22,-62},{20,-76}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%nSta"),
         Text(
           extent={{16,-76},{102,-88}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%r_b"),
         Polygon(
           points={{-50,60},{-38,34},{-32,0},{-36,-30},{-50,-60},{-62,-60},{-48,
@@ -196,7 +196,7 @@ equation
           fillColor={175,175,175}),
         Text(
           extent={{-100,100},{100,60}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%name")}),
     defaultComponentName="lay",
     Documentation(info="<html>

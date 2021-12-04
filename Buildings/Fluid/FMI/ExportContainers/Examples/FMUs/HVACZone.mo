@@ -251,7 +251,7 @@ equation
             {160,160}}), graphics={
         Text(
           extent={{-24,-132},{26,-152}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="TOut")}),                                  Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-160,-160},{160,160}})),
     Documentation(info="<html>

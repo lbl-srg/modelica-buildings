@@ -250,14 +250,14 @@ This is for
           fillPattern=FillPattern.Solid),
         Text(
           extent={{-112,72},{-136,29}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="T"),
         Text(
           extent={{144,110},{106,71}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="Q_flow"),
         Text(
           extent={{144,-10},{106,-49}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="q_flow")}));
 end ZoneSurface;

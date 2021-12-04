@@ -335,7 +335,7 @@ equation
           textString="q"),
         Text(
           visible=false,
-          lineColor={0,0,127},
+          textColor={0,0,127},
           extent={{-188,-94},{-112,-126}},
           textString="C_flow"),
         Text(
@@ -345,11 +345,11 @@ equation
           textString="TAir",
           horizontalAlignment=TextAlignment.Right),
         Text(
-          lineColor={0,0,255},
+          textColor={0,0,255},
           extent={{-58,244},{56,204}},
           textString="%name"),
         Text(
-          lineColor={255,255,255},
+          textColor={255,255,255},
           extent={{174,-126},{54,-176}},
           textString=""),
         Bitmap(

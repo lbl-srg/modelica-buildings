@@ -20,6 +20,6 @@ terminal units control, according to ASHRAE Guideline 36, Part 5.B.
           radius=25.0),
       Text(
         extent={{-100,100},{100,-100}},
-        lineColor={0,0,0},
+        textColor={0,0,0},
         textString="S")}));
 end SetPoints;

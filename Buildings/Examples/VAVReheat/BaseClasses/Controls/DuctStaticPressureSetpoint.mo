@@ -78,13 +78,13 @@ equation
         Text(
           extent={{-76,148},{50,-26}},
           textString="PSet",
-          lineColor={0,0,127}),
+          textColor={0,0,127}),
         Text(
           extent={{-10,8},{44,-82}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="%pMax"),
         Text(
           extent={{-16,-54},{48,-90}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="%pMin")}));
 end DuctStaticPressureSetpoint;

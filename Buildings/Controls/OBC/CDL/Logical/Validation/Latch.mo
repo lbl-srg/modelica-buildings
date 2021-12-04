@@ -140,82 +140,82 @@ First implementation.
       graphics={
         Text(
           extent={{-68,140},{-2,130}},
-          lineColor={28,108,200},
+          textColor={28,108,200},
           textString="Clear input keeps false"),
         Text(
           extent={{76,148},{136,140}},
-          lineColor={28,108,200},
+          textColor={28,108,200},
           textString="At 3rd second:"),
         Text(
           extent={{92,128},{172,118}},
-          lineColor={28,108,200},
+          textColor={28,108,200},
           textString="Clear input falls: true to false"),
         Text(
           extent={{92,138},{170,128}},
-          lineColor={28,108,200},
+          textColor={28,108,200},
           textString="Latch input falls: true to false"),
         Text(
           extent={{92,64},{170,56}},
-          lineColor={28,108,200},
+          textColor={28,108,200},
           textString="Clear input rises: false to true"),
         Text(
           extent={{92,76},{172,66}},
-          lineColor={28,108,200},
+          textColor={28,108,200},
           textString="Latch input rise: false to true"),
         Text(
           extent={{76,86},{136,78}},
-          lineColor={28,108,200},
+          textColor={28,108,200},
           textString="At 6th second:"),
         Text(
           extent={{92,-96},{172,-104}},
-          lineColor={28,108,200},
+          textColor={28,108,200},
           textString="Clear input falls: true to false"),
         Text(
           extent={{92,-84},{172,-94}},
-          lineColor={28,108,200},
+          textColor={28,108,200},
           textString="Latch input rise: false to true"),
         Text(
           extent={{76,-74},{136,-82}},
-          lineColor={28,108,200},
+          textColor={28,108,200},
           textString="At 6th second:"),
         Text(
           extent={{76,-12},{136,-20}},
-          lineColor={28,108,200},
+          textColor={28,108,200},
           textString="At 3rd second:"),
         Text(
           extent={{92,-32},{172,-42}},
-          lineColor={28,108,200},
+          textColor={28,108,200},
           textString="Clear input rises: false to true"),
         Text(
           extent={{92,-22},{170,-32}},
-          lineColor={28,108,200},
+          textColor={28,108,200},
           textString="Latch input falls: true to false"),
         Text(
           extent={{-68,130},{-24,122}},
-          lineColor={28,108,200},
+          textColor={28,108,200},
           textString="True initial input"),
         Text(
           extent={{-68,66},{-24,58}},
-          lineColor={28,108,200},
+          textColor={28,108,200},
           textString="False initial input"),
         Text(
           extent={{-68,76},{-2,66}},
-          lineColor={28,108,200},
+          textColor={28,108,200},
           textString="Clear input keeps false"),
         Text(
           extent={{-68,-14},{-24,-22}},
-          lineColor={28,108,200},
+          textColor={28,108,200},
           textString="True initial input"),
         Text(
           extent={{-68,-4},{-2,-14}},
-          lineColor={28,108,200},
+          textColor={28,108,200},
           textString="Clear input keeps true"),
         Text(
           extent={{-66,-74},{-22,-82}},
-          lineColor={28,108,200},
+          textColor={28,108,200},
           textString="False initial input"),
         Text(
           extent={{-66,-64},{0,-74}},
-          lineColor={28,108,200},
+          textColor={28,108,200},
           textString="Clear input keeps false")}));
 end Latch;

@@ -77,15 +77,15 @@ equation
           thickness=0.5),
         Text(
           extent={{-128,12},{-78,-34}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="TOut"),
         Text(
           extent={{-130,96},{-80,50}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="TSky"),
         Text(
           extent={{86,52},{136,6}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="QIR_flow")}),
         Documentation(info = "<html>
 This model computes the infrared radiative heat flow

@@ -22,10 +22,6 @@ partial model HVACBuilding
   final parameter Modelica.SIunits.Area AFloEas = flo.AFloEas "Floor area east";
   final parameter Modelica.SIunits.Area AFloWes = flo.AFloWes "Floor area west";
 
-  final parameter Modelica.SIunits.Area AFlo[:]={AFloCor,AFloSou,AFloEas,
-      AFloNor,AFloWes} "Floor area of each zone";
-  final parameter Modelica.SIunits.Area ATot=sum(AFlo) "Total floor area";
-
   constant Real conv=1.2/3600 "Conversion factor for nominal mass flow rate";
 
   parameter Modelica.SIunits.MassFlowRate mCor_flow_nominal
@@ -39,6 +35,12 @@ partial model HVACBuilding
   parameter Modelica.SIunits.MassFlowRate mWes_flow_nominal
     "Design mass flow rate west";
 
+  final parameter Modelica.SIunits.MassFlowRate mVAV_flow_nominal[5] = {
+    mSou_flow_nominal, mEas_flow_nominal, mNor_flow_nominal,
+    mWes_flow_nominal, mCor_flow_nominal}
+    "Design mass flow rate of each zone";
+
+
   parameter Modelica.SIunits.Temperature THotWatInl_nominal(
     displayUnit="degC")=45 + 273.15
     "Reheat coil nominal inlet water temperature";
@@ -48,23 +50,10 @@ partial model HVACBuilding
     constrainedby Buildings.Examples.VAVReheat.BaseClasses.PartialHVAC(
     redeclare final package MediumA = MediumA,
     redeclare final package MediumW = MediumW,
-    final VRooCor=VRooCor,
-    final VRooSou=VRooSou,
-    final VRooNor=VRooNor,
-    final VRooEas=VRooEas,
-    final VRooWes=VRooWes,
-    final AFloCor=AFloCor,
-    final AFloSou=AFloSou,
-    final AFloNor=AFloNor,
-    final AFloEas=AFloEas,
-    final AFloWes=AFloWes,
-    final mCor_flow_nominal=mCor_flow_nominal,
-    final mSou_flow_nominal=mSou_flow_nominal,
-    final mEas_flow_nominal=mEas_flow_nominal,
-    final mNor_flow_nominal=mNor_flow_nominal,
-    final mWes_flow_nominal=mWes_flow_nominal,
-    final m_flow_nominal=0.7*(mCor_flow_nominal + mSou_flow_nominal +
-        mEas_flow_nominal + mNor_flow_nominal + mWes_flow_nominal),
+    final VRoo={VRooSou, VRooEas, VRooNor, VRooWes, VRooCor},
+    final AFlo={AFloSou, AFloEas, AFloNor, AFloWes, AFloCor},
+    final mVAV_flow_nominal=mVAV_flow_nominal,
+    final m_flow_nominal=0.7*sum(mVAV_flow_nominal),
     final THotWatInl_nominal=THotWatInl_nominal)
     "HVAC system"
     annotation (Placement(transformation(extent={{-46,-28},{42,22}})));

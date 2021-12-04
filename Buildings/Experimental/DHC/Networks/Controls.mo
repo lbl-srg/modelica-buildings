@@ -204,19 +204,19 @@ package Controls "Package of control blocks for distribution systems"
             fillPattern=FillPattern.Solid),
           Text(
             extent={{-94,68},{-76,54}},
-            lineColor={0,0,127},
+            textColor={0,0,127},
             textString="TMix"),
           Text(
             extent={{-94,12},{-66,-12}},
-            lineColor={0,0,127},
+            textColor={0,0,127},
             textString="TSouIn"),
           Text(
             extent={{-94,-44},{-62,-78}},
-            lineColor={0,0,127},
+            textColor={0,0,127},
             textString="TSouOut"),
           Text(
             extent={{80,8},{96,-4}},
-            lineColor={0,0,127},
+            textColor={0,0,127},
             textString="y"),
           Ellipse(
             extent={{-50,50},{52,-50}},

@@ -92,21 +92,21 @@ First implementation.
                               Text(
           extent={{-150,110},{150,150}},
           textString="%name",
-          lineColor={0,0,255}),
+          textColor={0,0,255}),
         Text(
           extent={{-102,84},{-60,74}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="zen"),
         Text(
           extent={{-96,-36},{-54,-46}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="solTim"),
         Text(
           extent={{-96,24},{-54,14}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="decAng"),
         Text(
           extent={{-96,-86},{-54,-96}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="lat")}));
 end SolarAzimuth;

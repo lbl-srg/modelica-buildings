@@ -21,7 +21,7 @@ model ConstantEffectiveness "Heat exchanger with constant effectiveness"
           fillColor={95,95,95},
           fillPattern=FillPattern.Solid), Text(
           extent={{-56,-12},{54,-72}},
-          lineColor={255,255,255},
+          textColor={255,255,255},
           textString="eps=%eps")}),
           preferredView="info",
 defaultComponentName="hex",
