@@ -1,7 +1,7 @@
 simulateModel("Buildings.Examples.VAVReheat.ASHRAE2006", stopTime=172800, method="cvode", tolerance=1e-06, resultFile="ASHRAE2006");
 createPlot(id=1, position={689, 16, 808, 886}, y={"flo.sou.air.vol.T", "flo.eas.air.vol.T", "flo.nor.air.vol.T", "flo.wes.air.vol.T", "flo.cor.air.vol.T"}, range={0.0, 52.0, 17.5, 21.0}, grid=true, colors={{28,108,200}, {238,46,47}, {0,140,72}, {217,67,180}, {0,0,0}});
-createPlot(id=1, position={689, 16, 808, 292}, y={"hvac.sou.TSup", "hvac.eas.TSup", "hvac.nor.TSup", "hvac.wes.TSup", "hvac.cor.TSup"}, range={0.0, 52.0, 5.0, 35.0}, grid=true, subPlot=2, colors={{28,108,200}, {238,46,47}, {0,140,72}, {217,67,180}, {0,0,0}});
-createPlot(id=1, position={689, 16, 808, 291}, y={"hvac.sou.vav.m_flow", "hvac.eas.vav.m_flow", "hvac.nor.vav.m_flow", "hvac.wes.vav.m_flow","hvac.cor.vav.m_flow_turbulent"}, range={0.0, 52.0, -0.5, 2.0}, grid=true, subPlot=3, colors={{28,108,200}, {238,46,47}, {0,140,72}, {217,67,180}, {0,0,0}});
+createPlot(id=1, position={689, 16, 808, 292}, y={"hvac.VAVBox[1].TSup", "hvac.VAVBox[2].TSup", "hvac.VAVBox[3].TSup", "hvac.VAVBox[4].TSup", "hvac.VAVBox[5].TSup"}, range={0.0, 52.0, 5.0, 35.0}, grid=true, subPlot=2, colors={{28,108,200}, {238,46,47}, {0,140,72}, {217,67,180}, {0,0,0}});
+createPlot(id=1, position={689, 16, 808, 291}, y={"hvac.VAVBox[1].vav.m_flow", "hvac.VAVBox[2].vav.m_flow", "hvac.VAVBox[3].vav.m_flow", "hvac.VAVBox[4].vav.m_flow","hvac.VAVBox[5].vav.m_flow_turbulent"}, range={0.0, 52.0, -0.5, 2.0}, grid=true, subPlot=3, colors={{28,108,200}, {238,46,47}, {0,140,72}, {217,67,180}, {0,0,0}});
 createPlot(id=2,
     position={65, 471, 588, 427},
     y={"hvac.conEco.VOut_flow_min", "hvac.conEco.VOut_flow"},
