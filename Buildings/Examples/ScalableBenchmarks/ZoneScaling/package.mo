@@ -17,12 +17,26 @@ Buildings.ThermalZones.EnergyPlus.ThermalZone</a> or the
 Buildings.ThermalZones.Detailed.MixedAir</a> classes.
 </p>
 <p>
+The models were used in the experiments described in Wetter et. al. (2021).
+</p>
+<p>
 The models in the 
 <a href=\"modelica://Buildings.Examples.ScalableBenchmarks.ZoneScaling.EnergyPlus\">
-EnergyPlus</a> and in the <a href=\"modelica://Buildings.Examples.ScalableBenchmarks.ZoneScaling.MixedAir\">
-MixedAir</a> are equivalent, with the exception of the thermal zone class being used.
-Each example model represents a large office building, with 
-either 2, 4 or 10 floors and with a air handling unit for each floor.
+Buildings.Examples.ScalableBenchmarks.ZoneScaling.EnergyPlus</a>
+and in the
+<a href=\"modelica://Buildings.Examples.ScalableBenchmarks.ZoneScaling.MixedAir\">
+Buildings.Examples.ScalableBenchmarks.ZoneScaling.MixedAir</a> are equivalent,
+with the exception of the thermal zone class being used.
+The models can be simulated with either 2, 4 or 10 floors.
+(Other numbers of floors are not supported as each model requires its specific EnergyPlus Input Data File.)
+Each floor has five thermal zones and its own air handling unit with a variable air volume flow system
+that is controlled using ASHRAE Guideline 36 control sequence.
+</p>
+<h4>References</h4>
+<p>
+Michael Wetter, Kyle Benne and Baptiste Ravache.<br/>
+<a href=\"https://doi.org/10.3384/ecp21181325\">Software Architecture and Implementation of Modelica Buildings Library Coupling for Spawn of EnergyPlus.</a><br/>
+Proc. of the 14th International Modelica Conference, p. 325–334, Linkoping, Sweden, September 2021.
 </p>
 </html>"));
 end ZoneScaling;
