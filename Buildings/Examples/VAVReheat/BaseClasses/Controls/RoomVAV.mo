@@ -35,7 +35,7 @@ block RoomVAV "Controller for room VAV box"
     displayUnit = "degC")
     "Setpoint temperature for room for heating"
     annotation (Placement(transformation(extent={{-140,40},{-100,80}}),
-        iconTransformation(extent={{-140,50},{-100,90}})));
+        iconTransformation(extent={{-140,40},{-100,80}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TRooCooSet(
     final quantity="ThermodynamicTemperature",
     final unit = "K",
@@ -49,7 +49,7 @@ block RoomVAV "Controller for room VAV box"
     displayUnit = "degC")
     "Measured room temperature"
     annotation (Placement(transformation(extent={{-140,-90},{-100,-50}}),
-        iconTransformation(extent={{-120,-80},{-100,-60}})));
+        iconTransformation(extent={{-120,-70},{-100,-50}})));
   Modelica.Blocks.Interfaces.RealOutput yDam "Signal for VAV damper"
     annotation (Placement(transformation(extent={{100,-10},{120,10}}),
         iconTransformation(extent={{100,38},{120,58}})));
