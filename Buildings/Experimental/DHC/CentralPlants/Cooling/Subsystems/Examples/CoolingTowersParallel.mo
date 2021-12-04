@@ -71,8 +71,8 @@ equation
     Documentation(
       info="<html>
 <p>This model validates the parallel connected cooling tower subsystem in
-<a href=\"modelica://Buildings.Experimental.DHC.CentralPlants.Cooling.Subsystems.CoolingTowerParellel\">
-Buildings.Experimental.DHC.CentralPlants.Cooling.Subsystems.CoolingTowerParellel</a>.</p>
+<a href=\"modelica://Buildings.Experimental.DHC.CentralPlants.Cooling.Subsystems.CoolingTowersParallel\">
+Buildings.Experimental.DHC.CentralPlants.Cooling.Subsystems.CoolingTowersParallel</a>.</p>
 </html>",
       revisions="<html>
 <ul>

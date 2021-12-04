@@ -129,8 +129,8 @@ equation
 Documentation(info="<html>
 <p>
 This base class contains a conventional controller
-<a href=\"modelica://Buildings.Air.Systems.SingleZone.VAV.ChillerDXHeatingEconomizerController\">
-Buildings.Air.Systems.SingleZone.VAV.ChillerDXHeatingEconomizerController</a>,
+<a href=\"modelica://Buildings.Air.Systems.SingleZone.VAV.BaseClasses.ControllerChillerDXHeatingEconomizer\">
+Buildings.Air.Systems.SingleZone.VAV.BaseClasses.ControllerChillerDXHeatingEconomizer</a>,
 a single-zone VAV system
 <a href=\"modelica://Buildings.Air.Systems.SingleZone.VAV.ChillerDXHeatingEconomizer\">
 Buildings.Air.Systems.SingleZone.VAV.ChillerDXHeatingEconomizer</a>, 
