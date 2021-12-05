@@ -2,23 +2,23 @@
 <!-- Created with Inkscape (http://www.inkscape.org/) -->
 
 <svg
-   xmlns:dc="http://purl.org/dc/elements/1.1/"
-   xmlns:cc="http://creativecommons.org/ns#"
-   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
-   xmlns:svg="http://www.w3.org/2000/svg"
-   xmlns="http://www.w3.org/2000/svg"
-   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
-   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    width="182.0186mm"
    height="80.386353mm"
    viewBox="0 0 182.0186 80.386352"
    version="1.1"
    id="svg8"
-   inkscape:version="0.92.3 (2405546, 2018-03-11)"
+   inkscape:version="1.1.1 (eb90963e84, 2021-10-02)"
    sodipodi:docname="MainPump.svg"
-   inkscape:export-filename="/home/mwetter/proj/div/1_papers/2020-beyond2020-dhc-empa/models/DHCNetwork/DHCNetworks/Resources/Images/Controls/MainPump.png"
-   inkscape:export-xdpi="84.554703"
-   inkscape:export-ydpi="84.554703">
+   inkscape:export-filename="MainPump.png"
+   inkscape:export-xdpi="97.690002"
+   inkscape:export-ydpi="97.690002"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:dc="http://purl.org/dc/elements/1.1/">
   <defs
      id="defs2">
     <marker
@@ -232,8 +232,8 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="2.3784137"
-     inkscape:cx="390.04842"
-     inkscape:cy="227.32358"
+     inkscape:cx="389.9658"
+     inkscape:cy="227.25231"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -245,7 +245,8 @@
      inkscape:window-height="1884"
      inkscape:window-x="419"
      inkscape:window-y="98"
-     inkscape:window-maximized="0">
+     inkscape:window-maximized="0"
+     inkscape:pagecheckerboard="0">
     <inkscape:grid
        type="xygrid"
        id="grid815"
@@ -260,7 +261,6 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -276,7 +276,7 @@
        inkscape:connector-curvature="0" />
     <text
        xml:space="preserve"
-       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:0%;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.09690852px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:0%;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.0969085px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        x="2.1397712"
        y="207.76256"
        id="text837-3"><tspan
@@ -284,10 +284,10 @@
          id="tspan857"
          x="2.1397712"
          y="207.76256"
-         style="font-size:3.87632203px;line-height:1.25">yPumMin</tspan></text>
+         style="font-size:3.87632px;line-height:1.25">yPumMin</tspan></text>
     <text
        xml:space="preserve"
-       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:0%;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.09690852px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:0%;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.0969085px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        x="41.933361"
        y="226.69034"
        id="text837-3-9"><tspan
@@ -295,10 +295,10 @@
          id="tspan877"
          x="41.933361"
          y="226.69034"
-         style="font-size:3.87632203px;line-height:1.25">dTSlo</tspan></text>
+         style="font-size:3.87632px;line-height:1.25">dTSlo</tspan></text>
     <text
        xml:space="preserve"
-       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:0%;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.09690852px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:0%;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.0969085px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        x="80.290619"
        y="226.68343"
        id="text837-3-9-7-7-6-6-9-1-3-0"><tspan
@@ -306,7 +306,7 @@
          id="tspan1067"
          x="80.290619"
          y="226.68343"
-         style="font-size:3.87632203px;line-height:1.25">Deadband</tspan></text>
+         style="font-size:3.87632px;line-height:1.25">Deadband</tspan></text>
     <path
        style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:0.24665135px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-start:url(#Arrow1Lstart);marker-end:url(#marker903)"
        d="M 21.251142,149.82917 V 212.3595 H 171.87294"
@@ -316,7 +316,7 @@
        id="text4803"
        y="219.61502"
        x="167.29788"
-       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:0%;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.09690852px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:0%;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.0969085px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        xml:space="preserve"
        inkscape:export-filename="MainPump.png"
        inkscape:export-xdpi="96"
@@ -325,11 +325,11 @@
          x="167.29788"
          id="tspan4805"
          sodipodi:role="line"
-         style="font-size:3.87632203px;line-height:1.25">TMixMin</tspan><tspan
+         style="font-size:3.87632px;line-height:1.25">TMixMin</tspan><tspan
          y="224.46042"
          x="167.29788"
          sodipodi:role="line"
-         style="font-size:3.87632203px;line-height:1.25"
+         style="font-size:3.87632px;line-height:1.25"
          id="tspan11245">TMixMax</tspan></text>
     <g
        id="g4672">
@@ -382,9 +382,9 @@
        id="text6000"
        y="226.69034"
        x="128.71669"
-       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:0%;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.09690852px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:0%;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.0969085px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        xml:space="preserve"><tspan
-         style="font-size:3.87632203px;line-height:1.25"
+         style="font-size:3.87632px;line-height:1.25"
          y="226.69034"
          x="128.71669"
          id="tspan5998"
@@ -413,9 +413,9 @@
        id="text7168"
        y="160.56589"
        x="17.4856"
-       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:0%;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.09690852px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:0%;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.0969085px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        xml:space="preserve"><tspan
-         style="font-size:3.87632203px;line-height:1.25"
+         style="font-size:3.87632px;line-height:1.25"
          y="160.56589"
          x="17.4856"
          id="tspan7166"
@@ -424,16 +424,16 @@
        id="text7172"
        y="217.67386"
        x="37.065304"
-       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:0%;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.09690852px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:0%;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.0969085px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        xml:space="preserve"><tspan
-         style="font-size:3.87632203px;line-height:1.25"
+         style="font-size:3.87632px;line-height:1.25"
          y="217.67386"
          x="37.065304"
          id="tspan7170"
          sodipodi:role="line">TMin</tspan></text>
     <text
        xml:space="preserve"
-       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:0%;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.09690852px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:0%;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.0969085px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        x="147.34819"
        y="217.35921"
        id="text7176"><tspan
@@ -441,14 +441,14 @@
          id="tspan7174"
          x="147.34819"
          y="217.35921"
-         style="font-size:3.87632203px;line-height:1.25">TMax</tspan></text>
+         style="font-size:3.87632px;line-height:1.25">TMax</tspan></text>
     <text
        id="text7732"
        y="152.69978"
        x="7.0167603"
-       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:0%;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.09690852px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:0%;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.0969085px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        xml:space="preserve"><tspan
-         style="font-size:3.87632203px;line-height:1.25"
+         style="font-size:3.87632px;line-height:1.25"
          y="152.69978"
          x="7.0167603"
          id="tspan7730"
