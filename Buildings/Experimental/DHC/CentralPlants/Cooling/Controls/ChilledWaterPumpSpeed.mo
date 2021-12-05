@@ -122,24 +122,24 @@ equation
 <ul>
 <li>
 August 6, 2020 by Jing Wang:<br/>
-First implementation. 
+First implementation.
 </li>
 </ul>
 </html>",
       info="<html>
 <p>
-This model implements the control logic for variable speed pumps. 
-The staging of pumps is implemented through an instance of 
-<a href=\"modelica://Buildings.Applications.BaseClasses.Controls.VariableSpeedPumpStage\">
-Buildings.Applications.BaseClasses.Controls.VariableSpeedPumpStage</a>. 
+This model implements the control logic for variable speed pumps.
+The staging of pumps is implemented through an instance of
+<a href=\"modelica://Buildings.Applications.DataCenters.ChillerCooled.Controls.VariableSpeedPumpStage\">
+Buildings.Applications.DataCenters.ChillerCooled.Controls.VariableSpeedPumpStagee</a>.
 </p>
 <p>
-The pump speed is controlled to maintain the pressure difference setpoint 
+The pump speed is controlled to maintain the pressure difference setpoint
 through a PID controller.
 </p>
-<p>The model inputs are the measured chilled water mass flow rate 
-<code>masFloPum</code> and the pressure difference <code>dpMea</code> at a 
-reference point from the demand side. The output <code>y</code> is a vector 
+<p>The model inputs are the measured chilled water mass flow rate
+<code>masFloPum</code> and the pressure difference <code>dpMea</code> at a
+reference point from the demand side. The output <code>y</code> is a vector
 of pump speeds.
 </p>
 <p>
