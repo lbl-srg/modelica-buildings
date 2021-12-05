@@ -15,6 +15,12 @@
     "jmodelica": {
       "translate": false
   },
+  "model_name": "Buildings.Air.Systems.SingleZone.VAV.Examples.OptimalStart.ConventionalSummer"
+  },
+  {
+    "jmodelica": {
+      "translate": false
+  },
   "model_name": "Buildings.Air.Systems.SingleZone.VAV.Examples.OptimalStart.Guideline36Winter"
   },
   {
