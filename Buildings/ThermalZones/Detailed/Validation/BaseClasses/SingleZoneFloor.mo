@@ -41,15 +41,9 @@ model SingleZoneFloor "Model of a building floor as a single zone"
     d=784,
     nStaRef=2) "Gypsum board"
     annotation (Placement(transformation(extent={{80,80},{100,100}})));
-  parameter Buildings.HeatTransfer.Data.Solids.Plywood matFur(x=0.15, nStaRef=5)
+  parameter Buildings.HeatTransfer.Data.Solids.Plywood matFur(x=0.15)
     "Material for furniture"
     annotation (Placement(transformation(extent={{80,170},{100,190}})));
-  parameter Buildings.HeatTransfer.Data.Solids.Plywood matCarTra(
-    x=0.215/0.11,
-    k=0.11,
-    d=544,
-    nStaRef=1) "Wood for floor"
-    annotation (Placement(transformation(extent={{40,170},{60,190}})));
   parameter Buildings.HeatTransfer.Data.Resistances.Carpet matCar "Carpet"
     annotation (Placement(transformation(extent={{120,140},{140,160}})));
   parameter Buildings.HeatTransfer.Data.GlazingSystems.DoubleClearAir13Clear glaSys(
