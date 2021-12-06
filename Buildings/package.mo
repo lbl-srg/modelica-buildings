@@ -349,7 +349,9 @@ Each class (i.e., model, block and function) must be used in an example or valid
     <tr><td valign=\"top\">Buildings.Examples.ChillerPlant.BaseClasses.DataCenter
         </td>
         <td valign=\"top\">Set <code>nominalValuesDefaultPressureCurve=true</code> to avoid warnings.<br/>
-                           This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2761\">Buildings, issue #2761</a>.
+                           This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2761\">Buildings, issue #2761</a>.<br/>
+                           Changed initialization from steady state initial to fixed initial for some components.<br/>
+                           This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2798\">Buildings, issue #2798</a>.
         </td>
     </tr>
     <tr><td colspan=\"2\"><b>Buildings.ThermalZones.ReducedOrder</b>
@@ -435,6 +437,17 @@ Each class (i.e., model, block and function) must be used in an example or valid
                          This is for
                          <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2706\">Buildings, issue 2706</a>.
        </td>
+    </tr>
+    <tr><td colspan=\"2\"><b>Buildings.Electrical</b>
+        </td>
+    </tr>
+    <tr><td valign=\"top\">Buildings.Electrical.AC.OnePhase.Storage.Battery<br/>
+                           Buildings.Electrical.DC.Storage.BaseClasses.Charge<br/>
+                           Buildings.Electrical.DC.Storage.Battery
+        </td>
+        <td valign=\"top\">Corrected unit string.<br/>
+                           This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2798\">Buildings, issue #2798</a>.
+        </td>
     </tr>
     <tr><td colspan=\"2\"><b>Buildings.ThermalZones.Detailed</b>
         </td>
