@@ -177,7 +177,9 @@ its class name ends with the string <code>Beta</code>.
     <tr><td valign=\"top\">Buildings.Examples.ChillerPlant.BaseClasses.DataCenter
         </td>
         <td valign=\"top\">Set <code>nominalValuesDefaultPressureCurve=true</code> to avoid warnings.<br/>
-                           This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2761\">Buildings, issue #2761</a>.
+                           This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2761\">Buildings, issue #2761</a>.<br/>
+                           Changed initialization from steady state initial to fixed initial for some components.<br/>
+                           This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2798\">Buildings, issue #2798</a>.
         </td>
     </tr>
     <tr><td colspan=\"2\"><b>Buildings.ThermalZones.ReducedOrder</b>
@@ -220,7 +222,7 @@ its class name ends with the string <code>Beta</code>.
                            <br/>
                            This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2770\">issue #2770</a>.
         </td>
-    </tr>    
+    </tr>
     <tr><td colspan=\"2\"><b>Buildings.Occupants</b>
         </td>
     </tr>
@@ -247,6 +249,17 @@ its class name ends with the string <code>Beta</code>.
         </td>
         <td valign=\"top\">Removed duplicate declaration of <code>VABp_flow</code>.<br/>
                            This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1496\">Buildings, issue #1496</a>.
+        </td>
+    </tr>
+    <tr><td colspan=\"2\"><b>Buildings.Electrical</b>
+        </td>
+    </tr>
+    <tr><td valign=\"top\">Buildings.Electrical.AC.OnePhase.Storage.Battery<br/>
+                           Buildings.Electrical.DC.Storage.BaseClasses.Charge<br/>
+                           Buildings.Electrical.DC.Storage.Battery
+        </td>
+        <td valign=\"top\">Corrected unit string.<br/>
+                           This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2798\">Buildings, issue #2798</a>.
         </td>
     </tr>
     <tr>
