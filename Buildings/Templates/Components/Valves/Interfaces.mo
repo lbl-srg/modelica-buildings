@@ -3,44 +3,39 @@ package Interfaces "Classes defining the component interfaces"
   extends Modelica.Icons.InterfacesPackage;
 
   partial model PartialValve
-    replaceable package Medium = Modelica.Media.Interfaces.PartialMedium
-      constrainedby Modelica.Media.Interfaces.PartialMedium
-      "Medium";
+    extends Buildings.Fluid.Interfaces.PartialTwoPortInterface;
 
     parameter Buildings.Templates.Components.Types.Valve typ
       "Equipment type"
       annotation (Evaluate=true, Dialog(group="Configuration"));
 
-    outer parameter String funStr
-      "String used to identify the coil function";
-    outer parameter String id
-      "System identifier";
-    outer parameter ExternData.JSONFile dat
-      "External parameter file";
+    parameter Modelica.SIunits.PressureDifference dpValve_nominal(
+       displayUnit="Pa",
+       min=0)=0
+      "Nominal pressure drop of fully open valve"
+      annotation(Dialog(group="Nominal condition",
+        enable=typ<>Buildings.Templates.Components.Types.Valve.None));
+    parameter Modelica.SIunits.PressureDifference dpFixed_nominal(
+      displayUnit="Pa",
+      min=0)=0
+      "Nominal pressure drop of pipes and other equipment in flow leg"
+      annotation(Dialog(group="Nominal condition",
+        enable=typ<>Buildings.Templates.Components.Types.Valve.None));
+    parameter Modelica.SIunits.PressureDifference dpFixedByp_nominal(
+      displayUnit="Pa",
+      min=0)=dpFixed_nominal
+      "Nominal pressure drop in the bypass line"
+      annotation(Dialog(group="Nominal condition",
+        enable=typ==Buildings.Templates.Components.Types.Valve.ThreeWay));
 
-    outer parameter Modelica.SIunits.MassFlowRate mWat_flow_nominal
-      "Liquid mass flow rate"
-      annotation(Dialog(group = "Nominal condition"));
-    outer parameter Modelica.SIunits.PressureDifference dpWat_nominal
-      "Liquid pressure drop"
-      annotation(Dialog(group = "Nominal condition"));
-
-    Modelica.Fluid.Interfaces.FluidPort_a port_aSup(
-      redeclare final package Medium = Medium)
-      "Fluid connector a (positive design flow direction is from port_a to port_b)"
-      annotation (Placement(transformation(extent={{30,-110},{50,-90}})));
-    Modelica.Fluid.Interfaces.FluidPort_b port_bRet(
-      redeclare final package Medium = Medium)
-      "Fluid connector b (positive design flow direction is from port_a to port_b)"
-      annotation (Placement(transformation(extent={{-30,-110},{-50,-90}})));
-    Modelica.Fluid.Interfaces.FluidPort_a port_aRet(
-      redeclare final package Medium = Medium)
-      "Fluid connector a (positive design flow direction is from port_a to port_b)"
-      annotation (Placement(transformation(extent={{-50,90},{-30,110}})));
-    Modelica.Fluid.Interfaces.FluidPort_b port_bSup(
-      redeclare final package Medium = Medium)
-      "Fluid connector b (positive design flow direction is from port_a to port_b)"
-      annotation (Placement(transformation(extent={{50,90},{30,110}})));
+    Modelica.Fluid.Interfaces.FluidPort_a portByp_a(
+      redeclare final package Medium = Medium,
+      p(start=Medium.p_default),
+      m_flow(min=if allowFlowReversal then -Modelica.Constants.inf else 0),
+      h_outflow(start=Medium.h_default, nominal=Medium.h_default))
+      if typ==Buildings.Templates.Components.Types.Valve.ThreeWay
+      "Fluid connector with bypass line"
+      annotation (Placement(transformation(extent={{-10,-110},{10,-90}})));
     Buildings.Controls.OBC.CDL.Interfaces.RealInput y(min=0, max=1)
       if typ <> Buildings.Templates.Components.Types.Valve.None
       "Valve control signal"
@@ -54,27 +49,26 @@ package Interfaces "Classes defining the component interfaces"
     annotation (
     Icon(coordinateSystem(preserveAspectRatio=false),
     graphics={
-          Text(
-            extent={{-145,-116},{155,-156}},
-            lineColor={0,0,255},
-            textString="%name"),
       Bitmap(
         visible=typ==Buildings.Templates.Components.Types.Valve.TwoWay or
           typ==Buildings.Templates.Components.Types.Valve.ThreeWay,
-        extent={{-180,-40},{-100,40}},
+        extent={{-40,60},{40,140}},
         fileName="modelica://Buildings/Resources/Images/Templates/Components/Actuators/Modulated.svg"),
       Bitmap(
         visible=typ==Buildings.Templates.Components.Types.Valve.TwoWay,
-        extent={{-100,-100},{40,100}},
-        fileName="modelica://Buildings/Resources/Images/Templates/Components/Valves/TwoWay.svg"),
+        extent={{-100,-100},{100,100}},
+        fileName="modelica://Buildings/Resources/Images/Templates/Components/Valves/TwoWay.svg",
+            rotation=-90),
       Bitmap(
         visible=typ==Buildings.Templates.Components.Types.Valve.ThreeWay,
-        extent={{-100,-100},{40,100}},
-        fileName="modelica://Buildings/Resources/Images/Templates/Components/Valves/ThreeWay.svg"),
+        extent={{-100,-100},{100,100}},
+        fileName="modelica://Buildings/Resources/Images/Templates/Components/Valves/ThreeWay.svg",
+            rotation=-90),
       Bitmap(
         visible=typ==Buildings.Templates.Components.Types.Valve.None,
-        extent={{-70,-100},{70,100}},
-        fileName="modelica://Buildings/Resources/Images/Templates/Components/Valves/None.svg")}),
+        extent={{-100,100},{100,-100}},
+        fileName="modelica://Buildings/Resources/Images/Templates/Components/Valves/None.svg",
+            rotation=-90)}),
       Diagram(
           coordinateSystem(preserveAspectRatio=false)));
   end PartialValve;

@@ -12,27 +12,40 @@ model WaterBasedCooling "Water-based"
   outer replaceable package MediumCoo=Buildings.Media.Water
     "Source side medium";
 
-  inner parameter Modelica.SIunits.MassFlowRate mWat_flow_nominal(min=0)=
+  parameter Modelica.SIunits.MassFlowRate mWat_flow_nominal(min=0)=
     dat.getReal(varName=id + ".Mechanical." + funStr + " coil.Liquid mass flow rate.value")
     "Liquid mass flow rate"
     annotation(Dialog(group = "Nominal condition"), Evaluate=true);
-
-  inner parameter Modelica.SIunits.PressureDifference dpWat_nominal(
+  parameter Modelica.SIunits.PressureDifference dpWat_nominal(
     displayUnit="Pa")=
     dat.getReal(varName=id + ".Mechanical." + funStr + " coil.Liquid pressure drop.value")
     "Liquid pressure drop"
     annotation(Dialog(group = "Nominal condition"), Evaluate=true);
+  parameter Modelica.SIunits.PressureDifference dpValve_nominal(
+    displayUnit="Pa",
+    min=0)=if typVal==Buildings.Templates.Components.Types.Valve.None then 0 else
+    dat.getReal(varName=id + ".Mechanical." + funStr + " coil.Valve pressure drop.value")
+    "Nominal pressure drop of fully open valve"
+    annotation(Dialog(group="Nominal condition",
+      enable=typVal<>Buildings.Templates.Components.Types.Valve.None));
 
   replaceable Buildings.Templates.Components.Valves.None val constrainedby
     Buildings.Templates.Components.Valves.Interfaces.PartialValve(redeclare
-      final package Medium = MediumCoo)
+      final package Medium = MediumCoo,
+      final m_flow_nominal=mWat_flow_nominal,
+      final dpValve_nominal=dpValve_nominal,
+      final dpFixed_nominal=if typVal<>Buildings.Templates.Components.Types.Valve.None then
+        dpWat_nominal else 0)
     "Valve"
     annotation (
       choicesAllMatching=true,
-      Placement(transformation(extent={{-10,-70},{10,-50}})));
+      Placement(transformation(extent={{-10,10},{10,-10}},
+        rotation=-90,
+        origin={-40,-60})));
 
   replaceable Buildings.Templates.Components.HeatExchangers.WetCoilCounterFlow
-    hex constrainedby Buildings.Templates.Components.HeatExchangers.Interfaces.PartialHeatExchangerWater(
+    hex constrainedby
+    Buildings.Templates.Components.HeatExchangers.Interfaces.PartialHeatExchangerWater(
     redeclare final package Medium1 = MediumCoo,
     redeclare final package Medium2 = MediumAir,
     final m1_flow_nominal=mWat_flow_nominal,
@@ -49,25 +62,50 @@ model WaterBasedCooling "Water-based"
           hex "Effectiveness-NTU wet heat exchanger model")), Placement(
         transformation(extent={{10,4},{-10,-16}})));
 
+  Buildings.Fluid.FixedResistances.Junction jun(
+    redeclare final package Medium = MediumCoo,
+    final m_flow_nominal=mWat_flow_nominal*{1,-1,-1},
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    dp_nominal=fill(0, 3))
+    if typVal==Buildings.Templates.Components.Types.Valve.ThreeWay
+    "Junction"
+    annotation (
+      Placement(transformation(
+        extent={{-10,10},{10,-10}},
+        rotation=90,
+        origin={40,-60})));
+  Buildings.Templates.BaseClasses.PassThroughFluid pas(
+    redeclare final package Medium=MediumCoo)
+    if typVal<>Buildings.Templates.Components.Types.Valve.ThreeWay
+    "Direct pass through"
+    annotation (Placement(
+        transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=90,
+        origin={60,-60})));
 equation
   /* Control point connection - start */
   connect(bus.y,val. y);
   /* Control point connection - end */
-  connect(port_aSou,val. port_aSup) annotation (Line(points={{40,-100},{40,-80},
-          {4,-80},{4,-70}},   color={0,127,255}));
-  connect(val.port_bRet, port_bSou) annotation (Line(points={{-4,-70},{-4,-80},{
-          -40,-80},{-40,-100}},
-                           color={0,127,255}));
-  connect(val.port_bSup,hex. port_a1) annotation (Line(points={{4,-50},{4,-22},{
-          20,-22},{20,-12},{10,-12}},  color={0,127,255}));
-  connect(hex.port_b1,val. port_aRet) annotation (Line(points={{-10,-12},{-20,-12},
-          {-20,-24},{-4,-24},{-4,-50}},
-                                      color={0,127,255}));
   connect(port_a,hex. port_a2)
     annotation (Line(points={{-100,0},{-10,0}}, color={0,127,255}));
 
   connect(hex.port_b2, port_b)
     annotation (Line(points={{10,0},{100,0}}, color={0,127,255}));
+  connect(val.port_a, hex.port_b1) annotation (Line(points={{-40,-50},{-40,-12},
+          {-10,-12}}, color={0,127,255}));
+  connect(val.port_b, port_bSou)
+    annotation (Line(points={{-40,-70},{-40,-100}}, color={0,127,255}));
+  connect(val.portByp_a, jun.port_3)
+    annotation (Line(points={{-30,-60},{30,-60}}, color={0,127,255}));
+  connect(jun.port_2, hex.port_a1)
+    annotation (Line(points={{40,-50},{40,-12},{10,-12}}, color={0,127,255}));
+  connect(port_aSou, jun.port_1)
+    annotation (Line(points={{40,-100},{40,-70}}, color={0,127,255}));
+  connect(port_aSou, pas.port_a) annotation (Line(points={{40,-100},{40,-80},{60,
+          -80},{60,-70}}, color={0,127,255}));
+  connect(pas.port_b, hex.port_a1)
+    annotation (Line(points={{60,-50},{60,-12},{10,-12}}, color={0,127,255}));
   annotation (
     Icon(
       coordinateSystem(preserveAspectRatio=false)), Diagram(

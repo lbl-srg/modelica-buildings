@@ -53,6 +53,12 @@ package Types "Generic types for template components"
       WetCoilCounterFlow
       "Water based - Discretized wet")
     "Enumeration to configure the heat exchanger";
+  type Junction = enumeration(
+      None
+      "No junction",
+      ThreeWay
+      "Three-way junction")
+    "Enumeration to configure the fluid junction";
   type Fan = enumeration(
       None
       "No fan",

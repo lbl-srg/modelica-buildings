@@ -117,13 +117,17 @@ partial model PartialCoil
       extent={{-60,-440},{60,-300}},
       fileName="modelica://Buildings/Resources/Images/Templates/Components/Coils/HotWaterSupplyReturn.svg"),
     Bitmap(
+      visible=typVal==Buildings.Templates.Components.Types.Valve.None,
+      extent={{-100,-300},{100,-100}},
+      fileName="modelica://Buildings/Resources/Images/Templates/Components/Valves/CoilNone.svg"),
+    Bitmap(
       visible=typVal==Buildings.Templates.Components.Types.Valve.TwoWay,
-      extent={{-100,-300},{40,-100}},
-      fileName="modelica://Buildings/Resources/Images/Templates/Components/Valves/TwoWay.svg"),
+      extent={{-100,-300},{100,-100}},
+      fileName="modelica://Buildings/Resources/Images/Templates/Components/Valves/CoilTwoWay.svg"),
     Bitmap(
       visible=typVal==Buildings.Templates.Components.Types.Valve.ThreeWay,
-      extent={{-100,-300},{40,-100}},
-      fileName="modelica://Buildings/Resources/Images/Templates/Components/Valves/ThreeWay.svg"),
+      extent={{-100,-300},{100,-100}},
+      fileName="modelica://Buildings/Resources/Images/Templates/Components/Valves/CoilThreeWay.svg"),
     Bitmap(
       visible=typVal==Buildings.Templates.Components.Types.Valve.TwoWay or
         typVal==Buildings.Templates.Components.Types.Valve.ThreeWay,

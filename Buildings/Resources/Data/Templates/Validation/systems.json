@@ -164,10 +164,8 @@
                 "UA (dry coil conditions)": {
                     "value": 500,
                     "unit": "W/K"
-                }
-            },
-            "Reheat coil valve": {
-                "Pressure drop": {
+                },
+                "Valve pressure drop": {
                     "value": 5000,
                     "unit": "Pa"
                 }
@@ -362,10 +360,8 @@
                 "UA (dry coil conditions)": {
                     "value": 500,
                     "unit": "W/K"
-                }
-            },
-            "Heating coil valve": {
-                "Pressure drop": {
+                },
+                "Valve pressure drop": {
                     "value": 5E3,
                     "unit": "Pa"
                 }
@@ -406,10 +402,8 @@
                 "UA (dry coil conditions)": {
                     "value": 500,
                     "unit": "W/K"
-                }
-            },
-            "Cooling coil valve": {
-                "Pressure drop": {
+                },
+                "Valve pressure drop": {
                     "value": 3E4,
                     "unit": "Pa"
                 }
@@ -446,10 +440,8 @@
                 "UA (dry coil conditions)": {
                     "value": 500,
                     "unit": "W/K"
-                }
-            },
-            "Reheat coil valve": {
-                "Pressure drop": {
+                },
+                "Valve pressure drop": {
                     "value": 5E3,
                     "unit": "Pa"
                 }
