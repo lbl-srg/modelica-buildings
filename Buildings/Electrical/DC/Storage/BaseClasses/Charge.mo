@@ -7,7 +7,7 @@ model Charge "Model to compute the battery charge"
     "Efficiency during discharging";
   parameter Real SOC_start(min=0, max=1, unit="1")=0.1
     "Initial state of charge";
-  parameter Modelica.SIunits.Energy EMax(min=0, displayUnit="kWh")
+  parameter Modelica.SIunits.Energy EMax(min=0, displayUnit="kW.h")
     "Maximum available charge";
   Modelica.SIunits.Power PAct "Actual power";
   Modelica.Blocks.Interfaces.RealInput P(final quantity="Power",
@@ -82,6 +82,12 @@ exceeding the range between 0 and 1.
 
 </html>", revisions="<html>
 <ul>
+<li>
+December 6, 2021, by Michael Wetter:<br/>
+Corrected wrong unit string.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2798\">issue 2798</a>.
+</li>
 <li>
 June 2, 2014, by Marco Bonvini:<br/>
 Revised documentation.
