@@ -40,12 +40,11 @@ package Interfaces "Classes defining the component interfaces"
       if typ <> Buildings.Templates.Components.Types.Valve.None
       "Valve control signal"
       annotation (Placement(
-        visible=false,
-        transformation(extent={{-20,-20},{20,20}}, rotation=0,   origin={-120,0}),
+        transformation(extent={{-30,-30},{30,30}}, rotation=0,   origin={-130,40}),
         iconTransformation(
-          extent={{-10,-10},{10,10}},
+          extent={{-20,-20},{20,20}},
           rotation=0,
-          origin={-110,0})));
+          origin={-120,50})));
     annotation (
     Icon(coordinateSystem(preserveAspectRatio=false),
     graphics={

@@ -46,7 +46,6 @@ partial model PartialFan
     if typ <> Buildings.Templates.Components.Types.Fan.None
     "Control bus"
     annotation (Placement(
-      visible=false,
       transformation(
         extent={{-20,-20},{20,20}},
         rotation=0,

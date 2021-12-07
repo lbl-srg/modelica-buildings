@@ -159,7 +159,6 @@ partial model PartialOutdoorReliefReturnSection
         iconTransformation(extent={{390,790},{370,810}})));
   Buildings.Templates.AirHandlersFans.Interfaces.Bus bus "Control bus"
     annotation (Placement(
-      visible=false,
       transformation(
         extent={{-20,-20},{20,20}},
         rotation=0,

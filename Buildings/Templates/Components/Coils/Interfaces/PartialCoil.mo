@@ -68,11 +68,13 @@ partial model PartialCoil
   Modelica.Fluid.Interfaces.FluidPort_a port_aSou(
     redeclare package Medium = MediumSou) if have_sou
     "Fluid connector a (positive design flow direction is from port_a to port_b)"
-    annotation (Placement(transformation(extent={{30,-110},{50,-90}})));
+    annotation (Placement(transformation(extent={{30,-110},{50,-90}}),
+        iconTransformation(extent={{40,-110},{60,-90}})));
   Modelica.Fluid.Interfaces.FluidPort_b port_bSou(
     redeclare package Medium = MediumSou) if have_sou
     "Fluid connector b (positive design flow direction is from port_a to port_b)"
-    annotation (Placement(transformation(extent={{-30,-110},{-50,-90}})));
+    annotation (Placement(transformation(extent={{-30,-110},{-50,-90}}),
+        iconTransformation(extent={{-40,-110},{-60,-90}})));
   Buildings.BoundaryConditions.WeatherData.Bus busWea if have_weaBus
     "Weather bus"
     annotation (Placement(
@@ -82,7 +84,6 @@ partial model PartialCoil
     if typ <> Buildings.Templates.Components.Types.Coil.None
     "Control bus"
     annotation (Placement(
-      visible=false,
       transformation(
         extent={{-20,-20},{20,20}},
         rotation=0,
@@ -102,7 +103,7 @@ partial model PartialCoil
     Bitmap(
       visible=typ<>Buildings.Templates.Components.Types.Coil.None and
         fun==Buildings.Templates.Components.Types.CoilFunction.Cooling,
-      extent={{-60,-440},{60,-300}},
+      extent={{-100,-500},{100,-300}},
       fileName="modelica://Buildings/Resources/Images/Templates/Components/Coils/ChilledWaterSupplyReturn.svg"),
     Bitmap(
       visible=typ<>Buildings.Templates.Components.Types.Coil.None and
@@ -114,25 +115,30 @@ partial model PartialCoil
       visible=typ<>Buildings.Templates.Components.Types.Coil.None and
         (fun==Buildings.Templates.Components.Types.CoilFunction.Heating or
         fun==Buildings.Templates.Components.Types.CoilFunction.Reheat),
-      extent={{-60,-440},{60,-300}},
+      extent={{-100,-500},{100,-300}},
       fileName="modelica://Buildings/Resources/Images/Templates/Components/Coils/HotWaterSupplyReturn.svg"),
     Bitmap(
-      visible=typVal==Buildings.Templates.Components.Types.Valve.None,
-      extent={{-100,-300},{100,-100}},
-      fileName="modelica://Buildings/Resources/Images/Templates/Components/Valves/CoilNone.svg"),
+      visible=typ<>Buildings.Templates.Components.Types.Coil.None and
+        typVal==Buildings.Templates.Components.Types.Valve.None,
+      extent={{-150,-300},{50,-100}},
+      fileName="modelica://Buildings/Resources/Images/Templates/Components/Valves/None.svg"),
     Bitmap(
       visible=typVal==Buildings.Templates.Components.Types.Valve.TwoWay,
-      extent={{-100,-300},{100,-100}},
-      fileName="modelica://Buildings/Resources/Images/Templates/Components/Valves/CoilTwoWay.svg"),
+      extent={{-150,-300},{50,-100}},
+      fileName="modelica://Buildings/Resources/Images/Templates/Components/Valves/TwoWay.svg"),
     Bitmap(
       visible=typVal==Buildings.Templates.Components.Types.Valve.ThreeWay,
-      extent={{-100,-300},{100,-100}},
-      fileName="modelica://Buildings/Resources/Images/Templates/Components/Valves/CoilThreeWay.svg"),
+      extent={{-150,-300},{50,-100}},
+      fileName="modelica://Buildings/Resources/Images/Templates/Components/Valves/ThreeWay.svg"),
     Bitmap(
       visible=typVal==Buildings.Templates.Components.Types.Valve.TwoWay or
         typVal==Buildings.Templates.Components.Types.Valve.ThreeWay,
-      extent={{-180,-240},{-100,-160}},
-      fileName="modelica://Buildings/Resources/Images/Templates/Components/Actuators/Modulated.svg")},
+      extent={{-190,-240},{-110,-160}},
+      fileName="modelica://Buildings/Resources/Images/Templates/Components/Actuators/Modulated.svg"),
+    Bitmap(
+      visible=typ<>Buildings.Templates.Components.Types.Coil.None,
+      extent={{-50,-300},{150,-100}},
+      fileName="modelica://Buildings/Resources/Images/Templates/Components/Valves/None.svg")},
     coordinateSystem(preserveAspectRatio=false)),
     Diagram(
         coordinateSystem(preserveAspectRatio=false)));

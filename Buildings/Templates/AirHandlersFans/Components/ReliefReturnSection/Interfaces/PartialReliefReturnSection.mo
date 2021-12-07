@@ -86,7 +86,6 @@ partial model PartialReliefReturnSection "Relief/return air section"
   Buildings.Templates.AirHandlersFans.Interfaces.Bus bus
     "Control bus"
     annotation (Placement(
-      visible=false,
       transformation(
         extent={{-20,-20},{20,20}},
         rotation=0,
