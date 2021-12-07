@@ -1,5 +1,41 @@
 [
   {
+    "jmodelica": {
+      "translate": false
+  },
+  "model_name": "Buildings.Air.Systems.SingleZone.VAV.Examples.OptimalStart.ConventionalWinter"
+  },
+  {
+    "jmodelica": {
+      "translate": false
+  },
+  "model_name": "Buildings.Air.Systems.SingleZone.VAV.Examples.OptimalStart.ConventionalSpring"
+  },
+  {
+    "jmodelica": {
+      "translate": false
+  },
+  "model_name": "Buildings.Air.Systems.SingleZone.VAV.Examples.OptimalStart.ConventionalSummer"
+  },
+  {
+    "jmodelica": {
+      "translate": false
+  },
+  "model_name": "Buildings.Air.Systems.SingleZone.VAV.Examples.OptimalStart.Guideline36Winter"
+  },
+  {
+    "jmodelica": {
+      "translate": false
+  },
+  "model_name": "Buildings.Air.Systems.SingleZone.VAV.Examples.OptimalStart.Guideline36Spring"
+  },
+  {
+    "jmodelica": {
+      "translate": false
+  },
+  "model_name": "Buildings.Air.Systems.SingleZone.VAV.Examples.OptimalStart.Guideline36Summer"
+  },
+  {
       "jmodelica": {
         "simulate": false
     },

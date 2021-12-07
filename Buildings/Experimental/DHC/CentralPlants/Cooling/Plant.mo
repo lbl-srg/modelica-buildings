@@ -359,28 +359,28 @@ equation
     defaultComponentName="pla",
     Documentation(
       info="<html>
-<p>This model showcases a generic district central cooling plant as illustrated 
+<p>This model showcases a generic district central cooling plant as illustrated
 in the schematics below. </p>
 <ul>
-<li>The cooling is provided by two parallel chillers instantiated from 
+<li>The cooling is provided by two parallel chillers instantiated from
 <a href=\"modelica://Buildings.Applications.BaseClasses.Equipment.ElectricChillerParallel\">
 Buildings.Applications.BaseClasses.Equipment.ElectricChillerParallel</a>. </li>
-<li>The chilled water bypass loop is controlled to ensure a minimum flow of 
+<li>The chilled water bypass loop is controlled to ensure a minimum flow of
 chilled water running through the chillers all the time. </li>
-<li>The condenser water is cooled by two parallel cooling towers with a bypass 
-loop. See <a href=\"modelica://Buildings.Experimental.DHC.CentralPlants.Cooling.Subsystems.CoolingTowerWithBypass\">
-Buildings.Experimental.DHC.CentralPlants.Cooling.Subsystems.CoolingTowerWithBypass</a> 
+<li>The condenser water is cooled by two parallel cooling towers with a bypass
+loop. See <a href=\"modelica://Buildings.Experimental.DHC.CentralPlants.Cooling.Subsystems.CoolingTowersWithBypass\">
+Buildings.Experimental.DHC.CentralPlants.Cooling.Subsystems.CoolingTowersWithBypass</a>
 for the details of the modeling of the cooling towers. </li>
-<li>The chilled water loop is equipped with two parallel variable speed pumps, 
-which are controlled to maitain a use-determined pressure difference setpoint at 
-the demand side. The condenser water pumps are constant speed with prescribed 
+<li>The chilled water loop is equipped with two parallel variable speed pumps,
+which are controlled to maitain a use-determined pressure difference setpoint at
+the demand side. The condenser water pumps are constant speed with prescribed
 mass flow rates. </li>
-<li>The plant operates when it receives an <code>on</code> signal from the 
+<li>The plant operates when it receives an <code>on</code> signal from the
 external control. </li>
 </ul>
 <p>The staging of the chillers is based on the calculated cooling load. </p>
 <p>See <a href=\"modelica://Buildings.Experimental.DHC.CentralPlants.Cooling.Controls.ChillerStage\">
-Buildings.Experimental.DHC.CentralPlants.Cooling.Controls.ChillerStage</a> for 
+Buildings.Experimental.DHC.CentralPlants.Cooling.Controls.ChillerStage</a> for
 the detailed control logic. </p>
 <p><img src=\"modelica://Buildings/Resources/Images/Experimental/DHC/CentralPlants/Cooling/Plant.png\" alt=\"System schematics\"/>. </p>
 </html>",
@@ -388,7 +388,7 @@ the detailed control logic. </p>
 <ul>
 <li>
 August 6, 2020 by Jing Wang:<br/>
-First implementation. 
+First implementation.
 </li>
 </ul>
 </html>"),
