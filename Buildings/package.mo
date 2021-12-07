@@ -133,8 +133,25 @@ its class name ends with the string <code>Beta</code>.
     <p>
     Version 7.0.2 is a bug fix release.
     The library has been tested with Dymola 2022, JModelica (revision 14023),
+    OpenModelica 1.19.0-dev (449+g4f16e6af22)
     and OPTIMICA (revision OCT-stable-r19089_JM-r14295).
     </p>
+    <p>
+    The following changes have been done:
+    <ul>
+    <li>
+    Improved models to comply with Modelica Language Standard, and now all models translate with OpenModelica.
+    </li>
+    <li>
+    Corrected chiller models for situation where condenser is air cooled.
+    </li>
+    <li>
+    Corrected occupancy models for simulations that do not start at time equal to zero.
+    </li>
+    <li>
+    Implemtend various other improvements.
+    </li>
+    </ul>
     </div>
     <!-- New libraries -->
     <!-- New components for existing libraries -->
@@ -177,7 +194,9 @@ its class name ends with the string <code>Beta</code>.
     <tr><td valign=\"top\">Buildings.Examples.ChillerPlant.BaseClasses.DataCenter
         </td>
         <td valign=\"top\">Set <code>nominalValuesDefaultPressureCurve=true</code> to avoid warnings.<br/>
-                           This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2761\">Buildings, issue #2761</a>.
+                           This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2761\">Buildings, issue #2761</a>.<br/>
+                           Changed initialization from steady state initial to fixed initial for some components.<br/>
+                           This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2798\">Buildings, issue #2798</a>.
         </td>
     </tr>
     <tr><td colspan=\"2\"><b>Buildings.ThermalZones.ReducedOrder</b>
@@ -213,14 +232,14 @@ its class name ends with the string <code>Beta</code>.
     </tr>
     <tr><td valign=\"top\"> Buildings.Fluid.Chillers.BaseClasses.PartialElectric
         </td>
-        <td valign=\"top\">Corrected calculation of entering condenser temperature 
-                           when using a moist air media model.  
+        <td valign=\"top\">Corrected calculation of entering condenser temperature
+                           when using a moist air media model.
                            This is important for modeling air-cooled chillers using the model
                            <code>Buildings.Fluid.Chillers.ElectricEIR</code>.
                            <br/>
                            This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2770\">issue #2770</a>.
         </td>
-    </tr>    
+    </tr>
     <tr><td colspan=\"2\"><b>Buildings.Occupants</b>
         </td>
     </tr>
@@ -247,6 +266,17 @@ its class name ends with the string <code>Beta</code>.
         </td>
         <td valign=\"top\">Removed duplicate declaration of <code>VABp_flow</code>.<br/>
                            This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1496\">Buildings, issue #1496</a>.
+        </td>
+    </tr>
+    <tr><td colspan=\"2\"><b>Buildings.Electrical</b>
+        </td>
+    </tr>
+    <tr><td valign=\"top\">Buildings.Electrical.AC.OnePhase.Storage.Battery<br/>
+                           Buildings.Electrical.DC.Storage.BaseClasses.Charge<br/>
+                           Buildings.Electrical.DC.Storage.Battery
+        </td>
+        <td valign=\"top\">Corrected unit string.<br/>
+                           This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2798\">Buildings, issue #2798</a>.
         </td>
     </tr>
     <tr>
@@ -8258,7 +8288,7 @@ on the Buildings library.
 </p>
 <ul>
 <li>
-<a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_7_0_2\">Version 7.0.2</a>
+<a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_7_0_2\">Version 7.0.2</a> (December 9, 2021)
 </li>
 <li>
 <a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_7_0_1\">Version 7.0.1</a> (June 4, 2021)
@@ -8744,9 +8774,10 @@ annotation (
 preferredView="info",
 version="7.0.2",
 versionDate="2020-05-28",
-dateModified="2021-06-04",
+dateModified="2021-12-09",
 uses(Modelica(version="3.2.3")),
 conversion(
+  noneFromVersion="7.0.1",
   noneFromVersion="7.0.0",
   from(version={"6.0.0"},
       script="modelica://Buildings/Resources/Scripts/Dymola/ConvertBuildings_from_6_to_7.0.0.mos")),
