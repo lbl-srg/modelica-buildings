@@ -1,4 +1,4 @@
-within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Towers.FanSpeed.ReturnWaterTemperature.Subsequences;
+﻿within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Towers.FanSpeed.ReturnWaterTemperature.Subsequences;
 block LessCoupled
   "Sequence of defining cooling tower fan speed when the plant is not close coupled"
 
@@ -59,7 +59,7 @@ block LessCoupled
     final unit="K",
     displayUnit="degC",
     final quantity="ThermodynamicTemperature")
-    "Condenser water return temperature"
+    "Condenser water return temperature (condenser leaving)"
     annotation (Placement(transformation(extent={{-220,130},{-180,170}}),
       iconTransformation(extent={{-140,60},{-100,100}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uPla
@@ -76,7 +76,7 @@ block LessCoupled
     final unit="K",
     displayUnit="degC",
     final quantity="ThermodynamicTemperature")
-    "Condenser water supply temperature"
+    "Condenser water supply temperature (condenser entering)"
     annotation (Placement(transformation(extent={{-220,-80},{-180,-40}}),
       iconTransformation(extent={{-140,-40},{-100,0}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uMaxTowSpeSet[nChi](

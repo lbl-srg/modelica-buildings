@@ -1,6 +1,6 @@
 within Buildings.Examples.ChillerPlants.RP1711;
 model ClosedLoop
-  extends Buildings.Examples.ChillerPlants.RP1711.BaseClasses.ChillerPlant;
+  extends Buildings.Examples.ChillerPlants.RP1711.BaseClasses.RP1711;
   Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Controller chiPlaCon(
     have_WSE=false,
     nSenChiWatPum=1,

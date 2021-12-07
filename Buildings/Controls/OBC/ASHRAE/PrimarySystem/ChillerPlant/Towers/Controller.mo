@@ -1,4 +1,4 @@
-within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Towers;
+﻿within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Towers;
 block Controller "Cooling tower controller"
 
   parameter Integer nChi=2 "Total number of chillers";
@@ -266,7 +266,8 @@ block Controller "Cooling tower controller"
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TConWatRet(
     final unit="K",
     displayUnit="degC",
-    final quantity="ThermodynamicTemperature") "Condenser water return temperature"
+    final quantity="ThermodynamicTemperature")
+    "Condenser water return temperature (condenser leaving)"
     annotation (Placement(transformation(extent={{-140,-40},{-100,0}}),
       iconTransformation(extent={{-140,-30},{-100,10}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uConWatPumSpe[nConWatPum](
@@ -279,7 +280,7 @@ block Controller "Cooling tower controller"
     final unit="K",
     displayUnit="degC",
     final quantity="ThermodynamicTemperature") if not closeCoupledPlant
-    "Condenser water supply temperature"
+    "Condenser water supply temperature (condenser entering)"
     annotation (Placement(transformation(extent={{-140,-90},{-100,-50}}),
       iconTransformation(extent={{-140,-70},{-100,-30}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uChiSta

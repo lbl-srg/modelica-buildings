@@ -1,4 +1,4 @@
-within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.HeadPressure;
+﻿within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.HeadPressure;
 block Controller "Head pressure controller for plants with headered condenser water pumps"
   parameter Boolean have_heaPreConSig = false
     "Flag indicating if there is head pressure control signal from chiller controller"
@@ -36,7 +36,7 @@ block Controller "Head pressure controller for plants with headered condenser wa
     final unit="K",
     displayUnit="degC",
     final quantity="ThermodynamicTemperature") if not have_heaPreConSig
-    "Measured condenser water return temperature"
+    "Measured condenser water return temperature (condenser leaving)"
     annotation (Placement(transformation(extent={{-140,70},{-100,110}}),
       iconTransformation(extent={{-140,40},{-100,80}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TChiWatSup(

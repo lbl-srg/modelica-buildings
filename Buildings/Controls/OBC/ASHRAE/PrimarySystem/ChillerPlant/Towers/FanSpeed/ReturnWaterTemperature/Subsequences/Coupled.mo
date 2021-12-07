@@ -1,4 +1,4 @@
-within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Towers.FanSpeed.ReturnWaterTemperature.Subsequences;
+﻿within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Towers.FanSpeed.ReturnWaterTemperature.Subsequences;
 block Coupled
   "Sequence of defining cooling tower fan speed when the plant is close coupled"
 
@@ -34,7 +34,7 @@ block Coupled
     final unit="K",
     displayUnit="degC",
     final quantity="ThermodynamicTemperature")
-    "Condenser water return temperature"
+    "Condenser water return temperature (condenser leaving)"
     annotation (Placement(transformation(extent={{-160,30},{-120,70}}),
       iconTransformation(extent={{-140,40},{-100,80}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uConWatPumSpe[nConWatPum](

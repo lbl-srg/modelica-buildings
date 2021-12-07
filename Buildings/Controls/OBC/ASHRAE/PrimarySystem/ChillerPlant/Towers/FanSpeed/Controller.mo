@@ -1,4 +1,4 @@
-within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Towers.FanSpeed;
+﻿within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Towers.FanSpeed;
 block Controller "Tower fan speed control"
 
   parameter Integer nChi=2 "Total number of chillers";
@@ -198,7 +198,8 @@ block Controller "Tower fan speed control"
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TConWatRet(
     final unit="K",
     displayUnit="degC",
-    final quantity="ThermodynamicTemperature") "Condenser water return temperature"
+    final quantity="ThermodynamicTemperature")
+    "Condenser water return temperature (condenser leaving)"
     annotation (Placement(transformation(extent={{-140,-140},{-100,-100}}),
       iconTransformation(extent={{-140,-160},{-100,-120}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uConWatPumSpe[nConWatPum](
@@ -211,7 +212,7 @@ block Controller "Tower fan speed control"
     final unit="K",
     displayUnit="degC",
     final quantity="ThermodynamicTemperature") if not closeCoupledPlant
-    "Condenser water supply temperature"
+    "Condenser water supply temperature (condenser entering)"
     annotation (Placement(transformation(extent={{-140,-180},{-100,-140}}),
       iconTransformation(extent={{-140,-210},{-100,-170}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput ySpeSet(
