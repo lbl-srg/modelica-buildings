@@ -211,13 +211,26 @@ Each class (i.e., model, block and function) must be used in an example or valid
     <p>
     Version 8.1.0 is a minor release that is backwards compatible with version 8.0.0.
     The library has been tested with Dymola 2022, JModelica (revision 14023),
+    OpenModelica 1.19.0-dev (449+g4f16e6af22),
     and OPTIMICA (revision OCT-stable-r19089_JM-r14295).
     </p>
     <p>
     The following changes have been done:
     <ul>
     <li>
-    xxx.
+    Added a package to compute undisturbed ground temperatures.
+    </li>
+    <li>
+    Added controller for radiant cooling and heating systems.
+    </li>
+    <li>
+    Added a package for district cooling applications.
+    </li>
+    <li>
+    Added a new boiler model that is suitable for condensing boilers.
+    </li>
+    <li>
+    Corrected various errors and improved compliance with Modelica Language Standard.
     </li>
     </ul>
     </div>
