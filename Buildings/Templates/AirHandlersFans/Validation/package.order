@@ -13,7 +13,7 @@ DedicatedDamperAirflow
 DedicatedDamperPressure
 FanRelief
 FanSupplyBlowSingleConstant
-FanSupplyDrawMultipleVariable
+FanSupplyDrawArrayVariable
 FanSupplyDrawSingleVariable
 NoRelief
 UserProject

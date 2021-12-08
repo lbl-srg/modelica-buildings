@@ -1,5 +1,5 @@
 within Buildings.Templates.AirHandlersFans.Validation.UserProject.AHUs;
-model FanSupplyDrawMultipleVariable
+model FanSupplyDrawArrayVariable
   extends Buildings.Templates.AirHandlersFans.VAVMultiZone(
     nZon=2,
     nGro=1,
@@ -9,4 +9,4 @@ model FanSupplyDrawMultipleVariable
 
   annotation (
     defaultComponentName="ahu");
-end FanSupplyDrawMultipleVariable;
+end FanSupplyDrawArrayVariable;

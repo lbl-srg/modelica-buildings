@@ -28,7 +28,7 @@ model NoEconomizer "No air economizer"
     annotation (choices(choice(redeclare replaceable
       Buildings.Templates.Components.Fans.SingleVariable fanRet
       "Single fan - Variable speed"), choice(redeclare replaceable
-      Buildings.Templates.Components.Fans.MultipleVariable fanRet
+      Buildings.Templates.Components.Fans.ArrayVariable fanRet
       "Multiple fans (identical) - Variable speed")),
       Placement(
     transformation(extent={{70,-10},{50,10}})));

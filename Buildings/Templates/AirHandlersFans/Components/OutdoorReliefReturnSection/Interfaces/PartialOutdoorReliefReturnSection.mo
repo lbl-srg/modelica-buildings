@@ -179,7 +179,7 @@ partial model PartialOutdoorReliefReturnSection
         extent={{540,500},{340,700}},
         fileName="modelica://Buildings/Resources/Images/Templates/Components/Fans/Housed.svg"),
       Bitmap(
-        visible=typFanRet==Buildings.Templates.Components.Types.Fan.MultipleVariable,
+        visible=typFanRet==Buildings.Templates.Components.Types.Fan.ArrayVariable,
         extent={{540,500},{340,700}},
         fileName="modelica://Buildings/Resources/Images/Templates/Components/Fans/Array.svg"),
       Bitmap(
@@ -208,7 +208,7 @@ partial model PartialOutdoorReliefReturnSection
         extent={{-140,500},{-340,700}},
         fileName="modelica://Buildings/Resources/Images/Templates/Components/Fans/Propeller.svg"),
               Bitmap(
-        visible=typFanRel==Buildings.Templates.Components.Types.Fan.MultipleVariable,
+        visible=typFanRel==Buildings.Templates.Components.Types.Fan.ArrayVariable,
         extent={{-140,500},{-340,700}},
         fileName="modelica://Buildings/Resources/Images/Templates/Components/Fans/Array.svg"),
       Bitmap(

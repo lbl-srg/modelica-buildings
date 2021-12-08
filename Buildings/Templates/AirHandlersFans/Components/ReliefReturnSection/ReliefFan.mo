@@ -29,7 +29,7 @@ model ReliefFan "Relief fan with two-position relief damper"
     annotation (choices(choice(redeclare replaceable
           Buildings.Templates.Components.Fans.SingleVariable fanRet
           "Single fan - Variable speed"), choice(redeclare replaceable
-          Buildings.Templates.Components.MultipleVariable fanRet
+          Buildings.Templates.Components.ArrayVariable fanRet
           "Multiple fans (identical) - Variable speed")), Placement(
         transformation(extent={{-100,-10},{-120,10}})));
 equation
