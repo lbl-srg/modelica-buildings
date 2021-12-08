@@ -246,7 +246,7 @@ def _simulate(spec):
     # Set MODELICAPATH
     #os.environ['MODELICAPATH'] = LIBPATH
     # Set Model to simulate, the output dir and the package directory
-    s = Simulator(spec["model"])
+    s = Simulator(spec["model"], packagePath=os.path.join(wor_dir, "Buildings"))
     # Add all necessary parameters from Case Dict
     s.addPreProcessingStatement("OutputCPUtime:= true;")
     s.setSolver(spec["solver"])
