@@ -1,0 +1,3 @@
+﻿simulateModel("VirtualTestbed.NISTChillerTestbed.System.Control.Examples.CoilValveOnOff", stopTime=300, method="dassl", resultFile="CoilValveOnOff");
+createPlot(id=1, position={0, 0, 1645, 640}, y={"sysMod.y"},grid=true,subPlot=1, colors={{28,108,200}});
+createPlot(id=1, position={0, 0, 1645, 640}, y={"coilValveOnOff.y"},grid=true,subPlot=2, colors={{28,108,200}});

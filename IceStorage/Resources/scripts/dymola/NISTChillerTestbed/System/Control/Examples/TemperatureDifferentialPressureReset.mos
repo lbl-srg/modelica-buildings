@@ -1,0 +1,5 @@
+﻿simulateModel("VirtualTestbed.NISTChillerTestbed.System.Control.Examples.TemperatureDifferentialPressureReset", stopTime=3000, method="dassl", resultFile="TemperatureDifferentialPressureReset");
+createPlot(id=1, position={0, 0, 1645, 640}, y={"sysMod.y"},grid=true,subPlot=1, colors={{28,108,200}});
+createPlot(id=1, position={0, 0, 1645, 640}, y={"uVal.y"},grid=true,subPlot=2, colors={{28,108,200}});
+createPlot(id=1, position={0, 0, 1645, 640}, y={"temDifPreRes.TChiSet","temDifPreRes.TIceTanSet"},grid=true,subPlot=3, colors={{28,108,200},{238,46,47}});
+createPlot(id=1, position={0, 0, 1645, 640}, y={"temDifPreRes.dpSet"},grid=true,subPlot=4, colors={{28,108,200}});

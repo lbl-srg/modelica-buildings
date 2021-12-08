@@ -1,0 +1,4 @@
+﻿simulateModel("VirtualTestbed.NISTChillerTestbed.Component.BaseClasses.Examples.TankTOutControl", stopTime=7200, method="dassl", resultFile="TankTOutControl");
+createPlot(id=1, position={0, 0, 1645, 640}, y={"TOutSet.y","TOutMea.y"},grid=true,subPlot=1, colors={{28,108,200},{238,46,47}});
+createPlot(id=1, position={0, 0, 1645, 640}, y={"integerStep.y"},grid=true,subPlot=2, colors={{28,108,200}});
+createPlot(id=1, position={0, 0, 1645, 640}, y={"valOnOff.yVal1","valOnOff.yVal2"},grid=true, subPlot=3, colors={{28,108,200},{238,46,47}});
