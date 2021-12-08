@@ -140,7 +140,7 @@ its class name ends with the string <code>Beta</code>.
     The following changes have been done:
     <ul>
     <li>
-    Improved models to comply with Modelica Language Standard, and now all models translate with OpenModelica.
+    Improved models to comply with Modelica Language Standard. Now all models translate with OpenModelica.
     </li>
     <li>
     Corrected chiller models for situation where condenser is air cooled.
@@ -166,7 +166,7 @@ its class name ends with the string <code>Beta</code>.
     <tr><td valign=\"top\">Buildings.Fluid.Chillers.Data.ElectricEIR.ElectricEIRChiller_York_YCAL0033EE_101kW_3_1COP_AirCooled
         </td>
         <td valign=\"top\">Data for air cooled chiller. <br/>
-                           This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2770\">issue #2770</a>.
+                           This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2770\">Buildings, issue #2770</a>.
         </td>
     </tr>
     </table>
@@ -237,7 +237,7 @@ its class name ends with the string <code>Beta</code>.
                            This is important for modeling air-cooled chillers using the model
                            <code>Buildings.Fluid.Chillers.ElectricEIR</code>.
                            <br/>
-                           This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2770\">issue #2770</a>.
+                           This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2770\">Buildings, issue #2770</a>.
         </td>
     </tr>
     <tr><td colspan=\"2\"><b>Buildings.Occupants</b>
