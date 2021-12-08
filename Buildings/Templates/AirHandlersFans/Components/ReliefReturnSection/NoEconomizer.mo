@@ -1,4 +1,4 @@
-within Buildings.Templates.AirHandlersFans.Components.ReliefReturnSection;
+﻿within Buildings.Templates.AirHandlersFans.Components.ReliefReturnSection;
 model NoEconomizer "No air economizer"
   extends
     Buildings.Templates.AirHandlersFans.Components.ReliefReturnSection.Interfaces.PartialReliefReturnSection(
@@ -25,9 +25,9 @@ model NoEconomizer "No air economizer"
         typCtrFanRet==Buildings.Templates.AirHandlersFans.Types.ControlFanReturn.Airflow,
       final text_flip=true)
     "Return fan"
-    annotation (choices(choice(redeclare
+    annotation (choices(choice(redeclare replaceable
       Buildings.Templates.Components.Fans.SingleVariable fanRet
-      "Single fan - Variable speed"), choice(redeclare
+      "Single fan - Variable speed"), choice(redeclare replaceable
       Buildings.Templates.Components.Fans.MultipleVariable fanRet
       "Multiple fans (identical) - Variable speed")),
       Placement(
@@ -44,18 +44,14 @@ equation
   connect(fanRet.bus, bus.fanRet);
   connect(damRel.bus, bus.damRel);
   /* Control point connection - end */
-  connect(fanRet.port_a, port_a)
-    annotation (Line(points={{70,0},{180,0}}, color={0,127,255}));
   connect(port_b, damRel.port_b)
     annotation (Line(points={{-180,0},{-160,0}}, color={0,127,255}));
-  connect(damRel.port_a, pas.port_a)
-    annotation (Line(points={{-140,0},{-70,0}}, color={0,127,255}));
-  connect(pRet_rel.port_b, port_bPre)
-    annotation (Line(points={{70,40},{80,40},{80,-140}},   color={0,127,255}));
-  connect(fanRet.port_b, port_aIns)
-    annotation (Line(points={{50,0},{-40,0}}, color={0,127,255}));
-  connect(fanRet.port_b, pRet_rel.port_a) annotation (Line(points={{50,0},{40,0},
-          {40,40},{50,40}},   color={0,127,255}));
+  connect(damRel.port_a, splEco.port_2)
+    annotation (Line(points={{-140,0},{-10,0}}, color={0,127,255}));
+  connect(fanRet.port_a, port_a)
+    annotation (Line(points={{70,0},{180,0}}, color={0,127,255}));
+  connect(splEco.port_1, fanRet.port_b)
+    annotation (Line(points={{10,0},{50,0}}, color={0,127,255}));
   annotation (Documentation(info="<html>
 <p>
 5.16.10 Return-Fan Control—Direct Building Pressure

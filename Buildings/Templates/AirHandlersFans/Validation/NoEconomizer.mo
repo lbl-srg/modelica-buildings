@@ -75,14 +75,14 @@ protected
       transformation(extent={{-40,20},{0,60}}), iconTransformation(
         extent={{-258,-26},{-238,-6}})));
 equation
-  connect(bou.ports[1], res.port_a) annotation (Line(points={{-70,2},{-60,2},{
-          -60,-10},{-50,-10}}, color={0,127,255}));
+  connect(bou.ports[1], res.port_a) annotation (Line(points={{-70,-1},{-60,-1},
+          {-60,-10},{-50,-10}},color={0,127,255}));
   connect(res.port_b, ahu.port_Out)
     annotation (Line(points={{-30,-10},{-20,-10}}, color={0,127,255}));
   connect(ahu.port_Sup, res1.port_a)
     annotation (Line(points={{20,-10},{30,-10}}, color={0,127,255}));
   connect(res1.port_b, bou1.ports[1]) annotation (Line(points={{50,-10},{60,-10},
-          {60,2.66667},{70,2.66667}},
+          {60,-1.33333},{70,-1.33333}},
                             color={0,127,255}));
   connect(bou1.ports[2], pInd.port) annotation (Line(points={{70,-2.22045e-16},
           {70,30}}, color={0,127,255}));
@@ -103,11 +103,11 @@ equation
   connect(ahu.port_Rel, res2.port_a)
     annotation (Line(points={{-20,10},{-30,10}}, color={0,127,255}));
   connect(res2.port_b, bou.ports[2]) annotation (Line(points={{-50,10},{-60,10},
-          {-60,-2},{-70,-2}}, color={0,127,255}));
+          {-60,1},{-70,1}},   color={0,127,255}));
   connect(ahu.port_Ret, res3.port_b)
     annotation (Line(points={{20,10},{30,10}}, color={0,127,255}));
   connect(res3.port_a, bou1.ports[3]) annotation (Line(points={{50,10},{60,10},
-          {60,-2.66667},{70,-2.66667}}, color={0,127,255}));
+          {60,1.33333},{70,1.33333}},   color={0,127,255}));
   annotation (
   experiment(Tolerance=1e-6, StopTime=1),
   Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(

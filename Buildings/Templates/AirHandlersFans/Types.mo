@@ -75,7 +75,7 @@ package Types "AHU types"
       Economizer
       "Air economizer",
       EconomizerNoRelief
-      "Air economizer - No relief branch",
+      "Air economizer without relief branch",
       NoEconomizer
       "No air economizer")
     "Enumeration to configure the outdoor/relief/return air section";
@@ -85,12 +85,12 @@ package Types "AHU types"
       NoRelief
       "No relief branch",
       Barometric
-      "No relief fan - Barometric relief damper",
+      "Barometric relief damper without fan",
       ReliefDamper
-      "No relief fan - Modulated relief damper",
+      "Modulated relief damper without fan",
       ReliefFan
-      "Relief fan - Two-position relief damper",
+      "Relief fan with two-position relief damper",
       ReturnFan
-      "Return fan - Modulated relief damper")
+      "Return fan with modulated relief damper")
     "Enumeration to configure the relief/return air section";
 end Types;

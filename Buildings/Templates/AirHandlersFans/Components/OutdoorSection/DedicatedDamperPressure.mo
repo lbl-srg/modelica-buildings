@@ -10,8 +10,7 @@ model DedicatedDamperPressure
   Buildings.Templates.Components.Dampers.Modulated damOut(
     redeclare final package Medium = MediumAir,
     final m_flow_nominal=m_flow_nominal,
-    final dpDamper_nominal=dpDamOut_nominal)
-    "Economizer outdoor air damper"
+    final dpDamper_nominal=dpDamOut_nominal) "Economizer outdoor air damper"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
@@ -23,20 +22,20 @@ model DedicatedDamperPressure
     "Minimum outdoor air damper" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
-        origin={50,60})));
+        origin={0,60})));
 
   Buildings.Templates.Components.Sensors.Temperature TOut(
     redeclare final package Medium = MediumAir,
     final have_sen=true,
     final m_flow_nominal=m_flow_nominal)
     "Outdoor air temperature sensor"
-    annotation (Placement(transformation(extent={{120,50},{140,70}})));
+    annotation (Placement(transformation(extent={{70,50},{90,70}})));
   Buildings.Templates.Components.Sensors.DifferentialPressure dpOutMin(
     redeclare final package Medium = MediumAir,
     final have_sen=true,
     final m_flow_nominal=m_flow_nominal)
     "Minimum outdoor air damper differential pressure sensor"
-    annotation (Placement(transformation(extent={{40,10},{60,30}})));
+    annotation (Placement(transformation(extent={{-10,90},{10,110}})));
   Buildings.Templates.Components.Sensors.SpecificEnthalpy hOut(
     redeclare final package Medium = MediumAir,
     final have_sen=
@@ -44,7 +43,7 @@ model DedicatedDamperPressure
       typCtrEco==Buildings.Templates.AirHandlersFans.Types.ControlEconomizer.DifferentialEnthalpyWithFixedDryBulb,
     final m_flow_nominal=m_flow_nominal)
     "Outdoor air enthalpy sensor"
-    annotation (Placement(transformation(extent={{90,50},{110,70}})));
+    annotation (Placement(transformation(extent={{30,50},{50,70}})));
 equation
   /* Control point connection - start */
   connect(damOut.bus, bus.damOut);
@@ -53,26 +52,25 @@ equation
   connect(hOut.y, bus.hOut);
   connect(dpOutMin.y, bus.dpOutMin);
   /* Control point connection - end */
-  connect(port_aIns, damOut.port_a)
-    annotation (Line(points={{-40,0},{-10,0}}, color={0,127,255}));
-  connect(TOut.port_b, port_b) annotation (Line(points={{140,60},{160,60},{160,
-          0},{180,0}},
-                    color={0,127,255}));
+  connect(TOut.port_b, port_b) annotation (Line(points={{90,60},{160,60},{160,0},
+          {180,0}}, color={0,127,255}));
   connect(damOut.port_b, port_b)
     annotation (Line(points={{10,0},{180,0}}, color={0,127,255}));
-  connect(port_a, pas.port_a)
-    annotation (Line(points={{-180,0},{-70,0}},  color={0,127,255}));
 
-  connect(port_aIns, damOutMin.port_a) annotation (Line(points={{-40,0},{-20,0},
-          {-20,60},{40,60}}, color={0,127,255}));
-  connect(damOutMin.port_a, dpOutMin.port_a) annotation (Line(points={{40,60},{
-          20,60},{20,20},{40,20}}, color={0,127,255}));
-  connect(damOutMin.port_b, dpOutMin.port_b) annotation (Line(points={{60,60},{
-          80,60},{80,20},{60,20}}, color={0,127,255}));
+  connect(damOutMin.port_a, dpOutMin.port_a) annotation (Line(points={{-10,60},
+          {-20,60},{-20,100},{-10,100}},
+                                   color={0,127,255}));
+  connect(damOutMin.port_b, dpOutMin.port_b) annotation (Line(points={{10,60},{
+          20,60},{20,100},{10,100}},
+                                   color={0,127,255}));
   connect(damOutMin.port_b, hOut.port_a)
-    annotation (Line(points={{60,60},{90,60}}, color={0,127,255}));
+    annotation (Line(points={{10,60},{30,60}}, color={0,127,255}));
   connect(hOut.port_b, TOut.port_a)
-    annotation (Line(points={{110,60},{120,60}}, color={0,127,255}));
+    annotation (Line(points={{50,60},{70,60}},   color={0,127,255}));
+  connect(port_a, damOut.port_a)
+    annotation (Line(points={{-180,0},{-10,0}}, color={0,127,255}));
+  connect(damOut.port_a, damOutMin.port_a) annotation (Line(points={{-10,0},{
+          -20,0},{-20,60},{-10,60}}, color={0,127,255}));
   annotation (Documentation(info="<html>
 <p>
 Two classes are used depending on the type of sensor used to control the

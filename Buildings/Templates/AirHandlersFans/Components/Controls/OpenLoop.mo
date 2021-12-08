@@ -39,7 +39,7 @@ block OpenLoop "Open loop controller (output signals only)"
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={-90,170})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant yDamRel1(k=true)
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant yDamRel2(k=true)
  if secOutRel.typDamRel == Buildings.Templates.Components.Types.Damper.TwoPosition
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
@@ -62,12 +62,12 @@ block OpenLoop "Open loop controller (output signals only)"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
-        origin={60,70})));
+        origin={32,70})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant yFanSup(k=true)
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
-        origin={100,70})));
+        origin={72,70})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant yCoiHea(k=1) if coiHea.typ
      == Buildings.Templates.Components.Types.Coil.WaterBased or coiHea.typHex
      == Buildings.Templates.Components.Types.HeatExchanger.DXVariableSpeed
@@ -80,12 +80,12 @@ block OpenLoop "Open loop controller (output signals only)"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
-        origin={140,70})));
+        origin={112,70})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant yFanRet(k=true)
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
-        origin={180,70})));
+        origin={152,70})));
 
 equation
   /* Control point connection - start */
@@ -104,7 +104,7 @@ equation
   connect(yDamOutMin.y, bus.damOutMin.y);
   connect(yDamOutMin1.y, bus.damOutMin.y);
   connect(yDamRel.y, bus.damRel.y);
-  connect(yDamRel1.y, bus.damRel.y);
+  connect(yDamRel2.y, bus.damRel.y);
   connect(yDamRet.y, bus.damRet.y);
   /* Control point connection - stop */
 

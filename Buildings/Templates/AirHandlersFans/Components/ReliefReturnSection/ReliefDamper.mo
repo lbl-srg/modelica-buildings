@@ -1,5 +1,5 @@
 within Buildings.Templates.AirHandlersFans.Components.ReliefReturnSection;
-model ReliefDamper "No relief fan - Modulated relief damper"
+model ReliefDamper "Modulated relief damper without fan"
   extends
     Buildings.Templates.AirHandlersFans.Components.ReliefReturnSection.Interfaces.PartialReliefReturnSection(
     final typ=Buildings.Templates.AirHandlersFans.Types.ReliefReturnSection.ReliefDamper,
@@ -13,8 +13,7 @@ model ReliefDamper "No relief fan - Modulated relief damper"
     final dpDamper_nominal=dpDamRel_nominal,
     final text_flip=true,
     typBla=Buildings.Templates.Components.Types.DamperBlades.Opposed)
-    "Relief damper"
-    annotation (Placement(transformation(
+    "Relief damper" annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=0,
         origin={-150,0})));
@@ -24,12 +23,10 @@ equation
   /* Control point connection - end */
   connect(port_b, damRel.port_b)
     annotation (Line(points={{-180,0},{-160,0}}, color={0,127,255}));
-  connect(damRel.port_a, pas.port_a)
-    annotation (Line(points={{-140,0},{-70,0}}, color={0,127,255}));
-  connect(port_aIns, port_a)
-    annotation (Line(points={{-40,0},{180,0}}, color={0,127,255}));
-  connect(port_bRet, port_a)
-    annotation (Line(points={{0,-140},{0,0},{180,0}}, color={0,127,255}));
+  connect(splEco.port_1, port_a)
+    annotation (Line(points={{10,0},{180,0}}, color={0,127,255}));
+  connect(damRel.port_a, splEco.port_2)
+    annotation (Line(points={{-140,0},{-10,0}}, color={0,127,255}));
   annotation (Documentation(info="<html>
 <p>
 5.16.8 Control of Actuated Relief Dampers without Fans

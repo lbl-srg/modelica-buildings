@@ -1,5 +1,5 @@
 within Buildings.Templates.AirHandlersFans.Components.ReliefReturnSection;
-model ReliefFan "Relief fan - Two-position relief damper"
+model ReliefFan "Relief fan with two-position relief damper"
   extends
     Buildings.Templates.AirHandlersFans.Components.ReliefReturnSection.Interfaces.PartialReliefReturnSection(
     final typ=Buildings.Templates.AirHandlersFans.Types.ReliefReturnSection.ReliefFan,
@@ -26,9 +26,9 @@ model ReliefFan "Relief fan - Two-position relief damper"
     final text_flip=true,
     typSin=Buildings.Templates.Components.Types.FanSingle.Propeller)
     "Relief fan"
-    annotation (choices(choice(redeclare
+    annotation (choices(choice(redeclare replaceable
           Buildings.Templates.Components.Fans.SingleVariable fanRet
-          "Single fan - Variable speed"), choice(redeclare
+          "Single fan - Variable speed"), choice(redeclare replaceable
           Buildings.Templates.Components.MultipleVariable fanRet
           "Multiple fans (identical) - Variable speed")), Placement(
         transformation(extent={{-100,-10},{-120,10}})));
@@ -41,12 +41,10 @@ equation
     annotation (Line(points={{-180,0},{-160,0}}, color={0,127,255}));
   connect(damRel.port_a, fanRel.port_b)
     annotation (Line(points={{-140,0},{-120,0}}, color={0,127,255}));
-  connect(fanRel.port_a, pas.port_a)
-    annotation (Line(points={{-100,0},{-70,0}}, color={0,127,255}));
-  connect(port_aIns, port_a)
-    annotation (Line(points={{-40,0},{180,0}}, color={0,127,255}));
-  connect(port_bRet, port_a)
-    annotation (Line(points={{0,-140},{0,0},{180,0}}, color={0,127,255}));
+  connect(fanRel.port_a, splEco.port_2)
+    annotation (Line(points={{-100,0},{-10,0}}, color={0,127,255}));
+  connect(port_a, splEco.port_1)
+    annotation (Line(points={{180,0},{10,0}}, color={0,127,255}));
   annotation (Documentation(info="<html>
 <p>
 5.16.8 Control of Actuated Relief Dampers without Fans

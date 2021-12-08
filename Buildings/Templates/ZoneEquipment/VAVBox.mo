@@ -34,8 +34,8 @@ model VAVBox "VAV terminal unit"
     "Reheat coil"
     annotation (
     choices(
-      choice(redeclare Buildings.Templates.Components.Coils.None coiReh "No coil"),
-      choice(redeclare Buildings.Templates.Components.Coils.WaterBasedHeating coiReh
+      choice(redeclare replaceable Buildings.Templates.Components.Coils.None coiReh "No coil"),
+      choice(redeclare replaceable Buildings.Templates.Components.Coils.WaterBasedHeating coiReh
           "Water-based")),
     Dialog(group="Reheat coil"),
     Placement(transformation(extent={{-10,-210},{10,-190}})));

@@ -1,28 +1,28 @@
 within Buildings.Templates.AirHandlersFans.Validation.UserProject.AHUs;
 model CompleteAHU
   extends Buildings.Templates.AirHandlersFans.VAVMultiZone(
-    redeclare
+    redeclare replaceable
       Buildings.Templates.AirHandlersFans.Components.OutdoorReliefReturnSection.Economizer
-      secOutRel(redeclare
+      secOutRel(redeclare replaceable
         Buildings.Templates.AirHandlersFans.Components.OutdoorSection.SingleDamper
-        secOut "Single common OA damper (modulated) with AFMS", redeclare
+        secOut "Single common OA damper (modulated) with AFMS", redeclare replaceable
         Buildings.Templates.AirHandlersFans.Components.ReliefReturnSection.ReturnFan
-        secRel "Return fan - Modulated relief damper"),
-    redeclare .Buildings.Templates.Components.Coils.WaterBasedCooling coiCoo(
+        secRel "Return fan with modulated relief damper"),
+    redeclare replaceable Buildings.Templates.Components.Coils.WaterBasedCooling coiCoo(
       dpAir_nominal(displayUnit="Pa"),
       dpWat_nominal(displayUnit="Pa"),
-      redeclare
-        .Buildings.Templates.Components.HeatExchangers.WetCoilEffectivenessNTU
+      redeclare replaceable
+        Buildings.Templates.Components.HeatExchangers.WetCoilEffectivenessNTU
         hex "Effectiveness-NTU wet heat exchanger model",
-      redeclare Buildings.Templates.Components.Valves.TwoWay val)
+      redeclare replaceable Buildings.Templates.Components.Valves.TwoWay val)
                                                           "Water-based",
-    redeclare .Buildings.Templates.Components.Coils.WaterBasedHeating coiHea(
-        redeclare
-        .Buildings.Templates.Components.HeatExchangers.DryCoilEffectivenessNTU
+    redeclare replaceable Buildings.Templates.Components.Coils.WaterBasedHeating coiHea(
+      redeclare replaceable
+        Buildings.Templates.Components.HeatExchangers.DryCoilEffectivenessNTU
         hex "Epsilon-NTU heat exchanger model",
-        redeclare Buildings.Templates.Components.Valves.TwoWay val)
+        redeclare replaceable Buildings.Templates.Components.Valves.TwoWay val)
                                                 "Water-based",
-    redeclare .Buildings.Templates.Components.Fans.SingleVariable fanSupDra,
+    redeclare replaceable Buildings.Templates.Components.Fans.SingleVariable fanSupDra,
     nZon=2,
     nGro=1,
     id="VAV_1");

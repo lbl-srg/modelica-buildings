@@ -5,8 +5,7 @@ model NoRelief "No relief branch"
     final typ=Buildings.Templates.AirHandlersFans.Types.ReliefReturnSection.NoRelief,
     final typDamRel=Buildings.Templates.Components.Types.Damper.None,
     final typFanRel=Buildings.Templates.Components.Types.Fan.None,
-    final typFanRet=fanRet.typ,
-    have_recHea=false);
+    final typFanRet=fanRet.typ);
 
   replaceable Buildings.Templates.Components.Fans.None fanRet
     constrainedby Buildings.Templates.Components.Fans.Interfaces.PartialFan(
@@ -19,11 +18,11 @@ model NoRelief "No relief branch"
     "Return fan"
     annotation (
     choices(
-      choice(redeclare Buildings.Templates.Components.Fans.None fanRet
+      choice(redeclare replaceable Buildings.Templates.Components.Fans.None fanRet
         "No fan"),
-      choice(redeclare Buildings.Templates.Components.Fans.SingleVariable fanRet
+      choice(redeclare replaceable Buildings.Templates.Components.Fans.SingleVariable fanRet
         "Single fan - Variable speed"),
-      choice(redeclare Buildings.Templates.Components.Fans.MultipleVariable fanRet
+      choice(redeclare replaceable Buildings.Templates.Components.Fans.MultipleVariable fanRet
         "Multiple fans (identical) - Variable speed")),
     Dialog(group="Exhaust/relief/return section"),
     Placement(transformation(extent={{70,-10},{50,10}})));
@@ -41,12 +40,8 @@ equation
   /* Control point connection - end */
   connect(port_a, fanRet.port_a)
     annotation (Line(points={{180,0},{70,0}},  color={0,127,255}));
-  connect(pRet_rel.port_b, port_bPre)
-    annotation (Line(points={{70,40},{80,40},{80,-140}},   color={0,127,255}));
-  connect(fanRet.port_b, port_bRet)
-    annotation (Line(points={{50,0},{0,0},{0,-140}}, color={0,127,255}));
-  connect(fanRet.port_b, pRet_rel.port_a) annotation (Line(points={{50,0},{42,0},
-          {42,40},{50,40}},   color={0,127,255}));
+  connect(fanRet.port_b, splEco.port_1)
+    annotation (Line(points={{50,0},{10,0}}, color={0,127,255}));
   annotation (Icon(graphics={
               Line(
           points={{0,0},{180,0}},

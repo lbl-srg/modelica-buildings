@@ -1,8 +1,8 @@
 within Buildings.Templates.AirHandlersFans.Validation.UserProject.AHUs;
 model DedicatedDamperPressure
   extends Buildings.Templates.AirHandlersFans.VAVMultiZone(
-    secOutRel(redeclare
-        .Buildings.Templates.AirHandlersFans.Components.OutdoorSection.DedicatedDamperPressure
+    secOutRel(redeclare replaceable
+        Buildings.Templates.AirHandlersFans.Components.OutdoorSection.DedicatedDamperPressure
         secOut
         "Dedicated minimum OA damper (two-position) with differential pressure sensor"),
     id="VAV_1",

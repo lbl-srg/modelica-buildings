@@ -4,7 +4,7 @@ model CoilCoolingDXVariableSpeed
     id="VAV_1",
     nZon=2,
     nGro=1,
-    redeclare Buildings.Templates.Components.Coils.DirectExpansion coiCoo(
+    redeclare replaceable Buildings.Templates.Components.Coils.DirectExpansion coiCoo(
         redeclare replaceable
         Buildings.Templates.Components.HeatExchangers.DXVariableSpeed hex));
 

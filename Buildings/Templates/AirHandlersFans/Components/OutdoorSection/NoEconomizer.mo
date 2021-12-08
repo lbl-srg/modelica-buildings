@@ -26,14 +26,12 @@ equation
   connect(damOut.bus, bus.damOut);
   connect(TOut.y, bus.TOut);
   /* Control point connection - end */
-  connect(port_aIns, port_b)
-    annotation (Line(points={{-40,0},{180,0}}, color={0,127,255}));
   connect(port_a, damOut.port_a)
     annotation (Line(points={{-180,0},{-160,0}}, color={0,127,255}));
   connect(damOut.port_b, TOut.port_a)
     annotation (Line(points={{-140,0},{-120,0}}, color={0,127,255}));
-  connect(TOut.port_b, pas.port_a)
-    annotation (Line(points={{-100,0},{-70,0}}, color={0,127,255}));
+  connect(TOut.port_b, port_b)
+    annotation (Line(points={{-100,0},{180,0}}, color={0,127,255}));
   annotation (Icon(graphics={
               Line(
           points={{-180,0},{180,0}},

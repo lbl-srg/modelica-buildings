@@ -17,6 +17,7 @@ partial model PartialReliefReturnSection "Relief/return air section"
   parameter Buildings.Templates.Components.Types.Fan typFanRet
     "Return fan type"
     annotation (Evaluate=true, Dialog(group="Configuration"));
+
   outer parameter Buildings.Templates.AirHandlersFans.Types.ControlFanReturn typCtrFanRet
     "Return fan control type";
   outer parameter Boolean have_recHea
@@ -94,26 +95,32 @@ partial model PartialReliefReturnSection "Relief/return air section"
         rotation=0,
         origin={0,140})));
 
-  Buildings.Templates.BaseClasses.PassThroughFluid pas(
-    redeclare final package Medium = MediumAir)
-    if not have_recHea and typ <> Buildings.Templates.AirHandlersFans.Types.ReliefReturnSection.NoRelief
-    "Direct pass through (conditional)"
-    annotation (Placement(transformation(extent={{-70,-10},{-50,10}})));
-protected
-  Modelica.Fluid.Interfaces.FluidPort_a port_aIns(
+  Fluid.FixedResistances.Junction splEco(
     redeclare final package Medium = MediumAir,
-    m_flow(min=if allowFlowReversal then -Modelica.Constants.inf else 0),
-    h_outflow(start=MediumAir.h_default, nominal=MediumAir.h_default))
-    if typ <> Buildings.Templates.AirHandlersFans.Types.ReliefReturnSection.NoRelief
-    "Inside fluid connector a (positive design flow direction is from port_a to port_b)"
-    annotation (Placement(transformation(extent={{-50,-10},{-30,10}})));
+    final m_flow_nominal={1,-1,-1}*m_flow_nominal,
+    final dp_nominal=fill(0, 3),
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)
+    "Splitter with air economizer"
+    annotation (Placement(transformation(extent={{10,-10},{-10,10}})));
+  Buildings.Templates.Components.Sensors.DifferentialPressure pRet_rel(
+    redeclare final package Medium = MediumAir,
+    final have_sen=typFanRet<>Buildings.Templates.Components.Types.Fan.None and
+      typCtrFanRet==Buildings.Templates.AirHandlersFans.Types.ControlFanReturn.Pressure,
+    final m_flow_nominal=m_flow_nominal)
+    "Return fan discharge static pressure sensor"
+    annotation (Placement(transformation(extent={{50,30},{70,50}})));
+protected
+  final parameter Boolean have_porPre=
+    typCtrFanRet==Buildings.Templates.AirHandlersFans.Types.ControlFanReturn.Pressure
+    "Set to true for an outside fluid connector for differential pressure sensor"
+    annotation (Evaluate=true, Dialog(group="Configuration"));
 equation
-  connect(port_aHeaRec, pas.port_a) annotation (Line(points={{-80,-140},{-80,0},
-          {-70,0}},  color={0,127,255}));
-  connect(port_aIns, pas.port_b)
-    annotation (Line(points={{-40,0},{-50,0}}, color={0,127,255}));
-  connect(port_aIns, port_bHeaRec) annotation (Line(points={{-40,0},{-40,-140}},
-                      color={0,127,255}));
+  connect(splEco.port_3, port_bRet)
+    annotation (Line(points={{0,-10},{0,-140}}, color={0,127,255}));
+  connect(pRet_rel.port_a, splEco.port_1) annotation (Line(points={{50,40},{20,40},
+          {20,0},{10,0}}, color={0,127,255}));
+  connect(pRet_rel.port_b, port_bPre)
+    annotation (Line(points={{70,40},{80,40},{80,-140}}, color={0,127,255}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-180,-140},
             {180,140}}), graphics={
         Text(

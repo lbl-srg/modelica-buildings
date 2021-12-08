@@ -377,7 +377,24 @@ partial model PartialOutdoorReliefReturnSection
       Bitmap(
         visible=typSecOut==Buildings.Templates.AirHandlersFans.Types.OutdoorSection.SingleDamper,
         extent={{-194,-840},{-106,-760}},
-        fileName="modelica://Buildings/Resources/Images/Templates/Components/Sensors/VolumeFlowRate.svg")}),
+        fileName="modelica://Buildings/Resources/Images/Templates/Components/Sensors/VolumeFlowRate.svg"),
+      Bitmap(
+        visible=typFanRet<>Buildings.Templates.Components.Types.Fan.None and
+          typCtrFanRet==Buildings.Templates.AirHandlersFans.Types.ControlFanReturn.Pressure,
+        extent={{260,760},{340,840}},
+        fileName="modelica://Buildings/Resources/Images/Templates/Components/Sensors/DifferentialPressure.svg"),
+      Line(
+          visible=typFanRet<>Buildings.Templates.Components.Types.Fan.None and
+            typCtrFanRet==Buildings.Templates.AirHandlersFans.Types.ControlFanReturn.Pressure,
+          points={{260,800},{220,800},{220,658}},
+          color={0,0,0},
+          thickness=1),
+      Line(
+          visible=typFanRet<>Buildings.Templates.Components.Types.Fan.None and
+            typCtrFanRet==Buildings.Templates.AirHandlersFans.Types.ControlFanReturn.Pressure,
+          points={{380,800},{340,800}},
+          color={0,0,0},
+          thickness=1)}),
    Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-180,-140},{180,140}})));
 end PartialOutdoorReliefReturnSection;

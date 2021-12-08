@@ -60,8 +60,8 @@ equation
       points={{-40,-66},{-40,120},{0,120},{0,140}},
       color={255,204,51},
       thickness=0.5));
-  connect(secRel.port_bPre, port_bPre) annotation (Line(points={{8,66},{8,40},
-          {80,40},{80,140}},              color={0,127,255}));
+  connect(secRel.port_bPre, port_bPre) annotation (Line(points={{8,66},{8,60},{80,
+          60},{80,140}},                  color={0,127,255}));
   connect(recHea.bus, bus) annotation (Line(
       points={{-80,10},{-80,120},{0,120},{0,140}},
       color={255,204,51},

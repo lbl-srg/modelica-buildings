@@ -98,7 +98,7 @@ model VAVMultiZone "Multiple-Zone VAV"
     annotation (Placement(transformation(extent={{-20,260},{20,300}}),
       iconTransformation(extent={{-20,182},{20,218}})));
 
-  /* 
+  /*
   Currently only the configuration with economizer is supported:
   hence, no choices annotation.
   */
@@ -136,11 +136,11 @@ model VAVMultiZone "Multiple-Zone VAV"
     "Supply fan - Blow through"
     annotation (
       choices(
-        choice(redeclare Buildings.Templates.Components.Fans.None fanSupBlo
+        choice(redeclare replaceable Buildings.Templates.Components.Fans.None fanSupBlo
           "No fan"),
-        choice(redeclare Buildings.Templates.Components.Fans.SingleVariable fanSupBlo
+        choice(redeclare replaceable Buildings.Templates.Components.Fans.SingleVariable fanSupBlo
           "Single fan - Variable speed"),
-        choice(redeclare Buildings.Templates.Components.Fans.ArrayVariable fanSupBlo
+        choice(redeclare replaceable Buildings.Templates.Components.Fans.ArrayVariable fanSupBlo
           "Fan array - Variable speed")),
       Dialog(group="Supply air section",
         enable=fanSupDra.typ==Buildings.Templates.Components.Types.Fan.None),
@@ -177,11 +177,11 @@ model VAVMultiZone "Multiple-Zone VAV"
     "Supply fan - Draw through"
     annotation (
       choices(
-        choice(redeclare Buildings.Templates.Components.Fans.None fanSupDra
+        choice(redeclare replaceable Buildings.Templates.Components.Fans.None fanSupDra
           "No fan"),
-        choice(redeclare Buildings.Templates.Components.Fans.SingleVariable fanSupDra
+        choice(redeclare replaceable Buildings.Templates.Components.Fans.SingleVariable fanSupDra
           "Single fan - Variable speed"),
-        choice(redeclare Buildings.Templates.Components.Fans.ArrayVariable fanSupDra
+        choice(redeclare replaceable Buildings.Templates.Components.Fans.ArrayVariable fanSupDra
           "Fan array - Variable speed")),
     Dialog(group="Supply air section",
       enable=fanSupBlo.typ==Buildings.Templates.Components.Types.Fan.None),
@@ -194,9 +194,9 @@ model VAVMultiZone "Multiple-Zone VAV"
     "AHU controller"
     annotation (
       choices(
-        choice(redeclare Buildings.Templates.AirHandlersFans.Components.Controls.Guideline36 con
+        choice(redeclare replaceable Buildings.Templates.AirHandlersFans.Components.Controls.Guideline36 con
           "Guideline 36 control sequence"),
-        choice(redeclare Buildings.Templates.AirHandlersFans.Components.Controls.OpenLoop con
+        choice(redeclare replaceable Buildings.Templates.AirHandlersFans.Components.Controls.OpenLoop con
           "Open loop control")),
     Dialog(group="Controls"),
     Placement(transformation(extent={{-260,110},{-240,130}})));
@@ -285,9 +285,9 @@ model VAVMultiZone "Multiple-Zone VAV"
     "Heating coil"
     annotation (
     choices(
-      choice(redeclare Buildings.Templates.Components.Coils.None coiHea
+      choice(redeclare replaceable Buildings.Templates.Components.Coils.None coiHea
         "No coil"),
-      choice(redeclare Buildings.Templates.Components.Coils.WaterBasedHeating coiHea
+      choice(redeclare replaceable Buildings.Templates.Components.Coils.WaterBasedHeating coiHea
         "Water-based")),
     Dialog(group="Heating coil"),
     Placement(transformation(extent={{10,-210},{30,-190}})));
@@ -297,9 +297,9 @@ model VAVMultiZone "Multiple-Zone VAV"
     "Cooling coil"
     annotation (
     choices(
-      choice(redeclare Buildings.Templates.Components.Coils.None coiCoo
+      choice(redeclare replaceable Buildings.Templates.Components.Coils.None coiCoo
         "No coil"),
-      choice(redeclare Buildings.Templates.Components.Coils.WaterBasedCooling coiCoo
+      choice(redeclare replaceable Buildings.Templates.Components.Coils.WaterBasedCooling coiCoo
         "Water-based")),
     Dialog(group="Cooling coil"),
     Placement(transformation(extent={{70,-210},{90,-190}})));
@@ -309,9 +309,9 @@ model VAVMultiZone "Multiple-Zone VAV"
     "Reheat coil"
     annotation (
     choices(
-      choice(redeclare Buildings.Templates.Components.Coils.None coiReh
+      choice(redeclare replaceable Buildings.Templates.Components.Coils.None coiReh
         "No coil"),
-      choice(redeclare Buildings.Templates.Components.Coils.WaterBasedHeating coiReh
+      choice(redeclare replaceable Buildings.Templates.Components.Coils.WaterBasedHeating coiReh
         "Water-based")),
     Dialog(group="Reheat coil"),
     Placement(transformation(extent={{130,-210},{150,-190}})));
@@ -423,8 +423,6 @@ equation
     annotation (Line(points={{0,-200},{10,-200}}, color={0,127,255}));
   connect(fanSupDra.port_b, TSup.port_a)
     annotation (Line(points={{192,-200},{210,-200}}, color={0,127,255}));
-  connect(port_Ret, port_Ret)
-    annotation (Line(points={{300,-80},{300,-80}}, color={0,127,255}));
   annotation (
     defaultComponentName="ahu",
     Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(

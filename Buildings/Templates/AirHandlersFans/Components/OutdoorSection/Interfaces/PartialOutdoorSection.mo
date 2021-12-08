@@ -80,25 +80,6 @@ partial model PartialOutdoorSection "Outdoor air section"
         rotation=0,
         origin={0,140})));
 
-  Buildings.Templates.BaseClasses.PassThroughFluid pas(
-    redeclare final package Medium = MediumAir) if not have_recHea
-    "Direct pass through (conditional)"
-    annotation (Placement(transformation(extent={{-70,-10},{-50,10}})));
-
-protected
-  Modelica.Fluid.Interfaces.FluidPort_a port_aIns(
-    redeclare final package Medium = MediumAir,
-    m_flow(min=if allowFlowReversal then -Modelica.Constants.inf else 0),
-    h_outflow(start=MediumAir.h_default, nominal=MediumAir.h_default))
-    "Inside fluid connector a (positive design flow direction is from port_a to port_b)"
-    annotation (Placement(transformation(extent={{-50,-10},{-30,10}})));
-equation
-  connect(pas.port_b, port_aIns)
-    annotation (Line(points={{-50,0},{-40,0}}, color={0,127,255}));
-  connect(port_aHeaRec, port_aIns)
-    annotation (Line(points={{-40,140},{-40,0}},         color={0,127,255}));
-  connect(port_bHeaRec, pas.port_a) annotation (Line(points={{-80,140},{-80,0},{
-          -70,0}},   color={0,127,255}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-180,-140},
             {180,140}}), graphics={
         Text(

@@ -22,15 +22,15 @@ model Economizer "Air economizer"
       final mOutMin_flow_nominal=mOutMin_flow_nominal,
       final dpDamOut_nominal=dpDamOut_nominal,
       final dpDamOutMin_nominal=dpDamOutMin_nominal)
-    "Outdoor air section"
+    "Single common OA damper (modulated) with AFMS"
     annotation (
     choices(
-      choice(redeclare Buildings.Templates.AirHandlersFans.Components.OutdoorSection.SingleDamper secOut
-          "Single common OA damper (modulated) with AFMS"),
-      choice(redeclare Buildings.Templates.AirHandlersFans.Components.OutdoorSection.DedicatedDamperAirflow secOut
-          "Dedicated minimum OA damper (modulated) with AFMS"),
-      choice(redeclare Buildings.Templates.AirHandlersFans.Components.OutdoorSection.DedicatedDamperPressure secOut
-          "Dedicated minimum OA damper (two-position) with differential pressure sensor")),
+      choice(redeclare replaceable Buildings.Templates.AirHandlersFans.Components.OutdoorSection.SingleDamper secOut
+        "Single common OA damper (modulated) with AFMS"),
+      choice(redeclare replaceable Buildings.Templates.AirHandlersFans.Components.OutdoorSection.DedicatedDamperAirflow secOut
+        "Dedicated minimum OA damper (modulated) with AFMS"),
+      choice(redeclare replaceable Buildings.Templates.AirHandlersFans.Components.OutdoorSection.DedicatedDamperPressure secOut
+        "Dedicated minimum OA damper (two-position) with differential pressure sensor")),
     Dialog(group="Outdoor air section"),
     Placement(transformation(extent={{-58,-94},{-22,-66}})));
 
@@ -42,19 +42,20 @@ model Economizer "Air economizer"
       final m_flow_nominal=mRet_flow_nominal,
       final dpDamRel_nominal=dpDamRel_nominal,
       final dpFan_nominal=dpFan_nominal)
-    "Relief/return air section" annotation (
+    "Return fan with modulated relief damper"
+    annotation (
     choices(
       choice(
         redeclare Buildings.Templates.AirHandlersFans.Components.ReliefReturnSection.ReturnFan secRel
-          "Return fan - Modulated relief damper"),
+          "Return fan with modulated relief damper"),
       choice(
         redeclare Buildings.Templates.AirHandlersFans.Components.ReliefReturnSection.ReliefFan
           secRel
-          "Relief fan - Two-position relief damper"),
+          "Relief fan with two-position relief damper"),
       choice(
         redeclare  Buildings.Templates.AirHandlersFans.Components.ReliefReturnSection.ReliefDamper
           secRel
-          "No relief fan - Modulated relief damper")),
+          "Modulated relief damper without fan")),
     Dialog(group="Exhaust/relief/return section"),
     Placement(transformation(extent={{-18,66},{18,94}})));
 
@@ -64,7 +65,8 @@ model Economizer "Air economizer"
     final dpDamper_nominal=dpDamRet_nominal,
     final text_rotation=90)
     "Return air damper"
-    annotation (Placement(transformation(
+    annotation (Placement(
+        transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={0,0})));
@@ -96,8 +98,8 @@ equation
     annotation (Line(points={{-22,-80},{180,-80}}, color={0,127,255}));
   connect(damRet.port_b, port_Sup)
     annotation (Line(points={{0,-10},{0,-80},{180,-80}}, color={0,127,255}));
-  connect(secRel.port_bPre, port_bPre) annotation (Line(points={{8,66},{8,40},
-          {80,40},{80,140}},              color={0,127,255}));
+  connect(secRel.port_bPre, port_bPre) annotation (Line(points={{8,66},{8,60},{80,
+          60},{80,140}},                  color={0,127,255}));
   connect(recHea.port_aRel, secRel.port_bHeaRec) annotation (Line(points={{-70,6},
           {-60,6},{-60,56},{-4,56},{-4,66}}, color={0,127,255}));
   connect(secRel.port_aHeaRec, recHea.port_bRel) annotation (Line(points={{-8,66},

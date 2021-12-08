@@ -55,9 +55,9 @@ model WaterBasedCooling "Water-based"
     final dp2_nominal=dpAir_nominal)
     "Heat exchanger"
     annotation (choices(
-        choice(redeclare
+        choice(redeclare replaceable
           Buildings.Templates.Components.Coils.HeatExchangers.WetCoilCounterFlow hex
-          "Discretized wet heat exchanger model"), choice(redeclare
+          "Discretized wet heat exchanger model"), choice(redeclare replaceable
           Buildings.Templates.Components.Coils.HeatExchangers.WetCoilEffectivenessNTU
           hex "Effectiveness-NTU wet heat exchanger model")), Placement(
         transformation(extent={{10,4},{-10,-16}})));
