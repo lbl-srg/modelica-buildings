@@ -14,13 +14,17 @@ model TwoWay "Two-way valve"
       choicesAllMatching=true,
       Placement(
         transformation(
-        extent={{-10,10},{10,-10}},
+        extent={{-10,-10},{10,10}},
         rotation=0)));
 equation
-  connect(y, val.y);
-
   connect(port_a, val.port_a)
     annotation (Line(points={{-100,0},{-10,0}}, color={0,127,255}));
   connect(val.port_b, port_b)
     annotation (Line(points={{10,0},{100,0}}, color={0,127,255}));
+  connect(bus.y, val.y) annotation (Line(
+      points={{0,100},{0,12}},
+      color={255,204,51},
+      thickness=0.5));
+  connect(val.y_actual, bus.y_actual) annotation (Line(points={{5,7},{40,7},{40,
+          96},{0,96},{0,100}}, color={0,0,127}));
 end TwoWay;

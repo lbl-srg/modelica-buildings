@@ -1,7 +1,8 @@
 within Buildings.Templates.AirHandlersFans.Components.Controls.Interfaces;
 partial block PartialController
 
-  parameter AirHandlersFans.Types.Controller typ "Type of controller"
+  parameter AirHandlersFans.Types.Controller typ
+    "Type of controller"
     annotation (Evaluate=true, Dialog(group="Configuration"));
 
   outer parameter Integer nZon

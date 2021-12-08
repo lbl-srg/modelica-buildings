@@ -1,8 +1,7 @@
 within Buildings.Templates.Components.Fans;
-model MultipleVariable
-  "Multiple fans (identical) - Variable speed"
+model ArrayVariable "Fan array - Variable speed"
   extends Buildings.Templates.Components.Fans.Interfaces.PartialFan(
-    final typ=Buildings.Templates.Components.Types.Fan.MultipleVariable);
+    final typ=Buildings.Templates.Components.Types.Fan.ArrayVariable);
 
   parameter Integer nFan = 1
     "Number of fans"
@@ -109,4 +108,4 @@ equation
           horizontalAlignment=TextAlignment.Left,
           textString="Boundary conditions are only needed for OCT
 that fails to translate when CollectorDistributor ports are left unconnected.")}));
-end MultipleVariable;
+end ArrayVariable;

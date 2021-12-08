@@ -98,7 +98,10 @@ model VAVMultiZone "Multiple-Zone VAV"
     annotation (Placement(transformation(extent={{-20,260},{20,300}}),
       iconTransformation(extent={{-20,182},{20,218}})));
 
-  // Currently only the configuration with economizer is supported.
+  /* 
+  Currently only the configuration with economizer is supported:
+  hence, no choices annotation.
+  */
   inner replaceable Components.OutdoorReliefReturnSection.Economizer secOutRel
     constrainedby
     Components.OutdoorReliefReturnSection.Interfaces.PartialOutdoorReliefReturnSection(
@@ -132,9 +135,15 @@ model VAVMultiZone "Multiple-Zone VAV"
         Buildings.Templates.AirHandlersFans.Types.ControlFanSupply.Airflow)
     "Supply fan - Blow through"
     annotation (
-      choicesAllMatching=true,
+      choices(
+        choice(redeclare Buildings.Templates.Components.Fans.None fanSupBlo
+          "No fan"),
+        choice(redeclare Buildings.Templates.Components.Fans.SingleVariable fanSupBlo
+          "Single fan - Variable speed"),
+        choice(redeclare Buildings.Templates.Components.Fans.ArrayVariable fanSupBlo
+          "Fan array - Variable speed")),
       Dialog(group="Supply air section",
-        enable=fanSupDra.typ == Buildings.Templates.Components.Types.Fan.None),
+        enable=fanSupDra.typ==Buildings.Templates.Components.Types.Fan.None),
       Placement(transformation(extent={{-50,-210},{-30,-190}})));
 
   .Buildings.Templates.Components.Sensors.Temperature THea(
@@ -167,9 +176,15 @@ model VAVMultiZone "Multiple-Zone VAV"
         Buildings.Templates.AirHandlersFans.Types.ControlFanSupply.Airflow)
     "Supply fan - Draw through"
     annotation (
-    choicesAllMatching=true,
+      choices(
+        choice(redeclare Buildings.Templates.Components.Fans.None fanSupDra
+          "No fan"),
+        choice(redeclare Buildings.Templates.Components.Fans.SingleVariable fanSupDra
+          "Single fan - Variable speed"),
+        choice(redeclare Buildings.Templates.Components.Fans.ArrayVariable fanSupDra
+          "Fan array - Variable speed")),
     Dialog(group="Supply air section",
-      enable=fanSupBlo.typ == Buildings.Templates.Components.Types.Fan.None),
+      enable=fanSupBlo.typ==Buildings.Templates.Components.Types.Fan.None),
     Placement(transformation(extent={{172,-210},{192,-190}})));
 
   // FIXME: bind have_sen to control option.
@@ -178,8 +193,12 @@ model VAVMultiZone "Multiple-Zone VAV"
     Buildings.Templates.AirHandlersFans.Components.Controls.Interfaces.PartialSingleDuct
     "AHU controller"
     annotation (
-    choicesAllMatching=true,
-    Dialog(group="Controller"),
+      choices(
+        choice(redeclare Buildings.Templates.AirHandlersFans.Components.Controls.Guideline36 con
+          "Guideline 36 control sequence"),
+        choice(redeclare Buildings.Templates.AirHandlersFans.Components.Controls.OpenLoop con
+          "Open loop control")),
+    Dialog(group="Controls"),
     Placement(transformation(extent={{-260,110},{-240,130}})));
 
   /* FIXME: Dummy default values fo testing purposes only.
@@ -311,14 +330,14 @@ equation
   connect(coiReh.bus, bus.coiHea);
   connect(secOutRel.bus, bus);
 
-  connect(coiHea.port_bSou, port_coiHeaRet) annotation (Line(points={{16,-210},
-          {16,-260},{-20,-260},{-20,-280}},  color={0,127,255}));
-  connect(port_coiHeaSup, coiHea.port_aSou) annotation (Line(points={{20,-280},
-          {20,-260},{24,-260},{24,-210}},    color={0,127,255}));
+  connect(coiHea.port_bSou, port_coiHeaRet) annotation (Line(points={{15,-210},{
+          15,-260},{-20,-260},{-20,-280}},   color={0,127,255}));
+  connect(port_coiHeaSup, coiHea.port_aSou) annotation (Line(points={{20,-280},{
+          20,-260},{25,-260},{25,-210}},     color={0,127,255}));
   connect(port_coiCooSup, coiCoo.port_aSou) annotation (Line(points={{100,-280},
-          {100,-260},{84,-260},{84,-210}}, color={0,127,255}));
-  connect(coiCoo.port_bSou, port_coiCooRet) annotation (Line(points={{76,-210},
-          {76,-260},{60,-260},{60,-280}},color={0,127,255}));
+          {100,-260},{85,-260},{85,-210}}, color={0,127,255}));
+  connect(coiCoo.port_bSou, port_coiCooRet) annotation (Line(points={{75,-210},{
+          75,-260},{60,-260},{60,-280}}, color={0,127,255}));
   connect(busWea,coiCoo.busWea)  annotation (Line(
       points={{0,280},{0,80},{74,80},{74,-190}},
       color={255,204,51},
@@ -326,10 +345,10 @@ equation
   connect(TMix.port_b, fanSupBlo.port_a)
     annotation (Line(points={{-90,-200},{-50,-200}},   color={0,127,255}));
   connect(port_coiRehSup, coiReh.port_aSou) annotation (Line(points={{180,-280},
-          {180,-260},{144,-260},{144,-210}},
+          {180,-260},{145,-260},{145,-210}},
                                          color={0,127,255}));
-  connect(coiReh.port_bSou, port_coiRehRet) annotation (Line(points={{136,-210},
-          {136,-260},{140,-260},{140,-280}},
+  connect(coiReh.port_bSou, port_coiRehRet) annotation (Line(points={{135,-210},
+          {135,-260},{140,-260},{140,-280}},
                                            color={0,127,255}));
   connect(coiReh.port_b, fanSupDra.port_a)
     annotation (Line(points={{150,-200},{172,-200}}, color={0,127,255}));
@@ -338,9 +357,9 @@ equation
       color={255,204,51},
       thickness=0.5));
   connect(pInd_rel.port_b, out.ports[1])
-    annotation (Line(points={{10,240},{-38,240}}, color={0,127,255}));
+    annotation (Line(points={{10,240},{-41,240}}, color={0,127,255}));
   connect(ind.ports[1], pInd_rel.port_a)
-    annotation (Line(points={{42,240},{30,240}}, color={0,127,255}));
+    annotation (Line(points={{39,240},{30,240}}, color={0,127,255}));
 
   connect(con.busTer, busTer) annotation (Line(
       points={{-240,120},{-220,120},{-220,0},{300,0}},
@@ -387,12 +406,12 @@ equation
     annotation (Line(points={{-120,-80.2},{10,-80.2},{10,-80},{170,-80}},
                                                     color={0,127,255}));
   connect(secOutRel.port_bPre, out.ports[2]) annotation (Line(points={{-162,-60},
-          {-162,-60},{-42,-60},{-42,240}},           color={0,127,255}));
+          {-162,-60},{-39,-60},{-39,240}},           color={0,127,255}));
   connect(port_Rel, secOutRel.port_Rel)
     annotation (Line(points={{-300,-80},{-280,-80}}, color={0,127,255}));
   connect(port_Out, secOutRel.port_Out)
     annotation (Line(points={{-300,-200},{-280,-200}}, color={0,127,255}));
-  connect(ind.ports[2], pSup_rel.port_b) annotation (Line(points={{38,240},{280,
+  connect(ind.ports[2], pSup_rel.port_b) annotation (Line(points={{41,240},{280,
           240},{280,-220},{270,-220}}, color={0,127,255}));
   connect(TSup.port_b, port_Sup)
     annotation (Line(points={{230,-200},{300,-200}}, color={0,127,255}));

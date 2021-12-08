@@ -36,15 +36,17 @@ package Interfaces "Classes defining the component interfaces"
       if typ==Buildings.Templates.Components.Types.Valve.ThreeWay
       "Fluid connector with bypass line"
       annotation (Placement(transformation(extent={{-10,-110},{10,-90}})));
-    Buildings.Controls.OBC.CDL.Interfaces.RealInput y(min=0, max=1)
+    Buildings.Templates.Components.Interfaces.Bus bus
       if typ <> Buildings.Templates.Components.Types.Valve.None
-      "Valve control signal"
+      "Control bus"
       annotation (Placement(
-        transformation(extent={{-30,-30},{30,30}}, rotation=0,   origin={-130,40}),
-        iconTransformation(
+        transformation(
           extent={{-20,-20},{20,20}},
           rotation=0,
-          origin={-120,50})));
+          origin={0,100}), iconTransformation(
+          extent={{-10,-10},{10,10}},
+          rotation=0,
+          origin={0,100})));
     annotation (
     Icon(coordinateSystem(preserveAspectRatio=false),
     graphics={

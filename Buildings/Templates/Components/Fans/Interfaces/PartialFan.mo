@@ -69,7 +69,7 @@ equation
     annotation (Line(points={{100,0},{90,0}}, color={0,127,255}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
     Bitmap(
-      visible=typ==Buildings.Templates.Components.Types.Fan.MultipleVariable,
+      visible=typ==Buildings.Templates.Components.Types.Fan.ArrayVariable,
         extent={{-100,-100},{100,100}},
         fileName="modelica://Buildings/Resources/Images/Templates/Components/Fans/Array.svg"),
     Bitmap(
@@ -102,18 +102,18 @@ equation
           thickness=1),
     Bitmap(
       visible=typ==Buildings.Templates.Components.Types.Fan.SingleVariable or
-        typ==Buildings.Templates.Components.Types.Fan.MultipleVariable,
+        typ==Buildings.Templates.Components.Types.Fan.ArrayVariable,
         extent=if text_flip then {{80,-360},{-80,-160}} else {{-80,-360},{80,-160}},
         rotation=text_rotation,
         fileName="modelica://Buildings/Resources/Images/Templates/Components/Fans/VFD.svg"),
     Line(
       visible=typ==Buildings.Templates.Components.Types.Fan.SingleVariable or
-        typ==Buildings.Templates.Components.Types.Fan.MultipleVariable,
+        typ==Buildings.Templates.Components.Types.Fan.ArrayVariable,
           points={{0,-100},{0,-160}},
           color={0,0,0},
           thickness=1),
     Line(
-      visible=have_senFlo and typ==Buildings.Templates.Components.Types.Fan.MultipleVariable,
+      visible=have_senFlo and typ==Buildings.Templates.Components.Types.Fan.ArrayVariable,
           points={{-100,0},{0,0}},
           color={0,0,0},
           thickness=1)}),

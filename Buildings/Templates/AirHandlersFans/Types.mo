@@ -15,7 +15,7 @@ package Types "AHU types"
       Guideline36
       "Guideline 36 control sequence",
       OpenLoop
-      "Open loop")
+      "Open loop control")
     "Enumeration to configure the AHU controller";
   type ControlEconomizer = enumeration(
       FixedDryBulb
