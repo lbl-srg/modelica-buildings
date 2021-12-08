@@ -90,12 +90,6 @@ equation
       points={{-70,30},{0,30},{0,20}},
       color={255,204,51},
       thickness=0.5));
-  connect(pInd.p, busAHU.pInd) annotation (Line(points={{59,40},{14,40},{14,40},
-          {-20,40}},           color={0,0,127}), Text(
-      string="%second",
-      index=1,
-      extent={{-6,3},{-6,3}},
-      horizontalAlignment=TextAlignment.Right));
   connect(busAHU, ahu.bus) annotation (Line(
       points={{-20,40},{-20,28},{-20,16},{-19.9,16}},
       color={255,204,51},
@@ -108,6 +102,12 @@ equation
     annotation (Line(points={{20,10},{30,10}}, color={0,127,255}));
   connect(res3.port_a, bou1.ports[3]) annotation (Line(points={{50,10},{60,10},
           {60,1.33333},{70,1.33333}},   color={0,127,255}));
+  connect(pInd.p, busAHU.pBui) annotation (Line(points={{59,40},{-20,40}},
+        color={0,0,127}), Text(
+      string="%second",
+      index=1,
+      extent={{-6,3},{-6,3}},
+      horizontalAlignment=TextAlignment.Right));
   annotation (
   experiment(Tolerance=1e-6, StopTime=1),
   Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(

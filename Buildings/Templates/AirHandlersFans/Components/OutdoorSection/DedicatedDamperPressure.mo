@@ -32,8 +32,7 @@ model DedicatedDamperPressure
     annotation (Placement(transformation(extent={{70,50},{90,70}})));
   Buildings.Templates.Components.Sensors.DifferentialPressure dpOutMin(
     redeclare final package Medium = MediumAir,
-    final have_sen=true,
-    final m_flow_nominal=m_flow_nominal)
+    final have_sen=true)
     "Minimum outdoor air damper differential pressure sensor"
     annotation (Placement(transformation(extent={{-10,90},{10,110}})));
   Buildings.Templates.Components.Sensors.SpecificEnthalpy hOut(

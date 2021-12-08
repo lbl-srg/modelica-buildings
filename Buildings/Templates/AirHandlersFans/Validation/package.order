@@ -1,4 +1,3 @@
-NoEconomizer
 CoilCoolingCounterFlow
 CoilCoolingEffectivenessNTU
 CoilCoolingDXMultiStage
@@ -15,5 +14,6 @@ FanRelief
 FanSupplyBlowSingleConstant
 FanSupplyDrawArrayVariable
 FanSupplyDrawSingleVariable
+NoEconomizer
 NoRelief
 UserProject

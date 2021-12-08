@@ -105,8 +105,7 @@ partial model PartialReliefReturnSection "Relief/return air section"
   Buildings.Templates.Components.Sensors.DifferentialPressure pRet_rel(
     redeclare final package Medium = MediumAir,
     final have_sen=typFanRet<>Buildings.Templates.Components.Types.Fan.None and
-      typCtrFanRet==Buildings.Templates.AirHandlersFans.Types.ControlFanReturn.Pressure,
-    final m_flow_nominal=m_flow_nominal)
+      typCtrFanRet==Buildings.Templates.AirHandlersFans.Types.ControlFanReturn.Pressure)
     "Return fan discharge static pressure sensor"
     annotation (Placement(transformation(extent={{50,30},{70,50}})));
 protected

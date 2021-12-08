@@ -38,23 +38,20 @@ partial model PartialOutdoorReliefReturnSection
     annotation (Evaluate=true,
       Dialog(group="Configuration",
         enable=typ<>Buildings.Templates.AirHandlersFans.Types.OutdoorReliefReturnSection.EconomizerNoRelief));
-  /* Those parameters are not declared without outer as Dymola does not interpret
-  inner/outer references to evaluate the visible annotation for graphical elements.
-  */
   inner parameter Buildings.Templates.AirHandlersFans.Types.ControlFanReturn typCtrFanRet=
     Buildings.Templates.AirHandlersFans.Types.ControlFanReturn.Airflow
     "Return fan control type"
     annotation (Evaluate=true,
       Dialog(
         group="Configuration",
-        enable=typFanRet <> Buildings.Templates.Components.Types.Fan.None));
+        enable=typFanRet<>Buildings.Templates.Components.Types.Fan.None));
   inner parameter Buildings.Templates.AirHandlersFans.Types.ControlEconomizer typCtrEco=
     Buildings.Templates.AirHandlersFans.Types.ControlEconomizer.FixedDryBulb
     "Economizer control type"
     annotation (Evaluate=true,
       Dialog(
         group="Configuration",
-        enable=typ <> Buildings.Templates.AirHandlersFans.Types.OutdoorReliefReturnSection.NoEconomizer));
+        enable=typ<>Buildings.Templates.AirHandlersFans.Types.OutdoorReliefReturnSection.NoEconomizer));
 
   parameter Modelica.SIunits.MassFlowRate mSup_flow_nominal
     "Supply air mass flow rate"

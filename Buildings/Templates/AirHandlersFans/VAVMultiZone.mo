@@ -33,7 +33,7 @@ model VAVMultiZone "Multiple-Zone VAV"
         enable=typFanRel <> Buildings.Templates.Components.Types.Fan.None or
           typFanRet <> Buildings.Templates.Components.Types.Fan.None));
 
-  final inner parameter Boolean have_souCoiCoo = coiCoo.have_sou
+  final parameter Boolean have_souCoiCoo = coiCoo.have_sou
     "Set to true if cooling coil requires fluid ports on the source side"
     annotation (Evaluate=true, Dialog(group="Cooling coil"));
   final parameter Boolean have_souCoiHea = coiHea.have_sou
@@ -41,6 +41,13 @@ model VAVMultiZone "Multiple-Zone VAV"
     annotation (Evaluate=true, Dialog(group="Heating coil"));
   final parameter Boolean have_souCoiReh=coiReh.have_sou
     "Set to true if reheat coil requires fluid ports on the source side"
+    annotation (Evaluate=true, Dialog(group="Reheat coil"));
+  final parameter Boolean have_senPreBui=
+    secOutRel.typSecRel==Buildings.Templates.AirHandlersFans.Types.ReliefReturnSection.ReliefDamper or
+    secOutRel.typSecRel==Buildings.Templates.AirHandlersFans.Types.ReliefReturnSection.ReliefFan or
+    secOutRel.typSecRel==Buildings.Templates.AirHandlersFans.Types.ReliefReturnSection.ReturnFan and
+      secOutRel.typCtrFanRet==Buildings.Templates.AirHandlersFans.Types.ControlFanReturn.Pressure
+    "Set to true if building static pressure sensor is used"
     annotation (Evaluate=true, Dialog(group="Reheat coil"));
 
   final inner parameter Buildings.Templates.Components.Types.Fan typFanSup=if
@@ -55,10 +62,6 @@ model VAVMultiZone "Multiple-Zone VAV"
   final inner parameter Buildings.Templates.Components.Types.Fan typFanRel=
     secOutRel.typFanRel
     "Type of relief fan"
-    annotation (Evaluate=true);
-  final parameter Buildings.Templates.AirHandlersFans.Types.ControlEconomizer typCtrEco=
-    con.typCtrEco
-    "Economizer control type"
     annotation (Evaluate=true);
 
   Modelica.Fluid.Interfaces.FluidPort_b port_coiCooRet(
@@ -100,7 +103,8 @@ model VAVMultiZone "Multiple-Zone VAV"
 
   /*
   Currently only the configuration with economizer is supported:
-  hence, no choices annotation.
+  hence, no choices annotation, but still replaceable to access parameter
+  dialog box of the component.
   */
   inner replaceable Components.OutdoorReliefReturnSection.Economizer secOutRel
     constrainedby
@@ -109,8 +113,8 @@ model VAVMultiZone "Multiple-Zone VAV"
       final mSup_flow_nominal=mSup_flow_nominal,
       final mRet_flow_nominal=mRet_flow_nominal,
       final dpFan_nominal=dpFanRet_nominal,
-      final typCtrFanRet=con.typCtrFanRet,
-      final typCtrEco=typCtrEco)
+      final typCtrFanRet=ctr.typCtrFanRet,
+      final typCtrEco=ctr.typCtrEco)
     "Outdoor/relief/return air section"
     annotation (
       Dialog(group="Outdoor/relief/return air section"),
@@ -118,7 +122,7 @@ model VAVMultiZone "Multiple-Zone VAV"
 
   Buildings.Templates.Components.Sensors.Temperature TMix(
     redeclare final package Medium = MediumAir,
-    final have_sen=con.use_TMix,
+    final have_sen=ctr.use_TMix,
     final typ=Buildings.Templates.Components.Types.SensorTemperature.Averaging,
     final m_flow_nominal=mSup_flow_nominal)
     "Mixed air temperature sensor"
@@ -131,7 +135,7 @@ model VAVMultiZone "Multiple-Zone VAV"
       redeclare final package Medium =  MediumAir,
       final m_flow_nominal=mSup_flow_nominal,
       final dp_nominal=dpFanSup_nominal,
-      final have_senFlo=con.typCtrFanSup==
+      final have_senFlo=ctr.typCtrFanSup==
         Buildings.Templates.AirHandlersFans.Types.ControlFanSupply.Airflow)
     "Supply fan - Blow through"
     annotation (
@@ -172,7 +176,7 @@ model VAVMultiZone "Multiple-Zone VAV"
       redeclare final package Medium = MediumAir,
       final m_flow_nominal=mSup_flow_nominal,
       final dp_nominal=dpFanSup_nominal,
-      final have_senFlo=con.typCtrFanSup==
+      final have_senFlo=ctr.typCtrFanSup==
         Buildings.Templates.AirHandlersFans.Types.ControlFanSupply.Airflow)
     "Supply fan - Draw through"
     annotation (
@@ -189,7 +193,7 @@ model VAVMultiZone "Multiple-Zone VAV"
 
   // FIXME: bind have_sen to control option.
 
-  inner replaceable Components.Controls.OpenLoop con constrainedby
+  inner replaceable Components.Controls.OpenLoop ctr constrainedby
     Buildings.Templates.AirHandlersFans.Components.Controls.Interfaces.PartialSingleDuct
     "AHU controller"
     annotation (
@@ -199,7 +203,7 @@ model VAVMultiZone "Multiple-Zone VAV"
         choice(redeclare replaceable Buildings.Templates.AirHandlersFans.Components.Controls.OpenLoop con
           "Open loop control")),
     Dialog(group="Controls"),
-    Placement(transformation(extent={{-260,110},{-240,130}})));
+    Placement(transformation(extent={{-230,10},{-210,30}})));
 
   /* FIXME: Dummy default values fo testing purposes only.
   Compute based on design pressure drop of each piece of equipment
@@ -228,17 +232,17 @@ model VAVMultiZone "Multiple-Zone VAV"
   // FIXME: bind have_sen to control option.
   Buildings.Templates.Components.Sensors.DifferentialPressure pSup_rel(
     redeclare final package Medium = MediumAir,
-    have_sen=true,
-    final m_flow_nominal=mSup_flow_nominal)
+    have_sen=true)
     "Duct static pressure sensor"
     annotation (Dialog(group="Supply air section",
         enable=false), Placement(transformation(extent={{250,-230},{270,-210}})));
 
-  // FIXME: condition to control option.
-  Buildings.Fluid.Sensors.RelativePressure pInd_rel(
-    redeclare final package Medium=MediumAir)
+  Buildings.Templates.Components.Sensors.DifferentialPressure pBui_rel(
+    redeclare final package Medium=MediumAir,
+    final have_sen=have_senPreBui,
+    final text_flip=true)
     "Building static pressure"
-    annotation (Placement(transformation(extent={{30,230},{10,250}})));
+    annotation (Placement(transformation(extent={{10,28},{-10,48}})));
 
   Buildings.Fluid.Sources.Outside out(
     redeclare final package Medium=MediumAir,
@@ -248,22 +252,21 @@ model VAVMultiZone "Multiple-Zone VAV"
       Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
-        origin={-40,250})));
-  Buildings.Fluid.Sources.Boundary_pT ind(
+        origin={-40,80})));
+  Buildings.Fluid.Sources.Boundary_pT bui(
     redeclare final package Medium = MediumAir,
     final use_p_in=true,
-    final nPorts=2)
-    "Indoor pressure"
+    final nPorts=2) "Building absolute pressure in representative space"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
-        origin={40,250})));
+        origin={40,82})));
 
   Buildings.Templates.Components.Sensors.Temperature TRet(
     redeclare final package Medium = MediumAir,
-    final have_sen=
-      con.typCtrEco==Buildings.Templates.AirHandlersFans.Types.ControlEconomizer.DifferentialDryBulb or
-      con.typCtrEco==Buildings.Templates.AirHandlersFans.Types.ControlEconomizer.FixedDryBulbWithDifferentialDryBulb,
+    final have_sen=ctr.typCtrEco
+                   ==Buildings.Templates.AirHandlersFans.Types.ControlEconomizer.DifferentialDryBulb or ctr.typCtrEco
+                   ==Buildings.Templates.AirHandlersFans.Types.ControlEconomizer.FixedDryBulbWithDifferentialDryBulb,
     final typ=Buildings.Templates.Components.Types.SensorTemperature.Standard,
     final m_flow_nominal=mRet_flow_nominal)
     "Return air temperature sensor"
@@ -272,8 +275,8 @@ model VAVMultiZone "Multiple-Zone VAV"
         transformation(extent={{220,-90},{200,-70}})));
   Buildings.Templates.Components.Sensors.SpecificEnthalpy hRet(
     redeclare final package Medium = MediumAir,
-    final have_sen=
-      con.typCtrEco==Buildings.Templates.AirHandlersFans.Types.ControlEconomizer.DifferentialEnthalpyWithFixedDryBulb,
+    final have_sen=ctr.typCtrEco
+                   ==Buildings.Templates.AirHandlersFans.Types.ControlEconomizer.DifferentialEnthalpyWithFixedDryBulb,
     final m_flow_nominal=mRet_flow_nominal)
     "Return air enthalpy sensor"
     annotation (Dialog(group=
@@ -322,13 +325,14 @@ equation
   connect(pSup_rel.y, bus.pSup_rel);
   connect(hRet.y, bus.hRet);
   connect(TRet.y, bus.TRet);
-  connect(pInd_rel.p_rel, bus.pInd_rel);
   connect(fanSupDra.bus, bus.fanSup);
   connect(fanSupBlo.bus, bus.fanSup);
   connect(coiHea.bus, bus.coiHea);
   connect(coiCoo.bus, bus.coiCoo);
   connect(coiReh.bus, bus.coiHea);
   connect(secOutRel.bus, bus);
+  connect(bui.p_in, bus.pBui);
+  connect(pBui_rel.y, bus.pBui_rel);
 
   connect(coiHea.port_bSou, port_coiHeaRet) annotation (Line(points={{15,-210},{
           15,-260},{-20,-260},{-20,-280}},   color={0,127,255}));
@@ -339,7 +343,7 @@ equation
   connect(coiCoo.port_bSou, port_coiCooRet) annotation (Line(points={{75,-210},{
           75,-260},{60,-260},{60,-280}}, color={0,127,255}));
   connect(busWea,coiCoo.busWea)  annotation (Line(
-      points={{0,280},{0,80},{74,80},{74,-190}},
+      points={{0,280},{0,100},{74,100},{74,-190}},
       color={255,204,51},
       thickness=0.5));
   connect(TMix.port_b, fanSupBlo.port_a)
@@ -353,37 +357,31 @@ equation
   connect(coiReh.port_b, fanSupDra.port_a)
     annotation (Line(points={{150,-200},{172,-200}}, color={0,127,255}));
   connect(busWea, out.weaBus) annotation (Line(
-      points={{0,280},{0,276},{-40,276},{-40,260},{-39.8,260}},
+      points={{0,280},{0,100},{-40,100},{-40,90},{-39.8,90}},
       color={255,204,51},
       thickness=0.5));
-  connect(pInd_rel.port_b, out.ports[1])
-    annotation (Line(points={{10,240},{-41,240}}, color={0,127,255}));
-  connect(ind.ports[1], pInd_rel.port_a)
-    annotation (Line(points={{39,240},{30,240}}, color={0,127,255}));
+  connect(pBui_rel.port_b, out.ports[1])
+    annotation (Line(points={{-10,38},{-10,60},{-41,60},{-41,70}},
+                                                           color={0,127,255}));
+  connect(bui.ports[1],pBui_rel. port_a)
+    annotation (Line(points={{39,72},{39,60},{10,60},{10,38}},
+                                                 color={0,127,255}));
 
-  connect(con.busTer, busTer) annotation (Line(
-      points={{-240,120},{-220,120},{-220,0},{300,0}},
+  connect(ctr.busTer, busTer) annotation (Line(
+      points={{-210,20},{268,20},{268,0},{300,0}},
       color={255,204,51},
       thickness=0.5), Text(
       string="%second",
       index=1,
       extent={{6,3},{6,3}},
       horizontalAlignment=TextAlignment.Left));
-  connect(con.bus, bus) annotation (Line(
-      points={{-260,120},{-280,120},{-280,0},{-300,0}},
+  connect(ctr.bus, bus) annotation (Line(
+      points={{-230,20},{-268,20},{-268,0},{-300,0}},
       color={255,204,51},
       thickness=0.5), Text(
       string="%second",
       index=1,
       extent={{-6,3},{-6,3}},
-      horizontalAlignment=TextAlignment.Right));
-  connect(bus.pInd, ind.p_in) annotation (Line(
-      points={{-300,0},{60,0},{60,268},{48,268},{48,262}},
-      color={255,204,51},
-      thickness=0.5), Text(
-      string="%first",
-      index=-1,
-      extent={{-3,6},{-3,6}},
       horizontalAlignment=TextAlignment.Right));
   connect(resRet.port_a, TRet.port_b)
     annotation (Line(points={{190,-80},{200,-80}}, color={0,127,255}));
@@ -406,13 +404,14 @@ equation
     annotation (Line(points={{-120,-80.2},{10,-80.2},{10,-80},{170,-80}},
                                                     color={0,127,255}));
   connect(secOutRel.port_bPre, out.ports[2]) annotation (Line(points={{-162,-60},
-          {-162,-60},{-39,-60},{-39,240}},           color={0,127,255}));
+          {-162,60},{-39,60},{-39,70}},              color={0,127,255}));
   connect(port_Rel, secOutRel.port_Rel)
     annotation (Line(points={{-300,-80},{-280,-80}}, color={0,127,255}));
   connect(port_Out, secOutRel.port_Out)
     annotation (Line(points={{-300,-200},{-280,-200}}, color={0,127,255}));
-  connect(ind.ports[2], pSup_rel.port_b) annotation (Line(points={{41,240},{280,
-          240},{280,-220},{270,-220}}, color={0,127,255}));
+  connect(bui.ports[2], pSup_rel.port_b) annotation (Line(points={{41,72},{41,60},
+          {280,60},{280,-220},{270,-220}},
+                                       color={0,127,255}));
   connect(TSup.port_b, port_Sup)
     annotation (Line(points={{230,-200},{300,-200}}, color={0,127,255}));
   connect(TSup.port_b, pSup_rel.port_a) annotation (Line(points={{230,-200},{240,
@@ -426,11 +425,8 @@ equation
   annotation (
     defaultComponentName="ahu",
     Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
-    coordinateSystem(preserveAspectRatio=false), graphics={Text(
-          extent={{-86,230},{124,210}},
-          lineColor={0,127,255},
-          pattern=LinePattern.Dash,
-          textString="No further connection allowed to those two boundary conditions"),
+    coordinateSystem(preserveAspectRatio=false, extent={{-300,-280},{300,280}}),
+      graphics={
         Line(
           points={{250,-206},{250,-220},{256,-220}},
           color={0,0,0},
@@ -452,19 +448,38 @@ equation
         Line(points={{300,-70},{-120,-70}}, color={0,0,0}),
         Line(points={{300,-90},{-120,-90}}, color={0,0,0}),
         Line(points={{300,-210},{-120,-210}}, color={0,0,0}),
-        Line(points={{300,-190},{-120,-190}}, color={0,0,0})}),
+        Line(points={{300,-190},{-120,-190}}, color={0,0,0}),
+        Line(
+          visible=have_senPreBui,
+          points={{-16,40},{-10,40}},
+          color={0,0,0},
+          thickness=1),
+        Line(
+          visible=have_senPreBui,
+          points={{16,40},{10,40}},
+          color={0,0,0},
+          thickness=1),
+        Text(
+          visible=have_senPreBui,
+          extent={{18,46},{60,34}},
+          lineColor={0,0,0},
+          horizontalAlignment=TextAlignment.Left,
+          fontName="sans-serif",
+          textString="REPRESENTATIVE SPACE
+INSIDE BUILDING",
+          fontSize=4),
+        Text(
+          visible=have_senPreBui,
+          extent={{-60,46},{-18,34}},
+          lineColor={0,0,0},
+          horizontalAlignment=TextAlignment.Right,
+          fontName="sans-serif",
+          textString="REFERENCE OUTSIDE
+BUILDING",fontSize=4)}),
     Documentation(info="<html>
-  connect(fanSupDra.bus, bus.fanSup);
-  connect(fanSupBlo.bus, bus.fanSup);
-
-Same for coiReh and coiHea: we can manage the same variable name for the control signal for different variants of equipment that correspond to different component names.
-
-
 Requires building indoor _absolute_ pressure as input
 
-
 Economizer and fan options options
-
 
 Common economizer/minimum OA damper
 
