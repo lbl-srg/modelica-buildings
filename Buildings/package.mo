@@ -9296,7 +9296,7 @@ on the Buildings library.
 </p>
 <ul>
 <li>
-<a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_8_1_0\">Version 8.0.1</a> (December 9, 2021)
+<a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_8_1_0\">Version 8.1.0</a> (December 9, 2021)
 </li>
 <li>
 <a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_8_0_0\">Version 8.0.0</a> (June 8, 2021)
