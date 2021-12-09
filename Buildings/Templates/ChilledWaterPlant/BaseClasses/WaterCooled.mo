@@ -13,7 +13,7 @@ model WaterCooled
       Buildings.Templates.ChilledWaterPlant.Components.Controls.Interfaces.PartialController(
         final nPumCon=nPumCon,
         final nCooTow=nCooTow),
-    redeclare replaceable Buildings.Templates.ChilledWaterPlant.Components.ReturnSection.NoEconomizer WSE
+    redeclare replaceable Components.ReturnSection.NoEconomizer                                       WSE
       constrainedby
       Buildings.Templates.ChilledWaterPlant.Components.ReturnSection.Interfaces.ChilledWaterReturnSection(
         final m1_flow_nominal=mCon_flow_nominal));
@@ -63,11 +63,11 @@ model WaterCooled
   Fluid.FixedResistances.Junction mixCW(
     redeclare package Medium = MediumCW,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
-    final m_flow_nominal={mCon_flow_nominal,0,mCon_flow_nominal},
+    final m_flow_nominal=mCon_flow_nominal*{1,-1,1},
     final dp_nominal={0,0,0})
     "Condenser water return mixer"
     annotation (Placement(transformation(
-        extent={{-10,10},{10,-10}},
+        extent={{10,10},{-10,-10}},
         rotation=0,
         origin={-90,-70})));
 
@@ -80,6 +80,11 @@ model WaterCooled
         rotation=90,
         origin={-200,60})));
 
+  Fluid.Sources.Boundary_pT bouCW(redeclare final package Medium = MediumCW,
+      nPorts=1) annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=-90,
+        origin={-100,42})));
 protected
   parameter Modelica.SIunits.PressureDifference dpCon_nominal=
     chiGro.dp1_nominal + cooTow.dp_nominal
@@ -92,8 +97,6 @@ equation
     annotation (Line(points={{-160,-10},{-140,-10}}, color={0,127,255}));
   connect(TCWSup.port_b,pumCon. port_a)
     annotation (Line(points={{-120,-10},{-100,-10}}, color={0,127,255}));
-  connect(TCWRet.port_b, mixCW.port_1)
-    annotation (Line(points={{-120,-70},{-100,-70}}, color={0,127,255}));
   connect(pumCon.port_wse, WSE.port_a1)
     annotation (Line(points={{-80,-16},{-70,-16},{-70,-50},{-46,-50},{-46,-62}},
       color={0,127,255}));
@@ -102,9 +105,6 @@ equation
       color={0,127,255}));
   connect(pumCon.ports_b, chiGro.ports_a1)
     annotation (Line(points={{-80,-10},{-70,-10},{-70,30},{-46,30},{-46,20}},
-      color={0,127,255}));
-  connect(WSE.port_b1, mixCW.port_2)
-   annotation (Line(points={{-46,-82},{-46,-88},{-70,-88},{-70,-70},{-80,-70}},
       color={0,127,255}));
 
   connect(weaBus, cooTow.weaBus);
@@ -121,4 +121,10 @@ equation
       index=1,
       extent={{-6,3},{-6,3}},
       horizontalAlignment=TextAlignment.Right));
+  connect(bouCW.ports[1], pumCon.port_a) annotation (Line(points={{-100,32},{-100,
+          6},{-106,6},{-106,-10},{-100,-10}}, color={0,127,255}));
+  connect(mixCW.port_2, TCWRet.port_b)
+    annotation (Line(points={{-100,-70},{-120,-70}}, color={0,127,255}));
+  connect(mixCW.port_1, WSE.port_b1) annotation (Line(points={{-80,-70},{-60,
+          -70},{-60,-88},{-46,-88},{-46,-82}}, color={0,127,255}));
 end WaterCooled;

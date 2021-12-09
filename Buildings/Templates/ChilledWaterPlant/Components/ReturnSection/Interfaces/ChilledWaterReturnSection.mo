@@ -3,7 +3,7 @@ partial model ChilledWaterReturnSection
   extends Fluid.Interfaces.PartialOptionalFourPortInterface(
     redeclare package Medium1=Buildings.Media.Water,
     redeclare package Medium2=Buildings.Media.Water,
-    final hasMedium1=is_airCoo,
+    final hasMedium1=not is_airCoo,
     final hasMedium2=true);
 
   parameter
@@ -14,7 +14,7 @@ partial model ChilledWaterReturnSection
   parameter Boolean is_airCoo "Is chiller plant air cooled";
 
   final parameter Boolean is_none=
-    typ <> Buildings.Templates.ChilledWaterPlant.Components.Types.ChilledWaterReturnSection.NoEconomizer;
+    typ == Buildings.Templates.ChilledWaterPlant.Components.Types.ChilledWaterReturnSection.NoEconomizer;
 
 
   outer parameter String id

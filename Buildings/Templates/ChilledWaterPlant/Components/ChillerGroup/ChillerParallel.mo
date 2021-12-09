@@ -22,12 +22,14 @@ model ChillerParallel
 
   Fluid.Delays.DelayFirstOrder volCHW(
     redeclare final package Medium = MediumCHW,
+    final m_flow_nominal=m2_flow_nominal,
     nPorts=1+nChi)
     "Chilled water side mixing volume"
     annotation (Placement(transformation(
       extent={{-10,-10},{10,10}},rotation=90,origin={10,-60})));
   Fluid.Delays.DelayFirstOrder volCW(
     redeclare final package Medium = MediumCW,
+    final m_flow_nominal=m1_flow_nominal,
     nPorts=1+nChi) if not is_airCoo
     "Condenser water side mixing volume"
     annotation (Placement(transformation(
@@ -72,7 +74,7 @@ equation
   connect(pas.port_b, ports_b2) annotation (Line(points={{-80,-20},{-86,-20},{-86,
           0},{-100,0}}, color={0,127,255}));
   connect(busCon.yValChi, valChi.y) annotation (Line(
-      points={{0,100},{0,78},{-70,78},{-70,32}},
+      points={{0.1,100.1},{0.1,78},{-70,78},{-70,32}},
       color={255,204,51},
       thickness=0.5), Text(
       string="%first",
