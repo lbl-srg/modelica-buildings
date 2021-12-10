@@ -48,7 +48,7 @@ if [ -z ${MODELICAPATH+x} ]; then
 else
     # Add the current directory to the front of the Modelica path.
     # This will export the directory to the docker, and also set
-    # it in the MODELICAPATH so that JModelica finds it.
+    # it in the MODELICAPATH so that OPTIMICA finds it.
     MODELICAPATH=`pwd`:${MODELICAPATH}
 fi
 
