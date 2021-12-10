@@ -5,7 +5,7 @@ model Haldi2008BlindsTIn
   parameter Real A(final unit="1/K") = 0.425 "Slope of indoor temperature";
   parameter Real B(final unit="1") = -11.37 "Intercept";
   parameter Integer seed = 20 "Seed for the random number generator";
-  parameter Modelica.SIunits.Time samplePeriod = 120 "Sample period";
+  parameter Modelica.Units.SI.Time samplePeriod=120 "Sample period";
 
   Modelica.Blocks.Interfaces.RealInput TIn(
     final unit="K",
@@ -27,7 +27,8 @@ model Haldi2008BlindsTIn
     final max=1) "The probability of lowering the blinds";
 
 protected
-  parameter Modelica.SIunits.Time t0(final fixed = false) "First sample time instant";
+  parameter Modelica.Units.SI.Time t0(final fixed=false)
+    "First sample time instant";
   output Boolean sampleTrigger "True, if sample time instant";
   Real curSeed "Current value for seed as a real-valued variable";
 

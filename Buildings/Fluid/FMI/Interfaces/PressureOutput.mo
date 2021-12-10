@@ -1,6 +1,7 @@
 within Buildings.Fluid.FMI.Interfaces;
 connector PressureOutput =
-  output Modelica.SIunits.AbsolutePressure(displayUnit="Pa")
+  output Modelica.Units.SI.AbsolutePressure (
+                                           displayUnit="Pa")
   "Connector for pressure output"
   annotation (
   defaultComponentName="p",

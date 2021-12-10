@@ -2,7 +2,7 @@ within Buildings.Electrical.AC.ThreePhasesUnbalanced.Sensors.BaseClasses;
 partial model GeneralizedProbe
   "Partial model of a generalized three-phase probe"
   extends Icons.GeneralizedProbe;
-  parameter Modelica.SIunits.Voltage V_nominal(min=0, start=480)
+  parameter Modelica.Units.SI.Voltage V_nominal(min=0, start=480)
     "RMS Nominal voltage (V_nominal >= 0)";
   parameter Boolean perUnit = true "This flag display voltage in p.u.";
   Modelica.Blocks.Interfaces.RealOutput V[3](each unit="1")

@@ -2204,7 +2204,7 @@ as reported in <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1432\">I
     </table>
     <!-- Obsolete components -->
      </html>"));
-    end Version_7_0_1;
+  end Version_7_0_1;
 
     class Version_7_0_0 "Version 7.0.0"
       extends Modelica.Icons.ReleaseNotes;
@@ -10417,7 +10417,7 @@ preferredView="info",
 version="9.0.0",
 versionDate="2021-06-08",
 dateModified="2021-06-08",
-uses(Modelica(version="3.2.3")),
+uses(Modelica(version="4.0.0")),
 conversion(
   from(version={"8.0.0", "8.1.0"},
       script="modelica://Buildings/Resources/Scripts/Dymola/ConvertBuildings_from_8_to_9.0.0.mos")),

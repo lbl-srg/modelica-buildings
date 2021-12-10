@@ -7,14 +7,14 @@ package ElectricEIR "Performance data for chiller ElectricEIR"
         final nCapFunT=6,
         final nEIRFunT=6,
         final nEIRFunPLR=3);
-    parameter Modelica.SIunits.Temperature TConEnt_nominal
+    parameter Modelica.Units.SI.Temperature TConEnt_nominal
       "Temperature of fluid entering condenser at nominal condition"
       annotation (Dialog(group="Nominal condition"));
 
-    parameter Modelica.SIunits.Temperature TConEntMin
+    parameter Modelica.Units.SI.Temperature TConEntMin
       "Minimum value for entering condenser temperature"
       annotation (Dialog(group="Performance curves"));
-    parameter Modelica.SIunits.Temperature TConEntMax
+    parameter Modelica.Units.SI.Temperature TConEntMax
       "Maximum value for entering condenser temperature"
       annotation (Dialog(group="Performance curves"));
 

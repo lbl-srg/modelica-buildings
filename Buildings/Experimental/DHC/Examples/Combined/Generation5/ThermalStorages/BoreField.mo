@@ -41,8 +41,8 @@ model BoreField "Geothermal borefield model"
     annotation(Evaluate=true);
   parameter Real dxyBor = 10
     "Distance between boreholes";
-  final parameter Modelica.SIunits.Length cooBor[nBor, 2]=
-    {dxyBor * {mod(i - 1, 10), floor((i - 1)/10)} for i in 1:nBor}
+  final parameter Modelica.Units.SI.Length cooBor[nBor,2]={dxyBor*{mod(i - 1,
+      10),floor((i - 1)/10)} for i in 1:nBor}
     "Cartesian coordinates of the boreholes in meters";
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput Q_flow(final unit="W")
     "Rate at which heat is extracted from soil"

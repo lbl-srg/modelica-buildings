@@ -42,10 +42,8 @@ model ThermalZone
     Medium.nC)
     "Nominal value of zone air trace substances. (Set to typical order of magnitude.)"
     annotation (Dialog(tab="Initialization",enable=Medium.nC > 0));
-  final parameter Modelica.SIunits.Volume V=fmuZon.V
-    "Zone volume";
-  final parameter Modelica.SIunits.Area AFlo=fmuZon.AFlo
-    "Floor area";
+  final parameter Modelica.Units.SI.Volume V=fmuZon.V "Zone volume";
+  final parameter Modelica.Units.SI.Area AFlo=fmuZon.AFlo "Floor area";
   final parameter Real mSenFac(
     min=1)=fmuZon.mSenFac
     "Factor for scaling the sensible thermal mass of the zone air volume"
@@ -80,10 +78,9 @@ model ThermalZone
     annotation (Placement(transformation(extent={{200,-130},{220,-110}}),iconTransformation(extent={{200,90},{220,110}})));
 
 protected
-  constant Modelica.SIunits.SpecificEnergy h_fg=Medium.enthalpyOfCondensingGas(
-    273.15+37)
-    "Latent heat of water vapor";
-  final parameter Modelica.SIunits.MassFlowRate m_flow_nominal=V*3/3600
+  constant Modelica.Units.SI.SpecificEnergy h_fg=Medium.enthalpyOfCondensingGas(
+      273.15 + 37) "Latent heat of water vapor";
+  final parameter Modelica.Units.SI.MassFlowRate m_flow_nominal=V*3/3600
     "Nominal mass flow rate (used for regularization)";
   Buildings.ThermalZones.EnergyPlus.BaseClasses.ThermalZoneAdapter fmuZon(
     final modelicaNameBuilding=modelicaNameBuilding,
@@ -144,7 +141,7 @@ protected
     annotation (Placement(transformation(extent={{-40,30},{-20,50}})));
   final parameter String substanceName="CO2"
     "Name of trace substance";
-  final parameter Modelica.SIunits.MolarMass MM=Modelica.Media.IdealGases.Common.SingleGasesData.CO2.MM
+  final parameter Modelica.Units.SI.MolarMass MM=Modelica.Media.IdealGases.Common.SingleGasesData.CO2.MM
     "Molar mass of the trace substance";
   Modelica.Blocks.Routing.Replicator QPeaRep(
     nout=Medium.nC) if use_C_flow

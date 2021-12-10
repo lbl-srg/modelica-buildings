@@ -2,7 +2,7 @@ within Buildings.ThermalZones.EnergyPlus.Examples.SmallOffice.BaseClasses;
 model IdealHeaterCooler
   "Model of ideal heater or cooler"
   extends Modelica.Blocks.Icons.Block;
-  parameter Modelica.SIunits.HeatFlowRate Q_flow_nominal
+  parameter Modelica.Units.SI.HeatFlowRate Q_flow_nominal
     "Maximum heat flow rate (positive for heating; negative for cooling)";
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI
     "Type of controller"

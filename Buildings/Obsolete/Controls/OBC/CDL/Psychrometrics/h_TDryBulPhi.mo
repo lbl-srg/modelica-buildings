@@ -23,9 +23,9 @@ block h_TDryBulPhi
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
 protected
-  Modelica.SIunits.Conversions.NonSIunits.Temperature_degC TDryBul_degC
+  Modelica.Units.NonSI.Temperature_degC TDryBul_degC
     "Dry bulb temperature in degree Celsius";
-  Modelica.SIunits.Pressure p_w(displayUnit="Pa") "Water vapor pressure";
+  Modelica.Units.SI.Pressure p_w(displayUnit="Pa") "Water vapor pressure";
   Real w(final unit="1", nominal=0.01)
     "Water vapor mass fraction in kg per kg dry air";
 

@@ -1,4 +1,4 @@
-within Buildings.Fluid.Geothermal.BuriedPipes.Examples;
+﻿within Buildings.Fluid.Geothermal.BuriedPipes.Examples;
 model TwoBuriedPipes "Example model of two buried pipes in close proximity"
   extends Modelica.Icons.Example;
 
@@ -40,7 +40,7 @@ model TwoBuriedPipes "Example model of two buried pipes in close proximity"
     annotation (Placement(transformation(extent={{0,10},{20,30}})));
   Modelica.Blocks.Sources.Sine TinChW(
     amplitude=2,
-    freqHz=1/180/24/60/60,
+    f=1/180/24/60/60,
     offset=TChW) "Chilled water pipe inlet temperature signal"
     annotation (Placement(transformation(extent={{-100,10},{-80,30}})));
   Sources.MassFlowSource_T souChW(
@@ -81,7 +81,7 @@ model TwoBuriedPipes "Example model of two buried pipes in close proximity"
     annotation (Placement(transformation(extent={{0,-50},{20,-30}})));
   Modelica.Blocks.Sources.Sine TinHotW(
     amplitude=5,
-    freqHz=1/90/24/60/60,
+    f=1/90/24/60/60,
     phase=3.1415926535898,
     offset=THotW) "Hot water pipe inlet temperature signal"
     annotation (Placement(transformation(extent={{-100,-50},{-80,-30}})));
@@ -109,9 +109,9 @@ model TwoBuriedPipes "Example model of two buried pipes in close proximity"
     annotation (Placement(transformation(extent={{50,-50},{70,-30}})));
 
 protected
-  parameter Modelica.SIunits.Temperature TChW = 273.15 + 10
+  parameter Modelica.Units.SI.Temperature TChW=273.15 + 10
     "Chilled water mean supply temperature";
-  parameter Modelica.SIunits.Temperature THotW = 273.15 + 80
+  parameter Modelica.Units.SI.Temperature THotW=273.15 + 80
     "Hot water mean supply temperature";
 
 equation

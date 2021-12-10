@@ -2,12 +2,12 @@ within Buildings.Fluid.HeatExchangers.BaseClasses;
 model WetCoilDryWetRegime
   "Model implementing the switching algorithm of the TK-fuzzy model for cooling coil application"
 
-  parameter Modelica.SIunits.MassFlowRate mWat_flow_nominal(min=0)
+  parameter Modelica.Units.SI.MassFlowRate mWat_flow_nominal(min=0)
     "Nominal mass flow rate for water"
-    annotation(Dialog(group = "Nominal condition"));
-  parameter Modelica.SIunits.MassFlowRate mAir_flow_nominal(min=0)
+    annotation (Dialog(group="Nominal condition"));
+  parameter Modelica.Units.SI.MassFlowRate mAir_flow_nominal(min=0)
     "Nominal mass flow rate for air"
-    annotation(Dialog(group = "Nominal condition"));
+    annotation (Dialog(group="Nominal condition"));
 
   input Real Qfac(final unit="1")
     "Smoothing factor to prevent division-by-zero";
@@ -118,7 +118,7 @@ model WetCoilDryWetRegime
       Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=0,
         origin={150,-60})));
-  Modelica.SIunits.HeatFlowRate QLat_flow  "Latent heat transfer rate";
+  Modelica.Units.SI.HeatFlowRate QLat_flow "Latent heat transfer rate";
 
   Modelica.Blocks.Interfaces.RealOutput mCon_flow(
     quantity="MassFlowRate",
@@ -163,20 +163,18 @@ model WetCoilDryWetRegime
   Real dryFra(final unit="1", min=0, max=1)
     "Dry fraction, 0.3 means condensation occurs at 30% heat exchange length from air inlet";
 protected
-  Modelica.SIunits.MassFlowRate mAirNonZer_flow(min=Modelica.Constants.eps)=
+  Modelica.Units.SI.MassFlowRate mAirNonZer_flow(min=Modelica.Constants.eps) =
     Buildings.Utilities.Math.Functions.smoothMax(
-      x1=mAir_flow,
-      x2=1E-3       *mAir_flow_nominal,
-      deltaX=0.25E-3*mAir_flow_nominal)
-    "Mass flow rate of air";
-  Modelica.SIunits.MassFlowRate mWatNonZer_flow(min=Modelica.Constants.eps)=
+    x1=mAir_flow,
+    x2=1E-3*mAir_flow_nominal,
+    deltaX=0.25E-3*mAir_flow_nominal) "Mass flow rate of air";
+  Modelica.Units.SI.MassFlowRate mWatNonZer_flow(min=Modelica.Constants.eps) =
     Buildings.Utilities.Math.Functions.smoothMax(
-      x1=mWat_flow,
-      x2=1E-3       *mWat_flow_nominal,
-      deltaX=0.25E-3*mWat_flow_nominal)
-    "Mass flow rate of water";
+    x1=mWat_flow,
+    x2=1E-3*mWat_flow_nominal,
+    deltaX=0.25E-3*mWat_flow_nominal) "Mass flow rate of water";
 
-  Modelica.SIunits.Temperature TAirInDewPoi
+  Modelica.Units.SI.Temperature TAirInDewPoi
     "Dew point temperature of incoming air";
 
   Buildings.Utilities.Psychrometrics.pW_X pWIn(

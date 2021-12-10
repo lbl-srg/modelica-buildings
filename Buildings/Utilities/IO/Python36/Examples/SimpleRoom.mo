@@ -28,7 +28,7 @@ model SimpleRoom
     amplitude=5,
     offset=283.15,
     y(unit="K", displayUnit="degC"),
-    freqHz=1/86400,
+    f=1/86400,
     phase=-1.5707963267949) "Ambient temperature"
     annotation (Placement(transformation(extent={{-80,30},{-60,50}})));
 equation

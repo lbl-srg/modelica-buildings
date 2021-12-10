@@ -1,6 +1,6 @@
 within Buildings.BoundaryConditions.GroundTemperature;
 model UndisturbedSoilTemperature "Undisturbed soil temperature"
-  parameter Modelica.SIunits.Length dep "Depth";
+  parameter Modelica.Units.SI.Length dep "Depth";
 
   parameter Boolean useNFac = false
     "= true, use n-factors to correct climatic constants";
@@ -20,27 +20,23 @@ model UndisturbedSoilTemperature "Undisturbed soil temperature"
   replaceable parameter ClimaticConstants.Generic
     cliCon "Surface temperature climatic conditions";
 
-  Modelica.SIunits.Temperature T
-    "Undisturbed soil temperature at depth dep";
+  Modelica.Units.SI.Temperature T "Undisturbed soil temperature at depth dep";
 
 protected
-  constant Modelica.SIunits.Angle pi = Modelica.Constants.pi;
-  constant Modelica.SIunits.Duration Year = 365.2422*24*60*60
+  constant Modelica.Units.SI.Angle pi=Modelica.Constants.pi;
+  constant Modelica.Units.SI.Duration Year=365.2422*24*60*60
     "Annual period length";
 
-  parameter Modelica.SIunits.Length corDep = if useCon
-    then dep + soiDat.k / hSur
-    else dep
-    "Convection-corrected depth";
+  parameter Modelica.Units.SI.Length corDep=if useCon then dep + soiDat.k/hSur
+       else dep "Convection-corrected depth";
   parameter ClimaticConstants.Generic corCliCon= if useNFac
     then BaseClasses.surfaceTemperature(cliCon=cliCon, nFacTha=nFacTha, nFacFre=nFacFre)
     else cliCon
     "<i>n</i>-factor corrected climatic constants";
 
-  parameter Modelica.SIunits.ThermalDiffusivity
-    soiDif = soiDat.k / soiDat.c / soiDat.d "Soil diffusivity";
-  parameter Modelica.SIunits.Duration
-    timLag = corCliCon.sinPha
+  parameter Modelica.Units.SI.ThermalDiffusivity soiDif=soiDat.k/soiDat.c/
+      soiDat.d "Soil diffusivity";
+  parameter Modelica.Units.SI.Duration timLag=corCliCon.sinPha
     "Start time of surface temperature sinusoid";
   parameter Real pha = - corDep * (pi/soiDif/Year)^0.5
     "Phase angle of ground temperature sinusoid";

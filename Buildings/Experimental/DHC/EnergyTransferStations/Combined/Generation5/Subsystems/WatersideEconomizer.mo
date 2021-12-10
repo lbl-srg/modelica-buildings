@@ -12,51 +12,50 @@ model WatersideEconomizer
     "Record with performance data for primary pump"
     annotation (Dialog(enable=not have_val1),choicesAllMatching=true,
     Placement(transformation(extent={{-40,-140},{-20,-120}})));
-  parameter Modelica.SIunits.PressureDifference dp1Hex_nominal(displayUnit="Pa")
-    "Nominal pressure drop across heat exchanger on district side"
+  parameter Modelica.Units.SI.PressureDifference dp1Hex_nominal(displayUnit=
+        "Pa") "Nominal pressure drop across heat exchanger on district side"
     annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.SIunits.PressureDifference dp2Hex_nominal(displayUnit="Pa")
-    "Nominal pressure drop across heat exchanger on building side"
+  parameter Modelica.Units.SI.PressureDifference dp2Hex_nominal(displayUnit=
+        "Pa") "Nominal pressure drop across heat exchanger on building side"
     annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.SIunits.PressureDifference dpVal1_nominal(
-    displayUnit="Pa")=if have_val1 then dp1Hex_nominal/2 else 0
+  parameter Modelica.Units.SI.PressureDifference dpVal1_nominal(displayUnit=
+        "Pa") = if have_val1 then dp1Hex_nominal/2 else 0
     "Nominal pressure drop of primary control valve"
-    annotation (Dialog(enable=have_val1,group="Nominal condition"));
-  parameter Modelica.SIunits.PressureDifference dpVal2_nominal(
-    displayUnit="Pa")=dp2Hex_nominal/10
+    annotation (Dialog(enable=have_val1, group="Nominal condition"));
+  parameter Modelica.Units.SI.PressureDifference dpVal2_nominal(displayUnit=
+        "Pa") = dp2Hex_nominal/10
     "Nominal pressure drop of heat exchanger bypass valve"
     annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.SIunits.HeatFlowRate Q_flow_nominal
+  parameter Modelica.Units.SI.HeatFlowRate Q_flow_nominal
     "Nominal heat flow rate (from district to building)"
     annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.SIunits.Temperature T_a1_nominal
+  parameter Modelica.Units.SI.Temperature T_a1_nominal
     "Nominal water inlet temperature on district side"
     annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.SIunits.Temperature T_b1_nominal
+  parameter Modelica.Units.SI.Temperature T_b1_nominal
     "Nominal water outlet temperature on district side"
     annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.SIunits.Temperature T_a2_nominal
+  parameter Modelica.Units.SI.Temperature T_a2_nominal
     "Nominal water inlet temperature on building side"
     annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.SIunits.Temperature T_b2_nominal
+  parameter Modelica.Units.SI.Temperature T_b2_nominal
     "Nominal water outlet temperature on building side"
     annotation (Dialog(group="Nominal condition"));
   parameter Real y1Min(final unit="1")=0.05
     "Minimum pump flow rate or valve opening for temperature measurement (fractional)"
     annotation (Dialog(group="Controls"));
-  parameter Modelica.SIunits.TemperatureDifference dTEna = 1
+  parameter Modelica.Units.SI.TemperatureDifference dTEna=1
     "Minimum delta-T above predicted heat exchanger leaving water temperature to enable WSE"
     annotation (Dialog(group="Controls"));
-  parameter Modelica.SIunits.TemperatureDifference dTDis = 0.5
+  parameter Modelica.Units.SI.TemperatureDifference dTDis=0.5
     "Minimum delta-T across heat exchanger before disabling WSE"
     annotation (Dialog(group="Controls"));
   parameter Real k(
     min=0)=1
     "Gain of controller"
     annotation (Dialog(group="Controls"));
-  parameter Modelica.SIunits.Time Ti(
-    min=Buildings.Controls.OBC.CDL.Constants.small)=60
-    "Time constant of integrator block"
+  parameter Modelica.Units.SI.Time Ti(min=Buildings.Controls.OBC.CDL.Constants.small)
+     = 60 "Time constant of integrator block"
     annotation (Dialog(group="Controls"));
   // IO CONNECTORS
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput PPum(

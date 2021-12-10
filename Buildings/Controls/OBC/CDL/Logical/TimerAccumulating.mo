@@ -59,8 +59,7 @@ equation
     entryTime=pre(entryTime);
     yAcc=pre(y);
   end when;
-  y=
-    if u then
+  y=if u then
       yAcc+time-entryTime
     else
       yAcc;

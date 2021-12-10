@@ -50,7 +50,8 @@ equation
   /* Define y=ySample with an infinitesimal delay to break potential
        algebraic loops if both the continuous and the discrete part have
        direct feedthrough
-    */y=pre(ySample);
+    */
+      y=pre(ySample);
   annotation (
     defaultComponentName="zerOrdHol",
     Icon(

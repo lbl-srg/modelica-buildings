@@ -1,6 +1,7 @@
 within Buildings.Controls.DemandResponse.BaseClasses;
 block BaselinePrediction "Predicts the baseline consumption"
-  extends Buildings.Controls.DemandResponse.BaseClasses.PartialDemandResponse;
+  extends Buildings.Controls.DemandResponse.BaseClasses.PartialDemandResponse(nIn=1,
+      nOut=1);
 
   parameter Integer nHis(min=1) = 10 "Number of history terms to be stored";
 

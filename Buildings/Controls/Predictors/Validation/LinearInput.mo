@@ -24,8 +24,8 @@ model LinearInput
   Modelica.Blocks.Continuous.Integrator integrator
     "Integrator to compute energy from power"
     annotation (Placement(transformation(extent={{0,-30},{20,-10}})));
-  Modelica.Blocks.Sources.RealExpression TOutFut[nPre - 1](each y=293.15) if
-       nPre > 1 "Prediction of future outside temperatures"
+  Modelica.Blocks.Sources.RealExpression TOutFut[nPre - 1](each y=293.15)
+    if nPre > 1 "Prediction of future outside temperatures"
     annotation (Placement(transformation(extent={{30,-30},{50,-10}})));
 equation
   connect(POffSet.y, PCon.u1) annotation (Line(

@@ -12,7 +12,8 @@ block Nor
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
 equation
-  y=not(u1 or u2);
+  y=not
+       (u1 or u2);
   annotation (
     defaultComponentName="nor",
     Icon(

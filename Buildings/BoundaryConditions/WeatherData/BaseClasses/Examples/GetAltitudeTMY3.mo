@@ -4,8 +4,7 @@ model GetAltitudeTMY3 "Test model to get Altitude of TMY3"
   parameter String filNam = Modelica.Utilities.Files.loadResource(
   "modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos")
     "Name of weather data file";
-  Modelica.SIunits.Length alt
-    "Altitude of TMY3 location";
+  Modelica.Units.SI.Length alt "Altitude of TMY3 location";
 equation
   alt = Buildings.BoundaryConditions.WeatherData.BaseClasses.getAltitudeLocationTMY3(
   filNam);

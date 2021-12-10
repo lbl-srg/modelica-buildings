@@ -6,10 +6,10 @@ model EquationFitReversible
   parameter Data.EquationFitReversible.Trane_Axiom_EXW240 per
    "Reverse heat pump performance data"
    annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
-  parameter Modelica.SIunits.MassFlowRate mSou_flow_nominal=per.hea.mSou_flow
-   "Source heat exchanger nominal mass flow rate";
-  parameter Modelica.SIunits.MassFlowRate mLoa_flow_nominal=per.hea.mLoa_flow
-   "Load heat exchanger nominal mass flow rate";
+  parameter Modelica.Units.SI.MassFlowRate mSou_flow_nominal=per.hea.mSou_flow
+    "Source heat exchanger nominal mass flow rate";
+  parameter Modelica.Units.SI.MassFlowRate mLoa_flow_nominal=per.hea.mLoa_flow
+    "Load heat exchanger nominal mass flow rate";
 
   Buildings.Fluid.HeatPumps.EquationFitReversible heaPum(
     redeclare package Medium1 = Medium,

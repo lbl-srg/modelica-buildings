@@ -5,10 +5,10 @@ model ChilledWaterBypass
   parameter Integer numChi(
     min=1)
     "Number of chillers";
-  parameter Modelica.SIunits.MassFlowRate mMin_flow
+  parameter Modelica.Units.SI.MassFlowRate mMin_flow
     "Minimum mass flow rate of single chiller";
   parameter Real k(min=0) = 0.06 "Gain of controller";
-  parameter Modelica.SIunits.Time Ti(min=Modelica.Constants.small)=60
+  parameter Modelica.Units.SI.Time Ti(min=Modelica.Constants.small) = 60
     "Time constant of Integrator block" annotation (Dialog(enable=
           controllerType == Modelica.Blocks.Types.SimpleController.PI or
           controllerType == Modelica.Blocks.Types.SimpleController.PID));

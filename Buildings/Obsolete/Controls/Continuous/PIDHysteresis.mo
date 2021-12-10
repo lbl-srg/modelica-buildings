@@ -18,10 +18,10 @@ model PIDHysteresis
     annotation (Dialog(group="Set point tracking"));
   parameter Real k=1 "Gain of controller"
     annotation (Dialog(group="Set point tracking"));
-  parameter Modelica.SIunits.Time Ti "Time constant of Integrator block"
+  parameter Modelica.Units.SI.Time Ti "Time constant of Integrator block"
     annotation (Dialog(group="Set point tracking"));
-  parameter Modelica.SIunits.Time Td "Time constant of Derivative block"
-      annotation (Dialog(group="Set point tracking"));
+  parameter Modelica.Units.SI.Time Td "Time constant of Derivative block"
+    annotation (Dialog(group="Set point tracking"));
   parameter Real yMax=1 "Upper limit of output"
     annotation (Dialog(group="Set point tracking"));
   parameter Real yMin=0 "Lower limit of output"
@@ -38,7 +38,7 @@ model PIDHysteresis
     "Set to true for reverse acting, or false for direct acting control action"
     annotation (Dialog(group="Set point tracking"));
 
-  parameter Modelica.Blocks.Types.InitPID initType=Modelica.Blocks.Types.InitPID.DoNotUse_InitialIntegratorState
+  parameter Modelica.Blocks.Types.Init initType=Modelica.Blocks.Types.Init.InitialState
     "Type of initialization (1: no init, 2: steady state, 3: initial state, 4: initial output)"
     annotation (Dialog(group="Initialization"));
   parameter Real xi_start=0

@@ -1,4 +1,4 @@
-within Buildings.Fluid.Boilers.Data;
+﻿within Buildings.Fluid.Boilers.Data;
 package Lochinvar "Package containing data for Lochinvar boilers"
   extends Modelica.Icons.Package;
 

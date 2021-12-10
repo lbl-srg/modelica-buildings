@@ -33,8 +33,7 @@ protected
     "Predicted time of output reaching endValue";
 
 equation
-  y=
-    if time < T then
+  y=if time < T then
       endValue-(T-time)*rate
     else
       endValue;
@@ -45,15 +44,18 @@ equation
       else
         offset;
     rate=
-      if u and(rising > 0) then
+      if u and
+              (rising > 0) then
         amplitude/rising
       else
-        if not u and(falling > 0) then
+        if not u and
+                    (falling > 0) then
           -amplitude/falling
         else
           0;
-    T=
-      if u and not(rising > 0) or not u and not(falling > 0) or not abs(amplitude) > 0 or initial() then
+    T=if u and not
+                  (rising > 0) or not u and not
+                                               (falling > 0) or not abs(amplitude) > 0 or initial() then
         time
       else
         time+(endValue-pre(y))/rate;

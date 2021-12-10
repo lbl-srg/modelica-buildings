@@ -20,10 +20,10 @@ protected
     final delayTime=duration)
     "Delay for the on signal"
     annotation (Placement(transformation(extent={{10,10},{30,30}})));
-  Modelica.StateGraph.InitialStep initialStep
+  Modelica.StateGraph.InitialStep initialStep(nIn=1, nOut=1)
     "Initial step"
     annotation (Placement(transformation(extent={{-80,50},{-60,70}})));
-  Modelica.StateGraph.StepWithSignal outputTrue
+  Modelica.StateGraph.StepWithSignal outputTrue(nIn=1, nOut=1)
     "Holds the output at true"
     annotation (Placement(transformation(extent={{-10,50},{10,70}})));
   Modelica.StateGraph.TransitionWithSignal toOutputTrue

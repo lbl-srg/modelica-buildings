@@ -37,15 +37,14 @@ equation
         t_past
       else
         time+delayTime;
-    y=
-      if not(delayOnInit and delayTime > 0) then
+    y=if not
+            (delayOnInit and delayTime > 0) then
         u
       else
         false;
   elsewhen u then
     t_next=time+delayTime;
-    y=
-      if delayTime > 0 then
+    y=if delayTime > 0 then
         false
       else
         true;

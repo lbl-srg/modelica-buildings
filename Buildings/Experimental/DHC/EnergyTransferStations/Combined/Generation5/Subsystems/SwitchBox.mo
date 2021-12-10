@@ -3,13 +3,12 @@ model SwitchBox
   "Model for mass flow rate redirection with three-port two-position directional valves"
   replaceable package Medium = Modelica.Media.Interfaces.PartialMedium
     "Medium model";
-  parameter Modelica.SIunits.MassFlowRate m_flow_nominal
-    "Nominal mass flow rate"
-    annotation(Dialog(group="Nominal condition"));
-  parameter Modelica.SIunits.PressureDifference dpValve_nominal(
-    min=0, displayUnit="Pa") = 5000
-    "Valve pressure drop at nominal conditions"
-    annotation(Dialog(group="Nominal condition"));
+  parameter Modelica.Units.SI.MassFlowRate m_flow_nominal
+    "Nominal mass flow rate" annotation (Dialog(group="Nominal condition"));
+  parameter Modelica.Units.SI.PressureDifference dpValve_nominal(
+    min=0,
+    displayUnit="Pa") = 5000 "Valve pressure drop at nominal conditions"
+    annotation (Dialog(group="Nominal condition"));
   parameter Real trueHoldDuration(
     final unit="s") = 60
     "true hold duration";

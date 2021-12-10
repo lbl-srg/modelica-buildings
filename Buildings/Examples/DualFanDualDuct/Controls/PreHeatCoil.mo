@@ -6,7 +6,7 @@ model PreHeatCoil "Controller for preheat coil"
     yMax=1,
     yMin=0,
     Td=60,
-    initType=Modelica.Blocks.Types.InitPID.InitialState,
+    initType=Modelica.Blocks.Types.Init.InitialState,
     Ti=120,
     strict=true,
     k=0.1) "Controller for pre-heating coil"
@@ -39,14 +39,16 @@ model PreHeatCoil "Controller for preheat coil"
   Modelica.Blocks.Logical.Switch swiValOp
     "Switch to close valve if pump is not running"
     annotation (Placement(transformation(extent={{60,-70},{80,-50}})));
-  Modelica.StateGraph.InitialStep pumOff "Pump is off"
+  Modelica.StateGraph.InitialStep pumOff(nIn=1, nOut=1)
+                                         "Pump is off"
     annotation (Placement(transformation(extent={{-40,60},{-20,80}})));
   Modelica.StateGraph.TransitionWithSignal toOn "Switch pump on"
     annotation (Placement(transformation(extent={{-10,60},{10,80}})));
     inner Modelica.StateGraph.StateGraphRoot
                          stateGraphRoot
       annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
-  Modelica.StateGraph.StepWithSignal pumOn "Pump on"
+  Modelica.StateGraph.StepWithSignal pumOn(nIn=1, nOut=1)
+                                           "Pump on"
     annotation (Placement(transformation(extent={{20,60},{40,80}})));
   Modelica.StateGraph.TransitionWithSignal toOff(enableTimer=true, waitTime=30*
         60) "Switch pump off"

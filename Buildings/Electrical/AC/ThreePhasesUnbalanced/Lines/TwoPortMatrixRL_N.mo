@@ -2,84 +2,87 @@ within Buildings.Electrical.AC.ThreePhasesUnbalanced.Lines;
 model TwoPortMatrixRL_N
   "Model of an RL line parameterized with impedance matrices and neutral line"
   extends Buildings.Electrical.AC.ThreePhasesUnbalanced.Interfaces.TwoPort_N;
-  parameter Modelica.SIunits.Voltage V_nominal(min=0, start=480)
-    "Nominal voltage (V_nominal >= 0)"  annotation(Evaluate=true, Dialog(group="Nominal conditions"));
-  parameter Modelica.SIunits.Impedance Z11[2]
+  parameter Modelica.Units.SI.Voltage V_nominal(min=0, start=480)
+    "Nominal voltage (V_nominal >= 0)"
+    annotation (Evaluate=true, Dialog(group="Nominal conditions"));
+  parameter Modelica.Units.SI.Impedance Z11[2]
     "Element [1,1] of impedance matrix";
-  parameter Modelica.SIunits.Impedance Z12[2]
+  parameter Modelica.Units.SI.Impedance Z12[2]
     "Element [1,2] of impedance matrix";
-  parameter Modelica.SIunits.Impedance Z13[2]
+  parameter Modelica.Units.SI.Impedance Z13[2]
     "Element [1,3] of impedance matrix";
-  parameter Modelica.SIunits.Impedance Z14[2]
+  parameter Modelica.Units.SI.Impedance Z14[2]
     "Element [1,4] of impedance matrix";
-  parameter Modelica.SIunits.Impedance Z22[2]
+  parameter Modelica.Units.SI.Impedance Z22[2]
     "Element [2,2] of impedance matrix";
-  parameter Modelica.SIunits.Impedance Z23[2]
+  parameter Modelica.Units.SI.Impedance Z23[2]
     "Element [2,3] of impedance matrix";
-  parameter Modelica.SIunits.Impedance Z24[2]
+  parameter Modelica.Units.SI.Impedance Z24[2]
     "Element [2,4] of impedance matrix";
-  parameter Modelica.SIunits.Impedance Z33[2]
+  parameter Modelica.Units.SI.Impedance Z33[2]
     "Element [3,3] of impedance matrix";
-  parameter Modelica.SIunits.Impedance Z34[2]
+  parameter Modelica.Units.SI.Impedance Z34[2]
     "Element [3,4] of impedance matrix";
-  parameter Modelica.SIunits.Impedance Z44[2]
+  parameter Modelica.Units.SI.Impedance Z44[2]
     "Element [4,4] of impedance matrix";
-  final parameter Modelica.SIunits.Impedance[2] Z21 = Z12
+  final parameter Modelica.Units.SI.Impedance[2] Z21=Z12
     "Element [2,1] of impedance matrix";
-  final parameter Modelica.SIunits.Impedance[2] Z31 = Z13
+  final parameter Modelica.Units.SI.Impedance[2] Z31=Z13
     "Element [3,1] of impedance matrix";
-  final parameter Modelica.SIunits.Impedance[2] Z32 = Z23
+  final parameter Modelica.Units.SI.Impedance[2] Z32=Z23
     "Element [3,1] of impedance matrix";
-  final parameter Modelica.SIunits.Impedance[2] Z41 = Z14
+  final parameter Modelica.Units.SI.Impedance[2] Z41=Z14
     "Element [4,1] of impedance matrix";
-  final parameter Modelica.SIunits.Impedance[2] Z42 = Z24
+  final parameter Modelica.Units.SI.Impedance[2] Z42=Z24
     "Element [4,2] of impedance matrix";
-  final parameter Modelica.SIunits.Impedance[2] Z43 = Z34
+  final parameter Modelica.Units.SI.Impedance[2] Z43=Z34
     "Element [4,3] of impedance matrix";
 
-  Modelica.SIunits.Current i1[2](
-    each stateSelect = StateSelect.prefer) = terminal_n.phase[1].i
-    "Current in line 1";
-  Modelica.SIunits.Current i2[2](
-    each stateSelect = StateSelect.prefer) = terminal_n.phase[2].i
-    "Current in line 2";
-  Modelica.SIunits.Current i3[2](
-    each stateSelect = StateSelect.prefer) = terminal_n.phase[3].i
-    "Current in line 3";
-  Modelica.SIunits.Current i4[2](
-    each stateSelect = StateSelect.prefer) = terminal_n.phase[4].i
-    "Current in line 4 (neutral)";
-  Modelica.SIunits.Voltage v1_n[2](
-    start = Buildings.Electrical.PhaseSystems.OnePhase.phaseVoltages(V_nominal/sqrt(3), phi= 0),
-    each stateSelect = StateSelect.never) = terminal_n.phase[1].v
+  Modelica.Units.SI.Current i1[2](each stateSelect=StateSelect.prefer) =
+    terminal_n.phase[1].i "Current in line 1";
+  Modelica.Units.SI.Current i2[2](each stateSelect=StateSelect.prefer) =
+    terminal_n.phase[2].i "Current in line 2";
+  Modelica.Units.SI.Current i3[2](each stateSelect=StateSelect.prefer) =
+    terminal_n.phase[3].i "Current in line 3";
+  Modelica.Units.SI.Current i4[2](each stateSelect=StateSelect.prefer) =
+    terminal_n.phase[4].i "Current in line 4 (neutral)";
+  Modelica.Units.SI.Voltage v1_n[2](
+    start=Buildings.Electrical.PhaseSystems.OnePhase.phaseVoltages(V_nominal/
+        sqrt(3), phi=0),
+    each stateSelect=StateSelect.never) = terminal_n.phase[1].v
     "Voltage in line 1 at connector N";
-  Modelica.SIunits.Voltage v2_n[2](
-    start = Buildings.Electrical.PhaseSystems.OnePhase.phaseVoltages(V_nominal/sqrt(3), phi= -2*Modelica.Constants.pi/3),
-    each stateSelect = StateSelect.never) = terminal_n.phase[2].v
+  Modelica.Units.SI.Voltage v2_n[2](
+    start=Buildings.Electrical.PhaseSystems.OnePhase.phaseVoltages(V_nominal/
+        sqrt(3), phi=-2*Modelica.Constants.pi/3),
+    each stateSelect=StateSelect.never) = terminal_n.phase[2].v
     "Voltage in line 2 at connector N";
-  Modelica.SIunits.Voltage v3_n[2](
-    start = Buildings.Electrical.PhaseSystems.OnePhase.phaseVoltages(V_nominal/sqrt(3), phi= 2*Modelica.Constants.pi/3),
-    each stateSelect = StateSelect.never) = terminal_n.phase[3].v
+  Modelica.Units.SI.Voltage v3_n[2](
+    start=Buildings.Electrical.PhaseSystems.OnePhase.phaseVoltages(V_nominal/
+        sqrt(3), phi=2*Modelica.Constants.pi/3),
+    each stateSelect=StateSelect.never) = terminal_n.phase[3].v
     "Voltage in line 3 at connector N";
-  Modelica.SIunits.Voltage v4_n[2](
-    start = Buildings.Electrical.PhaseSystems.OnePhase.phaseVoltages(0),
-    each stateSelect = StateSelect.never) = terminal_n.phase[4].v
+  Modelica.Units.SI.Voltage v4_n[2](
+    start=Buildings.Electrical.PhaseSystems.OnePhase.phaseVoltages(0),
+    each stateSelect=StateSelect.never) = terminal_n.phase[4].v
     "Voltage in line 4 (neutral) at connector N";
-  Modelica.SIunits.Voltage v1_p[2](
-    start = Buildings.Electrical.PhaseSystems.OnePhase.phaseVoltages(V_nominal/sqrt(3), phi= 0),
-    each stateSelect = StateSelect.never) = terminal_p.phase[1].v
+  Modelica.Units.SI.Voltage v1_p[2](
+    start=Buildings.Electrical.PhaseSystems.OnePhase.phaseVoltages(V_nominal/
+        sqrt(3), phi=0),
+    each stateSelect=StateSelect.never) = terminal_p.phase[1].v
     "Voltage in line 1 at connector P";
-  Modelica.SIunits.Voltage v2_p[2](
-    start = Buildings.Electrical.PhaseSystems.OnePhase.phaseVoltages(V_nominal/sqrt(3), phi= -2*Modelica.Constants.pi/3),
-    each stateSelect = StateSelect.never) = terminal_p.phase[2].v
+  Modelica.Units.SI.Voltage v2_p[2](
+    start=Buildings.Electrical.PhaseSystems.OnePhase.phaseVoltages(V_nominal/
+        sqrt(3), phi=-2*Modelica.Constants.pi/3),
+    each stateSelect=StateSelect.never) = terminal_p.phase[2].v
     "Voltage in line 2 at connector P";
-  Modelica.SIunits.Voltage v3_p[2](
-    start = Buildings.Electrical.PhaseSystems.OnePhase.phaseVoltages(V_nominal/sqrt(3), phi= 2*Modelica.Constants.pi/3),
-    each stateSelect = StateSelect.never) = terminal_p.phase[3].v
+  Modelica.Units.SI.Voltage v3_p[2](
+    start=Buildings.Electrical.PhaseSystems.OnePhase.phaseVoltages(V_nominal/
+        sqrt(3), phi=2*Modelica.Constants.pi/3),
+    each stateSelect=StateSelect.never) = terminal_p.phase[3].v
     "Voltage in line 3 at connector P";
-  Modelica.SIunits.Voltage v4_p[2](
-    start = Buildings.Electrical.PhaseSystems.OnePhase.phaseVoltages(0),
-    each stateSelect = StateSelect.never) = terminal_p.phase[4].v
+  Modelica.Units.SI.Voltage v4_p[2](
+    start=Buildings.Electrical.PhaseSystems.OnePhase.phaseVoltages(0),
+    each stateSelect=StateSelect.never) = terminal_p.phase[4].v
     "Voltage in line 4 (neutral) at connector P";
 
 protected

@@ -1,11 +1,11 @@
-within Buildings.Occupants.Office.Windows;
+﻿within Buildings.Occupants.Office.Windows;
 model Herkel2008WindowsTiltedOpen "A model to predict occupants' window behavior with outdoor temperature for tilted-open 
 large windows"
   extends Modelica.Blocks.Icons.DiscreteBlock;
   parameter Real A = 0.08 "Slope of the logistic relation";
   parameter Real B = -3.13 "Intercept of the logistic relation";
   parameter Integer seed = 30 "Seed for the random number generator";
-  parameter Modelica.SIunits.Time samplePeriod = 120 "Sample period";
+  parameter Modelica.Units.SI.Time samplePeriod=120 "Sample period";
 
   Modelica.Blocks.Interfaces.RealInput TOut(
     final unit="K",
@@ -23,7 +23,8 @@ large windows"
     max=1) "Probability of window opened";
 
 protected
-  parameter Modelica.SIunits.Time t0(final fixed = false) "First sample time instant";
+  parameter Modelica.Units.SI.Time t0(final fixed=false)
+    "First sample time instant";
   output Boolean sampleTrigger "True, if sample time instant";
   Real curSeed "Current value for seed as a real-valued variable";
 initial equation

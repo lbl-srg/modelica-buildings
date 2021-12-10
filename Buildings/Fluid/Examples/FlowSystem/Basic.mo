@@ -109,8 +109,7 @@ model Basic "Example implementation of flow system"
   Modelica.Blocks.Sources.Sine sine(
     amplitude=0.5,
     offset=0.5,
-    freqHz=0.001)
-    "Valve control signal"
+    f=0.001) "Valve control signal"
     annotation (Placement(transformation(extent={{-140,20},{-120,40}})));
   Buildings.Fluid.Actuators.Valves.ThreeWayLinear valSouth(
     redeclare package Medium = Medium,

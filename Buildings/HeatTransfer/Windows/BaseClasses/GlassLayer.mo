@@ -8,9 +8,9 @@ model GlassLayer "Model for a glass layer of a window assembly"
   constant Boolean homotopyInitialization = true "= true, use homotopy method"
     annotation(HideResult=true);
 
-  parameter Modelica.SIunits.Length x "Material thickness";
+  parameter Modelica.Units.SI.Length x "Material thickness";
 
-  parameter Modelica.SIunits.ThermalConductivity k "Thermal conductivity";
+  parameter Modelica.Units.SI.ThermalConductivity k "Thermal conductivity";
 
   Modelica.Blocks.Interfaces.RealInput u
     "Input connector, used to scale the surface area to take into account an operable shading device"
@@ -38,11 +38,11 @@ protected
     "4th power of temperature at surface a";
  Real T4_b(min=1E8, unit="K4", start=293.15^4, nominal=1E10)
     "4th power of temperature at surface b";
- Modelica.SIunits.HeatFlowRate E_a(min=0, nominal=1E2)
+  Modelica.Units.SI.HeatFlowRate E_a(min=0, nominal=1E2)
     "Emissive power of surface a";
- Modelica.SIunits.HeatFlowRate E_b(min=0, nominal=1E2)
+  Modelica.Units.SI.HeatFlowRate E_b(min=0, nominal=1E2)
     "Emissive power of surface b";
- final parameter Modelica.SIunits.ThermalResistance R = x/2/k/A
+  final parameter Modelica.Units.SI.ThermalResistance R=x/2/k/A
     "Thermal resistance from surface of glass to center of glass";
 
 initial equation

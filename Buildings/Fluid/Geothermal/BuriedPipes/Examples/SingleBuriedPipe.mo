@@ -1,4 +1,4 @@
-within Buildings.Fluid.Geothermal.BuriedPipes.Examples;
+﻿within Buildings.Fluid.Geothermal.BuriedPipes.Examples;
 model SingleBuriedPipe "Example model of a single buried pipe"
   extends Modelica.Icons.Example;
 
@@ -8,7 +8,7 @@ model SingleBuriedPipe "Example model of a single buried pipe"
   replaceable package Medium = Buildings.Media.Water "Medium in the pipe"
     annotation (choicesAllMatching=true);
 
-  parameter Modelica.SIunits.Temperature Tin = 293.15 "Mean inlet temperature";
+  parameter Modelica.Units.SI.Temperature Tin=293.15 "Mean inlet temperature";
 
   replaceable parameter Buildings.HeatTransfer.Data.Soil.Generic
     soiDat(k=1.58,c=1150,d=1600) "Soil thermal properties"
@@ -42,7 +42,7 @@ model SingleBuriedPipe "Example model of a single buried pipe"
 
   Modelica.Blocks.Sources.Sine TInlSig(
     amplitude=5,
-    freqHz=1/180/24/60/60,
+    f=1/180/24/60/60,
     offset=Tin) "Pipe inlet temperature signal"
     annotation (Placement(transformation(extent={{-120,-10},{-100,10}})));
   Sources.MassFlowSource_T sou(

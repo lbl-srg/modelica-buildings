@@ -42,7 +42,8 @@ initial equation
       2) loop
       assert(
         (abs(
-          table[i,j]) < Constants.small) or(abs(
+          table[i,j]) < Constants.small) or
+                                           (abs(
           table[i,j]-1.0) < Constants.small),
         "Table value table["+String(i)+", "+String(j)+"] = "+String(
           table[i,j])+" does not equal either 0 or 1.");
@@ -145,8 +146,7 @@ Initial CDL implementation based on continuous time table implementation in CDL.
           fillPattern=FillPattern.Solid,
           extent={{-48.0,-50.0},{2.0,70.0}}),
         Line(
-          points={{-48.0,-50.0},{-48.0,70.0},{52.0,70.0},{52.0,-50.0},{-48.0,-50.0},{-48.0,-20.0},{52.0,-20.0},{52.0,10.0},{-48.0,10.0},{-48.0,40.0},{52.0,40.0},{52.0,70.0},{2.0,70.0},{2.0,-51.0}})
-          }),
+          points={{-48.0,-50.0},{-48.0,70.0},{52.0,70.0},{52.0,-50.0},{-48.0,-50.0},{-48.0,-20.0},{52.0,-20.0},{52.0,10.0},{-48.0,10.0},{-48.0,40.0},{52.0,40.0},{52.0,70.0},{2.0,70.0},{2.0,-51.0}})}),
     Diagram(
       coordinateSystem(
         extent={{-100,-100},{100,100}})));

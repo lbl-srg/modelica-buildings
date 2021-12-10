@@ -59,7 +59,8 @@ protected
         Modelica.Blocks.Types.Extrapolation.Periodic,
     final offset=offset,
     final startTime=
-      if(extrapolation == Types.Extrapolation.Periodic) then
+      if
+        (extrapolation == Types.Extrapolation.Periodic) then
         t0
       else
         0,
@@ -331,7 +332,5 @@ Initial CDL implementation.
           fillPattern=FillPattern.Solid,
           extent={{-48.0,-50.0},{2.0,70.0}}),
         Line(
-          points={{-48.0,-50.0},{-48.0,70.0},{52.0,70.0},{52.0,-50.0},{-48.0,-50.0},{-48.0,-20.0},{52.0,-20.0},{52.0,10.0},{-48.0,10.0},{-48.0,40.0},{52.0,40.0},{52.0,70.0},{2.0,70.0},{2.0,-51.0}})
-          }));
-
+          points={{-48.0,-50.0},{-48.0,70.0},{52.0,70.0},{52.0,-50.0},{-48.0,-50.0},{-48.0,-20.0},{52.0,-20.0},{52.0,10.0},{-48.0,10.0},{-48.0,40.0},{52.0,40.0},{52.0,70.0},{2.0,70.0},{2.0,-51.0}})}));
 end TimeTable;

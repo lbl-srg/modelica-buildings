@@ -8,28 +8,23 @@ model VAVReheatBox "Supply box of a VAV system with a hot water reheat coil"
 
   parameter Boolean allowFlowReversal=true
     "= false to simplify equations, assuming, but not enforcing, no flow reversal";
-  parameter Modelica.SIunits.MassFlowRate m_flow_nominal
+  parameter Modelica.Units.SI.MassFlowRate m_flow_nominal
     "Nominal air mass flow rate";
   parameter Real ratVFloHea(start=0.3, min=0, max=1, unit="1")
     "Maximum air flow rate ratio in heating mode";
-  parameter Modelica.SIunits.Volume VRoo "Room volume";
-  parameter Modelica.SIunits.Temperature THotWatInl_nominal(
-    start=55 + 273.15,
-    displayUnit="degC")
-    "Reheat coil nominal inlet water temperature";
-  parameter Modelica.SIunits.Temperature THotWatOut_nominal(
-    start=THotWatInl_nominal-10,
-    displayUnit="degC")
+  parameter Modelica.Units.SI.Volume VRoo "Room volume";
+  parameter Modelica.Units.SI.Temperature THotWatInl_nominal(start=55 + 273.15,
+      displayUnit="degC") "Reheat coil nominal inlet water temperature";
+  parameter Modelica.Units.SI.Temperature THotWatOut_nominal(start=
+        THotWatInl_nominal - 10, displayUnit="degC")
     "Reheat coil nominal outlet water temperature";
-  parameter Modelica.SIunits.Temperature TAirInl_nominal(
-    start=12 + 273.15,
-    displayUnit="degC")
-    "Inlet air nominal temperature";
-  parameter Modelica.SIunits.HeatFlowRate QHea_flow_nominal(
-    start=m_flow_nominal * ratVFloHea * cpAir * (32 + 273.15 - TAirInl_nominal))
+  parameter Modelica.Units.SI.Temperature TAirInl_nominal(start=12 + 273.15,
+      displayUnit="degC") "Inlet air nominal temperature";
+  parameter Modelica.Units.SI.HeatFlowRate QHea_flow_nominal(start=
+        m_flow_nominal*ratVFloHea*cpAir*(32 + 273.15 - TAirInl_nominal))
     "Nominal heating heat flow rate";
-  final parameter Modelica.SIunits.MassFlowRate mHotWat_flow_nominal=
-    QHea_flow_nominal / (cpWatLiq * (THotWatInl_nominal - THotWatOut_nominal))
+  final parameter Modelica.Units.SI.MassFlowRate mHotWat_flow_nominal=
+      QHea_flow_nominal/(cpWatLiq*(THotWatInl_nominal - THotWatOut_nominal))
     "Nominal mass flow rate of hot water to reheat coil";
   Modelica.Fluid.Interfaces.FluidPort_a port_aAir(
     redeclare package Medium=MediumA)
@@ -134,11 +129,9 @@ model VAVReheatBox "Supply box of a VAV system with a hot water reheat coil"
       Placement(transformation(extent={{-140,20},{-100,60}}),
         iconTransformation(extent={{-140,10},{-100,50}})));
 protected
-  constant Modelica.SIunits.SpecificHeatCapacity cpAir=
-    Buildings.Utilities.Psychrometrics.Constants.cpAir
+  constant Modelica.Units.SI.SpecificHeatCapacity cpAir=Buildings.Utilities.Psychrometrics.Constants.cpAir
     "Air specific heat capacity";
-  constant Modelica.SIunits.SpecificHeatCapacity cpWatLiq=
-    Buildings.Utilities.Psychrometrics.Constants.cpWatLiq
+  constant Modelica.Units.SI.SpecificHeatCapacity cpWatLiq=Buildings.Utilities.Psychrometrics.Constants.cpWatLiq
     "Water specific heat capacity";
 equation
   connect(vav.y, yVAV) annotation (Line(points={{-12,10},{-48,10},{-48,80},{

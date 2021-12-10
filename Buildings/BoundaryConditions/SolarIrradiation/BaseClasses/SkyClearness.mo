@@ -20,13 +20,13 @@ block SkyClearness "Sky clearness"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
   // Set hSmall so that hSmall + deltaX < 1E-4. See info section.
 protected
-  constant Modelica.SIunits.Irradiance hSmall = 0.5e-4
+  constant Modelica.Units.SI.Irradiance hSmall=0.5e-4
     "Small radiation for regularization";
-  constant Modelica.SIunits.Irradiance deltaX = hSmall/2
+  constant Modelica.Units.SI.Irradiance deltaX=hSmall/2
     "Small radiation for regularization";
   constant Real k = 5.534e-6*(180/Modelica.Constants.pi)^3 "Constant factor";
   Real tmp1 "Intermediate variable";
-  Modelica.SIunits.Irradiance HDifHorBou
+  Modelica.Units.SI.Irradiance HDifHorBou
     "Diffuse horizontal irradiation, bounded away from zero";
 equation
   tmp1 =  k*zen^3;

@@ -52,7 +52,7 @@ model TwoIdenticalZones
       "Medium model";
     parameter String zoneName=""
       "Name of the thermal zone";
-    parameter Modelica.SIunits.MassFlowRate mOut_flow=0.3/3600*zon.V*Buildings.Media.Air.dStp
+    parameter Modelica.Units.SI.MassFlowRate mOut_flow=0.3/3600*zon.V*Buildings.Media.Air.dStp
       "Outside air mass flow rate with 0.3 ACH";
     Modelica.Blocks.Sources.Constant qConGai_flow(
       k=0)

@@ -18,8 +18,7 @@ initial equation
 
 equation
   when {trigger,reset} then
-    y=
-      if reset then
+    y=if reset then
         y_start
       else
         pre(y)+1;

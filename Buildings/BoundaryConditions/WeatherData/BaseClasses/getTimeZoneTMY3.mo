@@ -5,7 +5,7 @@ function getTimeZoneTMY3 "Gets the time zone from a TMY3 weather data file"
  annotation (Dialog(
         loadSelector(filter="Weather files (*.mos)", caption=
             "Select weather file")));
- output Modelica.SIunits.Time timZon "Time zone from the weather file";
+  output Modelica.Units.SI.Time timZon "Time zone from the weather file";
 protected
  Integer nexInd "Next index, used for error handling";
  String element "String representation of the returned element";

@@ -2,10 +2,9 @@ within Buildings.Experimental.DHC.EnergyTransferStations.Combined.Generation5.Co
 model PredictLeavingTemperature
   "Block that predicts heat exchanger leaving water temperature"
   extends Modelica.Blocks.Icons.Block;
-  parameter Modelica.SIunits.TemperatureDifference dTApp_nominal
-    "Heat exchanger approach"
-    annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.SIunits.MassFlowRate m2_flow_nominal
+  parameter Modelica.Units.SI.TemperatureDifference dTApp_nominal
+    "Heat exchanger approach" annotation (Dialog(group="Nominal condition"));
+  parameter Modelica.Units.SI.MassFlowRate m2_flow_nominal
     "Heat exchanger secondary mass flow rate"
     annotation (Dialog(group="Nominal condition"));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput T1WatEnt(

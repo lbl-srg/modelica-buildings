@@ -11,8 +11,7 @@ block MixingValveControl
     final min=0,
     final unit="1")=0.1
     "Gain of controller";
-  parameter Modelica.SIunits.Time Ti(
-    final min=Modelica.Constants.small)=10
+  parameter Modelica.Units.SI.Time Ti(final min=Modelica.Constants.small) = 10
     "Time constant of integrator block";
   // IO CONNECTORS
   Modelica.Blocks.Interfaces.RealInput TSupSet(

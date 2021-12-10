@@ -70,9 +70,7 @@ protected
     "Class to communicate with EnergyPlus";
   Real yEP[nY]
     "Output of exchange function";
-  Modelica.SIunits.Time tNext(
-    start=startTime,
-    fixed=true)
+  Modelica.Units.SI.Time tNext(start=startTime, fixed=true)
     "Next sampling time";
 
 initial equation

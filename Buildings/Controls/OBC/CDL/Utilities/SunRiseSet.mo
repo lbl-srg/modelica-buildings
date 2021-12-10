@@ -129,6 +129,7 @@ protected
     end while;
     houAng := Modelica.Math.acos(cosHou);
   end nextHourAngle;
+
   function sunRise
     "Output the next sunrise time"
     input Real t(
@@ -185,6 +186,7 @@ protected
       nextSunRise := sunRise;
     end if;
   end sunRise;
+
   function sunSet
     "Output the next sunset time"
     input Real t(

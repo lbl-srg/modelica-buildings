@@ -1,4 +1,4 @@
-within Buildings.Experimental.DHC.EnergyTransferStations.Combined.Generation5.Subsystems;
+﻿within Buildings.Experimental.DHC.EnergyTransferStations.Combined.Generation5.Subsystems;
 model HeatPump "Base subsystem with water-to-water heat pump"
   replaceable package Medium1=Modelica.Media.Interfaces.PartialMedium
     "Medium model on condenser side"
@@ -24,25 +24,24 @@ model HeatPump "Base subsystem with water-to-water heat pump"
   parameter Real COP_nominal(final unit="1")
     "Heat pump COP"
     annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.SIunits.Temperature TCon_nominal
+  parameter Modelica.Units.SI.Temperature TCon_nominal
     "Condenser outlet temperature used to compute COP_nominal"
     annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.SIunits.Temperature TEva_nominal
+  parameter Modelica.Units.SI.Temperature TEva_nominal
     "Evaporator outlet temperature used to compute COP_nominal"
     annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.SIunits.HeatFlowRate Q1_flow_nominal(min=0)
-    "Heating heat flow rate"
+  parameter Modelica.Units.SI.HeatFlowRate Q1_flow_nominal(min=0)
+    "Heating heat flow rate" annotation (Dialog(group="Nominal condition"));
+  parameter Modelica.Units.SI.TemperatureDifference dT1_nominal(final min=0) =
+    5 "Temperature difference condenser outlet-inlet"
     annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.SIunits.TemperatureDifference dT1_nominal(
-    final min=0) = 5 "Temperature difference condenser outlet-inlet"
+  parameter Modelica.Units.SI.TemperatureDifference dT2_nominal(final max=0) =
+    -5 "Temperature difference evaporator outlet-inlet"
     annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.SIunits.TemperatureDifference dT2_nominal(
-    final max=0) = -5 "Temperature difference evaporator outlet-inlet"
-    annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.SIunits.Pressure dp1_nominal(displayUnit="Pa")
+  parameter Modelica.Units.SI.Pressure dp1_nominal(displayUnit="Pa")
     "Pressure difference over condenser"
     annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.SIunits.Pressure dp2_nominal(displayUnit="Pa")
+  parameter Modelica.Units.SI.Pressure dp2_nominal(displayUnit="Pa")
     "Pressure difference over evaporator"
     annotation (Dialog(group="Nominal condition"));
   parameter Boolean allowFlowReversal1=false
@@ -51,13 +50,11 @@ model HeatPump "Base subsystem with water-to-water heat pump"
   parameter Boolean allowFlowReversal2=false
     "Set to true to allow flow reversal on evaporator side"
     annotation (Dialog(tab="Assumptions"), Evaluate=true);
-  final parameter Modelica.SIunits.MassFlowRate m1_flow_nominal(min=0)=
-    heaPum.m1_flow_nominal
-    "Mass flow rate on condenser side"
+  final parameter Modelica.Units.SI.MassFlowRate m1_flow_nominal(min=0) =
+    heaPum.m1_flow_nominal "Mass flow rate on condenser side"
     annotation (Dialog(group="Nominal condition"));
-  final parameter Modelica.SIunits.MassFlowRate m2_flow_nominal(min=0)=
-    heaPum.m2_flow_nominal
-    "Mass flow rate on evaporator side"
+  final parameter Modelica.Units.SI.MassFlowRate m2_flow_nominal(min=0) =
+    heaPum.m2_flow_nominal "Mass flow rate on evaporator side"
     annotation (Dialog(group="Nominal condition"));
   // IO CONNECTORS
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uEna(start=false)

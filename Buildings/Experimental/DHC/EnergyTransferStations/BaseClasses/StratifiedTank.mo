@@ -3,24 +3,22 @@ model StratifiedTank
   "Stratified buffer tank model"
   replaceable package Medium=Modelica.Media.Interfaces.PartialMedium
     "Medium model"
-    annotation (choices(choice(redeclare package Medium=Buildings.Media.Water "Water"),choice(redeclare package Medium=Buildings.Media.Antifreeze.PropyleneGlycolWater(property_T=293.15,X_a=0.40) "Propylene glycol water, 40% mass fraction")));
+    annotation (choices(choice(redeclare package Medium=Buildings.Media.Water "Water"),choice(redeclare
+          package                                                                                               Medium=
+            Buildings.Media.Antifreeze.PropyleneGlycolWater (                                                                                                          property_T=293.15,X_a=0.40) "Propylene glycol water, 40% mass fraction")));
   final parameter Boolean allowFlowReversal=true
     "= true to allow flow reversal, false restricts to design direction (port_a -> port_b)"
     annotation (Dialog(tab="Assumptions"),Evaluate=true);
-  parameter Modelica.SIunits.Volume VTan
-    "Tank volume";
-  parameter Modelica.SIunits.Length hTan
-    "Height of tank (without insulation)";
-  parameter Modelica.SIunits.Length dIns
-    "Thickness of insulation";
-  parameter Modelica.SIunits.ThermalConductivity kIns=0.04
+  parameter Modelica.Units.SI.Volume VTan "Tank volume";
+  parameter Modelica.Units.SI.Length hTan "Height of tank (without insulation)";
+  parameter Modelica.Units.SI.Length dIns "Thickness of insulation";
+  parameter Modelica.Units.SI.ThermalConductivity kIns=0.04
     "Specific heat conductivity of insulation";
   parameter Integer nSeg(
     min=2)=3
     "Number of volume segments";
-  parameter Modelica.SIunits.MassFlowRate m_flow_nominal
-    "Nominal mass flow rate"
-    annotation (Dialog(group="Nominal condition"));
+  parameter Modelica.Units.SI.MassFlowRate m_flow_nominal
+    "Nominal mass flow rate" annotation (Dialog(group="Nominal condition"));
   // IO CONNECTORS
   Modelica.Fluid.Interfaces.FluidPort_a port_aTop(
     redeclare final package Medium=Medium,

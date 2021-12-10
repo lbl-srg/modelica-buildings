@@ -13,8 +13,8 @@ model InfraredRadiationExchange
     annotation (Evaluate=true, Dialog(tab=
           "Experimental (may be changed in future releases)"));
 
-  HeatTransfer.Interfaces.RadiosityInflow JInConExtWin[NConExtWin] if
-    haveConExtWin
+  HeatTransfer.Interfaces.RadiosityInflow JInConExtWin[NConExtWin]
+ if haveConExtWin
     "Incoming radiosity that connects to non-frame part of the window"
     annotation (Placement(transformation(extent={{260,70},{240,90}})));
   HeatTransfer.Interfaces.RadiosityOutflow JOutConExtWin[NConExtWin]
@@ -40,9 +40,9 @@ protected
     each min=0,
     each max=1,
     each fixed=false) "Reflectivity of opaque surfaces";
-  final parameter Modelica.SIunits.Area AOpa[nOpa](each fixed=false)
+  final parameter Modelica.Units.SI.Area AOpa[nOpa](each fixed=false)
     "Surface area of opaque surfaces";
-  final parameter Modelica.SIunits.Area A[nTot](each fixed=false)
+  final parameter Modelica.Units.SI.Area A[nTot](each fixed=false)
     "Surface areas";
   final parameter Real kOpa[nOpa](each unit="W/K4", each fixed=false)
     "Product sigma*epsilon*A for opaque surfaces";
@@ -53,35 +53,35 @@ protected
     each max=1,
     each fixed=false) "View factor from surface i to j";
 
-  parameter Modelica.SIunits.Time t0(fixed=false) "First sample time instant";
+  parameter Modelica.Units.SI.Time t0(fixed=false) "First sample time instant";
 
   Buildings.HeatTransfer.Interfaces.RadiosityInflow JInConExtWin_internal[
     NConExtWin](start=AConExtWinGla*0.8*Modelica.Constants.sigma*293.15^4,
       each fixed=sampleModel and nConExtWin > 0)
     "Incoming radiosity that connects to non-frame part of the window";
 
-  Modelica.SIunits.HeatFlowRate J[nTot](
+  Modelica.Units.SI.HeatFlowRate J[nTot](
     each max=0,
     start=-A .* 0.8*Modelica.Constants.sigma*293.15^4,
     fixed={sampleModel and (i <= nOpa or i > nOpa + nWin) for i in 1:nTot},
     each nominal=10*0.8*Modelica.Constants.sigma*293.15^4)
     "Radiosity leaving the surface";
 
-  Modelica.SIunits.HeatFlowRate G[nTot](
+  Modelica.Units.SI.HeatFlowRate G[nTot](
     each min=0,
     start=A .* 0.8*Modelica.Constants.sigma*293.15^4,
     each nominal=10*0.8*Modelica.Constants.sigma*293.15^4)
     "Radiosity entering the surface";
 
-  Modelica.SIunits.Temperature TOpa[nOpa](each start=293.15, each nominal=
+  Modelica.Units.SI.Temperature TOpa[nOpa](each start=293.15, each nominal=
         293.15) "Temperature of opaque surfaces";
   Real T4Opa[nOpa](
     each unit="K4",
     each start=T40,
     each nominal=293.15^4) "Forth power of temperature of opaque surfaces";
-  Modelica.SIunits.HeatFlowRate Q_flow[nTot](each start=0, each fixed=
+  Modelica.Units.SI.HeatFlowRate Q_flow[nTot](each start=0, each fixed=
         sampleModel) "Heat flow rate at surfaces";
-  parameter Modelica.SIunits.Temperature T0=293.15
+  parameter Modelica.Units.SI.Temperature T0=293.15
     "Temperature used to linearize radiative heat transfer";
   final parameter Real T03(
     min=0,

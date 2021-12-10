@@ -3,22 +3,22 @@ model Room
   "BESTest Case 600 with fluid ports for air HVAC and internal load"
 
   replaceable package MediumA = Buildings.Media.Air "Medium model";
-  parameter Modelica.SIunits.MassFlowRate mAir_flow_nominal
+  parameter Modelica.Units.SI.MassFlowRate mAir_flow_nominal
     "Design airflow rate of system";
-  parameter Modelica.SIunits.Angle S_=
-    Buildings.Types.Azimuth.S "Azimuth for south walls";
-  parameter Modelica.SIunits.Angle E_=
-    Buildings.Types.Azimuth.E "Azimuth for east walls";
-  parameter Modelica.SIunits.Angle W_=
-    Buildings.Types.Azimuth.W "Azimuth for west walls";
-  parameter Modelica.SIunits.Angle N_=
-    Buildings.Types.Azimuth.N "Azimuth for north walls";
-  parameter Modelica.SIunits.Angle C_=
-    Buildings.Types.Tilt.Ceiling "Tilt for ceiling";
-  parameter Modelica.SIunits.Angle F_=
-    Buildings.Types.Tilt.Floor "Tilt for floor";
-  parameter Modelica.SIunits.Angle Z_=
-    Buildings.Types.Tilt.Wall "Tilt for wall";
+  parameter Modelica.Units.SI.Angle S_=Buildings.Types.Azimuth.S
+    "Azimuth for south walls";
+  parameter Modelica.Units.SI.Angle E_=Buildings.Types.Azimuth.E
+    "Azimuth for east walls";
+  parameter Modelica.Units.SI.Angle W_=Buildings.Types.Azimuth.W
+    "Azimuth for west walls";
+  parameter Modelica.Units.SI.Angle N_=Buildings.Types.Azimuth.N
+    "Azimuth for north walls";
+  parameter Modelica.Units.SI.Angle C_=Buildings.Types.Tilt.Ceiling
+    "Tilt for ceiling";
+  parameter Modelica.Units.SI.Angle F_=Buildings.Types.Tilt.Floor
+    "Tilt for floor";
+  parameter Modelica.Units.SI.Angle Z_=Buildings.Types.Tilt.Wall
+    "Tilt for wall";
   parameter Integer nConExtWin = 1 "Number of constructions with a window";
   parameter Integer nConBou = 1
     "Number of surface that are connected to constructions that are modeled inside the room";

@@ -5,7 +5,7 @@ function getAltitudeLocationTMY3 "Gets the altitude from TMY3 file"
  annotation (Dialog(
         loadSelector(filter="Weather files (*.mos)", caption=
             "Select weather file")));
- output Modelica.SIunits.Length alt "Altitude of TMY3 location";
+  output Modelica.Units.SI.Length alt "Altitude of TMY3 location";
 protected
  Integer nexInd "Next index, used for error handling";
  String element "String representation of the returned element";

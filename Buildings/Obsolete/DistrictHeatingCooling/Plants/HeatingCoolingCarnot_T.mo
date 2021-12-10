@@ -6,14 +6,14 @@ model HeatingCoolingCarnot_T
     final allowFlowReversal = true,
     final dp(start=0));
 
-  parameter Modelica.SIunits.TemperatureDifference dTEva_nominal=-10
+  parameter Modelica.Units.SI.TemperatureDifference dTEva_nominal=-10
     "Temperature difference evaporator outlet-inlet of heat pump";
-  parameter Modelica.SIunits.TemperatureDifference dTCon_nominal=10
+  parameter Modelica.Units.SI.TemperatureDifference dTCon_nominal=10
     "Temperature difference condenser outlet-inlet of chiller";
 
-  parameter Modelica.SIunits.Pressure dp_nominal(displayUnit="Pa")=30000
+  parameter Modelica.Units.SI.Pressure dp_nominal(displayUnit="Pa") = 30000
     "Pressure difference at nominal flow rate"
-    annotation(Dialog(group="Design parameter"));
+    annotation (Dialog(group="Design parameter"));
 
   parameter Boolean linearizeFlowResistance=false
     "= true, use linear relation between m_flow and dp for any flow rate"
@@ -54,7 +54,7 @@ protected
       Buildings.Media.Air "Medium model for the heat sink"
       annotation (choicesAllMatching = true);
 
-  parameter Modelica.SIunits.TemperatureDifference dTSin = 2
+  parameter Modelica.Units.SI.TemperatureDifference dTSin=2
     "Temperature difference over heat source or sink";
 
   final parameter Medium.ThermodynamicState staSin_default = Medium.setState_pTX(
@@ -62,16 +62,16 @@ protected
     p=MediumSin.p_default,
     X=MediumSin.X_default[1:MediumSin.nXi])
     "Medium state at default properties";
-  final parameter Modelica.SIunits.SpecificHeatCapacity cpSin_default=
-    Medium.specificHeatCapacityCp(staSin_default)
+  final parameter Modelica.Units.SI.SpecificHeatCapacity cpSin_default=
+      Medium.specificHeatCapacityCp(staSin_default)
     "Specific heat capacity of the fluid";
 
   final parameter Medium.ThermodynamicState sta_default = Medium.setState_pTX(
     T=Medium.T_default,
     p=Medium.p_default,
     X=Medium.X_default[1:Medium.nXi]) "Medium state at default properties";
-  final parameter Modelica.SIunits.SpecificHeatCapacity cp_default=
-    Medium.specificHeatCapacityCp(sta_default)
+  final parameter Modelica.Units.SI.SpecificHeatCapacity cp_default=
+      Medium.specificHeatCapacityCp(sta_default)
     "Specific heat capacity of the fluid";
 
   Buildings.Fluid.Chillers.Carnot_TEva coo(

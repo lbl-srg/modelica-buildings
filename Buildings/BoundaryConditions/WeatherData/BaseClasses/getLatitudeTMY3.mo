@@ -5,7 +5,7 @@ function getLatitudeTMY3 "Gets the latitude from a TMY3 weather data file"
  annotation (Dialog(
         loadSelector(filter="Weather files (*.mos)", caption=
             "Select weather file")));
- output Modelica.SIunits.Angle lat "Latitude from the weather file";
+  output Modelica.Units.SI.Angle lat "Latitude from the weather file";
 protected
  Integer nexInd "Next index, used for error handling";
  String element "String representation of the returned element";

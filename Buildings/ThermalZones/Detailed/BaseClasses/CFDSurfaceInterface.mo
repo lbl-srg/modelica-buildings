@@ -4,24 +4,24 @@ model CFDSurfaceInterface
   parameter Buildings.ThermalZones.Detailed.Types.CFDBoundaryConditions bouCon
     "Boundary condition used in the CFD simulation" annotation (Evaluate=true);
 
-  Modelica.Blocks.Interfaces.RealInput Q_flow_in if
-    bouCon == Buildings.ThermalZones.Detailed.Types.CFDBoundaryConditions.Temperature
+  Modelica.Blocks.Interfaces.RealInput Q_flow_in
+ if bouCon == Buildings.ThermalZones.Detailed.Types.CFDBoundaryConditions.Temperature
     "Surface heat flow rate, used for temperature boundary condition"
     annotation (Placement(transformation(extent={{-140,60},{-100,100}})));
 
-  Modelica.Blocks.Interfaces.RealOutput T_out if
-    bouCon == Buildings.ThermalZones.Detailed.Types.CFDBoundaryConditions.Temperature
+  Modelica.Blocks.Interfaces.RealOutput T_out
+ if bouCon == Buildings.ThermalZones.Detailed.Types.CFDBoundaryConditions.Temperature
     "Surface temperature, used for temperature boundary condition"
     annotation (Placement(transformation(extent={{-100,30},{-120,50}})));
 
-  Modelica.Blocks.Interfaces.RealOutput Q_flow_out if
-    bouCon == Buildings.ThermalZones.Detailed.Types.CFDBoundaryConditions.HeatFlowRate
+  Modelica.Blocks.Interfaces.RealOutput Q_flow_out
+ if bouCon == Buildings.ThermalZones.Detailed.Types.CFDBoundaryConditions.HeatFlowRate
     "Surface heat flow rate, used for temperature boundary condition"
     annotation (Placement(transformation(extent={{-120,-60},{-80,-20}}),
         iconTransformation(extent={{-120,-50},{-100,-30}})));
 
-  Modelica.Blocks.Interfaces.RealInput T_in if
-    bouCon == Buildings.ThermalZones.Detailed.Types.CFDBoundaryConditions.HeatFlowRate
+  Modelica.Blocks.Interfaces.RealInput T_in
+ if bouCon == Buildings.ThermalZones.Detailed.Types.CFDBoundaryConditions.HeatFlowRate
     "Surface temperature, used for temperature boundary condition"
     annotation (Placement(transformation(extent={{-100,-90},{-120,-70}}),
         iconTransformation(extent={{-100,-90},{-120,-70}})));

@@ -8,7 +8,7 @@ model MediumColumnDynamic
       annotation (choices(
         choice(redeclare package Medium = Buildings.Media.Air "Moist air")));
 
-  parameter Modelica.SIunits.Length h(min=0) = 3 "Height of shaft";
+  parameter Modelica.Units.SI.Length h(min=0) = 3 "Height of shaft";
 
   Modelica.Fluid.Interfaces.FluidPort_a port_a(
     redeclare final package Medium = Medium,
@@ -22,7 +22,7 @@ model MediumColumnDynamic
     "Fluid connector b (positive design flow direction is from port_a to port_b)"
     annotation (Placement(transformation(extent={{10,-110},{-10,-90}}), iconTransformation(extent={{10,-110},{-10,-90}})));
 
-  parameter Modelica.SIunits.Volume V "Volume in medium shaft";
+  parameter Modelica.Units.SI.Volume V "Volume in medium shaft";
 
   // Heat transfer through boundary
   parameter Boolean use_HeatTransfer = false

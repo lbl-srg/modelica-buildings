@@ -13,8 +13,7 @@ block BooleanToInteger
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
 equation
-  y=
-    if u then
+  y=if u then
       integerTrue
     else
       integerFalse;

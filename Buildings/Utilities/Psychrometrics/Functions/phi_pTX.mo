@@ -2,9 +2,9 @@ within Buildings.Utilities.Psychrometrics.Functions;
 function phi_pTX
   "Relative humidity for given pressure, dry bulb temperature and moisture mass fraction"
   extends Modelica.Icons.Function;
-  input Modelica.SIunits.Pressure p "Absolute pressure of the medium";
-  input Modelica.SIunits.Temperature T "Dry bulb temperature";
-  input Modelica.SIunits.MassFraction X_w
+  input Modelica.Units.SI.Pressure p "Absolute pressure of the medium";
+  input Modelica.Units.SI.Temperature T "Dry bulb temperature";
+  input Modelica.Units.SI.MassFraction X_w
     "Water vapor mass fraction per unit mass total air";
   output Real phi(unit="1") "Relative humidity";
 algorithm

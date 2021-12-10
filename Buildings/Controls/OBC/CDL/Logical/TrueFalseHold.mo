@@ -29,7 +29,7 @@ protected
     "Root of state graph"
     annotation (Placement(transformation(extent={{-160,100},{-140,120}})));
   Modelica.StateGraph.StepWithSignal outputFalse(
-    nIn=2)
+    nIn=2, nOut=1)
     "State for which the block outputs false"
     annotation (Placement(transformation(extent={{-60,10},{-40,30}})));
   Modelica.StateGraph.TransitionWithSignal toTrue
@@ -39,7 +39,7 @@ protected
     "Negation of input"
     annotation (Placement(transformation(extent={{-140,60},{-120,80}})));
   Modelica.StateGraph.StepWithSignal outputTrue(
-    nIn=2)
+    nIn=2, nOut=1)
     "State with true output signal"
     annotation (Placement(transformation(extent={{0,10},{20,30}})));
   Modelica.StateGraph.TransitionWithSignal toFalse

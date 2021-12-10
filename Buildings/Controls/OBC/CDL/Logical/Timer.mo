@@ -33,7 +33,8 @@ equation
     // When u becomes true, and t=0, we want passed to be true
     // at the first step (in superdense time).
     passed=t <= 0;
-  elsewhen(u and time >= t+pre(entryTime)) then
+  elsewhen
+          (u and time >= t+pre(entryTime)) then
     passed=true;
     entryTime=pre(entryTime);
   elsewhen not u then
@@ -42,8 +43,7 @@ equation
     passed=false;
     entryTime=pre(entryTime);
   end when;
-  y=
-    if u then
+  y=if u then
       time-entryTime
     else
       0.0;

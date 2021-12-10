@@ -3,7 +3,7 @@ partial block RadiosityTwoSurfaces
   "Model for the radiosity balance of a device with two surfaces"
   extends Buildings.BaseClasses.BaseIcon;
 
-  parameter Modelica.SIunits.Area A "Heat transfer area";
+  parameter Modelica.Units.SI.Area A "Heat transfer area";
 
   Buildings.HeatTransfer.Interfaces.RadiosityInflow JIn_a(start=A*0.8*Modelica.Constants.sigma*293.15^4)
     "Incoming radiosity at surface a"

@@ -44,55 +44,43 @@ model FlowDistribution
     final max=1)=1
     "Pump speed at nominal conditions"
     annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.SIunits.PressureDifference dp_nominal(
-    final min=0,
-    displayUnit="Pa")
-    "Pressure drop at nominal conditions"
+  parameter Modelica.Units.SI.PressureDifference dp_nominal(final min=0,
+      displayUnit="Pa") "Pressure drop at nominal conditions"
     annotation (Dialog(group="Nominal condition"));
-  final parameter Modelica.SIunits.PressureDifference dpVal_nominal(
+  final parameter Modelica.Units.SI.PressureDifference dpVal_nominal(
     final min=0,
-    displayUnit="Pa")=
-    if have_val then
-      0.1*dp_nominal
-    else
-      0
+    displayUnit="Pa") = if have_val then 0.1*dp_nominal else 0
     "Mixing valve pressure drop at nominal conditions"
     annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.SIunits.PressureDifference dpDis_nominal[:](
+  parameter Modelica.Units.SI.PressureDifference dpDis_nominal[:](
     each final min=0,
-    each displayUnit="Pa")=
-    if nUni == 1 then
-      {1/2*(dp_nominal-dpVal_nominal-dpMin)}
-    else
-      1/2 .* cat(
-        1,
-        {(dp_nominal-dpVal_nominal-dpMin)*0.2},
-        fill(
-          (dp_nominal-dpVal_nominal-dpMin)*0.8/(nUni-1),
-          nUni-1))
-    "Pressure drop between each connected unit at nominal conditions (supply line):
+    each displayUnit="Pa") = if nUni == 1 then {1/2*(dp_nominal - dpVal_nominal
+     - dpMin)} else 1/2 .* cat(
+    1,
+    {(dp_nominal - dpVal_nominal - dpMin)*0.2},
+    fill((dp_nominal - dpVal_nominal - dpMin)*0.8/(nUni - 1), nUni - 1)) "Pressure drop between each connected unit at nominal conditions (supply line):
     use zero for each connection downstream the differential pressure sensor"
-    annotation (Dialog(group="Nominal condition",enable=typCtr == Type_ctr.ConstantDp));
-  parameter Modelica.SIunits.PressureDifference dpMin(
+    annotation (Dialog(group="Nominal condition", enable=typCtr == Type_ctr.ConstantDp));
+  parameter Modelica.Units.SI.PressureDifference dpMin(
     final min=0,
-    displayUnit="Pa")=dp_nominal/2
+    displayUnit="Pa") = dp_nominal/2
     "Pressure difference set point for ConstantDp or at zero flow for LinearHead"
     annotation (Dialog(enable=typCtr == Type_ctr.ConstantDp));
-  parameter Modelica.SIunits.MassFlowRate mUni_flow_nominal[:](
-    each final min=0)=fill(
-    m_flow_nominal/nUni,
-    nUni)
-    "Mass flow rate of each connected unit at nominal conditions"
-    annotation (Dialog(group="Nominal condition",enable=typCtr == Type_ctr.ConstantDp));
+  parameter Modelica.Units.SI.MassFlowRate mUni_flow_nominal[:](each final min=
+        0) = fill(m_flow_nominal/nUni, nUni)
+    "Mass flow rate of each connected unit at nominal conditions" annotation (
+      Dialog(group="Nominal condition", enable=typCtr == Type_ctr.ConstantDp));
   parameter Modelica.Fluid.Types.Dynamics energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial
     "Type of energy balance (except for the pump always modeled in steady state)"
     annotation (Evaluate=true,Dialog(tab="Dynamics",group="Equations"));
   final parameter Modelica.Fluid.Types.Dynamics massDynamics=energyDynamics
     "Type of mass balance (except for the pump always modeled in steady state)"
     annotation (Evaluate=true,Dialog(tab="Dynamics",group="Equations"));
-  parameter Modelica.SIunits.Time tau=120
+  parameter Modelica.Units.SI.Time tau=120
     "Time constant of fluid temperature variation at nominal flow rate"
-    annotation (Dialog(tab="Dynamics",group="Nominal condition",
+    annotation (Dialog(
+      tab="Dynamics",
+      group="Nominal condition",
       enable=energyDynamics <> Modelica.Fluid.Types.Dynamics.SteadyState));
   // IO CONNECTORS
   Modelica.Fluid.Interfaces.FluidPorts_a ports_a1[nPorts_a1](
@@ -343,7 +331,8 @@ model FlowDistribution
     "Supply temperature"
     annotation (Placement(transformation(extent={{-30,-10},{-10,10}})));
 protected
-  final parameter Modelica.SIunits.MassFlowRate mDis_flow_nominal[nUni]={sum(mUni_flow_nominal[i:nUni]) for i in 1:nUni}
+  final parameter Modelica.Units.SI.MassFlowRate mDis_flow_nominal[nUni]={sum(
+      mUni_flow_nominal[i:nUni]) for i in 1:nUni}
     "Distribution flow rate between each connected unit at nominal conditions";
   final parameter Real kDis[nUni]={
     if dpDis_nominal[i] > Modelica.Constants.eps then
@@ -351,33 +340,21 @@ protected
     else
       Modelica.Constants.inf for i in 1:nUni}
     "Flow coefficient between each connected unit at nominal conditions";
-  Modelica.SIunits.MassFlowRate mDis_flow[nUni]={sum(mReq_flow[i:nUni]) for i in 1:nUni}
-    "Distribution flow rate between each connected unit";
-  Modelica.SIunits.PressureDifference dpDis[nUni]=(mDis_flow ./ kDis) .^ 2
+  Modelica.Units.SI.MassFlowRate mDis_flow[nUni]={sum(mReq_flow[i:nUni]) for i
+       in 1:nUni} "Distribution flow rate between each connected unit";
+  Modelica.Units.SI.PressureDifference dpDis[nUni]=(mDis_flow ./ kDis) .^ 2
     "Pressure drop between each connected unit (supply line)";
-  Modelica.SIunits.PressureDifference dpPum(
-    displayUnit="Pa")=
-    if typCtr == Type_ctr.LinearHead then
-      dpMin+mPum_flow/m_flow_nominal*dp_nominal
-    elseif typCtr == Type_ctr.ConstantDp then
-      2*sum(
-        dpDis)+dpMin+dpVal_nominal
-    else
-      dp_nominal
-    "Pump head";
-  Modelica.SIunits.MassFlowRate mPum_flow=
-    if typCtr == Type_ctr.ConstantFlow then
-      m_flow_nominal
-    else
-      sum(
-        mReq_flow)
-    "Pump mass flow rate";
+  Modelica.Units.SI.PressureDifference dpPum(displayUnit="Pa") = if typCtr ==
+    Type_ctr.LinearHead then dpMin + mPum_flow/m_flow_nominal*dp_nominal
+     elseif typCtr == Type_ctr.ConstantDp then 2*sum(dpDis) + dpMin +
+    dpVal_nominal else dp_nominal "Pump head";
+  Modelica.Units.SI.MassFlowRate mPum_flow=if typCtr == Type_ctr.ConstantFlow
+       then m_flow_nominal else sum(mReq_flow) "Pump mass flow rate";
   parameter Medium.ThermodynamicState sta_default=Medium.setState_pTX(
     T=Medium.T_default,
     p=Medium.p_default,
     X=Medium.X_default);
-  parameter Modelica.SIunits.Density rho_default=Medium.density(
-    sta_default)
+  parameter Modelica.Units.SI.Density rho_default=Medium.density(sta_default)
     "Density, used to compute fluid volume";
 initial equation
   assert(

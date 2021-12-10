@@ -1,4 +1,4 @@
-within Buildings.Fluid.Boilers.Data.Lochinvar;
+﻿within Buildings.Fluid.Boilers.Data.Lochinvar;
 package FTXL "Package with performance data for Lochinvar FTXL™ Fire Tube boilers"
   extends Modelica.Icons.Package;
 

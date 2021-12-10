@@ -49,7 +49,8 @@ initial algorithm
     t1 := t1-period;
   end if;
   // Assert that t0 <= t < t1 or t1 <= t < t0
-  if(t0 < t1) then
+  if
+    (t0 < t1) then
     assert(
       t0 <= time and time < t1,
       getInstanceName()+": Implementation error in initial time calculation: t0 = "+String(t0)+", t1 = "+String(t1)+",  period = "+String(period)+", time = "+String(time));
@@ -58,7 +59,8 @@ initial algorithm
     assert(
       t1 <= time and time < t0,
       getInstanceName()+": Implementation error in initial time calculation: t0 = "+String(t0)+", t1 = "+String(t1)+",  period = "+String(period)+", time = "+String(time));
-    y := not(time >= t1 and time < t0);
+    y := not
+            (time >= t1 and time < t0);
   end if;
 
 equation

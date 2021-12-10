@@ -9,8 +9,8 @@ block RealToInteger
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
 equation
-  y=
-    if(u > 0) then
+  y=if
+      (u > 0) then
       integer(
         floor(
           u+0.5))

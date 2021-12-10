@@ -64,23 +64,20 @@ block SupplyReturnTemperatureReset
 protected
   CDL.Continuous.Sources.Constant dTOutHeaBal_nominal(
     final k=dTOutHeaBal,
-    y(
-      final quantity="TemperatureDifference",
+    y(final quantity="TemperatureDifference",
       final unit="K"))
     "Offset of outdoor temperature to take into account heat gain"
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
   CDL.Continuous.Sources.Constant TSup_nom(
     final k=TSup_nominal,
-    y(
-      final quantity="ThermodynamicTemperature",
+    y(final quantity="ThermodynamicTemperature",
       final unit="K",
       displayUnit="degC"))
     "Heating supply water temperature at nominal condition"
     annotation (Placement(transformation(extent={{-80,160},{-60,180}})));
   CDL.Continuous.Sources.Constant TZon_nom(
     final k=TZon_nominal,
-    y(
-      final quantity="ThermodynamicTemperature",
+    y(final quantity="ThermodynamicTemperature",
       final unit="K",
       displayUnit="degC"))
     "Zone temperature at design condition"
@@ -91,16 +88,14 @@ protected
     annotation (Placement(transformation(extent={{0,60},{20,80}})));
   CDL.Continuous.Sources.Constant TRet_nom(
     final k=TRet_nominal,
-    y(
-      final quantity="ThermodynamicTemperature",
+    y(final quantity="ThermodynamicTemperature",
       final unit="K",
       displayUnit="degC"))
     "Heating return water temperature at nominal condition"
     annotation (Placement(transformation(extent={{-80,120},{-60,140}})));
   CDL.Continuous.Sources.Constant TOut_nom(
     final k=TOut_nominal,
-    y(
-      final quantity="ThermodynamicTemperature",
+    y(final quantity="ThermodynamicTemperature",
       final unit="K",
       displayUnit="degC"))
     "Outside temperature at design condition"
@@ -116,8 +111,7 @@ protected
   CDL.Continuous.Add TOutOffSet(
     final k1=1,
     final k2=1,
-    y(
-      final quantity="ThermodynamicTemperature",
+    y(final quantity="ThermodynamicTemperature",
       final unit="K",
       displayUnit="degC"))
     "Effective outside temperature for heat transfer (takes into account zone heat gains)"
@@ -125,8 +119,7 @@ protected
   CDL.Continuous.Add qRelDen(
     final k1=1,
     final k2=-1,
-    y(
-      final quantity="ThermodynamicTemperature",
+    y(final quantity="ThermodynamicTemperature",
       final unit="K",
       displayUnit="degC"))
     "Denominator for relative heating load calculation"
@@ -134,8 +127,7 @@ protected
   CDL.Continuous.Add qRelNum(
     final k1=-1,
     final k2=1,
-    y(
-      final quantity="ThermodynamicTemperature",
+    y(final quantity="ThermodynamicTemperature",
       final unit="K",
       displayUnit="degC"))
     "Numerator for relative heating load calculation"
@@ -146,16 +138,14 @@ protected
   CDL.Continuous.Add dTFlu2_nom(
     final k1=0.5,
     final k2=-0.5,
-    y(
-      final quantity="TemperatureDifference",
+    y(final quantity="TemperatureDifference",
       final unit="K"))
     "Heating supply minus return water temperature at nominal condition"
     annotation (Placement(transformation(extent={{-40,150},{-20,170}})));
   CDL.Continuous.Add TFluAve_nominal(
     final k1=0.5,
     final k2=0.5,
-    y(
-      final quantity="ThermodynamicTemperature",
+    y(final quantity="ThermodynamicTemperature",
       final unit="K",
       displayUnit="degC"))
     "Average heating water temperature at nominal condition"
@@ -163,8 +153,7 @@ protected
   CDL.Continuous.Add dTFluAve_nominal(
     final k1=1,
     final k2=-1,
-    y(
-      final quantity="TemperatureDifference",
+    y(final quantity="TemperatureDifference",
       final unit="K"))
     "Average heating water temperature minus room temperature at nominal condition"
     annotation (Placement(transformation(extent={{0,110},{20,130}})));
@@ -174,8 +163,7 @@ protected
   CDL.Continuous.Add TAve(
     final k1=1,
     final k2=1,
-    y(
-      final quantity="ThermodynamicTemperature",
+    y(final quantity="ThermodynamicTemperature",
       final unit="K",
       displayUnit="degC"))
     "Average of supply and return temperature"
@@ -183,8 +171,7 @@ protected
   CDL.Continuous.Add TSupCur(
     final k1=1,
     final k2=1,
-    y(
-      final quantity="ThermodynamicTemperature",
+    y(final quantity="ThermodynamicTemperature",
       final unit="K",
       displayUnit="degC"))
     "Current supply water temperature"
@@ -192,8 +179,7 @@ protected
   CDL.Continuous.Add TRetCur(
     final k1=1,
     final k2=-1,
-    y(
-      final quantity="ThermodynamicTemperature",
+    y(final quantity="ThermodynamicTemperature",
       final unit="K",
       displayUnit="degC"))
     "Current return water temperature"
@@ -211,22 +197,19 @@ protected
     "Logarithm used for evaluation of qRel^(1/m)"
     annotation (Placement(transformation(extent={{-80,-110},{-60,-90}})));
   CDL.Continuous.Product dTQ(
-    y(
-      final quantity="TemperatureDifference",
+    y(final quantity="TemperatureDifference",
       final unit="K"))
     "Temperature contribution due to qRel^(1/m)"
     annotation (Placement(transformation(extent={{-80,220},{-60,240}})));
   CDL.Continuous.Product dTFlu(
-    y(
-      final quantity="TemperatureDifference",
+    y(final quantity="TemperatureDifference",
       final unit="K"))
     "Supply minus return water temperature"
     annotation (Placement(transformation(extent={{0,220},{20,240}})));
   CDL.Continuous.Add TOutOffSet_nominal(
     final k1=1,
     final k2=1,
-    y(
-      final quantity="ThermodynamicTemperature",
+    y(final quantity="ThermodynamicTemperature",
       final unit="K",
       displayUnit="degC"))
     "Effective outside temperature for heat transfer at nominal condition (takes into account zone heat gains)"

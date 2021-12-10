@@ -1,6 +1,5 @@
 within Buildings.Controls.OBC.CDL;
-package Continuous
-  "Package with blocks for continuous variables"
+package Continuous "Package with blocks for continuous variables"
   annotation (
     Documentation(
       info="<html>

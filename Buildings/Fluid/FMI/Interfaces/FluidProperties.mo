@@ -13,8 +13,8 @@ connector FluidProperties "Type definition for fluid properties"
 
 
   Medium.Temperature T "Temperature";
-  Buildings.Fluid.FMI.Interfaces.MassFractionConnector X_w if
-       Medium.nXi > 0 "Water vapor mass fractions per kg total air";
+  Buildings.Fluid.FMI.Interfaces.MassFractionConnector X_w
+    if Medium.nXi > 0 "Water vapor mass fractions per kg total air";
   Medium.ExtraProperty C[Medium.nC] "Properties c_i/m";
 
   annotation (Documentation(info="<html>

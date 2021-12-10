@@ -6,47 +6,46 @@ model WetCoilEffectivenessNTUHeating
   package Medium_W = Buildings.Media.Water;
   package Medium_A = Buildings.Media.Air;
 
-  constant Modelica.SIunits.AbsolutePressure pAtm = 101325
+  constant Modelica.Units.SI.AbsolutePressure pAtm=101325
     "Atmospheric pressure";
 
-  parameter Modelica.SIunits.Temperature T_a1_nominal=50+273.15
+  parameter Modelica.Units.SI.Temperature T_a1_nominal=50 + 273.15
     "Inlet water temperature";
 
-  parameter Modelica.SIunits.Temperature T_b1_nominal=45+273.15
+  parameter Modelica.Units.SI.Temperature T_b1_nominal=45 + 273.15
     "Outlet water temperature";
 
-  parameter Modelica.SIunits.Temperature T_a2_nominal=273.15
+  parameter Modelica.Units.SI.Temperature T_a2_nominal=273.15
     "Inlet air temperature";
 
-  final parameter Modelica.SIunits.Temperature T_b2_nominal=
-    T_a2_nominal + Q_flow_nominal / m2_flow_nominal / 1010
-    "Outlet air temperature";
+  final parameter Modelica.Units.SI.Temperature T_b2_nominal=T_a2_nominal +
+      Q_flow_nominal/m2_flow_nominal/1010 "Outlet air temperature";
 
-  final parameter Modelica.SIunits.ThermalConductance CMin_flow_nominal=
-    min(m1_flow_nominal * 4186, m2_flow_nominal * 1010)
+  final parameter Modelica.Units.SI.ThermalConductance CMin_flow_nominal=min(
+      m1_flow_nominal*4186, m2_flow_nominal*1010)
     "Minimal capacity flow rate at nominal condition";
 
-  final parameter Modelica.SIunits.ThermalConductance CMax_flow_nominal=
-    max(m1_flow_nominal * 4186, m2_flow_nominal * 1010)
+  final parameter Modelica.Units.SI.ThermalConductance CMax_flow_nominal=max(
+      m1_flow_nominal*4186, m2_flow_nominal*1010)
     "Minimal capacity flow rate at nominal condition";
 
-  final parameter Modelica.SIunits.HeatFlowRate Q_flow_nominal=
-    m1_flow_nominal * 4186 * (T_a1_nominal - T_b1_nominal);
+  final parameter Modelica.Units.SI.HeatFlowRate Q_flow_nominal=m1_flow_nominal
+      *4186*(T_a1_nominal - T_b1_nominal);
 
   final parameter Real eps_nominal=
     abs(Q_flow_nominal/((T_a1_nominal - T_a2_nominal) * CMin_flow_nominal))
     "Nominal effectiveness";
 
-  parameter Modelica.SIunits.ThermalConductance UA_nominal=
-    Buildings.Fluid.HeatExchangers.BaseClasses.ntu_epsilonZ(
+  parameter Modelica.Units.SI.ThermalConductance UA_nominal=
+      Buildings.Fluid.HeatExchangers.BaseClasses.ntu_epsilonZ(
       eps=eps_nominal,
       Z=CMin_flow_nominal/CMax_flow_nominal,
-      flowRegime=Integer(hexCon)) * CMin_flow_nominal
+      flowRegime=Integer(hexCon))*CMin_flow_nominal
     "Total thermal conductance at nominal flow";
 
-  parameter Modelica.SIunits.MassFlowRate m1_flow_nominal = 3.78
+  parameter Modelica.Units.SI.MassFlowRate m1_flow_nominal=3.78
     "Nominal mass flow rate of water";
-  parameter Modelica.SIunits.MassFlowRate m2_flow_nominal = 2.646
+  parameter Modelica.Units.SI.MassFlowRate m2_flow_nominal=2.646
     "Nominal mass flow rate of air";
   parameter Types.HeatExchangerConfiguration hexCon=
     Types.HeatExchangerConfiguration.CounterFlow

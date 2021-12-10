@@ -9,10 +9,10 @@ model Outside_Cp
   parameter Real Cp = 0.6 "Fixed value of wind pressure coefficient"
     annotation (Dialog(enable = not use_Cp_in));
 
-  Modelica.Blocks.Interfaces.RealInput Cp_in(unit="1") if
-     use_Cp_in "Prescribed wind pressure coefficient"
+  Modelica.Blocks.Interfaces.RealInput Cp_in(unit="1")
+  if use_Cp_in "Prescribed wind pressure coefficient"
     annotation (Placement(transformation(extent={{-140,20},{-100,60}})));
-  Modelica.SIunits.Pressure pWin(displayUnit="Pa")
+  Modelica.Units.SI.Pressure pWin(displayUnit="Pa")
     "Change in pressure due to wind force";
 
 protected

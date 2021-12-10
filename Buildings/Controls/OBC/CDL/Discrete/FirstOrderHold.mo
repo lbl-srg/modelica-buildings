@@ -55,8 +55,7 @@ equation
     tSample=time;
     uSample=u;
     pre_uSample=pre(uSample);
-    c=
-      if firstTrigger then
+    c=if firstTrigger then
         0
       else
         (uSample-pre_uSample)/samplePeriod;
@@ -64,7 +63,8 @@ equation
   /* Use pre_uSample and pre(c) to break potential algebraic loops by an
        infinitesimal delay if both the continuous and the discrete part
        have direct feedthrough.
-    */y=pre_uSample+pre(c)*(time-tSample);
+    */
+      y=pre_uSample+pre(c)*(time-tSample);
   annotation (
     defaultComponentName="firOrdHol",
     Icon(

@@ -5,8 +5,8 @@ model MixingVolumeTraceSubstance
  package Medium = Buildings.Media.Air(extraPropertiesNames={"CO2"})
     "Medium model";
 
-  parameter Modelica.SIunits.Pressure dp_nominal = 10 "Nominal pressure drop";
-  parameter Modelica.SIunits.MassFlowRate m_flow_nominal = 0.5
+  parameter Modelica.Units.SI.Pressure dp_nominal=10 "Nominal pressure drop";
+  parameter Modelica.Units.SI.MassFlowRate m_flow_nominal=0.5
     "Nominal mass flow rate";
 
   Modelica.Fluid.Sources.MassFlowSource_T sou(

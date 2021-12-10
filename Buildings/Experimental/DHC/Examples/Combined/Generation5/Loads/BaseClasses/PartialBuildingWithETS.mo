@@ -16,18 +16,18 @@ model PartialBuildingWithETS
       final COPHotWat_nominal=COPHotWat_nominal));
   outer parameter Data.DesignDataSeries datDes "DHC system design data"
     annotation (Placement(transformation(extent={{-250,262},{-230,282}})));
-  parameter Modelica.SIunits.TemperatureDifference dT_nominal(min=0)=4
+  parameter Modelica.Units.SI.TemperatureDifference dT_nominal(min=0) = 4
     "Water temperature drop/increase accross load and source-side HX (always positive)"
-    annotation(Dialog(group="ETS model parameters"));
-  parameter Modelica.SIunits.Temperature TChiWatSup_nominal=18+273.15
+    annotation (Dialog(group="ETS model parameters"));
+  parameter Modelica.Units.SI.Temperature TChiWatSup_nominal=18 + 273.15
     "Chilled water supply temperature"
-    annotation(Dialog(group="ETS model parameters"));
-  parameter Modelica.SIunits.Temperature THeaWatSup_nominal=38+273.15
+    annotation (Dialog(group="ETS model parameters"));
+  parameter Modelica.Units.SI.Temperature THeaWatSup_nominal=38 + 273.15
     "Heating water supply temperature"
-    annotation(Dialog(group="ETS model parameters"));
-  parameter Modelica.SIunits.Pressure dp_nominal=50000
+    annotation (Dialog(group="ETS model parameters"));
+  parameter Modelica.Units.SI.Pressure dp_nominal=50000
     "Pressure difference at nominal flow rate (for each flow leg)"
-    annotation(Dialog(group="ETS model parameters"));
+    annotation (Dialog(group="ETS model parameters"));
   parameter Real COPHeaWat_nominal(final unit="1") = 4.0
     "COP of heat pump for heating water production"
     annotation (Dialog(group="ETS model parameters"));
