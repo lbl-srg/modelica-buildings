@@ -4,8 +4,8 @@ model PropyleneGlycolWater
   extends Modelica.Icons.Example;
   extends Buildings.Media.Antifreeze.Validation.BaseClasses.FluidProperties(
     redeclare package Medium =
-        Buildings.Media.Antifreeze.Validation.BaseClasses.PropyleneGlycolWater
-        ( property_T=300,
+        Buildings.Media.Antifreeze.Validation.BaseClasses.PropyleneGlycolWater (
+          property_T=300,
           X_a=0.05),
     nX_a=7,
     X_a={0.05,0.10,0.20,0.30,0.40,0.50,0.60},

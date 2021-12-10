@@ -26,8 +26,7 @@ partial model ValveParameters "Model with parameters for valves"
   parameter Modelica.Units.SI.PressureDifference dpValve_nominal(
     displayUnit="Pa",
     min=0,
-    fixed=if CvData == Buildings.Fluid.Types.CvTypes.OpPoint then true else
-        false)
+    fixed=if CvData == Buildings.Fluid.Types.CvTypes.OpPoint then true else false)
     "Nominal pressure drop of fully open valve, used if CvData=Buildings.Fluid.Types.CvTypes.OpPoint"
     annotation (Dialog(group="Nominal condition", enable=(CvData == Buildings.Fluid.Types.CvTypes.OpPoint)));
 

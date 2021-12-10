@@ -223,8 +223,8 @@ block ReaderTMY3 "Reader for TMY3 weather data"
     Dialog(tab="Advanced", group="Sky temperature"));
 
   final parameter Modelica.Units.SI.Angle lon(displayUnit="deg") =
-    Buildings.BoundaryConditions.WeatherData.BaseClasses.getLongitudeTMY3(
-    filNam) "Longitude";
+    Buildings.BoundaryConditions.WeatherData.BaseClasses.getLongitudeTMY3(filNam)
+    "Longitude";
   final parameter Modelica.Units.SI.Angle lat(displayUnit="deg") =
     Buildings.BoundaryConditions.WeatherData.BaseClasses.getLatitudeTMY3(filNam)
     "Latitude";
@@ -232,13 +232,13 @@ block ReaderTMY3 "Reader for TMY3 weather data"
     Buildings.BoundaryConditions.WeatherData.BaseClasses.getTimeZoneTMY3(filNam)
     "Time zone";
   final parameter Modelica.Units.SI.Length alt(displayUnit="m") =
-    Buildings.BoundaryConditions.WeatherData.BaseClasses.getAltitudeLocationTMY3
-    (filNam) "Location altitude above sea level";
+    Buildings.BoundaryConditions.WeatherData.BaseClasses.getAltitudeLocationTMY3(
+    filNam) "Location altitude above sea level";
 
 protected
   final parameter Modelica.Units.SI.Time[2] timeSpan=
-      Buildings.BoundaryConditions.WeatherData.BaseClasses.getTimeSpanTMY3(
-      filNam, "tab1") "Start time, end time of weather data";
+      Buildings.BoundaryConditions.WeatherData.BaseClasses.getTimeSpanTMY3(filNam,
+      "tab1") "Start time, end time of weather data";
 
   Modelica.Blocks.Tables.CombiTable1Ds datRea(
     final tableOnFile=true,

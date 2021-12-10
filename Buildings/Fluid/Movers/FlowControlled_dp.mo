@@ -48,8 +48,8 @@ model FlowControlled_dp
     each min=0,
     each displayUnit="Pa") = dp_nominal*{(per.speeds[i]/per.speeds[end])^2 for
     i in 1:size(per.speeds, 1)}
-    "Vector of head set points, used when inputType=Stages" annotation (Dialog(
-        enable=inputType == Buildings.Fluid.Types.InputType.Stages));
+    "Vector of head set points, used when inputType=Stages"
+    annotation (Dialog(enable=inputType == Buildings.Fluid.Types.InputType.Stages));
   parameter Boolean prescribeSystemPressure = false
     "=true, to control mover such that pressure difference is obtained across two remote points in system"
     annotation(Evaluate=true, Dialog(tab="Advanced"));

@@ -22,8 +22,7 @@ model EvaporatorCondenser
     annotation (Placement(transformation(extent={{-5,-55},{5,-65}}),
         iconTransformation(extent={{-5,-55},{5,-65}})));
 
-  Modelica.Units.SI.Efficiency NTU=UA/(
-      Buildings.Utilities.Math.Functions.smoothMax(
+  Modelica.Units.SI.Efficiency NTU=UA/(Buildings.Utilities.Math.Functions.smoothMax(
       abs(port_a.m_flow),
       m_flow_small,
       m_flow_small)*cp_default) "Number of transfer units of heat exchanger";

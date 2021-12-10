@@ -88,8 +88,8 @@ block LimPID
   Modelica.Blocks.Math.Gain P(k=1) "Proportional term"
     annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
   Utilities.Math.IntegratorWithReset I(
-    final reset=if reset == Buildings.Types.Reset.Disabled then reset else
-        Buildings.Types.Reset.Input,
+    final reset=if reset == Buildings.Types.Reset.Disabled then reset else Buildings.Types.Reset.Input,
+
     final y_reset=y_reset,
     final k=unitTime/Ti,
     final y_start=xi_start,
