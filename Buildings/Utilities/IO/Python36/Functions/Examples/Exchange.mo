@@ -114,7 +114,6 @@ algorithm
 
   // From Modelica, write a number to a text file, and from Python, read the text file
   // and return the number.
-  Modelica.Utilities.Files.removeFile(fileName="tmp-TestPythonInterface.txt");
   Modelica.Utilities.Streams.print(string="1.23", fileName="tmp-TestPythonInterface.txt");
   yR1 := Buildings.Utilities.IO.Python36.Functions.exchange(
     moduleName="testFunctions",
@@ -162,6 +161,11 @@ the simulation if the return value is different from the expected value.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+December 10, 2021, by Michael Wetter:<br/>
+Removed call to impure function <code>removeFile</code>.
+This removal is required for MSL 4.0.0.
+</li>
 <li>
 April 10, 2020, by Jianjun Hu and Michael Wetter:<br/>
 Updated to Python 3.6.

@@ -46,7 +46,7 @@ model ChillerStage
     "Status of one chiller on"
     annotation (Placement(transformation(extent={{10,-10},{-10,10}},
       rotation=90,origin={10,0})));
-  Modelica.StateGraph.StepWithSignal twoOn(nOut=2)
+  Modelica.StateGraph.StepWithSignal twoOn
     "Status of two chillers on"
     annotation (Placement(transformation(extent={{10,-10},{-10,10}},
       rotation=90,origin={10,-90})));
@@ -160,7 +160,7 @@ equation
     annotation (Line(points={{-180,60},{-120,60},{-120,30},{-102,30}},
       color={255,0,255}));
   connect(twoOn.outPort[1],twoToOne.inPort)
-    annotation (Line(points={{9.75,-100.5},{9.75,-120},{60,-120},{60,-44}},
+    annotation (Line(points={{10,-100.5},{10,-120},{60,-120},{60,-44}},
       color={0,0,0}));
   connect(offToOne.outPort,oneOn.inPort[1])
     annotation (Line(points={{10,58.5},{10,11},{9.5,11}},color={0,0,0}));
@@ -200,6 +200,15 @@ equation
     Documentation(
       revisions="<html>
 <ul>
+<li>
+December 10, 2021, by Michael Wetter:<br/>
+Corrected parameter value for <code>twoOn.nOut</code>.
+This correction is required to simulate the model in Dymola 2022
+if the model has been updated to MSL 4.0.0. With MSL 3.2.3, the simulation
+works without this correction.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1563\">Buildings, #1563</a>.
+</li>
 <li>
 August 6, 2020 by Jing Wang:<br/>
 First implementation.
