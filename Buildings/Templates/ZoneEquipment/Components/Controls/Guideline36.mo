@@ -392,7 +392,7 @@ block Guideline36
   *  Final parameters
   */
   final parameter Boolean have_heaWatCoi=
-    coiReh.typ==Buildings.Templates.Components.Types.Coil.WaterBased
+    coiHea.typ==Buildings.Templates.Components.Types.Coil.WaterBasedHeating
     "Flag, true if there is a hot water coil"
     annotation (Dialog(tab="System requests", group="Parameters"));
 
@@ -501,7 +501,7 @@ block Guideline36
 equation
   /* Control point connection - start */
   connect(con.yDam, bus.damVAV.y);
-  connect(con.yVal, bus.coiReh.y);
+  connect(con.yVal, bus.coiHea.y);
 
   connect(bus.VDis_flow, zonOutAirSet.VDis_flow);
   connect(bus.TDis, con.TDis);

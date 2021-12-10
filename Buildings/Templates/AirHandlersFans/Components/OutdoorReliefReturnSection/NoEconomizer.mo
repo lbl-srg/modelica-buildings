@@ -15,8 +15,8 @@ model NoEconomizer "No air economizer"
 
   Buildings.Templates.AirHandlersFans.Components.OutdoorSection.NoEconomizer secOut(
     redeclare final package MediumAir = MediumAir,
-    final m_flow_nominal=mSup_flow_nominal,
-    final mOutMin_flow_nominal=mOutMin_flow_nominal,
+    final m_flow_nominal=mAirSup_flow_nominal,
+    final mOutMin_flow_nominal=mAirOutMin_flow_nominal,
     final dpDamOut_nominal=dpDamOut_nominal,
     final dpDamOutMin_nominal=dpDamOutMin_nominal)
     "Outdoor air section"
@@ -25,7 +25,7 @@ model NoEconomizer "No air economizer"
     Placement(transformation(extent={{-58,-94},{-22,-66}})));
   Buildings.Templates.AirHandlersFans.Components.ReliefReturnSection.NoEconomizer secRel(
     redeclare final package MediumAir = MediumAir,
-    final m_flow_nominal=mRet_flow_nominal,
+    final m_flow_nominal=mAirRet_flow_nominal,
     final dpDamRel_nominal=dpDamRel_nominal,
     final dpFan_nominal=dpFan_nominal)
     "Relief/return air section"

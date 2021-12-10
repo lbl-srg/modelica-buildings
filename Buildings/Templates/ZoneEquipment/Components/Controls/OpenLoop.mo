@@ -9,7 +9,7 @@ block OpenLoop "Open loop controller (output signals only)"
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={-100,110})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant yCoiReh(k=1)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant yCoiHea(k=1)
     annotation (
       Placement(transformation(
         extent={{-10,-10},{10,10}},
@@ -18,7 +18,7 @@ block OpenLoop "Open loop controller (output signals only)"
 equation
   /* Control point connection - start */
   connect(yDamVAV.y, bus.damVAV.y);
-  connect(yCoiReh.y, bus.coiReh.y);
+  connect(yCoiHea.y, bus.coiHea.y);
   /* Control point connection - end */
   annotation (
   defaultComponentName="conTer");

@@ -5,7 +5,7 @@ model DedicatedDamperAirflow
         Buildings.Templates.AirHandlersFans.Components.OutdoorSection.DedicatedDamperAirflow
         secOut
         "Dedicated minimum OA damper (two-position) with AFMS"),
-    id="VAV_1",
+    tag="VAV_1",
     nZon=2,
     nGro=1);
 

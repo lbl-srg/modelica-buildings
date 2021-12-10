@@ -83,7 +83,6 @@ partial model PartialReliefReturnSection "Relief/return air section"
     redeclare final package Medium = MediumAir)
     "Fluid connector for differential pressure sensor"
     annotation (Placement(transformation(extent={{90,-150},{70,-130}})));
-
   Buildings.Templates.AirHandlersFans.Interfaces.Bus bus
     "Control bus"
     annotation (Placement(
@@ -94,8 +93,7 @@ partial model PartialReliefReturnSection "Relief/return air section"
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={0,140})));
-
-  Fluid.FixedResistances.Junction splEco(
+  Buildings.Fluid.FixedResistances.Junction splEco(
     redeclare final package Medium = MediumAir,
     final m_flow_nominal={1,-1,-1}*m_flow_nominal,
     final dp_nominal=fill(0, 3),
@@ -108,12 +106,10 @@ partial model PartialReliefReturnSection "Relief/return air section"
       typCtrFanRet==Buildings.Templates.AirHandlersFans.Types.ControlFanReturn.Pressure)
     "Return fan discharge static pressure sensor"
     annotation (Placement(transformation(extent={{50,30},{70,50}})));
-protected
-  final parameter Boolean have_porPre=
-    typCtrFanRet==Buildings.Templates.AirHandlersFans.Types.ControlFanReturn.Pressure
-    "Set to true for an outside fluid connector for differential pressure sensor"
-    annotation (Evaluate=true, Dialog(group="Configuration"));
 equation
+  /* Control point connection - start */
+  connect(pRet_rel.y, bus.pRet_rel);
+  /* Control point connection - end */
   connect(splEco.port_3, port_bRet)
     annotation (Line(points={{0,-10},{0,-140}}, color={0,127,255}));
   connect(pRet_rel.port_a, splEco.port_1) annotation (Line(points={{50,40},{20,40},

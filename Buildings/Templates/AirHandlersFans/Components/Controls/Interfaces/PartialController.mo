@@ -15,8 +15,12 @@ partial block PartialController
     "External parameter file";
 
   // See FIXME below for those parameters.
-  parameter String idTerArr[nZon]={"Box_1", "Box_1"}
-    "Served terminal units - Array of system identifiers"
+  parameter String tagTerArr[nZon]={"Box_1", "Box_1"}
+    "Tag of served terminal units - Array of system identifiers"
+    annotation(Evaluate=true);
+  final parameter String idTerArr[nZon]={
+    "Zone equipment." + tagTerArr[i] for i in 1:nZon}
+    "Full identifier of served terminal units - Array of system identifiers"
     annotation(Evaluate=true);
   parameter String namGro[nGro]={"First floor"}
     "Array of group names"

@@ -17,9 +17,6 @@ partial model PartialCoil
   parameter Buildings.Templates.Components.Types.Coil typ
     "Equipment type"
     annotation (Evaluate=true, Dialog(group="Configuration"));
-  parameter Buildings.Templates.Components.Types.CoilFunction fun
-    "Coil function"
-    annotation (Evaluate=true, Dialog(group="Configuration"));
   parameter Buildings.Templates.Components.Types.Valve typVal
     "Type of valve"
     annotation (Dialog(group="Configuration"));
@@ -33,15 +30,11 @@ partial model PartialCoil
     "Set to true to use a waether bus"
     annotation (Evaluate=true, Dialog(group="Configuration"));
 
-  inner parameter Modelica.SIunits.MassFlowRate mAir_flow_nominal(min=0)=
-    dat.getReal(varName=id + ".Mechanical." + funStr + " coil.Air mass flow rate.value")
-    "Air mass flow rate"
-    annotation (Dialog(
-      group="Nominal condition"),
-      Evaluate=true);
-
-  inner parameter Modelica.SIunits.PressureDifference dpAir_nominal(
+  parameter Modelica.SIunits.MassFlowRate mAir_flow_nominal(min=0)
+    "Air mass flow rate";
+  parameter Modelica.SIunits.PressureDifference dpAir_nominal(
     displayUnit="Pa")=
+    if typ==Buildings.Templates.Components.Types.Coil.None then 0 else
     dat.getReal(varName=id + ".Mechanical." + funStr + " coil.Air pressure drop.value")
     "Air pressure drop"
     annotation (
@@ -53,12 +46,14 @@ partial model PartialCoil
   outer parameter ExternData.JSONFile dat
     "External parameter file";
   final inner parameter String funStr=
-    if fun==Buildings.Templates.Components.Types.CoilFunction.Cooling
-      then "Cooling"
-    elseif fun==Buildings.Templates.Components.Types.CoilFunction.Heating
+    if typ==Buildings.Templates.Components.Types.Coil.ElectricHeating
       then "Heating"
-    elseif fun==Buildings.Templates.Components.Types.CoilFunction.Reheat
-      then "Reheat"
+    elseif typ==Buildings.Templates.Components.Types.Coil.Evaporator
+      then "Cooling"
+    elseif typ==Buildings.Templates.Components.Types.Coil.WaterBasedCooling
+      then "Cooling"
+    elseif typ==Buildings.Templates.Components.Types.Coil.WaterBasedHeating
+      then "Heating"
     else "Undefined"
     "Coil function cast as string"
     annotation (
@@ -96,25 +91,19 @@ partial model PartialCoil
   Icon(
     graphics={
     Bitmap(
-      visible=typ<>Buildings.Templates.Components.Types.Coil.None and
-        fun==Buildings.Templates.Components.Types.CoilFunction.Cooling,
+      visible=funStr=="Cooling",
       extent={{-53,-100},{53,100}},
       fileName="modelica://Buildings/Resources/Images/Templates/Components/Coils/Cooling.svg"),
     Bitmap(
-      visible=typ<>Buildings.Templates.Components.Types.Coil.None and
-        fun==Buildings.Templates.Components.Types.CoilFunction.Cooling,
+      visible=typ==Buildings.Templates.Components.Types.Coil.WaterBasedCooling,
       extent={{-100,-500},{100,-300}},
       fileName="modelica://Buildings/Resources/Images/Templates/Components/Coils/ChilledWaterSupplyReturn.svg"),
     Bitmap(
-      visible=typ<>Buildings.Templates.Components.Types.Coil.None and
-        (fun==Buildings.Templates.Components.Types.CoilFunction.Heating or
-        fun==Buildings.Templates.Components.Types.CoilFunction.Reheat),
+      visible=funStr=="Heating",
       extent={{-53,-100},{53,100}},
       fileName="modelica://Buildings/Resources/Images/Templates/Components/Coils/Heating.svg"),
     Bitmap(
-      visible=typ<>Buildings.Templates.Components.Types.Coil.None and
-        (fun==Buildings.Templates.Components.Types.CoilFunction.Heating or
-        fun==Buildings.Templates.Components.Types.CoilFunction.Reheat),
+      visible=typ==Buildings.Templates.Components.Types.Coil.WaterBasedHeating,
       extent={{-100,-500},{100,-300}},
       fileName="modelica://Buildings/Resources/Images/Templates/Components/Coils/HotWaterSupplyReturn.svg"),
     Bitmap(
@@ -123,16 +112,19 @@ partial model PartialCoil
       extent={{-150,-300},{50,-100}},
       fileName="modelica://Buildings/Resources/Images/Templates/Components/Valves/None.svg"),
     Bitmap(
-      visible=typVal==Buildings.Templates.Components.Types.Valve.TwoWay,
+      visible=typ<>Buildings.Templates.Components.Types.Coil.None and
+        typVal==Buildings.Templates.Components.Types.Valve.TwoWay,
       extent={{-150,-300},{50,-100}},
       fileName="modelica://Buildings/Resources/Images/Templates/Components/Valves/TwoWay.svg"),
     Bitmap(
-      visible=typVal==Buildings.Templates.Components.Types.Valve.ThreeWay,
+      visible=typ<>Buildings.Templates.Components.Types.Coil.None and
+        typVal==Buildings.Templates.Components.Types.Valve.ThreeWay,
       extent={{-150,-300},{50,-100}},
       fileName="modelica://Buildings/Resources/Images/Templates/Components/Valves/ThreeWay.svg"),
     Bitmap(
-      visible=typVal==Buildings.Templates.Components.Types.Valve.TwoWay or
-        typVal==Buildings.Templates.Components.Types.Valve.ThreeWay,
+      visible=typ<>Buildings.Templates.Components.Types.Coil.None and
+        (typVal==Buildings.Templates.Components.Types.Valve.TwoWay or
+        typVal==Buildings.Templates.Components.Types.Valve.ThreeWay),
       extent={{-190,-240},{-110,-160}},
       fileName="modelica://Buildings/Resources/Images/Templates/Components/Actuators/Modulated.svg"),
     Bitmap(

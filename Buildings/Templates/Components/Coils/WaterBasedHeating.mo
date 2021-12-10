@@ -1,13 +1,14 @@
 within Buildings.Templates.Components.Coils;
-model WaterBasedHeating "Water-based"
+model WaterBasedHeating "Hot water coil"
   extends Buildings.Templates.Components.Coils.Interfaces.PartialCoil(
-    final typ=Buildings.Templates.Components.Types.Coil.WaterBased,
+    final typ=Buildings.Templates.Components.Types.Coil.WaterBasedHeating,
     final typHex=hex.typ,
     final typVal=val.typ,
     final have_sou=true,
     final have_weaBus=false,
     port_aSou(redeclare final package Medium = MediumHea),
-    port_bSou(redeclare final package Medium = MediumHea));
+    port_bSou(redeclare final package Medium = MediumHea),
+    mAir_flow_nominal=dat.getReal(varName=id + ".Mechanical." + funStr + " coil.Air mass flow rate.value"));
 
   outer replaceable package MediumHea=Buildings.Media.Water
     "Source side medium";
@@ -57,7 +58,7 @@ model WaterBasedHeating "Water-based"
     "Heat exchanger"
     annotation (choices(
         choice(redeclare replaceable
-          Buildings.Templates.Components.Coils.HeatExchangers.DryCoilEffectivenessNTU
+          Buildings.Templates.Components.HeatExchangers.DryCoilEffectivenessNTU
           hex "Epsilon-NTU dry heat exchanger model")), Placement(
         transformation(extent={{10,4},{-10,-16}})));
 

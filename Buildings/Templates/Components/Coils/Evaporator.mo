@@ -1,11 +1,12 @@
 within Buildings.Templates.Components.Coils;
-model DirectExpansion "Direct expansion"
+model Evaporator "Evaporator coil (direct expansion)"
   extends Buildings.Templates.Components.Coils.Interfaces.PartialCoil(
-    final typ=Buildings.Templates.Components.Types.Coil.DirectExpansion,
+    final typ=Buildings.Templates.Components.Types.Coil.Evaporator,
     final typHex=hex.typ,
     final typVal=Buildings.Templates.Components.Types.Valve.None,
     final have_sou=false,
-    final have_weaBus=true);
+    final have_weaBus=true,
+    mAir_flow_nominal=dat.getReal(varName=id + ".Mechanical." + funStr + " coil.Air mass flow rate.value"));
 
   inner parameter Boolean have_dryCon = true
     "Set to true for purely sensible cooling of the condenser";
@@ -34,4 +35,4 @@ equation
   annotation (
     Diagram(
         coordinateSystem(preserveAspectRatio=false)));
-end DirectExpansion;
+end Evaporator;

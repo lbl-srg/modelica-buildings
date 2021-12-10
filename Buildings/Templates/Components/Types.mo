@@ -2,21 +2,17 @@ within Buildings.Templates.Components;
 package Types "Generic types for template components"
   extends Modelica.Icons.TypesPackage;
   type Coil = enumeration(
-      DirectExpansion
-      "Direct expansion",
+      ElectricHeating
+      "Electric heating coil",
+      Evaporator
+      "Evaporator coil (direct expansion)",
       None
       "No coil",
-      WaterBased
-      "Water-based coil")
+      WaterBasedCooling
+      "Chilled water coil",
+      WaterBasedHeating
+      "Hot water coil")
     "Enumeration to configure the coil";
-  type CoilFunction = enumeration(
-      Cooling
-      "Cooling",
-      Heating
-      "Heating",
-      Reheat
-      "Reheat")
-    "Enumeration to specify the coil function";
   type Damper = enumeration(
       NoPath
       "No fluid path",

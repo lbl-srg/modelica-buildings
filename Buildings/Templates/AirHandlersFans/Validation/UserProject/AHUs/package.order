@@ -6,6 +6,7 @@ CoilCoolingDXVariableSpeed
 CoilHeatingEffectivenessNTU
 CoilHeatingEffectivenessNTU2WV
 CoilHeatingEffectivenessNTU3WV
+CoilHeatingElectric
 CompleteAHU
 ControlsGuideline36
 ControlsGuideline36Pressure

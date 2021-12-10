@@ -1,13 +1,15 @@
 within Buildings.Templates.AirHandlersFans.Validation.UserProject.AHUs;
 model CoilHeatingEffectivenessNTU3WV
   extends Buildings.Templates.AirHandlersFans.VAVMultiZone(
-    id="VAV_1",
-    redeclare replaceable Buildings.Templates.Components.Coils.WaterBasedHeating coiHea(
+    redeclare replaceable
+      Buildings.Templates.Components.Coils.WaterBasedHeating coiHeaReh(
+        redeclare Buildings.Templates.Components.Valves.ThreeWay val,
         redeclare replaceable
         Buildings.Templates.Components.HeatExchangers.DryCoilEffectivenessNTU
-        hex "Epsilon-NTU heat exchanger model",
-        redeclare replaceable Buildings.Templates.Components.Valves.ThreeWay val)
-                                                "Water-based",
+        hex "Epsilon-NTU dry heat exchanger model") "Hot water coil",
+    redeclare replaceable Buildings.Templates.Components.Coils.None coiHeaPre(
+        final mAir_flow_nominal=mAirSup_flow_nominal) "No coil",
+    tag="VAV_1",
     nZon=2,
     nGro=1);
   annotation (

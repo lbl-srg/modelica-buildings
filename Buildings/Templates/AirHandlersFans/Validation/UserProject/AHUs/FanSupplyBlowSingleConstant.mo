@@ -4,7 +4,7 @@ model FanSupplyBlowSingleConstant
     redeclare replaceable Buildings.Templates.Components.Fans.None fanSupDra,
     nZon=2,
     nGro=1,
-    id="VAV_1",
+    tag="VAV_1",
     redeclare replaceable Buildings.Templates.Components.Fans.SingleConstant
       fanSupBlo);
 

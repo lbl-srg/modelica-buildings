@@ -1,6 +1,7 @@
 within Buildings.Templates.AirHandlersFans.Components.Controls.Interfaces;
 partial block PartialSingleDuct "Partial control block for single duct AHU"
-  extends Buildings.Templates.AirHandlersFans.Components.Controls.Interfaces.PartialController;
+  extends
+    Buildings.Templates.AirHandlersFans.Components.Controls.Interfaces.PartialController;
 
   parameter Buildings.Templates.AirHandlersFans.Types.ControlEconomizer typCtrEco=
     Buildings.Templates.AirHandlersFans.Types.ControlEconomizer.FixedDryBulb
@@ -46,10 +47,10 @@ partial block PartialSingleDuct "Partial control block for single duct AHU"
 
   outer replaceable Buildings.Templates.Components.Coils.None coiCoo
     "Cooling coil";
-  outer replaceable Buildings.Templates.Components.Coils.None coiHea
-    "Heating coil";
-  outer replaceable Buildings.Templates.Components.Coils.None coiReh
-    "Reheat coil";
+  outer replaceable Buildings.Templates.Components.Coils.None coiHeaPre
+    "Heating coil (preheat position)";
+  outer replaceable Buildings.Templates.Components.Coils.None coiHeaReh
+    "Heating coil (reheat position)";
 
   outer parameter Buildings.Templates.Components.Types.Fan typFanSup
     "Type of supply fan";

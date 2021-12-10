@@ -1,13 +1,14 @@
 within Buildings.Templates.Components.Coils;
-model WaterBasedCooling "Water-based"
+model WaterBasedCooling "Chilled water coil"
   extends Buildings.Templates.Components.Coils.Interfaces.PartialCoil(
-    final typ=Buildings.Templates.Components.Types.Coil.WaterBased,
+    final typ=Buildings.Templates.Components.Types.Coil.WaterBasedCooling,
     final typHex=hex.typ,
     final typVal=val.typ,
     final have_sou=true,
     final have_weaBus=false,
     port_aSou(redeclare final package Medium = MediumCoo),
-    port_bSou(redeclare final package Medium = MediumCoo));
+    port_bSou(redeclare final package Medium = MediumCoo),
+    mAir_flow_nominal=dat.getReal(varName=id + ".Mechanical." + funStr + " coil.Air mass flow rate.value"));
 
   outer replaceable package MediumCoo=Buildings.Media.Water
     "Source side medium";
@@ -55,12 +56,13 @@ model WaterBasedCooling "Water-based"
     final dp2_nominal=dpAir_nominal)
     "Heat exchanger"
     annotation (choices(
-        choice(redeclare replaceable
-          Buildings.Templates.Components.Coils.HeatExchangers.WetCoilCounterFlow hex
-          "Discretized wet heat exchanger model"), choice(redeclare replaceable
-          Buildings.Templates.Components.Coils.HeatExchangers.WetCoilEffectivenessNTU
-          hex "Effectiveness-NTU wet heat exchanger model")), Placement(
-        transformation(extent={{10,4},{-10,-16}})));
+      choice(redeclare replaceable
+        Buildings.Templates.Components.HeatExchangers.WetCoilCounterFlow hex
+        "Discretized wet heat exchanger model"),
+      choice(redeclare replaceable
+        Buildings.Templates.Components.HeatExchangers.WetCoilEffectivenessNTU
+        hex "Effectiveness-NTU wet heat exchanger model")),
+      Placement(transformation(extent={{10,4},{-10,-16}})));
 
   Buildings.Fluid.FixedResistances.Junction jun(
     redeclare final package Medium = MediumCoo,

@@ -4,7 +4,7 @@ partial block PartialSingleDuct
   extends
     Buildings.Templates.ZoneEquipment.Components.Controls.Interfaces.PartialController;
 
-  outer replaceable Buildings.Templates.Components.Coils.None coiReh
-    "Reheat coil";
+  outer replaceable Buildings.Templates.Components.Coils.None coiHea
+    "Heating coil";
 
 end PartialSingleDuct;

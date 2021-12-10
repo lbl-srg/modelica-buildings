@@ -5,7 +5,7 @@ model NoRelief
     redeclare replaceable
       Buildings.Templates.AirHandlersFans.Components.OutdoorReliefReturnSection.EconomizerNoRelief
       secOutRel "Air economizer - No relief branch",
-    id="VAV_1",
+    tag="VAV_1",
     nZon=2,
     nGro=1);
 

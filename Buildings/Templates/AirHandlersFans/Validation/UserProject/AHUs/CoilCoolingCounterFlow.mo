@@ -4,8 +4,8 @@ model CoilCoolingCounterFlow
     redeclare replaceable Buildings.Templates.Components.Coils.WaterBasedCooling coiCoo(
       redeclare replaceable
         Buildings.Templates.Components.HeatExchangers.WetCoilCounterFlow hex
-        "Discretized heat exchanger model")     "Water-based",
-    id="VAV_1",
+        "Discretized heat exchanger model") "Chilled water coil",
+    tag="VAV_1",
     nZon=2,
     nGro=1);
 

@@ -19,6 +19,6 @@ equation
       points={{0,100},{0,56},{0,56},{0,12}},
       color={255,204,51},
       thickness=0.5));
-  connect(damExp.y_actual, bus.y_actual) annotation (Line(points={{5,7},{40,7},{
-          40,100},{0,100}},           color={0,0,127}));
+  connect(damExp.y_actual, bus.y_actual) annotation (Line(points={{5,7},{40,7},
+          {40,96},{0,96},{0,100}},    color={0,0,127}));
 end Modulated;

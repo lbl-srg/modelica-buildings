@@ -53,13 +53,13 @@ partial model PartialOutdoorReliefReturnSection
         group="Configuration",
         enable=typ<>Buildings.Templates.AirHandlersFans.Types.OutdoorReliefReturnSection.NoEconomizer));
 
-  parameter Modelica.SIunits.MassFlowRate mSup_flow_nominal
+  parameter Modelica.SIunits.MassFlowRate mAirSup_flow_nominal
     "Supply air mass flow rate"
     annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.SIunits.MassFlowRate mRet_flow_nominal
+  parameter Modelica.SIunits.MassFlowRate mAirRet_flow_nominal
     "Return air mass flow rate"
     annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.SIunits.MassFlowRate mOutMin_flow_nominal=
+  parameter Modelica.SIunits.MassFlowRate mAirOutMin_flow_nominal=
     if typDamOutMin <> Buildings.Templates.Components.Types.Damper.None then
       dat.getReal(varName=id + ".Mechanical.Economizer/dampers.Minimum outdoor air mass flow rate.value")
     else 0

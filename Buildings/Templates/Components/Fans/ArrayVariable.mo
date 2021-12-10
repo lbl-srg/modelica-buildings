@@ -92,10 +92,10 @@ equation
           {0,-36},{0,-38}}, color={0,0,127}));
   connect(evaSta.y, sigRet.u) annotation (Line(points={{-2.22045e-15,-62},{2.22045e-15,
           -68}}, color={255,0,255}));
-  connect(sigRet.y, bus.y_actual) annotation (Line(points={{0,-92},{0,-96},{60,-96},
-          {60,100},{0,100}},               color={255,0,255}));
+  connect(sigRet.y, bus.y_actual) annotation (Line(points={{0,-92},{0,-96},{60,
+          -96},{60,96},{0,96},{0,100}},    color={255,0,255}));
   connect(bus.y, sigSta.u) annotation (Line(
-      points={{0,100},{-46,100},{-46,92}},
+      points={{0,100},{0,96},{-46,96},{-46,92}},
       color={255,204,51},
       thickness=0.5));
   connect(colDis.port_aDisRet, V_flow.port_a) annotation (Line(points={{20,-26},
