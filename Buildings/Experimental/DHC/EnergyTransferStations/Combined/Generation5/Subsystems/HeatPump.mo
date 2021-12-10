@@ -1,4 +1,4 @@
-﻿within Buildings.Experimental.DHC.EnergyTransferStations.Combined.Generation5.Subsystems;
+within Buildings.Experimental.DHC.EnergyTransferStations.Combined.Generation5.Subsystems;
 model HeatPump "Base subsystem with water-to-water heat pump"
   replaceable package Medium1=Modelica.Media.Interfaces.PartialMedium
     "Medium model on condenser side"
