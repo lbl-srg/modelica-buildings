@@ -38,7 +38,7 @@ protected
     "Extended vector with port enthalpies, needed to simplify loop";
   Modelica.Units.SI.HeatFlowRate Q_flow[nSeg]
     "Heat exchange computed using upwind third order discretization scheme";
-  //    Modelica.SIunits.HeatFlowRate Q_flow_upWind
+  //    Modelica.Units.SI.HeatFlowRate Q_flow_upWind
   //     "Heat exchange computed using upwind third order discretization scheme"; //Used to test the energy conservation
   Real sig
     "Sign used to implement the third order upwind scheme without triggering a state event";

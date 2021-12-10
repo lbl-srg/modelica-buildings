@@ -36,7 +36,7 @@ revisions="<html>
 <li>
 June 6, 2015, by Michael Wetter:<br/>
 Changed type of <code>T</code> from
-<code>Modelica.SIunits.Temperature</code> to <code>Medium.Temperature</code>.
+<code>Modelica.Units.SI.Temperature</code> to <code>Medium.Temperature</code>.
 Otherwise, it has a different start value than <code>BaseProperties.T</code>, which
 causes an error if
 <a href=\"Buildings.Media.Examples.WaterProperties\">

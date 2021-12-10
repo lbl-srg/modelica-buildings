@@ -86,7 +86,7 @@ protected
   final parameter Real T03(
     min=0,
     unit="K3") = T0^3 "3rd power of temperature T0";
-  // Modelica.SIunits.HeatFlowRate sumEBal(start=0, fixed=sampleModel)
+  // Modelica.Units.SI.HeatFlowRate sumEBal(start=0, fixed=sampleModel)
   //   "Sum of energy balance, should be zero";
 initial equation
   assert(homotopyInitialization, "In " + getInstanceName() +

@@ -206,7 +206,7 @@ This fixes
 <li>
 June 6, 2015, by Michael Wetter:<br/>
 Changed type of <code>BaseProperties.T</code> from
-<code>Modelica.SIunits.Temperature</code> to <code>Temperature</code>.
+<code>Modelica.Units.SI.Temperature</code> to <code>Temperature</code>.
 Otherwise, it has a different start value than <code>Medium.T</code>, which
 causes an error if
 <a href=\"Buildings.Media.Examples.WaterProperties\">

@@ -19,7 +19,7 @@ connector MassFractionConnector =
       textString="%name")}),
   Documentation(info="<html>
 <p>
-Connector with variable of type <code>Modelica.SIunits.MassFraction</code>.
+Connector with variable of type <code>Modelica.Units.SI.MassFraction</code>.
 Note that the mass fraction is in kg water vapor per total mass
 of air, rathern than per kg of dry air.
 </p>

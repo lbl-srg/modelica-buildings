@@ -52,7 +52,7 @@ protected
     "Fluid temperature below which there will be no heat loss computed to prevent TFlu < Medium.T_min";
   final parameter Modelica.Units.SI.Temperature TMedMin2=TMedMin + dTMin
     "Fluid temperature below which there will be no heat loss computed to prevent TFlu < Medium.T_min";
-//  final parameter Modelica.SIunits.HeatFlowRate QUse_nominal(min=0) = G_nominal * A_c * y_intercept + QLos_nominal
+//  final parameter Modelica.Units.SI.HeatFlowRate QUse_nominal(min=0) = G_nominal * A_c * y_intercept + QLos_nominal
 //    "Useful heat gain at nominal conditions";
 
   input Modelica.Units.SI.HeatFlowRate QLos_internal[nSeg]

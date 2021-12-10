@@ -294,43 +294,43 @@ The calculations are as follows:
 
   /////////////////////////////////////////////////////////
   // Design air conditions
-  parameter Modelica.SIunits.Temperature TASup_nominal = 291.15
+  parameter Modelica.Units.SI.Temperature TASup_nominal = 291.15
     \"Nominal air temperature supplied to room\";
-  parameter Modelica.SIunits.DimensionlessRatio wASup_nominal = 0.012
+  parameter Modelica.Units.SI.DimensionlessRatio wASup_nominal = 0.012
     \"Nominal air humidity ratio supplied to room [kg/kg] assuming 90% relative humidity\";
-  parameter Modelica.SIunits.Temperature TRooSet = 297.15
+  parameter Modelica.Units.SI.Temperature TRooSet = 297.15
     \"Nominal room air temperature\";
-  parameter Modelica.SIunits.Temperature TOut_nominal = 303.15
+  parameter Modelica.Units.SI.Temperature TOut_nominal = 303.15
     \"Design outlet air temperature\";
-  parameter Modelica.SIunits.Temperature THeaRecLvg=
+  parameter Modelica.Units.SI.Temperature THeaRecLvg=
     TOut_nominal - eps*(TOut_nominal-TRooSet)
     \"Air temperature leaving the heat recovery\";
-  parameter Modelica.SIunits.DimensionlessRatio wHeaRecLvg = 0.0135
+  parameter Modelica.Units.SI.DimensionlessRatio wHeaRecLvg = 0.0135
     \"Air humidity ratio leaving the heat recovery [kg/kg]\";
 
   /////////////////////////////////////////////////////////
   // Cooling loads and air mass flow rates
-  parameter Modelica.SIunits.HeatFlowRate QRooInt_flow=
+  parameter Modelica.Units.SI.HeatFlowRate QRooInt_flow=
      1000 \"Internal heat gains of the room\";
-  parameter Modelica.SIunits.HeatFlowRate QRooC_flow_nominal=
+  parameter Modelica.Units.SI.HeatFlowRate QRooC_flow_nominal=
     -QRooInt_flow-10E3/30*(TOut_nominal-TRooSet)
     \"Nominal cooling load of the room\";
-  parameter Modelica.SIunits.MassFlowRate mA_flow_nominal=
+  parameter Modelica.Units.SI.MassFlowRate mA_flow_nominal=
     1.3*QRooC_flow_nominal/1006/(TASup_nominal-TRooSet)
     \"Nominal air mass flow rate, increased by factor 1.3 to allow for recovery after temperature setback\";
-  parameter Modelica.SIunits.TemperatureDifference dTFan = 2
+  parameter Modelica.Units.SI.TemperatureDifference dTFan = 2
     \"Estimated temperature raise across fan that needs to be made up by the cooling coil\";
-  parameter Modelica.SIunits.HeatFlowRate QCoiC_flow_nominal=
+  parameter Modelica.Units.SI.HeatFlowRate QCoiC_flow_nominal=
     mA_flow_nominal*(TASup_nominal-THeaRecLvg-dTFan)*1006+mA_flow_nominal*(wASup_nominal-wHeaRecLvg)*2458.3e3
     \"Cooling load of coil, taking into account outside air sensible and latent heat removal\";
 
   /////////////////////////////////////////////////////////
   // Water temperatures and mass flow rates
-  parameter Modelica.SIunits.Temperature TWSup_nominal = 285.15
+  parameter Modelica.Units.SI.Temperature TWSup_nominal = 285.15
     \"Water supply temperature\";
-  parameter Modelica.SIunits.Temperature TWRet_nominal = 289.15
+  parameter Modelica.Units.SI.Temperature TWRet_nominal = 289.15
     \"Water return temperature\";
-  parameter Modelica.SIunits.MassFlowRate mW_flow_nominal=
+  parameter Modelica.Units.SI.MassFlowRate mW_flow_nominal=
     -QCoiC_flow_nominal/(TWRet_nominal-TWSup_nominal)/4200
     \"Nominal water mass flow rate\";
 </pre>

@@ -139,9 +139,9 @@ protected
     "Output of exchange function";
   Modelica.Units.SI.Time tNext(start=startTime, fixed=true)
     "Next sampling time";
-  //Modelica.SIunits.Time tNextEP(start=startTime-1, fixed=true) "Next sampling time requested from EnergyPlus";
+  //Modelica.Units.SI.Time tNextEP(start=startTime-1, fixed=true) "Next sampling time requested from EnergyPlus";
   // constant Real dT_dtMax(unit="K/s") = 0.000001 "Bound on temperature derivative to reduce or increase time step";
-  //  Modelica.SIunits.Time dtMax(displayUnit="min", start=600, fixed=true) "Maximum time step before next sampling";
+  //  Modelica.Units.SI.Time dtMax(displayUnit="min", start=600, fixed=true) "Maximum time step before next sampling";
   discrete Modelica.Units.SI.Time tLast(fixed=true, start=startTime)
     "Last time of data exchange";
   discrete Modelica.Units.SI.Time dtLast

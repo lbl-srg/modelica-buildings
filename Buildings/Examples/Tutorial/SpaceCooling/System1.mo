@@ -82,10 +82,10 @@ we can use this medium model and need not be able to model the fog region.
 We also defined the system-level parameters
 </p>
 <pre>
-  parameter Modelica.SIunits.Volume V=6*10*3 \"Room volume\";
-  parameter Modelica.SIunits.MassFlowRate mA_flow_nominal = V*1.2*6/3600
+  parameter Modelica.Units.SI.Volume V=6*10*3 \"Room volume\";
+  parameter Modelica.Units.SI.MassFlowRate mA_flow_nominal = V*1.2*6/3600
     \"Nominal mass flow rate\";
-  parameter Modelica.SIunits.HeatFlowRate QRooInt_flow = 1000
+  parameter Modelica.Units.SI.HeatFlowRate QRooInt_flow = 1000
     \"Internal heat gains of the room\";
 </pre>
 <p>

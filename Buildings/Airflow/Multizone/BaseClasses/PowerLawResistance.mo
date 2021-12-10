@@ -180,7 +180,7 @@ This is for
 </li>
 <li>
 January 21, 2015 by Michael Wetter:<br/>
-Changed type of <code>mExc</code> as <code>Modelica.SIunits.Mass</code>
+Changed type of <code>mExc</code> as <code>Modelica.Units.SI.Mass</code>
 sets <code>min=0</code>, but <code>mExc</code> can be negative.
 </li>
 <li>

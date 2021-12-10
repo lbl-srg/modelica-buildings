@@ -1379,7 +1379,7 @@ have been <b style=\"color:blue\">improved</b> in a
                        Buildings.Controls.OBC.CDL.Utilities.SunRiseSet
 
     </td>
-    <td valign=\"top\">Reformulated to remove dependency to <code>Modelica.SIunits</code>.<br/>
+    <td valign=\"top\">Reformulated to remove dependency to <code>Modelica.Units.SI</code>.<br/>
                        This is for
                        <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2243\">issue 2243</a>.
     </td>
@@ -6474,8 +6474,8 @@ units are wrong or errors in documentation):
 <tr><td valign=\"top\">Buildings.HeatTransfer.Windows.BaseClasses.GlassLayer
     </td>
     <td valign=\"top\">Changed type of <code>tauIR</code> from
-                       <code>Modelica.SIunits.Emissivity</code> to
-                       <code>Modelica.SIunits.TransmissionCoefficient</code>.
+                       <code>Modelica.Units.SI.Emissivity</code> to
+                       <code>Modelica.Units.SI.TransmissionCoefficient</code>.
                        This avoids a type error in OpenModelica.
     </td>
 </tr>
@@ -7305,7 +7305,7 @@ units are wrong or errors in documentation):
 <tr><td valign=\"top\">Buildings.Fluid.Data.Fuels.Generic
     </td>
     <td valign=\"top\">Corrected wrong type for <code>mCO2</code>.
-                       It was declared as <code>Modelica.SIunits.MassFraction</code>,
+                       It was declared as <code>Modelica.Units.SI.MassFraction</code>,
                        which is incorrect.
     </td>
 </tr>
@@ -7313,7 +7313,7 @@ units are wrong or errors in documentation):
     </td>
     <td valign=\"top\">Corrected wrong type for <code>FRWat_min</code>, <code>FRWat_max</code>
                        and <code>liqGasRat_max</code>.
-                       They were declared as <code>Modelica.SIunits.MassFraction</code>,
+                       They were declared as <code>Modelica.Units.SI.MassFraction</code>,
                        which is incorrect as, for example, <code>FRWat_max</code> can be larger than one.
     </td>
 </tr>

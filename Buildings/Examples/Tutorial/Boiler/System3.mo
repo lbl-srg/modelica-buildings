@@ -435,11 +435,11 @@ the following system-level parameters, where
 condensation in the boiler:
 </p>
 <pre>
-  parameter Modelica.SIunits.Temperature TBoiSup_nominal = 273.15+80
+  parameter Modelica.Units.SI.Temperature TBoiSup_nominal = 273.15+80
     \"Boiler nominal supply water temperature\";
-  parameter Modelica.SIunits.Temperature TBoiRet_min = 273.15+60
+  parameter Modelica.Units.SI.Temperature TBoiRet_min = 273.15+60
     \"Boiler minimum return water temperature\";
-  parameter Modelica.SIunits.MassFlowRate mBoi_flow_nominal=
+  parameter Modelica.Units.SI.MassFlowRate mBoi_flow_nominal=
     Q_flow_nominal/4200/(TBoiSup_nominal-TBoiRet_min)
     \"Boiler nominal mass flow rate\";
 </pre>
@@ -471,7 +471,7 @@ For the three-way valve in the radiator loop, we used the default pressure drop 
 For its mass flow rate, we introduced the parameter
 </p>
 <pre>
-  parameter Modelica.SIunits.MassFlowRate mRadVal_flow_nominal=
+  parameter Modelica.Units.SI.MassFlowRate mRadVal_flow_nominal=
     Q_flow_nominal/4200/(TBoiSup_nominal-TRadRet_nominal)
     \"Radiator nominal mass flow rate\";
 </pre>

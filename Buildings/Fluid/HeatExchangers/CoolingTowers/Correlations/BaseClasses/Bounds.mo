@@ -24,7 +24,7 @@ revisions="<html>
 June 26, 2013 by Michael Wetter:<br/>
 Corrected wrong type for <code>FRWat_min</code>, <code>FRWat_max</code>
 and <code>liqGasRat_max</code>.
-They were declared as <code>Modelica.SIunits.MassFraction</code>,
+They were declared as <code>Modelica.Units.SI.MassFraction</code>,
 which is incorrect as, for example, <code>FRWat_max</code> can be larger than one.
 </li>
 <li>

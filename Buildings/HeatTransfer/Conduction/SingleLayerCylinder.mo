@@ -36,7 +36,7 @@ model SingleLayerCylinder "Heat conduction in a cylinder"
   Modelica.Units.SI.HeatFlowRate Q_flow[nSta + 1]
     "Heat flow rate from state i to i+1";
 
-//  Modelica.SIunits.TemperatureSlope der_T[nSta]
+//  Modelica.Units.SI.TemperatureSlope der_T[nSta]
 //    "Time derivative of temperature (= der(T))";
 protected
   parameter Modelica.Units.SI.Radius r[nSta + 1](each fixed=false)

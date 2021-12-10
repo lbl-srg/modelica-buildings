@@ -13,7 +13,7 @@ block HVACZones
     "= true to allow flow reversal, false restricts to design direction (inlet -> outlet)"
     annotation(Dialog(tab="Assumptions"), Evaluate=true);
 
- // parameter Modelica.SIunits.Volume V=6*10*3 "Room volume";
+ // parameter Modelica.Units.SI.Volume V=6*10*3 "Room volume";
   //////////////////////////////////////////////////////////
   // Heat recovery effectiveness
   parameter Real eps = 0.8 "Heat recovery effectiveness";

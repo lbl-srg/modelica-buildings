@@ -29,7 +29,7 @@ connector PressureOutput =
       textString="%name")}),
   Documentation(info="<html>
 <p>
-Connector with one output signal of type <code>Modelica.SIunits.AbsolutePressure</code>.
+Connector with one output signal of type <code>Modelica.Units.SI.AbsolutePressure</code>.
 This connector has been implemented to conditionally remove
 the pressure if no pressure drop calculation is requested.
 </p>
