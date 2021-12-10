@@ -755,7 +755,7 @@ units are wrong or errors in documentation):
                        This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1496\">Buildings, #1496</a>.
     </td>
   </tr>
-  <tr><td colspan=\"2\"><b>Buildings.Applications.DataCenters</b>
+<tr><td colspan=\"2\"><b>Buildings.Applications.DataCenters</b>
     </td>
 </tr>
 <tr><td valign=\"top\">Buildings.Applications.DataCenters.ChillerCooled.Examples.IntegratedPrimaryLoadSideEconomizer<br/>
@@ -766,6 +766,19 @@ units are wrong or errors in documentation):
                        and did not parse in OpenModelica.<br/>
                        This is for
                        <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2706\">Buildings, issue 2706</a>.
+    </td>
+</tr>
+<tr><td colspan=\"2\"><b>Buildings.Experimental</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Experimental.DHC.CentralPlants.Cooling.Controls.ChillerStage
+    </td>
+    <td valign=\"top\">Corrected parameter value for <code>twoOn.nOut</code>.
+                       This correction is required to simulate the model in Dymola 2022
+                       if the model has been updated to MSL 4.0.0. With MSL 3.2.3, the simulation
+                       works without this correction.<br/>
+                       This is for
+                       <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1563\">Buildings, #1563</a>.
     </td>
 </tr>
 <tr><td colspan=\"2\"><b>Buildings.ThermalZones.Detailed</b>
@@ -785,6 +798,17 @@ units are wrong or errors in documentation):
         <td valign=\"top\">Added missing parameter declaration.<br/>
                            This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2556\">Buildings, #2556</a>.
         </td>
+   </tr>
+   <tr><td colspan=\"2\"><b>Buildings.Utilities.IO.Python36</b>
+   </td>
+   </tr>
+   <tr><td valign=\"top\">Buildings.Utilities.IO.Python36.Functions.Examples.Exchange
+   </td>
+   <td valign=\"top\">Removed call to impure function <code>removeFile</code>.
+                      This removal is required for MSL 4.0.0.<br/>
+                      This is for
+                      <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1563\">Buildings, #1563</a>.
+   </td>
 </tr>
 </table>
 <p>
