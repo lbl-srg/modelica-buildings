@@ -1,5 +1,5 @@
 within Buildings.Fluid.Geothermal.Borefields.BaseClasses.Boreholes.BaseClasses.Functions;
-function internalResistancesTwoUTube
+impure function internalResistancesTwoUTube
   "Thermal resistances for double U-tube, according to Bauer et al (2011)"
   extends
     Buildings.Fluid.Geothermal.Borefields.BaseClasses.Boreholes.BaseClasses.Functions.partialInternalResistances;
@@ -122,22 +122,26 @@ algorithm
 <p>
 This model computes the different thermal resistances present in a double U-tube
 borehole using the method of Bauer et al. (2011).
-It also computes the fluid-to-ground thermal resistance <i>R<sub>b</sub></i> 
-and the grout-to-grout thermal resistance <i>R<sub>a</sub></i> 
+It also computes the fluid-to-ground thermal resistance <i>R<sub>b</sub></i>
+and the grout-to-grout thermal resistance <i>R<sub>a</sub></i>
 as defined by Claesson and Hellstrom (2011) using the multipole method.
 </p>
 
 <h4>References</h4>
-<p>J. Claesson and G. Hellstrom. 
-<i>Multipole method to calculate borehole thermal resistances in a borehole heat exchanger. 
+<p>J. Claesson and G. Hellstrom.
+<i>Multipole method to calculate borehole thermal resistances in a borehole heat exchanger.
 </i>
 HVAC&amp;R Research,
 17(6): 895-911, 2011.</p>
-<p>D. Bauer, W. Heidemann, H. M&uuml;ller-Steinhagen, and H.-J. G. Diersch. 
-<i>Thermal resistance and capacity models for borehole heat exchangers</i>. 
+<p>D. Bauer, W. Heidemann, H. M&uuml;ller-Steinhagen, and H.-J. G. Diersch.
+<i>Thermal resistance and capacity models for borehole heat exchangers</i>.
 International Journal of Energy Research, 35:312&ndash;320, 2011.</p>
 </html>", revisions="<html>
 <ul>
+<li>
+December 11, 2021, by Michael Wetter:<br/>
+Added <code>impure</code> declaration for MSL 4.0.0.
+</li>
 <li>
 July 18, 2018 by Massimo Cimmino:<br/>
 Implemented multipole method.

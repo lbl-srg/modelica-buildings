@@ -1,5 +1,5 @@
 within Buildings.BoundaryConditions.WeatherData.BaseClasses;
-function getTimeSpanTMY3
+impure function getTimeSpanTMY3
     "Get the time span of the weather data from the file"
   extends Modelica.Icons.Function;
 
@@ -20,6 +20,10 @@ This function returns the start time (first time stamp) and end time
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+December 11, 2021, by Michael Wetter:<br/>
+Added <code>impure</code> declaration for MSL 4.0.0.
+</li>
 <li>
 April 16, 2019, by Jianjun Hu:<br/>
 Reimplemented to use a C function, this is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1108\">#1108</a>.

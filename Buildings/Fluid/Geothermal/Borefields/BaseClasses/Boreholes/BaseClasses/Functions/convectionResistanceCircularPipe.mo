@@ -1,6 +1,7 @@
 within Buildings.Fluid.Geothermal.Borefields.BaseClasses.Boreholes.BaseClasses.Functions;
 function convectionResistanceCircularPipe
   "Thermal resistance from the fluid in pipes and the grout zones (Bauer et al. 2011)"
+  extends Modelica.Icons.Function;
 
   // Geometry of the borehole
   input Modelica.Units.SI.Height hSeg "Height of the element";

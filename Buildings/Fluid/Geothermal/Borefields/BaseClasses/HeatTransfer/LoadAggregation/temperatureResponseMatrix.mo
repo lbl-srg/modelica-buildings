@@ -1,5 +1,5 @@
 within Buildings.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.LoadAggregation;
-function temperatureResponseMatrix
+impure function temperatureResponseMatrix
   "Reads and possibly writes a matrix with a time series of the borefield's temperature response"
   extends Modelica.Icons.Function;
 
@@ -75,9 +75,9 @@ response to build a SHA1-encrypted string unique to the borefield in question.
 Then, if the <code>forceGFunCalc</code> input is <code>true</code> or if
 there is no <code>.mat</code> file with the SHA1 hash as its filename in the
 <code>tmp/temperatureResponseMatrix</code> folder,
-the thermal response will be calculated and written as a 
+the thermal response will be calculated and written as a
 <code>.mat</code> file. Otherwise, the
-thermal response will simply be read from the 
+thermal response will simply be read from the
 <code>.mat</code> file. In the <code>.mat</code> file, the data
 is saved in a matrix with the name <code>TStep</code>, where the first column is
 the time (in seconds) and the second column is the temperature step response,
@@ -87,6 +87,10 @@ conductivity of the soil.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+December 11, 2021, by Michael Wetter:<br/>
+Added <code>impure</code> declaration for MSL 4.0.0.
+</li>
 <li>
 August 27, 2018, by Michael Wetter:<br/>
 Changed name of temporary directory so that it is clear for users

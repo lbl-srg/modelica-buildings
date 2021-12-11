@@ -1,5 +1,5 @@
 within Buildings.BoundaryConditions.WeatherData.BaseClasses;
-function getTimeZoneTMY3 "Gets the time zone from a TMY3 weather data file"
+impure function getTimeZoneTMY3 "Gets the time zone from a TMY3 weather data file"
   extends Modelica.Icons.Function;
  input String filNam "Name of weather data file"
  annotation (Dialog(
@@ -32,6 +32,10 @@ algorithm
 This function returns the time zone of the TMY3 weather data file.
 </html>", revisions="<html>
 <ul>
+<li>
+December 11, 2021, by Michael Wetter:<br/>
+Added <code>impure</code> declaration for MSL 4.0.0.
+</li>
 <li>
 September 24, 2015, by Marcus Fuchs:<br/>
 Replace Dymola specific annotation by <code>loadSelector</code>
