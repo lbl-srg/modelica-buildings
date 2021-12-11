@@ -2,7 +2,7 @@ within Buildings.ThermalZones.EnergyPlus.BaseClasses;
 class SpawnExternalObject
   "Class used to couple the FMU to interact with a thermal zone"
   extends ExternalObject;
-  function constructor
+  impure function constructor
     "Construct to connect to a thermal zone in EnergyPlus"
     extends Modelica.Icons.Function;
     input Integer objectType
@@ -112,6 +112,10 @@ will be used to store the data structure needed to communicate with EnergyPlus.
         revisions="<html>
 <ul>
 <li>
+December 11, 2021, by Michael Wetter:<br/>
+Declared function as <code>impure</code> for MSL 4.0.0.
+</li>
+<li>
 February 18, 2021, by Michael Wetter:<br/>
 Refactor synchronization of constructors.<br/>
 This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2360\">#2360</a>.
@@ -124,7 +128,7 @@ First implementation.
 </html>"));
   end constructor;
 
-  function destructor
+  pure function destructor
     "Release storage"
     extends Modelica.Icons.Function;
     input SpawnExternalObject adapter;
@@ -167,6 +171,10 @@ of the data structure needed to communicate with the EnergyPlus FMU.
 </html>",
       revisions="<html>
 <ul>
+<li>
+December 11, 2021, by Michael Wetter:<br/>
+Declared function as <code>pure</code> for MSL 4.0.0.
+</li>
 <li>
 February 18, 2021, by Michael Wetter:<br/>
 Refactor synchronization of constructors.<br/>

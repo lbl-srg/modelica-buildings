@@ -5,10 +5,10 @@ model Exchange "Test model for exchange function"
   parameter Boolean passPythonObject = false
     "Set to true if the Python function returns and receives an object, see User's Guide";
 
-  Real    yR1[1] "Real function value";
-  Integer yI1[1] "Integer function value";
-  Real    yR2[2] "Real function value";
-  Integer yI2[2] "Integer function value";
+  parameter Real    yR1[1](each fixed=false) "Real function value";
+  parameter Integer yI1[1](each fixed=false) "Integer function value";
+  parameter Real    yR2[2](each fixed=false) "Real function value";
+  parameter Integer yI2[2](each fixed=false) "Integer function value";
 
 protected
   model M "Class that contains the Python object"
@@ -19,7 +19,7 @@ protected
 
   M[8] m "Array with instances of Python objects";
 
-algorithm
+initial algorithm
   yR1 := Buildings.Utilities.IO.Python36.Functions.exchange(
     moduleName="testFunctions",
     functionName="r1_r1",
@@ -161,6 +161,12 @@ the simulation if the return value is different from the expected value.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+December 11, 2021, by Michael Wetter:<br/>
+Changed implementation to assigning parameters as opposed to variables because the
+assignment is made through impure function calls.
+This is for MSL 4.0.0.
+</li>
 <li>
 December 10, 2021, by Michael Wetter:<br/>
 Removed call to impure function <code>removeFile</code>.

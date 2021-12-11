@@ -1,3 +1,4 @@
+buildingsLibraryRoot
 PartialEnergyPlusObject
 SpawnExternalObject
 ThermalZoneAdapter
@@ -6,5 +7,4 @@ getParameters
 getUnitAsString
 initialize
 Synchronize
-buildingsLibraryRoot
 Validation
