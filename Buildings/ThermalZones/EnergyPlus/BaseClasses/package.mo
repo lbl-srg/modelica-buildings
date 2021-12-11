@@ -24,5 +24,5 @@ Removed call to impure function <code>Modelica.Utilities.Files.FullPathName</cod
 This is for MSL 4.0.0.
 </li>
 </ul>
-</html>")));
+</html>"));
 end BaseClasses;
