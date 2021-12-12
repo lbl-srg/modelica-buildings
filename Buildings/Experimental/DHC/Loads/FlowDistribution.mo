@@ -288,6 +288,9 @@ model FlowDistribution
   Buildings.Fluid.Movers.FlowControlled_m_flow pumFlo(
     redeclare final package Medium=Medium,
     per(
+      pressure(
+        final V_flow = per.pressure.V_flow,
+        final dp = per.pressure.dp),
       final hydraulicEfficiency=per.hydraulicEfficiency,
       final motorEfficiency=per.motorEfficiency,
       final motorCooledByFluid=per.motorCooledByFluid,
@@ -340,8 +343,8 @@ protected
     else
       Modelica.Constants.inf for i in 1:nUni}
     "Flow coefficient between each connected unit at nominal conditions";
-  Modelica.Units.SI.MassFlowRate mDis_flow[nUni]={sum(mReq_flow[i:nUni]) for i
-       in 1:nUni} "Distribution flow rate between each connected unit";
+  Modelica.Units.SI.MassFlowRate mDis_flow[nUni]={sum(mReq_flow[i:nUni]) for i in
+          1:nUni} "Distribution flow rate between each connected unit";
   Modelica.Units.SI.PressureDifference dpDis[nUni]=(mDis_flow ./ kDis) .^ 2
     "Pressure drop between each connected unit (supply line)";
   Modelica.Units.SI.PressureDifference dpPum(displayUnit="Pa") = if typCtr ==
@@ -671,6 +674,11 @@ src=\"modelica://Buildings/Resources/Images/Experimental/DHC/Loads/FlowDistribut
 </html>",
       revisions="<html>
 <ul>
+<li>
+December 12, 2021, by Michael Wetter:<br/>
+Added parameter assignment for <code>pumFlo.per.V_flow</code> and <code>pumFlo.per.pressure</code>.
+This avoids in OPTIMICA a compiler error \"Could not evaluate binding expression for structural parameter 'disFloHea.pumFlo.eff.per.pressure.V_flow'\".
+</li>
 <li>
 February 21, 2020, by Antoine Gautier:<br/>
 First implementation.
