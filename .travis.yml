@@ -30,7 +30,7 @@ services:
 
 env:
   global:
-    - BUILDINGSPY_VERSION=BuildingsPy@1783a1e
+    - BUILDINGSPY_VERSION=BuildingsPy@v3.0.0
     - OPTIMICA_VERSION=travis-ubuntu-1804-optimica:r26446
     - ENERGYPLUS_VERSION=EnergyPlus-9.5.0-de239b2e5f-Linux-Ubuntu18.04-x86_64
     - MODELICA_JSON_VERSION=6d950c3592fa021aa914ba4ff34a67cbb69962c6
