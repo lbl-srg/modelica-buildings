@@ -10160,6 +10160,8 @@ The following people have directly contributed to the implementation of the Buil
 </li>
 <li>Vladimir Vukovic, Austrian Institute of Technology, Austria
 </li>
+<li>Jing Wang, University of Colorado Boulder, Colorado, USA
+</li>
 <li>Michael Wetter, Lawrence Berkeley National Laboratory, USA
 </li>
 <li>Tea Zakula, University of Zagreb, Croatia
