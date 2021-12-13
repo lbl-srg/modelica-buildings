@@ -15,42 +15,40 @@ model SingleDamper "Single common damper (modulated) with AFMS"
         rotation=0,
         origin={0,0})));
 
-  Buildings.Templates.Components.Sensors.VolumeFlowRate VOut_flow(
+  Buildings.Templates.Components.Sensors.VolumeFlowRate VAirOut_flow(
     redeclare final package Medium = MediumAir,
     final have_sen=true,
     final m_flow_nominal=m_flow_nominal,
     final typ=Buildings.Templates.Components.Types.SensorVolumeFlowRate.AFMS)
     "Outdoor air volume flow rate sensor"
     annotation (Placement(transformation(extent={{80,-10},{100,10}})));
-  Buildings.Templates.Components.Sensors.Temperature TOut(
+  Buildings.Templates.Components.Sensors.Temperature TAirOut(
     redeclare final package Medium = MediumAir,
     final have_sen=true,
-    final m_flow_nominal=m_flow_nominal)
-    "Outdoor air temperature sensor"
+    final m_flow_nominal=m_flow_nominal) "Outdoor air temperature sensor"
     annotation (Placement(transformation(extent={{50,-10},{70,10}})));
-  Buildings.Templates.Components.Sensors.SpecificEnthalpy hOut(
+  Buildings.Templates.Components.Sensors.SpecificEnthalpy hAirOut(
     redeclare final package Medium = MediumAir,
-    final have_sen=
-      typCtrEco==Buildings.Templates.AirHandlersFans.Types.ControlEconomizer.FixedEnthalpyWithFixedDryBulb or
-      typCtrEco==Buildings.Templates.AirHandlersFans.Types.ControlEconomizer.DifferentialEnthalpyWithFixedDryBulb,
-    final m_flow_nominal=m_flow_nominal)
-    "Outdoor air enthalpy sensor"
+    final have_sen=typCtrEco == Buildings.Templates.AirHandlersFans.Types.ControlEconomizer.FixedEnthalpyWithFixedDryBulb
+         or typCtrEco == Buildings.Templates.AirHandlersFans.Types.ControlEconomizer.DifferentialEnthalpyWithFixedDryBulb,
+
+    final m_flow_nominal=m_flow_nominal) "Outdoor air enthalpy sensor"
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
 equation
   /* Control point connection - start */
   connect(damOut.bus, bus.damOut);
-  connect(TOut.y, bus.TOut);
-  connect(hOut.y, bus.hOut);
-  connect(VOut_flow.y, bus.VOut_flow);
+  connect(TAirOut.y, bus.TAirOut);
+  connect(hAirOut.y, bus.hAirOut);
+  connect(VAirOut_flow.y, bus.VOut_flow);
   /* Control point connection - end */
-  connect(TOut.port_b, VOut_flow.port_a)
+  connect(TAirOut.port_b, VAirOut_flow.port_a)
     annotation (Line(points={{70,0},{80,0}}, color={0,127,255}));
-  connect(VOut_flow.port_b, port_b)
-    annotation (Line(points={{100,0},{180,0}},color={0,127,255}));
+  connect(VAirOut_flow.port_b, port_b)
+    annotation (Line(points={{100,0},{180,0}}, color={0,127,255}));
 
-  connect(damOut.port_b, hOut.port_a)
+  connect(damOut.port_b, hAirOut.port_a)
     annotation (Line(points={{10,0},{20,0}}, color={0,127,255}));
-  connect(hOut.port_b, TOut.port_a)
+  connect(hAirOut.port_b, TAirOut.port_a)
     annotation (Line(points={{40,0},{50,0}}, color={0,127,255}));
   connect(port_a, damOut.port_a)
     annotation (Line(points={{-180,0},{-10,0}}, color={0,127,255}));

@@ -33,12 +33,6 @@ model NoEconomizer "No air economizer"
       Placement(
     transformation(extent={{70,-10},{50,10}})));
 
-  Buildings.Templates.Components.Sensors.DifferentialPressure pRet_rel(
-    redeclare final package Medium = MediumAir,
-    final have_sen=typCtrFanRet==Buildings.Templates.AirHandlersFans.Types.ControlFanReturn.Pressure)
-    "Return static pressure sensor"
-    annotation (Placement(transformation(extent={{50,30},{70,50}})));
-
 equation
   /* Control point connection - start */
   connect(fanRet.bus, bus.fanRet);

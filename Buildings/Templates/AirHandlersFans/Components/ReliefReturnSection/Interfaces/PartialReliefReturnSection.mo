@@ -100,7 +100,7 @@ partial model PartialReliefReturnSection "Relief/return air section"
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)
     "Splitter with air economizer"
     annotation (Placement(transformation(extent={{10,-10},{-10,10}})));
-  Buildings.Templates.Components.Sensors.DifferentialPressure pRet_rel(
+  Buildings.Templates.Components.Sensors.DifferentialPressure pAirRet_rel(
     redeclare final package Medium = MediumAir,
     final have_sen=typFanRet<>Buildings.Templates.Components.Types.Fan.None and
       typCtrFanRet==Buildings.Templates.AirHandlersFans.Types.ControlFanReturn.Pressure)
@@ -108,13 +108,13 @@ partial model PartialReliefReturnSection "Relief/return air section"
     annotation (Placement(transformation(extent={{50,30},{70,50}})));
 equation
   /* Control point connection - start */
-  connect(pRet_rel.y, bus.pRet_rel);
+  connect(pAirRet_rel.y, bus.pAirRet_rel);
   /* Control point connection - end */
   connect(splEco.port_3, port_bRet)
     annotation (Line(points={{0,-10},{0,-140}}, color={0,127,255}));
-  connect(pRet_rel.port_a, splEco.port_1) annotation (Line(points={{50,40},{20,40},
+  connect(pAirRet_rel.port_a, splEco.port_1) annotation (Line(points={{50,40},{20,40},
           {20,0},{10,0}}, color={0,127,255}));
-  connect(pRet_rel.port_b, port_bPre)
+  connect(pAirRet_rel.port_b, port_bPre)
     annotation (Line(points={{70,40},{80,40},{80,-140}}, color={0,127,255}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-180,-140},
             {180,140}}), graphics={

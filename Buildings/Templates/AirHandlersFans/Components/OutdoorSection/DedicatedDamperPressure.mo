@@ -24,18 +24,18 @@ model DedicatedDamperPressure
         rotation=0,
         origin={0,60})));
 
-  Buildings.Templates.Components.Sensors.Temperature TOut(
+  Buildings.Templates.Components.Sensors.Temperature TAirOut(
     redeclare final package Medium = MediumAir,
     final have_sen=true,
     final m_flow_nominal=m_flow_nominal)
     "Outdoor air temperature sensor"
     annotation (Placement(transformation(extent={{70,50},{90,70}})));
-  Buildings.Templates.Components.Sensors.DifferentialPressure dpOutMin(
+  Buildings.Templates.Components.Sensors.DifferentialPressure dpAirOutMin(
     redeclare final package Medium = MediumAir,
     final have_sen=true)
     "Minimum outdoor air damper differential pressure sensor"
     annotation (Placement(transformation(extent={{-10,90},{10,110}})));
-  Buildings.Templates.Components.Sensors.SpecificEnthalpy hOut(
+  Buildings.Templates.Components.Sensors.SpecificEnthalpy hAirOut(
     redeclare final package Medium = MediumAir,
     final have_sen=
       typCtrEco==Buildings.Templates.AirHandlersFans.Types.ControlEconomizer.FixedEnthalpyWithFixedDryBulb or
@@ -47,24 +47,24 @@ equation
   /* Control point connection - start */
   connect(damOut.bus, bus.damOut);
   connect(damOutMin.bus, bus.damOutMin);
-  connect(TOut.y, bus.TOut);
-  connect(hOut.y, bus.hOut);
-  connect(dpOutMin.y, bus.dpOutMin);
+  connect(TAirOut.y, bus.TAirOut);
+  connect(hAirOut.y, bus.hAirOut);
+  connect(dpAirOutMin.y, bus.dpAirOutMin);
   /* Control point connection - end */
-  connect(TOut.port_b, port_b) annotation (Line(points={{90,60},{160,60},{160,0},
+  connect(TAirOut.port_b, port_b) annotation (Line(points={{90,60},{160,60},{160,0},
           {180,0}}, color={0,127,255}));
   connect(damOut.port_b, port_b)
     annotation (Line(points={{10,0},{180,0}}, color={0,127,255}));
 
-  connect(damOutMin.port_a, dpOutMin.port_a) annotation (Line(points={{-10,60},
+  connect(damOutMin.port_a, dpAirOutMin.port_a) annotation (Line(points={{-10,60},
           {-20,60},{-20,100},{-10,100}},
                                    color={0,127,255}));
-  connect(damOutMin.port_b, dpOutMin.port_b) annotation (Line(points={{10,60},{
+  connect(damOutMin.port_b, dpAirOutMin.port_b) annotation (Line(points={{10,60},{
           20,60},{20,100},{10,100}},
                                    color={0,127,255}));
-  connect(damOutMin.port_b, hOut.port_a)
+  connect(damOutMin.port_b, hAirOut.port_a)
     annotation (Line(points={{10,60},{30,60}}, color={0,127,255}));
-  connect(hOut.port_b, TOut.port_a)
+  connect(hAirOut.port_b, TAirOut.port_a)
     annotation (Line(points={{50,60},{70,60}},   color={0,127,255}));
   connect(port_a, damOut.port_a)
     annotation (Line(points={{-180,0},{-10,0}}, color={0,127,255}));

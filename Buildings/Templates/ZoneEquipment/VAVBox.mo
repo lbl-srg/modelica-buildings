@@ -67,14 +67,14 @@ model VAVBox "VAV terminal unit"
     Dialog(group="Controller"),
     Placement(transformation(extent={{-10,-10},{10,10}})));
 
-  Buildings.Templates.Components.Sensors.Temperature TDis(
+  Buildings.Templates.Components.Sensors.Temperature TAirDis(
     redeclare final package Medium = MediumAir,
     final have_sen=ctr.typ==Buildings.Templates.ZoneEquipment.Types.Controller.Guideline36,
     final m_flow_nominal=mAir_flow_nominal,
     final typ=Buildings.Templates.Components.Types.SensorTemperature.Standard)
     "Discharge air temperature sensor"
     annotation (Placement(transformation(extent={{90,-210},{110,-190}})));
-  Buildings.Templates.Components.Sensors.VolumeFlowRate VDis_flow(
+  Buildings.Templates.Components.Sensors.VolumeFlowRate VAirDis_flow(
     redeclare final package Medium = MediumAir,
     final have_sen=ctr.typ==Buildings.Templates.ZoneEquipment.Types.Controller.Guideline36,
     final m_flow_nominal=mAir_flow_nominal,
@@ -84,8 +84,8 @@ equation
   /* Control point connection - start */
   connect(damVAV.bus, bus.damVAV);
   connect(coiHea.bus, bus.coiHea);
-  connect(TDis.y, bus.TDis);
-  connect(VDis_flow.y, bus.VDis_flow);
+  connect(TAirDis.y, bus.TAirDis);
+  connect(VAirDis_flow.y, bus.VAirDis_flow);
   /* Control point connection - end */
   connect(port_coiHeaSup,coiHea. port_aSou) annotation (Line(points={{20,-280},{
           20,-260},{5,-260},{5,-210}},     color={0,127,255}));
@@ -98,14 +98,14 @@ equation
       points={{-300,0},{-10,0}},
       color={255,204,51},
       thickness=0.5));
-  connect(coiHea.port_b, TDis.port_a)
+  connect(coiHea.port_b, TAirDis.port_a)
     annotation (Line(points={{10,-200},{90,-200}}, color={0,127,255}));
-  connect(TDis.port_b, port_Dis)
+  connect(TAirDis.port_b, port_Dis)
     annotation (Line(points={{110,-200},{300,-200}}, color={0,127,255}));
 
-  connect(port_Sup, VDis_flow.port_a)
+  connect(port_Sup, VAirDis_flow.port_a)
     annotation (Line(points={{-300,-200},{-200,-200}}, color={0,127,255}));
-  connect(VDis_flow.port_b, damVAV.port_a)
+  connect(VAirDis_flow.port_b, damVAV.port_a)
     annotation (Line(points={{-180,-200},{-130,-200}}, color={0,127,255}));
   annotation (Diagram(graphics={
         Line(points={{300,-190},{-300,-190}},

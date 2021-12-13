@@ -27,16 +27,9 @@ model NoRelief "No relief branch"
     Dialog(group="Exhaust/relief/return section"),
     Placement(transformation(extent={{70,-10},{50,10}})));
 
-  Buildings.Templates.Components.Sensors.DifferentialPressure pRet_rel(
-    redeclare final package Medium = MediumAir,
-    final have_sen=typCtrFanRet==Buildings.Templates.AirHandlersFans.Types.ControlFanReturn.Pressure)
-    "Return static pressure sensor"
-    annotation (Placement(transformation(extent={{50,30},{70,50}})));
-
 equation
   /* Control point connection - start */
   connect(fanRet.bus, bus.fanRet);
-   connect(pRet_rel.y, bus.pRet_rel);
   /* Control point connection - end */
   connect(port_a, fanRet.port_a)
     annotation (Line(points={{180,0},{70,0}},  color={0,127,255}));

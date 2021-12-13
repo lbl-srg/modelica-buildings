@@ -12,7 +12,7 @@ sensor that the class name indicates.
 It can be overriden and set to None to avoid instantiating a sensor
 (a fluid pass through is used instead).
 Connect sensor variables as input points to the control system such as
-connect(TSup.busCon, busAHU.TSup).
+connect(TAirSup.busCon, busAHU.TAirSup).
 </p>
 </html>"));
 end Sensors;

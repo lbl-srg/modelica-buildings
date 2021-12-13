@@ -49,9 +49,8 @@ model NoEconomizer
     m_flow_nominal=1,
     dp_nominal=100)
     annotation (Placement(transformation(extent={{30,-20},{50,0}})));
-  Fluid.Sensors.Pressure pInd(
-    redeclare final package Medium=MediumAir)
-    "Indoor pressure"
+  Fluid.Sensors.Pressure pAirBui(redeclare final package Medium = MediumAir)
+    "Building absolute pressure in representative space"
     annotation (Placement(transformation(extent={{80,30},{60,50}})));
   BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=
         Modelica.Utilities.Files.loadResource(
@@ -84,8 +83,8 @@ equation
   connect(res1.port_b, bou1.ports[1]) annotation (Line(points={{50,-10},{60,-10},
           {60,-1.33333},{70,-1.33333}},
                             color={0,127,255}));
-  connect(bou1.ports[2], pInd.port) annotation (Line(points={{70,-2.22045e-16},
-          {70,30}}, color={0,127,255}));
+  connect(bou1.ports[2], pAirBui.port)
+    annotation (Line(points={{70,-2.22045e-16},{70,30}}, color={0,127,255}));
   connect(weaDat.weaBus,ahu.busWea)  annotation (Line(
       points={{-70,30},{0,30},{0,20}},
       color={255,204,51},
@@ -102,7 +101,7 @@ equation
     annotation (Line(points={{20,10},{30,10}}, color={0,127,255}));
   connect(res3.port_a, bou1.ports[3]) annotation (Line(points={{50,10},{60,10},
           {60,1.33333},{70,1.33333}},   color={0,127,255}));
-  connect(pInd.p, busAHU.pBui) annotation (Line(points={{59,40},{-20,40}},
+  connect(pAirBui.p, busAHU.pAirBui) annotation (Line(points={{59,40},{-20,40}},
         color={0,0,127}), Text(
       string="%second",
       index=1,
