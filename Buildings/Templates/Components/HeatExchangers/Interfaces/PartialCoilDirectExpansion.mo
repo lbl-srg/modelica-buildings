@@ -1,5 +1,5 @@
 within Buildings.Templates.Components.HeatExchangers.Interfaces;
-partial model PartialHeatExchangerDX
+partial model PartialCoilDirectExpansion
   // Air medium needed for type compatibility with DX coil models.
   extends Buildings.Fluid.Interfaces.PartialTwoPortInterface;
 
@@ -14,7 +14,8 @@ partial model PartialHeatExchangerDX
 
   replaceable parameter
     Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.Data.Generic.DXCoil datCoi
-    constrainedby Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.Data.Generic.DXCoil
+    constrainedby
+    Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.Data.Generic.DXCoil
     "Performance record"
     annotation(choicesAllMatching=true);
 
@@ -42,7 +43,10 @@ partial model PartialHeatExchangerDX
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={0,100})));
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false)),
+  annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
+    Bitmap(
+      extent={{-100,-100},{100,100}},
+      fileName="modelica://Buildings/Resources/Images/Templates/Components/HeatExchangers/Generic.svg")}),
     Diagram(
         coordinateSystem(preserveAspectRatio=false)));
-end PartialHeatExchangerDX;
+end PartialCoilDirectExpansion;

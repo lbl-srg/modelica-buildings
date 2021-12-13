@@ -1,6 +1,6 @@
 within Buildings.Templates.Components.HeatExchangers;
 model DXMultiStage "Multi-stage"
-  extends Buildings.Templates.Components.HeatExchangers.Interfaces.PartialHeatExchangerDX(
+  extends Buildings.Templates.Components.HeatExchangers.Interfaces.PartialCoilDirectExpansion(
     final typ=Buildings.Templates.Components.Types.HeatExchanger.DXMultiStage);
 
   Fluid.HeatExchangers.DXCoils.AirCooled.MultiStage coi(

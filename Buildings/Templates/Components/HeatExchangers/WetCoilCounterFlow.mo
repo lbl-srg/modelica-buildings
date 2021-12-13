@@ -1,6 +1,6 @@
 within Buildings.Templates.Components.HeatExchangers;
 model WetCoilCounterFlow "Discretized wet heat exchanger model"
-  extends Buildings.Templates.Components.HeatExchangers.Interfaces.PartialHeatExchangerWater(
+  extends Buildings.Templates.Components.HeatExchangers.Interfaces.PartialCoilWater(
     final typ=Buildings.Templates.Components.Types.HeatExchanger.WetCoilCounterFlow);
 
   parameter Modelica.SIunits.ThermalConductance UA_nominal=

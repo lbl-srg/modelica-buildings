@@ -11,12 +11,12 @@ model Evaporator "Evaporator coil (direct expansion)"
   inner parameter Boolean have_dryCon = true
     "Set to true for purely sensible cooling of the condenser";
 
-  replaceable Buildings.Templates.Components.HeatExchangers.Interfaces.PartialHeatExchangerDX
+  replaceable
+    Buildings.Templates.Components.HeatExchangers.Interfaces.PartialCoilDirectExpansion
     hex(
-      redeclare final package Medium = MediumAir,
-      final m_flow_nominal=mAir_flow_nominal,
-      final dp_nominal=dpAir_nominal)
-    "Heat exchanger"
+    redeclare final package Medium = MediumAir,
+    final m_flow_nominal=mAir_flow_nominal,
+    final dp_nominal=dpAir_nominal) "Heat exchanger"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 
 equation

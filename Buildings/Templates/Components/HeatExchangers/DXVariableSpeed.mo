@@ -1,6 +1,6 @@
 within Buildings.Templates.Components.HeatExchangers;
 model DXVariableSpeed "Modulating"
-  extends Buildings.Templates.Components.HeatExchangers.Interfaces.PartialHeatExchangerDX(
+  extends Buildings.Templates.Components.HeatExchangers.Interfaces.PartialCoilDirectExpansion(
     final typ=Buildings.Templates.Components.Types.HeatExchanger.DXVariableSpeed);
 
   parameter Real minSpeRat(min=0,max=1)=0.1 "Minimum speed ratio";

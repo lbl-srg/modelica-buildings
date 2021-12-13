@@ -46,7 +46,7 @@ model WaterBasedCooling "Chilled water coil"
 
   replaceable Buildings.Templates.Components.HeatExchangers.WetCoilCounterFlow
     hex constrainedby
-    Buildings.Templates.Components.HeatExchangers.Interfaces.PartialHeatExchangerWater(
+    Buildings.Templates.Components.HeatExchangers.Interfaces.PartialCoilWater(
     redeclare final package Medium1 = MediumCoo,
     redeclare final package Medium2 = MediumAir,
     final m1_flow_nominal=mWat_flow_nominal,

@@ -1,5 +1,5 @@
 within Buildings.Templates.Components.HeatExchangers.Interfaces;
-partial model PartialHeatExchangerWater
+partial model PartialCoilWater
   extends Buildings.Fluid.Interfaces.PartialFourPortInterface;
 
   parameter Buildings.Templates.Components.Types.HeatExchanger typ
@@ -25,4 +25,4 @@ partial model PartialHeatExchangerWater
       fileName="modelica://Buildings/Resources/Images/Templates/Components/HeatExchangers/Generic.svg")}),
                                             Diagram(
         coordinateSystem(preserveAspectRatio=false)));
-end PartialHeatExchangerWater;
+end PartialCoilWater;

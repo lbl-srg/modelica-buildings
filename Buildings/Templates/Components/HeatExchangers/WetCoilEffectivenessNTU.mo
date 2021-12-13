@@ -1,6 +1,6 @@
 within Buildings.Templates.Components.HeatExchangers;
 model WetCoilEffectivenessNTU "Effectiveness-NTU wet heat exchanger model"
-  extends Buildings.Templates.Components.HeatExchangers.Interfaces.PartialHeatExchangerWater(
+  extends Buildings.Templates.Components.HeatExchangers.Interfaces.PartialCoilWater(
     final typ=Buildings.Templates.Components.Types.HeatExchanger.WetCoilEffectivenessNTU);
 
   parameter Modelica.SIunits.HeatFlowRate Q_flow_nominal(max=0)=
