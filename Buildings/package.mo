@@ -9651,6 +9651,8 @@ The following people have directly contributed to the implementation of the Buil
 </li>
 <li>Thomas Sevilla, University of Miami, Florida, USA
 </li>
+<li>Chengnan Shi, University of Colorado Boulder, Colorado, USA
+</li>
 <li>Martin Sj&ouml;lund, Link&ouml;ping University, Sweden
 </li>
 <li>Matthis Thorade, Berlin University of the Arts, Germany
@@ -9666,6 +9668,8 @@ The following people have directly contributed to the implementation of the Buil
 <li>Sebastian Vock, University of Applied Sciences Technikum Wien, Austria
 </li>
 <li>Vladimir Vukovic, Austrian Institute of Technology, Austria
+</li>
+<li>Jing Wang, University of Colorado Boulder, Colorado, USA
 </li>
 <li>Michael Wetter, Lawrence Berkeley National Laboratory, USA
 </li>
