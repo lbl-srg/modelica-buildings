@@ -22,13 +22,13 @@ model Economizer "Air economizer"
       final mOutMin_flow_nominal=mAirOutMin_flow_nominal,
       final dpDamOut_nominal=dpDamOut_nominal,
       final dpDamOutMin_nominal=dpDamOutMin_nominal)
-    "Single common OA damper (modulated) with AFMS"
+    "Single common OA damper (modulating) with AFMS"
     annotation (
     choices(
       choice(redeclare replaceable Buildings.Templates.AirHandlersFans.Components.OutdoorSection.SingleDamper secOut
-        "Single common OA damper (modulated) with AFMS"),
+        "Single common OA damper (modulating) with AFMS"),
       choice(redeclare replaceable Buildings.Templates.AirHandlersFans.Components.OutdoorSection.DedicatedDamperAirflow secOut
-        "Dedicated minimum OA damper (modulated) with AFMS"),
+        "Dedicated minimum OA damper (modulating) with AFMS"),
       choice(redeclare replaceable Buildings.Templates.AirHandlersFans.Components.OutdoorSection.DedicatedDamperPressure secOut
         "Dedicated minimum OA damper (two-position) with differential pressure sensor")),
     Dialog(group="Outdoor air section"),
@@ -42,12 +42,12 @@ model Economizer "Air economizer"
       final m_flow_nominal=mAirRet_flow_nominal,
       final dpDamRel_nominal=dpDamRel_nominal,
       final dpFan_nominal=dpFan_nominal)
-    "Return fan with modulated relief damper"
+    "Return fan with modulating relief damper"
     annotation (
     choices(
       choice(
         redeclare Buildings.Templates.AirHandlersFans.Components.ReliefReturnSection.ReturnFan secRel
-          "Return fan with modulated relief damper"),
+          "Return fan with modulating relief damper"),
       choice(
         redeclare Buildings.Templates.AirHandlersFans.Components.ReliefReturnSection.ReliefFan
           secRel
@@ -55,11 +55,11 @@ model Economizer "Air economizer"
       choice(
         redeclare  Buildings.Templates.AirHandlersFans.Components.ReliefReturnSection.ReliefDamper
           secRel
-          "Modulated relief damper without fan")),
+          "Modulating relief damper without fan")),
     Dialog(group="Exhaust/relief/return section"),
     Placement(transformation(extent={{-18,66},{18,94}})));
 
-  Buildings.Templates.Components.Dampers.Modulated damRet(
+  Buildings.Templates.Components.Dampers.Modulating damRet(
     redeclare final package Medium = MediumAir,
     final m_flow_nominal=mAirRet_flow_nominal,
     final dpDamper_nominal=dpDamRet_nominal,

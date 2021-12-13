@@ -113,20 +113,20 @@ partial model PartialCoil
       fileName="modelica://Buildings/Resources/Images/Templates/Components/Valves/None.svg"),
     Bitmap(
       visible=typ<>Buildings.Templates.Components.Types.Coil.None and
-        typVal==Buildings.Templates.Components.Types.Valve.TwoWay,
+        typVal==Buildings.Templates.Components.Types.Valve.TwoWayModulating,
       extent={{-150,-300},{50,-100}},
       fileName="modelica://Buildings/Resources/Images/Templates/Components/Valves/TwoWay.svg"),
     Bitmap(
       visible=typ<>Buildings.Templates.Components.Types.Coil.None and
-        typVal==Buildings.Templates.Components.Types.Valve.ThreeWay,
+        typVal==Buildings.Templates.Components.Types.Valve.ThreeWayModulating,
       extent={{-150,-300},{50,-100}},
       fileName="modelica://Buildings/Resources/Images/Templates/Components/Valves/ThreeWay.svg"),
     Bitmap(
       visible=typ<>Buildings.Templates.Components.Types.Coil.None and
-        (typVal==Buildings.Templates.Components.Types.Valve.TwoWay or
-        typVal==Buildings.Templates.Components.Types.Valve.ThreeWay),
+        (typVal==Buildings.Templates.Components.Types.Valve.TwoWayModulating or
+        typVal==Buildings.Templates.Components.Types.Valve.ThreeWayModulating),
       extent={{-190,-240},{-110,-160}},
-      fileName="modelica://Buildings/Resources/Images/Templates/Components/Actuators/Modulated.svg"),
+      fileName="modelica://Buildings/Resources/Images/Templates/Components/Actuators/Modulating.svg"),
     Bitmap(
       visible=typ<>Buildings.Templates.Components.Types.Coil.None,
       extent={{-50,-300},{150,-100}},

@@ -26,10 +26,10 @@ model EconomizerNoRelief "Air economizer - No relief branch"
     choices(
       choice(redeclare replaceable
           Buildings.Templates.AirHandlersFans.Components.OutdoorSection.SingleDamper
-          secOut "Single common OA damper (modulated) with AFMS"),
+          secOut "Single common OA damper (modulating) with AFMS"),
       choice(redeclare replaceable
           Buildings.Templates.AirHandlersFans.Components.OutdoorSection.DedicatedDamperAirflow
-          secOut "Dedicated minimum OA damper (modulated) with AFMS"),
+          secOut "Dedicated minimum OA damper (modulating) with AFMS"),
       choice(redeclare replaceable
           Buildings.Templates.AirHandlersFans.Components.OutdoorSection.DedicatedDamperPressure
           secOut
@@ -47,7 +47,7 @@ model EconomizerNoRelief "Air economizer - No relief branch"
     annotation (Dialog(group="Exhaust/relief/return section"),
       Placement(transformation(extent={{-18,66},{18,94}})));
 
-  Buildings.Templates.Components.Dampers.Modulated damRet(
+  Buildings.Templates.Components.Dampers.Modulating damRet(
     redeclare final package Medium = MediumAir,
     final m_flow_nominal=mAirRet_flow_nominal,
     final dpDamper_nominal=dpDamRet_nominal,

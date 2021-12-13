@@ -1,13 +1,13 @@
 within Buildings.Templates.AirHandlersFans.Components.OutdoorSection;
-model DedicatedDamperAirflow
-  "Dedicated minimum OA damper (modulated) with AFMS"
+model DedicatedDampersPressure
+  "Separate dedicated OA dampers and OA measurement by differential pressure sensor"
   extends
     Buildings.Templates.AirHandlersFans.Components.OutdoorSection.Interfaces.PartialOutdoorSection(
-    final typ=Buildings.Templates.AirHandlersFans.Types.OutdoorSection.DedicatedDamperAirflow,
+    final typ=Buildings.Templates.AirHandlersFans.Types.OutdoorSection.DedicatedDamperPressure,
     final typDamOut=damOut.typ,
     final typDamOutMin=damOutMin.typ);
 
-  Buildings.Templates.Components.Dampers.Modulated damOut(
+  Buildings.Templates.Components.Dampers.Modulating damOut(
     redeclare final package Medium = MediumAir,
     final m_flow_nominal=m_flow_nominal,
     final dpDamper_nominal=dpDamOut_nominal) "Economizer outdoor air damper"
@@ -15,28 +15,26 @@ model DedicatedDamperAirflow
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={0,0})));
-  Buildings.Templates.Components.Dampers.Modulated damOutMin(
+  Buildings.Templates.Components.Dampers.TwoPosition damOutMin(
     redeclare final package Medium = MediumAir,
     final m_flow_nominal=m_flow_nominal,
-    final dpDamper_nominal=dpDamOutMin_nominal) "Minimum outdoor air damper"
-    annotation (Placement(transformation(
+    final dpDamper_nominal=dpDamOutMin_nominal)
+    "Minimum outdoor air damper" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={0,60})));
 
   Buildings.Templates.Components.Sensors.Temperature TAirOut(
-    redeclare final package Medium =  MediumAir,
+    redeclare final package Medium = MediumAir,
     final have_sen=true,
     final m_flow_nominal=m_flow_nominal)
     "Outdoor air temperature sensor"
     annotation (Placement(transformation(extent={{70,50},{90,70}})));
-  Buildings.Templates.Components.Sensors.VolumeFlowRate VAirOutMin_flow(
+  Buildings.Templates.Components.Sensors.DifferentialPressure dpAirOutMin(
     redeclare final package Medium = MediumAir,
-    final have_sen=true,
-    final m_flow_nominal=m_flow_nominal,
-    final typ=Buildings.Templates.Components.Types.SensorVolumeFlowRate.AFMS)
-    "Minimum outdoor air volume flow rate sensor"
-    annotation (Placement(transformation(extent={{110,50},{130,70}})));
+    final have_sen=true)
+    "Minimum outdoor air damper differential pressure sensor"
+    annotation (Placement(transformation(extent={{-10,90},{10,110}})));
   Buildings.Templates.Components.Sensors.SpecificEnthalpy hAirOut(
     redeclare final package Medium = MediumAir,
     final have_sen=
@@ -51,28 +49,32 @@ equation
   connect(damOutMin.bus, bus.damOutMin);
   connect(TAirOut.y, bus.TAirOut);
   connect(hAirOut.y, bus.hAirOut);
-  connect(VAirOutMin_flow.y, bus.VAirOutMin_flow);
+  connect(dpAirOutMin.y, bus.dpAirOutMin);
   /* Control point connection - end */
+  connect(TAirOut.port_b, port_b) annotation (Line(points={{90,60},{160,60},{160,0},
+          {180,0}}, color={0,127,255}));
   connect(damOut.port_b, port_b)
     annotation (Line(points={{10,0},{180,0}}, color={0,127,255}));
-  connect(TAirOut.port_b, VAirOutMin_flow.port_a)
-    annotation (Line(points={{90,60},{110,60}},color={0,127,255}));
-  connect(VAirOutMin_flow.port_b, port_b) annotation (Line(points={{130,60},{160,
-          60},{160,0},{180,0}},
-                            color={0,127,255}));
+
+  connect(damOutMin.port_a, dpAirOutMin.port_a) annotation (Line(points={{-10,60},
+          {-20,60},{-20,100},{-10,100}},
+                                   color={0,127,255}));
+  connect(damOutMin.port_b, dpAirOutMin.port_b) annotation (Line(points={{10,60},{
+          20,60},{20,100},{10,100}},
+                                   color={0,127,255}));
   connect(damOutMin.port_b, hAirOut.port_a)
     annotation (Line(points={{10,60},{30,60}}, color={0,127,255}));
   connect(hAirOut.port_b, TAirOut.port_a)
-    annotation (Line(points={{50,60},{70,60}}, color={0,127,255}));
+    annotation (Line(points={{50,60},{70,60}},   color={0,127,255}));
   connect(port_a, damOut.port_a)
     annotation (Line(points={{-180,0},{-10,0}}, color={0,127,255}));
-  connect(damOutMin.port_a, damOut.port_a) annotation (Line(points={{-10,60},{
-          -20,60},{-20,0},{-10,0}}, color={0,127,255}));
+  connect(damOut.port_a, damOutMin.port_a) annotation (Line(points={{-10,0},{
+          -20,0},{-20,60},{-10,60}}, color={0,127,255}));
   annotation (Documentation(info="<html>
 <p>
 Two classes are used depending on the type of sensor used to control the
 OA flow rate because the type of sensor conditions the type of
-damper: two-position in case of differential pressure, modulated in case
+damper: two-position in case of differential pressure, modulating in case
 of AFMS.
 </p>
 </html>"), Icon(graphics={
@@ -88,4 +90,4 @@ of AFMS.
           points={{-180,60},{0,60}},
           color={28,108,200},
           thickness=1)}));
-end DedicatedDamperAirflow;
+end DedicatedDampersPressure;

@@ -18,8 +18,8 @@ package Types "Generic types for template components"
       "No fluid path",
       Barometric
       "Barometric damper",
-      Modulated
-      "Modulated damper",
+      Modulating
+      "Modulating damper",
       None
       "No damper",
       PressureIndependent
@@ -52,7 +52,7 @@ package Types "Generic types for template components"
   type Junction = enumeration(
       None
       "No junction",
-      ThreeWay
+      ThreeWayModulating
       "Three-way junction")
     "Enumeration to configure the fluid junction";
   type Fan = enumeration(
@@ -110,13 +110,17 @@ package Types "Generic types for template components"
   type Valve = enumeration(
       None
       "No valve",
-      TwoWay
-      "Two-way valve",
-      ThreeWay
-      "Three-way valve",
+      PumpedCoilThreeWay
+      "Pumped coil with three-way valve",
       PumpedCoilTwoWay
       "Pumped coil with two-way valve",
-      PumpedCoilThreeWay
-      "Pumped coil with three-way valve")
+      ThreeWayModulating
+      "Three-way modulating valve",
+      ThreeWayTwoPosition
+      "Three-way two-position valve",
+      TwoWayModulating
+      "Two-way modulating valve",
+      TwoWayTwoPosition
+      "Two-way two-position valve")
     "Enumeration to configure the valve";
 end Types;

@@ -1,7 +1,7 @@
 within Buildings.Templates.Components.Dampers;
-model Modulated
+model Modulating "Modulating damper"
   extends Buildings.Templates.Components.Dampers.Interfaces.PartialDamper(
-    final typ=Buildings.Templates.Components.Types.Damper.Modulated,
+    final typ=Buildings.Templates.Components.Types.Damper.Modulating,
     typBla=Buildings.Templates.Components.Types.DamperBlades.Parallel);
 
   Buildings.Fluid.Actuators.Dampers.Exponential dam(
@@ -20,4 +20,4 @@ equation
       thickness=0.5));
   connect(dam.y_actual, bus.y_actual) annotation (Line(points={{5,7},{40,7},{40,
           96},{0,96},{0,100}}, color={0,0,127}));
-end Modulated;
+end Modulating;

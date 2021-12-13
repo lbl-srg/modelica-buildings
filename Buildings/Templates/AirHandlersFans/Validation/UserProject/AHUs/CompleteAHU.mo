@@ -6,14 +6,14 @@ model CompleteAHU
         redeclare replaceable
         Buildings.Templates.Components.HeatExchangers.DryCoilEffectivenessNTU
         hex "Epsilon-NTU heat exchanger model", redeclare replaceable
-        Buildings.Templates.Components.Valves.TwoWay val),
+        Buildings.Templates.Components.Valves.TwoWayModulating val),
     redeclare replaceable
       Buildings.Templates.AirHandlersFans.Components.OutdoorReliefReturnSection.Economizer
       secOutRel(redeclare replaceable
         Buildings.Templates.AirHandlersFans.Components.OutdoorSection.SingleDamper
-        secOut "Single common OA damper (modulated) with AFMS", redeclare replaceable
+        secOut "Single common OA damper (modulating) with AFMS", redeclare replaceable
         Buildings.Templates.AirHandlersFans.Components.ReliefReturnSection.ReturnFan
-        secRel "Return fan with modulated relief damper"),
+        secRel "Return fan with modulating relief damper"),
     redeclare replaceable
       Buildings.Templates.Components.Coils.WaterBasedCooling coiCoo(
       dpAir_nominal(displayUnit="Pa"),
@@ -21,7 +21,8 @@ model CompleteAHU
       redeclare replaceable
         Buildings.Templates.Components.HeatExchangers.WetCoilEffectivenessNTU
         hex "Effectiveness-NTU wet heat exchanger model",
-      redeclare replaceable Buildings.Templates.Components.Valves.TwoWay val)
+      redeclare replaceable
+        Buildings.Templates.Components.Valves.TwoWayModulating val)
       "Chilled water coil",
     redeclare replaceable Buildings.Templates.Components.Fans.SingleVariable
       fanSupDra,

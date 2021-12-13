@@ -63,13 +63,13 @@ package Types "AHU types"
   "Enumeration to specify the equipment location";
   type OutdoorSection = enumeration(
       DedicatedDamperAirflow
-      "Dedicated minimum OA damper (modulated) with AFMS",
+      "Separate dedicated OA dampers and OA measurement by AFMS",
       DedicatedDamperPressure
-      "Dedicated minimum OA damper (two-position) with differential pressure sensor",
+      "Separate dedicated OA dampers and OA measurement by differential pressure sensor",
       NoEconomizer
       "No economizer",
       SingleDamper
-      "Single common damper (modulated) with AFMS")
+      "Single common OA damper and OA measurement by AFMS")
     "Enumeration to configure the outdoor air section";
   type OutdoorReliefReturnSection = enumeration(
       Economizer
@@ -87,10 +87,10 @@ package Types "AHU types"
       Barometric
       "Barometric relief damper without fan",
       ReliefDamper
-      "Modulated relief damper without fan",
+      "Modulating relief damper without fan",
       ReliefFan
       "Relief fan with two-position relief damper",
       ReturnFan
-      "Return fan with modulated relief damper")
+      "Return fan with modulating relief damper")
     "Enumeration to configure the relief/return air section";
 end Types;

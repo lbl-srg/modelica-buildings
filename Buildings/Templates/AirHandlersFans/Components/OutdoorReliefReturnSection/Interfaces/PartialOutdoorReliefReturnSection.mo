@@ -193,9 +193,9 @@ partial model PartialOutdoorReliefReturnSection
         extent={{-680,360},{-600,440}},
         fileName="modelica://Buildings/Resources/Images/Templates/Components/Actuators/TwoPosition.svg"),
       Bitmap(
-        visible=typDamRel==Buildings.Templates.Components.Types.Damper.Modulated,
+        visible=typDamRel==Buildings.Templates.Components.Types.Damper.Modulating,
         extent={{-680,360},{-600,440}},
-        fileName="modelica://Buildings/Resources/Images/Templates/Components/Actuators/Modulated.svg"),
+        fileName="modelica://Buildings/Resources/Images/Templates/Components/Actuators/Modulating.svg"),
               Bitmap(
         extent={{-600,440},{-680,700}},
         visible=typDamRel<>Buildings.Templates.Components.Types.Damper.None,
@@ -220,7 +220,7 @@ partial model PartialOutdoorReliefReturnSection
       Bitmap(
         visible=typ<>Buildings.Templates.AirHandlersFans.Types.OutdoorReliefReturnSection.NoEconomizer,
         extent={{-240,-40},{-160,40}},
-        fileName="modelica://Buildings/Resources/Images/Templates/Components/Actuators/Modulated.svg"),
+        fileName="modelica://Buildings/Resources/Images/Templates/Components/Actuators/Modulating.svg"),
       Bitmap(
         extent={{-40,-130},{40,130}},
         visible=typ<>Buildings.Templates.AirHandlersFans.Types.OutdoorReliefReturnSection.NoEconomizer,
@@ -236,9 +236,9 @@ partial model PartialOutdoorReliefReturnSection
         extent={{-680,-840},{-600,-760}},
         fileName="modelica://Buildings/Resources/Images/Templates/Components/Actuators/TwoPosition.svg"),
       Bitmap(
-        visible=typDamOut==Buildings.Templates.Components.Types.Damper.Modulated,
+        visible=typDamOut==Buildings.Templates.Components.Types.Damper.Modulating,
         extent={{-680,-840},{-600,-760}},
-        fileName="modelica://Buildings/Resources/Images/Templates/Components/Actuators/Modulated.svg"),
+        fileName="modelica://Buildings/Resources/Images/Templates/Components/Actuators/Modulating.svg"),
       Bitmap(
         extent={{-600,-240},{-680,-500}},
         visible=typDamOutMin<>Buildings.Templates.Components.Types.Damper.None,
@@ -248,9 +248,9 @@ partial model PartialOutdoorReliefReturnSection
         extent={{-680,-240},{-600,-160}},
         fileName="modelica://Buildings/Resources/Images/Templates/Components/Actuators/TwoPosition.svg"),
       Bitmap(
-        visible=typDamOutMin==Buildings.Templates.Components.Types.Damper.Modulated,
+        visible=typDamOutMin==Buildings.Templates.Components.Types.Damper.Modulating,
         extent={{-680,-240},{-600,-160}},
-        fileName="modelica://Buildings/Resources/Images/Templates/Components/Actuators/Modulated.svg"),
+        fileName="modelica://Buildings/Resources/Images/Templates/Components/Actuators/Modulating.svg"),
       Line(points={{-100,700},{800,700}}, color={0,0,0}),
       Line(
         visible=typ <> Buildings.Templates.AirHandlersFans.Types.OutdoorReliefReturnSection.EconomizerNoRelief,

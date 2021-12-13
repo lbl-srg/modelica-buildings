@@ -1,5 +1,5 @@
 within Buildings.Templates.AirHandlersFans.Components.ReliefReturnSection;
-model ReliefDamper "Modulated relief damper without fan"
+model ReliefDamper "Modulating relief damper without fan"
   extends
     Buildings.Templates.AirHandlersFans.Components.ReliefReturnSection.Interfaces.PartialReliefReturnSection(
     final typ=Buildings.Templates.AirHandlersFans.Types.ReliefReturnSection.ReliefDamper,
@@ -7,7 +7,7 @@ model ReliefDamper "Modulated relief damper without fan"
     final typFanRel=Buildings.Templates.Components.Types.Fan.None,
     final typFanRet=Buildings.Templates.Components.Types.Fan.None);
 
-  Buildings.Templates.Components.Dampers.Modulated damRel(
+  Buildings.Templates.Components.Dampers.Modulating damRel(
     redeclare final package Medium = MediumAir,
     final m_flow_nominal=m_flow_nominal,
     final dpDamper_nominal=dpDamRel_nominal,

@@ -3,7 +3,7 @@ model CoilHeatingEffectivenessNTU3WV
   extends Buildings.Templates.AirHandlersFans.VAVMultiZone(
     redeclare replaceable
       Buildings.Templates.Components.Coils.WaterBasedHeating coiHeaReh(
-        redeclare Buildings.Templates.Components.Valves.ThreeWay val,
+        redeclare Buildings.Templates.Components.Valves.ThreeWayModulating val,
         redeclare replaceable
         Buildings.Templates.Components.HeatExchangers.DryCoilEffectivenessNTU
         hex "Epsilon-NTU dry heat exchanger model") "Hot water coil",

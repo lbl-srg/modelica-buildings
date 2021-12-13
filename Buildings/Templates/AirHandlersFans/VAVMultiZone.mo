@@ -483,7 +483,7 @@ Common economizer/minimum OA damper
 
 Dedicated OA damper
 
-- AFMS => modulated OAMin damper
+- AFMS => modulating OAMin damper
 - dp sensor => two-position OAMin damper
 
 
@@ -491,13 +491,13 @@ Relief fan => Two position relief damper
 
 Return fan
 
-- Modulated relief (exhaust) damper
+- Modulating relief (exhaust) damper
 - For AHUs with return fans, the outdoor air damper remains
 fully open whenever the AHU is on. But AO point specified nevertheless.
 - Control either return fan discharge pressure (fan) and building pressure (damper),
-or airflow (fan) and exhaust damper modulated in tandem with return damper
+or airflow (fan) and exhaust damper modulating in tandem with return damper
 
-Modulateded relief damper
+Modulating relief damper
 
 - No relief fan
 - Control building static pressure

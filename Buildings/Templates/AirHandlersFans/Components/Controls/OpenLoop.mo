@@ -5,7 +5,7 @@ block OpenLoop "Open loop controller (output signals only)"
       final typ=Types.Controller.OpenLoop);
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant yDamOut(k=1)
- if secOutRel.typDamOut == Buildings.Templates.Components.Types.Damper.Modulated
+ if secOutRel.typDamOut == Buildings.Templates.Components.Types.Damper.Modulating
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
@@ -17,7 +17,7 @@ block OpenLoop "Open loop controller (output signals only)"
         rotation=-90,
         origin={-170,144})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant yDamOutMin(k=1)
- if secOutRel.typDamOutMin == Buildings.Templates.Components.Types.Damper.Modulated
+ if secOutRel.typDamOutMin == Buildings.Templates.Components.Types.Damper.Modulating
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
@@ -34,7 +34,7 @@ block OpenLoop "Open loop controller (output signals only)"
         rotation=-90,
         origin={-120,170})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant yDamRel(k=1)
- if secOutRel.typDamRel == Buildings.Templates.Components.Types.Damper.Modulated
+ if secOutRel.typDamRel == Buildings.Templates.Components.Types.Damper.Modulating
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,

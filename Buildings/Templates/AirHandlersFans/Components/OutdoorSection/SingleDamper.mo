@@ -1,12 +1,12 @@
 within Buildings.Templates.AirHandlersFans.Components.OutdoorSection;
-model SingleDamper "Single common damper (modulated) with AFMS"
+model SingleDamper "Single common OA damper and OA measurement by AFMS"
   extends
     Buildings.Templates.AirHandlersFans.Components.OutdoorSection.Interfaces.PartialOutdoorSection(
     final typ=Buildings.Templates.AirHandlersFans.Types.OutdoorSection.SingleDamper,
     final typDamOut=damOut.typ,
     final typDamOutMin=Buildings.Templates.Components.Types.Damper.None);
 
-  Buildings.Templates.Components.Dampers.Modulated damOut(
+  Buildings.Templates.Components.Dampers.Modulating damOut(
     redeclare final package Medium = MediumAir,
     final m_flow_nominal=m_flow_nominal,
     final dpDamper_nominal=dpDamOut_nominal) "Outdoor air damper" annotation (
@@ -31,9 +31,9 @@ model SingleDamper "Single common damper (modulated) with AFMS"
     redeclare final package Medium = MediumAir,
     final have_sen=typCtrEco == Buildings.Templates.AirHandlersFans.Types.ControlEconomizer.FixedEnthalpyWithFixedDryBulb
          or typCtrEco == Buildings.Templates.AirHandlersFans.Types.ControlEconomizer.DifferentialEnthalpyWithFixedDryBulb,
-
     final m_flow_nominal=m_flow_nominal) "Outdoor air enthalpy sensor"
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
+
 equation
   /* Control point connection - start */
   connect(damOut.bus, bus.damOut);

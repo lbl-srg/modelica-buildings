@@ -52,11 +52,11 @@ partial model PartialDamper
         rotation=text_rotation,
         fileName="modelica://Buildings/Resources/Images/Templates/Components/Actuators/TwoPosition.svg"),
      Bitmap(
-        visible=typ==Buildings.Templates.Components.Types.Damper.Modulated or
+        visible=typ==Buildings.Templates.Components.Types.Damper.Modulating or
           typ==Buildings.Templates.Components.Types.Damper.PressureIndependent,
         extent=if text_flip then {{40,-240},{-40,-160}} else {{-40,-240},{40,-160}},
         rotation=text_rotation,
-        fileName="modelica://Buildings/Resources/Images/Templates/Components/Actuators/Modulated.svg"),
+        fileName="modelica://Buildings/Resources/Images/Templates/Components/Actuators/Modulating.svg"),
      Bitmap(
         extent={{-40,-160},{40,100}},
         visible=typ<>Buildings.Templates.Components.Types.Damper.None and
