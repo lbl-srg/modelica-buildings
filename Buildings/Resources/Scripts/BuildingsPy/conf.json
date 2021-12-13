@@ -113,9 +113,8 @@
   },
   {
        "optimica": {
-         "solver": "Radau5ODE",
-         "rtol": 1E-8,
-         "comment": "See https://app.travis-ci.com/github/lbl-srg/modelica-buildings/jobs/526352954#L640, times out with new filter for actuators"
+         "solver": "CVode",
+         "rtol": 1E-8
     },
     "model_name": "Buildings.Examples.DualFanDualDuct.ClosedLoop"
   },
