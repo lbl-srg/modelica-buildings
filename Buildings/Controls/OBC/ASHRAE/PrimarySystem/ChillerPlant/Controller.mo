@@ -19,6 +19,10 @@ block Controller "Chiller plant controller"
     "True: have pony chiller"
     annotation (Dialog(tab="General", group="Chillers configuration"));
 
+  parameter Boolean need_reduceChillerDemand=false
+    "True: need limit chiller demand when chiller staging"
+    annotation (Dialog(tab="General", group="Chillers configuration"));
+
   parameter Real desCap(
     final unit="W",
     final quantity="HeatFlowRate")=1e6
@@ -591,13 +595,13 @@ block Controller "Chiller plant controller"
     final max=1,
     final unit="1")=0.75
     "Demand reducing factor of current operating chillers"
-    annotation (Dialog(tab="Staging", group="Up and down process"));
+    annotation (Dialog(tab="Staging", group="Up and down process", enable=need_reduceChillerDemand));
 
   parameter Real holChiDemTim(
     final unit="s",
     final quantity="Time")=300
     "Maximum time to wait for the actual demand less than percentage of current load"
-    annotation (Dialog(tab="Staging", group="Up and down process"));
+    annotation (Dialog(tab="Staging", group="Up and down process", enable=need_reduceChillerDemand));
 
   parameter Real aftByPasSetTim(
     final unit="s",
@@ -974,7 +978,8 @@ block Controller "Chiller plant controller"
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uChiLoa[nChi](
     final quantity=fill("ElectricCurrent",nChi),
-    final unit=fill("A", nChi)) "Current chiller load, in amperage"
+    final unit=fill("A", nChi)) if need_reduceChillerDemand
+    "Current chiller load, in amperage"
     annotation(Placement(transformation(extent={{-840,120},{-800,160}}),
       iconTransformation(extent={{-140,-40},{-100,0}})));
 
@@ -1075,7 +1080,7 @@ block Controller "Chiller plant controller"
     annotation(Placement(transformation(extent={{800,500},{840,540}}),
       iconTransformation(extent={{100,230},{140,270}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yChiPumSpe[nPum](
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yChiPumSpe[nChiWatPum](
     final min=0,
     final max=1,
     final unit="1") "Chilled water pump speed setpoint"
@@ -1084,7 +1089,7 @@ block Controller "Chiller plant controller"
 
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yChiDem[nChi](
     final quantity=fill("ElectricCurrent",nChi),
-    final unit=fill("A", nChi))
+    final unit=fill("A", nChi)) if need_reduceChillerDemand
     "Chiller demand setpoint to set through BACnet or similar "
     annotation(Placement(transformation(extent={{800,400},{840,440}}),
       iconTransformation(extent={{100,170},{140,210}})));
@@ -1372,6 +1377,7 @@ block Controller "Chiller plant controller"
     final have_parChi=have_parChi,
     final have_heaConWatPum=have_heaConWatPum,
     final have_fixSpeConWatPum=have_fixSpeConWatPum,
+    final need_reduceChillerDemand=need_reduceChillerDemand,
     final chiDemRedFac=chiDemRedFac,
     final holChiDemTim=holChiDemTim,
     final waiTim=waiTim,
@@ -1400,6 +1406,7 @@ block Controller "Chiller plant controller"
     final have_parChi=have_parChi,
     final have_heaConWatPum=have_heaConWatPum,
     final have_fixSpeConWatPum=have_fixSpeConWatPum,
+    final need_reduceChillerDemand=need_reduceChillerDemand,
     final chiDemRedFac=chiDemRedFac,
     final holChiDemTim=holChiDemTim,
     final byPasSetTim=byPasSetTim,
@@ -1572,7 +1579,8 @@ block Controller "Chiller plant controller"
     "Chiller isolation valve position setpoint"
     annotation (Placement(transformation(extent={{640,-10},{660,10}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Switch chiDem[nChi] "Chiller demand"
+  Buildings.Controls.OBC.CDL.Continuous.Switch chiDem[nChi]
+    if need_reduceChillerDemand                             "Chiller demand"
     annotation (Placement(transformation(extent={{740,410},{760,430}})));
 
   Buildings.Controls.OBC.CDL.Logical.Switch relDem
@@ -1605,16 +1613,16 @@ block Controller "Chiller plant controller"
     annotation (Placement(transformation(extent={{640,90},{660,110}})));
 
   Buildings.Controls.OBC.CDL.Routing.RealScalarReplicator chiWatPumSpe(
-    final nout=nPum)
+    final nout=nChiWatPum)
     "Chilled water pump speed"
     annotation (Placement(transformation(extent={{680,450},{700,470}})));
-  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea[nPum]
+  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea[nChiWatPum]
     "Boolean to real"
     annotation (Placement(transformation(extent={{680,490},{700,510}})));
-  Buildings.Controls.OBC.CDL.Continuous.Product pro[nPum]
+  Buildings.Controls.OBC.CDL.Continuous.Product pro[nChiWatPum]
     "Chilled water pump speed setpoint"
     annotation (Placement(transformation(extent={{740,470},{760,490}})));
-  Buildings.Controls.OBC.CDL.Continuous.Product pro1[nPum]
+  Buildings.Controls.OBC.CDL.Continuous.Product pro1[nChiWatPum]
     "Chilled water pump speed setpoint"
     annotation (Placement(transformation(extent={{760,140},{780,160}})));
   Buildings.Controls.OBC.CDL.Routing.RealScalarReplicator conWatPumSpe1(
@@ -2156,7 +2164,8 @@ annotation (
         Text(
           extent={{-98,-14},{-66,-26}},
           lineColor={0,0,127},
-          textString="uChiLoa"),
+          textString="uChiLoa",
+          visible=need_reduceChillerDemand),
         Text(
           extent={{-100,-34},{-64,-46}},
           lineColor={255,0,255},
@@ -2235,7 +2244,8 @@ annotation (
         Text(
           extent={{52,198},{100,184}},
           lineColor={0,0,127},
-          textString="yChiDem"),
+          textString="yChiDem",
+          visible=need_reduceChillerDemand),
         Text(
           extent={{52,98},{100,84}},
           lineColor={0,0,127},

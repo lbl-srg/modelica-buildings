@@ -1,4 +1,4 @@
-within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Processes;
+﻿within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Processes;
 block Up "Sequence for control devices when there is stage-up command"
 
   parameter Integer nChi=2 "Total number of chillers in the plant";
@@ -17,15 +17,17 @@ block Up "Sequence for control devices when there is stage-up command"
     "True: headered condenser water pumps";
   parameter Boolean have_fixSpeConWatPum=true
     "True: fixed speed condenser water pump";
+  parameter Boolean need_reduceChillerDemand=false
+    "True: need limit chiller demand when chiller staging";
   parameter Real chiDemRedFac=0.75
     "Demand reducing factor of current operating chillers"
-    annotation (Dialog(group="Limit chiller demand"));
+    annotation (Dialog(group="Limit chiller demand", enable=need_reduceChillerDemand));
   parameter Real holChiDemTim(
     final unit="s",
     final quantity="Time",
     displayUnit="s")=300
     "Maximum time to wait for the actual demand less than percentage of current load"
-    annotation (Dialog(group="Limit chiller demand"));
+    annotation (Dialog(group="Limit chiller demand", enable=need_reduceChillerDemand));
   parameter Real byPasSetTim(
     final unit="s",
     final quantity="Time",
@@ -101,8 +103,10 @@ block Up "Sequence for control devices when there is stage-up command"
     "Vector of chillers status setpoint"
     annotation (Placement(transformation(extent={{-280,200},{-240,240}}),
       iconTransformation(extent={{-140,140},{-100,180}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput uChiLoa[nChi](final quantity=
-        fill("ElectricCurrent", nChi), final unit=fill("A", nChi))
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput uChiLoa[nChi](
+    final quantity=fill("ElectricCurrent", nChi),
+    final unit=fill("A", nChi))
+    if need_reduceChillerDemand
     "Current chiller load"
     annotation (Placement(transformation(extent={{-280,150},{-240,190}}),
       iconTransformation(extent={{-140,100},{-100,140}})));
@@ -149,7 +153,7 @@ block Up "Sequence for control devices when there is stage-up command"
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uConWatPum[nConWatPum] if have_fixSpeConWatPum
     "Status indicating if condenser water pump is running"
     annotation (Placement(transformation(extent={{-280,-150},{-240,-110}}),
-        iconTransformation(extent={{-140,-140},{-100,-100}})));
+      iconTransformation(extent={{-140,-140},{-100,-100}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uChiHeaCon[nChi]
     "Chillers head pressure control status"
     annotation (Placement(transformation(extent={{-280,-180},{-240,-140}}),
@@ -167,10 +171,12 @@ block Up "Sequence for control devices when there is stage-up command"
       iconTransformation(extent={{-140,-210},{-100,-170}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yStaPro
     "Indicate if it is in stage-up process: true=in stage-up process"
-    annotation (Placement(transformation(extent={{240,180},{280,220}}),
+    annotation (Placement(transformation(extent={{240,220},{280,260}}),
       iconTransformation(extent={{100,170},{140,210}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yChiDem[nChi](final quantity=
-       fill("ElectricCurrent", nChi), final unit=fill("A", nChi))
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yChiDem[nChi](
+    final quantity=fill("ElectricCurrent", nChi),
+    final unit=fill("A", nChi))
+    if need_reduceChillerDemand
     "Chiller demand setpoint"
     annotation (Placement(transformation(extent={{240,140},{280,180}}),
       iconTransformation(extent={{100,130},{140,170}})));
@@ -227,7 +233,8 @@ protected
     chiDemRed(
     final nChi=nChi,
     final chiDemRedFac=chiDemRedFac,
-    final holChiDemTim=holChiDemTim) "Limit chiller demand"
+    final holChiDemTim=holChiDemTim) if need_reduceChillerDemand
+    "Limit chiller demand"
     annotation (Placement(transformation(extent={{-80,160},{-60,180}})));
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.MinimumFlowBypass.FlowSetpoint
     minChiWatFlo(
@@ -310,11 +317,12 @@ protected
     "Logical latch, maintain ON signal until condition changes"
     annotation (Placement(transformation(extent={{-140,190},{-120,210}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con1(final k=0)
+    if need_reduceChillerDemand
     "Constant zero"
     annotation (Placement(transformation(extent={{-200,130},{-180,150}})));
   Buildings.Controls.OBC.CDL.Logical.And and2 "Logical and"
     annotation (Placement(transformation(extent={{20,-80},{40,-60}})));
-  Buildings.Controls.OBC.CDL.Logical.Latch lat1
+  Buildings.Controls.OBC.CDL.Logical.Latch lat1 if need_reduceChillerDemand
     "Maintain ON signal when chiller demand has been limited"
     annotation (Placement(transformation(extent={{-20,140},{0,160}})));
   Buildings.Controls.OBC.CDL.Logical.Latch lat2
@@ -329,6 +337,9 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Latch lat5
     "Maintain ON signal when chilled water isolation valve has been open"
     annotation (Placement(transformation(extent={{100,-180},{120,-160}})));
+  Buildings.Controls.OBC.CDL.Logical.Or or2 if not need_reduceChillerDemand
+    "Dummy or"
+    annotation (Placement(transformation(extent={{-20,190},{0,210}})));
 
 equation
   connect(lat.y,chiDemRed.uDemLim)
@@ -451,7 +462,8 @@ equation
     annotation (Line(points={{-178,80},{-96,80},{-96,38},{-2,38}},
       color={255,0,255}));
   connect(lat.y, yStaPro)
-    annotation (Line(points={{-118,200},{260,200}}, color={255,0,255}));
+    annotation (Line(points={{-118,200},{-100,200},{-100,240},{260,240}},
+                                                    color={255,0,255}));
   connect(and2.y, enaHeaCon.uUpsDevSta)
     annotation (Line(points={{42,-70},{50,-70},{50,-82},{58,-82}},
       color={255,0,255}));
@@ -570,6 +582,14 @@ equation
           {6,-19},{6,-130},{-260,-130}}, color={255,0,255}));
   connect(endUp.endStaTri, lat5.clr) annotation (Line(points={{42,-229},{60,-229},
           {60,-250},{-160,-250},{-160,-176},{98,-176}}, color={255,0,255}));
+  connect(lat.y, or2.u1)
+    annotation (Line(points={{-118,200},{-22,200}}, color={255,0,255}));
+  connect(con.y, or2.u2) annotation (Line(points={{-178,80},{-96,80},{-96,192},{
+          -22,192}}, color={255,0,255}));
+  connect(or2.y, minBypSet.uUpsDevSta) annotation (Line(points={{2,200},{10,200},
+          {10,138},{58,138}}, color={255,0,255}));
+  connect(or2.y, minChiWatFlo.uUpsDevSta) annotation (Line(points={{2,200},{10,200},
+          {10,97},{18,97}}, color={255,0,255}));
 
 annotation (
   defaultComponentName="upProCon",
@@ -625,7 +645,8 @@ annotation (
           extent={{-96,128},{-60,116}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
-          textString="uChiLoa"),
+          textString="uChiLoa",
+          visible=need_reduceChillerDemand),
         Text(
           extent={{-96,84},{-40,70}},
           lineColor={0,0,127},
@@ -672,7 +693,8 @@ annotation (
           extent={{60,158},{96,146}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
-          textString="yChiDem"),
+          textString="yChiDem",
+          visible=need_reduceChillerDemand),
         Text(
           extent={{28,118},{98,104}},
           lineColor={0,0,127},

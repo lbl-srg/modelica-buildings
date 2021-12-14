@@ -1,4 +1,4 @@
-within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Processes;
+﻿within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Processes;
 block Down
   "Sequence for controlling devices when there is a stage-down command"
 
@@ -18,15 +18,17 @@ block Down
     "True: headered condenser water pumps";
   parameter Boolean have_fixSpeConWatPum=false
     "True: fixed speed condenser water pump";
+  parameter Boolean need_reduceChillerDemand=false
+    "True: need limit chiller demand when chiller staging";
   parameter Real chiDemRedFac=0.75
     "Demand reducing factor of current operating chillers"
-    annotation (Dialog(group="Disable last chiller", enable=have_ponyChiller));
+    annotation (Dialog(group="Disable last chiller", enable=have_ponyChiller and need_reduceChillerDemand));
   parameter Real holChiDemTim(
     final unit="s",
     final quantity="Time",
     displayUnit="s")=300
     "Maximum time to wait for the actual demand less than percentage of current load"
-    annotation (Dialog(group="Disable last chiller", enable=have_ponyChiller));
+    annotation (Dialog(group="Disable last chiller", enable=have_ponyChiller and need_reduceChillerDemand));
   parameter Real waiTim(
     final unit="s",
     final quantity="Time",
@@ -99,13 +101,13 @@ block Down
   Buildings.Controls.OBC.CDL.Interfaces.RealInput yOpeParLoaRatMin(
     final min=0,
     final max=1,
-    final unit="1")
+    final unit="1") if need_reduceChillerDemand
     "Current stage minimum cycling operative partial load ratio"
     annotation (Placement(transformation(extent={{-320,260},{-280,300}}),
       iconTransformation(extent={{-140,120},{-100,160}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uChiLoa[nChi](
     final quantity=fill("ElectricCurrent", nChi),
-    final unit=fill("A", nChi))
+    final unit=fill("A", nChi)) if need_reduceChillerDemand
     "Current chiller load"
     annotation (Placement(transformation(extent={{-320,230},{-280,270}}),
       iconTransformation(extent={{-140,100},{-100,140}})));
@@ -175,7 +177,7 @@ block Down
       iconTransformation(extent={{100,170},{140,210}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yChiDem[nChi](
     final quantity=fill("ElectricCurrent", nChi),
-    final unit=fill("A", nChi))
+    final unit=fill("A", nChi)) if need_reduceChillerDemand
     "Chiller demand setpoint"
     annotation (Placement(transformation(extent={{280,240},{320,280}}),
       iconTransformation(extent={{100,130},{140,170}})));
@@ -236,6 +238,7 @@ protected
     dowSta(
     final nChi=nChi,
     final have_parChi=have_parChi,
+    final need_reduceChillerDemand=need_reduceChillerDemand,
     final chiDemRedFac=chiDemRedFac,
     final holChiDemTim=holChiDemTim,
     final minFloSet=minFloSet,
@@ -666,9 +669,9 @@ equation
           224},{-100,130},{-300,130}}, color={255,0,255}));
   connect(uChiHeaCon, logSwi.u3) annotation (Line(points={{-300,130},{-100,130},
           {-100,-90},{120,-90},{120,-78},{138,-78}}, color={255,0,255}));
-
   connect(conWatPumCon.uConWatPum, uConWatPum) annotation (Line(points={{138,-191},
           {70,-191},{70,-380},{-300,-380}}, color={255,0,255}));
+
 annotation (
   defaultComponentName="dowProCon",
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-280,-400},{280,400}})),
@@ -701,12 +704,14 @@ annotation (
           extent={{-96,148},{-26,134}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
-          textString="yOpeParLoaRatMin"),
+          textString="yOpeParLoaRatMin",
+          visible=need_reduceChillerDemand),
         Text(
           extent={{-96,126},{-60,114}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
-          textString="uChiLoa"),
+          textString="uChiLoa",
+          visible=need_reduceChillerDemand),
         Text(
           extent={{-100,96},{-70,84}},
           lineColor={255,0,255},
@@ -758,7 +763,8 @@ annotation (
           extent={{60,158},{96,146}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
-          textString="yChiDem"),
+          textString="yChiDem",
+          visible=need_reduceChillerDemand),
         Text(
           extent={{72,126},{96,114}},
           lineColor={255,0,255},

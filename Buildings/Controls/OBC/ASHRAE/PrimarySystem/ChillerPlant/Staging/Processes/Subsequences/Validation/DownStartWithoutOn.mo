@@ -5,6 +5,7 @@ model DownStartWithoutOn
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Processes.Subsequences.DownStart
     staStaDow(
     final nChi=2,
+    need_reduceChillerDemand=true,
     final byPasSetTim=300,
     final minFloSet={1,1},
     final maxFloSet={1.5,1.5},
