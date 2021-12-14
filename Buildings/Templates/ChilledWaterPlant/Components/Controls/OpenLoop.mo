@@ -52,8 +52,15 @@ block OpenLoop "Open loop controller (output signals only)"
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={-130,70})));
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant yValWSEByp(k=false)
+    annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=-90,
+        origin={10,70})));
 equation
-  connect(busCHW.pumPri.yValByp, yValByp.y);
+  /* Control point connection - start */
+  connect(busCHW.pumPri.valByp.y, yValByp.y);
+  connect(busCHW.pumPri.valWSEByp.y, yValWSEByp.y);
   connect(busCW.pum.yValWSE, yValWSE.y);
   for i in 1:nChi loop
     connect(busCHW.chiGro.chi[i].TSet, chiTSet[i].y);
@@ -71,6 +78,7 @@ equation
   for i in 1:nPumCon loop
     connect(busCW.pum.ySpe[i], ySpePumCon[i].y);
   end for;
+  /* Control point connection - end */
   annotation (
   defaultComponentName="conAHU",
   Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(

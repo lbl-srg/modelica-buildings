@@ -11,7 +11,7 @@ model Dedicated
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={80,0})));
-  Fluid.Actuators.Valves.TwoWayLinear valByp(
+  Buildings.Templates.Components.Valves.TwoWayModulating valByp(
     redeclare final package Medium = Medium,
     final m_flow_nominal=mTot_flow_nominal,
     final dpValve_nominal=dpByp_nominal) if has_byp
@@ -43,10 +43,14 @@ model Dedicated
   Buildings.Templates.Components.Sensors.VolumeFlowRate VComLeg_flow(
     redeclare final package Medium = Medium,
     final have_sen=has_comLegFloSen,
-    final m_flow_nominal=m_flow_nominal) if has_comLeg
+    final m_flow_nominal=m_flow_nominal,
+    final typ=Buildings.Templates.Components.Types.SensorVolumeFlowRate.FlowMeter) if has_comLeg
     "Common leg volume flow rate"
     annotation (Placement(transformation(extent={{20,-90},{40,-70}})));
 equation
+  /* Control point connection - start */
+  connect(valByp.bus, busCon.valByp);
+  /* Control point connection - end */
   connect(splByp.port_2, port_b)
     annotation (Line(points={{90,0},{100,0}}, color={0,127,255}));
   connect(splByp.port_3, valByp.port_a) annotation (Line(points={{80,-10},{80,
@@ -62,14 +66,6 @@ equation
       horizontalAlignment=TextAlignment.Right));
   connect(ports_parallel, pum.ports_a)
     annotation (Line(points={{-100,0},{-10,0}}, color={0,127,255}));
-  connect(busCon.yValByp, valByp.y) annotation (Line(
-      points={{0,100},{0,80},{-40,80},{-40,-50},{-12,-50}},
-      color={255,204,51},
-      thickness=0.5), Text(
-      string="%first",
-      index=-1,
-      extent={{-3,6},{-3,6}},
-      horizontalAlignment=TextAlignment.Right));
   connect(pum.port_b, V_flow.port_a)
     annotation (Line(points={{10,0},{40,0}}, color={0,127,255}));
   connect(V_flow.port_b, splByp.port_1)

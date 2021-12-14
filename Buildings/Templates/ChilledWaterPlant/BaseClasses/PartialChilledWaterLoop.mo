@@ -89,15 +89,15 @@ model PartialChilledWaterLoop
     final typ=Buildings.Templates.Components.Types.SensorTemperature.InWell,
     final m_flow_nominal=mSec_flow_nominal)
     "Chilled water return temperature"
-    annotation (Placement(transformation(extent={{120,-80},{140,-60}})));
+    annotation (Placement(transformation(extent={{140,-90},{120,-70}})));
   Buildings.Templates.Components.Sensors.DifferentialPressure dpCHW(
     redeclare final package Medium = MediumCHW,
     final have_sen=true,
-    m_flow_nominal=0)
+    final text_rotation=90)
     "Chilled water demand side differential pressure"
     annotation (Placement(transformation(extent={{10,10},{-10,-10}},
         rotation=90,
-        origin={170,-30})));
+        origin={180,-30})));
   Buildings.Templates.Components.Sensors.Temperature TCHWSup(
     redeclare final package Medium = MediumCHW,
     final have_sen=true,
@@ -155,9 +155,6 @@ protected
     "Nominal pressure drop for secondary loop";
 
 equation
-  connect(TCHWRet.port_a,WSE. port_a2)
-    annotation (Line(points={{120,-70},{-20,-70},{-20,-88},{-34,-88},{-34,-82}},
-      color={0,127,255}));
   connect(chiGro.ports_b2, pumPri.ports_parallel)
     annotation (Line(points={{-30,16},{-20,16},{-20,10},{-8.88178e-16,10}},
       color={0,127,255}));
@@ -178,8 +175,6 @@ equation
   connect(mixByp.port_3, pumPri.port_byp)
     annotation (Line(points={{-10,-40},{-10,-34},{10,-34},{10,0}},
     color={0,127,255}));
-  connect(TCHWRet.port_b, port_b)
-    annotation (Line(points={{140,-70},{200,-70}}, color={0,127,255}));
 
   connect(TCHWRetByp.y, chwCon.TRetByp);
   connect(TCHWSup.y, chwCon.TSup);
@@ -200,8 +195,8 @@ equation
   connect(TCHWSup.port_b, port_a)
     annotation (Line(points={{140,10},{200,10}}, color={0,127,255}));
   connect(dpCHW.port_a, port_a)
-    annotation (Line(points={{170,-20},{170,10},{200,10}}, color={0,127,255}));
-  connect(dpCHW.port_b, port_b) annotation (Line(points={{170,-40},{170,-70},{
+    annotation (Line(points={{180,-20},{180,10},{200,10}}, color={0,127,255}));
+  connect(dpCHW.port_b, port_b) annotation (Line(points={{180,-40},{180,-70},{
           200,-70}}, color={0,127,255}));
   connect(bouCHW.ports[1], pumPri.ports_parallel[1]) annotation (Line(points={{
           -1.77636e-15,30},{-1.77636e-15,20},{-8.88178e-16,20},{-8.88178e-16,10}},
@@ -210,4 +205,8 @@ equation
           -50},{-20,-50}}, color={0,127,255}));
   connect(mixByp.port_2, TCHWRetByp.port_a)
     annotation (Line(points={{0,-50},{20,-50}}, color={0,127,255}));
+  connect(TCHWRet.port_a, port_b) annotation (Line(points={{140,-80},{180,-80},
+          {180,-70},{200,-70}}, color={0,127,255}));
+  connect(TCHWRet.port_b, WSE.port_a2) annotation (Line(points={{120,-80},{-24,
+          -80},{-24,-88},{-34,-88},{-34,-82}}, color={0,127,255}));
 end PartialChilledWaterLoop;
