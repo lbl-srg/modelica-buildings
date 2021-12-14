@@ -15,7 +15,7 @@ model SimpleRoomODE
     annotation (Dialog(group="Nominal condition"));
   parameter Modelica.SIunits.Time tau=1800
     "Time constant of the indoor temperature";
-  Examples.BaseClasses.GeojsonExportRC.OfficeBuilding.Office romHeaMet
+  Buildings.Experimental.DHC.Loads.Examples.BaseClasses.GeojsonExportRC.OfficeBuilding.Office romHeaMet
     "ROM where the heating load is always met"
     annotation (Placement(transformation(extent={{-10,90},{10,110}})));
   BoundaryConditions.WeatherData.ReaderTMY3 weaDat(
@@ -45,7 +45,7 @@ model SimpleRoomODE
   HeatTransfer.Sources.PrescribedHeatFlow prescribedHeatFlow
     "Prescribed heat flow rate"
     annotation (Placement(transformation(extent={{82,130},{62,150}})));
-  Examples.BaseClasses.GeojsonExportRC.OfficeBuilding.Office romHeaUnm
+  Buildings.Experimental.DHC.Loads.Examples.BaseClasses.GeojsonExportRC.OfficeBuilding.Office romHeaUnm
     "ROM where the heating load is not met"
     annotation (Placement(transformation(extent={{-10,50},{10,70}})));
   Buildings.Controls.OBC.CDL.Continuous.Gain gai1(
@@ -99,10 +99,10 @@ model SimpleRoomODE
       "modelica://Buildings/Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos"))
     "Weather data reader"
     annotation (Placement(transformation(extent={{-140,-110},{-120,-90}})));
-  Examples.BaseClasses.GeojsonExportRC.OfficeBuilding.Office romCooMet
+  Buildings.Experimental.DHC.Loads.Examples.BaseClasses.GeojsonExportRC.OfficeBuilding.Office romCooMet
     "ROM where the cooling load is always met"
     annotation (Placement(transformation(extent={{-10,-130},{10,-110}})));
-  Examples.BaseClasses.GeojsonExportRC.OfficeBuilding.Office romCooUnm
+  Buildings.Experimental.DHC.Loads.Examples.BaseClasses.GeojsonExportRC.OfficeBuilding.Office romCooUnm
     "ROM where the cooling load is not met"
     annotation (Placement(transformation(extent={{-10,-90},{10,-70}})));
   HeatTransfer.Sources.PrescribedHeatFlow prescribedHeatFlow2

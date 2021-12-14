@@ -1,7 +1,7 @@
 within Buildings.Experimental.DHC.EnergyTransferStations.Combined.Generation5;
 model HeatPumpHeatExchanger
   "Model of a substation with heat pump and compressor-less cooling"
-  extends DHC.EnergyTransferStations.BaseClasses.PartialETS(
+  extends Buildings.Experimental.DHC.EnergyTransferStations.BaseClasses.PartialETS(
     final typ=DHC.Types.DistrictSystemType.CombinedGeneration5,
     final have_weaBus=false,
     final have_chiWat=true,
@@ -195,7 +195,7 @@ model HeatPumpHeatExchanger
     final energyDynamics=mixingVolumeEnergyDynamics)
     "Mixing volume to break algebraic loops and to emulate the delay of the substation"
     annotation (Placement(transformation(extent={{250,-360},{270,-380}})));
-  DHC.EnergyTransferStations.BaseClasses.Pump_m_flow pum1HexChi(
+  Buildings.Experimental.DHC.EnergyTransferStations.BaseClasses.Pump_m_flow pum1HexChi(
     redeclare final package Medium = MediumSer,
     final m_flow_nominal=m1HexChi_flow_nominal,
     final allowFlowReversal=allowFlowReversalSer)
@@ -248,7 +248,7 @@ model HeatPumpHeatExchanger
   Buildings.Controls.OBC.CDL.Continuous.Gain gai2(
     final k=m1HexChi_flow_nominal)
     annotation (Placement(transformation(extent={{-108,-210},{-88,-190}})));
-  DHC.EnergyTransferStations.Combined.Generation5.Controls.PIDWithEnable conTChiWat(
+  Buildings.Experimental.DHC.EnergyTransferStations.Combined.Generation5.Controls.PIDWithEnable conTChiWat(
     k=0.05,
     Ti=120,
     yMax=1,
@@ -302,14 +302,14 @@ model HeatPumpHeatExchanger
     redeclare final package Medium = MediumSer,
     final m_flow_nominal=mDisWat_flow_nominal) "Flow switch box"
     annotation (Placement(transformation(extent={{-10,-390},{10,-370}})));
-  DHC.EnergyTransferStations.BaseClasses.Junction bypHeaWatSup(redeclare final
+  Buildings.Experimental.DHC.EnergyTransferStations.BaseClasses.Junction bypHeaWatSup(redeclare final
       package Medium = MediumBui, final m_flow_nominal=proHeaWat.m1_flow_nominal
         *{1,-1,-1}) "Bypass heating water (supply)" annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={100,260})));
-  DHC.EnergyTransferStations.BaseClasses.Junction bypHeaWatRet(
+  Buildings.Experimental.DHC.EnergyTransferStations.BaseClasses.Junction bypHeaWatRet(
     redeclare final package Medium = MediumBui,
     final m_flow_nominal=proHeaWat.m1_flow_nominal*{1,-1,1})
     "Bypass heating water (return)"
@@ -321,7 +321,7 @@ model HeatPumpHeatExchanger
   Buildings.Controls.OBC.CDL.Logical.TrueFalseHold enaHea(
     trueHoldDuration=15*60) "Enable heating"
     annotation (Placement(transformation(extent={{-140,150},{-120,170}})));
-  Subsystems.HeatPump proHeaWat(
+  Buildings.Experimental.DHC.EnergyTransferStations.Combined.Generation5.Subsystems.HeatPump proHeaWat(
     redeclare final package Medium1 = MediumBui,
     redeclare final package Medium2 = MediumSer,
     final have_varFloCon=have_varFloCon,
@@ -337,7 +337,7 @@ model HeatPumpHeatExchanger
     final dp1_nominal=dp_nominal,
     final dp2_nominal=dp_nominal) "Subsystem for heating water production"
     annotation (Placement(transformation(extent={{-10,204},{10,224}})));
-  Subsystems.HeatPump proHotWat(
+  Buildings.Experimental.DHC.EnergyTransferStations.Combined.Generation5.Subsystems.HeatPump proHotWat(
     redeclare final package Medium1 = MediumBui,
     redeclare final package Medium2 = MediumSer,
     final have_pumCon=false,
@@ -433,21 +433,21 @@ model HeatPumpHeatExchanger
   Buildings.Controls.OBC.CDL.Continuous.Add heaFloEvaHHW if have_varFloEva
     "Heat flow rate at evaporator"
     annotation (Placement(transformation(extent={{-100,230},{-80,250}})));
-  Controls.PrimaryVariableFlow conFloEvaSHW(
+  Buildings.Experimental.DHC.EnergyTransferStations.Combined.Generation5.Controls.PrimaryVariableFlow conFloEvaSHW(
     final Q_flow_nominal=-QHotWat_flow_nominal*(1 + 1/COPHotWat_nominal),
     final dT_nominal=-dT_nominal,
     final ratFloMin=ratFloMin,
     final cp=cpSer_default) if have_hotWat and have_varFloEva
     "Mass flow rate control"
     annotation (Placement(transformation(extent={{-60,90},{-40,110}})));
-  Controls.PrimaryVariableFlow conFloConHHW(
+  Buildings.Experimental.DHC.EnergyTransferStations.Combined.Generation5.Controls.PrimaryVariableFlow conFloConHHW(
     final Q_flow_nominal=QHeaWat_flow_nominal,
     final dT_nominal=dT_nominal,
     final ratFloMin=ratFloMin,
     final cp=cpBui_default) if have_varFloCon
     "Mass flow rate control"
     annotation (Placement(transformation(extent={{-100,270},{-80,290}})));
-  Controls.PrimaryVariableFlow conFloEvaHHW(
+  Buildings.Experimental.DHC.EnergyTransferStations.Combined.Generation5.Controls.PrimaryVariableFlow conFloEvaHHW(
     final Q_flow_nominal=-QHeaWat_flow_nominal*(1 + 1/COPHeaWat_nominal),
     final dT_nominal=-dT_nominal,
     final ratFloMin=ratFloMin,

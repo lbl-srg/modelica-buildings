@@ -24,7 +24,7 @@ partial model PartialParallel "Partial model for parallel network"
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-130,-80})));
-  DHC.EnergyTransferStations.BaseClasses.Pump_m_flow pumDis(
+  Buildings.Experimental.DHC.EnergyTransferStations.BaseClasses.Pump_m_flow pumDis(
     redeclare final package Medium=Medium,
     final m_flow_nominal=datDes.mPumDis_flow_nominal)
     "Distribution pump"
@@ -40,7 +40,7 @@ partial model PartialParallel "Partial model for parallel network"
       extent={{-10,-10},{10,10}},
       rotation=180,
       origin={112,-20})));
-  DHC.EnergyTransferStations.BaseClasses.Pump_m_flow pumSto(
+  Buildings.Experimental.DHC.EnergyTransferStations.BaseClasses.Pump_m_flow pumSto(
     redeclare final package Medium=Medium,
     final m_flow_nominal=datDes.mSto_flow_nominal,
     final allowFlowReversal=allowFlowReversalSer)
@@ -136,16 +136,16 @@ partial model PartialParallel "Partial model for parallel network"
     each final allowFlowReversalBui=allowFlowReversalBui,
     each final allowFlowReversalSer=allowFlowReversalSer) "Building and ETS"
     annotation (Placement(transformation(extent={{-10,170},{10,190}})));
-  Controls.OBC.CDL.Continuous.Sources.Constant THeaWatSupMaxSet[nBui](k=bui.THeaWatSup_nominal)
+ Buildings.Controls.OBC.CDL.Continuous.Sources.Constant THeaWatSupMaxSet[nBui](k=bui.THeaWatSup_nominal)
     "Heating water supply temperature set point - Maximum value"
     annotation (Placement(transformation(extent={{-250,210},{-230,230}})));
-  Controls.OBC.CDL.Continuous.Sources.Constant TChiWatSupSet[nBui](k=bui.TChiWatSup_nominal)
+ Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TChiWatSupSet[nBui](k=bui.TChiWatSup_nominal)
     "Chilled water supply temperature set point"
     annotation (Placement(transformation(extent={{-220,190},{-200,210}})));
   Modelica.Blocks.Sources.Constant TSewWat(k=273.15 + 17)
     "Sewage water temperature"
     annotation (Placement(transformation(extent={{-280,30},{-260,50}})));
-  Controls.OBC.CDL.Continuous.Sources.Constant THeaWatSupMinSet[nBui](each k=28
+ Buildings.Controls.OBC.CDL.Continuous.Sources.Constant THeaWatSupMinSet[nBui](each k=28
          + 273.15)
     "Heating water supply temperature set point - Minimum value"
     annotation (Placement(transformation(extent={{-280,230},{-260,250}})));
@@ -154,7 +154,7 @@ partial model PartialParallel "Partial model for parallel network"
     uMax=datDes.TLooMax,
     nu=3) "Check if loop temperatures are within given range"
     annotation (Placement(transformation(extent={{300,30},{320,50}})));
-  Controls.OBC.CDL.Continuous.MultiSum PPumETS(final nin=nBui)
+ Buildings.Controls.OBC.CDL.Continuous.MultiSum PPumETS(final nin=nBui)
     "ETS pump power"
     annotation (Placement(transformation(extent={{120,190},{140,210}})));
   Modelica.Blocks.Continuous.Integrator EPumETS(initType=Modelica.Blocks.Types.Init.InitialState)
@@ -163,16 +163,16 @@ partial model PartialParallel "Partial model for parallel network"
   Modelica.Blocks.Continuous.Integrator EPumPla(initType=Modelica.Blocks.Types.Init.InitialState)
     "Plant pump electric energy"
     annotation (Placement(transformation(extent={{200,50},{220,70}})));
-  Controls.OBC.CDL.Continuous.MultiSum EPum(nin=4)
+ Buildings.Controls.OBC.CDL.Continuous.MultiSum EPum(nin=4)
     "Total pump electric energy"
     annotation (Placement(transformation(extent={{260,110},{280,130}})));
-  Controls.OBC.CDL.Continuous.MultiSum PHeaPump(final nin=nBui)
+ Buildings.Controls.OBC.CDL.Continuous.MultiSum PHeaPump(final nin=nBui)
     "Heat pump power"
     annotation (Placement(transformation(extent={{120,150},{140,170}})));
   Modelica.Blocks.Continuous.Integrator EHeaPum(initType=Modelica.Blocks.Types.Init.InitialState)
     "Heat pump electric energy"
     annotation (Placement(transformation(extent={{200,150},{220,170}})));
-  Controls.OBC.CDL.Continuous.MultiSum ETot(nin=2) "Total electric energy"
+ Buildings.Controls.OBC.CDL.Continuous.MultiSum ETot(nin=2) "Total electric energy"
     annotation (Placement(transformation(extent={{300,150},{320,170}})));
   Modelica.Blocks.Continuous.Integrator EPumDis(initType=Modelica.Blocks.Types.Init.InitialState)
     "Distribution pump electric energy"

@@ -1,11 +1,11 @@
 within Buildings.Experimental.DHC.EnergyTransferStations.Combined.Generation5;
 model ChillerBorefield
   "ETS model for 5GDHC systems with heat recovery chiller and optional borefield"
-  extends BaseClasses.PartialParallel(
+  extends Buildings.Experimental.DHC.EnergyTransferStations.Combined.Generation5.BaseClasses.PartialParallel(
     final have_eleCoo=true,
     final have_fan=false,
-    redeclare replaceable Controls.Supervisory conSup
-      constrainedby Controls.Supervisory(
+    redeclare replaceable Buildings.Experimental.DHC.EnergyTransferStations.Combined.Generation5.Controls.Supervisory conSup
+      constrainedby Buildings.Experimental.DHC.EnergyTransferStations.Combined.Generation5.Controls.Supervisory(
       final controllerType=controllerType,
       final kHot=kHot,
       final kCol=kCol,
@@ -119,7 +119,7 @@ model ChillerBorefield
     displayUnit="degC")=datChi.TEvaLvgMin
     "Minimum value of chilled water supply temperature set point"
     annotation (Dialog(group="Supervisory controller"));
-  replaceable Subsystems.Chiller chi(
+  replaceable Buildings.Experimental.DHC.EnergyTransferStations.Combined.Generation5.Subsystems.Chiller chi(
     redeclare final package Medium=MediumBui,
     final perPumCon=perPumCon,
     final perPumEva=perPumEva,
@@ -128,7 +128,7 @@ model ChillerBorefield
     final dat=datChi)
     "Chiller"
     annotation (Dialog(group="Chiller"),Placement(transformation(extent={{-10,-16},{10,4}})));
-  replaceable Subsystems.Borefield borFie(
+  replaceable Buildings.Experimental.DHC.EnergyTransferStations.Combined.Generation5.Subsystems.Borefield borFie(
     redeclare final package Medium=MediumBui,
     final datBorFie=datBorFie,
     final perPum=perPumBorFie,

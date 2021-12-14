@@ -10,7 +10,7 @@ model ChillerBorefield
   parameter Modelica.SIunits.Distance dxy=6
     "Distance in x-axis (and y-axis) between borehole axes";
   final parameter Modelica.SIunits.Distance cooBor[nBorHol,2]=
-    EnergyTransferStations.BaseClasses.computeCoordinates(
+    Buildings.Experimental.DHC.EnergyTransferStations.BaseClasses.computeCoordinates(
       nBorHol,
       dxy)
     "Coordinates of boreholes";

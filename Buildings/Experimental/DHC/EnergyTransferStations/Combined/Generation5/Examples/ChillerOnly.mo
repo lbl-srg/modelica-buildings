@@ -1,7 +1,7 @@
 within Buildings.Experimental.DHC.EnergyTransferStations.Combined.Generation5.Examples;
 model ChillerOnly
   "Example of the ETS model with heat recovery chiller"
-  extends Experimental.DHC.EnergyTransferStations.Combined.Generation5.Validation.BaseClasses.PartialChillerBorefield(
+  extends Buildings.Experimental.DHC.EnergyTransferStations.Combined.Generation5.Validation.BaseClasses.PartialChillerBorefield(
     TDisWatSup(
       table=[
         0,11;

@@ -201,7 +201,7 @@ partial model PartialBuildingWithPartialETS
         rotation=90,
         origin={90,120})));
   // COMPONENTS
-  replaceable DHC.Loads.BaseClasses.PartialBuilding bui(
+  replaceable Buildings.Experimental.DHC.Loads.BaseClasses.PartialBuilding bui(
     redeclare final package Medium=MediumBui,
     final nPorts_aHeaWat=nPorts_heaWat,
     final nPorts_bHeaWat=nPorts_heaWat,
@@ -210,7 +210,7 @@ partial model PartialBuildingWithPartialETS
     final allowFlowReversal=allowFlowReversalBui)
     "Building model "
     annotation (Placement(transformation(extent={{-30,8},{30,68}})));
-  replaceable DHC.EnergyTransferStations.BaseClasses.PartialETS ets(
+  replaceable Buildings.Experimental.DHC.EnergyTransferStations.BaseClasses.PartialETS ets(
     redeclare final package MediumBui=MediumBui,
     redeclare final package MediumSer=MediumSer,
     redeclare final package MediumSerHea_a=MediumSerHea_a,

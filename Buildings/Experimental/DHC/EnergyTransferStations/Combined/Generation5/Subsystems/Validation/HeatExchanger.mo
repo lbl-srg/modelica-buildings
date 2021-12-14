@@ -24,7 +24,7 @@ model HeatExchanger
     y=time >= 1000 and time < 3000)
     "Cold rejection enable signal"
     annotation (Placement(transformation(extent={{-230,90},{-210,110}})));
-  Experimental.DHC.EnergyTransferStations.Combined.Generation5.Subsystems.HeatExchanger hexPum(
+  Buildings.Experimental.DHC.EnergyTransferStations.Combined.Generation5.Subsystems.HeatExchanger hexPum(
     redeclare final package Medium1=Medium,
     redeclare final package Medium2=Medium,
     show_T=true,
@@ -68,7 +68,7 @@ model HeatExchanger
     nPorts=2)
     "Secondary boundary conditions"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},rotation=0,origin={-110,20})));
-  Experimental.DHC.EnergyTransferStations.Combined.Generation5.Subsystems.HeatExchanger hexVal(
+  Buildings.Experimental.DHC.EnergyTransferStations.Combined.Generation5.Subsystems.HeatExchanger hexVal(
     redeclare final package Medium1=Medium,
     redeclare final package Medium2=Medium,
     show_T=true,

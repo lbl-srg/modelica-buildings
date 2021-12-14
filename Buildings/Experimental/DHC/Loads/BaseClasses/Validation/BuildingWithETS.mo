@@ -15,7 +15,7 @@ model BuildingWithETS
     "Nominal mass flow rate";
   parameter Modelica.SIunits.HeatFlowRate QChiWat_flow_nominal=-1E4
     "Nominal mass flow rate";
-  BaseClasses.BuildingWithETS buiHeaGen1(
+  Buildings.Experimental.DHC.Loads.BaseClasses.Validation.BaseClasses.BuildingWithETS buiHeaGen1(
     redeclare final package MediumSerHea_a=MediumS,
     redeclare final package MediumSer=MediumW,
     redeclare final package MediumBui=MediumW,
@@ -40,13 +40,13 @@ model BuildingWithETS
     nPorts=1)
     "Sink for district return"
     annotation (Placement(transformation(extent={{-240,170},{-220,190}})));
-  Networks.BaseClasses.DifferenceEnthalpyFlowRate senDifEntFlo(
+  Buildings.Experimental.DHC.Networks.BaseClasses.DifferenceEnthalpyFlowRate senDifEntFlo(
     redeclare final package Medium1=MediumS,
     redeclare final package Medium2=MediumW,
     final m_flow_nominal=m_flow_nominal)
     "Change in enthalpy flow rate "
     annotation (Placement(transformation(extent={{-200,196},{-180,216}})));
-  BaseClasses.BuildingWithETS buiComGen1(
+  Buildings.Experimental.DHC.Loads.BaseClasses.Validation.BaseClasses.BuildingWithETS buiComGen1(
     redeclare final package MediumSerHea_a=MediumS,
     redeclare final package MediumSer=MediumW,
     redeclare final package MediumBui=MediumW,
@@ -75,7 +75,7 @@ model BuildingWithETS
     nPorts=1)
     "Sink for district return"
     annotation (Placement(transformation(extent={{-240,-50},{-220,-30}})));
-  Networks.BaseClasses.DifferenceEnthalpyFlowRate senDifEntFlo1(
+  Buildings.Experimental.DHC.Networks.BaseClasses.DifferenceEnthalpyFlowRate senDifEntFlo1(
     redeclare final package Medium1=MediumS,
     redeclare final package Medium2 = Media.Water,
     final m_flow_nominal=m_flow_nominal)
@@ -92,7 +92,7 @@ model BuildingWithETS
     nPorts=1)
     "Sink for district return"
     annotation (Placement(transformation(extent={{-200,-90},{-180,-70}})));
-  Networks.BaseClasses.DifferenceEnthalpyFlowRate senDifEntFlo2(
+  Buildings.Experimental.DHC.Networks.BaseClasses.DifferenceEnthalpyFlowRate senDifEntFlo2(
     redeclare final package Medium1=MediumW,
     final m_flow_nominal=m_flow_nominal)
     "Change in enthalpy flow rate "
@@ -108,12 +108,12 @@ model BuildingWithETS
     nPorts=1)
     "Sink for district return"
     annotation (Placement(transformation(extent={{-240,50},{-220,70}})));
-  Networks.BaseClasses.DifferenceEnthalpyFlowRate senDifEntFlo3(
+  Buildings.Experimental.DHC.Networks.BaseClasses.DifferenceEnthalpyFlowRate senDifEntFlo3(
     redeclare final package Medium1=MediumW,
     final m_flow_nominal=m_flow_nominal)
     "Change in enthalpy flow rate "
     annotation (Placement(transformation(extent={{-200,76},{-180,96}})));
-  BaseClasses.BuildingWithETS buiCoo(
+  Buildings.Experimental.DHC.Loads.BaseClasses.Validation.BaseClasses.BuildingWithETS buiCoo(
     redeclare final package MediumSer=MediumW,
     redeclare final package MediumBui=MediumW,
     nPorts_chiWat=1,
@@ -126,7 +126,7 @@ model BuildingWithETS
       QChiWat_flow_nominal=QChiWat_flow_nominal))
     "Building and ETS component - Cooling only"
     annotation (Placement(transformation(extent={{-160,90},{-140,110}})));
-  BaseClasses.BuildingWithETS buiComGen2to4(
+  Buildings.Experimental.DHC.Loads.BaseClasses.Validation.BaseClasses.BuildingWithETS buiComGen2to4(
     redeclare final package MediumSer = MediumW,
     redeclare final package MediumBui = MediumW,
     nPorts_heaWat=1,
@@ -154,7 +154,7 @@ model BuildingWithETS
     nPorts=1)
     "Sink for district return"
     annotation (Placement(transformation(extent={{-80,-50},{-60,-30}})));
-  Networks.BaseClasses.DifferenceEnthalpyFlowRate senDifEntFlo5(
+  Buildings.Experimental.DHC.Networks.BaseClasses.DifferenceEnthalpyFlowRate senDifEntFlo5(
     redeclare final package Medium1 = MediumW,
     final m_flow_nominal=m_flow_nominal)
     "Change in enthalpy flow rate "
@@ -169,12 +169,12 @@ model BuildingWithETS
     nPorts=1)
     "Sink for district return"
     annotation (Placement(transformation(extent={{-40,-90},{-20,-70}})));
-  Networks.BaseClasses.DifferenceEnthalpyFlowRate senDifEntFlo6(
+  Buildings.Experimental.DHC.Networks.BaseClasses.DifferenceEnthalpyFlowRate senDifEntFlo6(
     redeclare final package Medium1 = MediumW,
     final m_flow_nominal=m_flow_nominal)
     "Change in enthalpy flow rate "
     annotation (Placement(transformation(extent={{0,-64},{20,-44}})));
-  BaseClasses.BuildingWithETS buiHeaGen2to4(
+  Buildings.Experimental.DHC.Loads.BaseClasses.Validation.BaseClasses.BuildingWithETS buiHeaGen2to4(
     redeclare final package MediumSer = MediumW,
     redeclare final package MediumBui = MediumW,
     nPorts_heaWat=1,
@@ -198,7 +198,7 @@ model BuildingWithETS
     nPorts=1)
     "Sink for district return"
     annotation (Placement(transformation(extent={{-80,170},{-60,190}})));
-  Networks.BaseClasses.DifferenceEnthalpyFlowRate senDifEntFlo7(
+  Buildings.Experimental.DHC.Networks.BaseClasses.DifferenceEnthalpyFlowRate senDifEntFlo7(
     redeclare final package Medium1 = MediumW,
     final m_flow_nominal=m_flow_nominal)
     "Change in enthalpy flow rate "
@@ -213,11 +213,11 @@ model BuildingWithETS
       nPorts=1)
     "Sink for district return"
     annotation (Placement(transformation(extent={{120,-50},{140,-30}})));
-  Networks.BaseClasses.DifferenceEnthalpyFlowRate senDifEntFlo4(redeclare
+  Buildings.Experimental.DHC.Networks.BaseClasses.DifferenceEnthalpyFlowRate senDifEntFlo4(redeclare
       final package Medium1 = MediumW, final m_flow_nominal=m_flow_nominal)
     "Change in enthalpy flow rate "
     annotation (Placement(transformation(extent={{160,-24},{180,-4}})));
-  BaseClasses.BuildingWithETS buiComGen5(
+  Buildings.Experimental.DHC.Loads.BaseClasses.Validation.BaseClasses.BuildingWithETS buiComGen5(
     redeclare final package MediumSer = MediumW,
     redeclare final package MediumBui = MediumW,
     nPorts_heaWat=1,
@@ -242,11 +242,11 @@ model BuildingWithETS
       nPorts=1)
     "Sink for district return"
     annotation (Placement(transformation(extent={{-240,-210},{-220,-190}})));
-  Networks.BaseClasses.DifferenceEnthalpyFlowRate senDifEntFlo8(redeclare
+  Buildings.Experimental.DHC.Networks.BaseClasses.DifferenceEnthalpyFlowRate senDifEntFlo8(redeclare
       final package Medium1 = MediumW, final m_flow_nominal=m_flow_nominal)
     "Change in enthalpy flow rate "
     annotation (Placement(transformation(extent={{-200,-184},{-180,-164}})));
-  BaseClasses.BuildingWithETS buiTesOutETS(
+  Buildings.Experimental.DHC.Loads.BaseClasses.Validation.BaseClasses.BuildingWithETS buiTesOutETS(
     redeclare final package MediumSer = MediumW,
     redeclare final package MediumBui = MediumW,
     nPorts_heaWat=1,
@@ -275,11 +275,11 @@ model BuildingWithETS
       nPorts=1)
     "Sink for district return"
     annotation (Placement(transformation(extent={{-80,-210},{-60,-190}})));
-  Networks.BaseClasses.DifferenceEnthalpyFlowRate senDifEntFlo9(redeclare
+  Buildings.Experimental.DHC.Networks.BaseClasses.DifferenceEnthalpyFlowRate senDifEntFlo9(redeclare
       final package Medium1 = MediumW, final m_flow_nominal=m_flow_nominal)
     "Change in enthalpy flow rate "
     annotation (Placement(transformation(extent={{-40,-184},{-20,-164}})));
-  BaseClasses.BuildingWithETS buiTesOutETSBui(
+  Buildings.Experimental.DHC.Loads.BaseClasses.Validation.BaseClasses.BuildingWithETS buiTesOutETSBui(
     redeclare final package MediumSer = MediumW,
     redeclare final package MediumBui = MediumW,
     nPorts_heaWat=1,
@@ -314,11 +314,11 @@ model BuildingWithETS
         MediumW, nPorts=1)
     "Sink for district return"
     annotation (Placement(transformation(extent={{100,-210},{120,-190}})));
-  Networks.BaseClasses.DifferenceEnthalpyFlowRate senDifEntFlo10(redeclare
+  Buildings.Experimental.DHC.Networks.BaseClasses.DifferenceEnthalpyFlowRate senDifEntFlo10(redeclare
       final package Medium1 = MediumW, final m_flow_nominal=m_flow_nominal)
     "Change in enthalpy flow rate "
     annotation (Placement(transformation(extent={{140,-184},{160,-164}})));
-  BaseClasses.BuildingWithETS buiTesFacMul(
+  Buildings.Experimental.DHC.Loads.BaseClasses.Validation.BaseClasses.BuildingWithETS buiTesFacMul(
     redeclare final package MediumSer = MediumW,
     redeclare final package MediumBui = MediumW,
     nPorts_heaWat=1,

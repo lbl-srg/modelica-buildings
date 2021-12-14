@@ -122,10 +122,10 @@ model BuildingTimeSeries
       displayUnit="degC"))
     "Maximum temperature set point"
     annotation (Placement(transformation(extent={{-280,210},{-260,230}})));
-  replaceable DHC.Loads.Validation.BaseClasses.FanCoil2PipeHeating terUniHea(
+  replaceable Buildings.Experimental.DHC.Loads.Validation.BaseClasses.FanCoil2PipeHeating terUniHea(
     final k=k,
     final Ti=Ti) if have_heaWat
-  constrainedby DHC.Loads.BaseClasses.PartialTerminalUnit(
+  constrainedby Buildings.Experimental.DHC.Loads.BaseClasses.PartialTerminalUnit(
     redeclare final package Medium1=Medium,
     redeclare final package Medium2=Medium2,
     final allowFlowReversal=allowFlowReversal,
@@ -161,12 +161,12 @@ model BuildingTimeSeries
     nPorts_a1=1) if have_chiWat
     "Chilled water distribution system"
     annotation (Placement(transformation(extent={{120,-270},{140,-250}})));
-  replaceable DHC.Loads.Validation.BaseClasses.FanCoil2PipeCooling terUniCoo(
+  replaceable Buildings.Experimental.DHC.Loads.Validation.BaseClasses.FanCoil2PipeCooling terUniCoo(
     final QHea_flow_nominal=QHea_flow_nominal/facMulHea,
     final T_aLoaHea_nominal=T_aLoaHea_nominal,
     final k=k,
     final Ti=Ti) if have_chiWat
-  constrainedby DHC.Loads.BaseClasses.PartialTerminalUnit(
+  constrainedby Buildings.Experimental.DHC.Loads.BaseClasses.PartialTerminalUnit(
     redeclare final package Medium1=Medium,
     redeclare final package Medium2=Medium2,
     final allowFlowReversal=allowFlowReversal,

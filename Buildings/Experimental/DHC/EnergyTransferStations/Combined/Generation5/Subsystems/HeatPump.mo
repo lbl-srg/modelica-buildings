@@ -139,13 +139,13 @@ model HeatPump "Base subsystem with water-to-water heat pump"
     final dp2_nominal=dp2_nominal)
     "Heat pump (index 1 for condenser side)"
     annotation (Placement(transformation(extent={{0,-24},{20,-4}})));
-  DHC.EnergyTransferStations.BaseClasses.Pump_m_flow pumEva(
+  Buildings.Experimental.DHC.EnergyTransferStations.BaseClasses.Pump_m_flow pumEva(
     redeclare final package Medium = Medium2,
     final m_flow_nominal=m2_flow_nominal,
     final allowFlowReversal=allowFlowReversal2)
     "Heat pump evaporator water pump"
     annotation (Placement(transformation(extent={{70,-70},{50,-50}})));
-  DHC.EnergyTransferStations.BaseClasses.Pump_m_flow pumCon(
+  Buildings.Experimental.DHC.EnergyTransferStations.BaseClasses.Pump_m_flow pumCon(
     redeclare final package Medium = Medium1,
     final m_flow_nominal=m1_flow_nominal,
     final allowFlowReversal=allowFlowReversal1) if have_pumCon
