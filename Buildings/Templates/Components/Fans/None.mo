@@ -1,7 +1,10 @@
 within Buildings.Templates.Components.Fans;
 model None "No fan"
   extends Buildings.Templates.Components.Fans.Interfaces.PartialFan(
-    final typ=Buildings.Templates.Components.Types.Fan.None);
+    final typ=Buildings.Templates.Components.Types.Fan.None,
+    final nFan=1,
+    dp_nominal=0);
+
 equation
   connect(port_a, V_flow.port_a)
     annotation (Line(points={{-100,0},{70,0}}, color={0,127,255}));

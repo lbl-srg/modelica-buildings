@@ -35,6 +35,24 @@ package Types "Generic types for template components"
       VAV
       "VAV damper")
     "Enumeration to specify the type of damper blades";
+  type Fan = enumeration(
+      None
+      "No fan",
+      SingleConstant
+      "Single fan - Constant speed",
+      SingleVariable
+      "Single fan - Variable speed",
+      ArrayVariable
+      "Fan array - Variable speed")
+    "Enumeration to configure the fan";
+  type FanSingle = enumeration(
+      Housed
+      "Housed centrifugal fan",
+      Plug
+      "Plug fan",
+      Propeller
+      "Propeller fan")
+    "Enumeration to specify the type of single fan";
   type HeatExchanger = enumeration(
       None
       "No heat exchanger",
@@ -55,24 +73,16 @@ package Types "Generic types for template components"
       ThreeWayModulating
       "Three-way junction")
     "Enumeration to configure the fluid junction";
-  type Fan = enumeration(
+  type Pump = enumeration(
       None
-      "No fan",
+      "No pump",
+      ParallelVariable
+      "Parallel pumps (identical) - Variable speed",
       SingleConstant
-      "Single fan - Constant speed",
+      "Single pump - Constant speed",
       SingleVariable
-      "Single fan - Variable speed",
-      ArrayVariable
-      "Fan array - Variable speed")
-    "Enumeration to configure the fan";
-  type FanSingle = enumeration(
-      Housed
-      "Housed centrifugal fan",
-      Plug
-      "Plug fan",
-      Propeller
-      "Propeller fan")
-    "Enumeration to specify the type of single fan";
+      "Single pump - Variable speed")
+    "Enumeration to configure the pump";
   type Sensor = enumeration(
       DifferentialPressure
       "Differential pressure",

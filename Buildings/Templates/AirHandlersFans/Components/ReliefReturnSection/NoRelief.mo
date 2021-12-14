@@ -23,7 +23,7 @@ model NoRelief "No relief branch"
       choice(redeclare replaceable Buildings.Templates.Components.Fans.SingleVariable fanRet
         "Single fan - Variable speed"),
       choice(redeclare replaceable Buildings.Templates.Components.Fans.ArrayVariable fanRet
-        "Multiple fans (identical) - Variable speed")),
+        "Fan array - Variable speed")),
     Dialog(group="Exhaust/relief/return section"),
     Placement(transformation(extent={{70,-10},{50,10}})));
 

@@ -182,7 +182,7 @@ partial model PartialOutdoorReliefReturnSection
       Bitmap(
         visible=typFanRet<>Buildings.Templates.Components.Types.Fan.None,
         extent={{358,240},{520,440}},
-        fileName="modelica://Buildings/Resources/Images/Templates/Components/Fans/VFD.svg"),
+        fileName="modelica://Buildings/Resources/Images/Templates/Components/Actuators/VFD.svg"),
       Line(
         visible=typFanRet<>Buildings.Templates.Components.Types.Fan.None,
           points={{440,440},{440,500}},
@@ -211,7 +211,7 @@ partial model PartialOutdoorReliefReturnSection
       Bitmap(
         visible=typFanRel<>Buildings.Templates.Components.Types.Fan.None,
         extent={{-320,240},{-158,440}},
-        fileName="modelica://Buildings/Resources/Images/Templates/Components/Fans/VFD.svg"),
+        fileName="modelica://Buildings/Resources/Images/Templates/Components/Actuators/VFD.svg"),
       Line(
         visible=typFanRel<>Buildings.Templates.Components.Types.Fan.None,
           points={{-240,440},{-240,500}},

@@ -1,5 +1,5 @@
 within Buildings.Templates.Components.Fans.Interfaces;
-partial model PartialFan
+partial model PartialFan "Interface class for fans"
   extends Buildings.Fluid.Interfaces.PartialTwoPortInterface;
 
   parameter Buildings.Templates.Components.Types.Fan typ
@@ -8,6 +8,10 @@ partial model PartialFan
   parameter Boolean have_senFlo
     "Set to true for air flow measurement"
     annotation (Evaluate=true, Dialog(group="Configuration"));
+  parameter Integer nFan(final min=1) = 1
+    "Number of fans"
+    annotation(Evaluate=true,
+      Dialog(group="Configuration"));
 
   parameter Buildings.Templates.Components.Types.FanSingle typSin=
     Buildings.Templates.Components.Types.FanSingle.Housed
@@ -22,14 +26,15 @@ partial model PartialFan
     annotation(Dialog(tab="Graphics", enable=false));
 
   parameter Modelica.SIunits.PressureDifference dp_nominal
-    "Fan total pressure rise"
+    "Total pressure rise"
     annotation (
-      Dialog(group="Nominal condition"));
+      Dialog(group="Nominal condition",
+      enable=typ <> Buildings.Templates.Components.Types.Fan.None));
 
   replaceable parameter Buildings.Fluid.Movers.Data.Generic per(
     pressure(
-      V_flow={0,m_flow_nominal,2*m_flow_nominal}/1.2,
-      dp={2*dp_nominal,dp_nominal,0}))
+      V_flow={0, 1, 2} * m_flow_nominal / nFan / 1.2,
+      dp={1, 1, 0} * dp_nominal))
     constrainedby Buildings.Fluid.Movers.Data.Generic
     "Performance data"
     annotation (
@@ -103,9 +108,9 @@ equation
     Bitmap(
       visible=typ==Buildings.Templates.Components.Types.Fan.SingleVariable or
         typ==Buildings.Templates.Components.Types.Fan.ArrayVariable,
-        extent=if text_flip then {{80,-360},{-80,-160}} else {{-80,-360},{80,-160}},
+        extent=if text_flip then {{100,-360},{-100,-160}} else {{-100,-360},{100,-160}},
         rotation=text_rotation,
-        fileName="modelica://Buildings/Resources/Images/Templates/Components/Fans/VFD.svg"),
+          fileName="modelica://Buildings/Resources/Images/Templates/Components/Actuators/VFD.svg"),
     Line(
       visible=typ==Buildings.Templates.Components.Types.Fan.SingleVariable or
         typ==Buildings.Templates.Components.Types.Fan.ArrayVariable,

@@ -3,11 +3,6 @@ model ArrayVariable "Fan array - Variable speed"
   extends Buildings.Templates.Components.Fans.Interfaces.PartialFan(
     final typ=Buildings.Templates.Components.Types.Fan.ArrayVariable);
 
-  parameter Integer nFan = 1
-    "Number of fans"
-    annotation(Evaluate=true,
-      Dialog(group="Configuration"));
-
   Buildings.Fluid.Movers.SpeedControlled_y fan[nFan](
     each energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     redeclare each final package Medium=Medium,
@@ -15,13 +10,8 @@ model ArrayVariable "Fan array - Variable speed"
     each final per=per)
     "Fan"
     annotation (
-      Placement(transformation(extent={{-10,10},{10,30}})));
+      Placement(transformation(extent={{-10,-10},{10,10}})));
 
-  Experimental.DHC.EnergyTransferStations.BaseClasses.CollectorDistributor colDis(
-    redeclare final package Medium=Medium,
-    final mCon_flow_nominal=fill(m_flow_nominal, nFan),
-    final nCon=nFan)
-    annotation (Placement(transformation(extent={{-20,-30},{20,-10}})));
   Buildings.Controls.OBC.CDL.Routing.RealScalarReplicator repSig(
     final nout=nFan)
     "Replicate signal"
@@ -29,18 +19,6 @@ model ArrayVariable "Fan array - Variable speed"
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={0,50})));
-  Fluid.Sources.MassFlowSource_T floZer(
-    redeclare final package Medium=Medium,
-    final m_flow=0,
-    nPorts=1)
-    "Zero flow boundary condition"
-    annotation (Placement(transformation(extent={{-52,-36},{-32,-16}})));
-  Fluid.Sources.MassFlowSource_T floZer1(
-    redeclare final package Medium=Medium,
-    final m_flow=0,
-    nPorts=1)
-    "Zero flow boundary condition"
-    annotation (Placement(transformation(extent={{54,-30},{34,-10}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal sigSta
     "Start/stop signal"
     annotation (Placement(transformation(
@@ -55,31 +33,37 @@ model ArrayVariable "Fan array - Variable speed"
         origin={-40,50})));
   Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold evaSta[nFan](
     each t=1E-2,
-    each h=0.5E-2)
-    "Evaluate fan status"
+    each h=0.5E-2) "Evaluate fan status"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
-        origin={0,-50})));
-  Controls.OBC.CDL.Logical.MultiAnd sigRet(final nin=nFan)
-    "Resulting control signal"
-    annotation (Placement(transformation(
+        origin={0,-40})));
+  Fluid.Delays.DelayFirstOrder volInl(
+    redeclare final package Medium=Medium,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
+    final m_flow_nominal=m_flow_nominal,
+    tau=1,
+    final nPorts=nFan+1)
+    "Fluid volume at inlet"
+    annotation (Placement(transformation(extent={{-90,0},{-70,20}})));
+  Fluid.Delays.DelayFirstOrder volOut(
+    redeclare final package Medium = Medium,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
+    final m_flow_nominal=m_flow_nominal,
+    tau=1,
+    final nPorts=nFan+1)
+    "Fluid volume at outet"
+    annotation (Placement(transformation(extent={{50,0},{70,20}})));
+  Controls.OBC.CDL.Logical.MultiAnd evaStaArr(
+    final nin=nFan)
+    "Evaluate fan array status" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
-        origin={0,-80})));
+        origin={0,-70})));
 equation
-  connect(port_a, colDis.port_aDisSup) annotation (Line(points={{-100,0},{-28,0},
-          {-28,-20},{-20,-20}}, color={0,127,255}));
-  connect(fan.port_b, colDis.ports_aCon) annotation (Line(points={{10,20},{20,20},
-          {20,0},{12,0},{12,-10}}, color={0,127,255}));
-  connect(colDis.ports_bCon, fan.port_a) annotation (Line(points={{-12,-10},{-12,
-          0},{-20,0},{-20,20},{-10,20}}, color={0,127,255}));
   connect(repSig.y, fan.y)
-    annotation (Line(points={{0,38},{0,32}}, color={0,0,127}));
-  connect(floZer.ports[1], colDis.port_bDisRet) annotation (Line(points={{-32,-26},
-          {-20,-26}},                     color={0,127,255}));
-  connect(colDis.port_bDisSup, floZer1.ports[1])
-    annotation (Line(points={{20,-20},{34,-20}}, color={0,127,255}));
+    annotation (Line(points={{-2.22045e-15,38},{-2.22045e-15,25},{0,25},{0,12}},
+                                             color={0,0,127}));
   connect(sigSta.y, sigCon.u2)
     annotation (Line(points={{-46,68},{-46,62}}, color={0,0,127}));
   connect(sigCon.y, repSig.u) annotation (Line(points={{-40,38},{-40,30},{-16,30},
@@ -88,24 +72,47 @@ equation
       points={{0,100},{0,68},{-34,68},{-34,62}},
       color={255,204,51},
       thickness=0.5));
-  connect(fan.y_actual, evaSta.u) annotation (Line(points={{11,27},{24,27},{24,-36},
-          {0,-36},{0,-38}}, color={0,0,127}));
-  connect(evaSta.y, sigRet.u) annotation (Line(points={{-2.22045e-15,-62},{2.22045e-15,
-          -68}}, color={255,0,255}));
-  connect(sigRet.y, bus.y_actual) annotation (Line(points={{0,-92},{0,-96},{60,
-          -96},{60,96},{0,96},{0,100}},    color={255,0,255}));
+  connect(fan.y_actual, evaSta.u) annotation (Line(points={{11,7},{20,7},{20,-20},
+          {2.22045e-15,-20},{2.22045e-15,-28}},
+                            color={0,0,127}));
   connect(bus.y, sigSta.u) annotation (Line(
       points={{0,100},{0,96},{-46,96},{-46,92}},
       color={255,204,51},
       thickness=0.5));
-  connect(colDis.port_aDisRet, V_flow.port_a) annotation (Line(points={{20,-26},
-          {30,-26},{30,0},{70,0}}, color={0,127,255}));
+  connect(volInl.ports[1:nFan], fan.port_a)
+    annotation (Line(points={{-80,0},{-10,0}},         color={0,127,255}));
+  connect(fan.port_b, volOut.ports[1:nFan])
+    annotation (Line(points={{10,0},{60,0}}, color={0,127,255}));
+  connect(volOut.ports[nFan+1], V_flow.port_a)
+    annotation (Line(points={{60,0},{70,0}}, color={0,127,255}));
+  connect(volInl.ports[nFan+1], port_a)
+    annotation (Line(points={{-80,0},{-100,0}}, color={0,127,255}));
+  connect(evaSta.y, evaStaArr.u) annotation (Line(points={{-2.22045e-15,-52},{-2.22045e-15,
+          -55},{2.22045e-15,-55},{2.22045e-15,-58}}, color={255,0,255}));
+  connect(evaStaArr.y, bus.y_actual) annotation (Line(points={{0,-82},{0,-90},{40,
+          -90},{40,96},{0,96},{0,100}}, color={255,0,255}), Text(
+      string="%second",
+      index=1,
+      extent={{-3,-6},{-3,-6}},
+      horizontalAlignment=TextAlignment.Right));
   annotation (Placement(transformation(extent={{-10,-10},{10,10}})),
     Diagram(
-        coordinateSystem(preserveAspectRatio=false), graphics={Text(
-          extent={{-192,-16},{-18,-74}},
-          lineColor={238,46,47},
-          horizontalAlignment=TextAlignment.Left,
-          textString="Boundary conditions are only needed for OCT
-that fails to translate when CollectorDistributor ports are left unconnected.")}));
+        coordinateSystem(preserveAspectRatio=false)),
+    Documentation(info="<html>
+<ul>
+<li>
+All fans are identical.
+</li>
+<li>
+All fans are commanded with the same on/off signal (VFD run).
+</li>
+<li>
+All fans are controlled to the same speed.
+</li>
+<li>
+A single common status signal is returned 
+(true when all fans are on).
+</li>
+</ul>
+</html>"));
 end ArrayVariable;

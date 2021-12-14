@@ -1,6 +1,6 @@
 within Buildings.Templates.Components.Sensors.Interfaces;
 partial model PartialSensor
-  extends Buildings.Fluid.Interfaces.PartialTwoPort;
+  extends Buildings.Fluid.Interfaces.PartialTwoPortInterface;
 
   parameter Boolean have_sen=true
     "Set to true for sensor, false for direct pass through"
@@ -15,11 +15,6 @@ partial model PartialSensor
   parameter Boolean text_flip = false
     "True to flip text horizontally in icon layer"
     annotation(Dialog(tab="Graphics", enable=false));
-
-  parameter Modelica.SIunits.MassFlowRate m_flow_nominal
-    "Mass flow rate"
-    annotation (
-     Dialog(group="Nominal condition"));
 
   outer parameter String id
     "System identifier";

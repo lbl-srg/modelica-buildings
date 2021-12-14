@@ -1,7 +1,8 @@
 within Buildings.Templates.Components.Fans;
 model SingleConstant "Single fan - Constant speed"
   extends Buildings.Templates.Components.Fans.Interfaces.PartialFan(
-    final typ=Buildings.Templates.Components.Types.Fan.SingleConstant);
+    final typ=Buildings.Templates.Components.Types.Fan.SingleConstant,
+    final nFan=1);
 
   Buildings.Fluid.Movers.SpeedControlled_y fan(
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
