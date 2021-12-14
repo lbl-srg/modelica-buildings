@@ -67,7 +67,7 @@ equation
           smooth=Smooth.None),
         Text(
           extent={{-120,-42},{0,-82}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           lineThickness=1,
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid,
@@ -94,21 +94,21 @@ equation
           smooth=Smooth.None),
         Text(
           extent={{-60,-42},{60,-82}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           lineThickness=1,
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid,
           textString="V"),
         Text(
           extent={{0,-40},{120,-80}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           lineThickness=1,
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid,
           textString="I"),
         Text(
           extent={{-120,100},{120,60}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="%name")}),
     Documentation(info="<html>
 <p>

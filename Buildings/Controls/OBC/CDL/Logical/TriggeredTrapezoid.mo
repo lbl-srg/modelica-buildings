@@ -108,7 +108,7 @@ equation
           points={{90.0,-70.0},{68.0,-62.0},{68.0,-78.0},{90.0,-70.0}}),
         Text(
           extent={{-150,150},{150,110}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%name")}),
     Diagram(
       coordinateSystem(

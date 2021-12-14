@@ -1,4 +1,4 @@
-within Buildings.Templates.AirHandlersFans.Components.ReliefReturnSection;
+﻿within Buildings.Templates.AirHandlersFans.Components.ReliefReturnSection;
 model NoEconomizer "No air economizer"
   extends
     Buildings.Templates.AirHandlersFans.Components.ReliefReturnSection.Interfaces.PartialReliefReturnSection(
@@ -10,7 +10,8 @@ model NoEconomizer "No air economizer"
   Buildings.Templates.Components.Dampers.TwoPosition damRel(
     redeclare final package Medium = MediumAir,
     final m_flow_nominal=m_flow_nominal,
-    final dpDamper_nominal=dpDamRel_nominal)
+    final dpDamper_nominal=dpDamRel_nominal,
+    final text_flip=true)
     "Relief damper" annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=0,
@@ -21,39 +22,30 @@ model NoEconomizer "No air economizer"
       final m_flow_nominal=m_flow_nominal,
       final dp_nominal=dpFan_nominal,
       final have_senFlo=
-        typCtrFanRet==Buildings.Templates.AirHandlersFans.Types.ControlFanReturn.Airflow)
+        typCtrFanRet==Buildings.Templates.AirHandlersFans.Types.ControlFanReturn.Airflow,
+      final text_flip=true)
     "Return fan"
-    annotation (choices(choice(redeclare
+    annotation (choices(choice(redeclare replaceable
       Buildings.Templates.Components.Fans.SingleVariable fanRet
-      "Single fan - Variable speed"), choice(redeclare
-      Buildings.Templates.Components.Fans.MultipleVariable fanRet
-      "Multiple fans (identical) - Variable speed")),
+      "Single fan - Variable speed"), choice(redeclare replaceable
+      Buildings.Templates.Components.Fans.ArrayVariable fanRet
+      "Fan array - Variable speed")),
       Placement(
     transformation(extent={{70,-10},{50,10}})));
 
-  Buildings.Templates.Components.Sensors.DifferentialPressure pRet_rel(
-    redeclare final package Medium = MediumAir,
-    final have_sen=typCtrFanRet==Buildings.Templates.AirHandlersFans.Types.ControlFanReturn.Pressure,
-    final m_flow_nominal=m_flow_nominal) "Return static pressure sensor"
-    annotation (Placement(transformation(extent={{50,-50},{70,-30}})));
-
 equation
-  /* Hardware point connection - start */
+  /* Control point connection - start */
   connect(fanRet.bus, bus.fanRet);
   connect(damRel.bus, bus.damRel);
-  /* Hardware point connection - end */
-  connect(fanRet.port_a, port_a)
-    annotation (Line(points={{70,0},{180,0}}, color={0,127,255}));
+  /* Control point connection - end */
   connect(port_b, damRel.port_b)
     annotation (Line(points={{-180,0},{-160,0}}, color={0,127,255}));
-  connect(damRel.port_a, pas.port_a)
-    annotation (Line(points={{-140,0},{-70,0}}, color={0,127,255}));
-  connect(pRet_rel.port_b, port_bPre)
-    annotation (Line(points={{70,-40},{80,-40},{80,-140}}, color={0,127,255}));
-  connect(fanRet.port_b, port_aIns)
-    annotation (Line(points={{50,0},{-40,0}}, color={0,127,255}));
-  connect(fanRet.port_b, pRet_rel.port_a) annotation (Line(points={{50,0},{40,0},
-          {40,-40},{50,-40}}, color={0,127,255}));
+  connect(damRel.port_a, splEco.port_2)
+    annotation (Line(points={{-140,0},{-10,0}}, color={0,127,255}));
+  connect(fanRet.port_a, port_a)
+    annotation (Line(points={{70,0},{180,0}}, color={0,127,255}));
+  connect(splEco.port_1, fanRet.port_b)
+    annotation (Line(points={{10,0},{50,0}}, color={0,127,255}));
   annotation (Documentation(info="<html>
 <p>
 5.16.10 Return-Fan Control—Direct Building Pressure

@@ -200,7 +200,7 @@ equation
           fillPattern=FillPattern.Solid),
         Text(
           extent={{-168,346},{212,280}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%name")}),
         Documentation(info="<html>
 <p>

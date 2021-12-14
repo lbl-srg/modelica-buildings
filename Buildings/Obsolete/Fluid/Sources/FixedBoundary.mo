@@ -100,7 +100,7 @@ annotation (defaultComponentName="bou",
           fillColor={0,127,255}), Text(
           extent={{-150,110},{150,150}},
           textString="%name",
-          lineColor={0,0,255})}),
+          textColor={0,0,255})}),
     Documentation(info="<html>
 <p>
 This model defines constant values for boundary conditions:

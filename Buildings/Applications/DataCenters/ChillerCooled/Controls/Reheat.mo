@@ -80,7 +80,7 @@ equation
           borderPattern=BorderPattern.Raised), Text(
           extent={{-150,150},{150,110}},
           textString="%name",
-          lineColor={0,0,255}),
+          textColor={0,0,255}),
         Line(
           points={{-12,-64},{-12,60}},
           color={0,0,127},

@@ -1,0 +1,71 @@
+within Buildings.Templates.Components.Valves;
+model ThreWayTwoPosition "Three-way two-position valve"
+  extends Buildings.Templates.Components.Valves.Interfaces.PartialValve(
+    final typ=Buildings.Templates.Components.Types.Valve.ThreeWayTwoPosition);
+
+  replaceable Buildings.Fluid.Actuators.Valves.ThreeWayLinear val
+    constrainedby Buildings.Fluid.Actuators.BaseClasses.PartialThreeWayValve(
+      redeclare final package Medium=Medium,
+      final m_flow_nominal=m_flow_nominal,
+      final dpValve_nominal=dpValve_nominal,
+      final dpFixed_nominal=dpFixed_nominal)
+    "Valve"
+    annotation (
+      choicesAllMatching=true,
+      Placement(
+        transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=0)));
+  Controls.OBC.CDL.Continuous.GreaterThreshold evaOpe(t=0.99, h=0.5E-2)
+    "Return true if open (open end switch contact)"
+    annotation (Placement(
+        transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=-90,
+        origin={20,-50})));
+  Controls.OBC.CDL.Continuous.LessThreshold evaClo(t=0.01, h=0.5E-2)
+    "Return true if closed (closed end switch contact)"
+                            annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=-90,
+        origin={-20,-50})));
+  Controls.OBC.CDL.Conversions.BooleanToReal booToRea(
+    final realTrue=1,
+    final realFalse=0)
+    "Signal conversion"
+    annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=-90,
+        origin={0,50})));
+equation
+  connect(port_a, val.port_a)
+    annotation (Line(points={{-100,0},{-10,0}}, color={0,127,255}));
+  connect(val.port_b, port_b)
+    annotation (Line(points={{10,0},{100,0}}, color={0,127,255}));
+  connect(val.y_actual, evaOpe.u)
+    annotation (Line(points={{5,7},{20,7},{20,-38}}, color={0,0,127}));
+  connect(val.y_actual, evaClo.u) annotation (Line(points={{5,7},{20,7},{20,-20},
+          {-20,-20},{-20,-38}}, color={0,0,127}));
+  connect(evaOpe.y, bus.y_actual) annotation (Line(points={{20,-62},{20,-80},{60,
+          -80},{60,96},{0,96},{0,100}}, color={255,0,255}), Text(
+      string="%second",
+      index=1,
+      extent={{-3,-6},{-3,-6}},
+      horizontalAlignment=TextAlignment.Right));
+  connect(evaClo.y, bus.y0_actual) annotation (Line(points={{-20,-62},{-20,-80},
+          {-60,-80},{-60,96},{0,96},{0,100}},color={255,0,255}), Text(
+      string="%second",
+      index=1,
+      extent={{-3,-6},{-3,-6}},
+      horizontalAlignment=TextAlignment.Right));
+  connect(booToRea.u, bus.y) annotation (Line(points={{2.22045e-15,62},{2.22045e-15,
+          81},{0,81},{0,100}}, color={255,0,255}), Text(
+      string="%second",
+      index=1,
+      extent={{-3,6},{-3,6}},
+      horizontalAlignment=TextAlignment.Right));
+  connect(booToRea.y, val.y) annotation (Line(points={{-2.22045e-15,38},{-2.22045e-15,
+          25},{0,25},{0,12}}, color={0,0,127}));
+  connect(val.port_3, portByp_a)
+    annotation (Line(points={{0,-10},{0,-100}}, color={0,127,255}));
+end ThreWayTwoPosition;

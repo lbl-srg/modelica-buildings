@@ -71,12 +71,12 @@ annotation (
           thickness=0.5),
         Text(
           extent={{0,0},{-100,-100}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="K"),
         Text(
           extent={{-150,150},{150,110}},
           textString="%name",
-          lineColor={0,0,255}),
+          textColor={0,0,255}),
         Polygon(
           points={{40,-18},{40,22},{80,2},{40,-18}},
           lineColor={191,0,0},

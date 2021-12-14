@@ -140,7 +140,7 @@ equation
   annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},
             {100,100}}),       graphics={Text(
           extent={{-82,100},{-32,86}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="outside"),
                                Ellipse(
           extent={{-108,110},{-88,90}},
@@ -149,7 +149,7 @@ equation
           fillPattern=FillPattern.Sphere),
                                          Text(
           extent={{44,98},{94,84}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="room-side")}),      Icon(coordinateSystem(
           preserveAspectRatio=true, extent={{-100,-100},{100,100}}), graphics={
         Rectangle(
@@ -173,7 +173,7 @@ equation
           fillColor={170,213,255},
           fillPattern=FillPattern.Solid),       Text(
           extent={{-90,86},{-78,74}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="u")}),
     Documentation(info="<html>
 This is a model for the heat transfer through the center of the glass.

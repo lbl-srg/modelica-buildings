@@ -17,20 +17,20 @@ model EconomizerNoRelief "Air economizer - No relief branch"
     secOut constrainedby
     Buildings.Templates.AirHandlersFans.Components.OutdoorSection.Interfaces.PartialOutdoorSection(
       redeclare final package MediumAir = MediumAir,
-      final m_flow_nominal=mSup_flow_nominal,
-      final mOutMin_flow_nominal=mOutMin_flow_nominal,
+      final m_flow_nominal=mAirSup_flow_nominal,
+      final mOutMin_flow_nominal=mAirOutMin_flow_nominal,
       final dpDamOut_nominal=dpDamOut_nominal,
       final dpDamOutMin_nominal=dpDamOutMin_nominal)
     "Outdoor air section"
     annotation (
     choices(
-      choice(redeclare
+      choice(redeclare replaceable
           Buildings.Templates.AirHandlersFans.Components.OutdoorSection.SingleDamper
-          secOut "Single common OA damper (modulated) with AFMS"),
-      choice(redeclare
+          secOut "Single common OA damper (modulating) with AFMS"),
+      choice(redeclare replaceable
           Buildings.Templates.AirHandlersFans.Components.OutdoorSection.DedicatedDamperAirflow
-          secOut "Dedicated minimum OA damper (modulated) with AFMS"),
-      choice(redeclare
+          secOut "Dedicated minimum OA damper (modulating) with AFMS"),
+      choice(redeclare replaceable
           Buildings.Templates.AirHandlersFans.Components.OutdoorSection.DedicatedDamperPressure
           secOut
           "Dedicated minimum OA damper (two-position) with differential pressure sensor")),
@@ -40,26 +40,26 @@ model EconomizerNoRelief "Air economizer - No relief branch"
   Buildings.Templates.AirHandlersFans.Components.ReliefReturnSection.NoRelief
     secRel(
       redeclare final package MediumAir = MediumAir,
-      final m_flow_nominal=mRet_flow_nominal,
+      final m_flow_nominal=mAirRet_flow_nominal,
       final dpDamRel_nominal=dpDamRel_nominal,
       final dpFan_nominal=dpFan_nominal)
     "Relief/return air section"
     annotation (Dialog(group="Exhaust/relief/return section"),
       Placement(transformation(extent={{-18,66},{18,94}})));
 
-  Buildings.Templates.Components.Dampers.Modulated damRet(
+  Buildings.Templates.Components.Dampers.Modulating damRet(
     redeclare final package Medium = MediumAir,
-    final m_flow_nominal=mRet_flow_nominal,
-    final dpDamper_nominal=dpDamRet_nominal)
-    "Return air damper"
-    annotation (Placement(transformation(
+    final m_flow_nominal=mAirRet_flow_nominal,
+    final dpDamper_nominal=dpDamRet_nominal,
+    final text_rotation=90) "Return air damper" annotation (Placement(
+        transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={0,0})));
 equation
-  /* Hardware point connection - start */
+  /* Control point connection - start */
   connect(damRet.bus, bus.damRet);
-  /* Hardware point connection - end */
+  /* Control point connection - end */
   connect(secRel.port_a, port_Ret)
     annotation (Line(points={{18,80},{180,80}}, color={0,127,255}));
   connect(secRel.port_bRet, damRet.port_a)

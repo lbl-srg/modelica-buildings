@@ -76,8 +76,7 @@ equation
   QTot_flow = eps*CMin_flow*(TAirIn-TWatIn);
   TAirOut=TAirIn-QTot_flow/(mAirNonZer_flow*cpAir);
   TWatOut=TWatIn+QTot_flow/(mWatNonZer_flow*cpWat);
-
-  (TAirOut-TSurAirOut)*UAAir=(TSurAirOut-TWatIn)*UAWat;
+  TSurAirOut = (TAirOut * UAAir + TWatIn * UAWat) / (UAAir + UAWat);
 
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
           Rectangle(
@@ -88,9 +87,9 @@ equation
         coordinateSystem(preserveAspectRatio=false)),
     Documentation(revisions="<html>
 <ul>
-<li>Jan 21, 2021, by Donghun Kim:<br/>First implementation of the fuzzy model.
-See <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/622\">issue 622</a>
-for more information.</li>
+<li>
+Jan 21, 2021, by Donghun Kim:<br/>First implementation.
+</li>
 </ul>
 </html>", info="<html>
 <p>This model implements the calculation for a 100% dry coil.</p>

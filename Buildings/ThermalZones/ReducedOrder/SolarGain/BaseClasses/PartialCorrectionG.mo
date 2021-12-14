@@ -43,7 +43,7 @@ partial model PartialCorrectionG
   fillColor={215,215,215},
   fillPattern=FillPattern.Solid), Text(
   extent={{-52,24},{62,-16}},
-  lineColor={0,0,0},
+  textColor={0,0,0},
   textString="%name")}),
   Documentation(info="<html>
   <p>Partial model for correction factors for transmitted solar radiation

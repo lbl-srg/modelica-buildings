@@ -31,7 +31,7 @@ Firt implementation, based on the blocks from the Modelica Standard Library.
           radius=25.0),
         Text(
           extent={{-56,90},{48,-88}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
           textString="Z")}));

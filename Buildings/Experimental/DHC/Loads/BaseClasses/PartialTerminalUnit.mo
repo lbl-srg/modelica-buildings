@@ -637,7 +637,7 @@ First implementation.
           fillPattern=FillPattern.Solid),
         Text(
           extent={{-150,-130},{150,-170}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%name"),
         Ellipse(
           extent={{-100,100},{100,-100}},

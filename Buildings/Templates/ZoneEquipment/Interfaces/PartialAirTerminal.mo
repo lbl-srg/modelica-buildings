@@ -9,15 +9,20 @@ partial model PartialAirTerminal
     "Type of system"
     annotation (Evaluate=true, Dialog(group="Configuration"));
 
-  inner parameter String id
-   "System name"
+  inner parameter String tag
+   "System tag"
+    annotation (
+      Evaluate=true,
+      Dialog(group="Configuration"));
+  final inner parameter String id = "Zone equipment." + tag
+    "System tag with system type"
     annotation (
       Evaluate=true,
       Dialog(group="Configuration"));
   outer parameter ExternData.JSONFile dat
     "External parameter file";
 
-  parameter Modelica.SIunits.MassFlowRate m_flow_nominal=
+  parameter Modelica.SIunits.MassFlowRate mAir_flow_nominal=
     dat.getReal(varName=id + ".Mechanical.Discharge air mass flow rate.value")
     "Discharge air mass flow rate"
     annotation (Dialog(group="Nominal condition"));
@@ -49,7 +54,8 @@ partial model PartialAirTerminal
     annotation (Placement(transformation(extent={{290,-210},{310,-190}}),
         iconTransformation(extent={{190,-10},{210,10}})));
   Modelica.Fluid.Interfaces.FluidPort_a port_Ret(
-    redeclare final package Medium =MediumAir) if typ == Buildings.Templates.ZoneEquipment.Types.Configuration.FanPowered
+    redeclare final package Medium =MediumAir)
+    if typ == Buildings.Templates.ZoneEquipment.Types.Configuration.FanPowered
      or typ == Buildings.Templates.ZoneEquipment.Types.Configuration.Induction
     "Return air"
     annotation (Placement(

@@ -17,11 +17,8 @@ partial model PartialCoil
   parameter Buildings.Templates.Components.Types.Coil typ
     "Equipment type"
     annotation (Evaluate=true, Dialog(group="Configuration"));
-  parameter Buildings.Templates.Components.Types.CoilFunction fun
-    "Coil function"
-    annotation (Evaluate=true, Dialog(group="Configuration"));
-  parameter Buildings.Templates.Components.Types.Actuator typAct
-    "Type of actuator"
+  parameter Buildings.Templates.Components.Types.Valve typVal
+    "Type of valve"
     annotation (Dialog(group="Configuration"));
   parameter Buildings.Templates.Components.Types.HeatExchanger typHex
     "Type of heat exchanger"
@@ -33,15 +30,11 @@ partial model PartialCoil
     "Set to true to use a waether bus"
     annotation (Evaluate=true, Dialog(group="Configuration"));
 
-  inner parameter Modelica.SIunits.MassFlowRate mAir_flow_nominal(min=0)=
-    dat.getReal(varName=id + ".Mechanical." + funStr + " coil.Air mass flow rate.value")
-    "Air mass flow rate"
-    annotation (Dialog(
-      group="Nominal condition"),
-      Evaluate=true);
-
-  inner parameter Modelica.SIunits.PressureDifference dpAir_nominal(
+  parameter Modelica.SIunits.MassFlowRate mAir_flow_nominal(min=0)
+    "Air mass flow rate";
+  parameter Modelica.SIunits.PressureDifference dpAir_nominal(
     displayUnit="Pa")=
+    if typ==Buildings.Templates.Components.Types.Coil.None then 0 else
     dat.getReal(varName=id + ".Mechanical." + funStr + " coil.Air pressure drop.value")
     "Air pressure drop"
     annotation (
@@ -53,12 +46,14 @@ partial model PartialCoil
   outer parameter ExternData.JSONFile dat
     "External parameter file";
   final inner parameter String funStr=
-    if fun==Buildings.Templates.Components.Types.CoilFunction.Cooling
-      then "Cooling"
-    elseif fun==Buildings.Templates.Components.Types.CoilFunction.Heating
+    if typ==Buildings.Templates.Components.Types.Coil.ElectricHeating
       then "Heating"
-    elseif fun==Buildings.Templates.Components.Types.CoilFunction.Reheat
-      then "Reheat"
+    elseif typ==Buildings.Templates.Components.Types.Coil.Evaporator
+      then "Cooling"
+    elseif typ==Buildings.Templates.Components.Types.Coil.WaterBasedCooling
+      then "Cooling"
+    elseif typ==Buildings.Templates.Components.Types.Coil.WaterBasedHeating
+      then "Heating"
     else "Undefined"
     "Coil function cast as string"
     annotation (
@@ -68,11 +63,13 @@ partial model PartialCoil
   Modelica.Fluid.Interfaces.FluidPort_a port_aSou(
     redeclare package Medium = MediumSou) if have_sou
     "Fluid connector a (positive design flow direction is from port_a to port_b)"
-    annotation (Placement(transformation(extent={{-50,-110},{-30,-90}})));
+    annotation (Placement(transformation(extent={{30,-110},{50,-90}}),
+        iconTransformation(extent={{40,-110},{60,-90}})));
   Modelica.Fluid.Interfaces.FluidPort_b port_bSou(
     redeclare package Medium = MediumSou) if have_sou
     "Fluid connector b (positive design flow direction is from port_a to port_b)"
-    annotation (Placement(transformation(extent={{50,-110},{30,-90}})));
+    annotation (Placement(transformation(extent={{-30,-110},{-50,-90}}),
+        iconTransformation(extent={{-40,-110},{-60,-90}})));
   Buildings.BoundaryConditions.WeatherData.Bus busWea if have_weaBus
     "Weather bus"
     annotation (Placement(
@@ -81,7 +78,8 @@ partial model PartialCoil
   Buildings.Templates.Components.Interfaces.Bus bus
     if typ <> Buildings.Templates.Components.Types.Coil.None
     "Control bus"
-    annotation (Placement(transformation(
+    annotation (Placement(
+      transformation(
         extent={{-20,-20},{20,20}},
         rotation=0,
         origin={0,100}), iconTransformation(
@@ -89,14 +87,52 @@ partial model PartialCoil
         rotation=0,
         origin={0,100})));
 
-  annotation (Icon(
-    coordinateSystem(preserveAspectRatio=false), graphics={
-      Rectangle(
-          extent={{-100,100},{100,-100}},
-          lineColor={0,0,255},
-          fillColor={255,255,255},
-          fillPattern=FillPattern.Solid)}),
-      Diagram(
+  annotation (
+  Icon(
+    graphics={
+    Bitmap(
+      visible=funStr=="Cooling",
+      extent={{-53,-100},{53,100}},
+      fileName="modelica://Buildings/Resources/Images/Templates/Components/Coils/Cooling.svg"),
+    Bitmap(
+      visible=typ==Buildings.Templates.Components.Types.Coil.WaterBasedCooling,
+      extent={{-100,-500},{100,-300}},
+      fileName="modelica://Buildings/Resources/Images/Templates/Components/Coils/ChilledWaterSupplyReturn.svg"),
+    Bitmap(
+      visible=funStr=="Heating",
+      extent={{-53,-100},{53,100}},
+      fileName="modelica://Buildings/Resources/Images/Templates/Components/Coils/Heating.svg"),
+    Bitmap(
+      visible=typ==Buildings.Templates.Components.Types.Coil.WaterBasedHeating,
+      extent={{-100,-500},{100,-300}},
+      fileName="modelica://Buildings/Resources/Images/Templates/Components/Coils/HotWaterSupplyReturn.svg"),
+    Bitmap(
+      visible=typ<>Buildings.Templates.Components.Types.Coil.None and
+        typVal==Buildings.Templates.Components.Types.Valve.None,
+      extent={{-150,-300},{50,-100}},
+      fileName="modelica://Buildings/Resources/Images/Templates/Components/Valves/None.svg"),
+    Bitmap(
+      visible=typ<>Buildings.Templates.Components.Types.Coil.None and
+        typVal==Buildings.Templates.Components.Types.Valve.TwoWayModulating,
+      extent={{-150,-300},{50,-100}},
+      fileName="modelica://Buildings/Resources/Images/Templates/Components/Valves/TwoWay.svg"),
+    Bitmap(
+      visible=typ<>Buildings.Templates.Components.Types.Coil.None and
+        typVal==Buildings.Templates.Components.Types.Valve.ThreeWayModulating,
+      extent={{-150,-300},{50,-100}},
+      fileName="modelica://Buildings/Resources/Images/Templates/Components/Valves/ThreeWay.svg"),
+    Bitmap(
+      visible=typ<>Buildings.Templates.Components.Types.Coil.None and
+        (typVal==Buildings.Templates.Components.Types.Valve.TwoWayModulating or
+        typVal==Buildings.Templates.Components.Types.Valve.ThreeWayModulating),
+      extent={{-190,-240},{-110,-160}},
+      fileName="modelica://Buildings/Resources/Images/Templates/Components/Actuators/Modulating.svg"),
+    Bitmap(
+      visible=typ<>Buildings.Templates.Components.Types.Coil.None,
+      extent={{-50,-300},{150,-100}},
+      fileName="modelica://Buildings/Resources/Images/Templates/Components/Valves/None.svg")},
+    coordinateSystem(preserveAspectRatio=false)),
+    Diagram(
         coordinateSystem(preserveAspectRatio=false)));
 
 end PartialCoil;

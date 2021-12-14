@@ -1,7 +1,8 @@
 within Buildings.Templates.Components.Fans;
 model SingleVariable "Single fan - Variable speed"
   extends Buildings.Templates.Components.Fans.Interfaces.PartialFan(
-    final typ=Buildings.Templates.Components.Types.Fan.SingleVariable);
+    final typ=Buildings.Templates.Components.Types.Fan.SingleVariable,
+    final nFan=1);
 
   Buildings.Fluid.Movers.SpeedControlled_y fan(
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
@@ -48,7 +49,7 @@ equation
       extent={{-3,6},{-3,6}},
       horizontalAlignment=TextAlignment.Right));
   connect(evaSta.y, bus.y_actual) annotation (Line(points={{0,-62},{0,-80},{60,
-          -80},{60,100},{0,100}},           color={255,0,255}), Text(
+          -80},{60,96},{0,96},{0,100}},     color={255,0,255}), Text(
       string="%second",
       index=1,
       extent={{-3,-6},{-3,-6}},
@@ -69,17 +70,7 @@ equation
     annotation (Line(points={{10,0},{70,0}}, color={0,127,255}));
   annotation (Placement(transformation(extent={{-10,-10},{10,10}})),
     Icon(
-      coordinateSystem(preserveAspectRatio=false), graphics={
-    Bitmap(
-        extent={{-92,-88},{92,92}},
-        fileName="modelica://Buildings/Resources/Images/Templates/Components/Fans/SingleVariable.svg"),
-    Bitmap(
-        visible=have_senFlo,
-        extent={{-194,-222},{-52,4}},
-        fileName="modelica://Buildings/Resources/Images/Templates/Components/Fans/AirflowSensorBoxLeft.svg"),
-    Bitmap(
-        visible=have_senFlo,
-        extent={{-52,-10},{24,10}}, fileName="modelica://Buildings/Resources/Images/Templates/Components/Fans/AirflowSensor.svg")}),
+      coordinateSystem(preserveAspectRatio=false)),
     Diagram(
         coordinateSystem(preserveAspectRatio=false)));
 end SingleVariable;

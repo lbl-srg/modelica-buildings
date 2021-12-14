@@ -16,7 +16,7 @@ initial equation
 
   annotation (Icon(graphics={Text(
           extent={{-62,-38},{54,-68}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%threShold")}),
 Documentation(info="<html>
 <p>

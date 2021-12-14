@@ -118,7 +118,7 @@ First implementation.
           color={0,0,0},
           thickness=1),          Text(
           extent={{-100,144},{100,106}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           fillPattern=FillPattern.HorizontalCylinder,
           fillColor={0,127,255},
           textString="%name")}));

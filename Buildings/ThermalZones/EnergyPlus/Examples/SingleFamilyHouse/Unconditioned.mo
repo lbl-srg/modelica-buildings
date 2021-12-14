@@ -12,7 +12,6 @@ model Unconditioned
     weaName=Modelica.Utilities.Files.loadResource(
       "modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"),
     usePrecompiledFMU=false,
-    showWeatherData=true,
     computeWetBulbTemperature=false)
     "Building model"
     annotation (Placement(transformation(extent={{-80,-90},{-60,-70}})));

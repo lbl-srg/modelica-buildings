@@ -171,7 +171,7 @@ equation
             100}}), graphics={
         Text(
           extent={{-100,-72},{100,-88}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="L[ ] = %segLen d = %dh"),
         Rectangle(
           extent={{-100,40},{0,-40}},

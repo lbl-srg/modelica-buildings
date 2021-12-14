@@ -33,7 +33,7 @@ equation
         Line(points={{-102,0},{-60,0}}, color={255,0,255}),
         Line(points={{70,0},{100,0}}, color={255,0,255}),
         Text(
-          lineColor={0,0,255},
+          textColor={0,0,255},
           extent={{-150,110},{150,150}},
           textString="%name"),
         Polygon(

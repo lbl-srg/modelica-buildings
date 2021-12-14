@@ -10,7 +10,7 @@ equation
   annotation (
     defaultComponentName="falFac", Icon(graphics={   Text(
           extent={{-90,38},{90,-34}},
-          lineColor={160,160,164},
+          textColor={160,160,164},
           textString="fallingFactorial()")}),
     Documentation(info="<html>
     <p>This block computes the falling factorial, <i>y = n<sup>&#7733;</sup></i>.</p>

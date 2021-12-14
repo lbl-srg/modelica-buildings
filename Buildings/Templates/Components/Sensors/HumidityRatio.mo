@@ -1,5 +1,5 @@
 within Buildings.Templates.Components.Sensors;
-model HumidityRatio
+model HumidityRatio "Humidity ratio sensor"
   extends Buildings.Templates.Components.Sensors.Interfaces.PartialSensor(
     y(final unit="kg/kg"),
     final isDifPreSen=false);
@@ -34,6 +34,15 @@ equation
           {100,0}}, color={0,127,255}));
   connect(toDryAir.XiDry, y)
     annotation (Line(points={{0,41},{0,120}}, color={0,0,127}));
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false)),
+  annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
+      Bitmap(
+        extent={{-20,-160},{20,40}},
+        visible=have_sen,
+        fileName="modelica://Buildings/Resources/Images/Templates/Components/Sensors/ProbeStandard.svg"),
+      Bitmap(
+        extent=if text_flip then {{40,-240},{-40,-160}} else {{-40,-240},{40,-160}},
+        visible=have_sen,
+        rotation=text_rotation,
+        fileName="modelica://Buildings/Resources/Images/Templates/Components/Sensors/HumidityRatio.svg")}),
     Diagram(coordinateSystem(preserveAspectRatio=false)));
 end HumidityRatio;

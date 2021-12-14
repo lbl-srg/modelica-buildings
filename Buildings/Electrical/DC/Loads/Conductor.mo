@@ -168,11 +168,11 @@ Added and revised documentation.
           Line(points={{-90,0},{-70,0}}, color={0,0,255}),
           Text(
             extent={{-152,87},{148,47}},
-            lineColor={0,0,0},
+            textColor={0,0,0},
           textString="%name"),
           Text(
             extent={{-144,-38},{142,-70}},
-            lineColor={0,0,0},
+            textColor={0,0,0},
             textString="G=%G")}),
     Diagram(coordinateSystem(
         preserveAspectRatio=false,

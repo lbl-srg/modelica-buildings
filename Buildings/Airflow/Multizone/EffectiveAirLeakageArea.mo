@@ -32,7 +32,7 @@ equation
           fillPattern=FillPattern.Solid),
         Text(
           extent={{-104,92},{-20,54}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           pattern=LinePattern.None,
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid,
@@ -40,7 +40,7 @@ equation
                "L=%L"),
         Text(
           extent={{22,94},{98,56}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           pattern=LinePattern.None,
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid,

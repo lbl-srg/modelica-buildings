@@ -61,6 +61,6 @@ First implementation.
         Text(
           visible=use_p_in,
           extent={{-90,108},{-34,16}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="p_in")}));
 end HumidityRatioVaporPressure;

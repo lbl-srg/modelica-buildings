@@ -104,21 +104,21 @@ Modelica Standard Library.
         Text(
           extent={{-150,150},{150,110}},
           textString="%name",
-          lineColor={0,0,255}),
+          textColor={0,0,255}),
         Line(
           points={{-30.0,0.0},{30.0,0.0}},
           color={0,0,127}),
         Text(
-          lineColor={0,0,127},
+          textColor={0,0,127},
           extent={{-90.0,10.0},{90.0,90.0}},
           textString="1"),
         Text(
-          lineColor={0,0,127},
+          textColor={0,0,127},
           extent={{-90.0,-90.0},{90.0,-10.0}},
           textString="z"),
         Text(
           extent={{226,60},{106,10}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString=DynamicSelect("",String(y,
             leftJustified=false,
             significantDigits=3)))}));

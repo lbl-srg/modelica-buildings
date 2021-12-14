@@ -90,7 +90,7 @@ __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/FMI/
           fillPattern=FillPattern.Solid),
         Text(
           extent={{-54,-12},{56,-72}},
-          lineColor={255,255,255},
+          textColor={255,255,255},
           textString="Q=%Q_flow_nominal"),
         Rectangle(
           extent={{-100,61},{-68,58}},
@@ -100,6 +100,6 @@ __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/FMI/
           fillPattern=FillPattern.Solid),
         Text(
           extent={{-104,94},{-60,66}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="u")}));
 end HeaterCooler_u;

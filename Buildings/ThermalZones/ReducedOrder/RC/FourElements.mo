@@ -181,7 +181,7 @@ equation
     fillPattern=FillPattern.Solid),
   Text(
     extent={{16,168},{46,156}},
-    lineColor={0,0,255},
+    textColor={0,0,255},
     fillColor={215,215,215},
     fillPattern=FillPattern.Solid,
     textString="Roof")}),
@@ -193,7 +193,7 @@ equation
   fillColor={230,230,230},
   fillPattern=FillPattern.Solid), Text(
   extent={{-60,60},{64,-64}},
-  lineColor={0,0,0},
+  textColor={0,0,0},
   textString="4")}),
   Documentation(revisions="<html>
   <ul>

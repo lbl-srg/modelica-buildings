@@ -218,7 +218,7 @@ equation
   annotation (
     Icon(graphics={                      Text(
           extent={{-70,54},{74,-64}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="DR")}),
     Documentation(info="<html>
 <p>

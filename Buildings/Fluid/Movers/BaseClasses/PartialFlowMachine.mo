@@ -488,10 +488,10 @@ equation
           visible=energyDynamics <> Modelica.Fluid.Types.Dynamics.SteadyState,
           fillColor={0,100,199}),
         Text(extent={{64,106},{114,92}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="P"),
         Text(extent={{42,86},{92,72}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="y_actual"),
         Line(
           points={{0,100},{0,50}},
@@ -512,7 +512,7 @@ equation
         Text(
           visible=use_inputFilter,
           extent={{-20,92},{22,46}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           fillColor={135,135,135},
           fillPattern=FillPattern.Solid,
           textString="M",

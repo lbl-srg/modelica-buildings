@@ -17,7 +17,7 @@ Buildings.Controls.OBC.CDL.Logical.Sources.Constant uEndSetBac(k=true);
 Buildings.Controls.OBC.CDL.Logical.Sources.Constant uHigUnoCoo(k=true);
 Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TCooSetOff(k=1);
 Buildings.Controls.OBC.CDL.Logical.Sources.Constant uEndSetUp(k=true);
-Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TZon(k=1);
+Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TAirZon(k=1);
 Buildings.Controls.OBC.CDL.Logical.Sources.Constant uWin(k=true);
 
   Buildings.Controls.OBC.ASHRAE.G36_PR1.Generic.SetPoints.GroupStatus zonGroSta[nGro](final
@@ -45,7 +45,7 @@ equation
         connect(uHigUnoCoo.y, zonGroSta[ig].uHigUnoCoo[izg]);
         connect(uEndSetUp.y, zonGroSta[ig].uEndSetUp[izg]);
         connect(uWin.y, zonGroSta[ig].uWin[izg]);
-        connect(TZon.y, zonGroSta[ig].TZon[izg]);
+        connect(TAirZon.y, zonGroSta[ig].TZon[izg]);
     end for;
   end for;
 

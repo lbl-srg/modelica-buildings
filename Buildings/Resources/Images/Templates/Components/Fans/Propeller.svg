@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="1000"
+   height="1000"
+   viewBox="0 0 264.58331 264.58335"
+   version="1.1"
+   id="svg3506"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs3503" />
+  <g
+     id="layer1"
+     transform="matrix(1.0000183,0,0,1.0000181,-56.363028,-144.14966)"
+     style="stroke-width:0.999982">
+    <g
+       id="g2495"
+       transform="matrix(12.364481,0,0,12.334043,-172.36365,-2218.4757)"
+       style="stroke:#000000;stroke-width:0.214246;stroke-miterlimit:4;stroke-dasharray:none">
+      <ellipse
+         rx="5.3091102"
+         ry="1.49287"
+         transform="rotate(90)"
+         id="ellipse274"
+         cx="207.58783"
+         cy="-34.506859"
+         style="fill:none;stroke:#000000;stroke-width:0.214246;stroke-miterlimit:4;stroke-dasharray:none" />
+      <ellipse
+         rx="5.3091102"
+         ry="1.49287"
+         transform="rotate(90)"
+         id="ellipse276"
+         cx="196.9696"
+         cy="-34.506859"
+         style="fill:none;stroke:#000000;stroke-width:0.214246;stroke-miterlimit:4;stroke-dasharray:none" />
+      <polyline
+         points="397.589,202.247 392.28,202.247 "
+         id="polyline278"
+         style="fill:none;stroke:#000000;stroke-width:0.214246;stroke-miterlimit:4;stroke-dasharray:none"
+         transform="translate(-363.08214,0.03172)" />
+      <path
+         id="polyline280"
+         style="fill:none;stroke-width:0.214246"
+         d="m 22.826864,199.09322 v 6.371 h 6.370992 v -6.371 z" />
+    </g>
+  </g>
+  <path
+     style="fill:none;stroke:#000000;stroke-width:2.64583;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+     d="m 132.29311,171.98225 v 92.60584"
+     id="path862" />
+</svg>

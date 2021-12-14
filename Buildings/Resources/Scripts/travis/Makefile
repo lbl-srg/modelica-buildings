@@ -122,9 +122,27 @@ test-omc:
 	(cd $(ROOT) && \
 	  $(TRAVIS_BUILD_DIR)/Buildings/Resources/Scripts/travis/omc/testOpenModelica.sh)
 
+# Skip verification of translation statistics of certain models, see
+# https://github.com/lbl-srg/BuildingsPy/issues/441
+define buiPyMod
+Buildings.Examples.VAVReheat.ASHRAE2006, \
+Buildings.Examples.VAVReheat.Validation.Guideline36SteadyState, \
+Buildings.Examples.VAVReheat.Validation.TraceSubstance, \
+Buildings.Examples.VAVReheat.Guideline36, \
+Buildings.ThermalZones.EnergyPlus.Examples.SmallOffice.ASHRAE2006Spring, \
+Buildings.ThermalZones.EnergyPlus.Examples.SmallOffice.Guideline36Winter, \
+Buildings.ThermalZones.EnergyPlus.Examples.SmallOffice.ASHRAE2006Winter, \
+Buildings.ThermalZones.EnergyPlus.Examples.SmallOffice.Guideline36Spring, \
+Buildings.ThermalZones.EnergyPlus.Examples.SmallOffice.Guideline36Summer, \
+Buildings.ThermalZones.EnergyPlus.Examples.SmallOffice.ASHRAE2006Summer
+
+endef
+
 test-dymola:
+	$(eval BUILDINGSPY_SKIP_STATISTICS_VERIFICATION := $(buiPyMod))
 	(cd $(ROOT)/Buildings && \
 	  export PYTHONPATH=$(TRAVIS_BUILD_DIR)/Buildings/Resources/Python-Sources && \
+	  export BUILDINGSPY_SKIP_STATISTICS_VERIFICATION='$(BUILDINGSPY_SKIP_STATISTICS_VERIFICATION)' && \
 	  python3 ../bin/runUnitTests.py --batch --single-package $(PACKAGE) --tool dymola)
 
 test-optimica:

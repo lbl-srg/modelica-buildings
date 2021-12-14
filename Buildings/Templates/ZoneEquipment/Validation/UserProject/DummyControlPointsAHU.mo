@@ -24,12 +24,12 @@ block DummyControlPointsAHU
         303.15) "Unoccupied cooling setpoint"
     annotation (Placement(transformation(extent={{-140,10},{-120,30}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TZon(final k=303.15)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TAirZon(final k=303.15)
     "Zone temperature"
     annotation (Placement(transformation(extent={{-140,-30},{-120,-10}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TSupSet(final k=15 + 273.15)
-    "AHU supply temperature set point"
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TAirSupSet(final k=15 +
+        273.15) "AHU supply temperature set point"
     annotation (Placement(transformation(extent={{-140,-70},{-120,-50}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant yOpeMod(final k=1)
     "Group operating mode"
@@ -47,13 +47,13 @@ block DummyControlPointsAHU
     "yReqOutAir from AHU controller"
     annotation (Placement(transformation(extent={{40,90},{60,110}})));
 equation
-  connect(TZon.y, bus.TZon);
+  connect(TAirZon.y, bus.TAirZon);
 
   connect(TZonHeaOccSet.y, bus.TZonHeaOccSet);
   connect(TZonCooOccSet.y, bus.TZonCooOccSet);
   connect(TZonHeaUnoSet.y, bus.TZonHeaUnoSet);
   connect(TZonCooUnoSet.y, bus.TZonCooUnoSet);
-  connect(TSupSet.y, bus.TSupSet);
+  connect(TAirSupSet.y, bus.TAirSupSet);
   connect(yOpeMod.y, bus.yOpeMod);
   connect(uHeaDemLimLev.y, bus.uHeaDemLimLev);
   connect(uCooDemLimLev.y, bus.uCooDemLimLev);

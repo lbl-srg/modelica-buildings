@@ -5,7 +5,7 @@ block OpenLoop "Open loop controller (output signals only)"
       final typ=Types.Controller.OpenLoop);
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant yDamOut(k=1)
- if secOutRel.typDamOut == Buildings.Templates.Components.Types.Damper.Modulated
+ if secOutRel.typDamOut == Buildings.Templates.Components.Types.Damper.Modulating
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
@@ -17,7 +17,7 @@ block OpenLoop "Open loop controller (output signals only)"
         rotation=-90,
         origin={-170,144})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant yDamOutMin(k=1)
- if secOutRel.typDamOutMin == Buildings.Templates.Components.Types.Damper.Modulated
+ if secOutRel.typDamOutMin == Buildings.Templates.Components.Types.Damper.Modulating
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
@@ -34,19 +34,19 @@ block OpenLoop "Open loop controller (output signals only)"
         rotation=-90,
         origin={-120,170})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant yDamRel(k=1)
- if secOutRel.typDamRel == Buildings.Templates.Components.Types.Damper.Modulated
+ if secOutRel.typDamRel == Buildings.Templates.Components.Types.Damper.Modulating
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={-90,170})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant yDamRel1(k=true)
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant yDamRel2(k=true)
  if secOutRel.typDamRel == Buildings.Templates.Components.Types.Damper.TwoPosition
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={-60,170})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant yCoiCoo(k=1) if coiCoo.typ
-     == Buildings.Templates.Components.Types.Coil.WaterBased or coiCoo.typHex
+     == Buildings.Templates.Components.Types.Coil.WaterBasedCooling or coiCoo.typHex
      == Buildings.Templates.Components.Types.HeatExchanger.DXVariableSpeed
      annotation (
       Placement(transformation(
@@ -62,15 +62,14 @@ block OpenLoop "Open loop controller (output signals only)"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
-        origin={60,70})));
+        origin={32,70})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant yFanSup(k=true)
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
-        origin={100,70})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant yCoiHea(k=1) if coiHea.typ
-     == Buildings.Templates.Components.Types.Coil.WaterBased or coiHea.typHex
-     == Buildings.Templates.Components.Types.HeatExchanger.DXVariableSpeed
+        origin={72,70})));
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant yCoiHea(k=1) if coiHeaPre.funStr
+     == "Heating" or coiHeaReh.funStr== "Heating"
     annotation (
       Placement(transformation(
         extent={{-10,-10},{10,10}},
@@ -80,15 +79,15 @@ block OpenLoop "Open loop controller (output signals only)"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
-        origin={140,70})));
+        origin={112,70})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant yFanRet(k=true)
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
-        origin={180,70})));
+        origin={152,70})));
 
 equation
-  /* Hardware point connection - start */
+  /* Control point connection - start */
 
   connect(yCoiCoo.y, bus.coiCoo.y);
   connect(yCoiHea.y, bus.coiHea.y);
@@ -104,9 +103,9 @@ equation
   connect(yDamOutMin.y, bus.damOutMin.y);
   connect(yDamOutMin1.y, bus.damOutMin.y);
   connect(yDamRel.y, bus.damRel.y);
-  connect(yDamRel1.y, bus.damRel.y);
+  connect(yDamRel2.y, bus.damRel.y);
   connect(yDamRet.y, bus.damRet.y);
-  /* Hardware point connection - stop */
+  /* Control point connection - stop */
 
   annotation (
   defaultComponentName="conAHU",

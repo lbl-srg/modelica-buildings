@@ -358,19 +358,19 @@ equation
           rotation=90),
         Text(
           extent={{-84,8},{-64,-6}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="Wall"),
         Text(
           extent={{64,8},{84,-6}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="Wall"),
         Text(
           extent={{-8,-74},{12,-88}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="Floor"),
         Text(
           extent={{-10,88},{10,74}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="Ceiling"),
         Rectangle(
           extent={{-42,42},{42,-42}},

@@ -12,10 +12,10 @@ equation
         Text(
           extent={{-150,100},{150,60}},
           textString="%name",
-          lineColor={0,0,255}),
+          textColor={0,0,255}),
         Text(
           extent={{-150,-55},{150,-85}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="Q_flow=%Q_flow"),
         Line(
           points={{-100,-20},{48,-20}},
@@ -44,7 +44,7 @@ equation
             {100,100}}), graphics={
         Text(
           extent={{-100,40},{0,-36}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="Q_flow=const."),
         Line(
           points={{-48,-20},{60,-20}},
