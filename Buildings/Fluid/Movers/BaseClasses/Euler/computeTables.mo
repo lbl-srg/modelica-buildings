@@ -4,9 +4,9 @@ function computeTables
   extends Modelica.Icons.Function;
   input Buildings.Fluid.Movers.BaseClasses.Euler.peak peak
     "Operation point with maximum efficiency";
-  input Modelica.SIunits.PressureDifference dpMax
+  input Modelica.Units.SI.PressureDifference dpMax
     "Max pressure rise";
-  input Modelica.SIunits.VolumeFlowRate V_flow_max
+  input Modelica.Units.SI.VolumeFlowRate V_flow_max
     "Max flow rate";
   input Boolean use
     "Flag, if false return zeros";
@@ -15,9 +15,9 @@ function computeTables
 
 protected
   constant Integer n = 11 "Dimensions of the look-up table (n by n)";
-  parameter Modelica.SIunits.VolumeFlowRate V_flow_aux[:]=linspace(0,V_flow_max,n)
+  parameter Modelica.Units.SI.VolumeFlowRate V_flow_aux[:]=linspace(0,V_flow_max,n)
     "Auxilliary variable for flow rate";
-  parameter Modelica.SIunits.PressureDifference dp_aux[:]=linspace(0,dpMax,n)
+  parameter Modelica.Units.SI.PressureDifference dp_aux[:]=linspace(0,dpMax,n)
     "Auxilliary variable for pressure rise";
   Real etaSup[:,:] = zeros(12,12) "2D look-up table for efficiency";
   Real powSup[:,:] = zeros(11,11) "2D look-up table for power";

@@ -6,7 +6,7 @@ model EulerComparison
   parameter Integer nOri(min=1)=size(per1.power.V_flow,1)
     "Number of data points for pressure curve"
     annotation(Evaluate=true);
-  parameter Modelica.SIunits.Density rhoCon=1.2
+  parameter Modelica.Units.SI.Density rhoCon=1.2
     "Constant density";
 
   Buildings.Fluid.Movers.Data.Fans.Greenheck.BIDW13 per1
@@ -39,7 +39,7 @@ model EulerComparison
   Modelica.Blocks.Sources.Constant rho(k=rhoCon) "Density"
     annotation (Placement(transformation(extent={{-60,0},{-40,20}})));
 
-  Modelica.SIunits.VolumeFlowRate V_flow = m_flow.y/rhoCon "Volumetric flow rate";
+  Modelica.Units.SI.VolumeFlowRate V_flow = m_flow.y/rhoCon "Volumetric flow rate";
 
   Modelica.Blocks.Sources.Ramp m_flow(
     height=eff1.V_flow_max*rhoCon,
