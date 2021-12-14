@@ -116,15 +116,15 @@ model PartialChilledWaterLoop
   Fluid.FixedResistances.Junction mixByp(
     redeclare package Medium = MediumCHW,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
-    each final m_flow_nominal={mPri_flow_nominal,0,mPri_flow_nominal},
+    each final m_flow_nominal=mPri_flow_nominal*{1,-1,1},
     final dp_nominal={0,0,0})
     "Bypass mixer"
     annotation (Placement(transformation(
-      extent={{10,10},{-10,-10}},rotation=0,origin={-10,-50})));
+      extent={{-10,10},{10,-10}},rotation=0,origin={-10,-50})));
   Fluid.FixedResistances.Junction splWSEByp(
     redeclare package Medium = MediumCHW,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
-    each final m_flow_nominal={mPri_flow_nominal,0,mPri_flow_nominal},
+    each final m_flow_nominal=mPri_flow_nominal*{1,-1,-1},
     final dp_nominal={0,0,0})
     "Splitter for waterside economizer bypass"
     annotation (Placement(transformation(
@@ -140,6 +140,11 @@ model PartialChilledWaterLoop
         rotation=90,
         origin={200,60})));
 
+  Fluid.Sources.Boundary_pT bouCHW(redeclare final package Medium = MediumCHW,
+      nPorts=1) annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=-90,
+        origin={0,40})));
 protected
   parameter Modelica.SIunits.PressureDifference dpPri_nominal=
     if pumSec.is_none then chiGro.dpCHW_nominal + dpDem_nominal
@@ -153,10 +158,6 @@ equation
   connect(TCHWRet.port_a,WSE. port_a2)
     annotation (Line(points={{120,-70},{-20,-70},{-20,-88},{-34,-88},{-34,-82}},
       color={0,127,255}));
-  connect(WSE.port_b2,mixByp. port_2)
-    annotation (Line(points={{-34,-62},{-34,-50},{-20,-50}},color={0,127,255}));
-  connect(mixByp.port_1, TCHWRetByp.port_a)
-    annotation (Line(points={{0,-50},{20,-50}}, color={0,127,255}));
   connect(chiGro.ports_b2, pumPri.ports_parallel)
     annotation (Line(points={{-30,16},{-20,16},{-20,10},{-8.88178e-16,10}},
       color={0,127,255}));
@@ -202,4 +203,11 @@ equation
     annotation (Line(points={{170,-20},{170,10},{200,10}}, color={0,127,255}));
   connect(dpCHW.port_b, port_b) annotation (Line(points={{170,-40},{170,-70},{
           200,-70}}, color={0,127,255}));
+  connect(bouCHW.ports[1], pumPri.ports_parallel[1]) annotation (Line(points={{
+          -1.77636e-15,30},{-1.77636e-15,20},{-8.88178e-16,20},{-8.88178e-16,10}},
+        color={0,127,255}));
+  connect(WSE.port_b2, mixByp.port_1) annotation (Line(points={{-34,-62},{-34,
+          -50},{-20,-50}}, color={0,127,255}));
+  connect(mixByp.port_2, TCHWRetByp.port_a)
+    annotation (Line(points={{0,-50},{20,-50}}, color={0,127,255}));
 end PartialChilledWaterLoop;

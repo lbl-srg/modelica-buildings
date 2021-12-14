@@ -13,7 +13,7 @@ partial model CoolingTowerGroup
 
   parameter Integer nCooTow(final min=1) "Number of cooling towers";
 
-  Bus busCon "Control bus" annotation (Placement(transformation(
+  Bus busCon(final nCooTow=nCooTow) "Control bus" annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
         rotation=0,
         origin={0,100}), iconTransformation(

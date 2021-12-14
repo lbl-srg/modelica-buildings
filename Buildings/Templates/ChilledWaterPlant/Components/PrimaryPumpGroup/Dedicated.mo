@@ -2,9 +2,7 @@ within Buildings.Templates.ChilledWaterPlant.Components.PrimaryPumpGroup;
 model Dedicated
   extends
     Buildings.Templates.ChilledWaterPlant.Components.PrimaryPumpGroup.Interfaces.PrimaryPumpGroup(
-    final typ=Buildings.Templates.ChilledWaterPlant.Components.Types.PrimaryPumpGroup.Dedicated,
-    final has_ParChi=true,
-    final has_WSEByp=false);
+    final typ=Buildings.Templates.ChilledWaterPlant.Components.Types.PrimaryPumpGroup.Dedicated);
   Fluid.FixedResistances.Junction splByp(redeclare package Medium = Medium,
       energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     final m_flow_nominal=fill(mTot_flow_nominal, 3),
@@ -13,10 +11,11 @@ model Dedicated
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={80,0})));
-  Fluid.Actuators.Valves.TwoWayLinear valByp(final m_flow_nominal=
-        mTot_flow_nominal, final dpValve_nominal=dpByp_nominal)
-                                             if has_byp
-                                             "Bypass valve" annotation (
+  Fluid.Actuators.Valves.TwoWayLinear valByp(
+    redeclare final package Medium = Medium,
+    final m_flow_nominal=mTot_flow_nominal,
+    final dpValve_nominal=dpByp_nominal) if has_byp
+    "Bypass valve" annotation (
       Placement(transformation(
         extent={{-10,10},{10,-10}},
         rotation=270,
@@ -30,8 +29,10 @@ model Dedicated
     final dpValve_nominal=dpValve_nominal)
                      "Pumps"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
-  Buildings.Templates.Components.Sensors.VolumeFlowRate V_flow(have_sen=
-        has_floSen, final m_flow_nominal=m_flow_nominal)
+  Buildings.Templates.Components.Sensors.VolumeFlowRate V_flow(
+    redeclare final package Medium = Medium,
+    final have_sen=has_floSen,
+    final m_flow_nominal=m_flow_nominal)
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
   Buildings.Templates.BaseClasses.PassThroughFluid pas(redeclare each final
       package Medium = Medium) if has_comLeg annotation (Placement(
@@ -41,7 +42,7 @@ model Dedicated
         origin={80,-60})));
   Buildings.Templates.Components.Sensors.VolumeFlowRate VComLeg_flow(
     redeclare final package Medium = Medium,
-    have_sen=has_comLegFloSen,
+    final have_sen=has_comLegFloSen,
     final m_flow_nominal=m_flow_nominal) if has_comLeg
     "Common leg volume flow rate"
     annotation (Placement(transformation(extent={{20,-90},{40,-70}})));

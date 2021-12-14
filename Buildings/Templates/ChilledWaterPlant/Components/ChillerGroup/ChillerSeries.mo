@@ -15,12 +15,12 @@ model ChillerSeries
     each final per=per)
               constrainedby
     Buildings.Templates.ChilledWaterPlant.Components.Chiller.Interfaces.Chiller(
-    redeclare each final package Medium1 = Medium1,
-    redeclare each final package Medium2 = Medium2,
+    redeclare each final package Medium1 = MediumCW,
+    redeclare each final package Medium2 = MediumCHW,
     final is_airCoo=is_airCoo) annotation (Placement(transformation(extent={{
             -20,-20},{20,20}}, rotation=0)));
 
-  Fluid.FixedResistances.Junction splChi[nChi](redeclare package Medium = Medium,
+  Fluid.FixedResistances.Junction splChi[nChi](redeclare package Medium = MediumCHW,
       energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     final m_flow_nominal=fill(m2_flow_nominal, 3),
     final dp_nominal=fill(0, 3))
@@ -28,7 +28,7 @@ model ChillerSeries
         extent={{-10,-10},{10,10}},
         rotation=180,
         origin={60,-60})));
-  Fluid.FixedResistances.Junction mixChi[nChi](redeclare package Medium = Medium,
+  Fluid.FixedResistances.Junction mixChi[nChi](redeclare package Medium = MediumCHW,
       energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     final m_flow_nominal=fill(m2_flow_nominal, 3),
     final dp_nominal=fill(0, 3))                                "Chiller mixer"
@@ -78,12 +78,12 @@ equation
   connect(ports_a1, chi.port_a1) annotation (Line(points={{-100,60},{-40,60},{
           -40,12},{-20,12}}, color={0,127,255}));
   connect(port_b1, volCW.ports[1]) annotation (Line(points={{100,60},{20,60},{
-          20,57.3333}}, color={0,127,255}));
+          20,58.6667}}, color={0,127,255}));
   connect(chi.port_b1, volCW.ports[2:3]) annotation (Line(points={{20,12},{40,
-          12},{40,62.6667},{20,62.6667}},
+          12},{40,61.3333},{20,61.3333}},
                                 color={0,127,255}));
   connect(busCon.yValChi, valChi.y) annotation (Line(
-      points={{0,100},{0,80},{-40,80},{-40,-42},{0,-42},{0,-48}},
+      points={{0.1,100.1},{0.1,80},{-40,80},{-40,-42},{0,-42},{0,-48}},
       color={255,204,51},
       thickness=0.5), Text(
       string="%first",

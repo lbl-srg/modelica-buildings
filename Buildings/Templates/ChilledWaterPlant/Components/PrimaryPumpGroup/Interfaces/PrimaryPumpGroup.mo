@@ -42,13 +42,14 @@ partial model PrimaryPumpGroup
     "Shutoff valve pressure drop";
   parameter Modelica.SIunits.PressureDifference dpByp_nominal=
     if has_byp
-    then dat.getReal(varName=id + ".PrimaryPump.dpByp_nominal.valve")
+    then dat.getReal(varName=id + ".PrimaryPump.dpByp_nominal.value")
     else 0
     "Bypass valve pressure drop";
 
 
 
-  Bus busCon "Control bus" annotation (Placement(transformation(
+  Bus busCon(final nPum=nPum)
+    "Control bus" annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
         rotation=0,
         origin={0,100}), iconTransformation(

@@ -81,7 +81,11 @@ model DedicatedPrimaryPumps
         transformation(extent={{100,50},{140,90}}),
         iconTransformation(extent={{100,70},
             {120,90}})));
-  Fluid.MixingVolumes.MixingVolume vol(nPorts=1)
+  // FIXME m_flow_nominal
+  Fluid.MixingVolumes.MixingVolume vol(
+    redeclare final package Medium = Medium,
+    final m_flow_nominal=m_flow_nominal * nPum,
+    final nPorts=nPum+1)
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=180,
@@ -106,7 +110,7 @@ equation
     annotation (Line(points={{30,0},{60,0},{60,-20}}, color={0,127,255}));
   connect(ports_a, pum.port_a)
     annotation (Line(points={{-100,0},{-30,0}}, color={0,127,255}));
-  connect(vol.ports[1], port_b)
+  connect(vol.ports[nPum+1], port_b)
     annotation (Line(points={{60,-20},{60,0},{100,0}}, color={0,127,255}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
               Rectangle(

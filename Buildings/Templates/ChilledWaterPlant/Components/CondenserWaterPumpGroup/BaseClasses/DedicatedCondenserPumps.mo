@@ -83,8 +83,11 @@ model DedicatedCondenserPumps
   Modelica.Blocks.Interfaces.BooleanOutput y_actual[nPum] annotation (Placement(
         transformation(extent={{100,50},{140,90}}), iconTransformation(extent={{100,70},
             {120,90}})));
-  Fluid.MixingVolumes.MixingVolume vol(nPorts=1)
-                                         annotation (Placement(transformation(
+  Fluid.MixingVolumes.MixingVolume vol(
+    redeclare final package Medium = Medium,
+    final m_flow_nominal=m_flow_nominal * nPum,
+    final nPorts=nPum+1)
+    annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=180,
         origin={-60,-30})));
@@ -109,7 +112,7 @@ equation
     annotation (Line(points={{30,0},{100,0}}, color={0,127,255}));
   connect(vol.ports, pum.port_a)
     annotation (Line(points={{-60,-20},{-60,0},{-30,0}}, color={0,127,255}));
-  connect(port_a, vol.ports[1])
+  connect(port_a, vol.ports[nPum+1])
     annotation (Line(points={{-100,0},{-60,0},{-60,-20}}, color={0,127,255}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
               Rectangle(
