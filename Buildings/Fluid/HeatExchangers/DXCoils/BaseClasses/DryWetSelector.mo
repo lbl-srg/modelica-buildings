@@ -141,7 +141,7 @@ First implementation.
           fillPattern=FillPattern.CrossDiag),
         Text(
           extent={{-70,94},{70,52}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid,
           textString="%name")}));

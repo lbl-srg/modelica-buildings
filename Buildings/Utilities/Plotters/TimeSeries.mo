@@ -92,7 +92,7 @@ equation
         smooth=Smooth.Bezier),
         Text(
           extent={{50,-70},{76,-94}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           fillColor={192,192,192},
           fillPattern=FillPattern.Solid,
           textString="t"),

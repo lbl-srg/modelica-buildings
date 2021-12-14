@@ -43,7 +43,7 @@ equation
   annotation (Icon(graphics={
         Text(
           extent={{-92,108},{16,66}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString=
                "ACS = %ACS")}),
 defaultComponentName="floExc",

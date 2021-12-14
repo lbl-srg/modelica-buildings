@@ -13,7 +13,7 @@ protected
   annotation (    Icon(coordinateSystem(preserveAspectRatio=true,  extent={{-100,-100},{100,
             100}}), graphics={      Text(
           extent={{-70,-26},{70,-66}},
-          lineColor={255,255,255},
+          textColor={255,255,255},
           textString="tau=%tau")}),
 defaultComponentName="del",
     Documentation(info="<html>

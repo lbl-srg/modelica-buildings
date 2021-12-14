@@ -225,7 +225,7 @@ equation
           fillPattern=FillPattern.Solid),
         Text(
           extent={{-118,94},{-96,60}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="dP")}),
     Documentation(info="<html>
 <p>

@@ -167,7 +167,7 @@ equation
     fillPattern=FillPattern.Solid),
   Text(
     extent={{6,-152},{48,-166}},
-    lineColor={0,0,255},
+    textColor={0,0,255},
     fillColor={215,215,215},
     fillPattern=FillPattern.Solid,
     textString="Floor Plate")}), Icon(coordinateSystem(extent={{-240,
@@ -177,7 +177,7 @@ equation
     fillColor={230,230,230},
     fillPattern=FillPattern.Solid), Text(
     extent={{-62,62},{62,-62}},
-    lineColor={0,0,0},
+    textColor={0,0,0},
     textString="3")}),
     Documentation(revisions="<html>
   <ul>

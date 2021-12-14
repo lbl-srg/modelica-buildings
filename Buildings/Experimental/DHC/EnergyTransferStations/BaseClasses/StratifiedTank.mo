@@ -217,7 +217,7 @@ equation
           fillPattern=FillPattern.Solid),
         Text(
           extent={{-139,-106},{161,-146}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%name")}),
     defaultComponentName="tan",
     Diagram(

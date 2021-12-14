@@ -17,7 +17,7 @@ connector PowerOutput
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid), Text(
           extent={{30,110},{30,60}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="%name")}),
     Documentation(info="<html>
 This connector contains multiple quantities that can be used to monitor

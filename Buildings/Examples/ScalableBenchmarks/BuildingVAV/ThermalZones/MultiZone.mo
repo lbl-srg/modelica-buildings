@@ -134,11 +134,11 @@ annotation (Icon(graphics={
         Line(points={{2,-40},{2,-26}}, color={85,170,255}),
         Text(
           extent={{-100,102},{100,76}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="Multizone model with: %nZon zones in %nZon floors"),
         Text(
           extent={{-94,134},{106,108}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%name")}),
     Documentation(info="<html>
 <p>

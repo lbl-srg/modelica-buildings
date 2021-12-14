@@ -10,7 +10,7 @@ model Battery "Simple model of a battery"
   parameter Modelica.SIunits.Efficiency etaDis(max=1) = 0.9
     "Efficiency during discharging";
   parameter Real SOC_start(start=0.1) "Initial charge";
-  parameter Modelica.SIunits.Energy EMax(min=0, displayUnit="kWh")
+  parameter Modelica.SIunits.Energy EMax(min=0, displayUnit="kW.h")
     "Maximum available charge";
   parameter Modelica.SIunits.Voltage V_nominal(start = 110)
     "Nominal voltage (V_nominal >= 0)";
@@ -142,7 +142,7 @@ defaultComponentName="bat",
           lineColor={0,0,0}),
         Text(
           extent={{-50,68},{-20,100}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid,
           textString="P"),
@@ -152,13 +152,13 @@ defaultComponentName="bat",
           smooth=Smooth.None),
         Text(
           extent={{44,70},{100,116}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid,
           textString="SOC"),
         Text(
           extent={{44,154},{134,112}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="%name")}),
     Documentation(
 info="<html>
@@ -184,6 +184,12 @@ and that the state of charge remains between zero and one.
 </html>",
         revisions="<html>
 <ul>
+<li>
+December 6, 2021, by Michael Wetter:<br/>
+Corrected wrong unit string.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2798\">issue 2798</a>.
+</li>
 <li>
 April 2, 2020 by Michael Wetter:<br/>
 Corrected model and improved the documentation. The previous model extracted from

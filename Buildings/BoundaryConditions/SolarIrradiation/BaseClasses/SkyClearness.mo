@@ -105,17 +105,17 @@ First implementation.
         Text(
           extent={{-150,110},{150,150}},
           textString="%name",
-          lineColor={0,0,255}),
+          textColor={0,0,255}),
         Text(
           extent={{-48,-6},{-100,6}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="HDifHor"),
         Text(
           extent={{-48,54},{-100,66}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="HGloHor"),
         Text(
           extent={{-48,-66},{-100,-54}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="zen")}));
 end SkyClearness;

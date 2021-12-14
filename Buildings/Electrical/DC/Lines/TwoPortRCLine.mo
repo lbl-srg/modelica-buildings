@@ -41,7 +41,7 @@ equation
                                                                   graphics={
           Text(
             extent={{-144,97},{156,57}},
-            lineColor={0,0,0},
+            textColor={0,0,0},
           textString="%name"),
           Line(points={{-90,0},{-70,0}}, color={0,0,255}),
           Line(points={{70,0},{90,0}},   color={0,0,255}),

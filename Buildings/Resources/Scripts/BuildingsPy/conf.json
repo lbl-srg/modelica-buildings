@@ -1,5 +1,41 @@
 [
   {
+    "jmodelica": {
+      "translate": false
+  },
+  "model_name": "Buildings.Air.Systems.SingleZone.VAV.Examples.OptimalStart.ConventionalWinter"
+  },
+  {
+    "jmodelica": {
+      "translate": false
+  },
+  "model_name": "Buildings.Air.Systems.SingleZone.VAV.Examples.OptimalStart.ConventionalSpring"
+  },
+  {
+    "jmodelica": {
+      "translate": false
+  },
+  "model_name": "Buildings.Air.Systems.SingleZone.VAV.Examples.OptimalStart.ConventionalSummer"
+  },
+  {
+    "jmodelica": {
+      "translate": false
+  },
+  "model_name": "Buildings.Air.Systems.SingleZone.VAV.Examples.OptimalStart.Guideline36Winter"
+  },
+  {
+    "jmodelica": {
+      "translate": false
+  },
+  "model_name": "Buildings.Air.Systems.SingleZone.VAV.Examples.OptimalStart.Guideline36Spring"
+  },
+  {
+    "jmodelica": {
+      "translate": false
+  },
+  "model_name": "Buildings.Air.Systems.SingleZone.VAV.Examples.OptimalStart.Guideline36Summer"
+  },
+  {
       "jmodelica": {
         "simulate": false
     },
@@ -197,34 +233,39 @@
     "model_name": "Buildings.Examples.ScalableBenchmarks.BuildingVAV.Examples.TwoFloor_TwoZone"
   },
   {
-    "jmodelica": {
-      "translate": false
-    },
     "optimica": {
-      "translate": false
+      "simulate": false
     },
-    "model_name": "Buildings.Experimental.DHC.Examples.Combined.Generation5.Examples.ParallelConstantFlow",
-    "comment": "See https://github.com/lbl-srg/modelica-buildings/issues/2435 and https://github.com/lbl-srg/modelica-buildings/issues/2436"
+    "model_name": "Buildings.Experimental.DHC.Loads.Validation.FlowDistributionPumpControl",
+    "comment": "Fails with 'The rootfinding function failed in an unrecoverable manner.' Since oct-r26446"
   },
   {
     "jmodelica": {
-      "translate": false
-    },
-    "optimica": {
-      "translate": false
-    },
-    "model_name": "Buildings.Experimental.DHC.Examples.Combined.Generation5.Examples.SeriesConstantFlow",
-    "comment": "See https://github.com/lbl-srg/modelica-buildings/issues/2435 and https://github.com/lbl-srg/modelica-buildings/issues/2436"
-  },
-  {
-    "jmodelica": {
-      "translate": false
-    },
-    "optimica": {
       "translate": false
     },
     "model_name": "Buildings.Experimental.DHC.Examples.Combined.Generation5.Examples.SeriesVariableFlow",
-    "comment": "See https://github.com/lbl-srg/modelica-buildings/issues/2435 and https://github.com/lbl-srg/modelica-buildings/issues/2436"
+    "comment": "Fails to translate, see https://app.travis-ci.com/github/lbl-srg/modelica-buildings/jobs/549351259#L422"
+  },
+  {
+    "jmodelica": {
+      "translate": false
+    },
+    "model_name": "Buildings.Experimental.DHC.Examples.Combined.Generation5.Examples.SeriesConstantFlow",
+    "comment": "Fails to translate, see https://app.travis-ci.com/github/lbl-srg/modelica-buildings/jobs/549351259#L422"
+  },
+  {
+    "jmodelica": {
+      "translate": false
+    },
+    "model_name": "Buildings.Experimental.DHC.Examples.Combined.Generation5.Examples.ParallelConstantFlow",
+    "comment": "Fails to translate, see https://app.travis-ci.com/github/lbl-srg/modelica-buildings/jobs/549351259#L422"
+  },
+  {
+    "optimica": {
+      "simulate": false
+    },
+    "model_name": "Buildings.Examples.VAVCO2.VAVSystemCTControl",
+    "comment": "Fails with 'The rootfinding function failed in an unrecoverable manner.' Since oct-r26446"
   },
   {
     "jmodelica": {
@@ -246,6 +287,13 @@
     },
     "model_name": "Buildings.Examples.DualFanDualDuct.ClosedLoop",
     "comment": "This causes a timeout on travis. See https://app.travis-ci.com/github/lbl-srg/modelica-buildings/jobs/525707949"
+  },
+  {
+    "optimica": {
+      "simulate": false
+    },
+    "model_name": "Buildings.ThermalZones.EnergyPlus.Examples.SmallOffice.Unconditioned",
+    "comment": "Failed with 'RuntimeError: Process timeout after 300 seconds.' Since oct-r26446."
   },
   {
     "optimica": {

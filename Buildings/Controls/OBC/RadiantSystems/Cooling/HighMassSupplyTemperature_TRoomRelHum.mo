@@ -185,28 +185,28 @@ equation
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid),
         Text(
-          lineColor={0,0,255},
+          textColor={0,0,255},
           extent={{-150,110},{150,150}},
           textString="%name"),
         Text(
           extent={{58,94},{94,44}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="TSupSet"),
         Text(
           extent={{76,-44},{96,-90}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="yPum"),
         Text(
           extent={{76,2},{98,-16}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="on"),
         Text(
           extent={{-92,92},{-48,44}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="TRooSet"),
         Text(
           extent={{-94,32},{-74,-14}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="TRoo"),
         Rectangle(
           extent={{-30,-16},{48,-40}},
@@ -248,18 +248,18 @@ equation
                                                color={255,0,255}),
         Text(
           extent={{80,32},{98,16}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="y"),
         Text(
           extent={{230,108},{110,58}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString=DynamicSelect("",
             String(TSupSet,
               leftJustified=false,
               significantDigits=3))),
         Text(
           extent={{230,64},{110,14}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString=DynamicSelect("",
             String(y,
               leftJustified=false,
@@ -268,7 +268,7 @@ equation
              color={28,108,200}),
         Text(
           extent={{-92,-24},{-72,-70}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="phi")}),
     Documentation(info="<html>
 <p>

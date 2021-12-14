@@ -128,12 +128,12 @@ protected
           borderPattern=BorderPattern.Raised),
         Text(
           extent={{-96,15},{96,-15}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="%y"),
         Text(
           extent={{-150,90},{140,50}},
           textString="%name",
-          lineColor={0,0,255})}), Documentation(info="<html>
+          textColor={0,0,255})}), Documentation(info="<html>
 <p>
 The (time varying) vector <code>Real</code> output signal of this block can be defined in its
 parameter menu via variable <code>y</code>. The purpose is to support the
@@ -197,7 +197,7 @@ equation
         Text(
           extent={{-150,110},{150,150}},
           textString="%name",
-          lineColor={0,0,255}),
+          textColor={0,0,255}),
         Rectangle(
           extent={{-90,20},{40,14}},
           lineColor={0,0,0},
@@ -231,7 +231,7 @@ equation
           fillPattern=FillPattern.Solid),
         Text(
           extent={{-92,-42},{-6,-98}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="[%nPorts]",
           horizontalAlignment=TextAlignment.Left),
         Ellipse(

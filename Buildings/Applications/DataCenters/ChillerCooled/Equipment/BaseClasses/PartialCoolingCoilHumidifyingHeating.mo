@@ -197,9 +197,9 @@ equation
   connect(yVal, watVal.y_actual) annotation (Line(points={{110,40},{92,40},{73,
           40},{73,-5}}, color={0,0,127}));
   annotation (      Diagram(coordinateSystem(preserveAspectRatio=false),
-        graphics={Text(extent={{50,74},{76,68}},lineColor={0,0,255},
+        graphics={Text(extent={{50,74},{76,68}},textColor={0,0,255},
                      textString="Waterside",textStyle={TextStyle.Bold}),
-                 Text(extent={{58,-70},{84,-76}},lineColor={0,0,255},
+                 Text(extent={{58,-70},{84,-76}},textColor={0,0,255},
                      textString="Airside",textStyle={TextStyle.Bold})}),
     Documentation(info="<html>
 <p>

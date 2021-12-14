@@ -104,7 +104,7 @@ First implementation.
 </html>"), Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
             {100,100}}), graphics={Text(
           extent={{-74,20},{-36,-24}},
-          lineColor=DynamicSelect({255,255,255}, (1-y)*{255,255,255}),
+          textColor=DynamicSelect({255,255,255}, (1-y)*{255,255,255}),
           fillPattern=FillPattern.Solid,
           textString="%%")}));
 end TwoWayEqualPercentage;

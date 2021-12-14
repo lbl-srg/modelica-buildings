@@ -40,7 +40,7 @@ partial model DataCenter
     m2_flow(start=mAir_flow_nominal),
     dp2_nominal=249*3,
     UA_nominal=mAir_flow_nominal*1006*5,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyStateInitial,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     dp1_nominal(displayUnit="Pa") = 1000 + 89580)
     "Cooling coil"
     annotation (Placement(transformation(extent={{300,-180},{280,-160}})));
@@ -80,7 +80,7 @@ partial model DataCenter
     TAirInWB_nominal(displayUnit="degC") = 283.15,
     TApp_nominal=6,
     dp_nominal=14930 + 14930 + 74650,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyStateInitial)
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     "Cooling tower"                                   annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
@@ -146,7 +146,7 @@ partial model DataCenter
     dp2_nominal=0,
     dp1_nominal=0,
     per=Buildings.Fluid.Chillers.Data.ElectricEIR.ElectricEIRChiller_Carrier_19XR_742kW_5_42COP_VSD(),
-    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyStateInitial)
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     annotation (Placement(transformation(extent={{274,83},{254,103}})));
   Buildings.Fluid.Actuators.Valves.TwoWayLinear val6(
     redeclare package Medium = MediumW,
@@ -601,6 +601,12 @@ Buildings.Examples.ChillerPlant</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+December 6, 2021, by Michael Wetter:<br/>
+Changed initialization from steady-state initial to fixed initial.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2798\">issue 2798</a>.
+</li>
 <li>
 November 18, 2021, by Michael Wetter:<br/>
 Set <code>dp_nominal</code> for pumps and fan to a realistic value.<br/>

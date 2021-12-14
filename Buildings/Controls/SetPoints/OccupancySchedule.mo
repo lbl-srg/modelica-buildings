@@ -163,15 +163,15 @@ equation
           color={0,0,255}),
         Text(
           extent={{34,74},{90,50}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="occupancy"),
         Text(
           extent={{32,16},{92,-16}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="non-occupancy"),
         Text(
           extent={{34,-44},{94,-76}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="occupied")}),
 defaultComponentName="occSch",
 Documentation(info="<html>

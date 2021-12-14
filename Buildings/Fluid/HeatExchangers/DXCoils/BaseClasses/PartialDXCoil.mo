@@ -270,15 +270,15 @@ First implementation.
 </html>"),
     Icon(graphics={Text(
           extent={{-138,64},{-80,46}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="TConIn"), Text(
           extent={{58,98},{102,78}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="P"),      Text(
           extent={{54,60},{98,40}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="QLat"),   Text(
           extent={{54,80},{98,60}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="QSen")}));
 end PartialDXCoil;

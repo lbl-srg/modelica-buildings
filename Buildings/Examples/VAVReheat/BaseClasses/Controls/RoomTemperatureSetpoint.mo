@@ -50,26 +50,26 @@ equation
   annotation (                                Icon(graphics={
         Text(
           extent={{-92,90},{-52,70}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="TRet"),
         Text(
           extent={{-96,50},{-56,30}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="TMix"),
         Text(
           extent={{-94,22},{-26,-26}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="VOut_flow"),
         Text(
           extent={{-88,-22},{-26,-60}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="TSupHeaSet"),
         Text(
           extent={{-86,-58},{-24,-96}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="TSupCooSet"),
         Text(
           extent={{42,16},{88,-18}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="yOA")}));
 end RoomTemperatureSetpoint;

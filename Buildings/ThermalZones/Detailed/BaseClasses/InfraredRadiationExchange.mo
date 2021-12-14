@@ -86,8 +86,8 @@ protected
   final parameter Real T03(
     min=0,
     unit="K3") = T0^3 "3rd power of temperature T0";
-  Modelica.SIunits.HeatFlowRate sumEBal(start=0, fixed=sampleModel)
-    "Sum of energy balance, should be zero";
+  // Modelica.SIunits.HeatFlowRate sumEBal(start=0, fixed=sampleModel)
+  //   "Sum of energy balance, should be zero";
 initial equation
   assert(homotopyInitialization, "In " + getInstanceName() +
     ": The constant homotopyInitialization has been modified from its default value. This constant will be removed in future releases.",
@@ -213,10 +213,10 @@ equation
       // Outgoing radiosity
       // Sum of energy balance
       // Remove sumEBal and assert statement for final release
-      sumEBal = sum(conExt.Q_flow) + sum(conPar_a.Q_flow) + sum(conPar_b.Q_flow)
-         + sum(conBou.Q_flow) + sum(conSurBou.Q_flow) + sum(conExtWin.Q_flow)
-         + sum(conExtWinFra.Q_flow) + (sum(JInConExtWin_internal) - sum(
-        JOutConExtWin));
+      // sumEBal = sum(conExt.Q_flow) + sum(conPar_a.Q_flow) + sum(conPar_b.Q_flow)
+      //    + sum(conBou.Q_flow) + sum(conSurBou.Q_flow) + sum(conExtWin.Q_flow)
+      //    + sum(conExtWinFra.Q_flow) + (sum(JInConExtWin_internal) - sum(
+      //   JOutConExtWin));
     end when;
   else
     G = -transpose(F)*J;
@@ -225,12 +225,12 @@ equation
     // Outgoing radiosity
     // Sum of energy balance
     // Remove sumEBal and assert statement for final release
-    sumEBal = sum(conExt.Q_flow) + sum(conPar_a.Q_flow) + sum(conPar_b.Q_flow)
-       + sum(conBou.Q_flow) + sum(conSurBou.Q_flow) + sum(conExtWin.Q_flow) +
-      sum(conExtWinFra.Q_flow) + (sum(JInConExtWin_internal) - sum(
-      JOutConExtWin));
-    assert(abs(sumEBal) < 1E-1, "Program error: Energy is not conserved in InfraredRadiationExchange.
-    Sum of all energy is " + String(sumEBal));
+    // sumEBal = sum(conExt.Q_flow) + sum(conPar_a.Q_flow) + sum(conPar_b.Q_flow)
+    //    + sum(conBou.Q_flow) + sum(conSurBou.Q_flow) + sum(conExtWin.Q_flow) +
+    //   sum(conExtWinFra.Q_flow) + (sum(JInConExtWin_internal) - sum(
+    //   JOutConExtWin));
+    // assert(abs(sumEBal) < 1E-1, "Program error: Energy is not conserved in InfraredRadiationExchange.
+    // Sum of all energy is " + String(sumEBal));
   end if;
 
   // Opaque surfaces.
@@ -413,6 +413,10 @@ The view factor from surface <i>i</i> to <i>j</i> is approximated as
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+November 30, 2021, by Michael Wetter:<br/>
+Removed test on radiation balance that was added for debugging purposes.
+</li>
 <li>
 April 14, 2020, by Michael Wetter:<br/>
 Changed <code>homotopyInitialization</code> to a constant.<br/>
