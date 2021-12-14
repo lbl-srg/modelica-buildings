@@ -237,11 +237,11 @@ protected
       use=per.use_eulerNumber)
       "Efficiency and power curves vs. flow rate & pressure rise calculated with Euler number";
 
-  Modelica.Blocks.Tables.CombiTable2D effTab(
+  Modelica.Blocks.Tables.CombiTable2Ds effTab(
     final table=curEu.eta,
     final smoothness=Modelica.Blocks.Types.Smoothness.ContinuousDerivative)
     "Look-up table for mover efficiency";
-  Modelica.Blocks.Tables.CombiTable2D powTab(
+  Modelica.Blocks.Tables.CombiTable2Ds powTab(
     final table=curEu.P,
     final smoothness=Modelica.Blocks.Types.Smoothness.ContinuousDerivative)
     "Look-up table for mover power";
