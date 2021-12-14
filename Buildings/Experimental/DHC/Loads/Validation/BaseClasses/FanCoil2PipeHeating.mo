@@ -25,13 +25,11 @@ model FanCoil2PipeHeating
   parameter Real k(
     min=0)=1
     "Gain of controller";
-  parameter Modelica.SIunits.Time Ti(
-    min=Modelica.Constants.small)=10
+  parameter Modelica.Units.SI.Time Ti(min=Modelica.Constants.small) = 10
     "Time constant of integrator block";
-  parameter Modelica.SIunits.PressureDifference dpLoa_nominal(
-    displayUnit="Pa") = 250
-    "Load side pressure drop"
-    annotation(Dialog(group="Nominal condition"));
+  parameter Modelica.Units.SI.PressureDifference dpLoa_nominal(displayUnit="Pa")
+     = 250 "Load side pressure drop"
+    annotation (Dialog(group="Nominal condition"));
   final parameter hexConfiguration hexConHea=hexConfiguration.CounterFlow
     "Heating heat exchanger configuration";
   parameter Boolean have_speVar=true

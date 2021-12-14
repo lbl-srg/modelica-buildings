@@ -10,12 +10,12 @@ model CalendarTime
   parameter Boolean outputUnixTimeStamp = false
     "= true, to output the unix time stamp (using GMT reference)"
     annotation(Dialog(group="Unix time stamp"));
-  parameter Modelica.SIunits.Time timZon(displayUnit="h") = 0
+  parameter Modelica.Units.SI.Time timZon(displayUnit="h") = 0
     "The local time zone, for computing the unix time stamp only"
-    annotation(Dialog(enable=outputUnixTimeStamp,group="Unix time stamp"));
-  parameter Modelica.SIunits.Time offset(displayUnit="h") = 0
+    annotation (Dialog(enable=outputUnixTimeStamp, group="Unix time stamp"));
+  parameter Modelica.Units.SI.Time offset(displayUnit="h") = 0
     "Offset that is added to 'time', may be used for computing time in different time zones"
-    annotation(Dialog(tab="Advanced"));
+    annotation (Dialog(tab="Advanced"));
 
   Modelica.Blocks.Interfaces.RealOutput unixTimeStampLocal(final unit="s")
     "Unix time stamp at local time"
@@ -49,16 +49,12 @@ protected
   final constant Integer firstYear = 2010
     "First year that is supported, i.e. the first year in timeStampsNewYear[:]";
   final constant Integer lastYear = firstYear + size(timeStampsNewYear,1) - 1;
-  constant Modelica.SIunits.Time timeStampsNewYear[22] = {
-    1262304000.0, 1293840000.0, 1325376000.0,
-    1356998400.0, 1388534400.0, 1420070400.0,
-    1451606400.0, 1483228800.0, 1514764800.0,
-    1546300800.0, 1577836800.0, 1609459200.0,
-    1640995200.0, 1672531200.0, 1704067200.0,
-    1735689600.0, 1767225600.0, 1798761600.0,
-    1830297600.0, 1861920000.0, 1893456000.0,
-    1924992000.0}
-    "Epoch time stamps for new years day 2010 to 2031";
+  constant Modelica.Units.SI.Time timeStampsNewYear[22]={1262304000.0,
+      1293840000.0,1325376000.0,1356998400.0,1388534400.0,1420070400.0,
+      1451606400.0,1483228800.0,1514764800.0,1546300800.0,1577836800.0,
+      1609459200.0,1640995200.0,1672531200.0,1704067200.0,1735689600.0,
+      1767225600.0,1798761600.0,1830297600.0,1861920000.0,1893456000.0,
+      1924992000.0} "Epoch time stamps for new years day 2010 to 2031";
   constant Boolean isLeapYear[21] = {
     false, false, true, false,
     false, false, true, false,
@@ -69,7 +65,7 @@ protected
     "List of leap years starting from firstYear (2010), up to and including 2030";
   final constant Integer dayInMonth[12] = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31}
     "Number of days in each month";
-  parameter Modelica.SIunits.Time timOff(fixed=false) "Time offset";
+  parameter Modelica.Units.SI.Time timOff(fixed=false) "Time offset";
   // final parameters since the user may wrongly assume that this model shifts the
   // actual time of the simulation
   final constant Integer monthRef(min=1, max=12) = 1 "Month when time = 0"
@@ -81,9 +77,9 @@ protected
   discrete Real epochLastMonth
     "Unix time stamp of the beginning of the current month";
 
-  final parameter Modelica.SIunits.Time hourSampleStart(fixed=false)
+  final parameter Modelica.Units.SI.Time hourSampleStart(fixed=false)
     "Time when the sampling every hour starts";
-  final parameter Modelica.SIunits.Time daySampleStart(fixed=false)
+  final parameter Modelica.Units.SI.Time daySampleStart(fixed=false)
     "Time when the sampling every day starts";
 
 

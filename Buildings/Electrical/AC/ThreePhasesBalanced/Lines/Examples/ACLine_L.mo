@@ -1,7 +1,7 @@
 within Buildings.Electrical.AC.ThreePhasesBalanced.Lines.Examples;
 model ACLine_L "Test model for single phase inductive lines"
   extends Modelica.Icons.Example;
-  parameter Modelica.SIunits.Inductance Lbase = 10/2/Modelica.Constants.pi/60
+  parameter Modelica.Units.SI.Inductance Lbase=10/2/Modelica.Constants.pi/60
     "Base value for the line inductances";
   ThreePhasesBalanced.Sources.FixedVoltage E(definiteReference=true,
     f=60,

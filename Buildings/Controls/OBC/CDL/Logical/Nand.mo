@@ -12,7 +12,8 @@ block Nand
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
 equation
-  y=not(u1 and u2);
+  y=not
+       (u1 and u2);
   annotation (
     defaultComponentName="nand",
     Icon(

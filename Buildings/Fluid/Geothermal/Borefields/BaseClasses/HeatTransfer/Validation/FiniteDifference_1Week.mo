@@ -3,7 +3,7 @@ model FiniteDifference_1Week
   "Short term validation of ground temperature response model"
   extends Modelica.Icons.Example;
 
-  parameter Modelica.SIunits.Temperature T_start = 283.15
+  parameter Modelica.Units.SI.Temperature T_start=283.15
     "Initial soil temperature";
   Buildings.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.Cylindrical soi(
     final steadyStateInitial=false,
@@ -47,7 +47,7 @@ model FiniteDifference_1Week
     annotation (Placement(transformation(extent={{-90,-88},{-70,-68}})));
 
   Modelica.Blocks.Sources.Sine sine(
-    freqHz=1/(24*3600),
+    f=1/(24*3600),
     startTime=21600,
     amplitude=1e8) "Heat flow signal"
     annotation (Placement(transformation(extent={{-92,-10},{-72,10}})));

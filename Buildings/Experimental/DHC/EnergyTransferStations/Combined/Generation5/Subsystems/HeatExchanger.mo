@@ -17,33 +17,33 @@ model HeatExchanger
     constrainedby Buildings.Fluid.Movers.Data.Generic
     "Record with performance data for secondary pump"
     annotation (choicesAllMatching=true,Placement(transformation(extent={{20,-140},{40,-120}})));
-  parameter Modelica.SIunits.PressureDifference dp1Hex_nominal(displayUnit="Pa")
-    "Nominal pressure drop across heat exchanger on district side"
+  parameter Modelica.Units.SI.PressureDifference dp1Hex_nominal(displayUnit=
+        "Pa") "Nominal pressure drop across heat exchanger on district side"
     annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.SIunits.PressureDifference dp2Hex_nominal(displayUnit="Pa")
-    "Nominal pressure drop across heat exchanger on building side"
+  parameter Modelica.Units.SI.PressureDifference dp2Hex_nominal(displayUnit=
+        "Pa") "Nominal pressure drop across heat exchanger on building side"
     annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.SIunits.PressureDifference dpVal1_nominal(
-    displayUnit="Pa")=dp1Hex_nominal/2
+  parameter Modelica.Units.SI.PressureDifference dpVal1_nominal(displayUnit=
+        "Pa") = dp1Hex_nominal/2
     "Nominal pressure drop of primary control valve"
     annotation (Dialog(enable=have_val1, group="Nominal condition"));
-  parameter Modelica.SIunits.PressureDifference dpVal2_nominal(
-    displayUnit="Pa")=dp2Hex_nominal/2
+  parameter Modelica.Units.SI.PressureDifference dpVal2_nominal(displayUnit=
+        "Pa") = dp2Hex_nominal/2
     "Nominal pressure drop of secondary control valve"
     annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.SIunits.HeatFlowRate Q_flow_nominal
+  parameter Modelica.Units.SI.HeatFlowRate Q_flow_nominal
     "Nominal heat flow rate (from district to building)"
     annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.SIunits.Temperature T_a1_nominal
+  parameter Modelica.Units.SI.Temperature T_a1_nominal
     "Nominal water inlet temperature on district side"
     annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.SIunits.Temperature T_b1_nominal
+  parameter Modelica.Units.SI.Temperature T_b1_nominal
     "Nominal water outlet temperature on district side"
     annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.SIunits.Temperature T_a2_nominal
+  parameter Modelica.Units.SI.Temperature T_a2_nominal
     "Nominal water inlet temperature on building side"
     annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.SIunits.Temperature T_b2_nominal
+  parameter Modelica.Units.SI.Temperature T_b2_nominal
     "Nominal water outlet temperature on building side"
     annotation (Dialog(group="Nominal condition"));
   parameter Real spePum1Min(unit="1")=0.1

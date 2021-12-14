@@ -509,8 +509,8 @@ block Controller
     annotation (Placement(transformation(extent={{-240,-290},{-200,-250}}),
         iconTransformation(extent={{-240,-330},{-200,-290}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uFreProSta if
-      use_G36FrePro
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uFreProSta
+   if use_G36FrePro
    "Freeze protection status, used if use_G36FrePro=true"
     annotation (Placement(transformation(extent={{-240,-320},{-200,-280}}),
         iconTransformation(extent={{-240,-360},{-200,-320}})));

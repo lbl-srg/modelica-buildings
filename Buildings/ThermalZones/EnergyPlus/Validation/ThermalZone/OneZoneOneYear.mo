@@ -5,8 +5,7 @@ model OneZoneOneYear
   Controls.OBC.CDL.Continuous.MovingMean TAirMea(
     delta(
       displayUnit="d")=86400,
-    y(
-      final unit="K",
+    y(final unit="K",
       displayUnit="degC"))
     "Moving mean of air temperature"
     annotation (Placement(transformation(extent={{60,8},{80,28}})));

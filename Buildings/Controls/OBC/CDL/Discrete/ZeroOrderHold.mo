@@ -50,7 +50,8 @@ equation
   /* Define y=ySample with an infinitesimal delay to break potential
        algebraic loops if both the continuous and the discrete part have
        direct feedthrough
-    */y=pre(ySample);
+    */
+      y=pre(ySample);
   annotation (
     defaultComponentName="zerOrdHol",
     Icon(
@@ -91,7 +92,7 @@ At initial time, the block feeds the input directly to the output.
 <ul>
 <li>
 November 12, 2020, by Michael Wetter:<br/>
-Reformulated to remove dependency to <code>Modelica.SIunits</code>.<br/>
+Reformulated to remove dependency to <code>Modelica.Units.SI</code>.<br/>
 This is for
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2243\">issue 2243</a>.
 </li>

@@ -8,10 +8,10 @@ block Fan "Declaration of an FMU that exports a fan"
                           false,
       energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState));
 
-  parameter Modelica.SIunits.MassFlowRate m_flow_nominal=0.01
+  parameter Modelica.Units.SI.MassFlowRate m_flow_nominal=0.01
     "Nominal mass flow rate";
-  parameter Modelica.SIunits.PressureDifference dp_nominal(displayUnit="Pa")=500
-    "Pressure drop at nominal mass flow rate";
+  parameter Modelica.Units.SI.PressureDifference dp_nominal(displayUnit="Pa")
+     = 500 "Pressure drop at nominal mass flow rate";
 
   Modelica.Blocks.Interfaces.RealInput dp_in(min=0, final unit="Pa")
     "Prescribed pressure rise"

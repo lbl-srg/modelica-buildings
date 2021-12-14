@@ -1,13 +1,13 @@
 within Buildings.Electrical.DC.Storage;
 model Battery "Simple model of a battery"
- parameter Modelica.SIunits.Efficiency etaCha(max=1) = 0.9
+  parameter Modelica.Units.SI.Efficiency etaCha(max=1) = 0.9
     "Efficiency during charging";
- parameter Modelica.SIunits.Efficiency etaDis(max=1) = 0.9
+  parameter Modelica.Units.SI.Efficiency etaDis(max=1) = 0.9
     "Efficiency during discharging";
  parameter Real SOC_start(min=0, max=1, unit="1")=0.1 "Initial state of charge";
- parameter Modelica.SIunits.Energy EMax(min=0, displayUnit="kWh")
+  parameter Modelica.Units.SI.Energy EMax(min=0, displayUnit="kW.h")
     "Maximum available charge";
- parameter Modelica.SIunits.Voltage V_nominal
+  parameter Modelica.Units.SI.Voltage V_nominal
     "Nominal voltage (V_nominal >= 0)";
  Modelica.Blocks.Interfaces.RealInput P(unit="W")
     "Power stored in battery (if positive), or extracted from battery (if negative)"
@@ -149,6 +149,12 @@ and that the state of charge remains between zero and one.
 </html>",
         revisions="<html>
 <ul>
+<li>
+December 6, 2021, by Michael Wetter:<br/>
+Corrected wrong unit string.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2798\">issue 2798</a>.
+</li>
 <li>
 September 24, 2015 by Michael Wetter:<br/>
 Removed binding of <code>P_nominal</code> as

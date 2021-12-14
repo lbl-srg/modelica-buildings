@@ -2,14 +2,13 @@ within Buildings.Fluid.CHPs.BaseClasses;
 model EngineTemperature "Heat exchange within the engine control volume"
   extends Modelica.Blocks.Icons.Block;
 
-  parameter Modelica.SIunits.ThermalConductance UAHex
+  parameter Modelica.Units.SI.ThermalConductance UAHex
     "Thermal conductance between the engine and cooling water";
-  parameter Modelica.SIunits.ThermalConductance UALos
+  parameter Modelica.Units.SI.ThermalConductance UALos
     "Thermal conductance between the engine and surroundings";
-  parameter Modelica.SIunits.HeatCapacity capEng
+  parameter Modelica.Units.SI.HeatCapacity capEng
     "Thermal capacitance of the engine control volume";
-  parameter Modelica.SIunits.Temperature TEngIni
-    "Initial engine temperature";
+  parameter Modelica.Units.SI.Temperature TEngIni "Initial engine temperature";
 
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a TRoo
     "Heat port for room temperature"
@@ -30,8 +29,9 @@ model EngineTemperature "Heat exchange within the engine control volume"
       iconTransformation(extent={{100,-20},{140,20}})));
 
 protected
-  constant Modelica.SIunits.Density rhoWat=1000 "Water density";
-  constant Modelica.SIunits.SpecificHeatCapacity cWat=4180 "Water specific heat";
+  constant Modelica.Units.SI.Density rhoWat=1000 "Water density";
+  constant Modelica.Units.SI.SpecificHeatCapacity cWat=4180
+    "Water specific heat";
   Modelica.Thermal.HeatTransfer.Components.ThermalConductor theConHX(
     final G=UAHex)
     "Thermal conductance between engine and cooling water volume"

@@ -3,7 +3,7 @@ function efficiency "Flow vs. efficiency characteristics for fan or pump"
   extends Modelica.Icons.Function;
   input Buildings.Fluid.Movers.BaseClasses.Characteristics.efficiencyParameters per
     "Efficiency performance data";
-  input Modelica.SIunits.VolumeFlowRate V_flow "Volumetric flow rate";
+  input Modelica.Units.SI.VolumeFlowRate V_flow "Volumetric flow rate";
   input Real d[:] "Derivatives at support points for spline interpolation";
   input Real r_N(unit="1") "Relative revolution, r_N=N/N_nominal";
   input Real delta "Small value for switching implementation around zero rpm";

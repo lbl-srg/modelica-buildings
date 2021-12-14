@@ -55,8 +55,7 @@ equation
     tSample=time;
     uSample=u;
     pre_uSample=pre(uSample);
-    c=
-      if firstTrigger then
+    c=if firstTrigger then
         0
       else
         (uSample-pre_uSample)/samplePeriod;
@@ -64,7 +63,8 @@ equation
   /* Use pre_uSample and pre(c) to break potential algebraic loops by an
        infinitesimal delay if both the continuous and the discrete part
        have direct feedthrough.
-    */y=pre_uSample+pre(c)*(time-tSample);
+    */
+      y=pre_uSample+pre(c)*(time-tSample);
   annotation (
     defaultComponentName="firOrdHol",
     Icon(
@@ -106,7 +106,7 @@ values of the last two sampled input signals.
 <ul>
 <li>
 November 12, 2020, by Michael Wetter:<br/>
-Reformulated to remove dependency to <code>Modelica.SIunits</code>.<br/>
+Reformulated to remove dependency to <code>Modelica.Units.SI</code>.<br/>
 This is for
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2243\">issue 2243</a>.
 </li>

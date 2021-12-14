@@ -12,7 +12,9 @@ block Xor
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
 equation
-  y=not((u1 and u2) or(not u1 and not u2));
+  y=not
+       ((u1 and u2) or
+                      (not u1 and not u2));
   annotation (
     defaultComponentName="xor",
     Icon(

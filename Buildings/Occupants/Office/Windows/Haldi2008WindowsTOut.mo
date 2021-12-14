@@ -4,7 +4,7 @@ model Haldi2008WindowsTOut "A model to predict occupants' window behavior with o
   parameter Real A = 0.049 "Slope of the logistic relation";
   parameter Real B = -1.12 "Intercept of the logistic relation";
   parameter Integer seed = 30 "Seed for the random number generator";
-  parameter Modelica.SIunits.Time samplePeriod = 120 "Sample period";
+  parameter Modelica.Units.SI.Time samplePeriod=120 "Sample period";
 
   Modelica.Blocks.Interfaces.RealInput TOut(
     final unit="K",
@@ -22,7 +22,8 @@ model Haldi2008WindowsTOut "A model to predict occupants' window behavior with o
     max=1) "Probability of window opened";
 
 protected
-  parameter Modelica.SIunits.Time t0(final fixed = false) "First sample time instant";
+  parameter Modelica.Units.SI.Time t0(final fixed=false)
+    "First sample time instant";
   output Boolean sampleTrigger "True, if sample time instant";
   Real curSeed "Current value for seed as a real-valued variable";
 initial equation

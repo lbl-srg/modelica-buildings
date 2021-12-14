@@ -6,7 +6,7 @@ model TransportWaterAir
   package MediumA = Buildings.Media.Air(extraPropertiesNames={"CO2"})
    "Medium in the duct";
 
-  parameter Modelica.SIunits.Length length=20 "Pipe length";
+  parameter Modelica.Units.SI.Length length=20 "Pipe length";
 
   Modelica.Blocks.Sources.Step Tin(
     startTime=100,

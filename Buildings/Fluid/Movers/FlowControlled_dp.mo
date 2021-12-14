@@ -28,33 +28,32 @@ model FlowControlled_dp
         else per.powMet),
       r_N(start=if abs(dp_nominal) > 1E-8 then dp_start/dp_nominal else 0)));
 
-  parameter Modelica.SIunits.PressureDifference dp_start(
+  parameter Modelica.Units.SI.PressureDifference dp_start(
     min=0,
-    displayUnit="Pa")=0 "Initial value of pressure raise"
-    annotation(Dialog(tab="Dynamics", group="Filtered speed"));
+    displayUnit="Pa") = 0 "Initial value of pressure raise"
+    annotation (Dialog(tab="Dynamics", group="Filtered speed"));
 
   // For air, we set dp_nominal = 600 as default, for water we set 10000
-  parameter Modelica.SIunits.PressureDifference dp_nominal(
+  parameter Modelica.Units.SI.PressureDifference dp_nominal(
     min=0,
-    displayUnit="Pa")=
-      if rho_default < 500 then 500 else 10000 "Nominal pressure raise, used to normalized the filter if use_inputFilter=true,
+    displayUnit="Pa") = if rho_default < 500 then 500 else 10000 "Nominal pressure raise, used to normalized the filter if use_inputFilter=true,
         to set default values of constantHead and heads, and
         and for default pressure curve if not specified in record per"
-    annotation(Dialog(group="Nominal condition"));
+    annotation (Dialog(group="Nominal condition"));
 
-  parameter Modelica.SIunits.PressureDifference constantHead(
+  parameter Modelica.Units.SI.PressureDifference constantHead(
     min=0,
-    displayUnit="Pa")=dp_nominal
-    "Constant pump head, used when inputType=Constant"
-    annotation(Dialog(enable=inputType == Buildings.Fluid.Types.InputType.Constant));
+    displayUnit="Pa") = dp_nominal
+    "Constant pump head, used when inputType=Constant" annotation (Dialog(
+        enable=inputType == Buildings.Fluid.Types.InputType.Constant));
 
   // By default, set heads proportional to sqrt(speed/speed_nominal)
-  parameter Modelica.SIunits.PressureDifference[:] heads(
+  parameter Modelica.Units.SI.PressureDifference[:] heads(
     each min=0,
-    each displayUnit="Pa")=
-    dp_nominal*{(per.speeds[i]/per.speeds[end])^2 for i in 1:size(per.speeds, 1)}
+    each displayUnit="Pa") = dp_nominal*{(per.speeds[i]/per.speeds[end])^2 for
+    i in 1:size(per.speeds, 1)}
     "Vector of head set points, used when inputType=Stages"
-    annotation(Dialog(enable=inputType == Buildings.Fluid.Types.InputType.Stages));
+    annotation (Dialog(enable=inputType == Buildings.Fluid.Types.InputType.Stages));
   parameter Boolean prescribeSystemPressure = false
     "=true, to control mover such that pressure difference is obtained across two remote points in system"
     annotation(Evaluate=true, Dialog(tab="Advanced"));

@@ -64,7 +64,7 @@ test-omc-spawn-spaces-success:
 	"setCommandLineOptions(\"-d=execstat\");\n" \
 	"setMatchingAlgorithm(\"PFPlusExt\");\n" \
 	"setIndexReductionMethod(\"dynamicStateSelection\");\n" \
-	"loadModel(Modelica, {\"3.2.3\"});\n" \
+	"loadModel(Modelica, {\"4.0.0\"});\n" \
 	"loadFile(\"Buildings 8.0.0/package.mo\");\n" \
 	"loadFile(\"SpawnTest.mo\");\n" \
 	"simulate(SpawnTest);\n" \
@@ -92,7 +92,7 @@ test-omc-spawn-spaces-failure:
 	"setCommandLineOptions(\"-d=execstat\");\n" \
 	"setMatchingAlgorithm(\"PFPlusExt\");\n" \
 	"setIndexReductionMethod(\"dynamicStateSelection\");\n" \
-	"loadModel(Modelica, {\"3.2.3\"});\n" \
+	"loadModel(Modelica, {\"4.0.0\"});\n" \
 	"loadFile(\"Buildings 8.0.0/package.mo\");\n" \
 	"loadFile(\"SpawnTest.mo\");\n" \
 	"simulate(SpawnTest);\n" \
@@ -149,8 +149,3 @@ test-optimica:
 	(cd $(ROOT)/Buildings && \
 	  export PYTHONPATH=$(TRAVIS_BUILD_DIR)/Buildings/Resources/Python-Sources && \
 	  python3 ../bin/runUnitTests.py --batch --single-package $(PACKAGE) --tool optimica --skip-verification)
-
-test-jmodelica:
-	(cd $(ROOT)/Buildings && \
-	  export PYTHONPATH=$(TRAVIS_BUILD_DIR)/Buildings/Resources/Python-Sources && \
-	  python3 ../bin/runUnitTests.py --batch --single-package $(PACKAGE) --tool jmodelica --skip-verification)

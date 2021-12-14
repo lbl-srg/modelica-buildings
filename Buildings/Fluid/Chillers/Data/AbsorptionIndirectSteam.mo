@@ -5,10 +5,10 @@ package AbsorptionIndirectSteam
   record Generic "Generic data record for absorption indirect chiller"
     extends Modelica.Icons.Record;
 
-    parameter Modelica.SIunits.HeatFlowRate QEva_flow_nominal(final max=0)
-     "Nominal evaporator cooling capacity (negative number)"
+    parameter Modelica.Units.SI.HeatFlowRate QEva_flow_nominal(final max=0)
+      "Nominal evaporator cooling capacity (negative number)"
       annotation (Dialog(group="Nominal condition"));
-    parameter Modelica.SIunits.Power P_nominal "Nominal absorber pump power"
+    parameter Modelica.Units.SI.Power P_nominal "Nominal absorber pump power"
       annotation (Dialog(group="Nominal condition"));
 
     parameter Real PLRMax(min=0)
@@ -18,16 +18,18 @@ package AbsorptionIndirectSteam
     "Minimum part load ratio"
       annotation (Dialog(group="Nominal condition"));
 
-    parameter Modelica.SIunits.MassFlowRate mCon_flow_nominal
+    parameter Modelica.Units.SI.MassFlowRate mCon_flow_nominal
       "Nominal mass flow rate at condenser"
       annotation (Dialog(group="Nominal condition"));
-    parameter Modelica.SIunits.MassFlowRate mEva_flow_nominal
+    parameter Modelica.Units.SI.MassFlowRate mEva_flow_nominal
       "Nominal mass flow rate at evaporator"
       annotation (Dialog(group="Nominal condition"));
-    parameter Modelica.SIunits.PressureDifference dpCon_nominal(displayUnit="Pa") = 30000
+    parameter Modelica.Units.SI.PressureDifference dpCon_nominal(displayUnit=
+          "Pa") = 30000
       "Pressure difference at condenser at nominal mass flow rate"
       annotation (Dialog(group="Nominal condition"));
-    parameter Modelica.SIunits.PressureDifference dpEva_nominal(displayUnit="Pa") = 30000
+    parameter Modelica.Units.SI.PressureDifference dpEva_nominal(displayUnit=
+          "Pa") = 30000
       "Pressure difference at evaporator at nominal mass flow rate"
       annotation (Dialog(group="Nominal condition"));
 

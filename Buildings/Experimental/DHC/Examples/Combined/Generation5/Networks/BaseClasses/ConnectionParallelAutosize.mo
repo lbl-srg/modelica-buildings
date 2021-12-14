@@ -18,7 +18,7 @@ model ConnectionParallelAutosize
       final dp_length_nominal=dp_length_nominal));
   parameter Real dp_length_nominal(final unit="Pa/m") = 250
     "Pressure drop per pipe length at nominal flow rate";
-  parameter Modelica.SIunits.Length dhDisRet
+  parameter Modelica.Units.SI.Length dhDisRet
     "Hydraulic diameter of the return distribution pipe";
   annotation (Documentation(revisions="<html>
 <ul>

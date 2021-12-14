@@ -29,24 +29,25 @@ model FlowControlled_m_flow
     preSou(m_flow_start=m_flow_start));
 
   // For air, we set dp_nominal = 600 as default, for water we set 10000
-  parameter Modelica.SIunits.PressureDifference dp_nominal(min=0, displayUnit="Pa")=
-    if rho_default < 500 then 500 else 10000
+  parameter Modelica.Units.SI.PressureDifference dp_nominal(
+    min=0,
+    displayUnit="Pa") = if rho_default < 500 then 500 else 10000
     "Nominal pressure raise, used for default pressure curve if not specified in record per"
-    annotation(Dialog(group="Nominal condition"));
+    annotation (Dialog(group="Nominal condition"));
 
-  parameter Modelica.SIunits.MassFlowRate m_flow_start(min=0)=0
+  parameter Modelica.Units.SI.MassFlowRate m_flow_start(min=0) = 0
     "Initial value of mass flow rate"
-    annotation(Dialog(tab="Dynamics", group="Filtered speed"));
+    annotation (Dialog(tab="Dynamics", group="Filtered speed"));
 
-  parameter Modelica.SIunits.MassFlowRate constantMassFlowRate=m_flow_nominal
-    "Constant pump mass flow rate, used when inputType=Constant"
-    annotation(Dialog(enable=inputType == Buildings.Fluid.Types.InputType.Constant));
+  parameter Modelica.Units.SI.MassFlowRate constantMassFlowRate=m_flow_nominal
+    "Constant pump mass flow rate, used when inputType=Constant" annotation (
+      Dialog(enable=inputType == Buildings.Fluid.Types.InputType.Constant));
 
   // By default, set massFlowRates proportional to (speed/speed_nominal)
-  parameter Modelica.SIunits.MassFlowRate[:] massFlowRates=
-    m_flow_nominal*{per.speeds[i]/per.speeds[end] for i in 1:size(per.speeds, 1)}
+  parameter Modelica.Units.SI.MassFlowRate[:] massFlowRates=m_flow_nominal*{per.speeds[
+      i]/per.speeds[end] for i in 1:size(per.speeds, 1)}
     "Vector of mass flow rate set points, used when inputType=Stage"
-    annotation(Dialog(enable=inputType == Buildings.Fluid.Types.InputType.Stages));
+    annotation (Dialog(enable=inputType == Buildings.Fluid.Types.InputType.Stages));
 
   Modelica.Blocks.Interfaces.RealInput m_flow_in(
     final unit="kg/s",

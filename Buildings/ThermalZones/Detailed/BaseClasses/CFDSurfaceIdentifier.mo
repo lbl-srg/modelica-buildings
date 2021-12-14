@@ -2,8 +2,8 @@ within Buildings.ThermalZones.Detailed.BaseClasses;
 record CFDSurfaceIdentifier "Data record to identify surfaces in the CFD code"
     extends Modelica.Icons.Record;
  String name "Name of the surface";
- Modelica.SIunits.Area A "Area of the surface";
- Modelica.SIunits.Angle til "Tilt of the surface";
+  Modelica.Units.SI.Area A "Area of the surface";
+  Modelica.Units.SI.Angle til "Tilt of the surface";
  Buildings.ThermalZones.Detailed.Types.CFDBoundaryConditions bouCon
     "Boundary condition used in the CFD simulation";
 

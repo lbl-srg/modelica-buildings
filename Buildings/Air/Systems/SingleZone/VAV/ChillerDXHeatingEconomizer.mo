@@ -7,32 +7,30 @@ model ChillerDXHeatingEconomizer
   replaceable package MediumW = Buildings.Media.Water "Medium model for water"
       annotation (choicesAllMatching = true);
 
-  parameter Modelica.SIunits.DimensionlessRatio COP_nominal = 5.5
+  parameter Modelica.Units.SI.DimensionlessRatio COP_nominal=5.5
     "Nominal COP of the chiller";
-  parameter Modelica.SIunits.Temperature TSupChi_nominal
+  parameter Modelica.Units.SI.Temperature TSupChi_nominal
     "Design value for chiller leaving water temperature";
-  parameter Modelica.SIunits.MassFlowRate mAir_flow_nominal
-    "Design airflow rate of system"
-    annotation(Dialog(group="Air design"));
-  parameter Modelica.SIunits.Power QHea_flow_nominal(min=0)
+  parameter Modelica.Units.SI.MassFlowRate mAir_flow_nominal
+    "Design airflow rate of system" annotation (Dialog(group="Air design"));
+  parameter Modelica.Units.SI.Power QHea_flow_nominal(min=0)
     "Design capacity of heating coil"
-    annotation(Dialog(group="Heating design"));
+    annotation (Dialog(group="Heating design"));
   parameter Real etaHea_nominal(min=0, max=1, unit="1")
     "Design heating efficiency of the heating coil"
     annotation(Dialog(group="Heating design"));
-  parameter Modelica.SIunits.Power QCoo_flow_nominal(max=0)
+  parameter Modelica.Units.SI.Power QCoo_flow_nominal(max=0)
     "Design capacity of cooling coil"
-    annotation(Dialog(group="Cooling design"));
-  parameter Modelica.SIunits.PressureDifference dp_nominal(
-    displayUnit="Pa") = 500
-    "Design pressure drop of flow leg with fan"
-    annotation(Dialog(group="Air design"));
-  final parameter Modelica.SIunits.MassFlowRate mChiEva_flow_nominal=
-    -QCoo_flow_nominal/Buildings.Utilities.Psychrometrics.Constants.cpWatLiq/4
+    annotation (Dialog(group="Cooling design"));
+  parameter Modelica.Units.SI.PressureDifference dp_nominal(displayUnit="Pa")
+     = 500 "Design pressure drop of flow leg with fan"
+    annotation (Dialog(group="Air design"));
+  final parameter Modelica.Units.SI.MassFlowRate mChiEva_flow_nominal=-
+      QCoo_flow_nominal/Buildings.Utilities.Psychrometrics.Constants.cpWatLiq/4
     "Design chilled water supply flow";
-  final parameter Modelica.SIunits.MassFlowRate mChiCon_flow_nominal=
-    -QCoo_flow_nominal*(1+1/COP_nominal)/Buildings.Utilities.Psychrometrics.Constants.cpAir/10
-    "Design condenser air flow";
+  final parameter Modelica.Units.SI.MassFlowRate mChiCon_flow_nominal=-
+      QCoo_flow_nominal*(1 + 1/COP_nominal)/Buildings.Utilities.Psychrometrics.Constants.cpAir
+      /10 "Design condenser air flow";
 
   Modelica.Blocks.Interfaces.BooleanInput chiOn "On signal for chiller plant"
     annotation (Placement(transformation(extent={{-240,-140},{-200,-100}}),
@@ -282,8 +280,8 @@ protected
     replaceable package Medium = Modelica.Media.Interfaces.PartialMedium
     "Medium in the component"
     annotation (choicesAllMatching = true);
-    parameter Modelica.SIunits.MassFlowRate m_flow_nominal
-    "Design chilled water supply flow";
+    parameter Modelica.Units.SI.MassFlowRate m_flow_nominal
+      "Design chilled water supply flow";
     Modelica.Fluid.Interfaces.FluidPort_a port_1(
       redeclare package Medium = Medium) annotation (Placement(transformation(extent={{50,88},
               {70,108}}), iconTransformation(extent={{50,88},{70,108}})));

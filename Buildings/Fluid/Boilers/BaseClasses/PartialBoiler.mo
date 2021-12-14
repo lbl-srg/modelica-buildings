@@ -9,30 +9,28 @@ partial model PartialBoiler "Boiler base class with efficiency unspecified"
    annotation (choicesAllMatching = true);
 
   // These parameters can be supplied via Data records
-  parameter Modelica.SIunits.Power Q_flow_nominal "Nominal heating power";
-  parameter Modelica.SIunits.ThermalConductance UA=0.05*Q_flow_nominal/30
+  parameter Modelica.Units.SI.Power Q_flow_nominal "Nominal heating power";
+  parameter Modelica.Units.SI.ThermalConductance UA=0.05*Q_flow_nominal/30
     "Overall UA value";
-  parameter Modelica.SIunits.Volume VWat = 1.5E-6*Q_flow_nominal
-    "Water volume of boiler"
-    annotation(Dialog(tab = "Dynamics",
-    enable = not (energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState)));
-  parameter Modelica.SIunits.Mass mDry = 1.5E-3*Q_flow_nominal
-    "Mass of boiler that will be lumped to water heat capacity"
-    annotation(Dialog(tab = "Dynamics",
-    enable = not (energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState)));
-  parameter Modelica.SIunits.Efficiency eta_nominal
+  parameter Modelica.Units.SI.Volume VWat=1.5E-6*Q_flow_nominal
+    "Water volume of boiler" annotation (Dialog(tab="Dynamics", enable=not (
+          energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState)));
+  parameter Modelica.Units.SI.Mass mDry=1.5E-3*Q_flow_nominal
+    "Mass of boiler that will be lumped to water heat capacity" annotation (
+      Dialog(tab="Dynamics", enable=not (energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState)));
+  parameter Modelica.Units.SI.Efficiency eta_nominal
     "Boiler efficiency at nominal condition";
 
-  input Modelica.SIunits.Efficiency eta "Boiler efficiency";
-  Modelica.SIunits.Power QFue_flow = y * Q_flow_nominal/eta_nominal
+  input Modelica.Units.SI.Efficiency eta "Boiler efficiency";
+  Modelica.Units.SI.Power QFue_flow=y*Q_flow_nominal/eta_nominal
     "Heat released by fuel";
-  Modelica.SIunits.Power QWat_flow = eta * QFue_flow + UAOve.Q_flow
+  Modelica.Units.SI.Power QWat_flow=eta*QFue_flow + UAOve.Q_flow
     "Heat transfer from gas into water";
     // The direction of UAOve.Q_flow is from the ambient to the boiler
     //   and therefore it takes a plus size here.
-  Modelica.SIunits.MassFlowRate mFue_flow = QFue_flow/fue.h
+  Modelica.Units.SI.MassFlowRate mFue_flow=QFue_flow/fue.h
     "Fuel mass flow rate";
-  Modelica.SIunits.VolumeFlowRate VFue_flow = mFue_flow/fue.d
+  Modelica.Units.SI.VolumeFlowRate VFue_flow=mFue_flow/fue.d
     "Fuel volume flow rate";
 
   Modelica.Blocks.Interfaces.RealInput y(min=0, max=1) "Part load ratio"

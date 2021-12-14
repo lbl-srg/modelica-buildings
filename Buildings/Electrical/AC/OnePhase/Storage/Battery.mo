@@ -5,14 +5,14 @@ model Battery "Simple model of a battery"
       Buildings.Electrical.PhaseSystems.OnePhase constrainedby
     Buildings.Electrical.PhaseSystems.PartialPhaseSystem "Phase system"
     annotation (choicesAllMatching=true);
-  parameter Modelica.SIunits.Efficiency etaCha(max=1) = 0.9
+  parameter Modelica.Units.SI.Efficiency etaCha(max=1) = 0.9
     "Efficiency during charging";
-  parameter Modelica.SIunits.Efficiency etaDis(max=1) = 0.9
+  parameter Modelica.Units.SI.Efficiency etaDis(max=1) = 0.9
     "Efficiency during discharging";
   parameter Real SOC_start(start=0.1) "Initial charge";
-  parameter Modelica.SIunits.Energy EMax(min=0, displayUnit="kWh")
+  parameter Modelica.Units.SI.Energy EMax(min=0, displayUnit="kW.h")
     "Maximum available charge";
-  parameter Modelica.SIunits.Voltage V_nominal(start = 110)
+  parameter Modelica.Units.SI.Voltage V_nominal(start=110)
     "Nominal voltage (V_nominal >= 0)";
   parameter Boolean linearized=false
     "If =true introduce a linearization in the load";
@@ -184,6 +184,12 @@ and that the state of charge remains between zero and one.
 </html>",
         revisions="<html>
 <ul>
+<li>
+December 6, 2021, by Michael Wetter:<br/>
+Corrected wrong unit string.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2798\">issue 2798</a>.
+</li>
 <li>
 April 2, 2020 by Michael Wetter:<br/>
 Corrected model and improved the documentation. The previous model extracted from

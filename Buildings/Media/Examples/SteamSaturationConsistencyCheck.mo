@@ -6,24 +6,29 @@ model SteamSaturationConsistencyCheck
   package MediumSte = Buildings.Media.Steam "Steam medium model";
   package MediumWat = Buildings.Media.Water "Liquid water medium model";
 
-  parameter Modelica.SIunits.Temperature TMin = 273.15+100
+  parameter Modelica.Units.SI.Temperature TMin=273.15 + 100
     "Minimum temperature for the simulation";
-  parameter Modelica.SIunits.Temperature TMax = 273.15+179.886
-      "Maximum temperature for the simulation";
+  parameter Modelica.Units.SI.Temperature TMax=273.15 + 179.886
+    "Maximum temperature for the simulation";
   parameter Real tol = 1E-8 "Numerical tolerance";
 
   MediumSte.ThermodynamicState sat "Saturation state";
-  Modelica.SIunits.Pressure pSat "Saturation pressure";
-  Modelica.SIunits.Temperature TSat0 "Starting saturation temperature";
-  Modelica.SIunits.Temperature TSat "Saturation temperature";
-  Modelica.SIunits.Conversions.NonSIunits.Temperature_degC TSat_degC
+  Modelica.Units.SI.Pressure pSat "Saturation pressure";
+  Modelica.Units.SI.Temperature TSat0 "Starting saturation temperature";
+  Modelica.Units.SI.Temperature TSat "Saturation temperature";
+  Modelica.Units.NonSI.Temperature_degC TSat_degC
     "Celsius saturation temperature";
-  Modelica.SIunits.SpecificEnthalpy hlvIF97 "Enthalpy of vaporization, IF97 formulation";
-  Modelica.SIunits.SpecificEnthalpy hlvWatSte "Enthalpy of vaporization, water and steam medium models";
-  Modelica.SIunits.SpecificEnthalpy hlIF97 "Enthalpy of saturated liquid, IF97";
-  Modelica.SIunits.SpecificEnthalpy hlWat "Enthalpy of saturated liquid, water medium";
-  Modelica.SIunits.SpecificEnthalpy hvIF97 "Enthalpy of saturated vapor, IF97";
-  Modelica.SIunits.SpecificEnthalpy hvSte "Enthalpy of saturated vapor, steam medium";
+  Modelica.Units.SI.SpecificEnthalpy hlvIF97
+    "Enthalpy of vaporization, IF97 formulation";
+  Modelica.Units.SI.SpecificEnthalpy hlvWatSte
+    "Enthalpy of vaporization, water and steam medium models";
+  Modelica.Units.SI.SpecificEnthalpy hlIF97
+    "Enthalpy of saturated liquid, IF97";
+  Modelica.Units.SI.SpecificEnthalpy hlWat
+    "Enthalpy of saturated liquid, water medium";
+  Modelica.Units.SI.SpecificEnthalpy hvIF97 "Enthalpy of saturated vapor, IF97";
+  Modelica.Units.SI.SpecificEnthalpy hvSte
+    "Enthalpy of saturated vapor, steam medium";
 
   Real hlvErr "Enthalpy of vaporization percent error";
   Real hlErr "Enthalpy of saturated liquid percent error";
@@ -35,8 +40,8 @@ protected
 function enthalpyOfSaturatedLiquid
   "Return enthalpy of saturated liquid"
     extends Modelica.Icons.Function;
-    input Modelica.SIunits.AbsolutePressure p "Pressure";
-    output Modelica.SIunits.SpecificEnthalpy hl "Enthalpy of saturated liquid";
+    input Modelica.Units.SI.AbsolutePressure p "Pressure";
+    output Modelica.Units.SI.SpecificEnthalpy hl "Enthalpy of saturated liquid";
 algorithm
   hl := Modelica.Media.Water.IF97_Utilities.BaseIF97.Regions.hl_p(p);
 annotation (Inline=true);
@@ -45,8 +50,8 @@ end enthalpyOfSaturatedLiquid;
 function enthalpyOfSaturatedVapor
   "Return enthalpy of saturated liquid"
     extends Modelica.Icons.Function;
-    input Modelica.SIunits.AbsolutePressure p "Pressure";
-    output Modelica.SIunits.SpecificEnthalpy hv "Enthalpy of saturated liquid";
+    input Modelica.Units.SI.AbsolutePressure p "Pressure";
+    output Modelica.Units.SI.SpecificEnthalpy hv "Enthalpy of saturated liquid";
 algorithm
   hv := Modelica.Media.Water.IF97_Utilities.BaseIF97.Regions.hv_p(p);
 annotation (Inline=true);
@@ -55,8 +60,8 @@ end enthalpyOfSaturatedVapor;
 function enthalpyOfVaporization
   "Return enthalpy of vaporization"
     extends Modelica.Icons.Function;
-    input Modelica.SIunits.AbsolutePressure p "Pressure";
-    output Modelica.SIunits.SpecificEnthalpy r0 "Vaporization enthalpy";
+    input Modelica.Units.SI.AbsolutePressure p "Pressure";
+    output Modelica.Units.SI.SpecificEnthalpy r0 "Vaporization enthalpy";
 algorithm
   r0 := Modelica.Media.Water.IF97_Utilities.BaseIF97.Regions.hv_p(p) -
     Modelica.Media.Water.IF97_Utilities.BaseIF97.Regions.hl_p(p);
@@ -76,7 +81,7 @@ equation
      + "   TSat  = " + String(TSat) + "\n"
      + "   Absolute error: " + String(abs(TSat-TSat0)) + " K");
   end if;
-  TSat_degC = Modelica.SIunits.Conversions.to_degC(TSat);
+  TSat_degC =Modelica.Units.Conversions.to_degC(TSat);
   sat = MediumSte.setState_pTX(p=pSat, T=TSat, X=MediumSte.X_default);
 
   hlvIF97 = enthalpyOfVaporization(pSat);

@@ -42,20 +42,24 @@ partial model PartialFlowMachine
   parameter Boolean nominalValuesDefineDefaultPressureCurve=false
     "Set to true to avoid warning if m_flow_nominal and dp_nominal are used to construct the default pressure curve";
 
-  parameter Modelica.SIunits.Time tau=1
+  parameter Modelica.Units.SI.Time tau=1
     "Time constant of fluid volume for nominal flow, used if energy or mass balance is dynamic"
-    annotation (Dialog(tab="Dynamics",
-                        group="Nominal condition",
-                        enable=energyDynamics <> Modelica.Fluid.Types.Dynamics.SteadyState or
-                               massDynamics <> Modelica.Fluid.Types.Dynamics.SteadyState));
+    annotation (Dialog(
+      tab="Dynamics",
+      group="Nominal condition",
+      enable=energyDynamics <> Modelica.Fluid.Types.Dynamics.SteadyState or
+          massDynamics <> Modelica.Fluid.Types.Dynamics.SteadyState));
 
   // Classes used to implement the filtered speed
   parameter Boolean use_inputFilter=true
     "= true, if speed is filtered with a 2nd order CriticalDamping filter"
     annotation(Dialog(tab="Dynamics", group="Filtered speed"));
-  parameter Modelica.SIunits.Time riseTime=30
-    "Rise time of the filter (time to reach 99.6 % of the speed)"
-    annotation(Dialog(tab="Dynamics", group="Filtered speed",enable=use_inputFilter));
+  parameter Modelica.Units.SI.Time riseTime=30
+    "Rise time of the filter (time to reach 99.6 % of the speed)" annotation (
+      Dialog(
+      tab="Dynamics",
+      group="Filtered speed",
+      enable=use_inputFilter));
   parameter Modelica.Blocks.Types.Init init=Modelica.Blocks.Types.Init.InitialOutput
     "Type of initialization (no init/steady state/initial state/initial output)"
     annotation(Dialog(tab="Dynamics", group="Filtered speed",enable=use_inputFilter));
@@ -88,9 +92,10 @@ partial model PartialFlowMachine
         iconTransformation(extent={{-10,-78},{10,-58}})));
 
   // Variables
-  Modelica.SIunits.VolumeFlowRate VMachine_flow(start=_VMachine_flow) = eff.V_flow "Volume flow rate";
-  Modelica.SIunits.PressureDifference dpMachine(displayUnit="Pa")=
-      -preSou.dp "Pressure difference";
+  Modelica.Units.SI.VolumeFlowRate VMachine_flow(start=_VMachine_flow) = eff.V_flow
+    "Volume flow rate";
+  Modelica.Units.SI.PressureDifference dpMachine(displayUnit="Pa") = -preSou.dp
+    "Pressure difference";
 
   Real eta(unit="1", final quantity="Efficiency") =    eff.eta "Global efficiency";
   Real etaHyd(unit="1", final quantity="Efficiency") = eff.etaHyd "Hydraulic efficiency";
@@ -98,7 +103,7 @@ partial model PartialFlowMachine
 
   // Quantity to control
 protected
-  final parameter Modelica.SIunits.VolumeFlowRate _VMachine_flow = 0
+  final parameter Modelica.Units.SI.VolumeFlowRate _VMachine_flow=0
     "Start value for VMachine_flow, used to avoid a warning if not specified";
 
   parameter Types.PrescribedVariable preVar "Type of prescribed variable";
@@ -121,8 +126,8 @@ protected
   final parameter Boolean haveVMax = eff.haveVMax
     "Flag, true if user specified data that contain V_flow_max";
 
-  final parameter Modelica.SIunits.VolumeFlowRate V_flow_max=eff.V_flow_max;
-  final parameter Modelica.SIunits.Density rho_default=
+  final parameter Modelica.Units.SI.VolumeFlowRate V_flow_max=eff.V_flow_max;
+  final parameter Modelica.Units.SI.Density rho_default=
     Medium.density_pTX(
       p=Medium.p_default,
       T=Medium.T_default,
@@ -133,11 +138,11 @@ protected
     p=p_start,
     X=X_start) "Medium state at start values";
 
-  final parameter Modelica.SIunits.SpecificEnthalpy h_outflow_start = Medium.specificEnthalpy(sta_start)
-    "Start value for outflowing enthalpy";
+  final parameter Modelica.Units.SI.SpecificEnthalpy h_outflow_start=
+      Medium.specificEnthalpy(sta_start) "Start value for outflowing enthalpy";
 
-  final parameter Modelica.SIunits.Frequency fCut = 5/(2*Modelica.Constants.pi*riseTime)
-    "Cut-off frequency of filter";
+  final parameter Modelica.Units.SI.Frequency fCut=5/(2*Modelica.Constants.pi*
+      riseTime) "Cut-off frequency of filter";
 
   Modelica.Blocks.Sources.Constant[size(stageInputs, 1)] stageValues(
     final k=stageInputs)

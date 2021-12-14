@@ -2,7 +2,7 @@ within Buildings.Examples.DualFanDualDuct.Controls;
 block RoomMixingBox "Controller for room mixing box"
   extends Modelica.Blocks.Icons.Block;
 
-  parameter Modelica.SIunits.MassFlowRate m_flow_min "Minimum mass flow rate";
+  parameter Modelica.Units.SI.MassFlowRate m_flow_min "Minimum mass flow rate";
   Buildings.Controls.OBC.CDL.Continuous.PID conHea(
     controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
     Td=60,
