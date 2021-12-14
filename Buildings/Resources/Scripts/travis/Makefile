@@ -64,7 +64,7 @@ test-omc-spawn-spaces-success:
 	"setCommandLineOptions(\"-d=execstat\");\n" \
 	"setMatchingAlgorithm(\"PFPlusExt\");\n" \
 	"setIndexReductionMethod(\"dynamicStateSelection\");\n" \
-	"loadModel(Modelica, {\"3.2.3\"});\n" \
+	"loadModel(Modelica, {\"4.0.0\"});\n" \
 	"loadFile(\"Buildings 8.0.0/package.mo\");\n" \
 	"loadFile(\"SpawnTest.mo\");\n" \
 	"simulate(SpawnTest);\n" \
@@ -92,7 +92,7 @@ test-omc-spawn-spaces-failure:
 	"setCommandLineOptions(\"-d=execstat\");\n" \
 	"setMatchingAlgorithm(\"PFPlusExt\");\n" \
 	"setIndexReductionMethod(\"dynamicStateSelection\");\n" \
-	"loadModel(Modelica, {\"3.2.3\"});\n" \
+	"loadModel(Modelica, {\"4.0.0\"});\n" \
 	"loadFile(\"Buildings 8.0.0/package.mo\");\n" \
 	"loadFile(\"SpawnTest.mo\");\n" \
 	"simulate(SpawnTest);\n" \
