@@ -15,20 +15,20 @@ model ConstantEffectiveness
   mWat1_flow = +mWat_flow,
   mWat2_flow = -mWat_flow);
 
-  parameter Modelica.SIunits.Efficiency epsS(max=1) = 0.8
+  parameter Modelica.Units.SI.Efficiency epsS(max=1) = 0.8
     "Sensible heat exchanger effectiveness";
-  parameter Modelica.SIunits.Efficiency epsL(max=1) = 0.8
+  parameter Modelica.Units.SI.Efficiency epsL(max=1) = 0.8
     "Latent heat exchanger effectiveness";
 
-  Modelica.SIunits.HeatFlowRate QLat_flow
+  Modelica.Units.SI.HeatFlowRate QLat_flow
     "Latent heat exchange from medium 2 to medium 1";
 
   Medium1.MassFraction X_w_in1 "Inlet water mass fraction of medium 1";
   Medium2.MassFraction X_w_in2 "Inlet water mass fraction of medium 2";
 
-  Modelica.SIunits.MassFlowRate mWat_flow
+  Modelica.Units.SI.MassFlowRate mWat_flow
     "Water flow rate from medium 2 to medium 1";
-  Modelica.SIunits.MassFlowRate mMax_flow
+  Modelica.Units.SI.MassFlowRate mMax_flow
     "Maximum water flow rate from medium 2 to medium 1";
 
 protected

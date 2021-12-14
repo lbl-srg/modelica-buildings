@@ -26,8 +26,7 @@ model Carnot_TCon
     final homotopyInitialization=homotopyInitialization,
     final Q_flow_nominal=QEva_flow_nominal));
 
-  parameter Modelica.SIunits.HeatFlowRate QCon_flow_max(
-    min=0) = Modelica.Constants.inf
+  parameter Modelica.Units.SI.HeatFlowRate QCon_flow_max(min=0) = Modelica.Constants.inf
     "Maximum heat flow rate for heating (positive)";
 
   Modelica.Blocks.Interfaces.RealInput TSet(unit="K")

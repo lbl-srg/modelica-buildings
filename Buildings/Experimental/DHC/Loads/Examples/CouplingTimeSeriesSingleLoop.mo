@@ -4,7 +4,7 @@ model CouplingTimeSeriesSingleLoop
   extends Modelica.Icons.Example;
   package Medium1=Buildings.Media.Water
     "Source side medium";
-  parameter Modelica.SIunits.Time perAve=600
+  parameter Modelica.Units.SI.Time perAve=600
     "Period for time averaged variables";
   Buildings.Experimental.DHC.Loads.Examples.BaseClasses.BuildingTimeSeries buiCoo(
     have_heaWat=false,

@@ -16,11 +16,11 @@ model SprayAirWasher_X
       final energyDynamics = Modelica.Fluid.Types.Dynamics.SteadyState,
       final massDynamics = massDynamics));
 
-  parameter Modelica.SIunits.MassFlowRate mWatMax_flow(min=0) = Modelica.Constants.inf
+  parameter Modelica.Units.SI.MassFlowRate mWatMax_flow(min=0) = Modelica.Constants.inf
     "Maximum water mass flow rate addition (positive)"
     annotation (Evaluate=true);
 
-  parameter Modelica.SIunits.MassFraction X_start[Medium.nX] = Medium.X_default
+  parameter Modelica.Units.SI.MassFraction X_start[Medium.nX]=Medium.X_default
     "Start value of mass fractions m_i/m"
     annotation (Dialog(tab="Initialization"));
 
@@ -42,12 +42,11 @@ model SprayAirWasher_X
     annotation (Placement(transformation(extent={{100,50},{120,70}})));
 
 protected
-  constant Modelica.SIunits.SpecificEnthalpy hSte = Medium.enthalpyOfLiquid(T=283.15)
-    "Enthalpy of water at 10 degree Celsius";
+  constant Modelica.Units.SI.SpecificEnthalpy hSte=Medium.enthalpyOfLiquid(T=
+      283.15) "Enthalpy of water at 10 degree Celsius";
 
-  Modelica.SIunits.SpecificEnthalpy hLea=
-    inStream(port_a.h_outflow) +
-    {hSte} * (port_b.Xi_outflow - inStream(port_a.Xi_outflow))
+  Modelica.Units.SI.SpecificEnthalpy hLea=inStream(port_a.h_outflow) + {hSte}*(
+      port_b.Xi_outflow - inStream(port_a.Xi_outflow))
     "Approximation of leaving enthalpy, based on dh/dx=h_fg";
 
   Modelica.Blocks.Sources.RealExpression TLea(y=

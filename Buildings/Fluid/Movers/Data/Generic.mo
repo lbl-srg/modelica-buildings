@@ -56,15 +56,17 @@ record Generic "Generic data record for movers"
     "Vector of normalized speed set points, used if inputType = Buildings.Fluid.Types.InputType.Stages"
     annotation (Dialog(group="Normalized speeds (used in model, default values assigned from speeds in rpm)"));
 
-  parameter Modelica.SIunits.Conversions.NonSIunits.AngularVelocity_rpm speed_rpm_nominal=1500
+  parameter Modelica.Units.NonSI.AngularVelocity_rpm speed_rpm_nominal=1500
     "Nominal rotational speed for flow characteristic"
     annotation (Dialog(group="Speeds in RPM"));
 
-  parameter Modelica.SIunits.Conversions.NonSIunits.AngularVelocity_rpm constantSpeed_rpm=speed_rpm_nominal
+  parameter Modelica.Units.NonSI.AngularVelocity_rpm constantSpeed_rpm=
+      speed_rpm_nominal
     "Speed set point, used if inputType = Buildings.Fluid.Types.InputType.Constant"
     annotation (Dialog(group="Speeds in RPM"));
 
-  parameter Modelica.SIunits.Conversions.NonSIunits.AngularVelocity_rpm[:] speeds_rpm = {speed_rpm_nominal}
+  parameter Modelica.Units.NonSI.AngularVelocity_rpm[:] speeds_rpm={
+      speed_rpm_nominal}
     "Vector of speed set points, used if inputType = Buildings.Fluid.Types.InputType.Stages"
     annotation (Dialog(group="Speeds in RPM"));
 

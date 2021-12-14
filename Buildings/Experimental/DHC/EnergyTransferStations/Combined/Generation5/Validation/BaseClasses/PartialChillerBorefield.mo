@@ -4,17 +4,15 @@ partial model PartialChillerBorefield
   extends Modelica.Icons.Example;
   package Medium=Buildings.Media.Water
     "Medium model";
-  parameter Modelica.SIunits.MassFlowRate mHeaWat_flow_nominal=0.9*datChi.mCon_flow_nominal
+  parameter Modelica.Units.SI.MassFlowRate mHeaWat_flow_nominal=0.9*datChi.mCon_flow_nominal
     "Nominal heating water mass flow rate";
-  parameter Modelica.SIunits.MassFlowRate mChiWat_flow_nominal=0.9*datChi.mEva_flow_nominal
+  parameter Modelica.Units.SI.MassFlowRate mChiWat_flow_nominal=0.9*datChi.mEva_flow_nominal
     "Nominal chilled water mass flow rate";
-  parameter Modelica.SIunits.HeatFlowRate QCoo_flow_nominal(
-    max=-Modelica.Constants.eps)=-1e6
-    "Design cooling heat flow rate (<=0)"
+  parameter Modelica.Units.SI.HeatFlowRate QCoo_flow_nominal(max=-Modelica.Constants.eps)
+     = -1e6 "Design cooling heat flow rate (<=0)"
     annotation (Dialog(group="Design parameter"));
-  parameter Modelica.SIunits.HeatFlowRate QHea_flow_nominal(
-    min=Modelica.Constants.eps)=abs(
-    QCoo_flow_nominal)*(1+1/datChi.COP_nominal)
+  parameter Modelica.Units.SI.HeatFlowRate QHea_flow_nominal(min=Modelica.Constants.eps)
+     = abs(QCoo_flow_nominal)*(1 + 1/datChi.COP_nominal)
     "Design heating heat flow rate (>=0)"
     annotation (Dialog(group="Design parameter"));
   parameter Buildings.Fluid.Chillers.Data.ElectricEIR.Generic datChi(
@@ -260,8 +258,8 @@ partial model PartialChillerBorefield
     y(unit="J"))
     "Chiller electricity use"
     annotation (Placement(transformation(extent={{300,-70},{320,-50}})));
-  Fluid.Sensors.TemperatureTwoPort senTDisWatRet(redeclare final package Medium
-      = Medium, final m_flow_nominal=ets.hex.m1_flow_nominal)
+  Fluid.Sensors.TemperatureTwoPort senTDisWatRet(redeclare final package Medium =
+        Medium, final m_flow_nominal=ets.hex.m1_flow_nominal)
     "District water return temperature" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,

@@ -11,11 +11,11 @@ model InteriorConvection
     "Convective heat transfer model"
   annotation(Evaluate=true);
 
-  parameter Modelica.SIunits.CoefficientOfHeatTransfer hFixed=3
-    "Constant convection coefficient"
-   annotation (Dialog(enable=(conMod == Buildings.HeatTransfer.Types.InteriorConvection.Fixed)));
+  parameter Modelica.Units.SI.CoefficientOfHeatTransfer hFixed=3
+    "Constant convection coefficient" annotation (Dialog(enable=(conMod ==
+          Buildings.HeatTransfer.Types.InteriorConvection.Fixed)));
 
-  parameter Modelica.SIunits.Angle til(displayUnit="deg") "Surface tilt"
+  parameter Modelica.Units.SI.Angle til(displayUnit="deg") "Surface tilt"
     annotation (Dialog(enable=(conMod <> Buildings.HeatTransfer.Types.InteriorConvection.Fixed)));
 
   Modelica.Blocks.Interfaces.RealInput u
@@ -24,7 +24,7 @@ model InteriorConvection
         iconTransformation(extent={{-120,70},{-100,90}})));
 
 protected
-  constant Modelica.SIunits.Temperature dT0 = 2
+  constant Modelica.Units.SI.Temperature dT0=2
     "Initial temperature used in homotopy method";
 
   final parameter Real cosTil=Modelica.Math.cos(til) "Cosine of window tilt";

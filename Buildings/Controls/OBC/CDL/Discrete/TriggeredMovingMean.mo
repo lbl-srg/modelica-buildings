@@ -38,7 +38,8 @@ equation
       pre(iSample),
       n)+1;
     ySample={
-      if(i == index) then
+      if
+        (i == index) then
         u
       else
         pre(ySample[i]) for i in 1:n};

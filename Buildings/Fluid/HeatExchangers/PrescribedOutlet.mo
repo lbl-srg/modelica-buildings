@@ -14,26 +14,26 @@ model PrescribedOutlet
       final energyDynamics = energyDynamics,
       final massDynamics = massDynamics));
 
-  parameter Modelica.SIunits.HeatFlowRate QMax_flow(min=0) = Modelica.Constants.inf
+  parameter Modelica.Units.SI.HeatFlowRate QMax_flow(min=0) = Modelica.Constants.inf
     "Maximum heat flow rate for heating (positive)"
     annotation (Evaluate=true, Dialog(enable=use_TSet));
-  parameter Modelica.SIunits.HeatFlowRate QMin_flow(max=0) = -Modelica.Constants.inf
+  parameter Modelica.Units.SI.HeatFlowRate QMin_flow(max=0) = -Modelica.Constants.inf
     "Maximum heat flow rate for cooling (negative)"
     annotation (Evaluate=true, Dialog(enable=use_TSet));
 
-  parameter Modelica.SIunits.MassFlowRate mWatMax_flow(min=0) = Modelica.Constants.inf
+  parameter Modelica.Units.SI.MassFlowRate mWatMax_flow(min=0) = Modelica.Constants.inf
     "Maximum water mass flow rate addition (positive)"
     annotation (Evaluate=true, Dialog(enable=use_X_wSet));
-  parameter Modelica.SIunits.MassFlowRate mWatMin_flow(max=0) = -Modelica.Constants.inf
+  parameter Modelica.Units.SI.MassFlowRate mWatMin_flow(max=0) = -Modelica.Constants.inf
     "Maximum water mass flow rate removal (negative)"
     annotation (Evaluate=true, Dialog(enable=use_X_wSet));
 
-  parameter Modelica.SIunits.Temperature T_start = Medium.T_default
+  parameter Modelica.Units.SI.Temperature T_start=Medium.T_default
     "Start value of temperature"
-    annotation(Dialog(tab = "Initialization", enable=use_TSet));
-  parameter Modelica.SIunits.MassFraction X_start[Medium.nX] = Medium.X_default
-    "Start value of mass fractions m_i/m"
-    annotation (Dialog(tab="Initialization", enable=use_X_wSet and Medium.nXi > 0));
+    annotation (Dialog(tab="Initialization", enable=use_TSet));
+  parameter Modelica.Units.SI.MassFraction X_start[Medium.nX]=Medium.X_default
+    "Start value of mass fractions m_i/m" annotation (Dialog(tab=
+          "Initialization", enable=use_X_wSet and Medium.nXi > 0));
 
   // Dynamics
   parameter Modelica.Fluid.Types.Dynamics energyDynamics = Modelica.Fluid.Types.Dynamics.SteadyState

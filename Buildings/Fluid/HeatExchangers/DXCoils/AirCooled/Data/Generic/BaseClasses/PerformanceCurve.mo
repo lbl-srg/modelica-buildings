@@ -15,16 +15,16 @@ record PerformanceCurve "Data record for a performance curve"
     "Polynomial coefficients for EIR function of flow fration"
     annotation (Dialog(group="Performance curves"));
 //------------------------Range for performance curves------------------------//
-  parameter Modelica.SIunits.Temperature   TConInMin
+  parameter Modelica.Units.SI.Temperature TConInMin
     "Minimum condenser inlet temperature for cooling capacity function"
     annotation (Dialog(group="Minimum and maximum values"));
-  parameter Modelica.SIunits.Temperature   TConInMax
+  parameter Modelica.Units.SI.Temperature TConInMax
     "Maximum condenser inlet temperature for cooling capacity function"
     annotation (Dialog(group="Minimum and maximum values"));
-  parameter Modelica.SIunits.Temperature   TEvaInMin
+  parameter Modelica.Units.SI.Temperature TEvaInMin
     "Minimum evaporator inlet temperature for cooling capacity function"
     annotation (Dialog(group="Minimum and maximum values"));
-  parameter Modelica.SIunits.Temperature   TEvaInMax
+  parameter Modelica.Units.SI.Temperature TEvaInMax
     "Maximum evaporator inlet temperature for cooling capacity function"
     annotation (Dialog(group="Minimum and maximum values"));
 

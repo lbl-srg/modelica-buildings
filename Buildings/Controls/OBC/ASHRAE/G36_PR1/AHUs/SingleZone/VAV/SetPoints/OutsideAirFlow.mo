@@ -38,8 +38,8 @@ block OutsideAirFlow
      then it should use cooling supply air distribution effectiveness"
     annotation (Dialog(tab="Advanced"));
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput nOcc(final unit="1") if
-       have_occSen "Number of occupants"
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput nOcc(final unit="1")
+    if have_occSen "Number of occupants"
     annotation (Placement(transformation(extent={{-240,140},{-200,180}}),
         iconTransformation(extent={{-140,60},{-100,100}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TZon(
@@ -79,8 +79,8 @@ protected
   Buildings.Controls.OBC.CDL.Continuous.Add add2(final k1=+1, final k2=-1)
     "Zone space temperature minus supply air temperature"
     annotation (Placement(transformation(extent={{-160,-70},{-140,-50}})));
-  Buildings.Controls.OBC.CDL.Continuous.Gain gai(final k=VOutPerPer_flow) if
-       have_occSen
+  Buildings.Controls.OBC.CDL.Continuous.Gain gai(final k=VOutPerPer_flow)
+    if have_occSen
     "Outdoor airflow rate per person"
     annotation (Placement(transformation(extent={{-160,150},{-140,170}})));
   Buildings.Controls.OBC.CDL.Continuous.Switch swi
@@ -139,8 +139,8 @@ protected
     annotation (Placement(transformation(extent={{-60,-130},{-40,-110}})));
   Buildings.Controls.OBC.CDL.Logical.Not not1 "Logical not"
     annotation (Placement(transformation(extent={{-20,-130},{0,-110}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zerOcc(final k=0) if
-       not have_occSen
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zerOcc(final k=0)
+    if not have_occSen
     "Zero occupant when there is no occupancy sensor"
     annotation (Placement(transformation(extent={{-160,80},{-140,100}})));
 

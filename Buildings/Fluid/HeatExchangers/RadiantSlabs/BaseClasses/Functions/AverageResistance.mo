@@ -2,17 +2,17 @@ within Buildings.Fluid.HeatExchangers.RadiantSlabs.BaseClasses.Functions;
 function AverageResistance
   "Average fictitious resistance for plane that contains the pipes"
   extends Modelica.Icons.Function;
-  input Modelica.SIunits.Distance disPip "pipe distance";
-  input Modelica.SIunits.Diameter dPipOut "pipe outside diameter";
-  input Modelica.SIunits.ThermalConductivity k
+  input Modelica.Units.SI.Distance disPip "pipe distance";
+  input Modelica.Units.SI.Diameter dPipOut "pipe outside diameter";
+  input Modelica.Units.SI.ThermalConductivity k
     "pipe level construction element thermal conductivity";
   input
     Buildings.Fluid.HeatExchangers.RadiantSlabs.Types.SystemType
      sysTyp "Type of radiant system";
-  input Modelica.SIunits.ThermalConductivity kIns
+  input Modelica.Units.SI.ThermalConductivity kIns
     "floor slab insulation thermal conductivity";
-  input Modelica.SIunits.Thickness dIns "floor slab insulation thickness";
-  output Modelica.SIunits.ThermalInsulance Rx "Thermal insulance";
+  input Modelica.Units.SI.Thickness dIns "floor slab insulation thickness";
+  output Modelica.Units.SI.ThermalInsulance Rx "Thermal insulance";
 protected
   Real cri(unit="1")
     "Criteria used to select formula for computation of resistance";

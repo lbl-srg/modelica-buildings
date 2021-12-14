@@ -6,30 +6,26 @@ model WetCoilEffectivenessNTU
   package Medium_W = Buildings.Media.Water;
   package Medium_A = Buildings.Media.Air;
 
-  constant Modelica.SIunits.AbsolutePressure pAtm = 101325
+  constant Modelica.Units.SI.AbsolutePressure pAtm=101325
     "Atmospheric pressure";
 
-  parameter Modelica.SIunits.Temperature T_a1_nominal=
-    Modelica.SIunits.Conversions.from_degF(42)
-    "Inlet water temperature";
-  parameter Modelica.SIunits.Temperature T_a2_nominal=
-    Modelica.SIunits.Conversions.from_degF(80)
-    "Inlet air temperature";
-  parameter Modelica.SIunits.Temperature T_b1_nominal=
-    273.15+11.0678
+  parameter Modelica.Units.SI.Temperature T_a1_nominal=
+      Modelica.Units.Conversions.from_degF(42) "Inlet water temperature";
+  parameter Modelica.Units.SI.Temperature T_a2_nominal=
+      Modelica.Units.Conversions.from_degF(80) "Inlet air temperature";
+  parameter Modelica.Units.SI.Temperature T_b1_nominal=273.15 + 11.0678
     "Outlet water temperature in fully wet conditions";
-  parameter Modelica.SIunits.Temperature T_b2_nominal=
-    273.15+13.5805
+  parameter Modelica.Units.SI.Temperature T_b2_nominal=273.15 + 13.5805
     "Outlet air temperature in fully wet conditions";
-  final parameter Modelica.SIunits.HeatFlowRate Q_flow_nominal=
-    m1_flow_nominal * 4186 * (T_a1_nominal - T_b1_nominal);
+  final parameter Modelica.Units.SI.HeatFlowRate Q_flow_nominal=m1_flow_nominal
+      *4186*(T_a1_nominal - T_b1_nominal);
   parameter Real X_w_a2_nominal = 0.0173
     "Inlet water mass fraction in fully wet conditions";
-  parameter Modelica.SIunits.ThermalConductance UA_nominal = 4748
+  parameter Modelica.Units.SI.ThermalConductance UA_nominal=4748
     "Total thermal conductance at nominal flow, from textbook";
-  parameter Modelica.SIunits.MassFlowRate m1_flow_nominal = 3.78
+  parameter Modelica.Units.SI.MassFlowRate m1_flow_nominal=3.78
     "Nominal mass flow rate of water";
-  parameter Modelica.SIunits.MassFlowRate m2_flow_nominal = 2.646
+  parameter Modelica.Units.SI.MassFlowRate m2_flow_nominal=2.646
     "Nominal mass flow rate of air";
   parameter Types.HeatExchangerConfiguration hexCon=
     Types.HeatExchangerConfiguration.CounterFlow

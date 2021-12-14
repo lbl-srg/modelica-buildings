@@ -5,13 +5,12 @@ model CoolingTowerVariableSpeed "Base class for cooling towers with variable spe
   import cha =
     Buildings.Fluid.HeatExchangers.CoolingTowers.BaseClasses.Characteristics;
 
-  parameter Modelica.SIunits.Temperature TAirInWB_nominal = 273.15 + 25.55
+  parameter Modelica.Units.SI.Temperature TAirInWB_nominal=273.15 + 25.55
     "Nominal outdoor (air inlet) wetbulb temperature"
     annotation (Dialog(group="Heat transfer"));
-  parameter Modelica.SIunits.Temperature TWatIn_nominal
-    "Nominal water inlet temperature"
-    annotation (Dialog(group="Heat transfer"));
-  parameter Modelica.SIunits.Temperature TWatOut_nominal
+  parameter Modelica.Units.SI.Temperature TWatIn_nominal
+    "Nominal water inlet temperature" annotation (Dialog(group="Heat transfer"));
+  parameter Modelica.Units.SI.Temperature TWatOut_nominal
     "Nominal water outlet temperature"
     annotation (Dialog(group="Heat transfer"));
 
@@ -22,9 +21,8 @@ model CoolingTowerVariableSpeed "Base class for cooling towers with variable spe
   parameter Real fraPFan_nominal(unit="W/(kg/s)") = 275/0.15
     "Fan power divided by water mass flow rate at design condition"
     annotation (Dialog(group="Fan"));
-  parameter Modelica.SIunits.Power PFan_nominal = fraPFan_nominal*m_flow_nominal
-    "Fan power"
-    annotation (Dialog(group="Fan"));
+  parameter Modelica.Units.SI.Power PFan_nominal=fraPFan_nominal*m_flow_nominal
+    "Fan power" annotation (Dialog(group="Fan"));
 
   parameter Real yMin(min=0.01, max=1, final unit="1") = 0.3
     "Minimum control signal until fan is switched off (used for smoothing

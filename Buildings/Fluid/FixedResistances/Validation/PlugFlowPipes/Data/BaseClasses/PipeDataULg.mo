@@ -1,11 +1,11 @@
 within Buildings.Fluid.FixedResistances.Validation.PlugFlowPipes.Data.BaseClasses;
 partial record PipeDataULg "Base class for ULg experimental data"
   extends PipeDataBaseDefinition;
-  parameter Modelica.SIunits.Temp_C T_start_in = 20
+  parameter Modelica.Units.NonSI.Temperature_degC T_start_in=20
     "Initial temperature at inlet";
-  parameter Modelica.SIunits.Temp_C T_start_out = 20
+  parameter Modelica.Units.NonSI.Temperature_degC T_start_out=20
     "Initial temperature at outlet";
-  parameter Modelica.SIunits.MassFlowRate m_flowIni = 0
+  parameter Modelica.Units.SI.MassFlowRate m_flowIni=0
     "Mass flow initialization";
   annotation (Documentation(info="<html>
 <p>

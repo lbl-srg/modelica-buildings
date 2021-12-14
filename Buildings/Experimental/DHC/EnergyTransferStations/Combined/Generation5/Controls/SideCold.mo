@@ -5,8 +5,7 @@ model SideCold
   parameter Integer nSouAmb=1
     "Number of ambient sources to control"
     annotation (Evaluate=true);
-  parameter Modelica.SIunits.Temperature TChiWatSupSetMin(
-    displayUnit="degC")
+  parameter Modelica.Units.SI.Temperature TChiWatSupSetMin(displayUnit="degC")
     "Minimum value of chilled water supply temperature set point";
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI
     "Type of controller"
@@ -15,12 +14,10 @@ model SideCold
   parameter Real k(
     min=0)=0.1
     "Gain of controller";
-  parameter Modelica.SIunits.Time Ti(
-    min=Buildings.Controls.OBC.CDL.Constants.small)=120
-    "Time constant of integrator block"
-    annotation (Dialog(enable=
-    controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PI or
-    controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
+  parameter Modelica.Units.SI.Time Ti(min=Buildings.Controls.OBC.CDL.Constants.small)
+     = 120 "Time constant of integrator block" annotation (Dialog(enable=
+          controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
+           or controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uCol
     "Cold rejection control signal"
     annotation (Placement(transformation(extent={{-220,-20},{-180,20}}),

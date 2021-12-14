@@ -1,7 +1,7 @@
 within Buildings.Experimental.DHC.EnergyTransferStations.Combined.Generation5.Subsystems;
-package Validation
-  "Collection of validation models"
+package Validation "Collection of validation models"
   extends Modelica.Icons.ExamplesPackage;
+
   annotation (
     Documentation(
       info="<html>

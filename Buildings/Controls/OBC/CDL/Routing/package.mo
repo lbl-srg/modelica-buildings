@@ -1,6 +1,5 @@
 within Buildings.Controls.OBC.CDL;
-package Routing
-  "Package with blocks that combine and extract signals"
+package Routing "Package with blocks that combine and extract signals"
   annotation (
     Documentation(
       info="<html>

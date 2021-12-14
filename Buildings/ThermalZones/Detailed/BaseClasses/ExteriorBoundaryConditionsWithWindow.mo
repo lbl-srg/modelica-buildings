@@ -5,9 +5,8 @@ model ExteriorBoundaryConditionsWithWindow
    final AOpa=conPar[:].AOpa,
    redeclare Buildings.ThermalZones.Detailed.BaseClasses.ParameterConstructionWithWindow conPar);
 
-  final parameter Modelica.SIunits.Area AWin[nCon] = conPar[:].hWin .* conPar[:].wWin
-    "Window area"
-    annotation (Dialog(group="Glazing system"));
+  final parameter Modelica.Units.SI.Area AWin[nCon]=conPar[:].hWin .* conPar[:].wWin
+    "Window area" annotation (Dialog(group="Glazing system"));
 
   final parameter Boolean haveExteriorShade[nCon] = conPar[:].glaSys.haveExteriorShade
     "Set to true if window has exterior shade (at surface a)"

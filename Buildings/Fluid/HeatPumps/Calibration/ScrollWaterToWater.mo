@@ -28,19 +28,19 @@ model ScrollWaterToWater
   parameter Real volRat(min = 1.0, unit = "1") = 2.0
     "Built-in volume ratio";
 
-  parameter Modelica.SIunits.VolumeFlowRate V_flow_nominal(min = 0) = 0.009
+  parameter Modelica.Units.SI.VolumeFlowRate V_flow_nominal(min=0) = 0.009
     "Refrigerant volume flow rate at suction";
 
-  parameter Modelica.SIunits.MassFlowRate leaCoe(min = 0) = 0.03
+  parameter Modelica.Units.SI.MassFlowRate leaCoe(min=0) = 0.03
     "Leakage coefficient";
 
-  parameter Modelica.SIunits.Efficiency etaEle = 0.696
+  parameter Modelica.Units.SI.Efficiency etaEle=0.696
     "Electro-mechanical efficiency of the compressor";
 
-  parameter Modelica.SIunits.Power PLos(min = 0) = 500.0
+  parameter Modelica.Units.SI.Power PLos(min=0) = 500.0
     "Constant part of the compressor power losses";
 
-  parameter Modelica.SIunits.TemperatureDifference dTSup(min = 0) = 10.0
+  parameter Modelica.Units.SI.TemperatureDifference dTSup(min=0) = 10.0
     "Superheating at compressor suction";
 
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-140,-100},

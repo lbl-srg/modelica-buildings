@@ -59,8 +59,7 @@ model OptimalStartCoolingNegativeStartTime
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal TSetCoo(
     realTrue=273.15+24,
     realFalse=273.15+30,
-    y(
-      final unit="K",
+    y(final unit="K",
       displayUnit="degC"))
     "Room temperature set point for cooling"
     annotation (Placement(transformation(extent={{60,-60},{80,-40}})));

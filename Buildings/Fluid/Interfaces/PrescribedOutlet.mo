@@ -3,29 +3,29 @@ model PrescribedOutlet
   "Component that assigns the outlet fluid property at port_a based on an input signal"
   extends Buildings.Fluid.Interfaces.PartialTwoPortInterface;
 
-  parameter Modelica.SIunits.HeatFlowRate QMax_flow(min=0) = Modelica.Constants.inf
+  parameter Modelica.Units.SI.HeatFlowRate QMax_flow(min=0) = Modelica.Constants.inf
     "Maximum heat flow rate for heating (positive)"
     annotation (Evaluate=true, Dialog(enable=use_TSet));
-  parameter Modelica.SIunits.HeatFlowRate QMin_flow(max=0) = -Modelica.Constants.inf
+  parameter Modelica.Units.SI.HeatFlowRate QMin_flow(max=0) = -Modelica.Constants.inf
     "Maximum heat flow rate for cooling (negative)"
     annotation (Evaluate=true, Dialog(enable=use_TSet));
-  parameter Modelica.SIunits.MassFlowRate mWatMax_flow(min=0) = Modelica.Constants.inf
+  parameter Modelica.Units.SI.MassFlowRate mWatMax_flow(min=0) = Modelica.Constants.inf
     "Maximum water mass flow rate addition (positive)"
     annotation (Evaluate=true, Dialog(enable=use_X_wSet));
 
-  parameter Modelica.SIunits.MassFlowRate mWatMin_flow(max=0) = -Modelica.Constants.inf
+  parameter Modelica.Units.SI.MassFlowRate mWatMin_flow(max=0) = -Modelica.Constants.inf
     "Maximum water mass flow rate removal (negative)"
     annotation (Evaluate=true, Dialog(enable=use_X_wSet));
 
-  parameter Modelica.SIunits.Time tau(min=0) = 10
+  parameter Modelica.Units.SI.Time tau(min=0) = 10
     "Time constant at nominal flow rate (used if energyDynamics or massDynamics not equal Modelica.Fluid.Types.Dynamics.SteadyState)"
-    annotation(Dialog(tab = "Dynamics"));
-  parameter Modelica.SIunits.Temperature T_start=Medium.T_default
+    annotation (Dialog(tab="Dynamics"));
+  parameter Modelica.Units.SI.Temperature T_start=Medium.T_default
     "Start value of temperature"
-    annotation(Dialog(tab = "Initialization", enable=use_TSet));
-  parameter Modelica.SIunits.MassFraction X_start[Medium.nX] = Medium.X_default
-    "Start value of mass fractions m_i/m"
-    annotation (Dialog(tab="Initialization", enable=use_X_wSet and Medium.nXi > 0));
+    annotation (Dialog(tab="Initialization", enable=use_TSet));
+  parameter Modelica.Units.SI.MassFraction X_start[Medium.nX]=Medium.X_default
+    "Start value of mass fractions m_i/m" annotation (Dialog(tab=
+          "Initialization", enable=use_X_wSet and Medium.nXi > 0));
 
   // Dynamics
   parameter Modelica.Fluid.Types.Dynamics energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState
@@ -69,12 +69,11 @@ model PrescribedOutlet
     annotation (Placement(transformation(extent={{100,30},{120,50}})));
 
 protected
-  parameter Modelica.SIunits.SpecificHeatCapacity cp_default=
-      Medium.specificHeatCapacityCp(
-        Medium.setState_pTX(
-          p=Medium.p_default,
-          T=Medium.T_default,
-          X=Medium.X_default)) "Specific heat capacity at default medium state";
+  parameter Modelica.Units.SI.SpecificHeatCapacity cp_default=
+      Medium.specificHeatCapacityCp(Medium.setState_pTX(
+      p=Medium.p_default,
+      T=Medium.T_default,
+      X=Medium.X_default)) "Specific heat capacity at default medium state";
 
   parameter Boolean restrictHeat = QMax_flow < Modelica.Constants.inf/10.0
     "Flag, true if maximum heating power is restricted"
@@ -90,35 +89,34 @@ protected
     "Flag, true if maximum dehumidification is restricted"
     annotation(Evaluate = true);
 
-  parameter Modelica.SIunits.SpecificEnthalpy deltaH=
-    cp_default*1E-6
+  parameter Modelica.Units.SI.SpecificEnthalpy deltaH=cp_default*1E-6
     "Small value for deltaH used for regularization";
 
-  parameter Modelica.SIunits.MassFraction deltaXi = 1E-6
+  parameter Modelica.Units.SI.MassFraction deltaXi=1E-6
     "Small mass fraction used for regularization";
 
-  Modelica.SIunits.MassFlowRate m_flow_pos
+  Modelica.Units.SI.MassFlowRate m_flow_pos
     "Mass flow rate, or zero if reverse flow";
 
-  Modelica.SIunits.MassFlowRate m_flow_non_zero
+  Modelica.Units.SI.MassFlowRate m_flow_non_zero
     "Mass flow rate bounded away from zero";
 
-  Modelica.SIunits.SpecificEnthalpy hSet
+  Modelica.Units.SI.SpecificEnthalpy hSet
     "Set point for enthalpy leaving port_b";
 
-  Modelica.SIunits.Temperature T
+  Modelica.Units.SI.Temperature T
     "Temperature of outlet state assuming unlimited capacity and taking dynamics into account";
 
-  Modelica.SIunits.MassFraction Xi
+  Modelica.Units.SI.MassFraction Xi
     "Water vapor mass fraction of outlet state assuming unlimited capacity and taking dynamics into account";
 
-  Modelica.SIunits.MassFraction Xi_instream[Medium.nXi]
+  Modelica.Units.SI.MassFraction Xi_instream[Medium.nXi]
     "Instreaming water vapor mass fraction at port_a";
 
-  Modelica.SIunits.MassFraction Xi_outflow
+  Modelica.Units.SI.MassFraction Xi_outflow
     "Outstreaming water vapor mass fraction at port_a";
 
-  Modelica.SIunits.SpecificEnthalpy dhAct
+  Modelica.Units.SI.SpecificEnthalpy dhAct
     "Actual enthalpy difference from port_a to port_b";
 
   Real dXiAct(final unit="1")

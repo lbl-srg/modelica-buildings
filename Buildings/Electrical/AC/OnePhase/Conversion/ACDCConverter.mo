@@ -14,17 +14,16 @@ model ACDCConverter "AC DC converter"
     "Ratio of DC voltage / AC RMS voltage";
   parameter Real eta(min=0, max=1)
     "Converter efficiency, pLoss = (1-eta) * Ptr";
-  Modelica.SIunits.Power PLoss "Loss power";
+  Modelica.Units.SI.Power PLoss "Loss power";
   parameter Boolean ground_AC = false "Connect AC side of converter to ground" annotation(Evaluate=true, Dialog(tab = "Ground", group="AC side"));
   parameter Boolean ground_DC = true "Connect DC side of converter to ground" annotation(Evaluate=true, Dialog(tab = "Ground", group="DC side"));
 protected
   PhaseSystem_p.Current i_dc "DC current";
   PhaseSystem_p.Voltage v_dc "DC voltage";
-  Modelica.SIunits.Power P_p[2] = PhaseSystem_p.phasePowers_vi(terminal_p.v, terminal_p.i)
-    "Power transmitted at pin p (secondary)";
-  Modelica.SIunits.Power P_n[2](each start=0)=
-     PhaseSystem_n.phasePowers_vi(terminal_n.v, terminal_n.i)
-    "Power transmitted at pin n (primary)";
+  Modelica.Units.SI.Power P_p[2]=PhaseSystem_p.phasePowers_vi(terminal_p.v,
+      terminal_p.i) "Power transmitted at pin p (secondary)";
+  Modelica.Units.SI.Power P_n[2](each start=0) = PhaseSystem_n.phasePowers_vi(
+    terminal_n.v, terminal_n.i) "Power transmitted at pin n (primary)";
 equation
   //voltage relation
   v_p = v_n*conversionFactor;

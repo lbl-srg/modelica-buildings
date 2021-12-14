@@ -7,9 +7,12 @@ model ActuatorSignal
   parameter Boolean use_inputFilter=true
     "= true, if opening is filtered with a 2nd order CriticalDamping filter"
     annotation(Dialog(tab="Dynamics", group="Filtered opening"));
-  parameter Modelica.SIunits.Time riseTime=120
+  parameter Modelica.Units.SI.Time riseTime=120
     "Rise time of the filter (time to reach 99.6 % of an opening step)"
-    annotation(Dialog(tab="Dynamics", group="Filtered opening",enable=use_inputFilter));
+    annotation (Dialog(
+      tab="Dynamics",
+      group="Filtered opening",
+      enable=use_inputFilter));
   parameter Modelica.Blocks.Types.Init init=Modelica.Blocks.Types.Init.InitialOutput
     "Type of initialization (no init/steady state/initial state/initial output)"
     annotation(Dialog(tab="Dynamics", group="Filtered opening",enable=use_inputFilter));
@@ -31,8 +34,8 @@ model ActuatorSignal
 
   // Classes used to implement the filtered opening
 protected
-  final parameter Modelica.SIunits.Frequency fCut = 5/(2*Modelica.Constants.pi*riseTime)
-    "Cut-off frequency of filter";
+  final parameter Modelica.Units.SI.Frequency fCut=5/(2*Modelica.Constants.pi*
+      riseTime) "Cut-off frequency of filter";
 
   parameter Boolean casePreInd = false
     "In case of PressureIndependent the model I/O is modified"

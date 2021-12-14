@@ -23,14 +23,12 @@ model Borefield
     constrainedby Buildings.Fluid.Movers.Data.Generic
     "Record with performance data for borefield pump"
     annotation (choicesAllMatching=true,Placement(transformation(extent={{40,60},{60,80}})));
-  parameter Modelica.SIunits.Pressure dp_nominal(
-    displayUnit="Pa")
+  parameter Modelica.Units.SI.Pressure dp_nominal(displayUnit="Pa")
     "Pressure losses for the entire borefield (control valve excluded)"
     annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.SIunits.Pressure dpValBorFie_nominal=dp_nominal/2
+  parameter Modelica.Units.SI.Pressure dpValBorFie_nominal=dp_nominal/2
     "Nominal pressure drop of control valve";
-  parameter Modelica.SIunits.Temperature TBorWatEntMax(
-    displayUnit="degC")
+  parameter Modelica.Units.SI.Temperature TBorWatEntMax(displayUnit="degC")
     "Maximum value of borefield water entering temperature";
   parameter Real spePumBorMin=0.1
     "Borefield pump minimum speed";

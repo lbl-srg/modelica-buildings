@@ -4,7 +4,7 @@ model SwitchBox "Validation of flow switch box"
 
   package Medium=Buildings.Media.Water
     "Medium model";
-  parameter Modelica.SIunits.MassFlowRate m_flow_nominal=1
+  parameter Modelica.Units.SI.MassFlowRate m_flow_nominal=1
     "Nominal water mass flow rate";
   Fluid.Delays.DelayFirstOrder volSup(
     redeclare final package Medium = Medium,

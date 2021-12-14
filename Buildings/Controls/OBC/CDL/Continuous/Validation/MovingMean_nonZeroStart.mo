@@ -1,9 +1,7 @@
 within Buildings.Controls.OBC.CDL.Continuous.Validation;
 model MovingMean_nonZeroStart
   "Validation model for the MovingMean block"
-  Modelica.Blocks.Sources.Sine sinInpNoDel(
-    freqHz=1/80)
-    "Start from zero second"
+  Modelica.Blocks.Sources.Sine sinInpNoDel(f=1/80) "Start from zero second"
     annotation (Placement(transformation(extent={{-90,50},{-70,70}})));
   Buildings.Controls.OBC.CDL.Continuous.MovingMean movingMean_1(
     delta=100)
@@ -25,9 +23,7 @@ model MovingMean_nonZeroStart
     delta=500)
     "Moving average with 500 s sliding window"
     annotation (Placement(transformation(extent={{-40,-70},{-20,-50}})));
-  Modelica.Blocks.Sources.Sine sinInp50sDel(
-    freqHz=1/80,
-    startTime=50)
+  Modelica.Blocks.Sources.Sine sinInp50sDel(f=1/80, startTime=50)
     "Start from 50 seconds"
     annotation (Placement(transformation(extent={{0,50},{20,70}})));
   Buildings.Controls.OBC.CDL.Continuous.MovingMean movingMean_6(
@@ -38,9 +34,7 @@ model MovingMean_nonZeroStart
     delta=200)
     "Moving average with 200 s sliding window"
     annotation (Placement(transformation(extent={{60,20},{80,40}})));
-  Modelica.Blocks.Sources.Sine sinInp100sDel(
-    freqHz=1/80,
-    startTime=100)
+  Modelica.Blocks.Sources.Sine sinInp100sDel(f=1/80, startTime=100)
     "Start from 100 seconds"
     annotation (Placement(transformation(extent={{0,-30},{20,-10}})));
   Buildings.Controls.OBC.CDL.Continuous.MovingMean movingMean_8(

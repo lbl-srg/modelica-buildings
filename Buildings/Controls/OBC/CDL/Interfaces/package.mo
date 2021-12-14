@@ -1,6 +1,5 @@
 within Buildings.Controls.OBC.CDL;
-package Interfaces
-  "Package with connectors for input and output signals"
+package Interfaces "Package with connectors for input and output signals"
   annotation (
     preferredView="info",
     Documentation(

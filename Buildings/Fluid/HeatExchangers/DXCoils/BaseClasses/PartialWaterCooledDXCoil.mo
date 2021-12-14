@@ -21,10 +21,10 @@ model PartialWaterCooledDXCoil "Base class for water-cooled DX coils"
     "= false to simplify equations, assuming, but not enforcing, no flow reversal for condenser"
     annotation(Dialog(tab="Assumptions"), Evaluate=true);
 
-  parameter Modelica.SIunits.PressureDifference dpEva_nominal(displayUnit="Pa")
+  parameter Modelica.Units.SI.PressureDifference dpEva_nominal(displayUnit="Pa")
     "Pressure difference over evaporator at nominal flow rate"
     annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.SIunits.PressureDifference dpCon_nominal(displayUnit="Pa")
+  parameter Modelica.Units.SI.PressureDifference dpCon_nominal(displayUnit="Pa")
     "Pressure difference over condenser at nominal flow rate"
     annotation (Dialog(group="Nominal condition"));
 
@@ -49,10 +49,10 @@ model PartialWaterCooledDXCoil "Base class for water-cooled DX coils"
     "Fraction of nominal flow rate where flow transitions to laminar"
     annotation (Dialog(tab="Flow resistance", group="Evaporator"));
 
-  parameter Modelica.SIunits.Time tauEva=60
+  parameter Modelica.Units.SI.Time tauEva=60
     "Time constant at nominal flow rate (used if energyDynamics <> Modelica.Fluid.Types.Dynamics.SteadyState)"
     annotation (Dialog(tab="Dynamics", group="Condenser"));
-  parameter Modelica.SIunits.Time tauCon=60
+  parameter Modelica.Units.SI.Time tauCon=60
     "Time constant at nominal flow rate (used if energyDynamics <> Modelica.Fluid.Types.Dynamics.SteadyState)"
     annotation (Dialog(tab="Dynamics", group="Evaporator"));
 
@@ -212,8 +212,8 @@ model PartialWaterCooledDXCoil "Base class for water-cooled DX coils"
 
 
   // Variables
-  Modelica.SIunits.Temperature TConEnt=
-    MediumCon.temperature(MediumCon.setState_phX(portCon_a.p, inStream(portCon_a.h_outflow)))
+  Modelica.Units.SI.Temperature TConEnt=MediumCon.temperature(
+      MediumCon.setState_phX(portCon_a.p, inStream(portCon_a.h_outflow)))
     "Temperature of fluid entering the condenser";
 
   MediumEva.ThermodynamicState sta_a1=MediumEva.setState_phX(

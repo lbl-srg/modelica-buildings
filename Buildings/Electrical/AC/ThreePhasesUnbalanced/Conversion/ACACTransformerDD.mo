@@ -29,11 +29,11 @@ model ACACTransformerDD "AC AC transformer simplified equivalent circuit (DD)"
       VHigh=VHigh,
       VLow=VLow,
       phi_1=2.6179938779915));
-  parameter Modelica.SIunits.Voltage VHigh
+  parameter Modelica.Units.SI.Voltage VHigh
     "Rms voltage on side 1 of the transformer (primary side)";
-  parameter Modelica.SIunits.Voltage VLow
+  parameter Modelica.Units.SI.Voltage VLow
     "Rms voltage on side 2 of the transformer (secondary side)";
-  parameter Modelica.SIunits.ApparentPower VABase
+  parameter Modelica.Units.SI.ApparentPower VABase
     "Nominal power of the transformer";
   parameter Real XoverR
     "Ratio between the complex and real components of the impedance (XL/R)";

@@ -1,23 +1,23 @@
 within Buildings.Fluid.Sensors;
 model Velocity "Ideal sensor for flow velocity"
   extends Buildings.Fluid.Sensors.BaseClasses.PartialDynamicFlowSensor;
-  extends Modelica.Icons.RotationalSensor;
+  extends Modelica.Icons.RoundSensor;
   parameter Medium.Density
     d_start=Medium.density(Medium.setState_pTX(p_start, T_start, X_start))
     "Initial or guess value of density"
     annotation (Dialog(group="Initialization"));
-  parameter Modelica.SIunits.Temperature T_start=Medium.T_default
+  parameter Modelica.Units.SI.Temperature T_start=Medium.T_default
     "Temperature used to compute d_start"
     annotation (Dialog(group="Initialization"));
-  parameter Modelica.SIunits.Pressure p_start=Medium.p_default
+  parameter Modelica.Units.SI.Pressure p_start=Medium.p_default
     "Pressure used to compute d_start"
     annotation (Dialog(group="Initialization"));
-  parameter Modelica.SIunits.MassFraction X_start[Medium.nX]=Medium.X_default
+  parameter Modelica.Units.SI.MassFraction X_start[Medium.nX]=Medium.X_default
     "Mass fraction used to compute d_start"
     annotation (Dialog(group="Initialization"));
 
-  parameter Modelica.SIunits.Area A "Cross sectional area of flow channel";
-  Modelica.SIunits.VolumeFlowRate V_flow
+  parameter Modelica.Units.SI.Area A "Cross sectional area of flow channel";
+  Modelica.Units.SI.VolumeFlowRate V_flow
     "Volume flow rate from port_a to port_b";
   Modelica.Blocks.Interfaces.RealOutput v(final quantity="Velocity",
                                           final unit="m/s")

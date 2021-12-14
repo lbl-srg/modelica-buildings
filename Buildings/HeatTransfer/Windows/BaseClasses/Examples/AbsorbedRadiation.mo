@@ -1,8 +1,8 @@
 within Buildings.HeatTransfer.Windows.BaseClasses.Examples;
 model AbsorbedRadiation "Test model for absorbed radiation by windows"
   extends Modelica.Icons.Example;
-  parameter Modelica.SIunits.Angle azi=0 "Surface azimuth";
-  parameter Modelica.SIunits.Angle til=1.5707963267949 "Surface tilt";
+  parameter Modelica.Units.SI.Angle azi=0 "Surface azimuth";
+  parameter Modelica.Units.SI.Angle til=1.5707963267949 "Surface tilt";
 
   replaceable parameter
     Buildings.HeatTransfer.Data.GlazingSystems.DoubleClearAir13Clear glaSys(

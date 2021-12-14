@@ -33,12 +33,11 @@ protected
   model OneZoneWithGainExposed
     "Internal model for building with one thermal zone"
     extends Modelica.Blocks.Icons.Block;
-    parameter Modelica.SIunits.HeatFlux qRad_flow
+    parameter Modelica.Units.SI.HeatFlux qRad_flow
       "Radiative internal heat gain";
-    parameter Modelica.SIunits.HeatFlux qSen_flow
+    parameter Modelica.Units.SI.HeatFlux qSen_flow
       "Convective sensible internal heat gain";
-    parameter Modelica.SIunits.HeatFlux qLat_flow
-      "Latent internal heat gain";
+    parameter Modelica.Units.SI.HeatFlux qLat_flow "Latent internal heat gain";
     Examples.SingleFamilyHouse.Unconditioned bui(
       m_flow_nominal=bui.VRoo*10*0.3/3600,
       qIntGai(

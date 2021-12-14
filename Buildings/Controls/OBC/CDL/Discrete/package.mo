@@ -1,6 +1,5 @@
 within Buildings.Controls.OBC.CDL;
-package Discrete
-  "Package with discrete blocks"
+package Discrete "Package with discrete blocks"
   annotation (
     Documentation(
       info="<html>

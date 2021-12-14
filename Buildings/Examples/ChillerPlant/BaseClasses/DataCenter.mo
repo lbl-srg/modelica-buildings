@@ -3,22 +3,22 @@ partial model DataCenter
   "Primary only chiller plant system with water-side economizer"
   replaceable package MediumA = Buildings.Media.Air "Medium model";
   replaceable package MediumW = Buildings.Media.Water "Medium model";
-  parameter Modelica.SIunits.MassFlowRate mAir_flow_nominal=roo.QRoo_flow/(1005
-      *15) "Nominal mass flow rate at fan";
-  parameter Modelica.SIunits.Power P_nominal=80E3
+  parameter Modelica.Units.SI.MassFlowRate mAir_flow_nominal=roo.QRoo_flow/(
+      1005*15) "Nominal mass flow rate at fan";
+  parameter Modelica.Units.SI.Power P_nominal=80E3
     "Nominal compressor power (at y=1)";
-  parameter Modelica.SIunits.TemperatureDifference dTEva_nominal=10
+  parameter Modelica.Units.SI.TemperatureDifference dTEva_nominal=10
     "Temperature difference evaporator inlet-outlet";
-  parameter Modelica.SIunits.TemperatureDifference dTCon_nominal=10
+  parameter Modelica.Units.SI.TemperatureDifference dTCon_nominal=10
     "Temperature difference condenser outlet-inlet";
   parameter Real COPc_nominal=3 "Chiller COP";
-  parameter Modelica.SIunits.MassFlowRate mCHW_flow_nominal=2*roo.QRoo_flow/(
+  parameter Modelica.Units.SI.MassFlowRate mCHW_flow_nominal=2*roo.QRoo_flow/(
       4200*20) "Nominal mass flow rate at chilled water";
 
-  parameter Modelica.SIunits.MassFlowRate mCW_flow_nominal=2*roo.QRoo_flow/(
+  parameter Modelica.Units.SI.MassFlowRate mCW_flow_nominal=2*roo.QRoo_flow/(
       4200*6) "Nominal mass flow rate at condenser water";
 
-  parameter Modelica.SIunits.PressureDifference dp_nominal=500
+  parameter Modelica.Units.SI.PressureDifference dp_nominal=500
     "Nominal pressure difference";
   Buildings.Fluid.Movers.FlowControlled_m_flow fan(
     redeclare package Medium = MediumA,

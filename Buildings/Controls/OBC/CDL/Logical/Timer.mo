@@ -33,7 +33,8 @@ equation
     // When u becomes true, and t=0, we want passed to be true
     // at the first step (in superdense time).
     passed=t <= 0;
-  elsewhen(u and time >= t+pre(entryTime)) then
+  elsewhen
+          (u and time >= t+pre(entryTime)) then
     passed=true;
     entryTime=pre(entryTime);
   elsewhen not u then
@@ -42,8 +43,7 @@ equation
     passed=false;
     entryTime=pre(entryTime);
   end when;
-  y=
-    if u then
+  y=if u then
       time-entryTime
     else
       0.0;
@@ -142,7 +142,7 @@ the output <code>passed</code> remains <code>false</code>.
 <ul>
 <li>
 November 12, 2020, by Michael Wetter:<br/>
-Reformulated to remove dependency to <code>Modelica.SIunits</code>.<br/>
+Reformulated to remove dependency to <code>Modelica.Units.SI</code>.<br/>
 This is for
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2243\">issue 2243</a>.
 </li>

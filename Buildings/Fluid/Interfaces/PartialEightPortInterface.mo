@@ -2,18 +2,14 @@ within Buildings.Fluid.Interfaces;
 partial model PartialEightPortInterface
   "Partial model transporting fluid between eight ports without storing mass or energy"
   extends Buildings.Fluid.Interfaces.EightPort;
-  parameter Modelica.SIunits.MassFlowRate m1_flow_nominal(min=0)
-    "Nominal mass flow rate"
-    annotation(Dialog(group = "Nominal condition"));
-  parameter Modelica.SIunits.MassFlowRate m2_flow_nominal(min=0)
-    "Nominal mass flow rate"
-    annotation(Dialog(group = "Nominal condition"));
-    parameter Modelica.SIunits.MassFlowRate m3_flow_nominal(min=0)
-    "Nominal mass flow rate"
-    annotation(Dialog(group = "Nominal condition"));
-  parameter Modelica.SIunits.MassFlowRate m4_flow_nominal(min=0)
-    "Nominal mass flow rate"
-    annotation(Dialog(group = "Nominal condition"));
+  parameter Modelica.Units.SI.MassFlowRate m1_flow_nominal(min=0)
+    "Nominal mass flow rate" annotation (Dialog(group="Nominal condition"));
+  parameter Modelica.Units.SI.MassFlowRate m2_flow_nominal(min=0)
+    "Nominal mass flow rate" annotation (Dialog(group="Nominal condition"));
+  parameter Modelica.Units.SI.MassFlowRate m3_flow_nominal(min=0)
+    "Nominal mass flow rate" annotation (Dialog(group="Nominal condition"));
+  parameter Modelica.Units.SI.MassFlowRate m4_flow_nominal(min=0)
+    "Nominal mass flow rate" annotation (Dialog(group="Nominal condition"));
 
   parameter Medium1.MassFlowRate m1_flow_small(min=0) = 1E-4*abs(m1_flow_nominal)
     "Small mass flow rate for regularization of zero flow"
@@ -31,68 +27,68 @@ partial model PartialEightPortInterface
   // Diagnostics
   parameter Boolean show_T = false
     "= true, if actual temperature at port is computed"
-    annotation(
+    annotation (
       Dialog(tab="Advanced", group="Diagnostics"),
       HideResult=true);
   Medium1.MassFlowRate m1_flow = port_a1.m_flow
     "Mass flow rate from port_a1 to port_b1 (m1_flow > 0 is design flow direction)";
-  Modelica.SIunits.Pressure dp1(displayUnit="Pa")
+  Modelica.Units.SI.Pressure dp1(displayUnit="Pa")
     "Pressure difference between port_a1 and port_b1";
   Medium2.MassFlowRate m2_flow = port_a2.m_flow
     "Mass flow rate from port_a2 to port_b2 (m2_flow > 0 is design flow direction)";
-  Modelica.SIunits.Pressure dp2(displayUnit="Pa")
+  Modelica.Units.SI.Pressure dp2(displayUnit="Pa")
     "Pressure difference between port_a2 and port_b2";
 
   Medium3.MassFlowRate m3_flow = port_a3.m_flow
     "Mass flow rate from port_a3 to port_b3 (m3_flow > 0 is design flow direction)";
-  Modelica.SIunits.Pressure dp3(displayUnit="Pa")
+  Modelica.Units.SI.Pressure dp3(displayUnit="Pa")
     "Pressure difference between port_a3 and port_b3";
   Medium4.MassFlowRate m4_flow = port_a4.m_flow
     "Mass flow rate from port_a4 to port_b4 (m4_flow > 0 is design flow direction)";
-  Modelica.SIunits.Pressure dp4(displayUnit="Pa")
+  Modelica.Units.SI.Pressure dp4(displayUnit="Pa")
     "Pressure difference between port_a4 and port_b4";
 
   Medium1.ThermodynamicState sta_a1=
       Medium1.setState_phX(port_a1.p,
                            noEvent(actualStream(port_a1.h_outflow)),
-                           noEvent(actualStream(port_a1.Xi_outflow))) if
-         show_T "Medium properties in port_a1";
+                           noEvent(actualStream(port_a1.Xi_outflow)))
+      if show_T "Medium properties in port_a1";
   Medium1.ThermodynamicState sta_b1=
       Medium1.setState_phX(port_b1.p,
                            noEvent(actualStream(port_b1.h_outflow)),
-                           noEvent(actualStream(port_b1.Xi_outflow))) if
-         show_T "Medium properties in port_b1";
+                           noEvent(actualStream(port_b1.Xi_outflow)))
+      if show_T "Medium properties in port_b1";
   Medium2.ThermodynamicState sta_a2=
       Medium2.setState_phX(port_a2.p,
                            noEvent(actualStream(port_a2.h_outflow)),
-                           noEvent(actualStream(port_a2.Xi_outflow))) if
-         show_T "Medium properties in port_a2";
+                           noEvent(actualStream(port_a2.Xi_outflow)))
+      if show_T "Medium properties in port_a2";
   Medium2.ThermodynamicState sta_b2=
       Medium2.setState_phX(port_b2.p,
                            noEvent(actualStream(port_b2.h_outflow)),
-                           noEvent(actualStream(port_b2.Xi_outflow))) if
-         show_T "Medium properties in port_b2";
+                           noEvent(actualStream(port_b2.Xi_outflow)))
+      if show_T "Medium properties in port_b2";
 
  Medium3.ThermodynamicState sta_a3=
       Medium3.setState_phX(port_a3.p,
                            noEvent(actualStream(port_a3.h_outflow)),
-                           noEvent(actualStream(port_a3.Xi_outflow))) if
-         show_T "Medium properties in port_a3";
+                           noEvent(actualStream(port_a3.Xi_outflow)))
+      if show_T "Medium properties in port_a3";
   Medium3.ThermodynamicState sta_b3=
       Medium3.setState_phX(port_b3.p,
                            noEvent(actualStream(port_b3.h_outflow)),
-                           noEvent(actualStream(port_b3.Xi_outflow))) if
-         show_T "Medium properties in port_b3";
+                           noEvent(actualStream(port_b3.Xi_outflow)))
+      if show_T "Medium properties in port_b3";
   Medium4.ThermodynamicState sta_a4=
       Medium4.setState_phX(port_a4.p,
                            noEvent(actualStream(port_a4.h_outflow)),
-                           noEvent(actualStream(port_a4.Xi_outflow))) if
-         show_T "Medium properties in port_a4";
+                           noEvent(actualStream(port_a4.Xi_outflow)))
+      if show_T "Medium properties in port_a4";
   Medium4.ThermodynamicState sta_b4=
       Medium4.setState_phX(port_b4.p,
                            noEvent(actualStream(port_b4.h_outflow)),
-                           noEvent(actualStream(port_b4.Xi_outflow))) if
-         show_T "Medium properties in port_b4";
+                           noEvent(actualStream(port_b4.Xi_outflow)))
+      if show_T "Medium properties in port_b4";
 protected
   Medium1.ThermodynamicState state_a1_inflow=
     Medium1.setState_phX(port_a1.p, inStream(port_a1.h_outflow), inStream(port_a1.Xi_outflow))

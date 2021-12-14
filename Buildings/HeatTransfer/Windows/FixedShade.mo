@@ -4,7 +4,7 @@ model FixedShade "Model for exterior shade due to overhang and/or side fin"
   parameter Buildings.ThermalZones.Detailed.BaseClasses.ParameterConstructionWithWindow conPar
     "Construction parameters";
 
-  parameter Modelica.SIunits.Angle azi(displayUnit="deg")
+  parameter Modelica.Units.SI.Angle azi(displayUnit="deg")
     "Surface azimuth; azi= -90 degree East; azi= 0 South";
 
   Modelica.Blocks.Routing.Multiplex4 mulFraSun(

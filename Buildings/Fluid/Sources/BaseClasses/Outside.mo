@@ -22,8 +22,8 @@ partial model Outside
 protected
   final parameter Boolean singleSubstance = (Medium.nX == 1)
     "True if single substance medium";
-  Buildings.Utilities.Psychrometrics.X_pTphi x_pTphi if
-       not singleSubstance "Block to compute water vapor concentration";
+  Buildings.Utilities.Psychrometrics.X_pTphi x_pTphi
+    if not singleSubstance "Block to compute water vapor concentration";
 
   Modelica.Blocks.Interfaces.RealInput T_in_internal(final unit="K",
                                                      displayUnit="degC")

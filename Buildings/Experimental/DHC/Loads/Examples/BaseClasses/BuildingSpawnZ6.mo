@@ -15,19 +15,15 @@ model BuildingSpawnZ6
     "Number of conditioned thermal zones";
   parameter Real facMulTerUni[nZon]={5 for i in 1:nZon}
     "Multiplier factor for terminal units";
-  parameter Modelica.SIunits.MassFlowRate mLoa_flow_nominal[nZon]=fill(
-    1,
-    nZon)
+  parameter Modelica.Units.SI.MassFlowRate mLoa_flow_nominal[nZon]=fill(1, nZon)
     "Load side mass flow rate at nominal conditions (single terminal unit)"
     annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.SIunits.HeatFlowRate QHea_flow_nominal[nZon]=fill(
-    2000,
-    nZon) ./ facMulTerUni
+  parameter Modelica.Units.SI.HeatFlowRate QHea_flow_nominal[nZon]=fill(2000,
+      nZon) ./ facMulTerUni
     "Design heating heat flow rate (single terminal unit)"
     annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.SIunits.HeatFlowRate QCoo_flow_nominal[nZon]=fill(
-    -2000,
-    nZon) ./ facMulTerUni
+  parameter Modelica.Units.SI.HeatFlowRate QCoo_flow_nominal[nZon]=fill(-2000,
+      nZon) ./ facMulTerUni
     "Design cooling heat flow rate (single terminal unit)"
     annotation (Dialog(group="Nominal condition"));
   parameter String idfName="modelica://Buildings/Resources/Data/ThermalZones/EnergyPlus/Examples/RefBldgSmallOffice/RefBldgSmallOfficeNew2004_Chicago.idf"

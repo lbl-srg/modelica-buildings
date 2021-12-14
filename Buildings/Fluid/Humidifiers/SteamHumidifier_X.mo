@@ -14,11 +14,11 @@ model SteamHumidifier_X
       final energyDynamics = Modelica.Fluid.Types.Dynamics.SteadyState,
       final massDynamics = massDynamics));
 
-  parameter Modelica.SIunits.MassFlowRate mWatMax_flow(min=0) = Modelica.Constants.inf
+  parameter Modelica.Units.SI.MassFlowRate mWatMax_flow(min=0) = Modelica.Constants.inf
     "Maximum water mass flow rate addition (positive)"
     annotation (Evaluate=true);
 
-  parameter Modelica.SIunits.MassFraction X_start[Medium.nX] = Medium.X_default
+  parameter Modelica.Units.SI.MassFraction X_start[Medium.nX]=Medium.X_default
     "Start value of mass fractions m_i/m"
     annotation (Dialog(tab="Initialization"));
 
@@ -43,12 +43,12 @@ model SteamHumidifier_X
     "Heat flow rate added to the fluid (if flow is from port_a to port_b)"
     annotation (Placement(transformation(extent={{100,70},{120,90}})));
 protected
-  constant Modelica.SIunits.SpecificEnthalpy hSte = Medium.enthalpyOfCondensingGas(T=373.15)
+  constant Modelica.Units.SI.SpecificEnthalpy hSte=
+      Medium.enthalpyOfCondensingGas(T=373.15)
     "Enthalpy of steam at 100 degree Celsius";
 
-  Modelica.SIunits.SpecificEnthalpy hLea=
-    inStream(port_a.h_outflow) +
-    {hSte} * (port_b.Xi_outflow - inStream(port_a.Xi_outflow))
+  Modelica.Units.SI.SpecificEnthalpy hLea=inStream(port_a.h_outflow) + {hSte}*(
+      port_b.Xi_outflow - inStream(port_a.Xi_outflow))
     "Approximation of leaving enthalpy, based on dh/dx=h_fg";
 
   Modelica.Blocks.Sources.RealExpression TLea(y=

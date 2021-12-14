@@ -6,16 +6,15 @@ model RadiantHeatingCooling
           "modelica://Buildings/Resources/Data/ThermalZones/EnergyPlus/Examples/SingleFamilyHouse_TwoSpeed_ZoneAirBalance/SingleFamilyHouse_TwoSpeed_ZoneAirBalance_aboveSoil.idf")));
   package MediumW=Buildings.Media.Water
     "Water medium";
-  constant Modelica.SIunits.Area AFlo=185.8
-    "Floor area";
-  parameter Modelica.SIunits.HeatFlowRate QHea_flow_nominal=7500
+  constant Modelica.Units.SI.Area AFlo=185.8 "Floor area";
+  parameter Modelica.Units.SI.HeatFlowRate QHea_flow_nominal=7500
     "Nominal heat flow rate for heating";
-  parameter Modelica.SIunits.MassFlowRate mHea_flow_nominal=QHea_flow_nominal/4200/10
-    "Design water mass flow rate for heating";
-  parameter Modelica.SIunits.HeatFlowRate QCoo_flow_nominal=-5000
+  parameter Modelica.Units.SI.MassFlowRate mHea_flow_nominal=QHea_flow_nominal/
+      4200/10 "Design water mass flow rate for heating";
+  parameter Modelica.Units.SI.HeatFlowRate QCoo_flow_nominal=-5000
     "Nominal heat flow rate for cooling";
-  parameter Modelica.SIunits.MassFlowRate mCoo_flow_nominal=-QCoo_flow_nominal/4200/5
-    "Design water mass flow rate for heating";
+  parameter Modelica.Units.SI.MassFlowRate mCoo_flow_nominal=-QCoo_flow_nominal
+      /4200/5 "Design water mass flow rate for heating";
   parameter HeatTransfer.Data.OpaqueConstructions.Generic layFloSoi(nLay=4,
       material={Buildings.HeatTransfer.Data.Solids.Concrete(x=0.08),
         Buildings.HeatTransfer.Data.Solids.InsulationBoard(x=0.10),

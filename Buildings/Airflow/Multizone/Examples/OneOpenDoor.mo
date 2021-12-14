@@ -27,9 +27,9 @@ model OneOpenDoor "Model with one open and one closed door"
   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow preHeaFlo
     "Prescribed heat flow rate boundary condition"
     annotation (Placement(transformation(extent={{14,60},{34,80}})));
-  Modelica.Blocks.Sources.Sine heaSou(freqHz=1/3600)
-    "Signal for heat flow rate boundary condition"   annotation (Placement(
-        transformation(extent={{-60,60},{-40,80}})));
+  Modelica.Blocks.Sources.Sine heaSou(f=1/3600)
+    "Signal for heat flow rate boundary condition"
+    annotation (Placement(transformation(extent={{-60,60},{-40,80}})));
   Modelica.Blocks.Math.Gain gai(k=100)
     "Gain for heat flow rate boundary condition"
     annotation (Placement(transformation(extent={{-20,60},{0,80}})));

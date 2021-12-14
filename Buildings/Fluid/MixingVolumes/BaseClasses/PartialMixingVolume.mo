@@ -17,19 +17,18 @@ model PartialMixingVolume
   constant Boolean simplify_mWat_flow = true
     "Set to true to cause port_a.m_flow + port_b.m_flow = 0 even if mWat_flow is non-zero";
 
-  parameter Modelica.SIunits.MassFlowRate m_flow_nominal(min=0)
-    "Nominal mass flow rate"
-    annotation(Dialog(group = "Nominal condition"));
+  parameter Modelica.Units.SI.MassFlowRate m_flow_nominal(min=0)
+    "Nominal mass flow rate" annotation (Dialog(group="Nominal condition"));
   // Port definitions
   parameter Integer nPorts=0 "Number of ports"
     annotation(Evaluate=true, Dialog(connectorSizing=true, tab="General",group="Ports"));
-  parameter Modelica.SIunits.MassFlowRate m_flow_small(min=0) = 1E-4*abs(m_flow_nominal)
-    "Small mass flow rate for regularization of zero flow"
-    annotation(Dialog(tab = "Advanced"));
+  parameter Modelica.Units.SI.MassFlowRate m_flow_small(min=0) = 1E-4*abs(
+    m_flow_nominal) "Small mass flow rate for regularization of zero flow"
+    annotation (Dialog(tab="Advanced"));
   parameter Boolean allowFlowReversal = true
     "= false to simplify equations, assuming, but not enforcing, no flow reversal. Used only if model has two ports."
     annotation(Dialog(tab="Assumptions"), Evaluate=true);
-  parameter Modelica.SIunits.Volume V "Volume";
+  parameter Modelica.Units.SI.Volume V "Volume";
   Modelica.Fluid.Vessels.BaseClasses.VesselFluidPorts_b ports[nPorts](
       redeclare each package Medium = Medium) "Fluid inlets and outlets"
     annotation (Placement(transformation(extent={{-40,-10},{40,10}},
@@ -39,10 +38,10 @@ model PartialMixingVolume
     "Temperature of the fluid";
   Modelica.Blocks.Interfaces.RealOutput U(unit="J")
     "Internal energy of the component";
-  Modelica.SIunits.Pressure p = if nPorts > 0 then ports[1].p else p_start
+  Modelica.Units.SI.Pressure p=if nPorts > 0 then ports[1].p else p_start
     "Pressure of the fluid";
   Modelica.Blocks.Interfaces.RealOutput m(unit="kg") "Mass of the component";
-  Modelica.SIunits.MassFraction Xi[Medium.nXi] = XiOut_internal
+  Modelica.Units.SI.MassFraction Xi[Medium.nXi]=XiOut_internal
     "Species concentration of the fluid";
   Modelica.Blocks.Interfaces.RealOutput mXi[Medium.nXi](each unit="kg")
     "Species mass of the component";
@@ -62,8 +61,8 @@ protected
     hOut(start=Medium.specificEnthalpy_pTX(
                  p=p_start,
                  T=T_start,
-                 X=X_start))) if
-         useSteadyStateTwoPort "Model for steady-state balance if nPorts=2"
+                 X=X_start)))
+      if useSteadyStateTwoPort "Model for steady-state balance if nPorts=2"
         annotation (Placement(transformation(extent={{20,0},{40,20}})));
   Buildings.Fluid.Interfaces.ConservationEquation dynBal(
     final simplify_mWat_flow = simplify_mWat_flow,
@@ -79,20 +78,20 @@ protected
     final initialize_p = initialize_p,
     m(start=V*rho_start),
     nPorts=nPorts,
-    final mSenFac=mSenFac) if
-         not useSteadyStateTwoPort "Model for dynamic energy balance"
+    final mSenFac=mSenFac)
+      if not useSteadyStateTwoPort "Model for dynamic energy balance"
     annotation (Placement(transformation(extent={{60,0},{80,20}})));
 
   // Density at start values, used to compute initial values and start guesses
-  parameter Modelica.SIunits.Density rho_start=Medium.density(
-   state=state_start) "Density, used to compute start and guess values";
+  parameter Modelica.Units.SI.Density rho_start=Medium.density(state=
+      state_start) "Density, used to compute start and guess values";
   final parameter Medium.ThermodynamicState state_default = Medium.setState_pTX(
       T=Medium.T_default,
       p=Medium.p_default,
       X=Medium.X_default[1:Medium.nXi]) "Medium state at default values";
   // Density at medium default values, used to compute the size of control volumes
-  final parameter Modelica.SIunits.Density rho_default=Medium.density(
-    state=state_default) "Density, used to compute fluid mass";
+  final parameter Modelica.Units.SI.Density rho_default=Medium.density(state=
+      state_default) "Density, used to compute fluid mass";
   final parameter Medium.ThermodynamicState state_start = Medium.setState_pTX(
       T=T_start,
       p=p_start,
@@ -383,7 +382,7 @@ issue 282</a> for a discussion.
 June 9, 2015 by Michael Wetter:<br/>
 Set start value for <code>heatPort.T</code> and changed
 type of <code>T</code> to <code>Medium.Temperature</code> rather than
-<code>Modelica.SIunits.Temperature</code>
+<code>Modelica.Units.SI.Temperature</code>
 to avoid an
 error because of conflicting start values if
 <code>Buildings.Fluid.Chillers.Carnot_y</code>

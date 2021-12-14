@@ -7,16 +7,16 @@ model Exterior "Model for a exterior (outside) convective heat transfer"
     "Convective heat transfer model"
   annotation(Evaluate=true);
 
-  parameter Modelica.SIunits.CoefficientOfHeatTransfer hFixed=3
-    "Constant convection coefficient"
-   annotation (Dialog(enable=(conMod == Buildings.HeatTransfer.Types.ExteriorConvection.Fixed)));
+  parameter Modelica.Units.SI.CoefficientOfHeatTransfer hFixed=3
+    "Constant convection coefficient" annotation (Dialog(enable=(conMod ==
+          Buildings.HeatTransfer.Types.ExteriorConvection.Fixed)));
 
   parameter Buildings.HeatTransfer.Types.SurfaceRoughness roughness=
     Buildings.HeatTransfer.Types.SurfaceRoughness.Medium "Surface roughness"
     annotation (Dialog(enable=(conMod <> Buildings.HeatTransfer.Types.ExteriorConvection.Fixed)));
-  parameter Modelica.SIunits.Angle azi "Surface azimuth";
+  parameter Modelica.Units.SI.Angle azi "Surface azimuth";
 
-   parameter Modelica.SIunits.Angle til(displayUnit="deg") "Surface tilt"
+  parameter Modelica.Units.SI.Angle til(displayUnit="deg") "Surface tilt"
     annotation (Dialog(enable=(conMod <> Buildings.HeatTransfer.Types.ExteriorConvection.Fixed)));
 
   Modelica.Blocks.Interfaces.RealInput v(unit="m/s") "Wind speed"
@@ -24,14 +24,14 @@ model Exterior "Model for a exterior (outside) convective heat transfer"
   Modelica.Blocks.Interfaces.RealInput dir(unit="rad", displayUnit="deg",
      min=0, max=2*Modelica.Constants.pi) "Wind direction (0=wind from North)"
     annotation (Placement(transformation(extent={{-140,30},{-100,70}})));
-  Modelica.SIunits.CoefficientOfHeatTransfer hF
+  Modelica.Units.SI.CoefficientOfHeatTransfer hF
     "Convective heat transfer coefficient due to forced convection";
-  Modelica.SIunits.HeatFlux qN_flow
+  Modelica.Units.SI.HeatFlux qN_flow
     "Convective heat flux from solid -> fluid due to natural convection";
-  Modelica.SIunits.HeatFlux qF_flow
+  Modelica.Units.SI.HeatFlux qF_flow
     "Convective heat flux from solid -> fluid due to forced convection";
 protected
-  constant Modelica.SIunits.Velocity v_small = 0.5
+  constant Modelica.Units.SI.Velocity v_small=0.5
     "Small value for wind velocity below which equations are regularized";
   final parameter Real cosTil=Modelica.Math.cos(til) "Cosine of window tilt";
   final parameter Real sinTil=Modelica.Math.sin(til) "Sine of window tilt";

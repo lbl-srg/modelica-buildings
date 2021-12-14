@@ -2,7 +2,7 @@ within Buildings.HeatTransfer.Windows.BaseClasses;
 model ShadeConvection
   "Model for convective heat balance of a layer that may or may not have a shade"
 
-  parameter Modelica.SIunits.Area A "Heat transfer area";
+  parameter Modelica.Units.SI.Area A "Heat transfer area";
   parameter Boolean thisSideHasShade
     "Set to true if this side of the window has a shade";
 

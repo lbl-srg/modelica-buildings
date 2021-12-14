@@ -1,6 +1,5 @@
 within Buildings.Controls.OBC.CDL;
-package Psychrometrics
-  "Package with psychrometric blocks"
+package Psychrometrics "Package with psychrometric blocks"
   annotation (
     Documentation(
       info="<html>

@@ -4,14 +4,12 @@ model ChillerStage
   replaceable package Medium=Buildings.Media.Water
     constrainedby Modelica.Media.Interfaces.PartialMedium
     "Service side medium";
-  parameter Modelica.SIunits.Time tWai
-    "Waiting time";
-  parameter Modelica.SIunits.Power QChi_nominal(
-    final max=0)
+  parameter Modelica.Units.SI.Time tWai "Waiting time";
+  parameter Modelica.Units.SI.Power QChi_nominal(final max=0)
     "Nominal cooling capacity (negative)";
-  parameter Modelica.SIunits.Power staUpThr(final min=0)=-0.8*QChi_nominal
+  parameter Modelica.Units.SI.Power staUpThr(final min=0) = -0.8*QChi_nominal
     "Stage up load threshold(from one to two chillers)";
-  parameter Modelica.SIunits.Power staDowThr(final min=0)=-0.6*QChi_nominal
+  parameter Modelica.Units.SI.Power staDowThr(final min=0) = -0.6*QChi_nominal
     "Stage down load threshold(from two to one chiller)";
   inner Modelica.StateGraph.StateGraphRoot stateGraphRoot
     "State graph root"
@@ -36,7 +34,7 @@ model ChillerStage
     "On/off signal for the chillers - false: off; true: on"
     annotation (Placement(transformation(extent={{160,10},{180,-10}}),
       iconTransformation(extent={{160,-10},{180,10}})));
-  Modelica.StateGraph.InitialStep off(nIn=1)
+  Modelica.StateGraph.InitialStep off(nIn=1, nOut=1)
     "No cooling is demanded"
     annotation (Placement(transformation(extent={{-10,10},{10,-10}},
       rotation=-90,origin={10,90})));
@@ -46,7 +44,7 @@ model ChillerStage
     "Status of one chiller on"
     annotation (Placement(transformation(extent={{10,-10},{-10,10}},
       rotation=90,origin={10,0})));
-  Modelica.StateGraph.StepWithSignal twoOn(nOut=2)
+  Modelica.StateGraph.StepWithSignal twoOn(nOut=1, nIn=1)
     "Status of two chillers on"
     annotation (Placement(transformation(extent={{10,-10},{-10,10}},
       rotation=90,origin={10,-90})));
@@ -104,9 +102,8 @@ protected
     p=Medium.p_default,
     X=Medium.X_default)
     "Medium state at default properties";
-  final parameter Modelica.SIunits.SpecificHeatCapacity cp_default=
-    Medium.specificHeatCapacityCp(
-    sta_default)
+  final parameter Modelica.Units.SI.SpecificHeatCapacity cp_default=
+      Medium.specificHeatCapacityCp(sta_default)
     "Specific heat capacity of the fluid";
 equation
   connect(off.outPort[1],offToOne.inPort)
@@ -160,7 +157,7 @@ equation
     annotation (Line(points={{-180,60},{-120,60},{-120,30},{-102,30}},
       color={255,0,255}));
   connect(twoOn.outPort[1],twoToOne.inPort)
-    annotation (Line(points={{9.75,-100.5},{9.75,-120},{60,-120},{60,-44}},
+    annotation (Line(points={{10,-100.5},{10,-120},{60,-120},{60,-44}},
       color={0,0,0}));
   connect(offToOne.outPort,oneOn.inPort[1])
     annotation (Line(points={{10,58.5},{10,11},{9.5,11}},color={0,0,0}));
@@ -200,6 +197,15 @@ equation
     Documentation(
       revisions="<html>
 <ul>
+<li>
+December 10, 2021, by Michael Wetter:<br/>
+Corrected parameter value for <code>twoOn.nOut</code>.
+This correction is required to simulate the model in Dymola 2022
+if the model has been updated to MSL 4.0.0. With MSL 3.2.3, the simulation
+works without this correction.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1563\">Buildings, #1563</a>.
+</li>
 <li>
 August 6, 2020 by Jing Wang:<br/>
 First implementation.

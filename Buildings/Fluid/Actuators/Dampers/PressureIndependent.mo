@@ -49,17 +49,24 @@ protected
   Real kDamSquInv
     "Square inverse of flow coefficient (damper only)";
 
-  Modelica.SIunits.MassFlowRate m_flow_set
-    "Requested mass flow rate";
-  Modelica.SIunits.PressureDifference dp_min(displayUnit="Pa")
+  Modelica.Units.SI.MassFlowRate m_flow_set "Requested mass flow rate";
+  Modelica.Units.SI.PressureDifference dp_min(displayUnit="Pa")
     "Minimum pressure difference required for delivering requested mass flow rate";
-  Modelica.SIunits.PressureDifference dp_x, dp_x1, dp_x2, dp_y2, dp_y1
+  Modelica.Units.SI.PressureDifference dp_x;
+  Modelica.Units.SI.PressureDifference dp_x1;
+  Modelica.Units.SI.PressureDifference dp_x2;
+  Modelica.Units.SI.PressureDifference dp_y2;
+  Modelica.Units.SI.PressureDifference dp_y1
     "Support points for interpolation flow functions";
-  Modelica.SIunits.MassFlowRate m_flow_x, m_flow_x1, m_flow_x2, m_flow_y2, m_flow_y1
+  Modelica.Units.SI.MassFlowRate m_flow_x;
+  Modelica.Units.SI.MassFlowRate m_flow_x1;
+  Modelica.Units.SI.MassFlowRate m_flow_x2;
+  Modelica.Units.SI.MassFlowRate m_flow_y2;
+  Modelica.Units.SI.MassFlowRate m_flow_y1
     "Support points for interpolation flow functions";
-  Modelica.SIunits.MassFlowRate m_flow_smooth
+  Modelica.Units.SI.MassFlowRate m_flow_smooth
     "Smooth interpolation result between two flow regimes";
-  Modelica.SIunits.PressureDifference dp_smooth
+  Modelica.Units.SI.PressureDifference dp_smooth
     "Smooth interpolation result between two flow regimes";
   Real y_actual_smooth(final unit="1")
     "Fractional opening computed based on m_flow_smooth and dp";
@@ -67,20 +74,22 @@ protected
 function basicFlowFunction_dp_m_flow
   "Inverse of flow function that computes that computes the square inverse of flow coefficient"
   extends Modelica.Icons.Function;
-  input Modelica.SIunits.MassFlowRate m_flow
-    "Mass flow rate in design flow direction";
-  input Modelica.SIunits.PressureDifference dp
-    "Pressure difference between port_a and port_b (= port_a.p - port_b.p)";
-  input Modelica.SIunits.MassFlowRate m_flow_small
-    "Minimum value of mass flow rate guarding against k=(0)/sqrt(dp)";
-  input Modelica.SIunits.PressureDifference dp_small
-    "Minimum value of pressure drop guarding against k=m_flow/(0)";
+    input Modelica.Units.SI.MassFlowRate m_flow
+      "Mass flow rate in design flow direction";
+    input Modelica.Units.SI.PressureDifference dp
+      "Pressure difference between port_a and port_b (= port_a.p - port_b.p)";
+    input Modelica.Units.SI.MassFlowRate m_flow_small
+      "Minimum value of mass flow rate guarding against k=(0)/sqrt(dp)";
+    input Modelica.Units.SI.PressureDifference dp_small
+      "Minimum value of pressure drop guarding against k=m_flow/(0)";
   output Real kSquInv
     "Square inverse of flow coefficient";
   protected
-  Modelica.SIunits.PressureDifference dpPos=
-    Buildings.Utilities.Math.Functions.smoothMax(dp, -dp, dp_small)
-    "Regularized absolute value of pressure drop";
+    Modelica.Units.SI.PressureDifference dpPos=
+        Buildings.Utilities.Math.Functions.smoothMax(
+        dp,
+        -dp,
+        dp_small) "Regularized absolute value of pressure drop";
   Real mSqu_flow = Buildings.Utilities.Math.Functions.smoothMax(
     m_flow^2, m_flow_small^2, m_flow_small^2)
     "Regularized square value of mass flow rate";
