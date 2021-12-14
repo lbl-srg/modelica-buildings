@@ -1,5 +1,5 @@
 within IceStorage.BaseClasses;
-model QStar "Calculator for q*"
+model QStarDischarging "Calculator for q* under discharging"
 
   parameter Real coeff[6] "Coefficients for qstar curve";
   parameter Real dt "Time step of curve fitting data";
@@ -51,7 +51,7 @@ where <code>&Delta;t</code> is the time step of the data samples used for the cu
 and <code>T<sub>lmtd</sub><sup>*</sup></code> is the normalized LMTD calculated from <a href=\"mdoelica://IceStorage.BaseClasses.LMTDStar\"> IceStorage.BaseClasses.LMTDStar</a>.
 
 <p>
-When used for charing or discharing, different sets of <code>C</code> should be calibrated.
+Note that different sets of <code>C</code> should be calibrated for charing and discharging.
 </p>
 </html>", revisions="<html>
 <ul>
@@ -61,4 +61,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end QStar;
+end QStarDischarging;

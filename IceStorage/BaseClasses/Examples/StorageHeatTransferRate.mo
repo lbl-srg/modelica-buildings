@@ -1,14 +1,20 @@
 within IceStorage.BaseClasses.Examples;
 model StorageHeatTransferRate "Example to calculate qStar"
   extends Modelica.Icons.Example;
+  parameter Real coeCha[6] = {0, 0.09, -0.15, 0.612, -0.324, -0.216} "Coefficient for charging curve";
+  parameter Real coeDisCha[6] = {0, 0.09, -0.15, 0.612, -0.324, -0.216} "Coefficient for discharging curve";
+  parameter Real dt = 3600 "Time step used in the samples for curve fitting";
 
   Modelica.Blocks.Sources.Cosine fra(
     amplitude=0.5,
     offset=0.5,
     freqHz=1/7200) "Fraction of charge"
     annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
-  IceStorage.BaseClasses.StorageHeatTransferRate        norQSta(coeffCha={
-        0.0021,0,0,0,0,0}) "Storage heat transfer rate"
+  IceStorage.BaseClasses.StorageHeatTransferRate norQSta(
+    coeCha=coeCha,
+    dtCha=dt,
+    coeDisCha=coeDisCha,
+    dtDisCha=dt)           "Storage heat transfer rate"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
   Modelica.Blocks.Sources.IntegerStep mod(
     startTime=3600,
@@ -19,7 +25,8 @@ model StorageHeatTransferRate "Example to calculate qStar"
   Modelica.Blocks.Sources.Step lmtd(
     startTime=3600,
     offset=1,
-    height=-2) "lmtd start"
+    height=-0.5)
+               "lmtd start"
     annotation (Placement(transformation(extent={{-40,-60},{-20,-40}})));
 equation
   connect(fra.y, norQSta.fraCha) annotation (Line(points={{-19,0},{38,0}},

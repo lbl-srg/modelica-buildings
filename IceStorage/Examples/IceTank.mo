@@ -1,19 +1,25 @@
 within IceStorage.Examples;
-model IceTank
-  import IceTank =
-         IceStorage;
+model IceTank "Example that test the IceTank model"
   extends Modelica.Icons.Example;
+
   package Medium = Buildings.Media.Antifreeze.PropyleneGlycolWater (
     property_T=293.15,
     X_a=0.30);
+  parameter Real coeCha[6] = {0, 0.09, -0.15, 0.612, -0.324, -0.216} "Coefficient for charging curve";
+  parameter Real coeDisCha[6] = {0, 0.09, -0.15, 0.612, -0.324, -0.216} "Coefficient for discharging curve";
+  parameter Real dt = 3600 "Time step used in the samples for curve fitting";
 
-  IceTank.IceTank iceTan(
+  IceStorage.IceTank iceTan(
     redeclare package Medium = Medium,
     m_flow_nominal=2,
     dp_nominal=100000,
     mIce_max=2846.35,
     mIce_start=2846.35/2,
-    Hf=333550)
+    Hf=333550,
+    coeCha=coeCha,
+    dtCha=dt,
+    coeDisCha=coeDisCha,
+    dtDisCha=dt)
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Buildings.Fluid.Sources.MassFlowSource_T sou(
     redeclare package Medium = Medium,
@@ -21,8 +27,9 @@ model IceTank
     use_T_in=true,
     nPorts=1)
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
-  Buildings.Fluid.Sources.Boundary_pT bou(redeclare package Medium = Medium,
-                                          nPorts=1)
+  Buildings.Fluid.Sources.Boundary_pT bou(
+    redeclare package Medium = Medium,
+    nPorts=1)
     annotation (Placement(transformation(extent={{86,-10},{66,10}})));
   Buildings.Fluid.FixedResistances.PressureDrop res(
     redeclare package Medium = Medium,
@@ -30,9 +37,9 @@ model IceTank
     dp_nominal=500)
     annotation (Placement(transformation(extent={{26,-10},{46,10}})));
   Modelica.Blocks.Sources.IntegerTable mod(table=[
-        0,Integer(IceTank.Types.IceThermalStorageMode.Dormant);
-        3600,Integer(IceTank.Types.IceThermalStorageMode.Charging);
-        7200,Integer(IceTank.Types.IceThermalStorageMode.Discharging)])
+        0,Integer(IceStorage.Types.IceThermalStorageMode.Dormant);
+        3600,Integer(IceStorage.Types.IceThermalStorageMode.Charging);
+        7200,Integer(IceStorage.Types.IceThermalStorageMode.Discharging)])
                   "Mode"
     annotation (Placement(transformation(extent={{-100,30},{-80,50}})));
   Modelica.Blocks.Sources.Step temSou(
@@ -55,9 +62,11 @@ equation
           {-62,4}}, color={0,0,127}));
   connect(TSet.y, iceTan.TOutSet) annotation (Line(points={{-79,-30},{-26,-30},
           {-26,3},{-12,3}}, color={0,0,127}));
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
-        coordinateSystem(preserveAspectRatio=false)),
-    experiment(StartTime=0, StopTime=14400, __Dymola_Algorithm="Dassl"),
+  annotation (
+    experiment(
+      StartTime=0,
+      StopTime=14400,
+      __Dymola_Algorithm="Cvode"),
     __Dymola_Commands(file="modelica://VirtualTestbed/Resources/Scripts/Dymola/NISTChillerTestbed/Component/Examples/IceTank.mos"
         "Simulate and Plot"),
     Documentation(info="<html>

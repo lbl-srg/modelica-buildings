@@ -1,16 +1,17 @@
 within IceStorage.BaseClasses;
 model StorageHeatTransferRate
   "Charging or discharging rate based on the curves"
-  parameter Real coeffCha[6]={1.99930278E-5,0,0,0,0,0} "Coefficients for charging qstar curve";
+  parameter Real coeCha[6]={5.54E-05,-0.000145679,9.28E-05,0.001126122,-0.0011012,0.000300544}
+    "Coefficients for charging curve";
   parameter Real dtCha=15 "Time step of curve fitting data";
 
-  parameter Real coeffDisCha[6]={5.54E-05,-0.000145679,9.28E-05,0.001126122,-0.0011012,0.000300544}
-    "Coefficients for discharging qstar curve";
+  parameter Real coeDisCha[6]={5.54E-05,-0.000145679,9.28E-05,0.001126122,-0.0011012,0.000300544}
+    "Coefficients for discharging curve";
   parameter Real dtDisCha=15 "Time step of curve fitting data";
 
-  QStar qStaCha(coeff=coeffCha, dt=dtCha) "q* for charing mode"
+  IceStorage.BaseClasses.QStarCharging qStaCha(coeff=coeCha, dt=dtCha) "q* for charing mode"
     annotation (Placement(transformation(extent={{-40,-34},{-20,-14}})));
-  QStar qStaDisCha(coeff=coeffDisCha, dt=dtDisCha) "q* for discharging mode"
+  IceStorage.BaseClasses.QStarDischarging qStaDisCha(coeff=coeDisCha, dt=dtDisCha) "q* for discharging mode"
     annotation (Placement(transformation(extent={{-40,-90},{-20,-70}})));
   Buildings.Controls.OBC.CDL.Logical.Switch swi1 "Switch"
     annotation (Placement(transformation(extent={{70,-10},{90,10}})));
@@ -40,10 +41,6 @@ model StorageHeatTransferRate
   Modelica.Blocks.Math.Gain gai(k=-1) "Gain"
     annotation (Placement(transformation(extent={{0,-90},{20,-70}})));
 
-  Modelica.Blocks.Math.Feedback dif "Difference"
-    annotation (Placement(transformation(extent={{-70,20},{-50,40}})));
-  Modelica.Blocks.Sources.Constant uti(k=1) "Constant of one"
-    annotation (Placement(transformation(extent={{-100,20},{-80,40}})));
 equation
   connect(zer.y, swi1.u1)
     annotation (Line(points={{41,40},{52,40},{52,8},{68,8}}, color={0,0,127}));
@@ -72,15 +69,10 @@ equation
     annotation (Line(points={{-19,-80},{-2,-80}}, color={0,0,127}));
   connect(swi1.y, qNor) annotation (Line(points={{92,0},{110,0}},
         color={0,0,127}));
-  connect(uti.y,dif. u1)
-    annotation (Line(points={{-79,30},{-68,30}},     color={0,0,127}));
-  connect(dif.y, qStaCha.fraCha)
-    annotation (Line(points={{-51,30},{-46,30},{-46,-20},{-42,-20}},
-                                                   color={0,0,127}));
-  connect(fraCha,dif. u2) annotation (Line(points={{-120,0},{-60,0},{-60,22}},
-                       color={0,0,127}));
   connect(fraCha, qStaDisCha.fraCha) annotation (Line(points={{-120,0},{-70,0},{
           -70,-76},{-42,-76}},  color={0,0,127}));
+  connect(fraCha, qStaCha.fraCha) annotation (Line(points={{-120,0},{-70,0},{-70,
+          -20},{-42,-20}}, color={0,0,127}));
   annotation (defaultComponentName = "norQSta",
   Icon(coordinateSystem(preserveAspectRatio=false), graphics={
                                 Rectangle(
@@ -102,10 +94,10 @@ This blocks calculate the normalized heat transfer rate for the ice tank under a
 <ul>
 <li>Dormant Mode: the heat transfer rate is 0</li>
 <li>Discharging Mode: the heat transfer rate is the discharging rate calculated 
-        using <a href=\"modelica://IceStorage.BaseClasses.QStar\">IceStorage.BaseClasses.QStar</a> with calibrated coefficients for discharing mode
+        using <a href=\"modelica://IceStorage.BaseClasses.QStarDischarging\">IceStorage.BaseClasses.QStarDischarging</a> with calibrated coefficients for discharing mode
 </li>
 <li>Charging Mode: the heat transfer rate is the charging rate calculated 
-        using <a href=\"modelica://IceStorage.BaseClasses.QStar\">IceStorage.BaseClasses.QStar</a> with calibrated coefficients for charing mode
+        using <a href=\"modelica://IceStorage.BaseClasses.QStarCharging\">IceStorage.BaseClasses.QStarCharging</a> with calibrated coefficients for charing mode
 </li>
 </ul>
 

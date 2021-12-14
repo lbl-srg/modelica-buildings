@@ -2,5 +2,6 @@ IceMass
 LMTDStar
 ModeControl
 OutletTemperatureControl
-QStar
+QStarCharging
+QStarDischarging
 StorageHeatTransferRate
