@@ -129,12 +129,12 @@ partial model PartialChillerPlant "Chiller plant model for closed-loop test"
         origin={420,520})));
   Fluid.Sensors.RelativePressure senRelPre
     annotation (Placement(transformation(extent={{320,-90},{340,-70}})));
-  Modelica.Fluid.Interfaces.FluidPort_a portCooCoiSup(redeclare package Medium
-      = MediumW) "Cooling coil loop supply"
+  Modelica.Fluid.Interfaces.FluidPort_a portCooCoiSup(redeclare package Medium =
+        MediumW) "Cooling coil loop supply"
     annotation (Placement(transformation(extent={{190,-130},{210,-110}}),
         iconTransformation(extent={{110,-150},{130,-130}})));
-  Modelica.Fluid.Interfaces.FluidPort_b portCooCoiRet(redeclare package Medium
-      = MediumW)
+  Modelica.Fluid.Interfaces.FluidPort_b portCooCoiRet(redeclare package Medium =
+        MediumW)
     "Coolin coil loop return"
     annotation (Placement(transformation(extent={{430,-130},{450,-110}}),
         iconTransformation(extent={{170,-150},{190,-130}})));
@@ -173,8 +173,14 @@ partial model PartialChillerPlant "Chiller plant model for closed-loop test"
   Controls.OBC.CDL.Continuous.MultiSum mulSum(nin=1)
     "Limited total chiller load"
     annotation (Placement(transformation(extent={{-180,210},{-160,230}})));
-  Controls.OBC.CDL.Continuous.Division div2
-    annotation (Placement(transformation(extent={{316,578},{336,598}})));
+  Controls.OBC.CDL.Continuous.Division div2[2]
+    annotation (Placement(transformation(extent={{200,600},{220,620}})));
+  Controls.OBC.CDL.Continuous.Sources.Constant con[2](k={cooTow1.PFan_nominal,
+        cooTow2.PFan_nominal})
+    annotation (Placement(transformation(extent={{140,540},{160,560}})));
+  Modelica.Blocks.Sources.RealExpression towFanSpe(y={(div2[i].y)^(1/3) for i in
+            1:2}) "Tower fan speed feedback"
+    annotation (Placement(transformation(extent={{140,510},{160,530}})));
 equation
   connect(jun3.port_1, cooTow1.port_b)
     annotation (Line(points={{260,560},{260,620},{320,620}},
@@ -296,6 +302,12 @@ equation
           240},{0,272},{18,272}}, color={0,0,127}));
   connect(mulSum.y, div1.u1) annotation (Line(points={{-158,220},{-120,220},{
           -120,226},{-112,226}}, color={0,0,127}));
+  connect(con.y, div2.u2) annotation (Line(points={{162,550},{180,550},{180,604},
+          {198,604}}, color={0,0,127}));
+  connect(cooTow1.PFan, div2[1].u1) annotation (Line(points={{319,628},{180,628},
+          {180,616},{198,616}}, color={0,0,127}));
+  connect(cooTow2.PFan, div2[2].u1) annotation (Line(points={{319,558},{300,558},
+          {300,628},{180,628},{180,616},{198,616}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-580,-660},
             {580,660}})), Diagram(coordinateSystem(preserveAspectRatio=false,
           extent={{-580,-660},{580,660}})));
