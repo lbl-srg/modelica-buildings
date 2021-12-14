@@ -45,7 +45,7 @@ algorithm
          + String(cnt) + " times.");
 
   //Root of the derivative mapped to [0,1]
-  r :=Modelica.Math.Vectors.Utilities.roots(
+  r :=Modelica.Math.Polynomials.roots(
     {6*y1 + 3*y1d - 6*y2 + 3*y2d,-6*y1 - 4*y1d + 6*y2 - 2*y2d,y1d});
   //With a single extremum, exactly one of the two roots will be in (0,1)
   if (r[1,1]>0) and (r[1,1]<1) then
