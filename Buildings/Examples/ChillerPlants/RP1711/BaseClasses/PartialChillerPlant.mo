@@ -1,133 +1,131 @@
 within Buildings.Examples.ChillerPlants.RP1711.BaseClasses;
 partial model PartialChillerPlant "Chiller plant model for closed-loop test"
-  Fluid.HeatExchangers.CoolingTowers.YorkCalc cooTow1
+  Buildings.Examples.ChillerPlants.RP1711.BaseClasses.YorkCalc cooTow1
     annotation (Placement(transformation(extent={{340,610},{320,630}})));
-  Fluid.HeatExchangers.CoolingTowers.YorkCalc cooTow2
+  Buildings.Examples.ChillerPlants.RP1711.BaseClasses.YorkCalc cooTow2
     annotation (Placement(transformation(extent={{340,540},{320,560}})));
-  Fluid.Movers.SpeedControlled_y     conWatPum1 annotation (Placement(
+  Buildings.Fluid.Movers.SpeedControlled_y     conWatPum1 annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={200,440})));
-  Fluid.Movers.SpeedControlled_y     conWatPum2 annotation (Placement(
+  Buildings.Fluid.Movers.SpeedControlled_y     conWatPum2 annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={260,440})));
-  Fluid.Actuators.Valves.TwoWayLinear cwIsoVal1
+  Buildings.Fluid.Actuators.Valves.TwoWayLinear cwIsoVal1
     "Condenser water isolation valve"
     annotation (Placement(transformation(extent={{370,330},{390,350}})));
-  Fluid.Actuators.Valves.TwoWayLinear cwIsoVal2
+  Buildings.Fluid.Actuators.Valves.TwoWayLinear cwIsoVal2
     "Condenser water isolation valve"
     annotation (Placement(transformation(extent={{370,240},{390,260}})));
-  Fluid.Actuators.Valves.TwoWayLinear chwIsoVal1
+  Buildings.Fluid.Actuators.Valves.TwoWayLinear chwIsoVal1
     "Chilled water isolation valve"
     annotation (Placement(transformation(extent={{250,300},{230,320}})));
-  Fluid.Actuators.Valves.TwoWayLinear chwIsoVal2
+  Buildings.Fluid.Actuators.Valves.TwoWayLinear chwIsoVal2
     "Chilled water isolation valve"
     annotation (Placement(transformation(extent={{250,210},{230,230}})));
-  Fluid.FixedResistances.Junction jun annotation (Placement(transformation(
+  Buildings.Fluid.FixedResistances.Junction jun annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
         rotation=-90,
         origin={260,340})));
-  Fluid.FixedResistances.Junction jun1 annotation (Placement(transformation(
+  Buildings.Fluid.FixedResistances.Junction jun1 annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={260,480})));
-  Fluid.FixedResistances.Junction jun2 annotation (Placement(transformation(
+  Buildings.Fluid.FixedResistances.Junction jun2 annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={260,400})));
-  Fluid.FixedResistances.Junction jun3 annotation (Placement(transformation(
+  Buildings.Fluid.FixedResistances.Junction jun3 annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=90,
         origin={260,550})));
-  Fluid.FixedResistances.Junction jun4 annotation (Placement(transformation(
+  Buildings.Fluid.FixedResistances.Junction jun4 annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=-90,
         origin={420,340})));
-  Fluid.Actuators.Valves.TwoWayLinear towIsoVal2
+  Buildings.Fluid.Actuators.Valves.TwoWayLinear towIsoVal2
     "Cooling tower isolation valve"
     annotation (Placement(transformation(extent={{390,540},{370,560}})));
-  Fluid.Actuators.Valves.TwoWayLinear towIsoVal1
+  Buildings.Fluid.Actuators.Valves.TwoWayLinear towIsoVal1
     "Cooling tower isolation valve"
     annotation (Placement(transformation(extent={{390,610},{370,630}})));
-  Fluid.FixedResistances.Junction jun5 annotation (Placement(transformation(
+  Buildings.Fluid.FixedResistances.Junction jun5 annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=-90,
         origin={420,550})));
-  Fluid.FixedResistances.Junction jun6 annotation (Placement(transformation(
+  Buildings.Fluid.FixedResistances.Junction jun6 annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=-90,
         origin={440,220})));
-  Fluid.FixedResistances.Junction jun7 annotation (Placement(transformation(
+  Buildings.Fluid.FixedResistances.Junction jun7 annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
         rotation=-90,
         origin={200,220})));
-  Fluid.Movers.SpeedControlled_y     chiWatPum1 annotation (Placement(
+  Buildings.Fluid.Movers.SpeedControlled_y     chiWatPum1 annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={200,128})));
-  Fluid.Movers.SpeedControlled_y     chiWatPum2 annotation (Placement(
+  Buildings.Fluid.Movers.SpeedControlled_y     chiWatPum2 annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={260,128})));
-  Fluid.FixedResistances.Junction jun8 annotation (Placement(transformation(
+  Buildings.Fluid.FixedResistances.Junction jun8 annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
         rotation=-90,
         origin={200,160})));
-  Fluid.FixedResistances.Junction jun9 annotation (Placement(transformation(
+  Buildings.Fluid.FixedResistances.Junction jun9 annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
         rotation=-90,
         origin={200,90})));
-  Fluid.FixedResistances.Junction jun10 annotation (Placement(transformation(
+  Buildings.Fluid.FixedResistances.Junction jun10 annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
         rotation=-90,
         origin={200,20})));
-  Fluid.Actuators.Valves.TwoWayEqualPercentage           valByp
+  Buildings.Fluid.Actuators.Valves.TwoWayEqualPercentage valByp
     "Bypass valve for chiller." annotation (Placement(
         transformation(extent={{-10,-10},{10,10}}, origin={330,20})));
-  Fluid.FixedResistances.Junction jun11
-                                       annotation (Placement(transformation(
-        extent={{10,-10},{-10,10}},
-        rotation=-90,
-        origin={440,20})));
-  Fluid.Sensors.TemperatureTwoPort chiWatSupTem1
+  Buildings.Fluid.FixedResistances.Junction jun11
+    annotation (Placement(transformation(extent={{10,-10},{-10,10}},
+        rotation=-90, origin={440,20})));
+  Buildings.Fluid.Sensors.TemperatureTwoPort chiWatSupTem1
     "Chilled water supply temperature" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={200,60})));
-  Fluid.Sensors.TemperatureTwoPort chiWatRet
+  Buildings.Fluid.Sensors.TemperatureTwoPort chiWatRet
     "Chilled water return temperature, after bypass" annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={440,60})));
-  Fluid.Sensors.TemperatureTwoPort chiWatRet1
+  Buildings.Fluid.Sensors.TemperatureTwoPort chiWatRet1
     "Chilled water return temperature, before bypass" annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={440,-20})));
-  Fluid.Sensors.VolumeFlowRate senVolFlo annotation (Placement(transformation(
+  Buildings.Fluid.Sensors.VolumeFlowRate senVolFlo annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={440,180})));
-  Fluid.Sensors.TemperatureTwoPort conWatSupTem
+  Buildings.Fluid.Sensors.TemperatureTwoPort conWatSupTem
     "Condenser water supply temperature, to the chiller condenser" annotation (
       Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={260,520})));
-  Fluid.Sensors.TemperatureTwoPort conWatRetTem
+  Buildings.Fluid.Sensors.TemperatureTwoPort conWatRetTem
     "Condenser water supply temperature, from the chiller condenser"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={420,520})));
-  Fluid.Sensors.RelativePressure senRelPre
+  Buildings.Fluid.Sensors.RelativePressure senRelPre
     annotation (Placement(transformation(extent={{320,-90},{340,-70}})));
   Modelica.Fluid.Interfaces.FluidPort_a portCooCoiSup(redeclare package Medium =
         MediumW) "Cooling coil loop supply"
@@ -138,49 +136,42 @@ partial model PartialChillerPlant "Chiller plant model for closed-loop test"
     "Coolin coil loop return"
     annotation (Placement(transformation(extent={{430,-130},{450,-110}}),
         iconTransformation(extent={{170,-150},{190,-130}})));
-  Fluid.FixedResistances.PressureDrop res annotation (Placement(transformation(
+  Buildings.Fluid.FixedResistances.PressureDrop res annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={440,-60})));
-  Fluid.Chillers.ElectricEIR chi1
+  Buildings.Fluid.Chillers.ElectricEIR chi1
     annotation (Placement(transformation(extent={{320,324},{340,344}})));
-  Fluid.Chillers.ElectricEIR chi2
+  Buildings.Fluid.Chillers.ElectricEIR chi2
     annotation (Placement(transformation(extent={{320,234},{340,254}})));
-  Fluid.Sensors.MassFlowRate senMasFlo "Chilled water flow rate" annotation (
+  Buildings.Fluid.Sensors.MassFlowRate senMasFlo "Chilled water flow rate" annotation (
       Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={440,120})));
-  Controls.OBC.CDL.Continuous.Feedback feedback
+  Buildings.Controls.OBC.CDL.Continuous.Feedback feedback
     "Chilled water supply and return temperature difference"
     annotation (Placement(transformation(extent={{470,90},{490,110}})));
-  Controls.OBC.CDL.Continuous.Product curChiLoa "Current chiller cooling load"
+  Buildings.Controls.OBC.CDL.Continuous.Product curChiLoa "Current chiller cooling load"
     annotation (Placement(transformation(extent={{510,110},{530,130}})));
-  Controls.OBC.CDL.Continuous.Switch chiWatSupTem[2]
+  Buildings.Controls.OBC.CDL.Continuous.Switch chiWatSupTem[2]
     "Chilled water supply temperature setpoint"
     annotation (Placement(transformation(extent={{20,270},{40,290}})));
-  Controls.OBC.CDL.Routing.BooleanScalarReplicator reaChiDem(final nout=2)
+  Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator reaChiDem(final nout=2)
     "Release chiller demand, normal true"
     annotation (Placement(transformation(extent={{-40,270},{-20,290}})));
-  Controls.OBC.CDL.Continuous.Feedback demLimSupTem
+  Buildings.Controls.OBC.CDL.Continuous.Feedback demLimSupTem
     "Chilled water supply temperature setpoint, when chiller demand is limitted"
     annotation (Placement(transformation(extent={{-70,230},{-50,250}})));
-  Controls.OBC.CDL.Continuous.Division div1 "Real inputs division"
+  Buildings.Controls.OBC.CDL.Continuous.Division div1 "Real inputs division"
     annotation (Placement(transformation(extent={{-110,210},{-90,230}})));
-  Controls.OBC.CDL.Routing.RealScalarReplicator reaScaRep(final nout=2)
+  Buildings.Controls.OBC.CDL.Routing.RealScalarReplicator reaScaRep(final nout=2)
     "Duplicate real input"
     annotation (Placement(transformation(extent={{-40,230},{-20,250}})));
-  Controls.OBC.CDL.Continuous.MultiSum mulSum(nin=1)
+  Buildings.Controls.OBC.CDL.Continuous.MultiSum mulSum(nin=1)
     "Limited total chiller load"
     annotation (Placement(transformation(extent={{-180,210},{-160,230}})));
-  Controls.OBC.CDL.Continuous.Division div2[2]
-    annotation (Placement(transformation(extent={{200,600},{220,620}})));
-  Controls.OBC.CDL.Continuous.Sources.Constant con[2](k={cooTow1.PFan_nominal,
-        cooTow2.PFan_nominal})
-    annotation (Placement(transformation(extent={{140,540},{160,560}})));
-  Modelica.Blocks.Sources.RealExpression towFanSpe(y={(div2[i].y)^(1/3) for i in
-            1:2}) "Tower fan speed feedback"
-    annotation (Placement(transformation(extent={{140,510},{160,530}})));
+
 equation
   connect(jun3.port_1, cooTow1.port_b)
     annotation (Line(points={{260,560},{260,620},{320,620}},
@@ -302,12 +293,6 @@ equation
           240},{0,272},{18,272}}, color={0,0,127}));
   connect(mulSum.y, div1.u1) annotation (Line(points={{-158,220},{-120,220},{
           -120,226},{-112,226}}, color={0,0,127}));
-  connect(con.y, div2.u2) annotation (Line(points={{162,550},{180,550},{180,604},
-          {198,604}}, color={0,0,127}));
-  connect(cooTow1.PFan, div2[1].u1) annotation (Line(points={{319,628},{180,628},
-          {180,616},{198,616}}, color={0,0,127}));
-  connect(cooTow2.PFan, div2[2].u1) annotation (Line(points={{319,558},{300,558},
-          {300,628},{180,628},{180,616},{198,616}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-580,-660},
             {580,660}})), Diagram(coordinateSystem(preserveAspectRatio=false,
           extent={{-580,-660},{580,660}})));
