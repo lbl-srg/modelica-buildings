@@ -1,6 +1,7 @@
 within Buildings.Examples.ChillerPlants.DataCenter.BaseClasses;
-model ContinuousTimeControl
-  extends Buildings.Examples.ChillerPlants.DataCenter.ContinuousTimeControl;
+model DataCenterContinuousTimeControl
+  extends
+    Buildings.Examples.ChillerPlants.DataCenter.DataCenterContinuousTimeControl;
   Modelica.Blocks.Interfaces.RealOutput PAC
     "Alternate current power required for IT" annotation (Placement(
         transformation(extent={{-140,-230},{-120,-210}}),
@@ -31,4 +32,4 @@ equation
               "modelica://Buildings/Resources/Images/Examples/ChillerPlant/DataCenter.png")}),
       Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-400,-300},{400,
             300}}), graphics));
-end ContinuousTimeControl;
+end DataCenterContinuousTimeControl;

@@ -1,8 +1,8 @@
 within Buildings.Examples.ChillerPlants.DataCenter;
-model Renewables
+model DataCenterRenewables
   "Model of a data center connected to renewable energy generation"
   extends Modelica.Icons.Example;
-  BaseClasses.ContinuousTimeControl dataCenterContinuousTimeControl
+  BaseClasses.DataCenterContinuousTimeControl dataCenterContinuousTimeControl
     annotation (Placement(transformation(extent={{-66,-60},{-46,-40}})));
   Buildings.Electrical.DC.Sources.WindTurbine winTur(
     scale=200e3,
@@ -107,7 +107,7 @@ equation
       StopTime=604800,
       Tolerance=1e-6),
       __Dymola_Commands(file=
-          "modelica://Buildings/Resources/Scripts/Dymola/Examples/ChillerPlants/DataCenter/Renewables.mos"
+          "modelica://Buildings/Resources/Scripts/Dymola/Examples/ChillerPlant/DataCenterRenewables.mos"
         "Simulate and plot"),
     Documentation(revisions="<html>
 <ul>
@@ -136,4 +136,4 @@ This control logic is implemented using a finite state machine
 inside the model <code>con</code>.
 </p>
 </html>"));
-end Renewables;
+end DataCenterRenewables;

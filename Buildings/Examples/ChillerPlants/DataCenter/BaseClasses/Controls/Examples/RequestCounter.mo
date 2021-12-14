@@ -8,7 +8,7 @@ model RequestCounter "Test model for RequestCounter"
     annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
   Modelica.Blocks.Sources.Pulse act1(period=10)
     annotation (Placement(transformation(extent={{-80,40},{-60,60}})));
-  Modelica.Blocks.Sources.Sine act2(freqHz=0.3, offset=1)
+  Modelica.Blocks.Sources.Sine act2(f=0.3, offset=1)
     annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
 equation
   connect(act1.y, reqCou.uAct[1]) annotation (Line(
@@ -25,7 +25,7 @@ equation
       smooth=Smooth.None));
   annotation (
     __Dymola_Commands(file=
-          "modelica://Buildings/Resources/Scripts/Dymola/Examples/ChillerPlants/DataCenter/BaseClasses/Controls/Examples/RequestCounter.mos"
+          "modelica://Buildings/Resources/Scripts/Dymola/Examples/ChillerPlant/BaseClasses/Controls/Examples/RequestCounter.mos"
         "Simulate and plot"),
     experiment(
       StopTime=600,

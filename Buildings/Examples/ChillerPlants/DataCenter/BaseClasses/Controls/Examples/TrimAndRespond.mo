@@ -2,11 +2,11 @@ within Buildings.Examples.ChillerPlants.DataCenter.BaseClasses.Controls.Examples
 model TrimAndRespond "Test model for TrimAndRespond"
   extends Modelica.Icons.Example;
 
-  Modelica.Blocks.Sources.Sine act3(freqHz=0.002, offset=0.2)
+  Modelica.Blocks.Sources.Sine act3(f=0.002, offset=0.2)
     annotation (Placement(transformation(extent={{-80,-20},{-60,0}})));
   Modelica.Blocks.Sources.Pulse act1(period=500)
     annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
-  Modelica.Blocks.Sources.Sine act2(freqHz=0.001, offset=0.3)
+  Modelica.Blocks.Sources.Sine act2(f=0.001, offset=0.3)
     annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
   Buildings.Examples.ChillerPlants.DataCenter.BaseClasses.Controls.TrimAndRespond
     triAndRes[3](
@@ -31,7 +31,7 @@ equation
       smooth=Smooth.None));
   annotation (
     __Dymola_Commands(file=
-          "modelica://Buildings/Resources/Scripts/Dymola/Examples/ChillerPlants/DataCenter/BaseClasses/Controls/Examples/TrimAndRespond.mos"
+          "modelica://Buildings/Resources/Scripts/Dymola/Examples/ChillerPlant/BaseClasses/Controls/Examples/TrimAndRespond.mos"
         "Simulate and plot"),
     experiment(
       StopTime=3600,

@@ -5,7 +5,7 @@ model BatteryControl "Test model for battery control"
     con "Battery control"
     annotation (Placement(transformation(extent={{0,0},{20,20}})));
   Modelica.Blocks.Sources.Sine SOC(
-    freqHz=1/86400,
+    f=1/86400,
     offset=0.5,
     amplitude=0.6) "State of charge"
     annotation (Placement(transformation(extent={{-40,0},{-20,20}})));
@@ -19,7 +19,7 @@ equation
       StopTime=604800,
       Tolerance=1e-6),
       __Dymola_Commands(file=
-          "modelica://Buildings/Resources/Scripts/Dymola/Examples/ChillerPlants/DataCenter/BaseClasses/Controls/Examples/BatteryControl.mos"
+          "modelica://Buildings/Resources/Scripts/Dymola/Examples/ChillerPlant/BaseClasses/Controls/Examples/BatteryControl.mos"
         "Simulate and plot"),
     Documentation(revisions="<html>
 <ul>

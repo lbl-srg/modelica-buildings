@@ -1,4 +1,4 @@
-ContinuousTimeControl
-DiscreteTimeControl
-Renewables
+DataCenterContinuousTimeControl
+DataCenterDiscreteTimeControl
+DataCenterRenewables
 BaseClasses

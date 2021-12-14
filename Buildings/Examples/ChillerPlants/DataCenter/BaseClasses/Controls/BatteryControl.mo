@@ -31,7 +31,8 @@ model BatteryControl "Controller for battery"
     nu=2,
     expr={200e3,-400e3})
     annotation (Placement(transformation(extent={{104,-10},{120,10}})));
-  Modelica.StateGraph.InitialStep off "Off state"
+  Modelica.StateGraph.InitialStep off(nIn=1, nOut=1)
+                                      "Off state"
     annotation (Placement(transformation(extent={{-50,80},{-30,100}})));
   inner Modelica.StateGraph.StateGraphRoot stateGraphRoot
     annotation (Placement(transformation(extent={{-120,120},{-100,140}})));
@@ -44,9 +45,11 @@ model BatteryControl "Controller for battery"
   Modelica.StateGraph.TransitionWithSignal t2(enableTimer=true, waitTime=1)
     "Transition to discharge"
     annotation (Placement(transformation(extent={{10,50},{30,70}})));
-  Modelica.StateGraph.StepWithSignal charge "Charge battery"
+  Modelica.StateGraph.StepWithSignal charge(nIn=1, nOut=1)
+                                            "Charge battery"
     annotation (Placement(transformation(extent={{40,110},{60,130}})));
-  Modelica.StateGraph.StepWithSignal discharge "Discharge battery"
+  Modelica.StateGraph.StepWithSignal discharge(nIn=1, nOut=1)
+                                               "Discharge battery"
     annotation (Placement(transformation(extent={{40,50},{60,70}})));
   Modelica.StateGraph.TransitionWithSignal t3 "Transition to off"
     annotation (Placement(transformation(extent={{70,110},{90,130}})));
@@ -187,7 +190,7 @@ First implementation.
           smooth=Smooth.None),            Text(
           extent={{-150,204},{150,164}},
           textString="%name",
-          lineColor={0,0,255}),
+          textColor={0,0,255}),
         Rectangle(
           extent={{36,62},{102,18}},
           lineColor={0,0,0},

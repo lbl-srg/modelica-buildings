@@ -2,7 +2,7 @@ within Buildings.Examples.ChillerPlants.DataCenter.BaseClasses.Controls.Examples
 model KMinusU "Test model for KMinusU"
   extends Modelica.Icons.Example;
   Modelica.Blocks.Sources.Sine pulse(
-    freqHz=0.001,
+    f=0.001,
     amplitude=0.5,
     offset=0.5,
     phase=-1.5707963267949)
@@ -16,7 +16,7 @@ equation
       smooth=Smooth.None));
   annotation (
     __Dymola_Commands(file=
-          "modelica://Buildings/Resources/Scripts/Dymola/Examples/ChillerPlants/DataCenter/BaseClasses/Controls/Examples/KMinusU.mos"
+          "modelica://Buildings/Resources/Scripts/Dymola/Examples/ChillerPlant/BaseClasses/Controls/Examples/KMinusU.mos"
         "Simulate and plot"),
     experiment(
       StopTime=3600,

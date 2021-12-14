@@ -1,5 +1,5 @@
 within Buildings.Examples.ChillerPlants.DataCenter;
-model DiscreteTimeControl
+model DataCenterDiscreteTimeControl
   "Model of data center with trim and respond control"
   extends Buildings.Examples.ChillerPlants.DataCenter.BaseClasses.DataCenter;
   extends Modelica.Icons.Example;
@@ -24,7 +24,7 @@ equation
       pattern=LinePattern.Dash));
   annotation (
     __Dymola_Commands(file=
-          "modelica://Buildings/Resources/Scripts/Dymola/Examples/ChillerPlants/DataCenter/DiscreteTimeControl.mos"
+          "modelica://Buildings/Resources/Scripts/Dymola/Examples/ChillerPlant/DataCenterDiscreteTimeControl.mos"
         "Simulate and plot"), Documentation(info="<html>
 <p>
 This model is the chilled water plant with trim and respond control,
@@ -33,13 +33,13 @@ which is a discrete time control logic.
 <p>
 The trim and respond logic is approximated by a PI controller which
 significantly reduces computing time. The model is described at
-<a href=\"Buildings.Examples.ChillerPlants.DataCenter.\">
-Buildings.Examples.ChillerPlants.DataCenter.</a>.
+<a href=\"Buildings.Examples.ChillerPlant\">
+Buildings.Examples.ChillerPlant</a>.
 </p>
 <p>
 See
-<a href=\"Buildings.Examples.ChillerPlants.DataCenter.ContinuousTimeControl\">
-Buildings.Examples.ChillerPlants.DataCenter.ContinuousTimeControl</a>
+<a href=\"Buildings.Examples.ChillerPlant.DataCenterContinuousTimeControl\">
+Buildings.Examples.ChillerPlant.DataCenterContinuousTimeControl</a>
 for an implementation that approximates the trim and respond
 logic by a continuous time controller.
 </p>
@@ -48,8 +48,8 @@ logic by a continuous time controller.
 <li>
 January 13, 2015, by Michael Wetter:<br/>
 Moved base model to
-<a href=\"Buildings.Examples.ChillerPlants.DataCenter.BaseClasses.DataCenter\">
-Buildings.Examples.ChillerPlants.DataCenter..BaseClasses.DataCenter</a>.
+<a href=\"Buildings.Examples.ChillerPlant.BaseClasses.DataCenter\">
+Buildings.Examples.ChillerPlant.BaseClasses.DataCenter</a>.
 </li>
 <li>
 December 5, 2012, by Michael Wetter:<br/>
@@ -61,4 +61,4 @@ First implementation.
             400,300}}),
                     graphics),
     experiment(StartTime=13046400, Tolerance=1e-6, StopTime=13651200));
-end DiscreteTimeControl;
+end DataCenterDiscreteTimeControl;
