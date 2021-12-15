@@ -6,6 +6,7 @@ model UpWithoutOnOff
     final nChi=2,
     final totSta=4,
     final have_fixSpeConWatPum=false,
+    final need_reduceChillerDemand=true,
     final chaChiWatIsoTim=300,
     final staVec={0,0.5,1,2},
     final desConWatPumSpe={0,0.5,0.75,0.6},
