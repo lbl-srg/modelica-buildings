@@ -1,31 +1,27 @@
-within IceStorage.Calibration.Experiment.BaseClasses;
-partial model PartialExample "Base example"
+within IceStorage.Validation.EnergyPlus;
+model IceTankDischarging_EnergyPlus
   extends Modelica.Icons.Example;
+
+  parameter Modelica.SIunits.Mass mIce_max=5e7/333550
+    "Nominal mass of ice in the tank";
+  parameter Modelica.SIunits.Mass mIce_start=0.998733201*mIce_max
+    "Start value of ice mass in the tank";
+  parameter String fileName=Modelica.Utilities.Files.loadResource(
+    "modelica://IceStorage/Resources/data/Calibration/EnergyPlus/EnergyPlus_Discharging.txt")
+    "File where matrix is stored";
+
   package Medium = Buildings.Media.Antifreeze.PropyleneGlycolWater (
     property_T=293.15,
     X_a=0.30);
 
-  parameter Real coeCha[6] = {1.99810397E-04,0,0,0,0,0} "Coefficient for charging curve";
-  parameter Real coeDisCha[6] = {5.54E-05,-1.45679E-04,9.28E-05,1.126122E-03,
-      -1.1012E-03,3.00544E-04} "Coefficient for discharging curve";
-  parameter Real dt = 10 "Time step used in the samples for curve fitting";
-
-  parameter Modelica.SIunits.Mass mIce_max=2846.35
-    "Nominal mass of ice in the tank";
-  parameter Modelica.SIunits.Mass mIce_start=0.90996030*mIce_max
-    "Start value of ice mass in the tank";
-  parameter String fileName;
-
-  IceTank         iceTan(
+  IceStorage.IceTank iceTan(
     redeclare package Medium = Medium,
-    m_flow_nominal=1,
     dp_nominal=100000,
     mIce_max=mIce_max,
     mIce_start=mIce_start,
-    coeCha=coeCha,
-    dtCha=dt,
-    coeDisCha=coeDisCha,
-    dtDisCha=dt)
+    dtCha=3600,
+    dtDisCha=3600,
+    m_flow_nominal=0.1)
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Buildings.Fluid.Sources.MassFlowSource_T sou(
     redeclare package Medium = Medium,
@@ -41,22 +37,19 @@ partial model PartialExample "Base example"
     dp_nominal=500)
     annotation (Placement(transformation(extent={{26,-10},{46,10}})));
   Modelica.Blocks.Sources.IntegerConstant
-                                       mod
+                                       mod(k=Integer(IceStorage.Types.IceThermalStorageMode.Discharging))
     "Mode"
     annotation (Placement(transformation(extent={{-60,60},{-40,80}})));
   Modelica.Blocks.Sources.CombiTimeTable dat(
     tableOnFile=true,
     tableName="tab",
-    columns=2:5,
-    fileName=fileName)
-                 "Flowrate measurements"
+    fileName=fileName,
+    columns=2:6) "Flowrate measurements"
     annotation (Placement(transformation(extent={{-100,60},{-80,80}})));
 
-  Modelica.Thermal.HeatTransfer.Celsius.ToKelvin TIn
-    "Inlet temperature in Kelvin"
+  Modelica.Thermal.HeatTransfer.Celsius.ToKelvin inCToK
     annotation (Placement(transformation(extent={{-92,24},{-72,44}})));
-  Modelica.Thermal.HeatTransfer.Celsius.ToKelvin TOut
-    "Outlet temperature in Kelvin"
+  Modelica.Thermal.HeatTransfer.Celsius.ToKelvin outCToK
     annotation (Placement(transformation(extent={{-80,-50},{-60,-30}})));
 
 equation
@@ -70,23 +63,27 @@ equation
           8}}, color={255,127,0}));
   connect(dat.y[3], sou.m_flow_in) annotation (Line(points={{-79,70},{-64,70},{-64,
           8},{-56,8}}, color={0,0,127}));
-  connect(dat.y[1], TIn.Celsius) annotation (Line(points={{-79,70},{-70,70},{-70,
-          48},{-98,48},{-98,34},{-94,34}}, color={0,0,127}));
-  connect(TIn.Kelvin, sou.T_in) annotation (Line(points={{-71,34},{-66,34},{-66,
+  connect(dat.y[1], inCToK.Celsius) annotation (Line(points={{-79,70},{-70,70},{
+          -70,48},{-98,48},{-98,34},{-94,34}}, color={0,0,127}));
+  connect(inCToK.Kelvin, sou.T_in) annotation (Line(points={{-71,34},{-66,34},{-66,
           4},{-56,4}}, color={0,0,127}));
-  connect(dat.y[2], TOut.Celsius) annotation (Line(points={{-79,70},{-70,70},{-70,
-          48},{-98,48},{-98,-40},{-82,-40}}, color={0,0,127}));
-  connect(TOut.Kelvin, iceTan.TOutSet) annotation (Line(points={{-59,-40},{-20,-40},
-          {-20,3},{-12,3}}, color={0,0,127}));
+  connect(dat.y[2],outCToK. Celsius) annotation (Line(points={{-79,70},{-70,70},
+          {-70,48},{-98,48},{-98,-40},{-82,-40}}, color={0,0,127}));
+  connect(outCToK.Kelvin, iceTan.TOutSet) annotation (Line(points={{-59,-40},{
+          -20,-40},{-20,3},{-12,3}}, color={0,0,127}));
   annotation (
+    experiment(StopTime=28920, __Dymola_Algorithm="Dassl"),
+    __Dymola_Commands(file=
+          "modelica://VirtualTestbed/Resources/scripts/dymola/NISTChillerTestbed/Component/Calibration/IceTankDischarging_EnergyPlus.mos"
+        "Simulate and Plot"),
     Documentation(info="<html>
+<p>
+This example is to validate the developed tank model against real measurement from NIST chiller tank testbed on day 1.
+</p>
+
 </html>", revisions="<html>
-<ul>
-<li>
-December 14, 2021, by Yangyang Fu:<br/>
-First implementation.
-</li>
-</ul>
+April 2021, Yangyang Fu <\\b>
+First implementation
 
 </html>"));
-end PartialExample;
+end IceTankDischarging_EnergyPlus;

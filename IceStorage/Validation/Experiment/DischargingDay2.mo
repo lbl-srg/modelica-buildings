@@ -1,9 +1,10 @@
 within IceStorage.Validation.Experiment;
 model DischargingDay2
-  extends IceStorage.Validation.BaseClasses.PartialExample(
-    fileName=Modelica.Utilities.Files.loadResource("modelica://IceStorage/Resources/data/Validation/Experiment/discharging-day2.txt"),
-    mod(k=Integer(IceStorage.Types.IceThermalStorageMode.Discharging)),
-    mIce_start=0.96645368*mIce_max);
+  extends IceStorage.Validation.Experiment.BaseClasses.PartialExample(
+   fileName=Modelica.Utilities.Files.loadResource(
+    "modelica://IceStorage/Resources/data/Validation/Experiment/discharging-day2.txt"),
+   mod(k=Integer(IceStorage.Types.IceThermalStorageMode.Discharging)),
+   mIce_start=0.96645368*mIce_max);
 
   annotation (
     experiment(

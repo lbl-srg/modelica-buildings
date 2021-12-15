@@ -1,6 +1,3 @@
 within IceStorage;
-package Validation "Package that validates the ice tank model"
-  extends Modelica.Icons.ExamplesPackage;
-
-
+package Validation
 end Validation;

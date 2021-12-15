@@ -1,4 +1,4 @@
-within IceStorage.Calibration.EnergyPlus;
+within IceStorage.Validation.EnergyPlus;
 model IceTankCharging_EnergyPlus
   extends Modelica.Icons.Example;
   package Medium = Buildings.Media.Antifreeze.PropyleneGlycolWater (

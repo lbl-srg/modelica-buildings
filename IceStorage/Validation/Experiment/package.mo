@@ -6,7 +6,6 @@ annotation (Documentation(info="<html>
 <p>
 This package contains calibration examples using experimental data from 
 the Intelligent Building Agents Laboraotry at the National Institute of Standards and Technology.
-The discharging rate was various, but the charging rate was constant during the experiment.
 </p>
 
 <h4>Reference</h4>
