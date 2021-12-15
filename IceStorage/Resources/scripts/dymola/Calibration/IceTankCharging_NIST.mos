@@ -1,3 +1,0 @@
-﻿simulateModel("VirtualTestbed.NISTChillerTestbed.Component.Calibration.IceTankCharging_NIST", stopTime=60370, resultFile="IceTankCharging_NIST");
-createPlot(id=1, position={0, 0, 1645, 640}, y={"iceTan.SOC", "dat.y[4]"}, range={0.0, 20000.0, -10.0, 20.0}, grid=true, subPlot=1, colors={{238,46,47}, {28,108,200}}, displayUnits={"degC", "degC"});
-createPlot(id=1, position={0, 0, 1645, 640}, y={"iceTan.TOut", "outCToK.Celsius"}, range={0.0, 20000.0, -10.0, 20.0}, grid=true, subPlot=2, colors={{238,46,47}, {28,108,200}}, displayUnits={"degC", "degC"});

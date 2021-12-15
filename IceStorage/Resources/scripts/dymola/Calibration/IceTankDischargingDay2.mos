@@ -1,5 +1,0 @@
-﻿simulateModel("VirtualTestbed.NISTChillerTestbed.Component.Calibration.IceTankDischargingDay2", stopTime=19990, resultFile="IceTankDischargingDay2");
-createPlot(id=1, position={0, 0, 1645, 640}, y={"iceTan.u"}, range={0.0, 20000.0, 2.6, 3.4000000000000004}, grid=true,subPlot=1, colors={{28,108,200}});
-createPlot(id=1, position={0, 0, 1645, 640}, y={"iceTan.SOC"}, range={0.0, 20000.0, 0.0, 1.0}, grid=true,subPlot=2, colors={{28,108,200}});
-createPlot(id=1, position={0, 0, 1645, 640}, y={"iceTan.mIce"}, range={0.0, 20000.0, -1000.0, 3000.0}, grid=true, subPlot=3, colors={{28,108,200}});
-createPlot(id=1, position={0, 0, 1645, 640}, y={"iceTan.TOut", "outCToK.Celsius"}, range={0.0, 20000.0, -10.0, 20.0}, grid=true, subPlot=4, colors={{238,46,47}, {28,108,200}}, displayUnits={"degC", "degC"});
