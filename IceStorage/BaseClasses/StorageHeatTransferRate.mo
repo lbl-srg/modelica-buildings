@@ -29,23 +29,25 @@ model StorageHeatTransferRate
     annotation (Placement(transformation(extent={{-140,-80},{-100,-40}})));
   Modelica.Blocks.Interfaces.IntegerInput u "Ice storage operation mode"
     annotation (Placement(transformation(extent={{-140,40},{-100,80}})));
-  Buildings.Controls.OBC.CDL.Integers.LessEqualThreshold dorMod(threshold=
-        Integer(IceStorage.Types.IceThermalStorageMode.Dormant))
-    "Dormant mode"
-    annotation (Placement(transformation(extent={{-70,80},{-50,100}})));
-  Buildings.Controls.OBC.CDL.Integers.LessThreshold chaMod(threshold=
-        Integer(IceStorage.Types.IceThermalStorageMode.Discharging))
-    "Chargin mode"
-    annotation (Placement(transformation(extent={{-70,50},{-50,70}})));
+  Buildings.Controls.OBC.CDL.Integers.Equal isDor "Is dormant mode"
+    annotation (Placement(transformation(extent={{-40,70},{-20,90}})));
 
   Modelica.Blocks.Math.Gain gai(k=-1) "Gain"
     annotation (Placement(transformation(extent={{0,-90},{20,-70}})));
 
+  Buildings.Controls.OBC.CDL.Integers.Equal isCha "Is charging mode"
+    annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
+  Modelica.Blocks.Sources.IntegerExpression chaMod(y=Integer(IceStorage.Types.IceThermalStorageMode.Charging))
+    "Charging mode"
+    annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
+  Modelica.Blocks.Sources.IntegerExpression dorMod(y=Integer(IceStorage.Types.IceThermalStorageMode.Dormant))
+    "Dormant mode"
+    annotation (Placement(transformation(extent={{-80,50},{-60,70}})));
 equation
   connect(zer.y, swi1.u1)
     annotation (Line(points={{41,40},{52,40},{52,8},{68,8}}, color={0,0,127}));
   connect(qStaCha.qNor, swi2.u1)
-    annotation (Line(points={{-19,-24},{0,-24},{0,-42},{38,-42}},
+    annotation (Line(points={{-19,-24},{10,-24},{10,-42},{38,-42}},
                                                             color={0,0,127}));
   connect(swi2.y, swi1.u3)
     annotation (Line(points={{62,-50},{64,-50},{64,-8},{68,-8}},
@@ -54,15 +56,8 @@ equation
           {-50,-60},{-120,-60}},color={0,0,127}));
   connect(lmtdSta, qStaDisCha.lmtdSta) annotation (Line(points={{-120,-60},{-50,
           -60},{-50,-84},{-42,-84}}, color={0,0,127}));
-  connect(dorMod.u, u) annotation (Line(points={{-72,90},{-90,90},{-90,60},{-120,
-          60}}, color={255,127,0}));
-  connect(dorMod.y, swi1.u2) annotation (Line(points={{-48,90},{0,90},{0,0},{68,
-          0}},      color={255,0,255}));
-  connect(chaMod.y, swi2.u2) annotation (Line(points={{-48,60},{-10,60},{-10,-50},
-          {38,-50}},
-                   color={255,0,255}));
-  connect(u, chaMod.u)
-    annotation (Line(points={{-120,60},{-72,60}}, color={255,127,0}));
+  connect(isDor.y, swi1.u2) annotation (Line(points={{-18,80},{10,80},{10,0},{
+          68,0}}, color={255,0,255}));
   connect(gai.y, swi2.u3) annotation (Line(points={{21,-80},{26,-80},{26,-58},{38,
           -58}},color={0,0,127}));
   connect(qStaDisCha.qNor,gai. u)
@@ -73,6 +68,16 @@ equation
           -70,-76},{-42,-76}},  color={0,0,127}));
   connect(fraCha, qStaCha.fraCha) annotation (Line(points={{-120,0},{-70,0},{-70,
           -20},{-42,-20}}, color={0,0,127}));
+  connect(u, isDor.u1) annotation (Line(points={{-120,60},{-90,60},{-90,80},{
+          -42,80}}, color={255,127,0}));
+  connect(chaMod.y, isCha.u2) annotation (Line(points={{-59,30},{-50,30},{-50,
+          42},{-42,42}}, color={255,127,0}));
+  connect(u, isCha.u1) annotation (Line(points={{-120,60},{-90,60},{-90,50},{
+          -42,50}}, color={255,127,0}));
+  connect(dorMod.y, isDor.u2) annotation (Line(points={{-59,60},{-50,60},{-50,
+          72},{-42,72}}, color={255,127,0}));
+  connect(isCha.y, swi2.u2) annotation (Line(points={{-18,50},{0,50},{0,-50},{
+          38,-50}}, color={255,0,255}));
   annotation (defaultComponentName = "norQSta",
   Icon(coordinateSystem(preserveAspectRatio=false), graphics={
                                 Rectangle(
