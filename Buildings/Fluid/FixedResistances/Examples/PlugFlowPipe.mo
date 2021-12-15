@@ -4,7 +4,7 @@ model PlugFlowPipe "Simple example of plug flow pipe"
   replaceable package Medium = Buildings.Media.Water "Medium in the pipe" annotation (
       choicesAllMatching=true);
 
-  final parameter Modelica.SIunits.MassFlowRate m_flow_nominal=3
+  final parameter Modelica.Units.SI.MassFlowRate m_flow_nominal=3
     "Mass flow rate";
 
   Modelica.Blocks.Sources.Ramp Tin(

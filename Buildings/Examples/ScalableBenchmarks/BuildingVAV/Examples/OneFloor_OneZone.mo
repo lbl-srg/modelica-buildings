@@ -10,12 +10,12 @@ model OneFloor_OneZone "Closed-loop model with 1 zone in 1 floor"
      annotation(Evaluate=true);
   parameter Modelica.Units.SI.PressureDifference dP_pre=850
     "Prescribed pressure difference";
-  parameter Modelica.Units.SI.Volume VRoo[nZon,nFlo] = {{6*8*2.7 for j in 1:nFlo} for i in 1:nZon}
-    "Room volume";
-  parameter Modelica.Units.SI.MassFlowRate m_flow_nominal_each[nZon,nFlo]=
-    {{7*conv*VRoo[i,j] for j in 1:nFlo} for i in 1:nZon}
+  parameter Modelica.Units.SI.Volume VRoo[nZon,nFlo]={{6*8*2.7 for j in 1:nFlo}
+      for i in 1:nZon} "Room volume";
+  parameter Modelica.Units.SI.MassFlowRate m_flow_nominal_each[nZon,nFlo]={{7*
+      conv*VRoo[i, j] for j in 1:nFlo} for i in 1:nZon}
     "Nominal flow rate to each zone";
-  parameter Modelica.Units.SI.MassFlowRate m_flow_nominal = nZon*(7*conv)*6*8*2.7
+  parameter Modelica.Units.SI.MassFlowRate m_flow_nominal=nZon*(7*conv)*6*8*2.7
     "Nominal system flow rate";
   constant Real conv=1.2/3600
     "Conversion factor for nominal mass flow rate";

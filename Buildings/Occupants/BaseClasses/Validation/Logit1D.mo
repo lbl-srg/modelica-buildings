@@ -8,7 +8,8 @@ model Logit1D "Test model for 1D binary variable generation function"
   Real x "Time-varying real number as input";
   output Real y "Output";
 protected
-  parameter Modelica.SIunits.Time t0(final fixed = false) "First sample time instant";
+  parameter Modelica.Units.SI.Time t0(final fixed=false)
+    "First sample time instant";
   Real curSeed "Current value for seed as a real-valued variable";
 
 initial equation

@@ -1,7 +1,7 @@
 within Buildings.Examples.VAVReheat.BaseClasses.Controls;
 block PreCoolingStarter "Outputs true when precooling should start"
   extends Modelica.Blocks.Interfaces.BooleanSignalSource;
-  parameter Modelica.Units.SI.Temperature TOutLim = 286.15
+  parameter Modelica.Units.SI.Temperature TOutLim=286.15
     "Limit for activating precooling";
   parameter Modelica.Units.SI.Temperature TRooSetCooOcc
     "Set point for room air temperature during cooling mode";

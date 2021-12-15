@@ -2,11 +2,11 @@ within Buildings.Utilities.IO.BCVTB.Examples;
 model TwoRooms
   "Thermal model of two rooms that will be linked to the BCVTB which models the controls"
   extends Modelica.Icons.Example;
-  parameter Modelica.SIunits.Time tau = 2*3600 "Room time constant";
-  parameter Modelica.SIunits.HeatFlowRate Q_flow_nom = 100 "Nominal heat flow";
-  parameter Modelica.SIunits.ThermalConductance UA = Q_flow_nom / 20
+  parameter Modelica.Units.SI.Time tau=2*3600 "Room time constant";
+  parameter Modelica.Units.SI.HeatFlowRate Q_flow_nom=100 "Nominal heat flow";
+  parameter Modelica.Units.SI.ThermalConductance UA=Q_flow_nom/20
     "Thermal conductance of room";
-  parameter Modelica.SIunits.Temperature TStart = 283.15 "Start temperature";
+  parameter Modelica.Units.SI.Temperature TStart=283.15 "Start temperature";
   Modelica.Thermal.HeatTransfer.Components.HeatCapacitor C1(C=tau*UA, T(start=
           TStart, fixed=true)) "Heat capacity of room"
     annotation (Placement(transformation(extent={{70,70},{90,90}})));

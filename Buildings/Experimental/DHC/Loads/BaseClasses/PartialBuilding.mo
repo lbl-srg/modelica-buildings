@@ -191,11 +191,11 @@ partial model PartialBuilding
     final k=facMul) if have_pum "Scaling"
     annotation (Placement(transformation(extent={{270,70},{290,90}})));
 protected
-  final parameter Modelica.SIunits.SpecificHeatCapacity cp_default=
-    Medium.specificHeatCapacityCp(Medium.setState_pTX(
-      p = Medium.p_default,
-      T = Medium.T_default,
-      X = Medium.X_default))
+  final parameter Modelica.Units.SI.SpecificHeatCapacity cp_default=
+      Medium.specificHeatCapacityCp(Medium.setState_pTX(
+      p=Medium.p_default,
+      T=Medium.T_default,
+      X=Medium.X_default))
     "Specific heat capacity of medium at default medium state";
 initial equation
   assert(
@@ -311,7 +311,7 @@ First implementation.
           fillPattern=FillPattern.Solid),
         Text(
           extent={{-150,-328},{150,-368}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%name"),
         Rectangle(
           extent={{20,-52},{300,-68}},

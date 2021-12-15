@@ -6,14 +6,13 @@ model SimpleRoomODE
     "Source side medium";
   package Medium2=Buildings.Media.Air
     "Load side medium";
-  parameter Modelica.SIunits.HeatFlowRate QHea_flow_nominal=112000
-    "Design heating heat flow rate (for TInd=TIndHea_nominal, TOut=TOutHea_nominal,
+  parameter Modelica.Units.SI.HeatFlowRate QHea_flow_nominal=112000 "Design heating heat flow rate (for TInd=TIndHea_nominal, TOut=TOutHea_nominal,
     with no internal gains, no solar radiation)"
     annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.SIunits.HeatFlowRate QCoo_flow_nominal=-200000
+  parameter Modelica.Units.SI.HeatFlowRate QCoo_flow_nominal=-200000
     "Design cooling heat flow rate"
     annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.SIunits.Time tau=1800
+  parameter Modelica.Units.SI.Time tau=1800
     "Time constant of the indoor temperature";
   Examples.BaseClasses.GeojsonExportRC.OfficeBuilding.Office romHeaMet
     "ROM where the heating load is always met"
@@ -33,8 +32,7 @@ model SimpleRoomODE
     annotation (Placement(transformation(extent={{30,110},{50,130}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minTSet(
     k=293.15,
-    y(
-      final unit="K",
+    y(final unit="K",
       displayUnit="degC"))
     "Minimum temperature set point"
     annotation (Placement(transformation(extent={{-140,150},{-120,170}})));
@@ -64,8 +62,7 @@ model SimpleRoomODE
     annotation (Placement(transformation(extent={{-10,10},{10,30}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant maxTSet(
     k=297.15,
-    y(
-      final unit="K",
+    y(final unit="K",
       displayUnit="degC"))
     "Maximum temperature set point"
     annotation (Placement(transformation(extent={{-140,-170},{-120,-150}})));

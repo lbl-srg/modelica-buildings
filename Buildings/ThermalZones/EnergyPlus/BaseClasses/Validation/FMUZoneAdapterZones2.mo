@@ -5,7 +5,7 @@ model FMUZoneAdapterZones2
   constant String modelicaNameBuilding=getInstanceName()
     "Name of the building";
 
-  parameter Modelica.SIunits.HeatCapacity CZon=6*6*2.7*1.2*1006
+  parameter Modelica.Units.SI.HeatCapacity CZon=6*6*2.7*1.2*1006
     "Heat capacity of zone air";
   inner Building building(
     idfName=Modelica.Utilities.Files.loadResource(
@@ -14,8 +14,8 @@ model FMUZoneAdapterZones2
     "modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.epw"),
     weaName=Modelica.Utilities.Files.loadResource(
       "modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"),
-    usePrecompiledFMU=false,
-    showWeatherData=false)
+    computeWetBulbTemperature=false,
+    usePrecompiledFMU=false)
     "Building model"
     annotation (Placement(transformation(extent={{-80,70},{-60,90}})));
   Buildings.ThermalZones.EnergyPlus.BaseClasses.ThermalZoneAdapter fmuZonCor(

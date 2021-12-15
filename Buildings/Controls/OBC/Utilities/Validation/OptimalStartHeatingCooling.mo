@@ -91,16 +91,14 @@ model OptimalStartHeatingCooling
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal TSetHea(
     realTrue=273.15+21,
     realFalse=273.15+15,
-    y(
-      final unit="K",
+    y(final unit="K",
       displayUnit="degC"))
     "Room temperature set point for heating"
     annotation (Placement(transformation(extent={{80,-70},{100,-50}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal TSetCoo(
     realTrue=273.15+24,
     realFalse=273.15+30,
-    y(
-      final unit="K",
+    y(final unit="K",
       displayUnit="degC"))
     "Room temperature set point for cooling"
     annotation (Placement(transformation(extent={{80,-40},{100,-20}})));

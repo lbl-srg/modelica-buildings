@@ -5,13 +5,13 @@ block SourceSelector
   parameter Buildings.BoundaryConditions.Types.DataSource datSou "Data source"
     annotation(Evaluate=true);
   parameter Real p "Parameter value";
-  Modelica.Blocks.Interfaces.RealInput uFil if
-      datSou == Buildings.BoundaryConditions.Types.DataSource.File
+  Modelica.Blocks.Interfaces.RealInput uFil
+   if datSou == Buildings.BoundaryConditions.Types.DataSource.File
     "Input signal from file reader"
     annotation (Placement(transformation(extent={{-140,-80},{-100,-40}}),
         iconTransformation(extent={{-120,-90},{-100,-70}})));
-  Modelica.Blocks.Interfaces.RealInput uCon if
-     datSou == Buildings.BoundaryConditions.Types.DataSource.Input
+  Modelica.Blocks.Interfaces.RealInput uCon
+  if datSou == Buildings.BoundaryConditions.Types.DataSource.Input
     "Input signal from input connector"
     annotation (Placement(transformation(extent={{-140,40},{-100,80}}),
         iconTransformation(extent={{-120,70},{-100,90}})));

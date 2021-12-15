@@ -20,11 +20,11 @@ protected
   function j = PhaseSystem.j "J operator that rotates of 90 degrees";
   Modelica.Blocks.Interfaces.RealInput pf_internal
     "Hidden value of the input load for the conditional connector";
-  Modelica.SIunits.MagneticFlux psi[2](each stateSelect=StateSelect.prefer)
+  Modelica.Units.SI.MagneticFlux psi[2](each stateSelect=StateSelect.prefer)
     "Magnetic flux";
-  Modelica.SIunits.Impedance Z[2] "Impedance of the load";
-  Modelica.SIunits.AngularVelocity omega "Angular frequency";
-  Modelica.SIunits.Power Q = P*tan(acos(pf_internal))
+  Modelica.Units.SI.Impedance Z[2] "Impedance of the load";
+  Modelica.Units.SI.AngularVelocity omega "Angular frequency";
+  Modelica.Units.SI.Power Q=P*tan(acos(pf_internal))
     "Reactive power (positive because inductive load)";
 equation
   connect(pf_in, pf_internal);

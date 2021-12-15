@@ -81,14 +81,14 @@ equation
         Text(
           extent={{-140,152},{160,112}},
           textString="%name",
-          lineColor={0,0,255}),
+          textColor={0,0,255}),
         Text(
           extent={{-42,-63},{41,-106}},
-          lineColor={192,192,192},
+          textColor={192,192,192},
           textString="%delta s"),
         Text(
           extent={{226,60},{106,10}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString=DynamicSelect("",String(y,
             leftJustified=false,
             significantDigits=3)))}),
@@ -134,7 +134,7 @@ for example.
 <ul>
 <li>
 November 12, 2020, by Michael Wetter:<br/>
-Reformulated to remove dependency to <code>Modelica.SIunits</code>.<br/>
+Reformulated to remove dependency to <code>Modelica.Units.SI</code>.<br/>
 This is for
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2243\">issue 2243</a>.
 </li>

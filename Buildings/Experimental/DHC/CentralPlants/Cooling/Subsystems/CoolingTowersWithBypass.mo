@@ -12,32 +12,29 @@ model CoolingTowersWithBypass
   parameter Boolean use_inputFilter=true
     "= true, if opening is filtered with a 2nd order CriticalDamping filter"
     annotation (Dialog(tab="Dynamics",group="Filtered opening"));
-  parameter Modelica.SIunits.Pressure dp_nominal
+  parameter Modelica.Units.SI.Pressure dp_nominal
     "Nominal pressure difference of the tower"
     annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.SIunits.PressureDifference dpValve_nominal
+  parameter Modelica.Units.SI.PressureDifference dpValve_nominal
     "Nominal pressure difference of the valve";
   parameter Real ratWatAir_nominal(
     final min=0,
     final unit="1")=0.625
     "Design water-to-air ratio"
     annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.SIunits.Temperature TAirInWB_nominal
+  parameter Modelica.Units.SI.Temperature TAirInWB_nominal
     "Nominal outdoor (air inlet) wetbulb temperature"
     annotation (Dialog(group="Heat transfer"));
-  parameter Modelica.SIunits.Temperature TWatIn_nominal
-    "Nominal water inlet temperature"
-    annotation (Dialog(group="Heat transfer"));
-  parameter Modelica.SIunits.TemperatureDifference dT_nominal
+  parameter Modelica.Units.SI.Temperature TWatIn_nominal
+    "Nominal water inlet temperature" annotation (Dialog(group="Heat transfer"));
+  parameter Modelica.Units.SI.TemperatureDifference dT_nominal
     "Temperature difference between inlet and outlet of the tower"
     annotation (Dialog(group="Heat transfer"));
-  parameter Modelica.SIunits.Power PFan_nominal
-    "Fan power"
+  parameter Modelica.Units.SI.Power PFan_nominal "Fan power"
     annotation (Dialog(group="Fan"));
-  parameter Modelica.SIunits.TemperatureDifference dTApp=3
-    "Approach temperature"
-    annotation (Dialog(group="Control Settings"));
-  parameter Modelica.SIunits.Temperature TMin
+  parameter Modelica.Units.SI.TemperatureDifference dTApp=3
+    "Approach temperature" annotation (Dialog(group="Control Settings"));
+  parameter Modelica.Units.SI.Temperature TMin
     "Minimum allowed water temperature entering chiller"
     annotation (Dialog(group="Control Settings"));
   parameter Modelica.Blocks.Types.SimpleController controllerType=Modelica.Blocks.Types.SimpleController.PI
@@ -48,14 +45,12 @@ model CoolingTowersWithBypass
     final min=0)=1
     "Gain of the tower PID controller"
     annotation (Dialog(group="Control Settings"));
-  parameter Modelica.SIunits.Time Ti(
-    final min=Modelica.Constants.small)=60
+  parameter Modelica.Units.SI.Time Ti(final min=Modelica.Constants.small) = 60
     "Integrator time constant of the tower PID controller"
-    annotation (Dialog(enable=(enableTi),group="Control Settings"));
-  parameter Modelica.SIunits.Time Td(
-    final min=0)=0.1
+    annotation (Dialog(enable=(enableTi), group="Control Settings"));
+  parameter Modelica.Units.SI.Time Td(final min=0) = 0.1
     "Derivative time constant of the tower PID controller"
-    annotation (Dialog(enable=(enableTd),group="Control Settings"));
+    annotation (Dialog(enable=(enableTd), group="Control Settings"));
   Modelica.Blocks.Interfaces.BooleanInput on[num]
     "On signal for cooling towers"
     annotation (Placement(transformation(extent={{-140,20},{-100,60}})));
@@ -249,7 +244,7 @@ equation
           fillPattern=FillPattern.Solid),
         Text(
           extent={{-149,-114},{151,-154}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%name"),
         Rectangle(
           extent={{-30,94},{30,20}},

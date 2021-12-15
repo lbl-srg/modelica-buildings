@@ -2,7 +2,7 @@ within Buildings.Utilities.IO.Python36.Functions.BaseClasses;
 class PythonObject
   "class used to create the external object: PythonObject"
 extends ExternalObject;
-    function constructor
+    pure function constructor
       "Construct an external object that can be used to store a Python object"
     output PythonObject pytObj;
     external "C" pytObj = initPythonMemory()
@@ -23,6 +23,10 @@ Buildings.Utilities.IO.Python36.Functions.BaseClasses.exchange</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+December 11, 2021, by Michael Wetter:<br/>
+Declared function as <code>pure</code> for MSL 4.0.0.
+</li>
 <li>
 April 10, 2020, by Jianjun Hu and Michael Wetter:<br/>
 Updated to Python 3.6.
@@ -45,7 +49,7 @@ First implementation.
 </html>"));
     end constructor;
 
-  function destructor "Release memory"
+  pure function destructor "Release memory"
     input PythonObject pytObj;
     external "C" freePythonMemory(pytObj)
       annotation (Library={"ModelicaBuildingsPython3.6",  "python3.6m"},
@@ -88,6 +92,10 @@ of a Python object.
 </html>",
 revisions="<html>
 <ul>
+<li>
+December 11, 2021, by Michael Wetter:<br/>
+Declared function as <code>pure</code> for MSL 4.0.0.
+</li>
 <li>
 April 10, 2020, by Jianjun Hu and Michael Wetter:<br/>
 Updated to Python 3.6.

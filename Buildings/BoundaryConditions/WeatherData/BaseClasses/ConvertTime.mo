@@ -3,8 +3,10 @@ block ConvertTime
   "Converts the simulation time to calendar time in scale of 1 year (365 days), or a multiple of a year"
   extends Modelica.Blocks.Icons.Block;
 
-  parameter Modelica.SIunits.Time weaDatStaTim(displayUnit="d") "Start time of weather data";
-  parameter Modelica.SIunits.Time weaDatEndTim(displayUnit="d") "End time of weather data";
+  parameter Modelica.Units.SI.Time weaDatStaTim(displayUnit="d")
+    "Start time of weather data";
+  parameter Modelica.Units.SI.Time weaDatEndTim(displayUnit="d")
+    "End time of weather data";
 
   Modelica.Blocks.Interfaces.RealInput modTim(
     final quantity="Time",
@@ -16,13 +18,16 @@ block ConvertTime
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 
 protected
-  constant Modelica.SIunits.Time shiftSolarRad=1800 "Number of seconds for the shift for solar radiation calculation";
-  parameter Modelica.SIunits.Time lenWea = weaDatEndTim-weaDatStaTim "Length of weather data";
+  constant Modelica.Units.SI.Time shiftSolarRad=1800
+    "Number of seconds for the shift for solar radiation calculation";
+  parameter Modelica.Units.SI.Time lenWea=weaDatEndTim - weaDatStaTim
+    "Length of weather data";
 
   parameter Boolean canRepeatWeatherFile = abs(mod(lenWea, 365*24*3600)) < 1E-2
     "=true, if the weather file can be repeated, since it has the length of a year or a multiple of it";
 
-  discrete Modelica.SIunits.Time tNext(start=0, fixed=true) "Start time of next period";
+  discrete Modelica.Units.SI.Time tNext(start=0, fixed=true)
+    "Start time of next period";
 
 equation
   when {initial(), canRepeatWeatherFile and modTim > pre(tNext)} then
@@ -106,11 +111,11 @@ First implementation.
             100}}), graphics={
         Text(
           extent={{-98,6},{-74,-4}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="modTim"),
         Text(
           extent={{74,6},{98,-4}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="calTim"),
         Rectangle(
           extent={{-66,76},{60,58}},

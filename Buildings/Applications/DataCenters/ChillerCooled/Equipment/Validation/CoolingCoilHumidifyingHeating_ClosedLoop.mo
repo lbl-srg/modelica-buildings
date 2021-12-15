@@ -12,12 +12,13 @@ model CoolingCoilHumidifyingHeating_ClosedLoop
       offset=273.15 + 13,
       height=-6));
 
-  parameter Modelica.SIunits.ThermalConductance UA_nominal=m2_flow_nominal*1006*(T_b2_nominal-T_a2_nominal)/
-     Buildings.Fluid.HeatExchangers.BaseClasses.lmtd(
-        T_a1_nominal,
-        T_b1_nominal,
-        T_a2_nominal,
-        T_b2_nominal)
+  parameter Modelica.Units.SI.ThermalConductance UA_nominal=m2_flow_nominal*
+      1006*(T_b2_nominal - T_a2_nominal)/
+      Buildings.Fluid.HeatExchangers.BaseClasses.lmtd(
+      T_a1_nominal,
+      T_b1_nominal,
+      T_a2_nominal,
+      T_b2_nominal)
     "Thermal conductance at nominal flow for sensible heat, used to compute time constant";
   parameter Real yValMin = 0.4 "Minimum position of water-side valves";
 

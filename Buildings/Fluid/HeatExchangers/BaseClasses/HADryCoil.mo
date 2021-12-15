@@ -3,15 +3,16 @@ model HADryCoil
   "Sensible convective heat transfer model for air to water coil"
   extends Modelica.Blocks.Icons.Block;
 
-  parameter Modelica.SIunits.ThermalConductance UA_nominal(min=0)
+  parameter Modelica.Units.SI.ThermalConductance UA_nominal(min=0)
     "Thermal conductance at nominal flow"
-          annotation(Dialog(tab="General", group="Nominal condition"));
+    annotation (Dialog(tab="General", group="Nominal condition"));
 
-  parameter Modelica.SIunits.MassFlowRate m_flow_nominal_w
+  parameter Modelica.Units.SI.MassFlowRate m_flow_nominal_w
     "Water mass flow rate"
-          annotation(Dialog(tab="General", group="Nominal condition"));
-  parameter Modelica.SIunits.MassFlowRate m_flow_nominal_a "Air mass flow rate"
-          annotation(Dialog(tab="General", group="Nominal condition"));
+    annotation (Dialog(tab="General", group="Nominal condition"));
+  parameter Modelica.Units.SI.MassFlowRate m_flow_nominal_a
+    "Air mass flow rate"
+    annotation (Dialog(tab="General", group="Nominal condition"));
 
   Modelica.Blocks.Interfaces.RealInput m1_flow(final unit="kg/s") "Mass flow rate medium 1"
     annotation (Placement(transformation(extent={{-120,60},{-100,80}})));
@@ -32,22 +33,24 @@ model HADryCoil
   parameter Real r_nominal(min=0)=0.5
     "Ratio between air-side and water-side convective heat transfer coefficient"
           annotation(Dialog(tab="General", group="Nominal condition"));
-  parameter Modelica.SIunits.ThermalConductance hA_nominal_w(min=0)=UA_nominal * (r_nominal+1)/r_nominal
+  parameter Modelica.Units.SI.ThermalConductance hA_nominal_w(min=0) =
+    UA_nominal*(r_nominal + 1)/r_nominal
     "Water side convective heat transfer coefficient"
-          annotation(Dialog(tab="General", group="Nominal condition"));
-  parameter Modelica.SIunits.ThermalConductance hA_nominal_a(min=0)=r_nominal * hA_nominal_w
+    annotation (Dialog(tab="General", group="Nominal condition"));
+  parameter Modelica.Units.SI.ThermalConductance hA_nominal_a(min=0) =
+    r_nominal*hA_nominal_w
     "Air side convective heat transfer coefficient, including fin resistance"
-          annotation(Dialog(tab="General", group="Nominal condition"));
+    annotation (Dialog(tab="General", group="Nominal condition"));
   parameter Real n_w(min=0, max=1)=0.85
     "Water-side exponent for convective heat transfer coefficient, h~m_flow^n";
   parameter Real n_a(min=0, max=1)=0.8
     "Air-side exponent for convective heat transfer coefficient, h~m_flow^n";
-  parameter Modelica.SIunits.Temperature T0_w=
-          Modelica.SIunits.Conversions.from_degC(20) "Water temperature"
-          annotation(Dialog(tab="General", group="Nominal condition"));
-  parameter Modelica.SIunits.Temperature T0_a=
-          Modelica.SIunits.Conversions.from_degC(20) "Air temperature"
-          annotation(Dialog(tab="General", group="Nominal condition"));
+  parameter Modelica.Units.SI.Temperature T0_w=
+      Modelica.Units.Conversions.from_degC(20) "Water temperature"
+    annotation (Dialog(tab="General", group="Nominal condition"));
+  parameter Modelica.Units.SI.Temperature T0_a=
+      Modelica.Units.Conversions.from_degC(20) "Air temperature"
+    annotation (Dialog(tab="General", group="Nominal condition"));
   parameter Boolean waterSideFlowDependent=true
     "Set to false to make water-side hA independent of mass flow rate"
     annotation(Dialog(tab="Advanced", group="Modeling detail"), Evaluate=true);
@@ -70,9 +73,8 @@ protected
   Real fm_w "Fraction of actual to nominal mass flow rate";
   Real fm_a "Fraction of actual to nominal mass flow rate";
 initial equation
-  s_w =  if waterSideTemperatureDependent then
-            0.014/(1+0.014*Modelica.SIunits.Conversions.to_degC(T0_w)) else
-              1;
+  s_w =if waterSideTemperatureDependent then 0.014/(1 + 0.014*
+    Modelica.Units.Conversions.to_degC(T0_w)) else 1;
 equation
   fm_w = if waterSideFlowDependent then
               m1_flow / m_flow_nominal_w else 1;
@@ -153,7 +155,7 @@ First implementation.
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
             100}}), graphics={            Text(
           extent={{-60,90},{66,0}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid,
           textString="hA"),

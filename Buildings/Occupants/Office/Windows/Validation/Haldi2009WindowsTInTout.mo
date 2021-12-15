@@ -5,20 +5,18 @@ model Haldi2009WindowsTInTout "Validating the model for window behaviors"
     Modelica.Blocks.Sources.BooleanStep occ(startTime=900)
                                             "True for occupied"
       annotation (Placement(transformation(extent={{-80,50},{-60,70}})));
-    Modelica.Blocks.Sources.Sine TIn(
-      amplitude=10,
-      freqHz=0.0007,
-      y(unit="K",
-        displayUnit="degC"),
-      offset=298)            "Indoor air temperature"
-      annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
-    Modelica.Blocks.Sources.Sine TOut(
-      freqHz=0.001,
-      y(unit="K",
-        displayUnit="degC"),
-      offset=298,
-      amplitude=12)          "Outdoor air temperature"
-      annotation (Placement(transformation(extent={{-80,-30},{-60,-10}})));
+  Modelica.Blocks.Sources.Sine TIn(
+    amplitude=10,
+    f=0.0007,
+    y(unit="K", displayUnit="degC"),
+    offset=298) "Indoor air temperature"
+    annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
+  Modelica.Blocks.Sources.Sine TOut(
+    f=0.001,
+    y(unit="K", displayUnit="degC"),
+    offset=298,
+    amplitude=12) "Outdoor air temperature"
+    annotation (Placement(transformation(extent={{-80,-30},{-60,-10}})));
     Buildings.Occupants.Office.Windows.Haldi2009WindowsTInTout win "Tested windows model"
       annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 equation

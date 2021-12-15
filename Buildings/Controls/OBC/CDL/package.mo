@@ -1,6 +1,5 @@
 within Buildings.Controls.OBC;
-package CDL
-  "Package with blocks, examples and validation tests for control description language"
+package CDL "Package with blocks, examples and validation tests for control description language"
   annotation (
     Documentation(
       info="<html>

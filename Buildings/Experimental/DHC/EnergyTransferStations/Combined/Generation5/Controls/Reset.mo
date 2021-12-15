@@ -2,8 +2,7 @@ within Buildings.Experimental.DHC.EnergyTransferStations.Combined.Generation5.Co
 model Reset
   "Supervisory supply temperature reset"
   extends Modelica.Blocks.Icons.Block;
-  parameter Modelica.SIunits.Temperature THeaWatSupSetMin(
-    displayUnit="degC")
+  parameter Modelica.Units.SI.Temperature THeaWatSupSetMin(displayUnit="degC")
     "Minimum value of heating water supply temperature set point";
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uHea
     "Heating enable signal"

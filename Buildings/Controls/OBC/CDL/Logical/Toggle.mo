@@ -19,18 +19,25 @@ initial equation
 equation
   when initial() then
     //scenario = 1
-    y=
-      if clr then
+    y=if clr then
         false
       else
         u;
-  elsewhen(not clr) and change(u) and(pre(u) == false) and(pre(y) == false) then
+  elsewhen
+          (not clr) and change(u) and
+                                     (pre(u) == false) and
+                                                          (pre(y) == false) then
     //scenario = 2
     y=true;
-  elsewhen(not clr) and change(u) and(pre(u) == false) and(pre(y) == true) then
+  elsewhen
+          (not clr) and change(u) and
+                                     (pre(u) == false) and
+                                                          (pre(y) == true) then
     //scenario = 3
     y=false;
-  elsewhen(not clr) and change(u) and(pre(u) == true) then
+  elsewhen
+          (not clr) and change(u) and
+                                     (pre(u) == true) then
     //scenario = 4
     y=pre(y);
   elsewhen clr then
@@ -84,13 +91,13 @@ equation
           color={255,0,255}),
         Text(
           extent={{-22,72},{28,58}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           fillColor={210,210,210},
           fillPattern=FillPattern.Solid,
           textString="Toggle input"),
         Text(
           extent={{-150,150},{150,110}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%name"),
         Ellipse(
           extent={{71,7},{85,-7}},
@@ -107,7 +114,7 @@ equation
           fillPattern=FillPattern.Solid),
         Text(
           extent={{-14,-10},{14,-20}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           fillColor={210,210,210},
           fillPattern=FillPattern.Solid,
           textString="Clear")}),

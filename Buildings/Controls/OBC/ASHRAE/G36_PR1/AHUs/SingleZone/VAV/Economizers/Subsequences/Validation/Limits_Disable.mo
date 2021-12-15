@@ -156,7 +156,7 @@ equation
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-180,-120},{180,120}}), graphics={
         Text(
           extent={{-160,110},{-130,100}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           lineThickness=0.5,
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid,
@@ -164,7 +164,7 @@ equation
           textString="Fan status"),
         Text(
           extent={{-40,110},{4,98}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           lineThickness=0.5,
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid,
@@ -172,7 +172,7 @@ equation
           textString="Operation mode"),
         Text(
           extent={{80,112},{146,96}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           lineThickness=0.5,
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid,

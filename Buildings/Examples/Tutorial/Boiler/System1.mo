@@ -15,9 +15,9 @@ model System1
     "Thermal conductance with the ambient"
     annotation (Placement(transformation(extent={{20,40},{40,60}})));
   parameter Modelica.Units.SI.Volume V=6*10*3 "Room volume";
-  parameter Modelica.Units.SI.MassFlowRate mA_flow_nominal = V*1.2*6/3600
+  parameter Modelica.Units.SI.MassFlowRate mA_flow_nominal=V*1.2*6/3600
     "Nominal mass flow rate";
-  parameter Modelica.Units.SI.HeatFlowRate QRooInt_flow = 4000
+  parameter Modelica.Units.SI.HeatFlowRate QRooInt_flow=4000
     "Internal heat gains of the room";
   Modelica.Thermal.HeatTransfer.Sources.FixedTemperature TOut(T=263.15)
     "Outside temperature"

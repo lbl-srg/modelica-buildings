@@ -114,7 +114,7 @@ equation
       Text(
         extent={{-150,150},{150,110}},
         textString="%name",
-        lineColor={0,0,255})}), Diagram(coordinateSystem(
+        textColor={0,0,255})}), Diagram(coordinateSystem(
           preserveAspectRatio=false, extent={{-140,-100},{140,100}})),
    Documentation(info="<html>
 <p>

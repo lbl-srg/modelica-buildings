@@ -5,7 +5,8 @@ model VAVBranch "Supply branch of a VAV system"
   replaceable package MediumW = Modelica.Media.Interfaces.PartialMedium
     "Medium model for water" annotation (choicesAllMatching=true);
 
-  parameter Modelica.Units.SI.PressureDifference dpFixed_nominal(displayUnit="Pa")=0
+  parameter Modelica.Units.SI.PressureDifference dpFixed_nominal(displayUnit=
+        "Pa") = 0
     "Pressure drop of duct and other resistances that are in series";
   parameter Modelica.Units.SI.MassFlowRate m_flow_nominal
     "Mass flow rate of this thermal zone";
@@ -233,23 +234,23 @@ annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
           lineColor={0,0,0}),
         Text(
           extent={{-78,198},{24,156}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%name"),
         Text(
           extent={{126,24},{194,-20}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid,
           textString="yDam"),
         Text(
           extent={{144,194},{184,168}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid,
           textString="p_rel"),
         Text(
           extent={{144,154},{192,122}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid,
           textString="TRooAir")}),

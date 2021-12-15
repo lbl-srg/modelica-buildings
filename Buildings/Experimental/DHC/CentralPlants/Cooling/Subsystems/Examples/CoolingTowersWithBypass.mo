@@ -13,7 +13,7 @@ model CoolingTowersWithBypass
       TMin=TMin,
       controllerType=Modelica.Blocks.Types.SimpleController.PI),
     weaDat(final computeWetBulbTemperature=true));
-  parameter Modelica.SIunits.Temperature TMin=273.15+10
+  parameter Modelica.Units.SI.Temperature TMin=273.15 + 10
     "Minimum allowed water temperature entering chiller";
 equation
   connect(weaBus.TWetBul, tow.TWetBul)

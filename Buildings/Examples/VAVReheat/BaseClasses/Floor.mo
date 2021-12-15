@@ -1,23 +1,32 @@
 within Buildings.Examples.VAVReheat.BaseClasses;
 model Floor "Model of a floor of the building"
   extends Buildings.Examples.VAVReheat.BaseClasses.PartialFloor(
-    final VRooCor=cor.AFlo * hRoo,
-    final VRooSou=sou.AFlo * hRoo,
-    final VRooNor=nor.AFlo * hRoo,
-    final VRooEas=eas.AFlo * hRoo,
-    final VRooWes=wes.AFlo * hRoo,
-    AFloCor = 2698/hRoo,
-    AFloSou = 568.77/hRoo,
-    AFloNor = 568.77/hRoo,
-    AFloEas = 360.0785/hRoo,
-    AFloWes = 360.0785/hRoo);
+    final VRooCor=cor.AFlo*hRoo,
+    final VRooSou=sou.AFlo*hRoo,
+    final VRooNor=nor.AFlo*hRoo,
+    final VRooEas=eas.AFlo*hRoo,
+    final VRooWes=wes.AFlo*hRoo,
+    AFloCor=2698/hRoo,
+    AFloSou=568.77/hRoo,
+    AFloNor=568.77/hRoo,
+    AFloEas=360.0785/hRoo,
+    AFloWes=360.0785/hRoo);
+
+  parameter Modelica.Units.SI.Length wExtSou=49.91
+    "South zone exterior wall width";
+  parameter Modelica.Units.SI.Length wExtNor=49.91
+    "North zone exterior wall width";
+  parameter Modelica.Units.SI.Length wExtEas=33.27
+    "East zone exterior wall width";
+  parameter Modelica.Units.SI.Length wExtWes=33.27
+    "West zone exterior wall width";
 
   parameter HeatTransfer.Types.InteriorConvection intConMod=Buildings.HeatTransfer.Types.InteriorConvection.Temperature
     "Convective heat transfer model for room-facing surfaces of opaque constructions";
   parameter Real winWalRat(
     min=0.01,
     max=0.99) = 0.33 "Window to wall ratio for exterior walls";
-  parameter Modelica.Units.SI.Length hWin = 1.5 "Height of windows";
+  parameter Modelica.Units.SI.Length hWin=1.5 "Height of windows";
   parameter HeatTransfer.Data.Solids.Plywood matFur(x=0.15, nStaRef=5)
     "Material for furniture"
     annotation (Placement(transformation(extent={{140,460},{160,480}})));
@@ -97,9 +106,9 @@ model Floor "Model of a floor of the building"
     nConExtWin=1,
     datConExtWin(
       layers={conExtWal},
-      A={49.91*hRoo},
+      A={wExtSou*hRoo},
       glaSys={glaSys},
-      wWin={winWalRat/hWin*49.91*hRoo},
+      wWin={winWalRat/hWin*wExtSou*hRoo},
       each hWin=hWin,
       fFra={0.1},
       til={Buildings.Types.Tilt.Wall},
@@ -128,9 +137,9 @@ model Floor "Model of a floor of the building"
     nConExtWin=1,
     datConExtWin(
       layers={conExtWal},
-      A={33.27*hRoo},
+      A={wExtEas*hRoo},
       glaSys={glaSys},
-      wWin={winWalRat/hWin*33.27*hRoo},
+      wWin={winWalRat/hWin*wExtEas*hRoo},
       each hWin=hWin,
       fFra={0.1},
       til={Buildings.Types.Tilt.Wall},
@@ -164,9 +173,9 @@ model Floor "Model of a floor of the building"
     nConExtWin=1,
     datConExtWin(
       layers={conExtWal},
-      A={49.91*hRoo},
+      A={wExtNor*hRoo},
       glaSys={glaSys},
-      wWin={winWalRat/hWin*49.91*hRoo},
+      wWin={winWalRat/hWin*wExtNor*hRoo},
       each hWin=hWin,
       fFra={0.1},
       til={Buildings.Types.Tilt.Wall},
@@ -195,9 +204,9 @@ model Floor "Model of a floor of the building"
     nConExtWin=1,
     datConExtWin(
       layers={conExtWal},
-      A={33.27*hRoo},
+      A={wExtEas*hRoo},
       glaSys={glaSys},
-      wWin={winWalRat/hWin*33.27*hRoo},
+      wWin={winWalRat/hWin*wExtEas*hRoo},
       each hWin=hWin,
       fFra={0.1},
       til={Buildings.Types.Tilt.Wall},
@@ -369,54 +378,24 @@ equation
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None));
-  connect(multiplex5_1.y, TRooAir) annotation (Line(
-      points={{361,290},{372,290},{372,160},{390,160}},
-      color={0,0,127},
-      smooth=Smooth.None,
-      pattern=LinePattern.Dash));
-  connect(temAirSou.T, multiplex5_1.u1[1]) annotation (Line(
-      points={{310,350},{328,350},{328,300},{338,300}},
-      color={0,0,127},
-      smooth=Smooth.None,
-      pattern=LinePattern.Dash));
-  connect(temAirEas.T, multiplex5_1.u2[1]) annotation (Line(
-      points={{312,320},{324,320},{324,295},{338,295}},
-      color={0,0,127},
-      smooth=Smooth.None,
-      pattern=LinePattern.Dash));
-  connect(temAirNor.T, multiplex5_1.u3[1]) annotation (Line(
-      points={{312,290},{338,290}},
-      color={0,0,127},
-      smooth=Smooth.None,
-      pattern=LinePattern.Dash));
-  connect(temAirWes.T, multiplex5_1.u4[1]) annotation (Line(
-      points={{312,258},{324,258},{324,285},{338,285}},
-      color={0,0,127},
-      smooth=Smooth.None,
-      pattern=LinePattern.Dash));
-  connect(temAirCor.T, multiplex5_1.u5[1]) annotation (Line(
-      points={{314,228},{322,228},{322,228},{332,228},{332,280},{338,280}},
-      color={0,0,127},
-      smooth=Smooth.None,
-      pattern=LinePattern.Dash));
   connect(sou.heaPorAir, temAirSou.port) annotation (Line(
-      points={{163,-24},{224,-24},{224,100},{264,100},{264,350},{290,350}},
+      points={{163,-24},{224,-24},{224,100},{264,100},{264,320},{292,320}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(eas.heaPorAir, temAirEas.port) annotation (Line(
-      points={{323,76},{286,76},{286,320},{292,320}},
+      points={{323,76},{286,76},{286,290},{292,290}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(nor.heaPorAir, temAirNor.port) annotation (Line(
-      points={{163,136},{164,136},{164,290},{292,290}},
+      points={{163,136},{164,136},{164,258},{292,258}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(wes.heaPorAir, temAirWes.port) annotation (Line(
-      points={{31,56},{70,56},{70,114},{186,114},{186,258},{292,258}},
+      points={{31,56},{70,56},{70,114},{186,114},{186,228},{294,228}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(cor.heaPorAir, temAirCor.port) annotation (Line(
-      points={{163,56},{162,56},{162,228},{294,228}},
+      points={{163,56},{162,56},{162,350},{290,350}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(sou.ports[1], portsSou[1]) annotation (Line(

@@ -112,7 +112,7 @@ equation
         "Simulate and plot"),
     experiment(Tolerance=1e-6, StopTime=3600),
     Documentation(info="<html>
-<p>    
+<p>
 This model computes the efficiency of boilers for using the model
 <a href=\"Buildings.Fluid.Boilers.BoilerTable\">
 Buildings.Fluid.Boilers.BoilerTable</a>
@@ -129,7 +129,7 @@ src=\"modelica://Buildings/Resources/Images/Fluid/Boilers/Validation/BoilerTable
 <ul>
 <li>
 October 13, 2021, by Hongxiang Fu:<br/>
-First implementation. This is for 
+First implementation. This is for
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2651\">#2651</a>.
 </li>
 </ul>

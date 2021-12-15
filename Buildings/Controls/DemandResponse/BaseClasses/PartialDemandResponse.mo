@@ -1,7 +1,7 @@
 within Buildings.Controls.DemandResponse.BaseClasses;
 partial block PartialDemandResponse
   "Partial block that declares common data for demand response models"
-  extends Modelica.StateGraph.Step;
+  extends Modelica.StateGraph.Step(nIn=1, nOut=1);
   parameter Integer nSam
     "Number of intervals in a day for which baseline is computed";
 
@@ -19,8 +19,8 @@ partial block PartialDemandResponse
     "Predicted power consumption for the current time interval"
     annotation (Placement(transformation(extent={{100,-90},{120,-70}})));
 
-  Modelica.Blocks.Interfaces.RealInput TOutFut[nPre-1](each unit="K") if
-       (predictionModel == Buildings.Controls.Predictors.Types.PredictionModel.WeatherRegression)
+  Modelica.Blocks.Interfaces.RealInput TOutFut[nPre-1](each unit="K")
+    if (predictionModel == Buildings.Controls.Predictors.Types.PredictionModel.WeatherRegression)
     "Future outside air temperatures"
     annotation (Placement(
       transformation(extent={{-140,-110},{-100,-70}}),

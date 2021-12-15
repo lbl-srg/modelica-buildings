@@ -1,7 +1,7 @@
 within Buildings.Experimental.DHC;
-package Examples
-  "Collection of cases study"
+package Examples "Collection of cases study"
   extends Modelica.Icons.ExamplesPackage;
+
   annotation (
     preferredView="info",
     Documentation(

@@ -1,7 +1,7 @@
 within Buildings.Electrical.AC.OnePhase.Sensors;
 model Probe "Model of a probe that measures RMS voltage and angle"
   extends Icons.GeneralizedProbe;
-  parameter Modelica.SIunits.Voltage V_nominal(min=0, start = 110)
+  parameter Modelica.Units.SI.Voltage V_nominal(min=0, start=110)
     "Nominal voltage (V_nominal >= 0)";
   parameter Boolean perUnit = true "If true, display voltage in p.u.";
   replaceable Interfaces.Terminal_n term "Electrical connector" annotation (Placement(
@@ -31,13 +31,13 @@ equation
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
             {100,100}}), graphics={Text(
           extent={{40,60},{100,40}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           pattern=LinePattern.Dash,
           fillColor={0,120,120},
           fillPattern=FillPattern.Solid,
           textString="V"), Text(
           extent={{18,-40},{140,-60}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           pattern=LinePattern.Dash,
           fillColor={0,120,120},
           fillPattern=FillPattern.Solid,

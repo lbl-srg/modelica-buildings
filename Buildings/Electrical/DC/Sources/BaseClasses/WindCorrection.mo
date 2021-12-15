@@ -1,8 +1,8 @@
 within Buildings.Electrical.DC.Sources.BaseClasses;
 block WindCorrection "Block for wind correction"
   extends Modelica.Blocks.Icons.Block;
-  parameter Modelica.SIunits.Height h "Height over ground";
-  parameter Modelica.SIunits.Height hRef
+  parameter Modelica.Units.SI.Height h "Height over ground";
+  parameter Modelica.Units.SI.Height hRef
     "Reference height for wind measurement";
   parameter Real n(min=0) = 0.4 "Height exponent for wind profile calculation";
   Modelica.Blocks.Interfaces.RealOutput vLoc( unit="m/s")
@@ -20,7 +20,7 @@ equation
        graphics={
         Text(
           extent={{-92,48},{-32,-50}},
-          lineColor={0,128,255},
+          textColor={0,128,255},
           fillColor={85,170,255},
           fillPattern=FillPattern.Solid,
           textString="vRef"),
@@ -31,7 +31,7 @@ equation
           fillPattern=FillPattern.Solid),
         Text(
           extent={{30,50},{90,-48}},
-          lineColor={0,128,0},
+          textColor={0,128,0},
           fillColor={85,170,255},
           fillPattern=FillPattern.Solid,
           textString="vLoc")}),Documentation(info="<html>

@@ -33,26 +33,29 @@ model ClosedLoop "Closed loop model of a dual-fan dual-duct system"
   parameter Modelica.Units.SI.MassFlowRate m_flow_nominal=m0_flow_cor +
       m0_flow_sou + m0_flow_eas + m0_flow_nor + m0_flow_wes
     "Nominal air mass flow rate";
-  parameter Modelica.Units.SI.MassFlowRate mAirOut_flow_nominal = 0.3*m_flow_nominal
-    "Nominal outside air mass flow rate";
-  parameter Modelica.Units.SI.MassFlowRate mAirHot_flow_nominal = 0.3*m_flow_nominal
-    "Nominal air mass flow rate for hot deck";
-  parameter Modelica.Units.SI.MassFlowRate mAirCol_flow_nominal = m_flow_nominal
+  parameter Modelica.Units.SI.MassFlowRate mAirOut_flow_nominal=0.3*
+      m_flow_nominal "Nominal outside air mass flow rate";
+  parameter Modelica.Units.SI.MassFlowRate mAirHot_flow_nominal=0.3*
+      m_flow_nominal "Nominal air mass flow rate for hot deck";
+  parameter Modelica.Units.SI.MassFlowRate mAirCol_flow_nominal=m_flow_nominal
     "Nominal air mass flow rate for cold deck";
   ///////////////////////////////////////////////////////////////////////////////////////
   // Water mass flow rates
-  parameter Modelica.Units.SI.MassFlowRate mWatPre_flow_nominal = (TMixHea_nominal-273.15-(-20))*1000/15/4200*mAirOut_flow_nominal
+  parameter Modelica.Units.SI.MassFlowRate mWatPre_flow_nominal=(
+      TMixHea_nominal - 273.15 - (-20))*1000/15/4200*mAirOut_flow_nominal
     "Nominal water mass flow rate for preheat coil";
-  parameter Modelica.Units.SI.MassFlowRate mWatCol_flow_nominal = (28-13)*1000*1.3/4200/15*mAirCol_flow_nominal
+  parameter Modelica.Units.SI.MassFlowRate mWatCol_flow_nominal=(28 - 13)*1000*
+      1.3/4200/15*mAirCol_flow_nominal
     "Nominal water mass flow rate for cooling coil of cold deck";
-  parameter Modelica.Units.SI.MassFlowRate mWatHot_flow_nominal = (40-(TMixHea_nominal-273.15))*1000/15/4200*mAirHot_flow_nominal
+  parameter Modelica.Units.SI.MassFlowRate mWatHot_flow_nominal=(40 - (
+      TMixHea_nominal - 273.15))*1000/15/4200*mAirHot_flow_nominal
     "Nominal water mass flow rate for heating coil of cold deck";
   // Water temperatures
-  parameter Modelica.Units.SI.Temperature TMixHea_nominal = 0.3*(273.15+(-20)) + 0.7 * (273.15+20)
-    "Mixed air temperature at winter design conditions";
-  parameter Modelica.Units.SI.Temperature TMixCoo_nominal = 0.3*(273.15+(33)) + 0.7 * (273.15+26)
-    "Mixed air temperature at summer design conditions";
-  parameter Modelica.Units.SI.Temperature TSupCol_nominal = 12+273.15
+  parameter Modelica.Units.SI.Temperature TMixHea_nominal=0.3*(273.15 + (-20))
+       + 0.7*(273.15 + 20) "Mixed air temperature at winter design conditions";
+  parameter Modelica.Units.SI.Temperature TMixCoo_nominal=0.3*(273.15 + (33))
+       + 0.7*(273.15 + 26) "Mixed air temperature at summer design conditions";
+  parameter Modelica.Units.SI.Temperature TSupCol_nominal=12 + 273.15
     "Cold deck temperature at nominal condition";
 
   Buildings.Fluid.Sources.Outside amb(redeclare package Medium = MediumA, nPorts=2)
@@ -460,7 +463,7 @@ model ClosedLoop "Closed loop model of a dual-fan dual-duct system"
         origin={380,-50})));
   Buildings.Controls.Continuous.LimPID heaCoiCon(
     Td=60,
-    initType=Modelica.Blocks.Types.InitPID.InitialState,
+    initType=Modelica.Blocks.Types.Init.InitialState,
     yMax=1,
     yMin=0,
     Ti=120,
@@ -528,7 +531,7 @@ model ClosedLoop "Closed loop model of a dual-fan dual-duct system"
     annotation (Placement(transformation(extent={{60,-100},{80,-80}})));
   Buildings.Controls.Continuous.LimPID conCooCoi(
     Td=60,
-    initType=Modelica.Blocks.Types.InitPID.InitialState,
+    initType=Modelica.Blocks.Types.Init.InitialState,
     yMax=1,
     yMin=0,
     Ti=120,

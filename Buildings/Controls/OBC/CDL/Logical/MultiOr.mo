@@ -50,10 +50,10 @@ equation
         Text(
           extent={{-144,150},{156,110}},
           textString="%name",
-          lineColor={0,0,255}),
+          textColor={0,0,255}),
         Text(
           extent={{-80,52},{56,-52}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="OR"),
         Ellipse(
           extent={{71,7},{85,-7}},

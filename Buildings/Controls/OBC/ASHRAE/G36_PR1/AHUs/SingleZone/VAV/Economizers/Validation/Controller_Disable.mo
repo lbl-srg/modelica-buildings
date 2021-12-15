@@ -238,7 +238,7 @@ equation
         graphics={
         Text(
           extent={{20,148},{166,124}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           horizontalAlignment=TextAlignment.Left,
           textString="Disable modulation
 (zone state is heating),
@@ -246,7 +246,7 @@ enable minimal
 outdoor air control"),
         Text(
           extent={{100,148},{212,120}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           horizontalAlignment=TextAlignment.Left,
           textString="Disable modulation
 (zone state is heating)
@@ -255,7 +255,7 @@ outdoor air control
 (freeze protection is at stage2)"),
         Text(
           extent={{180,10},{238,-18}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           horizontalAlignment=TextAlignment.Left,
           textString="Overide damper positions
 based on the TMix tracking

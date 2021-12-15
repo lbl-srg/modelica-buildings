@@ -44,8 +44,7 @@ model BuildingSpawnZ1
     epwName=Modelica.Utilities.Files.loadResource(
       epwName),
     weaName=Modelica.Utilities.Files.loadResource(
-      weaName),
-    showWeatherData=false)
+      weaName))
     "Building model"
     annotation (Placement(transformation(extent={{40,60},{60,80}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minTSet(

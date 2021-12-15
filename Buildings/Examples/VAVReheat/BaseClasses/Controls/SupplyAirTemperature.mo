@@ -8,17 +8,14 @@ block SupplyAirTemperature
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerType=
          Buildings.Controls.OBC.CDL.Types.SimpleController.PI "Type of controller";
   parameter Real k(min=0) = 0.01 "Gain of controller";
-  parameter Modelica.Units.SI.Time Ti(
-    min=Buildings.Controls.OBC.CDL.Constants.small) = 120
-    "Time constant of integrator block"
-    annotation (Dialog(enable=
-          controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PI or
-          controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
+  parameter Modelica.Units.SI.Time Ti(min=Buildings.Controls.OBC.CDL.Constants.small)
+     = 120 "Time constant of integrator block" annotation (Dialog(enable=
+          controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
+           or controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
   parameter Modelica.Units.SI.Time Td(min=0) = 0.1
-    "Time constant of derivative block"
-    annotation (Dialog(enable=
-          controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PD or
-          controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
+    "Time constant of derivative block" annotation (Dialog(enable=
+          controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
+           or controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uEna
     "Signal enabling set point tracking"

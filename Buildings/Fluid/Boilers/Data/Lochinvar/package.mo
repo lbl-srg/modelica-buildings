@@ -1,4 +1,4 @@
-﻿within Buildings.Fluid.Boilers.Data;
+within Buildings.Fluid.Boilers.Data;
 package Lochinvar "Package containing data for Lochinvar boilers"
   extends Modelica.Icons.Package;
 
@@ -82,21 +82,21 @@ See sources of the data in the table below.
 </tr>
 </table>
 <p>
-Boilers with the same brand name use the same set of efficiency curves 
+Boilers with the same brand name use the same set of efficiency curves
 (e.g. all records in
 <a href=\"modelica://Buildings.Fluid.Boilers.Data.Lochinvar.Crest\">
 Buildings.Fluid.Boilers.Data.Lochinvar.Crest</a>
 have the same curves).
-The original documents use the IP units and conversions are made 
-in this implementation. Values corresponding to temperature rise of 
-20&deg;F (11.1&deg;C) are used as nominal (except for 
+The original documents use the IP units and conversions are made
+in this implementation. Values corresponding to temperature rise of
+20&deg;F (11.1&deg;C) are used as nominal (except for
 <a href=\"modelica://Buildings.Fluid.Boilers.Data.Lochinvar.Crest.FBdash4001\">
 Buildings.Fluid.Boilers.Data.Lochinvar.Crest.FBdash4001</a>
-whose data are based on 22&deg;F [12.2&deg;C]). 
-The table below explains how the variables 
-in this implementation correspond to items on the files from the website. 
+whose data are based on 22&deg;F [12.2&deg;C]).
+The table below explains how the variables
+in this implementation correspond to items on the files from the website.
 </p>
-<table summary=\"Specification correspondence\" 
+<table summary=\"Specification correspondence\"
 cellspacing=\"0\" cellpadding=\"2\" border=\"1\"><tr><td>
 <p align=\"center\">
 <b>Variable in Modelica</b>

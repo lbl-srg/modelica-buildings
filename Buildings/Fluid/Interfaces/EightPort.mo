@@ -55,35 +55,35 @@ partial model EightPort "Partial model with eight ports"
     "= true to allow flow reversal in medium 4, false restricts to design direction (port_a -> port_b)"
     annotation(Dialog(tab="Assumptions"), Evaluate=true);
 
-  parameter Modelica.SIunits.SpecificEnthalpy h_outflow_a1_start = Medium1.h_default
+  parameter Modelica.Units.SI.SpecificEnthalpy h_outflow_a1_start=Medium1.h_default
     "Start value for enthalpy flowing out of port a1"
     annotation (Dialog(tab="Advanced", group="Initialization"));
 
-  parameter Modelica.SIunits.SpecificEnthalpy h_outflow_b1_start = Medium1.h_default
+  parameter Modelica.Units.SI.SpecificEnthalpy h_outflow_b1_start=Medium1.h_default
     "Start value for enthalpy flowing out of port b1"
     annotation (Dialog(tab="Advanced", group="Initialization"));
 
-  parameter Modelica.SIunits.SpecificEnthalpy h_outflow_a2_start = Medium2.h_default
+  parameter Modelica.Units.SI.SpecificEnthalpy h_outflow_a2_start=Medium2.h_default
     "Start value for enthalpy flowing out of port a2"
     annotation (Dialog(tab="Advanced", group="Initialization"));
 
-  parameter Modelica.SIunits.SpecificEnthalpy h_outflow_b2_start = Medium2.h_default
+  parameter Modelica.Units.SI.SpecificEnthalpy h_outflow_b2_start=Medium2.h_default
     "Start value for enthalpy flowing out of port b2"
     annotation (Dialog(tab="Advanced", group="Initialization"));
 
-    parameter Modelica.SIunits.SpecificEnthalpy h_outflow_a3_start = Medium3.h_default
+  parameter Modelica.Units.SI.SpecificEnthalpy h_outflow_a3_start=Medium3.h_default
     "Start value for enthalpy flowing out of port a1"
     annotation (Dialog(tab="Advanced", group="Initialization"));
 
-  parameter Modelica.SIunits.SpecificEnthalpy h_outflow_b3_start = Medium3.h_default
+  parameter Modelica.Units.SI.SpecificEnthalpy h_outflow_b3_start=Medium3.h_default
     "Start value for enthalpy flowing out of port b1"
     annotation (Dialog(tab="Advanced", group="Initialization"));
 
-    parameter Modelica.SIunits.SpecificEnthalpy h_outflow_a4_start = Medium4.h_default
+  parameter Modelica.Units.SI.SpecificEnthalpy h_outflow_a4_start=Medium4.h_default
     "Start value for enthalpy flowing out of port a1"
     annotation (Dialog(tab="Advanced", group="Initialization"));
 
-  parameter Modelica.SIunits.SpecificEnthalpy h_outflow_b4_start = Medium4.h_default
+  parameter Modelica.Units.SI.SpecificEnthalpy h_outflow_b4_start=Medium4.h_default
     "Start value for enthalpy flowing out of port b1"
     annotation (Dialog(tab="Advanced", group="Initialization"));
 
@@ -163,7 +163,7 @@ See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1050\">#1050</a>.
           extent={{-100,-100},{100,100}},
           grid={1,1}), graphics={Text(
           extent={{-151,147},{149,107}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           fillPattern=FillPattern.HorizontalCylinder,
           fillColor={0,127,255},
           textString="%name")}),

@@ -14,9 +14,9 @@ model MoistureMixingConservationDynamicBalance
     hSol(k=sum(U_start)),
     mWatFlo3(k=0));
 
-    parameter Modelica.SIunits.Mass[3] m_start(each fixed=false)
+  parameter Modelica.Units.SI.Mass[3] m_start(each fixed=false)
     "Initial mass of the mixing volumes";
-    parameter Modelica.SIunits.InternalEnergy[3] U_start(each fixed=false)
+  parameter Modelica.Units.SI.InternalEnergy[3] U_start(each fixed=false)
     "Initial energy of the mixing volumes";
   Modelica.Blocks.Continuous.Integrator intMasFloVapIn(
     k=1,

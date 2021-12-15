@@ -4,7 +4,7 @@ model SubStationBoundaryCondition
   extends Buildings.BaseClasses.BaseIcon;
   replaceable package Medium = Modelica.Media.Interfaces.PartialMedium
     annotation (choicesAllMatching=true);
-  parameter Modelica.SIunits.TemperatureDifference dTApp(min=0) = 2
+  parameter Modelica.Units.SI.TemperatureDifference dTApp(min=0) = 2
     "Approach temperature";
   parameter Boolean warmSide
     "Set to true if these are the boundary conditions for the warm side inlet";

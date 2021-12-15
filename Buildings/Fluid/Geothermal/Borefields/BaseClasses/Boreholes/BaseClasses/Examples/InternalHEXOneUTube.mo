@@ -5,7 +5,7 @@ model InternalHEXOneUTube
 
   parameter Integer nSeg(min=1) = 10
     "Number of segments to use in vertical discretization of the boreholes";
-  parameter Modelica.SIunits.Length hSeg = borFieDat.conDat.hBor/nSeg
+  parameter Modelica.Units.SI.Length hSeg=borFieDat.conDat.hBor/nSeg
     "Length of the internal heat exchanger";
 
   package Medium = Modelica.Media.Water.ConstantPropertyLiquidWater;

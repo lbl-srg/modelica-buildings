@@ -13,9 +13,9 @@ block CheckDewPointTemperature
     displayUnit="degC") "Dew point temperature"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 
-  parameter Modelica.SIunits.Temperature TMin(displayUnit="degC") = 203.15
+  parameter Modelica.Units.SI.Temperature TMin(displayUnit="degC") = 203.15
     "Minimum allowed temperature";
-  parameter Modelica.SIunits.Temperature TMax(displayUnit="degC") = 343.15
+  parameter Modelica.Units.SI.Temperature TMax(displayUnit="degC") = 343.15
     "Maximum allowed temperature";
 
 equation
