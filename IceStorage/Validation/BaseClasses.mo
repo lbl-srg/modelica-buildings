@@ -6,7 +6,7 @@ package BaseClasses "Baseclasses"
     package Medium = Buildings.Media.Antifreeze.PropyleneGlycolWater (
       property_T=293.15,
       X_a=0.30);
-
+    parameter String fileName "Calibration data file";
     parameter Real coeCha[6] = {1.99810397E-04,0,0,0,0,0} "Coefficient for charging curve";
     parameter Real coeDisCha[6] = {5.54E-05,-1.45679E-04,9.28E-05,1.126122E-03,
         -1.1012E-03,3.00544E-04} "Coefficient for discharging curve";
@@ -16,12 +16,17 @@ package BaseClasses "Baseclasses"
       "Nominal mass of ice in the tank";
     parameter Modelica.SIunits.Mass mIce_start=0.90996030*mIce_max
       "Start value of ice mass in the tank";
-    parameter String fileName;
 
-    IceTank         iceTan(
+    parameter Modelica.SIunits.MassFlowRate m_flow_nominal=1
+      "Nominal mass flow rate";
+    parameter Modelica.SIunits.PressureDifference dp_nominal=100000
+      "Pressure difference";
+
+
+    IceStorage.IceTank iceTan(
       redeclare package Medium = Medium,
-      m_flow_nominal=1,
-      dp_nominal=100000,
+      m_flow_nominal=m_flow_nominal,
+      dp_nominal=dp_nominal,
       mIce_max=mIce_max,
       mIce_start=mIce_start,
       coeCha=coeCha,
@@ -32,18 +37,19 @@ package BaseClasses "Baseclasses"
     Buildings.Fluid.Sources.MassFlowSource_T sou(
       redeclare package Medium = Medium,
       use_m_flow_in=true,
-      use_T_in=true,                             nPorts=1)
+      use_T_in=true,
+      nPorts=1)
       annotation (Placement(transformation(extent={{-54,-10},{-34,10}})));
-    Buildings.Fluid.Sources.Boundary_pT bou(redeclare package Medium = Medium,
-                                            nPorts=1)
+    Buildings.Fluid.Sources.Boundary_pT bou(
+      redeclare package Medium = Medium,
+      nPorts=1)
       annotation (Placement(transformation(extent={{86,-10},{66,10}})));
     Buildings.Fluid.FixedResistances.PressureDrop res(
       redeclare package Medium = Medium,
-      m_flow_nominal=1,
+      m_flow_nominal=m_flow_nominal,
       dp_nominal=500)
       annotation (Placement(transformation(extent={{26,-10},{46,10}})));
-    Modelica.Blocks.Sources.IntegerConstant
-                                         mod
+    Modelica.Blocks.Sources.IntegerConstant mod
       "Mode"
       annotation (Placement(transformation(extent={{-60,60},{-40,80}})));
     Modelica.Blocks.Sources.CombiTimeTable dat(
@@ -51,7 +57,7 @@ package BaseClasses "Baseclasses"
       tableName="tab",
       columns=2:5,
       fileName=fileName)
-                   "Flowrate measurements"
+      "Flowrate measurements"
       annotation (Placement(transformation(extent={{-100,60},{-80,80}})));
 
     Modelica.Thermal.HeatTransfer.Celsius.ToKelvin TIn

@@ -1,6 +1,6 @@
 within IceStorage.Validation;
-package Experiment "Calibration from experimental data"
-extends Modelica.Icons.ExamplesPackage;
+package Experiment "Validation from experimental data"
+  extends Modelica.Icons.ExamplesPackage;
 
 annotation (Documentation(info="<html>
 <p>
