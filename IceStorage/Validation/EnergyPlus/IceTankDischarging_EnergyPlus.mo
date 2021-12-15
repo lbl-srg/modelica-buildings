@@ -7,7 +7,7 @@ model IceTankDischarging_EnergyPlus
   parameter Modelica.SIunits.Mass mIce_start=0.998733201*mIce_max
     "Start value of ice mass in the tank";
   parameter String fileName=Modelica.Utilities.Files.loadResource(
-    "modelica://IceStorage/Resources/data/Calibration/EnergyPlus/EnergyPlus_Discharging.txt")
+    "modelica://IceStorage/Resources/data/Validation/EnergyPlus/discharging.txt")
     "File where matrix is stored";
 
   package Medium = Buildings.Media.Antifreeze.PropyleneGlycolWater (
@@ -19,7 +19,9 @@ model IceTankDischarging_EnergyPlus
     dp_nominal=100000,
     mIce_max=mIce_max,
     mIce_start=mIce_start,
+    coeCha={0.318,0,0,0,0,0},
     dtCha=3600,
+    coeDisCha={0.0,0.09,-0.15,0.612,-0.324,-0.216},
     dtDisCha=3600,
     m_flow_nominal=0.1)
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
@@ -74,7 +76,7 @@ equation
   annotation (
     experiment(StopTime=28920, __Dymola_Algorithm="Dassl"),
     __Dymola_Commands(file=
-          "modelica://VirtualTestbed/Resources/scripts/dymola/NISTChillerTestbed/Component/Calibration/IceTankDischarging_EnergyPlus.mos"
+          "modelica://IceStorage/Resources/scripts/dymola/Validation/EnergyPlus/IceTankDischarging_EnergyPlus.mos"
         "Simulate and Plot"),
     Documentation(info="<html>
 <p>

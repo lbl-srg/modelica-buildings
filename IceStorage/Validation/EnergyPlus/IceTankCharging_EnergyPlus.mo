@@ -5,7 +5,7 @@ model IceTankCharging_EnergyPlus
     property_T=293.15,
     X_a=0.30);
   parameter String fileName=Modelica.Utilities.Files.loadResource(
-    "modelica://IceStorage/Resources/data/Calibration/EnergyPlus/EnergyPlus_Charging.txt")
+    "modelica://IceStorage/Resources/data/Validation/EnergyPlus/charging.txt")
   "File where matrix is stored";
   parameter Modelica.SIunits.Mass mIce_max=5e7/333550
     "Nominal mass of ice in the tank";
@@ -20,9 +20,8 @@ model IceTankCharging_EnergyPlus
     Hf=333550,
     dtCha=3600,
     dtDisCha=3600,
-    waiTim=0,
-    coeffCha={0.318,0,0,0,0,0},
-    coeffDisCha={0.0,0.09,-0.15,0.612,-0.324,-0.216},
+    coeCha={0.318,0,0,0,0,0},
+    coeDisCha={0.0,0.09,-0.15,0.612,-0.324,-0.216},
     m_flow_nominal=0.1)
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Buildings.Fluid.Sources.MassFlowSource_T sou(
@@ -76,7 +75,7 @@ equation
         coordinateSystem(preserveAspectRatio=false)),
     experiment(StopTime=4450, __Dymola_Algorithm="Dassl"),
     __Dymola_Commands(file=
-          "modelica://VirtualTestbed/Resources/Scripts/Dymola/NISTChillerTestbed/Component/Calibration/IceTankCharging_EnergyPlus.mos"
+          "modelica://IceStorage/Resources/scripts/dymola/Validation/EnergyPlus/IceTankCharging_EnergyPlus.mos"
         "Simulate and Plot"),
     Documentation(info="<html>
 <p>This example is to validate the developed tank model against real measurement from NIST chiller tank testbed on day 2.</p>
