@@ -1,10 +1,10 @@
-within IceStorage.Calibration.Experiment;
+within IceStorage.Validation.Experiment;
 model DischargingDay3
-  extends IceStorage.Calibration.BaseClasses.PartialExample(
-   fileName=Modelica.Utilities.Files.loadResource(
-    "modelica://IceStorage/Resources/data/Calibration/Experiment/discharging-day3.txt"),
-   mod(k=Integer(IceStorage.Types.IceThermalStorageMode.Discharging)),
-   mIce_start=0.96963383*mIce_max);
+  extends IceStorage.Validation.BaseClasses.PartialExample(
+    fileName=Modelica.Utilities.Files.loadResource(
+      "modelica://IceStorage/Resources/data/Validation/Experiment/discharging-day3.txt"),
+    mod(k=Integer(IceStorage.Types.IceThermalStorageMode.Discharging)),
+    mIce_start=0.96963383*mIce_max);
 
   annotation (
     experiment(
@@ -12,7 +12,7 @@ model DischargingDay3
       StopTime=19950,
       Tolerance=1e-06,
       __Dymola_Algorithm="Cvode"),
-    __Dymola_Commands(file="modelica://IceStorage/Resources/scripts/dymola/Calibration/Experiment/DischargingDay3.mos"
+    __Dymola_Commands(file="modelica://IceStorage/Resources/scripts/dymola/Validation/Experiment/DischargingDay3.mos"
         "Simulate and Plot"),
     Documentation(info="<html>
 <p>

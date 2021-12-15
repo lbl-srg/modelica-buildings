@@ -1,10 +1,9 @@
-within IceStorage.Calibration.Experiment;
+within IceStorage.Validation.Experiment;
 model Charging
-  extends IceStorage.Calibration.BaseClasses.PartialExample(
-   fileName=Modelica.Utilities.Files.loadResource(
-    "modelica://IceStorage/Resources/data/Calibration/Experiment/charging.txt"),
-   mod(k=Integer(IceStorage.Types.IceThermalStorageMode.Charging)),
-   mIce_start=0.158*mIce_max);
+  extends IceStorage.Validation.BaseClasses.PartialExample(
+    fileName=Modelica.Utilities.Files.loadResource("modelica://IceStorage/Resources/data/Validation/Experiment/charging.txt"),
+    mod(k=Integer(IceStorage.Types.IceThermalStorageMode.Charging)),
+    mIce_start=0.158*mIce_max);
 
   annotation (
     experiment(
@@ -13,7 +12,7 @@ model Charging
       Tolerance=1e-06,
       __Dymola_Algorithm="Cvode"),
     __Dymola_Commands(file=
-          "modelica://IceStorage/Resources/scripts/dymola/Calibration/Experiment/Charging.mos"
+          "modelica://IceStorage/Resources/scripts/dymola/Validation/Experiment/Charging.mos"
         "Simulate and Plot"),
     Documentation(info="<html>
 <p>

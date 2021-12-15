@@ -24,7 +24,7 @@ protected
   Real dTif "Inlet to freezing temperature difference";
   Real dTof "Outlet to frezzing temperature difference";
   Real lndT "log of the temperature difference";
-  Real eps = 1E-06 "Small tolerance";
+  Real eps = 1E-09 "Small tolerance";
 algorithm
 
   dTio := TIn-TOut;
