@@ -1,5 +1,5 @@
 ﻿within IceStorage;
-model IceTank
+model IceTank "A detailed ice tank model"
   extends Buildings.Fluid.Interfaces.PartialTwoPortInterface;
   extends Buildings.Fluid.Interfaces.TwoPortFlowResistanceParameters(
     final computeFlowResistance=true);
