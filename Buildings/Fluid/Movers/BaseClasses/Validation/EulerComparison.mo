@@ -72,6 +72,14 @@ using the Euler number and its correlation as implemented in
 Buildings.Fluid.Movers.BaseClasses.Euler</a>.
 Its results of calculated efficiency and power are compared
 with those obtained by using the power characteristic path.
+Note that full performance curves are needed in this validation model
+because otherwise
+<a href=\"modelica://Buildings.Fluid.Movers.BaseClasses.FlowMachineInterface\">
+Buildings.Fluid.Movers.BaseClasses.FlowMachineInterface</a>
+would not know the pressure of the mover.
+See <a href=\"modelica://Buildings.Fluid.Movers.Validation.PowerEuler\">
+Buildings.Fluid.Movers.Validation.PowerEuler</a>
+for a more typical use case where only the peak point itself is supplied.
 </p>
 </html>", revisions="<html>
 <ul>
