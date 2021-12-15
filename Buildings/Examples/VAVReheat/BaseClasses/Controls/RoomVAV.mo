@@ -11,10 +11,10 @@ block RoomVAV "Controller for room VAV box"
     annotation (Dialog(group="Cooling controller"));
   parameter Real kCoo=0.1 "Gain of controller"
     annotation (Dialog(group="Cooling controller"));
-  parameter Modelica.SIunits.Time TiCoo=120 "Time constant of integrator block"
+  parameter Modelica.Units.SI.Time TiCoo=120 "Time constant of integrator block"
     annotation (Dialog(group="Cooling controller", enable=cooController==Buildings.Controls.OBC.CDL.Types.SimpleController.PI or
                                                           cooController==Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
-  parameter Modelica.SIunits.Time TdCoo=60 "Time constant of derivative block"
+  parameter Modelica.Units.SI.Time TdCoo=60 "Time constant of derivative block"
     annotation (Dialog(group="Cooling controller", enable=cooController==Buildings.Controls.OBC.CDL.Types.SimpleController.PD or
                                                           cooController==Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController heaController=
@@ -22,10 +22,10 @@ block RoomVAV "Controller for room VAV box"
     annotation (Dialog(group="Heating controller"));
   parameter Real kHea=0.1 "Gain of controller"
     annotation (Dialog(group="Heating controller"));
-  parameter Modelica.SIunits.Time TiHea=120 "Time constant of integrator block"
+  parameter Modelica.Units.SI.Time TiHea=120 "Time constant of integrator block"
     annotation (Dialog(group="Heating controller", enable=heaController==Buildings.Controls.OBC.CDL.Types.SimpleController.PI or
                                                           heaController==Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
-  parameter Modelica.SIunits.Time TdHea=60 "Time constant of derivative block"
+  parameter Modelica.Units.SI.Time TdHea=60 "Time constant of derivative block"
     annotation (Dialog(group="Heating controller", enable=heaController==Buildings.Controls.OBC.CDL.Types.SimpleController.PD or
                                                           heaController==Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
 
@@ -117,7 +117,7 @@ block RoomVAV "Controller for room VAV box"
 protected
   parameter Real yMax=1 "Upper limit of PID control output";
   parameter Real yMin=0 "Lower limit of PID control output";
-  parameter Modelica.SIunits.TemperatureDifference dTHys(final min=0) = 0.5
+  parameter Modelica.Units.SI.TemperatureDifference dTHys(final min=0) = 0.5
     "Hysteresis width for switching minimum air flow rate";
 equation
   connect(TRooCooSet, conCoo.u_s)

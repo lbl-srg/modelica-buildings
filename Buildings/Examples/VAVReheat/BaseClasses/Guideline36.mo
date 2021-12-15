@@ -7,16 +7,16 @@ model Guideline36
       dpFixed_nominal=10),
     amb(nPorts=3));
 
-  parameter Modelica.SIunits.VolumeFlowRate VPriSysMax_flow=m_flow_nominal/1.2
+  parameter Modelica.Units.SI.VolumeFlowRate VPriSysMax_flow=m_flow_nominal/1.2
     "Maximum expected system primary airflow rate at design stage";
-  parameter Modelica.SIunits.VolumeFlowRate minZonPriFlo[numZon]={
+  parameter Modelica.Units.SI.VolumeFlowRate minZonPriFlo[numZon]={
     conVAVCor.VDisSetMin_flow, conVAVSou.VDisSetMin_flow,
     conVAVEas.VDisSetMin_flow, conVAVNor.VDisSetMin_flow,
     conVAVWes.VDisSetMin_flow}
     "Minimum expected zone primary flow rate";
-  parameter Modelica.SIunits.Time samplePeriod=120
+  parameter Modelica.Units.SI.Time samplePeriod=120
     "Sample period of component, set to the same value as the trim and respond that process yPreSetReq";
-  parameter Modelica.SIunits.PressureDifference dpDisRetMax(displayUnit="Pa")=40
+  parameter Modelica.Units.SI.PressureDifference dpDisRetMax(displayUnit="Pa")=40
     "Maximum return fan discharge static pressure setpoint";
 
   Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.Controller conVAVCor(

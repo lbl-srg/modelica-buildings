@@ -12,47 +12,47 @@ model ClosedLoop "Closed loop model of a dual-fan dual-duct system"
   parameter Boolean linearizeFlowResistance=false
     "= true, use linear relation between m_flow and dp for any flow rate";
 
-  parameter Modelica.SIunits.Volume VRooCor=2698 "Room volume corridor";
-  parameter Modelica.SIunits.Volume VRooSou=568.77 "Room volume south";
-  parameter Modelica.SIunits.Volume VRooNor=568.77 "Room volume north";
-  parameter Modelica.SIunits.Volume VRooEas=360.08 "Room volume east";
-  parameter Modelica.SIunits.Volume VRooWes=360.08 "Room volume west";
+  parameter Modelica.Units.SI.Volume VRooCor=2698 "Room volume corridor";
+  parameter Modelica.Units.SI.Volume VRooSou=568.77 "Room volume south";
+  parameter Modelica.Units.SI.Volume VRooNor=568.77 "Room volume north";
+  parameter Modelica.Units.SI.Volume VRooEas=360.08 "Room volume east";
+  parameter Modelica.Units.SI.Volume VRooWes=360.08 "Room volume west";
 
   constant Real conv=1.2/3600 "Conversion factor for nominal mass flow rate";
-  parameter Modelica.SIunits.MassFlowRate m0_flow_cor=3*VRooCor*conv
+  parameter Modelica.Units.SI.MassFlowRate m0_flow_cor=3*VRooCor*conv
     "Design mass flow rate core";
-  parameter Modelica.SIunits.MassFlowRate m0_flow_sou=8*VRooSou*conv
+  parameter Modelica.Units.SI.MassFlowRate m0_flow_sou=8*VRooSou*conv
     "Design mass flow rate perimeter 1";
-  parameter Modelica.SIunits.MassFlowRate m0_flow_eas=9*VRooEas*conv
+  parameter Modelica.Units.SI.MassFlowRate m0_flow_eas=9*VRooEas*conv
     "Design mass flow rate perimeter 2";
-  parameter Modelica.SIunits.MassFlowRate m0_flow_nor=11*VRooNor*conv
+  parameter Modelica.Units.SI.MassFlowRate m0_flow_nor=11*VRooNor*conv
     "Design mass flow rate perimeter 3";
-  parameter Modelica.SIunits.MassFlowRate m0_flow_wes=10*VRooWes*conv
+  parameter Modelica.Units.SI.MassFlowRate m0_flow_wes=10*VRooWes*conv
     "Design mass flow rate perimeter 4";
 
-  parameter Modelica.SIunits.MassFlowRate m_flow_nominal=m0_flow_cor +
+  parameter Modelica.Units.SI.MassFlowRate m_flow_nominal=m0_flow_cor +
       m0_flow_sou + m0_flow_eas + m0_flow_nor + m0_flow_wes
     "Nominal air mass flow rate";
-  parameter Modelica.SIunits.MassFlowRate mAirOut_flow_nominal = 0.3*m_flow_nominal
+  parameter Modelica.Units.SI.MassFlowRate mAirOut_flow_nominal = 0.3*m_flow_nominal
     "Nominal outside air mass flow rate";
-  parameter Modelica.SIunits.MassFlowRate mAirHot_flow_nominal = 0.3*m_flow_nominal
+  parameter Modelica.Units.SI.MassFlowRate mAirHot_flow_nominal = 0.3*m_flow_nominal
     "Nominal air mass flow rate for hot deck";
-  parameter Modelica.SIunits.MassFlowRate mAirCol_flow_nominal = m_flow_nominal
+  parameter Modelica.Units.SI.MassFlowRate mAirCol_flow_nominal = m_flow_nominal
     "Nominal air mass flow rate for cold deck";
   ///////////////////////////////////////////////////////////////////////////////////////
   // Water mass flow rates
-  parameter Modelica.SIunits.MassFlowRate mWatPre_flow_nominal = (TMixHea_nominal-273.15-(-20))*1000/15/4200*mAirOut_flow_nominal
+  parameter Modelica.Units.SI.MassFlowRate mWatPre_flow_nominal = (TMixHea_nominal-273.15-(-20))*1000/15/4200*mAirOut_flow_nominal
     "Nominal water mass flow rate for preheat coil";
-  parameter Modelica.SIunits.MassFlowRate mWatCol_flow_nominal = (28-13)*1000*1.3/4200/15*mAirCol_flow_nominal
+  parameter Modelica.Units.SI.MassFlowRate mWatCol_flow_nominal = (28-13)*1000*1.3/4200/15*mAirCol_flow_nominal
     "Nominal water mass flow rate for cooling coil of cold deck";
-  parameter Modelica.SIunits.MassFlowRate mWatHot_flow_nominal = (40-(TMixHea_nominal-273.15))*1000/15/4200*mAirHot_flow_nominal
+  parameter Modelica.Units.SI.MassFlowRate mWatHot_flow_nominal = (40-(TMixHea_nominal-273.15))*1000/15/4200*mAirHot_flow_nominal
     "Nominal water mass flow rate for heating coil of cold deck";
   // Water temperatures
-  parameter Modelica.SIunits.Temperature TMixHea_nominal = 0.3*(273.15+(-20)) + 0.7 * (273.15+20)
+  parameter Modelica.Units.SI.Temperature TMixHea_nominal = 0.3*(273.15+(-20)) + 0.7 * (273.15+20)
     "Mixed air temperature at winter design conditions";
-  parameter Modelica.SIunits.Temperature TMixCoo_nominal = 0.3*(273.15+(33)) + 0.7 * (273.15+26)
+  parameter Modelica.Units.SI.Temperature TMixCoo_nominal = 0.3*(273.15+(33)) + 0.7 * (273.15+26)
     "Mixed air temperature at summer design conditions";
-  parameter Modelica.SIunits.Temperature TSupCol_nominal = 12+273.15
+  parameter Modelica.Units.SI.Temperature TSupCol_nominal = 12+273.15
     "Cold deck temperature at nominal condition";
 
   Buildings.Fluid.Sources.Outside amb(redeclare package Medium = MediumA, nPorts=2)

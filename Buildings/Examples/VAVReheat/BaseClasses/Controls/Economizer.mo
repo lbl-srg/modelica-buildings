@@ -6,17 +6,17 @@ block Economizer "Controller for economizer"
     annotation(Evaluate=true);
   parameter Boolean have_frePro = false
     "Set to true to enable freeze protection (mixed air low temperature control)";
-  parameter Modelica.SIunits.Temperature TFreSet=277.15
+  parameter Modelica.Units.SI.Temperature TFreSet=277.15
     "Lower limit of mixed air temperature for freeze protection"
     annotation(Dialog(enable=have_frePro), Evaluate=true);
-  parameter Modelica.SIunits.TemperatureDifference dTLock(final min=0.1) = 1
+  parameter Modelica.Units.SI.TemperatureDifference dTLock(final min=0.1) = 1
     "Temperature difference between return and outdoor air for economizer lockout";
-  parameter Modelica.SIunits.VolumeFlowRate VOut_flow_min(min=0)
+  parameter Modelica.Units.SI.VolumeFlowRate VOut_flow_min(min=0)
     "Minimum outside air volume flow rate";
   parameter Modelica.Blocks.Types.SimpleController controllerType=Modelica.Blocks.Types.SimpleController.PI
     "Type of controller";
   parameter Real k = 0.05 "Gain of controller";
-  parameter Modelica.SIunits.Time Ti = 120 "Time constant of integrator block";
+  parameter Modelica.Units.SI.Time Ti = 120 "Time constant of integrator block";
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uEna
     "Enable signal for economizer"
     annotation (Placement(transformation(extent={{-140,170},{-100,210}}),

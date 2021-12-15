@@ -207,7 +207,7 @@ equation
     Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-200,-200},{200,
             200}}), graphics),
     __Dymola_Commands(file=
-          "modelica://Buildings/Resources/Scripts/Dymola/Examples/ChillerPlant/BaseClasses/Controls/Examples/ChillerSetPointControl.mos"
+          "modelica://Buildings/Resources/Scripts/Dymola/Examples/ChillerPlants/DataCenter/BaseClasses/Controls/Examples/ChillerSetPointControl.mos"
         "Simulate and plot"),
     experiment(
       StopTime=86400,

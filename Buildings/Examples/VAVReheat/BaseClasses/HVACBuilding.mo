@@ -5,41 +5,41 @@ partial model HVACBuilding
   replaceable package MediumA = Buildings.Media.Air "Medium model for air";
   replaceable package MediumW = Buildings.Media.Water "Medium model for water";
 
-  final parameter Modelica.SIunits.Volume VRooCor = flo.VRooCor
+  final parameter Modelica.Units.SI.Volume VRooCor = flo.VRooCor
     "Room volume corridor";
-  final parameter Modelica.SIunits.Volume VRooSou = flo.VRooSou
+  final parameter Modelica.Units.SI.Volume VRooSou = flo.VRooSou
     "Room volume south";
-  final parameter Modelica.SIunits.Volume VRooNor = flo.VRooNor
+  final parameter Modelica.Units.SI.Volume VRooNor = flo.VRooNor
     "Room volume north";
-  final parameter Modelica.SIunits.Volume VRooEas = flo.VRooEas
+  final parameter Modelica.Units.SI.Volume VRooEas = flo.VRooEas
     "Room volume east";
-  final parameter Modelica.SIunits.Volume VRooWes = flo.VRooWes
+  final parameter Modelica.Units.SI.Volume VRooWes = flo.VRooWes
     "Room volume west";
 
-  final parameter Modelica.SIunits.Area AFloCor = flo.AFloCor "Floor area corridor";
-  final parameter Modelica.SIunits.Area AFloSou = flo.AFloSou "Floor area south";
-  final parameter Modelica.SIunits.Area AFloNor = flo.AFloNor "Floor area north";
-  final parameter Modelica.SIunits.Area AFloEas = flo.AFloEas "Floor area east";
-  final parameter Modelica.SIunits.Area AFloWes = flo.AFloWes "Floor area west";
+  final parameter Modelica.Units.SI.Area AFloCor = flo.AFloCor "Floor area corridor";
+  final parameter Modelica.Units.SI.Area AFloSou = flo.AFloSou "Floor area south";
+  final parameter Modelica.Units.SI.Area AFloNor = flo.AFloNor "Floor area north";
+  final parameter Modelica.Units.SI.Area AFloEas = flo.AFloEas "Floor area east";
+  final parameter Modelica.Units.SI.Area AFloWes = flo.AFloWes "Floor area west";
 
-  final parameter Modelica.SIunits.Area AFlo[:]={AFloCor,AFloSou,AFloEas,
+  final parameter Modelica.Units.SI.Area AFlo[:]={AFloCor,AFloSou,AFloEas,
       AFloNor,AFloWes} "Floor area of each zone";
-  final parameter Modelica.SIunits.Area ATot=sum(AFlo) "Total floor area";
+  final parameter Modelica.Units.SI.Area ATot=sum(AFlo) "Total floor area";
 
   constant Real conv=1.2/3600 "Conversion factor for nominal mass flow rate";
 
-  parameter Modelica.SIunits.MassFlowRate mCor_flow_nominal
+  parameter Modelica.Units.SI.MassFlowRate mCor_flow_nominal
     "Design mass flow rate core";
-  parameter Modelica.SIunits.MassFlowRate mSou_flow_nominal
+  parameter Modelica.Units.SI.MassFlowRate mSou_flow_nominal
     "Design mass flow rate south";
-  parameter Modelica.SIunits.MassFlowRate mEas_flow_nominal
+  parameter Modelica.Units.SI.MassFlowRate mEas_flow_nominal
     "Design mass flow rate east";
-  parameter Modelica.SIunits.MassFlowRate mNor_flow_nominal
+  parameter Modelica.Units.SI.MassFlowRate mNor_flow_nominal
     "Design mass flow rate north";
-  parameter Modelica.SIunits.MassFlowRate mWes_flow_nominal
+  parameter Modelica.Units.SI.MassFlowRate mWes_flow_nominal
     "Design mass flow rate west";
 
-  parameter Modelica.SIunits.Temperature THotWatInl_nominal(
+  parameter Modelica.Units.SI.Temperature THotWatInl_nominal(
     displayUnit="degC")=45 + 273.15
     "Reheat coil nominal inlet water temperature";
 

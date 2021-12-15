@@ -4,15 +4,15 @@ model VAVSystemCTControl
   extends Modelica.Icons.Example;
 
   package Medium = Buildings.Media.Air(extraPropertiesNames={"CO2"});
- parameter Modelica.SIunits.MassFlowRate mMIT_flow = roo.m0Tot_flow
+ parameter Modelica.Units.SI.MassFlowRate mMIT_flow = roo.m0Tot_flow
     "Nominal mass flow rate of MIT system model as in ASHRAE 825-RP";
-parameter Modelica.SIunits.PressureDifference dpSuiSup_nominal(displayUnit="Pa") = 95
+parameter Modelica.Units.SI.PressureDifference dpSuiSup_nominal(displayUnit="Pa") = 95
     "Pressure drop supply air leg with splitters of one suite (obtained from simulation)";
-parameter Modelica.SIunits.PressureDifference dpSuiRet_nominal(displayUnit="Pa") = 233
+parameter Modelica.Units.SI.PressureDifference dpSuiRet_nominal(displayUnit="Pa") = 233
     "Pressure drop return air leg with splitters of one suite (obtained from simulation)";
-parameter Modelica.SIunits.PressureDifference dpFanSupMIT_nominal(displayUnit="Pa") = 1050
+parameter Modelica.Units.SI.PressureDifference dpFanSupMIT_nominal(displayUnit="Pa") = 1050
     "Pressure increase over supply fan in MIT system model as in ASHRAE 825-RP (obtained from simulation)";
-parameter Modelica.SIunits.PressureDifference dpFanRetMIT_nominal(displayUnit="Pa") = 347
+parameter Modelica.Units.SI.PressureDifference dpFanRetMIT_nominal(displayUnit="Pa") = 347
     "Pressure increase over supply fan in MIT system model as in ASHRAE 825-RP (obtained from simulation)";
 parameter Real scaM_flow = 1 "Scaling factor for mass flow rate";
 parameter Real scaDpFanSup_nominal = 1

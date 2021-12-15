@@ -5,11 +5,11 @@ model VAVBranch "Supply branch of a VAV system"
   replaceable package MediumW = Modelica.Media.Interfaces.PartialMedium
     "Medium model for water" annotation (choicesAllMatching=true);
 
-  parameter Modelica.SIunits.PressureDifference dpFixed_nominal(displayUnit="Pa")=0
+  parameter Modelica.Units.SI.PressureDifference dpFixed_nominal(displayUnit="Pa")=0
     "Pressure drop of duct and other resistances that are in series";
-  parameter Modelica.SIunits.MassFlowRate m_flow_nominal
+  parameter Modelica.Units.SI.MassFlowRate m_flow_nominal
     "Mass flow rate of this thermal zone";
-  parameter Modelica.SIunits.Volume VRoo "Room volume";
+  parameter Modelica.Units.SI.Volume VRoo "Room volume";
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TRooHeaSet(
     final quantity="ThermodynamicTemperature",

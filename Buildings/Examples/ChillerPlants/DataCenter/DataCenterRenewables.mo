@@ -107,7 +107,7 @@ equation
       StopTime=604800,
       Tolerance=1e-6),
       __Dymola_Commands(file=
-          "modelica://Buildings/Resources/Scripts/Dymola/Examples/ChillerPlant/DataCenterRenewables.mos"
+          "modelica://Buildings/Resources/Scripts/Dymola/Examples/ChillerPlants/DataCenter/DataCenterRenewables.mos"
         "Simulate and plot"),
     Documentation(revisions="<html>
 <ul>

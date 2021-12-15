@@ -32,7 +32,7 @@ block FanVFD "Controller for fan revolution"
     annotation (Dialog(group="Setpoint tracking"));
   parameter Real k=0.5 "Gain of controller"
     annotation (Dialog(group="Setpoint tracking"));
-  parameter Modelica.SIunits.Time Ti=15 "Time constant of integrator block"
+  parameter Modelica.Units.SI.Time Ti=15 "Time constant of integrator block"
     annotation (Dialog(group="Setpoint tracking"));
 
   Buildings.Controls.OBC.CDL.Continuous.Switch swi
