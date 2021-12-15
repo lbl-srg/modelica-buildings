@@ -1,5 +1,6 @@
 calculateLMTDStar
 IceMass
+IsolationValveControl
 LMTDStar
 ModeControl
 OutletTemperatureControl

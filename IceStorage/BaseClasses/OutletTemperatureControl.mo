@@ -1,108 +1,143 @@
 within IceStorage.BaseClasses;
 model OutletTemperatureControl "Storage outlet temperature control"
-  parameter Real k=1 "Gain of controller";
-  parameter Modelica.SIunits.Time Ti=0.5 "Time constant of Integrator block";
+ parameter Modelica.Blocks.Types.SimpleController controllerType=
+         Modelica.Blocks.Types.SimpleController.PID "Type of controller";
+  parameter Real k(min=0) = 1 "Gain of controller";
+  parameter Modelica.SIunits.Time Ti(min=Modelica.Constants.small)=0.5
+    "Time constant of Integrator block" annotation (Dialog(enable=
+          controllerType == Modelica.Blocks.Types.SimpleController.PI or
+          controllerType == Modelica.Blocks.Types.SimpleController.PID));
+  parameter Modelica.SIunits.Time Td(min=0)=0.1
+    "Time constant of Derivative block" annotation (Dialog(enable=
+          controllerType == Modelica.Blocks.Types.SimpleController.PD or
+          controllerType == Modelica.Blocks.Types.SimpleController.PID));
+  parameter Real yMax(start=1)=1 "Upper limit of output";
+  parameter Real yMin=0 "Lower limit of output";
+  parameter Real wp(min=0) = 1 "Set-point weight for Proportional block (0..1)";
+  parameter Real wd(min=0) = 0 "Set-point weight for Derivative block (0..1)"
+       annotation(Dialog(enable=controllerType==.Modelica.Blocks.Types.SimpleController.PD or
+                                controllerType==.Modelica.Blocks.Types.SimpleController.PID));
+  parameter Real Ni(min=100*Modelica.Constants.eps) = 0.9
+    "Ni*Ti is time constant of anti-windup compensation"
+     annotation(Dialog(enable=controllerType==.Modelica.Blocks.Types.SimpleController.PI or
+                              controllerType==.Modelica.Blocks.Types.SimpleController.PID));
+  parameter Real Nd(min=100*Modelica.Constants.eps) = 10
+    "The higher Nd, the more ideal the derivative block"
+       annotation(Dialog(enable=controllerType==.Modelica.Blocks.Types.SimpleController.PD or
+                                controllerType==.Modelica.Blocks.Types.SimpleController.PID));
+  parameter Modelica.Blocks.Types.InitPID initType= Modelica.Blocks.Types.InitPID.DoNotUse_InitialIntegratorState
+    "Type of initialization (1: no init, 2: steady state, 3: initial state, 4: initial output)"
+                                     annotation(Evaluate=true,
+      Dialog(group="Initialization"));
+      // Removed as the Limiter block no longer uses this parameter.
+      // parameter Boolean limitsAtInit = true
+      //  "= false, if limits are ignored during initialization"
+      // annotation(Evaluate=true, Dialog(group="Initialization"));
+  parameter Real xi_start=0
+    "Initial or guess value value for integrator output (= integrator state)"
+    annotation (Dialog(group="Initialization",
+                enable=controllerType==.Modelica.Blocks.Types.SimpleController.PI or
+                       controllerType==.Modelica.Blocks.Types.SimpleController.PID));
+  parameter Real xd_start=0
+    "Initial or guess value for state of derivative block"
+    annotation (Dialog(group="Initialization",
+                         enable=controllerType==.Modelica.Blocks.Types.SimpleController.PD or
+                                controllerType==.Modelica.Blocks.Types.SimpleController.PID));
+  parameter Real y_start=0 "Initial value of output"
+    annotation(Dialog(enable=initType == Modelica.Blocks.Types.InitPID.InitialOutput, group=
+          "Initialization"));
+
+  parameter Boolean reverseAction = false
+    "Set to true for throttling the water flow rate through a cooling coil controller";
+
+  final parameter Buildings.Types.Reset reset = Buildings.Types.Reset.Parameter
+    "Type of controller output reset"
+    annotation(Evaluate=true, Dialog(group="Integrator reset"));
+
+  final parameter Real y_reset=xi_start
+    "Value to which the controller output is reset if the boolean trigger has a rising edge, used if reset == Buildings.Types.Reset.Parameter"
+    annotation(Dialog(enable=reset == Buildings.Types.Reset.Parameter,
+                      group="Integrator reset"));
 
   Modelica.Blocks.Interfaces.IntegerInput u "Storage mode"
-    annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
-  Modelica.Blocks.Interfaces.RealOutput yVal1(
-    final quantity="1",
-    min=0,
-    max=1) "Valve1 opening" annotation (Placement(transformation(extent={{100,30},
-            {120,50}}), iconTransformation(extent={{100,30},{120,50}})));
-  Modelica.Blocks.Logical.Switch swi "Switch"
-    annotation (Placement(transformation(extent={{50,30},{70,50}})));
-  Buildings.Controls.OBC.CDL.Integers.Equal isDor "Is dormant"
-    annotation (Placement(transformation(extent={{-20,30},{0,50}})));
-  Modelica.Blocks.Sources.IntegerExpression dorMod(y=Integer(IceStorage.Types.IceThermalStorageMode.Dormant))
-    "Dormant mode"
-    annotation (Placement(transformation(extent={{-60,14},{-40,34}})));
-  Modelica.Blocks.Sources.Constant zer(k=0) "Zero"
-    annotation (Placement(transformation(extent={{-20,60},{0,80}})));
-  Modelica.Blocks.Sources.Constant uti(k=1) "Utility"
-    annotation (Placement(transformation(extent={{-20,0},{0,20}})));
-  Buildings.Controls.OBC.CDL.Integers.Equal isCha "Is charging"
-    annotation (Placement(transformation(extent={{-20,-40},{0,-20}})));
-  Modelica.Blocks.Sources.IntegerExpression chaMod(y=Integer(IceStorage.Types.IceThermalStorageMode.Charging))
-    "Charging mode"
-    annotation (Placement(transformation(extent={{-60,-54},{-40,-34}})));
+    annotation (Placement(transformation(extent={{-140,40},{-100,80}})));
   Modelica.Blocks.Logical.Switch swi1
                                      "Switch"
-    annotation (Placement(transformation(extent={{22,-40},{42,-20}})));
+    annotation (Placement(transformation(extent={{60,-10},{80,10}})));
   Buildings.Controls.OBC.CDL.Integers.Equal isDis "Is discharging"
-    annotation (Placement(transformation(extent={{-20,-86},{0,-66}})));
+    annotation (Placement(transformation(extent={{-40,-50},{-20,-30}})));
   Modelica.Blocks.Sources.IntegerExpression disMod(y=Integer(IceStorage.Types.IceThermalStorageMode.Discharging))
     "Discharging mode"
-    annotation (Placement(transformation(extent={{-60,-94},{-40,-74}})));
+    annotation (Placement(transformation(extent={{-80,-58},{-60,-38}})));
   Modelica.Blocks.Logical.Switch swi2
                                      "Switch"
-    annotation (Placement(transformation(extent={{22,-78},{42,-58}})));
-  Buildings.Controls.OBC.CDL.Continuous.Product pro
-    annotation (Placement(transformation(extent={{64,-50},{84,-30}})));
-  Buildings.Controls.Continuous.LimPID conPID(k=k, Ti=Ti)
-    annotation (Placement(transformation(extent={{-82,-70},{-62,-50}})));
-  Modelica.Blocks.Math.Feedback feedback
-    annotation (Placement(transformation(extent={{18,0},{38,20}})));
-  Modelica.Blocks.Interfaces.RealOutput yVal2(
+    annotation (Placement(transformation(extent={{20,-50},{40,-30}})));
+  Buildings.Controls.Continuous.LimPID conPID(
+    controllerType=controllerType,            k=k, Ti=Ti,
+    Td=Td,
+    yMax=yMax,
+    yMin=yMin,
+    wp=wp,
+    wd=wd,
+    Ni=Ni,
+    Nd=Nd,
+    initType=initType,
+    xi_start=xi_start,
+    xd_start=xd_start,
+    reverseAction=reverseAction,
+    reset=reset,
+    y_reset=y_reset)
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
+  Modelica.Blocks.Interfaces.RealOutput y(
     final quantity="1",
     min=0,
-    max=1) "Valve2 opening" annotation (Placement(transformation(extent={{100,-50},
-            {120,-30}}), iconTransformation(extent={{100,-10},{120,10}})));
+    max=1) "Valve opening" annotation (Placement(transformation(extent={{100,-10},
+            {120,10}}), iconTransformation(extent={{100,-10},{120,10}})));
   Modelica.Blocks.Interfaces.RealInput TOutSet "Outlet temperature setpoint"
-    annotation (Placement(transformation(extent={{-140,-60},{-100,-20}})));
+    annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
   Modelica.Blocks.Interfaces.RealInput TOutMea
-    annotation (Placement(transformation(extent={{-140,-100},{-100,-60}})));
+    annotation (Placement(transformation(extent={{-140,-80},{-100,-40}})));
+
+  Buildings.Controls.OBC.CDL.Integers.Equal isDor "Is dormant"
+    annotation (Placement(transformation(extent={{-40,30},{-20,50}})));
+  Modelica.Blocks.Sources.IntegerExpression dorMod(y=Integer(IceStorage.Types.IceThermalStorageMode.Dormant))
+    "Dormant mode"
+    annotation (Placement(transformation(extent={{-80,22},{-60,42}})));
+  Modelica.Blocks.Sources.Constant uti(k=1) "Utility"
+    annotation (Placement(transformation(extent={{20,80},{40,100}})));
+  Modelica.Blocks.Sources.Constant zer(k=0) "Zero"
+    annotation (Placement(transformation(extent={{-10,-90},{10,-70}})));
 
 equation
-  connect(dorMod.y,isDor. u2) annotation (Line(points={{-39,24},{-28,24},{-28,
-          32},{-22,32}}, color={255,127,0}));
-  connect(u,isDor. u1)
-    annotation (Line(points={{-120,0},{-32,0},{-32,40},{-22,40}},
-                                                color={255,127,0}));
-  connect(isDor.y,swi. u2)
-    annotation (Line(points={{2,40},{48,40}},
-                                            color={255,0,255}));
-  connect(swi.y, yVal1)
-    annotation (Line(points={{71,40},{110,40}}, color={0,0,127}));
-  connect(zer.y,swi. u1)
-    annotation (Line(points={{1,70},{14,70},{14,48},{48,48}},color={0,0,127}));
-  connect(u,isCha. u1) annotation (Line(points={{-120,0},{-32,0},{-32,-26},{-28,
-          -26},{-28,-30},{-22,-30}}, color={255,127,0}));
-  connect(chaMod.y,isCha. u2) annotation (Line(points={{-39,-44},{-30,-44},{-30,
-          -38},{-22,-38}}, color={255,127,0}));
-  connect(isCha.y,swi1. u2)
-    annotation (Line(points={{2,-30},{20,-30}}, color={255,0,255}));
-  connect(zer.y,swi1. u1) annotation (Line(points={{1,70},{14,70},{14,-22},{20,
-          -22}}, color={0,0,127}));
   connect(disMod.y,isDis. u2)
-    annotation (Line(points={{-39,-84},{-22,-84}}, color={255,127,0}));
-  connect(u,isDis. u1) annotation (Line(points={{-120,0},{-32,0},{-32,-76},{-22,
-          -76}}, color={255,127,0}));
-  connect(uti.y,swi1. u3) annotation (Line(points={{1,10},{6,10},{6,-38},{20,
-          -38}}, color={0,0,127}));
-  connect(isDis.y,swi2. u2) annotation (Line(points={{2,-76},{12,-76},{12,-68},
-          {20,-68}}, color={255,0,255}));
-  connect(swi1.y,pro. u1) annotation (Line(points={{43,-30},{52,-30},{52,-34},{
-          62,-34}}, color={0,0,127}));
-  connect(uti.y,swi2. u3) annotation (Line(points={{1,10},{6,10},{6,-76},{20,
-          -76}}, color={0,0,127}));
-  connect(swi2.y,pro. u2) annotation (Line(points={{43,-68},{52,-68},{52,-46},{
-          62,-46}}, color={0,0,127}));
-  connect(pro.y, yVal2)
-    annotation (Line(points={{86,-40},{110,-40}}, color={0,0,127}));
-  connect(conPID.y,swi2. u1)
-    annotation (Line(points={{-61,-60},{20,-60}}, color={0,0,127}));
-  connect(pro.y,feedback. u2) annotation (Line(points={{86,-40},{88,-40},{88,-4},
-          {28,-4},{28,2}}, color={0,0,127}));
-  connect(uti.y,feedback. u1)
-    annotation (Line(points={{1,10},{20,10}}, color={0,0,127}));
-  connect(feedback.y,swi. u3) annotation (Line(points={{37,10},{42,10},{42,32},
-          {48,32}}, color={0,0,127}));
-  connect(TOutSet, conPID.u_s) annotation (Line(points={{-120,-40},{-92,-40},{-92,
-          -60},{-84,-60}}, color={0,0,127}));
-  connect(TOutMea, conPID.u_m) annotation (Line(points={{-120,-80},{-72,-80},{-72,
-          -72}}, color={0,0,127}));
-  annotation (defaultComponentName="valOnOff",
+    annotation (Line(points={{-59,-48},{-42,-48}}, color={255,127,0}));
+  connect(u,isDis. u1) annotation (Line(points={{-120,60},{-54,60},{-54,-40},{-42,
+          -40}}, color={255,127,0}));
+  connect(TOutSet, conPID.u_s) annotation (Line(points={{-120,0},{-12,0}},
+                           color={0,0,127}));
+  connect(TOutMea, conPID.u_m) annotation (Line(points={{-120,-60},{0,-60},{0,-12}},
+                 color={0,0,127}));
+  connect(dorMod.y, isDor.u2)
+    annotation (Line(points={{-59,32},{-42,32}}, color={255,127,0}));
+  connect(u, isDor.u1) annotation (Line(points={{-120,60},{-54,60},{-54,40},{-42,
+          40}}, color={255,127,0}));
+  connect(isDor.y, swi1.u2) annotation (Line(points={{-18,40},{40,40},{40,0},{58,
+          0}}, color={255,0,255}));
+  connect(uti.y, swi1.u1)
+    annotation (Line(points={{41,90},{48,90},{48,8},{58,8}}, color={0,0,127}));
+  connect(isDis.y, conPID.trigger)
+    annotation (Line(points={{-18,-40},{-8,-40},{-8,-12}}, color={255,0,255}));
+  connect(isDis.y, swi2.u2)
+    annotation (Line(points={{-18,-40},{18,-40}}, color={255,0,255}));
+  connect(conPID.y, swi2.u1) annotation (Line(points={{11,0},{14,0},{14,-32},{18,
+          -32}}, color={0,0,127}));
+  connect(zer.y, swi2.u3) annotation (Line(points={{11,-80},{14,-80},{14,-48},{18,
+          -48}}, color={0,0,127}));
+  connect(swi2.y, swi1.u3) annotation (Line(points={{41,-40},{48,-40},{48,-8},{58,
+          -8}}, color={0,0,127}));
+  connect(swi1.y, y)
+    annotation (Line(points={{81,0},{110,0}}, color={0,0,127}));
+  annotation (defaultComponentName="outTemCon",
   Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Rectangle(
         extent={{-100,-100},{100,100}},
