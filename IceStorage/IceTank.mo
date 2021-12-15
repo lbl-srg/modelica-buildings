@@ -164,7 +164,8 @@ model IceTank "A detailed ice tank model"
   Buildings.Fluid.Actuators.Valves.TwoWayEqualPercentage val1(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
-    dpValve_nominal=dpValve_nominal)
+    dpValve_nominal=dpValve_nominal,
+    dpFixed_nominal=dp_nominal)
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
   Buildings.Fluid.Actuators.Valves.TwoWayEqualPercentage val2(
     redeclare package Medium = Medium,
@@ -176,8 +177,6 @@ model IceTank "A detailed ice tank model"
     annotation (Placement(transformation(extent={{-60,36},{-40,56}})));
   Modelica.Blocks.Math.Add add(k1=-1) "Add"
     annotation (Placement(transformation(extent={{-20,36},{0,56}})));
-  Modelica.Blocks.Sources.Constant const(k=0)
-    annotation (Placement(transformation(extent={{38,70},{58,90}})));
 protected
   Modelica.Blocks.Sources.RealExpression limQ(final y=hea.port_a.m_flow*cp*(
         TFre - senTIn.T)) "Upper/Lower limit for charging/discharging rate"
@@ -257,10 +256,10 @@ equation
           -22,40}}, color={0,0,127}));
   connect(add.y, val1.y) annotation (Line(points={{1,46},{10,46},{10,22},{-50,
           22},{-50,12}}, color={0,0,127}));
-  connect(const.y, val2.y) annotation (Line(points={{59,80},{66,80},{66,54},{30,
-          54},{30,42}}, color={0,0,127}));
-  connect(const.y, add.u1) annotation (Line(points={{59,80},{66,80},{66,62},{
-          -30,62},{-30,52},{-22,52}}, color={0,0,127}));
+  connect(TOutCon.y, val2.y)
+    annotation (Line(points={{11,80},{30,80},{30,42}}, color={0,0,127}));
+  connect(TOutCon.y, add.u1) annotation (Line(points={{11,80},{30,80},{30,64},{
+          -32,64},{-32,52},{-22,52}}, color={0,0,127}));
   annotation (defaultComponentModel="iceTan", Icon(graphics={
         Rectangle(
           extent={{-76,46},{76,70}},
