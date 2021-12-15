@@ -4,19 +4,31 @@ model IceTank "A detailed ice tank model"
   extends Buildings.Fluid.Interfaces.TwoPortFlowResistanceParameters(
     final computeFlowResistance=true);
 
+  // ice tank
   parameter Modelica.SIunits.Mass mIce_max "Nominal mass of ice in the tank"
     annotation(Dialog(group="Nominal condition"));
-  parameter Modelica.SIunits.PressureDifference dpValve_nominal=6000
-    "Nominal pressure drop of fully open valve, used if CvData=Buildings.Fluid.Types.CvTypes.OpPoint"
-    annotation(Dialog(group="Nominal condition"));
+
   parameter Modelica.SIunits.Mass mIce_start "Start value of ice mass in the tank"
     annotation(Dialog(tab = "Initialization"));
 
-  parameter Real coeCha[6] "Coefficients for charging qstar curve";
-  parameter Real dtCha "Time step of curve fitting data";
+  parameter Real coeCha[6] "Coefficients for charging qstar curve"
+    annotation (Dialog(group="Ice tank"));
+  parameter Real dtCha "Time step of curve fitting data"
+    annotation (Dialog(group="Ice tank"));
 
-  parameter Real coeDisCha[6] "Coefficients for discharging qstar curve";
-  parameter Real dtDisCha "Time step of curve fitting data";
+  parameter Real coeDisCha[6] "Coefficients for discharging qstar curve"
+    annotation (Dialog(group="Ice tank"));
+  parameter Real dtDisCha "Time step of curve fitting data"
+    annotation (Dialog(group="Ice tank"));
+
+  // Valve
+  parameter Real l=0.0001 "Valve leakage, l=Kv(y=0)/Kv(y=1)"
+    annotation (Dialog(group="Valve"));
+  parameter Real R=50 "Rangeability, R=50...100 typically"
+    annotation (Dialog(group="Valve"));
+  parameter Real delta0=0.01
+    "Range of significant deviation from equal percentage law"
+     annotation (Dialog(group="Valve"));
 
   // Outlet temperature controller
   parameter Real k=1 "Gain of controller"
@@ -59,6 +71,21 @@ model IceTank "A detailed ice tank model"
     "Start value of trace substances"
     annotation (Dialog(tab="Initialization", enable=Medium.nC > 0));
 
+   // valve dynamics
+  parameter Boolean use_inputFilter=true
+    "= true, if opening is filtered with a 2nd order CriticalDamping filter"
+    annotation (Dialog(tab = "Dynamics", group="Valve"));
+  parameter Modelica.SIunits.Time riseTime=120
+    "Rise time of the filter (time to reach 99.6 % of an opening step)"
+    annotation (Dialog(tab = "Dynamics", group="Valve"));
+  parameter Integer order=2 "Order of filter"
+    annotation (Dialog(tab = "Dynamics", group="Valve"));
+  parameter Modelica.Blocks.Types.Init init=Modelica.Blocks.Types.Init.InitialOutput
+    "Type of initialization (no init/steady state/initial state/initial output)"
+    annotation (Dialog(tab = "Dynamics", group="Valve"));
+  parameter Real y_start=1 "Initial value of output"
+    annotation (Dialog(tab = "Dynamics", group="Valve"));
+
   // Some final parameters
   final parameter Modelica.SIunits.SpecificEnergy Hf = 333550 "Fusion of heat of ice";
   final parameter Modelica.SIunits.Temperature TFre = 273.15
@@ -66,7 +93,14 @@ model IceTank "A detailed ice tank model"
   final parameter Modelica.SIunits.TemperatureDifference dT_nominal = 10
      "Nominal temperature difference";
   final parameter Modelica.SIunits.Energy QSto_nominal=Hf*mIce_max "Normal stored energy";
-
+  final parameter Modelica.SIunits.PressureDifference dpValve_nominal=6000
+    "Nominal pressure drop of fully open valve, used if CvData=Buildings.Fluid.Types.CvTypes.OpPoint"
+    annotation(Dialog(group="Nominal condition"));
+  final parameter Modelica.SIunits.SpecificHeatCapacity cp = Medium.specificHeatCapacityCp(
+    Medium.setState_pTX(
+        p=Medium.p_default,
+        T=273.15,
+        X=Medium.X_default)) "Specific heat capacity";
   Modelica.Blocks.Interfaces.RealInput TOutSet(
     final unit = "K",
     final displayUnit="degC")
@@ -92,34 +126,34 @@ model IceTank "A detailed ice tank model"
 
   Medium.ThermodynamicState state_phX "Medium state at inlet";
 
-  final parameter Modelica.SIunits.SpecificHeatCapacity cp = Medium.specificHeatCapacityCp(
-    Medium.setState_pTX(
-        p=Medium.p_default,
-        T=273.15,
-        X=Medium.X_default)) "Specific heat capacity";
+
 
   Buildings.Fluid.HeatExchangers.HeaterCooler_u hea(
-    redeclare package Medium = Medium,
+    redeclare final package Medium = Medium,
     final allowFlowReversal=allowFlowReversal,
-    m_flow_nominal=m_flow_nominal,
-    m_flow_small=m_flow_small,
-    show_T=show_T,
-    from_dp=from_dp,
-    dp_nominal=0,
-    linearizeFlowResistance=linearizeFlowResistance,
-    deltaM=deltaM,
-    tau=tau,
-    energyDynamics=energyDynamics,
-    massDynamics=massDynamics,
-    p_start=p_start,
-    T_start=T_start,
-    X_start=X_start,
-    C_start=C_start,
-    Q_flow_nominal=1)
+    final m_flow_nominal=m_flow_nominal,
+    final m_flow_small=m_flow_small,
+    final show_T=show_T,
+    final from_dp=from_dp,
+    final dp_nominal=0,
+    final linearizeFlowResistance=linearizeFlowResistance,
+    final deltaM=deltaM,
+    final tau=tau,
+    final energyDynamics=energyDynamics,
+    final massDynamics=massDynamics,
+    final p_start=p_start,
+    final T_start=T_start,
+    final X_start=X_start,
+    final C_start=C_start,
+    final Q_flow_nominal=1)
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort senTOut(
-    redeclare package Medium = Medium,
-    m_flow_nominal=m_flow_nominal) "Temperature sensor"
+    redeclare final package Medium = Medium,
+    final allowFlowReversal=allowFlowReversal,
+    final m_flow_nominal=m_flow_nominal,
+    final m_flow_small=m_flow_small,
+    final T_start=T_start)
+    "Temperature sensor"
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
   BaseClasses.StorageHeatTransferRate norQSta(
     coeCha=coeCha,
@@ -129,24 +163,29 @@ model IceTank "A detailed ice tank model"
     annotation (Placement(transformation(extent={{-54,-54},{-34,-34}})));
   Modelica.Blocks.Math.Gain gai(k=QSto_nominal) "Gain"
     annotation (Placement(transformation(extent={{-26,-54},{-6,-34}})));
-  BaseClasses.LMTDStar lmtdSta(TFre=TFre, dT_nominal=dT_nominal)
+  BaseClasses.LMTDStar lmtdSta(
+    final TFre=TFre,
+    final dT_nominal=dT_nominal)
     annotation (Placement(transformation(extent={{-86,-54},{-66,-34}})));
 
   BaseClasses.IceMass iceMas(
-    mIce_max=mIce_max,
-    mIce_start=mIce_start,
-    Hf=Hf) "Mass of the remaining ice"
-           annotation (Placement(transformation(extent={{68,-80},{88,-60}})));
+    final mIce_max=mIce_max,
+    final mIce_start=mIce_start,
+    final Hf=Hf)
+    "Mass of the remaining ice"
+    annotation (Placement(transformation(extent={{68,-80},{88,-60}})));
 
   BaseClasses.OutletTemperatureControl TOutCon(
-    controllerType=Modelica.Blocks.Types.SimpleController.PI,
-                                               k=k, Ti=Ti,
-    yMax=yMax,
-    yMin=yMin) "PI controller to enable outlet ice tank temperature control"
+    final controllerType=Modelica.Blocks.Types.SimpleController.PI,
+    final k=k,
+    final Ti=Ti,
+    final yMax=yMax,
+    final yMin=yMin)
+    "PI controller to enable outlet ice tank temperature control"
     annotation (Placement(transformation(extent={{-10,70},{10,90}})));
 
-  Buildings.Controls.OBC.CDL.Integers.LessThreshold chaMod(threshold=Integer(
-        IceStorage.Types.IceThermalStorageMode.Discharging))
+  Buildings.Controls.OBC.CDL.Integers.LessThreshold chaMod(
+    threshold=Integer(IceStorage.Types.IceThermalStorageMode.Discharging))
     "Charging mode"
     annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
   Modelica.Blocks.Math.Max max "Smooth maximum"
@@ -157,26 +196,56 @@ model IceTank "A detailed ice tank model"
     annotation (Placement(transformation(extent={{38,-80},{58,-60}})));
 
 
-  Buildings.Fluid.Sensors.TemperatureTwoPort senTIn(redeclare package Medium =
-        Medium, m_flow_nominal=m_flow_nominal) "Temperature sensor"
+  Buildings.Fluid.Sensors.TemperatureTwoPort senTIn(
+    redeclare final package Medium = Medium,
+    final allowFlowReversal=allowFlowReversal,
+    final m_flow_nominal=m_flow_nominal,
+    final m_flow_small=m_flow_small,
+    final T_start=T_start)
+    "Temperature sensor"
     annotation (Placement(transformation(extent={{-90,-10},{-70,10}})));
 
   Buildings.Fluid.Actuators.Valves.TwoWayEqualPercentage val1(
-    redeclare package Medium = Medium,
-    m_flow_nominal=m_flow_nominal,
-    dpValve_nominal=dpValve_nominal,
-    dpFixed_nominal=dp_nominal)
+    redeclare final package Medium = Medium,
+    final allowFlowReversal=allowFlowReversal,
+    final m_flow_nominal=m_flow_nominal,
+    final show_T=show_T,
+    final from_dp=from_dp,
+    final linearized=linearizeFlowResistance,
+    final dpValve_nominal=dpValve_nominal,
+    final use_inputFilter=use_inputFilter,
+    final riseTime=riseTime,
+    final order=order,
+    final init=init,
+    final y_start=y_start,
+    final dpFixed_nominal=dp_nominal,
+    final l=l,
+    final R=R,
+    final delta0=delta0) "Valve"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
   Buildings.Fluid.Actuators.Valves.TwoWayEqualPercentage val2(
-    redeclare package Medium = Medium,
-    m_flow_nominal=m_flow_nominal,
-    dpValve_nominal=dpValve_nominal,
-    dpFixed_nominal=0)
+    redeclare final package Medium = Medium,
+    final allowFlowReversal=allowFlowReversal,
+    final m_flow_nominal=m_flow_nominal,
+    final show_T=show_T,
+    final from_dp=from_dp,
+    final linearized=linearizeFlowResistance,
+    final dpValve_nominal=dpValve_nominal,
+    final use_inputFilter=use_inputFilter,
+    final riseTime=riseTime,
+    final order=order,
+    final init=init,
+    final y_start=y_start,
+    final dpFixed_nominal=0,
+    final l=l,
+    final R=R,
+    final delta0=delta0) "Valve"
     annotation (Placement(transformation(extent={{20,20},{40,40}})));
   Modelica.Blocks.Sources.Constant uni(k=1) "Unit"
     annotation (Placement(transformation(extent={{-60,36},{-40,56}})));
   Modelica.Blocks.Math.Add add(k1=-1) "Add"
     annotation (Placement(transformation(extent={{-20,36},{0,56}})));
+
 protected
   Modelica.Blocks.Sources.RealExpression limQ(final y=hea.port_a.m_flow*cp*(
         TFre - senTIn.T)) "Upper/Lower limit for charging/discharging rate"
