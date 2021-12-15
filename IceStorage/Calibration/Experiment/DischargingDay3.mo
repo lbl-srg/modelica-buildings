@@ -1,6 +1,6 @@
 within IceStorage.Calibration.Experiment;
 model DischargingDay3
-  extends IceStorage.Calibration.Experiment.BaseClasses.BaseExample(
+  extends IceStorage.Calibration.Experiment.BaseClasses.PartialExample(
    fileName=Modelica.Utilities.Files.loadResource(
     "modelica://IceStorage/Resources/data/Calibration/Experiment/discharging-day3.txt"),
    mod(k=Integer(IceStorage.Types.IceThermalStorageMode.Discharging)),
@@ -15,8 +15,15 @@ model DischargingDay3
     __Dymola_Commands(file="modelica://IceStorage/Resources/scripts/dymola/Calibration/Experiment/DischargingDay3.mos"
         "Simulate and Plot"),
     Documentation(info="<html>
-<p>This example is to validate the developed tank model against real measurement from NIST chiller tank testbed on day 3.</p>
+<p>
+This example is to validate the developed ice tank model for discharing mode using data generated from experiment 3.
+</p>
 </html>", revisions="<html>
-<p>April 2021, Yangyang Fu First implementation </p>
+<ul>
+<li>
+December 14, 2021, by Yangyang Fu:<br/>
+First implementation.
+</li>
+</ul>
 </html>"));
 end DischargingDay3;

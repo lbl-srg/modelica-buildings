@@ -1,13 +1,13 @@
 within IceStorage.Calibration.Experiment.BaseClasses;
-model BaseExample "Base example"
+partial model PartialExample "Base example"
   extends Modelica.Icons.Example;
   package Medium = Buildings.Media.Antifreeze.PropyleneGlycolWater (
     property_T=293.15,
     X_a=0.30);
 
-  parameter Real coeCha[6] = {1.99930278E-2,0,0,0,0,0} "Coefficient for charging curve";
-  parameter Real coeDisCha[6] = {5.54E-05,-0.000145679,9.28E-05,0.001126122,
-      -0.0011012,0.000300544} "Coefficient for discharging curve";
+  parameter Real coeCha[6] = {1.99810397E-04,0,0,0,0,0} "Coefficient for charging curve";
+  parameter Real coeDisCha[6] = {5.54E-05,-1.45679E-04,9.28E-05,1.126122E-03,
+      -1.1012E-03,3.00544E-04} "Coefficient for discharging curve";
   parameter Real dt = 10 "Time step used in the samples for curve fitting";
 
   parameter Modelica.SIunits.Mass mIce_max=2846.35
@@ -15,7 +15,6 @@ model BaseExample "Base example"
   parameter Modelica.SIunits.Mass mIce_start=0.90996030*mIce_max
     "Start value of ice mass in the tank";
   parameter String fileName;
-
 
   IceTank         iceTan(
     redeclare package Medium = Medium,
@@ -80,22 +79,14 @@ equation
   connect(TOut.Kelvin, iceTan.TOutSet) annotation (Line(points={{-59,-40},{-20,-40},
           {-20,3},{-12,3}}, color={0,0,127}));
   annotation (
-    experiment(
-      StartTime = 0,
-      StopTime=19990,
-      Tolerance=1e-06,
-      __Dymola_Algorithm="Cvode"),
-    __Dymola_Commands(file="modelica://IceStorage/Resources/scripts/dymola/Calibration/Experiment/DischargingDay1.mos"
-        "Simulate and Plot", file="Resources/scripts/dymola/Calibration/Experiment/DischargingDay1.mos"
-        "Simulate"),
     Documentation(info="<html>
-<p>
-This example is to validate the developed tank model against real measurement from NIST chiller tank testbed on day 1.
-</p>
-
 </html>", revisions="<html>
-April 2021, Yangyang Fu <\\b>
-First implementation
+<ul>
+<li>
+December 14, 2021, by Yangyang Fu:<br/>
+First implementation.
+</li>
+</ul>
 
 </html>"));
-end BaseExample;
+end PartialExample;

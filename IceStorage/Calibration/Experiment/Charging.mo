@@ -1,6 +1,6 @@
 within IceStorage.Calibration.Experiment;
 model Charging
-  extends IceStorage.Calibration.Experiment.BaseClasses.BaseExample(
+  extends IceStorage.Calibration.Experiment.BaseClasses.PartialExample(
    fileName=Modelica.Utilities.Files.loadResource(
     "modelica://IceStorage/Resources/data/Calibration/Experiment/charging.txt"),
    mod(k=Integer(IceStorage.Types.IceThermalStorageMode.Charging)),
@@ -16,8 +16,15 @@ model Charging
           "modelica://IceStorage/Resources/scripts/dymola/Calibration/Experiment/Charging.mos"
         "Simulate and Plot"),
     Documentation(info="<html>
-<p>This example is to validate the developed tank model against real measurement from NIST chiller tank testbed on day 2.</p>
+<p>
+This example is to validate the developed ice tank model for charging mode using data generated from experiment 1.
+</p>
 </html>", revisions="<html>
-<p>April 2021, Yangyang Fu First implementation </p>
+<ul>
+<li>
+December 14, 2021, by Yangyang Fu:<br/>
+First implementation.
+</li>
+</ul>
 </html>"));
 end Charging;
