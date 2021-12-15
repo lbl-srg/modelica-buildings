@@ -146,5 +146,22 @@ equation
         fillPattern=FillPattern.Solid), Text(
         extent={{-148,150},{152,110}},
         textString="%name",
-        lineColor={0,0,255})}), Diagram(coordinateSystem(preserveAspectRatio=false)));
+        lineColor={0,0,255})}), Diagram(coordinateSystem(preserveAspectRatio=false)),
+    Documentation(info="<html>
+<p>
+This model controls the outlet fluid temperature by regulating the associated valves.
+<ul>
+<li>For Dormant mode, the bypass valve 2 is fully open, and valve 1 is fully closed.</li> 
+<li>For Charging mode, the bypass valve 2 is fully closed, and valve 1 is fully open.</li>
+<li>For Discharging mode, the bypass valve 2 is regulated to maintain a given outlet temperature setpoint using a PI controller.</li>
+</ul>
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+December 8, 2021, by Yangyang Fu:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));
 end OutletTemperatureControl;

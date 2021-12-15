@@ -1,8 +1,6 @@
 calculateLMTDStar
 IceMass
-IsolationValveControl
 LMTDStar
-ModeControl
 OutletTemperatureControl
 QStarCharging
 QStarDischarging
