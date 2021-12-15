@@ -78,7 +78,7 @@ model IceTank "A detailed ice tank model"
   Modelica.Blocks.Interfaces.RealOutput TOut(
     final unit = "K",
     final displayUnit="degC") "Temperature of the passing fluid"
-    annotation (Placement(transformation(extent={{100,10},{120,30}})));
+    annotation (Placement(transformation(extent={{100,30},{120,50}})));
   Modelica.Blocks.Interfaces.RealOutput SOC(
     final unit = "1")
     "state of charge"
@@ -105,7 +105,7 @@ model IceTank "A detailed ice tank model"
     m_flow_small=m_flow_small,
     show_T=show_T,
     from_dp=from_dp,
-    dp_nominal=dp_nominal,
+    dp_nominal=0,
     linearizeFlowResistance=linearizeFlowResistance,
     deltaM=deltaM,
     tau=tau,
@@ -138,25 +138,12 @@ model IceTank "A detailed ice tank model"
     Hf=Hf) "Mass of the remaining ice"
            annotation (Placement(transformation(extent={{68,-80},{88,-60}})));
 
-  Buildings.Fluid.Actuators.Valves.TwoWayEqualPercentage val1(
-    redeclare package Medium = Medium,
-    m_flow_nominal=m_flow_nominal,
-    dpValve_nominal=dpValve_nominal,
-    dpFixed_nominal=0) "Isolation valve"
-    annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
-
   BaseClasses.OutletTemperatureControl TOutCon(
     controllerType=Modelica.Blocks.Types.SimpleController.PI,
                                                k=k, Ti=Ti,
     yMax=yMax,
     yMin=yMin) "PI controller to enable outlet ice tank temperature control"
-    annotation (Placement(transformation(extent={{0,72},{20,92}})));
-  Buildings.Fluid.Actuators.Valves.TwoWayEqualPercentage val2(
-    redeclare package Medium = Medium,
-    m_flow_nominal=m_flow_nominal,
-    dpValve_nominal=dpValve_nominal,
-    dpFixed_nominal=0) "Modulating valve"
-    annotation (Placement(transformation(extent={{20,20},{40,40}})));
+    annotation (Placement(transformation(extent={{-10,70},{10,90}})));
 
   Buildings.Controls.OBC.CDL.Integers.LessThreshold chaMod(threshold=Integer(
         IceStorage.Types.IceThermalStorageMode.Discharging))
@@ -170,13 +157,27 @@ model IceTank "A detailed ice tank model"
     annotation (Placement(transformation(extent={{38,-80},{58,-60}})));
 
 
-  BaseClasses.IsolationValveControl isoValCon "Isolation valve control"
-    annotation (Placement(transformation(extent={{-50,50},{-30,70}})));
-
   Buildings.Fluid.Sensors.TemperatureTwoPort senTIn(redeclare package Medium =
         Medium, m_flow_nominal=m_flow_nominal) "Temperature sensor"
     annotation (Placement(transformation(extent={{-90,-10},{-70,10}})));
 
+  Buildings.Fluid.Actuators.Valves.TwoWayEqualPercentage val1(
+    redeclare package Medium = Medium,
+    m_flow_nominal=m_flow_nominal,
+    dpValve_nominal=dp_nominal)
+    annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
+  Buildings.Fluid.Actuators.Valves.TwoWayEqualPercentage val2(
+    redeclare package Medium = Medium,
+    m_flow_nominal=m_flow_nominal,
+    dpValve_nominal=dpValve_nominal,
+    dpFixed_nominal=0)
+    annotation (Placement(transformation(extent={{20,20},{40,40}})));
+  Modelica.Blocks.Sources.Constant uni(k=1) "Unit"
+    annotation (Placement(transformation(extent={{-60,36},{-40,56}})));
+  Modelica.Blocks.Math.Add add(k1=-1) "Add"
+    annotation (Placement(transformation(extent={{-20,36},{0,56}})));
+  Modelica.Blocks.Sources.Constant const(k=0)
+    annotation (Placement(transformation(extent={{38,70},{58,90}})));
 protected
   Modelica.Blocks.Sources.RealExpression limQ(final y=hea.port_a.m_flow*cp*(
         TFre - senTIn.T)) "Upper/Lower limit for charging/discharging rate"
@@ -200,17 +201,13 @@ equation
   connect(iceMas.mIce, mIce) annotation (Line(points={{89,-70},{94,-70},{94,-50},
           {110,-50}}, color={0,0,127}));
   connect(senTOut.T, TOut)
-    annotation (Line(points={{70,11},{70,20},{110,20}}, color={0,0,127}));
-  connect(val1.port_b, hea.port_a)
-    annotation (Line(points={{-20,0},{0,0}}, color={0,127,255}));
-  connect(val2.port_b, senTOut.port_a)
-    annotation (Line(points={{40,30},{60,30},{60,0}},   color={0,127,255}));
+    annotation (Line(points={{70,11},{70,40},{110,40}}, color={0,0,127}));
   connect(chaMod.y, swi.u2) annotation (Line(points={{-58,-70},{36,-70}},
                                               color={255,0,255}));
   connect(swi.y, iceMas.q)
     annotation (Line(points={{60,-70},{66,-70}},   color={0,0,127}));
-  connect(swi.y, hea.u) annotation (Line(points={{60,-70},{62,-70},{62,-16},{-10,
-          -16},{-10,6},{-2,6}},     color={0,0,127}));
+  connect(swi.y, hea.u) annotation (Line(points={{60,-70},{62,-70},{62,-16},{
+          -10,-16},{-10,6},{-2,6}}, color={0,0,127}));
   connect(min.y, swi.u1) annotation (Line(points={{55,-38},{60,-38},{60,-54},{26,
           -54},{26,-62},{36,-62}},
                                 color={0,0,127}));
@@ -223,11 +220,12 @@ equation
   connect(limQ.y, min.u1) annotation (Line(points={{-39,-90},{0,-90},{0,-32},{32,
           -32}}, color={0,0,127}));
   connect(TOutSet,TOutCon. TOutSet) annotation (Line(points={{-120,30},{-80,30},
-          {-80,82},{-2,82}},  color={0,0,127}));
-  connect(senTOut.T,TOutCon. TOutMea) annotation (Line(points={{70,11},{70,60},{
-          -10,60},{-10,76},{-2,76}},  color={0,0,127}));
-  connect(u,TOutCon. u) annotation (Line(points={{-120,80},{-62,80},{-62,88},{-2,
-          88}}, color={255,127,0}));
+          {-80,80},{-12,80}}, color={0,0,127}));
+  connect(senTOut.T,TOutCon. TOutMea) annotation (Line(points={{70,11},{70,96},
+          {-60,96},{-60,74},{-12,74}},color={0,0,127}));
+  connect(u,TOutCon. u) annotation (Line(points={{-120,80},{-62,80},{-62,86},{
+          -12,86}},
+                color={255,127,0}));
   connect(norQSta.u, u) annotation (Line(points={{-56,-38},{-62,-38},{-62,80},{-120,
           80}}, color={255,127,0}));
   connect(iceMas.fraCha, SOC) annotation (Line(points={{89,-66},{92,-66},{92,-20},
@@ -240,22 +238,29 @@ equation
           -64,-44},{-64,-50},{-56,-50}}, color={0,0,127}));
   connect(iceMas.fraCha, norQSta.fraCha) annotation (Line(points={{89,-66},{92,-66},
           {92,-22},{-60,-22},{-60,-44},{-56,-44}}, color={0,0,127}));
-  connect(TOutCon.y, val2.y)
-    annotation (Line(points={{21,82},{30,82},{30,42}}, color={0,0,127}));
-  connect(u, isoValCon.u) annotation (Line(points={{-120,80},{-62,80},{-62,60},{
-          -52,60}}, color={255,127,0}));
-  connect(isoValCon.y, val1.y) annotation (Line(points={{-29,60},{-20,60},{-20,24},
-          {-30,24},{-30,12}}, color={0,0,127}));
-  connect(senTOut.T, lmtdSta.TOut) annotation (Line(points={{70,11},{70,20},{-72,
-          20},{-72,-20},{-96,-20},{-96,-48},{-88,-48}}, color={0,0,127}));
+  connect(senTOut.T, lmtdSta.TOut) annotation (Line(points={{70,11},{70,20},{
+          -72,20},{-72,-20},{-96,-20},{-96,-48},{-88,-48}},
+                                                        color={0,0,127}));
   connect(port_a, senTIn.port_a)
     annotation (Line(points={{-100,0},{-90,0}}, color={0,127,255}));
-  connect(senTIn.port_b, val1.port_a)
-    annotation (Line(points={{-70,0},{-40,0}}, color={0,127,255}));
-  connect(val1.port_a, val2.port_a) annotation (Line(points={{-40,0},{-50,0},{-50,
-          30},{20,30}}, color={0,127,255}));
   connect(senTIn.T, lmtdSta.TIn) annotation (Line(points={{-80,11},{-80,14},{-94,
           14},{-94,-40},{-88,-40}}, color={0,0,127}));
+  connect(val1.port_b, hea.port_a)
+    annotation (Line(points={{-40,0},{0,0}}, color={0,127,255}));
+  connect(val1.port_a, senTIn.port_b)
+    annotation (Line(points={{-60,0},{-70,0}}, color={0,127,255}));
+  connect(senTIn.port_b, val2.port_a) annotation (Line(points={{-70,0},{-64,0},
+          {-64,30},{20,30}}, color={0,127,255}));
+  connect(val2.port_b, senTOut.port_a) annotation (Line(points={{40,30},{48,30},
+          {48,0},{60,0}}, color={0,127,255}));
+  connect(uni.y, add.u2) annotation (Line(points={{-39,46},{-30,46},{-30,40},{
+          -22,40}}, color={0,0,127}));
+  connect(add.y, val1.y) annotation (Line(points={{1,46},{10,46},{10,22},{-50,
+          22},{-50,12}}, color={0,0,127}));
+  connect(const.y, val2.y) annotation (Line(points={{59,80},{66,80},{66,54},{30,
+          54},{30,42}}, color={0,0,127}));
+  connect(const.y, add.u1) annotation (Line(points={{59,80},{66,80},{66,62},{
+          -30,62},{-30,52},{-22,52}}, color={0,0,127}));
   annotation (defaultComponentModel="iceTan", Icon(graphics={
         Rectangle(
           extent={{-76,46},{76,70}},
