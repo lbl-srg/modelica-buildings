@@ -7,11 +7,8 @@ package BaseClasses "Baseclasses"
       property_T=293.15,
       X_a=0.30);
     parameter String fileName "Calibration data file";
-    parameter Real coeCha[6] = {1.99810397E-04,0,0,0,0,0} "Coefficient for charging curve";
-    parameter Real coeDisCha[6] = {5.54E-05,-1.45679E-04,9.28E-05,1.126122E-03,
-        -1.1012E-03,3.00544E-04} "Coefficient for discharging curve";
-    parameter Real dt = 10 "Time step used in the samples for curve fitting";
-
+    replaceable parameter IceStorage.Data.IceThermalStorage.Experiment per
+      "Ice tank performance curve";
     parameter Modelica.SIunits.Mass mIce_max=2846.35
       "Nominal mass of ice in the tank";
     parameter Modelica.SIunits.Mass mIce_start=0.90996030*mIce_max
@@ -29,10 +26,7 @@ package BaseClasses "Baseclasses"
       dp_nominal=dp_nominal,
       mIce_max=mIce_max,
       mIce_start=mIce_start,
-      coeCha=coeCha,
-      dtCha=dt,
-      coeDisCha=coeDisCha,
-      dtDisCha=dt)
+      per=per)
       annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
     Buildings.Fluid.Sources.MassFlowSource_T sou(
       redeclare package Medium = Medium,

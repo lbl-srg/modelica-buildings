@@ -3,10 +3,8 @@ model Discharging "Discharging mode"
   extends IceStorage.Validation.BaseClasses.PartialExample(
    fileName=Modelica.Utilities.Files.loadResource(
     "modelica://IceStorage/Resources/data/Validation/EnergyPlus/discharging.txt"),
+   redeclare IceStorage.Data.IceThermalStorage.EnergyPlus per,
    mod(k=Integer(IceStorage.Types.IceThermalStorageMode.Discharging)),
-   coeCha={0.318,0,0,0,0,0},
-   coeDisCha={0.0,0.09,-0.15,0.612,-0.324,-0.216},
-   dt = 3600,
    mIce_max=5E07/333550,
    mIce_start=0.998733201*mIce_max);
 

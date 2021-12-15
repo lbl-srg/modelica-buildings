@@ -3,10 +3,8 @@ model Charging "Validation example for charging mode"
   extends IceStorage.Validation.BaseClasses.PartialExample(
    fileName=Modelica.Utilities.Files.loadResource(
     "modelica://IceStorage/Resources/data/Validation/EnergyPlus/charging.txt"),
+   redeclare IceStorage.Data.IceThermalStorage.EnergyPlus per,
    mod(k=Integer(IceStorage.Types.IceThermalStorageMode.Charging)),
-   coeCha={0.318,0,0,0,0,0},
-   coeDisCha={0.0,0.09,-0.15,0.612,-0.324,-0.216},
-   dt = 3600,
    mIce_max=5E07/333550,
    mIce_start=0.605139456*mIce_max);
 

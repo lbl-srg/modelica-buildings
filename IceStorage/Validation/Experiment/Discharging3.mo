@@ -4,9 +4,6 @@ model Discharging3 "Validation against discharging experiment 3"
    fileName=Modelica.Utilities.Files.loadResource(
     "modelica://IceStorage/Resources/data/Validation/Experiment/discharging3.txt"),
    mod(k=Integer(IceStorage.Types.IceThermalStorageMode.Discharging)),
-   coeCha={1.99810397E-04,0,0,0,0,0},
-   coeDisCha={5.54E-05,-1.45679E-04,9.28E-05,1.126122E-03, -1.1012E-03,3.00544E-04},
-   dt = 10,
    mIce_max=2846.35,
    mIce_start=0.969633826*mIce_max);
 

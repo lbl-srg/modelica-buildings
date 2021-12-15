@@ -2,9 +2,9 @@ within IceStorage.Data.IceThermalStorage;
 record EnergyPlus =
   IceStorage.Data.IceThermalStorage.Generic (
     coeCha={0.318,0,0,0,0,0},
-    dtCha = 10,
+    dtCha = 3600,
     coeDisCha={0.0,0.09,-0.15,0.612,-0.324,-0.216},
-    dtDisCha = 10) "Performance curve obtained from EnergyPlus example"
+    dtDisCha = 3600) "Performance curve obtained from EnergyPlus example"
    annotation (
     Documentation(info="<html>
 <p>

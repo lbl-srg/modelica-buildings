@@ -11,15 +11,10 @@ model IceTank "A detailed ice tank model"
   parameter Modelica.SIunits.Mass mIce_start "Start value of ice mass in the tank"
     annotation(Dialog(tab = "Initialization"));
 
-  parameter Real coeCha[6] "Coefficients for charging qstar curve"
-    annotation (Dialog(group="Ice tank"));
-  parameter Real dtCha "Time step of curve fitting data"
-    annotation (Dialog(group="Ice tank"));
-
-  parameter Real coeDisCha[6] "Coefficients for discharging qstar curve"
-    annotation (Dialog(group="Ice tank"));
-  parameter Real dtDisCha "Time step of curve fitting data"
-    annotation (Dialog(group="Ice tank"));
+  parameter IceStorage.Data.IceThermalStorage.Generic per
+    "Performance data"
+    annotation (choicesAllMatching = true,
+                Placement(transformation(extent={{40,70},{60,90}})));
 
   // Valve
   parameter Real l=0.0001 "Valve leakage, l=Kv(y=0)/Kv(y=1)"
@@ -156,10 +151,10 @@ model IceTank "A detailed ice tank model"
     "Temperature sensor"
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
   BaseClasses.StorageHeatTransferRate norQSta(
-    coeCha=coeCha,
-    coeDisCha=coeDisCha,
-    dtCha=dtCha,
-    dtDisCha=dtDisCha)
+    final coeCha=per.coeCha,
+    final coeDisCha=per.coeDisCha,
+    final dtCha=per.dtCha,
+    final dtDisCha=per.dtDisCha)
     annotation (Placement(transformation(extent={{-54,-54},{-34,-34}})));
   Modelica.Blocks.Math.Gain gai(k=QSto_nominal) "Gain"
     annotation (Placement(transformation(extent={{-26,-54},{-6,-34}})));
