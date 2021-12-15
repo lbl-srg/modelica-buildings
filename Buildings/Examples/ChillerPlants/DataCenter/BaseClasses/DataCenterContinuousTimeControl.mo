@@ -1,7 +1,7 @@
 within Buildings.Examples.ChillerPlants.DataCenter.BaseClasses;
 model DataCenterContinuousTimeControl
   extends
-    Buildings.Examples.ChillerPlants.DataCenter.DataCenterContinuousTimeControl;
+    Buildings.Examples.ChillerPlants.DataCenter.ContinuousTimeControl;
   Modelica.Blocks.Interfaces.RealOutput PAC
     "Alternate current power required for IT" annotation (Placement(
         transformation(extent={{-140,-230},{-120,-210}}),

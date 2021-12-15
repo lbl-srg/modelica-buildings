@@ -1,5 +1,5 @@
 within Buildings.Examples.ChillerPlants.DataCenter;
-model DataCenterRenewables
+model Renewables
   "Model of a data center connected to renewable energy generation"
   extends Modelica.Icons.Example;
   BaseClasses.DataCenterContinuousTimeControl dataCenterContinuousTimeControl
@@ -107,7 +107,7 @@ equation
       StopTime=604800,
       Tolerance=1e-6),
       __Dymola_Commands(file=
-          "modelica://Buildings/Resources/Scripts/Dymola/Examples/ChillerPlants/DataCenter/DataCenterRenewables.mos"
+          "modelica://Buildings/Resources/Scripts/Dymola/Examples/ChillerPlants/DataCenter/Renewables.mos"
         "Simulate and plot"),
     Documentation(revisions="<html>
 <ul>
@@ -136,4 +136,4 @@ This control logic is implemented using a finite state machine
 inside the model <code>con</code>.
 </p>
 </html>"));
-end DataCenterRenewables;
+end Renewables;
