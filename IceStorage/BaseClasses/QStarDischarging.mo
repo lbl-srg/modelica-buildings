@@ -19,9 +19,11 @@ model QStarDischarging "Calculator for q* under discharging"
            {{100,-10},{120,10}}), iconTransformation(extent={{100,-10},{120,10}})));
 
 equation
-  qNor*dt = Buildings.Utilities.Math.Functions.polynomial(1 - fraCha, coeff[1:
-    3]) + Buildings.Utilities.Math.Functions.polynomial(1 - fraCha,
-    coeff[4:6])*lmtdSta;
+  qNor*dt = Buildings.Utilities.Math.Functions.smoothMax(
+    x1 = 0,
+    x2 = Buildings.Utilities.Math.Functions.polynomial(1-fraCha, coeff[1:3]) +
+         Buildings.Utilities.Math.Functions.polynomial(1-fraCha,coeff[4:6])*lmtdSta,
+         deltaX = 1E-7);
 
   annotation (defaultComponentName = "qSta",
   Icon(coordinateSystem(preserveAspectRatio=false), graphics={

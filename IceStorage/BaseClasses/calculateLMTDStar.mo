@@ -14,8 +14,6 @@ function calculateLMTDStar
     "Normalized LMTD";
 
 protected
-  constant Modelica.SIunits.TemperatureDifference deltaT=0.1
-    "Small temperature difference, used for regularization";
   constant Modelica.SIunits.TemperatureDifference dTif_min=0.2
     "Small temperature difference, used for regularization";
   constant Modelica.SIunits.TemperatureDifference dTof_min=0.1
@@ -26,7 +24,7 @@ protected
   Real dTif "Inlet to freezing temperature difference";
   Real dTof "Outlet to frezzing temperature difference";
   Real lndT "log of the temperature difference";
-
+  Real eps = 1E-06 "Small tolerance";
 algorithm
 
   dTio := TIn-TOut;
@@ -34,13 +32,17 @@ algorithm
   dTif := Buildings.Utilities.Math.Functions.smoothMax(
     x1 = abs(TIn-TFre),
     x2 = dTif_min,
-    deltaX = deltaT/2);
+    deltaX = eps);
   dTof := Buildings.Utilities.Math.Functions.smoothMax(
     x1 = abs(TOut-TFre),
     x2 = dTof_min,
-    deltaX = deltaT/2);
+    deltaX = eps);
 
-  lmtd := (dTio/log(dTif/dTof))/dT_nominal;
+//  lmtd := Buildings.Utilities.Math.Functions.smoothMax(
+//    x1 = 0,
+//    x2 = (dTio/log(dTif/dTof))/dT_nominal,
+//    deltaX = 1E-09);
+  lmtd := (dTio/max(eps, log(dTif/dTof)))/dT_nominal;
 
   annotation (
   smoothOrder=1, Documentation(info="<html>
