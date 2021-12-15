@@ -1,6 +1,6 @@
 within IceStorage.Validation.Experiment;
 model DischargingDay1
-  extends IceStorage.Validation.Experiment.BaseClasses.PartialExample(
+  extends IceStorage.Validation.BaseClasses.PartialExample(
    fileName=Modelica.Utilities.Files.loadResource(
     "modelica://IceStorage/Resources/data/Validation/Experiment/discharging-day1.txt"),
    mod(k=Integer(IceStorage.Types.IceThermalStorageMode.Discharging)),

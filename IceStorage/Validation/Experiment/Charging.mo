@@ -1,6 +1,6 @@
 within IceStorage.Validation.Experiment;
 model Charging
-  extends IceStorage.Validation.Experiment.BaseClasses.PartialExample(
+  extends IceStorage.Validation.BaseClasses.PartialExample(
    fileName=Modelica.Utilities.Files.loadResource(
     "modelica://IceStorage/Resources/data/Validation/Experiment/charging.txt"),
    mod(k=Integer(IceStorage.Types.IceThermalStorageMode.Charging)),
