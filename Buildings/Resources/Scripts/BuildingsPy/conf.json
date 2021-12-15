@@ -250,5 +250,33 @@
       "comment": "Failed due to structural parameter, see https://github.com/lbl-srg/modelica-buildings/issues/2816"
     },
     "model_name": "Buildings.Obsolete.DistrictHeatingCooling.Validation.HeatingCoolingHotWaterSmall"
+  },
+  {
+    "dymola": {
+      "translate": false,
+      "comment": "Python 3.6 is not supported on Ubuntu 20.04, will be upgraded to more recent version"
+    },
+    "model_name": "Buildings.Utilities.IO.Python36.Examples.SimpleRoom"
+  },
+  {
+    "dymola": {
+      "translate": false,
+      "comment": "Python 3.6 is not supported on Ubuntu 20.04, will be upgraded to more recent version"
+    },
+    "model_name": "Buildings.Utilities.IO.Python36.Examples.KalmanFilter"
+  },
+  {
+    "dymola": {
+      "translate": false,
+      "comment": "Python 3.6 is not supported on Ubuntu 20.04, will be upgraded to more recent version"
+    },
+    "model_name": "Buildings.Utilities.IO.Python36.Functions.Examples"
+  },
+  {
+    "dymola": {
+      "translate": false,
+      "comment": "Python 3.6 is not supported on Ubuntu 20.04, will be upgraded to more recent version"
+    },
+    "model_name": "Buildings.Utilities.IO.Python36.Functions.Examples.Exchange"
   }
 ]
