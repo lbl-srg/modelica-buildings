@@ -164,7 +164,7 @@ model IceTank "A detailed ice tank model"
   Buildings.Fluid.Actuators.Valves.TwoWayEqualPercentage val1(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
-    dpValve_nominal=dp_nominal)
+    dpValve_nominal=dpValve_nominal)
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
   Buildings.Fluid.Actuators.Valves.TwoWayEqualPercentage val2(
     redeclare package Medium = Medium,
