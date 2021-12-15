@@ -28,7 +28,7 @@ model IceTankCharging_EnergyPlus
   Buildings.Fluid.Sources.MassFlowSource_T sou(
     redeclare package Medium = Medium,
     use_m_flow_in=true,
-    use_T_in=true,                             nPorts=1)
+    use_T_in=true,nPorts=1)
     annotation (Placement(transformation(extent={{-54,-10},{-34,10}})));
   Buildings.Fluid.Sources.Boundary_pT bou(redeclare package Medium = Medium,
                                           nPorts=1)
