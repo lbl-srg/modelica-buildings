@@ -25,7 +25,7 @@ echo "setCommandLineOptions(\"+ignoreSimulationFlagsAnnotation=false\");" >> $mo
 echo "setCommandLineOptions(\"-d=nfAPI\");" >> $mosScript
 echo "setCommandLineOptions(\"--newBackend\");" >> $mosScript
 
-echo "loadModel(Modelica, {\"3.2.3\"});" >> $mosScript
+echo "loadModel(Modelica, {\"4.0.0\"});" >> $mosScript
 echo "getErrorString();" >> $mosScript
 echo "loadModel(Buildings); getErrorString();" >> $mosScript
 

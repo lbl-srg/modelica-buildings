@@ -1,6 +1,5 @@
 within Buildings.Controls.OBC.CDL;
-package Integers
-  "Package with blocks for integer variables"
+package Integers "Package with blocks for integer variables"
   annotation (
     Documentation(
       info="<html>

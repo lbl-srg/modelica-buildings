@@ -1,6 +1,7 @@
 within Buildings.Fluid.FMI.Interfaces;
 connector PressureInput =
-  input Modelica.SIunits.AbsolutePressure(displayUnit="Pa")
+  input Modelica.Units.SI.AbsolutePressure (
+                                          displayUnit="Pa")
   "Connector for pressure input"
   annotation (
   defaultComponentName="p",
@@ -29,7 +30,7 @@ connector PressureInput =
       textString="%name")}),
   Documentation(info="<html>
 <p>
-Connector with one input signal of type <code>Modelica.SIunits.AbsolutePressure</code>.
+Connector with one input signal of type <code>Modelica.Units.SI.AbsolutePressure</code>.
 This connector has been implemented to conditionally remove
 the pressure if no pressure drop calculation is requested.
 </p>

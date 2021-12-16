@@ -29,7 +29,7 @@ partial model PartialCarnot_y
       final homotopyInitialization=homotopyInitialization,
       final Q_flow_nominal=QEva_flow_nominal));
 
-  parameter Modelica.SIunits.Power P_nominal(min=0)
+  parameter Modelica.Units.SI.Power P_nominal(min=0)
     "Nominal compressor power (at y=1)"
     annotation (Dialog(group="Nominal condition"));
 
@@ -38,10 +38,10 @@ partial model PartialCarnot_y
     annotation (Placement(transformation(extent={{-140,70},{-100,110}})));
 
 protected
-  Modelica.SIunits.HeatFlowRate QCon_flow_internal(start=QCon_flow_nominal)=
+  Modelica.Units.SI.HeatFlowRate QCon_flow_internal(start=QCon_flow_nominal) =
     P - QEva_flow_internal "Condenser heat input";
-  Modelica.SIunits.HeatFlowRate QEva_flow_internal(start=QEva_flow_nominal)=
-    if COP_is_for_cooling then -COP * P else (1-COP)*P "Evaporator heat input";
+  Modelica.Units.SI.HeatFlowRate QEva_flow_internal(start=QEva_flow_nominal) =
+    if COP_is_for_cooling then -COP*P else (1 - COP)*P "Evaporator heat input";
 
   Modelica.Blocks.Sources.RealExpression yEva_flow_in(
     y=QEva_flow_internal/QEva_flow_nominal)

@@ -3,22 +3,22 @@ model WatersideEconomizer
   "Waterside economizer controller"
   extends Modelica.Blocks.Icons.Block;
 
-  parameter Modelica.SIunits.MassFlowRate m2_flow_nominal
+  parameter Modelica.Units.SI.MassFlowRate m2_flow_nominal
     "Heat exchanger secondary mass flow rate"
     annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.SIunits.Temperature T_a1_nominal
+  parameter Modelica.Units.SI.Temperature T_a1_nominal
     "Nominal water inlet temperature on district side"
     annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.SIunits.Temperature T_b2_nominal
+  parameter Modelica.Units.SI.Temperature T_b2_nominal
     "Nominal water outlet temperature on building side"
     annotation (Dialog(group="Nominal condition"));
   parameter Real y1Min(final unit="1")=0.05
     "Minimum pump flow rate or valve opening for temperature measurement (fractional)"
     annotation (Dialog(group="Controls"));
-  parameter Modelica.SIunits.TemperatureDifference dTEna = 1
+  parameter Modelica.Units.SI.TemperatureDifference dTEna=1
     "Minimum delta-T above predicted heat exchanger leaving water temperature to enable WSE"
     annotation (Dialog(group="Controls"));
-  parameter Modelica.SIunits.TemperatureDifference dTDis = 0.5
+  parameter Modelica.Units.SI.TemperatureDifference dTDis=0.5
     "Minimum delta-T across heat exchanger before disabling WSE"
     annotation (Dialog(group="Controls"));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput T1WatEnt(
@@ -55,11 +55,13 @@ model WatersideEconomizer
     final k=1)
     "Add threshold for enabling WSE"
     annotation (Placement(transformation(extent={{-90,-50},{-70,-30}})));
-  Modelica.StateGraph.InitialStepWithSignal iniSta "Initial state "
+  Modelica.StateGraph.InitialStepWithSignal iniSta(nIn=1, nOut=1)
+                                                   "Initial state "
     annotation (Placement(transformation(extent={{-30,30},{-10,50}})));
   Modelica.StateGraph.TransitionWithSignal ena "Transition to enabled state"
     annotation (Placement(transformation(extent={{10,30},{30,50}})));
-  Modelica.StateGraph.StepWithSignal actSta "Active WSE"
+  Modelica.StateGraph.StepWithSignal actSta(nIn=1, nOut=1)
+                                            "Active WSE"
     annotation (Placement(transformation(extent={{50,30},{70,50}})));
   Modelica.StateGraph.TransitionWithSignal dis "Transition to disabled state"
     annotation (Placement(transformation(extent={{90,30},{110,50}})));

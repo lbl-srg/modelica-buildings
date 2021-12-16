@@ -1,7 +1,7 @@
 within Buildings.Applications.DataCenters.ChillerCooled.Equipment.BaseClasses;
 partial model AHUParameters "Essential parameters for air handling unit"
 
-  parameter Modelica.SIunits.ThermalConductance UA_nominal
+  parameter Modelica.Units.SI.ThermalConductance UA_nominal
     "Thermal conductance at nominal flow for sensible heat, used to compute time constant"
     annotation (Dialog(group="Cooling coil"));
   parameter Real r_nominal=2/3

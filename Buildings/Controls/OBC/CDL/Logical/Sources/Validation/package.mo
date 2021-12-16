@@ -1,6 +1,5 @@
 within Buildings.Controls.OBC.CDL.Logical.Sources;
-package Validation
-  "Collection of models that validate the logical sources blocks of the CDL"
+package Validation "Collection of models that validate the logical sources blocks of the CDL"
   annotation (
     preferredView="info",
     Documentation(

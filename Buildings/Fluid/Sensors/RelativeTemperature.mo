@@ -1,6 +1,6 @@
 within Buildings.Fluid.Sensors;
 model RelativeTemperature "Ideal relative temperature sensor"
-  extends Modelica.Icons.TranslationalSensor;
+  extends Modelica.Icons.RectangularSensor;
   replaceable package Medium =
     Modelica.Media.Interfaces.PartialMedium "Medium in the sensor"
       annotation (choices(

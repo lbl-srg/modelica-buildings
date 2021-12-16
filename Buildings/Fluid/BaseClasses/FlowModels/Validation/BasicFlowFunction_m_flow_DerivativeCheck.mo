@@ -6,19 +6,19 @@ model BasicFlowFunction_m_flow_DerivativeCheck
   constant Real gain = 0.5 "Gain for computing the mass flow rate";
 
   parameter Real k = 0.35 "Flow coefficient";
-  parameter Modelica.SIunits.MassFlowRate m_flow_turbulent = 0.36
+  parameter Modelica.Units.SI.MassFlowRate m_flow_turbulent=0.36
     "Mass flow rate where transition to turbulent flow occurs";
-  Modelica.SIunits.MassFlowRate m_flow "Mass flow rate";
-  Modelica.SIunits.PressureDifference dp "Pressure drop";
-  Modelica.SIunits.PressureDifference dp_comp "Comparison value for dp";
-  Modelica.SIunits.PressureDifference err "Integration error";
+  Modelica.Units.SI.MassFlowRate m_flow "Mass flow rate";
+  Modelica.Units.SI.PressureDifference dp "Pressure drop";
+  Modelica.Units.SI.PressureDifference dp_comp "Comparison value for dp";
+  Modelica.Units.SI.PressureDifference err "Integration error";
 initial equation
  dp = dp_comp;
 equation
   m_flow = time*gain;
   dp = Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow(
     m_flow=m_flow,
-    k=  k,
+    k = k,
     m_flow_turbulent=m_flow_turbulent);
   der(dp) = der(dp_comp);
   err = dp-dp_comp;

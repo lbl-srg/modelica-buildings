@@ -22,12 +22,12 @@ model ACACConverter "AC AC converter single phase systems"
   parameter Boolean ground_2 = true
     "If true, connect side 2 of converter to ground"
     annotation(Evaluate=true, Dialog(tab = "Ground", group="side 2"));
-  Modelica.SIunits.Power LossPower[2] "Loss power";
+  Modelica.Units.SI.Power LossPower[2] "Loss power";
 protected
-  Modelica.SIunits.Power P_p[2] = PhaseSystem_p.phasePowers_vi(terminal_p.v, terminal_p.i)
-    "Power transmitted at pin p";
-  Modelica.SIunits.Power P_n[2] = PhaseSystem_n.phasePowers_vi(terminal_n.v, terminal_n.i)
-    "Power transmitted at pin n";
+  Modelica.Units.SI.Power P_p[2]=PhaseSystem_p.phasePowers_vi(terminal_p.v,
+      terminal_p.i) "Power transmitted at pin p";
+  Modelica.Units.SI.Power P_n[2]=PhaseSystem_n.phasePowers_vi(terminal_n.v,
+      terminal_n.i) "Power transmitted at pin n";
 equation
 
   // Ideal transformation

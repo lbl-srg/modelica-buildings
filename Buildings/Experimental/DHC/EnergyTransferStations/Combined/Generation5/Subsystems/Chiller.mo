@@ -4,7 +4,8 @@ model Chiller
   replaceable package Medium=Modelica.Media.Interfaces.PartialMedium
     "Medium model"
     annotation (choices(choice(redeclare package Medium=Buildings.Media.Water "Water"),
-    choice(redeclare package Medium=Buildings.Media.Antifreeze.PropyleneGlycolWater(property_T=293.15,X_a=0.40)
+    choice(redeclare package Medium=
+            Buildings.Media.Antifreeze.PropyleneGlycolWater (                       property_T=293.15,X_a=0.40)
     "Propylene glycol water, 40% mass fraction")));
   parameter Boolean allowFlowReversal=false
     "= true to allow flow reversal, false restricts to design direction (port_a -> port_b)"
@@ -22,26 +23,23 @@ model Chiller
     constrainedby Buildings.Fluid.Movers.Data.Generic
     "Record with performance data for evaporator pump"
     annotation (choicesAllMatching=true,Placement(transformation(extent={{140,160},{160,180}})));
-  parameter Modelica.SIunits.PressureDifference dpCon_nominal(
-    displayUnit="Pa")
+  parameter Modelica.Units.SI.PressureDifference dpCon_nominal(displayUnit="Pa")
     "Nominal pressure drop accross condenser"
     annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.SIunits.PressureDifference dpEva_nominal(
-    displayUnit="Pa")
+  parameter Modelica.Units.SI.PressureDifference dpEva_nominal(displayUnit="Pa")
     "Nominal pressure drop accross evaporator"
     annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.SIunits.Pressure dpValCon_nominal=dpCon_nominal/2
+  parameter Modelica.Units.SI.Pressure dpValCon_nominal=dpCon_nominal/2
     "Nominal pressure drop accross control valve on condenser side"
     annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.SIunits.Pressure dpValEva_nominal=dpEva_nominal/2
+  parameter Modelica.Units.SI.Pressure dpValEva_nominal=dpEva_nominal/2
     "Nominal pressure drop accross control valve on evaporator side"
     annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.SIunits.Temperature TConWatEntMin(
-    displayUnit="degC")=dat.TConEntMin
-    "Minimum value of condenser water entering temperature"
+  parameter Modelica.Units.SI.Temperature TConWatEntMin(displayUnit="degC") =
+    dat.TConEntMin "Minimum value of condenser water entering temperature"
     annotation (Dialog(group="Controls"));
-  parameter Modelica.SIunits.Temperature TEvaWatEntMax(
-    displayUnit="degC")=dat.TEvaLvgMax-dat.QEva_flow_nominal/cp_default/dat.mEva_flow_nominal
+  parameter Modelica.Units.SI.Temperature TEvaWatEntMax(displayUnit="degC") =
+    dat.TEvaLvgMax - dat.QEva_flow_nominal/cp_default/dat.mEva_flow_nominal
     "Maximum value of evaporator water entering temperature"
     annotation (Dialog(group="Controls"));
   // IO CONNECTORS
@@ -235,8 +233,8 @@ protected
     p=Medium.p_default,
     X=Medium.X_default[1:Medium.nXi])
     "Medium state at default properties";
-  final parameter Modelica.SIunits.SpecificHeatCapacity cp_default=Medium.specificHeatCapacityCp(
-    sta_default)
+  final parameter Modelica.Units.SI.SpecificHeatCapacity cp_default=
+      Medium.specificHeatCapacityCp(sta_default)
     "Specific heat capacity of the fluid";
 equation
   connect(splConMix.port_3,valCon.port_3)

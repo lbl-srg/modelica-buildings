@@ -13,12 +13,9 @@ model DifferenceEnthalpyFlowRate
   parameter Boolean have_integrator=false
     "Set to true to output the time integral"
     annotation (Evaluate=true);
-  parameter Modelica.SIunits.MassFlowRate m_flow_nominal(
-    min=0)
-    "Nominal mass flow rate"
-    annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.SIunits.Time tau(
-    min=0)=0
+  parameter Modelica.Units.SI.MassFlowRate m_flow_nominal(min=0)
+    "Nominal mass flow rate" annotation (Dialog(group="Nominal condition"));
+  parameter Modelica.Units.SI.Time tau(min=0) = 0
     "Time constant at nominal flow rate";
   parameter Modelica.Blocks.Types.Init initType=Modelica.Blocks.Types.Init.InitialState
     "Type of initialization (InitialState and InitialOutput are identical)"
@@ -26,16 +23,18 @@ model DifferenceEnthalpyFlowRate
   parameter Boolean allowFlowReversal=true
     "= false to simplify equations, assuming, but not enforcing, no flow reversal"
     annotation (Dialog(tab="Assumptions"),Evaluate=true);
-  parameter Modelica.SIunits.SpecificEnthalpy h1_out_start=Medium1.specificEnthalpy_pTX(
-    p=Medium1.p_default,
-    T=Medium1.T_default,
-    X=Medium1.X_default)
+  parameter Modelica.Units.SI.SpecificEnthalpy h1_out_start=
+      Medium1.specificEnthalpy_pTX(
+      p=Medium1.p_default,
+      T=Medium1.T_default,
+      X=Medium1.X_default)
     "Initial or guess value of measured specific enthalpy"
     annotation (Dialog(group="Initialization"));
-  parameter Modelica.SIunits.SpecificEnthalpy h2_out_start=Medium2.specificEnthalpy_pTX(
-    p=Medium2.p_default,
-    T=Medium2.T_default,
-    X=Medium2.X_default)
+  parameter Modelica.Units.SI.SpecificEnthalpy h2_out_start=
+      Medium2.specificEnthalpy_pTX(
+      p=Medium2.p_default,
+      T=Medium2.T_default,
+      X=Medium2.X_default)
     "Initial or guess value of measured specific enthalpy"
     annotation (Dialog(group="Initialization"));
   parameter Medium1.MassFlowRate m_flow_small(min=0)=1E-4*abs(m_flow_nominal)

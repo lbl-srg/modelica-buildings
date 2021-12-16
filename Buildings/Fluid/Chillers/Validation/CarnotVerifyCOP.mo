@@ -7,36 +7,35 @@ model CarnotVerifyCOP
 
   parameter Real COP_nominal = 3 "Coefficient of performance";
 
-  parameter Modelica.SIunits.Temperature TCon_nominal = 273.15+30
+  parameter Modelica.Units.SI.Temperature TCon_nominal=273.15 + 30
     "Nominal condensor temperature";
-  parameter Modelica.SIunits.Temperature TEva_nominal = 273.15 + 5
+  parameter Modelica.Units.SI.Temperature TEva_nominal=273.15 + 5
     "Nominal evaporator temperature";
 
-  parameter Modelica.SIunits.HeatFlowRate QEva_flow_nominal=-10E3
+  parameter Modelica.Units.SI.HeatFlowRate QEva_flow_nominal=-10E3
     "Nominal evaporator heat flow rate (QEva_flow_nominal < 0)";
 
-  parameter Modelica.SIunits.HeatFlowRate QCon_flow_nominal=-QEva_flow_nominal * (1+1/COP_nominal)
+  parameter Modelica.Units.SI.HeatFlowRate QCon_flow_nominal=-QEva_flow_nominal
+      *(1 + 1/COP_nominal)
     "Nominal condenser heat flow rate (QCon_flow_nominal > 0)";
 
-  parameter Modelica.SIunits.TemperatureDifference dTEva_nominal=-10
+  parameter Modelica.Units.SI.TemperatureDifference dTEva_nominal=-10
     "Temperature difference evaporator outlet-inlet";
 
-  parameter Modelica.SIunits.TemperatureDifference dTCon_nominal=10
+  parameter Modelica.Units.SI.TemperatureDifference dTCon_nominal=10
     "Temperature difference condenser outlet-inlet";
 
-  parameter Modelica.SIunits.MassFlowRate mCon_flow_nominal=
-    QCon_flow_nominal/cp_default/dTCon_nominal
-    "Nominal mass flow rate at condenser";
+  parameter Modelica.Units.SI.MassFlowRate mCon_flow_nominal=QCon_flow_nominal/
+      cp_default/dTCon_nominal "Nominal mass flow rate at condenser";
 
-  parameter Modelica.SIunits.MassFlowRate mEva_flow_nominal=
-    QEva_flow_nominal/cp_default/dTEva_nominal
-    "Nominal mass flow rate of evaporator";
+  parameter Modelica.Units.SI.MassFlowRate mEva_flow_nominal=QEva_flow_nominal/
+      cp_default/dTEva_nominal "Nominal mass flow rate of evaporator";
 
-  final parameter Modelica.SIunits.SpecificHeatCapacity cp_default=
-    Medium.specificHeatCapacityCp(Medium.setState_pTX(
-      p = Medium.p_default,
-      T = Medium.T_default,
-      X = Medium.X_default))
+  final parameter Modelica.Units.SI.SpecificHeatCapacity cp_default=
+      Medium.specificHeatCapacityCp(Medium.setState_pTX(
+      p=Medium.p_default,
+      T=Medium.T_default,
+      X=Medium.X_default))
     "Specific heat capacity of medium 1 at default medium state";
 
   Carnot_TEva chi_TEva(

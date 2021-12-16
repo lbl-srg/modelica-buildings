@@ -193,16 +193,16 @@ protected
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
   Buildings.Controls.OBC.CDL.Logical.Not not3 "Negation for check of freeze protection status"
     annotation (Placement(transformation(extent={{-44,-10},{-24,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Add add3(final k2=-1) if
-    use_fixed_plus_differential_drybulb
+  Buildings.Controls.OBC.CDL.Continuous.Add add3(final k2=-1)
+ if use_fixed_plus_differential_drybulb
     "Add block that determines difference the between TOut and TOutCut"
     annotation (Placement(transformation(extent={{-140,200},{-120,220}})));
   Buildings.Controls.OBC.CDL.Continuous.Hysteresis hysCutTem(final uHigh=
         TOutHigLimCutHig, final uLow=TOutHigLimCutLow) if use_fixed_plus_differential_drybulb
     "Outdoor air temperature hysteresis for both fixed and differential dry bulb temperature cutoff conditions"
     annotation (Placement(transformation(extent={{-100,200},{-80,220}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant entSubst1(final k=false) if
-       not use_fixed_plus_differential_drybulb
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant entSubst1(final k=false)
+    if not use_fixed_plus_differential_drybulb
     "Deactivates the option if not using both fixed and differential dry bulb"
     annotation (Placement(transformation(extent={{18,212},{38,232}})));
   CDL.Logical.Nor nor2 if use_fixed_plus_differential_drybulb "Logical nor"

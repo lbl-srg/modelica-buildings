@@ -2,23 +2,21 @@ within Buildings.Experimental.DHC.EnergyTransferStations.Combined.Generation5.Co
 block PrimaryVariableFlow
   "Ideal control of condenser or evaporator variable flow rate"
   extends Modelica.Blocks.Icons.Block;
-  parameter Modelica.SIunits.HeatFlowRate Q_flow_nominal
+  parameter Modelica.Units.SI.HeatFlowRate Q_flow_nominal
     "Heat flow rate at nominal conditions (>0 for condenser)";
-  parameter Modelica.SIunits.TemperatureDifference dT_nominal(
-    min=if Q_flow_nominal>0 then Modelica.Constants.eps else -100,
-    max=if Q_flow_nominal<0 then -Modelica.Constants.eps else 100)
+  parameter Modelica.Units.SI.TemperatureDifference dT_nominal(min=if
+        Q_flow_nominal > 0 then Modelica.Constants.eps else -100, max=if
+        Q_flow_nominal < 0 then -Modelica.Constants.eps else 100)
     "DeltaT at nominal conditions (>0 for condenser)";
   parameter Real ratFloMin(
     final unit="1",
     final min=0,
     final max=1)=0.3
     "Minimum mass flow rate (ratio to nominal)";
-  constant Modelica.SIunits.SpecificHeatCapacity cp=
-    Buildings.Utilities.Psychrometrics.Constants.cpWatLiq
+  constant Modelica.Units.SI.SpecificHeatCapacity cp=Buildings.Utilities.Psychrometrics.Constants.cpWatLiq
     "Specific heat capacity";
-  final parameter Modelica.SIunits.MassFlowRate m_flow_nominal(min=0)=
-    Q_flow_nominal/cp/dT_nominal
-    "Mass flow rate at nominal conditions";
+  final parameter Modelica.Units.SI.MassFlowRate m_flow_nominal(min=0) =
+    Q_flow_nominal/cp/dT_nominal "Mass flow rate at nominal conditions";
   Buildings.Controls.OBC.CDL.Interfaces.RealInput loa(final unit="W")
     "Signal approximating the load on condenser or evaporator"
     annotation (

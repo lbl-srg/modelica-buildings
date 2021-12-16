@@ -1,19 +1,14 @@
 within Buildings.Media.Refrigerants.R410A;
 function specificVolumeVap_pT
   "Function that calculates the specific volume R410A vapor based on pressure and temperature"
-  input Modelica.SIunits.AbsolutePressure p
-    "Pressure of refrigerant vapor";
-  input Modelica.SIunits.Temperature T
-    "Temperature of refrigerant";
-  output Modelica.SIunits.SpecificVolume v
-    "Specific volume of refrigerant";
+  input Modelica.Units.SI.AbsolutePressure p "Pressure of refrigerant vapor";
+  input Modelica.Units.SI.Temperature T "Temperature of refrigerant";
+  output Modelica.Units.SI.SpecificVolume v "Specific volume of refrigerant";
 
 protected
-  Modelica.SIunits.SpecificVolume dv
-    "Error on specific volume of refrigerant";
+  Modelica.Units.SI.SpecificVolume dv "Error on specific volume of refrigerant";
 
-  Modelica.SIunits.Pressure dp
-    "Error on pressure of refrigerant";
+  Modelica.Units.SI.Pressure dp "Error on pressure of refrigerant";
 
   Real dpdv( final unit = "(Pa.kg)/m3") "Partial derivative dp/dv";
 

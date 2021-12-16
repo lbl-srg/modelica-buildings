@@ -21,7 +21,7 @@ Buildings.Electrical.PhaseSystems.PartialPhaseSystem</a>.
 </html>"));
 
   type ReferenceAngle "Reference angle for connector"
-    extends SI.Angle;
+    extends Modelica.Units.SI.Angle;
 
     function equalityConstraint "Assert that angles are equal"
       extends Modelica.Icons.Function;
@@ -63,7 +63,7 @@ Buildings.Electrical.PhaseSystems.PartialPhaseSystem</a>.
     "Rotate a vector of an angle theta (anti-counterclock)"
     extends Modelica.Icons.Function;
     input Real x[n];
-    input Modelica.SIunits.Angle theta;
+    input Modelica.Units.SI.Angle theta;
     output Real y[n];
   end rotate;
 
@@ -84,71 +84,71 @@ Buildings.Electrical.PhaseSystems.PartialPhaseSystem</a>.
   replaceable partial function thetaRel
     "Return absolute angle of rotating system as offset to thetaRef"
     extends Modelica.Icons.Function;
-    input SI.Angle theta[m];
-    output SI.Angle thetaRel;
+    input Modelica.Units.SI.Angle theta[m];
+    output Modelica.Units.SI.Angle thetaRel;
   end thetaRel;
 
   replaceable partial function thetaRef
     "Return absolute angle of rotating reference system"
     extends Modelica.Icons.Function;
-    input SI.Angle theta[m];
-    output SI.Angle thetaRef;
+    input Modelica.Units.SI.Angle theta[m];
+    output Modelica.Units.SI.Angle thetaRef;
   end thetaRef;
 
   replaceable partial function phase "Return phase"
     extends Modelica.Icons.Function;
     input Real x[n];
-    output SI.Angle phase;
+    output Modelica.Units.SI.Angle phase;
   end phase;
 
   replaceable partial function phaseVoltages "Return phase to neutral voltages"
     extends Modelica.Icons.Function;
-    input SI.Voltage V "system voltage";
-    input SI.Angle phi = 0 "phase angle";
-    output SI.Voltage v[n] "phase to neutral voltages";
+    input Modelica.Units.SI.Voltage V "system voltage";
+    input Modelica.Units.SI.Angle phi=0 "phase angle";
+    output Modelica.Units.SI.Voltage v[n] "phase to neutral voltages";
   end phaseVoltages;
 
   replaceable partial function phaseCurrents "Return phase currents"
     extends Modelica.Icons.Function;
-    input SI.Current I "system current";
-    input SI.Angle phi = 0 "phase angle";
-    output SI.Current i[n] "phase currents";
+    input Modelica.Units.SI.Current I "system current";
+    input Modelica.Units.SI.Angle phi=0 "phase angle";
+    output Modelica.Units.SI.Current i[n] "phase currents";
   end phaseCurrents;
 
   replaceable partial function phasePowers "Return phase powers"
     extends Modelica.Icons.Function;
-    input SI.ActivePower P "active system power";
-    input SI.Angle phi = 0 "phase angle";
-    output SI.Power p[n] "phase powers";
+    input Modelica.Units.SI.ActivePower P "active system power";
+    input Modelica.Units.SI.Angle phi=0 "phase angle";
+    output Modelica.Units.SI.Power p[n] "phase powers";
   end phasePowers;
 
   replaceable partial function phasePowers_vi "Return phase powers"
     extends Modelica.Icons.Function;
-    input SI.Voltage v[n] "phase voltages";
-    input SI.Current i[n] "phase currents";
-    output SI.Power p[n] "phase powers";
+    input Modelica.Units.SI.Voltage v[n] "phase voltages";
+    input Modelica.Units.SI.Current i[n] "phase currents";
+    output Modelica.Units.SI.Power p[n] "phase powers";
   end phasePowers_vi;
 
   replaceable partial function systemVoltage
     "Return system voltage as function of phase voltages"
     extends Modelica.Icons.Function;
-    input SI.Voltage v[n];
-    output SI.Voltage V;
+    input Modelica.Units.SI.Voltage v[n];
+    output Modelica.Units.SI.Voltage V;
   end systemVoltage;
 
   replaceable partial function systemCurrent
     "Return system current as function of phase currents"
     extends Modelica.Icons.Function;
-    input SI.Current i[n];
-    output SI.Current I;
+    input Modelica.Units.SI.Current i[n];
+    output Modelica.Units.SI.Current I;
   end systemCurrent;
 
   replaceable partial function activePower
     "Return total power as function of phase powers"
     extends Modelica.Icons.Function;
-    input SI.Voltage v[n] "phase voltages";
-    input SI.Current i[n] "phase currents";
-    output SI.ActivePower P "active system power";
+    input Modelica.Units.SI.Voltage v[n] "phase voltages";
+    input Modelica.Units.SI.Current i[n] "phase currents";
+    output Modelica.Units.SI.ActivePower P "active system power";
   end activePower;
 
 annotation (Documentation(info="<html>

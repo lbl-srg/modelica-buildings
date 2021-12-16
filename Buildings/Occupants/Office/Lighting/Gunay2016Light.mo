@@ -6,7 +6,7 @@ model Gunay2016Light "A model to predict occupants' lighting behavior with illum
   parameter Real AInter = -0.002 "Slope of logistic regression intermediate";
   parameter Real BInter = -3.9 "Intercept of logistic regression intermediate";
   parameter Integer seed = 30 "Seed for the random number generator";
-  parameter Modelica.SIunits.Time samplePeriod = 120 "Sample period";
+  parameter Modelica.Units.SI.Time samplePeriod=120 "Sample period";
 
   Modelica.Blocks.Interfaces.RealInput ill
     "Illuminance on the working planein units of lux" annotation (
@@ -28,7 +28,8 @@ model Gunay2016Light "A model to predict occupants' lighting behavior with illum
     final max=1) "Intermediate robability of switch on the lighting";
 
 protected
-  parameter Modelica.SIunits.Time t0(final fixed = false) "First sample time instant";
+  parameter Modelica.Units.SI.Time t0(final fixed=false)
+    "First sample time instant";
   output Boolean sampleTrigger "True, if sample time instant";
   Real curSeed "Current value for seed as a real-valued variable";
 

@@ -4,10 +4,10 @@ function groundCouplingFactors
   extends Modelica.Icons.Function;
   input Integer nPip(min=1, fixed=true) "Number of pipes";
 
-  input Modelica.SIunits.Length dep[nPip] "Pipes Buried Depth";
-  input Modelica.SIunits.Length pos[nPip]
+  input Modelica.Units.SI.Length dep[nPip] "Pipes Buried Depth";
+  input Modelica.Units.SI.Length pos[nPip]
     "Pipes Horizontal Coordinate (to an arbitrary reference point)";
-  input Modelica.SIunits.Length rad[nPip] "Pipes external radius";
+  input Modelica.Units.SI.Length rad[nPip] "Pipes external radius";
 
   output Real P[nPip, nPip] "Thermal coupling geometric factors";
 

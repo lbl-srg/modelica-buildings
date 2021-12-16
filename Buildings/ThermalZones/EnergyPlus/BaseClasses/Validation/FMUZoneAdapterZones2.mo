@@ -5,7 +5,7 @@ model FMUZoneAdapterZones2
   constant String modelicaNameBuilding=getInstanceName()
     "Name of the building";
 
-  parameter Modelica.SIunits.HeatCapacity CZon=6*6*2.7*1.2*1006
+  parameter Modelica.Units.SI.HeatCapacity CZon=6*6*2.7*1.2*1006
     "Heat capacity of zone air";
   inner Building building(
     idfName=Modelica.Utilities.Files.loadResource(

@@ -3,14 +3,14 @@ partial model HeatingCoolingHotWater3Clusters
   "Load models for Buildings.Obsolete.DistrictHeatingCooling.Examples.HeatingCoolingHotWater3Clusters"
   package Medium = Buildings.Media.Water "Fluid in the pipes";
 
-  parameter Modelica.SIunits.Temperature TChiSup_nominal = 273.15 + 16
+  parameter Modelica.Units.SI.Temperature TChiSup_nominal=273.15 + 16
     "Chilled water leaving temperature at the evaporator"
-     annotation (Dialog(group="Nominal conditions"));
+    annotation (Dialog(group="Nominal conditions"));
 
-  parameter Modelica.SIunits.Temperature THeaSup_nominal = 273.15+30
+  parameter Modelica.Units.SI.Temperature THeaSup_nominal=273.15 + 30
     "Supply temperature space heating system at TOut_nominal"
     annotation (Dialog(group="Nominal conditions"));
-  parameter Modelica.SIunits.Temperature THeaRet_nominal = 273.15+25
+  parameter Modelica.Units.SI.Temperature THeaRet_nominal=273.15 + 25
     "Return temperature space heating system at TOut_nominal"
     annotation (Dialog(group="Nominal conditions"));
 

@@ -20,9 +20,8 @@ model ChillerStage
     annotation (Placement(transformation(extent={{-60,-30},{-40,-10}})));
   Modelica.Blocks.Sources.Sine mFlo(
     amplitude=0.5*chiStaCon.QChi_nominal/(-10)/4200,
-    freqHz=1/300,
-    offset=0.5*chiStaCon.QChi_nominal/(-10)/4200)
-    "Total mass flow rate"
+    f=1/300,
+    offset=0.5*chiStaCon.QChi_nominal/(-10)/4200) "Total mass flow rate"
     annotation (Placement(transformation(extent={{-60,-60},{-40,-40}})));
 equation
   connect(on.y,chiStaCon.on)

@@ -129,6 +129,7 @@ protected
     end while;
     houAng := Modelica.Math.acos(cosHou);
   end nextHourAngle;
+
   function sunRise
     "Output the next sunrise time"
     input Real t(
@@ -185,6 +186,7 @@ protected
       nextSunRise := sunRise;
     end if;
   end sunRise;
+
   function sunSet
     "Output the next sunset time"
     input Real t(
@@ -311,7 +313,7 @@ Buildings.Controls.OBC.CDL.Utilities.Validation.SunRiseSet</a>.
 <ul>
 <li>
 November 12, 2020, by Michael Wetter:<br/>
-Reformulated to remove dependency to <code>Modelica.SIunits</code>.<br/>
+Reformulated to remove dependency to <code>Modelica.Units.SI</code>.<br/>
 This is for
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2243\">issue 2243</a>.
 </li>

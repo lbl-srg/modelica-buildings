@@ -9,15 +9,15 @@ model MassFlowSource_WeatherData
   parameter Boolean use_C_in = false
     "Get the trace substances from the input connector"
     annotation(Evaluate=true, HideResult=true);
-  parameter Modelica.SIunits.MassFlowRate m_flow = 0
+  parameter Modelica.Units.SI.MassFlowRate m_flow=0
     "Fixed mass flow rate going out of the fluid port"
-    annotation (Dialog(enable = not use_m_flow_in));
+    annotation (Dialog(enable=not use_m_flow_in));
   parameter Medium.ExtraProperty C[Medium.nC](
     final quantity=Medium.extraPropertiesNames)=fill(0, Medium.nC)
     "Fixed values of trace substances"
     annotation (Dialog(enable = (not use_C_in) and Medium.nC > 0));
-  Modelica.Blocks.Interfaces.RealInput m_flow_in(final unit="kg/s") if
-       use_m_flow_in "Prescribed mass flow rate"
+  Modelica.Blocks.Interfaces.RealInput m_flow_in(final unit="kg/s")
+    if use_m_flow_in "Prescribed mass flow rate"
     annotation (Placement(transformation(extent={{-120,60},{-80,100}}),
       iconTransformation(extent={{-120,60},{-80,100}})));
   Modelica.Blocks.Interfaces.RealInput C_in[Medium.nC](

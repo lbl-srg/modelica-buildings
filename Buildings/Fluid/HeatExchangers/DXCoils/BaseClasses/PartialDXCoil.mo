@@ -62,11 +62,13 @@ partial model PartialDXCoil "Partial model for DX coil"
 protected
   parameter Integer i_x(fixed=false) "Index of substance";
 
-  Modelica.SIunits.SpecificEnthalpy hEvaIn=
-    inStream(port_a.h_outflow) "Enthalpy of air entering the cooling coil";
-  Modelica.SIunits.Temperature TEvaIn = Medium.temperature_phX(p=port_a.p, h=hEvaIn, X=XEvaIn)
-    "Dry bulb temperature of air entering the cooling coil";
-  Modelica.SIunits.MassFraction XEvaIn[Medium.nXi] = inStream(port_a.Xi_outflow)
+  Modelica.Units.SI.SpecificEnthalpy hEvaIn=inStream(port_a.h_outflow)
+    "Enthalpy of air entering the cooling coil";
+  Modelica.Units.SI.Temperature TEvaIn=Medium.temperature_phX(
+      p=port_a.p,
+      h=hEvaIn,
+      X=XEvaIn) "Dry bulb temperature of air entering the cooling coil";
+  Modelica.Units.SI.MassFraction XEvaIn[Medium.nXi]=inStream(port_a.Xi_outflow)
     "Mass fraction/absolute humidity of air entering the cooling coil";
 
   Modelica.Blocks.Sources.RealExpression p(final y=port_a.p)
