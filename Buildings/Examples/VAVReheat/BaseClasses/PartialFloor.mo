@@ -10,17 +10,17 @@ partial model PartialFloor "Interface for a model of a floor of a building"
   parameter Real kIntNor(min=0, max=1) = 1
     "Gain factor to scale internal heat gain in north zone";
 
-  parameter Modelica.SIunits.Volume VRooCor "Room volume corridor";
-  parameter Modelica.SIunits.Volume VRooSou "Room volume south";
-  parameter Modelica.SIunits.Volume VRooNor "Room volume north";
-  parameter Modelica.SIunits.Volume VRooEas "Room volume east";
-  parameter Modelica.SIunits.Volume VRooWes "Room volume west";
+  parameter Modelica.Units.SI.Volume VRooCor "Room volume corridor";
+  parameter Modelica.Units.SI.Volume VRooSou "Room volume south";
+  parameter Modelica.Units.SI.Volume VRooNor "Room volume north";
+  parameter Modelica.Units.SI.Volume VRooEas "Room volume east";
+  parameter Modelica.Units.SI.Volume VRooWes "Room volume west";
 
-  parameter Modelica.SIunits.Area AFloCor "Floor area corridor";
-  parameter Modelica.SIunits.Area AFloSou "Floor area south";
-  parameter Modelica.SIunits.Area AFloNor "Floor area north";
-  parameter Modelica.SIunits.Area AFloEas "Floor area east";
-  parameter Modelica.SIunits.Area AFloWes "Floor area west";
+  parameter Modelica.Units.SI.Area AFloCor "Floor area corridor";
+  parameter Modelica.Units.SI.Area AFloSou "Floor area south";
+  parameter Modelica.Units.SI.Area AFloNor "Floor area north";
+  parameter Modelica.Units.SI.Area AFloEas "Floor area east";
+  parameter Modelica.Units.SI.Area AFloWes "Floor area west";
 
   Modelica.Fluid.Vessels.BaseClasses.VesselFluidPorts_b portsSou[2](
       redeclare package Medium = Medium) "Fluid inlets and outlets"

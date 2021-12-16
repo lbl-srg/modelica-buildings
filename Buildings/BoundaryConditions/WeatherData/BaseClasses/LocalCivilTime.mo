@@ -5,14 +5,14 @@ block LocalCivilTime "Converts the clock time to local civil time."
     final quantity="Time",
     final unit="s") "Clock time"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
-  parameter Modelica.SIunits.Time timZon(displayUnit="h") "Time zone";
-  parameter Modelica.SIunits.Angle lon(displayUnit="deg") "Longitude";
+  parameter Modelica.Units.SI.Time timZon(displayUnit="h") "Time zone";
+  parameter Modelica.Units.SI.Angle lon(displayUnit="deg") "Longitude";
   Modelica.Blocks.Interfaces.RealOutput locTim(
     final quantity="Time",
     final unit="s") "Local civil time"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 protected
-  final parameter Modelica.SIunits.Time diff = - timZon + lon*43200/Modelica.Constants.pi
+  final parameter Modelica.Units.SI.Time diff=-timZon + lon*43200/Modelica.Constants.pi
     "Difference between local and clock time";
 equation
   locTim = cloTim + diff;

@@ -14,97 +14,115 @@ model WetCoilUARated
     annotation (
       Evaluate=true,
       Dialog(group="Nominal thermal performance"));
-  parameter Modelica.SIunits.HeatFlowRate QTot_flow
+  parameter Modelica.Units.SI.HeatFlowRate QTot_flow
     "Nominal heat flow rate (positive for heat transfer from 1 to 2)";
-  parameter Modelica.SIunits.Temperature TAirIn
+  parameter Modelica.Units.SI.Temperature TAirIn
     "Air inlet temperature at a rated condition";
 
-  parameter Modelica.SIunits.MassFraction X_wAirIn
+  parameter Modelica.Units.SI.MassFraction X_wAirIn
     "Mass fraction of water in inlet air at a rated condition";
-  parameter Modelica.SIunits.Temperature TWatIn
+  parameter Modelica.Units.SI.Temperature TWatIn
     "Water inlet temperature at a rated condition";
 
-  parameter Modelica.SIunits.MassFlowRate mAir_flow
+  parameter Modelica.Units.SI.MassFlowRate mAir_flow
     "Air mass flow rate at a rated condition";
-  parameter Modelica.SIunits.MassFlowRate mWat_flow
+  parameter Modelica.Units.SI.MassFlowRate mWat_flow
     "Water mass flow rate at a rated condition";
-  parameter Modelica.SIunits.ThermalConductance UA
+  parameter Modelica.Units.SI.ThermalConductance UA
     "Overall heat transfer coefficient for a fully dry condition";
   parameter Real r_nominal(min=0, max=1)
     "Ratio between air-side and water-side convective heat transfer at nominal condition";
 
 protected
-  constant Modelica.SIunits.SpecificEnthalpy hfg=
-    Buildings.Utilities.Psychrometrics.Constants.h_fg
+  constant Modelica.Units.SI.SpecificEnthalpy hfg=Buildings.Utilities.Psychrometrics.Constants.h_fg
     "Enthapy of vaporization of water";
-  constant Modelica.SIunits.SpecificEnthalpy hUnit=1
+  constant Modelica.Units.SI.SpecificEnthalpy hUnit=1
     "Physical dimension of specific enthalpy used for a unit conversion";
-  constant Modelica.SIunits.Temperature TUnit=1
+  constant Modelica.Units.SI.Temperature TUnit=1
     "Physical dimension of temperature used for a unit conversion";
-  constant Modelica.SIunits.SpecificHeatCapacity cpUnit=1
+  constant Modelica.Units.SI.SpecificHeatCapacity cpUnit=1
     "Physical dimension of specific heat capacity used for a unit conversion";
-  parameter Modelica.SIunits.Temperature TAirOut(fixed=false)
+  parameter Modelica.Units.SI.Temperature TAirOut(fixed=false)
     "Air outlet temperature  at a rated condition";
-  parameter Modelica.SIunits.Temperature TWatOut=
-    TWatIn - QTot_flow / cpWat / mWat_flow
-    "Water outlet temperature at a rated condition";
-  parameter Modelica.SIunits.SpecificEnthalpy hAirIn = MediumA.specificEnthalpy_pTX(
-    p=MediumA.p_default, T=TAirIn, X={X_wAirIn, 1-X_wAirIn})
+  parameter Modelica.Units.SI.Temperature TWatOut=TWatIn - QTot_flow/cpWat/
+      mWat_flow "Water outlet temperature at a rated condition";
+  parameter Modelica.Units.SI.SpecificEnthalpy hAirIn=
+      MediumA.specificEnthalpy_pTX(
+      p=MediumA.p_default,
+      T=TAirIn,
+      X={X_wAirIn,1 - X_wAirIn})
     "Enthalpy of incoming moist air at a rated condition";
   parameter MediumA.ThermodynamicState staAir=MediumA.setState_phX(
     p=MediumA.p_default, h=hAirIn, X={X_wAirIn, 1-X_wAirIn})
     "Inlet air thermodynamic state";
-  parameter Modelica.SIunits.SpecificHeatCapacity cpAir=
-    MediumA.specificHeatCapacityCp(staAir)
+  parameter Modelica.Units.SI.SpecificHeatCapacity cpAir=
+      MediumA.specificHeatCapacityCp(staAir)
     "Isobaric specific heat capacity of air";
-  parameter Modelica.SIunits.SpecificEnthalpy hAirOut=
-    hAirIn + QTot_flow / mAir_flow
-    "Enthalpy of outgoing moist air at a rated condition";
-  parameter Modelica.SIunits.SpecificEnthalpy hWatIn = MediumW.specificEnthalpy_pTX(
-    p=MediumW.p_default, T=TWatIn, X=MediumW.X_default)
+  parameter Modelica.Units.SI.SpecificEnthalpy hAirOut=hAirIn + QTot_flow/
+      mAir_flow "Enthalpy of outgoing moist air at a rated condition";
+  parameter Modelica.Units.SI.SpecificEnthalpy hWatIn=
+      MediumW.specificEnthalpy_pTX(
+      p=MediumW.p_default,
+      T=TWatIn,
+      X=MediumW.X_default)
     "Enthalpy of incoming moist air at a rated condition";
   parameter MediumW.ThermodynamicState staWat=MediumW.setState_phX(
     p=MediumW.p_default, h=hWatIn, X=MediumW.X_default)
     "Inlet water thermodynamic state";
-  parameter Modelica.SIunits.SpecificHeatCapacity cpWat=
+  parameter Modelica.Units.SI.SpecificHeatCapacity cpWat=
       MediumW.specificHeatCapacityCp(staWat)
     "Isobaric specific heat capacity of water";
-  parameter Modelica.SIunits.SpecificHeatCapacity cpEff(fixed=false, min= 0)
-    "Effective specific heat: change in saturated moist air enthalpy with respect to
+  parameter Modelica.Units.SI.SpecificHeatCapacity cpEff(fixed=false, min=0) "Effective specific heat: change in saturated moist air enthalpy with respect to
     temperature along the saturation line between inlet and outlet water temperatures";
-  parameter Modelica.SIunits.SpecificEnthalpy LMED(fixed=false)
+  parameter Modelica.Units.SI.SpecificEnthalpy LMED(fixed=false)
     "Log mean enthalpy difference";
-  parameter Modelica.SIunits.MassFlowRate UASta(fixed=false, min=0, start=1/(1/10+1/20))
+  parameter Modelica.Units.SI.MassFlowRate UASta(
+    fixed=false,
+    min=0,
+    start=1/(1/10 + 1/20))
     "Overall heat transfer coefficient for enthalpy difference";
-  parameter Modelica.SIunits.ThermalConductance UAAir(min=0,start=10,fixed=false)
+  parameter Modelica.Units.SI.ThermalConductance UAAir(
+    min=0,
+    start=10,
+    fixed=false)
     "Air side convective heat transfer coefficient, including fin resistance";
-  parameter Modelica.SIunits.ThermalConductance UAWat(min=0,start=20,fixed=false)
-    "Water side convective heat transfer coefficient";
+  parameter Modelica.Units.SI.ThermalConductance UAWat(
+    min=0,
+    start=20,
+    fixed=false) "Water side convective heat transfer coefficient";
   parameter Boolean isFulDry(fixed=false)
     "Indicator of the fully-dry coil regime";
   parameter Boolean isFulWet(fixed=false)
     "Indicator of the fully-wet coil regime";
-  parameter Modelica.SIunits.AbsolutePressure pSatTWatIn=
-    Buildings.Utilities.Psychrometrics.Functions.saturationPressure(TWatIn)
+  parameter Modelica.Units.SI.AbsolutePressure pSatTWatIn=
+      Buildings.Utilities.Psychrometrics.Functions.saturationPressure(TWatIn)
     "Saturation pressure of water at the water inlet temperature";
-  parameter Modelica.SIunits.MassFraction X_wSatTWatIn=
-    Buildings.Utilities.Psychrometrics.Functions.X_pSatpphi(
-      pSat=pSatTWatIn, p=MediumA.p_default, phi=1)
+  parameter Modelica.Units.SI.MassFraction X_wSatTWatIn=
+      Buildings.Utilities.Psychrometrics.Functions.X_pSatpphi(
+      pSat=pSatTWatIn,
+      p=MediumA.p_default,
+      phi=1)
     "Mass fraction of water in saturated moist air at the water inlet temperature";
-  parameter Modelica.SIunits.SpecificEnthalpy hSatTWatIn=
-    Buildings.Media.Air.specificEnthalpy_pTX(
-      p=MediumA.p_default, T=TWatIn, X={X_wSatTWatIn,1-X_wSatTWatIn})
+  parameter Modelica.Units.SI.SpecificEnthalpy hSatTWatIn=
+      Buildings.Media.Air.specificEnthalpy_pTX(
+      p=MediumA.p_default,
+      T=TWatIn,
+      X={X_wSatTWatIn,1 - X_wSatTWatIn})
     "Enthalpy of saturated moist air at the water inlet temperature";
-  parameter Modelica.SIunits.AbsolutePressure pSatTWatOut=
-    Buildings.Utilities.Psychrometrics.Functions.saturationPressure(TWatOut)
+  parameter Modelica.Units.SI.AbsolutePressure pSatTWatOut=
+      Buildings.Utilities.Psychrometrics.Functions.saturationPressure(TWatOut)
     "Saturation pressure of water at the water oulet temperature";
-  parameter Modelica.SIunits.MassFraction X_wSatTWatOut=
-    Buildings.Utilities.Psychrometrics.Functions.X_pSatpphi(
-      pSat=pSatTWatOut, p=MediumA.p_default, phi=1)
+  parameter Modelica.Units.SI.MassFraction X_wSatTWatOut=
+      Buildings.Utilities.Psychrometrics.Functions.X_pSatpphi(
+      pSat=pSatTWatOut,
+      p=MediumA.p_default,
+      phi=1)
     "Mass fraction of water in saturated moist air at the water outlet temperature";
-  parameter Modelica.SIunits.SpecificEnthalpy hSatTWatOut=
-    Buildings.Media.Air.specificEnthalpy_pTX(
-      p=MediumA.p_default, T=TWatOut, X={X_wSatTWatOut,1-X_wSatTWatOut})
+  parameter Modelica.Units.SI.SpecificEnthalpy hSatTWatOut=
+      Buildings.Media.Air.specificEnthalpy_pTX(
+      p=MediumA.p_default,
+      T=TWatOut,
+      X={X_wSatTWatOut,1 - X_wSatTWatOut})
     "Enthalpy of saturated moist air at the water oulet temperature";
 initial equation
   isFulDry = if use_Q_flow_nominal then (X_wSatTWatIn >= X_wAirIn) else true;

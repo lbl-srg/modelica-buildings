@@ -1,8 +1,8 @@
 within Buildings.Examples.ChillerPlant.BaseClasses.Controls;
 model WSEControl "Control unit for WSE"
-  parameter Modelica.SIunits.TemperatureDifference dTOff = 1
+  parameter Modelica.Units.SI.TemperatureDifference dTOff=1
     "Temperature difference to switch WSE off";
-  parameter Modelica.SIunits.TemperatureDifference dTW = 1
+  parameter Modelica.Units.SI.TemperatureDifference dTW=1
     "Temperature difference that is added to WSE on guard";
   Modelica.Blocks.Interfaces.RealInput wseCHWST(
     final quantity="ThermodynamicTemperature",

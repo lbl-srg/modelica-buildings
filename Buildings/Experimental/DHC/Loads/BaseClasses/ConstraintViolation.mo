@@ -18,11 +18,10 @@ block ConstraintViolation
     "Fraction of time when the constraint is violated"
     annotation (Placement(transformation(extent={{100,-20},{140,20}}),
     iconTransformation(extent={{100,-20},{140,20}})));
-  Modelica.SIunits.Time t(final start=0, final fixed=true)
+  Modelica.Units.SI.Time t(final start=0, final fixed=true)
     "Integral of violated time";
 protected
-  parameter Modelica.SIunits.Time t0(fixed=false)
-    "First sample time instant";
+  parameter Modelica.Units.SI.Time t0(fixed=false) "First sample time instant";
   Boolean vioMin "Flag, true if minimum is violated";
   Boolean vioMax "Flag, true if maximum is violated";
 initial equation

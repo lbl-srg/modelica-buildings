@@ -29,13 +29,13 @@ model Junction
   constant Boolean homotopyInitialization = true "= true, use homotopy method"
     annotation(HideResult=true);
 
-  parameter Modelica.SIunits.MassFlowRate[3] m_flow_nominal
+  parameter Modelica.Units.SI.MassFlowRate[3] m_flow_nominal
     "Mass flow rate. Set negative at outflowing ports."
-    annotation(Dialog(group = "Nominal condition"));
+    annotation (Dialog(group="Nominal condition"));
 
-  parameter Modelica.SIunits.Pressure[3] dp_nominal(each displayUnit = "Pa")
+  parameter Modelica.Units.SI.Pressure[3] dp_nominal(each displayUnit="Pa")
     "Pressure drop at nominal mass flow rate, set to zero or negative number at outflowing ports."
-    annotation(Dialog(group = "Nominal condition"));
+    annotation (Dialog(group="Nominal condition"));
 
   parameter Real deltaM(min=0) = 0.3
     "Fraction of nominal mass flow rate where transition to turbulent occurs"

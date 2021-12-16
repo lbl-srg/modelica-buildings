@@ -13,26 +13,27 @@ function surfaceTemperature
 protected
   constant Integer Year=365 "Year period in days";
   constant Integer secInDay = 24 * 60 * 60 "Seconds in a day";
-  constant Modelica.SIunits.Angle pi = Modelica.Constants.pi;
-  constant Modelica.SIunits.Temperature TFre = 273.15 "Freezing temperature of water";
+  constant Modelica.Units.SI.Angle pi=Modelica.Constants.pi;
+  constant Modelica.Units.SI.Temperature TFre=273.15
+    "Freezing temperature of water";
   constant Real freq = 2 * pi / Year "Year frequency in rad/days";
-  parameter Modelica.SIunits.Temperature TAirDayMea[Year] = {cliCon.TSurMea + cliCon.TSurAmp / freq * (
-    cos(freq * (cliCon.sinPha / secInDay - day)) -
-    cos(freq * (cliCon.sinPha / secInDay - (day + 1))))
-    for day in 1:Year} "Daily mean air temperature (surface = 0 from uncorrected climatic constants)";
-  parameter Modelica.SIunits.Temperature TSurDayMea[Year] = {
-    if TAirDayMea[day] > TFre
-    then (TFre + (TAirDayMea[day] - TFre) * nFacTha)
-    else (TFre + (TAirDayMea[day] - TFre) * nFacFre)
-    for day in 1:Year} "Daily mean corrected surface temperature";
+  parameter Modelica.Units.SI.Temperature TAirDayMea[Year]={cliCon.TSurMea +
+      cliCon.TSurAmp/freq*(cos(freq*(cliCon.sinPha/secInDay - day)) - cos(freq*
+      (cliCon.sinPha/secInDay - (day + 1)))) for day in 1:Year}
+    "Daily mean air temperature (surface = 0 from uncorrected climatic constants)";
+  parameter Modelica.Units.SI.Temperature TSurDayMea[Year]={if TAirDayMea[day]
+       > TFre then (TFre + (TAirDayMea[day] - TFre)*nFacTha) else (TFre + (
+      TAirDayMea[day] - TFre)*nFacFre) for day in 1:Year}
+    "Daily mean corrected surface temperature";
   parameter Real C1 = sum({TSurDayMea[day] * cos(freq * day) for day in 1:Year});
   parameter Real C2 = sum({TSurDayMea[day] * sin(freq * day) for day in 1:Year});
 
-  parameter Modelica.SIunits.Temperature corTSurMea = sum(TSurDayMea)/Year
+  parameter Modelica.Units.SI.Temperature corTSurMea=sum(TSurDayMea)/Year
     "Mean annual surface temperature";
-  parameter Modelica.SIunits.TemperatureDifference corTSurAmp = 2/Year .* (C1^2 + C2^2)^0.5
-    "Surface temperature amplitude";
-  parameter Modelica.SIunits.Duration corSinPha(displayUnit="d") = (Modelica.Math.atan(C2/C1) + pi/2)*secInDay/freq
+  parameter Modelica.Units.SI.TemperatureDifference corTSurAmp=2/Year .* (C1^2
+       + C2^2)^0.5 "Surface temperature amplitude";
+  parameter Modelica.Units.SI.Duration corSinPha(displayUnit="d") = (
+    Modelica.Math.atan(C2/C1) + pi/2)*secInDay/freq
     "Phase lag of soil surface temperature";
 
 algorithm

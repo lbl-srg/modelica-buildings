@@ -356,8 +356,8 @@ protected
     annotation (Placement(transformation(extent={{200,250},{220,270}})));
   Buildings.Controls.OBC.CDL.Continuous.Add add4 "Active airflow set point"
     annotation (Placement(transformation(extent={{180,40},{200,60}})));
-  Buildings.Controls.OBC.CDL.Continuous.Division VDis_flowNor if
-       not have_pressureIndependentDamper
+  Buildings.Controls.OBC.CDL.Continuous.Division VDis_flowNor
+    if not have_pressureIndependentDamper
     "Normalized discharge volume flow rate"
     annotation (Placement(transformation(extent={{240,150},{260,170}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant nomFlow(

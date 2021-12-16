@@ -29,8 +29,8 @@ protected
     sqrt(Modelica.Constants.g_n /(Medium.T_default*conTP) * hOpe)
     "Constant coefficient for buoyancy driven air flow rate";
 
-  parameter Modelica.SIunits.MassFlowRate m_flow_turbulent=
-    kVal * rho_default * sqrt(dp_turbulent)
+  parameter Modelica.Units.SI.MassFlowRate m_flow_turbulent=kVal*rho_default*
+      sqrt(dp_turbulent)
     "Mass flow rate where regularization to laminar flow occurs for temperature-driven flow";
 
 equation

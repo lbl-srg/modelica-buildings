@@ -14,13 +14,11 @@ model SensibleCooler_T
       final T_start=T_start,
       final X_start=Medium.X_default));
 
-  parameter Modelica.SIunits.HeatFlowRate QMin_flow(max=0) = -Modelica.Constants.inf
-    "Maximum heat flow rate for cooling (negative)"
-    annotation (Evaluate=true);
+  parameter Modelica.Units.SI.HeatFlowRate QMin_flow(max=0) = -Modelica.Constants.inf
+    "Maximum heat flow rate for cooling (negative)" annotation (Evaluate=true);
 
-  parameter Modelica.SIunits.Temperature T_start=Medium.T_default
-    "Start value of temperature"
-    annotation(Dialog(tab = "Initialization"));
+  parameter Modelica.Units.SI.Temperature T_start=Medium.T_default
+    "Start value of temperature" annotation (Dialog(tab="Initialization"));
 
   // Dynamics
   parameter Modelica.Fluid.Types.Dynamics energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState

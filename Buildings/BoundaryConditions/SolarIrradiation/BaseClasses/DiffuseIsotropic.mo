@@ -3,7 +3,7 @@ block DiffuseIsotropic
   "Diffuse solar irradiation on a tilted surface with an isotropic model"
   extends Modelica.Blocks.Icons.Block;
   parameter Real rho=0.2 "Ground reflectance";
-  parameter Modelica.SIunits.Angle til(displayUnit="deg") "Surface tilt angle";
+  parameter Modelica.Units.SI.Angle til(displayUnit="deg") "Surface tilt angle";
 
   Modelica.Blocks.Interfaces.RealInput HDifHor(quantity=
         "RadiantEnergyFluenceRate", unit="W/m2")

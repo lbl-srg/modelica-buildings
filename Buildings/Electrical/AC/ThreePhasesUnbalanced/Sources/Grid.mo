@@ -1,8 +1,8 @@
 within Buildings.Electrical.AC.ThreePhasesUnbalanced.Sources;
 model Grid "Electrical grid"
-  parameter Modelica.SIunits.Frequency f(start = 60) "Frequency of the source";
-  parameter Modelica.SIunits.Voltage V(start = 480) "RMS voltage of the source";
-  parameter Modelica.SIunits.Angle phiSou = 0 "Phase shift of the source";
+  parameter Modelica.Units.SI.Frequency f(start=60) "Frequency of the source";
+  parameter Modelica.Units.SI.Voltage V(start=480) "RMS voltage of the source";
+  parameter Modelica.Units.SI.Angle phiSou=0 "Phase shift of the source";
   Buildings.Electrical.AC.Interfaces.PowerOutput P[3]
     "Power consumed from grid if positive, or fed to grid if negative"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));

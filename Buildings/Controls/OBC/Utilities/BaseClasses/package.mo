@@ -1,6 +1,5 @@
 within Buildings.Controls.OBC.Utilities;
-package BaseClasses
-  "Package with base classes"
+package BaseClasses "Package with base classes"
   annotation (
     preferredView="info",
     Documentation(

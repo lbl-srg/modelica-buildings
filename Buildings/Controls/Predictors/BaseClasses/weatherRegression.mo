@@ -1,12 +1,12 @@
 within Buildings.Controls.Predictors.BaseClasses;
 function weatherRegression "Linear weather regression model"
   extends partialBaselinePrediction;
-    input Modelica.SIunits.Temperature TCur "Current temperature";
-    input Modelica.SIunits.Temperature T[:]
+  input Modelica.Units.SI.Temperature TCur "Current temperature";
+  input Modelica.Units.SI.Temperature T[:]
     "Vector of temperatures of each interval of the current time of day";
 protected
- Modelica.SIunits.Temperature TAve "Average temperature";
- Modelica.SIunits.Power PAve "Average power";
+  Modelica.Units.SI.Temperature TAve "Average temperature";
+  Modelica.Units.SI.Power PAve "Average power";
  Real den(unit="K2") "Denominator";
  Real a "Intercept";
  Real b "Slope";

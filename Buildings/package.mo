@@ -755,7 +755,7 @@ units are wrong or errors in documentation):
                        This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1496\">Buildings, #1496</a>.
     </td>
   </tr>
-  <tr><td colspan=\"2\"><b>Buildings.Applications.DataCenters</b>
+<tr><td colspan=\"2\"><b>Buildings.Applications.DataCenters</b>
     </td>
 </tr>
 <tr><td valign=\"top\">Buildings.Applications.DataCenters.ChillerCooled.Examples.IntegratedPrimaryLoadSideEconomizer<br/>
@@ -766,6 +766,19 @@ units are wrong or errors in documentation):
                        and did not parse in OpenModelica.<br/>
                        This is for
                        <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2706\">Buildings, issue 2706</a>.
+    </td>
+</tr>
+<tr><td colspan=\"2\"><b>Buildings.Experimental</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Experimental.DHC.CentralPlants.Cooling.Controls.ChillerStage
+    </td>
+    <td valign=\"top\">Corrected parameter value for <code>twoOn.nOut</code>.
+                       This correction is required to simulate the model in Dymola 2022
+                       if the model has been updated to MSL 4.0.0. With MSL 3.2.3, the simulation
+                       works without this correction.<br/>
+                       This is for
+                       <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1563\">Buildings, #1563</a>.
     </td>
 </tr>
 <tr><td colspan=\"2\"><b>Buildings.ThermalZones.Detailed</b>
@@ -785,6 +798,17 @@ units are wrong or errors in documentation):
         <td valign=\"top\">Added missing parameter declaration.<br/>
                            This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2556\">Buildings, #2556</a>.
         </td>
+   </tr>
+   <tr><td colspan=\"2\"><b>Buildings.Utilities.IO.Python36</b>
+   </td>
+   </tr>
+   <tr><td valign=\"top\">Buildings.Utilities.IO.Python36.Functions.Examples.Exchange
+   </td>
+   <td valign=\"top\">Removed call to impure function <code>removeFile</code>.
+                      This removal is required for MSL 4.0.0.<br/>
+                      This is for
+                      <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1563\">Buildings, #1563</a>.
+   </td>
 </tr>
 </table>
 <p>
@@ -1355,7 +1379,7 @@ have been <b style=\"color:blue\">improved</b> in a
                        Buildings.Controls.OBC.CDL.Utilities.SunRiseSet
 
     </td>
-    <td valign=\"top\">Reformulated to remove dependency to <code>Modelica.SIunits</code>.<br/>
+    <td valign=\"top\">Reformulated to remove dependency to <code>Modelica.Units.SI</code>.<br/>
                        This is for
                        <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2243\">issue 2243</a>.
     </td>
@@ -2204,7 +2228,7 @@ as reported in <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1432\">I
     </table>
     <!-- Obsolete components -->
      </html>"));
-    end Version_7_0_1;
+  end Version_7_0_1;
 
     class Version_7_0_0 "Version 7.0.0"
       extends Modelica.Icons.ReleaseNotes;
@@ -6450,8 +6474,8 @@ units are wrong or errors in documentation):
 <tr><td valign=\"top\">Buildings.HeatTransfer.Windows.BaseClasses.GlassLayer
     </td>
     <td valign=\"top\">Changed type of <code>tauIR</code> from
-                       <code>Modelica.SIunits.Emissivity</code> to
-                       <code>Modelica.SIunits.TransmissionCoefficient</code>.
+                       <code>Modelica.Units.SI.Emissivity</code> to
+                       <code>Modelica.Units.SI.TransmissionCoefficient</code>.
                        This avoids a type error in OpenModelica.
     </td>
 </tr>
@@ -7281,7 +7305,7 @@ units are wrong or errors in documentation):
 <tr><td valign=\"top\">Buildings.Fluid.Data.Fuels.Generic
     </td>
     <td valign=\"top\">Corrected wrong type for <code>mCO2</code>.
-                       It was declared as <code>Modelica.SIunits.MassFraction</code>,
+                       It was declared as <code>Modelica.Units.SI.MassFraction</code>,
                        which is incorrect.
     </td>
 </tr>
@@ -7289,7 +7313,7 @@ units are wrong or errors in documentation):
     </td>
     <td valign=\"top\">Corrected wrong type for <code>FRWat_min</code>, <code>FRWat_max</code>
                        and <code>liqGasRat_max</code>.
-                       They were declared as <code>Modelica.SIunits.MassFraction</code>,
+                       They were declared as <code>Modelica.Units.SI.MassFraction</code>,
                        which is incorrect as, for example, <code>FRWat_max</code> can be larger than one.
     </td>
 </tr>
@@ -10136,6 +10160,8 @@ The following people have directly contributed to the implementation of the Buil
 </li>
 <li>Vladimir Vukovic, Austrian Institute of Technology, Austria
 </li>
+<li>Jing Wang, University of Colorado Boulder, Colorado, USA
+</li>
 <li>Michael Wetter, Lawrence Berkeley National Laboratory, USA
 </li>
 <li>Tea Zakula, University of Zagreb, Croatia
@@ -10417,7 +10443,7 @@ preferredView="info",
 version="9.0.0",
 versionDate="2021-06-08",
 dateModified="2021-06-08",
-uses(Modelica(version="3.2.3")),
+uses(Modelica(version="4.0.0")),
 conversion(
   from(version={"8.0.0", "8.1.0"},
       script="modelica://Buildings/Resources/Scripts/Dymola/ConvertBuildings_from_8_to_9.0.0.mos")),

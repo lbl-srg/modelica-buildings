@@ -4,13 +4,13 @@ model Cooling "Cooling substation"
     Buildings.Obsolete.DistrictHeatingCooling.SubStations.BaseClasses.HeatingOrCooling(
     final m_flow_nominal = -Q_flow_nominal/cp_default/dTHex,
     mPum_flow(final k=-1/(cp_default*dTHex)));
-  parameter Modelica.SIunits.TemperatureDifference dTHex(
+  parameter Modelica.Units.SI.TemperatureDifference dTHex(
     min=0.5,
     displayUnit="K") = 4
     "Temperature difference over the heat exchanger (positive)"
-    annotation(Dialog(group="Design parameter"));
+    annotation (Dialog(group="Design parameter"));
 
-  parameter Modelica.SIunits.HeatFlowRate Q_flow_nominal(max=0)
+  parameter Modelica.Units.SI.HeatFlowRate Q_flow_nominal(max=0)
     "Nominal heat flow rate added to medium (Q_flow_nominal <= 0)";
 
   Modelica.Blocks.Interfaces.RealInput Q_flow(

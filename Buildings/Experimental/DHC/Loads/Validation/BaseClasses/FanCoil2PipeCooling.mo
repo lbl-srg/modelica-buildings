@@ -25,23 +25,20 @@ model FanCoil2PipeCooling
   parameter Real k(
     min=0)=1
     "Gain of controller";
-  parameter Modelica.SIunits.Time Ti(
-    min=Modelica.Constants.small)=10
+  parameter Modelica.Units.SI.Time Ti(min=Modelica.Constants.small) = 10
     "Time constant of integrator block";
-  parameter Modelica.SIunits.PressureDifference dpLoa_nominal(displayUnit="Pa")=
-     250
-    "Load side pressure drop"
-    annotation(Dialog(group="Nominal condition"));
+  parameter Modelica.Units.SI.PressureDifference dpLoa_nominal(displayUnit="Pa")
+     = 250 "Load side pressure drop"
+    annotation (Dialog(group="Nominal condition"));
   final parameter hexConfiguration hexConCoo=hexConfiguration.CounterFlow
     "Cooling heat exchanger configuration";
   parameter Boolean have_speVar=true
     "Set to true for a variable speed fan (otherwise fan is always on)"
     annotation (Evaluate=true, Dialog(group="Configuration"));
-  parameter Modelica.SIunits.HeatFlowRate QRooHea_flow_nominal(
-    min=0)=0
+  parameter Modelica.Units.SI.HeatFlowRate QRooHea_flow_nominal(min=0) = 0
     "Nominal heating load (for room air temperature prediction)"
     annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.SIunits.Temperature TRooHea_nominal=21.1 + 273.15
+  parameter Modelica.Units.SI.Temperature TRooHea_nominal=21.1 + 273.15
     "Room temperature at heating nominal conditions (for room air temperature prediction)"
     annotation (Dialog(group="Nominal condition"));
   Buildings.Controls.OBC.CDL.Continuous.PIDWithReset con(

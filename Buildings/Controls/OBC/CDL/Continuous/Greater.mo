@@ -59,6 +59,7 @@ protected
             textString="%name",
             textColor={0,0,255})}));
   end GreaterNoHysteresis;
+
   block GreaterWithHysteresis
     "Greater block without hysteresis"
     parameter Real h(

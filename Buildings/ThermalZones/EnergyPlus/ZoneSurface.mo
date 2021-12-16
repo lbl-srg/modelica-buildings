@@ -5,9 +5,7 @@ model ZoneSurface
   extends Buildings.ThermalZones.EnergyPlus.BaseClasses.Synchronize.ObjectSynchronizer;
   parameter String surfaceName
     "Surface unique name in the EnergyPlus idf file";
-  final parameter Modelica.SIunits.Area A(
-    final fixed=false,
-    min=1E-10)
+  final parameter Modelica.Units.SI.Area A(final fixed=false, min=1E-10)
     "Surface area";
   Modelica.Blocks.Interfaces.RealInput T(
     final unit="K",
@@ -81,21 +79,15 @@ protected
   //////////
   Real yEP[nY]
     "Output of exchange function";
-  Modelica.SIunits.Time tNext(
-    start=startTime,
-    fixed=true)
+  Modelica.Units.SI.Time tNext(start=startTime, fixed=true)
     "Next sampling time";
-  discrete Modelica.SIunits.Time tLast(
-    fixed=true,
-    start=startTime)
+  discrete Modelica.Units.SI.Time tLast(fixed=true, start=startTime)
     "Last time of data exchange";
-  discrete Modelica.SIunits.Time dtLast
+  discrete Modelica.Units.SI.Time dtLast
     "Time step since the last synchronization";
-  discrete Modelica.SIunits.Temperature TLast
+  discrete Modelica.Units.SI.Temperature TLast
     "Surface temperature at last sampling";
-  discrete Modelica.SIunits.HeatFlowRate QLast_flow(
-    fixed=false,
-    start=0)
+  discrete Modelica.Units.SI.HeatFlowRate QLast_flow(fixed=false, start=0)
     "Surface heat flow rate if T = TLast";
 //  discrete Real dQ_flow_dT(
 //    final unit="W/K")

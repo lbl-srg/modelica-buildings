@@ -34,8 +34,7 @@ equation
           0;
     end for;
   end when;
-  y=
-    if not allowOutOfRange or index > 0 and index <= nin then
+  y=if not allowOutOfRange or index > 0 and index <= nin then
       k*u
     else
       outOfRangeValue;

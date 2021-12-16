@@ -19,8 +19,8 @@ model BuildingRCZ1Valve
     azi={3.1415926535898,4.7123889803847})
     "Calculates diffuse solar radiation on titled surface for both directions"
     annotation (Placement(transformation(extent={{-94,98},{-74,118}})));
-  Buildings.BoundaryConditions.SolarIrradiation.DirectTiltedSurface HDirTil[2](each til
-      =1.5707963267949, azi={3.1415926535898,4.7123889803847})
+  Buildings.BoundaryConditions.SolarIrradiation.DirectTiltedSurface HDirTil[2](each til=
+       1.5707963267949, azi={3.1415926535898,4.7123889803847})
     "Calculates direct solar radiation on titled surface for both directions"
     annotation (Placement(transformation(extent={{-94,130},{-74,150}})));
   Buildings.ThermalZones.ReducedOrder.SolarGain.CorrectionGDoublePane corGDouPan(

@@ -46,10 +46,10 @@ model ChillerBorefield "ETS model for 5GDHC systems with heat recovery chiller a
   parameter Boolean have_WSE=false
     "Set to true in case a waterside economizer is used"
     annotation (Evaluate=true);
-  parameter Modelica.SIunits.PressureDifference dpCon_nominal(displayUnit="Pa")
+  parameter Modelica.Units.SI.PressureDifference dpCon_nominal(displayUnit="Pa")
     "Nominal pressure drop accross condenser"
     annotation (Dialog(group="Chiller"));
-  parameter Modelica.SIunits.PressureDifference dpEva_nominal(displayUnit="Pa")
+  parameter Modelica.Units.SI.PressureDifference dpEva_nominal(displayUnit="Pa")
     "Nominal pressure drop accross evaporator"
     annotation (Dialog(group="Chiller"));
   replaceable parameter Fluid.Chillers.Data.ElectricEIR.Generic datChi
@@ -68,27 +68,27 @@ model ChillerBorefield "ETS model for 5GDHC systems with heat recovery chiller a
     "Record with performance data for evaporator pump"
     annotation (Dialog(group="Chiller"),choicesAllMatching=true,
     Placement(transformation(extent={{100,222},{120,242}})));
-  parameter Modelica.SIunits.PressureDifference dp1WSE_nominal(displayUnit="Pa")=
-     40E3
+  parameter Modelica.Units.SI.PressureDifference dp1WSE_nominal(displayUnit=
+        "Pa") = 40E3
     "Nominal pressure drop across heat exchanger on district side"
     annotation (Dialog(group="Waterside economizer", enable=have_WSE));
-  parameter Modelica.SIunits.PressureDifference dp2WSE_nominal(displayUnit="Pa")=
-     40E3
+  parameter Modelica.Units.SI.PressureDifference dp2WSE_nominal(displayUnit=
+        "Pa") = 40E3
     "Nominal pressure drop across heat exchanger on building side"
     annotation (Dialog(group="Waterside economizer", enable=have_WSE));
-  parameter Modelica.SIunits.HeatFlowRate QWSE_flow_nominal = 0
+  parameter Modelica.Units.SI.HeatFlowRate QWSE_flow_nominal=0
     "Nominal heat flow rate through heat exchanger (<=0)"
     annotation (Dialog(group="Waterside economizer", enable=have_WSE));
-  parameter Modelica.SIunits.Temperature T_a1WSE_nominal=279.15
+  parameter Modelica.Units.SI.Temperature T_a1WSE_nominal=279.15
     "Nominal water inlet temperature on district side"
     annotation (Dialog(group="Waterside economizer", enable=have_WSE));
-  parameter Modelica.SIunits.Temperature T_b1WSE_nominal=284.15
+  parameter Modelica.Units.SI.Temperature T_b1WSE_nominal=284.15
     "Nominal water outlet temperature on district side"
     annotation (Dialog(group="Waterside economizer", enable=have_WSE));
-  parameter Modelica.SIunits.Temperature T_a2WSE_nominal=288.15
+  parameter Modelica.Units.SI.Temperature T_a2WSE_nominal=288.15
     "Nominal water inlet temperature on building side"
     annotation (Dialog(group="Waterside economizer", enable=have_WSE));
-  parameter Modelica.SIunits.Temperature T_b2WSE_nominal=281.15
+  parameter Modelica.Units.SI.Temperature T_b2WSE_nominal=281.15
     "Nominal water outlet temperature on building side"
     annotation (Dialog(group="Waterside economizer", enable=have_WSE));
   parameter Real y1WSEMin(unit="1")=0.05
@@ -101,19 +101,19 @@ model ChillerBorefield "ETS model for 5GDHC systems with heat recovery chiller a
       Dialog(group="Waterside economizer", enable=not have_val1Hex and have_WSE),
       choicesAllMatching=true,
       Placement(transformation(extent={{220,222},{240,242}})));
-  final parameter Modelica.SIunits.MassFlowRate m1WSE_flow_nominal=
-    abs(QWSE_flow_nominal/4200/(T_b1WSE_nominal - T_a1WSE_nominal))
+  final parameter Modelica.Units.SI.MassFlowRate m1WSE_flow_nominal=abs(
+      QWSE_flow_nominal/4200/(T_b1WSE_nominal - T_a1WSE_nominal))
     "WSE primary mass flow rate"
     annotation (Dialog(group="Waterside economizer", enable=have_WSE));
-  parameter Modelica.SIunits.Temperature TBorWatEntMax=313.15
+  parameter Modelica.Units.SI.Temperature TBorWatEntMax=313.15
     "Maximum value of borefield water entering temperature"
-    annotation (Dialog(group="Borefield",enable=have_borFie));
+    annotation (Dialog(group="Borefield", enable=have_borFie));
   parameter Real spePumBorMin(unit="1")=0.1
     "Borefield pump minimum speed"
     annotation (Dialog(group="Borefield",enable=have_borFie));
-  parameter Modelica.SIunits.Pressure dpBorFie_nominal(displayUnit="Pa")=5E4
+  parameter Modelica.Units.SI.Pressure dpBorFie_nominal(displayUnit="Pa") = 5E4
     "Pressure losses for the entire borefield (control valve excluded)"
-    annotation (Dialog(group="Borefield",enable=have_borFie));
+    annotation (Dialog(group="Borefield", enable=have_borFie));
   replaceable parameter Fluid.Geothermal.Borefields.Data.Borefield.Example datBorFie
     constrainedby Fluid.Geothermal.Borefields.Data.Borefield.Template
     "Borefield parameters"
@@ -137,24 +137,20 @@ model ChillerBorefield "ETS model for 5GDHC systems with heat recovery chiller a
     min=0)=0.1
     "Gain of controller on cold side"
     annotation (Dialog(group="Supervisory controller"));
-  parameter Modelica.SIunits.Time TiHot(
-    min=Buildings.Controls.OBC.CDL.Constants.small)=300
-    "Time constant of integrator block on hot side"
-    annotation (Dialog(group="Supervisory controller",
-    enable=controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PI or
-    controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
-  parameter Modelica.SIunits.Time TiCol(
-    min=Buildings.Controls.OBC.CDL.Constants.small)=120
-    "Time constant of integrator block on cold side"
-    annotation (Dialog(group="Supervisory controller",enable=controllerType ==
-    Buildings.Controls.OBC.CDL.Types.SimpleController.PI or
-    controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
-  parameter Modelica.SIunits.Temperature THeaWatSupSetMin(
-    displayUnit="degC")=datChi.TConEntMin+5
+  parameter Modelica.Units.SI.Time TiHot(min=Buildings.Controls.OBC.CDL.Constants.small)
+     = 300 "Time constant of integrator block on hot side" annotation (Dialog(
+        group="Supervisory controller", enable=controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
+           or controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
+  parameter Modelica.Units.SI.Time TiCol(min=Buildings.Controls.OBC.CDL.Constants.small)
+     = 120 "Time constant of integrator block on cold side" annotation (Dialog(
+        group="Supervisory controller", enable=controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
+           or controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
+  parameter Modelica.Units.SI.Temperature THeaWatSupSetMin(displayUnit="degC")
+     = datChi.TConEntMin + 5
     "Minimum value of heating water supply temperature set point"
     annotation (Dialog(group="Supervisory controller"));
-  parameter Modelica.SIunits.Temperature TChiWatSupSetMin(
-    displayUnit="degC")=datChi.TEvaLvgMin
+  parameter Modelica.Units.SI.Temperature TChiWatSupSetMin(displayUnit="degC")
+     = datChi.TEvaLvgMin
     "Minimum value of chilled water supply temperature set point"
     annotation (Dialog(group="Supervisory controller"));
 

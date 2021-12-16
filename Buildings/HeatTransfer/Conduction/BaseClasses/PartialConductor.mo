@@ -1,15 +1,15 @@
 within Buildings.HeatTransfer.Conduction.BaseClasses;
 partial model PartialConductor "Partial model for heat conductor"
   extends Buildings.BaseClasses.BaseIcon;
-  parameter Modelica.SIunits.Area A "Heat transfer area";
-  final parameter Modelica.SIunits.CoefficientOfHeatTransfer U = UA/A
+  parameter Modelica.Units.SI.Area A "Heat transfer area";
+  final parameter Modelica.Units.SI.CoefficientOfHeatTransfer U=UA/A
     "U-value (without surface heat transfer coefficients)";
-  final parameter Modelica.SIunits.ThermalConductance UA = 1/R
+  final parameter Modelica.Units.SI.ThermalConductance UA=1/R
     "Thermal conductance of construction (without surface heat transfer coefficients)";
-  parameter Modelica.SIunits.ThermalResistance R
+  parameter Modelica.Units.SI.ThermalResistance R
     "Thermal resistance of construction";
 
-  Modelica.SIunits.TemperatureDifference dT "port_a.T - port_b.T";
+  Modelica.Units.SI.TemperatureDifference dT "port_a.T - port_b.T";
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a port_a
     "Heat port at surface a" annotation (Placement(transformation(extent={{-110,-10},
             {-90,10}})));

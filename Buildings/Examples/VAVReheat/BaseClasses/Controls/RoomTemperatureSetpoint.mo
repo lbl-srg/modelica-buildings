@@ -2,13 +2,13 @@ within Buildings.Examples.VAVReheat.BaseClasses.Controls;
 block RoomTemperatureSetpoint "Set point scheduler for room temperature"
   extends Modelica.Blocks.Icons.Block;
   import Buildings.Examples.VAVReheat.BaseClasses.Controls.OperationModes;
-  parameter Modelica.SIunits.Temperature THeaOn=293.15
+  parameter Modelica.Units.SI.Temperature THeaOn=293.15
     "Heating setpoint during on";
-  parameter Modelica.SIunits.Temperature THeaOff=285.15
+  parameter Modelica.Units.SI.Temperature THeaOff=285.15
     "Heating setpoint during off";
-  parameter Modelica.SIunits.Temperature TCooOn=297.15
+  parameter Modelica.Units.SI.Temperature TCooOn=297.15
     "Cooling setpoint during on";
-  parameter Modelica.SIunits.Temperature TCooOff=303.15
+  parameter Modelica.Units.SI.Temperature TCooOff=303.15
     "Cooling setpoint during off";
   BaseClasses.Controls.ControlBus controlBus
     annotation (Placement(transformation(extent={{10,50},{30,70}})));

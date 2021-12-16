@@ -17,9 +17,8 @@ model BoilerTable
     annotation(choicesAllMatching=true,
                Placement(transformation(extent={{-40,74},{-20,94}})));
 
-  Modelica.Blocks.Tables.CombiTable2D effTab(
-    final table=per.effCur,
-    final smoothness=Modelica.Blocks.Types.Smoothness.ContinuousDerivative)
+  Modelica.Blocks.Tables.CombiTable2Ds effTab(final table=per.effCur, final
+      smoothness=Modelica.Blocks.Types.Smoothness.ContinuousDerivative)
     "Look-up table that represents a set of efficiency curves varying with both the firing rate (control signal) and the inlet water temperature"
     annotation (Placement(transformation(extent={{-70,64},{-50,84}})));
 

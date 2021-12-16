@@ -4,18 +4,18 @@ model ZonalFlow_ACS "Zonal flow with input air change per second"
 
   parameter Boolean useDefaultProperties = false
     "Set to true to use constant density";
-  parameter Modelica.SIunits.Volume V "Volume of room";
+  parameter Modelica.Units.SI.Volume V "Volume of room";
 
   Modelica.Blocks.Interfaces.RealInput ACS
     "Air change per seconds, relative to the smaller of the two volumes"
     annotation (Placement(transformation(extent={{-120,90},{-100,110}})));
 protected
-  Modelica.SIunits.VolumeFlowRate V_flow
+  Modelica.Units.SI.VolumeFlowRate V_flow
     "Volume flow rate at standard pressure";
-  Modelica.SIunits.MassFlowRate m_flow "Mass flow rate";
+  Modelica.Units.SI.MassFlowRate m_flow "Mass flow rate";
   parameter Medium.ThermodynamicState sta_default = Medium.setState_pTX(T=Medium.T_default,
          p=Medium.p_default, X=Medium.X_default);
-  parameter Modelica.SIunits.Density rho_default=Medium.density(sta_default)
+  parameter Modelica.Units.SI.Density rho_default=Medium.density(sta_default)
     "Density, used to compute fluid volume";
 
   Medium.ThermodynamicState sta_a1_inflow=

@@ -1,6 +1,5 @@
 within Buildings.ThermalZones.EnergyPlus.BaseClasses;
-package Synchronize
-  "Package with classes to synchronize Spawn objects"
+package Synchronize "Package with classes to synchronize Spawn objects"
   annotation (
     Documentation(
       info="<html>

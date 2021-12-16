@@ -2,21 +2,19 @@ within Buildings.Experimental.DHC.CentralPlants.Cooling.Controls;
 model ChilledWaterPumpSpeed
   "Controller for up to two headered variable speed chilled water pumps"
   extends Modelica.Blocks.Icons.Block;
-  parameter Modelica.SIunits.PressureDifference dpSetPoi(
-    displayUnit="Pa")
+  parameter Modelica.Units.SI.PressureDifference dpSetPoi(displayUnit="Pa")
     "Pressure difference setpoint";
-  parameter Modelica.SIunits.Time tWai
-    "Waiting time";
-  parameter Modelica.SIunits.MassFlowRate m_flow_nominal
+  parameter Modelica.Units.SI.Time tWai "Waiting time";
+  parameter Modelica.Units.SI.MassFlowRate m_flow_nominal
     "Nominal mass flow rate of single chilled water pump";
   parameter Real minSpe(
     final unit="1",
     final min=0,
     final max=1)=0.05
     "Minimum speed ratio required by chilled water pumps";
-  parameter Modelica.SIunits.MassFlowRate criPoiFlo=0.7*m_flow_nominal
+  parameter Modelica.Units.SI.MassFlowRate criPoiFlo=0.7*m_flow_nominal
     "Critcal point of flowrate for switching pump on or off";
-  parameter Modelica.SIunits.MassFlowRate deaBanFlo=0.1*m_flow_nominal
+  parameter Modelica.Units.SI.MassFlowRate deaBanFlo=0.1*m_flow_nominal
     "Deadband for critical point of flowrate";
   parameter Real criPoiSpe=0.5
     "Critical point of speed signal for switching on or off";
@@ -31,18 +29,16 @@ model ChilledWaterPumpSpeed
     final min=0)=1
     "Gain of controller"
     annotation (Dialog(group="Speed Controller"));
-  parameter Modelica.SIunits.Time Ti(
-    final min=Modelica.Constants.small)=60
-    "Time constant of Integrator block"
-    annotation (Dialog(enable=controllerType ==
-      Modelica.Blocks.Types.SimpleController.PI or controllerType ==
-      Modelica.Blocks.Types.SimpleController.PID,group="Speed Controller"));
-  parameter Modelica.SIunits.Time Td(
-    final min=0)=0.1
-    "Time constant of Derivative block"
-    annotation (Dialog(enable=controllerType ==
-      Modelica.Blocks.Types.SimpleController.PD or controllerType ==
-      Modelica.Blocks.Types.SimpleController.PID,group="Speed Controller"));
+  parameter Modelica.Units.SI.Time Ti(final min=Modelica.Constants.small) = 60
+    "Time constant of Integrator block" annotation (Dialog(enable=
+          controllerType == Modelica.Blocks.Types.SimpleController.PI or
+          controllerType == Modelica.Blocks.Types.SimpleController.PID, group=
+          "Speed Controller"));
+  parameter Modelica.Units.SI.Time Td(final min=0) = 0.1
+    "Time constant of Derivative block" annotation (Dialog(enable=
+          controllerType == Modelica.Blocks.Types.SimpleController.PD or
+          controllerType == Modelica.Blocks.Types.SimpleController.PID, group=
+          "Speed Controller"));
   Modelica.Blocks.Interfaces.RealInput masFloPum(
     final unit="kg/s")
     "Total mass flowrate of chilled water pumps"

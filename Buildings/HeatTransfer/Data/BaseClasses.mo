@@ -3,10 +3,10 @@ package BaseClasses "Base classes for package Data"
   extends Modelica.Icons.BasesPackage;
   record Material "Thermal properties of materials w/o storage"
     extends Modelica.Icons.Record;
-    parameter Modelica.SIunits.Length x "Material thickness";
-    parameter Modelica.SIunits.ThermalConductivity k "Thermal conductivity";
-    parameter Modelica.SIunits.SpecificHeatCapacity c "Specific heat capacity";
-    parameter Modelica.SIunits.Density d "Mass density";
+    parameter Modelica.Units.SI.Length x "Material thickness";
+    parameter Modelica.Units.SI.ThermalConductivity k "Thermal conductivity";
+    parameter Modelica.Units.SI.SpecificHeatCapacity c "Specific heat capacity";
+    parameter Modelica.Units.SI.Density d "Mass density";
     parameter Real R(unit="m2.K/W")
       "Thermal resistance of a unit area of material";
     parameter Integer nStaRef(min=0) = 3
@@ -27,13 +27,13 @@ package BaseClasses "Base classes for package Data"
       "Number of states as a real number"
       annotation (Dialog(tab="Advanced"));
 
-    parameter Modelica.SIunits.Temperature TSol
+    parameter Modelica.Units.SI.Temperature TSol
       "Solidus temperature, used only for PCM."
       annotation (Dialog(group="Properties for phase change material"));
-    parameter Modelica.SIunits.Temperature TLiq
+    parameter Modelica.Units.SI.Temperature TLiq
       "Liquidus temperature, used only for PCM"
       annotation (Dialog(group="Properties for phase change material"));
-    parameter Modelica.SIunits.SpecificInternalEnergy LHea
+    parameter Modelica.Units.SI.SpecificInternalEnergy LHea
       "Latent heat of phase change"
       annotation (Dialog(group="Properties for phase change material"));
 
@@ -129,9 +129,9 @@ First implementation.
 
   record ThermalProperties "Thermal properties of materials with storage"
     extends Modelica.Icons.Record;
-    parameter Modelica.SIunits.ThermalConductivity k "Thermal conductivity";
-    parameter Modelica.SIunits.SpecificHeatCapacity c "Specific heat capacity";
-    parameter Modelica.SIunits.Density d "Mass density";
+    parameter Modelica.Units.SI.ThermalConductivity k "Thermal conductivity";
+    parameter Modelica.Units.SI.SpecificHeatCapacity c "Specific heat capacity";
+    parameter Modelica.Units.SI.Density d "Mass density";
     parameter Boolean steadyState= (c < Modelica.Constants.eps or d < Modelica.Constants.eps)
       "Flag, if true, then material is computed using steady-state heat conduction"
       annotation(Evaluate=true);

@@ -15,11 +15,11 @@ model TraceSubstancesFlowSource
     "Get the trace substance mass flow rate from the input connector"
     annotation(Evaluate=true, HideResult=true);
 
-  parameter Modelica.SIunits.MassFlowRate m_flow = 0
+  parameter Modelica.Units.SI.MassFlowRate m_flow=0
     "Fixed mass flow rate going out of the fluid port"
-    annotation (Dialog(enable = not use_m_flow_in));
-  Modelica.Blocks.Interfaces.RealInput m_flow_in(final unit="kg/s") if
-       use_m_flow_in "Prescribed mass flow rate for extra property"
+    annotation (Dialog(enable=not use_m_flow_in));
+  Modelica.Blocks.Interfaces.RealInput m_flow_in(final unit="kg/s")
+    if use_m_flow_in "Prescribed mass flow rate for extra property"
     annotation (Placement(transformation(extent={{-141,-20},{-101,20}})));
 
   Modelica.Fluid.Interfaces.FluidPorts_b ports[nPorts](
@@ -39,12 +39,11 @@ protected
   Modelica.Blocks.Interfaces.RealInput m_flow_in_internal(final unit="kg/s")
     "Needed to connect to conditional connector";
 
-  Modelica.SIunits.SpecificEnthalpy h_default=
-    Medium.specificEnthalpy(Medium.setState_pTX(
+  Modelica.Units.SI.SpecificEnthalpy h_default=Medium.specificEnthalpy(
+      Medium.setState_pTX(
       Medium.p_default,
       Medium.T_default,
-      Medium.X_default))
-      "Enthalpy of outstreaming medium";
+      Medium.X_default)) "Enthalpy of outstreaming medium";
 
 initial equation
   assert(sum(C_in_internal) > 1E-4, "Trace substance '" + substanceName + "' is not present in medium '"

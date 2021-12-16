@@ -26,9 +26,8 @@ model CFD
   parameter Boolean useCFD = true
     "Set to false to deactivate the CFD computation and use instead yFixed as output"
     annotation(Dialog(group = "CFD"), Evaluate = true);
-  parameter Modelica.SIunits.Time samplePeriod(min=100*Modelica.Constants.eps)
-    "Sample period of component"
-    annotation(Dialog(group = "Sampling"));
+  parameter Modelica.Units.SI.Time samplePeriod(min=100*Modelica.Constants.eps)
+    "Sample period of component" annotation (Dialog(group="Sampling"));
   parameter Real uSha_fixed[nConExtWin] = zeros(nConExtWin)
     "Constant control signal for the shading device (0: unshaded; 1: fully shaded)";
   parameter String sensorName[:]

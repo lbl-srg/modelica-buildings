@@ -19,8 +19,9 @@ block Timer
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
 protected
-  discrete Modelica.SIunits.Time entryTime "Time instant when u became true";
-  discrete Modelica.SIunits.Time yAcc "Accumulated time up to last change to true";
+  discrete Modelica.Units.SI.Time entryTime "Time instant when u became true";
+  discrete Modelica.Units.SI.Time yAcc
+    "Accumulated time up to last change to true";
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput reset_internal(
     final start=false,
     final fixed=true) "Internal connector";
