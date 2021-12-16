@@ -3,5 +3,7 @@ compareVars :=
     "eff1.eta",
     "eff2.eta",
     "eff1.PEle",
-    "eff2.PEle"
+    "eff2.PEle",
+    "eff1.dp",
+    "eff1.r_N"
   };
