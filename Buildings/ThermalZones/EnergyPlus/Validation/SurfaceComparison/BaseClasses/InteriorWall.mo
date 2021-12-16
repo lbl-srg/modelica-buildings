@@ -5,7 +5,7 @@ model InteriorWall "Model of an interior wall with Spawn-controlled surface cond
   parameter String surNam_a "Name of EnergyPlus Surface (port a)";
   parameter String surNam_b "Name of EnergyPlus Surface (port b)";
 
-  parameter Modelica.SIunits.Area A "Wall area";
+  parameter Modelica.Units.SI.Area A "Wall area";
 
   replaceable parameter Buildings.HeatTransfer.Data.OpaqueConstructions.Generic
     layers "Construction definition from Data.OpaqueConstructions"

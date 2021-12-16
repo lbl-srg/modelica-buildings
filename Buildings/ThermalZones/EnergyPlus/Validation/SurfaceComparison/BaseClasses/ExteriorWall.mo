@@ -4,7 +4,7 @@ model ExteriorWall "Model of an exterior wall with Spawn-controlled surface cond
 
   parameter String surNam "Name of EnergyPlus Surface";
 
-  parameter Modelica.SIunits.Area A "Wall area";
+  parameter Modelica.Units.SI.Area A "Wall area";
 
   replaceable parameter Buildings.HeatTransfer.Data.OpaqueConstructions.Generic
     layers "Construction definition from Data.OpaqueConstructions"
