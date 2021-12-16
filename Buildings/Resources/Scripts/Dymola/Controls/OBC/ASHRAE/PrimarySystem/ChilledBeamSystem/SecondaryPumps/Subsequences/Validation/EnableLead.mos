@@ -1,4 +1,0 @@
-simulateModel("Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChilledBeamSystem.SecondaryPumps.Subsequences.Validation.EnableLead", method="Cvode", stopTime=760, tolerance=1e-06, resultFile="EnableLead");
-createPlot(id=1, position={0, 0, 1680, 978}, y={"enaLeaPum.uValPos[1]"}, range={0.0, 720.0, -0.2, 1.2000000000000002}, grid=true, colors={{28,108,200}});
-createPlot(id=1, position={0, 0, 1680, 322}, y={"enaLeaPum.uValPos[2]"}, range={0.0, 720.0, -0.2, 1.2000000000000002}, grid=true, subPlot=2, colors={{28,108,200}});
-createPlot(id=1, position={0, 0, 1680, 323}, y={"enaLeaPum.yLea"}, range={0.0, 720.0, -0.2, 1.2000000000000002}, grid=true, subPlot=3, colors={{28,108,200}});
