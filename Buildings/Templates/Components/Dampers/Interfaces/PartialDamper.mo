@@ -23,11 +23,6 @@ partial model PartialDamper
     annotation (
       Dialog(group="Nominal condition"));
 
-  outer parameter String id
-    "System identifier";
-  outer parameter ExternData.JSONFile dat
-    "External parameter file";
-
   Buildings.Templates.Components.Interfaces.Bus bus
     if typ <> Buildings.Templates.Components.Types.Damper.None
      and typ <> Buildings.Templates.Components.Types.Damper.Barometric and typ

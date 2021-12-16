@@ -16,11 +16,6 @@ partial model PartialSensor
     "True to flip text horizontally in icon layer"
     annotation(Dialog(tab="Graphics", enable=false));
 
-  outer parameter String id
-    "System identifier";
-  outer parameter ExternData.JSONFile dat
-    "External parameter file";
-
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput y if have_sen
     "Connector for measured value"
     annotation (Placement(

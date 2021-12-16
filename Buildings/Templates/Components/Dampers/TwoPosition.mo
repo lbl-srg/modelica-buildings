@@ -4,15 +4,11 @@ model TwoPosition "Two-position damper"
     final typ=Buildings.Templates.Components.Types.Damper.TwoPosition,
     typBla=Buildings.Templates.Components.Types.DamperBlades.Opposed);
 
-  parameter Buildings.Templates.Components.Types.DamperBlades typBla=
-    Buildings.Templates.Components.Types.DamperBlades.Opposed
-    "Type of blades"
-    annotation(Dialog(tab="Graphics", enable=false));
-
   Buildings.Fluid.Actuators.Dampers.Exponential dam(
     redeclare final package Medium = Medium,
     final m_flow_nominal=m_flow_nominal,
-    final dpDamper_nominal=dpDamper_nominal) "Exponential damper"
+    final dpDamper_nominal=dpDamper_nominal)
+    "Exponential damper"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea(
     final realTrue=1,
