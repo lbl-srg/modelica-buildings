@@ -1,8 +1,0 @@
-compareVars :=
-  {
-    "operatingMode.enaSch.y[1]",
-    "operatingMode.uDetOcc",
-    "operatingMode.intSwi.y",
-    "operatingMode.yChiBeaEna",
-    "operatingMode.yDoasEna"
-  };
