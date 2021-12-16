@@ -3,7 +3,7 @@ model Humidifier_u
   extends Modelica.Icons.Example;
 
  package Medium = Buildings.Media.Air;
- parameter Modelica.SIunits.MassFlowRate mWat_flow_nominal = 0.001
+  parameter Modelica.Units.SI.MassFlowRate mWat_flow_nominal=0.001
     "Nominal water mass flow rate";
   Humidifier hea1(redeclare package Medium =
         Medium,
@@ -536,15 +536,15 @@ equation
             -320},{360,200}}), graphics={
         Text(
           extent={{30,204},{158,162}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="Temperature check"),
         Text(
           extent={{220,198},{330,168}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="Humidity check"),
         Text(
           extent={{-198,-4},{-6,-38}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="Same models as above, but flow is reversed")}),
 experiment(Tolerance=1e-7, StopTime=3600),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Interfaces/Examples/Humidifier_u.mos"

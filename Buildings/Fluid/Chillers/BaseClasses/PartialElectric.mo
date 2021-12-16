@@ -22,14 +22,14 @@ partial model PartialElectric
     annotation (Placement(transformation(extent={{-140,-50},{-100,-10}}),
         iconTransformation(extent={{-140,-50},{-100,-10}})));
 
-  Modelica.SIunits.Temperature TEvaEnt "Evaporator entering temperature";
-  Modelica.SIunits.Temperature TEvaLvg "Evaporator leaving temperature";
-  Modelica.SIunits.Temperature TConEnt "Condenser entering temperature";
-  Modelica.SIunits.Temperature TConLvg "Condenser leaving temperature";
+  Modelica.Units.SI.Temperature TEvaEnt "Evaporator entering temperature";
+  Modelica.Units.SI.Temperature TEvaLvg "Evaporator leaving temperature";
+  Modelica.Units.SI.Temperature TConEnt "Condenser entering temperature";
+  Modelica.Units.SI.Temperature TConLvg "Condenser leaving temperature";
 
-  Modelica.SIunits.Efficiency COP "Coefficient of performance";
-  Modelica.SIunits.HeatFlowRate QCon_flow "Condenser heat input";
-  Modelica.SIunits.HeatFlowRate QEva_flow "Evaporator heat input";
+  Modelica.Units.SI.Efficiency COP "Coefficient of performance";
+  Modelica.Units.SI.HeatFlowRate QCon_flow "Condenser heat input";
+  Modelica.Units.SI.HeatFlowRate QEva_flow "Evaporator heat input";
   Modelica.Blocks.Interfaces.RealOutput P(final quantity="Power", unit="W")
     "Electric power consumed by compressor"
     annotation (Placement(transformation(extent={{100,80},{120,100}}),
@@ -37,44 +37,44 @@ partial model PartialElectric
 
   Real capFunT(min=0, unit="1")
     "Cooling capacity factor function of temperature curve";
-  Modelica.SIunits.Efficiency EIRFunT
+  Modelica.Units.SI.Efficiency EIRFunT
     "Power input to cooling capacity ratio function of temperature curve";
-  Modelica.SIunits.Efficiency EIRFunPLR
+  Modelica.Units.SI.Efficiency EIRFunPLR
     "Power input to cooling capacity ratio function of part load ratio";
   Real PLR1(min=0, unit="1") "Part load ratio";
   Real PLR2(min=0, unit="1") "Part load ratio";
   Real CR(min=0, unit="1") "Cycling ratio";
 
 protected
-  Modelica.SIunits.HeatFlowRate QEva_flow_ava(nominal=QEva_flow_nominal,start=QEva_flow_nominal)
-    "Cooling capacity available at evaporator";
-  Modelica.SIunits.HeatFlowRate QEva_flow_set(nominal=QEva_flow_nominal,start=QEva_flow_nominal)
+  Modelica.Units.SI.HeatFlowRate QEva_flow_ava(nominal=QEva_flow_nominal, start
+      =QEva_flow_nominal) "Cooling capacity available at evaporator";
+  Modelica.Units.SI.HeatFlowRate QEva_flow_set(nominal=QEva_flow_nominal, start
+      =QEva_flow_nominal)
     "Cooling capacity required to cool to set point temperature";
-  Modelica.SIunits.SpecificEnthalpy hSet
+  Modelica.Units.SI.SpecificEnthalpy hSet
     "Enthalpy setpoint for leaving chilled water";
   // Performance data
-  parameter Modelica.SIunits.HeatFlowRate QEva_flow_nominal(max=0)
+  parameter Modelica.Units.SI.HeatFlowRate QEva_flow_nominal(max=0)
     "Reference capacity (negative number)";
-  parameter Modelica.SIunits.Efficiency COP_nominal
+  parameter Modelica.Units.SI.Efficiency COP_nominal
     "Reference coefficient of performance";
   parameter Real PLRMax(min=0, unit="1") "Maximum part load ratio";
   parameter Real PLRMinUnl(min=0, unit="1") "Minimum part unload ratio";
   parameter Real PLRMin(min=0, unit="1") "Minimum part load ratio";
-  parameter Modelica.SIunits.Efficiency etaMotor(max=1)
+  parameter Modelica.Units.SI.Efficiency etaMotor(max=1)
     "Fraction of compressor motor heat entering refrigerant";
-  parameter Modelica.SIunits.MassFlowRate mEva_flow_nominal
+  parameter Modelica.Units.SI.MassFlowRate mEva_flow_nominal
     "Nominal mass flow at evaporator";
-  parameter Modelica.SIunits.MassFlowRate mCon_flow_nominal
+  parameter Modelica.Units.SI.MassFlowRate mCon_flow_nominal
     "Nominal mass flow at condenser";
-  parameter Modelica.SIunits.Temperature TEvaLvg_nominal
+  parameter Modelica.Units.SI.Temperature TEvaLvg_nominal
     "Temperature of fluid leaving evaporator at nominal condition";
-  final parameter Modelica.SIunits.Conversions.NonSIunits.Temperature_degC
-    TEvaLvg_nominal_degC=
-    Modelica.SIunits.Conversions.to_degC(TEvaLvg_nominal)
+  final parameter Modelica.Units.NonSI.Temperature_degC TEvaLvg_nominal_degC=
+      Modelica.Units.Conversions.to_degC(TEvaLvg_nominal)
     "Temperature of fluid leaving evaporator at nominal condition";
-  Modelica.SIunits.Conversions.NonSIunits.Temperature_degC TEvaLvg_degC
+  Modelica.Units.NonSI.Temperature_degC TEvaLvg_degC
     "Temperature of fluid leaving evaporator";
-  parameter Modelica.SIunits.HeatFlowRate Q_flow_small = QEva_flow_nominal*1E-9
+  parameter Modelica.Units.SI.HeatFlowRate Q_flow_small=QEva_flow_nominal*1E-9
     "Small value for heat flow rate or power, used to avoid division by zero";
   Buildings.HeatTransfer.Sources.PrescribedHeatFlow preHeaFloEva
     "Prescribed heat flow rate"
@@ -96,12 +96,14 @@ initial equation
   assert(PLRMax > PLRMinUnl, "Parameter PLRMax must be bigger than PLRMinUnl");
 equation
   // Condenser temperatures
-  TConEnt = Medium1.temperature(Medium1.setState_phX(port_a1.p, inStream(port_a1.h_outflow)));
+  TConEnt = Medium1.temperature(Medium1.setState_phX(port_a1.p,
+                                                     inStream(port_a1.h_outflow),
+                                                     inStream(port_a1.Xi_outflow)));
   TConLvg = vol1.heatPort.T;
   // Evaporator temperatures
   TEvaEnt = Medium2.temperature(Medium2.setState_phX(port_a2.p, inStream(port_a2.h_outflow)));
   TEvaLvg = vol2.heatPort.T;
-  TEvaLvg_degC=Modelica.SIunits.Conversions.to_degC(TEvaLvg);
+  TEvaLvg_degC=Modelica.Units.Conversions.to_degC(TEvaLvg);
 
   // Enthalpy of temperature setpoint
   hSet = Medium2.specificEnthalpy_pTX(
@@ -114,29 +116,29 @@ equation
     QEva_flow_ava = QEva_flow_nominal*capFunT;
     // Cooling capacity required to chill water to setpoint
     QEva_flow_set = Buildings.Utilities.Math.Functions.smoothMin(
-      x1=  m2_flow*(hSet-inStream(port_a2.h_outflow)),
+      x1 = m2_flow*(hSet-inStream(port_a2.h_outflow)),
       x2= Q_flow_small,
       deltaX=-Q_flow_small/100);
 
     // Part load ratio
     PLR1 = Buildings.Utilities.Math.Functions.smoothMin(
-      x1=  QEva_flow_set/(QEva_flow_ava+Q_flow_small),
-      x2=  PLRMax,
+      x1 = QEva_flow_set/(QEva_flow_ava+Q_flow_small),
+      x2 = PLRMax,
       deltaX=PLRMax/100);
     // PLR2 is the compressor part load ratio. The lower bound PLRMinUnl is
     // since for PLR1<PLRMinUnl, the chiller uses hot gas bypass, under which
     // condition the compressor power is assumed to be the same as if the chiller
     // were to operate at PLRMinUnl
     PLR2 = Buildings.Utilities.Math.Functions.smoothMax(
-      x1=  PLRMinUnl,
-      x2=  PLR1,
-      deltaX=  PLRMinUnl/100);
+      x1 = PLRMinUnl,
+      x2 = PLR1,
+      deltaX = PLRMinUnl/100);
 
     // Cycling ratio.
     // Due to smoothing, this can be about deltaX/10 above 1.0
     CR = Buildings.Utilities.Math.Functions.smoothMin(
-      x1=  PLR1/PLRMin,
-      x2=  1,
+      x1 = PLR1/PLRMin,
+      x2 = 1,
       deltaX=0.001);
 
     // Compressor power.
@@ -144,8 +146,8 @@ equation
     // Heat flow rates into evaporator and condenser
     // Q_flow_small is a negative number.
     QEva_flow = Buildings.Utilities.Math.Functions.smoothMax(
-      x1=  QEva_flow_set,
-      x2=  QEva_flow_ava,
+      x1 = QEva_flow_set,
+      x2 = QEva_flow_ava,
       deltaX= -Q_flow_small/10);
 
   //QEva_flow = max(QEva_flow_set, QEva_flow_ava);
@@ -184,9 +186,9 @@ equation
             {100,100}}),
                    graphics={
         Text(extent={{62,96},{112,82}},   textString="P",
-          lineColor={0,0,127}),
+          textColor={0,0,127}),
         Text(extent={{-94,-24},{-48,-36}},  textString="T_CHWS",
-          lineColor={0,0,127}),
+          textColor={0,0,127}),
         Rectangle(
           extent={{-99,-54},{102,-66}},
           lineColor={0,0,255},
@@ -260,7 +262,7 @@ equation
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid),
         Text(extent={{-108,36},{-62,24}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="on")}),
 Documentation(info="<html>
 <p>
@@ -329,6 +331,11 @@ The function value needs to be assigned to <code>EIRFunPLR</code>.
 </html>",
 revisions="<html>
 <ul>
+<li>
+November 19, 2021, by David Blum:<br/>
+Add humidity to entering condenser state calculation.<br/>
+This is for issue <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2770\">2770</a>.
+</li>
 <li>
 June 28, 2019, by Michael Wetter:<br/>
 Removed <code>start</code> values and removed

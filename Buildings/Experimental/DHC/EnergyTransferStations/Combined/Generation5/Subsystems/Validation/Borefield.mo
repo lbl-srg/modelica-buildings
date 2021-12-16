@@ -6,12 +6,11 @@ model Borefield
     "Medium model";
   parameter Integer nBorHol=100
     "Number of boreholes (must be a square number)";
-  parameter Modelica.SIunits.Distance dxy=6
+  parameter Modelica.Units.SI.Distance dxy=6
     "Distance in x-axis (and y-axis) between borehole axes";
-  final parameter Modelica.SIunits.Distance cooBor[nBorHol,2]=Buildings.Experimental.DHC.EnergyTransferStations.BaseClasses.computeCoordinates(
-    nBorHol,
-    dxy)
-    "Coordinates of boreholes";
+  final parameter Modelica.Units.SI.Distance cooBor[nBorHol,2]=
+      .Buildings.Experimental.DHC.EnergyTransferStations.BaseClasses.computeCoordinates(
+      nBorHol, dxy) "Coordinates of boreholes";
   Generation5.Subsystems.Borefield borFie(
     redeclare final package Medium=Medium,
     final datBorFie=datBorFie,
@@ -42,8 +41,7 @@ model Borefield
     "Borefield design data"
     annotation (Placement(transformation(extent={{60,60},{80,80}})));
   Modelica.Blocks.Sources.TimeTable TInlVal(
-    y(
-      final unit="K",
+    y(final unit="K",
       displayUnit="degC"),
     table=[
       0,2;

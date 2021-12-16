@@ -15,7 +15,7 @@ package Types "AHU types"
       Guideline36
       "Guideline 36 control sequence",
       OpenLoop
-      "Open loop")
+      "Open loop control")
     "Enumeration to configure the AHU controller";
   type ControlEconomizer = enumeration(
       FixedDryBulb
@@ -63,19 +63,19 @@ package Types "AHU types"
   "Enumeration to specify the equipment location";
   type OutdoorSection = enumeration(
       DedicatedDamperAirflow
-      "Dedicated minimum OA damper (modulated) with AFMS",
+      "Separate dedicated OA dampers and OA measurement by AFMS",
       DedicatedDamperPressure
-      "Dedicated minimum OA damper (two-position) with differential pressure sensor",
+      "Separate dedicated OA dampers and OA measurement by differential pressure sensor",
       NoEconomizer
       "No economizer",
       SingleDamper
-      "Single common damper (modulated) with AFMS")
+      "Single common OA damper and OA measurement by AFMS")
     "Enumeration to configure the outdoor air section";
   type OutdoorReliefReturnSection = enumeration(
       Economizer
       "Air economizer",
       EconomizerNoRelief
-      "Air economizer - No relief branch",
+      "Air economizer without relief branch",
       NoEconomizer
       "No air economizer")
     "Enumeration to configure the outdoor/relief/return air section";
@@ -85,12 +85,12 @@ package Types "AHU types"
       NoRelief
       "No relief branch",
       Barometric
-      "No relief fan - Barometric relief damper",
+      "Barometric relief damper without fan",
       ReliefDamper
-      "No relief fan - Modulated relief damper",
+      "Modulating relief damper without fan",
       ReliefFan
-      "Relief fan - Two-position relief damper",
+      "Relief fan with two-position relief damper",
       ReturnFan
-      "Return fan - Modulated relief damper")
+      "Return fan with modulating relief damper")
     "Enumeration to configure the relief/return air section";
 end Types;

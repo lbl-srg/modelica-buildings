@@ -105,7 +105,7 @@ Type declarations
 
 #. For any variable or parameter that may need to be solved numerically,
    provide a value for the ``start`` and ``nominal`` attribute.
-#. Use types from ``Modelica.SIunits`` where possible,
+#. Use types from ``Modelica.Units.SI`` where possible,
    except in the package ``Buildings.Controls.OBC`` where the units should be declared
    as shown in :numref:`cod_uni_dec_cdl`.
 
@@ -261,7 +261,7 @@ Documentation
 
     .. code-block:: modelica
 
-       parameter Modelica.SIunits.Time tau = 60
+       parameter Modelica.Units.SI.Time tau = 60
          "Time constant at nominal flow"
          annotation (Dialog(group="Nominal condition"));
 

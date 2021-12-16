@@ -19,11 +19,11 @@ block DummyControlPointsVAVBox
     "Scheduled occupancy"
     annotation (Placement(transformation(extent={{-140,90},{-120,110}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TZon(final k=303.15)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TAirZon(final k=303.15)
     "Zone temperature"
     annotation (Placement(transformation(extent={{-140,-30},{-120,-10}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant VDis_flow(final k=1)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant VAirDis_flow(final k=1)
     annotation (Placement(transformation(extent={{-140,-70},{-120,-50}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant yReqZonTemRes(final k=1)
     "Request"
@@ -34,7 +34,7 @@ block DummyControlPointsVAVBox
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant uOveZon(final k=true)
     "Zone occupancy override"
     annotation (Placement(transformation(extent={{-100,90},{-80,110}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TDis(final k=303.15)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TAirDis(final k=303.15)
     "Discharge temperature"
     annotation (Placement(transformation(extent={{-140,10},{-120,30}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant uOcc(final k=true)
@@ -65,18 +65,18 @@ equation
   connect(uOveZon.y, bus.uOveZon);
   connect(uOcc.y, bus.uOcc);
   connect(uWin.y, bus.uWin);
-  connect(TZon.y, bus.TZon);
-  connect(TDis.y, bus.TDis);
-  connect(VDis_flow.y, bus.VDis_flow);
+  connect(TAirZon.y, bus.TAirZon);
+  connect(TAirDis.y, bus.TAirDis);
+  connect(VAirDis_flow.y, bus.VAirDis_flow);
   connect(yReqZonTemRes.y, bus.yReqZonTemRes);
   connect(yReqZonPreRes.y, bus.yReqZonPreRes);
 
   connect(FIXME_nOcc.y, setMinOA.nOcc);
   connect(bus.uWin, setMinOA.uWin);
   connect(bus.yReqOutAir, setMinOA.uReqOutAir);
-  connect(bus.TZon, setMinOA.TZon);
-  connect(bus.TDis, setMinOA.TDis);
-  connect(bus.VDis_flow, setMinOA.VDis_flow);
+  connect(bus.TAirZon, setMinOA.TZon);
+  connect(bus.TAirDis, setMinOA.TDis);
+  connect(bus.VAirDis_flow, setMinOA.VDis_flow);
   connect(bus.VDesUncOutAir_flow, setMinOA.VUncOut_flow_nominal);
 
   connect(setMinOA.yDesZonPeaOcc, bus.yDesZonPeaOcc);
@@ -90,7 +90,7 @@ equation
   connect(cooDowTim.y, sta.cooDowTim);
   connect(warUpTim.y, sta.warUpTim);
   connect(bus.uWin, sta.uWin);
-  connect(bus.TZon, sta.TZon);
+  connect(bus.TAirZon, sta.TZon);
 
   connect(sta.yCooTim, bus.yCooTim);
   connect(sta.yWarTim, bus.yWarTim);

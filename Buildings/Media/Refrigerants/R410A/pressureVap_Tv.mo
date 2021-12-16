@@ -1,16 +1,12 @@
 within Buildings.Media.Refrigerants.R410A;
 function pressureVap_Tv
 "Function that calculates the pressure R410A vapor based on temperature and specific volume"
-input Modelica.SIunits.Temperature T
-   "Temperature of refrigerant";
-input Modelica.SIunits.SpecificVolume v
-   "Specific volume of refrigerant";
-output Modelica.SIunits.AbsolutePressure p
-   "Pressure of refrigerant vapor";
+  input Modelica.Units.SI.Temperature T "Temperature of refrigerant";
+  input Modelica.Units.SI.SpecificVolume v "Specific volume of refrigerant";
+  output Modelica.Units.SI.AbsolutePressure p "Pressure of refrigerant vapor";
 
 protected
-  Modelica.SIunits.SpecificVolume v_abs
-    "Smoothed specific volume";
+  Modelica.Units.SI.SpecificVolume v_abs "Smoothed specific volume";
 
 algorithm
   v_abs := Buildings.Utilities.Math.Functions.smoothMax(v, 1.01*b, 0.01*b);

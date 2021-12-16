@@ -1,41 +1,25 @@
 within Buildings.Templates.Components;
 package Types "Generic types for template components"
   extends Modelica.Icons.TypesPackage;
-  type Actuator = enumeration(
-      None
-      "No valve",
-      TwoWayValve
-      "Two-way valve",
-      ThreeWayValve
-      "Three-way valve",
-      PumpedCoilTwoWayValve
-      "Pumped coil with two-way valve",
-      PumpedCoilThreeWayValve
-      "Pumped coil with three-way valve")
-    "Enumeration to configure the actuator";
   type Coil = enumeration(
-      DirectExpansion
-      "Direct expansion",
+      ElectricHeating
+      "Electric heating coil",
+      Evaporator
+      "Evaporator coil (direct expansion)",
       None
       "No coil",
-      WaterBased
-      "Water-based coil")
+      WaterBasedCooling
+      "Chilled water coil",
+      WaterBasedHeating
+      "Hot water coil")
     "Enumeration to configure the coil";
-  type CoilFunction = enumeration(
-      Cooling
-      "Cooling",
-      Heating
-      "Heating",
-      Reheat
-      "Reheat")
-    "Enumeration to specify the coil function";
   type Damper = enumeration(
       NoPath
       "No fluid path",
       Barometric
       "Barometric damper",
-      Modulated
-      "Modulated damper",
+      Modulating
+      "Modulating damper",
       None
       "No damper",
       PressureIndependent
@@ -47,8 +31,28 @@ package Types "Generic types for template components"
       Opposed
       "Opposed blades",
       Parallel
-      "Parallel blades")
-    "Enumeration to specify the damper blades";
+      "Parallel blades",
+      VAV
+      "VAV damper")
+    "Enumeration to specify the type of damper blades";
+  type Fan = enumeration(
+      None
+      "No fan",
+      SingleConstant
+      "Single fan - Constant speed",
+      SingleVariable
+      "Single fan - Variable speed",
+      ArrayVariable
+      "Fan array - Variable speed")
+    "Enumeration to configure the fan";
+  type FanSingle = enumeration(
+      Housed
+      "Housed centrifugal fan",
+      Plug
+      "Plug fan",
+      Propeller
+      "Propeller fan")
+    "Enumeration to specify the type of single fan";
   type HeatExchanger = enumeration(
       None
       "No heat exchanger",
@@ -63,34 +67,22 @@ package Types "Generic types for template components"
       WetCoilCounterFlow
       "Water based - Discretized wet")
     "Enumeration to configure the heat exchanger";
-  type Fan = enumeration(
+  type Junction = enumeration(
       None
-      "No fan",
+      "No junction",
+      ThreeWayModulating
+      "Three-way junction")
+    "Enumeration to configure the fluid junction";
+  type Pump = enumeration(
+      None
+      "No pump",
+      ParallelVariable
+      "Parallel pumps (identical) - Variable speed",
       SingleConstant
-      "Single fan - Constant speed",
-      SingleTwoSpeed
-      "Single fan - Two speed",
+      "Single pump - Constant speed",
       SingleVariable
-      "Single fan - Variable speed",
-      MultipleConstant
-      "Multiple fans (identical) - Constant speed",
-      MultipleTwoSpeed
-      "Multiple fans (identical) - Two speed",
-      MultipleVariable
-      "Multiple fans (identical) - Variable speed")
-    "Enumeration to configure the fan";
-  type Location = enumeration(
-      OutdoorAir,
-      MinimumOutdoorAir,
-      Relief,
-      Return,
-      Supply,
-      Terminal)
-    "Enumeration to specify the equipment location";
-  type Valve = enumeration(
-      None "No valve",
-      Linear "Linear two-way valve",
-      EqualPercentage "Equal percentage two-way valve");
+      "Single pump - Variable speed")
+    "Enumeration to configure the pump";
   type Sensor = enumeration(
       DifferentialPressure
       "Differential pressure",
@@ -109,14 +101,6 @@ package Types "Generic types for template components"
       VolumeFlowRate
       "Volume flow rate")
     "Enumeration to configure the sensor";
-  type SensorDifferentialPressure = enumeration(
-      External
-      "Static pressure tips - In-duct and external",
-      Static
-      "Static pressure tips - In-duct",
-      Total
-      "Total pressure tubes - In-duct")
-    "Enumeration to configure the differential pressure sensor";
   type SensorTemperature = enumeration(
       Standard
       "Standard sensor",
@@ -124,5 +108,29 @@ package Types "Generic types for template components"
       "Averaging sensor",
       InWell
       "Sensor in well")
-    "Enumeration to configure the temperature sensor";
+    "Enumeration to specify the type of temperature sensor";
+  type SensorVolumeFlowRate = enumeration(
+      AFMS
+      "Airflow measuring station",
+      FlowCross
+      "Averaging sensor",
+      FlowMeter
+      "Flow meter")
+    "Enumeration to specify the type of volume flow rate sensor";
+  type Valve = enumeration(
+      None
+      "No valve",
+      PumpedCoilThreeWay
+      "Pumped coil with three-way valve",
+      PumpedCoilTwoWay
+      "Pumped coil with two-way valve",
+      ThreeWayModulating
+      "Three-way modulating valve",
+      ThreeWayTwoPosition
+      "Three-way two-position valve",
+      TwoWayModulating
+      "Two-way modulating valve",
+      TwoWayTwoPosition
+      "Two-way two-position valve")
+    "Enumeration to configure the valve";
 end Types;

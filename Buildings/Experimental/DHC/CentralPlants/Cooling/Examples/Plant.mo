@@ -5,27 +5,29 @@ model Plant
   package Medium=Buildings.Media.Water
     "Medium model for water";
   // chiller and cooling tower
-  parameter Buildings.Fluid.Chillers.Data.ElectricEIR.ElectricEIRChiller_York_YT_1055kW_5_96COP_Vanes perChi
+  replaceable parameter Buildings.Fluid.Chillers.Data.ElectricEIR.ElectricEIRChiller_York_YT_1055kW_5_96COP_Vanes perChi
     "Performance data of chiller";
-  parameter Modelica.SIunits.MassFlowRate mCHW_flow_nominal=18.3
+  parameter Modelica.Units.SI.MassFlowRate mCHW_flow_nominal=18.3
     "Nominal chilled water mass flow rate";
-  parameter Modelica.SIunits.MassFlowRate mCW_flow_nominal=34.7
+  parameter Modelica.Units.SI.MassFlowRate mCW_flow_nominal=34.7
     "Nominal condenser water mass flow rate";
-  parameter Modelica.SIunits.PressureDifference dpCHW_nominal=44.8*1000
+  parameter Modelica.Units.SI.PressureDifference dpCHW_nominal=44.8*1000
     "Nominal chilled water side pressure";
-  parameter Modelica.SIunits.PressureDifference dpCW_nominal=46.2*1000
+  parameter Modelica.Units.SI.PressureDifference dpCW_nominal=46.2*1000
     "Nominal condenser water side pressure";
-  parameter Modelica.SIunits.Power QChi_nominal=mCHW_flow_nominal*4200*(6.67-18.56)
-    "Nominal cooling capaciaty (Negative means cooling)";
-  parameter Modelica.SIunits.MassFlowRate mMin_flow=0.03
+  parameter Modelica.Units.SI.Power QChi_nominal=mCHW_flow_nominal*4200*(6.67
+       - 18.56) "Nominal cooling capaciaty (Negative means cooling)";
+  parameter Modelica.Units.SI.MassFlowRate mMin_flow=0.03
     "Minimum mass flow rate of single chiller";
+  parameter Modelica.Units.SI.TemperatureDifference dTApp=3
+    "Approach temperature";
+  parameter Modelica.Units.SI.Power PFan_nominal=5000 "Fan power";
   // control settings
-  parameter Modelica.SIunits.Pressure dpSetPoi=68900
+  parameter Modelica.Units.SI.Pressure dpSetPoi=68900
     "Differential pressure setpoint";
-  parameter Modelica.SIunits.Temperature TCHWSet=273.15+8
+  parameter Modelica.Units.SI.Temperature TCHWSet=273.15 + 8
     "Chilled water temperature setpoint";
-  parameter Modelica.SIunits.Time tWai=30
-    "Waiting time";
+  parameter Modelica.Units.SI.Time tWai=30 "Waiting time";
   // pumps
   parameter Buildings.Fluid.Movers.Data.Generic perCHWPum(
     pressure=Buildings.Fluid.Movers.BaseClasses.Characteristics.flowParameters(
@@ -37,15 +39,15 @@ model Plant
       V_flow=mCW_flow_nominal/1000*{0.2,0.6,1.0,1.2},
       dp=(dpCW_nominal+60000+6000)*{1.2,1.1,1.0,0.6}))
     "Performance data for condenser water pumps";
-  parameter Modelica.SIunits.Pressure dpCHWPumVal_nominal=6000
+  parameter Modelica.Units.SI.Pressure dpCHWPumVal_nominal=6000
     "Nominal pressure drop of chilled water pump valve";
-  parameter Modelica.SIunits.Pressure dpCWPumVal_nominal=6000
+  parameter Modelica.Units.SI.Pressure dpCWPumVal_nominal=6000
     "Nominal pressure drop of chilled water pump valve";
-  parameter Modelica.SIunits.PressureDifference dpCooTowVal_nominal=6000
-   "Nominal pressure difference of the cooling tower valve";
-  Buildings.Experimental.DHC.CentralPlants.Cooling.Plant pla(
+  parameter Modelica.Units.SI.PressureDifference dpCooTowVal_nominal=6000
+    "Nominal pressure difference of the cooling tower valve";
+  replaceable Buildings.Experimental.DHC.CentralPlants.Cooling.Plant pla(
     perChi=perChi,
-    dTApp=3,
+    dTApp=dTApp,
     perCHWPum=perCHWPum,
     perCWPum=perCWPum,
     mCHW_flow_nominal=mCHW_flow_nominal,
@@ -58,7 +60,7 @@ model Plant
     TCW_nominal=308.15,
     dT_nominal=5.56,
     TMin=288.15,
-    PFan_nominal=5000,
+    PFan_nominal=PFan_nominal,
     dpCooTowVal_nominal=dpCooTowVal_nominal,
     dpCHWPumVal_nominal=dpCHWPumVal_nominal,
     dpCWPumVal_nominal=dpCWPumVal_nominal,
@@ -101,7 +103,7 @@ model Plant
     annotation (Placement(transformation(extent={{60,-50},{40,-30}})));
   Modelica.Blocks.Sources.Sine loaVar(
     amplitude=913865,
-    freqHz=1/126900,
+    f=1/126900,
     offset=913865,
     startTime(displayUnit="h") = 21600) "Variable demand load"
     annotation (Placement(transformation(extent={{-60,60},{-40,80}})));
@@ -159,6 +161,10 @@ Buildings.Experimental.DHC.CentralPlants.Cooling.Plant</a>.
 </html>",
       revisions="<html>
 <ul>
+<li>
+October 20, 2021, by Chengnan Shi:<br/>
+Revised the model for extensibility. This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2749\">issue #2749</a>.
+</li>
 <li>
 August 6, 2020 by Jing Wang:<br/>
 First implementation.

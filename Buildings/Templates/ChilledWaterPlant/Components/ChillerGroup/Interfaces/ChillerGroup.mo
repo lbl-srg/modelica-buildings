@@ -7,7 +7,7 @@ partial model ChillerGroup
 //     final hasMedium2=true);
 
   parameter Boolean is_airCoo
-    "= true, chillers in group are air cooled, 
+    "= true, chillers in group are air cooled,
     = false, chillers in group are water cooled";
   parameter Boolean has_dedPum "Parallel chillers are connected to dedicated pumps";
 
@@ -72,31 +72,31 @@ partial model ChillerGroup
         rotation=270,
         origin={-60,-100})));
 
-  parameter Modelica.SIunits.MassFlowRate m1_flow_nominal(min=0)
+  parameter Modelica.Units.SI.MassFlowRate m1_flow_nominal(min=0)
     "Nominal mass flow rate"
     annotation(Dialog(group = "Nominal condition", enable=not is_airCoo));
-  parameter Modelica.SIunits.MassFlowRate m2_flow_nominal(min=0)
+  parameter Modelica.Units.SI.MassFlowRate m2_flow_nominal(min=0)
     "Nominal mass flow rate"
     annotation(Dialog(group = "Nominal condition"));
 
 
-  parameter Modelica.SIunits.PressureDifference dp1_nominal=
+  parameter Modelica.Units.SI.PressureDifference dp1_nominal=
     if is_airCoo then 0
     else dat.getReal(varName=id + ".ChillerGroup.dpCW_nominal.value")
     "Pressure difference"
     annotation(Dialog(group = "Nominal condition", enable=not is_airCoo));
-  parameter Modelica.SIunits.PressureDifference dp2_nominal=
+  parameter Modelica.Units.SI.PressureDifference dp2_nominal=
     dat.getReal(varName=id + ".ChillerGroup.dpCHW_nominal.value")
     "Pressure difference"
     annotation(Dialog(group = "Nominal condition"));
 
-  parameter Modelica.SIunits.PressureDifference dpValve_nominal=
+  parameter Modelica.Units.SI.PressureDifference dpValve_nominal=
     if has_dedPum then 0
     else dat.getReal(varName=id + ".ChillerGroup.dpValve_nominal.value")
     "Nominal pressure drop of chiller valves"
     annotation(Dialog(group = "Nominal condition"));
 
-  final parameter Modelica.SIunits.PressureDifference dpCHW_nominal=
+  final parameter Modelica.Units.SI.PressureDifference dpCHW_nominal=
     dp2_nominal + dpValve_nominal
     "Total nominal pressure drop on chilled water side";
 
@@ -116,10 +116,10 @@ partial model ChillerGroup
         rotation=0,
         origin={0,100})));
 
-  parameter Modelica.SIunits.Power Q_nominal=
+  parameter Modelica.Units.SI.Power Q_nominal=
     dat.getReal(varName=id + ".ChillerGroup.Q_nominal.value");
 
-  parameter Modelica.SIunits.Temperature TCHWSet=
+  parameter Modelica.Units.SI.Temperature TCHWSet=
     dat.getReal(varName=id + ".ChillerGroup.TCHWSet.value");
 
   replaceable parameter Buildings.Fluid.Chillers.Data.BaseClasses.Chiller

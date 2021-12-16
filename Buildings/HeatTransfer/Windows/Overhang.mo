@@ -3,7 +3,7 @@ model Overhang
   "For a window with an overhang, outputs the fraction of the window area exposed to the sun"
   extends Buildings.ThermalZones.Detailed.BaseClasses.Overhang;
   extends Buildings.HeatTransfer.Windows.BaseClasses.PartialShade_weatherBus;
-  parameter Modelica.SIunits.Angle azi(displayUnit="deg")
+  parameter Modelica.Units.SI.Angle azi(displayUnit="deg")
     "Surface azimuth; azi= -90 degree East; azi= 0 South";
   // Overhang dimensions
 protected

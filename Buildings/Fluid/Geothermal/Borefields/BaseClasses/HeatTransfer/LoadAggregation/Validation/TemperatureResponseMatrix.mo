@@ -3,8 +3,8 @@ model TemperatureResponseMatrix
   "This validation case test the calculation, writing and reading of the temperature step response"
   extends Modelica.Icons.Example;
 
-  parameter Modelica.SIunits.Time timSer[26+50,2]=
-    Buildings.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.LoadAggregation.temperatureResponseMatrix(
+  parameter Modelica.Units.SI.Time timSer[26 + 50,2]=
+      Buildings.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.LoadAggregation.temperatureResponseMatrix(
       nBor=1,
       cooBor={{0,0}},
       hBor=150,
@@ -15,11 +15,11 @@ model TemperatureResponseMatrix
       nSeg=12,
       nTimSho=26,
       nTimLon=50,
-      nTimTot=26+50,
+      nTimTot=26 + 50,
       ttsMax=exp(5),
       sha="TemperatureResponseMatrix_validation",
       forceGFunCalc=true) "Resulting temperature response matrix";
-  Modelica.SIunits.ThermalResistance TStep "Temperature step response";
+  Modelica.Units.SI.ThermalResistance TStep "Temperature step response";
 
 equation
   TStep = Modelica.Math.Vectors.interpolate(timSer[:,1],timSer[:,2],time);

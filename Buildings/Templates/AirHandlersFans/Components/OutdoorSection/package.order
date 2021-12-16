@@ -1,5 +1,5 @@
-DedicatedDamperAirflow
-DedicatedDamperPressure
+DedicatedDampersAirflow
+DedicatedDampersPressure
 NoEconomizer
 SingleDamper
 Interfaces

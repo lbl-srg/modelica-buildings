@@ -3,7 +3,9 @@ model ControlsGuideline36Pressure "Return fan control based on direct building p
   extends ControlsGuideline36(
     redeclare UserProject.AHUs.ControlsGuideline36Pressure ahu);
 
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
+  annotation (
+    experiment(Tolerance=1e-6, StopTime=1),
+    Icon(coordinateSystem(preserveAspectRatio=false)),
+    Diagram(
         coordinateSystem(preserveAspectRatio=false)));
-
 end ControlsGuideline36Pressure;

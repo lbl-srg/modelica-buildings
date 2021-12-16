@@ -4,7 +4,7 @@ model Headered
     Buildings.Templates.ChilledWaterPlant.Components.PrimaryPumpGroup.Interfaces.PrimaryPumpGroup(
     final typ=Buildings.Templates.ChilledWaterPlant.Components.Types.PrimaryPumpGroup.Headered);
 
-  parameter Modelica.SIunits.PressureDifference dpWSEByp_nominal=
+  parameter Modelica.Units.SI.PressureDifference dpWSEByp_nominal=
     if has_WSEByp then dat.getReal(varName=id + ".WatersideEconomizer.dpByp_nominal.value")
     else 0;
 
@@ -22,12 +22,10 @@ model Headered
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={80,0})));
-  Fluid.Actuators.Valves.TwoWayLinear valByp(
+  Buildings.Templates.Components.Valves.TwoWayModulating valByp(
     redeclare final package Medium = Medium,
     final m_flow_nominal=mTot_flow_nominal,
-    final dpValve_nominal=dpByp_nominal)
-      if has_byp "Bypass valve"
-    annotation (
+    final dpValve_nominal=dpByp_nominal) if has_byp "Bypass valve" annotation (
       Placement(transformation(
         extent={{-10,10},{10,-10}},
         rotation=270,
@@ -41,19 +39,19 @@ model Headered
     final dpValve_nominal=dpValve_nominal)
     "Primary pumps"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
-  Fluid.Actuators.Valves.TwoWayLinear valWSEByp(
-    redeclare final package Medium = Medium, final m_flow_nominal=
-        m_flow_nominal,
-    final dpValve_nominal=dpWSEByp_nominal)
-                        if has_WSEByp
+  Buildings.Templates.Components.Valves.TwoWayTwoPosition valWSEByp(
+    redeclare final package Medium = Medium,
+    final m_flow_nominal=m_flow_nominal,
+    final dpValve_nominal=dpWSEByp_nominal) if has_WSEByp
     "Waterside Economizer bypass valve" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-70,-60})));
   Buildings.Templates.Components.Sensors.VolumeFlowRate V_flow(
     redeclare final package Medium = Medium,
-    have_sen=has_floSen,
-    final m_flow_nominal=m_flow_nominal)
+    final have_sen=has_floSen,
+    final m_flow_nominal=m_flow_nominal,
+    final typ=Buildings.Templates.Components.Types.SensorVolumeFlowRate.FlowMeter)
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
 
   Buildings.Templates.BaseClasses.PassThroughFluid pas(redeclare each final
@@ -64,8 +62,10 @@ model Headered
         origin={80,-60})));
   Buildings.Templates.Components.Sensors.VolumeFlowRate VComLeg_flow(
     redeclare final package Medium = Medium,
-    have_sen=has_comLegFloSen,
-    final m_flow_nominal=m_flow_nominal) if has_comLeg
+    final have_sen=has_comLegFloSen,
+    final m_flow_nominal=m_flow_nominal,
+    final typ=Buildings.Templates.Components.Types.SensorVolumeFlowRate.FlowMeter)
+    if has_comLeg
     "Common leg volume flow rate"
     annotation (Placement(transformation(extent={{20,-90},{40,-70}})));
 protected
@@ -73,11 +73,15 @@ protected
   parameter Integer nPorChi = if has_ParChi then nChi else 1;
   parameter Integer nPorVol = nPorWSE + nPorChi + 1;
 equation
+  /* Control point connection - start */
+  connect(valWSEByp.bus, busCon.valWSEByp);
+  connect(valByp.bus, busCon.valByp);
+  /* Control point connection - end */
+
   connect(splByp.port_2, port_b)
     annotation (Line(points={{90,0},{100,0}}, color={0,127,255}));
-  connect(splByp.port_3, valByp.port_a) annotation (Line(points={{80,-10},{80,
-          -30},{1.77636e-15,-30},{1.77636e-15,-40}},
-                                                color={0,127,255}));
+  connect(splByp.port_3, valByp.port_a) annotation (Line(points={{80,-10},{80,-30},
+          {1.77636e-15,-30},{1.77636e-15,-40}}, color={0,127,255}));
   connect(valByp.port_b, port_byp)
     annotation (Line(points={{-1.83187e-15,-60},{0,-100}}, color={0,127,255}));
   connect(pum.y_actual, busCon.uStaPumPri) annotation (Line(points={{11,8},{20,8},
@@ -86,33 +90,17 @@ equation
       index=1,
       extent={{-6,3},{-6,3}},
       horizontalAlignment=TextAlignment.Right));
-  connect(busCon.yValByp, valByp.y) annotation (Line(
-      points={{0,100},{0,80},{-20,80},{-20,-50},{-12,-50}},
-      color={255,204,51},
-      thickness=0.5), Text(
-      string="%first",
-      index=-1,
-      extent={{-6,3},{-6,3}},
-      horizontalAlignment=TextAlignment.Right));
 
-  connect(del.ports[1],pum.port_a) annotation (Line(points={{-40,40},{-40,40},{
-          -40,0},{-10,0}}, color={0,127,255}));
+  connect(del.ports[1],pum.port_a) annotation (Line(points={{-40,40},{-42,40},{
+          -42,0},{-10,0}}, color={0,127,255}));
   connect(del.ports[2],port_series) annotation (Line(points={{-40,40},{-40,20},
           {-60,20},{-60,60},{-100,60}},         color={0,127,255}));
   connect(del.ports[2:(nChi+1)],ports_parallel) annotation (Line(points={{-40,40},
           {-40,40},{-40,0},{-100,0}}, color={0,127,255}));
-  connect(del.ports[nPorVol],valWSEByp.port_b) annotation (Line(points={{-40,40},
+  connect(del.ports[nPorVol], valWSEByp.port_b) annotation (Line(points={{-40,40},
           {-40,40},{-40,-60},{-60,-60}}, color={0,127,255}));
   connect(port_WSEByp, valWSEByp.port_a)
     annotation (Line(points={{-100,-60},{-80,-60}}, color={0,127,255}));
-  connect(busCon.yValWSEByp, valWSEByp.y) annotation (Line(
-      points={{0,100},{0,80},{-70,80},{-70,-48}},
-      color={255,204,51},
-      thickness=0.5), Text(
-      string="%first",
-      index=-1,
-      extent={{-3,6},{-3,6}},
-      horizontalAlignment=TextAlignment.Right));
   connect(pum.port_b, V_flow.port_a)
     annotation (Line(points={{10,0},{40,0}}, color={0,127,255}));
   connect(V_flow.port_b, splByp.port_1)

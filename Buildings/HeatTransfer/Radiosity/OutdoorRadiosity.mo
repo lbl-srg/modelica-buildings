@@ -1,16 +1,16 @@
 within Buildings.HeatTransfer.Radiosity;
 model OutdoorRadiosity
   "Model for the outdoor radiosity that strikes the window"
-  parameter Modelica.SIunits.Area A "Area of receiving surface";
+  parameter Modelica.Units.SI.Area A "Area of receiving surface";
   parameter Real vieFacSky(final min=0, final max=1)
     "View factor from receiving surface to sky (=1 for roofs)";
   parameter Boolean linearize=false "Set to true to linearize emissive power"
     annotation (Evaluate=true);
-  parameter Modelica.SIunits.Temperature T0=293.15
+  parameter Modelica.Units.SI.Temperature T0=293.15
     "Temperature used to linearize radiative heat transfer"
     annotation (Dialog(enable=linearize));
   Real TRad4(unit="K4") "4th power of the mean outdoor temperature";
-  Modelica.SIunits.Temperature TRad "Mean radiant temperature";
+  Modelica.Units.SI.Temperature TRad "Mean radiant temperature";
 
   Modelica.Blocks.Interfaces.RealInput TOut(
     final quantity="ThermodynamicTemperature",
@@ -44,11 +44,11 @@ equation
     Icon(graphics={
         Text(
           extent={{-96,-10},{-54,-52}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="TOut"),
         Text(
           extent={{64,16},{94,-12}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="J"),
         Line(
           points={{6,-36},{28,-8},{20,-8},{28,-8},{28,-16},{28,-16}},
@@ -84,10 +84,10 @@ equation
         Text(
           extent={{-150,142},{150,102}},
           textString="%name",
-          lineColor={0,0,255}),
+          textColor={0,0,255}),
         Text(
           extent={{-96,72},{-54,30}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="TBlaSky")}),
     defaultComponentName="radOut",
     Documentation(info="<html>

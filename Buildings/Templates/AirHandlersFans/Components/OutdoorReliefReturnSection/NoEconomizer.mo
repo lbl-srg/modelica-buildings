@@ -15,8 +15,8 @@ model NoEconomizer "No air economizer"
 
   Buildings.Templates.AirHandlersFans.Components.OutdoorSection.NoEconomizer secOut(
     redeclare final package MediumAir = MediumAir,
-    final m_flow_nominal=mSup_flow_nominal,
-    final mOutMin_flow_nominal=mOutMin_flow_nominal,
+    final m_flow_nominal=mAirSup_flow_nominal,
+    final mOutMin_flow_nominal=mAirOutMin_flow_nominal,
     final dpDamOut_nominal=dpDamOut_nominal,
     final dpDamOutMin_nominal=dpDamOutMin_nominal)
     "Outdoor air section"
@@ -25,7 +25,7 @@ model NoEconomizer "No air economizer"
     Placement(transformation(extent={{-58,-94},{-22,-66}})));
   Buildings.Templates.AirHandlersFans.Components.ReliefReturnSection.NoEconomizer secRel(
     redeclare final package MediumAir = MediumAir,
-    final m_flow_nominal=mRet_flow_nominal,
+    final m_flow_nominal=mAirRet_flow_nominal,
     final dpDamRel_nominal=dpDamRel_nominal,
     final dpFan_nominal=dpFan_nominal)
     "Relief/return air section"
@@ -42,8 +42,8 @@ model NoEconomizer "No air economizer"
     annotation (
       Placement(transformation(extent={{-90,-10},{-70,10}})));
 equation
-  /* Hardware point connection - start */
-  /* Hardware point connection - end */
+  /* Control point connection - start */
+  /* Control point connection - end */
   connect(port_Rel, secRel.port_b)
     annotation (Line(points={{-180,80},{-18,80}}, color={0,127,255}));
   connect(secRel.port_a, port_Ret)
@@ -60,8 +60,8 @@ equation
       points={{-40,-66},{-40,120},{0,120},{0,140}},
       color={255,204,51},
       thickness=0.5));
-  connect(secRel.port_bPre, port_bPre) annotation (Line(points={{8,66},{8,40},
-          {80,40},{80,140}},              color={0,127,255}));
+  connect(secRel.port_bPre, port_bPre) annotation (Line(points={{8,66},{8,60},{80,
+          60},{80,140}},                  color={0,127,255}));
   connect(recHea.bus, bus) annotation (Line(
       points={{-80,10},{-80,120},{0,120},{0,140}},
       color={255,204,51},

@@ -9,14 +9,14 @@ expandable connector Bus "Main control bus"
       "Return fan points"
       annotation (HideResult=false);
 
-    Templates.Components.Interfaces.Bus coiHea
-      "Heating coil points"
+    Templates.Components.Interfaces.Bus coiHeaPre
+      "Heating coil (preheat position)points"
       annotation (HideResult=false);
     Templates.Components.Interfaces.Bus coiCoo
       "Cooling coil points"
       annotation (HideResult=false);
-    Templates.Components.Interfaces.Bus coiReh
-      "Reheat coil points"
+    Templates.Components.Interfaces.Bus coiHeaReh
+      "Heating coil (reheat position) points"
       annotation (HideResult=false);
 
     Templates.Components.Interfaces.Bus damOut

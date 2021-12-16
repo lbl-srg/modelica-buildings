@@ -1,8 +1,8 @@
 within Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses;
 block SpeedShift "Interpolates values between speeds"
   parameter Integer nSta "Number of standard compressor speeds";
-  parameter Modelica.SIunits.AngularVelocity speSet[nSta](each displayUnit="1/min")
-    "Compressor speeds";
+  parameter Modelica.Units.SI.AngularVelocity speSet[nSta](each displayUnit=
+        "1/min") "Compressor speeds";
   constant Boolean variableSpeedCoil "Flag, set to true to interpolate data";
 
   Modelica.Blocks.Interfaces.RealInput speRat "Speed ratio"
@@ -59,7 +59,7 @@ First implementation.
         extent={{-100,-100},{100,100}},
         grid={1,1}), graphics={
         Text(extent={{-120,140},{120,100}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%name"),
         Ellipse(
           extent={{-70,68},{70,-72}},

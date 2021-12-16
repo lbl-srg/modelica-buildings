@@ -26,9 +26,8 @@ model CFD
   parameter Boolean useCFD = true
     "Set to false to deactivate the CFD computation and use instead yFixed as output"
     annotation(Dialog(group = "CFD"), Evaluate = true);
-  parameter Modelica.SIunits.Time samplePeriod(min=100*Modelica.Constants.eps)
-    "Sample period of component"
-    annotation(Dialog(group = "Sampling"));
+  parameter Modelica.Units.SI.Time samplePeriod(min=100*Modelica.Constants.eps)
+    "Sample period of component" annotation (Dialog(group="Sampling"));
   parameter Real uSha_fixed[nConExtWin] = zeros(nConExtWin)
     "Constant control signal for the shading device (0: unshaded; 1: fully shaded)";
   parameter String sensorName[:]
@@ -103,19 +102,19 @@ equation
           fileName="modelica://Buildings/Resources/Images/ThermalZones/Detailed/cfd.png"),
         Text(
           extent={{162,98},{196,140}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="yCFD"),
         Text(
           extent={{-86,-14},{0,16}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="air"),
         Text(
           extent={{-102,-50},{-22,-26}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="radiation"),
         Text(
           extent={{-114,-134},{-36,-116}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="surface")}),
     Documentation(info="<html>
 <p>

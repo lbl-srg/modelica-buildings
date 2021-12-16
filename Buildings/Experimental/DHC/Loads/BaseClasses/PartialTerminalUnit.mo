@@ -55,58 +55,53 @@ partial model PartialTerminalUnit
   parameter Boolean have_pum=false
     "Set to true if pump power is computed"
     annotation (Evaluate=true, Dialog(group="Configuration"));
-  parameter Modelica.SIunits.HeatFlowRate QHea_flow_nominal(
-    min=0)=0
+  parameter Modelica.Units.SI.HeatFlowRate QHea_flow_nominal(min=0) = 0
     "Nominal heating capacity (>=0)"
-    annotation (Dialog(group="Nominal condition",enable=have_heaWat));
-  parameter Modelica.SIunits.HeatFlowRate QCoo_flow_nominal(
-    max=0)=0
+    annotation (Dialog(group="Nominal condition", enable=have_heaWat));
+  parameter Modelica.Units.SI.HeatFlowRate QCoo_flow_nominal(max=0) = 0
     "Nominal cooling capacity (<=0)"
-    annotation (Dialog(group="Nominal condition",enable=have_chiWat));
-  parameter Modelica.SIunits.MassFlowRate mHeaWat_flow_nominal(
-    min=0)=0
+    annotation (Dialog(group="Nominal condition", enable=have_chiWat));
+  parameter Modelica.Units.SI.MassFlowRate mHeaWat_flow_nominal(min=0) = 0
     "Heating water mass flow rate at nominal conditions"
-    annotation (Dialog(group="Nominal condition",enable=have_heaWat));
-  parameter Modelica.SIunits.MassFlowRate mChiWat_flow_nominal(
-    min=0)=0
+    annotation (Dialog(group="Nominal condition", enable=have_heaWat));
+  parameter Modelica.Units.SI.MassFlowRate mChiWat_flow_nominal(min=0) = 0
     "Chilled water mass flow rate at nominal conditions"
-    annotation (Dialog(group="Nominal condition",enable=have_chiWat));
-  parameter Modelica.SIunits.MassFlowRate mLoaHea_flow_nominal(
-    min=0)=0
+    annotation (Dialog(group="Nominal condition", enable=have_chiWat));
+  parameter Modelica.Units.SI.MassFlowRate mLoaHea_flow_nominal(min=0) = 0
     "Load side mass flow rate at nominal conditions in heating mode"
-    annotation (Dialog(group="Nominal condition",enable=have_heaWat));
-  parameter Modelica.SIunits.MassFlowRate mLoaCoo_flow_nominal(
-    min=0)=0
+    annotation (Dialog(group="Nominal condition", enable=have_heaWat));
+  parameter Modelica.Units.SI.MassFlowRate mLoaCoo_flow_nominal(min=0) = 0
     "Load side mass flow rate at nominal conditions in cooling mode"
-    annotation (Dialog(group="Nominal condition",enable=have_chiWat));
+    annotation (Dialog(group="Nominal condition", enable=have_chiWat));
   // AHRI 440 Standard Heating
-  parameter Modelica.SIunits.Temperature T_aHeaWat_nominal=273.15 + 60
-    "Heating water inlet temperature at nominal conditions"
-    annotation (Dialog(group="Nominal condition",enable=have_heaWat and not have_chaOve));
-  parameter Modelica.SIunits.Temperature T_bHeaWat_nominal(
+  parameter Modelica.Units.SI.Temperature T_aHeaWat_nominal=273.15 + 60
+    "Heating water inlet temperature at nominal conditions" annotation (Dialog(
+        group="Nominal condition", enable=have_heaWat and not have_chaOve));
+  parameter Modelica.Units.SI.Temperature T_bHeaWat_nominal(
     min=273.15,
-    displayUnit="degC")=T_aHeaWat_nominal-22.2
-    "Heating water outlet temperature at nominal conditions"
-    annotation (Dialog(group="Nominal condition",enable=have_heaWat and not have_chaOve));
+    displayUnit="degC") = T_aHeaWat_nominal - 22.2
+    "Heating water outlet temperature at nominal conditions" annotation (Dialog(
+        group="Nominal condition", enable=have_heaWat and not have_chaOve));
   // AHRI 440 Standard Cooling
-  parameter Modelica.SIunits.Temperature T_aChiWat_nominal=273.15 + 7.2
+  parameter Modelica.Units.SI.Temperature T_aChiWat_nominal=273.15 + 7.2
     "Chilled water inlet temperature at nominal conditions "
-    annotation (Dialog(group="Nominal condition",enable=have_chiWat));
-  parameter Modelica.SIunits.Temperature T_bChiWat_nominal(
+    annotation (Dialog(group="Nominal condition", enable=have_chiWat));
+  parameter Modelica.Units.SI.Temperature T_bChiWat_nominal(
     min=273.15,
-    displayUnit="degC")=T_aChiWat_nominal+5.6
+    displayUnit="degC") = T_aChiWat_nominal + 5.6
     "Chilled water outlet temperature at nominal conditions"
-    annotation (Dialog(group="Nominal condition",enable=have_chiWat));
-  parameter Modelica.SIunits.Temperature T_aLoaHea_nominal=273.15 + 21.1
+    annotation (Dialog(group="Nominal condition", enable=have_chiWat));
+  parameter Modelica.Units.SI.Temperature T_aLoaHea_nominal=273.15 + 21.1
     "Load side inlet temperature at nominal conditions in heating mode"
-    annotation (Dialog(group="Nominal condition",enable=have_heaWat and not have_chaOve));
-  parameter Modelica.SIunits.Temperature T_aLoaCoo_nominal=273.15 + 26.7
+    annotation (Dialog(group="Nominal condition", enable=have_heaWat and not
+          have_chaOve));
+  parameter Modelica.Units.SI.Temperature T_aLoaCoo_nominal=273.15 + 26.7
     "Load side inlet temperature at nominal conditions in cooling mode"
-    annotation (Dialog(group="Nominal condition",enable=have_chiWat));
+    annotation (Dialog(group="Nominal condition", enable=have_chiWat));
 
-  parameter Modelica.SIunits.MassFraction w_aLoaCoo_nominal=0.011
+  parameter Modelica.Units.SI.MassFraction w_aLoaCoo_nominal=0.011
     "Load side inlet humidity ratio at nominal conditions in cooling mode"
-    annotation (Dialog(group="Nominal condition",enable=have_chiWat));
+    annotation (Dialog(group="Nominal condition", enable=have_chiWat));
   // IO connectors
   Modelica.Blocks.Interfaces.RealInput TSen(
     final quantity="ThermodynamicTemperature",
@@ -383,29 +378,21 @@ partial model PartialTerminalUnit
         facMul)     if have_heaPor "Radiative heat flow rate multiplier"
     annotation (Placement(transformation(extent={{160,-50},{180,-30}})));
 protected
-  parameter Modelica.SIunits.SpecificHeatCapacity cpHeaWat_nominal=
-    Medium1.specificHeatCapacityCp(
-      Medium1.setState_pTX(
-        Medium1.p_default,
-        T_aHeaWat_nominal))
+  parameter Modelica.Units.SI.SpecificHeatCapacity cpHeaWat_nominal=
+      Medium1.specificHeatCapacityCp(Medium1.setState_pTX(Medium1.p_default,
+      T_aHeaWat_nominal))
     "Heating water specific heat capacity at nominal conditions";
-  parameter Modelica.SIunits.SpecificHeatCapacity cpChiWat_nominal=
-    Medium1.specificHeatCapacityCp(
-      Medium1.setState_pTX(
-        Medium1.p_default,
-        T_aChiWat_nominal))
+  parameter Modelica.Units.SI.SpecificHeatCapacity cpChiWat_nominal=
+      Medium1.specificHeatCapacityCp(Medium1.setState_pTX(Medium1.p_default,
+      T_aChiWat_nominal))
     "Chilled water specific heat capacity at nominal conditions";
-  parameter Modelica.SIunits.SpecificHeatCapacity cpLoaHea_nominal=
-    Medium2.specificHeatCapacityCp(
-      Medium2.setState_pTX(
-        Medium2.p_default,
-        T_aLoaHea_nominal))
+  parameter Modelica.Units.SI.SpecificHeatCapacity cpLoaHea_nominal=
+      Medium2.specificHeatCapacityCp(Medium2.setState_pTX(Medium2.p_default,
+      T_aLoaHea_nominal))
     "Load side fluid specific heat capacity at nominal conditions in heating mode";
-  parameter Modelica.SIunits.SpecificHeatCapacity cpLoaCoo_nominal=
-    Medium2.specificHeatCapacityCp(
-      Medium2.setState_pTX(
-        Medium2.p_default,
-        T_aLoaCoo_nominal))
+  parameter Modelica.Units.SI.SpecificHeatCapacity cpLoaCoo_nominal=
+      Medium2.specificHeatCapacityCp(Medium2.setState_pTX(Medium2.p_default,
+      T_aLoaCoo_nominal))
     "Load side fluid specific heat capacity at nominal conditions in cooling mode";
 equation
   connect(QReqHea_flow,mulQReqHea_flow.u)
@@ -637,7 +624,7 @@ First implementation.
           fillPattern=FillPattern.Solid),
         Text(
           extent={{-150,-130},{150,-170}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%name"),
         Ellipse(
           extent={{-100,100},{100,-100}},

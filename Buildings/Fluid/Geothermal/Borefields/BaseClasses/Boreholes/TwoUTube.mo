@@ -167,10 +167,10 @@ equation
         grid={2,2},
         initialScale=0.5), graphics={Text(
           extent={{60,72},{84,58}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString=""), Text(
           extent={{50,-32},{90,-38}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="")}),
     Documentation(info="<html>
 <p>

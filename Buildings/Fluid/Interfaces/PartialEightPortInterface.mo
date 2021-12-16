@@ -2,18 +2,14 @@ within Buildings.Fluid.Interfaces;
 partial model PartialEightPortInterface
   "Partial model transporting fluid between eight ports without storing mass or energy"
   extends Buildings.Fluid.Interfaces.EightPort;
-  parameter Modelica.SIunits.MassFlowRate m1_flow_nominal(min=0)
-    "Nominal mass flow rate"
-    annotation(Dialog(group = "Nominal condition"));
-  parameter Modelica.SIunits.MassFlowRate m2_flow_nominal(min=0)
-    "Nominal mass flow rate"
-    annotation(Dialog(group = "Nominal condition"));
-    parameter Modelica.SIunits.MassFlowRate m3_flow_nominal(min=0)
-    "Nominal mass flow rate"
-    annotation(Dialog(group = "Nominal condition"));
-  parameter Modelica.SIunits.MassFlowRate m4_flow_nominal(min=0)
-    "Nominal mass flow rate"
-    annotation(Dialog(group = "Nominal condition"));
+  parameter Modelica.Units.SI.MassFlowRate m1_flow_nominal(min=0)
+    "Nominal mass flow rate" annotation (Dialog(group="Nominal condition"));
+  parameter Modelica.Units.SI.MassFlowRate m2_flow_nominal(min=0)
+    "Nominal mass flow rate" annotation (Dialog(group="Nominal condition"));
+  parameter Modelica.Units.SI.MassFlowRate m3_flow_nominal(min=0)
+    "Nominal mass flow rate" annotation (Dialog(group="Nominal condition"));
+  parameter Modelica.Units.SI.MassFlowRate m4_flow_nominal(min=0)
+    "Nominal mass flow rate" annotation (Dialog(group="Nominal condition"));
 
   parameter Medium1.MassFlowRate m1_flow_small(min=0) = 1E-4*abs(m1_flow_nominal)
     "Small mass flow rate for regularization of zero flow"
@@ -36,20 +32,20 @@ partial model PartialEightPortInterface
       HideResult=true);
   Medium1.MassFlowRate m1_flow = port_a1.m_flow
     "Mass flow rate from port_a1 to port_b1 (m1_flow > 0 is design flow direction)";
-  Modelica.SIunits.Pressure dp1(displayUnit="Pa")
+  Modelica.Units.SI.Pressure dp1(displayUnit="Pa")
     "Pressure difference between port_a1 and port_b1";
   Medium2.MassFlowRate m2_flow = port_a2.m_flow
     "Mass flow rate from port_a2 to port_b2 (m2_flow > 0 is design flow direction)";
-  Modelica.SIunits.Pressure dp2(displayUnit="Pa")
+  Modelica.Units.SI.Pressure dp2(displayUnit="Pa")
     "Pressure difference between port_a2 and port_b2";
 
   Medium3.MassFlowRate m3_flow = port_a3.m_flow
     "Mass flow rate from port_a3 to port_b3 (m3_flow > 0 is design flow direction)";
-  Modelica.SIunits.Pressure dp3(displayUnit="Pa")
+  Modelica.Units.SI.Pressure dp3(displayUnit="Pa")
     "Pressure difference between port_a3 and port_b3";
   Medium4.MassFlowRate m4_flow = port_a4.m_flow
     "Mass flow rate from port_a4 to port_b4 (m4_flow > 0 is design flow direction)";
-  Modelica.SIunits.Pressure dp4(displayUnit="Pa")
+  Modelica.Units.SI.Pressure dp4(displayUnit="Pa")
     "Pressure difference between port_a4 and port_b4";
 
   Medium1.ThermodynamicState sta_a1=

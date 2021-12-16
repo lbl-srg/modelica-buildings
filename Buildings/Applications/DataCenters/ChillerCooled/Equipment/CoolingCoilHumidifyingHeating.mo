@@ -14,39 +14,42 @@ model CoolingCoilHumidifyingHeating
     annotation(Dialog(group="Valve"));
 
   // Parameters for electric heater
-  parameter Modelica.SIunits.Time tauEleHea = 10
+  parameter Modelica.Units.SI.Time tauEleHea=10
     "Time constant at nominal flow for electric heater (if energyDynamics <> SteadyState)"
-     annotation (Dialog(tab = "Dynamics", group="Electric heater",
-       enable=not (energyDynamics==Modelica.Fluid.Types.Dynamics.SteadyState)));
-  parameter Modelica.SIunits.Efficiency etaHea = 1.0
-   "Efficiency of electrical heater"
+    annotation (Dialog(
+      tab="Dynamics",
+      group="Electric heater",
+      enable=not (energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState)));
+  parameter Modelica.Units.SI.Efficiency etaHea=1.0
+    "Efficiency of electrical heater"
     annotation (Dialog(group="Electric heater"));
-  parameter Modelica.SIunits.HeatFlowRate QHeaMax_flow(min=0)
+  parameter Modelica.Units.SI.HeatFlowRate QHeaMax_flow(min=0)
     "Nominal heating capacity of eletric heater,positive"
     annotation (Dialog(group="Electric heater"));
   // Parameters for humidifier
-  parameter Modelica.SIunits.MassFlowRate mWatMax_flow(min=0)
+  parameter Modelica.Units.SI.MassFlowRate mWatMax_flow(min=0)
     "Nominal humidification capacity for humidifier, positive for humidification"
-    annotation (Dialog(tab="General",group="Humidifier"));
-  parameter Modelica.SIunits.Temperature THum = 293.15
+    annotation (Dialog(tab="General", group="Humidifier"));
+  parameter Modelica.Units.SI.Temperature THum=293.15
     "Temperature of water that is added to the fluid stream by the humidifier"
     annotation (Dialog(group="Humidifier"));
-  parameter Modelica.SIunits.Time tauHum = 10
+  parameter Modelica.Units.SI.Time tauHum=10
     "Time constant at nominal flow for humidifier(if energyDynamics <> SteadyState)"
-     annotation (Dialog(tab = "Dynamics", group="Humidifier",
-       enable=not (energyDynamics==Modelica.Fluid.Types.Dynamics.SteadyState)));
+    annotation (Dialog(
+      tab="Dynamics",
+      group="Humidifier",
+      enable=not (energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState)));
 
   // parameters for heater controller
   parameter Real yValSwi(min=0, max=1, unit="1")
     "Switch point for valve signal";
   parameter Real yValDeaBan(min=0, max=1, unit="1")=0.1
     "Deadband for valve signal";
-  parameter Modelica.SIunits.TemperatureDifference dTSwi=0
+  parameter Modelica.Units.SI.TemperatureDifference dTSwi=0
     "Switch point for temperature difference";
-  parameter Modelica.SIunits.TemperatureDifference dTDeaBan=0.5
+  parameter Modelica.Units.SI.TemperatureDifference dTDeaBan=0.5
     "Deadband for temperature difference";
-  parameter Modelica.SIunits.Time tWai=60
-    "Waiting time";
+  parameter Modelica.Units.SI.Time tWai=60 "Waiting time";
 
   Modelica.Blocks.Interfaces.RealOutput PHea(
     final unit = "W",
@@ -212,11 +215,11 @@ equation
           pattern=LinePattern.None),
                    Text(
           extent={{-42,-20},{2,-66}},
-          lineColor={255,255,255},
+          textColor={255,255,255},
           textString="+"),
                    Text(
           extent={{-66,-20},{-22,-66}},
-          lineColor={255,255,255},
+          textColor={255,255,255},
           textString="+"),
         Ellipse(
           extent={{-60,-52},{-80,-72}},

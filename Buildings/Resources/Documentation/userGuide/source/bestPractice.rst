@@ -68,7 +68,7 @@ use
 
 .. code-block:: modelica
 
-   Modelica.SIunits.MassFlowRate m_flow_nominal = 0.1 "Nominal mass flow rate";
+   Modelica.Units.SI.MassFlowRate m_flow_nominal = 0.1 "Nominal mass flow rate";
    Pump pum(m_flow_nominal=m_flow_nominal) "Pump";
    TemperatureSensor sen(m_flow_nominal=m_flow_nominal) "Sensor";
 

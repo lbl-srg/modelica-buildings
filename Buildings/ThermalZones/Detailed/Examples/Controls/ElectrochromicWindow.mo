@@ -1,13 +1,13 @@
 within Buildings.ThermalZones.Detailed.Examples.Controls;
 block ElectrochromicWindow "Controller for electrochromic windows"
   extends Modelica.Blocks.Icons.Block;
-  parameter Modelica.SIunits.Irradiance HClear = 250
+  parameter Modelica.Units.SI.Irradiance HClear=250
     "Solar irradiation below which the window will be in clear state regardless of temperature";
-  parameter Modelica.SIunits.Irradiance HDark = HClear+100
+  parameter Modelica.Units.SI.Irradiance HDark=HClear + 100
     "Solar irradiation at which the window will be in dark state if T > TDark";
-  parameter Modelica.SIunits.Temperature TClear = 273.15+22
+  parameter Modelica.Units.SI.Temperature TClear=273.15 + 22
     "Measured temperature below which the window will be in clear state for any irradiation";
-  parameter Modelica.SIunits.Temperature TDark = TClear+2
+  parameter Modelica.Units.SI.Temperature TDark=TClear + 2
     "Measured temperature above which the window will be transitioned to completely dark state if H > HDark";
 
   Modelica.Blocks.Interfaces.RealInput T(
@@ -34,8 +34,7 @@ protected
   Modelica.Blocks.Nonlinear.Limiter limT(
     final uMax=1,
     final uMin=0,
-    final strict=true,
-    final limitsAtInit=true) "Limiter for temperature"
+    final strict=true) "Limiter for temperature"
     annotation (Placement(transformation(extent={{30,30},{50,50}})));
   Modelica.Blocks.Math.Feedback feeT "Feedback for temperature"
     annotation (Placement(transformation(extent={{-50,30},{-30,50}})));
@@ -49,8 +48,7 @@ protected
   Modelica.Blocks.Nonlinear.Limiter limH(
     final uMax=1,
     final uMin=0,
-    final strict=true,
-    final limitsAtInit=true) "Limiter for irradiation"
+    final strict=true) "Limiter for irradiation"
     annotation (Placement(transformation(extent={{30,-50},{50,-30}})));
   Modelica.Blocks.Math.Feedback feeH "Feedback for irradiation"
     annotation (Placement(transformation(extent={{-50,-50},{-30,-30}})));
@@ -117,14 +115,14 @@ First implementation.
             100}}), graphics={
         Text(
           extent={{-118,58},{-42,26}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="T"),
         Text(
           extent={{-118,-24},{-42,-56}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="H"),
         Text(
           extent={{42,22},{118,-10}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="u")}));
 end ElectrochromicWindow;

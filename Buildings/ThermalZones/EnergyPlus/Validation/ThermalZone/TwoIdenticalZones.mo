@@ -52,7 +52,7 @@ model TwoIdenticalZones
       "Medium model";
     parameter String zoneName=""
       "Name of the thermal zone";
-    parameter Modelica.SIunits.MassFlowRate mOut_flow=0.3/3600*zon.V*Buildings.Media.Air.dStp
+    parameter Modelica.Units.SI.MassFlowRate mOut_flow=0.3/3600*zon.V*Buildings.Media.Air.dStp
       "Outside air mass flow rate with 0.3 ACH";
     Modelica.Blocks.Sources.Constant qConGai_flow(
       k=0)
@@ -197,11 +197,11 @@ First implementation.
           pattern=LinePattern.None),
         Text(
           extent={{-70,96},{-40,86}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="EnergyPlus results"),
         Text(
           extent={{-70,-6},{-40,-16}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="Spawn results")}),
     Icon(
       coordinateSystem(

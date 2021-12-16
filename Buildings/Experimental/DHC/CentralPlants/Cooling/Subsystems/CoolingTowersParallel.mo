@@ -9,27 +9,25 @@ model CoolingTowersParallel
   parameter Modelica.Fluid.Types.Dynamics energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial
     "Type of energy balance: dynamic (3 initialization options) or steady state"
     annotation (Evaluate=true,Dialog(tab="Dynamics",group="Equations"));
-  parameter Modelica.SIunits.PressureDifference dp_nominal
+  parameter Modelica.Units.SI.PressureDifference dp_nominal
     "Nominal pressure difference of the tower"
     annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.SIunits.PressureDifference dpValve_nominal
-   "Nominal pressure difference of the valve";
+  parameter Modelica.Units.SI.PressureDifference dpValve_nominal
+    "Nominal pressure difference of the valve";
   parameter Real ratWatAir_nominal(
     final min=0,
     final unit="1")=0.625
     "Design water-to-air ratio"
     annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.SIunits.Temperature TAirInWB_nominal
+  parameter Modelica.Units.SI.Temperature TAirInWB_nominal
     "Nominal outdoor (air inlet) wetbulb temperature"
     annotation (Dialog(group="Heat transfer"));
-  parameter Modelica.SIunits.Temperature TWatIn_nominal
-    "Nominal water inlet temperature"
-    annotation (Dialog(group="Heat transfer"));
-  parameter Modelica.SIunits.TemperatureDifference dT_nominal
+  parameter Modelica.Units.SI.Temperature TWatIn_nominal
+    "Nominal water inlet temperature" annotation (Dialog(group="Heat transfer"));
+  parameter Modelica.Units.SI.TemperatureDifference dT_nominal
     "Temperature difference between inlet and outlet of the tower"
     annotation (Dialog(group="Heat transfer"));
-  parameter Modelica.SIunits.Power PFan_nominal
-    "Fan power"
+  parameter Modelica.Units.SI.Power PFan_nominal "Fan power"
     annotation (Dialog(group="Fan"));
   parameter Boolean use_inputFilter=true
     "= true, if opening is filtered with a 2nd order CriticalDamping filter"
@@ -161,7 +159,7 @@ equation
           fillPattern=FillPattern.Solid),
         Text(
           extent={{-149,-114},{151,-154}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%name"),
         Ellipse(
           extent={{-22,-12},{0,-20}},

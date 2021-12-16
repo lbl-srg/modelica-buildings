@@ -16,23 +16,16 @@ model BuildingRCZ6
     "Number of thermal zones";
   parameter Real facMulTerUni[nZon]={15 for i in 1:nZon}
     "Multiplier factor for terminal units";
-  parameter Modelica.SIunits.MassFlowRate mLoa_flow_nominal[nZon]=fill(
-    1,
-    nZon)
+  parameter Modelica.Units.SI.MassFlowRate mLoa_flow_nominal[nZon]=fill(1, nZon)
     "Load side mass flow rate at nominal conditions"
     annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.SIunits.HeatFlowRate QHea_flow_nominal[nZon]=fill(
-    10000,
-    nZon) ./ facMulTerUni
-    "Design heating heat flow rate (>=0)"
+  parameter Modelica.Units.SI.HeatFlowRate QHea_flow_nominal[nZon]=fill(10000,
+      nZon) ./ facMulTerUni "Design heating heat flow rate (>=0)"
     annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.SIunits.HeatFlowRate QCoo_flow_nominal[nZon]=cat(
-    1,
-    fill(
-      -10000,
-      nZon-1),
-    {-50000}) ./ facMulTerUni
-    "Design cooling heat flow rate (<=0)"
+  parameter Modelica.Units.SI.HeatFlowRate QCoo_flow_nominal[nZon]=cat(
+      1,
+      fill(-10000, nZon - 1),
+      {-50000}) ./ facMulTerUni "Design cooling heat flow rate (<=0)"
     annotation (Dialog(group="Nominal condition"));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minTSet[nZon](
     k=fill(

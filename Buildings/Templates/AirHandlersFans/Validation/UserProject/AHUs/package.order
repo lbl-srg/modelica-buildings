@@ -1,4 +1,3 @@
-NoEconomizer
 CoilCoolingCounterFlow
 CoilCoolingEffectivenessNTU
 CoilCoolingDXMultiStage
@@ -6,12 +5,15 @@ CoilCoolingDXVariableSpeed
 CoilHeatingEffectivenessNTU
 CoilHeatingEffectivenessNTU2WV
 CoilHeatingEffectivenessNTU3WV
+CoilHeatingElectric
 CompleteAHU
 ControlsGuideline36
 ControlsGuideline36Pressure
 DedicatedDamperAirflow
 DedicatedDamperPressure
-FanReturnSingleVariable
+FanRelief
 FanSupplyBlowSingleConstant
-FanSupplyDrawMultipleVariable
+FanSupplyDrawArrayVariable
 FanSupplyDrawSingleVariable
+NoRelief
+NoEconomizer

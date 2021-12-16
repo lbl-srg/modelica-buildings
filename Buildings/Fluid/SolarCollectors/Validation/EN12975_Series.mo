@@ -4,9 +4,8 @@ model EN12975_Series
   extends Modelica.Icons.Example;
   replaceable package Medium = Buildings.Media.Water "Medium in the system";
 
-  parameter Modelica.SIunits.MassFlowRate m_flow_nominal=
-    solCol.datSolCol.A*solCol.datSolCol.mperA_flow_nominal
-    "Nominal mass flow rate";
+  parameter Modelica.Units.SI.MassFlowRate m_flow_nominal=solCol.datSolCol.A*
+      solCol.datSolCol.mperA_flow_nominal "Nominal mass flow rate";
 
   model collector
     extends Buildings.Fluid.SolarCollectors.EN12975(

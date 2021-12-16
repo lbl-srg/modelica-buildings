@@ -4,7 +4,7 @@ model HeatGain "Test model for the HeatGain model"
 
   package MediumA = Buildings.Media.Air "Medium model";
 
-  parameter Modelica.SIunits.Area AFlo=50 "Floor area";
+  parameter Modelica.Units.SI.Area AFlo=50 "Floor area";
 
   Buildings.ThermalZones.Detailed.BaseClasses.HeatGain heatGain(
     AFlo=AFlo)

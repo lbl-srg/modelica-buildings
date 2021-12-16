@@ -1,9 +1,7 @@
 within Buildings.Templates.Components.Dampers;
 model None "No damper"
   extends Buildings.Templates.Components.Dampers.Interfaces.PartialDamper(
-    final typ=Buildings.Templates.Components.Types.Damper.None)
-    annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
-        coordinateSystem(preserveAspectRatio=false)));
+    final typ=Buildings.Templates.Components.Types.Damper.None);
 equation
   connect(port_a, port_b)
     annotation (Line(points={{-100,0},{100,0}}, color={0,127,255}));

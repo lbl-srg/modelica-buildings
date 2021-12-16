@@ -3,10 +3,8 @@ model PowerConsumption
   "Power consumption during stand-by and cool-down modes"
   extends Modelica.Blocks.Icons.Block;
 
-  parameter Modelica.SIunits.Power PStaBy
-    "Standby electric power";
-  parameter Modelica.SIunits.Power PCooDow
-    "Cooldown electric power";
+  parameter Modelica.Units.SI.Power PStaBy "Standby electric power";
+  parameter Modelica.Units.SI.Power PCooDow "Cooldown electric power";
 
   Buildings.Fluid.CHPs.BaseClasses.Interfaces.ModeTypeInput opeMod
     "Operation mode"

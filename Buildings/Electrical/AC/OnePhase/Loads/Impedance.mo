@@ -5,10 +5,10 @@ model Impedance "Model of a generic impedance"
     redeclare replaceable Interfaces.Terminal_n terminal);
 
 protected
-  Modelica.SIunits.Angle theRef "Absolute angle of rotating reference system";
-  Modelica.SIunits.AngularVelocity omega
+  Modelica.Units.SI.Angle theRef "Absolute angle of rotating reference system";
+  Modelica.Units.SI.AngularVelocity omega
     "Frequency of the quasi-stationary sine waves";
-  Modelica.SIunits.Reactance X(start = 1) "Complex component of the impedance";
+  Modelica.Units.SI.Reactance X(start=1) "Complex component of the impedance";
 equation
   theRef = PhaseSystem.thetaRef(terminal.theta);
   omega = der(theRef);
@@ -37,7 +37,7 @@ equation
           rotation=180),
         Text(
           extent={{-120,-40},{120,-80}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="%name")}),
           Documentation(info="<html>
 <p>

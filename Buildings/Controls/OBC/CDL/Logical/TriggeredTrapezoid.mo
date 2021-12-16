@@ -33,8 +33,7 @@ protected
     "Predicted time of output reaching endValue";
 
 equation
-  y=
-    if time < T then
+  y=if time < T then
       endValue-(T-time)*rate
     else
       endValue;
@@ -45,15 +44,18 @@ equation
       else
         offset;
     rate=
-      if u and(rising > 0) then
+      if u and
+              (rising > 0) then
         amplitude/rising
       else
-        if not u and(falling > 0) then
+        if not u and
+                    (falling > 0) then
           -amplitude/falling
         else
           0;
-    T=
-      if u and not(rising > 0) or not u and not(falling > 0) or not abs(amplitude) > 0 or initial() then
+    T=if u and not
+                  (rising > 0) or not u and not
+                                               (falling > 0) or not abs(amplitude) > 0 or initial() then
         time
       else
         time+(endValue-pre(y))/rate;
@@ -108,7 +110,7 @@ equation
           points={{90.0,-70.0},{68.0,-62.0},{68.0,-78.0},{90.0,-70.0}}),
         Text(
           extent={{-150,150},{150,110}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%name")}),
     Diagram(
       coordinateSystem(
@@ -147,7 +149,7 @@ handled properly.</p>
 <ul>
 <li>
 November 12, 2020, by Michael Wetter:<br/>
-Reformulated to remove dependency to <code>Modelica.SIunits</code>.<br/>
+Reformulated to remove dependency to <code>Modelica.Units.SI</code>.<br/>
 This is for
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2243\">issue 2243</a>.
 </li>

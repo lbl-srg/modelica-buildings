@@ -33,24 +33,24 @@ equation
           fillPattern=FillPattern.Solid),
         Text(
           extent={{-90,82},{-42,42}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           fillColor={255,255,255},
           fillPattern=FillPattern.None,
           textString="TRoo"),
         Text(
           extent={{40,24},{88,-16}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           fillColor={255,255,255},
           fillPattern=FillPattern.None,
           textString="yVal"),
         Text(
           extent={{-92,-40},{-44,-80}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           fillColor={255,255,255},
           fillPattern=FillPattern.None,
           textString="TOut"),
         Text(
-          lineColor={0,0,255},
+          textColor={0,0,255},
           extent={{-154,104},{146,144}},
           textString="%name"),
     Polygon(

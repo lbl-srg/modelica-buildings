@@ -69,10 +69,10 @@ partial model PartialOptionalFourPortInterface
     "Fluid connector b2 (positive design flow direction is from port_a2 to port_b2)"
     annotation (Placement(transformation(extent={{-90,-70},{-110,-50}})));
 
-  parameter Modelica.SIunits.MassFlowRate m1_flow_nominal(min=0)
+  parameter Modelica.Units.SI.MassFlowRate m1_flow_nominal(min=0)
     "Nominal mass flow rate"
     annotation(Dialog(group = "Nominal condition", enable=hasMedium1));
-  parameter Modelica.SIunits.MassFlowRate m2_flow_nominal(min=0)
+  parameter Modelica.Units.SI.MassFlowRate m2_flow_nominal(min=0)
     "Nominal mass flow rate"
     annotation(Dialog(group = "Nominal condition", enable=hasMedium2));
   parameter Medium1.MassFlowRate m1_flow_small(min=0) = 1E-4*abs(m1_flow_nominal)

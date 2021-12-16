@@ -20,11 +20,11 @@ protected
   function j = PhaseSystem.j "J operator that rotates of 90 degrees";
   Modelica.Blocks.Interfaces.RealInput pf_internal
     "Hidden value of the input load for the conditional connector";
-  Modelica.SIunits.ElectricCharge q[2](each stateSelect=StateSelect.prefer)
+  Modelica.Units.SI.ElectricCharge q[2](each stateSelect=StateSelect.prefer)
     "Electric charge";
-  Modelica.SIunits.Admittance[2] Y "Admittance";
-  Modelica.SIunits.AngularVelocity omega "Angular velocity";
-  Modelica.SIunits.Power Q = P*tan(-acos(pf_internal))
+  Modelica.Units.SI.Admittance[2] Y "Admittance";
+  Modelica.Units.SI.AngularVelocity omega "Angular velocity";
+  Modelica.Units.SI.Power Q=P*tan(-acos(pf_internal))
     "Reactive power (negative because capacitive load)";
 equation
   connect(pf_in, pf_internal);

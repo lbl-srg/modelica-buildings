@@ -6,8 +6,8 @@ expandable connector Bus "Main control bus"
     "VAV damper points"
     annotation (HideResult=false);
 
-  Templates.Components.Interfaces.Bus coiReh
-    "Reheat coil points"
+  Templates.Components.Interfaces.Bus coiHea
+    "Heating coil points"
     annotation (HideResult=false);
 
   annotation (

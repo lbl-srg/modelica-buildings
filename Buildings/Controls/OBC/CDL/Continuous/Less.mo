@@ -57,8 +57,9 @@ protected
           Text(
             extent={{-150,150},{150,110}},
             textString="%name",
-            lineColor={0,0,255})}));
+            textColor={0,0,255})}));
   end LessNoHysteresis;
+
   block LessWithHysteresis
     "Less block without hysteresis"
     parameter Real h(
@@ -99,10 +100,10 @@ protected
           Text(
             extent={{-150,150},{150,110}},
             textString="%name",
-            lineColor={0,0,255}),
+            textColor={0,0,255}),
           Text(
             extent={{-64,62},{62,92}},
-            lineColor={0,0,0},
+            textColor={0,0,0},
             textString="h=%h")}));
   end LessWithHysteresis;
 
@@ -155,26 +156,26 @@ equation
         Text(
           extent={{-150,150},{150,110}},
           textString="%name",
-          lineColor={0,0,255}),
+          textColor={0,0,255}),
         Text(
           extent={{-64,62},{62,92}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="h=%h"),
         Text(
           extent={{-88,-18},{-21,24}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString=DynamicSelect("",String(u1,
             leftJustified=false,
             significantDigits=3))),
         Text(
           extent={{-86,-76},{-19,-34}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString=DynamicSelect("",String(u2,
             leftJustified=false,
             significantDigits=3))),
         Text(
           extent={{22,20},{89,62}},
-          lineColor=DynamicSelect({235,235,235},
+          textColor=DynamicSelect({235,235,235},
             if y then
               {135,135,135}
             else
@@ -185,7 +186,7 @@ equation
           visible=h >= 1E-10),
         Text(
           extent={{22,20},{89,62}},
-          lineColor=DynamicSelect({235,235,235},
+          textColor=DynamicSelect({235,235,235},
             if y then
               {135,135,135}
             else
@@ -196,7 +197,7 @@ equation
           visible=h >= 1E-10),
         Text(
           extent={{20,-56},{87,-14}},
-          lineColor=DynamicSelect({235,235,235},
+          textColor=DynamicSelect({235,235,235},
             if not y then
               {135,135,135}
             else

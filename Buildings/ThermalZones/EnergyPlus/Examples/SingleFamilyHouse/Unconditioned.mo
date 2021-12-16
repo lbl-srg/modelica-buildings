@@ -12,13 +12,11 @@ model Unconditioned
     weaName=Modelica.Utilities.Files.loadResource(
       "modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"),
     usePrecompiledFMU=false,
-    showWeatherData=true,
     computeWetBulbTemperature=false)
     "Building model"
     annotation (Placement(transformation(extent={{-80,-90},{-60,-70}})));
-  parameter Modelica.SIunits.Volume VRoo=453.1
-    "Room volume";
-  parameter Modelica.SIunits.MassFlowRate m_flow_nominal=VRoo*1.2*0.3/3600
+  parameter Modelica.Units.SI.Volume VRoo=453.1 "Room volume";
+  parameter Modelica.Units.SI.MassFlowRate m_flow_nominal=VRoo*1.2*0.3/3600
     "Nominal mass flow rate";
   Buildings.ThermalZones.EnergyPlus.ThermalZone zon(
     redeclare package Medium=Medium,

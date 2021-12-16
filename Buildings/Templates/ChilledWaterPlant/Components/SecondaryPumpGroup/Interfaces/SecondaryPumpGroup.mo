@@ -15,13 +15,13 @@ partial model SecondaryPumpGroup
 
   parameter Integer nPum = 2 "Number of primary pumps";
 
-  parameter Modelica.SIunits.MassFlowRate mTot_flow_nominal = m_flow_nominal*nPum "Total mass flow rate for pump group";
+  parameter Modelica.Units.SI.MassFlowRate mTot_flow_nominal = m_flow_nominal*nPum "Total mass flow rate for pump group";
 
   // FixMe: Flow and dp should be read from pump curve, but are currently
   // assumed from system flow rate and pressure drop.
-  final parameter Modelica.SIunits.MassFlowRate m_flow_nominal = mTot_flow_nominal/nPum
+  final parameter Modelica.Units.SI.MassFlowRate m_flow_nominal = mTot_flow_nominal/nPum
     "Nominal mass flow rate per pump";
-  parameter Modelica.SIunits.PressureDifference dp_nominal
+  parameter Modelica.Units.SI.PressureDifference dp_nominal
     "Nominal pressure drop per pump";
 
   final parameter Boolean is_none=

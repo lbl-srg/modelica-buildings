@@ -18,10 +18,9 @@ model ChilledWaterBypass
     annotation (Placement(transformation(extent={{-60,0},{-40,20}})));
   Modelica.Blocks.Sources.Sine mFloByp(
     amplitude=0.03,
-    freqHz=1/300,
+    f=1/300,
     offset=0.03,
-    startTime=300)
-    "Bypass loop mass flow rate"
+    startTime=300) "Bypass loop mass flow rate"
     annotation (Placement(transformation(extent={{-60,-40},{-40,-20}})));
 equation
   connect(mFloByp.y, chiBypCon.mFloByp) annotation (Line(points={{-39,-30},{-20,

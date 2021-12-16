@@ -6,18 +6,20 @@ model DryCoilEffectivenessNTU
  package Medium1 = Buildings.Media.Water;
  package Medium2 = Buildings.Media.Air;
 
- parameter Modelica.SIunits.SpecificHeatCapacity cp1=
- Medium1.specificHeatCapacityCp(
-      Medium1.setState_pTX(Medium1.p_default, Medium1.T_default, Medium1.X_default))
-    "Specific heat capacity of medium 2";
- parameter Modelica.SIunits.SpecificHeatCapacity cp2=
- Medium2.specificHeatCapacityCp(
-      Medium2.setState_pTX(Medium2.p_default, Medium2.T_default, Medium2.X_default))
-    "Specific heat capacity of medium 2";
- parameter Modelica.SIunits.MassFlowRate m1_flow = 5
+  parameter Modelica.Units.SI.SpecificHeatCapacity cp1=
+      Medium1.specificHeatCapacityCp(Medium1.setState_pTX(
+      Medium1.p_default,
+      Medium1.T_default,
+      Medium1.X_default)) "Specific heat capacity of medium 2";
+  parameter Modelica.Units.SI.SpecificHeatCapacity cp2=
+      Medium2.specificHeatCapacityCp(Medium2.setState_pTX(
+      Medium2.p_default,
+      Medium2.T_default,
+      Medium2.X_default)) "Specific heat capacity of medium 2";
+  parameter Modelica.Units.SI.MassFlowRate m1_flow=5
     "Nominal mass flow rate medium 1";
- parameter Modelica.SIunits.MassFlowRate m2_flow = m1_flow*cp1/
-      cp2 "Nominal mass flow rate medium 2";
+  parameter Modelica.Units.SI.MassFlowRate m2_flow=m1_flow*cp1/cp2
+    "Nominal mass flow rate medium 2";
 
   Buildings.Fluid.Sources.Boundary_pT sin_2(
     redeclare package Medium = Medium2,

@@ -48,7 +48,7 @@ model FlatPlate "Test model for FlatPlate"
       rotation=180,
       origin={-50,-10})));
   Modelica.Blocks.Sources.Sine sine(
-    freqHz=3/86400,
+    f=3/86400,
     amplitude=-solCol.dp_nominal,
     offset=1E5) "Pressure source"
     annotation (Placement(transformation(extent={{-100,-20},{-80,0}})));

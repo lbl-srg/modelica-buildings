@@ -2,7 +2,7 @@ within Buildings.Templates.ZoneEquipment.Components.Controls;
 block Guideline36
   extends
     Buildings.Templates.ZoneEquipment.Components.Controls.Interfaces.PartialSingleDuct(
-      final typ=Types.Controller.Guideline36);
+      final typ=Buildings.Templates.ZoneEquipment.Types.Controller.Guideline36);
 
   // See FIXME below for those parameters.
   parameter Boolean have_occSen=false
@@ -34,7 +34,7 @@ block Guideline36
     annotation (Dialog(tab="Airflow setpoint", group="Zone sensors"));
     */
 
-  parameter Modelica.SIunits.VolumeFlowRate V_flow_nominal=
+  parameter Modelica.Units.SI.VolumeFlowRate V_flow_nominal=
     dat.getReal(varName=id + ".Mechanical.Discharge air mass flow rate.value") / 1.2
     "Volume flow rate"
     annotation (Dialog(group="Nominal condition"));
@@ -43,7 +43,7 @@ block Guideline36
   *  Parameters for Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.Controller
   */
 
-  parameter Modelica.SIunits.Time samplePeriod = 120
+  parameter Modelica.Units.SI.Time samplePeriod = 120
     "Sample period of trim and respond for pressure reset request";
 
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerTypeCoo=
@@ -392,7 +392,7 @@ block Guideline36
   *  Final parameters
   */
   final parameter Boolean have_heaWatCoi=
-    coiReh.typ==Buildings.Templates.Components.Types.Coil.WaterBased
+    coiHea.typ==Buildings.Templates.Components.Types.Coil.WaterBasedHeating
     "Flag, true if there is a hot water coil"
     annotation (Dialog(tab="System requests", group="Parameters"));
 
@@ -499,18 +499,18 @@ block Guideline36
     annotation (Placement(transformation(extent={{-240,-90},{-220,-70}})));
 
 equation
-  /* Hardware point connection - start */
+  /* Control point connection - start */
   connect(con.yDam, bus.damVAV.y);
-  connect(con.yVal, bus.coiReh.y);
+  connect(con.yVal, bus.coiHea.y);
 
-  connect(bus.damVAV.V_flow, zonOutAirSet.VDis_flow);
-  connect(bus.TDis, con.TDis);
-  connect(bus.damVAV.V_flow, con.VDis_flow);
+  connect(bus.VAirDis_flow, zonOutAirSet.VDis_flow);
+  connect(bus.TAirDis, con.TDis);
+  connect(bus.VAirDis_flow, con.VDis_flow);
   connect(bus.damVAV.y_actual, con.yDam_actual);
 
   connect(bus.ppmCO2, con.ppmCO2);
   connect(bus.uWin, con.uWin);
-  connect(bus.TZon, con.TZon);
+  connect(bus.TAirZon, con.TZon);
   connect(FIXME.y, con.nOcc);
 
   connect(bus.uOcc, TZonSet.uOccSen);
@@ -518,17 +518,15 @@ equation
 
   connect(FIXME2.y, zonOutAirSet.nOcc);
   connect(bus.uWin, zonOutAirSet.uWin);
-  connect(bus.TZon, zonOutAirSet.TZon);
-  connect(bus.TDis, zonOutAirSet.TDis);
+  connect(bus.TAirZon, zonOutAirSet.TZon);
+  connect(bus.TAirDis, zonOutAirSet.TDis);
   connect(bus.uWin, zonSta.uWin);
-  connect(bus.TZon, zonSta.TZon);
-  /* Hardware point connection - end */
+  connect(bus.TAirZon, zonSta.TZon);
 
-  /* Software point connection - start */
   connect(FIXME3.y, zonSta.cooDowTim);
   connect(FIXME3.y, zonSta.warUpTim);
 
-  connect(bus.TSupSet, con.TSupAHU);
+  connect(bus.TAirSupSet, con.TSupAHU);
   connect(bus.yOpeMod, con.uOpeMod);
   connect(TZonSet.TZonCooSet, con.TZonCooSet);
   connect(TZonSet.TZonHeaSet, con.TZonHeaSet);
@@ -567,7 +565,7 @@ equation
   connect(zonSta.TCooSetOff, bus.TCooSetOff);
   connect(zonSta.yHigUnoCoo, bus.yHigUnoCoo);
   connect(zonSta.yEndSetUp, bus.yEndSetUp);
-  /* Software point connection - end */
+  /* Control point connection - end */
 
   annotation (
     defaultComponentName="conTer",

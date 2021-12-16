@@ -5,9 +5,9 @@ function getReal
   output Real var "Variable value";
 protected
   ExternData.Types.ExternJSONFile extObj=
-   ExternData.Types.ExternJSONFile(fileName, verboseRead=true)
-   "External file object";
+      ExternData.Types.ExternJSONFile(fileName, verboseRead=true)
+    "External file object";
 algorithm
-  var := ExternData.Functions.JSON.getReal(varName, extObj);
+  var :=ExternData.Functions.JSON.getReal(varName, extObj);
 annotation(__Dymola_translate=true);
 end getReal;

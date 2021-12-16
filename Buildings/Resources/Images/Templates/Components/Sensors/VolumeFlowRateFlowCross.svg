@@ -2,9 +2,9 @@
 <!-- Created with Inkscape (http://www.inkscape.org/) -->
 
 <svg
-   width="105.84606mm"
-   height="420.68762mm"
-   viewBox="0 0 105.84606 420.68763"
+   width="82.660645mm"
+   height="343.9624mm"
+   viewBox="0 0 82.660643 343.96241"
    version="1.1"
    id="svg6459"
    xmlns="http://www.w3.org/2000/svg"
@@ -17,70 +17,19 @@
      transform="rotate(90)"
      id="ellipse686"
      cx="132.29167"
-     cy="-52.923031"
+     cy="-41.330322"
      style="fill:none;stroke:#000000;stroke-width:2.64583;stroke-miterlimit:4;stroke-dasharray:none" />
   <polyline
      points="531.981,533.674 538.553,533.674 "
      id="polyline690"
      style="fill:none;stroke:#000000;stroke-width:0.218834;stroke-miterlimit:4;stroke-dasharray:none"
-     transform="matrix(12.174443,0,0,12.00733,-6463.6546,-6275.7084)" />
-  <g
-     id="g6351"
-     transform="matrix(0.41440684,0,0,0.41440758,-158.81547,-116.99165)"
-     style="stroke-width:6.38462;stroke-miterlimit:4;stroke-dasharray:none">
-    <g
-       id="g12097-8"
-       transform="matrix(32.612783,0,0,32.612966,48080.575,111039.61)"
-       style="stroke-width:0.19577;stroke-miterlimit:4;stroke-dasharray:none">
-      <path
-         d="m -1461.1642,-3372.718 a 1.27256,1.27256 0 0 0 -1.273,1.273"
-         id="path1112-2"
-         style="fill:none;stroke:#000000;stroke-width:0.19577;stroke-miterlimit:4;stroke-dasharray:none" />
-      <path
-         d="m -1462.4372,-3366.355 a 1.27256,1.27256 0 0 0 1.273,1.272"
-         id="path1114-9"
-         style="fill:none;stroke:#000000;stroke-width:0.19577;stroke-miterlimit:4;stroke-dasharray:none" />
-      <path
-         d="m -1456.0742,-3365.083 a 1.27256,1.27256 0 0 0 1.273,-1.272"
-         id="path1116-9"
-         style="fill:none;stroke:#000000;stroke-width:0.19577;stroke-miterlimit:4;stroke-dasharray:none" />
-      <polyline
-         points="538.271,375.944 533.181,375.944 "
-         id="polyline1118-6"
-         style="fill:none;stroke:#000000;stroke-width:0.19577;stroke-miterlimit:4;stroke-dasharray:none"
-         transform="translate(-1994.3452,-3741.027)" />
-      <polyline
-         points="533.181,368.309 538.271,368.309 "
-         id="polyline1120-0"
-         style="fill:none;stroke:#000000;stroke-width:0.19577;stroke-miterlimit:4;stroke-dasharray:none"
-         transform="translate(-1994.3452,-3741.027)" />
-      <polyline
-         points="531.908,374.672 531.908,369.582 "
-         id="polyline1122-2"
-         style="fill:none;stroke:#000000;stroke-width:0.19577;stroke-miterlimit:4;stroke-dasharray:none"
-         transform="translate(-1994.3452,-3741.027)" />
-      <polyline
-         points="539.544,369.582 539.544,374.672 "
-         id="polyline1124-7"
-         style="fill:none;stroke:#000000;stroke-width:0.19577;stroke-miterlimit:4;stroke-dasharray:none"
-         transform="translate(-1994.3452,-3741.027)" />
-      <path
-         d="m -1454.8012,-3371.445 a 1.27256,1.27256 0 0 0 -1.273,-1.273"
-         id="path1126-6"
-         style="fill:none;stroke:#000000;stroke-width:0.19577;stroke-miterlimit:4;stroke-dasharray:none" />
-    </g>
-    <text
-       xml:space="preserve"
-       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:127.692px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:6.38462;stroke-miterlimit:4;stroke-dasharray:none"
-       x="419.19577"
-       y="1216.3171"
-       id="text44048"><tspan
-         id="tspan886"
-         x="419.19577"
-         y="1216.3171">DP</tspan></text>
-  </g>
+     transform="matrix(12.174443,0,0,12.00733,-6475.2473,-6275.7084)" />
   <path
-     style="fill:none;stroke:#000000;stroke-width:2.64584;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-     d="M 52.923031,1.3230522 V 316.17722"
+     style="fill:none;stroke:#000000;stroke-width:2.64583;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+     d="M 41.330324,1.3230206 V 263.26447"
      id="path6719" />
+  <path
+     style="fill:none;stroke:#000000;stroke-width:2.64583;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+     d="m 41.352375,263.26449 v 80.69792"
+     id="path6719-5" />
 </svg>

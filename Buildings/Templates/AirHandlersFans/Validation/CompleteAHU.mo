@@ -17,9 +17,9 @@ model CompleteAHU
       nPorts=1)
     annotation (Placement(transformation(extent={{60,-90},{40,-70}})));
 equation
-  connect(bou2.ports[1], ahu.port_coiHeaSup) annotation (Line(points={{-40,-50},
+  connect(bou2.ports[1], ahu.port_coiHeaPreSup) annotation (Line(points={{-40,-50},
           {-7,-50},{-7,-19.8}}, color={0,127,255}));
-  connect(ahu.port_coiHeaRet, bou3.ports[1]) annotation (Line(points={{-3,-19.8},
+  connect(ahu.port_coiHeaPreRet, bou3.ports[1]) annotation (Line(points={{-3,-19.8},
           {-3,-80},{-40,-80}}, color={0,127,255}));
   connect(bou4.ports[1], ahu.port_coiCooRet)
     annotation (Line(points={{40,-50},{6,-50},{6,-19.8}}, color={0,127,255}));

@@ -18,20 +18,17 @@ model BuildingTimeSeriesWithETS
       QHotWat_flow_nominal=QHot_flow_nominal));
   parameter String filNam
     "Library path of the file with thermal loads as time series";
-  final parameter Modelica.SIunits.HeatFlowRate QCoo_flow_nominal(
-    max=-Modelica.Constants.eps)=bui.facMul * bui.QCoo_flow_nominal
+  final parameter Modelica.Units.SI.HeatFlowRate QCoo_flow_nominal(max=-
+        Modelica.Constants.eps) = bui.facMul*bui.QCoo_flow_nominal
     "Space cooling design load (<=0)"
     annotation (Dialog(group="Design parameter"));
-  final parameter Modelica.SIunits.HeatFlowRate QHea_flow_nominal(
-    min=Modelica.Constants.eps)=bui.facMul * bui.QHea_flow_nominal
-    "Space heating design load (>=0)"
+  final parameter Modelica.Units.SI.HeatFlowRate QHea_flow_nominal(min=Modelica.Constants.eps)
+     = bui.facMul*bui.QHea_flow_nominal "Space heating design load (>=0)"
     annotation (Dialog(group="Design parameter"));
-  final parameter Modelica.SIunits.HeatFlowRate QHot_flow_nominal(
-    min=Modelica.Constants.eps)=bui.facMul *
-    DHC.Loads.BaseClasses.getPeakLoad(
-      string="#Peak water heating load",
-      filNam=Modelica.Utilities.Files.loadResource(filNam))
-    "Hot water design load (>=0)"
+  final parameter Modelica.Units.SI.HeatFlowRate QHot_flow_nominal(min=Modelica.Constants.eps)
+     = bui.facMul*DHC.Loads.BaseClasses.getPeakLoad(string=
+    "#Peak water heating load", filNam=Modelica.Utilities.Files.loadResource(
+    filNam)) "Hot water design load (>=0)"
     annotation (Dialog(group="Design parameter"));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput THotWatSupSet(
     final unit="K",

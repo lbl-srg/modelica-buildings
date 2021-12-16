@@ -11,17 +11,15 @@ model AirHeating
       "modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"),
     epwName=Modelica.Utilities.Files.loadResource(
       "modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.epw"),
-    showWeatherData=true,
     computeWetBulbTemperature=false)
     "Building model"
     annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
-  constant Modelica.SIunits.Volume VRoo=453.138
-    "Room volume";
-  constant Modelica.SIunits.Area AFlo=185.834
+  constant Modelica.Units.SI.Volume VRoo=453.138 "Room volume";
+  constant Modelica.Units.SI.Area AFlo=185.834
     "Floor area of the whole floor of the building";
-  parameter Modelica.SIunits.MassFlowRate mOut_flow_nominal=0.3*VRoo*1.2/3600
+  parameter Modelica.Units.SI.MassFlowRate mOut_flow_nominal=0.3*VRoo*1.2/3600
     "Outdoor air mass flow rate, assuming constant infiltration air flow rate";
-  parameter Modelica.SIunits.MassFlowRate mRec_flow_nominal=8*VRoo*1.2/3600
+  parameter Modelica.Units.SI.MassFlowRate mRec_flow_nominal=8*VRoo*1.2/3600
     "Nominal mass flow rate for recirculated air";
   Buildings.ThermalZones.EnergyPlus.ThermalZone zon(
     redeclare package Medium=Medium,

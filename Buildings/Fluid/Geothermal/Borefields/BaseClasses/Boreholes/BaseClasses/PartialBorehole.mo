@@ -21,13 +21,11 @@ partial model PartialBorehole
 
   parameter Integer nSeg(min=1) = 10
     "Number of segments to use in vertical discretization of the boreholes";
-  parameter Modelica.SIunits.Temperature TGro_start[nSeg]
-    "Start value of grout temperature"
-    annotation (Dialog(tab="Initialization"));
+  parameter Modelica.Units.SI.Temperature TGro_start[nSeg]
+    "Start value of grout temperature" annotation (Dialog(tab="Initialization"));
 
-  parameter Modelica.SIunits.Temperature TFlu_start[nSeg] = TGro_start
-    "Start value of fluid temperature"
-    annotation (Dialog(tab="Initialization"));
+  parameter Modelica.Units.SI.Temperature TFlu_start[nSeg]=TGro_start
+    "Start value of fluid temperature" annotation (Dialog(tab="Initialization"));
 
   // Assumptions
   parameter Modelica.Fluid.Types.Dynamics energyDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial

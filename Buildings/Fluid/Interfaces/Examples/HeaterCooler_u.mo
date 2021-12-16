@@ -483,10 +483,10 @@ equation
   annotation(Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-200,
             -400},{200,240}}), graphics={Text(
           extent={{32,232},{160,190}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="Temperature check"),             Text(
           extent={{-188,-20},{-38,-84}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="Same system as above, but with flow reversed")}),
 experiment(Tolerance=1e-6, StopTime=3600),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Interfaces/Examples/HeaterCooler_u.mos"

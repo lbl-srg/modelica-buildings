@@ -1,16 +1,16 @@
 within Buildings.Electrical.Interfaces;
 partial model PartialWindTurbineBase
   "Base class for turbine model that contains basic parameters"
-  final parameter Modelica.SIunits.Velocity vIn = table[1,1]
+  final parameter Modelica.Units.SI.Velocity vIn=table[1, 1]
     "Cut-in steady wind speed";
-  final parameter Modelica.SIunits.Velocity vOut = table[size(table,1), 1]
+  final parameter Modelica.Units.SI.Velocity vOut=table[size(table, 1), 1]
     "Cut-out steady wind speed";
   parameter Real scale(min=0)=1
     "Scaling factor, used to allow adjusting the power output without changing the table";
 
   parameter Real h "Height over ground"
     annotation (Dialog(group="Wind correction"));
-  parameter Modelica.SIunits.Height hRef = 10
+  parameter Modelica.Units.SI.Height hRef=10
     "Reference height for wind measurement"
     annotation (Dialog(group="Wind correction"));
  parameter Real nWin(min=0) = 0.4
@@ -29,8 +29,9 @@ partial model PartialWindTurbineBase
   parameter String tableName="NoName"
     "Table name on file or in function usertab (see documentation)";
   parameter String fileName="NoName" "File where matrix is stored";
-  parameter Modelica.SIunits.Voltage V_nominal(min=0, start=110)
-    "Nominal voltage (V_nominal >= 0)"  annotation(Evaluate=true, Dialog(group="Nominal conditions"));
+  parameter Modelica.Units.SI.Voltage V_nominal(min=0, start=110)
+    "Nominal voltage (V_nominal >= 0)"
+    annotation (Evaluate=true, Dialog(group="Nominal conditions"));
   Modelica.Blocks.Interfaces.RealInput vWin(unit="m/s") "Steady wind speed"
      annotation (Placement(transformation(
         origin={0,120},

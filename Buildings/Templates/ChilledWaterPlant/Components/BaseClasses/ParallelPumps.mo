@@ -4,9 +4,9 @@ model ParallelPumps
 
   // Pump parameters
   parameter Integer nPum "Number of pumps";
-  parameter Modelica.SIunits.MassFlowRate m_flow_nominal "Nominal mass flow rate per pump";
-  parameter Modelica.SIunits.PressureDifference dp_nominal "Nominal pressure drop per pump";
-  parameter Modelica.SIunits.PressureDifference dpValve_nominal "Nominal pressure drop of valve";
+  parameter Modelica.Units.SI.MassFlowRate m_flow_nominal "Nominal mass flow rate per pump";
+  parameter Modelica.Units.SI.PressureDifference dp_nominal "Nominal pressure drop per pump";
+  parameter Modelica.Units.SI.PressureDifference dpValve_nominal "Nominal pressure drop of valve";
 
   // Initialization
   parameter Real threshold(min = 0.01) = 0.05

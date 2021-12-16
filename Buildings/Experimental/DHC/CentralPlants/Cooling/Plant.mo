@@ -15,43 +15,38 @@ model Plant
     "Performance data of chiller"
     annotation (Dialog(group="Chiller"),choicesAllMatching=true,
    Placement(transformation(extent={{124,264},{138,278}})));
-  parameter Modelica.SIunits.MassFlowRate mCHW_flow_nominal
-    "Nominal chilled water mass flow rate"
-    annotation (Dialog(group="Chiller"));
-  parameter Modelica.SIunits.Pressure dpCHW_nominal
+  parameter Modelica.Units.SI.MassFlowRate mCHW_flow_nominal
+    "Nominal chilled water mass flow rate" annotation (Dialog(group="Chiller"));
+  parameter Modelica.Units.SI.Pressure dpCHW_nominal
     "Pressure difference at the chilled water side"
     annotation (Dialog(group="Chiller"));
-  parameter Modelica.SIunits.HeatFlowRate QChi_nominal(
-    max=0)
+  parameter Modelica.Units.SI.HeatFlowRate QChi_nominal(max=0)
     "Nominal cooling capacity of single chiller (negative means cooling)"
     annotation (Dialog(group="Chiller"));
-  parameter Modelica.SIunits.MassFlowRate mMin_flow
+  parameter Modelica.Units.SI.MassFlowRate mMin_flow
     "Minimum mass flow rate of single chiller"
     annotation (Dialog(group="Chiller"));
   // cooling tower parameters
-  parameter Modelica.SIunits.MassFlowRate mCW_flow_nominal
+  parameter Modelica.Units.SI.MassFlowRate mCW_flow_nominal
     "Nominal condenser water mass flow rate"
     annotation (Dialog(group="Cooling Tower"));
-  parameter Modelica.SIunits.Pressure dpCW_nominal
+  parameter Modelica.Units.SI.Pressure dpCW_nominal
     "Pressure difference at the condenser water side"
     annotation (Dialog(group="Cooling Tower"));
-  parameter Modelica.SIunits.Temperature TAirInWB_nominal
-    "Nominal air wetbulb temperature"
-    annotation (Dialog(group="Cooling Tower"));
-  parameter Modelica.SIunits.Temperature TCW_nominal
+  parameter Modelica.Units.SI.Temperature TAirInWB_nominal
+    "Nominal air wetbulb temperature" annotation (Dialog(group="Cooling Tower"));
+  parameter Modelica.Units.SI.Temperature TCW_nominal
     "Nominal condenser water temperature at tower inlet"
     annotation (Dialog(group="Cooling Tower"));
-  parameter Modelica.SIunits.TemperatureDifference dT_nominal
+  parameter Modelica.Units.SI.TemperatureDifference dT_nominal
     "Temperature difference between inlet and outlet of the tower"
     annotation (Dialog(group="Cooling Tower"));
-  parameter Modelica.SIunits.TemperatureDifference dTApp
-    "Approach temperature"
-    annotation (Dialog(group="Cooling Tower"));
-  parameter Modelica.SIunits.Temperature TMin
+  parameter Modelica.Units.SI.TemperatureDifference dTApp
+    "Approach temperature" annotation (Dialog(group="Cooling Tower"));
+  parameter Modelica.Units.SI.Temperature TMin
     "Minimum allowed water temperature entering chiller"
     annotation (Dialog(group="Cooling Tower"));
-  parameter Modelica.SIunits.Power PFan_nominal
-    "Fan power"
+  parameter Modelica.Units.SI.Power PFan_nominal "Fan power"
     annotation (Dialog(group="Cooling Tower"));
   // pump parameters
   replaceable parameter Buildings.Fluid.Movers.Data.Generic perCHWPum
@@ -64,20 +59,18 @@ model Plant
     "Performance data of condenser water pump"
     annotation (Dialog(group="Pump"),choicesAllMatching=true,
    Placement(transformation(extent={{204,264},{218,278}})));
-  parameter Modelica.SIunits.Pressure dpCHWPumVal_nominal
+  parameter Modelica.Units.SI.Pressure dpCHWPumVal_nominal
     "Nominal pressure drop of chilled water pump valve"
     annotation (Dialog(group="Pump"));
-  parameter Modelica.SIunits.Pressure dpCWPumVal_nominal
+  parameter Modelica.Units.SI.Pressure dpCWPumVal_nominal
     "Nominal pressure drop of condenser water pump valve"
     annotation (Dialog(group="Pump"));
-  parameter Modelica.SIunits.PressureDifference dpCooTowVal_nominal
-   "Nominal pressure difference of the cooling tower valve";
+  parameter Modelica.Units.SI.PressureDifference dpCooTowVal_nominal
+    "Nominal pressure difference of the cooling tower valve";
   // control settings
-  parameter Modelica.SIunits.Time tWai
-    "Waiting time"
+  parameter Modelica.Units.SI.Time tWai "Waiting time"
     annotation (Dialog(group="Control Settings"));
-  parameter Modelica.SIunits.PressureDifference dpSetPoi(
-    displayUnit="Pa")
+  parameter Modelica.Units.SI.PressureDifference dpSetPoi(displayUnit="Pa")
     "Demand side pressure difference setpoint"
     annotation (Dialog(group="Control Settings"));
   // dynamics
@@ -248,8 +241,8 @@ protected
     p=Medium.p_default,
     X=Medium.X_default)
     "Medium state at default properties";
-  final parameter Modelica.SIunits.SpecificHeatCapacity cp_default=Medium.specificHeatCapacityCp(
-    sta_default)
+  final parameter Modelica.Units.SI.SpecificHeatCapacity cp_default=
+      Medium.specificHeatCapacityCp(sta_default)
     "Specific heat capacity of the fluid";
 equation
   connect(senMasFloByp.port_b,valByp.port_a)
@@ -355,28 +348,28 @@ equation
     defaultComponentName="pla",
     Documentation(
       info="<html>
-<p>This model showcases a generic district central cooling plant as illustrated 
+<p>This model showcases a generic district central cooling plant as illustrated
 in the schematics below. </p>
 <ul>
-<li>The cooling is provided by two parallel chillers instantiated from 
+<li>The cooling is provided by two parallel chillers instantiated from
 <a href=\"modelica://Buildings.Applications.BaseClasses.Equipment.ElectricChillerParallel\">
 Buildings.Applications.BaseClasses.Equipment.ElectricChillerParallel</a>. </li>
-<li>The chilled water bypass loop is controlled to ensure a minimum flow of 
+<li>The chilled water bypass loop is controlled to ensure a minimum flow of
 chilled water running through the chillers all the time. </li>
-<li>The condenser water is cooled by two parallel cooling towers with a bypass 
-loop. See <a href=\"modelica://Buildings.Experimental.DHC.CentralPlants.Cooling.Subsystems.CoolingTowerWithBypass\">
-Buildings.Experimental.DHC.CentralPlants.Cooling.Subsystems.CoolingTowerWithBypass</a> 
+<li>The condenser water is cooled by two parallel cooling towers with a bypass
+loop. See <a href=\"modelica://Buildings.Experimental.DHC.CentralPlants.Cooling.Subsystems.CoolingTowersWithBypass\">
+Buildings.Experimental.DHC.CentralPlants.Cooling.Subsystems.CoolingTowersWithBypass</a>
 for the details of the modeling of the cooling towers. </li>
-<li>The chilled water loop is equipped with two parallel variable speed pumps, 
-which are controlled to maitain a use-determined pressure difference setpoint at 
-the demand side. The condenser water pumps are constant speed with prescribed 
+<li>The chilled water loop is equipped with two parallel variable speed pumps,
+which are controlled to maitain a use-determined pressure difference setpoint at
+the demand side. The condenser water pumps are constant speed with prescribed
 mass flow rates. </li>
-<li>The plant operates when it receives an <code>on</code> signal from the 
+<li>The plant operates when it receives an <code>on</code> signal from the
 external control. </li>
 </ul>
 <p>The staging of the chillers is based on the calculated cooling load. </p>
 <p>See <a href=\"modelica://Buildings.Experimental.DHC.CentralPlants.Cooling.Controls.ChillerStage\">
-Buildings.Experimental.DHC.CentralPlants.Cooling.Controls.ChillerStage</a> for 
+Buildings.Experimental.DHC.CentralPlants.Cooling.Controls.ChillerStage</a> for
 the detailed control logic. </p>
 <p><img src=\"modelica://Buildings/Resources/Images/Experimental/DHC/CentralPlants/Cooling/Plant.png\" alt=\"System schematics\"/>. </p>
 </html>",
@@ -384,7 +377,7 @@ the detailed control logic. </p>
 <ul>
 <li>
 August 6, 2020 by Jing Wang:<br/>
-First implementation. 
+First implementation.
 </li>
 </ul>
 </html>"),

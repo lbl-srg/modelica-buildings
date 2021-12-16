@@ -7,12 +7,8 @@ model IsotropicAndPerezDiffuseRadiation
     final unit="W/m2")
     "Radiation per unit area using Perez Model"
     annotation (Placement(transformation(extent={{100,-50},{120,-30}})));
-  parameter Modelica.SIunits.Angle til(
-    displayUnit="deg")
-    "Surface tilt angle";
-  parameter Modelica.SIunits.Angle azi(
-    displayUnit="deg")
-    "Azimuth angle";
+  parameter Modelica.Units.SI.Angle til(displayUnit="deg") "Surface tilt angle";
+  parameter Modelica.Units.SI.Angle azi(displayUnit="deg") "Azimuth angle";
   parameter Real rho=0.2
     "Ground reflectance";
   SolarIrradiation.DirectTiltedSurface HDir(

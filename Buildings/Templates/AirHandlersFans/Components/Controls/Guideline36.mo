@@ -572,7 +572,7 @@ block Guideline36 "Guideline 36 VAV single duct controller"
 
 equation
 
-  /* Hardware point connection - start */
+  /* Control point connection - start */
   connect(con.yHea, bus.coiHea.y);
   connect(con.yCoo, bus.coiCoo.y);
   connect(con.yRetDamPos, bus.damRet.y);
@@ -583,9 +583,7 @@ equation
   connect(FIXME_yFanRetBoo.y, bus.fanRet.y);
   connect(FIXME_yFanRetRea.y, bus.fanRet.ySpe);
   connect(FIXME_yDamRel.y, bus.damRel.y);
-  /* Hardware point connection - stop */
 
-  /* Software point connection - start */
   connect(FIXME_TSet.y, con.TZonHeaSet);
   connect(FIXME_TSet.y, con.TZonCooSet);
 
@@ -607,11 +605,9 @@ equation
   connect(busTer.yHigUnoCoo, repSigZon.uHigUnoCoo);
   connect(busTer.TCooSetOff, repSigZon.TCooSetOff);
   connect(busTer.yEndSetUp, repSigZon.uEndSetUp);
-  connect(busTer.TZon, repSigZon.TZon);
+  connect(busTer.TAirZon, repSigZon.TZon);
   connect(busTer.uWin, repSigZon.uWin);
-
-  /* Software point connection - stop */
-
+  /* Control point connection - stop */
 
   connect(con.yAveOutAirFraPlu, zonToSys.yAveOutAirFraPlu) annotation (Line(
         points={{44,92},{200,92},{200,-48},{22,-48}}, color={0,0,127}));
@@ -631,15 +627,15 @@ equation
         points={{-2,-59},{-76,-59},{-76,88},{-44,88}}, color={0,0,127}));
   connect(zonToSys.uOutAirFra_max, con.uOutAirFra_max) annotation (Line(points={
           {-2,-56},{-72,-56},{-72,82},{-44,82}}, color={0,0,127}));
-  connect(bus.TSup, con.TSup) annotation (Line(
+  connect(bus.TAirSup, con.TSup) annotation (Line(
       points={{-200,0},{-180,0},{-180,80},{-100,80},{-100,70},{-44,70}},
       color={255,204,51},
       thickness=0.5));
-  connect(bus.TOut, con.TOut) annotation (Line(
+  connect(bus.TAirOut, con.TOut) annotation (Line(
       points={{-200,0},{-180,0},{-180,136},{-44,136}},
       color={255,204,51},
       thickness=0.5));
-  connect(bus.pSup_rel, con.ducStaPre) annotation (Line(
+  connect(bus.pAirSup_rel, con.ducStaPre) annotation (Line(
       points={{-200,0},{-180,0},{-180,130},{-44,130}},
       color={255,204,51},
       thickness=0.5));
@@ -647,11 +643,11 @@ equation
       points={{-200,0},{-180,0},{-180,46},{-44,46}},
       color={255,204,51},
       thickness=0.5));
-  connect(bus.TMix, con.TMix) annotation (Line(
+  connect(bus.TAirMix, con.TMix) annotation (Line(
       points={{-200,0},{-180,0},{-180,38},{-44,38}},
       color={255,204,51},
       thickness=0.5));
-  connect(bus.hOut, con.hOut) annotation (Line(
+  connect(bus.hAirOut, con.hOut) annotation (Line(
       points={{-200,0},{-180,0},{-180,80},{-100,80},{-100,58},{-44,58}},
       color={255,204,51},
       thickness=0.5));

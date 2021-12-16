@@ -29,8 +29,8 @@ model Floor
     leaEas(
       s=18.46/27.69));
 
-  final parameter Modelica.SIunits.Area AFlo=AFloCor+AFloSou+AFloNor+AFloEas+AFloWes
-    "Total floor area";
+  final parameter Modelica.Units.SI.Area AFlo=AFloCor + AFloSou + AFloNor +
+      AFloEas + AFloWes "Total floor area";
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heaPorSou
     "Heat port to air volume South"
     annotation (Placement(transformation(extent={{106,-46},{126,-26}}),iconTransformation(extent={{128,-36},{148,-16}})));
@@ -46,16 +46,11 @@ model Floor
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heaPorCor
     "Heat port to air volume corridor"
     annotation (Placement(transformation(extent={{106,36},{126,56}}),iconTransformation(extent={{130,38},{150,58}})));
-  Modelica.SIunits.Temperature TAirCor=cor.TAir
-    "Air temperature corridor";
-  Modelica.SIunits.Temperature TAirSou=sou.TAir
-    "Air temperature south zone";
-  Modelica.SIunits.Temperature TAirNor=nor.TAir
-    "Air temperature north zone";
-  Modelica.SIunits.Temperature TAirEas=eas.TAir
-    "Air temperature east zone";
-  Modelica.SIunits.Temperature TAirWes=wes.TAir
-    "Air temperature west zone";
+  Modelica.Units.SI.Temperature TAirCor=cor.TAir "Air temperature corridor";
+  Modelica.Units.SI.Temperature TAirSou=sou.TAir "Air temperature south zone";
+  Modelica.Units.SI.Temperature TAirNor=nor.TAir "Air temperature north zone";
+  Modelica.Units.SI.Temperature TAirEas=eas.TAir "Air temperature east zone";
+  Modelica.Units.SI.Temperature TAirWes=wes.TAir "Air temperature west zone";
   ThermalZone sou(
     redeclare package Medium=Medium,
     nPorts=5,

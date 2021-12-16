@@ -2,23 +2,19 @@ within Buildings.Experimental.DHC.Loads;
 model SimpleRoomODE
   "Simplified model for assessing room air temperature variations around a set point"
   extends Modelica.Blocks.Icons.Block;
-  parameter Modelica.SIunits.Temperature TOutHea_nominal(
-    displayUnit="degC")
+  parameter Modelica.Units.SI.Temperature TOutHea_nominal(displayUnit="degC")
     "Outdoor air temperature at heating nominal conditions"
     annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.SIunits.Temperature TIndHea_nominal(
-    displayUnit="degC")
+  parameter Modelica.Units.SI.Temperature TIndHea_nominal(displayUnit="degC")
     "Indoor air temperature at heating nominal conditions"
     annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.SIunits.HeatFlowRate QHea_flow_nominal(
-    min=0)
-    "Heating heat flow rate (for TInd=TIndHea_nominal, TOut=TOutHea_nominal,
+  parameter Modelica.Units.SI.HeatFlowRate QHea_flow_nominal(min=0) "Heating heat flow rate (for TInd=TIndHea_nominal, TOut=TOutHea_nominal,
     with no internal gains, no solar radiation)"
     annotation (Dialog(group="Nominal condition"));
   parameter Boolean steadyStateInitial=false
     "true initializes T with dT(0)/dt=0, false initializes T with T(0)=TIndHea_nominal"
     annotation (Dialog(group="Initialization"),Evaluate=true);
-  parameter Modelica.SIunits.Time tau=1800
+  parameter Modelica.Units.SI.Time tau=1800
     "Time constant of the indoor temperature";
   Modelica.Blocks.Interfaces.RealInput TSet(
     final quantity="ThermodynamicTemperature",
@@ -43,7 +39,8 @@ model SimpleRoomODE
     "Room air temperature"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 protected
-  parameter Modelica.SIunits.ThermalConductance G=-QHea_flow_nominal/(TOutHea_nominal-TIndHea_nominal)
+  parameter Modelica.Units.SI.ThermalConductance G=-QHea_flow_nominal/(
+      TOutHea_nominal - TIndHea_nominal)
     "Lumped thermal conductance representing all temperature dependent heat transfer mechanisms";
 initial equation
   if steadyStateInitial then
@@ -130,28 +127,28 @@ First implementation.
       graphics={
         Text(
           extent={{-88,16},{-8,-14}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
           horizontalAlignment=TextAlignment.Left,
           textString="QReq_flow"),
         Text(
           extent={{-88,94},{-52,68}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
           horizontalAlignment=TextAlignment.Left,
           textString="TSet"),
         Text(
           extent={{-88,-64},{-8,-94}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
           horizontalAlignment=TextAlignment.Left,
           textString="QAct_flow"),
         Text(
           extent={{50,10},{90,-8}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
           horizontalAlignment=TextAlignment.Right,

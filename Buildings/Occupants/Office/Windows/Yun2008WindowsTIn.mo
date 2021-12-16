@@ -6,7 +6,7 @@ model Yun2008WindowsTIn "A model to predict occupants' window behavior with indo
   parameter Real AClose = -0.007 "Slope of the logistic relation for closing the window";
   parameter Real BClose = -0.209 "Intercept of the logistic relation for closing the window";
   parameter Integer seed = 30 "Seed for the random number generator";
-  parameter Modelica.SIunits.Time samplePeriod = 120 "Sample period";
+  parameter Modelica.Units.SI.Time samplePeriod=120 "Sample period";
 
   Modelica.Blocks.Interfaces.RealInput TIn(
     final unit="K",
@@ -28,7 +28,8 @@ model Yun2008WindowsTIn "A model to predict occupants' window behavior with indo
     max=1) "Probability of closing the window";
 
 protected
-  parameter Modelica.SIunits.Time t0(final fixed = false) "First sample time instant";
+  parameter Modelica.Units.SI.Time t0(final fixed=false)
+    "First sample time instant";
   output Boolean sampleTrigger "True, if sample time instant";
   Real curSeed "Current value for seed as a real-valued variable";
 
@@ -63,7 +64,7 @@ equation
   annotation (Icon(graphics={
             Rectangle(extent={{-60,40},{60,-40}}, lineColor={28,108,200}), Text(
             extent={{-40,20},{40,-20}},
-            lineColor={28,108,200},
+            textColor={28,108,200},
             fillColor={0,0,255},
             fillPattern=FillPattern.Solid,
             textStyle={TextStyle.Bold},
