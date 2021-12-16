@@ -1,4 +1,0 @@
-﻿simulateModel("VirtualTestbed.NISTChillerTestbed.System.Control.Examples.ModeControl", stopTime=7200, method="dassl", resultFile="ModeControl");
-createPlot(id=1, position={0, 0, 1645, 640}, y={"SOC.y"},grid=true,subPlot=1, colors={{28,108,200}});
-createPlot(id=1, position={0, 0, 1645, 640}, y={"occ.y"},grid=true,subPlot=2, colors={{28,108,200}});
-createPlot(id=1, position={0, 0, 1645, 640}, y={"stoCon.y"},grid=true,subPlot=3, colors={{28,108,200}});

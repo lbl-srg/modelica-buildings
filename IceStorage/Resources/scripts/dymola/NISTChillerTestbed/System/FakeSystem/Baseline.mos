@@ -1,1 +1,0 @@
-simulateModel("VirtualTestbed.NISTChillerTestbed.System.FakeSystem.Baseline", startTime=15638400, stopTime=17366400, method="Cvode", resultFile="Baseline");
