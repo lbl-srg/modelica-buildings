@@ -7,7 +7,8 @@ model Modulating "Modulating damper"
   Buildings.Fluid.Actuators.Dampers.Exponential dam(
     redeclare final package Medium = Medium,
     final m_flow_nominal=m_flow_nominal,
-    final dpDamper_nominal=dpDamper_nominal) "Exponential damper"
+    final dpDamper_nominal=dpDamper_nominal)
+    "Exponential damper"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 equation
   connect(port_a, dam.port_a) annotation (Line(points={{-100,0},{-56,0},{-56,0},

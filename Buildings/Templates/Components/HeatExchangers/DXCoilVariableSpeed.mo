@@ -1,23 +1,29 @@
 within Buildings.Templates.Components.HeatExchangers;
-model DXMultiStage "Multi-stage"
-  extends Buildings.Templates.Components.HeatExchangers.Interfaces.PartialCoilDirectExpansion(
-    final typ=Buildings.Templates.Components.Types.HeatExchanger.DXMultiStage);
+model DXCoilVariableSpeed "Direct expansion coil - Variable speed"
+  extends
+    Buildings.Templates.Components.HeatExchangers.Interfaces.PartialCoilDirectExpansion(
+    final typ=Buildings.Templates.Components.Types.HeatExchanger.DXVariableSpeed);
 
-  Fluid.HeatExchangers.DXCoils.AirCooled.MultiStage coi(
+  parameter Real minSpeRat(min=0,max=1)=0.1 "Minimum speed ratio";
+  parameter Real speRatDeaBan=0.05 "Deadband for minimum speed ratio";
+
+  Fluid.HeatExchangers.DXCoils.AirCooled.VariableSpeed coi(
     redeclare final package Medium = Medium,
     final datCoi=datCoi,
+    final minSpeRat=minSpeRat,
+    final speRatDeaBan=speRatDeaBan,
     final dp_nominal=dp_nominal,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     "DX coil"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
+
   Modelica.Blocks.Routing.RealPassThrough TWet if not have_dryCon
     annotation (Placement(transformation(extent={{-60,10},{-40,30}})));
   Modelica.Blocks.Routing.RealPassThrough TDry if have_dryCon
     annotation (Placement(transformation(extent={{-60,-30},{-40,-10}})));
-
 equation
   /* Control point connection - start */
-  connect(bus.y, coi.stage);
+  connect(bus.y, coi.speRat);
   /* Control point connection - end */
   connect(port_a, coi.port_a)
     annotation (Line(points={{-100,0},{-10,0}}, color={0,127,255}));
@@ -45,4 +51,4 @@ equation
           3},{-11,3}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)));
-end DXMultiStage;
+end DXCoilVariableSpeed;

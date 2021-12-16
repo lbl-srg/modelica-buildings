@@ -42,11 +42,6 @@ partial model PartialFan "Interface class for fans"
       Dialog(enable=typ <> Buildings.Templates.Components.Types.Fan.None),
       Placement(transformation(extent={{-90,-88},{-70,-68}})));
 
-  outer parameter String id
-    "System identifier";
-  outer parameter ExternData.JSONFile dat
-    "External parameter file";
-
   Buildings.Templates.Components.Interfaces.Bus bus
     if typ <> Buildings.Templates.Components.Types.Fan.None
     "Control bus"
