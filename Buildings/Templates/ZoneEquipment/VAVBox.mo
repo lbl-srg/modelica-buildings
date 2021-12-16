@@ -8,7 +8,7 @@ model VAVBox "VAV terminal unit"
     "Heating medium (such as HHW)"
     annotation(Dialog(enable=have_souCoiHea));
 
-  parameter Modelica.SIunits.PressureDifference dpDamVAV_nominal=
+  parameter Modelica.Units.SI.PressureDifference dpDamVAV_nominal=
     dat.getReal(varName=id + ".Mechanical.VAV damper pressure drop.value")
     "Damper pressure drop"
     annotation (Dialog(group="Nominal condition"));

@@ -5,10 +5,10 @@ partial model PartialCoilWater
   parameter Buildings.Templates.Components.Types.HeatExchanger typ
     "Type of heat exchanger"
     annotation (Evaluate=true, Dialog(group="Configuration"));
-  parameter Modelica.SIunits.PressureDifference dp1_nominal
+  parameter Modelica.Units.SI.PressureDifference dp1_nominal
     "Liquid pressure drop"
     annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.SIunits.PressureDifference dp2_nominal
+  parameter Modelica.Units.SI.PressureDifference dp2_nominal
     "Air pressure drop"
     annotation (Dialog(group="Nominal condition"));
 

@@ -14,7 +14,7 @@ model VAVMultiZone "Multiple-Zone VAV"
     "Heating medium (such as HHW)"
     annotation(Dialog(enable=have_souCoiHeaPre or have_souCoiHeaReh));
 
-  parameter Modelica.SIunits.PressureDifference dpFanSup_nominal=
+  parameter Modelica.Units.SI.PressureDifference dpFanSup_nominal=
     if typFanSup<>Buildings.Templates.Components.Types.Fan.None then
       dat.getReal(varName=id + ".Mechanical.Supply fan.Total pressure rise.value")
     else 0
@@ -22,7 +22,7 @@ model VAVMultiZone "Multiple-Zone VAV"
     annotation (
       Dialog(group="Nominal condition",
         enable=typFanSup <> Buildings.Templates.Components.Types.Fan.None));
-  parameter Modelica.SIunits.PressureDifference dpFanRet_nominal=
+  parameter Modelica.Units.SI.PressureDifference dpFanRet_nominal=
     if typFanRel <> Buildings.Templates.Components.Types.Fan.None or
       typFanRet <> Buildings.Templates.Components.Types.Fan.None then
       dat.getReal(varName=id + ".Mechanical.Relief/return fan.Total pressure rise.value")

@@ -22,7 +22,7 @@ partial model PartialAirTerminal
   outer parameter ExternData.JSONFile dat
     "External parameter file";
 
-  parameter Modelica.SIunits.MassFlowRate mAir_flow_nominal=
+  parameter Modelica.Units.SI.MassFlowRate mAir_flow_nominal=
     dat.getReal(varName=id + ".Mechanical.Discharge air mass flow rate.value")
     "Discharge air mass flow rate"
     annotation (Dialog(group="Nominal condition"));

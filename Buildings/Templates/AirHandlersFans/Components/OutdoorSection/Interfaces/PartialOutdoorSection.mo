@@ -18,19 +18,19 @@ partial model PartialOutdoorSection "Outdoor air section"
   outer parameter Buildings.Templates.AirHandlersFans.Types.ControlEconomizer typCtrEco
     "Economizer control type";
 
-  parameter Modelica.SIunits.MassFlowRate m_flow_nominal
+  parameter Modelica.Units.SI.MassFlowRate m_flow_nominal
     "Air mass flow rate"
     annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.SIunits.MassFlowRate mOutMin_flow_nominal
+  parameter Modelica.Units.SI.MassFlowRate mOutMin_flow_nominal
     "Minimum outdoor air mass flow rate"
     annotation (
       Dialog(group="Nominal condition",
         enable=typDamOutMin <> Buildings.Templates.Components.Types.Damper.None));
-  parameter Modelica.SIunits.PressureDifference dpDamOut_nominal
+  parameter Modelica.Units.SI.PressureDifference dpDamOut_nominal
     "Outdoor air damper pressure drop"
     annotation (
       Dialog(group="Nominal condition"));
-  parameter Modelica.SIunits.PressureDifference dpDamOutMin_nominal
+  parameter Modelica.Units.SI.PressureDifference dpDamOutMin_nominal
     "Minimum outdoor air damper pressure drop"
     annotation (
       Dialog(group="Nominal condition",

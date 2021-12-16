@@ -19,11 +19,11 @@ partial model AirHandler "Base interface class for air handler"
         group="Configuration",
         enable=false));
 
-  inner parameter Modelica.SIunits.MassFlowRate mAirSup_flow_nominal=
+  inner parameter Modelica.Units.SI.MassFlowRate mAirSup_flow_nominal=
     dat.getReal(varName=id + ".Mechanical.Supply air mass flow rate.value")
     "Supply air mass flow rate"
     annotation (Dialog(group="Nominal condition"), Evaluate=true);
-  inner parameter Modelica.SIunits.MassFlowRate mAirRet_flow_nominal=
+  inner parameter Modelica.Units.SI.MassFlowRate mAirRet_flow_nominal=
     dat.getReal(varName=id + ".Mechanical.Return air mass flow rate.value")
     "Return air mass flow rate"
     annotation (Dialog(group="Nominal condition"), Evaluate=true);

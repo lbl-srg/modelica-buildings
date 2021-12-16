@@ -34,7 +34,7 @@ block Guideline36
     annotation (Dialog(tab="Airflow setpoint", group="Zone sensors"));
     */
 
-  parameter Modelica.SIunits.VolumeFlowRate V_flow_nominal=
+  parameter Modelica.Units.SI.VolumeFlowRate V_flow_nominal=
     dat.getReal(varName=id + ".Mechanical.Discharge air mass flow rate.value") / 1.2
     "Volume flow rate"
     annotation (Dialog(group="Nominal condition"));
@@ -43,7 +43,7 @@ block Guideline36
   *  Parameters for Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.Controller
   */
 
-  parameter Modelica.SIunits.Time samplePeriod = 120
+  parameter Modelica.Units.SI.Time samplePeriod = 120
     "Sample period of trim and respond for pressure reset request";
 
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerTypeCoo=
