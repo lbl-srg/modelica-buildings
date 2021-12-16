@@ -14,9 +14,9 @@ function calculateLMTDStar
     "Normalized LMTD";
 
 protected
-  constant Modelica.SIunits.TemperatureDifference dTif_min=0.2
+  constant Modelica.SIunits.TemperatureDifference dTif_min=0.02
     "Small temperature difference, used for regularization";
-  constant Modelica.SIunits.TemperatureDifference dTof_min=0.1
+  constant Modelica.SIunits.TemperatureDifference dTof_min=0.01
     "Small temperature difference, used for regularization";
   //Modelica.SIunits.Temperature TOutEps
   //  "Outlet temperature, bounded away from TIn";
@@ -27,7 +27,7 @@ protected
   Real eps = 1E-09 "Small tolerance";
 algorithm
 
-  dTio := TIn-TOut;
+  dTio := abs(TIn-TOut);
 
   dTif := Buildings.Utilities.Math.Functions.smoothMax(
     x1 = abs(TIn-TFre),
