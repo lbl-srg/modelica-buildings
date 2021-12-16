@@ -4,7 +4,7 @@ model Headered
     Buildings.Templates.ChilledWaterPlant.Components.PrimaryPumpGroup.Interfaces.PrimaryPumpGroup(
     final typ=Buildings.Templates.ChilledWaterPlant.Components.Types.PrimaryPumpGroup.Headered);
 
-  parameter Modelica.SIunits.PressureDifference dpWSEByp_nominal=
+  parameter Modelica.Units.SI.PressureDifference dpWSEByp_nominal=
     if has_WSEByp then dat.getReal(varName=id + ".WatersideEconomizer.dpByp_nominal.value")
     else 0;
 

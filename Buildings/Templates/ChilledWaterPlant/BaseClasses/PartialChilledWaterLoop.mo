@@ -14,14 +14,14 @@ model PartialChilledWaterLoop
   final parameter Integer nPumPri = pumPri.nPum "Number of primary pumps";
   final parameter Integer nPumSec = if pumSec.is_none then 0 else pumSec.nPum "Number of secondary pumps";
 
-  parameter Modelica.SIunits.MassFlowRate mPri_flow_nominal=
+  parameter Modelica.Units.SI.MassFlowRate mPri_flow_nominal=
     dat.getReal(varName=id + ".ChilledWater.mPri_flow_nominal.value")
     "Primary mass flow rate";
-  parameter Modelica.SIunits.MassFlowRate mSec_flow_nominal=
+  parameter Modelica.Units.SI.MassFlowRate mSec_flow_nominal=
     if pumSec.is_none then mPri_flow_nominal else
     dat.getReal(varName=id + ".ChilledWater.mSec_flow_nominal.value")
     "Secondary mass flow rate";
-  parameter Modelica.SIunits.PressureDifference dpDem_nominal=
+  parameter Modelica.Units.SI.PressureDifference dpDem_nominal=
     dat.getReal(varName=id + ".ChilledWater.dpSetPoi.value")
     "Differential pressure setpoint on the demand side";
 
@@ -146,11 +146,11 @@ model PartialChilledWaterLoop
         rotation=-90,
         origin={0,40})));
 protected
-  parameter Modelica.SIunits.PressureDifference dpPri_nominal=
+  parameter Modelica.Units.SI.PressureDifference dpPri_nominal=
     if pumSec.is_none then chiGro.dpCHW_nominal + dpDem_nominal
     else chiGro.dpCHW_nominal
     "Nominal pressure drop for primary loop";
-  parameter Modelica.SIunits.PressureDifference dpSec_nominal=
+  parameter Modelica.Units.SI.PressureDifference dpSec_nominal=
     if pumSec.is_none then 0 else dpDem_nominal
     "Nominal pressure drop for secondary loop";
 

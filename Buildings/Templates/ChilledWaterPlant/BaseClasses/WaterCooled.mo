@@ -23,7 +23,7 @@ model WaterCooled
   final parameter Integer nPumCon = pumCon.nPum "Number of condenser pumps";
   final parameter Integer nCooTow = cooTow.nCooTow "Number of cooling towers";
 
-  final parameter Modelica.SIunits.MassFlowRate mCon_flow_nominal=
+  final parameter Modelica.Units.SI.MassFlowRate mCon_flow_nominal=
     dat.getReal(varName=id + ".CondenserWater.m_flow_nominal.value")
     "Condenser mass flow rate";
 
@@ -86,7 +86,7 @@ model WaterCooled
         rotation=-90,
         origin={-100,42})));
 protected
-  parameter Modelica.SIunits.PressureDifference dpCon_nominal=
+  parameter Modelica.Units.SI.PressureDifference dpCon_nominal=
     chiGro.dp1_nominal + cooTow.dp_nominal
     "Nominal pressure drop for condenser loop";
 equation

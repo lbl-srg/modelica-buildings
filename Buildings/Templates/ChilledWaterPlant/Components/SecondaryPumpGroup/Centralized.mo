@@ -4,7 +4,7 @@ model Centralized "Centralized secondary pumping"
     Buildings.Templates.ChilledWaterPlant.Components.SecondaryPumpGroup.Interfaces.SecondaryPumpGroup(
      final typ=Buildings.Templates.ChilledWaterPlant.Components.Types.SecondaryPumpGroup.None);
 
-  parameter Modelica.SIunits.PressureDifference dpValve_nominal=
+  parameter Modelica.Units.SI.PressureDifference dpValve_nominal=
     dat.getReal(varName=id + ".SecondaryPump.dpValve_nominal.value")
     "Shutoff valve pressure drop";
 

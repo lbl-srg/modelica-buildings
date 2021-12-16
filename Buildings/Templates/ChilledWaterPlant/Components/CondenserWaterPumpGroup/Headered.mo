@@ -4,7 +4,7 @@ model Headered
     Buildings.Templates.ChilledWaterPlant.Components.CondenserWaterPumpGroup.Interfaces.CondenserWaterPumpGroup(
       final typ=Buildings.Templates.ChilledWaterPlant.Components.Types.CondenserWaterPumpGroup.Headered);
 
-  parameter Modelica.SIunits.PressureDifference dpWSEValve_nominal=
+  parameter Modelica.Units.SI.PressureDifference dpWSEValve_nominal=
     if has_WSE then
     dat.getReal(varName=id + ".WatersideEconomizer.dpCW_nominal.value")
     else 0

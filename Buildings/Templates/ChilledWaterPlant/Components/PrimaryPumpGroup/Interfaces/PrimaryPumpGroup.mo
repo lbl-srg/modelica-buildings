@@ -28,19 +28,19 @@ partial model PrimaryPumpGroup
   parameter Integer nPum = nChi "Number of pumps"
   annotation(Dialog(enable=not is_dedicated));
 
-  parameter Modelica.SIunits.MassFlowRate mTot_flow_nominal = m_flow_nominal*nPum "Total mass flow rate for pump group";
+  parameter Modelica.Units.SI.MassFlowRate mTot_flow_nominal = m_flow_nominal*nPum "Total mass flow rate for pump group";
 
   // FixMe: Flow and dp should be read from pump curve, but are currently
   // assumed from system flow rate and pressure drop.
-  final parameter Modelica.SIunits.MassFlowRate m_flow_nominal = mTot_flow_nominal/nPum
+  final parameter Modelica.Units.SI.MassFlowRate m_flow_nominal = mTot_flow_nominal/nPum
     "Nominal mass flow rate per pump";
-  parameter Modelica.SIunits.PressureDifference dp_nominal
+  parameter Modelica.Units.SI.PressureDifference dp_nominal
     "Nominal pressure drop per pump";
 
-  parameter Modelica.SIunits.PressureDifference dpValve_nominal=
+  parameter Modelica.Units.SI.PressureDifference dpValve_nominal=
     dat.getReal(varName=id + ".PrimaryPump.dpValve_nominal.value")
     "Shutoff valve pressure drop";
-  parameter Modelica.SIunits.PressureDifference dpByp_nominal=
+  parameter Modelica.Units.SI.PressureDifference dpByp_nominal=
     if has_byp
     then dat.getReal(varName=id + ".PrimaryPump.dpByp_nominal.value")
     else 0
