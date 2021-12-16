@@ -5,12 +5,11 @@ model RadiantHeatingWithGroundHeatTransfer
     Buildings.ThermalZones.EnergyPlus.Examples.SingleFamilyHouse.Unconditioned;
   package MediumW=Buildings.Media.Water
     "Water medium";
-  constant Modelica.SIunits.Area AFlo=185.8
-    "Floor area";
-  parameter Modelica.SIunits.HeatFlowRate QHea_flow_nominal=12000
+  constant Modelica.Units.SI.Area AFlo=185.8 "Floor area";
+  parameter Modelica.Units.SI.HeatFlowRate QHea_flow_nominal=12000
     "Nominal heat flow rate for heating";
-  parameter Modelica.SIunits.MassFlowRate mHea_flow_nominal=QHea_flow_nominal/4200/10
-    "Design water mass flow rate for heating";
+  parameter Modelica.Units.SI.MassFlowRate mHea_flow_nominal=QHea_flow_nominal/
+      4200/10 "Design water mass flow rate for heating";
   parameter HeatTransfer.Data.OpaqueConstructions.Generic layFlo(
     nLay=3,
     material={

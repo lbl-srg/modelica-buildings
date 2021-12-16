@@ -5,27 +5,27 @@ model Buoyancy
 
   replaceable package Medium = Modelica.Media.Interfaces.PartialMedium "Medium model"  annotation (
       choicesAllMatching = true);
-  parameter Modelica.SIunits.Volume V "Volume";
+  parameter Modelica.Units.SI.Volume V "Volume";
   parameter Integer nSeg(min=2) = 2 "Number of volume segments";
-  parameter Modelica.SIunits.Time tau(min=0) "Time constant for mixing";
+  parameter Modelica.Units.SI.Time tau(min=0) "Time constant for mixing";
 
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a[nSeg] heatPort
     "Heat input into the volumes"
     annotation (Placement(transformation(extent={{90,-10},{110,10}})));
 
-  Modelica.SIunits.HeatFlowRate[nSeg-1] Q_flow
+  Modelica.Units.SI.HeatFlowRate[nSeg - 1] Q_flow
     "Heat flow rate from segment i+1 to i";
 protected
    parameter Medium.ThermodynamicState sta_default = Medium.setState_pTX(T=Medium.T_default,
          p=Medium.p_default, X=Medium.X_default[1:Medium.nXi])
     "Medium state at default properties";
-   parameter Modelica.SIunits.Density rho_default=Medium.density(sta_default)
+  parameter Modelica.Units.SI.Density rho_default=Medium.density(sta_default)
     "Density, used to compute fluid mass";
-   parameter Modelica.SIunits.SpecificHeatCapacity cp_default=Medium.specificHeatCapacityCp(sta_default)
-    "Specific heat capacity";
+  parameter Modelica.Units.SI.SpecificHeatCapacity cp_default=
+      Medium.specificHeatCapacityCp(sta_default) "Specific heat capacity";
    parameter Real k(unit="W/K") = V*rho_default*cp_default/tau/nSeg
     "Proportionality constant, since we use dT instead of dH";
-   Modelica.SIunits.TemperatureDifference dT[nSeg-1]
+  Modelica.Units.SI.TemperatureDifference dT[nSeg - 1]
     "Temperature difference between adjoining volumes";
 equation
   for i in 1:nSeg-1 loop

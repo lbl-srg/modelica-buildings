@@ -19,18 +19,25 @@ initial equation
 equation
   when initial() then
     //scenario = 1
-    y=
-      if clr then
+    y=if clr then
         false
       else
         u;
-  elsewhen(not clr) and change(u) and(pre(u) == false) and(pre(y) == false) then
+  elsewhen
+          (not clr) and change(u) and
+                                     (pre(u) == false) and
+                                                          (pre(y) == false) then
     //scenario = 2
     y=true;
-  elsewhen(not clr) and change(u) and(pre(u) == false) and(pre(y) == true) then
+  elsewhen
+          (not clr) and change(u) and
+                                     (pre(u) == false) and
+                                                          (pre(y) == true) then
     //scenario = 3
     y=false;
-  elsewhen(not clr) and change(u) and(pre(u) == true) then
+  elsewhen
+          (not clr) and change(u) and
+                                     (pre(u) == true) then
     //scenario = 4
     y=pre(y);
   elsewhen clr then

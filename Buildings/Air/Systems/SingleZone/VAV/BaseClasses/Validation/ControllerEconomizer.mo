@@ -7,26 +7,26 @@ model ControllerEconomizer "Validate the block ControllerEconomizer"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
   Modelica.Blocks.Sources.Sine mixAirTem(
     amplitude=7.5,
-    freqHz=1/86400,
+    f=1/86400,
     offset=20 + 273.15) "Mixed air temperature"
     annotation (Placement(transformation(extent={{-80,40},{-60,60}})));
   Modelica.Blocks.Sources.Sine retAirTem(
     amplitude=4,
-    freqHz=1/86400,
+    f=1/86400,
     offset=21 + 273.15) "Return air temperature"
     annotation (Placement(transformation(extent={{-80,10},{-60,30}})));
   Modelica.Blocks.Sources.Sine mixAirTemSet(
     amplitude=5,
-    freqHz=1/86400,
+    f=1/86400,
     offset=20 + 273.15) "Mixed air temperature setpoint"
     annotation (Placement(transformation(extent={{-80,70},{-60,90}})));
   Modelica.Blocks.Sources.Sine minOutAirFra(
-    freqHz=1/86400,
+    f=1/86400,
     offset=0.2,
     amplitude=0.15) "Minimum outdoor air fraction"
     annotation (Placement(transformation(extent={{-80,-30},{-60,-10}})));
   Modelica.Blocks.Sources.Sine outAirTem(
-    freqHz=1/86400,
+    f=1/86400,
     amplitude=6,
     offset=18 + 273.15) "Measured outdoor air temperature"
     annotation (Placement(transformation(extent={{-80,-60},{-60,-40}})));

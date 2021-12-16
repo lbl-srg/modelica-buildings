@@ -23,13 +23,16 @@ model WatersideEconomizer "Waterside economizer"
     annotation(Dialog(tab="Dynamics",group="Filtered opening",enable=use_inputFilter));
 
  // Heat exchanger
-  parameter Modelica.SIunits.Efficiency eta(start=0.8) "constant effectiveness";
+  parameter Modelica.Units.SI.Efficiency eta(start=0.8)
+    "constant effectiveness";
 
  // Bypass valve parameters
-  parameter Modelica.SIunits.Time tauThrWayVal=10
+  parameter Modelica.Units.SI.Time tauThrWayVal=10
     "Time constant at nominal flow for dynamic energy and momentum balance of the three-way valve"
-    annotation(Dialog(tab="Dynamics", group="Nominal condition",
-               enable=use_controller and not energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState));
+    annotation (Dialog(
+      tab="Dynamics",
+      group="Nominal condition",
+      enable=use_controller and not energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState));
 
   Modelica.Blocks.Interfaces.RealInput TSet(
     unit="K",

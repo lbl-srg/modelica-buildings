@@ -5,7 +5,7 @@ block ActuatorFilter
   extends Modelica.Blocks.Interfaces.SISO;
 
   constant Integer n=2 "Order of filter";
-  parameter Modelica.SIunits.Frequency f(start=1) "Cut-off frequency";
+  parameter Modelica.Units.SI.Frequency f(start=1) "Cut-off frequency";
   parameter Boolean normalized = true
     "= true, if amplitude at f_cut is 3 dB, otherwise unmodified filter";
   parameter Modelica.Blocks.Types.Init initType=Modelica.Blocks.Types.Init.NoInit

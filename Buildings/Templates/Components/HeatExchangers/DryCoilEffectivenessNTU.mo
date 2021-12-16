@@ -3,15 +3,15 @@ model DryCoilEffectivenessNTU "Effectiveness-NTU dry heat exchanger model"
   extends Buildings.Templates.Components.HeatExchangers.Interfaces.PartialCoilWater(
     final typ=Buildings.Templates.Components.Types.HeatExchanger.DryCoilEffectivenessNTU);
 
-  parameter Modelica.SIunits.HeatFlowRate Q_flow_nominal(min=0)=
+  parameter Modelica.Units.SI.HeatFlowRate Q_flow_nominal(min=0)=
     dat.getReal(varName=id + ".Mechanical." + funStr + " coil.Capacity.value")
     "Nominal heat flow rate"
     annotation(Dialog(group = "Nominal condition"));
-  parameter Modelica.SIunits.Temperature T_a1_nominal=
+  parameter Modelica.Units.SI.Temperature T_a1_nominal=
     dat.getReal(varName=id + ".Mechanical." + funStr + " coil.Entering liquid temperature.value")
     "Nominal inlet temperature"
     annotation(Dialog(group = "Nominal condition"));
-  parameter Modelica.SIunits.Temperature T_a2_nominal=
+  parameter Modelica.Units.SI.Temperature T_a2_nominal=
     dat.getReal(varName=id + ".Mechanical." + funStr + " coil.Entering air temperature.value")
     "Nominal inlet temperature"
     annotation(Dialog(group = "Nominal condition"));

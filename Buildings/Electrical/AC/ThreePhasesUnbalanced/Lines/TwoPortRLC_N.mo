@@ -3,37 +3,38 @@ model TwoPortRLC_N
   "Model of an RLC element with two electrical ports and neutral line cable"
   extends Modelica.Electrical.Analog.Interfaces.ConditionalHeatPort;
   extends Buildings.Electrical.AC.ThreePhasesUnbalanced.Interfaces.TwoPort_N;
-  parameter Modelica.SIunits.Resistance R "Resistance at temperature T_ref";
-  parameter Modelica.SIunits.Resistance Rn
+  parameter Modelica.Units.SI.Resistance R "Resistance at temperature T_ref";
+  parameter Modelica.Units.SI.Resistance Rn
     "Resistance of neutral cable at temperature T_ref";
-  parameter Modelica.SIunits.Capacitance C "Capacity";
-  parameter Modelica.SIunits.Capacitance Cn "Capacityof neutral cable";
-  parameter Modelica.SIunits.Inductance L "Inductance";
-  parameter Modelica.SIunits.Inductance Ln "Inductance of neutral cable";
-  parameter Modelica.SIunits.Temperature T_ref = 298.15 "Reference temperature"
-                            annotation(Evaluate=true);
-  parameter Modelica.SIunits.Temperature M = 507.65
-    "Temperature constant (R_actual = R*(M + T_heatPort)/(M + T_ref))" annotation(Evaluate=true);
-  parameter Modelica.SIunits.Voltage Vc1_start[2] = V_nominal/sqrt(3)*{1,0}
+  parameter Modelica.Units.SI.Capacitance C "Capacity";
+  parameter Modelica.Units.SI.Capacitance Cn "Capacityof neutral cable";
+  parameter Modelica.Units.SI.Inductance L "Inductance";
+  parameter Modelica.Units.SI.Inductance Ln "Inductance of neutral cable";
+  parameter Modelica.Units.SI.Temperature T_ref=298.15 "Reference temperature"
+    annotation (Evaluate=true);
+  parameter Modelica.Units.SI.Temperature M=507.65
+    "Temperature constant (R_actual = R*(M + T_heatPort)/(M + T_ref))"
+    annotation (Evaluate=true);
+  parameter Modelica.Units.SI.Voltage Vc1_start[2]=V_nominal/sqrt(3)*{1,0}
     "Initial voltage phasor of the capacitance located in the middle of phase 1"
-    annotation (Dialog(enable = (mode==Buildings.Electrical.Types.Load.FixedZ_dynamic)));
-  parameter Modelica.SIunits.Voltage Vc2_start[2] = V_nominal/sqrt(3)*{-1/2,-sqrt(3)/2}
+    annotation (Dialog(enable=(mode == Buildings.Electrical.Types.Load.FixedZ_dynamic)));
+  parameter Modelica.Units.SI.Voltage Vc2_start[2]=V_nominal/sqrt(3)*{-1/2,-
+      sqrt(3)/2}
     "Initial voltage phasor of the capacitance located in the middle of phase 1"
-    annotation (Dialog(enable = (mode==Buildings.Electrical.Types.Load.FixedZ_dynamic)));
-  parameter Modelica.SIunits.Voltage Vc3_start[2] = V_nominal/sqrt(3)*{-1/2,+sqrt(3)/2}
+    annotation (Dialog(enable=(mode == Buildings.Electrical.Types.Load.FixedZ_dynamic)));
+  parameter Modelica.Units.SI.Voltage Vc3_start[2]=V_nominal/sqrt(3)*{-1/2,+
+      sqrt(3)/2}
     "Initial voltage phasor of the capacitance located in the middle of phase 1"
-    annotation (Dialog(enable = (mode==Buildings.Electrical.Types.Load.FixedZ_dynamic)));
+    annotation (Dialog(enable=(mode == Buildings.Electrical.Types.Load.FixedZ_dynamic)));
   parameter Buildings.Electrical.Types.Load mode(
     min=Buildings.Electrical.Types.Load.FixedZ_steady_state,
     max=Buildings.Electrical.Types.Load.FixedZ_dynamic)=
     Buildings.Electrical.Types.Load.FixedZ_steady_state
     "Type of model (e.g., steady state, dynamic, prescribed power consumption, etc.)"
     annotation (Evaluate=true, Dialog(group="Modeling assumption"));
-  parameter Modelica.SIunits.Voltage V_nominal(min=0, start=480)
+  parameter Modelica.Units.SI.Voltage V_nominal(min=0, start=480)
     "Nominal voltage (V_nominal >= 0)"
-    annotation (
-      Evaluate=true,
-      Dialog(group="Nominal conditions"));
+    annotation (Evaluate=true, Dialog(group="Nominal conditions"));
   OnePhase.Lines.TwoPortRLC phase1(
     final T_ref=T_ref,
     final M=M,

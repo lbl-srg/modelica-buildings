@@ -4,16 +4,16 @@ partial model PartialElectric_AirCooled
  package Medium1 = Buildings.Media.Air "Medium model";
  package Medium2 = Buildings.Media.Water "Medium model";
 
-  parameter Modelica.SIunits.Power P_nominal
+  parameter Modelica.Units.SI.Power P_nominal
     "Nominal compressor power (at y=1)";
-  parameter Modelica.SIunits.TemperatureDifference dTEva_nominal=10
+  parameter Modelica.Units.SI.TemperatureDifference dTEva_nominal=10
     "Temperature difference evaporator inlet-outlet";
-  parameter Modelica.SIunits.TemperatureDifference dTCon_nominal=10
+  parameter Modelica.Units.SI.TemperatureDifference dTCon_nominal=10
     "Temperature difference condenser outlet-inlet";
   parameter Real COPc_nominal = 3 "Chiller COP";
-  parameter Modelica.SIunits.MassFlowRate mEva_flow_nominal
+  parameter Modelica.Units.SI.MassFlowRate mEva_flow_nominal
     "Nominal mass flow rate at evaporator";
-  parameter Modelica.SIunits.MassFlowRate mCon_flow_nominal
+  parameter Modelica.Units.SI.MassFlowRate mCon_flow_nominal
     "Nominal mass flow rate at condenser";
 
   Sources.MassFlowSource_WeatherData sou1(

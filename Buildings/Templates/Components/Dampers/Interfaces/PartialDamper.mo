@@ -18,7 +18,7 @@ partial model PartialDamper
     "True to flip text horizontally in icon layer"
     annotation(Dialog(tab="Graphics", enable=false));
 
-  parameter Modelica.SIunits.PressureDifference dpDamper_nominal
+  parameter Modelica.Units.SI.PressureDifference dpDamper_nominal
     "Damper pressure drop"
     annotation (
       Dialog(group="Nominal condition"));

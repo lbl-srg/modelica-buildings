@@ -22,31 +22,28 @@ model PartialParallel
   parameter Integer nSouAmb=1
     "Number of ambient sources"
     annotation (Evaluate=true);
-  parameter Modelica.SIunits.PressureDifference dpValIso_nominal(
-    displayUnit="Pa")=2E3
-    "Nominal pressure drop of ambient circuit isolation valves"
+  parameter Modelica.Units.SI.PressureDifference dpValIso_nominal(displayUnit=
+        "Pa") = 2E3 "Nominal pressure drop of ambient circuit isolation valves"
     annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.SIunits.PressureDifference dp1Hex_nominal(
-    displayUnit="Pa")
-    "Nominal pressure drop across heat exchanger on district side"
+  parameter Modelica.Units.SI.PressureDifference dp1Hex_nominal(displayUnit=
+        "Pa") "Nominal pressure drop across heat exchanger on district side"
     annotation (Dialog(group="District heat exchanger"));
-  parameter Modelica.SIunits.PressureDifference dp2Hex_nominal(
-    displayUnit="Pa")
-    "Nominal pressure drop across heat exchanger on building side"
+  parameter Modelica.Units.SI.PressureDifference dp2Hex_nominal(displayUnit=
+        "Pa") "Nominal pressure drop across heat exchanger on building side"
     annotation (Dialog(group="District heat exchanger"));
-  parameter Modelica.SIunits.HeatFlowRate QHex_flow_nominal
+  parameter Modelica.Units.SI.HeatFlowRate QHex_flow_nominal
     "Nominal heat flow rate through heat exchanger (from district to building)"
     annotation (Dialog(group="District heat exchanger"));
-  parameter Modelica.SIunits.Temperature T_a1Hex_nominal
+  parameter Modelica.Units.SI.Temperature T_a1Hex_nominal
     "Nominal water inlet temperature on district side"
     annotation (Dialog(group="District heat exchanger"));
-  parameter Modelica.SIunits.Temperature T_b1Hex_nominal
+  parameter Modelica.Units.SI.Temperature T_b1Hex_nominal
     "Nominal water outlet temperature on district side"
     annotation (Dialog(group="District heat exchanger"));
-  parameter Modelica.SIunits.Temperature T_a2Hex_nominal
+  parameter Modelica.Units.SI.Temperature T_a2Hex_nominal
     "Nominal water inlet temperature on building side"
     annotation (Dialog(group="District heat exchanger"));
-  parameter Modelica.SIunits.Temperature T_b2Hex_nominal
+  parameter Modelica.Units.SI.Temperature T_b2Hex_nominal
     "Nominal water outlet temperature on building side"
     annotation (Dialog(group="District heat exchanger"));
   parameter Real spePum1HexMin(
@@ -71,22 +68,20 @@ model PartialParallel
     "Record with performance data for secondary pump"
     annotation (Dialog(group="District heat exchanger"),
       choicesAllMatching=true,Placement(transformation(extent={{-40,222},{-20,242}})));
-  parameter Modelica.SIunits.Volume VTanHeaWat
-    "Heating water tank volume"
+  parameter Modelica.Units.SI.Volume VTanHeaWat "Heating water tank volume"
     annotation (Dialog(group="Buffer Tank"));
-  parameter Modelica.SIunits.Length hTanHeaWat=(VTanHeaWat*16/Modelica.Constants.pi)^(1/3)
-    "Heating water tank height (assuming twice the diameter)"
+  parameter Modelica.Units.SI.Length hTanHeaWat=(VTanHeaWat*16/Modelica.Constants.pi)
+      ^(1/3) "Heating water tank height (assuming twice the diameter)"
     annotation (Dialog(group="Buffer Tank"));
-  parameter Modelica.SIunits.Length dInsTanHeaWat=0.1
+  parameter Modelica.Units.SI.Length dInsTanHeaWat=0.1
     "Heating water tank insulation thickness"
     annotation (Dialog(group="Buffer Tank"));
-  parameter Modelica.SIunits.Volume VTanChiWat
-    "Chilled water tank volume"
+  parameter Modelica.Units.SI.Volume VTanChiWat "Chilled water tank volume"
     annotation (Dialog(group="Buffer Tank"));
-  parameter Modelica.SIunits.Length hTanChiWat=(VTanChiWat*16/Modelica.Constants.pi)^(1/3)
-    "Chilled water tank height (without insulation)"
+  parameter Modelica.Units.SI.Length hTanChiWat=(VTanChiWat*16/Modelica.Constants.pi)
+      ^(1/3) "Chilled water tank height (without insulation)"
     annotation (Dialog(group="Buffer Tank"));
-  parameter Modelica.SIunits.Length dInsTanChiWat=0.1
+  parameter Modelica.Units.SI.Length dInsTanChiWat=0.1
     "Chilled water tank insulation thickness"
     annotation (Dialog(group="Buffer Tank"));
   parameter Integer nSegTan=3

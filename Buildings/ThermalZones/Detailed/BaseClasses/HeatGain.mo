@@ -2,7 +2,7 @@ within Buildings.ThermalZones.Detailed.BaseClasses;
 model HeatGain "Model to convert internal heat gain signals"
   extends Buildings.BaseClasses.BaseIcon;
 
-  parameter Modelica.SIunits.Area AFlo "Floor area";
+  parameter Modelica.Units.SI.Area AFlo "Floor area";
 
   Modelica.Blocks.Interfaces.RealInput qGai_flow[3]
     "Radiant, convective sensible and latent heat input into room (positive if heat gain)"

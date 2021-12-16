@@ -3,7 +3,7 @@ block Derivative "Block that approximates the derivative of the input"
   extends Modelica.Icons.ObsoleteModel;
 
   parameter Real k(unit="1") = 1 "Gains";
-  parameter Modelica.SIunits.Time T(min=1E-60)=0.01
+  parameter Modelica.Units.SI.Time T(min=1E-60) = 0.01
     "Time constant (T>0 required)";
   parameter Real x_start=0 "Initial or guess value of state"
     annotation (Dialog(group="Initialization"));

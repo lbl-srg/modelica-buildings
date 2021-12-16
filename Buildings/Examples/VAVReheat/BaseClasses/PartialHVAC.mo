@@ -8,22 +8,25 @@ partial model PartialHVAC
 
   constant Integer numZon(min=2)=5 "Total number of served VAV boxes";
 
-  parameter Modelica.SIunits.Volume VRoo[numZon] "Room volume per zone";
-  parameter Modelica.SIunits.Area AFlo[numZon] "Floor area per zone";
+  parameter Modelica.Units.SI.Volume VRoo[numZon] "Room volume per zone";
+  parameter Modelica.Units.SI.Area AFlo[numZon] "Floor area per zone";
 
-  final parameter Modelica.SIunits.Area ATot=sum(AFlo) "Total floor area for all zone";
+  final parameter Modelica.Units.SI.Area ATot=sum(AFlo)
+    "Total floor area for all zone";
 
   constant Real conv=1.2/3600 "Conversion factor for nominal mass flow rate";
 
-  parameter Modelica.SIunits.MassFlowRate mVAV_flow_nominal[numZon]
+  parameter Modelica.Units.SI.MassFlowRate mVAV_flow_nominal[numZon]
     "Design mass flow rate per zone";
 
-  parameter Modelica.SIunits.MassFlowRate m_flow_nominal "Nominal mass flow rate";
+  parameter Modelica.Units.SI.MassFlowRate m_flow_nominal
+    "Nominal mass flow rate";
 
-  parameter Modelica.SIunits.MassFlowRate mHeaWat_flow_nominal=m_flow_nominal*1000*
-      (10 - (-20))/4200/10 "Nominal water mass flow rate for heating coil in AHU";
-  parameter Modelica.SIunits.MassFlowRate mCooWat_flow_nominal=m_flow_nominal*1000*
-      15/4200/10 "Nominal water mass flow rate for cooling coil";
+  parameter Modelica.Units.SI.MassFlowRate mHeaWat_flow_nominal=m_flow_nominal*
+      1000*(10 - (-20))/4200/10
+    "Nominal water mass flow rate for heating coil in AHU";
+  parameter Modelica.Units.SI.MassFlowRate mCooWat_flow_nominal=m_flow_nominal*
+      1000*15/4200/10 "Nominal water mass flow rate for cooling coil";
 
   parameter Real ratVFloHea(final unit="1") = 0.3
     "VAV box maximum air flow rate ratio in heating mode";
@@ -39,34 +42,31 @@ partial model PartialHVAC
   parameter Real divP(final unit="1") = 0.7
     "Occupant diversity ratio";
 
-  parameter Modelica.SIunits.VolumeFlowRate VZonOA_flow_nominal[numZon]=
-    (ratOAFlo_P * ratP_A + ratOAFlo_A) * AFlo / effZ
+  parameter Modelica.Units.SI.VolumeFlowRate VZonOA_flow_nominal[numZon]=(
+      ratOAFlo_P*ratP_A + ratOAFlo_A)*AFlo/effZ
     "Zone outdoor air flow rate of each VAV box";
 
-  parameter Modelica.SIunits.VolumeFlowRate Vou_flow_nominal=
-    (divP * ratOAFlo_P * ratP_A + ratOAFlo_A) * sum(AFlo)
-    "System uncorrected outdoor air flow rate";
+  parameter Modelica.Units.SI.VolumeFlowRate Vou_flow_nominal=(divP*ratOAFlo_P*
+      ratP_A + ratOAFlo_A)*sum(AFlo) "System uncorrected outdoor air flow rate";
   parameter Real effVen(final unit="1") = if divP < 0.6 then
     0.88 * divP + 0.22 else 0.75
     "System ventilation efficiency";
-  parameter Modelica.SIunits.VolumeFlowRate Vot_flow_nominal=
-    Vou_flow_nominal / effVen
-    "System design outdoor air flow rate";
+  parameter Modelica.Units.SI.VolumeFlowRate Vot_flow_nominal=Vou_flow_nominal/
+      effVen "System design outdoor air flow rate";
 
-  parameter Modelica.SIunits.Temperature THeaOn=293.15
+  parameter Modelica.Units.SI.Temperature THeaOn=293.15
     "Heating setpoint during on";
-  parameter Modelica.SIunits.Temperature THeaOff=285.15
+  parameter Modelica.Units.SI.Temperature THeaOff=285.15
     "Heating setpoint during off";
-  parameter Modelica.SIunits.Temperature TCooOn=297.15
+  parameter Modelica.Units.SI.Temperature TCooOn=297.15
     "Cooling setpoint during on";
-  parameter Modelica.SIunits.Temperature TCooOff=303.15
+  parameter Modelica.Units.SI.Temperature TCooOff=303.15
     "Cooling setpoint during off";
-  parameter Modelica.SIunits.PressureDifference dpBuiStaSet(min=0) = 12
+  parameter Modelica.Units.SI.PressureDifference dpBuiStaSet(min=0) = 12
     "Building static pressure";
   parameter Real yFanMin = 0.1 "Minimum fan speed";
 
-  parameter Modelica.SIunits.Temperature THotWatInl_nominal(
-    displayUnit="degC")
+  parameter Modelica.Units.SI.Temperature THotWatInl_nominal(displayUnit="degC")
     "Reheat coil nominal inlet water temperature";
 
   parameter Boolean allowFlowReversal=true
@@ -396,19 +396,17 @@ partial model PartialHVAC
     annotation (Placement(transformation(extent={{730,-30},{750,-50}})));
 
 protected
-  constant Modelica.SIunits.SpecificHeatCapacity cpAir=
-    Buildings.Utilities.Psychrometrics.Constants.cpAir
+  constant Modelica.Units.SI.SpecificHeatCapacity cpAir=Buildings.Utilities.Psychrometrics.Constants.cpAir
     "Air specific heat capacity";
-  constant Modelica.SIunits.SpecificHeatCapacity cpWatLiq=
-    Buildings.Utilities.Psychrometrics.Constants.cpWatLiq
+  constant Modelica.Units.SI.SpecificHeatCapacity cpWatLiq=Buildings.Utilities.Psychrometrics.Constants.cpWatLiq
     "Water specific heat capacity";
   model Results "Model to store the results of the simulation"
-    parameter Modelica.SIunits.Area A "Floor area";
-    input Modelica.SIunits.Power PFan "Fan energy";
-    input Modelica.SIunits.Power PPum "Pump energy";
-    input Modelica.SIunits.Power PHea "Heating energy";
-    input Modelica.SIunits.Power PCooSen "Sensible cooling energy";
-    input Modelica.SIunits.Power PCooLat "Latent cooling energy";
+    parameter Modelica.Units.SI.Area A "Floor area";
+    input Modelica.Units.SI.Power PFan "Fan energy";
+    input Modelica.Units.SI.Power PPum "Pump energy";
+    input Modelica.Units.SI.Power PHea "Heating energy";
+    input Modelica.Units.SI.Power PCooSen "Sensible cooling energy";
+    input Modelica.Units.SI.Power PCooLat "Latent cooling energy";
 
     Real EFan(
       unit="J/m2",

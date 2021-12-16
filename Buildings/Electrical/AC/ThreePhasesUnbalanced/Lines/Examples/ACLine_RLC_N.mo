@@ -2,12 +2,12 @@ within Buildings.Electrical.AC.ThreePhasesUnbalanced.Lines.Examples;
 model ACLine_RLC_N
   "Test model for a three-phase unbalanced RLC line with neutral cable"
   extends Modelica.Icons.Example;
-  parameter Modelica.SIunits.Resistance RBase = 3*10
+  parameter Modelica.Units.SI.Resistance RBase=3*10
     "Base value for the line resistance";
-  parameter Modelica.SIunits.Inductance LBase = RBase/(2*Modelica.Constants.pi*60)
-    "Base value for the line inductances";
-  parameter Modelica.SIunits.Capacitance CBase = 3*0.1/(2*Modelica.Constants.pi*60)
-    "Base value for the line inductances";
+  parameter Modelica.Units.SI.Inductance LBase=RBase/(2*Modelica.Constants.pi*
+      60) "Base value for the line inductances";
+  parameter Modelica.Units.SI.Capacitance CBase=3*0.1/(2*Modelica.Constants.pi*
+      60) "Base value for the line inductances";
   Sources.FixedVoltage_N E(
     definiteReference=true,
     f=60,

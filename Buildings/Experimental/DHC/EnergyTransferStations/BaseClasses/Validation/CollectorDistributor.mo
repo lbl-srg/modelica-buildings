@@ -4,7 +4,7 @@ model CollectorDistributor
   extends Modelica.Icons.Example;
   package Medium=Buildings.Media.Water
     "Source side medium";
-  parameter Modelica.SIunits.MassFlowRate m_flow_nominal=1
+  parameter Modelica.Units.SI.MassFlowRate m_flow_nominal=1
     "Nominal mass flow rate";
   Fluid.Movers.FlowControlled_m_flow sou1(
     redeclare package Medium=Medium,

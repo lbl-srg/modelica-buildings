@@ -25,7 +25,7 @@ partial model PartialFan "Interface class for fans"
     "True to flip text horizontally in icon layer"
     annotation(Dialog(tab="Graphics", enable=false));
 
-  parameter Modelica.SIunits.PressureDifference dp_nominal
+  parameter Modelica.Units.SI.PressureDifference dp_nominal
     "Total pressure rise"
     annotation (
       Dialog(group="Nominal condition",
@@ -33,8 +33,8 @@ partial model PartialFan "Interface class for fans"
 
   replaceable parameter Buildings.Fluid.Movers.Data.Generic per(
     pressure(
-      V_flow={0, 1, 2} * m_flow_nominal / nFan / 1.2,
-      dp={1, 1, 0} * dp_nominal))
+      V_flow={0, 1, 2} * m_flow_nominal / 1.2 / nFan,
+      dp={1.5, 1, 0} * dp_nominal))
     constrainedby Buildings.Fluid.Movers.Data.Generic
     "Performance data"
     annotation (

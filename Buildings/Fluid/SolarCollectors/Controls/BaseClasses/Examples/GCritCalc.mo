@@ -7,12 +7,12 @@ model GCritCalc "Example showing the use of GCritCalc"
     annotation (Placement(transformation(extent={{-12,0},{8,20}})));
   Modelica.Blocks.Sources.Sine TEnv(
     amplitude=10,
-    freqHz=0.1,
+    f=0.1,
     offset=10)
     annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
   Modelica.Blocks.Sources.Sine TIn(
     amplitude=10,
-    freqHz=0.01,
+    f=0.01,
     offset=30)
     annotation (Placement(transformation(extent={{-80,-20},{-60,0}})));
 equation

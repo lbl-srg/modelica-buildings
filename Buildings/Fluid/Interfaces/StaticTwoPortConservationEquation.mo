@@ -64,7 +64,7 @@ protected
 
   Real m_flowInv(unit="s/kg") "Regularization of 1/m_flow of port_a";
 
-  Modelica.SIunits.MassFlowRate mXi_flow[Medium.nXi]
+  Modelica.Units.SI.MassFlowRate mXi_flow[Medium.nXi]
     "Mass flow rates of independent substances added to the medium";
 
   // Parameters for inverseXRegularized.
@@ -95,10 +95,10 @@ protected
       p=Medium.p_default,
       X=Medium.X_default[1:Medium.nXi]) "Medium state at default values";
   // Density at medium default values, used to compute the size of control volumes
-  final parameter Modelica.SIunits.SpecificHeatCapacity cp_default=
-    Medium.specificHeatCapacityCp(state=state_default)
+  final parameter Modelica.Units.SI.SpecificHeatCapacity cp_default=
+      Medium.specificHeatCapacityCp(state=state_default)
     "Specific heat capacity, used to verify energy conservation";
-  constant Modelica.SIunits.TemperatureDifference dTMax(min=1) = 200
+  constant Modelica.Units.SI.TemperatureDifference dTMax(min=1) = 200
     "Maximum temperature difference across the StaticTwoPortConservationEquation";
   // Conditional connectors
   Modelica.Blocks.Interfaces.RealInput mWat_flow_internal(unit="kg/s")

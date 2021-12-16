@@ -18,19 +18,19 @@ partial model PartialPump "Interface class for pumps"
     annotation(Evaluate=true,
       Dialog(group="Configuration"));
 
-  parameter Modelica.SIunits.PressureDifference dp_nominal
+  parameter Modelica.Units.SI.PressureDifference dp_nominal
     "Total pressure rise"
     annotation (Dialog(group="Nominal condition",
       enable=typ <> Buildings.Templates.Components.Types.Pump.None));
-  parameter Modelica.SIunits.PressureDifference dpValve_nominal = 4000
+  parameter Modelica.Units.SI.PressureDifference dpValve_nominal = 4000
     "Nominal pressure drop of check valve"
     annotation (Dialog(group="Nominal condition",
       enable=typ <> Buildings.Templates.Components.Types.Pump.None));
 
   replaceable parameter Buildings.Fluid.Movers.Data.Generic per(
     pressure(
-      V_flow={0, 1, 2} * m_flow_nominal / nPum / 1.2,
-      dp={1, 1, 0} * dp_nominal))
+      V_flow={0, 1, 2} * m_flow_nominal / 1000 / nPum,
+      dp={1.5, 1, 0} * dp_nominal))
     constrainedby Buildings.Fluid.Movers.Data.Generic(
       motorCooledByFluid=false)
     "Performance data"

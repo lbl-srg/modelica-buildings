@@ -22,40 +22,30 @@ model WetCoilEffectivenessNTU
       Evaluate=true,
       Dialog(group="Nominal thermal performance"));
 
-  parameter Modelica.SIunits.HeatFlowRate Q_flow_nominal(
-    fixed=use_Q_flow_nominal)
+  parameter Modelica.Units.SI.HeatFlowRate Q_flow_nominal(fixed=
+        use_Q_flow_nominal)
     "Nominal heat flow rate (positive for heat transfer from 1 to 2)"
-    annotation (Dialog(
-      group="Nominal thermal performance",
-      enable=use_Q_flow_nominal));
-  parameter Modelica.SIunits.Temperature T_a1_nominal(
-    fixed=use_Q_flow_nominal)
-    "Water inlet temperature at a rated condition"
-    annotation (Dialog(
-      group="Nominal thermal performance",
-      enable=use_Q_flow_nominal));
-  parameter Modelica.SIunits.Temperature T_a2_nominal(
-    fixed=use_Q_flow_nominal)
-    "Air inlet temperature at a rated condition"
-    annotation (Dialog(
-      group="Nominal thermal performance",
-      enable=use_Q_flow_nominal));
-  parameter Modelica.SIunits.MassFraction w_a2_nominal(
-    start=0.01,
-    fixed=use_Q_flow_nominal)
+    annotation (Dialog(group="Nominal thermal performance", enable=
+          use_Q_flow_nominal));
+  parameter Modelica.Units.SI.Temperature T_a1_nominal(fixed=use_Q_flow_nominal)
+    "Water inlet temperature at a rated condition" annotation (Dialog(group=
+          "Nominal thermal performance", enable=use_Q_flow_nominal));
+  parameter Modelica.Units.SI.Temperature T_a2_nominal(fixed=use_Q_flow_nominal)
+    "Air inlet temperature at a rated condition" annotation (Dialog(group=
+          "Nominal thermal performance", enable=use_Q_flow_nominal));
+  parameter Modelica.Units.SI.MassFraction w_a2_nominal(start=0.01, fixed=
+        use_Q_flow_nominal)
     "Humidity ratio of inlet air at a rated condition (in kg/kg dry air)"
-    annotation (Dialog(
-      group="Nominal thermal performance",
-      enable=use_Q_flow_nominal));
+    annotation (Dialog(group="Nominal thermal performance", enable=
+          use_Q_flow_nominal));
 
-  parameter Modelica.SIunits.ThermalConductance UA_nominal(
+  parameter Modelica.Units.SI.ThermalConductance UA_nominal(
     fixed=not use_Q_flow_nominal,
     min=0,
-    start=1/(1/10+1/20))
+    start=1/(1/10 + 1/20))
     "Thermal conductance at nominal flow, used to compute heat capacity"
-    annotation(Dialog(
-      group="Nominal thermal performance",
-      enable=not use_Q_flow_nominal));
+    annotation (Dialog(group="Nominal thermal performance", enable=not
+          use_Q_flow_nominal));
 
   // Dynamics
   parameter Modelica.Fluid.Types.Dynamics energyDynamics=
@@ -66,29 +56,28 @@ model WetCoilEffectivenessNTU
     "Type of mass balance: dynamic (3 initialization options) or steady state"
     annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Equations"));
 
-  Modelica.SIunits.HeatFlowRate Q1_flow = -dryWetCalcs.QTot_flow
+  Modelica.Units.SI.HeatFlowRate Q1_flow=-dryWetCalcs.QTot_flow
     "Heat input into water stream (positive if air is cooled)";
-  Modelica.SIunits.HeatFlowRate Q2_flow = dryWetCalcs.QTot_flow
+  Modelica.Units.SI.HeatFlowRate Q2_flow=dryWetCalcs.QTot_flow
     "Total heat input into air stream (negative if air is cooled)";
-  Modelica.SIunits.HeatFlowRate QSen2_flow = dryWetCalcs.QSen_flow
+  Modelica.Units.SI.HeatFlowRate QSen2_flow=dryWetCalcs.QSen_flow
     "Sensible heat input into air stream (negative if air is cooled)";
-  Modelica.SIunits.HeatFlowRate QLat2_flow=
-    Buildings.Utilities.Psychrometrics.Constants.h_fg * mWat_flow
-    "Latent heat input into air (negative if air is dehumidified)";
+  Modelica.Units.SI.HeatFlowRate QLat2_flow=Buildings.Utilities.Psychrometrics.Constants.h_fg
+      *mWat_flow "Latent heat input into air (negative if air is dehumidified)";
   Real SHR(
     min=0,
     max=1,
     unit="1") = QSen2_flow /
       noEvent(if (Q2_flow > 1E-6 or Q2_flow < -1E-6) then Q2_flow else 1)
     "Sensible to total heat ratio";
-  Modelica.SIunits.MassFlowRate mWat_flow = dryWetCalcs.mCon_flow
+  Modelica.Units.SI.MassFlowRate mWat_flow=dryWetCalcs.mCon_flow
     "Water flow rate of condensate removed from the air stream";
 
   Real dryFra(final unit="1", min=0, max=1) = dryWetCalcs.dryFra
     "Dry fraction, 0.3 means condensation occurs at 30% heat exchange length from air inlet";
 protected
-  final parameter Modelica.SIunits.MassFraction X_w_a2_nominal=
-    w_a2_nominal / (1+w_a2_nominal)
+  final parameter Modelica.Units.SI.MassFraction X_w_a2_nominal=w_a2_nominal/(1
+       + w_a2_nominal)
     "Water mass fraction of inlet air at a rated condition (in kg/kg total air)";
 
   parameter Boolean waterSideFlowDependent=true
@@ -265,25 +254,23 @@ protected
     "Fraction of incoming state taken from port b2
     (used to avoid excessive calls to regStep)";
 
-  Modelica.SIunits.ThermalConductance C1_flow = abs(m1_flow)*
-    ( if allowFlowReversal1 then
-           fra_a1 * Medium1.specificHeatCapacityCp(state_a1_inflow) +
-           fra_b1 * Medium1.specificHeatCapacityCp(state_b1_inflow) else
-        Medium1.specificHeatCapacityCp(state_a1_inflow))
+  Modelica.Units.SI.ThermalConductance C1_flow=abs(m1_flow)*(if
+      allowFlowReversal1 then fra_a1*Medium1.specificHeatCapacityCp(
+      state_a1_inflow) + fra_b1*Medium1.specificHeatCapacityCp(state_b1_inflow)
+       else Medium1.specificHeatCapacityCp(state_a1_inflow))
     "Heat capacity flow rate medium 1";
-  Modelica.SIunits.ThermalConductance C2_flow = abs(m2_flow)*
-    ( if allowFlowReversal2 then
-           fra_a2 * Medium2.specificHeatCapacityCp(state_a2_inflow) +
-           fra_b2 * Medium2.specificHeatCapacityCp(state_b2_inflow) else
-        Medium2.specificHeatCapacityCp(state_a2_inflow))
+  Modelica.Units.SI.ThermalConductance C2_flow=abs(m2_flow)*(if
+      allowFlowReversal2 then fra_a2*Medium2.specificHeatCapacityCp(
+      state_a2_inflow) + fra_b2*Medium2.specificHeatCapacityCp(state_b2_inflow)
+       else Medium2.specificHeatCapacityCp(state_a2_inflow))
     "Heat capacity flow rate medium 2";
-  parameter Modelica.SIunits.SpecificHeatCapacity cp1_nominal(fixed=false)
+  parameter Modelica.Units.SI.SpecificHeatCapacity cp1_nominal(fixed=false)
     "Specific heat capacity of medium 1 at nominal condition";
-  parameter Modelica.SIunits.SpecificHeatCapacity cp2_nominal(fixed=false)
+  parameter Modelica.Units.SI.SpecificHeatCapacity cp2_nominal(fixed=false)
     "Specific heat capacity of medium 2 at nominal condition";
-  parameter Modelica.SIunits.ThermalConductance C1_flow_nominal(fixed=false)
+  parameter Modelica.Units.SI.ThermalConductance C1_flow_nominal(fixed=false)
     "Nominal capacity flow rate of Medium 1";
-  parameter Modelica.SIunits.ThermalConductance C2_flow_nominal(fixed=false)
+  parameter Modelica.Units.SI.ThermalConductance C2_flow_nominal(fixed=false)
     "Nominal capacity flow rate of Medium 2";
   final parameter Medium1.ThermodynamicState sta1_default = Medium1.setState_phX(
      h=Medium1.h_default,

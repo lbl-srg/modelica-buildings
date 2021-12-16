@@ -3,16 +3,16 @@ function power "Flow vs. electrical power characteristics for fan or pump"
   extends Modelica.Icons.Function;
   input Buildings.Fluid.Movers.BaseClasses.Characteristics.powerParameters per
     "Pressure performance data";
-  input Modelica.SIunits.VolumeFlowRate V_flow "Volumetric flow rate";
+  input Modelica.Units.SI.VolumeFlowRate V_flow "Volumetric flow rate";
   input Real r_N(unit="1") "Relative revolution, r_N=N/N_nominal";
   input Real d[:] "Derivatives at support points for spline interpolation";
   input Real delta "Small value for switching implementation around zero rpm";
-  output Modelica.SIunits.Power P "Power consumption";
+  output Modelica.Units.SI.Power P "Power consumption";
 
 protected
    Integer n=size(per.V_flow, 1) "Dimension of data vector";
 
-   Modelica.SIunits.VolumeFlowRate rat "Ratio of V_flow/r_N";
+  Modelica.Units.SI.VolumeFlowRate rat "Ratio of V_flow/r_N";
    Integer i "Integer to select data interval";
 
 algorithm

@@ -9,9 +9,9 @@ model TwoPipesConduit
   replaceable package Medium = Buildings.Media.Water "Medium in the pipe"
     annotation (choicesAllMatching=true);
 
-  parameter Modelica.SIunits.Length dCon = 0.3 "Conduit diameter";
-  parameter Modelica.SIunits.Length len = 1000 "Conduit length";
-  parameter Modelica.SIunits.Length xConWal=0.01 "Conduit wall thickness";
+  parameter Modelica.Units.SI.Length dCon=0.3 "Conduit diameter";
+  parameter Modelica.Units.SI.Length len=1000 "Conduit length";
+  parameter Modelica.Units.SI.Length xConWal=0.01 "Conduit wall thickness";
 
   parameter Buildings.HeatTransfer.Data.Soil.Generic conMat(
     k=0.19,
@@ -50,7 +50,7 @@ model TwoPipesConduit
 
   Modelica.Blocks.Sources.Sine TinSup(
     amplitude=5,
-    freqHz=1/180/24/60/60,
+    f=1/180/24/60/60,
     offset=273.15 + 70) "Pipe inlet temperature signal"
     annotation (Placement(transformation(extent={{-120,30},{-100,50}})));
   Sources.MassFlowSource_T souSup(
@@ -123,7 +123,7 @@ model TwoPipesConduit
 
   Modelica.Blocks.Sources.Sine TinRet(
     amplitude=2,
-    freqHz=1/180/24/60/60,
+    f=1/180/24/60/60,
     phase=0.78539816339745,
     offset=273.15 + 50) "Pipe inlet temperature signal"
     annotation (Placement(transformation(extent={{120,-50},{100,-30}})));
@@ -139,11 +139,10 @@ model TwoPipesConduit
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
 
 protected
-  parameter Modelica.SIunits.Volume VConAir=len*Modelica.Constants.pi*((dCon/2)
+  parameter Modelica.Units.SI.Volume VConAir=len*Modelica.Constants.pi*((dCon/2)
       ^2 - (pipSup.dh/2)^2 - (pipRet.dh/2)^2) "Air volume in conduit";
-  constant Modelica.SIunits.Density rhoAir = 1.2 "Air density";
-  constant Modelica.SIunits.SpecificHeatCapacity cpAir=
-    Buildings.Utilities.Psychrometrics.Constants.cpAir
+  constant Modelica.Units.SI.Density rhoAir=1.2 "Air density";
+  constant Modelica.Units.SI.SpecificHeatCapacity cpAir=Buildings.Utilities.Psychrometrics.Constants.cpAir
     "Air specific heat capacity";
 
 equation

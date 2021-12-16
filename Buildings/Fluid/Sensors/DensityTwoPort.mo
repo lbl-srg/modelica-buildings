@@ -1,7 +1,7 @@
 within Buildings.Fluid.Sensors;
 model DensityTwoPort "Ideal two port density sensor"
   extends Buildings.Fluid.Sensors.BaseClasses.PartialDynamicFlowSensor;
-  extends Modelica.Icons.RotationalSensor;
+  extends Modelica.Icons.RoundSensor;
   Modelica.Blocks.Interfaces.RealOutput d(final quantity="Density",
                                           final unit="kg/m3",
                                           min=0) "Density of the passing fluid"
@@ -14,13 +14,13 @@ model DensityTwoPort "Ideal two port density sensor"
        p=p_start, T=T_start, X=X_start))
     "Initial or guess value of output (=state)"
     annotation (Dialog(group="Initialization"));
-  parameter Modelica.SIunits.Temperature T_start=Medium.T_default
+  parameter Modelica.Units.SI.Temperature T_start=Medium.T_default
     "Temperature used to compute d_start"
     annotation (Dialog(group="Initialization"));
-  parameter Modelica.SIunits.Pressure p_start=Medium.p_default
+  parameter Modelica.Units.SI.Pressure p_start=Medium.p_default
     "Pressure used to compute d_start"
     annotation (Dialog(group="Initialization"));
-  parameter Modelica.SIunits.MassFraction X_start[Medium.nX]=Medium.X_default
+  parameter Modelica.Units.SI.MassFraction X_start[Medium.nX]=Medium.X_default
     "Mass fraction used to compute d_start"
     annotation (Dialog(group="Initialization"));
 protected

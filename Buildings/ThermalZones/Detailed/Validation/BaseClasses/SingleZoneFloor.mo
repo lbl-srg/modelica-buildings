@@ -2,9 +2,9 @@ within Buildings.ThermalZones.Detailed.Validation.BaseClasses;
 model SingleZoneFloor "Model of a building floor as a single zone"
   replaceable package Medium = Modelica.Media.Interfaces.PartialMedium
     "Medium model for air" annotation (choicesAllMatching=true);
-  parameter Modelica.SIunits.Volume VRoo = 4555.7  "Room volum";
-  parameter Modelica.SIunits.Height hRoo = 2.74 "Room height";
-  parameter Modelica.SIunits.Length hWin = 1.5 "Height of windows";
+  parameter Modelica.Units.SI.Volume VRoo=4555.7 "Room volum";
+  parameter Modelica.Units.SI.Height hRoo=2.74 "Room height";
+  parameter Modelica.Units.SI.Length hWin=1.5 "Height of windows";
   parameter Real winWalRat(min=0.01,max=0.99) = 0.33
     "Window to wall ratio for exterior walls";
 
@@ -178,19 +178,19 @@ model SingleZoneFloor "Model of a building floor as a single zone"
     annotation (Placement(transformation(extent={{-120,-100},{-100,-80}})));
 
 protected
-  parameter Modelica.SIunits.Angle S_= Buildings.Types.Azimuth.S
+  parameter Modelica.Units.SI.Angle S_=Buildings.Types.Azimuth.S
     "Azimuth for south walls";
-  parameter Modelica.SIunits.Angle E_= Buildings.Types.Azimuth.E
+  parameter Modelica.Units.SI.Angle E_=Buildings.Types.Azimuth.E
     "Azimuth for east walls";
-  parameter Modelica.SIunits.Angle W_= Buildings.Types.Azimuth.W
+  parameter Modelica.Units.SI.Angle W_=Buildings.Types.Azimuth.W
     "Azimuth for west walls";
-  parameter Modelica.SIunits.Angle N_= Buildings.Types.Azimuth.N
+  parameter Modelica.Units.SI.Angle N_=Buildings.Types.Azimuth.N
     "Azimuth for north walls";
-  parameter Modelica.SIunits.Angle F_= Buildings.Types.Tilt.Floor
+  parameter Modelica.Units.SI.Angle F_=Buildings.Types.Tilt.Floor
     "Tilt for floor";
-  parameter Modelica.SIunits.Angle Z_= Buildings.Types.Tilt.Wall
+  parameter Modelica.Units.SI.Angle Z_=Buildings.Types.Tilt.Wall
     "Tilt for wall";
-  parameter Modelica.SIunits.Area AFlo = VRoo/hRoo "Floor area";
+  parameter Modelica.Units.SI.Area AFlo=VRoo/hRoo "Floor area";
 
 equation
   connect(flo.weaBus, weaBus) annotation (Line(

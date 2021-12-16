@@ -2,7 +2,7 @@ within Buildings.Examples.ScalableBenchmarks.BuildingVAV.BaseClasses;
 block FanOnOffWithDP
   "Controller for fan on/off and to provide prescribed dP"
   import Buildings.Examples.VAVReheat.BaseClasses.Controls.OperationModes;
-  parameter Modelica.SIunits.PressureDifference preRis=850
+  parameter Modelica.Units.SI.PressureDifference preRis=850
     "Prescribed pressure difference";
   Modelica.Blocks.Interfaces.RealOutput y(unit="Pa")
     "Supply fan requested pressure rise, or zero if fan should be off"

@@ -1,7 +1,7 @@
 within Buildings.Experimental.DHC.EnergyTransferStations.Combined.Generation5.Controls;
-package BaseClasses
-  "Package with base classes"
+package BaseClasses "Package with base classes"
   extends Modelica.Icons.BasesPackage;
+
   annotation (
     preferredView="info",
     Documentation(

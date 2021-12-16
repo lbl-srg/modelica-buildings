@@ -11,12 +11,12 @@ model Evaporation
     nomVal "Nominal values"
     annotation (Placement(transformation(extent={{60,60},{80,80}})));
 
-    parameter Modelica.SIunits.MassFlowRate mAir_flow_small(min=0)=
-      0.1*abs(nomVal.m_flow_nominal)
+  parameter Modelica.Units.SI.MassFlowRate mAir_flow_small(min=0) = 0.1*abs(
+    nomVal.m_flow_nominal)
     "Small mass flow rate for regularization of zero flow"
-    annotation(Dialog(tab = "Advanced"));
+    annotation (Dialog(tab="Advanced"));
 
-  final parameter Modelica.SIunits.Mass mMax(min=0, fixed=false)
+  final parameter Modelica.Units.SI.Mass mMax(min=0, fixed=false)
     "Maximum mass of water that can accumulate on the coil";
 
   parameter Boolean computeReevaporation=true
@@ -56,37 +56,39 @@ model Evaporation
     "Total moisture mass flow rate into the air stream"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 
-  Modelica.SIunits.Mass m(nominal=-5000*1400/2257E3, start=0, fixed=true)
-    "Mass of water that accumulated on the coil";
+  Modelica.Units.SI.Mass m(
+    nominal=-5000*1400/2257E3,
+    start=0,
+    fixed=true) "Mass of water that accumulated on the coil";
 
-  Modelica.SIunits.MassFlowRate mEva_flow(start=0)
+  Modelica.Units.SI.MassFlowRate mEva_flow(start=0)
     "Moisture mass flow rate that evaporates into air stream";
   ////////////////////////////////////////////////////////////////////////////////
   // Protected parameters and variables
 protected
-  final parameter Modelica.SIunits.HeatFlowRate QSen_flow_nominal(max=0, fixed=false)
-    "Nominal sensible heat flow rate (negative number)";
-  final parameter Modelica.SIunits.HeatFlowRate QLat_flow_nominal(max=0, fixed=false)
-    "Nominal latent heat flow rate (negative number)";
-  final parameter Modelica.SIunits.MassFraction XEvaIn_nominal(fixed=false)
+  final parameter Modelica.Units.SI.HeatFlowRate QSen_flow_nominal(max=0, fixed
+      =false) "Nominal sensible heat flow rate (negative number)";
+  final parameter Modelica.Units.SI.HeatFlowRate QLat_flow_nominal(max=0, fixed
+      =false) "Nominal latent heat flow rate (negative number)";
+  final parameter Modelica.Units.SI.MassFraction XEvaIn_nominal(fixed=false)
     "Mass fraction at nominal inlet conditions";
-  final parameter Modelica.SIunits.MassFraction XEvaOut_nominal(fixed=false)
+  final parameter Modelica.Units.SI.MassFraction XEvaOut_nominal(fixed=false)
     "Mass fraction at nominal outlet conditions";
-  final parameter Modelica.SIunits.MassFraction XiSatRefOut_nominal(fixed=false)
+  final parameter Modelica.Units.SI.MassFraction XiSatRefOut_nominal(fixed=
+        false)
     "Water vapor mass fraction at saturation, referenced to outlet mass flow rate";
-  final parameter Modelica.SIunits.Temperature TEvaOut_nominal(fixed=false)
+  final parameter Modelica.Units.SI.Temperature TEvaOut_nominal(fixed=false)
     "Dry bulb temperature at nominal outlet conditions";
-  final parameter Modelica.SIunits.Temperature TEvaWetBulOut_nominal(fixed=false)
-    "Wet bulb temperature at nominal outlet conditions";
-  final parameter Modelica.SIunits.MassFraction XEvaWetBulOut_nominal(fixed=false)
-    "Water vapor mass fraction at nominal outlet wet bulb condition";
-  final parameter Modelica.SIunits.MassFraction dX_nominal(
+  final parameter Modelica.Units.SI.Temperature TEvaWetBulOut_nominal(fixed=
+        false) "Wet bulb temperature at nominal outlet conditions";
+  final parameter Modelica.Units.SI.MassFraction XEvaWetBulOut_nominal(fixed=
+        false) "Water vapor mass fraction at nominal outlet wet bulb condition";
+  final parameter Modelica.Units.SI.MassFraction dX_nominal(
     min=-1,
     max=0,
-    fixed=false)
-    "Driving potential for mass transfer";
+    fixed=false) "Driving potential for mass transfer";
 
-  final parameter Modelica.SIunits.SpecificEnthalpy h_fg(fixed=false)
+  final parameter Modelica.Units.SI.SpecificEnthalpy h_fg(fixed=false)
     "Latent heat of vaporization";
   final parameter Real gammaMax(min=0, fixed=false) "Maximum value for gamma";
   final parameter Real logArg(min=0, fixed=false)
@@ -96,31 +98,27 @@ protected
   final parameter Real K2(min=0, fixed=false)
     "Coefficient used for convective mass transfer";
 
-  Modelica.SIunits.MassFraction XEvaWetBulOut
+  Modelica.Units.SI.MassFraction XEvaWetBulOut
     "Water vapor mass fraction at wet bulb conditions at air inlet";
 
-  Modelica.SIunits.MassFraction XiSatRefOut
+  Modelica.Units.SI.MassFraction XiSatRefOut
     "Water vapor mass fraction at saturation, referenced to outlet mass flow rate";
 
    // off = not on is required because Dymola 2013 fails during model
    // check if on, which is an input connector, is used in the edge() function
   Boolean off=not on "Signal, true when component is off";
 
-  Modelica.SIunits.Temperature TEvaWetBulOut "Wet bulb temperature at coil";
-  Modelica.SIunits.MassFraction dX(min=-1, max=0)
+  Modelica.Units.SI.Temperature TEvaWetBulOut "Wet bulb temperature at coil";
+  Modelica.Units.SI.MassFraction dX(min=-1, max=0)
     "Difference in water vapor concentration that drives mass transfer";
 
-  constant Modelica.SIunits.SpecificHeatCapacity cpAir_nominal=
-     Buildings.Utilities.Psychrometrics.Constants.cpAir
+  constant Modelica.Units.SI.SpecificHeatCapacity cpAir_nominal=Buildings.Utilities.Psychrometrics.Constants.cpAir
     "Specific heat capacity of air";
-  constant Modelica.SIunits.SpecificHeatCapacity cpSte_nominal=
-     Buildings.Utilities.Psychrometrics.Constants.cpSte
+  constant Modelica.Units.SI.SpecificHeatCapacity cpSte_nominal=Buildings.Utilities.Psychrometrics.Constants.cpSte
     "Specific heat capacity of water vapor";
-  constant Modelica.SIunits.SpecificHeatCapacity cpWatLiq_nominal=
-    Buildings.Utilities.Psychrometrics.Constants.cpWatLiq
+  constant Modelica.Units.SI.SpecificHeatCapacity cpWatLiq_nominal=Buildings.Utilities.Psychrometrics.Constants.cpWatLiq
     "Specific heat capacity of liquid water";
-  constant Modelica.SIunits.Temperature T_ref=
-    Buildings.Utilities.Psychrometrics.Constants.T_ref
+  constant Modelica.Units.SI.Temperature T_ref=Buildings.Utilities.Psychrometrics.Constants.T_ref
     "Reference temperature for psychrometric calculations";
 initial equation
   QSen_flow_nominal=nomVal.SHR_nominal * nomVal.Q_flow_nominal;

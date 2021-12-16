@@ -5,7 +5,7 @@ model StratifiedLoadingUnloading "Test model for stratified tank"
  package Medium = Buildings.Media.Water "Medium model";
  constant Integer nSeg = 7 "Number of segments in tank";
 
- parameter Modelica.SIunits.MassFlowRate m_flow_nominal= 1*1000/3600/4;
+  parameter Modelica.Units.SI.MassFlowRate m_flow_nominal=1*1000/3600/4;
 
   Buildings.Fluid.Sources.Boundary_pT sou_1(
     p=300000 + 5000,

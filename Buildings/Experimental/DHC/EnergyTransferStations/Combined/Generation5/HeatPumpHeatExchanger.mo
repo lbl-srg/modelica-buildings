@@ -27,65 +27,57 @@ model HeatPumpHeatExchanger
     final max=1)=0.3
     "Minimum condenser or evaporator mass flow rate (ratio to nominal)"
     annotation (Dialog(enable=have_varFloCon or have_varFloEva));
-  parameter Modelica.SIunits.Temperature TDisWatMin
-    "District water minimum temperature"
-    annotation (Dialog(group="DHC system"));
-  parameter Modelica.SIunits.Temperature TDisWatMax
-    "District water maximum temperature"
-    annotation (Dialog(group="DHC system"));
-  parameter Modelica.SIunits.TemperatureDifference dT_nominal(min=0) = 5
+  parameter Modelica.Units.SI.Temperature TDisWatMin
+    "District water minimum temperature" annotation (Dialog(group="DHC system"));
+  parameter Modelica.Units.SI.Temperature TDisWatMax
+    "District water maximum temperature" annotation (Dialog(group="DHC system"));
+  parameter Modelica.Units.SI.TemperatureDifference dT_nominal(min=0) = 5
     "Water temperature drop/increase accross load and source-side HX (always positive)"
     annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.SIunits.Temperature TChiWatSup_nominal=291.15
+  parameter Modelica.Units.SI.Temperature TChiWatSup_nominal=291.15
     "Chilled water supply temperature"
     annotation (Dialog(group="Nominal conditions"));
-  final parameter Modelica.SIunits.Temperature TChiWatRet_nominal=
-    TChiWatSup_nominal + dT_nominal
-    "Chilled water return temperature"
+  final parameter Modelica.Units.SI.Temperature TChiWatRet_nominal=
+      TChiWatSup_nominal + dT_nominal "Chilled water return temperature"
     annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.SIunits.Temperature THeaWatSup_nominal=313.15
+  parameter Modelica.Units.SI.Temperature THeaWatSup_nominal=313.15
     "Heating water supply temperature"
     annotation (Dialog(group="Nominal condition"));
-  final parameter Modelica.SIunits.Temperature THeaWatRet_nominal=
-    THeaWatSup_nominal - dT_nominal
-    "Heating water return temperature"
+  final parameter Modelica.Units.SI.Temperature THeaWatRet_nominal=
+      THeaWatSup_nominal - dT_nominal "Heating water return temperature"
     annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.SIunits.Temperature THotWatSup_nominal=336.15
+  parameter Modelica.Units.SI.Temperature THotWatSup_nominal=336.15
     "Hot water supply temperature"
     annotation (Dialog(group="Nominal condition", enable=have_hotWat));
-  parameter Modelica.SIunits.Temperature TColWat_nominal=288.15
+  parameter Modelica.Units.SI.Temperature TColWat_nominal=288.15
     "Cold water temperature (for hot water production)"
     annotation (Dialog(group="Nominal condition", enable=have_hotWat));
-  parameter Modelica.SIunits.Pressure dp_nominal(displayUnit="Pa") = 50000
+  parameter Modelica.Units.SI.Pressure dp_nominal(displayUnit="Pa") = 50000
     "Pressure difference at nominal flow rate (for each flow leg)"
-    annotation(Dialog(group="Nominal condition"));
-  final parameter Modelica.SIunits.MassFlowRate mHeaWat_flow_nominal(min=0)=
-    abs(QHeaWat_flow_nominal / cpBui_default / (THeaWatSup_nominal - THeaWatRet_nominal))
-    "Heating water mass flow rate"
-    annotation(Dialog(group="Nominal condition"));
-  final parameter Modelica.SIunits.MassFlowRate mChiWat_flow_nominal(min=0)=
-    abs(QChiWat_flow_nominal / cpBui_default / (TChiWatSup_nominal - TChiWatRet_nominal))
-    "Chilled water mass flow rate"
-    annotation(Dialog(group="Nominal conditions"));
-  final parameter Modelica.SIunits.MassFlowRate mEvaHotWat_flow_nominal(min=0)=
-    QHotWat_flow_nominal * (COPHotWat_nominal - 1) / COPHotWat_nominal /
-    cpSer_default / dT_nominal
+    annotation (Dialog(group="Nominal condition"));
+  final parameter Modelica.Units.SI.MassFlowRate mHeaWat_flow_nominal(min=0) =
+    abs(QHeaWat_flow_nominal/cpBui_default/(THeaWatSup_nominal -
+    THeaWatRet_nominal)) "Heating water mass flow rate"
+    annotation (Dialog(group="Nominal condition"));
+  final parameter Modelica.Units.SI.MassFlowRate mChiWat_flow_nominal(min=0) =
+    abs(QChiWat_flow_nominal/cpBui_default/(TChiWatSup_nominal -
+    TChiWatRet_nominal)) "Chilled water mass flow rate"
+    annotation (Dialog(group="Nominal conditions"));
+  final parameter Modelica.Units.SI.MassFlowRate mEvaHotWat_flow_nominal(min=0)
+     = QHotWat_flow_nominal*(COPHotWat_nominal - 1)/COPHotWat_nominal/
+    cpSer_default/dT_nominal
     "Evaporator water mass flow rate of heat pump for hot water production"
     annotation (Dialog(group="Nominal condition", enable=have_hotWat));
-  final parameter Modelica.SIunits.MassFlowRate mSerWat_flow_nominal(min=0)=
+  final parameter Modelica.Units.SI.MassFlowRate mSerWat_flow_nominal(min=0) =
     max(proHeaWat.m2_flow_nominal + mEvaHotWat_flow_nominal, hexChi.m1_flow_nominal)
     "Service water mass flow rate"
     annotation (Dialog(group="Nominal condition"));
-  constant Modelica.SIunits.SpecificHeatCapacity cpBui_default=
-    MediumBui.specificHeatCapacityCp(MediumBui.setState_pTX(
-      p = MediumBui.p_default,
-      T = MediumBui.T_default))
-    "Specific heat capacity of the fluid";
-  constant Modelica.SIunits.SpecificHeatCapacity cpSer_default=
-    MediumBui.specificHeatCapacityCp(MediumSer.setState_pTX(
-      p = MediumSer.p_default,
-      T = MediumSer.T_default))
-    "Specific heat capacity of the fluid";
+  constant Modelica.Units.SI.SpecificHeatCapacity cpBui_default=
+      MediumBui.specificHeatCapacityCp(MediumBui.setState_pTX(p=MediumBui.p_default,
+      T=MediumBui.T_default)) "Specific heat capacity of the fluid";
+  constant Modelica.Units.SI.SpecificHeatCapacity cpSer_default=
+      MediumBui.specificHeatCapacityCp(MediumSer.setState_pTX(p=MediumSer.p_default,
+      T=MediumSer.T_default)) "Specific heat capacity of the fluid";
   // Heat pump for heating water production
   parameter Real COPHeaWat_nominal(final unit="1")
     "COP of heat pump for heating water production"
@@ -95,14 +87,14 @@ model HeatPumpHeatExchanger
     "COP of heat pump for hot water production"
     annotation (Dialog(group="Nominal condition", enable=have_hotWat));
   // District HX
-  final parameter Modelica.SIunits.MassFlowRate m1HexChi_flow_nominal(min=0)=
-    abs(QChiWat_flow_nominal / cpSer_default / dT_nominal)
+  final parameter Modelica.Units.SI.MassFlowRate m1HexChi_flow_nominal(min=0)
+     = abs(QChiWat_flow_nominal/cpSer_default/dT_nominal)
     "CHW HX primary mass flow rate"
-    annotation(Dialog(group="Nominal condition"));
-  final parameter Modelica.SIunits.MassFlowRate m2HexChi_flow_nominal(min=0)=
-    abs(QChiWat_flow_nominal / cpSer_default / (THeaWatSup_nominal - THeaWatRet_nominal))
-    "CHW HX secondary mass flow rate"
-    annotation(Dialog(group="Nominal condition"));
+    annotation (Dialog(group="Nominal condition"));
+  final parameter Modelica.Units.SI.MassFlowRate m2HexChi_flow_nominal(min=0)
+     = abs(QChiWat_flow_nominal/cpSer_default/(THeaWatSup_nominal -
+    THeaWatRet_nominal)) "CHW HX secondary mass flow rate"
+    annotation (Dialog(group="Nominal condition"));
   // Dynamics
   parameter Modelica.Fluid.Types.Dynamics mixingVolumeEnergyDynamics=
     Modelica.Fluid.Types.Dynamics.FixedInitial

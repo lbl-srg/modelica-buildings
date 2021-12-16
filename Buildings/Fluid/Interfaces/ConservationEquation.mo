@@ -83,56 +83,51 @@ model ConservationEquation "Lumped volume with mass and energy balance"
     X(start=X_start),
     d(start=rho_start)) "Medium properties";
 
-  Modelica.SIunits.Energy U(start=fluidVolume*rho_start*
-    Medium.specificInternalEnergy(Medium.setState_pTX(
-     T=T_start,
-     p=p_start,
-     X=X_start[1:Medium.nXi])) +
-    (T_start - Medium.reference_T)*CSen,
-    nominal = 1E5) "Internal energy of fluid";
+  Modelica.Units.SI.Energy U(start=fluidVolume*rho_start*
+        Medium.specificInternalEnergy(Medium.setState_pTX(
+        T=T_start,
+        p=p_start,
+        X=X_start[1:Medium.nXi])) + (T_start - Medium.reference_T)*CSen,
+      nominal=1E5) "Internal energy of fluid";
 
-  Modelica.SIunits.Mass m(
-    start=fluidVolume*rho_start,
-    stateSelect=if massDynamics == Modelica.Fluid.Types.Dynamics.SteadyState
-    then StateSelect.default else StateSelect.prefer)
-    "Mass of fluid";
+  Modelica.Units.SI.Mass m(start=fluidVolume*rho_start, stateSelect=if
+        massDynamics == Modelica.Fluid.Types.Dynamics.SteadyState then
+        StateSelect.default else StateSelect.prefer) "Mass of fluid";
 
-  Modelica.SIunits.Mass[Medium.nXi] mXi(
-    start=fluidVolume*rho_start*X_start[1:Medium.nXi])
-    "Masses of independent components in the fluid";
-  Modelica.SIunits.Mass[Medium.nC] mC(
-    start=fluidVolume*rho_start*C_start)
+  Modelica.Units.SI.Mass[Medium.nXi] mXi(start=fluidVolume*rho_start*X_start[1:
+        Medium.nXi]) "Masses of independent components in the fluid";
+  Modelica.Units.SI.Mass[Medium.nC] mC(start=fluidVolume*rho_start*C_start)
     "Masses of trace substances in the fluid";
   // C need to be added here because unlike for Xi, which has medium.Xi,
   // there is no variable medium.C
   Medium.ExtraProperty C[Medium.nC](nominal=C_nominal)
     "Trace substance mixture content";
 
-  Modelica.SIunits.MassFlowRate mb_flow "Mass flows across boundaries";
-  Modelica.SIunits.MassFlowRate[Medium.nXi] mbXi_flow
+  Modelica.Units.SI.MassFlowRate mb_flow "Mass flows across boundaries";
+  Modelica.Units.SI.MassFlowRate[Medium.nXi] mbXi_flow
     "Substance mass flows across boundaries";
   Medium.ExtraPropertyFlowRate[Medium.nC] mbC_flow
     "Trace substance mass flows across boundaries";
-  Modelica.SIunits.EnthalpyFlowRate Hb_flow
+  Modelica.Units.SI.EnthalpyFlowRate Hb_flow
     "Enthalpy flow across boundaries or energy source/sink";
 
   // Parameters that need to be defined by an extending class
-  parameter Modelica.SIunits.Volume fluidVolume "Volume";
-  final parameter Modelica.SIunits.HeatCapacity CSen=
-    (mSenFac - 1)*rho_default*cp_default*fluidVolume
+  parameter Modelica.Units.SI.Volume fluidVolume "Volume";
+  final parameter Modelica.Units.SI.HeatCapacity CSen=(mSenFac - 1)*rho_default
+      *cp_default*fluidVolume
     "Aditional heat capacity for implementing mFactor";
 protected
   Medium.EnthalpyFlowRate ports_H_flow[nPorts];
-  Modelica.SIunits.MassFlowRate ports_mXi_flow[nPorts,Medium.nXi];
+  Modelica.Units.SI.MassFlowRate ports_mXi_flow[nPorts,Medium.nXi];
   Medium.ExtraPropertyFlowRate ports_mC_flow[nPorts,Medium.nC];
-  parameter Modelica.SIunits.SpecificHeatCapacity cp_default=
-  Medium.specificHeatCapacityCp(state=state_default)
+  parameter Modelica.Units.SI.SpecificHeatCapacity cp_default=
+      Medium.specificHeatCapacityCp(state=state_default)
     "Heat capacity, to compute additional dry mass";
-  parameter Modelica.SIunits.Density rho_start=Medium.density(
-   Medium.setState_pTX(
-     T=T_start,
-     p=p_start,
-     X=X_start[1:Medium.nXi])) "Density, used to compute fluid mass";
+  parameter Modelica.Units.SI.Density rho_start=Medium.density(
+      Medium.setState_pTX(
+      T=T_start,
+      p=p_start,
+      X=X_start[1:Medium.nXi])) "Density, used to compute fluid mass";
 
   // Parameter for avoiding extra overhead calculations when CSen==0
   final parameter Boolean computeCSen = abs(mSenFac-1) > Modelica.Constants.eps
@@ -142,8 +137,8 @@ protected
       p=Medium.p_default,
       X=Medium.X_default[1:Medium.nXi]) "Medium state at default values";
   // Density at medium default values, used to compute the size of control volumes
-  final parameter Modelica.SIunits.Density rho_default=Medium.density(
-    state=state_default) "Density, used to compute fluid mass";
+  final parameter Modelica.Units.SI.Density rho_default=Medium.density(state=
+      state_default) "Density, used to compute fluid mass";
   // Parameter that is used to construct the vector mXi_flow
   final parameter Real s[Medium.nXi] = {if Modelica.Utilities.Strings.isEqual(
                                             string1=Medium.substanceNames[i],
@@ -151,9 +146,11 @@ protected
                                             caseSensitive=false)
                                             then 1 else 0 for i in 1:Medium.nXi}
     "Vector with zero everywhere except where species is";
-  parameter Modelica.SIunits.SpecificEnthalpy hStart=
-    Medium.specificEnthalpy_pTX(p_start, T_start, X_start)
-    "Start value for specific enthalpy";
+  parameter Modelica.Units.SI.SpecificEnthalpy hStart=
+      Medium.specificEnthalpy_pTX(
+      p_start,
+      T_start,
+      X_start) "Start value for specific enthalpy";
 
   // Set _simplify_mWat_flow == false for Glycol47; otherwise Dymola 2018FD01
   // cannot differentiate the equations.

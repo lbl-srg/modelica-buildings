@@ -30,9 +30,9 @@ partial model PartialCoil
     "Set to true to use a waether bus"
     annotation (Evaluate=true, Dialog(group="Configuration"));
 
-  parameter Modelica.SIunits.MassFlowRate mAir_flow_nominal(min=0)
+  parameter Modelica.Units.SI.MassFlowRate mAir_flow_nominal(min=0)
     "Air mass flow rate";
-  parameter Modelica.SIunits.PressureDifference dpAir_nominal(
+  parameter Modelica.Units.SI.PressureDifference dpAir_nominal(
     displayUnit="Pa")=
     if typ==Buildings.Templates.Components.Types.Coil.None then 0 else
     dat.getReal(varName=id + ".Mechanical." + funStr + " coil.Air pressure drop.value")

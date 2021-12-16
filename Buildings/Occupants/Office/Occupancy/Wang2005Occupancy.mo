@@ -3,8 +3,10 @@ model Wang2005Occupancy
   "A model to predict Occupancy of a single person office"
   extends Modelica.Blocks.Icons.DiscreteBlock;
 
-  parameter Modelica.SIunits.Time one_mu(displayUnit="min") = 4368 "Mean occupancy duration";
-  parameter Modelica.SIunits.Time zero_mu(displayUnit="min") = 2556 "Mean vacancy duration";
+  parameter Modelica.Units.SI.Time one_mu(displayUnit="min") = 4368
+    "Mean occupancy duration";
+  parameter Modelica.Units.SI.Time zero_mu(displayUnit="min") = 2556
+    "Mean vacancy duration";
   parameter Integer seed = 10 "Seed for the random number generator";
 
   Modelica.Blocks.Interfaces.BooleanOutput occ(start=true, fixed=true)

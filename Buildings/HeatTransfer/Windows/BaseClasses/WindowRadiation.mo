@@ -3,8 +3,8 @@ block WindowRadiation "Calculation radiation for window"
 
   extends Buildings.HeatTransfer.Windows.BaseClasses.PartialRadiation;
 
-  Modelica.Blocks.Interfaces.RealInput uSta(min=0, max=1, unit="1") if
-       NSta > 1 "Control signal for window state"
+  Modelica.Blocks.Interfaces.RealInput uSta(min=0, max=1, unit="1")
+    if NSta > 1 "Control signal for window state"
                                       annotation (Placement(
         transformation(extent={{-20,-20},{20,20}},   rotation=90,
         origin={40,-120}), iconTransformation(
@@ -101,8 +101,8 @@ protected
     "Interpolator for the window state"
     annotation (Placement(transformation(extent={{60,-98},{80,-78}})));
 
-  Modelica.Blocks.Routing.Replicator replicator(final nout=N) if
-     NSta > 1
+  Modelica.Blocks.Routing.Replicator replicator(final nout=N)
+  if NSta > 1
     "Signal replicator for signals that have an element for each glass pane"
     annotation (Placement(transformation(extent={{16,-68},{36,-48}})));
 equation

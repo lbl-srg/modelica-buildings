@@ -13,16 +13,16 @@ model WaterBasedHeating "Hot water coil"
   outer replaceable package MediumHea=Buildings.Media.Water
     "Source side medium";
 
-  parameter Modelica.SIunits.MassFlowRate mWat_flow_nominal(min=0)=
+  parameter Modelica.Units.SI.MassFlowRate mWat_flow_nominal(min=0)=
     dat.getReal(varName=id + ".Mechanical." + funStr + " coil.Liquid mass flow rate.value")
     "Liquid mass flow rate"
     annotation(Dialog(group = "Nominal condition"), Evaluate=true);
-  parameter Modelica.SIunits.PressureDifference dpWat_nominal(
+  parameter Modelica.Units.SI.PressureDifference dpWat_nominal(
     displayUnit="Pa")=
     dat.getReal(varName=id + ".Mechanical." + funStr + " coil.Liquid pressure drop.value")
     "Liquid pressure drop"
     annotation(Dialog(group = "Nominal condition"), Evaluate=true);
-  parameter Modelica.SIunits.PressureDifference dpValve_nominal(
+  parameter Modelica.Units.SI.PressureDifference dpValve_nominal(
     displayUnit="Pa",
     min=0)=if typVal==Buildings.Templates.Components.Types.Valve.None then 0 else
     dat.getReal(varName=id + ".Mechanical." + funStr + " coil.Valve pressure drop.value")

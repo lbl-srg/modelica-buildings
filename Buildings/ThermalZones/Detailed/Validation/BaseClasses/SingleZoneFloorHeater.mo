@@ -5,9 +5,8 @@ model SingleZoneFloorHeater
 
   replaceable package Medium = Modelica.Media.Interfaces.PartialMedium
     "Medium model for air" annotation (choicesAllMatching=true);
-  parameter Modelica.SIunits.Volume VRoo
-    "Room air volume";
-  parameter Modelica.SIunits.MassFlowRate m_flow_nominal
+  parameter Modelica.Units.SI.Volume VRoo "Room air volume";
+  parameter Modelica.Units.SI.MassFlowRate m_flow_nominal
     "Nominal mass flowrate";
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TSetRoo(

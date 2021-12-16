@@ -5,14 +5,14 @@ function countAggregationCells
 
   input Real lvlBas "Base for growth between each level, e.g. 2";
   input Integer nCel(min=1) "Number of cells of same size per level";
-  input Modelica.SIunits.Time timFin "Total simulation max length";
-  input Modelica.SIunits.Time tLoaAgg "Time resolution of load aggregation";
+  input Modelica.Units.SI.Time timFin "Total simulation max length";
+  input Modelica.Units.SI.Time tLoaAgg "Time resolution of load aggregation";
 
   output Integer i(min=1) "Size of aggregation vectors";
 
 protected
-  Modelica.SIunits.Duration width_i "Width of current aggregation cell";
-  Modelica.SIunits.Time nu_i "End time of current aggregation cell";
+  Modelica.Units.SI.Duration width_i "Width of current aggregation cell";
+  Modelica.Units.SI.Time nu_i "End time of current aggregation cell";
 
 algorithm
   assert(timFin > 0, "Total simulation time must be bigger than 0.");

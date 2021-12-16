@@ -5,7 +5,7 @@ model CenterOfGlass "Model for center of glass of a window construction"
   constant Boolean homotopyInitialization = true "= true, use homotopy method"
     annotation(HideResult=true);
 
-  parameter Modelica.SIunits.Angle til(displayUnit="deg")
+  parameter Modelica.Units.SI.Angle til(displayUnit="deg")
     "Surface tilt (only 90 degrees=vertical is implemented)";
 
   parameter Buildings.HeatTransfer.Data.GlazingSystems.Generic glaSys

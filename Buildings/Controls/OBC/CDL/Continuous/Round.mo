@@ -15,8 +15,8 @@ protected
     "Factor used for rounding";
 
 equation
-  y=
-    if(u > 0) then
+  y=if
+      (u > 0) then
       floor(
         u*fac+0.5)/fac
     else

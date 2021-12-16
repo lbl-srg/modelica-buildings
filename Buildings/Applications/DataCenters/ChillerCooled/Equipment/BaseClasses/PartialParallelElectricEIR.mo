@@ -5,14 +5,16 @@ partial model PartialParallelElectricEIR
     val2(each final dpFixed_nominal=dp2_nominal),
     val1(each final dpFixed_nominal=dp1_nominal));
 
-  parameter Modelica.SIunits.Time tau1 = 30
-    "Time constant at nominal flow in chillers"
-     annotation (Dialog(tab = "Dynamics", group="Nominal condition",
-       enable=not energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState));
-  parameter Modelica.SIunits.Time tau2 = 30
-    "Time constant at nominal flow in chillers"
-     annotation (Dialog(tab = "Dynamics", group="Nominal condition",
-       enable=not energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState));
+  parameter Modelica.Units.SI.Time tau1=30
+    "Time constant at nominal flow in chillers" annotation (Dialog(
+      tab="Dynamics",
+      group="Nominal condition",
+      enable=not energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState));
+  parameter Modelica.Units.SI.Time tau2=30
+    "Time constant at nominal flow in chillers" annotation (Dialog(
+      tab="Dynamics",
+      group="Nominal condition",
+      enable=not energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState));
 
   // Assumptions
   parameter Modelica.Fluid.Types.Dynamics energyDynamics=

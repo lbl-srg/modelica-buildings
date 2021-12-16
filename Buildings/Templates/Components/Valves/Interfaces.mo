@@ -16,19 +16,19 @@ package Interfaces "Classes defining the component interfaces"
       "True to flip text horizontally in icon layer"
       annotation(Dialog(tab="Graphics", enable=false));
 
-    parameter Modelica.SIunits.PressureDifference dpValve_nominal(
+    parameter Modelica.Units.SI.PressureDifference dpValve_nominal(
        displayUnit="Pa",
        min=0)=0
       "Nominal pressure drop of fully open valve"
       annotation(Dialog(group="Nominal condition",
         enable=typ<>Buildings.Templates.Components.Types.Valve.None));
-    parameter Modelica.SIunits.PressureDifference dpFixed_nominal(
+    parameter Modelica.Units.SI.PressureDifference dpFixed_nominal(
       displayUnit="Pa",
       min=0)=0
       "Nominal pressure drop of pipes and other equipment in flow leg"
       annotation(Dialog(group="Nominal condition",
         enable=typ<>Buildings.Templates.Components.Types.Valve.None));
-    parameter Modelica.SIunits.PressureDifference dpFixedByp_nominal(
+    parameter Modelica.Units.SI.PressureDifference dpFixedByp_nominal(
       displayUnit="Pa",
       min=0)=dpFixed_nominal
       "Nominal pressure drop in the bypass line"

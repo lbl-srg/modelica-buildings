@@ -5,7 +5,7 @@ block BoilerReturn "Control for boiler return"
     displayUnit="degC") = 333.15
     "Set point for boiler temperature";
   parameter Real k=0.1 "Gain of controller";
-  parameter Modelica.SIunits.Time Ti=120 "Time constant of integrator block";
+  parameter Modelica.Units.SI.Time Ti=120 "Time constant of integrator block";
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TRet(
     final unit="K",
     displayUnit="degC")

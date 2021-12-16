@@ -43,8 +43,8 @@ partial model PartialPlant
   Modelica.Fluid.Interfaces.FluidPort_a port_aSerAmb(
     redeclare package Medium = Medium,
     m_flow(min=if allowFlowReversal then -Modelica.Constants.inf else 0),
-    h_outflow(start=Medium.h_default, nominal=Medium.h_default)) if
-    have_serAmb
+    h_outflow(start=Medium.h_default, nominal=Medium.h_default))
+ if have_serAmb
     "Fluid connector for ambient water service supply line"
     annotation (
       Placement(transformation(extent={{-310,30},{-290,50}}),
@@ -52,8 +52,8 @@ partial model PartialPlant
   Modelica.Fluid.Interfaces.FluidPort_b port_bSerAmb(
     redeclare package Medium = Medium,
     m_flow(max=if allowFlowReversal then +Modelica.Constants.inf else 0),
-    h_outflow(start=Medium.h_default, nominal=Medium.h_default)) if
-    have_serAmb
+    h_outflow(start=Medium.h_default, nominal=Medium.h_default))
+ if have_serAmb
     "Fluid connector for ambient water service return line"
     annotation (
       Placement(transformation(extent={{290,30},{310,50}}),
@@ -77,15 +77,15 @@ partial model PartialPlant
   Modelica.Fluid.Interfaces.FluidPort_a port_aSerCoo(
     redeclare package Medium = Medium,
     m_flow(min=if allowFlowReversal then -Modelica.Constants.inf else 0),
-    h_outflow(start=Medium.h_default, nominal=Medium.h_default)) if
-    have_coo
+    h_outflow(start=Medium.h_default, nominal=Medium.h_default))
+ if have_coo
     "Fluid connector for cooling service supply line"
     annotation (Placement(transformation(extent={{-310,-50},{-290,-30}})));
   Modelica.Fluid.Interfaces.FluidPort_b port_bSerCoo(
     redeclare package Medium = Medium,
     m_flow(max=if allowFlowReversal then +Modelica.Constants.inf else 0),
-    h_outflow(start=Medium.h_default, nominal=Medium.h_default)) if
-    have_coo
+    h_outflow(start=Medium.h_default, nominal=Medium.h_default))
+ if have_coo
     "Fluid connector for cooling service return line"
     annotation (Placement(
       transformation(extent={{290,-50},{310,-30}}),   iconTransformation(

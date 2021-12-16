@@ -2,9 +2,12 @@ within Buildings.Experimental.DHC.Loads;
 package Types
   "Package with type definitions"
   extends Modelica.Icons.TypesPackage;
-  type DistributionType=enumeration(HeatingWater
-    "Heating water distribution system",ChilledWater
-    "Chilled water distribution system",ChangeOver
+  type DistributionType = enumeration(
+      HeatingWater
+    "Heating water distribution system",
+      ChilledWater
+    "Chilled water distribution system",
+      ChangeOver
     "Change-over distribution system")
     "Enumeration for the type of distribution system"
     annotation (Documentation(info="<html>
@@ -54,11 +57,16 @@ First implementation.
 </li>
 </ul>
 </html>"));
-  type PumpControlType=enumeration(ConstantSpeed
-    "Constant speed",ConstantFlow
-    "Constant flow rate (three-way valves)",ConstantHead
-    "Constant pump head",LinearHead
-    "Linear relationship between pump head and mass flow rate",ConstantDp
+  type PumpControlType = enumeration(
+      ConstantSpeed
+    "Constant speed",
+      ConstantFlow
+    "Constant flow rate (three-way valves)",
+      ConstantHead
+    "Constant pump head",
+      LinearHead
+    "Linear relationship between pump head and mass flow rate",
+      ConstantDp
     "Constant pressure difference at given location")
     "Enumeration for the type of distribution pump control"
     annotation (Documentation(info="<html>

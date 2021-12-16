@@ -8,7 +8,7 @@ partial model PartialCoilDirectExpansion
     annotation (Evaluate=true, Dialog(group="Configuration"));
   // DX coils get nominal air flow rate from data record.
   // Only the air pressure drop needs to be declared.
-  parameter Modelica.SIunits.PressureDifference dp_nominal
+  parameter Modelica.Units.SI.PressureDifference dp_nominal
     "Air pressure drop"
     annotation (Dialog(group="Nominal condition"));
 

@@ -4,13 +4,13 @@ model SteamDerivativeCheck "Model that tests the derivative implementation"
 
    package Medium = Buildings.Media.Steam "Medim model";
 
-    Modelica.SIunits.Temperature T "Temperature";
-    Modelica.SIunits.SpecificEnthalpy hVapSym "Vapor phase specific enthalpy";
-    Modelica.SIunits.SpecificEnthalpy hVapCod "Vapor phase specific enthalpy";
-    Modelica.SIunits.SpecificHeatCapacity cpSym "Specific heat capacity";
-    Modelica.SIunits.SpecificHeatCapacity cpCod "Specific heat capacity";
-    Modelica.SIunits.SpecificHeatCapacity cvSym "Specific heat capacity";
-    Modelica.SIunits.SpecificHeatCapacity cvCod "Specific heat capacity";
+  Modelica.Units.SI.Temperature T "Temperature";
+  Modelica.Units.SI.SpecificEnthalpy hVapSym "Vapor phase specific enthalpy";
+  Modelica.Units.SI.SpecificEnthalpy hVapCod "Vapor phase specific enthalpy";
+  Modelica.Units.SI.SpecificHeatCapacity cpSym "Specific heat capacity";
+  Modelica.Units.SI.SpecificHeatCapacity cpCod "Specific heat capacity";
+  Modelica.Units.SI.SpecificHeatCapacity cvSym "Specific heat capacity";
+  Modelica.Units.SI.SpecificHeatCapacity cvCod "Specific heat capacity";
     constant Real convT(unit="K/s3") = 270
     "Conversion factor to satisfy unit check";
 initial equation
