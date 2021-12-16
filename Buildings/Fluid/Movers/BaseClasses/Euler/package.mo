@@ -1,5 +1,5 @@
 within Buildings.Fluid.Movers.BaseClasses;
-package Euler "Functions for Euler correlation"
+package Euler "Functions and data record templates for Euler number"
 
   annotation (Documentation(info="<html>
 <p>
