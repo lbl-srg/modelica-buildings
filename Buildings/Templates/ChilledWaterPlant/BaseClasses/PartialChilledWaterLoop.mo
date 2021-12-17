@@ -144,7 +144,7 @@ model PartialChilledWaterLoop
       nPorts=1) annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
-        origin={0,40})));
+        origin={40,30})));
 protected
   parameter Modelica.Units.SI.PressureDifference dpPri_nominal=
     if pumSec.is_none then chiGro.dpCHW_nominal + dpDem_nominal
@@ -198,9 +198,6 @@ equation
     annotation (Line(points={{180,-20},{180,10},{200,10}}, color={0,127,255}));
   connect(dpCHW.port_b, port_b) annotation (Line(points={{180,-40},{180,-70},{
           200,-70}}, color={0,127,255}));
-  connect(bouCHW.ports[1], pumPri.ports_parallel[1]) annotation (Line(points={{
-          -1.77636e-15,30},{-1.77636e-15,20},{-8.88178e-16,20},{-8.88178e-16,10}},
-        color={0,127,255}));
   connect(WSE.port_b2, mixByp.port_1) annotation (Line(points={{-34,-62},{-34,
           -50},{-20,-50}}, color={0,127,255}));
   connect(mixByp.port_2, TCHWRetByp.port_a)
@@ -209,4 +206,6 @@ equation
           {180,-70},{200,-70}}, color={0,127,255}));
   connect(TCHWRet.port_b, WSE.port_a2) annotation (Line(points={{120,-80},{-24,
           -80},{-24,-88},{-34,-88},{-34,-82}}, color={0,127,255}));
+  connect(bouCHW.ports[1], pumPri.port_b)
+    annotation (Line(points={{40,20},{40,10},{20,10}}, color={0,127,255}));
 end PartialChilledWaterLoop;

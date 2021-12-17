@@ -91,8 +91,8 @@ equation
       extent={{-6,3},{-6,3}},
       horizontalAlignment=TextAlignment.Right));
 
-  connect(del.ports[1],pum.port_a) annotation (Line(points={{-40,40},{-42,40},{
-          -42,0},{-10,0}}, color={0,127,255}));
+  connect(del.ports[1],pum.port_a) annotation (Line(points={{-40,40},{-40,0},{
+          -10,0}},         color={0,127,255}));
   connect(del.ports[2],port_series) annotation (Line(points={{-40,40},{-40,20},
           {-60,20},{-60,60},{-100,60}},         color={0,127,255}));
   connect(del.ports[2:(nChi+1)],ports_parallel) annotation (Line(points={{-40,40},

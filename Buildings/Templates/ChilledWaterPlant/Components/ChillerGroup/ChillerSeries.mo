@@ -2,8 +2,8 @@ within Buildings.Templates.ChilledWaterPlant.Components.ChillerGroup;
 model ChillerSeries
   extends
     Buildings.Templates.ChilledWaterPlant.Components.ChillerGroup.Interfaces.ChillerGroup(
-    final typ=Buildings.Templates.ChilledWaterPlant.Components.Types.ChillerGroup.ChillerSeries,
-    final has_dedPum=false);
+      final typ=Buildings.Templates.ChilledWaterPlant.Components.Types.ChillerGroup.ChillerSeries,
+      final has_dedPum=false);
 
   inner replaceable
     Buildings.Templates.ChilledWaterPlant.Components.Chiller.ElectricChiller
@@ -16,34 +16,37 @@ model ChillerSeries
               constrainedby
     Buildings.Templates.ChilledWaterPlant.Components.Chiller.Interfaces.Chiller(
     redeclare each final package Medium1 = MediumCW,
-    redeclare each final package Medium2 = MediumCHW,
-    final is_airCoo=is_airCoo) annotation (Placement(transformation(extent={{
+    redeclare each final package Medium2 = MediumCHW) annotation (Placement(transformation(extent={{
             -20,-20},{20,20}}, rotation=0)));
 
   Fluid.FixedResistances.Junction splChi[nChi](redeclare package Medium = MediumCHW,
-      energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
-    final m_flow_nominal=fill(m2_flow_nominal, 3),
-    final dp_nominal=fill(0, 3))
+    each energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
+    each final m_flow_nominal=fill(m2_flow_nominal, 3),
+    each final dp_nominal=fill(0, 3))
     "Chiller splitter"              annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=180,
         origin={60,-60})));
   Fluid.FixedResistances.Junction mixChi[nChi](redeclare package Medium = MediumCHW,
-      energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
-    final m_flow_nominal=fill(m2_flow_nominal, 3),
-    final dp_nominal=fill(0, 3))                                "Chiller mixer"
+    each energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
+    each final m_flow_nominal=fill(m2_flow_nominal, 3),
+    each final dp_nominal=fill(0, 3)) "Chiller mixer"
     annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=180,
         origin={-60,-60})));
-  Fluid.Actuators.Valves.TwoWayLinear valChi[nChi](each final m_flow_nominal=
-        m2_flow_nominal/nChi, each final dpValve_nominal=dpValve_nominal)
-                                                   if has_byp "Chiller valve"
+  Fluid.Actuators.Valves.TwoWayLinear valChi[nChi](
+    redeclare each final package Medium = MediumCHW,
+    each final m_flow_nominal=m2_flow_nominal,
+    each final dpValve_nominal=dpValve_nominal) "Chiller valve"
     annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=0,
         origin={0,-60})));
-  Fluid.MixingVolumes.MixingVolume volCW(nPorts=3) if not is_airCoo
+  Fluid.Delays.DelayFirstOrder del(
+    redeclare each final package Medium = MediumCW,
+    final m_flow_nominal=m2_flow_nominal,
+    final nPorts=nChi + 1) if not is_airCoo
     "Condenser water side mixing volume" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
@@ -66,22 +69,21 @@ equation
     annotation (Line(points={{-10,-60},{-50,-60}}, color={0,127,255}));
   connect(valChi.port_a,splChi. port_2)
     annotation (Line(points={{10,-60},{50,-60}}, color={0,127,255}));
-  connect(port_a2,splChi [1].port_1)
+  connect(port_a2,splChi[1].port_1)
     annotation (Line(points={{100,-60},{70,-60}}, color={0,127,255}));
   connect(mixChi[nChi].port_1, port_b2)
     annotation (Line(points={{-70,-60},{-100,-60}}, color={0,127,255}));
   for i in 2:nChi loop
-    connect(mixChi.port_1[i - 1], splChi.port_1[i]) annotation (Line(points={{-70,
+    connect(mixChi[i - 1].port_1, splChi[i].port_1) annotation (Line(points={{-70,
             -60},{-80,-60},{-80,-80},{80,-80},{80,-60},{70,-60}}, color={0,127,
             255}));
   end for;
   connect(ports_a1, chi.port_a1) annotation (Line(points={{-100,60},{-40,60},{
           -40,12},{-20,12}}, color={0,127,255}));
-  connect(port_b1, volCW.ports[1]) annotation (Line(points={{100,60},{20,60},{
-          20,58.6667}}, color={0,127,255}));
-  connect(chi.port_b1, volCW.ports[2:3]) annotation (Line(points={{20,12},{40,
-          12},{40,61.3333},{20,61.3333}},
-                                color={0,127,255}));
+  connect(port_b1, del.ports[nChi+1]) annotation (Line(points={{100,60},{20,60},{20,60}},
+        color={0,127,255}));
+  connect(chi.port_b1, del.ports[1:nChi]) annotation (Line(points={{20,12},{40,12},
+          {40,60},{20,60}},           color={0,127,255}));
   connect(busCon.yValChi, valChi.y) annotation (Line(
       points={{0.1,100.1},{0.1,80},{-40,80},{-40,-42},{0,-42},{0,-48}},
       color={255,204,51},

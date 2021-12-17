@@ -9,6 +9,7 @@ model Centralized "Centralized secondary pumping"
     "Shutoff valve pressure drop";
 
   BaseClasses.ParallelPumps pum(
+    redeclare final package Medium=Medium,
     final m_flow_nominal=m_flow_nominal,
     final per=per,
     final nPum=nPum,
@@ -17,7 +18,6 @@ model Centralized "Centralized secondary pumping"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Buildings.Templates.Components.Sensors.VolumeFlowRate V_flow(
     redeclare final package Medium = Medium,
-    have_sen=has_floSen,
     final m_flow_nominal=m_flow_nominal)
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
   replaceable parameter Fluid.Movers.Data.Generic per(pressure(V_flow=

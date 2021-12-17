@@ -1,5 +1,6 @@
 within Buildings.Templates.ChilledWaterPlant.Validation.UserProject;
 model RP1711_6_5
+  //ToDo
   extends Buildings.Templates.ChilledWaterPlant.WaterCooledParallel(
     redeclare Buildings.Templates.ChilledWaterPlant.Components.ChillerGroup.ChillerSeries chiGro(
       final nChi=2,

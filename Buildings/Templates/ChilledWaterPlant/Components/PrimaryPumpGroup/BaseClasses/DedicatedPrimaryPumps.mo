@@ -45,8 +45,9 @@ model DedicatedPrimaryPumps
     annotation (
       choicesAllMatching=true,
       Placement(transformation(extent={{-30,-10},{-10,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold evaSta[nPum](
-    t=1E-2, h=0.5E-2) "Evaluate pump status"
+  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold evaSta[nPum](each t=
+        1E-2, each h=0.5E-2)
+                      "Evaluate pump status"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
@@ -82,7 +83,7 @@ model DedicatedPrimaryPumps
         iconTransformation(extent={{100,70},
             {120,90}})));
   // FIXME m_flow_nominal
-  Fluid.MixingVolumes.MixingVolume vol(
+  Fluid.Delays.DelayFirstOrder     del(
     redeclare final package Medium = Medium,
     final m_flow_nominal=m_flow_nominal * nPum,
     final nPorts=nPum+1)
@@ -97,7 +98,7 @@ equation
     annotation (Line(points={{-38,50},{-22,50}}, color={255,0,255}));
   connect(booToRea.y,val. y)
     annotation (Line(points={{2,50},{20,50},{20,12}}, color={0,0,127}));
-  connect(pum.y_actual,evaSta. u) annotation (Line(points={{-9,7},{10,7},{10,30},
+  connect(pum.y_actual,evaSta.u) annotation (Line(points={{-9,7},{10,7},{10,30},
           {30,30},{30,70},{38,70}},
                             color={0,0,127}));
   connect(evaSta.y, y_actual) annotation (Line(points={{62,70},{80,70},{80,70},
@@ -106,11 +107,11 @@ equation
           50}}, color={0,0,127}));
   connect(y, pum.y) annotation (Line(points={{0,100},{0,72},{-80,72},{-80,20},{-20,
           20},{-20,12}}, color={0,0,127}));
-  connect(val.port_b, vol.ports)
+  connect(val.port_b,del. ports[1:nPum])
     annotation (Line(points={{30,0},{60,0},{60,-20}}, color={0,127,255}));
   connect(ports_a, pum.port_a)
     annotation (Line(points={{-100,0},{-30,0}}, color={0,127,255}));
-  connect(vol.ports[nPum+1], port_b)
+  connect(del.ports[nPum+1], port_b)
     annotation (Line(points={{60,-20},{60,0},{100,0}}, color={0,127,255}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
               Rectangle(

@@ -8,6 +8,13 @@ model DedicatedCondenserPumps
     annotation(Dialog(tab="Assumptions"), Evaluate=true);
 
   parameter Integer nPum "Number of pumps";
+  parameter Modelica.Units.SI.MassFlowRate m_flow_nominal "Nominal mass flow rate per pump";
+  parameter Modelica.Units.SI.PressureDifference dp_nominal "Nominal pressure drop per pump";
+  parameter Modelica.Units.SI.PressureDifference dpValve_nominal "Nominal pressure drop of valve";
+
+  // Initialization
+  parameter Real threshold(min = 0.01) = 0.05
+    "Hysteresis threshold";
 
   Modelica.Fluid.Interfaces.FluidPort_a port_a(
     redeclare each final package Medium = Medium,
@@ -40,8 +47,9 @@ model DedicatedCondenserPumps
     annotation (
       choicesAllMatching=true,
       Placement(transformation(extent={{-30,-10},{-10,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold evaSta[nPum](t=1E-2, h=
-       0.5E-2) "Evaluate pump status" annotation (Placement(transformation(
+  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold evaSta[nPum](each t=
+        1E-2, each h=0.5E-2)
+               "Evaluate pump status" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={50,70})));
@@ -55,21 +63,9 @@ model DedicatedCondenserPumps
   Fluid.Actuators.Valves.TwoWayLinear val[nPum](
     redeclare each final replaceable package Medium = Medium,
     each final dpFixed_nominal=0,
-    each final l=l,
     each final CvData=Buildings.Fluid.Types.CvTypes.OpPoint,
-    each final allowFlowReversal=allowFlowReversal,
-    each final show_T=show_T,
-    each final rhoStd=rhoStd,
-    each final use_inputFilter=use_inputFilter,
-    each final riseTime=riseTimeValve,
-    each final init=init,
-    final y_start=yValve_start,
     each final dpValve_nominal=dpValve_nominal,
-    each final m_flow_nominal=m_flow_nominal,
-    each final deltaM=deltaM,
-    each final from_dp=from_dp,
-    each final linearized=linearizeFlowResistance,
-    each final homotopyInitialization=homotopyInitialization)
+    each final m_flow_nominal=m_flow_nominal)
     "Isolation valves"
     annotation (Placement(transformation(extent={{10,-10},{30,10}})));
   Modelica.Blocks.Interfaces.RealInput y[nPum](unit="1") annotation (Placement(
@@ -83,7 +79,7 @@ model DedicatedCondenserPumps
   Modelica.Blocks.Interfaces.BooleanOutput y_actual[nPum] annotation (Placement(
         transformation(extent={{100,50},{140,90}}), iconTransformation(extent={{100,70},
             {120,90}})));
-  Fluid.MixingVolumes.MixingVolume vol(
+  Fluid.Delays.DelayFirstOrder     del(
     redeclare final package Medium = Medium,
     final m_flow_nominal=m_flow_nominal * nPum,
     final nPorts=nPum+1)
@@ -110,9 +106,9 @@ equation
                          color={0,0,127}));
   connect(val.port_b, ports_b)
     annotation (Line(points={{30,0},{100,0}}, color={0,127,255}));
-  connect(vol.ports, pum.port_a)
+  connect(del.ports[1:nPum], pum.port_a)
     annotation (Line(points={{-60,-20},{-60,0},{-30,0}}, color={0,127,255}));
-  connect(port_a, vol.ports[nPum+1])
+  connect(port_a,del. ports[nPum+1])
     annotation (Line(points={{-100,0},{-60,0},{-60,-20}}, color={0,127,255}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
               Rectangle(

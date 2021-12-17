@@ -2,7 +2,7 @@ within Buildings.Templates.ChilledWaterPlant.Components.ChillerGroup;
 model ChillerParallel
   extends
     Buildings.Templates.ChilledWaterPlant.Components.ChillerGroup.Interfaces.ChillerGroup(
-    final typ=Buildings.Templates.ChilledWaterPlant.Components.Types.ChillerGroup.ChillerParallel);
+      final typ=Buildings.Templates.ChilledWaterPlant.Components.Types.ChillerGroup.ChillerParallel);
 
   inner replaceable
     Buildings.Templates.ChilledWaterPlant.Components.Chiller.ElectricChiller
@@ -37,7 +37,7 @@ model ChillerParallel
   Fluid.Actuators.Valves.TwoWayLinear valChi[nChi](
     redeclare each final package Medium = MediumCHW,
     each final m_flow_nominal=m2_flow_nominal/nChi,
-    each final dpValve_nominal=dpValve_nominal)        if not has_dedPum
+    each final dpValve_nominal=dpValve_nominal) if not has_dedPum
     "Chillers valves"
     annotation (Placement(transformation(
       extent={{10,-10},{-10,10}},rotation=0,origin={-70,20})));

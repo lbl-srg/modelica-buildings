@@ -1,7 +1,7 @@
 within Buildings.Templates.ChilledWaterPlant.Components.SecondaryPumpGroup.Interfaces;
 partial model SecondaryPumpGroup
   extends Fluid.Interfaces.PartialTwoPort(
-    redeclare package Medium=Buildings.Media.Water);
+    redeclare replaceable package Medium=Buildings.Media.Water);
 
   parameter
     Buildings.Templates.ChilledWaterPlant.Components.Types.SecondaryPumpGroup
@@ -25,7 +25,7 @@ partial model SecondaryPumpGroup
     "Nominal pressure drop per pump";
 
   final parameter Boolean is_none=
-    typ <> Buildings.Templates.ChilledWaterPlant.Components.Types.SecondaryPumpGroup.None;
+    typ == Buildings.Templates.ChilledWaterPlant.Components.Types.SecondaryPumpGroup.None;
 
   Bus busCon(final nPum=nPum)
              if not is_none

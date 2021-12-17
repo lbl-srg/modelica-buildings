@@ -13,7 +13,7 @@ model WaterCooled
       Buildings.Templates.ChilledWaterPlant.Components.Controls.Interfaces.PartialController(
         final nPumCon=nPumCon,
         final nCooTow=nCooTow),
-    redeclare replaceable Components.ReturnSection.NoEconomizer                                       WSE
+    redeclare replaceable Components.ReturnSection.NoEconomizer WSE
       constrainedby
       Buildings.Templates.ChilledWaterPlant.Components.ReturnSection.Interfaces.ChilledWaterReturnSection(
         final m1_flow_nominal=mCon_flow_nominal));
@@ -84,7 +84,7 @@ model WaterCooled
       nPorts=1) annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
-        origin={-100,42})));
+        origin={-110,30})));
 protected
   parameter Modelica.Units.SI.PressureDifference dpCon_nominal=
     chiGro.dp1_nominal + cooTow.dp_nominal
@@ -121,8 +121,8 @@ equation
       index=1,
       extent={{-6,3},{-6,3}},
       horizontalAlignment=TextAlignment.Right));
-  connect(bouCW.ports[1], pumCon.port_a) annotation (Line(points={{-100,32},{-100,
-          6},{-106,6},{-106,-10},{-100,-10}}, color={0,127,255}));
+  connect(bouCW.ports[1], pumCon.port_a) annotation (Line(points={{-110,20},{
+          -110,-10},{-100,-10}},              color={0,127,255}));
   connect(mixCW.port_2, TCWRet.port_b)
     annotation (Line(points={{-100,-70},{-120,-70}}, color={0,127,255}));
   connect(mixCW.port_1, WSE.port_b1) annotation (Line(points={{-80,-70},{-60,

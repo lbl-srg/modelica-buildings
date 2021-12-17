@@ -32,7 +32,8 @@ model Dedicated
   Buildings.Templates.Components.Sensors.VolumeFlowRate V_flow(
     redeclare final package Medium = Medium,
     final have_sen=has_floSen,
-    final m_flow_nominal=m_flow_nominal)
+    final m_flow_nominal=m_flow_nominal,
+    final typ=Buildings.Templates.Components.Types.SensorVolumeFlowRate.FlowMeter)
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
   Buildings.Templates.BaseClasses.PassThroughFluid pas(redeclare each final
       package Medium = Medium) if has_comLeg annotation (Placement(

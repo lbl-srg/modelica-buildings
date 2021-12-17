@@ -25,7 +25,7 @@ equation
     annotation (Line(points={{-100,0},{-10,0}}, color={0,127,255}));
   connect(pum.ports_b, ports_b)
     annotation (Line(points={{10,0},{100,0}}, color={0,127,255}));
-  connect(busCon.ySpe, pum.y[1]) annotation (Line(
+  connect(busCon.ySpe, pum.y) annotation (Line(
       points={{0.1,100.1},{0.1,56},{0,56},{0,12}},
       color={255,204,51},
       thickness=0.5), Text(
