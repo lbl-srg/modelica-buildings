@@ -53,20 +53,26 @@ partial model AirHandler "Base interface class for air handler"
       Evaluate=true,
       Dialog(group="Configuration"));
 
-  /* FIXME: Evaluate function call at compile time, FE ExternData.
+  /* FIXME: Evaluate function call at compile time
   inner parameter Integer nZon=
-    dat.getArraySize1D(varName=id + ".Terminal unit identifiers.value")
+    ExternData.Functions.JSON.readArraySize1D(
+      fileName=Modelica.Utilities.Files.loadResource(
+      "modelica://Buildings/Resources/Data/Templates/Validation/systems.json"),
+      varName=id + ".Identification.Terminal unit identifiers.value")
     "Number of served zones"
     annotation (
       Evaluate=true,
       Dialog(group="Configuration"));
   inner parameter Integer nGro=
-    dat.getArraySize1D(varName=id + ".Zone group names.value")
+    ExternData.Functions.JSON.readArraySize1D(
+      fileName=Modelica.Utilities.Files.loadResource(
+      "modelica://Buildings/Resources/Data/Templates/Validation/systems.json"),
+      varName=id + ".Identification.Zone group names.value")
     "Number of zone groups"
     annotation (
       Evaluate=true,
       Dialog(group="Configuration"));
-      */
+  */
 
   parameter Boolean allowFlowReversal = true
     "= false to simplify equations, assuming, but not enforcing, no flow reversal"
@@ -144,8 +150,7 @@ partial model AirHandler "Base interface class for air handler"
         extent={{-20,-20},{20,20}},
         rotation=-90,
         origin={198,160})));
-
-    annotation (
+annotation (
     Icon(coordinateSystem(preserveAspectRatio=false,
     extent={{-200,-200},{200,200}}), graphics={
         Text(
