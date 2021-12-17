@@ -30,9 +30,10 @@ services:
 
 env:
   global:
-    - BUILDINGSPY_VERSION=BuildingsPy@v3.0.0
+    - BUILDINGSPY_VERSION=BuildingsPy@5e12126041d0abc3e7898d5cd2552d05e1325ec8
     - OMC_VERSION=ubuntu-2004-omc:1.19.0_dev-470-g5085945-1
     - OPTIMICA_VERSION=travis-ubuntu-1804-optimica:r26446
+    - DYMOLA_VERSION=travis_ubuntu-2004_dymola:2022x-x86_64
     - ENERGYPLUS_VERSION=EnergyPlus-9.5.0-de239b2e5f-Linux-Ubuntu18.04-x86_64
     - MODELICA_JSON_VERSION=6d950c3592fa021aa914ba4ff34a67cbb69962c6
     - MODELICA_JSON_HOME=${TRAVIS_BUILD_DIR}/modelica-json
@@ -81,7 +82,7 @@ before_install:
   - sudo apt-get -y install python3.6-minimal  # Provides /usr/bin/python3.6m
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
   - if [[ "$TEST_ARG" == *test-dymola* || "$TEST_ARG" == *test-bestest* || "$TEST_ARG" == *spawn-portability* ]]; then
-       docker pull "$DOCKER_USERNAME"/travis_ubuntu-1804_dymola:2022-x86_64;
+       docker pull "$DOCKER_USERNAME"/${DYMOLA_VERSION};
        cp Buildings/Resources/Scripts/travis/dymola/dymola $HOME/bin/;
     fi;
   - if [[ "$TEST_ARG" == *test-optimica* ]]; then
