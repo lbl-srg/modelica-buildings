@@ -270,7 +270,7 @@
       "translate": false,
       "comment": "Python 3.6 is not supported on Ubuntu 20.04, will be upgraded to more recent version"
     },
-    "model_name": "Buildings.Utilities.IO.Python36.Functions.Examples"
+    "model_name": "Buildings.Utilities.IO.Python36.Functions.Examples.ExchangeWithPassPythonObject"
   },
   {
     "dymola": {
