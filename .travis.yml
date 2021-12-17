@@ -81,7 +81,7 @@ before_install:
   - sudo apt-get -y install python3.6-minimal  # Provides /usr/bin/python3.6m
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
   - if [[ "$TEST_ARG" == *test-dymola* || "$TEST_ARG" == *test-bestest* || "$TEST_ARG" == *spawn-portability* ]]; then
-       docker pull "$DOCKER_USERNAME"/travis_ubuntu-1804_dymola:2022-x86_64;
+       docker pull "$DOCKER_USERNAME"/travis_ubuntu-2004_dymola:2022x-x86_64;
        cp Buildings/Resources/Scripts/travis/dymola/dymola $HOME/bin/;
     fi;
   - if [[ "$TEST_ARG" == *test-optimica* ]]; then
