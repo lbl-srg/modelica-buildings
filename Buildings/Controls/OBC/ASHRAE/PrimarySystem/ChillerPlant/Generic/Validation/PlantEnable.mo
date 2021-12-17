@@ -68,19 +68,18 @@ equation
     annotation (Line(points={{2,70},{24,70},{24,95.8},{38,95.8}}, color={0,0,127}));
   connect(chiPlaReq2.y[1], reaToInt2.u)
     annotation (Line(points={{-38,10},{-22,10}}, color={0,0,127}));
-  connect(reaToInt2.y, disPlaReq.chiWatSupResReq)
-    annotation (Line(points={{2,10},{20,10},{20,14},{38,14}}, color={255,127,0}));
+  connect(reaToInt2.y, disPlaReq.chiPlaReq) annotation (Line(points={{2,10},{20,
+          10},{20,14},{38,14}}, color={255,127,0}));
   connect(conOutTem1.y, disPlaReq.TOut)
     annotation (Line(points={{2,-20},{24,-20},{24,5.8},{38,5.8}}, color={0,0,127}));
   connect(chiPlaReq3.y[1], reaToInt3.u)
     annotation (Line(points={{-38,-70},{-22,-70}}, color={0,0,127}));
-  connect(reaToInt3.y, disPlaOutTem.chiWatSupResReq)
-    annotation (Line(points={{2,-70},{20,-70},{20,-66},{38,-66}}, color={255,127,0}));
+  connect(reaToInt3.y, disPlaOutTem.chiPlaReq) annotation (Line(points={{2,-70},
+          {20,-70},{20,-66},{38,-66}}, color={255,127,0}));
   connect(outTem1.y, disPlaOutTem.TOut)
     annotation (Line(points={{2,-100},{24,-100},{24,-74.2},{38,-74.2}}, color={0,0,127}));
-  connect(conInt.y, disPlaSch.chiWatSupResReq)
-    annotation (Line(points={{2,110},
-          {20,110},{20,104},{38,104}}, color={255,127,0}));
+  connect(conInt.y, disPlaSch.chiPlaReq) annotation (Line(points={{2,110},{20,
+          110},{20,104},{38,104}}, color={255,127,0}));
 annotation (
   experiment(StopTime=86400.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/PrimarySystem/ChillerPlant/Generic/Validation/PlantEnable.mos"

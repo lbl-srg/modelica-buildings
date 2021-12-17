@@ -1,7 +1,7 @@
 compareVars :=
   {
     "disPlaReq.ignReq",
-    "disPlaReq.chiWatSupResReq",
+    "disPlaReq.chiPlaReq",
     "disPlaReq.yPla",
     "disPlaOutTem.TOut",
     "disPlaOutTem.TChiLocOut",

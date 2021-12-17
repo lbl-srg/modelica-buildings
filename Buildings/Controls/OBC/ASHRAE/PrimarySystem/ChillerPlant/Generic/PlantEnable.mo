@@ -1,4 +1,4 @@
-within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic;
+﻿within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic;
 block PlantEnable "Sequence to enable and disable plant"
 
   parameter Boolean have_WSE = true
@@ -27,7 +27,7 @@ block PlantEnable "Sequence to enable and disable plant"
     "Offset temperature for lockout chiller"
     annotation (Dialog(tab="Advanced"));
 
-  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput chiWatSupResReq
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput chiPlaReq
     "Number of chiller plant cooling requests"
     annotation (Placement(transformation(extent={{-240,70},{-200,110}}),
       iconTransformation(extent={{-140,20},{-100,60}})));
@@ -139,8 +139,8 @@ equation
     annotation (Line(points={{-118,50},{-102,50}},   color={0,0,127}));
   connect(not1.y, disTim.u)
     annotation (Line(points={{-118,120},{-102,120}}, color={255,0,255}));
-  connect(chiWatSupResReq, hasReq.u)
-    annotation (Line(points={{-220,90},{-142,90}},   color={255,127,0}));
+  connect(chiPlaReq, hasReq.u)
+    annotation (Line(points={{-220,90},{-142,90}}, color={255,127,0}));
   connect(disTim.passed,enaPla. u[1])
     annotation (Line(points={{-78,112},{20,112},{20,85.25},{38,85.25}},
       color={255,0,255}));

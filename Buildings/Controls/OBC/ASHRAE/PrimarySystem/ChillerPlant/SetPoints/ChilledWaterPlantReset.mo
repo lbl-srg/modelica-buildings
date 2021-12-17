@@ -1,4 +1,4 @@
-within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.SetPoints;
+﻿within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.SetPoints;
 block ChilledWaterPlantReset
   "Sequences to generate chilled water plant reset"
 
@@ -38,7 +38,7 @@ block ChilledWaterPlantReset
     annotation (Dialog(group="Trim and respond parameters"));
 
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput TChiWatSupResReq
-    "Cooling chilled water supply temperature setpoint reset request"
+    "Chilled water supply temperature setpoint reset request"
     annotation (Placement(transformation(extent={{-160,0},{-120,40}}),
       iconTransformation(extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput chaPro

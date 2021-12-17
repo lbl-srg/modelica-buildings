@@ -510,7 +510,8 @@ annotation (
           extent={{54,-82},{96,-94}},
           lineColor={255,0,255},
           pattern=LinePattern.Dash,
-          textString="yReaDemLim"),
+          textString="yReaDemLim",
+          visible=need_reduceChillerDemand),
         Text(
           extent={{32,66},{98,56}},
           lineColor={0,0,127},

@@ -1,50 +1,90 @@
 within Buildings.Examples.ChillerPlants.RP1711;
 model ClosedLoop
-  extends Buildings.Examples.ChillerPlants.RP1711.BaseClasses.RP1711;
-  Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Controller chiPlaCon(
-    have_WSE=false,
-    nSenChiWatPum=1,
-    totSta=3,
-    staVec={0,1,2},
-    desConWatPumSpe={0,0.5,0.75},
-    desConWatPumNum={0,1,2},
-    towCelOnSet={0,2,2},
-    nTowCel=2)
-    annotation (Placement(transformation(extent={{-340,60},{-300,180}})));
-  Fluid.MixingVolumes.MixingVolume           rooVol1(nPorts=2)
-                                                    "Volume of air in the room" annotation (Placement(
-        transformation(extent={{235,-586},{255,-566}})));
-  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow intHeaGai1
-    "Internal heat gain"
-    annotation (Placement(transformation(extent={{54,-556},{74,-536}})));
-  Modelica.Thermal.HeatTransfer.Components.ThermalConductor thermalConductor1
-    annotation (Placement(transformation(extent={{54,-586},{74,-566}})));
-  Modelica.Thermal.HeatTransfer.Components.HeatCapacitor rooHeaCap1
-    "Heat capacitance of the room and walls"
-    annotation (Placement(transformation(extent={{164,-536},{184,-516}})));
-  Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature
-    prescribedTemperature1
-    annotation (Placement(transformation(extent={{14,-586},{34,-566}})));
-  Fluid.Sensors.TemperatureTwoPort rooAirTem1
-                                             "Room air temperature"
-    annotation (Placement(transformation(extent={{294,-596},{314,-576}})));
-  Fluid.HeatExchangers.DryCoilCounterFlow cooCoi1
-    annotation (Placement(transformation(extent={{234,-496},{254,-476}})));
+
+  BaseClasses.RP1711 rP1711_1
+    annotation (Placement(transformation(extent={{-16,40},{16,80}})));
+  Fluid.HeatExchangers.WetCoilEffectivenessNTU hexWetNtu
+    annotation (Placement(transformation(extent={{-10,-20},{10,0}})));
+  Fluid.Sources.Boundary_pT           sinAir(
+    redeclare package Medium = Medium_A,
+    use_p_in=false,
+    nPorts=1)
+    "Air sink"
+    annotation (Placement(transformation(extent={{-130,-90},{-110,-70}})));
+  Fluid.Sources.MassFlowSource_T retAir(
+    redeclare package Medium = Medium_A,
+    use_Xi_in=false,
+    m_flow=0.7*m_flow_nominal,
+    use_T_in=false,
+    T=301.15,
+    nPorts=1) "Return air"
+    annotation (Placement(transformation(extent={{120,-90},{100,-70}})));
+  BoundaryConditions.WeatherData.ReaderTMY3           weaDat(filNam=
+        Modelica.Utilities.Files.loadResource(
+        "modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"),
+      computeWetBulbTemperature=false) "Weather data reader"
+    annotation (Placement(transformation(extent={{-80,50},{-60,70}})));
+  BoundaryConditions.WeatherData.Bus weaBus "Weather data bus"
+    annotation (Placement(transformation(extent={{-50,80},{-30,100}}),
+        iconTransformation(extent={{-120,160},{-100,180}})));
+  Fluid.Actuators.Valves.TwoWayLinear           chwIsoVal2
+    "Chilled water isolation valve"
+    annotation (Placement(transformation(extent={{10,-10},{-10,10}},
+        rotation=90,
+        origin={-40,20})));
+  Fluid.FixedResistances.Junction           jun7 annotation (Placement(transformation(
+        extent={{10,10},{-10,-10}},
+        rotation=-90,
+        origin={40,-40})));
+  Fluid.Sources.MassFlowSource_T outAir(
+    redeclare package Medium = Medium_A,
+    use_Xi_in=false,
+    m_flow=0.3*m_flow_nominal,
+    use_T_in=true,
+    T=T_a2_nominal,
+    nPorts=1) "Outdoor air"
+    annotation (Placement(transformation(extent={{120,-50},{100,-30}})));
+  Fluid.Sensors.TemperatureTwoPort senTem annotation (Placement(transformation(
+        extent={{10,-10},{-10,10}},
+        rotation=90,
+        origin={-40,-60})));
 equation
-  connect(thermalConductor1.port_b, rooVol1.heatPort)
-    annotation (Line(points={{74,-576},{235,-576}}, color={191,0,0}));
-  connect(prescribedTemperature1.port, thermalConductor1.port_a)
-    annotation (Line(points={{34,-576},{54,-576}}, color={191,0,0}));
-  connect(intHeaGai1.port, rooVol1.heatPort) annotation (Line(points={{74,-546},
-          {174,-546},{174,-576},{235,-576}}, color={191,0,0}));
-  connect(rooHeaCap1.port, rooVol1.heatPort) annotation (Line(points={{174,-536},
-          {174,-576},{235,-576}}, color={191,0,0}));
-  connect(cooCoi1.port_b2, rooVol1.ports[1]) annotation (Line(points={{234,-492},
-          {114,-492},{114,-586},{243,-586}}, color={0,127,255}));
-  connect(cooCoi1.port_a2, rooAirTem1.port_b) annotation (Line(points={{254,
-          -492},{354,-492},{354,-586},{314,-586}}, color={0,127,255}));
-  connect(rooAirTem1.port_a, rooVol1.ports[2])
-    annotation (Line(points={{294,-586},{247,-586}}, color={0,127,255}));
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
-        coordinateSystem(preserveAspectRatio=false)));
+  connect(weaDat.weaBus, rP1711_1.weaBus) annotation (Line(
+      points={{-60,60},{-40,60},{-40,77},{-11,77}},
+      color={255,204,51},
+      thickness=0.5));
+  connect(weaDat.weaBus, weaBus) annotation (Line(
+      points={{-60,60},{-40,60},{-40,90}},
+      color={255,204,51},
+      thickness=0.5), Text(
+      string="%second",
+      index=1,
+      extent={{6,3},{6,3}},
+      horizontalAlignment=TextAlignment.Left));
+  connect(rP1711_1.portCooCoiSup, chwIsoVal2.port_a) annotation (Line(points={{
+          -12,40},{-12,34},{-40,34},{-40,30}}, color={0,127,255}));
+  connect(chwIsoVal2.port_b, hexWetNtu.port_a1)
+    annotation (Line(points={{-40,10},{-40,-4},{-10,-4}}, color={0,127,255}));
+  connect(rP1711_1.portCooCoiRet, hexWetNtu.port_b1)
+    annotation (Line(points={{12,40},{12,-4},{10,-4}}, color={0,127,255}));
+  connect(retAir.ports[1], jun7.port_1)
+    annotation (Line(points={{100,-80},{40,-80},{40,-50}}, color={0,127,255}));
+  connect(outAir.ports[1], jun7.port_3)
+    annotation (Line(points={{100,-40},{50,-40}}, color={0,127,255}));
+  connect(jun7.port_2, hexWetNtu.port_a2)
+    annotation (Line(points={{40,-30},{40,-16},{10,-16}}, color={0,127,255}));
+  connect(weaBus.TDryBul, outAir.T_in) annotation (Line(
+      points={{-40,90},{130,90},{130,-36},{122,-36}},
+      color={255,204,51},
+      thickness=0.5), Text(
+      string="%first",
+      index=-1,
+      extent={{6,3},{6,3}},
+      horizontalAlignment=TextAlignment.Left));
+  connect(hexWetNtu.port_b2, senTem.port_a) annotation (Line(points={{-10,-16},
+          {-40,-16},{-40,-50}}, color={0,127,255}));
+  connect(senTem.port_b, sinAir.ports[1]) annotation (Line(points={{-40,-70},{
+          -40,-80},{-110,-80}}, color={0,127,255}));
+  annotation (Diagram(coordinateSystem(extent={{-140,-140},{140,140}})), Icon(
+        coordinateSystem(extent={{-140,-140},{140,140}})));
 end ClosedLoop;

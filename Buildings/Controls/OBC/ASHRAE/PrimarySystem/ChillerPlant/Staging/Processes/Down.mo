@@ -186,6 +186,7 @@ block Down
     annotation (Placement(transformation(extent={{280,200},{320,240}}),
       iconTransformation(extent={{100,100},{140,140}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yReaDemLim
+    if need_reduceChillerDemand
     "Release demand limit"
     annotation (Placement(transformation(extent={{280,160},{320,200}}),
       iconTransformation(extent={{100,60},{140,100}})));
@@ -804,7 +805,8 @@ annotation (
         Text(
           extent={{40,88},{96,74}},
           lineColor={255,0,255},
-          textString="yReaDemLim"),
+          textString="yReaDemLim",
+          visible=need_reduceChillerDemand),
         Text(
           extent={{-100,178},{-60,166}},
           lineColor={255,0,255},
