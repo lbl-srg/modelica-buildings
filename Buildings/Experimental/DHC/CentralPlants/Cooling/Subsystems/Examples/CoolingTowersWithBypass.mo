@@ -2,7 +2,7 @@ within Buildings.Experimental.DHC.CentralPlants.Cooling.Subsystems.Examples;
 model CoolingTowersWithBypass
   "Example model for parallel cooling towers with bypass valve"
   extends Modelica.Icons.Example;
-  extends BaseClasses.PartialCoolingTowersSubsystem(
+  extends Buildings.Experimental.DHC.CentralPlants.Cooling.Subsystems.Examples.BaseClasses.PartialCoolingTowersSubsystem(
     redeclare Buildings.Experimental.DHC.CentralPlants.Cooling.Subsystems.CoolingTowersWithBypass tow(
       dpValve_nominal = 6000,
       dp_nominal(displayUnit="Pa") = 6000,

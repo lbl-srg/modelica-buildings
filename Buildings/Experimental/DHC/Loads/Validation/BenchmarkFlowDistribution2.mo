@@ -39,7 +39,7 @@ model BenchmarkFlowDistribution2
        + sum(dis.con.pipDisRet.dp_nominal) + max(ter.dpSou_nominal)
     "Nominal pressure drop in the distribution line";
   final parameter Modelica.Units.SI.HeatFlowRate QHea_flow_nominal=
-      Loads.BaseClasses.getPeakLoad(string="#Peak space heating load", filNam=
+      Buildings.Experimental.DHC.Loads.BaseClasses.getPeakLoad(string="#Peak space heating load", filNam=
       Modelica.Utilities.Files.loadResource(filNam))/facMul
     "Design heating heat flow rate (>=0)"
     annotation (Dialog(group="Design parameter"));

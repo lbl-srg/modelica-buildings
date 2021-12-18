@@ -181,7 +181,7 @@ model ChillerBorefield "ETS model for 5GDHC systems with heat recovery chiller a
     final k=0)
     "Zero power"
     annotation (Placement(transformation(extent={{220,50},{240,70}})));
-  Networks.BaseClasses.DifferenceEnthalpyFlowRate dHFloHeaWat(
+  Buildings.Experimental.DHC.Networks.BaseClasses.DifferenceEnthalpyFlowRate dHFloHeaWat(
     redeclare final package Medium1 = MediumBui,
     final m_flow_nominal=colHeaWat.mDis_flow_nominal)
     "Variation of enthalpy flow rate"
@@ -200,14 +200,14 @@ model ChillerBorefield "ETS model for 5GDHC systems with heat recovery chiller a
       iconTransformation(extent={{-40,-40},{40,40}},
         rotation=-90,
         origin={280,-340})));
-  Networks.BaseClasses.DifferenceEnthalpyFlowRate dHFloChiWat(
+  Buildings.Experimental.DHC.Networks.BaseClasses.DifferenceEnthalpyFlowRate dHFloChiWat(
     redeclare final package Medium1 = MediumBui,
     final m_flow_nominal=colChiWat.mDis_flow_nominal)
     "Variation of enthalpy flow rate"
     annotation (Placement(transformation(extent={{-10,10},{10,-10}},
         rotation=90,
         origin={274,130})));
-  Subsystems.WatersideEconomizer WSE(
+  Buildings.Experimental.DHC.EnergyTransferStations.Combined.Generation5.Subsystems.WatersideEconomizer WSE(
     redeclare final package Medium1 = MediumSer,
     redeclare final package Medium2 = MediumBui,
     final perPum1=perPum1WSE,

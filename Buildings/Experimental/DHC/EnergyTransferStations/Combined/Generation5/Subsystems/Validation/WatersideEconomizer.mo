@@ -25,11 +25,11 @@ model WatersideEconomizer
   Modelica.Blocks.Sources.BooleanExpression uCoo(y=time >= 1000)
     "Cooling enable signal"
     annotation (Placement(transformation(extent={{-200,70},{-180,90}})));
-  Subsystems.WatersideEconomizer hexPum(
+  Buildings.Experimental.DHC.EnergyTransferStations.Combined.Generation5.Subsystems.WatersideEconomizer hexPum(
     redeclare final package Medium1=Medium,
     redeclare final package Medium2=Medium,
     show_T=true,
-    conCon=DHC.EnergyTransferStations.Types.ConnectionConfiguration.Pump,
+    conCon=Buildings.Experimental.DHC.EnergyTransferStations.Types.ConnectionConfiguration.Pump,
     dp1Hex_nominal=3E4,
     dp2Hex_nominal=3E4,
     Q_flow_nominal=-1E6,
@@ -63,11 +63,11 @@ model WatersideEconomizer
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-40,-80})));
-  Subsystems.WatersideEconomizer hexVal(
+  Buildings.Experimental.DHC.EnergyTransferStations.Combined.Generation5.Subsystems.WatersideEconomizer hexVal(
     redeclare final package Medium1=Medium,
     redeclare final package Medium2=Medium,
     show_T=true,
-    conCon=DHC.EnergyTransferStations.Types.ConnectionConfiguration.TwoWayValve,
+    conCon=Buildings.Experimental.DHC.EnergyTransferStations.Types.ConnectionConfiguration.TwoWayValve,
     dp1Hex_nominal=3E4,
     dp2Hex_nominal=3E4,
     Q_flow_nominal=-1E6,

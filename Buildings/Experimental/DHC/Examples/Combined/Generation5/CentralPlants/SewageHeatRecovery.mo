@@ -7,7 +7,7 @@ model SewageHeatRecovery
     final have_eleHea=false,
     final have_eleCoo=false,
     final have_weaBus=false,
-    final typ=DHC.Types.DistrictSystemType.CombinedGeneration5);
+    final typ=Buildings.Experimental.DHC.Types.DistrictSystemType.CombinedGeneration5);
 
   parameter Modelica.Units.SI.MassFlowRate mSew_flow_nominal
     "Sewage water nominal mass flow rate"

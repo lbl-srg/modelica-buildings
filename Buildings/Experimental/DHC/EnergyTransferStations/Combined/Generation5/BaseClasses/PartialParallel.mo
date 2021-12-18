@@ -2,7 +2,7 @@ within Buildings.Experimental.DHC.EnergyTransferStations.Combined.Generation5.Ba
 model PartialParallel
   "Partial ETS model with district heat exchanger and parallel connection of production systems"
   extends Buildings.Experimental.DHC.EnergyTransferStations.BaseClasses.PartialETS(
-    final typ=DHC.Types.DistrictSystemType.CombinedGeneration5,
+    final typ=Buildings.Experimental.DHC.Types.DistrictSystemType.CombinedGeneration5,
     final have_heaWat=true,
     final have_chiWat=true,
     final have_pum=true,

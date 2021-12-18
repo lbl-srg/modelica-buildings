@@ -2,7 +2,7 @@ within Buildings.Experimental.DHC.EnergyTransferStations.Combined.Generation5;
 model HeatPumpHeatExchanger
   "Model of a substation with heat pump and compressor-less cooling"
   extends Buildings.Experimental.DHC.EnergyTransferStations.BaseClasses.PartialETS(
-    final typ=DHC.Types.DistrictSystemType.CombinedGeneration5,
+    final typ=Buildings.Experimental.DHC.Types.DistrictSystemType.CombinedGeneration5,
     final have_weaBus=false,
     final have_chiWat=true,
     final have_heaWat=true,

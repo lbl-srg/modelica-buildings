@@ -48,7 +48,7 @@ model FlowDistributionPumpControl
   final parameter Modelica.Units.SI.PressureDifference dp_nominal=max(terUniHea.dpSou_nominal)
        + 2*nLoa*5000 "Nominal pressure drop in the distribution line";
   final parameter Modelica.Units.SI.HeatFlowRate QHea_flow_nominal=
-      Loads.BaseClasses.getPeakLoad(string="#Peak space heating load", filNam=
+      Buildings.Experimental.DHC.Loads.BaseClasses.getPeakLoad(string="#Peak space heating load", filNam=
       Modelica.Utilities.Files.loadResource(filNam))/facMul
     "Design heating heat flow rate (>=0)"
     annotation (Dialog(group="Nominal condition"));
