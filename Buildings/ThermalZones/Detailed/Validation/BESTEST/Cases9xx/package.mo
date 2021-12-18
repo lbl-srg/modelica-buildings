@@ -1,6 +1,7 @@
 within Buildings.ThermalZones.Detailed.Validation.BESTEST;
 package Cases9xx "900 series of ANSI/ASHRAE BESTEST"
   extends Modelica.Icons.ExamplesPackage;
+
 annotation (preferredView="info", Documentation(info="<html>
 <p>
 This package contains the validation cases of the 900 series

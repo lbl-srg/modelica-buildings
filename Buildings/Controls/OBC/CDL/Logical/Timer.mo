@@ -33,7 +33,8 @@ equation
     // When u becomes true, and t=0, we want passed to be true
     // at the first step (in superdense time).
     passed=t <= 0;
-  elsewhen(u and time >= t+pre(entryTime)) then
+  elsewhen
+          (u and time >= t+pre(entryTime)) then
     passed=true;
     entryTime=pre(entryTime);
   elsewhen not u then
@@ -42,8 +43,7 @@ equation
     passed=false;
     entryTime=pre(entryTime);
   end when;
-  y=
-    if u then
+  y=if u then
       time-entryTime
     else
       0.0;
@@ -84,11 +84,11 @@ equation
           color={0,0,127}),
         Text(
           extent={{-150,150},{150,110}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%name"),
         Text(
           extent={{-64,62},{62,92}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="t=%t"),
         Ellipse(
           extent={{-83,7},{-69,-7}},
@@ -118,9 +118,9 @@ equation
           fillPattern=FillPattern.Solid),
         Text(
           extent={{226,60},{106,10}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString=DynamicSelect("",String(y,
-            leftjustified=false,
+            leftJustified=false,
             significantDigits=3)))}),
     Documentation(
       info="<html>
@@ -142,7 +142,7 @@ the output <code>passed</code> remains <code>false</code>.
 <ul>
 <li>
 November 12, 2020, by Michael Wetter:<br/>
-Reformulated to remove dependency to <code>Modelica.SIunits</code>.<br/>
+Reformulated to remove dependency to <code>Modelica.Units.SI</code>.<br/>
 This is for
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2243\">issue 2243</a>.
 </li>

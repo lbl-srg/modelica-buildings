@@ -100,8 +100,8 @@ equation
   annotation (    Documentation(info="<html>
 <p>
 Partial model that can be extended to construct parallel chillers such as
-<a href=\"modelica://Buildings.Applications.DataCenters.ChillerCooled.Equipment.ElectricChillerParallel\">
-Buildings.Applications.DataCenters.ChillerCooled.Equipment.ElectricChillerParallel</a>
+<a href=\"modelica://Buildings.Applications.BaseClasses.Equipment.ElectricChillerParallel\">
+Buildings.Applications.BaseClasses.Equipment.ElectricChillerParallel</a>
 and water-side economizers <a href=\"modelica://Buildings.Applications.DataCenters.ChillerCooled.Equipment.WatersideEconomizer\">
 Buildings.Applications.DataCenters.ChillerCooled.Equipment.WatersideEconomizer</a>.
 </p>

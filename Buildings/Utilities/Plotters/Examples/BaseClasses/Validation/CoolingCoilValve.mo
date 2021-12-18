@@ -228,7 +228,7 @@ annotation (experiment(StopTime=1800.0, Tolerance=1e-06),
           fillPattern=FillPattern.Solid),
         Text(
           extent={{-158,18},{-102,6}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="Supply fan signal"),
         Rectangle(
           extent={{-176,-4},{-14,-116}},
@@ -237,7 +237,7 @@ annotation (experiment(StopTime=1800.0, Tolerance=1e-06),
           fillPattern=FillPattern.Solid),
         Text(
           extent={{-160,-102},{-96,-114}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="TOut is above cuttoff - disable control"),
         Rectangle(
           extent={{14,116},{176,4}},
@@ -246,7 +246,7 @@ annotation (experiment(StopTime=1800.0, Tolerance=1e-06),
           fillPattern=FillPattern.Solid),
         Text(
           extent={{22,22},{116,2}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           horizontalAlignment=TextAlignment.Left,
           textString="Normal operation above
 the upper limit TSup range."),
@@ -257,7 +257,7 @@ the upper limit TSup range."),
           fillPattern=FillPattern.Solid),
         Text(
           extent={{22,-98},{116,-118}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           horizontalAlignment=TextAlignment.Left,
           textString="Operation within the
           upper limit TSup range.")}),

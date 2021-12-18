@@ -12,9 +12,12 @@ protected
   constant String modelicaInstanceName=getInstanceName()
     "Name of this instance"
     annotation (HideResult=true);
+  constant String spawnExe=building.spawnExe
+      "Name of the spawn executable, without extension, such as spawn-0.2.0-d7f1e095f3"
+    annotation (HideResult=true);
   final parameter String idfName=building.idfName
     "Name of the IDF file that contains this zone";
-  final parameter String weaName=building.weaName
+  final parameter String epwName=building.epwName
     "Name of the EnergyPlus weather file (but with mos extension)";
   final parameter Real relativeSurfaceTolerance=building.relativeSurfaceTolerance
     "Relative tolerance of surface temperature calculations";
@@ -27,8 +30,7 @@ protected
   final parameter Buildings.ThermalZones.EnergyPlus.Types.LogLevels logLevel=building.logLevel
     "LogLevels of EnergyPlus output"
     annotation (Dialog(tab="Debug"));
-  parameter Modelica.SIunits.Time startTime(
-    fixed=false)
+  parameter Modelica.Units.SI.Time startTime(fixed=false)
     "Simulation start time";
   function round
     input Real u;

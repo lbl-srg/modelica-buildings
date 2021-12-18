@@ -2,12 +2,12 @@ within Buildings.Examples.ChillerPlant.BaseClasses.Controls.Examples;
 model ChillerSwitch "Test model for ChillerSwitch"
   extends Modelica.Icons.Example;
   Modelica.Blocks.Sources.Sine TSet(
-    freqHz=0.0002,
+    f=0.0002,
     offset=12,
     amplitude=8)
     annotation (Placement(transformation(extent={{-60,-20},{-40,0}})));
   Modelica.Blocks.Sources.Sine CHWST(
-    freqHz=0.0001,
+    f=0.0001,
     amplitude=5,
     offset=15)
     annotation (Placement(transformation(extent={{-60,20},{-40,40}})));

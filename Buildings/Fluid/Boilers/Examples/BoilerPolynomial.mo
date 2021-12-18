@@ -1,13 +1,14 @@
 within Buildings.Fluid.Boilers.Examples;
-model BoilerPolynomial "Test model"
-  extends Modelica.Icons.Example;
+model BoilerPolynomial
+ "Boilers with efficiency specified by polynomial and with open loop control"
+ extends Modelica.Icons.Example;
  package Medium = Buildings.Media.Water "Medium model";
- parameter Modelica.SIunits.Power Q_flow_nominal = 3000 "Nominal power";
- parameter Modelica.SIunits.Temperature dT_nominal = 20
+  parameter Modelica.Units.SI.Power Q_flow_nominal=3000 "Nominal power";
+  parameter Modelica.Units.SI.Temperature dT_nominal=20
     "Nominal temperature difference";
- parameter Modelica.SIunits.MassFlowRate m_flow_nominal = Q_flow_nominal/dT_nominal/4200
-    "Nominal mass flow rate";
- parameter Modelica.SIunits.PressureDifference dp_nominal = 3000
+  parameter Modelica.Units.SI.MassFlowRate m_flow_nominal=Q_flow_nominal/
+      dT_nominal/4200 "Nominal mass flow rate";
+  parameter Modelica.Units.SI.PressureDifference dp_nominal=3000
     "Pressure drop at m_flow_nominal";
 
   Buildings.Fluid.Sources.Boundary_pT sin(
@@ -91,7 +92,7 @@ equation
       points={{-59,-20},{-50,-20},{-50,-52},{-14,-52}},
       color={0,0,127},
       smooth=Smooth.None));
-  annotation (             __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Boilers/Examples/BoilerPolynomial.mos"
+  annotation (__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Boilers/Examples/BoilerPolynomial.mos"
         "Simulate and plot"),
     experiment(Tolerance=1e-6, StopTime=3600),
     Documentation(info="<html>

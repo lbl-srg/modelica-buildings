@@ -38,8 +38,8 @@ block OutsideAirFlow
      then it should use cooling supply air distribution effectiveness"
     annotation (Dialog(tab="Advanced"));
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput nOcc(final unit="1") if
-       have_occSen "Number of occupants"
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput nOcc(final unit="1")
+    if have_occSen "Number of occupants"
     annotation (Placement(transformation(extent={{-240,140},{-200,180}}),
         iconTransformation(extent={{-140,60},{-100,100}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TZon(
@@ -79,24 +79,24 @@ protected
   Buildings.Controls.OBC.CDL.Continuous.Add add2(final k1=+1, final k2=-1)
     "Zone space temperature minus supply air temperature"
     annotation (Placement(transformation(extent={{-160,-70},{-140,-50}})));
-  Buildings.Controls.OBC.CDL.Continuous.Gain gai(final k=VOutPerPer_flow) if
-       have_occSen
+  Buildings.Controls.OBC.CDL.Continuous.Gain gai(final k=VOutPerPer_flow)
+    if have_occSen
     "Outdoor airflow rate per person"
     annotation (Placement(transformation(extent={{-160,150},{-140,170}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi
     "Switch for enabling occupancy sensor input"
     annotation (Placement(transformation(extent={{-60,38},{-40,58}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi1
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi1
     "Switch between cooling or heating distribution effectiveness"
     annotation (Placement(transformation(extent={{-40,-70},{-20,-50}})));
   Buildings.Controls.OBC.CDL.Continuous.Division zonOutAirRate
     "Required zone outdoor airflow rate"
     annotation (Placement(transformation(extent={{20,20},{40,40}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi2
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi2
     "If window is open or it is not in occupied mode, the required outdoor
     airflow rate should be zero"
     annotation (Placement(transformation(extent={{80,20},{100,0}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi3
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi3
     "If supply fan is off, then outdoor airflow rate should be zero."
     annotation (Placement(transformation(extent={{140,0},{160,20}})));
   Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys(
@@ -139,8 +139,8 @@ protected
     annotation (Placement(transformation(extent={{-60,-130},{-40,-110}})));
   Buildings.Controls.OBC.CDL.Logical.Not not1 "Logical not"
     annotation (Placement(transformation(extent={{-20,-130},{0,-110}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zerOcc(final k=0) if
-       not have_occSen
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zerOcc(final k=0)
+    if not have_occSen
     "Zero occupant when there is no occupancy sensor"
     annotation (Placement(transformation(extent={{-160,80},{-140,100}})));
 
@@ -223,11 +223,11 @@ Icon(graphics={Rectangle(
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid), Text(
           extent={{-84,78},{92,-72}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="VOutMinSet_flow"),
         Text(
           extent={{-100,140},{100,100}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%name")}),
         Diagram(
         coordinateSystem(preserveAspectRatio=false,

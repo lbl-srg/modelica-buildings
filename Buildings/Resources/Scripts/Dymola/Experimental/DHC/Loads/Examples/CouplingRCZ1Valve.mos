@@ -3,7 +3,7 @@ simulateModel("Buildings.Experimental.DHC.Loads.Examples.CouplingRCZ1Valve",
     tolerance=1e-6,
     numberOfIntervals=500,
     stopTime=604800.0,
-    resultFile="CouplingRCZ1Valve");
+    resultFile="CouplingRCZ1Valve2");
 createPlot(
     id=1,
     position={1, 20, 492, 682},
@@ -43,9 +43,9 @@ createPlot(
     subPlot=3
 );
 plotExpression(
-    apply(CouplingRCZ1Valve.bui.terUni.facSca*CouplingRCZ1Valve.bui.terUni.QHea_flow_nominal),
+    apply(CouplingRCZ1Valve2.bui.terUni.facMul*CouplingRCZ1Valve2.bui.terUni.QHea_flow_nominal),
     false,
-    "facSca*QHea_flow_nominal",
+    "facMul*QHea_flow_nominal",
     2);
 createPlot(
     id=3,
@@ -67,8 +67,7 @@ createPlot(
     subPlot=3
 );
 plotExpression(
-    apply(CouplingRCZ1Valve.bui.terUni.facSca*CouplingRCZ1Valve.bui.terUni.QCoo_flow_nominal),
+    apply(CouplingRCZ1Valve2.bui.terUni.facMul*CouplingRCZ1Valve2.bui.terUni.QCoo_flow_nominal),
     false,
-    "facSca*QCoo_flow_nominal",
+    "facMul*QCoo_flow_nominal",
     3);
-

@@ -4,20 +4,20 @@ model Case600FF
   extends Modelica.Icons.Example;
 
   package MediumA = Buildings.Media.Air "Medium model";
-  parameter Modelica.SIunits.Angle S_=
-    Buildings.Types.Azimuth.S "Azimuth for south walls";
-  parameter Modelica.SIunits.Angle E_=
-    Buildings.Types.Azimuth.E "Azimuth for east walls";
-  parameter Modelica.SIunits.Angle W_=
-    Buildings.Types.Azimuth.W "Azimuth for west walls";
-  parameter Modelica.SIunits.Angle N_=
-    Buildings.Types.Azimuth.N "Azimuth for north walls";
-  parameter Modelica.SIunits.Angle C_=
-    Buildings.Types.Tilt.Ceiling "Tilt for ceiling";
-  parameter Modelica.SIunits.Angle F_=
-    Buildings.Types.Tilt.Floor "Tilt for floor";
-  parameter Modelica.SIunits.Angle Z_=
-    Buildings.Types.Tilt.Wall "Tilt for wall";
+  parameter Modelica.Units.SI.Angle S_=Buildings.Types.Azimuth.S
+    "Azimuth for south walls";
+  parameter Modelica.Units.SI.Angle E_=Buildings.Types.Azimuth.E
+    "Azimuth for east walls";
+  parameter Modelica.Units.SI.Angle W_=Buildings.Types.Azimuth.W
+    "Azimuth for west walls";
+  parameter Modelica.Units.SI.Angle N_=Buildings.Types.Azimuth.N
+    "Azimuth for north walls";
+  parameter Modelica.Units.SI.Angle C_=Buildings.Types.Tilt.Ceiling
+    "Tilt for ceiling";
+  parameter Modelica.Units.SI.Angle F_=Buildings.Types.Tilt.Floor
+    "Tilt for floor";
+  parameter Modelica.Units.SI.Angle Z_=Buildings.Types.Tilt.Wall
+    "Tilt for wall";
   parameter Integer nConExtWin = 1 "Number of constructions with a window";
   parameter Integer nConBou = 1
     "Number of surface that are connected to constructions that are modeled inside the room";
@@ -99,7 +99,6 @@ model Case600FF
       fFra={0.001},
       til={Z_},
       azi={S_}),
-    lat=weaDat.lat,
     massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState) "Room model"
     annotation (Placement(transformation(extent={{36,-30},{66,0}})));
   Modelica.Blocks.Sources.Constant qConGai_flow(k=80/48) "Convective heat gain"
@@ -148,7 +147,7 @@ model Case600FF
         d=950,
         nStaRef=nStaRef)}) "Roof"
     annotation (Placement(transformation(extent={{60,84},{74,98}})));
-  Buildings.ThermalZones.Detailed.Validation.BESTEST.Data.Win600 window600(
+  parameter Buildings.ThermalZones.Detailed.Validation.BESTEST.Data.Win600 window600(
     UFra=3,
     haveExteriorShade=false,
     haveInteriorShade=false) "Window"

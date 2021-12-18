@@ -1,0 +1,16 @@
+compareVars :=
+  {
+    "pla.PCoo",
+    "loaVar.y",
+    "pla.chiStaCon.plr.y",
+    "pla.chiStaCon.y[1]",
+    "pla.chiStaCon.y[2]",
+    "pla.senMasFlo.m_flow",
+    "pla.splCHWSup.port_1.m_flow",
+    "pla.splCHWSup.port_2.m_flow",
+    "pla.splCHWSup.port_3.m_flow",
+    "pla.cooTowWitByp.TWetBul",
+    "pla.cooTowWitByp.TLvg",
+    "pla.senTCHWSup.T",
+    "pla.senTCHWRet.T"
+  };

@@ -74,7 +74,7 @@ Smaller time constant <code>Td</code> means nearer ideal derivative.
 <ul>
 <li>
 November 12, 2020, by Michael Wetter:<br/>
-Reformulated to remove dependency to <code>Modelica.SIunits</code>.<br/>
+Reformulated to remove dependency to <code>Modelica.Units.SI</code>.<br/>
 This is for
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2243\">issue 2243</a>.
 </li>
@@ -100,7 +100,7 @@ Modelica Standard Library.
         extent={{-100,-100},{100,100}}),
       graphics={
         Text(
-          lineColor={0,0,255},
+          textColor={0,0,255},
           extent={{-150,110},{150,150}},
           textString="%name"),
         Rectangle(
@@ -127,13 +127,13 @@ Modelica Standard Library.
         Text(
           extent={{-150,150},{150,110}},
           textString="%name",
-          lineColor={0,0,255}),
+          textColor={0,0,255}),
         Line(
           points={{-50,-70},{50,70}}),
         Text(
           extent={{226,60},{106,10}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString=DynamicSelect("",String(y,
-            leftjustified=false,
+            leftJustified=false,
             significantDigits=3)))}));
 end SlewRateLimiter;

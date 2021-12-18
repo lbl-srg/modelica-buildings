@@ -1,4 +1,4 @@
-last-generated=2020-04-20
+last-generated=2021-09-17
 statistics-fmu-dependencies=
 {
   "Derivatives": {
@@ -98,6 +98,7 @@ statistics-fmu-dependencies=
     "weaBus.TBlaSky": [],
     "weaBus.TDewPoi": [],
     "weaBus.TDryBul": [],
+    "weaBus.alt": [],
     "weaBus.ceiHei": [],
     "weaBus.cloTim": [],
     "weaBus.lat": [],
@@ -148,6 +149,7 @@ statistics-fmu-dependencies=
     "weaBus.TBlaSky": [],
     "weaBus.TDewPoi": [],
     "weaBus.TDryBul": [],
+    "weaBus.alt": [],
     "weaBus.ceiHei": [],
     "weaBus.cloTim": [],
     "weaBus.lat": [],

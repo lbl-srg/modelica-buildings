@@ -85,6 +85,12 @@ Figure (a)
 </html>", revisions="<html>
 <ul>
 <li>
+September 16, 2021, by Michael Wetter:<br/>
+Removed assignment of parameter <code>lat</code> as this is now obtained from the weather data reader.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1477\">IBPSA, #1477</a>.
+</li>
+<li>
 July 7, 2015 by Michael Wetter:<br/>
 Removed model for prescribed heat flow boundary condition
 as the value was zero and hence the model is not needed.

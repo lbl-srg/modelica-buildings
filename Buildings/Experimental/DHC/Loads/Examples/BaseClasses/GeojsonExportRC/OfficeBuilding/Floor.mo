@@ -4,15 +4,13 @@ model Floor
   Buildings.BoundaryConditions.SolarIrradiation.DiffusePerez HDifTil[6](
     each outSkyCon=true,
     each outGroCon=true,
-    til={1.5707963267948966,1.5707963267948966,1.5707963267948966,1.5707963267948966,0.0,0.0},
-    each lat=0.88645272708792,
-    azi={3.141592653589793,0.0,1.5707963267948966,-1.5707963267948966,0.0,0.0})
+    til={1.5707963267949,1.5707963267949,1.5707963267949,1.5707963267949,0,0},
+    azi={3.1415926535898,0,1.5707963267949,-1.5707963267949,0,0})
     "Calculates diffuse solar radiation on titled surface for all directions"
     annotation (Placement(transformation(extent={{-68,20},{-48,40}})));
-  Buildings.BoundaryConditions.SolarIrradiation.DirectTiltedSurface HDirTil[6](
-    til={1.5707963267948966,1.5707963267948966,1.5707963267948966,1.5707963267948966,0.0,0.0},
-    each lat=0.88645272708792,
-    azi={3.141592653589793,0.0,1.5707963267948966,-1.5707963267948966,0.0,0.0})
+  Buildings.BoundaryConditions.SolarIrradiation.DirectTiltedSurface HDirTil[6](til={
+        1.5707963267949,1.5707963267949,1.5707963267949,1.5707963267949,0,0},
+      azi={3.1415926535898,0,1.5707963267949,-1.5707963267949,0,0})
     "Calculates direct solar radiation on titled surface for all directions"
     annotation (Placement(transformation(extent={{-68,52},{-48,72}})));
   Buildings.ThermalZones.ReducedOrder.SolarGain.CorrectionGDoublePane corGDoublePane(

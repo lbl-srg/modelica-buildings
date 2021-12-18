@@ -5,10 +5,10 @@ model PartialStratified
 
   import Modelica.Fluid.Types;
   import Modelica.Fluid.Types.Dynamics;
-  parameter Modelica.SIunits.Volume VTan "Tank volume";
-  parameter Modelica.SIunits.Length hTan "Height of tank (without insulation)";
-  parameter Modelica.SIunits.Length dIns "Thickness of insulation";
-  parameter Modelica.SIunits.ThermalConductivity kIns = 0.04
+  parameter Modelica.Units.SI.Volume VTan "Tank volume";
+  parameter Modelica.Units.SI.Length hTan "Height of tank (without insulation)";
+  parameter Modelica.Units.SI.Length dIns "Thickness of insulation";
+  parameter Modelica.Units.SI.ThermalConductivity kIns=0.04
     "Specific heat conductivity of insulation";
   parameter Integer nSeg(min=2) = 2 "Number of volume segments";
 
@@ -28,9 +28,9 @@ model PartialStratified
   parameter Medium.Temperature T_start=Medium.T_default
     "Start value of temperature"
     annotation(Dialog(tab = "Initialization"));
-  parameter Modelica.SIunits.Temperature TFlu_start[nSeg]=T_start*ones(nSeg)
+  parameter Modelica.Units.SI.Temperature TFlu_start[nSeg]=T_start*ones(nSeg)
     "Initial temperature of the tank segments, with TFlu_start[1] being the top segment"
-    annotation(Dialog(tab = "Initialization"));
+    annotation (Dialog(tab="Initialization"));
   parameter Medium.MassFraction X_start[Medium.nX] = Medium.X_default
     "Start value of mass fractions m_i/m"
     annotation (Dialog(tab="Initialization", enable=Medium.nXi > 0));
@@ -40,7 +40,7 @@ model PartialStratified
     annotation (Dialog(tab="Initialization", enable=Medium.nC > 0));
 
   // Dynamics
-  parameter Modelica.SIunits.Time tau=1 "Time constant for mixing";
+  parameter Modelica.Units.SI.Time tau=1 "Time constant for mixing";
 
   ////////////////////////////////////////////////////////////////////
   // Connectors
@@ -84,15 +84,15 @@ protected
     T=Medium.T_default,
     p=Medium.p_default,
     X=Medium.X_default[1:Medium.nXi]) "Medium state at default properties";
-  parameter Modelica.SIunits.Length hSeg = hTan / nSeg
-    "Height of a tank segment";
-  parameter Modelica.SIunits.Area ATan = VTan/hTan
+  parameter Modelica.Units.SI.Length hSeg=hTan/nSeg "Height of a tank segment";
+  parameter Modelica.Units.SI.Area ATan=VTan/hTan
     "Tank cross-sectional area (without insulation)";
-  parameter Modelica.SIunits.Length rTan = sqrt(ATan/Modelica.Constants.pi)
+  parameter Modelica.Units.SI.Length rTan=sqrt(ATan/Modelica.Constants.pi)
     "Tank diameter (without insulation)";
-  parameter Modelica.SIunits.ThermalConductance conFluSeg = ATan*Medium.thermalConductivity(sta_default)/hSeg
+  parameter Modelica.Units.SI.ThermalConductance conFluSeg=ATan*
+      Medium.thermalConductivity(sta_default)/hSeg
     "Thermal conductance between fluid volumes";
-  parameter Modelica.SIunits.ThermalConductance conTopSeg = ATan*kIns/dIns
+  parameter Modelica.Units.SI.ThermalConductance conTopSeg=ATan*kIns/dIns
     "Thermal conductance from center of top (or bottom) volume through tank insulation at top (or bottom)";
 
   BaseClasses.Buoyancy buo(
@@ -383,7 +383,7 @@ Icon(graphics={
           fillPattern=FillPattern.CrossDiag),
         Text(
           extent={{100,106},{134,74}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="QLoss"),
         Rectangle(
           extent={{-10,10},{10,-10}},

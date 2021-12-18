@@ -4,7 +4,7 @@ model MixingValveControl
   extends Modelica.Icons.Example;
   package Medium=Buildings.Media.Water
     "Source side medium";
-  parameter Modelica.SIunits.MassFlowRate m_flow_nominal=1
+  parameter Modelica.Units.SI.MassFlowRate m_flow_nominal=1
     "Mass flow rate at nominal conditions";
   Buildings.Experimental.DHC.Loads.FlowDistribution disFlo(
     redeclare package Medium=Medium,
@@ -25,28 +25,24 @@ model MixingValveControl
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},rotation=0,origin={-10,20})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TPriHea(
     k=313.15,
-    y(
-      final unit="K",
+    y(final unit="K",
       displayUnit="degC"))
     "Heating water primary supply temperature"
     annotation (Placement(transformation(extent={{-140,110},{-120,130}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TPriChi(
     k=280.15,
-    y(
-      final unit="K",
+    y(final unit="K",
       displayUnit="degC"))
     "Chilled water primary supply temperature"
     annotation (Placement(transformation(extent={{-140,70},{-120,90}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch TPri(
-    y(
-      final unit="K",
+  Buildings.Controls.OBC.CDL.Continuous.Switch TPri(
+    y(final unit="K",
       displayUnit="degC"))
     "Actual primary supply temperature"
     annotation (Placement(transformation(extent={{-60,70},{-40,90}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TSetSecHea(
     k=303.15,
-    y(
-      final unit="K",
+    y(final unit="K",
       displayUnit="degC"))
     "Heating water secondary supply temperature set point"
     annotation (Placement(transformation(extent={{-140,-70},{-120,-50}})));
@@ -54,9 +50,8 @@ model MixingValveControl
     k=291.15)
     "Chilled water secondary supply temperature set point"
     annotation (Placement(transformation(extent={{-140,-110},{-120,-90}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch TSetSecAct(
-    y(
-      final unit="K",
+  Buildings.Controls.OBC.CDL.Continuous.Switch TSetSecAct(
+    y(final unit="K",
       displayUnit="degC"))
     "Actual secondary supply temperature set point"
     annotation (Placement(transformation(extent={{-60,-90},{-40,-70}})));
@@ -105,9 +100,8 @@ model MixingValveControl
     m_flow_nominal=m_flow_nominal)
     "Primary supply temperature (measured)"
     annotation (Placement(transformation(extent={{8,10},{28,30}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch dTSec(
-    y(
-      final unit="K",
+  Buildings.Controls.OBC.CDL.Continuous.Switch dTSec(
+    y(final unit="K",
       displayUnit="degC"))
     "Actual secondary delta T"
     annotation (Placement(transformation(extent={{20,-130},{40,-110}})));
@@ -209,5 +203,5 @@ First implementation.
       StopTime=1000,
       Tolerance=1e-06),
     __Dymola_Commands(
-      file="Resources/Scripts/Dymola/Experimental/DHC/Loads/Controls/Validation/MixingValveControl.mos" "Simulate and plot"));
+      file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/DHC/Loads/Controls/Validation/MixingValveControl.mos" "Simulate and plot"));
 end MixingValveControl;

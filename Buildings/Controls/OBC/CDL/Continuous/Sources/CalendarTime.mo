@@ -93,7 +93,7 @@ This is within the 2010-2020 range and is therefore allowed.
 <ul>
 <li>
 November 12, 2020, by Michael Wetter:<br/>
-Reformulated to remove dependency to <code>Modelica.SIunits</code>.<br/>
+Reformulated to remove dependency to <code>Modelica.Units.SI</code>.<br/>
 This is for
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2243\">issue 2243</a>.
 </li>
@@ -133,7 +133,7 @@ First implementation.
         Text(
           extent={{-150,150},{150,110}},
           textString="%name",
-          lineColor={0,0,255}),
+          textColor={0,0,255}),
         Ellipse(
           extent={{-94,94},{16,-16}},
           lineColor={160,160,164},
@@ -141,32 +141,32 @@ First implementation.
           fillPattern=FillPattern.Solid),
         Text(
           extent={{-34,92},{96,82}},
-          lineColor={28,108,200},
+          textColor={28,108,200},
           horizontalAlignment=TextAlignment.Right,
           textString="Minute"),
         Text(
           extent={{-28,64},{96,54}},
-          lineColor={28,108,200},
+          textColor={28,108,200},
           horizontalAlignment=TextAlignment.Right,
           textString="Hour"),
         Text(
           extent={{-38,36},{96,24}},
-          lineColor={28,108,200},
+          textColor={28,108,200},
           horizontalAlignment=TextAlignment.Right,
           textString="Day"),
         Text(
           extent={{-50,4},{96,-6}},
-          lineColor={28,108,200},
+          textColor={28,108,200},
           horizontalAlignment=TextAlignment.Right,
           textString="Month"),
         Text(
           extent={{-70,-24},{96,-34}},
-          lineColor={28,108,200},
+          textColor={28,108,200},
           horizontalAlignment=TextAlignment.Right,
           textString="Year"),
         Text(
           extent={{-68,-54},{96,-66}},
-          lineColor={28,108,200},
+          textColor={28,108,200},
           horizontalAlignment=TextAlignment.Right,
           textString="Weekday"),
         Line(

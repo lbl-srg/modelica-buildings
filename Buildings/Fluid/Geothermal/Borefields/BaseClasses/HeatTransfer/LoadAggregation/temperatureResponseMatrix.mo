@@ -1,16 +1,15 @@
 within Buildings.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.LoadAggregation;
-function temperatureResponseMatrix
+impure function temperatureResponseMatrix
   "Reads and possibly writes a matrix with a time series of the borefield's temperature response"
   extends Modelica.Icons.Function;
 
   input Integer nBor "Number of boreholes";
   input Real cooBor[nBor, 2] "Borehole coordinates";
-  input Modelica.SIunits.Height hBor "Borehole length";
-  input Modelica.SIunits.Height dBor "Borehole buried depth";
-  input Modelica.SIunits.Radius rBor "Borehole radius";
-  input Modelica.SIunits.ThermalDiffusivity aSoi
-    "Thermal diffusivity of soil";
-  input Modelica.SIunits.ThermalConductivity kSoi
+  input Modelica.Units.SI.Height hBor "Borehole length";
+  input Modelica.Units.SI.Height dBor "Borehole buried depth";
+  input Modelica.Units.SI.Radius rBor "Borehole radius";
+  input Modelica.Units.SI.ThermalDiffusivity aSoi "Thermal diffusivity of soil";
+  input Modelica.Units.SI.ThermalConductivity kSoi
     "Thermal conductivity of soil";
   input Integer nSeg "Number of line source segments per borehole";
   input Integer nTimSho "Number of time steps in short time region";
@@ -21,11 +20,12 @@ function temperatureResponseMatrix
   input Boolean forceGFunCalc
     "Set to true to force the thermal response to be calculated at the start";
 
-  output Modelica.SIunits.ThermalResistance TStep[nTimTot, 2] "Temperature step-response time series";
+  output Modelica.Units.SI.ThermalResistance TStep[nTimTot,2]
+    "Temperature step-response time series";
 
 protected
   String pathSave "Path of the folder used to save the g-function";
-  Modelica.SIunits.Time[nTimTot] tGFun "g-function evaluation times";
+  Modelica.Units.SI.Time[nTimTot] tGFun "g-function evaluation times";
   Real[nTimTot] gFun "g-function vector";
   Boolean writegFun = false "True if g-function was succesfully written to file";
 
@@ -75,9 +75,9 @@ response to build a SHA1-encrypted string unique to the borefield in question.
 Then, if the <code>forceGFunCalc</code> input is <code>true</code> or if
 there is no <code>.mat</code> file with the SHA1 hash as its filename in the
 <code>tmp/temperatureResponseMatrix</code> folder,
-the thermal response will be calculated and written as a 
+the thermal response will be calculated and written as a
 <code>.mat</code> file. Otherwise, the
-thermal response will simply be read from the 
+thermal response will simply be read from the
 <code>.mat</code> file. In the <code>.mat</code> file, the data
 is saved in a matrix with the name <code>TStep</code>, where the first column is
 the time (in seconds) and the second column is the temperature step response,
@@ -87,6 +87,10 @@ conductivity of the soil.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+December 11, 2021, by Michael Wetter:<br/>
+Added <code>impure</code> declaration for MSL 4.0.0.
+</li>
 <li>
 August 27, 2018, by Michael Wetter:<br/>
 Changed name of temporary directory so that it is clear for users

@@ -278,23 +278,33 @@ block Controller "Controller for room VAV box"
     final max=1,
     final unit="1")
     "Signal for heating coil valve"
-    annotation (Placement(transformation(extent={{140,-40},{180,0}}),
-        iconTransformation(extent={{100,-10},{140,30}})));
+    annotation (Placement(transformation(extent={{140,-20},{180,20}}),
+        iconTransformation(extent={{100,40},{140,80}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yDam(
     final min=0,
     final max=1,
     final unit="1")
     "Signal for VAV damper"
     annotation (Placement(transformation(extent={{140,60},{180,100}}),
-        iconTransformation(extent={{100,40},{140,80}})));
+        iconTransformation(extent={{100,80},{140,120}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yZonTemResReq
     "Zone cooling supply air temperature reset request"
-    annotation (Placement(transformation(extent={{140,-100},{180,-60}}),
-        iconTransformation(extent={{100,-60},{140,-20}})));
+    annotation (Placement(transformation(extent={{140,-60},{180,-20}}),
+        iconTransformation(extent={{100,0},{140,40}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yZonPreResReq
     "Zone static pressure reset requests"
+    annotation (Placement(transformation(extent={{140,-100},{180,-60}}),
+        iconTransformation(extent={{100,-40},{140,0}})));
+
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yHeaValResReq if have_heaWatCoi
+    "Hot water temperature reset requests"
     annotation (Placement(transformation(extent={{140,-140},{180,-100}}),
-        iconTransformation(extent={{100,-100},{140,-60}})));
+      iconTransformation(extent={{100,-80},{140,-40}})));
+
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yHeaPlaReq if (have_heaWatCoi and have_heaPla)
+    "Heating plant request"
+    annotation (Placement(transformation(extent={{140,-180},{180,-140}}),
+      iconTransformation(extent={{100,-120},{140,-80}})));
 
   Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.Reheat.SetPoints.ActiveAirFlow
     actAirSet(
@@ -385,10 +395,10 @@ equation
     annotation (Line(points={{78,-94},{58,-94},{58,-18},{42,-18}},
       color={0,0,127}));
   connect(damVal.yDam, yDam)
-    annotation (Line(points={{42,-6},{120,-6},{120,80},{160,80}},
+    annotation (Line(points={{42,-6},{110,-6},{110,80},{160,80}},
       color={0,0,127}));
   connect(damVal.yHeaVal, yVal)
-    annotation (Line(points={{42,-14},{120,-14},{120,-20},{160,-20}},
+    annotation (Line(points={{42,-14},{120,-14},{120,0},{160,0}},
       color={0,0,127}));
   connect(damVal.VDis_flow, VDis_flow)
     annotation (Line(points={{34,-22},{34,-50},{-160,-50}},color={0,0,127}));
@@ -437,10 +447,10 @@ equation
     annotation (Line(points={{-42,78},{-112,78},{-112,-170},{-160,-170}},
       color={255,127,0}));
   connect(sysReq.yZonTemResReq, yZonTemResReq)
-    annotation (Line(points={{102,-83},{120,-83},{120,-80},{160,-80}},
+    annotation (Line(points={{102,-83},{110,-83},{110,-40},{160,-40}},
       color={255,127,0}));
   connect(sysReq.yZonPreResReq, yZonPreResReq)
-    annotation (Line(points={{102,-88},{120,-88},{120,-120},{160,-120}},
+    annotation (Line(points={{102,-88},{120,-88},{120,-80},{160,-80}},
       color={255,127,0}));
   connect(actAirSet.ppmCO2, ppmCO2)
     annotation (Line(points={{-42,74},{-60,74},{-60,80},{-160,80}},
@@ -488,79 +498,94 @@ equation
   connect(sysReq.yDam_actual,yDam_actual)  annotation (Line(points={{78,-92},{-124,
           -92},{-124,-80},{-160,-80}}, color={0,0,127}));
 
+  connect(sysReq.yHeaValResReq, yHeaValResReq) annotation (Line(points={{102,-94},
+          {120,-94},{120,-120},{160,-120}}, color={255,127,0}));
+  connect(sysReq.yHeaPlaReq, yHeaPlaReq) annotation (Line(points={{102,-99},{110,
+          -99},{110,-160},{160,-160}}, color={255,127,0}));
 annotation (defaultComponentName="terUniCon",
-  Icon(graphics={Rectangle(
-        extent={{-100,-100},{100,100}},
+  Icon(coordinateSystem(extent={{-100,-120},{100,120}}),
+      graphics={Rectangle(
+        extent={{-100,-120},{100,120}},
         lineColor={0,0,127},
         fillColor={255,255,255},
         fillPattern=FillPattern.Solid),
         Text(
           extent={{-100,-54},{-78,-64}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="TDis"),
         Text(
           extent={{-100,-70},{-70,-82}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="TSup"),
         Text(
-          extent={{70,18},{98,4}},
-          lineColor={0,0,127},
+          extent={{72,66},{100,52}},
+          textColor={0,0,127},
           textString="yVal"),
         Text(
-          extent={{68,70},{96,56}},
-          lineColor={0,0,127},
+          extent={{68,106},{96,92}},
+          textColor={0,0,127},
           textString="yDam"),
         Text(
           extent={{-98,100},{-46,88}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="TZonHeaSet"),
         Text(
           extent={{-98,-14},{-68,-26}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="VDis_flow"),
         Text(
-          extent={{-120,160},{114,108}},
+          extent={{-120,180},{114,128}},
           textString="%name",
-          lineColor={0,0,255}),
+          textColor={0,0,255}),
         Text(
           extent={{-96,6},{-74,-8}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="TZon"),
         Text(
           extent={{-100,84},{-46,74}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="TZonCooSet"),
         Text(
           extent={{-100,-86},{-52,-98}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="uOpeMod"),
         Text(
           visible=have_occSen,
           extent={{-100,36},{-74,26}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="nOcc"),
         Text(
           visible=have_CO2Sen,
           extent={{-96,60},{-58,42}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="ppmCO2"),
         Text(
           visible=have_winSen,
           extent={{-100,14},{-72,4}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="uWin"),
         Text(
-          extent={{22,-20},{96,-58}},
-          lineColor={0,0,127},
+          extent={{22,38},{96,0}},
+          textColor={0,0,127},
           textString="yZonTemResReq"),
         Text(
-          extent={{24,-62},{96,-96}},
-          lineColor={0,0,127},
+          extent={{24,-2},{96,-36}},
+          textColor={0,0,127},
           textString="yZonPreResReq"),
         Text(
           extent={{-98,-34},{-50,-44}},
-          lineColor={0,0,127},
-          textString="uDam_actual")}),
+          textColor={0,0,127},
+          textString="uDam_actual"),
+        Text(
+          extent={{24,-42},{96,-76}},
+          textColor={0,0,127},
+          visible = have_heaWatCoi,
+          textString="yHeaValResReq"),
+        Text(
+          extent={{44,-84},{98,-116}},
+          textColor={0,0,127},
+          visible = (have_heaWatCoi and have_heaPla),
+          textString="yHeaPlaReq")}),
     Diagram(coordinateSystem(extent={{-140,-180},{140,180}})),
 Documentation(info="<html>
 <p>
@@ -609,6 +634,11 @@ Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.Reheat.SystemRequests</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+November 5, 2021 by Karthik Devaprasad:<br/>
+Added missing outputs <code>yHeaValResReq</code> and <code>yHeaPlaReq</code>
+for requests to heating plant.
+</li>
 <li>
 October 9, 2020, by Jianjun Hu:<br/>
 Changed the default heating maximum airflow setpoint to 30% of the zone nominal airflow.<br/>

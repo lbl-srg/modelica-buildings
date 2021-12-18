@@ -64,23 +64,20 @@ block SupplyReturnTemperatureReset
 protected
   CDL.Continuous.Sources.Constant dTOutHeaBal_nominal(
     final k=dTOutHeaBal,
-    y(
-      final quantity="TemperatureDifference",
+    y(final quantity="TemperatureDifference",
       final unit="K"))
     "Offset of outdoor temperature to take into account heat gain"
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
   CDL.Continuous.Sources.Constant TSup_nom(
     final k=TSup_nominal,
-    y(
-      final quantity="ThermodynamicTemperature",
+    y(final quantity="ThermodynamicTemperature",
       final unit="K",
       displayUnit="degC"))
     "Heating supply water temperature at nominal condition"
     annotation (Placement(transformation(extent={{-80,160},{-60,180}})));
   CDL.Continuous.Sources.Constant TZon_nom(
     final k=TZon_nominal,
-    y(
-      final quantity="ThermodynamicTemperature",
+    y(final quantity="ThermodynamicTemperature",
       final unit="K",
       displayUnit="degC"))
     "Zone temperature at design condition"
@@ -91,16 +88,14 @@ protected
     annotation (Placement(transformation(extent={{0,60},{20,80}})));
   CDL.Continuous.Sources.Constant TRet_nom(
     final k=TRet_nominal,
-    y(
-      final quantity="ThermodynamicTemperature",
+    y(final quantity="ThermodynamicTemperature",
       final unit="K",
       displayUnit="degC"))
     "Heating return water temperature at nominal condition"
     annotation (Placement(transformation(extent={{-80,120},{-60,140}})));
   CDL.Continuous.Sources.Constant TOut_nom(
     final k=TOut_nominal,
-    y(
-      final quantity="ThermodynamicTemperature",
+    y(final quantity="ThermodynamicTemperature",
       final unit="K",
       displayUnit="degC"))
     "Outside temperature at design condition"
@@ -116,8 +111,7 @@ protected
   CDL.Continuous.Add TOutOffSet(
     final k1=1,
     final k2=1,
-    y(
-      final quantity="ThermodynamicTemperature",
+    y(final quantity="ThermodynamicTemperature",
       final unit="K",
       displayUnit="degC"))
     "Effective outside temperature for heat transfer (takes into account zone heat gains)"
@@ -125,8 +119,7 @@ protected
   CDL.Continuous.Add qRelDen(
     final k1=1,
     final k2=-1,
-    y(
-      final quantity="ThermodynamicTemperature",
+    y(final quantity="ThermodynamicTemperature",
       final unit="K",
       displayUnit="degC"))
     "Denominator for relative heating load calculation"
@@ -134,8 +127,7 @@ protected
   CDL.Continuous.Add qRelNum(
     final k1=-1,
     final k2=1,
-    y(
-      final quantity="ThermodynamicTemperature",
+    y(final quantity="ThermodynamicTemperature",
       final unit="K",
       displayUnit="degC"))
     "Numerator for relative heating load calculation"
@@ -146,16 +138,14 @@ protected
   CDL.Continuous.Add dTFlu2_nom(
     final k1=0.5,
     final k2=-0.5,
-    y(
-      final quantity="TemperatureDifference",
+    y(final quantity="TemperatureDifference",
       final unit="K"))
     "Heating supply minus return water temperature at nominal condition"
     annotation (Placement(transformation(extent={{-40,150},{-20,170}})));
   CDL.Continuous.Add TFluAve_nominal(
     final k1=0.5,
     final k2=0.5,
-    y(
-      final quantity="ThermodynamicTemperature",
+    y(final quantity="ThermodynamicTemperature",
       final unit="K",
       displayUnit="degC"))
     "Average heating water temperature at nominal condition"
@@ -163,8 +153,7 @@ protected
   CDL.Continuous.Add dTFluAve_nominal(
     final k1=1,
     final k2=-1,
-    y(
-      final quantity="TemperatureDifference",
+    y(final quantity="TemperatureDifference",
       final unit="K"))
     "Average heating water temperature minus room temperature at nominal condition"
     annotation (Placement(transformation(extent={{0,110},{20,130}})));
@@ -174,8 +163,7 @@ protected
   CDL.Continuous.Add TAve(
     final k1=1,
     final k2=1,
-    y(
-      final quantity="ThermodynamicTemperature",
+    y(final quantity="ThermodynamicTemperature",
       final unit="K",
       displayUnit="degC"))
     "Average of supply and return temperature"
@@ -183,8 +171,7 @@ protected
   CDL.Continuous.Add TSupCur(
     final k1=1,
     final k2=1,
-    y(
-      final quantity="ThermodynamicTemperature",
+    y(final quantity="ThermodynamicTemperature",
       final unit="K",
       displayUnit="degC"))
     "Current supply water temperature"
@@ -192,8 +179,7 @@ protected
   CDL.Continuous.Add TRetCur(
     final k1=1,
     final k2=-1,
-    y(
-      final quantity="ThermodynamicTemperature",
+    y(final quantity="ThermodynamicTemperature",
       final unit="K",
       displayUnit="degC"))
     "Current return water temperature"
@@ -211,22 +197,19 @@ protected
     "Logarithm used for evaluation of qRel^(1/m)"
     annotation (Placement(transformation(extent={{-80,-110},{-60,-90}})));
   CDL.Continuous.Product dTQ(
-    y(
-      final quantity="TemperatureDifference",
+    y(final quantity="TemperatureDifference",
       final unit="K"))
     "Temperature contribution due to qRel^(1/m)"
     annotation (Placement(transformation(extent={{-80,220},{-60,240}})));
   CDL.Continuous.Product dTFlu(
-    y(
-      final quantity="TemperatureDifference",
+    y(final quantity="TemperatureDifference",
       final unit="K"))
     "Supply minus return water temperature"
     annotation (Placement(transformation(extent={{0,220},{20,240}})));
   CDL.Continuous.Add TOutOffSet_nominal(
     final k1=1,
     final k2=1,
-    y(
-      final quantity="ThermodynamicTemperature",
+    y(final quantity="ThermodynamicTemperature",
       final unit="K",
       displayUnit="degC"))
     "Effective outside temperature for heat transfer at nominal condition (takes into account zone heat gains)"
@@ -350,6 +333,10 @@ alt=\"Supply and return water temperatures.\"/>
       revisions="<html>
 <ul>
 <li>
+October 21, 2021, by Michael Wetter:<br/>
+Corrected icon.
+</li>
+<li>
 February 8, 2021, by Michael Wetter:<br/>
 Renamed to <code>Buildings.Controls.OBC.Utilities.SetPoints.SupplyReturnTemperatureReset</code>
 and reimplemented using elementary CDL blocks.<br/>
@@ -358,7 +345,7 @@ This is for
 </li>
 <li>
 November 12, 2020, by Michael Wetter:<br/>
-Reformulated to remove dependency to <code>Modelica.SIunits</code>.<br/>
+Reformulated to remove dependency to <code>Modelica.Units.SI</code>.<br/>
 This is for
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2243\">issue 2243</a>.
 </li>
@@ -428,25 +415,24 @@ First implementation.
           smooth=Smooth.Bezier),
         Text(
           extent={{-152,120},{-102,70}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="TOut"),
         Text(
-          visible=use_TRoo_in,
           extent={{-152,-4},{-102,-54}},
-          lineColor={0,0,127},
-          textString="TRoo"),
+          textColor={0,0,127},
+          textString="TSetZon"),
         Text(
           extent={{40,86},{90,36}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="TSup"),
         Text(
           extent={{42,-30},{92,-80}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="TRet"),
         Text(
           extent={{-150,150},{150,110}},
           textString="%name",
-          lineColor={0,0,255})}),
+          textColor={0,0,255})}),
     Diagram(
       coordinateSystem(
         extent={{-100,-200},{100,340}}),
@@ -459,7 +445,7 @@ First implementation.
           pattern=LinePattern.None),
         Text(
           extent={{-34,318},{66,306}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid,
           horizontalAlignment=TextAlignment.Left,
@@ -472,7 +458,7 @@ First implementation.
           pattern=LinePattern.None),
         Text(
           extent={{-26,-178},{74,-190}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid,
           horizontalAlignment=TextAlignment.Left,
@@ -485,7 +471,7 @@ First implementation.
           pattern=LinePattern.None),
         Text(
           extent={{-84,198},{-36,190}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid,
           horizontalAlignment=TextAlignment.Left,
@@ -498,7 +484,7 @@ First implementation.
           pattern=LinePattern.None),
         Text(
           extent={{-4,98},{56,90}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid,
           horizontalAlignment=TextAlignment.Left,
@@ -511,7 +497,7 @@ First implementation.
           pattern=LinePattern.None),
         Text(
           extent={{-6,-68},{60,-76}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid,
           horizontalAlignment=TextAlignment.Left,

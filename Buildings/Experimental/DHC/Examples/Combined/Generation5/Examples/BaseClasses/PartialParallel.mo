@@ -15,7 +15,7 @@ partial model PartialParallel "Partial model for parallel network"
     annotation (Evaluate=true);
   inner parameter
     Buildings.Experimental.DHC.Examples.Combined.Generation5.Data.DesignDataParallel
-    datDes(final mCon_flow_nominal=bui.ets.mDisWat_flow_nominal) "Design data"
+    datDes(final mCon_flow_nominal=bui.ets.mSerWat_flow_nominal) "Design data"
     annotation (Placement(transformation(extent={{-340,220},{-320,240}})));
   // COMPONENTS
   Buildings.Experimental.DHC.Examples.Combined.Generation5.ThermalStorages.BoreField

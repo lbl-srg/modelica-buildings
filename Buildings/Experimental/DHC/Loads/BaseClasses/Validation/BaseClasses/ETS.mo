@@ -3,7 +3,7 @@ model ETS
   "Dummy ETS model for validation purposes"
   extends
     Buildings.Experimental.DHC.EnergyTransferStations.BaseClasses.PartialETS;
-  parameter Modelica.SIunits.MassFlowRate m_flow_nominal
+  parameter Modelica.Units.SI.MassFlowRate m_flow_nominal
     "Nominal mass flow rate";
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant souPHea(
     k=1)

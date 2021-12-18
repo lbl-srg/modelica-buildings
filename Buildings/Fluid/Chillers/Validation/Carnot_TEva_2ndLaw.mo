@@ -5,19 +5,19 @@ model Carnot_TEva_2ndLaw
 
   package Medium = Buildings.Media.Water "Medium model";
 
-  parameter Modelica.SIunits.TemperatureDifference dTEva_nominal=-4
+  parameter Modelica.Units.SI.TemperatureDifference dTEva_nominal=-4
     "Temperature difference evaporator outlet-inlet";
-  parameter Modelica.SIunits.TemperatureDifference dTCon_nominal=4
+  parameter Modelica.Units.SI.TemperatureDifference dTCon_nominal=4
     "Temperature difference condenser outlet-inlet";
   parameter Real COPc_nominal = 3 "Chiller COP";
-  parameter Modelica.SIunits.HeatFlowRate QEva_flow_nominal = -100E3
+  parameter Modelica.Units.SI.HeatFlowRate QEva_flow_nominal=-100E3
     "Evaporator heat flow rate";
-  final parameter Modelica.SIunits.MassFlowRate m2_flow_nominal=
-    QEva_flow_nominal/dTEva_nominal/4200
+  final parameter Modelica.Units.SI.MassFlowRate m2_flow_nominal=
+      QEva_flow_nominal/dTEva_nominal/4200
     "Nominal mass flow rate at chilled water side";
 
-  final parameter Modelica.SIunits.MassFlowRate m1_flow_nominal=
-    -m2_flow_nominal/dTCon_nominal*dTEva_nominal
+  final parameter Modelica.Units.SI.MassFlowRate m1_flow_nominal=-
+      m2_flow_nominal/dTCon_nominal*dTEva_nominal
     "Nominal mass flow rate at condeser water side";
 
   Modelica.Blocks.Sources.Constant TEvaIn(k=273.15 + 20)
@@ -56,15 +56,15 @@ protected
    replaceable package Medium2 = Modelica.Media.Interfaces.PartialMedium
       "Medium model";
 
-    parameter Modelica.SIunits.TemperatureDifference dTEva_nominal
+    parameter Modelica.Units.SI.TemperatureDifference dTEva_nominal
       "Temperature difference evaporator outlet-inlet";
-    parameter Modelica.SIunits.TemperatureDifference dTCon_nominal
+    parameter Modelica.Units.SI.TemperatureDifference dTCon_nominal
       "Temperature difference condenser outlet-inlet";
-    parameter Modelica.SIunits.HeatFlowRate QEva_flow_nominal
+    parameter Modelica.Units.SI.HeatFlowRate QEva_flow_nominal
       "Evaporator heat flow rate";
-    parameter Modelica.SIunits.MassFlowRate m1_flow_nominal
+    parameter Modelica.Units.SI.MassFlowRate m1_flow_nominal
       "Nominal mass flow rate at condeser water side";
-    parameter Modelica.SIunits.MassFlowRate m2_flow_nominal
+    parameter Modelica.Units.SI.MassFlowRate m2_flow_nominal
       "Nominal mass flow rate at chilled water side";
 
     Buildings.Fluid.Sources.MassFlowSource_T sou1(

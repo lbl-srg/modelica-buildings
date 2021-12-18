@@ -3,7 +3,7 @@ model MassFlowRate "Ideal sensor for mass flow rate"
 extends Buildings.Fluid.Sensors.BaseClasses.PartialFlowSensor(
   final m_flow_nominal = 0,
   final m_flow_small = 0);
-extends Modelica.Icons.RotationalSensor;
+extends Modelica.Icons.RoundSensor;
 Modelica.Blocks.Interfaces.RealOutput m_flow(quantity="MassFlowRate",
                                              final unit="kg/s")
   "Mass flow rate from port_a to port_b" annotation (Placement(
@@ -21,14 +21,14 @@ Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}})
       Line(points={{70,0},{100,0}}, color={0,128,255}),
       Text(
         extent={{162,120},{2,90}},
-        lineColor={0,0,0},
+        textColor={0,0,0},
         textString="m_flow"),
       Line(points={{0,100},{0,70}}, color={0,0,127}),
       Line(points={{-100,0},{-70,0}}, color={0,128,255}),
       Text(
         extent={{-20,116},{-140,66}},
-        lineColor={0,0,0},
-        textString=DynamicSelect("", String(m_flow, leftjustified=false, significantDigits=3)))}),
+        textColor={0,0,0},
+        textString=DynamicSelect("", String(m_flow, leftJustified=false, significantDigits=3)))}),
 Documentation(info="<html>
 <p>
 This model outputs the mass flow rate flowing from

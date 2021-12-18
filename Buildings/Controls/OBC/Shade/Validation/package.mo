@@ -1,6 +1,5 @@
 within Buildings.Controls.OBC.Shade;
-package Validation
-  "Collection of validation models"
+package Validation "Collection of validation models"
   annotation (
     preferredView="info",
     Documentation(

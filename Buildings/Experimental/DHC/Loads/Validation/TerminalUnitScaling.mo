@@ -8,43 +8,41 @@ model TerminalUnitScaling
     "Load side medium";
   parameter Real facMul=2
     "Multiplier factor";
-  parameter Modelica.SIunits.Temperature T_aHeaWat_nominal(
+  parameter Modelica.Units.SI.Temperature T_aHeaWat_nominal(
     min=273.15,
-    displayUnit="degC")=273.15+40
+    displayUnit="degC") = 273.15 + 40
     "Heating water inlet temperature at nominal conditions"
     annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.SIunits.Temperature T_bHeaWat_nominal(
+  parameter Modelica.Units.SI.Temperature T_bHeaWat_nominal(
     min=273.15,
-    displayUnit="degC")=T_aHeaWat_nominal-5
+    displayUnit="degC") = T_aHeaWat_nominal - 5
     "Heating water outlet temperature at nominal conditions"
     annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.SIunits.Temperature T_aLoaHea_nominal(
+  parameter Modelica.Units.SI.Temperature T_aLoaHea_nominal(
     min=273.15,
-    displayUnit="degC")=273.15+20
+    displayUnit="degC") = 273.15 + 20
     "Load side inlet temperature at nominal conditions in heating mode"
     annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.SIunits.Temperature T_bLoaHea_nominal(
+  parameter Modelica.Units.SI.Temperature T_bLoaHea_nominal(
     min=273.15,
-    displayUnit="degC")=T_aLoaHea_nominal+12
+    displayUnit="degC") = T_aLoaHea_nominal + 12
     "Load side ourtlet temperature at nominal conditions in heating mode"
     annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.SIunits.MassFlowRate mLoaHeaUni_flow_nominal(
-    min=0)=QHeaUni_flow_nominal/(T_bLoaHea_nominal-T_aLoaHea_nominal)/Medium2.specificHeatCapacityCp(
-    Medium2.setState_pTX(
-      Medium2.p_default,
-      T_aLoaHea_nominal))
+  parameter Modelica.Units.SI.MassFlowRate mLoaHeaUni_flow_nominal(min=0) =
+    QHeaUni_flow_nominal/(T_bLoaHea_nominal - T_aLoaHea_nominal)/
+    Medium2.specificHeatCapacityCp(Medium2.setState_pTX(Medium2.p_default,
+    T_aLoaHea_nominal))
     "Load side mass flow rate at nominal conditions for 1 unit"
     annotation (Dialog(group="Nominal condition"));
-  final parameter Modelica.SIunits.MassFlowRate mLoaHea_flow_nominal(
-    min=0)=mLoaHeaUni_flow_nominal*facMul
+  final parameter Modelica.Units.SI.MassFlowRate mLoaHea_flow_nominal(min=0) =
+    mLoaHeaUni_flow_nominal*facMul
     "Load side mass flow rate at nominal conditions"
     annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.SIunits.HeatFlowRate QHeaUni_flow_nominal(
-    min=0)=1000
+  parameter Modelica.Units.SI.HeatFlowRate QHeaUni_flow_nominal(min=0) = 1000
     "Design heating heat flow rate (>=0) for 1 unit"
     annotation (Dialog(group="Nominal condition"));
-  final parameter Modelica.SIunits.HeatFlowRate QHea_flow_nominal=QHeaUni_flow_nominal*facMul
-    "Design heating heat flow rate (>=0)"
+  final parameter Modelica.Units.SI.HeatFlowRate QHea_flow_nominal=
+      QHeaUni_flow_nominal*facMul "Design heating heat flow rate (>=0)"
     annotation (Dialog(group="Nominal condition"));
   Buildings.Fluid.Sources.MassFlowSource_T supHeaWat(
     use_m_flow_in=true,
@@ -181,5 +179,5 @@ First implementation.
         preserveAspectRatio=false,
         extent={{-120,-120},{120,120}})),
     __Dymola_Commands(
-      file="Resources/Scripts/Dymola/Experimental/DHC/Loads/Validation/TerminalUnitScaling.mos" "Simulate and plot"));
+      file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/DHC/Loads/Validation/TerminalUnitScaling.mos" "Simulate and plot"));
 end TerminalUnitScaling;

@@ -2,22 +2,21 @@ within Buildings.Media;
 package Steam
   "Package with model for pure steam water vapor"
   extends Modelica.Media.Interfaces.PartialMedium(
-     mediumName="steam",
-     final substanceNames={"water"},
-     singleState = true,
-     reducedX = true,
-     fixedX = true,
-     ThermoStates=Modelica.Media.Interfaces.Choices.IndependentVariables.pTX,
-     FluidConstants={Modelica.Media.IdealGases.Common.FluidData.H2O},
-     reference_T=273.15,
-     reference_p=101325,
-     reference_X={1},
-     AbsolutePressure(start=p_default),
-     Temperature(start=T_default),
-     SpecificEnthalpy(start=2.7e6, nominal=2.7e6),
-     Density(start=0.6, nominal=1),
-     T_default=Modelica.SIunits.Conversions.from_degC(100),
-     p_default=100000);
+    mediumName="steam",
+    final substanceNames={"water"},
+    singleState=true,
+    reducedX=true,
+    fixedX=true,
+    FluidConstants={Modelica.Media.IdealGases.Common.FluidData.H2O},
+    reference_T=273.15,
+    reference_p=101325,
+    reference_X={1},
+    AbsolutePressure(start=p_default),
+    Temperature(start=T_default),
+    SpecificEnthalpy(start=2.7e6, nominal=2.7e6),
+    Density(start=0.6, nominal=1),
+    T_default=Modelica.Units.Conversions.from_degC(100),
+    p_default=100000);
   extends Modelica.Icons.Package;
 
   redeclare record ThermodynamicState
@@ -35,7 +34,7 @@ equation
     h = specificEnthalpy(state);
     d = density(state);
     u = h - p/d;
-    R = steam.R;
+    R_s = steam.R;
     state.p = p;
     state.T = T;
 end BaseProperties;
@@ -216,7 +215,7 @@ end specificInternalEnergy;
 redeclare replaceable function extends specificHeatCapacityCp
   "Specific heat capacity at constant pressure"
 
-protected
+  protected
   Modelica.Media.Common.GibbsDerivs g
     "Dimensionless Gibbs function and derivatives w.r.t. pi and tau";
   SpecificHeatCapacity R "Specific gas constant of water vapor";
@@ -240,7 +239,7 @@ end specificHeatCapacityCp;
 redeclare replaceable function extends specificHeatCapacityCv
   "Specific heat capacity at constant volume"
 
-protected
+  protected
   Modelica.Media.Common.GibbsDerivs g
     "Dimensionless Gibbs function and derivatives w.r.t. pi and tau";
   SpecificHeatCapacity R "Specific gas constant of water vapor";
@@ -475,27 +474,26 @@ protected
 record GasProperties
   "Coefficient data record for properties of perfect gases"
   extends Modelica.Icons.Record;
-  Modelica.SIunits.MolarMass MM "Molar mass";
-  Modelica.SIunits.SpecificHeatCapacity R "Gas constant";
+    Modelica.Units.SI.MolarMass MM "Molar mass";
+    Modelica.Units.SI.SpecificHeatCapacity R "Gas constant";
 end GasProperties;
-constant GasProperties steam(
-  R =    Modelica.Media.IdealGases.Common.SingleGasesData.H2O.R,
-  MM =   Modelica.Media.IdealGases.Common.SingleGasesData.H2O.MM)
-  "Steam properties";
+  constant GasProperties steam(R=Modelica.Media.IdealGases.Common.SingleGasesData.H2O.R_s,
+      MM=Modelica.Media.IdealGases.Common.SingleGasesData.H2O.MM)
+    "Steam properties";
 
 function g2 "Gibbs function for region 2: g(p,T)"
   extends Modelica.Icons.Function;
-  input Modelica.SIunits.Pressure p "Pressure";
-  input Modelica.SIunits.Temperature T "Temperature (K)";
+    input Modelica.Units.SI.Pressure p "Pressure";
+    input Modelica.Units.SI.Temperature T "Temperature (K)";
   output Modelica.Media.Common.GibbsDerivs g
     "Dimensionless Gibbs function and derivatives w.r.t. pi and tau";
-protected
+  protected
   Real tau2 "Dimensionless temperature";
   Real[55] o "Vector of auxiliary variables";
 algorithm
   g.p := p;
   g.T := T;
-  g.R := Modelica.Media.Water.IF97_Utilities.BaseIF97.data.RH2O;
+    g.R_s := Modelica.Media.Water.IF97_Utilities.BaseIF97.data.RH2O;
 //  assert(p > 0.0,
 //    "IF97 medium function g2 called with too low pressure\n" + "p = " +
 //    String(p) + " Pa <=  0.0 Pa");

@@ -1,6 +1,7 @@
 within Buildings.Controls.DemandResponse.BaseClasses;
 block BaselinePrediction "Predicts the baseline consumption"
-  extends Buildings.Controls.DemandResponse.BaseClasses.PartialDemandResponse;
+  extends Buildings.Controls.DemandResponse.BaseClasses.PartialDemandResponse(nIn=1,
+      nOut=1);
 
   parameter Integer nHis(min=1) = 10 "Number of history terms to be stored";
 
@@ -63,7 +64,7 @@ equation
             {100,100}}),
                    graphics={Text(
           extent={{-70,64},{74,-54}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="BL")}),
     Documentation(info="<html>
 <p>

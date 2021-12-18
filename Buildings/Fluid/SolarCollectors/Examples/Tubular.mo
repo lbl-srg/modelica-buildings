@@ -2,7 +2,7 @@ within Buildings.Fluid.SolarCollectors.Examples;
 model Tubular "Example showing the use of Tubular"
   extends Modelica.Icons.Example;
   replaceable package Medium = Buildings.Media.Water "Medium in the system";
-  Buildings.Fluid.SolarCollectors.ASHRAE93          solCol(
+  Buildings.Fluid.SolarCollectors.ASHRAE93 solCol(
     redeclare package Medium = Medium,
     shaCoe=0,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
@@ -13,7 +13,6 @@ model Tubular "Example showing the use of Tubular"
     nColType=Buildings.Fluid.SolarCollectors.Types.NumberSelection.Number,
     rho=0.2,
     nSeg=9,
-    lat=0.73097781993588,
     azi=0.3,
     til=0.5) "Tubular solar collector model"
              annotation (Placement(transformation(extent={{12,-20},{32,0}})));
@@ -37,7 +36,7 @@ model Tubular "Example showing the use of Tubular"
     Medium, m_flow_nominal=solCol.m_flow_nominal) "Temperature sensor"
     annotation (Placement(transformation(extent={{-30,-20},{-10,0}})));
   Modelica.Blocks.Sources.Sine sine(
-    freqHz=3/86400,
+    f=3/86400,
     offset=101325,
     amplitude=-1.5*solCol.dp_nominal)
     annotation (Placement(transformation(extent={{-100,-20},{-80,0}})));
@@ -92,6 +91,12 @@ equation
     </html>",
 revisions="<html>
 <ul>
+<li>
+September 16, 2021, by Michael Wetter:<br/>
+Removed parameter assignment for <code>lat</code>.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1477\">IBPSA, #1477</a>.
+</li>
 <li>
 December 22, 2014 by Michael Wetter:<br/>
 Removed <code>Modelica.Fluid.System</code>

@@ -4,7 +4,7 @@ package BaseClasses "Base classes for package Data"
 
   record Chiller "Base classes for chiller models"
     extends Modelica.Icons.Record;
-    parameter Modelica.SIunits.HeatFlowRate QEva_flow_nominal(max=0)
+    parameter Modelica.Units.SI.HeatFlowRate QEva_flow_nominal(max=0)
       "Reference capacity (negative number)"
       annotation (Dialog(group="Nominal condition"));
     parameter Real COP_nominal "Reference coefficient of performance"
@@ -17,13 +17,13 @@ package BaseClasses "Base classes for package Data"
     parameter Real etaMotor(min=0, max=1)
       "Fraction of compressor motor heat entering refrigerant";
 
-    parameter Modelica.SIunits.MassFlowRate mEva_flow_nominal
+    parameter Modelica.Units.SI.MassFlowRate mEva_flow_nominal
       "Nominal mass flow at evaporator"
       annotation (Dialog(group="Nominal condition"));
-    parameter Modelica.SIunits.MassFlowRate mCon_flow_nominal
+    parameter Modelica.Units.SI.MassFlowRate mCon_flow_nominal
       "Nominal mass flow at condenser"
       annotation (Dialog(group="Nominal condition"));
-    parameter Modelica.SIunits.Temperature TEvaLvg_nominal
+    parameter Modelica.Units.SI.Temperature TEvaLvg_nominal
       "Temperature of fluid leaving evaporator at nominal condition"
       annotation (Dialog(group="Nominal condition"));
 
@@ -39,10 +39,10 @@ package BaseClasses "Base classes for package Data"
       annotation (Dialog(group="Performance curves"));
     parameter Real EIRFunPLR[nEIRFunPLR] "Coefficients for EIRFunPLR"
       annotation (Dialog(group="Performance curves"));
-    parameter Modelica.SIunits.Temperature TEvaLvgMin
+    parameter Modelica.Units.SI.Temperature TEvaLvgMin
       "Minimum value for leaving evaporator temperature"
       annotation (Dialog(group="Performance curves"));
-    parameter Modelica.SIunits.Temperature TEvaLvgMax
+    parameter Modelica.Units.SI.Temperature TEvaLvgMax
       "Maximum value for leaving evaporator temperature"
       annotation (Dialog(group="Performance curves"));
 
@@ -68,27 +68,27 @@ First implementation.
       Icon(graphics={
           Text(
             extent={{-95,53},{-12,-2}},
-            lineColor={0,0,255},
+            textColor={0,0,255},
             textString="COP"),
           Text(
             extent={{7,55},{90,0}},
-            lineColor={0,0,255},
+            textColor={0,0,255},
             textString="%COP_nominal"),
           Text(
             extent={{-105,-9},{-48,-48}},
-            lineColor={0,0,255},
+            textColor={0,0,255},
             textString="Q"),
           Text(
             extent={{2,-16},{94,-38}},
-            lineColor={0,0,255},
+            textColor={0,0,255},
             textString="%QEva_flow_nominal"),
           Text(
             extent={{-95,-49},{-12,-104}},
-            lineColor={0,0,255},
+            textColor={0,0,255},
             textString="PLR_minUnl"),
           Text(
             extent={{7,-53},{84,-94}},
-            lineColor={0,0,255},
+            textColor={0,0,255},
             textString="%PLRMinUnl")}));
   end Chiller;
 

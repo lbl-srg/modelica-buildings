@@ -5,11 +5,9 @@ block SideHot
   parameter Integer nSouAmb=1
     "Number of ambient sources to control"
     annotation (Evaluate=true);
-  parameter Modelica.SIunits.TemperatureDifference dTDea(
-    min=0)=1
+  parameter Modelica.Units.SI.TemperatureDifference dTDea(min=0) = 1
     "Temperature difference band between set point tracking and heat rejection (absolute value)";
-  parameter Modelica.SIunits.TemperatureDifference dTLoc(
-    min=0)=dTDea+2
+  parameter Modelica.Units.SI.TemperatureDifference dTLoc(min=0) = dTDea + 2
     "Temperature difference between set point tracking and cold rejection lockout (absolute value)";
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI
     "Type of controller"
@@ -18,12 +16,10 @@ block SideHot
   parameter Real k(
     min=0)=0.1
     "Gain of controller";
-  parameter Modelica.SIunits.Time Ti(
-    min=Buildings.Controls.OBC.CDL.Constants.small)=120
-    "Time constant of integrator block"
-    annotation (Dialog(enable=
-    controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PI or
-    controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
+  parameter Modelica.Units.SI.Time Ti(min=Buildings.Controls.OBC.CDL.Constants.small)
+     = 120 "Time constant of integrator block" annotation (Dialog(enable=
+          controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
+           or controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
   PIDWithEnable conColRej(
     final k=k,
     final Ti=Ti,
@@ -61,7 +57,7 @@ block SideHot
     final k={(i-1) for i in 1:nSouAmb})
     "x1"
     annotation (Placement(transformation(extent={{60,70},{80,90}})));
-  Buildings.Controls.OBC.CDL.Routing.RealReplicator rep(
+  Buildings.Controls.OBC.CDL.Routing.RealScalarReplicator rep(
     final nout=nSouAmb)
     "Replicate control signal"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},rotation=0,origin={0,60})));
@@ -124,7 +120,7 @@ block SideHot
     "At least one signal is non zero"
     annotation (Placement(transformation(extent={{-160,-130},{-140,-110}})));
   Buildings.Controls.OBC.CDL.Logical.MultiAnd mulAnd(
-    nu=3)
+    nin=3)
     annotation (Placement(transformation(extent={{-40,-90},{-20,-70}})));
   Buildings.Controls.OBC.CDL.Continuous.AddParameter addDea(
     p=dTDea,

@@ -98,7 +98,7 @@ if stage > 0 then
                     graphics={
         Text(
           extent={{-100,100},{100,-100}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textStyle={TextStyle.Italic},
           textString="f(T,m)")}),
           Documentation(info="<html>

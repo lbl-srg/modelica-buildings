@@ -13,28 +13,30 @@ partial model PartialDistribution2Pipe
   parameter Boolean show_entFlo=false
     "Set to true to output enthalpy flow rate difference at each connection"
     annotation (Evaluate=true);
-  parameter Modelica.SIunits.MassFlowRate mDis_flow_nominal
+  parameter Modelica.Units.SI.MassFlowRate mDis_flow_nominal
     "Nominal mass flow rate in the distribution line before the first connection"
-    annotation (Dialog(tab="General",group="Nominal condition"));
-  parameter Modelica.SIunits.MassFlowRate mCon_flow_nominal[nCon]
+    annotation (Dialog(tab="General", group="Nominal condition"));
+  parameter Modelica.Units.SI.MassFlowRate mCon_flow_nominal[nCon]
     "Nominal mass flow rate in each connection line"
-    annotation (Dialog(tab="General",group="Nominal condition"));
-  parameter Modelica.SIunits.MassFlowRate mEnd_flow_nominal=
-    mDis_flow_nominal-sum(mCon_flow_nominal)
+    annotation (Dialog(tab="General", group="Nominal condition"));
+  parameter Modelica.Units.SI.MassFlowRate mEnd_flow_nominal=mDis_flow_nominal
+       - sum(mCon_flow_nominal)
     "Nominal mass flow rate in the end of the distribution line"
-    annotation (Dialog(tab="General",group="Nominal condition"));
-  parameter Modelica.SIunits.MassFlowRate mDisCon_flow_nominal[nCon]=cat(
-    1,
-    {mDis_flow_nominal},
-    {mDis_flow_nominal-sum(mCon_flow_nominal[1:i]) for i in 1:(nCon-1)})
+    annotation (Dialog(tab="General", group="Nominal condition"));
+  parameter Modelica.Units.SI.MassFlowRate mDisCon_flow_nominal[nCon]=cat(
+      1,
+      {mDis_flow_nominal},
+      {mDis_flow_nominal - sum(mCon_flow_nominal[1:i]) for i in 1:(nCon - 1)})
     "Nominal mass flow rate in the distribution line before each connection"
-    annotation (Dialog(tab="General",group="Nominal condition"));
+    annotation (Dialog(tab="General", group="Nominal condition"));
   parameter Modelica.Fluid.Types.Dynamics energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial
     "Type of energy balance: dynamic (3 initialization options) or steady state"
     annotation (Evaluate=true,Dialog(tab="Dynamics",group="Equations"));
-  parameter Modelica.SIunits.Time tau=10
+  parameter Modelica.Units.SI.Time tau=10
     "Time constant at nominal flow for dynamic energy and momentum balance"
-    annotation (Dialog(tab="Dynamics",group="Nominal condition",
+    annotation (Dialog(
+      tab="Dynamics",
+      group="Nominal condition",
       enable=not energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState));
   // IO CONNECTORS
   Modelica.Fluid.Interfaces.FluidPort_b port_bDisRet(

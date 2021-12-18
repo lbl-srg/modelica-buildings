@@ -160,10 +160,10 @@ protected
         TSupWarUpSetBac)
     "Supply temperature setpoint under warm-up and setback mode"
     annotation (Placement(transformation(extent={{20,-130},{40,-110}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi1
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi1
     "If operation mode is setup or cool-down, setpoint shall be 35 degC"
     annotation (Placement(transformation(extent={{80,-60},{100,-40}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi2
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi2
     "If operation mode is setup or cool-down, setpoint shall be TSupSetMin"
     annotation (Placement(transformation(extent={{20,-60},{40,-40}})));
   Buildings.Controls.OBC.CDL.Continuous.Limiter TDea(
@@ -171,7 +171,7 @@ protected
     uMin=294.15)
     "Limiter that outputs the dead band value for the supply air temperature"
     annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi3
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi3
     "Check output regarding supply fan status"
     annotation (Placement(transformation(extent={{80,-10},{100,10}})));
   Buildings.Controls.OBC.CDL.Integers.LessThreshold intLesThr(t=Buildings.Controls.OBC.ASHRAE.G36_PR1.Types.OperationModes.warmUp)
@@ -274,37 +274,37 @@ annotation (
         fillPattern=FillPattern.Solid),
         Text(
           extent={{-94,92},{-42,66}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="TZonSetAve"),
         Text(
           extent={{-96,46},{-68,34}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="TOut"),
         Text(
           extent={{-94,-22},{-14,-58}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="uZonTemResReq"),
         Text(
           extent={{-94,12},{-48,-12}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="uSupFan"),
         Text(
           extent={{-94,-70},{-50,-90}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="uOpeMod"),
         Text(
           extent={{68,8},{96,-8}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="TSupSet"),
         Text(
           extent={{-124,146},{96,108}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%name")}),
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-140,-140},{140,120}})),
   Documentation(info="<html>

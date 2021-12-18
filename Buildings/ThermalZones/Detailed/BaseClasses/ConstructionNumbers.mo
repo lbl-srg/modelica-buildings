@@ -1,5 +1,6 @@
 within Buildings.ThermalZones.Detailed.BaseClasses;
 record ConstructionNumbers "Data records for construction data"
+  extends Modelica.Icons.Record;
 
   ////////////////////////////////////////////////////////////////////////
   // Number of constructions and surface areas

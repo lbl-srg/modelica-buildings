@@ -3,8 +3,8 @@ model DuctManifoldFlowDistributor
   "Manifold for duct inlet that distributes the mass flow rate equally"
   extends PartialDuctManifold;
 
-  parameter Modelica.SIunits.MassFlowRate m_flow_nominal
-    "Mass flow rate at port_a" annotation(Dialog(group = "Nominal Condition"));
+  parameter Modelica.Units.SI.MassFlowRate m_flow_nominal
+    "Mass flow rate at port_a" annotation (Dialog(group="Nominal Condition"));
 
 protected
   Sensors.MassFlowRate senMasFlo(redeclare final package Medium = Medium)

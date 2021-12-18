@@ -5,7 +5,7 @@ block BoilerReturn "Control for boiler return"
     displayUnit="degC") = 333.15
     "Set point for boiler temperature";
   parameter Real k=0.1 "Gain of controller";
-  parameter Modelica.SIunits.Time Ti=120 "Time constant of integrator block";
+  parameter Modelica.Units.SI.Time Ti=120 "Time constant of integrator block";
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TRet(
     final unit="K",
     displayUnit="degC")
@@ -47,13 +47,13 @@ equation
           fillPattern=FillPattern.Solid),
         Text(
           extent={{-88,22},{-40,-18}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           fillColor={255,255,255},
           fillPattern=FillPattern.None,
           textString="TRet"),
         Text(
           extent={{40,24},{88,-16}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           fillColor={255,255,255},
           fillPattern=FillPattern.None,
           textString="yVal"),
@@ -65,7 +65,7 @@ equation
           fillPattern=FillPattern.Solid,
           lineColor={0,0,0}),
         Text(
-          lineColor={0,0,255},
+          textColor={0,0,255},
           extent={{-154,104},{146,144}},
           textString="%name")}),                     Diagram(
         coordinateSystem(preserveAspectRatio=false)),

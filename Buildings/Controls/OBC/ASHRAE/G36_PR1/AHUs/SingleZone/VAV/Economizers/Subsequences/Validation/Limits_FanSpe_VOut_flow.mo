@@ -106,7 +106,7 @@ equation
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-140,-120},{140,120}}), graphics={
         Text(
           extent={{-126,114},{-2,98}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           lineThickness=0.5,
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid,
@@ -115,7 +115,7 @@ equation
 constant minimum outdoor airflow setpoint"),
         Text(
           extent={{8,110},{140,96}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           lineThickness=0.5,
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid,

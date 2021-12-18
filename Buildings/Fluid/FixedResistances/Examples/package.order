@@ -3,4 +3,5 @@ FlowJunction
 HydraulicDiameter
 Pipe
 PlugFlowPipe
+PlugFlowPipeDiscretized
 PressureDrop

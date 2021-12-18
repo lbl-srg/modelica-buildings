@@ -36,7 +36,7 @@ equation
         Text(
           extent={{-144,-42},{156,-82}},
           textString="%name",
-          lineColor={0,0,255})}),
+          textColor={0,0,255})}),
     Documentation(info="<html>
 <p>
 This model multiplies the heat flow rate so that

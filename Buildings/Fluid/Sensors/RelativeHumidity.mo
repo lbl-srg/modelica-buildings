@@ -1,14 +1,14 @@
 within Buildings.Fluid.Sensors;
 model RelativeHumidity "Ideal one port relative humidity sensor"
   extends Buildings.Fluid.Sensors.BaseClasses.PartialAbsoluteSensor;
-  extends Modelica.Icons.RotationalSensor;
+  extends Modelica.Icons.RoundSensor;
 
   Modelica.Blocks.Interfaces.RealOutput phi(final unit="1", min=0)
     "Relative humidity in port medium"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 
 protected
-  Modelica.SIunits.Temperature T "Temperature of the medium";
+  Modelica.Units.SI.Temperature T "Temperature of the medium";
   Medium.MassFraction Xi[Medium.nXi](
     quantity=Medium.substanceNames[1:Medium.nXi]) "Mass fraction of the medium";
 equation
@@ -30,16 +30,16 @@ annotation (defaultComponentName="senRelHum",
         Text(
           extent={{-150,80},{150,120}},
           textString="%name",
-          lineColor={0,0,255}),
+          textColor={0,0,255}),
         Text(
           extent={{160,-30},{60,-60}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="phi"),
         Line(points={{70,0},{100,0}}, color={0,0,127}),
         Text(
           extent={{180,90},{60,40}},
-          lineColor={0,0,0},
-          textString=DynamicSelect("", String(phi, leftjustified=false, significantDigits=2)))}),
+          textColor={0,0,0},
+          textString=DynamicSelect("", String(phi, leftJustified=false, significantDigits=2)))}),
   Documentation(info="<html>
 <p>
 This model outputs the relative humidity of the fluid connected to its port.

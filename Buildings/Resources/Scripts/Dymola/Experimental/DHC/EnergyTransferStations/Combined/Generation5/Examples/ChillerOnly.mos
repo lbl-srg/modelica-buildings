@@ -32,7 +32,7 @@ createPlot(id=1,
     color=true);
 createPlot(
     id=2,
-    y={"ets.chi.pumCon.m_flow", "ets.chi.pumEva.m_flow", "ets.hex.pum1Hex.m_flow",  "ets.hex.pum2Hex.m_flow", "ets.hex.m1_flow_nominal", "ets.hex.m2_flow_nominal"},
+    y={"ets.chi.pumCon.m_flow", "ets.chi.pumEva.m_flow", "ets.hex.pum1.m_flow",  "ets.hex.pum2.m_flow", "ets.hex.m1_flow_nominal", "ets.hex.m2_flow_nominal"},
     position={560, 7, 539, 607},
     autoscale=true,
     autoerase=true,
@@ -50,15 +50,8 @@ createPlot(
     color=true);
 createPlot(
     id=3,
-    y={"ets.hex.senT1HexWatEnt.T", "ets.hex.senT1HexWatLvg.T", "ets.hex.senT2HexWatEnt.T", "ets.hex.senT2HexWatLvg.T"},
+    y={"senTDisWatSup.T", "senTDisWatRet.T", "ets.hex.senT2WatEnt.T", "ets.hex.senT2WatLvg.T"},
     position={1115, 7, 545, 518},
-    autoscale=true,
-    autoerase=true,
-    autoreplot=true,
-    grid=true,
-    color=true);
-createPlot(id=3, y={"ets.hex.con.absDelT.y", "ets.hex.con.setAct.y"},
-    subPlot=2,
     autoscale=true,
     autoerase=true,
     autoreplot=true,
@@ -102,4 +95,3 @@ createPlot(
     color=true);
 plotExpression(apply( -ChillerOnlyExamples.loaCoo.Q_flow), false, "-loaCoo.Q_flow", 5);
 plotExpression(apply( -ChillerOnlyExamples.loaHea.Q_flow), false, "-loaHea.Q_flow", 5);
-

@@ -25,13 +25,11 @@ model FanCoil2PipeHeating
   parameter Real k(
     min=0)=1
     "Gain of controller";
-  parameter Modelica.SIunits.Time Ti(
-    min=Modelica.Constants.small)=10
+  parameter Modelica.Units.SI.Time Ti(min=Modelica.Constants.small) = 10
     "Time constant of integrator block";
-  parameter Modelica.SIunits.PressureDifference dpLoa_nominal(
-    displayUnit="Pa") = 250
-    "Load side pressure drop"
-    annotation(Dialog(group="Nominal condition"));
+  parameter Modelica.Units.SI.PressureDifference dpLoa_nominal(displayUnit="Pa")
+     = 250 "Load side pressure drop"
+    annotation (Dialog(group="Nominal condition"));
   final parameter hexConfiguration hexConHea=hexConfiguration.CounterFlow
     "Heating heat exchanger configuration";
   parameter Boolean have_speVar=true
@@ -95,9 +93,9 @@ model FanCoil2PipeHeating
     "Source for return air"
     annotation (Placement(transformation(extent={{10,-10},{-10,10}},rotation=0,origin={112,0})));
   Buildings.Experimental.DHC.Loads.SimpleRoomODE TLoaODE(
-    TOutHea_nominal=273.15-5,
+    TOutHea_nominal=273.15 - 5,
     TIndHea_nominal=T_aLoaHea_nominal,
-    QHea_flow_nominal=QHea_flow_nominal)
+    QHea_flow_nominal=QHea_flow_nominal) "Predicted room air temperature"
     annotation (Placement(transformation(extent={{-10,30},{10,50}})));
   Buildings.Controls.OBC.CDL.Continuous.Gain gaiHeaFlo(
     k=1/QHea_flow_nominal)
@@ -105,7 +103,7 @@ model FanCoil2PipeHeating
   Buildings.Controls.OBC.CDL.Continuous.Gain gaiHeaFlo1(
     k=1/QHea_flow_nominal)
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},rotation=90,origin={0,190})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi
     "Logical switch"
     annotation (Placement(transformation(extent={{30,170},{50,190}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant one(

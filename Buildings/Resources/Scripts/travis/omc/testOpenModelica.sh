@@ -1,3 +1,4 @@
+#!/bin/bash
 # This file translates and simulates all models in FILES with omc
 # Upon success, it exits with 0, otherwise it exits with a non-zero value.
 #
@@ -24,7 +25,7 @@ echo "setCommandLineOptions(\"+ignoreSimulationFlagsAnnotation=false\");" >> $mo
 echo "setCommandLineOptions(\"-d=nfAPI\");" >> $mosScript
 echo "setCommandLineOptions(\"--newBackend\");" >> $mosScript
 
-echo "loadModel(Modelica, {\"3.2.3\"});" >> $mosScript
+echo "loadModel(Modelica, {\"4.0.0\"});" >> $mosScript
 echo "getErrorString();" >> $mosScript
 echo "loadModel(Buildings); getErrorString();" >> $mosScript
 
@@ -41,7 +42,6 @@ done
 export OPENMODELICALIBRARY=`pwd`:/usr/lib/omlibrary
 #omc +d=nogen,initialization,backenddaeinfo,discreteinfo,stateselection --newBackend $mosScript
 omc $mosScript
-
 
 # Check for failures
 exiFla=0

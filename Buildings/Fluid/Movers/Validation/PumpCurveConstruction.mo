@@ -5,12 +5,12 @@ model PumpCurveConstruction
 
   package Medium = Buildings.Media.Water "Medium model";
 
-  parameter Modelica.SIunits.MassFlowRate m_flow_nominal = 1
+  parameter Modelica.Units.SI.MassFlowRate m_flow_nominal=1
     "Nominal mass flow rate at zero pump head";
-  parameter Modelica.SIunits.VolumeFlowRate V_flow_nominal = m_flow_nominal/1000
+  parameter Modelica.Units.SI.VolumeFlowRate V_flow_nominal=m_flow_nominal/1000
     "Nominal mass flow rate at zero pump head";
 
-  parameter Modelica.SIunits.PressureDifference dp_nominal = 10000
+  parameter Modelica.Units.SI.PressureDifference dp_nominal=10000
     "Nominal pump head at zero mass flow rate";
 
   Actuators.Valves.TwoWayLinear val1(

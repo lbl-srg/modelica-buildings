@@ -104,8 +104,8 @@ First implementation.
       graphics={
         Text(
           extent={{-28,36},{104,10}},
-          lineColor={28,108,200},
+          textColor={28,108,200},
           textString="")}),
     __Dymola_Commands(
-      file="Resources/Scripts/Dymola/Experimental/DHC/Loads/Examples/CouplingSpawnZ6.mos" "Simulate and plot"));
+      file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/DHC/Loads/Examples/CouplingSpawnZ6.mos" "Simulate and plot"));
 end CouplingSpawnZ6;

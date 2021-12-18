@@ -163,10 +163,10 @@ protected
     final limitAbove=true)
     "Linear mapping of the return air damper position to the control signal"
     annotation (Placement(transformation(extent={{120,100},{140,120}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch retDamPosMinSwitch
+  Buildings.Controls.OBC.CDL.Continuous.Switch retDamPosMinSwitch
     "A switch to deactivate the return air damper minimal outdoor airflow control"
     annotation (Placement(transformation(extent={{40,-30},{60,-10}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch outDamPosMaxSwitch
+  Buildings.Controls.OBC.CDL.Continuous.Switch outDamPosMaxSwitch
     "A switch to deactivate the outdoor air damper minimal outdoor airflow control"
     annotation (Placement(transformation(extent={{40,10},{60,30}})));
   Buildings.Controls.OBC.CDL.Logical.Not not1 "Logical not block"
@@ -271,7 +271,7 @@ annotation (
           fillPattern=FillPattern.Solid),
         Text(
           extent={{-88,138},{88,108}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="%name"),
         Line(
           points={{-60,-60},{2,62},{2,62},{64,-60},{-60,-60}},
@@ -300,33 +300,33 @@ annotation (
           fillPattern=FillPattern.Solid),
         Text(
           extent={{26,230},{172,184}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           horizontalAlignment=TextAlignment.Left,
           textString="Damper position limit
 calculation and
 assignments"),
         Text(
           extent={{-170,160},{-4,130}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           horizontalAlignment=TextAlignment.Left,
           textString="Physical damper position
 limits set at commissioning"),
         Text(
           extent={{28,78},{150,30}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           horizontalAlignment=TextAlignment.Left,
           textString="Switches to deactivate
 limit modulation"),
         Text(
           extent={{-80,-196},{124,-226}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           horizontalAlignment=TextAlignment.Left,
           textString="Enable/disable conditions
 for damper position limits
 control loop"),
         Text(
           extent={{-170,126},{14,94}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           horizontalAlignment=TextAlignment.Left,
           textString="Damper position limits
 outdoor air volume flow

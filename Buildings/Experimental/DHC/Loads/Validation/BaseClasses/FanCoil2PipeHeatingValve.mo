@@ -25,11 +25,10 @@ model FanCoil2PipeHeatingValve
     "Heating heat exchanger configuration";
   parameter Boolean have_speVar=true
     "Set to true for a variable speed fan (otherwise fan is always on)";
-  parameter Modelica.SIunits.PressureDifference dpLoa_nominal(
-    displayUnit="Pa") = 250
-    "Load side pressure drop"
-    annotation(Dialog(group="Nominal condition"));
-  parameter Modelica.SIunits.PressureDifference dpSou_nominal=30000
+  parameter Modelica.Units.SI.PressureDifference dpLoa_nominal(displayUnit="Pa")
+     = 250 "Load side pressure drop"
+    annotation (Dialog(group="Nominal condition"));
+  parameter Modelica.Units.SI.PressureDifference dpSou_nominal=30000
     "Nominal pressure drop on source side";
   Buildings.Fluid.Movers.FlowControlled_m_flow fan(
     redeclare final package Medium=Medium2,
@@ -85,9 +84,9 @@ model FanCoil2PipeHeatingValve
     "Source for return air"
     annotation (Placement(transformation(extent={{10,-10},{-10,10}},rotation=0,origin={110,0})));
   Buildings.Experimental.DHC.Loads.SimpleRoomODE TLoaODE(
-    TOutHea_nominal=273.15-5,
+    TOutHea_nominal=273.15 - 5,
     TIndHea_nominal=T_aLoaHea_nominal,
-    QHea_flow_nominal=QHea_flow_nominal)
+    QHea_flow_nominal=QHea_flow_nominal) "Predicted room air temperature"
     annotation (Placement(transformation(extent={{-10,30},{10,50}})));
   Fluid.Actuators.Valves.TwoWayEqualPercentage val(
     redeclare final package Medium=Medium1,
@@ -114,7 +113,7 @@ model FanCoil2PipeHeatingValve
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant con1(
     k=have_speVar)
     annotation (Placement(transformation(extent={{-60,160},{-40,180}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi
     "Logical switch"
     annotation (Placement(transformation(extent={{30,170},{50,190}})));
   Fluid.FixedResistances.PressureDrop resLoa(

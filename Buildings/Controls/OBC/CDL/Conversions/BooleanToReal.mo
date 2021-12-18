@@ -13,8 +13,7 @@ block BooleanToReal
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
 equation
-  y=
-    if u then
+  y=if u then
       realTrue
     else
       realFalse;
@@ -71,18 +70,18 @@ Modelica Standard Library.
         Text(
           extent={{-150,150},{150,110}},
           textString="%name",
-          lineColor={0,0,255}),
+          textColor={0,0,255}),
         Text(
           extent={{-68,-86},{70,-38}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="%realFalse"),
         Text(
           extent={{-68,-26},{70,22}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="%realTrue"),
         Text(
           extent={{-86,78},{-34,26}},
-          lineColor={255,0,255},
+          textColor={255,0,255},
           textString="B"),
         Polygon(
           points={{26,48},{6,68},{6,58},{-26,58},{-26,38},{6,38},{6,28},{26,48}},
@@ -91,6 +90,6 @@ Modelica Standard Library.
           fillPattern=FillPattern.Solid),
         Text(
           extent={{34,82},{86,24}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="R")}));
 end BooleanToReal;

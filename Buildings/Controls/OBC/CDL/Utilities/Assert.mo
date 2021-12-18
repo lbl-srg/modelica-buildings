@@ -29,7 +29,7 @@ equation
           lineColor={0,0,0}),
         Text(
           extent={{-100,160},{100,106}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%name"),
         Polygon(
           points={{0,72},{-72,-56},{72,-56},{0,72}},

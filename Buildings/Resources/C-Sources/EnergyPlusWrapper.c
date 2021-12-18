@@ -1,7 +1,6 @@
 #ifndef Spawn_declared
 #define Spawn_declared
 
-#include <ModelicaUtilities.h>
 #include "EnergyPlusWrapper.h"
 
 /* *********************************************************
@@ -15,7 +14,7 @@
    Using function pointers allows the library to load the
    correct version provided by the Modelica simulation
    environment that compiles the Modelica model.
-/* ********************************************************* */
+   ********************************************************* */
 
 /* Custom implementation of ModelicaFormatMessage that prints to stdout
 #define my_printf(...) MyModelicaFormatMessage(__VA_ARGS__)
@@ -33,8 +32,9 @@ void* ModelicaSpawnAllocate(
   double startTime,
   const char* modelicaNameBuilding,
   const char* modelicaNameThermalZone,
+  const char* spawnExe,
   const char* idfName,
-  const char* weaName,
+  const char* epwName,
   double relativeSurfaceTolerance,
   const char* epName,
   int usePrecompiledFMU,
@@ -67,8 +67,9 @@ void* ModelicaSpawnAllocate(
       startTime,
       modelicaNameBuilding,
       modelicaNameThermalZone,
+      spawnExe,
       idfName,
-      weaName,
+      epwName,
       relativeSurfaceTolerance,
       epName,
       usePrecompiledFMU,

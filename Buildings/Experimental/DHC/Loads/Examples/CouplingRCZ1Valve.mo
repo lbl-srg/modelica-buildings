@@ -103,5 +103,5 @@ First implementation.
         preserveAspectRatio=false,
         extent={{-140,-20},{160,140}})),
     __Dymola_Commands(
-      file="Resources/Scripts/Dymola/Experimental/DHC/Loads/Examples/CouplingRCZ1Valve.mos" "Simulate and plot"));
+      file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/DHC/Loads/Examples/CouplingRCZ1Valve.mos" "Simulate and plot"));
 end CouplingRCZ1Valve;

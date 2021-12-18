@@ -3,11 +3,12 @@ model TraceSubstance
   "This validates the ability to simulate trace substances in the air"
   extends ASHRAE2006(
     MediumA(extraPropertiesNames={"CO2"}),
-    redeclare BaseClasses.Floor flo(
-      final lat=lat,
-      final sampleModel=sampleModel),
-    amb(nPorts=3, C=fill(400e-6*Modelica.Media.IdealGases.Common.SingleGasesData.CO2.MM
-                         /Modelica.Media.IdealGases.Common.SingleGasesData.Air.MM, MediumA.nC)));
+    hvac(
+      amb(
+        C=fill(400e-6*Modelica.Media.IdealGases.Common.SingleGasesData.CO2.MM
+                    /Modelica.Media.IdealGases.Common.SingleGasesData.Air.MM, MediumA.nC))),
+    redeclare BaseClasses.Floor flo);
+
   annotation (experiment(
       StartTime=4492800,
       StopTime=4665600,
@@ -26,6 +27,18 @@ Buildings.Examples.VAVReheat.Validation.BaseClasses.Floor</a>.
 </p>
 </html>",revisions="<html>
 <ul>
+<li>
+October 4, 2021, by Michael Wetter:<br/>
+Refactored <a href=\"modelica://Buildings.Examples.VAVReheat\">Buildings.Examples.VAVReheat</a>
+and its base classes to separate building from HVAC model.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2652\">issue #2652</a>.
+</li>
+<li>
+September 16, 2021, by Michael Wetter:<br/>
+Removed assignment of parameter <code>lat</code> as this is now obtained from the weather data reader.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1477\">IBPSA, #1477</a>.
+</li>
 <li>
 May 9, 2021, by David Blum:<br/>
 First implementation.

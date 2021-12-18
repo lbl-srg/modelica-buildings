@@ -1,9 +1,8 @@
 within Buildings.HeatTransfer.Windows.BaseClasses.Examples;
 model AbsorbedRadiation "Test model for absorbed radiation by windows"
   extends Modelica.Icons.Example;
-  parameter Modelica.SIunits.Angle lat=0.34906585039887 "Latitude";
-  parameter Modelica.SIunits.Angle azi=0 "Surface azimuth";
-  parameter Modelica.SIunits.Angle til=1.5707963267949 "Surface tilt";
+  parameter Modelica.Units.SI.Angle azi=0 "Surface azimuth";
+  parameter Modelica.Units.SI.Angle til=1.5707963267949 "Surface tilt";
 
   replaceable parameter
     Buildings.HeatTransfer.Data.GlazingSystems.DoubleClearAir13Clear glaSys(
@@ -16,7 +15,6 @@ model AbsorbedRadiation "Test model for absorbed radiation by windows"
 
   BoundaryConditions.SolarIrradiation.DirectTiltedSurface HDirTil(
     til=til,
-    lat=lat,
     azi=azi)
     annotation (Placement(transformation(extent={{20,0},{40,20}})));
   BoundaryConditions.WeatherData.Bus weaBus
@@ -103,6 +101,12 @@ __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/HeatTransf
 This example illustrates modeling of window radiation.
 </html>", revisions="<html>
 <ul>
+<li>
+September 16, 2021, by Michael Wetter:<br/>
+Removed parameter <code>lat</code> as this is now obtained from the weather data reader.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1477\">IBPSA, #1477</a>.
+</li>
 <li>
 August 7, 2015, by Michael Wetter:<br/>
 Revised model to allow modeling of electrochromic windows.

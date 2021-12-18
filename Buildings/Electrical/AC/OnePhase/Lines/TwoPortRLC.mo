@@ -8,9 +8,9 @@ model TwoPortRLC "Model of an RLC element with two electrical ports"
       redeclare package PhaseSystem = PhaseSystem_n),
     redeclare replaceable Interfaces.Terminal_p terminal_p(
       redeclare package PhaseSystem = PhaseSystem_p));
-  parameter Modelica.SIunits.Voltage Vc_start[2] = {V_nominal,0}
+  parameter Modelica.Units.SI.Voltage Vc_start[2]={V_nominal,0}
     "Initial voltage phasor of the capacitance located in the middle of the line"
-    annotation (Dialog(enable = (mode==Buildings.Electrical.Types.Load.FixedZ_dynamic)));
+    annotation (Dialog(enable=(mode == Buildings.Electrical.Types.Load.FixedZ_dynamic)));
   parameter Buildings.Electrical.Types.Load mode(
     min=Buildings.Electrical.Types.Load.FixedZ_steady_state,
     max=Buildings.Electrical.Types.Load.FixedZ_dynamic)=
@@ -18,13 +18,13 @@ model TwoPortRLC "Model of an RLC element with two electrical ports"
     "Type of model (e.g., steady state, dynamic, prescribed power consumption, etc.)"
     annotation (Evaluate=true, Dialog(group="Modeling assumption"));
 protected
-  Modelica.SIunits.Voltage Vc[2](start = Vc_start, each stateSelect=StateSelect.prefer)
+  Modelica.Units.SI.Voltage Vc[2](start=Vc_start, each stateSelect=StateSelect.prefer)
     "Voltage of the Capacitance located in the middle of the line";
-  Modelica.SIunits.Current Ic[2]
+  Modelica.Units.SI.Current Ic[2]
     "Currenbt of the capacitance located in the middle of the line";
-  Modelica.SIunits.AngularVelocity omega
+  Modelica.Units.SI.AngularVelocity omega
     "Frequency of the quasi-stationary sine waves";
-  Modelica.SIunits.Angle theRef "Absolute angle of rotating reference system";
+  Modelica.Units.SI.Angle theRef "Absolute angle of rotating reference system";
 
 initial equation
   if C > 0 and mode == Buildings.Electrical.Types.Load.FixedZ_dynamic then
@@ -69,7 +69,7 @@ Diagram(graphics={
                                                                   graphics={
           Text(
             extent={{-140,80},{140,40}},
-            lineColor={0,0,0},
+            textColor={0,0,0},
           textString="%name")}),
     Documentation(info="<html>
 <p>
