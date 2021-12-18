@@ -1,13 +1,13 @@
 within Buildings.Experimental.DHC.Examples.Combined.Generation5.CentralPlants;
 model SewageHeatRecovery
   "Model for sewage heat recovery plant"
-  extends DHC.CentralPlants.BaseClasses.PartialPlant(
+  extends Buildings.Experimental.DHC.CentralPlants.BaseClasses.PartialPlant(
     final have_fan=false,
     final have_pum=true,
     final have_eleHea=false,
     final have_eleCoo=false,
     final have_weaBus=false,
-    final typ=DHC.Types.DistrictSystemType.CombinedGeneration5);
+    final typ=Buildings.Experimental.DHC.Types.DistrictSystemType.CombinedGeneration5);
 
   parameter Modelica.Units.SI.MassFlowRate mSew_flow_nominal
     "Sewage water nominal mass flow rate"
@@ -66,7 +66,7 @@ model SewageHeatRecovery
         extent={{10,-10},{-10,10}},
         rotation=0,
         origin={0,14})));
-  DHC.EnergyTransferStations.BaseClasses.Pump_m_flow pumDis(
+  Buildings.Experimental.DHC.EnergyTransferStations.BaseClasses.Pump_m_flow pumDis(
     redeclare final package Medium=Medium,
     final m_flow_nominal=mDis_flow_nominal,
     final dp_nominal=dpDis_nominal,
@@ -86,7 +86,7 @@ model SewageHeatRecovery
       extent={{-10,-10},{10,10}},
       rotation=0,
       origin={-70,76})));
-  DHC.EnergyTransferStations.BaseClasses.Pump_m_flow pumSew(
+  Buildings.Experimental.DHC.EnergyTransferStations.BaseClasses.Pump_m_flow pumSew(
     redeclare final package Medium=Medium,
     final m_flow_nominal=mSew_flow_nominal,
     final dp_nominal=dpSew_nominal,
@@ -106,7 +106,7 @@ model SewageHeatRecovery
         extent={{-6,6},{6,-6}},
         rotation=180,
         origin={-40,20})));
-  DHC.Networks.BaseClasses.DifferenceEnthalpyFlowRate senDifEntFlo(
+  Buildings.Experimental.DHC.Networks.BaseClasses.DifferenceEnthalpyFlowRate senDifEntFlo(
     redeclare package Medium1 = Medium,
     final m_flow_nominal=mDis_flow_nominal)
     "Variation of enthalpy flow rate"
@@ -114,7 +114,7 @@ model SewageHeatRecovery
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={0,-16})));
-  Controls.OBC.CDL.Continuous.MultiSum sumPPum(nin=2) "Sum pump power"
+ Buildings.Controls.OBC.CDL.Continuous.MultiSum sumPPum(nin=2) "Sum pump power"
     annotation (Placement(transformation(extent={{260,150},{280,170}})));
 equation
   connect(senTSewOut.port_b, souSew.ports[1])

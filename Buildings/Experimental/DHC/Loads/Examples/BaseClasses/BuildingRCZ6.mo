@@ -43,17 +43,17 @@ model BuildingRCZ6
       each displayUnit="degC"))
     "Maximum temperature set point"
     annotation (Placement(transformation(extent={{-290,190},{-270,210}})));
-  GeojsonExportRC.OfficeBuilding.Office office
+  Buildings.Experimental.DHC.Loads.Examples.BaseClasses.GeojsonExportRC.OfficeBuilding.Office office
     annotation (Placement(transformation(extent={{-100,-20},{-80,0}})));
-  GeojsonExportRC.OfficeBuilding.Floor floor
+  Buildings.Experimental.DHC.Loads.Examples.BaseClasses.GeojsonExportRC.OfficeBuilding.Floor floor
     annotation (Placement(transformation(extent={{-60,-20},{-40,0}})));
-  GeojsonExportRC.OfficeBuilding.Storage storage
+  Buildings.Experimental.DHC.Loads.Examples.BaseClasses.GeojsonExportRC.OfficeBuilding.Storage storage
     annotation (Placement(transformation(extent={{-20,-20},{0,0}})));
-  GeojsonExportRC.OfficeBuilding.Meeting meeting
+  Buildings.Experimental.DHC.Loads.Examples.BaseClasses.GeojsonExportRC.OfficeBuilding.Meeting meeting
     annotation (Placement(transformation(extent={{20,-20},{40,0}})));
-  GeojsonExportRC.OfficeBuilding.Restroom restroom
+  Buildings.Experimental.DHC.Loads.Examples.BaseClasses.GeojsonExportRC.OfficeBuilding.Restroom restroom
     annotation (Placement(transformation(extent={{60,-20},{80,0}})));
-  GeojsonExportRC.OfficeBuilding.ICT iCT
+  Buildings.Experimental.DHC.Loads.Examples.BaseClasses.GeojsonExportRC.OfficeBuilding.ICT iCT
     annotation (Placement(transformation(extent={{100,-20},{120,0}})));
   Buildings.Controls.OBC.CDL.Continuous.MultiSum mulSum(
     nin=2)

@@ -1,7 +1,7 @@
 within Buildings.Experimental.DHC.EnergyTransferStations.Combined.Generation5.Controls;
 model Supervisory
   "Supervisory controller"
-  extends BaseClasses.PartialSupervisory;
+  extends Buildings.Experimental.DHC.EnergyTransferStations.Combined.Generation5.Controls.BaseClasses.PartialSupervisory;
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController
     controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI
     "Type of controller"

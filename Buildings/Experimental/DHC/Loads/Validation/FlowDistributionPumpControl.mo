@@ -48,11 +48,11 @@ model FlowDistributionPumpControl
   final parameter Modelica.Units.SI.PressureDifference dp_nominal=max(terUniHea.dpSou_nominal)
        + 2*nLoa*5000 "Nominal pressure drop in the distribution line";
   final parameter Modelica.Units.SI.HeatFlowRate QHea_flow_nominal=
-      Loads.BaseClasses.getPeakLoad(string="#Peak space heating load", filNam=
+      Buildings.Experimental.DHC.Loads.BaseClasses.getPeakLoad(string="#Peak space heating load", filNam=
       Modelica.Utilities.Files.loadResource(filNam))/facMul
     "Design heating heat flow rate (>=0)"
     annotation (Dialog(group="Nominal condition"));
-  BaseClasses.FanCoil2PipeHeatingValve terUniHea[nLoa](
+  Buildings.Experimental.DHC.Loads.Validation.BaseClasses.FanCoil2PipeHeatingValve terUniHea[nLoa](
     redeclare each final package Medium1=Medium1,
     redeclare each final package Medium2=Medium2,
     each final facMul=facMul,
@@ -90,7 +90,7 @@ model FlowDistributionPumpControl
     nout=nLoa)
     "Repeat input to output an array"
     annotation (Placement(transformation(extent={{-128,20},{-108,40}})));
-  BaseClasses.Distribution2Pipe dis(
+  Buildings.Experimental.DHC.Loads.Validation.BaseClasses.Distribution2Pipe dis(
     redeclare final package Medium=Medium1,
     final nCon=nLoa,
     final allowFlowReversal=false,
@@ -148,7 +148,7 @@ model FlowDistributionPumpControl
     nPorts=3)
     "Sink for heating water"
     annotation (Placement(transformation(extent={{10,-10},{-10,10}},rotation=0,origin={150,0})));
-  BaseClasses.FanCoil2PipeHeating terUniHea1[nLoa](
+  Buildings.Experimental.DHC.Loads.Validation.BaseClasses.FanCoil2PipeHeating terUniHea1[nLoa](
     redeclare each final package Medium1=Medium1,
     redeclare each final package Medium2=Medium2,
     each final facMul=facMul,
@@ -186,7 +186,7 @@ model FlowDistributionPumpControl
     k=1)
     "Constant one"
     annotation (Placement(transformation(extent={{-180,190},{-160,210}})));
-  BaseClasses.FanCoil2PipeHeating terUniHea2[nLoa](
+  Buildings.Experimental.DHC.Loads.Validation.BaseClasses.FanCoil2PipeHeating terUniHea2[nLoa](
     redeclare each final package Medium1=Medium1,
     redeclare each final package Medium2=Medium2,
     each final facMul=facMul,

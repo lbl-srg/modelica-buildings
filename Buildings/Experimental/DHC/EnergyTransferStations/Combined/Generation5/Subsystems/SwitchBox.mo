@@ -52,7 +52,7 @@ model SwitchBox
     iconTransformation(extent=
            {{-140,20},{-100,60}})));
   // COMPONENTS
-  DHC.EnergyTransferStations.BaseClasses.Junction splSup(
+  Buildings.Experimental.DHC.EnergyTransferStations.BaseClasses.Junction splSup(
     redeclare final package Medium = Medium,
     m_flow_nominal={1,1,1}*m_flow_nominal)
     "Flow splitter"
@@ -60,7 +60,7 @@ model SwitchBox
         extent={{10,10},{-10,-10}},
         rotation=-90,
         origin={-20,40})));
-  DHC.EnergyTransferStations.BaseClasses.Junction splRet(
+  Buildings.Experimental.DHC.EnergyTransferStations.BaseClasses.Junction splRet(
     redeclare final package Medium = Medium,
     m_flow_nominal={1,1,1}*m_flow_nominal)
     "Flow splitter"
@@ -68,7 +68,7 @@ model SwitchBox
         extent={{10,10},{-10,-10}},
         rotation=90,
         origin={20,0})));
-  DHC.EnergyTransferStations.Combined.Generation5.Controls.SwitchBox con(
+  Buildings.Experimental.DHC.EnergyTransferStations.Combined.Generation5.Controls.SwitchBox con(
     final trueHoldDuration=trueHoldDuration,
     final falseHoldDuration=falseHoldDuration)
     "Switch box controller"

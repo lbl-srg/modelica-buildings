@@ -112,7 +112,7 @@ model BuildingSpawnZ6
   Buildings.Controls.OBC.CDL.Continuous.MultiSum mulSum3(
     nin=2)
     annotation (Placement(transformation(extent={{230,70},{250,90}})));
-  BaseClasses.FanCoil4Pipe terUni[nZon](
+  Buildings.Experimental.DHC.Loads.Examples.BaseClasses.FanCoil4Pipe terUni[nZon](
     redeclare each final package Medium1=Medium,
     redeclare each final package Medium2=Medium2,
     final facMul=facMulTerUni,

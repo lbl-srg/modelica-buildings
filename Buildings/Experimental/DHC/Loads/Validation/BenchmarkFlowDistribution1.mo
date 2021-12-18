@@ -50,7 +50,7 @@ model BenchmarkFlowDistribution1
     nPorts_b1=nLoa)
     "Heating water distribution system"
     annotation (Placement(transformation(extent={{40,-90},{60,-70}})));
-  BaseClasses.FanCoil2PipeHeating ter[nLoa](
+  Buildings.Experimental.DHC.Loads.Validation.BaseClasses.FanCoil2PipeHeating ter[nLoa](
     each final facMul=facMul,
     redeclare each final package Medium1=Medium1,
     redeclare each final package Medium2=Medium2,

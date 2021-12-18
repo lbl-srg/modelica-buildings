@@ -1,7 +1,7 @@
 within Buildings.Experimental.DHC.EnergyTransferStations.BaseClasses;
 model CollectorDistributor
   "Model of a collector/distributor with zero pressure drop between connections"
-  extends Networks.BaseClasses.PartialDistribution2Pipe(
+  extends Buildings.Experimental.DHC.Networks.BaseClasses.PartialDistribution2Pipe(
     mDis_flow_nominal=sum(
       mCon_flow_nominal),
     final mDisCon_flow_nominal=fill(

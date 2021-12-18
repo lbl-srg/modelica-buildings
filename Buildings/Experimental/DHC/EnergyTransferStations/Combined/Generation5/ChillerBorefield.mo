@@ -1,10 +1,10 @@
 within Buildings.Experimental.DHC.EnergyTransferStations.Combined.Generation5;
 model ChillerBorefield "ETS model for 5GDHC systems with heat recovery chiller and optional borefield"
-  extends BaseClasses.PartialParallel(
+  extends Buildings.Experimental.DHC.EnergyTransferStations.Combined.Generation5.BaseClasses.PartialParallel(
     final have_eleCoo=true,
     final have_fan=false,
-    redeclare replaceable Controls.Supervisory conSup
-      constrainedby Controls.Supervisory(
+    redeclare replaceable Buildings.Experimental.DHC.EnergyTransferStations.Combined.Generation5.Controls.Supervisory conSup
+      constrainedby Buildings.Experimental.DHC.EnergyTransferStations.Combined.Generation5.Controls.Supervisory(
         final controllerType=controllerType,
         final kHot=kHot,
         final kCol=kCol,
@@ -154,7 +154,7 @@ model ChillerBorefield "ETS model for 5GDHC systems with heat recovery chiller a
     "Minimum value of chilled water supply temperature set point"
     annotation (Dialog(group="Supervisory controller"));
 
-  replaceable Subsystems.Chiller chi(
+  replaceable Buildings.Experimental.DHC.EnergyTransferStations.Combined.Generation5.Subsystems.Chiller chi(
     redeclare final package Medium=MediumBui,
     final perPumCon=perPumCon,
     final perPumEva=perPumEva,
@@ -163,7 +163,7 @@ model ChillerBorefield "ETS model for 5GDHC systems with heat recovery chiller a
     final dat=datChi)
     "Chiller"
     annotation (Dialog(group="Chiller"),Placement(transformation(extent={{-10,-16},{10,4}})));
-  replaceable Subsystems.Borefield borFie(
+  replaceable Buildings.Experimental.DHC.EnergyTransferStations.Combined.Generation5.Subsystems.Borefield borFie(
     redeclare final package Medium=MediumBui,
     final datBorFie=datBorFie,
     final perPum=perPumBorFie,
@@ -181,7 +181,7 @@ model ChillerBorefield "ETS model for 5GDHC systems with heat recovery chiller a
     final k=0)
     "Zero power"
     annotation (Placement(transformation(extent={{220,50},{240,70}})));
-  Networks.BaseClasses.DifferenceEnthalpyFlowRate dHFloHeaWat(
+  Buildings.Experimental.DHC.Networks.BaseClasses.DifferenceEnthalpyFlowRate dHFloHeaWat(
     redeclare final package Medium1 = MediumBui,
     final m_flow_nominal=colHeaWat.mDis_flow_nominal)
     "Variation of enthalpy flow rate"
@@ -200,14 +200,14 @@ model ChillerBorefield "ETS model for 5GDHC systems with heat recovery chiller a
       iconTransformation(extent={{-40,-40},{40,40}},
         rotation=-90,
         origin={280,-340})));
-  Networks.BaseClasses.DifferenceEnthalpyFlowRate dHFloChiWat(
+  Buildings.Experimental.DHC.Networks.BaseClasses.DifferenceEnthalpyFlowRate dHFloChiWat(
     redeclare final package Medium1 = MediumBui,
     final m_flow_nominal=colChiWat.mDis_flow_nominal)
     "Variation of enthalpy flow rate"
     annotation (Placement(transformation(extent={{-10,10},{10,-10}},
         rotation=90,
         origin={274,130})));
-  Subsystems.WatersideEconomizer WSE(
+  Buildings.Experimental.DHC.EnergyTransferStations.Combined.Generation5.Subsystems.WatersideEconomizer WSE(
     redeclare final package Medium1 = MediumSer,
     redeclare final package Medium2 = MediumBui,
     final perPum1=perPum1WSE,

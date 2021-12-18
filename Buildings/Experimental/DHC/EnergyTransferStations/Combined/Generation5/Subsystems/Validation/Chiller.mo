@@ -24,7 +24,7 @@ model Chiller
     TConEntMax=333.15)
     "Chiller performance data"
     annotation (Placement(transformation(extent={{20,100},{40,120}})));
-  Experimental.DHC.EnergyTransferStations.Combined.Generation5.Subsystems.Chiller chi(
+  Buildings.Experimental.DHC.EnergyTransferStations.Combined.Generation5.Subsystems.Chiller chi(
     redeclare final package Medium=Medium,
     final dat=datChi,
     dpCon_nominal=15E3,

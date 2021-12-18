@@ -58,7 +58,7 @@ model TerminalUnitScaling
     nPorts=3)
     "Sink for heating water"
     annotation (Placement(transformation(extent={{10,-10},{-10,10}},rotation=0,origin={90,0})));
-  BaseClasses.FanCoil2PipeHeating ter(
+  Buildings.Experimental.DHC.Loads.Validation.BaseClasses.FanCoil2PipeHeating ter(
     have_speVar=false,
     redeclare package Medium1 = Medium1,
     redeclare package Medium2 = Medium2,
@@ -72,7 +72,7 @@ model TerminalUnitScaling
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TSet(k=293.15, y(
         final unit="K", displayUnit="degC")) "Temperature set point"
     annotation (Placement(transformation(extent={{-100,50},{-80,70}})));
-  BaseClasses.FanCoil2PipeHeating terUniMul(
+ Buildings.Experimental.DHC.Loads.Validation.BaseClasses.FanCoil2PipeHeating terUniMul(
     have_speVar=false,
     redeclare package Medium1=Medium1,
     redeclare package Medium2=Medium2,
@@ -97,7 +97,7 @@ model TerminalUnitScaling
     duration=500)
     "Required heat flow rate"
     annotation (Placement(transformation(extent={{-100,10},{-80,30}})));
-  BaseClasses.FanCoil2PipeHeating terUniMulZonMul(
+ Buildings.Experimental.DHC.Loads.Validation.BaseClasses.FanCoil2PipeHeating terUniMulZonMul(
     facMulZon=facMul,
     have_speVar=false,
     redeclare package Medium1 = Medium1,

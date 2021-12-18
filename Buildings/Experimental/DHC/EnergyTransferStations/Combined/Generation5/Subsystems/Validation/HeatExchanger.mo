@@ -27,11 +27,11 @@ model HeatExchanger
     y=time >= 1000 and time < 3000)
     "Cold rejection enable signal"
     annotation (Placement(transformation(extent={{-190,70},{-170,90}})));
-  DHC.EnergyTransferStations.Combined.Generation5.Subsystems.HeatExchanger hexPum(
+  Buildings.Experimental.DHC.EnergyTransferStations.Combined.Generation5.Subsystems.HeatExchanger hexPum(
     redeclare final package Medium1 = Medium,
     redeclare final package Medium2 = Medium,
     show_T=true,
-    conCon=DHC.EnergyTransferStations.Types.ConnectionConfiguration.Pump,
+    conCon=Buildings.Experimental.DHC.EnergyTransferStations.Types.ConnectionConfiguration.Pump,
     dp1Hex_nominal=20E3,
     dp2Hex_nominal=20E3,
     Q_flow_nominal=1E6,
@@ -68,11 +68,11 @@ model HeatExchanger
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-30,-100})));
-  DHC.EnergyTransferStations.Combined.Generation5.Subsystems.HeatExchanger hexVal(
+  Buildings.Experimental.DHC.EnergyTransferStations.Combined.Generation5.Subsystems.HeatExchanger hexVal(
     redeclare final package Medium1 = Medium,
     redeclare final package Medium2 = Medium,
     show_T=true,
-    conCon=DHC.EnergyTransferStations.Types.ConnectionConfiguration.TwoWayValve,
+    conCon=Buildings.Experimental.DHC.EnergyTransferStations.Types.ConnectionConfiguration.TwoWayValve,
     dp1Hex_nominal=20E3,
     dp2Hex_nominal=20E3,
     Q_flow_nominal=1E6,

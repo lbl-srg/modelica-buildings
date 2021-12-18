@@ -1,8 +1,8 @@
 within Buildings.Experimental.DHC.EnergyTransferStations.Combined.Generation5.BaseClasses;
 model PartialParallel
   "Partial ETS model with district heat exchanger and parallel connection of production systems"
-  extends DHC.EnergyTransferStations.BaseClasses.PartialETS(
-    final typ=DHC.Types.DistrictSystemType.CombinedGeneration5,
+  extends Buildings.Experimental.DHC.EnergyTransferStations.BaseClasses.PartialETS(
+    final typ=Buildings.Experimental.DHC.Types.DistrictSystemType.CombinedGeneration5,
     final have_heaWat=true,
     final have_chiWat=true,
     final have_pum=true,
@@ -10,8 +10,8 @@ model PartialParallel
     have_eleHea=false,
     have_weaBus=false);
 
-  parameter EnergyTransferStations.Types.ConnectionConfiguration conCon=
-      EnergyTransferStations.Types.ConnectionConfiguration.Pump
+  parameter Buildings.Experimental.DHC.EnergyTransferStations.Types.ConnectionConfiguration conCon=
+      Buildings.Experimental.DHC.EnergyTransferStations.Types.ConnectionConfiguration.Pump
     "District connection configuration" annotation (Evaluate=true);
   parameter Integer nSysHea
     "Number of heating systems"
@@ -105,8 +105,8 @@ model PartialParallel
     "Chilled water supply temperature set point"
     annotation (Placement(transformation(extent={{-340,-80},{-300,-40}}),iconTransformation(extent={{-380,-140},{-300,-60}})));
   // COMPONENTS
-  replaceable Generation5.Controls.BaseClasses.PartialSupervisory conSup
-    constrainedby Generation5.Controls.BaseClasses.PartialSupervisory(
+  replaceable Buildings.Experimental.DHC.EnergyTransferStations.Combined.Generation5.Controls.BaseClasses.PartialSupervisory conSup
+    constrainedby Buildings.Experimental.DHC.EnergyTransferStations.Combined.Generation5.Controls.BaseClasses.PartialSupervisory(
       final nSouAmb=nSouAmb)
     "Supervisory controller"
     annotation (Placement(transformation(extent={{-260,12},{-240,32}})));
@@ -122,7 +122,7 @@ model PartialParallel
     final m_flow_nominal=colAmbWat.mDis_flow_nominal,
     use_inputFilter=false) "Condenser to ambient loop isolation valve"
     annotation (Placement(transformation(extent={{-70,-130},{-50,-110}})));
-  Subsystems.HeatExchanger hex(
+  Buildings.Experimental.DHC.EnergyTransferStations.Combined.Generation5.Subsystems.HeatExchanger hex(
     redeclare final package Medium1=MediumSer,
     redeclare final package Medium2=MediumBui,
     final perPum1=perPum1Hex,
@@ -140,7 +140,7 @@ model PartialParallel
     final spePum1Min=spePum1HexMin,
     final spePum2Min=spePum2HexMin) "District heat exchanger"
     annotation (Placement(transformation(extent={{-10,-244},{10,-264}})));
-  EnergyTransferStations.BaseClasses.StratifiedTank tanChiWat(
+  Buildings.Experimental.DHC.EnergyTransferStations.BaseClasses.StratifiedTank tanChiWat(
     redeclare final package Medium = MediumBui,
     final m_flow_nominal=colChiWat.mDis_flow_nominal,
     final VTan=VTanChiWat,
@@ -148,7 +148,7 @@ model PartialParallel
     final dIns=dInsTanChiWat,
     final nSeg=nSegTan) "Chilled water tank"
     annotation (Placement(transformation(extent={{180,96},{200,116}})));
-  EnergyTransferStations.BaseClasses.StratifiedTank tanHeaWat(
+  Buildings.Experimental.DHC.EnergyTransferStations.BaseClasses.StratifiedTank tanHeaWat(
     redeclare final package Medium = MediumBui,
     final m_flow_nominal=colHeaWat.mDis_flow_nominal,
     final VTan=VTanHeaWat,
@@ -156,7 +156,7 @@ model PartialParallel
     final dIns=dInsTanHeaWat,
     final nSeg=nSegTan) "Heating water tank"
     annotation (Placement(transformation(extent={{-220,96},{-200,116}})));
-  EnergyTransferStations.BaseClasses.CollectorDistributor colChiWat(
+  Buildings.Experimental.DHC.EnergyTransferStations.BaseClasses.CollectorDistributor colChiWat(
     redeclare final package Medium = MediumBui,
     final nCon=1 + nSysCoo,
     mCon_flow_nominal={colAmbWat.mDis_flow_nominal})
@@ -165,7 +165,7 @@ model PartialParallel
         extent={{-20,10},{20,-10}},
         rotation=180,
         origin={120,-34})));
-  EnergyTransferStations.BaseClasses.CollectorDistributor colHeaWat(
+  Buildings.Experimental.DHC.EnergyTransferStations.BaseClasses.CollectorDistributor colHeaWat(
     redeclare final package Medium = MediumBui,
     final nCon=1 + nSysHea,
     mCon_flow_nominal={colAmbWat.mDis_flow_nominal})
@@ -174,7 +174,7 @@ model PartialParallel
         extent={{20,10},{-20,-10}},
         rotation=180,
         origin={-120,-34})));
-  EnergyTransferStations.BaseClasses.CollectorDistributor colAmbWat(
+  Buildings.Experimental.DHC.EnergyTransferStations.BaseClasses.CollectorDistributor colAmbWat(
     redeclare final package Medium = MediumBui,
     final nCon=nSouAmb,
     mCon_flow_nominal={hex.m2_flow_nominal})

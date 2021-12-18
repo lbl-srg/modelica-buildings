@@ -64,7 +64,7 @@ model WatersideEconomizer
     annotation (Placement(transformation(extent={{100,-20},{140,20}}),
     iconTransformation(extent={{100,-20},{140,20}})));
   // COMPONENTS
-  Controls.WatersideEconomizer conWSE(
+  Buildings.Experimental.DHC.EnergyTransferStations.Combined.Generation5.Controls.WatersideEconomizer conWSE(
     final m2_flow_nominal=m2_flow_nominal,
     final y1Min=y1Min,
     final T_a1_nominal=T_a1_nominal,
@@ -169,7 +169,7 @@ model WatersideEconomizer
         origin={-80,-60})));
 protected
   parameter Boolean have_val1=
-    conCon ==DHC.EnergyTransferStations.Types.ConnectionConfiguration.TwoWayValve
+    conCon ==Buildings.Experimental.DHC.EnergyTransferStations.Types.ConnectionConfiguration.TwoWayValve
     "True in case of control valve on district side, false in case of a pump";
 equation
   if not have_val1 then

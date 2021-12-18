@@ -151,7 +151,7 @@ model Chiller
     final dp_nominal=dpEva_nominal+dpValEva_nominal)
     "Evaporator pump"
     annotation (Placement(transformation(extent={{10,-10},{-10,10}},rotation=0,origin={-100,-60})));
-  Experimental.DHC.EnergyTransferStations.Combined.Generation5.Controls.Chiller con(
+  Buildings.Experimental.DHC.EnergyTransferStations.Combined.Generation5.Controls.Chiller con(
     final TConWatEntMin=TConWatEntMin,
     final TEvaWatEntMax=TEvaWatEntMax)
     "Controller"

@@ -1,7 +1,7 @@
 within Buildings.Experimental.DHC.Examples.Combined.Generation5.Networks.BaseClasses;
 model ConnectionSeriesStandard
   "Model for connecting an agent to the DHC system"
-  extends DHC.Networks.BaseClasses.PartialConnection1Pipe(
+  extends Buildings.Experimental.DHC.Networks.BaseClasses.PartialConnection1Pipe(
     tau=5*60,
     redeclare replaceable model Model_pipDis = PipeStandard (
       roughness=7e-6,

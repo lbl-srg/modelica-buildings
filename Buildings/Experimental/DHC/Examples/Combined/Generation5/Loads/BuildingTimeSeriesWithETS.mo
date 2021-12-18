@@ -1,8 +1,8 @@
 within Buildings.Experimental.DHC.Examples.Combined.Generation5.Loads;
 model BuildingTimeSeriesWithETS
   "Model of a building with loads provided as time series, connected to an ETS"
-  extends BaseClasses.PartialBuildingWithETS(
-    redeclare DHC.Loads.Examples.BaseClasses.BuildingTimeSeries bui(
+  extends Buildings.Experimental.DHC.Examples.Combined.Generation5.Loads.BaseClasses.PartialBuildingWithETS(
+    redeclare Buildings.Experimental.DHC.Loads.Examples.BaseClasses.BuildingTimeSeries bui(
       final filNam=filNam,
       have_hotWat=true,
       T_aHeaWat_nominal=ets.THeaWatSup_nominal,
@@ -26,7 +26,7 @@ model BuildingTimeSeriesWithETS
      = bui.facMul*bui.QHea_flow_nominal "Space heating design load (>=0)"
     annotation (Dialog(group="Design parameter"));
   final parameter Modelica.Units.SI.HeatFlowRate QHot_flow_nominal(min=Modelica.Constants.eps)
-     = bui.facMul*DHC.Loads.BaseClasses.getPeakLoad(string=
+     = bui.facMul*Buildings.Experimental.DHC.Loads.BaseClasses.getPeakLoad(string=
     "#Peak water heating load", filNam=Modelica.Utilities.Files.loadResource(
     filNam)) "Hot water design load (>=0)"
     annotation (Dialog(group="Design parameter"));
@@ -53,18 +53,18 @@ model BuildingTimeSeriesWithETS
         extent={{-20,-20},{20,20}},
         rotation=90,
         origin={-80,-120})));
-  Controls.OBC.CDL.Continuous.Gain loaHeaNor(
+  Buildings.Controls.OBC.CDL.Continuous.Gain loaHeaNor(
     k=1/QHea_flow_nominal)
     "Normalized heating load"
     annotation (Placement(transformation(extent={{-200,-110},{-180,-90}})));
-  Controls.OBC.CDL.Continuous.GreaterThreshold enaHeaCoo[2](each t=1e-4)
+  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold enaHeaCoo[2](each t=1e-4)
     "Threshold comparison to enable heating and cooling"
     annotation (Placement(transformation(extent={{-110,-130},{-90,-110}})));
   Modelica.Blocks.Sources.BooleanConstant enaSHW(
     final k=true) if have_hotWat
     "SHW production enable signal"
     annotation (Placement(transformation(extent={{0,-130},{-20,-110}})));
-  Controls.OBC.CDL.Continuous.Gain loaCooNor(
+  Buildings.Controls.OBC.CDL.Continuous.Gain loaCooNor(
     k=1/QCoo_flow_nominal)
     "Normalized cooling load"
     annotation (Placement(transformation(extent={{-200,-150},{-180,-130}})));

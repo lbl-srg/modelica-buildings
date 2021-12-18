@@ -67,7 +67,7 @@ model HeatExchanger
     annotation (Placement(transformation(extent={{100,-20},{140,20}}),
     iconTransformation(extent={{100,-20},{140,20}})));
   // COMPONENTS
-  Controls.HeatExchanger con(
+  Buildings.Experimental.DHC.EnergyTransferStations.Combined.Generation5.Controls.HeatExchanger con(
     final conCon=conCon,
     final spePum1Min=spePum1Min,
     final spePum2Min=spePum2Min)

@@ -86,7 +86,7 @@ model Borefield
     final m_flow_nominal=m_flow_nominal)
     "Leaving temperature"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},rotation=0,origin={50,0})));
-  Experimental.DHC.EnergyTransferStations.Combined.Generation5.Controls.Borefield con(
+  Buildings.Experimental.DHC.EnergyTransferStations.Combined.Generation5.Controls.Borefield con(
     final TBorWatEntMax=TBorWatEntMax,
     final spePumBorMin=spePumBorMin)
     "Controller"
