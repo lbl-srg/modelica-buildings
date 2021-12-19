@@ -19,6 +19,8 @@ model Discharging1 "Validation against discharging experiment 1"
     Documentation(info="<html>
 <p>
 This example is to validate the developed ice tank model for discharging mode using data generated from experiment 1.
+The outlet temperature setpoint is set to 2 degree below the measured temperature because the measurement data was taken when the bypass was fully closed. 
+In this way, the implemented model will automatically close the bypass valve during charging.
 </p>
 
 </html>", revisions="<html>
