@@ -5,7 +5,8 @@ model Discharging2 "Validation against discharging experiment 2"
     "modelica://IceStorage/Resources/data/Validation/Experiment/discharging2.txt"),
    mod(k=Integer(IceStorage.Types.IceThermalStorageMode.Discharging)),
    mIce_max=2846.35,
-   mIce_start=0.96645368*mIce_max);
+   mIce_start=0.96645368*mIce_max,
+    offSet(k=-2));
 
   annotation (
     experiment(

@@ -5,10 +5,7 @@ model IceTank "Example that test the IceTank model"
   package Medium = Buildings.Media.Antifreeze.PropyleneGlycolWater (
     property_T=293.15,
     X_a=0.30);
-  parameter Real coeCha[6] = {1.99930278E-2,0,0,0,0,0} "Coefficient for charging curve";
-  parameter Real coeDisCha[6] = {5.54E-05,-0.000145679,9.28E-05,0.001126122,
-      -0.0011012,0.000300544} "Coefficient for discharging curve";
-  parameter Real dt = 10 "Time step used in the samples for curve fitting";
+
   parameter Modelica.SIunits.Mass mIce_max=2846.35
     "Nominal mass of ice in the tank";
   parameter Modelica.SIunits.Mass mIce_start=2846.35/10
@@ -18,7 +15,7 @@ model IceTank "Example that test the IceTank model"
   parameter Modelica.SIunits.PressureDifference dp_nominal=100000
     "Pressure difference";
   parameter IceStorage.Data.IceThermalStorage.Experiment per
-    "Ice tank performance curve";
+    annotation (Placement(transformation(extent={{80,80},{100,100}})));
 
   IceStorage.IceTank iceTan(
     redeclare package Medium = Medium,
@@ -52,11 +49,13 @@ model IceTank "Example that test the IceTank model"
   Modelica.Blocks.Sources.Constant TSet(k=273.15 + 6) "Setpoint temperature"
     annotation (Placement(transformation(extent={{-100,-40},{-80,-20}})));
 
-  Modelica.Blocks.Sources.CombiTimeTable
-                                       TSou(table=[0,273.15 - 5; 3600*10,273.15 -
-        5; 3600*10,273.15 + 10; 3600*11,273.15 + 10; 3600*18,273.15 + 10; 3600*18,
+  Modelica.Blocks.Sources.CombiTimeTable TSou(
+    table=[0,273.15 - 5; 3600*10,273.15 - 5;
+         3600*10,273.15 + 10; 3600*11,273.15 + 10;
+        3600*18,273.15 + 10; 3600*18,
         273.15 - 5]) "Source temperature"
     annotation (Placement(transformation(extent={{-100,-10},{-80,10}})));
+
 equation
   connect(sou.ports[1], iceTan.port_a)
     annotation (Line(points={{-46,0},{0,0}},   color={0,127,255}));

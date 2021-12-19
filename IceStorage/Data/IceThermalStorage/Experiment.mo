@@ -1,11 +1,11 @@
 within IceStorage.Data.IceThermalStorage;
 record Experiment =
   IceStorage.Data.IceThermalStorage.Generic (
-    coeCha={1.99810397E-04,0,0,0,0,0},
+    coeCha={1.76953858E-04,0,0,0,0,0},
     dtCha = 10,
     coeDisCha={5.54E-05,-1.45679E-04,9.28E-05,1.126122E-03, -1.1012E-03,3.00544E-04},
     dtDisCha = 10) "Performance curve obtained from onsite experiment"
-   annotation (
+   annotation (defaultComponentName="per",
     Documentation(info="<html>
 <p>
 The performance curves are obtained from experiments demonstrated in the following reference.

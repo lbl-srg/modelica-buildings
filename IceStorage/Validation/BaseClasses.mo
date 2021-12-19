@@ -7,18 +7,17 @@ package BaseClasses "Baseclasses"
       property_T=293.15,
       X_a=0.30);
     parameter String fileName "Calibration data file";
-    replaceable parameter IceStorage.Data.IceThermalStorage.Experiment per
-      "Ice tank performance curve";
+
     parameter Modelica.SIunits.Mass mIce_max=2846.35
       "Nominal mass of ice in the tank";
     parameter Modelica.SIunits.Mass mIce_start=0.90996030*mIce_max
       "Start value of ice mass in the tank";
-
     parameter Modelica.SIunits.MassFlowRate m_flow_nominal=1
       "Nominal mass flow rate";
     parameter Modelica.SIunits.PressureDifference dp_nominal=100000
       "Pressure difference";
-
+    parameter IceStorage.Data.IceThermalStorage.Experiment per "Ice tank performance curves"
+      annotation (Placement(transformation(extent={{80,80},{100,100}})));
 
     IceStorage.IceTank iceTan(
       redeclare package Medium = Medium,
@@ -59,7 +58,12 @@ package BaseClasses "Baseclasses"
       annotation (Placement(transformation(extent={{-92,24},{-72,44}})));
     Modelica.Thermal.HeatTransfer.Celsius.ToKelvin TOut
       "Outlet temperature in Kelvin"
-      annotation (Placement(transformation(extent={{-80,-50},{-60,-30}})));
+      annotation (Placement(transformation(extent={{-80,-30},{-60,-10}})));
+
+    Modelica.Blocks.Math.Add TSet
+      annotation (Placement(transformation(extent={{-48,-60},{-28,-40}})));
+    Modelica.Blocks.Sources.Constant offSet(k=0) "An offset for setpoint control"
+      annotation (Placement(transformation(extent={{-100,-60},{-80,-40}})));
 
   equation
     connect(sou.ports[1], iceTan.port_a)
@@ -77,9 +81,13 @@ package BaseClasses "Baseclasses"
     connect(TIn.Kelvin, sou.T_in) annotation (Line(points={{-71,34},{-66,34},{-66,
             4},{-56,4}}, color={0,0,127}));
     connect(dat.y[2], TOut.Celsius) annotation (Line(points={{-79,70},{-70,70},{-70,
-            48},{-98,48},{-98,-40},{-82,-40}}, color={0,0,127}));
-    connect(TOut.Kelvin, iceTan.TOutSet) annotation (Line(points={{-59,-40},{-20,-40},
-            {-20,3},{-12,3}}, color={0,0,127}));
+            48},{-98,48},{-98,-20},{-82,-20}}, color={0,0,127}));
+    connect(TOut.Kelvin, TSet.u1) annotation (Line(points={{-59,-20},{-54,-20},{-54,
+            -44},{-50,-44}}, color={0,0,127}));
+    connect(offSet.y, TSet.u2) annotation (Line(points={{-79,-50},{-60,-50},{-60,-56},
+            {-50,-56}}, color={0,0,127}));
+    connect(TSet.y, iceTan.TOutSet) annotation (Line(points={{-27,-50},{-20,-50},{
+            -20,3},{-12,3}}, color={0,0,127}));
     annotation (
       Documentation(info="<html>
 </html>",   revisions="<html>
