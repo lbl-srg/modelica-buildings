@@ -1,5 +1,5 @@
 within Buildings.Fluid.IceStorage;
-package Examples
+package Examples "Example package that tests the ice tank models"
   extends Modelica.Icons.ExamplesPackage;
 
 annotation (Documentation(info="<html>
