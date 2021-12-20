@@ -1,4 +1,4 @@
-simulateModel("Buildings.Fluid.HeatExchangers.ActiveBeams.Examples.HeatingOnly", tolerance=1e-6, stopTime=172800, method="dassl", resultFile="HeatingOnly");
+simulateModel("Buildings.Fluid.HeatExchangers.ActiveBeams.Examples.HeatingOnly", tolerance=1e-6, stopTime=172800, method="CVode", resultFile="HeatingOnly");
 removePlots();
 Advanced.FilenameInLegend = false;
 Advanced.SequenceInLegend = true;

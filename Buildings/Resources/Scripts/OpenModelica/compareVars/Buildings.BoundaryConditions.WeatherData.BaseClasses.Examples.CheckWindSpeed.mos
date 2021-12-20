@@ -1,5 +1,0 @@
-compareVars :=
-  {
-    "cheWinSpe.winSpeIn",
-    "cheWinSpe.winSpeOut"
-  };

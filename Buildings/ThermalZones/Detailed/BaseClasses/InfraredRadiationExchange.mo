@@ -1,12 +1,13 @@
 within Buildings.ThermalZones.Detailed.BaseClasses;
 model InfraredRadiationExchange
   "Infrared radiation heat exchange between the room facing surfaces"
-  extends
-    Buildings.ThermalZones.Detailed.BaseClasses.PartialSurfaceInterfaceRadiative;
+  extends Buildings.ThermalZones.Detailed.BaseClasses.PartialSurfaceInterfaceRadiative;
+
+  constant Boolean homotopyInitialization = true "= true, use homotopy method"
+    annotation(HideResult=true);
+
   parameter Boolean linearizeRadiation
     "Set to true to linearize emissive power";
-  parameter Boolean homotopyInitialization=true "= true, use homotopy method"
-    annotation (Evaluate=true, Dialog(tab="Advanced"));
   parameter Boolean sampleModel=false
     "Set to true to time-sample the model, which can give shorter simulation time if there is already time sampling in the system model"
     annotation (Evaluate=true, Dialog(tab=
@@ -85,9 +86,13 @@ protected
   final parameter Real T03(
     min=0,
     unit="K3") = T0^3 "3rd power of temperature T0";
-  Modelica.SIunits.HeatFlowRate sumEBal(start=0, fixed=sampleModel)
-    "Sum of energy balance, should be zero";
+  // Modelica.SIunits.HeatFlowRate sumEBal(start=0, fixed=sampleModel)
+  //   "Sum of energy balance, should be zero";
 initial equation
+  assert(homotopyInitialization, "In " + getInstanceName() +
+    ": The constant homotopyInitialization has been modified from its default value. This constant will be removed in future releases.",
+    level = AssertionLevel.warning);
+
   // The next loops build the array epsOpa, AOpa and kOpa that simplify
   // the model equations.
   // These arrays store the values of the constructios in the following order
@@ -208,10 +213,10 @@ equation
       // Outgoing radiosity
       // Sum of energy balance
       // Remove sumEBal and assert statement for final release
-      sumEBal = sum(conExt.Q_flow) + sum(conPar_a.Q_flow) + sum(conPar_b.Q_flow)
-         + sum(conBou.Q_flow) + sum(conSurBou.Q_flow) + sum(conExtWin.Q_flow)
-         + sum(conExtWinFra.Q_flow) + (sum(JInConExtWin_internal) - sum(
-        JOutConExtWin));
+      // sumEBal = sum(conExt.Q_flow) + sum(conPar_a.Q_flow) + sum(conPar_b.Q_flow)
+      //    + sum(conBou.Q_flow) + sum(conSurBou.Q_flow) + sum(conExtWin.Q_flow)
+      //    + sum(conExtWinFra.Q_flow) + (sum(JInConExtWin_internal) - sum(
+      //   JOutConExtWin));
     end when;
   else
     G = -transpose(F)*J;
@@ -220,12 +225,12 @@ equation
     // Outgoing radiosity
     // Sum of energy balance
     // Remove sumEBal and assert statement for final release
-    sumEBal = sum(conExt.Q_flow) + sum(conPar_a.Q_flow) + sum(conPar_b.Q_flow)
-       + sum(conBou.Q_flow) + sum(conSurBou.Q_flow) + sum(conExtWin.Q_flow) +
-      sum(conExtWinFra.Q_flow) + (sum(JInConExtWin_internal) - sum(
-      JOutConExtWin));
-    assert(abs(sumEBal) < 1E-1, "Program error: Energy is not conserved in InfraredRadiationExchange.
-    Sum of all energy is " + String(sumEBal));
+    // sumEBal = sum(conExt.Q_flow) + sum(conPar_a.Q_flow) + sum(conPar_b.Q_flow)
+    //    + sum(conBou.Q_flow) + sum(conSurBou.Q_flow) + sum(conExtWin.Q_flow) +
+    //   sum(conExtWinFra.Q_flow) + (sum(JInConExtWin_internal) - sum(
+    //   JOutConExtWin));
+    // assert(abs(sumEBal) < 1E-1, "Program error: Energy is not conserved in InfraredRadiationExchange.
+    // Sum of all energy is " + String(sumEBal));
   end if;
 
   // Opaque surfaces.
@@ -409,6 +414,16 @@ The view factor from surface <i>i</i> to <i>j</i> is approximated as
 </html>", revisions="<html>
 <ul>
 <li>
+November 30, 2021, by Michael Wetter:<br/>
+Removed test on radiation balance that was added for debugging purposes.
+</li>
+<li>
+April 14, 2020, by Michael Wetter:<br/>
+Changed <code>homotopyInitialization</code> to a constant.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1341\">IBPSA, #1341</a>.
+</li>
+<li>
 January 23, 2017, by Michael Wetter:<br/>
 Corrected wrong start value for <code>J</code>.
 The start value was positive, but <code>J(each max =0)</code>.<br/>
@@ -450,6 +465,7 @@ Added <code>homotopy</code> operator.
 Feb. 3, 2011, by Michael Wetter:<br/>
 Corrected bug in start value of radiosity, reformulated equations to get
 smaller system of coupled equations.
+</li>
 <li>
 Dec. 1, 2010, by Michael Wetter:<br/>
 First implementation.

@@ -444,7 +444,8 @@ Density, specific heat capacity, thermal conductivity and viscosity are constant
 The propylene glycol/water mixture is modeled as an incompressible liquid.
 There are no phase changes. The medium is limited to temperatures below
 <i>100</i> &deg;C and mass fractions below <i>0.60</i>.
-As is the case for Buildings.Media.Water, this medium package should not be used if
+As is the case for <a href=\"modelica://Buildings.Media.Water\">Buildings.Media.Water</a>,
+this medium package should not be used if
 the simulation relies on the dynamic viscosity.
 </p>
 <h4>Typical use and important parameters</h4>

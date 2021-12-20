@@ -1,4 +1,4 @@
-simulateModel("Buildings.Fluid.Storage.Examples.ExpansionVessel", tolerance=1e-6, stopTime=7200, method="dassl", resultFile="ExpansionVessel");
+simulateModel("Buildings.Fluid.Storage.Examples.ExpansionVessel", tolerance=1e-6, stopTime=7200, method="CVode", resultFile="ExpansionVessel");
 createPlot(id = 1,
  position = {35, 30, 400, 280},
  y = {"vol.T"},

@@ -2,14 +2,18 @@ within Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.VAV.SetPoints;
 block OutsideAirFlow
   "Output the minimum outdoor airflow rate setpoint for systems with a single zone"
 
-  parameter Real VOutPerAre_flow(final unit="m3/(s.m2)") = 3e-4
+  parameter Real VOutPerAre_flow(
+    final unit="m3/(s.m2)") = 3e-4
     "Outdoor air rate per unit area"
     annotation(Dialog(group="Nominal condition"));
-  parameter Modelica.SIunits.VolumeFlowRate VOutPerPer_flow = 2.5e-3
+  parameter Real VOutPerPer_flow(
+    final unit="m3/s",
+    final quantity="VolumeFlowRate")= 2.5e-3
     "Outdoor air rate per person"
     annotation(Dialog(group="Nominal condition"));
-  parameter Modelica.SIunits.Area AFlo
-    "Floor area"
+  parameter Real AFlo(
+    final unit="m2",
+    final quantity="Area") "Floor area"
     annotation(Dialog(group="Nominal condition"));
   parameter Boolean have_occSen
     "Set to true if zones have occupancy sensor";
@@ -19,13 +23,17 @@ block OutsideAirFlow
     "Zone air distribution effectiveness during heating";
   parameter Real zonDisEffCoo(final unit="1") = 1.0
     "Zone air distribution effectiveness during cooling";
-  parameter Real uLow(final unit="K",
-    quantity="ThermodynamicTemperature") = -0.5
+  parameter Real uLow(
+    final unit="K",
+    final displayUnit="K",
+    final quantity="TemperatureDifference") = -0.5
     "If zone space temperature minus supply air temperature is less than uLow,
      then it should use heating supply air distribution effectiveness"
     annotation (Dialog(tab="Advanced"));
-  parameter Real uHig(final unit="K",
-    quantity="ThermodynamicTemperature") = 0.5
+  parameter Real uHigh(
+    final unit="K",
+    final displayUnit="K",
+    final quantity="TemperatureDifference") = 0.5
     "If zone space temperature minus supply air temperature is more than uHig,
      then it should use cooling supply air distribution effectiveness"
     annotation (Dialog(tab="Advanced"));
@@ -36,14 +44,14 @@ block OutsideAirFlow
         iconTransformation(extent={{-140,60},{-100,100}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TZon(
     final unit="K",
-    displayUnit="degC",
-    quantity="ThermodynamicTemperature") "Measured zone air temperature"
+    final displayUnit="degC",
+    final quantity="ThermodynamicTemperature") "Measured zone air temperature"
     annotation (Placement(transformation(extent={{-240,-60},{-200,-20}}),
         iconTransformation(extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TDis(
     final unit="K",
-    displayUnit="degC",
-    quantity="ThermodynamicTemperature") "Measured discharge air temperature"
+    final displayUnit="degC",
+    final quantity="ThermodynamicTemperature") "Measured discharge air temperature"
     annotation (Placement(transformation(extent={{-240,-100},{-200,-60}}),
         iconTransformation(extent={{-140,-50},{-100,-10}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uOpeMod
@@ -61,7 +69,7 @@ block OutsideAirFlow
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput VOutMinSet_flow(
     min=0,
     final unit="m3/s",
-    quantity="VolumeFlowRate") "Effective minimum outdoor airflow setpoint"
+    final quantity="VolumeFlowRate") "Effective minimum outdoor airflow setpoint"
     annotation (Placement(transformation(extent={{200,-20},{240,20}}),
         iconTransformation(extent={{100,-20},{140,20}})));
 
@@ -75,26 +83,26 @@ protected
        have_occSen
     "Outdoor airflow rate per person"
     annotation (Placement(transformation(extent={{-160,150},{-140,170}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi
     "Switch for enabling occupancy sensor input"
     annotation (Placement(transformation(extent={{-60,38},{-40,58}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi1
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi1
     "Switch between cooling or heating distribution effectiveness"
     annotation (Placement(transformation(extent={{-40,-70},{-20,-50}})));
   Buildings.Controls.OBC.CDL.Continuous.Division zonOutAirRate
     "Required zone outdoor airflow rate"
     annotation (Placement(transformation(extent={{20,20},{40,40}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi2
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi2
     "If window is open or it is not in occupied mode, the required outdoor
     airflow rate should be zero"
     annotation (Placement(transformation(extent={{80,20},{100,0}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi3
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi3
     "If supply fan is off, then outdoor airflow rate should be zero."
     annotation (Placement(transformation(extent={{140,0},{160,20}})));
   Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys(
-    uLow=uLow,
-    uHigh=uHig,
-    pre_y_start=true)
+    final uLow=uLow,
+    final uHigh=uHigh,
+    final pre_y_start=true)
     "Check if cooling or heating air distribution effectiveness should be applied, with 1 degC deadband"
     annotation (Placement(transformation(extent={{-100,-70},{-80,-50}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant occSen(
@@ -215,11 +223,11 @@ Icon(graphics={Rectangle(
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid), Text(
           extent={{-84,78},{92,-72}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="VOutMinSet_flow"),
         Text(
           extent={{-100,140},{100,100}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%name")}),
         Diagram(
         coordinateSystem(preserveAspectRatio=false,
@@ -229,7 +237,7 @@ Icon(graphics={Rectangle(
 <p>
 This atomic sequence sets the minimum outdoor airflow setpoint for compliance
 with the ventilation rate procedure of ASHRAE 62.1-2013. The implementation
-is according to ASHRAE Guidline 36 (G36), PART5.P.4.b, PART5.B.2.b, PART3.1-D.2.a.
+is according to ASHRAE Guidline 36 (G36), PART 5.P.4.b, PART 5.B.2.b, PART3.1-D.2.a.
 </p>
 
 <h4>Step 1: Minimum breathing zone outdoor airflow required <code>breZon</code></h4>

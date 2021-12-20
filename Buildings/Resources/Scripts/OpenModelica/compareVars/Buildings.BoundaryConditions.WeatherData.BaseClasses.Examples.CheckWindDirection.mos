@@ -1,5 +1,0 @@
-compareVars :=
-  {
-    "cheWinDir.nIn",
-    "cheWinDir.nOut"
-  };

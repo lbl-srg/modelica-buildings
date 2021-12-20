@@ -1,5 +1,5 @@
 removePlots();
-simulateModel("Buildings.BoundaryConditions.WeatherData.Validation.ReaderTMY3HDirNor", stopTime=86400, method="dassl", tolerance=1e-06, resultFile="ReaderTMY3HDirNor");
+simulateModel("Buildings.BoundaryConditions.WeatherData.Validation.ReaderTMY3HDirNor", stopTime=86400, method="CVode", tolerance=1e-06, resultFile="ReaderTMY3HDirNor");
 createPlot(id=1,
   position={0, 0, 744, 490},
   y={"weaDatInpCon.HGloHor_in", "weaDatInpCon.weaBus.HDifHor"},

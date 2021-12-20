@@ -1,0 +1,11 @@
+﻿// Simulate
+simulateModel("Buildings.Fluid.HeatExchangers.CoolingTowers.BaseClasses.Functions.Validation.EquivalentHeatCapacity", startTime=10, stopTime=20, method="CVode", tolerance=1e-6, resultFile="EquivalentHeatCapacity");
+// Plot commands
+removePlots(false);
+createPlot(id=1, position={90, 56, 720, 427}, 
+  x="deltaT", 
+  y={"cpe10", "cpe15", "cpe20", "cpe25", "cpe30"}, 
+  range={0.0, 50.0, 1000.0, 15000.0}, 
+  grid=true, 
+  colors={{28,108,200}, {238,46,47}, {0,140,72}, {217,67,180}, {0,0,0}});
+

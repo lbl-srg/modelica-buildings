@@ -1,0 +1,142 @@
+//  Conversion script for Buildings library
+//  from: Version 6
+//  to:   Version 7.0.0
+clear
+
+convertClear();
+convertModifiers("Buildings.Airflow.Multizone.BaseClasses.PowerLawResistance", {"m_flow_small"}, fill("",0), true);
+convertModifiers("Buildings.Airflow.Multizone.BaseClasses.TwoWayFlowElement", {"m1_flow_small", "m2_flow_small"}, fill("",0), true);
+convertModifiers("Buildings.Airflow.Multizone.EffectiveAirLeakageArea", {"m_flow_small"}, fill("",0), true);
+convertModifiers("Buildings.Airflow.Multizone.Orifice", {"m_flow_small"}, fill("",0), true);
+convertModifiers("Buildings.Airflow.Multizone.DoorDiscretizedOpen", {"m1_flow_small", "m2_flow_small"}, fill("",0), true);
+convertModifiers("Buildings.Airflow.Multizone.DoorDiscretizedOperable", {"m1_flow_small", "m2_flow_small"}, fill("",0), true);
+convertModifiers("Buildings.Airflow.Multizone.ZonalFlow_ACS", {"m1_flow_small", "m2_flow_small"}, fill("",0), true);
+convertModifiers("Buildings.Airflow.Multizone.ZonalFlow_m_flow", {"m1_flow_small", "m2_flow_small"}, fill("",0), true);
+
+convertModifiers("Buildings.Controls.OBC.CDL.Continuous.IntegratorWithReset", {"initType"}, fill("",0), true);
+convertModifiers("Buildings.Controls.OBC.CDL.Continuous.Derivative", {"initType"}, fill("",0), true);
+convertModifiers("Buildings.Controls.OBC.CDL.Continuous.Derivative", {"x_start"}, fill("",0), true);
+
+convertClass("Buildings.Controls.OBC.CDL.Discrete.MovingMean",
+             "Buildings.Obsolete.Controls.OBC.CDL.Discrete.MovingMean");
+convertClass("Buildings.Controls.OBC.CDL.SetPoints.HotWaterTemperatureReset",
+             "Buildings.Controls.OBC.CDL.SetPoints.SupplyReturnTemperatureReset");
+convertClass("Buildings.Controls.SetPoints.HotWaterTemperatureReset",
+             "Buildings.Controls.SetPoints.SupplyReturnTemperatureReset");
+convertClass("Buildings.Utilities.IO.Python27",
+             "Buildings.Obsolete.Utilities.IO.Python27");
+
+convertModifiers("Buildings.Controls.OBC.CDL.Continuous.LimPID", {"yMin=fill(\"\",0)", "yMax=yMax"}, {"yMin=-%yMax%", "yMax=%yMax%"}, true);
+
+convertModifiers("Buildings.Controls.OBC.CDL.Continuous.LimPID", {"strict"}, fill("",0), true);
+convertModifiers("Buildings.Controls.OBC.CDL.Continuous.LimPID", {"initType"}, fill("",0), true);
+convertModifiers("Buildings.Controls.OBC.CDL.Continuous.LimPID", {"y_start"}, fill("",0), true);
+convertModifiers("Buildings.Controls.OBC.CDL.Continuous.LimPID", {"xd_start"}, fill("",0), true);
+
+//refactoring of alpha to hCon or hRad
+convertElement(
+    "Buildings.ThermalZones.ReducedOrder.RC.OneElement",
+    "alphaWin",
+    "hConWin");
+convertElement(
+    "Buildings.ThermalZones.ReducedOrder.RC.OneElement",
+    "alphaExt",
+    "hConExt");
+convertElement(
+    "Buildings.ThermalZones.ReducedOrder.RC.OneElement",
+    "alphaExtWallConst",
+    "hConExtWall_const");
+convertElement(
+    "Buildings.ThermalZones.ReducedOrder.RC.OneElement",
+    "alphaWinConst",
+    "hConWin_const");
+convertElement(
+    "Buildings.ThermalZones.ReducedOrder.RC.ThreeElements",
+    "alphaFloor",
+    "hConFloor");
+convertElement(
+    "Buildings.ThermalZones.ReducedOrder.RC.ThreeElements",
+    "alphaFloorConst",
+    "hConFloor_const");
+convertElement(
+    "Buildings.ThermalZones.ReducedOrder.RC.TwoElements",
+    "alphaInt",
+    "hConInt");
+convertElement(
+    "Buildings.ThermalZones.ReducedOrder.RC.TwoElements",
+    "alphaIntWall",
+    "hConIntWall");
+convertElement(
+    "Buildings.ThermalZones.ReducedOrder.RC.FourElements",
+    "alphaRoof",
+    "hConRoof");
+convertElement(
+    "Buildings.ThermalZones.ReducedOrder.RC.FourElements",
+    "alphaRoofConst",
+    "hConRoof_const");
+convertElement(
+    "Buildings.ThermalZones.ReducedOrder.RC.OneElement",
+    "alphaRad",
+    "hRad");
+convertElement(
+    "Buildings.ThermalZones.ReducedOrder.EquivalentAirTemperature.BaseClasses.PartialVDI6007",
+    "alphaWallOut",
+    "hConWallOut");
+convertElement(
+    "Buildings.ThermalZones.ReducedOrder.EquivalentAirTemperature.BaseClasses.PartialVDI6007",
+    "alphaRad",
+    "hRad");
+convertElement(
+    "Buildings.ThermalZones.ReducedOrder.EquivalentAirTemperature.VDI6007WithWindow",
+    "alphaWinOut",
+    "hConWinOut");
+convertElement(
+    "Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.Reheat.SystemRequests",
+    "uDam",
+    "yDam_actual");
+
+// Refactoring damper models.
+convertElement(
+    "Buildings.Fluid.Actuators.Dampers.PressureIndependent",
+    "dp_nominal",
+    "dpDamper_nominal");
+convertModifiers(
+    "Buildings.Fluid.Actuators.Dampers.Exponential",
+    {"k1=0.45", "v_nominal=1"},
+    {"k1=%k1%",
+    "dpDamper_nominal=%k1% * 1.2 * %v_nominal%^2 / 2"},
+    true);
+convertModifiers(
+    "Buildings.Fluid.Actuators.Dampers.VAVBoxExponential",
+    {"dp_nominal", "k1=0.45", "v_nominal=1", "dp_nominalIncludesDamper=true"},
+    {"k1=%k1%",
+    "dpDamper_nominal=%k1% * 1.2 * %v_nominal%^2 / 2",
+    "dpFixed_nominal=if %dp_nominalIncludesDamper% then %dp_nominal% - %k1% * 1.2 * %v_nominal%^2 / 2 else %dp_nominal%"},
+    true);
+convertModifiers(
+    "Buildings.Fluid.Actuators.Dampers.MixingBox",
+    {"dpOut_nominal", "dpRec_nominal", "dpExh_nominal", "k1=0.45", "v_nominal=1", "dp_nominalIncludesDamper=false"},
+    {"k1=%k1%",
+    "dpDamOut_nominal=%k1% * 1.2 * %v_nominal%^2 / 2",
+    "dpFixOut_nominal=if %dp_nominalIncludesDamper% then %dpOut_nominal% - %k1% * 1.2 * %v_nominal%^2 / 2 else %dpOut_nominal%",
+    "dpDamRec_nominal=%k1% * 1.2 * %v_nominal%^2 / 2",
+    "dpFixRec_nominal=if %dp_nominalIncludesDamper% then %dpRec_nominal% - %k1% * 1.2 * %v_nominal%^2 / 2 else %dpRec_nominal%",
+    "dpDamExh_nominal=%k1% * 1.2 * %v_nominal%^2 / 2",
+    "dpFixExh_nominal=if %dp_nominalIncludesDamper% then %dpExh_nominal% - %k1% * 1.2 * %v_nominal%^2 / 2 else %dpExh_nominal%"},
+    true);
+convertModifiers(
+    "Buildings.Fluid.Actuators.Dampers.MixingBoxMinimumFlow",
+    {"dpOut_nominal", "dpRec_nominal", "dpExh_nominal", "dpOutMin_nominal", "k1=0.45", "v_nominal=1", "dp_nominalIncludesDamper=false"},
+    {"k1=%k1%",
+    "dpDamOut_nominal=%k1% * 1.2 * %v_nominal%^2 / 2",
+    "dpFixOut_nominal=if %dp_nominalIncludesDamper% then %dpOut_nominal% - %k1% * 1.2 * %v_nominal%^2 / 2 else %dpOut_nominal%",
+    "dpDamRec_nominal=%k1% * 1.2 * %v_nominal%^2 / 2",
+    "dpFixRec_nominal=if %dp_nominalIncludesDamper% then %dpRec_nominal% - %k1% * 1.2 * %v_nominal%^2 / 2 else %dpRec_nominal%",
+    "dpDamExh_nominal=%k1% * 1.2 * %v_nominal%^2 / 2",
+    "dpFixExh_nominal=if %dp_nominalIncludesDamper% then %dpExh_nominal% - %k1% * 1.2 * %v_nominal%^2 / 2 else %dpExh_nominal%",
+    "dpDamOutMin_nominal=%k1% * 1.2 * %v_nominal%^2 / 2",
+    "dpFixOutMin_nominal=if %dp_nominalIncludesDamper% then %dpOutMin_nominal% - %k1% * 1.2 * %v_nominal%^2 / 2 else %dpOutMin_nominal%"},
+    true);
+convertClass(
+    "Buildings.Fluid.Actuators.Dampers.VAVBoxExponential",
+    "Buildings.Fluid.Actuators.Dampers.Exponential");

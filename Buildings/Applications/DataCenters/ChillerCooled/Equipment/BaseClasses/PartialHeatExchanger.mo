@@ -11,6 +11,9 @@ partial model PartialHeatExchanger "Partial model for heat exchangers "
   extends
     Buildings.Applications.DataCenters.ChillerCooled.Equipment.BaseClasses.ThreeWayValveParameters;
 
+  constant Boolean homotopyInitialization = true "= true, use homotopy method"
+    annotation(HideResult=true);
+
   parameter Modelica.SIunits.Efficiency eta(min=0,max=1,start=0.8)
     "constant effectiveness";
 
@@ -30,6 +33,13 @@ partial model PartialHeatExchanger "Partial model for heat exchangers "
     "Initial value of output from the filter in the bypass valve"
     annotation(Dialog(tab="Dynamics", group="Filtered opening",
       enable=(activate_ThrWayVal and use_inputFilter)));
+  parameter Modelica.SIunits.PressureDifference dpValve_nominal(
+     displayUnit="Pa",
+     min=0,
+     fixed=true)= 6000
+    "Nominal pressure drop of fully open valve"
+    annotation(Dialog(group="Three-way Valve",
+      enable=activate_ThrWayVal));
 
  // Time constant
    parameter Modelica.SIunits.Time tauThrWayVal=10
@@ -38,9 +48,6 @@ partial model PartialHeatExchanger "Partial model for heat exchangers "
                enable=(activate_ThrWayVal and not energyDynamics ==
                Modelica.Fluid.Types.Dynamics.SteadyState)));
   // Advanced
-  parameter Boolean homotopyInitialization = true
-    "= true, use homotopy method"
-    annotation(Evaluate=true, Dialog(tab="Advanced"));
   parameter Modelica.SIunits.Density rhoStd = Medium2.density_pTX(101325, 273.15+4, Medium2.X_default)
     "Inlet density for which valve coefficients are defined"
     annotation(Dialog(group="Nominal condition", tab="Advanced",enable=activate_ThrWayVal));
@@ -68,7 +75,7 @@ partial model PartialHeatExchanger "Partial model for heat exchangers "
     final y_start=yThrWayVal_start,
     final CvData=Buildings.Fluid.Types.CvTypes.OpPoint,
     final l=l_ThrWayVal,
-    final dpValve_nominal=dp2_nominal,
+    final dpValve_nominal=dpValve_nominal,
     final deltaM=deltaM2,
     final m_flow_nominal=m2_flow_nominal,
     final portFlowDirection_1=portFlowDirection_1,
@@ -97,9 +104,14 @@ partial model PartialHeatExchanger "Partial model for heat exchangers "
     final deltaM2=deltaM2,
     final eps=eta,
     final homotopyInitialization=homotopyInitialization,
-    final dp2_nominal=0)
+    final dp2_nominal=if activate_ThrWayVal then 0 else dp2_nominal)
     "Heat exchanger"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
+
+initial equation
+  assert(homotopyInitialization, "In " + getInstanceName() +
+    ": The constant homotopyInitialization has been modified from its default value. This constant will be removed in future releases.",
+    level = AssertionLevel.warning);
 
 equation
   connect(port_a1, hex.port_a1)
@@ -213,6 +225,16 @@ This module simulates a heat exchanger with a three-way bypass used to modulate 
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+April 9, 2021, by Kathryn Hinkelman:<br/>
+Added <code>dpValve_nominal</code> to avoid redundant declaration of <code>dp2_nominal</code>.
+</li>
+<li>
+April 14, 2020, by Michael Wetter:<br/>
+Changed <code>homotopyInitialization</code> to a constant.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1341\">Buildings, #1341</a>.
+</li>
 <li>
 June 30, 2017, by Yangyang Fu:<br/>
 First implementation.

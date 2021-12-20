@@ -52,10 +52,10 @@ model DryCoilDiscretized
      annotation(Dialog(group = "Geometry",
                 enable = use_dh1 and not linearizeFlowResistance1));
   parameter Real ReC_1=4000
-    "Reynolds number where transition to turbulent starts inside pipes"
+    "Reynolds number where transition to turbulence starts inside pipes"
      annotation(Dialog(enable = use_dh1 and not linearizeFlowResistance1, tab="Advanced"));
   parameter Real ReC_2=4000
-    "Reynolds number where transition to turbulent starts inside ducts"
+    "Reynolds number where transition to turbulence starts inside ducts"
      annotation(Dialog(enable = use_dh2 and not linearizeFlowResistance2, tab="Advanced"));
   parameter Modelica.SIunits.Length dh2=1 "Hydraulic diameter for duct"
       annotation(Dialog(group = "Geometry"));
@@ -606,9 +606,9 @@ First implementation.
         extent={{-100,-100},{100,100}},
         grid={2,2}), graphics={Text(
           extent={{60,72},{84,58}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="water-side"), Text(
           extent={{42,-22},{66,-36}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="air-side")}));
 end DryCoilDiscretized;

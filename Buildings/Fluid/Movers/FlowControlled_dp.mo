@@ -9,9 +9,10 @@ model FlowControlled_dp
     final constInput(final unit="Pa") = constantHead,
     filter(
       final y_start=dp_start,
-      u_nominal=abs(dp_nominal),
       u(final unit="Pa"),
-      y(final unit="Pa")),
+      y(final unit="Pa"),
+      x(each nominal=dp_nominal),
+      u_nominal=dp_nominal),
     eff(
       per(
         final pressure = if per.havePressureCurve then
@@ -20,7 +21,8 @@ model FlowControlled_dp
           Buildings.Fluid.Movers.BaseClasses.Characteristics.flowParameters(
             V_flow = {i/(nOri-1)*2.0*m_flow_nominal/rho_default for i in 0:(nOri-1)},
             dp =     {i/(nOri-1)*2.0*dp_nominal for i in (nOri-1):-1:0}),
-      final use_powerCharacteristic = if per.havePressureCurve then per.use_powerCharacteristic else false)));
+      final use_powerCharacteristic = if per.havePressureCurve then per.use_powerCharacteristic else false),
+      r_N(start=if abs(dp_nominal) > 1E-8 then dp_start/dp_nominal else 0)));
 
   parameter Modelica.SIunits.PressureDifference dp_start(
     min=0,
@@ -63,8 +65,8 @@ model FlowControlled_dp
         rotation=90,
         origin={-80,120})));
 
-  Modelica.Blocks.Interfaces.RealInput dp_in(final unit="Pa") if
-    inputType == Buildings.Fluid.Types.InputType.Continuous
+  Modelica.Blocks.Interfaces.RealInput dp_in(final unit="Pa")
+ if inputType == Buildings.Fluid.Types.InputType.Continuous
     "Prescribed pressure rise"
     annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
@@ -83,19 +85,19 @@ protected
   Modelica.Blocks.Math.Gain gain(final k=-1)
     annotation (Placement(transformation(extent={{10,-10},{-10,10}},
         rotation=90,
-        origin={36,30})));
+        origin={44,30})));
 equation
   assert(inputSwitch.u >= -1E-3,
     "Pressure set point for mover cannot be negative. Obtained dp = " + String(inputSwitch.u));
 
   if use_inputFilter then
     connect(filter.y, gain.u) annotation (Line(
-      points={{34.7,88},{36,88},{36,42}},
+      points={{41,70.5},{44,70.5},{44,42}},
       color={0,0,127},
       smooth=Smooth.None));
   else
     connect(inputSwitch.y, gain.u) annotation (Line(
-      points={{1,50},{36,50},{36,42}},
+      points={{1,50},{44,50},{44,42}},
       color={0,0,127},
       smooth=Smooth.None));
   end if;
@@ -105,13 +107,20 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(preSou.dp_in, gain.y) annotation (Line(
-      points={{56,8},{56,14},{36,14},{36,19}},
+      points={{56,8},{56,14},{44,14},{44,19}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(senRelPre.p_rel, dp_actual) annotation (Line(points={{50.5,-26.35},{
           50.5,-38},{74,-38},{74,50},{110,50}},
                                            color={0,0,127}));
-  annotation (defaultComponentName="fan",
+  annotation (
+    Icon(graphics={
+        Text(
+          extent={{-40,126},{-160,76}},
+          textColor={0,0,127},
+          visible=inputType == Buildings.Fluid.Types.InputType.Continuous or inputType == Buildings.Fluid.Types.InputType.Stages,
+          textString=DynamicSelect("dp", if inputType == Buildings.Fluid.Types.InputType.Continuous then String(dp_in, format=".0f") else String(stage)))}),
+  defaultComponentName="fan",
   Documentation(info="<html>
 <p>
 This model describes a fan or pump with prescribed head.
@@ -156,6 +165,19 @@ Buildings.Fluid.Movers.Validation.FlowControlled_dpSystem</a>.
 </html>",
       revisions="<html>
 <ul>
+<li>
+June 17, 2021, by Michael Wetter:<br/>
+Changed implementation of the filter.<br/>
+Removed parameter <code>y_start</code> which is not used because <code>dp_start</code> is used.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1498\">#1498</a>.
+</li>
+<li>
+February 21, 2020, by Michael Wetter:<br/>
+Changed icon to display its operating stage.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1294\">#1294</a>.
+</li>
 <li>
 May 5, 2017, by Filip Jorissen:<br/>
 Added parameters, documentation and functionality for
@@ -253,37 +275,5 @@ Revised implementation to allow zero flow rate.
     by Michael Wetter:<br/>
        Added model to the Buildings library.
 </ul>
-</html>"),
-    Icon(graphics={
-        Line(
-          points={{2,50},{100,50}},
-          color={0,0,0},
-          smooth=Smooth.None),
-        Text(
-          visible = inputType == Buildings.Fluid.Types.InputType.Continuous,
-          extent={{20,142},{104,108}},
-          textString="dp_in"),
-        Text(extent={{60,66},{110,52}},
-          lineColor={0,0,127},
-          textString="dp"),
-        Rectangle(
-          visible=use_inputFilter,
-          extent={{-34,40},{32,100}},
-          lineColor={0,0,0},
-          fillColor={135,135,135},
-          fillPattern=FillPattern.Solid),
-        Ellipse(
-          visible=use_inputFilter,
-          extent={{-34,100},{32,40}},
-          lineColor={0,0,0},
-          fillColor={135,135,135},
-          fillPattern=FillPattern.Solid),
-        Text(
-          visible=use_inputFilter,
-          extent={{-22,92},{20,46}},
-          lineColor={0,0,0},
-          fillColor={135,135,135},
-          fillPattern=FillPattern.Solid,
-          textString="M",
-          textStyle={TextStyle.Bold})}));
+</html>"));
 end FlowControlled_dp;

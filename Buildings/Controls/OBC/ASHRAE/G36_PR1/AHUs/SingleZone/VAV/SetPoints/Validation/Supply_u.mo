@@ -1,5 +1,5 @@
 within Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.VAV.SetPoints.Validation;
-model Supply_u "Validation model for control input"
+model Supply_u "Validation model for temperature and fan speed"
 
   Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.VAV.SetPoints.Supply
     setPoiVAV(
@@ -55,52 +55,61 @@ model Supply_u "Validation model for control input"
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TZon1(k=273.15 + 23)
     "Zone air temperature"
     annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
-
+  CDL.Logical.Sources.Constant fanSta(k=true) "Fan is on"
+    annotation (Placement(transformation(extent={{-80,-110},{-60,-90}})));
 equation
   connect(TZon.y, setPoiVAV.TZon) annotation (Line(
-      points={{-59,-10},{-31.5,-10},{-31.5,46},{-2,46}},
+      points={{-58,-10},{-31.5,-10},{-31.5,48.3333},{-2,48.3333}},
       color={0,0,127},
       pattern=LinePattern.Dash));
-  connect(TOut.y, setPoiVAV.TOut) annotation (Line(points={{-59,-40},{-24,-40},
-          {-24,42},{-2,42}},color={0,0,127}));
-  connect(uHea.y, setPoiVAV.uHea) annotation (Line(points={{-59,80},{-12,80},{
-          -12,58},{-2,58}},
+  connect(TOut.y, setPoiVAV.TOut) annotation (Line(points={{-58,-40},{-24,-40},{
+          -24,45},{-2,45}}, color={0,0,127}));
+  connect(uHea.y, setPoiVAV.uHea) annotation (Line(points={{-58,80},{-12,80},{
+          -12,58.3333},{-2,58.3333}},
                         color={0,0,127}));
-  connect(uCoo.y, setPoiVAV.uCoo) annotation (Line(points={{-59,50},{-16,50},{
-          -16,54},{-2,54}},
-                        color={0,0,127}));
-  connect(TZonSet.y,setPoiVAV.TZonSet)  annotation (Line(points={{-59,20},{-10,
-          20},{-10,50},{-2,50}},
+  connect(uCoo.y, setPoiVAV.uCoo) annotation (Line(points={{-58,50},{-16,50},{-16,
+          55},{-2,55}}, color={0,0,127}));
+  connect(TZonSet.y,setPoiVAV.TZonSet)  annotation (Line(points={{-58,20},{-10,
+          20},{-10,51.6667},{-2,51.6667}},
                              color={0,0,127}));
-  connect(TOut.y, setPoiVAV1.TOut) annotation (Line(points={{-59,-40},{-24,-40},
-          {-24,2},{-2,2}}, color={0,0,127}));
-  connect(uHea.y, setPoiVAV1.uHea) annotation (Line(points={{-59,80},{-12,80},{
-          -12,18},{-2,18}},
+  connect(TOut.y, setPoiVAV1.TOut) annotation (Line(points={{-58,-40},{-24,-40},
+          {-24,5},{-2,5}}, color={0,0,127}));
+  connect(uHea.y, setPoiVAV1.uHea) annotation (Line(points={{-58,80},{-12,80},{
+          -12,18.3333},{-2,18.3333}},
                         color={0,0,127}));
-  connect(uCoo.y, setPoiVAV1.uCoo) annotation (Line(points={{-59,50},{-16,50},{
-          -16,14},{-2,14}},
-                        color={0,0,127}));
-  connect(TZonSet.y,setPoiVAV1.TZonSet)  annotation (Line(points={{-59,20},{-10,
-          20},{-10,10},{-2,10}}, color={0,0,127}));
+  connect(uCoo.y, setPoiVAV1.uCoo) annotation (Line(points={{-58,50},{-16,50},{-16,
+          15},{-2,15}}, color={0,0,127}));
+  connect(TZonSet.y,setPoiVAV1.TZonSet)  annotation (Line(points={{-58,20},{-10,
+          20},{-10,11.6667},{-2,11.6667}},
+                                 color={0,0,127}));
   connect(TOut.y, setPoiVAV2.TOut)
-    annotation (Line(points={{-59,-40},{-24,-40},{-24,-38},{-2,-38}},
+    annotation (Line(points={{-58,-40},{-24,-40},{-24,-35},{-2,-35}},
                                                   color={0,0,127}));
-  connect(uHea.y, setPoiVAV2.uHea) annotation (Line(points={{-59,80},{-12,80},{
-          -12,-22},{-2,-22}},
+  connect(uHea.y, setPoiVAV2.uHea) annotation (Line(points={{-58,80},{-12,80},{
+          -12,-21.6667},{-2,-21.6667}},
                           color={0,0,127}));
-  connect(uCoo.y, setPoiVAV2.uCoo) annotation (Line(points={{-59,50},{-16,50},{
-          -16,-26},{-2,-26}},
-                          color={0,0,127}));
-  connect(TZonSet.y,setPoiVAV2.TZonSet)  annotation (Line(points={{-59,20},{-10,
-          20},{-10,-30},{-2,-30}}, color={0,0,127}));
+  connect(uCoo.y, setPoiVAV2.uCoo) annotation (Line(points={{-58,50},{-16,50},{-16,
+          -25},{-2,-25}}, color={0,0,127}));
+  connect(TZonSet.y,setPoiVAV2.TZonSet)  annotation (Line(points={{-58,20},{-10,
+          20},{-10,-28.3333},{-2,-28.3333}},
+                                   color={0,0,127}));
   connect(TOut.y, setPoiVAV1.TZon) annotation (Line(
-      points={{-59,-40},{-24,-40},{-24,6},{-2,6}},
+      points={{-58,-40},{-24,-40},{-24,8.33333},{-2,8.33333}},
       color={0,0,127},
       pattern=LinePattern.Dash));
   connect(TZon1.y, setPoiVAV2.TZon) annotation (Line(
-      points={{-59,-70},{-20,-70},{-20,-34},{-2,-34}},
+      points={{-58,-70},{-20,-70},{-20,-31.6667},{-2,-31.6667}},
       color={0,0,127},
       pattern=LinePattern.Dash));
+  connect(fanSta.y, setPoiVAV.uFan) annotation (Line(points={{-58,-100},{-6,
+          -100},{-6,41.6667},{-2,41.6667}},
+                            color={255,0,255}));
+  connect(setPoiVAV1.uFan, setPoiVAV.uFan) annotation (Line(points={{-2,1.66667},
+          {-6,1.66667},{-6,41.6667},{-2,41.6667}},
+                               color={255,0,255}));
+  connect(setPoiVAV2.uFan, setPoiVAV.uFan) annotation (Line(points={{-2,
+          -38.3333},{-6,-38.3333},{-6,41.6667},{-2,41.6667}},
+                                    color={255,0,255}));
   annotation (
   experiment(StopTime=1.0, Tolerance=1e-6),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36_PR1/AHUs/SingleZone/VAV/SetPoints/Validation/Supply_u.mos"
@@ -126,7 +135,8 @@ First implementation.
 </li>
 </ul>
 </html>"),
-    Icon(graphics={
+    Icon(coordinateSystem(extent={{-100,-120},{100,100}}),
+         graphics={
         Ellipse(lineColor = {75,138,73},
                 fillColor={255,255,255},
                 fillPattern = FillPattern.Solid,
@@ -135,5 +145,6 @@ First implementation.
                 fillColor = {75,138,73},
                 pattern = LinePattern.None,
                 fillPattern = FillPattern.Solid,
-                points = {{-36,60},{64,0},{-36,-60},{-36,60}})}));
+                points = {{-36,60},{64,0},{-36,-60},{-36,60}})}),
+    Diagram(coordinateSystem(extent={{-100,-120},{100,100}})));
 end Supply_u;

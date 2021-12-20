@@ -1,4 +1,4 @@
-simulateModel("Buildings.Fluid.HeatExchangers.Examples.DryCoilEffectivenessNTUPControl", stopTime=3600, method="dassl", tolerance=1e-6, resultFile="DryCoilEffectivenessNTUPControl");
+simulateModel("Buildings.Fluid.HeatExchangers.Examples.DryCoilEffectivenessNTUPControl", stopTime=3600, method="CVode", tolerance=1e-6, resultFile="DryCoilEffectivenessNTUPControl");
 createPlot(id = 4,
  position = {550, 0, 400, 342},
  y = {"P.u_s", "P.u_m"},

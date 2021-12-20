@@ -1,10 +1,10 @@
-simulateModel("Buildings.BoundaryConditions.WeatherData.BaseClasses.Examples.GetTimeSpanTMY3", method="dassl", tolerance=1e-006, resultFile="GetTimeSpanTMY3");
-createPlot(id=1, 
-position={0, 0, 1376, 701}, 
-y={"timeSpan[1]", "timeSpan[2]"}, 
-range={0.0, 1.0, -2000000.0, 34000000.0}, 
-autoerase=false, 
-grid=true, 
+simulateModel("Buildings.BoundaryConditions.WeatherData.BaseClasses.Examples.GetTimeSpanTMY3", method="CVode", tolerance=1e-006, resultFile="GetTimeSpanTMY3");
+createPlot(id=1,
+position={0, 0, 1376, 701},
+y={"timeSpan[1]", "timeSpan[2]"},
+range={0.0, 1.0, -2000000.0, 34000000.0},
+autoerase=false,
+grid=true,
 filename = "GetTimeSpanTMY3.mat",
 colors={{28,108,200}, {238,46,47}});
 

@@ -11,8 +11,8 @@ model StaticFourPortHeatMassExchanger
   constant Boolean prescribedHeatFlowRate2 = false
     "Set to true if the heat flow rate into fluid 2 is not a function of the component temperature";
 
-  parameter Boolean homotopyInitialization = true "= true, use homotopy method"
-    annotation(Evaluate=true, Dialog(tab="Advanced"));
+  constant Boolean homotopyInitialization = true "= true, use homotopy method"
+    annotation(HideResult=true);
 
   // Q1_flow is sensible plus latent heat flow rate
   input Modelica.SIunits.HeatFlowRate Q1_flow
@@ -60,6 +60,12 @@ protected
     final Q_flow = Q2_flow,
     final mWat_flow = mWat2_flow)
     "Model for heat, mass, species, trace substance and pressure balance of stream 2";
+
+initial equation
+  assert(homotopyInitialization, "In " + getInstanceName() +
+    ": The constant homotopyInitialization has been modified from its default value. This constant will be removed in future releases.",
+    level = AssertionLevel.warning);
+
 equation
   connect(bal1.port_a, port_a1);
   connect(bal1.port_b, port_b1);
@@ -114,6 +120,12 @@ or instantiates this model sets <code>mWat<i>N</i>_flow = 0</code>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+April 14, 2020, by Michael Wetter:<br/>
+Changed <code>homotopyInitialization</code> to a constant.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1341\">IBPSA, #1341</a>.
+</li>
 <li>
 April 11, 2017, by Michael Wetter:<br/>
 Updated documentation to make clear that <code>Q1_flow</code> and <code>Q2_flow</code>

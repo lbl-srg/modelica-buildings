@@ -1,266 +1,1711 @@
-<?xml version="1.0" standalone="no"?>
-<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
-<svg viewBox="0 0 8863.000000 1334.000000" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-	<rect fill="rgb(210,210,210)" stroke="rgb(0,0,0)" stroke-opacity="1" x="3686.46" y="948.385" width="128.923" height="128.923"/>
-	<rect fill="rgb(172,168,153)" stroke="none" x="3684.19" y="946.11" width="2.27467" height="131.198"/>
-	<rect fill="rgb(172,168,153)" stroke="none" x="3684.19" y="1077.31" width="131.198" height="2.27467"/>
-	<rect fill="rgb(172,168,153)" stroke="none" x="3815.38" y="948.385" width="2.27467" height="131.198"/>
-	<rect fill="rgb(172,168,153)" stroke="none" x="3686.46" y="946.11" width="131.198" height="2.27467"/>
-	<rect fill="rgb(255,255,255)" stroke="none" x="3686.46" y="948.385" width="3.412" height="128.923"/>
-	<rect fill="rgb(255,255,255)" stroke="none" x="3686.46" y="948.385" width="128.923" height="3.412"/>
-	<rect fill="rgb(113,111,100)" stroke="none" x="3813.11" y="948.385" width="2.27467" height="128.923"/>
-	<rect fill="rgb(113,111,100)" stroke="none" x="3686.46" y="1075.03" width="128.923" height="2.27467"/>
-	<rect fill="rgb(172,168,153)" stroke="none" x="3810.84" y="950.659" width="2.27467" height="124.374"/>
-	<rect fill="rgb(172,168,153)" stroke="none" x="3688.74" y="1072.76" width="124.374" height="2.27467"/>
-	<polyline fill="none" stroke="rgb(192,192,192)" stroke-opacity="1" points="3692.907692,1057.969231 3803.781538,1057.969231"/>
-	<polyline fill="none" stroke="rgb(192,192,192)" stroke-opacity="1" points="3699.353846,969.012308 3699.353846,1064.415385"/>
-	<polygon fill="rgb(192,192,192)" stroke="rgb(192,192,192)" stroke-opacity="1" points="3808.938462,1057.969231 3794.756923,1052.812308 3794.756923,1063.126154 3808.938462,1057.969231"/>
-	<polygon fill="rgb(192,192,192)" stroke="rgb(192,192,192)" stroke-opacity="1" points="3699.353846,954.830769 3694.196923,969.012308 3704.510769,969.012308 3699.353846,954.830769"/>
-	<polyline fill="none" stroke="rgb(255,0,255)" stroke-opacity="1" points="3699.353846,1057.969231 3712.246154,1057.969231 3712.246154,1029.606154 3775.418462,1029.606154 3775.418462,1057.969231 3793.467692,1057.969231"/>
-	<polyline fill="none" stroke="rgb(0,0,127)" stroke-opacity="1" points="3699.353846,1012.846154 3710.956923,1012.846154 3776.707692,954.830769 3776.707692,1012.846154 3794.756923,1012.846154"/>
-	<text x="3750.92" y="929.046" fill="rgb(0,0,255)" dominant-baseline="central" font-size="26" font-family="helvetica" text-anchor="middle">timer1</text>
-	<rect fill="rgb(210,210,210)" stroke="rgb(0,0,0)" stroke-opacity="1" x="4653.38" y="1141.77" width="128.923" height="128.923"/>
-	<rect fill="rgb(172,168,153)" stroke="none" x="4651.11" y="1139.49" width="2.27467" height="131.198"/>
-	<rect fill="rgb(172,168,153)" stroke="none" x="4651.11" y="1270.69" width="131.198" height="2.27467"/>
-	<rect fill="rgb(172,168,153)" stroke="none" x="4782.31" y="1141.77" width="2.27467" height="131.198"/>
-	<rect fill="rgb(172,168,153)" stroke="none" x="4653.38" y="1139.49" width="131.198" height="2.27467"/>
-	<rect fill="rgb(255,255,255)" stroke="none" x="4653.38" y="1141.77" width="3.412" height="128.923"/>
-	<rect fill="rgb(255,255,255)" stroke="none" x="4653.38" y="1141.77" width="128.923" height="3.412"/>
-	<rect fill="rgb(113,111,100)" stroke="none" x="4780.03" y="1141.77" width="2.27467" height="128.923"/>
-	<rect fill="rgb(113,111,100)" stroke="none" x="4653.38" y="1268.42" width="128.923" height="2.27467"/>
-	<rect fill="rgb(172,168,153)" stroke="none" x="4777.76" y="1144.04" width="2.27467" height="124.374"/>
-	<rect fill="rgb(172,168,153)" stroke="none" x="4655.66" y="1266.14" width="124.374" height="2.27467"/>
-	<polyline fill="none" stroke="rgb(192,192,192)" stroke-opacity="1" points="4659.830769,1251.353846 4770.704615,1251.353846"/>
-	<polyline fill="none" stroke="rgb(192,192,192)" stroke-opacity="1" points="4666.276923,1162.396923 4666.276923,1257.800000"/>
-	<polygon fill="rgb(192,192,192)" stroke="rgb(192,192,192)" stroke-opacity="1" points="4775.861538,1251.353846 4761.680000,1246.196923 4761.680000,1256.510769 4775.861538,1251.353846"/>
-	<polygon fill="rgb(192,192,192)" stroke="rgb(192,192,192)" stroke-opacity="1" points="4666.276923,1148.215385 4661.120000,1162.396923 4671.433846,1162.396923 4666.276923,1148.215385"/>
-	<polyline fill="none" stroke="rgb(255,0,255)" stroke-opacity="1" points="4666.276923,1251.353846 4679.169231,1251.353846 4679.169231,1222.990769 4742.341538,1222.990769 4742.341538,1251.353846 4760.390769,1251.353846"/>
-	<polyline fill="none" stroke="rgb(0,0,127)" stroke-opacity="1" points="4666.276923,1206.230769 4677.880000,1206.230769 4743.630769,1148.215385 4743.630769,1206.230769 4761.680000,1206.230769"/>
-	<text x="4717.85" y="1122.43" fill="rgb(0,0,255)" dominant-baseline="central" font-size="26" font-family="helvetica" text-anchor="middle">timer2</text>
-	<text x="3557.54" y="26.5846" fill="rgb(0,0,255)" dominant-baseline="central" font-size="26" font-family="helvetica" text-anchor="middle">stateGraphRoot</text>
-	<rect fill="none" stroke="rgb(0,0,0)" stroke-opacity="1" x="3493.08" y="45.9231" width="128.923" height="128.923"/>
-	<text x="3558.83" y="74.2862" fill="rgb(0,0,0)" dominant-baseline="central" font-size="28" font-family="helvetica" text-anchor="middle">root</text>
-	<rect fill="none" stroke="rgb(0,0,0)" stroke-opacity="1" x="3504.68" y="114.252" width="24.4954" height="21.9169"/>
-	<polyline fill="none" stroke="rgb(0,0,0)" stroke-opacity="1" points="3557.538462,103.938462 3557.538462,149.061538"/>
-	<rect fill="none" stroke="rgb(0,0,0)" stroke-opacity="1" x="3588.48" y="114.252" width="24.4954" height="21.9169"/>
-	<polygon fill="rgb(0,0,0)" stroke="rgb(0,0,0)" stroke-opacity="1" points="3549.803077,120.698462 3557.538462,124.566154 3549.803077,128.433846 3549.803077,120.698462"/>
-	<polyline fill="none" stroke="rgb(0,0,0)" stroke-opacity="1" points="3529.175385,124.566154 3549.803077,124.566154"/>
-	<polygon fill="rgb(0,0,0)" stroke="rgb(0,0,0)" stroke-opacity="1" points="3580.744615,120.698462 3588.480000,124.566154 3580.744615,128.433846 3580.744615,120.698462"/>
-	<polyline fill="none" stroke="rgb(0,0,0)" stroke-opacity="1" points="3557.538462,124.566154 3580.744615,124.566154"/>
-	<text x="4202.15" y="606.738" fill="rgb(0,0,255)" dominant-baseline="central" font-size="26" font-family="helvetica" text-anchor="middle">outputFalse</text>
-	<rect fill="rgb(255,255,255)" stroke="rgb(0,0,0)" stroke-opacity="1" x="4137.69" y="626.077" width="128.923" height="128.923"/>
-	<text x="4202.8" y="744.042" fill="rgb(0,0,0)" dominant-baseline="central" font-size="12" font-family="helvetica" text-anchor="middle">active</text>
-	<text x="4466.45" y="669.588" fill="rgb(255,255,255)" dominant-baseline="central" font-size="16" font-family="helvetica" text-anchor="middle">0</text>
-	<rect fill="rgb(0,0,0)" stroke="rgb(0,0,0)" stroke-opacity="1" x="4389.09" y="626.077" width="12.8923" height="128.923"/>
-	<polyline fill="none" stroke="rgb(0,0,0)" stroke-opacity="1" points="4376.200000,690.538462 4389.092308,690.538462"/>
-	<text x="4395.54" y="606.738" fill="rgb(0,0,255)" dominant-baseline="central" font-size="26" font-family="helvetica" text-anchor="middle">toTrue</text>
-	<ellipse fill="rgb(0,0,0)" stroke="rgb(0,0,0)" stroke-opacity="1" cx="4395.54" cy="747.265" rx="4.51231" ry="4.51231"/>
-	<rect fill="rgb(215,215,215)" stroke="rgb(0,0,0)" stroke-opacity="1" x="3622" y="303.769" width="128.923" height="128.923"/>
-	<rect fill="rgb(172,168,153)" stroke="none" x="3619.73" y="301.495" width="2.27467" height="131.198"/>
-	<rect fill="rgb(172,168,153)" stroke="none" x="3619.73" y="432.692" width="131.198" height="2.27467"/>
-	<rect fill="rgb(172,168,153)" stroke="none" x="3750.92" y="303.769" width="2.27467" height="131.198"/>
-	<rect fill="rgb(172,168,153)" stroke="none" x="3622" y="301.495" width="131.198" height="2.27467"/>
-	<rect fill="rgb(255,255,255)" stroke="none" x="3622" y="303.769" width="3.412" height="128.923"/>
-	<rect fill="rgb(255,255,255)" stroke="none" x="3622" y="303.769" width="128.923" height="3.412"/>
-	<rect fill="rgb(113,111,100)" stroke="none" x="3748.65" y="303.769" width="2.27467" height="128.923"/>
-	<rect fill="rgb(113,111,100)" stroke="none" x="3622" y="430.418" width="128.923" height="2.27467"/>
-	<rect fill="rgb(172,168,153)" stroke="none" x="3746.37" y="306.044" width="2.27467" height="124.374"/>
-	<rect fill="rgb(172,168,153)" stroke="none" x="3624.27" y="428.143" width="124.374" height="2.27467"/>
-	<text x="3691.62" y="366.942" fill="rgb(0,0,0)" dominant-baseline="central" font-size="34" font-family="helvetica" text-anchor="middle">not</text>
-	<ellipse fill="rgb(235,235,235)" stroke="rgb(235,235,235)" stroke-opacity="1" cx="3736.74" cy="368.231" rx="4.51231" ry="4.51231"/>
-	<text x="3686.46" y="284.431" fill="rgb(0,0,255)" dominant-baseline="central" font-size="26" font-family="helvetica" text-anchor="middle">notU</text>
-	<text x="4588.92" y="606.738" fill="rgb(0,0,255)" dominant-baseline="central" font-size="26" font-family="helvetica" text-anchor="middle">outputTrue</text>
-	<rect fill="rgb(255,255,255)" stroke="rgb(0,0,0)" stroke-opacity="1" x="4524.46" y="626.077" width="128.923" height="128.923"/>
-	<text x="4589.57" y="744.042" fill="rgb(0,0,0)" dominant-baseline="central" font-size="12" font-family="helvetica" text-anchor="middle">active</text>
-	<text x="4853.22" y="669.588" fill="rgb(255,255,255)" dominant-baseline="central" font-size="16" font-family="helvetica" text-anchor="middle">0</text>
-	<rect fill="rgb(0,0,0)" stroke="rgb(0,0,0)" stroke-opacity="1" x="4775.86" y="626.077" width="12.8923" height="128.923"/>
-	<polyline fill="none" stroke="rgb(0,0,0)" stroke-opacity="1" points="4762.969231,690.538462 4775.861538,690.538462"/>
-	<text x="4782.31" y="606.738" fill="rgb(0,0,255)" dominant-baseline="central" font-size="26" font-family="helvetica" text-anchor="middle">toFalse</text>
-	<ellipse fill="rgb(0,0,0)" stroke="rgb(0,0,0)" stroke-opacity="1" cx="4782.31" cy="747.265" rx="4.51231" ry="4.51231"/>
-	<text x="4975.69" y="1286.81" fill="rgb(0,0,0)" dominant-baseline="central" font-size="19" font-family="helvetica" text-anchor="middle">duration</text>
-	<rect fill="rgb(210,210,210)" stroke="rgb(0,0,0)" stroke-opacity="1" x="4911.23" y="1141.77" width="128.923" height="128.923"/>
-	<rect fill="rgb(172,168,153)" stroke="none" x="4908.96" y="1139.49" width="2.27467" height="131.198"/>
-	<rect fill="rgb(172,168,153)" stroke="none" x="4908.96" y="1270.69" width="131.198" height="2.27467"/>
-	<rect fill="rgb(172,168,153)" stroke="none" x="5040.15" y="1141.77" width="2.27467" height="131.198"/>
-	<rect fill="rgb(172,168,153)" stroke="none" x="4911.23" y="1139.49" width="131.198" height="2.27467"/>
-	<rect fill="rgb(255,255,255)" stroke="none" x="4911.23" y="1141.77" width="3.412" height="128.923"/>
-	<rect fill="rgb(255,255,255)" stroke="none" x="4911.23" y="1141.77" width="128.923" height="3.412"/>
-	<rect fill="rgb(113,111,100)" stroke="none" x="5037.88" y="1141.77" width="2.27467" height="128.923"/>
-	<rect fill="rgb(113,111,100)" stroke="none" x="4911.23" y="1268.42" width="128.923" height="2.27467"/>
-	<rect fill="rgb(172,168,153)" stroke="none" x="5035.6" y="1144.04" width="2.27467" height="124.374"/>
-	<rect fill="rgb(172,168,153)" stroke="none" x="4913.51" y="1266.14" width="124.374" height="2.27467"/>
-	<ellipse fill="rgb(235,235,235)" stroke="rgb(235,235,235)" stroke-opacity="1" cx="5025.97" cy="1206.23" rx="4.51231" ry="4.51231"/>
-	<text x="4966.02" y="1206.23" fill="rgb(0,0,0)" dominant-baseline="central" font-size="52" font-family="helvetica" text-anchor="middle">>=</text>
-	<text x="4975.69" y="1122.43" fill="rgb(0,0,255)" dominant-baseline="central" font-size="26" font-family="helvetica" text-anchor="middle">greEquThr2</text>
-	<rect fill="rgb(210,210,210)" stroke="rgb(0,0,0)" stroke-opacity="1" x="5169.08" y="1141.77" width="128.923" height="128.923"/>
-	<rect fill="rgb(172,168,153)" stroke="none" x="5166.8" y="1139.49" width="2.27467" height="131.198"/>
-	<rect fill="rgb(172,168,153)" stroke="none" x="5166.8" y="1270.69" width="131.198" height="2.27467"/>
-	<rect fill="rgb(172,168,153)" stroke="none" x="5298" y="1141.77" width="2.27467" height="131.198"/>
-	<rect fill="rgb(172,168,153)" stroke="none" x="5169.08" y="1139.49" width="131.198" height="2.27467"/>
-	<rect fill="rgb(255,255,255)" stroke="none" x="5169.08" y="1141.77" width="3.412" height="128.923"/>
-	<rect fill="rgb(255,255,255)" stroke="none" x="5169.08" y="1141.77" width="128.923" height="3.412"/>
-	<rect fill="rgb(113,111,100)" stroke="none" x="5295.73" y="1141.77" width="2.27467" height="128.923"/>
-	<rect fill="rgb(113,111,100)" stroke="none" x="5169.08" y="1268.42" width="128.923" height="2.27467"/>
-	<rect fill="rgb(172,168,153)" stroke="none" x="5293.45" y="1144.04" width="2.27467" height="124.374"/>
-	<rect fill="rgb(172,168,153)" stroke="none" x="5171.35" y="1266.14" width="124.374" height="2.27467"/>
-	<text x="5233.54" y="1206.23" fill="rgb(0,0,0)" dominant-baseline="central" font-size="52" font-family="helvetica" text-anchor="middle">and</text>
-	<ellipse fill="rgb(235,235,235)" stroke="rgb(235,235,235)" stroke-opacity="1" cx="5283.82" cy="1206.23" rx="4.51231" ry="4.51231"/>
-	<ellipse fill="rgb(235,235,235)" stroke="rgb(235,235,235)" stroke-opacity="1" cx="5180.68" cy="1205.59" rx="4.51231" ry="4.51231"/>
-	<ellipse fill="rgb(235,235,235)" stroke="rgb(235,235,235)" stroke-opacity="1" cx="5180.68" cy="1257.8" rx="4.51231" ry="4.51231"/>
-	<text x="5233.54" y="1122.43" fill="rgb(0,0,255)" dominant-baseline="central" font-size="26" font-family="helvetica" text-anchor="middle">and2</text>
-	<text x="4008.77" y="1093.42" fill="rgb(0,0,0)" dominant-baseline="central" font-size="19" font-family="helvetica" text-anchor="middle">duration</text>
-	<rect fill="rgb(210,210,210)" stroke="rgb(0,0,0)" stroke-opacity="1" x="3944.31" y="948.385" width="128.923" height="128.923"/>
-	<rect fill="rgb(172,168,153)" stroke="none" x="3942.03" y="946.11" width="2.27467" height="131.198"/>
-	<rect fill="rgb(172,168,153)" stroke="none" x="3942.03" y="1077.31" width="131.198" height="2.27467"/>
-	<rect fill="rgb(172,168,153)" stroke="none" x="4073.23" y="948.385" width="2.27467" height="131.198"/>
-	<rect fill="rgb(172,168,153)" stroke="none" x="3944.31" y="946.11" width="131.198" height="2.27467"/>
-	<rect fill="rgb(255,255,255)" stroke="none" x="3944.31" y="948.385" width="3.412" height="128.923"/>
-	<rect fill="rgb(255,255,255)" stroke="none" x="3944.31" y="948.385" width="128.923" height="3.412"/>
-	<rect fill="rgb(113,111,100)" stroke="none" x="4070.96" y="948.385" width="2.27467" height="128.923"/>
-	<rect fill="rgb(113,111,100)" stroke="none" x="3944.31" y="1075.03" width="128.923" height="2.27467"/>
-	<rect fill="rgb(172,168,153)" stroke="none" x="4068.68" y="950.659" width="2.27467" height="124.374"/>
-	<rect fill="rgb(172,168,153)" stroke="none" x="3946.58" y="1072.76" width="124.374" height="2.27467"/>
-	<ellipse fill="rgb(235,235,235)" stroke="rgb(235,235,235)" stroke-opacity="1" cx="4059.05" cy="1012.85" rx="4.51231" ry="4.51231"/>
-	<text x="3999.1" y="1012.85" fill="rgb(0,0,0)" dominant-baseline="central" font-size="52" font-family="helvetica" text-anchor="middle">>=</text>
-	<text x="4008.77" y="929.046" fill="rgb(0,0,255)" dominant-baseline="central" font-size="26" font-family="helvetica" text-anchor="middle">greEquThr1</text>
-	<rect fill="rgb(210,210,210)" stroke="rgb(0,0,0)" stroke-opacity="1" x="4202.15" y="948.385" width="128.923" height="128.923"/>
-	<rect fill="rgb(172,168,153)" stroke="none" x="4199.88" y="946.11" width="2.27467" height="131.198"/>
-	<rect fill="rgb(172,168,153)" stroke="none" x="4199.88" y="1077.31" width="131.198" height="2.27467"/>
-	<rect fill="rgb(172,168,153)" stroke="none" x="4331.08" y="948.385" width="2.27467" height="131.198"/>
-	<rect fill="rgb(172,168,153)" stroke="none" x="4202.15" y="946.11" width="131.198" height="2.27467"/>
-	<rect fill="rgb(255,255,255)" stroke="none" x="4202.15" y="948.385" width="3.412" height="128.923"/>
-	<rect fill="rgb(255,255,255)" stroke="none" x="4202.15" y="948.385" width="128.923" height="3.412"/>
-	<rect fill="rgb(113,111,100)" stroke="none" x="4328.8" y="948.385" width="2.27467" height="128.923"/>
-	<rect fill="rgb(113,111,100)" stroke="none" x="4202.15" y="1075.03" width="128.923" height="2.27467"/>
-	<rect fill="rgb(172,168,153)" stroke="none" x="4326.53" y="950.659" width="2.27467" height="124.374"/>
-	<rect fill="rgb(172,168,153)" stroke="none" x="4204.43" y="1072.76" width="124.374" height="2.27467"/>
-	<text x="4266.62" y="1012.85" fill="rgb(0,0,0)" dominant-baseline="central" font-size="52" font-family="helvetica" text-anchor="middle">and</text>
-	<ellipse fill="rgb(235,235,235)" stroke="rgb(235,235,235)" stroke-opacity="1" cx="4316.9" cy="1012.85" rx="4.51231" ry="4.51231"/>
-	<ellipse fill="rgb(235,235,235)" stroke="rgb(235,235,235)" stroke-opacity="1" cx="4213.76" cy="1012.2" rx="4.51231" ry="4.51231"/>
-	<ellipse fill="rgb(235,235,235)" stroke="rgb(235,235,235)" stroke-opacity="1" cx="4213.76" cy="1064.42" rx="4.51231" ry="4.51231"/>
-	<text x="4266.62" y="929.046" fill="rgb(0,0,255)" dominant-baseline="central" font-size="26" font-family="helvetica" text-anchor="middle">and1</text>
-	<text x="3815.38" y="26.5846" fill="rgb(0,0,255)" dominant-baseline="central" font-size="26" font-family="helvetica" text-anchor="middle">initialStep</text>
-	<rect fill="rgb(255,255,255)" stroke="rgb(0,0,0)" stroke-opacity="1" x="3750.92" y="45.9231" width="128.923" height="128.923"/>
-	<rect fill="none" stroke="rgb(0,0,0)" stroke-opacity="1" x="3763.82" y="58.8154" width="103.138" height="103.138"/>
-	<text x="4208.6" y="76.5423" fill="rgb(255,255,255)" dominant-baseline="central" font-size="16" font-family="helvetica" text-anchor="middle">0</text>
-	<rect fill="rgb(0,0,0)" stroke="rgb(0,0,0)" stroke-opacity="1" x="4131.25" y="33.0308" width="12.8923" height="128.923"/>
-	<polyline fill="none" stroke="rgb(0,0,0)" stroke-opacity="1" points="4118.353846,97.492308 4131.246154,97.492308"/>
-	<text x="4137.69" y="13.6923" fill="rgb(0,0,255)" dominant-baseline="central" font-size="26" font-family="helvetica" text-anchor="middle">toTrue1</text>
-	<ellipse fill="rgb(0,0,0)" stroke="rgb(0,0,0)" stroke-opacity="1" cx="4137.69" cy="154.218" rx="4.51231" ry="4.51231"/>
-	<text x="4079.68" y="218.358" fill="rgb(255,255,255)" dominant-baseline="central" font-size="16" font-family="helvetica" text-anchor="middle">0</text>
-	<rect fill="rgb(0,0,0)" stroke="rgb(0,0,0)" stroke-opacity="1" x="4002.32" y="174.846" width="12.8923" height="128.923"/>
-	<polyline fill="none" stroke="rgb(0,0,0)" stroke-opacity="1" points="3989.430769,239.307692 4002.323077,239.307692"/>
-	<text x="4008.77" y="155.508" fill="rgb(0,0,255)" dominant-baseline="central" font-size="26" font-family="helvetica" text-anchor="middle">toFalse1</text>
-	<ellipse fill="rgb(0,0,0)" stroke="rgb(0,0,0)" stroke-opacity="1" cx="4008.77" cy="296.034" rx="4.51231" ry="4.51231"/>
-	<polyline fill="none" stroke="rgb(255,255,255)" stroke-width="5" stroke-opacity="1" points="4656.607692,690.538462 4704.953846,690.538462 4756.523077,690.538462"/>
-	<polyline fill="none" stroke="rgb(0,0,0)" stroke-opacity="1" points="4656.607692,690.538462 4704.953846,690.538462 4756.523077,690.538462"/>
-	<polyline fill="none" stroke="rgb(255,255,255)" stroke-width="5" stroke-opacity="1" points="4588.923077,761.446154 4588.923077,819.461538 5620.307692,819.461538"/>
-	<polyline fill="none" stroke="rgb(255,0,255)" stroke-opacity="1" points="4588.923077,761.446154 4588.923077,819.461538 5620.307692,819.461538"/>
-	<polyline fill="none" stroke="rgb(255,255,255)" stroke-width="5" stroke-opacity="1" points="4269.838462,690.538462 4318.184615,690.538462 4369.753846,690.538462"/>
-	<polyline fill="none" stroke="rgb(0,0,0)" stroke-opacity="1" points="4269.838462,690.538462 4318.184615,690.538462 4369.753846,690.538462"/>
-	<polyline fill="none" stroke="rgb(255,255,255)" stroke-width="5" stroke-opacity="1" points="4791.976923,690.538462 4911.230769,690.538462 4911.230769,561.615385 4073.230769,561.615385 4073.230769,687.315385 4131.246154,687.315385"/>
-	<polyline fill="none" stroke="rgb(0,0,0)" stroke-opacity="1" points="4791.976923,690.538462 4911.230769,690.538462 4911.230769,561.615385 4073.230769,561.615385 4073.230769,687.315385 4131.246154,687.315385"/>
-	<polyline fill="none" stroke="rgb(255,255,255)" stroke-width="5" stroke-opacity="1" points="4588.923077,761.446154 4588.923077,819.461538 4588.923077,1206.230769 4640.492308,1206.230769"/>
-	<polyline fill="none" stroke="rgb(255,0,255)" stroke-opacity="1" points="4588.923077,761.446154 4588.923077,819.461538 4588.923077,1206.230769 4640.492308,1206.230769"/>
-	<polyline fill="none" stroke="rgb(255,255,255)" stroke-width="5" stroke-opacity="1" points="4788.753846,1206.230769 4898.338462,1206.230769"/>
-	<polyline fill="none" stroke="rgb(0,0,127)" stroke-opacity="1" points="4788.753846,1206.230769 4898.338462,1206.230769"/>
-	<polyline fill="none" stroke="rgb(255,255,255)" stroke-width="5" stroke-opacity="1" points="5046.600000,1206.230769 5046.600000,1206.230769 5156.184615,1206.230769"/>
-	<polyline fill="none" stroke="rgb(255,0,255)" stroke-opacity="1" points="5046.600000,1206.230769 5046.600000,1206.230769 5156.184615,1206.230769"/>
-	<polyline fill="none" stroke="rgb(255,255,255)" stroke-width="5" stroke-opacity="1" points="3757.369231,368.230769 5426.923077,368.230769 5426.923077,1335.153846 5104.615385,1335.153846 5104.615385,1257.800000 5156.184615,1257.800000"/>
-	<polyline fill="none" stroke="rgb(255,0,255)" stroke-opacity="1" points="3757.369231,368.230769 5426.923077,368.230769 5426.923077,1335.153846 5104.615385,1335.153846 5104.615385,1257.800000 5156.184615,1257.800000"/>
-	<polyline fill="none" stroke="rgb(255,255,255)" stroke-width="5" stroke-opacity="1" points="5304.446154,1206.230769 5375.353846,1206.230769 5375.353846,948.384615 4782.307692,948.384615 4782.307692,767.892308"/>
-	<polyline fill="none" stroke="rgb(255,0,255)" stroke-opacity="1" points="5304.446154,1206.230769 5375.353846,1206.230769 5375.353846,948.384615 4782.307692,948.384615 4782.307692,767.892308"/>
-	<polyline fill="none" stroke="rgb(255,255,255)" stroke-width="5" stroke-opacity="1" points="3821.830769,1012.846154 3931.415385,1012.846154"/>
-	<polyline fill="none" stroke="rgb(0,0,127)" stroke-opacity="1" points="3821.830769,1012.846154 3931.415385,1012.846154"/>
-	<polyline fill="none" stroke="rgb(255,255,255)" stroke-width="5" stroke-opacity="1" points="4202.153846,761.446154 4202.153846,819.461538 3622.000000,819.461538 3622.000000,1012.846154 3673.569231,1012.846154"/>
-	<polyline fill="none" stroke="rgb(255,0,255)" stroke-opacity="1" points="4202.153846,761.446154 4202.153846,819.461538 3622.000000,819.461538 3622.000000,1012.846154 3673.569231,1012.846154"/>
-	<polyline fill="none" stroke="rgb(255,255,255)" stroke-width="5" stroke-opacity="1" points="3235.230769,819.461538 3493.076923,819.461538 3493.076923,1141.769231 4137.692308,1141.769231 4137.692308,1064.415385 4189.261538,1064.415385 4189.261538,1064.415385"/>
-	<polyline fill="none" stroke="rgb(255,0,255)" stroke-opacity="1" points="3235.230769,819.461538 3493.076923,819.461538 3493.076923,1141.769231 4137.692308,1141.769231 4137.692308,1064.415385 4189.261538,1064.415385 4189.261538,1064.415385"/>
-	<polyline fill="none" stroke="rgb(255,255,255)" stroke-width="5" stroke-opacity="1" points="4079.676923,1012.846154 4189.261538,1012.846154"/>
-	<polyline fill="none" stroke="rgb(255,0,255)" stroke-opacity="1" points="4079.676923,1012.846154 4189.261538,1012.846154"/>
-	<polyline fill="none" stroke="rgb(255,255,255)" stroke-width="5" stroke-opacity="1" points="4337.523077,1012.846154 4395.538462,1012.846154 4395.538462,767.892308"/>
-	<polyline fill="none" stroke="rgb(255,0,255)" stroke-opacity="1" points="4337.523077,1012.846154 4395.538462,1012.846154 4395.538462,767.892308"/>
-	<polyline fill="none" stroke="rgb(255,255,255)" stroke-width="5" stroke-opacity="1" points="3235.230769,819.461538 3493.076923,819.461538 3493.076923,484.261538 4137.692308,484.261538 4137.692308,174.846154"/>
-	<polyline fill="none" stroke="rgb(255,0,255)" stroke-opacity="1" points="3235.230769,819.461538 3493.076923,819.461538 3493.076923,484.261538 4137.692308,484.261538 4137.692308,174.846154"/>
-	<polyline fill="none" stroke="rgb(255,255,255)" stroke-width="5" stroke-opacity="1" points="4147.361538,97.492308 4460.000000,97.492308 4460.000000,687.315385 4518.015385,687.315385"/>
-	<polyline fill="none" stroke="rgb(0,0,0)" stroke-opacity="1" points="4147.361538,97.492308 4460.000000,97.492308 4460.000000,687.315385 4518.015385,687.315385"/>
-	<polyline fill="none" stroke="rgb(255,255,255)" stroke-width="5" stroke-opacity="1" points="4405.207692,690.538462 4518.015385,690.538462 4518.015385,693.761538"/>
-	<polyline fill="none" stroke="rgb(0,0,0)" stroke-opacity="1" points="4405.207692,690.538462 4518.015385,690.538462 4518.015385,693.761538"/>
-	<polyline fill="none" stroke="rgb(255,255,255)" stroke-width="5" stroke-opacity="1" points="4018.438462,239.307692 4060.338462,239.307692 4060.338462,535.830769 4060.338462,690.538462 4131.246154,690.538462 4131.246154,693.761538"/>
-	<polyline fill="none" stroke="rgb(0,0,0)" stroke-opacity="1" points="4018.438462,239.307692 4060.338462,239.307692 4060.338462,535.830769 4060.338462,690.538462 4131.246154,690.538462 4131.246154,693.761538"/>
-	<polyline fill="none" stroke="rgb(255,255,255)" stroke-width="5" stroke-opacity="1" points="3883.069231,108.773077 3944.307692,108.773077 3944.307692,110.384615 3944.307692,97.492308 4111.907692,97.492308"/>
-	<polyline fill="none" stroke="rgb(0,0,0)" stroke-opacity="1" points="3883.069231,108.773077 3944.307692,108.773077 3944.307692,110.384615 3944.307692,97.492308 4111.907692,97.492308"/>
-	<polyline fill="none" stroke="rgb(255,255,255)" stroke-width="5" stroke-opacity="1" points="3883.069231,111.996154 3918.523077,111.996154 3918.523077,110.384615 3944.307692,110.384615 3944.307692,239.307692 3982.984615,239.307692"/>
-	<polyline fill="none" stroke="rgb(0,0,0)" stroke-opacity="1" points="3883.069231,111.996154 3918.523077,111.996154 3918.523077,110.384615 3944.307692,110.384615 3944.307692,239.307692 3982.984615,239.307692"/>
-	<polyline fill="none" stroke="rgb(255,255,255)" stroke-width="5" stroke-opacity="1" points="3609.107692,368.230769 3493.076923,368.230769 3493.076923,819.461538 3235.230769,819.461538"/>
-	<polyline fill="none" stroke="rgb(255,0,255)" stroke-opacity="1" points="3609.107692,368.230769 3493.076923,368.230769 3493.076923,819.461538 3235.230769,819.461538"/>
-	<polyline fill="none" stroke="rgb(255,255,255)" stroke-width="5" stroke-opacity="1" points="3757.369231,368.230769 4008.769231,368.230769 4008.769231,316.661538"/>
-	<polyline fill="none" stroke="rgb(255,0,255)" stroke-opacity="1" points="3757.369231,368.230769 4008.769231,368.230769 4008.769231,316.661538"/>
-	<ellipse fill="rgb(255,0,255)" stroke="rgb(255,0,255)" cx="3493.08" cy="819.462" rx="3.5" ry="3.5"/>
-	<ellipse fill="rgb(255,0,255)" stroke="rgb(255,0,255)" cx="3493.08" cy="819.462" rx="3.5" ry="3.5"/>
-	<ellipse fill="rgb(255,0,255)" stroke="rgb(255,0,255)" cx="3493.08" cy="484.262" rx="3.5" ry="3.5"/>
-	<ellipse fill="rgb(255,0,255)" stroke="rgb(255,0,255)" cx="4008.77" cy="368.231" rx="3.5" ry="3.5"/>
-	<ellipse fill="rgb(255,0,255)" stroke="rgb(255,0,255)" cx="4588.92" cy="819.462" rx="3.5" ry="3.5"/>
-	<polygon fill="rgb(255,0,255)" stroke="rgb(255,0,255)" stroke-opacity="1" points="3235.230769,755.000000 3364.153846,819.461538 3235.230769,883.923077 3235.230769,755.000000"/>
-	<text x="3222.34" y="725.992" fill="rgb(255,0,255)" dominant-baseline="central" font-size="32" font-family="helvetica" text-anchor="middle">u</text>
-	<polygon fill="rgb(255,255,255)" stroke="rgb(255,0,255)" stroke-opacity="1" points="5555.846154,787.230769 5620.307692,819.461538 5555.846154,851.692308 5555.846154,787.230769"/>
-	<text x="5639.65" y="764.669" fill="rgb(255,0,255)" dominant-baseline="central" font-size="32" font-family="helvetica" text-anchor="middle">y</text>
-	<polygon fill="rgb(255,0,255)" stroke="rgb(255,0,255)" stroke-opacity="1" points="3660.676923,999.953846 3686.461538,1012.846154 3660.676923,1025.738462 3660.676923,999.953846"/>
-	<text x="3660.68" y="997.375" fill="rgb(255,0,255)" dominant-baseline="central" font-size="10" font-family="helvetica" text-anchor="middle">u</text>
-	<polygon fill="rgb(255,255,255)" stroke="rgb(0,0,127)" stroke-opacity="1" points="3815.384615,1006.400000 3828.276923,1012.846154 3815.384615,1019.292308 3815.384615,1006.400000"/>
-	<text x="3824.41" y="1005.11" fill="rgb(0,0,127)" dominant-baseline="central" font-size="10" font-family="helvetica" text-anchor="middle">y</text>
-	<polygon fill="rgb(255,0,255)" stroke="rgb(255,0,255)" stroke-opacity="1" points="4627.600000,1193.338462 4653.384615,1206.230769 4627.600000,1219.123077 4627.600000,1193.338462"/>
-	<text x="4627.6" y="1190.76" fill="rgb(255,0,255)" dominant-baseline="central" font-size="10" font-family="helvetica" text-anchor="middle">u</text>
-	<polygon fill="rgb(255,255,255)" stroke="rgb(0,0,127)" stroke-opacity="1" points="4782.307692,1199.784615 4795.200000,1206.230769 4782.307692,1212.676923 4782.307692,1199.784615"/>
-	<text x="4791.33" y="1198.5" fill="rgb(0,0,127)" dominant-baseline="central" font-size="10" font-family="helvetica" text-anchor="middle">y</text>
-	<polygon fill="rgb(0,0,0)" stroke="rgb(0,0,0)" stroke-opacity="1" points="4124.800000,696.984615 4137.692308,690.538462 4124.800000,684.092308 4124.800000,696.984615"/>
-	<polygon fill="rgb(0,0,0)" stroke="rgb(0,0,0)" stroke-opacity="1" points="4124.800000,696.984615 4137.692308,690.538462 4124.800000,684.092308 4124.800000,696.984615"/>
-	<rect fill="rgb(255,255,255)" stroke="rgb(0,0,0)" stroke-opacity="1" x="4266.62" y="687.315" width="6.44615" height="6.44615"/>
-	<rect fill="rgb(255,255,255)" stroke="rgb(0,0,0)" stroke-opacity="1" x="4266.62" y="687.315" width="6.44615" height="6.44615"/>
-	<polygon fill="rgb(255,255,255)" stroke="rgb(255,0,255)" stroke-opacity="1" points="4208.600000,755.000000 4202.153846,767.892308 4195.707692,755.000000 4208.600000,755.000000"/>
-	<polygon fill="rgb(0,0,0)" stroke="rgb(0,0,0)" stroke-opacity="1" points="4363.307692,684.092308 4376.200000,690.538462 4363.307692,696.984615 4363.307692,684.092308"/>
-	<rect fill="rgb(255,255,255)" stroke="rgb(0,0,0)" stroke-opacity="1" x="4401.98" y="687.315" width="6.44615" height="6.44615"/>
-	<polygon fill="rgb(255,0,255)" stroke="rgb(255,0,255)" stroke-opacity="1" points="4382.646154,780.784615 4395.538462,755.000000 4408.430769,780.784615 4382.646154,780.784615"/>
-	<polygon fill="rgb(255,0,255)" stroke="rgb(255,0,255)" stroke-opacity="1" points="3596.215385,355.338462 3622.000000,368.230769 3596.215385,381.123077 3596.215385,355.338462"/>
-	<text x="3596.22" y="352.76" fill="rgb(255,0,255)" dominant-baseline="central" font-size="10" font-family="helvetica" text-anchor="middle">u</text>
-	<polygon fill="rgb(255,255,255)" stroke="rgb(255,0,255)" stroke-opacity="1" points="3750.923077,361.784615 3763.815385,368.230769 3750.923077,374.676923 3750.923077,361.784615"/>
-	<text x="3759.95" y="360.495" fill="rgb(255,0,255)" dominant-baseline="central" font-size="10" font-family="helvetica" text-anchor="middle">y</text>
-	<polygon fill="rgb(0,0,0)" stroke="rgb(0,0,0)" stroke-opacity="1" points="4511.569231,696.984615 4524.461538,690.538462 4511.569231,684.092308 4511.569231,696.984615"/>
-	<polygon fill="rgb(0,0,0)" stroke="rgb(0,0,0)" stroke-opacity="1" points="4511.569231,696.984615 4524.461538,690.538462 4511.569231,684.092308 4511.569231,696.984615"/>
-	<rect fill="rgb(255,255,255)" stroke="rgb(0,0,0)" stroke-opacity="1" x="4653.38" y="687.315" width="6.44615" height="6.44615"/>
-	<rect fill="rgb(255,255,255)" stroke="rgb(0,0,0)" stroke-opacity="1" x="4653.38" y="687.315" width="6.44615" height="6.44615"/>
-	<polygon fill="rgb(255,255,255)" stroke="rgb(255,0,255)" stroke-opacity="1" points="4595.369231,755.000000 4588.923077,767.892308 4582.476923,755.000000 4595.369231,755.000000"/>
-	<polygon fill="rgb(0,0,0)" stroke="rgb(0,0,0)" stroke-opacity="1" points="4750.076923,684.092308 4762.969231,690.538462 4750.076923,696.984615 4750.076923,684.092308"/>
-	<rect fill="rgb(255,255,255)" stroke="rgb(0,0,0)" stroke-opacity="1" x="4788.75" y="687.315" width="6.44615" height="6.44615"/>
-	<polygon fill="rgb(255,0,255)" stroke="rgb(255,0,255)" stroke-opacity="1" points="4769.415385,780.784615 4782.307692,755.000000 4795.200000,780.784615 4769.415385,780.784615"/>
-	<polygon fill="rgb(0,0,127)" stroke="rgb(0,0,127)" stroke-opacity="1" points="4885.446154,1193.338462 4911.230769,1206.230769 4885.446154,1219.123077 4885.446154,1193.338462"/>
-	<text x="4885.45" y="1190.76" fill="rgb(0,0,127)" dominant-baseline="central" font-size="10" font-family="helvetica" text-anchor="middle">u</text>
-	<polygon fill="rgb(255,255,255)" stroke="rgb(255,0,255)" stroke-opacity="1" points="5040.153846,1199.784615 5053.046154,1206.230769 5040.153846,1212.676923 5040.153846,1199.784615"/>
-	<text x="5049.18" y="1198.5" fill="rgb(255,0,255)" dominant-baseline="central" font-size="10" font-family="helvetica" text-anchor="middle">y</text>
-	<polygon fill="rgb(255,0,255)" stroke="rgb(255,0,255)" stroke-opacity="1" points="5143.292308,1193.338462 5169.076923,1206.230769 5143.292308,1219.123077 5143.292308,1193.338462"/>
-	<text x="5143.29" y="1190.76" fill="rgb(255,0,255)" dominant-baseline="central" font-size="10" font-family="helvetica" text-anchor="middle">u1</text>
-	<polygon fill="rgb(255,0,255)" stroke="rgb(255,0,255)" stroke-opacity="1" points="5143.292308,1244.907692 5169.076923,1257.800000 5143.292308,1270.692308 5143.292308,1244.907692"/>
-	<text x="5143.29" y="1242.33" fill="rgb(255,0,255)" dominant-baseline="central" font-size="10" font-family="helvetica" text-anchor="middle">u2</text>
-	<polygon fill="rgb(255,255,255)" stroke="rgb(255,0,255)" stroke-opacity="1" points="5298.000000,1199.784615 5310.892308,1206.230769 5298.000000,1212.676923 5298.000000,1199.784615"/>
-	<text x="5307.02" y="1198.5" fill="rgb(255,0,255)" dominant-baseline="central" font-size="10" font-family="helvetica" text-anchor="middle">y</text>
-	<polygon fill="rgb(0,0,127)" stroke="rgb(0,0,127)" stroke-opacity="1" points="3918.523077,999.953846 3944.307692,1012.846154 3918.523077,1025.738462 3918.523077,999.953846"/>
-	<text x="3918.52" y="997.375" fill="rgb(0,0,127)" dominant-baseline="central" font-size="10" font-family="helvetica" text-anchor="middle">u</text>
-	<polygon fill="rgb(255,255,255)" stroke="rgb(255,0,255)" stroke-opacity="1" points="4073.230769,1006.400000 4086.123077,1012.846154 4073.230769,1019.292308 4073.230769,1006.400000"/>
-	<text x="4082.26" y="1005.11" fill="rgb(255,0,255)" dominant-baseline="central" font-size="10" font-family="helvetica" text-anchor="middle">y</text>
-	<polygon fill="rgb(255,0,255)" stroke="rgb(255,0,255)" stroke-opacity="1" points="4176.369231,999.953846 4202.153846,1012.846154 4176.369231,1025.738462 4176.369231,999.953846"/>
-	<text x="4176.37" y="997.375" fill="rgb(255,0,255)" dominant-baseline="central" font-size="10" font-family="helvetica" text-anchor="middle">u1</text>
-	<polygon fill="rgb(255,0,255)" stroke="rgb(255,0,255)" stroke-opacity="1" points="4176.369231,1051.523077 4202.153846,1064.415385 4176.369231,1077.307692 4176.369231,1051.523077"/>
-	<text x="4176.37" y="1048.94" fill="rgb(255,0,255)" dominant-baseline="central" font-size="10" font-family="helvetica" text-anchor="middle">u2</text>
-	<polygon fill="rgb(255,255,255)" stroke="rgb(255,0,255)" stroke-opacity="1" points="4331.076923,1006.400000 4343.969231,1012.846154 4331.076923,1019.292308 4331.076923,1006.400000"/>
-	<text x="4340.1" y="1005.11" fill="rgb(255,0,255)" dominant-baseline="central" font-size="10" font-family="helvetica" text-anchor="middle">y</text>
-	<polygon fill="rgb(0,0,0)" stroke="rgb(0,0,0)" stroke-opacity="1" points="3738.030769,116.830769 3750.923077,110.384615 3738.030769,103.938462 3738.030769,116.830769"/>
-	<polygon fill="rgb(0,0,0)" stroke="rgb(0,0,0)" stroke-opacity="1" points="3738.030769,116.830769 3750.923077,110.384615 3738.030769,103.938462 3738.030769,116.830769"/>
-	<rect fill="rgb(255,255,255)" stroke="rgb(0,0,0)" stroke-opacity="1" x="3879.85" y="107.162" width="6.44615" height="6.44615"/>
-	<rect fill="rgb(255,255,255)" stroke="rgb(0,0,0)" stroke-opacity="1" x="3879.85" y="107.162" width="6.44615" height="6.44615"/>
-	<polygon fill="rgb(0,0,0)" stroke="rgb(0,0,0)" stroke-opacity="1" points="4105.461538,91.046154 4118.353846,97.492308 4105.461538,103.938462 4105.461538,91.046154"/>
-	<rect fill="rgb(255,255,255)" stroke="rgb(0,0,0)" stroke-opacity="1" x="4144.14" y="94.2692" width="6.44615" height="6.44615"/>
-	<polygon fill="rgb(255,0,255)" stroke="rgb(255,0,255)" stroke-opacity="1" points="4124.800000,187.738462 4137.692308,161.953846 4150.584615,187.738462 4124.800000,187.738462"/>
-	<polygon fill="rgb(0,0,0)" stroke="rgb(0,0,0)" stroke-opacity="1" points="3976.538462,232.861538 3989.430769,239.307692 3976.538462,245.753846 3976.538462,232.861538"/>
-	<rect fill="rgb(255,255,255)" stroke="rgb(0,0,0)" stroke-opacity="1" x="4015.22" y="236.085" width="6.44615" height="6.44615"/>
-	<polygon fill="rgb(255,0,255)" stroke="rgb(255,0,255)" stroke-opacity="1" points="3995.876923,329.553846 4008.769231,303.769231 4021.661538,329.553846 3995.876923,329.553846"/>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   viewBox="0 0 1774.0076 938.72797"
+   version="1.1"
+   id="svg1263"
+   sodipodi:docname="TrueFalseHoldImplementation-1.svg"
+   width="1774.0076"
+   height="938.72797"
+   inkscape:export-filename="/home/jianjun/GitFolder/modelica-buildings/Buildings/Resources/Images/Controls/OBC/CDL/Logical/TrueFalseHoldImplementation-1.png"
+   inkscape:export-xdpi="84.554703"
+   inkscape:export-ydpi="84.554703"
+   inkscape:version="1.0.1 (3bc2e813f5, 2020-09-07)">
+  <metadata
+     id="metadata1269">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <defs
+     id="defs1267" />
+  <sodipodi:namedview
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="3381"
+     inkscape:window-height="1897"
+     id="namedview1265"
+     showgrid="false"
+     fit-margin-top="0"
+     fit-margin-left="0"
+     fit-margin-right="0"
+     fit-margin-bottom="0"
+     inkscape:zoom="1.410596"
+     inkscape:cx="874.81541"
+     inkscape:cy="528.45871"
+     inkscape:window-x="51"
+     inkscape:window-y="27"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg1263" />
+  <rect
+     fill="#d2d2d2"
+     stroke="#000000"
+     stroke-opacity="1"
+     transform="scale(1,-1)"
+     x="466.85342"
+     y="-755.1897"
+     width="91"
+     height="91"
+     id="rect851" />
+  <rect
+     fill="#aca899"
+     stroke="none"
+     x="465.43542"
+     y="662.77069"
+     width="1.61067"
+     height="92.226097"
+     id="rect853" />
+  <rect
+     fill="#aca899"
+     stroke="none"
+     x="465.43542"
+     y="754.9967"
+     width="92.226097"
+     height="1.61067"
+     id="rect855" />
+  <rect
+     fill="#aca899"
+     stroke="none"
+     x="557.66144"
+     y="664.38165"
+     width="1.61067"
+     height="92.226097"
+     id="rect857" />
+  <rect
+     fill="#aca899"
+     stroke="none"
+     x="467.04645"
+     y="662.77069"
+     width="92.226097"
+     height="1.61067"
+     id="rect859" />
+  <rect
+     fill="#ffffff"
+     stroke="none"
+     x="467.04645"
+     y="664.38165"
+     width="2.4159999"
+     height="90.615402"
+     id="rect861" />
+  <rect
+     fill="#ffffff"
+     stroke="none"
+     x="467.04645"
+     y="664.38165"
+     width="90.615402"
+     height="2.4159999"
+     id="rect863" />
+  <rect
+     fill="#716f64"
+     stroke="none"
+     x="556.05042"
+     y="664.38165"
+     width="1.61067"
+     height="90.615402"
+     id="rect865" />
+  <rect
+     fill="#716f64"
+     stroke="none"
+     x="467.04645"
+     y="753.38666"
+     width="90.615402"
+     height="1.61067"
+     id="rect867" />
+  <rect
+     fill="#aca899"
+     stroke="none"
+     x="554.44043"
+     y="665.99268"
+     width="1.61067"
+     height="87.394096"
+     id="rect869" />
+  <rect
+     fill="#aca899"
+     stroke="none"
+     x="468.65643"
+     y="751.7757"
+     width="87.394096"
+     height="1.61067"
+     id="rect871" />
+  <text
+     fill="#000000"
+     font-size="14px"
+     font-family="helvetica"
+     text-anchor="middle"
+     dominant-baseline="central"
+     x="512.35345"
+     y="770.85468"
+     id="text873">falseHoldDuration</text>
+  <polyline
+     fill="none"
+     stroke="#000000"
+     stroke-opacity="1"
+     points="535.292308,815.133846 544.353846,815.133846 544.353846,795.198462 588.755385,795.198462 588.755385,815.133846 601.441538,815.133846"
+     id="polyline875"
+     transform="translate(-59.184586,-75.541293)" />
+  <polyline
+     fill="none"
+     stroke="#ff00ff"
+     stroke-opacity="1"
+     points="535.292308,770.732308 569.726154,770.732308 569.726154,750.796923 588.755385,750.796923 588.755385,770.732308 601.441538,770.732308"
+     id="polyline877"
+     transform="translate(-59.184586,-75.541293)" />
+  <circle
+     fill="#ebebeb"
+     stroke="#ebebeb"
+     stroke-opacity="1"
+     cx="477.01343"
+     cy="709.6897"
+     id="ellipse879"
+     r="3.17154" />
+  <circle
+     fill="#ebebeb"
+     stroke="#ebebeb"
+     stroke-opacity="1"
+     cx="547.69342"
+     cy="709.6897"
+     id="ellipse881"
+     r="3.17154" />
+  <text
+     fill="#0000ff"
+     font-size="18px"
+     font-family="helvetica"
+     text-anchor="middle"
+     dominant-baseline="central"
+     x="512.35345"
+     y="650.78967"
+     id="text883">onDel1</text>
+  <rect
+     fill="#d2d2d2"
+     stroke="#000000"
+     stroke-opacity="1"
+     transform="scale(1,-1)"
+     x="1010.5454"
+     y="-891.11273"
+     width="91"
+     height="91"
+     id="rect885" />
+  <rect
+     fill="#aca899"
+     stroke="none"
+     x="1009.1255"
+     y="798.69366"
+     width="1.61067"
+     height="92.226097"
+     id="rect887" />
+  <rect
+     fill="#aca899"
+     stroke="none"
+     x="1009.1255"
+     y="890.92065"
+     width="92.226097"
+     height="1.61067"
+     id="rect889" />
+  <rect
+     fill="#aca899"
+     stroke="none"
+     x="1101.3555"
+     y="800.30469"
+     width="1.61067"
+     height="92.226097"
+     id="rect891" />
+  <rect
+     fill="#aca899"
+     stroke="none"
+     x="1010.7355"
+     y="798.69366"
+     width="92.226097"
+     height="1.61067"
+     id="rect893" />
+  <rect
+     fill="#ffffff"
+     stroke="none"
+     x="1010.7355"
+     y="800.30469"
+     width="2.4159999"
+     height="90.615402"
+     id="rect895" />
+  <rect
+     fill="#ffffff"
+     stroke="none"
+     x="1010.7355"
+     y="800.30469"
+     width="90.615402"
+     height="2.4159999"
+     id="rect897" />
+  <rect
+     fill="#716f64"
+     stroke="none"
+     x="1099.7455"
+     y="800.30469"
+     width="1.61067"
+     height="90.615402"
+     id="rect899" />
+  <rect
+     fill="#716f64"
+     stroke="none"
+     x="1010.7355"
+     y="889.30969"
+     width="90.615402"
+     height="1.61067"
+     id="rect901" />
+  <rect
+     fill="#aca899"
+     stroke="none"
+     x="1098.1354"
+     y="801.91565"
+     width="1.61067"
+     height="87.394096"
+     id="rect903" />
+  <rect
+     fill="#aca899"
+     stroke="none"
+     x="1012.3455"
+     y="887.69867"
+     width="87.394096"
+     height="1.61067"
+     id="rect905" />
+  <text
+     fill="#000000"
+     font-size="14px"
+     font-family="helvetica"
+     text-anchor="middle"
+     dominant-baseline="central"
+     x="1056.0454"
+     y="906.77765"
+     id="text907">trueHoldDuration</text>
+  <polyline
+     fill="none"
+     stroke="#000000"
+     stroke-opacity="1"
+     points="1078.984615,951.056923 1088.046154,951.056923 1088.046154,931.121538 1132.447692,931.121538 1132.447692,951.056923 1145.133846,951.056923"
+     id="polyline909"
+     transform="translate(-59.184586,-75.541293)" />
+  <polyline
+     fill="none"
+     stroke="#ff00ff"
+     stroke-opacity="1"
+     points="1078.984615,906.655385 1113.418462,906.655385 1113.418462,886.720000 1132.447692,886.720000 1132.447692,906.655385 1145.133846,906.655385"
+     id="polyline911"
+     transform="translate(-59.184586,-75.541293)" />
+  <circle
+     fill="#ebebeb"
+     stroke="#ebebeb"
+     stroke-opacity="1"
+     cx="1020.7054"
+     cy="845.61267"
+     id="ellipse913"
+     r="3.17154" />
+  <circle
+     fill="#ebebeb"
+     stroke="#ebebeb"
+     stroke-opacity="1"
+     cx="1091.3854"
+     cy="845.61267"
+     id="ellipse915"
+     r="3.17154" />
+  <text
+     fill="#0000ff"
+     font-size="18px"
+     font-family="helvetica"
+     text-anchor="middle"
+     dominant-baseline="central"
+     x="1056.0454"
+     y="786.71271"
+     id="text917">onDel2</text>
+  <text
+     fill="#0000ff"
+     font-size="18px"
+     font-family="helvetica"
+     text-anchor="middle"
+     dominant-baseline="central"
+     x="240.5074"
+     y="16.48181"
+     id="text919">stateGraphRoot</text>
+  <rect
+     fill="none"
+     stroke="#000000"
+     stroke-opacity="1"
+     transform="scale(1,-1)"
+     x="195.00742"
+     y="-120.88171"
+     width="91"
+     height="91"
+     id="rect921" />
+  <text
+     fill="#000000"
+     font-size="20px"
+     font-family="helvetica"
+     text-anchor="middle"
+     dominant-baseline="central"
+     x="241.41341"
+     y="50.009708"
+     id="text923">root</text>
+  <rect
+     fill="none"
+     stroke="#000000"
+     stroke-opacity="1"
+     transform="scale(1,-1)"
+     x="203.46341"
+     y="-93.302704"
+     width="17"
+     height="15"
+     id="rect925" />
+  <polyline
+     fill="none"
+     stroke="#000000"
+     stroke-opacity="1"
+     points="299.692308,146.392308 299.692308,178.107692"
+     id="polyline927"
+     transform="translate(-59.184586,-75.541293)" />
+  <rect
+     fill="none"
+     stroke="#000000"
+     stroke-opacity="1"
+     transform="scale(1,-1)"
+     x="262.3634"
+     y="-93.302704"
+     width="17"
+     height="15"
+     id="rect929" />
+  <polygon
+     fill="#000000"
+     stroke="#000000"
+     stroke-opacity="1"
+     points="294.25538,163.60923 294.25538,158.17231 299.69231,160.89077 "
+     id="polygon931"
+     transform="translate(-59.184586,-75.541293)" />
+  <polyline
+     fill="none"
+     stroke="#000000"
+     stroke-opacity="1"
+     points="279.756923,160.890769 294.255385,160.890769"
+     id="polyline933"
+     transform="translate(-59.184586,-75.541293)" />
+  <polygon
+     fill="#000000"
+     stroke="#000000"
+     stroke-opacity="1"
+     points="316.00308,163.60923 316.00308,158.17231 321.44,160.89077 "
+     id="polygon935"
+     transform="translate(-59.184586,-75.541293)" />
+  <polyline
+     fill="none"
+     stroke="#000000"
+     stroke-opacity="1"
+     points="299.692308,160.890769 316.003077,160.890769"
+     id="polyline937"
+     transform="translate(-59.184586,-75.541293)" />
+  <text
+     fill="#0000ff"
+     font-size="18px"
+     font-family="helvetica"
+     text-anchor="middle"
+     dominant-baseline="central"
+     x="693.58441"
+     y="424.2507"
+     id="text939">outputFalse</text>
+  <rect
+     fill="#ffffff"
+     stroke="#000000"
+     stroke-opacity="1"
+     transform="scale(1,-1)"
+     x="648.08441"
+     y="-528.6507"
+     width="91"
+     height="91"
+     id="rect941" />
+  <text
+     fill="#000000"
+     font-size="10px"
+     font-family="helvetica"
+     text-anchor="middle"
+     dominant-baseline="central"
+     x="694.03741"
+     y="520.75665"
+     id="text943">active</text>
+  <text
+     fill="#ffffff"
+     font-size="11px"
+     font-family="helvetica"
+     text-anchor="middle"
+     dominant-baseline="central"
+     x="879.34644"
+     y="468.42569"
+     id="text945">0 s</text>
+  <rect
+     fill="#000000"
+     stroke="#000000"
+     stroke-opacity="1"
+     transform="scale(1,-1)"
+     x="825.00739"
+     y="-528.6507"
+     width="9"
+     height="91"
+     id="rect947" />
+  <polyline
+     fill="none"
+     stroke="#000000"
+     stroke-opacity="1"
+     points="875.100000,558.692308 884.161538,558.692308"
+     id="polyline949"
+     transform="translate(-59.184586,-75.541293)" />
+  <text
+     fill="#0000ff"
+     font-size="18px"
+     font-family="helvetica"
+     text-anchor="middle"
+     dominant-baseline="central"
+     x="829.50745"
+     y="424.2507"
+     id="text951">toTrue</text>
+  <circle
+     fill="#000000"
+     stroke="#000000"
+     stroke-opacity="1"
+     cx="829.50745"
+     cy="523.02167"
+     id="ellipse953"
+     r="3.17154" />
+  <rect
+     fill="#d7d7d7"
+     stroke="#000000"
+     stroke-opacity="1"
+     transform="scale(1,-1)"
+     x="285.62341"
+     y="-302.1127"
+     width="91"
+     height="91"
+     id="rect955" />
+  <rect
+     fill="#aca899"
+     stroke="none"
+     x="284.20441"
+     y="209.6937"
+     width="1.61067"
+     height="92.226097"
+     id="rect957" />
+  <rect
+     fill="#aca899"
+     stroke="none"
+     x="284.20441"
+     y="301.92072"
+     width="92.226097"
+     height="1.61067"
+     id="rect959" />
+  <rect
+     fill="#aca899"
+     stroke="none"
+     x="376.43042"
+     y="211.30472"
+     width="1.61067"
+     height="92.226097"
+     id="rect961" />
+  <rect
+     fill="#aca899"
+     stroke="none"
+     x="285.81543"
+     y="209.6937"
+     width="92.226097"
+     height="1.61067"
+     id="rect963" />
+  <rect
+     fill="#ffffff"
+     stroke="none"
+     x="285.81543"
+     y="211.30472"
+     width="2.4159999"
+     height="90.615402"
+     id="rect965" />
+  <rect
+     fill="#ffffff"
+     stroke="none"
+     x="285.81543"
+     y="211.30472"
+     width="90.615402"
+     height="2.4159999"
+     id="rect967" />
+  <rect
+     fill="#716f64"
+     stroke="none"
+     x="374.82043"
+     y="211.30472"
+     width="1.61067"
+     height="90.615402"
+     id="rect969" />
+  <rect
+     fill="#716f64"
+     stroke="none"
+     x="285.81543"
+     y="300.30972"
+     width="90.615402"
+     height="1.61067"
+     id="rect971" />
+  <rect
+     fill="#aca899"
+     stroke="none"
+     x="373.20941"
+     y="212.91571"
+     width="1.61067"
+     height="87.394096"
+     id="rect973" />
+  <rect
+     fill="#aca899"
+     stroke="none"
+     x="287.42639"
+     y="298.6987"
+     width="87.394096"
+     height="1.61067"
+     id="rect975" />
+  <text
+     fill="#000000"
+     font-size="24px"
+     font-family="helvetica"
+     text-anchor="middle"
+     dominant-baseline="central"
+     x="334.74744"
+     y="255.7067"
+     id="text977">not</text>
+  <circle
+     fill="#ebebeb"
+     stroke="#ebebeb"
+     stroke-opacity="1"
+     cx="366.46344"
+     cy="256.6127"
+     id="ellipse979"
+     r="3.17154" />
+  <text
+     fill="#0000ff"
+     font-size="18px"
+     font-family="helvetica"
+     text-anchor="middle"
+     dominant-baseline="central"
+     x="331.12341"
+     y="197.71271"
+     id="text981">notU</text>
+  <text
+     fill="#0000ff"
+     font-size="18px"
+     font-family="helvetica"
+     text-anchor="middle"
+     dominant-baseline="central"
+     x="965.43542"
+     y="424.2507"
+     id="text983">outputTrue</text>
+  <rect
+     fill="#ffffff"
+     stroke="#000000"
+     stroke-opacity="1"
+     transform="scale(1,-1)"
+     x="919.93542"
+     y="-528.6507"
+     width="91"
+     height="91"
+     id="rect985" />
+  <text
+     fill="#000000"
+     font-size="10px"
+     font-family="helvetica"
+     text-anchor="middle"
+     dominant-baseline="central"
+     x="965.88538"
+     y="520.75665"
+     id="text987">active</text>
+  <text
+     fill="#ffffff"
+     font-size="11px"
+     font-family="helvetica"
+     text-anchor="middle"
+     dominant-baseline="central"
+     x="1151.1954"
+     y="468.42569"
+     id="text989">0 s</text>
+  <rect
+     fill="#000000"
+     stroke="#000000"
+     stroke-opacity="1"
+     transform="scale(1,-1)"
+     x="1096.8555"
+     y="-528.6507"
+     width="9"
+     height="91"
+     id="rect991" />
+  <polyline
+     fill="none"
+     stroke="#000000"
+     stroke-opacity="1"
+     points="1146.946154,558.692308 1156.007692,558.692308"
+     id="polyline993"
+     transform="translate(-59.184586,-75.541293)" />
+  <text
+     fill="#0000ff"
+     font-size="18px"
+     font-family="helvetica"
+     text-anchor="middle"
+     dominant-baseline="central"
+     x="1101.3555"
+     y="424.2507"
+     id="text995">toFalse</text>
+  <circle
+     fill="#000000"
+     stroke="#000000"
+     stroke-opacity="1"
+     cx="1101.3555"
+     cy="523.02167"
+     id="ellipse997"
+     r="3.17154" />
+  <rect
+     fill="#d2d2d2"
+     stroke="#000000"
+     stroke-opacity="1"
+     transform="scale(1,-1)"
+     x="1191.7754"
+     y="-891.11273"
+     width="91"
+     height="91"
+     id="rect999" />
+  <rect
+     fill="#aca899"
+     stroke="none"
+     x="1190.3555"
+     y="798.69366"
+     width="1.61067"
+     height="92.226097"
+     id="rect1001" />
+  <rect
+     fill="#aca899"
+     stroke="none"
+     x="1190.3555"
+     y="890.92065"
+     width="92.226097"
+     height="1.61067"
+     id="rect1003" />
+  <rect
+     fill="#aca899"
+     stroke="none"
+     x="1282.5854"
+     y="800.30469"
+     width="1.61067"
+     height="92.226097"
+     id="rect1005" />
+  <rect
+     fill="#aca899"
+     stroke="none"
+     x="1191.9655"
+     y="798.69366"
+     width="92.226097"
+     height="1.61067"
+     id="rect1007" />
+  <rect
+     fill="#ffffff"
+     stroke="none"
+     x="1191.9655"
+     y="800.30469"
+     width="2.4159999"
+     height="90.615402"
+     id="rect1009" />
+  <rect
+     fill="#ffffff"
+     stroke="none"
+     x="1191.9655"
+     y="800.30469"
+     width="90.615402"
+     height="2.4159999"
+     id="rect1011" />
+  <rect
+     fill="#716f64"
+     stroke="none"
+     x="1280.9755"
+     y="800.30469"
+     width="1.61067"
+     height="90.615402"
+     id="rect1013" />
+  <rect
+     fill="#716f64"
+     stroke="none"
+     x="1191.9655"
+     y="889.30969"
+     width="90.615402"
+     height="1.61067"
+     id="rect1015" />
+  <rect
+     fill="#aca899"
+     stroke="none"
+     x="1279.3655"
+     y="801.91565"
+     width="1.61067"
+     height="87.394096"
+     id="rect1017" />
+  <rect
+     fill="#aca899"
+     stroke="none"
+     x="1193.5754"
+     y="887.69867"
+     width="87.394096"
+     height="1.61067"
+     id="rect1019" />
+  <text
+     fill="#000000"
+     font-size="36px"
+     font-family="helvetica"
+     text-anchor="middle"
+     dominant-baseline="central"
+     x="1237.2754"
+     y="845.61267"
+     id="text1021">and</text>
+  <circle
+     fill="#ebebeb"
+     stroke="#ebebeb"
+     stroke-opacity="1"
+     cx="1272.6155"
+     cy="845.61267"
+     id="ellipse1023"
+     r="3.17154" />
+  <circle
+     fill="#ebebeb"
+     stroke="#ebebeb"
+     stroke-opacity="1"
+     cx="1200.1255"
+     cy="845.15967"
+     id="ellipse1025"
+     r="3.17154" />
+  <circle
+     fill="#ebebeb"
+     stroke="#ebebeb"
+     stroke-opacity="1"
+     cx="1200.1255"
+     cy="881.8587"
+     id="ellipse1027"
+     r="3.17154" />
+  <text
+     fill="#0000ff"
+     font-size="18px"
+     font-family="helvetica"
+     text-anchor="middle"
+     dominant-baseline="central"
+     x="1237.2754"
+     y="786.71271"
+     id="text1029">and2</text>
+  <rect
+     fill="#d2d2d2"
+     stroke="#000000"
+     stroke-opacity="1"
+     transform="scale(1,-1)"
+     x="693.3924"
+     y="-755.1897"
+     width="91"
+     height="91"
+     id="rect1031" />
+  <rect
+     fill="#aca899"
+     stroke="none"
+     x="691.97443"
+     y="662.77069"
+     width="1.61067"
+     height="92.226097"
+     id="rect1033" />
+  <rect
+     fill="#aca899"
+     stroke="none"
+     x="691.97443"
+     y="754.9967"
+     width="92.226097"
+     height="1.61067"
+     id="rect1035" />
+  <rect
+     fill="#aca899"
+     stroke="none"
+     x="784.20044"
+     y="664.38165"
+     width="1.61067"
+     height="92.226097"
+     id="rect1037" />
+  <rect
+     fill="#aca899"
+     stroke="none"
+     x="693.58441"
+     y="662.77069"
+     width="92.226097"
+     height="1.61067"
+     id="rect1039" />
+  <rect
+     fill="#ffffff"
+     stroke="none"
+     x="693.58441"
+     y="664.38165"
+     width="2.4159999"
+     height="90.615402"
+     id="rect1041" />
+  <rect
+     fill="#ffffff"
+     stroke="none"
+     x="693.58441"
+     y="664.38165"
+     width="90.615402"
+     height="2.4159999"
+     id="rect1043" />
+  <rect
+     fill="#716f64"
+     stroke="none"
+     x="782.58942"
+     y="664.38165"
+     width="1.61067"
+     height="90.615402"
+     id="rect1045" />
+  <rect
+     fill="#716f64"
+     stroke="none"
+     x="693.58441"
+     y="753.38666"
+     width="90.615402"
+     height="1.61067"
+     id="rect1047" />
+  <rect
+     fill="#aca899"
+     stroke="none"
+     x="780.97845"
+     y="665.99268"
+     width="1.61067"
+     height="87.394096"
+     id="rect1049" />
+  <rect
+     fill="#aca899"
+     stroke="none"
+     x="695.19543"
+     y="751.7757"
+     width="87.394096"
+     height="1.61067"
+     id="rect1051" />
+  <text
+     fill="#000000"
+     font-size="36px"
+     font-family="helvetica"
+     text-anchor="middle"
+     dominant-baseline="central"
+     x="738.89246"
+     y="709.6897"
+     id="text1053">and</text>
+  <circle
+     fill="#ebebeb"
+     stroke="#ebebeb"
+     stroke-opacity="1"
+     cx="774.23242"
+     cy="709.6897"
+     id="ellipse1055"
+     r="3.17154" />
+  <circle
+     fill="#ebebeb"
+     stroke="#ebebeb"
+     stroke-opacity="1"
+     cx="701.74042"
+     cy="709.23669"
+     id="ellipse1057"
+     r="3.17154" />
+  <circle
+     fill="#ebebeb"
+     stroke="#ebebeb"
+     stroke-opacity="1"
+     cx="701.74042"
+     cy="745.93567"
+     id="ellipse1059"
+     r="3.17154" />
+  <text
+     fill="#0000ff"
+     font-size="18px"
+     font-family="helvetica"
+     text-anchor="middle"
+     dominant-baseline="central"
+     x="738.89246"
+     y="650.78967"
+     id="text1061">and1</text>
+  <text
+     fill="#0000ff"
+     font-size="18px"
+     font-family="helvetica"
+     text-anchor="middle"
+     dominant-baseline="central"
+     x="421.7384"
+     y="16.48181"
+     id="text1063">initialStep</text>
+  <rect
+     fill="#ffffff"
+     stroke="#000000"
+     stroke-opacity="1"
+     transform="scale(1,-1)"
+     x="376.2384"
+     y="-120.88171"
+     width="91"
+     height="91"
+     id="rect1065" />
+  <rect
+     fill="none"
+     stroke="#000000"
+     stroke-opacity="1"
+     transform="scale(1,-1)"
+     x="385.7384"
+     y="-111.38171"
+     width="72"
+     height="72"
+     id="rect1067" />
+  <text
+     fill="#ffffff"
+     font-size="11px"
+     font-family="helvetica"
+     text-anchor="middle"
+     dominant-baseline="central"
+     x="698.11542"
+     y="51.595707"
+     id="text1069">0 s</text>
+  <rect
+     fill="#000000"
+     stroke="#000000"
+     stroke-opacity="1"
+     transform="scale(1,-1)"
+     x="643.7774"
+     y="-111.82071"
+     width="9"
+     height="91"
+     id="rect1071" />
+  <polyline
+     fill="none"
+     stroke="#000000"
+     stroke-opacity="1"
+     points="693.869231,141.861538 702.930769,141.861538"
+     id="polyline1073"
+     transform="translate(-59.184586,-75.541293)" />
+  <text
+     fill="#0000ff"
+     font-size="18px"
+     font-family="helvetica"
+     text-anchor="middle"
+     dominant-baseline="central"
+     x="648.2774"
+     y="7.4202094"
+     id="text1075">toTrue1</text>
+  <circle
+     fill="#000000"
+     stroke="#000000"
+     stroke-opacity="1"
+     cx="648.2774"
+     cy="106.1907"
+     id="ellipse1077"
+     r="3.17154" />
+  <text
+     fill="#ffffff"
+     font-size="11px"
+     font-family="helvetica"
+     text-anchor="middle"
+     dominant-baseline="central"
+     x="607.50043"
+     y="151.27171"
+     id="text1079">0 s</text>
+  <rect
+     fill="#000000"
+     stroke="#000000"
+     stroke-opacity="1"
+     transform="scale(1,-1)"
+     x="553.16144"
+     y="-211.4967"
+     width="9"
+     height="91"
+     id="rect1081" />
+  <polyline
+     fill="none"
+     stroke="#000000"
+     stroke-opacity="1"
+     points="603.253846,241.538462 612.315385,241.538462"
+     id="polyline1083"
+     transform="translate(-59.184586,-75.541293)" />
+  <text
+     fill="#0000ff"
+     font-size="18px"
+     font-family="helvetica"
+     text-anchor="middle"
+     dominant-baseline="central"
+     x="557.66144"
+     y="107.09671"
+     id="text1085">toFalse1</text>
+  <circle
+     fill="#000000"
+     stroke="#000000"
+     stroke-opacity="1"
+     cx="557.66144"
+     cy="205.86771"
+     id="ellipse1087"
+     r="3.17154" />
+  <polyline
+     fill="none"
+     stroke="#ffffff"
+     stroke-width="5"
+     stroke-opacity="1"
+     points="1072.188462,558.692308 1106.169231,558.692308 1142.415385,558.692308"
+     id="polyline1089"
+     transform="translate(-59.184586,-75.541293)" />
+  <polyline
+     fill="none"
+     stroke="#000000"
+     stroke-opacity="1"
+     points="1072.188462,558.692308 1106.169231,558.692308 1142.415385,558.692308"
+     id="polyline1091"
+     transform="translate(-59.184586,-75.541293)" />
+  <polyline
+     fill="none"
+     stroke="#ffffff"
+     stroke-width="5"
+     stroke-opacity="1"
+     points="1024.615385,608.530769 1024.615385,649.307692 1794.846154,649.307692"
+     id="polyline1093"
+     transform="translate(-59.184586,-75.541293)" />
+  <polyline
+     fill="none"
+     stroke="#ff00ff"
+     stroke-opacity="1"
+     points="1024.615385,608.530769 1024.615385,649.307692 1794.846154,649.307692"
+     id="polyline1095"
+     transform="translate(-59.184586,-75.541293)" />
+  <polyline
+     fill="none"
+     stroke="#ffffff"
+     stroke-width="5"
+     stroke-opacity="1"
+     points="800.342308,558.692308 834.323077,558.692308 870.569231,558.692308"
+     id="polyline1097"
+     transform="translate(-59.184586,-75.541293)" />
+  <polyline
+     fill="none"
+     stroke="#000000"
+     stroke-opacity="1"
+     points="800.342308,558.692308 834.323077,558.692308 870.569231,558.692308"
+     id="polyline1099"
+     transform="translate(-59.184586,-75.541293)" />
+  <polyline
+     fill="none"
+     stroke="#ffffff"
+     stroke-width="5"
+     stroke-opacity="1"
+     points="1167.334615,558.692308 1251.153846,558.692308 1251.153846,468.076923 662.153846,468.076923 662.153846,556.426923 702.930769,556.426923"
+     id="polyline1101"
+     transform="translate(-59.184586,-75.541293)" />
+  <polyline
+     fill="none"
+     stroke="#000000"
+     stroke-opacity="1"
+     points="1167.334615,558.692308 1251.153846,558.692308 1251.153846,468.076923 662.153846,468.076923 662.153846,556.426923 702.930769,556.426923"
+     id="polyline1103"
+     transform="translate(-59.184586,-75.541293)" />
+  <polyline
+     fill="none"
+     stroke="#ffffff"
+     stroke-width="5"
+     stroke-opacity="1"
+     points="1024.615385,608.530769 1024.615385,649.307692 1024.615385,921.153846 1060.861538,921.153846"
+     id="polyline1105"
+     transform="translate(-59.184586,-75.541293)" />
+  <polyline
+     fill="none"
+     stroke="#ff00ff"
+     stroke-opacity="1"
+     points="1024.615385,608.530769 1024.615385,649.307692 1024.615385,921.153846 1060.861538,921.153846"
+     id="polyline1107"
+     transform="translate(-59.184586,-75.541293)" />
+  <polyline
+     fill="none"
+     stroke="#ffffff"
+     stroke-width="5"
+     stroke-opacity="1"
+     points="444.676923,332.153846 1613.615385,332.153846 1613.615385,1011.769231 1196.784615,1011.769231 1196.784615,957.400000 1242.092308,957.400000"
+     id="polyline1109"
+     transform="translate(-59.184586,-75.541293)" />
+  <polyline
+     fill="none"
+     stroke="#ff00ff"
+     stroke-opacity="1"
+     points="444.676923,332.153846 1613.615385,332.153846 1613.615385,1011.769231 1196.784615,1011.769231 1196.784615,957.400000 1242.092308,957.400000"
+     id="polyline1111"
+     transform="translate(-59.184586,-75.541293)" />
+  <polyline
+     fill="none"
+     stroke="#ffffff"
+     stroke-width="5"
+     stroke-opacity="1"
+     points="1350.830769,921.153846 1432.384615,921.153846 1432.384615,739.923077 1160.538462,739.923077 1160.538462,613.061538"
+     id="polyline1113"
+     transform="translate(-59.184586,-75.541293)" />
+  <polyline
+     fill="none"
+     stroke="#ff00ff"
+     stroke-opacity="1"
+     points="1350.830769,921.153846 1432.384615,921.153846 1432.384615,739.923077 1160.538462,739.923077 1160.538462,613.061538"
+     id="polyline1115"
+     transform="translate(-59.184586,-75.541293)" />
+  <polyline
+     fill="none"
+     stroke="#ffffff"
+     stroke-width="5"
+     stroke-opacity="1"
+     points="752.769231,608.530769 752.769231,649.307692 345.000000,649.307692 345.000000,785.230769 517.169231,785.230769"
+     id="polyline1117"
+     transform="translate(-59.184586,-75.541293)" />
+  <polyline
+     fill="none"
+     stroke="#ff00ff"
+     stroke-opacity="1"
+     points="752.769231,608.530769 752.769231,649.307692 345.000000,649.307692 345.000000,785.230769 517.169231,785.230769"
+     id="polyline1119"
+     transform="translate(-59.184586,-75.541293)" />
+  <polyline
+     fill="none"
+     stroke="#ffffff"
+     stroke-width="5"
+     stroke-opacity="1"
+     points="73.153846,649.307692 254.384615,649.307692 254.384615,875.846154 707.461538,875.846154 707.461538,821.476923 743.707692,821.476923 743.707692,821.476923"
+     id="polyline1121"
+     transform="translate(-59.184586,-75.541293)" />
+  <polyline
+     fill="none"
+     stroke="#ff00ff"
+     stroke-opacity="1"
+     points="73.153846,649.307692 254.384615,649.307692 254.384615,875.846154 707.461538,875.846154 707.461538,821.476923 743.707692,821.476923 743.707692,821.476923"
+     id="polyline1123"
+     transform="translate(-59.184586,-75.541293)" />
+  <polyline
+     fill="none"
+     stroke="#ffffff"
+     stroke-width="5"
+     stroke-opacity="1"
+     points="852.446154,785.230769 888.692308,785.230769 888.692308,613.061538"
+     id="polyline1125"
+     transform="translate(-59.184586,-75.541293)" />
+  <polyline
+     fill="none"
+     stroke="#ff00ff"
+     stroke-opacity="1"
+     points="852.446154,785.230769 888.692308,785.230769 888.692308,613.061538"
+     id="polyline1127"
+     transform="translate(-59.184586,-75.541293)" />
+  <polyline
+     fill="none"
+     stroke="#ffffff"
+     stroke-width="5"
+     stroke-opacity="1"
+     points="73.153846,649.307692 254.384615,649.307692 254.384615,413.707692 707.461538,413.707692 707.461538,196.230769"
+     id="polyline1129"
+     transform="translate(-59.184586,-75.541293)" />
+  <polyline
+     fill="none"
+     stroke="#ff00ff"
+     stroke-opacity="1"
+     points="73.153846,649.307692 254.384615,649.307692 254.384615,413.707692 707.461538,413.707692 707.461538,196.230769"
+     id="polyline1131"
+     transform="translate(-59.184586,-75.541293)" />
+  <polyline
+     fill="none"
+     stroke="#ffffff"
+     stroke-width="5"
+     stroke-opacity="1"
+     points="714.257692,141.861538 934.000000,141.861538 934.000000,556.426923 974.776923,556.426923"
+     id="polyline1133"
+     transform="translate(-59.184586,-75.541293)" />
+  <polyline
+     fill="none"
+     stroke="#000000"
+     stroke-opacity="1"
+     points="714.257692,141.861538 934.000000,141.861538 934.000000,556.426923 974.776923,556.426923"
+     id="polyline1135"
+     transform="translate(-59.184586,-75.541293)" />
+  <polyline
+     fill="none"
+     stroke="#ffffff"
+     stroke-width="5"
+     stroke-opacity="1"
+     points="895.488462,558.692308 974.776923,558.692308 974.776923,560.957692"
+     id="polyline1137"
+     transform="translate(-59.184586,-75.541293)" />
+  <polyline
+     fill="none"
+     stroke="#000000"
+     stroke-opacity="1"
+     points="895.488462,558.692308 974.776923,558.692308 974.776923,560.957692"
+     id="polyline1139"
+     transform="translate(-59.184586,-75.541293)" />
+  <polyline
+     fill="none"
+     stroke="#ffffff"
+     stroke-width="5"
+     stroke-opacity="1"
+     points="623.642308,241.538462 653.092308,241.538462 653.092308,449.953846 653.092308,558.692308 702.930769,558.692308 702.930769,560.957692"
+     id="polyline1141"
+     transform="translate(-59.184586,-75.541293)" />
+  <polyline
+     fill="none"
+     stroke="#000000"
+     stroke-opacity="1"
+     points="623.642308,241.538462 653.092308,241.538462 653.092308,449.953846 653.092308,558.692308 702.930769,558.692308 702.930769,560.957692"
+     id="polyline1143"
+     transform="translate(-59.184586,-75.541293)" />
+  <polyline
+     fill="none"
+     stroke="#ffffff"
+     stroke-width="5"
+     stroke-opacity="1"
+     points="528.496154,149.790385 571.538462,149.790385 571.538462,150.923077 571.538462,141.861538 689.338462,141.861538"
+     id="polyline1145"
+     transform="translate(-59.184586,-75.541293)" />
+  <polyline
+     fill="none"
+     stroke="#000000"
+     stroke-opacity="1"
+     points="528.496154,149.790385 571.538462,149.790385 571.538462,150.923077 571.538462,141.861538 689.338462,141.861538"
+     id="polyline1147"
+     transform="translate(-59.184586,-75.541293)" />
+  <polyline
+     fill="none"
+     stroke="#ffffff"
+     stroke-width="5"
+     stroke-opacity="1"
+     points="528.496154,152.055769 553.415385,152.055769 553.415385,150.923077 571.538462,150.923077 571.538462,241.538462 598.723077,241.538462"
+     id="polyline1149"
+     transform="translate(-59.184586,-75.541293)" />
+  <polyline
+     fill="none"
+     stroke="#000000"
+     stroke-opacity="1"
+     points="528.496154,152.055769 553.415385,152.055769 553.415385,150.923077 571.538462,150.923077 571.538462,241.538462 598.723077,241.538462"
+     id="polyline1151"
+     transform="translate(-59.184586,-75.541293)" />
+  <polyline
+     fill="none"
+     stroke="#ffffff"
+     stroke-width="5"
+     stroke-opacity="1"
+     points="335.938462,332.153846 254.384615,332.153846 254.384615,649.307692 73.153846,649.307692"
+     id="polyline1153"
+     transform="translate(-59.184586,-75.541293)" />
+  <polyline
+     fill="none"
+     stroke="#ff00ff"
+     stroke-opacity="1"
+     points="335.938462,332.153846 254.384615,332.153846 254.384615,649.307692 73.153846,649.307692"
+     id="polyline1155"
+     transform="translate(-59.184586,-75.541293)" />
+  <polyline
+     fill="none"
+     stroke="#ffffff"
+     stroke-width="5"
+     stroke-opacity="1"
+     points="444.676923,332.153846 616.846154,332.153846 616.846154,295.907692"
+     id="polyline1157"
+     transform="translate(-59.184586,-75.541293)" />
+  <polyline
+     fill="none"
+     stroke="#ff00ff"
+     stroke-opacity="1"
+     points="444.676923,332.153846 616.846154,332.153846 616.846154,295.907692"
+     id="polyline1159"
+     transform="translate(-59.184586,-75.541293)" />
+  <polyline
+     fill="none"
+     stroke="#ffffff"
+     stroke-width="5"
+     stroke-opacity="1"
+     points="625.907692,785.230769 743.707692,785.230769"
+     id="polyline1161"
+     transform="translate(-59.184586,-75.541293)" />
+  <polyline
+     fill="none"
+     stroke="#ff00ff"
+     stroke-opacity="1"
+     points="625.907692,785.230769 743.707692,785.230769"
+     id="polyline1163"
+     transform="translate(-59.184586,-75.541293)" />
+  <polyline
+     fill="none"
+     stroke="#ffffff"
+     stroke-width="5"
+     stroke-opacity="1"
+     points="1169.600000,921.153846 1169.600000,921.153846 1242.092308,921.153846"
+     id="polyline1165"
+     transform="translate(-59.184586,-75.541293)" />
+  <polyline
+     fill="none"
+     stroke="#ff00ff"
+     stroke-opacity="1"
+     points="1169.600000,921.153846 1169.600000,921.153846 1242.092308,921.153846"
+     id="polyline1167"
+     transform="translate(-59.184586,-75.541293)" />
+  <circle
+     fill="#ff00ff"
+     stroke="#ff00ff"
+     cx="195.20041"
+     cy="573.76666"
+     id="ellipse1169"
+     r="3" />
+  <circle
+     fill="#ff00ff"
+     stroke="#ff00ff"
+     cx="195.20041"
+     cy="573.76666"
+     id="ellipse1171"
+     r="3" />
+  <circle
+     fill="#ff00ff"
+     stroke="#ff00ff"
+     cx="195.20041"
+     cy="338.16672"
+     id="ellipse1173"
+     r="3" />
+  <circle
+     fill="#ff00ff"
+     stroke="#ff00ff"
+     cx="557.66144"
+     cy="256.6127"
+     id="ellipse1175"
+     r="3" />
+  <circle
+     fill="#ff00ff"
+     stroke="#ff00ff"
+     cx="965.43542"
+     cy="573.76666"
+     id="ellipse1177"
+     r="3" />
+  <polygon
+     fill="#ff00ff"
+     stroke="#ff00ff"
+     stroke-opacity="1"
+     points="73.153846,694.61538 73.153846,604 163.76923,649.30769 "
+     id="polygon1179"
+     transform="translate(-59.184586,-75.541293)" />
+  <text
+     fill="#ff00ff"
+     font-size="23px"
+     font-family="helvetica"
+     text-anchor="middle"
+     dominant-baseline="central"
+     x="4.9077148"
+     y="508.07071"
+     id="text1181">u</text>
+  <polygon
+     fill="#ffffff"
+     stroke="#ff00ff"
+     stroke-opacity="1"
+     points="1704.2308,694.61538 1704.2308,604 1794.8462,649.30769 "
+     id="polygon1183"
+     transform="translate(-59.184586,-75.541293)" />
+  <text
+     fill="#ff00ff"
+     font-size="45px"
+     font-family="helvetica"
+     text-anchor="middle"
+     dominant-baseline="central"
+     x="1762.8455"
+     y="496.74368"
+     id="text1185">y</text>
+  <polygon
+     fill="#ff00ff"
+     stroke="#ff00ff"
+     stroke-opacity="1"
+     points="517.16923,789.76154 517.16923,780.7 526.23077,785.23077 "
+     id="polygon1187"
+     transform="translate(-59.184586,-75.541293)" />
+  <polygon
+     fill="#ffffff"
+     stroke="#ff00ff"
+     stroke-opacity="1"
+     points="616.84615,789.76154 616.84615,780.7 625.90769,785.23077 "
+     id="polygon1189"
+     transform="translate(-59.184586,-75.541293)" />
+  <polygon
+     fill="#ff00ff"
+     stroke="#ff00ff"
+     stroke-opacity="1"
+     points="1060.8615,925.68462 1060.8615,916.62308 1069.9231,921.15385 "
+     id="polygon1191"
+     transform="translate(-59.184586,-75.541293)" />
+  <polygon
+     fill="#ffffff"
+     stroke="#ff00ff"
+     stroke-opacity="1"
+     points="1160.5385,925.68462 1160.5385,916.62308 1169.6,921.15385 "
+     id="polygon1193"
+     transform="translate(-59.184586,-75.541293)" />
+  <polygon
+     fill="#000000"
+     stroke="#000000"
+     stroke-opacity="1"
+     points="698.4,554.16154 698.4,563.22308 707.46154,558.69231 "
+     id="polygon1195"
+     transform="translate(-59.184586,-75.541293)" />
+  <polygon
+     fill="#000000"
+     stroke="#000000"
+     stroke-opacity="1"
+     points="698.4,554.16154 698.4,563.22308 707.46154,558.69231 "
+     id="polygon1197"
+     transform="translate(-59.184586,-75.541293)" />
+  <rect
+     fill="#ffffff"
+     stroke="#000000"
+     stroke-opacity="1"
+     x="738.65741"
+     y="480.65073"
+     width="5"
+     height="5"
+     id="rect1199" />
+  <rect
+     fill="#ffffff"
+     stroke="#000000"
+     stroke-opacity="1"
+     x="738.65741"
+     y="480.65073"
+     width="5"
+     height="5"
+     id="rect1201" />
+  <polygon
+     fill="#ffffff"
+     stroke="#ff00ff"
+     stroke-opacity="1"
+     points="748.23846,604 757.3,604 752.76923,613.06154 "
+     id="polygon1203"
+     transform="translate(-59.184586,-75.541293)" />
+  <polygon
+     fill="#000000"
+     stroke="#000000"
+     stroke-opacity="1"
+     points="866.03846,563.22308 866.03846,554.16154 875.1,558.69231 "
+     id="polygon1205"
+     transform="translate(-59.184586,-75.541293)" />
+  <rect
+     fill="#ffffff"
+     stroke="#000000"
+     stroke-opacity="1"
+     transform="scale(1,-1)"
+     x="833.80341"
+     y="-485.6507"
+     width="5"
+     height="5"
+     id="rect1207" />
+  <polygon
+     fill="#ff00ff"
+     stroke="#ff00ff"
+     stroke-opacity="1"
+     points="897.75385,622.12308 879.63077,622.12308 888.69231,604 "
+     id="polygon1209"
+     transform="translate(-59.184586,-75.541293)" />
+  <polygon
+     fill="#ff00ff"
+     stroke="#ff00ff"
+     stroke-opacity="1"
+     points="335.93846,336.68462 335.93846,327.62308 345,332.15385 "
+     id="polygon1211"
+     transform="translate(-59.184586,-75.541293)" />
+  <polygon
+     fill="#ffffff"
+     stroke="#ff00ff"
+     stroke-opacity="1"
+     points="435.61539,336.68462 435.61539,327.62308 444.67692,332.15385 "
+     id="polygon1213"
+     transform="translate(-59.184586,-75.541293)" />
+  <polygon
+     fill="#000000"
+     stroke="#000000"
+     stroke-opacity="1"
+     points="970.24615,554.16154 970.24615,563.22308 979.30769,558.69231 "
+     id="polygon1215"
+     transform="translate(-59.184586,-75.541293)" />
+  <polygon
+     fill="#000000"
+     stroke="#000000"
+     stroke-opacity="1"
+     points="970.24615,554.16154 970.24615,563.22308 979.30769,558.69231 "
+     id="polygon1217"
+     transform="translate(-59.184586,-75.541293)" />
+  <rect
+     fill="#ffffff"
+     stroke="#000000"
+     stroke-opacity="1"
+     x="1010.5054"
+     y="480.65073"
+     width="5"
+     height="5"
+     id="rect1219" />
+  <rect
+     fill="#ffffff"
+     stroke="#000000"
+     stroke-opacity="1"
+     x="1010.5054"
+     y="480.65073"
+     width="5"
+     height="5"
+     id="rect1221" />
+  <polygon
+     fill="#ffffff"
+     stroke="#ff00ff"
+     stroke-opacity="1"
+     points="1020.0846,604 1029.1462,604 1024.6154,613.06154 "
+     id="polygon1223"
+     transform="translate(-59.184586,-75.541293)" />
+  <polygon
+     fill="#000000"
+     stroke="#000000"
+     stroke-opacity="1"
+     points="1137.8846,563.22308 1137.8846,554.16154 1146.9462,558.69231 "
+     id="polygon1225"
+     transform="translate(-59.184586,-75.541293)" />
+  <rect
+     fill="#ffffff"
+     stroke="#000000"
+     stroke-opacity="1"
+     transform="scale(1,-1)"
+     x="1105.6454"
+     y="-485.6507"
+     width="5"
+     height="5"
+     id="rect1227" />
+  <polygon
+     fill="#ff00ff"
+     stroke="#ff00ff"
+     stroke-opacity="1"
+     points="1169.6,622.12308 1151.4769,622.12308 1160.5385,604 "
+     id="polygon1229"
+     transform="translate(-59.184586,-75.541293)" />
+  <polygon
+     fill="#ff00ff"
+     stroke="#ff00ff"
+     stroke-opacity="1"
+     points="1242.0923,925.68462 1242.0923,916.62308 1251.1538,921.15385 "
+     id="polygon1231"
+     transform="translate(-59.184586,-75.541293)" />
+  <polygon
+     fill="#ff00ff"
+     stroke="#ff00ff"
+     stroke-opacity="1"
+     points="1242.0923,961.93077 1242.0923,952.86923 1251.1538,957.4 "
+     id="polygon1233"
+     transform="translate(-59.184586,-75.541293)" />
+  <polygon
+     fill="#ffffff"
+     stroke="#ff00ff"
+     stroke-opacity="1"
+     points="1341.7692,925.68462 1341.7692,916.62308 1350.8308,921.15385 "
+     id="polygon1235"
+     transform="translate(-59.184586,-75.541293)" />
+  <polygon
+     fill="#ff00ff"
+     stroke="#ff00ff"
+     stroke-opacity="1"
+     points="743.70769,789.76154 743.70769,780.7 752.76923,785.23077 "
+     id="polygon1237"
+     transform="translate(-59.184586,-75.541293)" />
+  <polygon
+     fill="#ff00ff"
+     stroke="#ff00ff"
+     stroke-opacity="1"
+     points="743.70769,826.00769 743.70769,816.94615 752.76923,821.47692 "
+     id="polygon1239"
+     transform="translate(-59.184586,-75.541293)" />
+  <polygon
+     fill="#ffffff"
+     stroke="#ff00ff"
+     stroke-opacity="1"
+     points="843.38462,789.76154 843.38462,780.7 852.44615,785.23077 "
+     id="polygon1241"
+     transform="translate(-59.184586,-75.541293)" />
+  <polygon
+     fill="#000000"
+     stroke="#000000"
+     stroke-opacity="1"
+     points="426.55385,146.39231 426.55385,155.45385 435.61539,150.92308 "
+     id="polygon1243"
+     transform="translate(-59.184586,-75.541293)" />
+  <polygon
+     fill="#000000"
+     stroke="#000000"
+     stroke-opacity="1"
+     points="426.55385,146.39231 426.55385,155.45385 435.61539,150.92308 "
+     id="polygon1245"
+     transform="translate(-59.184586,-75.541293)" />
+  <rect
+     fill="#ffffff"
+     stroke="#000000"
+     stroke-opacity="1"
+     x="466.8114"
+     y="72.881714"
+     width="5"
+     height="5"
+     id="rect1247" />
+  <rect
+     fill="#ffffff"
+     stroke="#000000"
+     stroke-opacity="1"
+     x="466.8114"
+     y="72.881714"
+     width="5"
+     height="5"
+     id="rect1249" />
+  <polygon
+     fill="#000000"
+     stroke="#000000"
+     stroke-opacity="1"
+     points="684.80769,146.39231 684.80769,137.33077 693.86923,141.86154 "
+     id="polygon1251"
+     transform="translate(-59.184586,-75.541293)" />
+  <rect
+     fill="#ffffff"
+     stroke="#000000"
+     stroke-opacity="1"
+     transform="scale(1,-1)"
+     x="652.57343"
+     y="-68.820709"
+     width="5"
+     height="5"
+     id="rect1253" />
+  <polygon
+     fill="#ff00ff"
+     stroke="#ff00ff"
+     stroke-opacity="1"
+     points="716.52308,205.29231 698.4,205.29231 707.46154,187.16923 "
+     id="polygon1255"
+     transform="translate(-59.184586,-75.541293)" />
+  <polygon
+     fill="#000000"
+     stroke="#000000"
+     stroke-opacity="1"
+     points="594.19231,246.06923 594.19231,237.00769 603.25385,241.53846 "
+     id="polygon1257"
+     transform="translate(-59.184586,-75.541293)" />
+  <rect
+     fill="#ffffff"
+     stroke="#000000"
+     stroke-opacity="1"
+     transform="scale(1,-1)"
+     x="561.9574"
+     y="-168.4967"
+     width="5"
+     height="5"
+     id="rect1259" />
+  <polygon
+     fill="#ff00ff"
+     stroke="#ff00ff"
+     stroke-opacity="1"
+     points="625.90769,304.96923 607.78462,304.96923 616.84615,286.84615 "
+     id="polygon1261"
+     transform="translate(-59.184586,-75.541293)" />
 </svg>

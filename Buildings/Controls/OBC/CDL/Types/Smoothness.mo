@@ -1,10 +1,9 @@
 within Buildings.Controls.OBC.CDL.Types;
-type Smoothness = enumeration(
-    LinearSegments "Table points are linearly interpolated",
-    ConstantSegments
-      "Table points are not interpolated, but the previous tabulated value is returned")
-  "Enumeration defining the smoothness of table interpolation" annotation (
-    Documentation(info="<html>
+type Smoothness=enumeration(LinearSegments
+  "Table points are linearly interpolated",ConstantSegments
+  "Table points are not interpolated, but the previous tabulated value is returned")
+  "Enumeration defining the smoothness of table interpolation"
+  annotation (Documentation(info="<html>
 <p>
 Enumeration for the type of smoothness that is used when interpolating data from a table.
 The possible values are:

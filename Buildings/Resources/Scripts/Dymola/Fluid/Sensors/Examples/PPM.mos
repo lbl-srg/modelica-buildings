@@ -1,4 +1,4 @@
-simulateModel("Buildings.Fluid.Sensors.Examples.PPM", tolerance=1e-6, stopTime=3, method="dassl", resultFile="PPM");
+simulateModel("Buildings.Fluid.Sensors.Examples.PPM", tolerance=1e-6, stopTime=3, method="CVode", resultFile="PPM");
 createPlot(id=1,
 position={0, 0, 1005, 610},
 y={"senPPMTwoPort.ppm", "senPPMNoRev.ppm", "senPPMVol.ppm", "senPPMRev.ppm", "senPPMSta.ppm", "senPPMIn.ppm", "senPPMVol2.ppm"},

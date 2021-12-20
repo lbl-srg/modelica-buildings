@@ -54,14 +54,12 @@ model MixingVolumeMoistAir "Test model for mixing volume with moist air input"
     k=1,
     Ti=1,
     Td=1,
-    controllerType=Modelica.Blocks.Types.SimpleController.PI,
     wd=0,
     yMin=-1000)
     annotation (Placement(transformation(extent={{-40,120},{-20,140}})));
   Buildings.Controls.Continuous.LimPID PI1(
     Ni=0.1,
     Ti=1,
-    controllerType=Modelica.Blocks.Types.SimpleController.PI,
     k=10,
     yMax=1,
     yMin=-1,

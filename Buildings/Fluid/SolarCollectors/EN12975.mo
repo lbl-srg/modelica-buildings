@@ -108,10 +108,16 @@ capacity of copper.
 </html>", revisions="<html>
 <ul>
 <li>
+September 16, 2021, by Michael Wetter:<br/>
+Changed <code>lat</code> from being a parameter to an input from weather bus.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1477\">IBPSA, #1477</a>.
+</li>
+<li>
 December 17, 2017, by Michael Wetter:<br/>
 Revised computation of heat loss.<br/>
 This is for
-<a href=\"modelica://https://github.com/lbl-srg/modelica-buildings/issues/1100\">
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1100\">
 issue 1100</a>.
 </li>
 <li>

@@ -10,9 +10,14 @@ model Enable_FreProSta_ZonSta
     annotation (Placement(transformation(extent={{82,-40},{102,-20}})));
 
 protected
-  final parameter Modelica.SIunits.Temperature TOutCutoff=297.15
+  final parameter Real TOutCutoff(
+    final unit="K",
+    final displayUnit="degC",
+    final quantity = "ThermodynamicTemperature")=297.15
     "Outdoor temperature high limit cutoff";
-  final parameter Modelica.SIunits.SpecificEnergy hOutCutoff=65100
+  final parameter Real hOutCutoff(
+    final unit="J/kg",
+    final quantity = "SpecificEnergy")=65100
     "Outdoor air enthalpy high limit cutoff";
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TOutBelowCutoff(
@@ -55,50 +60,55 @@ protected
     "Minimal allowed economizer damper position"
     annotation (Placement(transformation(extent={{-60,-160},{-40,-140}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant supFanSta(
-    final k=true)
+    final k=true) "Supply fan status"
     annotation (Placement(transformation(extent={{-160,-40},{-140,-20}})));
 
 equation
   connect(TOutBelowCutoff.y, enaDis.TOut)
-    annotation (Line(points={{-19,150},{34,150},{34,60},{81,60}}, color={0,0,127}));
-  connect(TOutCut.y, enaDis1.TOutCut)
-    annotation (Line(points={{-19,110},{30,110},{30,-22},{81,-22}}, color={0,0,127}));
+    annotation (Line(points={{-18,150},{32,150},{32,59.4},{81,59.4}},
+                                                                  color={0,0,127}));
+  connect(TOutCut.y, enaDis.TCut)
+    annotation (Line(points={{-18,110},{31.5,110},{31.5,57.8},{81,57.8}},
+                                                                      color={0,0,127}));
+  connect(TOutCut.y, enaDis1.TCut)
+    annotation (Line(points={{-18,110},{32,110},{32,-22.2},{81,-22.2}},
+                                                                    color={0,0,127}));
   connect(TOutBelowCutoff.y, enaDis1.TOut)
-    annotation (Line(points={{-19,150},{34,150},{34,-20},{81,-20}}, color={0,0,127}));
+    annotation (Line(points={{-18,150},{34,150},{34,-20.6},{81,-20.6}},
+                                                                    color={0,0,127}));
   connect(hOutBelowCutoff.y, enaDis.hOut)
-    annotation (Line(points={{-79,110},{-60,110},{-60,56},{81,56}}, color={0,0,127}));
-  connect(hOutCut.y, enaDis.hOutCut)
-    annotation (Line(points={{-79,70},{-70,70},{-70,54},{81,54}}, color={0,0,127}));
+    annotation (Line(points={{-78,110},{-60,110},{-60,60},{10,60},{10,54},{81,
+          54}},                                                     color={0,0,127}));
+  connect(hOutCut.y, enaDis.hCut)
+    annotation (Line(points={{-78,70},{-70,70},{-70,52},{81,52}}, color={0,0,127}));
   connect(hOutBelowCutoff.y, enaDis1.hOut)
-    annotation (Line(points={{-79,110},{-60,110},{-60,56},{10,56},{10,-24},{81,-24}},
+    annotation (Line(points={{-78,110},{-60,110},{-60,60},{10,60},{10,-26},{81,
+          -26}},
     color={0,0,127}));
-  connect(hOutCut.y, enaDis1.hOutCut)
-    annotation (Line(points={{-79,70},{-70,70},{-70,54},{6,54},{6,-26},{81,-26}},
+  connect(hOutCut.y, enaDis1.hCut)
+    annotation (Line(points={{-78,70},{-70,70},{-70,56},{6,56},{6,-28},{81,-28}},
     color={0,0,127}));
   connect(zonSta.y, enaDis.uZonSta)
-    annotation (Line(points={{-139,10},{-120,10},{-120,50},{81,50}}, color={255,127,0}));
+    annotation (Line(points={{-138,10},{-120,10},{-120,48},{81,48}}, color={255,127,0}));
   connect(freProSta.y, enaDis.uFreProSta)
-    annotation (Line(points={{-139,50},{-130,50},{-130,52},{81,52}}, color={255,127,0}));
+    annotation (Line(points={{-138,50},{-130,50},{-130,50},{81,50}}, color={255,127,0}));
   connect(freProSta1.y, enaDis1.uFreProSta)
-    annotation (Line(points={{61,-110},{70,-110},{70,-28},{81,-28}}, color={255,127,0}));
+    annotation (Line(points={{62,-110},{70,-110},{70,-30},{81,-30}}, color={255,127,0}));
   connect(zonSta1.y, enaDis1.uZonSta)
-    annotation (Line(points={{61,-70},{72,-70},{72,-30},{81,-30}}, color={255,127,0}));
+    annotation (Line(points={{62,-70},{72,-70},{72,-32},{81,-32}}, color={255,127,0}));
   connect(outDamPosMax.y, enaDis.uOutDamPosMax)
-    annotation (Line(points={{-39,-110},{-30,-110},{-30,46},{81,46}}, color={0,0,127}));
+    annotation (Line(points={{-38,-110},{-30,-110},{-30,44},{81,44}}, color={0,0,127}));
   connect(outDamPosMin.y, enaDis.uOutDamPosMin)
-    annotation (Line(points={{-39,-150},{-28,-150},{-28,44},{81,44}}, color={0,0,127}));
+    annotation (Line(points={{-38,-150},{-28,-150},{-28,42},{81,42}}, color={0,0,127}));
   connect(outDamPosMin.y, enaDis1.uOutDamPosMin)
-    annotation (Line(points={{-39,-150},{22,-150},{22,-36},{81,-36}}, color={0,0,127}));
+    annotation (Line(points={{-38,-150},{22,-150},{22,-38},{81,-38}}, color={0,0,127}));
   connect(outDamPosMax.y, enaDis1.uOutDamPosMax)
-    annotation (Line(points={{-39,-110},{20,-110},{20,-34},{81,-34}}, color={0,0,127}));
+    annotation (Line(points={{-38,-110},{20,-110},{20,-36},{81,-36}}, color={0,0,127}));
   connect(supFanSta.y, enaDis.uSupFan)
-    annotation (Line(points={{-139,-30},{-34,-30},{-34,48},{81,48}}, color={255,0,255}));
+    annotation (Line(points={{-138,-30},{-34,-30},{-34,46},{81,46}}, color={255,0,255}));
   connect(supFanSta.y, enaDis1.uSupFan)
-    annotation (Line(points={{-139,-30},{-34,-30},{-34,-32},{81,-32}}, color={255,0,255}));
-  connect(TOutCut.y, enaDis.TOutCut)
-    annotation (Line(points={{-19,110},{30,110},{30,58},{81,58}}, color={0,0,127}));
-
-annotation (
+    annotation (Line(points={{-138,-30},{-34,-30},{-34,-34},{81,-34}}, color={255,0,255}));
+    annotation (
     experiment(StopTime=1800.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36_PR1/AHUs/SingleZone/VAV/Economizers/Subsequences/Validation/Enable_FreProSta_ZonSta.mos"
     "Simulate and plot"),
@@ -116,12 +126,12 @@ annotation (
         coordinateSystem(preserveAspectRatio=false, extent={{-180,-180},{180,180}}), graphics={
         Text(
           extent={{80,42},{164,14}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           horizontalAlignment=TextAlignment.Left,
           textString="Tests zone state disable condition"),
         Text(
           extent={{80,-40},{178,-58}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           horizontalAlignment=TextAlignment.Left,
           textString="Tests freeze protection disable condition")}),
     Documentation(info="<html>
@@ -129,7 +139,7 @@ annotation (
 This example validates
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.VAV.Economizers.Subsequences.Enable\">
 Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.VAV.Economizers.Subsequences.Enable</a>
-for the following control signals: zone state, freeze protection stage.
+for the zone state and freeze protection stage control signals.
 </p>
 </html>", revisions="<html>
 <ul>

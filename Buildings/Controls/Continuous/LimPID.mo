@@ -7,8 +7,8 @@ block LimPID
     "Control error (set point - measurement)";
 
   parameter Modelica.Blocks.Types.SimpleController controllerType=
-         Modelica.Blocks.Types.SimpleController.PID "Type of controller";
-  parameter Real k(min=0, unit="1") = 1 "Gain of controller";
+         Modelica.Blocks.Types.SimpleController.PI "Type of controller";
+  parameter Real k(min=0) = 1 "Gain of controller";
   parameter Modelica.SIunits.Time Ti(min=Modelica.Constants.small)=0.5
     "Time constant of Integrator block" annotation (Dialog(enable=
           controllerType == Modelica.Blocks.Types.SimpleController.PI or
@@ -55,8 +55,8 @@ block LimPID
   parameter Boolean strict=true "= true, if strict limits with noEvent(..)"
     annotation (Evaluate=true, choices(checkBox=true), Dialog(tab="Advanced"));
 
-  parameter Boolean reverseAction = false
-    "Set to true for throttling the water flow rate through a cooling coil controller";
+  parameter Boolean reverseActing = true
+    "Set to true for reverse acting, or false for direct acting control action";
 
   parameter Buildings.Types.Reset reset = Buildings.Types.Reset.Disabled
     "Type of controller output reset"
@@ -127,8 +127,8 @@ block LimPID
 protected
   constant Modelica.SIunits.Time unitTime=1 annotation (HideResult=true);
 
-  final parameter Real revAct = if reverseAction then -1 else 1
-    "Switch for sign for reverse action";
+  final parameter Real revAct = if reverseActing then 1 else -1
+    "Switch for sign for reverse or direct acting controller";
 
   parameter Boolean with_I = controllerType==Modelica.Blocks.Types.SimpleController.PI or
                              controllerType==Modelica.Blocks.Types.SimpleController.PID
@@ -178,10 +178,11 @@ protected
     annotation (
       Placement(transformation(extent={{60,-80},{40,-60}})));
 
-  Modelica.Blocks.Nonlinear.Limiter limiter(
+  Limiter limiter(
     final uMax=yMax,
     final uMin=yMin,
-    final strict=strict) "Output limiter"
+    final strict=strict)
+    "Output limiter"
     annotation (Placement(transformation(extent={{70,-10},{90,10}})));
 
 
@@ -190,6 +191,91 @@ protected
        reset <> Buildings.Types.Reset.Disabled
     "Signal source for integrator reset"
     annotation (Placement(transformation(extent={{-80,-90},{-60,-70}})));
+
+  // The block Limiter below has been implemented as it is introduced in MSL 3.2.3, but
+  // not all tools include MSL 3.2.3.
+  // See https://github.com/ibpsa/modelica-ibpsa/pull/1222#issuecomment-554114617
+block Limiter "Limit the range of a signal"
+  parameter Real uMax(start=1) "Upper limits of input signals";
+  parameter Real uMin= -uMax "Lower limits of input signals";
+  parameter Boolean strict=false "= true, if strict limits with noEvent(..)"
+    annotation (Evaluate=true, choices(checkBox=true), Dialog(tab="Advanced"));
+  parameter Boolean limitsAtInit=true
+    "Has no longer an effect and is only kept for backwards compatibility (the implementation uses now the homotopy operator)"
+    annotation (Dialog(tab="Dummy"),Evaluate=true, choices(checkBox=true));
+  extends Modelica.Blocks.Interfaces.SISO;
+
+equation
+  assert(uMax >= uMin, "Limiter: Limits must be consistent. However, uMax (=" + String(uMax) +
+                       ") < uMin (=" + String(uMin) + ")");
+
+  if strict then
+    y = smooth(0, noEvent(if u > uMax then uMax else if u < uMin then uMin else u));
+  else
+    y = smooth(0,if u > uMax then uMax else if u < uMin then uMin else u);
+  end if;
+  annotation (
+     Icon(coordinateSystem(
+    preserveAspectRatio=true,
+    extent={{-100,-100},{100,100}}), graphics={
+    Line(points={{0,-90},{0,68}}, color={192,192,192}),
+    Polygon(
+      points={{0,90},{-8,68},{8,68},{0,90}},
+      lineColor={192,192,192},
+      fillColor={192,192,192},
+      fillPattern=FillPattern.Solid),
+    Line(points={{-90,0},{68,0}}, color={192,192,192}),
+    Polygon(
+      points={{90,0},{68,-8},{68,8},{90,0}},
+      lineColor={192,192,192},
+      fillColor={192,192,192},
+      fillPattern=FillPattern.Solid),
+    Line(points={{-80,-70},{-50,-70},{50,70},{80,70}}),
+    Text(
+      extent={{-150,-150},{150,-110}},
+      textString="uMax=%uMax"),
+    Line(
+      visible=strict,
+      points={{50,70},{80,70}},
+      color={255,0,0}),
+    Line(
+      visible=strict,
+      points={{-80,-70},{-50,-70}},
+      color={255,0,0})}),
+    Diagram(coordinateSystem(
+    preserveAspectRatio=true,
+    extent={{-100,-100},{100,100}}), graphics={
+    Line(points={{0,-60},{0,50}}, color={192,192,192}),
+    Polygon(
+      points={{0,60},{-5,50},{5,50},{0,60}},
+      lineColor={192,192,192},
+      fillColor={192,192,192},
+      fillPattern=FillPattern.Solid),
+    Line(points={{-60,0},{50,0}}, color={192,192,192}),
+    Polygon(
+      points={{60,0},{50,-5},{50,5},{60,0}},
+      lineColor={192,192,192},
+      fillColor={192,192,192},
+      fillPattern=FillPattern.Solid),
+    Line(points={{-50,-40},{-30,-40},{30,40},{50,40}}),
+    Text(
+      extent={{46,-6},{68,-18}},
+      textColor={128,128,128},
+      textString="u"),
+    Text(
+      extent={{-30,70},{-5,50}},
+      textColor={128,128,128},
+      textString="y"),
+    Text(
+      extent={{-58,-54},{-28,-42}},
+      textColor={128,128,128},
+      textString="uMin"),
+    Text(
+      extent={{26,40},{66,56}},
+      textColor={128,128,128},
+      textString="uMax")}));
+end Limiter;
+
 
 initial equation
   if initType==Modelica.Blocks.Types.InitPID.InitialOutput then
@@ -267,29 +353,57 @@ equation
 defaultComponentName="conPID",
 Documentation(info="<html>
 <p>
-This model is similar to
-<a href=\"modelica://Modelica.Blocks.Continuous.LimPID\">Modelica.Blocks.Continuous.LimPID</a>,
-except for the following changes:
+PID controller in the standard form
 </p>
-
-<ol>
-<li>
+<p align=\"center\" style=\"font-style:italic;\">
+y = k &nbsp; ( e(t) + 1 &frasl; T<sub>i</sub> &nbsp; &int; e(s) ds + T<sub>d</sub> de(t)&frasl;dt ),
+</p>
 <p>
-It can be configured to have a reverse action.
+where
+<i>y</i> is the control signal,
+<i>e(t) = u<sub>s</sub> - u<sub>m</sub></i> is the control error,
+with <i>u<sub>s</sub></i> being the set point and <i>u<sub>m</sub></i> being
+the measured quantity,
+<i>k</i> is the gain,
+<i>T<sub>i</sub></i> is the time constant of the integral term and
+<i>T<sub>d</sub></i> is the time constant of the derivative term.
 </p>
-<p>If the parameter <code>reverseAction=false</code> (the default), then
-<code>u_m &lt; u_s</code> increases the controller output,
-otherwise the controller output is decreased. Thus,
+<p>
+Note that the units of <i>k</i> are the inverse of the units of the control error,
+while the units of <i>T<sub>i</sub></i> and <i>T<sub>d</sub></i> are seconds.
+</p>
+<p>
+For detailed treatment of integrator anti-windup, set-point weights and output limitation, see
+<a href=\"modelica://Modelica.Blocks.Continuous.LimPID\">Modelica.Blocks.Continuous.LimPID</a>.
+</p>
+<h4>Options</h4>
+This controller can be configured as follows.
+<h5>P, PI, PD, or PID action</h5>
+<p>
+Through the parameter <code>controllerType</code>, the controller can be configured
+as P, PI, PD or PID controller. The default configuration is PI.
+</p>
+<h5>Direct or reverse acting</h5>
+<p>
+Through the parameter <code>reverseActing</code>, the controller can be configured to
+be reverse or direct acting.
+The above standard form is reverse acting, which is the default configuration.
+For a reverse acting controller, for a constant set point,
+an increase in measurement signal <code>u_m</code> decreases the control output signal <code>y</code>
+(Montgomery and McDowall, 2008).
+Thus,
 </p>
 <ul>
-  <li>for a heating coil with a two-way valve, set <code>reverseAction = false</code>, </li>
-  <li>for a cooling coils with a two-way valve, set <code>reverseAction = true</code>. </li>
+  <li>
+  for a heating coil with a two-way valve, leave <code>reverseActing = true</code>, but
+  </li>
+  <li>
+  for a cooling coil with a two-way valve, set <code>reverseActing = false</code>.
+  </li>
 </ul>
-</li>
-
-<li>
+<h5>Reset of the controller output</h5>
 <p>
-It can be configured to enable an input port that allows resetting the controller
+The controller can be configured to enable an input port that allows resetting the controller
 output. The controller output can be reset as follows:
 </p>
 <ul>
@@ -306,35 +420,53 @@ output. The controller output can be reset as follows:
   </li>
   <li>
   If <code>reset = Buildings.Types.Reset.Input</code>, then a boolean
-  input signal <code>trigger</code> is enabled. Whenever the value of
-  this input changes from <code>false</code> to <code>true</code>,
-  the controller output is reset by setting <code>y</code>
-  to the value of the input signal <code>y_reset_in</code>.
+  input signal <code>trigger</code> and a real input signal <code>y_reset_in</code>
+  are enabled. Whenever the value of
+  <code>trigger</code> changes from <code>false</code> to <code>true</code>,
+  the controller output is reset by setting the value of <code>y</code>
+  to <code>y_reset_in</code>.
   </li>
 </ul>
 <p>
 Note that this controller implements an integrator anti-windup. Therefore,
 for most applications, keeping the default setting of
 <code>reset = Buildings.Types.Reset.Disabled</code> is sufficient.
-Examples where it may be beneficial to reset the controller output are situations
+However, if the controller is used in conjuction with equipment that is being
+switched on, better control performance may be achieved by resetting the controller
+output when the equipment is switched on.
+This is in particular the case in situations
 where the equipment control input should continuously increase as the equipment is
-switched on, such as as a light dimmer that may slowly increase the luminance, or
+switched on, such as a light dimmer that may slowly increase the luminance, or
 a variable speed drive of a motor that should continuously increase the speed.
 </p>
-</li>
+<h4>References</h4>
+<p>
+R. Montgomery and R. McDowall (2008).
+\"Fundamentals of HVAC Control Systems.\"
+American Society of Heating Refrigerating and Air-Conditioning Engineers Inc. Atlanta, GA.
+</p>
 
-<li>
-The parameter <code>limitsAtInit</code> has been removed.
-</li>
-
-<li>
-Some parameters assignments in the instances have been made final.
-</li>
-
-</ol>
 </html>",
 revisions="<html>
 <ul>
+<li>
+June 1, 2020, by Michael Wetter:<br/>
+Corrected wrong convention of reverse and direct action.<br/>
+Changed default configuration from PID to PI.<br/>
+This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1365\">issue 1365</a>.
+</li>
+<li>
+March 9, 2020, by Michael Wetter:<br/>
+Corrected wrong unit declaration for parameter <code>k</code>.<br/>
+This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1316\">issue 1316</a>.
+</li>
+<li>
+October 19, 2019, by Filip Jorissen:<br/>
+Disabled homotopy to ensure bounded outputs
+by copying the implementation from MSL 3.2.3 and by
+hardcoding the implementation for <code>homotopyType=NoHomotopy</code>.
+See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1221\">issue 1221</a>.
+</li>
 <li>
 September 29, 2016, by Michael Wetter:<br/>
 Refactored model.

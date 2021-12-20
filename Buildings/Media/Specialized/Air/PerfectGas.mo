@@ -520,7 +520,6 @@ protected
       "Specific heat capacity at constant volume";
     annotation (
       preferredView="info",
-      defaultComponentName="gas",
       Documentation(info="<html>
 <p>
 This data record contains the coefficients for perfect gases.

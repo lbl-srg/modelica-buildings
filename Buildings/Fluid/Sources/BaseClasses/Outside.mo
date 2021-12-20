@@ -25,17 +25,8 @@ protected
   Buildings.Utilities.Psychrometrics.X_pTphi x_pTphi if
        not singleSubstance "Block to compute water vapor concentration";
 
-  Modelica.Blocks.Interfaces.RealInput X_in_internal[Medium.nX](
-    each final unit="kg/kg",
-    final quantity=Medium.substanceNames)
-    "Needed to connect to conditional connector";
   Modelica.Blocks.Interfaces.RealInput T_in_internal(final unit="K",
                                                      displayUnit="degC")
-    "Needed to connect to conditional connector";
-  Modelica.Blocks.Interfaces.RealInput p_in_internal(final unit="Pa")
-    "Needed to connect to conditional connector";
-  Modelica.Blocks.Interfaces.RealInput C_in_internal[Medium.nC](
-       quantity=Medium.extraPropertiesNames)
     "Needed to connect to conditional connector";
   Modelica.Blocks.Interfaces.RealInput h_internal = Medium.specificEnthalpy(
     Medium.setState_pTX(p_in_internal, T_in_internal, X_in_internal));
@@ -90,15 +81,10 @@ equation
         preserveAspectRatio=true,
         extent={{-100,-100},{100,100}},
         grid={2,2}), graphics={
-        Ellipse(
-          extent={{-98,100},{102,-100}},
-          lineColor={0,0,0},
-          fillPattern=FillPattern.Sphere,
-          fillColor={0,127,255}),
         Text(
           extent={{-150,110},{150,150}},
           textString="%name",
-          lineColor={0,0,255}),
+          textColor={0,0,255}),
         Line(
           visible=use_C_in,
           points={{-100,-80},{-60,-80}},
@@ -106,10 +92,21 @@ equation
         Text(
           visible=use_C_in,
           extent={{-164,-90},{-62,-130}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid,
-          textString="C")}),
+          textString="C"),
+        Ellipse(
+          extent={{-100,100},{100,-100}},
+          lineColor={0,0,0},
+          fillPattern=FillPattern.Sphere,
+          fillColor=DynamicSelect({0,127,255},
+            min(1, max(0, (1-(weaBus.TDryBul-273.15)/50)))*{28,108,200}+
+            min(1, max(0, (weaBus.TDryBul-273.15)/50))*{255,0,0})),
+        Text(
+          extent={{62,28},{-58,-22}},
+          textColor={255,255,255},
+          textString=DynamicSelect("", String(weaBus.TDryBul-273.15, format=".1f")))}),
     Documentation(info="<html>
 <p>
 This is the base class for models that describes boundary conditions for
@@ -132,9 +129,21 @@ with exception of boundary pressure, do not have an effect.
 revisions="<html>
 <ul>
 <li>
+February 25, 2020, by Michael Wetter:<br/>
+Changed icon to display its operating state.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1294\">#1294</a>.
+</li>
+<li>
+November 14, 2019, by Michael Wetter:<br/>
+Removed duplicate connector.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1248\"> #1248</a>.
+</li>
+<li>
 January 14, 2019 by Jianjun Hu:<br/>
 Changed to extend <a href=\"modelica://Buildings.Fluid.Sources.BaseClasses.PartialSource\">
-Buildings.Fluid.Sources.BaseClasses.PartialSource</a>. This is for 
+Buildings.Fluid.Sources.BaseClasses.PartialSource</a>. This is for
 <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1050\"> #1050</a>.
 </li>
 <li>

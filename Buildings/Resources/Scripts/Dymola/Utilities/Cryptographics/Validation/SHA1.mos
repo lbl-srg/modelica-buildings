@@ -1,4 +1,4 @@
-simulateModel("Buildings.Utilities.Cryptographics.Validation.SHA1", tolerance=1e-6, stopTime=1, method="dassl", resultFile="SHA1");
+simulateModel("Buildings.Utilities.Cryptographics.Validation.SHA1", tolerance=1e-6, stopTime=1, method="CVode", resultFile="SHA1");
 createPlot(id = 1,
  position = {50, 50, 700, 500},
  x = "time",

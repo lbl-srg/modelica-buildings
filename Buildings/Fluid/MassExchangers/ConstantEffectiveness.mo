@@ -97,11 +97,11 @@ equation
           fillPattern=FillPattern.Solid),
         Text(
           extent={{-62,50},{48,-10}},
-          lineColor={255,255,255},
+          textColor={255,255,255},
           textString="epsS=%epsS"),
         Text(
           extent={{-60,4},{50,-56}},
-          lineColor={255,255,255},
+          textColor={255,255,255},
           textString="epsL=%epsL")}),
           preferredView="info",
 defaultComponentName="masExc",

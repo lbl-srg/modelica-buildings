@@ -1,0 +1,15 @@
+simulateModel("Buildings.Fluid.HeatExchangers.Examples.WetCoilEffectivenessNTUMassFlow",
+  stopTime=3600,
+  method="cvode",
+  tolerance=1e-6,
+  resultFile="WetCoilEffectivenessNTUMassFlow");
+createPlot(
+  id=1,
+  position={0, 0, 782, 636},
+  y={"hex.Q2_flow", "hex.QLat2_flow"},
+  grid=true);
+createPlot(
+  id=1,
+  y={"hex.port_a1.m_flow", "hex.port_a2.m_flow"},
+  grid=true,
+  subPlot=2);

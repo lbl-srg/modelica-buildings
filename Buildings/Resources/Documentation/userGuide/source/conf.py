@@ -42,7 +42,7 @@ master_doc = 'index'
 
 # General information about the project.
 project = u'Modelica Buildings library'
-copyright = u'2012-2019, The Regents of the University of California (through Lawrence Berkeley National Laboratory)'
+copyright = u'2012-2020, The Regents of the University of California (through Lawrence Berkeley National Laboratory)'
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
@@ -120,10 +120,10 @@ html_theme_options = {
     # Note the "1" or "True" value above as the third argument to indicate
     # an arbitrary url.
     'navbar_links': [
-        ("Home", "http://simulationresearch.lbl.gov/modelica", True),
+        ("Home", "https://simulationresearch.lbl.gov/modelica", True),
         ("User Guide", "index"),
 #        ("Download", "download"),
-#        ("Python", "http://simulationresearch.lbl.gov/modelica/buildingspy", True),
+#        ("Python", "https://simulationresearch.lbl.gov/modelica/buildingspy", True),
 #        ("Development", "https://github.com/lbl-srg/modelica-buildings", True),
 #        ("Publications", "publications"),
 #        ("Help", "help"),

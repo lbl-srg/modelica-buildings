@@ -42,14 +42,14 @@ First implementation.
     Icon(graphics={
         Text(
           extent={{-95,53},{-12,-2}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="etaEle"),
         Text(
           extent={{-95,-9},{-48,-48}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="PLos"),
         Text(
           extent={{-95,-49},{-12,-104}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="dTSup")}));
 end HeatPumps;

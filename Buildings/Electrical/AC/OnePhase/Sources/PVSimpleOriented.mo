@@ -21,6 +21,18 @@ defaultComponentName="pv",
     Documentation(revisions="<html>
 <ul>
 <li>
+September 16, 2021, by Michael Wetter:<br/>
+Removed parameter <code>lat</code> as this is now obtained from the weather data reader.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1477\">IBPSA, #1477</a>.
+</li>
+<li>
+October 7, 2019, by Michael Wetter:<br/>
+Corrected model to include DC/AC conversion in output <code>P</code>.<br/>
+This is for issue
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1577\">1577</a>.
+</li>
+<li>
 January 30, 2019, by Michael Wetter:<br/>
 Added <code>replaceable</code>.
 </li>

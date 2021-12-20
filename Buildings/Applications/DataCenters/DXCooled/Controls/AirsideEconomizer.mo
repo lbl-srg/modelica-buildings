@@ -30,7 +30,7 @@ model AirsideEconomizer "Controller for airside economizer"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 
   Buildings.Controls.Continuous.LimPID con(
-    reverseAction=true,
+    reverseActing=false,
     k=gai,
     yMin=minOAFra,
     final controllerType=Modelica.Blocks.Types.SimpleController.PI,
@@ -49,7 +49,7 @@ protected
   Buildings.Controls.OBC.CDL.Integers.Equal ecoOff
     "Determine if airside economizer is off"
     annotation (Placement(transformation(extent={{-40,-70},{-20,-50}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch switch1
+  Buildings.Controls.OBC.CDL.Continuous.Switch switch1
     "Switch to select control output"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
 
@@ -81,7 +81,7 @@ equation
           fillPattern=FillPattern.Solid),
         Text(
           extent={{128,114},{-128,166}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%name")}),
     Documentation(info="<html>
 <p>

@@ -1,0 +1,18 @@
+simulateModel("Buildings.Fluid.CHPs.Validation.ThermalFollowing",
+    method="dassl", stopTime=10000, tolerance=1e-06, resultFile="ThermalFollowing");
+createPlot(id=1, position={20, 20, 600, 1000}, y={"EEle.y", "EEleVal.y", "EThe.y", "ETheVal.y"},
+    subPlot=1, grid=true);
+createPlot(id=1, position={20, 20, 600, 1000}, y={"theFol.PEleNet", "theFolNeg.PEleNet", "PEleNetVal.y"},
+    subPlot=2, grid=true);
+createPlot(id=1, position={20, 20, 600, 1000}, y={"theFol.eneCon.QGen_flow", "theFolNeg.eneCon.QGen_flow", "QGenVal_flow.y"},
+    subPlot=3, grid=true);
+createPlot(id=2, position={640, 20, 600, 1000}, y={"theFol.QWat_flow", "theFolNeg.QWat_flow", "QWatVal_flow.y"},
+    subPlot=1, grid=true);
+createPlot(id=2, position={640, 20, 600, 1000}, y={"theFol.QLos.Q_flow", "theFolNeg.QLos.Q_flow", "QLosVal_flow.y"},
+    subPlot=2, grid=true);
+createPlot(id=2, position={640, 20, 600, 1000}, y={"theFol.opeMod.opeMod", "theFolNeg.opeMod.opeMod"},
+    subPlot=3, grid=true);
+createPlot(id=3, position={1260, 20, 600, 1000}, y={"theFol.TWatOut.T", "theFolNeg.TWatOut.T", "TWatOutVal.y", "TWatOutSet.y"},
+    subPlot=1, grid=true);
+createPlot(id=3, position={1260, 20, 600, 1000}, y={"theFol.eng.TEng", "theFolNeg.eng.TEng", "TEngVal.y"},
+    subPlot=2, grid=true);

@@ -50,8 +50,7 @@ model NaturalConvection "Tutorial for Natural Convection case"
    nConBou = nConBou,
    nSurBou = nSurBou,
    samplePeriod = 60,
-    lat=0.012787839282646,
-    massDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+   massDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
   annotation (Placement(transformation(extent={{60,-58},{100,-18}})));
   HeatTransfer.Sources.FixedTemperature           TWesWal(T=274.15)
     "Boundary condition for the west wall" annotation (Placement(transformation(
@@ -126,10 +125,10 @@ The following conditions are applied in Modelica.:
 </p>
 <ul>
 <li>
-East wall: Fixed temperature at <i>T<sub>e</sub>=0</i>&circ;C,
+East wall: Fixed temperature at <i>T<sub>e</sub>=0</i>&deg;C,
 </li>
 <li>
-West wall: Fixed temperature at <i>T<sub>w</sub>=1</i>&circ;C,
+West wall: Fixed temperature at <i>T<sub>w</sub>=1</i>&deg;C,
 </li>
 <li>
 North &amp; South wall, Ceiling, Floor: Fixed heat flux at <i>0</i> W/m<sup>2</sup>.
@@ -232,7 +231,6 @@ surBou(
     Buildings.ThermalZones.Detailed.Types.CFDBoundaryConditions.HeatFlowRate,
     Buildings.ThermalZones.Detailed.Types.CFDBoundaryConditions.HeatFlowRate,
     Buildings.ThermalZones.Detailed.Types.CFDBoundaryConditions.HeatFlowRate}),
-  lat = 0.012787839282646,
   AFlo = 1*1,
   hRoo = 1,
   linearizeRadiation = false,
@@ -320,7 +318,7 @@ Store <code>NaturalConvection.ffd</code>, <code>NaturalConvection.dat</code>, an
 at <code>Buildings/Resources/Data/ThermalZones/Detailed/Examples/FFD/Tutorial</code>.
 </li>
 <li>
-Set simulation the stop time of the Modelica model <code>7200</code> seconds and choose for example the Radau solver.
+Set simulation the stop time of the Modelica model <code>7200</code> seconds and choose for example the CVode solver.
 </li>
 <li>
 Translate the model and start the simulation.
@@ -334,6 +332,12 @@ Note: Tecplot is needed for this.
 </ol>
 </html>",revisions="<html>
 <ul>
+<li>
+September 16, 2021, by Michael Wetter:<br/>
+Removed assignment of parameter <code>lat</code> as this is now obtained from the weather data reader.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1477\">IBPSA, #1477</a>.
+</li>
 <li>
 September 07, 2017, by Thierry Nouidui:<br/>
 Refactored the FFD C-code and revised the documentation.

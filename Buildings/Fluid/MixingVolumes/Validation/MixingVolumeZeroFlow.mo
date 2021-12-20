@@ -172,7 +172,7 @@ equation
         coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
                     graphics={Text(
           extent={{12,30},{106,10}},
-          lineColor={28,108,200},
+          textColor={28,108,200},
           textString="<- vol.prescribedHeatFlowRate = true")}),
     experiment(
       Tolerance=1E-6, StopTime=2),
@@ -228,7 +228,6 @@ If you use Dymola, set <code>Advanced.Define.AimForHighAccuracy = false</code> t
 increase the chance of the error being produced for this simple example.
 </p>
 </html>"),
-    __Dymola_Commands(file=
-          "Resources/Scripts/Dymola/Fluid/MixingVolumes/Validation/MixingVolumeZeroFlow.mos"
+    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/MixingVolumes/Validation/MixingVolumeZeroFlow.mos"
         "Simulate and plot"));
 end MixingVolumeZeroFlow;

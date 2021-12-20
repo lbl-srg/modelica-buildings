@@ -1,0 +1,5 @@
+simulateModel("Buildings.Obsolete.Controls.OBC.CDL.Continuous.Validation.LimPIDWithReset", stopTime=10, method="Cvode", tolerance=1e-06, resultFile="CDL_LimPIDWithReset1");
+createPlot(id=1, position={35, 35, 800, 1027}, y={"limPIDPar.u_s", "limPIDPar.u_m", "limPIDPar.y"}, range={0.0, 10.0, -0.5, 1.5}, grid=true, colors={{28,108,200}, {238,46,47}, {0,140,72}});
+createPlot(id=1, position={35, 35, 800, 1027}, y={"limPIDInp.u_s", "limPIDInp.u_m", "limPIDInp.y"}, range={0.0, 10.0, -0.5, 1.5}, grid=true, subPlot=2, colors={{28,108,200}, {238,46,47}, {0,140,72}});
+createPlot(id=1, position={35, 35, 800, 1027}, y={"limPIPar.u_s", "limPIPar.u_m", "limPIPar.y"}, range={0.0, 10.0, -0.5, 1.5}, grid=true, subPlot=3, colors={{28,108,200}, {238,46,47}, {0,140,72}});
+createPlot(id=1, position={35, 35, 800, 1027}, y={"limPIInp.u_s", "limPIInp.u_m", "limPIInp.y"}, range={0.0, 10.0, -0.5, 1.5}, grid=true, subPlot=4, colors={{28,108,200}, {238,46,47}, {0,140,72}});

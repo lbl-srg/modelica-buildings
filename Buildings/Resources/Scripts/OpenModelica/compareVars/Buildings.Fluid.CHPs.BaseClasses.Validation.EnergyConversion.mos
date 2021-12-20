@@ -1,0 +1,11 @@
+compareVars :=
+  {
+    "con.opeMod",
+    "eneConEngTem.mFue_flow",
+    "eneConTimDel.mFue_flow",
+    "eneConEngTem.QGen_flow",
+    "eneConTimDel.QGen_flow",
+    "eneConEngTem.PEleNet",
+    "eneConTimDel.PEleNet",
+    "PEle.y"
+  };

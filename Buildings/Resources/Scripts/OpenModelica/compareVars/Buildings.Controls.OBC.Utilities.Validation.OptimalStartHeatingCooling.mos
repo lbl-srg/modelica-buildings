@@ -1,0 +1,12 @@
+compareVars :=
+  {
+    "optSta.tOpt",
+    "optSta.optCoo.tOpt",
+    "optSta.optHea.tOpt",
+    "optSta.optOn",
+    "optSta.optCoo.optOn",
+    "optSta.optHea.optOn",
+    "TSetHea.y",
+    "TSetCoo.y",
+    "optSta.TZon"
+  };

@@ -22,10 +22,12 @@ model TraceSubstances "Test model for the extra property sensor"
   Modelica.Blocks.Sources.Constant step(k=8.18E-6) "CO2 mass flow rate"
     annotation (Placement(transformation(extent={{-80,30},{-60,50}})));
   Buildings.Fluid.Sensors.TraceSubstances senVol(
-    redeclare package Medium = Medium) "Sensor at volume"
+    redeclare package Medium = Medium, warnAboutOnePortConnection=false)
+                                       "Sensor at volume"
     annotation (Placement(transformation(extent={{100,50},{120,70}})));
   Buildings.Fluid.Sensors.TraceSubstances senSou(
     redeclare package Medium = Medium,
+    warnAboutOnePortConnection=false,
     substanceName="CO2") "Sensor at source"
     annotation (Placement(transformation(extent={{24,90},{44,110}})));
   Modelica.Blocks.Sources.Constant m_flow(k=m_flow_nominal)
@@ -64,7 +66,8 @@ model TraceSubstances "Test model for the extra property sensor"
     allowFlowReversal=false,
     tau=0) "Sensor at exhaust air, configured to not allow flow reversal"
     annotation (Placement(transformation(extent={{18,-62},{-2,-42}})));
-  Buildings.Fluid.Sensors.PPM senPPM(redeclare package Medium = Medium)
+  Buildings.Fluid.Sensors.PPM senPPM(redeclare package Medium = Medium,
+      warnAboutOnePortConnection=false)
     "PPM sensor"
     annotation (Placement(transformation(extent={{100,10},{120,30}})));
 

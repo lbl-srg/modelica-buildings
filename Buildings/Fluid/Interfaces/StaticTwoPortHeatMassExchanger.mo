@@ -9,8 +9,8 @@ model StaticTwoPortHeatMassExchanger
   constant Boolean prescribedHeatFlowRate
     "Set to true if the heat flow rate is not a function of the component temperature";
 
-  parameter Boolean homotopyInitialization = true "= true, use homotopy method"
-    annotation(Evaluate=true, Dialog(tab="Advanced"));
+  constant Boolean homotopyInitialization = true "= true, use homotopy method"
+    annotation(HideResult=true);
 
   // Model inputs
   // Q_flow is the sensible plus latent heat flow rate
@@ -59,6 +59,12 @@ protected
   Modelica.Blocks.Sources.RealExpression
     masExc(final y=mWat_flow) "Block to set moisture exchange in volume"
     annotation (Placement(transformation(extent={{-20,20},{0,40}})));
+
+initial equation
+  assert(homotopyInitialization, "In " + getInstanceName() +
+    ": The constant homotopyInitialization has been modified from its default value. This constant will be removed in future releases.",
+    level = AssertionLevel.warning);
+
 equation
   connect(vol.hOut, hOut);
   connect(vol.XiOut, XiOut);
@@ -148,6 +154,12 @@ are the results of an iterative solver.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+April 14, 2020, by Michael Wetter:<br/>
+Changed <code>homotopyInitialization</code> to a constant.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1341\">IBPSA, #1341</a>.
+</li>
 <li>
 April 11, 2017, by Michael Wetter:<br/>
 Updated documentation to make clear that <code>Q_flow</code>

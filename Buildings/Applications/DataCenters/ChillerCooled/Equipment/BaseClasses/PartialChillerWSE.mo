@@ -7,7 +7,7 @@ partial model PartialChillerWSE
      final computeFlowResistance1=true,
      final computeFlowResistance2=true);
   extends Buildings.Applications.DataCenters.ChillerCooled.Equipment.BaseClasses.PartialControllerInterface(
-     final reverseAction=true);
+     final reverseActing=false);
   extends Buildings.Applications.DataCenters.ChillerCooled.Equipment.BaseClasses.ValvesParameters(
      numVal=4,
      final deltaM=deltaM1);
@@ -16,6 +16,9 @@ partial model PartialChillerWSE
      final yValve_start={yValWSE_start});
   extends Buildings.Applications.DataCenters.ChillerCooled.Equipment.BaseClasses.ThreeWayValveParameters(
      final activate_ThrWayVal=use_controller);
+
+  constant Boolean homotopyInitialization = true "= true, use homotopy method"
+    annotation(HideResult=true);
 
   //Chiller
   parameter Integer numChi(min=1) "Number of chillers"
@@ -26,11 +29,6 @@ partial model PartialChillerWSE
                 Placement(transformation(extent={{70,78},{90,98}})));
   parameter Real[2] lValChi(each min=1e-10, each max=1) = {0.0001,0.0001}
     "Valve leakage, l=Kv(y=0)/Kv(y=1)"
-    annotation(Dialog(group="Two-way valve"));
-  parameter Real[2] kFixedValChi(each unit="",each min=0)=
-    {m1_flow_chi_nominal,m2_flow_chi_nominal} ./ sqrt({dp1_chi_nominal,dp2_chi_nominal})
-    "Flow coefficient of fixed resistance that may be in series with valves
-    in chillers, k=m_flow/sqrt(dp), with unit=(kg.m)^(1/2)."
     annotation(Dialog(group="Two-way valve"));
   parameter Real[numChi] yValChi_start=fill(0,numChi)
     "Initial value of output from on/off valves in chillers"
@@ -44,21 +42,12 @@ partial model PartialChillerWSE
   parameter Real[2] lValWSE(each min=1e-10, each max=1) = {0.0001,0.0001}
     "Valve leakage, l=Kv(y=0)/Kv(y=1)"
     annotation(Dialog(group="Two-way valve"));
-  parameter Real[2] kFixedValWSE(each unit="", each min=0)=
-    {m1_flow_wse_nominal/ sqrt(dp1_wse_nominal),0}
-    "Flow coefficient of fixed resistance that may be in series with valves
-    in WSE, k=m_flow/sqrt(dp), with unit=(kg.m)^(1/2)."
-    annotation(Dialog(group="Two-way valve"));
   parameter Real yValWSE_start=0
     "Initial value of output from on/off valve in WSE"
     annotation(Dialog(tab="Dynamics", group="Filtered opening",enable=use_inputFilter));
   parameter Real yThrWayValWSE_start=0
     "Initial value of output from three-way bypass valve in WSE"
     annotation(Dialog(tab="Dynamics", group="Filtered opening",enable=use_controller and use_inputFilter));
-
-  // Advanced
-  parameter Boolean homotopyInitialization = true "= true, use homotopy method"
-    annotation(Evaluate=true, Dialog(tab="Advanced"));
 
   // Dynamics
   parameter Modelica.Fluid.Types.Dynamics energyDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial
@@ -148,7 +137,7 @@ partial model PartialChillerWSE
     "Electric power consumed by chiller compressor"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 
-  Buildings.Applications.DataCenters.ChillerCooled.Equipment.ElectricChillerParallel chiPar(
+  Buildings.Applications.BaseClasses.Equipment.ElectricChillerParallel chiPar(
     redeclare final replaceable package Medium1 = Medium1,
     redeclare final replaceable package Medium2 = Medium2,
     final CvData=Buildings.Fluid.Types.CvTypes.OpPoint,
@@ -187,7 +176,6 @@ partial model PartialChillerWSE
     final C2_start=C2_start,
     final C2_nominal=C2_nominal,
     final l=lValChi,
-    final kFixed=kFixedValChi,
     final dp2_nominal=dp2_chi_nominal,
     final dpValve_nominal=dpValve_nominal[1:2],
     final rhoStd=rhoStd[1:2],
@@ -214,7 +202,6 @@ partial model PartialChillerWSE
     final deltaM2=deltaM2,
     final homotopyInitialization=homotopyInitialization,
     final l=lValWSE,
-    final kFixed=kFixedValWSE,
     final use_inputFilter=use_inputFilter,
     final riseTimeValve=riseTimeValve,
     final initValve=initValve,
@@ -252,7 +239,7 @@ partial model PartialChillerWSE
     final yValWSE_start=yValWSE_start,
     final tauThrWayVal=tauWSE,
     final use_controller=use_controller,
-    final reverseAction=reverseAction,
+    final reverseActing=reverseActing,
     final show_T=show_T,
     final portFlowDirection_1=portFlowDirection_1,
     final portFlowDirection_2=portFlowDirection_2,
@@ -270,6 +257,25 @@ partial model PartialChillerWSE
     "Temperature sensor"
     annotation (Placement(transformation(extent={{28,14},{8,34}})));
 
+  Fluid.FixedResistances.Junction spl1(
+    redeclare package Medium = Medium1,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
+    m_flow_nominal={numChi*m1_flow_chi_nominal,-m1_flow_wse_nominal,-numChi*
+        m1_flow_chi_nominal},
+    dp_nominal={0,0,0}) "Splitter"
+    annotation (Placement(transformation(extent={{-80,46},{-60,66}})));
+  Fluid.FixedResistances.Junction jun1(
+    redeclare package Medium = Medium1,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
+    m_flow_nominal={numChi*m1_flow_chi_nominal,-numChi*m1_flow_chi_nominal,
+        m1_flow_wse_nominal},
+    dp_nominal={0,0,0}) "Junction"
+    annotation (Placement(transformation(extent={{70,50},{90,70}})));
+initial equation
+  assert(homotopyInitialization, "In " + getInstanceName() +
+    ": The constant homotopyInitialization has been modified from its default value. This constant will be removed in future releases.",
+    level = AssertionLevel.warning);
+
 equation
   for i in 1:numChi loop
   connect(chiPar.on[i], on[i])
@@ -282,18 +288,6 @@ equation
   connect(chiPar.TSet, TSet)
     annotation (Line(points={{-62,30},{-84,30},{-84,104},{-120,104}},
                 color={0,0,127}));
-  connect(port_a1, chiPar.port_a1)
-    annotation (Line(points={{-100,60},{-80,60},{-72,60},{-72,36},{-60,36}},
-                color={0,127,255}));
-  connect(chiPar.port_b1, port_b1)
-    annotation (Line(points={{-40,36},{-20,36},{-20,60},{100,60}},
-                color={0,127,255}));
-  connect(wse.port_b1, port_b1)
-    annotation (Line(points={{60,36},{80,36},{80,60},{100,60}},color={0,127,255}));
-  connect(port_a1, wse.port_a1)
-    annotation (Line(points={{-100,60},{-100,60},{-72,60},{-72,56},{34,56},{34,
-          36},{40,36}},
-                color={0,127,255}));
   connect(TSet, wse.TSet)
     annotation (Line(points={{-120,104},{-84,104},{-84,80},
           {26,80},{26,30},{38,30}}, color={0,0,127}));
@@ -304,12 +298,24 @@ equation
     annotation (Line(points={{-60,-100},{-60,-100},{-60,-80},{-88,-80},{-88,8},
           {44,8},{44,20}},              color={255,0,255}));
   connect(senTem.T,TCHWSupWSE)
-    annotation (Line(points={{18,35},{18,35},{18,48},{86,48},{86,40},{110,40}},
+    annotation (Line(points={{18,35},{18,46},{86,46},{86,40},{110,40}},
                            color={0,0,127}));
   connect(wse.port_b2, senTem.port_a)
     annotation (Line(points={{40,24},{34,24},{28,24}}, color={0,127,255}));
-  connect(chiPar.P, powChi) annotation (Line(points={{-39,32},{-6,32},{-6,52},{
-          90,52},{90,0},{110,0}}, color={0,0,127}));
+  connect(chiPar.P, powChi) annotation (Line(points={{-39,32},{-6,32},{-6,48},{
+          90,48},{90,0},{110,0}}, color={0,0,127}));
+  connect(port_a1, spl1.port_1) annotation (Line(points={{-100,60},{-88,60},{
+          -88,56},{-80,56}}, color={0,127,255}));
+  connect(spl1.port_3, chiPar.port_a1)
+    annotation (Line(points={{-70,46},{-70,36},{-60,36}}, color={0,127,255}));
+  connect(spl1.port_2, wse.port_a1) annotation (Line(points={{-60,56},{36,56},{
+          36,36},{40,36}}, color={0,127,255}));
+  connect(port_b1, jun1.port_2)
+    annotation (Line(points={{100,60},{90,60}}, color={0,127,255}));
+  connect(jun1.port_3, wse.port_b1)
+    annotation (Line(points={{80,50},{80,36},{60,36}}, color={0,127,255}));
+  connect(chiPar.port_b1, jun1.port_1) annotation (Line(points={{-40,36},{-30,
+          36},{-30,60},{70,60}}, color={0,127,255}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Rectangle(
           extent={{24,2},{64,0}},
@@ -450,7 +456,7 @@ equation
           fillPattern=FillPattern.Solid),
         Text(
           extent={{6,16},{16,8}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid,
           textStyle={TextStyle.Bold},
@@ -471,6 +477,17 @@ inclduing chillers and integrated/non-integrated water-side economizers.
 </html>",
 revisions="<html>
 <ul>
+<li>
+April 26, 2021, by Kathryn Hinkelman:<br/>
+Removed <code>kFixed</code> redundancies. See
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1472\">IBPSA, #1472</a>.
+</li>
+<li>
+April 14, 2020, by Michael Wetter:<br/>
+Changed <code>homotopyInitialization</code> to a constant.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1341\">IBPSA, #1341</a>.
+</li>
 <li>
 June 30, 2017, by Yangyang Fu:<br/>
 First implementation.

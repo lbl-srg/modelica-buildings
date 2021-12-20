@@ -1,0 +1,5 @@
+compareVars :=
+  {
+    "limCeiHei.u",
+    "limCeiHei.ceiHei"
+  };

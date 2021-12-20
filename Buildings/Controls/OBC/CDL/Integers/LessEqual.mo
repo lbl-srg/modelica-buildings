@@ -1,23 +1,25 @@
 within Buildings.Controls.OBC.CDL.Integers;
 block LessEqual
   "Output y is true, if input u1 is less or equal than input u2"
-
-  Interfaces.IntegerInput u1 "Connector of first Integer input signal"
+  Interfaces.IntegerInput u1
+    "Connector of first Integer input signal"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
-
-  Interfaces.IntegerInput u2 "Connector of second Integer input signal"
+  Interfaces.IntegerInput u2
+    "Connector of second Integer input signal"
     annotation (Placement(transformation(extent={{-140,-100},{-100,-60}})));
-
-  Interfaces.BooleanOutput y "Connector of Boolean output signal"
+  Interfaces.BooleanOutput y
+    "Connector of Boolean output signal"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
 equation
-  y = u1 <= u2;
-
-annotation (
-  defaultComponentName="intLesEqu",
-        Icon(coordinateSystem(preserveAspectRatio=false,extent={{-100,
-            -100},{100,100}}), graphics={
+  y=u1 <= u2;
+  annotation (
+    defaultComponentName="intLesEqu",
+    Icon(
+      coordinateSystem(
+        preserveAspectRatio=false,
+        extent={{-100,-100},{100,100}}),
+      graphics={
         Rectangle(
           extent={{-100,100},{100,-100}},
           lineColor={0,0,0},
@@ -27,13 +29,23 @@ annotation (
           borderPattern=BorderPattern.Raised),
         Ellipse(
           extent={{73,7},{87,-7}},
-          lineColor=DynamicSelect({235,235,235}, if y then {0,255,0}
-               else {235,235,235}),
-          fillColor=DynamicSelect({235,235,235}, if y then {0,255,0}
-               else {235,235,235}),
+          lineColor=DynamicSelect({235,235,235},
+            if y then
+              {0,255,0}
+            else
+              {235,235,235}),
+          fillColor=DynamicSelect({235,235,235},
+            if y then
+              {0,255,0}
+            else
+              {235,235,235}),
           fillPattern=FillPattern.Solid),
-        Ellipse(extent={{32,10},{52,-10}}, lineColor={255,127,0}),
-        Line(points={{-100,-80},{42,-80},{42,0}}, color={255,127,0}),
+        Ellipse(
+          extent={{32,10},{52,-10}},
+          lineColor={255,127,0}),
+        Line(
+          points={{-100,-80},{42,-80},{42,0}},
+          color={255,127,0}),
         Line(
           points={{-10,20},{-54,0},{-10,-18}},
           thickness=0.5,
@@ -44,15 +56,17 @@ annotation (
           color={255,127,0}),
         Text(
           extent={{-150,150},{150,110}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%name")}),
-  Documentation(info="<html>
+    Documentation(
+      info="<html>
 <p>
 Block that outputs <code>true</code> if the Integer input <code>u1</code>
 is less than or equal to the Integer input <code>u2</code>.
 Otherwise the output is <code>false</code>.
 </p>
-</html>", revisions="<html>
+</html>",
+      revisions="<html>
 <ul>
 <li>
 August 30, 2017, by Jianjun Hu:<br/>

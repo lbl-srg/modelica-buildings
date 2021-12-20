@@ -100,7 +100,7 @@ model WetCoilDiscretizedPControl
     Ti=60,
     controllerType=Modelica.Blocks.Types.SimpleController.P,
     Td=60,
-    reverseAction=true) "Controller"  annotation (Placement(transformation(
+    reverseActing=false) "Controller"  annotation (Placement(transformation(
           extent={{-40,120},{-20,140}})));
   Buildings.Fluid.Actuators.Motors.IdealMotor mot(tOpe=60) "Motor model"
     annotation (Placement(transformation(extent={{0,120},{20,140}})));

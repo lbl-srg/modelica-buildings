@@ -1,6 +1,7 @@
 within Buildings.Fluid.Sensors;
 model VolumeFlowRate "Ideal sensor for volume flow rate"
-  extends Buildings.Fluid.Sensors.BaseClasses.PartialDynamicFlowSensor;
+  extends Buildings.Fluid.Sensors.BaseClasses.PartialDynamicFlowSensor(
+    tau=0);
   extends Modelica.Icons.RotationalSensor;
   parameter Medium.Density
     d_start=Medium.density(Medium.setState_pTX(p_start, T_start, X_start))
@@ -73,11 +74,15 @@ annotation (defaultComponentName="senVolFlo",
         graphics={
         Text(
           extent={{160,120},{0,90}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="V_flow"),
         Line(points={{0,100},{0,70}}, color={0,0,127}),
         Line(points={{-100,0},{-70,0}}, color={0,128,255}),
-        Line(points={{70,0},{100,0}}, color={0,128,255})}),
+        Line(points={{70,0},{100,0}}, color={0,128,255}),
+        Text(
+         extent={{-20,120},{-140,70}},
+          textColor={0,0,0},
+          textString=DynamicSelect("", String(V_flow, leftJustified=false, significantDigits=3)))}),
   Documentation(info="<html>
 <p>
 This model outputs the volume flow rate flowing from
@@ -92,6 +97,18 @@ Buildings.Fluid.Sensors.UsersGuide</a> for an explanation.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+October 19, 2020, by Antoine Gautier:<br/>
+Changed default value for <code>tau</code> from <code>1</code> to <code>0</code>.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1406\">#1406</a>.
+</li>
+<li>
+February 25, 2020, by Michael Wetter:<br/>
+Changed icon to display its operating state.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1294\">#1294</a>.
+</li>
 <li>
 January 18, 2016 by Filip Jorissen:<br/>
 Using parameter <code>tauInv</code>

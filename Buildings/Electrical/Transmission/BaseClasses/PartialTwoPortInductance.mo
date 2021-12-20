@@ -17,7 +17,7 @@ equation
                                                                   graphics={
           Text(
             extent={{-142,-30},{144,-62}},
-            lineColor={0,0,0},
+            textColor={0,0,0},
           textString="L=%L"),
           Line(points={{-90,0},{-70,0}}, color={0,0,0}),
           Line(points={{70,0},{90,0}}, color={0,0,0}),

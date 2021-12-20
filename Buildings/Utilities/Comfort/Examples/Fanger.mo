@@ -83,6 +83,14 @@ equation
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Utilities/Comfort/Examples/Fanger.mos"
         "Simulate and plot"),
     Documentation(info="<html>
+<p>
 This is a test of the Thermal Comfort Model.
+</p>
+</html>", revisions="<html>
+<ul>
+<li>March 03, 2005, by Michael Wetter and Sorin Costiner:<br/>
+First implementation.
+</li>
+</ul>
 </html>"));
 end Fanger;

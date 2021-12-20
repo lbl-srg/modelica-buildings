@@ -17,9 +17,9 @@ model ShaGFunction
     50,
     exp(5)) "SHA1-encrypted g-function inputs";
 
-  //Expected output (SHA1-encryption of '1.000e+0000.000e+0000.000e+0001.500e+0024.000e+0007.500e-0021.000e-0061.200e+0012.600e+0015.000e+0011.484e+002')
+  //Expected output (SHA1-encryption of (1,{{0,0}},150,4,0.075,1e-6,12,26,50,exp(5)))
   parameter String strEx=
-    "5d0475f93c93232dfe2452bb34acabd6b9fd28e5"
+    "f1213b0067741511110ed55c9689cd740f9d42ae"
     "Expected string output";
 
   //Comparison result

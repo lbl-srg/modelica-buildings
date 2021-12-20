@@ -1,0 +1,16 @@
+compareVars :=
+  {
+    "chi.sta_a1.T",
+    "chi.sta_b1.T",
+    "chi.sta_a2.T",
+    "chi.sta_b2.T",
+    "chi.QGen_flow",
+    "chi.QEva_flow",
+    "chi.QCon_flow",
+    "chi.CR",
+    "chi.PLR",
+    "per.PLRMax",
+    "per.PLRMin",
+    "QEva_QGen.y",
+    "QEva_P.y"
+  };

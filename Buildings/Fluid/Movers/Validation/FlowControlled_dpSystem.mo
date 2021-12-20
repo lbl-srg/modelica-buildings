@@ -14,10 +14,11 @@ model FlowControlled_dpSystem
     offset=dp_nominal)
                "Input signal"
     annotation (Placement(transformation(extent={{-120,80},{-100,100}})));
-  Sources.Boundary_pT             sou(
-    redeclare package Medium = Medium, nPorts=2)
-              "Source"
-              annotation (Placement(transformation(extent={{-120,-10},{-100,10}})));
+  Sources.Boundary_pT sou(
+    redeclare package Medium = Medium,
+    nPorts=2)
+    "Source"
+    annotation (Placement(transformation(extent={{-120,-10},{-100,10}})));
   Buildings.Fluid.Movers.FlowControlled_dp floConDp(
     redeclare package Medium = Medium,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
@@ -43,7 +44,9 @@ model FlowControlled_dpSystem
     "Pressure difference across air system"
     annotation (Placement(transformation(extent={{0,-30},{20,-50}})));
 
-  Sources.Boundary_pT sin(redeclare package Medium = Medium, nPorts=4) "Sink"
+  Sources.Boundary_pT sin(
+    redeclare package Medium = Medium,
+    nPorts=4) "Sink"
     annotation (Placement(transformation(extent={{120,-10},{100,10}})));
   MixingVolumes.MixingVolume zone2(
     redeclare package Medium = Medium,
@@ -51,6 +54,7 @@ model FlowControlled_dpSystem
     m_flow_nominal=m_flow_nominal,
     nPorts=2,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    "Mixing volume"
     annotation (Placement(transformation(extent={{80,40},{100,60}})));
   Buildings.Fluid.FixedResistances.PressureDrop heaCoi1(
     redeclare package Medium = Medium,
@@ -61,8 +65,9 @@ model FlowControlled_dpSystem
     redeclare package Medium = Medium,
     from_dp=true,
     use_inputFilter=false,
+    dpDamper_nominal=10,
     m_flow_nominal=m_flow_nominal/2)
-                           "Damper"
+    "Damper"
     annotation (Placement(transformation(extent={{40,70},{60,90}})));
   MixingVolumes.MixingVolume zone1(
     redeclare package Medium = Medium,
@@ -70,27 +75,31 @@ model FlowControlled_dpSystem
     m_flow_nominal=m_flow_nominal,
     nPorts=2,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
-          annotation (Placement(transformation(extent={{80,80},{100,100}})));
+    "Mixing volume"
+    annotation (Placement(transformation(extent={{80,80},{100,100}})));
   Actuators.Dampers.Exponential dam1(
     redeclare package Medium = Medium,
     from_dp=true,
     use_inputFilter=false,
+    dpDamper_nominal=10,
     m_flow_nominal=m_flow_nominal/2)
-                           "Damper"
+             "Damper"
     annotation (Placement(transformation(extent={{40,30},{60,50}})));
   Actuators.Dampers.Exponential dam3(
     redeclare package Medium = Medium,
     from_dp=true,
     use_inputFilter=false,
+    dpDamper_nominal=10,
     m_flow_nominal=m_flow_nominal/2)
-                           "Damper"
+             "Damper"
     annotation (Placement(transformation(extent={{40,-70},{60,-50}})));
   Actuators.Dampers.Exponential dam4(
     redeclare package Medium = Medium,
     from_dp=true,
     use_inputFilter=false,
+    dpDamper_nominal=10,
     m_flow_nominal=m_flow_nominal/2)
-                           "Damper"
+             "Damper"
     annotation (Placement(transformation(extent={{40,-110},{60,-90}})));
   MixingVolumes.MixingVolume zone3(
     redeclare package Medium = Medium,
@@ -98,20 +107,22 @@ model FlowControlled_dpSystem
     m_flow_nominal=m_flow_nominal,
     nPorts=3,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
-              annotation (Placement(transformation(extent={{80,-60},{100,-40}})));
+    "Mixing volume"
+    annotation (Placement(transformation(extent={{80,-60},{100,-40}})));
   MixingVolumes.MixingVolume zone4(
     redeclare package Medium = Medium,
     V=50,
     m_flow_nominal=m_flow_nominal,
     nPorts=2,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    "Mixing volume"
     annotation (Placement(transformation(extent={{80,-100},{100,-80}})));
   Modelica.Blocks.Sources.Ramp y1(
     duration=0.5,
     height=1,
     offset=0,
     startTime=0)
-               "Input signal"
+    "Input signal"
     annotation (Placement(transformation(extent={{-60,90},{-40,110}})));
   Buildings.Fluid.FixedResistances.PressureDrop duct3(
     redeclare package Medium = Medium,
@@ -134,10 +145,10 @@ model FlowControlled_dpSystem
     m_flow_nominal=m_flow_nominal/2) "Duct pressure drop"
     annotation (Placement(transformation(extent={{0,30},{20,50}})));
 equation
-  connect(y.y, floConDp.dp_in) annotation (Line(points={{-99,90},{-70.2,90},{-70.2,
+  connect(y.y, floConDp.dp_in) annotation (Line(points={{-99,90},{-70,90},{-70,
           72}}, color={0,0,127}));
   connect(y.y, floConDpSystem.dp_in) annotation (Line(points={{-99,90},{-90,90},
-          {-90,20},{-70,20},{-70,-68},{-70.2,-68}},
+          {-90,20},{-70,20},{-70,-68},{-70,-68}},
                                            color={0,0,127}));
   connect(zone2.ports[1], sin.ports[1])
     annotation (Line(points={{88,40},{100,40},{100,3}},    color={0,127,255}));

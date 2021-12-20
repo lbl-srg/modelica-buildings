@@ -264,10 +264,10 @@ class UnitConversionsModeler(object):
             'multiplier' : '1./0.000471947',
             'validation_input' : ['100.*0.000471947', '2000.*0.000471947'],
             'validation_output' : ['100.', '2000.']},
-            # work
+            # Energy
             {
-            'quantity' : 'work',
-            'modelica_quantity' : 'Work',
+            'quantity' : 'energy',
+            'modelica_quantity' : 'Energy',
             'unit' : 'British thermal units',
             'unit_symbol' : 'Btu',
             'direction' : 'From',
@@ -276,8 +276,8 @@ class UnitConversionsModeler(object):
             'validation_input' : ['1.', '2.'],
             'validation_output' : ['1.*1055.056', '2.*1055.056']},
             {
-            'quantity' : 'work',
-            'modelica_quantity' : 'Work',
+            'quantity' : 'energy',
+            'modelica_quantity' : 'Energy',
             'unit' : 'British thermal units',
             'unit_symbol' : 'Btu',
             'direction' : 'To',
@@ -286,8 +286,8 @@ class UnitConversionsModeler(object):
             'validation_input' : ['1.*1055.056', '2.*1055.056'],
             'validation_output' : ['1.', '2.']},
             {
-            'quantity' : 'work',
-            'modelica_quantity' : 'Work',
+            'quantity' : 'energy',
+            'modelica_quantity' : 'Energy',
             'unit' : 'quads',
             'unit_symbol' : 'quad',
             'direction' : 'From',
@@ -296,8 +296,8 @@ class UnitConversionsModeler(object):
             'validation_input' : ['1.', '2.'],
             'validation_output' : ['1.*1055.56e15', '2.*1055.56e15']},
             {
-            'quantity' : 'work',
-            'modelica_quantity' : 'Work',
+            'quantity' : 'energy',
+            'modelica_quantity' : 'Energy',
             'unit' : 'quads',
             'unit_symbol' : 'quad',
             'direction' : 'To',
@@ -379,7 +379,7 @@ class UnitConversionsModeler(object):
             'pressure' :
                 {'unit' : 'pascal',
                  'unit_symbol' : 'Pa'},
-            'work' :
+            'energy' :
                 {'unit' : 'joule',
                  'unit_symbol' : 'J'},
             'power' :
@@ -511,16 +511,16 @@ class UnitConversionsModeler(object):
             "          fillPattern=FillPattern.Solid),\n"\
             "        Line(points={{20,58}}, color={28,108,200}),\n"\
             "        Text(\n"\
-            "          lineColor={0,0,255},\n"\
+            "          textColor={0,0,255},\n"\
             "          extent={{-150,110},{150,150}},\n"\
             "          textString=\"%name\"),\n"\
             "        Text(\n"\
             "          extent={{-80,50},{0,10}},\n"\
-            "          lineColor={0,0,127},\n"\
+            "          textColor={0,0,127},\n"\
             "          textString=\"" + from_unit_symbol + "\"),\n"\
             "        Text(\n"\
             "          extent={{10,-70},{90,-30}},\n"\
-            "          lineColor={0,0,127},\n"\
+            "          textColor={0,0,127},\n"\
             "          textString=\"" + to_unit_symbol + "\"),\n"\
             "        Polygon(\n"\
             "        points={{90,0},{30,20},{30,-20},{90,0}},\n"\
@@ -534,6 +534,11 @@ class UnitConversionsModeler(object):
             "</p>\n"\
             "</html>\", revisions=\"<html>\n"\
             "<ul>\n"\
+            "<li>\n"\
+            "November 29, 2021, by Michael Wetter:<br/>\n"\
+            "Regenerated files with <code>Text</code> annotation using now the <code>textColor</code> attribute\n"\
+            "rather than the deprecated <code>lineColor</code> attribute.\n"\
+            "</li>\n"\
             "<li>\n"\
             "July 05, 2018, by Milica Grahovac:<br/>\n"\
             "Generated with <code>"+ self.fullpath_to_this_script +"</code>.<br/>\n" \
@@ -572,6 +577,11 @@ Package with blocks for unit conversions.
 revisions="<html>
 <ul>
 <li>
+November 29, 2021, by Michael Wetter:<br/>
+Regenerated files with <code>Text</code> annotation using now the <code>textColor</code> attribute
+rather than the deprecated <code>lineColor</code> attribute.
+</li>
+<li>
 August 1, 2018, by Milica Grahovac:<br/>
 Generated with <code>""" + self.fullpath_to_this_script + """</code>.<br/>
 First implementation.
@@ -597,7 +607,7 @@ First implementation.
             color={191,0,0}),
         Text(
           extent={{-72,78},{72,6}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
         textString="SI")}));
 end """+self.package_name+""";
 """)
@@ -713,6 +723,11 @@ end """+self.package_name+""";
             "</html>\",\n"\
             "revisions=\"<html>\n"\
             "<ul>\n"\
+            "<li>\n"\
+            "November 29, 2021, by Michael Wetter:<br/>\n"\
+            "Regenerated files with <code>Text</code> annotation using now the <code>textColor</code> attribute\n"\
+            "rather than the deprecated <code>lineColor</code> attribute.\n"\
+            "</li>\n"\
             "<li>\n"\
             "July 05, 2018, Milica Grahovac<br/>\n"\
             "Generated with <code>"+ self.fullpath_to_this_script +"</code>.<br/>\n" \

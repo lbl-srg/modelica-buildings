@@ -96,7 +96,9 @@ initial equation
   assert(PLRMax > PLRMinUnl, "Parameter PLRMax must be bigger than PLRMinUnl");
 equation
   // Condenser temperatures
-  TConEnt = Medium1.temperature(Medium1.setState_phX(port_a1.p, inStream(port_a1.h_outflow)));
+  TConEnt = Medium1.temperature(Medium1.setState_phX(port_a1.p,
+                                                     inStream(port_a1.h_outflow),
+                                                     inStream(port_a1.Xi_outflow)));
   TConLvg = vol1.heatPort.T;
   // Evaporator temperatures
   TEvaEnt = Medium2.temperature(Medium2.setState_phX(port_a2.p, inStream(port_a2.h_outflow)));
@@ -114,29 +116,29 @@ equation
     QEva_flow_ava = QEva_flow_nominal*capFunT;
     // Cooling capacity required to chill water to setpoint
     QEva_flow_set = Buildings.Utilities.Math.Functions.smoothMin(
-      x1=  m2_flow*(hSet-inStream(port_a2.h_outflow)),
+      x1 = m2_flow*(hSet-inStream(port_a2.h_outflow)),
       x2= Q_flow_small,
       deltaX=-Q_flow_small/100);
 
     // Part load ratio
     PLR1 = Buildings.Utilities.Math.Functions.smoothMin(
-      x1=  QEva_flow_set/(QEva_flow_ava+Q_flow_small),
-      x2=  PLRMax,
+      x1 = QEva_flow_set/(QEva_flow_ava+Q_flow_small),
+      x2 = PLRMax,
       deltaX=PLRMax/100);
     // PLR2 is the compressor part load ratio. The lower bound PLRMinUnl is
     // since for PLR1<PLRMinUnl, the chiller uses hot gas bypass, under which
     // condition the compressor power is assumed to be the same as if the chiller
     // were to operate at PLRMinUnl
     PLR2 = Buildings.Utilities.Math.Functions.smoothMax(
-      x1=  PLRMinUnl,
-      x2=  PLR1,
-      deltaX=  PLRMinUnl/100);
+      x1 = PLRMinUnl,
+      x2 = PLR1,
+      deltaX = PLRMinUnl/100);
 
     // Cycling ratio.
     // Due to smoothing, this can be about deltaX/10 above 1.0
     CR = Buildings.Utilities.Math.Functions.smoothMin(
-      x1=  PLR1/PLRMin,
-      x2=  1,
+      x1 = PLR1/PLRMin,
+      x2 = 1,
       deltaX=0.001);
 
     // Compressor power.
@@ -144,8 +146,8 @@ equation
     // Heat flow rates into evaporator and condenser
     // Q_flow_small is a negative number.
     QEva_flow = Buildings.Utilities.Math.Functions.smoothMax(
-      x1=  QEva_flow_set,
-      x2=  QEva_flow_ava,
+      x1 = QEva_flow_set,
+      x2 = QEva_flow_ava,
       deltaX= -Q_flow_small/10);
 
   //QEva_flow = max(QEva_flow_set, QEva_flow_ava);
@@ -184,9 +186,9 @@ equation
             {100,100}}),
                    graphics={
         Text(extent={{62,96},{112,82}},   textString="P",
-          lineColor={0,0,127}),
+          textColor={0,0,127}),
         Text(extent={{-94,-24},{-48,-36}},  textString="T_CHWS",
-          lineColor={0,0,127}),
+          textColor={0,0,127}),
         Rectangle(
           extent={{-99,-54},{102,-66}},
           lineColor={0,0,255},
@@ -260,7 +262,7 @@ equation
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid),
         Text(extent={{-108,36},{-62,24}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="on")}),
 Documentation(info="<html>
 <p>
@@ -329,6 +331,11 @@ The function value needs to be assigned to <code>EIRFunPLR</code>.
 </html>",
 revisions="<html>
 <ul>
+<li>
+November 19, 2021, by David Blum:<br/>
+Add humidity to entering condenser state calculation.<br/>
+This is for issue <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2770\">2770</a>.
+</li>
 <li>
 June 28, 2019, by Michael Wetter:<br/>
 Removed <code>start</code> values and removed

@@ -1,0 +1,5 @@
+simulateModel("Buildings.ThermalZones.ReducedOrder.Validation.RoomWithLatentGain", stopTime=604800, method="Cvode", tolerance=1e-06, resultFile="RoomWithLatentGain");
+createPlot(id=1, position={75, 70, 968, 1004}, y={"thermalZoneTwoElements.TAir"}, range={0.0, 800000.0, 20.0, 35.0}, grid=true, colors={{28,108,200}}, displayUnits={"degC"});
+createPlot(id=1, position={75, 70, 968, 332}, y={"senMasFra.X"}, range={0.0, 800000.0, -0.01, 0.02}, grid=true, subPlot=2, colors={{28,108,200}});
+createPlot(id=1, position={75, 70, 968, 331}, y={"senRelHum.phi"}, range={0.0, 800000.0, -0.5, 1.0}, grid=true, subPlot=3, colors={{28,108,200}});
+

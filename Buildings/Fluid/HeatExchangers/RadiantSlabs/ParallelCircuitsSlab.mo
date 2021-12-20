@@ -20,6 +20,9 @@ model ParallelCircuitsSlab
       roughness=pipe.roughness,
       m_flow_small=m_flow_small/nCir));
 
+  constant Boolean homotopyInitialization = true "= true, use homotopy method"
+    annotation(HideResult=true);
+
   parameter Integer nCir(min=1) = 1 "Number of parallel circuits";
   parameter Integer nSeg(min=1) = if heatTransfer==Types.HeatTransfer.EpsilonNTU then 1 else 5
     "Number of volume segments in each circuit (along flow path)";
@@ -42,8 +45,6 @@ model ParallelCircuitsSlab
     "Velocity at m_flow_nominal";
 
   // Parameters used for the fluid model implementation
-  parameter Boolean homotopyInitialization = true "= true, use homotopy method"
-    annotation(Evaluate=true, Dialog(tab="Advanced"));
 
   parameter Buildings.Fluid.HeatExchangers.RadiantSlabs.Types.HeatTransfer
     heatTransfer=Types.HeatTransfer.EpsilonNTU
@@ -143,6 +144,12 @@ protected
      final k=nCir)
     "Heat flow rate multiplier, used to avoid having to instanciate multiple slab models"
     annotation (Placement(transformation(extent={{40,-40},{60,-20}})));
+
+initial equation
+  assert(homotopyInitialization, "In " + getInstanceName() +
+    ": The constant homotopyInitialization has been modified from its default value. This constant will be removed in future releases.",
+    level = AssertionLevel.warning);
+
 equation
   connect(sla.port_b, masFloMul_b.port_a) annotation (Line(
       points={{10,0},{28,0},{28,0},{40,0}},
@@ -229,6 +236,12 @@ Buildings.Fluid.Interfaces.PartialTwoPortInterface</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+April 14, 2020, by Michael Wetter:<br/>
+Changed <code>homotopyInitialization</code> to a constant.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1341\">IBPSA, #1341</a>.
+</li>
 <li>
 January 22, 2016, by Michael Wetter:<br/>
 Corrected type declaration of pressure difference.

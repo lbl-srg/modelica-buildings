@@ -1,0 +1,3 @@
+simulateModel("Buildings.Examples.Tutorial.CDL.Controls.Validation.RadiatorSupply", stopTime=3600, method="Cvode", tolerance=1e-06, resultFile="RadiatorSupply");
+createPlot(id=2, position={15, 15, 542, 517}, y={"conRadSup.TRoo", "conRadSup.TSup"}, range={0.0, 4000.0, 0.0, 60.0}, grid=true, colors={{28,108,200}, {238,46,47}}, displayUnits={"degC", "degC"});
+createPlot(id=2, position={15, 15, 542, 256}, y={"conRadSup.yVal"}, range={0.0, 4000.0, -0.5, 1.5}, grid=true, subPlot=2, colors={{28,108,200}});

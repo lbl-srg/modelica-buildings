@@ -1,6 +1,7 @@
 within Buildings.ThermalZones.ReducedOrder.RC.BaseClasses;
 function splitFacVal
   "Share of vector entries at sum of vector for multiple vectors"
+  extends Modelica.Icons.Function;
 
   input Integer nRow "Number of rows";
   input Integer nCol "Number of columns";

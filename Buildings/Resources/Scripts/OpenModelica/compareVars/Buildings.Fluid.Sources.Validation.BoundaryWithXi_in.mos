@@ -1,0 +1,15 @@
+compareVars :=
+  {
+    "bouMoiAir.Xi[1]",
+    "bouMoiAirCO2.Xi[1]",
+    "bouProFluGas.Xi[1]",
+    "bouProFluGas.Xi[2]",
+    "bouProFluGas.Xi[3]",
+    "bouProFluGas.Xi[4]",
+    "bouProFluGas.Xi[5]",
+    "bouNatGas.Xi[1]",
+    "bouNatGas.Xi[2]",
+    "bouNatGas.Xi[3]",
+    "bouNatGas.Xi[4]",
+    "bouNatGas.Xi[5]"
+  };

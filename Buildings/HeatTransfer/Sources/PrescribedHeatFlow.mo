@@ -10,6 +10,7 @@ model PrescribedHeatFlow "Prescribed heat flow boundary condition"
 equation
   port.Q_flow = -Q_flow;
   annotation (
+    defaultComponentName="preHeaFlo",
     Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{
             100,100}}), graphics={
         Line(
@@ -46,7 +47,7 @@ equation
         Text(
           extent={{-150,100},{150,60}},
           textString="%name",
-          lineColor={0,0,255})}),
+          textColor={0,0,255})}),
     Documentation(info="<html>
 <p>
 This model allows a specified amount of heat flow rate to be \"injected\"

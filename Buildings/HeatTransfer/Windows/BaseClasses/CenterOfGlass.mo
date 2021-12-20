@@ -1,6 +1,10 @@
 within Buildings.HeatTransfer.Windows.BaseClasses;
 model CenterOfGlass "Model for center of glass of a window construction"
   extends Buildings.HeatTransfer.Radiosity.BaseClasses.RadiosityTwoSurfaces;
+
+  constant Boolean homotopyInitialization = true "= true, use homotopy method"
+    annotation(HideResult=true);
+
   parameter Modelica.SIunits.Angle til(displayUnit="deg")
     "Surface tilt (only 90 degrees=vertical is implemented)";
 
@@ -11,8 +15,7 @@ model CenterOfGlass "Model for center of glass of a window construction"
 
   parameter Boolean linearize=false "Set to true to linearize emissive power"
     annotation(Evaluate=true);
-  parameter Boolean homotopyInitialization = true "= true, use homotopy method"
-    annotation(Evaluate=true, Dialog(tab="Advanced"));
+
   Modelica.Blocks.Interfaces.RealInput u
     "Input connector, used to scale the surface area to take into account an operable shading device"
     annotation (Placement(transformation(extent={{-140,60},{-100,100}}),
@@ -61,6 +64,12 @@ model CenterOfGlass "Model for center of glass of a window construction"
 protected
   final parameter Integer nGlaLay = size(glaSys.glass, 1)
     "Number of glass layers";
+
+initial equation
+  assert(homotopyInitialization, "In " + getInstanceName() +
+    ": The constant homotopyInitialization has been modified from its default value. This constant will be removed in future releases.",
+    level = AssertionLevel.warning);
+
 equation
   for i in 1:nGlaLay-1 loop
     connect(glass[i].port_b, gas[i].port_a)                        annotation (Line(
@@ -131,7 +140,7 @@ equation
   annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},
             {100,100}}),       graphics={Text(
           extent={{-82,100},{-32,86}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="outside"),
                                Ellipse(
           extent={{-108,110},{-88,90}},
@@ -140,7 +149,7 @@ equation
           fillPattern=FillPattern.Sphere),
                                          Text(
           extent={{44,98},{94,84}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="room-side")}),      Icon(coordinateSystem(
           preserveAspectRatio=true, extent={{-100,-100},{100,100}}), graphics={
         Rectangle(
@@ -164,7 +173,7 @@ equation
           fillColor={170,213,255},
           fillPattern=FillPattern.Solid),       Text(
           extent={{-90,86},{-78,74}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="u")}),
     Documentation(info="<html>
 This is a model for the heat transfer through the center of the glass.
@@ -196,8 +205,15 @@ Buildings.HeatTransfer.Windows.Window</a>,
 Buildings.HeatTransfer.Windows.ExteriorHeatTransfer</a>, and
 <a href=\"modelica://Buildings.HeatTransfer.Windows.InteriorHeatTransferConvective\">
 Buildings.HeatTransfer.Windows.InteriorHeatTransferConvective</a>.
-</html>", revisions="<html>
+</html>",
+revisions="<html>
 <ul>
+<li>
+April 14, 2020, by Michael Wetter:<br/>
+Changed <code>homotopyInitialization</code> to a constant.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1341\">IBPSA, #1341</a>.
+</li>
 <li>
 March 13, 2015, by Michael Wetter:<br/>
 Changed assignment of <code>nLay</code> to avoid a translation error

@@ -1,4 +1,4 @@
-simulateModel("Buildings.Fluid.FixedResistances.Validation.PressureDropsExplicit", startTime=-1, method="dassl", tolerance=1e-6, stopTime=1.0, resultFile="PressureDropsExplicit");
+simulateModel("Buildings.Fluid.FixedResistances.Validation.PressureDropsExplicit", startTime=-1, method="CVode", tolerance=1e-6, stopTime=1.0, resultFile="PressureDropsExplicit");
 createPlot(id = 1,
  position = {15, 10, 401, 180},
  y = {"res11.m_flow", "res21.m_flow"},

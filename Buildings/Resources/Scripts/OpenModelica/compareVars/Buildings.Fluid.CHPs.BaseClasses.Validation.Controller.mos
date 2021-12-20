@@ -1,0 +1,7 @@
+compareVars :=
+  {
+    "con.runSig",
+    "con.avaSig",
+    "con.mWat_flow",
+    "con.opeMod"
+  };

@@ -6,7 +6,7 @@ compareVars :=
     "sysReq_RehBox.yZonTemResReq",
     "sysReq_RehBox.VDisSet_flow",
     "sysReq_RehBox.VDis_flow",
-    "sysReq_RehBox.uDam",
+    "sysReq_RehBox.yDam_actual",
     "sysReq_RehBox.yZonPreResReq",
     "sysReq_RehBox.TDisHeaSet",
     "sysReq_RehBox.TDis",

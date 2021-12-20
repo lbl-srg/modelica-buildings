@@ -138,23 +138,23 @@ defaultComponentName="traACAC",
                                       graphics={
         Text(
           extent={{-100,-60},{100,-92}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="%name"),
         Text(
           extent={{-140,60},{-80,20}},
-          lineColor={11,193,87},
+          textColor={11,193,87},
           textString="1"),
         Text(
           extent={{-130,100},{-70,60}},
-          lineColor={11,193,87},
+          textColor={11,193,87},
           textString="AC"),
         Text(
           extent={{70,100},{130,60}},
-          lineColor={0,120,120},
+          textColor={0,120,120},
           textString="AC"),
         Text(
           extent={{80,60},{140,20}},
-          lineColor={0,120,120},
+          textColor={0,120,120},
           textString="2"),
         Line(
           points={{-100,40},{-94,40},{-92,44},{-88,36},{-84,44},{-80,36},{-76,44},
@@ -247,11 +247,11 @@ defaultComponentName="traACAC",
           smooth=Smooth.None),
         Text(
           extent={{-80,60},{-64,48}},
-          lineColor={0,120,120},
+          textColor={0,120,120},
           textString="R"),
         Text(
           extent={{-54,60},{-38,48}},
-          lineColor={0,120,120},
+          textColor={0,120,120},
           textString="L"),
         Line(
           points={{66,40},{72,40},{74,44},{78,36},{82,44},{86,36},{90,44},{94,36},
@@ -285,11 +285,11 @@ defaultComponentName="traACAC",
           pattern=LinePattern.None),
         Text(
           extent={{76,60},{92,48}},
-          lineColor={0,120,120},
+          textColor={0,120,120},
           textString="R"),
         Text(
           extent={{36,60},{52,48}},
-          lineColor={0,120,120},
+          textColor={0,120,120},
           textString="L"),
         Line(
           points={{-26,-1},{-10,-1},{-9,4},{-5,-4},{-1,4},{3,-4},{7,4},{10,-5},{
@@ -343,11 +343,11 @@ defaultComponentName="traACAC",
           smooth=Smooth.None),
         Text(
           extent={{-70,22},{-54,10}},
-          lineColor={0,120,120},
+          textColor={0,120,120},
           textString="Rm"),
         Text(
           extent={{-70,-8},{-54,-20}},
-          lineColor={0,120,120},
+          textColor={0,120,120},
           textString="Lm")}),
     Documentation(info="<html>
 <p>

@@ -1,0 +1,9 @@
+compareVars :=
+  {
+    "ter[1].TLoaODE.TAir",
+    "minTSet.y",
+    "ter[1].QReqHea_flow",
+    "ter[1].QActHea_flow",
+    "ter[1].mReqHeaWat_flow",
+    "ter[1].port_aHeaWat.m_flow"
+  };

@@ -1,6 +1,6 @@
 removePlots();
 translateModel("Buildings.Fluid.FixedResistances.Validation.PlugFlowPipes.PlugFlowAIT");
-simulateModel("Buildings.Fluid.FixedResistances.Validation.PlugFlowPipes.PlugFlowAIT", stopTime=603900, numberOfIntervals=0, outputInterval=900, tolerance=1e-6, method="dassl", resultFile="PlugFlowAIT");
+simulateModel("Buildings.Fluid.FixedResistances.Validation.PlugFlowPipes.PlugFlowAIT", stopTime=603900, numberOfIntervals=0, outputInterval=900, tolerance=1e-6, method="CVode", resultFile="PlugFlowAIT");
 createPlot(id = 5,
  position = {50, 50, 500, 500},
  x = "time",
@@ -41,7 +41,7 @@ createPlot(id = 5,
  subPlot=1,
  leftTitleType = 1,
  bottomTitleType = 1);
-plotExpression(apply(PlugFlowAIT[end].DataReader.y[2]-273.15), false, "Measured data: Temperature at point 2 in degrees", 6); 
+plotExpression(apply(PlugFlowAIT[end].DataReader.y[2]-273.15), false, "Measured data: Temperature at point 2 in degrees", 6);
 createPlot(id = 6,
  position = {600, 50, 500, 500},
  x = "time",
@@ -55,7 +55,7 @@ createPlot(id = 6,
  subPlot=2,
  leftTitleType = 1,
  bottomTitleType = 1);
- 
+
 createPlot(id = 7,
  position = {55, 600, 500, 500},
  x = "time",
@@ -69,7 +69,7 @@ createPlot(id = 7,
  subPlot=1,
  leftTitleType = 1,
  bottomTitleType = 1);
-plotExpression(apply(PlugFlowAIT[end].DataReader.y[3]-273.15), false, "Measured data: Temperature at point 3 in degrees", 7); 
+plotExpression(apply(PlugFlowAIT[end].DataReader.y[3]-273.15), false, "Measured data: Temperature at point 3 in degrees", 7);
 createPlot(id = 7,
  position = {55, 600, 500, 500},
  x = "time",
@@ -96,7 +96,7 @@ createPlot(id = 8,
  subPlot=1,
  leftTitleType = 1,
  bottomTitleType = 1);
-plotExpression(apply(PlugFlowAIT[end].DataReader.y[4]-273.15), false, "Measured data: Temperature at point 4 in degrees", 8); 
+plotExpression(apply(PlugFlowAIT[end].DataReader.y[4]-273.15), false, "Measured data: Temperature at point 4 in degrees", 8);
 createPlot(id = 8,
  position = {600, 600, 500, 500},
  x = "time",

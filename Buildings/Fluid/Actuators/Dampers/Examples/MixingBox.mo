@@ -9,12 +9,16 @@ model MixingBox
 
   Buildings.Fluid.Actuators.Dampers.MixingBox mixBox(
     mOut_flow_nominal=1,
-    dpOut_nominal=20,
     mRec_flow_nominal=1,
-    dpRec_nominal=20,
     mExh_flow_nominal=1,
-    dpExh_nominal=20,
-    redeclare package Medium = Medium) "mixing box"
+    redeclare package Medium = Medium,
+    dpDamExh_nominal=10,
+    dpDamOut_nominal=10,
+    dpDamRec_nominal=10,
+    dpFixExh_nominal=20,
+    dpFixOut_nominal=20,
+    dpFixRec_nominal=20)
+             "mixing box"
     annotation (Placement(transformation(extent={{14,-22},{34,-2}})));
     Buildings.Fluid.Sources.Boundary_pT bouIn(             redeclare package
       Medium = Medium, T=273.15 + 10,

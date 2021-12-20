@@ -1,0 +1,17 @@
+compareVars :=
+  {
+    "noWinZonSta.TZon",
+    "noWinZonSta.THeaSetOcc",
+    "noWinZonSta.TCooSetOcc",
+    "noWinZonSta.THeaSetUno",
+    "noWinZonSta.TCooSetUno",
+    "noWinZonSta.yOccHeaHig",
+    "noWinZonSta.yHigOccCoo",
+    "noWinZonSta.yUnoHeaHig",
+    "noWinZonSta.yEndSetBac",
+    "witWinZonSta.uWin",
+    "witWinZonSta.yOccHeaHig",
+    "witWinZonSta.yHigOccCoo",
+    "witWinZonSta.yUnoHeaHig",
+    "witWinZonSta.yEndSetBac"
+  };

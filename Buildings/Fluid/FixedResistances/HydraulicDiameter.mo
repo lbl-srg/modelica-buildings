@@ -10,7 +10,7 @@ model HydraulicDiameter "Fixed flow resistance with hydraulic diameter and m_flo
   parameter Modelica.SIunits.Length length "Length of the pipe";
 
   parameter Real ReC(min=0)=4000
-    "Reynolds number where transition to turbulent starts";
+    "Reynolds number where transition to turbulence starts";
 
   parameter Modelica.SIunits.Velocity v_nominal = if rho_default < 500 then 1.5 else 0.15
     "Velocity at m_flow_nominal (used to compute default value for hydraulic diameter dh)"
@@ -174,6 +174,12 @@ This leads to simpler equations.
 </html>", revisions="<html>
 <ul>
 <li>
+September 21, 2021, by Michael Wetter:<br/>
+Corrected typo in comments.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1525\">#1525</a>.
+</li>
+<li>
 December 1, 2016, by Michael Wetter:<br/>
 First implementation for
 <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/480\">#480</a>.
@@ -182,6 +188,6 @@ First implementation for
 </html>"),
   Icon(graphics={Text(
           extent={{-40,18},{38,-20}},
-          lineColor={255,255,255},
+          textColor={255,255,255},
           textString="dh")}));
 end HydraulicDiameter;

@@ -1,6 +1,6 @@
 within Buildings.Fluid.Actuators.Valves;
 model TwoWayLinear "Two way valve with linear flow characteristics"
-  extends BaseClasses.PartialTwoWayValveKv(phi=l + y_actual*(1 - l));
+  extends BaseClasses.PartialTwoWayValveKv(phi=max(0.1*l, l + y_actual*(1 - l)));
 
 initial equation
   // Since the flow model Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow computes
@@ -21,6 +21,29 @@ as the regularization near the origin.
 </html>",
 revisions="<html>
 <ul>
+<li>
+June 10, 2021, by Michael Wetter:<br/>
+Changed implementation of the filter and changed the parameter <code>order</code> to a constant
+as most users need not change this value.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1498\">#1498</a>.
+</li>
+<li>
+August 7, 2020, by Ettore Zanetti:<br/>
+changed the computation of <code>phi</code> using
+<code>max(0.1*l, . )</code> to avoid
+phi=0.
+See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1376\">
+issue 1376</a>.
+</li>
+<li>
+November 9, 2019, by Filip Jorissen:<br/>
+Guarded the computation of <code>phi</code> using
+<code>max(0, . )</code> to avoid
+negative phi.
+See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1223\">
+issue 1223</a>.
+</li>
 <li>
 April 4, 2014, by Michael Wetter:<br/>
 Moved the assignment of the flow function <code>phi</code>

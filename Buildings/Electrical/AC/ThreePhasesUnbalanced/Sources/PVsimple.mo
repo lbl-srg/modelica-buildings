@@ -24,6 +24,12 @@ equation
     Documentation(revisions="<html>
 <ul>
 <li>
+October 7, 2019, by Michael Wetter:<br/>
+Corrected model to include DC/AC conversion in output <code>P</code>.<br/>
+This is for issue
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1577\">1577</a>.
+</li>
+<li>
 August 27, 2014, by Marco Bonvini:<br/>
 Revised documentation.
 </li>

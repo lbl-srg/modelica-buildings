@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="325" height="180" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:osb="http://www.openswatchbook.org/uri/2009/osb" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:xlink="http://www.w3.org/1999/xlink">
+ <metadata>
+  <rdf:RDF>
+   <cc:Work rdf:about="">
+    <dc:format>image/svg+xml</dc:format>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:title/>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <rect x="-25" y="-450" width="450" height="290" fill="none"/>
+ <g transform="translate(-290.25 -1130.3)">
+  <rect x="290.25" y="1130.3" width="325" height="180" fill="#fff" opacity=".547" stop-color="#000000"/>
+  <text x="584.44006" y="1258.3125" font-family="sans-serif" font-size="8px" style="font-variant-caps:normal;font-variant-east-asian:normal;font-variant-ligatures:normal;font-variant-numeric:normal;line-height:1.25" xml:space="preserve"><tspan x="584.44006" y="1258.3125">dpMin</tspan></text>
+ </g>
+ <g transform="translate(-355 -1752.2)">
+  <path d="m370.01 1842.2 119.99 0.4267" fill="none" stroke="#000" stroke-width="1px"/>
+  <g fill="#000000" font-family="sans-serif">
+   <text font-size="40px" style="line-height:1.25;shape-inside:url(#rect294)" xml:space="preserve"/>
+   <text transform="translate(4.3333 245.52)" x="24.882812" font-size="13.333px" text-align="center" style="line-height:1.25;shape-inside:url(#rect300)" xml:space="preserve"/>
+   <text transform="translate(144.34 97.036)" x="48.992188" y="11.632812" font-size="16px" text-align="center" style="line-height:1.25;shape-inside:url(#rect300)" xml:space="preserve"/>
+  </g>
+  <g fill="none" stroke="#000">
+   <path d="m370 1911.6h120" stroke-width="1px"/>
+   <path d="m520 1842.2v-40" stroke-width="1px"/>
+   <g stroke-width="1px">
+    <path d="m400 1912.2v-62.5"/>
+    <path transform="rotate(90 387.25 1729.9)" d="m495 1457.2c-0.0419-0.3679 0.0196-0.747 0.1755-1.0829 0.15595-0.3358 0.40594-0.6274 0.71403-0.8328 0.3081-0.2054 0.6734-0.324 1.0434-0.3388 0.36999-0.015 0.74358 0.074 1.0671 0.2545 0.37046 0.2063 0.66841 0.5253 0.905 0.8772 0.2366 0.3519 0.41631 0.7382 0.595 1.1228s0.3584 0.7709 0.595 1.1228c0.23659 0.3519 0.53454 0.6709 0.905 0.8772 0.3235 0.1802 0.69709 0.2693 1.0671 0.2545 0.36999-0.015 0.73529-0.1334 1.0434-0.3388 0.30809-0.2054 0.55808-0.497 0.71403-0.8328 0.15594-0.3359 0.21739-0.715 0.1755-1.0829"/>
+    <path transform="rotate(90 352.25 1764.9)" d="m495 1457.2c-0.0419-0.3679 0.0196-0.747 0.1755-1.0829 0.15595-0.3358 0.40594-0.6274 0.71403-0.8328 0.3081-0.2054 0.6734-0.324 1.0434-0.3388 0.36999-0.015 0.74358 0.074 1.0671 0.2545 0.37046 0.2063 0.66841 0.5253 0.905 0.8772 0.2366 0.3519 0.41631 0.7382 0.595 1.1228s0.3584 0.7709 0.595 1.1228c0.23659 0.3519 0.53454 0.6709 0.905 0.8772 0.3235 0.1802 0.69709 0.2693 1.0671 0.2545 0.36999-0.015 0.73529-0.1334 1.0434-0.3388 0.30809-0.2054 0.55808-0.497 0.71403-0.8328 0.15594-0.3359 0.21739-0.715 0.1755-1.0829"/>
+   </g>
+  </g>
+  <g transform="rotate(-90 767.5 1599.7)">
+   <g transform="translate(10)" fill="none" stroke="#000">
+    <path d="m555 1352.2h40v20h-40z"/>
+    <path d="m555 1372.2 40-20" stroke-width="1px"/>
+   </g>
+  </g>
+  <g transform="rotate(90 337.41 1554.7)">
+   <path d="m615.25 1504a3 3 0 0 1 0.85003-2.1678 3 3 0 0 1 2.1447-0.9068" fill="none" stroke-dasharray="2, 2" stroke-width=".66667"/>
+   <g stroke="#000">
+    <path d="m620.01 1482.4h9.9836l-4.9918 9.7402z" fill="#fff"/>
+    <path d="m620.01 1501.9h9.9836l-4.9918-9.7401z"/>
+    <rect x="609.96" y="1487.2" width="9.7892" height="9.8016" fill="#fff"/>
+   </g>
+   <path d="m619.75 1492.2h5.283" fill="none" stroke="#000"/>
+   <path d="m635 1497.1v-9.9836l-9.7401 4.9918z" stroke="#000"/>
+  </g>
+  <rect transform="translate(64.75 621.82)" x="270.25" y="1005.3" width="450" height="290" fill="none"/>
+  <g transform="translate(-5 5)" stroke="#000">
+   <ellipse transform="rotate(90)" cx="1837.2" cy="-445" rx="9.5" ry="9.5" fill="#fff"/>
+   <path d="m445 1828.2v18l9-9z" stroke-width=".37795"/>
+  </g>
+  <g fill="none" stroke="#000">
+   <path d="m540 1837.2v-35" stroke-width="1px"/>
+   <g stroke-width="1px">
+    <path d="m540.5 1912.2v-65"/>
+    <path transform="rotate(90 241.25 1583.9)" d="m495 1457.2c-0.0419-0.3679 0.0196-0.747 0.1755-1.0829 0.15595-0.3358 0.40594-0.6274 0.71403-0.8328 0.3081-0.2054 0.6734-0.324 1.0434-0.3388 0.36999-0.015 0.74358 0.074 1.0671 0.2545 0.37046 0.2063 0.66841 0.5253 0.905 0.8772 0.2366 0.3519 0.41631 0.7382 0.595 1.1228s0.3584 0.7709 0.595 1.1228c0.23659 0.3519 0.53454 0.6709 0.905 0.8772 0.3235 0.1802 0.69709 0.2693 1.0671 0.2545 0.36999-0.015 0.73529-0.1334 1.0434-0.3388 0.30809-0.2054 0.55808-0.497 0.71403-0.8328 0.15594-0.3359 0.21739-0.715 0.1755-1.0829"/>
+    <path transform="rotate(90 206.75 1618.4)" d="m495 1457.2c-0.0419-0.3679 0.0196-0.747 0.1755-1.0829 0.15595-0.3358 0.40594-0.6274 0.71403-0.8328 0.3081-0.2054 0.6734-0.324 1.0434-0.3388 0.36999-0.015 0.74358 0.074 1.0671 0.2545 0.37046 0.2063 0.66841 0.5253 0.905 0.8772 0.2366 0.3519 0.41631 0.7382 0.595 1.1228s0.3584 0.7709 0.595 1.1228c0.23659 0.3519 0.53454 0.6709 0.905 0.8772 0.3235 0.1802 0.69709 0.2693 1.0671 0.2545 0.36999-0.015 0.73529-0.1334 1.0434-0.3388 0.30809-0.2054 0.55808-0.497 0.71403-0.8328 0.15594-0.3359 0.21739-0.715 0.1755-1.0829"/>
+   </g>
+  </g>
+  <g font-family="sans-serif" font-size="8px">
+   <text x="381.5528" y="1820.8822" style="font-variant-caps:normal;font-variant-east-asian:normal;font-variant-ligatures:normal;font-variant-numeric:normal;line-height:1.25" xml:space="preserve"><tspan x="381.5528" y="1820.8822">dpVal</tspan></text>
+   <text x="426.5528" y="1820.8822" style="font-variant-caps:normal;font-variant-east-asian:normal;font-variant-ligatures:normal;font-variant-numeric:normal;line-height:1.25" xml:space="preserve"><tspan x="426.5528" y="1820.8822">dpPum</tspan></text>
+   <text x="559.92963" y="1835.1375" style="font-variant-caps:normal;font-variant-east-asian:normal;font-variant-ligatures:normal;font-variant-numeric:normal;line-height:1.25" xml:space="preserve"><tspan x="559.92963" y="1835.1375">dpDis[i]</tspan></text>
+  </g>
+  <path d="m605.5 1842.2v-40" fill="none" stroke="#000" stroke-width="1px"/>
+  <g transform="rotate(-90 810.25 1556.9)">
+   <g transform="translate(10)" fill="none" stroke="#000">
+    <path d="m555 1352.2h40v20h-40z"/>
+    <path d="m555 1372.2 40-20" stroke-width="1px"/>
+   </g>
+  </g>
+  <g fill="none" stroke="#000">
+   <path d="m625.5 1837.2v-35" stroke-width="1px"/>
+   <g stroke-width="1px">
+    <path d="m626 1912.2v-65"/>
+    <path d="m510 1842.7h145"/>
+    <path d="m510 1912.2h145"/>
+   </g>
+  </g>
+  <g font-family="sans-serif" font-size="8px">
+   <text x="549.70544" y="1851.9799" style="font-variant-caps:normal;font-variant-east-asian:normal;font-variant-ligatures:normal;font-variant-numeric:normal;line-height:1.25" xml:space="preserve"><tspan x="549.70544" y="1851.9799">mDis_flow[i]</tspan></text>
+   <text x="559.01294" y="1905.1375" style="font-variant-caps:normal;font-variant-east-asian:normal;font-variant-ligatures:normal;font-variant-numeric:normal;line-height:1.25" xml:space="preserve"><tspan x="559.01294" y="1905.1375">dpDis[i]</tspan></text>
+   <text x="553.34753" y="1923.2021" style="font-variant-caps:normal;font-variant-east-asian:normal;font-variant-ligatures:normal;font-variant-numeric:normal;line-height:1.25" xml:space="preserve"><tspan x="553.34753" y="1923.2021">mDis_flow[i]</tspan></text>
+  </g>
+  <g fill="none" stroke="#000" stroke-width="1px">
+   <path transform="rotate(90 304.75 1647.4)" d="m495 1457.2c-0.0419-0.3679 0.0196-0.747 0.1755-1.0829 0.15595-0.3358 0.40594-0.6274 0.71403-0.8328 0.3081-0.2054 0.6734-0.324 1.0434-0.3388 0.36999-0.015 0.74358 0.074 1.0671 0.2545 0.37046 0.2063 0.66841 0.5253 0.905 0.8772 0.2366 0.3519 0.41631 0.7382 0.595 1.1228s0.3584 0.7709 0.595 1.1228c0.23659 0.3519 0.53454 0.6709 0.905 0.8772 0.3235 0.1802 0.69709 0.2693 1.0671 0.2545 0.36999-0.015 0.73529-0.1334 1.0434-0.3388 0.30809-0.2054 0.55808-0.497 0.71403-0.8328 0.15594-0.3359 0.21739-0.715 0.1755-1.0829"/>
+   <path transform="rotate(90 309.75 1652.4)" d="m495 1457.2c-0.0419-0.3679 0.0196-0.747 0.1755-1.0829 0.15595-0.3358 0.40594-0.6274 0.71403-0.8328 0.3081-0.2054 0.6734-0.324 1.0434-0.3388 0.36999-0.015 0.74358 0.074 1.0671 0.2545 0.37046 0.2063 0.66841 0.5253 0.905 0.8772 0.2366 0.3519 0.41631 0.7382 0.595 1.1228s0.3584 0.7709 0.595 1.1228c0.23659 0.3519 0.53454 0.6709 0.905 0.8772 0.3235 0.1802 0.69709 0.2693 1.0671 0.2545 0.36999-0.015 0.73529-0.1334 1.0434-0.3388 0.30809-0.2054 0.55808-0.497 0.71403-0.8328 0.15594-0.3359 0.21739-0.715 0.1755-1.0829"/>
+   <path transform="rotate(90 269.75 1682.4)" d="m495 1457.2c-0.0419-0.3679 0.0196-0.747 0.1755-1.0829 0.15595-0.3358 0.40594-0.6274 0.71403-0.8328 0.3081-0.2054 0.6734-0.324 1.0434-0.3388 0.36999-0.015 0.74358 0.074 1.0671 0.2545 0.37046 0.2063 0.66841 0.5253 0.905 0.8772 0.2366 0.3519 0.41631 0.7382 0.595 1.1228s0.3584 0.7709 0.595 1.1228c0.23659 0.3519 0.53454 0.6709 0.905 0.8772 0.3235 0.1802 0.69709 0.2693 1.0671 0.2545 0.36999-0.015 0.73529-0.1334 1.0434-0.3388 0.30809-0.2054 0.55808-0.497 0.71403-0.8328 0.15594-0.3359 0.21739-0.715 0.1755-1.0829"/>
+   <path transform="rotate(90 274.75 1687.4)" d="m495 1457.2c-0.0419-0.3679 0.0196-0.747 0.1755-1.0829 0.15595-0.3358 0.40594-0.6274 0.71403-0.8328 0.3081-0.2054 0.6734-0.324 1.0434-0.3388 0.36999-0.015 0.74358 0.074 1.0671 0.2545 0.37046 0.2063 0.66841 0.5253 0.905 0.8772 0.2366 0.3519 0.41631 0.7382 0.595 1.1228s0.3584 0.7709 0.595 1.1228c0.23659 0.3519 0.53454 0.6709 0.905 0.8772 0.3235 0.1802 0.69709 0.2693 1.0671 0.2545 0.36999-0.015 0.73529-0.1334 1.0434-0.3388 0.30809-0.2054 0.55808-0.497 0.71403-0.8328 0.15594-0.3359 0.21739-0.715 0.1755-1.0829"/>
+  </g>
+  <text transform="rotate(-90)" x="-1818.1218" y="598.15625" font-family="sans-serif" font-size="8px" style="font-variant-caps:normal;font-variant-east-asian:normal;font-variant-ligatures:normal;font-variant-numeric:normal;line-height:1.25" xml:space="preserve"><tspan x="-1818.1218" y="598.15625">mReq_flow[i]</tspan></text>
+  <path d="m521 1840.2h84" fill="#808080" stroke="#808080" stroke-dasharray="2, 1"/>
+  <path d="m542 1910.2h84" fill="#808080" stroke="#808080" stroke-dasharray="2, 1"/>
+  <text font-family="sans-serif" font-size="21.333px" style="line-height:1.25;shape-inside:url(#rect2927);white-space:pre" xml:space="preserve"/>
+  <g fill="#fff">
+   <g transform="rotate(180 517.76 1627.2)">
+    <path d="m485.5 1449.2a3 3 0 0 1 0.85002-2.1678 3 3 0 0 1 2.1447-0.9068" stroke-dasharray="2, 2" stroke-width=".66667"/>
+    <g stroke="#000">
+     <path d="m490.26 1427.6h9.9836l-4.9918 9.7402z"/>
+     <path d="m490.26 1447.1h9.9836l-4.9918-9.7401z"/>
+     <path d="m480.21 1432.4h9.7892v9.8016h-9.7892z"/>
+     <path d="m490 1437.4h5.283"/>
+    </g>
+   </g>
+   <g transform="rotate(180 560.62 1627.3)">
+    <path d="m485.5 1449.2a3 3 0 0 1 0.85002-2.1678 3 3 0 0 1 2.1447-0.9068" stroke-dasharray="2, 2" stroke-width=".66667"/>
+    <g stroke="#000">
+     <path d="m490.26 1427.6h9.9836l-4.9918 9.7402z"/>
+     <path d="m490.26 1447.1h9.9836l-4.9918-9.7401z"/>
+     <path d="m480.21 1432.4h9.7892v9.8016h-9.7892z"/>
+     <path d="m490 1437.4h5.283"/>
+    </g>
+   </g>
+   <rect x="377.14" y="1774.7" width="1.7857" height="2.5" opacity=".547" stop-color="#000000"/>
+  </g>
+  <path d="m645 1912.2v-70" fill="#808080" stroke="#808080" stroke-dasharray="2, 0.999999"/>
+ </g>
+</svg>

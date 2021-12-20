@@ -38,25 +38,25 @@ model CoolingCoilValve
     "Fan feedback";
 
   Buildings.Utilities.Plotters.Examples.BaseClasses.CoolingCoilValve cooVal(
-    final reverseAction=true,
+    final reverseActing=false,
     final alc_int_k=1/100)
     "Cooling valve control sequence"
     annotation (Placement(transformation(extent={{-40,80},{-20,100}})));
 
   Buildings.Utilities.Plotters.Examples.BaseClasses.CoolingCoilValve cooVal1(
-    final reverseAction=true,
+    final reverseActing=false,
     final alc_int_k=1/100)
     "Cooling valve control sequence"
     annotation (Placement(transformation(extent={{-40,-40},{-20,-20}})));
 
   Buildings.Utilities.Plotters.Examples.BaseClasses.CoolingCoilValve cooVal2(
-    final reverseAction=true,
+    final reverseActing=false,
     final alc_int_k=1/100)
     "Cooling valve control sequence"
     annotation (Placement(transformation(extent={{140,78},{160,98}})));
 
   Buildings.Utilities.Plotters.Examples.BaseClasses.CoolingCoilValve cooVal3(
-    final reverseAction=true,
+    final reverseActing=false,
     final alc_int_k=1/100)
     "Cooling valve control sequence"
     annotation (Placement(transformation(extent={{140,-42},{160,-22}})));
@@ -228,7 +228,7 @@ annotation (experiment(StopTime=1800.0, Tolerance=1e-06),
           fillPattern=FillPattern.Solid),
         Text(
           extent={{-158,18},{-102,6}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="Supply fan signal"),
         Rectangle(
           extent={{-176,-4},{-14,-116}},
@@ -237,7 +237,7 @@ annotation (experiment(StopTime=1800.0, Tolerance=1e-06),
           fillPattern=FillPattern.Solid),
         Text(
           extent={{-160,-102},{-96,-114}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="TOut is above cuttoff - disable control"),
         Rectangle(
           extent={{14,116},{176,4}},
@@ -246,9 +246,9 @@ annotation (experiment(StopTime=1800.0, Tolerance=1e-06),
           fillPattern=FillPattern.Solid),
         Text(
           extent={{22,22},{116,2}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           horizontalAlignment=TextAlignment.Left,
-          textString="Normal operation above 
+          textString="Normal operation above
 the upper limit TSup range."),
         Rectangle(
           extent={{14,-4},{176,-116}},
@@ -257,14 +257,14 @@ the upper limit TSup range."),
           fillPattern=FillPattern.Solid),
         Text(
           extent={{22,-98},{116,-118}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           horizontalAlignment=TextAlignment.Left,
-          textString="Operation within the 
+          textString="Operation within the
           upper limit TSup range.")}),
     Documentation(
     info="<html>
 <p>
-This model validates the cooling coil signal control sequece as implemented 
+This model validates the cooling coil signal control sequece as implemented
 in B33 on the main LBNL campus.
 </p>
 </html>",

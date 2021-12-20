@@ -1,0 +1,5 @@
+﻿simulateModel("Buildings.Air.Systems.SingleZone.VAV.BaseClasses.Validation.ControllerChillerDXHeatingEconomizer", stopTime=172800, tolerance=1e-06, resultFile="ControllerChillerDXHeatingEconomizer");
+createPlot(id=1, position={0, 0, 1316, 720}, y={"con.TSetRooCoo", "con.TSetRooHea", "con.TRoo"}, range={0.0, 175000.0, 10.0, 35.0}, grid=true, colors={{28,108,200}, {238,46,47}, {0,140,72}}, displayUnits={"degC", "degC", "degC"});
+createPlot(id=1, position={0, 0, 1316, 720}, y={"con.yFan", "con.yHea", "con.yCooCoiVal"}, range={0.0, 175000.0, -0.5, 1.5}, grid=true, subPlot=102, colors={{28,108,200}, {238,46,47}, {0,140,72}}, displayUnits={"1", "1", "1"});
+createPlot(id=1, position={0, 0, 1316, 720}, y={"con.TSup", "con.TSetSupAir"}, range={0.0, 175000.0, 5.0, 25.0}, grid=true, subPlot=103, colors={{28,108,200}, {238,46,47}}, displayUnits={"degC", "degC"});
+

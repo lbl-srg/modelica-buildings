@@ -53,10 +53,10 @@ equation
         Text(
           extent={{-150,40},{150,80}},
           textString="%name",
-          lineColor={0,0,255}),
+          textColor={0,0,255}),
         Text(
           extent={{128,-70},{10,-100}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="T_rel"),
         Line(
           points={{34,3},{-56,3}},
@@ -65,7 +65,11 @@ equation
           points={{24,18},{64,3},{24,-12},{24,18}},
           lineColor={0,128,255},
           fillColor={0,128,255},
-          fillPattern=FillPattern.Solid)}),
+          fillPattern=FillPattern.Solid),
+        Text(
+          extent={{-20,-56},{-140,-106}},
+          textColor={0,0,0},
+          textString=DynamicSelect("", String(T_rel, leftJustified=false, significantDigits=3)))}),
     Documentation(info="<html>
 <p>
 The relative temperature <code>T(port_a) - T(port_b)</code> is determined between
@@ -85,6 +89,12 @@ Buildings.Fluid.Sensors.UsersGuide</a> for an explanation.
 </html>",
 revisions="<html>
 <ul>
+<li>
+February 25, 2020, by Michael Wetter:<br/>
+Changed icon to display its operating state.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1294\">#1294</a>.
+</li>
 <li>
 January 18, 2019, by Jianjun Hu:<br/>
 Limited the media choice.

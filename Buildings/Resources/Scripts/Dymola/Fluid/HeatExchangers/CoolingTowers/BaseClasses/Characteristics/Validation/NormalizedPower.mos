@@ -1,0 +1,2 @@
+simulateModel("Buildings.Fluid.HeatExchangers.CoolingTowers.BaseClasses.Characteristics.Validation.NormalizedPower", method="CVode", tolerance=1e-06, resultFile="NormalizedPower");
+createPlot(id=11, position={35, 35, 611, 495}, x="y", y={"r_P"}, range={0.0, 1.0, -0.2, 1.2}, grid=true, colors={{28,108,200}});

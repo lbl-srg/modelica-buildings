@@ -1,0 +1,4 @@
+simulateModel("Buildings.Controls.OBC.CDL.Logical.Sources.Validation.PulsePositiveStartTime", startTime=9, stopTime=20, tolerance=1e-06, method="Cvode", resultFile="PulsePositiveStartTime");
+createPlot(id=1, position={15, 15, 1385, 860}, y={"booPul_a1.y", "booPul_a2.y", "booPul_a3.y", "booPul_a4.y", "booPul_a5.y"}, range={9, 20, -0.5, 1.5}, grid=true, colors={{28,108,200}, {28,108,200}, {28,108,200}, {28,108,200}, {28,108,200}});
+createPlot(id=1, position={15, 15, 1385, 860}, y={"booPul_b1.y", "booPul_b2.y", "booPul_b3.y", "booPul_b4.y", "booPul_b5.y"}, range={9, 20, -0.5, 1.5}, grid=true, subPlot=102, colors={{28,108,200}, {28,108,200}, {28,108,200}, {28,108,200}, {28,108,200}});
+createPlot(id=1, position={15, 15, 1385, 860}, y={"booPul_c1.y", "booPul_c2.y", "booPul_c3.y", "booPul_c4.y", "booPul_c5.y"}, range={9, 20, -0.5, 1.5}, grid=true, subPlot=103, colors={{28,108,200}, {28,108,200}, {28,108,200}, {28,108,200}, {28,108,200}});

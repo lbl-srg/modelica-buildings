@@ -1,26 +1,39 @@
 within Buildings.Utilities.Math.Functions;
 function smoothHeaviside
-  "Once continuously differentiable approximation to the Heaviside function"
+  "Twice continuously differentiable approximation to the Heaviside function"
   extends Modelica.Icons.Function;
   input Real x "Argument";
-  input Real delta "Parameter used for scaling";
+  input Real delta(min=Modelica.Constants.eps) "Parameter used for scaling";
   output Real y "Result";
+protected
+  Real dx=0.5*x/delta "Scaled input argument";
+  Real xpow2=dx*dx "=dx*dx";
 algorithm
- y := Buildings.Utilities.Math.Functions.regStep(
-   y1=  1,
-   y2=  0,
-   x=  x,
-   x_small=  delta);
- annotation (smoothOrder = 1,
+  y := smooth(2, max(0, min(1, 0.5+dx*(1.875+xpow2*(-5+6*xpow2)))));
+
+ annotation (smoothOrder = 2,
  Documentation(info="<html>
 <p>
-Once Lipschitz continuously differentiable approximation to the
-<code>Heaviside(.,.)</code> function.
+Twice Lipschitz continuously differentiable approximation to the
+<code>Heaviside(.,.)</code> function.<br/>
+Function is derived from a quintic polynomial going through <i>(0,0)</i> and <i>(1,1)</i>,
+with zero first and second order derivatives at those points.<br/>
 See Example <a href=\"modelica://Buildings.Utilities.Math.Examples.SmoothHeaviside\">
 Buildings.Utilities.Math.Examples.SmoothHeaviside</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+October 21, 2019:<br/>
+Added <code>delta.min</code> attribute to guard against division by zero.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1202\">issue 1202</a>.
+</li>
+<li>
+September 13, 2019, by Kristoff Six and Filip Jorissen:<br/>
+Once continuously differentiable replaced by twice continuously differentiable implementation. This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1202\">issue 1202</a>.
+</li>
 <li>
 March 15, 2016, by Michael Wetter:<br/>
 Replaced <code>spliceFunction</code> with <code>regStep</code>.

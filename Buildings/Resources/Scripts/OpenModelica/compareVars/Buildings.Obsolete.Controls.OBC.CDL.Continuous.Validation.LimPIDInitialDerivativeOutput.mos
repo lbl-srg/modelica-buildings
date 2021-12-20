@@ -1,0 +1,7 @@
+compareVars :=
+  {
+    "limPID.y",
+    "limPD.y",
+    "limPID.D.y",
+    "limPD.D.y"
+  };

@@ -1,4 +1,4 @@
-simulateModel("Buildings.Fluid.Sensors.Examples.TemperatureDryBulb", tolerance=1e-6, stopTime=60, method="dassl", resultFile="TemperatureDryBulb");
+simulateModel("Buildings.Fluid.Sensors.Examples.TemperatureDryBulb", tolerance=1e-6, stopTime=60, method="CVode", resultFile="TemperatureDryBulb");
 createPlot(id = 5,
  position = {23, 1, 677, 498},
  y = {"masFloRat.T", "temSteSta.T", "temDyn.T", "temDynLoss.T"},

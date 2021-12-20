@@ -1,2 +1,2 @@
-simulateModel("Buildings.Utilities.IO.Files.Examples.CSVReader", startTime=-1.21, stopTime=10, tolerance=1e-6, method="dassl", resultFile="CSVReader");
+simulateModel("Buildings.Utilities.IO.Files.Examples.CSVReader", startTime=-1.21, stopTime=10, tolerance=1e-6, method="CVode", resultFile="CSVReader");
 createPlot(id=1, position={0, 0, 1301, 757}, y={"combiTimeTable.y[1]", "combiTimeTable.y[2]", "cos.y", "step.y"}, range={-1.5, 10.0, -1.1, 1.1}, erase=false, grid=true, colors={{28,108,200}, {238,46,47}, {0,140,72}, {217,67,180}});

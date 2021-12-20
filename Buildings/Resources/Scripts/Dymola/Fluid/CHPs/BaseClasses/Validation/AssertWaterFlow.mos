@@ -1,0 +1,6 @@
+simulateModel("Buildings.Fluid.CHPs.BaseClasses.Validation.AssertWaterFlow",
+    method="cvode", stopTime=900, tolerance=1e-06, resultFile="AssertWaterFlow");
+createPlot(id=1, position={20, 20, 900, 1200}, subPlot=1, y={"assWatMas.mWat_flow", "per.mWatMin_flow"},
+    grid=true, colors={{28,108,200},{238,46,47}});
+createPlot(id=1, position={20, 20, 900, 1200}, subPlot=2, y={"runSig.y"}, grid=true, colors={{28,108,200}});
+createPlot(id=1, position={20, 20, 900, 1200}, subPlot=3, y={"assWatMas.assMes.u"}, grid=true, colors={{28,108,200}});

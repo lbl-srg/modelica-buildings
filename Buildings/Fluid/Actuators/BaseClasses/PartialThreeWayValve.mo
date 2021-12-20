@@ -9,7 +9,6 @@ partial model PartialThreeWayValve "Partial three way valve"
           deltaM=deltaM,
           dp(start=dpValve_nominal/2),
           from_dp=from_dp,
-          final l=l[1],
           final linearized=linearized[1],
           final homotopyInitialization=homotopyInitialization,
           final CvData=Buildings.Fluid.Types.CvTypes.OpPoint,
@@ -25,7 +24,6 @@ partial model PartialThreeWayValve "Partial three way valve"
           deltaM=deltaM,
           dp(start=dpValve_nominal/2),
           from_dp=from_dp,
-          final l=l[2],
           final linearized=linearized[2],
           final homotopyInitialization=homotopyInitialization,
           final CvData=Buildings.Fluid.Types.CvTypes.OpPoint,
@@ -36,6 +34,9 @@ partial model PartialThreeWayValve "Partial three way valve"
     extends Buildings.Fluid.Actuators.BaseClasses.ActuatorSignal;
     extends Buildings.Fluid.Actuators.BaseClasses.ValveParameters(
       rhoStd=Medium.density_pTX(101325, 273.15+4, Medium.X_default));
+
+  constant Boolean homotopyInitialization = true "= true, use homotopy method"
+    annotation(HideResult=true);
 
   parameter Modelica.SIunits.PressureDifference dpFixed_nominal[2](each displayUnit="Pa",
                                                          each min=0) = {0, 0}
@@ -54,94 +55,72 @@ partial model PartialThreeWayValve "Partial three way valve"
     "= true, use linear relation between m_flow and dp for any flow rate"
     annotation(Dialog(tab="Advanced"));
 
-  parameter Boolean homotopyInitialization = true "= true, use homotopy method"
-    annotation(Evaluate=true, Dialog(tab="Advanced"));
-
 protected
   Modelica.Blocks.Math.Feedback inv "Inversion of control signal"
     annotation (Placement(transformation(extent={{-74,40},{-62,52}})));
   Modelica.Blocks.Sources.Constant uni(final k=1)
     "Outputs one for bypass valve"
     annotation (Placement(transformation(extent={{-92,40},{-80,52}})));
+
+initial equation
+  assert(homotopyInitialization, "In " + getInstanceName() +
+    ": The constant homotopyInitialization has been modified from its default value. This constant will be removed in future releases.",
+    level = AssertionLevel.warning);
+
 equation
   connect(uni.y, inv.u1)
     annotation (Line(points={{-79.4,46},{-72.8,46}},
                      color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=true,  extent={{-100,
             -100},{100,100}}), graphics={
-        Line(
-          points={{0,70},{40,70}}),
-        Rectangle(
-          extent={{-100,44},{100,-36}},
+    Rectangle(
+      extent={{-100,40},{100,-40}},
+      lineColor={0,0,0},
+      fillPattern=FillPattern.HorizontalCylinder,
+      fillColor={192,192,192}),
+    Rectangle(
+      extent={{-100,22},{100,-22}},
+      lineColor={0,0,0},
+      fillPattern=FillPattern.HorizontalCylinder,
+      fillColor={0,127,255}),
+    Rectangle(
+      extent={{-60,40},{60,-40}},
+      fillColor={255,255,255},
+      fillPattern=FillPattern.Solid,
+      pattern=LinePattern.None),
+    Polygon(
+      points={{0,0},{-76,60},{-76,-60},{0,0}},
+      lineColor={0,0,0},
+      fillColor=DynamicSelect({0,0,0}, y*{255,255,255}),
+      fillPattern=FillPattern.Solid),
+    Polygon(
+      points={{0,0},{76,60},{76,-60},{0,0}},
+      lineColor={0,0,0},
+      fillColor={255,255,255},
+      fillPattern=FillPattern.Solid),
+    Rectangle(
+      extent={{-40,-56},{40,-100}},
+      lineColor={0,0,0},
+      fillPattern=FillPattern.VerticalCylinder,
+      fillColor={192,192,192}),
+    Rectangle(
+      extent={{-22,-56},{22,-100}},
+      lineColor={0,0,0},
+      fillPattern=FillPattern.VerticalCylinder,
+      fillColor={0,127,255}),
+    Polygon(
+          points={{0,0},{60,-76},{-60,-76},{0,0}},
           lineColor={0,0,0},
-          fillPattern=FillPattern.HorizontalCylinder,
-          fillColor={192,192,192}),
-        Rectangle(
-          extent={{-100,26},{100,-20}},
-          lineColor={0,0,0},
-          fillPattern=FillPattern.HorizontalCylinder,
-          fillColor={0,127,255}),
-        Polygon(
-          points={{0,2},{-78,64},{-78,-56},{0,2}},
-          lineColor={0,0,0},
-          fillColor={0,0,0},
+          fillColor=DynamicSelect({0,0,0}, (1-y)*{255,255,255}),
           fillPattern=FillPattern.Solid),
-        Polygon(
-          points={{-68,56},{0,2},{56,44},{76,60},{-68,56}},
-          lineColor={0,0,255},
-          pattern=LinePattern.None,
-          fillColor={255,255,255},
-          fillPattern=FillPattern.Solid),
-        Polygon(
-          points={{-56,-40},{0,2},{56,44},{60,-40},{-56,-40}},
-          lineColor={0,0,255},
-          pattern=LinePattern.None,
-          fillColor={255,255,255},
-          fillPattern=FillPattern.Solid),
-        Polygon(
-          points={{0,2},{82,64},{82,-54},{0,2}},
-          lineColor={0,0,0},
-          fillColor={255,255,255},
-          fillPattern=FillPattern.Solid),
-        Rectangle(
-          extent={{-24,-56},{24,-100}},
-          lineColor={0,0,0},
-          fillPattern=FillPattern.VerticalCylinder,
-          fillColor={192,192,192}),
-        Rectangle(
-          extent={{-14,-56},{14,-100}},
-          lineColor={0,0,0},
-          fillPattern=FillPattern.VerticalCylinder,
-          fillColor={0,127,255}),
-        Polygon(
-          points={{0,2},{62,-80},{-58,-80},{0,2}},
-          lineColor={0,0,0},
-          fillColor={0,0,0},
-          fillPattern=FillPattern.Solid),
-        Line(
-          points={{-30,46},{30,46}}),
-        Line(
-          points={{0,100},{0,-2}}),
-        Rectangle(
-          visible=use_inputFilter,
-          extent={{-36,36},{36,100}},
-          lineColor={0,0,0},
-          fillColor={135,135,135},
-          fillPattern=FillPattern.Solid),
-        Ellipse(
-          visible=use_inputFilter,
-          extent={{-36,100},{36,36}},
-          lineColor={0,0,0},
-          fillColor={135,135,135},
-          fillPattern=FillPattern.Solid),
-        Text(
-          visible=use_inputFilter,
-          extent={{-22,92},{20,46}},
-          lineColor={0,0,0},
-          fillColor={135,135,135},
-          fillPattern=FillPattern.Solid,
-          textString="M",
-          textStyle={TextStyle.Bold})}),
+    Line(
+      visible=use_inputFilter,
+      points={{-30,40},{30,40}}),
+            Line(
+      points={{0,40},{0,0}}),
+    Line(
+      visible=not use_inputFilter,
+      points={{0,100},{0,40}})}),
     Documentation(info="<html>
 <p>
 Partial model of a three way valve. This is the base model for valves
@@ -171,6 +150,25 @@ for details regarding the valve implementation.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+April 14, 2020, by Michael Wetter:<br/>
+Changed <code>homotopyInitialization</code> to a constant.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1341\">IBPSA, #1341</a>.
+</li>
+<li>
+November 5, 2019, by Michael Wetter:<br/>
+Moved assignment of leakage from <a href=\"modelica://Buildings.Fluid.Actuators.BaseClasses.PartialThreeWayValve\">
+Buildings.Fluid.Actuators.BaseClasses.PartialThreeWayValve</a>
+to the parent classes.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1227\">#1227</a>.
+</li>
+<li>
+October 25, 2019, by Jianjun Hu:<br/>
+Improved icon graphics annotation. This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1225\">#1225</a>.
+</li>
 <li>
 March 24, 2017, by Michael Wetter:<br/>
 Renamed <code>filteredInput</code> to <code>use_inputFilter</code>.<br/>

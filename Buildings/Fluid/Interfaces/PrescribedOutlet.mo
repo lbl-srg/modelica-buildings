@@ -17,10 +17,6 @@ model PrescribedOutlet
     "Maximum water mass flow rate removal (negative)"
     annotation (Evaluate=true, Dialog(enable=use_X_wSet));
 
-  parameter Modelica.SIunits.MassFlowRate m_flow_nominal
-    "Nominal mass flow rate, used for regularization near zero flow"
-    annotation(Dialog(group = "Nominal condition"));
-
   parameter Modelica.SIunits.Time tau(min=0) = 10
     "Time constant at nominal flow rate (used if energyDynamics or massDynamics not equal Modelica.Fluid.Types.Dynamics.SteadyState)"
     annotation(Dialog(tab = "Dynamics"));
@@ -357,12 +353,12 @@ equation
           fillPattern=FillPattern.Solid),
         Text(
           extent={{-98,64},{-76,42}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           visible=use_X_wSet,
           textString="X_w"),
         Text(
           extent={{74,72},{120,44}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="mWat_flow"),
         Rectangle(
           extent={{-70,60},{70,-60}},
@@ -391,7 +387,7 @@ equation
           fillPattern=FillPattern.Solid),
         Text(
           extent={{-106,102},{-74,88}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           visible=use_TSet,
           textString="T"),
         Rectangle(
@@ -403,7 +399,7 @@ equation
           fillPattern=FillPattern.Solid),
         Text(
           extent={{72,108},{120,92}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="Q_flow"),
         Rectangle(
           extent={{70,82},{100,78}},
@@ -467,6 +463,11 @@ properties as the fluid that enters <code>port_b</code>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+April 29, 2021, by Michael Wetter:<br/>
+Removed duplicate declaration of <code>m_flow_nominal</code> which is already
+declared in the base class.<br/>
+</li>
 <li>
 March 19, 2018, by Michael Wetter:<br/>
 Added bugfix as the old model did not track <code>TSet</code> and <code>X_wSet</code>

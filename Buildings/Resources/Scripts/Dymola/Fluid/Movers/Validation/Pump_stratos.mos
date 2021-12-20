@@ -1,4 +1,4 @@
-simulateModel("Buildings.Fluid.Movers.Validation.Pump_stratos", method="dassl", tolerance=1e-06, stopTime=1.0, resultFile="Pump_stratos");
+simulateModel("Buildings.Fluid.Movers.Validation.Pump_stratos", method="CVode", tolerance=1e-06, stopTime=1.0, resultFile="Pump_stratos");
 removePlots();
 createPlot(id = 4,
  filename = "Pump_stratos.mat",

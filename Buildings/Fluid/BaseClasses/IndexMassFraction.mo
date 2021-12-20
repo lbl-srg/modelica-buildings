@@ -8,17 +8,13 @@ block IndexMassFraction
   parameter String substanceName="" "Name of species substance";
 
 protected
-  parameter Integer i_x(fixed=false) "Index of substance";
-initial algorithm
-  // Compute index of species vector that carries the substance name
-  i_x :=-1;
-    for i in 1:Medium.nXi loop
-      if Modelica.Utilities.Strings.isEqual(string1=Medium.substanceNames[i],
-                                            string2=substanceName,
-                                            caseSensitive=false) then
-        i_x :=i;
-      end if;
-    end for;
+  parameter Integer i_x = sum(
+    if Modelica.Utilities.Strings.isEqual(string1=Medium.substanceNames[i],
+                                          string2=substanceName,
+                                          caseSensitive=false) then i else 0
+                                          for i in 1:Medium.nXi) "Index of substance"
+                                          annotation(Evaluate=true);
+initial equation
   assert(i_x > 0, "Substance '" + substanceName + "' is not present in medium '"
                   + Medium.mediumName + "'.\n"
                   + "Change medium model to one that has '" + substanceName + "' as a substance.");
@@ -36,6 +32,11 @@ to obtain the water vapor concentration, or to measure any other mass fraction.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+November 14, 2019, by Michael Wetter:<br/>
+Rewrote assignment of <code>i_x</code> to avoid a variable array index.<br/>
+This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1250\">#1250</a>.
+</li>
 <li>
 January 18, 2019, by Jianjun Hu:<br/>
 Limited the media choice to moist air only.

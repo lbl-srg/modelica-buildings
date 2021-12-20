@@ -1,0 +1,14 @@
+compareVars :=
+  {
+    "senTHeaWatSup.T",
+    "senTHeaWatRet.T",
+    "TChiWatSupSet.y",
+    "senTChiWatSup.T",
+    "senTChiWatRet.T",
+    "chi.PChi",
+    "chi.PPum",
+    "chi.valCon.y_actual",
+    "chi.valEva.y_actual",
+    "chi.uHea",
+    "chi.uCoo"
+  };

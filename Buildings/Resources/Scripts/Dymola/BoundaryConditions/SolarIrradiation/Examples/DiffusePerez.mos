@@ -1,5 +1,5 @@
 removePlots();
-simulateModel("Buildings.BoundaryConditions.SolarIrradiation.Examples.DiffusePerez", startTime=1.82304e+07, tolerance=1e-6, stopTime=1.83168e+07, method="dassl", resultFile="DiffusePerez");
+simulateModel("Buildings.BoundaryConditions.SolarIrradiation.Examples.DiffusePerez", startTime=1.82304e+07, tolerance=1e-6, stopTime=1.83168e+07, method="CVode", resultFile="DiffusePerez");
 createPlot(id = 1,
  position = {7, 7, 746, 517},
  y = {"HDifRoo.H", "HDifWal.H", "HDifFlo.H"},

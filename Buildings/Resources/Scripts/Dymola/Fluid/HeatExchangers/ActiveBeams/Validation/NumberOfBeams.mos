@@ -1,4 +1,4 @@
-simulateModel("Buildings.Fluid.HeatExchangers.ActiveBeams.Validation.NumberOfBeams", tolerance=1e-6, stopTime=5000, method="dassl", resultFile="NumberOfBeams");
+simulateModel("Buildings.Fluid.HeatExchangers.ActiveBeams.Validation.NumberOfBeams", tolerance=1e-6, stopTime=5000, method="CVode", resultFile="NumberOfBeams");
 removePlots();
 Advanced.FilenameInLegend = false;
 Advanced.SequenceInLegend = true;

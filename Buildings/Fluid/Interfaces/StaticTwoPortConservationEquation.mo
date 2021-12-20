@@ -29,11 +29,7 @@ model StaticTwoPortConservationEquation
     annotation (Placement(transformation(extent={{-140,-60},{-100,-20}})));
 
   // Outputs that are needed in models that extend this model
-  Modelica.Blocks.Interfaces.RealOutput hOut(unit="J/kg",
-                                             start=Medium.specificEnthalpy_pTX(
-                                                     p=Medium.p_default,
-                                                     T=Medium.T_default,
-                                                     X=Medium.X_default))
+  Modelica.Blocks.Interfaces.RealOutput hOut(final unit="J/kg")
     "Leaving specific enthalpy of the component"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=90,
@@ -340,6 +336,13 @@ Buildings.Fluid.Interfaces.ConservationEquation</a>.
 revisions="<html>
 <ul>
 <li>
+September 18, 2020, by Michael Wetter:<br/>
+Removed start value for <code>hOut</code> as it will be set by
+<a href=\"modelica://Buildings.Fluid.MixingVolumes.BaseClasses.PartialMixingVolume\">
+Buildings.Fluid.MixingVolumes.BaseClasses.PartialMixingVolume</a>.<br/>
+See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1397\">#1397</a>.
+</li>
+<li>
 February 12, 2019, by Filip Jorissen:<br/>
 Removed obsolete division by <code>TMax</code> in assert.<br/>
 See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1097\">#1097</a>.
@@ -591,23 +594,23 @@ First implementation.
           pattern=LinePattern.None),
         Text(
           extent={{-93,72},{-58,89}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="Q_flow"),
         Text(
           extent={{-93,37},{-58,54}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="mWat_flow"),
         Text(
           extent={{-41,103},{-10,117}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="hOut"),
         Text(
           extent={{10,103},{41,117}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="XiOut"),
         Text(
           extent={{61,103},{92,117}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="COut"),
         Line(points={{-42,55},{-42,-84}}, color={255,255,255}),
         Polygon(

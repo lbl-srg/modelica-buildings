@@ -26,7 +26,7 @@ segment <i>i &isin; {1, ..., n<sub>seg</sub>}</i>
 where <i>n<sub>seg</sub></i> is the number of segments, as
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
-Q<sub>los,i</sub> = A<sub>c</sub> &frasl; n<sub>seg</sub> 
+Q<sub>los,i</sub> = A<sub>c</sub> &frasl; n<sub>seg</sub>
 (T<sub>env</sub>-T<sub>flu,i</sub>) (C<sub>1</sub> - C<sub>2</sub> (T<sub>env</sub>-T<sub>flu,i</sub>))
 </p>
 <p>
@@ -69,7 +69,7 @@ revisions="<html>
 December 17, 2017, by Michael Wetter:<br/>
 Revised computation of heat loss.<br/>
 This is for
-<a href=\"modelica://https://github.com/lbl-srg/modelica-buildings/issues/1100\">
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1100\">
 issue 1100</a>.
 </li>
 <li>

@@ -5,22 +5,32 @@ block Enable
   parameter Boolean use_enthalpy = true
     "Set to true to evaluate outdoor air enthalpy in addition to temperature"
     annotation(Dialog(group="Conditional"));
-  parameter Modelica.SIunits.TemperatureDifference delTOutHis=1
+  parameter Real delTOutHis(
+    final unit="K",
+    final displayUnit="K",
+    final quantity="TemperatureDifference")=1
     "Delta between the temperature hysteresis high and low limit"
-    annotation(Evaluate=true, Dialog(tab="Advanced", group="Hysteresis"));
-  parameter Modelica.SIunits.SpecificEnergy delEntHis=1000
+    annotation(Dialog(tab="Advanced", group="Hysteresis"));
+  parameter Real delEntHis(
+    final unit="J/kg",
+    final quantity="SpecificEnergy")=1000
     "Delta between the enthalpy hysteresis high and low limits"
-    annotation(Evaluate=true, Dialog(tab="Advanced", group="Hysteresis", enable = use_enthalpy));
-  parameter Modelica.SIunits.Time retDamFulOpeTim=180
+    annotation(Dialog(tab="Advanced", group="Hysteresis", enable = use_enthalpy));
+  parameter Real retDamFulOpeTim(
+    final unit="s",
+    final quantity="Time")=180
     "Time period to keep RA damper fully open before releasing it for minimum outdoor airflow control
     at disable to avoid pressure fluctuations"
-    annotation(Evaluate=true, Dialog(tab="Advanced", group="Delays at disable"));
-  parameter Modelica.SIunits.Time disDel=15
+    annotation(Dialog(tab="Advanced", group="Delays at disable"));
+  parameter Real disDel(
+    final unit="s",
+    final quantity="Time")=15
     "Short time delay before closing the OA damper at disable to avoid pressure fluctuations"
-    annotation(Evaluate=true, Dialog(tab="Advanced", group="Delays at disable"));
+    annotation(Dialog(tab="Advanced", group="Delays at disable"));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TOut(
     final unit="K",
+    final displayUnit="degC",
     final quantity = "ThermodynamicTemperature")
     "Outdoor air temperature"
     annotation (Placement(transformation(extent={{-320,250},{-280,290}}),
@@ -33,6 +43,7 @@ block Enable
         iconTransformation(extent={{-140,40},{-100,80}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TOutCut(
     final unit="K",
+    final displayUnit="degC",
     final quantity = "ThermodynamicTemperature")
     "OA temperature high limit cutoff. For differential dry bulb temeprature condition use return air temperature measurement"
     annotation (Placement(transformation(extent={{-320,210},{-280,250}}),
@@ -109,15 +120,21 @@ block Enable
   Buildings.Controls.OBC.CDL.Logical.TrueFalseHold truFalHol(
     trueHoldDuration=600) "10 min on/off delay"
     annotation (Placement(transformation(extent={{0,200},{20,220}})));
-  CDL.Logical.And andEnaDis "Logical and that checks freeze protection stage and zone state"
+  Buildings.Controls.OBC.CDL.Logical.And andEnaDis
+    "Logical and that checks freeze protection stage and zone state"
     annotation (Placement(transformation(extent={{40,30},{60,50}})));
 
 protected
-  final parameter Modelica.SIunits.TemperatureDifference TOutHigLimCutHig = 0
+  final parameter Real TOutHigLimCutHig(
+    final unit="K",
+    final displayUnit="K",
+    final quantity="TemperatureDifference")= 0
     "Hysteresis high limit cutoff";
   final parameter Real TOutHigLimCutLow = TOutHigLimCutHig - delTOutHis
     "Hysteresis low limit cutoff";
-  final parameter Modelica.SIunits.SpecificEnergy hOutHigLimCutHig = 0
+  final parameter Real hOutHigLimCutHig(
+    final unit="J/kg",
+    final quantity="SpecificEnergy")= 0
     "Hysteresis block high limit cutoff";
   final parameter Real hOutHigLimCutLow = hOutHigLimCutHig - delEntHis
     "Hysteresis block low limit cutoff";
@@ -142,15 +159,15 @@ protected
     final uHigh=hOutHigLimCutHig) if use_enthalpy
     "Outdoor air enthalpy hysteresis for both fixed and differential enthalpy cutoff conditions"
     annotation (Placement(transformation(extent={{-100,160},{-80,180}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch outDamSwitch
+  Buildings.Controls.OBC.CDL.Continuous.Switch outDamSwitch
     "Set maximum OA damper position to minimum at disable (after a given time delay)"
     annotation (Placement(transformation(extent={{62,-60},{82,-40}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch retDamSwitch "Set minimum RA damper position to maximum at disable"
+  Buildings.Controls.OBC.CDL.Continuous.Switch retDamSwitch "Set minimum RA damper position to maximum at disable"
     annotation (Placement(transformation(extent={{-40,-162},{-20,-142}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch maxRetDamSwitch
+  Buildings.Controls.OBC.CDL.Continuous.Switch maxRetDamSwitch
     "Keep maximum RA damper position at physical maximum for a short time period after disable signal"
     annotation (Placement(transformation(extent={{40,-120},{60,-100}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch minRetDamSwitch
+  Buildings.Controls.OBC.CDL.Continuous.Switch minRetDamSwitch
     "Keep minimum RA damper position at physical maximum for a short time period after disable"
     annotation (Placement(transformation(extent={{40,-160},{60,-140}})));
   Buildings.Controls.OBC.CDL.Logical.Nor nor1 "Logical nor"
@@ -281,7 +298,7 @@ annotation (
           fillPattern=FillPattern.Solid),
         Text(
           extent={{-174,142},{154,104}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="%name"),
         Line(
           points={{0,60},{80,60}},
@@ -317,32 +334,32 @@ annotation (
           fillPattern=FillPattern.Solid),
                                      Text(
           extent={{102,168},{184,156}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           horizontalAlignment=TextAlignment.Left,
           textString="Outdoor air
 conditions"),                        Text(
           extent={{100,70},{278,36}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           horizontalAlignment=TextAlignment.Left,
           textString="Freeze protection -
 disable if stage1
 and above"),                         Text(
           extent={{100,-180},{268,-228}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           horizontalAlignment=TextAlignment.Left,
           textString="Damper position
 limit assignments
 with delays"),                   Text(
           extent={{100,102},{194,92}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           horizontalAlignment=TextAlignment.Left,
           textString="Supply fan status")}),
 Documentation(info="<html>
 <p>
 This is a multi zone VAV AHU economizer enable/disable sequence
-based on ASHRAE G36 PART5.N.7 and PART5.A.17. Additional
+based on ASHRAE G36 PART 5.N.7 and PART 5.A.17. Additional
 conditions included in the sequence are: freeze protection (freeze protection
-stage 0-3, see PART5.N.12), supply fan status (on or off, see PART5.N.5).
+stage 0-3, see PART 5.N.12), supply fan status (on or off, see PART 5.N.5).
 </p>
 <p>
 The economizer is disabled whenever the outdoor air conditions
@@ -373,7 +390,7 @@ The following state machine chart illustrates the transitions between enabling a
 src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/G36_PR1/AHUs/MultiZone/EconEnableDisableStateMachineChart.png\"/>
 </p>
 <p>
-After the disable signal is activated, the following procedure is applied, per PART5.N.7.d, in order to
+After the disable signal is activated, the following procedure is applied, per PART 5.N.7.d, in order to
 prevent pressure fluctuations in the HVAC system:
 </p>
 <ul>

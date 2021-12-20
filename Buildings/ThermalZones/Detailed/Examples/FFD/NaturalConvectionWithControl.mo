@@ -13,7 +13,6 @@ model NaturalConvectionWithControl
     annotation (Placement(transformation(extent={{30,-10},{50,10}})));
   Buildings.Controls.Continuous.LimPID conPID(
     yMin=0,
-    controllerType=Modelica.Blocks.Types.SimpleController.PI,
     Ti=120,
     k=1,
     yMax=2)
@@ -57,7 +56,7 @@ This model tests the coupled simulation of
 <a href=\"modelica://Buildings.ThermalZones.Detailed.CFD\">
 Buildings.ThermalZones.Detailed.CFD</a>
 with the FFD program by simulating natural convection in an empty room with a PI controller and
-a heater to maintain the temperature at room center to be <i>2</i>&circ;C.
+a heater to maintain the temperature at room center to be <i>2</i>&deg;C.
 </p>
 <p>
 The configuration of the simulation is the same as
@@ -85,6 +84,12 @@ Figure (a)
 <p align=\"left\">
 </html>", revisions="<html>
 <ul>
+<li>
+September 16, 2021, by Michael Wetter:<br/>
+Removed assignment of parameter <code>lat</code> as this is now obtained from the weather data reader.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1477\">IBPSA, #1477</a>.
+</li>
 <li>
 July 7, 2015 by Michael Wetter:<br/>
 Removed model for prescribed heat flow boundary condition

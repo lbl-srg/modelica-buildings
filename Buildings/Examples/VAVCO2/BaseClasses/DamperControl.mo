@@ -11,7 +11,7 @@ block DamperControl "Local loop controller for damper"
     controllerType=Modelica.Blocks.Types.SimpleController.P,
     k=Kp,
     yMax=1,
-    reverseAction=true,
+    reverseActing=false,
     Td=60)
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
 

@@ -7,18 +7,6 @@ partial model AHUParameters "Essential parameters for air handling unit"
   parameter Real r_nominal=2/3
     "Ratio between air-side and water-side convective heat transfer coefficient"
     annotation (Dialog(group="Cooling coil"));
-  parameter Modelica.SIunits.Time tau1 = 20 "Time constant at nominal flow of medium 1"
-   annotation (Dialog(group="Cooling coil",
-     enable=not (energyDynamics==Modelica.Fluid.Types.Dynamics.SteadyState)));
-  parameter Modelica.SIunits.Time tau2 = 1 "Time constant at nominal flow of medium 2"
-   annotation (Dialog(group="Cooling coil",
-     enable=not (energyDynamics==Modelica.Fluid.Types.Dynamics.SteadyState)));
-  parameter Modelica.SIunits.Time tau_m(min=0) = 20
-    "Time constant of metal at nominal UA value"
-   annotation(Dialog(tab="General", group="Cooling coil"));
-  parameter Integer nEle(min=1) = 4
-    "Number of pipe segments used for discretization in the cooling coil"
-    annotation (Dialog(group="Cooling coil"));
 
   parameter Modelica.Fluid.Types.Dynamics energyDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial
     "Type of energy balance: dynamic (3 initialization options) or steady state"
@@ -36,6 +24,11 @@ Buildings.Applications.DataCenters.ChillerCooled.Equipment</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+June 30, 2021, by Antoine Gautier:<br/>
+Removed unused parameters. This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2549\">issue #2549</a>.
+</li>
 <li>
 April 08, 2017 by Yangyang Fu:<br/>
 First implementation.

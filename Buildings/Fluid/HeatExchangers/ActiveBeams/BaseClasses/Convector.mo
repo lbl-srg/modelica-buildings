@@ -6,6 +6,9 @@ model Convector "Heat exchanger for the water stream"
     final computeFlowResistance=true,
     final dp_nominal = per.dpWat_nominal "Don't multiply with nBeams, as the beams are in parallel");
 
+  constant Boolean homotopyInitialization = true "= true, use homotopy method"
+    annotation(HideResult=true);
+
   parameter Data.Generic per "Performance data"
     annotation (choicesAllMatching = true,
     Placement(transformation(extent={{60,-80},{80,-60}})));
@@ -15,10 +18,6 @@ model Convector "Heat exchanger for the water stream"
   parameter Modelica.SIunits.Time tau = 30
     "Time constant at nominal flow (if energyDynamics <> SteadyState)"
      annotation (Dialog(tab = "Dynamics", group="Nominal condition"));
-
-  // Advanced
-  parameter Boolean homotopyInitialization = true "= true, use homotopy method"
-    annotation(Evaluate=true, Dialog(tab="Advanced"));
 
   // Dynamics
   parameter Modelica.Fluid.Types.Dynamics energyDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial
@@ -94,6 +93,12 @@ protected
   Sensors.MassFlowRate senFloWatCoo(
     redeclare final package Medium = Medium) "Mass flow rate sensor"
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
+
+initial equation
+  assert(homotopyInitialization, "In " + getInstanceName() +
+    ": The constant homotopyInitialization has been modified from its default value. This constant will be removed in future releases.",
+    level = AssertionLevel.warning);
+
 equation
   connect(hex.Q_flow, Q_flow) annotation (Line(points={{61,6},{70,6},{70,70},{
           110,70}},
@@ -148,6 +153,12 @@ In heating mode, the heat is removed from the water stream.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+April 14, 2020, by Michael Wetter:<br/>
+Changed <code>homotopyInitialization</code> to a constant.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1341\">IBPSA, #1341</a>.
+</li>
 <li>
 November 2, 2016, by Michael Wetter:<br/>
 Made assignment of <code>senTem.y</code> final.

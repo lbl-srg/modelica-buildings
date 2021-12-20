@@ -1,0 +1,17 @@
+compareVars :=
+  {
+    "resetTimer.u",
+    "resetTimer.y",
+    "accuTimer.u",
+    "accuTimer.reset",
+    "accuTimer.y",
+    "accuTimer1.u",
+    "accuTimer1.reset",
+    "accuTimer1.y",
+    "accuTimer2.u",
+    "accuTimer2.reset",
+    "accuTimer2.y",
+    "accuTimer3.u",
+    "accuTimer3.reset",
+    "accuTimer3.y"
+  };

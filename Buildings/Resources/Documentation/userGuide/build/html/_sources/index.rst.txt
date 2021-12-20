@@ -7,7 +7,7 @@
 User Guide
 ==========
 
-This user guide provides instructions for how to use the free open-source Modelica `Buildings <http://simulationresearch.lbl.gov/modelica>`_ library.
+This user guide provides instructions for how to use the free open-source Modelica `Buildings <https://simulationresearch.lbl.gov/modelica>`_ library.
 The user guide covers how to
 
 - get started,
@@ -32,7 +32,7 @@ Contents
 
    gettingStarted
    bestPractice
-   workArounds
+   performance
    prePostProcessing
    development
    help

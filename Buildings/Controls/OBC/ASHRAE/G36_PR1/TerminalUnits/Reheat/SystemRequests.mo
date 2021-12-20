@@ -2,89 +2,113 @@ within Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.Reheat;
 block SystemRequests
   "Output system requests for VAV reheat terminal unit control"
 
-  parameter Modelica.SIunits.Time samplePeriod=120
+  parameter Real samplePeriod(
+    final unit="s",
+    final quantity="Time")=120
     "Sample period of component, set to the same value as the trim and respond that process yPreSetReq";
 
   parameter Boolean have_heaWatCoi
     "Flag, true if there is a hot water coil";
   parameter Boolean have_heaPla "Flag, true if there is a boiler plant";
 
-  parameter Modelica.SIunits.TemperatureDifference errTZonCoo_1=2.8
+  parameter Real errTZonCoo_1(
+    final unit="K",
+    final displayUnit="K",
+    final quantity="TemperatureDifference")=2.8
     "Limit value of difference between zone temperature and cooling setpoint
     for generating 3 cooling SAT reset requests";
-  parameter Modelica.SIunits.TemperatureDifference errTZonCoo_2=1.7
+  parameter Real errTZonCoo_2(
+    final unit="K",
+    final displayUnit="K",
+    final quantity="TemperatureDifference")=1.7
     "Limit value of difference between zone temperature and cooling setpoint
     for generating 2 cooling SAT reset requests";
-  parameter Modelica.SIunits.TemperatureDifference errTDis_1=17
+  parameter Real errTDis_1(
+    final unit="K",
+    final displayUnit="K",
+    final quantity="TemperatureDifference")=17
     "Limit value of difference between discharge air temperature and its setpoint
     for generating 3 hot water reset requests";
-  parameter Modelica.SIunits.TemperatureDifference errTDis_2=8.3
+  parameter Real errTDis_2(
+    final unit="K",
+    final displayUnit="K",
+    final quantity="TemperatureDifference")=8.3
     "Limit value of difference between discharge air temperature and its setpoint
     for generating 2 hot water reset requests";
 
-  parameter Modelica.SIunits.Time durTimTem=120
+  parameter Real durTimTem(
+    final unit="s",
+    final quantity="Time")=120
     "Duration time of zone temperature exceeds setpoint"
     annotation(Dialog(group="Duration times"));
-  parameter Modelica.SIunits.Time durTimFlo=60
+  parameter Real durTimFlo(
+    final unit="s",
+    final quantity="Time")=60
     "Duration time of airflow rate less than setpoint"
     annotation(Dialog(group="Duration times"));
-  parameter Modelica.SIunits.Time durTimDisAir=300
+  parameter Real durTimDisAir(
+    final unit="s",
+    final quantity="Time")=300
     "Duration time of discharge air temperature is less than setpoint"
     annotation(Dialog(group="Duration times"));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TZon(
     final unit="K",
-    quantity="ThermodynamicTemperature")
+    final displayUnit="degC",
+    final quantity="ThermodynamicTemperature")
     "Zone temperature"
     annotation (Placement(transformation(extent={{-220,150},{-180,190}}),
         iconTransformation(extent={{-140,40},{-100,80}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TZonCooSet(
     final unit="K",
-    quantity="ThermodynamicTemperature")
+    final displayUnit="degC",
+    final quantity="ThermodynamicTemperature")
     "Zone cooling setpoint temperature"
     annotation (Placement(transformation(extent={{-220,420},{-180,460}}),
         iconTransformation(extent={{-140,60},{-100,100}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uCoo(
-    min=0,
-    max=1,
+    final min=0,
+    final max=1,
     final unit="1")
     "Cooling loop signal"
     annotation (Placement(transformation(extent={{-220,70},{-180,110}}),
         iconTransformation(extent={{-140,20},{-100,60}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput VDis_flow(
-    min=0,
+    final min=0,
     final unit="m3/s",
-    quantity="VolumeFlowRate") "Measured discharge airflow rate"
+    final quantity="VolumeFlowRate") "Measured discharge airflow rate"
     annotation (Placement(transformation(extent={{-220,-90},{-180,-50}}),
         iconTransformation(extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput VDisSet_flow(
-    min=0,
+    final min=0,
     final unit="m3/s",
     quantity="VolumeFlowRate")
     "Discharge airflow rate setpoint"
     annotation (Placement(transformation(extent={{-220,10},{-180,50}}),
         iconTransformation(extent={{-140,0},{-100,40}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput uDam(
-    min=0,
-    max=1,
-    final unit="1") "Damper position"
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput yDam_actual(
+    final min=0,
+    final max=1,
+    final unit="1") "Actual damper position"
     annotation (Placement(transformation(extent={{-220,-170},{-180,-130}}),
         iconTransformation(extent={{-140,-40},{-100,0}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TDisHeaSet(
     final unit="K",
-    quantity="ThermodynamicTemperature") if have_heaWatCoi
+    final displayUnit="degC",
+    final quantity="ThermodynamicTemperature") if have_heaWatCoi
     "Discharge airflow setpoint temperature for heating"
     annotation (Placement(transformation(extent={{-220,-230},{-180,-190}}),
         iconTransformation(extent={{-140,-60},{-100,-20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TDis(
     final unit="K",
-    quantity="ThermodynamicTemperature") if have_heaWatCoi
+    final displayUnit="degC",
+    final quantity="ThermodynamicTemperature") if have_heaWatCoi
     "Measured discharge airflow temperature"
     annotation (Placement(transformation(extent={{-220,-310},{-180,-270}}),
         iconTransformation(extent={{-140,-80},{-100,-40}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uHeaVal(
-    min=0,
-    max=1,
+    final min=0,
+    final max=1,
     final unit="1") if have_heaWatCoi "Heating valve position"
     annotation (Placement(transformation(extent={{-220,-370},{-180,-330}}),
         iconTransformation(extent={{-140,-100},{-100,-60}})));
@@ -172,10 +196,7 @@ protected
     annotation (Placement(transformation(extent={{60,260},{80,280}})));
   Buildings.Controls.OBC.CDL.Logical.Timer tim "Calculate time"
     annotation (Placement(transformation(extent={{0,330},{20,350}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterEqual gre
-    "Check if the suppression time has passed"
-    annotation (Placement(transformation(extent={{60,330},{80,350}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterEqual gre1
+  Buildings.Controls.OBC.CDL.Continuous.Greater gre1
     "Check if current model time is greater than the sample period"
     annotation (Placement(transformation(extent={{-80,400},{-60,420}})));
   Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys2(
@@ -187,7 +208,7 @@ protected
     annotation (Placement(transformation(extent={{0,270},{20,290}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.ModelTime modTim "Time of the model"
     annotation (Placement(transformation(extent={{-140,400},{-120,420}})));
-  Buildings.Controls.OBC.CDL.Continuous.Gain gai(k=(9/5)*(5*60))
+  Buildings.Controls.OBC.CDL.Continuous.Gain gai(final k=540)
     "Convert change of degC to change of degF and find out suppression time (5 min/degF))"
     annotation (Placement(transformation(extent={{-80,270},{-60,290}})));
   Buildings.Controls.OBC.CDL.Continuous.Gain gai1(final k=0.5) "50% of setpoint"
@@ -298,37 +319,38 @@ protected
     annotation (Placement(transformation(extent={{-80,240},{-60,260}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant con5(k=true) "Constant true"
     annotation (Placement(transformation(extent={{60,290},{80,310}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi
     "Use setpoint different value when half sample period time has passed"
     annotation (Placement(transformation(extent={{40,400},{60,420}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi1 "Output 3 or other request "
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi1 "Output 3 or other request "
     annotation (Placement(transformation(extent={{100,190},{120,210}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi2 "Output 2 or other request "
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi2 "Output 2 or other request "
     annotation (Placement(transformation(extent={{100,130},{120,150}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi3 "Output 0 or 1 request "
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi3 "Output 0 or 1 request "
     annotation (Placement(transformation(extent={{100,80},{120,100}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi4 "Output 3 or other request "
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi4 "Output 3 or other request "
     annotation (Placement(transformation(extent={{100,-50},{120,-30}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi5 "Output 2 or other request "
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi5 "Output 2 or other request "
     annotation (Placement(transformation(extent={{100,-110},{120,-90}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi6 "Output 0 or 1 request "
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi6 "Output 0 or 1 request "
     annotation (Placement(transformation(extent={{100,-160},{120,-140}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi7 if have_heaWatCoi
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi7 if have_heaWatCoi
     "Output 3 or other request "
     annotation (Placement(transformation(extent={{100,-250},{120,-230}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi8 if have_heaWatCoi
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi8 if have_heaWatCoi
     "Output 2 or other request "
     annotation (Placement(transformation(extent={{100,-310},{120,-290}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi9 if have_heaWatCoi
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi9 if have_heaWatCoi
     "Output 0 or 1 request "
     annotation (Placement(transformation(extent={{100,-360},{120,-340}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi10 if (have_heaWatCoi and
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi10 if (have_heaWatCoi and
     have_heaPla)
     "Output 0 or 1 request "
     annotation (Placement(transformation(extent={{100,-440},{120,-420}})));
   Buildings.Controls.OBC.CDL.Logical.TrueHoldWithReset truHol(duration=samplePeriod)
+    "Hold true signal for sample period of time"
     annotation (Placement(transformation(extent={{120,330},{140,350}})));
-  Buildings.Controls.OBC.CDL.Logical.LogicalSwitch logSwi "Logical switch"
+  Buildings.Controls.OBC.CDL.Logical.Switch logSwi "Logical switch"
     annotation (Placement(transformation(extent={{120,300},{140,280}})));
   Buildings.Controls.OBC.CDL.Logical.TrueDelay tim1(delayTime=durTimTem)
     "Check if it is more than durTimTem"
@@ -361,13 +383,17 @@ protected
     final samplePeriod=samplePeriod)
     "Sample input signal, as the output signal will go to the trim and respond which also samples at samplePeriod"
     annotation (Placement(transformation(extent={{-160,80},{-140,100}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterEqual greEqu
+  Buildings.Controls.OBC.CDL.Continuous.Greater greVDis50
     "Check if discharge airflow is less than 50% of setpoint"
     annotation (Placement(transformation(extent={{-60,-50},{-40,-30}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterEqual greEqu1
+  Buildings.Controls.OBC.CDL.Continuous.Greater greVDis70
     "Check if discharge airflow is less than 70% of setpoint"
     annotation (Placement(transformation(extent={{-60,-110},{-40,-90}})));
 
+  CDL.Continuous.Less les "Check if the suppression time has not yet passed"
+    annotation (Placement(transformation(extent={{38,330},{58,350}})));
+  CDL.Logical.Not notLes "Inversion of output signal"
+    annotation (Placement(transformation(extent={{76,330},{96,350}})));
 equation
   connect(add2.y, hys.u)
     annotation (Line(points={{-78,200},{-62,200}},   color={0,0,127}));
@@ -382,15 +408,12 @@ equation
     annotation (Line(points={{-98,340},{-62,340}}, color={255,0,255}));
   connect(lat.y, tim.u)
     annotation (Line(points={{-38,340},{-2,340}}, color={255,0,255}));
-  connect(tim.y, gre.u1)
-    annotation (Line(points={{22,340},{58,340}}, color={0,0,127}));
   connect(edg.y, triSam.trigger)
     annotation (Line(points={{-38,300},{-20,300},{-20,264},{-110,264},{-110,268.2}},
       color={255,0,255}));
   connect(lat.y, edg.u)
-    annotation (Line(points={{-38,340},{-20,340},{-20,318},{-80,318},{-80,300},{
-          -62,300}},
-      color={255,0,255}));
+    annotation (Line(points={{-38,340},{-20,340},{-20,318},{-80,318},{-80,300},
+      {-62,300}}, color={255,0,255}));
   connect(edg.y, lat1.clr)
     annotation (Line(points={{-38,300},{-20,300},{-20,264},{58,264}}, color={255,0,255}));
   connect(modTim.y, gre1.u1)
@@ -416,12 +439,10 @@ equation
       color={0,0,127}));
   connect(abs.y, triSam.u)
     annotation (Line(points={{122,410},{140,410},{140,360},{-140,360},{-140,280},
-          {-122,280}},
-                   color={0,0,127}));
+          {-122,280}}, color={0,0,127}));
   connect(abs.y, hys2.u)
     annotation (Line(points={{122,410},{140,410},{140,360},{-140,360},{-140,340},
-          {-122,340}},
-                   color={0,0,127}));
+          {-122,340}}, color={0,0,127}));
   connect(and2.y, swi1.u2)
     annotation (Line(points={{62,200},{98,200}}, color={255,0,255}));
   connect(thrCooResReq.y, swi1.u1)
@@ -548,15 +569,9 @@ equation
     annotation (Line(points={{122,-430},{138,-430}}, color={0,0,127}));
   connect(reaToInt3.y,yHeaPlaReq)
     annotation (Line(points={{162,-430},{200,-430}}, color={255,127,0}));
-  connect(gre.y, truHol.u)
-    annotation (Line(points={{82,340},{118,340}}, color={255,0,255}));
   connect(truHol.y, lat.clr)
     annotation (Line(points={{142,340},{160,340},{160,320},{-80,320},{-80,334},{
           -62,334}},        color={255,0,255}));
-  connect(gre.y, lat1.u)
-    annotation (Line(points={{82,340},{100,340},{100,322},{44,322},{44,270},{58,
-          270}},
-      color={255,0,255}));
   connect(lat.y, logSwi.u2)
     annotation (Line(points={{-38,340},{-20,340},{-20,318},{100,318},{100,290},{
           118,290}},
@@ -579,8 +594,6 @@ equation
   connect(maxSupTim.y, supTim.u2)
     annotation (Line(points={{-58,250},{-40,250},{-40,274},{-2,274}},
       color={0,0,127}));
-  connect(supTim.y, gre.u2)
-    annotation (Line(points={{22,280},{40,280},{40,332},{58,332}}, color={0,0,127}));
   connect(tim5.y, swi8.u2)
     annotation (Line(points={{22,-300},{98,-300}}, color={255,0,255}));
   connect(hys8.y, tim4.u)
@@ -615,7 +628,7 @@ equation
       color={0,0,127}));
   connect(sampler1.u, VDis_flow)
     annotation (Line(points={{-162,-70},{-200,-70}}, color={0,0,127}));
-  connect(uDam, sampler2.u)
+  connect(yDam_actual, sampler2.u)
     annotation (Line(points={{-200,-150},{-162,-150}}, color={0,0,127}));
   connect(sampler2.y, hys4.u)
     annotation (Line(points={{-138,-150},{-62,-150}},  color={0,0,127}));
@@ -637,24 +650,29 @@ equation
   connect(add3.u2, TZon)
     annotation (Line(points={{-102,134},{-150,134},{-150,170},{-200,170}},
       color={0,0,127}));
-  connect(greEqu.u1, gai1.y)
+  connect(greVDis50.u1, gai1.y)
     annotation (Line(points={{-62,-40},{-78,-40}}, color={0,0,127}));
-  connect(greEqu.u2, sampler1.y)
-    annotation (Line(points={{-62,-48},{-72,-48},{-72,-70},{-138,-70}},
-      color={0,0,127}));
-  connect(greEqu.y, and3.u2)
-    annotation (Line(points={{-38,-40},{0,-40},{0,-48},{38,-48}},
-      color={255,0,255}));
-  connect(gai2.y, greEqu1.u1)
-    annotation (Line(points={{-78,-88},{-76,-88},{-76,-100},{-62,-100}},
-      color={0,0,127}));
-  connect(sampler1.y, greEqu1.u2)
-    annotation (Line(points={{-138,-70},{-132,-70},{-132,-108},{-62,-108}},
-      color={0,0,127}));
-  connect(greEqu1.y, and4.u2)
-    annotation (Line(points={{-38,-100},{0,-100},{0,-108},{38,-108}},
-      color={255,0,255}));
+  connect(greVDis50.u2, sampler1.y) annotation (Line(points={{-62,-48},{-72,-48},
+          {-72,-70},{-138,-70}}, color={0,0,127}));
+  connect(greVDis50.y, and3.u2) annotation (Line(points={{-38,-40},{0,-40},{0,-48},
+          {38,-48}}, color={255,0,255}));
+  connect(gai2.y, greVDis70.u1) annotation (Line(points={{-78,-88},{-76,-88},{-76,
+          -100},{-62,-100}}, color={0,0,127}));
+  connect(sampler1.y, greVDis70.u2) annotation (Line(points={{-138,-70},{-132,-70},
+          {-132,-108},{-62,-108}}, color={0,0,127}));
+  connect(greVDis70.y, and4.u2) annotation (Line(points={{-38,-100},{0,-100},{0,
+          -108},{38,-108}}, color={255,0,255}));
 
+  connect(tim.y, les.u1)
+    annotation (Line(points={{22,340},{36,340}}, color={0,0,127}));
+  connect(supTim.y, les.u2) annotation (Line(points={{22,280},{32,280},{32,332},
+          {36,332}}, color={0,0,127}));
+  connect(notLes.y, truHol.u)
+    annotation (Line(points={{98,340},{118,340}}, color={255,0,255}));
+  connect(lat1.u, notLes.y) annotation (Line(points={{58,270},{46,270},{46,326},
+          {108,326},{108,340},{98,340}}, color={255,0,255}));
+  connect(les.y, notLes.u)
+    annotation (Line(points={{60,340},{74,340}}, color={255,0,255}));
 annotation (
   defaultComponentName="sysReqRehBox",
   Diagram(coordinateSystem(preserveAspectRatio=
@@ -692,33 +710,33 @@ annotation (
           pattern=LinePattern.None),
         Text(
           extent={{18,480},{140,456}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           horizontalAlignment=TextAlignment.Left,
           textString="Time-based suppression"),
         Text(
           extent={{-150,82},{-28,58}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           horizontalAlignment=TextAlignment.Left,
           textString="Cooling SAT reset requests"),
         Text(
           extent={{-152,-156},{-8,-184}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           horizontalAlignment=TextAlignment.Left,
           textString="Static pressure reset requests"),
         Text(
           extent={{-152,-360},{-26,-380}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           horizontalAlignment=TextAlignment.Left,
           textString="Hot water reset requests"),
         Text(
           extent={{-150,-440},{-12,-462}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           horizontalAlignment=TextAlignment.Left,
           textString="Boiler plant reset requests")}),
      Icon(graphics={
         Text(
           extent={{-100,140},{100,100}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%name"),
         Rectangle(
         extent={{-100,-100},{100,100}},
@@ -727,77 +745,77 @@ annotation (
         fillPattern=FillPattern.Solid),
         Text(
           extent={{-98,90},{-62,76}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="TZonCooSet"),
         Text(
           extent={{-100,66},{-72,56}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="TZon"),
         Text(
           extent={{-100,46},{-72,36}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="uCoo"),
         Text(
           extent={{-98,30},{-52,14}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="VDisSet_flow"),
         Text(
           extent={{-98,6},{-64,-4}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="VDis_flow"),
         Text(
           extent={{-98,-14},{-70,-24}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="uDam"),
         Text(
           extent={{-98,-32},{-52,-48}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
           visible = (have_heaWatCoi or have_heaPla),
           textString="TDisHeaSet"),
         Text(
           extent={{-98,-56},{-64,-66}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
           visible = (have_heaWatCoi or have_heaPla),
           textString="TDis"),
         Text(
           extent={{-98,-76},{-64,-86}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
           visible = (have_heaWatCoi or have_heaPla),
           textString="uHeaVal"),
         Text(
           extent={{42,82},{98,62}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
           horizontalAlignment=TextAlignment.Right,
           textString="yZonTemResReq"),
         Text(
           extent={{42,32},{98,12}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
           horizontalAlignment=TextAlignment.Right,
           textString="yZonPreResReq"),
         Text(
           extent={{42,-28},{98,-48}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
           horizontalAlignment=TextAlignment.Right,
           visible = have_heaWatCoi,
           textString="yHeaValResReq"),
         Text(
           extent={{58,-84},{98,-100}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
           horizontalAlignment=TextAlignment.Right,
-          visible = (have_heaWatCoi or have_heaPla),
+          visible = (have_heaWatCoi and have_heaPla),
           textString="yHeaPlaReq")}),
   Documentation(info="<html>
 <p>
@@ -821,7 +839,7 @@ the boiler plant reset requests <code>yHeaPlaReq</code>.
 </ul>
 <p>
 The calculations are according to ASHRAE
-Guideline 36 (G36), PART5.E.9, in the steps shown below.
+Guideline 36 (G36), PART 5.E.9, in the steps shown below.
 </p>
 <h4>a. Cooling SAT reset requests <code>yZonTemResReq</code></h4>
 <ol>

@@ -1,5 +1,5 @@
 removePlots();
-simulateModel("Buildings.BoundaryConditions.WeatherData.BaseClasses.Examples.SolarTime", tolerance=1e-6, stopTime=864000, numberOfIntervals=5000, method="dassl", resultFile="SolarTime");
+simulateModel("Buildings.BoundaryConditions.WeatherData.BaseClasses.Examples.SolarTime", tolerance=1e-6, stopTime=864000, numberOfIntervals=5000, method="CVode", resultFile="SolarTime");
 createPlot(id = 1,
  position = {7, 7, 746, 517},
  y = {"solTim.solTim"},

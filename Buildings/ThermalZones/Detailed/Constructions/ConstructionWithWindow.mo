@@ -4,6 +4,9 @@ model ConstructionWithWindow
   extends Buildings.ThermalZones.Detailed.Constructions.BaseClasses.PartialConstruction(
     final AOpa=A-AWin);
 
+  constant Boolean homotopyInitialization = true "= true, use homotopy method"
+    annotation(HideResult=true);
+
   parameter Modelica.SIunits.Area AWin "Heat transfer area of window"
       annotation (Dialog(group="Glazing system"));
   parameter Real fFra(
@@ -21,8 +24,6 @@ model ConstructionWithWindow
   parameter Boolean steadyStateWindow = false
     "Set to false to add thermal capacity at window, which generally leads to faster simulation"
     annotation (Dialog(group="Glazing system"));
-  parameter Boolean homotopyInitialization = true "= true, use homotopy method"
-    annotation(Evaluate=true, Dialog(tab="Advanced"));
 
  replaceable parameter HeatTransfer.Data.GlazingSystems.Generic glaSys
     "Material properties of glazing system"
@@ -129,6 +130,11 @@ protected
   final parameter Boolean haveShade = glaSys.haveExteriorShade or glaSys.haveInteriorShade
     "Parameter, equal to true if the window has a shade"
     annotation(Evaluate=true);
+
+initial equation
+  assert(homotopyInitialization, "In " + getInstanceName() +
+    ": The constant homotopyInitialization has been modified from its default value. This constant will be removed in future releases.",
+    level = AssertionLevel.warning);
 
 equation
   connect(win.uSha, uSha) annotation (Line(
@@ -375,6 +381,12 @@ equation
 defaultComponentName="conWin",
 Documentation(revisions="<html>
 <ul>
+<li>
+April 14, 2020, by Michael Wetter:<br/>
+Changed <code>homotopyInitialization</code> to a constant.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1341\">IBPSA, #1341</a>.
+</li>
 <li>
 October 29, 2016, by Michael Wetter:<br/>
 Added optional capacity at the room-facing surface

@@ -1,0 +1,21 @@
+simulateModel("Buildings.Fluid.Chillers.Examples.AbsorptionIndirectSteam", tolerance=1e-6, stopTime=14400, method="CVode", resultFile="AbsorptionIndirectSteam");
+createPlot(id = 1,
+ position = {60, 10, 640, 480},
+ y = {"absIndSte.QEva_flow", "absIndSte.QGen_flow", "absIndSte.QCon_flow"},
+ autoscale = true,
+ autoerase = true,
+ autoreplot = true,
+ grid = true,
+ color = true,
+ leftTitleType = 1,
+ bottomTitleType = 1);
+createPlot(id = 2,
+ position = {60, 10, 640, 480},
+ y = {"absIndSte.sta_a1.T", "absIndSte.sta_b1.T", "absIndSte.sta_a2.T", "absIndSte.sta_b2.T"},
+ autoscale = true,
+ autoerase = true,
+ autoreplot = true,
+ grid = true,
+ color = true,
+ leftTitleType = 1,
+ bottomTitleType = 1);

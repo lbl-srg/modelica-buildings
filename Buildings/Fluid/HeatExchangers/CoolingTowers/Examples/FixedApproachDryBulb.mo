@@ -3,11 +3,12 @@ model FixedApproachDryBulb
   "Test model for cooling tower with fixed approach temperature using the dry-bulb temperature"
   extends Modelica.Icons.Example;
   extends BaseClasses.PartialStaticTwoPortCoolingTower(
-    redeclare CoolingTowers.FixedApproach tow,
+    redeclare CoolingTowers.FixedApproach tow(
+        m_flow_nominal=m_flow_nominal),
     vol(energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial));
 equation
   connect(weaBus.TDryBul, tow.TAir) annotation (Line(
-      points={{-60,50},{0,50},{0,-46},{22,-46}},
+      points={{-60,50},{0,50},{0,-46},{20,-46}},
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None));
@@ -17,9 +18,10 @@ equation
 experiment(StartTime=15552000, Tolerance=1e-06, StopTime=15984000),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/CoolingTowers/Examples/FixedApproachDryBulb.mos"
         "Simulate and plot"),
-    Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-180},{100,
+    Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
             100}})),
             Documentation(info="<html>
+<p>
 This example illustrates the use of the cooling tower model
 <a href=\"modelica://Buildings.Fluid.HeatExchangers.CoolingTowers.FixedApproach\">
 Buildings.Fluid.HeatExchangers.CoolingTowers.FixedApproach</a>, using
@@ -29,6 +31,7 @@ switches the cooling loop water pump on or off based on the temperature of
 this volume.
 The cooling tower outlet temperature has a fixed approach temperature to the
 outdoor dry-bulb temperature.
+</p>
 </html>", revisions="<html>
 <ul>
 <li>

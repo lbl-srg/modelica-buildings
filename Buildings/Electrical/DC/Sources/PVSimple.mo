@@ -19,6 +19,8 @@ equation
       points={{70,0},{10,0}},
       color={0,0,127},
       smooth=Smooth.None));
+  connect(P, solarPower.y) annotation (Line(points={{110,70},{60,70},{60,0},{70,
+          0}}, color={0,0,127}));
   annotation (
     Icon(coordinateSystem(
         preserveAspectRatio=false,
@@ -27,11 +29,11 @@ equation
         Line(points={{-90,0},{-59,0}}, color={0,0,0}),
         Text(
           extent={{-150,61},{-50,11}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="+"),
         Text(
           extent={{-150,-12},{-50,-62}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="-")}),
     Documentation(revisions="<html>
 <ul>

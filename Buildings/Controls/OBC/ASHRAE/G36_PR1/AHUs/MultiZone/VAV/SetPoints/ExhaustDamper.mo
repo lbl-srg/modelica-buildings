@@ -2,8 +2,9 @@ within Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.VAV.SetPoints;
 block ExhaustDamper
   "Control of actuated exhaust air dampers without fans"
 
-  parameter Modelica.SIunits.PressureDifference dpBuiSet(
-    displayUnit="Pa",
+  parameter Real dpBuiSet(
+    final unit="Pa",
+    final quantity="PressureDifference",
     max=30) = 12
     "Building static pressure difference relative to ambient (positive to pressurize the building)";
   parameter Real k(min=0, unit="1") = 0.5
@@ -37,13 +38,13 @@ block ExhaustDamper
     y(final unit="Pa", displayUnit="Pa"))
     "Control error"
     annotation (Placement(transformation(extent={{-30,50},{-10,70}})));
-  Buildings.Controls.OBC.CDL.Continuous.LimPID conP(
+  Buildings.Controls.OBC.CDL.Continuous.PID conP(
     final controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.P,
     final k=k,
-    yMax=1,
-    yMin=0) "Building static pressure controller"
-    annotation (Placement(transformation(extent={{40,50},{60,70}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi
+    final r=dpBuiSet)
+               "Building static pressure controller"
+    annotation (Placement(transformation(extent={{20,50},{40,70}})));
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi
     "Check if exhaust damper should be activated"
     annotation (Placement(transformation(extent={{40,-40},{60,-20}})));
 
@@ -56,10 +57,6 @@ protected
     final k=dpBuiSet)
     "Building pressure setpoint"
     annotation (Placement(transformation(extent={{-60,10},{-40,30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Gain gaiNor(
-    final k=1/dpBuiSet)
-    "Gain to normalize the control error"
-    annotation (Placement(transformation(extent={{0,50},{20,70}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zer1(
     final k=0)
     "Zero constant"
@@ -78,18 +75,16 @@ equation
     annotation (Line(points={{-100,60},{-62,60}}, color={0,0,127}));
   connect(movMea.y, conErr.u1)
     annotation (Line(points={{-38,60},{-32,60}}, color={0,0,127}));
-  connect(conErr.y, gaiNor.u)
-    annotation (Line(points={{-8,60},{-2,60}},color={0,0,127}));
-  connect(gaiNor.y, conP.u_s)
-    annotation (Line(points={{22,60},{38,60}}, color={0,0,127}));
   connect(dpBuiSetPoi1.y, conErr.u2)
     annotation (Line(points={{-38,20},{-20,20},{-20,48}}, color={0,0,127}));
   connect(zer1.y, conP.u_m)
-    annotation (Line(points={{22,20},{50,20},{50,48}}, color={0,0,127}));
+    annotation (Line(points={{22,20},{30,20},{30,48}}, color={0,0,127}));
   connect(conP.y, swi.u1)
-    annotation (Line(points={{62,60},{66,60},{66,0},{20,0},{20,-22},{38,-22}},
+    annotation (Line(points={{42,60},{66,60},{66,0},{20,0},{20,-22},{38,-22}},
       color={0,0,127}));
 
+  connect(conErr.y, conP.u_s)
+    annotation (Line(points={{-8,60},{18,60}}, color={0,0,127}));
 annotation (
   defaultComponentName = "exhDam",
   Icon(graphics={
@@ -100,19 +95,19 @@ annotation (
         fillPattern=FillPattern.Solid),
         Text(
           extent={{-94,74},{-64,46}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
           textString="dpBui"),
         Text(
           extent={{-94,-48},{-70,-70}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
           textString="uSupFan"),
         Text(
           extent={{52,16},{96,-18}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
           textString="yExhDamPos"),
@@ -131,16 +126,16 @@ annotation (
         Line(points={{-80,-78},{-80,-78},{14,62},{80,62}}, color={0,0,127}),
         Text(
           extent={{-100,140},{100,100}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%name")}),
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-80,-80},{80,80}})),
  Documentation(info="<html>
 <p>
 Control sequence for actuated exhaust damper <code>yExhDamPos</code>
-without fans. It is implemented according to ASHRAE Guidline 35 (G36), PART5.N.8.
-(for multi zone VAV AHU), PART5.P.6 and PART3.2B.3 (for single zone VAV AHU).
+without fans. It is implemented according to ASHRAE Guidline 36 (G36), PART 5.N.8.
+(for multi zone VAV AHU), PART 5.P.6 and PART3.2B.3 (for single zone VAV AHU).
 </p>
-<h4>Multi zone VAV AHU: Control of actuated exhaust dampers without fans (PART5.N.8)</h4>
+<h4>Multi zone VAV AHU: Control of actuated exhaust dampers without fans (PART 5.N.8)</h4>
 <ol>
 <li>The exhaust damper is enabled when the associated supply fan is proven on
 <code>uSupFan = true</code>, and disabled otherwise.</li>
@@ -153,6 +148,12 @@ When <code>uSupFan = false</code>, the damper is closed.
 </ol>
 </html>", revisions="<html>
 <ul>
+<li>
+October 15, 2020, by Michael Wetter:<br/>
+Moved normalization of control error to PID controller.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2182\">#2182</a>.
+</li>
 <li>
 October 17, 2017, by Jianjun Hu:<br/>
 Changed model name.

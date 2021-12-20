@@ -1,0 +1,12 @@
+compareVars :=
+  {
+    "window.glaSha.glass_a.T",
+    "window.glaSha.glass_b.T",
+    "window.glaUns_a.T",
+    "window.glaUns_b.T",
+    "TRAir.T",
+    "window.glaUns_a.Q_flow",
+    "window.glaUns_b.Q_flow",
+    "window.glaSha.glass_a.Q_flow",
+    "window.glaSha.glass_b.Q_flow"
+  };

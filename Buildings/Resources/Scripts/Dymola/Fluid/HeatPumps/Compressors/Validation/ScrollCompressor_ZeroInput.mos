@@ -1,4 +1,4 @@
-simulateModel("Buildings.Fluid.HeatPumps.Compressors.Validation.ScrollCompressor_ZeroInput", method="dassl", tolerance=1e-6, stopTime=100, resultFile="ScrollCompressor_ZeroInput");
+simulateModel("Buildings.Fluid.HeatPumps.Compressors.Validation.ScrollCompressor_ZeroInput", method="CVode", tolerance=1e-6, stopTime=100, resultFile="ScrollCompressor_ZeroInput");
 createPlot(id = 1,
    position = {60, 10, 640, 480},
    y = {"com.pDis", "com.pSuc"},

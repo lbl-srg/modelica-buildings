@@ -11,6 +11,8 @@ model ExteriorWallTwoWindows
     "Heat transfer area of frame and window";
   parameter Real fFra[:]={0.1, 0.1}
     "Fraction of window frame divided by total window area";
+  final parameter Modelica.SIunits.Area AFra[:]= fFra .* AWin "Frame area";
+  final parameter Modelica.SIunits.Area AGla[:] = AWin .- AFra "Glass area";
 
   parameter Boolean linearizeRadiation = false
     "Set to true to linearize emissive power";
@@ -56,7 +58,6 @@ model ExteriorWallTwoWindows
     nCon=2,
     linearizeRadiation = false,
     conMod=Buildings.HeatTransfer.Types.ExteriorConvection.Fixed,
-    lat=0.73268921998722,
     conPar=conPar)
     "Exterior boundary conditions for constructions with a window"
     annotation (Placement(transformation(extent={{82,-14},{122,26}})));
@@ -85,13 +86,13 @@ model ExteriorWallTwoWindows
         extent={{-10,-10},{10,10}},
         rotation=270,
         origin={-112,-160})));
-  HeatTransfer.Radiosity.IndoorRadiosity indRad[nCon](each linearize = linearizeRadiation,
+  HeatTransfer.Radiosity.IndoorRadiosity indRad[nCon](
+    each linearize = linearizeRadiation,
     A=AWin) "Model for indoor radiosity"
     annotation (Placement(transformation(extent={{-122,-58},{-102,-38}})));
   Modelica.Blocks.Routing.Replicator replicator(nout=nCon)
     annotation (Placement(transformation(extent={{-160,-42},{-140,-22}})));
-  Modelica.Thermal.HeatTransfer.Components.ThermalCollector theCol3(
-                                                                   m=2)
+  Modelica.Thermal.HeatTransfer.Components.ThermalCollector theCol3(m=2)
     "Thermal collector to link a vector of models to a single model"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
@@ -109,13 +110,13 @@ model ExteriorWallTwoWindows
 
   Buildings.HeatTransfer.Windows.BaseClasses.ShadeRadiation intShaRad[nCon](
     thisSideHasShade={glaSys1.haveInteriorShade, glaSys2.haveInteriorShade},
-    each linearize=linearize,
+    each linearize=linearizeRadiation,
     absIR_air={glaSys1.shade.absIR_a, glaSys2.shade.absIR_a},
     absIR_glass={glaSys1.shade.absIR_b, glaSys2.shade.absIR_b},
     tauIR_air={glaSys1.shade.tauIR_a, glaSys2.shade.tauIR_a},
     tauIR_glass={glaSys1.shade.tauIR_b, glaSys2.shade.tauIR_b},
-    A=AGla) if
-     glaSys1.haveShade or glaSys2.haveShade "Interior shade radiation model"
+    A=AGla)
+  if glaSys1.haveShade or glaSys2.haveShade "Interior shade radiation model"
     annotation (Placement(transformation(extent={{-40,-60},{-20,-40}})));
   Buildings.HeatTransfer.Windows.InteriorHeatTransferConvective intShaCon[nCon](
     A=A,
@@ -297,6 +298,18 @@ This model tests the exterior construction with two windows.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+September 16, 2021, by Michael Wetter:<br/>
+Removed assignment of parameter <code>lat</code> as this is now obtained from the weather data reader.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1477\">IBPSA, #1477</a>.
+</li>
+<li>
+February 18, 2020, by Michael Wetter:<br/>
+Corrected wrong parameter assignment.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1766\">#1766</a>.
+</li>
 <li>
 November 17, 2016, by Thierry S. Nouidui:<br/>
 Removed <code>[:]</code> in <code>conPar.layers</code>

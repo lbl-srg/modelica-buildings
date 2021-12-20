@@ -6,6 +6,9 @@ partial model RoomHeatMassBalance "Base model for a room"
     Modelica.Media.Interfaces.PartialMedium "Medium in the component"
       annotation (choicesAllMatching = true);
 
+  constant Boolean homotopyInitialization = true "= true, use homotopy method"
+    annotation(HideResult=true);
+
   parameter Integer nPorts=0 "Number of ports" annotation (Evaluate=true,
       Dialog(
       connectorSizing=true,
@@ -20,7 +23,6 @@ partial model RoomHeatMassBalance "Base model for a room"
         extent={{-40,-10},{40,10}},
         rotation=90,
         origin={-150,-100})));
-  parameter Modelica.SIunits.Angle lat "Latitude";
   final parameter Modelica.SIunits.Volume V=AFlo*hRoo "Volume";
   parameter Modelica.SIunits.Area AFlo "Floor area";
   parameter Modelica.SIunits.Length hRoo "Average room height";
@@ -110,8 +112,6 @@ partial model RoomHeatMassBalance "Base model for a room"
           Buildings.HeatTransfer.Types.ExteriorConvection.Fixed)));
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal(min=0) = V*1.2/3600
     "Nominal mass flow rate" annotation (Dialog(group="Nominal condition"));
-  parameter Boolean homotopyInitialization = true "= true, use homotopy method"
-    annotation(Evaluate=true, Dialog(tab="Advanced"));
   parameter Boolean sampleModel = false
     "Set to true to time-sample the model, which can give shorter simulation time if there is already time sampling in the system model"
     annotation (Evaluate=true, Dialog(tab="Experimental (may be changed in future releases)"));
@@ -128,12 +128,12 @@ partial model RoomHeatMassBalance "Base model for a room"
 
   ////////////////////////////////////////////////////////////////////////
   // Models for boundary conditions
-  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a surf_conBou[nConBou] if
-    haveConBou "Heat port at surface b of construction conBou" annotation (
+  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a surf_conBou[nConBou]
+ if haveConBou "Heat port at surface b of construction conBou" annotation (
       Placement(transformation(extent={{-270,-190},{-250,-170}}),
         iconTransformation(extent={{50,-170},{70,-150}})));
-  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a surf_surBou[nSurBou] if
-    haveSurBou "Heat port of surface that is connected to the room air"
+  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a surf_surBou[nSurBou]
+ if haveSurBou "Heat port of surface that is connected to the room air"
     annotation (Placement(transformation(extent={{-270,-150},{-250,-130}}),
         iconTransformation(extent={{-48,-150},{-28,-130}})));
   Modelica.Blocks.Interfaces.RealInput qGai_flow[3](each unit="W/m2")
@@ -144,7 +144,6 @@ partial model RoomHeatMassBalance "Base model for a room"
   // room model has an exterior-facing surface that is a floor
   BaseClasses.ExteriorBoundaryConditions bouConExt(
     final nCon=nConExt,
-    final lat=lat,
     linearizeRadiation=linearizeRadiation,
     final conMod=extConMod,
     final conPar=datConExt,
@@ -155,7 +154,6 @@ partial model RoomHeatMassBalance "Base model for a room"
   // room model has an exterior-facing surface that is a floor
   BaseClasses.ExteriorBoundaryConditionsWithWindow bouConExtWin(
     final nCon=nConExtWin,
-    final lat=lat,
     final conPar=datConExtWin,
     linearizeRadiation=linearizeRadiation,
     final conMod=extConMod,
@@ -175,8 +173,8 @@ partial model RoomHeatMassBalance "Base model for a room"
     final rhoShaSol_a=datConExtWin.glaSys.shade.rhoSol_a,
     final rhoShaSol_b=datConExtWin.glaSys.shade.rhoSol_b,
     final haveExteriorShade=datConExtWin.glaSys.haveExteriorShade,
-    final haveInteriorShade=datConExtWin.glaSys.haveInteriorShade) if
-    haveConExtWin "Model for solar radiation through shades and window"
+    final haveInteriorShade=datConExtWin.glaSys.haveInteriorShade)
+ if haveConExtWin "Model for solar radiation through shades and window"
     annotation (Placement(transformation(extent={{320,-24},{300,-4}})));
 
   BoundaryConditions.WeatherData.Bus weaBus "Weather data"
@@ -219,8 +217,8 @@ partial model RoomHeatMassBalance "Base model for a room"
     final isFloorConPar_b=isFloorConPar_b,
     final isFloorConBou=isFloorConBou,
     final isFloorSurBou=isFloorSurBou,
-    final tauGla={datConExtWin[i].glaSys.glass[size(datConExtWin[i].glaSys.glass, 1)].tauSol[1] for i in 1:NConExtWin}) if
-       haveConExtWin "Solar radiative heat exchange"
+    final tauGla={datConExtWin[i].glaSys.glass[size(datConExtWin[i].glaSys.glass, 1)].tauSol[1] for i in 1:NConExtWin})
+    if haveConExtWin "Solar radiative heat exchange"
     annotation (Placement(transformation(extent={{-100,40},{-80,60}})));
 
   Buildings.ThermalZones.Detailed.BaseClasses.InfraredRadiationGainDistribution irRadGai(
@@ -278,8 +276,8 @@ partial model RoomHeatMassBalance "Base model for a room"
     final tauIR_air=tauIRSha_air,
     final tauIR_glass=tauIRSha_glass,
     each final linearize = linearizeRadiation,
-    each final homotopyInitialization=homotopyInitialization) if
-       haveShade "Radiation model for room-side window shade"
+    each final homotopyInitialization=homotopyInitialization)
+    if haveShade "Radiation model for room-side window shade"
     annotation (Placement(transformation(extent={{-60,90},{-40,110}})));
 
 protected
@@ -331,8 +329,8 @@ protected
     "Flag to indicate if floor for constructions that are modeled outside of this room";
 
   HeatTransfer.Windows.BaseClasses.ShadingSignal shaSig[NConExtWin](
-    each final haveShade=haveShade) if
-       haveConExtWin "Shading signal"
+    each final haveShade=haveShade)
+    if haveConExtWin "Shading signal"
     annotation (Placement(transformation(extent={{-220,150},{-200,170}})));
 
   Buildings.ThermalZones.Detailed.BaseClasses.HeatGain heaGai(final AFlo=AFlo)
@@ -346,24 +344,30 @@ protected
 
   Modelica.Blocks.Math.Add sumJToWin[NConExtWin](
     each final k1=1,
-    each final k2=1) if
-       haveConExtWin
+    each final k2=1)
+    if haveConExtWin
     "Sum of radiosity flows from room surfaces toward the window"
     annotation (Placement(transformation(extent={{-40,-30},{-20,-10}})));
 
-  HeatTransfer.Radiosity.RadiositySplitter radShaOut[NConExtWin] if
-     haveConExtWin
+  HeatTransfer.Radiosity.RadiositySplitter radShaOut[NConExtWin]
+  if haveConExtWin
     "Splitter for radiosity that strikes shading device or unshaded part of window"
     annotation (Placement(transformation(extent={{-100,120},{-80,140}})));
 
   Modelica.Blocks.Math.Sum sumJFroWin[NConExtWin](each nin=if haveShade then 2
-         else 1) if
-       haveConExtWin "Sum of radiosity fom window to room surfaces"
+         else 1)
+    if haveConExtWin "Sum of radiosity fom window to room surfaces"
     annotation (Placement(transformation(extent={{-20,4},{-40,24}})));
 
-  Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature TSha[NConExtWin] if
-       haveShade "Temperature of shading device"
+  Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature TSha[NConExtWin]
+    if haveShade "Temperature of shading device"
     annotation (Placement(transformation(extent={{-20,-78},{-40,-58}})));
+
+initial equation
+  assert(homotopyInitialization, "In " + getInstanceName() +
+    ": The constant homotopyInitialization has been modified from its default value. This constant will be removed in future releases.",
+    level = AssertionLevel.warning);
+
 equation
   connect(conBou.opa_a, surf_conBou) annotation (Line(
       points={{282,-122.667},{282,-122},{288,-122},{288,-216},{-240,-216},{-240,
@@ -778,17 +782,17 @@ equation
             200}}), graphics={
         Text(
           extent={{-104,210},{84,242}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid,
           textString="%name"),
         Text(
           extent={{-220,100},{-144,68}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="q"),
         Text(
           extent={{-14,-160},{44,-186}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           fillColor={61,61,61},
           fillPattern=FillPattern.Solid,
           textString="boundary"),
@@ -798,7 +802,7 @@ equation
           fillColor={95,95,95},
           fillPattern=FillPattern.Solid),
         Rectangle(
-          extent={{-140,138},{140,-140}},
+          extent={{-140,140},{140,-140}},
           pattern=LinePattern.None,
           lineColor={117,148,176},
           fillColor={170,213,255},
@@ -815,27 +819,37 @@ equation
           fillPattern=FillPattern.Solid),
         Text(
           extent={{-60,12},{-22,-10}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           fillColor={61,61,61},
           fillPattern=FillPattern.Solid,
           textString="air"),
         Text(
           extent={{-72,-22},{-22,-50}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           fillColor={61,61,61},
           fillPattern=FillPattern.Solid,
           textString="radiation"),
         Text(
           extent={{-104,-124},{-54,-152}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           fillColor={61,61,61},
           fillPattern=FillPattern.Solid,
           textString="surface"),
         Text(
           extent={{-198,144},{-122,112}},
-          lineColor={0,0,127},
-          visible=haveControllableWindow,
-          textString="uWin")}),
+          textColor={0,0,127},
+          textString="uWin"),
+        Rectangle(
+          extent={{-140,140},{140,-140}},
+          lineColor={117,148,176},
+          fillPattern=FillPattern.Solid,
+          fillColor=DynamicSelect({170,213,255},
+            min(1, max(0, (1-(heaPorAir.T-295.15)/10)))*{28,108,200}+
+            min(1, max(0, (heaPorAir.T-295.15)/10))*{255,0,0})),
+        Text(
+          extent={{134,-84},{14,-134}},
+          textColor={255,255,255},
+          textString=DynamicSelect("", String(heaPorAir.T-273.15, format=".1f")))}),
     preferredView="info",
     defaultComponentName="roo",
     Documentation(info="<html>
@@ -855,6 +869,18 @@ for detailed explanations.
 </p>
 </html>",   revisions="<html>
 <ul>
+<li>
+September 16, 2021, by Michael Wetter:<br/>
+Removed parameter <code>lat</code> because the latitude is now obtained from the weather data bus.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1477\">IBPSA, #1477</a>.
+</li>
+<li>
+April 14, 2020, by Michael Wetter:<br/>
+Changed <code>homotopyInitialization</code> to a constant.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1341\">IBPSA, #1341</a>.
+</li>
 <li>
 November 21, 2016, by Thierry S. Nouidui:<br/>
 Removed <code>for loop</code> to avoid translation error

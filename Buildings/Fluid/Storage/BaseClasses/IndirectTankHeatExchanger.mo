@@ -14,6 +14,9 @@ model IndirectTankHeatExchanger
     redeclare final package Medium = MediumHex,
     final show_T=false);
 
+  constant Boolean homotopyInitialization = true "= true, use homotopy method"
+    annotation(HideResult=true);
+
   parameter Integer nSeg(min=2) "Number of segments in the heat exchanger";
   parameter Modelica.SIunits.HeatCapacity CHex
     "Capacitance of the heat exchanger";
@@ -48,9 +51,6 @@ model IndirectTankHeatExchanger
   parameter Modelica.Fluid.Types.Dynamics massDynamics=energyDynamics
     "Formulation of mass balance for heat exchanger"
     annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Equations"));
-
-  parameter Boolean homotopyInitialization = true "= true, use homotopy method"
-    annotation(Evaluate=true, Dialog(tab="Advanced"));
 
   parameter Boolean hA_flowDependent = true
     "Set to false to make the convective heat coefficient calculation of the fluid inside the coil independent of mass flow rate"
@@ -93,10 +93,10 @@ model IndirectTankHeatExchanger
     annotation (Placement(transformation(extent={{-32,-40},{-12,-20}})));
   Modelica.Thermal.HeatTransfer.Components.HeatCapacitor cap[nSeg](
      each C=CHex/nSeg,
-     T(each start=T_start,
-       each fixed=(energyDynamicsSolid == Modelica.Fluid.Types.Dynamics.FixedInitial)),
-     der_T(
-       each fixed=(energyDynamicsSolid == Modelica.Fluid.Types.Dynamics.SteadyStateInitial))) if
+     each T(start=T_start,
+            fixed=(energyDynamicsSolid == Modelica.Fluid.Types.Dynamics.FixedInitial)),
+     each der_T(
+            fixed=(energyDynamicsSolid == Modelica.Fluid.Types.Dynamics.SteadyStateInitial))) if
              not energyDynamicsSolid == Modelica.Fluid.Types.Dynamics.SteadyState
     "Thermal mass of the heat exchanger"
     annotation (Placement(transformation(extent={{-6,6},{14,26}})));
@@ -151,6 +151,11 @@ protected
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={20,42})));
+
+initial equation
+  assert(homotopyInitialization, "In " + getInstanceName() +
+    ": The constant homotopyInitialization has been modified from its default value. This constant will be removed in future releases.",
+    level = AssertionLevel.warning);
 
 equation
   for i in 1:(nSeg - 1) loop
@@ -294,6 +299,17 @@ equation
           </html>",
           revisions="<html>
 <ul>
+<li>
+April 9, 2021, by Michael Wetter:<br/>
+Corrected placement of <code>each</code> keyword.<br/>
+See <a href=\"https://github.com/lbl-srg/modelica-buildings/pull/2440\">Buildings, PR #2440</a>.
+</li>
+<li>
+April 14, 2020, by Michael Wetter:<br/>
+Changed <code>homotopyInitialization</code> to a constant.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1341\">IBPSA, #1341</a>.
+</li>
 <li>
 June 7, 2018 by Filip Jorissen:<br/>
 Copied model from Buildings and update the model accordingly.

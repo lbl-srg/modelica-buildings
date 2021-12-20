@@ -72,13 +72,13 @@ equation
   // Saturation pressure of refrigerant vapor at condenser temperature
   pCon = ref.pressureSatVap_T(port_b.T);
 
-  // Specific enthaply of saturated liquid refrigerant at condenser temperature
+  // Specific enthalpy of saturated liquid refrigerant at condenser temperature
   hCon = ref.enthalpySatLiq_T(port_b.T);
 
   // Saturation pressure of refrigerant vapor at evaporator temperature
   pEva = ref.pressureSatVap_T(port_a.T);
 
-  // Specific enthaply of saturated refrigerant vapor at evaporator temperature
+  // Specific enthalpy of saturated refrigerant vapor at evaporator temperature
   hEva = ref.enthalpySatVap_T(port_a.T);
 
   // Assert statements to verify that the refrigerant temperatures are within
@@ -94,9 +94,9 @@ equation
   Icon(coordinateSystem(preserveAspectRatio=false,extent={{-100,-100},
             {100,100}}),       graphics={
         Text(extent={{62,-82},{72,-98}},    textString="P",
-          lineColor={0,0,127}),
+          textColor={0,0,127}),
         Text(extent={{62,98},{72,82}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="y"),
         Polygon(
           points={{-70,-80},{-70,80},{70,60},{70,-60},{-70,-80}},
@@ -114,7 +114,7 @@ equation
         Line(points={{60,58},{60,100}},        color={0,0,0}),
         Text(
           extent={{-149,-114},{151,-154}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%name")}),
     defaultComponentName="com",
       Documentation(info="<html>
@@ -152,14 +152,14 @@ May 26, 2017, by Michael Wetter and Thierry Nouidui:<br/>
 Reformulated <code>isOn</code> to use the same construct as the hysteresis block,
 and to work around a JModelica limitation.<br/>
 This is for
-<a href=\"modelica://https://github.com/lbl-srg/modelica-buildings/issues/774\">#774</a>.
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/774\">#774</a>.
 </li>
 <li>
 April 25, 2017, by Michael Wetter:<br/>
 Reformulated <code>when</code> conditions and moved common assignments
 to this base class.<br/>
 This is for
-<a href=\"modelica://https://github.com/lbl-srg/modelica-buildings/issues/739\">#739</a>.
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/739\">#739</a>.
 </li>
 <li>
 November 11, 2016, by Massimo Cimmino:<br/>

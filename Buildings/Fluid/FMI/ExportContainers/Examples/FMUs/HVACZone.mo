@@ -16,16 +16,20 @@ block HVACZone
   parameter Real eps = 0.8 "Heat recovery effectiveness";
 
   /////////////////////////////////////////////////////////
-  // Air temperatures at design conditions
-  parameter Modelica.SIunits.Temperature TASup_nominal = 273.15+18
+  // Design air conditions
+  parameter Modelica.SIunits.Temperature TASup_nominal = 291.15
     "Nominal air temperature supplied to room";
-  parameter Modelica.SIunits.Temperature TRooSet = 273.15+24
+  parameter Modelica.SIunits.DimensionlessRatio wASup_nominal = 0.012
+    "Nominal air humidity ratio supplied to room [kg/kg] assuming 90% relative humidity";
+  parameter Modelica.SIunits.Temperature TRooSet = 297.15
     "Nominal room air temperature";
-  parameter Modelica.SIunits.Temperature TOut_nominal = 273.15+30
+  parameter Modelica.SIunits.Temperature TOut_nominal = 303.15
     "Design outlet air temperature";
   parameter Modelica.SIunits.Temperature THeaRecLvg=
     TOut_nominal - eps*(TOut_nominal-TRooSet)
     "Air temperature leaving the heat recovery";
+  parameter Modelica.SIunits.DimensionlessRatio wHeaRecLvg = 0.0135
+    "Air humidity ratio leaving the heat recovery [kg/kg]";
 
   /////////////////////////////////////////////////////////
   // Cooling loads and air mass flow rates
@@ -40,18 +44,18 @@ block HVACZone
     "Nominal air mass flow rate, increased by factor 1.3 to allow for recovery after temperature setback";
   parameter Modelica.SIunits.TemperatureDifference dTFan = 2
     "Estimated temperature raise across fan that needs to be made up by the cooling coil";
-  parameter Modelica.SIunits.HeatFlowRate QCoiC_flow_nominal=4*
-    (QRooC_flow_nominal + mA_flow_nominal*(TASup_nominal-THeaRecLvg-dTFan)*1006)
-    "Cooling load of coil, taking into account economizer, and increased due to latent heat removal";
+  parameter Modelica.SIunits.HeatFlowRate QCoiC_flow_nominal=
+    mA_flow_nominal*(TASup_nominal-THeaRecLvg-dTFan)*1006+mA_flow_nominal*(wASup_nominal-wHeaRecLvg)*2458.3e3
+    "Cooling load of coil, taking into account outside air sensible and latent heat removal";
 
   /////////////////////////////////////////////////////////
   // Water temperatures and mass flow rates
-  parameter Modelica.SIunits.Temperature TWSup_nominal = 273.15+16
+  parameter Modelica.SIunits.Temperature TWSup_nominal = 285.15
     "Water supply temperature";
-  parameter Modelica.SIunits.Temperature TWRet_nominal = 273.15+12
+  parameter Modelica.SIunits.Temperature TWRet_nominal = 289.15
     "Water return temperature";
   parameter Modelica.SIunits.MassFlowRate mW_flow_nominal=
-    QCoiC_flow_nominal/(TWRet_nominal-TWSup_nominal)/4200
+    -QCoiC_flow_nominal/(TWRet_nominal-TWSup_nominal)/4200
     "Nominal water mass flow rate";
   /////////////////////////////////////////////////////////
   // HVAC models
@@ -247,7 +251,7 @@ equation
             {160,160}}), graphics={
         Text(
           extent={{-24,-132},{26,-152}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="TOut")}),                                  Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-160,-160},{160,160}})),
     Documentation(info="<html>
@@ -279,8 +283,15 @@ ports which are exposed at the FMU interface.
 </html>", revisions="<html>
 <ul>
 <li>
+September 21, 2021 by David Blum:<br/>
+Correct supply and return water parameterization.<br/>
+Use explicit calculation of sensible and latent load to determine design load
+on cooling coil.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2624\">#2624</a>.
+</li>
+<li>
 May 15, 2019, by Jianjun Hu:<br/>
-Replaced fluid source. This is for 
+Replaced fluid source. This is for
 <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1072\"> #1072</a>.
 </li>
 <li>

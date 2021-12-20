@@ -1,0 +1,5 @@
+compareVars :=
+  {
+    "PMVRef.y[1]",
+    "com.PMV"
+  };

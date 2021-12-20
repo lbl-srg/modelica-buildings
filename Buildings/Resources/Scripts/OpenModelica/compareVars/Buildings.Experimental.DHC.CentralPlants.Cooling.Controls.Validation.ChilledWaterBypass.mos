@@ -1,0 +1,8 @@
+compareVars :=
+  {
+    "onOne.y",
+    "onTwo.y",
+    "chiBypCon.bypValCon.u_s",
+    "chiBypCon.bypValCon.u_m",
+    "chiBypCon.y"
+  };

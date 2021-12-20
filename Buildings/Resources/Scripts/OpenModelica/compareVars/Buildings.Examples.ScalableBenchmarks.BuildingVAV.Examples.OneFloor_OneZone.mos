@@ -4,5 +4,11 @@ compareVars :=
     "weaDat.weaBus.HDirNor",
     "weaDat.weaBus.HGloHor",
     "buiZon.theZon[1, 1].roo.heaPorAir.T",
-    "buiZon.theZon[1, 1].heaCooPow"
+    "buiZon.theZon[1, 1].EHea",
+    "buiZon.theZon[1, 1].ECoo",
+    "conEco[1].VOut_flow_min",
+    "conEco[1].VOut_flow",
+    "conEco[1].yOA",
+    "conEco[1].conV_flow.y",
+    "conEco[1].uOATSup"
   };

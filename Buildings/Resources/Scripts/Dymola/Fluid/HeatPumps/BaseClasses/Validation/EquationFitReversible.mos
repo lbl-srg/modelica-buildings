@@ -1,0 +1,13 @@
+simulateModel("Buildings.Fluid.HeatPumps.BaseClasses.Validation.EquationFitReversible", method="CVode", tolerance=1e-6, stopTime=2600, resultFile="EquationFitReversibeMethod");
+createPlot(id = 1,
+   position = {60, 10, 640, 480},
+   y = {"equFit.QLoa_flow", "equFit.QSou_flow"},
+   autoscale = true,
+   autoerase = true,
+   autoreplot = true,
+   grid = true,
+   color = true,
+   leftTitleType = 1,
+   bottomTitleType = 1);
+
+

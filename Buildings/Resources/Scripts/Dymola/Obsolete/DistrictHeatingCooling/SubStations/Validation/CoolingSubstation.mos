@@ -1,0 +1,4 @@
+simulateModel("Buildings.Obsolete.DistrictHeatingCooling.SubStations.Validation.CoolingSubstation", tolerance=1e-6, stopTime=86400, method="Cvode", resultFile="CoolingSubstation");
+createPlot(id=1, position={72, 32, 592, 843}, y={"subSta.Q_flow"}, range={0.0, 90000.0, 40000.0, 110000.0}, grid=true, filename="CoolingSubstation.mat", colors={{28,108,200}});
+createPlot(id=1, position={72, 32, 592, 277}, y={"subSta.m_flow"}, range={0.0, 90000.0, 2.5, 6.5}, grid=true, subPlot=2, colors={{28,108,200}});
+createPlot(id=1, position={72, 32, 592, 277}, y={"subSta.sta_a.T", "subSta.sta_b.T"}, range={0.0, 90000.0, 6.0, 20.0}, grid=true, subPlot=3, colors={{28,108,200}, {238,46,47}});

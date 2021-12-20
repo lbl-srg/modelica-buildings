@@ -1,4 +1,4 @@
-simulateModel("Buildings.Fluid.HeatExchangers.Validation.HeaterCooler_u", method="dassl", tolerance=1e-6, stopTime=1200, resultFile="HeaterCooler_u");
+simulateModel("Buildings.Fluid.HeatExchangers.Validation.HeaterCooler_u", method="CVode", tolerance=1e-6, stopTime=1200, resultFile="HeaterCooler_u");
 createPlot(id = 1,
  position = {78, 39, 400, 444},
  y = {"con1.u_s", "con1.u_m", "con2.u_m"},

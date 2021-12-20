@@ -3,9 +3,7 @@ And3
 Change
 Edge
 FallingEdge
-IntegerSwitch
 Latch
-LogicalSwitch
 MultiAnd
 MultiOr
 Nand
@@ -16,6 +14,9 @@ Or
 Or3
 Switch
 Timer
+TimerAccumulating
+TimerAccumulatingNegativeStartTime
+TimerNegativeStartTime
 Toggle
 TriggeredTrapezoid
 TrueDelay

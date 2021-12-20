@@ -40,7 +40,7 @@ model VariableSpeed "Test model for variable speed DX coil"
                                  "Variable speed DX coil"
     annotation (Placement(transformation(extent={{-6,-6},{14,14}})));
 
-  Buildings.Fluid.HeatExchangers.DXCoils.WaterCooled.Data.Generic.DXCoil datCoi(nSta=1, sta={
+  parameter Buildings.Fluid.HeatExchangers.DXCoils.WaterCooled.Data.Generic.DXCoil datCoi(nSta=1, sta={
    Buildings.Fluid.HeatExchangers.DXCoils.WaterCooled.Data.Generic.BaseClasses.Stage(
    spe=1800/60,
    nomVal=Buildings.Fluid.HeatExchangers.DXCoils.WaterCooled.Data.Generic.BaseClasses.NominalValues(

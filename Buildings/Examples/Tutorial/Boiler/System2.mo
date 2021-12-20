@@ -45,9 +45,9 @@ model System2
   Modelica.Thermal.HeatTransfer.Components.HeatCapacitor heaCap(C=2*V*1.2*1006)
     "Heat capacity for furniture and walls"
     annotation (Placement(transformation(extent={{60,50},{80,70}})));
-  Modelica.Blocks.Sources.CombiTimeTable timTab(
-      extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic,
-      smoothness=Modelica.Blocks.Types.Smoothness.ConstantSegments,
+  Buildings.Controls.OBC.CDL.Continuous.Sources.TimeTable timTab(
+      extrapolation=Buildings.Controls.OBC.CDL.Types.Extrapolation.Periodic,
+      smoothness=Buildings.Controls.OBC.CDL.Types.Smoothness.ConstantSegments,
       table=[-6, 0;
               8, QRooInt_flow;
              18, 0],
@@ -102,15 +102,16 @@ Buildings.Fluid.Movers.FlowControlled_m_flow pumRad(
         origin={-50,-110})));
 
 //--------------------------Step 6: Pump control--------------------------//
-  Modelica.Blocks.Logical.Hysteresis hysPum(uLow=273.15 + 19,
-                                            uHigh=273.15 + 21)
+  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hysPum(
+    uLow=273.15 + 19,
+    uHigh=273.15 + 21)
     "Pump hysteresis"
     annotation (Placement(transformation(extent={{-220,-80},{-200,-60}})));
 
-  Modelica.Blocks.Math.BooleanToReal booToReaRad(realTrue=mRad_flow_nominal)
+  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToReaRad(realTrue=mRad_flow_nominal)
     "Radiator pump signal"
     annotation (Placement(transformation(extent={{-140,-80},{-120,-60}})));
-  Modelica.Blocks.Logical.Not not1 "Negate output of hysteresis"
+  Buildings.Controls.OBC.CDL.Logical.Not not1 "Negate output of hysteresis"
     annotation (Placement(transformation(extent={{-180,-80},{-160,-60}})));
 //------------------------------------------------------------------------//
 
@@ -132,7 +133,7 @@ equation
       color={191,0,0},
       smooth=Smooth.None));
   connect(timTab.y[1], preHea.Q_flow) annotation (Line(
-      points={{1,80},{20,80}},
+      points={{2,80},{20,80}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(temSup.port_b, rad.port_a) annotation (Line(
@@ -168,15 +169,15 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(hysPum.y, not1.u) annotation (Line(
-      points={{-199,-70},{-182,-70}},
+      points={{-198,-70},{-182,-70}},
       color={255,0,255},
       smooth=Smooth.None));
   connect(not1.y, booToReaRad.u) annotation (Line(
-      points={{-159,-70},{-142,-70}},
+      points={{-158,-70},{-142,-70}},
       color={255,0,255},
       smooth=Smooth.None));
   connect(booToReaRad.y, pumRad.m_flow_in) annotation (Line(
-      points={{-119,-70},{-90.5,-70},{-90.5,-70.2},{-62,-70.2}},
+      points={{-118,-70},{-90.5,-70},{-90.5,-70},{-62,-70}},
       color={0,0,127},
       smooth=Smooth.None));
   annotation (Documentation(info="<html>
@@ -311,12 +312,12 @@ we implemented the control blocks as shown in the figure below.
 <p>
 In this control sequence, the first block is a hysteresis element,
 which is modeled by
-<a href=\"modelica://Modelica.Blocks.Logical.Hysteresis\">
-Modelica.Blocks.Logical.Hysteresis</a>.
+<a href=\"modelica://Buildings.Controls.OBC.CDL.Continuous.Hysteresis\">
+Buildings.Controls.OBC.CDL.Continuous.Hysteresis</a>.
 It is configured as
 </p>
 <pre>
-  Modelica.Blocks.Logical.Hysteresis hysPum(
+  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hysPum(
     uLow=273.15 + 19,
     uHigh=273.15 + 21)
     \"Pump hysteresis\";
@@ -334,12 +335,12 @@ to negate the signal.
 The output of this signal is a boolean value, but the pump
 input signal is the required mass flow rate.
 Thus, we used the block
-<a href=\"modelica://Modelica.Blocks.Math.BooleanToReal\">
-Modelica.Blocks.Math.BooleanToReal</a> to convert the signal.
+<a href=\"modelica://Buildings.Controls.OBC.CDL.Conversions.BooleanToReal\">
+Buildings.Controls.OBC.CDL.Conversions.BooleanToReal</a> to convert the signal.
 We set the parameters of the boolean to real converter as
 </p>
 <pre>
-  Modelica.Blocks.Math.BooleanToReal booToReaRad(
+  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToReaRad(
         realTrue=mRad_flow_nominal,
         realFalse=0) \"Radiator pump signal\";
 </pre>

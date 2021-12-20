@@ -34,7 +34,6 @@ model MixedConvection "Tutorial for Mixed Convection case"
      each absIR=1e-5,
      each absSol=1e-5,
      each boundaryCondition=Buildings.ThermalZones.Detailed.Types.CFDBoundaryConditions.Temperature),
-    lat = 0.012787839282646,
     AFlo = 1*1,
     hRoo = 1,
     linearizeRadiation = false,
@@ -135,8 +134,8 @@ with the FFD program by simulating ventilation with mixed convection in an empty
 </p>
 <h4>Case Description</h4>
 <p>
-The temperature of the floor is fixed at <i>30</i>&circ;C and the temperature of the walls and the ceiling are fixed
-at <i>10</i>&circ;C. The supply air temperature is fixed at <i>10</i>&circ;C.
+The temperature of the floor is fixed at <i>30</i>&deg;C and the temperature of the walls and the ceiling are fixed
+at <i>10</i>&deg;C. The supply air temperature is fixed at <i>10</i>&deg;C.
 </p>
 <p>
 Figure (a) shows the schematic of the FFD simulation and Figure (b) shows the velocity vectors and temperatures on the X-Z plane at <i>Y = 0.5</i> m as simulated by the FFD.
@@ -234,7 +233,6 @@ Buildings.ThermalZones.Detailed.CFD roo(
     each absIR=1e-5,
     each absSol=1e-5,
     each boundaryCondition=Buildings.ThermalZones.Detailed.Types.CFDBoundaryConditions.Temperature),
-    lat = 0.012787839282646,
     AFlo = 1*1,
     hRoo = 1,
     linearizeRadiation = false,
@@ -352,7 +350,7 @@ Put the files <code>MixedConvection.ffd</code>, <code>MixedConvection.dat</code>
 directory <code>Buildings/Resources/Data/ThermalZones/Detailed/Examples/FFD/Tutorial/</code>.
 </li>
 <li>
-Set the simulation stop time of the Modelica model to <code>180</code> seconds and choose, for example, the Radau solver.
+Set the simulation stop time of the Modelica model to <code>180</code> seconds and choose, for example, the CVode solver.
 </li>
 <li>
 Translate the model and start the simulation.
@@ -366,6 +364,12 @@ Note: Tecplot is needed for this.
 </ol>
 </html>",revisions="<html>
 <ul>
+<li>
+September 16, 2021, by Michael Wetter:<br/>
+Removed assignment of parameter <code>lat</code> as this is now obtained from the weather data reader.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1477\">IBPSA, #1477</a>.
+</li>
 <li>
 September 07, 2017, by Thierry Nouidui:<br/>
 Refactored the FFD C-code and revised the documentation.

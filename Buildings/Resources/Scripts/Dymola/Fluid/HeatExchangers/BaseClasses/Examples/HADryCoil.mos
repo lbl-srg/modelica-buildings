@@ -1,4 +1,4 @@
-simulateModel("Buildings.Fluid.HeatExchangers.BaseClasses.Examples.HADryCoil", stopTime=80, tolerance=1E-6, method="dassl", resultFile="HADryCoil");
+simulateModel("Buildings.Fluid.HeatExchangers.BaseClasses.Examples.HADryCoil", stopTime=80, tolerance=1E-6, method="CVode", resultFile="HADryCoil");
 createPlot(id=1, position={15, 10, 430, 786}, y={"TWat.y", "TAir.y"}, range={0.0, 0.001, 270.0, 340.0}, grid=true, colors={{28,108,200}, {238,46,47}});
 createPlot(id=1, position={15, 10, 430, 260}, y={"mWat_flow.y"}, range={0.0, 0.001, -0.02, 0.12000000000000001}, grid=true, subPlot=2, colors={{28,108,200}});
 createPlot(id=1, position={15, 10, 430, 259}, y={"mAir_flow.y"}, range={0.0, 0.001, -0.5, 3.0}, grid=true, subPlot=3, colors={{28,108,200}});

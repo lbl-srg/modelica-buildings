@@ -1,5 +1,0 @@
-compareVars :=
-  {
-    "cheCeiHei.ceiHeiIn",
-    "cheCeiHei.ceiHeiOut"
-  };

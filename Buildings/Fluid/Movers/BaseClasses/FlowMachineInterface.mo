@@ -5,6 +5,9 @@ model FlowMachineInterface
 
   import cha = Buildings.Fluid.Movers.BaseClasses.Characteristics;
 
+  constant Boolean homotopyInitialization = true "= true, use homotopy method"
+    annotation(HideResult=true);
+
   parameter Buildings.Fluid.Movers.Data.Generic per
     "Record with performance data"
     annotation (choicesAllMatching=true,
@@ -29,9 +32,6 @@ model FlowMachineInterface
 
   parameter Integer nOri(min=1) "Number of data points for pressure curve"
     annotation(Evaluate=true);
-
-  parameter Boolean homotopyInitialization = true "= true, use homotopy method"
-    annotation(Evaluate=true, Dialog(tab="Advanced"));
 
  // Normalized speed
   Modelica.Blocks.Interfaces.RealInput y_in(final unit="1") if preSpe
@@ -337,6 +337,10 @@ the simulation stops.");
      else Buildings.Utilities.Math.Functions.splineDerivatives(x=per.hydraulicEfficiency.V_flow,
     y=per.hydraulicEfficiency.eta);
 
+  assert(homotopyInitialization, "In " + getInstanceName() +
+    ": The constant homotopyInitialization has been modified from its default value. This constant will be removed in future releases.",
+    level = AssertionLevel.warning);
+
 equation
   //assign values of dp and r_N, depending on which variable exists and is prescribed
   connect(dp_internal,dp);
@@ -530,19 +534,19 @@ equation
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
                     graphics={
         Text(extent={{56,66},{106,52}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="dp"),
         Text(extent={{56,8},{106,-6}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="PEle"),
         Text(extent={{52,-22},{102,-36}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="eta"),
         Text(extent={{50,-52},{100,-66}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="etaHyd"),
         Text(extent={{50,-72},{100,-86}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="etaMot"),
         Ellipse(
           extent={{-78,34},{44,-88}},
@@ -592,10 +596,10 @@ equation
           origin={-43,-31},
           rotation=90),
         Text(extent={{56,36},{106,22}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="WFlo"),
         Text(extent={{56,94},{106,80}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="V_flow"),
         Line(
           points={{-74,92},{-74,40}},
@@ -667,6 +671,12 @@ to be used during the simulation.
 </html>",
 revisions="<html>
 <ul>
+<li>
+April 14, 2020, by Michael Wetter:<br/>
+Changed <code>homotopyInitialization</code> to a constant.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1341\">IBPSA, #1341</a>.
+</li>
 <li>
 December 2, 2016, by Michael Wetter:<br/>
 Removed <code>min</code> attribute as otherwise numerical noise can cause

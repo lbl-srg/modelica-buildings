@@ -9,7 +9,6 @@ model PreHeatCoil "Controller for preheat coil"
     initType=Modelica.Blocks.Types.InitPID.InitialState,
     Ti=120,
     strict=true,
-    controllerType=Modelica.Blocks.Types.SimpleController.PI,
     k=0.1) "Controller for pre-heating coil"
     annotation (Placement(transformation(extent={{-20,-70},{0,-50}})));
   Modelica.Blocks.Sources.Constant zero(k=0) "Zero output signal"

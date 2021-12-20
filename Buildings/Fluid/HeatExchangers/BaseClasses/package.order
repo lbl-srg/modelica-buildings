@@ -8,7 +8,6 @@ HADryCoil
 HANaturalCylinder
 HexElementLatent
 HexElementSensible
-Internal
 MassExchange
 PartialDuctManifold
 PartialDuctPipeManifold
@@ -21,6 +20,11 @@ PipeManifoldFixedResistance
 PipeManifoldFlowDistributor
 PipeManifoldNoResistance
 RayleighNumber
+WetCoilDryRegime
+WetCoilDryWetRegime
+WetCoilUARated
+WetCoilWetRegime
+determineWaterIndex
 dynamicViscosityWater
 epsilon_C
 epsilon_ntuZ

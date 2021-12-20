@@ -18,6 +18,6 @@ First implementation.
 </ul>
 </html>"), Icon(graphics={Text(
           extent={{-74,90},{70,-70}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="max")}));
 end Max;

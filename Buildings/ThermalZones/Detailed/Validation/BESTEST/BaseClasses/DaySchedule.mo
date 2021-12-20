@@ -1,18 +1,9 @@
 within Buildings.ThermalZones.Detailed.Validation.BESTEST.BaseClasses;
 model DaySchedule "Schedule that repeats every day"
-  extends Modelica.Blocks.Sources.CombiTimeTable(
-    final tableOnFile=false,
-    final tableName="NoName",
-    final fileName="NoName",
-    final columns=2:size(table, 2),
-    final smoothness=Modelica.Blocks.Types.Smoothness.LinearSegments,
-    final extrapolation=if size(table, 1) == 1
-     then
-       Modelica.Blocks.Types.Extrapolation.HoldLastPoint
-     else
-       Modelica.Blocks.Types.Extrapolation.Periodic,
-    final offset=fill(0, size(table, 2)-1),
-    final startTime=0);
+  extends Buildings.Controls.OBC.CDL.Continuous.Sources.TimeTable(
+    final smoothness=Buildings.Controls.OBC.CDL.Types.Smoothness.LinearSegments,
+    final extrapolation=Buildings.Controls.OBC.CDL.Types.Extrapolation.Periodic,
+    final offset=fill(0, size(table, 2)-1));
   annotation (Documentation(info="<html>
 <p>
 Time schedule that is used for set points.

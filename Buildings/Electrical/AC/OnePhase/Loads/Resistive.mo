@@ -38,7 +38,7 @@ equation
           rotation=180),
         Text(
           extent={{-120,80},{120,40}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="%name")}),
           Documentation(info="<html>
 <p>
@@ -166,7 +166,7 @@ Added <code>replaceable</code> for terminal.
 Changed parent class to <a href=\"modelica://Buildings.Electrical.Interfaces.ResistiveLoad\">
 Buildings.Electrical.Interfaces.ResistiveLoad</a> in order
 to help openmodelica parsing the model. This fixes issue
-<a href=https://github.com/lbl-srg/modelica-buildings/issues/415>#415</a>.
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/415\">#415</a>.
 </li>
 <li>September 4, 2014, by Michael Wetter:<br/>
 Revised documentation.

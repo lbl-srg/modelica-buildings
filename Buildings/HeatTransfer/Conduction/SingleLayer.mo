@@ -110,9 +110,6 @@ protected
     "Derivatives dT/du at the support points (used for PCM)";
 
 initial equation
-  assert(abs(sum(RNod) - R) < 1E-10, "Error in computing resistances.");
-  assert(abs(sum(m) - A*material.x*material.d) < 1E-10, "Error in computing mass.");
-
   // The initialization is only done for materials that store energy.
     if not material.steadyState then
       if steadyStateInitial then
@@ -207,11 +204,11 @@ equation
           preserveAspectRatio=false,extent={{-100,-100},{100,100}}), graphics={
         Text(
           extent={{-100,-80},{6,-98}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%material.x"),
         Text(
           extent={{8,-74},{86,-104}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%nSta"),
    Rectangle(
     extent={{-60,80},{60,-80}},     fillColor={215,215,215},
@@ -394,6 +391,12 @@ Buildings.HeatTransfer.Examples</a>.
 </html>",
 revisions="<html>
 <ul>
+<li>
+August 27, 2019, by Michael Wetter:<br/>
+Removed assertion on geometry.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1529\">issue 1529</a>.
+</li>
 <li>
 November 22, 2016, by Thierry S. Nouidui:<br/>
 Fix bug in mass balance.

@@ -49,13 +49,13 @@ model OneFloor_OneZone "Closed-loop model with 1 zone in 1 floor"
     each allowFlowReversal2=false,
     each m2_flow_nominal=m_flow_nominal*1000*(10 - (-20))/4200/10,
     each configuration=Buildings.Fluid.Types.HeatExchangerConfiguration.CounterFlow,
-    each Q_flow_nominal=m_flow_nominal*1006*(16.7 - 8.5),
+    each Q_flow_nominal=m_flow_nominal*1006*(8.5 - 16.7),
     each dp1_nominal=0,
     each dp2_nominal=0,
     each T_a1_nominal=281.65,
     each T_a2_nominal=323.15) "Heating coil"
     annotation (Placement(transformation(extent={{-144,-46},{-124,-26}})));
-  Buildings.Fluid.HeatExchangers.WetCoilCounterFlow cooCoi[nFlo](
+  Fluid.HeatExchangers.WetCoilEffectivenessNTU cooCoi[nFlo](
     redeclare each package Medium1 = MediumW,
     redeclare each package Medium2 = MediumA,
     each UA_nominal=m_flow_nominal*1000*15/
@@ -111,14 +111,17 @@ model OneFloor_OneZone "Closed-loop model with 1 zone in 1 floor"
     redeclare each package Medium = MediumA,
     each nPorts=2) "Ambient conditions"
     annotation (Placement(transformation(extent={{-320,32},{-306,46}})));
-  Buildings.Fluid.Actuators.Dampers.MixingBox  eco[nFlo](
+  Buildings.Fluid.Actuators.Dampers.MixingBox eco[nFlo](
     redeclare each package Medium = MediumA,
     each mOut_flow_nominal=m_flow_nominal,
     each mRec_flow_nominal=m_flow_nominal,
     each mExh_flow_nominal=m_flow_nominal,
-    each dpOut_nominal=10,
-    each dpRec_nominal=10,
-    each dpExh_nominal=10) "Economizer"
+    each dpDamExh_nominal=0.27,
+    each dpDamOut_nominal=0.27,
+    each dpDamRec_nominal=0.27,
+    each dpFixExh_nominal=10,
+    each dpFixOut_nominal=10,
+    each dpFixRec_nominal=10) "Economizer"
     annotation (Placement(transformation(extent={{-262,46},{-232,16}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort TMix[nFlo](
     redeclare each package Medium = MediumA,
@@ -173,44 +176,14 @@ model OneFloor_OneZone "Closed-loop model with 1 zone in 1 floor"
     redeclare each package Medium = MediumA,
     each m_flow_nominal=m_flow_nominal) "Supply air temperature sensor"
     annotation (Placement(transformation(extent={{4,-38},{20,-22}})));
-  Modelica.Blocks.Sources.Constant TSupSetHea(
-    y(final quantity="ThermodynamicTemperature",
-      final unit="K",
-      displayUnit="degC",
-      min=0),
-    k=273.15 + 10) "Supply air temperature setpoint for heating"
-    annotation (Placement(transformation(extent={{-270,-66},{-258,-54}})));
-  Buildings.Examples.VAVReheat.Controls.CoolingCoilTemperatureSetpoint TSetCoo[nFlo]
-    "Setpoint for cooling coil"
-    annotation (Placement(transformation(extent={{-238,-94},{-226,-82}})));
-  Buildings.Controls.Continuous.LimPID cooCoiCon[nFlo](
-    each reverseAction=true,
-    each Td=60,
-    each initType=Modelica.Blocks.Types.InitPID.InitialState,
-    each yMax=1,
-    each yMin=0,
-    each controllerType=Modelica.Blocks.Types.SimpleController.PI,
-    each Ti=600,
-    each k=0.1) "Controller for cooling coil"
-    annotation (Placement(transformation(extent={{-192,-94},{-180,-82}})));
-  Buildings.Controls.Continuous.LimPID heaCoiCon[nFlo](
-    each yMax=1,
-    each yMin=0,
-    each Td=60,
-    each initType=Modelica.Blocks.Types.InitPID.InitialState,
-    each controllerType=Modelica.Blocks.Types.SimpleController.PI,
-    each Ti=600,
-    each k=0.1)   "Controller for heating coil"
-    annotation (Placement(transformation(extent={{-192,-66},{-180,-54}})));
-  Buildings.Examples.VAVReheat.Controls.ModeSelector modeSelector[nFlo]
+  Buildings.Examples.VAVReheat.BaseClasses.Controls.ModeSelector modeSelector[nFlo]
     "Finite State Machine for the operational modes"
-    annotation (Placement(transformation(extent={{-178,40},{-162,56}})));
-  Buildings.Examples.VAVReheat.Controls.Economizer conEco[nFlo](
-    each dT=1,
-    each VOut_flow_min=0.3*m_flow_nominal/1.2,
-    each Ti=600,
-    each k=0.1) "Controller for economizer"
-    annotation (Placement(transformation(extent={{-288,88},{-276,100}})));
+    annotation (Placement(transformation(extent={{-180,40},{-164,56}})));
+  Buildings.Examples.VAVReheat.BaseClasses.Controls.Economizer conEco[nFlo](
+    each have_reset=true,
+    each VOut_flow_min=0.3*m_flow_nominal/1.2)
+    "Controller for economizer"
+    annotation (Placement(transformation(extent={{-286,88},{-274,100}})));
   Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=
     Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"))
     annotation (Placement(transformation(extent={{-360,160},{-340,180}})));
@@ -228,7 +201,7 @@ model OneFloor_OneZone "Closed-loop model with 1 zone in 1 floor"
   Buildings.Utilities.Math.Min min1[nFlo](each nin=nZon)
     "Computes lowest room temperature"
     annotation (Placement(transformation(extent={{108,94},{120,106}})));
-  Buildings.Examples.VAVReheat.Controls.FanVFD conFanRet[nFlo](
+  Buildings.Examples.VAVReheat.BaseClasses.Controls.FanVFD conFanRet[nFlo](
     each xSet_nominal(displayUnit="m3/s") = m_flow_nominal/1.2,
     each r_N_min=0.2) "Controller for fan"
     annotation (Placement(transformation(extent={{14,152},{28,166}})));
@@ -249,7 +222,12 @@ model OneFloor_OneZone "Closed-loop model with 1 zone in 1 floor"
     fan_dP_On_Off[nFlo](each preRis=dP_pre)
     "controller outputs fan on or off"
     annotation (Placement(transformation(extent={{-70,-14},{-56,0}})));
-
+  VAVReheat.BaseClasses.Controls.SupplyAirTemperature conTSup[nFlo](each k=0.01)
+    "Supply air temperature controller"
+    annotation (Placement(transformation(extent={{-240,-70},{-220,-50}})));
+  VAVReheat.BaseClasses.Controls.SupplyAirTemperatureSetpoint TAirSupSet[nFlo]
+    "Supply air temperature set point"
+    annotation (Placement(transformation(extent={{-300,-70},{-280,-50}})));
 equation
   for iFlo in 1:nFlo loop
     connect(eco[iFlo].port_Sup, TMix[iFlo].port_a)
@@ -261,45 +239,15 @@ equation
     connect(hex[iFlo].port_b2, sinHea[iFlo].ports[1])
       annotation (Line(points={{-144,-42},{-148,-42},{-148,-66}},
         color={0,127,255}));
-    connect(TSupSetHea.y, heaCoiCon[iFlo].u_s)
-      annotation (Line(points={{-257.4,-60},{-193.2,-60}},
-        color={0,0,127}));
-    connect(TSupSetHea.y, TSetCoo[iFlo].TSetHea)
-      annotation (Line(points={{-257.4,-60},{-248,-60},{-248,-88},{-239.2,-88}},
-        color={0,0,127}));
-    connect(TSetCoo[iFlo].TSet, cooCoiCon[iFlo].u_s)
-      annotation (Line(points={{-225.4,-88},{-225.4,-88},{-193.2,-88}},
-        color={0,0,127}));
-    connect(TCoiHeaOut[iFlo].T, heaCoiCon[iFlo].u_m)
-      annotation (Line(points={{-95,-21.2},{-95,-18},{-106,-18},{-106,-84},
-        {-172,-84},{-172,-74},{-186,-74},{-186,-67.2}},
-        color={0,0,127}, pattern=LinePattern.Dash));
-    connect(TSup[iFlo].T, cooCoiCon[iFlo].u_m)
-      annotation (Line(points={{12,-21.2},{12,-16},{0,-16},{0,-100},{-186,-100},
-        {-186,-95.2}}, color={0,0,127}, pattern=LinePattern.Dash));
-    connect(heaCoiCon[iFlo].y, valHea[iFlo].y)
-      annotation (Line(points={{-179.4,-60},{-172,-60},{-162,-60},{-162,-55},{-127,-55}},
-        color={0,0,127}, pattern=LinePattern.Dash));
-    connect(cooCoiCon[iFlo].y, valCoo[iFlo].y)
-      annotation (Line(points={{-179.4,-88},{-122,-88},{-66,-88},{-66,-55},{-57,-55}},
-        color={0,0,127}, pattern=LinePattern.Dash));
     connect(TRet[iFlo].T, conEco[iFlo].TRet)
-      annotation (Line(points={{-189,134.8},{-189,142},{-294,142},{-294,98.4},
-        {-288.8,98.4}}, color={0,0,127}, pattern=LinePattern.Dash));
-    connect(TMix[iFlo].T, conEco[iFlo].TMix)
-      annotation (Line(points={{-200,-21.2},{-200,-21.2},{-200,106},{-200,114},
-        {-298,114},{-298,96},{-288.8,96}}, color={0,0,127}, pattern=LinePattern.Dash));
+      annotation (Line(points={{-189,134.8},{-189,142},{-294,142},{-294,96},{-286.8,
+            96}},       color={0,0,127}, pattern=LinePattern.Dash));
     connect(VOut1[iFlo].V_flow, conEco[iFlo].VOut_flow)
-      annotation (Line(points={{-284,30.8},{-284,30.8},{-284,54},{-284,64},{-302,64},
-        {-302,93.6}, {-288.8,93.6}}, color={0,0,127}, pattern=LinePattern.Dash));
-    connect(TSupSetHea.y, conEco[iFlo].TSupHeaSet)
-      annotation (Line(points={{-257.4,-60},{-216,-60},{-216,68},{-298,68},{-298,91.2},
-        {-288.8,91.2}}, color={0,0,127}, pattern=LinePattern.Dash));
-    connect(TSetCoo[iFlo].TSet, conEco[iFlo].TSupCooSet)
-      annotation (Line(points={{-225.4,-88},{-212,-88},{-212,72},{-294,72},{-294,88.8},
-        {-288.8,88.8}}, color={0,0,127}, pattern=LinePattern.Dash));
+      annotation (Line(points={{-284,30.8},{-284,64},{-300,64},{-300,89.6},{-286.8,
+            89.6}},                  color={0,0,127}, pattern=LinePattern.Dash));
     connect(conEco[iFlo].yOA, eco[iFlo].y)
-      annotation (Line(points={{-275.6,95.2},{-268,95.2},{-268,6},{-247,6},{-247,13}},
+      annotation (Line(points={{-273.2,95.2},{-268,95.2},{-268,6},{-247,6},{-247,
+            13}},
         color={0,0,127}, pattern=LinePattern.Dash));
     connect(weaBus, amb[iFlo].weaBus)
       annotation (Line(points={{-324,170},{-300,170},{-300,120},{-340,120},{-340,39.14},
@@ -315,27 +263,26 @@ equation
       annotation (Line(points={{28.7,159},{36,159},{36,180},{-20,180},{-20,138}},
         color={0,0,127}, pattern=LinePattern.Dash));
     connect(TCoiHeaOut[iFlo].port_b, cooCoi[iFlo].port_a2)
-      annotation (Line(points={{-88,-30},{-82,-30},{-76,-30}},
-        color={0,127,255}, thickness=0.5));
+      annotation (Line(
+        points={{-88,-30},{-82,-30},{-76,-30}},
+        color={0,127,255},
+        thickness=0.5));
     connect(cooCoi[iFlo].port_b2, fan[iFlo].port_a)
-      annotation (Line(points={{-56,-30},{-48,-30},{-40,-30}},
-        color={0,127,255}, thickness=0.5));
+      annotation (Line(
+        points={{-56,-30},{-48,-30},{-40,-30}},
+        color={0,127,255},
+        thickness=0.5));
     connect(cooCoi[iFlo].port_b1, sinCoo[iFlo].ports[1])
-      annotation (Line(points={{-76,-42},{-80,-42},{-80,-66}},
-        color={0,127,255}));
+      annotation (Line(points={{-76,-42},{-80,-42},{-80,-66}}, color={0,127,255}));
     connect(cooCoi[iFlo].port_a1, valCoo[iFlo].port_b)
-      annotation (Line(points={{-56,-42},{-51,-42},{-51,-50}},
-        color={0,127,255}));
-    connect(modeSelector[iFlo].cb, TSetCoo[iFlo].controlBus)
-      annotation (Line(points={{-175.455,53.4545},{-206,53.4545},{-206,-92.8},{
-            -233.08,-92.8}},
-        color={255,204,51}, thickness=0.5));
+      annotation (Line(points={{-56,-42},{-51,-42},{-51,-50}}, color={0,127,255}));
     connect(controlBus[iFlo], conEco[iFlo].controlBus)
-      annotation (Line(points={{-68,54},{-68,54},{-134,54},{-134,104},{-285.6,104},
-        {-285.6,94.4}}, color={255,204,51}, thickness=0.5));
+      annotation (Line(points={{-68,54},{-134,54},{-134,80},{-280,80},{-280,
+            88.88},{-280.4,88.88}},
+                        color={255,204,51}, thickness=0.5));
     connect(controlBus[iFlo], modeSelector[iFlo].cb)
       annotation (Line(points={{-68,54},{-121.728,54},{-121.728,53.4545},{
-            -175.455,53.4545}},
+            -177.455,53.4545}},
         color={255,204,51}, thickness=0.5));
     connect(controlBus[iFlo], fan_dP_On_Off[iFlo].controlBus)
       annotation (Line(points={{-68,54},{-68,54},{-68,-1.4},{-67.2,-1.4}},
@@ -348,7 +295,8 @@ equation
       annotation (Line(points={{120.6,74},{130,74},{130,6},{-67.95,6},{-67.95,54.05}},
         color={0,0,127}, pattern=LinePattern.Dash));
     connect(TOut.y, controlBus[iFlo].TOut)
-      annotation (Line(points={{-315.4,146},{-315.4,148},{-67.95,148},{-67.95,54.05}},
+      annotation (Line(points={{-315.4,146},{-68,146},{-68,100},{-67.95,100},{
+            -67.95,54.05}},
         color={0,0,127}, pattern=LinePattern.Dash));
     connect(TSetHea.y[1], controlBus[iFlo].TRooSetHea)
       annotation (Line(points={{-117.4,36},{-92,36},{-92,54.05},{-67.95,54.05}},
@@ -453,13 +401,37 @@ equation
   connect(weaBus, buiZon.weaBus)
     annotation (Line(points={{-324,170},{-324,170},{-44,170},{-44,80},{51.6,80}},
       color={255,204,51}, thickness=0.5));
-
-
-  connect(modeSelector.yFan, conFanRet.uFan) annotation (Line(points={{-161.636,
-          48},{-161.636,48},{-146,48},{-146,163.2},{12.6,163.2}}, color={255,0,
+  connect(modeSelector.yFan, conFanRet.uFan) annotation (Line(points={{-163.273,
+          51.6364},{-146,51.6364},{-146,163.2},{12.6,163.2}},     color={255,0,
           255}));
+  connect(conTSup.yOA, conEco.uOATSup) annotation (Line(points={{-218,-60},{-210,
+          -60},{-210,-40},{-296,-40},{-296,99.2},{-286.8,99.2}}, color={0,0,127}));
+  connect(TSup.T, conTSup.TSup) annotation (Line(points={{12,-21.2},{12,-16},{0,
+          -16},{0,-100},{-252,-100},{-252,-54},{-242,-54}}, color={0,0,127}));
+  connect(conTSup.yHea, valHea.y) annotation (Line(points={{-218,-54},{-132,-54},
+          {-132,-55},{-127,-55}}, color={0,0,127}));
+  connect(conTSup.yCoo, valCoo.y) annotation (Line(points={{-218,-66},{-210,-66},
+          {-210,-94},{-66,-94},{-66,-55},{-57,-55}}, color={0,0,127}));
+  connect(modeSelector.yFan, conTSup.uEna) annotation (Line(points={{-163.273,
+          51.6364},{-160,51.6364},{-160,0},{-260,0},{-260,-66},{-242,-66}},
+                                                              color={255,0,255}));
+  connect(controlBus, TAirSupSet.controlBus) annotation (Line(
+      points={{-68,54},{-72,54},{-72,60},{-290,60},{-290,-68}},
+      color={255,204,51},
+      thickness=0.5), Text(
+      string="%first",
+      index=-1,
+      extent={{-3,6},{-3,6}},
+      horizontalAlignment=TextAlignment.Right));
+  connect(TAirSupSet.TSet, conTSup.TSupSet)
+    annotation (Line(points={{-278,-60},{-242,-60}}, color={0,0,127}));
+  connect(modeSelector.yEco, conEco.uEna) annotation (Line(points={{-163.273,
+          44.3636},{-158,44.3636},{-158,82},{-282,82},{-282,86.4}},
+                                                           color={255,0,255}));
 annotation (
-  experiment(StopTime=604800, Tolerance=1e-06),
+  experiment(
+      StopTime=604800,
+      Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Examples/ScalableBenchmarks/BuildingVAV/Examples/OneFloor_OneZone.mos"
         "Simulate and plot"),
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-360,-120},{140,200}})),
@@ -483,14 +455,19 @@ The control sequence regulates the supply fan speed to ensure a
 prescribed pressure rise of <code>850 Pa</code> when the supply fan runs
 during operation modes <i>occupied</i>, <i>unoccupied night set back</i>,
 <i>unoccupied warm-up</i> and <i>unoccupied pre-cool</i>.
-The economizer dampers are modulated to track the setpoint for the
-mixed air dry bulb temperature.
-Priority is given to maintain a minimum outside air volume flow rate.
-In each zone, the VAV damper is adjusted to meet the room temperature
-setpoint for cooling, or fully opened during heating.
-The room temperature setpoint for heating is tracked by varying
-the water flow rate through the reheat coil. There is also a
-finite state machine that transitions the mode of operation of
+The heating coil valve, outside air damper, and cooling coil valve are
+modulated in sequence to maintain the supply air temperature set point.
+The economizer control ensures the following functions:
+minimum outside air requirement, and supply air cooling, see
+<a href=\"modelica://Buildings.Examples.VAVReheat.BaseClasses.Controls.Economizer\">
+Buildings.Examples.VAVReheat.BaseClasses.Controls.Economizer</a>.
+The controller of the terminal units tracks the room air temperature set point
+based on a \"single maximum\" logic, see
+<a href=\"modelica://Buildings.Examples.VAVReheat.BaseClasses.Controls.RoomVAV\">
+Buildings.Examples.VAVReheat.BaseClasses.Controls.RoomVAV</a>.
+</p>
+<p>
+There is also a finite state machine that transitions the mode of operation of
 the HVAC system between the modes
 <i>occupied</i>, <i>unoccupied off</i>, <i>unoccupied night set back</i>,
 <i>unoccupied warm-up</i> and <i>unoccupied pre-cool</i>.
@@ -498,7 +475,6 @@ Local loop control is implemented using proportional and proportional-integral
 controllers, while the supervisory control is implemented
 using a finite state machine.
 </p>
-
 <p>
 The thermal room model computes transient heat conduction through
 walls, floors and ceilings and long-wave radiative heat exchange between
@@ -534,6 +510,21 @@ shading devices, Technical Report, Oct. 17, 2006.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+June 30, 2021, by Antoine Gautier:<br/>
+Changed cooling coil model. This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2549\">issue #2549</a>.
+</li>
+<li>
+February 25, 2021, by Baptiste Ravache:<br/>
+Inverse the sign of hex[nFlo].Q_flow_nominal to respect the heat flow convention.
+</li>
+<li>
+October 27, 2020, by Antoine Gautier:<br/>
+Refactored the model for compatibility with the updated control of supply air
+temperature. This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2024\">#2024</a>.
+</li>
 <li>
 October 24, 2017, by Michael Wetter:<br/>
 Updated model for new fan controller that takes the on/off signal

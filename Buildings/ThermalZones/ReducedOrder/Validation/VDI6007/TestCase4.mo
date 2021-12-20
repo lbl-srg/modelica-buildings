@@ -4,16 +4,16 @@ model TestCase4 "VDI 6007 Test Case 4 model"
 
   RC.TwoElements thermalZoneTwoElements(
     redeclare package Medium = Modelica.Media.Air.SimpleAir,
-    alphaExt=2.7,
-    alphaWin=2.7,
+    hConExt=2.7,
+    hConWin=2.7,
     gWin=1,
     nExt=1,
     nInt=1,
     ratioWinConRad=0,
     AInt=75.5,
-    alphaInt=2.24,
+    hConInt=2.24,
     RWin=0.00000001,
-    alphaRad=5,
+    hRad=5,
     RExt={0.00404935160802},
     VAir=0,
     nOrientations=1,
@@ -69,7 +69,7 @@ model TestCase4 "VDI 6007 Test Case 4 model"
   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow machinesRad
     "Radiative heat flow machines"
     annotation (Placement(transformation(extent={{48,-84},{68,-64}})));
-  Modelica.Blocks.Sources.Constant alphaWall(k=25*10.5)
+  Modelica.Blocks.Sources.Constant hConWall(k=25*10.5)
     "Outdoor coefficient of heat transfer for walls"
     annotation (Placement(
     transformation(
@@ -97,7 +97,7 @@ equation
     annotation (Line(points={{26,1},{24,1},{24,0},{20,0}}, color={191,0,0}));
   connect(thermalZoneTwoElements.extWall, theConWall.solid)
     annotation (Line(points={{44,12},{40,12},{40,1},{36,1}},   color={191,0,0}));
-  connect(alphaWall.y, theConWall.Gc)
+  connect(hConWall.y, theConWall.Gc)
     annotation (Line(points={{30,-13.6},{31,-13.6},{31,-4}}, color={0,0,127}));
   connect(intGai.y[1], machinesRad.Q_flow)
     annotation (Line(points={{
@@ -128,6 +128,10 @@ equation
   <p>This test validates basic functionalities.</p>
   </html>", revisions="<html>
   <ul>
+  <li>
+  July 11, 2019, by Katharina Brinkmann:<br/>
+  Renamed <code>alphaWall</code> to <code>hConWall</code>
+  </li>
   <li>
   July 7, 2016, by Moritz Lauster:<br/>
   Added automatic check against validation thresholds.

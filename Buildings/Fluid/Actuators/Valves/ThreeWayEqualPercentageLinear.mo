@@ -2,8 +2,12 @@ within Buildings.Fluid.Actuators.Valves;
 model ThreeWayEqualPercentageLinear
   "Three way valve with equal percentage and linear characteristics"
     extends BaseClasses.PartialThreeWayValve(
-      redeclare TwoWayEqualPercentage res1(R=R, delta0=delta0),
-      redeclare TwoWayLinear res3);
+      redeclare TwoWayEqualPercentage res1(
+        R=R,
+        delta0=delta0,
+        final l=l[1]),
+      redeclare TwoWayLinear res3(
+        final l=l[2]));
   parameter Real R = 50 "Rangeability, R=50...100 typically";
   parameter Real delta0 = 0.01
     "Range of significant deviation from equal percentage law";
@@ -21,8 +25,7 @@ equation
   annotation (                       Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}), graphics={Text(
           extent={{-72,24},{-34,-20}},
-          lineColor={255,255,255},
-          fillColor={0,0,0},
+          textColor=DynamicSelect({255,255,255}, (1-y)*{255,255,255}),
           fillPattern=FillPattern.Solid,
           textString="%%")}),
 defaultComponentName="val",
@@ -51,6 +54,27 @@ for the implementation of the regularization near the origin.
 </html>",
 revisions="<html>
 <ul>
+<li>
+June 10, 2021, by Michael Wetter:<br/>
+Changed implementation of the filter and changed the parameter <code>order</code> to a constant
+as most users need not change this value.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1498\">#1498</a>.
+</li>
+<li>
+February 21, 2020, by Michael Wetter:<br/>
+Changed icon to display its operating stage.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1294\">#1294</a>.
+</li>
+<li>
+November 5, 2019, by Michael Wetter:<br/>
+Moved assignment of leakage from <a href=\"modelica://Buildings.Fluid.Actuators.BaseClasses.PartialThreeWayValve\">
+Buildings.Fluid.Actuators.BaseClasses.PartialThreeWayValve</a>
+to the parent classes.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1227\">#1227</a>.
+</li>
 <li>
 February 20, 2012 by Michael Wetter:<br/>
 Renamed parameter <code>dp_nominal</code> to <code>dpValve_nominal</code>,

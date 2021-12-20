@@ -1,4 +1,4 @@
-simulateModel("Buildings.Fluid.HeatExchangers.Radiators.Examples.RadiatorEN442_2", tolerance=1e-6, stopTime=10800, method="dassl", resultFile="RadiatorEN442_2");
+simulateModel("Buildings.Fluid.HeatExchangers.Radiators.Examples.RadiatorEN442_2", tolerance=1e-6, stopTime=10800, method="CVode", resultFile="RadiatorEN442_2");
 createPlot(id = 2,
  position = {19, 4, 391, 376},
  y = {"rad1.sta_a.T", "rad1.sta_b.T", "rad1.vol[3].T", "rad2.sta_a.T", "rad2.sta_b.T", "rad2.vol[3].T", "sou.T"},

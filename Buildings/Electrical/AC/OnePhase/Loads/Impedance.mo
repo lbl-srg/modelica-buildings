@@ -37,7 +37,7 @@ equation
           rotation=180),
         Text(
           extent={{-120,-40},{120,-80}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="%name")}),
           Documentation(info="<html>
 <p>

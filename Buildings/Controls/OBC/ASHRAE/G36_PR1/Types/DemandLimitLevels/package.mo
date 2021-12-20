@@ -13,7 +13,7 @@ package DemandLimitLevels "Demand limit levels"
   Documentation(info="<html>
 <p>
 This package provides constants for indicating different cooling or heating
-demand limit level for zone setpoint adjustment, Part5.B.3.
+demand limit level for zone setpoint adjustment, PART 5.B.3.
 </p>
 </html>", revisions="<html>
 <ul>

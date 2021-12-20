@@ -69,14 +69,12 @@ model MoistAir
     yMax=1,
     yMin=0,
     Td=1,
-    controllerType=Modelica.Blocks.Types.SimpleController.PI,
     k=0.1,
     Ti=600) "Controller for heating"
     annotation (Placement(transformation(extent={{140,150},{160,170}})));
   Buildings.Controls.Continuous.LimPID PIDHum(
     yMax=1,
     yMin=0,
-    controllerType=Modelica.Blocks.Types.SimpleController.PI,
     k=20,
     Td=60,
     Ti=600) "Controller for humidifier"

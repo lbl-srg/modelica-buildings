@@ -23,16 +23,20 @@ model System3
   parameter Real eps = 0.8 "Heat recovery effectiveness";
 
   /////////////////////////////////////////////////////////
-  // Air temperatures at design conditions
-  parameter Modelica.SIunits.Temperature TASup_nominal = 273.15+18
+  // Design air conditions
+  parameter Modelica.SIunits.Temperature TASup_nominal = 291.15
     "Nominal air temperature supplied to room";
-  parameter Modelica.SIunits.Temperature TRooSet = 273.15+24
+  parameter Modelica.SIunits.DimensionlessRatio wASup_nominal = 0.012
+    "Nominal air humidity ratio supplied to room [kg/kg] assuming 90% relative humidity";
+  parameter Modelica.SIunits.Temperature TRooSet = 297.15
     "Nominal room air temperature";
-  parameter Modelica.SIunits.Temperature TOut_nominal = 273.15+30
+  parameter Modelica.SIunits.Temperature TOut_nominal = 303.15
     "Design outlet air temperature";
   parameter Modelica.SIunits.Temperature THeaRecLvg=
     TOut_nominal - eps*(TOut_nominal-TRooSet)
     "Air temperature leaving the heat recovery";
+  parameter Modelica.SIunits.DimensionlessRatio wHeaRecLvg = 0.0135
+    "Air humidity ratio leaving the heat recovery [kg/kg]";
 
   /////////////////////////////////////////////////////////
   // Cooling loads and air mass flow rates
@@ -46,22 +50,21 @@ model System3
     "Nominal air mass flow rate, increased by factor 1.3 to allow for recovery after temperature setback";
   parameter Modelica.SIunits.TemperatureDifference dTFan = 2
     "Estimated temperature raise across fan that needs to be made up by the cooling coil";
-  parameter Modelica.SIunits.HeatFlowRate QCoiC_flow_nominal=4*
-    (QRooC_flow_nominal + mA_flow_nominal*(TASup_nominal-THeaRecLvg-dTFan)*1006)
-    "Cooling load of coil, taking into account economizer, and increased due to latent heat removal";
+  parameter Modelica.SIunits.HeatFlowRate QCoiC_flow_nominal=
+    mA_flow_nominal*(TASup_nominal-THeaRecLvg-dTFan)*1006+mA_flow_nominal*(wASup_nominal-wHeaRecLvg)*2458.3e3
+    "Cooling load of coil, taking into account outside air sensible and latent heat removal";
 
   /////////////////////////////////////////////////////////
   // Water temperatures and mass flow rates
-  parameter Modelica.SIunits.Temperature TWSup_nominal = 273.15+16
+  parameter Modelica.SIunits.Temperature TWSup_nominal = 285.15
     "Water supply temperature";
-  parameter Modelica.SIunits.Temperature TWRet_nominal = 273.15+12
+  parameter Modelica.SIunits.Temperature TWRet_nominal = 289.15
     "Water return temperature";
   parameter Modelica.SIunits.MassFlowRate mW_flow_nominal=
-    QCoiC_flow_nominal/(TWRet_nominal-TWSup_nominal)/4200
+    -QCoiC_flow_nominal/(TWRet_nominal-TWSup_nominal)/4200
     "Nominal water mass flow rate";
 
-  Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature
-                                                         TOut
+  Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature TOut
     "Outside temperature"
     annotation (Placement(transformation(extent={{-20,40},{0,60}})));
   Modelica.Thermal.HeatTransfer.Sources.FixedHeatFlow preHea(Q_flow=
@@ -80,21 +83,21 @@ model System3
     dp2_nominal=200,
     eps=eps) "Heat recovery"
     annotation (Placement(transformation(extent={{-110,-36},{-90,-16}})));
-  Buildings.Fluid.HeatExchangers.WetCoilCounterFlow cooCoi(redeclare package Medium1 =
-        MediumW, redeclare package Medium2 = MediumA,
+  Buildings.Fluid.HeatExchangers.WetCoilEffectivenessNTU cooCoi(
+    redeclare package Medium1 = MediumW,
+    redeclare package Medium2 = MediumA,
     m1_flow_nominal=mW_flow_nominal,
     m2_flow_nominal=mA_flow_nominal,
     dp1_nominal=6000,
-    UA_nominal=-QCoiC_flow_nominal/
-        Buildings.Fluid.HeatExchangers.BaseClasses.lmtd(
-        T_a1=THeaRecLvg,
-        T_b1=TASup_nominal,
-        T_a2=TWSup_nominal,
-        T_b2=TWRet_nominal),
     dp2_nominal=200,
+    use_Q_flow_nominal=true,
+    Q_flow_nominal=QCoiC_flow_nominal,
+    T_a1_nominal=TWSup_nominal,
+    T_a2_nominal=THeaRecLvg,
+    w_a2_nominal=wHeaRecLvg,
     show_T=true,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial) "Cooling coil"
-                                                               annotation (Placement(
+   annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=180,
@@ -119,7 +122,7 @@ model System3
     annotation (Placement(transformation(extent={{-160,40},{-140,60}})));
   BoundaryConditions.WeatherData.Bus weaBus
     annotation (Placement(transformation(extent={{-120,40},{-100,60}})));
-  Modelica.Blocks.Sources.Constant mAir_flow(k=mA_flow_nominal)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant mAir_flow(k=mA_flow_nominal)
     "Fan air flow rate"
     annotation (Placement(transformation(extent={{0,0},{20,20}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort senTemHXOut(redeclare package Medium =
@@ -130,16 +133,16 @@ model System3
         MediumA, m_flow_nominal=mA_flow_nominal)
     "Temperature sensor for supply air"
     annotation (Placement(transformation(extent={{6,-26},{18,-14}})));
-  Modelica.Blocks.Logical.OnOffController con(bandwidth=1)
+  Buildings.Controls.OBC.CDL.Logical.OnOffController con(bandwidth=1)
     "Controller for coil water flow rate"
     annotation (Placement(transformation(extent={{-120,-110},{-100,-90}})));
-  Modelica.Blocks.Sources.Constant TRooSetPoi(k=TRooSet)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TRooSetPoi(k=TRooSet)
     "Room temperature set point"
     annotation (Placement(transformation(extent={{-170,-90},{-150,-70}})));
   Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor senTemRoo
     "Room temperature sensor"
     annotation (Placement(transformation(extent={{70,70},{90,90}})));
-  Modelica.Blocks.Math.BooleanToReal mWat_flow(realTrue=0, realFalse=
+  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal mWat_flow(realTrue=0, realFalse=
         mW_flow_nominal) "Conversion from boolean to real for water flow rate"
     annotation (Placement(transformation(extent={{-80,-110},{-60,-90}})));
 equation
@@ -198,7 +201,7 @@ equation
       index=-1,
       extent={{-6,3},{-6,3}}));
   connect(fan.m_flow_in, mAir_flow.y) annotation (Line(
-      points={{49.8,-8},{49.8,10},{21,10}},
+      points={{50,-8},{50,10},{22,10}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(hex.port_b1, senTemHXOut.port_a) annotation (Line(
@@ -222,7 +225,7 @@ equation
       color={191,0,0},
       smooth=Smooth.None));
   connect(TRooSetPoi.y, con.reference) annotation (Line(
-      points={{-149,-80},{-136,-80},{-136,-94},{-122,-94}},
+      points={{-148,-80},{-136,-80},{-136,-94},{-122,-94}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(vol.heatPort, senTemRoo.port) annotation (Line(
@@ -234,11 +237,11 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(con.y, mWat_flow.u) annotation (Line(
-      points={{-99,-100},{-82,-100}},
+      points={{-98,-100},{-82,-100}},
       color={255,0,255},
       smooth=Smooth.None));
   connect(mWat_flow.y, souWat.m_flow_in) annotation (Line(
-      points={{-59,-100},{-50,-100},{-50,-92},{-40,-92}},
+      points={{-58,-100},{-50,-100},{-50,-92},{-42,-92}},
       color={0,0,127},
       smooth=Smooth.None));
   annotation (Documentation(info="<html>
@@ -278,6 +281,11 @@ as follows:
 </li>
 </ol>
 <p>
+With this change to using real weather data, we also change the simulation
+time to be one day during the summer, where the start time is 4320 h (15552000 s)
+and the stop time is 4344 h (15638400 s).
+</p>
+<p>
 If the model is now simulated, the following plot could be generated that shows that the
 room is cooled too much due to the open loop control:
 <p align=\"center\">
@@ -290,8 +298,8 @@ To add closed loop control, we proceeded as follows.
 <li>
 <p>
 First, we made an instance of the on/off controller
-<a href=\"modelica://Modelica.Blocks.Logical.OnOffController\">
-Modelica.Blocks.Logical.OnOffController</a> and set its name to <code>con</code>.
+<a href=\"modelica://Buildings.Controls.OBC.CDL.Logical.OnOffController\">
+Buildings.Controls.OBC.CDL.Logical.OnOffController</a> and set its name to <code>con</code>.
 We set the parameter for the bandwidth to <i>1</i> Kelvin.
 This model requires as an input the measured temperature and the set point.
 </p>
@@ -317,8 +325,8 @@ Since the controller output is a boolean signal, but the instance
 <code>souWat</code> needs a real signal as an input for the water mass flow rate,
 we needed to add a conversion block. We therefore replaced the instance
 <code>mWat_flow</code> from a constant block to the block
-<a href=\"modelica://Modelica.Blocks.Math.BooleanToReal\">
-Modelica.Blocks.Math.BooleanToReal</a>.
+<a href=\"modelica://Buildings.Controls.OBC.CDL.Conversions.BooleanToReal\">
+Buildings.Controls.OBC.CDL.Conversions.BooleanToReal</a>.
 Because the cooling control has a reverse action, i.e.,
 if the measured value exceeds the set point, the system should switch
 on instead of off, we configured the parameters of the conversion block
@@ -348,11 +356,19 @@ When simulating the model, the response shown below should be seen.
 <h4>Notes</h4>
 <p>
 To add a continuous controller for the coil water flow rate, we could have used the model
-<a href=\"modelica://Buildings.Controls.Continuous.LimPID\">
-Buildings.Controls.Continuous.LimPID</a>.
+<a href=\"modelica://Buildings.Controls.OBC.CDL.Continuous.PID\">
+Buildings.Controls.OBC.CDL.Continuous.PID</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+September 20, 2021 by David Blum:<br/>
+Correct supply and return water parameterization.<br/>
+Use design conditions for UA parameterization in cooling coil.<br/>
+Use explicit calculation of sensible and latent load to determine design load
+on cooling coil.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2624\">#2624</a>.
+</li>
 <li>
 January 28, 2015 by Michael Wetter:<br/>
 Added thermal mass of furniture directly to air volume.

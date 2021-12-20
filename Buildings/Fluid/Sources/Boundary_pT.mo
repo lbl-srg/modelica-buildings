@@ -130,6 +130,12 @@ with exception of boundary pressure, do not have an effect.
 revisions="<html>
 <ul>
 <li>
+February 25, 2020, by Michael Wetter:<br/>
+Changed icon to display its operating state.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1294\">#1294</a>.
+</li>
+<li>
 Juni 7, 2019, by Michael Wetter:<br/>
 Added constant boolean expressions to avoid a potential string comparison in an equation section.<br/>
 See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1148\">#1148</a>.
@@ -175,23 +181,30 @@ Implementation is based on <code>Modelica.Fluid</code>.
         Text(
           visible=use_p_in,
           extent={{-152,134},{-68,94}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid,
           textString="p"),
         Text(
           visible=use_T_in,
           extent={{-162,34},{-60,-6}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid,
           textString="T"),
-         Ellipse(
+        Text(
+          extent={{-150,110},{150,150}},
+          textString="%name",
+          textColor={0,0,255}),
+        Ellipse(
           extent={{-100,100},{100,-100}},
           lineColor={0,0,0},
           fillPattern=FillPattern.Sphere,
-          fillColor={0,127,255}), Text(
-          extent={{-150,110},{150,150}},
-          textString="%name",
-          lineColor={0,0,255})}));
+          fillColor=DynamicSelect({0,127,255},
+            min(1, max(0, (1-((if use_T_in then T_in else T)-273.15)/50)))*{28,108,200}+
+            min(1, max(0, ((if use_T_in then T_in else T)-273.15)/50))*{255,0,0})),
+        Text(
+          extent={{62,28},{-58,-22}},
+          textColor={255,255,255},
+          textString=DynamicSelect("", String((if use_T_in then T_in else T)-273.15, format=".1f")))}));
 end Boundary_pT;

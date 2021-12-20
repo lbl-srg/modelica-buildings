@@ -1,0 +1,20 @@
+﻿// Simulate
+simulateModel("Buildings.Fluid.HeatExchangers.CoolingTowers.Validation.MerkelEnergyPlus", stopTime=172800, tolerance=1E-6, method="CVode", resultFile="MerkelEnergyPlus");
+// Plot commands
+removePlots(false);
+createPlot(id=1, position={15, 63, 446, 394},
+  y={"tow.PFan", "PFan_EP.y"},
+  range={0.0, 180000.0, -20.0, 100.0},
+  grid=true,
+  colors={{28,108,200}, {238,46,47}});
+createPlot(id=2, position={471, 64, 441, 394},
+  y={"tow.Q_flow", "Q_flow_EP.y"},
+  range={0.0, 180000.0, -30000.0, 5000.0},
+  grid=true,
+  colors={{28,108,200}, {238,46,47}});
+createPlot(id=3, position={922, 64, 446, 397},
+  y={"tow.TLvg", "TLvg_EP.y"},
+  range={0.0, 180000.0, 15.0, 40.0},
+  grid=true,
+  colors={{28,108,200}, {238,46,47}},
+  displayUnits={"degC", ""});

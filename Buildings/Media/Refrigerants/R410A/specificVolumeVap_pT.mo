@@ -9,35 +9,15 @@ function specificVolumeVap_pT
     "Specific volume of refrigerant";
 
 protected
-  Modelica.SIunits.SpecificEntropy R = 114.55
-    "Refrigerant gas constant for Martin-Hou equation of state";
-
-  Real A[:] = {-1.721781e2, 2.381558e-1, -4.329207e-4, -6.241072e-7}
-    "Coefficients A for Martin-Hou equation of state";
-
-  Real B[:] = {1.646288e-1, -1.462803e-5, 0, 1.380469e-9}
-    "Coefficients B for Martin-Hou equation of state";
-
-  Real C[:] = {-6.293665e3, 1.532461e1, 0, 1.604125e-4}
-    "Coefficients C for Martin-Hou equation of state";
-
-  Real b = 4.355134e-4
-    "Coefficient b for Martin-Hou equation of state";
-
-  Real k = 5.75
-    "Coefficient K for Martin-Hou equation of state";
-
   Modelica.SIunits.SpecificVolume dv
     "Error on specific volume of refrigerant";
 
   Modelica.SIunits.Pressure dp
     "Error on pressure of refrigerant";
 
-  Real dpdv( final unit = "(Pa.kg)/m3");
+  Real dpdv( final unit = "(Pa.kg)/m3") "Partial derivative dp/dv";
 
-  Integer m;
-
-  parameter Integer n = size(A, 1);
+  Integer m "Counter";
 
 algorithm
 
@@ -80,6 +60,12 @@ https://www.chemours.com/Refrigerants/en_US/assets/downloads/h64423_Suva410A_the
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+November 8, 2020, by Michael Wetter:<br/>
+Removed non-used parameters.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1414\">#1414</a>.
+</li>
 <li>
 October 17, 2016, by Massimo Cimmino:<br/>
 First implementation.

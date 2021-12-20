@@ -4,27 +4,27 @@ block ExhaustDamper
   parameter Real minExhDamPos(
     min=0,
     max=1,
-    final unit="1") = 0.1
+    final unit="1") = 0.2
     "Exhaust damper position maintaining building static pressure at setpoint when the system is at minPosMin"
-    annotation(Evaluate=true, Dialog(group="Nominal parameters"));
+    annotation(Dialog(group="Nominal parameters"));
   parameter Real maxExhDamPos(
     min=0,
     max=1,
     final unit="1") = 0.9
     "Exhaust damper position maintaining building static pressure at setpoint when outdoor air damper is fully open and fan speed is at cooling maximum"
-    annotation(Evaluate=true, Dialog(group="Nominal parameters"));
+    annotation(Dialog(group="Nominal parameters"));
   parameter Real minOutPosMin(
     min=0,
     max=1,
     final unit="1") = 0.4
     "Outdoor air damper position when fan operating at minimum speed to supply minimum outdoor air flow"
-    annotation(Evaluate=true, Dialog(group="Nominal parameters"));
+    annotation(Dialog(group="Nominal parameters"));
   parameter Real outDamPhyPosMax(
     min=0,
     max=1,
     final unit="1")=1
     "Physical or at the comissioning fixed maximum position of the outdoor air damper"
-    annotation(Evaluate=true, Dialog(group="Nominal parameters"));
+    annotation(Dialog(group="Nominal parameters"));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uSupFan "Supply fan status"
     annotation (Placement(transformation(extent={{-140,-70},{-100,-30}}),
@@ -45,7 +45,7 @@ block ExhaustDamper
   Buildings.Controls.OBC.CDL.Continuous.Line exhDamPos
     "Linearly map exhaust damper position to the outdoor air damper position"
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi1
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi1
     "Check if exhaust damper should be open"
     annotation (Placement(transformation(extent={{60,-60},{80,-40}})));
   Buildings.Controls.OBC.CDL.Continuous.Hysteresis greThr(
@@ -125,19 +125,19 @@ annotation (
         fillPattern=FillPattern.Solid),
         Text(
           extent={{-96,78},{-42,40}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
           textString="uOutDamPos"),
         Text(
           extent={{-94,-48},{-62,-72}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
           textString="uSupFan"),
         Text(
           extent={{46,18},{96,-18}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
           textString="yExhDamPos"),
@@ -156,18 +156,18 @@ annotation (
         Line(points={{-46,-78},{14,62},{80,62}}, color={0,0,127}),
         Text(
           extent={{-100,140},{100,100}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%name")}),
    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
             100}})),
  Documentation(info="<html>
 <p>
 Control sequence for exhaust dampers without fans. It is implemented according
-to ASHRAE Guidline 35 (G36), PART5.N.8.(for multi zone VAV AHU), PART5.P.6
+to ASHRAE Guidline 35 (G36), PART 5.N.8.(for multi zone VAV AHU), PART 5.P.6
 and PART3.2B.3 (for single zone VAV AHU).
 </p>
 
-<h4>Single zone VAV AHU: Control of actuated exhaust dampers without fans (PART5.P.6)</h4>
+<h4>Single zone VAV AHU: Control of actuated exhaust dampers without fans (PART 5.P.6)</h4>
 <ol>
 <li>Exhaust damper position setpoints (PART3.2B.3)
 <ul>
@@ -199,7 +199,7 @@ The control sequence is as follows:
 </p>
 <p align=\"center\">
 <img alt=\"Image of the exhaust damper control chart for single zone AHU\"
-src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/G36_PR1/AHUs/SingleZone/ExhaustDamperControlChart.png\"/>
+src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/G36_PR1/AHUs/SingleZone/VAV/SetPoints/ExhaustDamper.png\"/>
 </p>
 </html>", revisions="<html>
 <ul>

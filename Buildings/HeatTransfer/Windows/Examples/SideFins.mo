@@ -13,7 +13,6 @@ model SideFins "This example demonstrates the use of side fins for a window"
     gap=0.1) "Outputs fraction of window area exposed to the sun"
     annotation (Placement(transformation(extent={{20,0},{40,20}})));
   Buildings.BoundaryConditions.SolarIrradiation.DirectTiltedSurface HDirTil(
-    lat=weaDat.lat,
     til=Buildings.Types.Tilt.Wall,
     azi=Buildings.Types.Azimuth.S) "Direct solar irradiation"
     annotation (Placement(transformation(extent={{-20,20},{0,40}})));

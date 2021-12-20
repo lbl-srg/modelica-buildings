@@ -1,0 +1,2 @@
+simulateModel("Buildings.Controls.OBC.CDL.Continuous.Validation.PIDInitialState", tolerance=1e-06, resultFile="PIDInitialState");
+createPlot(id=1, position={35, 35, 926, 623}, y={"limPID.I.y", "limPID.D.y", "limPI.I.y", "limPID.D.u"}, range={0.0, 1.0, -0.6, 0.5}, grid=true, colors={{28,108,200}, {238,46,47}, {0,140,72}, {217,67,180}});

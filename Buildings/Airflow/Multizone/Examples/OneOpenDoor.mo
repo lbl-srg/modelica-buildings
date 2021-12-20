@@ -4,8 +4,8 @@ model OneOpenDoor "Model with one open and one closed door"
 
   package Medium = Modelica.Media.Air.SimpleAir;
 
-  Buildings.Airflow.Multizone.DoorDiscretizedOpen dooOpe(redeclare package Medium
-      = Medium) "Discretized door"
+  Buildings.Airflow.Multizone.DoorDiscretizedOpen dooOpe(
+    redeclare package Medium = Medium) "Discretized door"
     annotation (Placement(transformation(extent={{10,-8},{30,12}})));
 
   Buildings.Fluid.MixingVolumes.MixingVolume volA(
@@ -14,7 +14,7 @@ model OneOpenDoor "Model with one open and one closed door"
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     massDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     nPorts=4,
-    m_flow_nominal=0.01)
+    m_flow_nominal=0.01) "Control volume"
     annotation (Placement(transformation(extent={{-32,14},{-12,34}})));
   Buildings.Fluid.MixingVolumes.MixingVolume volB(
     redeclare package Medium = Medium,
@@ -22,14 +22,17 @@ model OneOpenDoor "Model with one open and one closed door"
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     massDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     nPorts=4,
-    m_flow_nominal=0.01)
+    m_flow_nominal=0.01) "Control volume"
     annotation (Placement(transformation(extent={{60,60},{80,80}})));
   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow preHeaFlo
+    "Prescribed heat flow rate boundary condition"
     annotation (Placement(transformation(extent={{14,60},{34,80}})));
-  Modelica.Blocks.Sources.Sine heaSou(freqHz=1/3600) annotation (Placement(
+  Modelica.Blocks.Sources.Sine heaSou(freqHz=1/3600)
+    "Signal for heat flow rate boundary condition"   annotation (Placement(
         transformation(extent={{-60,60},{-40,80}})));
-  Modelica.Blocks.Math.Gain Gain1(k=100) annotation (Placement(transformation(
-          extent={{-20,60},{0,80}})));
+  Modelica.Blocks.Math.Gain gai(k=100)
+    "Gain for heat flow rate boundary condition"
+    annotation (Placement(transformation(extent={{-20,60},{0,80}})));
   Buildings.Airflow.Multizone.DoorDiscretizedOperable dooOpeClo(redeclare package
       Medium = Medium, LClo=20*1E-4) "Discretized door"
     annotation (Placement(transformation(extent={{10,-44},{30,-24}})));
@@ -37,12 +40,13 @@ model OneOpenDoor "Model with one open and one closed door"
     duration=120,
     height=1,
     offset=0,
-    startTime=1000) annotation (Placement(transformation(extent={{-60,-44},{-40,
+    startTime=1000) "Ramp signal for door opening"
+                    annotation (Placement(transformation(extent={{-60,-44},{-40,
             -24}})));
 equation
-  connect(Gain1.y, preHeaFlo.Q_flow)
+  connect(gai.y, preHeaFlo.Q_flow)
     annotation (Line(points={{1,70},{14,70}}, color={0,0,255}));
-  connect(heaSou.y, Gain1.u)
+  connect(heaSou.y, gai.u)
     annotation (Line(points={{-39,70},{-39,70},{-22,70}}, color={0,0,255}));
   connect(ramp.y, dooOpeClo.y) annotation (Line(points={{-39,-34},{-39,-34},{9,-34}},
                               color={0,0,255}));
@@ -92,6 +96,11 @@ Both doors have exactly the same bi-directional airflow rates.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+March 26, 2021 by Michael Wetter:<br/>
+Updated comments for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/515\">IBPSA, #515</a>.
+</li>
 <li>
 December 22, 2014 by Michael Wetter:<br/>
 Removed <code>Modelica.Fluid.System</code>

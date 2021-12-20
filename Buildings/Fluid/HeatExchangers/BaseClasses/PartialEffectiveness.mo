@@ -46,11 +46,11 @@ protected
       0,
       m1_flow_small)
     else 1
-    "Fraction of incoming state taken from port a2 (used to avoid excessive calls to regStep)";
+    "Fraction of incoming state taken from port a1 (used to avoid excessive calls to regStep)";
   Real fra_b1(min=0, max=1) = if allowFlowReversal1
     then 1-fra_a1
     else 0
-    "Fraction of incoming state taken from port b2 (used to avoid excessive calls to regStep)";
+    "Fraction of incoming state taken from port b1 (used to avoid excessive calls to regStep)";
   Real fra_a2(min=0, max=1) = if allowFlowReversal2
     then Modelica.Fluid.Utilities.regStep(
       m2_flow,

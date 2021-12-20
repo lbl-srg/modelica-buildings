@@ -62,7 +62,6 @@ model DryCoilEffectivenessNTUPControl
     dpValve_nominal=6000) "Valve"
     annotation (Placement(transformation(extent={{30,50},{50,70}})));
   Buildings.Controls.Continuous.LimPID P(
-    controllerType=Modelica.Blocks.Types.SimpleController.PI,
     Ti=30,
     k=0.1,
     Td=1)

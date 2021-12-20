@@ -1,4 +1,4 @@
-simulateModel("Buildings.ThermalZones.ReducedOrder.Validation.VDI6007.TestCase7", stopTime=5.184e+006, numberOfIntervals=0, outputInterval=60, method="Radau", tolerance=1e-6, resultFile="TestCase7");
+simulateModel("Buildings.ThermalZones.ReducedOrder.Validation.VDI6007.TestCase7", stopTime=5.184e+006, numberOfIntervals=0, outputInterval=60, method="CVode", tolerance=1e-6, resultFile="TestCase7");
 createPlot(id = 1,
  position = {55, 50, 1297, 602},
  x = "time",

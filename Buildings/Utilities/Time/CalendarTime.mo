@@ -7,49 +7,66 @@ model CalendarTime
   parameter Integer yearRef(min=firstYear, max=lastYear) = 2016
     "Year when time = 0, used if zerTim=Custom"
     annotation(Dialog(enable=zerTim==Buildings.Utilities.Time.Types.ZeroTime.Custom));
-  parameter Modelica.SIunits.Time offset = 0
-    "Offset that is added to 'time', may be used for computing time in different time zone"
+  parameter Boolean outputUnixTimeStamp = false
+    "= true, to output the unix time stamp (using GMT reference)"
+    annotation(Dialog(group="Unix time stamp"));
+  parameter Modelica.SIunits.Time timZon(displayUnit="h") = 0
+    "The local time zone, for computing the unix time stamp only"
+    annotation(Dialog(enable=outputUnixTimeStamp,group="Unix time stamp"));
+  parameter Modelica.SIunits.Time offset(displayUnit="h") = 0
+    "Offset that is added to 'time', may be used for computing time in different time zones"
     annotation(Dialog(tab="Advanced"));
 
-  Modelica.Blocks.Interfaces.RealOutput unixTimeStamp(final unit="s")
+  Modelica.Blocks.Interfaces.RealOutput unixTimeStampLocal(final unit="s")
     "Unix time stamp at local time"
-        annotation (Placement(transformation(extent={{100,-90},{120,-70}}),
-        iconTransformation(extent={{100,-90},{120,-70}})));
-  discrete Modelica.Blocks.Interfaces.IntegerOutput year(start=2010) "Year"
-    annotation (Placement(transformation(extent={{100,-32},{120,-12}}),
-        iconTransformation(extent={{100,-32},{120,-12}})));
-  discrete Modelica.Blocks.Interfaces.IntegerOutput month(start=1) "Month of the year"
-    annotation (Placement(transformation(extent={{100,-4},{120,16}}),
-        iconTransformation(extent={{100,-4},{120,16}})));
+        annotation (Placement(transformation(extent={{100,-78},{120,-58}}),
+        iconTransformation(extent={{100,-78},{120,-58}})));
+  Modelica.Blocks.Interfaces.RealOutput unixTimeStamp(final unit="s") = unixTimeStampLocal - timZon if outputUnixTimeStamp
+    "Unix time stamp"
+        annotation (Placement(transformation(extent={{100,-100},{120,-80}}),
+        iconTransformation(extent={{100,-100},{120,-80}})));
+  discrete Modelica.Blocks.Interfaces.IntegerOutput year "Year"
+    annotation (Placement(transformation(extent={{100,-24},{120,-4}}),
+        iconTransformation(extent={{100,-24},{120,-4}})));
+  discrete Modelica.Blocks.Interfaces.IntegerOutput month "Month of the year"
+    annotation (Placement(transformation(extent={{100,2},{120,22}}),
+        iconTransformation(extent={{100,2},{120,22}})));
   Modelica.Blocks.Interfaces.IntegerOutput day(fixed=false) "Day of the month"
-    annotation (Placement(transformation(extent={{100,24},{120,44}}),
-        iconTransformation(extent={{100,24},{120,44}})));
+    annotation (Placement(transformation(extent={{100,28},{120,48}}),
+        iconTransformation(extent={{100,28},{120,48}})));
   Modelica.Blocks.Interfaces.IntegerOutput hour(fixed=false) "Hour of the day"
-    annotation (Placement(transformation(extent={{100,52},{120,72}}),
-        iconTransformation(extent={{100,52},{120,72}})));
+    annotation (Placement(transformation(extent={{100,54},{120,74}}),
+        iconTransformation(extent={{100,54},{120,74}})));
   Modelica.Blocks.Interfaces.RealOutput minute "Minute of the hour"
     annotation (Placement(transformation(extent={{100,80},{120,100}}),
         iconTransformation(extent={{100,80},{120,100}})));
   Modelica.Blocks.Interfaces.IntegerOutput weekDay(fixed=false)
     "Integer output representing week day (monday = 1, sunday = 7)"
-    annotation (Placement(transformation(extent={{100,-60},{120,-40}}),
-        iconTransformation(extent={{100,-60},{120,-40}})));
+    annotation (Placement(transformation(extent={{100,-50},{120,-30}}),
+        iconTransformation(extent={{100,-50},{120,-30}})));
 
 protected
   final constant Integer firstYear = 2010
     "First year that is supported, i.e. the first year in timeStampsNewYear[:]";
   final constant Integer lastYear = firstYear + size(timeStampsNewYear,1) - 1;
-  constant Modelica.SIunits.Time timeStampsNewYear[12] = {
+  constant Modelica.SIunits.Time timeStampsNewYear[22] = {
     1262304000.0, 1293840000.0, 1325376000.0,
     1356998400.0, 1388534400.0, 1420070400.0,
     1451606400.0, 1483228800.0, 1514764800.0,
-    1546300800.0, 1577836800.0, 1609459200.0}
-    "Epoch time stamps for new years day 2010 to 2021";
-  constant Boolean isLeapYear[11] = {
+    1546300800.0, 1577836800.0, 1609459200.0,
+    1640995200.0, 1672531200.0, 1704067200.0,
+    1735689600.0, 1767225600.0, 1798761600.0,
+    1830297600.0, 1861920000.0, 1893456000.0,
+    1924992000.0}
+    "Epoch time stamps for new years day 2010 to 2031";
+  constant Boolean isLeapYear[21] = {
     false, false, true, false,
     false, false, true, false,
-    false, false, true}
-    "List of leap years starting from firstYear (2010), up to and including 2020";
+    false, false, true, false,
+    false, false, true, false,
+    false, false, true, false,
+    false}
+    "List of leap years starting from firstYear (2010), up to and including 2030";
   final constant Integer dayInMonth[12] = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31}
     "Number of days in each month";
   parameter Modelica.SIunits.Time timOff(fixed=false) "Time offset";
@@ -81,10 +98,10 @@ initial equation
   hourSampleStart = integer(time/3600)*3600 - offset;
   daySampleStart  = integer(time/(3600*24))*3600*24 - offset;
 
-  hour = integer(floor(rem(unixTimeStamp,3600*24)/3600));
-  daysSinceEpoch = integer(floor(unixTimeStamp/3600/24));
+  hour = integer(floor(rem(unixTimeStampLocal,3600*24)/3600));
+  daysSinceEpoch = integer(floor(unixTimeStampLocal/3600/24));
 
-  day = integer(1+floor((unixTimeStamp-epochLastMonth)/3600/24));
+  day = integer(1+floor((unixTimeStampLocal-epochLastMonth)/3600/24));
   weekDay = integer(rem(4+daysSinceEpoch-1,7)+1);
 initial algorithm
   // check if yearRef is in the valid range
@@ -101,6 +118,8 @@ initial algorithm
   // compute the offset to be added to time based on the parameters specified by the user
   if zerTim == Buildings.Utilities.Time.Types.ZeroTime.UnixTimeStamp then
     timOff :=0;
+  elseif zerTim == Buildings.Utilities.Time.Types.ZeroTime.UnixTimeStampGMT then
+    timOff :=timZon;
   elseif zerTim == Buildings.Utilities.Time.Types.ZeroTime.NY2010 or
     zerTim == Buildings.Utilities.Time.Types.ZeroTime.Custom and yearRef == 2010 then
       timOff :=timeStampsNewYear[1];
@@ -181,8 +200,8 @@ initial algorithm
   year :=0;
   for i in 1:size(timeStampsNewYear,1) loop
     // may be reformulated using break if JModelica fixes bug
-    if unixTimeStamp < timeStampsNewYear[i]
-      and (if i == 1 then true else unixTimeStamp >= timeStampsNewYear[i-1]) then
+    if unixTimeStampLocal < timeStampsNewYear[i]
+      and (if i == 1 then true else unixTimeStampLocal >= timeStampsNewYear[i-1]) then
       yearIndex :=i - 1;
       year :=firstYear + i - 2;
     end if;
@@ -192,7 +211,7 @@ initial algorithm
   epochLastMonth := timeStampsNewYear[yearIndex];
   month:=13;
   for i in 1:12 loop
-    if (unixTimeStamp-epochLastMonth)/3600/24 <
+    if (unixTimeStampLocal-epochLastMonth)/3600/24 <
       (if i==2 and isLeapYear[yearIndex] then 1 + dayInMonth[i] else dayInMonth[i]) then
       // construction below avoids the need of a break, which bugs out JModelica
       month :=min(i,month);
@@ -204,10 +223,10 @@ initial algorithm
 
 equation
   // compute unix time step based on found offset
-  unixTimeStamp = time + offset + timOff;
+  unixTimeStampLocal = time + offset + timOff;
 
   // update the year when passing the epoch time stamp of the next year
-  when unixTimeStamp >= timeStampsNewYear[pre(yearIndex)+1] then
+  when unixTimeStampLocal >= timeStampsNewYear[pre(yearIndex)+1] then
     yearIndex=pre(yearIndex)+1;
     assert(yearIndex<=size(timeStampsNewYear,1),
       "Index out of range for epoch vector: timeStampsNewYear needs to be extended beyond the year "
@@ -216,7 +235,7 @@ equation
   end when;
 
   // update the month when passing the last day of the current month
-  when unixTimeStamp >= pre(epochLastMonth) +
+  when unixTimeStampLocal >= pre(epochLastMonth) +
       (if pre(month)==2 and isLeapYear[yearIndex]
         then 1 + dayInMonth[pre(month)] else dayInMonth[pre(month)])*3600*24 then
     month = if pre(month) == 12 then 1 else pre(month) + 1;
@@ -229,7 +248,7 @@ equation
   hourSampleTrigger =sample(hourSampleStart, 3600);
   when hourSampleTrigger then
     if pre(firstHourSampling) then
-      hour = integer(floor(rem(unixTimeStamp,3600*24)/3600));
+      hour = integer(floor(rem(unixTimeStampLocal,3600*24)/3600));
     else
       hour = if (pre(hour) == 23) then 0 else (pre(hour) + 1);
     end if;
@@ -239,25 +258,35 @@ equation
   daySampleTrigger =sample(daySampleStart, 86400);
   when daySampleTrigger then
     if pre(firstDaySampling) then
-      daysSinceEpoch = integer(floor(unixTimeStamp/3600/24));
+      daysSinceEpoch = integer(floor(unixTimeStampLocal/3600/24));
       weekDay=integer(rem(4+daysSinceEpoch-1,7)+1);
 
     else
       daysSinceEpoch = pre(daysSinceEpoch) + 1;
       weekDay = if (pre(weekDay) == 7) then 1 else (pre(weekDay) + 1);
     end if;
-    day = integer(1+floor((unixTimeStamp-epochLastMonth)/3600/24));
+    day = integer(1+floor((unixTimeStampLocal-epochLastMonth)/3600/24));
 
     firstDaySampling = false;
   end when;
 
   // using Real variables and operations for minutes since otherwise too many events are generated
-  minute = (unixTimeStamp/60-daysSinceEpoch*60*24-hour*60);
+  minute = (unixTimeStampLocal/60-daysSinceEpoch*60*24-hour*60);
 
   annotation (
     defaultComponentName="calTim",
   Documentation(revisions="<html>
 <ul>
+<li>
+November 6, 2019, by Milica Grahovac:<br/>
+Extended functionality to year 2030.
+</li>
+<li>
+August 20, 2019, by Filip Jorissen:<br/>
+Revised implementation such that the meaning of <code>time</code> is better explained
+and unix time stamps are correctly defined with respect to GMT.
+(see <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1192\">#1192</a>).
+</li>
 <li>
 February 14, 2019, by Damien Picard:<br/>
 Fix bug when non-zero offset by substracting the offset from hourSampleStart and daySampleStart
@@ -273,17 +302,25 @@ First implementation.
 This blocks computes the unix time stamp, date and time
 and the day of the week based on the Modelica
 variable <code>time</code>.
+As for the weather data reader
+<a href=\"modelica://Buildings.BoundaryConditions.WeatherData.ReaderTMY3\">
+Buildings.BoundaryConditions.WeatherData.ReaderTMY3</a>,
+<code>time=0</code> corresponds to January 1st at midnight
+in the <em>local time zone</em>.
+The computed outputs are thus also for the local time zone.
+The year for which <code>time=0</code> is determined by
+the parameter <code>zerTim</code>.
 </p>
 <h4>Main equations</h4>
 <p>
-First the unix time stamp corresponding to the current time is computed.
+The unix time stamp corresponding to the current time is computed.
 From this variables the corresponding, year, date and time are computed using functions
 such as <code>floor()</code> and <code>ceil()</code>.
 </p>
 <h4>Assumption and limitations</h4>
 <p>
 The implementation only supports date computations from year 2010 up to and including 2020.
-Daylight saving and time zones are not supported.
+Daylight saving is not supported.
 </p>
 <h4>Typical use and important parameters</h4>
 <p>
@@ -291,16 +328,36 @@ The user must define which time and date correspond to <code>time = 0</code>
 using the model parameters <code>zerTim</code>, and, if
 <code>zerTim==Buildings.Utilities.Time.Types.ZeroTime.Custom</code>,
 the parameter <code>yearRef</code>.
+When <code>zerTim==Buildings.Utilities.Time.Types.ZeroTime.UnixTimeStampGMT</code>,
+<code>time</code> is defined with respect to GMT. This is different from the use
+of <code>time</code> in the weather data reader
+<a href=\"modelica://Buildings.BoundaryConditions.WeatherData.ReaderTMY3\">
+Buildings.BoundaryConditions.WeatherData.ReaderTMY3</a>, as the weather data files
+used with this reader are generally defined with <code>time</code> being local time.
+If  <code>zerTim==Buildings.Utilities.Time.Types.ZeroTime.UnixTimeStampGMT</code> is used,
+then the weather data files read by
+<a href=\"modelica://Buildings.BoundaryConditions.WeatherData.ReaderTMY3\">
+Buildings.BoundaryConditions.WeatherData.ReaderTMY3</a>
+must also be defined with GMT as the time stamp.
 
 The user can choose from new year, midnight for a number of years:
-2010 to 2020 and also 1970.
+2010 to 2030 and also 1970.
 The latter corresponds to a unix stamp of <i>0</i>.
 (Note that when choosing the reference time equal to 0 at 1970,
-the actual simulation time must be within the 2010-2020 range.
+the actual simulation time must be within the 2010-2030 range.
 For instance <code>startTime = 1262304000</code> corresponds
 to the simulation starting on the 1st of January 2010
 when setting <code>zerTim = ZeroTime.UnixTimeStamp</code>.
 This is within the 2010-2020 range and is therefore allowed.)
+The unix time stamp is formally defined as the number of
+seconds since midnight of new year in 1970 GMT.
+To output the correct unix time stamp, set <code>outputUnixTimeStamp=true</code>
+We then require the local time zone <code>timZon</code>
+(see <a href=\"modelica://Buildings.BoundaryConditions.WeatherData.ReaderTMY3\">
+Buildings.BoundaryConditions.WeatherData.ReaderTMY3</a>)
+since <code>time</code> uses the local time zone instead of GMT.
+We always output <code>unixTimeStampLocal</code>, which is a time stamp
+that uses the local time zone reference instead of GMT.
 </p>
 <h4>Implementation</h4>
 <p>
@@ -314,39 +371,39 @@ that it changes the time based on which the solar position is computed and TMY3 
     Icon(graphics={
         Text(
           extent={{-34,90},{96,80}},
-          lineColor={28,108,200},
+          textColor={28,108,200},
           horizontalAlignment=TextAlignment.Right,
           textString="Minute"),
         Text(
-          extent={{-28,66},{96,56}},
-          lineColor={28,108,200},
+          extent={{-28,68},{96,58}},
+          textColor={28,108,200},
           horizontalAlignment=TextAlignment.Right,
           textString="Hour"),
         Text(
-          extent={{-38,40},{96,28}},
-          lineColor={28,108,200},
+          extent={{-38,44},{96,32}},
+          textColor={28,108,200},
           horizontalAlignment=TextAlignment.Right,
           textString="Day"),
         Text(
-          extent={{-50,12},{96,2}},
-          lineColor={28,108,200},
+          extent={{-50,18},{96,8}},
+          textColor={28,108,200},
           horizontalAlignment=TextAlignment.Right,
           textString="Month"),
         Text(
-          extent={{-70,-16},{96,-26}},
-          lineColor={28,108,200},
+          extent={{-70,-8},{96,-18}},
+          textColor={28,108,200},
           horizontalAlignment=TextAlignment.Right,
           textString="Year"),
         Text(
-          extent={{-68,-40},{96,-52}},
-          lineColor={28,108,200},
+          extent={{-68,-30},{96,-42}},
+          textColor={28,108,200},
           horizontalAlignment=TextAlignment.Right,
           textString="Weekday"),
         Text(
-          extent={{-102,-72},{94,-84}},
-          lineColor={28,108,200},
+          extent={{-102,-60},{94,-72}},
+          textColor={28,108,200},
           horizontalAlignment=TextAlignment.Right,
-          textString="Unix timestamp"),
+          textString="Unix time stamp (local)"),
         Ellipse(
           extent={{-94,94},{16,-16}},
           lineColor={160,160,164},
@@ -357,5 +414,11 @@ that it changes the time based on which the solar position is computed and TMY3 
           thickness=0.5),
         Line(
           points={{-40,38},{-14,38}},
-          thickness=0.5)}));
+          thickness=0.5),
+        Text(
+          extent={{-102,-82},{94,-94}},
+          textColor={28,108,200},
+          horizontalAlignment=TextAlignment.Right,
+          visible=outputUnixTimeStamp,
+          textString="Unix time stamp (GMT)")}));
 end CalendarTime;

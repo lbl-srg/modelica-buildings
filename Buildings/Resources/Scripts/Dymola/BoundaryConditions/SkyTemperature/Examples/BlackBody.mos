@@ -1,5 +1,5 @@
 removePlots();
-simulateModel("Buildings.BoundaryConditions.SkyTemperature.Examples.BlackBody", startTime=0, tolerance=1e-6, stopTime=86400, method="dassl", resultFile="BlackBody");
+simulateModel("Buildings.BoundaryConditions.SkyTemperature.Examples.BlackBody", startTime=0, tolerance=1e-6, stopTime=86400, method="CVode", resultFile="BlackBody");
 createPlot(id = 1,
  position = {7, 7, 746, 517},
  y = {"TBlaSky.TBlaSky", "TBlaSkyIrr.TBlaSky"},

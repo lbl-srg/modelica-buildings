@@ -1,4 +1,4 @@
-simulateModel("Buildings.Fluid.Actuators.Valves.Examples.TwoWayValvesMotor", startTime=0, tolerance=1e-6, stopTime=600, method="dassl", resultFile="TwoWayValvesMotor");
+simulateModel("Buildings.Fluid.Actuators.Valves.Examples.TwoWayValvesMotor", startTime=0, tolerance=1e-6, stopTime=600, method="CVode", resultFile="TwoWayValvesMotor");
 createPlot(id = 3,
  position = {55, 50, 697, 502},
  x = "time",

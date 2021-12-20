@@ -114,7 +114,6 @@ model RenewableSources
     linearized=false,
     V_nominal=V_nominal,
     pf=0.85,
-    lat=weaDat.lat,
     azi=Buildings.Types.Azimuth.S,
     til=0.5235987755983) "PV"
     annotation (Placement(transformation(extent={{-40,60},{-20,80}})));
@@ -126,7 +125,6 @@ model RenewableSources
     linearized=false,
     V_nominal=V_nominal,
     pf=0.8,
-    lat=weaDat.lat,
     azi=Buildings.Types.Azimuth.E,
     til=0.5235987755983) "PV"
     annotation (Placement(transformation(extent={{0,60},{20,80}})));
@@ -138,7 +136,6 @@ model RenewableSources
     linearized=false,
     V_nominal=V_nominal,
     pf=0.8,
-    lat=weaDat.lat,
     azi=Buildings.Types.Azimuth.W,
     til=0.34906585039887) "PV"
     annotation (Placement(transformation(extent={{40,60},{60,80}})));
@@ -150,7 +147,6 @@ model RenewableSources
     linearized=false,
     V_nominal=V_nominal,
     pf=0.9,
-    lat=weaDat.lat,
     azi=Buildings.Types.Azimuth.S,
     til=0.5235987755983) "PV"
     annotation (Placement(transformation(extent={{80,60},{100,80}})));
@@ -162,7 +158,6 @@ model RenewableSources
     linearized=false,
     V_nominal=V_nominal,
     pf=0.95,
-    lat=weaDat.lat,
     azi=Buildings.Types.Azimuth.W,
     til=0.61086523819802) "PV"
     annotation (Placement(transformation(extent={{-20,-80},{0,-60}})));
@@ -174,7 +169,6 @@ model RenewableSources
     linearized=false,
     V_nominal=V_nominal,
     pf=0.9,
-    lat=weaDat.lat,
     azi=Buildings.Types.Azimuth.E,
     til=0.43633231299858) "PV"
     annotation (Placement(transformation(extent={{20,-80},{40,-60}})));
@@ -186,7 +180,6 @@ model RenewableSources
     linearized=false,
     V_nominal=V_nominal,
     pf=0.97,
-    lat=weaDat.lat,
     azi=Buildings.Types.Azimuth.S,
     til=0.5235987755983) "PV"
     annotation (Placement(transformation(extent={{60,-80},{80,-60}})));
@@ -549,7 +542,13 @@ equation
       pattern=LinePattern.Dot));
   annotation (
     Documentation(revisions="<html>
-    <ul>
+<ul>
+<li>
+September 16, 2021, by Michael Wetter:<br/>
+Removed assignment of parameter <code>lat</code> as this is now obtained from the weather data reader.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1477\">IBPSA, #1477</a>.
+</li>
 <li>
 October 2, 2015, by Michael Wetter:<br/>
 Changed signals for post-processing to avoid using the conditionally

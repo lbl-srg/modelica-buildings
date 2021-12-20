@@ -53,8 +53,13 @@ model PlugFlowULg "Validation against data from Université de Liège"
     tau=0,
     T_start=T_start_in) "Temperature sensor"
     annotation (Placement(transformation(extent={{0,-10},{-20,10}})));
-  Modelica.Blocks.Sources.CombiTimeTable DataReader(table=pipeDataULg.data,
-      extrapolation=Modelica.Blocks.Types.Extrapolation.HoldLastPoint)
+  Modelica.Blocks.Sources.CombiTimeTable DataReader(
+    tableOnFile=true,
+    tableName="dat",
+    fileName=pipeDataULg.filNam,
+    columns=2:pipeDataULg.nCol,
+    extrapolation=Modelica.Blocks.Types.Extrapolation.HoldLastPoint)
+    "Measurement data"
     annotation (Placement(transformation(extent={{0,-80},{20,-60}})));
 
   Modelica.Blocks.Math.UnitConversions.From_degC Tout
@@ -89,7 +94,6 @@ model PlugFlowULg "Validation against data from Université de Liège"
     T_start_in=T_start_in,
     R=((1/(2*pipe.kIns)*log((0.0603/2 + pipe.dIns)/(0.0603/2))) + 1/(5*(0.0603
          + 2*pipe.dIns)))/Modelica.Constants.pi,
-    nPorts=1,
     initDelay=true,
     m_flow_start=pipeDataULg.m_flowIni,
     cPip=500,
@@ -144,7 +148,7 @@ equation
           0}},                                  color={0,127,255}));
   connect(senTem_out.port_a, senEntOut.port_b)
     annotation (Line(points={{-160,0},{-140,0}},       color={0,127,255}));
-  connect(senEntOut.port_a, pipe.ports_b[1])
+  connect(senEntOut.port_a, pipe.port_b)
     annotation (Line(points={{-120,0},{-100,0}},       color={0,127,255}));
   connect(pipe.port_a, senEntIn.port_b)
     annotation (Line(points={{-80,0},{-62,0}}, color={0,127,255}));
@@ -205,6 +209,13 @@ U = 1/R = 0.462 W/(m K)</p>
 </html>", revisions="<html>
 <ul>
 <li>
+March 7, 2020, by Michael Wetter:<br/>
+Replaced measured data from specification in Modelica file to external table,
+as this reduces the computing time.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1289\"> #1289</a>.
+</li>
+<li>
 November 24, 2016 by Bram van der Heijde:<br/>Add pipe thickness for wall
 capacity calculation and expand documentation section.</li>
 <li>April 2, 2016 by Bram van der Heijde:<br/>Change thermal conductivity and
@@ -215,7 +226,7 @@ put boundary condition in K.
 </ul>
 </html>"),
     experiment(StopTime=875, Tolerance=1e-006),
-    __Dymola_Commands(file="Resources/Scripts/Dymola/Fluid/FixedResistances/Validation/PlugFlowPipes/PlugFlowULg.mos"
+    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/FixedResistances/Validation/PlugFlowPipes/PlugFlowULg.mos"
         "Simulate and plot"),
     Diagram(coordinateSystem(extent={{-260,-120},{260,120}})));
 end PlugFlowULg;

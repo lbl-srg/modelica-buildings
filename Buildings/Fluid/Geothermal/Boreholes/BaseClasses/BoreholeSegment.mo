@@ -13,6 +13,10 @@ model BoreholeSegment "Vertical segment of a borehole"
   extends Buildings.Fluid.Interfaces.LumpedVolumeDeclarations(T_start=TFil_start);
   replaceable package Medium = Modelica.Media.Interfaces.PartialMedium
     "Medium in the component" annotation (choicesAllMatching=true);
+
+  constant Boolean homotopyInitialization = true "= true, use homotopy method"
+    annotation(HideResult=true);
+
   replaceable parameter Buildings.HeatTransfer.Data.Soil.Generic matSoi
     "Thermal properties of soil"
     annotation (choicesAllMatching=true, Dialog(group="Soil"),
@@ -28,8 +32,6 @@ model BoreholeSegment "Vertical segment of a borehole"
   parameter Modelica.SIunits.MassFlowRate m_flow_small(min=0) = 1E-4*abs(m_flow_nominal)
     "Small mass flow rate for regularization of zero flow"
     annotation(Dialog(tab = "Advanced"));
-  parameter Boolean homotopyInitialization = true "= true, use homotopy method"
-    annotation(Evaluate=true, Dialog(tab="Advanced"));
 
   parameter Modelica.SIunits.Radius rTub=0.02 "Radius of the tubes"
     annotation (Dialog(group="Tubes"));
@@ -122,6 +124,12 @@ model BoreholeSegment "Vertical segment of a borehole"
 protected
   Modelica.Thermal.HeatTransfer.Sensors.HeatFlowSensor heaFlo
     annotation (Placement(transformation(extent={{-30,-10},{-10,10}})));
+
+initial equation
+  assert(homotopyInitialization, "In " + getInstanceName() +
+    ": The constant homotopyInitialization has been modified from its default value. This constant will be removed in future releases.",
+    level = AssertionLevel.warning);
+
 equation
   connect(pipFil.port_b1, port_b1)
                                 annotation (Line(
@@ -219,6 +227,12 @@ Buildings.Fluid.Geothermal.Boreholes.BaseClasses.SingleUTubeBoundaryCondition</a
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+April 14, 2020, by Michael Wetter:<br/>
+Changed <code>homotopyInitialization</code> to a constant.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1341\">IBPSA, #1341</a>.
+</li>
 <li>
 February 14, 2014, by Michael Wetter:<br/>
 Removed unused parameters <code>B0</code> and <code>B1</code>.

@@ -5,6 +5,5 @@ compareVars :=
     "conEco.TMix",
     "conEco.TOut",
     "conEco.TRet",
-    "conEco.minOAFra",
-    "conEco.yHea"
+    "conEco.minOAFra"
   };

@@ -10,6 +10,10 @@ partial model PartialPumpParallel "Partial model for pump parallel"
     "Record with performance data"
     annotation (choicesAllMatching=true,
       Placement(transformation(extent={{70,64},{90,84}})));
+
+  constant Boolean homotopyInitialization = true "= true, use homotopy method"
+    annotation(HideResult=true);
+
  // Pump parameters
   parameter Integer num=2 "The number of pumps";
   parameter Boolean addPowerToMedium=false
@@ -32,10 +36,6 @@ partial model PartialPumpParallel "Partial model for pump parallel"
 
    // Valve parameters
   parameter Real l=0.0001 "Valve leakage, l=Kv(y=0)/Kv(y=1)"
-    annotation(Dialog(group="Two-way valve"));
-  parameter Real kFixed=m_flow_nominal/sqrt(dpValve_nominal)
-    "Flow coefficient of fixed resistance that may be in series with valve,
-    k=m_flow/sqrt(dp), with unit=(kg.m)^(1/2)."
     annotation(Dialog(group="Two-way valve"));
   parameter Modelica.SIunits.Time riseTimeValve = 120
     "Rise time of the filter (time to reach 99.6 % of the speed)"
@@ -73,9 +73,6 @@ partial model PartialPumpParallel "Partial model for pump parallel"
   parameter Boolean from_dp = false
     "= true, use m_flow = f(dp) else dp = f(m_flow)"
     annotation (Evaluate=true, Dialog(tab="Flow resistance"));
-  parameter Boolean homotopyInitialization=true
-    "= true, use homotopy method"
-    annotation (Evaluate=true, Dialog(tab="Flow resistance"));
   parameter Boolean linearizeFlowResistance = false
     "= true, use linear relation between m_flow and dp for any flow rate"
     annotation(Dialog(tab="Flow resistance"));
@@ -110,7 +107,6 @@ partial model PartialPumpParallel "Partial model for pump parallel"
     each final use_inputFilter=use_inputFilter,
     each final riseTime=riseTimePump,
     each final init=init,
-    final y_start= yPump_start,
     each final energyDynamics=energyDynamics,
     each final massDynamics=massDynamics,
     each final p_start=p_start,
@@ -124,7 +120,6 @@ partial model PartialPumpParallel "Partial model for pump parallel"
     redeclare each final replaceable package Medium = Medium,
     each final dpFixed_nominal=0,
     each final l=l,
-    each final kFixed=kFixed,
     each final CvData=Buildings.Fluid.Types.CvTypes.OpPoint,
     each final allowFlowReversal=allowFlowReversal,
     each final show_T=show_T,
@@ -149,6 +144,12 @@ partial model PartialPumpParallel "Partial model for pump parallel"
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea[num]
     "Boolean to real conversion for isolation valves"
     annotation (Placement(transformation(extent={{20,50},{40,70}})));
+
+initial equation
+  assert(homotopyInitialization, "In " + getInstanceName() +
+    ": The constant homotopyInitialization has been modified from its default value. This constant will be removed in future releases.",
+    level = AssertionLevel.warning);
+
 equation
   connect(pum.port_b, val.port_a)
     annotation (Line(points={{10,0},{25,0},{40,0}}, color={0,127,255}));
@@ -162,9 +163,9 @@ equation
     annotation (Line(points={{11,9},{20,9},{20,40},{110,40}},
       color={0,0,127}));
   connect(booToRea.y, val.y)
-    annotation (Line(points={{41,60},{50,60},{50,12}}, color={0,0,127}));
+    annotation (Line(points={{42,60},{50,60},{50,12}}, color={0,0,127}));
   connect(hys.y, booToRea.u)
-    annotation (Line(points={{1,60},{18,60}}, color={255,0,255}));
+    annotation (Line(points={{2,60},{18,60}}, color={255,0,255}));
   connect(hys.u, u) annotation (Line(points={{-22,60},{-62,60},{-62,40},{-120,40}},
         color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
@@ -237,6 +238,12 @@ equation
           origin={-60,0},
           rotation=90)}),    Documentation(revisions="<html>
 <ul>
+<li>
+April 14, 2020, by Michael Wetter:<br/>
+Changed <code>homotopyInitialization</code> to a constant.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1341\">Buildings, #1341</a>.
+</li>
 <li>
 September 2, 2017, by Michael Wetter:<br/>
 Removed sign with hysteresis to avoid chattering.

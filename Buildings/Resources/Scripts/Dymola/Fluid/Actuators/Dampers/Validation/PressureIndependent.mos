@@ -1,0 +1,22 @@
+simulateModel("Buildings.Fluid.Actuators.Dampers.Validation.PressureIndependent",
+    method="cvode", tolerance=1e-6, stopTime=1.0, resultFile="PressureIndependent");
+createPlot(id = 1,
+ position = {73, 9, 598, 390},
+ y = {"damPreInd.m_flow", "damExp.m_flow", "damExpPI.m_flow"},
+ range = {0.15, 0.6, 11.0, 7.0},
+ autoscale = true,
+ autoerase = true,
+ autoreplot = true,
+ grid = true,
+ color = true);
+createPlot(id=1, y={"damPreInd.y", "damPreInd.y_actual"},
+ position={73, 9, 598, 390},
+ autoscale = true,
+ autoerase = true,
+ autoreplot = true,
+ grid = true,
+ color = true,
+ subPlot=2);
+plotExpression(apply(PressureIndependent.senRelPre.p_rel/PressureIndependent.dp_nominal),
+    false, "senRelPre.p_rel / dp_nominal", 1);
+

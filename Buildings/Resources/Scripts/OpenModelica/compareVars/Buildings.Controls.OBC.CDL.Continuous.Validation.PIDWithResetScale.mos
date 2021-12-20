@@ -1,0 +1,9 @@
+compareVars :=
+  {
+    "pidSca.y",
+    "pidNoSca.y",
+    "pla1.y",
+    "pla2.y",
+    "pidSca.u_s",
+    "pidSca.trigger"
+  };

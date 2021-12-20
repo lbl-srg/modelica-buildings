@@ -283,7 +283,7 @@ model SingleSpeedPLREnergyPlus
         72000,0; 75600,0; 75600,0; 79200,0; 79200,0; 82800,0;
         82800,0; 86400,0]) "EnergyPlus result: heat flow"
     annotation (Placement(transformation(extent={{40,-140},{60,-120}})));
-  Data.Generic.DXCoil datCoi(nSta=1, sta={Data.Generic.BaseClasses.Stage(
+  parameter Data.Generic.DXCoil datCoi(nSta=1, sta={Data.Generic.BaseClasses.Stage(
         spe=1800/60,
         nomVal=Data.Generic.BaseClasses.NominalValues(
           Q_flow_nominal=-25237.66,

@@ -1,8 +1,8 @@
 within Buildings.Utilities.Math;
 block SmoothHeaviside
-  "Once continuously differentiable approximation to the Heaviside function"
+  "Twice continuously differentiable approximation to the Heaviside function"
   extends Modelica.Blocks.Interfaces.SISO;
- parameter Real delta "Width of transition interval";
+ parameter Real delta(min=Modelica.Constants.eps) "Width of transition interval";
 equation
   y = Buildings.Utilities.Math.Functions.smoothHeaviside(x=u, delta=delta);
   annotation (Icon(graphics={
@@ -14,7 +14,7 @@ equation
       fillPattern=FillPattern.Solid),
     Text(
       extent={{70,-82},{96,-100}},
-      lineColor={160,160,164},
+      textColor={160,160,164},
       textString="u"),
     Polygon(
       points={{0,88},{-6,72},{6,72},{0,88}},
@@ -23,7 +23,7 @@ equation
       fillPattern=FillPattern.Solid),
     Text(
       extent={{-35,90},{-6,72}},
-      lineColor={160,160,164},
+      textColor={160,160,164},
       textString="y"),
     Line(points={{0,-90},{0,84}}, color={192,192,192}),
         Line(
@@ -32,15 +32,15 @@ equation
     Line(points={{-6,48},{6,48}},      color={192,192,192}),
     Text(
       extent={{-31,58},{-2,40}},
-      lineColor={160,160,164},
+      textColor={160,160,164},
           textString="1"),
     Text(
       extent={{-53,-78},{-24,-96}},
-      lineColor={160,160,164},
+      textColor={160,160,164},
           textString="-delta"),
     Text(
       extent={{31,-76},{60,-94}},
-      lineColor={160,160,164},
+      textColor={160,160,164},
           textString="delta"),
     Line(points={{46,-78},{46,56}},
                                   color={192,192,192}),
@@ -48,13 +48,19 @@ equation
                                   color={192,192,192})}),
 Documentation(info="<html>
 <p>
-Once Lipschitz continuously differentiable approximation to the <i>Heaviside(.,.)</i> function.
+Twice Lipschitz continuously differentiable approximation to the <i>Heaviside(.,.)</i> function.
 See Example <a href=\"modelica://Buildings.Utilities.Math.Examples.SmoothHeaviside\">
 Buildings.Utilities.Math.Examples.SmoothHeaviside</a>.
 </p>
 </html>",
 revisions="<html>
 <ul>
+<li>
+October 21, 2019:<br/>
+Added <code>delta.min</code> attribute to guard against division by zero.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1202\">issue 1202</a>.
+</li>
 <li>
 July 17, 2015, by Marcus Fuchs:<br/>
 Add link to example.

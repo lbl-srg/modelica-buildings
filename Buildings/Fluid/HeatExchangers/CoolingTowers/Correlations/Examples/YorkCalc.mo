@@ -24,5 +24,18 @@ equation
                                                                     FRAir=x);
 
   annotation(experiment(Tolerance=1e-6, StopTime=1.0),
-__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/CoolingTowers/Correlations/Examples/YorkCalc.mos" "Simulate and plot"));
+__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/CoolingTowers/Correlations/Examples/YorkCalc.mos" "Simulate and plot"),
+    Documentation(info="<html>
+<p>
+Validation model that plots the approach temperature based on the York model for different
+ratios of water and air flow rates.
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+May 14, 2008, by Michael Wetter:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));
 end YorkCalc;

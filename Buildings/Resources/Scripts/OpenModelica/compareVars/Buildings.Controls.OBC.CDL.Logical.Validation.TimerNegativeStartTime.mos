@@ -1,0 +1,11 @@
+compareVars :=
+  {
+    "noThr.u",
+    "noThr.y",
+    "noThr.t",
+    "noThr.passed",
+    "thrTim.u",
+    "thrTim.y",
+    "thrTim.t",
+    "thrTim.passed"
+  };

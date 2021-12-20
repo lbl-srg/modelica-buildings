@@ -1,2 +1,2 @@
-simulateModel("Buildings.BoundaryConditions.WeatherData.Validation.DecemberToJanuary", startTime=30992400, stopTime=31860000, method="dassl", tolerance=1e-06, resultFile="DecemberToJanuary");
+simulateModel("Buildings.BoundaryConditions.WeatherData.Validation.DecemberToJanuary", startTime=30992400, stopTime=31860000, method="CVode", tolerance=1e-06, resultFile="DecemberToJanuary");
 createPlot(id=3, position={55, 50, 588, 413}, y={"weaDat.weaBus.TDryBul", "weaDat.weaBus.HDirNor", "weaDat.weaBus.HDifHor"}, range={358.0, 370.0, -6000.0, 2000.0}, grid=true, colors={{28,108,200}, {238,46,47}, {0,140,72}}, timeUnit="d", displayUnits={"degC", "", ""});

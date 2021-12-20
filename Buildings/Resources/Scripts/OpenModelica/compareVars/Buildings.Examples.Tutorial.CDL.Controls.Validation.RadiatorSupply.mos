@@ -1,0 +1,6 @@
+compareVars :=
+  {
+    "conRadSup.TRoo",
+    "conRadSup.TSup",
+    "conRadSup.yVal"
+  };

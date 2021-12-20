@@ -14,8 +14,6 @@ compareVars :=
     "enaDis1.yRetDamPosMin",
     "enaDis1.yOutDamPosMax",
     "enaDis1.uOutDamPosMin",
-    "TOutCut.y",
-    "TOut.y",
     "enaDis2.truFalHol.y",
     "enaDis2.yRetDamPosMax",
     "enaDis2.yRetDamPosMin",

@@ -1,4 +1,4 @@
-TDewPoi_TDryBulPhi
-TWetBul_TDryBulPhi
-h_TDryBulPhi
+DewPoint_TDryBulPhi
+SpecificEnthalpy_TDryBulPhi
+WetBulb_TDryBulPhi
 Validation

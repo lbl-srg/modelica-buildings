@@ -2,9 +2,8 @@ within Buildings.Applications.DataCenters.ChillerCooled.Equipment;
 model WatersideEconomizer "Waterside economizer"
   extends Buildings.Applications.DataCenters.ChillerCooled.Equipment.BaseClasses.PartialPlantParallel(
     final num=1,
-    val2(each final dpFixed_nominal=0),
+    val2(each final dpFixed_nominal=dp2_nominal),
     val1(each final dpFixed_nominal=dp1_nominal),
-    kFixed={m1_flow_nominal/sqrt(dp1_nominal),0},
     final yValve_start={yValWSE_start});
   extends Buildings.Fluid.Interfaces.LumpedVolumeDeclarations(
     final mSenFac=1,
@@ -43,11 +42,12 @@ model WatersideEconomizer "Waterside economizer"
   Buildings.Applications.DataCenters.ChillerCooled.Equipment.HeatExchanger_TSet heaExc(
     redeclare final replaceable package Medium1 = Medium1,
     redeclare final replaceable package Medium2 = Medium2,
+    final dpThrWayVal_nominal=dpThrWayVal_nominal,
     final use_controller=use_controller,
     final m1_flow_nominal=m1_flow_nominal,
     final m2_flow_nominal=m2_flow_nominal,
-    final dp1_nominal=dp1_nominal,
-    final dp2_nominal=dp2_nominal,
+    final dp1_nominal=0,
+    final dp2_nominal=0,
     final controllerType=controllerType,
     final k=k,
     final Ti=Ti,
@@ -97,7 +97,7 @@ model WatersideEconomizer "Waterside economizer"
     final portFlowDirection_2=portFlowDirection_2,
     final portFlowDirection_3=portFlowDirection_3,
     final rhoStd=rhoStd[2],
-    final reverseAction=reverseAction)
+    final reverseActing=reverseActing)
     "Water-to-water heat exchanger"
     annotation (Placement(transformation(extent={{-10,-12},{10,4}})));
 
@@ -140,6 +140,11 @@ around the setpoint.
 </ol>
 </html>", revisions="<html>
 <ul>
+<li>
+April 9, 2021, by Kathryn Hinkelman:<br/>
+Moved nominal pressure differences to <code>dpFixed_nominal</code> at isolation valves 
+to avoid redundant declarations and algebraic loops.
+</li>
 <li>
 June 30, 2017, by Yangyang Fu:<br/>
 First implementation.

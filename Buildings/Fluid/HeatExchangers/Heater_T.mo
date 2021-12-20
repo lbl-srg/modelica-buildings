@@ -142,7 +142,7 @@ Buildings, #763</a>.
           fillPattern=FillPattern.Solid),
                    Text(
           extent={{18,-6},{62,-52}},
-          lineColor={255,255,255},
+          textColor={255,255,255},
           textString="+"),
         Rectangle(
           extent={{70,82},{100,78}},
@@ -158,11 +158,11 @@ Buildings, #763</a>.
           fillPattern=FillPattern.Solid),
         Text(
           extent={{-110,102},{-74,84}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="T"),
         Text(
           extent={{26,108},{94,84}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="Q_flow"),
         Rectangle(
           extent={{66,60},{70,82}},

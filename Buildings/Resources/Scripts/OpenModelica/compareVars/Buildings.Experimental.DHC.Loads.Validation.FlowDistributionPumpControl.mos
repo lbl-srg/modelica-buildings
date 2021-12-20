@@ -1,0 +1,15 @@
+compareVars :=
+  {
+    "pumCstDp.dpMachine",
+    "disCstDp.pumFlo.dpMachine",
+    "pumCstSpe.dpMachine",
+    "disCstSpe.pumSpe.dpMachine",
+    "pumCstDp.m_flow",
+    "disCstDp.pumFlo.m_flow",
+    "pumCstSpe.m_flow",
+    "disCstSpe.pumSpe.m_flow",
+    "pumCstDp.P",
+    "disCstDp.pumFlo.P",
+    "pumCstSpe.P",
+    "disCstSpe.pumSpe.P"
+  };

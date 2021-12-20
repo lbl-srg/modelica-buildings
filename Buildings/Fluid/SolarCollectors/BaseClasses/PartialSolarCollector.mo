@@ -4,10 +4,13 @@ model PartialSolarCollector "Partial model for solar collectors"
   extends Buildings.Fluid.Interfaces.TwoPortFlowResistanceParameters(final dp_nominal = dp_nominal_final);
   extends Buildings.Fluid.Interfaces.PartialTwoPortInterface(
     final m_flow_nominal=perPar.mperA_flow_nominal*perPar.A);
+
+  constant Boolean homotopyInitialization = true "= true, use homotopy method"
+    annotation(HideResult=true);
+
   parameter Integer nSeg(min=3) = 3
     "Number of segments used to discretize the collector model";
 
-  parameter Modelica.SIunits.Angle lat(displayUnit="deg") "Latitude";
   parameter Modelica.SIunits.Angle azi(displayUnit="deg")
     "Surface azimuth (0 for south-facing; -90 degree for east-facing; +90 degree for west facing";
   parameter Modelica.SIunits.Angle til(displayUnit="deg")
@@ -40,9 +43,6 @@ model PartialSolarCollector "Partial model for solar collectors"
     "Selection of system configuration"
     annotation(Dialog(group="Configuration declarations"));
 
-  parameter Boolean homotopyInitialization = true "= true, use homotopy method"
-    annotation(Evaluate=true, Dialog(tab="Advanced"));
-
   Modelica.Blocks.Interfaces.RealInput shaCoe_in if use_shaCoe_in
     "Shading coefficient"
     annotation(Placement(transformation(extent={{-140,46},{-100,6}})));
@@ -54,14 +54,12 @@ model PartialSolarCollector "Partial model for solar collectors"
     final outSkyCon=true,
     final outGroCon=true,
     final til=til,
-    final lat=lat,
     final azi=azi,
     final rho=rho) "Diffuse solar irradiation on a tilted surface"
     annotation (Placement(transformation(extent={{-80,70},{-60,90}})));
 
   Buildings.BoundaryConditions.SolarIrradiation.DirectTiltedSurface HDirTil(
     final til=til,
-    final lat=lat,
     final azi=azi) "Direct solar irradiation on a tilted surface"
     annotation (Placement(transformation(extent={{-80,42},{-60,62}})));
 
@@ -98,7 +96,7 @@ model PartialSolarCollector "Partial model for solar collectors"
     each final C_nominal=C_nominal,
     each final mSenFac=mSenFac,
     each final allowFlowReversal=allowFlowReversal,
-    each final prescribedHeatFlowRate=true)
+    each final prescribedHeatFlowRate=false)
     "Volume of fluid in one segment of the solar collector"
     annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
@@ -151,6 +149,11 @@ protected
     "Specific heat capacity of the fluid";
   parameter Modelica.SIunits.Density rho_default=
     Medium.density(sta_default) "Density, used to compute fluid mass";
+
+initial equation
+  assert(homotopyInitialization, "In " + getInstanceName() +
+    ": The constant homotopyInitialization has been modified from its default value. This constant will be removed in future releases.",
+    level = AssertionLevel.warning);
 
 equation
   connect(shaCoe_internal,shaCoe_in);
@@ -222,9 +225,9 @@ estimated based on the dry mass and the specific heat capacity of copper.
 This heat capacity is then added to the model by increasing the size of the fluid
 volume. Note that in earlier implementations, there was a separate model to take into
 account this heat capacity. However, this led to a translation error if glycol
-was used as the medium, because during the translation, the function
-<a href=\"modelica://Modelica.Media.Incompressible.Examples.Glycol47.T_ph\">
-Modelica.Media.Incompressible.Examples.Glycol47.T_ph</a> had to be differentiated,
+was used as the medium, because during the translation, the function <code>T_ph</code> for
+<a href=\"modelica://Modelica.Media.Incompressible.Examples.Glycol47\">
+Modelica.Media.Incompressible.Examples.Glycol47</a> had to be differentiated,
 but this function is not differentiable.
 </p>
 <h4>References</h4>
@@ -236,6 +239,25 @@ CEN 2006, European Standard 12975-1:2006, European Committee for Standardization
 </html>",
 revisions="<html>
 <ul>
+<li>
+September 16, 2021, by Michael Wetter:<br/>
+Changed <code>lat</code> from being a parameter to an input from weather bus.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1477\">IBPSA, #1477</a>.
+</li>
+<li>
+April 14, 2020, by Michael Wetter:<br/>
+Changed <code>homotopyInitialization</code> to a constant.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1341\">IBPSA, #1341</a>.
+</li>
+<li>
+November 12, 2019, by Filip Jorissen:<br/>
+Set <code>prescribedHeatFlowRate=false</code>
+to avoid a division by zero at zero flow when using SteadyState dynamics.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1636\">Buildings, issue 1636</a>.
+</li>
 <li>
 April 27, 2018, by Michael Wetter:<br/>
 Corrected <code>displayUnit</code>.<br/>

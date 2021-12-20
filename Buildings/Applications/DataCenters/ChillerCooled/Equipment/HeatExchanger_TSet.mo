@@ -27,7 +27,7 @@ model HeatExchanger_TSet "Heat exchanger"
     final xi_start=xi_start,
     final xd_start=xd_start,
     final y_start=yCon_start,
-    final reverseAction=reverseAction,
+    final reverseActing=reverseActing,
     final reset=reset,
     final y_reset=y_reset) if use_controller
     "Controller for temperature at port_b2"

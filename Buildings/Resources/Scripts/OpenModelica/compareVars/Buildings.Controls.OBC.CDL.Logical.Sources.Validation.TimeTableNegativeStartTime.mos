@@ -1,0 +1,9 @@
+compareVars :=
+  {
+    "booTimTab.y[1]",
+    "booTimTab.y[2]",
+    "booTimTabTwi.y[1]",
+    "booTimTabTwi.y[2]",
+    "booTimTabOneRow.y[1]",
+    "booTimTabOneRow.y[2]"
+  };

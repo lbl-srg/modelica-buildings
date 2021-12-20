@@ -1,0 +1,8 @@
+old_hidden_avoid_double_computation=Hidden.AvoidDoubleComputation;
+Hidden.AvoidDoubleComputation=true;
+simulateModel("Buildings.ThermalZones.EnergyPlus.Validation.ThermalZone.TwoIdenticalZones", stopTime=604800, method="Cvode", tolerance=1e-06, resultFile="TwoIdenticalZones");
+Hidden.AvoidDoubleComputation=old_hidden_avoid_double_computation;
+createPlot(id=7, position={41, 7, 1252, 1087}, y={"zon1.TAir", "zon2.TAir", "zon1.zon.TRad", "zon2.zon.TRad", "TAirEnePlu.y"}, range={0.0, 604800, 10.0, 25.0}, autoscale=false, grid=true, colors={{28,108,200}, {238,46,47}, {0,140,72}, {217,67,180}, {0,0,0}}, displayUnits={"degC", "degC", "degC", "degC", "degC"});
+createPlot(id=7, position={41, 7, 1252, 214}, y={"relHumEnePlu.y", "zon1.phi", "zon2.phi"}, range={0.0, 604800, 0.0, 1.0}, grid=true, subPlot=2, colors={{28,108,200}, {238,46,47}, {0,140,72}});
+createPlot(id=8, position={1349, 37, 542, 654}, y={"zon1.zon.AFlo", "zon2.zon.AFlo"}, range={0.0, 1400000.0, 800.0, 1000.0}, grid=true, colors={{28,108,200}, {0,140,72}});
+createPlot(id=8, position={1349, 37, 542, 325}, y={"zon1.zon.V", "zon2.zon.V"}, range={0.0, 1400000.0, 2400.0, 3200.0}, grid=true, subPlot=2, colors={{28,108,200}, {238,46,47}});

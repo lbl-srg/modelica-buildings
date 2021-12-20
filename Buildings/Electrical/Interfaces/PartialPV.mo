@@ -23,14 +23,11 @@ model PartialPV "Base model for a PV system"
 
 protected
   Modelica.Blocks.Sources.RealExpression solarPower(y=A*fAct*eta*G)
+    "Solar energy converted at the PV panel"
     annotation (Placement(transformation(extent={{91,-10},{71,10}})));
 
 equation
   assert(solarPower.y>=0, "Solar power must be positive");
-  connect(solarPower.y, P) annotation (Line(
-      points={{70,0},{59,0},{59,0},{50,0},{50,70},{110,70}},
-      color={0,0,127},
-      smooth=Smooth.None));
 
   annotation (
     Icon(coordinateSystem(
@@ -40,7 +37,7 @@ equation
         Line(points={{-90,0},{-59,0}}, color={0,0,0}),
         Text(
           extent={{-150,-104},{150,-64}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="%name"),
         Polygon(
           points={{-80,-52},{-32,63},{78,63},{29,-52},{-80,-52}},
@@ -57,7 +54,7 @@ equation
           pattern=LinePattern.None),
         Text(
           extent={{-5,100},{98,136}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="G"),
         Polygon(
           points={{-53,-9},{-41,17},{-18,17},{-29,-9},{-53,-9}},
@@ -109,10 +106,17 @@ equation
           pattern=LinePattern.None),
         Text(
           extent={{102,107},{124,81}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="P")}),
     Documentation(revisions="<html>
 <ul>
+<li>
+October 7, 2019, by Michael Wetter:<br/>
+Removed connector between <code>solarPower.y</code> and <code>P</code>
+as for DC panels, an additional gain must be included in this connection.<br/>
+This is for issue
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1577\">1577</a>.
+</li>
 <li>
 January 4, 2013, by Michael Wetter:<br/>
 First implementation.

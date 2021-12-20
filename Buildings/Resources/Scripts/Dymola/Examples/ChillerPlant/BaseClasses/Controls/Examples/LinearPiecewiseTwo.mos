@@ -1,4 +1,4 @@
-simulateModel("Buildings.Examples.ChillerPlant.BaseClasses.Controls.Examples.LinearPiecewiseTwo", stopTime=86400, method="dassl", tolerance=1e-6, resultFile="LinearPiecewiseTwo");
+simulateModel("Buildings.Examples.ChillerPlant.BaseClasses.Controls.Examples.LinearPiecewiseTwo", stopTime=86400, method="CVode", tolerance=1e-6, resultFile="LinearPiecewiseTwo");
 createPlot(id = 1,
  position = {10, 30, 719, 536},
  y = {"linPieTwo.u"},

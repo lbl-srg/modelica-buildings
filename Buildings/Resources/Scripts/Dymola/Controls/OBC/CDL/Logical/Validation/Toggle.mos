@@ -1,8 +1,7 @@
 simulateModel("Buildings.Controls.OBC.CDL.Logical.Validation.Toggle", stopTime=10.0, method="Cvode", tolerance=1e-06, resultFile="Toggle1");
-createPlot(id=1, position={10, 10, 550, 800}, y={"falCle.u","falCle.clr","falCle.y"}, subPlot=1, range={0.0, 10.0, -3.5, 3.5}, grid=true, autoscale=false, colors={{238,46,47},{238,46,47},{238,46,47}});
-createPlot(id=1, position={10, 10, 550, 800}, y={"truCle.u","truCle.clr","truCle.y"}, subPlot=2, range={0.0, 10.0, -3.5, 3.5}, grid=true, autoscale=false, colors={{238,46,47},{238,46,47},{238,46,47}});
-createPlot(id=2, position={570, 10, 550, 800}, y={"iniFalOut.u","iniFalOut.clr","iniFalOut.y"}, subPlot=1, range={0.0, 10.0, -3.5, 3.5}, grid=true, autoscale=false, colors={{238,46,47},{238,46,47},{238,46,47}});
-createPlot(id=2, position={570, 10, 550, 800}, y={"iniTruOut.u","iniTruOut.clr","iniTruOut.y"}, subPlot=2, range={0.0, 10.0, -3.5, 3.5}, grid=true, autoscale=false, colors={{238,46,47},{238,46,47},{238,46,47}});
+createPlot(id=1, position={10, 10, 550, 800}, y={"falCleTruIni.u","falCleTruIni.clr","falCleTruIni.y"}, subPlot=1, range={0.0, 10.0, -3.5, 3.5}, grid=true, autoscale=false, colors={{238,46,47},{238,46,47},{238,46,47}});
+createPlot(id=1, position={10, 10, 550, 800}, y={"falCleFalIni.u","falCleFalIni.clr","falCleFalIni.y"}, subPlot=2, range={0.0, 10.0, -3.5, 3.5}, grid=true, autoscale=false, colors={{238,46,47},{238,46,47},{238,46,47}});
+createPlot(id=2, position={570, 10, 550, 800}, y={"truCleTruIni.u","truCleTruIni.clr","truCleTruIni.y"}, subPlot=1, range={0.0, 10.0, -3.5, 3.5}, grid=true, autoscale=false, colors={{238,46,47},{238,46,47},{238,46,47}});
+createPlot(id=2, position={570, 10, 550, 800}, y={"truCleFalIni.u","truCleFalIni.clr","truCleFalIni.y"}, subPlot=2, range={0.0, 10.0, -3.5, 3.5}, grid=true, autoscale=false, colors={{238,46,47},{238,46,47},{238,46,47}});
 createPlot(id=3, position={1130, 10, 550, 800}, y={"swiCleInp.u","swiCleInp.clr","swiCleInp.y"}, subPlot=1, range={0.0, 10.0, -3.5, 3.5}, grid=true, autoscale=false, colors={{238,46,47},{238,46,47},{238,46,47}});
 createPlot(id=3, position={1130, 10, 550, 800}, y={"swiCleInp1.u","swiCleInp1.clr","swiCleInp1.y"}, subPlot=2, range={0.0, 10.0, -3.5, 3.5}, grid=true, autoscale=false, colors={{238,46,47},{238,46,47},{238,46,47}});
-

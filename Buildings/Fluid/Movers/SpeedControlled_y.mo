@@ -10,18 +10,21 @@ model SpeedControlled_y
     final constInput(final unit="1") =       per.constantSpeed,
     filter(
       final y_start=y_start,
-      u_nominal=1,
       u(final unit="1"),
       y(final unit="1")),
     eff(
       per(final pressure = per.pressure,
-          final use_powerCharacteristic = per.use_powerCharacteristic)),
+          final use_powerCharacteristic = per.use_powerCharacteristic),
+          r_N(start=y_start)),
     gaiSpe(u(final unit="1"),
            final k=1/per.speed_nominal));
 
+  parameter Real y_start(min=0, max=1, unit="1")=0 "Initial value of speed"
+    annotation(Dialog(tab="Dynamics", group="Filtered speed", enable=use_inputFilter));
+
   Modelica.Blocks.Interfaces.RealInput y(
-    unit="1") if
-    inputType == Buildings.Fluid.Types.InputType.Continuous
+    unit="1")
+ if inputType == Buildings.Fluid.Types.InputType.Continuous
     "Constant normalized rotational speed"
     annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
@@ -52,11 +55,10 @@ equation
                                                      color={0,0,127}));
 
   if use_inputFilter then
-    connect(filter.y, eff.y_in) annotation (Line(points={{34.7,88},{38,88},{38,26},
-            {-26,26},{-26,-46},{-26,-48},{-26,-46},{-26,-46}},
-                                      color={0,0,127}));
+    connect(filter.y, eff.y_in) annotation (Line(points={{41,70.5},{44,70.5},{44,
+            26},{-26,26},{-26,-46}},  color={0,0,127}));
   else
-    connect(inputSwitch.y, eff.y_in) annotation (Line(points={{1,50},{38,50},{38,
+    connect(inputSwitch.y, eff.y_in) annotation (Line(points={{1,50},{44,50},{44,
             26},{-26,26},{-26,-46}},
                                    color={0,0,127}));
   end if;
@@ -64,31 +66,12 @@ equation
     annotation (defaultComponentName="fan",
     Icon(coordinateSystem(preserveAspectRatio=true,  extent={{-100,-100},{100,
             100}}),
-            graphics={
-            Text(
-              extent={{6,136},{104,114}},
-          lineColor={0,0,127},
-          textString="y [0..1]"),
-        Rectangle(
-          visible=use_inputFilter,
-          extent={{-34,40},{32,100}},
-          lineColor={0,0,0},
-          fillColor={135,135,135},
-          fillPattern=FillPattern.Solid),
-        Ellipse(
-          visible=use_inputFilter,
-          extent={{-34,100},{32,40}},
-          lineColor={0,0,0},
-          fillColor={135,135,135},
-          fillPattern=FillPattern.Solid),
+         graphics={
         Text(
-          visible=use_inputFilter,
-          extent={{-22,92},{20,46}},
-          lineColor={0,0,0},
-          fillColor={135,135,135},
-          fillPattern=FillPattern.Solid,
-          textString="M",
-          textStyle={TextStyle.Bold})}),
+          extent={{-40,126},{-160,76}},
+          textColor={0,0,127},
+          visible=inputType == Buildings.Fluid.Types.InputType.Continuous or inputType == Buildings.Fluid.Types.InputType.Stages,
+          textString=DynamicSelect("y", if inputType == Buildings.Fluid.Types.InputType.Continuous then String(y, format=".2f") else String(stage)))}),
     Documentation(info="<html>
 <p>
 This model describes a fan or pump with prescribed normalized speed.
@@ -109,6 +92,18 @@ User's Guide</a> for more information.
 </html>",
       revisions="<html>
 <ul>
+<li>
+June 17, 2021, by Michael Wetter:<br/>
+Changed implementation of the filter.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1498\">#1498</a>.
+</li>
+<li>
+February 21, 2020, by Michael Wetter:<br/>
+Changed icon to display its operating stage.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1294\">#1294</a>.
+</li>
 <li>
 March 24, 2017, by Michael Wetter:<br/>
 Renamed <code>filteredSpeed</code> to <code>use_inputFilter</code>.<br/>

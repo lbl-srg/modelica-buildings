@@ -36,9 +36,9 @@ partial model FluidInterface
   Modelica.Fluid.Interfaces.FluidPorts_b ports[
                                 nPorts](
                      redeclare each package Medium = Medium,
-                     m_flow(each max=if flowDirection==Modelica.Fluid.Types.PortFlowDirection.Leaving then 0 else
+                     each m_flow(max=if flowDirection==Modelica.Fluid.Types.PortFlowDirection.Leaving then 0 else
                                      +Modelica.Constants.inf,
-                            each min=if flowDirection==Modelica.Fluid.Types.PortFlowDirection.Entering then 0 else
+                                 min=if flowDirection==Modelica.Fluid.Types.PortFlowDirection.Entering then 0 else
                                      -Modelica.Constants.inf))
     annotation (Placement(transformation(extent={{88,40},{108,-40}})));
 
@@ -98,7 +98,7 @@ equation
         Line(points={{-100,-40},{-92,-40}}, color={0,0,255}),
         Text(
           extent={{-168,50},{-66,10}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid,
           textString="T"),
@@ -119,7 +119,7 @@ equation
           fillPattern=FillPattern.Solid),
         Text(
           extent={{-54,32},{16,-30}},
-          lineColor={255,0,0},
+          textColor={255,0,0},
           fillColor={255,0,0},
           fillPattern=FillPattern.Solid,
           textString="m"),

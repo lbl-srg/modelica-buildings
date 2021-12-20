@@ -1,5 +1,5 @@
 removePlots();
-simulateModel("Buildings.Utilities.Math.Examples.SmoothMin",  startTime=0, method="dassl", tolerance=1e-6, stopTime=1.0, resultFile="SmoothMin");
+simulateModel("Buildings.Utilities.Math.Examples.SmoothMin",  startTime=0, method="CVode", tolerance=1e-6, stopTime=1.0, resultFile="SmoothMin");
 createPlot(id=1,
 position={4, 21, 531, 524},
 y={"smoLim[2].y", "smoLim[1].y"},

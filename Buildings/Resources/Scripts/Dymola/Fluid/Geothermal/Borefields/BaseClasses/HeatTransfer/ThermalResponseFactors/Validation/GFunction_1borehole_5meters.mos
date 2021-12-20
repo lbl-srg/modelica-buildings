@@ -1,15 +1,15 @@
-simulateModel("Buildings.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.ThermalResponseFactors.Validation.GFunction_1borehole_5meters", startTime=0, stopTime=412000000, tolerance=1E-6, method="dassl", resultFile="GFunction_1borehole_5meters");
+simulateModel("Buildings.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.ThermalResponseFactors.Validation.GFunction_1borehole_5meters", startTime=0, stopTime=412000000, tolerance=1E-6, method="CVode", resultFile="GFunction_1borehole_5meters");
 
 createPlot(
   id   = 1,
   position = {35, 30, 631, 456},
   x    = "lntts_int",
-  y    = {"gFun_int"}, 
+  y    = {"gFun_int"},
   autoscale = true,
   autoerase = true,
-  autoreplot = true, 
+  autoreplot = true,
   grid=true,
   color=true,
-  filename="GFunction_1borehole_5meters.mat", 
+  filename="GFunction_1borehole_5meters.mat",
   leftTitleType = 1,
   bottomTitleType = 1);

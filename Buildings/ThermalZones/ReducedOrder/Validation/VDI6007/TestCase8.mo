@@ -4,18 +4,18 @@ model TestCase8 "VDI 6007 Test Case 8 model"
 
   RC.TwoElements thermalZoneTwoElements(
     redeclare package Medium = Modelica.Media.Air.SimpleAir,
-    alphaExt=2.7,
-    alphaWin=2.7,
+    hConExt=2.7,
+    hConWin=2.7,
     gWin=1,
     nExt=1,
-    alphaRad=5,
+    hRad=5,
     nInt=1,
     RWin=0.00000001,
     ratioWinConRad=0.09,
     RExt={0.0017362530106},
     CExt={5259932.23},
     AInt=60.5,
-    alphaInt=2.12,
+    hConInt=2.12,
     RInt={0.000668895639141},
     CInt={12391363.8631},
     RExtRem=0.01913729904,
@@ -68,7 +68,7 @@ model TestCase8 "VDI 6007 Test Case 8 model"
   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow macConv
     "Convective heat flow machines"
     annotation (Placement(transformation(extent={{48,-66},{68,-46}})));
-  Modelica.Blocks.Sources.Constant alphaWall(k=25*25.5)
+  Modelica.Blocks.Sources.Constant hConWall(k=25*25.5)
     "Outdoor coefficient of heat transfer for walls"
     annotation (Placement(
     transformation(
@@ -155,8 +155,8 @@ model TestCase8 "VDI 6007 Test Case 8 model"
     n=2,
     wfGro=0,
     aExt=0.7,
-    alphaWallOut=20,
-    alphaRad=5,
+    hConWallOut=20,
+    hRad=5,
     withLongwave=false,
     wfWall={0.05796831135677373,0.13249899738691134},
     wfWin={0.4047663456281575,0.4047663456281575},
@@ -237,8 +237,8 @@ model TestCase8 "VDI 6007 Test Case 8 model"
 equation
   connect(thermalZoneTwoElements.extWall, theConWall.solid)
     annotation (Line(points={{44,12},{40,12},{40,1},{36,1}},   color={191,0,0}));
-  connect(alphaWall.y, theConWall.Gc)
-    annotation (Line(points={{30,-13.6},{31,-13.6},{31,-4}}, color={0,0,127}));
+  connect(hConWall.y, theConWall.Gc)
+    annotation (Line(points={{30,-13.6},{31,-13.6},{31,-4}},color={0,0,127}));
   connect(perRad.port, thermalZoneTwoElements.intGainsRad)
     annotation (Line(
     points={{68,-92},{68,-92},{98,-92},{98,24},{92,24}},
@@ -358,6 +358,10 @@ equation
   solar radiation on exterior walls.</p>
   </html>", revisions="<html>
   <ul>
+  <li>
+  July 11, 2019, by Katharina Brinkmann:<br/>
+  Renamed <code>alphaWall</code> to <code>hConWall</code>
+  </li>
   <li>
   July 7, 2016, by Moritz Lauster:<br/>
   Added automatic check against validation thresholds.

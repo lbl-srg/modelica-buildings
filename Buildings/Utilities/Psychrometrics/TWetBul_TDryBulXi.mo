@@ -87,24 +87,24 @@ annotation (
             100}}), graphics={
         Text(
           extent={{-92,100},{-62,56}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="TDryBul"),
         Text(
           extent={{-86,14},{-72,-6}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="Xi"),
         Text(
           extent={{-90,-72},{-72,-90}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="p"),
         Text(
           extent={{62,22},{92,-22}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="TWetBul"),
         Line(points={{78,-74},{-48,-74}}),
         Text(
           extent={{76,-78},{86,-94}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
           textString="T"),
@@ -118,7 +118,7 @@ annotation (
         Line(points={{-48,84},{-48,-74}}),
         Text(
           extent={{-44,82},{-22,64}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
           textString="X"),
@@ -144,7 +144,7 @@ then the block uses the approximation of Stull (2011) to compute
 the wet bulb temperature without requiring a nonlinear equation.
 Otherwise, the model will introduce one nonlinear equation.
 The approximation by Stull is valid for a relative humidity of <i>5%</i> to <i>99%</i>,
-a temperature range from <i>-20&circ;C</i> to <i>50&circ;C</i>
+a temperature range from <i>-20&deg;C</i> to <i>50&deg;C</i>
 and standard sea level pressure.
 For this range of data, the approximation error is <i>-1</i> Kelvin to <i>+0.65</i> Kelvin,
 with a mean error of less than <i>0.3</i> Kelvin.

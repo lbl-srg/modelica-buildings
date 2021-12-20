@@ -431,12 +431,12 @@ This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1133\">1133
 April 16, 2019, by Michael Wetter:<br/>
 Changed computation of <code>computeCSen</code> to avoid the volume to become
 a structural parameter.<br/>
-This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1122\">Buildings, issue 1122</a>.
+This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1122\">IBPSA, issue 1122</a>.
 </li>
 <li>
 April 16, 2018, by Michael Wetter:<br/>
 Reformulated mass calculation so that Dymola can differentiate the equations.<br/>
-This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/910\">Buildings, issue 910</a>.
+This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/910\">IBPSA, issue 910</a>.
 </li>
 <li>
 November 3, 2017, by Michael Wetter:<br/>
@@ -702,11 +702,11 @@ Implemented first version in <code>Buildings</code> library, based on model from
           pattern=LinePattern.None),
         Text(
           extent={{-89,17},{-54,34}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="mWat_flow"),
         Text(
           extent={{-89,52},{-54,69}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="Q_flow"),
         Line(points={{-56,-73},{81,-73}}, color={255,255,255}),
         Line(points={{-42,55},{-42,-84}}, color={255,255,255}),
@@ -726,6 +726,6 @@ Implemented first version in <code>Buildings</code> library, based on model from
           smooth=Smooth.Bezier),
         Text(
           extent={{-155,-120},{145,-160}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%name")}));
 end ConservationEquation;

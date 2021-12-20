@@ -1,0 +1,6 @@
+compareVars :=
+  {
+    "transition1.condition",
+    "transition2.condition",
+    "actMod"
+  };

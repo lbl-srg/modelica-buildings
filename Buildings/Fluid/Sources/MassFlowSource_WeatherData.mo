@@ -50,13 +50,6 @@ protected
   Modelica.Blocks.Interfaces.RealInput h_in_internal(
     final unit="J/kg")
     "Needed to connect to conditional connector";
-  Modelica.Blocks.Interfaces.RealOutput X_in_internal[Medium.nX](
-    each final unit = "kg/kg",
-    final quantity=Medium.substanceNames)
-    "Needed to connect to conditional connector";
-  Modelica.Blocks.Interfaces.RealOutput C_in_internal[Medium.nC](
-    final quantity=Medium.extraPropertiesNames)
-    "Needed to connect to conditional connector";
 
 equation
   Modelica.Fluid.Utilities.checkBoundary(
@@ -135,7 +128,7 @@ equation
           fillPattern=FillPattern.Solid),
         Text(
           extent={{-54,32},{16,-30}},
-          lineColor={255,0,0},
+          textColor={255,0,0},
           fillColor={255,0,0},
           fillPattern=FillPattern.Solid,
           textString="m"),
@@ -147,20 +140,20 @@ equation
         Text(
           visible=use_m_flow_in,
           extent={{-185,132},{-45,100}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid,
           textString="m_flow"),
         Text(
           visible=use_C_in,
           extent={{-155,-98},{-35,-126}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid,
           textString="C"),        Text(
           extent={{-161,110},{139,150}},
           textString="%name",
-          lineColor={0,0,255})}),
+          textColor={0,0,255})}),
     Documentation(info="<html>
 <p>
 Models an ideal flow source, with prescribed values of flow rate and trace
@@ -194,9 +187,15 @@ with exception of boundary flow rate, do not have an effect.
 revisions="<html>
 <ul>
 <li>
+November 14, 2019, by Michael Wetter:<br/>
+Removed duplicate connector.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1248\"> #1248</a>.
+</li>
+<li>
 January 14, 2019 by Jianjun Hu:<br/>
 Changed to extend <a href=\"modelica://Buildings.Fluid.Sources.BaseClasses.PartialSource\">
-Buildings.Fluid.Sources.BaseClasses.PartialSource</a>. This is for 
+Buildings.Fluid.Sources.BaseClasses.PartialSource</a>. This is for
 <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1050\"> #1050</a>.
 </li>
 <li>

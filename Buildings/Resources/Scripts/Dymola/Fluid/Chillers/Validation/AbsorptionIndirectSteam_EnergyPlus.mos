@@ -1,0 +1,36 @@
+simulateModel("Buildings.Fluid.Chillers.Validation.AbsorptionIndirectSteam_EnergyPlus", method="Cvode", tolerance=1e-6,startTime=23500, stopTime=32400, resultFile="AbsorptionIndirectSteam_EnergyPlus");
+createPlot(id = 1,
+   position = {75, 70,1200, 980},
+   y = {"absChi.QCon_flow","QCon_EP.y"},
+   autoscale = true,
+   autoerase = true,
+   autoreplot = true,
+   grid = true,
+   color = true,
+   range= {23000, 30000, 12500, 23000},
+   displayUnits={"W", "W"});
+createPlot(id = 1,
+   position = {75, 70,1200, 240},
+   y = {"absChi.QEva_flow","QEva_EP.y"},
+   autoscale = true,
+   autoerase = true,
+   autoreplot = true,
+   grid = true,
+   color = true,
+   range= {23000, 30000, -3000, -9000},
+   subPlot=2,
+   displayUnits={"W", "W"});
+createPlot(id = 1,
+   position = {75, 70,1200, 241},
+   y = {"absChi.QGen_flow","QGen_EP.y"},
+   autoscale = true,
+   autoerase = true,
+   autoreplot = true,
+   grid = true,
+   range= {23000, 30000, 12500, 23000},
+   color = true,
+   subPlot=3,
+   displayUnits={"W", "W"});
+
+
+

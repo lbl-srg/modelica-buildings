@@ -2,7 +2,7 @@ within Buildings.Applications.DataCenters.ChillerCooled.Equipment.Validation;
 model NonIntegrated "Non-integrated WSE  in a chilled water system"
   extends Modelica.Icons.Example;
   extends Buildings.Applications.DataCenters.ChillerCooled.Equipment.Validation.BaseClasses.PartialPlant(
-    sou1(nPorts=2, m_flow=2*mCW_flow_nominal),
+    sou1(nPorts=2),
     sin1(nPorts=2),
     TSet(k=273.15 + 5.56),
     TEva_in(k=273.15 + 15.28),
@@ -31,16 +31,15 @@ model NonIntegrated "Non-integrated WSE  in a chilled water system"
     "Non-integrated waterside economizer "
     annotation (Placement(transformation(extent={{-10,-48},{10,-28}})));
 
-  Buildings.Fluid.Sources.MassFlowSource_T sou2(
+  Fluid.Sources.Boundary_pT sou2(
     redeclare package Medium = MediumCHW,
+    p=MediumCHW.p_default + 50E3,
     nPorts=2,
-    use_T_in=true,
-    m_flow=2*mCHW_flow_nominal)
-                   "Source on medium 2 side"
+    use_T_in=true) "Source on medium 2 side"
     annotation (Placement(
         transformation(
         extent={{10,-10},{-10,10}},
-        origin={50,-74})));
+        origin={52,-74})));
   Buildings.Applications.DataCenters.ChillerCooled.Equipment.NonIntegrated nonIntWSE2(
     m1_flow_chi_nominal=mCW_flow_nominal,
     m2_flow_chi_nominal=mCHW_flow_nominal,
@@ -78,10 +77,10 @@ equation
           -20,-44},{-40,-44}}, color={0,127,255}));
   connect(nonIntWSE1.port_b1, sin1.ports[1]) annotation (Line(points={{10,-32},{
           20,-32},{20,-4},{70,-4}}, color={0,127,255}));
-  connect(nonIntWSE1.port_a2, sou2.ports[1]) annotation (Line(points={{10,-44},{
-          26,-44},{26,-72},{40,-72}}, color={0,127,255}));
+  connect(nonIntWSE1.port_a2, sou2.ports[1]) annotation (Line(points={{10,-44},
+          {26,-44},{26,-72},{42,-72}},color={0,127,255}));
   connect(TEva_in.y, sou2.T_in)
-    annotation (Line(points={{69,-70},{62,-70}},            color={0,0,127}));
+    annotation (Line(points={{69,-70},{64,-70}},            color={0,0,127}));
   connect(onChi.y, nonIntWSE1.on[1]) annotation (Line(points={{-79,90},{-22,90},
           {-22,-30.4},{-11.6,-30.4}}, color={255,0,255}));
   connect(onWSE.y, nonIntWSE1.on[2]) annotation (Line(points={{-79,60},{-22,60},
@@ -97,7 +96,7 @@ equation
   connect(sin1.ports[2], nonIntWSE2.port_b1) annotation (Line(points={{70,-4},{20,
           -4},{20,-104},{10,-104}}, color={0,127,255}));
   connect(nonIntWSE2.port_a2, sou2.ports[2]) annotation (Line(points={{10,-116},
-          {26,-116},{26,-76},{40,-76}}, color={0,127,255}));
+          {26,-116},{26,-76},{42,-76}}, color={0,127,255}));
   connect(sin2.ports[2], TSup2.port_b) annotation (Line(points={{-70,-70},{-64,-70},
           {-64,-116},{-60,-116}}, color={0,127,255}));
   connect(TSup2.port_a, nonIntWSE2.port_b2)
@@ -118,6 +117,14 @@ is reset every 1800s.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+May 13, 2021, by Michael Wetter:<br/>
+Changed boundary condition model to prescribed pressure rather than prescribed mass flow rate.
+Prescribing the mass flow rate caused
+unreasonably large pressure drop because the mass flow rate was forced through a closed valve.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2488\">#2488</a>.
+</li>
 <li>
 January 28, 2019, by Yangyang Fu:<br/>
 Added test case for PI controller reset.

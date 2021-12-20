@@ -15,7 +15,7 @@ IntegratorWithReset
 InverseXRegularized
 Max
 Min
-Polynominal
+Polynomial
 PowerLinearized
 QuadraticLinear
 RegNonZeroPower

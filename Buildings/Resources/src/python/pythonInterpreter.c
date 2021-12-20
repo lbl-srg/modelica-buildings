@@ -7,6 +7,13 @@
 #define putenv(x) (_putenv(x))
 #endif
 
+#if PY_MAJOR_VERSION >= 3
+#define PyInt_AsLong(x) (PyLong_AsLong((x)))
+#define PyString_FromString(x) (PyUnicode_FromString(x))
+#define PyString_AsString(x) (PyBytes_AsString(x))
+#define PyInt_Check(x) (PySet_Check(x))
+#endif
+
 extern char **environ;
 
 /*

@@ -4,7 +4,9 @@ package Fluid "Package with models for fluid flow systems"
 
 annotation (
 preferredView="info", Documentation(info="<html>
+<p>
 This package contains obsolete models for fluid flow systems.
+</p>
 </html>"),
 Icon(graphics={
         Polygon(points={{-70,26},{68,-44},{68,26},{2,-10},{-70,-42},{-70,26}},

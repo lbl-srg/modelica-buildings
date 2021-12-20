@@ -1,0 +1,7 @@
+simulateModel("Buildings.Fluid.CHPs.BaseClasses.Validation.EnergyConversionWarmUp",
+    method="cvode", stopTime=1500, tolerance=1e-06, resultFile="EnergyConversionWarmUp");
+createPlot(id=1, position={20, 20, 900, 1200}, subPlot=1, y={"opeModWarUpEngTem.PEleNet"}, grid=true, colors={{28,108,200}});
+createPlot(id=1, position={20, 20, 900, 1200}, subPlot=2, y={"opeModWarUpEngTem.TWatIn", "opeModWarUpEngTem.TRoo","opeModWarUpEngTem.TEng"}, grid=true, colors={{28,108,200},{238,46,47},{0,140,72}});
+createPlot(id=1, position={20, 20, 900, 1200}, subPlot=3, y={"opeModWarUpEngTem.PEleNet", "opeModWarUpEngTem.QGen_flow"}, grid=true, colors={{28,108,200},{238,46,47}});
+createPlot(id=1, position={20, 20, 900, 1200}, subPlot=4, y={"opeModWarUpEngTem.mFue_flow", "opeModWarUpEngTem.mAir_flow"}, grid=true, colors={{28,108,200},{238,46,47}});
+

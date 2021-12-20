@@ -19,7 +19,6 @@ model EN12975_Series
     final rho=0.2,
     final nColType=Buildings.Fluid.SolarCollectors.Types.NumberSelection.Number,
     nPanels=1,
-    final lat=0.6457718232379,
     final til=0.78539816339745,
     final C=385*perPar.mDry,
     final use_shaCoe_in=false,
@@ -155,6 +154,12 @@ cases must have the same outlet temperatures.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+September 16, 2021, by Michael Wetter:<br/>
+Removed parameter assignment for <code>lat</code>.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1477\">IBPSA, #1477</a>.
+</li>
 <li>
 December 12, 2017, by Michael Wetter:<br/>
 First implementation to validate

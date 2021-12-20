@@ -4,7 +4,7 @@ model OneElement "Thermal Zone with one element for exterior walls"
 
   parameter Modelica.SIunits.Volume VAir "Air volume of the zone"
     annotation(Dialog(group="Thermal zone"));
-  parameter Modelica.SIunits.CoefficientOfHeatTransfer alphaRad
+  parameter Modelica.SIunits.CoefficientOfHeatTransfer hRad
     "Coefficient of heat transfer for linearized radiation exchange between walls"
     annotation(Dialog(group="Thermal zone"));
   parameter Integer nOrientations(min=1) "Number of orientations"
@@ -18,7 +18,7 @@ model OneElement "Thermal Zone with one element for exterior walls"
   parameter Modelica.SIunits.Area ATransparent[nOrientations] "Vector of areas of transparent (solar radiation transmittend) elements by
     orientations"
     annotation(Dialog(group="Windows"));
-  parameter Modelica.SIunits.CoefficientOfHeatTransfer alphaWin
+  parameter Modelica.SIunits.CoefficientOfHeatTransfer hConWin
     "Convective coefficient of heat transfer of windows (indoor)"
     annotation(Dialog(group="Windows"));
   parameter Modelica.SIunits.ThermalResistance RWin "Resistor for windows"
@@ -35,7 +35,7 @@ model OneElement "Thermal Zone with one element for exterior walls"
   parameter Modelica.SIunits.Area AExt[nOrientations]
     "Vector of areas of exterior walls by orientations"
     annotation(Dialog(group="Exterior walls"));
-  parameter Modelica.SIunits.CoefficientOfHeatTransfer alphaExt
+  parameter Modelica.SIunits.CoefficientOfHeatTransfer hConExt
     "Convective coefficient of heat transfer of exterior walls (indoor)"
     annotation(Dialog(group="Exterior walls"));
   parameter Integer nExt(min = 1) "Number of RC-elements of exterior walls"
@@ -55,6 +55,13 @@ model OneElement "Thermal Zone with one element for exterior walls"
   parameter Boolean indoorPortExtWalls = false
     "Additional heat port at indoor surface of exterior walls"
     annotation(Dialog(group="Exterior walls"),choices(checkBox = true));
+  parameter Boolean use_moisture_balance = false
+    "If true, input connector QLat_flow is enabled and room air computes moisture balance"
+    annotation(choices(checkBox = true));
+
+  parameter Boolean use_C_flow = false
+    "Set to true to enable input connector for trace substance"
+    annotation(Evaluate=true, Dialog(tab="Advanced"));
 
   Modelica.Blocks.Interfaces.RealInput solRad[nOrientations](
     each final quantity="RadiantEnergyFluenceRate",
@@ -63,6 +70,12 @@ model OneElement "Thermal Zone with one element for exterior walls"
     annotation (
     Placement(transformation(extent={{-280,120},{-240,160}}),
     iconTransformation(extent={{-260,140},{-240,160}})));
+
+  Modelica.Blocks.Interfaces.RealInput QLat_flow(final unit="W") if
+    use_moisture_balance and ATot >0
+    "Latent heat gains for the room"
+    annotation (Placement(transformation(extent={{-280,-150},{-240,-110}}),
+        iconTransformation(extent={{-260,-130},{-240,-110}})));
 
   Modelica.Blocks.Interfaces.RealOutput TAir(
     final quantity="ThermodynamicTemperature",
@@ -97,7 +110,8 @@ model OneElement "Thermal Zone with one element for exterior walls"
     annotation (Placement(transformation(extent={{-250,30},{-230,50}}),
     iconTransformation(extent={{-250,30},{-230,50}})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a intGainsConv if
-    ATot > 0 or VAir > 0 "Auxiliary port for internal convective gains"
+    ATot > 0 or VAir > 0
+    "Auxiliary port for sensible internal convective gains"
     annotation (Placement(
     transformation(extent={{230,30},{250,50}}), iconTransformation(extent={{230,30},
     {250,50}})));
@@ -129,8 +143,25 @@ model OneElement "Thermal Zone with one element for exterior walls"
     final C_start=C_start,
     final C_nominal=C_nominal,
     final mSenFac=mSenFac,
-    final use_C_flow=false) if VAir > 0 "Indoor air volume"
-    annotation (Placement(transformation(extent={{38,-10},{18,10}})));
+    final use_C_flow=use_C_flow) if VAir > 0 and not use_moisture_balance
+    "Indoor air volume"
+    annotation (Placement(transformation(extent={{42,-26},{22,-6}})));
+  Fluid.MixingVolumes.MixingVolumeMoistAir volMoiAir(
+    redeclare final package Medium = Medium,
+    final nPorts=nPorts,
+    m_flow_nominal=VAir*6/3600*1.2,
+    final V=VAir,
+    final energyDynamics=energyDynamics,
+    final massDynamics=massDynamics,
+    final p_start=p_start,
+    final T_start=T_start,
+    final X_start=X_start,
+    final C_start=C_start,
+    final C_nominal=C_nominal,
+    final mSenFac=mSenFac,
+    final use_C_flow=use_C_flow) if VAir > 0 and use_moisture_balance
+    "Indoor air volume"
+    annotation (Placement(transformation(extent={{-20,-26},{0,-6}})));
   Modelica.Thermal.HeatTransfer.Components.ThermalResistor resWin(final R=RWin) if
     ATotWin > 0 "Resistor for windows"
     annotation (Placement(transformation(extent={{-180,30},{-160,50}})));
@@ -165,7 +196,13 @@ model OneElement "Thermal Zone with one element for exterior walls"
     final T_start=T_start) if ATotExt > 0 "RC-element for exterior walls"
     annotation (Placement(transformation(extent={{-158,-50},{-178,-28}})));
 
+  Modelica.Blocks.Interfaces.RealInput[Medium.nC] C_flow if use_C_flow
+    "Trace substance mass flow rate added to the thermal zone"
+    annotation (Placement(transformation(extent={{-280,70},{-240,110}}), iconTransformation(extent={{-260,90},{-240,110}})));
+
 protected
+  constant Modelica.SIunits.SpecificEnergy h_fg=
+    Buildings.Media.Air.enthalpyOfCondensingGas(273.15+37) "Latent heat of water vapor";
   parameter Modelica.SIunits.Area ATot=sum(AArray) "Sum of wall surface areas";
   parameter Modelica.SIunits.Area ATotExt=sum(AExt)
     "Sum of exterior wall surface areas";
@@ -185,8 +222,8 @@ protected
                                                                      ATotExt > 0
     "Convective heat transfer of exterior walls"
     annotation (Placement(transformation(extent={{-114,-30},{-94,-50}})));
-  Modelica.Blocks.Sources.Constant alphaExtWallConst(
-    final k=ATotExt*alphaExt) if ATotExt > 0
+  Modelica.Blocks.Sources.Constant hConExtWall_const(
+  final k=ATotExt*hConExt) if ATotExt > 0
     "Coefficient of convective heat transfer for exterior walls"
     annotation (Placement(transformation(
     extent={{5,-5},{-5,5}},
@@ -195,8 +232,8 @@ protected
   Modelica.Thermal.HeatTransfer.Components.Convection convWin if ATotWin > 0
     "Convective heat transfer of windows"
     annotation (Placement(transformation(extent={{-116,30},{-96,50}})));
-  Modelica.Blocks.Sources.Constant alphaWinConst(final k=ATotWin*alphaWin) if
-    ATotWin > 0 "Coefficient of convective heat transfer for windows"
+  Modelica.Blocks.Sources.Constant hConWin_const(final k=ATotWin*hConWin)
+    "Coefficient of convective heat transfer for windows"
     annotation (Placement(transformation(
     extent={{-6,-6},{6,6}},
     rotation=-90,
@@ -211,13 +248,13 @@ protected
     "Emission coefficient of solar radiation considered as convection"
     annotation (Placement(transformation(extent={{-206,119},{-196,129}})));
   Modelica.Thermal.HeatTransfer.Components.ThermalConductor resExtWallWin(
-    final G=min(ATotExt, ATotWin)*alphaRad) if ATotExt > 0 and ATotWin > 0
+      final G=min(ATotExt, ATotWin)*hRad) if ATotExt > 0 and ATotWin > 0
     "Resistor between exterior walls and windows"
     annotation (Placement(
-    transformation(
-    extent={{-10,-10},{10,10}},
-    rotation=-90,
-    origin={-146,10})));
+        transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=-90,
+        origin={-146,10})));
   Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor senTAir if
     ATot > 0 or VAir > 0 "Indoor air temperature sensor"
     annotation (Placement(transformation(extent={{80,-10},{100,10}})));
@@ -233,12 +270,29 @@ protected
     "Sums up solar radiation from different directions"
     annotation (Placement(transformation(extent={{-186,118},{-174,130}})));
 
+  Modelica.Blocks.Math.Gain mWat_flow(
+    final k(unit="kg/J") = 1/h_fg,
+    u(final unit="W"),
+    y(final unit="kg/s")) if
+       use_moisture_balance and ATot >0 "Water flow rate due to latent heat gain"
+    annotation (Placement(transformation(extent={{-200,-100},{-180,-80}})));
+
+  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow conQLat_flow if
+    use_moisture_balance and ATot >0
+    "Converter for latent heat flow rate"
+    annotation (Placement(transformation(extent={{-202,-130},{-182,-110}})));
 equation
   connect(volAir.ports, ports)
     annotation (Line(
-    points={{28,-10},{28,-66},{56,-66},{56,-122},{86,-122},{86,-180},{85,-180}},
-    color={0,127,255},
-    smooth=Smooth.None));
+      points={{32,-26},{32,-46},{86,-46},{86,-180},{85,-180}},
+      color={0,127,255},
+      smooth=Smooth.None));
+
+  connect(volMoiAir.ports, ports) annotation (Line(
+      points={{-10,-26},{-10,-46},{86,-46},{86,-180},{85,-180}},
+      color={0,127,255},
+      smooth=Smooth.None));
+
   connect(resWin.port_a, window)
     annotation (Line(
     points={{-180,40},{-240,40}},
@@ -309,11 +363,11 @@ equation
     color={191,0,0}));
   connect(resExtWallWin.port_a, convWin.solid)
     annotation (Line(points={{-146,20},{-146,40},{-116,40}}, color={191,0,0}));
-  connect(alphaWinConst.y, convWin.Gc)
-    annotation (Line(points={{-106,61.4},{-106,55.7},{-106,50}},
+  connect(hConWin_const.y, convWin.Gc)
+    annotation (Line(points={{-106,61.4},{-106,50},{-106,50}},
     color={0,0,127}));
-  connect(alphaExtWallConst.y, convExtWall.Gc)
-    annotation (Line(points={{-104,-55.5},{-104,-50}},
+  connect(hConExtWall_const.y, convExtWall.Gc)
+    annotation (Line(points={{-104,-55.5},{-104,-22},{-104,-22},{-104,-50}},
     color={0,0,127}));
   connect(convExtWall.fluid, senTAir.port)
     annotation (Line(points={{-94,-40},{66,-40},{66,0},{80,0}},
@@ -330,7 +384,10 @@ equation
     annotation (Line(points={{-96,40},{66,40},{66,0},{80,0}},
     color={191,0,0}));
   connect(volAir.heatPort, senTAir.port)
-    annotation (Line(points={{38,0},{58,0},{80,0}}, color={191,0,0}));
+    annotation (Line(points={{42,-16},{42,0},{80,0}},
+                                                    color={191,0,0}));
+  connect(volMoiAir.heatPort, senTAir.port)
+    annotation (Line(points={{-20,-16},{-20,0},{80,0}}, color={191,0,0}));
   connect(senTAir.T, TAir)
     annotation (Line(points={{100,0},{108,0},{108,160},{250,160}},
     color={0,0,127}));
@@ -361,6 +418,23 @@ equation
     pattern=LinePattern.Dash));
   connect(sumSolRad.y, convHeatSol.Q_flow)
     annotation (Line(points={{-173.4,124},{-166,124}}, color={0,0,127}));
+  connect(mWat_flow.y, volMoiAir.mWat_flow) annotation (Line(
+        points={{-179,-90},{-168,-90},{-168,-80},{-34,-80},{-34,-8},{-22,-8}},
+        color={0,0,127},
+        pattern=LinePattern.Dash));
+
+  connect(conQLat_flow.port, volMoiAir.heatPort) annotation (Line(points={{-182,
+          -120},{-166,-120},{-166,-82},{-32,-82},{-32,-16},{-20,-16}}, color={191,
+          0,0}));
+  connect(mWat_flow.u, QLat_flow) annotation (Line(points={{-202,-90},{-232,-90},
+          {-232,-130},{-260,-130}}, color={0,0,127}));
+  connect(conQLat_flow.Q_flow, QLat_flow)
+    annotation (Line(points={{-202,-120},{-232,-120},{-232,-130},{-260,-130}},
+                                                       color={0,0,127}));
+  connect(volMoiAir.C_flow, C_flow) annotation (Line(points={{-22,-22},{-52,-22},
+          {-52,90},{-260,90}}, color={0,0,127}));
+  connect(volAir.C_flow, C_flow) annotation (Line(points={{44,-22},{56,-22},{56,
+          90},{-260,90}}, color={0,0,127}));
   annotation (defaultComponentName="theZon",Diagram(coordinateSystem(
   preserveAspectRatio=false, extent={{-240,-180},{240,180}},
   grid={2,2}),  graphics={
@@ -376,7 +450,7 @@ equation
     fillPattern=FillPattern.Solid),
   Text(
     extent={{-201,180},{-144,152}},
-    lineColor={0,0,255},
+    textColor={0,0,255},
     fillColor={215,215,215},
     fillPattern=FillPattern.Solid,
     textString="Solar Radiation"),
@@ -387,24 +461,24 @@ equation
     fillPattern=FillPattern.Solid),
   Text(
     extent={{-201,-59},{-146,-76}},
-    lineColor={0,0,255},
+    textColor={0,0,255},
     fillColor={215,215,215},
     fillPattern=FillPattern.Solid,
     textString="Exterior Walls"),
   Text(
     extent={{-202,82},{-168,64}},
-    lineColor={0,0,255},
+    textColor={0,0,255},
     fillColor={215,215,215},
     fillPattern=FillPattern.Solid,
     textString="Windows"),
   Rectangle(
-    extent={{6,30},{50,-14}},
+    extent={{-30,20},{50,-32}},
     lineColor={0,0,255},
     fillColor={215,215,215},
     fillPattern=FillPattern.Solid),
   Text(
-    extent={{9,30},{46,16}},
-    lineColor={0,0,255},
+    extent={{-11,18},{26,4}},
+    textColor={0,0,255},
     fillColor={215,215,215},
     fillPattern=FillPattern.Solid,
     textString="Indoor Air")}),
@@ -439,14 +513,14 @@ equation
     smooth=Smooth.None),
   Text(
     extent={{-260,266},{24,182}},
-    lineColor={0,0,255},
+    textColor={0,0,255},
     lineThickness=0.5,
     fillColor={236,99,92},
     fillPattern=FillPattern.Solid,
     textString="%name"),
   Text(
     extent={{-67,60},{57,-64}},
-    lineColor={0,0,0},
+    textColor={0,0,0},
     textString="1")}),
   Documentation(info="<html>
 <p>
@@ -468,7 +542,26 @@ The image below shows the RC-network of this model.
 </p>
   </html>",
 revisions="<html>
-  <ul>
+<ul>
+<li>
+October 9, 2019, by Michael Wetter:<br/>
+Refactored addition of moisture to also account for the energy content of the
+water vapor.<br/>
+This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1209\">IBPSA, issue 1209</a>.
+</li>
+  <li>
+  September 24, 2019, by Martin Kremer:<br/>
+  Added possibility to consider moisture balance. <br/>
+  Defined <code>volAir</code> conditional. Added conditional <code>volMoistAir</code> and corresponding in- and output connectors.
+  </li>
+  <li>
+  July 11, 2019, by Katharina Brinkmann:<br/>
+  Renamed <code>alphaRad</code> to <code>hRad</code>,
+  <code>alphaWin</code> to <code>hConWin</code>,
+  <code>alphaExt</code> to <code>hConExt</code>,
+  <code>alphaExtWallConst</code> to <code>hConExtWall_const</code>,
+  <code>alphaWinConst</code> to <code>hConWin_const</code>
+  </li>
   <li>
   January 25, 2019, by Michael Wetter:<br/>
   Added start value to avoid warning in JModelica.
@@ -483,6 +576,6 @@ revisions="<html>
   April 17, 2015, by Moritz Lauster:<br/>
   First implementation.
   </li>
-  </ul>
-  </html>"));
+</ul>
+</html>"));
 end OneElement;

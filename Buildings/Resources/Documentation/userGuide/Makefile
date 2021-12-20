@@ -115,4 +115,9 @@ doctest:
 dist:	html, linkcheck, copytowww
 
 copytowww:
-	scp -r build/html/* simulationresearch.lbl.gov:/usr/local/www/simulationresearch/modelica/userGuide/
+	rsync --delete --links --archive \
+	  --recursive --backup --update \
+	  --rsh=ssh --compress --times --checksum --verbose \
+	  --exclude "*~" \
+	  --exclude ".DS_Store" \
+	  build/html/* simulationresearch.lbl.gov:/usr/local/www/simulationresearch/modelica/userGuide/

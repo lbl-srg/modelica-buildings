@@ -26,7 +26,8 @@ model SpecificEntropy "Test model for the entropy flow rate sensors"
     annotation (Placement(transformation(extent={{-80,-12},{-60,8}})));
 
   Buildings.Fluid.Sensors.SpecificEntropy senFloSou(
-    redeclare package Medium = Medium) "Sensor at the flow source"
+    redeclare package Medium = Medium, warnAboutOnePortConnection=false)
+                                       "Sensor at the flow source"
     annotation (Placement(transformation(extent={{-10,0},{10,20}})));
   Buildings.Fluid.Sensors.SpecificEntropyTwoPort senStr(
     redeclare package Medium = Medium,

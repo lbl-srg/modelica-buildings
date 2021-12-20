@@ -1,0 +1,8 @@
+compareVars :=
+  {
+    "booFil.u[1]",
+    "booFil.u[2]",
+    "booFil.u[3]",
+    "booFil.y[1]",
+    "booFil.y[2]"
+  };

@@ -2,10 +2,14 @@ within Buildings.Controls.OBC.ASHRAE.G36_PR1.Generic.Validation;
 model FreezeProtectionMixedAir
   "Validation model for the mixed air temperature based freeze protection block"
 
-  parameter Modelica.SIunits.Temperature TFreSet = 273.15 + 4
-  "Freeze protection set point temperature";
+  parameter Real TFreSet(
+    final unit="K",
+    final displayUnit="degC",
+    final quantity="ThermodynamicTemperature")= 273.15 + 4
+    "Freeze protection set point temperature";
 
   Buildings.Controls.OBC.ASHRAE.G36_PR1.Generic.FreezeProtectionMixedAir freProTMix(final TFreSet = TFreSet)
+    "Freeze protection signal based on mixed air temperature"
   annotation (Placement(transformation(extent={{0,0},{20,20}})));
 
   CDL.Continuous.Sources.Sine sin1(
@@ -18,8 +22,7 @@ model FreezeProtectionMixedAir
 
 equation
   connect(sin1.y, freProTMix.TMix)
-  annotation (Line(points={{-19,11},{-10,11},{-10,10},{-1,10}},
-                                              color={0,0,127}));
+  annotation (Line(points={{-18,11},{-10,11},{-10,10},{-2,10}}, color={0,0,127}));
   annotation (
   experiment(StopTime=1800.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36_PR1/Generic/Validation/FreezeProtectionMixedAir.mos"

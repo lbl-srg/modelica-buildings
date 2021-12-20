@@ -1,5 +1,5 @@
 compareVars :=
   {
-    "cheTemDryBul.TOut",
-    "cheTemDewPoi.TOut"
+    "cheTemDryBul.TDryBul",
+    "cheTemDewPoi.TDewPoi"
   };
