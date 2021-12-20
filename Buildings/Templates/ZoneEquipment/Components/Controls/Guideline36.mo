@@ -4,7 +4,6 @@ block Guideline36
     Buildings.Templates.ZoneEquipment.Components.Controls.Interfaces.PartialSingleDuct(
       final typ=Buildings.Templates.ZoneEquipment.Types.Controller.Guideline36);
 
-  // See FIXME below for those parameters.
   parameter Boolean have_occSen=false
     "Set to true if zones have occupancy sensor"
     annotation (Dialog(tab="Airflow setpoint", group="Zone sensors"));
@@ -16,23 +15,6 @@ block Guideline36
   parameter Boolean have_CO2Sen=false
     "Set to true if the zone has CO2 sensor"
     annotation (Dialog(tab="Airflow setpoint", group="Zone sensors"));
-
-  /* FIXME: Evaluate function call at compile time
-  parameter Boolean have_occSen=
-    dat.getBoolean(varName=id + ".Control.Occupancy sensor.value")
-    "Set to true if zones have occupancy sensor"
-    annotation (Dialog(tab="Airflow setpoint", group="Zone sensors"));
-
-  parameter Boolean have_winSen=
-     dat.getBoolean(varName=id + ".Control.Window sensor.value")
-    "Set to true if zones have window status sensor"
-    annotation (Dialog(tab="Airflow setpoint", group="Zone sensors"));
-
-  parameter Boolean have_CO2Sen=
-    dat.getBoolean(varName=id + ".Control.CO2 sensor.value")
-    "Set to true if the zone has CO2 sensor"
-    annotation (Dialog(tab="Airflow setpoint", group="Zone sensors"));
-    */
 
   parameter Modelica.Units.SI.VolumeFlowRate V_flow_nominal=
     dat.getReal(varName=id + ".Mechanical.Discharge air mass flow rate.value") / 1.2

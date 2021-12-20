@@ -25,8 +25,7 @@ block Guideline36 "Guideline 36 VAV single duct controller"
       dat.getBoolean(varName=idTerArr[i] + ".Control.Perimeter zone with reheat.value")
       for i in 1:nZon})
     "Check if there is any VAV-reheat boxes on perimeter zones"
-    annotation (Dialog(group="System and building parameters"));
-
+    annotation (Dialog(group="System and building parameters"), Evaluate=true);
   */
 
   final parameter Boolean isZonInGro[nGro, nZon] = {
