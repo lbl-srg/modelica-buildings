@@ -9,11 +9,14 @@ model StorageHeatTransferRate
     "Coefficients for discharging curve";
   parameter Real dtDisCha=15 "Time step of curve fitting data";
 
-  Buildings.Fluid.IceStorage.BaseClasses.QStarCharging qStaCha(coeff=coeCha, dt=dtCha)
+  Buildings.Fluid.IceStorage.BaseClasses.QStarCharging qStaCha(
+    coeff=coeCha,
+    dt=dtCha)
     "q* for charing mode"
     annotation (Placement(transformation(extent={{-40,-34},{-20,-14}})));
-  Buildings.Fluid.IceStorage.BaseClasses.QStarDischarging qStaDisCha(coeff=coeDisCha, dt=
-        dtDisCha) "q* for discharging mode"
+  Buildings.Fluid.IceStorage.BaseClasses.QStarDischarging qStaDisCha(
+    coeff=coeDisCha,
+    dt=dtDisCha) "q* for discharging mode"
     annotation (Placement(transformation(extent={{-40,-90},{-20,-70}})));
   Modelica.Blocks.Logical.Switch swi1 "Switch"
     annotation (Placement(transformation(extent={{70,-10},{90,10}})));

@@ -20,7 +20,7 @@ package BaseClasses "Base classes for validation package"
       "Ice tank performance curves"
       annotation (Placement(transformation(extent={{80,80},{100,100}})));
 
-    IceStorage.IceTank iceTan(
+    Buildings.Fluid.IceStorage.IceTank iceTan(
       redeclare package Medium = Medium,
       m_flow_nominal=m_flow_nominal,
       dp_nominal=dp_nominal,

@@ -14,10 +14,10 @@ model IceTank "Example that test the IceTank model"
     "Nominal mass flow rate";
   parameter Modelica.SIunits.PressureDifference dp_nominal=100000
     "Pressure difference";
-  parameter IceStorage.Data.IceThermalStorage.Experiment per
+  parameter Buildings.Fluid.IceStorage.Data.IceThermalStorage.Experiment per
     annotation (Placement(transformation(extent={{80,80},{100,100}})));
 
-  IceStorage.IceTank iceTan(
+  Buildings.Fluid.IceStorage.IceTank iceTan(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
     dp_nominal=dp_nominal,

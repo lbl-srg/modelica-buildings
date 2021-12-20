@@ -10,7 +10,7 @@ model StorageHeatTransferRate "Example to calculate qStar"
     offset=0.5,
     freqHz=1/7200) "Fraction of charge"
     annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
-  IceStorage.BaseClasses.StorageHeatTransferRate norQSta(
+  Buildings.Fluid.IceStorage.BaseClasses.StorageHeatTransferRate norQSta(
     coeCha=coeCha,
     dtCha=dt,
     coeDisCha=coeDisCha,

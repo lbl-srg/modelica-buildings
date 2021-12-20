@@ -12,7 +12,7 @@ model QStarCharging "Example to calculate QStarCharing"
     annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
   Modelica.Blocks.Sources.Constant lmtd(k=1) "Log mean temperature difference"
     annotation (Placement(transformation(extent={{-60,-40},{-40,-20}})));
-  IceStorage.BaseClasses.QStarCharging qSta(coeff=coeCha, dt=dt)
+  Buildings.Fluid.IceStorage.BaseClasses.QStarCharging qSta(coeff=coeCha, dt=dt)
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 equation
   connect(fra.y, qSta.fraCha) annotation (Line(points={{-39,30},{-26,30},{-26,4},

@@ -11,7 +11,7 @@ model QStarDischarging "Example to calculate QStarDischarging"
     annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
   Modelica.Blocks.Sources.Constant lmtd(k=1) "Log mean temperature difference"
     annotation (Placement(transformation(extent={{-60,-40},{-40,-20}})));
-  IceStorage.BaseClasses.QStarDischarging qSta(coeff=coeDisCha, dt=dt)
+  Buildings.Fluid.IceStorage.BaseClasses.QStarDischarging qSta(coeff=coeDisCha, dt=dt)
     annotation (Placement(transformation(extent={{-10,-8},{10,12}})));
 equation
   connect(fra.y, qSta.fraCha) annotation (Line(points={{-39,30},{-26,30},{-26,6},

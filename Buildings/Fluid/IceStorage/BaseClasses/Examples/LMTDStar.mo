@@ -2,7 +2,7 @@ within Buildings.Fluid.IceStorage.BaseClasses.Examples;
 model LMTDStar "Example that tests the LMTDStar model"
   extends Modelica.Icons.Example;
 
-  IceStorage.BaseClasses.LMTDStar lmtdSta "LMTD star"
+  Buildings.Fluid.IceStorage.BaseClasses.LMTDStar lmtdSta "LMTD star"
     annotation (Placement(transformation(extent={{32,-10},{52,10}})));
   Modelica.Blocks.Sources.Cosine TIn(
     amplitude=4,

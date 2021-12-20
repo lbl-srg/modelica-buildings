@@ -152,19 +152,19 @@ model IceTank "A detailed ice tank model"
     annotation (Placement(transformation(extent={{-54,-54},{-34,-34}})));
   Modelica.Blocks.Math.Gain gai(k=QSto_nominal) "Gain"
     annotation (Placement(transformation(extent={{-26,-54},{-6,-34}})));
-  BaseClasses.LMTDStar lmtdSta(
+  Buildings.Fluid.IceStorage.BaseClasses.LMTDStar lmtdSta(
     final TFre=TFre,
     final dT_nominal=dT_nominal)
     annotation (Placement(transformation(extent={{-86,-54},{-66,-34}})));
 
-  BaseClasses.IceMass iceMas(
+  Buildings.Fluid.IceStorage.BaseClasses.IceMass iceMas(
     final mIce_max=mIce_max,
     final mIce_start=mIce_start,
     final Hf=Hf)
     "Mass of the remaining ice"
     annotation (Placement(transformation(extent={{68,-80},{88,-60}})));
 
-  BaseClasses.OutletTemperatureControl TOutCon(
+  Buildings.Fluid.IceStorage.BaseClasses.OutletTemperatureControl TOutCon(
     final controllerType=Modelica.Blocks.Types.SimpleController.PI,
     final k=k,
     final Ti=Ti,

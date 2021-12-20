@@ -66,7 +66,8 @@ model OutletTemperatureControl "Storage outlet temperature control"
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
   Buildings.Controls.OBC.CDL.Integers.Equal isDis "Is discharging"
     annotation (Placement(transformation(extent={{-40,-50},{-20,-30}})));
-  Modelica.Blocks.Sources.IntegerExpression disMod(y=Integer(IceStorage.Types.IceThermalStorageMode.Discharging))
+  Modelica.Blocks.Sources.IntegerExpression disMod(
+    y=Integer(Buildings.Fluid.IceStorage.Types.IceThermalStorageMode.Discharging))
     "Discharging mode"
     annotation (Placement(transformation(extent={{-80,-58},{-60,-38}})));
   Modelica.Blocks.Logical.Switch swi2
@@ -102,7 +103,8 @@ model OutletTemperatureControl "Storage outlet temperature control"
 
   Buildings.Controls.OBC.CDL.Integers.Equal isDor "Is dormant"
     annotation (Placement(transformation(extent={{-40,30},{-20,50}})));
-  Modelica.Blocks.Sources.IntegerExpression dorMod(y=Integer(IceStorage.Types.IceThermalStorageMode.Dormant))
+  Modelica.Blocks.Sources.IntegerExpression dorMod(
+    y=Integer(Buildings.Fluid.IceStorage.Types.IceThermalStorageMode.Dormant))
     "Dormant mode"
     annotation (Placement(transformation(extent={{-80,22},{-60,42}})));
   Modelica.Blocks.Sources.Constant uti(k=1) "Utility"

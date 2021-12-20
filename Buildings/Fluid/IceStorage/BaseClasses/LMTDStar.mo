@@ -20,13 +20,13 @@ model LMTDStar
 equation
 
   lmtdSta = Buildings.Utilities.Math.Functions.smoothMin(
-    x1=10,
-    x2=IceStorage.BaseClasses.calculateLMTDStar(
-      TIn=TIn,
-      TOut=TOut,
-      TFre=TFre,
-      dT_nominal=dT_nominal),
-    deltaX=1E-6);
+      x1=10,
+      x2=Buildings.Fluid.IceStorage.BaseClasses.calculateLMTDStar(
+        TIn=TIn,
+        TOut=TOut,
+        TFre=TFre,
+        dT_nominal=dT_nominal),
+      deltaX=1E-6);
 
   annotation (defaultComponentName = "lmtdSta",
   Icon(coordinateSystem(preserveAspectRatio=false), graphics={

@@ -2,7 +2,7 @@ within Buildings.Fluid.IceStorage.BaseClasses.Examples;
 model IceMass "Example that tests the ice mass calculation"
   extends Modelica.Icons.Example;
 
-  IceStorage.BaseClasses.IceMass iceMas(mIce_max=2846.35, mIce_start=2846.35/2)
+  Buildings.Fluid.IceStorage.BaseClasses.IceMass iceMas(mIce_max=2846.35, mIce_start=2846.35/2)
     "Ice mass calculator"
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
   Modelica.Blocks.Sources.Cosine q(
