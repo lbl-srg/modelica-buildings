@@ -1,9 +1,9 @@
 within Buildings.Experimental.DHC.Plants;
-package Heating "fixme: add brief description"
+package Heating "Package of models for central heating production"
   extends Modelica.Icons.Package;
 annotation (preferredView="info", Documentation(info="<html>
 <p>
-fixme: add a package description.
+This package contains models for central plants producing hot water.
 </p>
 </html>"));
 end Heating;

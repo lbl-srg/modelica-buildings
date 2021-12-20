@@ -1,9 +1,9 @@
 within Buildings.Experimental.DHC.Plants;
-package Reservoir "fixme: add brief description"
+package Reservoir "Package of models for district-scale thermal reservoirs"
   extends Modelica.Icons.Package;
 annotation (preferredView="info", Documentation(info="<html>
 <p>
-fixme: add a package description.
+This package contains models for district scale thermal reservoirs.
 </p>
 </html>"));
 end Reservoir;
