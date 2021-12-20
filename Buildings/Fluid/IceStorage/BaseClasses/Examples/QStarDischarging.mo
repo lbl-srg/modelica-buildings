@@ -25,7 +25,7 @@ equation
               Tolerance=1e-06,
               __Dymola_Algorithm="Cvode"),
     __Dymola_Commands(file=
-          "modelica://IceStorage/Resources/scripts/dymola/BaseClasses/Examples/QStarDischarging.mos"
+          "modelica://Buildings/Resources/Scripts/Dymola/Fluid/IceStorage/BaseClasses/Examples/QStarDischarging.mos"
         "Simulate and Plot"),
     Documentation(info="<html>
     <p>This example is to validate the <a href=modelica://IceStorage.BaseClasses.QStar>QStar</a>.</p>

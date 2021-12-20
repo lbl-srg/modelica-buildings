@@ -9,17 +9,17 @@ model StorageHeatTransferRate
     "Coefficients for discharging curve";
   parameter Real dtDisCha=15 "Time step of curve fitting data";
 
-  IceStorage.BaseClasses.QStarCharging qStaCha(coeff=coeCha, dt=dtCha)
+  Buildings.Fluid.IceStorage.BaseClasses.QStarCharging qStaCha(coeff=coeCha, dt=dtCha)
     "q* for charing mode"
     annotation (Placement(transformation(extent={{-40,-34},{-20,-14}})));
-  IceStorage.BaseClasses.QStarDischarging qStaDisCha(coeff=coeDisCha, dt=
+  Buildings.Fluid.IceStorage.BaseClasses.QStarDischarging qStaDisCha(coeff=coeDisCha, dt=
         dtDisCha) "q* for discharging mode"
     annotation (Placement(transformation(extent={{-40,-90},{-20,-70}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi1 "Switch"
+  Modelica.Blocks.Logical.Switch swi1 "Switch"
     annotation (Placement(transformation(extent={{70,-10},{90,10}})));
   Modelica.Blocks.Sources.Constant zer(k=0) "Constant of zero"
     annotation (Placement(transformation(extent={{20,30},{40,50}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi2 "Switch"
+  Modelica.Blocks.Logical.Switch swi2 "Switch"
     annotation (Placement(transformation(extent={{40,-60},{60,-40}})));
   Modelica.Blocks.Interfaces.RealOutput qNor(final quantity="1/s")
     "Normalized heat transfer rate: charging when postive, discharge when negative"
@@ -39,10 +39,12 @@ model StorageHeatTransferRate
 
   Buildings.Controls.OBC.CDL.Integers.Equal isCha "Is charging mode"
     annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
-  Modelica.Blocks.Sources.IntegerExpression chaMod(y=Integer(IceStorage.Types.IceThermalStorageMode.Charging))
+  Modelica.Blocks.Sources.IntegerExpression chaMod(
+    y=Integer(Buildings.Fluid.IceStorage.Types.IceThermalStorageMode.Charging))
     "Charging mode"
     annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
-  Modelica.Blocks.Sources.IntegerExpression dorMod(y=Integer(IceStorage.Types.IceThermalStorageMode.Dormant))
+  Modelica.Blocks.Sources.IntegerExpression dorMod(
+    y=Integer(Buildings.Fluid.IceStorage.Types.IceThermalStorageMode.Dormant))
     "Dormant mode"
     annotation (Placement(transformation(extent={{-80,50},{-60,70}})));
 equation
@@ -52,7 +54,7 @@ equation
     annotation (Line(points={{-19,-24},{10,-24},{10,-42},{38,-42}},
                                                             color={0,0,127}));
   connect(swi2.y, swi1.u3)
-    annotation (Line(points={{62,-50},{64,-50},{64,-8},{68,-8}},
+    annotation (Line(points={{61,-50},{64,-50},{64,-8},{68,-8}},
                                                              color={0,0,127}));
   connect(qStaCha.lmtdSta, lmtdSta) annotation (Line(points={{-42,-28},{-50,-28},
           {-50,-60},{-120,-60}},color={0,0,127}));
@@ -64,7 +66,7 @@ equation
           -58}},color={0,0,127}));
   connect(qStaDisCha.qNor,gai. u)
     annotation (Line(points={{-19,-80},{-2,-80}}, color={0,0,127}));
-  connect(swi1.y, qNor) annotation (Line(points={{92,0},{110,0}},
+  connect(swi1.y, qNor) annotation (Line(points={{91,0},{110,0}},
         color={0,0,127}));
   connect(fraCha, qStaDisCha.fraCha) annotation (Line(points={{-120,0},{-70,0},{
           -70,-76},{-42,-76}},  color={0,0,127}));

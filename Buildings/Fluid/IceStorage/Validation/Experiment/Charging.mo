@@ -1,10 +1,8 @@
 within Buildings.Fluid.IceStorage.Validation.Experiment;
 model Charging "Validation against charging experiment"
-  extends IceStorage.Validation.BaseClasses.PartialExample(
-    fileName=Modelica.Utilities.Files.loadResource(
-        "modelica://IceStorage/Resources/data/Validation/Experiment/charging.txt"),
-
-    mod(k=Integer(IceStorage.Types.IceThermalStorageMode.Charging)),
+  extends Buildings.Fluid.IceStorage.Validation.BaseClasses.PartialExample(
+    fileName=Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/Data/Fluid/IceStorage/Validation/Experiment/charging.txt"),
+    mod(k=Integer(Buildings.Fluid.IceStorage.Types.IceThermalStorageMode.Charging)),
     mIce_max=2846.35,
     mIce_start=0.158*mIce_max);
 
@@ -15,7 +13,7 @@ model Charging "Validation against charging experiment"
       Tolerance=1e-06,
       __Dymola_Algorithm="Cvode"),
     __Dymola_Commands(file=
-          "modelica://IceStorage/Resources/scripts/dymola/Validation/Experiment/Charging.mos"
+          "modelica://Buildings/Resources/Scripts/Dymola/Fluid/IceStorage/Validation/Experiment/Charging.mos"
         "Simulate and Plot"),
     Documentation(info="<html>
 <p>

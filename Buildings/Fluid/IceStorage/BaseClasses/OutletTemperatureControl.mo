@@ -47,7 +47,7 @@ model OutletTemperatureControl "Storage outlet temperature control"
     annotation(Dialog(enable=initType == Modelica.Blocks.Types.InitPID.InitialOutput, group=
           "Initialization"));
 
-  parameter Boolean reverseAction = false
+  parameter Boolean reverseActing = false
     "Set to true for throttling the water flow rate through a cooling coil controller";
 
   final parameter Buildings.Types.Reset reset = Buildings.Types.Reset.Parameter
@@ -73,7 +73,9 @@ model OutletTemperatureControl "Storage outlet temperature control"
                                      "Switch"
     annotation (Placement(transformation(extent={{20,-50},{40,-30}})));
   Buildings.Controls.Continuous.LimPID conPID(
-    controllerType=controllerType,            k=k, Ti=Ti,
+    controllerType=controllerType,
+    k=k,
+    Ti=Ti,
     Td=Td,
     yMax=yMax,
     yMin=yMin,
@@ -84,7 +86,7 @@ model OutletTemperatureControl "Storage outlet temperature control"
     initType=initType,
     xi_start=xi_start,
     xd_start=xd_start,
-    reverseAction=reverseAction,
+    reverseActing=reverseActing,
     reset=reset,
     y_reset=y_reset)
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));

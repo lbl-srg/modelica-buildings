@@ -1,4 +1,4 @@
 ﻿removePlots(true);
-simulateModel("IceStorage.BaseClasses.Examples.StorageHeatTransferRate", startTime=0, stopTime=7200, method="cvode", tolerance=1e-06, resultFile="StorageHeatTransferRate");
+simulateModel("Buildings.Fluid.IceStorage.BaseClasses.Examples.StorageHeatTransferRate", startTime=0, stopTime=7200, method="cvode", tolerance=1e-06, resultFile="StorageHeatTransferRate");
 createPlot(id=1, position={0, 0, 1645, 640}, y={"norQSta.qNor"},grid=true,subPlot=1, colors={{28,108,200}});
 createPlot(id=1, position={0, 0, 1645, 640}, y={"norQSta.u","norQSta.fraCha"},grid=true,subPlot=2, colors={{28,108,200},{0,140,72}});

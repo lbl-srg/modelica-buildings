@@ -26,7 +26,7 @@ equation
               Tolerance=1e-06,
               __Dymola_Algorithm="Cvode"),
     __Dymola_Commands(file=
-          "modelica://IceStorage/Resources/scripts/dymola/BaseClasses/Examples/LMTDStar.mos"
+          "modelica://Buildings/Resources/Scripts/Dymola/Fluid/IceStorage/BaseClasses/Examples/LMTDStar.mos"
         "Simulate and Plot"),
         Documentation(info=
      "<html>

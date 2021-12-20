@@ -71,8 +71,6 @@ model IceTank "A detailed ice tank model"
   parameter Modelica.SIunits.Time riseTime=120
     "Rise time of the filter (time to reach 99.6 % of an opening step)"
     annotation (Dialog(tab = "Dynamics", group="Valve"));
-  parameter Integer order=2 "Order of filter"
-    annotation (Dialog(tab = "Dynamics", group="Valve"));
   parameter Modelica.Blocks.Types.Init init=Modelica.Blocks.Types.Init.InitialOutput
     "Type of initialization (no init/steady state/initial state/initial output)"
     annotation (Dialog(tab = "Dynamics", group="Valve"));
@@ -171,19 +169,20 @@ model IceTank "A detailed ice tank model"
     final k=k,
     final Ti=Ti,
     final yMax=yMax,
-    final yMin=yMin)
+    final yMin=yMin,
+    final reverseActing=true)
     "PI controller to enable outlet ice tank temperature control"
     annotation (Placement(transformation(extent={{-10,70},{10,90}})));
 
-  Buildings.Controls.OBC.CDL.Integers.LessThreshold chaMod(
-    threshold=Integer(IceStorage.Types.IceThermalStorageMode.Discharging))
-    "Charging mode"
+  Buildings.Controls.OBC.CDL.Integers.LessThreshold nonDisChaMod(t=Integer(
+        Buildings.Fluid.IceStorage.Types.IceThermalStorageMode.Discharging))
+    "Charging or dormant mode"
     annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
   Modelica.Blocks.Math.Max max "Smooth maximum"
     annotation (Placement(transformation(extent={{6,-100},{26,-80}})));
   Modelica.Blocks.Math.Min min
     annotation (Placement(transformation(extent={{34,-48},{54,-28}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi "Switch"
+  Modelica.Blocks.Logical.Switch swi "Switch"
     annotation (Placement(transformation(extent={{38,-80},{58,-60}})));
 
   Buildings.Fluid.Sensors.TemperatureTwoPort senTIn(
@@ -205,7 +204,6 @@ model IceTank "A detailed ice tank model"
     final dpValve_nominal=dpValve_nominal,
     final use_inputFilter=use_inputFilter,
     final riseTime=riseTime,
-    final order=order,
     final init=init,
     final y_start=y_start,
     final dpFixed_nominal=dp_nominal,
@@ -223,7 +221,6 @@ model IceTank "A detailed ice tank model"
     final dpValve_nominal=dpValve_nominal,
     final use_inputFilter=use_inputFilter,
     final riseTime=riseTime,
-    final order=order,
     final init=init,
     final y_start=y_start,
     final dpFixed_nominal=0,
@@ -266,12 +263,12 @@ equation
           {110,-50}}, color={0,0,127}));
   connect(senTOutMix.T, TOut)
     annotation (Line(points={{70,11},{70,40},{110,40}}, color={0,0,127}));
-  connect(chaMod.y, swi.u2) annotation (Line(points={{-58,-70},{36,-70}},
-                                              color={255,0,255}));
+  connect(nonDisChaMod.y, swi.u2)
+    annotation (Line(points={{-58,-70},{36,-70}}, color={255,0,255}));
   connect(swi.y, iceMas.q)
-    annotation (Line(points={{60,-70},{66,-70}},   color={0,0,127}));
-  connect(swi.y, hea.u) annotation (Line(points={{60,-70},{62,-70},{62,-16},{
-          -10,-16},{-10,6},{-2,6}}, color={0,0,127}));
+    annotation (Line(points={{59,-70},{66,-70}},   color={0,0,127}));
+  connect(swi.y, hea.u) annotation (Line(points={{59,-70},{62,-70},{62,-16},{-10,
+          -16},{-10,6},{-2,6}},     color={0,0,127}));
   connect(min.y, swi.u1) annotation (Line(points={{55,-38},{60,-38},{60,-54},{26,
           -54},{26,-62},{36,-62}},
                                 color={0,0,127}));
@@ -296,8 +293,8 @@ equation
           {110,-20}}, color={0,0,127}));
   connect(max.y, swi.u3) annotation (Line(points={{27,-90},{30,-90},{30,-78},{36,
           -78}}, color={0,0,127}));
-  connect(u, chaMod.u) annotation (Line(points={{-120,80},{-62,80},{-62,-58},{-88,
-          -58},{-88,-70},{-82,-70}}, color={255,127,0}));
+  connect(u, nonDisChaMod.u) annotation (Line(points={{-120,80},{-62,80},{-62,-58},
+          {-88,-58},{-88,-70},{-82,-70}}, color={255,127,0}));
   connect(lmtdSta.lmtdSta, norQSta.lmtdSta) annotation (Line(points={{-65,-44},{
           -64,-44},{-64,-50},{-56,-50}}, color={0,0,127}));
   connect(iceMas.fraCha, norQSta.fraCha) annotation (Line(points={{89,-66},{92,-66},

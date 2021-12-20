@@ -42,7 +42,7 @@ equation
       Tolerance=1e-06,
       __Dymola_Algorithm="Cvode"),
     __Dymola_Commands(file=
-          "modelica://IceStorage/Resources/scripts/dymola/BaseClasses/Examples/StorageHeatTransferRate.mos"
+          "modelica://Buildings/Resources/Scripts/Dymola/Fluid/IceStorage/BaseClasses/Examples/StorageHeatTransferRate.mos"
         "Simulate and Plot"),
     Documentation(revisions="<html>
   <ul>

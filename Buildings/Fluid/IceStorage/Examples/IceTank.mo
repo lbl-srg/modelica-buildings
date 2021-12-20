@@ -74,7 +74,7 @@ equation
       StopTime=86400,
       Tolerance=1e-06,
       __Dymola_Algorithm="Cvode"),
-    __Dymola_Commands(file="modelica://IceStorage/Resources/Scripts/Dymola/Examples/IceTank.mos"
+    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/IceStorage/Examples/IceTank.mos"
         "Simulate and Plot"),
     Documentation(info="<html>
 <p>

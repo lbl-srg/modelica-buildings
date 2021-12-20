@@ -1,10 +1,8 @@
 within Buildings.Fluid.IceStorage.Validation.Experiment;
 model Discharging1 "Validation against discharging experiment 1"
   extends IceStorage.Validation.BaseClasses.PartialExample(
-    fileName=Modelica.Utilities.Files.loadResource(
-        "modelica://IceStorage/Resources/data/Validation/Experiment/discharging1.txt"),
-
-    mod(k=Integer(IceStorage.Types.IceThermalStorageMode.Discharging)),
+    fileName=Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/Data/Fluid/IceStorage/Validation/Experiment/discharging1.txt"),
+    mod(k=Integer(Buildings.Fluid.IceStorage.Types.IceThermalStorageMode.Discharging)),
     mIce_max=2846.35,
     mIce_start=0.90996030*mIce_max,
     offSet(k=-2));
@@ -15,7 +13,7 @@ model Discharging1 "Validation against discharging experiment 1"
       StopTime=19990,
       Tolerance=1e-06,
       __Dymola_Algorithm="Cvode"),
-    __Dymola_Commands(file="modelica://IceStorage/Resources/scripts/dymola/Validation/Experiment/Discharging1.mos"
+    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/IceStorage/Validation/Experiment/Discharging1.mos"
         "Simulate and Plot"),
     Documentation(info="<html>
 <p>
