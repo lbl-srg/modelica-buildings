@@ -27,9 +27,8 @@ model Guideline36Winter
       file="modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/EnergyPlus/Examples/SmallOffice/Guideline36Winter.mos" "Simulate and plot"),
     experiment(
       StartTime=432000,
-      StopTime=1296000,
-      Tolerance=1e-07,
-      __Dymola_Algorithm="Cvode"),
+      StopTime=864000,
+      Tolerance=1e-07),
     Icon(
       coordinateSystem(
         extent={{-100,-100},{100,100}},
