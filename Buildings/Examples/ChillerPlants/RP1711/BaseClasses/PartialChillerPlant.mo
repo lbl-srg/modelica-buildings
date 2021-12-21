@@ -1,5 +1,8 @@
 within Buildings.Examples.ChillerPlants.RP1711.BaseClasses;
 partial model PartialChillerPlant "Chiller plant model for closed-loop test"
+
+  package Medium_W = Buildings.Media.Water;
+
   Buildings.Examples.ChillerPlants.RP1711.BaseClasses.YorkCalc cooTow1
     annotation (Placement(transformation(extent={{340,370},{320,390}})));
   Buildings.Examples.ChillerPlants.RP1711.BaseClasses.YorkCalc cooTow2
@@ -131,9 +134,23 @@ partial model PartialChillerPlant "Chiller plant model for closed-loop test"
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={440,-300})));
-  Buildings.Fluid.Chillers.ElectricEIR chi1
+  Buildings.Fluid.Chillers.ElectricEIR chi1(
+    redeclare package Medium1 = Medium_W,
+    redeclare package Medium2 = Medium_W,
+    m1_flow_nominal=mCW_flow_nominal,
+    m2_flow_nominal=mCHW_flow_nominal,
+    dp1_nominal=0,
+    dp2_nominal=0,
+    per=Buildings.Fluid.Chillers.Data.ElectricEIR.ElectricEIRChiller_Carrier_19XR_742kW_5_42COP_VSD())
     annotation (Placement(transformation(extent={{320,84},{340,104}})));
-  Buildings.Fluid.Chillers.ElectricEIR chi2
+  Buildings.Fluid.Chillers.ElectricEIR chi2(
+    redeclare package Medium1 = Medium_W,
+    redeclare package Medium2 = Medium_W,
+    m1_flow_nominal=mCW_flow_nominal,
+    m2_flow_nominal=mCHW_flow_nominal,
+    dp1_nominal=0,
+    dp2_nominal=0,
+    per=Buildings.Fluid.Chillers.Data.ElectricEIR.ElectricEIRChiller_Carrier_19XR_742kW_5_42COP_VSD())
     annotation (Placement(transformation(extent={{320,-6},{340,14}})));
 
 equation

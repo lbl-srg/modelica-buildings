@@ -1,5 +1,8 @@
 within Buildings.Examples.ChillerPlants.RP1711.BaseClasses;
 model RP1711 "Chiller plant model with RP1711 controller"
+
+  package Medium_W = Buildings.Media.Water;
+
   extends
     Buildings.Examples.ChillerPlants.RP1711.BaseClasses.PartialChillerPlant;
 
@@ -65,12 +68,12 @@ model RP1711 "Chiller plant model with RP1711 controller"
     annotation (Placement(transformation(extent={{-520,-2},{-500,18}})));
   Controls.OBC.CDL.Continuous.MultiMax mulMax(nin=2)
     annotation (Placement(transformation(extent={{-400,190},{-380,210}})));
-  Modelica.Fluid.Interfaces.FluidPort_b portCooCoiSup(redeclare package Medium
-      = MediumW) "Cooling coil loop supply"
+  Modelica.Fluid.Interfaces.FluidPort_b portCooCoiSup(redeclare package Medium =
+        MediumW) "Cooling coil loop supply"
     annotation (Placement(transformation(extent={{190,-370},{210,-350}}),
         iconTransformation(extent={{-130,-210},{-110,-190}})));
-  Modelica.Fluid.Interfaces.FluidPort_a portCooCoiRet(redeclare package Medium
-      = MediumW)
+  Modelica.Fluid.Interfaces.FluidPort_a portCooCoiRet(redeclare package Medium =
+        MediumW)
     "Coolin coil loop return"
     annotation (Placement(transformation(extent={{430,-370},{450,-350}}),
         iconTransformation(extent={{110,-210},{130,-190}})));
@@ -259,8 +262,8 @@ equation
       points={{340,-320},{440,-320},{440,-310}},
       color={0,127,255},
       thickness=1));
-  connect(chiPlaCon.TChiWatSupResReq, TChiWatSupResReq) annotation (Line(points
-        ={{-264,42},{-320,42},{-320,-30},{-580,-30}}, color={255,127,0}));
+  connect(chiPlaCon.TChiWatSupResReq, TChiWatSupResReq) annotation (Line(points=
+         {{-264,42},{-320,42},{-320,-30},{-580,-30}}, color={255,127,0}));
   connect(chiPlaCon.chiPlaReq, chiPlaReq) annotation (Line(points={{-264,38},{
           -300,38},{-300,-70},{-580,-70}}, color={255,127,0}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-160,200},
@@ -391,10 +394,6 @@ equation
           smooth=Smooth.Bezier,
           pattern=LinePattern.DashDot),
         Line(
-          points={{100,34},{100,112},{6,112},{6,164},{16,164}},
-          color={238,46,47},
-          thickness=0.5),
-        Line(
           points={{-48,164},{-58,164}},
           color={238,46,47},
           thickness=0.5),
@@ -453,10 +452,6 @@ equation
           color={238,46,47},
           thickness=0.5),
         Line(points={{-58,130}}, color={0,0,0}),
-        Line(
-          points={{-58,112},{6,112}},
-          color={238,46,47},
-          thickness=0.5),
         Line(
           points={{100,-26},{100,2}},
           color={238,46,47},
@@ -547,7 +542,27 @@ equation
         Text(
           extent={{-60,200},{52,264}},
           textString="%name",
-          textColor={0,0,255})}),
+          textColor={0,0,255}),
+        Line(
+          points={{-58,112},{-34,112}},
+          color={238,46,47},
+          thickness=0.5),
+        Line(
+          points={{6,112},{-30,112}},
+          color={238,46,47},
+          thickness=0.5),
+        Line(
+          points={{6,112},{6,164},{16,164}},
+          color={238,46,47},
+          thickness=0.5),
+        Line(
+          points={{6,112},{28,112}},
+          color={238,46,47},
+          thickness=0.5),
+        Line(
+          points={{100,34},{100,112},{34,112}},
+          color={238,46,47},
+          thickness=0.5)}),
                           Diagram(coordinateSystem(preserveAspectRatio=false,
           extent={{-560,-440},{560,440}})));
 end RP1711;
