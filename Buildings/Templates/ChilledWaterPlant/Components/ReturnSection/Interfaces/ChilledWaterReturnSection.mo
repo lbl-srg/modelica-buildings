@@ -1,10 +1,16 @@
 within Buildings.Templates.ChilledWaterPlant.Components.ReturnSection.Interfaces;
 partial model ChilledWaterReturnSection
   extends Fluid.Interfaces.PartialOptionalFourPortInterface(
-    redeclare package Medium1=Buildings.Media.Water,
-    redeclare package Medium2=Buildings.Media.Water,
+    redeclare final package Medium1=MediumCW,
+    redeclare final package Medium2=MediumCHW,
     final hasMedium1=not is_airCoo,
     final hasMedium2=true);
+
+  replaceable package MediumCW = Buildings.Media.Water
+    constrainedby Modelica.Media.Interfaces.PartialMedium "Medium 1 in the component"
+      annotation (Dialog(enable=not is_airCoo));
+  replaceable package MediumCHW = Buildings.Media.Water
+    constrainedby Modelica.Media.Interfaces.PartialMedium "Medium 2 in the component";
 
   parameter
     Buildings.Templates.ChilledWaterPlant.Components.Types.ChilledWaterReturnSection
