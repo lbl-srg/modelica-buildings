@@ -40,7 +40,7 @@ model PartialChilledWaterLoop
     Buildings.Templates.ChilledWaterPlant.Components.ReturnSection.NoEconomizer
     WSE   constrainedby
     Buildings.Templates.ChilledWaterPlant.Components.ReturnSection.Interfaces.ChilledWaterReturnSection(
-      redeclare final package Medium2 = MediumCHW,
+      redeclare final package MediumCHW = MediumCHW,
       final is_airCoo = is_airCoo,
       final m2_flow_nominal=mPri_flow_nominal)
     "Chilled water return section"

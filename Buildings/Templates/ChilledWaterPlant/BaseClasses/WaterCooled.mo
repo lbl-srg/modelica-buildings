@@ -16,6 +16,7 @@ model WaterCooled
     redeclare replaceable Components.ReturnSection.NoEconomizer WSE
       constrainedby
       Buildings.Templates.ChilledWaterPlant.Components.ReturnSection.Interfaces.ChilledWaterReturnSection(
+        redeclare final package MediumCW = MediumCW,
         final m1_flow_nominal=mCon_flow_nominal));
 
   replaceable package MediumCW=Buildings.Media.Water "Condenser water medium";
