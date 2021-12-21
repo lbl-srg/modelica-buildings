@@ -22,7 +22,7 @@ model FlowControlled_dp
             V_flow = {i/(nOri-1)*2.0*m_flow_nominal/rho_default for i in 0:(nOri-1)},
             dp =     {i/(nOri-1)*2.0*dp_nominal for i in (nOri-1):-1:0}),
       final powMet=
-        if per.powMet == Buildings.Fluid.Movers.BaseClasses.Types.PowerMethod.MotorEfficiency
+        if per.powMet == Buildings.Fluid.Movers.BaseClasses.Types.PowerMethod.PowerCharacteristic
           and not per.havePressureCurve
           then Buildings.Fluid.Movers.BaseClasses.Types.PowerMethod.MotorEfficiency
         else per.powMet),
