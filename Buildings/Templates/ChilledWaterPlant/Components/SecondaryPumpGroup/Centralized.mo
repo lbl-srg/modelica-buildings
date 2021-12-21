@@ -2,7 +2,7 @@ within Buildings.Templates.ChilledWaterPlant.Components.SecondaryPumpGroup;
 model Centralized "Centralized secondary pumping"
   extends
     Buildings.Templates.ChilledWaterPlant.Components.SecondaryPumpGroup.Interfaces.SecondaryPumpGroup(
-     final typ=Buildings.Templates.ChilledWaterPlant.Components.Types.SecondaryPumpGroup.None);
+     final typ=Buildings.Templates.ChilledWaterPlant.Components.Types.SecondaryPumpGroup.Centralized);
 
   parameter Modelica.Units.SI.PressureDifference dpValve_nominal=
     dat.getReal(varName=id + ".SecondaryPump.dpValve_nominal.value")
