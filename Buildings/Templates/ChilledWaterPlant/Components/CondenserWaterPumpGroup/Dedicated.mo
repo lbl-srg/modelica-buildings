@@ -1,7 +1,7 @@
 within Buildings.Templates.ChilledWaterPlant.Components.CondenserWaterPumpGroup;
 model Dedicated
   extends
-    Buildings.Templates.ChilledWaterPlant.Components.CondenserWaterPumpGroup.Interfaces.CondenserWaterPumpGroup(
+    Buildings.Templates.ChilledWaterPlant.Components.CondenserWaterPumpGroup.Interfaces.PartialCondenserWaterPumpGroup(
     final typ=Buildings.Templates.ChilledWaterPlant.Components.Types.CondenserWaterPumpGroup.Dedicated,
     final has_WSE = false);
 

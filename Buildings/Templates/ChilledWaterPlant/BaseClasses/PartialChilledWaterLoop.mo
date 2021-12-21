@@ -1,14 +1,14 @@
 within Buildings.Templates.ChilledWaterPlant.BaseClasses;
 model PartialChilledWaterLoop
-  extends Buildings.Templates.ChilledWaterPlant.Interfaces.ChilledWaterPlant(
+  extends Buildings.Templates.ChilledWaterPlant.Interfaces.PartialChilledWaterPlant(
     redeclare final package Medium=MediumCHW,
     final nChi=chiGro.nChi);
 
   replaceable package MediumCHW=Buildings.Media.Water "Chilled water medium";
 
-  parameter Boolean has_byp = false "Chilled water loop has bypass"
+  parameter Boolean have_byp = false "= true if chilled water loop has a minimum flow bypass"
     annotation(Dialog(enable=not pumSec.is_none));
-  parameter Boolean has_WSEByp = false "Waterside economizer has a bypass to supply chilled water"
+  parameter Boolean have_ChiByp = false "= true if chilled water loop has a chiller bypass"
     annotation(Dialog(enable=not WSE.is_none));
 
   final parameter Integer nPumPri = pumPri.nPum "Number of primary pumps";
@@ -29,7 +29,7 @@ model PartialChilledWaterLoop
     Buildings.Templates.ChilledWaterPlant.Components.ChillerGroup.ChillerParallel
     chiGro(final has_dedPum=pumPri.is_dedicated)
            constrainedby
-    Buildings.Templates.ChilledWaterPlant.Components.ChillerGroup.Interfaces.ChillerGroup(
+    Buildings.Templates.ChilledWaterPlant.Components.ChillerGroup.Interfaces.PartialChillerGroup(
      redeclare final package MediumCHW = MediumCHW,
      final m2_flow_nominal=mPri_flow_nominal,
      final is_airCoo=is_airCoo)
@@ -39,7 +39,7 @@ model PartialChilledWaterLoop
   inner replaceable
     Buildings.Templates.ChilledWaterPlant.Components.ReturnSection.NoEconomizer
     WSE   constrainedby
-    Buildings.Templates.ChilledWaterPlant.Components.ReturnSection.Interfaces.ChilledWaterReturnSection(
+    Buildings.Templates.ChilledWaterPlant.Components.ReturnSection.Interfaces.PartialChilledWaterReturnSection(
       redeclare final package MediumCHW = MediumCHW,
       final is_airCoo = is_airCoo,
       final m2_flow_nominal=mPri_flow_nominal)
@@ -49,21 +49,21 @@ model PartialChilledWaterLoop
   inner replaceable
     Buildings.Templates.ChilledWaterPlant.Components.PrimaryPumpGroup.Headered
     pumPri constrainedby
-    Buildings.Templates.ChilledWaterPlant.Components.PrimaryPumpGroup.Interfaces.PrimaryPumpGroup(
+    Buildings.Templates.ChilledWaterPlant.Components.PrimaryPumpGroup.Interfaces.PartialPrimaryPumpGroup(
       redeclare final package Medium = MediumCHW,
       final mTot_flow_nominal=mPri_flow_nominal,
       final dp_nominal=dpPri_nominal,
       final nChi=nChi,
       final has_ParChi=chiGro.typ == Buildings.Templates.ChilledWaterPlant.Components.Types.ChillerGroup.ChillerParallel,
       final has_byp=has_byp,
-      final has_WSEByp=has_WSEByp,
+      final has_ChiByp=has_ChiByp,
       final has_comLeg=not pumSec.is_none)
     "Chilled water primary pump group"
     annotation (Placement(transformation(extent={{0,0},{20,20}})));
   inner replaceable
     Buildings.Templates.ChilledWaterPlant.Components.SecondaryPumpGroup.None
     pumSec constrainedby
-    Buildings.Templates.ChilledWaterPlant.Components.SecondaryPumpGroup.Interfaces.SecondaryPumpGroup(
+    Buildings.Templates.ChilledWaterPlant.Components.SecondaryPumpGroup.Interfaces.PartialSecondaryPumpGroup(
       redeclare final package Medium = MediumCHW,
       final mTot_flow_nominal=mSec_flow_nominal,
       final dp_nominal=dpSec_nominal)
@@ -121,7 +121,7 @@ model PartialChilledWaterLoop
     "Bypass mixer"
     annotation (Placement(transformation(
       extent={{-10,10},{10,-10}},rotation=0,origin={-10,-50})));
-  Fluid.FixedResistances.Junction splWSEByp(
+  Fluid.FixedResistances.Junction splChiByp(
     redeclare package Medium = MediumCHW,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     each final m_flow_nominal=mPri_flow_nominal*{1,-1,-1},
@@ -161,15 +161,15 @@ equation
   connect(chiGro.port_b2, pumPri.port_series)
     annotation (Line(points={{-34,20},{-34,30},{-10,30},{-10,16},{0,16}},
       color={0,127,255}));
-  connect(splWSEByp.port_2, chiGro.port_a2)
+  connect(splChiByp.port_2, chiGro.port_a2)
     annotation (Line(points={{-30,-20},{-34,-20},{-34,0}}, color={0,127,255}));
-  connect(splWSEByp.port_3,pumPri. port_WSEByp)
+  connect(splChiByp.port_3,pumPri. port_ChiByp)
     annotation (Line(points={{-20,-10},{-20,4},{0,4}}, color={0,127,255}));
   connect(pumPri.port_b, pumSec.port_a)
     annotation (Line(points={{20,10},{60,10}}, color={0,127,255}));
   connect(pumSec.port_b, TCHWSup.port_a)
     annotation (Line(points={{80,10},{120,10}}, color={0,127,255}));
-  connect(TCHWRetByp.port_b, splWSEByp.port_1)
+  connect(TCHWRetByp.port_b, splChiByp.port_1)
     annotation (Line(points={{40,-50},{60,-50},{60,-20},{-10,-20}},
     color={0,127,255}));
   connect(mixByp.port_3, pumPri.port_byp)

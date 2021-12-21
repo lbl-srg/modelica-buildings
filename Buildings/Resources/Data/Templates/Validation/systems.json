@@ -554,7 +554,7 @@
             },
             "dpValve_nominal": {
                 "value": 6000,
-                "description": "Nominal pressure drop of primary pump valve",
+                "description": "Nominal pressure drop of primary pump check valve",
                 "unit": "Pa"
             },
             "dpByp_nominal": {
@@ -576,7 +576,7 @@
             },
             "dpValve_nominal": {
                 "value": 6000,
-                "description": "Nominal pressure drop of condenser pump valve",
+                "description": "Nominal pressure drop of condenser pump check valve",
                 "unit": "Pa"
             }
         },
@@ -593,7 +593,7 @@
             },
             "dpValve_nominal": {
                 "value": 6000,
-                "description": "Nominal pressure drop of condenser pump valve",
+                "description": "Nominal pressure drop of secondary pump check valve",
                 "unit": "Pa"
             }
         },

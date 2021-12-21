@@ -1,11 +1,11 @@
 within Buildings.Templates.ChilledWaterPlant.Components.PrimaryPumpGroup;
 model Headered
   extends
-    Buildings.Templates.ChilledWaterPlant.Components.PrimaryPumpGroup.Interfaces.PrimaryPumpGroup(
+    Buildings.Templates.ChilledWaterPlant.Components.PrimaryPumpGroup.Interfaces.PartialPrimaryPumpGroup(
     final typ=Buildings.Templates.ChilledWaterPlant.Components.Types.PrimaryPumpGroup.Headered);
 
-  parameter Modelica.Units.SI.PressureDifference dpWSEByp_nominal=
-    if has_WSEByp then dat.getReal(varName=id + ".WatersideEconomizer.dpByp_nominal.value")
+  parameter Modelica.Units.SI.PressureDifference dpChiByp_nominal=
+    if has_ChiByp then dat.getReal(varName=id + ".WatersideEconomizer.dpByp_nominal.value")
     else 0;
 
   Fluid.Delays.DelayFirstOrder del(
@@ -39,11 +39,11 @@ model Headered
     final dpValve_nominal=dpValve_nominal)
     "Primary pumps"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
-  Buildings.Templates.Components.Valves.TwoWayTwoPosition valWSEByp(
+  Buildings.Templates.Components.Valves.TwoWayTwoPosition valChiByp(
     redeclare final package Medium = Medium,
     final m_flow_nominal=m_flow_nominal,
-    final dpValve_nominal=dpWSEByp_nominal) if has_WSEByp
-    "Waterside Economizer bypass valve" annotation (Placement(transformation(
+    final dpValve_nominal=dpChiByp_nominal) if has_ChiByp
+    "Chiller chilled water side bypass valve" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-70,-60})));
@@ -69,12 +69,12 @@ model Headered
     "Common leg volume flow rate"
     annotation (Placement(transformation(extent={{20,-90},{40,-70}})));
 protected
-  parameter Integer nPorWSE = if has_WSEByp then 1 else 0;
+  parameter Integer nPorWSE = if has_ChiByp then 1 else 0;
   parameter Integer nPorChi = if has_ParChi then nChi else 1;
   parameter Integer nPorVol = nPorWSE + nPorChi + 1;
 equation
   /* Control point connection - start */
-  connect(valWSEByp.bus, busCon.valWSEByp);
+  connect(valChiByp.bus, busCon.valChiByp);
   connect(valByp.bus, busCon.valByp);
   /* Control point connection - end */
 
@@ -97,9 +97,9 @@ equation
           {-60,20},{-60,60},{-100,60}},         color={0,127,255}));
   connect(del.ports[2:(nChi+1)],ports_parallel) annotation (Line(points={{-40,40},
           {-40,40},{-40,0},{-100,0}}, color={0,127,255}));
-  connect(del.ports[nPorVol], valWSEByp.port_b) annotation (Line(points={{-40,40},
+  connect(del.ports[nPorVol], valChiByp.port_b) annotation (Line(points={{-40,40},
           {-40,40},{-40,-60},{-60,-60}}, color={0,127,255}));
-  connect(port_WSEByp, valWSEByp.port_a)
+  connect(port_ChiByp, valChiByp.port_a)
     annotation (Line(points={{-100,-60},{-80,-60}}, color={0,127,255}));
   connect(pum.port_b, V_flow.port_a)
     annotation (Line(points={{10,0},{40,0}}, color={0,127,255}));

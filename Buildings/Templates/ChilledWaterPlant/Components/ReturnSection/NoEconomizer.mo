@@ -1,7 +1,7 @@
 within Buildings.Templates.ChilledWaterPlant.Components.ReturnSection;
 model NoEconomizer
   extends
-    Buildings.Templates.ChilledWaterPlant.Components.ReturnSection.Interfaces.ChilledWaterReturnSection(
+    Buildings.Templates.ChilledWaterPlant.Components.ReturnSection.Interfaces.PartialChilledWaterReturnSection(
       final typ=Buildings.Templates.ChilledWaterPlant.Components.Types.ChilledWaterReturnSection.NoEconomizer);
 
 equation

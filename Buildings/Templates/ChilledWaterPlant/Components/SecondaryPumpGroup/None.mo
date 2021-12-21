@@ -1,7 +1,7 @@
 within Buildings.Templates.ChilledWaterPlant.Components.SecondaryPumpGroup;
 model None "No secondary pumping"
   extends
-    Buildings.Templates.ChilledWaterPlant.Components.SecondaryPumpGroup.Interfaces.SecondaryPumpGroup(
+    Buildings.Templates.ChilledWaterPlant.Components.SecondaryPumpGroup.Interfaces.PartialSecondaryPumpGroup(
     final typ=Buildings.Templates.ChilledWaterPlant.Components.Types.SecondaryPumpGroup.None);
 
 equation

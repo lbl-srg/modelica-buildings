@@ -1,7 +1,7 @@
 within Buildings.Templates.ChilledWaterPlant.Components.ChillerGroup;
 model ChillerSeries
   extends
-    Buildings.Templates.ChilledWaterPlant.Components.ChillerGroup.Interfaces.ChillerGroup(
+    Buildings.Templates.ChilledWaterPlant.Components.ChillerGroup.Interfaces.PartialChillerGroup(
       final typ=Buildings.Templates.ChilledWaterPlant.Components.Types.ChillerGroup.ChillerSeries,
       final has_dedPum=false);
 
@@ -14,7 +14,7 @@ model ChillerSeries
     each final dp2_nominal=dp2_nominal,
     each final per=per)
               constrainedby
-    Buildings.Templates.ChilledWaterPlant.Components.Chiller.Interfaces.Chiller(
+    Buildings.Templates.ChilledWaterPlant.Components.Chiller.Interfaces.PartialChiller(
     redeclare each final package Medium1 = MediumCW,
     redeclare each final package Medium2 = MediumCHW) annotation (Placement(transformation(extent={{
             -20,-20},{20,20}}, rotation=0)));
@@ -46,7 +46,7 @@ model ChillerSeries
   Fluid.Delays.DelayFirstOrder del(
     redeclare each final package Medium = MediumCW,
     final m_flow_nominal=m2_flow_nominal,
-    final nPorts=nChi + 1) if not is_airCoo
+    final nPorts=nChi + 1) if not isAirCoo
     "Condenser water side mixing volume" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,

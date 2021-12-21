@@ -31,7 +31,7 @@ model WaterCooled
   inner replaceable
     Buildings.Templates.ChilledWaterPlant.Components.CoolingTowerGroup.CoolingTowerParallel
     cooTow constrainedby
-    Buildings.Templates.ChilledWaterPlant.Components.CoolingTowerGroup.Interfaces.CoolingTowerGroup(
+    Buildings.Templates.ChilledWaterPlant.Components.CoolingTowerGroup.Interfaces.PartialCoolingTowerGroup(
       redeclare final package Medium = MediumCW,
       final m_flow_nominal=mCon_flow_nominal)
     "Cooling tower group"
@@ -39,7 +39,7 @@ model WaterCooled
   inner replaceable
     Buildings.Templates.ChilledWaterPlant.Components.CondenserWaterPumpGroup.Headered
     pumCon(final has_WSE=not WSE.is_none) constrainedby
-    Buildings.Templates.ChilledWaterPlant.Components.CondenserWaterPumpGroup.Interfaces.CondenserWaterPumpGroup(
+    Buildings.Templates.ChilledWaterPlant.Components.CondenserWaterPumpGroup.Interfaces.PartialCondenserWaterPumpGroup(
       redeclare final package Medium = MediumCW,
       final mTot_flow_nominal=mCon_flow_nominal,
       final dp_nominal=dpCon_nominal,
@@ -49,14 +49,14 @@ model WaterCooled
 
   Buildings.Templates.Components.Sensors.Temperature TCWSup(
     redeclare final package Medium = MediumCW,
-    final have_sen,
+    final have_sen=true,
     final m_flow_nominal=mCon_flow_nominal,
     final typ=Buildings.Templates.Components.Types.SensorTemperature.InWell)
     "Condenser water supply temperature"
     annotation (Placement(transformation(extent={{-140,-20},{-120,0}})));
   Buildings.Templates.Components.Sensors.Temperature TCWRet(
     redeclare final package Medium = MediumCW,
-    final have_sen,
+    final have_sen=true,
     final m_flow_nominal=mCon_flow_nominal,
     final typ=Buildings.Templates.Components.Types.SensorTemperature.InWell)
     "Condenser water return temperature"

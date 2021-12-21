@@ -1,5 +1,5 @@
 within Buildings.Templates.ChilledWaterPlant.Components.SecondaryPumpGroup.Interfaces;
-partial model SecondaryPumpGroup
+partial model PartialSecondaryPumpGroup
   extends Fluid.Interfaces.PartialTwoPort(
     redeclare replaceable package Medium=Buildings.Media.Water);
 
@@ -50,4 +50,4 @@ partial model SecondaryPumpGroup
           lineColor={0,0,255},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid)}));
-end SecondaryPumpGroup;
+end PartialSecondaryPumpGroup;

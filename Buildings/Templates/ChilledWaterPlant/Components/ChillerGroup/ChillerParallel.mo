@@ -1,7 +1,7 @@
 within Buildings.Templates.ChilledWaterPlant.Components.ChillerGroup;
 model ChillerParallel
   extends
-    Buildings.Templates.ChilledWaterPlant.Components.ChillerGroup.Interfaces.ChillerGroup(
+    Buildings.Templates.ChilledWaterPlant.Components.ChillerGroup.Interfaces.PartialChillerGroup(
       final typ=Buildings.Templates.ChilledWaterPlant.Components.Types.ChillerGroup.ChillerParallel);
 
   inner replaceable
@@ -13,7 +13,7 @@ model ChillerParallel
     each final dp2_nominal=dp2_nominal,
     each final per=per)
               constrainedby
-    Buildings.Templates.ChilledWaterPlant.Components.Chiller.Interfaces.Chiller(
+    Buildings.Templates.ChilledWaterPlant.Components.Chiller.Interfaces.PartialChiller(
     redeclare each final package Medium1 = MediumCW,
     redeclare each final package Medium2 = MediumCHW)
     "Chillers"
@@ -23,14 +23,14 @@ model ChillerParallel
   Fluid.Delays.DelayFirstOrder volCHW(
     redeclare final package Medium = MediumCHW,
     final m_flow_nominal=m2_flow_nominal,
-    nPorts=1+nChi)
+    final nPorts=1+nChi)
     "Chilled water side mixing volume"
     annotation (Placement(transformation(
-      extent={{-10,-10},{10,10}},rotation=90,origin={10,-60})));
+      extent={{-10,-10},{10,10}},rotation=90,origin={8,-60})));
   Fluid.Delays.DelayFirstOrder volCW(
     redeclare final package Medium = MediumCW,
     final m_flow_nominal=m1_flow_nominal,
-    nPorts=1+nChi) if not is_airCoo
+    final nPorts=1+nChi) if not isAirCoo
     "Condenser water side mixing volume"
     annotation (Placement(transformation(
       extent={{-10,-10},{10,10}},rotation=0,origin={60,84})));
@@ -55,10 +55,10 @@ equation
       index=-1,
       extent={{-6,3},{-6,3}},
       horizontalAlignment=TextAlignment.Right));
-  connect(port_a2, volCHW.ports[1]) annotation (Line(points={{100,-60},{20,-60},
-          {20,-60}},      color={0,127,255}));
-  connect(volCHW.ports[2:(nChi+1)], chi.port_a2) annotation (Line(points={{20,-60},{20,
-          -58},{40,-58},{40,-12},{20,-12}},     color={0,127,255}));
+  connect(port_a2, volCHW.ports[1]) annotation (Line(points={{100,-60},{18,-60}},
+                          color={0,127,255}));
+  connect(volCHW.ports[2:(nChi+1)], chi.port_a2) annotation (Line(points={{18,-60},
+          {18,-58},{40,-58},{40,-12},{20,-12}}, color={0,127,255}));
   connect(ports_a1, chi.port_a1) annotation (Line(points={{-100,60},{-40,60},{
           -40,12},{-20,12}}, color={0,127,255}));
   connect(volCW.ports[1], port_b1) annotation (Line(points={{60,74},{60,60},{100,

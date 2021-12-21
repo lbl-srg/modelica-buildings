@@ -8,7 +8,7 @@ model RP1711_6_3
     pumCon(final nPum=2),
     cooTow(final nCooTow=2),
     redeclare Buildings.Templates.ChilledWaterPlant.Components.ReturnSection.WatersideEconomizer WSE,
-    final has_WSEByp=true,
+    final has_ChiByp=true,
     final has_byp=true,
     final id="CHW_1");
 

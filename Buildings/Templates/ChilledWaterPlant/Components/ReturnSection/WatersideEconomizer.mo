@@ -1,9 +1,9 @@
 within Buildings.Templates.ChilledWaterPlant.Components.ReturnSection;
 model WatersideEconomizer
   extends
-    Buildings.Templates.ChilledWaterPlant.Components.ReturnSection.Interfaces.ChilledWaterReturnSection(
+    Buildings.Templates.ChilledWaterPlant.Components.ReturnSection.Interfaces.PartialChilledWaterReturnSection(
       final typ=Buildings.Templates.ChilledWaterPlant.Components.Types.WatersideEconomizer.WatersideEconomizer,
-      final is_airCoo = false)
+      final isAirCoo = false)
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)));
 
@@ -46,10 +46,12 @@ model WatersideEconomizer
     annotation (Placement(transformation(extent={{10,-70},{-10,-50}})));
   Buildings.Templates.Components.Sensors.DifferentialPressure dpCHW(
     redeclare final package Medium = MediumCHW,
-    final have_sen=true) if have_val
+    final have_sen=true,
+    final text_flip=true) if have_val
     "Waterside economizer differential pressure"
     annotation (Placement(transformation(extent={{-10,10},{10,-10}},
-        rotation=180)));
+        rotation=180,
+        origin={0,-20})));
   Buildings.Templates.BaseClasses.PassThroughFluid pasSup(
     redeclare final package Medium = MediumCHW)
     if have_val "Supply passthrough" annotation (
@@ -68,13 +70,13 @@ model WatersideEconomizer
     annotation (Placement(transformation(
         extent={{10,10},{-10,-10}},
         rotation=270,
-        origin={60,-40})));
+        origin={70,-40})));
   Buildings.Templates.Components.Pumps.ParallelVariable pum(
     redeclare final package Medium = MediumCHW) if not have_val
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
-        origin={60,0})));
+        origin={70,0})));
   Buildings.Templates.BaseClasses.PassThroughFluid pasByp(
     redeclare each final package Medium = MediumCHW)
     if not have_val "Bypass passthrough" annotation (
@@ -115,12 +117,11 @@ equation
   connect(TWSERet.port_b, port_b2)
     annotation (Line(points={{-80,-60},{-100,-60}}, color={0,127,255}));
   connect(pum.port_b, hex.port_a2)
-    annotation (Line(points={{60,10},{60,24},{10,24}},  color={0,127,255}));
-  connect(dpCHW.port_a, hex.port_a2) annotation (Line(points={{10,-1.77636e-15},
-          {20,-1.77636e-15},{20,24},{10,24}},
-                            color={0,127,255}));
-  connect(dpCHW.port_b, hex.port_b2) annotation (Line(points={{-10,8.88178e-16},
-          {-16,8.88178e-16},{-16,0},{-20,0},{-20,24},{-10,24}},
+    annotation (Line(points={{70,10},{70,24},{10,24}},  color={0,127,255}));
+  connect(dpCHW.port_a, hex.port_a2) annotation (Line(points={{10,-20},{20,-20},
+          {20,24},{10,24}}, color={0,127,255}));
+  connect(dpCHW.port_b, hex.port_b2) annotation (Line(points={{-10,-20},{-20,
+          -20},{-20,24},{-10,24}},
                               color={0,127,255}));
   connect(pasSup.port_b, hex.port_a2)
     annotation (Line(points={{40,-10},{40,24},{10,24}}, color={0,127,255}));
@@ -129,9 +130,9 @@ equation
   connect(pasByp.port_b, TWSERet.port_a) annotation (Line(points={{-10,-80},{-40,
           -80},{-40,-60},{-60,-60}}, color={0,127,255}));
   connect(port_a2, TWSESup.port_a)
-    annotation (Line(points={{100,-60},{60,-60},{60,-50}}, color={0,127,255}));
+    annotation (Line(points={{100,-60},{70,-60},{70,-50}}, color={0,127,255}));
   connect(TWSESup.port_b, pum.port_a)
-    annotation (Line(points={{60,-30},{60,-10}}, color={0,127,255}));
+    annotation (Line(points={{70,-30},{70,-10}}, color={0,127,255}));
   connect(port_a2, pasSup.port_a)
     annotation (Line(points={{100,-60},{40,-60},{40,-30}}, color={0,127,255}));
   connect(port_a2, valByp.port_a)

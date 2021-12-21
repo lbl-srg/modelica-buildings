@@ -46,28 +46,21 @@ model DedicatedCondenserPumps
       each final per=per) "Pumps"
     annotation (
       choicesAllMatching=true,
-      Placement(transformation(extent={{-30,-10},{-10,10}})));
+      Placement(transformation(extent={{-10,-10},{10,10}})));
   Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold evaSta[nPum](each t=
         1E-2, each h=0.5E-2)
                "Evaluate pump status" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={50,70})));
-  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys[nPum](each final uLow=
-        threshold, each final uHigh=2*threshold)
-    "Hysteresis for isolation valves"
-    annotation (Placement(transformation(extent={{-60,40},{-40,60}})));
-  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea[nPum]
-    "Boolean to real conversion for isolation valves"
-    annotation (Placement(transformation(extent={{-20,40},{0,60}})));
-  Fluid.Actuators.Valves.TwoWayLinear val[nPum](
+  Fluid.FixedResistances.CheckValve cheVal[nPum](
     redeclare each final replaceable package Medium = Medium,
     each final dpFixed_nominal=0,
     each final CvData=Buildings.Fluid.Types.CvTypes.OpPoint,
     each final dpValve_nominal=dpValve_nominal,
     each final m_flow_nominal=m_flow_nominal)
     "Isolation valves"
-    annotation (Placement(transformation(extent={{10,-10},{30,10}})));
+    annotation (Placement(transformation(extent={{40,-10},{60,10}})));
   Modelica.Blocks.Interfaces.RealInput y[nPum](unit="1") annotation (Placement(
         transformation(
         extent={{-20,-20},{20,20}},
@@ -86,30 +79,22 @@ model DedicatedCondenserPumps
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=180,
-        origin={-60,-30})));
+        origin={-70,-30})));
 equation
-  connect(pum.port_b,val. port_a)
-    annotation (Line(points={{-10,0},{10,0}}, color={0,127,255}));
-  connect(hys.y,booToRea. u)
-    annotation (Line(points={{-38,50},{-22,50}}, color={255,0,255}));
-  connect(booToRea.y,val. y)
-    annotation (Line(points={{2,50},{20,50},{20,12}}, color={0,0,127}));
-  connect(pum.y_actual,evaSta. u) annotation (Line(points={{-9,7},{10,7},{10,30},
-          {30,30},{30,70},{38,70}},
-                            color={0,0,127}));
+  connect(pum.port_b, cheVal.port_a)
+    annotation (Line(points={{10,0},{40,0}}, color={0,127,255}));
+  connect(pum.y_actual,evaSta. u) annotation (Line(points={{11,7},{20,7},{20,70},
+          {38,70}},         color={0,0,127}));
   connect(evaSta.y, y_actual) annotation (Line(points={{62,70},{80,70},{80,70},
           {120,70}},color={255,0,255}));
-  connect(y, hys.u) annotation (Line(points={{0,100},{0,72},{-80,72},{-80,50},{-62,
-          50}}, color={0,0,127}));
-  connect(y, pum.y) annotation (Line(points={{0,100},{0,72},{-80,72},{-80,20},{
-          -20,20},{-20,12}},
+  connect(y, pum.y) annotation (Line(points={{0,100},{0,12}},
                          color={0,0,127}));
-  connect(val.port_b, ports_b)
-    annotation (Line(points={{30,0},{100,0}}, color={0,127,255}));
+  connect(cheVal.port_b, ports_b)
+    annotation (Line(points={{60,0},{100,0}}, color={0,127,255}));
   connect(del.ports[1:nPum], pum.port_a)
-    annotation (Line(points={{-60,-20},{-60,0},{-30,0}}, color={0,127,255}));
+    annotation (Line(points={{-70,-20},{-70,0},{-10,0}}, color={0,127,255}));
   connect(port_a,del. ports[nPum+1])
-    annotation (Line(points={{-100,0},{-60,0},{-60,-20}}, color={0,127,255}));
+    annotation (Line(points={{-100,0},{-70,0},{-70,-20}}, color={0,127,255}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
               Rectangle(
           extent={{-100,100},{100,-100}},

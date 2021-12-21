@@ -52,7 +52,7 @@ block OpenLoop "Open loop controller (output signals only)"
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={-130,70})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant yValWSEByp(k=false)
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant yValChiByp(k=false)
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
@@ -60,7 +60,7 @@ block OpenLoop "Open loop controller (output signals only)"
 equation
   /* Control point connection - start */
   connect(busCHW.pumPri.valByp.y, yValByp.y);
-  connect(busCHW.pumPri.valWSEByp.y, yValWSEByp.y);
+  connect(busCHW.pumPri.valChiByp.y, yValChiByp.y);
   connect(busCW.pum.yValWSE, yValWSE.y);
   for i in 1:nChi loop
     connect(busCHW.chiGro.chi[i].TSet, chiTSet[i].y);

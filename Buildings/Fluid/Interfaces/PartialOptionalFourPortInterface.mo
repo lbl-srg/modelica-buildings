@@ -2,10 +2,10 @@ within Buildings.Fluid.Interfaces;
 partial model PartialOptionalFourPortInterface
   "Partial model transporting fluid between two optional ports without storing mass or energy"
 
-  parameter Boolean hasMedium1 = true
+  parameter Boolean haveMedium1 = true
     "= false to remove ports for medium 1"
     annotation(Dialog(group="Optional ports"), Evaluate=true);
-  parameter Boolean hasMedium2 = true
+  parameter Boolean haveMedium2 = true
     "= false to remove ports for medium 2"
     annotation(Dialog(group="Optional ports"), Evaluate=true);
 

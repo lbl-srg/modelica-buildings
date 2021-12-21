@@ -1,7 +1,7 @@
 within Buildings.Templates.ChilledWaterPlant.Components.CondenserWaterPumpGroup;
 model Headered
   extends
-    Buildings.Templates.ChilledWaterPlant.Components.CondenserWaterPumpGroup.Interfaces.CondenserWaterPumpGroup(
+    Buildings.Templates.ChilledWaterPlant.Components.CondenserWaterPumpGroup.Interfaces.PartialCondenserWaterPumpGroup(
       final typ=Buildings.Templates.ChilledWaterPlant.Components.Types.CondenserWaterPumpGroup.Headered);
 
   parameter Modelica.Units.SI.PressureDifference dpWSEValve_nominal=

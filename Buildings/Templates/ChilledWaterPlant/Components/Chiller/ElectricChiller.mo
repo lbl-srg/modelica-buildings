@@ -1,10 +1,10 @@
 within Buildings.Templates.ChilledWaterPlant.Components.Chiller;
 model ElectricChiller
   extends
-    Buildings.Templates.ChilledWaterPlant.Components.Chiller.Interfaces.Chiller(
+    Buildings.Templates.ChilledWaterPlant.Components.Chiller.Interfaces.PartialChiller(
     final typ=Buildings.Templates.ChilledWaterPlant.Components.Types.Chiller.ElectricChiller,
     redeclare replaceable Buildings.Fluid.Chillers.Data.ElectricEIR.Generic per,
-    final is_airCoo=false);
+    final isAirCoo=false);
 
     Fluid.Chillers.ElectricEIR chi(
       final per=per,

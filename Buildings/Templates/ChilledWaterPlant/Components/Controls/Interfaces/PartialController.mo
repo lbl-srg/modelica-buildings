@@ -14,7 +14,7 @@ block PartialController
   parameter Integer nPumCon "Number of condenser pumps";
   parameter Integer nCooTow "Number of cooling towers";
 
-  parameter Boolean is_airCoo;
+  parameter Boolean isAirCoo;
 
   .Buildings.Templates.ChilledWaterPlant.BaseClasses.BusChilledWater busCHW(
     final nChi=nChi,
@@ -24,7 +24,7 @@ block PartialController
         iconTransformation(extent={{80,-20},{120,20}})));
   .Buildings.Templates.ChilledWaterPlant.BaseClasses.BusCondenserWater busCW(
     final nPum=nPumCon,
-    final nCooTow=nCooTow) if not is_airCoo annotation (
+    final nCooTow=nCooTow) if not isAirCoo annotation (
       Placement(transformation(extent={{-218,-20},{-178,20}}),
         iconTransformation(extent={{-120,-20},{-80,20}})));
   annotation (

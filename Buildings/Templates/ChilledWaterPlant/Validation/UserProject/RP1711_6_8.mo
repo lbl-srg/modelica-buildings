@@ -9,7 +9,7 @@ model RP1711_6_8
     pumPri(final nPum=2),
     redeclare Buildings.Templates.ChilledWaterPlant.Components.SecondaryPumpGroup.Centralized pumSec(final nPum=2),
     redeclare Buildings.Templates.ChilledWaterPlant.Components.ReturnSection.WatersideEconomizer WSE,
-    final has_WSEByp=false,
+    final has_ChiByp=false,
     final has_byp=false,
     final id="CHW_1");
 

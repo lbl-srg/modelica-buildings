@@ -1,5 +1,5 @@
 within Buildings.Templates.ChilledWaterPlant.Components.CoolingTowerGroup.Interfaces;
-partial model CoolingTowerGroup
+partial model PartialCoolingTowerGroup
   extends Fluid.Interfaces.PartialTwoPortInterface(
     redeclare package Medium=Buildings.Media.Water);
 
@@ -32,4 +32,4 @@ partial model CoolingTowerGroup
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid)}), Diagram(
         coordinateSystem(preserveAspectRatio=false)));
-end CoolingTowerGroup;
+end PartialCoolingTowerGroup;

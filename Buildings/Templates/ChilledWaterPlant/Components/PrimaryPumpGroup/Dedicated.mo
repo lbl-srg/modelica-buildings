@@ -1,7 +1,7 @@
 within Buildings.Templates.ChilledWaterPlant.Components.PrimaryPumpGroup;
 model Dedicated
   extends
-    Buildings.Templates.ChilledWaterPlant.Components.PrimaryPumpGroup.Interfaces.PrimaryPumpGroup(
+    Buildings.Templates.ChilledWaterPlant.Components.PrimaryPumpGroup.Interfaces.PartialPrimaryPumpGroup(
     final typ=Buildings.Templates.ChilledWaterPlant.Components.Types.PrimaryPumpGroup.Dedicated);
   Fluid.FixedResistances.Junction splByp(redeclare package Medium = Medium,
       energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,

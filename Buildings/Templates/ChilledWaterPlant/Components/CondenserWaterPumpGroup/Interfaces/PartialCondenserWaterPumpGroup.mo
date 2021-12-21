@@ -1,5 +1,5 @@
 within Buildings.Templates.ChilledWaterPlant.Components.CondenserWaterPumpGroup.Interfaces;
-partial model CondenserWaterPumpGroup
+partial model PartialCondenserWaterPumpGroup
 
   parameter Buildings.Templates.ChilledWaterPlant.Components.Types.CondenserWaterPumpGroup typ "Type of pump"
     annotation (Evaluate=true, Dialog(group="Configuration"));
@@ -16,7 +16,7 @@ partial model CondenserWaterPumpGroup
   parameter Integer nChi "Number of chillers";
   parameter Integer nPum = nChi "Number of primary pumps";
 
-  parameter Boolean has_WSE "= true if pump supply waterside economizer";
+  parameter Boolean have_WSE "= true if pump supply waterside economizer";
 
   parameter Modelica.Units.SI.MassFlowRate mTot_flow_nominal = m_flow_nominal*nPum "Total mass flow rate for pump group";
 
@@ -29,9 +29,7 @@ partial model CondenserWaterPumpGroup
 
   parameter Modelica.Units.SI.PressureDifference dpValve_nominal=
     dat.getReal(varName=id + ".CondenserPump.dpValve_nominal.value")
-    "Shutoff valve pressure drop";
-
-
+    "Check valve pressure drop";
 
   Bus busCon(final nPum=nPum)
              "Control bus" annotation (Placement(transformation(
@@ -84,4 +82,4 @@ equation
           fillColor={0,127,255},
           textString="%name")}),            Diagram(
         coordinateSystem(preserveAspectRatio=false)));
-end CondenserWaterPumpGroup;
+end PartialCondenserWaterPumpGroup;

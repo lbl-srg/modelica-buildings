@@ -1,5 +1,5 @@
 within Buildings.Templates.ChilledWaterPlant.Components.PrimaryPumpGroup.Interfaces;
-partial model PrimaryPumpGroup
+partial model PartialPrimaryPumpGroup
 
   replaceable package Medium = Buildings.Media.Water;
   parameter Boolean allowFlowReversal = true
@@ -14,12 +14,12 @@ partial model PrimaryPumpGroup
   outer parameter ExternData.JSONFile dat
     "External parameter file";
 
-  parameter Boolean has_ParChi "Chillers in inlet are connected in parallel";
-  parameter Boolean has_WSEByp "= true if there is a waterside economizer bypass";
-  parameter Boolean has_byp "= true if there is a bypass";
-  parameter Boolean has_comLeg "= true if there is a commong leg";
-  parameter Boolean has_floSen "= true if primary flow is measured";
-  parameter Boolean has_comLegFloSen = has_comLeg and not has_floSen "= true if common leg flow is measured"
+  parameter Boolean have_ParChi "= true if chillers in inlet are connected in parallel";
+  parameter Boolean have_ChiByp "= true if chilled water loop has a chiller bypass";
+  parameter Boolean have_byp "= true if chilled water loop has a minimum flow bypass";
+  parameter Boolean have_comLeg "= true if there is a commong leg";
+  parameter Boolean have_floSen "= true if primary flow is measured";
+  parameter Boolean have_comLegFloSen = has_comLeg and not has_floSen "= true if common leg flow is measured"
     annotation(Dialog(enable=has_comLeg));
 
   final parameter Boolean is_dedicated = typ == Buildings.Templates.ChilledWaterPlant.Components.Types.PrimaryPumpGroup.Dedicated;
@@ -39,14 +39,12 @@ partial model PrimaryPumpGroup
 
   parameter Modelica.Units.SI.PressureDifference dpValve_nominal=
     dat.getReal(varName=id + ".PrimaryPump.dpValve_nominal.value")
-    "Shutoff valve pressure drop";
+    "Check valve pressure drop";
   parameter Modelica.Units.SI.PressureDifference dpByp_nominal=
     if has_byp
     then dat.getReal(varName=id + ".PrimaryPump.dpByp_nominal.value")
     else 0
     "Bypass valve pressure drop";
-
-
 
   Bus busCon(final nPum=nPum)
     "Control bus" annotation (Placement(transformation(
@@ -64,11 +62,11 @@ partial model PrimaryPumpGroup
     "Pump group inlet for chiller connected in parallel" annotation (Placement(
         transformation(extent={{-108,-30},{-92,30}}), iconTransformation(extent=
            {{-108,-30},{-92,30}})));
-  Modelica.Fluid.Interfaces.FluidPort_a port_WSEByp(
+  Modelica.Fluid.Interfaces.FluidPort_a port_ChiByp(
     redeclare final package Medium = Medium,
     m_flow(min=if allowFlowReversal then -Modelica.Constants.inf else 0),
     h_outflow(start=Medium.h_default, nominal=Medium.h_default))
-    if has_WSEByp
+    if has_ChiByp
     "Pump group inlet for waterside economizer bypass"
     annotation (Placement(transformation(extent={{-110,-70},{-90,-50}})));
   Modelica.Fluid.Interfaces.FluidPort_a port_series(
@@ -91,7 +89,6 @@ partial model PrimaryPumpGroup
     if has_byp or has_comLeg
     "Pump group outlet for bypass or commong leg"
     annotation (Placement(transformation(extent={{10,-110},{-10,-90}})));
-
 
   replaceable parameter Fluid.Movers.Data.Generic per(pressure(V_flow=
           m_flow_nominal/1000 .* {0,1,2}, dp=dp_nominal .* {1.5,1,0.5}))
@@ -116,4 +113,4 @@ equation
           fillColor={0,127,255},
           textString="%name")}),            Diagram(
         coordinateSystem(preserveAspectRatio=false)));
-end PrimaryPumpGroup;
+end PartialPrimaryPumpGroup;

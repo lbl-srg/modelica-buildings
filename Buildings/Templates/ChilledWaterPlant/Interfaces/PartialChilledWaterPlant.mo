@@ -1,5 +1,5 @@
 within Buildings.Templates.ChilledWaterPlant.Interfaces;
-partial model ChilledWaterPlant
+partial model PartialChilledWaterPlant
   parameter Buildings.Templates.Types.ChilledWaterPlant typ "Type of system"
     annotation (Evaluate=true, Dialog(group="Configuration"));
 
@@ -28,7 +28,7 @@ partial model ChilledWaterPlant
         origin={0,100})));
 
 protected
-  parameter Boolean is_airCoo=
+  parameter Boolean isAirCoo=
     typ == Buildings.Templates.Types.ChilledWaterPlant.AirCooledParallel or
     typ == Buildings.Templates.Types.ChilledWaterPlant.AirCooledSeries
     "= true, chillers in group are air cooled, 
@@ -48,4 +48,4 @@ protected
           fillPattern=FillPattern.Solid,
           fillColor={245,239,184},
           pattern=LinePattern.None)}));
-end ChilledWaterPlant;
+end PartialChilledWaterPlant;

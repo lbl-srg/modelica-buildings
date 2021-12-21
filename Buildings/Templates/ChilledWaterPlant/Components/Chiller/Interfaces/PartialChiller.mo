@@ -1,13 +1,13 @@
 within Buildings.Templates.ChilledWaterPlant.Components.Chiller.Interfaces;
-partial model Chiller
+partial model PartialChiller
   extends Buildings.Fluid.Interfaces.PartialOptionalFourPortInterface(
     redeclare replaceable package Medium1=Buildings.Media.Water,
     redeclare replaceable package Medium2=Buildings.Media.Water,
     final hasMedium1=true,
-    final hasMedium2=not is_airCoo);
+    final hasMedium2=not isAirCoo);
   extends Buildings.Fluid.Interfaces.FourPortFlowResistanceParameters(
      final computeFlowResistance1=true,
-     final computeFlowResistance2=not is_airCoo);
+     final computeFlowResistance2=not isAirCoo);
 
   parameter Buildings.Templates.ChilledWaterPlant.Components.Types.Chiller typ "Type of chiller"
     annotation (Evaluate=true, Dialog(group="Configuration"));
@@ -16,7 +16,7 @@ partial model Chiller
   outer parameter ExternData.JSONFile dat
     "External parameter file";
 
-  parameter Boolean is_airCoo = false
+  parameter Boolean isAirCoo = false
     "= true, chillers in group are air cooled,
     = false, chillers in group are water cooled";
   replaceable parameter Buildings.Fluid.Chillers.Data.BaseClasses.Chiller
@@ -38,4 +38,4 @@ partial model Chiller
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid)}), Diagram(
         coordinateSystem(preserveAspectRatio=false)));
-end Chiller;
+end PartialChiller;

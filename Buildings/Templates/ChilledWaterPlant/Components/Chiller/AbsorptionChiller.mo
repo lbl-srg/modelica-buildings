@@ -1,6 +1,6 @@
 within Buildings.Templates.ChilledWaterPlant.Components.Chiller;
 model AbsorptionChiller
-  extends Buildings.Templates.ChilledWaterPlant.Components.Chiller.Interfaces.Chiller(
+  extends Buildings.Templates.ChilledWaterPlant.Components.Chiller.Interfaces.PartialChiller(
     final typ=Buildings.Templates.ChilledWaterPlant.Components.Types.Chiller.AbsorptionChiller);
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Rectangle(
