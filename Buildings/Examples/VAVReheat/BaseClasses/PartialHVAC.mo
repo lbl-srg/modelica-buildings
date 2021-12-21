@@ -16,8 +16,11 @@ partial model PartialHVAC
 
   constant Real conv=1.2/3600 "Conversion factor for nominal mass flow rate";
 
-  parameter Modelica.Units.SI.MassFlowRate mVAV_flow_nominal[numZon]
-    "Design mass flow rate per zone";
+  parameter Modelica.Units.SI.MassFlowRate mCooVAV_flow_nominal[numZon]
+    "Design mass flow rate per zone for cooling";
+
+  parameter Modelica.Units.SI.MassFlowRate mHeaVAV_flow_nominal[numZon]
+    "Design mass flow rate per zone for heating";
 
   parameter Modelica.Units.SI.MassFlowRate m_flow_nominal
     "Nominal mass flow rate";
@@ -27,9 +30,6 @@ partial model PartialHVAC
     "Nominal water mass flow rate for heating coil in AHU";
   parameter Modelica.Units.SI.MassFlowRate mCooWat_flow_nominal=m_flow_nominal*
       1000*15/4200/10 "Nominal water mass flow rate for cooling coil";
-
-  parameter Real ratVFloHea(final unit="1") = 0.3
-    "VAV box maximum air flow rate ratio in heating mode";
 
   parameter Real ratOAFlo_A(final unit="m3/(s.m2)") = 0.3e-3
     "Outdoor airflow rate required per unit area";
@@ -349,23 +349,22 @@ partial model PartialHVAC
   Buildings.Examples.VAVReheat.BaseClasses.VAVReheatBox VAVBox[numZon](
     redeclare each package MediumA = MediumA,
     redeclare each package MediumW = MediumW,
-    mCooAir_flow_nominal=mVAV_flow_nominal,
-    QHea_flow_nominal=mVAV_flow_nominal*ratVFloHea*cpAir*(32 - 12),
+    mCooAir_flow_nominal=mCooVAV_flow_nominal,
+    mHeaAir_flow_nominal=mHeaVAV_flow_nominal,
     VRoo=VRoo,
     each allowFlowReversal=allowFlowReversal,
-    each ratVFloHea=ratVFloHea,
     each THotWatInl_nominal=THotWatInl_nominal,
     each THotWatOut_nominal=THotWatInl_nominal - 10,
-    each THeaAirInl_nominal=285.15) "VAV boxes"
+    each THeaAirInl_nominal=285.15,
+    each THeaAirDis_nominal=301.15) "VAV boxes"
     annotation (Placement(transformation(extent={{720,20},{760,60}})));
   Buildings.Fluid.FixedResistances.Junction splRetRoo[numZon - 1](
     redeclare each package Medium = MediumA,
     each from_dp=false,
     each linearized=true,
-    m_flow_nominal={{
-      sum(mVAV_flow_nominal[i:numZon]),
-      sum(mVAV_flow_nominal[(i+1):numZon]),
-      mVAV_flow_nominal[i]} for i in 1:(numZon-1)},
+    m_flow_nominal={{sum(mCooVAV_flow_nominal[i:numZon]),sum(
+        mCooVAV_flow_nominal[(i + 1):numZon]),mCooVAV_flow_nominal[i]} for i in
+            1:(numZon - 1)},
     each energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     each dp_nominal(each displayUnit="Pa") = {0,0,0},
     each portFlowDirection_1=if allowFlowReversal then Modelica.Fluid.Types.PortFlowDirection.Bidirectional
@@ -380,10 +379,9 @@ partial model PartialHVAC
     redeclare each package Medium = MediumA,
     each from_dp=true,
     each linearized=true,
-    m_flow_nominal={{
-      sum(mVAV_flow_nominal[i:numZon]),
-      sum(mVAV_flow_nominal[(i+1):numZon]),
-      mVAV_flow_nominal[i]} for i in 1:(numZon-1)},
+    m_flow_nominal={{sum(mCooVAV_flow_nominal[i:numZon]),sum(
+        mCooVAV_flow_nominal[(i + 1):numZon]),mCooVAV_flow_nominal[i]} for i in
+            1:(numZon - 1)},
     each energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     each dp_nominal(each displayUnit="Pa") = {0,0,0},
     each portFlowDirection_1=if allowFlowReversal then Modelica.Fluid.Types.PortFlowDirection.Bidirectional

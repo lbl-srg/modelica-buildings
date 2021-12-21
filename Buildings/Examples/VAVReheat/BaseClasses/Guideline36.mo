@@ -13,16 +13,17 @@ model Guideline36
     "Minimum expected zone primary flow rate";
   parameter Modelica.Units.SI.Time samplePeriod=120
     "Sample period of component, set to the same value as the trim and respond that process yPreSetReq";
-  parameter Modelica.Units.SI.PressureDifference dpDisRetMax(displayUnit="Pa")
-     = 40 "Maximum return fan discharge static pressure setpoint";
+  parameter Modelica.Units.SI.PressureDifference dpDisRetMax(displayUnit="Pa")=
+       40 "Maximum return fan discharge static pressure setpoint";
 
-  Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.Controller conVAV[numZon](
-    V_flow_nominal=mVAV_flow_nominal/1.2,
+  Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.Controller conVAV[numZon]
+    (
+    V_flow_nominal=mCooVAV_flow_nominal/1.2,
     AFlo=AFlo,
     each final samplePeriod=samplePeriod,
-    VDisSetMin_flow={max(1.5*VZonOA_flow_nominal[i], 0.15*mVAV_flow_nominal[i]/1.2)
-      for i in 1:numZon},
-    VDisHeaSetMax_flow=ratVFloHea*mVAV_flow_nominal/1.2)
+    VDisSetMin_flow={max(1.5*VZonOA_flow_nominal[i], 0.15*mCooVAV_flow_nominal[
+        i]/1.2) for i in 1:numZon},
+    VDisHeaSetMax_flow=ratVFloHea*mCooVAV_flow_nominal/1.2)
     "Controller for terminal unit"
     annotation (Placement(transformation(extent={{620,100},{640,120}})));
   Buildings.Controls.OBC.CDL.Integers.MultiSum TZonResReq(nin=numZon)
