@@ -36,7 +36,7 @@ partial model HVACBuilding
   parameter Modelica.Units.SI.MassFlowRate mWes_flow_nominal
     "Design mass flow rate west";
 
-  final parameter Modelica.Units.SI.MassFlowRate mVAV_flow_nominal[5]={
+  final parameter Modelica.Units.SI.MassFlowRate mCooVAV_flow_nominal[5]={
       mSou_flow_nominal,mEas_flow_nominal,mNor_flow_nominal,mWes_flow_nominal,
       mCor_flow_nominal} "Design mass flow rate of each zone";
 
@@ -50,8 +50,7 @@ partial model HVACBuilding
     redeclare final package MediumW = MediumW,
     final VRoo={VRooSou,VRooEas,VRooNor,VRooWes,VRooCor},
     final AFlo={AFloSou,AFloEas,AFloNor,AFloWes,AFloCor},
-    final mCooVAV_flow_nominal=mVAV_flow_nominal,
-    final m_flow_nominal=0.7*sum(mVAV_flow_nominal),
+    final mCooVAV_flow_nominal=mCooVAV_flow_nominal,
     final THotWatInl_nominal=THotWatInl_nominal) "HVAC system"
     annotation (Placement(transformation(extent={{-46,-28},{42,22}})));
   replaceable
@@ -174,6 +173,11 @@ with five conditioned thermal zones.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+December 20, 2021, by Michael Wetter:<br/>
+Changed parameter declarations for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2829\">issue #2829</a>.
+</li>
 <li>
 November 17, 2021, by David Blum:<br/>
 Changed chilled water supply temperature from 12 C to 6 C.<br/>

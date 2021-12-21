@@ -295,7 +295,7 @@ as a control signal.
 <ul>
 <li>
 December 20, 2021, by Michael Wetter:<br/>
-Changed parameters for
+Changed parameter declarations for
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2829\">issue #2829</a>.
 </li>
 <li>
