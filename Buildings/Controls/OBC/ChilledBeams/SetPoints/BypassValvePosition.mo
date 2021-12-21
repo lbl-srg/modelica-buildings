@@ -55,8 +55,8 @@ block BypassValvePosition
     displayUnit="Pa",
     final quantity="PressureDifference")
     "Chilled water loop differential static pressure"
-    annotation (Placement(transformation(extent={{-140,-70},{-100,-30}}),
-      iconTransformation(extent={{-140,-70},{-100,-30}})));
+    annotation (Placement(transformation(extent={{-140,-60},{-100,-20}}),
+      iconTransformation(extent={{-140,-60},{-100,-20}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uPumSpe(
     final unit="1",
@@ -101,8 +101,8 @@ protected
     annotation (Placement(transformation(extent={{-20,60},{0,80}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con1(
-    final k=1) 
-	"Constant real one source"
+    final k=1)
+    "Constant real one source"
     annotation (Placement(transformation(extent={{-20,20},{0,40}})));
 
   Buildings.Controls.OBC.CDL.Continuous.PIDWithReset conPID(
@@ -115,9 +115,10 @@ protected
     "PID controller for regulating differential pressure at or below max pressure setpoint"
     annotation (Placement(transformation(extent={{20,-60},{40,-40}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Add subDpChiWatMax
+  Buildings.Controls.OBC.CDL.Continuous.Add subDpChiWatMax(
+    final k2=-1)
     "Find error in meaured differential pressure from maximum allowed value"
-    annotation (Placement(transformation(extent={{-40,-60},{-20,-40}})));
+    annotation (Placement(transformation(extent={{-60,-50},{-40,-30}})));
 
   Buildings.Controls.OBC.CDL.Logical.MultiOr mulOr(
     final nin=nPum)
@@ -125,10 +126,14 @@ protected
     annotation (Placement(transformation(extent={{-80,40},{-60,60}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant offSetdPChiWatMax(
-	final k(final unit="Pa")=-dPChiWatMax)
+    final k(final unit="Pa")=dPChiWatMax)
     "Offset for maximum dp chilled water"
-    annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
-	
+    annotation (Placement(transformation(extent={{-90,-90},{-70,-70}})));
+
+  Buildings.Controls.OBC.CDL.Continuous.Division div
+    "Divide difference by max setpoint to normalize measurement signal"
+    annotation (Placement(transformation(extent={{-30,-60},{-10,-40}})));
+
 equation
   connect(uPumSta, mulOr.u[1:nPum]) annotation (Line(points={{-120,50},{-82,50}},
                              color={255,0,255}));
@@ -171,12 +176,16 @@ equation
 
   connect(and2.y, conPID.trigger) annotation (Line(points={{2,0},{6,0},{6,-66},{
           24,-66},{24,-62}}, color={255,0,255}));
-  connect(subDpChiWatMax.u2, dpChiWatLoo) annotation (Line(points={{-42,-56},{
-          -94,-56},{-94,-50},{-120,-50}}, color={0,0,127}));
-  connect(offSetdPChiWatMax.y, subDpChiWatMax.u1) annotation (Line(points={{-58,
-          -30},{-48,-30},{-48,-44},{-42,-44}}, color={0,0,127}));
-  connect(subDpChiWatMax.y, conPID.u_m) annotation (Line(points={{-18,-50},{-10,
-          -50},{-10,-72},{30,-72},{30,-62}}, color={0,0,127}));
+  connect(dpChiWatLoo, subDpChiWatMax.u1) annotation (Line(points={{-120,-40},{-80,
+          -40},{-80,-34},{-62,-34}}, color={0,0,127}));
+  connect(offSetdPChiWatMax.y, subDpChiWatMax.u2) annotation (Line(points={{-68,
+          -80},{-64,-80},{-64,-46},{-62,-46}}, color={0,0,127}));
+  connect(subDpChiWatMax.y, div.u1) annotation (Line(points={{-38,-40},{-36,-40},
+          {-36,-44},{-32,-44}}, color={0,0,127}));
+  connect(offSetdPChiWatMax.y, div.u2) annotation (Line(points={{-68,-80},{-36,-80},
+          {-36,-56},{-32,-56}}, color={0,0,127}));
+  connect(div.y, conPID.u_m) annotation (Line(points={{-8,-50},{0,-50},{0,-70},{
+          30,-70},{30,-62}}, color={0,0,127}));
   annotation (defaultComponentName="bypValPos",
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
             {100,100}}), graphics={

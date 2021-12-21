@@ -40,5 +40,28 @@ annotation (Icon(graphics={
     of operations were compiled after a literature review of the best practices
     in the industry.
     </p>
+    <p>
+    The package consist of two main components:
+    <ul>
+    <li>
+    the system controller <a href=\"modelica://Buildings.Controls.OBC.ChilledBeams.System.Controller\">
+    Buildings.Controls.OBC.ChilledBeams.System.Controller</a> and
+    </li>
+    <li>
+    the zone terminal controller <a href=\"modelica://Buildings.Controls.OBC.ChilledBeams.Terminal.Controller\">
+    Buildings.Controls.OBC.ChilledBeams.Terminal.Controller</a>.
+    </li>
+    </ul>
+    </p>
+    <p>
+    The two controllers are used as shown in the schematic below. The system controller
+    is responsible for controlling the secondary chilled water supply pumps and 
+    the pressure-relief bypass valve. The zone terminal controller is responsible for
+    the chilled water control valve for the zone chilled beam manifold, as well as 
+    the CAV terminal reheat and damper components.    
+    </p>
+    <p align=\"center\">
+    <img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Controls/OBC/ChilledBeams/ChilledBeamsSchematic.png\" border=\"1\"/>
+    </p>
     </html>"));
 end ChilledBeams;
