@@ -14,5 +14,5 @@ model RP1711_6_5
     final id="CHW_1");
 
   annotation (
-    defaultComponentName="ahu");
+    defaultComponentName="chw");
 end RP1711_6_5;
