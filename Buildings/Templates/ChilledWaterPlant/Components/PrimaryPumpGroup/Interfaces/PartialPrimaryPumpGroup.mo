@@ -19,8 +19,8 @@ partial model PartialPrimaryPumpGroup
   parameter Boolean have_byp "= true if chilled water loop has a minimum flow bypass";
   parameter Boolean have_comLeg "= true if there is a commong leg";
   parameter Boolean have_floSen "= true if primary flow is measured";
-  parameter Boolean have_comLegFloSen = has_comLeg and not has_floSen "= true if common leg flow is measured"
-    annotation(Dialog(enable=has_comLeg));
+  parameter Boolean have_comLegFloSen = have_comLeg and not have_floSen "= true if common leg flow is measured"
+    annotation(Dialog(enable=have_comLeg));
 
   final parameter Boolean is_dedicated = typ == Buildings.Templates.ChilledWaterPlant.Components.Types.PrimaryPumpGroup.Dedicated;
 
@@ -41,7 +41,7 @@ partial model PartialPrimaryPumpGroup
     dat.getReal(varName=id + ".PrimaryPump.dpValve_nominal.value")
     "Check valve pressure drop";
   parameter Modelica.Units.SI.PressureDifference dpByp_nominal=
-    if has_byp
+    if have_byp
     then dat.getReal(varName=id + ".PrimaryPump.dpByp_nominal.value")
     else 0
     "Bypass valve pressure drop";
@@ -58,7 +58,7 @@ partial model PartialPrimaryPumpGroup
   Modelica.Fluid.Interfaces.FluidPorts_a ports_parallel[nChi](
     redeclare each final package Medium = Medium,
     each m_flow(min=if allowFlowReversal then -Modelica.Constants.inf else 0),
-    each h_outflow(start=Medium.h_default, nominal=Medium.h_default)) if has_ParChi
+    each h_outflow(start=Medium.h_default, nominal=Medium.h_default)) if have_ParChi
     "Pump group inlet for chiller connected in parallel" annotation (Placement(
         transformation(extent={{-108,-30},{-92,30}}), iconTransformation(extent=
            {{-108,-30},{-92,30}})));
@@ -66,14 +66,14 @@ partial model PartialPrimaryPumpGroup
     redeclare final package Medium = Medium,
     m_flow(min=if allowFlowReversal then -Modelica.Constants.inf else 0),
     h_outflow(start=Medium.h_default, nominal=Medium.h_default))
-    if has_ChiByp
+    if have_ChiByp
     "Pump group inlet for waterside economizer bypass"
     annotation (Placement(transformation(extent={{-110,-70},{-90,-50}})));
   Modelica.Fluid.Interfaces.FluidPort_a port_series(
     redeclare final package Medium = Medium,
     m_flow(min=if allowFlowReversal then -Modelica.Constants.inf else 0),
     h_outflow(start=Medium.h_default, nominal=Medium.h_default))
-    if not has_ParChi
+    if not have_ParChi
     "Pump group inlet for chiller connected in series"
     annotation (Placement(transformation(extent={{-110,50},{-90,70}})));
   Modelica.Fluid.Interfaces.FluidPort_b port_b(
@@ -86,7 +86,7 @@ partial model PartialPrimaryPumpGroup
     redeclare final package Medium = Medium,
     m_flow(max=if allowFlowReversal then +Modelica.Constants.inf else 0),
     h_outflow(start=Medium.h_default, nominal=Medium.h_default))
-    if has_byp or has_comLeg
+    if have_byp or have_comLeg
     "Pump group outlet for bypass or commong leg"
     annotation (Placement(transformation(extent={{10,-110},{-10,-90}})));
 

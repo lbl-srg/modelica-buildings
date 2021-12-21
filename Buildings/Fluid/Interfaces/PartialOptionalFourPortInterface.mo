@@ -19,7 +19,7 @@ partial model PartialOptionalFourPortInterface
           property_T=293.15,
           X_a=0.40)
           "Propylene glycol water, 40% mass fraction")),
-          Dialog(enable=hasMedium1));
+          Dialog(enable=haveMedium1));
   replaceable package Medium2 =
     Modelica.Media.Interfaces.PartialMedium "Medium 2 in the component"
       annotation (choices(
@@ -30,27 +30,27 @@ partial model PartialOptionalFourPortInterface
           property_T=293.15,
           X_a=0.40)
           "Propylene glycol water, 40% mass fraction")),
-          Dialog(enable=hasMedium2));
+          Dialog(enable=haveMedium2));
 
   parameter Boolean allowFlowReversal1 = true
     "= false to simplify equations, assuming, but not enforcing, no flow reversal for medium 1"
-    annotation(Dialog(tab="Assumptions", enable=hasMedium1), Evaluate=true);
+    annotation(Dialog(tab="Assumptions", enable=haveMedium1), Evaluate=true);
   parameter Boolean allowFlowReversal2 = true
     "= false to simplify equations, assuming, but not enforcing, no flow reversal for medium 2"
-    annotation(Dialog(tab="Assumptions", enable=hasMedium2), Evaluate=true);
+    annotation(Dialog(tab="Assumptions", enable=haveMedium2), Evaluate=true);
 
   Modelica.Fluid.Interfaces.FluidPort_a port_a1(
                      redeclare final package Medium = Medium1,
                      m_flow(min=if allowFlowReversal1 then -Modelica.Constants.inf else 0),
                      h_outflow(start = Medium1.h_default, nominal = Medium1.h_default))
-                   if hasMedium1
+                   if haveMedium1
     "Fluid connector a1 (positive design flow direction is from port_a1 to port_b1)"
     annotation (Placement(transformation(extent={{-110,50},{-90,70}})));
   Modelica.Fluid.Interfaces.FluidPort_b port_b1(
                      redeclare final package Medium = Medium1,
                      m_flow(max=if allowFlowReversal1 then +Modelica.Constants.inf else 0),
                      h_outflow(start = Medium1.h_default, nominal = Medium1.h_default))
-                   if hasMedium1
+                   if haveMedium1
     "Fluid connector b1 (positive design flow direction is from port_a1 to port_b1)"
     annotation (Placement(transformation(extent={{110,50},{90,70}})));
 
@@ -58,29 +58,29 @@ partial model PartialOptionalFourPortInterface
                      redeclare final package Medium = Medium2,
                      m_flow(min=if allowFlowReversal2 then -Modelica.Constants.inf else 0),
                      h_outflow(start = Medium2.h_default, nominal = Medium2.h_default))
-                   if hasMedium2
+                   if haveMedium2
     "Fluid connector a2 (positive design flow direction is from port_a2 to port_b2)"
     annotation (Placement(transformation(extent={{90,-70},{110,-50}})));
   Modelica.Fluid.Interfaces.FluidPort_b port_b2(
                      redeclare final package Medium = Medium2,
                      m_flow(max=if allowFlowReversal2 then +Modelica.Constants.inf else 0),
                      h_outflow(start = Medium2.h_default, nominal = Medium2.h_default))
-                    if hasMedium2
+                    if haveMedium2
     "Fluid connector b2 (positive design flow direction is from port_a2 to port_b2)"
     annotation (Placement(transformation(extent={{-90,-70},{-110,-50}})));
 
   parameter Modelica.Units.SI.MassFlowRate m1_flow_nominal(min=0)
     "Nominal mass flow rate"
-    annotation(Dialog(group = "Nominal condition", enable=hasMedium1));
+    annotation(Dialog(group = "Nominal condition", enable=haveMedium1));
   parameter Modelica.Units.SI.MassFlowRate m2_flow_nominal(min=0)
     "Nominal mass flow rate"
-    annotation(Dialog(group = "Nominal condition", enable=hasMedium2));
+    annotation(Dialog(group = "Nominal condition", enable=haveMedium2));
   parameter Medium1.MassFlowRate m1_flow_small(min=0) = 1E-4*abs(m1_flow_nominal)
     "Small mass flow rate for regularization of zero flow"
-    annotation(Dialog(tab = "Advanced", enable=hasMedium1));
+    annotation(Dialog(tab = "Advanced", enable=haveMedium1));
   parameter Medium2.MassFlowRate m2_flow_small(min=0) = 1E-4*abs(m2_flow_nominal)
     "Small mass flow rate for regularization of zero flow"
-    annotation(Dialog(tab = "Advanced", enable=hasMedium2));
+    annotation(Dialog(tab = "Advanced", enable=haveMedium2));
 
   annotation (
   preferredView="info",

@@ -14,7 +14,7 @@ model Dedicated
   Buildings.Templates.Components.Valves.TwoWayModulating valByp(
     redeclare final package Medium = Medium,
     final m_flow_nominal=mTot_flow_nominal,
-    final dpValve_nominal=dpByp_nominal) if has_byp
+    final dpValve_nominal=dpByp_nominal) if have_byp
     "Bypass valve" annotation (
       Placement(transformation(
         extent={{-10,10},{10,-10}},
@@ -31,21 +31,21 @@ model Dedicated
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Buildings.Templates.Components.Sensors.VolumeFlowRate V_flow(
     redeclare final package Medium = Medium,
-    final have_sen=has_floSen,
+    final have_sen=have_floSen,
     final m_flow_nominal=m_flow_nominal,
     final typ=Buildings.Templates.Components.Types.SensorVolumeFlowRate.FlowMeter)
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
   Buildings.Templates.BaseClasses.PassThroughFluid pas(redeclare each final
-      package Medium = Medium) if has_comLeg annotation (Placement(
+      package Medium = Medium) if have_comLeg annotation (Placement(
         transformation(
         extent={{10,-10},{-10,10}},
         rotation=90,
         origin={80,-60})));
   Buildings.Templates.Components.Sensors.VolumeFlowRate VComLeg_flow(
     redeclare final package Medium = Medium,
-    final have_sen=has_comLegFloSen,
+    final have_sen=have_comLegFloSen,
     final m_flow_nominal=m_flow_nominal,
-    final typ=Buildings.Templates.Components.Types.SensorVolumeFlowRate.FlowMeter) if has_comLeg
+    final typ=Buildings.Templates.Components.Types.SensorVolumeFlowRate.FlowMeter) if have_comLeg
     "Common leg volume flow rate"
     annotation (Placement(transformation(extent={{20,-90},{40,-70}})));
 equation

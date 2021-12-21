@@ -1,7 +1,7 @@
 within Buildings.Templates.ChilledWaterPlant.Components;
 package Types
   extends Modelica.Icons.TypesPackage;
-  type ChilledWaterReturnSection = enumeration(
+  type ReturnSection = enumeration(
       NoEconomizer "No waterside economizer",
       WatersideEconomizer
       "Waterisde economizer");

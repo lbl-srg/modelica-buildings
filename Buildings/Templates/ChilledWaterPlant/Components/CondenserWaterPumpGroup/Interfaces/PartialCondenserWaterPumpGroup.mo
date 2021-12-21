@@ -56,7 +56,7 @@ partial model PartialCondenserWaterPumpGroup
   Modelica.Fluid.Interfaces.FluidPort_b port_wse(
     redeclare final package Medium = Medium,
     m_flow(min=0),
-    h_outflow(start=Medium.h_default, nominal=Medium.h_default)) if has_WSE
+    h_outflow(start=Medium.h_default, nominal=Medium.h_default)) if have_WSE
     "Waterside economizer outlet" annotation (Placement(transformation(extent={{
             90,-70},{110,-50}})));
   replaceable parameter Fluid.Movers.Data.Generic per(pressure(V_flow=

@@ -5,7 +5,7 @@ model Headered
       final typ=Buildings.Templates.ChilledWaterPlant.Components.Types.CondenserWaterPumpGroup.Headered);
 
   parameter Modelica.Units.SI.PressureDifference dpWSEValve_nominal=
-    if has_WSE then
+    if have_WSE then
     dat.getReal(varName=id + ".WatersideEconomizer.dpCW_nominal.value")
     else 0
     "Waterside economizer bypass valve pressure drop";
@@ -36,13 +36,13 @@ model Headered
     redeclare final package Medium = Medium,
     final m_flow_nominal=mTot_flow_nominal,
     final dpValve_nominal=dpWSEValve_nominal)
-                                             if has_WSE
+                                             if have_WSE
     "Waterside economizer valve" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={70,-60})));
 protected
-  parameter Integer nPorWSE = if has_WSE then 1 else 0;
+  parameter Integer nPorWSE = if have_WSE then 1 else 0;
   parameter Integer nPorVol = nPorWSE + nChi + 1;
 equation
   connect(pum.y_actual, busCon.uStaPumPri) annotation (Line(points={{11,8},{20,8},

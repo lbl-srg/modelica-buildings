@@ -1,6 +1,7 @@
 within Buildings.Templates.ChilledWaterPlant.BaseClasses;
 model PartialChilledWaterLoop
-  extends Buildings.Templates.ChilledWaterPlant.Interfaces.PartialChilledWaterPlant(
+  extends
+    Buildings.Templates.ChilledWaterPlant.Interfaces.PartialChilledWaterPlant(
     redeclare final package Medium=MediumCHW,
     final nChi=chiGro.nChi);
 
@@ -9,7 +10,7 @@ model PartialChilledWaterLoop
   parameter Boolean have_byp = false "= true if chilled water loop has a minimum flow bypass"
     annotation(Dialog(enable=not pumSec.is_none));
   parameter Boolean have_ChiByp = false "= true if chilled water loop has a chiller bypass"
-    annotation(Dialog(enable=not WSE.is_none));
+    annotation(Dialog(enable=not retSec.is_none));
 
   final parameter Integer nPumPri = pumPri.nPum "Number of primary pumps";
   final parameter Integer nPumSec = if pumSec.is_none then 0 else pumSec.nPum "Number of secondary pumps";
@@ -27,25 +28,26 @@ model PartialChilledWaterLoop
 
   inner replaceable
     Buildings.Templates.ChilledWaterPlant.Components.ChillerGroup.ChillerParallel
-    chiGro(final has_dedPum=pumPri.is_dedicated)
+    chiGro(final have_dedPum=pumPri.is_dedicated)
            constrainedby
     Buildings.Templates.ChilledWaterPlant.Components.ChillerGroup.Interfaces.PartialChillerGroup(
      redeclare final package MediumCHW = MediumCHW,
      final m2_flow_nominal=mPri_flow_nominal,
-     final is_airCoo=is_airCoo)
+     final isAirCoo=isAirCoo)
     "Chiller group"
     annotation (Placement(transformation(
       extent={{10,-10},{-10,10}},rotation=90,origin={-40,10})));
   inner replaceable
     Buildings.Templates.ChilledWaterPlant.Components.ReturnSection.NoEconomizer
-    WSE   constrainedby
-    Buildings.Templates.ChilledWaterPlant.Components.ReturnSection.Interfaces.PartialChilledWaterReturnSection(
-      redeclare final package MediumCHW = MediumCHW,
-      final is_airCoo = is_airCoo,
-      final m2_flow_nominal=mPri_flow_nominal)
-    "Chilled water return section"
+    retSec constrainedby
+    Buildings.Templates.ChilledWaterPlant.Components.ReturnSection.Interfaces.PartialReturnSection(
+    redeclare final package MediumCHW = MediumCHW,
+    final isAirCoo=isAirCoo,
+    final m2_flow_nominal=mPri_flow_nominal) "Chilled water return section"
     annotation (Placement(transformation(
-      extent={{10,-10},{-10,10}},rotation=90,origin={-40,-72})));
+        extent={{10,-10},{-10,10}},
+        rotation=90,
+        origin={-40,-72})));
   inner replaceable
     Buildings.Templates.ChilledWaterPlant.Components.PrimaryPumpGroup.Headered
     pumPri constrainedby
@@ -54,10 +56,10 @@ model PartialChilledWaterLoop
       final mTot_flow_nominal=mPri_flow_nominal,
       final dp_nominal=dpPri_nominal,
       final nChi=nChi,
-      final has_ParChi=chiGro.typ == Buildings.Templates.ChilledWaterPlant.Components.Types.ChillerGroup.ChillerParallel,
-      final has_byp=has_byp,
-      final has_ChiByp=has_ChiByp,
-      final has_comLeg=not pumSec.is_none)
+      final have_ParChi=chiGro.typ == Buildings.Templates.ChilledWaterPlant.Components.Types.ChillerGroup.ChillerParallel,
+      final have_byp=have_byp,
+      final have_ChiByp=have_ChiByp,
+      final have_comLeg=not pumSec.is_none)
     "Chilled water primary pump group"
     annotation (Placement(transformation(extent={{0,0},{20,20}})));
   inner replaceable
@@ -76,7 +78,7 @@ model PartialChilledWaterLoop
       final nChi=nChi,
       final nPumPri=nPumPri,
       final nPumSec=nPumSec,
-      final is_airCoo=is_airCoo)
+      final isAirCoo=isAirCoo)
     annotation (Placement(
       transformation(
       extent={{10,10},{-10,-10}},
@@ -107,7 +109,7 @@ model PartialChilledWaterLoop
     annotation (Placement(transformation(extent={{120,0},{140,20}})));
   Buildings.Templates.Components.Sensors.Temperature TCHWRetByp(
     redeclare final package Medium = MediumCHW,
-    final have_sen = has_byp,
+    final have_sen = have_byp,
     final m_flow_nominal=mPri_flow_nominal,
     final typ=Buildings.Templates.Components.Types.SensorTemperature.InWell)
     "Chilled water return temperature after bypass"
@@ -182,7 +184,7 @@ equation
   connect(dpCHW.y, chwCon.dp);
   connect(pumPri.busCon, chwCon.pumPri);
   connect(chiGro.busCon, chwCon.chiGro);
-  connect(WSE.busCon, chwCon.wse);
+  connect(retSec.busCon, chwCon.wse);
   connect(pumSec.busCon, chwCon.pumSec);
   connect(con.busCHW, chwCon) annotation (Line(
       points={{80,60},{200,60}},
@@ -198,13 +200,13 @@ equation
     annotation (Line(points={{180,-20},{180,10},{200,10}}, color={0,127,255}));
   connect(dpCHW.port_b, port_b) annotation (Line(points={{180,-40},{180,-70},{
           200,-70}}, color={0,127,255}));
-  connect(WSE.port_b2, mixByp.port_1) annotation (Line(points={{-34,-62},{-34,
+  connect(retSec.port_b2, mixByp.port_1) annotation (Line(points={{-34,-62},{-34,
           -50},{-20,-50}}, color={0,127,255}));
   connect(mixByp.port_2, TCHWRetByp.port_a)
     annotation (Line(points={{0,-50},{20,-50}}, color={0,127,255}));
   connect(TCHWRet.port_a, port_b) annotation (Line(points={{140,-80},{180,-80},
           {180,-70},{200,-70}}, color={0,127,255}));
-  connect(TCHWRet.port_b, WSE.port_a2) annotation (Line(points={{120,-80},{-24,
+  connect(TCHWRet.port_b, retSec.port_a2) annotation (Line(points={{120,-80},{-24,
           -80},{-24,-88},{-34,-88},{-34,-82}}, color={0,127,255}));
   connect(bouCHW.ports[1], pumPri.port_b)
     annotation (Line(points={{40,20},{40,10},{20,10}}, color={0,127,255}));

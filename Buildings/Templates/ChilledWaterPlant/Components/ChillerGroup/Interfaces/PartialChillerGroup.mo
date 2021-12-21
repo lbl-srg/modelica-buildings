@@ -3,8 +3,8 @@ partial model PartialChillerGroup
 //   extends Buildings.Fluid.Interfaces.PartialOptionalFourPortInterface(
 //     redeclare package MediumCW=Buildings.Media.Water,
 //     redeclare package Medium2=Buildings.Media.Water,
-//     final hasMediumCW=not isAirCoo,
-//     final hasMedium2=true);
+//     final haveMediumCW=not isAirCoo,
+//     final haveMedium2=true);
 
   parameter Boolean isAirCoo
     "= true, chillers in group are air cooled,
@@ -90,7 +90,7 @@ partial model PartialChillerGroup
     annotation(Dialog(group = "Nominal condition"));
 
   parameter Modelica.Units.SI.PressureDifference dpValve_nominal=
-    if has_dedPum then 0
+    if have_dedPum then 0
     else dat.getReal(varName=id + ".ChillerGroup.dpValve_nominal.value")
     "Nominal pressure drop of chiller valves"
     annotation(Dialog(group = "Nominal condition"));

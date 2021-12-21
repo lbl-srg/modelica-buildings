@@ -3,7 +3,7 @@ model Dedicated
   extends
     Buildings.Templates.ChilledWaterPlant.Components.CondenserWaterPumpGroup.Interfaces.PartialCondenserWaterPumpGroup(
     final typ=Buildings.Templates.ChilledWaterPlant.Components.Types.CondenserWaterPumpGroup.Dedicated,
-    final has_WSE = false);
+    final have_WSE = false);
 
   BaseClasses.DedicatedCondenserPumps pum(
     redeclare final package Medium = Medium,

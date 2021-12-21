@@ -37,12 +37,12 @@ model ChillerParallel
   Fluid.Actuators.Valves.TwoWayLinear valChi[nChi](
     redeclare each final package Medium = MediumCHW,
     each final m_flow_nominal=m2_flow_nominal/nChi,
-    each final dpValve_nominal=dpValve_nominal) if not has_dedPum
+    each final dpValve_nominal=dpValve_nominal) if not have_dedPum
     "Chillers valves"
     annotation (Placement(transformation(
       extent={{10,-10},{-10,10}},rotation=0,origin={-70,20})));
   Buildings.Templates.BaseClasses.PassThroughFluid pas[nChi](
-    redeclare each final package Medium = MediumCHW) if has_dedPum
+    redeclare each final package Medium = MediumCHW) if have_dedPum
     "Passthrough"
     annotation (Placement(transformation(extent={{-60,-30},{-80,-10}})));
 equation

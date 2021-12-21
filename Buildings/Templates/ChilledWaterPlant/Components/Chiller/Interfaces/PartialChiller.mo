@@ -3,8 +3,8 @@ partial model PartialChiller
   extends Buildings.Fluid.Interfaces.PartialOptionalFourPortInterface(
     redeclare replaceable package Medium1=Buildings.Media.Water,
     redeclare replaceable package Medium2=Buildings.Media.Water,
-    final hasMedium1=true,
-    final hasMedium2=not isAirCoo);
+    final haveMedium1=true,
+    final haveMedium2=not isAirCoo);
   extends Buildings.Fluid.Interfaces.FourPortFlowResistanceParameters(
      final computeFlowResistance1=true,
      final computeFlowResistance2=not isAirCoo);

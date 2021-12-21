@@ -1,10 +1,10 @@
 within Buildings.Templates.ChilledWaterPlant.Components.ReturnSection.Interfaces;
-partial model PartialChilledWaterReturnSection
+partial model PartialReturnSection
   extends Fluid.Interfaces.PartialOptionalFourPortInterface(
     redeclare final package Medium1=MediumCW,
     redeclare final package Medium2=MediumCHW,
-    final hasMedium1=not isAirCoo,
-    final hasMedium2=true);
+    final haveMedium1=not isAirCoo,
+    final haveMedium2=true);
 
   replaceable package MediumCW = Buildings.Media.Water
     constrainedby Modelica.Media.Interfaces.PartialMedium "Medium 1 in the component"
@@ -13,14 +13,14 @@ partial model PartialChilledWaterReturnSection
     constrainedby Modelica.Media.Interfaces.PartialMedium "Medium 2 in the component";
 
   parameter
-    Buildings.Templates.ChilledWaterPlant.Components.Types.ChilledWaterReturnSection
+    Buildings.Templates.ChilledWaterPlant.Components.Types.ReturnSection
     typ "Type of waterside economizer"
     annotation (Evaluate=true, Dialog(group="Configuration"));
 
   parameter Boolean isAirCoo "Is chiller plant air cooled";
 
   final parameter Boolean is_none=
-    typ == Buildings.Templates.ChilledWaterPlant.Components.Types.ChilledWaterReturnSection.NoEconomizer;
+    typ == Buildings.Templates.ChilledWaterPlant.Components.Types.ReturnSection.NoEconomizer;
 
   outer parameter String id
     "System identifier";
@@ -43,4 +43,4 @@ partial model PartialChilledWaterReturnSection
           fillPattern=FillPattern.Solid)}), Diagram(
         coordinateSystem(preserveAspectRatio=false)));
 
-end PartialChilledWaterReturnSection;
+end PartialReturnSection;

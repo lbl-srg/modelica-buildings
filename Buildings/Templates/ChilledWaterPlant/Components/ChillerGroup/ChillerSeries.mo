@@ -3,7 +3,7 @@ model ChillerSeries
   extends
     Buildings.Templates.ChilledWaterPlant.Components.ChillerGroup.Interfaces.PartialChillerGroup(
       final typ=Buildings.Templates.ChilledWaterPlant.Components.Types.ChillerGroup.ChillerSeries,
-      final has_dedPum=false);
+      final have_dedPum=false);
 
   inner replaceable
     Buildings.Templates.ChilledWaterPlant.Components.Chiller.ElectricChiller

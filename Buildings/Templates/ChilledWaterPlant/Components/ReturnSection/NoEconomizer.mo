@@ -1,8 +1,8 @@
 within Buildings.Templates.ChilledWaterPlant.Components.ReturnSection;
 model NoEconomizer
   extends
-    Buildings.Templates.ChilledWaterPlant.Components.ReturnSection.Interfaces.PartialChilledWaterReturnSection(
-      final typ=Buildings.Templates.ChilledWaterPlant.Components.Types.ChilledWaterReturnSection.NoEconomizer);
+    Buildings.Templates.ChilledWaterPlant.Components.ReturnSection.Interfaces.PartialReturnSection(
+      final typ=Buildings.Templates.ChilledWaterPlant.Components.Types.ReturnSection.NoEconomizer);
 
 equation
   connect(port_b2, port_a2)

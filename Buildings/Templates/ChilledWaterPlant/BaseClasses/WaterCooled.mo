@@ -2,22 +2,24 @@ within Buildings.Templates.ChilledWaterPlant.BaseClasses;
 model WaterCooled
   extends
     Buildings.Templates.ChilledWaterPlant.BaseClasses.PartialChilledWaterLoop(
-    final is_airCoo=false,
-    redeclare replaceable Buildings.Templates.ChilledWaterPlant.Components.ChillerGroup.ChillerParallel chiGro
-      constrainedby
+    final isAirCoo=false,
+    redeclare replaceable
+      Buildings.Templates.ChilledWaterPlant.Components.ChillerGroup.ChillerParallel
+      chiGro constrainedby
       Buildings.Templates.ChilledWaterPlant.Components.ChillerGroup.Interfaces.ChillerGroup(
-        redeclare final package MediumCW = MediumCW,
-        final m1_flow_nominal=mCon_flow_nominal),
-    redeclare replaceable Buildings.Templates.ChilledWaterPlant.Components.Controls.OpenLoop con
+       redeclare final package MediumCW = MediumCW, final m1_flow_nominal=
+          mCon_flow_nominal),
+    redeclare replaceable
+      Buildings.Templates.ChilledWaterPlant.Components.Controls.OpenLoop con
       constrainedby
       Buildings.Templates.ChilledWaterPlant.Components.Controls.Interfaces.PartialController(
-        final nPumCon=nPumCon,
-        final nCooTow=nCooTow),
-    redeclare replaceable Components.ReturnSection.NoEconomizer WSE
-      constrainedby
-      Buildings.Templates.ChilledWaterPlant.Components.ReturnSection.Interfaces.ChilledWaterReturnSection(
-        redeclare final package MediumCW = MediumCW,
-        final m1_flow_nominal=mCon_flow_nominal));
+       final nPumCon=nPumCon, final nCooTow=nCooTow),
+    redeclare replaceable
+      Buildings.Templates.ChilledWaterPlant.Components.ReturnSection.NoEconomizer
+      retSec constrainedby
+      Buildings.Templates.ChilledWaterPlant.Components.ReturnSection.Interfaces.PartialReturnSection(
+       redeclare final package MediumCW = MediumCW, final m1_flow_nominal=
+          mCon_flow_nominal));
 
   replaceable package MediumCW=Buildings.Media.Water "Condenser water medium";
 
@@ -38,13 +40,12 @@ model WaterCooled
     annotation (Placement(transformation(extent={{-180,-20},{-160,0}})));
   inner replaceable
     Buildings.Templates.ChilledWaterPlant.Components.CondenserWaterPumpGroup.Headered
-    pumCon(final has_WSE=not WSE.is_none) constrainedby
+    pumCon(final have_WSE=not retSec.is_none) constrainedby
     Buildings.Templates.ChilledWaterPlant.Components.CondenserWaterPumpGroup.Interfaces.PartialCondenserWaterPumpGroup(
-      redeclare final package Medium = MediumCW,
-      final mTot_flow_nominal=mCon_flow_nominal,
-      final dp_nominal=dpCon_nominal,
-      final nChi=nChi)
-    "Condenser water pump group"
+    redeclare final package Medium = MediumCW,
+    final mTot_flow_nominal=mCon_flow_nominal,
+    final dp_nominal=dpCon_nominal,
+    final nChi=nChi) "Condenser water pump group"
     annotation (Placement(transformation(extent={{-100,-20},{-80,0}})));
 
   Buildings.Templates.Components.Sensors.Temperature TCWSup(
@@ -74,7 +75,7 @@ model WaterCooled
 
   Buildings.Templates.ChilledWaterPlant.BaseClasses.BusCondenserWater cwCon(nPum=
         nPumCon, nCooTow=nCooTow)
-    if not is_airCoo
+    if not isAirCoo
     "Condenser loop control bus"
     annotation (Placement(transformation(
         extent={{-20,20},{20,-20}},
@@ -98,9 +99,8 @@ equation
     annotation (Line(points={{-160,-10},{-140,-10}}, color={0,127,255}));
   connect(TCWSup.port_b,pumCon. port_a)
     annotation (Line(points={{-120,-10},{-100,-10}}, color={0,127,255}));
-  connect(pumCon.port_wse, WSE.port_a1)
-    annotation (Line(points={{-80,-16},{-70,-16},{-70,-50},{-46,-50},{-46,-62}},
-      color={0,127,255}));
+  connect(pumCon.port_wse, retSec.port_a1) annotation (Line(points={{-80,-16},{-70,
+          -16},{-70,-50},{-46,-50},{-46,-62}}, color={0,127,255}));
   connect(chiGro.port_b1, mixCW.port_3)
     annotation (Line(points={{-46,0},{-46,-40},{-90,-40},{-90,-60}},
       color={0,127,255}));
@@ -126,6 +126,6 @@ equation
           -110,-10},{-100,-10}},              color={0,127,255}));
   connect(mixCW.port_2, TCWRet.port_b)
     annotation (Line(points={{-100,-70},{-120,-70}}, color={0,127,255}));
-  connect(mixCW.port_1, WSE.port_b1) annotation (Line(points={{-80,-70},{-60,
+  connect(mixCW.port_1, retSec.port_b1) annotation (Line(points={{-80,-70},{-60,
           -70},{-60,-88},{-46,-88},{-46,-82}}, color={0,127,255}));
 end WaterCooled;

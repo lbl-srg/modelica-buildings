@@ -5,7 +5,7 @@ model Headered
     final typ=Buildings.Templates.ChilledWaterPlant.Components.Types.PrimaryPumpGroup.Headered);
 
   parameter Modelica.Units.SI.PressureDifference dpChiByp_nominal=
-    if has_ChiByp then dat.getReal(varName=id + ".WatersideEconomizer.dpByp_nominal.value")
+    if have_ChiByp then dat.getReal(varName=id + ".WatersideEconomizer.dpByp_nominal.value")
     else 0;
 
   Fluid.Delays.DelayFirstOrder del(
@@ -25,7 +25,7 @@ model Headered
   Buildings.Templates.Components.Valves.TwoWayModulating valByp(
     redeclare final package Medium = Medium,
     final m_flow_nominal=mTot_flow_nominal,
-    final dpValve_nominal=dpByp_nominal) if has_byp "Bypass valve" annotation (
+    final dpValve_nominal=dpByp_nominal) if have_byp "Bypass valve" annotation (
       Placement(transformation(
         extent={{-10,10},{10,-10}},
         rotation=270,
@@ -42,35 +42,35 @@ model Headered
   Buildings.Templates.Components.Valves.TwoWayTwoPosition valChiByp(
     redeclare final package Medium = Medium,
     final m_flow_nominal=m_flow_nominal,
-    final dpValve_nominal=dpChiByp_nominal) if has_ChiByp
+    final dpValve_nominal=dpChiByp_nominal) if have_ChiByp
     "Chiller chilled water side bypass valve" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-70,-60})));
   Buildings.Templates.Components.Sensors.VolumeFlowRate V_flow(
     redeclare final package Medium = Medium,
-    final have_sen=has_floSen,
+    final have_sen=have_floSen,
     final m_flow_nominal=m_flow_nominal,
     final typ=Buildings.Templates.Components.Types.SensorVolumeFlowRate.FlowMeter)
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
 
   Buildings.Templates.BaseClasses.PassThroughFluid pas(redeclare each final
-      package Medium = Medium) if has_comLeg annotation (Placement(
+      package Medium = Medium) if have_comLeg annotation (Placement(
         transformation(
         extent={{10,-10},{-10,10}},
         rotation=90,
         origin={80,-60})));
   Buildings.Templates.Components.Sensors.VolumeFlowRate VComLeg_flow(
     redeclare final package Medium = Medium,
-    final have_sen=has_comLegFloSen,
+    final have_sen=have_comLegFloSen,
     final m_flow_nominal=m_flow_nominal,
     final typ=Buildings.Templates.Components.Types.SensorVolumeFlowRate.FlowMeter)
-    if has_comLeg
+    if have_comLeg
     "Common leg volume flow rate"
     annotation (Placement(transformation(extent={{20,-90},{40,-70}})));
 protected
-  parameter Integer nPorWSE = if has_ChiByp then 1 else 0;
-  parameter Integer nPorChi = if has_ParChi then nChi else 1;
+  parameter Integer nPorWSE = if have_ChiByp then 1 else 0;
+  parameter Integer nPorChi = if have_ParChi then nChi else 1;
   parameter Integer nPorVol = nPorWSE + nPorChi + 1;
 equation
   /* Control point connection - start */
