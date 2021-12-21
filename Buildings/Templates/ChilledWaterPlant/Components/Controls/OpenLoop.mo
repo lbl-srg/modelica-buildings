@@ -57,6 +57,11 @@ block OpenLoop "Open loop controller (output signals only)"
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={10,70})));
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant ySpePumSec[nPumSec](
+      each k=1) annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=-90,
+        origin={70,70})));
 equation
   /* Control point connection - start */
   connect(busCHW.pumPri.valByp.y, yValByp.y);
@@ -70,6 +75,9 @@ equation
   end for;
   for i in 1:nPumPri loop
     connect(busCHW.pumPri.ySpe[i], ySpePumPri[i].y);
+  end for;
+  for i in 1:nPumSec loop
+    connect(busCHW.pumSec.ySpe[i], ySpePumSec[i].y);
   end for;
   for i in 1:nCooTow loop
     connect(busCW.cooTow.yFan[i], yCooTowFan[i].y);

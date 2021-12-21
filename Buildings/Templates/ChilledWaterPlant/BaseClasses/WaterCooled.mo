@@ -5,10 +5,10 @@ model WaterCooled
     final isAirCoo=false,
     redeclare replaceable
       Buildings.Templates.ChilledWaterPlant.Components.ChillerGroup.ChillerParallel
-      chiGro constrainedby
+      chiGro(final have_dedPum=pumPri.is_dedicated) constrainedby
       Buildings.Templates.ChilledWaterPlant.Components.ChillerGroup.Interfaces.ChillerGroup(
-       redeclare final package MediumCW = MediumCW, final m1_flow_nominal=
-          mCon_flow_nominal),
+       redeclare final package MediumCW = MediumCW,
+       final m1_flow_nominal=mCon_flow_nominal),
     redeclare replaceable
       Buildings.Templates.ChilledWaterPlant.Components.Controls.OpenLoop con
       constrainedby
