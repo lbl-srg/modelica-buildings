@@ -9,8 +9,8 @@ CoilHeatingElectric
 CompleteAHU
 ControlsGuideline36
 ControlsGuideline36Pressure
-DedicatedDamperAirflow
-DedicatedDamperPressure
+DedicatedDampersAirflow
+DedicatedDampersPressure
 FanRelief
 FanSupplyBlowSingleConstant
 FanSupplyDrawArrayVariable

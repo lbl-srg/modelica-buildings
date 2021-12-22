@@ -27,9 +27,9 @@ model Economizer "Air economizer"
     choices(
       choice(redeclare replaceable Buildings.Templates.AirHandlersFans.Components.OutdoorSection.SingleDamper secOut
         "Single common OA damper (modulating) with AFMS"),
-      choice(redeclare replaceable Buildings.Templates.AirHandlersFans.Components.OutdoorSection.DedicatedDamperAirflow secOut
+      choice(redeclare replaceable Buildings.Templates.AirHandlersFans.Components.OutdoorSection.DedicatedDampersAirflow secOut
         "Dedicated minimum OA damper (modulating) with AFMS"),
-      choice(redeclare replaceable Buildings.Templates.AirHandlersFans.Components.OutdoorSection.DedicatedDamperPressure secOut
+      choice(redeclare replaceable Buildings.Templates.AirHandlersFans.Components.OutdoorSection.DedicatedDampersPressure secOut
         "Dedicated minimum OA damper (two-position) with differential pressure sensor")),
     Dialog(group="Outdoor air section"),
     Placement(transformation(extent={{-58,-94},{-22,-66}})));

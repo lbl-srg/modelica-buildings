@@ -3,7 +3,7 @@ model DedicatedDampersPressure
   "Separate dedicated OA dampers and OA measurement by differential pressure sensor"
   extends
     Buildings.Templates.AirHandlersFans.Components.OutdoorSection.Interfaces.PartialOutdoorSection(
-    final typ=Buildings.Templates.AirHandlersFans.Types.OutdoorSection.DedicatedDamperPressure,
+    final typ=Buildings.Templates.AirHandlersFans.Types.OutdoorSection.DedicatedDampersPressure,
     final typDamOut=damOut.typ,
     final typDamOutMin=damOutMin.typ);
 

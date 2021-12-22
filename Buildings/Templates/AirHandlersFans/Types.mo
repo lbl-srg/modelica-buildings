@@ -62,9 +62,9 @@ package Types "AHU types"
       Terminal)
   "Enumeration to specify the equipment location";
   type OutdoorSection = enumeration(
-      DedicatedDamperAirflow
+      DedicatedDampersAirflow
       "Separate dedicated OA dampers and OA measurement by AFMS",
-      DedicatedDamperPressure
+      DedicatedDampersPressure
       "Separate dedicated OA dampers and OA measurement by differential pressure sensor",
       NoEconomizer
       "No economizer",
