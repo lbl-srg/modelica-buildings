@@ -8,8 +8,8 @@ package Validation "Collection of validation models"
       info="<html>
 <p>
 This package contains validation models for the classes in
-<a href=\"modelica://Buildings.Experimental.DHC.EnergyTransferStations.Combined.Generation5\">
-Buildings.Experimental.DHC.EnergyTransferStations.Combined.Generation5</a>.
+<a href=\"modelica://Buildings.Experimental.DHC.EnergyTransferStations.Combined\">
+Buildings.Experimental.DHC.EnergyTransferStations.Combined</a>.
 </p>
 </html>"));
 end Validation;

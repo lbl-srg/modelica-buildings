@@ -7,8 +7,8 @@ package BaseClasses "Package with base classes"
       info="<html>
 <p>
 This package contains base classes that are used to construct the classes in
-<a href=\"modelica://Buildings.Experimental.DHC.EnergyTransferStations.Combined.Generation5\">
-Buildings.Experimental.DHC.EnergyTransferStations.Combined.Generation5</a>.
+<a href=\"modelica://Buildings.Experimental.DHC.EnergyTransferStations.Combined\">
+Buildings.Experimental.DHC.EnergyTransferStations.Combined</a>.
 </p>
 </html>"));
 end BaseClasses;
