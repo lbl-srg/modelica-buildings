@@ -27,7 +27,7 @@ partial model PartialHVAC
     "Design mass flow rate per zone for cooling"
     annotation (Dialog(group="Nominal mass flow rate"));
 
-  parameter Modelica.Units.SI.MassFlowRate mHeaVAV_flow_nominal[numZon] = 0.3*mCooVAV_flow_nominal
+  parameter Modelica.Units.SI.MassFlowRate mHeaVAV_flow_nominal[numZon] = 0.35*mCooVAV_flow_nominal
     "Design mass flow rate per zone for heating"
     annotation (Dialog(group="Nominal mass flow rate"));
 
