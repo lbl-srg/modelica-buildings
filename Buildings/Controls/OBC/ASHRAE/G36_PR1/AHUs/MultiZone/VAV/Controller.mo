@@ -282,6 +282,13 @@ block Controller
     "Higher value of the outdoor air temperature reset range. Typically value is 21 degC (70 degF)"
     annotation (Dialog(tab="Supply air temperature", group="Temperature limits"));
 
+  parameter Real TSupWarUpSetBac(
+    final unit="K",
+    final displayUnit="degC",
+    final quantity="ThermodynamicTemperature")=308.15
+    "Supply temperature in warm up and set back mode"
+    annotation (Dialog(tab="Supply air temperature", group="Temperature limits"));
+
   parameter Real delTimSupTem(
     final unit="s",
     final quantity="Time")=600
@@ -601,6 +608,7 @@ block Controller
 
   Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.VAV.SetPoints.SupplyTemperature
     supTemSetPoi(
+    final TSupWarUpSetBac=TSupWarUpSetBac,
     final samplePeriod=samplePeriod,
     final TSupSetMin=TSupSetMin,
     final TSupSetMax=TSupSetMax,
