@@ -151,7 +151,7 @@ partial model PartialHVAC
     redeclare package Medium2 = MediumA,
     Q_flow_nominal=QHeaAHU_flow_nominal,
     m1_flow_nominal=mHeaWat_flow_nominal,
-    m2_flow_nominal=mAir_flow_nominal,
+    m2_flow_nominal=mHeaAir_flow_nominal,
     show_T=true,
     configuration=Buildings.Fluid.Types.HeatExchangerConfiguration.CounterFlow,
     dp1_nominal=3000,
