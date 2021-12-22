@@ -74,10 +74,10 @@ def _setEnvironmentVariables(var, value):
         os.environ[var] = value
 
 
-def _runUnitTests(batch, tool, package, path, n_pro, show_gui, skip_verification, debug):
+def _runUnitTests(batch, tool, package, path, n_pro, show_gui, skip_verification, debug, color):
     import buildingspy.development.regressiontest as u
 
-    ut = u.Tester(tool=tool, skip_verification=skip_verification)
+    ut = u.Tester(tool=tool, skip_verification=skip_verification, color=color)
     ut.batchMode(batch)
     ut.setLibraryRoot(path)
     if package is not None:
@@ -212,7 +212,8 @@ if __name__ == '__main__':
                            n_pro=args.number_of_processors,
                            show_gui=args.show_gui,
                            skip_verification=args.skip_verification,
-                           debug=args.debug
+                           debug=args.debug,
+                           color=True
                            )
     exit(retVal)
 

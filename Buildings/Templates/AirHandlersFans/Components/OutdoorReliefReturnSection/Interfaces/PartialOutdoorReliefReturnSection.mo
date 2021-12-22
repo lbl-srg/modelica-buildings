@@ -294,25 +294,25 @@ partial model PartialOutdoorReliefReturnSection
         visible=typDamOutMin == Buildings.Templates.Components.Types.Damper.None and
           typ <> Buildings.Templates.AirHandlersFans.Types.OutdoorReliefReturnSection.NoEconomizer),
       Bitmap(
-        visible=typSecOut==Buildings.Templates.AirHandlersFans.Types.OutdoorSection.DedicatedDamperPressure,
+        visible=typSecOut==Buildings.Templates.AirHandlersFans.Types.OutdoorSection.DedicatedDampersPressure,
         extent={{-680,-142},{-600,-62}},
         fileName="modelica://Buildings/Resources/Images/Templates/Components/Sensors/DifferentialPressure.svg"),
       Line(
-          visible=typSecOut==Buildings.Templates.AirHandlersFans.Types.OutdoorSection.DedicatedDamperPressure,
+          visible=typSecOut==Buildings.Templates.AirHandlersFans.Types.OutdoorSection.DedicatedDampersPressure,
           points={{-602,-100},{-560,-100},{-560,-340}},
           color={0,0,0},
           thickness=1),
       Line(
-          visible=typSecOut==Buildings.Templates.AirHandlersFans.Types.OutdoorSection.DedicatedDamperPressure,
+          visible=typSecOut==Buildings.Templates.AirHandlersFans.Types.OutdoorSection.DedicatedDampersPressure,
           points={{-680,-100},{-720,-100},{-720,-340}},
           color={0,0,0},
           thickness=1),
       Bitmap(
-        visible=typSecOut==Buildings.Templates.AirHandlersFans.Types.OutdoorSection.DedicatedDamperAirflow,
+        visible=typSecOut==Buildings.Templates.AirHandlersFans.Types.OutdoorSection.DedicatedDampersAirflow,
         extent={{-202,-240},{-100,-500}},
         fileName="modelica://Buildings/Resources/Images/Templates/Components/Sensors/VolumeFlowRateAFMS.svg"),
       Bitmap(
-        visible=typSecOut==Buildings.Templates.AirHandlersFans.Types.OutdoorSection.DedicatedDamperAirflow,
+        visible=typSecOut==Buildings.Templates.AirHandlersFans.Types.OutdoorSection.DedicatedDampersAirflow,
         extent={{-194,-240},{-106,-160}},
         fileName="modelica://Buildings/Resources/Images/Templates/Components/Sensors/VolumeFlowRate.svg"),
       Bitmap(

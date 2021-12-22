@@ -148,14 +148,15 @@ model VAVMultiZone "Multiple-Zone VAV"
         enable=fanSupDra.typ==Buildings.Templates.Components.Types.Fan.None),
       Placement(transformation(extent={{-50,-210},{-30,-190}})));
 
-  .Buildings.Templates.Components.Sensors.Temperature TAirCoiHeaLvg(
+  Buildings.Templates.Components.Sensors.Temperature TAirCoiHeaLvg(
     redeclare final package Medium = MediumAir,
     final have_sen=coiHeaPre.typ <> Buildings.Templates.Components.Types.Coil.None
          and coiCoo.typ <> Buildings.Templates.Components.Types.Coil.None,
     final typ=Buildings.Templates.Components.Types.SensorTemperature.Averaging,
     final m_flow_nominal=mAirSup_flow_nominal)
-    "Heating coil leaving air temperature sensor" annotation (Dialog(group="Supply air section",
-        enable=false), Placement(transformation(extent={{40,-210},{60,-190}})));
+    "Heating coil leaving air temperature sensor"
+    annotation (Dialog(group="Supply air section"),
+      Placement(transformation(extent={{40,-210},{60,-190}})));
 
   Buildings.Templates.Components.Sensors.Temperature TAirCoiCooLvg(
     redeclare final package Medium = MediumAir,
@@ -163,8 +164,9 @@ model VAVMultiZone "Multiple-Zone VAV"
          and coiHeaReh.typ <> Buildings.Templates.Components.Types.Coil.None,
     final typ=Buildings.Templates.Components.Types.SensorTemperature.Averaging,
     final m_flow_nominal=mAirSup_flow_nominal)
-    "Cooling coil leaving air temperature sensor" annotation (Dialog(group="Supply air section",
-        enable=false), Placement(transformation(extent={{100,-210},{120,-190}})));
+    "Cooling coil leaving air temperature sensor"
+    annotation (Dialog(group="Supply air section"),
+      Placement(transformation(extent={{100,-210},{120,-190}})));
 
   inner replaceable Buildings.Templates.Components.Fans.SingleVariable fanSupDra
     constrainedby Buildings.Templates.Components.Fans.Interfaces.PartialFan(
@@ -185,8 +187,6 @@ model VAVMultiZone "Multiple-Zone VAV"
     Dialog(group="Supply air section",
       enable=fanSupBlo.typ==Buildings.Templates.Components.Types.Fan.None),
     Placement(transformation(extent={{172,-210},{192,-190}})));
-
-  // FIXME: bind have_sen to control option.
 
   inner replaceable Components.Controls.OpenLoop ctr constrainedby
     Buildings.Templates.AirHandlersFans.Components.Controls.Interfaces.PartialSingleDuct
@@ -220,14 +220,17 @@ model VAVMultiZone "Multiple-Zone VAV"
     redeclare final package Medium = MediumAir,
     final have_sen=true,
     final typ=Buildings.Templates.Components.Types.SensorTemperature.Standard,
-    final m_flow_nominal=mAirSup_flow_nominal) "Supply air temperature sensor"
-    annotation (Dialog(group="Supply air section", enable=false), Placement(
+    final m_flow_nominal=mAirSup_flow_nominal)
+    "Supply air temperature sensor"
+    annotation (Dialog(group="Supply air section"), Placement(
         transformation(extent={{210,-210},{230,-190}})));
 
   Buildings.Templates.Components.Sensors.DifferentialPressure pAirSup_rel(
-      redeclare final package Medium = MediumAir, have_sen=true)
-    "Duct static pressure sensor" annotation (Dialog(group="Supply air section",
-        enable=false), Placement(transformation(extent={{250,-230},{270,-210}})));
+    redeclare final package Medium = MediumAir,
+    final have_sen=true)
+    "Duct static pressure sensor"
+    annotation (Dialog(group="Supply air section"),
+      Placement(transformation(extent={{250,-230},{270,-210}})));
 
   Buildings.Templates.Components.Sensors.DifferentialPressure pAirBui_rel(
     redeclare final package Medium = MediumAir,
@@ -247,7 +250,8 @@ model VAVMultiZone "Multiple-Zone VAV"
   Buildings.Fluid.Sources.Boundary_pT bui(
     redeclare final package Medium = MediumAir,
     final use_p_in=true,
-    final nPorts=2) "Building absolute pressure in representative space"
+    final nPorts=2)
+    "Building absolute pressure in representative space"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
@@ -258,15 +262,17 @@ model VAVMultiZone "Multiple-Zone VAV"
     final have_sen=ctr.typCtrEco == Buildings.Templates.AirHandlersFans.Types.ControlEconomizer.DifferentialDryBulb
          or ctr.typCtrEco == Buildings.Templates.AirHandlersFans.Types.ControlEconomizer.FixedDryBulbWithDifferentialDryBulb,
     final typ=Buildings.Templates.Components.Types.SensorTemperature.Standard,
-    final m_flow_nominal=mAirRet_flow_nominal) "Return air temperature sensor"
-    annotation (Dialog(group="Exhaust/relief/return section", enable=false),
+    final m_flow_nominal=mAirRet_flow_nominal)
+    "Return air temperature sensor"
+    annotation (Dialog(group="Exhaust/relief/return section"),
       Placement(transformation(extent={{220,-90},{200,-70}})));
 
   Buildings.Templates.Components.Sensors.SpecificEnthalpy hAirRet(
     redeclare final package Medium = MediumAir,
     final have_sen=ctr.typCtrEco == Buildings.Templates.AirHandlersFans.Types.ControlEconomizer.DifferentialEnthalpyWithFixedDryBulb,
-    final m_flow_nominal=mAirRet_flow_nominal) "Return air enthalpy sensor"
-    annotation (Dialog(group="Exhaust/relief/return section", enable=false),
+    final m_flow_nominal=mAirRet_flow_nominal)
+    "Return air enthalpy sensor"
+    annotation (Dialog(group="Exhaust/relief/return section"),
       Placement(transformation(extent={{250,-90},{230,-70}})));
 
   inner replaceable Buildings.Templates.Components.Coils.None coiHeaPre(

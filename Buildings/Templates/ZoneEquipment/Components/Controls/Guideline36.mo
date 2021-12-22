@@ -4,7 +4,6 @@ block Guideline36
     Buildings.Templates.ZoneEquipment.Components.Controls.Interfaces.PartialSingleDuct(
       final typ=Buildings.Templates.ZoneEquipment.Types.Controller.Guideline36);
 
-  // See FIXME below for those parameters.
   parameter Boolean have_occSen=false
     "Set to true if zones have occupancy sensor"
     annotation (Dialog(tab="Airflow setpoint", group="Zone sensors"));
@@ -16,23 +15,6 @@ block Guideline36
   parameter Boolean have_CO2Sen=false
     "Set to true if the zone has CO2 sensor"
     annotation (Dialog(tab="Airflow setpoint", group="Zone sensors"));
-
-  /* FIXME: Evaluate function call at compile time, FE ExternData.
-  parameter Boolean have_occSen=
-     dat.getBoolean(varName=id + ".Control.Occupancy sensor.value")
-    "Set to true if zones have occupancy sensor"
-    annotation (Dialog(tab="Airflow setpoint", group="Zone sensors"));
-
-  parameter Boolean have_winSen=
-     dat.getBoolean(varName=id + ".Control.Window sensor.value")
-    "Set to true if zones have window status sensor"
-    annotation (Dialog(tab="Airflow setpoint", group="Zone sensors"));
-
-  parameter Boolean have_CO2Sen=
-    dat.getBoolean(varName=id + ".Control.CO2 sensor.value")
-    "Set to true if the zone has CO2 sensor"
-    annotation (Dialog(tab="Airflow setpoint", group="Zone sensors"));
-    */
 
   parameter Modelica.Units.SI.VolumeFlowRate V_flow_nominal=
     dat.getReal(varName=id + ".Mechanical.Discharge air mass flow rate.value") / 1.2
@@ -401,7 +383,7 @@ block Guideline36
     final unit = "1") = occDen * AFlo
     "Design zone population during peak occupancy";
 
-  Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.Controller con(
+  Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.Controller ctr(
     final samplePeriod=samplePeriod,
     final AFlo=AFlo,
     final V_flow_nominal=V_flow_nominal,
@@ -500,18 +482,18 @@ block Guideline36
 
 equation
   /* Control point connection - start */
-  connect(con.yDam, bus.damVAV.y);
-  connect(con.yVal, bus.coiHea.y);
+  connect(ctr.yDam, bus.damVAV.y);
+  connect(ctr.yVal, bus.coiHea.y);
 
   connect(bus.VAirDis_flow, zonOutAirSet.VDis_flow);
-  connect(bus.TAirDis, con.TDis);
-  connect(bus.VAirDis_flow, con.VDis_flow);
-  connect(bus.damVAV.y_actual, con.yDam_actual);
+  connect(bus.TAirDis,ctr. TDis);
+  connect(bus.VAirDis_flow,ctr. VDis_flow);
+  connect(bus.damVAV.y_actual,ctr. yDam_actual);
 
-  connect(bus.ppmCO2, con.ppmCO2);
-  connect(bus.uWin, con.uWin);
-  connect(bus.TAirZon, con.TZon);
-  connect(FIXME.y, con.nOcc);
+  connect(bus.ppmCO2,ctr. ppmCO2);
+  connect(bus.uWin,ctr. uWin);
+  connect(bus.TAirZon,ctr. TZon);
+  connect(FIXME.y,ctr. nOcc);
 
   connect(bus.uOcc, TZonSet.uOccSen);
   connect(bus.uWin, TZonSet.uWinSta);
@@ -526,10 +508,10 @@ equation
   connect(FIXME3.y, zonSta.cooDowTim);
   connect(FIXME3.y, zonSta.warUpTim);
 
-  connect(bus.TAirSupSet, con.TSupAHU);
-  connect(bus.yOpeMod, con.uOpeMod);
-  connect(TZonSet.TZonCooSet, con.TZonCooSet);
-  connect(TZonSet.TZonHeaSet, con.TZonHeaSet);
+  connect(bus.TAirSupSet,ctr. TSupAHU);
+  connect(bus.yOpeMod,ctr. uOpeMod);
+  connect(TZonSet.TZonCooSet,ctr. TZonCooSet);
+  connect(TZonSet.TZonHeaSet,ctr. TZonHeaSet);
   connect(bus.yOpeMod, TZonSet.uOpeMod);
   connect(bus.TZonCooOccSet, TZonSet.TZonCooSetOcc);
   connect(bus.TZonCooUnoSet, TZonSet.TZonCooSetUno);
@@ -540,8 +522,8 @@ equation
   connect(bus.uCooDemLimLev, TZonSet.uCooDemLimLev);
   connect(bus.uHeaDemLimLev, TZonSet.uHeaDemLimLev);
 
-  connect(con.yZonTemResReq, bus.yReqZonTemRes);
-  connect(con.yZonPreResReq, bus.yReqZonPreRes);
+  connect(ctr.yZonTemResReq, bus.yReqZonTemRes);
+  connect(ctr.yZonPreResReq, bus.yReqZonPreRes);
   connect(bus.yReqOutAir, zonOutAirSet.uReqOutAir);
   connect(bus.VDesUncOutAir_flow, zonOutAirSet.VUncOut_flow_nominal);
 

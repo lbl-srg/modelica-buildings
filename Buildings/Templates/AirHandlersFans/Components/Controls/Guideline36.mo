@@ -25,8 +25,7 @@ block Guideline36 "Guideline 36 VAV single duct controller"
       dat.getBoolean(varName=idTerArr[i] + ".Control.Perimeter zone with reheat.value")
       for i in 1:nZon})
     "Check if there is any VAV-reheat boxes on perimeter zones"
-    annotation (Dialog(group="System and building parameters"));
-
+    annotation (Dialog(group="System and building parameters"), Evaluate=true);
   */
 
   final parameter Boolean isZonInGro[nGro, nZon] = {
@@ -440,7 +439,7 @@ block Guideline36 "Guideline 36 VAV single duct controller"
     final quantity="ThermodynamicTemperature")=280.15
     "Threshold temperature to end the freeze protection mode";
 
-  Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.VAV.Controller con(
+  Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.VAV.Controller ctr(
     final samplePeriod=samplePeriod,
     final have_perZonRehBox=have_perZonRehBox,
     final have_duaDucBox=have_duaDucBox,
@@ -573,23 +572,23 @@ block Guideline36 "Guideline 36 VAV single duct controller"
 equation
 
   /* Control point connection - start */
-  connect(con.yHea, bus.coiHea.y);
-  connect(con.yCoo, bus.coiCoo.y);
-  connect(con.yRetDamPos, bus.damRet.y);
-  connect(con.yOutDamPos, bus.damOut.y);
+  connect(ctr.yHea, bus.coiHea.y);
+  connect(ctr.yCoo, bus.coiCoo.y);
+  connect(ctr.yRetDamPos, bus.damRet.y);
+  connect(ctr.yOutDamPos, bus.damOut.y);
 
-  connect(con.ySupFan, bus.fanSup.y);
-  connect(con.ySupFanSpe, bus.fanSup.ySpe);
+  connect(ctr.ySupFan, bus.fanSup.y);
+  connect(ctr.ySupFanSpe, bus.fanSup.ySpe);
   connect(FIXME_yFanRetBoo.y, bus.fanRet.y);
   connect(FIXME_yFanRetRea.y, bus.fanRet.ySpe);
   connect(FIXME_yDamRel.y, bus.damRel.y);
 
-  connect(FIXME_TSet.y, con.TZonHeaSet);
-  connect(FIXME_TSet.y, con.TZonCooSet);
+  connect(FIXME_TSet.y,ctr. TZonHeaSet);
+  connect(FIXME_TSet.y,ctr. TZonCooSet);
 
-  connect(FIXME_TOutCut.y, con.TOutCut);
-  connect(FIXME_TOutCut.y, con.hOutCut);
-  connect(FIXME_modSys.y, con.uOpeMod);
+  connect(FIXME_TOutCut.y,ctr. TOutCut);
+  connect(FIXME_TOutCut.y,ctr. hOutCut);
+  connect(FIXME_modSys.y,ctr. uOpeMod);
 
   connect(busTer.uOveZon, repSigZon.zonOcc);
   connect(busTer.uOcc, repSigZon.uOcc);
@@ -609,45 +608,45 @@ equation
   connect(busTer.uWin, repSigZon.uWin);
   /* Control point connection - stop */
 
-  connect(con.yAveOutAirFraPlu, zonToSys.yAveOutAirFraPlu) annotation (Line(
+  connect(ctr.yAveOutAirFraPlu, zonToSys.yAveOutAirFraPlu) annotation (Line(
         points={{44,92},{200,92},{200,-48},{22,-48}}, color={0,0,127}));
-  connect(zonToSys.ySumDesZonPop, con.sumDesZonPop) annotation (Line(points={{-2,
+  connect(zonToSys.ySumDesZonPop,ctr. sumDesZonPop) annotation (Line(points={{-2,
           -41},{-52,-41},{-52,118},{-44,118}}, color={0,0,127}));
-  connect(zonToSys.VSumDesPopBreZon_flow, con.VSumDesPopBreZon_flow)
+  connect(zonToSys.VSumDesPopBreZon_flow,ctr. VSumDesPopBreZon_flow)
     annotation (Line(points={{-2,-44},{-56,-44},{-56,112},{-44,112}}, color={0,0,
           27}));
-  connect(zonToSys.VSumDesAreBreZon_flow, con.VSumDesAreBreZon_flow)
+  connect(zonToSys.VSumDesAreBreZon_flow,ctr. VSumDesAreBreZon_flow)
     annotation (Line(points={{-2,-47},{-60,-47},{-60,106},{-44,106}}, color={0,0,
           127}));
-  connect(zonToSys.yDesSysVenEff, con.uDesSysVenEff) annotation (Line(points={{-2,
+  connect(zonToSys.yDesSysVenEff,ctr. uDesSysVenEff) annotation (Line(points={{-2,
           -50},{-64,-50},{-64,100},{-44,100}}, color={0,0,127}));
-  connect(zonToSys.VSumUncOutAir_flow, con.VSumUncOutAir_flow) annotation (Line(
+  connect(zonToSys.VSumUncOutAir_flow,ctr. VSumUncOutAir_flow) annotation (Line(
         points={{-2,-53},{-68,-53},{-68,94},{-44,94}}, color={0,0,127}));
-  connect(zonToSys.VSumSysPriAir_flow, con.VSumSysPriAir_flow) annotation (Line(
+  connect(zonToSys.VSumSysPriAir_flow,ctr. VSumSysPriAir_flow) annotation (Line(
         points={{-2,-59},{-76,-59},{-76,88},{-44,88}}, color={0,0,127}));
-  connect(zonToSys.uOutAirFra_max, con.uOutAirFra_max) annotation (Line(points={
+  connect(zonToSys.uOutAirFra_max,ctr. uOutAirFra_max) annotation (Line(points={
           {-2,-56},{-72,-56},{-72,82},{-44,82}}, color={0,0,127}));
-  connect(bus.TAirSup, con.TSup) annotation (Line(
+  connect(bus.TAirSup,ctr. TSup) annotation (Line(
       points={{-200,0},{-180,0},{-180,80},{-100,80},{-100,70},{-44,70}},
       color={255,204,51},
       thickness=0.5));
-  connect(bus.TAirOut, con.TOut) annotation (Line(
+  connect(bus.TAirOut,ctr. TOut) annotation (Line(
       points={{-200,0},{-180,0},{-180,136},{-44,136}},
       color={255,204,51},
       thickness=0.5));
-  connect(bus.pAirSup_rel, con.ducStaPre) annotation (Line(
+  connect(bus.pAirSup_rel,ctr. ducStaPre) annotation (Line(
       points={{-200,0},{-180,0},{-180,130},{-44,130}},
       color={255,204,51},
       thickness=0.5));
-  connect(bus.VOut_flow, con.VOut_flow) annotation (Line(
+  connect(bus.VOut_flow,ctr. VOut_flow) annotation (Line(
       points={{-200,0},{-180,0},{-180,46},{-44,46}},
       color={255,204,51},
       thickness=0.5));
-  connect(bus.TAirMix, con.TMix) annotation (Line(
+  connect(bus.TAirMix,ctr. TMix) annotation (Line(
       points={{-200,0},{-180,0},{-180,38},{-44,38}},
       color={255,204,51},
       thickness=0.5));
-  connect(bus.hAirOut, con.hOut) annotation (Line(
+  connect(bus.hAirOut,ctr. hOut) annotation (Line(
       points={{-200,0},{-180,0},{-180,80},{-100,80},{-100,58},{-44,58}},
       color={255,204,51},
       thickness=0.5));
@@ -686,18 +685,18 @@ equation
                                              color={255,0,255}));
   connect(staGro.yOpeWin, opeModSel.uOpeWin) annotation (Line(points={{-62,-187},
           {-90,-187},{-90,-118},{-62,-118}},   color={255,127,0}));
-  connect(con.VDesUncOutAir_flow, VDesUncOutAir_flow.u)
+  connect(ctr.VDesUncOutAir_flow, VDesUncOutAir_flow.u)
     annotation (Line(points={{44,104},{158,104}}, color={0,0,127}));
-  connect(con.yReqOutAir, yReqOutAir.u)
+  connect(ctr.yReqOutAir, yReqOutAir.u)
     annotation (Line(points={{44,68},{158,68}}, color={255,0,255}));
   connect(bus.TSupSet, TSupSet.u)
     annotation (Line(
       points={{-200,0},{-180,0},{-180,-20},{158,-20}},
       color={255,204,51},
       thickness=0.5));
-  connect(reqZonTemRes.y, con.uZonTemResReq) annotation (Line(points={{-118,60},
+  connect(reqZonTemRes.y,ctr. uZonTemResReq) annotation (Line(points={{-118,60},
           {-108,60},{-108,24},{-44,24}}, color={255,127,0}));
-  connect(reqZonPreRes.y, con.uZonPreResReq)
+  connect(reqZonPreRes.y,ctr. uZonPreResReq)
     annotation (Line(points={{-118,18},{-44,18}}, color={255,127,0}));
   connect(busTer.yReqZonPreRes, reqZonPreRes.u) annotation (Line(
       points={{220,0},{22,0},{22,0},{-160,0},{-160,18},{-142,18}},
@@ -728,7 +727,7 @@ equation
     annotation (Line(points={{22,-56},{200,-56},{200,0},{220,0}},       color={0,0,127}));
   connect(zonToSys.VPriAir_flow, busTer.VPriAir_flow)
     annotation (Line(points={{22,-58},{200,-58},{200,0},{220,0}},       color={0,0,127}));
-  connect(con.TSupSet, bus.TSupSet) annotation (Line(points={{44,116},{60,116},{
+  connect(ctr.TSupSet, bus.TSupSet) annotation (Line(points={{44,116},{60,116},{
           60,0},{-200,0}}, color={0,0,127}));
   connect(repSigZon.yzonOcc, staGro.zonOcc)
     annotation (Line(points={{-28,-149},{-38,-149}}, color={255,0,255}));

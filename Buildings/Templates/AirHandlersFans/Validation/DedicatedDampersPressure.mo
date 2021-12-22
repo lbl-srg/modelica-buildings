@@ -1,7 +1,7 @@
 within Buildings.Templates.AirHandlersFans.Validation;
-model DedicatedDamperPressure
+model DedicatedDampersPressure
   extends NoEconomizer(             redeclare
-      UserProject.AHUs.DedicatedDamperPressure ahu);
+      UserProject.AHUs.DedicatedDampersPressure ahu);
   annotation (
   experiment(Tolerance=1e-6, StopTime=1));
-end DedicatedDamperPressure;
+end DedicatedDampersPressure;

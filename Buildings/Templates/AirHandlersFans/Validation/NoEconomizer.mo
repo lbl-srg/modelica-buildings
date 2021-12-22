@@ -27,19 +27,6 @@ model NoEconomizer
     redeclare final package Medium=MediumAir,
     nPorts=3)
     annotation (Placement(transformation(extent={{90,-10},{70,10}})));
-
-  /*
-  FIXME: test snippet working with Dymola but not with OCT
-  External object constructors are not allowed inside functions.
-
-  parameter Integer nTest = Templates.BaseClasses.getArraySize1D(
-     varName="VAV_1.Supply fan.Pressure curve.value",
-     fileName=dat.fileName);
-
-  Modelica.Blocks.Sources.TimeTable timeTable(
-  table=dat.getRealArray2D("VAV_1.Supply fan.Pressure curve.value", nTest, 2));
-  */
-
   Fluid.FixedResistances.PressureDrop res(
     redeclare final package Medium=MediumAir,
     m_flow_nominal=1, dp_nominal=100)
@@ -53,8 +40,8 @@ model NoEconomizer
     "Building absolute pressure in representative space"
     annotation (Placement(transformation(extent={{80,30},{60,50}})));
   BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=
-        Modelica.Utilities.Files.loadResource(
-        "modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"))
+    Modelica.Utilities.Files.loadResource(
+    "modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"))
     annotation (Placement(transformation(extent={{-90,20},{-70,40}})));
   Fluid.FixedResistances.PressureDrop res2(
     redeclare final package Medium = MediumAir,
@@ -68,7 +55,7 @@ model NoEconomizer
     annotation (Placement(transformation(extent={{50,0},{30,20}})));
 protected
   Interfaces.Bus busAHU
-  "Gateway bus only needed for Dymola SR00763223"
+  "Gateway bus"
   annotation (
     Placement(
       transformation(extent={{-40,20},{0,60}}), iconTransformation(

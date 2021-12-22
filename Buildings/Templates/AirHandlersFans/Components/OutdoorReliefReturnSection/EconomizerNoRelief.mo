@@ -28,10 +28,10 @@ model EconomizerNoRelief "Air economizer - No relief branch"
           Buildings.Templates.AirHandlersFans.Components.OutdoorSection.SingleDamper
           secOut "Single common OA damper (modulating) with AFMS"),
       choice(redeclare replaceable
-          Buildings.Templates.AirHandlersFans.Components.OutdoorSection.DedicatedDamperAirflow
+          Buildings.Templates.AirHandlersFans.Components.OutdoorSection.DedicatedDampersAirflow
           secOut "Dedicated minimum OA damper (modulating) with AFMS"),
       choice(redeclare replaceable
-          Buildings.Templates.AirHandlersFans.Components.OutdoorSection.DedicatedDamperPressure
+          Buildings.Templates.AirHandlersFans.Components.OutdoorSection.DedicatedDampersPressure
           secOut
           "Dedicated minimum OA damper (two-position) with differential pressure sensor")),
     Dialog(group="Outdoor air section"),

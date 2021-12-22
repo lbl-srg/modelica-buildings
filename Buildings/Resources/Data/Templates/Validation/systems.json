@@ -16,7 +16,7 @@
                 },
                 "Terminal unit identifiers": {
                     "value": [
-                        "Box_1"
+                        "Box_1", "Box_2"
                     ]
                 },
                 "Zone group names": {
@@ -287,15 +287,6 @@
                 }
             },
             "Control": {
-                "Occupancy sensor": {
-                    "value": false
-                },
-                "Window sensor": {
-                    "value": false
-                },
-                "CO2 sensor": {
-                    "value": false
-                },
                 "Minimum airflow setpoint": {
                     "value": 0.15,
                     "unit": "m3/s"
