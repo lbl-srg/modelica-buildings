@@ -42,11 +42,11 @@ partial model PartialHVAC
     annotation (Dialog(group="Nominal mass flow rate"));
 
   parameter Modelica.Units.SI.MassFlowRate mHeaWat_flow_nominal=
-      mAir_flow_nominal*1000*(10 - (-20))/4200/10
+      QHeaAHU_flow_nominal/cpWat/10
     "Nominal water mass flow rate for heating coil in AHU"
     annotation (Dialog(group="Nominal mass flow rate"));
   parameter Modelica.Units.SI.MassFlowRate mCooWat_flow_nominal=
-      mAir_flow_nominal*1000*15/4200/10
+      QCooAHU_flow_nominal/cpWat/(-10)
     "Nominal water mass flow rate for cooling coil"
     annotation (Dialog(group="Nominal mass flow rate"));
 
@@ -449,7 +449,7 @@ partial model PartialHVAC
 protected
   constant Modelica.Units.SI.SpecificHeatCapacity cpAir=Buildings.Utilities.Psychrometrics.Constants.cpAir
     "Air specific heat capacity";
-  constant Modelica.Units.SI.SpecificHeatCapacity cpWatLiq=Buildings.Utilities.Psychrometrics.Constants.cpWatLiq
+  constant Modelica.Units.SI.SpecificHeatCapacity cpWat=Buildings.Utilities.Psychrometrics.Constants.cpWatLiq
     "Water specific heat capacity";
   model Results "Model to store the results of the simulation"
     parameter Modelica.Units.SI.Area A "Floor area";
