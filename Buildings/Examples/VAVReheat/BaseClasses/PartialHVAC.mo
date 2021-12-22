@@ -110,7 +110,7 @@ partial model PartialHVAC
   parameter Modelica.Units.SI.Temperature THeaAirSup_nominal(displayUnit="degC")=285.15
     "Supply air temperature during heating nominal conditions (used to size heating coil)"
     annotation (Dialog(group="Air handler unit nominal temperatures and humidity"));
-  parameter Modelica.Units.SI.Temperature THotWatInl_nominal(displayUnit="degC")
+  parameter Modelica.Units.SI.Temperature THeaWatInl_nominal(displayUnit="degC")
     "Reheat coil nominal inlet water temperature"
     annotation (Dialog(group="Air handler unit nominal temperatures and humidity"));
 
@@ -158,7 +158,7 @@ partial model PartialHVAC
     dp2_nominal=0,
     allowFlowReversal1=false,
     allowFlowReversal2=allowFlowReversal,
-    T_a1_nominal=THotWatInl_nominal,
+    T_a1_nominal=THeaWatInl_nominal,
     T_a2_nominal=THeaAirMix_nominal)
     "Heating coil"
     annotation (Placement(transformation(extent={{118,-36},{98,-56}})));
@@ -399,8 +399,8 @@ partial model PartialHVAC
     mHeaAir_flow_nominal=mHeaVAV_flow_nominal,
     VRoo=VRoo,
     each allowFlowReversal=allowFlowReversal,
-    each THotWatInl_nominal=THotWatInl_nominal,
-    each THotWatOut_nominal=THotWatInl_nominal - 10,
+    each THeaWatInl_nominal=THeaWatInl_nominal,
+    each THeaWatOut_nominal=THeaWatInl_nominal - 10,
     each THeaAirInl_nominal=285.15,
     each THeaAirDis_nominal=301.15) "VAV boxes"
     annotation (Placement(transformation(extent={{720,20},{760,60}})));
@@ -584,10 +584,10 @@ equation
           160},{1420,160}}, color={0,127,255}));
 
   for i in 1:numZon loop
-    connect(VAVBox[i].port_aHotWat, portHeaTerSup)
+    connect(VAVBox[i].port_aHeaWat, portHeaTerSup)
       annotation (Line(points={{720,40},{638,40},{638,-240},{460,-240},{460,-300}},
       color={0,127,255}));
-    connect(VAVBox[i].port_bHotWat, portHeaTerRet)
+    connect(VAVBox[i].port_bHeaWat, portHeaTerRet)
       annotation (Line(points={{720,28},{660,28},{660,-262},{496,-262},{496,-280},
             {500,-280},{500,-300}},
       color={0,127,255}));

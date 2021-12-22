@@ -41,7 +41,7 @@ partial model HVACBuilding
       mCor_flow_nominal} "Design mass flow rate of each zone";
 
 
-  parameter Modelica.Units.SI.Temperature THotWatInl_nominal(displayUnit="degC")=
+  parameter Modelica.Units.SI.Temperature THeaWatInl_nominal(displayUnit="degC")=
        45 + 273.15 "Reheat coil nominal inlet water temperature";
 
   replaceable Buildings.Examples.VAVReheat.BaseClasses.PartialHVAC hvac
@@ -51,7 +51,7 @@ partial model HVACBuilding
     final VRoo={VRooSou,VRooEas,VRooNor,VRooWes,VRooCor},
     final AFlo={AFloSou,AFloEas,AFloNor,AFloWes,AFloCor},
     final mCooVAV_flow_nominal=mCooVAV_flow_nominal,
-    final THotWatInl_nominal=THotWatInl_nominal) "HVAC system"
+    final THeaWatInl_nominal=THeaWatInl_nominal) "HVAC system"
     annotation (Placement(transformation(extent={{-46,-28},{42,22}})));
   replaceable
   Buildings.Examples.VAVReheat.BaseClasses.PartialFloor flo
@@ -68,7 +68,7 @@ partial model HVACBuilding
   Fluid.Sources.Boundary_pT sinHea(
     redeclare package Medium = MediumW,
     p=300000,
-    T=THotWatInl_nominal,
+    T=THeaWatInl_nominal,
     nPorts=1) "Sink for heating coil" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
@@ -76,7 +76,7 @@ partial model HVACBuilding
   Fluid.Sources.Boundary_pT souHea(
     redeclare package Medium = MediumW,
     p(displayUnit="Pa") = 300000 + 6000,
-    T=THotWatInl_nominal,
+    T=THeaWatInl_nominal,
     nPorts=1) "Source for heating coil" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
@@ -101,7 +101,7 @@ partial model HVACBuilding
   Fluid.Sources.Boundary_pT souHeaTer(
     redeclare package Medium = MediumW,
     p(displayUnit="Pa") = 300000 + 6000,
-    T=THotWatInl_nominal,
+    T=THeaWatInl_nominal,
     nPorts=1) "Source for heating of terminal boxes" annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
@@ -110,7 +110,7 @@ partial model HVACBuilding
   Fluid.Sources.Boundary_pT sinHeaTer(
     redeclare package Medium = MediumW,
     p(displayUnit="Pa") = 300000,
-    T=THotWatInl_nominal,
+    T=THeaWatInl_nominal,
     nPorts=1) "Source for heating of terminal boxes" annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},

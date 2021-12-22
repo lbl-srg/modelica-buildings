@@ -12,14 +12,14 @@ model VAVReheatBox "Supply box of a VAV system with a hot water reheat coil"
     "Nominal air mass flow rate from cooling sizing calculations";
   parameter Modelica.Units.SI.MassFlowRate mHeaAir_flow_nominal
     "Nominal air mass flow rate from heating sizing calculations";
-  final parameter Modelica.Units.SI.MassFlowRate mHotWat_flow_nominal=
-      QHea_flow_nominal/(cpWatLiq*(THotWatInl_nominal - THotWatOut_nominal))
+  final parameter Modelica.Units.SI.MassFlowRate mHeaWat_flow_nominal=
+      QHea_flow_nominal/(cpWatLiq*(THeaWatInl_nominal - THeaWatOut_nominal))
     "Nominal mass flow rate of hot water to reheat coil";
   parameter Modelica.Units.SI.Volume VRoo "Room volume";
-  parameter Modelica.Units.SI.Temperature THotWatInl_nominal(start=55 + 273.15,
+  parameter Modelica.Units.SI.Temperature THeaWatInl_nominal(start=55 + 273.15,
       displayUnit="degC") "Reheat coil nominal inlet water temperature";
-  parameter Modelica.Units.SI.Temperature THotWatOut_nominal(start=
-        THotWatInl_nominal - 10, displayUnit="degC")
+  parameter Modelica.Units.SI.Temperature THeaWatOut_nominal(start=
+        THeaWatInl_nominal - 10, displayUnit="degC")
     "Reheat coil nominal outlet water temperature";
   parameter Modelica.Units.SI.Temperature THeaAirInl_nominal(start=12 + 273.15,
       displayUnit="degC")
@@ -49,11 +49,11 @@ model VAVReheatBox "Supply box of a VAV system with a hot water reheat coil"
   "Actual VAV damper position"
     annotation (Placement(transformation(extent={{100,-10},{120,10}}),
         iconTransformation(extent={{100,-10},{120,10}})));
-  Modelica.Fluid.Interfaces.FluidPort_a port_aHotWat(redeclare package Medium =
+  Modelica.Fluid.Interfaces.FluidPort_a port_aHeaWat(redeclare package Medium =
       MediumW) "Hot water inlet port"
     annotation (Placement(transformation(extent={{-110,-10},{-90,10}}),
         iconTransformation(extent={{-110,-10},{-90,10}})));
-  Modelica.Fluid.Interfaces.FluidPort_b port_bHotWat(redeclare package Medium =
+  Modelica.Fluid.Interfaces.FluidPort_b port_bHeaWat(redeclare package Medium =
       MediumW) "Hot water outlet port"
     annotation (Placement(transformation(extent={{-110,-70},{-90,-50}}),
         iconTransformation(extent={{-110,-70},{-90,-50}})));
@@ -81,7 +81,7 @@ model VAVReheatBox "Supply box of a VAV system with a hot water reheat coil"
   Buildings.Fluid.HeatExchangers.DryCoilEffectivenessNTU terHea(
     redeclare package Medium1 = MediumW,
     redeclare package Medium2 = MediumA,
-    m1_flow_nominal=mHotWat_flow_nominal,
+    m1_flow_nominal=mHeaWat_flow_nominal,
     m2_flow_nominal=mHeaAir_flow_nominal,
     Q_flow_nominal=QHea_flow_nominal,
     configuration=Buildings.Fluid.Types.HeatExchangerConfiguration.CounterFlow,
@@ -90,7 +90,7 @@ model VAVReheatBox "Supply box of a VAV system with a hot water reheat coil"
     dp2_nominal=0,
     allowFlowReversal1=false,
     allowFlowReversal2=allowFlowReversal,
-    T_a1_nominal=THotWatInl_nominal,
+    T_a1_nominal=THeaWatInl_nominal,
     T_a2_nominal=THeaAirInl_nominal) "Reheat coil" annotation (Placement(
         transformation(
         extent={{-10,10},{10,-10}},
@@ -119,7 +119,7 @@ model VAVReheatBox "Supply box of a VAV system with a hot water reheat coil"
   Fluid.Actuators.Valves.TwoWayEqualPercentage val(
     redeclare package Medium = MediumW,
     allowFlowReversal=false,
-    m_flow_nominal=mHotWat_flow_nominal,
+    m_flow_nominal=mHeaWat_flow_nominal,
     from_dp=true,
     dpValve_nominal=3000,
     use_inputFilter=false,
@@ -147,7 +147,7 @@ equation
   connect(vav.port_a, terHea.port_b2)
     annotation (Line(points={{-4.44089e-16,0},{3.55271e-15,0},{3.55271e-15,-20}},
                                                            color={0,127,255}));
-  connect(port_bHotWat, terHea.port_b1) annotation (Line(points={{-100,-60},{
+  connect(port_bHeaWat, terHea.port_b1) annotation (Line(points={{-100,-60},{
           -12,-60},{-12,-40}}, color={0,127,255}));
   connect(vav.port_b, senTem.port_a) annotation (Line(points={{6.66134e-16,20},{
           0,20},{0,30},{-4.44089e-16,30}}, color={0,127,255}));
@@ -161,7 +161,7 @@ equation
                              color={0,0,127}));
   connect(senTem.T, TSup) annotation (Line(points={{11,40},{110,40}},
                 color={0,0,127}));
-  connect(port_aHotWat, val.port_a)
+  connect(port_aHeaWat, val.port_a)
     annotation (Line(points={{-100,0},{-70,0}}, color={0,127,255}));
   connect(val.port_b, terHea.port_a1)
     annotation (Line(points={{-50,0},{-12,0},{-12,-20}}, color={0,127,255}));
