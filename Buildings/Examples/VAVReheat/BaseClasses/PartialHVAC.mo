@@ -46,7 +46,7 @@ partial model PartialHVAC
     "Nominal water mass flow rate for heating coil in AHU"
     annotation (Dialog(group="Nominal mass flow rate"));
   parameter Modelica.Units.SI.MassFlowRate mCooWat_flow_nominal=
-      QCooAHU_flow_nominal/cpWat/(-10)
+      QCooAHU_flow_nominal/cpWat/(-6)
     "Nominal water mass flow rate for cooling coil"
     annotation (Dialog(group="Nominal mass flow rate"));
 
