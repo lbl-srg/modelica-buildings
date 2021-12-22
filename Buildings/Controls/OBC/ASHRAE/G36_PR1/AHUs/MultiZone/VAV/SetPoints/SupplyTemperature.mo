@@ -169,8 +169,12 @@ protected
     "If operation mode is setup or cool-down, setpoint shall be TSupSetMin"
     annotation (Placement(transformation(extent={{20,-60},{40,-40}})));
   Buildings.Controls.OBC.CDL.Continuous.Limiter TDea(
-    uMax=297.15,
-    uMin=294.15)
+    uMax(
+      final unit="K",
+      displayUnit="degC") = 297.15,
+    uMin(
+      final unit="K",
+      displayUnit="degC") = 294.15)
     "Limiter that outputs the dead band value for the supply air temperature"
     annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
   Buildings.Controls.OBC.CDL.Continuous.Switch swi3
