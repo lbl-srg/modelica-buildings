@@ -99,7 +99,7 @@
 ! Utility Tariffs:                None
 !
 
-  Version,9.5;
+  Version,9.6;
 
   Building,
     Single family House,     !- Name
@@ -178,7 +178,7 @@
     WinterDesignDay,         !- Day Type
     -17.3,                   !- Maximum Dry-Bulb Temperature {C}
     0.0,                     !- Daily Dry-Bulb Temperature Range {deltaC}
-    ,                        !- Dry-Bulb Temperature Range Modifier Type
+    DefaultMultipliers,      !- Dry-Bulb Temperature Range Modifier Type
     ,                        !- Dry-Bulb Temperature Range Modifier Day Schedule Name
     Wetbulb,                 !- Humidity Condition Type
     -17.3,                   !- Wetbulb or DewPoint at Maximum Dry-Bulb {C}
@@ -195,8 +195,8 @@
     ASHRAEClearSky,          !- Solar Model Indicator
     ,                        !- Beam Solar Day Schedule Name
     ,                        !- Diffuse Solar Day Schedule Name
-    ,                        !- ASHRAE Clear Sky Optical Depth for Beam Irradiance (taub) {dimensionless}
-    ,                        !- ASHRAE Clear Sky Optical Depth for Diffuse Irradiance (taud) {dimensionless}
+    0,                       !- ASHRAE Clear Sky Optical Depth for Beam Irradiance (taub) {dimensionless}
+    0,                       !- ASHRAE Clear Sky Optical Depth for Diffuse Irradiance (taud) {dimensionless}
     0.0;                     !- Sky Clearness
 
 ! CHICAGO_IL_USA Annual Cooling 1% Design Conditions, MaxDB=  31.5°C MCWB=  23.0°C
@@ -208,7 +208,7 @@
     SummerDesignDay,         !- Day Type
     31.5,                    !- Maximum Dry-Bulb Temperature {C}
     10.7,                    !- Daily Dry-Bulb Temperature Range {deltaC}
-    ,                        !- Dry-Bulb Temperature Range Modifier Type
+    DefaultMultipliers,      !- Dry-Bulb Temperature Range Modifier Type
     ,                        !- Dry-Bulb Temperature Range Modifier Day Schedule Name
     Wetbulb,                 !- Humidity Condition Type
     23.0,                    !- Wetbulb or DewPoint at Maximum Dry-Bulb {C}
@@ -225,8 +225,8 @@
     ASHRAEClearSky,          !- Solar Model Indicator
     ,                        !- Beam Solar Day Schedule Name
     ,                        !- Diffuse Solar Day Schedule Name
-    ,                        !- ASHRAE Clear Sky Optical Depth for Beam Irradiance (taub) {dimensionless}
-    ,                        !- ASHRAE Clear Sky Optical Depth for Diffuse Irradiance (taud) {dimensionless}
+    0,                       !- ASHRAE Clear Sky Optical Depth for Beam Irradiance (taub) {dimensionless}
+    0,                       !- ASHRAE Clear Sky Optical Depth for Diffuse Irradiance (taud) {dimensionless}
     1.0;                     !- Sky Clearness
 
   Site:GroundTemperature:BuildingSurface,20.03,20.03,20.13,20.30,20.43,20.52,20.62,20.77,20.78,20.55,20.44,20.20;
@@ -480,6 +480,7 @@
     Wall,                    !- Surface Type
     EXTWALL:LIVING,          !- Construction Name
     LIVING ZONE,             !- Zone Name
+    ,                        !- Space Name
     Outdoors,                !- Outside Boundary Condition
     ,                        !- Outside Boundary Condition Object
     SunExposed,              !- Sun Exposure
@@ -496,6 +497,7 @@
     Wall,                    !- Surface Type
     EXTWALL:LIVING,          !- Construction Name
     LIVING ZONE,             !- Zone Name
+    ,                        !- Space Name
     Outdoors,                !- Outside Boundary Condition
     ,                        !- Outside Boundary Condition Object
     SunExposed,              !- Sun Exposure
@@ -512,6 +514,7 @@
     Wall,                    !- Surface Type
     EXTWALL:LIVING,          !- Construction Name
     LIVING ZONE,             !- Zone Name
+    ,                        !- Space Name
     Outdoors,                !- Outside Boundary Condition
     ,                        !- Outside Boundary Condition Object
     SunExposed,              !- Sun Exposure
@@ -528,6 +531,7 @@
     Wall,                    !- Surface Type
     EXTWALL:LIVING,          !- Construction Name
     LIVING ZONE,             !- Zone Name
+    ,                        !- Space Name
     Outdoors,                !- Outside Boundary Condition
     ,                        !- Outside Boundary Condition Object
     SunExposed,              !- Sun Exposure
@@ -544,6 +548,7 @@
     WALL,                    !- Surface Type
     INTERIORWall,            !- Construction Name
     GARAGE ZONE,             !- Zone Name
+    ,                        !- Space Name
     Surface,                 !- Outside Boundary Condition
     Living:Interior,         !- Outside Boundary Condition Object
     NoSun,                   !- Sun Exposure
@@ -560,6 +565,7 @@
     WALL,                    !- Surface Type
     INTERIORWall,            !- Construction Name
     LIVING ZONE,             !- Zone Name
+    ,                        !- Space Name
     Surface,                 !- Outside Boundary Condition
     Garage:Interior,         !- Outside Boundary Condition Object
     NoSun,                   !- Sun Exposure
@@ -576,6 +582,7 @@
     FLOOR,                   !- Surface Type
     FLOOR:LIVING,            !- Construction Name
     LIVING ZONE,             !- Zone Name
+    ,                        !- Space Name
     Surface,                 !- Outside Boundary Condition
     Living:Floor,            !- Outside Boundary Condition Object
     NoSun,                   !- Sun Exposure
@@ -592,6 +599,7 @@
     CEILING,                 !- Surface Type
     CEILING:LIVING,          !- Construction Name
     LIVING ZONE,             !- Zone Name
+    ,                        !- Space Name
     Surface,                 !- Outside Boundary Condition
     Attic:LivingFloor,       !- Outside Boundary Condition Object
     NoSun,                   !- Sun Exposure
@@ -608,6 +616,7 @@
     FLOOR,                   !- Surface Type
     reverseCEILING:LIVING,   !- Construction Name
     ATTIC ZONE,              !- Zone Name
+    ,                        !- Space Name
     Surface,                 !- Outside Boundary Condition
     Living:Ceiling,          !- Outside Boundary Condition Object
     NoSun,                   !- Sun Exposure
@@ -624,6 +633,7 @@
     ROOF,                    !- Surface Type
     ROOF,                    !- Construction Name
     ATTIC ZONE,              !- Zone Name
+    ,                        !- Space Name
     Outdoors,                !- Outside Boundary Condition
     ,                        !- Outside Boundary Condition Object
     SunExposed,              !- Sun Exposure
@@ -640,6 +650,7 @@
     ROOF,                    !- Surface Type
     ROOF,                    !- Construction Name
     ATTIC ZONE,              !- Zone Name
+    ,                        !- Space Name
     Outdoors,                !- Outside Boundary Condition
     ,                        !- Outside Boundary Condition Object
     SunExposed,              !- Sun Exposure
@@ -656,6 +667,7 @@
     ROOF,                    !- Surface Type
     ROOF,                    !- Construction Name
     ATTIC ZONE,              !- Zone Name
+    ,                        !- Space Name
     Outdoors,                !- Outside Boundary Condition
     ,                        !- Outside Boundary Condition Object
     SunExposed,              !- Sun Exposure
@@ -672,6 +684,7 @@
     ROOF,                    !- Surface Type
     ROOF,                    !- Construction Name
     ATTIC ZONE,              !- Zone Name
+    ,                        !- Space Name
     Outdoors,                !- Outside Boundary Condition
     ,                        !- Outside Boundary Condition Object
     SunExposed,              !- Sun Exposure
@@ -688,6 +701,7 @@
     ROOF,                    !- Surface Type
     ROOF,                    !- Construction Name
     ATTIC ZONE,              !- Zone Name
+    ,                        !- Space Name
     Outdoors,                !- Outside Boundary Condition
     ,                        !- Outside Boundary Condition Object
     SunExposed,              !- Sun Exposure
@@ -703,6 +717,7 @@
     WALL,                    !- Surface Type
     GABLE,                   !- Construction Name
     ATTIC ZONE,              !- Zone Name
+    ,                        !- Space Name
     Outdoors,                !- Outside Boundary Condition
     ,                        !- Outside Boundary Condition Object
     SunExposed,              !- Sun Exposure
@@ -718,6 +733,7 @@
     WALL,                    !- Surface Type
     GABLE,                   !- Construction Name
     ATTIC ZONE,              !- Zone Name
+    ,                        !- Space Name
     Outdoors,                !- Outside Boundary Condition
     ,                        !- Outside Boundary Condition Object
     SunExposed,              !- Sun Exposure
@@ -733,6 +749,7 @@
     ROOF,                    !- Surface Type
     ROOF,                    !- Construction Name
     ATTIC ZONE,              !- Zone Name
+    ,                        !- Space Name
     Outdoors,                !- Outside Boundary Condition
     ,                        !- Outside Boundary Condition Object
     SunExposed,              !- Sun Exposure
@@ -749,6 +766,7 @@
     ROOF,                    !- Surface Type
     ROOF,                    !- Construction Name
     ATTIC ZONE,              !- Zone Name
+    ,                        !- Space Name
     Outdoors,                !- Outside Boundary Condition
     ,                        !- Outside Boundary Condition Object
     SunExposed,              !- Sun Exposure
@@ -765,6 +783,7 @@
     WALL,                    !- Surface Type
     GABLE,                   !- Construction Name
     ATTIC ZONE,              !- Zone Name
+    ,                        !- Space Name
     Outdoors,                !- Outside Boundary Condition
     ,                        !- Outside Boundary Condition Object
     SunExposed,              !- Sun Exposure
@@ -780,6 +799,7 @@
     WALL,                    !- Surface Type
     EXTWALL:GARAGE,          !- Construction Name
     GARAGE ZONE,             !- Zone Name
+    ,                        !- Space Name
     Outdoors,                !- Outside Boundary Condition
     ,                        !- Outside Boundary Condition Object
     SunExposed,              !- Sun Exposure
@@ -796,6 +816,7 @@
     WALL,                    !- Surface Type
     EXTWALL:GARAGE,          !- Construction Name
     GARAGE ZONE,             !- Zone Name
+    ,                        !- Space Name
     Outdoors,                !- Outside Boundary Condition
     ,                        !- Outside Boundary Condition Object
     SunExposed,              !- Sun Exposure
@@ -812,6 +833,7 @@
     WALL,                    !- Surface Type
     Garage:SteelDoor,        !- Construction Name
     GARAGE ZONE,             !- Zone Name
+    ,                        !- Space Name
     Outdoors,                !- Outside Boundary Condition
     ,                        !- Outside Boundary Condition Object
     SunExposed,              !- Sun Exposure
@@ -828,6 +850,7 @@
     FLOOR,                   !- Surface Type
     CEILING:Garage,          !- Construction Name
     ATTIC ZONE,              !- Zone Name
+    ,                        !- Space Name
     Surface,                 !- Outside Boundary Condition
     Garage:Ceiling,          !- Outside Boundary Condition Object
     NoSun,                   !- Sun Exposure
@@ -844,6 +867,7 @@
     CEILING,                 !- Surface Type
     CEILING:Garage,          !- Construction Name
     GARAGE ZONE,             !- Zone Name
+    ,                        !- Space Name
     Surface,                 !- Outside Boundary Condition
     Attic:GarageFloor,       !- Outside Boundary Condition Object
     NoSun,                   !- Sun Exposure
@@ -860,6 +884,7 @@
     FLOOR,                   !- Surface Type
     FLOOR:GARAGE,            !- Construction Name
     GARAGE ZONE,             !- Zone Name
+    ,                        !- Space Name
     Surface,                 !- Outside Boundary Condition
     Garage:Floor,            !- Outside Boundary Condition Object
     NoSun,                   !- Sun Exposure
@@ -1091,17 +1116,17 @@
 
   People,
     LIVING ZONE People,      !- Name
-    LIVING ZONE,             !- Zone or ZoneList Name
+    LIVING ZONE,             !- Zone or ZoneList or Space or SpaceList Name
     HOUSE OCCUPANCY,         !- Number of People Schedule Name
     people,                  !- Number of People Calculation Method
     3.000000,                !- Number of People
-    ,                        !- People per Zone Floor Area {person/m2}
-    ,                        !- Zone Floor Area per Person {m2/person}
+    ,                        !- People per Floor Area {person/m2}
+    ,                        !- Floor Area per Person {m2/person}
     0.3000000,               !- Fraction Radiant
-    ,                        !- Sensible Heat Fraction
+    Autocalculate,           !- Sensible Heat Fraction
     Activity Sch,            !- Activity Level Schedule Name
     3.82E-8,                 !- Carbon Dioxide Generation Rate {m3/s-W}
-    ,                        !- Enable ASHRAE 55 Comfort Warnings
+    No,                      !- Enable ASHRAE 55 Comfort Warnings
     zoneaveraged,            !- Mean Radiant Temperature Calculation Type
     ,                        !- Surface Name/Angle Factor List Name
     Work Eff Sch,            !- Work Efficiency Schedule Name
@@ -1113,7 +1138,7 @@
 
   Lights,
     LIVING ZONE Lights,      !- Name
-    LIVING ZONE,             !- Zone or ZoneList Name
+    LIVING ZONE,             !- Zone or ZoneList or Space or SpaceList Name
     HOUSE LIGHTING,          !- Schedule Name
     LightingLevel,           !- Design Level Calculation Method
     1000,                    !- Lighting Level {W}
@@ -1143,7 +1168,7 @@
     0,                       !- Velocity Squared Term Coefficient
     18.0,                    !- Minimum Indoor Temperature {C}
     ,                        !- Minimum Indoor Temperature Schedule Name
-    ,                        !- Maximum Indoor Temperature {C}
+    100,                     !- Maximum Indoor Temperature {C}
     ,                        !- Maximum Indoor Temperature Schedule Name
     1.0;                     !- Delta Temperature {deltaC}
 
@@ -1198,7 +1223,7 @@
 
   ElectricEquipment,
     LIVING ZONE ElecEq,      !- Name
-    LIVING ZONE,             !- Zone or ZoneList Name
+    LIVING ZONE,             !- Zone or ZoneList or Space or SpaceList Name
     INTERMITTENT,            !- Schedule Name
     EquipmentLevel,          !- Design Level Calculation Method
     500,                     !- Design Level {W}
@@ -1423,15 +1448,15 @@
     Zone Inlet Node,         !- Air Outlet Node Name
     0.7551,                  !- Maximum Air Flow Rate {m3/s}
     ,                        !- Design Specification Outdoor Air Object Name
-    ;                        !- Per Person Ventilation Rate Mode
+    CurrentOccupancy;        !- Per Person Ventilation Rate Mode
 
   ZoneHVAC:AirDistributionUnit,
     ZoneDirectAir ADU,       !- Name
     Zone Inlet Node,         !- Air Distribution Unit Outlet Node Name
     AirTerminal:SingleDuct:ConstantVolume:NoReheat,  !- Air Terminal Object Type
     ZoneDirectAir,           !- Air Terminal Name
-    ,                        !- Nominal Upstream Leakage Fraction
-    ,                        !- Constant Downstream Leakage Fraction
+    0,                       !- Nominal Upstream Leakage Fraction
+    0,                       !- Constant Downstream Leakage Fraction
     ;                        !- Design Specification Air Terminal Sizing Object Name
 
   ZoneControl:Thermostat,
@@ -1484,15 +1509,15 @@
     Heating Coil Air Inlet Node,  !- Air Outlet Node Name
     Outdoor Condenser Air Node,  !- Condenser Air Inlet Node Name
     AirCooled,               !- Condenser Type
-    ,                        !- Minimum Outdoor Dry-Bulb Temperature for Compressor Operation {C}
+    -25.0,                   !- Minimum Outdoor Dry-Bulb Temperature for Compressor Operation {C}
     ,                        !- Supply Water Storage Tank Name
     ,                        !- Condensate Collection Water Storage Tank Name
     No,                      !- Apply Part Load Fraction to Speeds Greater than 1
     No,                      !- Apply Latent Degradation to Speeds Greater than 1
     200.0,                   !- Crankcase Heater Capacity {W}
     10.0,                    !- Maximum Outdoor Dry-Bulb Temperature for Crankcase Heater Operation {C}
-    ,                        !- Basin Heater Capacity {W/K}
-    ,                        !- Basin Heater Setpoint Temperature {C}
+    0.0,                     !- Basin Heater Capacity {W/K}
+    2.0,                     !- Basin Heater Setpoint Temperature {C}
     ,                        !- Basin Heater Operating Schedule Name
     Electricity,             !- Fuel Type
     2,                       !- Number of Speeds
@@ -1928,3 +1953,4 @@
     Verbose,                 !- Actuator Availability Dictionary Reporting
     Verbose,                 !- Internal Variable Availability Dictionary Reporting
     Verbose;                 !- EMS Runtime Language Debug Output Level
+

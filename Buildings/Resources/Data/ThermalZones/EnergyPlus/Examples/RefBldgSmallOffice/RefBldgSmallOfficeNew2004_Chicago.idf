@@ -66,14 +66,14 @@
 ! ***GENERAL SIMULATION PARAMETERS***
 ! Number of Zones: 6
 
-  Version,9.5;
+  Version,9.6;
 
   SimulationControl,
     YES,                     !- Do Zone Sizing Calculation
     YES,                     !- Do System Sizing Calculation
     YES,                     !- Do Plant Sizing Calculation
-    No,                     !- Run Simulation for Sizing Periods
-    Yes,                      !- Run Simulation for Weather File Run Periods
+    No,                      !- Run Simulation for Sizing Periods
+    Yes,                     !- Run Simulation for Weather File Run Periods
     No,                      !- Do HVAC Sizing Simulation for Sizing Periods
     1;                       !- Maximum Number of HVAC Sizing Simulation Passes
 
@@ -92,8 +92,8 @@
     1,                       !- Begin Month
     1,                       !- Begin Day of Month
     ,                        !- Begin Year
-    7,                      !- End Month
-    1,                      !- End Day of Month
+    7,                       !- End Month
+    1,                       !- End Day of Month
     ,                        !- End Year
     Sunday,                  !- Day of Week for Start Day
     No,                      !- Use Weather File Holidays and Special Days
@@ -261,7 +261,7 @@
     WinterDesignDay,         !- Day Type
     -20.6,                   !- Maximum Dry-Bulb Temperature {C}
     0.0,                     !- Daily Dry-Bulb Temperature Range {deltaC}
-    ,                        !- Dry-Bulb Temperature Range Modifier Type
+    DefaultMultipliers,      !- Dry-Bulb Temperature Range Modifier Type
     ,                        !- Dry-Bulb Temperature Range Modifier Day Schedule Name
     Wetbulb,                 !- Humidity Condition Type
     -20.6,                   !- Wetbulb or DewPoint at Maximum Dry-Bulb {C}
@@ -278,8 +278,8 @@
     ASHRAEClearSky,          !- Solar Model Indicator
     ,                        !- Beam Solar Day Schedule Name
     ,                        !- Diffuse Solar Day Schedule Name
-    ,                        !- ASHRAE Clear Sky Optical Depth for Beam Irradiance (taub) {dimensionless}
-    ,                        !- ASHRAE Clear Sky Optical Depth for Diffuse Irradiance (taud) {dimensionless}
+    0,                       !- ASHRAE Clear Sky Optical Depth for Beam Irradiance (taub) {dimensionless}
+    0,                       !- ASHRAE Clear Sky Optical Depth for Diffuse Irradiance (taud) {dimensionless}
     0.00;                    !- Sky Clearness
 
  ! CHICAGO_IL_USA Annual Cooling (WB=>MDB) .4%, MDB=31.2°C WB=25.5°C
@@ -291,7 +291,7 @@
     SummerDesignDay,         !- Day Type
     31.2,                    !- Maximum Dry-Bulb Temperature {C}
     10.7,                    !- Daily Dry-Bulb Temperature Range {deltaC}
-    ,                        !- Dry-Bulb Temperature Range Modifier Type
+    DefaultMultipliers,      !- Dry-Bulb Temperature Range Modifier Type
     ,                        !- Dry-Bulb Temperature Range Modifier Day Schedule Name
     Wetbulb,                 !- Humidity Condition Type
     25.5,                    !- Wetbulb or DewPoint at Maximum Dry-Bulb {C}
@@ -308,8 +308,8 @@
     ASHRAEClearSky,          !- Solar Model Indicator
     ,                        !- Beam Solar Day Schedule Name
     ,                        !- Diffuse Solar Day Schedule Name
-    ,                        !- ASHRAE Clear Sky Optical Depth for Beam Irradiance (taub) {dimensionless}
-    ,                        !- ASHRAE Clear Sky Optical Depth for Diffuse Irradiance (taud) {dimensionless}
+    0,                       !- ASHRAE Clear Sky Optical Depth for Beam Irradiance (taub) {dimensionless}
+    0,                       !- ASHRAE Clear Sky Optical Depth for Diffuse Irradiance (taud) {dimensionless}
     1.00;                    !- Sky Clearness
 
   Site:WaterMainsTemperature,
@@ -563,8 +563,8 @@
     0.0000,                  !- Z Origin {m}
     1,                       !- Type
     1,                       !- Multiplier
-    ,                        !- Ceiling Height {m}
-    ,                        !- Volume {m3}
+    Autocalculate,           !- Ceiling Height {m}
+    Autocalculate,           !- Volume {m3}
     autocalculate,           !- Floor Area {m2}
     ,                        !- Zone Inside Convection Algorithm
     ,                        !- Zone Outside Convection Algorithm
@@ -578,8 +578,8 @@
     0.0000,                  !- Z Origin {m}
     1,                       !- Type
     1,                       !- Multiplier
-    ,                        !- Ceiling Height {m}
-    ,                        !- Volume {m3}
+    Autocalculate,           !- Ceiling Height {m}
+    Autocalculate,           !- Volume {m3}
     autocalculate,           !- Floor Area {m2}
     ,                        !- Zone Inside Convection Algorithm
     ,                        !- Zone Outside Convection Algorithm
@@ -593,8 +593,8 @@
     0.0000,                  !- Z Origin {m}
     1,                       !- Type
     1,                       !- Multiplier
-    ,                        !- Ceiling Height {m}
-    ,                        !- Volume {m3}
+    Autocalculate,           !- Ceiling Height {m}
+    Autocalculate,           !- Volume {m3}
     autocalculate,           !- Floor Area {m2}
     ,                        !- Zone Inside Convection Algorithm
     ,                        !- Zone Outside Convection Algorithm
@@ -608,8 +608,8 @@
     0.0000,                  !- Z Origin {m}
     1,                       !- Type
     1,                       !- Multiplier
-    ,                        !- Ceiling Height {m}
-    ,                        !- Volume {m3}
+    Autocalculate,           !- Ceiling Height {m}
+    Autocalculate,           !- Volume {m3}
     autocalculate,           !- Floor Area {m2}
     ,                        !- Zone Inside Convection Algorithm
     ,                        !- Zone Outside Convection Algorithm
@@ -623,8 +623,8 @@
     0.0000,                  !- Z Origin {m}
     1,                       !- Type
     1,                       !- Multiplier
-    ,                        !- Ceiling Height {m}
-    ,                        !- Volume {m3}
+    Autocalculate,           !- Ceiling Height {m}
+    Autocalculate,           !- Volume {m3}
     autocalculate,           !- Floor Area {m2}
     ,                        !- Zone Inside Convection Algorithm
     ,                        !- Zone Outside Convection Algorithm
@@ -638,8 +638,8 @@
     0.0000,                  !- Z Origin {m}
     1,                       !- Type
     1,                       !- Multiplier
-    ,                        !- Ceiling Height {m}
-    ,                        !- Volume {m3}
+    Autocalculate,           !- Ceiling Height {m}
+    Autocalculate,           !- Volume {m3}
     autocalculate,           !- Floor Area {m2}
     ,                        !- Zone Inside Convection Algorithm
     ,                        !- Zone Outside Convection Algorithm
@@ -652,6 +652,7 @@
     Floor,                   !- Surface Type
     Attic Non-res Floor,     !- Construction Name
     Attic,                   !- Zone Name
+    ,                        !- Space Name
     Surface,                 !- Outside Boundary Condition
     Core_ZN_ceiling,         !- Outside Boundary Condition Object
     NoSun,                   !- Sun Exposure
@@ -668,6 +669,7 @@
     Floor,                   !- Surface Type
     Attic Non-res Floor,     !- Construction Name
     Attic,                   !- Zone Name
+    ,                        !- Space Name
     Surface,                 !- Outside Boundary Condition
     Perimeter_ZN_2_ceiling,  !- Outside Boundary Condition Object
     NoSun,                   !- Sun Exposure
@@ -684,6 +686,7 @@
     Floor,                   !- Surface Type
     Attic Non-res Floor,     !- Construction Name
     Attic,                   !- Zone Name
+    ,                        !- Space Name
     Surface,                 !- Outside Boundary Condition
     Perimeter_ZN_3_ceiling,  !- Outside Boundary Condition Object
     NoSun,                   !- Sun Exposure
@@ -700,6 +703,7 @@
     Floor,                   !- Surface Type
     Attic Non-res Floor,     !- Construction Name
     Attic,                   !- Zone Name
+    ,                        !- Space Name
     Surface,                 !- Outside Boundary Condition
     Perimeter_ZN_1_ceiling,  !- Outside Boundary Condition Object
     NoSun,                   !- Sun Exposure
@@ -716,6 +720,7 @@
     Floor,                   !- Surface Type
     Attic Non-res Floor,     !- Construction Name
     Attic,                   !- Zone Name
+    ,                        !- Space Name
     Surface,                 !- Outside Boundary Condition
     Perimeter_ZN_4_ceiling,  !- Outside Boundary Condition Object
     NoSun,                   !- Sun Exposure
@@ -732,6 +737,7 @@
     Roof,                    !- Surface Type
     Attic Non-res Roof,      !- Construction Name
     Attic,                   !- Zone Name
+    ,                        !- Space Name
     Outdoors,                !- Outside Boundary Condition
     ,                        !- Outside Boundary Condition Object
     SunExposed,              !- Sun Exposure
@@ -747,6 +753,7 @@
     Roof,                    !- Surface Type
     Attic Non-res Roof,      !- Construction Name
     Attic,                   !- Zone Name
+    ,                        !- Space Name
     Outdoors,                !- Outside Boundary Condition
     ,                        !- Outside Boundary Condition Object
     SunExposed,              !- Sun Exposure
@@ -763,6 +770,7 @@
     Roof,                    !- Surface Type
     Attic Non-res Roof,      !- Construction Name
     Attic,                   !- Zone Name
+    ,                        !- Space Name
     Outdoors,                !- Outside Boundary Condition
     ,                        !- Outside Boundary Condition Object
     SunExposed,              !- Sun Exposure
@@ -779,6 +787,7 @@
     Roof,                    !- Surface Type
     Attic Non-res Roof,      !- Construction Name
     Attic,                   !- Zone Name
+    ,                        !- Space Name
     Outdoors,                !- Outside Boundary Condition
     ,                        !- Outside Boundary Condition Object
     SunExposed,              !- Sun Exposure
@@ -794,6 +803,7 @@
     Floor,                   !- Surface Type
     Attic Non-res Floor,     !- Construction Name
     Attic,                   !- Zone Name
+    ,                        !- Space Name
     Outdoors,                !- Outside Boundary Condition
     ,                        !- Outside Boundary Condition Object
     NoSun,                   !- Sun Exposure
@@ -810,6 +820,7 @@
     Floor,                   !- Surface Type
     Attic Non-res Floor,     !- Construction Name
     Attic,                   !- Zone Name
+    ,                        !- Space Name
     Outdoors,                !- Outside Boundary Condition
     ,                        !- Outside Boundary Condition Object
     NoSun,                   !- Sun Exposure
@@ -826,6 +837,7 @@
     Floor,                   !- Surface Type
     Attic Non-res Floor,     !- Construction Name
     Attic,                   !- Zone Name
+    ,                        !- Space Name
     Outdoors,                !- Outside Boundary Condition
     ,                        !- Outside Boundary Condition Object
     NoSun,                   !- Sun Exposure
@@ -842,6 +854,7 @@
     Floor,                   !- Surface Type
     Attic Non-res Floor,     !- Construction Name
     Attic,                   !- Zone Name
+    ,                        !- Space Name
     Outdoors,                !- Outside Boundary Condition
     ,                        !- Outside Boundary Condition Object
     NoSun,                   !- Sun Exposure
@@ -858,6 +871,7 @@
     Ceiling,                 !- Surface Type
     Attic Non-res Floor,     !- Construction Name
     Core_ZN,                 !- Zone Name
+    ,                        !- Space Name
     Surface,                 !- Outside Boundary Condition
     Attic_floor_core,        !- Outside Boundary Condition Object
     NoSun,                   !- Sun Exposure
@@ -874,6 +888,7 @@
     Floor,                   !- Surface Type
     ext-slab,                !- Construction Name
     Core_ZN,                 !- Zone Name
+    ,                        !- Space Name
     Ground,                  !- Outside Boundary Condition
     ,                        !- Outside Boundary Condition Object
     NoSun,                   !- Sun Exposure
@@ -890,6 +905,7 @@
     Wall,                    !- Surface Type
     int-walls,               !- Construction Name
     Core_ZN,                 !- Zone Name
+    ,                        !- Space Name
     Surface,                 !- Outside Boundary Condition
     Perimeter_ZN_2_wall_west,!- Outside Boundary Condition Object
     NoSun,                   !- Sun Exposure
@@ -906,6 +922,7 @@
     Wall,                    !- Surface Type
     int-walls,               !- Construction Name
     Core_ZN,                 !- Zone Name
+    ,                        !- Space Name
     Surface,                 !- Outside Boundary Condition
     Perimeter_ZN_3_wall_south,  !- Outside Boundary Condition Object
     NoSun,                   !- Sun Exposure
@@ -922,6 +939,7 @@
     Wall,                    !- Surface Type
     int-walls,               !- Construction Name
     Core_ZN,                 !- Zone Name
+    ,                        !- Space Name
     Surface,                 !- Outside Boundary Condition
     Perimeter_ZN_1_wall_north,  !- Outside Boundary Condition Object
     NoSun,                   !- Sun Exposure
@@ -938,6 +956,7 @@
     Wall,                    !- Surface Type
     int-walls,               !- Construction Name
     Core_ZN,                 !- Zone Name
+    ,                        !- Space Name
     Surface,                 !- Outside Boundary Condition
     Perimeter_ZN_4_wall_east,!- Outside Boundary Condition Object
     NoSun,                   !- Sun Exposure
@@ -954,6 +973,7 @@
     Ceiling,                 !- Surface Type
     Attic Non-res Floor,     !- Construction Name
     Perimeter_ZN_1,          !- Zone Name
+    ,                        !- Space Name
     Surface,                 !- Outside Boundary Condition
     Attic_floor_perimeter_south,  !- Outside Boundary Condition Object
     NoSun,                   !- Sun Exposure
@@ -970,6 +990,7 @@
     Floor,                   !- Surface Type
     ext-slab,                !- Construction Name
     Perimeter_ZN_1,          !- Zone Name
+    ,                        !- Space Name
     Ground,                  !- Outside Boundary Condition
     ,                        !- Outside Boundary Condition Object
     NoSun,                   !- Sun Exposure
@@ -986,6 +1007,7 @@
     Wall,                    !- Surface Type
     int-walls,               !- Construction Name
     Perimeter_ZN_1,          !- Zone Name
+    ,                        !- Space Name
     Surface,                 !- Outside Boundary Condition
     Perimeter_ZN_2_wall_south,  !- Outside Boundary Condition Object
     NoSun,                   !- Sun Exposure
@@ -1002,6 +1024,7 @@
     Wall,                    !- Surface Type
     int-walls,               !- Construction Name
     Perimeter_ZN_1,          !- Zone Name
+    ,                        !- Space Name
     Surface,                 !- Outside Boundary Condition
     Core_ZN_wall_south,      !- Outside Boundary Condition Object
     NoSun,                   !- Sun Exposure
@@ -1018,6 +1041,7 @@
     Wall,                    !- Surface Type
     Mass Non-res Ext Wall,   !- Construction Name
     Perimeter_ZN_1,          !- Zone Name
+    ,                        !- Space Name
     Outdoors,                !- Outside Boundary Condition
     ,                        !- Outside Boundary Condition Object
     SunExposed,              !- Sun Exposure
@@ -1034,6 +1058,7 @@
     Wall,                    !- Surface Type
     int-walls,               !- Construction Name
     Perimeter_ZN_1,          !- Zone Name
+    ,                        !- Space Name
     Surface,                 !- Outside Boundary Condition
     Perimeter_ZN_4_wall_south,  !- Outside Boundary Condition Object
     NoSun,                   !- Sun Exposure
@@ -1050,6 +1075,7 @@
     Ceiling,                 !- Surface Type
     Attic Non-res Floor,     !- Construction Name
     Perimeter_ZN_2,          !- Zone Name
+    ,                        !- Space Name
     Surface,                 !- Outside Boundary Condition
     Attic_floor_perimeter_east,  !- Outside Boundary Condition Object
     NoSun,                   !- Sun Exposure
@@ -1066,6 +1092,7 @@
     Floor,                   !- Surface Type
     ext-slab,                !- Construction Name
     Perimeter_ZN_2,          !- Zone Name
+    ,                        !- Space Name
     Ground,                  !- Outside Boundary Condition
     ,                        !- Outside Boundary Condition Object
     NoSun,                   !- Sun Exposure
@@ -1082,6 +1109,7 @@
     Wall,                    !- Surface Type
     Mass Non-res Ext Wall,   !- Construction Name
     Perimeter_ZN_2,          !- Zone Name
+    ,                        !- Space Name
     Outdoors,                !- Outside Boundary Condition
     ,                        !- Outside Boundary Condition Object
     SunExposed,              !- Sun Exposure
@@ -1098,6 +1126,7 @@
     Wall,                    !- Surface Type
     int-walls,               !- Construction Name
     Perimeter_ZN_2,          !- Zone Name
+    ,                        !- Space Name
     Surface,                 !- Outside Boundary Condition
     Perimeter_ZN_3_wall_east,!- Outside Boundary Condition Object
     NoSun,                   !- Sun Exposure
@@ -1114,6 +1143,7 @@
     Wall,                    !- Surface Type
     int-walls,               !- Construction Name
     Perimeter_ZN_2,          !- Zone Name
+    ,                        !- Space Name
     Surface,                 !- Outside Boundary Condition
     Perimeter_ZN_1_wall_east,!- Outside Boundary Condition Object
     NoSun,                   !- Sun Exposure
@@ -1130,6 +1160,7 @@
     Wall,                    !- Surface Type
     int-walls,               !- Construction Name
     Perimeter_ZN_2,          !- Zone Name
+    ,                        !- Space Name
     Surface,                 !- Outside Boundary Condition
     Core_ZN_wall_east,       !- Outside Boundary Condition Object
     NoSun,                   !- Sun Exposure
@@ -1146,6 +1177,7 @@
     Ceiling,                 !- Surface Type
     Attic Non-res Floor,     !- Construction Name
     Perimeter_ZN_3,          !- Zone Name
+    ,                        !- Space Name
     Surface,                 !- Outside Boundary Condition
     Attic_floor_perimeter_north,  !- Outside Boundary Condition Object
     NoSun,                   !- Sun Exposure
@@ -1162,6 +1194,7 @@
     Floor,                   !- Surface Type
     ext-slab,                !- Construction Name
     Perimeter_ZN_3,          !- Zone Name
+    ,                        !- Space Name
     Ground,                  !- Outside Boundary Condition
     ,                        !- Outside Boundary Condition Object
     NoSun,                   !- Sun Exposure
@@ -1178,6 +1211,7 @@
     Wall,                    !- Surface Type
     int-walls,               !- Construction Name
     Perimeter_ZN_3,          !- Zone Name
+    ,                        !- Space Name
     Surface,                 !- Outside Boundary Condition
     Perimeter_ZN_2_wall_north,  !- Outside Boundary Condition Object
     NoSun,                   !- Sun Exposure
@@ -1194,6 +1228,7 @@
     Wall,                    !- Surface Type
     Mass Non-res Ext Wall,   !- Construction Name
     Perimeter_ZN_3,          !- Zone Name
+    ,                        !- Space Name
     Outdoors,                !- Outside Boundary Condition
     ,                        !- Outside Boundary Condition Object
     SunExposed,              !- Sun Exposure
@@ -1210,6 +1245,7 @@
     Wall,                    !- Surface Type
     int-walls,               !- Construction Name
     Perimeter_ZN_3,          !- Zone Name
+    ,                        !- Space Name
     Surface,                 !- Outside Boundary Condition
     Core_ZN_wall_north,      !- Outside Boundary Condition Object
     NoSun,                   !- Sun Exposure
@@ -1226,6 +1262,7 @@
     Wall,                    !- Surface Type
     int-walls,               !- Construction Name
     Perimeter_ZN_3,          !- Zone Name
+    ,                        !- Space Name
     Surface,                 !- Outside Boundary Condition
     Perimeter_ZN_4_wall_north,  !- Outside Boundary Condition Object
     NoSun,                   !- Sun Exposure
@@ -1242,6 +1279,7 @@
     Ceiling,                 !- Surface Type
     Attic Non-res Floor,     !- Construction Name
     Perimeter_ZN_4,          !- Zone Name
+    ,                        !- Space Name
     Surface,                 !- Outside Boundary Condition
     Attic_floor_perimeter_west,  !- Outside Boundary Condition Object
     NoSun,                   !- Sun Exposure
@@ -1258,6 +1296,7 @@
     Floor,                   !- Surface Type
     ext-slab,                !- Construction Name
     Perimeter_ZN_4,          !- Zone Name
+    ,                        !- Space Name
     Ground,                  !- Outside Boundary Condition
     ,                        !- Outside Boundary Condition Object
     NoSun,                   !- Sun Exposure
@@ -1274,6 +1313,7 @@
     Wall,                    !- Surface Type
     int-walls,               !- Construction Name
     Perimeter_ZN_4,          !- Zone Name
+    ,                        !- Space Name
     Surface,                 !- Outside Boundary Condition
     Core_ZN_wall_west,       !- Outside Boundary Condition Object
     NoSun,                   !- Sun Exposure
@@ -1290,6 +1330,7 @@
     Wall,                    !- Surface Type
     int-walls,               !- Construction Name
     Perimeter_ZN_4,          !- Zone Name
+    ,                        !- Space Name
     Surface,                 !- Outside Boundary Condition
     Perimeter_ZN_3_wall_west,!- Outside Boundary Condition Object
     NoSun,                   !- Sun Exposure
@@ -1306,6 +1347,7 @@
     Wall,                    !- Surface Type
     int-walls,               !- Construction Name
     Perimeter_ZN_4,          !- Zone Name
+    ,                        !- Space Name
     Surface,                 !- Outside Boundary Condition
     Perimeter_ZN_1_wall_west,!- Outside Boundary Condition Object
     NoSun,                   !- Sun Exposure
@@ -1322,6 +1364,7 @@
     Wall,                    !- Surface Type
     Mass Non-res Ext Wall,   !- Construction Name
     Perimeter_ZN_4,          !- Zone Name
+    ,                        !- Space Name
     Outdoors,                !- Outside Boundary Condition
     ,                        !- Outside Boundary Condition Object
     SunExposed,              !- Sun Exposure
@@ -1662,16 +1705,16 @@
 
   People,
     Core_ZN People,          !- Name
-    Core_ZN,                 !- Zone or ZoneList Name
+    Core_ZN,                 !- Zone or ZoneList or Space or SpaceList Name
     BLDG_OCC_SCH,            !- Number of People Schedule Name
     Area/Person,             !- Number of People Calculation Method
     ,                        !- Number of People
-    ,                        !- People per Zone Floor Area {person/m2}
-    18.58,                   !- Zone Floor Area per Person {m2/person}
+    ,                        !- People per Floor Area {person/m2}
+    18.58,                   !- Floor Area per Person {m2/person}
     0.3000,                  !- Fraction Radiant
     AUTOCALCULATE,           !- Sensible Heat Fraction
     ACTIVITY_SCH,            !- Activity Level Schedule Name
-    ,                        !- Carbon Dioxide Generation Rate {m3/s-W}
+    3.82E-8,                 !- Carbon Dioxide Generation Rate {m3/s-W}
     No,                      !- Enable ASHRAE 55 Comfort Warnings
     ZoneAveraged,            !- Mean Radiant Temperature Calculation Type
     ,                        !- Surface Name/Angle Factor List Name
@@ -1684,16 +1727,16 @@
 
   People,
     Perimeter_ZN_1 People,   !- Name
-    Perimeter_ZN_1,          !- Zone or ZoneList Name
+    Perimeter_ZN_1,          !- Zone or ZoneList or Space or SpaceList Name
     BLDG_OCC_SCH,            !- Number of People Schedule Name
     Area/Person,             !- Number of People Calculation Method
     ,                        !- Number of People
-    ,                        !- People per Zone Floor Area {person/m2}
-    18.58,                   !- Zone Floor Area per Person {m2/person}
+    ,                        !- People per Floor Area {person/m2}
+    18.58,                   !- Floor Area per Person {m2/person}
     0.3000,                  !- Fraction Radiant
     AUTOCALCULATE,           !- Sensible Heat Fraction
     ACTIVITY_SCH,            !- Activity Level Schedule Name
-    ,                        !- Carbon Dioxide Generation Rate {m3/s-W}
+    3.82E-8,                 !- Carbon Dioxide Generation Rate {m3/s-W}
     No,                      !- Enable ASHRAE 55 Comfort Warnings
     ZoneAveraged,            !- Mean Radiant Temperature Calculation Type
     ,                        !- Surface Name/Angle Factor List Name
@@ -1706,16 +1749,16 @@
 
   People,
     Perimeter_ZN_2 People,   !- Name
-    Perimeter_ZN_2,          !- Zone or ZoneList Name
+    Perimeter_ZN_2,          !- Zone or ZoneList or Space or SpaceList Name
     BLDG_OCC_SCH,            !- Number of People Schedule Name
     Area/Person,             !- Number of People Calculation Method
     ,                        !- Number of People
-    ,                        !- People per Zone Floor Area {person/m2}
-    18.58,                   !- Zone Floor Area per Person {m2/person}
+    ,                        !- People per Floor Area {person/m2}
+    18.58,                   !- Floor Area per Person {m2/person}
     0.3000,                  !- Fraction Radiant
     AUTOCALCULATE,           !- Sensible Heat Fraction
     ACTIVITY_SCH,            !- Activity Level Schedule Name
-    ,                        !- Carbon Dioxide Generation Rate {m3/s-W}
+    3.82E-8,                 !- Carbon Dioxide Generation Rate {m3/s-W}
     No,                      !- Enable ASHRAE 55 Comfort Warnings
     ZoneAveraged,            !- Mean Radiant Temperature Calculation Type
     ,                        !- Surface Name/Angle Factor List Name
@@ -1728,16 +1771,16 @@
 
   People,
     Perimeter_ZN_3 People,   !- Name
-    Perimeter_ZN_3,          !- Zone or ZoneList Name
+    Perimeter_ZN_3,          !- Zone or ZoneList or Space or SpaceList Name
     BLDG_OCC_SCH,            !- Number of People Schedule Name
     Area/Person,             !- Number of People Calculation Method
     ,                        !- Number of People
-    ,                        !- People per Zone Floor Area {person/m2}
-    18.58,                   !- Zone Floor Area per Person {m2/person}
+    ,                        !- People per Floor Area {person/m2}
+    18.58,                   !- Floor Area per Person {m2/person}
     0.3000,                  !- Fraction Radiant
     AUTOCALCULATE,           !- Sensible Heat Fraction
     ACTIVITY_SCH,            !- Activity Level Schedule Name
-    ,                        !- Carbon Dioxide Generation Rate {m3/s-W}
+    3.82E-8,                 !- Carbon Dioxide Generation Rate {m3/s-W}
     No,                      !- Enable ASHRAE 55 Comfort Warnings
     ZoneAveraged,            !- Mean Radiant Temperature Calculation Type
     ,                        !- Surface Name/Angle Factor List Name
@@ -1750,16 +1793,16 @@
 
   People,
     Perimeter_ZN_4 People,   !- Name
-    Perimeter_ZN_4,          !- Zone or ZoneList Name
+    Perimeter_ZN_4,          !- Zone or ZoneList or Space or SpaceList Name
     BLDG_OCC_SCH,            !- Number of People Schedule Name
     Area/Person,             !- Number of People Calculation Method
     ,                        !- Number of People
-    ,                        !- People per Zone Floor Area {person/m2}
-    18.58,                   !- Zone Floor Area per Person {m2/person}
+    ,                        !- People per Floor Area {person/m2}
+    18.58,                   !- Floor Area per Person {m2/person}
     0.3000,                  !- Fraction Radiant
     AUTOCALCULATE,           !- Sensible Heat Fraction
     ACTIVITY_SCH,            !- Activity Level Schedule Name
-    ,                        !- Carbon Dioxide Generation Rate {m3/s-W}
+    3.82E-8,                 !- Carbon Dioxide Generation Rate {m3/s-W}
     No,                      !- Enable ASHRAE 55 Comfort Warnings
     ZoneAveraged,            !- Mean Radiant Temperature Calculation Type
     ,                        !- Surface Name/Angle Factor List Name
@@ -1774,7 +1817,7 @@
 
   Lights,
     Core_ZN_Lights,          !- Name
-    Core_ZN,                 !- Zone or ZoneList Name
+    Core_ZN,                 !- Zone or ZoneList or Space or SpaceList Name
     BLDG_LIGHT_SCH,          !- Schedule Name
     Watts/Area,              !- Design Level Calculation Method
     ,                        !- Lighting Level {W}
@@ -1789,7 +1832,7 @@
 
   Lights,
     Perimeter_ZN_1_Lights,   !- Name
-    Perimeter_ZN_1,          !- Zone or ZoneList Name
+    Perimeter_ZN_1,          !- Zone or ZoneList or Space or SpaceList Name
     BLDG_LIGHT_SCH,          !- Schedule Name
     Watts/Area,              !- Design Level Calculation Method
     ,                        !- Lighting Level {W}
@@ -1804,7 +1847,7 @@
 
   Lights,
     Perimeter_ZN_2_Lights,   !- Name
-    Perimeter_ZN_2,          !- Zone or ZoneList Name
+    Perimeter_ZN_2,          !- Zone or ZoneList or Space or SpaceList Name
     BLDG_LIGHT_SCH,          !- Schedule Name
     Watts/Area,              !- Design Level Calculation Method
     ,                        !- Lighting Level {W}
@@ -1819,7 +1862,7 @@
 
   Lights,
     Perimeter_ZN_3_Lights,   !- Name
-    Perimeter_ZN_3,          !- Zone or ZoneList Name
+    Perimeter_ZN_3,          !- Zone or ZoneList or Space or SpaceList Name
     BLDG_LIGHT_SCH,          !- Schedule Name
     Watts/Area,              !- Design Level Calculation Method
     ,                        !- Lighting Level {W}
@@ -1834,7 +1877,7 @@
 
   Lights,
     Perimeter_ZN_4_Lights,   !- Name
-    Perimeter_ZN_4,          !- Zone or ZoneList Name
+    Perimeter_ZN_4,          !- Zone or ZoneList or Space or SpaceList Name
     BLDG_LIGHT_SCH,          !- Schedule Name
     Watts/Area,              !- Design Level Calculation Method
     ,                        !- Lighting Level {W}
@@ -1851,7 +1894,7 @@
 
   ElectricEquipment,
     Core_ZN_MiscPlug_Equip,  !- Name
-    Core_ZN,                 !- Zone or ZoneList Name
+    Core_ZN,                 !- Zone or ZoneList or Space or SpaceList Name
     BLDG_EQUIP_SCH,          !- Schedule Name
     Watts/Area,              !- Design Level Calculation Method
     ,                        !- Design Level {W}
@@ -1864,7 +1907,7 @@
 
   ElectricEquipment,
     Perimeter_ZN_1_MiscPlug_Equip,  !- Name
-    Perimeter_ZN_1,          !- Zone or ZoneList Name
+    Perimeter_ZN_1,          !- Zone or ZoneList or Space or SpaceList Name
     BLDG_EQUIP_SCH,          !- Schedule Name
     Watts/Area,              !- Design Level Calculation Method
     ,                        !- Design Level {W}
@@ -1877,7 +1920,7 @@
 
   ElectricEquipment,
     Perimeter_ZN_2_MiscPlug_Equip,  !- Name
-    Perimeter_ZN_2,          !- Zone or ZoneList Name
+    Perimeter_ZN_2,          !- Zone or ZoneList or Space or SpaceList Name
     BLDG_EQUIP_SCH,          !- Schedule Name
     Watts/Area,              !- Design Level Calculation Method
     ,                        !- Design Level {W}
@@ -1890,7 +1933,7 @@
 
   ElectricEquipment,
     Perimeter_ZN_3_MiscPlug_Equip,  !- Name
-    Perimeter_ZN_3,          !- Zone or ZoneList Name
+    Perimeter_ZN_3,          !- Zone or ZoneList or Space or SpaceList Name
     BLDG_EQUIP_SCH,          !- Schedule Name
     Watts/Area,              !- Design Level Calculation Method
     ,                        !- Design Level {W}
@@ -1903,7 +1946,7 @@
 
   ElectricEquipment,
     Perimeter_ZN_4_MiscPlug_Equip,  !- Name
-    Perimeter_ZN_4,          !- Zone or ZoneList Name
+    Perimeter_ZN_4,          !- Zone or ZoneList or Space or SpaceList Name
     BLDG_EQUIP_SCH,          !- Schedule Name
     Watts/Area,              !- Design Level Calculation Method
     ,                        !- Design Level {W}
@@ -1997,37 +2040,41 @@
 !    0.0000,                  !- Temperature Term Coefficient
 !    0.0000,                  !- Velocity Term Coefficient
 !    0.0000;                  !- Velocity Squared Term Coefficient
-
 ! ***INTERNAL MASS***
 
   InternalMass,
     Core_ZN Internal Mass,   !- Name
     InteriorFurnishings,     !- Construction Name
     Core_ZN,                 !- Zone or ZoneList Name
+    ,                        !- Space or SpaceList Name
     299.3148;                !- Surface Area {m2}
 
   InternalMass,
     Perimeter_ZN_1 Internal Mass,  !- Name
     InteriorFurnishings,     !- Construction Name
     Perimeter_ZN_1,          !- Zone or ZoneList Name
+    ,                        !- Space or SpaceList Name
     226.9000;                !- Surface Area {m2}
 
   InternalMass,
     Perimeter_ZN_2 Internal Mass,  !- Name
     InteriorFurnishings,     !- Construction Name
     Perimeter_ZN_2,          !- Zone or ZoneList Name
+    ,                        !- Space or SpaceList Name
     134.6000;                !- Surface Area {m2}
 
   InternalMass,
     Perimeter_ZN_3 Internal Mass,  !- Name
     InteriorFurnishings,     !- Construction Name
     Perimeter_ZN_3,          !- Zone or ZoneList Name
+    ,                        !- Space or SpaceList Name
     226.9000;                !- Surface Area {m2}
 
   InternalMass,
     Perimeter_ZN_4 Internal Mass,  !- Name
     InteriorFurnishings,     !- Construction Name
     Perimeter_ZN_4,          !- Zone or ZoneList Name
+    ,                        !- Space or SpaceList Name
     134.6000;                !- Surface Area {m2}
 
 ! ***INTERNAL GAINS SCHEDULES***
@@ -2189,7 +2236,7 @@
     AUTOSIZE,                !- Design Electric Power Consumption {W}
     TotalEfficiencyAndPressure,  !- Design Power Sizing Method
     ,                        !- Electric Power Per Unit Flow Rate {W/(m3/s)}
-    ,                        !- Electric Power Per Unit Flow Rate Per Unit Pressure {W/((m3/s)-Pa)}
+    1.66667,                 !- Electric Power Per Unit Flow Rate Per Unit Pressure {W/((m3/s)-Pa)}
     0.53625,                 !- Fan Total Efficiency
     ,                        !- Electric Power Function of Flow Fraction Curve Name
     ,                        !- Night Ventilation Mode Pressure Rise {Pa}
@@ -2303,7 +2350,7 @@
     AUTOSIZE,                !- Gross Rated Sensible Heat Ratio
     3.66668442928701,        !- Gross Rated Cooling COP {W/W}
     AUTOSIZE,                !- Rated Air Flow Rate {m3/s}
-    ,                        !- Rated Evaporator Fan Power Per Volume Flow Rate {W/(m3/s)}
+    773.3,                   !- Rated Evaporator Fan Power Per Volume Flow Rate {W/(m3/s)}
     PSZ-AC:1_OA-PSZ-AC:1_CoolCNode,  !- Air Inlet Node Name
     PSZ-AC:1_CoolC-PSZ-AC:1_HeatCNode,  !- Air Outlet Node Name
     Cool-Cap-fT,             !- Total Cooling Capacity Function of Temperature Curve Name
@@ -2319,7 +2366,7 @@
     AUTOSIZE,                !- Gross Rated Sensible Heat Ratio
     3.66668442928701,        !- Gross Rated Cooling COP {W/W}
     AUTOSIZE,                !- Rated Air Flow Rate {m3/s}
-    ,                        !- Rated Evaporator Fan Power Per Volume Flow Rate {W/(m3/s)}
+    773.3,                   !- Rated Evaporator Fan Power Per Volume Flow Rate {W/(m3/s)}
     PSZ-AC:2_OA-PSZ-AC:2_CoolCNode,  !- Air Inlet Node Name
     PSZ-AC:2_CoolC-PSZ-AC:2_HeatCNode,  !- Air Outlet Node Name
     Cool-Cap-fT,             !- Total Cooling Capacity Function of Temperature Curve Name
@@ -2335,7 +2382,7 @@
     AUTOSIZE,                !- Gross Rated Sensible Heat Ratio
     3.66668442928701,        !- Gross Rated Cooling COP {W/W}
     AUTOSIZE,                !- Rated Air Flow Rate {m3/s}
-    ,                        !- Rated Evaporator Fan Power Per Volume Flow Rate {W/(m3/s)}
+    773.3,                   !- Rated Evaporator Fan Power Per Volume Flow Rate {W/(m3/s)}
     PSZ-AC:3_OA-PSZ-AC:3_CoolCNode,  !- Air Inlet Node Name
     PSZ-AC:3_CoolC-PSZ-AC:3_HeatCNode,  !- Air Outlet Node Name
     Cool-Cap-fT,             !- Total Cooling Capacity Function of Temperature Curve Name
@@ -2351,7 +2398,7 @@
     AUTOSIZE,                !- Gross Rated Sensible Heat Ratio
     3.66668442928701,        !- Gross Rated Cooling COP {W/W}
     AUTOSIZE,                !- Rated Air Flow Rate {m3/s}
-    ,                        !- Rated Evaporator Fan Power Per Volume Flow Rate {W/(m3/s)}
+    773.3,                   !- Rated Evaporator Fan Power Per Volume Flow Rate {W/(m3/s)}
     PSZ-AC:4_OA-PSZ-AC:4_CoolCNode,  !- Air Inlet Node Name
     PSZ-AC:4_CoolC-PSZ-AC:4_HeatCNode,  !- Air Outlet Node Name
     Cool-Cap-fT,             !- Total Cooling Capacity Function of Temperature Curve Name
@@ -2367,7 +2414,7 @@
     AUTOSIZE,                !- Gross Rated Sensible Heat Ratio
     3.66668442928701,        !- Gross Rated Cooling COP {W/W}
     AUTOSIZE,                !- Rated Air Flow Rate {m3/s}
-    ,                        !- Rated Evaporator Fan Power Per Volume Flow Rate {W/(m3/s)}
+    773.3,                   !- Rated Evaporator Fan Power Per Volume Flow Rate {W/(m3/s)}
     PSZ-AC:5_OA-PSZ-AC:5_CoolCNode,  !- Air Inlet Node Name
     PSZ-AC:5_CoolC-PSZ-AC:5_HeatCNode,  !- Air Outlet Node Name
     Cool-Cap-fT,             !- Total Cooling Capacity Function of Temperature Curve Name
@@ -2442,15 +2489,15 @@
     ,                        !- Zone Heating Sizing Factor
     ,                        !- Zone Cooling Sizing Factor
     DesignDay,               !- Cooling Design Air Flow Method
-    ,                        !- Cooling Design Air Flow Rate {m3/s}
-    ,                        !- Cooling Minimum Air Flow per Zone Floor Area {m3/s-m2}
-    ,                        !- Cooling Minimum Air Flow {m3/s}
-    ,                        !- Cooling Minimum Air Flow Fraction
+    0,                       !- Cooling Design Air Flow Rate {m3/s}
+    .000762,                 !- Cooling Minimum Air Flow per Zone Floor Area {m3/s-m2}
+    0,                       !- Cooling Minimum Air Flow {m3/s}
+    0.2,                     !- Cooling Minimum Air Flow Fraction
     DesignDay,               !- Heating Design Air Flow Method
-    ,                        !- Heating Design Air Flow Rate {m3/s}
-    ,                        !- Heating Maximum Air Flow per Zone Floor Area {m3/s-m2}
-    ,                        !- Heating Maximum Air Flow {m3/s}
-    ,                        !- Heating Maximum Air Flow Fraction
+    0,                       !- Heating Design Air Flow Rate {m3/s}
+    .002032,                 !- Heating Maximum Air Flow per Zone Floor Area {m3/s-m2}
+    .1415762,                !- Heating Maximum Air Flow {m3/s}
+    0.3,                     !- Heating Maximum Air Flow Fraction
     ,                        !- Design Specification Zone Air Distribution Object Name
     No,                      !- Account for Dedicated Outdoor Air System
     NeutralSupplyAir,        !- Dedicated Outdoor Air System Control Strategy
@@ -2461,8 +2508,8 @@
     SZ DSOA Core_ZN,         !- Name
     Flow/Person,             !- Outdoor Air Method
     0.01,                    !- Outdoor Air Flow per Person {m3/s-person}
-    ,                        !- Outdoor Air Flow per Zone Floor Area {m3/s-m2}
-    ;                        !- Outdoor Air Flow per Zone {m3/s}
+    0.0,                     !- Outdoor Air Flow per Zone Floor Area {m3/s-m2}
+    0.0;                     !- Outdoor Air Flow per Zone {m3/s}
 
   Sizing:Zone,
     Perimeter_ZN_1,          !- Zone or ZoneList Name
@@ -2478,15 +2525,15 @@
     ,                        !- Zone Heating Sizing Factor
     ,                        !- Zone Cooling Sizing Factor
     DesignDay,               !- Cooling Design Air Flow Method
-    ,                        !- Cooling Design Air Flow Rate {m3/s}
-    ,                        !- Cooling Minimum Air Flow per Zone Floor Area {m3/s-m2}
-    ,                        !- Cooling Minimum Air Flow {m3/s}
-    ,                        !- Cooling Minimum Air Flow Fraction
+    0,                       !- Cooling Design Air Flow Rate {m3/s}
+    .000762,                 !- Cooling Minimum Air Flow per Zone Floor Area {m3/s-m2}
+    0,                       !- Cooling Minimum Air Flow {m3/s}
+    0.2,                     !- Cooling Minimum Air Flow Fraction
     DesignDay,               !- Heating Design Air Flow Method
-    ,                        !- Heating Design Air Flow Rate {m3/s}
-    ,                        !- Heating Maximum Air Flow per Zone Floor Area {m3/s-m2}
-    ,                        !- Heating Maximum Air Flow {m3/s}
-    ,                        !- Heating Maximum Air Flow Fraction
+    0,                       !- Heating Design Air Flow Rate {m3/s}
+    .002032,                 !- Heating Maximum Air Flow per Zone Floor Area {m3/s-m2}
+    .1415762,                !- Heating Maximum Air Flow {m3/s}
+    0.3,                     !- Heating Maximum Air Flow Fraction
     ,                        !- Design Specification Zone Air Distribution Object Name
     No,                      !- Account for Dedicated Outdoor Air System
     NeutralSupplyAir,        !- Dedicated Outdoor Air System Control Strategy
@@ -2497,8 +2544,8 @@
     SZ DSOA Perimeter_ZN_1,  !- Name
     Flow/Person,             !- Outdoor Air Method
     0.01,                    !- Outdoor Air Flow per Person {m3/s-person}
-    ,                        !- Outdoor Air Flow per Zone Floor Area {m3/s-m2}
-    ;                        !- Outdoor Air Flow per Zone {m3/s}
+    0.0,                     !- Outdoor Air Flow per Zone Floor Area {m3/s-m2}
+    0.0;                     !- Outdoor Air Flow per Zone {m3/s}
 
   Sizing:Zone,
     Perimeter_ZN_2,          !- Zone or ZoneList Name
@@ -2514,15 +2561,15 @@
     ,                        !- Zone Heating Sizing Factor
     ,                        !- Zone Cooling Sizing Factor
     DesignDay,               !- Cooling Design Air Flow Method
-    ,                        !- Cooling Design Air Flow Rate {m3/s}
-    ,                        !- Cooling Minimum Air Flow per Zone Floor Area {m3/s-m2}
-    ,                        !- Cooling Minimum Air Flow {m3/s}
-    ,                        !- Cooling Minimum Air Flow Fraction
+    0,                       !- Cooling Design Air Flow Rate {m3/s}
+    .000762,                 !- Cooling Minimum Air Flow per Zone Floor Area {m3/s-m2}
+    0,                       !- Cooling Minimum Air Flow {m3/s}
+    0.2,                     !- Cooling Minimum Air Flow Fraction
     DesignDay,               !- Heating Design Air Flow Method
-    ,                        !- Heating Design Air Flow Rate {m3/s}
-    ,                        !- Heating Maximum Air Flow per Zone Floor Area {m3/s-m2}
-    ,                        !- Heating Maximum Air Flow {m3/s}
-    ,                        !- Heating Maximum Air Flow Fraction
+    0,                       !- Heating Design Air Flow Rate {m3/s}
+    .002032,                 !- Heating Maximum Air Flow per Zone Floor Area {m3/s-m2}
+    .1415762,                !- Heating Maximum Air Flow {m3/s}
+    0.3,                     !- Heating Maximum Air Flow Fraction
     ,                        !- Design Specification Zone Air Distribution Object Name
     No,                      !- Account for Dedicated Outdoor Air System
     NeutralSupplyAir,        !- Dedicated Outdoor Air System Control Strategy
@@ -2533,8 +2580,8 @@
     SZ DSOA Perimeter_ZN_2,  !- Name
     Flow/Person,             !- Outdoor Air Method
     0.01,                    !- Outdoor Air Flow per Person {m3/s-person}
-    ,                        !- Outdoor Air Flow per Zone Floor Area {m3/s-m2}
-    ;                        !- Outdoor Air Flow per Zone {m3/s}
+    0.0,                     !- Outdoor Air Flow per Zone Floor Area {m3/s-m2}
+    0.0;                     !- Outdoor Air Flow per Zone {m3/s}
 
   Sizing:Zone,
     Perimeter_ZN_3,          !- Zone or ZoneList Name
@@ -2550,15 +2597,15 @@
     ,                        !- Zone Heating Sizing Factor
     ,                        !- Zone Cooling Sizing Factor
     DesignDay,               !- Cooling Design Air Flow Method
-    ,                        !- Cooling Design Air Flow Rate {m3/s}
-    ,                        !- Cooling Minimum Air Flow per Zone Floor Area {m3/s-m2}
-    ,                        !- Cooling Minimum Air Flow {m3/s}
-    ,                        !- Cooling Minimum Air Flow Fraction
+    0,                       !- Cooling Design Air Flow Rate {m3/s}
+    .000762,                 !- Cooling Minimum Air Flow per Zone Floor Area {m3/s-m2}
+    0,                       !- Cooling Minimum Air Flow {m3/s}
+    0.2,                     !- Cooling Minimum Air Flow Fraction
     DesignDay,               !- Heating Design Air Flow Method
-    ,                        !- Heating Design Air Flow Rate {m3/s}
-    ,                        !- Heating Maximum Air Flow per Zone Floor Area {m3/s-m2}
-    ,                        !- Heating Maximum Air Flow {m3/s}
-    ,                        !- Heating Maximum Air Flow Fraction
+    0,                       !- Heating Design Air Flow Rate {m3/s}
+    .002032,                 !- Heating Maximum Air Flow per Zone Floor Area {m3/s-m2}
+    .1415762,                !- Heating Maximum Air Flow {m3/s}
+    0.3,                     !- Heating Maximum Air Flow Fraction
     ,                        !- Design Specification Zone Air Distribution Object Name
     No,                      !- Account for Dedicated Outdoor Air System
     NeutralSupplyAir,        !- Dedicated Outdoor Air System Control Strategy
@@ -2569,8 +2616,8 @@
     SZ DSOA Perimeter_ZN_3,  !- Name
     Flow/Person,             !- Outdoor Air Method
     0.01,                    !- Outdoor Air Flow per Person {m3/s-person}
-    ,                        !- Outdoor Air Flow per Zone Floor Area {m3/s-m2}
-    ;                        !- Outdoor Air Flow per Zone {m3/s}
+    0.0,                     !- Outdoor Air Flow per Zone Floor Area {m3/s-m2}
+    0.0;                     !- Outdoor Air Flow per Zone {m3/s}
 
   Sizing:Zone,
     Perimeter_ZN_4,          !- Zone or ZoneList Name
@@ -2586,15 +2633,15 @@
     ,                        !- Zone Heating Sizing Factor
     ,                        !- Zone Cooling Sizing Factor
     DesignDay,               !- Cooling Design Air Flow Method
-    ,                        !- Cooling Design Air Flow Rate {m3/s}
-    ,                        !- Cooling Minimum Air Flow per Zone Floor Area {m3/s-m2}
-    ,                        !- Cooling Minimum Air Flow {m3/s}
-    ,                        !- Cooling Minimum Air Flow Fraction
+    0,                       !- Cooling Design Air Flow Rate {m3/s}
+    .000762,                 !- Cooling Minimum Air Flow per Zone Floor Area {m3/s-m2}
+    0,                       !- Cooling Minimum Air Flow {m3/s}
+    0.2,                     !- Cooling Minimum Air Flow Fraction
     DesignDay,               !- Heating Design Air Flow Method
-    ,                        !- Heating Design Air Flow Rate {m3/s}
-    ,                        !- Heating Maximum Air Flow per Zone Floor Area {m3/s-m2}
-    ,                        !- Heating Maximum Air Flow {m3/s}
-    ,                        !- Heating Maximum Air Flow Fraction
+    0,                       !- Heating Design Air Flow Rate {m3/s}
+    .002032,                 !- Heating Maximum Air Flow per Zone Floor Area {m3/s-m2}
+    .1415762,                !- Heating Maximum Air Flow {m3/s}
+    0.3,                     !- Heating Maximum Air Flow Fraction
     ,                        !- Design Specification Zone Air Distribution Object Name
     No,                      !- Account for Dedicated Outdoor Air System
     NeutralSupplyAir,        !- Dedicated Outdoor Air System Control Strategy
@@ -2605,8 +2652,8 @@
     SZ DSOA Perimeter_ZN_4,  !- Name
     Flow/Person,             !- Outdoor Air Method
     0.01,                    !- Outdoor Air Flow per Person {m3/s-person}
-    ,                        !- Outdoor Air Flow per Zone Floor Area {m3/s-m2}
-    ;                        !- Outdoor Air Flow per Zone {m3/s}
+    0.0,                     !- Outdoor Air Flow per Zone Floor Area {m3/s-m2}
+    0.0;                     !- Outdoor Air Flow per Zone {m3/s}
 
   ZoneControl:Thermostat,
     Core_ZN Thermostat,      !- Name
@@ -2735,17 +2782,17 @@
     0.0085,                  !- Central Cooling Design Supply Air Humidity Ratio {kgWater/kgDryAir}
     0.0080,                  !- Central Heating Design Supply Air Humidity Ratio {kgWater/kgDryAir}
     DesignDay,               !- Cooling Supply Air Flow Rate Method
-    ,                        !- Cooling Supply Air Flow Rate {m3/s}
+    0,                       !- Cooling Supply Air Flow Rate {m3/s}
     ,                        !- Cooling Supply Air Flow Rate Per Floor Area {m3/s-m2}
     ,                        !- Cooling Fraction of Autosized Cooling Supply Air Flow Rate
     ,                        !- Cooling Supply Air Flow Rate Per Unit Cooling Capacity {m3/s-W}
     DesignDay,               !- Heating Supply Air Flow Rate Method
-    ,                        !- Heating Supply Air Flow Rate {m3/s}
+    0,                       !- Heating Supply Air Flow Rate {m3/s}
     ,                        !- Heating Supply Air Flow Rate Per Floor Area {m3/s-m2}
     ,                        !- Heating Fraction of Autosized Heating Supply Air Flow Rate
     ,                        !- Heating Fraction of Autosized Cooling Supply Air Flow Rate
     ,                        !- Heating Supply Air Flow Rate Per Unit Heating Capacity {m3/s-W}
-    ,                        !- System Outdoor Air Method
+    ZoneSum,                 !- System Outdoor Air Method
     1.0,                     !- Zone Maximum Outdoor Air Fraction {dimensionless}
     CoolingDesignCapacity,   !- Cooling Design Capacity Method
     autosize,                !- Cooling Design Capacity {W}
@@ -2774,17 +2821,17 @@
     0.0085,                  !- Central Cooling Design Supply Air Humidity Ratio {kgWater/kgDryAir}
     0.0080,                  !- Central Heating Design Supply Air Humidity Ratio {kgWater/kgDryAir}
     DesignDay,               !- Cooling Supply Air Flow Rate Method
-    ,                        !- Cooling Supply Air Flow Rate {m3/s}
+    0,                       !- Cooling Supply Air Flow Rate {m3/s}
     ,                        !- Cooling Supply Air Flow Rate Per Floor Area {m3/s-m2}
     ,                        !- Cooling Fraction of Autosized Cooling Supply Air Flow Rate
     ,                        !- Cooling Supply Air Flow Rate Per Unit Cooling Capacity {m3/s-W}
     DesignDay,               !- Heating Supply Air Flow Rate Method
-    ,                        !- Heating Supply Air Flow Rate {m3/s}
+    0,                       !- Heating Supply Air Flow Rate {m3/s}
     ,                        !- Heating Supply Air Flow Rate Per Floor Area {m3/s-m2}
     ,                        !- Heating Fraction of Autosized Heating Supply Air Flow Rate
     ,                        !- Heating Fraction of Autosized Cooling Supply Air Flow Rate
     ,                        !- Heating Supply Air Flow Rate Per Unit Heating Capacity {m3/s-W}
-    ,                        !- System Outdoor Air Method
+    ZoneSum,                 !- System Outdoor Air Method
     1.0,                     !- Zone Maximum Outdoor Air Fraction {dimensionless}
     CoolingDesignCapacity,   !- Cooling Design Capacity Method
     autosize,                !- Cooling Design Capacity {W}
@@ -2813,17 +2860,17 @@
     0.0085,                  !- Central Cooling Design Supply Air Humidity Ratio {kgWater/kgDryAir}
     0.0080,                  !- Central Heating Design Supply Air Humidity Ratio {kgWater/kgDryAir}
     DesignDay,               !- Cooling Supply Air Flow Rate Method
-    ,                        !- Cooling Supply Air Flow Rate {m3/s}
+    0,                       !- Cooling Supply Air Flow Rate {m3/s}
     ,                        !- Cooling Supply Air Flow Rate Per Floor Area {m3/s-m2}
     ,                        !- Cooling Fraction of Autosized Cooling Supply Air Flow Rate
     ,                        !- Cooling Supply Air Flow Rate Per Unit Cooling Capacity {m3/s-W}
     DesignDay,               !- Heating Supply Air Flow Rate Method
-    ,                        !- Heating Supply Air Flow Rate {m3/s}
+    0,                       !- Heating Supply Air Flow Rate {m3/s}
     ,                        !- Heating Supply Air Flow Rate Per Floor Area {m3/s-m2}
     ,                        !- Heating Fraction of Autosized Heating Supply Air Flow Rate
     ,                        !- Heating Fraction of Autosized Cooling Supply Air Flow Rate
     ,                        !- Heating Supply Air Flow Rate Per Unit Heating Capacity {m3/s-W}
-    ,                        !- System Outdoor Air Method
+    ZoneSum,                 !- System Outdoor Air Method
     1.0,                     !- Zone Maximum Outdoor Air Fraction {dimensionless}
     CoolingDesignCapacity,   !- Cooling Design Capacity Method
     autosize,                !- Cooling Design Capacity {W}
@@ -2852,17 +2899,17 @@
     0.0085,                  !- Central Cooling Design Supply Air Humidity Ratio {kgWater/kgDryAir}
     0.0080,                  !- Central Heating Design Supply Air Humidity Ratio {kgWater/kgDryAir}
     DesignDay,               !- Cooling Supply Air Flow Rate Method
-    ,                        !- Cooling Supply Air Flow Rate {m3/s}
+    0,                       !- Cooling Supply Air Flow Rate {m3/s}
     ,                        !- Cooling Supply Air Flow Rate Per Floor Area {m3/s-m2}
     ,                        !- Cooling Fraction of Autosized Cooling Supply Air Flow Rate
     ,                        !- Cooling Supply Air Flow Rate Per Unit Cooling Capacity {m3/s-W}
     DesignDay,               !- Heating Supply Air Flow Rate Method
-    ,                        !- Heating Supply Air Flow Rate {m3/s}
+    0,                       !- Heating Supply Air Flow Rate {m3/s}
     ,                        !- Heating Supply Air Flow Rate Per Floor Area {m3/s-m2}
     ,                        !- Heating Fraction of Autosized Heating Supply Air Flow Rate
     ,                        !- Heating Fraction of Autosized Cooling Supply Air Flow Rate
     ,                        !- Heating Supply Air Flow Rate Per Unit Heating Capacity {m3/s-W}
-    ,                        !- System Outdoor Air Method
+    ZoneSum,                 !- System Outdoor Air Method
     1.0,                     !- Zone Maximum Outdoor Air Fraction {dimensionless}
     CoolingDesignCapacity,   !- Cooling Design Capacity Method
     autosize,                !- Cooling Design Capacity {W}
@@ -2891,17 +2938,17 @@
     0.0085,                  !- Central Cooling Design Supply Air Humidity Ratio {kgWater/kgDryAir}
     0.0080,                  !- Central Heating Design Supply Air Humidity Ratio {kgWater/kgDryAir}
     DesignDay,               !- Cooling Supply Air Flow Rate Method
-    ,                        !- Cooling Supply Air Flow Rate {m3/s}
+    0,                       !- Cooling Supply Air Flow Rate {m3/s}
     ,                        !- Cooling Supply Air Flow Rate Per Floor Area {m3/s-m2}
     ,                        !- Cooling Fraction of Autosized Cooling Supply Air Flow Rate
     ,                        !- Cooling Supply Air Flow Rate Per Unit Cooling Capacity {m3/s-W}
     DesignDay,               !- Heating Supply Air Flow Rate Method
-    ,                        !- Heating Supply Air Flow Rate {m3/s}
+    0,                       !- Heating Supply Air Flow Rate {m3/s}
     ,                        !- Heating Supply Air Flow Rate Per Floor Area {m3/s-m2}
     ,                        !- Heating Fraction of Autosized Heating Supply Air Flow Rate
     ,                        !- Heating Fraction of Autosized Cooling Supply Air Flow Rate
     ,                        !- Heating Supply Air Flow Rate Per Unit Heating Capacity {m3/s-W}
-    ,                        !- System Outdoor Air Method
+    ZoneSum,                 !- System Outdoor Air Method
     1.0,                     !- Zone Maximum Outdoor Air Fraction {dimensionless}
     CoolingDesignCapacity,   !- Cooling Design Capacity Method
     autosize,                !- Cooling Design Capacity {W}
@@ -3264,15 +3311,15 @@
     Core_ZN Direct Air Inlet Node Name,  !- Air Outlet Node Name
     AUTOSIZE,                !- Maximum Air Flow Rate {m3/s}
     ,                        !- Design Specification Outdoor Air Object Name
-    ;                        !- Per Person Ventilation Rate Mode
+    CurrentOccupancy;        !- Per Person Ventilation Rate Mode
 
   ZoneHVAC:AirDistributionUnit,
     Core_ZN Direct Air ADU,  !- Name
     Core_ZN Direct Air Inlet Node Name,  !- Air Distribution Unit Outlet Node Name
     AirTerminal:SingleDuct:ConstantVolume:NoReheat,  !- Air Terminal Object Type
     Core_ZN Direct Air,      !- Air Terminal Name
-    ,                        !- Nominal Upstream Leakage Fraction
-    ,                        !- Constant Downstream Leakage Fraction
+    0,                       !- Nominal Upstream Leakage Fraction
+    0,                       !- Constant Downstream Leakage Fraction
     ;                        !- Design Specification Air Terminal Sizing Object Name
 
   AirTerminal:SingleDuct:ConstantVolume:NoReheat,
@@ -3282,15 +3329,15 @@
     Perimeter_ZN_1 Direct Air Inlet Node Name,  !- Air Outlet Node Name
     AUTOSIZE,                !- Maximum Air Flow Rate {m3/s}
     ,                        !- Design Specification Outdoor Air Object Name
-    ;                        !- Per Person Ventilation Rate Mode
+    CurrentOccupancy;        !- Per Person Ventilation Rate Mode
 
   ZoneHVAC:AirDistributionUnit,
     Perimeter_ZN_1 Direct Air ADU,  !- Name
     Perimeter_ZN_1 Direct Air Inlet Node Name,  !- Air Distribution Unit Outlet Node Name
     AirTerminal:SingleDuct:ConstantVolume:NoReheat,  !- Air Terminal Object Type
     Perimeter_ZN_1 Direct Air,  !- Air Terminal Name
-    ,                        !- Nominal Upstream Leakage Fraction
-    ,                        !- Constant Downstream Leakage Fraction
+    0,                       !- Nominal Upstream Leakage Fraction
+    0,                       !- Constant Downstream Leakage Fraction
     ;                        !- Design Specification Air Terminal Sizing Object Name
 
   AirTerminal:SingleDuct:ConstantVolume:NoReheat,
@@ -3300,15 +3347,15 @@
     Perimeter_ZN_2 Direct Air Inlet Node Name,  !- Air Outlet Node Name
     AUTOSIZE,                !- Maximum Air Flow Rate {m3/s}
     ,                        !- Design Specification Outdoor Air Object Name
-    ;                        !- Per Person Ventilation Rate Mode
+    CurrentOccupancy;        !- Per Person Ventilation Rate Mode
 
   ZoneHVAC:AirDistributionUnit,
     Perimeter_ZN_2 Direct Air ADU,  !- Name
     Perimeter_ZN_2 Direct Air Inlet Node Name,  !- Air Distribution Unit Outlet Node Name
     AirTerminal:SingleDuct:ConstantVolume:NoReheat,  !- Air Terminal Object Type
     Perimeter_ZN_2 Direct Air,  !- Air Terminal Name
-    ,                        !- Nominal Upstream Leakage Fraction
-    ,                        !- Constant Downstream Leakage Fraction
+    0,                       !- Nominal Upstream Leakage Fraction
+    0,                       !- Constant Downstream Leakage Fraction
     ;                        !- Design Specification Air Terminal Sizing Object Name
 
   AirTerminal:SingleDuct:ConstantVolume:NoReheat,
@@ -3318,15 +3365,15 @@
     Perimeter_ZN_3 Direct Air Inlet Node Name,  !- Air Outlet Node Name
     AUTOSIZE,                !- Maximum Air Flow Rate {m3/s}
     ,                        !- Design Specification Outdoor Air Object Name
-    ;                        !- Per Person Ventilation Rate Mode
+    CurrentOccupancy;        !- Per Person Ventilation Rate Mode
 
   ZoneHVAC:AirDistributionUnit,
     Perimeter_ZN_3 Direct Air ADU,  !- Name
     Perimeter_ZN_3 Direct Air Inlet Node Name,  !- Air Distribution Unit Outlet Node Name
     AirTerminal:SingleDuct:ConstantVolume:NoReheat,  !- Air Terminal Object Type
     Perimeter_ZN_3 Direct Air,  !- Air Terminal Name
-    ,                        !- Nominal Upstream Leakage Fraction
-    ,                        !- Constant Downstream Leakage Fraction
+    0,                       !- Nominal Upstream Leakage Fraction
+    0,                       !- Constant Downstream Leakage Fraction
     ;                        !- Design Specification Air Terminal Sizing Object Name
 
   AirTerminal:SingleDuct:ConstantVolume:NoReheat,
@@ -3336,15 +3383,15 @@
     Perimeter_ZN_4 Direct Air Inlet Node Name,  !- Air Outlet Node Name
     AUTOSIZE,                !- Maximum Air Flow Rate {m3/s}
     ,                        !- Design Specification Outdoor Air Object Name
-    ;                        !- Per Person Ventilation Rate Mode
+    CurrentOccupancy;        !- Per Person Ventilation Rate Mode
 
   ZoneHVAC:AirDistributionUnit,
     Perimeter_ZN_4 Direct Air ADU,  !- Name
     Perimeter_ZN_4 Direct Air Inlet Node Name,  !- Air Distribution Unit Outlet Node Name
     AirTerminal:SingleDuct:ConstantVolume:NoReheat,  !- Air Terminal Object Type
     Perimeter_ZN_4 Direct Air,  !- Air Terminal Name
-    ,                        !- Nominal Upstream Leakage Fraction
-    ,                        !- Constant Downstream Leakage Fraction
+    0,                       !- Nominal Upstream Leakage Fraction
+    0,                       !- Constant Downstream Leakage Fraction
     ;                        !- Design Specification Air Terminal Sizing Object Name
 
   AvailabilityManagerAssignmentList,
@@ -3590,32 +3637,27 @@
   AirLoopHVAC:OutdoorAirSystem,
     PSZ-AC:1_OA,             !- Name
     PSZ-AC:1_OA_Controllers, !- Controller List Name
-    PSZ-AC:1_OA_Equipment,   !- Outdoor Air Equipment List Name
-    PSZ-AC:1 Availability Manager List;  !- Availability Manager List Name
+    PSZ-AC:1_OA_Equipment;   !- Outdoor Air Equipment List Name
 
   AirLoopHVAC:OutdoorAirSystem,
     PSZ-AC:2_OA,             !- Name
     PSZ-AC:2_OA_Controllers, !- Controller List Name
-    PSZ-AC:2_OA_Equipment,   !- Outdoor Air Equipment List Name
-    PSZ-AC:2 Availability Manager List;  !- Availability Manager List Name
+    PSZ-AC:2_OA_Equipment;   !- Outdoor Air Equipment List Name
 
   AirLoopHVAC:OutdoorAirSystem,
     PSZ-AC:3_OA,             !- Name
     PSZ-AC:3_OA_Controllers, !- Controller List Name
-    PSZ-AC:3_OA_Equipment,   !- Outdoor Air Equipment List Name
-    PSZ-AC:3 Availability Manager List;  !- Availability Manager List Name
+    PSZ-AC:3_OA_Equipment;   !- Outdoor Air Equipment List Name
 
   AirLoopHVAC:OutdoorAirSystem,
     PSZ-AC:4_OA,             !- Name
     PSZ-AC:4_OA_Controllers, !- Controller List Name
-    PSZ-AC:4_OA_Equipment,   !- Outdoor Air Equipment List Name
-    PSZ-AC:4 Availability Manager List;  !- Availability Manager List Name
+    PSZ-AC:4_OA_Equipment;   !- Outdoor Air Equipment List Name
 
   AirLoopHVAC:OutdoorAirSystem,
     PSZ-AC:5_OA,             !- Name
     PSZ-AC:5_OA_Controllers, !- Controller List Name
-    PSZ-AC:5_OA_Equipment,   !- Outdoor Air Equipment List Name
-    PSZ-AC:5 Availability Manager List;  !- Availability Manager List Name
+    PSZ-AC:5_OA_Equipment;   !- Outdoor Air Equipment List Name
 
   OutdoorAir:NodeList,
     PSZ-AC:1_OANode List;    !- Node or NodeList Name 1
@@ -3934,17 +3976,17 @@
     Temperature,             !- Schedule Type Limits Name
     Through: 12/31,          !- Field 1
     For: Weekdays,           !- Field 2
-    Until: 06:00,0,       !- Field 3
-    Until: 22:00,0,       !- Field 5
-    Until: 24:00,0,       !- Field 7
+    Until: 06:00,0,          !- Field 3
+    Until: 22:00,0,          !- Field 5
+    Until: 24:00,0,          !- Field 7
     For: Saturday,           !- Field 9
-    Until: 06:00,0,       !- Field 10
-    Until: 18:00,0,       !- Field 12
-    Until: 24:00,0,       !- Field 14
+    Until: 06:00,0,          !- Field 10
+    Until: 18:00,0,          !- Field 12
+    Until: 24:00,0,          !- Field 14
     For: WinterDesignDay,    !- Field 16
     Until: 24:00,21.0,       !- Field 17
     For: AllOtherDays,       !- Field 19
-    Until: 24:00,0;       !- Field 20
+    Until: 24:00,0;          !- Field 20
 
   Schedule:Compact,
     MinOA_Sched,             !- Name
@@ -3994,25 +4036,25 @@
     Cycle,                   !- Heater Control Type
     845000,                  !- Heater Maximum Capacity {W}
     ,                        !- Heater Minimum Capacity {W}
-    ,                        !- Heater Ignition Minimum Flow Rate {m3/s}
-    ,                        !- Heater Ignition Delay {s}
+    0.0,                     !- Heater Ignition Minimum Flow Rate {m3/s}
+    0.0,                     !- Heater Ignition Delay {s}
     NATURALGAS,              !- Heater Fuel Type
     0.8,                     !- Heater Thermal Efficiency
     ,                        !- Part Load Factor Curve Name
     20,                      !- Off Cycle Parasitic Fuel Consumption Rate {W}
     NATURALGAS,              !- Off Cycle Parasitic Fuel Type
     0.8,                     !- Off Cycle Parasitic Heat Fraction to Tank
-    ,                        !- On Cycle Parasitic Fuel Consumption Rate {W}
+    0.0,                     !- On Cycle Parasitic Fuel Consumption Rate {W}
     NATURALGAS,              !- On Cycle Parasitic Fuel Type
-    ,                        !- On Cycle Parasitic Heat Fraction to Tank
+    0.0,                     !- On Cycle Parasitic Heat Fraction to Tank
     SCHEDULE,                !- Ambient Temperature Indicator
     SWHSys1 Water Heater Ambient Temperature Schedule Name,  !- Ambient Temperature Schedule Name
     ,                        !- Ambient Temperature Zone Name
     ,                        !- Ambient Temperature Outdoor Air Node Name
     6.0,                     !- Off Cycle Loss Coefficient to Ambient Temperature {W/K}
-    ,                        !- Off Cycle Loss Fraction to Zone
+    1.0,                     !- Off Cycle Loss Fraction to Zone
     6.0,                     !- On Cycle Loss Coefficient to Ambient Temperature {W/K}
-    ,                        !- On Cycle Loss Fraction to Zone
+    1.0,                     !- On Cycle Loss Fraction to Zone
     ,                        !- Peak Use Flow Rate {m3/s}
     ,                        !- Use Flow Rate Fraction Schedule Name
     ,                        !- Cold Water Supply Temperature Schedule Name
@@ -4040,7 +4082,7 @@
 
   WaterUse:Equipment,
     Core_ZN Water Equipment, !- Name
-    ,                        !- End-Use Subcategory
+    General,                 !- End-Use Subcategory
     3.15e-006,               !- Peak Flow Rate {m3/s}
     BLDG_SWH_SCH,            !- Flow Rate Fraction Schedule Name
     Water Equipment Temp Sched,  !- Target Temperature Schedule Name
@@ -4206,8 +4248,8 @@
     ,                        !- Reclamation Water Storage Tank Name
     ,                        !- Hot Water Supply Temperature Schedule Name
     ,                        !- Cold Water Supply Temperature Schedule Name
-    ,                        !- Drain Water Heat Exchanger Type
-    ,                        !- Drain Water Heat Exchanger Destination
+    None,                    !- Drain Water Heat Exchanger Type
+    Plant,                   !- Drain Water Heat Exchanger Destination
     ,                        !- Drain Water Heat Exchanger U-Factor Times Area {W/K}
     Core_ZN Water Equipment; !- Water Use Equipment 1 Name
 
@@ -4363,7 +4405,6 @@
     For: AllDays,            !- Field 2
     Until: 24:00,60.0;       !- Field 3
 
-
 ! ***GENERAL REPORTING***
 
   OutputControl:ReportingTolerances,
@@ -4407,3 +4448,4 @@
 
   OutputControl:Table:Style,
     HTML;                    !- Column Separator
+
