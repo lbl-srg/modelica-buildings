@@ -548,6 +548,9 @@ have been <b style=\"color:blue\">improved</b> in a
                        This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2594\">#2594</a>.<br/>
                        Changed model structure to separate building and HVAC system.<br/>
                        This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2652\">#2652</a>.<br/>
+                       Changed parameter declarations and added to Guideline 36 models the optimal start up calculation.
+                       This is for
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2829\">issue #2829</a>.
     </td>
 </tr>
  <tr><td colspan=\"2\"><b>Buildings.Examples.ScalableBenchmarks</b>
@@ -693,6 +696,9 @@ have been <b style=\"color:blue\">improved</b> in a
                        This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2594\">#2594</a>.<br/>
                        Changed model structure to separate building and HVAC system.<br/>
                        This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2652\">#2652</a>.<br/>
+                       Changed parameter declarations and added to Guideline 36 models the optimal start up calculation.
+                       This is for
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2829\">issue #2829</a>.
     </td>
 </tr>
 <tr><td colspan=\"2\"><b>Buildings.Utilities.Math</b>
