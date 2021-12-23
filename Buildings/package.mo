@@ -355,7 +355,7 @@ have been <b style=\"color:blue\">improved</b> in a
 <tr><td colspan=\"2\"><b>Buildings.Experimental.DHC</b>
     </td>
 </tr>
-<tr><td valign=\"top\">Buildings.Experimental.DHC.CentralPlants.Cooling
+<tr><td valign=\"top\">Buildings.Experimental.DHC.Plants.Cooling
     </td>
     <td valign=\"top\">Revised the model for extensibility. <br/>
     This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2749\">#2749</a>.
@@ -771,7 +771,7 @@ units are wrong or errors in documentation):
 <tr><td colspan=\"2\"><b>Buildings.Experimental</b>
     </td>
 </tr>
-<tr><td valign=\"top\">Buildings.Experimental.DHC.CentralPlants.Cooling.Controls.ChillerStage
+<tr><td valign=\"top\">Buildings.Experimental.DHC.Plants.Cooling.Controls.ChillerStage
     </td>
     <td valign=\"top\">Corrected parameter value for <code>twoOn.nOut</code>.
                        This correction is required to simulate the model in Dymola 2022
@@ -876,7 +876,7 @@ xxx
     </tr>
     <tr><td colspan=\"2\"><b>Buildings.Experimental.DHC</b>
         </td>
-    <tr><td valign=\"top\">Buildings.Experimental.DHC.CentralPlants.Cooling
+    <tr><td valign=\"top\">Buildings.Experimental.DHC.Plants.Cooling
         </td>
         <td valign=\"top\">Package with models for a chilled water plant adapted to
         district cooling applications.<br/>

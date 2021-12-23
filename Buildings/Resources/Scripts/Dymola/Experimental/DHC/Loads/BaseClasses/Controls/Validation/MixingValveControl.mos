@@ -1,0 +1,31 @@
+old_flag = Advanced.StoreProtectedVariables;
+Advanced.StoreProtectedVariables = true;
+simulateModel("Buildings.Experimental.DHC.Loads.BaseClasses.Controls.Validation.MixingValveControl",
+    method="cvode",
+    tolerance=1e-6,
+    numberOfIntervals=500,
+    startTime=0,
+    stopTime=1000.0,
+    resultFile="MixingValveControl");
+Advanced.StoreProtectedVariables = old_flag;
+createPlot(
+    id=1,
+    position={111, 107, 796, 818},
+    y={"senTPriSup.T", "TSetSecAct.y", "senTSecRet.T", "senTSecSup.T"},
+    range={0.0, 1000.0, 6.0, 42.0},
+    filename="MixingValveControl.mat",
+    grid = true,
+    color = true,
+    displayUnits={"degC", "", "degC", "degC"});
+createPlot(id=2, position={923, 109, 790, 817}, y={"mod.y"}, range={0.0, 1000.0, -2.0, 2.0},
+    grid = true,
+    color = true);
+createPlot(id=2, y={"mSec_flow.y"}, range={0.0, 1000.0, -0.5, 1.5}, subPlot=2,
+    grid = true,
+    color = true);
+createPlot(id=2, y={"disFlo.PPum"}, range={0.0, 1000.0, -200.0, 800.0}, subPlot=3,
+    grid = true,
+    color = true);
+createPlot(id=2, y={"disFlo.val.y_actual"}, range={0.0, 1000.0, -0.5, 1.5}, subPlot=4,
+    grid = true,
+    color = true);
