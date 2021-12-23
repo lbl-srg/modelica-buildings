@@ -84,7 +84,7 @@ partial model PartialDistribution2Pipe
     annotation (Placement(transformation(extent={{100,40},{140,80}}),
       iconTransformation(extent={{200,30},{240,70}})));
   // COMPONENTS
-  replaceable BaseClasses.PartialConnection2Pipe con[nCon](
+  replaceable Buildings.Experimental.DHC.Networks.BaseClasses.PartialConnection2Pipe con[nCon](
     redeclare each final package Medium=Medium,
     each final show_entFlo=show_entFlo,
     final mDis_flow_nominal=mDisCon_flow_nominal,
