@@ -1,0 +1,69 @@
+// Simulate
+simulateModel("Buildings.Experimental.DHC.Plants.Cooling.Examples.ElectricChillerParallel", 
+    stopTime=86400, 
+    method="cvode",
+    tolerance=1e-06, 
+    resultFile="ElectricChillerParallel");
+// Plot commands
+removePlots(false);
+createPlot(
+    id=1, 
+    position={24, 10, 831, 511}, 
+    y={"pla.PCoo", "loaVar.y"}, 
+    range={0.0, 90000.0, -4000000.0, 3000000.0}, 
+    grid=true, 
+    filename="ElectricChillerParallel.mat", 
+    leftTitleType=2, 
+    leftTitle="[W]",
+    colors={{28,108,200}, {238,46,47}}, 
+    timeUnit="h",
+    displayUnits={"W", "W"});
+createPlot(
+    id=1, 
+    position={24, 10, 831, 511}, 
+    y={"pla.chiStaCon.plr.y"}, 
+    range={0.0, 90000.0, 0, 2}, 
+    grid=true, 
+	subPlot=2,
+    leftTitle="[1]",
+    colors={{28,108,200}}, 
+    timeUnit="h",
+    displayUnits={"1"});
+createPlot(
+    id=1, 
+    position={24, 10, 831, 511}, 
+    y={"pla.chiStaCon.y[1]", "pla.chiStaCon.y[2]"}, 
+    range={0.0, 90000.0, -1.0, 2.0}, 
+    grid=true, 
+    subPlot=3, 
+    colors={{28,108,200}, {28,108,200}},
+    timeUnit="h");
+createPlot(
+    id=2, 
+    position={55, 26, 833, 515}, 
+    y={"pla.senMasFlo.m_flow", "pla.splCHWSup.port_1.m_flow", "pla.splCHWSup.port_2.m_flow", "pla.splCHWSup.port_3.m_flow"}, 
+    range={0.0, 90000.0, -60.0, 60.0}, 
+    grid=true, 
+    colors={{28,108,200}, {238,46,47}, {0,140,72}, {217,67,180}}, 
+    timeUnit="h",
+    displayUnits={"kg/s", "kg/s", "kg/s", "kg/s"});
+createPlot(
+    id=2, 
+    position={55, 26, 833, 515}, 
+    y={"pla.cooTowWitByp.TWetBul", "pla.cooTowWitByp.TLvg"}, 
+    range={0.0, 90000.0, 0.0, 30.0}, 
+    grid=true, 
+    subPlot=2, 
+    colors={{28,108,200}, {238,46,47}}, 
+    timeUnit="h",
+    displayUnits={"degC", "degC"});
+createPlot(
+    id=2, 
+    position={24, 10, 831, 511}, 
+    y={"pla.senTCHWSup.T", "pla.senTCHWRet.T"}, 
+    range={0.0, 90000.0, 0.0, 60.0}, 
+    grid=true, 
+    subPlot=3, 
+    colors={{28,108,200}, {238,46,47}}, 
+    timeUnit="h",
+    displayUnits={"degC", "degC"});
