@@ -1,5 +1,6 @@
 within Buildings.Examples.ChillerPlants.RP1711;
 model ClosedLoop
+  extends Modelica.Icons.Example;
 
   package Medium_W = Buildings.Media.Water;
   package Medium_A = Buildings.Media.Air;
@@ -38,7 +39,7 @@ model ClosedLoop
     annotation (Placement(transformation(extent={{40,60},{60,80}})));
   BoundaryConditions.WeatherData.Bus weaBus "Weather data bus"
     annotation (Placement(transformation(extent={{70,80},{90,100}}),
-        iconTransformation(extent={{-120,160},{-100,180}})));
+        iconTransformation(extent={{-70,30},{-50,50}})));
   Fluid.Actuators.Valves.TwoWayLinear           chwIsoVal2(
     redeclare package Medium = Medium_W,
     final m_flow_nominal=mWater_flow_nominal,
@@ -129,12 +130,15 @@ equation
       extent={{6,3},{6,3}},
       horizontalAlignment=TextAlignment.Left));
   connect(rP1711_1.portCooCoiSup, chwIsoVal2.port_a) annotation (Line(points={{108,40},
-          {108,34},{80,34},{80,30}},           color={0,127,255}));
+          {108,34},{80,34},{80,30}},           color={0,127,255},
+      thickness=0.5));
   connect(chwIsoVal2.port_b, hexWetNtu.port_a1)
-    annotation (Line(points={{80,10},{80,-4},{110,-4}},   color={0,127,255}));
+    annotation (Line(points={{80,10},{80,-4},{110,-4}},   color={0,127,255},
+      thickness=0.5));
   connect(rP1711_1.portCooCoiRet, hexWetNtu.port_b1)
     annotation (Line(points={{132,40},{132,-4},{130,-4}},
-                                                       color={0,127,255}));
+                                                       color={0,127,255},
+      thickness=0.5));
   connect(retAir.ports[1], mixAir.port_1) annotation (Line(points={{220,-120},{160,
           -120},{160,-90}}, color={0,127,255}));
   connect(outAir.ports[1], mixAir.port_3)
@@ -200,5 +204,5 @@ equation
   connect(supAirTem.T, temDif.u1) annotation (Line(points={{69,-100},{-250,-100},
           {-250,120},{-222,120}}, color={0,0,127}));
   annotation (Diagram(coordinateSystem(extent={{-280,-220},{280,220}})), Icon(
-        coordinateSystem(extent={{-280,-220},{280,220}})));
+        coordinateSystem(extent={{-100,-100},{100,100}})));
 end ClosedLoop;
