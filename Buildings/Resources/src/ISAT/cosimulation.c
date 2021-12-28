@@ -323,11 +323,12 @@ int write_cosim_data(PARA_DATA *para){
   | Convert T from degC to K
   ****************************************************************************/
   for (i = 0; i<num_output; i++) {
-	  if (outp_name[i] = temp_roo) {
+	  if (outp_name[i] == temp_roo) {
 		  para->cosim->ffd->TRoo = para->cosim->ffd->output[i];	 
-		  sprintf(comsg, "\tara->cosim->ffd->TRoo: %f",
+		  sprintf(comsg, "\tpara->cosim->ffd->TRoo: %f",
 			  para->cosim->ffd->TRoo);
 		  cosim_log(comsg, COSIM_NORMAL);
+		  break;
 	  }
 	  else {
 		  para->cosim->ffd->TRoo = 25.0 + 273.15; /*assumed a fixed value if no info returned from isat outputs*/
