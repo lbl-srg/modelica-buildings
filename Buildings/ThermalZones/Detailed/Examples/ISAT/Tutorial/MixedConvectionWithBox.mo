@@ -39,7 +39,6 @@ model MixedConvectionWithBox
     hRoo = 1,
     linearizeRadiation = false,
     useCFD = true,
-    haveSource=true,
     nSou=1,
     sensorName = {"Zone air temperature", "Velocity"},
     cfdFilNam = "modelica://Buildings/Resources/Data/ThermalZones/Detailed/Examples/ISAT/Tutorial/MixedConvectionWithBox/input.ffd",

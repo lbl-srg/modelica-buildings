@@ -48,8 +48,6 @@ partial model PartialCFD
     "Number of sources that are connected to CFD input";
   parameter String sourceName[nSou]=fill("",nSou)
     "Names of sources as declared in the CFD input file";
-  parameter Boolean haveSource
-    "Flag, true if the model has at least one source";
 
   Modelica.Blocks.Interfaces.RealOutput yCFD[nSen] if
        haveSensor "Sensor for output from CFD"
@@ -59,7 +57,8 @@ partial model PartialCFD
 protected
   final parameter String absCfdFilNam = Buildings.BoundaryConditions.WeatherData.BaseClasses.getAbsolutePath(cfdFilNam)
     "Absolute path to the CFD file";
-
+  final parameter Boolean haveSource = nSou > 0
+    "Flag, true if the model has at least one source";
   final parameter Boolean haveSensor = Modelica.Utilities.Strings.length(sensorName[1]) > 0
     "Flag, true if the model has at least one sensor";
   final parameter Integer nSen(min=0) = size(sensorName, 1)

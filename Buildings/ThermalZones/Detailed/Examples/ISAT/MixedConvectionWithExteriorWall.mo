@@ -44,7 +44,6 @@ model MixedConvectionWithExteriorWall
     hRoo = 1,
     linearizeRadiation = false,
     useCFD = true,
-    haveSource=false,
     nSou=0,
     sensorName = {"Zone air temperature","East wall heat flux"},
     cfdFilNam = "modelica://Buildings/Resources/Data/ThermalZones/Detailed/Examples/ISAT/MixedConvectionWithExteriorWall/input.ffd",
