@@ -23,7 +23,8 @@ static char comsg[1000] = { 0 };
 
 extern int num_input;
 extern int num_output;
-extern double outp_weight[];
+extern double outp_Boundary_upper[];
+extern double outp_Boundary_lower[];
 extern OUTPUT_TYPE outp_name[];
 extern INPUT_TYPE inpu_name[];
 
