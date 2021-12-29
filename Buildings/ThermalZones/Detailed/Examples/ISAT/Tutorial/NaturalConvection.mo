@@ -44,7 +44,7 @@ model NaturalConvection "Tutorial for the natural convection case"
    useCFD = true,
    haveSource=false,
    nSou=0,
-   sensorName = {"Occupied zone air temperature", "Velocity"},
+   sensorName = {"Zone air temperature", "Velocity"},
    cfdFilNam = "modelica://Buildings/Resources/Data/ThermalZones/Detailed/Examples/ISAT/Tutorial/NaturalConvection/input.ffd",
    nConExt = nConExt,
    nConExtWin = nConExtWin,
