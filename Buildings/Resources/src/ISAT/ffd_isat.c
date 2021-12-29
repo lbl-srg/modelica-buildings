@@ -1568,25 +1568,6 @@ int cosim_loop() {
   }
 
   evaluate();
-
-
-  for (i = 0; i < num_output; i++) {
-	  sprintf(logMsg, "\toutput[%d]:\t%f", i, fa[i]);
-	  cosim_log(logMsg, COSIM_NORMAL);
-  }
-
-
-  for (i = 0; i < num_output; i++) {
-	para.cosim->ffd->output[i] = fa[i] * (outp_Boundary_upper[i] - outp_Boundary_lower[i]) + outp_Boundary_lower[i];
-	sprintf(logMsg, "\t\toutp_Boundary_upper[%d]: %f,outp_Boundary_lower[%d]: %f", i, outp_Boundary_upper[i], i, outp_Boundary_lower[i]);
-	cosim_log(logMsg, COSIM_NORMAL);
-  }
-
-  for (i = 0; i < num_output; i++) {
-	  sprintf(logMsg, "\toutput[%d]:\t%f", i, fa[i]);
-	  cosim_log(logMsg, COSIM_NORMAL);
-  }
-
   flag = write_cosim_data(&para);
 	
   next = 1;
