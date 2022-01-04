@@ -355,7 +355,7 @@ have been <b style=\"color:blue\">improved</b> in a
 <tr><td colspan=\"2\"><b>Buildings.Experimental.DHC</b>
     </td>
 </tr>
-<tr><td valign=\"top\">Buildings.Experimental.DHC.CentralPlants.Cooling
+<tr><td valign=\"top\">Buildings.Experimental.DHC.Plants.Cooling
     </td>
     <td valign=\"top\">Revised the model for extensibility. <br/>
     This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2749\">#2749</a>.
@@ -548,6 +548,9 @@ have been <b style=\"color:blue\">improved</b> in a
                        This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2594\">#2594</a>.<br/>
                        Changed model structure to separate building and HVAC system.<br/>
                        This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2652\">#2652</a>.<br/>
+                       Changed parameter declarations and added to Guideline 36 models the optimal start up calculation.
+                       This is for
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2829\">issue #2829</a>.
     </td>
 </tr>
  <tr><td colspan=\"2\"><b>Buildings.Examples.ScalableBenchmarks</b>
@@ -693,6 +696,9 @@ have been <b style=\"color:blue\">improved</b> in a
                        This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2594\">#2594</a>.<br/>
                        Changed model structure to separate building and HVAC system.<br/>
                        This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2652\">#2652</a>.<br/>
+                       Changed parameter declarations and added to Guideline 36 models the optimal start up calculation.
+                       This is for
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2829\">issue #2829</a>.
     </td>
 </tr>
 <tr><td colspan=\"2\"><b>Buildings.Utilities.Math</b>
@@ -771,7 +777,7 @@ units are wrong or errors in documentation):
 <tr><td colspan=\"2\"><b>Buildings.Experimental</b>
     </td>
 </tr>
-<tr><td valign=\"top\">Buildings.Experimental.DHC.CentralPlants.Cooling.Controls.ChillerStage
+<tr><td valign=\"top\">Buildings.Experimental.DHC.Plants.Cooling.Controls.ChillerStage
     </td>
     <td valign=\"top\">Corrected parameter value for <code>twoOn.nOut</code>.
                        This correction is required to simulate the model in Dymola 2022
@@ -876,7 +882,7 @@ xxx
     </tr>
     <tr><td colspan=\"2\"><b>Buildings.Experimental.DHC</b>
         </td>
-    <tr><td valign=\"top\">Buildings.Experimental.DHC.CentralPlants.Cooling
+    <tr><td valign=\"top\">Buildings.Experimental.DHC.Plants.Cooling
         </td>
         <td valign=\"top\">Package with models for a chilled water plant adapted to
         district cooling applications.<br/>
@@ -10054,16 +10060,26 @@ The development of the Buildings library is organized by<br/>
     Documentation(info="<html>
 <h4><font color=\"#008000\" size=\"5\">Acknowledgements</font></h4>
 <p>
- The development of this library was supported
+ The development of this library was supported by:
 </p>
  <ul>
- <li>by the Assistant Secretary for
-  Energy Efficiency and Renewable Energy, Office of Building
-  Technologies of the U.S. Department of Energy, under
-  contracts No. DE-AC02-05CH11231 and DE-EE0007688, and
+ <li>The U.S. Department of Energy, Assistant Secretary for
+  Energy Efficiency and Renewable Energy,
+  <ul>
+  <li>
+  Office of Building
+  Technologies, under Contracts Number DE-AC02-05CH11231 and DE-EE0007688,
+  </li>
+  <li>
+  Advanced Manufacturing Office, under Award Number DE-EE0009139, and
  </li>
+  <li>
+  Geothermal Technologies Office, under Award Number DE-AC02-05CH11231.
+  </li>
+  </ul>
+  </li>
  <li>
-  by the California Energy Commission, Public Interest Energy Research Program, Buildings End Use Energy Efficiency Program, award number 500-10-052.
+  The California Energy Commission, Public Interest Energy Research Program, Buildings End Use Energy Efficiency Program, Award Number 500-10-052.
  </li>
  </ul>
 <p>
