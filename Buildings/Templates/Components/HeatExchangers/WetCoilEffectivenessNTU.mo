@@ -4,22 +4,22 @@ model WetCoilEffectivenessNTU "Effectiveness-NTU wet heat exchanger model"
     final typ=Buildings.Templates.Components.Types.HeatExchanger.WetCoilEffectivenessNTU);
 
   parameter Modelica.Units.SI.HeatFlowRate Q_flow_nominal(max=0)=
-    -1 * dat.getReal(varName=id + ".Mechanical." + funStr + " coil.Capacity.value")
+    -1 * dat.getReal(varName=id + ".mechanical.coil" + funStr + ".Q_flow_nominal.value")
     "Nominal heat flow rate"
     annotation (Dialog(
       group="Nominal condition"));
   parameter Modelica.Units.SI.Temperature T_a1_nominal=
-    dat.getReal(varName=id + ".Mechanical." + funStr + " coil.Entering liquid temperature.value")
+    dat.getReal(varName=id + ".mechanical.coil" + funStr + ".T_a1_nominal.value")
     "Nominal entering liquid temperature"
     annotation (Dialog(
       group="Nominal condition"));
   parameter Modelica.Units.SI.Temperature T_a2_nominal=
-    dat.getReal(varName=id + ".Mechanical." + funStr + " coil.Entering air temperature.value")
+    dat.getReal(varName=id + ".mechanical.coil" + funStr + ".T_a2_nominal.value")
     "Nominal entering air temperature"
     annotation (Dialog(
       group="Nominal condition"));
   parameter Modelica.Units.SI.MassFraction w_a2_nominal=
-    dat.getReal(varName=id + ".Mechanical." + funStr + " coil.Entering air humidity ratio.value")
+    dat.getReal(varName=id + ".mechanical.coil" + funStr + ".w_a2_nominal.value")
     "Nominal entering air humidity ratio"
     annotation (Dialog(
       group="Nominal condition"));

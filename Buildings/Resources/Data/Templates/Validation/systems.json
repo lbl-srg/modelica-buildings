@@ -1,434 +1,515 @@
 {
-    "Air handlers and fans": {
-        "VAV_1": {
-            "Identification": {
-                "Configuration": {
-                    "value": "VAVMultiZone_1"
+    "VAV_1": {
+        "identification": {
+            "description": "System identification and relationships",
+            "configuration": {
+                "description": "System configuration",
+                "value": "VAVMultiZone_1"
+            },
+            "type": {
+                "description": "System type",
+                "value": "Air handlers and fans"
+            },
+            "subtype": {
+                "description": "System subtype",
+                "value": "Multiple-Zone VAV"
+            },
+            "sourceHHW": {
+                "description": "HHW supply source",
+                "value":"HHW_1"
+            },
+            "sourceCHW": {
+                "description": "CHW supply source",
+                "value": "CHW_1"
+            },
+            "idTerArr": {
+                "description": "Terminal unit tags",
+                "value": [
+                    "Box_1", "Box_2"
+                ]
+            },
+            "namGro": {
+                "description": "Zone group names",
+                "value": [
+                    "First floor"
+                ]
+            }
+        },
+        "control": {
+            "description": "Control parameters",
+            "TSup": {
+                "description": "Supply air temperature",
+                "TSupSetMin": {
+                    "description": "Lowest cooling set point",
+                    "value": 285.15,
+                    "unit": "K"
                 },
-                "Type": {
-                    "value": "Multiple-Zone VAV"
+                "TSupSetMax": {
+                    "description": "Highest cooling set point",
+                    "value": 291.15,
+                    "unit": "K"
                 },
-                "HHW supply source": {
-                    "value": "HHW_1"
+                "TOutMin": {
+                    "description": "Lower value of OAT reset range",
+                    "value": 289.15,
+                    "unit": "K"
                 },
-                "CHW supply source": {
-                    "value": "CHW_1"
-                },
-                "Terminal unit identifiers": {
-                    "value": [
-                        "Box_1", "Box_2"
-                    ]
-                },
-                "Zone group names": {
-                    "value": [
-                        "First floor"
-                    ]
+                "TOutMax": {
+                    "description": "Higher value of OAT reset range",
+                    "value": 294.15,
+                    "unit": "K"
                 }
             },
-            "Control": {
-                "Supply air temperature": {
-                    "Lowest cooling set point": {
-                        "value": 285.15,
-                        "unit": "K"
-                    },
-                    "Highest cooling set point": {
-                        "value": 291.15,
-                        "unit": "K"
-                    },
-                    "Lower value of OAT reset range": {
-                        "value": 289.15,
-                        "unit": "K"
-                    },
-                    "Higher value of OAT reset range": {
-                        "value": 294.15,
-                        "unit": "K"
-                    }
+            "ventilation": {
+                "description": "Ventilation",
+                "VOutDes_flow": {
+                    "description": "Design OA volume flow rate - FIXME #1913",
+                    "value": 10,
+                    "unit": "m3/s"
                 },
-                "Ventilation": {
-                    "Design OA volume flow rate": {
-                        "value": 10,
-                        "unit": "m3/s"
-                    },
-                    "Uncorrected design OA volume flow rate": {
-                        "value": 10,
-                        "unit": "m3/s"
-                    },
-                    "Maximum expected system primary airflow at design stage": {
-                        "value": 10,
-                        "unit": "m3/s"
-                    },
-                    "Peak system population": {
-                        "value": 1,
-                        "unit": "p"
-                    }
+                "VOutUnc_flow": {
+                    "description": "Uncorrected design OA volume flow rate - FIXME #1913",
+                    "value": 10,
+                    "unit": "m3/s"
                 },
-                "Airflow": {
-                    "Duct Design Maximum Static Pressure": {
-                        "value": 800,
-                        "unit": "Pa"
-                    },
-                    "Minimum Fan Speed - Supply fan": {
-                        "value": 0.1,
-                        "unit": "1"
-                    },
-                    "Minimum Fan Speed - Return fan": {
-                        "value": 1,
-                        "unit": "1"
-                    },
-                    "Maximum Fan Speed - Supply fan": {
-                        "value": 1,
-                        "unit": "1"
-                    },
-                    "Maximum Fan Speed - Return fan": {
-                        "value": 0.1,
-                        "unit": "1"
-                    },
-                    "Design minimum outdoor air damper DP": {
-                        "value": 20,
-                        "unit": "Pa"
-                    },
-                    "Absolute minimum outdoor air damper DP": {
-                        "value": 10,
-                        "unit": "Pa"
-                    },
-                    "Return Fan DSP set point min": {
-                        "value": 10,
-                        "unit": "Pa"
-                    },
-                    "Return Fan DSP set point max": {
-                        "value": 100,
-                        "unit": "Pa"
-                    },
-                    "Return Fan Airflow Differential": {
-                        "value": 50,
-                        "unit": "m3/s"
-                    }
+                "VPriSysMax_flow": {
+                    "description": "Maximum expected system primary airflow at design stage",
+                    "value": 10,
+                    "unit": "m3/s"
                 },
-                "Economizer high limit": {
-                    "Fixed temperature": {
-                        "value": 297.15,
-                        "unit": "K"
-                    },
-                    "Fixed enthalpy": {
-                        "value": 66E3,
-                        "unit": "J/kg"
-                    },
-                    "Differential temperature": {
-                        "value": -1,
-                        "unit": "K"
-                    }
+                "peaSysPop": {
+                    "description": "Peak system population",
+                    "value": 1,
+                    "unit": "p"
                 }
             },
-            "Mechanical": {
-                "Supply air mass flow rate": {
-                    "value": 1.0,
+            "airflow": {
+                "pMaxSet": {
+                    "description": "Duct Design Maximum Static Pressure",
+                    "value": 800,
+                    "unit": "Pa"
+                },
+                "yFanSupMin": {
+                    "description": "Minimum Fan Speed - Supply fan",
+                    "value": 0.1,
+                    "unit": "1"
+                },
+                "yFanRetMin": {
+                    "description": "Minimum Fan Speed - Return fan - FIXME #1913",
+                    "value": 0.1,
+                    "unit": "1"
+                },
+                "yFanSupMax": {
+                    "description": "Maximum Fan Speed - Supply fan",
+                    "value": 1,
+                    "unit": "1"
+                },
+                "yFanRetMax": {
+                    "description": "Maximum Fan Speed - Return fan - FIXME #1913",
+                    "value": 1,
+                    "unit": "1"
+                },
+                "dpDamOutDesMin": {
+                    "description": "Design minimum outdoor air damper DP - FIXME #1913",
+                    "value": 20,
+                    "unit": "Pa"
+                },
+                "dpDamOutAbsMin": {
+                    "description": "Absolute minimum outdoor air damper DP - FIXME #1913",
+                    "value": 10,
+                    "unit": "Pa"
+                },
+                "pAirRetMinSet_rel": {
+                    "description": "Return Fan DSP set point min - FIXME #1913",
+                    "value": 10,
+                    "unit": "Pa"
+                },
+                "pAirRetMaxSet_rel": {
+                    "description": "Return Fan DSP set point max - FIXME #1913",
+                    "value": 100,
+                    "unit": "Pa"
+                },
+                "dVFanRet_flow": {
+                    "description": "Return Fan Airflow Differential - FIXME #1913",
+                    "value": 50,
+                    "unit": "m3/s"
+                }
+            },
+            "economizer": {
+                "description": "Economizer high limit shutoff setpoint",
+                "TAirOutEcoMax": {
+                    "description": "Fixed temperature",
+                    "value": 297.15,
+                    "unit": "K"
+                },
+                "hAirOutEcoMax": {
+                    "description": "Fixed enthalpy",
+                    "value": 66E3,
+                    "unit": "J/kg"
+                }
+            }
+        },
+        "mechanical": {
+            "description": "Equipment characteristics and sizing (all parameters provided at design operating conditions)",
+            "mAirSup_flow_nominal": {
+                "description": "Supply air mass flow rate",
+                "value": 1.0,
+                "unit": "kg/s"
+            },
+            "mAirRet_flow_nominal": {
+                "description": "Return air mass flow rate",
+                "value": 1.0,
+                "unit": "kg/s"
+            },
+            "filter": {
+                "description": "Filter",
+                "Pressure drop": {
+                    "description": "Pressure drop - FIXME",
+                    "value": 100,
+                    "unit": "Pa"
+                }
+            },
+            "dampers": {
+                "description": "Economizer and dampers",
+                "mOutMin_flow_nominal": {
+                    "description": "Minimum outdoor air mass flow rate",
+                    "value": 1,
                     "unit": "kg/s"
                 },
-                "Return air mass flow rate": {
-                    "value": 1.0,
+                "dpDamOutMin_nominal": {
+                    "description": "Minimum outdoor air damper pressure drop",
+                    "value": 20,
+                    "unit": "Pa"
+                },
+                "dpDamOut_nominal": {
+                    "description": "Outdoor air damper pressure drop",
+                    "value": 20,
+                    "unit": "Pa"
+                },
+                "dpDamRet_nominal": {
+                    "description": "Return air damper pressure drop",
+                    "value": 20,
+                    "unit": "Pa"
+                },
+                "dpDamRel_nominal": {
+                    "description": "Relief air damper pressure drop",
+                    "value": 20,
+                    "unit": "Pa"
+                }
+            },
+            "coilHeating": {
+                "description": "Heating coil",
+                "Q_flow_nominal": {
+                    "description": "Capacity",
+                    "value": 1E4,
+                    "unit": "W"
+                },
+                "mWat_flow_nominal": {
+                    "description": "Liquid mass flow rate",
+                    "value": 1,
                     "unit": "kg/s"
                 },
-                "Filter": {
-                    "Pressure drop": {
-                        "value": 100,
-                        "unit": "Pa"
-                    }
+                "T_a1_nominal": {
+                    "description": "Entering liquid temperature",
+                    "value": 323.15,
+                    "unit": "K"
                 },
-                "Economizer/dampers": {
-                    "Minimum outdoor air mass flow rate": {
-                        "value": 1,
-                        "unit": "kg/s"
-                    },
-                    "Minimum outdoor air damper pressure drop": {
-                        "value": 20,
-                        "unit": "Pa"
-                    },
-                    "Outdoor air damper pressure drop": {
-                        "value": 20,
-                        "unit": "Pa"
-                    },
-                    "Return air damper pressure drop": {
-                        "value": 20,
-                        "unit": "Pa"
-                    },
-                    "Relief air damper pressure drop": {
-                        "value": 20,
-                        "unit": "Pa"
-                    }
+                "dpWat_nominal": {
+                    "description": "Liquid pressure drop",
+                    "value": 5E3,
+                    "unit": "Pa"
                 },
-                "Heating coil": {
-                    "Capacity": {
-                        "value": 1E4,
-                        "unit": "W"
-                    },
-                    "Liquid mass flow rate": {
-                        "value": 1,
-                        "unit": "kg/s"
-                    },
-                    "Entering liquid temperature": {
-                        "value": 323.15,
-                        "unit": "K"
-                    },
-                    "Liquid pressure drop": {
-                        "value": 5E3,
-                        "unit": "Pa"
-                    },
-                    "Air mass flow rate": {
-                        "value": 1,
-                        "unit": "kg/s"
-                    },
-                    "Entering air temperature": {
-                        "value": 273.15,
-                        "unit": "K"
-                    },
-                    "Air pressure drop": {
-                        "value": 150,
-                        "unit": "Pa"
-                    },
-                    "UA (dry coil conditions)": {
-                        "value": 500,
-                        "unit": "W/K"
-                    },
-                    "Valve pressure drop": {
-                        "value": 5E3,
-                        "unit": "Pa"
-                    }
+                "mAir_flow_nominal": {
+                    "description": "Air mass flow rate",
+                    "value": 1,
+                    "unit": "kg/s"
                 },
-                "Cooling coil": {
-                    "Capacity": {
-                        "value": 1E4,
-                        "unit": "W"
-                    },
-                    "Liquid mass flow rate": {
-                        "value": 1,
-                        "unit": "kg/s"
-                    },
-                    "Entering liquid temperature": {
-                        "value": 280.15,
-                        "unit": "K"
-                    },
-                    "Liquid pressure drop": {
-                        "value": 3E4,
-                        "unit": "Pa"
-                    },
-                    "Air mass flow rate": {
-                        "value": 1,
-                        "unit": "kg/s"
-                    },
-                    "Entering air temperature": {
-                        "value": 305.15,
-                        "unit": "K"
-                    },
-                    "Entering air humidity ratio": {
-                        "value": 0.01,
-                        "unit": "1"
-                    },
-                    "Air pressure drop": {
-                        "value": 150,
-                        "unit": "Pa"
-                    },
-                    "UA (dry coil conditions)": {
-                        "value": 500,
-                        "unit": "W/K"
-                    },
-                    "Valve pressure drop": {
-                        "value": 3E4,
-                        "unit": "Pa"
-                    }
+                "T_a2_nominal": {
+                    "description": "Entering air temperature",
+                    "value": 273.15,
+                    "unit": "K"
                 },
-                "Supply fan": {
-                    "Total pressure rise": {
-                        "value": 1000,
-                        "unit": "Pa"
-                    },
-                    "Fan efficiency": {
-                        "value": 0.7,
-                        "unit": "1"
-                    },
-                    "Pressure curve": {
-                        "value": [[0, 1.5], [1, 1], [2, 0]],
-                        "unit": "1"
-                    }
+                "dpAir_nominal": {
+                    "description": "Air pressure drop",
+                    "value": 150,
+                    "unit": "Pa"
                 },
-                "Relief/return fan": {
-                    "Total pressure rise": {
-                        "value": 600,
-                        "unit": "Pa"
-                    },
-                    "Fan efficiency": {
-                        "value": 0.7,
-                        "unit": "1"
-                    },
-                    "Pressure curve": {
-                        "value": [[0, 1.5], [1, 1], [2, 0]],
-                        "unit": "1"
-                    }
+                "UA_nominal": {
+                    "description": "UA (dry coil conditions)",
+                    "value": 500,
+                    "unit": "W/K"
+                },
+                "dpValve_nominal": {
+                    "description": "Valve pressure drop",
+                    "value": 5E3,
+                    "unit": "Pa"
+                }
+            },
+            "coilCooling": {
+                "description": "Cooling coil",
+                "Q_flow_nominal": {
+                    "description": "Capacity",
+                    "value": 1E4,
+                    "unit": "W"
+                },
+                "mWat_flow_nominal": {
+                    "description": "Liquid mass flow rate",
+                    "value": 1,
+                    "unit": "kg/s"
+                },
+                "T_a1_nominal": {
+                    "description": "Entering liquid temperature",
+                    "value": 280.15,
+                    "unit": "K"
+                },
+                "dpWat_nominal": {
+                    "description": "Liquid pressure drop",
+                    "value": 3E4,
+                    "unit": "Pa"
+                },
+                "mAir_flow_nominal": {
+                    "description": "Air mass flow rate",
+                    "value": 1,
+                    "unit": "kg/s"
+                },
+                "T_a2_nominal": {
+                    "description": "Entering air temperature",
+                    "value": 305.15,
+                    "unit": "K"
+                },
+                "w_a2_nominal": {
+                    "description": "Entering air humidity ratio",
+                    "value": 0.01,
+                    "unit": "1"
+                },
+                "dpAir_nominal": {
+                    "description": "Air pressure drop",
+                    "value": 150,
+                    "unit": "Pa"
+                },
+                "UA_nominal": {
+                    "description": "UA (dry coil conditions)",
+                    "value": 500,
+                    "unit": "W/K"
+                },
+                "dpValve_nominal": {
+                    "description": "Valve pressure drop",
+                    "value": 3E4,
+                    "unit": "Pa"
+                }
+            },
+            "Supply fan": {
+                "Total pressure rise": {
+                    "value": 1000,
+                    "unit": "Pa"
+                },
+                "Fan efficiency": {
+                    "value": 0.7,
+                    "unit": "1"
+                },
+                "Pressure curve": {
+                    "value": [[0, 1.5], [1, 1], [2, 0]],
+                    "unit": "1"
+                }
+            },
+            "Relief/return fan": {
+                "Total pressure rise": {
+                    "value": 600,
+                    "unit": "Pa"
+                },
+                "Fan efficiency": {
+                    "value": 0.7,
+                    "unit": "1"
+                },
+                "Pressure curve": {
+                    "value": [[0, 1.5], [1, 1], [2, 0]],
+                    "unit": "1"
                 }
             }
         }
     },
-    "Zone equipment": {
-        "Box_1": {
-            "Identification": {
-                "Configuration": {
-                    "value": "VAVBox_1"
-                },
-                "Type": {
-                    "value": "VAV terminal unit"
-                },
-                "HHW Supply": {
-                    "value": "HHW_1"
-                },
-                "Air Supply": {
-                    "value": "VAV_1"
-                },
-                "Zone group name": {
-                    "value": "First floor"
-                }
+    "Box_1": {
+        "identification": {
+            "description": "System identification and relationships",
+            "configuration": {
+                "description": "System configuration",
+                "value": "VAVBox_1"
             },
-            "Control": {
-                "Minimum airflow setpoint": {
-                    "value": 0.15,
-                    "unit": "m3/s"
-                },
-                "Maximum heating airflow setpoint": {
-                    "value": 0.3,
-                    "unit": "m3/s"
-                },
-                "Minimum controllable airflow": {
-                    "value": 0.1,
-                    "unit": "m3/s"
-                },
-                "Occupied heating setpoint": {
-                    "value": 293.15,
-                    "unit": "K"
-                },
-                "Unoccupied heating setpoint": {
-                    "value": 285.15,
-                    "unit": "K"
-                },
-                "Occupied cooling setpoint": {
-                    "value": 297.15,
-                    "unit": "K"
-                },
-                "Unoccupied cooling setpoint": {
-                    "value": 303.15,
-                    "unit": "K"
-                },
-                "Maximum cooling setpoint during on": {
-                    "value": 300.15,
-                    "unit": "K"
-                },
-                "Minimum cooling setpoint during on": {
-                    "value": 295.15,
-                    "unit": "K"
-                },
-                "Maximum heating setpoint during on": {
-                    "value": 295.15,
-                    "unit": "K"
-                },
-                "Minimum heating setpoint during on": {
-                    "value": 291.15,
-                    "unit": "K"
-                },
-                "Cooling setpoint when window is open": {
-                    "value": 322.15,
-                    "unit": "K"
-                },
-                "Heating setpoint when window is open": {
-                    "value": 277.15,
-                    "unit": "K"
-                },
-                "Maximum discharge air temperature above heating setpoint": {
-                    "value": 11,
-                    "unit": "K"
-                },
-                "Minimum discharge air temperature": {
-                    "value": 283.15,
-                    "unit": "K"
-                },
-                "CO2 setpoint": {
-                    "value": 0.1,
-                    "unit": "ppm"
-                },
-                "Perimeter zone with reheat": {
-                    "value": true
-                },
-                "Zone floor area": {
-                    "value": 20,
-                    "unit": "m2"
-                },
-                "Zone outdoor air volume flow rate per unit area": {
-                    "value": 3E-4,
-                    "unit": "m3/(s.m2)"
-                },
-                "Zone outdoor air volume flow rate per person": {
-                    "value": 2.5E-3,
-                    "unit": "m3/s"
-                },
-                "Zone default number of person per unit area": {
-                    "value": 5E-2,
-                    "unit": "1/m2"
-                },
-                "Zone air distribution effectiveness during heating": {
-                    "value": 0.8,
-                    "unit": "1"
-                },
-                "Zone air distribution effectiveness during cooling": {
-                    "value": 1.0,
-                    "unit": "1"
-                },
-                "Zone minimum expected primary air volume flow rate": {
-                    "value": 1.0,
-                    "unit": "m3/s"
-                }
+            "type": {
+                "description": "System type",
+                "value": "Zone equipment"
             },
-            "Mechanical": {
-                "Discharge air mass flow rate": {
+            "subtype": {
+                "description": "System subtype",
+                "value": "VAV terminal unit"
+            },
+            "sourceHHW": {
+                "description": "HHW supply source",
+                "value":"HHW_1"
+            },
+            "sourceAir": {
+                "description": "Air Supply source",
+                "value": "VAV_1"
+            },
+            "namGro": {
+                "description": "Zone group name",
+                "value": "First floor"
+            }
+        },
+        "control": {
+            "Minimum airflow setpoint": {
+                "value": 0.15,
+                "unit": "m3/s"
+            },
+            "Maximum heating airflow setpoint": {
+                "value": 0.3,
+                "unit": "m3/s"
+            },
+            "Minimum controllable airflow": {
+                "value": 0.1,
+                "unit": "m3/s"
+            },
+            "Occupied heating setpoint": {
+                "value": 293.15,
+                "unit": "K"
+            },
+            "Unoccupied heating setpoint": {
+                "value": 285.15,
+                "unit": "K"
+            },
+            "Occupied cooling setpoint": {
+                "value": 297.15,
+                "unit": "K"
+            },
+            "Unoccupied cooling setpoint": {
+                "value": 303.15,
+                "unit": "K"
+            },
+            "Maximum cooling setpoint during on": {
+                "value": 300.15,
+                "unit": "K"
+            },
+            "Minimum cooling setpoint during on": {
+                "value": 295.15,
+                "unit": "K"
+            },
+            "Maximum heating setpoint during on": {
+                "value": 295.15,
+                "unit": "K"
+            },
+            "Minimum heating setpoint during on": {
+                "value": 291.15,
+                "unit": "K"
+            },
+            "Cooling setpoint when window is open": {
+                "value": 322.15,
+                "unit": "K"
+            },
+            "Heating setpoint when window is open": {
+                "value": 277.15,
+                "unit": "K"
+            },
+            "Maximum discharge air temperature above heating setpoint": {
+                "value": 11,
+                "unit": "K"
+            },
+            "Minimum discharge air temperature": {
+                "value": 283.15,
+                "unit": "K"
+            },
+            "CO2 setpoint": {
+                "value": 0.1,
+                "unit": "ppm"
+            },
+            "Perimeter zone with reheat": {
+                "value": true
+            },
+            "Zone floor area": {
+                "value": 20,
+                "unit": "m2"
+            },
+            "Zone outdoor air volume flow rate per unit area": {
+                "value": 3E-4,
+                "unit": "m3/(s.m2)"
+            },
+            "Zone outdoor air volume flow rate per person": {
+                "value": 2.5E-3,
+                "unit": "m3/s"
+            },
+            "Zone default number of person per unit area": {
+                "value": 5E-2,
+                "unit": "1/m2"
+            },
+            "Zone air distribution effectiveness during heating": {
+                "value": 0.8,
+                "unit": "1"
+            },
+            "Zone air distribution effectiveness during cooling": {
+                "value": 1.0,
+                "unit": "1"
+            },
+            "Zone minimum expected primary air volume flow rate": {
+                "value": 1.0,
+                "unit": "m3/s"
+            }
+        },
+        "mechanical": {
+            "mAir_flow_nominal": {
+                "description": "Discharge air mass flow rate",
+                "value": 1,
+                "unit": "kg/s"
+            },
+            "dpDamVAV_nominal": {
+                "description": "VAV damper pressure drop",
+                "value": 10,
+                "unit": "Pa"
+            },
+            "coilHeating": {
+                "description": "Heating coil",
+                "Q_flow_nominal": {
+                    "description": "Capacity",
+                    "value": 1E4,
+                    "unit": "W"
+                },
+                "mWat_flow_nominal": {
+                    "description": "Liquid mass flow rate",
                     "value": 1,
                     "unit": "kg/s"
                 },
-                "VAV damper pressure drop": {
-                    "value": 10,
+                "T_a1_nominal": {
+                    "description": "Entering liquid temperature",
+                    "value": 323.15,
+                    "unit": "K"
+                },
+                "dpWat_nominal": {
+                    "description": "Liquid pressure drop",
+                    "value": 5000,
                     "unit": "Pa"
                 },
-                "Heating coil": {
-                    "Capacity": {
-                        "value": 1E4,
-                        "unit": "W"
-                    },
-                    "Liquid mass flow rate": {
-                        "value": 1,
-                        "unit": "kg/s"
-                    },
-                    "Entering liquid temperature": {
-                        "value": 323.15,
-                        "unit": "K"
-                    },
-                    "Liquid pressure drop": {
-                        "value": 5000,
-                        "unit": "Pa"
-                    },
-                    "Air mass flow rate": {
-                        "value": 1,
-                        "unit": "kg/s"
-                    },
-                    "Entering air temperature": {
-                        "value": 273.15,
-                        "unit": "K"
-                    },
-                    "Air pressure drop": {
-                        "value": 150,
-                        "unit": "Pa"
-                    },
-                    "UA (dry coil conditions)": {
-                        "value": 500,
-                        "unit": "W/K"
-                    },
-                    "Valve pressure drop": {
-                        "value": 5000,
-                        "unit": "Pa"
-                    }
+                "mAir_flow_nominal": {
+                    "description": "Air mass flow rate",
+                    "value": 1,
+                    "unit": "kg/s"
+                },
+                "T_a2_nominal": {
+                    "description": "Entering air temperature",
+                    "value": 273.15,
+                    "unit": "K"
+                },
+                "dpAir_nominal": {
+                    "description": "Air pressure drop",
+                    "value": 150,
+                    "unit": "Pa"
+                },
+                "UA_nominal": {
+                    "description": "UA (dry coil conditions)",
+                    "value": 500,
+                    "unit": "W/K"
+                },
+                "dpValve_nominal": {
+                    "description": "Valve pressure drop",
+                    "value": 5000,
+                    "unit": "Pa"
                 }
             }
         }

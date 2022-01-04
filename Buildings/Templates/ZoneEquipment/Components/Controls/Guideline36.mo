@@ -17,7 +17,7 @@ block Guideline36
     annotation (Dialog(tab="Airflow setpoint", group="Zone sensors"));
 
   parameter Modelica.Units.SI.VolumeFlowRate V_flow_nominal=
-    dat.getReal(varName=id + ".Mechanical.Discharge air mass flow rate.value") / 1.2
+    dat.getReal(varName=id + ".mechanical.mAir_flow_nominal.value") / 1.2
     "Volume flow rate"
     annotation (Dialog(group="Nominal condition"));
 
@@ -134,24 +134,24 @@ block Guideline36
   parameter Real VDisSetMin_flow(
     final unit="m3/s",
     final quantity="VolumeFlowRate")=
-    dat.getReal(varName=id + ".Control.Minimum airflow setpoint.value")
+    dat.getReal(varName=id + ".control.Minimum airflow setpoint.value")
     "Minimum airflow setpoint"
     annotation (Dialog(tab="Airflow setpoint", group="Nominal conditions"));
   parameter Real VDisHeaSetMax_flow(
     final unit="m3/s",
     final quantity="VolumeFlowRate")=
-    dat.getReal(varName=id + ".Control.Maximum heating airflow setpoint.value")
+    dat.getReal(varName=id + ".control.Maximum heating airflow setpoint.value")
     "Maximum heating airflow setpoint"
     annotation (Dialog(tab="Airflow setpoint", group="Nominal conditions"));
   parameter Real VDisConMin_flow(
     final unit="m3/s",
     final quantity="VolumeFlowRate")=
-    dat.getReal(varName=id + ".Control.Minimum controllable airflow.value")
+    dat.getReal(varName=id + ".control.Minimum controllable airflow.value")
     "Minimum controllable airflow"
     annotation (Dialog(tab="Airflow setpoint", group="Nominal conditions"));
 
   parameter Real CO2Set=
-    dat.getReal(varName=id + ".Control.CO2 setpoint.value")
+    dat.getReal(varName=id + ".control.CO2 setpoint.value")
     "CO2 setpoint in ppm"
     annotation (Dialog(tab="Airflow setpoint", group="Nominal conditions"));
 
@@ -159,7 +159,7 @@ block Guideline36
     final unit="K",
     displayUnit="K",
     final quantity="TemperatureDifference")=
-    dat.getReal(varName=id + ".Control.Maximum discharge air temperature above heating setpoint.value")
+    dat.getReal(varName=id + ".control.Maximum discharge air temperature above heating setpoint.value")
     "Zone maximum discharge air temperature above heating setpoint"
     annotation (Dialog(tab="Damper and valve", group="Parameters"));
 
@@ -167,7 +167,7 @@ block Guideline36
     final quantity="ThermodynamicTemperature",
     final unit = "K",
     displayUnit = "degC")=
-    dat.getReal(varName=id + ".Control.Minimum discharge air temperature.value")
+    dat.getReal(varName=id + ".control.Minimum discharge air temperature.value")
     "Lowest discharge air temperature"
     annotation (Dialog(tab="Damper and valve", group="Parameters"));
 
@@ -242,42 +242,42 @@ block Guideline36
     final unit="K",
     displayUnit="degC",
     final quantity="ThermodynamicTemperature")=
-    dat.getReal(varName=id + ".Control.Maximum cooling setpoint during on.value")
+    dat.getReal(varName=id + ".control.Maximum cooling setpoint during on.value")
     "Maximum cooling setpoint during on"
     annotation(Dialog(group="Setpoints limits setting"));
   parameter Real TZonCooOnMin(
     final unit="K",
     displayUnit="degC",
     final quantity="ThermodynamicTemperature")=
-    dat.getReal(varName=id + ".Control.Minimum cooling setpoint during on.value")
+    dat.getReal(varName=id + ".control.Minimum cooling setpoint during on.value")
     "Minimum cooling setpoint during on"
     annotation(Dialog(group="Setpoints limits setting"));
   parameter Real TZonHeaOnMax(
     final unit="K",
     displayUnit="degC",
     final quantity="ThermodynamicTemperature")=
-    dat.getReal(varName=id + ".Control.Maximum heating setpoint during on.value")
+    dat.getReal(varName=id + ".control.Maximum heating setpoint during on.value")
     "Maximum heating setpoint during on"
     annotation(Dialog(group="Setpoints limits setting"));
   parameter Real TZonHeaOnMin(
     final unit="K",
     displayUnit="degC",
     final quantity="ThermodynamicTemperature")=
-    dat.getReal(varName=id + ".Control.Minimum heating setpoint during on.value")
+    dat.getReal(varName=id + ".control.Minimum heating setpoint during on.value")
     "Minimum heating setpoint during on"
     annotation(Dialog(group="Setpoints limits setting"));
   parameter Real TZonCooSetWinOpe(
     final unit="K",
     displayUnit="degC",
     final quantity="ThermodynamicTemperature")=
-    dat.getReal(varName=id + ".Control.Cooling setpoint when window is open.value")
+    dat.getReal(varName=id + ".control.Cooling setpoint when window is open.value")
     "Cooling setpoint when window is open"
     annotation(Dialog(group="Setpoints limits setting", enable=have_winSen));
   parameter Real TZonHeaSetWinOpe(
     final unit="K",
     displayUnit="degC",
     final quantity="ThermodynamicTemperature")=
-    dat.getReal(varName=id + ".Control.Heating setpoint when window is open.value")
+    dat.getReal(varName=id + ".control.Heating setpoint when window is open.value")
     "Heating setpoint when window is open"
     annotation(Dialog(group="Setpoints limits setting", enable=have_winSen));
 
@@ -306,31 +306,31 @@ block Guideline36
 
   parameter Real VOutPerAre_flow(final unit = "m3/(s.m2)")=
       dat.getReal(varName=
-        id + ".Control.Zone outdoor air volume flow rate per unit area.value")
+        id + ".control.Zone outdoor air volume flow rate per unit area.value")
     "Outdoor air rate per unit area"
     annotation(Dialog(group="Nominal condition"));
 
   parameter Real VOutPerPer_flow(final unit="m3/s")=
      dat.getReal(varName=
-      id + ".Control.Zone outdoor air volume flow rate per person.value")
+      id + ".control.Zone outdoor air volume flow rate per person.value")
     "Outdoor air rate per person"
     annotation(Dialog(group="Nominal condition"));
 
   parameter Real AFlo(final unit="m2")=
-     dat.getReal(varName=id + ".Control.Zone floor area.value")
+     dat.getReal(varName=id + ".control.Zone floor area.value")
     "Floor area of each zone"
     annotation(Dialog(group="Nominal condition"));
 
   parameter Real occDen(final unit = "1/m2")=
-     dat.getReal(varName=id + ".Control.Zone default number of person per unit area.value")
+     dat.getReal(varName=id + ".control.Zone default number of person per unit area.value")
     "Default number of person per unit area";
 
   parameter Real zonDisEffHea(final unit = "1")=
-     dat.getReal(varName=id + ".Control.Zone air distribution effectiveness during heating.value")
+     dat.getReal(varName=id + ".control.Zone air distribution effectiveness during heating.value")
     "Zone air distribution effectiveness during heating";
 
   parameter Real zonDisEffCoo(final unit = "1")=
-     dat.getReal(varName=id + ".Control.Zone air distribution effectiveness during cooling.value")
+     dat.getReal(varName=id + ".control.Zone air distribution effectiveness during cooling.value")
     "Zone air distribution effectiveness during cooling";
 
   parameter Real desZonDisEff(final unit = "1") = zonDisEffCoo
@@ -338,7 +338,7 @@ block Guideline36
     annotation(Dialog(group="Nominal condition"));
 
   parameter Real minZonPriFlo(final unit="m3/s")=
-     dat.getReal(varName=id + ".Control.Zone minimum expected primary air volume flow rate.value")
+     dat.getReal(varName=id + ".control.Zone minimum expected primary air volume flow rate.value")
     "Minimum expected zone primary flow rate"
     annotation(Dialog(group="Nominal condition"));
 
@@ -349,25 +349,25 @@ block Guideline36
   parameter Real THeaSetOcc(
     final unit="K",
     displayUnit="degC")=
-      dat.getReal(varName=id + ".Control.Occupied heating setpoint.value")
+      dat.getReal(varName=id + ".control.Occupied heating setpoint.value")
     "Occupied heating setpoint";
 
   parameter Real THeaSetUno(
     final unit="K",
     displayUnit="degC")=
-      dat.getReal(varName=id + ".Control.Unoccupied heating setpoint.value")
+      dat.getReal(varName=id + ".control.Unoccupied heating setpoint.value")
     "Unoccupied heating setpoint";
 
   parameter Real TCooSetOcc(
     final unit="K",
     displayUnit="degC")=
-      dat.getReal(varName=id + ".Control.Occupied cooling setpoint.value")
+      dat.getReal(varName=id + ".control.Occupied cooling setpoint.value")
     "Occupied cooling setpoint";
 
   parameter Real TCooSetUno(
     final unit="K",
     displayUnit="degC")=
-      dat.getReal(varName=id + ".Control.Unoccupied cooling setpoint.value")
+      dat.getReal(varName=id + ".control.Unoccupied cooling setpoint.value")
     "Unoccupied cooling setpoint";
 
   /*

@@ -6,7 +6,7 @@ model FanRelief
         secRel "Relief fan with two-position relief damper"),
     nZon=2,
     nGro=1,
-    tag="VAV_1");
+    id="VAV_1");
 
   annotation (
     defaultComponentName="ahu");

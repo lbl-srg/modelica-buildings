@@ -5,7 +5,7 @@ model ControlsGuideline36
         redeclare replaceable
         Buildings.Templates.Components.Valves.TwoWayModulating val),
     redeclare replaceable Buildings.Templates.ZoneEquipment.Components.Controls.Guideline36 ctr,
-    tag="Box_1");
+    id="Box_1");
   annotation (
     defaultComponentName="ter",
     Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(

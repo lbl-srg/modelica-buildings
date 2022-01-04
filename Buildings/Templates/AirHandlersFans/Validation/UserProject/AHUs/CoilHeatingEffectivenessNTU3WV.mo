@@ -9,7 +9,7 @@ model CoilHeatingEffectivenessNTU3WV
         hex "Epsilon-NTU dry heat exchanger model") "Hot water coil",
     redeclare replaceable Buildings.Templates.Components.Coils.None coiHeaPre(
         final mAir_flow_nominal=mAirSup_flow_nominal) "No coil",
-    tag="VAV_1",
+    id="VAV_1",
     nZon=2,
     nGro=1);
   annotation (

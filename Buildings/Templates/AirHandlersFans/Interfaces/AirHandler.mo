@@ -20,21 +20,16 @@ partial model AirHandler "Base interface class for air handler"
         enable=false));
 
   inner parameter Modelica.Units.SI.MassFlowRate mAirSup_flow_nominal=
-    dat.getReal(varName=id + ".Mechanical.Supply air mass flow rate.value")
+    dat.getReal(varName=id + ".mechanical.mAirSup_flow_nominal.value")
     "Supply air mass flow rate"
     annotation (Dialog(group="Nominal condition"), Evaluate=true);
   inner parameter Modelica.Units.SI.MassFlowRate mAirRet_flow_nominal=
-    dat.getReal(varName=id + ".Mechanical.Return air mass flow rate.value")
+    dat.getReal(varName=id + ".mechanical.mAirRet_flow_nominal.value")
     "Return air mass flow rate"
     annotation (Dialog(group="Nominal condition"), Evaluate=true);
 
-  inner parameter String tag
+  inner parameter String id
     "System tag"
-    annotation (
-      Evaluate=true,
-      Dialog(group="Configuration"));
-  final inner parameter String id = "Air handlers and fans." + tag
-    "System tag with system type"
     annotation (
       Evaluate=true,
       Dialog(group="Configuration"));
@@ -58,7 +53,7 @@ partial model AirHandler "Base interface class for air handler"
     ExternData.Functions.JSON.readArraySize1D(
       fileName=Modelica.Utilities.Files.loadResource(
       "modelica://Buildings/Resources/Data/Templates/Validation/systems.json"),
-      varName=id + ".Identification.Terminal unit identifiers.value")
+      varName=id + ".identification.idTerArr.value")
     "Number of served zones"
     annotation (
       Evaluate=true,
@@ -67,7 +62,7 @@ partial model AirHandler "Base interface class for air handler"
     ExternData.Functions.JSON.readArraySize1D(
       fileName=Modelica.Utilities.Files.loadResource(
       "modelica://Buildings/Resources/Data/Templates/Validation/systems.json"),
-      varName=id + ".Identification.Zone group names.value")
+      varName=id + ".identification.namGro.value")
     "Number of zone groups"
     annotation (
       Evaluate=true,

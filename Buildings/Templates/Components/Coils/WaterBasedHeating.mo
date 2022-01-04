@@ -8,24 +8,24 @@ model WaterBasedHeating "Hot water coil"
     final have_weaBus=false,
     port_aSou(redeclare final package Medium = MediumHea),
     port_bSou(redeclare final package Medium = MediumHea),
-    mAir_flow_nominal=dat.getReal(varName=id + ".Mechanical." + funStr + " coil.Air mass flow rate.value"));
+    mAir_flow_nominal=dat.getReal(varName=id + ".mechanical.coil" + funStr + ".mAir_flow_nominal.value"));
 
   outer replaceable package MediumHea=Buildings.Media.Water
     "Source side medium";
 
   parameter Modelica.Units.SI.MassFlowRate mWat_flow_nominal(min=0)=
-    dat.getReal(varName=id + ".Mechanical." + funStr + " coil.Liquid mass flow rate.value")
+    dat.getReal(varName=id + ".mechanical.coil" + funStr + ".mWat_flow_nominal.value")
     "Liquid mass flow rate"
     annotation(Dialog(group = "Nominal condition"), Evaluate=true);
   parameter Modelica.Units.SI.PressureDifference dpWat_nominal(
     displayUnit="Pa")=
-    dat.getReal(varName=id + ".Mechanical." + funStr + " coil.Liquid pressure drop.value")
+    dat.getReal(varName=id + ".mechanical.coil" + funStr + ".dpWat_nominal.value")
     "Liquid pressure drop"
     annotation(Dialog(group = "Nominal condition"), Evaluate=true);
   parameter Modelica.Units.SI.PressureDifference dpValve_nominal(
     displayUnit="Pa",
     min=0)=if typVal==Buildings.Templates.Components.Types.Valve.None then 0 else
-    dat.getReal(varName=id + ".Mechanical." + funStr + " coil.Valve pressure drop.value")
+    dat.getReal(varName=id + ".mechanical.coil" + funStr + ".dpValve_nominal.value")
     "Nominal pressure drop of fully open valve"
     annotation(Dialog(group="Nominal condition",
       enable=typVal<>Buildings.Templates.Components.Types.Valve.None));

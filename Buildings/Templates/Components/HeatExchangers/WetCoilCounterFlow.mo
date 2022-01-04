@@ -4,7 +4,7 @@ model WetCoilCounterFlow "Discretized wet heat exchanger model"
     final typ=Buildings.Templates.Components.Types.HeatExchanger.WetCoilCounterFlow);
 
   parameter Modelica.Units.SI.ThermalConductance UA_nominal=
-    dat.getReal(varName=id + ".Mechanical." + funStr + " coil.UA (dry coil conditions).value")
+    dat.getReal(varName=id + ".mechanical.coil" + funStr + ".UA_nominal.value")
     "Thermal conductance at nominal flow"
     annotation(Evaluate=true);
   parameter Real r_nominal=2/3
