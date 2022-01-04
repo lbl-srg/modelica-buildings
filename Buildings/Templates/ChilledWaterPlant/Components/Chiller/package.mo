@@ -3,4 +3,8 @@ package Chiller
 
 
 
+annotation (Documentation(info="<html>
+
+fixme: Move to Buildings.Templates.Components
+</html>"));
 end Chiller;

@@ -16,10 +16,6 @@ model Centralized "Centralized secondary pumping"
     final dp_nominal=dp_nominal,
     final dpValve_nominal=dpValve_nominal) "Secondary pumps"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
-  Buildings.Templates.Components.Sensors.VolumeFlowRate V_flow(
-    redeclare final package Medium = Medium,
-    final m_flow_nominal=m_flow_nominal)
-    annotation (Placement(transformation(extent={{40,-10},{60,10}})));
   replaceable parameter Fluid.Movers.Data.Generic per(pressure(V_flow=
           m_flow_nominal/1000 .* {0,1,2}, dp=dp_nominal .* {1.5,1,0.5}))
     constrainedby Fluid.Movers.Data.Generic
@@ -44,16 +40,8 @@ equation
       index=-1,
       extent={{-3,6},{-3,6}},
       horizontalAlignment=TextAlignment.Right));
-  connect(pum.port_b, V_flow.port_a)
-    annotation (Line(points={{10,0},{40,0}}, color={0,127,255}));
-  connect(V_flow.port_b, port_b)
-    annotation (Line(points={{60,0},{100,0}}, color={0,127,255}));
-  connect(V_flow.y, busCon.V_flow) annotation (Line(points={{50,12},{50,80},{0,
-          80},{0,100}}, color={0,0,127}), Text(
-      string="%second",
-      index=1,
-      extent={{-6,3},{-6,3}},
-      horizontalAlignment=TextAlignment.Right));
+  connect(pum.port_b, port_b)
+    annotation (Line(points={{10,0},{100,0}}, color={0,127,255}));
   annotation (
     Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Line(

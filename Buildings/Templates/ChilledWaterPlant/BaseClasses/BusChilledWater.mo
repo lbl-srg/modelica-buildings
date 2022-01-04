@@ -7,8 +7,10 @@ expandable connector BusChilledWater
   parameter Integer nPumPri "Number of primary pumps";
   parameter Integer nPumSec "Number of secondary pumps";
 
-  Buildings.Templates.ChilledWaterPlant.Components.ChillerGroup.Interfaces.Bus
-    chiGro(final nChi=nChi) annotation (HideResult=false);
+  Buildings.Templates.Components.Interfaces.Bus chi[nChi]
+    annotation (HideResult=false);
+  Buildings.Templates.Components.Interfaces.Bus valCHWChi[nChi]
+    annotation (HideResult=false);
   Buildings.Templates.ChilledWaterPlant.Components.ReturnSection.Interfaces.Bus
     wse annotation (HideResult=false);
   Buildings.Templates.ChilledWaterPlant.Components.PrimaryPumpGroup.Interfaces.Bus

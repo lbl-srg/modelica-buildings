@@ -46,8 +46,7 @@ model DedicatedPrimaryPumps
       choicesAllMatching=true,
       Placement(transformation(extent={{-10,-10},{10,10}})));
   Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold evaSta[nPum](each t=
-        1E-2, each h=0.5E-2)
-                      "Evaluate pump status"
+        1E-2, each h=0.5E-2) "Evaluate pump status"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,

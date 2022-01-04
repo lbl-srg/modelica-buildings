@@ -18,9 +18,43 @@ model ElectricChiller
     final massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)
                                    "Chiller"
     annotation (Placement(transformation(extent={{-10,-8},{10,12}})));
+  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold evaSta(each t=1E-2,
+      each h=0.5E-2) "Evaluate pump status" annotation (Placement(
+        transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=90,
+        origin={10,50})));
+  Buildings.Templates.Components.Sensors.Temperature TCHWRet(
+    redeclare final package Medium = Medium2,
+    final have_sen=true,
+    final typ=Buildings.Templates.Components.Types.SensorTemperature.InWell,
+    final m_flow_nominal=m2_flow_nominal)
+    "Chiller chilled water return temperature"
+    annotation (Placement(transformation(extent={{60,-70},{80,-50}})));
+  Buildings.Templates.Components.Sensors.Temperature TCHWSup(
+    redeclare final package Medium = Medium2,
+    final have_sen=have_TCHWSup,
+    final typ=Buildings.Templates.Components.Types.SensorTemperature.InWell,
+    final m_flow_nominal=m2_flow_nominal)
+    "Chiller chilled water supply temperature"
+    annotation (Placement(transformation(extent={{-80,-70},{-60,-50}})));
+  Buildings.Templates.Components.Sensors.Temperature TCWSup(
+    redeclare final package Medium = Medium1,
+    final have_sen=true,
+    final typ=Buildings.Templates.Components.Types.SensorTemperature.InWell,
+    final m_flow_nominal=m1_flow_nominal)
+    "Chiller condenser water supply temperature"
+    annotation (Placement(transformation(extent={{-80,50},{-60,70}})));
+  Buildings.Templates.Components.Sensors.Temperature TCWRet(
+    redeclare final package Medium = Medium1,
+    final have_sen=have_TCWRet,
+    final typ=Buildings.Templates.Components.Types.SensorTemperature.InWell,
+    final m_flow_nominal=m1_flow_nominal)
+    "Chiller condenser water return temperature"
+    annotation (Placement(transformation(extent={{58,50},{78,70}})));
 equation
   connect(busCon.on, chi.on) annotation (Line(
-      points={{0.1,100.1},{0.1,80},{-60,80},{-60,5},{-12,5}},
+      points={{0,100},{0,80},{-28,80},{-28,6},{-12,6},{-12,5}},
       color={255,204,51},
       thickness=0.5), Text(
       string="%first",
@@ -28,29 +62,61 @@ equation
       extent={{6,3},{6,3}},
       horizontalAlignment=TextAlignment.Left));
   connect(busCon.TSet, chi.TSet) annotation (Line(
-      points={{0.1,100.1},{0.1,80},{-60,80},{-60,-1},{-12,-1}},
+      points={{0,100},{0,80},{-28,80},{-28,-1},{-12,-1}},
       color={255,204,51},
       thickness=0.5), Text(
       string="%first",
       index=-1,
       extent={{6,3},{6,3}},
       horizontalAlignment=TextAlignment.Left));
-  connect(busCon.P, chi.P) annotation (Line(
-      points={{0,100},{0,80},{60,80},{60,11},{11,11}},
-      color={255,204,51},
-      thickness=0.5), Text(
-      string="%first",
-      index=-1,
+  connect(chi.P, evaSta.u)
+    annotation (Line(points={{11,11},{10,11},{10,38}}, color={0,0,127}));
+  connect(evaSta.y, busCon.sta) annotation (Line(points={{10,62},{10,80},{0,80},
+          {0,100}}, color={255,0,255}), Text(
+      string="%second",
+      index=1,
       extent={{-6,3},{-6,3}},
       horizontalAlignment=TextAlignment.Right));
-  connect(port_b2, chi.port_b2) annotation (Line(points={{-100,-60},{-40,-60},{
-          -40,-4},{-10,-4}}, color={0,127,255}));
-  connect(chi.port_a2, port_a2) annotation (Line(points={{10,-4},{40,-4},{40,
-          -60},{100,-60}}, color={0,127,255}));
-  connect(port_a1, chi.port_a1) annotation (Line(points={{-100,60},{-40,60},{
-          -40,8},{-10,8}}, color={0,127,255}));
-  connect(chi.port_b1, port_b1) annotation (Line(points={{10,8},{40,8},{40,60},
-          {100,60}}, color={0,127,255}));
+  connect(chi.port_a2, TCHWRet.port_a) annotation (Line(points={{10,-4},{40,-4},
+          {40,-60},{60,-60}}, color={0,127,255}));
+  connect(TCHWRet.port_b, port_a2)
+    annotation (Line(points={{80,-60},{100,-60}}, color={0,127,255}));
+  connect(port_b2, TCHWSup.port_a)
+    annotation (Line(points={{-100,-60},{-80,-60}}, color={0,127,255}));
+  connect(TCHWSup.port_b, chi.port_b2) annotation (Line(points={{-60,-60},{-40,-60},
+          {-40,-4},{-10,-4}}, color={0,127,255}));
+  connect(port_a1, TCWSup.port_a)
+    annotation (Line(points={{-100,60},{-80,60}}, color={0,127,255}));
+  connect(TCWSup.port_b, chi.port_a1) annotation (Line(points={{-60,60},{-40,60},
+          {-40,8},{-10,8}}, color={0,127,255}));
+  connect(chi.port_b1, TCWRet.port_a) annotation (Line(points={{10,8},{40,8},{40,
+          60},{58,60}}, color={0,127,255}));
+  connect(TCWRet.port_b, port_b1)
+    annotation (Line(points={{78,60},{100,60}}, color={0,127,255}));
+  connect(TCWSup.y, busCon.TCWSup) annotation (Line(points={{-70,72},{-70,80},{
+          0,80},{0,100}}, color={0,0,127}), Text(
+      string="%second",
+      index=1,
+      extent={{6,3},{6,3}},
+      horizontalAlignment=TextAlignment.Left));
+  connect(TCWRet.y, busCon.TCWRet) annotation (Line(points={{68,72},{68,80},{0,
+          80},{0,100}}, color={0,0,127}), Text(
+      string="%second",
+      index=1,
+      extent={{-6,3},{-6,3}},
+      horizontalAlignment=TextAlignment.Right));
+  connect(TCHWSup.y, busCon.TCHWSup) annotation (Line(points={{-70,-48},{-28,
+          -48},{-28,80},{0,80},{0,100}}, color={0,0,127}), Text(
+      string="%second",
+      index=1,
+      extent={{6,3},{6,3}},
+      horizontalAlignment=TextAlignment.Left));
+  connect(TCHWRet.y, busCon.TCHWRet) annotation (Line(points={{70,-48},{70,-42},
+          {30,-42},{30,80},{0,80},{0,100}}, color={0,0,127}), Text(
+      string="%second",
+      index=1,
+      extent={{-6,3},{-6,3}},
+      horizontalAlignment=TextAlignment.Right));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Rectangle(
           extent={{-70,80},{70,-80}},

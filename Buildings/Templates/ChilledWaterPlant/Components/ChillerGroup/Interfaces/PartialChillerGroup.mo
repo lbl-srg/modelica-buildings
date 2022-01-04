@@ -12,6 +12,8 @@ partial model PartialChillerGroup
   parameter Boolean have_dedPum "Parallel chillers are connected to dedicated pumps";
 
   parameter Integer nChi "Number of chillers in group";
+  outer parameter Integer nPumPri "Number of primary pumps";
+  outer parameter Integer nPumSec "Number of secondary pumps";
 
   parameter Buildings.Templates.ChilledWaterPlant.Components.Types.ChillerGroup typ "Type of chiller group"
     annotation (Evaluate=true, Dialog(group="Configuration"));
@@ -106,7 +108,10 @@ partial model PartialChillerGroup
     "Small mass flow rate for regularization of zero flow"
     annotation(Dialog(tab = "Advanced"));
 
-  Buildings.Templates.ChilledWaterPlant.Components.ChillerGroup.Interfaces.Bus busCon(nChi=nChi) "Control bus" annotation (Placement(transformation(
+  Buildings.Templates.ChilledWaterPlant.BaseClasses.BusChilledWater busCon(
+    nChi=nChi,
+    nPumPri=nPumPri,
+    nPumSec=nPumSec)                                                                             "Control bus" annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
         rotation=0,
         origin={0,100}), iconTransformation(

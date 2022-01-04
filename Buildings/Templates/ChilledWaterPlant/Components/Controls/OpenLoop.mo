@@ -42,8 +42,8 @@ block OpenLoop "Open loop controller (output signals only)"
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={50,110})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant yValChi[nChi](each k=1)
-    annotation (Placement(transformation(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant yValCHWChi[nChi](each
+      k=1) annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={-170,70})));
@@ -62,17 +62,31 @@ block OpenLoop "Open loop controller (output signals only)"
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={70,70})));
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant yValCWChi[nChi](each k=true)
+    annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=-90,
+        origin={-90,70})));
+
+protected
+  Buildings.Templates.Components.Interfaces.Bus busChi[nChi] "Chiller bus"
+    annotation (Placement(transformation(extent={{120,-40},{160,0}})));
+  Buildings.Templates.Components.Interfaces.Bus busValCHWChi[nChi]
+    "Bus for chiller chilled water-side isolation valves"
+    annotation (Placement(transformation(extent={{122,-82},{162,-42}})));
+  Buildings.Templates.Components.Interfaces.Bus busValCWChi[nChi]
+    "Bus for chiller condenser water-side isolation valves"
+    annotation (Placement(transformation(extent={{-138,-80},{-98,-40}})));
 equation
   /* Control point connection - start */
   connect(busCHW.pumPri.valByp.y, yValByp.y);
   connect(busCHW.pumPri.valChiByp.y, yValChiByp.y);
   connect(busCW.pum.yValWSE, yValWSE.y);
-  for i in 1:nChi loop
-    connect(busCHW.chiGro.chi[i].TSet, chiTSet[i].y);
-    connect(busCHW.chiGro.chi[i].on, chiOn[i].y);
-    connect(busCHW.chiGro.yValChi[i], yValChi[i].y);
-    connect(busCW.pum.yValChi[i], yValChi[i].y);
-  end for;
+  connect(busChi.TSet, chiTSet.y);
+  connect(busChi.on, chiOn.y);
+  connect(busValCHWChi[:].y, yValCHWChi[:].y);
+  connect(busValCWChi[:].y, yValCWChi[:].y);
+
   for i in 1:nPumPri loop
     connect(busCHW.pumPri.ySpe[i], ySpePumPri[i].y);
   end for;
@@ -84,9 +98,35 @@ equation
     connect(busCW.cooTow.yVal[i], yCooTowVal[i].y);
   end for;
   for i in 1:nPumCon loop
-    connect(busCW.pum.ySpe[i], ySpePumCon[i].y);
+    connect(busCW.ySpe[i], ySpePumCon[i].y);
   end for;
   /* Control point connection - end */
+  connect(busChi, busCHW.chi) annotation (Line(
+      points={{140,-20},{194,-20},{194,0.1},{220.1,0.1}},
+      color={255,204,51},
+      thickness=0.5), Text(
+      string="%second",
+      index=-1,
+      extent={{-6,3},{-6,3}},
+      horizontalAlignment=TextAlignment.Right));
+  connect(busValCHWChi, busCHW.valCHWChi) annotation (Line(
+      points={{142,-62},{142,-60},{196,-60},{196,-58},{194,-58},{194,0.1},{220.1,
+          0.1}},
+      color={255,204,51},
+      thickness=0.5), Text(
+      string="%second",
+      index=-1,
+      extent={{-6,3},{-6,3}},
+      horizontalAlignment=TextAlignment.Right));
+
+  connect(busValCWChi, busCW.valCWChi) annotation (Line(
+      points={{-118,-60},{-118,0.1},{-197.9,0.1}},
+      color={255,204,51},
+      thickness=0.5), Text(
+      string="%second",
+      index=-1,
+      extent={{6,3},{6,3}},
+      horizontalAlignment=TextAlignment.Left));
   annotation (
   defaultComponentName="conAHU",
   Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(

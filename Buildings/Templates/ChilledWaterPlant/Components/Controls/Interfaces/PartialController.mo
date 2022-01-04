@@ -8,21 +8,22 @@ block PartialController
   outer parameter ExternData.JSONFile dat
     "External parameter file";
 
-  parameter Integer nChi "Number of chillers";
-  parameter Integer nPumPri "Number of primary pumps";
-  parameter Integer nPumSec "Number of secondary pumps";
-  parameter Integer nPumCon "Number of condenser pumps";
-  parameter Integer nCooTow "Number of cooling towers";
+  parameter Integer nChi=1 "Number of chillers";
+  parameter Integer nPumPri=1 "Number of primary pumps";
+  parameter Integer nPumSec=1 "Number of secondary pumps";
+  parameter Integer nPumCon=1 "Number of condenser pumps";
+  parameter Integer nCooTow=1 "Number of cooling towers";
 
   parameter Boolean isAirCoo;
 
-  .Buildings.Templates.ChilledWaterPlant.BaseClasses.BusChilledWater busCHW(
+  Buildings.Templates.ChilledWaterPlant.BaseClasses.BusChilledWater busCHW(
     final nChi=nChi,
     final nPumPri=nPumPri,
     final nPumSec=nPumSec)
     annotation (Placement(transformation(extent={{200,-20},{240,20}}),
         iconTransformation(extent={{80,-20},{120,20}})));
-  .Buildings.Templates.ChilledWaterPlant.BaseClasses.BusCondenserWater busCW(
+  Buildings.Templates.ChilledWaterPlant.BaseClasses.BusCondenserWater busCW(
+    final nChi=nChi,
     final nPum=nPumCon,
     final nCooTow=nCooTow) if not isAirCoo annotation (
       Placement(transformation(extent={{-218,-20},{-178,20}}),

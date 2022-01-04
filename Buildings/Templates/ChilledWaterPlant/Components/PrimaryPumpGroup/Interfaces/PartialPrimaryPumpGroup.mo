@@ -22,6 +22,12 @@ partial model PartialPrimaryPumpGroup
   parameter Boolean have_comLegFloSen = have_comLeg and not have_floSen "= true if common leg flow is measured"
     annotation(Dialog(enable=have_comLeg));
 
+  outer parameter Boolean have_secondary;
+
+  parameter Boolean have_TPCHWSup = not have_secondary
+    "= true if primary chilled water supply temperature is measured"
+    annotation(Dialog(enable=have_secondary));
+
   final parameter Boolean is_dedicated = typ == Buildings.Templates.ChilledWaterPlant.Components.Types.PrimaryPumpGroup.Dedicated;
 
   parameter Integer nChi "Number of chillers";

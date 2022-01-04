@@ -28,7 +28,7 @@ model Dedicated
     final dp_nominal=dp_nominal,
     final dpValve_nominal=dpValve_nominal)
                      "Pumps"
-    annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
+    annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
   Buildings.Templates.Components.Sensors.VolumeFlowRate V_flow(
     redeclare final package Medium = Medium,
     final have_sen=have_floSen,
@@ -48,6 +48,13 @@ model Dedicated
     final typ=Buildings.Templates.Components.Types.SensorVolumeFlowRate.FlowMeter) if have_comLeg
     "Common leg volume flow rate"
     annotation (Placement(transformation(extent={{20,-90},{40,-70}})));
+  Buildings.Templates.Components.Sensors.Temperature TPCHWSup(
+    redeclare final package Medium = Medium,
+    final have_sen=have_TPCHWSup,
+    final typ=Buildings.Templates.Components.Types.SensorTemperature.InWell,
+    final m_flow_nominal=m_flow_nominal)
+    "Primary chilled water supply temperature"
+    annotation (Placement(transformation(extent={{0,-10},{20,10}})));
 equation
   /* Control point connection - start */
   connect(valByp.bus, busCon.valByp);
@@ -59,16 +66,15 @@ equation
                                                 color={0,127,255}));
   connect(valByp.port_b, port_byp)
     annotation (Line(points={{-1.77636e-15,-60},{0,-100}}, color={0,127,255}));
-  connect(pum.y_actual, busCon.uStaPumPri) annotation (Line(points={{11,8},{20,8},
-          {20,80},{0,80},{0,100}}, color={255,0,255}), Text(
+  connect(pum.y_actual, busCon.uStaPumPri) annotation (Line(points={{-19,8},{-10,
+          8},{-10,80},{0,80},{0,100}},
+                                   color={255,0,255}), Text(
       string="%second",
       index=1,
       extent={{-6,3},{-6,3}},
       horizontalAlignment=TextAlignment.Right));
   connect(ports_parallel, pum.ports_a)
-    annotation (Line(points={{-100,0},{-10,0}}, color={0,127,255}));
-  connect(pum.port_b, V_flow.port_a)
-    annotation (Line(points={{10,0},{40,0}}, color={0,127,255}));
+    annotation (Line(points={{-100,0},{-40,0}}, color={0,127,255}));
   connect(V_flow.port_b, splByp.port_1)
     annotation (Line(points={{60,0},{70,0}}, color={0,127,255}));
   connect(V_flow.y, busCon.V_flow) annotation (Line(points={{50,12},{50,80},{0,80},
@@ -80,7 +86,7 @@ equation
   connect(splByp.port_3, pas.port_a)
     annotation (Line(points={{80,-10},{80,-50}}, color={0,127,255}));
   connect(busCon.ySpe, pum.y) annotation (Line(
-      points={{0,100},{0,12}},
+      points={{0,100},{0,80},{-30,80},{-30,12}},
       color={255,204,51},
       thickness=0.5), Text(
       string="%first",
@@ -93,6 +99,16 @@ equation
     annotation (Line(points={{40,-80},{80,-80},{80,-70}}, color={0,127,255}));
   connect(VComLeg_flow.y, busCon.VComLeg_flow) annotation (Line(points={{30,-68},
           {30,80},{0,80},{0,100}}, color={0,0,127}), Text(
+      string="%second",
+      index=1,
+      extent={{-6,3},{-6,3}},
+      horizontalAlignment=TextAlignment.Right));
+  connect(pum.port_b,TPCHWSup. port_a)
+    annotation (Line(points={{-20,0},{0,0}}, color={0,127,255}));
+  connect(TPCHWSup.port_b, V_flow.port_a)
+    annotation (Line(points={{20,0},{40,0}}, color={0,127,255}));
+  connect(TPCHWSup.y, busCon.TPCHWSup) annotation (Line(points={{10,12},{10,80},
+          {0,80},{0,100}}, color={0,0,127}), Text(
       string="%second",
       index=1,
       extent={{-6,3},{-6,3}},

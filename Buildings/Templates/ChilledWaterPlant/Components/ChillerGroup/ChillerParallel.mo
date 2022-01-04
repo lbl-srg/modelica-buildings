@@ -33,14 +33,16 @@ model ChillerParallel
     final nPorts=1+nChi) if not isAirCoo
     "Condenser water side mixing volume"
     annotation (Placement(transformation(
-      extent={{-10,-10},{10,10}},rotation=0,origin={60,84})));
-  Fluid.Actuators.Valves.TwoWayLinear valChi[nChi](
+      extent={{-10,-10},{10,10}},rotation=0,origin={60,80})));
+  inner replaceable Buildings.Templates.Components.Valves.TwoWayModulating valCHWChi[nChi]
+    if not have_dedPum
+    constrainedby Buildings.Templates.Components.Valves.Interfaces.PartialValve(
     redeclare each final package Medium = MediumCHW,
     each final m_flow_nominal=m2_flow_nominal/nChi,
-    each final dpValve_nominal=dpValve_nominal) if not have_dedPum
-    "Chillers valves"
+    each final dpValve_nominal=dpValve_nominal)
+    "Chiller chilled water-side isolation valves"
     annotation (Placement(transformation(
-      extent={{10,-10},{-10,10}},rotation=0,origin={-70,20})));
+      extent={{10,-10},{-10,10}},rotation=0,origin={-70,0})));
   Buildings.Templates.BaseClasses.PassThroughFluid pas[nChi](
     redeclare each final package Medium = MediumCHW) if have_dedPum
     "Passthrough"
@@ -61,24 +63,24 @@ equation
           {18,-58},{40,-58},{40,-12},{20,-12}}, color={0,127,255}));
   connect(ports_a1, chi.port_a1) annotation (Line(points={{-100,60},{-40,60},{
           -40,12},{-20,12}}, color={0,127,255}));
-  connect(volCW.ports[1], port_b1) annotation (Line(points={{60,74},{60,60},{100,
-          60}},      color={0,127,255}));
-  connect(chi.port_b1, volCW.ports[2:3]) annotation (Line(points={{20,12},{60,12},
-          {60,74}},                   color={0,127,255}));
-  connect(chi.port_b2, valChi.port_a) annotation (Line(points={{-20,-12},{-40,-12},
-          {-40,0},{-54,0},{-54,20},{-60,20}}, color={0,127,255}));
-  connect(valChi.port_b, ports_b2) annotation (Line(points={{-80,20},{-86,20},{-86,
-          0},{-100,0}}, color={0,127,255}));
+  connect(volCW.ports[1], port_b1) annotation (Line(points={{60,70},{60,60},{
+          100,60}},  color={0,127,255}));
+  connect(chi.port_b1, volCW.ports[2:3]) annotation (Line(points={{20,12},{60,
+          12},{60,70}},               color={0,127,255}));
+  connect(chi.port_b2, valCHWChi.port_a) annotation (Line(points={{-20,-12},{
+          -40,-12},{-40,0},{-60,0}}, color={0,127,255}));
+  connect(valCHWChi.port_b, ports_b2)
+    annotation (Line(points={{-80,0},{-100,0}}, color={0,127,255}));
   connect(chi.port_b2, pas.port_a) annotation (Line(points={{-20,-12},{-40,-12},
           {-40,0},{-54,0},{-54,-20},{-60,-20}}, color={0,127,255}));
   connect(pas.port_b, ports_b2) annotation (Line(points={{-80,-20},{-86,-20},{-86,
           0},{-100,0}}, color={0,127,255}));
-  connect(busCon.yValChi, valChi.y) annotation (Line(
-      points={{0.1,100.1},{0.1,78},{-70,78},{-70,32}},
+  connect(valCHWChi.bus, busCon.valCHWChi) annotation (Line(
+      points={{-70,10},{-70,80},{0.1,80},{0.1,100.1}},
       color={255,204,51},
       thickness=0.5), Text(
-      string="%first",
-      index=-1,
+      string="%second",
+      index=1,
       extent={{6,3},{6,3}},
       horizontalAlignment=TextAlignment.Left));
   annotation (Icon(graphics={

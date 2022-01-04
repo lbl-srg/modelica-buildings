@@ -13,7 +13,7 @@ partial model PartialChilledWaterPlant
   outer parameter ExternData.JSONFile dat
     "External parameter file";
 
-  parameter Integer nChi "Number of chillers";
+  inner parameter Integer nChi "Number of chillers";
 
   Modelica.Fluid.Interfaces.FluidPort_a port_a(
     redeclare final package Medium=Medium) "Chilled water supply"

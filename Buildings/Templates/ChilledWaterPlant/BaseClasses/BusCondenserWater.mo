@@ -3,13 +3,15 @@ expandable connector BusCondenserWater
   "Generic control bus for condenser water classes"
   extends Modelica.Icons.SignalBus;
 
+  parameter Integer nChi "Number of chillers";
   parameter Integer nPum "Number of condenser pumps";
   parameter Integer nCooTow "Number of cooling tower";
 
   Buildings.Templates.ChilledWaterPlant.Components.CoolingTowerGroup.Interfaces.Bus
     cooTow(final nCooTow=nCooTow) annotation (HideResult=false);
-  Buildings.Templates.ChilledWaterPlant.Components.CondenserWaterPumpGroup.Interfaces.Bus
-    pum(final nPum=nPum) annotation (HideResult=false);
+
+  Buildings.Templates.Components.Interfaces.Bus valCWChi[nChi]
+    annotation (HideResult=false);
 
   annotation (
   defaultComponentName="busCon",

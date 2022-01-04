@@ -24,7 +24,7 @@ model WaterCooled
   replaceable package MediumCW=Buildings.Media.Water "Condenser water medium";
 
   final parameter Integer nPumCon = pumCon.nPum "Number of condenser pumps";
-  final parameter Integer nCooTow = cooTow.nCooTow "Number of cooling towers";
+  final inner parameter Integer nCooTow = cooTow.nCooTow "Number of cooling towers";
 
   final parameter Modelica.Units.SI.MassFlowRate mCon_flow_nominal=
     dat.getReal(varName=id + ".CondenserWater.m_flow_nominal.value")
@@ -73,7 +73,8 @@ model WaterCooled
         rotation=0,
         origin={-90,-70})));
 
-  Buildings.Templates.ChilledWaterPlant.BaseClasses.BusCondenserWater cwCon(nPum=
+  Buildings.Templates.ChilledWaterPlant.BaseClasses.BusCondenserWater cwCon(
+    final nChi=nChi,                                                        nPum=
         nPumCon, nCooTow=nCooTow)
     if not isAirCoo
     "Condenser loop control bus"
@@ -92,28 +93,16 @@ protected
     chiGro.dp1_nominal + cooTow.dp_nominal
     "Nominal pressure drop for condenser loop";
 equation
-  connect(TCWRet.port_a, cooTow.port_a)
-    annotation (Line(points={{-140,-70},{-192,-70},{-192,-10},{-180,-10}},
-      color={0,127,255}));
-  connect(cooTow.port_b, TCWSup.port_a)
-    annotation (Line(points={{-160,-10},{-140,-10}}, color={0,127,255}));
-  connect(TCWSup.port_b,pumCon. port_a)
-    annotation (Line(points={{-120,-10},{-100,-10}}, color={0,127,255}));
-  connect(pumCon.port_wse, retSec.port_a1) annotation (Line(points={{-80,-16},{-70,
-          -16},{-70,-50},{-46,-50},{-46,-62}}, color={0,127,255}));
-  connect(chiGro.port_b1, mixCW.port_3)
-    annotation (Line(points={{-46,0},{-46,-40},{-90,-40},{-90,-60}},
-      color={0,127,255}));
-  connect(pumCon.ports_b, chiGro.ports_a1)
-    annotation (Line(points={{-80,-10},{-70,-10},{-70,30},{-46,30},{-46,20}},
-      color={0,127,255}));
-
-  connect(weaBus, cooTow.weaBus);
-
+  // Sensors
   connect(TCWSup.y, cwCon.TCWSup);
   connect(TCWRet.y, cwCon.TCWRet);
+
+  // Bus connection
+  connect(weaBus, cooTow.weaBus);
   connect(cooTow.busCon, cwCon.cooTow);
-  connect(pumCon.busCon, cwCon.pum);
+  connect(pumCon.busCon, cwCon);
+
+  // Controller
   connect(con.busCW, cwCon) annotation (Line(
       points={{60,60},{-200,60}},
       color={255,204,51},
@@ -122,10 +111,30 @@ equation
       index=1,
       extent={{-6,3},{-6,3}},
       horizontalAlignment=TextAlignment.Right));
-  connect(bouCW.ports[1], pumCon.port_a) annotation (Line(points={{-110,20},{
-          -110,-10},{-100,-10}},              color={0,127,255}));
+
+  // Mechanical
+  connect(TCWRet.port_a, cooTow.port_a)
+    annotation (Line(points={{-140,-70},{-192,-70},{-192,-10},{-180,-10}},
+      color={0,127,255}));
+  connect(cooTow.port_b, TCWSup.port_a)
+    annotation (Line(points={{-160,-10},{-140,-10}}, color={0,127,255}));
+  connect(TCWSup.port_b,pumCon. port_a)
+    annotation (Line(points={{-120,-10},{-100,-10}}, color={0,127,255}));
+  connect(pumCon.port_wse, retSec.port_a1)
+    annotation (Line(points={{-80,-16},{-70,-16},{-70,-50},{-46,-50},{-46,-62}},
+      color={0,127,255}));
+  connect(chiGro.port_b1, mixCW.port_3)
+    annotation (Line(points={{-46,0},{-46,-40},{-90,-40},{-90,-60}},
+      color={0,127,255}));
+  connect(pumCon.ports_b, chiGro.ports_a1)
+    annotation (Line(points={{-80,-10},{-70,-10},{-70,30},{-46,30},{-46,20}},
+      color={0,127,255}));
+  connect(bouCW.ports[1], pumCon.port_a)
+    annotation (Line(points={{-110,20},{-110,-10},{-100,-10}},
+      color={0,127,255}));
   connect(mixCW.port_2, TCWRet.port_b)
     annotation (Line(points={{-100,-70},{-120,-70}}, color={0,127,255}));
-  connect(mixCW.port_1, retSec.port_b1) annotation (Line(points={{-80,-70},{-60,
-          -70},{-60,-88},{-46,-88},{-46,-82}}, color={0,127,255}));
+  connect(mixCW.port_1, retSec.port_b1)
+    annotation (Line(points={{-80,-70},{-60,-70},{-60,-88},{-46,-88},{-46,-82}},
+      color={0,127,255}));
 end WaterCooled;

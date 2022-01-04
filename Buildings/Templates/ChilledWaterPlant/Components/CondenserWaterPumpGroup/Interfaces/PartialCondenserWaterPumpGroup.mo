@@ -15,6 +15,7 @@ partial model PartialCondenserWaterPumpGroup
 
   parameter Integer nChi "Number of chillers";
   parameter Integer nPum = nChi "Number of primary pumps";
+  outer parameter Integer nCooTow "Number of cooling towers";
 
   parameter Boolean have_WSE "= true if pump supply waterside economizer";
 
@@ -31,7 +32,10 @@ partial model PartialCondenserWaterPumpGroup
     dat.getReal(varName=id + ".CondenserPump.dpValve_nominal.value")
     "Check valve pressure drop";
 
-  Bus busCon(final nPum=nPum)
+  Buildings.Templates.ChilledWaterPlant.BaseClasses.BusCondenserWater
+      busCon(
+    final nChi=nChi,
+             final nPum=nPum, nCooTow=nCooTow)
              "Control bus" annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
         rotation=0,

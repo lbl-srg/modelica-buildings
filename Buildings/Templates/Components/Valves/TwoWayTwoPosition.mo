@@ -3,11 +3,10 @@ model TwoWayTwoPosition "Two-way two-position valve"
   extends Buildings.Templates.Components.Valves.Interfaces.PartialValve(
     final typ=Buildings.Templates.Components.Types.Valve.TwoWayTwoPosition);
 
-  replaceable Buildings.Fluid.Actuators.Valves.TwoWayButterfly val
+  replaceable Buildings.Fluid.Actuators.Valves.TwoWayButterfly val(Kvs=1)
     constrainedby Buildings.Fluid.Actuators.BaseClasses.PartialTwoWayValve(
       redeclare final package Medium=Medium,
       final m_flow_nominal=m_flow_nominal,
-      final dpValve_nominal=dpValve_nominal,
       final dpFixed_nominal=dpFixed_nominal)
     "Valve"
     annotation (
