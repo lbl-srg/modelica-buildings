@@ -305,6 +305,13 @@ have been <b style=\"color:blue\">improved</b> in a
                        This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2544\"># 2544</a>.
     </td>
 </tr>
+<tr><td valign=\"top\">Buildings.Controls.OBC.Utilities.SunRiseSet
+    </td>
+    <td valign=\"top\">Changed implementation to avoid NaN in OpenModelica.<br/>
+                       This is for
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2835\">issue 2835</a>..
+    </td>
+</tr>
 <tr><td colspan=\"2\"><b>Buildings.Fluid.Boilers</b>
     </td>
 </tr>
