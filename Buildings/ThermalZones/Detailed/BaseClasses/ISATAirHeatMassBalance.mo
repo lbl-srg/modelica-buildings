@@ -22,13 +22,15 @@ model ISATAirHeatMassBalance
     final haveSource=haveSource,
     final nSou=nSou,
     final sourceName=sourceName,
-    rho_start=rho_start,
-    nConExtWin=NConExtWin) "Block that exchanges data with the ISAT simulation"
+    final rho_start=rho_start,
+    final nConExtWin=NConExtWin) "Block that exchanges data with the ISAT simulation"
     annotation (Placement(transformation(extent={{-40,180},{-20,200}})));
 
   annotation (Documentation(info="<html>
 <p>
-Block derived from <code>CFDAirHEatMassBalance</code> to compute the heat and 
+Block derived from <a href=\"modelica://Buildings.ThermalZones.Detailed.
+BaseClasses.CFDAirHeatMassBalance\"> Buildings.ThermalZones.Detailed.
+BaseClasses.CFDAirHeatMassBalance</a> to compute the heat and 
 mass balance of the air using ISAT.
 </html>",   revisions="<html>
 <ul>
