@@ -56,6 +56,12 @@ partial model PartialCFD
     annotation (Placement(transformation(
      extent={{460,110},{480,130}}), iconTransformation(extent={{200,110},{220,130}})));
 
+public
+  Modelica.Blocks.Interfaces.RealInput QIntSou[nSou](each unit="W") if haveSource
+    "Internal source heat gain into room" annotation (Placement(transformation(
+          extent={{-300,-130},{-260,-90}}), iconTransformation(extent={{-232,164},
+            {-200,196}})));
+
 protected
   final parameter String absCfdFilNam = Buildings.BoundaryConditions.WeatherData.BaseClasses.getAbsolutePath(cfdFilNam)
     "Absolute path to the CFD file";
@@ -69,11 +75,7 @@ protected
        haveShade "Constant signal for shade"
     annotation (Placement(transformation(extent={{-260,170},{-240,190}})));
 
-public
-  Modelica.Blocks.Interfaces.RealInput QIntSou[nSou](each unit="W") if haveSource
-    "Internal source heat gain into room" annotation (Placement(transformation(
-          extent={{-300,-130},{-260,-90}}), iconTransformation(extent={{-232,164},
-            {-200,196}})));
+
 equation
   connect(air.yCFD, yCFD) annotation (Line(
       points={{61,-142.5},{61,-206},{440,-206},{440,120},{470,120}},
