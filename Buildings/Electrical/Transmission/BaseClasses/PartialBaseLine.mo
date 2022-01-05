@@ -1,10 +1,11 @@
 within Buildings.Electrical.Transmission.BaseClasses;
 partial model PartialBaseLine "Partial cable line dispersion model"
-  parameter Modelica.SIunits.Length l(min=0) "Length of the line";
-  parameter Modelica.SIunits.Power P_nominal(min=0) "Nominal power of the line";
-  parameter Modelica.SIunits.Voltage V_nominal(min=0, start=220)
+  parameter Modelica.Units.SI.Length l(min=0) "Length of the line";
+  parameter Modelica.Units.SI.Power P_nominal(min=0)
+    "Nominal power of the line";
+  parameter Modelica.Units.SI.Voltage V_nominal(min=0, start=220)
     "Nominal voltage of the line";
-  final parameter Modelica.SIunits.Frequency f_n = 50
+  final parameter Modelica.Units.SI.Frequency f_n=50
     "Frequency considered in the definition of cables properties";
 
   parameter Boolean use_C = false
@@ -16,8 +17,11 @@ partial model PartialBaseLine "Partial cable line dispersion model"
         "Steady state", choice=Buildings.Electrical.Types.Load.FixedZ_dynamic "Dynamic"));
   parameter Boolean use_T = false
     "If true, enables the input for the temperature of the cable" annotation(Evaluate = true, Dialog(tab="Model", group="Thermal"));
-  parameter Modelica.SIunits.Temperature TCable = T_ref
-    "Fixed temperature of the cable" annotation(Dialog(tab="Model", group="Thermal", enable = not use_T));
+  parameter Modelica.Units.SI.Temperature TCable=T_ref
+    "Fixed temperature of the cable" annotation (Dialog(
+      tab="Model",
+      group="Thermal",
+      enable=not use_T));
 
   parameter Buildings.Electrical.Types.CableMode mode=Buildings.Electrical.Types.CableMode.automatic
     "Select if choosing the cable automatically or between a list of commercial options"
@@ -32,16 +36,25 @@ partial model PartialBaseLine "Partial cable line dispersion model"
     enable = mode == Buildings.Electrical.Types.CableMode.commercial),
                choicesAllMatching = true);
 
-  final parameter Modelica.SIunits.Temperature T_ref = commercialCable.T_ref
-    "Reference temperature of the line" annotation(Evaluate=True);
-  final parameter Modelica.SIunits.Temperature M = commercialCable.M
+  final parameter Modelica.Units.SI.Temperature T_ref=commercialCable.T_ref
+    "Reference temperature of the line" annotation (Evaluate=True);
+  final parameter Modelica.Units.SI.Temperature M=commercialCable.M
     "Temperature constant (R_actual = R*(M + T_heatPort)/(M + T_ref))";
-  final parameter Modelica.SIunits.Resistance R = commercialCable.lineResistance(l, f_n, commercialCable)
-    "Resistance of the cable" annotation(Evaluate=True);
-  final parameter Modelica.SIunits.Inductance L = commercialCable.lineInductance(l, f_n, commercialCable)
-    "Inductance of the cable due to mutual and self inductance" annotation(Evaluate = True);
-  final parameter Modelica.SIunits.Capacitance C = commercialCable.lineCapacitance(l, f_n, commercialCable)
-    "Capacitance of the cable" annotation(Evaluate = True);
+  final parameter Modelica.Units.SI.Resistance R=commercialCable.lineResistance(
+      l,
+      f_n,
+      commercialCable) "Resistance of the cable" annotation (Evaluate=True);
+  final parameter Modelica.Units.SI.Inductance L=commercialCable.lineInductance(
+      l,
+      f_n,
+      commercialCable)
+    "Inductance of the cable due to mutual and self inductance"
+    annotation (Evaluate=True);
+  final parameter Modelica.Units.SI.Capacitance C=
+      commercialCable.lineCapacitance(
+      l,
+      f_n,
+      commercialCable) "Capacitance of the cable" annotation (Evaluate=True);
   Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature cableTemp
     "Temperature of the cable"
     annotation (Placement(transformation(extent={{-60,12},{-40,32}})));
@@ -73,7 +86,7 @@ equation
           preserveAspectRatio=false, extent={{-100,-100},{100,100}}), graphics={
           Text(
             extent={{-150,-19},{150,-59}},
-            lineColor={0,0,0},
+            textColor={0,0,0},
           textString="%name")}),
     Documentation(info="<html>
 <p>

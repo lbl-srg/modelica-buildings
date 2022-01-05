@@ -2,13 +2,13 @@ within Buildings.Experimental.DHC.Loads.BaseClasses.Validation.BaseClasses;
 model Building
   "Dummy building model for validation purposes"
   extends Buildings.Experimental.DHC.Loads.BaseClasses.PartialBuilding;
-  parameter Modelica.SIunits.HeatFlowRate QChiWat_flow_nominal
+  parameter Modelica.Units.SI.HeatFlowRate QChiWat_flow_nominal
     "Design heat flow rate for chilled water production (<0)"
-    annotation (Dialog(group="Nominal condition",enable=have_chiWat));
-  parameter Modelica.SIunits.HeatFlowRate QHeaWat_flow_nominal
+    annotation (Dialog(group="Nominal condition", enable=have_chiWat));
+  parameter Modelica.Units.SI.HeatFlowRate QHeaWat_flow_nominal
     "Design heat flow rate for heating water production (>0)"
-    annotation (Dialog(group="Nominal condition",enable=have_heaWat));
-  parameter Modelica.SIunits.MassFlowRate m_flow_nominal
+    annotation (Dialog(group="Nominal condition", enable=have_heaWat));
+  parameter Modelica.Units.SI.MassFlowRate m_flow_nominal
     "Nominal mass flow rate";
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant souPHea(
     k=1)
@@ -35,17 +35,17 @@ model Building
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     final Q_flow_nominal=-QChiWat_flow_nominal,
     final m_flow_nominal=m_flow_nominal,
-    dp_nominal=0) if  have_chiWat
+    dp_nominal=0)  if have_chiWat
     "Cooling load"
     annotation (Placement(transformation(extent={{-10,-270},{10,-250}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant one(k=1) "One"
     annotation (Placement(transformation(extent={{-80,-170},{-60,-150}})));
   Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar(
-    p=0, k=-1) if  have_heaWat
+    p=0, k=-1)  if have_heaWat
     "Opposite"
     annotation (Placement(transformation(extent={{30,-50},{50,-30}})));
   Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar1(
-    p=0, k=-1) if  have_chiWat
+    p=0, k=-1)  if have_chiWat
     "Opposite"
     annotation (Placement(transformation(extent={{30,-250},{50,-230}})));
 equation

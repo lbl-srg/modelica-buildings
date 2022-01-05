@@ -1,6 +1,5 @@
 within Buildings.Controls.OBC.CDL.Discrete;
-package Examples
-  "Collection of models that illustrate model use and test models"
+package Examples "Collection of models that illustrate model use and test models"
   annotation (
     preferredView="info",
     Documentation(

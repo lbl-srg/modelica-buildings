@@ -1,15 +1,15 @@
 within Buildings.Utilities.Psychrometrics;
 package Constants "Library of constants for psychometric functions"
   extends Modelica.Icons.Package;
-  constant Modelica.SIunits.Temperature T_ref = 273.15
+  constant Modelica.Units.SI.Temperature T_ref=273.15
     "Reference temperature for psychrometric calculations";
-  constant Modelica.SIunits.SpecificHeatCapacity cpAir=1006
+  constant Modelica.Units.SI.SpecificHeatCapacity cpAir=1006
     "Specific heat capacity of air";
-  constant Modelica.SIunits.SpecificHeatCapacity cpSte=1860
+  constant Modelica.Units.SI.SpecificHeatCapacity cpSte=1860
     "Specific heat capacity of water vapor";
-  constant Modelica.SIunits.SpecificHeatCapacity cpWatLiq = 4184
+  constant Modelica.Units.SI.SpecificHeatCapacity cpWatLiq=4184
     "Specific heat capacity of liquid water";
-  constant Modelica.SIunits.SpecificEnthalpy h_fg = 2501014.5
+  constant Modelica.Units.SI.SpecificEnthalpy h_fg=2501014.5
     "Enthalpy of evaporation of water at the reference temperature";
   constant Real k_mair = 0.6219647130774989 "Ratio of molar weights";
 

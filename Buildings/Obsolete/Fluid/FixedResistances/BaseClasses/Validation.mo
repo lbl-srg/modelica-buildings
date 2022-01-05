@@ -7,16 +7,15 @@ package Validation "Collection of validation models"
     replaceable package Medium = Buildings.Media.Water "Medium in pipes"
                                               annotation (
         choicesAllMatching=true);
-    parameter Modelica.SIunits.Length dh=0.1
+    parameter Modelica.Units.SI.Length dh=0.1
       "Hydraulic diameter (assuming a round cross section area)";
-    parameter Modelica.SIunits.Length dIns = 0.05
-      "Thickness of pipe insulation";
-    parameter Modelica.SIunits.ThermalConductivity kIns= 0.028
-     "Heat conductivity of pipe insulation";
+    parameter Modelica.Units.SI.Length dIns=0.05 "Thickness of pipe insulation";
+    parameter Modelica.Units.SI.ThermalConductivity kIns=0.028
+      "Heat conductivity of pipe insulation";
 
-    parameter Modelica.SIunits.SpecificHeatCapacity cPip=500
+    parameter Modelica.Units.SI.SpecificHeatCapacity cPip=500
       "Specific heat of pipe wall material. 2300 for PE, 500 for steel";
-    parameter Modelica.SIunits.Density rhoPip=8000
+    parameter Modelica.Units.SI.Density rhoPip=8000
       "Density of pipe wall material. 930 for PE, 8000 for steel";
 
     parameter Real R=1/(kIns*2*Modelica.Constants.pi/
@@ -26,10 +25,10 @@ package Validation "Collection of validation models"
     parameter Real C=rho_default*Modelica.Constants.pi*(
         dh/2)^2*cp_default "Thermal capacity per unit length of water in pipe";
 
-    parameter Modelica.SIunits.Density rho_default=Medium.density_pTX(
-        p=Medium.p_default,
-        T=Medium.T_default,
-        X=Medium.X_default)
+    parameter Modelica.Units.SI.Density rho_default=Medium.density_pTX(
+          p=Medium.p_default,
+          T=Medium.T_default,
+          X=Medium.X_default)
       "Default density (e.g., rho_liquidWater = 995, rho_air = 1.2)"
       annotation (Dialog(group="Advanced"));
 
@@ -38,7 +37,7 @@ package Validation "Collection of validation models"
         p=Medium.p_default,
         X=Medium.X_default) "Default medium state";
 
-    parameter Modelica.SIunits.SpecificHeatCapacity cp_default=
+    parameter Modelica.Units.SI.SpecificHeatCapacity cp_default=
         Medium.specificHeatCapacityCp(state=sta_default)
       "Heat capacity of medium";
 

@@ -9,12 +9,12 @@ model GroundCoupling "Thermal coupling between buried pipes and ground"
     Buildings.BoundaryConditions.GroundTemperature.ClimaticConstants.Generic
     cliCon "Surface temperature climatic conditions";
 
-  parameter Modelica.SIunits.Length len[nSeg] "Pipes length";
+  parameter Modelica.Units.SI.Length len[nSeg] "Pipes length";
 
-  parameter Modelica.SIunits.Length dep[nPip] "Pipes buried depth";
-  parameter Modelica.SIunits.Length pos[nPip]
+  parameter Modelica.Units.SI.Length dep[nPip] "Pipes buried depth";
+  parameter Modelica.Units.SI.Length pos[nPip]
     "Pipes horizontal coordinate (to an arbitrary reference point)";
-  parameter Modelica.SIunits.Length rad[nPip] "Pipes external radius";
+  parameter Modelica.Units.SI.Length rad[nPip] "Pipes external radius";
 
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a ports[nPip, nSeg]
     "Buried pipes heatports"
@@ -24,7 +24,7 @@ model GroundCoupling "Thermal coupling between buried pipes and ground"
     soi(cliCon=cliCon, soiDat=soiDat, dep=depMea) "Soil temperature";
 
 protected
-  parameter Modelica.SIunits.Length depMea = sum(dep) / nPip "Average depth";
+  parameter Modelica.Units.SI.Length depMea=sum(dep)/nPip "Average depth";
   parameter Real P[nPip,nPip]=BaseClasses.groundCouplingFactors(
       nPip,
       dep,
@@ -39,7 +39,7 @@ equation
 
   annotation (Icon(graphics={
         Text(
-          lineColor={0,0,255},
+          textColor={0,0,255},
           extent={{-150,110},{150,150}},
           textString="%name"),
         Rectangle(
@@ -158,28 +158,28 @@ equation
           arrow={Arrow.None,Arrow.Filled}),
         Text(
           extent={{-76,-54},{-62,-64}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           lineThickness=0.5,
           fillColor={122,20,25},
           fillPattern=FillPattern.Solid,
           textString="pos[1]"),
         Text(
           extent={{-26,-64},{-12,-74}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           lineThickness=0.5,
           fillColor={122,20,25},
           fillPattern=FillPattern.Solid,
           textString="pos[2]"),
         Text(
           extent={{40,-74},{54,-84}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           lineThickness=0.5,
           fillColor={122,20,25},
           fillPattern=FillPattern.Solid,
           textString="pos[3]"),
         Text(
           extent={{7,-3},{-7,3}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           lineThickness=0.5,
           fillColor={122,20,25},
           fillPattern=FillPattern.Solid,
@@ -188,7 +188,7 @@ equation
           rotation=90),
         Text(
           extent={{7,-3},{-7,3}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           lineThickness=0.5,
           fillColor={122,20,25},
           fillPattern=FillPattern.Solid,
@@ -197,7 +197,7 @@ equation
           textString="dep[2]"),
         Text(
           extent={{7,-3},{-7,3}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           lineThickness=0.5,
           fillColor={122,20,25},
           fillPattern=FillPattern.Solid,
@@ -206,21 +206,21 @@ equation
           textString="dep[3]"),
         Text(
           extent={{-64,-2},{-52,-8}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           lineThickness=0.5,
           fillColor={122,20,25},
           fillPattern=FillPattern.Solid,
           textString="rad[1]"),
         Text(
           extent={{0,-32},{12,-38}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           lineThickness=0.5,
           fillColor={122,20,25},
           fillPattern=FillPattern.Solid,
           textString="rad[2]"),
         Text(
           extent={{54,-14},{66,-20}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           lineThickness=0.5,
           fillColor={122,20,25},
           fillPattern=FillPattern.Solid,

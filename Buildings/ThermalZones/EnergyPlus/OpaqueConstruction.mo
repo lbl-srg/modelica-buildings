@@ -5,9 +5,7 @@ model OpaqueConstruction
   extends Buildings.ThermalZones.EnergyPlus.BaseClasses.Synchronize.ObjectSynchronizer;
   parameter String surfaceName
     "Surface unique name in the EnergyPlus idf file";
-  final parameter Modelica.SIunits.Area A(
-    final fixed=false,
-    min=1E-10)
+  final parameter Modelica.Units.SI.Area A(final fixed=false, min=1E-10)
     "Surface area";
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heaPorFro
     "Heat port for front surface"
@@ -15,9 +13,9 @@ model OpaqueConstruction
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b heaPorBac
     "Heat port for back surface"
     annotation (Placement(transformation(extent={{90,-10},{110,10}}),iconTransformation(extent={{88,-10},{108,10}})));
-  Modelica.SIunits.HeatFlux qFro_flow
+  Modelica.Units.SI.HeatFlux qFro_flow
     "Heat flow rate at front surface per unit area";
-  Modelica.SIunits.HeatFlux qBac_flow
+  Modelica.Units.SI.HeatFlux qBac_flow
     "Heat flow rate at front surface per unit area";
 
 protected
@@ -75,27 +73,19 @@ protected
   //////////
   Real yEP[nY]
     "Output of exchange function";
-  Modelica.SIunits.Time tNext(
-    start=startTime,
-    fixed=true)
+  Modelica.Units.SI.Time tNext(start=startTime, fixed=true)
     "Next sampling time";
-  discrete Modelica.SIunits.Time tLast(
-    fixed=true,
-    start=startTime)
+  discrete Modelica.Units.SI.Time tLast(fixed=true, start=startTime)
     "Last time of data exchange";
-  discrete Modelica.SIunits.Time dtLast
+  discrete Modelica.Units.SI.Time dtLast
     "Time step since the last synchronization";
-  discrete Modelica.SIunits.Temperature TFroLast
+  discrete Modelica.Units.SI.Temperature TFroLast
     "Front surface temperature at last sampling";
-  discrete Modelica.SIunits.Temperature TBacLast
+  discrete Modelica.Units.SI.Temperature TBacLast
     "Back surface temperature at last sampling";
-  discrete Modelica.SIunits.HeatFlowRate QFroLast_flow(
-    fixed=false,
-    start=0)
+  discrete Modelica.Units.SI.HeatFlowRate QFroLast_flow(fixed=false, start=0)
     "Surface heat flow rate at front if T = TLast";
-  discrete Modelica.SIunits.HeatFlowRate QBacLast_flow(
-    fixed=false,
-    start=0)
+  discrete Modelica.Units.SI.HeatFlowRate QBacLast_flow(fixed=false, start=0)
     "Surface heat flow rate at back if T = TLast";
 //   discrete Real dQFro_flow_dT(
 //     final unit="W/K")
@@ -325,10 +315,10 @@ This is for
           fillPattern=FillPattern.Solid),
         Text(
           extent={{-76,68},{-50,40}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="Front"),
         Text(
           extent={{50,70},{76,42}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="Back")}));
 end OpaqueConstruction;

@@ -17,7 +17,7 @@ block ChillerSwitch "Control unit for enabling/disabling chiller"
     displayUnit="degC") "Set temperature of chiller" annotation (Placement(
         transformation(extent={{-140,-80},{-100,-40}}), iconTransformation(
           extent={{-120,-60},{-100,-40}})));
-  parameter Modelica.SIunits.Temperature deaBan
+  parameter Modelica.Units.SI.Temperature deaBan
     "Dead band of temperature to prevent chiller short cycling";
   Modelica.Blocks.Logical.Hysteresis hysteresis(uLow=0, uHigh=deaBan)
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
@@ -101,11 +101,11 @@ First implementation.
         Line(points={{-47,55},{-47,-25}}, color={0,0,0}),
         Text(
           extent={{-90,-45},{-7,-88}},
-          lineColor={192,192,192},
+          textColor={192,192,192},
           textString="%uLow"),
         Text(
           extent={{4,-45},{93,-88}},
-          lineColor={192,192,192},
+          textColor={192,192,192},
           textString="%uHigh"),
         Rectangle(extent={{-89,-45},{-6,-88}}, lineColor={192,192,192}),
         Line(points={{-47,-25},{-47,-45}}, color={192,192,192}),

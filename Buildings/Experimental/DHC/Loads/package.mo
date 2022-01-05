@@ -1,7 +1,7 @@
 within Buildings.Experimental.DHC;
-package Loads
-  "Models for computing thermal loads served by the DES"
+package Loads "Models for computing thermal loads served by the DES"
   extends Modelica.Icons.VariantsPackage;
+
   annotation (
     preferredView="info",
     Documentation(

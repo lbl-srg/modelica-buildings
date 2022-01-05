@@ -8,9 +8,9 @@ model GlassLayer "Model for a glass layer of a window assembly"
   constant Boolean homotopyInitialization = true "= true, use homotopy method"
     annotation(HideResult=true);
 
-  parameter Modelica.SIunits.Length x "Material thickness";
+  parameter Modelica.Units.SI.Length x "Material thickness";
 
-  parameter Modelica.SIunits.ThermalConductivity k "Thermal conductivity";
+  parameter Modelica.Units.SI.ThermalConductivity k "Thermal conductivity";
 
   Modelica.Blocks.Interfaces.RealInput u
     "Input connector, used to scale the surface area to take into account an operable shading device"
@@ -38,11 +38,11 @@ protected
     "4th power of temperature at surface a";
  Real T4_b(min=1E8, unit="K4", start=293.15^4, nominal=1E10)
     "4th power of temperature at surface b";
- Modelica.SIunits.HeatFlowRate E_a(min=0, nominal=1E2)
+  Modelica.Units.SI.HeatFlowRate E_a(min=0, nominal=1E2)
     "Emissive power of surface a";
- Modelica.SIunits.HeatFlowRate E_b(min=0, nominal=1E2)
+  Modelica.Units.SI.HeatFlowRate E_b(min=0, nominal=1E2)
     "Emissive power of surface b";
- final parameter Modelica.SIunits.ThermalResistance R = x/2/k/A
+  final parameter Modelica.Units.SI.ThermalResistance R=x/2/k/A
     "Thermal resistance from surface of glass to center of glass";
 
 initial equation
@@ -95,11 +95,11 @@ equation
           pattern=LinePattern.None),
         Text(
           extent={{8,-70},{60,-98}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="QAbs"),
         Text(
           extent={{-96,88},{-64,70}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="u")}),
     Documentation(info="<html>
 Model of a single layer of window glass. The input port <code>QAbs_flow</code>
@@ -141,8 +141,8 @@ Removed nominal value for heat ports as the default is already
 <li>
 October 15, 2014, by Michael Wetter:<br/>
 Changed type of <code>tauIR</code> from
-<code>Modelica.SIunits.Emissivity</code> to
-<code>Modelica.SIunits.TransmissionCoefficient</code>.
+<code>Modelica.Units.SI.Emissivity</code> to
+<code>Modelica.Units.SI.TransmissionCoefficient</code>.
 This avoids a type error in OpenModelica.
 </li>
 <li>

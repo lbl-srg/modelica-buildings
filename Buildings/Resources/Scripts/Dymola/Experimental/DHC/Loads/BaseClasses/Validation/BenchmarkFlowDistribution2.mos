@@ -1,0 +1,26 @@
+simulateModel("Buildings.Experimental.DHC.Loads.BaseClasses.Validation.BenchmarkFlowDistribution2",
+    method="cvode",
+    tolerance=1e-6,
+    numberOfIntervals=500,
+    stopTime=2000000.0,
+    resultFile="BenchmarkFlowDistribution2");
+createPlot(
+    id=1,
+    position={1, 20, 492, 682},
+    y={"ter[1].TLoaODE.TAir", "minTSet.y"},
+    grid=true,
+    color=true,
+    displayUnits={"degC", "degC"},
+    filename="BenchmarkFlowDistribution2.mat");
+createPlot(
+    id=1,
+    y={"ter[1].QReqHea_flow", "ter[1].QActHea_flow"},
+    grid=true,
+    color=true,
+    subPlot=2);
+createPlot(
+    id=1,
+    y={"ter[1].mReqHeaWat_flow", "ter[1].port_aHeaWat.m_flow"},
+    grid=true,
+    color=true,
+    subPlot=3);

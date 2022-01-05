@@ -89,7 +89,7 @@ Buildings.Fluid.FMI.ExportContainers.Validation.RoomHVAC
             fillPattern=FillPattern.Solid),
           Text(
             extent={{-72,190},{70,84}},
-            lineColor={0,0,255},
+            textColor={0,0,255},
             textString="%name"),
           Polygon(
             points={{-28,-6},{-56,-18},{-28,-32},{-28,-6}},

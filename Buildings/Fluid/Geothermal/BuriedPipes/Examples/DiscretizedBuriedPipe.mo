@@ -6,17 +6,17 @@ model DiscretizedBuriedPipe
   replaceable package Medium = Buildings.Media.Water "Medium in the pipe"
     annotation (choicesAllMatching=true);
 
-  parameter Modelica.SIunits.Length totLen=10000 "Total pipe length";
+  parameter Modelica.Units.SI.Length totLen=10000 "Total pipe length";
 
   parameter Integer nSeg=2 "Number of pipe segments";
-  parameter Modelica.SIunits.Length segLen[nSeg] = fill(totLen/nSeg,nSeg)
+  parameter Modelica.Units.SI.Length segLen[nSeg]=fill(totLen/nSeg, nSeg)
     "Pipe segments length";
 
   parameter Integer nSegRev=10 "Number of pipe segments";
-  parameter Modelica.SIunits.Length segLenRev[nSegRev] = fill(totLen/nSegRev,nSegRev)
-    "Pipe segments length";
+  parameter Modelica.Units.SI.Length segLenRev[nSegRev]=fill(totLen/nSegRev,
+      nSegRev) "Pipe segments length";
 
-  parameter Modelica.SIunits.Length  dIns=0.2
+  parameter Modelica.Units.SI.Length dIns=0.2
     "Virtual insulation layer thickness";
 
   replaceable parameter
@@ -54,7 +54,7 @@ model DiscretizedBuriedPipe
 
   Modelica.Blocks.Sources.Sine Tin(
     amplitude=5,
-    freqHz=1/180/24/60/60,
+    f=1/180/24/60/60,
     offset=273.15 + 20) "Pipe inlet temperature signal"
     annotation (Placement(transformation(extent={{-120,-10},{-100,10}})));
   Sources.MassFlowSource_T sou(

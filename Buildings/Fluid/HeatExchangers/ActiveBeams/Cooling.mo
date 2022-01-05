@@ -28,9 +28,9 @@ model Cooling "Active beam unit for cooling"
     "= true to allow flow reversal in air circuit, false restricts to design direction (port_a -> port_b)"
     annotation(Dialog(tab="Assumptions"), Evaluate=true);
 
-  parameter Modelica.SIunits.Time tau = 30
+  parameter Modelica.Units.SI.Time tau=30
     "Time constant at nominal flow (if energyDynamics <> SteadyState)"
-     annotation (Dialog(tab = "Dynamics", group="Nominal condition"));
+    annotation (Dialog(tab="Dynamics", group="Nominal condition"));
 
   // Flow resistance
   parameter Boolean from_dpWat = false
@@ -70,7 +70,7 @@ model Cooling "Active beam unit for cooling"
   // Diagnostics
   parameter Boolean show_T = false
     "= true, if actual temperature at port is computed"
-    annotation(
+    annotation (
       Dialog(tab="Advanced", group="Diagnostics"),
       HideResult=true);
 
@@ -108,23 +108,23 @@ model Cooling "Active beam unit for cooling"
   MediumWat.ThermodynamicState staWatCoo_a=
       MediumWat.setState_phX(watCoo_a.p,
                            noEvent(actualStream(watCoo_a.h_outflow)),
-                           noEvent(actualStream(watCoo_a.Xi_outflow))) if
-         show_T "Medium properties in port watCoo_a";
+                           noEvent(actualStream(watCoo_a.Xi_outflow)))
+      if show_T "Medium properties in port watCoo_a";
   MediumWat.ThermodynamicState staWatCoo_b=
       MediumWat.setState_phX(watCoo_b.p,
                            noEvent(actualStream(watCoo_b.h_outflow)),
-                           noEvent(actualStream(watCoo_b.Xi_outflow))) if
-         show_T "Medium properties in port watCoo_b";
+                           noEvent(actualStream(watCoo_b.Xi_outflow)))
+      if show_T "Medium properties in port watCoo_b";
   MediumAir.ThermodynamicState staAir_a=
       MediumAir.setState_phX(air_a.p,
                            noEvent(actualStream(air_a.h_outflow)),
-                           noEvent(actualStream(air_a.Xi_outflow))) if
-         show_T "Medium properties in port air_a";
+                           noEvent(actualStream(air_a.Xi_outflow)))
+      if show_T "Medium properties in port air_a";
   MediumAir.ThermodynamicState staAir_b=
       MediumAir.setState_phX(air_b.p,
                            noEvent(actualStream(air_b.h_outflow)),
-                           noEvent(actualStream(air_b.Xi_outflow))) if
-         show_T "Medium properties in port air_b";
+                           noEvent(actualStream(air_b.Xi_outflow)))
+      if show_T "Medium properties in port air_b";
 
   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow heaToRoo(
     final alpha=0)
@@ -135,11 +135,11 @@ model Cooling "Active beam unit for cooling"
         origin={0,-36})));
 
   // Pressure drop
-  Modelica.SIunits.PressureDifference dpWatCoo(displayUnit="Pa") = watCoo_a.p - watCoo_b.p
-    "Pressure difference watCoo_a minus watCoo_b";
+  Modelica.Units.SI.PressureDifference dpWatCoo(displayUnit="Pa") = watCoo_a.p
+     - watCoo_b.p "Pressure difference watCoo_a minus watCoo_b";
 
-  Modelica.SIunits.PressureDifference dpAir(displayUnit="Pa") = air_a.p - air_b.p
-    "Pressure difference air_a minus air_b";
+  Modelica.Units.SI.PressureDifference dpAir(displayUnit="Pa") = air_a.p -
+    air_b.p "Pressure difference air_a minus air_b";
 
   FixedResistances.PressureDrop res(
     redeclare final package Medium = MediumAir,
@@ -260,7 +260,7 @@ equation
           fillPattern=FillPattern.Solid),
         Text(
           extent={{-149,141},{151,101}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           fillPattern=FillPattern.HorizontalCylinder,
           fillColor={0,127,255},
           textString="%name"),

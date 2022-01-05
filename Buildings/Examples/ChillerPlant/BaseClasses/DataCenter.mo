@@ -3,22 +3,22 @@ partial model DataCenter
   "Primary only chiller plant system with water-side economizer"
   replaceable package MediumA = Buildings.Media.Air "Medium model";
   replaceable package MediumW = Buildings.Media.Water "Medium model";
-  parameter Modelica.SIunits.MassFlowRate mAir_flow_nominal=roo.QRoo_flow/(1005
-      *15) "Nominal mass flow rate at fan";
-  parameter Modelica.SIunits.Power P_nominal=80E3
+  parameter Modelica.Units.SI.MassFlowRate mAir_flow_nominal=roo.QRoo_flow/(
+      1005*15) "Nominal mass flow rate at fan";
+  parameter Modelica.Units.SI.Power P_nominal=80E3
     "Nominal compressor power (at y=1)";
-  parameter Modelica.SIunits.TemperatureDifference dTEva_nominal=10
+  parameter Modelica.Units.SI.TemperatureDifference dTEva_nominal=10
     "Temperature difference evaporator inlet-outlet";
-  parameter Modelica.SIunits.TemperatureDifference dTCon_nominal=10
+  parameter Modelica.Units.SI.TemperatureDifference dTCon_nominal=10
     "Temperature difference condenser outlet-inlet";
   parameter Real COPc_nominal=3 "Chiller COP";
-  parameter Modelica.SIunits.MassFlowRate mCHW_flow_nominal=2*roo.QRoo_flow/(
+  parameter Modelica.Units.SI.MassFlowRate mCHW_flow_nominal=2*roo.QRoo_flow/(
       4200*20) "Nominal mass flow rate at chilled water";
 
-  parameter Modelica.SIunits.MassFlowRate mCW_flow_nominal=2*roo.QRoo_flow/(
+  parameter Modelica.Units.SI.MassFlowRate mCW_flow_nominal=2*roo.QRoo_flow/(
       4200*6) "Nominal mass flow rate at condenser water";
 
-  parameter Modelica.SIunits.PressureDifference dp_nominal=500
+  parameter Modelica.Units.SI.PressureDifference dp_nominal=500
     "Nominal pressure difference";
   Buildings.Fluid.Movers.FlowControlled_m_flow fan(
     redeclare package Medium = MediumA,
@@ -40,7 +40,7 @@ partial model DataCenter
     m2_flow(start=mAir_flow_nominal),
     dp2_nominal=249*3,
     UA_nominal=mAir_flow_nominal*1006*5,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyStateInitial,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     dp1_nominal(displayUnit="Pa") = 1000 + 89580)
     "Cooling coil"
     annotation (Placement(transformation(extent={{300,-180},{280,-160}})));
@@ -80,7 +80,7 @@ partial model DataCenter
     TAirInWB_nominal(displayUnit="degC") = 283.15,
     TApp_nominal=6,
     dp_nominal=14930 + 14930 + 74650,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyStateInitial)
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     "Cooling tower"                                   annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
@@ -146,7 +146,7 @@ partial model DataCenter
     dp2_nominal=0,
     dp1_nominal=0,
     per=Buildings.Fluid.Chillers.Data.ElectricEIR.ElectricEIRChiller_Carrier_19XR_742kW_5_42COP_VSD(),
-    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyStateInitial)
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     annotation (Placement(transformation(extent={{274,83},{254,103}})));
   Buildings.Fluid.Actuators.Valves.TwoWayLinear val6(
     redeclare package Medium = MediumW,
@@ -601,6 +601,12 @@ Buildings.Examples.ChillerPlant</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+December 6, 2021, by Michael Wetter:<br/>
+Changed initialization from steady-state initial to fixed initial.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2798\">issue 2798</a>.
+</li>
 <li>
 November 18, 2021, by Michael Wetter:<br/>
 Set <code>dp_nominal</code> for pumps and fan to a realistic value.<br/>

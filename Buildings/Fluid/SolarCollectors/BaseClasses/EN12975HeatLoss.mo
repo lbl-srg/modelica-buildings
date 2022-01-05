@@ -5,7 +5,7 @@ block EN12975HeatLoss "Calculate the heat loss of a solar collector per EN12975"
       "Heat loss at nominal condition, for reporting only",
     QLos_internal = A_c/nSeg * {dT[i] * (C1 - C2 * dT[i]) for i in 1:nSeg});
 
-  parameter Modelica.SIunits.CoefficientOfHeatTransfer C1(final min=0)
+  parameter Modelica.Units.SI.CoefficientOfHeatTransfer C1(final min=0)
     "C1 from ratings data";
 
   parameter Real C2(final unit = "W/(m2.K2)", final min=0)

@@ -10,7 +10,7 @@ model ConstantEffectiveness "Heat exchanger with constant effectiveness"
     mWat1_flow = 0,
     mWat2_flow = 0);
 
-  parameter Modelica.SIunits.Efficiency eps(max=1) = 0.8
+  parameter Modelica.Units.SI.Efficiency eps(max=1) = 0.8
     "Heat exchanger effectiveness";
 
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
@@ -21,7 +21,7 @@ model ConstantEffectiveness "Heat exchanger with constant effectiveness"
           fillColor={95,95,95},
           fillPattern=FillPattern.Solid), Text(
           extent={{-56,-12},{54,-72}},
-          lineColor={255,255,255},
+          textColor={255,255,255},
           textString="eps=%eps")}),
           preferredView="info",
 defaultComponentName="hex",

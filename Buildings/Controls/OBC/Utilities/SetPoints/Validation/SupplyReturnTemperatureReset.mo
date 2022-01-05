@@ -12,8 +12,7 @@ model SupplyReturnTemperatureReset
     height=40,
     duration=1,
     offset=263.15,
-    y(
-      unit="K"))
+    y(unit="K"))
     "Outdoor temperature varying from -10 degC to 30 degC"
     annotation (Placement(transformation(extent={{-60,50},{-40,70}})));
   Buildings.Controls.OBC.Utilities.SetPoints.SupplyReturnTemperatureReset heaCur1(
@@ -29,20 +28,17 @@ model SupplyReturnTemperatureReset
     shift=0.5,
     amplitude=-5,
     period=1,
-    y(
-      unit="K"))
+    y(unit="K"))
     "Night set back from 20 degC to 15 degC"
     annotation (Placement(transformation(extent={{-60,-70},{-40,-50}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TOut1(
     k=273.15-10,
-    y(
-      unit="K"))
+    y(unit="K"))
     "Constant outdoor air temperature"
     annotation (Placement(transformation(extent={{-60,-30},{-40,-10}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TRoo(
     k=273.15+20,
-    y(
-      unit="K"))
+    y(unit="K"))
     "Room temperature 20 degC"
     annotation (Placement(transformation(extent={{-60,10},{-40,30}})));
 

@@ -1,7 +1,7 @@
 within Buildings.ThermalZones.EnergyPlus.Validation;
-package OutputVariable
-  "Collection of validation models for EnergyPlus output variables"
+package OutputVariable "Collection of validation models for EnergyPlus output variables"
   extends Modelica.Icons.Package;
+
   annotation (
     preferredView="info",
     Documentation(

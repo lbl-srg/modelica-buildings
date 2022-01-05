@@ -5,7 +5,7 @@ block DiffusePerez
     Buildings.BoundaryConditions.SolarIrradiation.BaseClasses.PartialSolarIrradiation;
 
   parameter Real rho(min=0, max=1, final unit="1")=0.2 "Ground reflectance";
-  parameter Modelica.SIunits.Angle azi "Surface azimuth";
+  parameter Modelica.Units.SI.Angle azi "Surface azimuth";
   parameter Boolean outSkyCon=false
     "Output contribution of diffuse irradiation from sky";
   parameter Boolean outGroCon=false
@@ -209,5 +209,5 @@ First implementation.
             100}}), graphics={Text(
           extent={{-150,110},{150,150}},
           textString="%name",
-          lineColor={0,0,255})}));
+          textColor={0,0,255})}));
 end DiffusePerez;

@@ -2,11 +2,9 @@ within Buildings.Media.Refrigerants.R410A;
 function specificIsochoricHeatCapacityVap_Tv
   "Function that calculates the specific isochoric heat capacity of R410A vapor
   based on temperature and specific volume"
-  input Modelica.SIunits.Temperature T
-    "Temperature of refrigerant";
-  input Modelica.SIunits.SpecificVolume v
-    "Specific volume of refrigerant";
-  output Modelica.SIunits.SpecificHeatCapacity cv
+  input Modelica.Units.SI.Temperature T "Temperature of refrigerant";
+  input Modelica.Units.SI.SpecificVolume v "Specific volume of refrigerant";
+  output Modelica.Units.SI.SpecificHeatCapacity cv
     "Specific isochoric heat capacity";
 
 protected
@@ -16,10 +14,10 @@ protected
   Real integral_of_d2pdT2
     "Integral over v of the second derivative w.r.t. temperature of the Martin-Hou equation";
 
-  Modelica.SIunits.SpecificHeatCapacity cpo
+  Modelica.Units.SI.SpecificHeatCapacity cpo
     "Ideal gas specific isobaric heat capacity";
 
-  Modelica.SIunits.SpecificHeatCapacity cvo
+  Modelica.Units.SI.SpecificHeatCapacity cvo
     "Ideal gas specific isochoric heat capacity";
 
 algorithm

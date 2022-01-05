@@ -1,6 +1,5 @@
 within Buildings.Controls.OBC.CDL.Continuous;
-package Sources
-  "Package with blocks that generate source signals"
+package Sources "Package with blocks that generate source signals"
   annotation (
     Documentation(
       info="<html>
