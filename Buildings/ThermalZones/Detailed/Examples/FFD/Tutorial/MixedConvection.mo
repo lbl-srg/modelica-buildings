@@ -38,7 +38,6 @@ model MixedConvection "Tutorial for the mixed convection case"
     hRoo = 1,
     linearizeRadiation = false,
     useCFD = true,
-    haveSource=false,
     nSou=0,
     sensorName = {"Occupied zone air temperature", "Velocity"},
     cfdFilNam = "modelica://Buildings/Resources/Data/ThermalZones/Detailed/Examples/FFD/Tutorial/MixedConvection.ffd",
@@ -94,27 +93,27 @@ equation
       thickness=0.5,
       smooth=Smooth.None));
   connect(TFlo.port, roo.surf_surBou[6]) annotation (Line(
-      points={{140,-90},{96.2,-90},{96.2,-32}},
+      points={{140,-90},{96.2,-90},{96.2,-31.1667}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(TOthWal[1].port, roo.surf_surBou[1]) annotation (Line(
-      points={{140,-50},{96.2,-50},{96.2,-32}},
+      points={{140,-50},{96.2,-50},{96.2,-32.8333}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(TOthWal[2].port, roo.surf_surBou[2]) annotation (Line(
-      points={{140,-50},{96.2,-50},{96.2,-32}},
+      points={{140,-50},{96.2,-50},{96.2,-32.5}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(TOthWal[3].port, roo.surf_surBou[3]) annotation (Line(
-      points={{140,-50},{96.2,-50},{96.2,-32}},
+      points={{140,-50},{96.2,-50},{96.2,-32.1667}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(TOthWal[4].port, roo.surf_surBou[4]) annotation (Line(
-      points={{140,-50},{96.2,-50},{96.2,-32}},
+      points={{140,-50},{96.2,-50},{96.2,-31.8333}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(TOthWal[5].port, roo.surf_surBou[5]) annotation (Line(
-      points={{140,-50},{96.2,-50},{96.2,-32}},
+      points={{140,-50},{96.2,-50},{96.2,-31.5}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(bouIn.ports[1], roo.ports[1]) annotation (Line(

@@ -13,12 +13,12 @@
 | Section 1: General settings of isat
 ********************************************************************************/
 isat.useISAT 1 /*If use ISAT*/
-isat.useBinarySelectedPoint 0 /*If use binary pre-training*/
+isat.useBinarySelectedPoint 1 /*If use binary pre-training (for advanced users)*/
 isat.digAftdec 1 /*Digitals after decimal*/
-isat.read_existing 0 /*1: read existing database; 0: train from scratch*/
+isat.read_existing 1 /*1: read existing database; 0: train from scratch*/
 isat.write_existing 0 /*1: write ffd results to database; 0: do not write*/
-isat.err_global 0.2 /*user-defined global error tolerance*/
-isat.num_input 2 /*number of isat inputs*/
+isat.err_global 0.1 /*user-defined global error tolerance*/
+isat.num_input 1 /*number of isat inputs*/
 isat.num_output 2 /*number of isat outputs*/
 
 /********************************************************************************
@@ -33,11 +33,16 @@ isat.num_output 2 /*number of isat outputs*/
 //-------------------------------------------------------------------------
 /*inpu.inpu_name: names of inputs including inlet_temp, inlet_mass, inlet_vel, block_temp, block_hea, sur_temp, sur_hea*/
 inpu.inpu_name sur_temp
-inpu.inpu_name sur_temp
 /*number of inlets, blocks and walls*/
 inpu.num_inlet 0
 inpu.num_block 0
 inpu.num_wall 6
+/*inpu.xBoundary_upper: inpu upper boundary for genereating gird in Binary pretraining*/
+inpu.xBoundary_upper 40
+/*inpu.xBoundary_lower: inpu lower boundary for genereating gird in Binary pretraining*/
+inpu.xBoundary_lower -30
+/*inpu.divide: define coarse/fine gird in Binary pretraining*/
+inpu.divide 128
 
 //-------------------------------------------------------------------------
 // Section 2.1: Settings of inlets
@@ -47,15 +52,21 @@ inpu.num_wall 6
 /*inpu.dir_inlet: 1: x; 2: y; 3: z*/
 inpu.dir_inlet 1
 
+/*inpu.default_mass_flowrate: set a default mass flowrate if using prescribed outlet bc. NOTE: for advanced users only.*/
+inpu.default_mass_flowrate 0.1205
+
+/*inlet_area_value: inlet area*/
+inpu.inlet_area_value 0.1
+
 /*inpu.inlet_temp_re: inlet_temp will be overwritten or not*/
 inpu.inlet_temp_re 0
 /*inpu.inlet_vel_re: inlet_u will be overwritten or not*/
 inpu.inlet_vel_re 0
 
 /*inpu.inlet_temp_wh: value of inlet_temp will be assigned by which isat input*/
-inpu.inlet_temp_wh 0
+inpu.inlet_temp_wh 1
 /*inpu.inlet_vel_wh: value of inlet_u will be assigned by which isat input*/
-inpu.inlet_vel_wh 0
+inpu.inlet_vel_wh 1
 
 //-------------------------------------------------------------------------
 // Section 2.2: Settings of blocks
@@ -72,26 +83,43 @@ inpu.block_wh 0
 //-------------------------------------------------------------------------
 /*inpu.wall_re: temperature or heat flux of walls will be overwritten or not*/
 inpu.wall_re 1
-inpu.wall_re 1
-inpu.wall_re 1
-inpu.wall_re 1
-inpu.wall_re 1
-inpu.wall_re 1
+inpu.wall_re 0
+inpu.wall_re 0
+inpu.wall_re 0
+inpu.wall_re 0
+inpu.wall_re 0
 /*inpu.wall_wh: temperature or heat flux of walls will be assigned by which isat input*/
 inpu.wall_wh 1
-inpu.wall_wh 1
-inpu.wall_wh 1
-inpu.wall_wh 1
-inpu.wall_wh 1
-inpu.wall_wh 2
+inpu.wall_wh 0
+inpu.wall_wh 0
+inpu.wall_wh 0
+inpu.wall_wh 0
+inpu.wall_wh 0
 
 
 /********************************************************************************
 | Section 3: Output settings of isat and ffd
 ********************************************************************************/
 /*outp.outp_name: names of outputs including temp_occ, vel_occ, temp_sen, vel_sen, temp_rack, heat_wall1, heat_wall2, heat_wall3, heat_wall4, heat_wall5, heat_wall6*/
-outp.outp_name temp_occ
-outp.outp_name vel_sen
-/*outp.outp_weight: weights for error control, when outputs have different order of magnitudes*/
-outp.outp_weight 1.0
-outp.outp_weight 0.1
+outp.outp_name temp_roo
+outp.outp_name heat_wall1
+/*outp.outp_Boundary_upper: output upper boundary for error control, when outputs have different order of magnitudes*/
+outp.outp_Boundary_upper 284.15
+outp.outp_Boundary_upper 12.0
+/*outp.outp_Boundary_lower: output lower boundary for error control, when outputs have different order of magnitudes*/
+outp.outp_Boundary_lower 281.15
+outp.outp_Boundary_lower -10.0
+/*outp.wall_heat_re: heat flux of walls will be returned or not*/
+outp.wall_heat_re 1
+outp.wall_heat_re 0
+outp.wall_heat_re 0
+outp.wall_heat_re 0
+outp.wall_heat_re 0
+outp.wall_heat_re 0
+/*outp.wall_heat_wh: heat flux of walls will be assigned by which isat output*/
+outp.wall_heat_wh 2
+outp.wall_heat_wh 1
+outp.wall_heat_wh 1
+outp.wall_heat_wh 1
+outp.wall_heat_wh 1
+outp.wall_heat_wh 1

@@ -39,9 +39,8 @@ model MixedConvectionWithBox
     hRoo = 1,
     linearizeRadiation = false,
     useCFD = true,
-    haveSource=true,
     nSou=1,
-    sensorName = {"Occupied zone air temperature", "Velocity"},
+    sensorName = {"Zone air temperature", "Velocity"},
     cfdFilNam = "modelica://Buildings/Resources/Data/ThermalZones/Detailed/Examples/ISAT/Tutorial/MixedConvectionWithBox/input.ffd",
     nConExt = nConExt,
     nConExtWin = nConExtWin,
@@ -76,7 +75,7 @@ model MixedConvectionWithBox
   Modelica.Blocks.Sources.Step step(
     height=15,
     offset=283.15,
-    startTime=201)
+    startTime=100)
     annotation (Placement(transformation(extent={{-40,60},{-20,80}})));
 equation
   connect(qRadGai_flow.y,multiplex3_1. u1[1]) annotation (Line(
