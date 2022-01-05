@@ -1,4 +1,4 @@
-﻿within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Towers.Staging;
+within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Towers.Staging;
 block Controller "Sequence of staging cooling tower cells"
 
   parameter Boolean have_WSE=true
