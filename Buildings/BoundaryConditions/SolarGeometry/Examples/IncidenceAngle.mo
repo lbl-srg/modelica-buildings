@@ -2,31 +2,26 @@ within Buildings.BoundaryConditions.SolarGeometry.Examples;
 model IncidenceAngle "Test model for solar incidence angle"
   extends Modelica.Icons.Example;
   Buildings.BoundaryConditions.SolarGeometry.IncidenceAngle incAngHor(
-    til=Buildings.Types.Tilt.Ceiling,
-    lat=0.73097781993588,
-    azi=0.3) "Incidence angle on horizontal surface"
+    til=Buildings.Types.Tilt.Ceiling, azi=0.3)
+    "Incidence angle on horizontal surface"
     annotation (Placement(transformation(extent={{0,70},{20,90}})));
   Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(
     filNam=Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"))
     "Weather data (Chicago)"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
   Buildings.BoundaryConditions.SolarGeometry.IncidenceAngle incAngNor(
-    lat=0.73097781993588,
     azi=Buildings.Types.Azimuth.N,
     til=Buildings.Types.Tilt.Wall) "Incidence angle on North-facing surface"
     annotation (Placement(transformation(extent={{0,30},{20,50}})));
   Buildings.BoundaryConditions.SolarGeometry.IncidenceAngle incAngWes(
-    lat=0.73097781993588,
     azi=Buildings.Types.Azimuth.W,
     til=Buildings.Types.Tilt.Wall) "Incidence angle on West-facing surface"
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
   Buildings.BoundaryConditions.SolarGeometry.IncidenceAngle incAngSou(
-    lat=0.73097781993588,
     azi=Buildings.Types.Azimuth.S,
     til=Buildings.Types.Tilt.Wall) "Incidence angle on South-facing surface"
     annotation (Placement(transformation(extent={{0,-50},{20,-30}})));
   Buildings.BoundaryConditions.SolarGeometry.IncidenceAngle incAngEas(
-    lat=0.73097781993588,
     azi=Buildings.Types.Azimuth.E,
     til=Buildings.Types.Tilt.Wall) "Incidence angle on East-facing surface"
     annotation (Placement(transformation(extent={{0,-90},{20,-70}})));

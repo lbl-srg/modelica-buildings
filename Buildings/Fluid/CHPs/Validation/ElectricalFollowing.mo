@@ -224,7 +224,7 @@ First implementation.
           pattern=LinePattern.Dot),
                               Text(
           extent={{78,98},{124,84}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           pattern=LinePattern.Dash,
           lineThickness=0.5,
           textStyle={TextStyle.Bold},

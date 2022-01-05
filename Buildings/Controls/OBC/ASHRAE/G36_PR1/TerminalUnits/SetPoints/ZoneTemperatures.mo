@@ -384,73 +384,73 @@ protected
   Buildings.Controls.OBC.CDL.Continuous.Greater gre2
     "Check whether heating setpoint exceeds cooling setpoint minus 0.56 degC"
     annotation (Placement(transformation(extent={{220,-590},{240,-570}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi
     "Switch between occupied and unoccupied cooling setpoint"
     annotation (Placement(transformation(extent={{-300,520},{-280,540}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi1
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi1
     "Switch between occupied and unoccupied heating setpoint"
     annotation (Placement(transformation(extent={{-300,440},{-280,460}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi2
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi2
     "Setpoint can only be adjusted in occupied mode"
     annotation (Placement(transformation(extent={{-120,360},{-100,340}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi3
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi3
     "Setpoint can only be adjusted in occupied mode"
     annotation (Placement(transformation(extent={{220,260},{240,240}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi4
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi4
     "If there is no cooling adjustment, zero adjust"
     annotation (Placement(transformation(extent={{-280,320},{-260,340}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi5
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi5
     "If there is no heating adjustment, zero adjust"
     annotation (Placement(transformation(extent={{0,240},{20,260}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi6
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi6
     "If there is only one common adjust for both heating and cooling, use the adjust value from cooling one"
     annotation (Placement(transformation(extent={{80,240},{100,260}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi7
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi7
     "Ensure heating setpoint being not higher than cooling setpoint minus 0.56 degC"
     annotation (Placement(transformation(extent={{280,-590},{300,-570}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi8
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi8
     "Ensure unoccupied heating setppint being lower than occupied one"
     annotation (Placement(transformation(extent={{100,-610},{120,-590}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi9
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi9
     "Ensure unoccupied cooling setppint being higher than occupied one"
     annotation (Placement(transformation(extent={{100,-550},{120,-530}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi10
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi10
     "Switch between occupied and unoccupied cooling setpoint"
     annotation (Placement(transformation(extent={{220,80},{240,100}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi11
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi11
     "Switch between occupied and unoccupied cooling setpoint"
     annotation (Placement(transformation(extent={{220,-140},{240,-120}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi12
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi12
     "Increase cooling setpoint when the zone is unpopulated by more than 5 minutes"
     annotation (Placement(transformation(extent={{160,-280},{180,-260}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi13
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi13
     "Decrease heating setpoint when the zone is unpopulated by more than 5 minutes"
     annotation (Placement(transformation(extent={{160,-320},{180,-300}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi14
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi14
     "Switch to TZonCooSetWinOpe when window is open"
     annotation (Placement(transformation(extent={{-180,-460},{-160,-440}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi15
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi15
     "Switch to TZonHeaSetWinOpe when window is open"
     annotation (Placement(transformation(extent={{-60,-460},{-40,-440}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi16
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi16
     "Generate level 4 alarm when window is open during modes other than occupied"
     annotation (Placement(transformation(extent={{-100,-420},{-80,-400}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi17
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi17
     "If it is occupied mode, cooling setpoint should be limited"
     annotation (Placement(transformation(extent={{-180,-550},{-160,-530}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi18
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi18
     "If it is occupied mode, heating setpoint should be limited"
     annotation (Placement(transformation(extent={{-180,-610},{-160,-590}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi19
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi19
     "If there is occupancy sensor, update heating setpoint according to the occupancy"
     annotation (Placement(transformation(extent={{220,-320},{240,-300}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi20
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi20
     "If there is occupancy sensor, update cooling setpoint according to the occupancy"
     annotation (Placement(transformation(extent={{220,-280},{240,-260}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi21
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi21
     "If there is window status sensor, update heating setpoint according to the window status"
     annotation (Placement(transformation(extent={{160,-480},{180,-460}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi22
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi22
     "If there is window status sensor, update cooling setpoint according to the window status"
     annotation (Placement(transformation(extent={{100,-460},{120,-440}})));
   Buildings.Controls.OBC.CDL.Integers.Equal intEqu7
@@ -1102,49 +1102,49 @@ annotation (
         fillPattern=FillPattern.Solid),
         Text(
           extent={{-96,100},{-30,82}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="TZonCooSetOcc"),
         Text(
           extent={{-96,52},{-28,32}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="TZonHeaSetOcc"),
         Text(
           extent={{-96,28},{-30,12}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="TZonHeaSetUno"),
         Text(
           extent={{-96,76},{-30,62}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="TZonCooSetUno"),
         Text(
           visible=heaAdj,
           extent={{-100,-24},{-48,-36}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="heaSetAdj"),
         Text(
           visible=cooAdj or sinAdj,
           extent={{-100,0},{-66,-14}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="setAdj"),
         Text(
           extent={{-100,138},{-50,126}},
-          lineColor={255,127,0},
+          textColor={255,127,0},
           pattern=LinePattern.Dash,
           textString="uOpeMod"),
         Text(
           extent={{-96,-50},{-20,-68}},
-          lineColor={255,127,0},
+          textColor={255,127,0},
           pattern=LinePattern.Dash,
           textString="uCooDemLimLev"),
         Text(
           extent={{-96,-72},{-24,-88}},
-          lineColor={255,127,0},
+          textColor={255,127,0},
           pattern=LinePattern.Dash,
           textString="uHeaDemLimLev"),
         Text(
@@ -1161,22 +1161,22 @@ annotation (
           textString="uWinSta"),
         Text(
           extent={{72,-74},{100,-86}},
-          lineColor={255,127,0},
+          textColor={255,127,0},
           pattern=LinePattern.Dash,
           textString="yAla"),
         Text(
           extent={{50,88},{98,72}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="TZonCooSet"),
         Text(
           extent={{46,10},{96,-8}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="TZonHeaSet"),
         Text(
           extent={{-120,180},{100,140}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%name")}),
   Diagram(coordinateSystem(
         preserveAspectRatio=false,
@@ -1225,32 +1225,32 @@ annotation (
           pattern=LinePattern.None),
         Text(
           extent={{124,632},{322,596}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid,
           textString="Operation mode recognition"),
         Text(
           extent={{176,550},{324,506}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid,
           textString="Setpoints recognition"),
         Text(
           extent={{132,382},{324,332}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid,
           textString="Local setpoints adjustment"),
         Text(
           extent={{-254,-290},{-2,-384}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid,
           horizontalAlignment=TextAlignment.Left,
           textString="Adjust setpoints due to occupancy"),
         Text(
           extent={{-34,-384},{252,-430}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid,
           horizontalAlignment=TextAlignment.Left,
@@ -1269,7 +1269,7 @@ annotation (
           pattern=LinePattern.None),
         Text(
           extent={{-394,-540},{-184,-584}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid,
           horizontalAlignment=TextAlignment.Left,
@@ -1277,7 +1277,7 @@ annotation (
 in the range"),
         Text(
           extent={{-124,-526},{76,-594}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid,
           horizontalAlignment=TextAlignment.Left,
@@ -1285,7 +1285,7 @@ in the range"),
 unoccupied"),
         Text(
           extent={{34,-478},{298,-564}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid,
           horizontalAlignment=TextAlignment.Right,
@@ -1293,7 +1293,7 @@ unoccupied"),
 by heating one"),
         Text(
           extent={{74,192},{326,98}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid,
           horizontalAlignment=TextAlignment.Right,

@@ -4,7 +4,7 @@ model MoverParameter
   extends Modelica.Icons.Example;
   package Medium = Buildings.Media.Water;
 
-  parameter Modelica.SIunits.MassFlowRate m_flow_nominal=2
+  parameter Modelica.Units.SI.MassFlowRate m_flow_nominal=2
     "Nominal mass flow rate";
 
   FlowControlled_m_flow pump_m_flow(
@@ -60,7 +60,7 @@ model MoverParameter
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)
     "Pump with speed input"
     annotation (Placement(transformation(extent={{-10,30},{10,50}})));
-  parameter Modelica.SIunits.PressureDifference dp_nominal=10000
+  parameter Modelica.Units.SI.PressureDifference dp_nominal=10000
     "Nominal pressure raise";
 equation
   connect(sou.ports[1], pump_m_flow.port_a) annotation (Line(

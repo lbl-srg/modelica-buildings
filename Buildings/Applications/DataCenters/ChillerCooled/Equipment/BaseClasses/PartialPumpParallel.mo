@@ -19,15 +19,18 @@ partial model PartialPumpParallel "Partial model for pump parallel"
   parameter Boolean addPowerToMedium=false
     "Set to false to avoid any power (=heat and flow work) being added to medium (may give simpler equations)"
     annotation(Dialog(group="Pump"));
-  parameter Modelica.SIunits.Time tau = 1
+  parameter Modelica.Units.SI.Time tau=1
     "Time constant at nominal flow (if energyDynamics <> SteadyState)"
-     annotation (Dialog(tab = "Dynamics", group="Pump"));
+    annotation (Dialog(tab="Dynamics", group="Pump"));
   parameter Boolean use_inputFilter=true
     "= true, if speed is filtered with a 2nd order CriticalDamping filter"
     annotation(Dialog(tab="Dynamics", group="Pump"));
-  parameter Modelica.SIunits.Time riseTimePump= 30
-    "Rise time of the filter (time to reach 99.6 % of the speed)"
-    annotation(Dialog(tab="Dynamics", group="Pump",enable=use_inputFilter));
+  parameter Modelica.Units.SI.Time riseTimePump=30
+    "Rise time of the filter (time to reach 99.6 % of the speed)" annotation (
+      Dialog(
+      tab="Dynamics",
+      group="Pump",
+      enable=use_inputFilter));
   parameter Modelica.Blocks.Types.Init init=Modelica.Blocks.Types.Init.InitialOutput
     "Type of initialization (no init/steady state/initial state/initial output)"
     annotation(Dialog(tab="Dynamics", group="Pump",enable=use_inputFilter));
@@ -37,9 +40,12 @@ partial model PartialPumpParallel "Partial model for pump parallel"
    // Valve parameters
   parameter Real l=0.0001 "Valve leakage, l=Kv(y=0)/Kv(y=1)"
     annotation(Dialog(group="Two-way valve"));
-  parameter Modelica.SIunits.Time riseTimeValve = 120
-    "Rise time of the filter (time to reach 99.6 % of the speed)"
-    annotation(Dialog(tab="Dynamics", group="Valve",enable=use_inputFilter));
+  parameter Modelica.Units.SI.Time riseTimeValve=120
+    "Rise time of the filter (time to reach 99.6 % of the speed)" annotation (
+      Dialog(
+      tab="Dynamics",
+      group="Valve",
+      enable=use_inputFilter));
   parameter Real[num] yValve_start = fill(0,num)
     "Initial value of pump signals"
     annotation(Dialog(tab="Dynamics", group="Valve",enable=use_inputFilter));
@@ -107,7 +113,6 @@ partial model PartialPumpParallel "Partial model for pump parallel"
     each final use_inputFilter=use_inputFilter,
     each final riseTime=riseTimePump,
     each final init=init,
-    final y_start= yPump_start,
     each final energyDynamics=energyDynamics,
     each final massDynamics=massDynamics,
     each final p_start=p_start,

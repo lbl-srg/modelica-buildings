@@ -165,9 +165,9 @@ protected
   Buildings.Controls.OBC.CDL.Continuous.Add add1(final k2=-1)
     "Add block that determines difference the between TOut and TOutCut"
     annotation (Placement(transformation(extent={{-140,244},{-120,264}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch outDamSwitch "Set maximum OA damper position to minimum at disable (after time delay)"
+  Buildings.Controls.OBC.CDL.Continuous.Switch outDamSwitch "Set maximum OA damper position to minimum at disable (after time delay)"
     annotation (Placement(transformation(extent={{40,-150},{60,-130}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch minRetDamSwitch
+  Buildings.Controls.OBC.CDL.Continuous.Switch minRetDamSwitch
     "Keep minimum RA damper position at physical maximum for a short time period after disable"
     annotation (Placement(transformation(extent={{40,-250},{60,-230}})));
   Buildings.Controls.OBC.CDL.Logical.Nor nor1 "Logical nor"
@@ -193,16 +193,16 @@ protected
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
   Buildings.Controls.OBC.CDL.Logical.Not not3 "Negation for check of freeze protection status"
     annotation (Placement(transformation(extent={{-44,-10},{-24,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Add add3(final k2=-1) if
-    use_fixed_plus_differential_drybulb
+  Buildings.Controls.OBC.CDL.Continuous.Add add3(final k2=-1)
+ if use_fixed_plus_differential_drybulb
     "Add block that determines difference the between TOut and TOutCut"
     annotation (Placement(transformation(extent={{-140,200},{-120,220}})));
   Buildings.Controls.OBC.CDL.Continuous.Hysteresis hysCutTem(final uHigh=
         TOutHigLimCutHig, final uLow=TOutHigLimCutLow) if use_fixed_plus_differential_drybulb
     "Outdoor air temperature hysteresis for both fixed and differential dry bulb temperature cutoff conditions"
     annotation (Placement(transformation(extent={{-100,200},{-80,220}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant entSubst1(final k=false) if
-       not use_fixed_plus_differential_drybulb
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant entSubst1(final k=false)
+    if not use_fixed_plus_differential_drybulb
     "Deactivates the option if not using both fixed and differential dry bulb"
     annotation (Placement(transformation(extent={{18,212},{38,232}})));
   CDL.Logical.Nor nor2 if use_fixed_plus_differential_drybulb "Logical nor"
@@ -314,7 +314,7 @@ annotation (
           thickness=0.5),
         Text(
           extent={{-170,142},{158,104}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="%name")}),
     Diagram(coordinateSystem(
         preserveAspectRatio=false,
@@ -346,29 +346,29 @@ annotation (
           fillPattern=FillPattern.Solid),
                                      Text(
           extent={{102,168},{178,156}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           horizontalAlignment=TextAlignment.Left,
           textString="Outdoor air
 conditions"),                        Text(
           extent={{100,70},{264,48}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           horizontalAlignment=TextAlignment.Left,
           textString="Freeze protection -
 disable if stage1
 and above"),                         Text(
           extent={{100,-34},{214,-86}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           horizontalAlignment=TextAlignment.Left,
           textString="Damper position
 limit assignments"),                 Text(
           extent={{102,16},{206,-22}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           horizontalAlignment=TextAlignment.Left,
           textString="Zone state -
 disable if
 heating"),                           Text(
           extent={{100,102},{182,92}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           horizontalAlignment=TextAlignment.Left,
           textString="Supply fan status")}),
     Documentation(info="<html>

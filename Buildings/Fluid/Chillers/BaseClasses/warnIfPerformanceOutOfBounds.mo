@@ -1,5 +1,5 @@
 within Buildings.Fluid.Chillers.BaseClasses;
-function warnIfPerformanceOutOfBounds
+impure function warnIfPerformanceOutOfBounds
   "Function that checks the performance and writes a warning if it is outside of 0.9 to 1.1"
   input Real x "Argument to be checked";
   input String msg "String to be added to warning message";
@@ -32,6 +32,10 @@ If this is the case, the function writes a warning.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+December 12, 2021, by Michael Wetter:<br/>
+Added <code>impure</code> keyword for MSL 4.0.0.
+</li>
 <li>
 September 12, 2010 by Michael Wetter:<br/>
 First implementation.

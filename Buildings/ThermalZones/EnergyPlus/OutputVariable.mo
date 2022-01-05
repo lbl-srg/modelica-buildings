@@ -41,8 +41,9 @@ protected
     startTime=startTime,
     modelicaNameBuilding=modelicaNameBuilding,
     modelicaInstanceName=modelicaInstanceName,
+    spawnExe=spawnExe,
     idfName=idfName,
-    weaName=weaName,
+    epwName=epwName,
     relativeSurfaceTolerance=relativeSurfaceTolerance,
     epName=name,
     usePrecompiledFMU=usePrecompiledFMU,
@@ -69,9 +70,7 @@ protected
     "Class to communicate with EnergyPlus";
   Real yEP[nY]
     "Output of exchange function";
-  Modelica.SIunits.Time tNext(
-    start=startTime,
-    fixed=true)
+  Modelica.Units.SI.Time tNext(start=startTime, fixed=true)
     "Next sampling time";
 
 initial equation
@@ -105,11 +104,11 @@ equation
       graphics={
         Text(
           extent={{-88,84},{80,50}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%key"),
         Text(
           extent={{-86,36},{80,2}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%name"),
         Text(
           extent={{-90,-96},{100,-28}},
@@ -129,7 +128,7 @@ or the EnergyPlus meter dictionary file (<code>.mdd</code> file).
 </p>
 <p>
 The variable of the output <code>y</code> has Modelica SI units, as declared in
-<a href=\"modelica://Modelica.SIunits\">Modelica.SIunits</a>.
+<a href=\"modelica://Modelica.Units.SI\">Modelica.Units.SI</a>.
 For example, temperatures will be in Kelvin, and mass flow rates will be in
 <code>kg/s</code>.
 </p>

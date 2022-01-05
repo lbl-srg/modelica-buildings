@@ -38,6 +38,13 @@ for the implementation of the regularization near the origin.
 revisions="<html>
 <ul>
 <li>
+June 10, 2021, by Michael Wetter:<br/>
+Changed implementation of the filter and changed the parameter <code>order</code> to a constant
+as most users need not change this value.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1498\">#1498</a>.
+</li>
+<li>
 November 5, 2019, by Michael Wetter:<br/>
 Moved assignment of leakage from <a href=\"modelica://Buildings.Fluid.Actuators.BaseClasses.PartialThreeWayValve\">
 Buildings.Fluid.Actuators.BaseClasses.PartialThreeWayValve</a>

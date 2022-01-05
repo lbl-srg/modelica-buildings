@@ -38,6 +38,6 @@ First implementation.
 </li>
 </ul>
 </html>"),
-    __Dymola_Commands(file="Resources/Scripts/Dymola/Utilities/Math/Functions/Examples/QuinticHermite.mos"
+    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Utilities/Math/Functions/Examples/QuinticHermite.mos"
         "Simulate and plot"));
 end QuinticHermite;

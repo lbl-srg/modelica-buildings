@@ -29,7 +29,7 @@ equation
             100}}), graphics={
         Text(
           extent={{-50,44},{56,-40}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="P")}),
             Documentation(info="<html>
 <p>

@@ -9,17 +9,17 @@ model AirHeating
       "modelica://Buildings/Resources/Data/ThermalZones/EnergyPlus/Examples/SingleFamilyHouse_TwoSpeed_ZoneAirBalance/SingleFamilyHouse_TwoSpeed_ZoneAirBalance.idf"),
     weaName=Modelica.Utilities.Files.loadResource(
       "modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"),
-    showWeatherData=true,
+    epwName=Modelica.Utilities.Files.loadResource(
+      "modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.epw"),
     computeWetBulbTemperature=false)
     "Building model"
     annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
-  constant Modelica.SIunits.Volume VRoo=453.138
-    "Room volume";
-  constant Modelica.SIunits.Area AFlo=185.834
+  constant Modelica.Units.SI.Volume VRoo=453.138 "Room volume";
+  constant Modelica.Units.SI.Area AFlo=185.834
     "Floor area of the whole floor of the building";
-  parameter Modelica.SIunits.MassFlowRate mOut_flow_nominal=0.3*VRoo*1.2/3600
+  parameter Modelica.Units.SI.MassFlowRate mOut_flow_nominal=0.3*VRoo*1.2/3600
     "Outdoor air mass flow rate, assuming constant infiltration air flow rate";
-  parameter Modelica.SIunits.MassFlowRate mRec_flow_nominal=8*VRoo*1.2/3600
+  parameter Modelica.Units.SI.MassFlowRate mRec_flow_nominal=8*VRoo*1.2/3600
     "Nominal mass flow rate for recirculated air";
   Buildings.ThermalZones.EnergyPlus.ThermalZone zon(
     redeclare package Medium=Medium,
@@ -41,8 +41,7 @@ model AirHeating
     period(
       displayUnit="d")=86400,
     offset=273.15+16,
-    y(
-      unit="K",
+    y(unit="K",
       displayUnit="degC"))
     "Setpoint for room air"
     annotation (Placement(transformation(extent={{-150,-110},{-130,-90}})));
@@ -69,21 +68,6 @@ model AirHeating
     show_T=true)
     "Ideal heater"
     annotation (Placement(transformation(extent={{80,-30},{100,-10}})));
-  Modelica.Blocks.Math.MatrixGain gai(
-    K=120/AFlo*[
-      0.4;
-      0.4;
-      0.2])
-    "Matrix gain to split up heat gain in radiant, convective and latent gain"
-    annotation (Placement(transformation(extent={{-40,100},{-20,120}})));
-  Controls.OBC.CDL.Continuous.Sources.Pulse nPer(
-    shift(
-      displayUnit="h")=25200,
-    period(
-      displayUnit="d")=86400,
-    amplitude=2)
-    "Number of persons"
-    annotation (Placement(transformation(extent={{-80,100},{-60,120}})));
   Fluid.Sources.Boundary_pT pAtm(
     redeclare package Medium=Medium,
     nPorts=1)
@@ -135,6 +119,9 @@ model AirHeating
     "Minimum supply air temperature"
     annotation (Placement(transformation(extent={{8,-110},{28,-90}})));
 
+  Modelica.Blocks.Sources.Constant qIntGai[3](each k=0)
+    "Internal heat gains, set to zero because these are modeled in EnergyPlus"
+    annotation (Placement(transformation(extent={{-40,100},{-20,120}})));
 initial equation
   // Stop simulation if the hard-coded values differ from the ones computed by EnergyPlus.
   assert(
@@ -151,10 +138,6 @@ equation
     annotation (Line(points={{-128,-100},{-122,-100}},color={0,0,127}));
   connect(conPID.u_m,zon.TAir)
     annotation (Line(points={{-110,-112},{-110,-120},{122,-120},{122,118},{61,118}},color={0,0,127}));
-  connect(gai.u[1],nPer.y)
-    annotation (Line(points={{-42,110},{-58,110}},color={0,0,127}));
-  connect(zon.qGai_flow,gai.y)
-    annotation (Line(points={{18,110},{-19,110}},color={0,0,127}));
   connect(fan.port_b,hea.port_a)
     annotation (Line(points={{60,-20},{80,-20}},color={0,127,255}));
   connect(building.weaBus,freshAir.weaBus)
@@ -191,6 +174,8 @@ equation
     annotation (Line(points={{61,118},{122,118},{122,-120},{0,-120},{0,-100},{6,-100}},color={0,0,127}));
   connect(TSupMin.y,TAirLvgSet.u2)
     annotation (Line(points={{30,-100},{34,-100},{34,-86},{38,-86}},color={0,0,127}));
+  connect(zon.qGai_flow, qIntGai.y)
+    annotation (Line(points={{18,110},{-19,110}}, color={0,0,127}));
   annotation (
     Documentation(
       info="<html>

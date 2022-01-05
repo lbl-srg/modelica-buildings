@@ -2,11 +2,12 @@ within Buildings.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.ThermalRes
 model CylindricalHeatSource "Test case for cylindrical heat source"
   extends Modelica.Icons.Example;
 
-  parameter Modelica.SIunits.ThermalDiffusivity aSoi = 1.0e-6 "Ground thermal diffusivity";
-  parameter Modelica.SIunits.Radius rSource = 0.075 "Radius of cylinder source";
-  parameter Modelica.SIunits.Radius[5] r = {rSource, 2*rSource, 5*rSource, 10*rSource, 20*rSource}
-    "Radial position of evaluation of the solution";
-  Modelica.SIunits.Time t "Time";
+  parameter Modelica.Units.SI.ThermalDiffusivity aSoi=1.0e-6
+    "Ground thermal diffusivity";
+  parameter Modelica.Units.SI.Radius rSource=0.075 "Radius of cylinder source";
+  parameter Modelica.Units.SI.Radius[5] r={rSource,2*rSource,5*rSource,10*
+      rSource,20*rSource} "Radial position of evaluation of the solution";
+  Modelica.Units.SI.Time t "Time";
   Real[5] G "Cylindrical heat source solution";
 
 equation

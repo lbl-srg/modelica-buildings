@@ -37,15 +37,14 @@ equation
         t_past
       else
         time+delayTime;
-    y=
-      if not(delayOnInit and delayTime > 0) then
+    y=if not
+            (delayOnInit and delayTime > 0) then
         u
       else
         false;
   elsewhen u then
     t_next=time+delayTime;
-    y=
-      if delayTime > 0 then
+    y=if delayTime > 0 then
         false
       else
         true;
@@ -68,7 +67,7 @@ equation
           borderPattern=BorderPattern.Raised),
         Text(
           extent={{-250,-120},{250,-150}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="%delayTime"),
         Line(
           points={{-80,-66},{-60,-66},{-60,-22},{38,-22},{38,-66},{66,-66}}),
@@ -103,7 +102,7 @@ equation
           fillPattern=FillPattern.Solid),
         Text(
           extent={{-150,150},{150,110}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%name")}),
     Documentation(
       info="<html>
@@ -134,7 +133,7 @@ is shown below.
 <ul>
 <li>
 November 12, 2020, by Michael Wetter:<br/>
-Reformulated to remove dependency to <code>Modelica.SIunits</code>.<br/>
+Reformulated to remove dependency to <code>Modelica.Units.SI</code>.<br/>
 This is for
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2243\">issue 2243</a>.
 </li>

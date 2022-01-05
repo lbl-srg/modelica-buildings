@@ -36,25 +36,27 @@ partial model PartialSurfaceInterface
             -230},{251,-210}})));
 protected
   final parameter String instanceName = getInstanceName() "Name of the instance";
-  final parameter Modelica.SIunits.Area AConExt[NConExt] = datConExt.A
+  final parameter Modelica.Units.SI.Area AConExt[NConExt]=datConExt.A
     "Areas of exterior constructions";
-  final parameter Modelica.SIunits.Area AConExtWinOpa[NConExtWin] = datConExtWin.AOpa
+  final parameter Modelica.Units.SI.Area AConExtWinOpa[NConExtWin]=datConExtWin.AOpa
     "Opaque areas of exterior construction that have a window";
-  final parameter Modelica.SIunits.Area AConExtWinGla[NConExtWin] = (1 .- datConExtWin.fFra) .* datConExtWin.AWin
+  final parameter Modelica.Units.SI.Area AConExtWinGla[NConExtWin]=(1 .-
+      datConExtWin.fFra) .* datConExtWin.AWin
     "Glass areas of exterior construction that have a window";
-  final parameter Modelica.SIunits.Area AConExtWinFra[NConExtWin] = datConExtWin.fFra .* datConExtWin.AWin
+  final parameter Modelica.Units.SI.Area AConExtWinFra[NConExtWin]=datConExtWin.fFra
+       .* datConExtWin.AWin
     "Frame areas of exterior construction that have a window";
-  final parameter Modelica.SIunits.Area AConPar[NConPar] = datConPar.A
+  final parameter Modelica.Units.SI.Area AConPar[NConPar]=datConPar.A
     "Areas of partition constructions";
-  final parameter Modelica.SIunits.Area AConBou[NConBou] = datConBou.A
+  final parameter Modelica.Units.SI.Area AConBou[NConBou]=datConBou.A
     "Areas of constructions with exterior boundary conditions exposed to outside of room model";
-  final parameter Modelica.SIunits.Area ASurBou[NSurBou] = surBou.A
+  final parameter Modelica.Units.SI.Area ASurBou[NSurBou]=surBou.A
     "Area of surface models of constructions that are modeled outside of this room";
 
 protected
   function checkSurfaceAreas
     input Integer n "Number of surfaces";
-    input Modelica.SIunits.Area A[:] "Surface areas";
+    input Modelica.Units.SI.Area A[:] "Surface areas";
     input String name "Name of the surface data record, used in error message";
   algorithm
     if n == 0 then
@@ -112,7 +114,7 @@ initial algorithm
           pattern=LinePattern.None),
         Text(
           extent={{-234,328},{242,244}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="%name"),
         Rectangle(
           extent={{-144,184},{148,-198}},

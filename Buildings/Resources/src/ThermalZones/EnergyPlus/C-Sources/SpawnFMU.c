@@ -24,8 +24,9 @@ static struct FMUBuilding** Buildings_FMUS; /* Array with pointers to all FMUs *
 size_t AllocateBuildingDataStructure(
   double startTime,
   const char* modelicaNameBuilding,
+  const char* spawnExe,
   const char* idfName,
-  const char* weaName,
+  const char* epwName,
   double relativeSurfaceTolerance,
   int usePrecompiledFMU,
   const char* fmuName,
@@ -37,7 +38,6 @@ size_t AllocateBuildingDataStructure(
   void (*SpawnFormatError)(const char *string, ...)){
 
   const size_t nFMU = getBuildings_nFMU();
-  const size_t strLenWea = strlen(weaName);
 
   if (logLevel >= MEDIUM)
     SpawnFormatMessage("%.3f %s: Allocating data structure for building, nFMU=%lu\n", startTime, modelicaNameBuilding, nFMU);
@@ -45,14 +45,10 @@ size_t AllocateBuildingDataStructure(
   /* Validate the input data */
   if (access(idfName, R_OK) != 0)
     SpawnFormatError("Cannot read idf file '%s' specified in '%s': %s.", idfName, modelicaNameBuilding, strerror(errno));
-  if (access(weaName, R_OK) != 0)
-    SpawnFormatError("Cannot read weather file '%s' specified in '%s': %s.", weaName, modelicaNameBuilding, strerror(errno));
+  if (access(epwName, R_OK) != 0)
+    SpawnFormatError("Cannot read weather file '%s' specified in '%s': %s.", epwName, modelicaNameBuilding, strerror(errno));
 
-  if (strcmp(".mos", strrchr(weaName, '.')) != 0)
-    SpawnFormatError("Obtained weather file '%s', but require .mos file rather than %s file to be specified in '%s'.",
-      weaName, strrchr(weaName, '.'), modelicaNameBuilding);
-
-  /* Allocate memory */
+    /* Allocate memory */
   if (nFMU == 0)
     Buildings_FMUS = malloc(sizeof(struct FMUBuilding*));
   else
@@ -96,6 +92,15 @@ size_t AllocateBuildingDataStructure(
     SpawnFormatError);
   strcpy(Buildings_FMUS[nFMU]->buildingsLibraryRoot, buildingsLibraryRoot);
 
+  /* Assign the spawn exe name */
+  mallocString(
+    (strlen(spawnExe)+1),
+    "Not enough memory in SpawnFMU.c. to allocate spawnExe.",
+    &(Buildings_FMUS[nFMU]->spawnExe),
+    SpawnFormatError);
+  strcpy(Buildings_FMUS[nFMU]->spawnExe, spawnExe);
+
+
   /* Assign the idfName name */
   if (usePrecompiledFMU){
     mallocString(
@@ -116,20 +121,11 @@ size_t AllocateBuildingDataStructure(
 
   /* Assign the weather name */
   mallocString(
-    (strLenWea+1),
+    (strlen(epwName)+1),
     "Not enough memory in SpawnFMU.c. to allocate weather.",
     &(Buildings_FMUS[nFMU]->weather),
     SpawnFormatError);
-  strcpy(Buildings_FMUS[nFMU]->weather, weaName);
-  /* Change ending from .mos to .epw */
-  Buildings_FMUS[nFMU]->weather[strLenWea-3] = 'e';
-  Buildings_FMUS[nFMU]->weather[strLenWea-2] = 'p';
-  Buildings_FMUS[nFMU]->weather[strLenWea-1] = 'w';
-
-  /* Make sure that .epw file is readable */
-  if (access(weaName, R_OK) != 0)
-    SpawnFormatError("Cannot read weather file '%s' specified in '%s' through %s (obtained after changing extension): %s.",
-      Buildings_FMUS[nFMU]->weather, modelicaNameBuilding, weaName, strerror(errno));
+  strcpy(Buildings_FMUS[nFMU]->weather, epwName);
 
   /* Set relative surface tolerance */
   Buildings_FMUS[nFMU]->relativeSurfaceTolerance = relativeSurfaceTolerance;
@@ -282,6 +278,8 @@ void FMUBuildingFree(FMUBuilding* bui){
       free(bui->buildingsLibraryRoot);
     if (bui->modelicaNameBuilding != NULL)
       free(bui->modelicaNameBuilding);
+    if (bui->spawnExe != NULL)
+      free(bui->spawnExe);
     if (bui->idfName != NULL)
       free(bui->idfName);
     if (bui->weather != NULL)

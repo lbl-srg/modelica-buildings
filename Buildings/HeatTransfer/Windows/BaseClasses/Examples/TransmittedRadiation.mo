@@ -2,9 +2,8 @@ within Buildings.HeatTransfer.Windows.BaseClasses.Examples;
 model TransmittedRadiation
   "Test model for transmitted radiation through window"
   extends Modelica.Icons.Example;
-  parameter Modelica.SIunits.Angle lat=0.34906585039887 "Latitude";
-  parameter Modelica.SIunits.Angle azi=0 "Surface azimuth";
-  parameter Modelica.SIunits.Angle til=1.5707963267949 "Surface tilt";
+  parameter Modelica.Units.SI.Angle azi=0 "Surface azimuth";
+  parameter Modelica.Units.SI.Angle til=1.5707963267949 "Surface tilt";
 
   parameter Buildings.HeatTransfer.Data.GlazingSystems.DoubleClearAir13Clear glaSys(
     shade=Buildings.HeatTransfer.Data.Shades.Gray(),
@@ -15,7 +14,6 @@ model TransmittedRadiation
 
   BoundaryConditions.SolarIrradiation.DirectTiltedSurface HDirTil(
     til=til,
-    lat=lat,
     azi=azi) "Direct irradiation on the tilted surface"
     annotation (Placement(transformation(extent={{20,0},{40,20}})));
   BoundaryConditions.WeatherData.Bus weaBus "Weather data bus"
@@ -94,6 +92,12 @@ __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/HeatTransf
 This example illustrates modeling of window transmittance.
 </html>", revisions="<html>
 <ul>
+<li>
+September 16, 2021, by Michael Wetter:<br/>
+Removed parameter <code>lat</code> as this is now obtained from the weather data reader.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1477\">IBPSA, #1477</a>.
+</li>
 <li>
 March 13, 2015, by Michael Wetter:<br/>
 Changed model to avoid a translation error

@@ -22,7 +22,7 @@ algorithm
     end if;
 
     annotation (
-smoothOrder=1,
+smoothOrder=3,
 derivative=BaseClasses.der_spliceFunction,
 Documentation(info="<html>
 <p>

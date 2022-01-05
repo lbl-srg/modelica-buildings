@@ -1,7 +1,7 @@
 within Buildings.Controls.OBC.CDL.Discrete;
 model DayType
   "Block that outputs a signal that indicates week-day or week-end"
-  parameter Integer nout=2
+  parameter Integer nout(final min=1)=2
     "Number of days to output. Set to two for one day predictions";
   parameter Buildings.Controls.OBC.CDL.Types.Day[:] days={Buildings.Controls.OBC.CDL.Types.Day.WorkingDay,Buildings.Controls.OBC.CDL.Types.Day.WorkingDay,Buildings.Controls.OBC.CDL.Types.Day.WorkingDay,Buildings.Controls.OBC.CDL.Types.Day.WorkingDay,Buildings.Controls.OBC.CDL.Types.Day.WorkingDay,Buildings.Controls.OBC.CDL.Types.Day.NonWorkingDay,Buildings.Controls.OBC.CDL.Types.Day.NonWorkingDay}
     "Array where each element is a day indicator";
@@ -83,18 +83,12 @@ equation
           fillPattern=FillPattern.Solid),
         Text(
           extent={{-68,54},{68,-38}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="day"),
         Text(
           extent={{-150,150},{150,110}},
           textString="%name",
-          lineColor={0,0,255}),
-        Text(
-          extent={{226,60},{106,10}},
-          lineColor={0,0,0},
-          textString=DynamicSelect("",String(y,
-            leftjustified=false,
-            significantDigits=3)))}),
+          textColor={0,0,255})}),
     Documentation(
       info="<html>
 <p>
@@ -123,8 +117,13 @@ at <i>t=0</i>.
       revisions="<html>
 <ul>
 <li>
+October 21, 2021, by Michael Wetter:<br/>
+Set <code>min</code> attribute for <code>nout</code> and removed
+writing output value in icon (as it is an array of values).
+</li>
+<li>
 November 12, 2020, by Michael Wetter:<br/>
-Reformulated to remove dependency to <code>Modelica.SIunits</code>.<br/>
+Reformulated to remove dependency to <code>Modelica.Units.SI</code>.<br/>
 This is for
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2243\">issue 2243</a>.
 </li>

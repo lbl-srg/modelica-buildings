@@ -9,7 +9,7 @@ package UsersGuide
       preferredView="info",
       Documentation(
         info="<html>
-<h4>How to instantiate models for one or several buidings</h4>
+<h4>How to instantiate models for one or several buildings</h4>
 <p>
 To instantiate one or several building models, proceed as follows:
 </p>
@@ -27,10 +27,10 @@ EnergyPlus input file name and weather file name.
 </li>
 <li>
 For the weather file, both <code>.mos</code> and <code>.epw</code> files
-must be provided in the same directory. The files must have the same name, except
-for the different extension.
+must be specified.
 The <code>.epw</code> file will be used by the EnergyPlus envelope model, and the <code>.mos</code>
-file will be used by the Modelica model, and must be specified by the parameter <code>weaName</code>
+file will be used by the Modelica model, and must be specified by the parameters <code>epwName</code>
+and <code>weaName</code>
 in the instance <code>building</code>.
 </li>
 </ol>
@@ -150,6 +150,39 @@ that connects the slab to the zone below.
 </ol>
 </html>"));
   end GettingStarted;
+
+  class InvokingEnergyPlus
+    "Getting started"
+    extends Modelica.Icons.Information;
+    annotation (
+      preferredView="info",
+      Documentation(
+        info="<html>
+<h4>Invoking EnergyPlus</h4>
+<p>
+The Modelica code tries to invoke EnergyPlus in this order:
+</p>
+<ol>
+<li>
+It searches for <code>Buildings[ x.y.z]/Resources/bin/spawn-[linux64,win64]/bin/spawn-0.2.0-a23bb23[.exe]</code>
+where <code>Buildings[ x.y.z]</code> is the installation folder of the Modelica Buildings Library.
+This file is distributed with the Modelica Buildings Library installation,
+together with all files needed to translate and simulate a model in a Modelica environment.
+</li>
+<li>
+If not found, it searches on the environment variable <code>SPAWNPATH</code> for
+<code>spawn-0.2.0-a23bb23[.exe]</code>.
+</li>
+<li>
+If not found, it searches on the environment variable <code>PATH</code> for
+<code>spawn-0.2.0-a23bb23[.exe]</code>.
+</li>
+</ol>
+<p>
+If none of this succeeds, it will stop with an error.
+</p>
+</html>"));
+  end InvokingEnergyPlus;
 
   class Conventions
     "Conventions"

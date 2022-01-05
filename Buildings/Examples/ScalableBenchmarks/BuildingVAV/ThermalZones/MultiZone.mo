@@ -6,7 +6,6 @@ model MultiZone "Multiple thermal zone models"
     annotation(Evaluate=true);
   parameter Integer nFlo(min=1) = 1 "Number of floors"
     annotation(Evaluate=true);
-  parameter Modelica.SIunits.Angle lat=41.98*3.14159/180 "Latitude";
   parameter Real ampFactor[nZon]=
     if nZon<=5 then
         {abs(cos(i*3.1415926/(nZon))) for i in 1:nZon}
@@ -22,15 +21,26 @@ model MultiZone "Multiple thermal zone models"
     redeclare each package Medium = MediumA) "Fluid outlets"
     annotation (Placement(transformation(extent={{-18,56},{18,66}}),
       iconTransformation(extent={{-17,64},{19,74}})));
-  Modelica.Blocks.Interfaces.RealOutput TRooAir[nZon,nFlo] "Room air temperatures"
+  Modelica.Blocks.Interfaces.RealOutput TRooAir[nZon,nFlo](
+     each final unit="K",
+     each displayUnit="degC")
+     "Room air temperatures"
     annotation (Placement(transformation(extent={{100,-70},{120,-50}}),
       iconTransformation(extent={{100,-70},{120,-50}})));
-  Modelica.Blocks.Interfaces.RealOutput heaCooPow[nZon,nFlo] "HVAC power"
-    annotation (Placement(transformation(extent={{100,50},{120,70}}),
-      iconTransformation(extent={{100,50},{120,70}})));
+  Modelica.Blocks.Interfaces.RealOutput EHea[nZon,nFlo](
+    each final unit="J")
+    "Cooling energy provided to the zone from the HVAC system" annotation (
+      Placement(transformation(extent={{100,50},{120,70}}),  iconTransformation(
+          extent={{100,50},{120,70}})));
+
+  Modelica.Blocks.Interfaces.RealOutput ECoo[nZon,nFlo](
+    each final unit="J")
+    "Cooling energy provided to the zone from the HVAC system" annotation (
+      Placement(transformation(extent={{100,10},{120,30}}), iconTransformation(
+          extent={{100,10},{120,30}})));
+
   Buildings.Examples.ScalableBenchmarks.BuildingVAV.ThermalZones.ThermalZone theZon[nZon,nFlo](
     redeclare each package MediumA = MediumA,
-    each final lat=lat,
     gainFactor={{ampFactor[i] for j in 1:nFlo} for i in 1:nZon})
     "Thermal zone model"
     annotation (Placement(transformation(extent={{-20,-20},{20,20}})));
@@ -62,15 +72,15 @@ equation
       connect(portsOut[iZon, iFlo], theZon[iZon, iFlo].portsInOut[2])
         annotation (Line(points={{0,61},{0,61},{0,40},{-12.8,40},{-12.8,8}},
           color={0,127,255}, thickness=0.25));
-      connect(theZon[iZon, iFlo].heaCooPow, heaCooPow[iZon, iFlo])
-        annotation (Line(points={{20.4,16},{40,16},{40,60},{110,60}},
-          color={0,0,127}));
-      connect(theZon[iZon, iFlo].TRooAir, TRooAir[iZon, iFlo])
-        annotation (Line(points={{20.4,8},{40,8},{40,-60},{110,-60}},
-          color={0,0,127}));
     end for;
   end for;
 
+  connect(theZon.TRooAir, TRooAir) annotation (Line(points={{22,-8},{96,-8},{96,
+          -60},{110,-60}}, color={0,0,127}));
+  connect(theZon.EHea, EHea) annotation (Line(points={{22,14},{80,14},{80,60},{
+          110,60}}, color={0,0,127}));
+  connect(theZon.ECoo, ECoo) annotation (Line(points={{22,6.4},{90,6.4},{90,20},
+          {110,20}}, color={0,0,127}));
 annotation (Icon(graphics={
         Rectangle(
           extent={{-100,100},{100,-100}},
@@ -124,11 +134,11 @@ annotation (Icon(graphics={
         Line(points={{2,-40},{2,-26}}, color={85,170,255}),
         Text(
           extent={{-100,102},{100,76}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="Multizone model with: %nZon zones in %nZon floors"),
         Text(
           extent={{-94,134},{106,108}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%name")}),
     Documentation(info="<html>
 <p>
@@ -139,6 +149,12 @@ of internal heat gain in each zone.
 
 </html>", revisions="<html>
 <ul>
+<li>
+September 16, 2021, by Michael Wetter:<br/>
+Removed parameter <code>lat</code> as this is now obtained from the weather data reader.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1477\">IBPSA, #1477</a>.
+</li>
 <li>
 April 10, 2017, by Jianjun Hu:<br/>
 First implementation.

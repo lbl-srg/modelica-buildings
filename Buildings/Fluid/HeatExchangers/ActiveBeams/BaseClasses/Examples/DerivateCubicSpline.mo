@@ -2,7 +2,7 @@ within Buildings.Fluid.HeatExchangers.ActiveBeams.BaseClasses.Examples;
 model DerivateCubicSpline
   extends Modelica.Icons.Example;
 
-  Modelica.Blocks.Sources.Clock clock "Clock"
+  Modelica.Blocks.Sources.ContinuousClock clock "Clock"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
   Buildings.Fluid.HeatExchangers.ActiveBeams.BaseClasses.DerivativesCubicSpline
     cubSpl "Derivatives of cubic spline"

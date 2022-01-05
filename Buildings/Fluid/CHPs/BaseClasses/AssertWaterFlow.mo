@@ -2,7 +2,7 @@ within Buildings.Fluid.CHPs.BaseClasses;
 model AssertWaterFlow "Assert if water flow is outside boundaries"
   extends Modelica.Blocks.Icons.Block;
 
-  parameter Modelica.SIunits.MassFlowRate mWatMin_flow
+  parameter Modelica.Units.SI.MassFlowRate mWatMin_flow
     "Minimum cooling water mass flow rate";
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput runSig

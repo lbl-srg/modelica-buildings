@@ -15,7 +15,7 @@ model VoltageSource "Example for the variable voltage source model"
     annotation (Placement(transformation(extent={{-14,-10},{6,10}})));
   Modelica.Blocks.Sources.Sine cosine(
     phase=0,
-    freqHz=1,
+    f=1,
     offset=12,
     amplitude=3) "Variable voltage signal"
     annotation (Placement(transformation(extent={{-120,-4},{-100,16}})));

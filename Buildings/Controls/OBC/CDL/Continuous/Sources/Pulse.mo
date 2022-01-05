@@ -66,17 +66,17 @@ equation
           color={192,192,192}),
         Text(
           extent={{-147,-152},{153,-112}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="period=%period"),
         Text(
-          lineColor={0,0,255},
+          textColor={0,0,255},
           extent={{-150,110},{150,150}},
           textString="%name"),
         Text(
           extent={{226,60},{106,10}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString=DynamicSelect("",String(y,
-            leftjustified=false,
+            leftJustified=false,
             significantDigits=3))),
         Polygon(
           points={{-80,52},{-68,56},{-68,48},{-80,52}},
@@ -89,7 +89,7 @@ equation
           color={135,135,135}),
         Text(
           extent={{-66,80},{-8,56}},
-          lineColor={135,135,135},
+          textColor={135,135,135},
           textString="%period"),
         Polygon(
           points={{-2,52},{-14,56},{-14,48},{-2,52}},
@@ -108,7 +108,7 @@ equation
           lineColor={0,0,0}),
         Text(
           extent={{38,64},{96,40}},
-          lineColor={135,135,135},
+          textColor={135,135,135},
           textString="%shift"),
         Line(
           points={{79,-70},{40,-70},{40,44},{-1,44},{-1,-70},{-41,-70},{-41,44},{-80,44}}),
@@ -140,7 +140,7 @@ This is for
 </li>
 <li>
 November 12, 2020, by Michael Wetter:<br/>
-Reformulated to remove dependency to <code>Modelica.SIunits</code>.<br/>
+Reformulated to remove dependency to <code>Modelica.Units.SI</code>.<br/>
 This is for
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2243\">issue 2243</a>.
 </li>

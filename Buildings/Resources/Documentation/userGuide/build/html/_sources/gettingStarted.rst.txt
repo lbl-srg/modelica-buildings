@@ -42,11 +42,17 @@ The example models can be found in the packages `Examples`.
 Study the detailed tutorials with step-by-step instructions for how to build system models,
 which can be found in the `Tutorial package <https://simulationresearch.lbl.gov/modelica/releases/v8.0.0/help/Buildings_Examples_Tutorial.html>`_.
 
-Note that heat transfer models, which can be found in `Buildings.HeatTransfer.*.Examples` are easier to understand than fluid flow models because;
+Note that heat transfer models, which can be found in `Buildings.HeatTransfer.*.Examples`
+are easier to understand than fluid flow models because;
 
 * handling fluid flow adds more complexity due to flow reversal (i.e., if the mass flow rate changes its direction),
 * fluid flow models may need to handle multiple species such as air and water vapor, as well as trace substances such as CO2, and
 * fluid flow models use packages that define medium models, such as dry air, moist air, water or other fluids.
+
+To get started with Spawn of EnergyPlus, we recommend to first familiarize yourself with Modelica, as described above.
+Next, read the
+`user guide for the Spawn models <https://simulationresearch.lbl.gov/modelica/releases/v8.0.0/help/Buildings_ThermalZones_EnergyPlus_UsersGuide.html>`_
+which provides step-by-step instructions and points to various examples.
 
 
 Software Requirements

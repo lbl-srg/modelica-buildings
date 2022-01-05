@@ -1,30 +1,30 @@
 within Buildings.Fluid.HeatExchangers.BaseClasses;
 function epsilon_C
   "Computes heat exchanger effectiveness for given capacity flow rates and heat exchanger flow regime"
-  input Modelica.SIunits.ThermalConductance UA "UA value";
-  input Modelica.SIunits.ThermalConductance C1_flow
+  input Modelica.Units.SI.ThermalConductance UA "UA value";
+  input Modelica.Units.SI.ThermalConductance C1_flow
     "Enthalpy flow rate medium 1";
-  input Modelica.SIunits.ThermalConductance C2_flow
+  input Modelica.Units.SI.ThermalConductance C2_flow
     "Enthalpy flow rate medium 2";
   input Integer flowRegime
     "Heat exchanger flow regime, see  Buildings.Fluid.Types.HeatExchangerFlowRegime";
-  input Modelica.SIunits.ThermalConductance CMin_flow_nominal
+  input Modelica.Units.SI.ThermalConductance CMin_flow_nominal
     "Minimum enthalpy flow rate at nominal condition";
-  input Modelica.SIunits.ThermalConductance CMax_flow_nominal
+  input Modelica.Units.SI.ThermalConductance CMax_flow_nominal
     "Maximum enthalpy flow rate at nominal condition";
   input Real delta = 1E-3 "Small value used for smoothing";
   output Real eps(min=0, max=1) "Heat exchanger effectiveness";
 
 protected
-  Modelica.SIunits.ThermalConductance deltaCMin
+  Modelica.Units.SI.ThermalConductance deltaCMin
     "Small number for capacity flow rate";
-  Modelica.SIunits.ThermalConductance deltaCMax
+  Modelica.Units.SI.ThermalConductance deltaCMax
     "Small number for capacity flow rate";
-  Modelica.SIunits.ThermalConductance CMin_flow "Minimum capacity flow rate";
-  Modelica.SIunits.ThermalConductance CMax_flow "Maximum capacity flow rate";
-  Modelica.SIunits.ThermalConductance CMinNZ_flow
+  Modelica.Units.SI.ThermalConductance CMin_flow "Minimum capacity flow rate";
+  Modelica.Units.SI.ThermalConductance CMax_flow "Maximum capacity flow rate";
+  Modelica.Units.SI.ThermalConductance CMinNZ_flow
     "Minimum capacity flow rate, bounded away from zero";
-  Modelica.SIunits.ThermalConductance CMaxNZ_flow
+  Modelica.Units.SI.ThermalConductance CMaxNZ_flow
     "Maximum capacity flow rate, bounded away from zero";
   Real gaiEps(min=0, max=1)
     "Gain used to force UA to zero for very small flow rates";

@@ -6,8 +6,8 @@ block StateInterpolator "Block to interpolate between different window states"
     "Number of window states for electrochromic windows"
     annotation (Evaluate=true);
 
-  Modelica.Blocks.Interfaces.RealInput uSta(min=0, max=1, unit="1") if
-       NSta > 1 "Control signal for window state"
+  Modelica.Blocks.Interfaces.RealInput uSta(min=0, max=1, unit="1")
+    if NSta > 1 "Control signal for window state"
                                        annotation (Placement(
         transformation(extent={{-140,40},{-100,80}})));
   Modelica.Blocks.Interfaces.RealInput HSta[NSta]

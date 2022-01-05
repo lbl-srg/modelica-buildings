@@ -207,7 +207,7 @@ Icon(graphics={
           fillPattern=FillPattern.CrossDiag),
         Text(
           extent={{100,106},{134,74}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="QLoss"),
         Rectangle(
           extent={{-10,10},{10,-10}},

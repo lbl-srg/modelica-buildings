@@ -1,6 +1,6 @@
 within Buildings.Controls.OBC.CDL.Interfaces;
 connector RealOutput=output Real
-  "'output Real' as connector"
+  "Real output connector"
 annotation (defaultComponentName="y",
  Icon(coordinateSystem(preserveAspectRatio=true,
                        initialScale=0.2,
@@ -16,7 +16,7 @@ annotation (defaultComponentName="y",
                            fillColor={255,255,255},
                            fillPattern=FillPattern.Solid,
                            points={{-100.0,50.0},{0.0,0.0},{-100.0,-50.0}}),
-                   Text(lineColor={0,0,127},
+                   Text(textColor={0,0,127},
                         extent={{30.0,60.0},{30.0,110.0}},
                         textString="%name")}),
 Documentation(info="<html>

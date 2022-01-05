@@ -39,12 +39,12 @@ equation
           borderPattern=BorderPattern.Raised),
         Text(
           extent={{-50,62},{50,-56}},
-          lineColor={255,127,0},
+          textColor={255,127,0},
           textString="change"),
         Text(
           extent={{-150,150},{150,110}},
           textString="%name",
-          lineColor={0,0,255})}),
+          textColor={0,0,255})}),
     Documentation(
       info="<html>
 <p>

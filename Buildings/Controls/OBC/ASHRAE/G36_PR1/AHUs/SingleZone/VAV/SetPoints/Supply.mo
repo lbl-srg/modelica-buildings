@@ -69,7 +69,7 @@ block Supply "Supply air set point for single zone VAV system"
   CDL.Interfaces.BooleanInput uFan "Supply fan status"
     annotation (Placement(transformation(extent={{-140,-160},{-100,-120}}),
       iconTransformation(extent={{-140,-120},{-100,-80}})));
-  CDL.Logical.Switch switch "Switch to assign control signal"
+  CDL.Continuous.Switch switch "Switch to assign control signal"
     annotation (Placement(transformation(extent={{120,-70},{140,-50}})));
   CDL.Continuous.Sources.Constant fanOff(k=0) "Fan off status"
     annotation (Placement(transformation(extent={{40,10},{60,30}})));
@@ -382,7 +382,7 @@ annotation (
       Text(
         extent={{-150,174},{150,134}},
         textString="%name",
-        lineColor={0,0,255}),
+        textColor={0,0,255}),
     Polygon(
       points={{80,-76},{58,-70},{58,-82},{80,-76}},
       lineColor={95,95,95},
@@ -397,11 +397,11 @@ annotation (
       fillPattern=FillPattern.Solid),
     Text(
       extent={{-88,-6},{-47,-26}},
-      lineColor={0,0,0},
+      textColor={0,0,0},
           textString="T"),
     Text(
       extent={{64,-82},{88,-93}},
-      lineColor={0,0,0},
+      textColor={0,0,0},
           textString="u"),
         Line(
           points={{-44,-6},{-30,-6},{-14,-42},{26,-42},{38,-62},{60,-62}},
@@ -420,43 +420,43 @@ annotation (
       fillPattern=FillPattern.Solid),
         Text(
           extent={{-98,104},{-72,82}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
           textString="uHea"),
         Text(
           extent={{-98,68},{-72,46}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
           textString="uCoo"),
         Text(
           extent={{68,72},{94,50}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
           textString="TSupHeaEco"),
         Text(
           extent={{68,12},{94,-10}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
           textString="TSupCoo"),
         Text(
           extent={{74,-50},{100,-72}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
           textString="y"),
         Text(
           extent={{-96,-12},{-70,-34}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
           textString="TZon"),
         Text(
           extent={{-98,-50},{-72,-72}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
           textString="TOut"),
@@ -468,20 +468,20 @@ annotation (
       fillPattern=FillPattern.Solid),
     Text(
       extent={{-88,68},{-47,48}},
-      lineColor={0,0,0},
+      textColor={0,0,0},
           textString="y"),
         Line(points={{-46,44},{-28,20},{18,20},{28,36},{38,36},{50,54}}, color={
               0,0,0}),
         Line(points={{18,20},{38,20},{50,54},{28,54},{18,20}}, color={0,0,0}),
         Text(
           extent={{-96,30},{-70,8}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
           textString="TZonSet"),
         Text(
           extent={{-98,-82},{-72,-104}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
           textString="uFan")}),
@@ -495,13 +495,13 @@ annotation (
           fillPattern=FillPattern.Solid),
         Text(
           extent={{46,-252},{82,-234}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid,
           textString="0.25 < yCoo < 0.5"),
         Text(
           extent={{46,-316},{82,-298}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid,
           textString="0.75 < yCoo < 1"),
@@ -512,7 +512,7 @@ annotation (
           fillPattern=FillPattern.Solid),
         Text(
           extent={{28,-142},{64,-124}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid,
           textString="0.5 < yCoo < 0.75"),
@@ -523,13 +523,13 @@ annotation (
           fillPattern=FillPattern.Solid),
         Text(
           extent={{-16,-78},{14,-72}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid,
           textString="heating"),
         Text(
           extent={{-82,-98},{88,-90}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid,
           horizontalAlignment=TextAlignment.Left,

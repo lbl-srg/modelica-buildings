@@ -60,7 +60,7 @@ Modelica Standard Library.
         Text(
           extent={{-150,150},{150,110}},
           textString="%name",
-          lineColor={0,0,255}),
+          textColor={0,0,255}),
         Line(
           points={{50,0},{100,0}},
           color={0,0,127}),
@@ -73,7 +73,7 @@ Modelica Standard Library.
           fillPattern=FillPattern.Solid,
           extent={{-5,-30},{5,-20}}),
         Text(
-          lineColor={0,0,255},
+          textColor={0,0,255},
           extent={{-150,110},{150,150}},
           textString="%name"),
         Line(
@@ -84,8 +84,8 @@ Modelica Standard Library.
           color={0,0,127}),
         Text(
           extent={{226,60},{106,10}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString=DynamicSelect("",String(y,
-            leftjustified=false,
+            leftJustified=false,
             significantDigits=3)))}));
 end Division;

@@ -7,10 +7,10 @@ equation
   y = Buildings.Utilities.Math.Functions.smoothMin(x1=u1, x2=u2, deltaX=deltaX);
   annotation (Icon(graphics={Text(
           extent={{-88,40},{92,-32}},
-          lineColor={160,160,164},
+          textColor={160,160,164},
           textString="smoothMin()"), Text(
           extent={{-66,-50},{76,-120}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="dX=%deltaX%")}),
 Documentation(info="<html>
 <p>

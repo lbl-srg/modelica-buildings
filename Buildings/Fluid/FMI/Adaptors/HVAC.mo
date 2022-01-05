@@ -35,8 +35,8 @@ model HVAC
         rotation=90,
         origin={-60,-120})));
   Modelica.Blocks.Interfaces.RealOutput X_wZon[nPorts](
-    each final unit="kg/kg") if
-       Medium.nXi > 0
+    each final unit="kg/kg")
+    if Medium.nXi > 0
     "Water mass fraction per total air mass of the backward flowing medium in the connector outlet"
     annotation (Placement(transformation(extent={{20,20},{-20,-20}},
         rotation=90,
@@ -79,8 +79,8 @@ protected
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
 
   Buildings.Fluid.FMI.BaseClasses.X_w_toX x_w_toX(
-    redeclare final package Medium = Medium) if
-       Medium.nXi > 0 "Conversion from X_w to X"
+    redeclare final package Medium = Medium)
+    if Medium.nXi > 0 "Conversion from X_w to X"
     annotation (Placement(transformation(extent={{40,-40},{20,-20}})));
 
   Modelica.Blocks.Sources.RealExpression hSup[nPorts](
@@ -90,14 +90,14 @@ protected
 
   RealVectorExpression XiSup[nPorts](
     each final n = Medium.nXi,
-    final y={inStream(ports[i].Xi_outflow) for i in 1:nPorts}) if
-       Medium.nXi > 0 "Water vapor concentration of supply air"
+    final y={inStream(ports[i].Xi_outflow) for i in 1:nPorts})
+    if Medium.nXi > 0 "Water vapor concentration of supply air"
     annotation (Placement(transformation(extent={{-40,30},{-20,50}})));
 
   RealVectorExpression CSup[nPorts](
     each final n=Medium.nC,
-    final y={inStream(ports[i].C_outflow) for i in 1:nPorts}) if
-       Medium.nC > 0 "Trace substance concentration of supply air"
+    final y={inStream(ports[i].C_outflow) for i in 1:nPorts})
+    if Medium.nC > 0 "Trace substance concentration of supply air"
     annotation (Placement(transformation(extent={{-40,10},{-20,30}})));
 
   ///////////////////////////////////////////////////////////////////////////
@@ -128,12 +128,12 @@ protected
           borderPattern=BorderPattern.Raised),
         Text(
           extent={{-96,15},{96,-15}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="%y"),
         Text(
           extent={{-150,90},{140,50}},
           textString="%name",
-          lineColor={0,0,255})}), Documentation(info="<html>
+          textColor={0,0,255})}), Documentation(info="<html>
 <p>
 The (time varying) vector <code>Real</code> output signal of this block can be defined in its
 parameter menu via variable <code>y</code>. The purpose is to support the
@@ -197,7 +197,7 @@ equation
         Text(
           extent={{-150,110},{150,150}},
           textString="%name",
-          lineColor={0,0,255}),
+          textColor={0,0,255}),
         Rectangle(
           extent={{-90,20},{40,14}},
           lineColor={0,0,0},
@@ -231,7 +231,7 @@ equation
           fillPattern=FillPattern.Solid),
         Text(
           extent={{-92,-42},{-6,-98}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="[%nPorts]",
           horizontalAlignment=TextAlignment.Left),
         Ellipse(
