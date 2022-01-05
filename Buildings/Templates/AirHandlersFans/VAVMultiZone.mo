@@ -16,7 +16,7 @@ model VAVMultiZone "Multiple-Zone VAV"
 
   parameter Modelica.Units.SI.PressureDifference dpFanSup_nominal=
     if typFanSup<>Buildings.Templates.Components.Types.Fan.None then
-      dat.getReal(varName=id + ".Mechanical.Supply fan.Total pressure rise.value")
+      dat.getReal(varName=id + ".mechanical.Supply fan.Total pressure rise.value")
     else 0
     "Supply fan total pressure rise"
     annotation (
@@ -25,7 +25,7 @@ model VAVMultiZone "Multiple-Zone VAV"
   parameter Modelica.Units.SI.PressureDifference dpFanRet_nominal=
     if typFanRel <> Buildings.Templates.Components.Types.Fan.None or
       typFanRet <> Buildings.Templates.Components.Types.Fan.None then
-      dat.getReal(varName=id + ".Mechanical.Relief/return fan.Total pressure rise.value")
+      dat.getReal(varName=id + ".mechanical.Relief/return fan.Total pressure rise.value")
     else 0
     "Relief/return fan total pressure rise"
     annotation (

@@ -7,7 +7,7 @@ model CoilCoolingEffectivenessNTU
       redeclare replaceable
         Buildings.Templates.Components.HeatExchangers.WetCoilEffectivenessNTU
         hex "Effectiveness-NTU wet heat exchanger model") "Chilled water coil",
-    tag="VAV_1",
+    id="VAV_1",
     nZon=2,
     nGro=1);
 

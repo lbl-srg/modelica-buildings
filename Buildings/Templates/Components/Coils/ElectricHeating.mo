@@ -6,10 +6,10 @@ model ElectricHeating "Electric heating coil"
     final typVal=Buildings.Templates.Components.Types.Valve.None,
     final have_sou=false,
     final have_weaBus=false,
-    mAir_flow_nominal=dat.getReal(varName=id + ".Mechanical." + funStr + " coil.Air mass flow rate.value"));
+    mAir_flow_nominal=dat.getReal(varName=id + ".mechanical.coil" + funStr + ".mAir_flow_nominal.value"));
 
   parameter Modelica.Units.SI.HeatFlowRate Q_flow_nominal(min=0)=
-    dat.getReal(varName=id + ".Mechanical." + funStr + " coil.Capacity.value")
+    dat.getReal(varName=id + ".mechanical.coil" + funStr + ".Q_flow_nominal.value")
     "Nominal heat flow rate"
     annotation (Dialog(
       group="Nominal condition"));

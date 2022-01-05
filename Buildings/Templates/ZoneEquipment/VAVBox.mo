@@ -9,7 +9,7 @@ model VAVBox "VAV terminal unit"
     annotation(Dialog(enable=have_souCoiHea));
 
   parameter Modelica.Units.SI.PressureDifference dpDamVAV_nominal=
-    dat.getReal(varName=id + ".Mechanical.VAV damper pressure drop.value")
+    dat.getReal(varName=id + ".mechanical.dpDamVAV_nominal.value")
     "Damper pressure drop"
     annotation (Dialog(group="Nominal condition"));
 

@@ -9,13 +9,8 @@ partial model PartialAirTerminal
     "Type of system"
     annotation (Evaluate=true, Dialog(group="Configuration"));
 
-  inner parameter String tag
+  inner parameter String id
    "System tag"
-    annotation (
-      Evaluate=true,
-      Dialog(group="Configuration"));
-  final inner parameter String id = "Zone equipment." + tag
-    "System tag with system type"
     annotation (
       Evaluate=true,
       Dialog(group="Configuration"));
@@ -23,7 +18,7 @@ partial model PartialAirTerminal
     "External parameter file";
 
   parameter Modelica.Units.SI.MassFlowRate mAir_flow_nominal=
-    dat.getReal(varName=id + ".Mechanical.Discharge air mass flow rate.value")
+    dat.getReal(varName=id + ".mechanical.mAir_flow_nominal.value")
     "Discharge air mass flow rate"
     annotation (Dialog(group="Nominal condition"));
 

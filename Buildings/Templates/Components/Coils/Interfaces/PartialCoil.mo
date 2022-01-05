@@ -35,7 +35,7 @@ partial model PartialCoil
   parameter Modelica.Units.SI.PressureDifference dpAir_nominal(
     displayUnit="Pa")=
     if typ==Buildings.Templates.Components.Types.Coil.None then 0 else
-    dat.getReal(varName=id + ".Mechanical." + funStr + " coil.Air pressure drop.value")
+    dat.getReal(varName=id + ".mechanical.coil" + funStr + ".dpAir_nominal.value")
     "Air pressure drop"
     annotation (
       Dialog(group="Nominal condition"),

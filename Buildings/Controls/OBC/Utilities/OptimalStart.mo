@@ -47,14 +47,16 @@ block OptimalStart
     displayUnit="degC",
     min=200)
     "Zone temperature"
-    annotation (Placement(transformation(extent={{-180,-50},{-140,-10}}),iconTransformation(extent={{-140,-50},{-100,-10}})));
+    annotation (Placement(transformation(extent={{-180,-60},{-140,-20}}),iconTransformation(extent={{-140,
+            -60},{-100,-20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TSetZonCoo(
     final quantity="ThermodynamicTemperature",
     final unit="K",
     displayUnit="degC",
     min=200) if computeCooling
     "Zone cooling setpoint temperature during occupancy"
-    annotation (Placement(transformation(extent={{-180,10},{-140,50}}),iconTransformation(extent={{-140,10},{-100,50}})));
+    annotation (Placement(transformation(extent={{-180,20},{-140,60}}),iconTransformation(extent={{-140,20},
+            {-100,60}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput tNexOcc(
     final quantity="Time",
     final unit="s",
@@ -136,11 +138,11 @@ protected
 
 equation
   connect(TSetZonCoo,dTCoo.u2)
-    annotation (Line(points={{-160,30},{-132,30},{-132,-56},{-82,-56}},color={0,0,127}));
+    annotation (Line(points={{-160,40},{-132,40},{-132,-56},{-82,-56}},color={0,0,127}));
   connect(TZon,dTCoo.u1)
-    annotation (Line(points={{-160,-30},{-126,-30},{-126,-44},{-82,-44}},color={0,0,127}));
+    annotation (Line(points={{-160,-40},{-90,-40},{-90,-44},{-82,-44}},  color={0,0,127}));
   connect(TZon,dTHea.u2)
-    annotation (Line(points={{-160,-30},{-126,-30},{-126,74},{-82,74}},color={0,0,127}));
+    annotation (Line(points={{-160,-40},{-122,-40},{-122,74},{-82,74}},color={0,0,127}));
   connect(TSetZonHea,dTHea.u1)
     annotation (Line(points={{-160,80},{-126,80},{-126,86},{-82,86}},color={0,0,127}));
   connect(max.y,tOpt)

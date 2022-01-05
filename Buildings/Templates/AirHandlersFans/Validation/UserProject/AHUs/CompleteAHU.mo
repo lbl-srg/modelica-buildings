@@ -28,7 +28,7 @@ model CompleteAHU
       fanSupDra,
     nZon=2,
     nGro=1,
-    tag="VAV_1");
+    id="VAV_1");
 
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)));

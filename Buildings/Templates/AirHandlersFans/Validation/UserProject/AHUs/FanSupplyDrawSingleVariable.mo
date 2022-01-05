@@ -3,7 +3,7 @@ model FanSupplyDrawSingleVariable
   extends Buildings.Templates.AirHandlersFans.VAVMultiZone(
     nZon=2,
     nGro=1,
-    tag="VAV_1",
+    id="VAV_1",
     redeclare replaceable Buildings.Templates.Components.Fans.SingleVariable
       fanSupDra);
 
