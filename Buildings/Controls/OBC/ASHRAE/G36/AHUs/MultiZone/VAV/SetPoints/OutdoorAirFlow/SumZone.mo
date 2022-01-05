@@ -162,7 +162,7 @@ protected
     "Maximum zone outdoor air fraction"
     annotation (Placement(transformation(extent={{-10,-90},{10,-70}})));
 
-  Buildings.Controls.OBC.CDL.Routing.RealReplicator reaRep(
+  Buildings.Controls.OBC.CDL.Routing.RealScalarReplicator reaRep(
     final nout=numZon)
     "Replicate Real input signal"
     annotation (Placement(transformation(extent={{-80,10},{-60,30}})));

@@ -144,7 +144,7 @@ protected
     final k=1)
     "Maximal control loop signal for the heating coil"
     annotation (Placement(transformation(extent={{-60,90},{-40,110}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch enaDis if have_heaCoi
+  Buildings.Controls.OBC.CDL.Continuous.Switch enaDis if have_heaCoi
     "Enable or disable the heating coil"
     annotation (Placement(transformation(extent={{76,30},{96,50}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant Off(

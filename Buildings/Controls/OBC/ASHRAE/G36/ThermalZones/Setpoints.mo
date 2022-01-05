@@ -408,73 +408,73 @@ protected
   Buildings.Controls.OBC.CDL.Continuous.Greater gre2
     "Check if the difference between cooling and heating setpoints is less than the minimum value"
     annotation (Placement(transformation(extent={{220,-590},{240,-570}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi
     "Switch between occupied and unoccupied cooling setpoint"
     annotation (Placement(transformation(extent={{-300,520},{-280,540}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi1
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi1
     "Switch between occupied and unoccupied heating setpoint"
     annotation (Placement(transformation(extent={{-300,440},{-280,460}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi2
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi2
     "Adjustment shall only affect occupied set point"
     annotation (Placement(transformation(extent={{-120,360},{-100,340}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi3
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi3
     "Setpoint can only be adjusted in occupied mode"
     annotation (Placement(transformation(extent={{220,260},{240,240}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi4
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi4
     "If there is no cooling adjustment, zero adjust"
     annotation (Placement(transformation(extent={{-280,320},{-260,340}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi5
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi5
     "If there is no heating adjustment, zero adjust"
     annotation (Placement(transformation(extent={{0,240},{20,260}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi6
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi6
     "If there is only one common adjust for both heating and cooling, use the adjustment value from cooling one"
     annotation (Placement(transformation(extent={{80,240},{100,260}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi7
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi7
     "Ensure heating setpoint being not higher than cooling setpoint minus 0.5 degC"
     annotation (Placement(transformation(extent={{280,-590},{300,-570}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi8
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi8
     "Ensure unoccupied heating setppint being lower than occupied one"
     annotation (Placement(transformation(extent={{100,-610},{120,-590}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi9
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi9
     "Ensure unoccupied cooling setppint being higher than occupied one"
     annotation (Placement(transformation(extent={{100,-550},{120,-530}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi10
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi10
     "Switch between occupied and unoccupied cooling setpoint"
     annotation (Placement(transformation(extent={{220,80},{240,100}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi11
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi11
     "Switch between occupied and unoccupied cooling setpoint"
     annotation (Placement(transformation(extent={{220,-140},{240,-120}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi12
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi12
     "Increase cooling setpoint when the zone is continuously unpopulated"
     annotation (Placement(transformation(extent={{160,-280},{180,-260}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi13
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi13
     "Decrease heating setpoint when the zone is continuously unpopulated"
     annotation (Placement(transformation(extent={{160,-320},{180,-300}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi14
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi14
     "Switch to TZonCooSetWinOpe when window is open"
     annotation (Placement(transformation(extent={{-180,-460},{-160,-440}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi15
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi15
     "Switch to TZonHeaSetWinOpe when window is open"
     annotation (Placement(transformation(extent={{-60,-460},{-40,-440}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi16
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi16
     "Generate level 4 alarm when window is open during modes other than occupied"
     annotation (Placement(transformation(extent={{-100,-420},{-80,-400}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi17
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi17
     "If it is occupied mode, cooling setpoint should be limited"
     annotation (Placement(transformation(extent={{-180,-550},{-160,-530}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi18
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi18
     "If it is occupied mode, heating setpoint should be limited"
     annotation (Placement(transformation(extent={{-180,-610},{-160,-590}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi19
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi19
     "If there is occupancy sensor, update heating setpoint according to the occupancy"
     annotation (Placement(transformation(extent={{220,-320},{240,-300}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi20
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi20
     "If there is occupancy sensor, update cooling setpoint according to the occupancy"
     annotation (Placement(transformation(extent={{220,-280},{240,-260}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi21
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi21
     "If there is window status sensor, update heating setpoint according to the window status"
     annotation (Placement(transformation(extent={{160,-480},{180,-460}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi22
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi22
     "If there is window status sensor, update cooling setpoint according to the window status"
     annotation (Placement(transformation(extent={{100,-460},{120,-440}})));
   Buildings.Controls.OBC.CDL.Integers.Equal intEqu7

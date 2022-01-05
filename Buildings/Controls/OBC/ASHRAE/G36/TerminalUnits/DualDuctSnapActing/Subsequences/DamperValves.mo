@@ -210,10 +210,10 @@ block DamperValves
     final y_reset=0) if not have_pressureIndependentDamper
     "Damper position controller"
     annotation (Placement(transformation(extent={{280,240},{300,260}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi
     "Output active cooling airflow according to cooling control signal"
     annotation (Placement(transformation(extent={{160,280},{180,300}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi5
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi5
     "Airflow setpoint when it is in cooling state"
     annotation (Placement(transformation(extent={{60,310},{80,330}})));
   Buildings.Controls.OBC.CDL.Logical.Not not1
@@ -225,13 +225,13 @@ block DamperValves
   Buildings.Controls.OBC.CDL.Logical.And and2
     "Check if current zone state is deadband"
     annotation (Placement(transformation(extent={{-120,140},{-100,160}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi1
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi1
     "Airflow setpoint when it is in deadband state"
     annotation (Placement(transformation(extent={{100,140},{120,160}})));
   Buildings.Controls.OBC.CDL.Continuous.Line lin3
     "Airflow setpoint when it is in heating state"
     annotation (Placement(transformation(extent={{-100,-260},{-80,-240}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi2
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi2
     "Acitive heating airflow rate"
     annotation (Placement(transformation(extent={{20,-230},{40,-210}})));
   Buildings.Controls.OBC.CDL.Continuous.Greater gre(
@@ -244,7 +244,7 @@ block DamperValves
   Buildings.Controls.OBC.CDL.Logical.Or or2
     "Enable heating coil when it is in heating state, or the discharge air temperature is lower than minimum"
     annotation (Placement(transformation(extent={{-60,30},{-40,50}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi3
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi3
     "Discharge airflow setpoint when heating coil is enabled"
     annotation (Placement(transformation(extent={{-60,-130},{-40,-110}})));
   Buildings.Controls.OBC.CDL.Continuous.PIDWithReset conVal(
@@ -281,9 +281,9 @@ block DamperValves
     final k2=-1)
     "Calculate temperature difference between AHU supply air and room "
     annotation (Placement(transformation(extent={{-160,210},{-140,230}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch watValPosUno "Output hot water valve position"
+  Buildings.Controls.OBC.CDL.Continuous.Switch watValPosUno "Output hot water valve position"
     annotation (Placement(transformation(extent={{280,-10},{300,10}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch damPosUno "Output damper position"
+  Buildings.Controls.OBC.CDL.Continuous.Switch damPosUno "Output damper position"
     annotation (Placement(transformation(extent={{280,70},{300,90}})));
   Buildings.Controls.OBC.CDL.Continuous.Division VDis_flowNor if
        not have_pressureIndependentDamper
@@ -344,7 +344,7 @@ block DamperValves
     final k=TDisMin)
     "Lowest allowed discharge air temperature"
     annotation (Placement(transformation(extent={{-120,-150},{-100,-130}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi4
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi4
     "Output hot water valve position in case of low discharge air temperature"
     annotation (Placement(transformation(extent={{100,-50},{120,-30}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant occMod(

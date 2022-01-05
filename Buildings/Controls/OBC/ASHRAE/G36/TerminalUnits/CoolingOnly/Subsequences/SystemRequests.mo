@@ -166,16 +166,16 @@ protected
     final k=2)
     "Constant 2"
     annotation (Placement(transformation(extent={{40,-110},{60,-90}})));
-  Buildings.Controls.OBC.CDL.Logical.IntegerSwitch intSwi
+  Buildings.Controls.OBC.CDL.Integers.Switch intSwi
     "Output 3 or other request "
     annotation (Placement(transformation(extent={{140,128},{160,148}})));
-  Buildings.Controls.OBC.CDL.Logical.IntegerSwitch intSwi1
+  Buildings.Controls.OBC.CDL.Integers.Switch intSwi1
     "Output 2 or other request "
     annotation (Placement(transformation(extent={{100,68},{120,88}})));
-  Buildings.Controls.OBC.CDL.Logical.IntegerSwitch swi4
+  Buildings.Controls.OBC.CDL.Integers.Switch swi4
     "Output 3 or other request "
     annotation (Placement(transformation(extent={{140,-70},{160,-50}})));
-  Buildings.Controls.OBC.CDL.Logical.IntegerSwitch swi5
+  Buildings.Controls.OBC.CDL.Integers.Switch swi5
     "Output 2 or other request "
     annotation (Placement(transformation(extent={{100,-140},{120,-120}})));
   Buildings.Controls.OBC.CDL.Logical.TrueDelay tim1(

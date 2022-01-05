@@ -156,7 +156,7 @@ block Alarms "Generate alarms of terminal unit with reheat"
   Buildings.Controls.OBC.CDL.Logical.And and1
     "Measured airflow has been less than threshold value for sufficient time"
     annotation (Placement(transformation(extent={{-40,250},{-20,270}})));
-  Buildings.Controls.OBC.CDL.Logical.IntegerSwitch lowFloAla
+  Buildings.Controls.OBC.CDL.Integers.Switch lowFloAla
     "Low airflow alarm"
     annotation (Placement(transformation(extent={{140,330},{160,350}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt(
@@ -293,7 +293,7 @@ block Alarms "Generate alarms of terminal unit with reheat"
     final message="Warning: discharge air temperature is 17 degC less than the setpoint.")
     "Level 2 low discharge air temperature alarm"
     annotation (Placement(transformation(extent={{80,-290},{100,-270}})));
-  Buildings.Controls.OBC.CDL.Logical.IntegerSwitch lowTemAla
+  Buildings.Controls.OBC.CDL.Integers.Switch lowTemAla
     "Low discharge temperature alarm"
     annotation (Placement(transformation(extent={{140,-250},{160,-230}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt2(

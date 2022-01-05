@@ -258,10 +258,10 @@ block Alarms "Zone level alarms"
     final delayTime=timChe) if have_CO2Sen
     "Check if it has been over threshold time"
     annotation (Placement(transformation(extent={{-80,-230},{-60,-210}})));
-  Buildings.Controls.OBC.CDL.Logical.IntegerSwitch higTemAla
+  Buildings.Controls.OBC.CDL.Integers.Switch higTemAla
     "High temperature alarms"
     annotation (Placement(transformation(extent={{60,170},{80,190}})));
-  Buildings.Controls.OBC.CDL.Logical.IntegerSwitch lowTemAla
+  Buildings.Controls.OBC.CDL.Integers.Switch lowTemAla
     "Low temperature alarms"
     annotation (Placement(transformation(extent={{60,50},{80,70}})));
 

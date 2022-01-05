@@ -177,7 +177,7 @@ protected
     final k=0)
     "Fan off status"
     annotation (Placement(transformation(extent={{40,350},{60,370}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch fanSpe "Supply fan speed"
+  Buildings.Controls.OBC.CDL.Continuous.Switch fanSpe "Supply fan speed"
     annotation (Placement(transformation(extent={{100,330},{120,350}})));
   Buildings.Controls.OBC.CDL.Continuous.SlewRateLimiter ramLim(
     final raisingSlewRate=1/600,
@@ -310,17 +310,17 @@ protected
     final h=looHys)
     "Check if the cooling loop signal is greater than threshold"
     annotation (Placement(transformation(extent={{40,-20},{60,0}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch cooFan
+  Buildings.Controls.OBC.CDL.Continuous.Switch cooFan
     "Fan speed when it is in cooling state"
     annotation (Placement(transformation(extent={{100,-20},{120,0}})));
   Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold heaSta(
     final h=looHys)
     "Check if it is in heating state"
     annotation (Placement(transformation(extent={{-40,-230},{-20,-210}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch supTemSet
+  Buildings.Controls.OBC.CDL.Continuous.Switch supTemSet
     "Supply temperature setpoint"
     annotation (Placement(transformation(extent={{120,-210},{140,-190}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch supTemSet1
+  Buildings.Controls.OBC.CDL.Continuous.Switch supTemSet1
     "Supply temperature setpoint"
     annotation (Placement(transformation(extent={{120,-290},{140,-270}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant unoMod(

@@ -112,7 +112,7 @@ block ReliefFan "Sequence for relief fan control for AHUs using actuated relief 
     final t=300)
     "Check if the controller output has been near zero for threshold time"
     annotation (Placement(transformation(extent={{-220,80},{-200,100}})));
-  Buildings.Controls.OBC.CDL.Routing.BooleanReplicator booRep(
+  Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator booRep(
     final nout=nRelFan)
     "Boolean replicator"
     annotation (Placement(transformation(extent={{-140,120},{-120,140}})));
@@ -151,7 +151,7 @@ block ReliefFan "Sequence for relief fan control for AHUs using actuated relief 
     final nin=nRelFan)
     "Identify current order of staging"
     annotation (Placement(transformation(extent={{-140,-40},{-120,-20}})));
-  Buildings.Controls.OBC.CDL.Routing.RealReplicator reaRep(
+  Buildings.Controls.OBC.CDL.Routing.RealScalarReplicator reaRep(
     final nout=nRelFan)
     "Replicate real number"
     annotation (Placement(transformation(extent={{-100,-40},{-80,-20}})));
@@ -167,7 +167,7 @@ block ReliefFan "Sequence for relief fan control for AHUs using actuated relief 
     final p=fill(nRelFan + 1, nRelFan),
     final k=fill(1, nRelFan)) "Add value to the input"
     annotation (Placement(transformation(extent={{-220,-10},{-200,10}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi[nRelFan]
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi[nRelFan]
     "Switch input values"
     annotation (Placement(transformation(extent={{-180,-40},{-160,-20}})));
   Buildings.Controls.OBC.CDL.Continuous.Abs abs1[nRelFan]
@@ -209,7 +209,7 @@ block ReliefFan "Sequence for relief fan control for AHUs using actuated relief 
     final t=fill(0.5, nRelFan))
     "Check if the input is less than threshold"
     annotation (Placement(transformation(extent={{-220,-240},{-200,-220}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi1[nRelFan]
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi1[nRelFan]
     "Switch input values"
     annotation (Placement(transformation(extent={{-180,-240},{-160,-220}})));
   Buildings.Controls.OBC.CDL.Continuous.MultiMin mulMin1(
@@ -226,7 +226,7 @@ block ReliefFan "Sequence for relief fan control for AHUs using actuated relief 
     final t=fill(0.5, nRelFan))
     "Identify next fan to be off"
     annotation (Placement(transformation(extent={{20,-210},{40,-190}})));
-  Buildings.Controls.OBC.CDL.Routing.RealReplicator reaRep1(
+  Buildings.Controls.OBC.CDL.Routing.RealScalarReplicator reaRep1(
     final nout=nRelFan)
     "Replicate real number"
     annotation (Placement(transformation(extent={{-100,-240},{-80,-220}})));
@@ -259,17 +259,17 @@ block ReliefFan "Sequence for relief fan control for AHUs using actuated relief 
   Buildings.Controls.OBC.CDL.Logical.Latch lat1
     "Stage down lag fan"
     annotation (Placement(transformation(extent={{220,-280},{240,-260}})));
-  Buildings.Controls.OBC.CDL.Logical.LogicalSwitch logSwi[nRelFan]
+  Buildings.Controls.OBC.CDL.Logical.Switch logSwi[nRelFan]
     "Vector of relief fan status after staging up"
     annotation (Placement(transformation(extent={{340,-100},{360,-80}})));
-  Buildings.Controls.OBC.CDL.Routing.BooleanReplicator booRep1(
+  Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator booRep1(
     final nout=nRelFan)
     "Replicate boolean input"
     annotation (Placement(transformation(extent={{260,-100},{280,-80}})));
-  Buildings.Controls.OBC.CDL.Logical.LogicalSwitch logSwi1[nRelFan]
+  Buildings.Controls.OBC.CDL.Logical.Switch logSwi1[nRelFan]
     "Vector of relief fan status after staging down"
     annotation (Placement(transformation(extent={{300,-280},{320,-260}})));
-  Buildings.Controls.OBC.CDL.Routing.BooleanReplicator booRep2(
+  Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator booRep2(
     final nout=nRelFan)
     "Replicate boolean input"
     annotation (Placement(transformation(extent={{260,-280},{280,-260}})));
@@ -281,7 +281,7 @@ block ReliefFan "Sequence for relief fan control for AHUs using actuated relief 
     final uMin=minSpe)
     "Limit the controller output"
     annotation (Placement(transformation(extent={{60,250},{80,270}})));
-  Buildings.Controls.OBC.CDL.Routing.RealReplicator reaRep2(
+  Buildings.Controls.OBC.CDL.Routing.RealScalarReplicator reaRep2(
     final nout=nRelFan)
     "Replicate real input"
     annotation (Placement(transformation(extent={{380,206},{400,226}})));
@@ -290,11 +290,11 @@ block ReliefFan "Sequence for relief fan control for AHUs using actuated relief 
     annotation (Placement(transformation(extent={{440,200},{460,220}})));
   Buildings.Controls.OBC.CDL.Logical.Or or1
     annotation (Placement(transformation(extent={{280,50},{300,70}})));
-  Buildings.Controls.OBC.CDL.Routing.BooleanReplicator booRep3(
+  Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator booRep3(
     final nout=nRelFan)
     "Replicate boolean input"
     annotation (Placement(transformation(extent={{320,50},{340,70}})));
-  Buildings.Controls.OBC.CDL.Logical.LogicalSwitch logSwi2[nRelFan]
+  Buildings.Controls.OBC.CDL.Logical.Switch logSwi2[nRelFan]
     "Vector of relief fan status after staging up"
     annotation (Placement(transformation(extent={{380,50},{400,70}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant dpBuiSetPoi(
@@ -309,7 +309,7 @@ block ReliefFan "Sequence for relief fan control for AHUs using actuated relief 
     final k=0)
     "Zero fan speed when it is in stage 0"
     annotation (Placement(transformation(extent={{160,180},{180,200}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi2
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi2
     "Switch input values"
     annotation (Placement(transformation(extent={{340,206},{360,226}})));
   Buildings.Controls.OBC.CDL.Logical.MultiOr mulOr(

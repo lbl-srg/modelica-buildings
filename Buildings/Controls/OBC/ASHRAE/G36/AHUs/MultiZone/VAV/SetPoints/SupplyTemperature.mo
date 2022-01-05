@@ -151,10 +151,10 @@ protected
     final k=TSupWarUpSetBac)
     "Supply temperature setpoint under warm-up and setback mode"
     annotation (Placement(transformation(extent={{20,-160},{40,-140}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi1
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi1
     "If operation mode is warm-up or setback modes, setpoint shall be 35 degC"
     annotation (Placement(transformation(extent={{80,-80},{100,-60}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi2
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi2
     "If operation mode is setup or cool-down, setpoint shall be the lowest cooling supply setpoint"
     annotation (Placement(transformation(extent={{20,-80},{40,-60}})));
   Buildings.Controls.OBC.CDL.Continuous.Limiter TDea(
@@ -162,7 +162,7 @@ protected
     final uMin=294.15)
     "Limiter that outputs the dead band value for the supply air temperature"
     annotation (Placement(transformation(extent={{-100,150},{-80,170}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi3
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi3
     "Check output regarding supply fan status"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant cooDowMod(
@@ -187,7 +187,7 @@ protected
   Buildings.Controls.OBC.CDL.Logical.And and2
     "Check if it is in occupied or setup mode"
     annotation (Placement(transformation(extent={{0,18},{20,38}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi4
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi4
     "If operation mode is occupied or setup ,mode, setpoint shall be reset"
     annotation (Placement(transformation(extent={{40,50},{60,70}})));
   Buildings.Controls.OBC.CDL.Integers.Equal intEqu

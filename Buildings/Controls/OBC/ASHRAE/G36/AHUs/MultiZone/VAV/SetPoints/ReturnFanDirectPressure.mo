@@ -94,10 +94,10 @@ block ReturnFanDirectPressure
   Buildings.Controls.OBC.CDL.Continuous.Line linRetFanStaPre
     "Return fan static pressure setpoint"
     annotation (Placement(transformation(extent={{60,-50},{80,-30}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi1
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi1
     "Exhaust air damper position"
     annotation (Placement(transformation(extent={{80,10},{100,30}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi
     "Return fan discharge static pressure setpoint"
     annotation (Placement(transformation(extent={{80,-100},{100,-80}})));
   Buildings.Controls.OBC.CDL.Continuous.Division div "Normalized the control error"

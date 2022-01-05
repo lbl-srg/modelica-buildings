@@ -158,15 +158,15 @@ protected
     final uHigh=hOutHigLimCutHig) if use_enthalpy
     "Outdoor air enthalpy hysteresis for both fixed and differential enthalpy cutoff conditions"
     annotation (Placement(transformation(extent={{-100,160},{-80,180}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch outDamSwitch
+  Buildings.Controls.OBC.CDL.Continuous.Switch outDamSwitch
     "Set maximum OA damper position to minimum at disable (after a given time delay)"
     annotation (Placement(transformation(extent={{62,-60},{82,-40}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch retDamSwitch "Set minimum RA damper position to maximum at disable"
+  Buildings.Controls.OBC.CDL.Continuous.Switch retDamSwitch "Set minimum RA damper position to maximum at disable"
     annotation (Placement(transformation(extent={{-40,-162},{-20,-142}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch maxRetDamSwitch
+  Buildings.Controls.OBC.CDL.Continuous.Switch maxRetDamSwitch
     "Keep maximum RA damper position at physical maximum for a short time period after disable signal"
     annotation (Placement(transformation(extent={{40,-120},{60,-100}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch minRetDamSwitch
+  Buildings.Controls.OBC.CDL.Continuous.Switch minRetDamSwitch
     "Keep minimum RA damper position at physical maximum for a short time period after disable"
     annotation (Placement(transformation(extent={{40,-160},{60,-140}})));
   Buildings.Controls.OBC.CDL.Logical.Nor nor1 "Logical nor"

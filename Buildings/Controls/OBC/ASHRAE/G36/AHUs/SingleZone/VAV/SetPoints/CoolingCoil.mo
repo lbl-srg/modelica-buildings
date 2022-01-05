@@ -54,7 +54,7 @@ protected
     final Ti=TiCooCoi,
     final Td=TdCooCoi) "Cooling coil control signal"
     annotation (Placement(transformation(extent={{-10,70},{10,90}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch switch "Switch to assign cooling coil control signal"
+  Buildings.Controls.OBC.CDL.Continuous.Switch switch "Switch to assign cooling coil control signal"
     annotation (Placement(transformation(extent={{72,-10},{92,10}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant const(k=0) "Cooling off mode"
     annotation (Placement(transformation(extent={{20,-50},{40,-30}})));

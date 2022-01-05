@@ -163,7 +163,7 @@ protected
   Buildings.Controls.OBC.CDL.Integers.Equal inCooSta if have_CO2Sen and have_parFanPowUniWitCO2
     "Check if it is in cooling state"
     annotation (Placement(transformation(extent={{-220,-210},{-200,-190}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch maxFloCO2 if have_CO2Sen and have_parFanPowUniWitCO2
+  Buildings.Controls.OBC.CDL.Continuous.Switch maxFloCO2 if have_CO2Sen and have_parFanPowUniWitCO2
     "Maximum airflow set point for CO2"
     annotation (Placement(transformation(extent={{-160,-210},{-140,-190}})));
   Buildings.Controls.OBC.CDL.Continuous.Feedback difCooMax if have_CO2Sen and have_parFanPowUniWitCO2
@@ -206,19 +206,19 @@ protected
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zer1(
     final k=0) "Constant zero"
     annotation (Placement(transformation(extent={{-20,260},{0,280}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch modPopBreAir
+  Buildings.Controls.OBC.CDL.Continuous.Switch modPopBreAir
     "Modified popuplation component of the breathing zone airflow"
     annotation (Placement(transformation(extent={{180,270},{200,290}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch modAreBreAir
+  Buildings.Controls.OBC.CDL.Continuous.Switch modAreBreAir
     "Modified area component of the breathing zone airflow"
     annotation (Placement(transformation(extent={{140,240},{160,260}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch occMinAir if not have_SZVAVWitCO2
+  Buildings.Controls.OBC.CDL.Continuous.Switch occMinAir if not have_SZVAVWitCO2
     "Occupied minimum airflow setpoint"
     annotation (Placement(transformation(extent={{80,210},{100,230}})));
   Buildings.Controls.OBC.CDL.Logical.Not notOcc if have_occSen
     "Not occupied"
     annotation (Placement(transformation(extent={{-280,150},{-260,170}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch unpPopBreAir
+  Buildings.Controls.OBC.CDL.Continuous.Switch unpPopBreAir
     "Population component of the required breathing zone outdoor airflow when it is unpopulated"
     annotation (Placement(transformation(extent={{140,150},{160,170}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea1(
@@ -232,10 +232,10 @@ protected
   Buildings.Controls.OBC.CDL.Continuous.Product unpMinZonFlo if have_occSen and not have_SZVAVWitCO2
     "Minimum zone airflow when it is unpopulated"
     annotation (Placement(transformation(extent={{-80,50},{-60,70}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch unpAreBreAir
+  Buildings.Controls.OBC.CDL.Continuous.Switch unpAreBreAir
     "Area component of the required breathing zone outdoor airflow when it is unpopulated"
     annotation (Placement(transformation(extent={{80,120},{100,140}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch unpMinZonAir if not have_SZVAVWitCO2
+  Buildings.Controls.OBC.CDL.Continuous.Switch unpMinZonAir if not have_SZVAVWitCO2
     "Minimum zone airflow when it is unpopulated"
     annotation (Placement(transformation(extent={{20,90},{40,110}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant con1(

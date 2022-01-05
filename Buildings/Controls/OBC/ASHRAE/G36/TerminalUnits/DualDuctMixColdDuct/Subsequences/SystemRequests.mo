@@ -221,16 +221,16 @@ protected
     final k=2)
     "Constant 2"
     annotation (Placement(transformation(extent={{40,10},{60,30}})));
-  Buildings.Controls.OBC.CDL.Logical.IntegerSwitch intSwi
+  Buildings.Controls.OBC.CDL.Integers.Switch intSwi
     "Output 3 or other request "
     annotation (Placement(transformation(extent={{140,228},{160,248}})));
-  Buildings.Controls.OBC.CDL.Logical.IntegerSwitch intSwi1
+  Buildings.Controls.OBC.CDL.Integers.Switch intSwi1
     "Output 2 or other request "
     annotation (Placement(transformation(extent={{100,168},{120,188}})));
-  Buildings.Controls.OBC.CDL.Logical.IntegerSwitch swi4
+  Buildings.Controls.OBC.CDL.Integers.Switch swi4
     "Output 3 or other request "
     annotation (Placement(transformation(extent={{140,50},{160,70}})));
-  Buildings.Controls.OBC.CDL.Logical.IntegerSwitch swi5
+  Buildings.Controls.OBC.CDL.Integers.Switch swi5
     "Output 2 or other request "
     annotation (Placement(transformation(extent={{100,-20},{120,0}})));
   Buildings.Controls.OBC.CDL.Logical.TrueDelay tim1(
@@ -269,11 +269,11 @@ protected
     final k=2) if have_hotWatCoi
     "Constant 2"
     annotation (Placement(transformation(extent={{40,-120},{60,-100}})));
-  Buildings.Controls.OBC.CDL.Logical.IntegerSwitch intSwi2 if
+  Buildings.Controls.OBC.CDL.Integers.Switch intSwi2 if
        have_hotWatCoi
     "Output 3 or other request "
     annotation (Placement(transformation(extent={{140,-150},{160,-130}})));
-  Buildings.Controls.OBC.CDL.Logical.IntegerSwitch intSwi3 if
+  Buildings.Controls.OBC.CDL.Integers.Switch intSwi3 if
        have_hotWatCoi
     "Output 2 or other request "
     annotation (Placement(transformation(extent={{100,-190},{120,-170}})));

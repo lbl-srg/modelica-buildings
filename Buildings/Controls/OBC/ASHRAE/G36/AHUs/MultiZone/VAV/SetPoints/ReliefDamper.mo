@@ -27,7 +27,7 @@ block ReliefDamper
       iconTransformation(extent={{100,-20},{140,20}})));
 
 protected
-  Buildings.Controls.OBC.CDL.Logical.Switch swi
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi
     "Check if relief damper should be enabled"
     annotation (Placement(transformation(extent={{60,-40},{80,-20}})));
   Buildings.Controls.OBC.CDL.Continuous.Feedback conErr(

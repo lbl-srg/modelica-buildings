@@ -100,7 +100,7 @@ block Overrides "Software switches to override setpoints"
     annotation (Placement(transformation(extent={{28,130},{48,150}})));
   Buildings.Controls.OBC.CDL.Continuous.Add add1 "Add up inputs"
     annotation (Placement(transformation(extent={{62,170},{82,190}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi "Airflow setpoint after considering override"
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi "Airflow setpoint after considering override"
     annotation (Placement(transformation(extent={{100,10},{120,30}})));
   Buildings.Controls.OBC.CDL.Logical.Or3 or3 "Check if the airflow setpoint should be overrided"
     annotation (Placement(transformation(extent={{-20,30},{0,50}})));
@@ -131,7 +131,7 @@ block Overrides "Software switches to override setpoints"
   Buildings.Controls.OBC.CDL.Logical.Or or2
     "Check if the damper setpoint position should be overrided"
     annotation (Placement(transformation(extent={{0,-110},{20,-90}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi1
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi1
     "Damper setpoint position after considering override"
     annotation (Placement(transformation(extent={{80,-110},{100,-90}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt5(

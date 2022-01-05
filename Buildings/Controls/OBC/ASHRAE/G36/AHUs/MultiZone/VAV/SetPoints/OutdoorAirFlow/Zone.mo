@@ -169,11 +169,11 @@ protected
     "Outdoor air per person"
     annotation (Placement(transformation(extent={{-100,30},{-80,50}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Switch swi
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi
     "If there is occupancy sensor, then using the real time occupancy; otherwise, using the default occupancy"
     annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Switch swi1
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi1
     "Switch between cooling or heating distribution effectiveness"
     annotation (Placement(transformation(extent={{-20,-160},{0,-140}})));
 
@@ -248,11 +248,11 @@ protected
     "Closed window status when there is no window sensor"
     annotation (Placement(transformation(extent={{-100,-80},{-80,-60}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Switch swi4
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi4
     "If window is open, the required outdoor airflow rate should be zero"
     annotation (Placement(transformation(extent={{60,-60},{80,-40}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Switch swi5
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi5
     "If supply fan is off or it is not in occupied mode, then outdoor airflow rate should be zero"
     annotation (Placement(transformation(extent={{120,-100},{140,-80}})));
 

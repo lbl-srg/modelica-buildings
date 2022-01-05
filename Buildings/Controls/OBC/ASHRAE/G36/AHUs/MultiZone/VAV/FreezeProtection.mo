@@ -208,14 +208,14 @@ block FreezeProtection "Freeze protection sequence for multizone AHU"
     final t=300)
     "Check if the supply air temperature has been lower than threshold value for sufficient long time"
     annotation (Placement(transformation(extent={{-300,470},{-280,490}})));
-  Buildings.Controls.OBC.CDL.Logical.IntegerSwitch hotWatPlaReq
+  Buildings.Controls.OBC.CDL.Integers.Switch hotWatPlaReq
     "Hot water plant request in stage 1 mode"
     annotation (Placement(transformation(extent={{60,462},{80,482}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt(
     final k=minHotWatReq)
     "Minimum hot-water plant requests"
     annotation (Placement(transformation(extent={{-20,500},{0,520}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch minVen
+  Buildings.Controls.OBC.CDL.Continuous.Switch minVen
     "Minimum ventilation when in stage 1 mode"
     annotation (Placement(transformation(extent={{60,390},{80,410}})));
   Buildings.Controls.OBC.CDL.Continuous.PID heaCoiCon1(
@@ -227,7 +227,7 @@ block FreezeProtection "Freeze protection sequence for multizone AHU"
     final yMin=yMin)
     "Heating coil control in stage 1 mode"
     annotation (Placement(transformation(extent={{-320,340},{-300,360}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch heaCoi1
+  Buildings.Controls.OBC.CDL.Continuous.Switch heaCoi1
     "Heating coil position"
     annotation (Placement(transformation(extent={{120,320},{140,340}})));
   Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr(
@@ -259,24 +259,24 @@ block FreezeProtection "Freeze protection sequence for multizone AHU"
     final falseHoldDuration=0)
     "Stage in stage 2 freeze protection mode"
     annotation (Placement(transformation(extent={{-300,162},{-280,182}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch outDam2
+  Buildings.Controls.OBC.CDL.Continuous.Switch outDam2
     "Outdoor air damper position"
     annotation (Placement(transformation(extent={{120,250},{140,270}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con(
     final k=0)
     "Fully closed damper position"
     annotation (Placement(transformation(extent={{40,270},{60,290}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch minOutDam2 if not have_common
+  Buildings.Controls.OBC.CDL.Continuous.Switch minOutDam2 if not have_common
     "Minimum outdoor air damper position"
     annotation (Placement(transformation(extent={{120,200},{140,220}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch retDam2
+  Buildings.Controls.OBC.CDL.Continuous.Switch retDam2
     "Return air damper position"
     annotation (Placement(transformation(extent={{120,118},{140,138}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con1(
     final k=1)
     "Fully open damper or valve position"
     annotation (Placement(transformation(extent={{-80,30},{-60,50}})));
-  Buildings.Controls.OBC.CDL.Logical.IntegerSwitch intSwi1
+  Buildings.Controls.OBC.CDL.Integers.Switch intSwi1
     "Alarm when it is in stage 2 mode"
     annotation (Placement(transformation(extent={{120,30},{140,50}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt1(
@@ -310,26 +310,26 @@ block FreezeProtection "Freeze protection sequence for multizone AHU"
   Buildings.Controls.OBC.CDL.Logical.Latch lat1
     "Stay in stage 3 freeze protection mode"
     annotation (Placement(transformation(extent={{-140,-58},{-120,-38}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch supFan
+  Buildings.Controls.OBC.CDL.Continuous.Switch supFan
     "Supply fan speed"
     annotation (Placement(transformation(extent={{120,-250},{140,-230}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch retFan if have_returns
+  Buildings.Controls.OBC.CDL.Continuous.Switch retFan if have_returns
     "Return fan speed"
     annotation (Placement(transformation(extent={{120,-290},{140,-270}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch relFan if have_reliefs
+  Buildings.Controls.OBC.CDL.Continuous.Switch relFan if have_reliefs
     "Relief fan speed"
     annotation (Placement(transformation(extent={{120,-330},{140,-310}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con3(
     final k=0)
     "Zero constant"
     annotation (Placement(transformation(extent={{-140,-220},{-120,-200}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch outDam if have_reliefs
+  Buildings.Controls.OBC.CDL.Continuous.Switch outDam if have_reliefs
     "Outdoor air damper"
     annotation (Placement(transformation(extent={{320,-160},{340,-140}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch cooCoi if have_reliefs
+  Buildings.Controls.OBC.CDL.Continuous.Switch cooCoi if have_reliefs
     "Cooling coil position"
     annotation (Placement(transformation(extent={{120,-370},{140,-350}})));
-  Buildings.Controls.OBC.CDL.Logical.IntegerSwitch hotWatPlaReq3
+  Buildings.Controls.OBC.CDL.Integers.Switch hotWatPlaReq3
     "Hot water plant request in stage 3 mode"
     annotation (Placement(transformation(extent={{320,-490},{340,-470}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt3(
@@ -352,10 +352,10 @@ block FreezeProtection "Freeze protection sequence for multizone AHU"
     final k=273.15 + 27)
     "Setpoint temperature"
     annotation (Placement(transformation(extent={{-140,-400},{-120,-380}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch heaCoiPos
+  Buildings.Controls.OBC.CDL.Continuous.Switch heaCoiPos
     "Heating coil position"
     annotation (Placement(transformation(extent={{320,-440},{340,-420}})));
-  Buildings.Controls.OBC.CDL.Logical.IntegerSwitch intSwi3
+  Buildings.Controls.OBC.CDL.Integers.Switch intSwi3
     "Alarm level"
     annotation (Placement(transformation(extent={{320,-540},{340,-520}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt4(
@@ -379,7 +379,7 @@ block FreezeProtection "Freeze protection sequence for multizone AHU"
     final t=3600)
     "Check if it has been in stage 2 for sufficient long time"
     annotation (Placement(transformation(extent={{-260,130},{-240,150}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch minOutDam if not have_common
+  Buildings.Controls.OBC.CDL.Continuous.Switch minOutDam if not have_common
     "Minimum outdoor air damper position"
     annotation (Placement(transformation(extent={{320,-210},{340,-190}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt5(
@@ -397,7 +397,7 @@ block FreezeProtection "Freeze protection sequence for multizone AHU"
   Buildings.Controls.OBC.CDL.Logical.FallingEdge falEdg
     "Switch from stage 2 to stage 1"
     annotation (Placement(transformation(extent={{-140,430},{-120,450}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch retDam
+  Buildings.Controls.OBC.CDL.Continuous.Switch retDam
     "Return air damper position"
     annotation (Placement(transformation(extent={{320,-110},{340,-90}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant supTemSet(

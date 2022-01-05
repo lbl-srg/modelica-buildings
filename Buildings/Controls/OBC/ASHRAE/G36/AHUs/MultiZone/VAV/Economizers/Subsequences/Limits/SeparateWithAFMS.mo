@@ -248,10 +248,10 @@ protected
     final k=retDamPhyPosMax)
     "Physically fixed maximum position of the return air damper. This is the initial condition of the return air damper"
     annotation (Placement(transformation(extent={{-200,-250},{-180,-230}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch retDamPosMinSwi
+  Buildings.Controls.OBC.CDL.Continuous.Switch retDamPosMinSwi
     "A switch to deactivate the return air damper minimal outdoor airflow control"
     annotation (Placement(transformation(extent={{180,-210},{200,-190}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch retDamPosMaxSwi
+  Buildings.Controls.OBC.CDL.Continuous.Switch retDamPosMaxSwi
     "A switch to deactivate the return air damper minimal outdoor airflow control"
     annotation (Placement(transformation(extent={{180,-260},{200,-240}})));
   Buildings.Controls.OBC.CDL.Continuous.Line maxRetDamPos(

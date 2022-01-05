@@ -100,14 +100,14 @@ protected
     final k=true)
     "Constant true"
     annotation (Placement(transformation(extent={{80,-130},{100,-110}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi
     "Use setpoint different value when sample period time has passed"
     annotation (Placement(transformation(extent={{40,100},{60,120}})));
   Buildings.Controls.OBC.CDL.Logical.TrueHoldWithReset truHol(
     final duration=samplePeriod)
     "Hold true signal for sample period of time"
     annotation (Placement(transformation(extent={{80,-160},{100,-140}})));
-  Buildings.Controls.OBC.CDL.Logical.LogicalSwitch pasSupTim
+  Buildings.Controls.OBC.CDL.Logical.Switch pasSupTim
     "Check if suppression time has passed"
     annotation (Placement(transformation(extent={{140,-110},{160,-90}})));
   Buildings.Controls.OBC.CDL.Continuous.Greater pasSup

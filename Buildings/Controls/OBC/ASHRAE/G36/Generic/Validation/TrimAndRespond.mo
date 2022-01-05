@@ -56,7 +56,7 @@ model TrimAndRespond "Model validates the trim and respond block"
     annotation (Placement(transformation(extent={{-88,-20},{-68,0}})));
   Buildings.Controls.OBC.CDL.Logical.Not not1 "Logical not"
     annotation (Placement(transformation(extent={{20,-20},{40,0}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi "Switch between two Real signals"
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi "Switch between two Real signals"
     annotation (Placement(transformation(extent={{-48,-50},{-28,-30}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con1(final k=0)
     "Zero request when device is OFF"

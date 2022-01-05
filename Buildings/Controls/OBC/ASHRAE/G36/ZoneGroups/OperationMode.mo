@@ -101,9 +101,9 @@ protected
     final k=0)
     "Index to indicate unoccupied period"
     annotation (Placement(transformation(extent={{0,340},{20,360}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch corCooDowTim "Corrected cool down period"
+  Buildings.Controls.OBC.CDL.Continuous.Switch corCooDowTim "Corrected cool down period"
     annotation (Placement(transformation(extent={{-220,240},{-200,260}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch corWarUpTim "Corrected warm-up period"
+  Buildings.Controls.OBC.CDL.Continuous.Switch corWarUpTim "Corrected warm-up period"
     annotation (Placement(transformation(extent={{-200,140},{-180,160}})));
   Buildings.Controls.OBC.CDL.Integers.GreaterThreshold intGreThr(
     final t=4) "Check if the number of cold zones is not less than than 5"
@@ -256,16 +256,16 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Or or6
     "Check if it is in any of the 6 modes except unoccupied mode"
     annotation (Placement(transformation(extent={{40,-370},{60,-350}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi
     "Switch between occupied mode index and unoccupied period index"
     annotation (Placement(transformation(extent={{160,310},{180,330}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi3
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi3
     "If the Cool-down, warm-up, or Occupied mode is on, then setback mode should not be activated."
     annotation (Placement(transformation(extent={{60,20},{80,40}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi4
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi4
     "If the Cool-down, warm-up, or Occupied mode is on, then freeze protection setback mode should not be activated."
     annotation (Placement(transformation(extent={{60,-100},{80,-80}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi5
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi5
     "If the Cool-down, warm-up, or Occupied mode is on, then setup mode should not be activated."
     annotation (Placement(transformation(extent={{60,-200},{80,-180}})));
   Buildings.Controls.OBC.CDL.Logical.Not not5 "Logical not"
@@ -283,13 +283,13 @@ protected
     final message="Level 4 alarm: window open during modes other than occupied mode")
     "Generate alarm message when window open during modes other than occupied mode"
     annotation (Placement(transformation(extent={{240,80},{260,100}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi1
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi1
     "If occupied mode is on, then cool down mode should not be activated"
     annotation (Placement(transformation(extent={{140,270},{160,290}})));
   Buildings.Controls.OBC.CDL.Conversions.RealToInteger setBacMod1
     "Convert Real number to Integer number"
     annotation (Placement(transformation(extent={{180,270},{200,290}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi2
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi2
     "If occupied mode is on, then warm-up mode should not be activated."
     annotation (Placement(transformation(extent={{140,180},{160,200}})));
   Buildings.Controls.OBC.CDL.Conversions.RealToInteger setBacMod2

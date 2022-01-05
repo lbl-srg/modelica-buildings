@@ -99,7 +99,7 @@ block Alarms "Generate alarms of cooling only terminal unit"
   Buildings.Controls.OBC.CDL.Logical.And and1
     "Measured airflow has been less than threshold value for sufficient time"
     annotation (Placement(transformation(extent={{-40,80},{-20,100}})));
-  Buildings.Controls.OBC.CDL.Logical.IntegerSwitch lowFloAla
+  Buildings.Controls.OBC.CDL.Integers.Switch lowFloAla
     "Low airflow alarm"
     annotation (Placement(transformation(extent={{140,160},{160,180}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt(

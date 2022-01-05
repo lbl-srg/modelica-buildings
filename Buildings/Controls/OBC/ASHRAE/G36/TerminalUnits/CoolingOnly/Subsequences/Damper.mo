@@ -111,10 +111,10 @@ block Damper
     final h=dTHys)
     "Check if supplyair temperature from the air handler is greater than room temperature"
     annotation (Placement(transformation(extent={{-140,90},{-120,110}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi
     "Select active airfow setpoint based on difference between supply and zone temperature"
     annotation (Placement(transformation(extent={{20,90},{40,110}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch actFlo
+  Buildings.Controls.OBC.CDL.Continuous.Switch actFlo
     "Specify active flow setpoint based on the zone status"
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
   Buildings.Controls.OBC.CDL.Continuous.PID conPID(
