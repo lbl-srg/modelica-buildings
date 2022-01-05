@@ -22,7 +22,7 @@ block Guideline36 "Guideline 36 VAV single duct controller"
     annotation(Evaluate=true);
 
   parameter Boolean have_perZonRehBox = Modelica.Math.BooleanVectors.anyTrue({
-      dat.getBoolean(varName=idTerArr[i] + ".control.Perimeter zone with reheat.value")
+      dat.getBoolean(varName=idTerArr[i] + ".control.isPerZonWitReh.value")
       for i in 1:nZon})
     "Check if there is any VAV-reheat boxes on perimeter zones"
     annotation (Dialog(group="System and building parameters"), Evaluate=true);
