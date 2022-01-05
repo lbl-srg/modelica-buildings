@@ -241,7 +241,7 @@ algorithm
 
   annotation (Documentation(info="<html>
 <p>
-Block derived from <code>CFDExchange</code> to exchange data between Modelica and ISAT.
+Block to exchange data between Modelica and ISAT.
 </html>",   revisions="<html>
 <ul>
 <li>
