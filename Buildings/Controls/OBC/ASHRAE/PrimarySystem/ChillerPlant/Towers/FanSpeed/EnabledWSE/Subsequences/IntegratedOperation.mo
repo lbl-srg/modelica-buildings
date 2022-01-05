@@ -5,7 +5,7 @@ block IntegratedOperation
   parameter Integer nChi = 2 "Total number of chillers";
   parameter Real chiMinCap[nChi](
     each final unit="W",
-    final quantity=fill("Power", nChi))={1e4, 1e4}
+    final quantity=fill("HeatFlowRate", nChi))={1e4, 1e4}
     "Minimum cyclining load below which chiller will begin cycling";
   parameter Real fanSpeMin = 0.1 "Minimum cooling tower fan speed";
   parameter Real fanSpeMax = 1 "Maximum cooling tower fan speed";

@@ -22,8 +22,8 @@ protected
 equation
   connect(WSEConWatIsoVal.y, enaLeaConPum.uWseConIsoVal)
     annotation (Line(points={{2,-30},{20,-30},{20,-4},{38,-4}}, color={255,0,255}));
-  connect(chiConWatIsoVal.y, enaLeaConPum.uChiConIsoVal)
-    annotation (Line(points={{2,30},{20,30},{20,4},{38,4}}, color={255,0,255}));
+  connect(chiConWatIsoVal.y, enaLeaConPum.uChiConIsoVal) annotation (Line(
+        points={{2,30},{20,30},{20,4},{38,4}}, color={255,0,255}));
 
 annotation (
   experiment(StopTime=3600.0, Tolerance=1e-06),

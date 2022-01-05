@@ -1,4 +1,4 @@
-within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Towers.Staging.Subsequences;
+﻿within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Towers.Staging.Subsequences;
 block CellsNumber
   "Sequence for identifying total number of enabling cells"
 
@@ -214,7 +214,8 @@ annotation (
         Text(
           extent={{-98,-12},{-72,-26}},
           lineColor={255,0,255},
-          textString="uWse"),
+          textString="uWse",
+          visible=have_WSE),
         Text(
           extent={{-98,26},{-40,14}},
           lineColor={255,0,255},

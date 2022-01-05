@@ -9,7 +9,7 @@ block Controller
   parameter Boolean closeCoupledPlant=true "Flag to indicate if the plant is close coupled";
   parameter Real desCap(
      final unit="W",
-     final quantity="Power")= 1e6 "Plant design capacity";
+     final quantity="HeatFlowRate")= 1e6 "Plant design capacity";
   parameter Real fanSpeMin=0.1 "Minimum tower fan speed";
   parameter Real LIFT_min[nChi](
     final unit=fill("K",nChi),

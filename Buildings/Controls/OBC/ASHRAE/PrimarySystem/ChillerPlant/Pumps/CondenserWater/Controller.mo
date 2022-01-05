@@ -1,4 +1,4 @@
-within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Pumps.CondenserWater;
+﻿within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Pumps.CondenserWater;
 block Controller "Condenser water pump controller"
 
   parameter Boolean have_heaPum = true
@@ -217,9 +217,8 @@ equation
   connect(uLeaChiEna, enaLeaDedPum.uLeaChiEna)
     annotation (Line(points={{-140,110},{-80,110},{-80,88},{18,88}},
       color={255,0,255}));
-  connect(enaLeaHeaPum.uChiConIsoVal, uChiConIsoVal)
-    annotation (Line(points={{18,134},{-40,134},{-40,140},{-140,140}},
-      color={255,0,255}));
+  connect(enaLeaHeaPum.uChiConIsoVal, uChiConIsoVal) annotation (Line(points={{
+          18,134},{-40,134},{-40,140},{-140,140}}, color={255,0,255}));
   connect(uConWatPum, booToInt.u)
     annotation (Line(points={{-140,-140},{-102,-140}}, color={255,0,255}));
   connect(booToInt.y, mulSumInt.u)

@@ -1,4 +1,4 @@
-within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Pumps.CondenserWater.Subsequences;
+﻿within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Pumps.CondenserWater.Subsequences;
 block EnableLead_headered
   "Sequence for enabling lead pump of plants with headered condenser water pumps"
   parameter Boolean have_WSE = true
@@ -54,8 +54,7 @@ equation
     annotation (Line(points={{-58,-60},{-40,-60},{-40,-8},{-22,-8}},
       color={255,0,255}));
   connect(uChiConIsoVal, mulOr.u)
-    annotation (Line(points={{-120,20},{-102,20},{-102,20},{-82,20}},
-      color={255,0,255}));
+    annotation (Line(points={{-120,20},{-102,20},{-102,20},{-82,20}}, color={255,0,255}));
   connect(mulOr.y, or2.u1)
     annotation (Line(points={{-58,20},{-40,20},{-40,0},{-22,0}},
       color={255,0,255}));

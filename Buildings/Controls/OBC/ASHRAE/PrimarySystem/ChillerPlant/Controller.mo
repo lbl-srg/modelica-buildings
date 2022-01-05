@@ -698,7 +698,7 @@ block Controller "Chiller plant controller"
      annotation (Dialog(tab="Advanced", group="Cooling towers"));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uChiConIsoVal[nChi]
-    "Chilled condenser water isolation valve status"
+    "Chiller condenser water isolation valve status"
     annotation (Placement(transformation(extent={{-840,644},{-800,684}}),
       iconTransformation(extent={{-140,270},{-100,310}})));
 
@@ -775,7 +775,7 @@ block Controller "Chiller plant controller"
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TConWatRet(
     final unit="K",
     displayUnit="degC",
-    final quantity="ThermodynamicTemperature") if not have_heaPreConSig
+    final quantity="ThermodynamicTemperature")
     "Measured condenser water return temperature (condenser leaving)"
     annotation(Placement(transformation(extent={{-840,220},{-800,260}}),
       iconTransformation(extent={{-140,30},{-100,70}})));
@@ -784,7 +784,6 @@ block Controller "Chiller plant controller"
     final unit="K",
     displayUnit="degC",
     final quantity="ThermodynamicTemperature")
-    if (not have_heaPreConSig) or have_WSE
     "Measured chilled water supply temperature"
     annotation(Placement(transformation(extent={{-840,190},{-800,230}}),
       iconTransformation(extent={{-140,10},{-100,50}})));
@@ -1972,13 +1971,11 @@ annotation (
         Text(
           extent={{-100,58},{-60,42}},
           lineColor={0,0,127},
-          textString="TConWatRet",
-          visible=not have_heaPreConSig),
+          textString="TConWatRet"),
         Text(
           extent={{-98,36},{-58,24}},
           lineColor={0,0,127},
-          textString="TChiWatSup",
-          visible=(not have_heaPreConSig) or have_WSE),
+          textString="TChiWatSup"),
         Text(
           extent={{-98,18},{-60,4}},
           lineColor={0,0,127},

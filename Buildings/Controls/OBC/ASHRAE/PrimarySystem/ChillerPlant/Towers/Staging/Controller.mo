@@ -1,4 +1,4 @@
-within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Towers.Staging;
+﻿within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Towers.Staging;
 block Controller "Sequence of staging cooling tower cells"
 
   parameter Boolean have_WSE=true
@@ -29,7 +29,7 @@ block Controller "Sequence of staging cooling tower cells"
     "Cooling tower stage change command from plant staging process"
     annotation (Placement(transformation(extent={{-140,40},{-100,80}}),
       iconTransformation(extent={{-140,30},{-100,70}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uWse
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uWse if have_WSE
     "Water side economizer status: true = ON, false = OFF"
     annotation (Placement(transformation(extent={{-140,10},{-100,50}}),
       iconTransformation(extent={{-140,10},{-100,50}})));
@@ -162,7 +162,8 @@ annotation (
         Text(
           extent={{-100,36},{-70,24}},
           lineColor={255,0,255},
-          textString="uWse"),
+          textString="uWse",
+          visible=have_WSE),
         Text(
           extent={{-98,6},{-20,-6}},
           lineColor={255,0,255},

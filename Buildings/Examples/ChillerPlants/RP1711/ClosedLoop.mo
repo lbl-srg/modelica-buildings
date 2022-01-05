@@ -2,8 +2,8 @@ within Buildings.Examples.ChillerPlants.RP1711;
 model ClosedLoop
   extends Modelica.Icons.Example;
 
-  package Medium_W = Buildings.Media.Water;
-  package Medium_A = Buildings.Media.Air;
+  package MediumW = Buildings.Media.Water;
+  package MediumA = Buildings.Media.Air;
 
   parameter Modelica.Media.Interfaces.Types.Temperature TRet=301.15
     "Room return air temperature";
@@ -15,21 +15,24 @@ model ClosedLoop
   parameter Modelica.Units.SI.ThermalConductance UA_nominal=4748
     "Total thermal conductance at nominal flow, from textbook";
 
-  BaseClasses.RP1711 rP1711_1
+  Buildings.Examples.ChillerPlants.RP1711.BaseClasses.RP1711 chiPla(
+    final mChi_flow_nominal=mWater_flow_nominal,
+    final mCon_flow_nominal=mWater_flow_nominal,
+    final dTChi=7) "Chiller plant with controller"
     annotation (Placement(transformation(extent={{104,40},{136,80}})));
   Fluid.HeatExchangers.WetCoilEffectivenessNTU hexWetNtu(
-    redeclare package Medium1 = Medium_W,
-    redeclare package Medium2 = Medium_A,
+    redeclare package Medium1 = MediumW,
+    redeclare package Medium2 = MediumA,
     final m1_flow_nominal=mWater_flow_nominal,
     final m2_flow_nominal=mAir_flow_nominal,
     final show_T=true,
+    final dp1_nominal=3000,
+    final dp2_nominal=600,
     final UA_nominal=UA_nominal)
     annotation (Placement(transformation(extent={{110,-20},{130,0}})));
   Fluid.Sources.Boundary_pT           sinAir(
-    redeclare package Medium = Medium_A,
-    use_p_in=false,
-    nPorts=1)
-    "Air sink"
+    redeclare package Medium = MediumA,
+    nPorts=1) "Air sink"
     annotation (Placement(transformation(extent={{0,-130},{20,-110}})));
 
   BoundaryConditions.WeatherData.ReaderTMY3           weaDat(filNam=
@@ -41,7 +44,7 @@ model ClosedLoop
     annotation (Placement(transformation(extent={{70,80},{90,100}}),
         iconTransformation(extent={{-70,30},{-50,50}})));
   Fluid.Actuators.Valves.TwoWayLinear           chwIsoVal2(
-    redeclare package Medium = Medium_W,
+    redeclare package Medium = MediumW,
     final m_flow_nominal=mWater_flow_nominal,
     final show_T=true,
     final dpValve_nominal=20000,
@@ -51,7 +54,7 @@ model ClosedLoop
         rotation=90,
         origin={80,20})));
   Fluid.FixedResistances.Junction mixAir(
-    redeclare package Medium = Medium_A,
+    redeclare package Medium = MediumA,
     final m_flow_nominal={0.7*mAir_flow_nominal,mAir_flow_nominal,0.3*
         mAir_flow_nominal},
     final dp_nominal=fill(0, 3)) "Mix return air and outdoor air" annotation (
@@ -60,22 +63,22 @@ model ClosedLoop
         rotation=-90,
         origin={160,-80})));
   Fluid.Sources.MassFlowSource_T outAir(
-    redeclare package Medium = Medium_A,
+    redeclare package Medium = MediumA,
     final m_flow=0.3*mAir_flow_nominal,
     final use_T_in=true,
-    T=T_a2_nominal,
     nPorts=1) "Outdoor air"
     annotation (Placement(transformation(extent={{240,-90},{220,-70}})));
   Fluid.Sources.MassFlowSource_T retAir(
-    redeclare package Medium = Medium_A,
+    redeclare package Medium = MediumA,
     final m_flow=0.7*mAir_flow_nominal,
-    T=TRet,
+    final T=TRet,
     nPorts=1) "Return air"
     annotation (Placement(transformation(extent={{240,-130},{220,-110}})));
 
 
   Fluid.Sensors.TemperatureTwoPort supAirTem(
-     redeclare package Medium = Medium_A)
+     redeclare package Medium = MediumA, final m_flow_nominal=
+        mAir_flow_nominal)
      "Supply air temperature"
     annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
@@ -120,6 +123,18 @@ model ClosedLoop
   Controls.OBC.CDL.Integers.Switch intSwi2 "Chiller plant request"
     annotation (Placement(transformation(extent={{-100,-50},{-80,-30}})));
 
+  Controls.OBC.CDL.Integers.Sources.Constant conInt4(final k=0) "Constant two"
+    annotation (Placement(transformation(extent={{-10,60},{10,80}})));
+  Controls.OBC.CDL.Continuous.Sources.Constant airSupTemSet1(final k=273.15 +
+        18)
+    "Supply air temperature setpoint"
+    annotation (Placement(transformation(extent={{-60,-130},{-40,-110}})));
+  Controls.OBC.CDL.Continuous.Sources.Constant airSupTemSet2(final k=0)
+    "Supply air temperature setpoint"
+    annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
+  Fluid.Sources.Boundary_pT bou(redeclare package Medium = MediumW, nPorts=1)
+    "Reference pressure"
+    annotation (Placement(transformation(extent={{200,-14},{180,6}})));
 equation
   connect(weaDat.weaBus, weaBus) annotation (Line(
       points={{60,70},{80,70},{80,90}},
@@ -129,15 +144,16 @@ equation
       index=1,
       extent={{6,3},{6,3}},
       horizontalAlignment=TextAlignment.Left));
-  connect(rP1711_1.portCooCoiSup, chwIsoVal2.port_a) annotation (Line(points={{108,40},
-          {108,34},{80,34},{80,30}},           color={0,127,255},
+  connect(chiPla.portCooCoiSup, chwIsoVal2.port_a) annotation (Line(
+      points={{108,40},{108,34},{80,34},{80,30}},
+      color={0,127,255},
       thickness=0.5));
   connect(chwIsoVal2.port_b, hexWetNtu.port_a1)
     annotation (Line(points={{80,10},{80,-4},{110,-4}},   color={0,127,255},
       thickness=0.5));
-  connect(rP1711_1.portCooCoiRet, hexWetNtu.port_b1)
-    annotation (Line(points={{132,40},{132,-4},{130,-4}},
-                                                       color={0,127,255},
+  connect(chiPla.portCooCoiRet, hexWetNtu.port_b1) annotation (Line(
+      points={{132,40},{132,-4},{130,-4}},
+      color={0,127,255},
       thickness=0.5));
   connect(retAir.ports[1], mixAir.port_1) annotation (Line(points={{220,-120},{160,
           -120},{160,-90}}, color={0,127,255}));
@@ -177,8 +193,6 @@ equation
           60},{-62,60}}, color={255,0,255}));
   connect(intSwi1.y, chiWatResReq.u3) annotation (Line(points={{-38,60},{-30,60},
           {-30,112},{-22,112}}, color={255,127,0}));
-  connect(supAirTem.T, conPID.u_m) annotation (Line(points={{69,-100},{-170,-100},
-          {-170,-52}}, color={0,0,127}));
   connect(airSupTemSet.y, conPID.u_s)
     annotation (Line(points={{-218,-40},{-182,-40}}, color={0,0,127}));
   connect(conPID.y, greThr.u)
@@ -191,18 +205,23 @@ equation
           {-110,-48},{-102,-48}}, color={255,127,0}));
   connect(intSwi2.y, intSwi1.u3) annotation (Line(points={{-78,-40},{-70,-40},{-70,
           52},{-62,52}}, color={255,127,0}));
-  connect(conPID.y, chwIsoVal2.y) annotation (Line(points={{-158,-40},{-150,-40},
-          {-150,20},{68,20}}, color={0,0,127}));
-  connect(weaDat.weaBus, rP1711_1.weaBus) annotation (Line(
+  connect(weaDat.weaBus, chiPla.weaBus) annotation (Line(
       points={{60,70},{80,70},{80,77},{109,77}},
       color={255,204,51},
       thickness=0.5));
-  connect(chiWatResReq.y, rP1711_1.TChiWatSupResReq) annotation (Line(points={{2,
-          120},{20,120},{20,48},{102,48}}, color={255,127,0}));
-  connect(intSwi2.y, rP1711_1.chiPlaReq) annotation (Line(points={{-78,-40},{-70,
-          -40},{-70,46},{102,46}}, color={255,127,0}));
-  connect(supAirTem.T, temDif.u1) annotation (Line(points={{69,-100},{-250,-100},
-          {-250,120},{-222,120}}, color={0,0,127}));
+  connect(conInt4.y, chiPla.TChiWatSupResReq) annotation (Line(points={{12,70},{
+          20,70},{20,44},{102,44}},  color={255,127,0}));
+  connect(conInt4.y, chiPla.chiPlaReq) annotation (Line(points={{12,70},{20,70},
+          {20,47},{102,47}}, color={255,127,0}));
+  connect(airSupTemSet2.y, chwIsoVal2.y)
+    annotation (Line(points={{2,0},{14,0},{14,20},{68,20}}, color={0,0,127}));
+  connect(airSupTemSet1.y, conPID.u_m) annotation (Line(points={{-38,-120},{-18,
+          -120},{-18,-100},{-170,-100},{-170,-52}}, color={0,0,127}));
+  connect(airSupTemSet1.y, temDif.u1) annotation (Line(points={{-38,-120},{-18,
+          -120},{-18,-100},{-250,-100},{-250,120},{-222,120}}, color={0,0,127}));
+  connect(hexWetNtu.port_b1, bou.ports[1])
+    annotation (Line(points={{130,-4},{180,-4}}, color={0,127,255}));
   annotation (Diagram(coordinateSystem(extent={{-280,-220},{280,220}})), Icon(
-        coordinateSystem(extent={{-100,-100},{100,100}})));
+        coordinateSystem(extent={{-100,-100},{100,100}})),
+    experiment(__Dymola_Algorithm="Dassl"));
 end ClosedLoop;
