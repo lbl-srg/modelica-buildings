@@ -474,14 +474,6 @@ int isat_main () {
 	  return 1;
   }
 
-  /*read the existing ffd result file*/
-  if (readexisting == 1) {
-	  if (read_existing(&para) != 0) {
-		  cosim_log("isat_main (): could not read_existing(&para)", COSIM_ERROR);
-		  return 1;
-	  }
-  }
-
   /****************************************************************************
   | Calculate nx and nf
   ****************************************************************************/
