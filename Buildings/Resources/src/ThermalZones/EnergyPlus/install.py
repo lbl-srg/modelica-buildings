@@ -16,8 +16,8 @@ import shutil
 # Commit, see https://gitlab.com/kylebenne/spawn/-/pipelines?scope=all&page=1
 # Also available is latest/Spawn-latest-{Linux,win64,Darwin}
 # The setup below will lead to a specific commit being pulled.
-version = "0.2.0"
-commit = "d7f1e095f3ff605f747e46e3ed140a982aa2b7a9"
+version = "0.3.0"
+commit = "d6204d26f6"
 NAME_VERSION = f"Spawn-light-{version}-{commit[0:10]}"
 
 
