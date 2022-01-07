@@ -6,7 +6,8 @@ block SupplyTemperature
     final unit="K",
     displayUnit="degC",
     final quantity="ThermodynamicTemperature")=285.15
-    "Lowest cooling supply air temperature setpoint"
+    "Lowest cooling supply air temperature setpoint when the outdoor air temperature is at the
+    higher value of the reset range and above"
     annotation (Dialog(group="Temperatures"));
   parameter Real TSupCooMax(
     final unit="K",
@@ -33,21 +34,6 @@ block SupplyTemperature
     final quantity="ThermodynamicTemperature")=308.15
     "Supply temperature in warm up and set back mode"
     annotation (Dialog(group="Temperatures"));
-  parameter Real iniSet(
-    final unit="K",
-    displayUnit="degC",
-    final quantity="ThermodynamicTemperature") = TSupCooMax
-    "Initial setpoint"
-    annotation (Dialog(group="Trim and respond logic"));
-  parameter Real maxSet(
-    final unit="K",
-    displayUnit="degC",
-    final quantity="ThermodynamicTemperature") = TSupCooMax
-    "Maximum setpoint"
-    annotation (Dialog(group="Trim and respond logic"));
-  parameter Real minSet=TSupCooMin
-    "Minimum setpoint"
-    annotation (Dialog(group="Trim and respond logic"));
   parameter Real delTim(
     final unit="s",
     final quantity="Time") = 600
@@ -88,13 +74,6 @@ block SupplyTemperature
     "Outdoor air temperature"
     annotation (Placement(transformation(extent={{-180,100},{-140,140}}),
         iconTransformation(extent={{-140,20},{-100,60}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput TZonSetAve(
-    final unit="K",
-    displayUnit="degC",
-    final quantity="ThermodynamicTemperature")
-    "Average of heating and cooling setpoint"
-    annotation (Placement(transformation(extent={{-180,140},{-140,180}}),
-        iconTransformation(extent={{-140,60},{-100,100}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uSupFan
     "Supply fan status"
     annotation (Placement(transformation(extent={{-180,-20},{-140,20}}),
@@ -128,6 +107,25 @@ block SupplyTemperature
     annotation (Placement(transformation(extent={{-100,90},{-80,110}})));
 
 protected
+  parameter Real iniSet(
+    final unit="K",
+    displayUnit="degC",
+    final quantity="ThermodynamicTemperature")=TSupCooMax
+    "Initial setpoint"
+    annotation (Dialog(group="Trim and respond logic"));
+  parameter Real maxSet(
+    final unit="K",
+    displayUnit="degC",
+    final quantity="ThermodynamicTemperature")=TSupCooMax
+    "Maximum setpoint"
+    annotation (Dialog(group="Trim and respond logic"));
+  parameter Real minSet(
+    final unit="K",
+    displayUnit="degC",
+    final quantity="ThermodynamicTemperature")=TSupCooMin
+    "Minimum setpoint"
+    annotation (Dialog(group="Trim and respond logic"));
+
   Buildings.Controls.OBC.CDL.Continuous.Line lin
     "Supply temperature distributes linearly between minimum and maximum supply 
     air temperature, according to outdoor temperature"
@@ -157,11 +155,6 @@ protected
   Buildings.Controls.OBC.CDL.Continuous.Switch swi2
     "If operation mode is setup or cool-down, setpoint shall be the lowest cooling supply setpoint"
     annotation (Placement(transformation(extent={{20,-80},{40,-60}})));
-  Buildings.Controls.OBC.CDL.Continuous.Limiter TDea(
-    final uMax=297.15,
-    final uMin=294.15)
-    "Limiter that outputs the dead band value for the supply air temperature"
-    annotation (Placement(transformation(extent={{-100,150},{-80,170}})));
   Buildings.Controls.OBC.CDL.Continuous.Switch swi3
     "Check output regarding supply fan status"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
@@ -194,6 +187,9 @@ protected
     "Check if it is in cooldown mode"
     annotation (Placement(transformation(extent={{-60,-80},{-40,-60}})));
 
+  CDL.Continuous.Sources.Constant TDea(final k=TDeaBan)
+    "Deadband supply temperature setpoint"
+    annotation (Placement(transformation(extent={{-100,150},{-80,170}})));
 equation
   connect(minOutTem.y, lin.x1)
     annotation (Line(points={{-38,140},{-20,140},{-20,128},{-2,128}},
@@ -219,16 +215,10 @@ equation
   connect(swi2.y, swi1.u3)
     annotation (Line(points={{42,-70},{50,-70},{50,-78},{78,-78}},
       color={0,0,127}));
-  connect(TZonSetAve, TDea.u)
-    annotation (Line(points={{-160,160},{-102,160}},
-      color={0,0,127}));
   connect(uSupFan, swi3.u2)
     annotation (Line(points={{-160,0},{98,0}}, color={255,0,255}));
   connect(swi1.y, swi3.u1)
     annotation (Line(points={{102,-70},{110,-70},{110,-40},{90,-40},{90,8},{98,8}},
-      color={0,0,127}));
-  connect(TDea.y, swi3.u3)
-    annotation (Line(points={{-78,160},{-30,160},{-30,-8},{98,-8}},
       color={0,0,127}));
   connect(intLesThr1.y, and1.u1)
     annotation (Line(points={{-38,-110},{-2,-110}},
@@ -271,11 +261,13 @@ equation
           60}}, color={255,0,255}));
   connect(lin.y, swi4.u1) annotation (Line(points={{22,120},{30,120},{30,68},{38,
           68}}, color={0,0,127}));
-  connect(TDea.y, swi4.u3) annotation (Line(points={{-78,160},{-30,160},{-30,52},
-          {38,52}}, color={0,0,127}));
   connect(swi4.y, swi2.u3) annotation (Line(points={{62,60},{70,60},{70,-40},{10,
           -40},{10,-78},{18,-78}}, color={0,0,127}));
 
+  connect(TDea.y, swi4.u3) annotation (Line(points={{-78,160},{-30,160},{-30,52},
+          {38,52}}, color={0,0,127}));
+  connect(TDea.y, swi3.u3) annotation (Line(points={{-78,160},{-30,160},{-30,-8},
+          {98,-8}}, color={0,0,127}));
 annotation (
   defaultComponentName = "conTSupSet",
   Icon(coordinateSystem(extent={{-100,-100},{100,100}}),
