@@ -15,7 +15,7 @@
 ! Infiltration:
 !   * Infiltration air flow rate is guessed as a small value.
 
-  Version,9.5;
+  Version,9.6;
 
 !-   ===========  ALL OBJECTS IN CLASS: SIMULATIONCONTROL ===========
 
@@ -740,6 +740,7 @@
     Wall,                    !- Surface Type
     Room Wall - South,       !- Construction Name
     Room 102,                !- Zone Name
+    ,                        !- Space Name
     Outdoors,                !- Outside Boundary Condition
     ,                        !- Outside Boundary Condition Object
     SunExposed,              !- Sun Exposure
@@ -756,6 +757,7 @@
     FLOOR,                   !- Surface Type
     Room Floor,              !- Construction Name
     Room 102,                !- Zone Name
+    ,                        !- Space Name
     Adiabatic,               !- Outside Boundary Condition
     ,                        !- Outside Boundary Condition Object
     NoSun,                   !- Sun Exposure
@@ -772,6 +774,7 @@
     WALL,                    !- Surface Type
     Room Wall - East West,   !- Construction Name
     Room 102,                !- Zone Name
+    ,                        !- Space Name
     Adiabatic,               !- Outside Boundary Condition
     ,                        !- Outside Boundary Condition Object
     NoSun,                   !- Sun Exposure
@@ -788,6 +791,7 @@
     WALL,                    !- Surface Type
     Room Wall - North,       !- Construction Name
     Room 102,                !- Zone Name
+    ,                        !- Space Name
     Adiabatic,               !- Outside Boundary Condition
     ,                        !- Outside Boundary Condition Object
     NoSun,                   !- Sun Exposure
@@ -804,6 +808,7 @@
     WALL,                    !- Surface Type
     Room Wall - East West,   !- Construction Name
     Room 102,                !- Zone Name
+    ,                        !- Space Name
     Adiabatic,               !- Outside Boundary Condition
     ,                        !- Outside Boundary Condition Object
     NoSun,                   !- Sun Exposure
@@ -820,6 +825,7 @@
     Ceiling,                 !- Surface Type
     Room Ceiling,            !- Construction Name
     Room 102,                !- Zone Name
+    ,                        !- Space Name
     Adiabatic,               !- Outside Boundary Condition
     ,                        !- Outside Boundary Condition Object
     NoSun,                   !- Sun Exposure
@@ -836,6 +842,7 @@
     Wall,                    !- Surface Type
     Room Wall - South,       !- Construction Name
     Room 102,                !- Zone Name
+    ,                        !- Space Name
     Outdoors,                !- Outside Boundary Condition
     ,                        !- Outside Boundary Condition Object
     SunExposed,              !- Sun Exposure
@@ -852,6 +859,7 @@
     WALL,                    !- Surface Type
     Room Wall - South,       !- Construction Name
     Room 102,                !- Zone Name
+    ,                        !- Space Name
     Outdoors,                !- Outside Boundary Condition
     ,                        !- Outside Boundary Condition Object
     SunExposed,              !- Sun Exposure
@@ -868,6 +876,7 @@
     Wall,                    !- Surface Type
     Room Wall - South,       !- Construction Name
     Room 102,                !- Zone Name
+    ,                        !- Space Name
     Outdoors,                !- Outside Boundary Condition
     ,                        !- Outside Boundary Condition Object
     SunExposed,              !- Sun Exposure
@@ -921,7 +930,7 @@
 
   Lights,
     Lights 1 Room 102,       !- Name
-    Room 102,                !- Zone or ZoneList Name
+    Room 102,                !- Zone or ZoneList or Space or SpaceList Name
     Room 102 Lighting Schedule,  !- Schedule Name
     LightingLevel,           !- Design Level Calculation Method
     0,                       !- Lighting Level {W}
@@ -938,7 +947,7 @@
 
   Lights,
     Lights 1 Room 102_CHRIS, !- Name
-    Room 102,                !- Zone or ZoneList Name
+    Room 102,                !- Zone or ZoneList or Space or SpaceList Name
     Room 102 Lighting Schedule_CHRIS,  !- Schedule Name
     LightingLevel,           !- Design Level Calculation Method
     0,                       !- Lighting Level {W}
@@ -956,7 +965,7 @@
 
   ElectricEquipment,
     ElecEq 1 Room 102,       !- Name
-    Room 102,                !- Zone or ZoneList Name
+    Room 102,                !- Zone or ZoneList or Space or SpaceList Name
     Room 102 Electric Equipment Schedule,  !- Schedule Name
     EquipmentLevel,          !- Design Level Calculation Method
     0,                       !- Design Level {W}
@@ -974,7 +983,7 @@
   OtherEquipment,
     Compensating Cooling Load Room 102,  !- Name
     None,                    !- Fuel Type
-    Room 102,                !- Zone or ZoneList Name
+    Room 102,                !- Zone or ZoneList or Space or SpaceList Name
     Room 102 Compensating Cooling Load Schedule,  !- Schedule Name
     EquipmentLevel,          !- Design Level Calculation Method
     0,                       !- Design Level {W}
