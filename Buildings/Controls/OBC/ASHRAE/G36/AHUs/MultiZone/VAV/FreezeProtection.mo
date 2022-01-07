@@ -1,44 +1,42 @@
 within Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV;
-block FreezeProtection "Freeze protection sequence for multizone AHU"
+block FreezeProtection "Freeze protection sequence for multizone air handling unit"
 
   parameter Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes buiPreCon
     "Type of building pressure control system";
   parameter Buildings.Controls.OBC.ASHRAE.G36.Types.MultizoneAHUMinOADesigns minOADes
     "Design of minimum outdoor air and economizer function";
+  parameter Boolean have_heatingCoil=true
+    "True: the AHU has heating coil";
   parameter Boolean have_freezeStat=false
     "True: the system has a physical freeze stat";
   parameter Integer minHotWatReq=2
-    "Minimum heating hot-water plant request to active the heating plant";
+    "Minimum heating hot-water plant request to active the heating plant"
+    annotation(Dialog(enable=have_heatingCoil));
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController heaCoiCon=Buildings.Controls.OBC.CDL.Types.SimpleController.PI
     "Heating coil controller"
-    annotation (Dialog(group="Heating coil controller"));
-  parameter Real k(
-    final unit="1")=1
+    annotation (Dialog(group="Heating coil controller", enable=have_heatingCoil));
+  parameter Real k(unit="1")=1
     "Gain of coil controller"
-    annotation (Dialog(group="Heating coil controller"));
-  parameter Real Ti(
-    final unit="s",
-    final quantity="Time")=0.5
+    annotation (Dialog(group="Heating coil controller", enable=have_heatingCoil));
+  parameter Real Ti(unit="s")=0.5
     "Time constant of integrator block"
     annotation (Dialog(group="Heating coil controller",
-                       enable=heaCoiCon==Buildings.Controls.OBC.CDL.Types.SimpleController.PI or
-                              heaCoiCon==Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
-  parameter Real Td(
-    final unit="s",
-    final quantity="Time")=0.1
+                       enable=have_heatingCoil and
+                              (heaCoiCon==Buildings.Controls.OBC.CDL.Types.SimpleController.PI or
+                              heaCoiCon==Buildings.Controls.OBC.CDL.Types.SimpleController.PID)));
+  parameter Real Td(unit="s")=0.1
     "Time constant of derivative block"
     annotation (Dialog(group="Heating coil controller",
-                       enable=heaCoiCon==Buildings.Controls.OBC.CDL.Types.SimpleController.PD or
-                              heaCoiCon==Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
+                       enable=have_heatingCoil and
+                              (heaCoiCon==Buildings.Controls.OBC.CDL.Types.SimpleController.PD or
+                              heaCoiCon==Buildings.Controls.OBC.CDL.Types.SimpleController.PID)));
   parameter Real yMax=1
     "Upper limit of output"
-    annotation (Dialog(group="Heating coil controller"));
+    annotation (Dialog(group="Heating coil controller", enable=have_heatingCoil));
   parameter Real yMin=0
     "Lower limit of output"
-    annotation (Dialog(group="Heating coil controller"));
-  parameter Real Thys(
-    final unit="K",
-    final quantity="TemperatureDifference")=0.25
+    annotation (Dialog(group="Heating coil controller", enable=have_heatingCoil));
+  parameter Real Thys(unit="K")=0.25
     "Hysteresis for checking temperature difference"
     annotation (Dialog(tab="Advanced"));
 
@@ -59,7 +57,8 @@ block FreezeProtection "Freeze protection sequence for multizone AHU"
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uHeaCoi(
     final min=0,
     final max=1,
-    final unit="1") "Heating coil position"
+    final unit="1") if have_heatingCoil
+    "Heating coil position"
     annotation (Placement(transformation(extent={{-480,280},{-440,320}}),
         iconTransformation(extent={{-140,120},{-100,160}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uMinOutDamPos(
@@ -126,7 +125,7 @@ block FreezeProtection "Freeze protection sequence for multizone AHU"
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TMix(
     final unit="K",
     final displayUnit="degC",
-    final quantity="ThermodynamicTemperature")
+    final quantity="ThermodynamicTemperature") if have_heatingCoil
     "Measured mixed air temperature"
     annotation (Placement(transformation(extent={{-480,-446},{-440,-406}}),
         iconTransformation(extent={{-140,-210},{-100,-170}})));
@@ -186,11 +185,12 @@ block FreezeProtection "Freeze protection sequence for multizone AHU"
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yHeaCoi(
     final min=0,
     final max=1,
-    final unit="1")
+    final unit="1") if have_heatingCoil
     "Heating coil position setpoint"
     annotation (Placement(transformation(extent={{440,-450},{480,-410}}),
         iconTransformation(extent={{100,-140},{140,-100}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yHotWatPlaReq
+    if have_heatingCoil
     "Request to heating hot-water plant"
     annotation (Placement(transformation(extent={{440,-500},{480,-460}}),
         iconTransformation(extent={{100,-180},{140,-140}})));
@@ -208,11 +208,11 @@ block FreezeProtection "Freeze protection sequence for multizone AHU"
     final t=300)
     "Check if the supply air temperature has been lower than threshold value for sufficient long time"
     annotation (Placement(transformation(extent={{-300,470},{-280,490}})));
-  Buildings.Controls.OBC.CDL.Integers.Switch hotWatPlaReq
+  Buildings.Controls.OBC.CDL.Integers.Switch hotWatPlaReq if have_heatingCoil
     "Hot water plant request in stage 1 mode"
     annotation (Placement(transformation(extent={{60,462},{80,482}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt(
-    final k=minHotWatReq)
+    final k=minHotWatReq) if have_heatingCoil
     "Minimum hot-water plant requests"
     annotation (Placement(transformation(extent={{-20,500},{0,520}})));
   Buildings.Controls.OBC.CDL.Continuous.Switch minVen
@@ -224,10 +224,10 @@ block FreezeProtection "Freeze protection sequence for multizone AHU"
     final Ti=Ti,
     final Td=Td,
     final yMax=yMax,
-    final yMin=yMin)
+    final yMin=yMin) if have_heatingCoil
     "Heating coil control in stage 1 mode"
     annotation (Placement(transformation(extent={{-320,340},{-300,360}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch heaCoi1
+  Buildings.Controls.OBC.CDL.Continuous.Switch heaCoi1 if have_heatingCoil
     "Heating coil position"
     annotation (Placement(transformation(extent={{120,320},{140,340}})));
   Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr(
@@ -284,7 +284,7 @@ block FreezeProtection "Freeze protection sequence for multizone AHU"
     "Level 3 alarm"
     annotation (Placement(transformation(extent={{40,60},{60,80}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt2(
-    final k=0)
+    final k=0) if have_heatingCoil
     "Zero request"
     annotation (Placement(transformation(extent={{-20,440},{0,460}})));
   Buildings.Controls.OBC.CDL.Logical.Timer tim3(
@@ -323,20 +323,20 @@ block FreezeProtection "Freeze protection sequence for multizone AHU"
     final k=0)
     "Zero constant"
     annotation (Placement(transformation(extent={{-140,-220},{-120,-200}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch outDam if have_reliefs
+  Buildings.Controls.OBC.CDL.Continuous.Switch outDam
     "Outdoor air damper"
     annotation (Placement(transformation(extent={{320,-160},{340,-140}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch cooCoi if have_reliefs
+  Buildings.Controls.OBC.CDL.Continuous.Switch cooCoi
     "Cooling coil position"
     annotation (Placement(transformation(extent={{120,-370},{140,-350}})));
-  Buildings.Controls.OBC.CDL.Integers.Switch hotWatPlaReq3
+  Buildings.Controls.OBC.CDL.Integers.Switch hotWatPlaReq3 if have_heatingCoil
     "Hot water plant request in stage 3 mode"
     annotation (Placement(transformation(extent={{320,-490},{340,-470}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt3(
-    final k=minHotWatReq)
+    final k=minHotWatReq) if have_heatingCoil
     "Minimum hot-water plant requests"
     annotation (Placement(transformation(extent={{-140,-482},{-120,-462}})));
-  Buildings.Controls.OBC.CDL.Continuous.Max max1
+  Buildings.Controls.OBC.CDL.Continuous.Max max1 if have_heatingCoil
     "Higher of supply air and mixed air temperature"
     annotation (Placement(transformation(extent={{-300,-430},{-280,-410}})));
   Buildings.Controls.OBC.CDL.Continuous.PID heaCoiMod(
@@ -345,14 +345,14 @@ block FreezeProtection "Freeze protection sequence for multizone AHU"
     final Ti=Ti,
     final Td=Td,
     final yMax=yMax,
-    final yMin=yMin)
+    final yMin=yMin) if have_heatingCoil
     "Heating coil control when it is in stage 3 mode"
     annotation (Placement(transformation(extent={{40,-400},{60,-380}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con4(
-    final k=273.15 + 27)
+    final k=273.15 + 27) if have_heatingCoil
     "Setpoint temperature"
     annotation (Placement(transformation(extent={{-140,-400},{-120,-380}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch heaCoiPos
+  Buildings.Controls.OBC.CDL.Continuous.Switch heaCoiPos if have_heatingCoil
     "Heating coil position"
     annotation (Placement(transformation(extent={{320,-440},{340,-420}})));
   Buildings.Controls.OBC.CDL.Integers.Switch intSwi3
@@ -401,7 +401,7 @@ block FreezeProtection "Freeze protection sequence for multizone AHU"
     "Return air damper position"
     annotation (Placement(transformation(extent={{320,-110},{340,-90}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant supTemSet(
-    final k=273.15+ 6)
+    final k=273.15+ 6) if have_heatingCoil
     "Supply air temperature setpoint"
     annotation (Placement(transformation(extent={{-380,340},{-360,360}})));
 
@@ -495,11 +495,11 @@ equation
   connect(con3.y, relFan.u1) annotation (Line(points={{-118,-210},{40,-210},{40,
           -312},{118,-312}}, color={0,0,127}));
   connect(uSupFanSpe, supFan.u3) annotation (Line(points={{-460,-248},{118,-248}},
-                                  color={0,0,127}));
+          color={0,0,127}));
   connect(uRetFanSpe, retFan.u3) annotation (Line(points={{-460,-288},{118,-288}},
-                                  color={0,0,127}));
+          color={0,0,127}));
   connect(uRelFanSpe, relFan.u3) annotation (Line(points={{-460,-328},{118,-328}},
-                                  color={0,0,127}));
+          color={0,0,127}));
   connect(supFan.y, ySupFanSpe)
     annotation (Line(points={{142,-240},{460,-240}}, color={0,0,127}));
   connect(relFan.y, yRelFanSpe)
@@ -521,7 +521,7 @@ equation
   connect(lat1.y, hotWatPlaReq3.u2) annotation (Line(points={{-118,-48},{20,-48},
           {20,-480},{318,-480}}, color={255,0,255}));
   connect(TMix, max1.u2) annotation (Line(points={{-460,-426},{-302,-426}},
-                              color={0,0,127}));
+          color={0,0,127}));
   connect(TSup, max1.u1) annotation (Line(points={{-460,60},{-420,60},{-420,-414},
           {-302,-414}}, color={0,0,127}));
   connect(max1.y, heaCoiMod.u_m) annotation (Line(points={{-278,-420},{50,-420},
@@ -543,8 +543,7 @@ equation
   connect(not2.y, disMinVenWar.u)
     annotation (Line(points={{142,172},{378,172}}, color={255,0,255}));
   connect(holSta2.y, tim5.u) annotation (Line(points={{-278,172},{-270,172},{-270,
-          140},{-262,140}},
-                          color={255,0,255}));
+          140},{-262,140}}, color={255,0,255}));
   connect(lat1.y, minOutDam.u2) annotation (Line(points={{-118,-48},{20,-48},{20,
           -200},{318,-200}},    color={255,0,255}));
   connect(con3.y, minOutDam.u1) annotation (Line(points={{-118,-210},{40,-210},{
@@ -555,8 +554,6 @@ equation
           252},{118,252}}, color={0,0,127}));
   connect(outDam2.y, outDam.u3) annotation (Line(points={{142,260},{270,260},{270,
           -158},{318,-158}}, color={0,0,127}));
-  connect(outDam.y, yOutDamPos)
-    annotation (Line(points={{342,-150},{460,-150}}, color={0,0,127}));
   connect(conInt2.y, hotWatPlaReq.u3) annotation (Line(points={{2,450},{40,450},
           {40,464},{58,464}}, color={255,127,0}));
   connect(conInt5.y, intSwi1.u3) annotation (Line(points={{62,8},{100,8},{100,32},
@@ -569,8 +566,6 @@ equation
           472},{230,-488},{318,-488}}, color={255,127,0}));
   connect(hotWatPlaReq3.y, yHotWatPlaReq)
     annotation (Line(points={{342,-480},{460,-480}}, color={255,127,0}));
-  connect(cooCoi.y, yCooCoi)
-    annotation (Line(points={{142,-360},{460,-360}}, color={0,0,127}));
   connect(minOutDam2.y, minOutDam.u3) annotation (Line(points={{142,210},{220,210},
           {220,-208},{318,-208}}, color={0,0,127}));
   connect(minOutDam.y, yMinOutDamPos)
@@ -617,6 +612,10 @@ equation
     annotation (Line(points={{342,-100},{460,-100}}, color={0,0,127}));
   connect(lat1.y, yEneCHWPum) annotation (Line(points={{-118,-48},{20,-48},{20,-20},
           {460,-20}}, color={255,0,255}));
+  connect(outDam.y, yOutDamPos)
+    annotation (Line(points={{342,-150},{460,-150}}, color={0,0,127}));
+  connect(cooCoi.y, yCooCoi)
+    annotation (Line(points={{142,-360},{460,-360}}, color={0,0,127}));
 
 annotation (defaultComponentName="mulAHUFrePro",
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-200},{100,200}}),
@@ -645,7 +644,8 @@ annotation (defaultComponentName="mulAHUFrePro",
         Text(
           extent={{-98,150},{-52,134}},
           lineColor={0,0,127},
-          textString="uHeaCoi"),
+          textString="uHeaCoi",
+          visible=have_heatingCoil),
         Text(
           extent={{-96,120},{-20,102}},
           lineColor={0,0,127},
@@ -676,7 +676,8 @@ annotation (defaultComponentName="mulAHUFrePro",
         Text(
           extent={{-94,-182},{-70,-198}},
           lineColor={0,0,127},
-          textString="TMix"),
+          textString="TMix",
+          visible=have_heatingCoil),
         Text(
           extent={{-96,-150},{-54,-166}},
           lineColor={0,0,127},
@@ -715,11 +716,13 @@ annotation (defaultComponentName="mulAHUFrePro",
         Text(
           extent={{50,-110},{96,-126}},
           lineColor={0,0,127},
-          textString="yHeaCoi"),
+          textString="yHeaCoi",
+          visible=have_heatingCoil),
         Text(
           extent={{22,-150},{96,-168}},
           lineColor={255,127,0},
-          textString="yHotWatPlaReq"),
+          textString="yHotWatPlaReq",
+          visible=have_heatingCoil),
         Text(
           extent={{-96,2},{-36,-24}},
           lineColor={255,0,255},
