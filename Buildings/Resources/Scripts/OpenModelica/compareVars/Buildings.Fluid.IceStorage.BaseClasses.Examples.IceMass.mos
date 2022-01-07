@@ -1,0 +1,6 @@
+compareVars :=
+  {
+    "iceMas.q",
+    "iceMas.fraCha",
+    "iceMas.mIce"
+  };

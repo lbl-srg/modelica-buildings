@@ -1,0 +1,6 @@
+compareVars :=
+  {
+    "norQSta.qNor",
+    "norQSta.u",
+    "norQSta.fraCha"
+  };

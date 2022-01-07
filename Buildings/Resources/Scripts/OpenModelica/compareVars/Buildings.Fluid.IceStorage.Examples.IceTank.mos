@@ -1,0 +1,7 @@
+compareVars :=
+  {
+    "iceTan.u",
+    "iceTan.SOC",
+    "iceTan.mIce",
+    "iceTan.TOut"
+  };
