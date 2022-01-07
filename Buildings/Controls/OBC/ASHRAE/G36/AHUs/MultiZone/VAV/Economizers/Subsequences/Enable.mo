@@ -94,7 +94,7 @@ block Enable "Multi zone VAV AHU economizer enable/disable switch"
     annotation (Placement(transformation(extent={{-320,80},{-280,120}}),
         iconTransformation(extent={{-140,0},{-100,40}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uFreProSta "Freeze protection stage status signal"
-    annotation (Placement(transformation(extent={{-320,30},{-280,70}}),
+    annotation (Placement(transformation(extent={{-320,40},{-280,80}}),
         iconTransformation(extent={{-140,-20},{-100,20}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yOutDamPosMax(
@@ -117,10 +117,11 @@ block Enable "Multi zone VAV AHU economizer enable/disable switch"
         iconTransformation(extent={{100,-20},{140,20}})));
 
   Buildings.Controls.OBC.CDL.Logical.TrueFalseHold truFalHol(
-    trueHoldDuration=600) "10 min on/off delay"
+    trueHoldDuration=600)
+    "Economizer should not be enabled or disabled within 10 minutes of change"
     annotation (Placement(transformation(extent={{0,200},{20,220}})));
   Buildings.Controls.OBC.CDL.Logical.And andEnaDis
-    "Logical and that checks freeze protection stage and zone state"
+    "Check freeze protection stage and zone state"
     annotation (Placement(transformation(extent={{40,30},{60,50}})));
 
 protected
@@ -162,10 +163,10 @@ protected
     "Set maximum OA damper position to minimum at disable (after a given time delay)"
     annotation (Placement(transformation(extent={{62,-60},{82,-40}})));
   Buildings.Controls.OBC.CDL.Continuous.Switch retDamSwitch "Set minimum RA damper position to maximum at disable"
-    annotation (Placement(transformation(extent={{-40,-162},{-20,-142}})));
+    annotation (Placement(transformation(extent={{-40,-158},{-20,-138}})));
   Buildings.Controls.OBC.CDL.Continuous.Switch maxRetDamSwitch
     "Keep maximum RA damper position at physical maximum for a short time period after disable signal"
-    annotation (Placement(transformation(extent={{40,-120},{60,-100}})));
+    annotation (Placement(transformation(extent={{40,-118},{60,-98}})));
   Buildings.Controls.OBC.CDL.Continuous.Switch minRetDamSwitch
     "Keep minimum RA damper position at physical maximum for a short time period after disable"
     annotation (Placement(transformation(extent={{40,-160},{60,-140}})));
@@ -174,10 +175,11 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Not not2 "Logical not that starts the timer at disable signal "
     annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
   Buildings.Controls.OBC.CDL.Logical.And  and2 "Logical and"
-    annotation (Placement(transformation(extent={{140,-80},{160,-60}})));
-  Buildings.Controls.OBC.CDL.Logical.And and1 "Logical and checks supply fan status"
-    annotation (Placement(transformation(extent={{0,100},{20,120}})));
-  Buildings.Controls.OBC.CDL.Logical.And and3 "Logical and which checks supply fan status"
+    annotation (Placement(transformation(extent={{140,-82},{160,-62}})));
+  Buildings.Controls.OBC.CDL.Logical.And and1 "Check supply fan status"
+    annotation (Placement(transformation(extent={{0,98},{20,118}})));
+  Buildings.Controls.OBC.CDL.Logical.And and3
+    "Check if delay time has been passed after economizer being disabled"
     annotation (Placement(transformation(extent={{20,-36},{40,-16}})));
 
   Buildings.Controls.OBC.CDL.Integers.Equal intEqu
@@ -222,48 +224,50 @@ equation
   connect(uOutDamPosMax, outDamSwitch.u3)
     annotation (Line(points={{-300,-20},{-240,-20},{-240,-58},{60,-58}},color={0,0,127}));
   connect(uRetDamPhyPosMax, maxRetDamSwitch.u1)
-    annotation (Line(points={{-300,-100},{-178,-100},{-178,-102},{38,-102}},color={0,0,127}));
+    annotation (Line(points={{-300,-100},{38,-100}},                        color={0,0,127}));
   connect(uRetDamPosMax, maxRetDamSwitch.u3)
-    annotation (Line(points={{-300,-140},{-178,-140},{-178,-118},{38,-118}},color={0,0,127}));
+    annotation (Line(points={{-300,-140},{-178,-140},{-178,-116},{38,-116}},color={0,0,127}));
   connect(nor1.y, truFalHol.u)
     annotation (Line(points={{-18,210},{-2,210}}, color={255,0,255}));
   connect(andEnaDis.y, not2.u)
     annotation (Line(points={{62,40},{72,40},{72,10},{-100,10},{-100,-30},{-82,-30}},
       color={255,0,255}));
   connect(maxRetDamSwitch.y, yRetDamPosMax)
-    annotation (Line(points={{62,-110},{180,-110},{180,0},{240,0}},color={0,0,127}));
+    annotation (Line(points={{62,-108},{180,-108},{180,0},{240,0}},color={0,0,127}));
   connect(and2.y, maxRetDamSwitch.u2)
-    annotation (Line(points={{162,-70},{170,-70},{170,-130},{20,-130},{20,-110},
-      {38,-110}}, color={255,0,255}));
+    annotation (Line(points={{162,-72},{170,-72},{170,-130},{20,-130},{20,-108},
+          {38,-108}},
+                  color={255,0,255}));
   connect(and2.y, minRetDamSwitch.u2)
-    annotation (Line(points={{162,-70},{170,-70},{170,-130},{20,-130},{20,-150},
-      {38,-150}}, color={255,0,255}));
+    annotation (Line(points={{162,-72},{170,-72},{170,-130},{20,-130},{20,-150},
+          {38,-150}},
+                  color={255,0,255}));
   connect(not2.y, retDamSwitch.u2)
-    annotation (Line(points={{-58,-30},{-50,-30},{-50,-152},{-42,-152}},color={255,0,255}));
+    annotation (Line(points={{-58,-30},{-50,-30},{-50,-148},{-42,-148}},color={255,0,255}));
   connect(uRetDamPosMax, retDamSwitch.u1)
-    annotation (Line(points={{-300,-140},{-240,-140},{-240,-144},{-42,-144}},color={0,0,127}));
+    annotation (Line(points={{-300,-140},{-42,-140}},                        color={0,0,127}));
   connect(uRetDamPosMin, retDamSwitch.u3)
-    annotation (Line(points={{-300,-180},{-172,-180},{-172,-160},{-42,-160}},color={0,0,127}));
+    annotation (Line(points={{-300,-180},{-172,-180},{-172,-156},{-42,-156}},color={0,0,127}));
   connect(retDamSwitch.y, minRetDamSwitch.u3)
-    annotation (Line(points={{-18,-152},{0,-152},{0,-158},{38,-158}},color={0,0,127}));
+    annotation (Line(points={{-18,-148},{0,-148},{0,-158},{38,-158}},color={0,0,127}));
   connect(uRetDamPhyPosMax, minRetDamSwitch.u1)
-    annotation (Line(points={{-300,-100},{-220,-100},{-220,-130},{0,-130},{0,-142},{38,-142}},
+    annotation (Line(points={{-300,-100},{0,-100},{0,-142},{38,-142}},
       color={0,0,127}));
   connect(truFalHol.y, and1.u1)
-    annotation (Line(points={{22,210},{30,210},{30,130},{-10,130},{-10,110},
-      {-2,110}}, color={255,0,255}));
+    annotation (Line(points={{22,210},{30,210},{30,130},{-10,130},{-10,108},{-2,
+          108}}, color={255,0,255}));
   connect(and1.y, andEnaDis.u1)
-    annotation (Line(points={{22,110},{22,110},{30,110},{30,40},{38,40}},color={255,0,255}));
+    annotation (Line(points={{22,108},{30,108},{30,40},{38,40}},         color={255,0,255}));
   connect(uSupFan, and1.u2)
-    annotation (Line(points={{-300,100},{-152,100},{-152,102},{-2,102}},color={255,0,255}));
+    annotation (Line(points={{-300,100},{-2,100}},                      color={255,0,255}));
   connect(outDamSwitch.u2, and3.y)
     annotation (Line(points={{60,-50},{50,-50},{50,-26},{42,-26}},color={255,0,255}));
   connect(not2.y, and3.u1)
     annotation (Line(points={{-58,-30},{-50,-30},{-50,-4},{8,-4},{8,-26},{18,-26}},
     color={255,0,255}));
   connect(and2.u1, not2.y)
-    annotation (Line(points={{138,-70},{106,-70},{106,-4},{-50,-4},{-50,-30},
-      {-58,-30}}, color={255,0,255}));
+    annotation (Line(points={{138,-72},{106,-72},{106,-4},{-50,-4},{-50,-30},{-58,
+          -30}},  color={255,0,255}));
   connect(and3.u2, delOutDamOsc.y)
     annotation (Line(points={{18,-34},{0,-34},{0,-30},{-18,-30}},color={255,0,255}));
   connect(delOutDamOsc.u, not2.y)
@@ -275,9 +279,9 @@ equation
     annotation (Line(points={{-18,-80},{-14,-80},{-14,-80},{-10,-80},{-10,-80},
       {-2,-80}}, color={255,0,255}));
   connect(not1.y, and2.u2)
-    annotation (Line(points={{22,-80},{80,-80},{80,-78},{138,-78}},color={255,0,255}));
+    annotation (Line(points={{22,-80},{138,-80}},                  color={255,0,255}));
   connect(uFreProSta, intEqu.u1)
-    annotation (Line(points={{-300,50},{-240,50},{-240,60},{-100,60}},color={255,127,0}));
+    annotation (Line(points={{-300,60},{-100,60}},                    color={255,127,0}));
   connect(conInt.y, intEqu.u2)
     annotation (Line(points={{-116,40},{-110,40},{-110,52},{-100,52}},color={255,127,0}));
   connect(intEqu.y, andEnaDis.u2)
@@ -313,26 +317,26 @@ annotation (
         initialScale=0.05),              graphics={
         Rectangle(
           extent={{-260,16},{200,-232}},
-          lineColor={0,0,0},
+          lineColor={215,215,215},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid),
         Rectangle(
           extent={{-260,76},{200,24}},
-          lineColor={0,0,0},
+          lineColor={215,215,215},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid),
         Rectangle(
           extent={{-260,136},{200,84}},
-          lineColor={0,0,0},
+          lineColor={215,215,215},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid),
         Rectangle(
           extent={{-260,272},{200,144}},
-          lineColor={0,0,0},
+          lineColor={215,215,215},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid),
                                      Text(
-          extent={{102,168},{184,156}},
+          extent={{100,176},{184,156}},
           lineColor={0,0,0},
           horizontalAlignment=TextAlignment.Left,
           textString="Outdoor air
@@ -356,9 +360,9 @@ with delays"),                   Text(
 Documentation(info="<html>
 <p>
 This is a multi zone VAV AHU economizer enable/disable sequence
-based on ASHRAE G36 PART 5.N.7 and PART 5.A.17. Additional
+based on the Section 5.16.7 of the ASHRAE Guideline 36, May 2020. Additional
 conditions included in the sequence are: freeze protection (freeze protection
-stage 0-3, see PART 5.N.12), supply fan status (on or off, see PART 5.N.5).
+stage 0-3, see Section 5.16.12), supply fan status (on or off, see Section 5.16.5).
 </p>
 <p>
 The economizer is disabled whenever the outdoor air conditions
@@ -389,7 +393,7 @@ The following state machine chart illustrates the transitions between enabling a
 src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/G36_PR1/AHUs/MultiZone/EconEnableDisableStateMachineChart.png\"/>
 </p>
 <p>
-After the disable signal is activated, the following procedure is applied, per PART 5.N.7.d, in order to
+After the disable signal is activated, the following procedure is applied, in order to
 prevent pressure fluctuations in the HVAC system:
 </p>
 <ul>

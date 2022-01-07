@@ -72,7 +72,6 @@ equation
   connect(swi.y, yRelDam)
     annotation (Line(points={{82,-30},{120,-30}}, color={0,0,127}));
 
-
 annotation (
   defaultComponentName = "relDam",
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),

@@ -298,20 +298,20 @@ annotation (
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid),
         Text(
-          extent={{26,230},{172,184}},
+          extent={{26,230},{132,200}},
           lineColor={0,0,0},
           horizontalAlignment=TextAlignment.Left,
           textString="Damper position limit
 calculation and
 assignments"),
         Text(
-          extent={{-170,160},{-4,130}},
+          extent={{-170,160},{-84,142}},
           lineColor={0,0,0},
           horizontalAlignment=TextAlignment.Left,
           textString="Physical damper position
 limits set at commissioning"),
         Text(
-          extent={{28,78},{150,30}},
+          extent={{28,78},{108,46}},
           lineColor={0,0,0},
           horizontalAlignment=TextAlignment.Left,
           textString="Switches to deactivate
@@ -334,7 +334,7 @@ control loop")}),
 <p>
 This block models the multi zone VAV AHU minimum outdoor air control with a single
 common damper for minimum outdoor air and economizer functions based on outdoor airflow
-measurement, designed in line with ASHRAE Guidline 36 (G36), PART 5.N.6.c.
+measurement, designed in line with the Section 5.16.6 of the ASHRAE Guideline 36, May 2020.
 </p>
 <p>
 The controller is enabled when the supply fan is proven on (<code>uSupFan=true</code>),

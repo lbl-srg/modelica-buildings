@@ -136,6 +136,7 @@ block ReliefFan "Sequence for relief fan control for AHUs using actuated relief 
     "Break algebraic loop"
     annotation (Placement(transformation(extent={{-20,-130},{0,-110}})));
   Buildings.Controls.OBC.CDL.Logical.Edge edg
+    "Output rising edge when input becomes true"
     annotation (Placement(transformation(extent={{-120,-100},{-100,-80}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea2[nRelFan]
     "Convert boolean to real"
