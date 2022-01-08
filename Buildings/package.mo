@@ -423,7 +423,17 @@ have been <b style=\"color:blue\">improved</b> in a
                      This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2713\">Buidings, #2713</a>.
   </td>
   </tr>
-<tr><td colspan=\"2\"><b>Buildings.Utilities.Math</b>
+<tr><td colspan=\"2\"><b>Buildings.Utilities.IO</b>
+    </td>
+  </tr>
+  <tr><td valign=\"top\">Buildings.Utilities.IO.Files.Examples.CSVReader
+    </td>
+    <td valign=\"top\">Updated example so it works with future versions of the Modelica Standard Library which
+                       supports reading csv files.<br/>
+                       This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/pull/1572\">IBPSA #1572</a>.
+    </td>
+  </tr>
+  <tr><td colspan=\"2\"><b>Buildings.Utilities.Math</b>
     </td>
 </tr>
 <tr><td valign=\"top\">Buildings.Utilities.Math.Functions.BaseClasses.der_spliceFunction
