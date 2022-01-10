@@ -1,0 +1,13 @@
+simulateModel("Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.SetPoints.Validation.SetpointController_noWSE", method="Cvode", stopTime=14000, tolerance=1e-06, resultFile="SetpointController_noWSE1");
+
+createPlot(id=1, position={20, 10, 1500, 1000}, subPlot=1, y={"staSetCon.ySta"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{238,46,47}});
+createPlot(id=1, position={20, 10, 1500, 1000}, subPlot=2, y={"staSetCon.cap.yDes", "staSetCon.capReq.y"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{28,108,200}, {238,46,47}});
+createPlot(id=1, position={20, 10, 1500, 1000}, subPlot=3, y={"staSetCon.staUp.y", "staSetCon.staDow.y"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{28,108,200}, {238,46,47}});
+createPlot(id=1, position={20, 10, 1500, 1000}, subPlot=4, y={"staSetCon.yChiSet[1]", "staSetCon.yChiSet[2]"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{238,46,47}, {127, 127, 127}});
+createPlot(id=1, position={20, 10, 1500, 1000}, subPlot=5, y={"staSetCon.chaPro"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{238,46,47}});
+
+createPlot(id=2, position={20, 10, 1500, 1000}, subPlot=1, y={"staSetCon1.ySta"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{127, 127, 127}});
+createPlot(id=2, position={20, 10, 1500, 1000}, subPlot=2, y={"staSetCon1.cap.yDes", "staSetCon1.capReq.y"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{28,108,200}, {238,46,47}});
+createPlot(id=2, position={20, 10, 1500, 1000}, subPlot=3, y={"staSetCon1.staUp.y", "staSetCon1.staDow.y"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{28,108,200}, {238,46,47}});
+createPlot(id=2, position={20, 10, 1500, 1000}, subPlot=4, y={"staSetCon1.yChiSet[1]", "staSetCon1.yChiSet[2]", "staSetCon1.yChiSet[3]"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{28,108,200}, {238,46,47}, {127, 127, 127}});
+createPlot(id=2, position={20, 10, 1500, 1000}, subPlot=5, y={"staSetCon1.chaPro"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{238,46,47}});
