@@ -4,7 +4,7 @@ model Building
   extends Modelica.Blocks.Icons.Block;
 
   constant String spawnExe="spawn-0.3.0-d6204d26f6"
-      "Name of the spawn executable, without extension, such as spawn-0.2.0-d7f1e095f3"
+      "Name of the spawn executable, without extension, such as spawn-0.3.0-d6204d26f6aaa"
     annotation (HideResult=true);
 
   final constant String modelicaNameBuilding=getInstanceName()

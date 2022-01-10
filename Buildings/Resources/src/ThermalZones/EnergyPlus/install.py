@@ -162,20 +162,24 @@ def update_version_in_modelica_file(spawn_exe):
     import os
     import re
 
-    # Path to Building.mo
-    mo_file = os.path.abspath( \
-        os.path.join(__file__, \
-            os.pardir, os.pardir, os.pardir, os.pardir, os.pardir, os.pardir, \
-            "Buildings", "ThermalZones", "EnergyPlus", "Building.mo"))
+    for rel_file in [\
+        os.path.join("Buildings", "ThermalZones", "EnergyPlus", "Building.mo"),
+        os.path.join("Buildings", "ThermalZones", "EnergyPlus", "package.mo"),
+        os.path.join("Buildings", "ThermalZones", "EnergyPlus", "UsersGuide.mo")
+        ]:
+        # Path to Building.mo
+        abs_file = os.path.abspath( \
+            os.path.join(__file__, \
+                os.pardir, os.pardir, os.pardir, os.pardir, os.pardir, os.pardir, \
+                rel_file))
 
-    # Replace the string "spawn-0.2.0-d7f1e095f3" with the current version
-    with open (mo_file, 'r' ) as f:
-        content = f.read()
+        # Replace the string "spawn-0.2.0-d7f1e095f3" with the current version
+        with open (abs_file, 'r' ) as f:
+            content = f.read()
+        content_new = re.sub(r"spawn-\d+.\d+.\d+-.{10}", f"{spawn_exe}", content)
 
-    content_new = re.sub(r"\"spawn-\d+.\d+.\d+-.{10}\"", f"\"{spawn_exe}\"", content)
-
-    with open(mo_file, 'w' ) as f:
-        f.write(content_new)
+        with open(abs_file, 'w' ) as f:
+            f.write(content_new)
 
 
 def update_git(spawn_exe):
