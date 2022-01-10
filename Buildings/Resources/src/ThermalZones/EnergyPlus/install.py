@@ -167,13 +167,14 @@ def _getEnergyPlusVersion():
                 os.pardir, os.pardir, os.pardir, os.pardir, os.pardir, os.pardir, \
                 "Buildings", "Resources", "bin", "spawn-linux64", "etc", "Energy+.idd"))
 
+    prefix="!IDD_Version "
     with open(idd, 'r') as f:
-        lines = f.readlines
-        prefix="!IDD_VERSION "
+        lines = f.readlines()
         for lin in lines:
-            if lin.index(prefix) > -1:
+            if lin.find(prefix) > -1:
                 version = lin[len(prefix):].strip()
                 return version
+
     raise ValueError("Failed to find EnergyPlus version.")
 
 def update_version_in_modelica_file(spawn_exe):
@@ -256,7 +257,7 @@ if __name__ == "__main__":
     )
 
     p = Pool(2)
-    ##p.map(get_distribution, dists)
+    p.map(get_distribution, dists)
 
     # Update version in
     # constant String spawnExe="spawn-0.2.0-d7f1e095f3" ...

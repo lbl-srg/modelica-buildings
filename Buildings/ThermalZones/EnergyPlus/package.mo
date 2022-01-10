@@ -1,5 +1,5 @@
 within Buildings.ThermalZones;
-package EnergyPlus "Package with models to connect to EnergyPlus 9.5.0"
+package EnergyPlus "Package with models to connect to EnergyPlus 9.6.0"
   extends Modelica.Icons.Package;
 
   annotation (
@@ -14,7 +14,7 @@ package EnergyPlus "Package with models to connect to EnergyPlus 9.5.0"
 <img alt=\"Spawn logo\" src=\"modelica://Buildings/Resources/Images/ThermalZones/EnergyPlus/spawn_icon_darkbluetxlowres.png\"  style=\"float:right;height=203px;width:587px;\"/>
 </p>
 <p>
-Package for Spawn of EnergyPlus that couples Modelica directly to EnergyPlus 9.5.0.
+Package for Spawn of EnergyPlus that couples Modelica directly to EnergyPlus 9.6.0.
 </p>
 <p>
 The models in this package allow simulating the envelope heat transfer
