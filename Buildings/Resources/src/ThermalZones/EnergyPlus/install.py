@@ -158,9 +158,29 @@ def replace_table_in_mo(html, varType, moFile):
     with open(mo_name, "w") as mo_fil:
         mo_fil.write(mo_new)
 
+
+def _getEnergyPlusVersion():
+    """ Return the EnergyPlus version in the form 9.6.0
+    """
+    idd = os.path.abspath( \
+            os.path.join(__file__, \
+                os.pardir, os.pardir, os.pardir, os.pardir, os.pardir, os.pardir, \
+                "Buildings", "Resources", "bin", "spawn-linux64", "etc", "Energy+.idd"))
+
+    with open(idd, 'r') as f:
+        lines = f.readlines
+        prefix="!IDD_VERSION "
+        for lin in lines:
+            if lin.index(prefix) > -1:
+                version = lin[len(prefix):].strip()
+                return version
+    raise ValueError("Failed to find EnergyPlus version.")
+
 def update_version_in_modelica_file(spawn_exe):
     import os
     import re
+
+    energyPlus_version = _getEnergyPlusVersion()
 
     for rel_file in [\
         os.path.join("Buildings", "ThermalZones", "EnergyPlus", "Building.mo"),
@@ -176,10 +196,11 @@ def update_version_in_modelica_file(spawn_exe):
         # Replace the string "spawn-0.2.0-d7f1e095f3" with the current version
         with open (abs_file, 'r' ) as f:
             content = f.read()
-        content_new = re.sub(r"spawn-\d+.\d+.\d+-.{10}", f"{spawn_exe}", content)
+        content = re.sub(r"spawn-\d+.\d+.\d+-.{10}", f"{spawn_exe}", content)
+        content = re.sub(r"EnergyPlus \d+.\d+.\d+", f"EnergyPlus {energyPlus_version}", content)
 
         with open(abs_file, 'w' ) as f:
-            f.write(content_new)
+            f.write(content)
 
 
 def update_git(spawn_exe):
@@ -235,7 +256,7 @@ if __name__ == "__main__":
     )
 
     p = Pool(2)
-    p.map(get_distribution, dists)
+    ##p.map(get_distribution, dists)
 
     # Update version in
     # constant String spawnExe="spawn-0.2.0-d7f1e095f3" ...
