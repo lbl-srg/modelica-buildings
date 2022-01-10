@@ -107,6 +107,11 @@ block SupplyTemperature
     annotation (Placement(transformation(extent={{-100,90},{-80,110}})));
 
 protected
+  parameter Real TDeaBan(
+    final unit="K",
+    displayUnit="degC",
+    final quantity="ThermodynamicTemperature")=273.15+26
+    "Default supply temperature setpoint when the AHU is disabled";
   parameter Real iniSet(
     final unit="K",
     displayUnit="degC",

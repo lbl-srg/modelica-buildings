@@ -378,22 +378,6 @@ block Controller
     "Lower limit of controller signal when cooling coil is off. Require -1 < uHeaMax < uCooMin < 1."
     annotation (Dialog(group="Supply air temperature"));
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput TZonHeaSet(
-    final unit="K",
-    final displayUnit="degC",
-    final quantity="ThermodynamicTemperature")
-    "Zone air temperature heating setpoint"
-    annotation (Placement(transformation(extent={{-240,280},{-200,320}}),
-        iconTransformation(extent={{-240,320},{-200,360}})));
-
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput TZonCooSet(
-    final unit="K",
-    final displayUnit="degC",
-    final quantity="ThermodynamicTemperature")
-    "Zone air temperature cooling setpoint"
-    annotation (Placement(transformation(extent={{-240,250},{-200,290}}),
-        iconTransformation(extent={{-240,290},{-200,330}})));
-
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TOut(
     final unit="K",
     final displayUnit="degC",
@@ -603,10 +587,6 @@ block Controller
     annotation (Placement(transformation(extent={{200,-210},{240,-170}}),
         iconTransformation(extent={{200,-320},{240,-280}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Average TZonSetPoiAve
-    "Average of all zone set points"
-    annotation (Placement(transformation(extent={{-160,270},{-140,290}})));
-
   Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.SetPoints.SupplyFan supFan(
     final samplePeriod=samplePeriod,
     final have_perZonRehBox=have_perZonRehBox,
@@ -744,15 +724,9 @@ equation
   connect(supFan.ducStaPre, ducStaPre)
     annotation (Line(points={{-162,202},{-192,202},{-192,210},{-220,210}},
       color={0,0,127}));
-  connect(supTemSetPoi.TZonSetAve, TZonSetPoiAve.y)
-    annotation (Line(points={{-4,188},{-20,188},{-20,280},{-138,280}},
-      color={0,0,127}));
   connect(supFan.ySupFan, ySupFan)
     annotation (Line(points={{-138,217},{60,217},{60,280},{220,280}},
       color={255,0,255}));
-  connect(TZonSetPoiAve.u2, TZonCooSet)
-    annotation (Line(points={{-162,274},{-180,274},{-180,270},{-220,270}},
-      color={0,0,127}));
   connect(eco.TMix, TMix)
     annotation (Line(points={{138,-159},{-12,-159},{-12,-180},{-220,-180}},
       color={0,0,127}));
@@ -773,9 +747,6 @@ equation
       color={0,0,127}));
   connect(supTemSetPoi.TSupSet, val.TSupSet)
     annotation (Line(points={{20,180},{60,180},{60,-60},{78,-60}},
-      color={0,0,127}));
-  connect(TZonHeaSet, TZonSetPoiAve.u1)
-    annotation (Line(points={{-220,300},{-180,300},{-180,286},{-162,286}},
       color={0,0,127}));
   connect(eco.uFreProSta, uFreProSta)
     annotation (Line(points={{138,-179},{66,-179},{66,-300},{-220,-300}},
@@ -821,7 +792,14 @@ equation
           {-220,0},{-126,0},{-126,77},{-42,77}}, color={0,0,127}));
 
 annotation (defaultComponentName="conAHU",
-    Diagram(coordinateSystem(extent={{-200,-320},{200,320}}, initialScale=0.2)),
+    Diagram(coordinateSystem(extent={{-200,-320},{200,320}}, initialScale=0.2),
+        graphics={Text(
+          extent={{-168,-146},{164,-254}},
+          textColor={200,2,48},
+          textString=
+              "need to consider AHU controling multiple zone group in different operating mode",
+
+          textStyle={TextStyle.Bold})}),
     Icon(coordinateSystem(extent={{-200,-360},{200,360}}, initialScale=0.2),
         graphics={Rectangle(
           extent={{200,360},{-200,-360}},
