@@ -1,5 +1,5 @@
 #1
-double csv(38,3)
+double tab(38,3)
 # time	col1	col2
 -1.21	0	0
 -0.91	0	0
