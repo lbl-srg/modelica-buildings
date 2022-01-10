@@ -281,11 +281,11 @@ void isatab_(int *idtab, int *mode, const int *nx, double x[], const int *nf, co
   int nhd = 1;                        /* Function h is not used so far */
 
   /* define inputs of isat.lib */	
-  double* x;							/* Initialize x */
-  double* fa;							/* Initialize fa */
-  double** ga;							/* Initialize ga. Note: In Fortran, g(nf,nx). Initialize in C by a reverse matrix */
-  double* ha;							/* Initialize fa */
-  double* rusr;							/* Note rusr[1]=its length, so >=1. It may used to contain f in some special usage */
+  double x[nx_SIZE] = {0};            /* Initialize x */
+  double fa[nf_SIZE] = {0};           /* Initialize fa */
+  double ga[nx_SIZE][nf_SIZE] = {0};  /* Initialize ga. Note: In Fortran, g(nf,nx). Initialize in C by a reverse matrix */
+  double ha[nh_SIZE] = {0};           /* Initialize fa */
+  double rusr[nf_SIZE] = {nf_SIZE};   /* Note rusr[1]=its length, so >=1. It may used to contain f in some special usage */
 
   int info[70] = {0};                 /* Initialize by default value 0 */
   double rinfo[100] = {0};            /* Initialize by default value 0 */
@@ -521,55 +521,16 @@ int allocate_memory_isat() {
 	/****************************************************************************
 	| Allocate memory for variables
 	****************************************************************************/
-	x = (REAL*)calloc(num_input, sizeof(REAL));
-	if (x == NULL) {
-		sprintf(logMsg, "allocate_memory_isat(): Could not allocate memory for x");
-		cosim_log(logMsg, COSIM_ERROR);
-		return 1;
-	}
 	xStep = (REAL*)calloc(num_input, sizeof(REAL));
 	if (xStep == NULL) {
 		sprintf(logMsg, "allocate_memory_isat(): Could not allocate memory for xStep");
 		cosim_log(logMsg, COSIM_ERROR);
 		return 1;
 	}
-
 	for (i = 0; i < num_input; i++) {
-		x[i] = 0;
 		xStep[i] = 0.1;
 	}
 
-
-	ha = (REAL*)calloc(nh_SIZE, sizeof(REAL));
-	if (ha == NULL) {
-		sprintf(logMsg, "allocate_memory_isat(): Could not allocate memory for ha");
-		cosim_log(logMsg, COSIM_ERROR);
-		return 1;
-	}
-
-	for (i = 0; i < nh_SIZE; i++) {
-		ha[i] = 0;
-	}
-
-	fa = (REAL*)calloc(num_output, sizeof(REAL));
-	if (fa == NULL) {
-		sprintf(logMsg, "allocate_memory_isat(): Could not allocate memory for fa");
-		cosim_log(logMsg, COSIM_ERROR);
-		return 1;
-	}
-	rusr = (REAL*)calloc(num_output, sizeof(REAL));
-	if (rusr == NULL) {
-		sprintf(logMsg, "allocate_memory_isat(): Could not allocate memory for rusr");
-		cosim_log(logMsg, COSIM_ERROR);
-		return 1;
-	}
-
-	for (i = 0; i < num_output; i++) {
-		fa[i] = 0;
-		rusr[i] = 1;
-	}
-
-	ga = (REAL**)malloc(num_input * sizeof(REAL*));
 	xBoundary = (REAL**)malloc(num_input * sizeof(REAL*));
 	xBoundary2 = (REAL**)malloc(num_input * sizeof(REAL*));
 	for (i = 0; i < num_input; i++) {
@@ -593,17 +554,6 @@ int allocate_memory_isat() {
 		else {
 			xBoundary2[i][0] = 0;
 			xBoundary2[i][1] = 1;
-		}
-		ga[i] = (REAL*)calloc(num_output, sizeof(REAL));
-		if (ga[i] == NULL) {
-			sprintf(logMsg, "allocate_memory_isat(): Could not allocate memory for ga[%d]", i);
-			cosim_log(logMsg, COSIM_ERROR);
-			return 1;
-		}
-		else {
-			for (j = 0; j < num_output; j++) {
-				ga[i][j] = 0;
-			}
 		}
 	}
 
