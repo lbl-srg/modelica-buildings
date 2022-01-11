@@ -2,7 +2,7 @@ within Buildings.Obsolete.Utilities.IO.Python36.Functions.BaseClasses;
 class PythonObject
   "class used to create the external object: PythonObject"
 extends ExternalObject;
-    pure function constructor
+    impure function constructor
       "Construct an external object that can be used to store a Python object"
     output PythonObject pytObj;
     external "C" pytObj = initPythonMemory()
@@ -49,7 +49,7 @@ First implementation.
 </html>"));
     end constructor;
 
-  pure function destructor "Release memory"
+  impure function destructor "Release memory"
     input PythonObject pytObj;
     external "C" freePythonMemory(pytObj)
       annotation (Library={"ModelicaBuildingsPython3.6",  "python3.6m"},

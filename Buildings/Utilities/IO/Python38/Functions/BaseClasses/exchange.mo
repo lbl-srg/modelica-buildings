@@ -1,5 +1,5 @@
 within Buildings.Utilities.IO.Python38.Functions.BaseClasses;
-function exchange "Function that communicates with Python"
+impure function exchange "Function that communicates with Python"
   input String moduleName
     "Name of the python module that contains the function";
   input String functionName=moduleName "Name of the python function";
