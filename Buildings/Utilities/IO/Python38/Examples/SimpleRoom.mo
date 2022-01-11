@@ -28,7 +28,7 @@ model SimpleRoom
     amplitude=5,
     offset=283.15,
     y(unit="K", displayUnit="degC"),
-    freqHz=1/86400,
+    f=1/86400,
     phase=-1.5707963267949) "Ambient temperature"
     annotation (Placement(transformation(extent={{-80,30},{-60,50}})));
 equation
@@ -38,7 +38,7 @@ equation
           {-42,1}}, color={0,0,127}));
   connect(mul.y, pyt.uR)
     annotation (Line(points={{-19,10},{-12,10}}, color={0,0,127}));
-  connect(pyt.yR[1], onOffCon.u) annotation (Line(points={{11,9.5},{18,9.5},{18,
+  connect(pyt.yR[1], onOffCon.u) annotation (Line(points={{11,9.75},{18,9.75},{18,
           14},{28,14}}, color={0,0,127}));
   connect(onOffCon.reference, T0.y) annotation (Line(points={{28,26},{0,26},{0,80},
           {-59,80}}, color={0,0,127}));

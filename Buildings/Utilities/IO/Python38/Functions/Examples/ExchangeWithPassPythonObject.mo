@@ -8,10 +8,10 @@ model ExchangeWithPassPythonObject
   Buildings.Utilities.IO.Python38.Functions.BaseClasses.PythonObject pytObj=
       Buildings.Utilities.IO.Python38.Functions.BaseClasses.PythonObject();
 
-  Real yR1[1] "Real function value";
-  Real yR2[1] "Real function value";
+  parameter Real yR1[1](each fixed=false) "Real function value";
+  parameter Real yR2[1](each fixed=false) "Real function value";
 
-equation
+initial equation
   yR1 = Buildings.Utilities.IO.Python38.Functions.exchange(
     moduleName="testFunctions",
     functionName="r1_r1PassPythonObject",
@@ -61,8 +61,14 @@ the simulation if the return value is different from the expected value.
 </html>", revisions="<html>
 <ul>
 <li>
-August 27, 2021, by Michael Wetter:<br/>
+January 10, 2022, by Michael Wetter:<br/>
 Updated to Python 3.8.
+</li>
+<li>
+December 11, 2021, by Michael Wetter:<br/>
+Changed implementation to assigning parameters as opposed to variables because the
+assignment is made through impure function calls.
+This is for MSL 4.0.0.
 </li>
 <li>
 April 10, 2020, by Jianjun Hu and Michael Wetter:<br/>
