@@ -2,7 +2,7 @@ within Buildings.Utilities.IO.Python38.Examples;
 model SimpleRoom
   "Simple room model implemented in Python that outputs the temperature and the energy"
   extends Modelica.Icons.Example;
-  Time.ModelTime modTim
+  Buildings.Utilities.Time.ModelTime modTim "Model time"
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
 
   Real_Real pyt(

@@ -2,7 +2,7 @@ within Buildings.Obsolete.Utilities.IO.Python36.Examples;
 model SimpleRoom
   "Simple room model implemented in Python that outputs the temperature and the energy"
   extends Modelica.Icons.Example;
-  Time.ModelTime modTim
+  Buildings.Utilities.Time.ModelTime modTim "Model time"
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
 
   Obsolete.Utilities.IO.Python36.Real_Real pyt(
@@ -38,7 +38,7 @@ equation
           {-42,1}}, color={0,0,127}));
   connect(mul.y, pyt.uR)
     annotation (Line(points={{-19,10},{-12,10}}, color={0,0,127}));
-  connect(pyt.yR[1], onOffCon.u) annotation (Line(points={{11,9.5},{18,9.5},{18,
+  connect(pyt.yR[1], onOffCon.u) annotation (Line(points={{11,9.75},{18,9.75},{18,
           14},{28,14}}, color={0,0,127}));
   connect(onOffCon.reference, T0.y) annotation (Line(points={{28,26},{0,26},{0,80},
           {-59,80}}, color={0,0,127}));
