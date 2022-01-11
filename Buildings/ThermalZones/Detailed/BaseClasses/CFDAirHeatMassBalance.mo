@@ -802,7 +802,7 @@ equation
       color={191,0,0},
       smooth=Smooth.None));
   connect(senHeaFlo.Q_flow, QTotCon_flow.u1) annotation (Line(
-      points={{-200,-10},{-200,-44},{-182,-44}},
+      points={{-200,-11},{-200,-44},{-182,-44}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(QCon_flow, QTotCon_flow.u2) annotation (Line(
@@ -827,7 +827,7 @@ equation
           fillPattern=FillPattern.Sphere),
         Text(
           extent={{-230,-242},{-180,-192}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           fillColor={0,0,255},
           fillPattern=FillPattern.Solid,
           textString="QSou")}),

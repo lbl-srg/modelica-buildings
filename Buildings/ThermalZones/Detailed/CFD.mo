@@ -40,11 +40,11 @@ model CFD
           textString="radiation"),
         Text(
           extent={{-114,-134},{-36,-116}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="surface"),
         Text(
           extent={{-218,198},{-142,166}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="s")}),
     Documentation(info="<html>
 <p>
