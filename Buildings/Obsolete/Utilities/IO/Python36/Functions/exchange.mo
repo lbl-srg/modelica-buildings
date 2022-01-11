@@ -72,7 +72,9 @@ algorithm
     nIntWri=nIntWri,
     nIntRea=nIntRea,
     nStrWri=nStrWri);
-  annotation (Documentation(info="<html>
+  annotation (
+  obsolete = "Obsolete model - use Buildings.Utilities.IO.Python38.Real_Real instead",
+  Documentation(info="<html>
 <p>
 This function is a wrapper for
 <a href=\"modelica://Buildings.Obsolete.Utilities.IO.Python36.Functions.BaseClasses.exchange\">

@@ -1,6 +1,7 @@
 within Buildings.Obsolete.Utilities.IO.Python36;
 model Real_Real
   "Block that exchanges a vector of real values with a Python function"
+  extends Buildings.Obsolete.BaseClasses.ObsoleteModel;
   extends Modelica.Blocks.Interfaces.DiscreteBlock(
     startTime=0,
     firstTrigger(fixed=true, start=false));
@@ -96,6 +97,7 @@ equation
  Icon(coordinateSystem(
           preserveAspectRatio=false, extent={{-100,-100},{100,100}}), graphics={Bitmap(
             extent={{-88,82},{80,-78}}, fileName="modelica://Buildings/Resources/Images/Obsolete/Utilities/IO/Python36/python.png")}),
+    obsolete = "Obsolete model - use Buildings.Utilities.IO.Python38.Real_Real instead",
     Documentation(info="<html>
 <p>
 Block that exchanges data with a Python function that does not need to pass

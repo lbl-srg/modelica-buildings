@@ -1,9 +1,9 @@
 within Buildings.Obsolete.Utilities;
-package IO "fixme: add brief description"
+package IO "Package with obsolete models for IO"
   extends Modelica.Icons.Package;
 annotation (preferredView="info", Documentation(info="<html>
 <p>
-fixme: add a package description.
+This package contains obsolete models for IO.
 </p>
 </html>"));
 end IO;

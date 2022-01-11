@@ -1,9 +1,9 @@
 within Buildings.Obsolete;
-package Utilities "fixme: add brief description"
+package Utilities "Package with obsolete models for utilities"
   extends Modelica.Icons.Package;
 annotation (preferredView="info", Documentation(info="<html>
 <p>
-fixme: add a package description.
+This package contains obsolete models for utilities.
 </p>
 </html>"));
 end Utilities;

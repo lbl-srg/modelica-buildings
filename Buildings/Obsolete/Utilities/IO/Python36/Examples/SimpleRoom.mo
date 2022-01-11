@@ -17,11 +17,11 @@ model SimpleRoom
     annotation (Placement(transformation(extent={{-80,70},{-60,90}})));
   Modelica.Blocks.Routing.Multiplex4 mul "Multiplex"
     annotation (Placement(transformation(extent={{-40,0},{-20,20}})));
-  Controls.OBC.CDL.Logical.OnOffController onOffCon(
+  Buildings.Controls.OBC.CDL.Logical.OnOffController onOffCon(
     bandwidth=2,
     u(unit="K", displayUnit="degC")) "On/off controller"
     annotation (Placement(transformation(extent={{30,10},{50,30}})));
-  Controls.OBC.CDL.Conversions.BooleanToReal onOff(realTrue=1.2)
+  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal onOff(realTrue=1.2)
     "On off control"
     annotation (Placement(transformation(extent={{60,10},{80,30}})));
   Modelica.Blocks.Sources.Sine TAmb(
