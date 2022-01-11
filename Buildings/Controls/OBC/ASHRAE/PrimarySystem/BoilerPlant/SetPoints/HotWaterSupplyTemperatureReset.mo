@@ -434,13 +434,6 @@ ie, <code>TPlaHotWatSupSet</code> - <code>TConBoiHotWatSetOff</code>.
 </ul>
 </li>
 </ul>
-<p align=\"center\">
-<img alt=\"Validation plot for HotWaterSupplyTemperatureReset\"
-src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/PrimarySystem/BoilerPlant/SetPoints/HotWaterSupplyTemperatureReset.png\"/>
-<br/>
-Validation plot generated from model <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.SetPoints.Validation.HotWaterSupplyTemperatureReset\">
-Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.SetPoints.Validation.HotWaterSupplyTemperatureReset</a>.
-</p>
 </html>",
 revisions="<html>
 <ul>

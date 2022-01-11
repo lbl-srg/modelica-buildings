@@ -161,13 +161,6 @@ equation
       The calculation is according to section 5.3.3.5 and 5.3.3.6. in RP-1711, March
       2020 draft.
       </p>
-      <p align=\"center\">
-      <img alt=\"Validation plot for CapacityRequirement\"
-      src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/PrimarySystem/BoilerPlant/Staging/SetPoints/Subsequences/CapacityRequirement.png\"/>
-      <br/>
-      Validation plot generated from model <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.SetPoints.Subsequences.Validation.CapacityRequirement\">
-      Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.SetPoints.Subsequences.Validation.CapacityRequirement</a>.
-      </p>
       </html>",
       revisions="<html>
       <ul>

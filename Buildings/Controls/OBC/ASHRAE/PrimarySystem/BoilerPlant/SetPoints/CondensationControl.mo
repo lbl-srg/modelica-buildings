@@ -219,13 +219,6 @@ equation
     to generate the pump speed limits <code>yMinPriPumSpe</code> and <code>yMaxSecPumSpe</code>.
     </li>
     </ol>
-    <p align=\"center\">
-    <img alt=\"Validation plot for PlantEnable\"
-    src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/PrimarySystem/BoilerPlant/SetPoints/CondensationControl.png\"/>
-    <br/>
-    Validation plot generated from model <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.SetPoints.Validation.CondensationControl\">
-    Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.SetPoints.Validation.CondensationControl</a>.
-    </p>
     </html>",
     revisions="<html>
     <ul>
