@@ -114,13 +114,15 @@
   },
   {
     "optimica": {
-        "translate": false
-    },
+        "translate": false,
+        "comment":  "OPTIMICA uses Python 3.9, not 3.8."
+      },
     "model_name": "Buildings.Utilities.IO.Python_3_8.Functions.Examples.Exchange"
   },
   {
     "optimica": {
-        "translate": false
+        "translate": false,
+        "comment":  "OPTIMICA uses Python 3.9, not 3.8."
     },
     "model_name": "Buildings.Utilities.IO.Python_3_8.Functions.Examples.ExchangeWithPassPythonObject"
   },
