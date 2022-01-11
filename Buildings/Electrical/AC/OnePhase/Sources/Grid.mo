@@ -4,9 +4,9 @@ model Grid "Electrical grid"
   replaceable Buildings.Electrical.AC.OnePhase.Interfaces.Terminal_p terminal
     annotation (Placement(transformation(extent={{-10,
             -110},{10,-90}}), iconTransformation(extent={{-10,-110},{10,-90}})));
-  parameter Modelica.SIunits.Frequency f(start=60) "Frequency of the source";
-  parameter Modelica.SIunits.Voltage V(start = 110) "RMS voltage of the source";
-  parameter Modelica.SIunits.Angle phiSou = 0 "Phase shift angle of the source";
+  parameter Modelica.Units.SI.Frequency f(start=60) "Frequency of the source";
+  parameter Modelica.Units.SI.Voltage V(start=110) "RMS voltage of the source";
+  parameter Modelica.Units.SI.Angle phiSou=0 "Phase shift angle of the source";
   Buildings.Electrical.AC.Interfaces.PowerOutput P
     "Power consumed from grid if positive, or fed to grid if negative"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
@@ -73,7 +73,7 @@ First implementation.
           fillPattern=FillPattern.Solid),
         Text(
           extent={{-120,130},{120,100}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="%name"),
         Line(
           points={{-60,-32},{-60,-72}},

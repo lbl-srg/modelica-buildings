@@ -1,6 +1,8 @@
 within Buildings.Experimental.DHC.Loads.BaseClasses;
-function getPeakLoad
+impure function getPeakLoad
   "Function that reads the peak load from the load profile"
+  extends Modelica.Icons.Function;
+
   input String string
     "String that is written before the '=' sign";
   input String filNam
@@ -29,7 +31,9 @@ algorithm
   // Get line that contains 'string'
   iLin := 0;
   EOF := false;
-  while(not EOF) and(index == 0) loop
+  while
+       (not EOF) and
+                    (index == 0) loop
     iLin := iLin+1;
     (lin,EOF) := Modelica.Utilities.Streams.readLine(
       fileName=filNam,
@@ -90,6 +94,10 @@ for how to invoke this function.
 </html>",
       revisions="<html>
 <ul>
+<li>
+December 11, 2021, by Michael Wetter:<br/>
+Declared function as <code>impure</code> for MSL 4.0.0.
+</li>
 <li>
 December 1, 2015, by Michael Wetter:<br/>
 First implementation.

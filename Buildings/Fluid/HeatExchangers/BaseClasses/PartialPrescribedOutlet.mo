@@ -8,9 +8,9 @@ partial model PartialPrescribedOutlet
   constant Boolean homotopyInitialization = true "= true, use homotopy method"
     annotation(HideResult=true);
 
-  parameter Modelica.SIunits.Time tau(min=0) = 10
+  parameter Modelica.Units.SI.Time tau(min=0) = 10
     "Time constant at nominal flow rate (used if energyDynamics or massDynamics not equal Modelica.Fluid.Types.Dynamics.SteadyState)"
-    annotation(Dialog(tab = "Dynamics"));
+    annotation (Dialog(tab="Dynamics"));
 
 protected
   Buildings.Fluid.FixedResistances.PressureDrop preDro(

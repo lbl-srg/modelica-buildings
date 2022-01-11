@@ -15,9 +15,9 @@ model Convector "Heat exchanger for the water stream"
 
   parameter Integer nBeams(min=1) "Number of beams in parallel";
 
-  parameter Modelica.SIunits.Time tau = 30
+  parameter Modelica.Units.SI.Time tau=30
     "Time constant at nominal flow (if energyDynamics <> SteadyState)"
-     annotation (Dialog(tab = "Dynamics", group="Nominal condition"));
+    annotation (Dialog(tab="Dynamics", group="Nominal condition"));
 
   // Dynamics
   parameter Modelica.Fluid.Types.Dynamics energyDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial

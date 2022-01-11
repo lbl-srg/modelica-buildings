@@ -26,8 +26,8 @@ model SingleCircuitMultipleCircuitEpsilonNTU
     from_dp=true) "Slabe with embedded pipes"
     annotation (Placement(transformation(extent={{-14,10},{6,30}})));
 
-  parameter Modelica.SIunits.MassFlowRate m_flow_nominal=
-     0.167 "Nominal mass flow rate for each circuit";
+  parameter Modelica.Units.SI.MassFlowRate m_flow_nominal=0.167
+    "Nominal mass flow rate for each circuit";
   Modelica.Thermal.HeatTransfer.Sources.FixedTemperature TAbo(T=293.15)
     "Air temperature above the slab"
     annotation (Placement(transformation(extent={{-80,110},{-60,130}})));
@@ -37,7 +37,7 @@ model SingleCircuitMultipleCircuitEpsilonNTU
   Modelica.Thermal.HeatTransfer.Components.ThermalConductor conAbo1(G=20*A)
     "Combined convection and radiation resistance above the slab"
     annotation (Placement(transformation(extent={{-20,110},{-40,130}})));
-  parameter Modelica.SIunits.Area A=10 "Heat transfer area for each circuit";
+  parameter Modelica.Units.SI.Area A=10 "Heat transfer area for each circuit";
   Modelica.Thermal.HeatTransfer.Components.ThermalConductor conBel1(G=20*A)
     "Combined convection and radiation resistance below the slab"
     annotation (Placement(transformation(extent={{-40,-90},{-20,-70}})));

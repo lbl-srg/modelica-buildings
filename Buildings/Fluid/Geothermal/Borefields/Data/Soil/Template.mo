@@ -2,16 +2,16 @@ within Buildings.Fluid.Geothermal.Borefields.Data.Soil;
 record Template
   "Template for soil data records"
   extends Modelica.Icons.Record;
-  parameter Modelica.SIunits.ThermalConductivity kSoi
+  parameter Modelica.Units.SI.ThermalConductivity kSoi
     "Thermal conductivity of the soil material";
-  parameter Modelica.SIunits.SpecificHeatCapacity cSoi
+  parameter Modelica.Units.SI.SpecificHeatCapacity cSoi
     "Specific heat capacity of the soil material";
-  parameter Modelica.SIunits.Density dSoi(displayUnit="kg/m3")
+  parameter Modelica.Units.SI.Density dSoi(displayUnit="kg/m3")
     "Density of the soil material";
   parameter Boolean steadyState = (cSoi < Modelica.Constants.eps or dSoi < Modelica.Constants.eps)
     "Flag, if true, then material is computed using steady-state heat conduction"
     annotation(Evaluate=true);
-  final parameter Modelica.SIunits.ThermalDiffusivity aSoi=kSoi/(dSoi*cSoi)
+  final parameter Modelica.Units.SI.ThermalDiffusivity aSoi=kSoi/(dSoi*cSoi)
     "Heat diffusion coefficient of the soil material";
   annotation (
   defaultComponentPrefixes="parameter",

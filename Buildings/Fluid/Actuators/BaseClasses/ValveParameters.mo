@@ -14,29 +14,25 @@ partial model ValveParameters "Model with parameters for valves"
     "Cv (US) flow coefficient [USG/min/(psi)^(1/2)]"
   annotation(Dialog(group = "Flow Coefficient",
                     enable = (CvData==Buildings.Fluid.Types.CvTypes.Cv)));
-  parameter Modelica.SIunits.Area Av(
-    fixed= if CvData==Buildings.Fluid.Types.CvTypes.Av then true else false)
-    "Av (metric) flow coefficient"
-   annotation(Dialog(group = "Flow Coefficient",
-                     enable = (CvData==Buildings.Fluid.Types.CvTypes.Av)));
+  parameter Modelica.Units.SI.Area Av(fixed=if CvData == Buildings.Fluid.Types.CvTypes.Av
+         then true else false) "Av (metric) flow coefficient" annotation (
+      Dialog(group="Flow Coefficient", enable=(CvData == Buildings.Fluid.Types.CvTypes.Av)));
 
   parameter Real deltaM = 0.02
     "Fraction of nominal flow rate where linearization starts, if y=1"
     annotation(Dialog(group="Pressure-flow linearization"));
-  parameter Modelica.SIunits.MassFlowRate m_flow_nominal
-    "Nominal mass flow rate"
-    annotation(Dialog(group = "Nominal condition"));
-  parameter Modelica.SIunits.PressureDifference dpValve_nominal(
-     displayUnit="Pa",
-     min=0,
-     fixed= if CvData==Buildings.Fluid.Types.CvTypes.OpPoint then true else false)
+  parameter Modelica.Units.SI.MassFlowRate m_flow_nominal
+    "Nominal mass flow rate" annotation (Dialog(group="Nominal condition"));
+  parameter Modelica.Units.SI.PressureDifference dpValve_nominal(
+    displayUnit="Pa",
+    min=0,
+    fixed=if CvData == Buildings.Fluid.Types.CvTypes.OpPoint then true else false)
     "Nominal pressure drop of fully open valve, used if CvData=Buildings.Fluid.Types.CvTypes.OpPoint"
-    annotation(Dialog(group="Nominal condition",
-               enable = (CvData==Buildings.Fluid.Types.CvTypes.OpPoint)));
+    annotation (Dialog(group="Nominal condition", enable=(CvData == Buildings.Fluid.Types.CvTypes.OpPoint)));
 
-  parameter Modelica.SIunits.Density rhoStd
+  parameter Modelica.Units.SI.Density rhoStd
     "Inlet density for which valve coefficients are defined"
-  annotation(Dialog(group="Nominal condition", tab="Advanced"));
+    annotation (Dialog(group="Nominal condition", tab="Advanced"));
 
 protected
   parameter Real Kv_SI(

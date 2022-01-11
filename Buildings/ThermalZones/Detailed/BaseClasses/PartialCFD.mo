@@ -29,7 +29,7 @@ partial model PartialCFD
   parameter Boolean useCFD = true
     "Set to false to deactivate the CFD computation and use instead yFixed as output"
     annotation(Dialog(group = "CFD"), Evaluate = true);
-  parameter Modelica.SIunits.Time samplePeriod(min=100*Modelica.Constants.eps)
+  parameter Modelica.Units.SI.Time samplePeriod(min=100*Modelica.Constants.eps)
     "Sample period of component"
     annotation(Dialog(group = "Sampling"));
   parameter Real uSha_fixed[nConExtWin] = zeros(nConExtWin)
@@ -51,8 +51,8 @@ partial model PartialCFD
   parameter Boolean haveSource
     "Flag, true if the model has at least one source";
 
-  Modelica.Blocks.Interfaces.RealOutput yCFD[nSen] if
-       haveSensor "Sensor for output from CFD"
+  Modelica.Blocks.Interfaces.RealOutput yCFD[nSen]
+    if haveSensor "Sensor for output from CFD"
     annotation (Placement(transformation(
      extent={{460,110},{480,130}}), iconTransformation(extent={{200,110},{220,130}})));
 
@@ -65,8 +65,8 @@ protected
   final parameter Integer nSen(min=0) = size(sensorName, 1)
     "Number of sensors that are connected to CFD output";
 
-  Modelica.Blocks.Sources.Constant conSha[nConExtWin](final k=uSha_fixed) if
-       haveShade "Constant signal for shade"
+  Modelica.Blocks.Sources.Constant conSha[nConExtWin](final k=uSha_fixed)
+    if haveShade "Constant signal for shade"
     annotation (Placement(transformation(extent={{-260,170},{-240,190}})));
 
 public

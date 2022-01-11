@@ -28,15 +28,15 @@ model CFD
           fileName="modelica://Buildings/Resources/Images/ThermalZones/Detailed/cfd.png"),
         Text(
           extent={{162,98},{196,140}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="yCFD"),
         Text(
           extent={{-86,-14},{0,16}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="air"),
         Text(
           extent={{-102,-50},{-22,-26}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="radiation"),
         Text(
           extent={{-114,-134},{-36,-116}},

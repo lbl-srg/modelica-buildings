@@ -9,7 +9,7 @@ model Zhang2012BlindsSolarAltitude
   Modelica.Blocks.Sources.Sine SA(
     amplitude=30*3.14159/180,
     offset=35*3.14159/180,
-    freqHz=0.001,
+    f=0.001,
     y(unit="1")) "Solar altitude"
     annotation (Placement(transformation(extent={{-80,-30},{-60,-10}})));
   Buildings.Occupants.Office.Blinds.Zhang2012BlindsSolarAltitude bli "Tested blinds model"

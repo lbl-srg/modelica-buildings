@@ -12,7 +12,7 @@ model MixedAirCO2
       amplitude=5,
       startTime=43200));
 
-  parameter Modelica.SIunits.MassFlowRate mOut_flow = 47*2/3600*1.2
+  parameter Modelica.Units.SI.MassFlowRate mOut_flow=47*2/3600*1.2
     "Typical outside air mass flow rate, unless increased by controller";
 
   Modelica.Blocks.Math.Gain gaiCO2(k=8.18E-6) "CO2 emission per person"
@@ -119,12 +119,12 @@ experiment(StopTime=86400, Tolerance=1e-06),
           fillPattern=FillPattern.Solid),
         Text(
           extent={{-164,-86},{-92,-108}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           horizontalAlignment=TextAlignment.Left,
           textString="Feedback control for fresh air"),
         Text(
           extent={{84,-22},{140,-42}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           horizontalAlignment=TextAlignment.Left,
           textString="CO2 sensor for room air")}));
 end MixedAirCO2;

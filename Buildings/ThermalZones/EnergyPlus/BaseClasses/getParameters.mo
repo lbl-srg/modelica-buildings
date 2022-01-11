@@ -1,5 +1,5 @@
 within Buildings.ThermalZones.EnergyPlus.BaseClasses;
-function getParameters
+pure function getParameters
   "Get parameters for an EnergyPlus object"
   extends Modelica.Icons.Function;
   input Buildings.ThermalZones.EnergyPlus.BaseClasses.SpawnExternalObject adapter
@@ -25,7 +25,12 @@ and returns them to Modelica.
 </p>
 </html>",
       revisions="<html>
-<ul><li>
+<ul>
+<li>
+December 11, 2021, by Michael Wetter:<br/>
+Declared function as <code>pure</code> for MSL 4.0.0.
+</li>
+<li>
 February 18, 2021, by Michael Wetter:<br/>
 First implementation.
 </li>

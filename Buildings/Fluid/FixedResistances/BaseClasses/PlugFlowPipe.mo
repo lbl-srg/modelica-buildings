@@ -20,54 +20,55 @@ model PlugFlowPipe
     which improve performances, but reduces dynamic accuracy."
     annotation (Dialog(tab="Advanced", enable=have_pipCap));
 
-  parameter Modelica.SIunits.Length dh=sqrt(4*m_flow_nominal/rho_default/v_nominal/Modelica.Constants.pi)
+  parameter Modelica.Units.SI.Length dh=sqrt(4*m_flow_nominal/rho_default/
+      v_nominal/Modelica.Constants.pi)
     "Hydraulic diameter (assuming a round cross section area)"
     annotation (Dialog(group="Material"));
 
-  parameter Modelica.SIunits.Velocity v_nominal = 1.5
+  parameter Modelica.Units.SI.Velocity v_nominal=1.5
     "Velocity at m_flow_nominal (used to compute default value for hydraulic diameter dh)"
-    annotation(Dialog(group="Nominal condition"));
+    annotation (Dialog(group="Nominal condition"));
 
   parameter Real ReC=4000
     "Reynolds number where transition to turbulence starts";
 
-  parameter Modelica.SIunits.Height roughness=2.5e-5
+  parameter Modelica.Units.SI.Height roughness=2.5e-5
     "Average height of surface asperities (default: smooth steel pipe)"
     annotation (Dialog(group="Material"));
 
-  parameter Modelica.SIunits.Length length "Pipe length"
+  parameter Modelica.Units.SI.Length length "Pipe length"
     annotation (Dialog(group="Material"));
 
-  parameter Modelica.SIunits.Length dIns
+  parameter Modelica.Units.SI.Length dIns
     "Thickness of pipe insulation, used to compute R"
     annotation (Dialog(group="Thermal resistance"));
 
-  parameter Modelica.SIunits.ThermalConductivity kIns
+  parameter Modelica.Units.SI.ThermalConductivity kIns
     "Heat conductivity of pipe insulation, used to compute R"
     annotation (Dialog(group="Thermal resistance"));
 
-  parameter Modelica.SIunits.SpecificHeatCapacity cPip=2300
+  parameter Modelica.Units.SI.SpecificHeatCapacity cPip=2300
     "Specific heat of pipe wall material. 2300 for PE, 500 for steel"
     annotation (Dialog(group="Material", enable=have_pipCap));
 
-  parameter Modelica.SIunits.Density rhoPip(displayUnit="kg/m3")=930
+  parameter Modelica.Units.SI.Density rhoPip(displayUnit="kg/m3") = 930
     "Density of pipe wall material. 930 for PE, 8000 for steel"
     annotation (Dialog(group="Material", enable=have_pipCap));
 
-  parameter Modelica.SIunits.Length thickness = 0.0035
-    "Pipe wall thickness"
+  parameter Modelica.Units.SI.Length thickness=0.0035 "Pipe wall thickness"
     annotation (Dialog(group="Material"));
 
-  parameter Modelica.SIunits.Temperature T_start_in(start=Medium.T_default)=
+  parameter Modelica.Units.SI.Temperature T_start_in(start=Medium.T_default) =
     Medium.T_default "Initialization temperature at pipe inlet"
     annotation (Dialog(tab="Initialization"));
-  parameter Modelica.SIunits.Temperature T_start_out(start=Medium.T_default)=
-    T_start_in "Initialization temperature at pipe outlet"
+  parameter Modelica.Units.SI.Temperature T_start_out(start=Medium.T_default)
+     = T_start_in "Initialization temperature at pipe outlet"
     annotation (Dialog(tab="Initialization"));
   parameter Boolean initDelay = false
     "Initialize delay for a constant mass flow rate if true, otherwise start from 0"
     annotation (Dialog(tab="Initialization"));
-  parameter Modelica.SIunits.MassFlowRate m_flow_start=0 "Initial value of mass flow rate through pipe"
+  parameter Modelica.Units.SI.MassFlowRate m_flow_start=0
+    "Initial value of mass flow rate through pipe"
     annotation (Dialog(tab="Initialization", enable=initDelay));
 
   parameter Real R(unit="(m.K)/W")=1/(kIns*2*Modelica.Constants.pi/
@@ -89,10 +90,10 @@ model PlugFlowPipe
 
   // QEnv_flow is introduced because in discretized pipes, heatPort.Q_flow must be summed over all ports.
   // By introducing this variable, both models have the same variable.
-  Modelica.SIunits.HeatFlowRate QEnv_flow = heatPort.Q_flow
+  Modelica.Units.SI.HeatFlowRate QEnv_flow=heatPort.Q_flow
     "Heat transfer to or from surroundings (positive if pipe is colder than surrounding)";
 
-  Modelica.SIunits.Velocity v = del.v "Flow velocity of medium in pipe";
+  Modelica.Units.SI.Velocity v=del.v "Flow velocity of medium in pipe";
 
   replaceable Buildings.Fluid.FixedResistances.HydraulicDiameter res(
     final dh=dh,
@@ -116,11 +117,11 @@ model PlugFlowPipe
         origin={0,40})));
 
 protected
-  parameter Modelica.SIunits.HeatCapacity CPip=
-    length*((dh + 2*thickness)^2 - dh^2)*Modelica.Constants.pi/4*cPip*rhoPip "Heat capacity of pipe wall";
+  parameter Modelica.Units.SI.HeatCapacity CPip=length*((dh + 2*thickness)^2 -
+      dh^2)*Modelica.Constants.pi/4*cPip*rhoPip "Heat capacity of pipe wall";
 
-  final parameter Modelica.SIunits.Volume VEqu=if have_symmetry
-    then CPip/(rho_default*cp_default)/2 else CPip/(rho_default*cp_default)
+  final parameter Modelica.Units.SI.Volume VEqu=if have_symmetry then CPip/(
+      rho_default*cp_default)/2 else CPip/(rho_default*cp_default)
     "Equivalent water volume to represent pipe wall thermal inertia";
 
   parameter Medium.ThermodynamicState sta_default=Medium.setState_pTX(
@@ -128,7 +129,7 @@ protected
       p=Medium.p_default,
       X=Medium.X_default) "Default medium state";
 
-  parameter Modelica.SIunits.SpecificHeatCapacity cp_default=
+  parameter Modelica.Units.SI.SpecificHeatCapacity cp_default=
       Medium.specificHeatCapacityCp(state=sta_default)
     "Heat capacity of medium";
 
@@ -136,7 +137,7 @@ protected
     rho_default*Modelica.Constants.pi*(dh/2)^2*cp_default
     "Thermal capacity per unit length of water in pipe";
 
-  parameter Modelica.SIunits.Density rho_default=Medium.density_pTX(
+  parameter Modelica.Units.SI.Density rho_default=Medium.density_pTX(
       p=Medium.p_default,
       T=Medium.T_default,
       X=Medium.X_default)
@@ -330,11 +331,11 @@ equation
           fillColor={215,202,187}),
         Text(
           extent={{-102,-76},{98,-104}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="d = %dh"),
         Text(
           extent={{-100,-56},{100,-74}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="L = %length")}),
     Documentation(revisions="<html>
 <ul>

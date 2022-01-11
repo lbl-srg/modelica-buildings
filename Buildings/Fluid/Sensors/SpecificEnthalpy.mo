@@ -1,7 +1,7 @@
 within Buildings.Fluid.Sensors;
 model SpecificEnthalpy "Ideal one port specific enthalpy sensor"
   extends Buildings.Fluid.Sensors.BaseClasses.PartialAbsoluteSensor;
-  extends Modelica.Icons.RotationalSensor;
+  extends Modelica.Icons.RoundSensor;
   Modelica.Blocks.Interfaces.RealOutput h_out(final quantity="SpecificEnergy",
                                               final unit="J/kg")
     "Specific enthalpy in port medium"
@@ -15,15 +15,15 @@ annotation (defaultComponentName="senSpeEnt",
         Text(
           extent={{-150,80},{150,120}},
           textString="%name",
-          lineColor={0,0,255}),
+          textColor={0,0,255}),
         Text(
           extent={{168,-30},{52,-60}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="h"),
         Line(points={{70,0},{100,0}}, color={0,0,127}),
         Text(
           extent={{180,90},{60,40}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString=DynamicSelect("", String(h_out, format=".0f")))}),
   Documentation(info="<html>
 <p>

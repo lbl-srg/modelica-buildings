@@ -1,5 +1,5 @@
 within Buildings.ThermalZones.EnergyPlus.BaseClasses;
-function getUnitAsString
+pure function getUnitAsString
   "Return the unit enumeration as a string"
   extends Modelica.Icons.Function;
   input Buildings.ThermalZones.EnergyPlus.Types.Units unit
@@ -51,6 +51,10 @@ Function that returns the string representation of a unit enumeration from
 </html>",
       revisions="<html>
 <ul>
+<li>
+December 11, 2021, by Michael Wetter:<br/>
+Declared function as <code>pure</code> for MSL 4.0.0.
+</li>
 <li>
 July 23, 2020, by Michael Wetter:<br/>
 First implementation.

@@ -1,26 +1,17 @@
 [
   {
-      "jmodelica": {
-        "simulate": false
-    },
       "optimica": {
         "simulate": false
     },
     "model_name": "Buildings.Fluid.Examples.FlowSystem.Basic"
   },
   {
-      "jmodelica": {
-        "simulate": false
-    },
       "optimica": {
         "simulate": false
     },
     "model_name": "Buildings.Fluid.Examples.FlowSystem.Simplified1"
   },
   {
-      "jmodelica": {
-        "simulate": false
-    },
       "optimica": {
         "simulate": false
     },
@@ -93,99 +84,66 @@
   "model_name": "Buildings.ThermalZones.Detailed.Validation.SingleZoneFloorWithHeating"
   },
   {
-    "jmodelica": {
-      "simulate": false
-    },
     "optimica": {
       "rtol": 1E-7
     },
     "model_name": "Buildings.ThermalZones.EnergyPlus.Examples.SmallOffice.Guideline36Spring"
   },
   {
-    "jmodelica": {
-      "simulate": false
-    },
     "optimica": {
       "rtol": 1E-7
     },
     "model_name": "Buildings.ThermalZones.EnergyPlus.Examples.SmallOffice.Guideline36Summer"
   },
   {
-    "jmodelica": {
-      "simulate": false
-    },
     "optimica": {
       "rtol": 1E-7
     },
     "model_name": "Buildings.ThermalZones.EnergyPlus.Examples.SmallOffice.Guideline36Winter"
   },
   {
-    "jmodelica": {
-      "simulate": false
-    },
     "optimica": {
       "rtol": 1E-7
     },
     "model_name": "Buildings.ThermalZones.EnergyPlus.Examples.SmallOffice.ASHRAE2006Spring"
   },
   {
-    "jmodelica": {
-      "simulate": false
-    },
     "optimica": {
       "rtol": 1E-7
     },
     "model_name": "Buildings.ThermalZones.EnergyPlus.Examples.SmallOffice.ASHRAE2006Summer"
   },
   {
-    "jmodelica": {
-      "simulate": false
-    },
     "optimica": {
       "rtol": 1E-7
     },
     "model_name": "Buildings.ThermalZones.EnergyPlus.Examples.SmallOffice.ASHRAE2006Winter"
   },
   {
-    "jmodelica": {
-      "simulate": false
-    },
     "optimica": {
       "rtol": 1E-7
     },
     "model_name": "Buildings.ThermalZones.EnergyPlus.Examples.SmallOffice.NoHVAC"
   },
   {
-    "jmodelica": {
-      "simulate": false
-    },
     "optimica": {
       "rtol": 1E-8
     },
     "model_name": "Buildings.ThermalZones.EnergyPlus.Examples.SmallOffice.IdealHeatingCoolingSpring"
   },
   {
-    "jmodelica": {
-      "simulate": false
-    },
     "optimica": {
       "rtol": 1E-8
     },
     "model_name": "Buildings.ThermalZones.EnergyPlus.Examples.SmallOffice.IdealHeatingCoolingSummer"
   },
   {
-    "jmodelica": {
-      "simulate": false
-    },
     "optimica": {
       "rtol": 1E-8
     },
     "model_name": "Buildings.ThermalZones.EnergyPlus.Examples.SmallOffice.IdealHeatingCoolingWinter"
   },
   {
-    "jmodelica": {
-        "translate": false
-    },
     "optimica": {
       "simulate": false,
       "comment":  "See https://github.com/lbl-srg/modelica-buildings/issues/2235"
@@ -193,101 +151,38 @@
     "model_name": "Buildings.Utilities.IO.Python36.Examples.KalmanFilter"
   },
   {
-    "jmodelica": {
-      "translate": false
-    },
-   "model_name": "Buildings.Utilities.IO.Python36.Examples.SimpleRoom"
-  },
-  {
-    "jmodelica": {
-        "translate": false
-    },
     "optimica": {
         "simulate": false
     },
     "model_name": "Buildings.Utilities.IO.Python36.Functions.Examples.Exchange"
   },
   {
-    "jmodelica": {
-      "translate": false
-    },
-    "model_name": "Buildings.Utilities.IO.Python36.Functions.Examples.ExchangeWithPassPythonObject"
-  },
-  {
-       "jmodelica": {
-         "rtol": 1E-8
-    },
        "optimica": {
-         "solver": "Radau5ODE",
-         "rtol": 1E-8,
-         "comment": "See https://app.travis-ci.com/github/lbl-srg/modelica-buildings/jobs/526352954#L640, times out with new filter for actuators"
+         "solver": "CVode",
+         "rtol": 1E-8
     },
     "model_name": "Buildings.Examples.DualFanDualDuct.ClosedLoop"
   },
   {
-    "jmodelica": {
-      "simulate": false,
-      "comment": "See https://app.travis-ci.com/github/lbl-srg/modelica-buildings/jobs/531423041"
-    },
-    "model_name": "Buildings.Examples.ScalableBenchmarks.BuildingVAV.Examples.OneFloor_OneZone"
-  },
-  {
-    "jmodelica": {
-      "simulate": false,
-      "comment": "See https://app.travis-ci.com/github/lbl-srg/modelica-buildings/jobs/531423041"
-    },
-    "model_name": "Buildings.Examples.ScalableBenchmarks.BuildingVAV.Examples.TwoFloor_TwoZone"
-  },
-  {
-    "jmodelica": {
-      "translate": false
-    },
     "optimica": {
-      "translate": false
-    },
-    "model_name": "Buildings.Experimental.DHC.Examples.Combined.Generation5.Examples.ParallelConstantFlow",
-    "comment": "See https://github.com/lbl-srg/modelica-buildings/issues/2435 and https://github.com/lbl-srg/modelica-buildings/issues/2436"
-  },
-  {
-    "jmodelica": {
-      "translate": false
-    },
-    "optimica": {
-      "translate": false
-    },
-    "model_name": "Buildings.Experimental.DHC.Examples.Combined.Generation5.Examples.SeriesConstantFlow",
-    "comment": "See https://github.com/lbl-srg/modelica-buildings/issues/2435 and https://github.com/lbl-srg/modelica-buildings/issues/2436"
-  },
-  {
-    "jmodelica": {
-      "translate": false
-    },
-    "optimica": {
-      "translate": false
-    },
-    "model_name": "Buildings.Experimental.DHC.Examples.Combined.Generation5.Examples.SeriesVariableFlow",
-    "comment": "See https://github.com/lbl-srg/modelica-buildings/issues/2435 and https://github.com/lbl-srg/modelica-buildings/issues/2436"
-  },
-  {
-    "jmodelica": {
       "simulate": false
     },
-    "model_name": "Buildings.Examples.VAVReheat.ASHRAE2006",
-    "comment": "This causes a CVode error on travis. See https://travis-ci.com/github/lbl-srg/modelica-buildings/jobs/520509213 and https://github.com/lbl-srg/modelica-buildings/issues/2549"
+    "model_name": "Buildings.Experimental.DHC.Loads.BaseClasses.Validation.FlowDistributionPumpControl",
+    "comment": "Fails with 'The rootfinding function failed in an unrecoverable manner.' Since oct-r26446"
   },
   {
-    "jmodelica": {
+    "optimica": {
       "simulate": false
     },
-    "model_name": "Buildings.Examples.VAVReheat.Guideline36",
-    "comment": "This causes a timeout on travis. See https://travis-ci.com/github/lbl-srg/modelica-buildings/jobs/520509213 and https://github.com/lbl-srg/modelica-buildings/issues/2549"
+    "model_name": "Buildings.Examples.VAVCO2.VAVSystemCTControl",
+    "comment": "Fails with 'The rootfinding function failed in an unrecoverable manner.' Since oct-r26446"
   },
   {
-    "jmodelica": {
+    "optimica": {
       "simulate": false
     },
-    "model_name": "Buildings.Examples.DualFanDualDuct.ClosedLoop",
-    "comment": "This causes a timeout on travis. See https://app.travis-ci.com/github/lbl-srg/modelica-buildings/jobs/525707949"
+    "model_name": "Buildings.ThermalZones.EnergyPlus.Examples.SmallOffice.Unconditioned",
+    "comment": "Failed with 'RuntimeError: Process timeout after 300 seconds.' Since oct-r26446."
   },
   {
     "optimica": {
@@ -302,5 +197,131 @@
         "comment": "This causes a timeout on travis, but works locally. See https://travis-ci.com/github/lbl-srg/modelica-buildings/jobs/501193509#L635"
     },
     "model_name": "Buildings.ThermalZones.EnergyPlus.Examples.SmallOffice.ASHRAE2006Winter"
+  },
+  {
+    "optimica": {
+      "translate": false,
+      "comment": "Failed due to structural parameter, see https://github.com/lbl-srg/modelica-buildings/issues/2816"
+    },
+    "model_name": "Buildings.Experimental.DHC.Loads.BaseClasses.Examples.CouplingTimeSeries"
+  },
+  {
+    "optimica": {
+      "translate": false,
+      "comment": "Failed due to structural parameter, see https://github.com/lbl-srg/modelica-buildings/issues/2816"
+    },
+    "model_name": "Buildings.Experimental.DHC.Loads.BaseClasses.Examples.CouplingTimeSeriesSingleLoop"
+  },
+  {
+    "optimica": {
+      "translate": false,
+      "comment": "Failed due to structural parameter, see https://github.com/lbl-srg/modelica-buildings/issues/2816"
+    },
+    "model_name": "Buildings.Experimental.DHC.Loads.BaseClasses.Validation.FlowDistributionPumpControl"
+  },
+  {
+    "optimica": {
+      "translate": false,
+      "comment": "Failed due to structural parameter, see https://github.com/lbl-srg/modelica-buildings/issues/2816"
+  },
+  "model_name": "Buildings.Experimental.DHC.Loads.BaseClasses.Validation.BenchmarkFlowDistribution2"
+  },
+  {
+    "optimica": {
+      "translate": false,
+      "comment": "Failed due to structural parameter, see https://github.com/lbl-srg/modelica-buildings/issues/2816"
+    },
+    "model_name": "Buildings.Experimental.DHC.Loads.BaseClasses.Validation.BenchmarkFlowDistribution1"
+  },
+  {
+    "optimica": {
+      "translate": false,
+      "comment": "Failed due to structural parameter, see https://github.com/lbl-srg/modelica-buildings/issues/2816"
+    },
+    "model_name": "Buildings.Experimental.DHC.Examples.Combined.SeriesVariableFlow"
+  },
+  {
+    "optimica": {
+      "translate": false,
+      "comment": "Failed due to structural parameter, see https://github.com/lbl-srg/modelica-buildings/issues/2816"
+    },
+    "model_name": "Buildings.Experimental.DHC.Examples.Combined.ParallelConstantFlow"
+  },
+  {
+    "optimica": {
+      "translate": false,
+      "comment": "Failed due to structural parameter, see https://github.com/lbl-srg/modelica-buildings/issues/2816"
+    },
+    "model_name": "Buildings.Experimental.DHC.Examples.Combined.SeriesConstantFlow"
+  },
+  {
+    "optimica": {
+      "translate": false,
+      "comment": "Failed due to structural parameter, see https://github.com/lbl-srg/modelica-buildings/issues/2816"
+    },
+    "model_name": "Buildings.Experimental.DHC.EnergyTransferStations.Combined.Examples.ChillerOnly"
+  },
+  {
+    "optimica": {
+      "translate": false,
+      "comment": "Failed due to structural parameter, see https://github.com/lbl-srg/modelica-buildings/issues/2816"
+  },
+  "model_name": "Buildings.Experimental.DHC.EnergyTransferStations.Combined.Examples.ChillerBorefield"
+  },
+  {
+    "optimica": {
+      "translate": false,
+      "comment": "Failed due to structural parameter, see https://github.com/lbl-srg/modelica-buildings/issues/2816"
+    },
+    "model_name": "Buildings.Obsolete.DistrictHeatingCooling.SubStations.VaporCompression.Validation.HeatingCoolingHotwaterTimeSeries_dT"
+  },
+  {
+    "optimica": {
+      "translate": false,
+      "comment": "Failed due to structural parameter, see https://github.com/lbl-srg/modelica-buildings/issues/2816"
+    },
+    "model_name": "Buildings.Obsolete.DistrictHeatingCooling.Examples.HeatingCoolingHotWater3ClustersBaseCase"
+  },
+  {
+    "optimica": {
+      "translate": false,
+      "comment": "Failed due to structural parameter, see https://github.com/lbl-srg/modelica-buildings/issues/2816"
+    },
+    "model_name": "Buildings.Obsolete.DistrictHeatingCooling.Examples.HeatingCoolingHotWater3Clusters"
+  },
+  {
+    "optimica": {
+      "translate": false,
+      "comment": "Failed due to structural parameter, see https://github.com/lbl-srg/modelica-buildings/issues/2816"
+    },
+    "model_name": "Buildings.Obsolete.DistrictHeatingCooling.Validation.HeatingCoolingHotWaterSmall"
+  },
+  {
+    "dymola": {
+      "translate": false,
+      "comment": "Python 3.6 is not supported on Ubuntu 20.04, will be upgraded to more recent version"
+    },
+    "model_name": "Buildings.Utilities.IO.Python36.Examples.SimpleRoom"
+  },
+  {
+    "dymola": {
+      "translate": false,
+      "comment": "Python 3.6 is not supported on Ubuntu 20.04, will be upgraded to more recent version"
+    },
+    "model_name": "Buildings.Utilities.IO.Python36.Examples.KalmanFilter"
+  },
+  {
+    "dymola": {
+      "translate": false,
+      "comment": "Python 3.6 is not supported on Ubuntu 20.04, will be upgraded to more recent version"
+    },
+    "model_name": "Buildings.Utilities.IO.Python36.Functions.Examples.ExchangeWithPassPythonObject"
+  },
+  {
+    "dymola": {
+      "translate": false,
+      "comment": "Python 3.6 is not supported on Ubuntu 20.04, will be upgraded to more recent version"
+    },
+    "model_name": "Buildings.Utilities.IO.Python36.Functions.Examples.Exchange"
   }
 ]

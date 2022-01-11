@@ -10,7 +10,7 @@ equation
 
   annotation (Icon(graphics={Text(
           extent={{-90,36},{90,-36}},
-          lineColor={160,160,164},
+          textColor={160,160,164},
           textString="powerLinearized()")}), Documentation(info="<html>
 Function that approximates <i>y=x<sup>n</sup></i>
 where <i>0 &lt; n</i> so that

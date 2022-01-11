@@ -487,6 +487,7 @@ Buildings/Fluid/FMI/package.mo
 Buildings/Fluid/FMI/package.order
 Buildings/Fluid/FixedResistances/BaseClasses/PlugFlow.mo
 Buildings/Fluid/FixedResistances/BaseClasses/PlugFlowHeatLoss.mo
+Buildings/Fluid/FixedResistances/BaseClasses/PlugFlowPipe.mo
 Buildings/Fluid/FixedResistances/BaseClasses/PlugFlowTransportDelay.mo
 Buildings/Fluid/FixedResistances/BaseClasses/package.mo
 Buildings/Fluid/FixedResistances/BaseClasses/package.order
@@ -495,6 +496,7 @@ Buildings/Fluid/FixedResistances/Examples/CheckValve.mo
 Buildings/Fluid/FixedResistances/Examples/FlowJunction.mo
 Buildings/Fluid/FixedResistances/Examples/HydraulicDiameter.mo
 Buildings/Fluid/FixedResistances/Examples/PlugFlowPipe.mo
+Buildings/Fluid/FixedResistances/Examples/PlugFlowPipeDiscretized.mo
 Buildings/Fluid/FixedResistances/Examples/PressureDrop.mo
 Buildings/Fluid/FixedResistances/Examples/package.mo
 Buildings/Fluid/FixedResistances/Examples/package.order
@@ -502,6 +504,7 @@ Buildings/Fluid/FixedResistances/HydraulicDiameter.mo
 Buildings/Fluid/FixedResistances/Junction.mo
 Buildings/Fluid/FixedResistances/LosslessPipe.mo
 Buildings/Fluid/FixedResistances/PlugFlowPipe.mo
+Buildings/Fluid/FixedResistances/PlugFlowPipeDiscretized.mo
 Buildings/Fluid/FixedResistances/PressureDrop.mo
 Buildings/Fluid/FixedResistances/Validation/FlowJunctionSteadyState.mo
 Buildings/Fluid/FixedResistances/Validation/FlowJunctionSteadyStateNoPressureDrop.mo
@@ -730,10 +733,16 @@ Buildings/Fluid/HeatExchangers/BaseClasses/HANaturalCylinder.mo
 Buildings/Fluid/HeatExchangers/BaseClasses/PartialEffectiveness.mo
 Buildings/Fluid/HeatExchangers/BaseClasses/PartialEffectivenessNTU.mo
 Buildings/Fluid/HeatExchangers/BaseClasses/PartialPrescribedOutlet.mo
+Buildings/Fluid/HeatExchangers/BaseClasses/WetCoilDryRegime.mo
+Buildings/Fluid/HeatExchangers/BaseClasses/WetCoilDryWetRegime.mo
+Buildings/Fluid/HeatExchangers/BaseClasses/WetCoilUARated.mo
+Buildings/Fluid/HeatExchangers/BaseClasses/WetCoilWetRegime.mo
+Buildings/Fluid/HeatExchangers/BaseClasses/determineWaterIndex.mo
 Buildings/Fluid/HeatExchangers/BaseClasses/dynamicViscosityWater.mo
 Buildings/Fluid/HeatExchangers/BaseClasses/epsilon_C.mo
 Buildings/Fluid/HeatExchangers/BaseClasses/epsilon_ntuZ.mo
 Buildings/Fluid/HeatExchangers/BaseClasses/isobaricExpansionCoefficientWater.mo
+Buildings/Fluid/HeatExchangers/BaseClasses/lmtd.mo
 Buildings/Fluid/HeatExchangers/BaseClasses/ntu_epsilonZ.mo
 Buildings/Fluid/HeatExchangers/BaseClasses/package.mo
 Buildings/Fluid/HeatExchangers/BaseClasses/package.order
@@ -752,6 +761,7 @@ Buildings/Fluid/HeatExchangers/Examples/DryCoilEffectivenessNTUPControl.mo
 Buildings/Fluid/HeatExchangers/Examples/WaterCooler_T.mo
 Buildings/Fluid/HeatExchangers/Examples/WaterHeater_T.mo
 Buildings/Fluid/HeatExchangers/Examples/WaterHeater_u.mo
+Buildings/Fluid/HeatExchangers/Examples/WetCoilEffectivenessNTUMassFlow.mo
 Buildings/Fluid/HeatExchangers/Examples/package.mo
 Buildings/Fluid/HeatExchangers/Examples/package.order
 Buildings/Fluid/HeatExchangers/HeaterCooler_u.mo
@@ -770,8 +780,10 @@ Buildings/Fluid/HeatExchangers/Validation/EvaporatorCondenser.mo
 Buildings/Fluid/HeatExchangers/Validation/HeaterCooler_u.mo
 Buildings/Fluid/HeatExchangers/Validation/PrescribedOutlet.mo
 Buildings/Fluid/HeatExchangers/Validation/PrescribedOutlet_dynamic.mo
+Buildings/Fluid/HeatExchangers/Validation/WetCoilEffectivenessNTU.mo
 Buildings/Fluid/HeatExchangers/Validation/package.mo
 Buildings/Fluid/HeatExchangers/Validation/package.order
+Buildings/Fluid/HeatExchangers/WetCoilEffectivenessNTU.mo
 Buildings/Fluid/HeatExchangers/package.mo
 Buildings/Fluid/HeatExchangers/package.order
 Buildings/Fluid/HeatPumps/BaseClasses/PartialWaterToWater.mo
@@ -1319,7 +1331,7 @@ Buildings/Resources/Data/Fluid/FixedResistances/Validation/PlugFlowPipes/PipeDat
 Buildings/Resources/Data/Fluid/Geothermal/Borefields/HeatTransfer/Validation/Analytic_20Years.txt
 Buildings/Resources/Data/Fluid/Geothermal/Borefields/HeatTransfer/Validation/Beier_Smith_Spitler_2011_SandBox.txt
 Buildings/Resources/Data/Fluid/Geothermal/Borefields/HeatTransfer/Validation/Cimmino_Bernier_2015_SmallScale.txt
-Buildings/Resources/Data/Utilities/IO/Files/Examples/CSVReader/Data.csv
+Buildings/Resources/Data/Utilities/IO/Files/Examples/CSVReader/Data.txt
 Buildings/Resources/Documentation/userGuide/source/_static/lbl-logo.png
 Buildings/Resources/Images/Airflow/Multizone/BaseClasses/windPressureLowRise.odp
 Buildings/Resources/Images/Airflow/Multizone/BaseClasses/windPressureLowRise.png
@@ -1649,6 +1661,7 @@ Buildings/Resources/Scripts/Dymola/Fluid/FixedResistances/Examples/CheckValve.mo
 Buildings/Resources/Scripts/Dymola/Fluid/FixedResistances/Examples/FlowJunction.mos
 Buildings/Resources/Scripts/Dymola/Fluid/FixedResistances/Examples/HydraulicDiameter.mos
 Buildings/Resources/Scripts/Dymola/Fluid/FixedResistances/Examples/PlugFlowPipe.mos
+Buildings/Resources/Scripts/Dymola/Fluid/FixedResistances/Examples/PlugFlowPipeDiscretized.mos
 Buildings/Resources/Scripts/Dymola/Fluid/FixedResistances/Examples/PressureDrop.mos
 Buildings/Resources/Scripts/Dymola/Fluid/FixedResistances/Validation/FlowJunctionSteadyState.mos
 Buildings/Resources/Scripts/Dymola/Fluid/FixedResistances/Validation/FlowJunctionSteadyStateNoPressureDrop.mos
@@ -1722,6 +1735,7 @@ Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/Examples/DryCoilEffectiv
 Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/Examples/WaterCooler_T.mos
 Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/Examples/WaterHeater_T.mos
 Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/Examples/WaterHeater_u.mos
+Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/Examples/WetCoilEffectivenessNTUMassFlow.mos
 Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/Radiators/Examples/RadiatorEN442_2.mos
 Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/Validation/ConstantEffectiveness.mos
 Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/Validation/DryCoilEffectivenessNTU.mos
@@ -1729,6 +1743,7 @@ Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/Validation/EvaporatorCon
 Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/Validation/HeaterCooler_u.mos
 Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/Validation/PrescribedOutlet.mos
 Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/Validation/PrescribedOutlet_dynamic.mos
+Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/Validation/WetCoilEffectivenessNTU.mos
 Buildings/Resources/Scripts/Dymola/Fluid/HeatPumps/Calibration/ScrollWaterToWater.mos
 Buildings/Resources/Scripts/Dymola/Fluid/HeatPumps/Compressors/BaseClasses/Validation/TemperatureProtection.mos
 Buildings/Resources/Scripts/Dymola/Fluid/HeatPumps/Compressors/Validation/ReciprocatingCompressor.mos
@@ -2367,6 +2382,7 @@ Buildings/Utilities/Psychrometrics/ToDryAir.mo
 Buildings/Utilities/Psychrometrics/ToTotalAir.mo
 Buildings/Utilities/Psychrometrics/X_pTphi.mo
 Buildings/Utilities/Psychrometrics/X_pW.mo
+Buildings/Utilities/Psychrometrics/hSat_pTSat.mo
 Buildings/Utilities/Psychrometrics/pW_TDewPoi.mo
 Buildings/Utilities/Psychrometrics/pW_X.mo
 Buildings/Utilities/Psychrometrics/package.mo

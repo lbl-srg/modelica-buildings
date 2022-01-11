@@ -25,7 +25,7 @@ echo "setCommandLineOptions(\"+ignoreSimulationFlagsAnnotation=false\");" >> $mo
 echo "setCommandLineOptions(\"-d=nfAPI\");" >> $mosScript
 echo "setCommandLineOptions(\"--newBackend\");" >> $mosScript
 
-echo "loadModel(Modelica, {\"3.2.3\"});" >> $mosScript
+echo "loadModel(Modelica, {\"4.0.0\"});" >> $mosScript
 echo "getErrorString();" >> $mosScript
 echo "loadModel(Buildings); getErrorString();" >> $mosScript
 
@@ -41,7 +41,7 @@ done
 
 export OPENMODELICALIBRARY=`pwd`:/usr/lib/omlibrary
 #omc +d=nogen,initialization,backenddaeinfo,discreteinfo,stateselection --newBackend $mosScript
-${TRAVIS_BUILD_DIR}/Buildings/Resources/Scripts/travis/omc/omc.sh $mosScript
+omc $mosScript
 
 # Check for failures
 exiFla=0

@@ -6,7 +6,7 @@ model TransportWaterAir
   package MediumA = Buildings.Media.Air(extraPropertiesNames={"CO2"})
    "Medium in the duct";
 
-  parameter Modelica.SIunits.Length length=20 "Pipe length";
+  parameter Modelica.Units.SI.Length length=20 "Pipe length";
 
   Modelica.Blocks.Sources.Step Tin(
     startTime=100,
@@ -136,8 +136,7 @@ equation
   connect(Tin.y, sou1.T_in) annotation (Line(points={{-71,30},{-68,30},{-68,-66},
           {-64,-66}}, color={0,0,127}));
   annotation (
-    __Dymola_Commands(file=
-          "Resources/Scripts/Dymola/Fluid/FixedResistances/Validation/PlugFlowPipes/TransportWaterAir.mos"
+    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/FixedResistances/Validation/PlugFlowPipes/TransportWaterAir.mos"
         "Simulate and Plot"),
     experiment(StopTime=1000, Tolerance=1e-006),
     Documentation(info="<html>

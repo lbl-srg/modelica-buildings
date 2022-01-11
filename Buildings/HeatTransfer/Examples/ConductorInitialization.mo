@@ -49,7 +49,7 @@ equation
   annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
             -100},{100,100}}), graphics={Text(
           extent={{-60,50},{58,58}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="Steady state initialization (dT(0)/dt=0)")}),
 experiment(Tolerance=1e-6, StopTime=86400),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/HeatTransfer/Examples/ConductorInitialization.mos"

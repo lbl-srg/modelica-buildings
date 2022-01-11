@@ -2,7 +2,7 @@ within Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.Data.Generic.BaseClasses
 record Stage "Generic data record for a stage of a air-cooled DX coil"
   extends Modelica.Icons.Record;
 
-  parameter Modelica.SIunits.AngularVelocity spe(displayUnit="1/min")
+  parameter Modelica.Units.SI.AngularVelocity spe(displayUnit="1/min")
     "Rotational speed";
   replaceable parameter
     Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.Data.Generic.BaseClasses.NominalValues

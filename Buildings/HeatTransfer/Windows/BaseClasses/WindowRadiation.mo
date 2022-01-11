@@ -3,8 +3,8 @@ block WindowRadiation "Calculation radiation for window"
 
   extends Buildings.HeatTransfer.Windows.BaseClasses.PartialRadiation;
 
-  Modelica.Blocks.Interfaces.RealInput uSta(min=0, max=1, unit="1") if
-       NSta > 1 "Control signal for window state"
+  Modelica.Blocks.Interfaces.RealInput uSta(min=0, max=1, unit="1")
+    if NSta > 1 "Control signal for window state"
                                       annotation (Placement(
         transformation(extent={{-20,-20},{20,20}},   rotation=90,
         origin={40,-120}), iconTransformation(
@@ -101,8 +101,8 @@ protected
     "Interpolator for the window state"
     annotation (Placement(transformation(extent={{60,-98},{80,-78}})));
 
-  Modelica.Blocks.Routing.Replicator replicator(final nout=N) if
-     NSta > 1
+  Modelica.Blocks.Routing.Replicator replicator(final nout=N)
+  if NSta > 1
     "Signal replicator for signals that have an element for each glass pane"
     annotation (Placement(transformation(extent={{16,-68},{36,-48}})));
 equation
@@ -335,34 +335,34 @@ First implementation.
     Icon(graphics={
         Text(
           extent={{0,86},{90,72}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="QAbsExtSha"),
         Text(
           extent={{-4,-22},{92,-36}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="QAbsIntSha"),
         Text(
           extent={{2,58},{94,44}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="QAbsGlaUns"),
         Text(
           extent={{-2,20},{92,6}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="QAbsGlaSha"),
         Text(
           extent={{42,-52},{106,-66}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="QTraDif"),
         Text(
           extent={{-104,-70},{-50,-84}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="HRoo"),
         Text(
           extent={{8,-82},{62,-94}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="uSta"),
         Text(
           extent={{44,-80},{108,-94}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="QTraDir")}));
 end WindowRadiation;

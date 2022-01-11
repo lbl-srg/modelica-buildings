@@ -5,11 +5,10 @@ model Borefields
 
   package Medium = Buildings.Media.Water;
 
-  parameter Modelica.SIunits.Time tLoaAgg=300
+  parameter Modelica.Units.SI.Time tLoaAgg=300
     "Time resolution of load aggregation";
 
-  parameter Modelica.SIunits.Temperature TGro = 283.15
-    "Ground temperature";
+  parameter Modelica.Units.SI.Temperature TGro=283.15 "Ground temperature";
   Buildings.Fluid.Geothermal.Borefields.TwoUTubes borFie2UTubPar(
     redeclare package Medium = Medium,
     borFieDat=borFie2UTubParDat,
@@ -160,7 +159,7 @@ equation
     annotation (Line(points={{10,-60},{40,-60}},          color={0,127,255}));
   connect(TUTubOut.port_b, sin.ports[1])
     annotation (Line(points={{60,-60},{70,-60}},          color={0,127,255}));
-  annotation (__Dymola_Commands(file="Resources/Scripts/Dymola/Fluid/Geothermal/Borefields/Examples/Borefields.mos"
+  annotation (__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Geothermal/Borefields/Examples/Borefields.mos"
         "Simulate and plot"),
   Documentation(info="<html>
 <p>

@@ -5,9 +5,9 @@ partial model HeatingOrCooling "Base class for heating or cooling substation"
     final dp(start=0),
     final allowFlowReversal=false);
 
-  parameter Modelica.SIunits.Pressure dp_nominal(displayUnit="Pa")=30000
+  parameter Modelica.Units.SI.Pressure dp_nominal(displayUnit="Pa") = 30000
     "Pressure difference at nominal flow rate"
-    annotation(Dialog(group="Design parameter"));
+    annotation (Dialog(group="Design parameter"));
 
   Modelica.Blocks.Interfaces.RealOutput PPum(unit="W")
     "Electrical power consumed by pump"
@@ -16,7 +16,7 @@ partial model HeatingOrCooling "Base class for heating or cooling substation"
   parameter Real deltaM=0.1
     "Fraction of nominal flow rate where flow transitions to laminar"
     annotation (Dialog(tab="Flow resistance"));
-  parameter Modelica.SIunits.Time tau=30
+  parameter Modelica.Units.SI.Time tau=30
     "Time constant at nominal flow (if energyDynamics <> SteadyState)"
     annotation (Dialog(tab="Dynamics"));
   parameter Modelica.Fluid.Types.Dynamics energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState
@@ -31,8 +31,8 @@ protected
     T=Medium.T_default,
     p=Medium.p_default,
     X=Medium.X_default[1:Medium.nXi]) "Medium state at default properties";
-  final parameter Modelica.SIunits.SpecificHeatCapacity cp_default=
-    Medium.specificHeatCapacityCp(sta_default)
+  final parameter Modelica.Units.SI.SpecificHeatCapacity cp_default=
+      Medium.specificHeatCapacityCp(sta_default)
     "Specific heat capacity of the fluid";
 
   Buildings.Fluid.HeatExchangers.HeaterCooler_u hex(
@@ -116,7 +116,7 @@ equation
         fillPattern=FillPattern.Solid),
         Text(
           extent={{52,70},{96,50}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="PPum")}),
     Documentation(info="<html>
 <p>

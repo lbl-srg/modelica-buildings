@@ -24,6 +24,7 @@ A million repetitions of "a"
 /* for uint32_t */
 #include <stdint.h>
 #include "cryptographicsHash.h"
+#include "ModelicaUtilities.h"
 
 
 #define rol(value, bits) (((value) << (bits)) | ((value) >> (32 - (bits))))
