@@ -27,6 +27,8 @@
 #error Modelica Spawn coupling is only supported for Windows and Linux 64 bit. Your operating system is not 64 bit.
 #endif
 
+#include "ModelicaUtilities.h"
+
 /* ********************************************************* */
 /* Thermal zone */
 extern void* EnergyPlusSpawnAllocate(
@@ -34,8 +36,9 @@ extern void* EnergyPlusSpawnAllocate(
   double startTime,
   const char* modelicaNameBuilding,
   const char* modelicaNameThermalZone,
+  const char* spawnExe,
   const char* idfName,
-  const char* weaName,
+  const char* epwName,
   double relativeSurfaceTolerance,
   const char* epName,
   int usePrecompiledFMU,

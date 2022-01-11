@@ -319,38 +319,38 @@ protected
     annotation (Placement(transformation(extent={{-80,240},{-60,260}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant con5(k=true) "Constant true"
     annotation (Placement(transformation(extent={{60,290},{80,310}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi
     "Use setpoint different value when half sample period time has passed"
     annotation (Placement(transformation(extent={{40,400},{60,420}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi1 "Output 3 or other request "
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi1 "Output 3 or other request "
     annotation (Placement(transformation(extent={{100,190},{120,210}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi2 "Output 2 or other request "
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi2 "Output 2 or other request "
     annotation (Placement(transformation(extent={{100,130},{120,150}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi3 "Output 0 or 1 request "
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi3 "Output 0 or 1 request "
     annotation (Placement(transformation(extent={{100,80},{120,100}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi4 "Output 3 or other request "
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi4 "Output 3 or other request "
     annotation (Placement(transformation(extent={{100,-50},{120,-30}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi5 "Output 2 or other request "
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi5 "Output 2 or other request "
     annotation (Placement(transformation(extent={{100,-110},{120,-90}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi6 "Output 0 or 1 request "
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi6 "Output 0 or 1 request "
     annotation (Placement(transformation(extent={{100,-160},{120,-140}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi7 if have_heaWatCoi
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi7 if have_heaWatCoi
     "Output 3 or other request "
     annotation (Placement(transformation(extent={{100,-250},{120,-230}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi8 if have_heaWatCoi
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi8 if have_heaWatCoi
     "Output 2 or other request "
     annotation (Placement(transformation(extent={{100,-310},{120,-290}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi9 if have_heaWatCoi
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi9 if have_heaWatCoi
     "Output 0 or 1 request "
     annotation (Placement(transformation(extent={{100,-360},{120,-340}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi10 if (have_heaWatCoi and
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi10 if (have_heaWatCoi and
     have_heaPla)
     "Output 0 or 1 request "
     annotation (Placement(transformation(extent={{100,-440},{120,-420}})));
   Buildings.Controls.OBC.CDL.Logical.TrueHoldWithReset truHol(duration=samplePeriod)
     "Hold true signal for sample period of time"
     annotation (Placement(transformation(extent={{120,330},{140,350}})));
-  Buildings.Controls.OBC.CDL.Logical.LogicalSwitch logSwi "Logical switch"
+  Buildings.Controls.OBC.CDL.Logical.Switch logSwi "Logical switch"
     annotation (Placement(transformation(extent={{120,300},{140,280}})));
   Buildings.Controls.OBC.CDL.Logical.TrueDelay tim1(delayTime=durTimTem)
     "Check if it is more than durTimTem"
@@ -710,33 +710,33 @@ annotation (
           pattern=LinePattern.None),
         Text(
           extent={{18,480},{140,456}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           horizontalAlignment=TextAlignment.Left,
           textString="Time-based suppression"),
         Text(
           extent={{-150,82},{-28,58}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           horizontalAlignment=TextAlignment.Left,
           textString="Cooling SAT reset requests"),
         Text(
           extent={{-152,-156},{-8,-184}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           horizontalAlignment=TextAlignment.Left,
           textString="Static pressure reset requests"),
         Text(
           extent={{-152,-360},{-26,-380}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           horizontalAlignment=TextAlignment.Left,
           textString="Hot water reset requests"),
         Text(
           extent={{-150,-440},{-12,-462}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           horizontalAlignment=TextAlignment.Left,
           textString="Boiler plant reset requests")}),
      Icon(graphics={
         Text(
           extent={{-100,140},{100,100}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%name"),
         Rectangle(
         extent={{-100,-100},{100,100}},
@@ -745,77 +745,77 @@ annotation (
         fillPattern=FillPattern.Solid),
         Text(
           extent={{-98,90},{-62,76}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="TZonCooSet"),
         Text(
           extent={{-100,66},{-72,56}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="TZon"),
         Text(
           extent={{-100,46},{-72,36}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="uCoo"),
         Text(
           extent={{-98,30},{-52,14}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="VDisSet_flow"),
         Text(
           extent={{-98,6},{-64,-4}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="VDis_flow"),
         Text(
           extent={{-98,-14},{-70,-24}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="uDam"),
         Text(
           extent={{-98,-32},{-52,-48}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
           visible = (have_heaWatCoi or have_heaPla),
           textString="TDisHeaSet"),
         Text(
           extent={{-98,-56},{-64,-66}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
           visible = (have_heaWatCoi or have_heaPla),
           textString="TDis"),
         Text(
           extent={{-98,-76},{-64,-86}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
           visible = (have_heaWatCoi or have_heaPla),
           textString="uHeaVal"),
         Text(
           extent={{42,82},{98,62}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
           horizontalAlignment=TextAlignment.Right,
           textString="yZonTemResReq"),
         Text(
           extent={{42,32},{98,12}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
           horizontalAlignment=TextAlignment.Right,
           textString="yZonPreResReq"),
         Text(
           extent={{42,-28},{98,-48}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
           horizontalAlignment=TextAlignment.Right,
           visible = have_heaWatCoi,
           textString="yHeaValResReq"),
         Text(
           extent={{58,-84},{98,-100}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
           horizontalAlignment=TextAlignment.Right,
-          visible = (have_heaWatCoi or have_heaPla),
+          visible = (have_heaWatCoi and have_heaPla),
           textString="yHeaPlaReq")}),
   Documentation(info="<html>
 <p>

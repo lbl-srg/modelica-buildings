@@ -8,26 +8,25 @@ model ThermalZones
 
   replaceable package MediumA = Buildings.Media.Air "Medium for air";
 
-  parameter Modelica.SIunits.Volume V=6*10*3 "Room volume";
+  parameter Modelica.Units.SI.Volume V=6*10*3 "Room volume";
 
   /////////////////////////////////////////////////////////
   // Air temperatures at design conditions
-  parameter Modelica.SIunits.Temperature TASup_nominal = 273.15+18
+  parameter Modelica.Units.SI.Temperature TASup_nominal=273.15 + 18
     "Nominal air temperature supplied to room";
-  parameter Modelica.SIunits.Temperature TRooSet = 273.15+24
+  parameter Modelica.Units.SI.Temperature TRooSet=273.15 + 24
     "Nominal room air temperature";
-  parameter Modelica.SIunits.Temperature TOut_nominal = 273.15+30
+  parameter Modelica.Units.SI.Temperature TOut_nominal=273.15 + 30
     "Design outlet air temperature";
 
   /////////////////////////////////////////////////////////
   // Cooling loads and air mass flow rates
-  parameter Modelica.SIunits.HeatFlowRate QRooInt_flow=
-     1000 "Internal heat gains of the room";
-  parameter Modelica.SIunits.HeatFlowRate QRooC_flow_nominal=
-    -QRooInt_flow-10E3/30*(TOut_nominal-TRooSet)
-    "Nominal cooling load of the room";
-  parameter Modelica.SIunits.MassFlowRate mA_flow_nominal=
-    1.3*QRooC_flow_nominal/1006/(TASup_nominal-TRooSet)
+  parameter Modelica.Units.SI.HeatFlowRate QRooInt_flow=1000
+    "Internal heat gains of the room";
+  parameter Modelica.Units.SI.HeatFlowRate QRooC_flow_nominal=-QRooInt_flow -
+      10E3/30*(TOut_nominal - TRooSet) "Nominal cooling load of the room";
+  parameter Modelica.Units.SI.MassFlowRate mA_flow_nominal=1.3*
+      QRooC_flow_nominal/1006/(TASup_nominal - TRooSet)
     "Nominal air mass flow rate, increased by factor 1.3 to allow for recovery after temperature setback";
 
   BoundaryConditions.WeatherData.ReaderTMY3 weaDat(
@@ -153,7 +152,7 @@ equation
             {160,180}}), graphics={
         Text(
           extent={{-22,-112},{28,-132}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="TOut")}),                                  Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-160,-140},{160,180}}),
         graphics={

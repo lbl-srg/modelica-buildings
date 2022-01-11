@@ -3,7 +3,7 @@ model ControllerChillerDXHeatingEconomizer
   "Controller for single zone VAV system"
   extends Modelica.Blocks.Icons.Block;
 
-  parameter Modelica.SIunits.Temperature TSupChi_nominal
+  parameter Modelica.Units.SI.Temperature TSupChi_nominal
     "Design value for chiller leaving water temperature";
   parameter Real minAirFlo(
     final min=0,
@@ -11,12 +11,12 @@ model ControllerChillerDXHeatingEconomizer
     final unit="1")
     "Minimum airflow fraction of system"
     annotation(Dialog(group="Setpoints"));
-  parameter Modelica.SIunits.DimensionlessRatio minOAFra
+  parameter Modelica.Units.SI.DimensionlessRatio minOAFra
     "Minimum outdoor air fraction of system"
-    annotation(Dialog(group="Setpoints"));
-  parameter Modelica.SIunits.Temperature TSetSupAir
+    annotation (Dialog(group="Setpoints"));
+  parameter Modelica.Units.SI.Temperature TSetSupAir
     "Cooling supply air temperature setpoint"
-    annotation(Dialog(group="Setpoints"));
+    annotation (Dialog(group="Setpoints"));
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerTypeHea=
     Buildings.Controls.OBC.CDL.Types.SimpleController.PI
     "Type of controller"
@@ -200,7 +200,7 @@ model ControllerChillerDXHeatingEconomizer
     final reverseActing=false)
     "Cooling coil valve controller"
     annotation (Placement(transformation(extent={{0,-30},{20,-10}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi
     "Switch the outdoor air fraction to 0 when in unoccupied mode"
     annotation (Placement(transformation(extent={{0,20},{20,40}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uOcc
@@ -210,7 +210,7 @@ model ControllerChillerDXHeatingEconomizer
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con(k=0)
     "Zero outside air fraction"
     annotation (Placement(transformation(extent={{-60,-30},{-40,-10}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swiFan "Switch fan on"
+  Buildings.Controls.OBC.CDL.Continuous.Switch swiFan "Switch fan on"
     annotation (Placement(transformation(extent={{70,120},{90,140}})));
   Buildings.Controls.OBC.CDL.Continuous.Hysteresis hysHea(
     final uLow=0.01,

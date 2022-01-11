@@ -12,7 +12,9 @@ block Xor
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
 equation
-  y=not((u1 and u2) or(not u1 and not u2));
+  y=not
+       ((u1 and u2) or
+                      (not u1 and not u2));
   annotation (
     defaultComponentName="xor",
     Icon(
@@ -28,7 +30,7 @@ equation
           borderPattern=BorderPattern.Raised),
         Text(
           extent={{-90,40},{90,-40}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="xor"),
         Ellipse(
           extent={{71,7},{85,-7}},
@@ -71,7 +73,7 @@ equation
           fillPattern=FillPattern.Solid),
         Text(
           extent={{-150,150},{150,110}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%name")}),
     Documentation(
       info="<html>

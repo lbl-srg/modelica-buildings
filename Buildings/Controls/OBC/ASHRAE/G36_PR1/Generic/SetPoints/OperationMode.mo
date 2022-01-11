@@ -101,9 +101,9 @@ protected
     final k=0)
     "Index to indicate unoccupied period"
     annotation (Placement(transformation(extent={{0,340},{20,360}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch corCooDowTim "Corrected cool down period"
+  Buildings.Controls.OBC.CDL.Continuous.Switch corCooDowTim "Corrected cool down period"
     annotation (Placement(transformation(extent={{-220,240},{-200,260}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch corWarUpTim "Corrected warm-up period"
+  Buildings.Controls.OBC.CDL.Continuous.Switch corWarUpTim "Corrected warm-up period"
     annotation (Placement(transformation(extent={{-200,140},{-180,160}})));
   Buildings.Controls.OBC.CDL.Integers.GreaterThreshold intGreThr(
     final t=4) "Check if the number of cold zones is not less than than 5"
@@ -256,16 +256,16 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Or or6
     "Check if it is in any of the 6 modes except unoccupied mode"
     annotation (Placement(transformation(extent={{40,-370},{60,-350}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi
     "Switch between occupied mode index and unoccupied period index"
     annotation (Placement(transformation(extent={{160,310},{180,330}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi3
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi3
     "If the Cool-down, warm-up, or Occupied mode is on, then setback mode should not be activated."
     annotation (Placement(transformation(extent={{60,20},{80,40}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi4
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi4
     "If the Cool-down, warm-up, or Occupied mode is on, then freeze protection setback mode should not be activated."
     annotation (Placement(transformation(extent={{60,-100},{80,-80}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi5
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi5
     "If the Cool-down, warm-up, or Occupied mode is on, then setup mode should not be activated."
     annotation (Placement(transformation(extent={{60,-200},{80,-180}})));
   Buildings.Controls.OBC.CDL.Logical.Not not5 "Logical not"
@@ -283,13 +283,13 @@ protected
     final message="Level 4 alarm: window open during modes other than occupied mode")
     "Generate alarm message when window open during modes other than occupied mode"
     annotation (Placement(transformation(extent={{240,80},{260,100}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi1
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi1
     "If occupied mode is on, then cool down mode should not be activated"
     annotation (Placement(transformation(extent={{140,270},{160,290}})));
   Buildings.Controls.OBC.CDL.Conversions.RealToInteger setBacMod1
     "Convert Real number to Integer number"
     annotation (Placement(transformation(extent={{180,270},{200,290}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi2
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi2
     "If occupied mode is on, then warm-up mode should not be activated."
     annotation (Placement(transformation(extent={{140,180},{160,200}})));
   Buildings.Controls.OBC.CDL.Conversions.RealToInteger setBacMod2
@@ -688,43 +688,43 @@ annotation (
           pattern=LinePattern.None),
         Text(
           extent={{236,372},{326,354}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid,
           textString="Occupied mode"),
         Text(
           extent={{158,10},{242,-12}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid,
           textString="Setback mode"),
         Text(
           extent={{150,-226},{222,-248}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid,
           textString="Setup mode"),
         Text(
           extent={{214,-338},{318,-368}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid,
           textString="Unoccupied mode"),
         Text(
           extent={{180,-94},{352,-122}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid,
           textString="Freeze protection setback mode"),
         Text(
           extent={{164,174},{252,150}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid,
           textString="Warm-up mode"),
         Text(
           extent={{248,258},{336,230}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid,
           textString="Cool-down mode")}),
@@ -737,86 +737,86 @@ annotation (
         fillPattern=FillPattern.Solid),
         Text(
           extent={{-98,108},{-44,96}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="maxCooDowTim"),
         Text(
           extent={{-98,66},{-50,56}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="maxWarUpTim"),
         Text(
           extent={{58,12},{96,-10}},
-          lineColor={255,127,0},
+          textColor={255,127,0},
           pattern=LinePattern.Dash,
           textString="yOpeMod"),
         Text(
           extent={{-120,200},{100,160}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%name"),
         Text(
           extent={{-100,128},{-68,112}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="tNexOcc"),
         Text(
           extent={{-100,144},{-82,136}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="uOcc"),
         Text(
           extent={{-98,88},{-50,76}},
-          lineColor={255,0,255},
+          textColor={255,0,255},
           pattern=LinePattern.Dash,
           textString="uHigOccCoo"),
         Text(
           extent={{-98,46},{-48,34}},
-          lineColor={255,0,255},
+          textColor={255,0,255},
           pattern=LinePattern.Dash,
           textString="uOccHeaHig"),
         Text(
           extent={{-98,6},{-60,-4}},
-          lineColor={255,127,0},
+          textColor={255,127,0},
           pattern=LinePattern.Dash,
           textString="totColZon"),
         Text(
           extent={{-98,-34},{-52,-46}},
-          lineColor={255,0,255},
+          textColor={255,0,255},
           pattern=LinePattern.Dash,
           textString="uEndSetBac"),
         Text(
           extent={{-98,-54},{-64,-64}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="TZonMax"),
         Text(
           extent={{-98,-74},{-64,-84}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="TZonMin"),
         Text(
           extent={{-98,-94},{-62,-104}},
-          lineColor={255,127,0},
+          textColor={255,127,0},
           pattern=LinePattern.Dash,
           textString="totHotZon"),
         Text(
           extent={{-98,-134},{-52,-146}},
-          lineColor={255,0,255},
+          textColor={255,0,255},
           pattern=LinePattern.Dash,
           textString="uEndSetUp"),
         Text(
           extent={{-98,-14},{-66,-26}},
-          lineColor={255,0,255},
+          textColor={255,0,255},
           pattern=LinePattern.Dash,
           textString="uSetBac"),
         Text(
           extent={{-98,-114},{-66,-126}},
-          lineColor={255,0,255},
+          textColor={255,0,255},
           pattern=LinePattern.Dash,
           textString="uSetUp"),
         Text(
           extent={{-100,26},{-62,16}},
-          lineColor={255,127,0},
+          textColor={255,127,0},
           pattern=LinePattern.Dash,
           textString="uOpeWin")}),
    Documentation(info="<html>

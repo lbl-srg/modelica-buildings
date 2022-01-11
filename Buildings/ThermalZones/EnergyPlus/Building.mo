@@ -2,39 +2,47 @@ within Buildings.ThermalZones.EnergyPlus;
 model Building
   "Model that declares a building to which EnergyPlus objects belong to"
   extends Modelica.Blocks.Icons.Block;
+
+  constant String spawnExe="spawn-0.2.0-d7f1e095f3"
+      "Name of the spawn executable, without extension, such as spawn-0.2.0-d7f1e095f3"
+    annotation (HideResult=true);
+
   final constant String modelicaNameBuilding=getInstanceName()
     "Name of this instance"
     annotation (HideResult=true);
   constant Real relativeSurfaceTolerance(min=1E-20) = 1E-6
     "Relative tolerance of surface temperature calculations";
+
+  constant Boolean usePrecompiledFMU=false
+    "Set to true to use pre-compiled FMU with name specified by fmuName";
+  constant String fmuName=""
+    "Specify if a pre-compiled FMU should be used instead of EnergyPlus (for development)";
+
   parameter String idfName
     "Name of the IDF file"
-    annotation (Evaluate=true);
+    annotation(Evaluate=false);
+
+  parameter String epwName
+    "Name of the EPW file"
+    annotation(Evaluate=false);
+
   parameter String weaName
-    "Name of the weather file, in .mos format and with .mos extension (see info section)"
-    annotation (Evaluate=true);
-  parameter Boolean usePrecompiledFMU=false
-    "Set to true to use pre-compiled FMU with name specified by fmuName"
-    annotation (Dialog(tab="Debug"));
-  parameter String fmuName=""
-    "Specify if a pre-compiled FMU should be used instead of EnergyPlus (mainly for development)"
-    annotation (Dialog(tab="Debug",enable=usePrecompiledFMU));
+    "Name of the weather file, in .mos format and with .mos extension"
+    annotation(Evaluate=false);
+
   parameter Buildings.ThermalZones.EnergyPlus.Types.LogLevels logLevel=Buildings.ThermalZones.EnergyPlus.Types.LogLevels.Warning
     "Log level of EnergyPlus output"
     annotation (Dialog(tab="Debug"));
-  parameter Boolean showWeatherData=true
-    "Set to true to enable a connector with the weather data"
-    annotation (Dialog(tab="Advanced"));
+
   parameter Boolean computeWetBulbTemperature=true
     "If true, then this model computes the wet bulb temperature"
-    annotation (Dialog(tab="Advanced",enable=showWeatherData));
+    annotation (Dialog(tab="Advanced"));
+
   parameter Boolean printUnits=true
     "Set to true to print units of OutputVariable instances to log file"
     annotation (Dialog(group="Diagnostics"));
-  parameter Boolean generatePortableFMU=false
-    "Set to true to include all binaries in the EnergyPlus FMU to allow simulation of without a Buildings library installation (increases translation time)"
-    annotation (Dialog(tab="Advanced"));
-  BoundaryConditions.WeatherData.Bus weaBus if showWeatherData
+
+  BoundaryConditions.WeatherData.Bus weaBus
     "Weather data bus"
     annotation (Placement(transformation(extent={{90,-10},{110,10}})));
   BaseClasses.Synchronize.SynchronizeConnector synchronize
@@ -47,22 +55,16 @@ model Building
 protected
   Real synchronization_done=synchronize.done
     "Intermediate variable as acausal connectors cannot be used in the algorithm section";
-  Linux64Binaries linux64Binaries if generatePortableFMU
-    "Record with binaries";
-  record Linux64Binaries
-    final parameter String spawnLinuxExecutable=Modelica.Utilities.Files.loadResource(
-      "modelica://Buildings/Resources/bin/spawn-linux64/bin/spawn")
-      "Binary for Linux 64, specified so it is packed into the FMU";
-    final parameter String spawnLinuxLibrary=Modelica.Utilities.Files.loadResource(
-      "modelica://Buildings/Resources/bin/spawn-linux64/lib/epfmi.so")
-      "Library for Linux 64, specified so it is packed into the FMU";
-    final parameter String fmiLinuxLibrary=Modelica.Utilities.Files.loadResource(
-      "modelica://Buildings/Resources/Library/linux64/libfmilib_shared.so")
-      "Library for Linux 64, specified so it is packed into the FMU";
-  end Linux64Binaries;
+/*
+  final parameter String idf=Modelica.Utilities.Files.loadResource(idfName)
+      "idf file to be loaded into the FMU";
+  final parameter String epw=Modelica.Utilities.Files.loadResource(epwName)
+      "idf file to be loaded into the FMU";
+*/
+
   BoundaryConditions.WeatherData.ReaderTMY3 weaDat(
     final filNam=weaName,
-    final computeWetBulbTemperature=computeWetBulbTemperature) if showWeatherData
+    final computeWetBulbTemperature=computeWetBulbTemperature)
     "Weather data reader"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 
@@ -138,13 +140,33 @@ provided. This is the file that can be read, for example, with
 <a href=\"modelica://Buildings.BoundaryConditions.WeatherData.ReaderTMY3\">
 Buildings.BoundaryConditions.WeatherData.ReaderTMY3</a>.
 However, both weather files <code>.mos</code> and <code>.epw</code>
-must be provided in the same directory. When starting the simulation, EnergyPlus will
-be run with the weather file whose name is identical to <code>weaName</code>, but with the
-extension <code>.mos</code> replaced with <code>.epw</code>.
+must be provided. When starting the simulation, EnergyPlus will
+be run with the weather file whose name is identical to <code>epwName</code>,
+while Modelica will use the file specified by <code>weaName</code>.
 </p>
 </html>",
       revisions="<html>
 <ul>
+<li>
+November 18, 2021, by Michael Wetter:<br/>
+Removed parameters <code>showWeatherData</code> and <code>generatePortableFMU</code>.
+Now, the weather data bus is always enabled as it is used in almost all simulations.<br/>
+Converted <code>usePrecompiledFMU</code> and the associated <code>fmuName</code> from
+parameter to a constant as these are only used for debugging by developers.<br/>
+Set annotation <code>Evaluate=false</code> for weather data files and idf files.
+The previous version had <code>Evaluate=true</code> for the <code>.mos</code>,
+and then OCT did not include it in the fmu.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2759\">#2759</a>.
+</li>
+<li>
+November 11, 2021, by Michael Wetter:<br/>
+Added constant <code>spawnExe</code> to allow different installation of Spawn.
+</li>
+<li>
+August 19, 2021, by Michael Wetter:<br/>
+Introduced parameter <code>epwName</code>.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2054\">#2054</a>.
+</li>
 <li>
 February 18, 2021, by Michael Wetter:<br/>
 Refactor synchronization of constructors.<br/>

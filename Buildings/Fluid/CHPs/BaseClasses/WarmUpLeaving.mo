@@ -2,12 +2,11 @@ within Buildings.Fluid.CHPs.BaseClasses;
 model WarmUpLeaving
   "Model evaluating the condition for transitioning from warm-up to normal mode"
   extends Modelica.Blocks.Icons.Block;
-  parameter Modelica.SIunits.Time timeDelayStart
+  parameter Modelica.Units.SI.Time timeDelayStart
     "Time delay between activation and power generation";
-  parameter Modelica.SIunits.Temperature TEngNom
+  parameter Modelica.Units.SI.Temperature TEngNom
     "Nominal engine operating temperature";
-  parameter Modelica.SIunits.Power PEleMax=0
-    "Maximum power output"
+  parameter Modelica.Units.SI.Power PEleMax=0 "Maximum power output"
     annotation (Dialog(enable=not warmUpByTimeDelay));
   parameter Boolean warmUpByTimeDelay
     "If true, the plant will be in warm-up mode depending on the delay time, otherwise depending on engine temperature "
@@ -25,13 +24,13 @@ model WarmUpLeaving
     "Warm-up state active signal"
     annotation (Placement(transformation(extent={{-140,40},{-100,80}}),
       iconTransformation(extent={{-140,40},{-100,80}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput PEle(final unit="W") if
-    not warmUpByTimeDelay
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput PEle(final unit="W")
+ if not warmUpByTimeDelay
     "Power demand"
     annotation (Placement(transformation(extent={{-140,-100},{-100,-60}}),
       iconTransformation(extent={{-140,-80},{-100,-40}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput PEleNet(final unit="W") if
-    not warmUpByTimeDelay
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput PEleNet(final unit="W")
+ if not warmUpByTimeDelay
     "Net power output"
     annotation (Placement(transformation(extent={{-140,-60},{-100,-20}}),
       iconTransformation(extent={{-140,-40},{-100,0}})));
@@ -44,19 +43,19 @@ protected
   Buildings.Controls.OBC.CDL.Continuous.Hysteresis hysTem(
     final uLow=-0.5,
     final uHigh=0) if not warmUpByTimeDelay
-    "Check if actual engine temperature is higher than norminal value"
+    "Check if actual engine temperature is higher than the nominal value"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Add add(final k2=-1) if
-    not warmUpByTimeDelay
-    "Difference between actual engine temperature and nominal value"
+  Buildings.Controls.OBC.CDL.Continuous.Add add(final k2=-1)
+ if not warmUpByTimeDelay
+    "Difference between actual engine temperature and the nominal value"
     annotation (Placement(transformation(extent={{-50,-10},{-30,10}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant temEngNom(
     y(final unit="K", displayUnit="degC"),
     final k=TEngNom)
     "Nominal engine temperature"
     annotation (Placement(transformation(extent={{-88,-30},{-68,-10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Add add1(final k2=-1) if
-    not warmUpByTimeDelay
+  Buildings.Controls.OBC.CDL.Continuous.Add add1(final k2=-1)
+ if not warmUpByTimeDelay
     "Difference between actual power output and demand"
     annotation (Placement(transformation(extent={{-50,-70},{-30,-50}})));
   Buildings.Controls.OBC.CDL.Continuous.Hysteresis hysPow(

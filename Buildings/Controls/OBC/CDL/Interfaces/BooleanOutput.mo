@@ -1,6 +1,6 @@
 within Buildings.Controls.OBC.CDL.Interfaces;
 connector BooleanOutput=output Boolean
-  "'output Boolean' as connector"
+  "Boolean output connector"
 annotation (defaultComponentName="y",
  Icon(coordinateSystem(preserveAspectRatio=true,
                        initialScale=0.2,
@@ -17,7 +17,7 @@ annotation (defaultComponentName="y",
                            fillColor={255,255,255},
                            fillPattern= FillPattern.Solid),
                    Text(extent={{30,110},{30,60}},
-                        lineColor={255,0,255},
+                        textColor={255,0,255},
                         textString="%name")}),
 Documentation(info="<html>
 <p>

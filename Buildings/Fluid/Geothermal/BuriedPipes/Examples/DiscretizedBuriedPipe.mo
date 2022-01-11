@@ -1,4 +1,4 @@
-﻿within Buildings.Fluid.Geothermal.BuriedPipes.Examples;
+within Buildings.Fluid.Geothermal.BuriedPipes.Examples;
 model DiscretizedBuriedPipe
   "Example model of a buried pipe with multiple segments"
   extends Modelica.Icons.Example;
@@ -6,17 +6,17 @@ model DiscretizedBuriedPipe
   replaceable package Medium = Buildings.Media.Water "Medium in the pipe"
     annotation (choicesAllMatching=true);
 
-  parameter Modelica.SIunits.Length totLen=10000 "Total pipe length";
+  parameter Modelica.Units.SI.Length totLen=10000 "Total pipe length";
 
   parameter Integer nSeg=2 "Number of pipe segments";
-  parameter Modelica.SIunits.Length segLen[nSeg] = fill(totLen/nSeg,nSeg)
+  parameter Modelica.Units.SI.Length segLen[nSeg]=fill(totLen/nSeg, nSeg)
     "Pipe segments length";
 
   parameter Integer nSegRev=10 "Number of pipe segments";
-  parameter Modelica.SIunits.Length segLenRev[nSegRev] = fill(totLen/nSegRev,nSegRev)
-    "Pipe segments length";
+  parameter Modelica.Units.SI.Length segLenRev[nSegRev]=fill(totLen/nSegRev,
+      nSegRev) "Pipe segments length";
 
-  parameter Modelica.SIunits.Length  dIns=0.2
+  parameter Modelica.Units.SI.Length dIns=0.2
     "Virtual insulation layer thickness";
 
   replaceable parameter
@@ -27,11 +27,11 @@ model DiscretizedBuriedPipe
     soiDat(k=1.58,c=1150,d=1600) "Soil thermal properties"
     annotation (Placement(transformation(extent={{-60,80},{-40,100}})));
 
-  FixedResistances.PlugFlowDiscretized pip(
+  FixedResistances.PlugFlowPipeDiscretized pip(
     redeclare package Medium = Medium,
     nSeg=nSeg,
     dh=0.1,
-    length=segLen,
+    segLen=segLen,
     m_flow_nominal=1,
     dIns=dIns,
     kIns=soiDat.k,
@@ -43,7 +43,7 @@ model DiscretizedBuriedPipe
     cliCon=cliCon,
     soiDat=soiDat,
     nSeg=pip.nSeg,
-    len=pip.length,
+    len=pip.segLen,
     dep={1.5},
     pos={0},
     rad={pip.dh/2 + pip.thickness + pip.dIns}) "Ground coupling"
@@ -54,7 +54,7 @@ model DiscretizedBuriedPipe
 
   Modelica.Blocks.Sources.Sine Tin(
     amplitude=5,
-    freqHz=1/180/24/60/60,
+    f=1/180/24/60/60,
     offset=273.15 + 20) "Pipe inlet temperature signal"
     annotation (Placement(transformation(extent={{-120,-10},{-100,10}})));
   Sources.MassFlowSource_T sou(
@@ -80,11 +80,11 @@ model DiscretizedBuriedPipe
     T_start=293.15) "Pipe outlet temperature sensor"
     annotation (Placement(transformation(extent={{30,30},{50,50}})));
 
-  FixedResistances.PlugFlowDiscretized pipRev(
+  FixedResistances.PlugFlowPipeDiscretized pipRev(
     redeclare package Medium = Medium,
     nSeg=nSegRev,
     dh=0.1,
-    length=segLenRev,
+    segLen=segLenRev,
     m_flow_nominal=1,
     dIns=dIns,
     kIns=soiDat.k,
@@ -95,7 +95,7 @@ model DiscretizedBuriedPipe
     cliCon=cliCon,
     soiDat=soiDat,
     nSeg=pipRev.nSeg,
-    len=pipRev.length,
+    len=pipRev.segLen,
     dep={1.5},
     pos={0},
     rad={pip.dh / 2 + pip.thickness + pip.dIns})

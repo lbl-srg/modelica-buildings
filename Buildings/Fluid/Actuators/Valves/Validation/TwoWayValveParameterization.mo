@@ -6,9 +6,9 @@ model TwoWayValveParameterization
  package Medium = Buildings.Media.Water;
 
 
-  parameter Modelica.SIunits.MassFlowRate m_flow_nominal = 0.4
+  parameter Modelica.Units.SI.MassFlowRate m_flow_nominal=0.4
     "Design mass flow rate";
-  parameter Modelica.SIunits.PressureDifference dp_nominal = 4500
+  parameter Modelica.Units.SI.PressureDifference dp_nominal=4500
     "Design pressure drop";
 
   parameter Real Kv_SI = m_flow_nominal/sqrt(dp_nominal)
@@ -18,12 +18,13 @@ model TwoWayValveParameterization
     "Kv (metric) flow coefficient [m3/h/(bar)^(1/2)]";
   parameter Real Cv = Kv_SI/(rhoStd*0.0631/1000/sqrt(6895))
     "Cv (US) flow coefficient [USG/min/(psi)^(1/2)]";
-  parameter Modelica.SIunits.Area Av = Kv_SI/sqrt(rhoStd)
+  parameter Modelica.Units.SI.Area Av=Kv_SI/sqrt(rhoStd)
     "Av (metric) flow coefficient";
 
-  parameter Modelica.SIunits.Density rhoStd=
-   Medium.density_pTX(101325, 273.15+4, Medium.X_default)
-   "Standard density";
+  parameter Modelica.Units.SI.Density rhoStd=Medium.density_pTX(
+      101325,
+      273.15 + 4,
+      Medium.X_default) "Standard density";
 
   Buildings.Fluid.Actuators.Valves.TwoWayLinear valOPPoi(
     redeclare package Medium = Medium,

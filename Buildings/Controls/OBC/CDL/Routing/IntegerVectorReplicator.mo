@@ -38,7 +38,7 @@ equation
           fillColor={255,127,0},
           fillPattern=FillPattern.Solid),
         Text(
-          lineColor={0,0,255},
+          textColor={0,0,255},
           extent={{-150,110},{150,150}},
           textString="%name"),
         Line(points={{-100,-10},{0,0}}, color={255,127,0}),

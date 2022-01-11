@@ -6,9 +6,9 @@ model EquationFitReversible_EnergyPlus "Validation with EnergyPlus model"
   parameter Data.EquationFitReversible.EnergyPlus perEP
     "EnergyPlus heat pump performance"
       annotation (Placement(transformation(extent={{-60,-80},{-40,-60}})));
-  parameter Modelica.SIunits.MassFlowRate mSou_flow_nominal=perEP.hea.mSou_flow
+  parameter Modelica.Units.SI.MassFlowRate mSou_flow_nominal=perEP.hea.mSou_flow
     "Source heat exchanger nominal mass flow rate";
-  parameter Modelica.SIunits.MassFlowRate mLoa_flow_nominal=perEP.hea.mLoa_flow
+  parameter Modelica.Units.SI.MassFlowRate mLoa_flow_nominal=perEP.hea.mLoa_flow
     "Load heat exchanger nominal mass flow rate";
   Buildings.Fluid.HeatPumps.EquationFitReversible heaPum(
     redeclare package Medium1 = Medium,

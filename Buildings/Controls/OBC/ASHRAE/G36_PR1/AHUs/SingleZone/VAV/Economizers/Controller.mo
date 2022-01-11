@@ -195,8 +195,8 @@ block Controller "Single zone VAV AHU economizer control sequence"
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TRet(
     final unit="K",
     final displayUnit="degC",
-    final quantity="ThermodynamicTemperature") if
-       use_fixed_plus_differential_drybulb
+    final quantity="ThermodynamicTemperature")
+    if use_fixed_plus_differential_drybulb
     "Used only for fixed plus differential dry bulb temperature high limit cutoff"
     annotation (Placement(transformation(extent={{-160,90},{-140,110}}),
         iconTransformation(extent={{-120,52},{-100,72}})));
@@ -206,8 +206,8 @@ block Controller "Single zone VAV AHU economizer control sequence"
     annotation (Placement(transformation(extent={{-160,70},{-140,90}}),
       iconTransformation(extent={{-120,36},{-100,56}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput hCut(final unit="J/kg",
-      final quantity="SpecificEnergy") if
-                                        use_enthalpy
+      final quantity="SpecificEnergy")
+                                     if use_enthalpy
     "Outdoor air enthalpy high limit cutoff. For differential enthalpy use return air enthalpy measurement"
     annotation (Placement(transformation(extent={{-160,50},{-140,70}}),
         iconTransformation(extent={{-120,20},{-100,40}})));
@@ -430,7 +430,7 @@ annotation (defaultComponentName = "conEco",
           thickness=0.5),
         Text(
           extent={{-170,142},{158,104}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="%name")}),
         Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-140,-160},
             {140,160}}),
@@ -441,7 +441,7 @@ annotation (defaultComponentName = "conEco",
           fillPattern=FillPattern.Solid),
                                   Text(
           extent={{56,-86},{134,-96}},
-          lineColor={95,95,95},
+          textColor={95,95,95},
           textString="Freeze protection based on TMix,
 not a part of G36",
           horizontalAlignment=TextAlignment.Left)}),

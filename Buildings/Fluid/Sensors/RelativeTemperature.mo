@@ -1,6 +1,6 @@
 within Buildings.Fluid.Sensors;
 model RelativeTemperature "Ideal relative temperature sensor"
-  extends Modelica.Icons.TranslationalSensor;
+  extends Modelica.Icons.RectangularSensor;
   replaceable package Medium =
     Modelica.Media.Interfaces.PartialMedium "Medium in the sensor"
       annotation (choices(
@@ -53,10 +53,10 @@ equation
         Text(
           extent={{-150,40},{150,80}},
           textString="%name",
-          lineColor={0,0,255}),
+          textColor={0,0,255}),
         Text(
           extent={{128,-70},{10,-100}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="T_rel"),
         Line(
           points={{34,3},{-56,3}},
@@ -68,8 +68,8 @@ equation
           fillPattern=FillPattern.Solid),
         Text(
           extent={{-20,-56},{-140,-106}},
-          lineColor={0,0,0},
-          textString=DynamicSelect("", String(T_rel, leftjustified=false, significantDigits=3)))}),
+          textColor={0,0,0},
+          textString=DynamicSelect("", String(T_rel, leftJustified=false, significantDigits=3)))}),
     Documentation(info="<html>
 <p>
 The relative temperature <code>T(port_a) - T(port_b)</code> is determined between

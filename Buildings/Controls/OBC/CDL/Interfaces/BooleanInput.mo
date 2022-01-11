@@ -1,6 +1,6 @@
 within Buildings.Controls.OBC.CDL.Interfaces;
 connector BooleanInput=input Boolean
-  "'input Boolean' as connector"
+  "Boolean input connector"
 annotation (defaultComponentName="u",
  Icon(graphics={Polygon(lineColor={255,0,255},
                         fillColor={255,0,255},
@@ -16,7 +16,7 @@ annotation (defaultComponentName="u",
                            lineColor={255,0,255},
                            fillColor={255,0,255},fillPattern = FillPattern.Solid),
                    Text(extent={{-10,85},{-10,60}},
-                        lineColor={255,0,255},
+                        textColor={255,0,255},
                         textString="%name")}),
 Documentation(info="<html>
 <p>

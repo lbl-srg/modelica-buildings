@@ -51,7 +51,7 @@ protected
   Buildings.Controls.OBC.CDL.Continuous.Product heaGen
     "Heat generation within the engine"
     annotation (Placement(transformation(extent={{60,-50},{80,-30}})));
-  Buildings.Utilities.Math.Polynominal masFloAir(final a=per.coeMasAir)
+  Buildings.Utilities.Math.Polynomial masFloAir(final a=per.coeMasAir)
     "Air mass flow rate computation"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
   Buildings.Controls.OBC.CDL.Continuous.Gain masFloFue(final k=1/per.LHVFue)

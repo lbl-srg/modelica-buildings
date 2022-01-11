@@ -25,14 +25,13 @@ model ExteriorWall "Test model for an exterior wall without a window"
     nCon=1,
     linearizeRadiation = false,
     conMod=Buildings.HeatTransfer.Types.ExteriorConvection.TemperatureWind,
-    lat=0.73268921998722,
     conPar=conPar)
     "Exterior boundary conditions for constructions without a window"
     annotation (Placement(transformation(extent={{76,-80},{116,-40}})));
   Buildings.HeatTransfer.Sources.PrescribedTemperature prescribedTemperature
     annotation (Placement(transformation(extent={{-120,10},{-100,30}})));
-  Buildings.HeatTransfer.Convection.Interior con[
-                              1](A={3*10}, til={Buildings.Types.Tilt.Wall})
+  Buildings.HeatTransfer.Convection.Interior con[1](
+    A={3*10}, til={Buildings.Types.Tilt.Wall})
     "Model for heat convection"
     annotation (Placement(transformation(extent={{-20,10},{-40,30}})));
   Modelica.Thermal.HeatTransfer.Components.ThermalCollector theCol(m=1)
@@ -85,6 +84,12 @@ This model tests the exterior construction without windows.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+September 16, 2021, by Michael Wetter:<br/>
+Removed assignment of parameter <code>lat</code> as this is now obtained from the weather data reader.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1477\">IBPSA, #1477</a>.
+</li>
 <li>
 November 17, 2016, by Thierry S. Nouidui:<br/>
 Removed <code>[:]</code> in <code>conPar.layers</code>

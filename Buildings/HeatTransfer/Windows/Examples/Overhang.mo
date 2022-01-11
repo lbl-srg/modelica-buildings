@@ -1,7 +1,9 @@
 within Buildings.HeatTransfer.Windows.Examples;
 model Overhang "This example tests the window overhang model"
   extends Modelica.Icons.Example;
-  Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"))
+  Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(
+    filNam=Modelica.Utilities.Files.loadResource(
+      "modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"))
     "Weather data"
     annotation (Placement(transformation(extent={{-60,0},{-40,20}})));
   Buildings.HeatTransfer.Windows.Overhang ove(
@@ -11,11 +13,9 @@ model Overhang "This example tests the window overhang model"
     wWin=1.0,
     azi=Buildings.Types.Azimuth.S,
     wR=0.1,
-    wL=0.1,
-    lat=weaDat.lat) "Calculates fraction of window area exposed to the sun"
+    wL=0.1) "Calculates fraction of window area exposed to the sun"
     annotation (Placement(transformation(extent={{20,0},{40,20}})));
   Buildings.BoundaryConditions.SolarIrradiation.DirectTiltedSurface HDirTil(
-    lat=weaDat.lat,
     til=Buildings.Types.Tilt.Wall,
     azi=Buildings.Types.Azimuth.S) "Direct solar irradiation"
     annotation (Placement(transformation(extent={{-20,20},{0,40}})));
@@ -54,6 +54,12 @@ Buildings.HeatTransfer.Windows.BaseClasses.Examples.Overhang</a>.
 </html>",
 revisions="<html>
 <ul>
+<li>
+September 16, 2021, by Michael Wetter:<br/>
+Removed parameter <code>lat</code> because the latitude is now obtained from the weather data bus.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1477\">IBPSA, #1477</a>.
+</li>
 <li>
 July 5, 2012, by Michael Wetter:<br/>
 Changed definitions of <code>wL</code> and <code>wR</code> to be

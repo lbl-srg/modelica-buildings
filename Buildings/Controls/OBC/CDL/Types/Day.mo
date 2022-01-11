@@ -1,7 +1,10 @@
 within Buildings.Controls.OBC.CDL.Types;
-type Day=enumeration(WorkingDay
-  "Working day, such as Monday through Friday",NonWorkingDay
-  "Non-working day, such as week-ends, but not holidays",Holiday
+type Day = enumeration(
+    WorkingDay
+  "Working day, such as Monday through Friday",
+    NonWorkingDay
+  "Non-working day, such as week-ends, but not holidays",
+    Holiday
   "Holiday")
   "Enumeration for the day types"
   annotation (Documentation(info="<html>

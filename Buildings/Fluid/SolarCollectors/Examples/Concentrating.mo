@@ -2,7 +2,7 @@ within Buildings.Fluid.SolarCollectors.Examples;
 model Concentrating "Example showing the use of Concentrating"
   extends Modelica.Icons.Example;
   replaceable package Medium = Buildings.Media.Water "Medium in the system";
-  Buildings.Fluid.SolarCollectors.EN12975           solCol(
+  Buildings.Fluid.SolarCollectors.EN12975 solCol(
     redeclare package Medium = Medium,
     shaCoe=0,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
@@ -13,7 +13,6 @@ model Concentrating "Example showing the use of Concentrating"
     nColType=Buildings.Fluid.SolarCollectors.Types.NumberSelection.Number,
     nPanels=5,
     nSeg=9,
-    lat=0.73097781993588,
     azi=0.3,
     til=0.5) "Concentrating solar collector model"
     annotation (Placement(transformation(extent={{4,-20},{24,0}})));
@@ -47,7 +46,7 @@ model Concentrating "Example showing the use of Concentrating"
         rotation=180,
         origin={-54,-10})));
   Modelica.Blocks.Sources.Sine sine(
-    freqHz=3/86400,
+    f=3/86400,
     offset=101325,
     amplitude=-2*solCol.dp_nominal)
     annotation (Placement(transformation(extent={{-100,-20},{-80,0}})));
@@ -89,6 +88,12 @@ equation
     </html>",
     revisions="<html>
 <ul>
+<li>
+September 16, 2021, by Michael Wetter:<br/>
+Removed parameter assignment for <code>lat</code>.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1477\">IBPSA, #1477</a>.
+</li>
 <li>
 December 22, 2014 by Michael Wetter:<br/>
 Removed <code>Modelica.Fluid.System</code>

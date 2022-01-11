@@ -7,15 +7,13 @@ model PartialPVOriented "Base model of a PV system with orientation"
     Buildings.Electrical.PhaseSystems.PartialPhaseSystem "Phase system"
     annotation (choicesAllMatching=true);
 
-  parameter Modelica.SIunits.Angle til "Surface tilt"
-    annotation(Evaluate=true,Dialog(group="Orientation"));
-  parameter Modelica.SIunits.Angle lat "Latitude"
-    annotation(Evaluate=true,Dialog(group="Orientation"));
-  parameter Modelica.SIunits.Angle azi "Surface azimuth"
-    annotation(Evaluate=true,Dialog(group="Orientation"));
-  parameter Modelica.SIunits.Voltage V_nominal(min=0, start=110)
+  parameter Modelica.Units.SI.Angle til "Surface tilt"
+    annotation (Evaluate=true, Dialog(group="Orientation"));
+  parameter Modelica.Units.SI.Angle azi "Surface azimuth"
+    annotation (Evaluate=true, Dialog(group="Orientation"));
+  parameter Modelica.Units.SI.Voltage V_nominal(min=0, start=110)
     "Nominal voltage (V_nominal >= 0)"
-    annotation(Evaluate=true, Dialog(group="Nominal conditions"));
+    annotation (Evaluate=true, Dialog(group="Nominal conditions"));
 
   replaceable Buildings.Electrical.Interfaces.Terminal terminal(
     redeclare final package PhaseSystem = PhaseSystem) "Generalized terminal"
@@ -34,12 +32,10 @@ model PartialPVOriented "Base model of a PV system with orientation"
 protected
   BoundaryConditions.SolarIrradiation.DiffusePerez HDifTil(
     final til=til,
-    final lat=lat,
     final azi=azi) "Diffuse irradiation on tilted surface"
     annotation (Placement(transformation(extent={{-66,62},{-46,82}})));
   BoundaryConditions.SolarIrradiation.DirectTiltedSurface HDirTil(
     final til=til,
-    final lat=lat,
     final azi=azi) "Direct irradiation on tilted surface"
     annotation (Placement(transformation(extent={{-66,35},{-46,55}})));
 
@@ -93,7 +89,7 @@ equation
         Line(points={{-90,0},{-59,0}}, color={0,0,0}),
         Text(
           extent={{-150,-104},{150,-64}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="%name"),
         Polygon(
           points={{-80,-52},{-32,63},{78,63},{29,-52},{-80,-52}},
@@ -158,10 +154,16 @@ equation
           pattern=LinePattern.None),
         Text(
           extent={{102,107},{124,81}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="P")}),
     Documentation(revisions="<html>
-    <ul>
+<ul>
+<li>
+September 16, 2021, by Michael Wetter:<br/>
+Removed parameter <code>lat</code> as this is now obtained from the weather data reader.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1477\">IBPSA, #1477</a>.
+</li>
 <li>
 September 4, 2014, by Michael Wetter:<br/>
 Revised model, changed some instances to be protected.

@@ -7,28 +7,28 @@ partial function partialInternalResistances
   input Boolean use_Rb = false
     "True if the value Rb should be used instead of calculated";
   input Real Rb(unit="(m.K)/W") "Borehole thermal resistance";
-  input Modelica.SIunits.Height hSeg "Height of the element";
-  input Modelica.SIunits.Radius rBor "Radius of the borehole";
+  input Modelica.Units.SI.Height hSeg "Height of the element";
+  input Modelica.Units.SI.Radius rBor "Radius of the borehole";
   // Geometry of the pipe
-  input Modelica.SIunits.Radius rTub "Radius of the tube";
-  input Modelica.SIunits.Length eTub "Thickness of the tubes";
-  input Modelica.SIunits.Length sha
+  input Modelica.Units.SI.Radius rTub "Radius of the tube";
+  input Modelica.Units.SI.Length eTub "Thickness of the tubes";
+  input Modelica.Units.SI.Length sha
     "Shank spacing, defined as the distance between the center of a pipe and the center of the borehole";
 
   // Thermal properties
-  input Modelica.SIunits.ThermalConductivity kFil
+  input Modelica.Units.SI.ThermalConductivity kFil
     "Thermal conductivity of the grout";
-  input Modelica.SIunits.ThermalConductivity kSoi
+  input Modelica.Units.SI.ThermalConductivity kSoi
     "Thermal conductivity of the soi";
-  input Modelica.SIunits.ThermalConductivity kTub
+  input Modelica.Units.SI.ThermalConductivity kTub
     "Thermal conductivity of the tube";
-  input Modelica.SIunits.ThermalConductivity kMed
+  input Modelica.Units.SI.ThermalConductivity kMed
     "Thermal conductivity of the fluid";
-  input Modelica.SIunits.DynamicViscosity muMed
+  input Modelica.Units.SI.DynamicViscosity muMed
     "Dynamic viscosity of the fluid";
-  input Modelica.SIunits.SpecificHeatCapacity cpMed
+  input Modelica.Units.SI.SpecificHeatCapacity cpMed
     "Specific heat capacity of the fluid";
-  input Modelica.SIunits.MassFlowRate m_flow_nominal "Nominal mass flow rate";
+  input Modelica.Units.SI.MassFlowRate m_flow_nominal "Nominal mass flow rate";
 
   input Boolean printDebug=false
     "Print resistances values in log for debug purposes.";

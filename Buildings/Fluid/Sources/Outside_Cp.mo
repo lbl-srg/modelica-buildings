@@ -9,10 +9,10 @@ model Outside_Cp
   parameter Real Cp = 0.6 "Fixed value of wind pressure coefficient"
     annotation (Dialog(enable = not use_Cp_in));
 
-  Modelica.Blocks.Interfaces.RealInput Cp_in(unit="1") if
-     use_Cp_in "Prescribed wind pressure coefficient"
+  Modelica.Blocks.Interfaces.RealInput Cp_in(unit="1")
+  if use_Cp_in "Prescribed wind pressure coefficient"
     annotation (Placement(transformation(extent={{-140,20},{-100,60}})));
-  Modelica.SIunits.Pressure pWin(displayUnit="Pa")
+  Modelica.Units.SI.Pressure pWin(displayUnit="Pa")
     "Change in pressure due to wind force";
 
 protected
@@ -88,15 +88,15 @@ First implementation.
     Icon(graphics={Text(
           visible=use_Cp_in,
           extent={{-140,92},{-92,62}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="C_p"),
           Text(
           visible=use_C_in,
           extent={{-154,-28},{-102,-62}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="C"),
         Text(
           extent={{-28,22},{28,-22}},
-          lineColor={255,255,255},
+          textColor={255,255,255},
           textString="Cp")}));
 end Outside_Cp;

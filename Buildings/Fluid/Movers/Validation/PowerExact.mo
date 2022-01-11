@@ -28,6 +28,12 @@ that is identical to the one from the speed controlled pump <code>pump_Nrpm</cod
 revisions="<html>
 <ul>
 <li>
+October 15, 2021, by Hongxiang Fu:<br/>
+Fixed the image in the documentation which was cut off
+at the <i>y</i>-axis. This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1533\">IBPSA, #1533</a>.
+</li>
+<li>
 March 2, 2016, by Filip Jorissen:<br/>
 First implementation for
 <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/417\">#417</a>.

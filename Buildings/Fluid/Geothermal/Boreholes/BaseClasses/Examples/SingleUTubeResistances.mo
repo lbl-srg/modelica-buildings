@@ -13,23 +13,23 @@ model SingleUTubeResistances "Model that tests the resistances in the borehole"
     annotation (choicesAllMatching=true, Dialog(group="Filling material"),
     Placement(transformation(extent={{-68,70},{-48,90}})));
 
-  parameter Modelica.SIunits.Height hSeg=1 "Height of the element";
-  parameter Modelica.SIunits.Radius rBor=0.2 "Radius of the borehole";
-  parameter Modelica.SIunits.Radius rTub=0.02 "Radius of the tubes"
-    annotation(Dialog(group="Tubes"));
-  parameter Modelica.SIunits.ThermalConductivity kTub=0.5
-    "Thermal conductivity of the tube" annotation (Dialog(group="Tubes"));
-  parameter Modelica.SIunits.Length eTub=0.002 "Thickness of a tube"
+  parameter Modelica.Units.SI.Height hSeg=1 "Height of the element";
+  parameter Modelica.Units.SI.Radius rBor=0.2 "Radius of the borehole";
+  parameter Modelica.Units.SI.Radius rTub=0.02 "Radius of the tubes"
     annotation (Dialog(group="Tubes"));
-  parameter Modelica.SIunits.Length xC=0.05
+  parameter Modelica.Units.SI.ThermalConductivity kTub=0.5
+    "Thermal conductivity of the tube" annotation (Dialog(group="Tubes"));
+  parameter Modelica.Units.SI.Length eTub=0.002 "Thickness of a tube"
+    annotation (Dialog(group="Tubes"));
+  parameter Modelica.Units.SI.Length xC=0.05
     "Shank spacing, defined as the distance between the center of a pipe and the center of the borehole"
-    annotation(Dialog(group="Borehole"));
+    annotation (Dialog(group="Borehole"));
 
-  parameter Modelica.SIunits.ThermalResistance Rgb(fixed=false)
+  parameter Modelica.Units.SI.ThermalResistance Rgb(fixed=false)
     "Thermal resistance between grout zone and borehole wall";
-  parameter Modelica.SIunits.ThermalResistance Rgg(fixed=false)
+  parameter Modelica.Units.SI.ThermalResistance Rgg(fixed=false)
     "Thermal resistance between the two grout zones";
-  parameter Modelica.SIunits.ThermalResistance RCondGro(fixed=false)
+  parameter Modelica.Units.SI.ThermalResistance RCondGro(fixed=false)
     "Thermal resistance of the pipe wall";
   parameter Real x(fixed=false) "Capacity location";
 

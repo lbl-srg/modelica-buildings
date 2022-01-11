@@ -20,9 +20,9 @@ block WallSolarAzimuth
     "Angle between projection of sun's rays and normal to vertical surface"
 annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 protected
-  constant Modelica.SIunits.Angle delta = 1*Modelica.Constants.pi/180
+  constant Modelica.Units.SI.Angle delta=1*Modelica.Constants.pi/180
     "Small angle";
-  constant Modelica.SIunits.Angle ninety= Modelica.Constants.pi/2-delta
+  constant Modelica.Units.SI.Angle ninety=Modelica.Constants.pi/2 - delta
     "+89 degree";
   constant Real deltaX = 1E-4 "Small number used for smoothing";
   Real alt_c "Cosine of altitude, bounded away from zero";

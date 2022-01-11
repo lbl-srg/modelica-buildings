@@ -1,3 +1,0 @@
-translateModel("Buildings.Fluid.FixedResistances.Examples.PlugFlowDiscretized");
-simulateModel("Buildings.Fluid.FixedResistances.Examples.PlugFlowDiscretized", stopTime=1000, method="CVode", tolerance=1e-006, resultFile="PlugFlowDiscretized");
-createPlot(id=1, position={15, 10, 584, 397}, y={"senTemIn.T", "senTemOut.T"}, range={0.0, 1000.0, 48.0, 72.0}, grid=true, filename="PlugFlowDiscretized.mat", colors={{28,108,200}, {238,46,47}});

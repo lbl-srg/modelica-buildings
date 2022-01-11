@@ -8,22 +8,18 @@ model SingleLayer "Model for single layer heat conductance"
   // The value T[:].start is used by the solver when finding initial states
   // that satisfy dT/dt=0, which requires solving a system of nonlinear equations
   // if the convection coefficient is a function of temperature.
-  Modelica.SIunits.Temperature T[nSta](start=
-   if stateAtSurface_a then
-     cat(1,
-       {T_a_start},
-       {(T_a_start + (T_b_start - T_a_start)*UA*sum(RNod[k] for k in 1:i-1)) for i in 2:nSta})
-   else
-    {(T_a_start + (T_b_start - T_a_start)*UA*sum(RNod[k] for k in 1:i)) for i in 1:nSta},
-   each nominal=300)
+  Modelica.Units.SI.Temperature T[nSta](start=if stateAtSurface_a then cat(
+        1,
+        {T_a_start},
+        {(T_a_start + (T_b_start - T_a_start)*UA*sum(RNod[k] for k in 1:i - 1))
+          for i in 2:nSta}) else {(T_a_start + (T_b_start - T_a_start)*UA*sum(
+        RNod[k] for k in 1:i)) for i in 1:nSta}, each nominal=300)
     "Temperature at the states";
 
-  Modelica.SIunits.HeatFlowRate Q_flow[nSta+1](each start=0)
+  Modelica.Units.SI.HeatFlowRate Q_flow[nSta + 1](each start=0)
     "Heat flow rates to each state";
-  Modelica.SIunits.SpecificInternalEnergy u[nSta](
-    each start=2.7E5,
-    each nominal=2.7E5)
-    "Definition of specific internal energy";
+  Modelica.Units.SI.SpecificInternalEnergy u[nSta](each start=2.7E5, each
+      nominal=2.7E5) "Definition of specific internal energy";
 
   parameter Boolean stateAtSurface_a=true
     "=true, a state will be at the surface a"
@@ -42,10 +38,10 @@ model SingleLayer "Model for single layer heat conductance"
   parameter Boolean steadyStateInitial=false
     "=true initializes dT(0)/dt=0, false initializes T(0) at fixed temperature using T_a_start and T_b_start"
         annotation (Dialog(group="Initialization"), Evaluate=true);
-  parameter Modelica.SIunits.Temperature T_a_start=293.15
+  parameter Modelica.Units.SI.Temperature T_a_start=293.15
     "Initial temperature at port_a, used if steadyStateInitial = false"
     annotation (Dialog(group="Initialization", enable=not steadyStateInitial));
-  parameter Modelica.SIunits.Temperature T_b_start=293.15
+  parameter Modelica.Units.SI.Temperature T_b_start=293.15
     "Initial temperature at port_b, used if steadyStateInitial = false"
     annotation (Dialog(group="Initialization", enable=not steadyStateInitial));
   parameter Integer nSta2=material.nSta
@@ -57,53 +53,44 @@ protected
         if stateAtSurface_a or stateAtSurface_b then 2 else 1)
     "Number of state variables";
   final parameter Integer nR=nSta+1 "Number of thermal resistances";
-  parameter Modelica.SIunits.ThermalResistance RNod[nR]=
-    if (stateAtSurface_a and stateAtSurface_b) then
-      if (nSta==2) then
-        {(if i==1 or i==nR then 0 else R/(nSta-1)) for i in 1:nR}
-      else
-        {(if i==1 or i==nR then 0 elseif i==2 or i==nR-1 then R/(2*(nSta-2)) else R/(nSta-2)) for i in 1:nR}
-      elseif (stateAtSurface_a and (not stateAtSurface_b)) then
-        {(if i==1 then 0 elseif i==2 or i==nR then R/(2*(nSta-1)) else R/(nSta-1)) for i in 1:nR}
-    elseif (stateAtSurface_b and (not stateAtSurface_a)) then
-       {(if i==nR then 0 elseif i==1 or i==nR-1 then R/(2*(nSta-1)) else R/(nSta-1)) for i in 1:nR}
-    else
-      {R/(if i==1 or i==nR then (2*nSta) else nSta) for i in 1:nR}
+  parameter Modelica.Units.SI.ThermalResistance RNod[nR]=if (stateAtSurface_a
+       and stateAtSurface_b) then if (nSta == 2) then {(if i == 1 or i == nR
+       then 0 else R/(nSta - 1)) for i in 1:nR} else {(if i == 1 or i == nR
+       then 0 elseif i == 2 or i == nR - 1 then R/(2*(nSta - 2)) else R/(nSta
+       - 2)) for i in 1:nR} elseif (stateAtSurface_a and (not stateAtSurface_b))
+       then {(if i == 1 then 0 elseif i == 2 or i == nR then R/(2*(nSta - 1))
+       else R/(nSta - 1)) for i in 1:nR} elseif (stateAtSurface_b and (not
+      stateAtSurface_a)) then {(if i == nR then 0 elseif i == 1 or i == nR - 1
+       then R/(2*(nSta - 1)) else R/(nSta - 1)) for i in 1:nR} else {R/(if i
+       == 1 or i == nR then (2*nSta) else nSta) for i in 1:nR}
     "Thermal resistance";
 
-  parameter Modelica.SIunits.Mass m[nSta]=
-   (A*material.x*material.d) *
-   (if (stateAtSurface_a and stateAtSurface_b) then
-     if (nSta==2) then
-       {1/(2*(nSta-1)) for i in 1:nSta}
-     elseif (nSta==3) then
-       {1/(if i==1 or i==nSta then (2*(nSta-1)) else (nSta-1)) for i in 1:nSta}
-     else
-       {1/(if i==1 or i==nSta or i==2 or i==nSta-1 then (2*(nSta-2)) else (nSta-2)) for i in 1:nSta}
-     elseif (stateAtSurface_a and (not stateAtSurface_b)) then
-       {1/(if i==1 or i==2 then (2*(nSta-1)) else (nSta-1)) for i in 1:nSta}
-     elseif (stateAtSurface_b and (not stateAtSurface_a)) then
-       {1/(if i==nSta or i==nSta-1 then (2*(nSta-1)) else (nSta-1)) for i in 1:nSta}
-     else
-       {1/(nSta) for i in 1:nSta})
+  parameter Modelica.Units.SI.Mass m[nSta]=(A*material.x*material.d)*(if (
+      stateAtSurface_a and stateAtSurface_b) then if (nSta == 2) then {1/(2*(
+      nSta - 1)) for i in 1:nSta} elseif (nSta == 3) then {1/(if i == 1 or i
+       == nSta then (2*(nSta - 1)) else (nSta - 1)) for i in 1:nSta} else {1/(
+      if i == 1 or i == nSta or i == 2 or i == nSta - 1 then (2*(nSta - 2))
+       else (nSta - 2)) for i in 1:nSta} elseif (stateAtSurface_a and (not
+      stateAtSurface_b)) then {1/(if i == 1 or i == 2 then (2*(nSta - 1)) else
+      (nSta - 1)) for i in 1:nSta} elseif (stateAtSurface_b and (not
+      stateAtSurface_a)) then {1/(if i == nSta or i == nSta - 1 then (2*(nSta
+       - 1)) else (nSta - 1)) for i in 1:nSta} else {1/(nSta) for i in 1:nSta})
     "Mass associated with the temperature state";
 
   final parameter Real mInv[nSta]=
     if material.steadyState then zeros(nSta) else {1/m[i] for i in 1:nSta}
     "Inverse of the mass associated with the temperature state";
 
-  final parameter Modelica.SIunits.HeatCapacity C[nSta] = m*material.c
+  final parameter Modelica.Units.SI.HeatCapacity C[nSta]=m*material.c
     "Heat capacity associated with the temperature state";
   final parameter Real CInv[nSta]=
     if material.steadyState then zeros(nSta) else {1/C[i] for i in 1:nSta}
     "Inverse of heat capacity associated with the temperature state";
 
-  parameter Modelica.SIunits.SpecificInternalEnergy ud[Buildings.HeatTransfer.Conduction.nSupPCM](
-    each fixed=false)
-    "Support points for derivatives (used for PCM)";
-  parameter Modelica.SIunits.Temperature Td[Buildings.HeatTransfer.Conduction.nSupPCM](
-    each fixed=false)
-    "Support points for derivatives (used for PCM)";
+  parameter Modelica.Units.SI.SpecificInternalEnergy ud[Buildings.HeatTransfer.Conduction.nSupPCM]
+    (each fixed=false) "Support points for derivatives (used for PCM)";
+  parameter Modelica.Units.SI.Temperature Td[Buildings.HeatTransfer.Conduction.nSupPCM]
+    (each fixed=false) "Support points for derivatives (used for PCM)";
   parameter Real dT_du[Buildings.HeatTransfer.Conduction.nSupPCM](
     each fixed=false,
     each unit="kg.K2/J")
@@ -204,11 +191,11 @@ equation
           preserveAspectRatio=false,extent={{-100,-100},{100,100}}), graphics={
         Text(
           extent={{-100,-80},{6,-98}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%material.x"),
         Text(
           extent={{8,-74},{86,-104}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%nSta"),
    Rectangle(
     extent={{-60,80},{60,-80}},     fillColor={215,215,215},

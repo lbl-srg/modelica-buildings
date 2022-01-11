@@ -13,10 +13,6 @@ model Guideline36Summer
       coordinateSystem(
         extent={{-100,-100},{100,100}},
         preserveAspectRatio=true)),
-    Diagram(
-      coordinateSystem(
-        preserveAspectRatio=false,
-        extent={{-400,-320},{1380,680}})),
     Documentation(
       info="<html>
 <p>
@@ -28,6 +24,18 @@ but configured for simulation of a few days in summer.
 </html>",
       revisions="<html>
 <ul>
+<li>
+December 20, 2021, by Michael Wetter:<br/>
+Changed parameter declarations and added optimal start up.
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2829\">issue #2829</a>.
+</li>
+<li>
+October 4, 2021, by Michael Wetter:<br/>
+Refactored <a href=\"modelica://Buildings.Examples.VAVReheat\">Buildings.Examples.VAVReheat</a>
+and its base classes to separate building from HVAC model.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2652\">issue #2652</a>.
+</li>
 <li>
 December 23, 2020, by Michael Wetter:<br/>
 First implementation.

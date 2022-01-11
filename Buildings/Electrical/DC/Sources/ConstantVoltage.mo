@@ -5,7 +5,7 @@ model ConstantVoltage "Model of a constant DC voltage source"
     redeclare Interfaces.Terminal_p terminal,
     final potentialReference=true,
     final definiteReference=false);
-  parameter Modelica.SIunits.Voltage V(start=1) "Value of constant voltage";
+  parameter Modelica.Units.SI.Voltage V(start=1) "Value of constant voltage";
   Modelica.Electrical.Analog.Interfaces.NegativePin n "Negative pin"
     annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
 equation
@@ -29,15 +29,15 @@ equation
           rotation=90),
         Text(
           extent={{50,70},{150,20}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="+"),
         Text(
           extent={{50,-12},{150,-62}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="-"),
         Text(
           extent={{-150,60},{150,100}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="V=%V")}),    Documentation(info="<html>
 <p>
 This model represents a simple DC voltage source with constant voltage.

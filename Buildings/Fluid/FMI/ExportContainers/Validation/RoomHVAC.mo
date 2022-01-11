@@ -5,12 +5,11 @@ model RoomHVAC
 
   Buildings.Fluid.FMI.ExportContainers.Examples.FMUs.HVACZone hvaCon(
     redeclare Buildings.Fluid.HeatExchangers.WetCoilEffectivenessNTU cooCoi(
-      UA_nominal=-hvaCon.QCoiC_flow_nominal/
-        Buildings.Fluid.HeatExchangers.BaseClasses.lmtd(
-        T_a1=hvaCon.THeaRecLvg,
-        T_b1=hvaCon.TASup_nominal,
-        T_a2=hvaCon.TWSup_nominal,
-        T_b2=hvaCon.TWRet_nominal),
+      use_Q_flow_nominal=true,
+      Q_flow_nominal=hvaCon.QCoiC_flow_nominal,
+      T_a1_nominal=hvaCon.TWSup_nominal,
+      T_a2_nominal=hvaCon.THeaRecLvg,
+      w_a2_nominal=hvaCon.wHeaRecLvg,
       dp1_nominal=6000,
       dp2_nominal=200,
       show_T=true,
@@ -26,12 +25,11 @@ model RoomHVAC
     annotation (Placement(transformation(extent={{-60,60},{-40,80}})));
   Examples.FMUs.HVACZones hvaCon2(
     redeclare Buildings.Fluid.HeatExchangers.WetCoilEffectivenessNTU cooCoi(
-      UA_nominal=-hvaCon2.QCoiC_flow_nominal/
-        Buildings.Fluid.HeatExchangers.BaseClasses.lmtd(
-        T_a1=hvaCon2.THeaRecLvg,
-        T_b1=hvaCon2.TASup_nominal,
-        T_a2=hvaCon2.TWSup_nominal,
-        T_b2=hvaCon2.TWRet_nominal),
+      use_Q_flow_nominal=true,
+      Q_flow_nominal=hvaCon2.QCoiC_flow_nominal,
+      T_a1_nominal=hvaCon2.TWSup_nominal,
+      T_a2_nominal=hvaCon2.THeaRecLvg,
+      w_a2_nominal=hvaCon2.wHeaRecLvg,
       dp1_nominal=6000,
       dp2_nominal=200,
       show_T=true,
@@ -91,7 +89,7 @@ Buildings.Fluid.FMI.ExportContainers.Validation.RoomHVAC
             fillPattern=FillPattern.Solid),
           Text(
             extent={{-72,190},{70,84}},
-            lineColor={0,0,255},
+            textColor={0,0,255},
             textString="%name"),
           Polygon(
             points={{-28,-6},{-56,-18},{-28,-32},{-28,-6}},
@@ -219,6 +217,11 @@ With Dymola 2017, we obtain the trajectories shown below.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+September 21, 2021 by David Blum:<br/>
+Use design conditions for UA parameterization in cooling coil.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2624\">#2624</a>.
+</li>
 <li>
 June 30, 2021, by Antoine Gautier:<br/>
 Changed cooling coil model. This is for

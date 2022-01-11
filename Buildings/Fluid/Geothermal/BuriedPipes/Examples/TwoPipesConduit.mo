@@ -1,4 +1,4 @@
-﻿within Buildings.Fluid.Geothermal.BuriedPipes.Examples;
+within Buildings.Fluid.Geothermal.BuriedPipes.Examples;
 model TwoPipesConduit
   "Example model of a buried conduit housing a supply and return pipe"
   extends Modelica.Icons.Example;
@@ -9,9 +9,9 @@ model TwoPipesConduit
   replaceable package Medium = Buildings.Media.Water "Medium in the pipe"
     annotation (choicesAllMatching=true);
 
-  parameter Modelica.SIunits.Length dCon = 0.3 "Conduit diameter";
-  parameter Modelica.SIunits.Length len = 1000 "Conduit length";
-  parameter Modelica.SIunits.Length xConWal=0.01 "Conduit wall thickness";
+  parameter Modelica.Units.SI.Length dCon=0.3 "Conduit diameter";
+  parameter Modelica.Units.SI.Length len=1000 "Conduit length";
+  parameter Modelica.Units.SI.Length xConWal=0.01 "Conduit wall thickness";
 
   parameter Buildings.HeatTransfer.Data.Soil.Generic conMat(
     k=0.19,
@@ -32,8 +32,7 @@ model TwoPipesConduit
     kIns=0.05,
     cPip=500,
     rhoPip=8000,
-    thickness=0.0032,
-    nPorts=1) "Buried pipe"
+    thickness=0.0032) "Buried pipe"
     annotation (Placement(transformation(extent={{-10,50},{10,30}})));
 
   Buildings.Fluid.Geothermal.BuriedPipes.GroundCoupling gro(
@@ -51,7 +50,7 @@ model TwoPipesConduit
 
   Modelica.Blocks.Sources.Sine TinSup(
     amplitude=5,
-    freqHz=1/180/24/60/60,
+    f=1/180/24/60/60,
     offset=273.15 + 70) "Pipe inlet temperature signal"
     annotation (Placement(transformation(extent={{-120,30},{-100,50}})));
   Sources.MassFlowSource_T souSup(
@@ -86,8 +85,7 @@ model TwoPipesConduit
     kIns=0.19,
     cPip=500,
     rhoPip=8000,
-    thickness=0.0032,
-    nPorts=1) "Buried pipe"
+    thickness=0.0032) "Buried pipe"
     annotation (Placement(transformation(extent={{-10,-50},{10,-30}})));
   Sensors.TemperatureTwoPort senTemOutRet(
     redeclare package Medium = Medium,
@@ -125,7 +123,7 @@ model TwoPipesConduit
 
   Modelica.Blocks.Sources.Sine TinRet(
     amplitude=2,
-    freqHz=1/180/24/60/60,
+    f=1/180/24/60/60,
     phase=0.78539816339745,
     offset=273.15 + 50) "Pipe inlet temperature signal"
     annotation (Placement(transformation(extent={{120,-50},{100,-30}})));
@@ -141,11 +139,10 @@ model TwoPipesConduit
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
 
 protected
-  parameter Modelica.SIunits.Volume VConAir=len*Modelica.Constants.pi*((dCon/2)
+  parameter Modelica.Units.SI.Volume VConAir=len*Modelica.Constants.pi*((dCon/2)
       ^2 - (pipSup.dh/2)^2 - (pipRet.dh/2)^2) "Air volume in conduit";
-  constant Modelica.SIunits.Density rhoAir = 1.2 "Air density";
-  constant Modelica.SIunits.SpecificHeatCapacity cpAir=
-    Buildings.Utilities.Psychrometrics.Constants.cpAir
+  constant Modelica.Units.SI.Density rhoAir=1.2 "Air density";
+  constant Modelica.Units.SI.SpecificHeatCapacity cpAir=Buildings.Utilities.Psychrometrics.Constants.cpAir
     "Air specific heat capacity";
 
 equation
@@ -157,13 +154,9 @@ equation
     annotation (Line(points={{50,40},{60,40}}, color={0,127,255}));
   connect(senTemInlSup.port_b, pipSup.port_a)
     annotation (Line(points={{-30,40},{-10,40}}, color={0,127,255}));
-  connect(pipSup.ports_b[1], senTemOutSup.port_a)
-    annotation (Line(points={{10,40},{30,40}}, color={0,127,255}));
   connect(senTemOutRet.port_b,pipRet. port_a)
     annotation (Line(points={{-30,-40},{-10,-40}},
                                                  color={0,127,255}));
-  connect(pipRet.ports_b[1],senTemInlRet. port_a)
-    annotation (Line(points={{10,-40},{30,-40}}, color={0,127,255}));
   connect(souRet.ports[1],senTemInlRet. port_b)
     annotation (Line(points={{60,-40},{50,-40}}, color={0,127,255}));
   connect(sinRet.ports[1],senTemOutRet. port_a)
@@ -178,6 +171,10 @@ equation
     annotation (Line(points={{40,0},{0,0},{0,30}}, color={191,0,0}));
   connect(con.port_b, gro.ports[1, 1])
     annotation (Line(points={{60,0},{90,0},{90,80}}, color={191,0,0}));
+  connect(pipSup.port_b, senTemOutSup.port_a)
+    annotation (Line(points={{10,40},{30,40}}, color={0,127,255}));
+  connect(pipRet.port_b, senTemInlRet.port_a)
+    annotation (Line(points={{10,-40},{30,-40}}, color={0,127,255}));
   annotation (Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-140,-120},{140,120}})),
     experiment(StopTime=63072000, Tolerance=1e-06),
@@ -191,12 +188,15 @@ that contains one insulated hot water supply pipe oscillating around
 </html>", revisions="<html>
 <ul>
 <li>
+September 14, 2021, by Michael Wetter:<br/>
+Updated example for new pipe model.
+</li>
+<li>
 June 02, 2021, by Baptiste Ravache:<br/>
 First implementation.
 </li>
 </ul>
 </html>"),
-    __Dymola_Commands(file=
-          "Resources/Scripts/Dymola/Fluid/Geothermal/BuriedPipes/Examples/TwoPipesConduit.mos"
+    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Geothermal/BuriedPipes/Examples/TwoPipesConduit.mos"
         "Simulate and plot"));
 end TwoPipesConduit;

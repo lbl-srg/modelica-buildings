@@ -1,0 +1,26 @@
+removePlots(false);
+simulateModel("Buildings.Experimental.DHC.EnergyTransferStations.Combined.Subsystems.Validation.Borefield",
+    method="Cvode",
+    tolerance=1e-6,
+    stopTime=20000,
+    resultFile="Borefield");
+createPlot(
+    id=1,
+    position={2, 6, 607, 530},
+    y={"senTInl.T", "senTOut.T", "borFie.senTEnt.T", "borFie.TBorWatEntMax"},
+    grid=true);
+createPlot(
+    id=1,
+    y={"u.y"},
+    grid=true,
+    subPlot=2);
+createPlot(
+    id=1,
+    y={"borFie.val.y_actual"},
+    grid=true,
+    subPlot=3);
+createPlot(
+    id=1,
+    y={"borFie.pum.m_flow_actual", "borFie.m_flow"},
+    grid=true,
+    subPlot=4);
