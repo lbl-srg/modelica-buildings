@@ -253,28 +253,6 @@ equation
       Failsafe condition is true.
       </li>
       </ul>
-      <p align=\"center\">
-      <img alt=\"Validation plot for EfficiencyCondition1\"
-      src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/PrimarySystem/BoilerPlant/Staging/SetPoints/Subsequences/Up1.png\"/>
-      <br/>
-      Validation plot generated from model <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.SetPoints.Subsequences.Validation.Up\">
-      Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.SetPoints.Subsequences.Validation.Up</a> with the block being activated by the efficiency condition.
-      </p>
-      <p align=\"center\">
-      <img alt=\"Validation plot for EfficiencyCondition1\"
-      src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/PrimarySystem/BoilerPlant/Staging/SetPoints/Subsequences/Up2.png\"/>
-      <br/>
-      Validation plot generated from model <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.SetPoints.Subsequences.Validation.Up\">
-      Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.SetPoints.Subsequences.Validation.Up</a> with the block being activated by the failsafe condition.
-      </p>
-      <p align=\"center\">
-      <img alt=\"Validation plot for EfficiencyCondition1\"
-      src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/PrimarySystem/BoilerPlant/Staging/SetPoints/Subsequences/Up3.png\"/>
-      <br/>
-      Validation plot generated from model <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.SetPoints.Subsequences.Validation.Up\">
-      Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.SetPoints.Subsequences.Validation.Up</a> with the block being activated by the unavailabaility
-      of current stage.
-      </p>
       </html>",
       revisions="<html>
       <ul>
