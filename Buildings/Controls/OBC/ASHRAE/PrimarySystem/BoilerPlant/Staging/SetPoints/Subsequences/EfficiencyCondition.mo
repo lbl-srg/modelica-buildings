@@ -308,20 +308,6 @@ annotation (
     <br/>
     State-machine chart for the sequence for non-condensing boilers defined in RP-1711
     </p>
-    <p align=\"center\">
-    <img alt=\"Validation plot for EfficiencyCondition1\"
-    src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/PrimarySystem/BoilerPlant/Staging/SetPoints/Subsequences/EfficiencyCondition1.png\"/>
-    <br/>
-    Validation plot generated from model <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.SetPoints.Subsequences.Validation.EfficiencyCondition\">
-    Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.SetPoints.Subsequences.Validation.EfficiencyCondition</a> with the next higher stage type as condensing.
-    </p>
-    <p align=\"center\">
-    <img alt=\"Validation plot for EfficiencyCondition2\"
-    src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/PrimarySystem/BoilerPlant/Staging/SetPoints/Subsequences/EfficiencyCondition2.png\"/>
-    <br/>
-    Validation plot generated from model <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.SetPoints.Subsequences.Validation.EfficiencyCondition\">
-    Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.SetPoints.Subsequences.Validation.EfficiencyCondition</a> with the next higher stage type as non-condensing.
-    </p>
     </html>",
     revisions="<html>
     <ul>
