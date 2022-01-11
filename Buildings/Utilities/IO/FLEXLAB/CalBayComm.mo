@@ -96,8 +96,8 @@ equation
             This example demonstrates how a Python script and model of a controller
             can be used to control experiments in the FLEXLAB test cells. It uses
             an instance of
-            <a href=\"modelica://Buildings.Utilities.IO.Python36.Real_Real\">
-            Buildings.Utilities.IO.Python36.Real_Real</a> to communicate with the
+            <a href=\"modelica://Buildings.Obsolete.Utilities.IO.Python36.Real_Real\">
+            Buildings.Obsolete.Utilities.IO.Python36.Real_Real</a> to communicate with the
             CalBay adapter. The Python script is located at
             <a href=\"file://Buildings/Resources/Python-Sources/CalBayComm.py\">
             Buildings/Resources/Python-Sources/CalBayComm.py</a>. The script must be
