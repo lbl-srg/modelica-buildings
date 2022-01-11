@@ -305,6 +305,13 @@ have been <b style=\"color:blue\">improved</b> in a
                        This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2544\"># 2544</a>.
     </td>
 </tr>
+<tr><td valign=\"top\">Buildings.Controls.OBC.Utilities.SunRiseSet
+    </td>
+    <td valign=\"top\">Changed implementation to avoid NaN in OpenModelica.<br/>
+                       This is for
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2835\">issue 2835</a>.
+    </td>
+</tr>
 <tr><td colspan=\"2\"><b>Buildings.Fluid.Boilers</b>
     </td>
 </tr>
@@ -416,7 +423,17 @@ have been <b style=\"color:blue\">improved</b> in a
                      This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2713\">Buidings, #2713</a>.
   </td>
   </tr>
-<tr><td colspan=\"2\"><b>Buildings.Utilities.Math</b>
+<tr><td colspan=\"2\"><b>Buildings.Utilities.IO</b>
+    </td>
+  </tr>
+  <tr><td valign=\"top\">Buildings.Utilities.IO.Files.Examples.CSVReader
+    </td>
+    <td valign=\"top\">Updated example so it works with future versions of the Modelica Standard Library which
+                       supports reading csv files.<br/>
+                       This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/pull/1572\">IBPSA #1572</a>.
+    </td>
+  </tr>
+  <tr><td colspan=\"2\"><b>Buildings.Utilities.Math</b>
     </td>
 </tr>
 <tr><td valign=\"top\">Buildings.Utilities.Math.Functions.BaseClasses.der_spliceFunction
@@ -10200,7 +10217,7 @@ The following people have directly contributed to the implementation of the Buil
     Documentation(info="<html>
 <h4>License</h4>
 <p>
-Modelica Buildings Library. Copyright (c) 1998-2020
+Modelica Buildings Library. Copyright (c) 1998-2022
 Modelica Association,
 International Building Performance Simulation Association (IBPSA),
 The Regents of the University of California, through Lawrence Berkeley National Laboratory
