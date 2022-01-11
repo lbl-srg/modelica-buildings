@@ -1,7 +1,6 @@
-within Buildings.Obsolete.Utilities.IO.Python36;
+within Buildings.Utilities.IO.Python_3_8;
 model Real_Real
   "Block that exchanges a vector of real values with a Python function"
-  extends Buildings.Obsolete.BaseClasses.ObsoleteModel;
   extends Modelica.Blocks.Interfaces.DiscreteBlock(
     startTime=0,
     firstTrigger(fixed=true, start=false));
@@ -33,8 +32,8 @@ model Real_Real
   Real uRWri[nDblWri] "Value to be sent to Python";
   Real uRWri_temp[nDblWri] "Internal value";
 protected
-  Buildings.Obsolete.Utilities.IO.Python36.Functions.BaseClasses.PythonObject pytObj=
-    Buildings.Obsolete.Utilities.IO.Python36.Functions.BaseClasses.PythonObject()
+  Buildings.Utilities.IO.Python_3_8.Functions.BaseClasses.PythonObject pytObj=
+    Buildings.Utilities.IO.Python_3_8.Functions.BaseClasses.PythonObject()
     "Python object, used to avoid instantiating Python in each call, and to pass python object if passPythonObject=true";
 initial equation
    uRWri    =  pre(uR);
@@ -76,7 +75,7 @@ equation
         end if;
       end for;
     // Exchange data
-    yR = Buildings.Obsolete.Utilities.IO.Python36.Functions.exchange(
+    yR = Buildings.Utilities.IO.Python_3_8.Functions.exchange(
       moduleName=moduleName,
       functionName=functionName,
       dblWri=uRWri,
@@ -96,8 +95,7 @@ equation
   annotation (defaultComponentName="pyt",
  Icon(coordinateSystem(
           preserveAspectRatio=false, extent={{-100,-100},{100,100}}), graphics={Bitmap(
-            extent={{-88,82},{80,-78}}, fileName="modelica://Buildings/Resources/Images/Obsolete/Utilities/IO/Python36/python.png")}),
-    obsolete = "Obsolete model - use Buildings.Utilities.IO.Python_3_8.Real_Real instead",
+            extent={{-88,82},{80,-78}}, fileName="modelica://Buildings/Resources/Images/Utilities/IO/Python_3_8/python.png")}),
     Documentation(info="<html>
 <p>
 Block that exchanges data with a Python function that does not need to pass
@@ -151,6 +149,10 @@ Otherwise, leave it at its default value <code>passPythonObject = false</code>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+August 27, 2021, by Michael Wetter:<br/>
+Updated to Python 3.8.
+</li>
 <li>
 April 10, 2020, by Jianjun Hu and Michael Wetter:<br/>
 Updated to Python 3.6.

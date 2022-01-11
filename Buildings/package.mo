@@ -723,11 +723,11 @@ have been <b style=\"color:blue\">improved</b> in a
   </tr>
   <tr><td valign=\"top\">Buildings.Utilities.IO.Python36
     </td>
-    <td valign=\"top\">Replaced package with <code>Buildings.Utilities.IO.Python38</code>
+    <td valign=\"top\">Replaced package with <code>Buildings.Utilities.IO.Python_3_8</code>
                        and moved the old package to <code>Buildings.Obsolete.Utilities.IO.Python36</code>.<br/>
                        This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2599\">#2599</a>.<br/>
                        For Dymola, a conversion script will rename models that use <code>Python36</code>
-                       to use <code>Python38</code>.
+                       to use <code>Python_3_8</code>.
     </td>
   </tr>
 <tr><td colspan=\"2\"><b>Buildings.Utilities.Math</b>
@@ -834,10 +834,10 @@ units are wrong or errors in documentation):
                            This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2556\">Buildings, #2556</a>.
         </td>
    </tr>
-   <tr><td colspan=\"2\"><b>Buildings.Utilities.IO.Python38</b>
+   <tr><td colspan=\"2\"><b>Buildings.Utilities.IO.Python_3_8</b>
    </td>
    </tr>
-   <tr><td valign=\"top\">Buildings.Utilities.IO.Python38.Functions.Examples.Exchange
+   <tr><td valign=\"top\">Buildings.Utilities.IO.Python_3_8.Functions.Examples.Exchange
    </td>
    <td valign=\"top\">Removed call to impure function <code>removeFile</code>.
                       This removal is required for MSL 4.0.0.<br/>
@@ -10460,7 +10460,7 @@ particular package.<br/>
                     one or several building envelope models.</td>
 </tr>
 
-<tr><td valign=\"top\"><a href=\"modelica://Buildings.Utilities.IO.Python38.UsersGuide\">Utilities.IO.Python38</a>
+<tr><td valign=\"top\"><a href=\"modelica://Buildings.Utilities.IO.Python_3_8.UsersGuide\">Utilities.IO.Python_3_8</a>
    </td>
    <td valign=\"top\">Package to call Python functions from Modelica.</td>
 </tr>

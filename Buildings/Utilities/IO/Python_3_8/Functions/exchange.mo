@@ -1,4 +1,4 @@
-within Buildings.Obsolete.Utilities.IO.Python36.Functions;
+within Buildings.Utilities.IO.Python_3_8.Functions;
 impure function exchange "Function that communicates with Python"
   extends Modelica.Icons.Function;
 
@@ -72,31 +72,29 @@ algorithm
     nIntWri=nIntWri,
     nIntRea=nIntRea,
     nStrWri=nStrWri);
-  annotation (
-  obsolete = "Obsolete model - use Buildings.Utilities.IO.Python_3_8.Real_Real instead",
-  Documentation(info="<html>
+  annotation (Documentation(info="<html>
 <p>
 This function is a wrapper for
-<a href=\"modelica://Buildings.Obsolete.Utilities.IO.Python36.Functions.BaseClasses.exchange\">
-Buildings.Obsolete.Utilities.IO.Python36.Functions.BaseClasses.exchange</a>.
+<a href=\"modelica://Buildings.Utilities.IO.Python_3_8.Functions.BaseClasses.exchange\">
+Buildings.Utilities.IO.Python_3_8.Functions.BaseClasses.exchange</a>.
 It adds the directory <code>modelica://Buildings/Resources/Python-Sources</code>
 to the environment variable <code>PYTHONPATH</code>
 prior to calling the function that exchanges data with Python.
 After the function call, the <code>PYTHONPATH</code> is set back to what
 it used to be when entering this function.
 See
-<a href=\"modelica://Buildings.Obsolete.Utilities.IO.Python36.UsersGuide\">
-Buildings.Obsolete.Utilities.IO.Python36.UsersGuide</a>
+<a href=\"modelica://Buildings.Utilities.IO.Python_3_8.UsersGuide\">
+Buildings.Utilities.IO.Python_3_8.UsersGuide</a>
 for instructions, and
-<a href=\"modelica://Buildings.Obsolete.Utilities.IO.Python36.Functions.Examples\">
-Buildings.Obsolete.Utilities.IO.Python36.Functions.Examples</a>
+<a href=\"modelica://Buildings.Utilities.IO.Python_3_8.Functions.Examples\">
+Buildings.Utilities.IO.Python_3_8.Functions.Examples</a>
 for examples.
 </p>
 </html>", revisions="<html>
 <ul>
 <li>
-December 11, 2021, by Michael Wetter:<br/>
-Declared function as <code>impure</code> for MSL 4.0.0.
+August 27, 2021, by Michael Wetter:<br/>
+Updated to Python 3.8.
 </li>
 <li>
 April 10, 2020, by Jianjun Hu and Michael Wetter:<br/>
