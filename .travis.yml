@@ -1,10 +1,10 @@
 os: Linux
-dist: bionic
+dist: focal
 
 language: python
 
 python:
-  - "3.6"
+  - "3.8"
 
 branches:
   only:
@@ -34,7 +34,7 @@ env:
     - OMC_VERSION=ubuntu-2004-omc:1.19.0_dev-470-g5085945-1
     - OPTIMICA_VERSION=travis-ubuntu-1804-optimica:r26446
     - DYMOLA_VERSION=travis_ubuntu-2004_dymola:2022x-x86_64
-    - ENERGYPLUS_VERSION=EnergyPlus-9.5.0-de239b2e5f-Linux-Ubuntu18.04-x86_64
+    - ENERGYPLUS_VERSION=EnergyPlus-9.6.0-f420c06a69-Linux-Ubuntu20.04-x86_64
     - MODELICA_JSON_VERSION=6d950c3592fa021aa914ba4ff34a67cbb69962c6
     - MODELICA_JSON_HOME=${TRAVIS_BUILD_DIR}/modelica-json
 
@@ -79,7 +79,6 @@ env:
     - TEST_ARG="make test-omc"
 
 before_install:
-  - sudo apt-get -y install python3.6-minimal  # Provides /usr/bin/python3.6m
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
   - if [[ "$TEST_ARG" == *test-dymola* || "$TEST_ARG" == *test-bestest* || "$TEST_ARG" == *spawn-portability* ]]; then
        docker pull "$DOCKER_USERNAME"/${DYMOLA_VERSION};
@@ -90,7 +89,7 @@ before_install:
        cp Buildings/Resources/Scripts/travis/optimica/jm_ipython.sh $HOME/bin/jm_ipython.sh;
     fi;
   - if [[ "$TEST_ARG" == *test-energyplus* ]]; then
-      wget --no-verbose https://github.com/NREL/EnergyPlus/releases/download/v9.5.0/${ENERGYPLUS_VERSION}.tar.gz;
+      wget --no-verbose https://github.com/NREL/EnergyPlus/releases/download/v9.6.0/${ENERGYPLUS_VERSION}.tar.gz;
       tar xzf ${ENERGYPLUS_VERSION}.tar.gz;
       rm ${ENERGYPLUS_VERSION}.tar.gz;
       echo "Installed EnergyPlus in ${PWD}/${ENERGYPLUS_VERSION}";
@@ -118,11 +117,11 @@ before_install:
 install:
   - git lfs pull
   - pip3 install --upgrade pip wheel
-  - pip3 install --only-binary=numpy,scipy,matplotlib numpy==1.13.3 scipy==0.19.1 matplotlib==2.1.0
+  - pip3 install --only-binary=numpy,scipy,matplotlib numpy==1.21.4 scipy==1.7.3 matplotlib==3.5.1
   - pip3 install git+https://github.com/lbl-srg/${BUILDINGSPY_VERSION}
   - if [[ "$TEST_ARG" == *test-energyplus* ]]; then
       export PATH=${PATH}:${TRAVIS_BUILD_DIR}/${ENERGYPLUS_VERSION};
-      pip3 install pandas==1.0.1;
+      pip3 install pandas==1.3.5;
     fi;
 
 # Execute tests

@@ -74,7 +74,7 @@
 ! Environmental Emissions:        None
 ! Utility Tariffs:                Yes
 
-  Version,9.5;
+  Version,9.6;
 
   Timestep,60;
 
@@ -921,6 +921,7 @@
     WALL,                    !- Surface Type
     CBECS_New_Restaurant_North_Mass_Ext-wall,  !- Construction Name
     ZN_1_FLR_1_SEC_1,        !- Zone Name
+    ,                        !- Space Name
     Outdoors,                !- Outside Boundary Condition
     ,                        !- Outside Boundary Condition Object
     SunExposed,              !- Sun Exposure
@@ -952,6 +953,7 @@
     WALL,                    !- Surface Type
     ASHRAE 90.1-2004_Sec 5.5-4_Interior Wall_Int-Wall,  !- Construction Name
     ZN_1_FLR_1_SEC_1,        !- Zone Name
+    ,                        !- Space Name
     Surface,                 !- Outside Boundary Condition
     ZN_1_FLR_1_SEC_2_Wall_4, !- Outside Boundary Condition Object
     NoSun,                   !- Sun Exposure
@@ -968,6 +970,7 @@
     WALL,                    !- Surface Type
     ASHRAE 90.1-2004_Sec 5.5-4_Interior Wall_Int-Wall,  !- Construction Name
     ZN_1_FLR_1_SEC_1,        !- Zone Name
+    ,                        !- Space Name
     Surface,                 !- Outside Boundary Condition
     ZN_1_FLR_1_SEC_5_Wall_1, !- Outside Boundary Condition Object
     NoSun,                   !- Sun Exposure
@@ -984,6 +987,7 @@
     WALL,                    !- Surface Type
     ASHRAE 90.1-2004_Sec 5.5-4_Interior Wall_Int-Wall,  !- Construction Name
     ZN_1_FLR_1_SEC_1,        !- Zone Name
+    ,                        !- Space Name
     Surface,                 !- Outside Boundary Condition
     ZN_1_FLR_1_SEC_4_Wall_1, !- Outside Boundary Condition Object
     NoSun,                   !- Sun Exposure
@@ -1000,6 +1004,7 @@
     FLOOR,                   !- Surface Type
     ASHRAE 90.1-2004_Sec 5.5-4_Unheated_Ext-slab,  !- Construction Name
     ZN_1_FLR_1_SEC_1,        !- Zone Name
+    ,                        !- Space Name
     Ground,                  !- Outside Boundary Condition
     ,                        !- Outside Boundary Condition Object
     NoSun,                   !- Sun Exposure
@@ -1016,6 +1021,7 @@
     ROOF,                    !- Surface Type
     CBECS_New_Restaurant_North_IEAD_Roof,  !- Construction Name
     ZN_1_FLR_1_SEC_1,        !- Zone Name
+    ,                        !- Space Name
     Outdoors,                !- Outside Boundary Condition
     ,                        !- Outside Boundary Condition Object
     SunExposed,              !- Sun Exposure
@@ -1031,6 +1037,7 @@
     ZN_1_FLR_1_SEC_1_InternalMass_1,  !- Name
     InteriorFurnishings,     !- Construction Name
     ZN_1_FLR_1_SEC_1,        !- Zone or ZoneList Name
+    ,                        !- Space or SpaceList Name
     50.4821;                 !- Surface Area {m2}
 
   ZoneInfiltration:DesignFlowRate,
@@ -1064,12 +1071,12 @@
 
   People,
     ZN_1_FLR_1_SEC_1,        !- Name
-    ZN_1_FLR_1_SEC_1,        !- Zone or ZoneList Name
+    ZN_1_FLR_1_SEC_1,        !- Zone or ZoneList or Space or SpaceList Name
     BLDG_OCC_SCH,            !- Number of People Schedule Name
     people,                  !- Number of People Calculation Method
     10.3741,                 !- Number of People
-    ,                        !- People per Zone Floor Area {person/m2}
-    ,                        !- Zone Floor Area per Person {m2/person}
+    ,                        !- People per Floor Area {person/m2}
+    ,                        !- Floor Area per Person {m2/person}
     0.3000,                  !- Fraction Radiant
     ,                        !- Sensible Heat Fraction
     ACTIVITY_SCH,            !- Activity Level Schedule Name
@@ -1101,7 +1108,7 @@
 
   Lights,
     ZN_1_FLR_1_SEC_1_Lights, !- Name
-    ZN_1_FLR_1_SEC_1,        !- Zone or ZoneList Name
+    ZN_1_FLR_1_SEC_1,        !- Zone or ZoneList or Space or SpaceList Name
     BLDG_LIGHT_SCH,          !- Schedule Name
     LightingLevel,           !- Design Level Calculation Method
     440.7594,                !- Lighting Level {W}
@@ -1125,7 +1132,7 @@
 
   ElectricEquipment,
     ZN_1_FLR_1_SEC_1_MiscPlug_Equip,  !- Name
-    ZN_1_FLR_1_SEC_1,        !- Zone or ZoneList Name
+    ZN_1_FLR_1_SEC_1,        !- Zone or ZoneList or Space or SpaceList Name
     BLDG_EQUIP_SCH,          !- Schedule Name
     EquipmentLevel,          !- Design Level Calculation Method
     257.6077,                !- Design Level {W}
@@ -1153,7 +1160,7 @@
 
   GasEquipment,
     ZN_1_FLR_1_SEC_1_MiscGas_Equip,  !- Name
-    ZN_1_FLR_1_SEC_1,        !- Zone or ZoneList Name
+    ZN_1_FLR_1_SEC_1,        !- Zone or ZoneList or Space or SpaceList Name
     BLDG_EQUIP_SCH,          !- Schedule Name
     EquipmentLevel,          !- Design Level Calculation Method
     1488.2332,               !- Design Level {W}
@@ -1471,6 +1478,7 @@
     WALL,                    !- Surface Type
     CBECS_New_Restaurant_North_Mass_Ext-wall,  !- Construction Name
     ZN_1_FLR_1_SEC_2,        !- Zone Name
+    ,                        !- Space Name
     Outdoors,                !- Outside Boundary Condition
     ,                        !- Outside Boundary Condition Object
     SunExposed,              !- Sun Exposure
@@ -1502,6 +1510,7 @@
     WALL,                    !- Surface Type
     ASHRAE 90.1-2004_Sec 5.5-4_Interior Wall_Int-Wall,  !- Construction Name
     ZN_1_FLR_1_SEC_2,        !- Zone Name
+    ,                        !- Space Name
     Surface,                 !- Outside Boundary Condition
     ZN_1_FLR_1_SEC_3_Wall_2, !- Outside Boundary Condition Object
     NoSun,                   !- Sun Exposure
@@ -1518,6 +1527,7 @@
     WALL,                    !- Surface Type
     ASHRAE 90.1-2004_Sec 5.5-4_Interior Wall_Int-Wall,  !- Construction Name
     ZN_1_FLR_1_SEC_2,        !- Zone Name
+    ,                        !- Space Name
     Surface,                 !- Outside Boundary Condition
     ZN_1_FLR_1_SEC_5_Wall_2, !- Outside Boundary Condition Object
     NoSun,                   !- Sun Exposure
@@ -1534,6 +1544,7 @@
     WALL,                    !- Surface Type
     ASHRAE 90.1-2004_Sec 5.5-4_Interior Wall_Int-Wall,  !- Construction Name
     ZN_1_FLR_1_SEC_2,        !- Zone Name
+    ,                        !- Space Name
     Surface,                 !- Outside Boundary Condition
     ZN_1_FLR_1_SEC_1_Wall_2, !- Outside Boundary Condition Object
     NoSun,                   !- Sun Exposure
@@ -1550,6 +1561,7 @@
     FLOOR,                   !- Surface Type
     ASHRAE 90.1-2004_Sec 5.5-4_Unheated_Ext-slab,  !- Construction Name
     ZN_1_FLR_1_SEC_2,        !- Zone Name
+    ,                        !- Space Name
     Ground,                  !- Outside Boundary Condition
     ,                        !- Outside Boundary Condition Object
     NoSun,                   !- Sun Exposure
@@ -1566,6 +1578,7 @@
     ROOF,                    !- Surface Type
     CBECS_New_Restaurant_North_IEAD_Roof,  !- Construction Name
     ZN_1_FLR_1_SEC_2,        !- Zone Name
+    ,                        !- Space Name
     Outdoors,                !- Outside Boundary Condition
     ,                        !- Outside Boundary Condition Object
     SunExposed,              !- Sun Exposure
@@ -1581,6 +1594,7 @@
     ZN_1_FLR_1_SEC_2_InternalMass_1,  !- Name
     InteriorFurnishings,     !- Construction Name
     ZN_1_FLR_1_SEC_2,        !- Zone or ZoneList Name
+    ,                        !- Space or SpaceList Name
     44.0261;                 !- Surface Area {m2}
 
   ZoneInfiltration:DesignFlowRate,
@@ -1614,12 +1628,12 @@
 
   People,
     ZN_1_FLR_1_SEC_2,        !- Name
-    ZN_1_FLR_1_SEC_2,        !- Zone or ZoneList Name
+    ZN_1_FLR_1_SEC_2,        !- Zone or ZoneList or Space or SpaceList Name
     BLDG_OCC_SCH,            !- Number of People Schedule Name
     people,                  !- Number of People Calculation Method
     9.0473,                  !- Number of People
-    ,                        !- People per Zone Floor Area {person/m2}
-    ,                        !- Zone Floor Area per Person {m2/person}
+    ,                        !- People per Floor Area {person/m2}
+    ,                        !- Floor Area per Person {m2/person}
     0.3000,                  !- Fraction Radiant
     ,                        !- Sensible Heat Fraction
     ACTIVITY_SCH,            !- Activity Level Schedule Name
@@ -1651,7 +1665,7 @@
 
   Lights,
     ZN_1_FLR_1_SEC_2_Lights, !- Name
-    ZN_1_FLR_1_SEC_2,        !- Zone or ZoneList Name
+    ZN_1_FLR_1_SEC_2,        !- Zone or ZoneList or Space or SpaceList Name
     BLDG_LIGHT_SCH,          !- Schedule Name
     LightingLevel,           !- Design Level Calculation Method
     384.3918,                !- Lighting Level {W}
@@ -1675,7 +1689,7 @@
 
   ElectricEquipment,
     ZN_1_FLR_1_SEC_2_MiscPlug_Equip,  !- Name
-    ZN_1_FLR_1_SEC_2,        !- Zone or ZoneList Name
+    ZN_1_FLR_1_SEC_2,        !- Zone or ZoneList or Space or SpaceList Name
     BLDG_EQUIP_SCH,          !- Schedule Name
     EquipmentLevel,          !- Design Level Calculation Method
     224.6630,                !- Design Level {W}
@@ -1703,7 +1717,7 @@
 
   GasEquipment,
     ZN_1_FLR_1_SEC_2_MiscGas_Equip,  !- Name
-    ZN_1_FLR_1_SEC_2,        !- Zone or ZoneList Name
+    ZN_1_FLR_1_SEC_2,        !- Zone or ZoneList or Space or SpaceList Name
     BLDG_EQUIP_SCH,          !- Schedule Name
     EquipmentLevel,          !- Design Level Calculation Method
     1297.9068,               !- Design Level {W}
@@ -2020,6 +2034,7 @@
     WALL,                    !- Surface Type
     ASHRAE 90.1-2004_Sec 5.5-4_Interior Wall_Int-Wall,  !- Construction Name
     ZN_1_FLR_1_SEC_3,        !- Zone Name
+    ,                        !- Space Name
     Surface,                 !- Outside Boundary Condition
     ZN_1_FLR_1_SEC_5_Wall_3, !- Outside Boundary Condition Object
     NoSun,                   !- Sun Exposure
@@ -2036,6 +2051,7 @@
     WALL,                    !- Surface Type
     ASHRAE 90.1-2004_Sec 5.5-4_Interior Wall_Int-Wall,  !- Construction Name
     ZN_1_FLR_1_SEC_3,        !- Zone Name
+    ,                        !- Space Name
     Surface,                 !- Outside Boundary Condition
     ZN_1_FLR_1_SEC_2_Wall_2, !- Outside Boundary Condition Object
     NoSun,                   !- Sun Exposure
@@ -2052,6 +2068,7 @@
     WALL,                    !- Surface Type
     CBECS_New_Restaurant_North_Mass_Ext-wall,  !- Construction Name
     ZN_1_FLR_1_SEC_3,        !- Zone Name
+    ,                        !- Space Name
     Outdoors,                !- Outside Boundary Condition
     ,                        !- Outside Boundary Condition Object
     SunExposed,              !- Sun Exposure
@@ -2083,6 +2100,7 @@
     WALL,                    !- Surface Type
     ASHRAE 90.1-2004_Sec 5.5-4_Interior Wall_Int-Wall,  !- Construction Name
     ZN_1_FLR_1_SEC_3,        !- Zone Name
+    ,                        !- Space Name
     Surface,                 !- Outside Boundary Condition
     ZN_1_FLR_1_SEC_4_Wall_3, !- Outside Boundary Condition Object
     NoSun,                   !- Sun Exposure
@@ -2099,6 +2117,7 @@
     FLOOR,                   !- Surface Type
     ASHRAE 90.1-2004_Sec 5.5-4_Unheated_Ext-slab,  !- Construction Name
     ZN_1_FLR_1_SEC_3,        !- Zone Name
+    ,                        !- Space Name
     Ground,                  !- Outside Boundary Condition
     ,                        !- Outside Boundary Condition Object
     NoSun,                   !- Sun Exposure
@@ -2115,6 +2134,7 @@
     ROOF,                    !- Surface Type
     CBECS_New_Restaurant_North_IEAD_Roof,  !- Construction Name
     ZN_1_FLR_1_SEC_3,        !- Zone Name
+    ,                        !- Space Name
     Outdoors,                !- Outside Boundary Condition
     ,                        !- Outside Boundary Condition Object
     SunExposed,              !- Sun Exposure
@@ -2130,6 +2150,7 @@
     ZN_1_FLR_1_SEC_3_InternalMass_1,  !- Name
     InteriorFurnishings,     !- Construction Name
     ZN_1_FLR_1_SEC_3,        !- Zone or ZoneList Name
+    ,                        !- Space or SpaceList Name
     50.4821;                 !- Surface Area {m2}
 
   ZoneInfiltration:DesignFlowRate,
@@ -2163,12 +2184,12 @@
 
   People,
     ZN_1_FLR_1_SEC_3,        !- Name
-    ZN_1_FLR_1_SEC_3,        !- Zone or ZoneList Name
+    ZN_1_FLR_1_SEC_3,        !- Zone or ZoneList or Space or SpaceList Name
     BLDG_OCC_SCH,            !- Number of People Schedule Name
     people,                  !- Number of People Calculation Method
     10.3741,                 !- Number of People
-    ,                        !- People per Zone Floor Area {person/m2}
-    ,                        !- Zone Floor Area per Person {m2/person}
+    ,                        !- People per Floor Area {person/m2}
+    ,                        !- Floor Area per Person {m2/person}
     0.3000,                  !- Fraction Radiant
     ,                        !- Sensible Heat Fraction
     ACTIVITY_SCH,            !- Activity Level Schedule Name
@@ -2200,7 +2221,7 @@
 
   Lights,
     ZN_1_FLR_1_SEC_3_Lights, !- Name
-    ZN_1_FLR_1_SEC_3,        !- Zone or ZoneList Name
+    ZN_1_FLR_1_SEC_3,        !- Zone or ZoneList or Space or SpaceList Name
     BLDG_LIGHT_SCH,          !- Schedule Name
     LightingLevel,           !- Design Level Calculation Method
     440.7594,                !- Lighting Level {W}
@@ -2224,7 +2245,7 @@
 
   ElectricEquipment,
     ZN_1_FLR_1_SEC_3_MiscPlug_Equip,  !- Name
-    ZN_1_FLR_1_SEC_3,        !- Zone or ZoneList Name
+    ZN_1_FLR_1_SEC_3,        !- Zone or ZoneList or Space or SpaceList Name
     BLDG_EQUIP_SCH,          !- Schedule Name
     EquipmentLevel,          !- Design Level Calculation Method
     257.6077,                !- Design Level {W}
@@ -2252,7 +2273,7 @@
 
   GasEquipment,
     ZN_1_FLR_1_SEC_3_MiscGas_Equip,  !- Name
-    ZN_1_FLR_1_SEC_3,        !- Zone or ZoneList Name
+    ZN_1_FLR_1_SEC_3,        !- Zone or ZoneList or Space or SpaceList Name
     BLDG_EQUIP_SCH,          !- Schedule Name
     EquipmentLevel,          !- Design Level Calculation Method
     1488.2332,               !- Design Level {W}
@@ -2569,6 +2590,7 @@
     WALL,                    !- Surface Type
     ASHRAE 90.1-2004_Sec 5.5-4_Interior Wall_Int-Wall,  !- Construction Name
     ZN_1_FLR_1_SEC_4,        !- Zone Name
+    ,                        !- Space Name
     Surface,                 !- Outside Boundary Condition
     ZN_1_FLR_1_SEC_1_Wall_4, !- Outside Boundary Condition Object
     NoSun,                   !- Sun Exposure
@@ -2585,6 +2607,7 @@
     WALL,                    !- Surface Type
     ASHRAE 90.1-2004_Sec 5.5-4_Interior Wall_Int-Wall,  !- Construction Name
     ZN_1_FLR_1_SEC_4,        !- Zone Name
+    ,                        !- Space Name
     Surface,                 !- Outside Boundary Condition
     ZN_1_FLR_1_SEC_5_Wall_4, !- Outside Boundary Condition Object
     NoSun,                   !- Sun Exposure
@@ -2601,6 +2624,7 @@
     WALL,                    !- Surface Type
     ASHRAE 90.1-2004_Sec 5.5-4_Interior Wall_Int-Wall,  !- Construction Name
     ZN_1_FLR_1_SEC_4,        !- Zone Name
+    ,                        !- Space Name
     Surface,                 !- Outside Boundary Condition
     ZN_1_FLR_1_SEC_3_Wall_4, !- Outside Boundary Condition Object
     NoSun,                   !- Sun Exposure
@@ -2617,6 +2641,7 @@
     WALL,                    !- Surface Type
     CBECS_New_Restaurant_North_Mass_Ext-wall,  !- Construction Name
     ZN_1_FLR_1_SEC_4,        !- Zone Name
+    ,                        !- Space Name
     Outdoors,                !- Outside Boundary Condition
     ,                        !- Outside Boundary Condition Object
     SunExposed,              !- Sun Exposure
@@ -2648,6 +2673,7 @@
     FLOOR,                   !- Surface Type
     ASHRAE 90.1-2004_Sec 5.5-4_Unheated_Ext-slab,  !- Construction Name
     ZN_1_FLR_1_SEC_4,        !- Zone Name
+    ,                        !- Space Name
     Ground,                  !- Outside Boundary Condition
     ,                        !- Outside Boundary Condition Object
     NoSun,                   !- Sun Exposure
@@ -2664,6 +2690,7 @@
     ROOF,                    !- Surface Type
     CBECS_New_Restaurant_North_IEAD_Roof,  !- Construction Name
     ZN_1_FLR_1_SEC_4,        !- Zone Name
+    ,                        !- Space Name
     Outdoors,                !- Outside Boundary Condition
     ,                        !- Outside Boundary Condition Object
     SunExposed,              !- Sun Exposure
@@ -2679,6 +2706,7 @@
     ZN_1_FLR_1_SEC_4_InternalMass_1,  !- Name
     InteriorFurnishings,     !- Construction Name
     ZN_1_FLR_1_SEC_4,        !- Zone or ZoneList Name
+    ,                        !- Space or SpaceList Name
     44.0261;                 !- Surface Area {m2}
 
   ZoneInfiltration:DesignFlowRate,
@@ -2712,12 +2740,12 @@
 
   People,
     ZN_1_FLR_1_SEC_4,        !- Name
-    ZN_1_FLR_1_SEC_4,        !- Zone or ZoneList Name
+    ZN_1_FLR_1_SEC_4,        !- Zone or ZoneList or Space or SpaceList Name
     BLDG_OCC_SCH,            !- Number of People Schedule Name
     people,                  !- Number of People Calculation Method
     9.0473,                  !- Number of People
-    ,                        !- People per Zone Floor Area {person/m2}
-    ,                        !- Zone Floor Area per Person {m2/person}
+    ,                        !- People per Floor Area {person/m2}
+    ,                        !- Floor Area per Person {m2/person}
     0.3000,                  !- Fraction Radiant
     ,                        !- Sensible Heat Fraction
     ACTIVITY_SCH,            !- Activity Level Schedule Name
@@ -2749,7 +2777,7 @@
 
   Lights,
     ZN_1_FLR_1_SEC_4_Lights, !- Name
-    ZN_1_FLR_1_SEC_4,        !- Zone or ZoneList Name
+    ZN_1_FLR_1_SEC_4,        !- Zone or ZoneList or Space or SpaceList Name
     BLDG_LIGHT_SCH,          !- Schedule Name
     LightingLevel,           !- Design Level Calculation Method
     384.3918,                !- Lighting Level {W}
@@ -2773,7 +2801,7 @@
 
   ElectricEquipment,
     ZN_1_FLR_1_SEC_4_MiscPlug_Equip,  !- Name
-    ZN_1_FLR_1_SEC_4,        !- Zone or ZoneList Name
+    ZN_1_FLR_1_SEC_4,        !- Zone or ZoneList or Space or SpaceList Name
     BLDG_EQUIP_SCH,          !- Schedule Name
     EquipmentLevel,          !- Design Level Calculation Method
     224.6630,                !- Design Level {W}
@@ -2801,7 +2829,7 @@
 
   GasEquipment,
     ZN_1_FLR_1_SEC_4_MiscGas_Equip,  !- Name
-    ZN_1_FLR_1_SEC_4,        !- Zone or ZoneList Name
+    ZN_1_FLR_1_SEC_4,        !- Zone or ZoneList or Space or SpaceList Name
     BLDG_EQUIP_SCH,          !- Schedule Name
     EquipmentLevel,          !- Design Level Calculation Method
     1297.9068,               !- Design Level {W}
@@ -3118,6 +3146,7 @@
     WALL,                    !- Surface Type
     ASHRAE 90.1-2004_Sec 5.5-4_Interior Wall_Int-Wall,  !- Construction Name
     ZN_1_FLR_1_SEC_5,        !- Zone Name
+    ,                        !- Space Name
     Surface,                 !- Outside Boundary Condition
     ZN_1_FLR_1_SEC_1_Wall_3, !- Outside Boundary Condition Object
     NoSun,                   !- Sun Exposure
@@ -3134,6 +3163,7 @@
     WALL,                    !- Surface Type
     ASHRAE 90.1-2004_Sec 5.5-4_Interior Wall_Int-Wall,  !- Construction Name
     ZN_1_FLR_1_SEC_5,        !- Zone Name
+    ,                        !- Space Name
     Surface,                 !- Outside Boundary Condition
     ZN_1_FLR_1_SEC_2_Wall_3, !- Outside Boundary Condition Object
     NoSun,                   !- Sun Exposure
@@ -3150,6 +3180,7 @@
     WALL,                    !- Surface Type
     ASHRAE 90.1-2004_Sec 5.5-4_Interior Wall_Int-Wall,  !- Construction Name
     ZN_1_FLR_1_SEC_5,        !- Zone Name
+    ,                        !- Space Name
     Surface,                 !- Outside Boundary Condition
     ZN_1_FLR_1_SEC_3_Wall_1, !- Outside Boundary Condition Object
     NoSun,                   !- Sun Exposure
@@ -3166,6 +3197,7 @@
     WALL,                    !- Surface Type
     ASHRAE 90.1-2004_Sec 5.5-4_Interior Wall_Int-Wall,  !- Construction Name
     ZN_1_FLR_1_SEC_5,        !- Zone Name
+    ,                        !- Space Name
     Surface,                 !- Outside Boundary Condition
     ZN_1_FLR_1_SEC_4_Wall_2, !- Outside Boundary Condition Object
     NoSun,                   !- Sun Exposure
@@ -3182,6 +3214,7 @@
     FLOOR,                   !- Surface Type
     ASHRAE 90.1-2004_Sec 5.5-4_Unheated_Ext-slab,  !- Construction Name
     ZN_1_FLR_1_SEC_5,        !- Zone Name
+    ,                        !- Space Name
     Ground,                  !- Outside Boundary Condition
     ,                        !- Outside Boundary Condition Object
     NoSun,                   !- Sun Exposure
@@ -3198,6 +3231,7 @@
     ROOF,                    !- Surface Type
     CBECS_New_Restaurant_North_IEAD_Roof,  !- Construction Name
     ZN_1_FLR_1_SEC_5,        !- Zone Name
+    ,                        !- Space Name
     Outdoors,                !- Outside Boundary Condition
     ,                        !- Outside Boundary Condition Object
     SunExposed,              !- Sun Exposure
@@ -3213,6 +3247,7 @@
     ZN_1_FLR_1_SEC_5_InternalMass_1,  !- Name
     InteriorFurnishings,     !- Construction Name
     ZN_1_FLR_1_SEC_5,        !- Zone or ZoneList Name
+    ,                        !- Space or SpaceList Name
     15.3636;                 !- Surface Area {m2}
 
   ZoneInfiltration:DesignFlowRate,
@@ -3246,12 +3281,12 @@
 
   People,
     ZN_1_FLR_1_SEC_5,        !- Name
-    ZN_1_FLR_1_SEC_5,        !- Zone or ZoneList Name
+    ZN_1_FLR_1_SEC_5,        !- Zone or ZoneList or Space or SpaceList Name
     BLDG_OCC_SCH,            !- Number of People Schedule Name
     people,                  !- Number of People Calculation Method
     3.1572,                  !- Number of People
-    ,                        !- People per Zone Floor Area {person/m2}
-    ,                        !- Zone Floor Area per Person {m2/person}
+    ,                        !- People per Floor Area {person/m2}
+    ,                        !- Floor Area per Person {m2/person}
     0.3000,                  !- Fraction Radiant
     ,                        !- Sensible Heat Fraction
     ACTIVITY_SCH,            !- Activity Level Schedule Name
@@ -3283,7 +3318,7 @@
 
   Lights,
     ZN_1_FLR_1_SEC_5_Lights, !- Name
-    ZN_1_FLR_1_SEC_5,        !- Zone or ZoneList Name
+    ZN_1_FLR_1_SEC_5,        !- Zone or ZoneList or Space or SpaceList Name
     BLDG_LIGHT_SCH,          !- Schedule Name
     LightingLevel,           !- Design Level Calculation Method
     134.1393,                !- Lighting Level {W}
@@ -3307,7 +3342,7 @@
 
   ElectricEquipment,
     ZN_1_FLR_1_SEC_5_MiscPlug_Equip,  !- Name
-    ZN_1_FLR_1_SEC_5,        !- Zone or ZoneList Name
+    ZN_1_FLR_1_SEC_5,        !- Zone or ZoneList or Space or SpaceList Name
     BLDG_EQUIP_SCH,          !- Schedule Name
     EquipmentLevel,          !- Design Level Calculation Method
     78.3995,                 !- Design Level {W}
@@ -3335,7 +3370,7 @@
 
   GasEquipment,
     ZN_1_FLR_1_SEC_5_MiscGas_Equip,  !- Name
-    ZN_1_FLR_1_SEC_5,        !- Zone or ZoneList Name
+    ZN_1_FLR_1_SEC_5,        !- Zone or ZoneList or Space or SpaceList Name
     BLDG_EQUIP_SCH,          !- Schedule Name
     EquipmentLevel,          !- Design Level Calculation Method
     452.9242,                !- Design Level {W}
@@ -5161,3 +5196,4 @@
 
   Output:SQLite,
     Simple;                  !- Option Type
+
