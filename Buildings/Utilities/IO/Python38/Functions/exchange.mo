@@ -1,5 +1,7 @@
 within Buildings.Utilities.IO.Python38.Functions;
 function exchange "Function that communicates with Python"
+  extends Modelica.Icons.Function;
+
   input String moduleName
     "Name of the python module that contains the function";
   input String functionName=moduleName "Name of the python function";
