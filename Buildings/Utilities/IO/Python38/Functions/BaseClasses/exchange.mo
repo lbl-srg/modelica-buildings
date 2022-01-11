@@ -35,7 +35,7 @@ function exchange "Function that communicates with Python"
                                     strWri, nStrWri,
                                     pytObj,
                                     passPythonObject)
-    annotation (Library={"ModelicaBuildingsPython3.8",  "python3.8m"},
+    annotation (Library={"ModelicaBuildingsPython3.8",  "python3.8"},
       LibraryDirectory="modelica://Buildings/Resources/Library",
       IncludeDirectory="modelica://Buildings/Resources/C-Sources",
       Include="#include \"pythonWrapper.c\"");
