@@ -323,23 +323,23 @@ annotation (
         Text(
           extent={{-98,78},{-12,62}},
           lineColor={0,0,0},
-          textString="VDesPopBreZon_flow"),
+          textString="VSumDesPopBreZon_flow"),
         Text(
           extent={{-98,58},{-12,42}},
           lineColor={0,0,0},
-          textString="VDesAreBreZon_flow"),
+          textString="VSumDesAreBreZon_flow"),
         Text(
           extent={{-98,38},{-34,26}},
           lineColor={0,0,0},
-          textString="desSysVenEff"),
+          textString="uDesSysVenEff"),
         Text(
           extent={{-98,18},{-30,4}},
           lineColor={0,0,0},
-          textString="VUncOutAir_flow"),
+          textString="VSumUncOutAir_flow"),
         Text(
           extent={{-98,-2},{-34,-18}},
           lineColor={0,0,0},
-          textString="VSysPriAir_flow"),
+          textString="VSumSysPriAir_flow"),
         Text(
           extent={{-98,-22},{-28,-38}},
           lineColor={0,0,0},

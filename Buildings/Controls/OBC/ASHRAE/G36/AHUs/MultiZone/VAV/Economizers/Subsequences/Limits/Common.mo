@@ -269,13 +269,63 @@ annotation (
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid),
         Text(
-          extent={{-88,138},{88,108}},
-          lineColor={0,0,127},
+          extent={{-100,140},{100,100}},
+          lineColor={0,0,255},
           textString="%name"),
         Line(
           points={{-60,-60},{2,62},{2,62},{64,-60},{-60,-60}},
           color={0,0,127},
-          thickness=0.5)}),
+          thickness=0.5),
+        Text(
+          extent={{-96,88},{-28,70}},
+          lineColor={0,0,127},
+          pattern=LinePattern.Dash,
+          textString="VOutMinSet_flow_normalized"),
+        Text(
+          extent={{-98,48},{-34,34}},
+          lineColor={0,0,127},
+          pattern=LinePattern.Dash,
+          textString="VOut_flow_normalized"),
+        Text(
+          extent={{-98,8},{-56,-6}},
+          lineColor={255,0,255},
+          pattern=LinePattern.Dash,
+          textString="uSupFan"),
+        Text(
+          extent={{-100,-34},{-44,-48}},
+          lineColor={255,127,0},
+          pattern=LinePattern.Dash,
+          textString="uFreProSta"),
+        Text(
+          extent={{-100,-74},{-50,-88}},
+          lineColor={255,127,0},
+          pattern=LinePattern.Dash,
+          textString="uOpeMod"),
+        Text(
+          extent={{36,90},{98,72}},
+          lineColor={0,0,127},
+          pattern=LinePattern.Dash,
+          textString="yOutDamPosMin"),
+        Text(
+          extent={{36,50},{98,32}},
+          lineColor={0,0,127},
+          pattern=LinePattern.Dash,
+          textString="yOutDamPosMax"),
+        Text(
+          extent={{36,8},{96,-10}},
+          lineColor={0,0,127},
+          pattern=LinePattern.Dash,
+          textString="yRetDamPosMin"),
+        Text(
+          extent={{36,-30},{96,-48}},
+          lineColor={0,0,127},
+          pattern=LinePattern.Dash,
+          textString="yRetDamPosMax"),
+        Text(
+          extent={{30,-70},{98,-88}},
+          lineColor={0,0,127},
+          pattern=LinePattern.Dash,
+          textString="yRetDamPhyPosMax")}),
     Diagram(coordinateSystem(extent={{-180,-240},{180,240}}), graphics={
         Rectangle(
           extent={{-172,-74},{16,-234}},

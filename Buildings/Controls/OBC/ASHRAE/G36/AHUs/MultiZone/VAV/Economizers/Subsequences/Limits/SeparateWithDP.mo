@@ -95,7 +95,7 @@ block SeparateWithDP
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yMinOutDam
     "Status of minimum outdoor air damper position, true means it's open"
     annotation (Placement(transformation(extent={{220,140},{260,180}}),
-        iconTransformation(extent={{100,70},{140,110}})));
+        iconTransformation(extent={{100,60},{140,100}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yOutDamPosMin(
     final min=outDamPhyPosMin,
     final max=outDamPhyPosMax,
@@ -337,7 +337,72 @@ annotation (
         Text(
           extent={{-100,140},{100,100}},
           lineColor={0,0,255},
-          textString="%name")}),
+          textString="%name"),
+        Text(
+          extent={{-98,98},{-48,82}},
+          lineColor={0,0,127},
+          pattern=LinePattern.Dash,
+          textString="dpMinOutDam"),
+        Text(
+          extent={{-98,70},{-30,52}},
+          lineColor={0,0,127},
+          pattern=LinePattern.Dash,
+          textString="VOutMinSet_flow_normalized"),
+        Text(
+          extent={{-98,-50},{-42,-66}},
+          lineColor={0,0,127},
+          pattern=LinePattern.Dash,
+          textString="uOutDamPos"),
+        Text(
+          extent={{-98,-82},{-42,-96}},
+          lineColor={0,0,127},
+          pattern=LinePattern.Dash,
+          textString="uSupFanSpe"),
+        Text(
+          extent={{36,60},{98,42}},
+          lineColor={0,0,127},
+          pattern=LinePattern.Dash,
+          textString="yOutDamPosMin"),
+        Text(
+          extent={{36,40},{98,22}},
+          lineColor={0,0,127},
+          pattern=LinePattern.Dash,
+          textString="yOutDamPosMax"),
+        Text(
+          extent={{38,-40},{98,-58}},
+          lineColor={0,0,127},
+          pattern=LinePattern.Dash,
+          textString="yRetDamPosMax"),
+        Text(
+          extent={{38,-20},{98,-38}},
+          lineColor={0,0,127},
+          pattern=LinePattern.Dash,
+          textString="yRetDamPosMin"),
+        Text(
+          extent={{30,-78},{98,-96}},
+          lineColor={0,0,127},
+          pattern=LinePattern.Dash,
+          textString="yRetDamPhyPosMax"),
+        Text(
+          extent={{-100,8},{-44,-6}},
+          lineColor={255,127,0},
+          pattern=LinePattern.Dash,
+          textString="uFreProSta"),
+        Text(
+          extent={{-100,38},{-58,24}},
+          lineColor={255,0,255},
+          pattern=LinePattern.Dash,
+          textString="uSupFan"),
+        Text(
+          extent={{-100,-22},{-50,-36}},
+          lineColor={255,127,0},
+          pattern=LinePattern.Dash,
+          textString="uOpeMod"),
+        Text(
+          extent={{52,94},{98,70}},
+          lineColor={255,0,255},
+          pattern=LinePattern.Dash,
+          textString="yMinOutDam")}),
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-220,-320},{220,320}})),
   Documentation(info="<html>
 <p>

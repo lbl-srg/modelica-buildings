@@ -2,10 +2,6 @@ within Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.Economizers;
 block Controller
   "Multi zone VAV AHU economizer control sequence"
 
-  parameter Boolean use_TMix=true
-    "Set to true if mixed air temperature measurement is enabled";
-  parameter Boolean use_G36FrePro=false
-    "Set to true to use G36 freeze protection";
   parameter Buildings.Controls.OBC.ASHRAE.G36.Types.MultizoneAHUMinOADesigns minOADes
     "Design of minimum outdoor air and economizer function";
   parameter Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes buiPreCon
@@ -122,39 +118,6 @@ block Controller
     "Sample period of component, used to limit the rate of change of the dampers (to avoid quick opening that can result in frost)"
     annotation (Dialog(tab="Modulation"));
 
-  // Freeze protection
-  parameter Real TFreSet(
-    final unit="K",
-    displayUnit="degC",
-    final quantity="ThermodynamicTemperature")= 279.15
-    "Lower limit for mixed air temperature for freeze protection, used if use_TMix=true"
-     annotation(Dialog(tab="Freeze protection", enable=use_TMix));
-  parameter Buildings.Controls.OBC.CDL.Types.SimpleController freProCon=
-    Buildings.Controls.OBC.CDL.Types.SimpleController.PI
-    "Type of controller"
-    annotation(Dialog(tab="Freeze protection", enable=use_TMix));
-  parameter Real kFre(
-    final unit="1/K") = 0.1
-    "Gain for mixed air temperature tracking for freeze protection, used if use_TMix=true"
-     annotation(Dialog(tab="Freeze protection", enable=use_TMix));
-  parameter Real TiFre(
-    final unit="s",
-    final quantity="Time",
-    final max=TiMinOA)=120
-    "Time constant of controller for mixed air temperature tracking for freeze protection. Require TiFre < TiMinOut"
-    annotation(Dialog(tab="Freeze protection",
-      enable=use_TMix
-        and (freProCon == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
-          or freProCon == Buildings.Controls.OBC.CDL.Types.SimpleController.PID)));
-  parameter Real TdFre(
-    final unit="s",
-    final quantity="Time")=0.1
-    "Time constant of derivative block for freeze protection"
-    annotation (Dialog(tab="Freeze protection",
-      enable=use_TMix and
-          (freProCon == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
-          or freProCon == Buildings.Controls.OBC.CDL.Types.SimpleController.PID)));
-
   // Commissioning
   parameter Real retDamPhyPosMax(
     final unit="1")=1
@@ -233,13 +196,6 @@ block Controller
     "Signal for supply air temperature control (T Sup Control Loop Signal in diagram)"
     annotation (Placement(transformation(extent={{-280,20},{-240,60}}),
         iconTransformation(extent={{-140,20},{-100,60}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput TMix(
-    final unit="K",
-    displayUnit="degC",
-    final quantity="ThermodynamicTemperature") if use_TMix
-    "Measured mixed air temperature, used for freeze protection"
-    annotation (Placement(transformation(extent={{-280,-20},{-240,20}}),
-        iconTransformation(extent={{-140,-10},{-100,30}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TOut(
     final unit="K",
     displayUnit="degC",
@@ -277,18 +233,32 @@ block Controller
     "Freeze protection status"
     annotation (Placement(transformation(extent={{-280,-260},{-240,-220}}),
         iconTransformation(extent={{-140,-210},{-100,-170}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yMinOutDamPos(
+    final min=0,
+    final max=1,
+    final unit="1") if not have_common
+    "Outdoor air damper position to ensure minimum outdoor air flow"
+    annotation (Placement(transformation(extent={{260,160},{300,200}}),
+        iconTransformation(extent={{100,110},{140,150}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yRetDamPos(
     final min=0,
     final max=1,
     final unit="1") "Return air damper position"
-    annotation (Placement(transformation(extent={{260,-10},{300,30}}),
+    annotation (Placement(transformation(extent={{260,80},{300,120}}),
         iconTransformation(extent={{100,40},{140,80}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yRelDamPos(
+    final min=0,
+    final max=1,
+    final unit="1")
+    if have_returns and not have_directControl "Relief air damper position"
+    annotation (Placement(transformation(extent={{260,0},{300,40}}),
+        iconTransformation(extent={{100,-80},{140,-40}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yOutDamPos(
     final min=0,
     final max=1,
     final unit="1") "Outdoor air damper position"
     annotation (Placement(transformation(extent={{260,-90},{300,-50}}),
-        iconTransformation(extent={{100,-80},{140,-40}})));
+        iconTransformation(extent={{100,-140},{140,-100}})));
 
   Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.Economizers.Subsequences.Limits.SeparateWithAFMS
     sepAFMS(
@@ -341,15 +311,15 @@ block Controller
     final retDamFulOpeTim=retDamFulOpeTim,
     final disDel=disDel)
     "Enable or disable economizer"
-    annotation (Placement(transformation(extent={{20,-90},{40,-70}})));
+    annotation (Placement(transformation(extent={{20,-94},{40,-66}})));
   Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.Economizers.Subsequences.Modulations.ReturnFan modRet(
-    final have_direct_control=buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanDp,
+    final have_directControl=have_directControl,
     final uMin=uHeaMax,
     final uMax=uCooMin,
     final samplePeriod=samplePeriod)
     if have_returns
     "Modulate economizer dampers position for buildings with return fan controlling pressure"
-    annotation (Placement(transformation(extent={{100,70},{120,90}})));
+    annotation (Placement(transformation(extent={{100,20},{120,40}})));
   Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.Economizers.Subsequences.Modulations.Reliefs modRel(
     final uMin=uHeaMax,
     final uMax=uCooMin,
@@ -358,15 +328,7 @@ block Controller
     final samplePeriod=samplePeriod)
     if have_reliefs
     "Modulate economizer dampers position for buildings with relief damper or fan controlling pressure"
-    annotation (Placement(transformation(extent={{100,10},{120,30}})));
-  Buildings.Controls.OBC.ASHRAE.G36.Generic.FreezeProtectionMixedAir freProTMix(
-    final controllerType=freProCon,
-    final TFreSet=TFreSet,
-    final k=kFre,
-    final Ti=TiFre,
-    final Td=TdFre) if use_TMix
-    "Block that tracks TMix against a freeze protection setpoint"
-    annotation (Placement(transformation(extent={{160,-50},{180,-30}})));
+    annotation (Placement(transformation(extent={{100,-40},{120,-20}})));
 
 protected
   parameter Boolean have_separateAFMS=
@@ -386,24 +348,16 @@ protected
     buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefDamper or
     buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefFan
     "True: have relief damper or fan to control building pressure";
-  Buildings.Controls.OBC.CDL.Continuous.Min outDamMaxFre
-    "Maximum control signal for outdoor air damper due to freeze protection"
-    annotation (Placement(transformation(extent={{220,-80},{240,-60}})));
-  Buildings.Controls.OBC.CDL.Continuous.Max retDamMinFre
-    "Minimum position for return air damper due to freeze protection"
-    annotation (Placement(transformation(extent={{220,0},{240,20}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant noTMix(
-    final k=0) if not use_TMix
-    "Ignore max evaluation if there is no mixed air temperature sensor"
-    annotation (Placement(transformation(extent={{160,20},{180,40}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant noTMix1(
-    final k=1) if not use_TMix
-    "Ignore min evaluation if there is no mixed air temperature sensor"
-    annotation (Placement(transformation(extent={{160,-100},{180,-80}})));
+  parameter Boolean have_directControl=
+    buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanDp
+    "True: the building have direct pressure control";
   Buildings.Controls.OBC.CDL.Continuous.MovingMean movAve(
     final delta=aveTimRan) if have_separateAFMS or have_common
     "Moving average of outdoor air flow measurement, normalized by design minimum outdoor airflow rate"
     annotation (Placement(transformation(extent={{-220,180},{-200,200}})));
+  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea if have_separateDP
+    "Convert boolean to real"
+    annotation (Placement(transformation(extent={{20,90},{40,110}})));
 
 equation
   connect(sepAFMS.VOutMinSet_flow_normalized, VOutMinSet_flow_normalized)
@@ -443,97 +397,95 @@ equation
   connect(VOutMinSet_flow_normalized, damLim.VOutMinSet_flow_normalized)
     annotation (Line(points={{-260,230},{-160,230},{-160,28},{-142,28}}, color=
           {0,0,127}));
-  connect(TOut, enaDis.TOut) annotation (Line(points={{-260,-30},{-128,-30},{-128,
-          -70},{18,-70}}, color={0,0,127}));
-  connect(TOutCut, enaDis.TOutCut) annotation (Line(points={{-260,-60},{-134,-60},
-          {-134,-72},{18,-72}},color={0,0,127}));
-  connect(hOut, enaDis.hOut) annotation (Line(points={{-260,-100},{-134,-100},{-134,
-          -74},{18,-74}},color={0,0,127}));
-  connect(hOutCut, enaDis.hOutCut) annotation (Line(points={{-260,-130},{-128,-130},
-          {-128,-76},{18,-76}},     color={0,0,127}));
-  connect(uSupFan, enaDis.uSupFan) annotation (Line(points={{-260,-170},{-196,-170},
-          {-196,-78},{18,-78}},     color={255,0,255}));
-  connect(uFreProSta, enaDis.uFreProSta) annotation (Line(points={{-260,-240},{-184,
-          -240},{-184,-80},{18,-80}},       color={255,127,0}));
+  connect(TOut, enaDis.TOut) annotation (Line(points={{-260,-30},{-128,-30},{
+          -128,-67},{18,-67}},
+                          color={0,0,127}));
+  connect(TOutCut, enaDis.TOutCut) annotation (Line(points={{-260,-60},{-134,
+          -60},{-134,-69},{18,-69}},
+                               color={0,0,127}));
+  connect(hOut, enaDis.hOut) annotation (Line(points={{-260,-100},{-134,-100},{
+          -134,-72},{18,-72}},
+                         color={0,0,127}));
+  connect(hOutCut, enaDis.hOutCut) annotation (Line(points={{-260,-130},{-128,
+          -130},{-128,-74},{18,-74}},
+                                    color={0,0,127}));
+  connect(uSupFan, enaDis.uSupFan) annotation (Line(points={{-260,-170},{-196,
+          -170},{-196,-77},{18,-77}},
+                                    color={255,0,255}));
+  connect(uFreProSta, enaDis.uFreProSta) annotation (Line(points={{-260,-240},{
+          -184,-240},{-184,-79},{18,-79}},  color={255,127,0}));
   connect(damLim.yOutDamPosMin, enaDis.uOutDamPosMin) annotation (Line(points={{-118,28},
           {-80,28},{-80,-84},{18,-84}},              color={0,0,127}));
   connect(damLim.yOutDamPosMax, enaDis.uOutDamPosMax) annotation (Line(points={{-118,24},
           {-86,24},{-86,-82},{18,-82}},              color={0,0,127}));
   connect(damLim.yRetDamPosMin, enaDis.uRetDamPosMin) annotation (Line(points={{-118,20},
-          {-92,20},{-92,-90},{18,-90}},              color={0,0,127}));
+          {-92,20},{-92,-93},{18,-93}},              color={0,0,127}));
   connect(damLim.yRetDamPosMax, enaDis.uRetDamPosMax) annotation (Line(points={{-118,16},
-          {-98,16},{-98,-88},{18,-88}},              color={0,0,127}));
+          {-98,16},{-98,-91},{18,-91}},              color={0,0,127}));
   connect(damLim.yRetDamPhyPosMax, enaDis.uRetDamPhyPosMax) annotation (Line(
-        points={{-118,12},{-104,12},{-104,-86},{18,-86}},  color={0,0,127}));
+        points={{-118,12},{-104,12},{-104,-89},{18,-89}},  color={0,0,127}));
   connect(sepDp.yOutDamPosMin, enaDis.uOutDamPosMin) annotation (Line(points={{-118,85},
           {-40,85},{-40,-84},{18,-84}},               color={0,0,127}));
   connect(sepDp.yOutDamPosMax, enaDis.uOutDamPosMax) annotation (Line(points={{-118,83},
           {-46,83},{-46,-82},{18,-82}},               color={0,0,127}));
   connect(sepDp.yRetDamPosMin, enaDis.uRetDamPosMin) annotation (Line(points={{-118,77},
-          {-52,77},{-52,-90},{18,-90}},               color={0,0,127}));
+          {-52,77},{-52,-93},{18,-93}},               color={0,0,127}));
   connect(sepDp.yRetDamPosMax, enaDis.uRetDamPosMax) annotation (Line(points={{-118,75},
-          {-58,75},{-58,-88},{18,-88}},               color={0,0,127}));
+          {-58,75},{-58,-91},{18,-91}},               color={0,0,127}));
   connect(sepDp.yRetDamPhyPosMax, enaDis.uRetDamPhyPosMax) annotation (Line(
-        points={{-118,71},{-64,71},{-64,-86},{18,-86}},      color={0,0,127}));
+        points={{-118,71},{-64,71},{-64,-89},{18,-89}},      color={0,0,127}));
   connect(sepAFMS.yOutDamPosMin, enaDis.uOutDamPosMin) annotation (Line(points={{-118,
           145},{0,145},{0,-84},{18,-84}},             color={0,0,127}));
   connect(sepAFMS.yOutDamPosMax, enaDis.uOutDamPosMax) annotation (Line(points={{-118,
           143},{-6,143},{-6,-82},{18,-82}},           color={0,0,127}));
   connect(sepAFMS.yRetDamPosMin, enaDis.uRetDamPosMin) annotation (Line(points={{-118,
-          137},{-12,137},{-12,-90},{18,-90}},         color={0,0,127}));
+          137},{-12,137},{-12,-93},{18,-93}},         color={0,0,127}));
   connect(sepAFMS.yRetDamPosMax, enaDis.uRetDamPosMax) annotation (Line(points={{-118,
-          135},{-18,135},{-18,-88},{18,-88}},         color={0,0,127}));
+          135},{-18,135},{-18,-91},{18,-91}},         color={0,0,127}));
   connect(sepAFMS.yRetDamPhyPosMax, enaDis.uRetDamPhyPosMax) annotation (Line(
-        points={{-118,131},{-24,131},{-24,-86},{18,-86}},  color={0,0,127}));
-  connect(uTSup, modRet.uTSup) annotation (Line(points={{-260,40},{40,40},{40,86},
-          {98,86}},           color={0,0,127}));
-  connect(uTSup, modRel.uTSup) annotation (Line(points={{-260,40},{40,40},{40,20},
-          {98,20}},         color={0,0,127}));
+        points={{-118,131},{-24,131},{-24,-89},{18,-89}},  color={0,0,127}));
+  connect(uTSup, modRet.uTSup) annotation (Line(points={{-260,40},{40,40},{40,36},
+          {98,36}},           color={0,0,127}));
+  connect(uTSup, modRel.uTSup) annotation (Line(points={{-260,40},{40,40},{40,-30},
+          {98,-30}},        color={0,0,127}));
   connect(damLim.yOutDamPosMin, modRel.uOutDamPosMin) annotation (Line(points={{-118,28},
-          {-80,28},{-80,11},{98,11}},             color={0,0,127}));
+          {-80,28},{-80,-39},{98,-39}},           color={0,0,127}));
   connect(sepDp.yOutDamPosMin, modRel.uOutDamPosMin) annotation (Line(points={{-118,85},
-          {-40,85},{-40,11},{98,11}},              color={0,0,127}));
+          {-40,85},{-40,-39},{98,-39}},            color={0,0,127}));
   connect(sepAFMS.yOutDamPosMin, modRel.uOutDamPosMin) annotation (Line(points={{-118,
-          145},{0,145},{0,11},{98,11}},            color={0,0,127}));
-  connect(enaDis.yOutDamPosMax, modRel.uOutDamPosMax) annotation (Line(points={{42,-74},
-          {60,-74},{60,15},{98,15}},       color={0,0,127}));
+          145},{0,145},{0,-39},{98,-39}},          color={0,0,127}));
+  connect(enaDis.yOutDamPosMax, modRel.uOutDamPosMax) annotation (Line(points={{42,-70},
+          {60,-70},{60,-35},{98,-35}},     color={0,0,127}));
   connect(enaDis.yRetDamPosMax, modRel.uRetDamPosMax) annotation (Line(points={{42,-80},
-          {66,-80},{66,29},{98,29}},         color={0,0,127}));
-  connect(enaDis.yRetDamPosMin, modRel.uRetDamPosMin) annotation (Line(points={{42,-86},
-          {72,-86},{72,25},{98,25}},           color={0,0,127}));
+          {66,-80},{66,-21},{98,-21}},       color={0,0,127}));
+  connect(enaDis.yRetDamPosMin, modRel.uRetDamPosMin) annotation (Line(points={{42,-90},
+          {72,-90},{72,-25},{98,-25}},         color={0,0,127}));
   connect(enaDis.yRetDamPosMax, modRet.uRetDamPosMax) annotation (Line(points={{42,-80},
-          {66,-80},{66,80},{98,80}},           color={0,0,127}));
-  connect(enaDis.yRetDamPosMin, modRet.uRetDamPosMin) annotation (Line(points={{42,-86},
-          {72,-86},{72,74},{98,74}},             color={0,0,127}));
-  connect(retDamMinFre.y,yRetDamPos)
-    annotation (Line(points={{242,10},{280,10}}, color={0,0,127}));
-  connect(outDamMaxFre.y,yOutDamPos)
-    annotation (Line(points={{242,-70},{280,-70}}, color={0,0,127}));
-  connect(outDamMaxFre.u2,noTMix1. y)
-    annotation (Line(points={{218,-76},{190,-76},{190,-90},{182,-90}}, color={0,0,127}));
-  connect(retDamMinFre.u1,noTMix. y)
-    annotation (Line(points={{218,16},{200,16},{200,30},{182,30}}, color={0,0,127}));
-  connect(freProTMix.yFrePro,retDamMinFre. u1)
-    annotation (Line(points={{182,-43},{200,-43},{200,16},{218,16}}, color={0,0,127}));
-  connect(freProTMix.yFreProInv,outDamMaxFre. u2)
-    annotation (Line(points={{182,-37},{190,-37},{190,-76},{218,-76}},
-      color={0,0,127}));
-  connect(TMix, freProTMix.TMix) annotation (Line(points={{-260,0},{20,0},{20,-40},
-          {158,-40}},       color={0,0,127}));
-  connect(modRet.yRetDamPos, retDamMinFre.u2) annotation (Line(points={{122,86},
-          {146,86},{146,4},{218,4}},  color={0,0,127}));
-  connect(modRel.yRetDamPos, retDamMinFre.u2) annotation (Line(points={{122,26},
-          {146,26},{146,4},{218,4}}, color={0,0,127}));
-  connect(modRet.yOutDamPos, outDamMaxFre.u1) annotation (Line(points={{122,74},
-          {140,74},{140,-64},{218,-64}}, color={0,0,127}));
-  connect(modRel.yOutDamPos, outDamMaxFre.u1) annotation (Line(points={{122,14},
-          {140,14},{140,-64},{218,-64}}, color={0,0,127}));
+          {66,-80},{66,30},{98,30}},           color={0,0,127}));
+  connect(enaDis.yRetDamPosMin, modRet.uRetDamPosMin) annotation (Line(points={{42,-90},
+          {72,-90},{72,24},{98,24}},             color={0,0,127}));
   connect(VOut_flow_normalized, movAve.u)
     annotation (Line(points={{-260,190},{-222,190}}, color={0,0,127}));
   connect(movAve.y, sepAFMS.VOut_flow_normalized) annotation (Line(points={{-198,
           190},{-166,190},{-166,146},{-142,146}},      color={0,0,127}));
   connect(movAve.y, damLim.VOut_flow_normalized) annotation (Line(points={{-198,
           190},{-166,190},{-166,24},{-142,24}}, color={0,0,127}));
+  connect(modRet.yRetDamPos, yRetDamPos) annotation (Line(points={{122,36},{140,
+          36},{140,100},{280,100}}, color={0,0,127}));
+  connect(modRel.yRetDamPos, yRetDamPos) annotation (Line(points={{122,-24},{140,
+          -24},{140,100},{280,100}}, color={0,0,127}));
+  connect(modRet.yOutDamPos, yOutDamPos) annotation (Line(points={{122,24},{160,
+          24},{160,-70},{280,-70}}, color={0,0,127}));
+  connect(modRel.yOutDamPos, yOutDamPos) annotation (Line(points={{122,-36},{160,
+          -36},{160,-70},{280,-70}}, color={0,0,127}));
+  connect(modRet.yRelDamPos, yRelDamPos) annotation (Line(points={{122,30},{180,
+          30},{180,20},{280,20}}, color={0,0,127}));
+  connect(sepDp.yMinOutDam, booToRea.u) annotation (Line(points={{-118,88},{-40,
+          88},{-40,100},{18,100}}, color={255,0,255}));
+  connect(sepAFMS.yMinOutDamPos, yMinOutDamPos) annotation (Line(points={{-118,148},
+          {80,148},{80,180},{280,180}}, color={0,0,127}));
+  connect(booToRea.y, yMinOutDamPos) annotation (Line(points={{42,100},{80,100},
+          {80,180},{280,180}}, color={0,0,127}));
 
 annotation (defaultComponentName="ecoCon",
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-200},{100,200}}),
@@ -546,20 +498,101 @@ annotation (defaultComponentName="ecoCon",
           extent={{-100,-200},{100,200}},
           lineColor={0,0,127},
           fillColor={255,255,255},
-          fillPattern=FillPattern.Solid)}),
-  Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-240,-260},{260,260}}),
-    graphics={
-        Rectangle(
-          extent={{156,50},{244,-130}},
-          lineColor={215,215,215},
-          fillColor={215,215,215},
           fillPattern=FillPattern.Solid),
         Text(
-          extent={{176,-116},{254,-126}},
-          lineColor={95,95,95},
-          textString="Freeze protection based on TMix,
-not a part of G36",
-          horizontalAlignment=TextAlignment.Left),
+          extent={{-96,200},{-10,178}},
+          lineColor={0,0,127},
+          pattern=LinePattern.Dash,
+          textString="VOutMinSet_flow_normalized"),
+        Text(
+          extent={{-98,166},{-34,152}},
+          lineColor={0,0,127},
+          pattern=LinePattern.Dash,
+          textString="VOut_flow_normalized",
+          visible=have_separateAFMS or have_common),
+        Text(
+          extent={{-96,140},{-44,124}},
+          lineColor={0,0,127},
+          pattern=LinePattern.Dash,
+          textString="uOutDamPos",
+          visible=have_separateAFMS or have_separateDP),
+        Text(
+          extent={{-98,108},{-48,94}},
+          lineColor={0,0,127},
+          pattern=LinePattern.Dash,
+          textString="uSupFanSpe"),
+        Text(
+          extent={{-96,80},{-46,64}},
+          lineColor={0,0,127},
+          pattern=LinePattern.Dash,
+          textString="dpMinOutDam",
+          visible=have_separateDP),
+        Text(
+          extent={{-98,48},{-66,32}},
+          lineColor={0,0,127},
+          pattern=LinePattern.Dash,
+          textString="uTSup"),
+        Text(
+          extent={{-100,-14},{-72,-28}},
+          lineColor={0,0,127},
+          pattern=LinePattern.Dash,
+          textString="TOut"),
+        Text(
+          extent={{-100,-36},{-56,-50}},
+          lineColor={0,0,127},
+          pattern=LinePattern.Dash,
+          textString="TOutCut"),
+        Text(
+          extent={{-100,-64},{-70,-78}},
+          lineColor={0,0,127},
+          pattern=LinePattern.Dash,
+          textString="hOut",
+          visible=use_enthalpy),
+        Text(
+          extent={{-100,-84},{-56,-98}},
+          lineColor={0,0,127},
+          pattern=LinePattern.Dash,
+          textString="hOutCut",
+          visible=use_enthalpy),
+        Text(
+          extent={{-98,-120},{-56,-134}},
+          lineColor={255,0,255},
+          pattern=LinePattern.Dash,
+          textString="uSupFan"),
+        Text(
+          extent={{-100,-152},{-44,-166}},
+          lineColor={255,127,0},
+          pattern=LinePattern.Dash,
+          textString="uFreProSta"),
+        Text(
+          extent={{-100,-180},{-50,-194}},
+          lineColor={255,127,0},
+          pattern=LinePattern.Dash,
+          textString="uOpeMod"),
+        Text(
+          extent={{40,140},{96,124}},
+          lineColor={0,0,127},
+          pattern=LinePattern.Dash,
+          visible=not have_common,
+          textString="yMinOutDamPos"),
+        Text(
+          extent={{40,70},{96,54}},
+          lineColor={0,0,127},
+          pattern=LinePattern.Dash,
+          textString="yRetDamPos"),
+        Text(
+          extent={{42,-50},{98,-66}},
+          lineColor={0,0,127},
+          pattern=LinePattern.Dash,
+          visible=have_returns and not have_directControl,
+          textString="yRelDamPos"),
+        Text(
+          extent={{42,-110},{98,-126}},
+          lineColor={0,0,127},
+          pattern=LinePattern.Dash,
+          textString="yOutDamPos")}),
+  Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-240,-260},{260,260}}),
+    graphics={
         Line(points={{156,122}}, color={28,108,200})}),
   Documentation(info="<html>
 <p>
@@ -633,16 +666,6 @@ for a description.
 </ol>
 </li>
 </ul>
-<p>
-To enable freeze protection control logic that closes the outdoor air damper based
-on the mixed air temperature <code>TMix</code>, set <code>use_TMix=true</code>.
-This part of the control logic is not in Guideline 36.
-</p>
-<p>
-To enable the freeze protection according to Guideline 36,
-which may be revised in future versions, set
-<code>use_G36FrePro=true</code>.
-</p>
 </html>", revisions="<html>
 <ul>
 <li>

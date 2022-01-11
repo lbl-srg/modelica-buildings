@@ -27,8 +27,7 @@ block PlantRequests "Output plant requests for multizone air handling unit"
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uCooCoi(
     final unit="1",
     final min=0,
-    final max=1)
-    "Cooling coil valve position"
+    final max=1) "Cooling coil valve position"
     annotation (Placement(transformation(extent={{-240,80},{-200,120}}),
         iconTransformation(extent={{-140,-50},{-100,-10}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uHeaCoi(

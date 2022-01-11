@@ -95,7 +95,8 @@ block SupplyFan  "Block to control multi zone VAV AHU supply fan"
     "Zone static pressure reset requests"
     annotation (Placement(transformation(extent={{-200,-80},{-160,-40}}),
       iconTransformation(extent={{-140,-50},{-100,-10}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput ySupFan "Supply fan on status"
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput ySupFan
+    "Supply fan on status"
     annotation (Placement(transformation(extent={{140,50},{180,90}}),
         iconTransformation(extent={{100,50},{140,90}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput ySupFanSpe(

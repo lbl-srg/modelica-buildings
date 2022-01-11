@@ -73,19 +73,19 @@ block SupplyTemperature
     final quantity="ThermodynamicTemperature")
     "Outdoor air temperature"
     annotation (Placement(transformation(extent={{-180,100},{-140,140}}),
-        iconTransformation(extent={{-140,20},{-100,60}})));
+        iconTransformation(extent={{-140,50},{-100,90}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uSupFan
     "Supply fan status"
     annotation (Placement(transformation(extent={{-180,-20},{-140,20}}),
-        iconTransformation(extent={{-140,-60},{-100,-20}})));
+        iconTransformation(extent={{-140,-50},{-100,-10}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uOpeMod
     "System operation mode"
     annotation (Placement(transformation(extent={{-180,-140},{-140,-100}}),
-        iconTransformation(extent={{-140,-100},{-100,-60}})));
+        iconTransformation(extent={{-140,-90},{-100,-50}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uZonTemResReq
     "Zone cooling supply air temperature reset request"
     annotation (Placement( transformation(extent={{-180,60},{-140,100}}),
-        iconTransformation(extent={{-140,-20},{-100,20}})));
+        iconTransformation(extent={{-140,10},{-100,50}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput TSupSet(
     final unit="K",
     displayUnit="degC",
@@ -283,32 +283,27 @@ annotation (
         fillColor={255,255,255},
         fillPattern=FillPattern.Solid),
         Text(
-          extent={{-94,92},{-42,66}},
-          lineColor={0,0,127},
-          pattern=LinePattern.Dash,
-          textString="TZonSetAve"),
-        Text(
-          extent={{-96,46},{-68,34}},
+          extent={{-100,80},{-68,64}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="TOut"),
         Text(
-          extent={{-94,-22},{-14,-58}},
-          lineColor={0,0,127},
+          extent={{-98,40},{-18,20}},
+          lineColor={255,127,0},
           pattern=LinePattern.Dash,
           textString="uZonTemResReq"),
         Text(
-          extent={{-94,12},{-48,-12}},
-          lineColor={0,0,127},
+          extent={{-98,-18},{-52,-42}},
+          lineColor={255,0,255},
           pattern=LinePattern.Dash,
           textString="uSupFan"),
         Text(
-          extent={{-94,-70},{-50,-90}},
-          lineColor={0,0,127},
+          extent={{-96,-60},{-52,-80}},
+          lineColor={255,127,0},
           pattern=LinePattern.Dash,
           textString="uOpeMod"),
         Text(
-          extent={{68,8},{96,-8}},
+          extent={{52,8},{96,-8}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="TSupSet"),

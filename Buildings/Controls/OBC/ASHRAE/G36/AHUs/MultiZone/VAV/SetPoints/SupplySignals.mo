@@ -50,15 +50,13 @@ block SupplySignals
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yHea(
     final min=0,
     final max=1,
-    final unit="1")
-    "Control signal for heating"
+    final unit="1") "Control signal for heating"
     annotation (Placement(transformation(extent={{100,0},{140,40}}),
         iconTransformation(extent={{100,-20},{140,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yCoo(
     final min=0,
     final max=1,
-    final unit="1")
-    "Control signal for cooling"
+    final unit="1") "Control signal for cooling"
     annotation (Placement(transformation(extent={{100,-40},{140,0}}),
         iconTransformation(extent={{100,-60},{140,-20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput uTSup(

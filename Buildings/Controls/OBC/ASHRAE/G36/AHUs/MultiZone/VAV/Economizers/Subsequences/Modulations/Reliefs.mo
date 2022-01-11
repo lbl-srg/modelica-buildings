@@ -169,9 +169,44 @@ annotation (
           pattern=LinePattern.Dash,
           thickness=0.5),
         Text(
-          extent={{-108,138},{102,110}},
+          extent={{-100,140},{100,100}},
+          lineColor={0,0,255},
+          textString="%name"),
+        Text(
+          extent={{-98,98},{-30,80}},
           lineColor={0,0,127},
-          textString="%name")}),
+          pattern=LinePattern.Dash,
+          textString="uRetDamPosMax"),
+        Text(
+          extent={{-98,58},{-30,40}},
+          lineColor={0,0,127},
+          pattern=LinePattern.Dash,
+          textString="uRetDamPosMin"),
+        Text(
+          extent={{-100,-40},{-32,-58}},
+          lineColor={0,0,127},
+          pattern=LinePattern.Dash,
+          textString="uOutDamPosMax"),
+        Text(
+          extent={{-98,-82},{-30,-100}},
+          lineColor={0,0,127},
+          pattern=LinePattern.Dash,
+          textString="uOutDamPosMin"),
+        Text(
+          extent={{50,-50},{98,-66}},
+          lineColor={0,0,127},
+          pattern=LinePattern.Dash,
+          textString="yOutDamPos"),
+        Text(
+          extent={{48,70},{98,54}},
+          lineColor={0,0,127},
+          pattern=LinePattern.Dash,
+          textString="yRetDamPos"),
+        Text(
+          extent={{-98,8},{-66,-8}},
+          lineColor={0,0,127},
+          pattern=LinePattern.Dash,
+          textString="uTSup")}),
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-120,-120},{
             120,120}}), graphics={
         Rectangle(

@@ -798,7 +798,6 @@ annotation (defaultComponentName="conAHU",
           textColor={200,2,48},
           textString=
               "need to consider AHU controling multiple zone group in different operating mode",
-
           textStyle={TextStyle.Bold})}),
     Icon(coordinateSystem(extent={{-200,-360},{200,360}}, initialScale=0.2),
         graphics={Rectangle(

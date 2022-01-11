@@ -2,7 +2,7 @@ within Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.Economizers.Subseque
 block ReturnFan
   "Modulates dampers of economizer in buildings using return fan to control the pressure"
 
-  parameter Boolean have_direct_control=true
+  parameter Boolean have_directControl=true
     "True: the building have direct pressure control";
   parameter Real uMin(
     final max=0,
@@ -47,7 +47,7 @@ block ReturnFan
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yRelDamPos(
     final min=0,
     final max=1,
-    final unit="1") if not have_direct_control
+    final unit="1") if not have_directControl
     "Relief air damper position"
     annotation (Placement(transformation(extent={{120,-70},{160,-30}}),
         iconTransformation(extent={{100,-20},{140,20}})));
@@ -73,11 +73,11 @@ protected
     annotation (Placement(transformation(extent={{40,30},{60,50}})));
   Buildings.Controls.OBC.CDL.Continuous.Line relDamPos(
     final limitBelow=true,
-    final limitAbove=true) if not have_direct_control
+    final limitAbove=true) if not have_directControl
     "Relief air damper position"
     annotation (Placement(transformation(extent={{40,-60},{60,-40}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zer(
-    final k=0) if not have_direct_control
+    final k=0) if not have_directControl
     "Constant zero"
     annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant one(
@@ -88,7 +88,7 @@ protected
     "First order hold to avoid too fast change of damper postion (which may cause freeze protection to be too slow to compensate)"
     annotation (Placement(transformation(extent={{80,30},{100,50}})));
   Buildings.Controls.OBC.CDL.Discrete.FirstOrderHold firOrdHolOutDam(
-    final samplePeriod=samplePeriod) if not have_direct_control
+    final samplePeriod=samplePeriod) if not have_directControl
     "First order hold to avoid too fast change of damper position (which may cause freeze protection to be too slow to compensate)"
     annotation (Placement(transformation(extent={{80,-60},{100,-40}})));
 
@@ -133,7 +133,7 @@ annotation (defaultComponentName="ecoMod",
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid),
         Text(
-          extent={{-94,148},{106,108}},
+          extent={{-100,140},{100,100}},
           lineColor={0,0,255},
           textString="%name"),
         Line(
@@ -144,7 +144,37 @@ annotation (defaultComponentName="ecoMod",
         Line(
           points={{-82,-74},{-40,-74},{40,80},{92,80}},
           color={0,0,127},
-          thickness=0.5)}),
+          thickness=0.5),
+        Text(
+          extent={{-98,68},{-66,52}},
+          lineColor={0,0,127},
+          pattern=LinePattern.Dash,
+          textString="uTSup"),
+        Text(
+          extent={{-98,10},{-30,-8}},
+          lineColor={0,0,127},
+          pattern=LinePattern.Dash,
+          textString="uRetDamPosMax"),
+        Text(
+          extent={{-98,-50},{-34,-68}},
+          lineColor={0,0,127},
+          pattern=LinePattern.Dash,
+          textString="uRetDamPosMin"),
+        Text(
+          extent={{44,70},{98,52}},
+          lineColor={0,0,127},
+          pattern=LinePattern.Dash,
+          textString="yRetDamPos"),
+        Text(
+          extent={{44,10},{98,-8}},
+          lineColor={0,0,127},
+          pattern=LinePattern.Dash,
+          textString="yRelDamPos"),
+        Text(
+          extent={{44,-50},{98,-68}},
+          lineColor={0,0,127},
+          pattern=LinePattern.Dash,
+          textString="yOutDamPos")}),
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-120,-120},{120,120}})),
   Documentation(info="<html>
 <p>
@@ -182,7 +212,7 @@ src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/G36/AHUs/MultiZo
 </p>
 <p>
 Note in the above chart, if the building has direct pressure control
-(<code>have_direct_control</code>), the profile for relief air damper control should
+(<code>have_directControl</code>), the profile for relief air damper control should
 be ignored.
 </p>
 </html>", revisions="<html>
