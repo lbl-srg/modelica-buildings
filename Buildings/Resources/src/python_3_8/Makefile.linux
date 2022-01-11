@@ -29,6 +29,7 @@ all: clean
 	$(CC) $(CC_FLAGS_$(ARCH)) -fPIC -c $(SRCS)
 	$(CC) -shared -fPIC -Wl,-soname,$(LIB) -o $(LIB) $(OBJS) -lc
 	mv $(LIB) $(BINDIR)
+	@rm -f pythonInterpreter.o
 	@echo "==== library generated in $(BINDIR)"
 
 prg: clean
