@@ -1,7 +1,7 @@
 within Buildings.Fluid.Storage.Ice.Validation.Experiment;
 model Discharging2 "Validation against discharging experiment 2"
   extends Buildings.Fluid.Storage.Ice.Validation.BaseClasses.PartialExample(
-    fileName=Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/Data/Fluid/IceStorage/Validation/Experiment/discharging2.txt"),
+    fileName=Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/Data/Fluid/Storage/Ice/Validation/Experiment/discharging2.txt"),
     mod(k=Integer(Buildings.Fluid.Storage.Ice.Types.IceThermalStorageMode.Discharging)),
     mIce_max=2846.35,
     mIce_start=0.96645368*mIce_max,

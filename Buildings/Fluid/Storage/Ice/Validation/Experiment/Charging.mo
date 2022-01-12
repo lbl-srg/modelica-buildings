@@ -1,7 +1,7 @@
 within Buildings.Fluid.Storage.Ice.Validation.Experiment;
 model Charging "Validation against charging experiment"
   extends Buildings.Fluid.Storage.Ice.Validation.BaseClasses.PartialExample(
-    fileName=Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/Data/Fluid/IceStorage/Validation/Experiment/charging.txt"),
+    fileName=Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/Data/Fluid/Storage/Ice/Validation/Experiment/charging.txt"),
     mod(k=Integer(Buildings.Fluid.Storage.Ice.Types.IceThermalStorageMode.Charging)),
     mIce_max=2846.35,
     mIce_start=0.158*mIce_max);

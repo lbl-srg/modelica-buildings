@@ -1,5 +1,5 @@
-﻿within Buildings.Fluid.Storage.Ice;
-model IceTank "A detailed ice tank model"
+within Buildings.Fluid.Storage.Ice;
+model Tank "A detailed ice tank model"
   extends Buildings.Fluid.Interfaces.PartialTwoPortInterface;
   extends Buildings.Fluid.Interfaces.TwoPortFlowResistanceParameters(
     final computeFlowResistance=true);
@@ -418,4 +418,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end IceTank;
+end Tank;
