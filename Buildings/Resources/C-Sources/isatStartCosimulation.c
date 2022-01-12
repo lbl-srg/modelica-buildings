@@ -224,7 +224,7 @@ int isatStartCosimulation(char *cfdFilNam, char **name, double *A, double *til,
   if(haveShade==1){
      cosim->ffd->TSha = (double *) malloc(nConExtWin*sizeof(double));
      if (   cosim->ffd->TSha == NULL){
-       ModelicaError("Failed to allocate memory for    cosim->ffd->TSha in isatStartCosimulation.c");
+       ModelicaError("Failed to allocate memory for cosim->ffd->TSha in isatStartCosimulation.c");
      }
   }
   cosim->ffd->TPor = (double *) malloc(nPorts*sizeof(double));
