@@ -47,8 +47,8 @@ algorithm
   annotation (
   smoothOrder=1, Documentation(info="<html>
 <p>
-This subroutine calculates the log mean temperature difference for the detailed ice storage unit. 
-The temperature difference is non-dimensionalized using a nominal temperature difference of 10C. 
+This subroutine calculates the log mean temperature difference for the detailed ice storage unit.
+The temperature difference is non-dimensionalized using a nominal temperature difference of 10 Kelvin.
 This value must be used when obtaining the curve fit coefficients.
 </p>
 
@@ -64,9 +64,9 @@ The following equations are employed in a robust way for numerically calculating
  T<sub>lmtd</sub> = (T<sub>in</sub> - T<sub>out</sub>)/ln((T<sub>in</sub> - T<sub>fre</sub>)/(T<sub>out</sub> - T<sub>fre</sub>))
 </p>
 
-where <code>T<sub>in</sub></code> is the inlet temperature, <code>T<sub>out</sub></code> is the outlet temperature, 
-<code>T<sub>fre</sub></code> is the freezing temperature 
-and <code>T<sub>nom</sub></code> is a nominal temperature difference of 10C.
+where <code>T<sub>in</sub></code> is the inlet temperature, <code>T<sub>out</sub></code> is the outlet temperature,
+<code>T<sub>fre</sub></code> is the freezing temperature
+and <code>T<sub>nom</sub></code> is a nominal temperature difference of 10 Kelvin.
 
 </html>", revisions="<html>
 <ul>
