@@ -16,8 +16,7 @@ package BaseClasses "Base classes for validation package"
       "Nominal mass flow rate";
     parameter Modelica.SIunits.PressureDifference dp_nominal=100000
       "Pressure difference";
-    parameter Data.IceThermalStorage.Experiment per
-      "Ice tank performance curves"
+    parameter Data.Tank.Experiment per "Ice tank performance curves"
       annotation (Placement(transformation(extent={{80,80},{100,100}})));
 
     Buildings.Fluid.Storage.Ice.Tank iceTan(

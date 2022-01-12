@@ -14,7 +14,7 @@ model Tank "Example that test the Tank model"
     "Nominal mass flow rate";
   parameter Modelica.SIunits.PressureDifference dp_nominal=100000
     "Pressure difference";
-  parameter Buildings.Fluid.Storage.Ice.Data.IceThermalStorage.Experiment per
+  parameter Buildings.Fluid.Storage.Ice.Data.Tank.Experiment per
     annotation (Placement(transformation(extent={{60,60},{80,80}})));
 
   Buildings.Fluid.Storage.Ice.Tank iceTan(
