@@ -12,7 +12,7 @@ model StorageHeatTransferRate
   Buildings.Fluid.Storage.Ice.BaseClasses.QStarCharging qStaCha(
     coeff=coeCha,
     dt=dtCha)
-    "q* for charging mode"
+    "q* for charing mode"
     annotation (Placement(transformation(extent={{-40,-34},{-20,-14}})));
   Buildings.Fluid.Storage.Ice.BaseClasses.QStarDischarging qStaDisCha(
     coeff=coeDisCha,
@@ -42,12 +42,10 @@ model StorageHeatTransferRate
 
   Buildings.Controls.OBC.CDL.Integers.Equal isCha "Is charging mode"
     annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
-  Modelica.Blocks.Sources.IntegerExpression chaMod(
-    y=Integer(Buildings.Fluid.Storage.Ice.Types.IceThermalStorageMode.Charging))
+  Modelica.Blocks.Sources.IntegerExpression chaMod(y=Integer(Buildings.Fluid.Storage.Ice.Types.OperationModes.Charging))
     "Charging mode"
     annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
-  Modelica.Blocks.Sources.IntegerExpression dorMod(
-    y=Integer(Buildings.Fluid.Storage.Ice.Types.IceThermalStorageMode.Dormant))
+  Modelica.Blocks.Sources.IntegerExpression dorMod(y=Integer(Buildings.Fluid.Storage.Ice.Types.OperationModes.Dormant))
     "Dormant mode"
     annotation (Placement(transformation(extent={{-80,50},{-60,70}})));
 equation
@@ -106,10 +104,10 @@ This blocks calculate the normalized heat transfer rate for the ice tank under a
 <ul>
 <li>Dormant Mode: the heat transfer rate is 0</li>
 <li>Discharging Mode: the heat transfer rate is the discharging rate calculated
-        using <a href=\"modelica://IceStorage.BaseClasses.QStarDischarging\">IceStorage.BaseClasses.QStarDischarging</a> with calibrated coefficients for discharging mode
+        using <a href=\"modelica://IceStorage.BaseClasses.QStarDischarging\">IceStorage.BaseClasses.QStarDischarging</a> with calibrated coefficients for discharing mode
 </li>
 <li>Charging Mode: the heat transfer rate is the charging rate calculated
-        using <a href=\"modelica://IceStorage.BaseClasses.QStarCharging\">IceStorage.BaseClasses.QStarCharging</a> with calibrated coefficients for charging mode
+        using <a href=\"modelica://IceStorage.BaseClasses.QStarCharging\">IceStorage.BaseClasses.QStarCharging</a> with calibrated coefficients for charing mode
 </li>
 </ul>
 
