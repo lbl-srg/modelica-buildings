@@ -1,0 +1,6 @@
+removePlots(true);
+simulateModel("Buildings.Fluid.Storage.Ice.Examples.IceTank", startTime=0, stopTime=86400, tolerance=1e-06, method="cvode", resultFile="IceTank");
+createPlot(id=1, position={0, 0, 1645, 640}, y={"iceTan.u"}, range={0.0, 20000.0, 2.6, 3.40}, subPlot=1, grid=true, colors={{28,108,200}});
+createPlot(id=1, position={0, 0, 1645, 640}, y={"iceTan.SOC"}, range={0.0, 20000.0, 0.0, 1.0}, grid=true,subPlot=2, colors={{28,108,200}});
+createPlot(id=1, position={0, 0, 1645, 640}, y={"iceTan.mIce"}, range={0.0, 20000.0, -1000.0, 3000.0}, grid=true, subPlot=3, colors={{28,108,200}});
+createPlot(id=1, position={0, 0, 1645, 640}, y={"iceTan.TOut"}, range={0.0, 20000.0, -10.0, 20.0}, grid=true, subPlot=4, colors={{28,108,200}}, displayUnits={"degC"});
