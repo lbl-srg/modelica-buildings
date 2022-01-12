@@ -147,22 +147,11 @@ equation
           lineColor={0,0,127},
           textString="s")}),
     Documentation(info="<html>
-    <p>
-    Partial room model for detailed room model that computes the room air flow using external solvers. The simulation by external solvers is coupled to the thermal simulation of the room
-and, through the fluid port, to the air conditioning system.
-</p>
-<p>
-Currently, the supported external solvers are computational fluid dynamics (CFD) and In Situ Adaptive Tabulation (ISAT). See
-<a href=\"modelica://Buildings.ThermalZones.Detailed.UsersGuide\">Buildings.ThermalZones.Detailed.UsersGuide</a>
-for detailed explanations.
-</p>
+<p>Partial room model for detailed room model that computes the room air flow using external solvers. </p>
+<p>The simulation by external solvers is coupled to the thermal simulation of the room and, through the fluid port, to the air conditioning system. </p>
+<p>Currently, the supported external solvers are computational fluid dynamics (CFD) and In Situ Adaptive Tabulation (ISAT). See <a href=\"modelica://Buildings.ThermalZones.Detailed.UsersGuide\">Buildings.ThermalZones.Detailed.UsersGuide</a> for detailed explanations. </p>
 <h4>References</h4>
-<p>
-<a name=\"ZUO2010\"/>
-Wangda Zuo. <a href=\"http://docs.lib.purdue.edu/dissertations/AAI3413824/\">
-Advanced simulations of air distributions in buildings</a>.
-Ph.D. Thesis, School of Mechanical Engineering, Purdue University, 2010.
-</p>
+<p><a name=\"ZUO2010\">W</a>angda Zuo. <a href=\"http://docs.lib.purdue.edu/dissertations/AAI3413824/\">Advanced simulations of air distributions in buildings</a>. Ph.D. Thesis, School of Mechanical Engineering, Purdue University, 2010. </p>
 <p>Wei Tian, Thomas Alonso Sevilla, Dan Li, Wangda Zuo, Michael Wetter. </p>
 <p><a href=\"https://www.tandfonline.com/doi/full/10.1080/19401493.2017.1288761\">Fast and Self-Learning Indoor Airflow Simulation Based on In Situ Adaptive Tabulation. </a></p>
 <p>Journal of Building Performance Simulation, 11(1), pp. 99-112, 2018.</p>
