@@ -555,9 +555,9 @@
                 "description": "Nominal pressure drop of chiller valve",
                 "unit": "Pa"
             },
-            "Q_nominal": {
-                "value": 1000000,
-                "description": "Nominal cooling capacity",
+            "capacity": {
+                "value": [5e5, 5e5],
+                "description": "Nominal cooling capacity of each chiller",
                 "unit": "W"
             },
             "mMin_flow": {
@@ -565,9 +565,9 @@
                 "description": "Minimum mass flow rate of a single chiller",
                 "unit": "kg/s"
             },
-            "TCHWSet": {
-                "value": 281.15,
-                "description": "Chilled water temperature setpoint",
+            "TCHWSupSet_nominal": {
+                "value": 280.15,
+                "description": "Minimum (design) CHW supply temperature setpoint",
                 "unit": "K"
             }
         },
@@ -680,6 +680,55 @@
                 "description": "Waterside economizer control valve on condenser water side",
                 "unit": "Pa"
             }
+        },
+        "control": {
+            "description": "Control parameters",
+            "TCWRet_nominal": {
+                "description": "CW return temperature at design conditions (identical for all chillers)",
+                "value": 308.15,
+                "unit": "K"
+            },
+            "TCWSup_nominal": {
+                "description": "CW supply temperature at design conditions (identical for all chillers)",
+                "value": 303.15,
+                "unit": "K"
+            },
+            "TAirOutLoc": {
+                "description": "Outdoor air lockout temperature below which the plant is prevented from operating",
+                "value": 289.15,
+                "unit": "K"
+            },
+            "mCHWChi_flow_min": {
+                "description": "Minimum chiller chilled water flow rate (identical for all chillers)",
+                "value": 278.15,
+                "unit": "K"
+            },
+            "mCHWChi_flow_nominal": {
+                "description": "Design chiller CHW flow rate (identical for all chillers)",
+                "value": 308.15,
+                "unit": "K"
+            },
+            "mCWChi_flow_nominal": {
+                "description": "Design chiller CW flow rate (identical for all chillers)",
+                "value": 303.15,
+                "unit": "K"
+            },
+            "dTLif_min": {
+                "description": "Minimum allowable lift at minimum load (identical for all chillers)",
+                "value": 10,
+                "unit": "K"
+            },
+            "dpCHWLoc_max": {
+                "description": "Maximum CHW differential pressure setpoint - Local sensor",
+                "value": 20e4,
+                "unit": "Pa"
+            },
+            "dpCHWRem_max": {
+                "description": "Maximum CHW differential pressure setpoint - Remote sensors",
+                "value": [1e4],
+                "unit": "Pa"
+            }
+
         }
     }
 }

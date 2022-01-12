@@ -14,7 +14,7 @@ partial model PartialPrimaryPumpGroup
   outer parameter ExternData.JSONFile dat
     "External parameter file";
 
-  parameter Boolean have_ParChi "= true if chillers in inlet are connected in parallel";
+  parameter Boolean have_parChi "= true if chillers in inlet are connected in parallel";
   parameter Boolean have_ChiByp "= true if chilled water loop has a chiller bypass";
   parameter Boolean have_byp "= true if chilled water loop has a minimum flow bypass";
   parameter Boolean have_comLeg "= true if there is a commong leg";
@@ -64,7 +64,7 @@ partial model PartialPrimaryPumpGroup
   Modelica.Fluid.Interfaces.FluidPorts_a ports_parallel[nChi](
     redeclare each final package Medium = Medium,
     each m_flow(min=if allowFlowReversal then -Modelica.Constants.inf else 0),
-    each h_outflow(start=Medium.h_default, nominal=Medium.h_default)) if have_ParChi
+    each h_outflow(start=Medium.h_default, nominal=Medium.h_default)) if have_parChi
     "Pump group inlet for chiller connected in parallel" annotation (Placement(
         transformation(extent={{-108,-30},{-92,30}}), iconTransformation(extent=
            {{-108,-30},{-92,30}})));
@@ -79,7 +79,7 @@ partial model PartialPrimaryPumpGroup
     redeclare final package Medium = Medium,
     m_flow(min=if allowFlowReversal then -Modelica.Constants.inf else 0),
     h_outflow(start=Medium.h_default, nominal=Medium.h_default))
-    if not have_ParChi
+    if not have_parChi
     "Pump group inlet for chiller connected in series"
     annotation (Placement(transformation(extent={{-110,50},{-90,70}})));
   Modelica.Fluid.Interfaces.FluidPort_b port_b(
@@ -96,8 +96,10 @@ partial model PartialPrimaryPumpGroup
     "Pump group outlet for bypass or commong leg"
     annotation (Placement(transformation(extent={{10,-110},{-10,-90}})));
 
-  replaceable parameter Fluid.Movers.Data.Generic per(pressure(V_flow=
-          m_flow_nominal/1000 .* {0,1,2}, dp=dp_nominal .* {1.5,1,0.5}))
+  replaceable parameter Fluid.Movers.Data.Generic per(
+    pressure(
+      V_flow=m_flow_nominal / 1000 .* {0,1,2},
+      dp=dp_nominal .* {1.5,1,0.5}))
     constrainedby Fluid.Movers.Data.Generic
     "Performance data"
     annotation (

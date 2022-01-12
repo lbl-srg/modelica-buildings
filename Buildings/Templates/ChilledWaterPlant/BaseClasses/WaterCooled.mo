@@ -13,7 +13,7 @@ model WaterCooled
       Buildings.Templates.ChilledWaterPlant.Components.Controls.OpenLoop con
       constrainedby
       Buildings.Templates.ChilledWaterPlant.Components.Controls.Interfaces.PartialController(
-       final nPumCon=nPumCon, final nCooTow=nCooTow),
+        final nPumCon=nPumCon, final nCooTow=nCooTow),
     redeclare replaceable
       Buildings.Templates.ChilledWaterPlant.Components.ReturnSection.NoEconomizer
       retSec constrainedby

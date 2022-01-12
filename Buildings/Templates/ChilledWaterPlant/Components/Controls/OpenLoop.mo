@@ -6,7 +6,6 @@ block OpenLoop "Open loop controller (output signals only)"
 
   //  Buildings.Controls.OBC.CDL.Integers.Sources.Constant
 
-
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant chiOn[nChi](each k=true)
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},

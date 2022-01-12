@@ -1,19 +1,37 @@
 within Buildings.Templates.ChilledWaterPlant.Interfaces;
 partial model PartialChilledWaterPlant
-  parameter Buildings.Templates.Types.ChilledWaterPlant typ "Type of system"
+  parameter Buildings.Templates.Types.ChilledWaterPlant typ
+    "Type of system"
     annotation (Evaluate=true, Dialog(group="Configuration"));
 
   replaceable package Medium = Buildings.Media.Water;
 
   inner parameter String id
     "System name"
-    annotation (
-      Evaluate=true,
-      Dialog(group="Configuration"));
+    annotation (Evaluate=true, Dialog(group="Configuration"));
   outer parameter ExternData.JSONFile dat
     "External parameter file";
 
-  inner parameter Integer nChi "Number of chillers";
+  inner parameter Integer nChi "Number of chillers"
+    annotation (Evaluate=true, Dialog(group="Configuration"));
+  // FIXME: should be further specified: CW or CHW pumps?
+  parameter Boolean have_dedPum
+    "Set to true if parallel chillers are connected to dedicated pumps"
+    annotation (Evaluate=true, Dialog(group="Configuration"));
+
+  /* FIXME: Those parameters must be declared at the plant level, not within the chiller group
+  (external parameter file to be updated)
+  */
+  final parameter Modelica.Units.SI.HeatFlowRate QChi_flow_nominal[nChi](
+    each final max=0)=
+    -1 .* dat.getRealArray1D(varName=id + ".ChillerGroup.capacity.value", n=nChi)
+    "Cooling heat flow rate of each chiller (<0 by convention)";
+  final parameter Modelica.Units.SI.HeatFlowRate Q_flow_nominal(final max=0)=
+    sum(QChi_flow_nominal)
+    "Cooling heat flow rate of the plant (<0 by convention)";
+  final parameter Modelica.Units.SI.Temperature TCHWSupSet_nominal=
+    dat.getReal(varName=id + ".ChillerGroup.TCHWSupSet_nominal.value")
+    "Minimum (design) CHW supply temperature setpoint";
 
   Modelica.Fluid.Interfaces.FluidPort_a port_a(
     redeclare final package Medium=Medium) "Chilled water supply"
@@ -31,7 +49,7 @@ protected
   parameter Boolean isAirCoo=
     typ == Buildings.Templates.Types.ChilledWaterPlant.AirCooledParallel or
     typ == Buildings.Templates.Types.ChilledWaterPlant.AirCooledSeries
-    "= true, chillers in group are air cooled, 
+    "= true, chillers in group are air cooled,
     = false, chillers in group are water cooled";
 
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-200,-100},

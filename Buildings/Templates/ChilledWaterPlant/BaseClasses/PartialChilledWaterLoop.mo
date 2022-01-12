@@ -3,9 +3,11 @@ model PartialChilledWaterLoop
   extends
     Buildings.Templates.ChilledWaterPlant.Interfaces.PartialChilledWaterPlant(
     redeclare final package Medium=MediumCHW,
-    final nChi=chiGro.nChi);
+    final nChi=chiGro.nChi,
+    final have_dedPum=chiGro.have_dedPum);
 
-  replaceable package MediumCHW=Buildings.Media.Water "Chilled water medium";
+  replaceable package MediumCHW=Buildings.Media.Water
+    "Chilled water medium";
 
   parameter Boolean have_byp = false "= true if chilled water loop has a minimum flow bypass"
     annotation(Dialog(enable=have_secondary));
@@ -18,17 +20,19 @@ model PartialChilledWaterLoop
     "=true if plant has waterside economizer";
 
   parameter Boolean have_TPlaCHWRet = not have_secondary
-    " = true if plant chilled water return temperature is measured"
+    "= true if plant chilled water return temperature is measured"
     annotation(Dialog(enable=have_secondary));
   final parameter Boolean have_VSecSup_flow = have_secondary and not have_VSecRet_flow
-    " = true if secondary supply chilled water flow is measured"
+    "= true if secondary supply chilled water flow is measured"
     annotation(Dialog(enable=have_secondary and not have_VSecRet_flow));
   parameter Boolean have_VSecRet_flow = false
-    " = true if secondary return chilled water flow is measured"
+    "= true if secondary return chilled water flow is measured"
     annotation(Dialog(enable=have_secondary));
 
-  final inner parameter Integer nPumPri = pumPri.nPum "Number of primary pumps";
-  final inner parameter Integer nPumSec = if not have_secondary then 0 else pumSec.nPum "Number of secondary pumps";
+  final inner parameter Integer nPumPri = pumPri.nPum
+    "Number of primary pumps";
+  final inner parameter Integer nPumSec = if not have_secondary then 0 else pumSec.nPum
+    "Number of secondary pumps";
 
   parameter Modelica.Units.SI.MassFlowRate mPri_flow_nominal=
     dat.getReal(varName=id + ".ChilledWater.mPri_flow_nominal.value")
@@ -41,12 +45,18 @@ model PartialChilledWaterLoop
     dat.getReal(varName=id + ".ChilledWater.dpSetPoi.value")
     "Differential pressure setpoint on the demand side";
 
+  final inner parameter Boolean have_parChi=
+    chiGro.typ==Buildings.Templates.ChilledWaterPlant.Components.Types.ChillerGroup.ChillerParallel
+    "Set to true if the plant has parallel chillers"
+    annotation(Dialog(tab="General", group="Configuration"));
+
   inner replaceable
     Buildings.Templates.ChilledWaterPlant.Components.ChillerGroup.ChillerParallel
-    chiGro(final have_dedPum=pumPri.is_dedicated)
-           constrainedby
+    chiGro(final have_dedPum=pumPri.is_dedicated) constrainedby
     Buildings.Templates.ChilledWaterPlant.Components.ChillerGroup.Interfaces.PartialChillerGroup(
      redeclare final package MediumCHW = MediumCHW,
+     final Q_flow_nominal=Q_flow_nominal,
+     final TCHWSupSet_nominal=TCHWSupSet_nominal,
      final m2_flow_nominal=mPri_flow_nominal,
      final isAirCoo=isAirCoo)
     "Chiller group"
@@ -58,7 +68,8 @@ model PartialChilledWaterLoop
     Buildings.Templates.ChilledWaterPlant.Components.ReturnSection.Interfaces.PartialReturnSection(
     redeclare final package MediumCHW = MediumCHW,
     final isAirCoo=isAirCoo,
-    final m2_flow_nominal=mPri_flow_nominal) "Chilled water return section"
+    final m2_flow_nominal=mPri_flow_nominal)
+    "Chilled water return section"
     annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=90,
@@ -71,7 +82,7 @@ model PartialChilledWaterLoop
       final mTot_flow_nominal=mPri_flow_nominal,
       final dp_nominal=dpPri_nominal,
       final nChi=nChi,
-      final have_ParChi=chiGro.typ == Buildings.Templates.ChilledWaterPlant.Components.Types.ChillerGroup.ChillerParallel,
+      final have_parChi=have_parChi,
       final have_byp=have_byp,
       final have_ChiByp=have_ChiByp,
       final have_comLeg=have_secondary)
@@ -86,14 +97,18 @@ model PartialChilledWaterLoop
       final dp_nominal=dpSec_nominal)
     "Chilled water secondary pump group"
     annotation (Placement(transformation(extent={{60,0},{80,20}})));
-
-  inner replaceable Components.Controls.OpenLoop con
-    constrainedby
+  inner replaceable Components.Controls.OpenLoop con constrainedby
     Buildings.Templates.ChilledWaterPlant.Components.Controls.Interfaces.PartialController(
       final nChi=nChi,
       final nPumPri=nPumPri,
       final nPumSec=nPumSec,
-      final isAirCoo=isAirCoo)
+      final isAirCoo=isAirCoo,
+      final have_WSE=have_WSE,
+      final have_parChi=have_parChi,
+      final have_dedPum=have_dedPum,
+      final capChi_nominal=abs(QChi_flow_nominal),
+      final TCHWSupSet_min=TCHWSupSet_nominal)
+    "Plant controller"
     annotation (Placement(
       transformation(
       extent={{10,10},{-10,-10}},
@@ -107,12 +122,13 @@ model PartialChilledWaterLoop
     final m_flow_nominal=mSec_flow_nominal)
     "Chilled water return temperature"
     annotation (Placement(transformation(extent={{120,-80},{100,-60}})));
-  Buildings.Templates.Components.Sensors.DifferentialPressure dpCHW(
+  Buildings.Templates.Components.Sensors.DifferentialPressure dpCHWLoc(
     redeclare final package Medium = MediumCHW,
-    final have_sen=true,
+    final have_sen=con.have_senDpCHWLoc,
     final text_rotation=90)
-    "Chilled water demand side differential pressure"
-    annotation (Placement(transformation(extent={{10,10},{-10,-10}},
+    "Local sensor for CHW differential pressure - Hardwired to plant controller"
+    annotation (Placement(transformation(
+        extent={{10,10},{-10,-10}},
         rotation=90,
         origin={180,-30})));
   Buildings.Templates.Components.Sensors.Temperature TSCHWSup(
@@ -196,7 +212,7 @@ equation
   connect(TPlaCHWRet.y, chwCon.TPlaCHWRet);
   connect(TSCHWSup.y, chwCon.TSCHWSup);
   connect(TCHWRet.y, chwCon.TCHWRet);
-  connect(dpCHW.y, chwCon.dpCHW);
+  connect(dpCHWLoc.y, chwCon.dpCHW);
   connect(VSecSup_flow.y, chwCon.VSecSup_flow);
   connect(VSecRet_flow.y, chwCon.VSecRet_flow);
 
@@ -237,10 +253,10 @@ equation
     color={0,127,255}));
   connect(TSCHWSup.port_b, port_a)
     annotation (Line(points={{160,10},{200,10}}, color={0,127,255}));
-  connect(dpCHW.port_a, port_a)
+  connect(dpCHWLoc.port_a, port_a)
     annotation (Line(points={{180,-20},{180,10},{200,10}}, color={0,127,255}));
-  connect(dpCHW.port_b, port_b) annotation (Line(points={{180,-40},{180,-70},{
-          200,-70}}, color={0,127,255}));
+  connect(dpCHWLoc.port_b, port_b) annotation (Line(points={{180,-40},{180,-70},
+          {200,-70}}, color={0,127,255}));
   connect(retSec.port_b2, mixByp.port_1) annotation (Line(points={{-34,-62},{-34,
           -50},{-20,-50}}, color={0,127,255}));
   connect(mixByp.port_2,TPlaCHWRet. port_a)

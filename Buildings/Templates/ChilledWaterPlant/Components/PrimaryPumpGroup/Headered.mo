@@ -77,7 +77,7 @@ model Headered
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
 protected
   parameter Integer nPorWSE = if have_ChiByp then 1 else 0;
-  parameter Integer nPorChi = if have_ParChi then nChi else 1;
+  parameter Integer nPorChi = if have_parChi then nChi else 1;
   parameter Integer nPorVol = nPorWSE + nPorChi + 1;
 equation
   /* Control point connection - start */
