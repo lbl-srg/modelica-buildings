@@ -1,6 +1,6 @@
 within Buildings.Fluid.Storage.Ice.Data.IceThermalStorage;
 record EnergyPlus =
-  IceStorage.Data.IceThermalStorage.Generic (
+  Buildings.Fluid.Storage.Ice.Data.IceThermalStorage.Generic (
     coeCha={0.0,0.09,-0.15,0.612,-0.324,-0.216},
     dtCha=3600,
     coeDisCha={0.0,0.09,-0.15,0.612,-0.324,-0.216},

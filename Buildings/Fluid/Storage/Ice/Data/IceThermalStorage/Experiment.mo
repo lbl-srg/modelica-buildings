@@ -1,6 +1,6 @@
 within Buildings.Fluid.Storage.Ice.Data.IceThermalStorage;
 record Experiment =
-  IceStorage.Data.IceThermalStorage.Generic (
+  Buildings.Fluid.Storage.Ice.Data.IceThermalStorage.Generic (
     coeCha={1.76953858E-04,0,0,0,0,0},
     dtCha=10,
     coeDisCha={5.54E-05,-1.45679E-04,9.28E-05,1.126122E-03,-1.1012E-03,

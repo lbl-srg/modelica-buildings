@@ -1,4 +1,4 @@
-within Buildings.Fluid.Storage.Ice;
+﻿within Buildings.Fluid.Storage.Ice;
 model IceTank "A detailed ice tank model"
   extends Buildings.Fluid.Interfaces.PartialTwoPortInterface;
   extends Buildings.Fluid.Interfaces.TwoPortFlowResistanceParameters(
@@ -11,7 +11,7 @@ model IceTank "A detailed ice tank model"
   parameter Modelica.SIunits.Mass mIce_start "Start value of ice mass in the tank"
     annotation(Dialog(tab = "Initialization"));
 
-  replaceable parameter Data.IceThermalStorage.Generic per
+  replaceable parameter Buildings.Fluid.Storage.Ice.Data.IceThermalStorage.Generic per
     "Performance data" annotation (choicesAllMatching=true, Placement(
         transformation(extent={{40,70},{60,90}})));
 

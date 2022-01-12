@@ -39,11 +39,12 @@ model IceTank "Example that test the IceTank model"
     m_flow_nominal=m_flow_nominal,
     dp_nominal=500)
     annotation (Placement(transformation(extent={{34,-10},{54,10}})));
-  Modelica.Blocks.Sources.IntegerTable mod(table=[0,Integer(IceStorage.Types.IceThermalStorageMode.Charging);
-        3600*10,Integer(IceStorage.Types.IceThermalStorageMode.Dormant); 3600*11,
-        Integer(IceStorage.Types.IceThermalStorageMode.Discharging); 3600*18,
-        Integer(IceStorage.Types.IceThermalStorageMode.Charging)])
-                  "Mode"
+  Modelica.Blocks.Sources.IntegerTable mod(table=[
+    0,       Integer(Buildings.Fluid.Storage.Ice.Types.IceThermalStorageMode.Charging);
+    3600*10, Integer(Buildings.Fluid.Storage.Ice.Types.IceThermalStorageMode.Dormant);
+    3600*11, Integer(Buildings.Fluid.Storage.Ice.Types.IceThermalStorageMode.Discharging);
+    3600*18, Integer(Buildings.Fluid.Storage.Ice.Types.IceThermalStorageMode.Charging)])
+     "Table with operating modes"
     annotation (Placement(transformation(extent={{-100,30},{-80,50}})));
   Modelica.Blocks.Sources.Constant TSet(k=273.15 + 6) "Setpoint temperature"
     annotation (Placement(transformation(extent={{-100,-40},{-80,-20}})));
