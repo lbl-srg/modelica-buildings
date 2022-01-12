@@ -1,5 +1,5 @@
 within Buildings.Fluid.Storage.Ice.BaseClasses.Examples;
-model QStarCharging "Example to calculate QStarCharing"
+model QStarCharging "Example to calculate QStarCharging"
   extends Modelica.Icons.Example;
 
   parameter Real coeCha[6] = {0, 0.09, -0.15, 0.612, -0.324, -0.216} "Coefficient for charging curve";

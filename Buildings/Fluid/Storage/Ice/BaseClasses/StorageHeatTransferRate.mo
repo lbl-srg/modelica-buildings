@@ -12,7 +12,7 @@ model StorageHeatTransferRate
   Buildings.Fluid.Storage.Ice.BaseClasses.QStarCharging qStaCha(
     coeff=coeCha,
     dt=dtCha)
-    "q* for charing mode"
+    "q* for charging mode"
     annotation (Placement(transformation(extent={{-40,-34},{-20,-14}})));
   Buildings.Fluid.Storage.Ice.BaseClasses.QStarDischarging qStaDisCha(
     coeff=coeDisCha,
@@ -105,11 +105,11 @@ This blocks calculate the normalized heat transfer rate for the ice tank under a
 
 <ul>
 <li>Dormant Mode: the heat transfer rate is 0</li>
-<li>Discharging Mode: the heat transfer rate is the discharging rate calculated 
-        using <a href=\"modelica://IceStorage.BaseClasses.QStarDischarging\">IceStorage.BaseClasses.QStarDischarging</a> with calibrated coefficients for discharing mode
+<li>Discharging Mode: the heat transfer rate is the discharging rate calculated
+        using <a href=\"modelica://IceStorage.BaseClasses.QStarDischarging\">IceStorage.BaseClasses.QStarDischarging</a> with calibrated coefficients for discharging mode
 </li>
-<li>Charging Mode: the heat transfer rate is the charging rate calculated 
-        using <a href=\"modelica://IceStorage.BaseClasses.QStarCharging\">IceStorage.BaseClasses.QStarCharging</a> with calibrated coefficients for charing mode
+<li>Charging Mode: the heat transfer rate is the charging rate calculated
+        using <a href=\"modelica://IceStorage.BaseClasses.QStarCharging\">IceStorage.BaseClasses.QStarCharging</a> with calibrated coefficients for charging mode
 </li>
 </ul>
 

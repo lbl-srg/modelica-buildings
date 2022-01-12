@@ -39,7 +39,7 @@ equation
         coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>
 <p>
-This block calculates the <code>q*</code>, which is the normalized instantaneous heat transfer rate 
+This block calculates the <code>q*</code>, which is the normalized instantaneous heat transfer rate
 between the chilled water and the ice in the thermal storage tank as follows.
 </p>
 
@@ -48,12 +48,12 @@ between the chilled water and the ice in the thermal storage tank as follows.
 </p>
 
 where <code>&Delta;t</code> is the time step of the data samples used for the curve fitting,
-<code>C<sub>1-6</sub></code> are the curve fit coefficients, 
-<code>x</code> is the fraction of charging, also known as the state-of-charge, 
+<code>C<sub>1-6</sub></code> are the curve fit coefficients,
+<code>x</code> is the fraction of charging, also known as the state-of-charge,
 and <code>T<sub>lmtd</sub><sup>*</sup></code> is the normalized LMTD calculated from <a href=\"mdoelica://IceStorage.BaseClasses.LMTDStar\"> IceStorage.BaseClasses.LMTDStar</a>.
 
 <p>
-Note that different sets of <code>C</code> should be calibrated for charing and discharging.
+Note that different sets of <code>C</code> should be calibrated for charging and discharging.
 </p>
 </html>", revisions="<html>
 <ul>
