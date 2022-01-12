@@ -18,6 +18,50 @@
     "model_name": "Buildings.Fluid.Examples.FlowSystem.Simplified2"
   },
   {
+    "dymola": {
+      "translate": false,
+      "comment":  "Python 3.6 is no longer supported."
+    },
+    "optimica": {
+      "translate": false,
+      "comment":  "Python 3.6 is no longer supported."
+    },
+    "model_name": "Buildings.Obsolete.Utilities.IO.Python36.Examples.KalmanFilter"
+  },
+  {
+    "dymola": {
+      "translate": false,
+      "comment":  "Python 3.6 is no longer supported."
+    },
+    "optimica": {
+      "translate": false,
+      "comment":  "Python 3.6 is no longer supported."
+    },
+    "model_name": "Buildings.Obsolete.Utilities.IO.Python36.Examples.SimpleRoom"
+  },
+  {
+      "dymola": {
+        "translate": false,
+        "comment":  "Python 3.6 is no longer supported."
+      },
+      "optimica": {
+        "translate": false,
+        "comment":  "Python 3.6 is no longer supported."
+      },
+    "model_name": "Buildings.Obsolete.Utilities.IO.Python36.Functions.Examples.Exchange"
+  },
+  {
+    "dymola": {
+        "translate": false,
+        "comment":  "Python 3.6 is no longer supported."
+    },
+    "optimica": {
+      "translate": false,
+      "comment":  "Python 3.6 is no longer supported."
+    },
+    "model_name": "Buildings.Obsolete.Utilities.IO.Python36.Functions.Examples.ExchangeWithPassPythonObject"
+  },
+  {
     "optimica": {
       "simulate": false,
       "comment": "See https://github.com/lbl-srg/modelica-buildings/issues/2231"
