@@ -76,6 +76,7 @@ model MixedConvectionWithBox
     height=15,
     offset=283.15,
     startTime=100)
+    "Internal source heat gain"
     annotation (Placement(transformation(extent={{-40,60},{-20,80}})));
 equation
   connect(qRadGai_flow.y,multiplex3_1. u1[1]) annotation (Line(
