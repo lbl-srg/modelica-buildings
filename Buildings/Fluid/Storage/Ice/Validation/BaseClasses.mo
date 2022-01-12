@@ -26,25 +26,27 @@ package BaseClasses "Base classes for validation package"
       dp_nominal=dp_nominal,
       mIce_max=mIce_max,
       mIce_start=mIce_start,
-      per=per)
+      per=per) "Ice tank"
       annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
     Buildings.Fluid.Sources.MassFlowSource_T sou(
       redeclare package Medium = Medium,
       use_m_flow_in=true,
       use_T_in=true,
-      nPorts=1)
+      nPorts=1) "Mass flow source"
       annotation (Placement(transformation(extent={{-54,-10},{-34,10}})));
     Buildings.Fluid.Sources.Boundary_pT bou(
       redeclare package Medium = Medium,
       nPorts=1)
+      "Pressure source"
       annotation (Placement(transformation(extent={{86,-10},{66,10}})));
     Buildings.Fluid.FixedResistances.PressureDrop res(
       redeclare package Medium = Medium,
       m_flow_nominal=m_flow_nominal,
       dp_nominal=500)
+      "Flow resistance"
       annotation (Placement(transformation(extent={{26,-10},{46,10}})));
     Modelica.Blocks.Sources.IntegerConstant mod
-      "Mode"
+      "Mode of operation"
       annotation (Placement(transformation(extent={{-60,60},{-40,80}})));
     Modelica.Blocks.Sources.CombiTimeTable dat(
       tableOnFile=true,
@@ -55,13 +57,13 @@ package BaseClasses "Base classes for validation package"
       annotation (Placement(transformation(extent={{-100,60},{-80,80}})));
 
     Modelica.Thermal.HeatTransfer.Celsius.ToKelvin TIn
-      "Inlet temperature in Kelvin"
+      "Conversion from Celsius to Kelvin"
       annotation (Placement(transformation(extent={{-92,24},{-72,44}})));
     Modelica.Thermal.HeatTransfer.Celsius.ToKelvin TOut
       "Outlet temperature in Kelvin"
       annotation (Placement(transformation(extent={{-80,-30},{-60,-10}})));
 
-    Modelica.Blocks.Math.Add TSet
+    Modelica.Blocks.Math.Add TSet "Temperature setpoint"
       annotation (Placement(transformation(extent={{-48,-60},{-28,-40}})));
     Modelica.Blocks.Sources.Constant offSet(k=0) "An offset for setpoint control"
       annotation (Placement(transformation(extent={{-100,-60},{-80,-40}})));
