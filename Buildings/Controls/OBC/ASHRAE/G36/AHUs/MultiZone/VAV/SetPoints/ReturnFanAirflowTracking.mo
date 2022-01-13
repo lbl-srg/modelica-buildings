@@ -24,7 +24,7 @@ block ReturnFanAirflowTracking
     final quantity="Time")=0.1
     "Time constant of derivative block"
     annotation (Dialog(group="Fan controller",
-      enable=conTyp == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
+      enable=conTyp == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
           or conTyp == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput VSup_flow(
@@ -36,8 +36,7 @@ block ReturnFanAirflowTracking
   Buildings.Controls.OBC.CDL.Interfaces.RealInput VRet_flow(
     final unit="m3/s",
     final min=0,
-    final quantity="VolumeFlowRate")
-    "Measured AHU return airflow rate"
+    final quantity="VolumeFlowRate") "Measured AHU return airflow rate"
     annotation (Placement(transformation(extent={{-140,0},{-100,40}}),
       iconTransformation(extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uSupFan

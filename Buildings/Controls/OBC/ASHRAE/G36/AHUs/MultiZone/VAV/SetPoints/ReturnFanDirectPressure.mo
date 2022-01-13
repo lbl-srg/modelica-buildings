@@ -38,7 +38,7 @@ block ReturnFanDirectPressure
     final quantity="Time")=0.1
     "Time constant of derivative block"
     annotation (Dialog(group="Pressure controller",
-      enable=conTyp == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
+      enable=conTyp == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
           or conTyp == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput dpBui(
@@ -60,19 +60,17 @@ block ReturnFanDirectPressure
     displayUnit="Pa")
     "Averaged building static pressure"
     annotation (Placement(transformation(extent={{120,50},{160,90}}),
-      iconTransformation(extent={{100,50},{140,90}})));
+      iconTransformation(extent={{100,60},{140,100}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yExhDam(
      final unit="1",
      final min=0,
-     final max=1)
-    "Exhaust damper control signal (0: closed, 1: open)"
+     final max=1) "Exhaust damper control signal (0: closed, 1: open)"
     annotation (Placement(transformation(extent={{120,0},{160,40}}),
         iconTransformation(extent={{100,0},{140,40}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput dpDisSet(
      final unit="Pa",
      displayUnit="Pa",
-     final min=0)
-    "Return fan discharge static pressure setpoint"
+     final min=0) "Return fan discharge static pressure setpoint"
     annotation (Placement(transformation(extent={{120,-110},{160,-70}}),
         iconTransformation(extent={{100,-80},{140,-40}})));
 

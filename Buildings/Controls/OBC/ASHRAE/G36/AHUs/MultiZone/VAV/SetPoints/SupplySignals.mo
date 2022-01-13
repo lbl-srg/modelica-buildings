@@ -2,7 +2,7 @@ within Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.SetPoints;
 block SupplySignals
   "Multizone VAV AHU supply air temperature control loop and coil valves position"
 
-  parameter Boolean have_heatingCoil=true
+  parameter Boolean have_heaCoi=true
     "True: the AHU has heating coil";
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerType=
       Buildings.Controls.OBC.CDL.Types.SimpleController.PI
@@ -52,7 +52,7 @@ block SupplySignals
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yHea(
     final min=0,
     final max=1,
-    final unit="1") if have_heatingCoil
+    final unit="1") if have_heaCoi
     "Control signal for heating"
     annotation (Placement(transformation(extent={{100,0},{140,40}}),
         iconTransformation(extent={{100,-20},{140,20}})));
@@ -85,11 +85,11 @@ protected
     "Switch to select supply temperature control signal based on status of supply fan"
     annotation (Placement(transformation(extent={{0,50},{20,70}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant uHeaMaxCon(
-    final k=uHeaMax) if have_heatingCoil
+    final k=uHeaMax) if have_heaCoi
     "Constant signal to map control action"
     annotation (Placement(transformation(extent={{0,-20},{20,0}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant negOne(final k=-1)
-    if have_heatingCoil
+    if have_heaCoi
     "Negative unity signal"
     annotation (Placement(transformation(extent={{0,18},{20,38}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant uCooMinCon(
@@ -109,7 +109,7 @@ protected
     annotation (Placement(transformation(extent={{60,-30},{80,-10}})));
   Buildings.Controls.OBC.CDL.Continuous.Line conSigHea(
     final limitBelow=false,
-    final limitAbove=true) if have_heatingCoil
+    final limitAbove=true) if have_heaCoi
     "Heating control signal"
     annotation (Placement(transformation(extent={{60,10},{80,30}})));
 
@@ -191,7 +191,7 @@ annotation (
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="yHea",
-          visible=have_heatingCoil),
+          visible=have_heaCoi),
         Text(
           extent={{74,66},{96,54}},
           lineColor={0,0,127},

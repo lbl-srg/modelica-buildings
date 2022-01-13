@@ -1,41 +1,42 @@
-within Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV;
-block FreezeProtection "Freeze protection sequence for multizone air handling unit"
+within Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.SetPoints;
+block FreezeProtection
+  "Freeze protection sequence for multizone air handling unit"
 
   parameter Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes buiPreCon
     "Type of building pressure control system";
   parameter Buildings.Controls.OBC.ASHRAE.G36.Types.MultizoneAHUMinOADesigns minOADes
     "Design of minimum outdoor air and economizer function";
-  parameter Boolean have_heatingCoil=true
+  parameter Boolean have_heaCoi=true
     "True: the AHU has heating coil";
-  parameter Boolean have_freezeStat=false
+  parameter Boolean have_freSta=false
     "True: the system has a physical freeze stat";
   parameter Integer minHotWatReq=2
     "Minimum heating hot-water plant request to active the heating plant"
-    annotation(Dialog(enable=have_heatingCoil));
+    annotation(Dialog(enable=have_heaCoi));
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController heaCoiCon=Buildings.Controls.OBC.CDL.Types.SimpleController.PI
     "Heating coil controller"
-    annotation (Dialog(group="Heating coil controller", enable=have_heatingCoil));
+    annotation (Dialog(group="Heating coil controller", enable=have_heaCoi));
   parameter Real k(unit="1")=1
     "Gain of coil controller"
-    annotation (Dialog(group="Heating coil controller", enable=have_heatingCoil));
+    annotation (Dialog(group="Heating coil controller", enable=have_heaCoi));
   parameter Real Ti(unit="s")=0.5
     "Time constant of integrator block"
     annotation (Dialog(group="Heating coil controller",
-                       enable=have_heatingCoil and
+                       enable=have_heaCoi and
                               (heaCoiCon==Buildings.Controls.OBC.CDL.Types.SimpleController.PI or
                               heaCoiCon==Buildings.Controls.OBC.CDL.Types.SimpleController.PID)));
   parameter Real Td(unit="s")=0.1
     "Time constant of derivative block"
     annotation (Dialog(group="Heating coil controller",
-                       enable=have_heatingCoil and
+                       enable=have_heaCoi and
                               (heaCoiCon==Buildings.Controls.OBC.CDL.Types.SimpleController.PD or
                               heaCoiCon==Buildings.Controls.OBC.CDL.Types.SimpleController.PID)));
   parameter Real yMax=1
     "Upper limit of output"
-    annotation (Dialog(group="Heating coil controller", enable=have_heatingCoil));
+    annotation (Dialog(group="Heating coil controller", enable=have_heaCoi));
   parameter Real yMin=0
     "Lower limit of output"
-    annotation (Dialog(group="Heating coil controller", enable=have_heatingCoil));
+    annotation (Dialog(group="Heating coil controller", enable=have_heaCoi));
   parameter Real Thys(unit="K")=0.25
     "Hysteresis for checking temperature difference"
     annotation (Dialog(tab="Advanced"));
@@ -57,7 +58,7 @@ block FreezeProtection "Freeze protection sequence for multizone air handling un
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uHeaCoi(
     final min=0,
     final max=1,
-    final unit="1") if have_heatingCoil
+    final unit="1") if have_heaCoi
     "Heating coil position"
     annotation (Placement(transformation(extent={{-480,280},{-440,320}}),
         iconTransformation(extent={{-140,120},{-100,160}})));
@@ -81,15 +82,15 @@ block FreezeProtection "Freeze protection sequence for multizone air handling un
     "Measured supply air temperature"
     annotation (Placement(transformation(extent={{-480,40},{-440,80}}),
         iconTransformation(extent={{-140,30},{-100,70}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uFreSta if have_freezeStat
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uFreSta if have_freSta
     "Freeze protection stat signal"
     annotation (Placement(transformation(extent={{-480,-100},{-440,-60}}),
         iconTransformation(extent={{-140,0},{-100,40}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uFreStaRes if have_freezeStat
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uFreStaRes if have_freSta
     "Freeze protection stat reset signal"
     annotation (Placement(transformation(extent={{-480,-150},{-440,-110}}),
         iconTransformation(extent={{-140,-30},{-100,10}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uSofSwiRes if not have_freezeStat
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uSofSwiRes if not have_freSta
     "Freeze protection reset signal from software switch"
     annotation (Placement(transformation(extent={{-480,-190},{-440,-150}}),
         iconTransformation(extent={{-140,-60},{-100,-20}})));
@@ -122,7 +123,7 @@ block FreezeProtection "Freeze protection sequence for multizone air handling un
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TMix(
     final unit="K",
     final displayUnit="degC",
-    final quantity="ThermodynamicTemperature") if have_heatingCoil
+    final quantity="ThermodynamicTemperature") if have_heaCoi
     "Measured mixed air temperature"
     annotation (Placement(transformation(extent={{-480,-446},{-440,-406}}),
         iconTransformation(extent={{-140,-210},{-100,-170}})));
@@ -186,12 +187,12 @@ block FreezeProtection "Freeze protection sequence for multizone air handling un
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yHeaCoi(
     final min=0,
     final max=1,
-    final unit="1") if have_heatingCoil
+    final unit="1") if have_heaCoi
     "Heating coil position setpoint"
     annotation (Placement(transformation(extent={{440,-450},{480,-410}}),
         iconTransformation(extent={{100,-140},{140,-100}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yHotWatPlaReq
-    if have_heatingCoil
+    if have_heaCoi
     "Request to heating hot-water plant"
     annotation (Placement(transformation(extent={{440,-500},{480,-460}}),
         iconTransformation(extent={{100,-190},{140,-150}})));
@@ -209,11 +210,11 @@ block FreezeProtection "Freeze protection sequence for multizone air handling un
     final t=300)
     "Check if the supply air temperature has been lower than threshold value for sufficient long time"
     annotation (Placement(transformation(extent={{-300,470},{-280,490}})));
-  Buildings.Controls.OBC.CDL.Integers.Switch hotWatPlaReq if have_heatingCoil
+  Buildings.Controls.OBC.CDL.Integers.Switch hotWatPlaReq if have_heaCoi
     "Hot water plant request in stage 1 mode"
     annotation (Placement(transformation(extent={{60,462},{80,482}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt(
-    final k=minHotWatReq) if have_heatingCoil
+    final k=minHotWatReq) if have_heaCoi
     "Minimum hot-water plant requests"
     annotation (Placement(transformation(extent={{-20,500},{0,520}})));
   Buildings.Controls.OBC.CDL.Continuous.Switch minVen
@@ -225,10 +226,10 @@ block FreezeProtection "Freeze protection sequence for multizone air handling un
     final Ti=Ti,
     final Td=Td,
     final yMax=yMax,
-    final yMin=yMin) if have_heatingCoil
+    final yMin=yMin) if have_heaCoi
     "Heating coil control in stage 1 mode"
     annotation (Placement(transformation(extent={{-320,340},{-300,360}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch heaCoi1 if have_heatingCoil
+  Buildings.Controls.OBC.CDL.Continuous.Switch heaCoi1 if have_heaCoi
     "Heating coil position"
     annotation (Placement(transformation(extent={{120,320},{140,340}})));
   Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr(
@@ -285,7 +286,7 @@ block FreezeProtection "Freeze protection sequence for multizone air handling un
     "Level 3 alarm"
     annotation (Placement(transformation(extent={{40,60},{60,80}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt2(
-    final k=0) if have_heatingCoil
+    final k=0) if have_heaCoi
     "Zero request"
     annotation (Placement(transformation(extent={{-20,440},{0,460}})));
   Buildings.Controls.OBC.CDL.Logical.Timer tim3(
@@ -305,7 +306,7 @@ block FreezeProtection "Freeze protection sequence for multizone air handling un
     "Check if it should be in stage 3 mode"
     annotation (Placement(transformation(extent={{-220,-58},{-200,-38}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant con2(
-    final k=false) if not have_freezeStat
+    final k=false) if not have_freSta
     "Constant false"
     annotation (Placement(transformation(extent={{-300,-110},{-280,-90}})));
   Buildings.Controls.OBC.CDL.Logical.Latch lat1
@@ -330,14 +331,14 @@ block FreezeProtection "Freeze protection sequence for multizone air handling un
   Buildings.Controls.OBC.CDL.Continuous.Switch cooCoi
     "Cooling coil position"
     annotation (Placement(transformation(extent={{120,-370},{140,-350}})));
-  Buildings.Controls.OBC.CDL.Integers.Switch hotWatPlaReq3 if have_heatingCoil
+  Buildings.Controls.OBC.CDL.Integers.Switch hotWatPlaReq3 if have_heaCoi
     "Hot water plant request in stage 3 mode"
     annotation (Placement(transformation(extent={{320,-490},{340,-470}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt3(
-    final k=minHotWatReq) if have_heatingCoil
+    final k=minHotWatReq) if have_heaCoi
     "Minimum hot-water plant requests"
     annotation (Placement(transformation(extent={{-140,-482},{-120,-462}})));
-  Buildings.Controls.OBC.CDL.Continuous.Max max1 if have_heatingCoil
+  Buildings.Controls.OBC.CDL.Continuous.Max max1 if have_heaCoi
     "Higher of supply air and mixed air temperature"
     annotation (Placement(transformation(extent={{-300,-430},{-280,-410}})));
   Buildings.Controls.OBC.CDL.Continuous.PID heaCoiMod(
@@ -346,14 +347,14 @@ block FreezeProtection "Freeze protection sequence for multizone air handling un
     final Ti=Ti,
     final Td=Td,
     final yMax=yMax,
-    final yMin=yMin) if have_heatingCoil
+    final yMin=yMin) if have_heaCoi
     "Heating coil control when it is in stage 3 mode"
     annotation (Placement(transformation(extent={{40,-400},{60,-380}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con4(
-    final k=273.15 + 27) if have_heatingCoil
+    final k=273.15 + 27) if have_heaCoi
     "Setpoint temperature"
     annotation (Placement(transformation(extent={{-140,-400},{-120,-380}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch heaCoiPos if have_heatingCoil
+  Buildings.Controls.OBC.CDL.Continuous.Switch heaCoiPos if have_heaCoi
     "Heating coil position"
     annotation (Placement(transformation(extent={{320,-440},{340,-420}})));
   Buildings.Controls.OBC.CDL.Integers.Switch intSwi3
@@ -402,7 +403,7 @@ block FreezeProtection "Freeze protection sequence for multizone air handling un
     "Return air damper position"
     annotation (Placement(transformation(extent={{320,-110},{340,-90}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant supTemSet(
-    final k=273.15+ 6) if have_heatingCoil
+    final k=273.15+ 6) if have_heaCoi
     "Supply air temperature setpoint"
     annotation (Placement(transformation(extent={{-380,340},{-360,360}})));
   Buildings.Controls.OBC.CDL.Integers.Switch intSwi2
@@ -678,7 +679,7 @@ annotation (defaultComponentName="mulAHUFrePro",
           extent={{-96,32},{-54,12}},
           lineColor={255,0,255},
           textString="uFreSta",
-          visible=have_freezeStat),
+          visible=have_freSta),
         Text(
           extent={{-96,178},{-32,162}},
           lineColor={0,0,127},
@@ -687,7 +688,7 @@ annotation (defaultComponentName="mulAHUFrePro",
           extent={{-98,150},{-52,134}},
           lineColor={0,0,127},
           textString="uHeaCoi",
-          visible=have_heatingCoil),
+          visible=have_heaCoi),
         Text(
           extent={{-96,120},{-20,102}},
           lineColor={0,0,127},
@@ -719,7 +720,7 @@ annotation (defaultComponentName="mulAHUFrePro",
           extent={{-94,-182},{-70,-198}},
           lineColor={0,0,127},
           textString="TMix",
-          visible=have_heatingCoil),
+          visible=have_heaCoi),
         Text(
           extent={{-96,-150},{-54,-166}},
           lineColor={0,0,127},
@@ -759,22 +760,22 @@ annotation (defaultComponentName="mulAHUFrePro",
           extent={{50,-110},{96,-126}},
           lineColor={0,0,127},
           textString="yHeaCoi",
-          visible=have_heatingCoil),
+          visible=have_heaCoi),
         Text(
           extent={{22,-160},{96,-178}},
           lineColor={255,127,0},
           textString="yHotWatPlaReq",
-          visible=have_heatingCoil),
+          visible=have_heaCoi),
         Text(
           extent={{-96,2},{-36,-24}},
           lineColor={255,0,255},
           textString="uFreStaRes",
-          visible=have_freezeStat),
+          visible=have_freSta),
         Text(
           extent={{-96,-28},{-34,-52}},
           lineColor={255,0,255},
           textString="uSofSwiRes",
-          visible=not have_freezeStat),
+          visible=not have_freSta),
         Text(
           extent={{24,200},{96,180}},
           lineColor={255,0,255},
@@ -840,7 +841,7 @@ minutes then resume normal operation.
 </ul>
 </li>
 <li>
-Upon signal from the freeze-stat (if installed, <code>have_freezeStat=true</code>),
+Upon signal from the freeze-stat (if installed, <code>have_freSta=true</code>),
 or if supply air temperature drops below 3.3 &deg;C (38 &deg;F) for 15 minutes or
 below 1 &deg;C (34 &deg;F) for 5 minutes, shut down supply and return (or relief)
 fan(s), close outdoor air damper, open the cooling-coil valve to 100%, and energize

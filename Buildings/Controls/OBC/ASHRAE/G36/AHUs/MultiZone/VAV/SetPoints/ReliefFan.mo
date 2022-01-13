@@ -48,15 +48,13 @@ block ReliefFan "Sequence for relief fan control for AHUs using actuated relief 
         iconTransformation(extent={{100,40},{140,80}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yRelFanSpe[nRelFan](
     final unit=fill("1", nRelFan),
-    final max=fill(1,nRelFan))
-    "Relief fan speed setpoint"
+    final max=fill(1,nRelFan)) "Relief fan speed setpoint"
     annotation (Placement(transformation(extent={{480,190},{520,230}}),
         iconTransformation(extent={{100,-20},{140,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yDam[nRelFan](
     final unit=fill("1",nRelFan),
     final min=fill(0,nRelFan),
-    final max=fill(1,nRelFan))
-    "Damper position setpoint"
+    final max=fill(1,nRelFan)) "Damper position setpoint"
     annotation (Placement(transformation(extent={{480,40},{520,80}}),
         iconTransformation(extent={{100,-80},{140,-40}})));
 
@@ -583,7 +581,7 @@ annotation (defaultComponentName="relFanCon",
           lineColor={0,0,127},
           textString="yDpBui"),
         Text(
-          extent={{50,12},{98,-8}},
+          extent={{40,12},{98,-8}},
           lineColor={0,0,127},
           textString="yRelFanSpe"),
         Text(
