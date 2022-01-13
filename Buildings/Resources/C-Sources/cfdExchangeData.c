@@ -97,6 +97,7 @@ int cfdExchangeData(double t0, double dt, double *u, size_t nU, size_t nY,
   while(cosim->modelica->flag==1) {
     if(cosim->para->ffdError==1)
       ModelicaError(cosim->ffd->msg);
+	  return -1;
     else
       Sleep(10);
   }
@@ -161,6 +162,7 @@ int cfdExchangeData(double t0, double dt, double *u, size_t nU, size_t nY,
   while(cosim->ffd->flag!=1) {
     if(cosim->para->ffdError==1)
       ModelicaError(cosim->ffd->msg);
+      return -1;
     else
       Sleep(10);
   }
