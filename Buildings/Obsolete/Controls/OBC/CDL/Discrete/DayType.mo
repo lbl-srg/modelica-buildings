@@ -1,9 +1,9 @@
-within Buildings.Controls.OBC.CDL.Discrete;
+within Buildings.Obsolete.Controls.OBC.CDL.Discrete;
 model DayType
   "Block that outputs a signal that indicates week-day or week-end"
   parameter Integer nout(final min=1)=2
     "Number of days to output. Set to two for one day predictions";
-  parameter Buildings.Controls.OBC.CDL.Types.Day[:] days={Buildings.Controls.OBC.CDL.Types.Day.WorkingDay,Buildings.Controls.OBC.CDL.Types.Day.WorkingDay,Buildings.Controls.OBC.CDL.Types.Day.WorkingDay,Buildings.Controls.OBC.CDL.Types.Day.WorkingDay,Buildings.Controls.OBC.CDL.Types.Day.WorkingDay,Buildings.Controls.OBC.CDL.Types.Day.NonWorkingDay,Buildings.Controls.OBC.CDL.Types.Day.NonWorkingDay}
+  parameter Buildings.Obsolete.Controls.OBC.CDL.Types.Day[:] days={Buildings.Obsolete.Controls.OBC.CDL.Types.Day.WorkingDay,Buildings.Obsolete.Controls.OBC.CDL.Types.Day.WorkingDay,Buildings.Obsolete.Controls.OBC.CDL.Types.Day.WorkingDay,Buildings.Obsolete.Controls.OBC.CDL.Types.Day.WorkingDay,Buildings.Obsolete.Controls.OBC.CDL.Types.Day.WorkingDay,Buildings.Obsolete.Controls.OBC.CDL.Types.Day.NonWorkingDay,Buildings.Obsolete.Controls.OBC.CDL.Types.Day.NonWorkingDay}
     "Array where each element is a day indicator";
   parameter Integer iStart(
     min=1,
@@ -11,7 +11,7 @@ model DayType
       days,
       1))=1
     "Index of element in days at simulation start";
-  Interfaces.DayTypeOutput y[nout]
+  Obsolete.Controls.OBC.CDL.Interfaces.DayTypeOutput y[nout]
     "Type of the day for the current and the next (nout-1) days"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
@@ -69,6 +69,7 @@ equation
   end when;
   annotation (
     defaultComponentName="dayTyp",
+    obsolete = "Obsolete model that will be removed in future releases",
     Icon(
       coordinateSystem(
         preserveAspectRatio=false,
@@ -96,8 +97,8 @@ This block outputs a signal that indicates the type of the day.
 It can for example be used to generate a signal that indicates whether
 the current time is a work day or a non-working day.
 The output signal is of type
-<a href=\"modelica://Buildings.Controls.OBC.CDL.Types.Day\">
-Buildings.Controls.OBC.CDL.Types.Day</a>.
+<a href=\"modelica://Buildings.Obsolete.Controls.OBC.CDL.Types.Day\">
+Buildings.Obsolete.Controls.OBC.CDL.Types.Day</a>.
 </p>
 <p>
 The parameter <code>nout</code> determines how many days should be
@@ -116,6 +117,12 @@ at <i>t=0</i>.
 </html>",
       revisions="<html>
 <ul>
+<li>
+January 13, 2022, by Michael Wetter:<br/>
+Moved to <code>Obsolete</code> package.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2839\">issue 2839</a>.
+</li>
 <li>
 October 21, 2021, by Michael Wetter:<br/>
 Set <code>min</code> attribute for <code>nout</code> and removed

@@ -1,16 +1,16 @@
-within Buildings.Controls.OBC.CDL.Conversions.Validation;
+within Buildings.Obsolete.Controls.OBC.CDL.Conversions.Validation;
 model DayTypeCheck
-  "Model to validate blocks IsWorkingDay, IsNonWorkingDay, IsHoliday"
-  Buildings.Controls.OBC.CDL.Conversions.IsWorkingDay isWorDay
+  "Model to validate blocks IsWorkingDay, Obsolete.Controls.OBC.CDL.Conversions.IsNonWorkingDay, IsHoliday"
+  Buildings.Obsolete.Controls.OBC.CDL.Conversions.IsWorkingDay isWorDay
     "Block to check if it is working day"
     annotation (Placement(transformation(extent={{20,30},{40,50}})));
-  Buildings.Controls.OBC.CDL.Conversions.IsNonWorkingDay isNonWorDay
+  Buildings.Obsolete.Controls.OBC.CDL.Conversions.IsNonWorkingDay isNonWorDay
     "Block to check if it is non-working day"
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
-  Buildings.Controls.OBC.CDL.Conversions.IsHoliday isHoliday
+  Buildings.Obsolete.Controls.OBC.CDL.Conversions.IsHoliday isHoliday
     "Block to check if it is holiday day"
     annotation (Placement(transformation(extent={{20,-50},{40,-30}})));
-  Buildings.Controls.OBC.CDL.Discrete.DayType dayTypSat(
+  Buildings.Obsolete.Controls.OBC.CDL.Discrete.DayType dayTypSat(
     iStart=6)
     "Model that outputs the type of the day, starting with Saturday"
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
@@ -24,7 +24,7 @@ equation
     annotation (Line(points={{-59,0},{-20,0},{-20,40},{18,40}},color={0,127,0}));
   annotation (
     __Dymola_Commands(
-      file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/CDL/Conversions/Validation/DayTypeCheck.mos" "Simulate and plot"),
+      file="modelica://Buildings/Resources/Scripts/Dymola/Obsolete/Controls/OBC/CDL/Conversions/Validation/DayTypeCheck.mos" "Simulate and plot"),
     experiment(
       StartTime=0,
       StopTime=1814400,
