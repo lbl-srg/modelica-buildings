@@ -81,8 +81,7 @@ block AHU "Output outdoor airflow related calculations at the AHU level"
 
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yAveOutAirFraPlu(
     final min=0,
-    final unit="1")
-    "Average outdoor air flow fraction plus 1"
+    final unit="1") "Average outdoor air flow fraction plus 1"
     annotation (Placement(transformation(extent={{240,110},{280,150}}),
         iconTransformation(extent={{100,30},{140,70}})));
 

@@ -77,10 +77,6 @@ block SeparateWithAFMS
     "Supply fan status signal"
     annotation (Placement(transformation(extent={{-260,140},{-220,180}}),
         iconTransformation(extent={{-140,10},{-100,50}})));
-  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uFreProSta
-    "Freeze protection status signal"
-    annotation (Placement(transformation(extent={{-260,100},{-220,140}}),
-        iconTransformation(extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uOpeMod
     "AHU operation mode status signal"
     annotation (Placement(transformation(extent={{-260,60},{-220,100}}),
@@ -139,10 +135,6 @@ block SeparateWithAFMS
         iconTransformation(extent={{100,-110},{140,-70}})));
 
 protected
-  Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt(
-    final k=Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeProtectionStages.stage1)
-    "Freeze protection stage 1"
-    annotation (Placement(transformation(extent={{-200,90},{-180,110}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt1(
     final k=Buildings.Controls.OBC.ASHRAE.G36.Types.OperationModes.occupied)
     "Occupied mode index"
@@ -150,11 +142,6 @@ protected
   Buildings.Controls.OBC.CDL.Integers.Equal intEqu
     "Check if operation mode is occupied"
     annotation (Placement(transformation(extent={{-160,70},{-140,90}})));
-  Buildings.Controls.OBC.CDL.Integers.LessEqual intLesEqu
-    "Check if freeze protection stage is stage 0"
-    annotation (Placement(transformation(extent={{-160,110},{-140,130}})));
-  Buildings.Controls.OBC.CDL.Logical.And and2 "Logical and"
-    annotation (Placement(transformation(extent={{-120,150},{-100,170}})));
   Buildings.Controls.OBC.CDL.Logical.And enaMinCon
     "Check if the minimum outdoor air control loop should be enabled"
     annotation (Placement(transformation(extent={{-80,150},{-60,170}})));
@@ -166,7 +153,7 @@ protected
     final yMax=minOutDamPhyPosMax,
     final yMin=minOutDamPhyPosMin)
     "Minimum outdoor air flow control"
-    annotation (Placement(transformation(extent={{-38,230},{-18,250}})));
+    annotation (Placement(transformation(extent={{-40,230},{-20,250}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zer(
     final k=0) "Constant"
     annotation (Placement(transformation(extent={{120,260},{140,280}})));
@@ -267,32 +254,22 @@ protected
     annotation (Placement(transformation(extent={{0,-90},{20,-70}})));
 
 equation
-  connect(uSupFan, and2.u1)
-    annotation (Line(points={{-240,160},{-122,160}}, color={255,0,255}));
-  connect(uFreProSta, intLesEqu.u1)
-    annotation (Line(points={{-240,120},{-162,120}}, color={255,127,0}));
-  connect(conInt.y, intLesEqu.u2) annotation (Line(points={{-178,100},{-170,100},
-          {-170,112},{-162,112}}, color={255,127,0}));
   connect(uOpeMod, intEqu.u1)
     annotation (Line(points={{-240,80},{-162,80}}, color={255,127,0}));
   connect(conInt1.y, intEqu.u2) annotation (Line(points={{-178,60},{-170,60},{-170,
           72},{-162,72}}, color={255,127,0}));
-  connect(intLesEqu.y, and2.u2) annotation (Line(points={{-138,120},{-130,120},{
-          -130,152},{-122,152}}, color={255,0,255}));
-  connect(and2.y, enaMinCon.u1)
-    annotation (Line(points={{-98,160},{-82,160}}, color={255,0,255}));
   connect(intEqu.y, enaMinCon.u2) annotation (Line(points={{-138,80},{-90,80},{-90,
           152},{-82,152}}, color={255,0,255}));
   connect(VOutMinSet_flow_normalized, minOACon.u_s)
-    annotation (Line(points={{-240,240},{-40,240}}, color={0,0,127}));
+    annotation (Line(points={{-240,240},{-42,240}}, color={0,0,127}));
   connect(VOut_flow_normalized, minOACon.u_m) annotation (Line(points={{-240,200},
-          {-28,200},{-28,228}}, color={0,0,127}));
-  connect(enaMinCon.y, minOACon.trigger) annotation (Line(points={{-58,160},{-34,
-          160},{-34,228}}, color={255,0,255}));
+          {-30,200},{-30,228}}, color={0,0,127}));
+  connect(enaMinCon.y, minOACon.trigger) annotation (Line(points={{-58,160},{-36,
+          160},{-36,228}}, color={255,0,255}));
   connect(zer.y, minOutDamPos.x1) annotation (Line(points={{142,270},{150,270},{
           150,248},{158,248}}, color={0,0,127}));
   connect(minOACon.y, minOutDamPos.u)
-    annotation (Line(points={{-16,240},{158,240}},color={0,0,127}));
+    annotation (Line(points={{-18,240},{158,240}},color={0,0,127}));
   connect(minOutDamPhyPosMinSig.y, minOutDamPos.f1) annotation (Line(points={{102,270},
           {110,270},{110,244},{158,244}},   color={0,0,127}));
   connect(con.y, minOutDamPos.x2) annotation (Line(points={{102,210},{110,210},{
@@ -365,11 +342,13 @@ equation
           -240},{90,-240},{90,-96},{98,-96}}, color={0,0,127}));
   connect(retDamPhyPosMaxSig.y, retDamPosMinSwi.u3) annotation (Line(points={{-178,
           -240},{90,-240},{90,-208},{178,-208}}, color={0,0,127}));
-  connect(minOACon.y, maxRetDamPos.u) annotation (Line(points={{-16,240},{50,240},
+  connect(minOACon.y, maxRetDamPos.u) annotation (Line(points={{-18,240},{50,240},
           {50,-100},{98,-100}}, color={0,0,127}));
   connect(minOutDamPos.y, yMinOutDamPos)
     annotation (Line(points={{182,240},{240,240}}, color={0,0,127}));
 
+  connect(uSupFan, enaMinCon.u1)
+    annotation (Line(points={{-240,160},{-82,160}}, color={255,0,255}));
 annotation (
   defaultComponentName="ecoLim",
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
@@ -398,11 +377,6 @@ annotation (
           lineColor={255,0,255},
           pattern=LinePattern.Dash,
           textString="uSupFan"),
-        Text(
-          extent={{-98,8},{-42,-6}},
-          lineColor={255,127,0},
-          pattern=LinePattern.Dash,
-          textString="uFreProSta"),
         Text(
           extent={{-98,-22},{-48,-36}},
           lineColor={255,127,0},
@@ -464,7 +438,7 @@ Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.SetPoints.OutdoorAirFlow.AH
 <h4>Minimum outdoor air control loop</h4>
 <p>
 Minimum outdoor air control loop is enabled when the supply fan is proven ON
-(<code>uSupFan=true</code>)and in occupied mode, and disabled and output set to
+(<code>uSupFan=true</code>) and in occupied mode, and disabled and output set to
 zero otherwise
 </p>
 <p>

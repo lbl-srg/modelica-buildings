@@ -71,10 +71,6 @@ block SeparateWithDP
     "Supply fan status signal"
     annotation (Placement(transformation(extent={{-260,140},{-220,180}}),
         iconTransformation(extent={{-140,10},{-100,50}})));
-  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uFreProSta
-    "Freeze protection status signal"
-    annotation (Placement(transformation(extent={{-260,100},{-220,140}}),
-        iconTransformation(extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uOpeMod
     "AHU operation mode status signal"
     annotation (Placement(transformation(extent={{-260,60},{-220,100}}),
@@ -172,10 +168,6 @@ protected
     final Ti=TiDp,
     final Td=TdDp) "Maximum return air damper position"
     annotation (Placement(transformation(extent={{120,290},{140,310}})));
-  Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt(
-    final k=Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeProtectionStages.stage1)
-    "Freeze protection stage 1"
-    annotation (Placement(transformation(extent={{-200,90},{-180,110}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt1(
     final k=Buildings.Controls.OBC.ASHRAE.G36.Types.OperationModes.occupied)
     "Occupied mode index"
@@ -183,11 +175,6 @@ protected
   Buildings.Controls.OBC.CDL.Integers.Equal intEqu
     "Check if operation mode is occupied"
     annotation (Placement(transformation(extent={{-160,70},{-140,90}})));
-  Buildings.Controls.OBC.CDL.Integers.LessEqual intLesEqu
-    "Check if freeze protection stage is stage 0"
-    annotation (Placement(transformation(extent={{-160,110},{-140,130}})));
-  Buildings.Controls.OBC.CDL.Logical.And and2 "Logical and"
-    annotation (Placement(transformation(extent={{-120,150},{-100,170}})));
   Buildings.Controls.OBC.CDL.Logical.And3 enaMinDam
     "Check if the minimum outdoor air damper should be enabled"
     annotation (Placement(transformation(extent={{-40,150},{-20,170}})));
@@ -244,14 +231,6 @@ equation
     annotation (Line(points={{-240,80},{-162,80}},   color={255,127,0}));
   connect(conInt1.y, intEqu.u2) annotation (Line(points={{-178,60},{-170,60},{-170,
           72},{-162,72}},        color={255,127,0}));
-  connect(uFreProSta, intLesEqu.u1)
-    annotation (Line(points={{-240,120},{-162,120}}, color={255,127,0}));
-  connect(conInt.y, intLesEqu.u2) annotation (Line(points={{-178,100},{-172,100},
-          {-172,112},{-162,112}}, color={255,127,0}));
-  connect(uSupFan, and2.u1)
-    annotation (Line(points={{-240,160},{-122,160}}, color={255,0,255}));
-  connect(intLesEqu.y, and2.u2) annotation (Line(points={{-138,120},{-130,120},{
-          -130,152},{-122,152}}, color={255,0,255}));
   connect(minDp.y, greThr.u) annotation (Line(points={{-98,220},{-90,220},{-90,200},
           {-82,200}}, color={0,0,127}));
   connect(minFanSpe.y, moaP.x1) annotation (Line(points={{-138,-10},{-130,-10},{
@@ -290,8 +269,6 @@ equation
           {70,54},{78,54}}, color={255,0,255}));
   connect(greThr.y, enaMinDam.u1) annotation (Line(points={{-58,200},{-50,200},{
           -50,168},{-42,168}}, color={255,0,255}));
-  connect(and2.y, enaMinDam.u2)
-    annotation (Line(points={{-98,160},{-42,160}},   color={255,0,255}));
   connect(intEqu.y, enaMinDam.u3) annotation (Line(points={{-138,80},{-60,80},{-60,
           152},{-42,152}}, color={255,0,255}));
   connect(minDp.y, maxRetDam.u_s) annotation (Line(points={{-98,220},{-90,220},{
@@ -325,6 +302,8 @@ equation
   connect(enaMinDam.y, yMinOutDam)
     annotation (Line(points={{-18,160},{240,160}}, color={255,0,255}));
 
+  connect(uSupFan, enaMinDam.u2)
+    annotation (Line(points={{-240,160},{-42,160}}, color={255,0,255}));
 annotation (
   defaultComponentName="ecoLim",
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
@@ -383,11 +362,6 @@ annotation (
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="yRetDamPhyPosMax"),
-        Text(
-          extent={{-100,8},{-44,-6}},
-          lineColor={255,127,0},
-          pattern=LinePattern.Dash,
-          textString="uFreProSta"),
         Text(
           extent={{-100,38},{-58,24}},
           lineColor={255,0,255},

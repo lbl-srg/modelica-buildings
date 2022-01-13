@@ -72,10 +72,6 @@ block Common
     "AHU operation mode status signal"
     annotation (Placement(transformation(extent={{-220,-200},{-180,-160}}),
         iconTransformation(extent={{-140,-100},{-100,-60}})));
-  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uFreProSta
-    "Freeze protection status signal"
-    annotation (Placement(transformation(extent={{-220,-160},{-180,-120}}),
-        iconTransformation(extent={{-140,-60},{-100,-20}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uSupFan
     "Supply fan status signal"
     annotation (Placement(transformation(extent={{-220,-120},{-180,-80}}),
@@ -169,25 +165,16 @@ protected
     "A switch to deactivate the outdoor air damper minimal outdoor airflow control"
     annotation (Placement(transformation(extent={{40,10},{60,30}})));
   Buildings.Controls.OBC.CDL.Logical.Not not1 "Logical not block"
-    annotation (Placement(transformation(extent={{-8,-110},{12,-90}})));
-  Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt(
-    final k=Buildings.Controls.OBC.ASHRAE.G36_PR1.Types.FreezeProtectionStages.stage1)
-    "Freeze protection stage 1"
-    annotation (Placement(transformation(extent={{-160,-170},{-140,-150}})));
+    annotation (Placement(transformation(extent={{-20,-110},{0,-90}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt1(
     final k=Buildings.Controls.OBC.ASHRAE.G36_PR1.Types.OperationModes.occupied)
     "Occupied mode index"
     annotation (Placement(transformation(extent={{-160,-210},{-140,-190}})));
-  Buildings.Controls.OBC.CDL.Integers.LessEqual intLesEqu
-    "Check if freeze protection stage is stage 0"
-    annotation (Placement(transformation(extent={{-120,-150},{-100,-130}})));
   Buildings.Controls.OBC.CDL.Integers.Equal intEqu
     "Check if operation mode is occupied"
     annotation (Placement(transformation(extent={{-120,-190},{-100,-170}})));
-  Buildings.Controls.OBC.CDL.Logical.And and2 "Logical and"
-    annotation (Placement(transformation(extent={{-80,-110},{-60,-90}})));
   Buildings.Controls.OBC.CDL.Logical.And and3 "Logical and"
-    annotation (Placement(transformation(extent={{-40,-110},{-20,-90}})));
+    annotation (Placement(transformation(extent={{-60,-110},{-40,-90}})));
 
 equation
   connect(minRetDam.y, yRetDamPosMax) annotation (Line(points={{142,110},{150,110},
@@ -228,9 +215,9 @@ equation
           {0,80},{0,28},{38,28}},           color={0,0,127}));
   connect(outDamPhyPosMinSig.y, minOutDam.f1) annotation (Line(points={{-138,80},
           {0,80},{0,154},{118,154}}, color={0,0,127}));
-  connect(not1.y, retDamPosMinSwitch.u2) annotation (Line(points={{14,-100},{20,
+  connect(not1.y, retDamPosMinSwitch.u2) annotation (Line(points={{2,-100},{20,
           -100},{20,-20},{38,-20}},color={255,0,255}));
-  connect(not1.y, outDamPosMaxSwitch.u2) annotation (Line(points={{14,-100},{20,
+  connect(not1.y, outDamPosMaxSwitch.u2) annotation (Line(points={{2,-100},{20,
           -100},{20,20},{38,20}},color={255,0,255}));
   connect(retDamPosMinSwitch.y, yRetDamPosMin) annotation (Line(points={{62,-20},
           {100,-20},{100,0},{200,0}}, color={0,0,127}));
@@ -241,25 +228,17 @@ equation
   connect(conInt1.y, intEqu.u2)
     annotation (Line(points={{-138,-200},{-130,-200},{-130,-188},{-122,-188}},
       color={255,127,0}));
-  connect(conInt.y, intLesEqu.u2)
-    annotation (Line(points={{-138,-160},{-130,-160},{-130,-148},{-122,-148}},
-      color={255,127,0}));
-  connect(uFreProSta, intLesEqu.u1)
-    annotation (Line(points={{-200,-140},{-122,-140}}, color={255,127,0}));
   connect(damLimCon.trigger, uSupFan)
     annotation (Line(points={{-136,178},{-136,166},{-100,166},{-100,-100},{-200,
           -100}},               color={255,0,255}));
-  connect(uSupFan, and2.u1) annotation (Line(points={{-200,-100},{-140,-100},{-140,
-          -100},{-82,-100}}, color={255,0,255}));
-  connect(intLesEqu.y, and2.u2) annotation (Line(points={{-98,-140},{-90,-140},{
-          -90,-108},{-82,-108}}, color={255,0,255}));
-  connect(and2.y, and3.u1)
-    annotation (Line(points={{-58,-100},{-42,-100}}, color={255,0,255}));
   connect(and3.y, not1.u)
-    annotation (Line(points={{-18,-100},{-10,-100}}, color={255,0,255}));
-  connect(intEqu.y, and3.u2) annotation (Line(points={{-98,-180},{-50,-180},{-50,
-          -108},{-42,-108}}, color={255,0,255}));
+    annotation (Line(points={{-38,-100},{-22,-100}}, color={255,0,255}));
+  connect(intEqu.y, and3.u2) annotation (Line(points={{-98,-180},{-80,-180},{
+          -80,-108},{-62,-108}},
+                             color={255,0,255}));
 
+  connect(uSupFan, and3.u1)
+    annotation (Line(points={{-200,-100},{-62,-100}}, color={255,0,255}));
 annotation (
     defaultComponentName="damLim",
     Icon(graphics={
@@ -291,11 +270,6 @@ annotation (
           lineColor={255,0,255},
           pattern=LinePattern.Dash,
           textString="uSupFan"),
-        Text(
-          extent={{-100,-34},{-44,-48}},
-          lineColor={255,127,0},
-          pattern=LinePattern.Dash,
-          textString="uFreProSta"),
         Text(
           extent={{-100,-74},{-50,-88}},
           lineColor={255,127,0},

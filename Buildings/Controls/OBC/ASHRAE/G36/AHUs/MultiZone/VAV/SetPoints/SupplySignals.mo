@@ -2,6 +2,8 @@ within Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.SetPoints;
 block SupplySignals
   "Multizone VAV AHU supply air temperature control loop and coil valves position"
 
+  parameter Boolean have_heatingCoil=true
+    "True: the AHU has heating coil";
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerType=
       Buildings.Controls.OBC.CDL.Types.SimpleController.PI
     "Type of controller for supply air temperature signal";
@@ -35,7 +37,7 @@ block SupplySignals
     final quantity="ThermodynamicTemperature")
     "Measured supply air temperature"
     annotation (Placement(transformation(extent={{-140,-40},{-100,0}}),
-        iconTransformation(extent={{-140,-70},{-100,-30}})));
+        iconTransformation(extent={{-140,-80},{-100,-40}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TSupSet(
     final unit="K",
     final displayUnit="degC",
@@ -46,11 +48,12 @@ block SupplySignals
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uSupFan
     "Supply fan status"
     annotation (Placement(transformation(extent={{-140,60},{-100,100}}),
-        iconTransformation(extent={{-140,30},{-100,70}})));
+        iconTransformation(extent={{-140,40},{-100,80}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yHea(
     final min=0,
     final max=1,
-    final unit="1") "Control signal for heating"
+    final unit="1") if have_heatingCoil
+    "Control signal for heating"
     annotation (Placement(transformation(extent={{100,0},{140,40}}),
         iconTransformation(extent={{100,-20},{140,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yCoo(
@@ -58,14 +61,14 @@ block SupplySignals
     final max=1,
     final unit="1") "Control signal for cooling"
     annotation (Placement(transformation(extent={{100,-40},{140,0}}),
-        iconTransformation(extent={{100,-60},{140,-20}})));
+        iconTransformation(extent={{100,-80},{140,-40}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput uTSup(
     final max=1,
     final unit="1",
     final min=-1)
     "Supply temperature control signal"
     annotation (Placement(transformation(extent={{100,40},{140,80}}),
-        iconTransformation(extent={{100,20},{140,60}})));
+        iconTransformation(extent={{100,40},{140,80}})));
 
 protected
   Buildings.Controls.OBC.CDL.Continuous.PIDWithReset conTSup(
@@ -82,10 +85,11 @@ protected
     "Switch to select supply temperature control signal based on status of supply fan"
     annotation (Placement(transformation(extent={{0,50},{20,70}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant uHeaMaxCon(
-    final k=uHeaMax)
+    final k=uHeaMax) if have_heatingCoil
     "Constant signal to map control action"
     annotation (Placement(transformation(extent={{0,-20},{20,0}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant negOne(final k=-1)
+    if have_heatingCoil
     "Negative unity signal"
     annotation (Placement(transformation(extent={{0,18},{20,38}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant uCooMinCon(
@@ -105,7 +109,7 @@ protected
     annotation (Placement(transformation(extent={{60,-30},{80,-10}})));
   Buildings.Controls.OBC.CDL.Continuous.Line conSigHea(
     final limitBelow=false,
-    final limitAbove=true)
+    final limitAbove=true) if have_heatingCoil
     "Heating control signal"
     annotation (Placement(transformation(extent={{60,10},{80,30}})));
 
@@ -178,7 +182,7 @@ annotation (
           pattern=LinePattern.Dash,
           textString="TSup"),
         Text(
-          extent={{-94,-38},{-48,-62}},
+          extent={{-94,-48},{-48,-72}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="uSupFan"),
@@ -186,19 +190,20 @@ annotation (
           extent={{76,8},{96,-2}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
-          textString="yHea"),
+          textString="yHea",
+          visible=have_heatingCoil),
         Text(
-          extent={{74,46},{96,34}},
+          extent={{74,66},{96,54}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="uTSup"),
         Text(
-          extent={{76,-34},{96,-44}},
+          extent={{76,-54},{96,-64}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="yCoo"),
         Text(
-          extent={{-96,56},{-56,42}},
+          extent={{-96,66},{-56,52}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="TSupSet"),

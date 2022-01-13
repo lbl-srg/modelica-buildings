@@ -180,8 +180,7 @@ block Controller
     annotation (Placement(transformation(extent={{-280,130},{-240,170}}),
         iconTransformation(extent={{-140,110},{-100,150}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uSupFanSpe(
-    final unit="1") if have_separateAFMS or have_separateDP
-    "Supply fan speed"
+    final unit="1") if have_separateAFMS or have_separateDP "Supply fan speed"
     annotation (Placement(transformation(extent={{-280,100},{-240,140}}),
         iconTransformation(extent={{-140,80},{-100,120}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput dpMinOutDam(
@@ -211,8 +210,7 @@ block Controller
         iconTransformation(extent={{-140,-60},{-100,-20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput hOut(
     final unit="J/kg",
-    final quantity="SpecificEnergy") if use_enthalpy
-    "Outdoor air enthalpy"
+    final quantity="SpecificEnergy") if use_enthalpy "Outdoor air enthalpy"
     annotation (Placement(transformation(extent={{-280,-120},{-240,-80}}),
         iconTransformation(extent={{-140,-90},{-100,-50}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput hOutCut(
@@ -233,6 +231,13 @@ block Controller
     "Freeze protection status"
     annotation (Placement(transformation(extent={{-280,-260},{-240,-220}}),
         iconTransformation(extent={{-140,-210},{-100,-170}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yOutDamPosMin(
+    final min=0,
+    final max=1,
+    final unit="1")
+    "Minimum outdoor air damper position limit"
+    annotation (Placement(transformation(extent={{260,220},{300,260}}),
+        iconTransformation(extent={{100,160},{140,200}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yMinOutDamPos(
     final min=0,
     final max=1,
@@ -382,12 +387,6 @@ equation
           {-196,83},{-142,83}},   color={255,0,255}));
   connect(uSupFan, damLim.uSupFan) annotation (Line(points={{-260,-170},{-196,-170},
           {-196,20},{-142,20}},      color={255,0,255}));
-  connect(uFreProSta, sepAFMS.uFreProSta) annotation (Line(points={{-260,-240},{
-          -184,-240},{-184,140},{-142,140}},  color={255,127,0}));
-  connect(uFreProSta, sepDp.uFreProSta) annotation (Line(points={{-260,-240},{-184,
-          -240},{-184,80},{-142,80}},        color={255,127,0}));
-  connect(uFreProSta, damLim.uFreProSta) annotation (Line(points={{-260,-240},{-184,
-          -240},{-184,16},{-142,16}},      color={255,127,0}));
   connect(uOpeMod, sepAFMS.uOpeMod) annotation (Line(points={{-260,-200},{-190,-200},
           {-190,137},{-142,137}},       color={255,127,0}));
   connect(uOpeMod, sepDp.uOpeMod) annotation (Line(points={{-260,-200},{-190,-200},
@@ -487,6 +486,12 @@ equation
   connect(booToRea.y, yMinOutDamPos) annotation (Line(points={{42,100},{80,100},
           {80,180},{280,180}}, color={0,0,127}));
 
+  connect(damLim.yOutDamPosMin, yOutDamPosMin) annotation (Line(points={{-118,28},
+          {-80,28},{-80,240},{280,240}}, color={0,0,127}));
+  connect(sepDp.yOutDamPosMin, yOutDamPosMin) annotation (Line(points={{-118,85},
+          {-80,85},{-80,240},{280,240}}, color={0,0,127}));
+  connect(sepAFMS.yOutDamPosMin, yOutDamPosMin) annotation (Line(points={{-118,145},
+          {-80,145},{-80,240},{280,240}}, color={0,0,127}));
 annotation (defaultComponentName="ecoCon",
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-200},{100,200}}),
     graphics={
@@ -560,12 +565,12 @@ annotation (defaultComponentName="ecoCon",
           pattern=LinePattern.Dash,
           textString="uSupFan"),
         Text(
-          extent={{-100,-152},{-44,-166}},
+          extent={{-98,-184},{-42,-198}},
           lineColor={255,127,0},
           pattern=LinePattern.Dash,
           textString="uFreProSta"),
         Text(
-          extent={{-100,-180},{-50,-194}},
+          extent={{-100,-152},{-50,-166}},
           lineColor={255,127,0},
           pattern=LinePattern.Dash,
           textString="uOpeMod"),
@@ -590,7 +595,13 @@ annotation (defaultComponentName="ecoCon",
           extent={{42,-110},{98,-126}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
-          textString="yOutDamPos")}),
+          textString="yOutDamPos"),
+        Text(
+          extent={{40,190},{96,174}},
+          lineColor={0,0,127},
+          pattern=LinePattern.Dash,
+          visible=not have_common,
+          textString="yOutDamPosMin")}),
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-240,-260},{260,260}}),
     graphics={
         Line(points={{156,122}}, color={28,108,200})}),

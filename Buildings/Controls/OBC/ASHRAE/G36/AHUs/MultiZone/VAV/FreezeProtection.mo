@@ -71,8 +71,7 @@ block FreezeProtection "Freeze protection sequence for multizone air handling un
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uRetDamPos(
     final min=0,
     final max=1,
-    final unit="1")
-    "Economizer return air damper position"
+    final unit="1") "Economizer return air damper position"
     annotation (Placement(transformation(extent={{-480,80},{-440,120}}),
         iconTransformation(extent={{-140,60},{-100,100}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TSup(
@@ -104,15 +103,13 @@ block FreezeProtection "Freeze protection sequence for multizone air handling un
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uRetFanSpe(
     final min=0,
     final max=1,
-    final unit="1") if have_returns
-    "Return fan speed"
+    final unit="1") if have_returns "Return fan speed"
     annotation (Placement(transformation(extent={{-480,-308},{-440,-268}}),
         iconTransformation(extent={{-140,-120},{-100,-80}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uRelFanSpe(
     final min=0,
     final max=1,
-    final unit="1") if have_reliefs
-    "Relief fan speed"
+    final unit="1") if have_reliefs "Relief fan speed"
     annotation (Placement(transformation(extent={{-480,-348},{-440,-308}}),
         iconTransformation(extent={{-140,-150},{-100,-110}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uCooCoi(
@@ -129,6 +126,10 @@ block FreezeProtection "Freeze protection sequence for multizone air handling un
     "Measured mixed air temperature"
     annotation (Placement(transformation(extent={{-480,-446},{-440,-406}}),
         iconTransformation(extent={{-140,-210},{-100,-170}})));
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yFreProSta
+    "Freeze protection stage index"
+    annotation (Placement(transformation(extent={{440,20},{480,60}}),
+        iconTransformation(extent={{100,-170},{140,-130}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yEneCHWPum
     "Energize chilled water pump"
     annotation (Placement(transformation(extent={{440,-40},{480,0}}),
@@ -193,7 +194,7 @@ block FreezeProtection "Freeze protection sequence for multizone air handling un
     if have_heatingCoil
     "Request to heating hot-water plant"
     annotation (Placement(transformation(extent={{440,-500},{480,-460}}),
-        iconTransformation(extent={{100,-180},{140,-140}})));
+        iconTransformation(extent={{100,-190},{140,-150}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yAla
     "Alarm level"
     annotation (Placement(transformation(extent={{440,-550},{480,-510}}),
@@ -404,6 +405,27 @@ block FreezeProtection "Freeze protection sequence for multizone air handling un
     final k=273.15+ 6) if have_heatingCoil
     "Supply air temperature setpoint"
     annotation (Placement(transformation(extent={{-380,340},{-360,360}})));
+  Buildings.Controls.OBC.CDL.Integers.Switch intSwi2
+    "Alarm level"
+    annotation (Placement(transformation(extent={{380,30},{400,50}})));
+  Buildings.Controls.OBC.CDL.Integers.Switch intSwi4
+    "Alarm level"
+    annotation (Placement(transformation(extent={{320,230},{340,250}})));
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt6(
+    final k=2)
+    "Stage 2 freeze protection"
+    annotation (Placement(transformation(extent={{160,280},{180,300}})));
+  Buildings.Controls.OBC.CDL.Integers.Switch intSwi5
+    "Alarm level"
+    annotation (Placement(transformation(extent={{260,420},{280,440}})));
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt7(
+    final k=1)
+    "Stage 1 freeze protection"
+    annotation (Placement(transformation(extent={{140,490},{160,510}})));
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt8(
+    final k=0)
+    "Stage 0 freeze protection"
+    annotation (Placement(transformation(extent={{140,390},{160,410}})));
 
 protected
   parameter Boolean have_common=
@@ -616,7 +638,27 @@ equation
     annotation (Line(points={{342,-150},{460,-150}}, color={0,0,127}));
   connect(cooCoi.y, yCooCoi)
     annotation (Line(points={{142,-360},{460,-360}}, color={0,0,127}));
+  connect(conInt1.y, intSwi2.u1) annotation (Line(points={{62,70},{290,70},{290,
+          48},{378,48}}, color={255,127,0}));
+  connect(lat1.y, intSwi2.u2) annotation (Line(points={{-118,-48},{20,-48},{20,-20},
+          {292,-20},{292,40},{378,40}}, color={255,0,255}));
+  connect(lat2.y, intSwi4.u2) annotation (Line(points={{-158,172},{20,172},{20,240},
+          {318,240}}, color={255,0,255}));
+  connect(conInt6.y, intSwi4.u1) annotation (Line(points={{182,290},{290,290},{290,
+          248},{318,248}}, color={255,127,0}));
+  connect(intSwi4.y, intSwi2.u3) annotation (Line(points={{342,240},{360,240},{360,
+          32},{378,32}}, color={255,127,0}));
+  connect(lat.y, intSwi5.u2) annotation (Line(points={{-38,472},{20,472},{20,430},
+          {258,430}}, color={255,0,255}));
+  connect(intSwi5.y, intSwi4.u3) annotation (Line(points={{282,430},{300,430},{300,
+          232},{318,232}}, color={255,127,0}));
+  connect(conInt7.y, intSwi5.u1) annotation (Line(points={{162,500},{240,500},{240,
+          438},{258,438}}, color={255,127,0}));
+  connect(intSwi2.y, yFreProSta)
+    annotation (Line(points={{402,40},{460,40}}, color={255,127,0}));
 
+  connect(conInt8.y, intSwi5.u3) annotation (Line(points={{162,400},{200,400},{200,
+          422},{258,422}}, color={255,127,0}));
 annotation (defaultComponentName="mulAHUFrePro",
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-200},{100,200}}),
         graphics={
@@ -719,7 +761,7 @@ annotation (defaultComponentName="mulAHUFrePro",
           textString="yHeaCoi",
           visible=have_heatingCoil),
         Text(
-          extent={{22,-150},{96,-168}},
+          extent={{22,-160},{96,-178}},
           lineColor={255,127,0},
           textString="yHotWatPlaReq",
           visible=have_heatingCoil),
@@ -740,7 +782,11 @@ annotation (defaultComponentName="mulAHUFrePro",
         Text(
           extent={{70,-178},{98,-196}},
           lineColor={255,127,0},
-          textString="yAla")}),
+          textString="yAla"),
+        Text(
+          extent={{42,-140},{96,-156}},
+          lineColor={255,127,0},
+          textString="yFreProSta")}),
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-440,-560},{440,560}}),
           graphics={
         Text(
