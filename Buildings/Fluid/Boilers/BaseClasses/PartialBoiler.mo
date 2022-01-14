@@ -9,28 +9,28 @@ partial model PartialBoiler "Boiler base class with efficiency unspecified"
    annotation (choicesAllMatching = true);
 
   // These parameters can be supplied via Data records
-  parameter Modelica.SIunits.Power Q_flow_nominal "Nominal heating power";
-  parameter Modelica.SIunits.ThermalConductance UA=0.05*Q_flow_nominal/30
+  parameter Modelica.Units.SI.Power Q_flow_nominal "Nominal heating power";
+  parameter Modelica.Units.SI.ThermalConductance UA=0.05*Q_flow_nominal/30
     "Overall UA value";
-  parameter Modelica.SIunits.Volume VWat = 1.5E-6*Q_flow_nominal
-    "Water volume of boiler"
-    annotation(Dialog(tab = "Dynamics",
-    enable = not (energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState)));
-  parameter Modelica.SIunits.Mass mDry = 1.5E-3*Q_flow_nominal
-    "Mass of boiler that will be lumped to water heat capacity"
-    annotation(Dialog(tab = "Dynamics",
-    enable = not (energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState)));
-  parameter Modelica.SIunits.Efficiency eta_nominal
+  parameter Modelica.Units.SI.Volume VWat=1.5E-6*Q_flow_nominal
+    "Water volume of boiler" annotation (Dialog(tab="Dynamics", enable=not (
+          energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState)));
+  parameter Modelica.Units.SI.Mass mDry=1.5E-3*Q_flow_nominal
+    "Mass of boiler that will be lumped to water heat capacity" annotation (
+      Dialog(tab="Dynamics", enable=not (energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState)));
+  parameter Modelica.Units.SI.Efficiency eta_nominal
     "Boiler efficiency at nominal condition";
 
-  input Modelica.SIunits.Efficiency eta "Boiler efficiency";
-  Modelica.SIunits.Power QFue_flow = y * Q_flow_nominal/eta_nominal
+  input Modelica.Units.SI.Efficiency eta "Boiler efficiency";
+  Modelica.Units.SI.Power QFue_flow=y*Q_flow_nominal/eta_nominal
     "Heat released by fuel";
-  Modelica.SIunits.Power QWat_flow = eta * QFue_flow
+  Modelica.Units.SI.Power QWat_flow=eta*QFue_flow + UAOve.Q_flow
     "Heat transfer from gas into water";
-  Modelica.SIunits.MassFlowRate mFue_flow = QFue_flow/fue.h
+    // The direction of UAOve.Q_flow is from the ambient to the boiler
+    //   and therefore it takes a plus size here.
+  Modelica.Units.SI.MassFlowRate mFue_flow=QFue_flow/fue.h
     "Fuel mass flow rate";
-  Modelica.SIunits.VolumeFlowRate VFue_flow = mFue_flow/fue.d
+  Modelica.Units.SI.VolumeFlowRate VFue_flow=mFue_flow/fue.d
     "Fuel volume flow rate";
 
   Modelica.Blocks.Interfaces.RealInput y(min=0, max=1) "Part load ratio"
@@ -114,17 +114,17 @@ equation
           smooth=Smooth.None),
         Text(
           extent={{160,144},{40,94}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString=DynamicSelect("T", String(T-273.15, format=".1f"))),
         Text(
           extent={{-38,146},{-158,96}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString=DynamicSelect("y", String(y, format=".2f")))}),
 defaultComponentName="boi",
 Documentation(info="<html>
 <p>
-This is a base model of a boiler. 
-The efficiency specified in extended models. 
+This is a base model of a boiler.
+The efficiency specified in extended models.
 See <a href=\"Modelica://Buildings.Fluid.Boilers.UsersGuide\">
 Buildings.Fluid.Boilers.UsersGuide</a> for details.
 </p>
@@ -132,13 +132,20 @@ Buildings.Fluid.Boilers.UsersGuide</a> for details.
 revisions="<html>
 <ul>
 <li>
-October 4, 2021, by Hongxiang Fu:
-<br>Renamed from the old 
+November 10, 2021, by Hongxiang Fu:<br/>
+The heating power output of the boiler is now corrected
+by its heat loss to the ambient.
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2725\">
+#2725</a>.
+</li>
+<li>
+October 4, 2021, by Hongxiang Fu:<br/>
+Renamed from the old
 <span style=\"font-family: monospace;\">
-Buildings.Fluid.Boilers.BoilerPolynomial</span> 
-and with the efficiency specification removed. 
+Buildings.Fluid.Boilers.BoilerPolynomial</span>
+and with the efficiency specification removed.
 This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2651\">
-#2651</a>. 
+#2651</a>.
 </li>
 </ul>
 </html>"));

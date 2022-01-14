@@ -1,8 +1,8 @@
 within Buildings.BoundaryConditions.SolarGeometry;
 block IncidenceAngle "Solar incidence angle on a tilted surface"
   extends Modelica.Blocks.Icons.Block;
-  parameter Modelica.SIunits.Angle azi "Surface azimuth";
-  parameter Modelica.SIunits.Angle til "Surface tilt";
+  parameter Modelica.Units.SI.Angle azi "Surface azimuth";
+  parameter Modelica.Units.SI.Angle til "Surface tilt";
 
   Modelica.Blocks.Interfaces.RealOutput y(
     final quantity="Angle",
@@ -90,6 +90,6 @@ First implementation.
             100}}), graphics={Text(
           extent={{-150,110},{150,150}},
           textString="%name",
-          lineColor={0,0,255}), Bitmap(extent={{-90,-90},{90,90}}, fileName=
+          textColor={0,0,255}), Bitmap(extent={{-90,-90},{90,90}}, fileName=
               "modelica://Buildings/Resources/Images/BoundaryConditions/SolarGeometry/BaseClasses/IncidenceAngle.png")}));
 end IncidenceAngle;

@@ -1,7 +1,7 @@
 within Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses;
 block DryWetSelector "Selects results from dry or wet coil"
 
- constant Modelica.SIunits.MassFraction deltaX=0.0001
+  constant Modelica.Units.SI.MassFraction deltaX=0.0001
     "Range of x where transition between dry and wet coil occurs";
   Modelica.Blocks.Interfaces.RealInput XEvaIn "Inlet air mass fraction"
     annotation (Placement(transformation(extent={{-120,-50},{-100,-30}})));
@@ -61,7 +61,7 @@ block DryWetSelector "Selects results from dry or wet coil"
  output Real fraWet(min=0, max=1)
     "Fraction of results that are taken from the wet coil model";
 protected
-  output Modelica.SIunits.MassFraction dX(min=-1, max=1)
+  output Modelica.Units.SI.MassFraction dX(min=-1, max=1)
     "Difference between apparatus dew point mass fraction of wet coil and inlet air mass fraction";
 equation
   dX = XADP-XEvaIn;
@@ -141,7 +141,7 @@ First implementation.
           fillPattern=FillPattern.CrossDiag),
         Text(
           extent={{-70,94},{70,52}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid,
           textString="%name")}));

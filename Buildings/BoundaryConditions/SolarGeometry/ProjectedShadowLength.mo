@@ -9,18 +9,18 @@ block ProjectedShadowLength "Length of shadow projected onto a direction"
         caption="Select weather file"),
         group="Location"));
 
-  parameter Modelica.SIunits.Angle lon(displayUnit="deg")=
+  parameter Modelica.Units.SI.Angle lon(displayUnit="deg") =
     Buildings.BoundaryConditions.WeatherData.BaseClasses.getLongitudeTMY3(
     absFilNam) "Longitude" annotation (Evaluate=true, Dialog(group="Location"));
-  parameter Modelica.SIunits.Angle lat(displayUnit="deg")=
+  parameter Modelica.Units.SI.Angle lat(displayUnit="deg") =
     Buildings.BoundaryConditions.WeatherData.BaseClasses.getLatitudeTMY3(
     absFilNam) "Latitude" annotation (Evaluate=true, Dialog(group="Location"));
-  parameter Modelica.SIunits.Time timZon(displayUnit="h")=
-    Buildings.BoundaryConditions.WeatherData.BaseClasses.getTimeZoneTMY3(absFilNam)
-    "Time zone" annotation (Evaluate=true, Dialog(group="Location"));
+  parameter Modelica.Units.SI.Time timZon(displayUnit="h") =
+    Buildings.BoundaryConditions.WeatherData.BaseClasses.getTimeZoneTMY3(
+    absFilNam) "Time zone" annotation (Evaluate=true, Dialog(group="Location"));
 
-  parameter Modelica.SIunits.Length h "Height of surface";
-  parameter Modelica.SIunits.Angle azi "Surface azimuth";
+  parameter Modelica.Units.SI.Length h "Height of surface";
+  parameter Modelica.Units.SI.Angle azi "Surface azimuth";
 
   Modelica.Blocks.Interfaces.RealOutput y(
     final quantity="Length",
@@ -199,7 +199,7 @@ First implementation.
                               Text(
           extent={{-150,110},{150,150}},
           textString="%name",
-          lineColor={0,0,255}),
+          textColor={0,0,255}),
         Polygon(
           points={{-50,-34},{38,6},{36,66},{-52,36},{-50,-34}},
           lineColor={0,0,0},

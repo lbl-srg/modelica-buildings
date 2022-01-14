@@ -26,8 +26,7 @@ model Carnot_TCon
     final homotopyInitialization=homotopyInitialization,
     final Q_flow_nominal=QEva_flow_nominal));
 
-  parameter Modelica.SIunits.HeatFlowRate QCon_flow_max(
-    min=0) = Modelica.Constants.inf
+  parameter Modelica.Units.SI.HeatFlowRate QCon_flow_max(min=0) = Modelica.Constants.inf
     "Maximum heat flow rate for heating (positive)";
 
   Modelica.Blocks.Interfaces.RealInput TSet(unit="K")
@@ -67,7 +66,7 @@ equation
             graphics={
         Text(
           extent={{-148,156},{-92,114}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid,
           textString="TCon"),

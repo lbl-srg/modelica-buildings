@@ -59,7 +59,8 @@ protected
         Modelica.Blocks.Types.Extrapolation.Periodic,
     final offset=offset,
     final startTime=
-      if(extrapolation == Types.Extrapolation.Periodic) then
+      if
+        (extrapolation == Types.Extrapolation.Periodic) then
         t0
       else
         0,
@@ -261,7 +262,7 @@ Removed writing output value in icon (as it is an array of values).
 </li>
 <li>
 November 12, 2020, by Michael Wetter:<br/>
-Reformulated to remove dependency to <code>Modelica.SIunits</code>.<br/>
+Reformulated to remove dependency to <code>Modelica.Units.SI</code>.<br/>
 This is for
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2243\">issue 2243</a>.
 </li>
@@ -308,7 +309,7 @@ Initial CDL implementation.
         Text(
           extent={{-150,150},{150,110}},
           textString="%name",
-          lineColor={0,0,255}),
+          textColor={0,0,255}),
         Polygon(
           lineColor={192,192,192},
           fillColor={192,192,192},
@@ -331,7 +332,5 @@ Initial CDL implementation.
           fillPattern=FillPattern.Solid,
           extent={{-48.0,-50.0},{2.0,70.0}}),
         Line(
-          points={{-48.0,-50.0},{-48.0,70.0},{52.0,70.0},{52.0,-50.0},{-48.0,-50.0},{-48.0,-20.0},{52.0,-20.0},{52.0,10.0},{-48.0,10.0},{-48.0,40.0},{52.0,40.0},{52.0,70.0},{2.0,70.0},{2.0,-51.0}})
-          }));
-
+          points={{-48.0,-50.0},{-48.0,70.0},{52.0,70.0},{52.0,-50.0},{-48.0,-50.0},{-48.0,-20.0},{52.0,-20.0},{52.0,10.0},{-48.0,10.0},{-48.0,40.0},{52.0,40.0},{52.0,70.0},{2.0,70.0},{2.0,-51.0}})}));
 end TimeTable;

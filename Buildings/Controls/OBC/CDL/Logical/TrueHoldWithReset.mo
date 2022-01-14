@@ -20,10 +20,10 @@ protected
     final delayTime=duration)
     "Delay for the on signal"
     annotation (Placement(transformation(extent={{10,10},{30,30}})));
-  Modelica.StateGraph.InitialStep initialStep
+  Modelica.StateGraph.InitialStep initialStep(nIn=1, nOut=1)
     "Initial step"
     annotation (Placement(transformation(extent={{-80,50},{-60,70}})));
-  Modelica.StateGraph.StepWithSignal outputTrue
+  Modelica.StateGraph.StepWithSignal outputTrue(nIn=1, nOut=1)
     "Holds the output at true"
     annotation (Placement(transformation(extent={{-10,50},{10,70}})));
   Modelica.StateGraph.TransitionWithSignal toOutputTrue
@@ -68,10 +68,10 @@ equation
         Text(
           extent={{-150,150},{150,110}},
           textString="%name",
-          lineColor={0,0,255}),
+          textColor={0,0,255}),
         Text(
           extent={{-90,-62},{96,-90}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%duration"),
         Ellipse(
           extent={{71,7},{85,-7}},
@@ -165,7 +165,7 @@ alt=\"Input and output of the block\"/>
 <ul>
 <li>
 November 12, 2020, by Michael Wetter:<br/>
-Reformulated to remove dependency to <code>Modelica.SIunits</code>.<br/>
+Reformulated to remove dependency to <code>Modelica.Units.SI</code>.<br/>
 This is for
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2243\">issue 2243</a>.
 </li>

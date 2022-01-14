@@ -3,7 +3,7 @@ model RoomLeakage "Room leakage model"
   extends Buildings.BaseClasses.BaseIcon;
   replaceable package Medium = Modelica.Media.Interfaces.PartialMedium
     "Medium in the component" annotation (choicesAllMatching=true);
-  parameter Modelica.SIunits.Volume VRoo "Room volume";
+  parameter Modelica.Units.SI.Volume VRoo "Room volume";
   parameter Boolean use_windPressure=false
     "Set to true to enable wind pressure"
     annotation(Evaluate=true);
@@ -32,7 +32,7 @@ model RoomLeakage "Room leakage model"
     "Air change per hour due to infiltration"
     annotation (Placement(transformation(extent={{12,30},{32,50}})));
   parameter Real s "Side ratio, s=length of this wall/length of adjacent wall";
-  parameter Modelica.SIunits.Angle azi "Surface azimuth (South:0, West:pi/2)";
+  parameter Modelica.Units.SI.Angle azi "Surface azimuth (South:0, West:pi/2)";
 
 equation
   connect(res.port_b, port_b) annotation (Line(points={{40,6.10623e-16},{55,

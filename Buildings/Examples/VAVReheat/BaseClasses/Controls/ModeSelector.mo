@@ -1,6 +1,6 @@
 within Buildings.Examples.VAVReheat.BaseClasses.Controls;
 model ModeSelector "Finite State Machine for the operational modes"
-  Modelica.StateGraph.InitialStepWithSignal initialStepWithSignal(nIn=0)
+  Modelica.StateGraph.InitialStepWithSignal initialStepWithSignal(nIn=0, nOut=1)
     annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
   Modelica.StateGraph.Transition start "Starts the system"
     annotation (Placement(transformation(extent={{-50,20},{-30,40}})));
@@ -19,11 +19,11 @@ model ModeSelector "Finite State Machine for the operational modes"
     waitTime=60,
     condition=TRooMinErrHea.y > delTRooOnOff/2)
     annotation (Placement(transformation(extent={{28,20},{48,40}})));
-  parameter Modelica.SIunits.TemperatureDifference delTRooOnOff(min=0.1)=1
+  parameter Modelica.Units.SI.TemperatureDifference delTRooOnOff(min=0.1) = 1
     "Deadband in room temperature between occupied on and occupied off";
-  parameter Modelica.SIunits.Temperature TRooSetHeaOcc=293.15
+  parameter Modelica.Units.SI.Temperature TRooSetHeaOcc=293.15
     "Set point for room air temperature during heating mode";
-  parameter Modelica.SIunits.Temperature TRooSetCooOcc=299.15
+  parameter Modelica.Units.SI.Temperature TRooSetCooOcc=299.15
     "Set point for room air temperature during cooling mode";
   Modelica.StateGraph.Transition t1(condition=delTRooOnOff/2 < -TRooMinErrHea.y,
     enableTimer=true,
@@ -50,7 +50,8 @@ model ModeSelector "Finite State Machine for the operational modes"
     annotation (Placement(transformation(extent={{118,20},{138,40}})));
   State occ(
     mode=Buildings.Examples.VAVReheat.BaseClasses.Controls.OperationModes.occupied,
-    nIn=3)
+    nIn=3,
+    nOut=1)
     "Occupied mode"
     annotation (Placement(transformation(extent={{60,-100},{80,-80}})));
   Modelica.Blocks.Routing.RealPassThrough TRooMin
@@ -352,6 +353,6 @@ equation
           fillPattern=FillPattern.Solid,
           fillColor={215,215,215}), Text(
           extent={{-176,80},{192,-84}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%name")}));
 end ModeSelector;

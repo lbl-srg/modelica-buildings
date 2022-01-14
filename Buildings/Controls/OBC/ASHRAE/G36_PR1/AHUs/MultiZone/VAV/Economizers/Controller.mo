@@ -351,12 +351,12 @@ annotation (
           thickness=0.5),
         Text(
           extent={{-176,216},{152,178}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="%name")}),
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-160,-160},{
             160,160}}), graphics={Text(
           extent={{-140,22},{-110,6}},
-          lineColor={95,95,95},
+          textColor={95,95,95},
           textString="Not included
 in G36",  horizontalAlignment=TextAlignment.Left),
         Rectangle(
@@ -366,7 +366,7 @@ in G36",  horizontalAlignment=TextAlignment.Left),
           fillPattern=FillPattern.Solid),
                                   Text(
           extent={{76,-86},{154,-96}},
-          lineColor={95,95,95},
+          textColor={95,95,95},
           textString="Freeze protection based on TMix,
 not a part of G36",
           horizontalAlignment=TextAlignment.Left)}),

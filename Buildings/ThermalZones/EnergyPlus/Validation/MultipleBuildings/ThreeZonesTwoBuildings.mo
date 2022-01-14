@@ -13,9 +13,10 @@ model ThreeZonesTwoBuildings
         graphics={
           Text(
             extent={{-78,48},{82,-32}},
-            lineColor={0,0,0},
+            textColor={0,0,0},
             textString="1 zone")}));
   end OneZoneBuilding;
+
   model TwoZoneBuilding
     "Model with a building with two zones"
     extends Buildings.ThermalZones.EnergyPlus.Validation.ThermalZone.TwoIdenticalZones;
@@ -25,7 +26,7 @@ model ThreeZonesTwoBuildings
         graphics={
           Text(
             extent={{-82,44},{78,-36}},
-            lineColor={0,0,0},
+            textColor={0,0,0},
             textString="2 zones")}));
   end TwoZoneBuilding;
   OneZoneBuilding zon1

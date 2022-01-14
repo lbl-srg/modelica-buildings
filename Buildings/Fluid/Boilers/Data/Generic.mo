@@ -2,32 +2,31 @@ within Buildings.Fluid.Boilers.Data;
 record Generic "Generic data record for boiler performance"
   extends Modelica.Icons.Record;
 
-  parameter Modelica.SIunits.Efficiency effCur[:,:]=
+  parameter Real effCur[:,:]=
     [0, 1; 1, 1]
     "Efficiency curves as a table: First row = inlet temp(K), First column = firing rates or PLR";
-  final parameter Modelica.SIunits.Efficiency eta_nominal=
-    Buildings.Utilities.Math.Functions.smoothInterpolation(
+  final parameter Modelica.Units.SI.Efficiency eta_nominal=
+      Buildings.Utilities.Math.Functions.smoothInterpolation(
       x=TIn_nominal,
-      xSup=effCur[1,2:end],
-      ySup=effCur[end,2:end])
-    "Efficiency at TIn_nominal";
-  parameter Modelica.SIunits.Temperature TIn_nominal = 323.15
+      xSup=effCur[1, 2:end],
+      ySup=effCur[end, 2:end]) "Efficiency at TIn_nominal";
+  parameter Modelica.Units.SI.Temperature TIn_nominal=323.15
     "Nominal inlet temperature for efficiency calculations";
 
   parameter Buildings.Fluid.Data.Fuels.Generic fue "Fuel type"
    annotation (choicesAllMatching = true);
 
-  parameter Modelica.SIunits.Power Q_flow_nominal "Nominal heating power";
-  parameter Modelica.SIunits.ThermalConductance UA=0.05*Q_flow_nominal/30
+  parameter Modelica.Units.SI.Power Q_flow_nominal "Nominal heating power";
+  parameter Modelica.Units.SI.ThermalConductance UA=0.05*Q_flow_nominal/30
     "Overall UA value";
-  parameter Modelica.SIunits.Volume VWat = 1.5E-6*Q_flow_nominal
+  parameter Modelica.Units.SI.Volume VWat=1.5E-6*Q_flow_nominal
     "Water volume of boiler";
-  parameter Modelica.SIunits.Mass mDry = 1.5E-3*Q_flow_nominal
+  parameter Modelica.Units.SI.Mass mDry=1.5E-3*Q_flow_nominal
     "Mass of boiler that will be lumped to water heat capacity";
 
-  parameter Modelica.SIunits.MassFlowRate m_flow_nominal
+  parameter Modelica.Units.SI.MassFlowRate m_flow_nominal
     "Nominal mass flow rate";
-  parameter Modelica.SIunits.PressureDifference dp_nominal = 3000
+  parameter Modelica.Units.SI.PressureDifference dp_nominal=3000
     "Pressure drop at m_flow_nominal";
 
   annotation (
@@ -48,7 +47,7 @@ then the effiency curve must be specified for the upper (or lower) heating value
 <ul>
 <li>
 November 2, 2021 by Hongxiang Fu:<br/>
-First implementation. 
+First implementation.
 This is for
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2651\">#2651</a>.
 </li>

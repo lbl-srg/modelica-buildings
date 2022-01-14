@@ -13,8 +13,7 @@ model LightsControl
     name="Lights Electricity Rate",
     key="LIVING ZONE Lights",
     isDirectDependent=true,
-    y(
-      final unit="W"))
+    y(final unit="W"))
     "Block that reads the lighting power consumption from EnergyPlus"
     annotation (Placement(transformation(extent={{100,60},{120,80}})));
   Controls.OBC.CDL.Utilities.SunRiseSet sunRiseSet(

@@ -12,14 +12,12 @@ model SupplyReturnTemperatureResetExponent
     height=30,
     duration=1,
     offset=258.15,
-    y(
-      unit="K"))
+    y(unit="K"))
     "Outdoor temperature varying from -10 degC to 30 degC"
     annotation (Placement(transformation(extent={{-60,50},{-40,70}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TRoo(
     k=273.15+20,
-    y(
-      unit="K"))
+    y(unit="K"))
     "Room temperature 20 degC"
     annotation (Placement(transformation(extent={{-60,10},{-40,30}})));
   Buildings.Controls.OBC.Utilities.SetPoints.SupplyReturnTemperatureReset heaCurM(

@@ -83,12 +83,12 @@ equation
           fillPattern=FillPattern.Solid),
         Text(
           extent={{-68,54},{68,-38}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="day"),
         Text(
           extent={{-150,150},{150,110}},
           textString="%name",
-          lineColor={0,0,255})}),
+          textColor={0,0,255})}),
     Documentation(
       info="<html>
 <p>
@@ -123,7 +123,7 @@ writing output value in icon (as it is an array of values).
 </li>
 <li>
 November 12, 2020, by Michael Wetter:<br/>
-Reformulated to remove dependency to <code>Modelica.SIunits</code>.<br/>
+Reformulated to remove dependency to <code>Modelica.Units.SI</code>.<br/>
 This is for
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2243\">issue 2243</a>.
 </li>

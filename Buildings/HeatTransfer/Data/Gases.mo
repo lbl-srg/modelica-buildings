@@ -4,30 +4,29 @@ package Gases "Package with thermophysical properties for window fill gases"
 
   record Generic "Thermal properties of fill gas for windows"
       extends Modelica.Icons.Record;
-      parameter Modelica.SIunits.Length x "Gas layer thickness";
-      parameter Modelica.SIunits.ThermalConductivity a_k
+    parameter Modelica.Units.SI.Length x "Gas layer thickness";
+    parameter Modelica.Units.SI.ThermalConductivity a_k
       "Constant coefficient for thermal conductivity";
       parameter Real b_k(unit="W/(m.K2)")
       "Temperature dependent coefficient for thermal conductivity";
-      parameter Modelica.SIunits.DynamicViscosity a_mu
+    parameter Modelica.Units.SI.DynamicViscosity a_mu
       "Constant coefficient for dynamic viscosity";
       parameter Real b_mu(unit="N.s/(m2.K)")
       "Temperature dependent coefficient for dynamic viscosity";
-      parameter Modelica.SIunits.SpecificHeatCapacity a_c
+    parameter Modelica.Units.SI.SpecificHeatCapacity a_c
       "Constant coefficient for specific heat capacity";
       parameter Real b_c(unit="J/(kg.K2)")
       "Temperature dependent coefficient for specific heat capacity";
 
-      parameter Modelica.SIunits.MolarMass MM
+    parameter Modelica.Units.SI.MolarMass MM
       "Molar mass (of mixture or single fluid)";
 
-      parameter Modelica.SIunits.Pressure P0 = 101325 "Normal pressure";
+    parameter Modelica.Units.SI.Pressure P0=101325 "Normal pressure";
 
     annotation (
     defaultComponentPrefixes="parameter",
     defaultComponentName="datGas",
-Documentation(info=
-"<html>
+      Documentation(info="<html>
 Generic record for thermophysical properties for window
 gas fills.
 The implementation is according to
@@ -54,7 +53,7 @@ First implementation.
                        a_mu=3.723E-6, b_mu=4.940E-8,
                        a_c=1002.737,  b_c= 1.2324E-2,
                        MM=28.97E-3) "Thermophysical properties for air"
-    annotation(
+    annotation (
       defaultComponentPrefixes="parameter",
       defaultComponentName="datGas");
 
@@ -62,7 +61,7 @@ First implementation.
                          a_mu=3.379E-6, b_mu=6.451E-8,
                          a_c=521.9285,  b_c= 0,
                          MM=39.948E-3) "Thermophysical properties for argon"
-    annotation(
+    annotation (
       defaultComponentPrefixes="parameter",
       defaultComponentName="datGas");
 
@@ -70,7 +69,7 @@ First implementation.
                            a_mu=2.213E-6, b_mu=7.777E-8,
                            a_c=248.0907,  b_c= 0,
                            MM=83.80E-3) "Thermophysical properties for krypton"
-    annotation(
+    annotation (
       defaultComponentPrefixes="parameter",
       defaultComponentName="datGas");
 
@@ -78,31 +77,31 @@ First implementation.
                          a_mu=1.069E-6, b_mu=7.414E-8,
                          a_c=158.3397,  b_c= 0,
                          MM=131.3E-3) "Thermophysical properties for krypton"
-    annotation(
+    annotation (
       defaultComponentPrefixes="parameter",
       defaultComponentName="datGas");
 
  function thermalConductivity
     "Function to compute the thermal conductivity of gases"
   input Buildings.HeatTransfer.Data.Gases.Generic gas "Record of gas data";
-  input Modelica.SIunits.Temperature T "Gas temperature";
-  output Modelica.SIunits.ThermalConductivity k "Thermal conductivity";
+    input Modelica.Units.SI.Temperature T "Gas temperature";
+    output Modelica.Units.SI.ThermalConductivity k "Thermal conductivity";
  algorithm
   k := gas.a_k + gas.b_k*T;
  end thermalConductivity;
 
 function density "Function to compute the mass density"
   input Buildings.HeatTransfer.Data.Gases.Generic gas "Record of gas data";
-  input Modelica.SIunits.Temperature T "Gas temperature";
-  output Modelica.SIunits.Density rho "Mass density";
+    input Modelica.Units.SI.Temperature T "Gas temperature";
+    output Modelica.Units.SI.Density rho "Mass density";
 algorithm
     rho := gas.P0*gas.MM/Modelica.Constants.R/T;
 end density;
 
 function dynamicViscosity "Function to compute the dynamic viscosity for gases"
   input Buildings.HeatTransfer.Data.Gases.Generic gas "Record of gas data";
-  input Modelica.SIunits.Temperature T "Gas temperature";
-  output Modelica.SIunits.DynamicViscosity mu "Dynamic viscosity";
+    input Modelica.Units.SI.Temperature T "Gas temperature";
+    output Modelica.Units.SI.DynamicViscosity mu "Dynamic viscosity";
 algorithm
     mu := gas.a_mu + gas.b_mu*T;
 end dynamicViscosity;
@@ -110,8 +109,8 @@ end dynamicViscosity;
 function specificHeatCapacity
     "Function to compute the specific heat capacity for gases"
   input Buildings.HeatTransfer.Data.Gases.Generic gas "Record of gas data";
-  input Modelica.SIunits.Temperature T "Gas temperature";
-  output Modelica.SIunits.SpecificHeatCapacity c_p "Specific heat capacity";
+    input Modelica.Units.SI.Temperature T "Gas temperature";
+    output Modelica.Units.SI.SpecificHeatCapacity c_p "Specific heat capacity";
 algorithm
   c_p := gas.a_c + gas.b_c*T;
 end specificHeatCapacity;

@@ -35,7 +35,7 @@ block PartialExchange
   parameter String portName[:]
     "Names of fluid ports as declared in the CFD input file";
   parameter Boolean verbose=false "Set to true for verbose output";
-  parameter Modelica.SIunits.Density rho_start "Density at initial state";
+  parameter Modelica.Units.SI.Density rho_start "Density at initial state";
   parameter Boolean haveSource
     "Flag, true if the model has at least one source";
   parameter Integer nSou(min=0)
@@ -58,7 +58,7 @@ protected
     "Number of sensors that are connected to CFD output";
   final parameter Integer nPorts=size(portName, 1)
     "Number of fluid ports for the HVAC inlet and outlets";
-  discrete Modelica.SIunits.Time modTimRea(fixed=false)
+  discrete Modelica.Units.SI.Time modTimRea(fixed=false)
     "Current model time received from CFD";
 
   discrete Integer retVal(start=0, fixed=true) "Return value from CFD";

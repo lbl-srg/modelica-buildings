@@ -11,20 +11,20 @@ model PartialWaterToWater
   replaceable package ref = Buildings.Media.Refrigerants.R410A
     "Refrigerant model";
 
-  parameter Modelica.SIunits.MassFlowRate m1_flow_nominal
+  parameter Modelica.Units.SI.MassFlowRate m1_flow_nominal
     "Nominal mass flow rate on condenser side";
-  parameter Modelica.SIunits.MassFlowRate m2_flow_nominal
+  parameter Modelica.Units.SI.MassFlowRate m2_flow_nominal
     "Nominal mass flow rate on evaporator side";
 
-  parameter Modelica.SIunits.Pressure dp1_nominal = 1000
+  parameter Modelica.Units.SI.Pressure dp1_nominal=1000
     "Pressure drop at nominal mass flow rate on condenser side";
-  parameter Modelica.SIunits.Pressure dp2_nominal = 1000
+  parameter Modelica.Units.SI.Pressure dp2_nominal=1000
     "Pressure drop at nominal mass flow rate on evaporator side";
 
-  parameter Modelica.SIunits.ThermalConductance UACon
+  parameter Modelica.Units.SI.ThermalConductance UACon
     "Thermal conductance of condenser";
 
-  parameter Modelica.SIunits.ThermalConductance UAEva
+  parameter Modelica.Units.SI.ThermalConductance UAEva
     "Thermal conductance of evaporator";
 
   Modelica.Blocks.Sources.CombiTimeTable calDat(

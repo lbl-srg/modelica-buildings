@@ -5,14 +5,14 @@ model ScrollWaterToWater_VariableSpeed
   package Medium1 = Buildings.Media.Water "Medium model";
   package Medium2 = Buildings.Media.Water "Medium model";
 
-  parameter Modelica.SIunits.MassFlowRate m1_flow_nominal = 0.47
+  parameter Modelica.Units.SI.MassFlowRate m1_flow_nominal=0.47
     "Nominal mass flow rate on the condenser side";
-  parameter Modelica.SIunits.MassFlowRate m2_flow_nominal = 0.47
+  parameter Modelica.Units.SI.MassFlowRate m2_flow_nominal=0.47
     "Nominal mass flow rate on the evaporator side";
 
-  parameter Modelica.SIunits.MassFlowRate flowSource = 0.79
+  parameter Modelica.Units.SI.MassFlowRate flowSource=0.79
     "Mass flow rate on the condenser side";
-  parameter Modelica.SIunits.MassFlowRate flowLoad = 0.47
+  parameter Modelica.Units.SI.MassFlowRate flowLoad=0.47
     "Mass flow rate on the evaporator side";
 
   Buildings.Fluid.Sources.Boundary_pT sin2(

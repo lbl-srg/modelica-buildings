@@ -3,7 +3,7 @@ model LimPIDReset
   "Test model for PID controller with optional intgerator reset"
   extends Modelica.Icons.Example;
 
-  Modelica.Blocks.Sources.Sine setPoi(freqHz=1) "Set point signal"
+  Modelica.Blocks.Sources.Sine setPoi(f=1) "Set point signal"
     annotation (Placement(transformation(extent={{-40,-20},{-20,0}})));
   Buildings.Controls.Continuous.LimPID limPIDPar(
     yMax=1,
@@ -14,13 +14,13 @@ model LimPIDReset
     Td=10,
     k=0.2,
     controllerType=Modelica.Blocks.Types.SimpleController.PID,
-    initType=Modelica.Blocks.Types.InitPID.InitialOutput,
+    initType=Modelica.Blocks.Types.Init.InitialOutput,
     y_start=0.3) "PId controller with integrator reset to a parameter value"
     annotation (Placement(transformation(extent={{20,-20},{40,0}})));
   Modelica.Blocks.Sources.Constant mea(k=0.5) "Measured signal"
     annotation (Placement(transformation(extent={{-40,-50},{-20,-30}})));
   Buildings.Controls.Continuous.LimPID limPIDDef(
-    initType=Modelica.Blocks.Types.InitPID.InitialState,
+    initType=Modelica.Blocks.Types.Init.InitialState,
     Td=10,
     k=1,
     Ti=1,
@@ -44,14 +44,14 @@ model LimPIDReset
     k=0.2,
     Ti=20,
     controllerType=Modelica.Blocks.Types.SimpleController.PID,
-    initType=Modelica.Blocks.Types.InitPID.InitialOutput,
+    initType=Modelica.Blocks.Types.Init.InitialOutput,
     y_start=0.3) "PId controller with integrator reset to an input value"
     annotation (Placement(transformation(extent={{20,-80},{40,-60}})));
   Modelica.Blocks.Sources.Constant conRes(k=0.9)
     "Signal to which integrator will be reset to"
     annotation (Placement(transformation(extent={{-40,-90},{-20,-70}})));
   Modelica.Blocks.Continuous.LimPID limPIDOri(
-    initType=Modelica.Blocks.Types.InitPID.InitialState,
+    initType=Modelica.Blocks.Types.Init.InitialState,
     Td=10,
     k=1,
     Ti=1,

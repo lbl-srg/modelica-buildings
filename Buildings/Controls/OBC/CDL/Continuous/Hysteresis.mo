@@ -83,11 +83,11 @@ equation
           points={{-49,51},{-49,-29}}),
         Text(
           extent={{-92,-49},{-9,-92}},
-          lineColor={192,192,192},
+          textColor={192,192,192},
           textString="%uLow"),
         Text(
           extent={{2,-49},{91,-92}},
-          lineColor={192,192,192},
+          textColor={192,192,192},
           textString="%uHigh"),
         Rectangle(
           extent={{-91,-49},{-8,-92}},
@@ -103,7 +103,7 @@ equation
           color={192,192,192}),
         Text(
           extent={{-150,150},{150,110}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%name")}),
     Documentation(
       info="<html>

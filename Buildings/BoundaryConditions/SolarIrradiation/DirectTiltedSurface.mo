@@ -3,7 +3,7 @@ block DirectTiltedSurface "Direct solar irradiation on a tilted surface"
   extends
     Buildings.BoundaryConditions.SolarIrradiation.BaseClasses.PartialSolarIrradiation;
 
-  parameter Modelica.SIunits.Angle azi "Surface azimuth";
+  parameter Modelica.Units.SI.Angle azi "Surface azimuth";
 
   Modelica.Blocks.Interfaces.RealOutput inc(
     final quantity="Angle",
@@ -84,5 +84,5 @@ First implementation.
             100}}), graphics={Text(
           extent={{-150,110},{150,150}},
           textString="%name",
-          lineColor={0,0,255})}));
+          textColor={0,0,255})}));
 end DirectTiltedSurface;

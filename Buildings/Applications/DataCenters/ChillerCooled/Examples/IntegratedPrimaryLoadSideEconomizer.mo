@@ -129,9 +129,9 @@ equation
           -190,110},{-190,75},{-174,75}}, color={255,127,0}));
   connect(weaBus.TWetBul, cooModCon.TWetBul) annotation (Line(
       points={{-328,-20},{-340,-20},{-340,200},{-224,200},{-224,114},{-216,114}},
-
       color={255,204,51},
       thickness=0.5));
+
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false,
     extent={{-360,-200},{300,220}})),
   __Dymola_Commands(file=

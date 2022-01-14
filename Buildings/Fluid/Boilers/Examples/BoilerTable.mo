@@ -70,20 +70,20 @@ equation
     experiment(Tolerance=1e-6, StopTime=6000),
     Documentation(info="<html>
 <p>
-Similar to 
+Similar to
 <a href=\"Buildings.Fluid.Boilers.Examples.BoilerPolynomial\">
 Buildings.Fluid.Boilers.Examples.BoilerPolynomial</a>,
-this example demonstrates the open loop response of the boiler model 
+this example demonstrates the open loop response of the boiler model
 with <code>boi1</code> a dynamic model and
 <code>boi2</code> a steady-state model.
-In addition to the control signal, 
+In addition to the control signal,
 the inlet temperature is also varied.
 </p>
 </html>", revisions="<html>
 <ul>
 <li>
 October 13, 2021, by Hongxiang Fu:<br/>
-First implementation. This is for 
+First implementation. This is for
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2651\">#2651</a>.
 </li>
 </ul>

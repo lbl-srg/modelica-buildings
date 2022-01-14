@@ -2,9 +2,9 @@ within Buildings.Examples.DualFanDualDuct.Controls;
 block CoolingCoilTemperatureSetpoint "Set point scheduler for cooling coil"
   extends Modelica.Blocks.Icons.Block;
   import Buildings.Examples.VAVReheat.BaseClasses.Controls.OperationModes;
-  parameter Modelica.SIunits.Temperature TOn(displayUnit="degC")
+  parameter Modelica.Units.SI.Temperature TOn(displayUnit="degC")
     "Setpoint during on";
-  parameter Modelica.SIunits.Temperature TOff(displayUnit="degC")
+  parameter Modelica.Units.SI.Temperature TOff(displayUnit="degC")
     "Setpoint during off";
   Modelica.Blocks.Sources.RealExpression TSetPoi(
      y(final unit="K", displayUnit="degC")=if (mode.y == Integer(OperationModes.occupied) or
@@ -39,6 +39,6 @@ equation
   annotation ( Icon(graphics={
         Text(
           extent={{44,16},{90,-18}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="TSetCoo")}));
 end CoolingCoilTemperatureSetpoint;

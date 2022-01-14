@@ -9,9 +9,8 @@ model Merkel "Cooling tower model based on Merkel's theory"
         x=fanRelPow.r_P,
         strict=false)));
 
-  final parameter Modelica.SIunits.MassFlowRate mAir_flow_nominal=
-    m_flow_nominal/ratWatAir_nominal
-    "Nominal mass flow rate of air"
+  final parameter Modelica.Units.SI.MassFlowRate mAir_flow_nominal=
+      m_flow_nominal/ratWatAir_nominal "Nominal mass flow rate of air"
     annotation (Dialog(group="Fan"));
 
   parameter Real ratWatAir_nominal(min=0, unit="1") = 1.2
@@ -26,9 +25,9 @@ model Merkel "Cooling tower model based on Merkel's theory"
       choicesAllMatching=true,
       Placement(transformation(extent={{18,70},{38,90}})));
 
-  final parameter Modelica.SIunits.HeatFlowRate Q_flow_nominal(max=0)=per.Q_flow_nominal
+  final parameter Modelica.Units.SI.HeatFlowRate Q_flow_nominal(max=0) = per.Q_flow_nominal
     "Nominal heat transfer, (negative)";
-  final parameter Modelica.SIunits.ThermalConductance UA_nominal=per.UA_nominal
+  final parameter Modelica.Units.SI.ThermalConductance UA_nominal=per.UA_nominal
     "Thermal conductance at nominal flow, used to compute heat capacity";
   final parameter Real eps_nominal=per.eps_nominal
     "Nominal heat transfer effectiveness";
@@ -77,11 +76,11 @@ equation
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Text(
           extent={{-98,100},{-86,84}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="y"),
         Text(
           extent={{-104,70},{-70,32}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="TWB"),
         Rectangle(
           extent={{-100,81},{-70,78}},
@@ -91,7 +90,7 @@ equation
           fillPattern=FillPattern.Solid),
         Text(
           extent={{-54,6},{58,-114}},
-          lineColor={255,255,255},
+          textColor={255,255,255},
           fillColor={0,127,0},
           fillPattern=FillPattern.Solid,
           textString="Merkel"),
@@ -125,7 +124,7 @@ equation
           fillPattern=FillPattern.Solid),
         Text(
           extent={{64,114},{98,76}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="PFan"),
         Rectangle(
           extent={{78,-60},{82,-4}},
@@ -135,7 +134,7 @@ equation
           fillPattern=FillPattern.Solid),
         Text(
           extent={{70,-58},{104,-96}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="TLvg"),
         Rectangle(
           extent={{78,-58},{102,-62}},

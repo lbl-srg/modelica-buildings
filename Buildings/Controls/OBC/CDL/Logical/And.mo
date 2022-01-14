@@ -28,7 +28,7 @@ equation
           borderPattern=BorderPattern.Raised),
         Text(
           extent={{-90,40},{90,-40}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="and"),
         Ellipse(
           extent={{71,7},{85,-7}},
@@ -72,7 +72,7 @@ equation
         Text(
           extent={{-150,150},{150,110}},
           textString="%name",
-          lineColor={0,0,255})}),
+          textColor={0,0,255})}),
     Documentation(
       info="<html>
 <p>

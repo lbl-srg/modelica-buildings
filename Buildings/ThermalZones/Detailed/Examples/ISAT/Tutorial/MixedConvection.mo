@@ -356,7 +356,7 @@ init.w 0.0 // Initial condition for velocity w
 </html>"),
     experiment(Tolerance=1e-06, StopTime=180),
     __Dymola_Commands(file=
-          "Resources/Scripts/Dymola/ThermalZones/Detailed/Examples/ISAT/Tutorial/MixedConvection.mos" "Simulate and plot"),
+          "modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/Detailed/Examples/ISAT/Tutorial/MixedConvection.mos" "Simulate and plot"),
     Diagram(coordinateSystem(extent={{-80,-160},{200,120}}, preserveAspectRatio=false),
         graphics));
 end MixedConvection;

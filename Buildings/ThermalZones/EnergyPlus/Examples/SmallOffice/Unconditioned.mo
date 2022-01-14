@@ -7,7 +7,8 @@ model Unconditioned
   parameter String weaName=Modelica.Utilities.Files.loadResource(
     "modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos")
     "Name of the weather file";
-  final parameter Modelica.SIunits.MassFlowRate mOut_flow[4]=0.3/3600*{flo.VRooSou,flo.VRooEas,flo.VRooNor,flo.VRooWes}*1.2
+  final parameter Modelica.Units.SI.MassFlowRate mOut_flow[4]=0.3/3600*{flo.VRooSou,
+      flo.VRooEas,flo.VRooNor,flo.VRooWes}*1.2
     "Outside air infiltration for each exterior room";
   BoundaryConditions.WeatherData.ReaderTMY3 weaDat(
     filNam=weaName,

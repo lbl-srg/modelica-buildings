@@ -5,8 +5,10 @@ model PVsimpleOriented_N "Simple PV source with orientation and neutral cable"
     redeclare Buildings.Electrical.AC.OnePhase.Sources.PVSimple pv_phase1,
     redeclare Buildings.Electrical.AC.OnePhase.Sources.PVSimple pv_phase2,
     redeclare Buildings.Electrical.AC.OnePhase.Sources.PVSimple pv_phase3);
-  parameter Modelica.SIunits.Angle til "Surface tilt" annotation(Dialog(group="Orientation"));
-  parameter Modelica.SIunits.Angle azi "Surface Azimith" annotation(Dialog(group="Orientation"));
+  parameter Modelica.Units.SI.Angle til "Surface tilt"
+    annotation (Dialog(group="Orientation"));
+  parameter Modelica.Units.SI.Angle azi "Surface Azimith"
+    annotation (Dialog(group="Orientation"));
   BoundaryConditions.SolarIrradiation.DiffusePerez HDifTil(
     final til=til,
     final azi=azi) "Diffuse irradiation on tilted surface"

@@ -12,8 +12,8 @@ protected
     "Send model parameters from Modelica to CFD"
     input String cfdFilNam "CFD input file name";
     input String[nSur] name "Surface names";
-    input Modelica.SIunits.Area[nSur] A "Surface areas";
-    input Modelica.SIunits.Angle[nSur] til "Surface tilt";
+    input Modelica.Units.SI.Area[nSur] A "Surface areas";
+    input Modelica.Units.SI.Angle[nSur] til "Surface tilt";
     input Buildings.ThermalZones.Detailed.Types.CFDBoundaryConditions[nSur] bouCon
       "Type of boundary condition";
     input Integer nPorts(min=0)
@@ -39,7 +39,7 @@ protected
       "Number of sources that are connected to CFD output";
     input String sourceName[nSou]
       "Names of sources as declared in the CFD input file";
-    input Modelica.SIunits.Density rho_start "Density at initial state";
+    input Modelica.Units.SI.Density rho_start "Density at initial state";
   protected
     Integer coSimFlag=0;
   algorithm
@@ -80,8 +80,8 @@ protected
     "Start the coupled simulation with ISAT"
     input String cfdFilNam "CFD input file name";
     input String[nSur] name "Surface names";
-    input Modelica.SIunits.Area[nSur] A "Surface areas";
-    input Modelica.SIunits.Angle[nSur] til "Surface tilt";
+    input Modelica.Units.SI.Area[nSur] A "Surface areas";
+    input Modelica.Units.SI.Angle[nSur] til "Surface tilt";
     input Buildings.ThermalZones.Detailed.Types.CFDBoundaryConditions[nSur] bouCon
       "Type of boundary condition";
     input Integer nPorts(min=0)
@@ -104,7 +104,7 @@ protected
       "Number of sources that are connected to CFD output";
     input String sourceName[nSou]
       "Names of sources as declared in the CFD input file";
-    input Modelica.SIunits.Density rho_start "Density at initial state";
+    input Modelica.Units.SI.Density rho_start "Density at initial state";
     output Integer retVal
       "Return value of the function (0 indicates CFD successfully started.)";
 
@@ -151,13 +151,13 @@ First implementation.
 
   function isatExchangeData "Exchange data with the C implementation"
     input Integer flag "Communication flag to CFD";
-    input Modelica.SIunits.Time t "Current Modelica simulation time to CFD";
-    input Modelica.SIunits.Time dt(min=100*Modelica.Constants.eps)
+    input Modelica.Units.SI.Time t "Current Modelica simulation time to CFD";
+    input Modelica.Units.SI.Time dt(min=100*Modelica.Constants.eps)
       "Requested synchronization time step size";
     input Real[nU] u "Input to CFD";
     input Integer nU "Number of inputs to CFD";
     input Integer nY "Number of outputs from CFD";
-    output Modelica.SIunits.Time modTimRea "Current model time from CFD";
+    output Modelica.Units.SI.Time modTimRea "Current model time from CFD";
     output Real[nY] y "Output computed by CFD";
     output Integer retVal "Return value for CFD simulation status";
 

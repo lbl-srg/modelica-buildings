@@ -2,7 +2,7 @@ within Buildings.Applications.DataCenters.DXCooled.Controls;
 model Compressor "Controller for compressor speed"
 
   parameter Real k=0.5 "Gain of controller";
-  parameter Modelica.SIunits.Time Ti=240 "Time constant of integrator block";
+  parameter Modelica.Units.SI.Time Ti=240 "Time constant of integrator block";
   parameter Real yMax=1 "Upper limit of output";
   parameter Real yMin=0 "Lower limit of output";
   parameter Boolean reverseActing=false
@@ -85,7 +85,7 @@ equation
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid), Text(
           extent={{128,114},{-128,166}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%name")}),
     Diagram(coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>

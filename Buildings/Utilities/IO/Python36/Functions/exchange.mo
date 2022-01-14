@@ -1,5 +1,7 @@
 within Buildings.Utilities.IO.Python36.Functions;
-function exchange "Function that communicates with Python"
+impure function exchange "Function that communicates with Python"
+  extends Modelica.Icons.Function;
+
   input String moduleName
     "Name of the python module that contains the function";
   input String functionName=moduleName "Name of the python function";
@@ -90,6 +92,10 @@ for examples.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+December 11, 2021, by Michael Wetter:<br/>
+Declared function as <code>impure</code> for MSL 4.0.0.
+</li>
 <li>
 April 10, 2020, by Jianjun Hu and Michael Wetter:<br/>
 Updated to Python 3.6.

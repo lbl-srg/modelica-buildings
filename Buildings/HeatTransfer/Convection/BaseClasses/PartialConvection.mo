@@ -1,11 +1,11 @@
 within Buildings.HeatTransfer.Convection.BaseClasses;
 partial model PartialConvection "Partial model for heat convection"
   extends Buildings.BaseClasses.BaseIcon;
-  parameter Modelica.SIunits.Area A "Heat transfer area";
+  parameter Modelica.Units.SI.Area A "Heat transfer area";
 
-  Modelica.SIunits.HeatFlowRate Q_flow "Heat flow rate from solid -> fluid";
-  Modelica.SIunits.HeatFlux q_flow "Convective heat flux from solid -> fluid";
-  Modelica.SIunits.TemperatureDifference dT(start=0) "= solid.T - fluid.T";
+  Modelica.Units.SI.HeatFlowRate Q_flow "Heat flow rate from solid -> fluid";
+  Modelica.Units.SI.HeatFlux q_flow "Convective heat flux from solid -> fluid";
+  Modelica.Units.SI.TemperatureDifference dT(start=0) "= solid.T - fluid.T";
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a solid
                               annotation (Placement(transformation(extent={{-110,
             -10},{-90,10}})));
@@ -35,7 +35,7 @@ equation
         Line(points={{100,0},{100,0}}, color={0,127,255}),
         Text(
           extent={{-35,42},{-5,20}},
-          lineColor={255,0,0},
+          textColor={255,0,0},
           textString="Q_flow"),
         Line(points={{-60,20},{76,20}}, color={191,0,0}),
         Line(points={{-60,-20},{76,-20}}, color={191,0,0}),

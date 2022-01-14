@@ -5,7 +5,7 @@ record PartialGrid "Partial model that represents a generalized grid"
   parameter Integer nLinks "Number of links connecting the nodes";
   parameter Integer fromTo[nLinks,2]
     "Indexes [i,1]->[i,2] of the nodes connected by link i";
-  parameter Modelica.SIunits.Length l[nLinks,1](each min=0)
+  parameter Modelica.Units.SI.Length l[nLinks,1](each min=0)
     "Length of the cable";
   replaceable Buildings.Electrical.Transmission.BaseClasses.BaseCable cables[nLinks]
     "Array that contains the characteristics of each cable";
@@ -41,7 +41,7 @@ Added User's guide.
 </ul>
 </html>"), Icon(graphics={
         Text(
-          lineColor={0,0,255},
+          textColor={0,0,255},
           extent={{-154,104},{146,144}},
           textString="%name")}));
 end PartialGrid;

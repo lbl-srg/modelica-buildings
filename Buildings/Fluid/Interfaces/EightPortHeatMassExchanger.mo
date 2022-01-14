@@ -17,14 +17,14 @@ model EightPortHeatMassExchanger
   constant Boolean homotopyInitialization = true "= true, use homotopy method"
     annotation(HideResult=true);
 
-  parameter Modelica.SIunits.Time tau1 = 30 "Time constant at nominal flow"
-     annotation (Dialog(tab = "Dynamics", group="Nominal condition"));
-  parameter Modelica.SIunits.Time tau2 = 30 "Time constant at nominal flow"
-     annotation (Dialog(tab = "Dynamics", group="Nominal condition"));
-  parameter Modelica.SIunits.Time tau3 = 30 "Time constant at nominal flow"
-     annotation (Dialog(tab = "Dynamics", group="Nominal condition"));
-  parameter Modelica.SIunits.Time tau4 = 30 "Time constant at nominal flow"
-     annotation (Dialog(tab = "Dynamics", group="Nominal condition"));
+  parameter Modelica.Units.SI.Time tau1=30 "Time constant at nominal flow"
+    annotation (Dialog(tab="Dynamics", group="Nominal condition"));
+  parameter Modelica.Units.SI.Time tau2=30 "Time constant at nominal flow"
+    annotation (Dialog(tab="Dynamics", group="Nominal condition"));
+  parameter Modelica.Units.SI.Time tau3=30 "Time constant at nominal flow"
+    annotation (Dialog(tab="Dynamics", group="Nominal condition"));
+  parameter Modelica.Units.SI.Time tau4=30 "Time constant at nominal flow"
+    annotation (Dialog(tab="Dynamics", group="Nominal condition"));
 
   // Assumptions
   parameter Modelica.Fluid.Types.Dynamics energyDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial
@@ -107,13 +107,13 @@ model EightPortHeatMassExchanger
     "Nominal value of trace substances. (Set to typical order of magnitude.)"
    annotation (Dialog(tab="Initialization", group = "Medium 4", enable=Medium4.nC > 0));
 
- Modelica.SIunits.HeatFlowRate Q1_flow = vol1.heatPort.Q_flow
+  Modelica.Units.SI.HeatFlowRate Q1_flow=vol1.heatPort.Q_flow
     "Heat flow rate into medium 1";
-  Modelica.SIunits.HeatFlowRate Q2_flow = vol2.heatPort.Q_flow
+  Modelica.Units.SI.HeatFlowRate Q2_flow=vol2.heatPort.Q_flow
     "Heat flow rate into medium 2";
-  Modelica.SIunits.HeatFlowRate Q3_flow = vol3.heatPort.Q_flow
+  Modelica.Units.SI.HeatFlowRate Q3_flow=vol3.heatPort.Q_flow
     "Heat flow rate into medium 1";
-  Modelica.SIunits.HeatFlowRate Q4_flow = vol4.heatPort.Q_flow
+  Modelica.Units.SI.HeatFlowRate Q4_flow=vol4.heatPort.Q_flow
     "Heat flow rate into medium 2";
 
   Buildings.Fluid.MixingVolumes.MixingVolume vol1(
@@ -242,36 +242,40 @@ model EightPortHeatMassExchanger
 protected
   parameter Medium1.ThermodynamicState sta1_nominal=Medium1.setState_pTX(
       T=Medium1.T_default, p=Medium1.p_default, X=Medium1.X_default);
-  parameter Modelica.SIunits.Density rho1_nominal=Medium1.density(sta1_nominal)
+  parameter Modelica.Units.SI.Density rho1_nominal=Medium1.density(sta1_nominal)
     "Density, used to compute fluid volume";
   parameter Medium2.ThermodynamicState sta2_nominal=Medium2.setState_pTX(
       T=Medium2.T_default, p=Medium2.p_default, X=Medium2.X_default);
-  parameter Modelica.SIunits.Density rho2_nominal=Medium2.density(sta2_nominal)
+  parameter Modelica.Units.SI.Density rho2_nominal=Medium2.density(sta2_nominal)
     "Density, used to compute fluid volume";
   parameter Medium1.ThermodynamicState sta3_nominal=Medium3.setState_pTX(
       T=Medium3.T_default, p=Medium3.p_default, X=Medium3.X_default);
-  parameter Modelica.SIunits.Density rho3_nominal=Medium3.density(sta3_nominal)
+  parameter Modelica.Units.SI.Density rho3_nominal=Medium3.density(sta3_nominal)
     "Density, used to compute fluid volume";
   parameter Medium4.ThermodynamicState sta4_nominal=Medium4.setState_pTX(
       T=Medium4.T_default, p=Medium4.p_default, X=Medium4.X_default);
-  parameter Modelica.SIunits.Density rho4_nominal=Medium4.density(sta4_nominal)
+  parameter Modelica.Units.SI.Density rho4_nominal=Medium4.density(sta4_nominal)
     "Density, used to compute fluid volume";
 
   parameter Medium1.ThermodynamicState sta1_start=Medium1.setState_pTX(
       T=T1_start, p=p1_start, X=X1_start);
-  parameter Modelica.SIunits.SpecificEnthalpy h1_outflow_start = Medium1.specificEnthalpy(sta1_start)
+  parameter Modelica.Units.SI.SpecificEnthalpy h1_outflow_start=
+      Medium1.specificEnthalpy(sta1_start)
     "Start value for outflowing enthalpy";
   parameter Medium2.ThermodynamicState sta2_start=Medium2.setState_pTX(
       T=T2_start, p=p2_start, X=X2_start);
-  parameter Modelica.SIunits.SpecificEnthalpy h2_outflow_start = Medium2.specificEnthalpy(sta2_start)
+  parameter Modelica.Units.SI.SpecificEnthalpy h2_outflow_start=
+      Medium2.specificEnthalpy(sta2_start)
     "Start value for outflowing enthalpy";
   parameter Medium3.ThermodynamicState sta3_start=Medium3.setState_pTX(
       T=T3_start, p=p3_start, X=X3_start);
-  parameter Modelica.SIunits.SpecificEnthalpy h3_outflow_start = Medium3.specificEnthalpy(sta3_start)
+  parameter Modelica.Units.SI.SpecificEnthalpy h3_outflow_start=
+      Medium3.specificEnthalpy(sta3_start)
     "Start value for outflowing enthalpy";
   parameter Medium4.ThermodynamicState sta4_start=Medium4.setState_pTX(
       T=T4_start, p=p4_start, X=X4_start);
-  parameter Modelica.SIunits.SpecificEnthalpy h4_outflow_start = Medium4.specificEnthalpy(sta4_start)
+  parameter Modelica.Units.SI.SpecificEnthalpy h4_outflow_start=
+      Medium4.specificEnthalpy(sta4_start)
     "Start value for outflowing enthalpy";
 
 initial algorithm

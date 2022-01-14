@@ -137,6 +137,6 @@ First implementation.
           color={238,46,47}),
         Text(
           extent={{-164,144},{164,106}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%name")}));
 end DaylightControlled;
