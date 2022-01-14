@@ -16,13 +16,13 @@ model SpeedControlled_Nrpm
       per(final pressure = per.pressure,
           final powMet = per.powMet),
           r_N(start=y_start)),
-    gaiSpe(u(final unit="1/min"),
+    gaiSpe(u(final unit="rev/min"),
            final k=1/per.speed_rpm_nominal));
 
   parameter Real y_start(min=0, max=1, unit="1")=0 "Initial value of speed"
     annotation(Dialog(tab="Dynamics", group="Filtered speed", enable=use_inputFilter));
 
-  Modelica.Blocks.Interfaces.RealInput Nrpm(final unit="1/min")
+  Modelica.Blocks.Interfaces.RealInput Nrpm(final unit="rev/min")
  if inputType == Buildings.Fluid.Types.InputType.Continuous
     "Prescribed rotational speed"
     annotation (Placement(transformation(
@@ -70,6 +70,7 @@ equation
           visible=inputType == Buildings.Fluid.Types.InputType.Continuous or inputType == Buildings.Fluid.Types.InputType.Stages,
           textString=DynamicSelect("Nrpm", if inputType == Buildings.Fluid.Types.InputType.Continuous then String(Nrpm, format=".0f") else String(stage)))}),
     Documentation(info="<html>
+<p>
 This model describes a fan or pump with prescribed speed in revolutions per minute.
 The head is computed based on the performance curve that take as an argument
 the actual volume flow rate divided by the maximum flow rate and the relative
@@ -78,6 +79,7 @@ The efficiency of the device is computed based
 on the efficiency curves that take as an argument
 the actual volume flow rate divided by the maximum possible volume flow rate, or
 based on the motor performance curves.
+</p>
 <br/>
 <p>
 See the
@@ -87,6 +89,12 @@ User's Guide</a> for more information.
 </html>",
       revisions="<html>
 <ul>
+<li>
+January 5, 2022, by Jianjun Hu:<br/>
+Changed the rotational speed unit to be consistent with the one in the Modelica Standard Library.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1570\">#1570</a>.
+</li>
 <li>
 October 14, 2021, by Hongxiang Fu:<br/>
 Rewrote the statements using <code>use_powerCharacteristic</code>

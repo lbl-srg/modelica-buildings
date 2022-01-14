@@ -36,25 +36,22 @@ partial model HVACBuilding
   parameter Modelica.Units.SI.MassFlowRate mWes_flow_nominal
     "Design mass flow rate west";
 
-  final parameter Modelica.Units.SI.MassFlowRate mVAV_flow_nominal[5]={
+  final parameter Modelica.Units.SI.MassFlowRate mCooVAV_flow_nominal[5]={
       mSou_flow_nominal,mEas_flow_nominal,mNor_flow_nominal,mWes_flow_nominal,
       mCor_flow_nominal} "Design mass flow rate of each zone";
 
 
-  parameter Modelica.Units.SI.Temperature THotWatInl_nominal(displayUnit="degC")
-     = 45 + 273.15 "Reheat coil nominal inlet water temperature";
+  parameter Modelica.Units.SI.Temperature THeaWatInl_nominal(displayUnit="degC")=
+       45 + 273.15 "Reheat coil nominal inlet water temperature";
 
-  replaceable
-  Buildings.Examples.VAVReheat.BaseClasses.PartialHVAC hvac
+  replaceable Buildings.Examples.VAVReheat.BaseClasses.PartialHVAC hvac
     constrainedby Buildings.Examples.VAVReheat.BaseClasses.PartialHVAC(
     redeclare final package MediumA = MediumA,
     redeclare final package MediumW = MediumW,
-    final VRoo={VRooSou, VRooEas, VRooNor, VRooWes, VRooCor},
-    final AFlo={AFloSou, AFloEas, AFloNor, AFloWes, AFloCor},
-    final mVAV_flow_nominal=mVAV_flow_nominal,
-    final m_flow_nominal=0.7*sum(mVAV_flow_nominal),
-    final THotWatInl_nominal=THotWatInl_nominal)
-    "HVAC system"
+    final VRoo={VRooSou,VRooEas,VRooNor,VRooWes,VRooCor},
+    final AFlo={AFloSou,AFloEas,AFloNor,AFloWes,AFloCor},
+    final mCooVAV_flow_nominal=mCooVAV_flow_nominal,
+    final THeaWatInl_nominal=THeaWatInl_nominal) "HVAC system"
     annotation (Placement(transformation(extent={{-46,-28},{42,22}})));
   replaceable
   Buildings.Examples.VAVReheat.BaseClasses.PartialFloor flo
@@ -71,7 +68,7 @@ partial model HVACBuilding
   Fluid.Sources.Boundary_pT sinHea(
     redeclare package Medium = MediumW,
     p=300000,
-    T=THotWatInl_nominal,
+    T=THeaWatInl_nominal,
     nPorts=1) "Sink for heating coil" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
@@ -79,7 +76,7 @@ partial model HVACBuilding
   Fluid.Sources.Boundary_pT souHea(
     redeclare package Medium = MediumW,
     p(displayUnit="Pa") = 300000 + 6000,
-    T=THotWatInl_nominal,
+    T=THeaWatInl_nominal,
     nPorts=1) "Source for heating coil" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
@@ -104,7 +101,7 @@ partial model HVACBuilding
   Fluid.Sources.Boundary_pT souHeaTer(
     redeclare package Medium = MediumW,
     p(displayUnit="Pa") = 300000 + 6000,
-    T=THotWatInl_nominal,
+    T=THeaWatInl_nominal,
     nPorts=1) "Source for heating of terminal boxes" annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
@@ -113,7 +110,7 @@ partial model HVACBuilding
   Fluid.Sources.Boundary_pT sinHeaTer(
     redeclare package Medium = MediumW,
     p(displayUnit="Pa") = 300000,
-    T=THotWatInl_nominal,
+    T=THeaWatInl_nominal,
     nPorts=1) "Source for heating of terminal boxes" annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
@@ -136,28 +133,28 @@ equation
           96,61.6667},{96,92},{-60,92},{-60,16.4444},{-48.75,16.4444}},
                                                             color={0,0,127}));
   connect(hvac.port_supAir[1], flo.portsSou[1]) annotation (Line(points={{42.275,
-          19.2222},{45.5652,19.2222},{45.5652,49.3333}}, color={0,127,255}));
+          19.2222},{46.3261,19.2222},{46.3261,49.3333}}, color={0,127,255}));
   connect(hvac.port_supAir[2], flo.portsEas[1]) annotation (Line(points={{42.275,
-          19.2222},{80.2609,19.2222},{80.2609,62.6667}}, color={0,127,255}));
+          19.2222},{81.0217,19.2222},{81.0217,62.6667}}, color={0,127,255}));
   connect(hvac.port_supAir[3], flo.portsNor[1]) annotation (Line(points={{42.275,
-          19.2222},{56,19.2222},{56,74},{45.5652,74}},           color={0,127,255}));
+          19.2222},{56,19.2222},{56,74},{46.3261,74}},           color={0,127,255}));
   connect(hvac.port_supAir[4], flo.portsWes[1]) annotation (Line(points={{42.275,
-          19.2222},{56,19.2222},{56,36},{26.6957,36},{26.6957,62.6667}}, color={
+          19.2222},{56,19.2222},{56,36},{27.4565,36},{27.4565,62.6667}}, color={
           0,127,255}));
   connect(hvac.port_supAir[5], flo.portsCor[1]) annotation (Line(points={{42.275,
-          19.2222},{56,19.2222},{56,62.6667},{45.5652,62.6667}}, color={0,127,255}));
+          19.2222},{56,19.2222},{56,62.6667},{46.3261,62.6667}}, color={0,127,255}));
   connect(hvac.port_retAir[1], flo.portsSou[2]) annotation (Line(points={{42.275,
-          -4.38889},{48.6087,-4.38889},{48.6087,49.3333}}, color={0,127,255}));
+          -4.38889},{47.8478,-4.38889},{47.8478,49.3333}}, color={0,127,255}));
   connect(hvac.port_retAir[2], flo.portsEas[2]) annotation (Line(points={{42.275,
-          -4.38889},{83.3043,-4.38889},{83.3043,62.6667}}, color={0,127,255}));
+          -4.38889},{82.5435,-4.38889},{82.5435,62.6667}}, color={0,127,255}));
   connect(hvac.port_retAir[3], flo.portsNor[2]) annotation (Line(points={{42.275,
-          -4.38889},{58,-4.38889},{58,74},{48.6087,74}},           color={0,127,
+          -4.38889},{58,-4.38889},{58,74},{47.8478,74}},           color={0,127,
           255}));
   connect(hvac.port_retAir[4], flo.portsWes[2]) annotation (Line(points={{42.275,
-          -4.38889},{60,-4.38889},{60,34},{29.7391,34},{29.7391,62.6667}},
+          -4.38889},{60,-4.38889},{60,34},{28.9783,34},{28.9783,62.6667}},
         color={0,127,255}));
   connect(hvac.port_retAir[5], flo.portsCor[2]) annotation (Line(points={{42.275,
-          -4.38889},{60,-4.38889},{60,58},{48.6087,58},{48.6087,62.6667}},
+          -4.38889},{60,-4.38889},{60,58},{47.8478,58},{47.8478,62.6667}},
         color={0,127,255}));
   connect(weaDat.weaBus, flo.weaBus) annotation (Line(
       points={{-70,10},{-66,10},{-66,90},{64.1304,90}},
@@ -176,6 +173,11 @@ with five conditioned thermal zones.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+December 20, 2021, by Michael Wetter:<br/>
+Changed parameter declarations for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2829\">issue #2829</a>.
+</li>
 <li>
 November 17, 2021, by David Blum:<br/>
 Changed chilled water supply temperature from 12 C to 6 C.<br/>
