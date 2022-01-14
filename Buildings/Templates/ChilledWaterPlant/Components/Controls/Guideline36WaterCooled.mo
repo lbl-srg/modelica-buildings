@@ -45,12 +45,6 @@ block Guideline36WaterCooled
     "Set to true if the plant has at least one variable speed centrifugal chiller"
     annotation (Dialog(tab="General", group="Chillers configuration"));
 
-  // ---- General: Waterside economizer ----
-
-  parameter Modelica.Units.SI.Temperature dTAppWSE_nominal(displayUnit="K") = 2
-    "Design heat exchanger approach"
-    annotation(Evaluate=true, Dialog(tab="General", group="Waterside economizer", enable=have_WSE));
-
   // ---- General: Condenser water pump ----
 
   /* FIXME: Currently same configuration (have_dedPum) for CW and CHW pumps.
@@ -100,11 +94,12 @@ block Guideline36WaterCooled
 
   // ---- General: Cooling tower ----
 
-  parameter Integer nTowCel=4
+  final parameter Integer nCelTow = cooTow.nCel
     "Total number of cooling tower cells"
-    annotation (Dialog(tab="General", group="Cooling tower"));
+    annotation (Evaluate=true, Dialog(tab="General", group="Cooling tower"));
 
-  parameter Modelica.Units.SI.Temperature cooTowAppDes(displayUnit="K")=4
+  final parameter Modelica.Units.SI.Temperature dTAppTow_nominal(displayUnit="K", final min=0)=
+    cooTow.dTApp_nominal
     "Design cooling tower approach"
     annotation(Evaluate=true, Dialog(tab="General", group="Cooling tower"));
 
@@ -116,10 +111,13 @@ block Guideline36WaterCooled
 
   // ---- Waterside economizer ----
 
-  parameter Real TOutWetDes(
-    unit="K",
-    displayUnit="degC")=288.15
-    "Design outdoor air wet bulb temperature"
+  /* 
+  FIXME: Those parameters should be declared in the interface class 
+  Buildings.Templates.ChilledWaterPlant.Components.ReturnSection.Interfaces.PartialReturnSection
+  and accessed with inner/outer reference.
+  */
+  parameter Modelica.Units.SI.Temperature dTAppWSE_nominal(displayUnit="K", final min=0)=2
+    "Design heat exchanger approach"
     annotation(Evaluate=true, Dialog(tab="Waterside economizer", group="Design parameters", enable=have_WSE));
 
   parameter Real VHeaExcDes_flow(unit="m3/s")=0.015
@@ -128,52 +126,27 @@ block Guideline36WaterCooled
 
   // ---- Head pressure ----
 
-  parameter Real minConWatPumSpe(unit="1")=0.1
-    "Minimum condenser water pump speed"
+  parameter Real yPumCW_min(final unit="1", final min=0, final max=1)=
+    dat.getReal(varName=id + ".control.yPumCW_min.value")
+    "Minimum CW pump speed ratio"
     annotation(Dialog(enable= not ((not have_WSE) and have_fixSpeConWatPum), tab="Head pressure", group="Limits"));
 
-  parameter Real minHeaPreValPos(unit="1")=0.1
-    "Minimum head pressure control valve position"
+  parameter Real yValIsoCon_min(final unit="1", final min=0, final max=1)=
+    dat.getReal(varName=id + ".control.yValIsoCon_min.value")
+    "Minimum head pressure control valve opening ratio"
     annotation(Dialog(enable= (not ((not have_WSE) and (not have_fixSpeConWatPum))), tab="Head pressure", group="Limits"));
-
-  // ---- Minimum flow bypass ----
-
-  parameter Real byPasSetTim(unit="s")=300
-    "Time constant for resetting minimum bypass flow"
-    annotation(Dialog(tab="Minimum flow bypass", group="Time parameters"));
-
-  parameter Real minFloSet[nChi](unit="m3/s")={0.0089,0.0089}
-    "Minimum chilled water flow through each chiller"
-    annotation(Dialog(tab="Minimum flow bypass", group="Flow limits"));
-
-  parameter Real maxFloSet[nChi](unit="m3/s")={0.025,0.025}
-    "Maximum chilled water flow through each chiller"
-    annotation(Dialog(tab="Minimum flow bypass", group="Flow limits"));
-
-  parameter Real yMaxFloBypCon(unit="1")=1 "Upper limit of output"
-    annotation (Dialog(tab="Minimum flow bypass", group="Controller"));
-
-  parameter Real yMinFloBypCon(unit="1")=0.1 "Lower limit of output"
-    annotation (Dialog(tab="Minimum flow bypass", group="Controller"));
 
   // ---- Chilled water pumps ----
 
-  parameter Real minChiWatPumSpe(unit="1")=0.1
-    "Minimum pump speed"
-    annotation (Dialog(tab="Chilled water pumps", group="Speed controller"));
-
-  parameter Real maxChiWatPumSpe(unit="1")=1
-    "Maximum pump speed"
+  parameter Real yPumCHW_min(final unit="1", final min=0, final max=1)=
+    dat.getReal(varName=id + ".control.yPumCHW_min.value")
+    "Minimum CHW pump speed ratio"
     annotation (Dialog(tab="Chilled water pumps", group="Speed controller"));
 
   parameter Integer nPum_nominal(
     final max=nPumPri,
     final min=1)=nPumPri
     "Total number of pumps that operate at design conditions"
-    annotation (Dialog(tab="Chilled water pumps", group="Nominal conditions"));
-
-  parameter Real VChiWat_flow_nominal(unit="m3/s")=0.5
-    "Total plant design chilled water flow rate"
     annotation (Dialog(tab="Chilled water pumps", group="Nominal conditions"));
 
   // ---- Staging setpoints ----
@@ -265,34 +238,19 @@ block Guideline36WaterCooled
     final desConWatPumSpe=desConWatPumSpe,
     final desConWatPumNum=desConWatPumNum,
     final towCelOnSet=towCelOnSet,
-    final nTowCel=nTowCel,
-    final cooTowAppDes=cooTowAppDes,
+    final nTowCel=nCelTow,
+    final cooTowAppDes=dTAppTow_nominal,
     final schTab=schTab,
     final TChiLocOut=TAirOutLoc,
-    final plaThrTim=plaThrTim,
-    final reqThrTim=reqThrTim,
-    final ignReq=ignReq,
-    final holdPeriod=holdPeriod,
-    final delDis=delDis,
-    final TOffsetEna=TOffsetEna,
-    final TOffsetDis=TOffsetDis,
-    final TOutWetDes=TOutWetDes,
+    final TOutWetDes=cooTow.TAirInWB_nominal,
     final VHeaExcDes_flow=VHeaExcDes_flow,
-    final step=step,
-    final wseOnTimDec=wseOnTimDec,
-    final wseOnTimInc=wseOnTimInc,
-    final minConWatPumSpe=minConWatPumSpe,
-    final minHeaPreValPos=minHeaPreValPos,
-    final controllerTypeHeaPre=controllerTypeHeaPre,
-    final kHeaPreCon=kHeaPreCon,
-    final TiHeaPreCon=TiHeaPreCon,
-    final byPasSetTim=byPasSetTim,
+    final minConWatPumSpe=yPumCW_min,
+    final minHeaPreValPos=yValIsoCon_min,
     final minFloSet=minFloSet,
     final maxFloSet=maxFloSet,
-    final minChiWatPumSpe=minChiWatPumSpe,
-    final maxChiWatPumSpe=maxChiWatPumSpe,
+    final minChiWatPumSpe=yPumCHW_min,
     final nPum_nominal=nPum_nominal,
-    final VChiWat_flow_nominal=VChiWat_flow_nominal,
+    final VChiWat_flow_nominal=mCHWPri_flow_nominal / 1000,
     final maxLocDp=dpCHWLoc_max,
     final triAmo=triAmo,
     final resAmo=resAmo,

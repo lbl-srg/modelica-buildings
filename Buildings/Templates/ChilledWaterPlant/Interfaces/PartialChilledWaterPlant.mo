@@ -19,19 +19,27 @@ partial model PartialChilledWaterPlant
     "Set to true if parallel chillers are connected to dedicated pumps"
     annotation (Evaluate=true, Dialog(group="Configuration"));
 
-  /* FIXME: Those parameters must be declared at the plant level, not within the chiller group
+  /* 
+  FIXME: Those parameters must be declared at the plant level, not within the chiller group
   (external parameter file to be updated)
   */
-  final parameter Modelica.Units.SI.HeatFlowRate QChi_flow_nominal[nChi](
+  parameter Modelica.Units.SI.HeatFlowRate QChi_flow_nominal[nChi](
     each final max=0)=
     -1 .* dat.getRealArray1D(varName=id + ".ChillerGroup.capacity.value", n=nChi)
     "Cooling heat flow rate of each chiller (<0 by convention)";
   final parameter Modelica.Units.SI.HeatFlowRate Q_flow_nominal(final max=0)=
     sum(QChi_flow_nominal)
     "Cooling heat flow rate of the plant (<0 by convention)";
-  final parameter Modelica.Units.SI.Temperature TCHWSupSet_nominal=
+  parameter Modelica.Units.SI.Temperature TCHWSupSet_nominal=
     dat.getReal(varName=id + ".ChillerGroup.TCHWSupSet_nominal.value")
-    "Minimum (design) CHW supply temperature setpoint";
+    "Design (minimum) CHW supply temperature setpoint";
+  parameter Modelica.Units.SI.MassFlowRate mCHWChi_flow_nominal[nChi]=
+    dat.getRealArray1D(varName=id + ".ChillerGroup.mCHWChi_flow_nominal.value", n=nChi)
+    "Design (maximum) chiller CHW mass flow rate (for each chiller)";
+  final parameter Modelica.Units.SI.MassFlowRate mCHWPri_flow_nominal=
+    sum(mCHWChi_flow_nominal)
+    "Design (maximum) primary CHW mass flow rate (for the plant)";
+  // FIXME: For primary-secondary, add secondary CHW flow rate at design.
 
   Modelica.Fluid.Interfaces.FluidPort_a port_a(
     redeclare final package Medium=Medium) "Chilled water supply"

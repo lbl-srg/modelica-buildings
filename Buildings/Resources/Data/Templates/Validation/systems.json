@@ -699,12 +699,12 @@
                 "unit": "K"
             },
             "mCHWChi_flow_min": {
-                "description": "Minimum chiller chilled water flow rate (identical for all chillers)",
+                "description": "Minimum chiller CHW mass flow rate (identical for all chillers)",
                 "value": 278.15,
                 "unit": "K"
             },
             "mCHWChi_flow_nominal": {
-                "description": "Design chiller CHW flow rate (identical for all chillers)",
+                "description": "Design chiller CHW mass flow rate (identical for all chillers)",
                 "value": 308.15,
                 "unit": "K"
             },
@@ -727,8 +727,17 @@
                 "description": "Maximum CHW differential pressure setpoint - Remote sensors",
                 "value": [1e4],
                 "unit": "Pa"
+            },
+            "yPumCW_min": {
+                "description": "Minimum CW pump speed ratio",
+                "value": 0.1,
+                "unit": "1"
+            },
+            "yValIsoCon_min": {
+                "description": "Minimum head pressure control valve opening ratio",
+                "value": 0.0,
+                "unit": "1"
             }
-
         }
     }
 }

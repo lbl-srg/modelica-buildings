@@ -107,6 +107,7 @@ model PartialChilledWaterLoop
       final have_parChi=have_parChi,
       final have_dedPum=have_dedPum,
       final capChi_nominal=abs(QChi_flow_nominal),
+      final mCHWPri_flow_nominal=mCHWPri_flow_nominal,
       final TCHWSupSet_min=TCHWSupSet_nominal)
     "Plant controller"
     annotation (Placement(

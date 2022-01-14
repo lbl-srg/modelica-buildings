@@ -11,34 +11,7 @@ model CoolingTowerParallel
   final parameter Modelica.Units.SI.MassFlowRate mTow_flow_nominal=
     m_flow_nominal/nCooTow "Single tower nominal mass flow rate";
 
-  parameter Modelica.Units.SI.PressureDifference dp_nominal=
-    dat.getReal(varName=id + ".CoolingTower.dp_nominal.value")
-    "Nominal pressure difference of the tower"
-    annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.Units.SI.PressureDifference dpValve_nominal=
-    dat.getReal(varName=id + ".CoolingTower.dpValve_nominal.value")
-    "Nominal pressure difference of the valve";
-  parameter Real ratWatAir_nominal(
-    final min=0,
-    final unit="1")=0.625
-    "Design water-to-air ratio"
-    annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.Units.SI.Temperature TAirInWB_nominal=
-    dat.getReal(varName=id + ".CoolingTower.TAirInWB_nominal.value")
-    "Nominal outdoor (air inlet) wetbulb temperature"
-    annotation (Dialog(group="Heat transfer"));
-  parameter Modelica.Units.SI.Temperature TWatIn_nominal=
-    dat.getReal(varName=id + ".CoolingTower.TCW_nominal.value")
-    "Nominal water inlet temperature"
-    annotation (Dialog(group="Heat transfer"));
-  parameter Modelica.Units.SI.TemperatureDifference dT_nominal=
-    dat.getReal(varName=id + ".CoolingTower.dT_nominal.value")
-    "Temperature difference between inlet and outlet of the tower"
-    annotation (Dialog(group="Heat transfer"));
-  parameter Modelica.Units.SI.Power PFan_nominal=
-    dat.getReal(varName=id + ".CoolingTower.PFan_nominal.value")
-    "Fan power"
-    annotation (Dialog(group="Fan"));
+
   parameter Boolean use_inputFilter=true
     "= true, if opening is filtered with a 2nd order CriticalDamping filter"
     annotation (Dialog(tab="Dynamics",group="Filtered opening"));
@@ -49,7 +22,7 @@ model CoolingTowerParallel
     each final ratWatAir_nominal=ratWatAir_nominal,
     each final TAirInWB_nominal=TAirInWB_nominal,
     each final TWatIn_nominal=TWatIn_nominal,
-    each final TWatOut_nominal=TWatIn_nominal-dT_nominal,
+    each final TWatOut_nominal=TWatOut_nominal,
     each final PFan_nominal=PFan_nominal,
     each final dp_nominal=0)
     constrainedby
