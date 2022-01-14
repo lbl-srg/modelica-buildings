@@ -195,8 +195,7 @@ if __name__ == "__main__":
             "des": "spawn-win64",
             "files": {
                 "bin/epfmi.dll": "",
-                f"bin/{NAME_VERSION.replace('Spawn-light', 'spawn')}.exe": "",
-                "bin/spawn.exe": "",
+                f"bin/{NAME_VERSION.replace('Spawn-light', 'spawn')}.exe": "bin/spawn.exe",
                 "README.md": "",
                 "lib/epfmi.lib": "",
                 "etc/Energy+.idd": "",
