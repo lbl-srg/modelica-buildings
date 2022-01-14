@@ -1,25 +1,25 @@
-within Buildings.Controls.OBC.CDL.Discrete.Examples;
+within Buildings.Obsolete.Controls.OBC.CDL.Discrete.Examples;
 model DayType
   "Example model for the source that outputs the type of the day"
-  Buildings.Controls.OBC.CDL.Discrete.DayType dayTypMon
+  Buildings.Obsolete.Controls.OBC.CDL.Discrete.DayType dayTypMon
     "Model that outputs the type of the day, starting with Monday"
     annotation (Placement(transformation(extent={{-60,40},{-40,60}})));
-  Buildings.Controls.OBC.CDL.Discrete.DayType dayTypSat(
+  Buildings.Obsolete.Controls.OBC.CDL.Discrete.DayType dayTypSat(
     iStart=6)
     "Model that outputs the type of the day, starting with Saturday"
     annotation (Placement(transformation(extent={{-60,0},{-40,20}})));
-  Buildings.Controls.OBC.CDL.Discrete.DayType dayTypTwoWeeks(
+  Buildings.Obsolete.Controls.OBC.CDL.Discrete.DayType dayTypTwoWeeks(
     days={Types.Day.WorkingDay,Types.Day.WorkingDay,Types.Day.WorkingDay,Types.Day.WorkingDay,Types.Day.WorkingDay,Types.Day.WorkingDay,Types.Day.NonWorkingDay,Types.Day.NonWorkingDay,Types.Day.NonWorkingDay,Types.Day.NonWorkingDay,Types.Day.NonWorkingDay,Types.Day.NonWorkingDay,Types.Day.NonWorkingDay,Types.Day.NonWorkingDay},
     nout=14)
     "Model that outputs the type of the day, starting with 6 workdays, then 8 non-working days"
     annotation (Placement(transformation(extent={{-60,-40},{-40,-20}})));
-  Buildings.Controls.OBC.CDL.Discrete.DayType dayTypMonThr(
+  Buildings.Obsolete.Controls.OBC.CDL.Discrete.DayType dayTypMonThr(
     nout=3)
     "Model that outputs the type of the day for 3 days, starting with Monday"
     annotation (Placement(transformation(extent={{-60,-80},{-40,-60}})));
   annotation (
     __Dymola_Commands(
-      file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/CDL/Discrete/Examples/DayType.mos" "Simulate and plot"),
+      file="modelica://Buildings/Resources/Scripts/Dymola/Obsolete/Controls/OBC/CDL/Discrete/Examples/DayType.mos" "Simulate and plot"),
     experiment(
       StartTime=-1814400,
       StopTime=1.8144e+06,
@@ -42,6 +42,12 @@ the day after.
 </html>",
       revisions="<html>
 <ul>
+<li>
+January 13, 2022, by Michael Wetter:<br/>
+Moved to <code>Obsolete</code> package.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2839\">issue 2839</a>.
+</li>
 <li>
 January 11, 2017, by Milica Grahovac:<br/>
 First CDL implementation.
