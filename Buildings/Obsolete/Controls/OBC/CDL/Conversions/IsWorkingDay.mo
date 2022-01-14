@@ -1,10 +1,10 @@
 within Buildings.Obsolete.Controls.OBC.CDL.Conversions;
 block IsWorkingDay
   "Block that outputs true if the input is a working day"
-  Obsolete.Controls.OBC.CDL.Interfaces.DayTypeInput u
+  Buildings.Obsolete.Controls.OBC.CDL.Interfaces.DayTypeInput u
     "Connector of DayType input signal"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
-  Interfaces.BooleanOutput y
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y
     "Connector of Boolean output signal"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
