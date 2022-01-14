@@ -1,4 +1,4 @@
-﻿within Buildings.Templates.AirHandlersFans.Components.ReliefReturnSection;
+within Buildings.Templates.AirHandlersFans.Components.ReliefReturnSection;
 model NoEconomizer "No air economizer"
   extends
     Buildings.Templates.AirHandlersFans.Components.ReliefReturnSection.Interfaces.PartialReliefReturnSection(
