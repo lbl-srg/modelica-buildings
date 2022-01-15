@@ -16,8 +16,8 @@ import shutil
 # Commit, see https://gitlab.com/kylebenne/spawn/-/pipelines?scope=all&page=1
 # Also available is latest/Spawn-latest-{Linux,win64,Darwin}
 # The setup below will lead to a specific commit being pulled.
-commit = "894d972d4160a7e1b3e9ea0f24057156ce1be133"
-NAME_VERSION = f"Spawn-0.1.2-{commit[0:10]}"
+commit = "5d127d5774c8bf4169f552b3dbc4c2d5f6d5c580"
+NAME_VERSION = f"Spawn-light-0.2.1-{commit[0:10]}"
 
 
 
@@ -46,27 +46,41 @@ def get_distribution(dis):
         with tempfile.TemporaryDirectory(prefix="tmp-Buildings-inst") as zip_dir:
             with zipfile.ZipFile(tar_fil, "r") as zip_ref:
                 zip_ref.extractall(zip_dir)
-            new_name = tar_fil[:-3] + ".tar.gz"
+            new_name = tar_fil[:-3] + "tar.gz"
             with tarfile.open(new_name, "w") as t:
-                t.add(zip_dir)
+                t.add(zip_dir, arcname='')
         os.remove(tar_fil)
         tar_fil = new_name
 
     tar = tarfile.open(tar_fil)
-    for key in dis["files"]:
+    for key, val in dis["files"].items():
         found = False
         for nam in tar.getnames():
             if nam.endswith(key):
-                dis["files"][key] = nam
+                if len(val) == 0:
+                    # No change in file name
+                    dis["files"][key] = key
+                else:
+                    # Change file name
+                    dis["files"][key] = val
                 found = True
         if not found:
             raise IOError("Failed to find '{}'".format(key))
 
     # Extract and move the files
-    for key in dis["files"]:
-        tar.extract(dis["files"][key], path=".")
+    # Prefix for name in .tar.gz file:
+    pre_fix = None
+    for ff in tar.getnames():
+        if len(ff) > 0:
+            pre_fix = os.path.split(ff)[0] if os.path.sep in ff else ff
+            break
+    if pre_fix is None:
+        raise ValueError('Failed to determine pre_fix in tar.gz file.')
 
-        des_fil = os.path.join(des_dir, key)
+    for key, val in dis["files"].items():
+        full_name_in_tar = os.path.join(pre_fix, key)
+        tar.extract(full_name_in_tar, path=".")
+        des_fil = os.path.join(des_dir, val)
 
         # Create the target directory
         try:
@@ -74,15 +88,17 @@ def get_distribution(dis):
         except:
             os.makedirs(os.path.dirname(des_fil))
 
-        os.rename(dis["files"][key], des_fil)
-        log(("Wrote {} {}".format(dis["files"][key], des_fil)))
+        os.rename(full_name_in_tar, des_fil)
+        log(("Wrote {} {}".format(val, des_fil)))
 
     # Delete the created empty directories
     top = dis["files"]["README.md"].split(os.path.sep)[0]
     for root, dirs, files in os.walk(top, topdown=False):
         for name in dirs:
             os.rmdir(os.path.join(root, name))
-    os.rmdir(top)
+    for d in ['bin', 'etc', 'lib']:
+        os.rmdir(os.path.join(pre_fix, d))
+    os.rmdir(pre_fix)
     # Delete the tar.gz file
     os.remove(tar_fil)
 
@@ -166,7 +182,7 @@ if __name__ == "__main__":
             "src": f"https://spawn.s3.amazonaws.com/builds/{NAME_VERSION}-Linux.tar.gz",
             "des": "spawn-linux64",
             "files": {
-                "bin/spawn": "",
+                f"bin/{NAME_VERSION.replace('Spawn-light', 'spawn')}": "bin/spawn",
                 "README.md": "",
                 "lib/epfmi.so": "",
                 "etc/Energy+.idd": "",
@@ -179,7 +195,7 @@ if __name__ == "__main__":
             "des": "spawn-win64",
             "files": {
                 "bin/epfmi.dll": "",
-                "bin/spawn.exe": "",
+                f"bin/{NAME_VERSION.replace('Spawn-light', 'spawn')}.exe": "bin/spawn.exe",
                 "README.md": "",
                 "lib/epfmi.lib": "",
                 "etc/Energy+.idd": "",
