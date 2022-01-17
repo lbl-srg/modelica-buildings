@@ -4,7 +4,9 @@ model PartialChilledWaterLoop
     Buildings.Templates.ChilledWaterPlant.Interfaces.PartialChilledWaterPlant(
     redeclare final package Medium=MediumCHW,
     final nChi=chiGro.nChi,
-    final have_dedPum=chiGro.have_dedPum);
+    final have_dedPum=chiGro.have_dedPum,
+    final have_secondary = not pumSec.is_none,
+    final have_WSE = not retSec.is_none);
 
   replaceable package MediumCHW=Buildings.Media.Water
     "Chilled water medium";
@@ -13,11 +15,6 @@ model PartialChilledWaterLoop
     annotation(Dialog(enable=have_secondary));
   parameter Boolean have_ChiByp = false "= true if chilled water loop has a chiller bypass"
     annotation(Dialog(enable=have_WSE));
-
-  final inner parameter Boolean have_secondary = not pumSec.is_none
-    "= true if plant has secondary pumping";
-  final inner parameter Boolean have_WSE = not retSec.is_none
-    "=true if plant has waterside economizer";
 
   parameter Boolean have_TPlaCHWRet = not have_secondary
     "= true if plant chilled water return temperature is measured"
@@ -34,13 +31,6 @@ model PartialChilledWaterLoop
   final inner parameter Integer nPumSec = if not have_secondary then 0 else pumSec.nPum
     "Number of secondary pumps";
 
-  parameter Modelica.Units.SI.MassFlowRate mPri_flow_nominal=
-    dat.getReal(varName=id + ".ChilledWater.mPri_flow_nominal.value")
-    "Primary mass flow rate";
-  parameter Modelica.Units.SI.MassFlowRate mSec_flow_nominal=
-    if not have_secondary then mPri_flow_nominal else
-    dat.getReal(varName=id + ".ChilledWater.mSec_flow_nominal.value")
-    "Secondary mass flow rate";
   parameter Modelica.Units.SI.PressureDifference dpDem_nominal=
     dat.getReal(varName=id + ".ChilledWater.dpSetPoi.value")
     "Differential pressure setpoint on the demand side";
@@ -57,7 +47,7 @@ model PartialChilledWaterLoop
      redeclare final package MediumCHW = MediumCHW,
      final Q_flow_nominal=Q_flow_nominal,
      final TCHWSupSet_nominal=TCHWSupSet_nominal,
-     final m2_flow_nominal=mPri_flow_nominal,
+     final m2_flow_nominal=mCHWPri_flow_nominal,
      final isAirCoo=isAirCoo)
     "Chiller group"
     annotation (Placement(transformation(
@@ -68,7 +58,7 @@ model PartialChilledWaterLoop
     Buildings.Templates.ChilledWaterPlant.Components.ReturnSection.Interfaces.PartialReturnSection(
     redeclare final package MediumCHW = MediumCHW,
     final isAirCoo=isAirCoo,
-    final m2_flow_nominal=mPri_flow_nominal)
+    final m2_flow_nominal=mCHWPri_flow_nominal)
     "Chilled water return section"
     annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
@@ -79,7 +69,7 @@ model PartialChilledWaterLoop
     pumPri constrainedby
     Buildings.Templates.ChilledWaterPlant.Components.PrimaryPumpGroup.Interfaces.PartialPrimaryPumpGroup(
       redeclare final package Medium = MediumCHW,
-      final mTot_flow_nominal=mPri_flow_nominal,
+      final mTot_flow_nominal=mCHWPri_flow_nominal,
       final dp_nominal=dpPri_nominal,
       final nChi=nChi,
       final have_parChi=have_parChi,
@@ -93,7 +83,7 @@ model PartialChilledWaterLoop
     pumSec constrainedby
     Buildings.Templates.ChilledWaterPlant.Components.SecondaryPumpGroup.Interfaces.PartialSecondaryPumpGroup(
       redeclare final package Medium = MediumCHW,
-      final mTot_flow_nominal=mSec_flow_nominal,
+      final mTot_flow_nominal=mCHWSec_flow_nominal,
       final dp_nominal=dpSec_nominal)
     "Chilled water secondary pump group"
     annotation (Placement(transformation(extent={{60,0},{80,20}})));
@@ -120,7 +110,7 @@ model PartialChilledWaterLoop
     redeclare final package Medium = MediumCHW,
     final have_sen=true,
     final typ=Buildings.Templates.Components.Types.SensorTemperature.InWell,
-    final m_flow_nominal=mSec_flow_nominal)
+    final m_flow_nominal=mCHWSec_flow_nominal)
     "Chilled water return temperature"
     annotation (Placement(transformation(extent={{120,-80},{100,-60}})));
   Buildings.Templates.Components.Sensors.DifferentialPressure dpCHWLoc(
@@ -136,13 +126,13 @@ model PartialChilledWaterLoop
     redeclare final package Medium = MediumCHW,
     final have_sen=have_secondary,
     final typ=Buildings.Templates.Components.Types.SensorTemperature.InWell,
-    final m_flow_nominal=mSec_flow_nominal)
+    final m_flow_nominal=mCHWSec_flow_nominal)
     "Secondary chilled water supply temperature"
     annotation (Placement(transformation(extent={{140,0},{160,20}})));
   Buildings.Templates.Components.Sensors.Temperature TPlaCHWRet(
     redeclare final package Medium = MediumCHW,
     have_sen = have_TPlaCHWRet,
-    final m_flow_nominal=mPri_flow_nominal,
+    final m_flow_nominal=mCHWPri_flow_nominal,
     final typ=Buildings.Templates.Components.Types.SensorTemperature.InWell)
     "Plant chilled water return temperature after bypass"
     annotation (Placement(transformation(
@@ -150,7 +140,7 @@ model PartialChilledWaterLoop
   Fluid.FixedResistances.Junction mixByp(
     redeclare package Medium = MediumCHW,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
-    each final m_flow_nominal=mPri_flow_nominal*{1,-1,1},
+    each final m_flow_nominal=mCHWPri_flow_nominal*{1,-1,1},
     final dp_nominal={0,0,0})
     "Bypass mixer"
     annotation (Placement(transformation(
@@ -158,7 +148,7 @@ model PartialChilledWaterLoop
   Fluid.FixedResistances.Junction splChiByp(
     redeclare package Medium = MediumCHW,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
-    each final m_flow_nominal=mPri_flow_nominal*{1,-1,-1},
+    each final m_flow_nominal=mCHWPri_flow_nominal*{1,-1,-1},
     final dp_nominal={0,0,0})
     "Splitter for waterside economizer bypass"
     annotation (Placement(transformation(
@@ -183,19 +173,19 @@ model PartialChilledWaterLoop
     redeclare final package Medium = MediumCHW,
     final have_sen=true,
     final typ=Buildings.Templates.Components.Types.SensorTemperature.InWell,
-    final m_flow_nominal=mSec_flow_nominal)
+    final m_flow_nominal=mCHWSec_flow_nominal)
     "Chilled water return temperature"
     annotation (Placement(transformation(extent={{160,-80},{140,-60}})));
   Buildings.Templates.Components.Sensors.VolumeFlowRate VSecSup_flow(
     redeclare final package Medium = Medium,
-    final m_flow_nominal=mSec_flow_nominal,
+    final m_flow_nominal=mCHWSec_flow_nominal,
     final typ = Buildings.Templates.Components.Types.SensorVolumeFlowRate.AFMS,
     have_sen=have_VSecSup_flow)
     "Secondary chilled water supply flow"
     annotation (Placement(transformation(extent={{100,0},{120,20}})));
   Buildings.Templates.Components.Sensors.VolumeFlowRate VSecRet_flow(
     redeclare final package Medium = Medium,
-    final m_flow_nominal=mSec_flow_nominal,
+    final m_flow_nominal=mCHWSec_flow_nominal,
     final typ = Buildings.Templates.Components.Types.SensorVolumeFlowRate.AFMS,
     have_sen=have_VSecRet_flow) "Secondary chilled water return flow"
     annotation (Placement(transformation(extent={{60,-80},{80,-60}})));

@@ -18,6 +18,12 @@ partial model PartialChilledWaterPlant
   parameter Boolean have_dedPum
     "Set to true if parallel chillers are connected to dedicated pumps"
     annotation (Evaluate=true, Dialog(group="Configuration"));
+  inner parameter Boolean have_secondary
+    "= true if plant has secondary pumping"
+    annotation (Evaluate=true, Dialog(group="Configuration"));
+  inner parameter Boolean have_WSE
+    "=true if plant has waterside economizer"
+    annotation (Evaluate=true, Dialog(group="Configuration"));
 
   /*
   FIXME: Those parameters must be declared at the plant level, not within the chiller group
@@ -39,7 +45,10 @@ partial model PartialChilledWaterPlant
   final parameter Modelica.Units.SI.MassFlowRate mCHWPri_flow_nominal=
     sum(mCHWChi_flow_nominal)
     "Design (maximum) primary CHW mass flow rate (for the plant)";
-  // FIXME: For primary-secondary, add secondary CHW flow rate at design.
+  parameter Modelica.Units.SI.MassFlowRate mCHWSec_flow_nominal=
+    if not have_secondary then mCHWPri_flow_nominal else
+    dat.getReal(varName=id + ".ChilledWater.mCHWSec_flow_nominal.value")
+    "CHW secondary mass flow rate";
 
   Modelica.Fluid.Interfaces.FluidPort_a port_a(
     redeclare final package Medium=Medium) "Chilled water supply"

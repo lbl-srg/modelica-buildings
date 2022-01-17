@@ -540,12 +540,7 @@
     },
     "CHW_1": {
         "ChilledWater": {
-            "mPri_flow_nominal": {
-                "value": 18.3,
-                "description": "Primary nominal mass flow rate",
-                "unit": "kg/s"
-            },
-            "mSec_flow_nominal": {
+            "mCHWSec_flow_nominal": {
                 "value": 18.3,
                 "description": "Secondary nominal mass flow rate",
                 "unit": "kg/s"
