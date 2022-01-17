@@ -1,0 +1,9 @@
+repos:
+- repo: local
+  hooks:
+    - id: remove-BOM
+      name: remove-BOM
+      entry: bash -c 'find Buildings/Templates/. -type f -exec sed "1s/^\xEF\xBB\xBF//" -i {} \;'
+      language: system
+      files: \.mo$
+      pass_filenames: false
