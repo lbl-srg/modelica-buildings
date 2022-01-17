@@ -19,7 +19,7 @@ partial model PartialChilledWaterPlant
     "Set to true if parallel chillers are connected to dedicated pumps"
     annotation (Evaluate=true, Dialog(group="Configuration"));
 
-  /* 
+  /*
   FIXME: Those parameters must be declared at the plant level, not within the chiller group
   (external parameter file to be updated)
   */

@@ -560,9 +560,9 @@
                 "description": "Nominal cooling capacity of each chiller",
                 "unit": "W"
             },
-            "mMin_flow": {
-                "value": 0.03,
-                "description": "Minimum mass flow rate of a single chiller",
+            "mCHWChi_flow_nominal": {
+                "value": [1, 1],
+                "description":  "Design (maximum) chiller CHW mass flow rate (for each chiller)",
                 "unit": "kg/s"
             },
             "TCHWSupSet_nominal": {
@@ -700,18 +700,13 @@
             },
             "mCHWChi_flow_min": {
                 "description": "Minimum chiller CHW mass flow rate (identical for all chillers)",
-                "value": 278.15,
-                "unit": "K"
-            },
-            "mCHWChi_flow_nominal": {
-                "description": "Design chiller CHW mass flow rate (identical for all chillers)",
-                "value": 308.15,
-                "unit": "K"
+                "value": [0.3, 0.3],
+                "unit": "kg/s"
             },
             "mCWChi_flow_nominal": {
                 "description": "Design chiller CW flow rate (identical for all chillers)",
-                "value": 303.15,
-                "unit": "K"
+                "value": [1, 1],
+                "unit": "kg/s"
             },
             "dTLif_min": {
                 "description": "Minimum allowable lift at minimum load (identical for all chillers)",
