@@ -97,6 +97,7 @@ model PartialChilledWaterLoop
       final have_parChi=have_parChi,
       final have_dedPum=have_dedPum,
       final capChi_nominal=abs(QChi_flow_nominal),
+      final mCHWChi_flow_nominal=mCHWChi_flow_nominal,
       final mCHWPri_flow_nominal=mCHWPri_flow_nominal,
       final TCHWSupSet_min=TCHWSupSet_nominal)
     "Plant controller"
@@ -189,6 +190,19 @@ model PartialChilledWaterLoop
     final typ = Buildings.Templates.Components.Types.SensorVolumeFlowRate.AFMS,
     have_sen=have_VSecRet_flow) "Secondary chilled water return flow"
     annotation (Placement(transformation(extent={{60,-80},{80,-60}})));
+  // FIXME: add icons for OA sensors.
+  Modelica.Blocks.Routing.RealPassThrough RHAirOut(
+    y(final unit="1", final min=0, final max=1))
+    "Outdoor air relative humidity"
+    annotation (Placement(transformation(extent={{-20,70},{-40,90}})));
+  Modelica.Blocks.Routing.RealPassThrough TAirOut(
+    y(final unit="K", displayUnit="degC"))
+    "Outdoor air dry-bulb temperature"
+    annotation (Placement(transformation(extent={{20,70},{40,90}})));
+  Modelica.Blocks.Routing.RealPassThrough TWetAirOut(
+    y(final unit="K", displayUnit="degC"))
+    "FIXME: Outdoor air wet-bulb temperature (should be computed by controller)"
+    annotation (Placement(transformation(extent={{20,110},{40,130}})));
 protected
   parameter Modelica.Units.SI.PressureDifference dpPri_nominal=
     if not have_secondary then chiGro.dpCHW_nominal + dpDem_nominal
@@ -203,9 +217,13 @@ equation
   connect(TPlaCHWRet.y, chwCon.TPlaCHWRet);
   connect(TSCHWSup.y, chwCon.TSCHWSup);
   connect(TCHWRet.y, chwCon.TCHWRet);
-  connect(dpCHWLoc.y, chwCon.dpCHW);
+  connect(dpCHWLoc.y, chwCon.dpCHWLoc);
   connect(VSecSup_flow.y, chwCon.VSecSup_flow);
   connect(VSecRet_flow.y, chwCon.VSecRet_flow);
+  connect(TAirOut.y, chwCon.TAirOut);
+  connect(RHAirOut.y, chwCon.RHAirOut);
+  connect(TWetAirOut.y, chwCon.TWetAirOut);
+
 
   // Bus connection
   connect(pumPri.busCon, chwCon.pumPri);
@@ -266,4 +284,16 @@ equation
     annotation (Line(points={{100,-70},{80,-70}}, color={0,127,255}));
   connect(VSecRet_flow.port_a, retSec.port_a2) annotation (Line(points={{60,-70},
           {-24,-70},{-24,-88},{-34,-88},{-34,-82}}, color={0,127,255}));
+  connect(weaBus.TDryBul, TAirOut.u) annotation (Line(
+      points={{0,100},{0,80},{18,80}},
+      color={255,204,51},
+      thickness=0.5));
+  connect(weaBus.relHum, RHAirOut.u) annotation (Line(
+      points={{-8.88178e-16,100},{-2,100},{-2,80},{-18,80}},
+      color={255,204,51},
+      thickness=0.5));
+  connect(weaBus.TWetBul, TWetAirOut.u) annotation (Line(
+      points={{0,100},{0,120},{18,120}},
+      color={255,204,51},
+      thickness=0.5));
 end PartialChilledWaterLoop;

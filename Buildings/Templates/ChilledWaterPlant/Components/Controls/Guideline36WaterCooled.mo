@@ -143,9 +143,7 @@ block Guideline36WaterCooled
     "Minimum CHW pump speed ratio"
     annotation (Dialog(tab="Chilled water pumps", group="Speed controller"));
 
-  parameter Integer nPum_nominal(
-    final max=nPumPri,
-    final min=1)=nPumPri
+  parameter Integer nPum_nominal(final max=nPumPri, final min=1) = nPumPri
     "Total number of pumps that operate at design conditions"
     annotation (Dialog(tab="Chilled water pumps", group="Nominal conditions"));
 
@@ -179,8 +177,9 @@ block Guideline36WaterCooled
 
   // ---- Cooling tower: fan speed ----
 
-  parameter Real fanSpeMin(unit="1")=0.1
-    "Minimum tower fan speed"
+  parameter Real yFanTow_min(final unit="1", final min=0, final max=1)=
+    dat.getReal(varName=id + ".control.yFanTow_min.value")
+    "Minimum cooling tower fan speed ratio"
     annotation (Dialog(tab="Cooling Towers", group="Fan speed"));
 
   // Fan speed control: controlling condenser return water temperature when WSE is not enabled
@@ -206,7 +205,7 @@ block Guideline36WaterCooled
     "Maximum cooling tower water level recommended by manufacturer"
     annotation (Dialog(tab="Cooling Towers", group="Makeup water"));
 
-  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Controller chiPlaCon(
+  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Controller ctrPla(
     final closeCoupledPlant=closeCoupledPlant,
     final nChi=nChi,
     final have_parChi=have_parChi,
@@ -228,7 +227,6 @@ block Guideline36WaterCooled
     final nSenChiWatPum=nSenDpCHWRem,
     final nConWatPum=nPumCon,
     final have_fixSpeConWatPum=have_fixSpeConWatPum,
-    final fixConWatPumSpe=fixConWatPumSpe,
     final have_heaConWatPum=not have_dedPum,
     final nSta=nSta,
     final totSta=totSta,
@@ -246,52 +244,103 @@ block Guideline36WaterCooled
     final VHeaExcDes_flow=VHeaExcDes_flow,
     final minConWatPumSpe=yPumCW_min,
     final minHeaPreValPos=yValIsoCon_min,
-    final minFloSet=mCHWChi_flow_min / 1000,
-    final maxFloSet=mCHWChi_flow_nominal / 1000,
+    final minFloSet=mCHWChi_flow_min/1000,
+    final maxFloSet=mCHWChi_flow_nominal/1000,
     final minChiWatPumSpe=yPumCHW_min,
     final nPum_nominal=nPum_nominal,
-    final VChiWat_flow_nominal=mCHWPri_flow_nominal / 1000,
+    final VChiWat_flow_nominal=mCHWPri_flow_nominal/1000,
     final maxLocDp=dpCHWLoc_max,
-    final triAmo=triAmo,
-    final resAmo=resAmo,
-    final maxRes=maxRes,
     final dpChiWatPumMax=dpCHWRem_max,
-    final halSet=halSet,
-    final avePer=avePer,
-    final delayStaCha=delayStaCha,
-    final parLoaRatDelay=parLoaRatDelay,
-    final faiSafTruDelay=faiSafTruDelay,
-    final effConTruDelay=effConTruDelay,
-    final shortTDelay=shortTDelay,
-    final longTDelay=longTDelay,
     final posDisMult=posDisMult,
     final conSpeCenMult=conSpeCenMult,
     final anyOutOfScoMult=anyOutOfScoMult,
     final varSpeStaMin=varSpeStaMin,
     final varSpeStaMax=varSpeStaMax,
-    final smallTDif=smallTDif,
-    final largeTDif=largeTDif,
-    final faiSafTDif=faiSafTDif,
-    final dpDif=dpDif,
-    final TDif=TDif,
-    final faiSafDpDif=faiSafDpDif,
-    final effConSigDif=effConSigDif,
     final chiDemRedFac=chiDemRedFac,
-    final holChiDemTim=holChiDemTim,
-    final aftByPasSetTim=aftByPasSetTim,
-    final waiTim=waiTim,
-    final chaChiWatIsoTim=chaChiWatIsoTim,
-    final proOnTim=proOnTim,
-    final thrTimEnb=thrTimEnb,
-    final fanSpeMin=fanSpeMin,
-    final fanSpeMax=fanSpeMax,
+    final fanSpeMin=yFanTow_min,
     final LIFT_min=fill(dTLif_min, nChi),
     final TConWatSup_nominal=TCWSup_nominal,
     final TConWatRet_nominal=TCWRet_nominal,
     final watLevMin=watLevMin,
     final watLevMax=watLevMax)
-    "CHW plant controller"
-    annotation (Placement(transformation(extent={{0,-40},{20,20}})));
+  "CHW plant controller"
+  annotation (Placement(transformation(extent={{0,-40},{20,20}})));
 
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant FIXME_uChiConIsoVal[nChi](
+      each k=true)
+    "CH CW and CHW isolation valve open end switch status only used for FD + Should be DI or AI"
+    annotation (Placement(transformation(extent={{-140,170},{-120,190}})));
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant FIXME_uChiWatReq[nChi](
+      each k=true)
+    "From built-in chiller controller: how should it be generated?"
+    annotation (Placement(transformation(extent={{-140,130},{-120,150}})));
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant FIXME_uHeaPreCon[nChi](
+      each k=0) "From built-in chiller controller: how should it be generated?"
+    annotation (Placement(transformation(extent={{-140,90},{-120,110}})));
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant FIXME_uChiLoa[nChi](
+      each k=1) "Should be computed internally, in J/s, not A."
+    annotation (Placement(transformation(extent={{-140,50},{-120,70}})));
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant FIXME_uChiAva[nChi](each
+      k=true)
+    "Instead 2 input points should be declared for each chiller: Chiller Fault Code and Chiller local/auto switch.?"
+    annotation (Placement(transformation(extent={{-140,10},{-120,30}})));
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant FIXME_uChiHeaCon[nChi](
+      each k=true)
+    "This signal should be internally computed by the stage up and down sequences."
+    annotation (Placement(transformation(extent={{-140,-30},{-120,-10}})));
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant FIXME_uChiWatIsoVal[nChi](
+      each k=1) "Should be optional and exclusive from `uChiIsoVal`"
+    annotation (Placement(transformation(extent={{-140,-70},{-120,-50}})));
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant FIXME_TChiWatSupResReq(each k=0)
+    "That input should be conditional and another (conditional) array input is needed + Request not available from VAV controller."
+    annotation (Placement(transformation(extent={{-140,-110},{-120,-90}})));
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant FIXME_chiPlaReq(each k=0)
+    "Request not available from VAV controller."
+    annotation (Placement(transformation(extent={{-140,-150},{-120,-130}})));
+equation
+  /* Control point connection - start */
+  connect(busCHW.uChiWatPum, ctrPla.uStaPumPri);
+  connect(busCHW.dpCHWLoc, ctrPla.dpChiWat_local);
+  connect(busCHW.dpCHWRem, ctrPla.dpChiWat_remote);
+  connect(busCHW.pumPri.V_flow, ctrPla.VChiWat_flow);
+  connect(busCHW.chi.sta, ctrPla.uChi);
+  // FIXME: should be computed by controller.
+  connect(busCHW.TWetAirOut, ctrPla.TOutWet);
+  connect(busCHW.wse.TCHWRetAft, ctrPla.TChiWatRetDow);
+  // FIXME: ctrPla.TChiWatRet should be conditional to have_WSE.
+  connect(busCHW.wse.TCHWRetBef, ctrPla.TChiWatRet);
+  connect(busCW.TCWRet, ctrPla.TConWatRet);
+  // FIXME: busCHW.pumPri.TPCHWSup should be renamed.
+  connect(busCHW.pumPri.TPCHWSup, ctrPla.TChiWatSup);
+
+  connect(busCHW.uConWatPumSpe, ctrPla.uConWatPumSpe);
+  connect(busCHW.uConWatPum, ctrPla.uConWatPum);
+  connect(busCHW.TOut, ctrPla.TOut);
+  connect(busCHW.uChiCooLoa, ctrPla.uChiCooLoa);
+  connect(busCHW.uFanSpe, ctrPla.uFanSpe);
+  connect(busCHW.TConWatSup, ctrPla.TConWatSup);
+  connect(busCHW.uIsoVal, ctrPla.uIsoVal);
+  connect(busCHW.watLev, ctrPla.watLev);
+  connect(busCHW.uTowSta, ctrPla.uTowSta);
+
+  connect(FIXME_uHeaPreCon.y, ctrPla.uChiWatReq);
+  connect(FIXME_uChiLoa.y, ctrPla.uChiLoa);
+  connect(FIXME_uChiAva.y, ctrPla.uChiAva);
+  connect(FIXME_uChiHeaCon.y, ctrPla.uChiHeaCon);
+  connect(FIXME_uChiWatIsoVal.y, ctrPla.uChiWatIsoVal);
+  connect(FIXME_TChiWatSupResReq.y, ctrPla.TChiWatSupResReq);
+  connect(FIXME_chiPlaReq.y, ctrPla.chiPlaReq);
+  /* Control point connection - stop */
+
+  connect(FIXME_uChiConIsoVal.y, ctrPla.uChiConIsoVal) annotation (Line(points={{-118,
+          180},{-10,180},{-10,19},{-2,19}},       color={255,0,255}));
+  connect(FIXME_uChiWatReq.y, ctrPla.uChiWatReq) annotation (Line(points={{-118,
+          140},{-20,140},{-20,17},{-2,17}},
+                                          color={255,0,255}));
+  connect(FIXME_uChiWatReq.y, ctrPla.uConWatReq) annotation (Line(points={{-118,
+          140},{-20,140},{-20,15},{-2,15}},
+                                          color={255,0,255}));
+  connect(FIXME_uChiConIsoVal.y, ctrPla.uChiIsoVal) annotation (Line(points={{-118,
+          180},{-10,180},{-10,11},{-2,11}}, color={255,0,255}));
     annotation(Dialog(tab="General", group="Chillers configuration"));
 end Guideline36WaterCooled;

@@ -68,6 +68,8 @@ block PartialController "Partial controller for CHW plant"
     "Maximum CHW differential pressure setpoint - Remote sensors"
     annotation (Dialog(tab="Plant Reset", group="Chilled water supply"));
 
+  parameter Modelica.Units.SI.MassFlowRate mCHWChi_flow_nominal[nChi]
+    "Design (maximum) chiller CHW mass flow rate (for each chiller)";
   parameter Modelica.Units.SI.MassFlowRate mCHWPri_flow_nominal
     "Design (maximum) primary CHW mass flow rate (for the plant)";
   parameter Modelica.Units.SI.MassFlowRate mCHWChi_flow_min[nChi]=

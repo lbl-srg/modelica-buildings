@@ -751,6 +751,11 @@
                 "description": "Minimum head pressure control valve opening ratio",
                 "value": 0.0,
                 "unit": "1"
+            },
+            "yFanTow_min": {
+                "description": "Minimum cooling tower fan speed ratio",
+                "value": 0.0,
+                "unit": "1"
             }
         }
     }
