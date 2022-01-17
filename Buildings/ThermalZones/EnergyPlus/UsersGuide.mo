@@ -164,18 +164,18 @@ The Modelica code tries to invoke EnergyPlus in this order:
 </p>
 <ol>
 <li>
-It searches for <code>Buildings[ x.y.z]/Resources/bin/spawn-[linux64,win64]/bin/spawn-0.2.0-a23bb23[.exe]</code>
+It searches for <code>Buildings[ x.y.z]/Resources/bin/spawn-[linux64,win64]/bin/spawn-0.3.0-d6204d26f6[.exe]</code>
 where <code>Buildings[ x.y.z]</code> is the installation folder of the Modelica Buildings Library.
 This file is distributed with the Modelica Buildings Library installation,
 together with all files needed to translate and simulate a model in a Modelica environment.
 </li>
 <li>
 If not found, it searches on the environment variable <code>SPAWNPATH</code> for
-<code>spawn-0.2.0-a23bb23[.exe]</code>.
+<code>spawn-0.3.0-d6204d26f6[.exe]</code>.
 </li>
 <li>
 If not found, it searches on the environment variable <code>PATH</code> for
-<code>spawn-0.2.0-a23bb23[.exe]</code>.
+<code>spawn-0.3.0-d6204d26f6[.exe]</code>.
 </li>
 </ol>
 <p>
@@ -522,7 +522,12 @@ active facade control, or to control lights and equipment schedules that contrib
 to heat gains in the room and its surfaces.
 </p>
 <p>
-Currently Windows 64 bit and Linux 64 bit are supported.
+This implmentation uses EnergyPlus 9.6.0.
+Windows 64 bit and Linux 64 bit are supported.
+See
+<a href=\"modelica://Buildings.ThermalZones.EnergyPlus.UsersGuide.InvokingEnergyPlus\">
+Buildings.ThermalZones.EnergyPlus.UsersGuide.InvokingEnergyPlus</a>
+how to install EnergyPlus and how EnergyPlus is invoked.
 </p>
 <h4>References</h4>
 <ul>
