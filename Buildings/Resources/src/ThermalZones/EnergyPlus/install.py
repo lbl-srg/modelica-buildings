@@ -16,8 +16,8 @@ import shutil
 # Commit, see https://gitlab.com/kylebenne/spawn/-/pipelines?scope=all&page=1
 # Also available is latest/Spawn-latest-{Linux,win64,Darwin}
 # The setup below will lead to a specific commit being pulled.
-version = "0.2.0"
-commit = "d7f1e095f3ff605f747e46e3ed140a982aa2b7a9"
+version = "0.3.0"
+commit = "d6204d26f6"
 NAME_VERSION = f"Spawn-light-{version}-{commit[0:10]}"
 
 
@@ -158,24 +158,50 @@ def replace_table_in_mo(html, varType, moFile):
     with open(mo_name, "w") as mo_fil:
         mo_fil.write(mo_new)
 
+
+def _getEnergyPlusVersion():
+    """ Return the EnergyPlus version in the form 9.6.0
+    """
+    idd = os.path.abspath( \
+            os.path.join(__file__, \
+                os.pardir, os.pardir, os.pardir, os.pardir, os.pardir, os.pardir, \
+                "Buildings", "Resources", "bin", "spawn-linux64", "etc", "Energy+.idd"))
+
+    prefix="!IDD_Version "
+    with open(idd, 'r') as f:
+        lines = f.readlines()
+        for lin in lines:
+            if lin.find(prefix) > -1:
+                version = lin[len(prefix):].strip()
+                return version
+
+    raise ValueError("Failed to find EnergyPlus version.")
+
 def update_version_in_modelica_file(spawn_exe):
     import os
     import re
 
-    # Path to Building.mo
-    mo_file = os.path.abspath( \
-        os.path.join(__file__, \
-            os.pardir, os.pardir, os.pardir, os.pardir, os.pardir, os.pardir, \
-            "Buildings", "ThermalZones", "EnergyPlus", "Building.mo"))
+    energyPlus_version = _getEnergyPlusVersion()
 
-    # Replace the string "spawn-0.2.0-d7f1e095f3" with the current version
-    with open (mo_file, 'r' ) as f:
-        content = f.read()
+    for rel_file in [\
+        os.path.join("Buildings", "ThermalZones", "EnergyPlus", "Building.mo"),
+        os.path.join("Buildings", "ThermalZones", "EnergyPlus", "package.mo"),
+        os.path.join("Buildings", "ThermalZones", "EnergyPlus", "UsersGuide.mo")
+        ]:
+        # Path to Building.mo
+        abs_file = os.path.abspath( \
+            os.path.join(__file__, \
+                os.pardir, os.pardir, os.pardir, os.pardir, os.pardir, os.pardir, \
+                rel_file))
 
-    content_new = re.sub(r"\"spawn-\d+.\d+.\d+-.{10}\"", f"\"{spawn_exe}\"", content)
+        # Replace the string "spawn-0.2.0-d7f1e095f3" with the current version
+        with open (abs_file, 'r' ) as f:
+            content = f.read()
+        content = re.sub(r"spawn-\d+.\d+.\d+-.{10}", f"{spawn_exe}", content)
+        content = re.sub(r"EnergyPlus \d+.\d+.\d+", f"EnergyPlus {energyPlus_version}", content)
 
-    with open(mo_file, 'w' ) as f:
-        f.write(content_new)
+        with open(abs_file, 'w' ) as f:
+            f.write(content)
 
 
 def update_git(spawn_exe):
