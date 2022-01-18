@@ -136,24 +136,33 @@
   optimica:
     comment: Failed due to structural parameter, see https://github.com/lbl-srg/modelica-buildings/issues/2816
     translate: false
-- dymola:
-    comment: Python 3.6 is not supported on Ubuntu 20.04, will be upgraded to more
-      recent version
+- model_name: Buildings.Utilities.IO.Python36.Examples.SimpleRoom
+  dymola:
+    comment: Python 3.6 is not supported on Ubuntu 20.04, will be upgraded to more recent version
     translate: false
-  model_name: Buildings.Utilities.IO.Python36.Examples.SimpleRoom
-- dymola:
-    comment: Python 3.6 is not supported on Ubuntu 20.04, will be upgraded to more
-      recent version
+  openmodelica:
+    comment: Python 3.6 is not supported on Ubuntu 20.04, will be upgraded to more recent version
     translate: false
-  model_name: Buildings.Utilities.IO.Python36.Examples.KalmanFilter
-- dymola:
-    comment: Python 3.6 is not supported on Ubuntu 20.04, will be upgraded to more
-      recent version
+- model_name: Buildings.Utilities.IO.Python36.Examples.KalmanFilter
+  dymola:
+    comment: Python 3.6 is not supported on Ubuntu 20.04, will be upgraded to more recent version
     translate: false
-  model_name: Buildings.Utilities.IO.Python36.Functions.Examples.ExchangeWithPassPythonObject
-- dymola:
-    comment: Python 3.6 is not supported on Ubuntu 20.04, will be upgraded to more
-      recent version
+  openmodelica:
+    comment: Python 3.6 is not supported on Ubuntu 20.04, will be upgraded to more recent version
     translate: false
-  model_name: Buildings.Utilities.IO.Python36.Functions.Examples.Exchange
+- model_name: Buildings.Utilities.IO.Python36.Functions.Examples.ExchangeWithPassPythonObject
+  dymola:
+    comment: Python 3.6 is not supported on Ubuntu 20.04, will be upgraded to more recent version
+    translate: false
+  openmodelica:
+    comment: Python 3.6 is not supported on Ubuntu 20.04, will be upgraded to more recent version
+    translate: false
+- model_name: Buildings.Utilities.IO.Python36.Functions.Examples.Exchange
+  dymola:
+    comment: Python 3.6 is not supported on Ubuntu 20.04, will be upgraded to more recent version
+    translate: false
+  openmodelica:
+    comment: Python 3.6 is not supported on Ubuntu 20.04, will be upgraded to more recent version
+    translate: false
+
 
