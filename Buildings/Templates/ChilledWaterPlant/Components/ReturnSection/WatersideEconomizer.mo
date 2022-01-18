@@ -104,8 +104,8 @@ model WatersideEconomizer
 equation
   /* Control point connection - start */
   // FIXME: Rename sensors based on names of control points.
-  connect(TWSERet.y, bus.TCHWRetAft);
-  connect(TWSESup.y, bus.TCHWRetBef);
+  connect(TWSERet.y, bus.TCHWRetLvgWSE);
+  connect(TWSESup.y, bus.TCHWRetEntWSE);
   /* Control point connection - stop */
   connect(hex.port_b2, TWSERet.port_a) annotation (Line(points={{-10,24},{-40,24},
           {-40,-60},{-60,-60}}, color={0,127,255}));

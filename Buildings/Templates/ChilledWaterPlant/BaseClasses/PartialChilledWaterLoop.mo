@@ -130,12 +130,12 @@ model PartialChilledWaterLoop
     final m_flow_nominal=mCHWSec_flow_nominal)
     "Secondary chilled water supply temperature"
     annotation (Placement(transformation(extent={{140,0},{160,20}})));
-  Buildings.Templates.Components.Sensors.Temperature TPlaCHWRet(
+  Buildings.Templates.Components.Sensors.Temperature TCHWRetPla(
     redeclare final package Medium = MediumCHW,
     have_sen = have_TPlaCHWRet,
     final m_flow_nominal=mCHWPri_flow_nominal,
     final typ=Buildings.Templates.Components.Types.SensorTemperature.InWell)
-    "Plant chilled water return temperature after bypass"
+    "Plant CHW return temperature (plant side of CHW minimum flow bypass)"
     annotation (Placement(transformation(
       extent={{-10,-10},{10,10}},rotation=0,origin={30,-50})));
   Fluid.FixedResistances.Junction mixByp(
@@ -214,7 +214,7 @@ protected
 
 equation
   // Sensors
-  connect(TPlaCHWRet.y, chwCon.TPlaCHWRet);
+  connect(TCHWRetPla.y, chwCon.TCHWRetPla);
   connect(TSCHWSup.y, chwCon.TSCHWSup);
   connect(TCHWRet.y, chwCon.TCHWRet);
   connect(dpCHWLoc.y, chwCon.dpCHWLoc);
@@ -254,7 +254,7 @@ equation
     annotation (Line(points={{-20,-10},{-20,4},{0,4}}, color={0,127,255}));
   connect(pumPri.port_b, pumSec.port_a)
     annotation (Line(points={{20,10},{60,10}}, color={0,127,255}));
-  connect(TPlaCHWRet.port_b, splChiByp.port_1)
+  connect(TCHWRetPla.port_b, splChiByp.port_1)
     annotation (Line(points={{40,-50},{60,-50},{60,-20},{-10,-20}},
     color={0,127,255}));
   connect(mixByp.port_3, pumPri.port_byp)
@@ -268,7 +268,7 @@ equation
           {200,-70}}, color={0,127,255}));
   connect(retSec.port_b2, mixByp.port_1) annotation (Line(points={{-34,-62},{-34,
           -50},{-20,-50}}, color={0,127,255}));
-  connect(mixByp.port_2,TPlaCHWRet. port_a)
+  connect(mixByp.port_2,TCHWRetPla. port_a)
     annotation (Line(points={{0,-50},{20,-50}}, color={0,127,255}));
   connect(bouCHW.ports[1], pumPri.port_b)
     annotation (Line(points={{40,20},{40,10},{20,10}}, color={0,127,255}));

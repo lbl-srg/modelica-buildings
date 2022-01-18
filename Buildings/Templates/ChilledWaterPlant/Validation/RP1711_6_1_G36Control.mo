@@ -3,7 +3,7 @@ model RP1711_6_1_G36Control
   "Parallel Chillers, Variable Primary CHW, Constant CW, Headered Pumps"
   extends
     Buildings.Templates.ChilledWaterPlant.Validation.BaseWaterCooledParallel(
-    redeclare Buildings.Templates.ChilledWaterPlant.Validation.UserProject.RP1711_6_1 chw);
+    redeclare Buildings.Templates.ChilledWaterPlant.Validation.UserProject.RP1711_6_1_G36Control chw);
   Controls.OBC.CDL.Continuous.Sources.Constant dpCHWRem[chw.con.nSenDpCHWRem](
     y(each final unit="Pa"),
     each k=1e4)

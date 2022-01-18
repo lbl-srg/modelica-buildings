@@ -12,8 +12,7 @@ model WaterCooled
     redeclare replaceable
       Buildings.Templates.ChilledWaterPlant.Components.Controls.OpenLoop con
       constrainedby
-      Buildings.Templates.ChilledWaterPlant.Components.Controls.Interfaces.PartialController(
-        final nPumCon=nPumCon, final nCooTow=nCooTow),
+      Buildings.Templates.ChilledWaterPlant.Components.Controls.Interfaces.PartialController,
     redeclare replaceable
       Buildings.Templates.ChilledWaterPlant.Components.ReturnSection.NoEconomizer
       retSec constrainedby
@@ -29,6 +28,17 @@ model WaterCooled
   final parameter Modelica.Units.SI.MassFlowRate mCon_flow_nominal=
     dat.getReal(varName=id + ".CondenserWater.m_flow_nominal.value")
     "Condenser mass flow rate";
+
+  Buildings.Templates.ChilledWaterPlant.BaseClasses.BusCondenserWater cwCon(
+    final nChi=nChi,
+    final nPum=nPumCon,
+    final nCooTow=nCooTow)
+    if not isAirCoo
+    "Condenser loop control bus"
+    annotation (Placement(transformation(
+        extent={{-20,20},{20,-20}},
+        rotation=90,
+        origin={-200,60})));
 
   inner replaceable
     Buildings.Templates.ChilledWaterPlant.Components.CoolingTowerGroup.CoolingTowerParallel
@@ -47,7 +57,6 @@ model WaterCooled
     final dp_nominal=dpCon_nominal,
     final nChi=nChi) "Condenser water pump group"
     annotation (Placement(transformation(extent={{-100,-20},{-80,0}})));
-
   Buildings.Templates.Components.Sensors.Temperature TCWSup(
     redeclare final package Medium = MediumCW,
     final have_sen=true,
@@ -72,17 +81,6 @@ model WaterCooled
         extent={{10,10},{-10,-10}},
         rotation=0,
         origin={-90,-70})));
-
-  Buildings.Templates.ChilledWaterPlant.BaseClasses.BusCondenserWater cwCon(
-    final nChi=nChi,                                                        nPum=
-        nPumCon, nCooTow=nCooTow)
-    if not isAirCoo
-    "Condenser loop control bus"
-    annotation (Placement(transformation(
-        extent={{-20,20},{20,-20}},
-        rotation=90,
-        origin={-200,60})));
-
   Fluid.Sources.Boundary_pT bouCW(redeclare final package Medium = MediumCW,
       nPorts=1) annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},

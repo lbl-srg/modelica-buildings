@@ -94,10 +94,6 @@ block Guideline36WaterCooled
 
   // ---- General: Cooling tower ----
 
-  final parameter Integer nCelTow = cooTow.nCel
-    "Total number of cooling tower cells"
-    annotation (Evaluate=true, Dialog(tab="General", group="Cooling tower"));
-
   final parameter Modelica.Units.SI.Temperature dTAppTow_nominal(displayUnit="K", final min=0)=
     cooTow.dTApp_nominal
     "Design cooling tower approach"
@@ -236,7 +232,7 @@ block Guideline36WaterCooled
     final desConWatPumSpe=desConWatPumSpe,
     final desConWatPumNum=desConWatPumNum,
     final towCelOnSet=towCelOnSet,
-    final nTowCel=nCelTow,
+    final nTowCel=nCooTow,
     final cooTowAppDes=dTAppTow_nominal,
     final schTab=schTab,
     final TChiLocOut=TAirOutLoc,
@@ -282,54 +278,146 @@ block Guideline36WaterCooled
     annotation (Placement(transformation(extent={{-140,50},{-120,70}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant FIXME_uChiAva[nChi](each
       k=true)
-    "Instead 2 input points should be declared for each chiller: Chiller Fault Code and Chiller local/auto switch.?"
+    "Instead 2 input points should be declared for each chiller: Chiller Fault Code and Chiller local/auto switch?"
     annotation (Placement(transformation(extent={{-140,10},{-120,30}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant FIXME_uChiHeaCon[nChi](
       each k=true)
-    "This signal should be internally computed by the stage up and down sequences."
+    "This signal should be internally computed by the stage up and down sequences"
     annotation (Placement(transformation(extent={{-140,-30},{-120,-10}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant FIXME_uChiWatIsoVal[nChi](
       each k=1) "Should be optional and exclusive from `uChiIsoVal`"
     annotation (Placement(transformation(extent={{-140,-70},{-120,-50}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant FIXME_TChiWatSupResReq(each k=0)
-    "That input should be conditional and another (conditional) array input is needed + Request not available from VAV controller."
+    "That input should be conditional and another (conditional) array input is needed + Request not available from VAV controller"
     annotation (Placement(transformation(extent={{-140,-110},{-120,-90}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant FIXME_chiPlaReq(each k=0)
-    "Request not available from VAV controller."
+    "Request not available from VAV controller"
     annotation (Placement(transformation(extent={{-140,-150},{-120,-130}})));
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant FIXME_uConWatPumSpe[nPumCon](
+    each k=1) "Should be computed internally"
+    annotation (Placement(transformation(extent={{-140,-190},{-120,-170}})));
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant FIXME_uChiCooLoa[nChi](
+    each k=1)
+    "The chiller load (𝑄𝑟𝑒𝑞𝑢𝑖𝑟𝑒𝑑) shall be internally calculated by the controller based on §5.2.4.7"
+    annotation (Placement(transformation(extent={{-100,-190},{-80,-170}})));
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant FIXME_uFanSpe(each k=1)
+    "This should be the commanded speed `ySpeSet` computed internally"
+    annotation (Placement(transformation(extent={{-60,-190},{-40,-170}})));
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant FIXME_uIsoVal[nCooTow](
+    each k=1) "Missing feedback position or switch status in system model"
+    annotation (Placement(transformation(extent={{-60,-150},{-40,-130}})));
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant FIXME_watLev(each k=1)
+    "How do we take that into account?"
+    annotation (Placement(transformation(extent={{-60,-110},{-40,-90}})));
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant FIXME_uTowSta[nCooTow](
+    each k=true) "Missing CT status in system model"
+    annotation (Placement(transformation(extent={{-60,-70},{-40,-50}})));
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant FIXME_yHeaPreConVal[nChi](
+      each k=true)
+    "Various configurations not covered: modulating in controller, 2-position in system model."
+    annotation (Placement(transformation(extent={{60,-30},{80,-10}})));
+  Buildings.Controls.OBC.CDL.Routing.RealScalarReplicator FIXME_TChiWatSupSet(
+      nout=nChi)
+    "System model should be refactored to use the same set point for all units"
+    annotation (Placement(transformation(extent={{60,10},{80,30}})));
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant FIXME_yTowCelIsoVal[nCooTow](
+      each k=true) "Should be
+Boolean and
+conditional to a configuration parameter"
+    annotation (Placement(transformation(extent={{60,-70},{80,-50}})));
 equation
   /* Control point connection - start */
-  connect(busCHW.uChiWatPum, ctrPla.uStaPumPri);
+  connect(busCHW.pumPri.uStaPumPri, ctrPla.uChiWatPum);
   connect(busCHW.dpCHWLoc, ctrPla.dpChiWat_local);
   connect(busCHW.dpCHWRem, ctrPla.dpChiWat_remote);
   connect(busCHW.pumPri.V_flow, ctrPla.VChiWat_flow);
   connect(busCHW.chi.sta, ctrPla.uChi);
   // FIXME: should be computed by controller.
   connect(busCHW.TWetAirOut, ctrPla.TOutWet);
-  connect(busCHW.wse.TCHWRetAft, ctrPla.TChiWatRetDow);
+  connect(busCHW.wse.TCHWRetLvgWSE, ctrPla.TChiWatRetDow);
   // FIXME: ctrPla.TChiWatRet should be conditional to have_WSE.
-  connect(busCHW.wse.TCHWRetBef, ctrPla.TChiWatRet);
+  // Another input is required for Plant CHW return temperature.
+  if have_WSE then
+    connect(busCHW.wse.TCHWRetEntWSE, ctrPla.TChiWatRet);
+  else
+    connect(busCHW.TCHWRetPla, ctrPla.TChiWatRet);
+  end if;
   connect(busCW.TCWRet, ctrPla.TConWatRet);
   // FIXME: busCHW.pumPri.TPCHWSup should be renamed.
   connect(busCHW.pumPri.TPCHWSup, ctrPla.TChiWatSup);
+  // FIXME: Rename uStaPumPri as "Pri" does not apply to CW pumps.
+  connect(busCW.uStaPumPri, ctrPla.uConWatPum);
+  connect(busCHW.TAirOut, ctrPla.TOut);
+  connect(busCW.TCWSup, ctrPla.TConWatSup);
 
-  connect(busCHW.uConWatPumSpe, ctrPla.uConWatPumSpe);
-  connect(busCHW.uConWatPum, ctrPla.uConWatPum);
-  connect(busCHW.TOut, ctrPla.TOut);
-  connect(busCHW.uChiCooLoa, ctrPla.uChiCooLoa);
-  connect(busCHW.uFanSpe, ctrPla.uFanSpe);
-  connect(busCHW.TConWatSup, ctrPla.TConWatSup);
-  connect(busCHW.uIsoVal, ctrPla.uIsoVal);
-  connect(busCHW.watLev, ctrPla.watLev);
-  connect(busCHW.uTowSta, ctrPla.uTowSta);
-
-  connect(FIXME_uHeaPreCon.y, ctrPla.uChiWatReq);
+  connect(FIXME_uChiWatReq.y, ctrPla.uChiWatReq);
+  connect(FIXME_uHeaPreCon.y, ctrPla.uHeaPreCon);
   connect(FIXME_uChiLoa.y, ctrPla.uChiLoa);
   connect(FIXME_uChiAva.y, ctrPla.uChiAva);
   connect(FIXME_uChiHeaCon.y, ctrPla.uChiHeaCon);
   connect(FIXME_uChiWatIsoVal.y, ctrPla.uChiWatIsoVal);
   connect(FIXME_TChiWatSupResReq.y, ctrPla.TChiWatSupResReq);
   connect(FIXME_chiPlaReq.y, ctrPla.chiPlaReq);
+  connect(FIXME_uConWatPumSpe.y, ctrPla.uConWatPumSpe);
+  connect(FIXME_uChiCooLoa.y, ctrPla.uChiCooLoa);
+  connect(FIXME_uFanSpe.y, ctrPla.uFanSpe);
+  connect(FIXME_uIsoVal.y, ctrPla.uIsoVal);
+  connect(FIXME_watLev.y, ctrPla.watLev);
+  connect(FIXME_uTowSta.y, ctrPla.uTowSta);
+
+  // Controller outputs
+  connect(FIXME_TChiWatSupSet.y, busCHW.chi.TSet);
+
+  // FIXME: System model should be refactored to use the same set point for all units.
+  // Same holds for the control block.
+  connect(ctrPla.yChiPumSpe, busCHW.pumPri.ySpe);
+
+  // FIXME: System model does not have a variable for the CHW pump on/off command.
+  // connect(ctrPla.yChiWatPum, busCHW.pumPri.y);
+
+  // FIXME: Incorrect quantity, should have unit="1".
+  // connect(ctrPla.yChiDem, busCHW.yChiDem);
+
+  connect(ctrPla.yChi, busCHW.chi.on);
+
+  // FIXME: Should not be an output of ctrPla
+  // connect(ctrPla.yHeaPreConValSta, busCHW.yHeaPreConValSta);
+
+  // FIXME: Missing configurations in controller and system model.
+  connect(FIXME_yHeaPreConVal.y, busCW.valCWChi.y);
+
+  // FIXME: Missing configurations in controller and system model.
+  // For instance "a single common speed point is appropriate".
+  connect(ctrPla.yConWatPumSpe, busCW.ySpe);
+
+  // FIXME: This is not an output per §4. LIST OF POINTS. Should be deleted.
+  // connect(ctrPla.yChiWatMinFloSet, busCHW.yChiWatMinFloSet);
+
+  // FIXME: No on/off command for CW pumps in systme model.
+  // connect(ctrPla.yConWatPum, busCW.y);
+
+  // FIXME: Only modulating valve supported by controller.
+  connect(ctrPla.yChiWatIsoVal, busCHW.valCHWChi.y);
+
+  // FIXME: Controller output does not exist in real life.
+  // connect(ctrPla.yReaChiDemLim, busCHW.yReaChiDemLim);
+
+  // FIXME: Missing configurations in controller.
+  connect(ctrPla.yMinValPosSet, busCHW.pumPri.valByp.y);
+
+  // FIXME: This is not an output per §4. LIST OF POINTS. Should be deleted.
+  // connect(ctrPla.yNumCel, busCW.yNumCel);
+
+  connect(FIXME_yTowCelIsoVal.y, busCW.cooTow.yVal);
+
+  connect(ctrPla.yTowFanSpe, busCW.cooTow.yFan);
+
+  // FIXME: CT start signal not implemented in system model.
+  // connect(ctrPla.yTowCel, busCW.cooTow.yFan);
+
+  // FIXME: Left unconnected for now. Shall we compute water use?
+  // connect(ctrPla.yMakUp, busCW.cooTow.yMakUp);
+
   /* Control point connection - stop */
 
   connect(FIXME_uChiConIsoVal.y, ctrPla.uChiConIsoVal) annotation (Line(points={{-118,
@@ -342,5 +430,9 @@ equation
                                           color={255,0,255}));
   connect(FIXME_uChiConIsoVal.y, ctrPla.uChiIsoVal) annotation (Line(points={{-118,
           180},{-10,180},{-10,11},{-2,11}}, color={255,0,255}));
-    annotation(Dialog(tab="General", group="Chillers configuration"));
+
+  /* FIXME - stop */
+
+  connect(ctrPla.TChiWatSupSet, FIXME_TChiWatSupSet.u) annotation (Line(points={
+          {22,18},{40,18},{40,20},{58,20}}, color={0,0,127}));
 end Guideline36WaterCooled;

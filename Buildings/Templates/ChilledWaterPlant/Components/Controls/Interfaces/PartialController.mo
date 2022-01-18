@@ -8,10 +8,13 @@ block PartialController "Partial controller for CHW plant"
     "System identifier";
   outer parameter ExternData.JSONFile dat
     "External parameter file";
-  outer replaceable Buildings.Templates.ChilledWaterPlant.Components.CoolingTowerGroup.Interfaces.PartialCoolingTowerGroup
-    cooTow "Cooling towers";
   outer replaceable Buildings.Templates.ChilledWaterPlant.Components.ReturnSection.Interfaces.PartialReturnSection
     retSec "CHW return section";
+  // FIXME: only for water-cooled plants.
+  outer replaceable Buildings.Templates.ChilledWaterPlant.Components.CoolingTowerGroup.Interfaces.PartialCoolingTowerGroup
+    cooTow "Cooling towers";
+  outer replaceable Buildings.Templates.ChilledWaterPlant.Components.CondenserWaterPumpGroup.Interfaces.PartialCondenserWaterPumpGroup
+    pumCon "Condenser water pump group";
 
   parameter Integer nChi
     "Number of chillers";
@@ -19,11 +22,13 @@ block PartialController "Partial controller for CHW plant"
     "Number of primary pumps";
   parameter Integer nPumSec
     "Number of secondary pumps";
-  parameter Integer nPumCon = 0
+  // FIXME: only for water-cooled plants.
+  final parameter Integer nPumCon=pumCon.nPum
     "Number of condenser pumps"
     annotation(Dialog(enable=not isAirCoo));
-  parameter Integer nCooTow = 0
-    "Number of cooling towers"
+  // FIXME: only for water-cooled plants.
+  final parameter Integer nCooTow=cooTow.nCooTow
+    "Number of cooling towers (count one tower for each cell)"
     annotation(Dialog(enable=not isAirCoo));
   parameter Boolean isAirCoo
     "Set to true if chillers are air cooled, false if chillers are water cooled";
@@ -44,6 +49,7 @@ block PartialController "Partial controller for CHW plant"
   parameter Boolean have_dedPum
     "Set to true if parallel chillers are connected to dedicated pumps"
     annotation (Evaluate=true, Dialog(group="Configuration"));
+  // FIXME: only for water-cooled plants.
   parameter Boolean have_fixSpeConWatPum = false
     "Set to true if the plant has fixed speed CW pumps. (Must be false if the plant has WSE.)"
     annotation(Dialog(tab="General", group="Condenser water pump",
@@ -58,7 +64,6 @@ block PartialController "Partial controller for CHW plant"
     dat.getReal(varName=id + ".control.TAirOutLoc.value")
     "Outdoor air lockout temperature below which the chiller plant should be disabled"
     annotation(Dialog(tab="Plant enable"));
-
   parameter Modelica.Units.SI.PressureDifference dpCHWLoc_max(displayUnit="Pa")=
     dat.getReal(varName=id + ".control.TAirOutLoc.value")
     "Maximum CHW differential pressure setpoint - Local sensors"
@@ -67,7 +72,6 @@ block PartialController "Partial controller for CHW plant"
     dat.getRealArray1D(varName=id + ".control.dpCHWRem_max.value", n=nSenDpCHWRem)
     "Maximum CHW differential pressure setpoint - Remote sensors"
     annotation (Dialog(tab="Plant Reset", group="Chilled water supply"));
-
   parameter Modelica.Units.SI.MassFlowRate mCHWChi_flow_nominal[nChi]
     "Design (maximum) chiller CHW mass flow rate (for each chiller)";
   parameter Modelica.Units.SI.MassFlowRate mCHWPri_flow_nominal

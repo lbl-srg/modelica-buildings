@@ -13,11 +13,7 @@ partial model PartialCoolingTowerGroup
     "External parameter file";
 
   parameter Integer nCooTow(final min=1)
-    "Number of cooling towers";
-  parameter Integer nCelPerTow(final min=1) = 2
-    "Number of cells per tower";
-  final parameter Integer nCel(final min=1) = nCooTow * nCelPerTow
-    "Total number of cells (all towers)";
+    "Number of cooling towers (count one tower for each cell)";
   parameter Modelica.Units.SI.PressureDifference dp_nominal=
     dat.getReal(varName=id + ".CoolingTower.dp_nominal.value")
     "Nominal pressure difference of the tower"
