@@ -30,7 +30,7 @@ services:
 
 env:
   global:
-    - BUILDINGSPY_VERSION=BuildingsPy@e7242d19bf6615e8660a218011f674894b86e38b
+    - BUILDINGSPY_VERSION=BuildingsPy@7b1e85b4cbc14fc4f16ac1d237b4a68250f4b078
     - OMC_VERSION=ubuntu-2004-omc:1.19.0_dev-531-g72aca4f-1
     - OPTIMICA_VERSION=travis-ubuntu-1804-optimica:r26446
     - DYMOLA_VERSION=travis_ubuntu-2004_dymola:2022x-x86_64
@@ -91,7 +91,7 @@ env:
 #    - TEST_ARG="make test-openmodelica PACKAGE=\"Buildings.{Obsolete.Controls,Occupants,Media}\""
 #    - TEST_ARG="make test-optimica  PACKAGE=\"Buildings.{Obsolete.Controls,Occupants,Media}\""
 #    - TEST_ARG="make test-dymola    PACKAGE=\"Buildings.Utilities\""
-#    - TEST_ARG="make test-openmodelica PACKAGE=\"Buildings.Utilities\""
+    - TEST_ARG="make test-openmodelica PACKAGE=\"Buildings.Utilities\""
 #    - TEST_ARG="make test-optimica  PACKAGE=\"Buildings.Utilities\""
 #    - TEST_ARG="make test-omc"
 

@@ -49,13 +49,6 @@
 - model_name: Buildings.ThermalZones.EnergyPlus.Examples.SmallOffice.IdealHeatingCoolingWinter
   optimica:
     rtol: 1.0e-08
-- model_name: Buildings.Utilities.IO.Python36.Examples.KalmanFilter
-  optimica:
-    comment: See https://github.com/lbl-srg/modelica-buildings/issues/2235
-    simulate: false
-- model_name: Buildings.Utilities.IO.Python36.Functions.Examples.Exchange
-  optimica:
-    simulate: false
 - model_name: Buildings.Examples.DualFanDualDuct.ClosedLoop
   optimica:
     rtol: 1.0e-08
@@ -136,6 +129,10 @@
   optimica:
     comment: Failed due to structural parameter, see https://github.com/lbl-srg/modelica-buildings/issues/2816
     translate: false
+- model_name: Buildings.Utilities.Plotters.Examples.SingleZoneVAV
+  openmodelica:
+    simulate: false
+    comment: "Division by zero at time 15552000, (a=0) / (b=0), where divisor b expression is: hvac.cooCoi.m1_flow + hvac.ideVal.preMasFlo.m_flow"
 - model_name: Buildings.Utilities.IO.Python36.Examples.SimpleRoom
   dymola:
     comment: Python 3.6 is not supported on Ubuntu 20.04, will be upgraded to more recent version
@@ -150,6 +147,9 @@
   openmodelica:
     comment: Python 3.6 is not supported on Ubuntu 20.04, will be upgraded to more recent version
     translate: false
+  optimica:
+    comment: See https://github.com/lbl-srg/modelica-buildings/issues/2235
+    simulate: false
 - model_name: Buildings.Utilities.IO.Python36.Functions.Examples.ExchangeWithPassPythonObject
   dymola:
     comment: Python 3.6 is not supported on Ubuntu 20.04, will be upgraded to more recent version
@@ -164,5 +164,5 @@
   openmodelica:
     comment: Python 3.6 is not supported on Ubuntu 20.04, will be upgraded to more recent version
     translate: false
-
-
+  optimica:
+    simulate: false
