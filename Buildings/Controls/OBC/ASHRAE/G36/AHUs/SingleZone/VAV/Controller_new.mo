@@ -21,32 +21,26 @@ block Controller_new
   parameter Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes buiPreCon
     "Type of building pressure control system";
   parameter Real THeaSetOcc(
-    final unit="K",
-    displayUnit="degC",
-    final quantity = "ThermodynamicTemperature")=293.15
+    unit="K",
+    displayUnit="degC")=293.15
     "Occupied heating setpoint"
     annotation (Dialog(group="Design setpoints"));
   parameter Real THeaSetUno(
-    final unit="K",
-    displayUnit="degC",
-    final quantity = "ThermodynamicTemperature")=285.15
+    unit="K",
+    displayUnit="degC")=285.15
     "Unoccupied heating setpoint"
     annotation (Dialog(group="Design setpoints"));
   parameter Real TCooSetOcc(
-    final unit="K",
-    displayUnit="degC",
-    final quantity = "ThermodynamicTemperature")=297.15
+    unit="K",
+    displayUnit="degC")=297.15
     "Occupied cooling setpoint"
     annotation (Dialog(group="Design setpoints"));
   parameter Real TCooSetUno(
-    final unit="K",
-    displayUnit="degC",
-    final quantity = "ThermodynamicTemperature")=303.15
+    unit="K",
+    displayUnit="degC")=303.15
     "Unoccupied cooling setpoint"
     annotation (Dialog(group="Design setpoints"));
-  parameter Real AFlo(
-    final quantity="Area",
-    final unit="m2")
+  parameter Real AFlo(unit="m2")
     "Zone floor area"
     annotation (Dialog(group="Design conditions"));
   parameter Real desZonPop "Design zone population"
@@ -57,13 +51,10 @@ block Controller_new
   parameter Real outAirRat_occupant=0.0025
     "Outdoor airflow rate per occupant, m3/s/p"
     annotation (Dialog(group="Design conditions"));
-  parameter Real VZonMin_flow(
-    final quantity="VolumeFlowRate",
-    final unit="m3/s") "Design zone minimum airflow setpoint"
+  parameter Real VZonMin_flow(unit="m3/s")
+                       "Design zone minimum airflow setpoint"
     annotation (Dialog(group="Design conditions"));
-  parameter Real VCooZonMax_flow(
-    final quantity="VolumeFlowRate",
-    final unit="m3/s")
+  parameter Real VCooZonMax_flow(unit="m3/s")
     "Design zone cooling maximum airflow rate"
     annotation(Dialog(enable=have_CO2Sen and not have_SZVAVWitCO2, group="Design conditions"));
   parameter Real CO2Set=894
@@ -81,80 +72,64 @@ block Controller_new
     "Flag, set to true to exempt individual zone from demand limit setpoint adjustment"
     annotation (Dialog(tab="Setpoints adjustment", group="Adjustable settings"));
   parameter Real TZonCooOnMax(
-    final unit="K",
-    displayUnit="degC",
-    final quantity = "ThermodynamicTemperature")=300.15
+    unit="K",
+    displayUnit="degC")=300.15
     "Maximum cooling setpoint during on"
     annotation (Dialog(tab="Setpoints adjustment", group="Limits"));
   parameter Real TZonCooOnMin(
-    final unit="K",
-    displayUnit="degC",
-    final quantity = "ThermodynamicTemperature")=295.15
+    unit="K",
+    displayUnit="degC")=295.15
     "Minimum cooling setpoint during on"
     annotation (Dialog(tab="Setpoints adjustment", group="Limits"));
   parameter Real TZonHeaOnMax(
-    final unit="K",
-    displayUnit="degC",
-    final quantity = "ThermodynamicTemperature")=295.15
+    unit="K",
+    displayUnit="degC")=295.15
     "Maximum heating setpoint during on"
     annotation (Dialog(tab="Setpoints adjustment", group="Limits"));
   parameter Real TZonHeaOnMin(
-    final unit="K",
-    displayUnit="degC",
-    final quantity = "ThermodynamicTemperature")=291.15
+    unit="K",
+    displayUnit="degC")=291.15
     "Minimum heating setpoint during on"
     annotation (Dialog(tab="Setpoints adjustment", group="Limits"));
   parameter Real TZonCooSetWinOpe(
-    final unit="K",
-    displayUnit="degC",
-    final quantity = "ThermodynamicTemperature")=322.15
+    unit="K",
+    displayUnit="degC")=322.15
     "Cooling setpoint when window is open"
     annotation (Dialog(tab="Setpoints adjustment", group="Limits"));
   parameter Real TZonHeaSetWinOpe(
-    final unit="K",
-    displayUnit="degC",
-    final quantity = "ThermodynamicTemperature")=277.15
+    unit="K",
+    displayUnit="degC")=277.15
     "Heating setpoint when window is open"
     annotation (Dialog(tab="Setpoints adjustment", group="Limits"));
-  parameter Real incTSetDem_1(
-    final unit="K")=0.5
+  parameter Real incTSetDem_1(unit="K")=0.5
     "Cooling setpoint increase value (degC) when cooling demand limit level 1 is imposed"
     annotation (Dialog(tab="Setpoints adjustment", group="Demand control adjustment", enable=not ignDemLim));
-  parameter Real incTSetDem_2(
-    final unit="K")=1
+  parameter Real incTSetDem_2(unit="K")=1
     "Cooling setpoint increase value (degC) when cooling demand limit level 2 is imposed"
     annotation (Dialog(tab="Setpoints adjustment", group="Demand control adjustment", enable=not ignDemLim));
-  parameter Real incTSetDem_3(
-    final unit="K")=2
+  parameter Real incTSetDem_3(unit="K")=2
     "Cooling setpoint increase value (degC) when cooling demand limit level 3 is imposed"
     annotation (Dialog(tab="Setpoints adjustment", group="Demand control adjustment", enable=not ignDemLim));
-  parameter Real decTSetDem_1(
-    final unit="K")=0.5
+  parameter Real decTSetDem_1(unit="K")=0.5
     "Heating setpoint decrease value (degC) when heating demand limit level 1 is imposed"
     annotation (Dialog(tab="Setpoints adjustment", group="Demand control adjustment", enable=not ignDemLim));
-  parameter Real decTSetDem_2(
-    final unit="K")=1
+  parameter Real decTSetDem_2(unit="K")=1
     "Heating setpoint decrease value (degC) when heating demand limit level 2 is imposed"
     annotation (Dialog(tab="Setpoints adjustment", group="Demand control adjustment", enable=not ignDemLim));
-  parameter Real decTSetDem_3(
-    final unit="K")=2
+  parameter Real decTSetDem_3(unit="K")=2
     "Heating setpoint decrease value (degC) when heating demand limit level 3 is imposed"
     annotation (Dialog(tab="Setpoints adjustment", group="Demand control adjustment", enable=not ignDemLim));
-  parameter Real preWarCooTim(
-    final unit="s",
-    final quantity="Time")=10800
+  parameter Real preWarCooTim(unit="s")=10800
     "Maximum cool-down or warm-up time"
     annotation (Dialog(tab="Setpoints adjustment", group="Operation mode"));
   parameter Real TZonFreProOn(
-    final unit="K",
-    displayUnit="degC",
-    final quantity = "ThermodynamicTemperature")=277.15
+    unit="K",
+    displayUnit="degC")=277.15
     "Threshold temperature to activate the freeze protection mode"
     annotation (Dialog(tab="Setpoints adjustment", group="Operation mode"));
   parameter Real TZonFreProOff(
-    final unit="K",
-    displayUnit="degC",
-    final quantity = "ThermodynamicTemperature")=280.15
+    unit="K",
+    displayUnit="degC")=280.15
     "Threshold temperature to end the freeze protection mode"
     annotation (Dialog(tab="Setpoints adjustment", group="Operation mode"));
   parameter Real bouLim=1
@@ -203,34 +178,23 @@ block Controller_new
           or heaLooCon == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
 
   // ----------- parameters for supply setpoints settings -----------
-  parameter Real TSupSetMax(
-    final unit="K",
-    displayUnit="degC",
-    final quantity = "ThermodynamicTemperature")
+  parameter Real TSupSetMax(unit="K", displayUnit="degC")
     "Maximum supply air temperature for heating"
     annotation (Dialog(tab="Supply setpoints", group="Temperature"));
-  parameter Real TSupSetMin(
-    final unit="K",
-    displayUnit="degC",
-    final quantity = "ThermodynamicTemperature")
+  parameter Real TSupSetMin(unit="K", displayUnit="degC")
     "Minimum supply air temperature for cooling"
     annotation (Dialog(tab="Supply setpoints", group="Temperature"));
-  parameter Real TDewSupMax(
-    final unit="K",
-    displayUnit="degC",
-    final quantity = "ThermodynamicTemperature")
+  parameter Real TDewSupMax(unit="K", displayUnit="degC")
     "Maximum supply air dew-point temperature"
     annotation (Dialog(tab="Supply setpoints", group="Temperature"));
   parameter Real TMinSupDea(
-    final unit="K",
-    displayUnit="degC",
-    final quantity = "ThermodynamicTemperature")=294.15
+    unit="K",
+    displayUnit="degC")=294.15
     "Minimum supply temperature when it is in deadband state"
     annotation (Dialog(tab="Supply setpoints", group="Temperature"));
   parameter Real TMaxSupDea(
-    final unit="K",
-    displayUnit="degC",
-    final quantity = "ThermodynamicTemperature")=297.15
+    unit="K",
+    displayUnit="degC")=297.15
     "Maximum supply temperature when it is in deadband state"
     annotation (Dialog(tab="Supply setpoints", group="Temperature"));
   parameter Real temPoiOne=0.5
@@ -348,7 +312,7 @@ block Controller_new
     "Physically fixed minimum position of the return air damper"
     annotation (Dialog(tab="Economizer", group="Commissioning"));
   parameter Real delTOutHys(
-    final unit="K",
+    unit="K",
     displayUnit="K")=1
     "Delta between the temperature hysteresis high and low limit"
     annotation (Dialog(tab="Economizer", group="Hysteresis"));
@@ -403,16 +367,10 @@ block Controller_new
     annotation (Dialog(tab="Freeze protection", group="Heating coil control"));
 
   // ----------- parameters for building pressure control -----------
-  parameter Real minRelPos(
-    final min=0,
-    final max=1,
-    final unit="1")
+  parameter Real minRelPos(unit="1")
     "Relief-damper position that maintains a building pressure of 12 Pa while the economizer damper is positioned to provide minimum outdoor air while the supply fan is at minimum speed"
     annotation (Dialog(tab="Pressure control", group="Relief damper"));
-  parameter Real maxRelPos(
-    final min=0,
-    final max=1,
-    final unit="1")
+  parameter Real maxRelPos(unit="1")
     "Relief-damper position that maintains a building pressure of 12 Pa while the economizer damper is fully open and the fan speed is at cooling maximum"
     annotation (Dialog(tab="Pressure control", group="Relief damper"));
   parameter Real speDif=-0.1
@@ -422,11 +380,10 @@ block Controller_new
   // ----------- parameters for building pressure control -----------
   parameter Real posHys=0.05 "Hysteresis for damper position check"
     annotation (Dialog(tab="Advanced", group="Hysteresis"));
-  parameter Real Thys(final unit="K")=0.25
+  parameter Real Thys(unit="K")=0.25
     "Hysteresis for checking temperature difference"
     annotation (Dialog(tab="Advanced", group="Hysteresis"));
-  parameter Real delEntHys(
-    final unit="J/kg")=1000
+  parameter Real delEntHys(unit="J/kg")=1000
     "Delta between the enthalpy hysteresis high and low limits"
     annotation(Dialog(tab="Advanced", group="Hysteresis", enable = use_enthalpy));
   parameter Real floHys=0.01
@@ -439,100 +396,100 @@ block Controller_new
     final quantity = "ThermodynamicTemperature")
     "Outside air temperature"
     annotation (Placement(transformation(extent={{-300,470},{-260,510}}),
-        iconTransformation(extent={{-240,230},{-200,270}})));
+        iconTransformation(extent={{-240,360},{-200,400}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput cooDowTim(
     final unit="s",
     final quantity="Time")
     "Cool-down time retrieved from optimal cool-down block"
     annotation (Placement(transformation(extent={{-300,440},{-260,480}}),
-        iconTransformation(extent={{-240,200},{-200,240}})));
+        iconTransformation(extent={{-240,330},{-200,370}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput warUpTim(
     final unit="s",
     final quantity="Time")
     "Warm-up time retrieved from optimal warm-up block"
     annotation (Placement(transformation(extent={{-300,410},{-260,450}}),
-        iconTransformation(extent={{-240,180},{-200,220}})));
+        iconTransformation(extent={{-240,310},{-200,350}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uOcc
     "Current occupancy period, true if it is in occupant period"
     annotation (Placement(transformation(extent={{-300,380},{-260,420}}),
-        iconTransformation(extent={{-240,150},{-200,190}})));
+        iconTransformation(extent={{-240,280},{-200,320}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput tNexOcc(
     final unit="s",
     final quantity="Time")
     "Time to next occupied period"
     annotation (Placement(transformation(extent={{-300,350},{-260,390}}),
-        iconTransformation(extent={{-240,130},{-200,170}})));
+        iconTransformation(extent={{-240,260},{-200,300}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TZon(
     final unit="K",
     displayUnit="degC",
     final quantity = "ThermodynamicTemperature")
     "Measured zone temperatures"
     annotation (Placement(transformation(extent={{-300,320},{-260,360}}),
-        iconTransformation(extent={{-240,100},{-200,140}})));
+        iconTransformation(extent={{-240,230},{-200,270}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput setAdj
     if have_locAdj and not sepAdj
     "Setpoint adjustment value"
     annotation (Placement(transformation(extent={{-300,290},{-260,330}}),
-      iconTransformation(extent={{-240,70},{-200,110}})));
+      iconTransformation(extent={{-240,200},{-200,240}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput cooSetAdj
     if have_locAdj and sepAdj
     "Cooling setpoint adjustment value"
     annotation (Placement(transformation(extent={{-300,260},{-260,300}}),
-        iconTransformation(extent={{-240,50},{-200,90}})));
+        iconTransformation(extent={{-240,170},{-200,210}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput heaSetAdj
     if have_locAdj and sepAdj
     "Heating setpoint adjustment value"
     annotation (Placement(transformation(extent={{-300,230},{-260,270}}),
-      iconTransformation(extent={{-240,50},{-200,90}})));
+      iconTransformation(extent={{-240,150},{-200,190}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uOccSen if have_occSen
     "Occupancy sensor (occupied=true, unoccupied=false)"
     annotation (Placement(transformation(extent={{-300,200},{-260,240}}),
-      iconTransformation(extent={{-240,20},{-200,60}})));
+      iconTransformation(extent={{-240,120},{-200,160}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uCooDemLimLev
     "Cooling demand limit level"
     annotation (Placement(transformation(extent={{-300,170},{-260,210}}),
-        iconTransformation(extent={{-240,-10},{-200,30}})));
+        iconTransformation(extent={{-240,90},{-200,130}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uHeaDemLimLev
     "Heating demand limit level"
     annotation (Placement(transformation(extent={{-300,140},{-260,180}}),
-        iconTransformation(extent={{-240,-30},{-200,10}})));
+        iconTransformation(extent={{-240,70},{-200,110}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput ppmCO2 if have_CO2Sen
     "Detected CO2 concentration"
     annotation (Placement(transformation(extent={{-300,110},{-260,150}}),
-      iconTransformation(extent={{-240,-60},{-200,-20}})));
+      iconTransformation(extent={{-240,40},{-200,80}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TSup(
     final unit="K",
     displayUnit="degC",
     final quantity = "ThermodynamicTemperature")
     "Measured supply air temperature"
     annotation (Placement(transformation(extent={{-300,80},{-260,120}}),
-        iconTransformation(extent={{-240,-90},{-200,-50}})));
+        iconTransformation(extent={{-240,10},{-200,50}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TCut(
     final unit="K",
     displayUnit="degC",
     final quantity="ThermodynamicTemperature")
     "Economizer high limit cutoff. Fixed dry bulb or differential dry bulb temeprature"
     annotation (Placement(transformation(extent={{-300,50},{-260,90}}),
-        iconTransformation(extent={{-240,-110},{-200,-70}})));
+        iconTransformation(extent={{-240,-10},{-200,30}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uWin
     if have_winSen
     "Window status, true if open, false if closed"
     annotation (Placement(transformation(extent={{-300,10},{-260,50}}),
-        iconTransformation(extent={{-240,-160},{-200,-120}})));
+        iconTransformation(extent={{-240,-40},{-200,0}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput hOut(
     final unit="J/kg",
     final quantity="SpecificEnergy")
     if use_enthalpy
     "Outdoor air enthalpy"
     annotation (Placement(transformation(extent={{-300,-20},{-260,20}}),
-        iconTransformation(extent={{-240,-190},{-200,-150}})));
+        iconTransformation(extent={{-240,-70},{-200,-30}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput hCut(
     final unit="J/kg",
     final quantity="SpecificEnergy")
     if use_enthalpy
     "Economizer enthalpy high limit cutoff. Fixed enthalpy or differential enthalpy"
     annotation (Placement(transformation(extent={{-300,-50},{-260,-10}}),
-        iconTransformation(extent={{-240,-210},{-200,-170}})));
+        iconTransformation(extent={{-240,-90},{-200,-50}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TRet(
     final unit="K",
     displayUnit="degC",
@@ -540,22 +497,22 @@ block Controller_new
     if use_fixed_plus_differential_drybulb
     "Used only for fixed plus differential dry bulb temperature high limit cutoff"
     annotation (Placement(transformation(extent={{-300,-80},{-260,-40}}),
-        iconTransformation(extent={{-240,-240},{-200,-200}})));
+        iconTransformation(extent={{-240,-130},{-200,-90}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uFreSta
     if have_freSta
     "Freeze protection stat signal"
     annotation (Placement(transformation(extent={{-300,-140},{-260,-100}}),
-        iconTransformation(extent={{-290,-310},{-250,-270}})));
+        iconTransformation(extent={{-240,-160},{-200,-120}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uFreStaRes
     if have_freSta
     "Freeze protection stat reset signal"
     annotation (Placement(transformation(extent={{-300,-170},{-260,-130}}),
-        iconTransformation(extent={{-272,-324},{-232,-284}})));
+        iconTransformation(extent={{-240,-180},{-200,-140}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uSofSwiRes
     if not have_freSta
     "Freeze protection reset signal from software switch"
     annotation (Placement(transformation(extent={{-300,-200},{-260,-160}}),
-        iconTransformation(extent={{-254,-412},{-214,-372}})));
+        iconTransformation(extent={{-240,-200},{-200,-160}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uRelFanSpe(
     final min=0,
     final max=1,
@@ -563,7 +520,7 @@ block Controller_new
     if buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefFan
     "Relief fan speed"
     annotation (Placement(transformation(extent={{-300,-240},{-260,-200}}),
-        iconTransformation(extent={{-240,-270},{-200,-230}})));
+        iconTransformation(extent={{-240,-230},{-200,-190}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TMix(
     final unit="K",
     displayUnit="degC",
@@ -571,7 +528,7 @@ block Controller_new
     if have_heaCoi
     "Measured mixed air temperature, used for freeze protection if use_TMix is true"
     annotation (Placement(transformation(extent={{-300,-270},{-260,-230}}),
-        iconTransformation(extent={{-240,-130},{-200,-90}})));
+        iconTransformation(extent={{-240,-260},{-200,-220}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uOutDamPos(
     final min=0,
     final max=1,
@@ -579,7 +536,7 @@ block Controller_new
     if buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefDamper
     "Outdoor damper position"
     annotation (Placement(transformation(extent={{-300,-300},{-260,-260}}),
-        iconTransformation(extent={{-300,-460},{-260,-420}})));
+        iconTransformation(extent={{-240,-300},{-200,-260}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uSupFanSpe(
     final min=0,
     final max=1,
@@ -588,14 +545,14 @@ block Controller_new
         or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanDp)
     "Supply fan speed"
     annotation (Placement(transformation(extent={{-300,-340},{-260,-300}}),
-        iconTransformation(extent={{-288,-520},{-248,-480}})));
+        iconTransformation(extent={{-240,-330},{-200,-290}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uCooCoi(
     final min=0,
     final max=1,
     final unit="1")
     "Cooling coil valve position"
     annotation (Placement(transformation(extent={{-300,-430},{-260,-390}}),
-        iconTransformation(extent={{-284,-620},{-244,-580}})));
+        iconTransformation(extent={{-240,-358},{-200,-318}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uHeaCoi(
     final min=0,
     final max=1,
@@ -603,59 +560,59 @@ block Controller_new
     if have_heaCoi
     "Heating coil valve position"
     annotation (Placement(transformation(extent={{-300,-470},{-260,-430}}),
-        iconTransformation(extent={{-282,-674},{-242,-634}})));
+        iconTransformation(extent={{-240,-380},{-200,-340}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput TSupHeaEco(
     final unit="K",
     displayUnit="degC",
     final quantity = "ThermodynamicTemperature")
     "Temperature setpoint for heating coil and for economizer"
     annotation (Placement(transformation(extent={{260,430},{300,470}}),
-        iconTransformation(extent={{200,200},{240,240}})));
+        iconTransformation(extent={{200,290},{240,330}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput TSupCoo(
     final unit="K",
     displayUnit="degC",
     final quantity = "ThermodynamicTemperature")
     "Cooling supply air temperature setpoint"
     annotation (Placement(transformation(extent={{260,350},{300,390}}),
-        iconTransformation(extent={{200,150},{240,190}})));
+        iconTransformation(extent={{200,240},{240,280}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput TZonHeaSet(
     final unit="K",
     displayUnit="degC",
     final quantity = "ThermodynamicTemperature")
     "Zone heating setpoint temperature"
     annotation (Placement(transformation(extent={{260,270},{300,310}}),
-        iconTransformation(extent={{200,40},{240,80}})));
+        iconTransformation(extent={{200,200},{240,240}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput TZonCooSet(
     final unit="K",
     displayUnit="degC",
     final quantity = "ThermodynamicTemperature")  "Zone cooling setpoint temperature"
     annotation (Placement(transformation(extent={{260,190},{300,230}}),
-        iconTransformation(extent={{200,-20},{240,20}})));
+        iconTransformation(extent={{200,170},{240,210}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yEneCHWPum
     "Energize chilled water pump"
     annotation (Placement(transformation(extent={{260,80},{300,120}}),
-        iconTransformation(extent={{244,-20},{284,20}})));
+        iconTransformation(extent={{200,130},{240,170}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yRetDamPos(
     final min=0,
     final max=1,
     final unit="1")
     "Return air damper position"
     annotation (Placement(transformation(extent={{260,40},{300,80}}),
-        iconTransformation(extent={{200,-240},{240,-200}})));
+        iconTransformation(extent={{200,100},{240,140}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yOutDamPos(
     final min=0,
     final max=1,
     final unit="1")
     "Outdoor air damper position"
     annotation (Placement(transformation(extent={{260,10},{300,50}}),
-        iconTransformation(extent={{200,-190},{240,-150}})));
+        iconTransformation(extent={{200,70},{240,110}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput ySupFanSpe(
     final min=0,
     final max=1,
     final unit="1")
     "Supply fan speed"
     annotation (Placement(transformation(extent={{260,-20},{300,20}}),
-        iconTransformation(extent={{200,100},{240,140}})));
+        iconTransformation(extent={{200,40},{240,80}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yRetFanSpe(
     final min=0,
     final max=1,
@@ -664,7 +621,7 @@ block Controller_new
         or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanDp)
     "Return fan speed"
     annotation (Placement(transformation(extent={{260,-60},{300,-20}}),
-        iconTransformation(extent={{242,-160},{282,-120}})));
+        iconTransformation(extent={{200,10},{240,50}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yRelFanSpe(
     final min=0,
     final max=1,
@@ -672,13 +629,13 @@ block Controller_new
     if buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefFan
     "Relief fan speed"
     annotation (Placement(transformation(extent={{260,-100},{300,-60}}),
-        iconTransformation(extent={{242,-200},{282,-160}})));
+        iconTransformation(extent={{200,-20},{240,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yCooCoi(
     final min=0,
     final max=1,
     final unit="1") "Cooling coil control signal"
     annotation (Placement(transformation(extent={{260,-170},{300,-130}}),
-        iconTransformation(extent={{200,-140},{240,-100}})));
+        iconTransformation(extent={{200,-50},{240,-10}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yHeaCoi(
     final min=0,
     final max=1,
@@ -690,7 +647,7 @@ block Controller_new
   Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yAla
     "Alarm level"
     annotation (Placement(transformation(extent={{260,-230},{300,-190}}),
-        iconTransformation(extent={{240,-340},{280,-300}})));
+        iconTransformation(extent={{200,-110},{240,-70}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yRelDamPos(
     final min=0,
     final max=1,
@@ -698,31 +655,31 @@ block Controller_new
     if buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefDamper
     "Relief damper position setpoint"
     annotation (Placement(transformation(extent={{260,-280},{300,-240}}),
-        iconTransformation(extent={{244,-400},{284,-360}})));
+        iconTransformation(extent={{200,-150},{240,-110}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yExhDam
     if (buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanAir
         or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanDp)
     "Exhaust damper"
     annotation (Placement(transformation(extent={{260,-320},{300,-280}}),
-        iconTransformation(extent={{240,-534},{280,-494}})));
+        iconTransformation(extent={{200,-180},{240,-140}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yChiWatResReq
     "Chilled water reset request"
     annotation (Placement(transformation(extent={{260,-380},{300,-340}}),
-        iconTransformation(extent={{242,-556},{282,-516}})));
+        iconTransformation(extent={{200,-232},{240,-192}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yChiPlaReq
     "Chiller plant request"
     annotation (Placement(transformation(extent={{260,-410},{300,-370}}),
-        iconTransformation(extent={{250,-582},{290,-542}})));
+        iconTransformation(extent={{200,-260},{240,-220}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yHotWatResReq
     if have_heaCoi
     "Hot water reset request"
     annotation (Placement(transformation(extent={{260,-460},{300,-420}}),
-        iconTransformation(extent={{248,-610},{288,-570}})));
+        iconTransformation(extent={{200,-290},{240,-250}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yHotWatPlaReq
     if have_heaCoi
     "Hot water plant request"
     annotation (Placement(transformation(extent={{260,-500},{300,-460}}),
-        iconTransformation(extent={{200,-450},{240,-410}})));
+        iconTransformation(extent={{200,-320},{240,-280}})));
 
   Buildings.Controls.OBC.ASHRAE.G36.AHUs.SingleZone.VAV.SetPoints.Supply setPoiVAV(
     final TSupSetMax=TSupSetMax,
@@ -1060,13 +1017,11 @@ equation
   connect(retFan.uSupFanSpe, uSupFanSpe) annotation (Line(points={{58,-324},{-112,
           -324},{-112,-320},{-280,-320}},color={0,0,127}));
   connect(frePro.yRetFanSpe, yRetFanSpe) annotation (Line(points={{162,-131},{212,
-          -131},{212,-40},{280,-40}},
-                                    color={0,0,127}));
+          -131},{212,-40},{280,-40}}, color={0,0,127}));
   connect(frePro.yRelFanSpe, yRelFanSpe) annotation (Line(points={{162,-135},{220,
           -135},{220,-80},{280,-80}}, color={0,0,127}));
   connect(frePro.yCooCoi, yCooCoi) annotation (Line(points={{162,-139},{204,-139},
-          {204,-150},{280,-150}},
-                                color={0,0,127}));
+          {204,-150},{280,-150}}, color={0,0,127}));
   connect(frePro.yHeaCoi, yHeaCoi) annotation (Line(points={{162,-142},{196,-142},
           {196,-180},{280,-180}}, color={0,0,127}));
   connect(retFan.yRetFanSpe, frePro.uRetFanSpe) annotation (Line(points={{82,-336},
@@ -1108,173 +1063,167 @@ equation
           0,127}));
   connect(cooSetAdj, modSetPoi.cooSetAdj) annotation (Line(points={{-280,280},{-230,
           280},{-230,369},{-202,369}}, color={0,0,127}));
+
 annotation (defaultComponentName="conVAV",
-    Icon(coordinateSystem(preserveAspectRatio=false, extent={{-260,-500},{260,500}}),
+    Icon(coordinateSystem(preserveAspectRatio=false, extent={{-200,-400},{200,400}}),
         graphics={Rectangle(
-        extent={{-200,-260},{200,260}},
+        extent={{-200,-400},{200,400}},
         lineColor={0,0,127},
         fillColor={255,255,255},
         fillPattern=FillPattern.Solid),
         Text(
-          extent={{-200,340},{200,260}},
+          extent={{-200,520},{200,440}},
           textString="%name",
           lineColor={0,0,255}),
         Text(
-          extent={{-198,260},{-166,244}},
+          extent={{-198,390},{-166,374}},
           lineColor={0,0,127},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
           textString="TOut"),
         Text(
-          extent={{-196,230},{-134,214}},
+          extent={{-196,360},{-134,344}},
           lineColor={0,0,127},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
           textString="cooDowTim"),
         Text(
-          extent={{-196,210},{-134,194}},
+          extent={{-198,340},{-136,324}},
           lineColor={0,0,127},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
           textString="warUpTim"),
         Text(
-          extent={{-200,180},{-160,164}},
-          lineColor={0,0,127},
+          extent={{-202,312},{-154,292}},
+          lineColor={255,0,255},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
           textString="uOcc"),
         Text(
-          extent={{-196,162},{-144,142}},
+          extent={{-196,292},{-144,272}},
           lineColor={0,0,127},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
           textString="tNexOcc"),
         Text(
-          extent={{-198,130},{-166,114}},
+          extent={{-198,260},{-166,244}},
           lineColor={0,0,127},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
           textString="TZon"),
         Text(
-          visible=cooAdj or sinAdj,
-          extent={{-200,100},{-160,84}},
+          visible=have_locAdj and not sepAdj,
+          extent={{-200,230},{-160,214}},
           lineColor={0,0,127},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
           textString="setAdj"),
         Text(
-          visible=heaAdj,
-          extent={{-196,78},{-140,60}},
+          visible=have_locAdj and sepAdj,
+          extent={{-196,180},{-140,162}},
           lineColor={0,0,127},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
           textString="heaSetAdj"),
         Text(
           visible=have_occSen,
-          extent={{-196,52},{-144,32}},
-          lineColor={0,0,127},
+          extent={{-196,152},{-144,132}},
+          lineColor={255,0,255},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
           textString="uOccSen"),
         Text(
-          extent={{-194,22},{-98,4}},
-          lineColor={0,0,127},
+          extent={{-196,122},{-100,104}},
+          lineColor={255,127,0},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
           textString="uCooDemLimLev"),
         Text(
-          extent={{-194,-2},{-98,-20}},
-          lineColor={0,0,127},
+          extent={{-196,98},{-100,80}},
+          lineColor={255,127,0},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
           textString="uHeaDemLimLev"),
         Text(
           visible=have_CO2Sen,
-          extent={{-196,-30},{-144,-48}},
+          extent={{-196,70},{-144,52}},
           lineColor={0,0,127},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
           textString="ppmCO2"),
         Text(
-          extent={{-200,-60},{-162,-76}},
+          extent={{-200,40},{-162,24}},
           lineColor={0,0,127},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
           textString="TSup"),
         Text(
-          extent={{-200,-80},{-164,-96}},
+          extent={{-200,20},{-164,4}},
           lineColor={0,0,127},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
           textString="TCut"),
         Text(
-          visible=use_TMix,
-          extent={{-202,-100},{-162,-116}},
+          visible=have_heaCoi,
+          extent={{-202,-230},{-162,-246}},
           lineColor={0,0,127},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
           textString="TMix"),
         Text(
           visible=have_winSen,
-          extent={{-200,-128},{-158,-146}},
-          lineColor={0,0,127},
+          extent={{-200,-10},{-158,-28}},
+          lineColor={255,0,255},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
           textString="uWin"),
         Text(
           visible=use_enthalpy,
-          extent={{-200,-180},{-160,-198}},
+          extent={{-200,-60},{-160,-78}},
           lineColor={0,0,127},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
           textString="hCut"),
         Text(
           visible=use_enthalpy,
-          extent={{-198,-160},{-166,-178}},
+          extent={{-198,-40},{-166,-58}},
           lineColor={0,0,127},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
           textString="hOut"),
         Text(
           visible=use_fixed_plus_differential_drybulb,
-          extent={{-196,-208},{-164,-228}},
+          extent={{-196,-98},{-164,-118}},
           lineColor={0,0,127},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
           textString="TRet"),
         Text(
-          visible=use_G36FrePro,
-          extent={{-198,-240},{-132,-258}},
-          lineColor={0,0,127},
-          fillColor={0,0,0},
-          fillPattern=FillPattern.Solid,
-          textString="uFreProSta"),
-        Text(
-          extent={{136,230},{196,212}},
+          extent={{136,320},{196,302}},
           lineColor={0,0,127},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
           textString="TSupHeaEco"),
         Text(
-          extent={{148,178},{196,162}},
+          extent={{148,268},{196,252}},
           lineColor={0,0,127},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
           textString="TSupCoo"),
         Text(
-          extent={{166,128},{200,114}},
+          extent={{130,70},{200,54}},
           lineColor={0,0,127},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
-          textString="yFan"),
+          textString="ySupFanSpe"),
         Text(
-          extent={{134,66},{198,54}},
+          extent={{126,230},{198,214}},
           lineColor={0,0,127},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
           textString="TZonHeaSet"),
         Text(
-          extent={{136,8},{194,-8}},
+          extent={{136,198},{194,182}},
           lineColor={0,0,127},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
@@ -1284,25 +1233,158 @@ annotation (defaultComponentName="conVAV",
           lineColor={0,0,127},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
-          textString="yHeaCoi"),
+          textString="yHeaCoi",
+          visible=have_heaCoi),
         Text(
-          extent={{152,-110},{194,-128}},
+          extent={{152,-20},{194,-38}},
           lineColor={0,0,127},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
           textString="yCooCoi"),
         Text(
-          extent={{132,-158},{194,-178}},
+          extent={{128,100},{196,82}},
           lineColor={0,0,127},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
           textString="yOutDamPos"),
         Text(
-          extent={{130,-212},{194,-226}},
+          extent={{124,132},{196,114}},
           lineColor={0,0,127},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
-          textString="yRetDamPos")}),
+          textString="yRetDamPos"),
+        Text(
+          visible=have_locAdj and not sepAdj,
+          extent={{-196,200},{-140,182}},
+          lineColor={0,0,127},
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid,
+          textString="cooSetAdj"),
+        Text(
+          visible=have_freSta,
+          extent={{-196,-128},{-144,-148}},
+          lineColor={255,0,255},
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid,
+          textString="uFreSta"),
+        Text(
+          visible=have_freSta,
+          extent={{-196,-150},{-122,-170}},
+          lineColor={255,0,255},
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid,
+          textString="uFreStaRes"),
+        Text(
+          visible=not have_freSta,
+          extent={{-196,-172},{-124,-194}},
+          lineColor={255,0,255},
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid,
+          textString="uSofSwiRes"),
+        Text(
+          visible=(buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanAir
+               or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanDp),
+          extent={{142,-148},{194,-168}},
+          lineColor={255,0,255},
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid,
+          textString="yExhDam"),
+        Text(
+          visible=have_occSen,
+          extent={{112,162},{196,144}},
+          lineColor={255,0,255},
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid,
+          textString="yEneCHWPum"),
+        Text(
+          visible=buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefFan,
+          extent={{-196,-200},{-126,-222}},
+          lineColor={0,0,127},
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid,
+          textString="uRelFanSpe"),
+        Text(
+          visible=buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefDamper,
+          extent={{-196,-268},{-120,-288}},
+          lineColor={0,0,127},
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid,
+          textString="uOutDamPos"),
+        Text(
+          visible=(buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanAir
+               or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanDp),
+          extent={{-196,-298},{-122,-320}},
+          lineColor={0,0,127},
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid,
+          textString="uSupFanSpe"),
+        Text(
+          extent={{-196,-324},{-142,-346}},
+          lineColor={0,0,127},
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid,
+          textString="uCooCoi"),
+        Text(
+          visible=have_heaCoi,
+          extent={{-196,-350},{-140,-372}},
+          lineColor={0,0,127},
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid,
+          textString="uHeaCoi"),
+        Text(
+          extent={{128,42},{198,26}},
+          lineColor={0,0,127},
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid,
+          textString="yRetFanSpe",
+          visible=(buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanAir
+               or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanDp)),
+        Text(
+          extent={{128,10},{198,-6}},
+          lineColor={0,0,127},
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid,
+          textString="yRelFanSpe",
+          visible=buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefFan),
+        Text(
+          extent={{130,-120},{200,-136}},
+          lineColor={0,0,127},
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid,
+          textString="yRelDamPos",
+          visible=buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefDamper),
+        Text(
+          extent={{116,-200},{198,-218}},
+          lineColor={255,127,0},
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid,
+          textString="yChiWatResReq"),
+        Text(
+          extent={{114,-228},{196,-246}},
+          lineColor={255,127,0},
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid,
+          textString="yChiPlaReq"),
+        Text(
+          extent={{116,-260},{198,-278}},
+          lineColor={255,127,0},
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid,
+          textString="yHotWatResReq",
+          visible=have_heaCoi),
+        Text(
+          extent={{116,-288},{198,-306}},
+          lineColor={255,127,0},
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid,
+          textString="yHotWatPlaReq",
+          visible=have_heaCoi),
+        Text(
+          extent={{166,-76},{194,-96}},
+          lineColor={255,127,0},
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid,
+          textString="yAla")}),
 Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-260,-500},{260,500}})),
 Documentation(info="<html>
 <p>
