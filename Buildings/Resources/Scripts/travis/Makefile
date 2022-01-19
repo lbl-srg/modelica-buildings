@@ -45,9 +45,9 @@ test-optimica-spawn-fmu:
 	  python3 Buildings/Resources/Scripts/travis/pyfmi/runSpawnFromOtherDirectory.py )
 	@echo "    Success."
 
-test-omc-spawn-spaces: test-omc-spawn-spaces-success test-omc-spawn-spaces-failure
+test-openmodelica-spawn-spaces: test-openmodelica-spawn-spaces-success test-openmodelica-spawn-spaces-failure
 
-test-omc-spawn-spaces-success:
+test-openmodelica-spawn-spaces-success:
 	@echo "*** Check if for OpenModelica, Spawn works with OpenModelica if the root folder is not Buildings."
 	@$(eval TMP := $(shell mktemp --suffix=-LBL-Buildings -d))
 	@mkdir -p $(TMP)
@@ -74,7 +74,7 @@ test-omc-spawn-spaces-success:
 	@rm -rf $(TMP)
 	@echo "    Success."
 
-test-omc-spawn-spaces-failure:
+test-openmodelica-spawn-spaces-failure:
 	@echo "*** Check if for OpenModelica, Spawn properly fails if the root folder contains a space."
 	$(eval TMP := $(shell mktemp --suffix=-LBL-Buildings -d))
 	$(eval TMP := $(TMP)/dir\ with\ spaces)
@@ -117,10 +117,6 @@ test-dymola-spawn-spaces:
 	@cd $(TMP) && grep -q "Integration terminated successfully" dslog.txt
 	@rm -rf $(TMP)
 	@echo "    Success."
-
-test-omc:
-	(cd $(ROOT) && \
-	  $(TRAVIS_BUILD_DIR)/Buildings/Resources/Scripts/travis/omc/testOpenModelica.sh)
 
 # Skip verification of translation statistics of certain models, see
 # https://github.com/lbl-srg/BuildingsPy/issues/441
