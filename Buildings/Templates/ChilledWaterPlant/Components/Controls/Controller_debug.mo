@@ -903,9 +903,10 @@ block Controller_debug "Chiller plant controller"
       iconTransformation(extent={{100,230},{140,270}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yChiPumSpe[nChiWatPum](
-    final min=0,
-    final max=1,
-    final unit="1") "Chilled water pump speed setpoint"
+    final min=fill(0, nChiWatPum),
+    final max=fill(1, nChiWatPum),
+    final unit=fill("1", nChiWatPum))
+    "Chilled water pump speed setpoint"
     annotation (Placement(transformation(extent={{800,460},{840,500}}),
       iconTransformation(extent={{100,200},{140,240}})));
 
@@ -2158,7 +2159,7 @@ and
 Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.SetPoints.ChilledWaterSupply</a>
 are for resetting chilled water temperature setpoint and differential pressure setpoint.
 They are applicable for the primary-only plants or for the primary-secondary systems
-serving differential pressure controlled pumps.  
+serving differential pressure controlled pumps.
 </p>
 <table summary=\"summary\" border=\"1\">
 <tr><th bgcolor=\"silver\">Applicable</th> </tr>

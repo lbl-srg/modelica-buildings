@@ -23,13 +23,14 @@ block Guideline36WaterCooled
     "Chiller type. Recommended staging order: positive displacement, variable speed centrifugal, constant speed centrifugal"
     annotation (Dialog(tab="General", group="Chillers configuration"));
 
-  parameter Real capChi_min[nChi](final unit="W", final min=0) = 0.3 .* capChi_nominal
+  parameter Real capChi_min[nChi](each final unit="W", each final min=0) =
+    0.3 .* capChi_nominal
     "Chiller minimum cycling load"
     annotation (Dialog(tab="General", group="Chillers configuration"));
 
   parameter Modelica.Units.SI.TemperatureDifference dTLif_min(displayUnit="K")=
     if isAirCoo then 0 else
-    dat.getReal(varName=id + ".control.lift.dTLif_min.value")
+    dat.getReal(varName=id + ".control.dTLif_min.value")
     "Minimum allowable lift at minimum load for chiller"
     annotation(Dialog(tab="General", group="Chillers configuration",
       enable=not have_ctrHeaPre and not isAirCoo));
@@ -107,8 +108,8 @@ block Guideline36WaterCooled
 
   // ---- Waterside economizer ----
 
-  /* 
-  FIXME: Those parameters should be declared in the interface class 
+  /*
+  FIXME: Those parameters should be declared in the interface class
   Buildings.Templates.ChilledWaterPlant.Components.ReturnSection.Interfaces.PartialReturnSection
   and accessed with inner/outer reference.
   */
