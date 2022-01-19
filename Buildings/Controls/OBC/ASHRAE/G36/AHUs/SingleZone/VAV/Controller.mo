@@ -1072,7 +1072,7 @@ annotation (defaultComponentName="conVAV",
         fillColor={255,255,255},
         fillPattern=FillPattern.Solid),
         Text(
-          extent={{-200,520},{200,440}},
+          extent={{-200,480},{200,400}},
           textString="%name",
           lineColor={0,0,255}),
         Text(
@@ -1419,7 +1419,6 @@ for more detailed description.
 <p>
 The Economizer control block outputs outdoor and return air damper position, i.e. <code>yOutDamPos</code> and
 <code>yRetDamPos</code>, as well as control signal for heating coil <code>yHeaCoi</code>.
-Optionally, there is also an override for freeze protection, which is not part of Guideline 36.
 See
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.AHUs.SingleZone.VAV.Economizers.Controller\">
 Buildings.Controls.OBC.ASHRAE.G36.AHUs.SingleZone.VAV.Economizers.Controller</a>
@@ -1438,6 +1437,55 @@ Buildings.Controls.OBC.ASHRAE.G36.VentilationZones.ASHRAE62_1.Setpoints</a>.
 Zone air heating and cooling setpoints as well as system operation modes are detailed at
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.AHUs.SingleZone.VAV.SetPoints.ModeAndSetPoints\">
 Buildings.Controls.OBC.ASHRAE.G36.AHUs.SingleZone.VAV.SetPoints.ModeAndSetPoints</a>.
+</p>
+<h4>Coil valve control</h4>
+<p>
+The subsequence retrieves supply air temperature setpoint from previous sequence.
+Along with the measured supply air temperature and the supply fan status, it
+generates coil valve positions. See
+<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.AHUs.SingleZone.VAV.SetPoints.CoolingCoil\">
+Buildings.Controls.OBC.ASHRAE.G36.AHUs.SingleZone.VAV.SetPoints.CoolingCoil</a>
+for more detailed description.
+</p>
+<h4>Freeze protection</h4>
+<p>
+Based on the Section 5.18.11, the sequence enables freeze protection if the
+measured supply air temperature belows certain thresholds. There are three
+protection stages. See
+<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.AHUs.SingleZone.VAV.SetPoints.FreezeProtection\">
+Buildings.Controls.OBC.ASHRAE.G36.AHUs.SingleZone.VAV.SetPoints.FreezeProtection</a>
+for more detailed description.
+</p>
+<h4>Building pressure control</h4>
+<p>
+By selecting different building pressure control designs, which includes using actuated
+relief dampers without fans, using actuated relief dampers with relief fan, using
+return fans. See belows sequences for more detailed description:
+</p>
+<ul>
+<li>
+<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.AHUs.SingleZone.VAV.SetPoints.ReliefDamper\">
+Buildings.Controls.OBC.ASHRAE.G36.AHUs.SingleZone.VAV.SetPoints.ReliefDamper</a>
+</li>
+<li> Relief fan control
+<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.AHUs.SingleZone.VAV.SetPoints.ReliefFan\">
+Buildings.Controls.OBC.ASHRAE.G36.AHUs.SingleZone.VAV.SetPoints.ReliefFan</a> is not
+included in the AHU controller. This sequence controls all the relief fans that are
+serving one common space, which may include multiple air handling units.
+</li>
+<li>
+<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.AHUs.SingleZone.VAV.SetPoints.ReturnFan\">
+Buildings.Controls.OBC.ASHRAE.G36.AHUs.SingleZone.VAV.SetPoints.ReturnFan</a>
+</li>
+</ul>
+<h4>Plant request</h4>
+<p>
+According to the Section 5.18.15, the sequence send out heating or cooling plant requests
+if the supply air temperature is below or above threshold value, or the heating or
+cooling valves have been widely open for certain times. See
+<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.AHUs.SingleZone.VAV.SetPoints.PlantRequests\">
+Buildings.Controls.OBC.ASHRAE.G36.AHUs.SingleZone.VAV.SetPoints.PlantRequests</a>
+for more detailed description.
 </p>
 </html>",
 revisions="<html>

@@ -768,12 +768,12 @@ annotation (defaultComponentName="sinAHUFrePro",
           textString="Stage 1")}),
  Documentation(info="<html>
 <p>
-Freeze protection sequence for multizone AHU system. It is developed based on Section
-5.16.12 of ASHRAE Guideline 36, May 2020.
+Freeze protection sequence for single zone AHU system. It is developed based on Section
+5.18.11 of ASHRAE Guideline 36, May 2020.
 </p>
 <ol>
 <li>
-If the supply air temperature <code>TSup</code> drops below 4.4 &deg;C (40 &deg;F)
+If the supply air temperature <code>TSup</code> drops below 4 &deg;C (40 &deg;F)
 for 5 minutes, send two (or more, as required to ensure that heating plant is active,
 <code>minHotWatReq</code>) heating hot-water plant requests, override the outdoor
 air damper to the minimum position, and modulate the heating coil to maintain a suppy
@@ -782,7 +782,7 @@ Disable this function when supply air temperature rises above 7 &deg;C (45 &deg;
 5 minutes.
 </li>
 <li>
-If the supply air temperature <code>TSup</code> drops below 3.3 &deg;C (38 &deg;F)
+If the supply air temperature <code>TSup</code> drops below 3 &deg;C (38 &deg;F)
 for 5 minutes, fully close both the economizer damper and the minimum outdoor air
 damper for 1 hour and set a Level 3 alarm noting that minimum ventilation was
 interrupted. After 1 hour, the unit shall resume minimum outdoor air ventilation
@@ -797,7 +797,7 @@ minutes then resume normal operation.
 </li>
 <li>
 Upon signal from the freeze-stat (if installed, <code>have_freSta=true</code>),
-or if supply air temperature drops below 3.3 &deg;C (38 &deg;F) for 15 minutes or
+or if supply air temperature drops below 3 &deg;C (38 &deg;F) for 15 minutes or
 below 1 &deg;C (34 &deg;F) for 5 minutes, shut down supply and return (or relief)
 fan(s), close outdoor air damper, open the cooling-coil valve to 100%, and energize
 the CHW pump system. Also send two (or more, as required to ensure that heating plant
