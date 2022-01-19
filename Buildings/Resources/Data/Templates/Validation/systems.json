@@ -584,9 +584,9 @@
                 "description":  "Design (maximum) chiller CHW mass flow rate (for each chiller)",
                 "unit": "kg/s"
             },
-            "TCHWSupSet_nominal": {
+            "TCHWSup_nominal": {
                 "value": 280.15,
-                "description": "Minimum (design) CHW supply temperature setpoint",
+                "description": "Design (minimum) CHW supply temperature (identical for all chillers)",
                 "unit": "K"
             }
         },

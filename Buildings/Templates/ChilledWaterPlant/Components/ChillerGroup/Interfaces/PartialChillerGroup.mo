@@ -7,10 +7,12 @@ partial model PartialChillerGroup
 //     final haveMedium2=true);
 
   replaceable package MediumCW = Buildings.Media.Water
-    constrainedby Modelica.Media.Interfaces.PartialMedium "Medium 1 in the component"
+    constrainedby Modelica.Media.Interfaces.PartialMedium
+    "Medium 1 in the component"
       annotation (Dialog(enable=not isAirCoo));
   replaceable package MediumCHW = Buildings.Media.Water
-    constrainedby Modelica.Media.Interfaces.PartialMedium "Medium 2 in the component";
+    constrainedby Modelica.Media.Interfaces.PartialMedium
+    "Medium 2 in the component";
 
   parameter Boolean isAirCoo
     "= true, chillers in group are air cooled,
@@ -79,13 +81,13 @@ partial model PartialChillerGroup
   parameter Modelica.Units.SI.Power Q_flow_nominal=
     "Total cooling heat flow rate (<0 by convention)";
 
-  parameter Modelica.Units.SI.Temperature TCHWSupSet_nominal
-    "CHW supply temperature setpoint at design conditions";
+  parameter Modelica.Units.SI.Temperature TCHWSup_nominal
+    "Design (minimum) CHW supply temperature";
 
   replaceable parameter Buildings.Fluid.Chillers.Data.BaseClasses.Chiller
     per constrainedby Buildings.Fluid.Chillers.Data.BaseClasses.Chiller(
       QEva_flow_nominal=Q_flow_nominal,
-      TEvaLvg_nominal=TCHWSupSet_nominal,
+      TEvaLvg_nominal=TCHWSup_nominal,
       mEva_flow_nominal=m2_flow_nominal,
       mCon_flow_nominal=m1_flow_nominal)
     "Chiller performance data"

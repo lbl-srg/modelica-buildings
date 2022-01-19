@@ -46,7 +46,7 @@ model PartialChilledWaterLoop
     Buildings.Templates.ChilledWaterPlant.Components.ChillerGroup.Interfaces.PartialChillerGroup(
      redeclare final package MediumCHW = MediumCHW,
      final Q_flow_nominal=Q_flow_nominal,
-     final TCHWSupSet_nominal=TCHWSupSet_nominal,
+     final TCHWSup_nominal=TCHWSup_nominal,
      final m2_flow_nominal=mCHWPri_flow_nominal,
      final isAirCoo=isAirCoo)
     "Chiller group"
@@ -99,7 +99,7 @@ model PartialChilledWaterLoop
       final capChi_nominal=abs(QChi_flow_nominal),
       final mCHWChi_flow_nominal=mCHWChi_flow_nominal,
       final mCHWPri_flow_nominal=mCHWPri_flow_nominal,
-      final TCHWSupSet_min=TCHWSupSet_nominal)
+      final TCHWSup_nominal=TCHWSup_nominal)
     "Plant controller"
     annotation (Placement(
       transformation(

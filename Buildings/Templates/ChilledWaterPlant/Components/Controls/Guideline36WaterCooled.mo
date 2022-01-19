@@ -180,6 +180,7 @@ block Guideline36WaterCooled
 
   // Fan speed control: controlling condenser return water temperature when WSE is not enabled
 
+  // FIXME: Those parameters should be computed in Buildings.Templates.ChilledWaterPlant.BaseClasses.WaterCooled
   parameter Modelica.Units.SI.Temperature  TCWSup_nominal(displayUnit="degC")=
     if isAirCoo then 273.15 else
     dat.getReal(varName=id + ".control.TCWSup_nominal.value")
@@ -201,7 +202,7 @@ block Guideline36WaterCooled
     "Maximum cooling tower water level recommended by manufacturer"
     annotation (Dialog(tab="Cooling Towers", group="Makeup water"));
 
-  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Controller ctrPla(
+  Controller_debug ctrPla(
     final closeCoupledPlant=closeCoupledPlant,
     final nChi=nChi,
     final have_parChi=have_parChi,
@@ -211,7 +212,7 @@ block Guideline36WaterCooled
     final chiTyp=chiTyp,
     final chiDesCap=capChi_nominal,
     final chiMinCap=capChi_min,
-    TChiWatSupMin=fill(TCHWSupSet_min, nChi),
+    final TChiWatSupMin=fill(TCHWSup_nominal, nChi),
     final minChiLif=dTLif_min,
     final have_heaPreConSig=have_ctrHeaPre,
     final anyVsdCen=anyVsdCen,
@@ -287,10 +288,10 @@ block Guideline36WaterCooled
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant FIXME_uChiWatIsoVal[nChi](
       each k=1) "Should be optional and exclusive from `uChiIsoVal`"
     annotation (Placement(transformation(extent={{-140,-70},{-120,-50}})));
-  Buildings.Controls.OBC.CDL.Integers.Sources.Constant FIXME_TChiWatSupResReq(each k=0)
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant FIXME_TChiWatSupResReq(k=0)
     "That input should be conditional and another (conditional) array input is needed + Request not available from VAV controller"
     annotation (Placement(transformation(extent={{-140,-110},{-120,-90}})));
-  Buildings.Controls.OBC.CDL.Integers.Sources.Constant FIXME_chiPlaReq(each k=0)
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant FIXME_chiPlaReq(k=0)
     "Request not available from VAV controller"
     annotation (Placement(transformation(extent={{-140,-150},{-120,-130}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant FIXME_uConWatPumSpe[nPumCon](
@@ -300,13 +301,13 @@ block Guideline36WaterCooled
     each k=1)
     "The chiller load (𝑄𝑟𝑒𝑞𝑢𝑖𝑟𝑒𝑑) shall be internally calculated by the controller based on §5.2.4.7"
     annotation (Placement(transformation(extent={{-100,-190},{-80,-170}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant FIXME_uFanSpe(each k=1)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant FIXME_uFanSpe(k=1)
     "This should be the commanded speed `ySpeSet` computed internally"
     annotation (Placement(transformation(extent={{-60,-190},{-40,-170}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant FIXME_uIsoVal[nCooTow](
     each k=1) "Missing feedback position or switch status in system model"
     annotation (Placement(transformation(extent={{-60,-150},{-40,-130}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant FIXME_watLev(each k=1)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant FIXME_watLev(k=1)
     "How do we take that into account?"
     annotation (Placement(transformation(extent={{-60,-110},{-40,-90}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant FIXME_uTowSta[nCooTow](
@@ -321,12 +322,19 @@ block Guideline36WaterCooled
     "System model should be refactored to use the same set point for all units"
     annotation (Placement(transformation(extent={{60,10},{80,30}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant FIXME_yTowCelIsoVal[nCooTow](
-      each k=true) "Should be
-Boolean and
-conditional to a configuration parameter"
+      each k=true) "Should be Boolean and conditional to a configuration parameter"
     annotation (Placement(transformation(extent={{60,-70},{80,-50}})));
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant FIXME_uLifMin(
+    k=dTLif_min)
+    "Unconnected inside input connector"
+    annotation (Placement(transformation(extent={{-60,10},{-40,30}})));
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant FIXME_uLifMax(
+    k=TCWRet_nominal - TCHWSup_nominal)
+    "Unconnected inside input connector"
+    annotation (Placement(transformation(extent={{-60,-30},{-40,-10}})));
 equation
   /* Control point connection - start */
+
   connect(busCHW.pumPri.uStaPumPri, ctrPla.uChiWatPum);
   connect(busCHW.dpCHWLoc, ctrPla.dpChiWat_local);
   connect(busCHW.dpCHWRem, ctrPla.dpChiWat_remote);
@@ -430,9 +438,6 @@ equation
                                           color={255,0,255}));
   connect(FIXME_uChiConIsoVal.y, ctrPla.uChiIsoVal) annotation (Line(points={{-118,
           180},{-10,180},{-10,11},{-2,11}}, color={255,0,255}));
-
-  /* FIXME - stop */
-
   connect(ctrPla.TChiWatSupSet, FIXME_TChiWatSupSet.u) annotation (Line(points={
           {22,18},{40,18},{40,20},{58,20}}, color={0,0,127}));
 end Guideline36WaterCooled;

@@ -43,8 +43,8 @@ block PartialController "Partial controller for CHW plant"
   parameter Modelica.Units.SI.HeatFlowRate capChi_nominal[nChi](each final min=0)
     "Design chiller capacities vector"
     annotation (Dialog(tab="General", group="Chillers configuration"));
-  parameter Modelica.Units.SI.Temperature TCHWSupSet_min(displayUnit="degC")
-    "Design (minimum) CHW supply temperature setpoint"
+  parameter Modelica.Units.SI.Temperature TCHWSup_nominal(displayUnit="degC")
+    "Design (minimum) CHW supply temperature (identical for all chillers)"
     annotation (Dialog(tab="General", group="Chillers configuration"));
   parameter Boolean have_dedPum
     "Set to true if parallel chillers are connected to dedicated pumps"

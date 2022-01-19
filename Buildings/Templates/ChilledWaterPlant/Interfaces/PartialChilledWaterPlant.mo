@@ -36,9 +36,9 @@ partial model PartialChilledWaterPlant
   final parameter Modelica.Units.SI.HeatFlowRate Q_flow_nominal(final max=0)=
     sum(QChi_flow_nominal)
     "Cooling heat flow rate of the plant (<0 by convention)";
-  parameter Modelica.Units.SI.Temperature TCHWSupSet_nominal=
-    dat.getReal(varName=id + ".ChillerGroup.TCHWSupSet_nominal.value")
-    "Design (minimum) CHW supply temperature setpoint";
+  parameter Modelica.Units.SI.Temperature TCHWSup_nominal=
+    dat.getReal(varName=id + ".ChillerGroup.TCHWSup_nominal.value")
+    "Design (minimum) CHW supply temperature (identical for all chillers)";
   parameter Modelica.Units.SI.MassFlowRate mCHWChi_flow_nominal[nChi]=
     dat.getRealArray1D(varName=id + ".ChillerGroup.mCHWChi_flow_nominal.value", n=nChi)
     "Design (maximum) chiller CHW mass flow rate (for each chiller)";
