@@ -1,5 +1,5 @@
 within Buildings.Controls.OBC.ASHRAE.G36.AHUs.SingleZone.VAV;
-block Controller_new
+block Controller
   "Single Zone AHU controller that composes subsequences for controlling fan speed, economizer, and supply air temperature"
 
   parameter Boolean have_winSen
@@ -1448,4 +1448,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end Controller_new;
+end Controller;

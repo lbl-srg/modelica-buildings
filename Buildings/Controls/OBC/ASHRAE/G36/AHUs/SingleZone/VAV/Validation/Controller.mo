@@ -1,6 +1,6 @@
 within Buildings.Controls.OBC.ASHRAE.G36.AHUs.SingleZone.VAV.Validation;
 model Controller "Validation of the top-level controller"
-  Controller_new                                                   conVAV(
+  Buildings.Controls.OBC.ASHRAE.G36.AHUs.SingleZone.VAV.Controller conVAV(
     kHea=1,
     AFlo=50,
     have_occSen=true,
@@ -30,7 +30,7 @@ model Controller "Validation of the top-level controller"
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TOut(final k=273.15 +
         17) "Outdoor air dry bulb temperature"
     annotation (Placement(transformation(extent={{-180,112},{-160,132}})));
-  Controller_new                                                   conVAV1(
+  Buildings.Controls.OBC.ASHRAE.G36.AHUs.SingleZone.VAV.Controller conVAV1(
     kCoo=1,
     kHea=1,
     AFlo=50,
@@ -49,7 +49,7 @@ model Controller "Validation of the top-level controller"
     height=-3,
     offset=273.15 + 26)  "Measured zone temperature"
     annotation (Placement(transformation(extent={{-180,-50},{-160,-30}})));
-  Controller_new                                                   conVAV2(
+  Buildings.Controls.OBC.ASHRAE.G36.AHUs.SingleZone.VAV.Controller conVAV2(
     kCoo=1,
     kHea=1,
     AFlo=50,
@@ -63,7 +63,7 @@ model Controller "Validation of the top-level controller"
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TOut2(
     final k=273.15 + 22) "Outdoor air dry bulb temperature"
     annotation (Placement(transformation(extent={{-180,-110},{-160,-90}})));
-  Controller_new                                                   conVAV3(
+  Buildings.Controls.OBC.ASHRAE.G36.AHUs.SingleZone.VAV.Controller conVAV3(
     kCoo=1,
     kHea=1,
     AFlo=50,
