@@ -30,6 +30,10 @@
   openmodelica:
     comment: simulation terminated by an assertion at initialization
     simulate: false
+- model_name: Buildings.Airflow.Multizone.Examples.OneOpenDoor
+  openmodelica:
+    comment: '''omc'' caused ''Simulation terminated at time 4119.66''.'
+    simulate: false
 - model_name: Buildings.Airflow.Multizone.Validation.ThreeRoomsContam
   openmodelica:
     comment: '''omc'' caused ''Simulation terminated at time 3.59409''.'
@@ -85,6 +89,10 @@
   optimica:
     rtol: 1.0e-08
     solver: CVode
+- model_name: Buildings.Examples.ScalableBenchmarks.BuildingVAV.Examples.OneFloor_OneZone
+  openmodelica:
+    comment: omc returned non-zero exit status 255.
+    simulate: false
 - model_name: Buildings.Examples.ScalableBenchmarks.BuildingVAV.Examples.TwoFloor_TwoZone
   openmodelica:
     comment: '''omc'' caused ''Simulation terminated at time 176396''.'
@@ -245,6 +253,10 @@
   openmodelica:
     comment: '''omc'' caused ''simulation terminated by an assertion at initialization''.'
     simulate: false
+- model_name: Buildings.Fluid.Geothermal.BuriedPipes.Examples.DiscretizedBuriedPipe
+  openmodelica:
+    comment: Simulation terminated at time 9010.07
+    simulate: false
 - model_name: Buildings.Fluid.Geothermal.BuriedPipes.Examples.SingleBuriedPipe
   openmodelica:
     comment: '''omc'' caused ''Simulation terminated at time 4.88841e+06''.'
@@ -336,6 +348,10 @@
   openmodelica:
     comment: 'TimeoutExpired: omc timed out after 300 seconds'
     simulate: false
+- model_name: Buildings.ThermalZones.Detailed.Examples.FFD.WindowWithShade
+  openmodelica:
+    comment: 'TimeoutExpired: omc timed out after 300 seconds'
+    simulate: false
 - model_name: Buildings.ThermalZones.Detailed.Examples.FFD.WindowWithoutShade
   openmodelica:
     comment: 'TimeoutExpired: omc timed out after 300 seconds'
@@ -372,9 +388,13 @@
   openmodelica:
     comment: '''omc'' caused ''Simulation terminated at time 2.59801e+07''.'
     simulate: false
+- model_name: Buildings.ThermalZones.Detailed.Validation.BESTEST.Cases6xx.Case650FF
+  openmodelica:
+    comment: '''omc'' caused ''Simulation terminated at time 2.59788e+07''.'
+    simulate: false
 - model_name: Buildings.ThermalZones.Detailed.Validation.BESTEST.Cases9xx.Case900FF
   openmodelica:
-    comment: '''omc'' caused ''Simulation terminated at time 1.68274e+07''.'
+    comment: '''omc'' caused ''Simulation terminated at time 7.50506e+06''.'
     simulate: false
 - model_name: Buildings.ThermalZones.Detailed.Validation.BESTEST.Cases9xx.Case920
   openmodelica:
@@ -404,6 +424,9 @@
     comment: This causes a timeout on travis, but works locally. See https://travis-ci.com/github/lbl-srg/modelica-buildings/jobs/501193509#L635
     simulate: false
 - model_name: Buildings.ThermalZones.EnergyPlus.Examples.SmallOffice.Guideline36Spring
+  openmodelica:
+    simulate: false
+    comment: Simulation terminated at time 7.75812e+06
   optimica:
     rtol: 1.0e-07
 - model_name: Buildings.ThermalZones.EnergyPlus.Examples.SmallOffice.Guideline36Summer
@@ -433,9 +456,6 @@
     simulate: false
   optimica:
     rtol: 1.0e-08
-- model_name: Buildings.ThermalZones.EnergyPlus.Examples.SmallOffice.NoHVAC
-  optimica:
-    rtol: 1.0e-07
 - model_name: Buildings.ThermalZones.EnergyPlus.Examples.SmallOffice.Unconditioned
   optimica:
     comment: 'Failed with RuntimeError: Process timeout after 300 seconds. Since oct-r26446.'
