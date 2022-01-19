@@ -14,13 +14,15 @@ function computeTables
     "Computed efficiency and power curves";
 
 protected
-  constant Integer n = 11 "Dimensions of the look-up table (n by n)";
-  parameter Modelica.Units.SI.VolumeFlowRate V_flow_aux[:]=linspace(0,V_flow_max,n)
-    "Auxilliary variable for flow rate";
-  parameter Modelica.Units.SI.PressureDifference dp_aux[:]=linspace(0,dpMax,n)
-    "Auxilliary variable for pressure rise";
-  Real etaSup[:,:] = zeros(12,12) "2D look-up table for efficiency";
-  Real powSup[:,:] = zeros(11,11) "2D look-up table for power";
+  constant Integer n = 12 "Dimensions of the look-up tables (12 by 12)";
+  parameter Modelica.Units.SI.VolumeFlowRate V_flow_aux[:]=
+    linspace(0,V_flow_max,n-1)
+    "Auxilliary array for flow rate";
+  parameter Modelica.Units.SI.PressureDifference dp_aux[:]=
+    linspace(0,dpMax,n-1)
+    "Auxilliary array for pressure rise";
+  Real etaSup[:,:] = zeros(n,n) "2D look-up table for efficiency";
+  Real powSup[:,:] = zeros(n,n) "2D look-up table for power";
   Real log_r_Eu "Log10 of ratio Eu/Eu_peak";
 
 algorithm
@@ -30,24 +32,47 @@ algorithm
   //  to make its declaration more straightforward.
   end if;
 
+  //[1,1] must be zero for CombiTable2D.
   etaSup[1,1]:=0;
-  etaSup[1,2:end]:=V_flow_aux[:];
-  etaSup[2:end,1]:=dp_aux[:];
-
   powSup[1,1]:=0;
-  powSup[1,2:end]:=V_flow_aux[2:end];
-  powSup[2:end,1]:=dp_aux[2:end];
 
-  for i in 2:n loop
-    for j in 2:n loop
+  //[1,2:end] are flow rates.
+  etaSup[1,2:end]:=V_flow_aux[:];
+  powSup[1,2:end]:=V_flow_aux[:];
+
+  //[2:end,1] are pressures.
+  etaSup[2:end,1]:=dp_aux[:];
+  powSup[2:end,1]:=dp_aux[:];
+
+  //[3:end,3:end] are support points.
+  for i in 3:n loop
+    for j in 3:n loop
       log_r_Eu:= log10(Buildings.Utilities.Math.Functions.smoothMax(
-                       x1=dp_aux[i] * peak.V_flow^2,x2=1E-5,deltaX=1E-6)
+                       x1=dp_aux[i-1] * peak.V_flow^2,x2=1E-5,deltaX=1E-6)
                       /Buildings.Utilities.Math.Functions.smoothMax(
-                       x1=peak.dp * V_flow_aux[j]^2,x2=1E-5,deltaX=1E-6));
-      etaSup[i+1,j+1]:=peak.eta*
+                       x1=peak.dp * V_flow_aux[j-1]^2,x2=1E-5,deltaX=1E-6));
+      etaSup[i,j]:=peak.eta*
         Buildings.Fluid.Movers.BaseClasses.Euler.correlation(x=log_r_Eu);
-      powSup[i,j]:=dp_aux[j]*V_flow_aux[i]/etaSup[i+1,j+1];
+      powSup[i,j]:=dp_aux[j-1]*V_flow_aux[i-1]/etaSup[i,j];
     end for;
+  end for;
+
+  //[2,2:end] and [2:end,2] represent points where V or dp is zero:
+  //  For eta,  their initial zero values are kept.
+  //  For P,    [2,2] is set zero,
+  powSup[2,2]:=0;
+  //            and the rest are extrapolated and bounded away from negative.
+  for i in 3:n loop
+    powSup[2,i]:=max(0, Buildings.Utilities.Math.Functions.smoothInterpolation(
+      x=0,
+      xSup=powSup[3:end, 1],
+      ySup=powSup[3:end, i],
+      ensureMonotonicity=true));
+    powSup[i,2]:=max(0, Buildings.Utilities.Math.Functions.smoothInterpolation(
+      x=0,
+      xSup=powSup[1, 3:end],
+      ySup=powSup[i, 3:end],
+      ensureMonotonicity=true));
   end for;
 
   curves.eta:=etaSup;
@@ -62,7 +87,8 @@ flow rate <i>V&#775;</i> and pressure rise <i>&Delta;p</i> at 10% increments.
 The computation is not performed below 10% of maximum <i>V&#775;</i> or
 <i>&Delta;p</i> to avoid the computed power approaching infinity
 as the efficiency approaches zero.
-<i>P</i> will be extrapolated when <i>V&#775;</i> or <i>&Delta;p</i> is below 10%.
+<i>P</i> will be extrapolated when <i>V&#775;</i> or <i>&Delta;p</i> is below 10%,
+with the exception that <i>P</i> is set to zero when both are zero.
 <i>&eta;</i> is simply set to zero when <i>V&#775;</i> or <i>&Delta;p</i> is zero.
 </p>
 </html>",

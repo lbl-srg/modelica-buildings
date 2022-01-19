@@ -2,13 +2,12 @@ within Buildings.Fluid.Movers.BaseClasses.Euler;
 function initialTable
   "Function for constructing an initial look-up table"
   extends Modelica.Icons.Function;
-  input Integer n "Dimension of table (n by n) including headers";
-  output Real tab[:,:]=zeros(n,n) "Output table";
+  output Real tab[:,:]=zeros(12,12) "Output table";
 
 algorithm
-  for i in 1:(n-1) loop
-    tab[1,i+1]:=i;
-    tab[i+1,1]:=i;
+  for i in 2:12 loop
+    tab[1,i]:=i;
+    tab[i,1]:=i;
   end for;
 
   annotation(Documentation(info="<html>
