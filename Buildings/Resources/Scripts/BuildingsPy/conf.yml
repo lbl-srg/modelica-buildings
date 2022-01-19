@@ -392,9 +392,6 @@
 - model_name: Buildings.Air.Systems.SingleZone.VAV.Examples.OptimalStart.Guideline36Spring
   openmodelica:
     simulate: false
-    comment: "'omc Buildings.ThermalZones.EnergyPlus.Examples.SmallOffice.Guideline36Spring_simulate.mos' caused 'Simulation terminated at time 7.75812e+06'."
-  openmodelica:
-    simulate: false
     comment: "'omc Buildings.Air.Systems.SingleZone.VAV.Examples.OptimalStart.Guideline36Spring_simulate.mos' caused 'simulation terminated by an assertion at initialization'."
 - model_name: Buildings.Fluid.FixedResistances.Validation.PlugFlowPipes.PlugFlowAIT
   openmodelica:
