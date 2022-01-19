@@ -13,14 +13,6 @@ block Controller "Multizone VAV air handling unit controller"
   parameter Integer nZonGro=1
     "Total number of zone group that the AHU is serving"
     annotation (Dialog(group="System and building parameters"));
-  parameter Integer nRelFan=1
-    "Total number of relief fans that are serving a common space"
-    annotation (Dialog(group="System and building parameters",
-      enable=buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefFan));
-  parameter Integer nAHU=1
-    "Total number of AHU that are serving a common space"
-    annotation (Dialog(group="System and building parameters",
-      enable=buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefFan));
   parameter Boolean have_heaCoi=true
     "True: the AHU has heating coil"
     annotation (Dialog(group="System and building parameters"));
@@ -352,14 +344,6 @@ block Controller "Multizone VAV air handling unit controller"
     "Minimum relief fan speed"
     annotation (Dialog(tab="Pressure control", group="Relief fans",
       enable=buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefFan));
-  parameter Integer staVec[nRelFan]={2,3,1,4}
-    "Vector of the order for staging up relief fan, i.e. the 1st element means the 1st relief fan and its value showing its sequence when staging up"
-    annotation (Dialog(tab="Pressure control", group="Relief fans",
-      enable=buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefFan));
-  parameter Integer RelFanMat[nRelFan,nSupFan]={{1,0},{1,0},{0,1},{0,1}}
-    "Relief fan matrix with relief fan as row index and AHU supply fan as column index. It falgs which relief fan is associated with which supply fan"
-    annotation (Dialog(tab="Pressure control", group="Relief fans",
-      enable=buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefFan));
   parameter Real difFloSet(unit="m3/s")
     "Airflow differential between supply air and return air fans required to maintain building pressure at desired pressure"
     annotation (Dialog(tab="Pressure control", group="Return fan",
@@ -410,86 +394,86 @@ block Controller "Multizone VAV air handling unit controller"
 
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uOpeMod[nZonGro]
     "Zone group operation mode"
-    annotation (Placement(transformation(extent={{-400,550},{-360,590}}),
+    annotation (Placement(transformation(extent={{-400,540},{-360,580}}),
         iconTransformation(extent={{-240,410},{-200,450}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uZonPreResReq
     "Zone static pressure reset requests"
-    annotation (Placement(transformation(extent={{-400,510},{-360,550}}),
+    annotation (Placement(transformation(extent={{-400,500},{-360,540}}),
         iconTransformation(extent={{-240,390},{-200,430}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput ducStaPre(
     final unit="Pa",
     displayUnit="Pa",
     final quantity="PressureDifference")
     "Measured duct static pressure"
-    annotation (Placement(transformation(extent={{-400,470},{-360,510}}),
+    annotation (Placement(transformation(extent={{-400,460},{-360,500}}),
         iconTransformation(extent={{-240,360},{-200,400}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TOut(
     final unit="K",
     displayUnit="degC",
     final quantity="ThermodynamicTemperature")
     "Outdoor air temperature"
-    annotation (Placement(transformation(extent={{-400,440},{-360,480}}),
+    annotation (Placement(transformation(extent={{-400,430},{-360,470}}),
         iconTransformation(extent={{-240,340},{-200,380}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uZonTemResReq
     "Zone cooling supply air temperature reset request"
-    annotation (Placement(transformation(extent={{-400,410},{-360,450}}),
+    annotation (Placement(transformation(extent={{-400,400},{-360,440}}),
         iconTransformation(extent={{-240,310},{-200,350}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uSupFan
     "Supply fan status"
-    annotation (Placement(transformation(extent={{-400,370},{-360,410}}),
+    annotation (Placement(transformation(extent={{-400,360},{-360,400}}),
         iconTransformation(extent={{-240,290},{-200,330}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TSup(
     final unit="K",
     displayUnit="degC",
     final quantity="ThermodynamicTemperature")
     "Measured supply air temperature"
-    annotation (Placement(transformation(extent={{-400,330},{-360,370}}),
+    annotation (Placement(transformation(extent={{-400,320},{-360,360}}),
         iconTransformation(extent={{-240,260},{-200,300}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput sumDesZonPop(
     final min=0,
     final unit="1")
     "Sum of the design population of the zones in the group"
-    annotation (Placement(transformation(extent={{-400,280},{-360,320}}),
+    annotation (Placement(transformation(extent={{-400,270},{-360,310}}),
         iconTransformation(extent={{-240,230},{-200,270}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput VSumDesPopBreZon_flow(
     final min=0,
     final unit="m3/s",
     final quantity="VolumeFlowRate")
     "Sum of the population component design breathing zone flow rate"
-    annotation (Placement(transformation(extent={{-400,250},{-360,290}}),
+    annotation (Placement(transformation(extent={{-400,240},{-360,280}}),
         iconTransformation(extent={{-240,190},{-200,230}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput VSumDesAreBreZon_flow(
     final min=0,
     final unit="m3/s",
     final quantity="VolumeFlowRate")
     "Sum of the area component design breathing zone flow rate"
-    annotation (Placement(transformation(extent={{-400,220},{-360,260}}),
+    annotation (Placement(transformation(extent={{-400,210},{-360,250}}),
         iconTransformation(extent={{-240,170},{-200,210}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uDesSysVenEff(
     final min=0,
     final unit="1")
     "Design system ventilation efficiency, equals to the minimum of all zones ventilation efficiency"
-    annotation (Placement(transformation(extent={{-400,190},{-360,230}}),
+    annotation (Placement(transformation(extent={{-400,180},{-360,220}}),
         iconTransformation(extent={{-240,140},{-200,180}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput VSumUncOutAir_flow(
     final min=0,
     final unit="m3/s",
     final quantity="VolumeFlowRate")
     "Sum of all zones required uncorrected outdoor airflow rate"
-    annotation (Placement(transformation(extent={{-400,160},{-360,200}}),
+    annotation (Placement(transformation(extent={{-400,150},{-360,190}}),
         iconTransformation(extent={{-240,110},{-200,150}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput VSumSysPriAir_flow(
     final min=0,
     final unit="m3/s",
     final quantity="VolumeFlowRate")
     "System primary airflow rate, equals to the sum of the measured discharged flow rate of all terminal units"
-    annotation (Placement(transformation(extent={{-400,130},{-360,170}}),
+    annotation (Placement(transformation(extent={{-400,120},{-360,160}}),
         iconTransformation(extent={{-240,90},{-200,130}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uOutAirFra_max(
     final min=0,
     final unit="1")
     "Maximum zone outdoor air fraction, equals to the maximum of primary outdoor air fraction of all zones"
-    annotation (Placement(transformation(extent={{-400,100},{-360,140}}),
+    annotation (Placement(transformation(extent={{-400,90},{-360,130}}),
         iconTransformation(extent={{-240,60},{-200,100}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput VOut_flow(
     final min=0,
@@ -498,7 +482,7 @@ block Controller "Multizone VAV air handling unit controller"
     if (minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.MultizoneAHUMinOADesigns.SeparateDamper_AFMS
         or minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.MultizoneAHUMinOADesigns.CommonDamper)
     "Measured outdoor volumetric airflow rate"
-    annotation (Placement(transformation(extent={{-400,70},{-360,110}}),
+    annotation (Placement(transformation(extent={{-400,60},{-360,100}}),
         iconTransformation(extent={{-240,30},{-200,70}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uOutDamPos(
     final min=0,
@@ -507,7 +491,7 @@ block Controller "Multizone VAV air handling unit controller"
     if (minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.MultizoneAHUMinOADesigns.SeparateDamper_AFMS
         or minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.MultizoneAHUMinOADesigns.SeparateDamper_DP)
     "Economizer outdoor air damper position"
-    annotation (Placement(transformation(extent={{-400,30},{-360,70}}),
+    annotation (Placement(transformation(extent={{-400,20},{-360,60}}),
         iconTransformation(extent={{-240,0},{-200,40}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uSupFanSpe(
     final min=0,
@@ -516,7 +500,7 @@ block Controller "Multizone VAV air handling unit controller"
     if (minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.MultizoneAHUMinOADesigns.SeparateDamper_AFMS
         or minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.MultizoneAHUMinOADesigns.SeparateDamper_DP)
     "Supply fan speed"
-    annotation (Placement(transformation(extent={{-400,0},{-360,40}}),
+    annotation (Placement(transformation(extent={{-400,-10},{-360,30}}),
         iconTransformation(extent={{-240,-30},{-200,10}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput dpMinOutDam(
     final unit="Pa",
@@ -524,62 +508,53 @@ block Controller "Multizone VAV air handling unit controller"
     final quantity="PressureDifference")
     if minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.MultizoneAHUMinOADesigns.SeparateDamper_DP
     "Measured pressure difference across the minimum outdoor air damper"
-    annotation (Placement(transformation(extent={{-400,-30},{-360,10}}),
+    annotation (Placement(transformation(extent={{-400,-40},{-360,0}}),
         iconTransformation(extent={{-240,-60},{-200,-20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TOutCut(
     final unit="K",
     displayUnit="degC",
     final quantity="ThermodynamicTemperature")
     "OA temperature high limit cutoff. For differential dry bulb temeprature condition use return air temperature measurement"
-    annotation (Placement(transformation(extent={{-400,-60},{-360,-20}}),
+    annotation (Placement(transformation(extent={{-400,-70},{-360,-30}}),
         iconTransformation(extent={{-240,-100},{-200,-60}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput hOut(
     final unit="J/kg",
     final quantity="SpecificEnergy") if use_enthalpy
     "Outdoor air enthalpy"
-    annotation (Placement(transformation(extent={{-400,-90},{-360,-50}}),
+    annotation (Placement(transformation(extent={{-400,-100},{-360,-60}}),
         iconTransformation(extent={{-240,-120},{-200,-80}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput hOutCut(
     final unit="J/kg",
     final quantity="SpecificEnergy") if use_enthalpy
     "OA enthalpy high limit cutoff. For differential enthalpy use return air enthalpy measurement"
-    annotation (Placement(transformation(extent={{-400,-120},{-360,-80}}),
+    annotation (Placement(transformation(extent={{-400,-130},{-360,-90}}),
         iconTransformation(extent={{-240,-140},{-200,-100}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uFreSta if have_freSta
     "Freeze-stat signal"
-    annotation (Placement(transformation(extent={{-400,-160},{-360,-120}}),
+    annotation (Placement(transformation(extent={{-400,-170},{-360,-130}}),
         iconTransformation(extent={{-240,-180},{-200,-140}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uFreStaRes if have_freSta
     "Freeze protection stat reset signal"
-    annotation (Placement(transformation(extent={{-400,-200},{-360,-160}}),
+    annotation (Placement(transformation(extent={{-400,-210},{-360,-170}}),
         iconTransformation(extent={{-240,-200},{-200,-160}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uSofSwiRes if not have_freSta
     "Freeze protection reset signal from software switch"
-    annotation (Placement(transformation(extent={{-400,-230},{-360,-190}}),
+    annotation (Placement(transformation(extent={{-400,-240},{-360,-200}}),
         iconTransformation(extent={{-240,-220},{-200,-180}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput uRetFanSpe(
-    final min=0,
-    final max=1,
-    final unit="1")
-    if (buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanAir
-        or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanDp)
-    "Return fan speed"
-    annotation (Placement(transformation(extent={{-400,-260},{-360,-220}}),
-        iconTransformation(extent={{-240,-250},{-200,-210}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uRelFanSpe(
     final min=0,
     final max=1,
     final unit="1")
     if buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefFan
     "Relief fan speed"
-    annotation (Placement(transformation(extent={{-400,-290},{-360,-250}}),
+    annotation (Placement(transformation(extent={{-400,-300},{-360,-260}}),
         iconTransformation(extent={{-240,-270},{-200,-230}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TMix(
     final unit="K",
     displayUnit="degC",
     final quantity="ThermodynamicTemperature")
     "Measured mixed air temperature"
-    annotation (Placement(transformation(extent={{-400,-320},{-360,-280}}),
+    annotation (Placement(transformation(extent={{-400,-330},{-360,-290}}),
         iconTransformation(extent={{-240,-300},{-200,-260}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput dpBui(
     final unit="Pa",
@@ -589,25 +564,15 @@ block Controller "Multizone VAV air handling unit controller"
         or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefFan
         or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanDp)
     "Building static pressure difference, relative to ambient (positive if pressurized)"
-    annotation (Placement(transformation(extent={{-400,-354},{-360,-314}}),
+    annotation (Placement(transformation(extent={{-400,-364},{-360,-324}}),
         iconTransformation(extent={{-240,-330},{-200,-290}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uSupFanSet[nAHU]
-    if buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefFan
-    "Supply fan proven on status for AHUs that serving a common space"
-    annotation (Placement(transformation(extent={{-400,-390},{-360,-350}}),
-        iconTransformation(extent={{-240,-350},{-200,-310}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uRelFan[nRelFan]
-    if buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefFan
-    "Proven on status of the relief fans that serving a common space"
-    annotation (Placement(transformation(extent={{-400,-420},{-360,-380}}),
-        iconTransformation(extent={{-240,-370},{-200,-330}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput VSup_flow(
     final min=0,
     final unit="m3/s",
     final quantity="VolumeFlowRate")
     if buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanAir
     "Measured AHU supply airflow rate"
-    annotation (Placement(transformation(extent={{-400,-450},{-360,-410}}),
+    annotation (Placement(transformation(extent={{-400,-400},{-360,-360}}),
         iconTransformation(extent={{-240,-390},{-200,-350}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput VRet_flow(
     final min=0,
@@ -615,7 +580,7 @@ block Controller "Multizone VAV air handling unit controller"
     final quantity="VolumeFlowRate")
     if buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanAir
     "Measured AHU return airflow rate"
-    annotation (Placement(transformation(extent={{-400,-490},{-360,-450}}),
+    annotation (Placement(transformation(extent={{-400,-460},{-360,-420}}),
         iconTransformation(extent={{-240,-410},{-200,-370}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uCooCoi(
     final min=0,
@@ -633,29 +598,29 @@ block Controller "Multizone VAV air handling unit controller"
         iconTransformation(extent={{-240,-450},{-200,-410}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput ySupFan
     "Supply fan enabling status"
-    annotation (Placement(transformation(extent={{360,530},{400,570}}),
+    annotation (Placement(transformation(extent={{360,520},{400,560}}),
         iconTransformation(extent={{200,360},{240,400}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput VDesUncOutAir_flow(
     final min=0,
     final unit="m3/s",
     final quantity="VolumeFlowRate")
     "Design uncorrected minimum outdoor airflow rate"
-    annotation (Placement(transformation(extent={{360,310},{400,350}}),
+    annotation (Placement(transformation(extent={{360,300},{400,340}}),
         iconTransformation(extent={{200,270},{240,310}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yAveOutAirFraPlu
     "Average outdoor air flow fraction plus 1"
-    annotation (Placement(transformation(extent={{360,280},{400,320}}),
+    annotation (Placement(transformation(extent={{360,270},{400,310}}),
         iconTransformation(extent={{200,240},{240,280}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput VEffOutAir_flow(
     final min=0,
     final unit="m3/s",
     final quantity="VolumeFlowRate")
     "Effective minimum outdoor airflow setpoint"
-    annotation (Placement(transformation(extent={{360,240},{400,280}}),
+    annotation (Placement(transformation(extent={{360,230},{400,270}}),
       iconTransformation(extent={{200,210},{240,250}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yReqOutAir
     "True if the AHU supply fan is on and the zone is in occupied mode"
-    annotation (Placement(transformation(extent={{360,200},{400,240}}),
+    annotation (Placement(transformation(extent={{360,190},{400,230}}),
         iconTransformation(extent={{200,180},{240,220}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yMinOutDamPos(
     final min=0,
@@ -663,14 +628,14 @@ block Controller "Multizone VAV air handling unit controller"
     final unit="1")
     if not minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.MultizoneAHUMinOADesigns.CommonDamper
     "Outdoor air damper position to ensure minimum outdoor air flow"
-    annotation (Placement(transformation(extent={{360,110},{400,150}}),
+    annotation (Placement(transformation(extent={{360,100},{400,140}}),
         iconTransformation(extent={{200,140},{240,180}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yRetDamPos(
     final min=0,
     final max=1,
     final unit="1")
     "Return air damper position"
-    annotation (Placement(transformation(extent={{360,70},{400,110}}),
+    annotation (Placement(transformation(extent={{360,60},{400,100}}),
         iconTransformation(extent={{200,110},{240,150}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yRelDamPos(
     final min=0,
@@ -679,25 +644,25 @@ block Controller "Multizone VAV air handling unit controller"
     if (buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefDamper
         or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanAir)
     "Relief air damper position"
-    annotation (Placement(transformation(extent={{360,30},{400,70}}),
+    annotation (Placement(transformation(extent={{360,20},{400,60}}),
         iconTransformation(extent={{200,80},{240,120}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yOutDamPos(
     final min=0,
     final max=1,
     final unit="1")
     "Outdoor air damper position"
-    annotation (Placement(transformation(extent={{360,-10},{400,30}}),
+    annotation (Placement(transformation(extent={{360,-20},{400,20}}),
         iconTransformation(extent={{200,50},{240,90}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yEneCHWPum
     "Energize chilled water pump"
-    annotation (Placement(transformation(extent={{360,-70},{400,-30}}),
+    annotation (Placement(transformation(extent={{360,-80},{400,-40}}),
         iconTransformation(extent={{200,0},{240,40}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput ySupFanSpe(
     final min=0,
     final max=1,
     final unit="1")
     "Supply fan speed setpoint"
-    annotation (Placement(transformation(extent={{360,-110},{400,-70}}),
+    annotation (Placement(transformation(extent={{360,-120},{400,-80}}),
         iconTransformation(extent={{200,-42},{240,-2}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yRetFanSpe(
     final min=0,
@@ -706,7 +671,7 @@ block Controller "Multizone VAV air handling unit controller"
     if (buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanAir
         or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanDp)
     "Return fan speed setpoint"
-    annotation (Placement(transformation(extent={{360,-140},{400,-100}}),
+    annotation (Placement(transformation(extent={{360,-150},{400,-110}}),
         iconTransformation(extent={{200,-70},{240,-30}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yRelFanSpe(
     final min=0,
@@ -714,7 +679,7 @@ block Controller "Multizone VAV air handling unit controller"
     final unit="1")
     if buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefFan
     "Relief fan speed setpoint"
-    annotation (Placement(transformation(extent={{360,-170},{400,-130}}),
+    annotation (Placement(transformation(extent={{360,-180},{400,-140}}),
         iconTransformation(extent={{200,-100},{240,-60}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yCooCoi(
     final min=0,
@@ -722,14 +687,18 @@ block Controller "Multizone VAV air handling unit controller"
     final unit="1")
     "Cooling coil valve position"
     annotation (Placement(transformation(extent={{360,-230},{400,-190}}),
-        iconTransformation(extent={{200,-140},{240,-100}})));
+        iconTransformation(extent={{200,-130},{240,-90}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yHeaCoi(
     final min=0,
     final max=1,
     final unit="1") if have_heaCoi
     "Heating coil valve position"
     annotation (Placement(transformation(extent={{360,-260},{400,-220}}),
-        iconTransformation(extent={{200,-170},{240,-130}})));
+        iconTransformation(extent={{200,-160},{240,-120}})));
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yAla
+    "Alarm level"
+    annotation (Placement(transformation(extent={{360,-290},{400,-250}}),
+        iconTransformation(extent={{200,-180},{240,-140}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yDpBui(
     final unit="Pa",
     displayUnit="Pa",
@@ -737,31 +706,15 @@ block Controller "Multizone VAV air handling unit controller"
     if (buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefFan
         or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanDp)
     "Building static pressure difference, relative to ambient (positive if pressurized)"
-    annotation (Placement(transformation(extent={{360,-300},{400,-260}}),
+    annotation (Placement(transformation(extent={{360,-320},{400,-280}}),
         iconTransformation(extent={{200,-210},{240,-170}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yRelFanSpeSet[nRelFan](
-    final min=fill(0, nRelFan),
-    final max=fill(1, nRelFan),
-    final unit=fill("1", nRelFan))
-    if buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefFan
-    "Relief fan speed setpoint"
-    annotation (Placement(transformation(extent={{360,-330},{400,-290}}),
-        iconTransformation(extent={{200,-230},{240,-190}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yDam[nRelFan](
-    final min=fill(0, nRelFan),
-    final max=fill(1, nRelFan),
-    final unit=fill("1", nRelFan))
-    if buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefFan
-    "Damper position setpoint for the relief fans"
-    annotation (Placement(transformation(extent={{360,-370},{400,-330}}),
-        iconTransformation(extent={{200,-250},{240,-210}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yExhDam(
     final min=0,
     final max=1,
     final unit="1")
     if buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanDp
     "Exhaust damper control signal (0: closed, 1: open)"
-    annotation (Placement(transformation(extent={{360,-400},{400,-360}}),
+    annotation (Placement(transformation(extent={{360,-410},{400,-370}}),
         iconTransformation(extent={{200,-270},{240,-230}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput dpDisSet(
     final unit="Pa",
@@ -769,7 +722,7 @@ block Controller "Multizone VAV air handling unit controller"
     final quantity="PressureDifference")
     if buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanDp
     "Return fan discharge static pressure setpoint"
-    annotation (Placement(transformation(extent={{360,-430},{400,-390}}),
+    annotation (Placement(transformation(extent={{360,-440},{400,-400}}),
         iconTransformation(extent={{200,-290},{240,-250}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yChiWatResReq
     "Chilled water reset request"
@@ -801,7 +754,7 @@ block Controller "Multizone VAV air handling unit controller"
     if (minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.MultizoneAHUMinOADesigns.SeparateDamper_AFMS
         or minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.MultizoneAHUMinOADesigns.CommonDamper)
     "Normalization of outdoor air flow intake by design minimum outdoor air intake"
-    annotation (Placement(transformation(extent={{0,74},{20,94}})));
+    annotation (Placement(transformation(extent={{0,64},{20,84}})));
   Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.SetPoints.FreezeProtection frePro(
     final buiPreCon=buiPreCon,
     final minOADes=minOADes,
@@ -816,7 +769,7 @@ block Controller "Multizone VAV air handling unit controller"
     final yMin=yMinFrePro,
     final Thys=Thys)
     "Freeze protection"
-    annotation (Placement(transformation(extent={{200,-210},{220,-170}})));
+    annotation (Placement(transformation(extent={{200,-220},{220,-180}})));
   Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.SetPoints.PlantRequests plaReq(
     final have_heaCoi=have_heaCoi,
     final Thys=Thys,
@@ -855,7 +808,7 @@ block Controller "Multizone VAV air handling unit controller"
     final uOutDamMax=uOutDamMax,
     final uRetDamMin=uRetDamMin)
     "Economizer controller"
-    annotation (Placement(transformation(extent={{80,-50},{100,-10}})));
+    annotation (Placement(transformation(extent={{80,-60},{100,-20}})));
   Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.SetPoints.SupplyFan conSupFan(
     final have_perZonRehBox=have_perZonRehBox,
     final have_duaDucBox=have_duaDucBox,
@@ -876,7 +829,7 @@ block Controller "Multizone VAV air handling unit controller"
     final yFanMax=yFanMax,
     final yFanMin=yFanMin)
     "Supply fan speed setpoint"
-    annotation (Placement(transformation(extent={{-220,510},{-200,530}})));
+    annotation (Placement(transformation(extent={{-220,500},{-200,520}})));
   Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.SetPoints.SupplySignals supSig(
     final have_heaCoi=have_heaCoi,
     final controllerType=valCon,
@@ -886,7 +839,7 @@ block Controller "Multizone VAV air handling unit controller"
     final uHeaMax=uHeaCoiMax,
     final uCooMin=uCooCoiMin)
     "Heating and cooling valve position"
-    annotation (Placement(transformation(extent={{-80,410},{-60,430}})));
+    annotation (Placement(transformation(extent={{-80,400},{-60,420}})));
   Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.SetPoints.SupplyTemperature conTSupSet(
     final TSupCooMin=TSupCooMin,
     final TSupCooMax=TSupCooMax,
@@ -900,38 +853,29 @@ block Controller "Multizone VAV air handling unit controller"
     final resAmo=resAmoSupTem,
     final maxRes=maxResSupTem)
     "Supply temperature setpoint"
-    annotation (Placement(transformation(extent={{-160,450},{-140,470}})));
+    annotation (Placement(transformation(extent={{-160,440},{-140,460}})));
   Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.SetPoints.OutdoorAirFlow.AHU outAirSet(
     final VPriSysMax_flow=VPriSysMax_flow,
     final peaSysPop=peaSysPop)
     "Minimum outdoor airflow setpoint"
-    annotation (Placement(transformation(extent={{-80,190},{-60,210}})));
+    annotation (Placement(transformation(extent={{-80,180},{-60,200}})));
   Buildings.Controls.OBC.CDL.Continuous.MultiMin mulMin(
     final nin=nZonGro)
     "Find the highest priotity operating mode"
-    annotation (Placement(transformation(extent={{-300,560},{-280,580}})));
+    annotation (Placement(transformation(extent={{-300,550},{-280,570}})));
   Buildings.Controls.OBC.CDL.Conversions.IntegerToReal intToRea[nZonGro]
     "Convert integer to real"
-    annotation (Placement(transformation(extent={{-340,560},{-320,580}})));
+    annotation (Placement(transformation(extent={{-340,550},{-320,570}})));
   Buildings.Controls.OBC.CDL.Conversions.RealToInteger ahuMod
     "Air handling operating mode"
-    annotation (Placement(transformation(extent={{-260,560},{-240,580}})));
+    annotation (Placement(transformation(extent={{-260,550},{-240,570}})));
 
   Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.SetPoints.ReliefDamper relDam(
     final dpBuiSet=dpBuiSet,
     final k=kRelDam)
     if buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefDamper
-    annotation (Placement(transformation(extent={{-160,-350},{-140,-330}})));
-  Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.SetPoints.ReliefFan relFanCon(
-    final nSupFan=nAHU,
-    final nRelFan=nRelFan,
-    final minSpe=minSpeRelFan,
-    final staVec=staVec,
-    final RelFanMat=RelFanMat,
-    final dpBuiSet=dpBuiSet,
-    final k=kRelFan)
-    if buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefFan
-    annotation (Placement(transformation(extent={{-160,-400},{-140,-380}})));
+    "Relief damper control for AHUs using actuated dampers without fan"
+    annotation (Placement(transformation(extent={{-160,-360},{-140,-340}})));
   Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.SetPoints.ReturnFanDirectPressure retFanDpCon(
     final dpBuiSet=dpBuiSet,
     final dpDisMin=dpDisMin,
@@ -941,7 +885,8 @@ block Controller "Multizone VAV air handling unit controller"
     final Ti=TiRetFan,
     final Td=TdRetFan)
     if buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanDp
-    annotation (Placement(transformation(extent={{-160,-490},{-140,-470}})));
+    "Return fan control with direct building pressure control"
+    annotation (Placement(transformation(extent={{-160,-480},{-140,-460}})));
   Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.SetPoints.ReturnFanAirflowTracking retFanAirTra(
     final difFloSet=difFloSet,
     final conTyp=retFanCon,
@@ -949,55 +894,56 @@ block Controller "Multizone VAV air handling unit controller"
     final Ti=TiRetFan,
     final Td=TdRetFan)
     if buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanAir
-    annotation (Placement(transformation(extent={{-160,-450},{-140,-430}})));
+    "Return fan control for AHUs using return fan with airflow tracking"
+    annotation (Placement(transformation(extent={{-160,-420},{-140,-400}})));
 
 equation
   connect(uOpeMod, intToRea.u)
-    annotation (Line(points={{-380,570},{-342,570}}, color={255,127,0}));
+    annotation (Line(points={{-380,560},{-342,560}}, color={255,127,0}));
   connect(intToRea.y, mulMin.u)
-    annotation (Line(points={{-318,570},{-302,570}}, color={0,0,127}));
+    annotation (Line(points={{-318,560},{-302,560}}, color={0,0,127}));
   connect(mulMin.y, ahuMod.u)
-    annotation (Line(points={{-278,570},{-262,570}}, color={0,0,127}));
+    annotation (Line(points={{-278,560},{-262,560}}, color={0,0,127}));
   connect(conSupFan.uZonPreResReq, uZonPreResReq) annotation (Line(points={{-222,
-          517},{-300,517},{-300,530},{-380,530}},      color={255,127,0}));
-  connect(ducStaPre, conSupFan.ducStaPre) annotation (Line(points={{-380,490},{-300,
-          490},{-300,512},{-222,512}},      color={0,0,127}));
-  connect(conTSupSet.TOut, TOut) annotation (Line(points={{-162,467},{-320,467},
-          {-320,460},{-380,460}}, color={0,0,127}));
+          507},{-300,507},{-300,520},{-380,520}},      color={255,127,0}));
+  connect(ducStaPre, conSupFan.ducStaPre) annotation (Line(points={{-380,480},{-300,
+          480},{-300,502},{-222,502}},      color={0,0,127}));
+  connect(conTSupSet.TOut, TOut) annotation (Line(points={{-162,457},{-320,457},
+          {-320,450},{-380,450}}, color={0,0,127}));
   connect(conTSupSet.uZonTemResReq, uZonTemResReq) annotation (Line(points={{-162,
-          463},{-310,463},{-310,430},{-380,430}},      color={255,127,0}));
-  connect(uSupFan, conTSupSet.uSupFan) annotation (Line(points={{-380,390},{-300,
-          390},{-300,457},{-162,457}},      color={255,0,255}));
-  connect(uSupFan, supSig.uSupFan) annotation (Line(points={{-380,390},{-300,390},
-          {-300,426},{-82,426}},     color={255,0,255}));
-  connect(conTSupSet.TSupSet, supSig.TSupSet) annotation (Line(points={{-138,460},
-          {-120,460},{-120,420},{-82,420}}, color={0,0,127}));
-  connect(supSig.TSup, TSup) annotation (Line(points={{-82,414},{-290,414},{-290,
-          350},{-380,350}}, color={0,0,127}));
-  connect(sumDesZonPop, outAirSet.sumDesZonPop) annotation (Line(points={{-380,300},
-          {-160,300},{-160,209},{-82,209}}, color={0,0,127}));
+          453},{-310,453},{-310,420},{-380,420}},      color={255,127,0}));
+  connect(uSupFan, conTSupSet.uSupFan) annotation (Line(points={{-380,380},{-300,
+          380},{-300,447},{-162,447}},      color={255,0,255}));
+  connect(uSupFan, supSig.uSupFan) annotation (Line(points={{-380,380},{-300,380},
+          {-300,416},{-82,416}},     color={255,0,255}));
+  connect(conTSupSet.TSupSet, supSig.TSupSet) annotation (Line(points={{-138,450},
+          {-120,450},{-120,410},{-82,410}}, color={0,0,127}));
+  connect(supSig.TSup, TSup) annotation (Line(points={{-82,404},{-290,404},{-290,
+          340},{-380,340}}, color={0,0,127}));
+  connect(sumDesZonPop, outAirSet.sumDesZonPop) annotation (Line(points={{-380,290},
+          {-160,290},{-160,199},{-82,199}}, color={0,0,127}));
   connect(VSumDesPopBreZon_flow, outAirSet.VSumDesPopBreZon_flow) annotation (
-      Line(points={{-380,270},{-168,270},{-168,207},{-82,207}}, color={0,0,127}));
+      Line(points={{-380,260},{-168,260},{-168,197},{-82,197}}, color={0,0,127}));
   connect(VSumDesAreBreZon_flow, outAirSet.VSumDesAreBreZon_flow) annotation (
-      Line(points={{-380,240},{-176,240},{-176,205},{-82,205}}, color={0,0,127}));
+      Line(points={{-380,230},{-176,230},{-176,195},{-82,195}}, color={0,0,127}));
   connect(uDesSysVenEff, outAirSet.uDesSysVenEff) annotation (Line(points={{-380,
-          210},{-182,210},{-182,203},{-82,203}}, color={0,0,127}));
+          200},{-182,200},{-182,193},{-82,193}}, color={0,0,127}));
   connect(VSumUncOutAir_flow, outAirSet.VSumUncOutAir_flow) annotation (Line(
-        points={{-380,180},{-182,180},{-182,201},{-82,201}}, color={0,0,127}));
+        points={{-380,170},{-182,170},{-182,191},{-82,191}}, color={0,0,127}));
   connect(VSumSysPriAir_flow, outAirSet.VSumSysPriAir_flow) annotation (Line(
-        points={{-380,150},{-176,150},{-176,199},{-82,199}}, color={0,0,127}));
+        points={{-380,140},{-176,140},{-176,189},{-82,189}}, color={0,0,127}));
   connect(uOutAirFra_max, outAirSet.uOutAirFra_max) annotation (Line(points={{-380,
-          120},{-168,120},{-168,197},{-82,197}}, color={0,0,127}));
-  connect(uSupFan, outAirSet.uSupFan) annotation (Line(points={{-380,390},{-300,
-          390},{-300,193},{-82,193}}, color={255,0,255}));
-  connect(ahuMod.y, conSupFan.uOpeMod) annotation (Line(points={{-238,570},{-230,
-          570},{-230,528},{-222,528}},      color={255,127,0}));
-  connect(ahuMod.y, conTSupSet.uOpeMod) annotation (Line(points={{-238,570},{-230,
-          570},{-230,453},{-162,453}},      color={255,127,0}));
-  connect(ahuMod.y, outAirSet.uOpeMod) annotation (Line(points={{-238,570},{-230,
-          570},{-230,191},{-82,191}},   color={255,127,0}));
-  connect(conSupFan.ySupFan, ySupFan) annotation (Line(points={{-198,527},{-110,
-          527},{-110,550},{380,550}},color={255,0,255}));
+          110},{-168,110},{-168,187},{-82,187}}, color={0,0,127}));
+  connect(uSupFan, outAirSet.uSupFan) annotation (Line(points={{-380,380},{-300,
+          380},{-300,183},{-82,183}}, color={255,0,255}));
+  connect(ahuMod.y, conSupFan.uOpeMod) annotation (Line(points={{-238,560},{-230,
+          560},{-230,518},{-222,518}},      color={255,127,0}));
+  connect(ahuMod.y, conTSupSet.uOpeMod) annotation (Line(points={{-238,560},{-230,
+          560},{-230,443},{-162,443}},      color={255,127,0}));
+  connect(ahuMod.y, outAirSet.uOpeMod) annotation (Line(points={{-238,560},{-230,
+          560},{-230,181},{-82,181}},   color={255,127,0}));
+  connect(conSupFan.ySupFan, ySupFan) annotation (Line(points={{-198,517},{-110,
+          517},{-110,540},{380,540}},color={255,0,255}));
   connect(plaReq.yChiWatResReq, yChiWatResReq) annotation (Line(points={{2,-522},
           {330,-522},{330,-460},{380,-460}},       color={255,127,0}));
   connect(plaReq.yChiPlaReq, yChiPlaReq) annotation (Line(points={{2,-527},{340,
@@ -1009,89 +955,87 @@ equation
   connect(uHeaCoi, plaReq.uHeaCoi) annotation (Line(points={{-380,-560},{-320,-560},
           {-320,-538},{-22,-538}},      color={0,0,127}));
   connect(outAirSet.effOutAir_normalized, ecoCon.VOutMinSet_flow_normalized)
-    annotation (Line(points={{-58,195},{42,195},{42,-11},{78,-11}},   color={0,0,
+    annotation (Line(points={{-58,185},{42,185},{42,-21},{78,-21}},   color={0,0,
           127}));
   connect(VOut_flow, VOut_flow_normalized.u1)
-    annotation (Line(points={{-380,90},{-2,90}}, color={0,0,127}));
+    annotation (Line(points={{-380,80},{-2,80}}, color={0,0,127}));
   connect(outAirSet.VDesOutAir_flow, VOut_flow_normalized.u2) annotation (Line(
-        points={{-58,202},{-40,202},{-40,78},{-2,78}},   color={0,0,127}));
+        points={{-58,192},{-40,192},{-40,68},{-2,68}},   color={0,0,127}));
   connect(VOut_flow_normalized.y, ecoCon.VOut_flow_normalized) annotation (Line(
-        points={{22,84},{34,84},{34,-14},{78,-14}},   color={0,0,127}));
-  connect(ecoCon.uOutDamPos, uOutDamPos) annotation (Line(points={{78,-17},{26,-17},
-          {26,50},{-380,50}},         color={0,0,127}));
-  connect(ecoCon.uSupFanSpe, uSupFanSpe) annotation (Line(points={{78,-20},{18,-20},
-          {18,20},{-380,20}},         color={0,0,127}));
-  connect(ecoCon.dpMinOutDam, dpMinOutDam) annotation (Line(points={{78,-23},{10,
-          -23},{10,-10},{-380,-10}},    color={0,0,127}));
-  connect(supSig.uTSup, ecoCon.uTSup) annotation (Line(points={{-58,426},{-32,426},
-          {-32,-26},{78,-26}},   color={0,0,127}));
-  connect(TOut, ecoCon.TOut) annotation (Line(points={{-380,460},{-320,460},{-320,
-          -32},{78,-32}},   color={0,0,127}));
-  connect(TOutCut, ecoCon.TOutCut) annotation (Line(points={{-380,-40},{28,-40},
-          {28,-34},{78,-34}},   color={0,0,127}));
-  connect(ecoCon.hOut, hOut) annotation (Line(points={{78,-37},{34,-37},{34,-70},
-          {-380,-70}},  color={0,0,127}));
-  connect(hOutCut, ecoCon.hOutCut) annotation (Line(points={{-380,-100},{40,-100},
-          {40,-39},{78,-39}},   color={0,0,127}));
-  connect(uSupFan, ecoCon.uSupFan) annotation (Line(points={{-380,390},{-300,390},
-          {-300,-43},{78,-43}},   color={255,0,255}));
-  connect(ahuMod.y, ecoCon.uOpeMod) annotation (Line(points={{-238,570},{-230,570},
-          {-230,-46},{78,-46}},   color={255,127,0}));
-  connect(ecoCon.yOutDamPosMin, frePro.uOutDamPosMin) annotation (Line(points={{102,-12},
-          {120,-12},{120,-171},{198,-171}},            color={0,0,127}));
-  connect(TSup, frePro.TSup) annotation (Line(points={{-380,350},{-290,350},{-290,
-          -185},{198,-185}}, color={0,0,127}));
-  connect(frePro.uFreSta, uFreSta) annotation (Line(points={{198,-188},{104,-188},
-          {104,-140},{-380,-140}}, color={255,0,255}));
-  connect(frePro.uFreStaRes, uFreStaRes) annotation (Line(points={{198,-191},{96,
-          -191},{96,-180},{-380,-180}}, color={255,0,255}));
-  connect(frePro.uSofSwiRes, uSofSwiRes) annotation (Line(points={{198,-194},{120,
-          -194},{120,-210},{-380,-210}}, color={255,0,255}));
-  connect(uRetFanSpe, frePro.uRetFanSpe) annotation (Line(points={{-380,-240},{128,
-          -240},{128,-200},{198,-200}}, color={0,0,127}));
-  connect(frePro.uRelFanSpe, uRelFanSpe) annotation (Line(points={{198,-203},{136,
-          -203},{136,-270},{-380,-270}}, color={0,0,127}));
-  connect(frePro.TMix, TMix) annotation (Line(points={{198,-209},{144,-209},{144,
-          -300},{-380,-300}}, color={0,0,127}));
+        points={{22,74},{34,74},{34,-24},{78,-24}},   color={0,0,127}));
+  connect(ecoCon.uOutDamPos, uOutDamPos) annotation (Line(points={{78,-27},{26,-27},
+          {26,40},{-380,40}},         color={0,0,127}));
+  connect(ecoCon.uSupFanSpe, uSupFanSpe) annotation (Line(points={{78,-30},{18,-30},
+          {18,10},{-380,10}},         color={0,0,127}));
+  connect(ecoCon.dpMinOutDam, dpMinOutDam) annotation (Line(points={{78,-33},{10,
+          -33},{10,-20},{-380,-20}},    color={0,0,127}));
+  connect(supSig.uTSup, ecoCon.uTSup) annotation (Line(points={{-58,416},{-32,416},
+          {-32,-36},{78,-36}},   color={0,0,127}));
+  connect(TOut, ecoCon.TOut) annotation (Line(points={{-380,450},{-320,450},{-320,
+          -42},{78,-42}},   color={0,0,127}));
+  connect(TOutCut, ecoCon.TOutCut) annotation (Line(points={{-380,-50},{28,-50},
+          {28,-44},{78,-44}},   color={0,0,127}));
+  connect(ecoCon.hOut, hOut) annotation (Line(points={{78,-47},{34,-47},{34,-80},
+          {-380,-80}},  color={0,0,127}));
+  connect(hOutCut, ecoCon.hOutCut) annotation (Line(points={{-380,-110},{40,-110},
+          {40,-49},{78,-49}},   color={0,0,127}));
+  connect(uSupFan, ecoCon.uSupFan) annotation (Line(points={{-380,380},{-300,380},
+          {-300,-53},{78,-53}},   color={255,0,255}));
+  connect(ahuMod.y, ecoCon.uOpeMod) annotation (Line(points={{-238,560},{-230,560},
+          {-230,-56},{78,-56}},   color={255,127,0}));
+  connect(ecoCon.yOutDamPosMin, frePro.uOutDamPosMin) annotation (Line(points={{102,-22},
+          {120,-22},{120,-181},{198,-181}},            color={0,0,127}));
+  connect(TSup, frePro.TSup) annotation (Line(points={{-380,340},{-290,340},{-290,
+          -195},{198,-195}}, color={0,0,127}));
+  connect(frePro.uFreSta, uFreSta) annotation (Line(points={{198,-198},{104,-198},
+          {104,-150},{-380,-150}}, color={255,0,255}));
+  connect(frePro.uFreStaRes, uFreStaRes) annotation (Line(points={{198,-201},{96,
+          -201},{96,-190},{-380,-190}}, color={255,0,255}));
+  connect(frePro.uSofSwiRes, uSofSwiRes) annotation (Line(points={{198,-204},{120,
+          -204},{120,-220},{-380,-220}}, color={255,0,255}));
+  connect(frePro.uRelFanSpe, uRelFanSpe) annotation (Line(points={{198,-213},{136,
+          -213},{136,-280},{-380,-280}}, color={0,0,127}));
+  connect(frePro.TMix, TMix) annotation (Line(points={{198,-219},{144,-219},{144,
+          -310},{-380,-310}}, color={0,0,127}));
   connect(outAirSet.VDesUncOutAir_flow, VDesUncOutAir_flow) annotation (Line(
-        points={{-58,208},{230,208},{230,330},{380,330}}, color={0,0,127}));
-  connect(outAirSet.yAveOutAirFraPlu, yAveOutAirFraPlu) annotation (Line(points={{-58,205},
-          {240,205},{240,300},{380,300}},           color={0,0,127}));
-  connect(outAirSet.VEffOutAir_flow, VEffOutAir_flow) annotation (Line(points={{-58,198},
-          {250,198},{250,260},{380,260}},          color={0,0,127}));
-  connect(outAirSet.yReqOutAir, yReqOutAir) annotation (Line(points={{-58,192},{
-          260,192},{260,220},{380,220}}, color={255,0,255}));
-  connect(ecoCon.yRelDamPos, yRelDamPos) annotation (Line(points={{102,-36},{280,
-          -36},{280,50},{380,50}},    color={0,0,127}));
-  connect(frePro.yFreProSta, ecoCon.uFreProSta) annotation (Line(points={{222,-205},
-          {240,-205},{240,-70},{46,-70},{46,-49},{78,-49}},     color={255,127,0}));
-  connect(ecoCon.yOutDamPos, frePro.uOutDamPos) annotation (Line(points={{102,-42},
-          {128,-42},{128,-173},{198,-173}},  color={0,0,127}));
-  connect(ecoCon.yRetDamPos, frePro.uRetDamPos) annotation (Line(points={{102,-24},
-          {136,-24},{136,-182},{198,-182}},  color={0,0,127}));
-  connect(supSig.yHea, frePro.uHeaCoi) annotation (Line(points={{-58,420},{152,420},
-          {152,-176},{198,-176}}, color={0,0,127}));
+        points={{-58,198},{230,198},{230,320},{380,320}}, color={0,0,127}));
+  connect(outAirSet.yAveOutAirFraPlu, yAveOutAirFraPlu) annotation (Line(points={{-58,195},
+          {240,195},{240,290},{380,290}},           color={0,0,127}));
+  connect(outAirSet.VEffOutAir_flow, VEffOutAir_flow) annotation (Line(points={{-58,188},
+          {250,188},{250,250},{380,250}},          color={0,0,127}));
+  connect(outAirSet.yReqOutAir, yReqOutAir) annotation (Line(points={{-58,182},{
+          260,182},{260,210},{380,210}}, color={255,0,255}));
+  connect(ecoCon.yRelDamPos, yRelDamPos) annotation (Line(points={{102,-46},{280,
+          -46},{280,40},{380,40}},    color={0,0,127}));
+  connect(frePro.yFreProSta, ecoCon.uFreProSta) annotation (Line(points={{222,-215},
+          {240,-215},{240,-80},{46,-80},{46,-59},{78,-59}},     color={255,127,0}));
+  connect(ecoCon.yOutDamPos, frePro.uOutDamPos) annotation (Line(points={{102,-52},
+          {128,-52},{128,-183},{198,-183}},  color={0,0,127}));
+  connect(ecoCon.yRetDamPos, frePro.uRetDamPos) annotation (Line(points={{102,-34},
+          {136,-34},{136,-192},{198,-192}},  color={0,0,127}));
+  connect(supSig.yHea, frePro.uHeaCoi) annotation (Line(points={{-58,410},{152,410},
+          {152,-186},{198,-186}}, color={0,0,127}));
   connect(conSupFan.ySupFanSpe, frePro.uSupFanSpe) annotation (Line(points={{-198,
-          520},{-110,520},{-110,-197},{198,-197}}, color={0,0,127}));
-  connect(supSig.yCoo, frePro.uCooCoi) annotation (Line(points={{-58,414},{144,414},
-          {144,-206},{198,-206}}, color={0,0,127}));
-  connect(frePro.yEneCHWPum, yEneCHWPum) annotation (Line(points={{222,-171},{300,
-          -171},{300,-50},{380,-50}},   color={255,0,255}));
-  connect(frePro.yRetDamPos, yRetDamPos) annotation (Line(points={{222,-175},{270,
-          -175},{270,90},{380,90}}, color={0,0,127}));
-  connect(frePro.yOutDamPos, yOutDamPos) annotation (Line(points={{222,-179},{290,
-          -179},{290,10},{380,10}},   color={0,0,127}));
-  connect(ecoCon.yMinOutDamPos, frePro.uMinOutDamPos) annotation (Line(points={{102,-17},
-          {112,-17},{112,-179},{198,-179}},            color={0,0,127}));
-  connect(frePro.yMinOutDamPos, yMinOutDamPos) annotation (Line(points={{222,-183},
-          {260,-183},{260,130},{380,130}}, color={0,0,127}));
-  connect(frePro.ySupFanSpe, ySupFanSpe) annotation (Line(points={{222,-187},{310,
-          -187},{310,-90},{380,-90}},   color={0,0,127}));
-  connect(frePro.yRetFanSpe, yRetFanSpe) annotation (Line(points={{222,-191},{320,
-          -191},{320,-120},{380,-120}}, color={0,0,127}));
-  connect(frePro.yCooCoi, yCooCoi) annotation (Line(points={{222,-199},{310,-199},
+          510},{-110,510},{-110,-207},{198,-207}}, color={0,0,127}));
+  connect(supSig.yCoo, frePro.uCooCoi) annotation (Line(points={{-58,404},{144,404},
+          {144,-216},{198,-216}}, color={0,0,127}));
+  connect(frePro.yEneCHWPum, yEneCHWPum) annotation (Line(points={{222,-181},{300,
+          -181},{300,-60},{380,-60}},   color={255,0,255}));
+  connect(frePro.yRetDamPos, yRetDamPos) annotation (Line(points={{222,-185},{270,
+          -185},{270,80},{380,80}}, color={0,0,127}));
+  connect(frePro.yOutDamPos, yOutDamPos) annotation (Line(points={{222,-189},{290,
+          -189},{290,0},{380,0}},     color={0,0,127}));
+  connect(ecoCon.yMinOutDamPos, frePro.uMinOutDamPos) annotation (Line(points={{102,-27},
+          {112,-27},{112,-189},{198,-189}},            color={0,0,127}));
+  connect(frePro.yMinOutDamPos, yMinOutDamPos) annotation (Line(points={{222,-193},
+          {260,-193},{260,120},{380,120}}, color={0,0,127}));
+  connect(frePro.ySupFanSpe, ySupFanSpe) annotation (Line(points={{222,-197},{310,
+          -197},{310,-100},{380,-100}}, color={0,0,127}));
+  connect(frePro.yRetFanSpe, yRetFanSpe) annotation (Line(points={{222,-201},{320,
+          -201},{320,-130},{380,-130}}, color={0,0,127}));
+  connect(frePro.yCooCoi, yCooCoi) annotation (Line(points={{222,-209},{310,-209},
           {310,-210},{380,-210}}, color={0,0,127}));
-  connect(frePro.yHeaCoi, yHeaCoi) annotation (Line(points={{222,-202},{300,-202},
+  connect(frePro.yHeaCoi, yHeaCoi) annotation (Line(points={{222,-212},{300,-212},
           {300,-240},{380,-240}}, color={0,0,127}));
   connect(intSwi.y, yHotWatPlaReq)
     annotation (Line(points={{322,-570},{380,-570}}, color={255,127,0}));
@@ -1099,54 +1043,46 @@ equation
           -538},{160,-578},{298,-578}}, color={255,127,0}));
   connect(freProMod.y, intSwi.u2) annotation (Line(points={{202,-560},{220,-560},
           {220,-570},{298,-570}}, color={255,0,255}));
-  connect(frePro.yRelFanSpe, yRelFanSpe) annotation (Line(points={{222,-195},{330,
-          -195},{330,-150},{380,-150}}, color={0,0,127}));
+  connect(frePro.yRelFanSpe, yRelFanSpe) annotation (Line(points={{222,-205},{330,
+          -205},{330,-160},{380,-160}}, color={0,0,127}));
   connect(relDam.dpBui, dpBui)
-    annotation (Line(points={{-162,-334},{-380,-334}}, color={0,0,127}));
-  connect(relDam.yRelDam, yRelDamPos) annotation (Line(points={{-138,-340},{280,
-          -340},{280,50},{380,50}},   color={0,0,127}));
-  connect(relFanCon.yDpBui, yDpBui) annotation (Line(points={{-138,-384},{200,-384},
-          {200,-280},{380,-280}}, color={0,0,127}));
-  connect(dpBui, relFanCon.dpBui) annotation (Line(points={{-380,-334},{-280,-334},
-          {-280,-390},{-162,-390}}, color={0,0,127}));
-  connect(retFanAirTra.yRetFan, yRetFanSpe) annotation (Line(points={{-138,-440},
-          {320,-440},{320,-120},{380,-120}}, color={0,0,127}));
-  connect(retFanAirTra.VSup_flow, VSup_flow) annotation (Line(points={{-162,-434},
-          {-320,-434},{-320,-430},{-380,-430}}, color={0,0,127}));
+    annotation (Line(points={{-162,-344},{-380,-344}}, color={0,0,127}));
+  connect(relDam.yRelDam, yRelDamPos) annotation (Line(points={{-138,-350},{280,
+          -350},{280,40},{380,40}},   color={0,0,127}));
+  connect(retFanAirTra.VSup_flow, VSup_flow) annotation (Line(points={{-162,-404},
+          {-320,-404},{-320,-380},{-380,-380}}, color={0,0,127}));
   connect(retFanAirTra.VRet_flow, VRet_flow)
-    annotation (Line(points={{-162,-440},{-320,-440},{-320,-470},{-380,-470}},
+    annotation (Line(points={{-162,-410},{-320,-410},{-320,-440},{-380,-440}},
                                                        color={0,0,127}));
-  connect(dpBui, retFanDpCon.dpBui) annotation (Line(points={{-380,-334},{-280,-334},
-          {-280,-474},{-162,-474}}, color={0,0,127}));
-  connect(retFanDpCon.yDpBui, yDpBui) annotation (Line(points={{-138,-472},{200,
-          -472},{200,-280},{380,-280}},                color={0,0,127}));
-  connect(retFanDpCon.yExhDam, yExhDam) annotation (Line(points={{-138,-478},{300,
-          -478},{300,-380},{380,-380}}, color={0,0,127}));
-  connect(retFanDpCon.dpDisSet, dpDisSet) annotation (Line(points={{-138,-486},{
-          310,-486},{310,-410},{380,-410}}, color={0,0,127}));
-  connect(uSupFan, relDam.uSupFan) annotation (Line(points={{-380,390},{-300,390},
-          {-300,-346},{-162,-346}}, color={255,0,255}));
-  connect(uSupFan, retFanAirTra.uSupFan) annotation (Line(points={{-380,390},{-300,
-          390},{-300,-446},{-162,-446}}, color={255,0,255}));
-  connect(uSupFan, retFanDpCon.uSupFan) annotation (Line(points={{-380,390},{-300,
-          390},{-300,-486},{-162,-486}}, color={255,0,255}));
-  connect(relFanCon.uSupFan, uSupFanSet) annotation (Line(points={{-162,-384},{-260,
-          -384},{-260,-370},{-380,-370}}, color={255,0,255}));
-  connect(relFanCon.uRelFan, uRelFan) annotation (Line(points={{-162,-396},{-260,
-          -396},{-260,-400},{-380,-400}}, color={255,0,255}));
-  connect(relFanCon.yRelFanSpe, yRelFanSpeSet) annotation (Line(points={{-138,-390},
-          {210,-390},{210,-310},{380,-310}}, color={0,0,127}));
-  connect(relFanCon.yDam, yDam) annotation (Line(points={{-138,-396},{220,-396},
-          {220,-350},{380,-350}}, color={0,0,127}));
-  connect(TSup, plaReq.TSup) annotation (Line(points={{-380,350},{-290,350},{-290,
+  connect(dpBui, retFanDpCon.dpBui) annotation (Line(points={{-380,-344},{-280,-344},
+          {-280,-464},{-162,-464}}, color={0,0,127}));
+  connect(retFanDpCon.yDpBui, yDpBui) annotation (Line(points={{-138,-462},{200,
+          -462},{200,-300},{380,-300}},                color={0,0,127}));
+  connect(retFanDpCon.yExhDam, yExhDam) annotation (Line(points={{-138,-468},{300,
+          -468},{300,-390},{380,-390}}, color={0,0,127}));
+  connect(retFanDpCon.dpDisSet, dpDisSet) annotation (Line(points={{-138,-472},{
+          310,-472},{310,-420},{380,-420}}, color={0,0,127}));
+  connect(uSupFan, relDam.uSupFan) annotation (Line(points={{-380,380},{-300,380},
+          {-300,-356},{-162,-356}}, color={255,0,255}));
+  connect(uSupFan, retFanAirTra.uSupFan) annotation (Line(points={{-380,380},{-300,
+          380},{-300,-416},{-162,-416}}, color={255,0,255}));
+  connect(uSupFan, retFanDpCon.uSupFan) annotation (Line(points={{-380,380},{-300,
+          380},{-300,-476},{-162,-476}}, color={255,0,255}));
+  connect(TSup, plaReq.TSup) annotation (Line(points={{-380,340},{-290,340},{-290,
           -522},{-22,-522}}, color={0,0,127}));
-  connect(conTSupSet.TSupSet, plaReq.TSupSet) annotation (Line(points={{-138,460},
-          {-120,460},{-120,-527},{-22,-527}}, color={0,0,127}));
-  connect(frePro.yFreProSta, freProMod.u) annotation (Line(points={{222,-205},{240,
-          -205},{240,-500},{170,-500},{170,-560},{178,-560}}, color={255,127,0}));
-  connect(frePro.yHotWatPlaReq, intSwi.u1) annotation (Line(points={{222,-207},{
-          250,-207},{250,-562},{298,-562}}, color={255,127,0}));
+  connect(conTSupSet.TSupSet, plaReq.TSupSet) annotation (Line(points={{-138,450},
+          {-120,450},{-120,-527},{-22,-527}}, color={0,0,127}));
+  connect(frePro.yFreProSta, freProMod.u) annotation (Line(points={{222,-215},{240,
+          -215},{240,-510},{170,-510},{170,-560},{178,-560}}, color={255,127,0}));
+  connect(frePro.yHotWatPlaReq, intSwi.u1) annotation (Line(points={{222,-217},{
+          250,-217},{250,-562},{298,-562}}, color={255,127,0}));
 
+  connect(retFanAirTra.yRetFan, frePro.uRetFanSpe) annotation (Line(points={{-138,
+          -410},{128,-410},{128,-210},{198,-210}}, color={0,0,127}));
+  connect(retFanDpCon.yRetFanSpe, frePro.uRetFanSpe) annotation (Line(points={{-138,
+          -478},{128,-478},{128,-210},{198,-210}}, color={0,0,127}));
+  connect(frePro.yAla, yAla) annotation (Line(points={{222,-219},{292,-219},{292,
+          -270},{380,-270}}, color={255,127,0}));
 annotation (
   defaultComponentName="mulAHUCon",
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-200,-440},{200,440}}),
@@ -1237,11 +1173,11 @@ annotation (
           lineColor={0,0,0},
           textString="uHeaCoi",
           visible=have_heaCoi),
-       Text(extent={{140,-140},{202,-158}},
+       Text(extent={{140,-130},{202,-148}},
           lineColor={0,0,0},
           textString="yHeaCoi",
           visible=have_heaCoi),
-       Text(extent={{138,-112},{200,-130}},
+       Text(extent={{138,-102},{200,-120}},
           lineColor={0,0,0},
           textString="yCooCoi"),
        Text(extent={{122,-70},{204,-86}},
@@ -1346,31 +1282,11 @@ annotation (
           visible=buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanAir,
           textString="VSup_flow"),
        Text(
-          extent={{-196,-318},{-122,-338}},
-          lineColor={255,0,255},
-          visible=buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefFan,
-          textString="uSupFanSet"),
-       Text(
-          extent={{-198,-340},{-144,-360}},
-          lineColor={255,0,255},
-          visible=buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefFan,
-          textString="uRelFan"),
-       Text(
           extent={{142,-178},{204,-196}},
           lineColor={0,0,0},
           visible=(buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefFan
                or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanDp),
           textString="yDpBui"),
-       Text(
-          extent={{110,-200},{194,-218}},
-          lineColor={0,0,0},
-          visible=buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefFan,
-          textString="yRelFanSpeSet"),
-       Text(
-          extent={{142,-220},{204,-238}},
-          lineColor={0,0,0},
-          visible=buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefFan,
-          textString="yDam"),
        Text(
           extent={{136,-240},{198,-258}},
           lineColor={0,0,0},
@@ -1380,7 +1296,10 @@ annotation (
           extent={{138,-260},{200,-278}},
           lineColor={0,0,0},
           visible=buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanDp,
-          textString="dpDisSet")}),
+          textString="dpDisSet"),
+       Text(extent={{166,-150},{196,-168}},
+          lineColor={255,127,0},
+          textString="yAla")}),
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-360,-600},{360,600}})),
   Documentation(info="<html>
 <p>
@@ -1469,9 +1388,11 @@ See belows sequences for more detailed description:
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.SetPoints.ReliefDamper\">
 Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.SetPoints.ReliefDamper</a>
 </li>
-<li>
+<li> Relief fan control
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.SetPoints.ReliefFan\">
-Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.SetPoints.ReliefFan</a>
+Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.SetPoints.ReliefFan</a> is not
+included in the AHU controller. This sequence controls all the relief fans that are
+serving one common space, which may include multiple air handling units.
 </li>
 <li>
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.SetPoints.ReturnFanAirflowTracking\">

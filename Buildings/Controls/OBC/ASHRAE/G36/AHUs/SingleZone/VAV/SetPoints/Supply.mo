@@ -152,7 +152,7 @@ block Supply "Supply air set point for single zone VAV system"
     final max=1,
     final unit="1") "Fan speed"
     annotation (Placement(transformation(extent={{180,320},{220,360}}),
-        iconTransformation(extent={{100,40},{140,80}})));
+        iconTransformation(extent={{100,60},{140,100}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput ySupFan
     "Supply fan status"
     annotation (Placement(transformation(extent={{180,280},{220,320}}),
@@ -550,7 +550,7 @@ annotation (defaultComponentName = "setPoiVAV",
           fillPattern=FillPattern.Solid,
           textString="TSupCoo"),
         Text(
-          extent={{86,66},{100,56}},
+          extent={{86,86},{100,76}},
           lineColor={0,0,127},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,

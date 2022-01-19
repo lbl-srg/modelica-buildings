@@ -19,6 +19,16 @@ block ReturnFanDirectPressure
     final min=0,
     final max=1000) = 40
     "Maximum return fan discharge static pressure setpoint";
+  parameter Real disMinSpe(
+    final unit="1",
+    final min=0,
+    final max=1)
+    "Return fan speed when providing the minimum return fan discharge static pressure difference";
+  parameter Real disMaxSpe(
+    final unit="1",
+    final min=0,
+    final max=1)
+    "Return fan speed when providing the maximum return fan discharge static pressure difference";
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController conTyp=
     Buildings.Controls.OBC.CDL.Types.SimpleController.PI
     "Type of controller"
@@ -45,156 +55,198 @@ block ReturnFanDirectPressure
     final unit="Pa",
     displayUnit="Pa")
     "Building static pressure difference, relative to ambient (positive if pressurized)"
-    annotation (Placement(transformation(extent={{-180,50},{-140,90}}),
+    annotation (Placement(transformation(extent={{-180,120},{-140,160}}),
       iconTransformation(extent={{-140,40},{-100,80}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uMinOutAirDam
     "Minimum outdoor air damper status, true when it is open"
-    annotation (Placement(transformation(extent={{-180,0},{-140,40}}),
+    annotation (Placement(transformation(extent={{-180,70},{-140,110}}),
       iconTransformation(extent={{-140,-80},{-100,-40}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uSupFan
     "Supply fan status"
-    annotation (Placement(transformation(extent={{-180,-110},{-140,-70}}),
+    annotation (Placement(transformation(extent={{-180,-40},{-140,0}}),
       iconTransformation(extent={{-140,-80},{-100,-40}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yDpBui(
     final unit="Pa",
     displayUnit="Pa")
     "Averaged building static pressure"
-    annotation (Placement(transformation(extent={{120,50},{160,90}}),
+    annotation (Placement(transformation(extent={{120,120},{160,160}}),
       iconTransformation(extent={{100,60},{140,100}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yExhDam(
      final unit="1",
      final min=0,
      final max=1) "Exhaust damper control signal (0: closed, 1: open)"
-    annotation (Placement(transformation(extent={{120,0},{160,40}}),
+    annotation (Placement(transformation(extent={{120,70},{160,110}}),
         iconTransformation(extent={{100,0},{140,40}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput dpDisSet(
      final unit="Pa",
      displayUnit="Pa",
      final min=0) "Return fan discharge static pressure setpoint"
-    annotation (Placement(transformation(extent={{120,-110},{160,-70}}),
-        iconTransformation(extent={{100,-80},{140,-40}})));
+    annotation (Placement(transformation(extent={{120,-40},{160,0}}),
+        iconTransformation(extent={{100,-40},{140,0}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yRetFanSpe(
+    final unit="1",
+    final min=0,
+    final max=1)
+    "Return fan speed"
+    annotation (Placement(transformation(extent={{120,-170},{160,-130}}),
+        iconTransformation(extent={{100,-100},{140,-60}})));
 
   Buildings.Controls.OBC.CDL.Continuous.MovingMean movMea(
     final delta=300)
     "Average building static pressure measurement"
-    annotation (Placement(transformation(extent={{-130,60},{-110,80}})));
-
+    annotation (Placement(transformation(extent={{-130,130},{-110,150}})));
   Buildings.Controls.OBC.CDL.Continuous.PID conP(
     final controllerType=conTyp,
     final k=k,
     final Ti=Ti,
     final Td=Td)
     "Building static pressure controller"
-    annotation (Placement(transformation(extent={{-40,100},{-20,120}})));
+    annotation (Placement(transformation(extent={{-40,170},{-20,190}})));
   Buildings.Controls.OBC.CDL.Continuous.Line linExhAirDam
     "Exhaust air damper position"
-    annotation (Placement(transformation(extent={{60,100},{80,120}})));
+    annotation (Placement(transformation(extent={{60,170},{80,190}})));
   Buildings.Controls.OBC.CDL.Continuous.Line linRetFanStaPre
     "Return fan static pressure setpoint"
-    annotation (Placement(transformation(extent={{60,-50},{80,-30}})));
+    annotation (Placement(transformation(extent={{60,20},{80,40}})));
   Buildings.Controls.OBC.CDL.Continuous.Switch swi1
     "Exhaust air damper position"
-    annotation (Placement(transformation(extent={{80,10},{100,30}})));
+    annotation (Placement(transformation(extent={{80,80},{100,100}})));
   Buildings.Controls.OBC.CDL.Continuous.Switch swi
     "Return fan discharge static pressure setpoint"
-    annotation (Placement(transformation(extent={{80,-100},{100,-80}})));
+    annotation (Placement(transformation(extent={{80,-30},{100,-10}})));
   Buildings.Controls.OBC.CDL.Continuous.Division div "Normalized the control error"
-    annotation (Placement(transformation(extent={{-80,40},{-60,60}})));
+    annotation (Placement(transformation(extent={{-80,110},{-60,130}})));
+  Buildings.Controls.OBC.CDL.Continuous.Line linRetFanSpe "Return fan speed"
+    annotation (Placement(transformation(extent={{60,-110},{80,-90}})));
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi2
+    "Return fan speed setpoint"
+    annotation (Placement(transformation(extent={{80,-160},{100,-140}})));
 
 protected
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant dpBuiSetPoi(
     final k=dpBuiSet) "Building pressure setpoint"
-    annotation (Placement(transformation(extent={{-130,30},{-110,50}})));
+    annotation (Placement(transformation(extent={{-130,100},{-110,120}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant retFanDisPreMin(
     final k=dpDisMin) "Return fan discharge static pressure minimum setpoint"
-    annotation (Placement(transformation(extent={{0,-30},{20,-10}})));
+    annotation (Placement(transformation(extent={{0,40},{20,60}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant retFanDisPreMax(
     final k=dpDisMax) "Return fan discharge static pressure maximum setpoint"
-    annotation (Placement(transformation(extent={{0,-80},{20,-60}})));
+    annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zer(final k=0)
     "Zero fan control signal"
-    annotation (Placement(transformation(extent={{0,-120},{20,-100}})));
+    annotation (Placement(transformation(extent={{0,-50},{20,-30}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zer1(final k=0)
     "Zero constant"
-    annotation (Placement(transformation(extent={{-40,42},{-20,62}})));
+    annotation (Placement(transformation(extent={{-40,112},{-20,132}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con(final k=0.5)
     "Constant 0.5"
-    annotation (Placement(transformation(extent={{0,80},{20,100}})));
+    annotation (Placement(transformation(extent={{0,150},{20,170}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant one(final k=1)
     "Constant one"
-    annotation (Placement(transformation(extent={{0,26},{20,46}})));
+    annotation (Placement(transformation(extent={{0,96},{20,116}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant conOne(final k=1)
     "Constant one"
-    annotation (Placement(transformation(extent={{-80,100},{-60,120}})));
+    annotation (Placement(transformation(extent={{-80,170},{-60,190}})));
   Buildings.Controls.OBC.CDL.Logical.And enaDam
     "Check if the exhaust damper should be enabled"
-    annotation (Placement(transformation(extent={{-40,10},{-20,30}})));
+    annotation (Placement(transformation(extent={{-40,80},{-20,100}})));
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant retFanSpeMin(
+    final k=disMinSpe)
+    "Return fan speed when discharge static pressure minimum setpoint"
+    annotation (Placement(transformation(extent={{-40,-90},{-20,-70}})));
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant retFanSpeMax(
+    final k=disMaxSpe)
+    "Return fan speed when discharge static pressure maximum setpoint"
+    annotation (Placement(transformation(extent={{-40,-130},{-20,-110}})));
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zer2(
+    final k=0)
+    "Zero fan control signal"
+    annotation (Placement(transformation(extent={{0,-180},{20,-160}})));
 
 equation
   connect(movMea.u, dpBui)
-    annotation (Line(points={{-132,70},{-160,70}}, color={0,0,127}));
+    annotation (Line(points={{-132,140},{-160,140}}, color={0,0,127}));
   connect(swi.u2, uSupFan)
-    annotation (Line(points={{78,-90},{-160,-90}}, color={255,0,255}));
+    annotation (Line(points={{78,-20},{-160,-20}}, color={255,0,255}));
   connect(swi.u3, zer.y)
-    annotation (Line(points={{78,-98},{60,-98},{60,-110},{22,-110}}, color={0,0,127}));
+    annotation (Line(points={{78,-28},{60,-28},{60,-40},{22,-40}},   color={0,0,127}));
   connect(zer1.y, linExhAirDam.x1)
-    annotation (Line(points={{-18,52},{30,52},{30,118},{58,118}},color={0,0,127}));
+    annotation (Line(points={{-18,122},{30,122},{30,188},{58,188}}, color={0,0,127}));
   connect(zer1.y, linExhAirDam.f1)
-    annotation (Line(points={{-18,52},{30,52},{30,114},{58,114}},color={0,0,127}));
+    annotation (Line(points={{-18,122},{30,122},{30,184},{58,184}}, color={0,0,127}));
   connect(con.y, linExhAirDam.x2)
-    annotation (Line(points={{22,90},{40,90},{40,106},{58,106}}, color={0,0,127}));
+    annotation (Line(points={{22,160},{40,160},{40,176},{58,176}}, color={0,0,127}));
   connect(one.y, linExhAirDam.f2)
-    annotation (Line(points={{22,36},{46,36},{46,102},{58,102}}, color={0,0,127}));
+    annotation (Line(points={{22,106},{46,106},{46,172},{58,172}}, color={0,0,127}));
   connect(con.y, linRetFanStaPre.x1)
-    annotation (Line(points={{22,90},{40,90},{40,-32},{58,-32}}, color={0,0,127}));
+    annotation (Line(points={{22,160},{40,160},{40,38},{58,38}}, color={0,0,127}));
   connect(one.y, linRetFanStaPre.x2)
-    annotation (Line(points={{22,36},{46,36},{46,-44},{58,-44}}, color={0,0,127}));
+    annotation (Line(points={{22,106},{46,106},{46,26},{58,26}}, color={0,0,127}));
   connect(retFanDisPreMin.y, linRetFanStaPre.f1)
-    annotation (Line(points={{22,-20},{30,-20},{30,-36},{58,-36}},
+    annotation (Line(points={{22,50},{30,50},{30,34},{58,34}},
       color={0,0,127}));
   connect(retFanDisPreMax.y, linRetFanStaPre.f2)
-    annotation (Line(points={{22,-70},{30,-70},{30,-48},{58,-48}},
+    annotation (Line(points={{-18,0},{-10,0},{-10,22},{58,22}},
       color={0,0,127}));
   connect(linRetFanStaPre.y, swi.u1)
-    annotation (Line(points={{82,-40},{100,-40},{100,-60},{60,-60},{60,-82},{78,
-          -82}}, color={0,0,127}));
+    annotation (Line(points={{82,30},{100,30},{100,10},{60,10},{60,-12},{78,-12}},
+                 color={0,0,127}));
   connect(linExhAirDam.y, swi1.u1)
-    annotation (Line(points={{82,110},{100,110},{100,60},{60,60},{60,28},{78,28}},
+    annotation (Line(points={{82,180},{100,180},{100,130},{60,130},{60,98},{78,98}},
       color={0,0,127}));
   connect(swi1.y, yExhDam)
-    annotation (Line(points={{102,20},{140,20}},
+    annotation (Line(points={{102,90},{140,90}},
       color={0,0,127}));
   connect(zer1.y, swi1.u3)
-    annotation (Line(points={{-18,52},{30,52},{30,12},{78,12}},
+    annotation (Line(points={{-18,122},{30,122},{30,82},{78,82}},
       color={0,0,127}));
   connect(swi.y, dpDisSet)
-    annotation (Line(points={{102,-90},{140,-90}}, color={0,0,127}));
+    annotation (Line(points={{102,-20},{140,-20}}, color={0,0,127}));
   connect(conP.y, linExhAirDam.u)
-    annotation (Line(points={{-18,110},{58,110}}, color={0,0,127}));
+    annotation (Line(points={{-18,180},{58,180}}, color={0,0,127}));
   connect(conP.y, linRetFanStaPre.u)
-    annotation (Line(points={{-18,110},{-10,110},{-10,-40},{58,-40}}, color={0,0,127}));
+    annotation (Line(points={{-18,180},{-10,180},{-10,30},{58,30}},   color={0,0,127}));
   connect(dpBuiSetPoi.y, div.u2)
-    annotation (Line(points={{-108,40},{-100,40},{-100,44},{-82,44}}, color={0,0,127}));
+    annotation (Line(points={{-108,110},{-100,110},{-100,114},{-82,114}}, color={0,0,127}));
   connect(movMea.y, div.u1)
-    annotation (Line(points={{-108,70},{-100,70},{-100,56},{-82,56}}, color={0,0,127}));
+    annotation (Line(points={{-108,140},{-100,140},{-100,126},{-82,126}}, color={0,0,127}));
   connect(conOne.y, conP.u_s)
-    annotation (Line(points={{-58,110},{-42,110}}, color={0,0,127}));
+    annotation (Line(points={{-58,180},{-42,180}}, color={0,0,127}));
   connect(div.y, conP.u_m)
-    annotation (Line(points={{-58,50},{-50,50},{-50,90},{-30,90},{-30,98}},
+    annotation (Line(points={{-58,120},{-50,120},{-50,160},{-30,160},{-30,168}},
       color={0,0,127}));
   connect(movMea.y, yDpBui)
-    annotation (Line(points={{-108,70},{140,70}}, color={0,0,127}));
+    annotation (Line(points={{-108,140},{140,140}}, color={0,0,127}));
   connect(uMinOutAirDam, enaDam.u1)
-    annotation (Line(points={{-160,20},{-42,20}}, color={255,0,255}));
+    annotation (Line(points={{-160,90},{-42,90}}, color={255,0,255}));
   connect(uSupFan, enaDam.u2)
-    annotation (Line(points={{-160,-90},{-60,-90},{-60,12},{-42,12}},
+    annotation (Line(points={{-160,-20},{-60,-20},{-60,82},{-42,82}},
       color={255,0,255}));
   connect(enaDam.y, swi1.u2)
-    annotation (Line(points={{-18,20},{78,20}}, color={255,0,255}));
+    annotation (Line(points={{-18,90},{78,90}}, color={255,0,255}));
+  connect(linRetFanStaPre.y, linRetFanSpe.u) annotation (Line(points={{82,30},{100,
+          30},{100,10},{40,10},{40,-100},{58,-100}}, color={0,0,127}));
+  connect(retFanDisPreMin.y, linRetFanSpe.x1) annotation (Line(points={{22,50},{
+          30,50},{30,-92},{58,-92}}, color={0,0,127}));
+  connect(retFanSpeMin.y, linRetFanSpe.f1) annotation (Line(points={{-18,-80},{20,
+          -80},{20,-96},{58,-96}}, color={0,0,127}));
+  connect(retFanDisPreMax.y, linRetFanSpe.x2) annotation (Line(points={{-18,0},{
+          -10,0},{-10,-104},{58,-104}}, color={0,0,127}));
+  connect(retFanSpeMax.y, linRetFanSpe.f2) annotation (Line(points={{-18,-120},{
+          20,-120},{20,-108},{58,-108}}, color={0,0,127}));
+  connect(linRetFanSpe.y, swi2.u1) annotation (Line(points={{82,-100},{100,-100},
+          {100,-130},{60,-130},{60,-142},{78,-142}}, color={0,0,127}));
+  connect(zer2.y, swi2.u3) annotation (Line(points={{22,-170},{60,-170},{60,-158},
+          {78,-158}}, color={0,0,127}));
+  connect(uSupFan, swi2.u2) annotation (Line(points={{-160,-20},{-60,-20},{-60,-150},
+          {78,-150}}, color={255,0,255}));
+  connect(swi2.y, yRetFanSpe)
+    annotation (Line(points={{102,-150},{140,-150}}, color={0,0,127}));
 
 annotation (
   defaultComponentName="retFanDpCon",
-  Icon(graphics={
+  Icon(coordinateSystem(extent={{-100,-100},{100,100}}),
+       graphics={
         Text(extent={{-100,140},{100,100}},
           lineColor={0,0,255},
           textString="%name"),
@@ -218,34 +270,47 @@ annotation (
           extent={{-50,-36},{60,-62}},
           lineColor={28,108,200},
           textString="Building pressure control loop signal")}),
-  Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-140,-140},{120,140}}),
+  Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-140,-220},{120,220}}),
         graphics={
         Rectangle(
-          extent={{-138,138},{118,4}},
+          extent={{-138,216},{118,82}},
           lineColor={0,0,0},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid,
           pattern=LinePattern.None),
         Rectangle(
-          extent={{-138,-4},{118,-138}},
+          extent={{-138,58},{118,-58}},
           lineColor={0,0,0},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid,
           pattern=LinePattern.None),
         Text(
-          extent={{-138,140},{-62,122}},
+          extent={{-138,210},{-62,192}},
           lineColor={0,0,255},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid,
           horizontalAlignment=TextAlignment.Left,
           textString="Exhaust air damper control"),
         Text(
-          extent={{-136,-98},{-12,-120}},
+          extent={{-136,-28},{-12,-50}},
           lineColor={0,0,255},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid,
           horizontalAlignment=TextAlignment.Left,
-          textString="Return fan discharge static pressure setpoint")}),
+          textString="Return fan discharge static pressure setpoint"),
+        Rectangle(
+          extent={{-138,-84},{118,-218}},
+          lineColor={0,0,0},
+          fillColor={215,215,215},
+          fillPattern=FillPattern.Solid,
+          pattern=LinePattern.None),
+        Text(
+          extent={{-136,-176},{-60,-194}},
+          lineColor={0,0,255},
+          fillColor={215,215,215},
+          fillPattern=FillPattern.Solid,
+          horizontalAlignment=TextAlignment.Left,
+          textString="Return fan speed")}),
   Documentation(info="<html>
 <p>
 Setpoint for return fan discharge pressure and exhaust air damper

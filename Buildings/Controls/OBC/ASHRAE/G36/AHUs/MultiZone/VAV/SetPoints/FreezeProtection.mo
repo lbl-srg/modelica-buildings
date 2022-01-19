@@ -196,8 +196,7 @@ block FreezeProtection
     "Request to heating hot-water plant"
     annotation (Placement(transformation(extent={{440,-500},{480,-460}}),
         iconTransformation(extent={{100,-190},{140,-150}})));
-  Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yAla
-    "Alarm level"
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yAla "Alarm level"
     annotation (Placement(transformation(extent={{440,-550},{480,-510}}),
         iconTransformation(extent={{100,-210},{140,-170}})));
 

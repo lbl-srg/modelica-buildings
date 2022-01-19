@@ -89,7 +89,6 @@ block Limits "Single zone VAV AHU minimum outdoor air control - damper position 
     "Supply fan status signal"
     annotation (Placement(transformation(extent={{-200,-60},{-160,-20}}),
         iconTransformation(extent={{-140,-20},{-100,20}})));
-
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yOutDamPosMin(
     final min=outDamPhyPosMin,
     final max=outDamPhyPosMax,
@@ -198,7 +197,7 @@ equation
   connect(desVOutSig.y, minVOutSetCurFanSpePos.x2)
     annotation (Line(points={{62,100},{80,100},{80,116},{98,116}},color={0,0,127}));
   connect(yDam_VOutMin_curSpe.y, minVOutSetCurFanSpePos.f1)
-    annotation (Line(points={{62,140},{80,140},{80,124},{98,124}},          color={0,0,127}));
+    annotation (Line(points={{62,140},{80,140},{80,124},{98,124}}, color={0,0,127}));
   connect(yDam_VOutDes_curSpe.y, minVOutSetCurFanSpePos.f2)
     annotation (Line(points={{62,50},{90,50},{90,112},{98,112}}, color={0,0,127}));
   connect(yDam_VOutDes_minSpeSig.y, yDam_VOutDes_curSpe.f1)
@@ -206,8 +205,7 @@ equation
   connect(yDam_VOutDes_maxSpeSig.y, yDam_VOutDes_curSpe.f2)
     annotation (Line(points={{-118,20},{-80,20},{-80,42},{38,42}}, color={0,0,127}));
   connect(yDam_VOutMin_minSpeSig.y, yDam_VOutMin_curSpe.f1)
-    annotation (Line(points={{-118,130},{-90,130},{-90,144},{38,144}},
-                           color={0,0,127}));
+    annotation (Line(points={{-118,130},{-90,130},{-90,144},{38,144}}, color={0,0,127}));
   connect(yDam_VOutMin_maxSpeSig.y, yDam_VOutMin_curSpe.f2)
     annotation (Line(points={{-118,160},{-60,160},{-60,132},{38,132}}, color={0,0,127}));
   connect(uSupFanSpe, yDam_VOutMin_curSpe.u)
@@ -225,8 +223,7 @@ equation
   connect(uSupFanSpe, yDam_VOutDes_curSpe.u)
     annotation (Line(points={{-180,110},{-80,110},{-80,50},{38,50}}, color={0,0,127}));
   connect(not1.y, enaDis.u2)
-    annotation (Line(points={{2,-70},{40,-70},{40,-110},{78,-110}},
-                      color={255,0,255}));
+    annotation (Line(points={{2,-70},{40,-70},{40,-110},{78,-110}}, color={255,0,255}));
   connect(outDamPhyPosMinSig.y, enaDis.u1)
     annotation (Line(points={{42,0},{68,0},{68,-102},{78,-102}}, color={0,0,127}));
   connect(minVOutSetCurFanSpePos.y, enaDis.u3)
@@ -267,6 +264,7 @@ equation
           {150,-40},{180,-40}}, color={0,0,127}));
   connect(zer.y, enaDis2.u3) annotation (Line(points={{102,-190},{110,-190},{110,
           -168},{118,-168}}, color={0,0,127}));
+
 annotation (
     defaultComponentName = "damLim",
     Icon(graphics={

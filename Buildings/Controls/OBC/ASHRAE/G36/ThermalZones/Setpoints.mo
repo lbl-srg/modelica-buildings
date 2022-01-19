@@ -7,20 +7,15 @@ block Setpoints
   parameter Boolean have_winSen
     "Check if the zone has window status sensor"
     annotation(Dialog(group="Sensors"));
-
-  parameter Boolean cooAdj=false
-    "Flag, set to true if both cooling and heating setpoint are adjustable separately"
-    annotation(Dialog(group="Setpoint adjustable setting"));
-  parameter Boolean heaAdj=false
-    "Flag, set to true if heating setpoint is adjustable"
-    annotation(Dialog(group="Setpoint adjustable setting"));
-  parameter Boolean sinAdj = false
-    "Flag, set to true if both cooling and heating setpoint are adjustable through a single common knob"
-    annotation(Dialog(group="Setpoint adjustable setting",enable=not (cooAdj or heaAdj)));
+  parameter Boolean have_locAdj=true
+    "True: the zone has local setpoint adjustment knob"
+    annotation (Dialog(group="Setpoint adjustable setting"));
+  parameter Boolean sepAdj=true
+    "True: cooling and heating setpoint can be adjusted separately"
+    annotation (Dialog(group="Setpoint adjustable setting", enable=have_locAdj));
   parameter Boolean ignDemLim = true
     "Flag, set to true to exempt individual zone from demand limit setpoint adjustment"
     annotation(Dialog(group="Setpoint adjustable setting"));
-
   parameter Real TZonCooOnMax(
     final unit="K",
     displayUnit="degC",
@@ -45,7 +40,10 @@ block Setpoints
     final quantity="ThermodynamicTemperature")=291.15
     "Minimum heating setpoint during on"
     annotation(Dialog(group="Setpoints limits setting"));
-  parameter Real TZonCooSetWinOpe=322.15
+  parameter Real TZonCooSetWinOpe(
+    final unit="K",
+    displayUnit="degC",
+    final quantity="ThermodynamicTemperature")=322.15
     "Cooling setpoint when window is open"
     annotation(Dialog(group="Setpoints limits setting", enable=have_winSen));
   parameter Real TZonHeaSetWinOpe(
@@ -54,37 +52,24 @@ block Setpoints
     final quantity="ThermodynamicTemperature")=277.15
     "Heating setpoint when window is open"
     annotation(Dialog(group="Setpoints limits setting", enable=have_winSen));
-
-  parameter Real incTSetDem_1(
-    final unit="K",
-    final quantity="TemperatureDifference")=0.5
+  parameter Real incTSetDem_1(unit="K")=0.5
     "Cooling setpoint increase value (degC) when cooling demand limit level 1 is imposed"
-    annotation(Dialog(group="Setpoint adjustment", tab="Demand control"));
-  parameter Real incTSetDem_2(
-    final unit="K",
-    final quantity="TemperatureDifference")=1
+    annotation(Dialog(group="Setpoint adjustment", tab="Demand control", enable=not ignDemLim));
+  parameter Real incTSetDem_2(unit="K")=1
     "Cooling setpoint increase value (degC) when cooling demand limit level 2 is imposed"
-    annotation(Dialog(group="Setpoint adjustment", tab="Demand control"));
-  parameter Real incTSetDem_3(
-    final unit="K",
-    final quantity="TemperatureDifference")=2
+    annotation(Dialog(group="Setpoint adjustment", tab="Demand control", enable=not ignDemLim));
+  parameter Real incTSetDem_3(unit="K")=2
     "Cooling setpoint increase value (degC) when cooling demand limit level 3 is imposed"
-    annotation(Dialog(group="Setpoint adjustment", tab="Demand control"));
-  parameter Real decTSetDem_1(
-    final unit="K",
-    final quantity="TemperatureDifference")=0.5
+    annotation(Dialog(group="Setpoint adjustment", tab="Demand control", enable=not ignDemLim));
+  parameter Real decTSetDem_1(unit="K")=0.5
     "Heating setpoint decrease value (degC) when heating demand limit level 1 is imposed"
-    annotation(Dialog(group="Setpoint adjustment", tab="Demand control"));
-  parameter Real decTSetDem_2(
-    final unit="K",
-    final quantity="TemperatureDifference")=1
+    annotation(Dialog(group="Setpoint adjustment", tab="Demand control", enable=not ignDemLim));
+  parameter Real decTSetDem_2(unit="K")=1
     "Heating setpoint decrease value (degC) when heating demand limit level 2 is imposed"
-    annotation(Dialog(group="Setpoint adjustment", tab="Demand control"));
-  parameter Real decTSetDem_3(
-    final unit="K",
-    final quantity="TemperatureDifference")=2
+    annotation(Dialog(group="Setpoint adjustment", tab="Demand control", enable=not ignDemLim));
+  parameter Real decTSetDem_3(unit="K")=2
     "Heating setpoint decrease value (degC) when heating demand limit level 3 is imposed"
-    annotation(Dialog(group="Setpoint adjustment", tab="Demand control"));
+    annotation(Dialog(group="Setpoint adjustment", tab="Demand control", enable=not ignDemLim));
 
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uOpeMod
     "AHU operation mode status signal"
@@ -117,11 +102,18 @@ block Setpoints
     "Unoccupied zone heating setpoint"
     annotation (Placement(transformation(extent={{-460,390},{-420,430}}),
         iconTransformation(extent={{-140,10},{-100,50}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput setAdj if (cooAdj or sinAdj)
-    "Cooling setpoint adjustment value, or the adjustment value for both heating and cooling setpoints if it allows only single setpoint adjustment"
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput setAdj
+    if have_locAdj and not sepAdj
+    "The adjustment value for both heating and cooling setpoints if it allows only single setpoint adjustment"
     annotation (Placement(transformation(extent={{-460,330},{-420,370}}),
-        iconTransformation(extent={{-140,-30},{-100,10}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput heaSetAdj if heaAdj
+        iconTransformation(extent={{-140,-20},{-100,20}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput cooSetAdj
+    if have_locAdj and sepAdj
+    "Cooling setpoint adjustment value"
+    annotation (Placement(transformation(extent={{-460,290},{-420,330}}),
+        iconTransformation(extent={{-140,-40},{-100,0}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput heaSetAdj
+    if have_locAdj and sepAdj
     "Heating setpoint adjustment value"
     annotation (Placement(transformation(extent={{-460,250},{-420,290}}),
         iconTransformation(extent={{-140,-60},{-100,-20}})));
@@ -280,6 +272,7 @@ block Setpoints
     "Cooling setpoint minus the minimum difference between cooling and heating setpoints"
     annotation (Placement(transformation(extent={{160,-590},{180,-570}})));
 
+
 protected
   Buildings.Controls.OBC.CDL.Integers.Equal intEqu
     "Check if current operation mode is warm-up mode"
@@ -306,31 +299,27 @@ protected
     "Occupied mode"
     annotation (Placement(transformation(extent={{-140,570},{-120,590}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant cooSetAdjCon(
-    final k=(cooAdj or sinAdj))
+    final k=have_locAdj)
     "Cooling setpoint adjustable"
     annotation (Placement(transformation(extent={{-340,320},{-320,340}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con(
     final k=0) "Zero adjustment"
     annotation (Placement(transformation(extent={{-340,280},{-320,300}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con3(
-    final k=0) if not (cooAdj or sinAdj)
+    final k=0) if not have_locAdj
     "Zero adjustment"
     annotation (Placement(transformation(extent={{-340,360},{-320,380}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con4(
-    final k=0) if not heaAdj
+    final k=0) if not have_locAdj
     "Zero adjustment"
-    annotation (Placement(transformation(extent={{-340,240},{-320,260}})));
+    annotation (Placement(transformation(extent={{-60,280},{-40,300}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant heaSetAdjCon(
-    final k=heaAdj)
+    final k=have_locAdj)
     "Heating setpoint adjustable"
     annotation (Placement(transformation(extent={{-60,240},{-40,260}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con1(
     final k=0) "Zero adjustment"
     annotation (Placement(transformation(extent={{-60,200},{-40,220}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant sinSetAdjCon(
-    final k=sinAdj)
-    "Single common setpoint adjustable"
-    annotation (Placement(transformation(extent={{20,200},{40,220}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant con2(
     final k=ignDemLim)
     "Check whether the zone should exempt from setpoint adjustment due to the demand limit"
@@ -423,11 +412,8 @@ protected
   Buildings.Controls.OBC.CDL.Continuous.Switch swi4
     "If there is no cooling adjustment, zero adjust"
     annotation (Placement(transformation(extent={{-280,320},{-260,340}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi5
-    "If there is no heating adjustment, zero adjust"
-    annotation (Placement(transformation(extent={{0,240},{20,260}})));
   Buildings.Controls.OBC.CDL.Continuous.Switch swi6
-    "If there is only one common adjust for both heating and cooling, use the adjustment value from cooling one"
+    "If there is no heating adjustment, zero adjust"
     annotation (Placement(transformation(extent={{80,240},{100,260}})));
   Buildings.Controls.OBC.CDL.Continuous.Switch swi7
     "Ensure heating setpoint being not higher than cooling setpoint minus 0.5 degC"
@@ -612,32 +598,12 @@ equation
   connect(swi.y, swi2.u3)
     annotation (Line(points={{-278,530},{-220,530},{-220,380},{-160,380},{-160,358},
           {-122,358}}, color={0,0,127}));
-  connect(heaSetAdjCon.y, swi5.u2)
-    annotation (Line(points={{-38,250},{-2,250}}, color={255,0,255}));
-  connect(con1.y, swi5.u3)
-    annotation (Line(points={{-38,210},{-20,210},{-20,242},{-2,242}},
-      color={0,0,127}));
-  connect(swi5.y, swi6.u3)
-    annotation (Line(points={{22,250},{40,250},{40,242},{78,242}},
-      color={0,0,127}));
-  connect(sinSetAdjCon.y, swi6.u2)
-    annotation (Line(points={{42,210},{60,210},{60,250},{78,250}},
-      color={255,0,255}));
   connect(swi6.y, add1.u2)
     annotation (Line(points={{102,250},{120,250},{120,244},{138,244}},
       color={0,0,127}));
   connect(add1.y, swi3.u1)
     annotation (Line(points={{162,250},{180,250},{180,242},{218,242}},
       color={0,0,127}));
-  connect(heaSetAdj, swi5.u1)
-    annotation (Line(points={{-440,270},{-20,270},{-20,258},{-2,258}},
-      color={0,0,127}));
-  connect(con4.y, swi5.u1)
-    annotation (Line(points={{-318,250},{-300,250},{-300,270},{-20,270},{-20,258},
-          {-2,258}}, color={0,0,127}));
-  connect(swi4.y, swi6.u1)
-    annotation (Line(points={{-258,330},{-220,330},{-220,280},{60,280},{60,258},
-          {78,258}}, color={0,0,127}));
   connect(swi1.y, add1.u1)
     annotation (Line(points={{-278,450},{120,450},{120,256},{138,256}},
       color={0,0,127}));
@@ -1062,9 +1028,21 @@ equation
           -138},{218,-138}}, color={0,0,127}));
   connect(or3.y, swi2.u2) annotation (Line(points={{2,610},{20,610},{20,400},{-140,
           400},{-140,350},{-122,350}}, color={255,0,255}));
-
   connect(tim.passed, truHol.u) annotation (Line(points={{-198,-278},{-160,-278},
           {-160,-270},{-102,-270}}, color={255,0,255}));
+  connect(cooSetAdj, swi4.u1) annotation (Line(points={{-440,310},{-360,310},{-360,
+          350},{-300,350},{-300,338},{-282,338}}, color={0,0,127}));
+  connect(heaSetAdjCon.y, swi6.u2)
+    annotation (Line(points={{-38,250},{78,250}}, color={255,0,255}));
+  connect(heaSetAdj, swi6.u1) annotation (Line(points={{-440,270},{60,270},{60,258},
+          {78,258}}, color={0,0,127}));
+  connect(con1.y, swi6.u3) annotation (Line(points={{-38,210},{60,210},{60,242},
+          {78,242}}, color={0,0,127}));
+  connect(setAdj, swi6.u1) annotation (Line(points={{-440,350},{-380,350},{-380,
+          270},{60,270},{60,258},{78,258}}, color={0,0,127}));
+  connect(con4.y, swi6.u1) annotation (Line(points={{-38,290},{60,290},{60,258},
+          {78,258}}, color={0,0,127}));
+
 annotation (
   defaultComponentName="TZonSet",
   Icon(coordinateSystem(extent={{-100,-200},{100,200}}),
@@ -1095,14 +1073,14 @@ annotation (
           pattern=LinePattern.Dash,
           textString="TZonCooSetUno"),
         Text(
-          visible=heaAdj,
+          visible=have_locAdj and sepAdj,
           extent={{-96,-30},{-40,-48}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="heaSetAdj"),
         Text(
-          visible=cooAdj or sinAdj,
-          extent={{-100,-2},{-58,-18}},
+          visible=have_locAdj and not sepAdj,
+          extent={{-100,12},{-54,-6}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="setAdj"),
@@ -1151,7 +1129,13 @@ annotation (
         Text(
           extent={{-120,240},{100,200}},
           lineColor={0,0,255},
-          textString="%name")}),
+          textString="%name"),
+        Text(
+          visible=have_locAdj and sepAdj,
+          extent={{-96,-10},{-40,-28}},
+          lineColor={0,0,127},
+          pattern=LinePattern.Dash,
+          textString="cooSetAdj")}),
   Diagram(coordinateSystem(
         preserveAspectRatio=false,
         extent={{-420,-620},{340,640}}), graphics={
@@ -1168,7 +1152,7 @@ annotation (
           fillPattern=FillPattern.Solid,
           pattern=LinePattern.None),
         Rectangle(
-          extent={{-412,390},{330,186}},
+          extent={{-412,386},{330,182}},
           lineColor={0,0,0},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid,
@@ -1346,7 +1330,7 @@ Where the zone has a local setpoint adjustment knob/button,
 <li>The setpoint adjustment offsets established by the occupant shall be software
 points that are persistent (e.g. not reset daily), but the actual offset used
 in control logic shall be adjusted based on limits and modes as described below.</li>
-<li>The adjustment shall be capable of being limited in softare.
+<li>The adjustment shall be capable of being limited in software.
 <ol type=\"i\">
 <li>As a default, the active occupied cooling setpoint shall be limited between 22 &deg;C
 (72 &deg;F) and 27 &deg;C (80 &deg;F);</li>
@@ -1359,7 +1343,7 @@ respecting the limits and anti-overlap logic described above. If zone thermostat
 provides only a single setpoint adjustment, then the adjustment shall move both
 the same amount, within the limits described above.</li>
 <li>The adjustment shall only affect occupied setpoints in occupied mode, warm-up mode
-and cooldown mode and shall have no impact on setpoints in all other modes.</li>
+and cool-down mode and shall have no impact on setpoints in all other modes.</li>
 <li>At the onset of demand limiting, the local setpoint adjustment value shall
 be frozen. Further adjustment of the setpoint by local controls shall be suspended
 for the duration of the demand limit event.</li>

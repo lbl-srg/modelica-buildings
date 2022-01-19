@@ -41,8 +41,7 @@ block PlantRequests
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uHeaCoi(
     final unit="1",
     final min=0,
-    final max=1) if have_heaCoi
-    "Heating coil valve position"
+    final max=1) if have_heaCoi "Heating coil valve position"
     annotation (Placement(transformation(extent={{-240,-160},{-200,-120}}),
         iconTransformation(extent={{-140,-110},{-100,-70}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yChiWatResReq
@@ -303,7 +302,7 @@ equation
     annotation (Line(points={{-220,-40},{-152,-40}}, color={0,0,127}));
 
 annotation (
-  defaultComponentName="mulAHUPlaReq",
+  defaultComponentName="sinAHUPlaReq",
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
     graphics={
         Rectangle(

@@ -9,10 +9,6 @@ block Controller "Single zone VAV AHU economizer control sequence"
     "Set to true to only evaluate fixed plus differential dry bulb temperature high limit cutoff;
     shall not be used with enthalpy"
     annotation(Dialog(enable=not use_enthalpy));
-  parameter Boolean use_TMix=true
-    "Set to true if mixed air temperature measurement is enabled";
-  parameter Boolean use_G36FrePro=false
-    "Set to true if G36 freeze protection is implemented";
   parameter Real uMin(
     final min=0.1,
     final max=0.9,
@@ -45,44 +41,14 @@ block Controller "Single zone VAV AHU economizer control sequence"
       enable=controllerTypeMod == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
           or controllerTypeMod == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
 
-  parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerTypeFre=
-    Buildings.Controls.OBC.CDL.Types.SimpleController.PI
-    "Type of controller"
-    annotation(Dialog(group="Freeze protection", enable=use_TMix));
-  parameter Real kFre(final unit="1/K") = 0.1
-    "Gain for mixed air temperature tracking for freeze protection, used if use_TMix=true"
-     annotation(Dialog(group="Freeze protection", enable=use_TMix));
-  parameter Real TiFre(
-    final unit="s",
-    final quantity="Time")=120
-    "Time constant of controller for mixed air temperature tracking for freeze protection. Require TiFre < TiMinOut"
-     annotation(Dialog(group="Freeze protection",
-       enable=use_TMix
-         and (controllerTypeFre == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
-           or controllerTypeFre == Buildings.Controls.OBC.CDL.Types.SimpleController.PID)));
-  parameter Real TdFre(
-    final unit="s",
-    final quantity="Time")=0.1
-     "Time constant of derivative block for freeze protection"
-     annotation (Dialog(group="Freeze protection",
-       enable=use_TMix and
-           (controllerTypeFre == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
-           or controllerTypeFre == Buildings.Controls.OBC.CDL.Types.SimpleController.PID)));
-  parameter Real TFreSet(
-    final unit="K",
-    final displayUnit="degC",
-    final quantity="ThermodynamicTemperature") = 277.15
-    "Lower limit for mixed air temperature for freeze protection, used if use_TMix=true"
-     annotation(Dialog(group="Freeze protection", enable=use_TMix));
-
-  parameter Real delTOutHis(
+  parameter Real delTOutHys(
     final unit="K",
     final displayUnit="K",
     final quantity="TemperatureDifference")=1
     "Delta between the temperature hysteresis high and low limit"
     annotation(Dialog(tab="Advanced", group="Hysteresis"));
 
-  parameter Real delEntHis(
+  parameter Real delEntHys(
     final unit="J/kg",
     final quantity="SpecificEnergy")=1000
     "Delta between the enthalpy hysteresis high and low limits"
@@ -205,13 +171,6 @@ block Controller "Single zone VAV AHU economizer control sequence"
     "Outdoor air enthalpy high limit cutoff. For differential enthalpy use return air enthalpy measurement"
     annotation (Placement(transformation(extent={{-180,80},{-140,120}}),
         iconTransformation(extent={{-140,50},{-100,90}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput TMix(
-    final unit="K",
-    final displayUnit="degC",
-    final quantity = "ThermodynamicTemperature") if use_TMix
-    "Measured mixed air temperature, used for freeze protection"
-    annotation (Placement(transformation(extent={{-180,-80},{-140,-40}}),
-      iconTransformation(extent={{-140,-100},{-100,-60}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput VOutMinSet_flow(
     final min=VOutMin_flow,
     final max=VOutDes_flow,
@@ -230,7 +189,7 @@ block Controller "Single zone VAV AHU economizer control sequence"
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uZonSta "Zone state signal"
     annotation (Placement(transformation(extent={{-180,-170},{-140,-130}}),
         iconTransformation(extent={{-140,-190},{-100,-150}})));
-  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uFreProSta if use_G36FrePro
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uFreProSta
     "Freeze protection status"
     annotation (Placement(transformation(extent={{-180,-200},{-140,-160}}),
         iconTransformation(extent={{-140,-210},{-100,-170}})));
@@ -240,7 +199,12 @@ block Controller "Single zone VAV AHU economizer control sequence"
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uSupFan "Supply fan status"
     annotation (Placement(transformation(extent={{-180,-110},{-140,-70}}),
       iconTransformation(extent={{-140,-130},{-100,-90}})));
-
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yOutDamPosMin(
+    final min=0,
+    final max=1,
+    final unit="1") "Minimum outdoor damper position"
+    annotation (Placement(transformation(extent={{140,160},{180,200}}),
+        iconTransformation(extent={{100,140},{140,180}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yHeaCoi(
     final unit="1",
     final min=0,
@@ -268,8 +232,8 @@ block Controller "Single zone VAV AHU economizer control sequence"
     final retDamPhyPosMax=retDamPhyPosMax,
     final use_enthalpy=use_enthalpy,
     final use_fixed_plus_differential_drybulb=use_fixed_plus_differential_drybulb,
-    final delTOutHis=delTOutHis,
-    final delEntHis=delEntHis,
+    final delTOutHys=delTOutHys,
+    final delEntHys=delEntHys,
     final retDamPhyPosMin=retDamPhyPosMin)
     "Single zone VAV AHU economizer enable/disable sequence"
     annotation (Placement(transformation(extent={{-40,-50},{-20,-30}})));
@@ -299,34 +263,6 @@ block Controller "Single zone VAV AHU economizer control sequence"
     final uMax=uMax)
     "Single zone VAV AHU economizer damper modulation sequence"
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
-  Buildings.Controls.OBC.ASHRAE.G36.Generic.FreezeProtectionMixedAir freProTMix(
-    final controllerType=controllerTypeFre,
-    final k=kFre,
-    final Ti=TiFre,
-    final Td=TdFre,
-    final TFreSet=TFreSet) if use_TMix
-    "Block that tracks TMix against a freeze protection setpoint"
-    annotation (Placement(transformation(extent={{60,-30},{80,-10}})));
-
-protected
-  Buildings.Controls.OBC.CDL.Continuous.Max retDamMinFre
-    "Minimum position for return air damper due to freeze protection"
-    annotation (Placement(transformation(extent={{100,40},{120,60}})));
-  Buildings.Controls.OBC.CDL.Continuous.Min outDamMaxFre
-    "Maximum control signal for outdoor air damper due to freeze protection"
-    annotation (Placement(transformation(extent={{100,-60},{120,-40}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant noTMix1(
-    final k=1) if not use_TMix
-    "Ignore min evaluation if there is no TMix sensor"
-    annotation (Placement(transformation(extent={{60,-66},{80,-46}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant noTMix(
-    final k=0) if not use_TMix
-    "Ignore max evaluation if there is no TMix sensor"
-    annotation (Placement(transformation(extent={{60,46},{80,66}})));
-  Buildings.Controls.OBC.CDL.Integers.Sources.Constant freProSta(
-    final k=Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeProtectionStages.stage0) if not use_G36FrePro
-    "Freeze protection status is 0. Used if G36 freeze protection is not implemented"
-    annotation (Placement(transformation(extent={{-140,-210},{-120,-190}})));
 
 equation
   connect(uSupFan, enaDis.uSupFan)
@@ -367,39 +303,22 @@ equation
     annotation (Line(points={{-160,-20},{-126,-20},{-126,14},{-102,14}},color={0,0,127}));
   connect(VOutMinSet_flow, damLim.VOutMinSet_flow)
     annotation (Line(points={{-160,10},{-130,10},{-130,18},{-102,18}},color={0,0,127}));
-  connect(outDamMaxFre.u2, noTMix1.y)
-    annotation (Line(points={{98,-56},{82,-56}}, color={0,0,127}));
-  connect(retDamMinFre.u1, noTMix.y)
-    annotation (Line(points={{98,56},{82,56}}, color={0,0,127}));
-  connect(retDamMinFre.y, yRetDamPos)
-    annotation (Line(points={{122,50},{160,50}}, color={0,0,127}));
-  connect(outDamMaxFre.y, yOutDamPos)
-    annotation (Line(points={{122,-50},{126,-50},{126,-40},{160,-40}}, color={0,0,127}));
-  connect(mod.yRetDamPos, retDamMinFre.u2)
-    annotation (Line(points={{42,0},{92,0},{92,44},{98,44}}, color={0,0,127}));
-  connect(mod.yOutDamPos, outDamMaxFre.u1)
-    annotation (Line(points={{42,-6},{94,-6},{94,-44},{98,-44}}, color={0,0,127}));
-  connect(freProTMix.yFrePro, retDamMinFre.u1)
-    annotation (Line(points={{82,-23},{86,-23},{86,56},{98,56}}, color={0,0,127}));
-  connect(freProTMix.yFreProInv, outDamMaxFre.u2)
-    annotation (Line(points={{82,-17},{88,-17},{88,-56},{98,-56}}, color={0,0,127}));
-  connect(freProSta.y, enaDis.uFreProSta)
-    annotation (Line(points={{-118,-200},{-66,-200},{-66,-41},{-42,-41}}, color={255,127,0}));
-  connect(freProSta.y, damLim.uFreProSta)
-    annotation (Line(points={{-118,-200},{-110,-200},{-110,6},{-102,6}},
-      color={255,127,0}));
-  connect(mod.yHeaCoi, yHeaCoi) annotation (Line(points={{42,6},{46,6},{46,120},
+  connect(mod.yHeaCoi, yHeaCoi) annotation (Line(points={{42,6},{50,6},{50,120},
           {160,120}}, color={0,0,127}));
   connect(damLim.yOutDamPosMin, enaDis.uOutDamPosMin) annotation (Line(points={{-78,4},
           {-62,4},{-62,-49},{-42,-49}}, color={0,0,127}));
-  connect(TMix, freProTMix.TMix) annotation (Line(points={{-160,-60},{40,-60},{40,
-          -20},{58,-20}}, color={0,0,127}));
   connect(TSup, mod.TSup) annotation (Line(points={{-160,70},{0,70},{0,8},{18,8}},
                 color={0,0,127}));
   connect(TSupHeaEco,mod.TSupHeaEco)  annotation (Line(points={{-160,40},{-4,40},
           {-4,6},{18,6}}, color={0,0,127}));
   connect(uSupFan, mod.uSupFan) annotation (Line(points={{-160,-90},{-120,-90},{
           -120,-9},{18,-9}}, color={255,0,255}));
+  connect(mod.yRetDamPos, yRetDamPos) annotation (Line(points={{42,0},{60,0},{60,
+          50},{160,50}}, color={0,0,127}));
+  connect(mod.yOutDamPos, yOutDamPos) annotation (Line(points={{42,-6},{60,-6},{
+          60,-40},{160,-40}}, color={0,0,127}));
+  connect(damLim.yOutDamPosMin, yOutDamPosMin) annotation (Line(points={{-78,4},
+          {-40,4},{-40,180},{160,180}}, color={0,0,127}));
 
 annotation (defaultComponentName = "conEco",
         Icon(coordinateSystem(extent={{-100,-200},{100,200}}),
@@ -424,18 +343,7 @@ annotation (defaultComponentName = "conEco",
           lineColor={0,0,255},
           textString="%name")}),
         Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-140,-240},
-            {140,240}}),
-        graphics={Rectangle(
-          extent={{48,98},{128,-98}},
-          lineColor={215,215,215},
-          fillColor={215,215,215},
-          fillPattern=FillPattern.Solid),
-                                  Text(
-          extent={{56,-86},{134,-96}},
-          lineColor={95,95,95},
-          textString="Freeze protection based on TMix,
-not a part of G36",
-          horizontalAlignment=TextAlignment.Left)}),
+            {140,240}})),
 Documentation(info="<html>
 <p>
 Single zone VAV AHU economizer control sequence that calculates

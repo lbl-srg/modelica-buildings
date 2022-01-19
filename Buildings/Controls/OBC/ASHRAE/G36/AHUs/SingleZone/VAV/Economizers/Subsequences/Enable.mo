@@ -9,13 +9,13 @@ block Enable
     "Set to true to evaluate fixed plus differential dry bulb temperature high limit cutoff;
     shall not be used with enthalpy"
     annotation(Dialog(group="Conditional", enable=not use_enthalpy));
-  parameter Real delTOutHis(
+  parameter Real delTOutHys(
     final unit="K",
     final displayUnit="K",
     final quantity="TemperatureDifference")=1
     "Delta between the temperature hysteresis high and low limit"
     annotation(Dialog(tab="Advanced", group="Hysteresis"));
-  parameter Real delEntHis(
+  parameter Real delEntHys(
     final unit="J/kg",
     final quantity="SpecificEnergy")=1000
     "Delta between the enthalpy hysteresis high and low limits"
@@ -131,13 +131,13 @@ protected
     final displayUnit="K",
     final quantity="TemperatureDifference") = 0
     "Hysteresis high limit cutoff";
-  final parameter Real TOutHigLimCutLow = TOutHigLimCutHig - delTOutHis
+  final parameter Real TOutHigLimCutLow = TOutHigLimCutHig - delTOutHys
     "Hysteresis low limit cutoff";
   final parameter Real hOutHigLimCutHig(
     final unit="J/kg",
     final quantity="SpecificEnergy") = 0
     "Hysteresis block high limit cutoff";
-  final parameter Real hOutHigLimCutLow = hOutHigLimCutHig - delEntHis
+  final parameter Real hOutHigLimCutLow = hOutHigLimCutHig - delEntHys
     "Hysteresis block low limit cutoff";
 
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant entSubst(

@@ -28,15 +28,12 @@ block ModeAndSetPoints
     final quantity="ThermodynamicTemperature")=303.15
     "Unoccupied cooling setpoint"
     annotation (Dialog(group="Setpoints"));
-  parameter Boolean cooAdj=false
-    "Flag, set to true if both cooling and heating setpoint are adjustable separately"
+  parameter Boolean have_locAdj=true
+    "True: the zone has local setpoint adjustment knob"
     annotation (Dialog(tab="Setpoints adjustment", group="Adjustable settings"));
-  parameter Boolean heaAdj=false
-    "Flag, set to true if heating setpoint is adjustable"
-    annotation (Dialog(tab="Setpoints adjustment", group="Adjustable settings"));
-  parameter Boolean sinAdj=false
-    "Flag, set to true if both cooling and heating setpoint are adjustable through a single common knob"
-    annotation (Dialog(tab="Setpoints adjustment", group="Adjustable settings", enable=not (cooAdj or heaAdj)));
+  parameter Boolean sepAdj=true
+    "True: cooling and heating setpoint can be adjusted separately"
+    annotation (Dialog(tab="Setpoints adjustment", group="Adjustable settings", enable=have_locAdj));
   parameter Boolean ignDemLim=false
     "Flag, set to true to exempt individual zone from demand limit setpoint adjustment"
     annotation (Dialog(tab="Setpoints adjustment", group="Adjustable settings"));
@@ -76,22 +73,22 @@ block ModeAndSetPoints
     annotation (Dialog(tab="Setpoints adjustment", group="Limits"));
   parameter Real incTSetDem_1=0.5
     "Cooling setpoint increase value (degC) when cooling demand limit level 1 is imposed"
-    annotation (Dialog(tab="Setpoints adjustment", group="Demand control adjustment"));
+    annotation (Dialog(tab="Setpoints adjustment", group="Demand control adjustment", enable=not ignDemLim));
   parameter Real incTSetDem_2=1
     "Cooling setpoint increase value (degC) when cooling demand limit level 2 is imposed"
-    annotation (Dialog(tab="Setpoints adjustment", group="Demand control adjustment"));
+    annotation (Dialog(tab="Setpoints adjustment", group="Demand control adjustment", enable=not ignDemLim));
   parameter Real incTSetDem_3=2
     "Cooling setpoint increase value (degC) when cooling demand limit level 3 is imposed"
-    annotation (Dialog(tab="Setpoints adjustment", group="Demand control adjustment"));
+    annotation (Dialog(tab="Setpoints adjustment", group="Demand control adjustment", enable=not ignDemLim));
   parameter Real decTSetDem_1=0.5
     "Heating setpoint decrease value (degC) when heating demand limit level 1 is imposed"
-    annotation (Dialog(tab="Setpoints adjustment", group="Demand control adjustment"));
+    annotation (Dialog(tab="Setpoints adjustment", group="Demand control adjustment", enable=not ignDemLim));
   parameter Real decTSetDem_2=1
     "Heating setpoint decrease value (degC) when heating demand limit level 2 is imposed"
-    annotation (Dialog(tab="Setpoints adjustment", group="Demand control adjustment"));
+    annotation (Dialog(tab="Setpoints adjustment", group="Demand control adjustment", enable=not ignDemLim));
   parameter Real decTSetDem_3=2
     "Heating setpoint decrease value (degC) when heating demand limit level 3 is imposed"
-    annotation (Dialog(tab="Setpoints adjustment", group="Demand control adjustment"));
+    annotation (Dialog(tab="Setpoints adjustment", group="Demand control adjustment", enable=not ignDemLim));
   parameter Real bouLim=1
     "Threshold of temperature difference for indicating the end of setback or setup mode"
     annotation (Dialog(tab="Advanced"));
@@ -123,52 +120,58 @@ block ModeAndSetPoints
     final quantity="Time")
     "Cool-down time retrieved from optimal cool-down block"
     annotation (Placement(transformation(extent={{-200,180},{-160,220}}),
-      iconTransformation(extent={{-140,80},{-100,120}})));
+      iconTransformation(extent={{-140,90},{-100,130}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput warUpTim(
     final unit="s",
     final quantity="Time") "Warm-up time retrieved from optimal warm-up block"
     annotation (Placement(transformation(extent={{-200,150},{-160,190}}),
-      iconTransformation(extent={{-140,60},{-100,100}})));
+      iconTransformation(extent={{-140,70},{-100,110}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uWin if have_winSen
     "Window status: true=open, false=close"
     annotation (Placement(transformation(extent={{-200,120},{-160,160}}),
-      iconTransformation(extent={{-140,40},{-100,80}})));
+      iconTransformation(extent={{-140,50},{-100,90}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TZon(
     final unit="K",
     displayUnit="degC",
     final quantity="ThermodynamicTemperature")
     "Zone temperature"
     annotation (Placement(transformation(extent={{-200,90},{-160,130}}),
-      iconTransformation(extent={{-140,20},{-100,60}})));
+      iconTransformation(extent={{-140,30},{-100,70}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uOcc
     "Zone occupancy status according to the schedule: true=occupied, false=unoccupied"
     annotation (Placement(transformation(extent={{-200,40},{-160,80}}),
-      iconTransformation(extent={{-140,0},{-100,40}})));
+      iconTransformation(extent={{-140,10},{-100,50}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput tNexOcc(
     final unit="s",
     final quantity="Time") "Time to next occupied period"
     annotation (Placement(transformation(extent={{-200,0},{-160,40}}),
-      iconTransformation(extent={{-140,-20},{-100,20}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput setAdj if cooAdj or sinAdj
+      iconTransformation(extent={{-140,-10},{-100,30}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput setAdj
+    if have_locAdj and not sepAdj
     "Setpoint adjustment value"
     annotation (Placement(transformation(extent={{-200,-60},{-160,-20}}),
-      iconTransformation(extent={{-140,-40},{-100,0}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput heaSetAdj if heaAdj
-    "Heating setpoint adjustment value"
-    annotation (Placement(transformation(extent={{-200,-100},{-160,-60}}),
-      iconTransformation(extent={{-140,-60},{-100,-20}})));
+      iconTransformation(extent={{-140,-30},{-100,10}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput cooSetAdj
+    if have_locAdj and sepAdj
+    "Cooling setpoint adjustment value"
+    annotation (Placement(transformation(extent={{-200,-90},{-160,-50}}),
+      iconTransformation(extent={{-140,-50},{-100,-10}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput heaSetAdj
+    if have_locAdj and sepAdj "Heating setpoint adjustment value"
+    annotation (Placement(transformation(extent={{-200,-120},{-160,-80}}),
+      iconTransformation(extent={{-140,-70},{-100,-30}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uOccSen if have_occSen
     "Occupancy sensor (occupied=true, unoccupied=false)"
-    annotation (Placement(transformation(extent={{-200,-140},{-160,-100}}),
-      iconTransformation(extent={{-140,-80},{-100,-40}})));
+    annotation (Placement(transformation(extent={{-200,-150},{-160,-110}}),
+      iconTransformation(extent={{-140,-90},{-100,-50}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uCooDemLimLev
     "Cooling demand limit level"
     annotation (Placement(transformation(extent={{-200,-180},{-160,-140}}),
-      iconTransformation(extent={{-140,-100},{-100,-60}})));
+      iconTransformation(extent={{-140,-110},{-100,-70}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uHeaDemLimLev
     "Heating demand limit level"
     annotation (Placement(transformation(extent={{-200,-220},{-160,-180}}),
-      iconTransformation(extent={{-140,-120},{-100,-80}})));
+      iconTransformation(extent={{-140,-130},{-100,-90}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yOpeMod "Operation mode"
     annotation (Placement(transformation(extent={{160,0},{200,40}}),
       iconTransformation(extent={{100,60},{140,100}})));
@@ -196,9 +199,8 @@ block ModeAndSetPoints
   Buildings.Controls.OBC.ASHRAE.G36.ThermalZones.Setpoints TZonSet(
     final have_occSen=have_occSen,
     final have_winSen=have_winSen,
-    final cooAdj=cooAdj,
-    final heaAdj=heaAdj,
-    final sinAdj=sinAdj,
+    final have_locAdj=have_locAdj,
+    final sepAdj=sepAdj,
     final ignDemLim=ignDemLim,
     final TZonCooOnMax=TZonCooOnMax,
     final TZonCooOnMin=TZonCooOnMin,
@@ -308,65 +310,67 @@ equation
           40},{-60,40},{-60,-20},{-42,-20}}, color={255,0,255}));
   connect(booToInt.y, opeModSel.uOpeWin) annotation (Line(points={{-18,-20},{24,
           -20},{24,22},{58,22}}, color={255,127,0}));
-  connect(TZonSet.setAdj, setAdj) annotation (Line(points={{98,-121},{-64,-121},
+  connect(TZonSet.setAdj, setAdj) annotation (Line(points={{98,-120},{-64,-120},
           {-64,-40},{-180,-40}}, color={0,0,127}));
-  connect(TZonSet.heaSetAdj, heaSetAdj) annotation (Line(points={{98,-124},{-68,
-          -124},{-68,-80},{-180,-80}}, color={0,0,127}));
-  connect(uOccSen, TZonSet.uOcc) annotation (Line(points={{-180,-120},{-80,-120},
+  connect(TZonSet.heaSetAdj, heaSetAdj) annotation (Line(points={{98,-124},{-80,
+          -124},{-80,-100},{-180,-100}}, color={0,0,127}));
+  connect(uOccSen, TZonSet.uOcc) annotation (Line(points={{-180,-130},{-80,-130},
           {-80,-135},{98,-135}}, color={255,0,255}));
   connect(occSta.y, TZonSet.uOcc) annotation (Line(points={{-98,-180},{-80,-180},
           {-80,-135},{98,-135}}, color={255,0,255}));
   connect(uWin, TZonSet.uWin) annotation (Line(points={{-180,140},{-130,140},{-130,
           40},{-60,40},{-60,-138},{98,-138}}, color={255,0,255}));
+  connect(cooSetAdj, TZonSet.cooSetAdj) annotation (Line(points={{-180,-70},{-72,
+          -70},{-72,-122},{98,-122}}, color={0,0,127}));
 
 annotation (defaultComponentName="modSetPoi",
   Diagram(coordinateSystem(extent={{-160,-220},{160,220}})),
-  Icon(coordinateSystem(extent={{-100,-100},{100,100}}),
+  Icon(coordinateSystem(extent={{-100,-120},{100,120}}),
        graphics={Text(
-        extent={{-120,140},{100,100}},
+        extent={{-120,160},{100,120}},
         textString="%name",
         lineColor={0,0,255}),
       Rectangle(
-        extent={{-100,-100},{100,100}},
+        extent={{-100,-120},{100,120}},
         lineColor={0,0,127},
         fillColor={255,255,255},
         fillPattern=FillPattern.Solid),
         Text(
-          extent={{-98,8},{-58,-6}},
+          extent={{-98,18},{-58,4}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="tNexOcc"),
         Text(
-          extent={{-100,26},{-76,16}},
+          extent={{-100,38},{-72,24}},
           lineColor={255,0,255},
           pattern=LinePattern.Dash,
           textString="uOcc"),
         Text(
-          extent={{-100,46},{-74,34}},
+          extent={{-100,56},{-74,44}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="TZon"),
         Text(
-          visible=cooAdj or sinAdj,
-          extent={{-100,-12},{-66,-24}},
+          visible=have_locAdj and not sepAdj,
+          extent={{-100,-2},{-66,-14}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="setAdj"),
         Text(
-          visible=heaAdj,
-          extent={{-98,-32},{-52,-46}},
+          visible=have_locAdj and sepAdj,
+          extent={{-98,-42},{-52,-56}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="heaSetAdj"),
         Text(
           visible=have_occSen,
-          extent={{-98,-52},{-58,-64}},
+          extent={{-100,-62},{-54,-76}},
           lineColor={255,0,255},
           pattern=LinePattern.Dash,
           textString="uOccSen"),
         Text(
           visible=have_winSen,
-          extent={{-100,66},{-74,54}},
+          extent={{-100,76},{-74,64}},
           lineColor={255,0,255},
           pattern=LinePattern.Dash,
           textString="uWin"),
@@ -386,25 +390,31 @@ annotation (defaultComponentName="modSetPoi",
           pattern=LinePattern.Dash,
           textString="yOpeMod"),
         Text(
-          extent={{-98,104},{-50,90}},
+          extent={{-98,118},{-50,104}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="cooDowTim"),
         Text(
-          extent={{-98,88},{-50,74}},
+          extent={{-98,98},{-50,84}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="warUpTim"),
         Text(
-          extent={{-98,-70},{-30,-84}},
+          extent={{-96,-80},{-28,-94}},
           lineColor={255,127,0},
           pattern=LinePattern.Dash,
           textString="uCooDemLimLev"),
         Text(
-          extent={{-100,-90},{-30,-100}},
+          extent={{-100,-102},{-26,-114}},
           lineColor={255,127,0},
           pattern=LinePattern.Dash,
-          textString="uHeaDemLimLev")}),
+          textString="uHeaDemLimLev"),
+        Text(
+          visible=have_locAdj and sepAdj,
+          extent={{-98,-22},{-52,-36}},
+          lineColor={0,0,127},
+          pattern=LinePattern.Dash,
+          textString="cooSetAdj")}),
 Documentation(info="<html>
 <p>
 Block that outputs the zone setpoint temperature (<code>TZonCooSet</code>,
@@ -436,7 +446,7 @@ This version is for a single zone only to be used in the Single Zone VAV sequenc
 </html>", revisions="<html>
 <ul>
 <li>
-August, 1, by Jianjun Hu:<br/>
+August 1, 2020, by Jianjun Hu:<br/>
 Upgraded according to G36 official release.
 </li>
 </ul>
