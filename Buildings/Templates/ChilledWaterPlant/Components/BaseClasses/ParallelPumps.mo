@@ -44,7 +44,8 @@ model ParallelPumps
     each final m_flow_nominal=m_flow_nominal)
     "Isolation valves"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
-  Modelica.Blocks.Interfaces.RealInput y[nPum](unit="1") annotation (Placement(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput y[nPum](each final unit="1")
+    annotation (Placement(
         transformation(
         extent={{-20,-20},{20,20}},
         rotation=-90,
@@ -52,7 +53,8 @@ model ParallelPumps
         extent={{-20,-20},{20,20}},
         rotation=-90,
         origin={0,120})));
-  Modelica.Blocks.Interfaces.BooleanOutput y_actual[nPum] annotation (Placement(
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y_actual[nPum]
+    annotation (Placement(
         transformation(extent={{100,50},{140,90}}), iconTransformation(extent={{100,70},
             {120,90}})));
   Fluid.Delays.DelayFirstOrder del_b(

@@ -32,7 +32,7 @@ block Guideline36WaterCooled
     dat.getReal(varName=id + ".control.lift.dTLif_min.value")
     "Minimum allowable lift at minimum load for chiller"
     annotation(Dialog(tab="General", group="Chillers configuration",
-      enable=not have_heaPreConSig and not isAirCoo));
+      enable=not have_ctrHeaPre and not isAirCoo));
 
   parameter Boolean have_ctrHeaPre = false
     "Set to true if head pressure control available from chiller controller"
@@ -255,8 +255,8 @@ block Guideline36WaterCooled
     final chiDemRedFac=chiDemRedFac,
     final fanSpeMin=yFanTow_min,
     final LIFT_min=fill(dTLif_min, nChi),
-    final TConWatSup_nominal=TCWSup_nominal,
-    final TConWatRet_nominal=TCWRet_nominal,
+    final TConWatSup_nominal=fill(TCWSup_nominal, nChi),
+    final TConWatRet_nominal=fill(TCWRet_nominal, nChi),
     final watLevMin=watLevMin,
     final watLevMax=watLevMax)
   "CHW plant controller"

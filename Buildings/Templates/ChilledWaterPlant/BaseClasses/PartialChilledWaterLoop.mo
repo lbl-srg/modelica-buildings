@@ -141,7 +141,7 @@ model PartialChilledWaterLoop
   Fluid.FixedResistances.Junction mixByp(
     redeclare package Medium = MediumCHW,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
-    each final m_flow_nominal=mCHWPri_flow_nominal*{1,-1,1},
+    final m_flow_nominal=mCHWPri_flow_nominal*{1,-1,1},
     final dp_nominal={0,0,0})
     "Bypass mixer"
     annotation (Placement(transformation(
@@ -149,7 +149,7 @@ model PartialChilledWaterLoop
   Fluid.FixedResistances.Junction splChiByp(
     redeclare package Medium = MediumCHW,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
-    each final m_flow_nominal=mCHWPri_flow_nominal*{1,-1,-1},
+    final m_flow_nominal=mCHWPri_flow_nominal*{1,-1,-1},
     final dp_nominal={0,0,0})
     "Splitter for waterside economizer bypass"
     annotation (Placement(transformation(

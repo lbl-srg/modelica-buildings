@@ -6,7 +6,7 @@ model WaterCooled
     redeclare replaceable
       Buildings.Templates.ChilledWaterPlant.Components.ChillerGroup.ChillerParallel
       chiGro(final have_dedPum=pumPri.is_dedicated) constrainedby
-      Buildings.Templates.ChilledWaterPlant.Components.ChillerGroup.Interfaces.ChillerGroup(
+      Buildings.Templates.ChilledWaterPlant.Components.ChillerGroup.Interfaces.PartialChillerGroup(
        redeclare final package MediumCW = MediumCW,
        final m1_flow_nominal=mCon_flow_nominal),
     redeclare replaceable

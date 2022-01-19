@@ -105,9 +105,6 @@ partial model PartialPrimaryPumpGroup
     annotation (
       choicesAllMatching=true,
       Placement(transformation(extent={{-88,-90},{-68,-70}})));
-equation
-  connect(port_b, port_b)
-    annotation (Line(points={{100,0},{100,0}}, color={0,127,255}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false),
     graphics={Rectangle(
           extent={{-100,100},{100,-100}},

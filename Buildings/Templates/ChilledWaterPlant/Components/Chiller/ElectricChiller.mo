@@ -18,8 +18,10 @@ model ElectricChiller
     final massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)
                                    "Chiller"
     annotation (Placement(transformation(extent={{-10,-8},{10,12}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold evaSta(each t=1E-2,
-      each h=0.5E-2) "Evaluate pump status" annotation (Placement(
+  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold evaSta(
+    t=1E-2, h=0.5E-2)
+    "Evaluate pump status"
+    annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
