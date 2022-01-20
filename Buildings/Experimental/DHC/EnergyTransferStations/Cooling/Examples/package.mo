@@ -1,6 +1,6 @@
 within Buildings.Experimental.DHC.EnergyTransferStations.Cooling;
 package Examples
-extends Modelica.Icons.ExamplesPackage;
+  extends Modelica.Icons.ExamplesPackage;
 
 annotation (Documentation(revisions="<html>
 </html>", info="<html>
