@@ -137,8 +137,8 @@ block Damper
   Buildings.Controls.OBC.CDL.Continuous.Division VDisSet_flowNor
     "Normalized setpoint for discharge volume flow rate"
     annotation (Placement(transformation(extent={{100,-80},{120,-60}})));
-  Buildings.Controls.OBC.CDL.Continuous.Division VDis_flowNor if
-       not have_pressureIndependentDamper
+  Buildings.Controls.OBC.CDL.Continuous.Division VDis_flowNor
+    if not have_pressureIndependentDamper
     "Normalized discharge volume flow rate"
     annotation (Placement(transformation(extent={{100,-120},{120,-100}})));
   Buildings.Controls.OBC.CDL.Continuous.Gain gai(

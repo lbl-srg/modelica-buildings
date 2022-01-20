@@ -217,7 +217,7 @@ annotation (defaultComponentName="cooBoxOve",
           extent={{-98,-32},{-48,-46}},
           lineColor={255,127,0},
           pattern=LinePattern.Dash,
-          textString="oveFloSet"),
+          textString="oveDamPos"),
         Text(
           extent={{58,-34},{98,-46}},
           lineColor={0,0,127},

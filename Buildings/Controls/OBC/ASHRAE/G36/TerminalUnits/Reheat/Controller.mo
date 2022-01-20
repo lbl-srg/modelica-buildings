@@ -623,7 +623,9 @@ equation
           {180,-180},{220,-180}}, color={255,127,0}));
   connect(ala.yLowTemAla, yLowTemAla) annotation (Line(points={{142,-198},{180,-198},
           {180,-220},{220,-220}}, color={255,127,0}));
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-200},
+
+annotation (defaultComponentName="rehBoxCon",
+  Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-200},
             {100,200}}), graphics={
         Rectangle(
         extent={{-100,-200},{100,200}},

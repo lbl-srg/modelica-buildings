@@ -17,72 +17,80 @@ block Controller
     final min=0,
     final max=1)
     "Minimum supply fan speed"
-    annotation (Dialog(tab="Limits", enable=have_separateAFMS or have_separateDP));
+    annotation (Dialog(tab="Limits",
+      enable=minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.MultizoneAHUMinOADesigns.SeparateDamper_AFMS
+             or minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.MultizoneAHUMinOADesigns.SeparateDamper_DP));
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController minOAConTyp=
     Buildings.Controls.OBC.CDL.Types.SimpleController.PID
     "Type of minimum outdoor air controller"
     annotation (Dialog(tab="Limits", group="With AFMS",
-      enable=have_separateAFMS or have_common));
+      enable=minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.MultizoneAHUMinOADesigns.SeparateDamper_AFMS
+             or minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.MultizoneAHUMinOADesigns.CommonDamper));
   parameter Real kMinOA(
     final unit="1")=1
     "Gain of controller"
     annotation (Dialog(tab="Limits", group="With AFMS",
-      enable=have_separateAFMS or have_common));
+      enable=minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.MultizoneAHUMinOADesigns.SeparateDamper_AFMS
+             or minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.MultizoneAHUMinOADesigns.CommonDamper));
   parameter Real TiMinOA(
     final unit="s",
     final quantity="Time")=0.5
     "Time constant of integrator block"
     annotation (Dialog(tab="Limits", group="With AFMS",
-      enable=(have_separateAFMS or have_common)
+      enable=(minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.MultizoneAHUMinOADesigns.SeparateDamper_AFMS
+              or minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.MultizoneAHUMinOADesigns.CommonDamper)
         and (minOAConTyp == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
-          or minOAConTyp == Buildings.Controls.OBC.CDL.Types.SimpleController.PID)));
+             or minOAConTyp == Buildings.Controls.OBC.CDL.Types.SimpleController.PID)));
   parameter Real TdMinOA(
     final unit="s",
     final quantity="Time")=0.1
     "Time constant of derivative block"
     annotation (Dialog(tab="Limits", group="With AFMS",
-      enable=(have_separateAFMS or have_common)
+      enable=(minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.MultizoneAHUMinOADesigns.SeparateDamper_AFMS
+              or minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.MultizoneAHUMinOADesigns.CommonDamper)
         and (minOAConTyp == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
-          or minOAConTyp == Buildings.Controls.OBC.CDL.Types.SimpleController.PID)));
+             or minOAConTyp == Buildings.Controls.OBC.CDL.Types.SimpleController.PID)));
   parameter Real dpDesOutDam_min(
     final unit="Pa",
     final quantity="PressureDifference")
     "Design pressure difference across the minimum outdoor air damper"
     annotation (Dialog(tab="Limits", group="With DP",
-      enable=have_separateDP));
+      enable=minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.MultizoneAHUMinOADesigns.SeparateDamper_DP));
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController dpConTyp=
     Buildings.Controls.OBC.CDL.Types.SimpleController.PID
     "Type of differential pressure setpoint controller"
     annotation (Dialog(tab="Limits", group="With DP",
-      enable=have_separateDP));
+      enable=minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.MultizoneAHUMinOADesigns.SeparateDamper_DP));
   parameter Real kDp(
     final unit="1")=1
     "Gain of controller"
     annotation (Dialog(tab="Limits", group="With DP",
-      enable=have_separateDP));
+      enable=minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.MultizoneAHUMinOADesigns.SeparateDamper_DP));
   parameter Real TiDp(
     final unit="s",
     final quantity="Time")=0.5
     "Time constant of integrator block"
     annotation (Dialog(tab="Limits", group="With DP",
-      enable=(have_separateAFMS or have_common)
+      enable=(minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.MultizoneAHUMinOADesigns.SeparateDamper_AFMS
+              or minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.MultizoneAHUMinOADesigns.CommonDamper)
         and (dpConTyp == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
-          or dpConTyp == Buildings.Controls.OBC.CDL.Types.SimpleController.PID)));
+             or dpConTyp == Buildings.Controls.OBC.CDL.Types.SimpleController.PID)));
   parameter Real TdDp(
     final unit="s",
     final quantity="Time")=0.1
     "Time constant of derivative block"
     annotation (Dialog(tab="Limits", group="With DP",
-      enable=(have_separateAFMS or have_common)
+      enable=(minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.MultizoneAHUMinOADesigns.SeparateDamper_AFMS
+              or minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.MultizoneAHUMinOADesigns.CommonDamper)
         and (dpConTyp == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
-          or dpConTyp == Buildings.Controls.OBC.CDL.Types.SimpleController.PID)));
+             or dpConTyp == Buildings.Controls.OBC.CDL.Types.SimpleController.PID)));
   parameter Real uMinRetDam(
     final unit="1",
     final min=0,
     final max=1)=0.5
     "Loop signal value to start decreasing the maximum return air damper position"
     annotation (Dialog(tab="Limits", group="Common",
-      enable=have_common));
+      enable=minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.MultizoneAHUMinOADesigns.CommonDamper));
 
   // Enable
   parameter Boolean use_enthalpy=true
@@ -139,12 +147,12 @@ block Controller
     final unit="1")=1
     "Physically fixed maximum position of the minimum outdoor air damper"
     annotation (Dialog(tab="Commissioning", group="Limits",
-      enable=have_separateAFMS));
+      enable=minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.MultizoneAHUMinOADesigns.SeparateDamper_AFMS));
   parameter Real minOutDamPhyPosMin(
     final unit="1")=0
     "Physically fixed minimum position of the minimum outdoor air damper"
     annotation (Dialog(tab="Commissioning", group="Limits",
-      enable=have_separateAFMS));
+      enable=minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.MultizoneAHUMinOADesigns.SeparateDamper_AFMS));
   parameter Real uHeaMax(
     final unit="1")=-0.25
     "Lower limit of controller input when outdoor damper opens (see diagram)"
@@ -157,12 +165,14 @@ block Controller
     final unit="1")=(uHeaMax + uCooMin)/2
     "Maximum loop signal for the OA damper to be fully open"
     annotation (Dialog(tab="Commissioning", group="Modulation",
-      enable=have_reliefs));
+      enable=buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefDamper
+             or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefFan));
   parameter Real uRetDamMin(
     final unit="1")=(uHeaMax + uCooMin)/2
     "Minimum loop signal for the RA damper to be fully open"
     annotation (Dialog(tab="Commissioning", group="Modulation",
-      enable=have_reliefs));
+      enable=buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefDamper
+             or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefFan));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput VOutMinSet_flow_normalized(
     final unit="1")
@@ -170,23 +180,30 @@ block Controller
     annotation (Placement(transformation(extent={{-280,210},{-240,250}}),
         iconTransformation(extent={{-140,170},{-100,210}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput VOut_flow_normalized(
-    final unit="1") if have_separateAFMS or have_common
+    final unit="1")
+    if (minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.MultizoneAHUMinOADesigns.SeparateDamper_AFMS
+       or minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.MultizoneAHUMinOADesigns.CommonDamper)
     "Measured outdoor volumetric airflow rate, normalized by design minimum outdoor airflow rate"
     annotation (Placement(transformation(extent={{-280,170},{-240,210}}),
         iconTransformation(extent={{-140,140},{-100,180}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uOutDamPos(
-    final unit="1") if have_separateAFMS or have_separateDP
+    final unit="1")
+    if (minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.MultizoneAHUMinOADesigns.SeparateDamper_AFMS
+        or minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.MultizoneAHUMinOADesigns.SeparateDamper_DP)
     "Economizer outdoor air damper position"
     annotation (Placement(transformation(extent={{-280,130},{-240,170}}),
         iconTransformation(extent={{-140,110},{-100,150}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uSupFanSpe(
-    final unit="1") if have_separateAFMS or have_separateDP "Supply fan speed"
+    final unit="1")
+    if (minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.MultizoneAHUMinOADesigns.SeparateDamper_AFMS
+        or minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.MultizoneAHUMinOADesigns.SeparateDamper_DP)
+    "Supply fan speed"
     annotation (Placement(transformation(extent={{-280,100},{-240,140}}),
         iconTransformation(extent={{-140,80},{-100,120}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput dpMinOutDam(
     final unit="Pa",
     final quantity="PressureDifference")
-    if have_separateDP
+    if minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.MultizoneAHUMinOADesigns.SeparateDamper_DP
     "Measured pressure difference across the minimum outdoor air damper"
     annotation (Placement(transformation(extent={{-280,60},{-240,100}}),
         iconTransformation(extent={{-140,50},{-100,90}})));
@@ -241,7 +258,8 @@ block Controller
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yMinOutDamPos(
     final min=0,
     final max=1,
-    final unit="1") if not have_common
+    final unit="1")
+    if not minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.MultizoneAHUMinOADesigns.CommonDamper
     "Outdoor air damper position to ensure minimum outdoor air flow"
     annotation (Placement(transformation(extent={{260,160},{300,200}}),
         iconTransformation(extent={{100,110},{140,150}})));
@@ -255,7 +273,10 @@ block Controller
     final min=0,
     final max=1,
     final unit="1")
-    if have_returns and not have_directControl "Relief air damper position"
+    if ((buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanAir
+        or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanDp)
+      and (not buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanDp))
+    "Relief air damper position"
     annotation (Placement(transformation(extent={{260,0},{300,40}}),
         iconTransformation(extent={{100,-80},{140,-40}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yOutDamPos(
@@ -278,7 +299,7 @@ block Controller
     final outDamPhyPosMin=outDamPhyPosMin,
     final minOutDamPhyPosMax=minOutDamPhyPosMax,
     final minOutDamPhyPosMin=minOutDamPhyPosMin)
-    if have_separateAFMS
+    if minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.MultizoneAHUMinOADesigns.SeparateDamper_AFMS
     "Damper position limits for units with separated minimum outdoor air damper and airflow measurement"
     annotation (Placement(transformation(extent={{-140,130},{-120,150}})));
   Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.Economizers.Subsequences.Limits.SeparateWithDP
@@ -293,7 +314,7 @@ block Controller
     final retDamPhyPosMin=retDamPhyPosMin,
     final outDamPhyPosMax=outDamPhyPosMax,
     final outDamPhyPosMin=outDamPhyPosMin)
-    if have_separateDP
+    if minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.MultizoneAHUMinOADesigns.SeparateDamper_DP
     "Damper position limits for units with separated minimum outdoor air damper and differential pressure measurement"
     annotation (Placement(transformation(extent={{-140,70},{-120,90}})));
   Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.Economizers.Subsequences.Limits.Common
@@ -307,7 +328,8 @@ block Controller
     final retDamPhyPosMin=retDamPhyPosMin,
     final outDamPhyPosMax=outDamPhyPosMax,
     final outDamPhyPosMin=outDamPhyPosMin)
-    if have_common "Damper position limits for units with common damper"
+    if minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.MultizoneAHUMinOADesigns.CommonDamper
+    "Damper position limits for units with common damper"
     annotation (Placement(transformation(extent={{-140,10},{-120,30}})));
   Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.Economizers.Subsequences.Enable enaDis(
     final use_enthalpy=use_enthalpy,
@@ -318,11 +340,12 @@ block Controller
     "Enable or disable economizer"
     annotation (Placement(transformation(extent={{20,-94},{40,-66}})));
   Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.Economizers.Subsequences.Modulations.ReturnFan modRet(
-    final have_directControl=have_directControl,
+    final have_directControl=buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanDp,
     final uMin=uHeaMax,
     final uMax=uCooMin,
     final samplePeriod=samplePeriod)
-    if have_returns
+    if (buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanAir
+        or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanDp)
     "Modulate economizer dampers position for buildings with return fan controlling pressure"
     annotation (Placement(transformation(extent={{100,20},{120,40}})));
   Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.Economizers.Subsequences.Modulations.Reliefs modRel(
@@ -331,36 +354,20 @@ block Controller
     final uOutDamMax=uOutDamMax,
     final uRetDamMin=uRetDamMin,
     final samplePeriod=samplePeriod)
-    if have_reliefs
+    if (buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefDamper
+        or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefFan)
     "Modulate economizer dampers position for buildings with relief damper or fan controlling pressure"
     annotation (Placement(transformation(extent={{100,-40},{120,-20}})));
 
 protected
-  parameter Boolean have_separateAFMS=
-    minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.MultizoneAHUMinOADesigns.SeparateDamper_AFMS
-    "True: have separate minimum outdoor damper with airflow measurement";
-  parameter Boolean have_separateDP=
-    minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.MultizoneAHUMinOADesigns.SeparateDamper_DP
-    "True: have separate minimum outdoor damper with differential pressure measurement";
-  parameter Boolean have_common=
-    minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.MultizoneAHUMinOADesigns.CommonDamper
-    "True: have common damper";
-  parameter Boolean have_returns=
-    buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanAir or
-    buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanDp
-    "True: have return fan to control building pressure";
-  parameter Boolean have_reliefs=
-    buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefDamper or
-    buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefFan
-    "True: have relief damper or fan to control building pressure";
-  parameter Boolean have_directControl=
-    buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanDp
-    "True: the building have direct pressure control";
   Buildings.Controls.OBC.CDL.Continuous.MovingMean movAve(
-    final delta=aveTimRan) if have_separateAFMS or have_common
+    final delta=aveTimRan)
+    if (minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.MultizoneAHUMinOADesigns.SeparateDamper_AFMS
+        or minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.MultizoneAHUMinOADesigns.CommonDamper)
     "Moving average of outdoor air flow measurement, normalized by design minimum outdoor airflow rate"
     annotation (Placement(transformation(extent={{-220,180},{-200,200}})));
-  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea if have_separateDP
+  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea
+    if minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.MultizoneAHUMinOADesigns.SeparateDamper_DP
     "Convert boolean to real"
     annotation (Placement(transformation(extent={{20,90},{40,110}})));
 
@@ -397,72 +404,67 @@ equation
     annotation (Line(points={{-260,230},{-160,230},{-160,28},{-142,28}}, color=
           {0,0,127}));
   connect(TOut, enaDis.TOut) annotation (Line(points={{-260,-30},{-128,-30},{
-          -128,-67},{18,-67}},
-                          color={0,0,127}));
+          -128,-67},{18,-67}}, color={0,0,127}));
   connect(TOutCut, enaDis.TOutCut) annotation (Line(points={{-260,-60},{-134,
-          -60},{-134,-69},{18,-69}},
-                               color={0,0,127}));
+          -60},{-134,-69},{18,-69}}, color={0,0,127}));
   connect(hOut, enaDis.hOut) annotation (Line(points={{-260,-100},{-134,-100},{
-          -134,-72},{18,-72}},
-                         color={0,0,127}));
+          -134,-72},{18,-72}}, color={0,0,127}));
   connect(hOutCut, enaDis.hOutCut) annotation (Line(points={{-260,-130},{-128,
-          -130},{-128,-74},{18,-74}},
-                                    color={0,0,127}));
+          -130},{-128,-74},{18,-74}}, color={0,0,127}));
   connect(uSupFan, enaDis.uSupFan) annotation (Line(points={{-260,-170},{-196,
-          -170},{-196,-77},{18,-77}},
-                                    color={255,0,255}));
+          -170},{-196,-77},{18,-77}}, color={255,0,255}));
   connect(uFreProSta, enaDis.uFreProSta) annotation (Line(points={{-260,-240},{
           -184,-240},{-184,-79},{18,-79}},  color={255,127,0}));
   connect(damLim.yOutDamPosMin, enaDis.uOutDamPosMin) annotation (Line(points={{-118,28},
-          {-80,28},{-80,-84},{18,-84}},              color={0,0,127}));
+          {-80,28},{-80,-84},{18,-84}}, color={0,0,127}));
   connect(damLim.yOutDamPosMax, enaDis.uOutDamPosMax) annotation (Line(points={{-118,24},
-          {-86,24},{-86,-82},{18,-82}},              color={0,0,127}));
+          {-86,24},{-86,-82},{18,-82}}, color={0,0,127}));
   connect(damLim.yRetDamPosMin, enaDis.uRetDamPosMin) annotation (Line(points={{-118,20},
-          {-92,20},{-92,-93},{18,-93}},              color={0,0,127}));
+          {-92,20},{-92,-93},{18,-93}}, color={0,0,127}));
   connect(damLim.yRetDamPosMax, enaDis.uRetDamPosMax) annotation (Line(points={{-118,16},
-          {-98,16},{-98,-91},{18,-91}},              color={0,0,127}));
+          {-98,16},{-98,-91},{18,-91}}, color={0,0,127}));
   connect(damLim.yRetDamPhyPosMax, enaDis.uRetDamPhyPosMax) annotation (Line(
         points={{-118,12},{-104,12},{-104,-89},{18,-89}},  color={0,0,127}));
   connect(sepDp.yOutDamPosMin, enaDis.uOutDamPosMin) annotation (Line(points={{-118,85},
-          {-40,85},{-40,-84},{18,-84}},               color={0,0,127}));
+          {-40,85},{-40,-84},{18,-84}}, color={0,0,127}));
   connect(sepDp.yOutDamPosMax, enaDis.uOutDamPosMax) annotation (Line(points={{-118,83},
-          {-46,83},{-46,-82},{18,-82}},               color={0,0,127}));
+          {-46,83},{-46,-82},{18,-82}}, color={0,0,127}));
   connect(sepDp.yRetDamPosMin, enaDis.uRetDamPosMin) annotation (Line(points={{-118,77},
-          {-52,77},{-52,-93},{18,-93}},               color={0,0,127}));
+          {-52,77},{-52,-93},{18,-93}}, color={0,0,127}));
   connect(sepDp.yRetDamPosMax, enaDis.uRetDamPosMax) annotation (Line(points={{-118,75},
-          {-58,75},{-58,-91},{18,-91}},               color={0,0,127}));
+          {-58,75},{-58,-91},{18,-91}}, color={0,0,127}));
   connect(sepDp.yRetDamPhyPosMax, enaDis.uRetDamPhyPosMax) annotation (Line(
-        points={{-118,71},{-64,71},{-64,-89},{18,-89}},      color={0,0,127}));
+        points={{-118,71},{-64,71},{-64,-89},{18,-89}}, color={0,0,127}));
   connect(sepAFMS.yOutDamPosMin, enaDis.uOutDamPosMin) annotation (Line(points={{-118,
-          145},{0,145},{0,-84},{18,-84}},             color={0,0,127}));
+          145},{0,145},{0,-84},{18,-84}}, color={0,0,127}));
   connect(sepAFMS.yOutDamPosMax, enaDis.uOutDamPosMax) annotation (Line(points={{-118,
-          143},{-6,143},{-6,-82},{18,-82}},           color={0,0,127}));
+          143},{-6,143},{-6,-82},{18,-82}}, color={0,0,127}));
   connect(sepAFMS.yRetDamPosMin, enaDis.uRetDamPosMin) annotation (Line(points={{-118,
-          137},{-12,137},{-12,-93},{18,-93}},         color={0,0,127}));
+          137},{-12,137},{-12,-93},{18,-93}}, color={0,0,127}));
   connect(sepAFMS.yRetDamPosMax, enaDis.uRetDamPosMax) annotation (Line(points={{-118,
-          135},{-18,135},{-18,-91},{18,-91}},         color={0,0,127}));
+          135},{-18,135},{-18,-91},{18,-91}}, color={0,0,127}));
   connect(sepAFMS.yRetDamPhyPosMax, enaDis.uRetDamPhyPosMax) annotation (Line(
         points={{-118,131},{-24,131},{-24,-89},{18,-89}},  color={0,0,127}));
   connect(uTSup, modRet.uTSup) annotation (Line(points={{-260,40},{40,40},{40,36},
-          {98,36}},           color={0,0,127}));
+          {98,36}}, color={0,0,127}));
   connect(uTSup, modRel.uTSup) annotation (Line(points={{-260,40},{40,40},{40,-30},
-          {98,-30}},        color={0,0,127}));
+          {98,-30}}, color={0,0,127}));
   connect(damLim.yOutDamPosMin, modRel.uOutDamPosMin) annotation (Line(points={{-118,28},
-          {-80,28},{-80,-39},{98,-39}},           color={0,0,127}));
+          {-80,28},{-80,-39},{98,-39}}, color={0,0,127}));
   connect(sepDp.yOutDamPosMin, modRel.uOutDamPosMin) annotation (Line(points={{-118,85},
-          {-40,85},{-40,-39},{98,-39}},            color={0,0,127}));
+          {-40,85},{-40,-39},{98,-39}}, color={0,0,127}));
   connect(sepAFMS.yOutDamPosMin, modRel.uOutDamPosMin) annotation (Line(points={{-118,
           145},{0,145},{0,-39},{98,-39}},          color={0,0,127}));
   connect(enaDis.yOutDamPosMax, modRel.uOutDamPosMax) annotation (Line(points={{42,-70},
-          {60,-70},{60,-35},{98,-35}},     color={0,0,127}));
+          {60,-70},{60,-35},{98,-35}}, color={0,0,127}));
   connect(enaDis.yRetDamPosMax, modRel.uRetDamPosMax) annotation (Line(points={{42,-80},
-          {66,-80},{66,-21},{98,-21}},       color={0,0,127}));
+          {66,-80},{66,-21},{98,-21}}, color={0,0,127}));
   connect(enaDis.yRetDamPosMin, modRel.uRetDamPosMin) annotation (Line(points={{42,-90},
-          {72,-90},{72,-25},{98,-25}},         color={0,0,127}));
+          {72,-90},{72,-25},{98,-25}}, color={0,0,127}));
   connect(enaDis.yRetDamPosMax, modRet.uRetDamPosMax) annotation (Line(points={{42,-80},
-          {66,-80},{66,30},{98,30}},           color={0,0,127}));
+          {66,-80},{66,30},{98,30}}, color={0,0,127}));
   connect(enaDis.yRetDamPosMin, modRet.uRetDamPosMin) annotation (Line(points={{42,-90},
-          {72,-90},{72,24},{98,24}},             color={0,0,127}));
+          {72,-90},{72,24},{98,24}},  color={0,0,127}));
   connect(VOut_flow_normalized, movAve.u)
     annotation (Line(points={{-260,190},{-222,190}}, color={0,0,127}));
   connect(movAve.y, sepAFMS.VOut_flow_normalized) annotation (Line(points={{-198,
@@ -485,13 +487,13 @@ equation
           {80,148},{80,180},{280,180}}, color={0,0,127}));
   connect(booToRea.y, yMinOutDamPos) annotation (Line(points={{42,100},{80,100},
           {80,180},{280,180}}, color={0,0,127}));
-
   connect(damLim.yOutDamPosMin, yOutDamPosMin) annotation (Line(points={{-118,28},
           {-80,28},{-80,240},{280,240}}, color={0,0,127}));
   connect(sepDp.yOutDamPosMin, yOutDamPosMin) annotation (Line(points={{-118,85},
           {-80,85},{-80,240},{280,240}}, color={0,0,127}));
   connect(sepAFMS.yOutDamPosMin, yOutDamPosMin) annotation (Line(points={{-118,145},
           {-80,145},{-80,240},{280,240}}, color={0,0,127}));
+
 annotation (defaultComponentName="ecoCon",
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-200},{100,200}}),
     graphics={
@@ -514,13 +516,15 @@ annotation (defaultComponentName="ecoCon",
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="VOut_flow_normalized",
-          visible=have_separateAFMS or have_common),
+          visible=(minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.MultizoneAHUMinOADesigns.SeparateDamper_AFMS
+                   or minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.MultizoneAHUMinOADesigns.CommonDamper)),
         Text(
           extent={{-96,140},{-44,124}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="uOutDamPos",
-          visible=have_separateAFMS or have_separateDP),
+          visible=(minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.MultizoneAHUMinOADesigns.SeparateDamper_AFMS
+                   or minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.MultizoneAHUMinOADesigns.SeparateDamper_DP)),
         Text(
           extent={{-98,108},{-48,94}},
           lineColor={0,0,127},
@@ -531,7 +535,7 @@ annotation (defaultComponentName="ecoCon",
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="dpMinOutDam",
-          visible=have_separateDP),
+          visible=minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.MultizoneAHUMinOADesigns.SeparateDamper_DP),
         Text(
           extent={{-98,48},{-66,32}},
           lineColor={0,0,127},
@@ -578,7 +582,7 @@ annotation (defaultComponentName="ecoCon",
           extent={{40,140},{96,124}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
-          visible=not have_common,
+          visible=not minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.MultizoneAHUMinOADesigns.CommonDamper,
           textString="yMinOutDamPos"),
         Text(
           extent={{40,70},{96,54}},
@@ -589,7 +593,9 @@ annotation (defaultComponentName="ecoCon",
           extent={{42,-50},{98,-66}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
-          visible=have_returns and not have_directControl,
+          visible=(buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanAir
+                   or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanDp)
+              and (not buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanDp),
           textString="yRelDamPos"),
         Text(
           extent={{42,-110},{98,-126}},
@@ -600,7 +606,7 @@ annotation (defaultComponentName="ecoCon",
           extent={{40,190},{96,174}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
-          visible=not have_common,
+          visible=not minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.MultizoneAHUMinOADesigns.CommonDamper,
           textString="yOutDamPosMin")}),
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-240,-260},{260,260}}),
     graphics={

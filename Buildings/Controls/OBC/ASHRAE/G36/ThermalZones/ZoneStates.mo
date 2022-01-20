@@ -16,7 +16,7 @@ block ZoneStates "Select the zone state"
         iconTransformation(extent={{-140,-60},{-100,-20}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yZonSta "Zone state"
     annotation (Placement(transformation(extent={{140,-20},{180,20}}),
-        iconTransformation(extent={{100,-10},{120,10}})));
+        iconTransformation(extent={{100,-20},{140,20}})));
 
 protected
   Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger booToIntHea(

@@ -3,7 +3,7 @@ package VAV "Sequences for single zone VAV AHU control"
 
 annotation (preferredView="info", Documentation(info="<html>
 <p>
-This package contains control sequences from ASHRAE Guideline 36, Part 5.P for
+This package contains control sequences from ASHRAE Guideline 36, Section 5.18 for
 single zone VAV air handling unit control.
 </p>
 </html>"),
