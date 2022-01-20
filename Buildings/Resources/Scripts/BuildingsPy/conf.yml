@@ -124,6 +124,9 @@
     comment: Failed due to structural parameter, see https://github.com/lbl-srg/modelica-buildings/issues/2816
     translate: false
 - model_name: Buildings.Experimental.DHC.EnergyTransferStations.Combined.Examples.ChillerOnly
+  openmodelica:
+    comment: omc returned non-zero exit status 1.
+    simulate: false
   optimica:
     comment: Failed due to structural parameter, see https://github.com/lbl-srg/modelica-buildings/issues/2816
     translate: false
@@ -391,6 +394,10 @@
 - model_name: Buildings.ThermalZones.Detailed.Validation.BESTEST.Cases6xx.Case650FF
   openmodelica:
     comment: '''omc'' caused ''Simulation terminated at time 2.59788e+07''.'
+    simulate: false
+- model_name: Buildings.ThermalZones.Detailed.Validation.BESTEST.Cases9xx.Case900
+  openmodelica:
+    comment: '''omc'' caused ''Simulation terminated at time 7.50506e+06''.'
     simulate: false
 - model_name: Buildings.ThermalZones.Detailed.Validation.BESTEST.Cases9xx.Case900FF
   openmodelica:
