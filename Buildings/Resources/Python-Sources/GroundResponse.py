@@ -47,7 +47,9 @@ def doStep(dblInp, state):
         p_Int = ident_set(101343.01, 10)
         x_Int = ident_set(10.5, 10)
         T_Int = ident_set(15.06+273.15, 10)
-        ToModelica = T_toModelica + p_Int + x_Int + T_Int
+        TOUGH_successed = [1]
+        finalTime = [tim]
+        ToModelica = T_toModelica + p_Int + x_Int + T_Int + TOUGH_successed + finalTime
     else:
         # Use the python object
         tLast = state['tLast']
@@ -76,6 +78,8 @@ def doStep(dblInp, state):
             # `writeincon` to generate input files for TOUGH simulation.
             if not os.path.exists('GENER'):
                 # create initial 'GENER' file
+                for i in range(31):
+                    Q_toTough[i] = 100
                 initialize_gener(toughLayers, Q_toTough, 'GENER')
                 # update existing 'INFILE'
                 update_infile(tLast, tim, 'INFILE', 'newINFILE')
@@ -114,8 +118,14 @@ def doStep(dblInp, state):
             # Output to Modelica simulation
             T_toModelica = mesh_to_mesh(toughLayers, modelicaLayers, T_tough, 'To2Mo')
 
+            # Final time check
+            if (abs(tim - data['finalTime']) > 5):
+                TOUGH_successed = [0]
+            else:
+                TOUGH_successed = [1]
+
             # Outputs to Modelica
-            ToModelica = T_toModelica + data['p_Int'] + data['x_Int'] + data['T_Int']
+            ToModelica = T_toModelica + data['p_Int'] + data['x_Int'] + data['T_Int'] + TOUGH_successed + [data['finalTime']]
 
             # Update state
             state = {'tLast': tim, 'Q': Q, 'T_tough': T_tough}
@@ -173,7 +183,7 @@ def initialize_gener(toughLayesr, Q, fileName):
     with open(fileName, 'w') as f:
         f.write("GENER" + os.linesep)
         for i in range(0, len(Q)):
-            f.write("%s  1sou 1" % toughLayesr[i]['layer'] + "                         HEAT %10.3e" % Q[i] + os.linesep)
+            f.write("%s 1sou 1" % toughLayesr[i]['layer'] + "                         HEAT %10.3e" % Q[i] + os.linesep)
         f.write("+++" + os.linesep)
         f.write("         1         2         3         4         5         6         7         8" + os.linesep)
         f.write("         9        10        11        12        13        14        15        16" + os.linesep)
@@ -209,8 +219,13 @@ def find_layer_depth(fileName):
     z = []
     dz.append(1)
     z.append(-1.5)
+    for line in fin:
+        count += 1
+        if count == 2:
+            strSet = line.split()
+            break
     layers.append(
-        {'layer': 'A4m',
+        {'layer': strSet[0],
          'z': z[0],
          'dz': dz[0]
         }
@@ -336,7 +351,7 @@ def update_writeincon(infile, preTim, curTim, boreholeTem, heatFlux, T_out):
             fout.write(tempStr.strip() + os.linesep)
         # assign heat flux to each segment
         elif (count >= 42 and count <= 72):
-            tempStr = '% 10.3f' % heatFlux[count-44]
+            tempStr = '% 10.3f' % heatFlux[count-42]
             fout.write(tempStr.strip() + os.linesep)
         elif (count == 74):
             tempStr = '% 10.3f' % (T_out - 273.15)
@@ -367,10 +382,33 @@ def extract_data(outFile):
             p_Int.append(float(temp[-3].strip()))
             x_Int.append(float(temp[-2].strip()))
             T_Int.append(float(temp[-1].strip())+273.15)
+        if count == 43:
+            temp = line.split()
+            finalTime = float(temp[-1].strip())
     data = {
         'T_Bor': T_Bor,
         'p_Int': p_Int,
         'x_Int': x_Int,
-        'T_Int': T_Int
+        'T_Int': T_Int,
+        'finalTime': finalTime
     }
     return data
+
+# if __name__=="__main__":
+
+#     # Find the depth of each layer
+#     meshFile = os.path.join('ToughFiles', 'MESH')
+#     toughLayers = find_layer_depth(meshFile)
+
+#     add_grid_boundary(toughLayers)
+
+#     # Find Modelica layers
+#     modelicaLayers = modelica_mesh()
+#     Q = [-444.61816,239.92366,-222.92314,25.714117,-96.02927,-47.98254,-202.431,-71.61211,-93.86344,303.3468]
+
+#     Q_toTough = mesh_to_mesh(toughLayers, modelicaLayers, Q, 'Q_Mo2To')
+#     print(toughLayers)
+#     print(Q_toTough)
+#     T_out=273.15+5
+#     T_tough=[1,2,3,4,5,6,7,8,9,10,1,2,3,4,5,6,7,8,9,10,1,2,3,4,5,6,7,8,9,10,10]
+#     update_writeincon('writeincon.inp', 10, 100, T_tough, Q_toTough, T_out)

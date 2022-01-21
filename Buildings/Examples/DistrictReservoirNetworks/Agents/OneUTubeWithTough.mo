@@ -18,7 +18,7 @@ model OneUTubeWithTough
           borCon=Buildings.Fluid.Geothermal.Borefields.Types.BoreholeConfiguration.SingleUTube,
           cooBor={{6*mod((i - 1), 20),6*floor((i - 1)/
           20)} for i in 1:400})),
-    toughRes(samplePeriod=600, flag=1));
+    toughRes(samplePeriod=900, flag=1));
 
 //   parameter Modelica.SIunits.Length xBorFie = 120 "Borefield length"
 //     annotation(Dialog(tab="Borefield"));
@@ -35,6 +35,7 @@ model OneUTubeWithTough
 //   final parameter Integer nBorHol = nXBorHol*nYBorHol "Number of boreholes"
 //     annotation(Dialog(tab="Borefield"));
 
+  Boolean toughSuccess;
   Modelica.Blocks.Interfaces.RealOutput Q_flow(final unit="W") "Heat extracted from soil"
     annotation (Placement(transformation(extent={{100,70},{120,90}}),
         iconTransformation(extent={{100,70},{120,90}})));
@@ -61,7 +62,19 @@ protected
   Modelica.Blocks.Math.Gain gaiQ_flow(k=borFieDat.conDat.nBor)
     "Gain to multiply the heat extracted by one borehole by the number of boreholes"
     annotation (Placement(transformation(extent={{20,70},{40,90}})));
+
+initial equation
+   pre(toughSuccess)=true;
+
 equation
+  if (toughRes.yCheTou > 0.5) then
+    toughSuccess=true;
+  else
+    toughSuccess=false;
+  end if;
+   if (time >= 5) then
+     assert(toughSuccess, "TOUGH simulation did not finish successfully!", AssertionLevel.error);
+   end if;
   connect(QBorHol.Q_flow, QTotSeg_flow.u) annotation (Line(points={{-10,-10},{-60,
           -10},{-60,80},{-42,80}}, color={0,0,127}));
   connect(QTotSeg_flow.y, gaiQ_flow.u)
@@ -70,11 +83,11 @@ equation
     annotation (Line(points={{41,80},{110,80}}, color={0,0,127}));
   connect(QTotSeg_flow.y, Q_flow_single) annotation (Line(points={{-19,80},{0,
           80},{0,100},{110,100}}, color={0,0,127}));
-  connect(toughRes.pInt, pInt) annotation (Line(points={{29,52},{36,52},{36,-60},
+  connect(toughRes.pInt, pInt) annotation (Line(points={{29,54},{36,54},{36,-60},
           {110,-60}}, color={0,0,127}));
-  connect(toughRes.xInt, xInt) annotation (Line(points={{29,48},{36,48},{36,-72},
+  connect(toughRes.xInt, xInt) annotation (Line(points={{29,50},{36,50},{36,-72},
           {110,-72}}, color={0,0,127}));
-  connect(toughRes.TInt, TInt) annotation (Line(points={{29,44},{36,44},{36,-90},
+  connect(toughRes.TInt, TInt) annotation (Line(points={{29,46},{36,46},{36,-90},
           {110,-90}}, color={0,0,127}));
   annotation (
   defaultComponentName="borFie",
