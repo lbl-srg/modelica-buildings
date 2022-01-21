@@ -486,14 +486,14 @@ equation
   connect(ctr.yVal, bus.coiHea.y);
 
   connect(bus.VAirDis_flow, zonOutAirSet.VDis_flow);
-  connect(bus.TAirDis,ctr. TDis);
-  connect(bus.VAirDis_flow,ctr. VDis_flow);
-  connect(bus.damVAV.y_actual,ctr. yDam_actual);
+  connect(bus.TAirDis, ctr.TDis);
+  connect(bus.VAirDis_flow, ctr.VDis_flow);
+  connect(bus.damVAV.y_actual, ctr.yDam_actual);
 
-  connect(bus.ppmCO2,ctr. ppmCO2);
-  connect(bus.uWin,ctr. uWin);
-  connect(bus.TAirZon,ctr. TZon);
-  connect(FIXME.y,ctr. nOcc);
+  connect(bus.ppmCO2, ctr.ppmCO2);
+  connect(bus.uWin, ctr.uWin);
+  connect(bus.TAirZon, ctr.TZon);
+  connect(FIXME.y, ctr.nOcc);
 
   connect(bus.uOcc, TZonSet.uOccSen);
   connect(bus.uWin, TZonSet.uWinSta);
@@ -508,10 +508,10 @@ equation
   connect(FIXME3.y, zonSta.cooDowTim);
   connect(FIXME3.y, zonSta.warUpTim);
 
-  connect(bus.TAirSupSet,ctr. TSupAHU);
-  connect(bus.yOpeMod,ctr. uOpeMod);
-  connect(TZonSet.TZonCooSet,ctr. TZonCooSet);
-  connect(TZonSet.TZonHeaSet,ctr. TZonHeaSet);
+  connect(bus.TAirSupSet, ctr.TSupAHU);
+  connect(bus.yOpeMod, ctr.uOpeMod);
+  connect(TZonSet.TZonCooSet, ctr.TZonCooSet);
+  connect(TZonSet.TZonHeaSet, ctr.TZonHeaSet);
   connect(bus.yOpeMod, TZonSet.uOpeMod);
   connect(bus.TZonCooOccSet, TZonSet.TZonCooSetOcc);
   connect(bus.TZonCooUnoSet, TZonSet.TZonCooSetUno);
