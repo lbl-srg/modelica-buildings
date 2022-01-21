@@ -22,12 +22,10 @@ model StaticReset
     motorEfficiency(eta = {per2.peak.eta}))
     "Performance record for MotorEfficiency";
 
-  parameter Modelica.Units.SI.MassFlowRate m_flow_nominal=
-    per1.pressure.V_flow[end]*1.2/2
-    "Nominal mass flow rate, roughly half the maximum";
-  parameter Modelica.Units.SI.PressureDifference dp_nominal=
-    per1.pressure.dp[1]/2
-    "Nominal pressure rise, roughly half the maximum";
+  parameter Modelica.Units.SI.MassFlowRate m_flow_nominal=21.8*1.2
+    "Nominal mass flow rate, see documentation";
+  parameter Modelica.Units.SI.PressureDifference dp_nominal=1244.2
+    "Nominal pressure rise, see documentation";
 
   Buildings.Fluid.Sources.Boundary_pT sou(
     redeclare package Medium = Medium,
@@ -180,7 +178,7 @@ model StaticReset
         rotation=0,
         origin={-90,220})));
   Modelica.Blocks.Sources.Ramp yRam(
-    height=m_flow_nominal,
+    height=25*1.2,
     duration=3600,
     offset=0) "Ramp input for forced flow rate"
     annotation (Placement(transformation(extent={{60,210},{80,230}})));
