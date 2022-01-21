@@ -151,19 +151,22 @@ model StaticReset
   Buildings.Fluid.Movers.FlowControlled_m_flow forFlo1(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
+    nominalValuesDefineDefaultPressureCurve=true)
     "Mover for forced flow rate"
     annotation (Placement(transformation(extent={{102,170},{122,190}})));
   Buildings.Fluid.Movers.FlowControlled_m_flow forFlo2(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
+    nominalValuesDefineDefaultPressureCurve=true)
     "Mover for forced flow rate"
     annotation (Placement(transformation(extent={{102,70},{122,90}})));
   Buildings.Fluid.Movers.FlowControlled_m_flow forFlo3(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
+    nominalValuesDefineDefaultPressureCurve=true)
     "Mover for forced flow rate"
     annotation (Placement(transformation(extent={{102,-30},{122,-10}})));
 
@@ -244,11 +247,13 @@ equation
       color={0,127,255},
       pattern=LinePattern.Dot));
   connect(fan3.port_a, sou.ports[1]) annotation (Line(points={{-10,-20},{-18,
-          -20},{-18,-81.6667},{-80,-81.6667}}, color={0,127,255}));
+          -20},{-18,-81.6667},{-80,-81.6667}},
+                                          color={0,127,255}));
   connect(fan2.port_a, sou.ports[2]) annotation (Line(points={{-10,80},{-18,80},
           {-18,-81},{-80,-81}}, color={0,127,255}));
   connect(fan1.port_a, sou.ports[3]) annotation (Line(points={{-10,180},{-18,
-          180},{-18,-80.3333},{-80,-80.3333}}, color={0,127,255}));
+          180},{-18,-80.3333},{-80,-80.3333}},
+                                          color={0,127,255}));
   connect(pDucSta3.port_b, sou.ports[4]) annotation (Line(
       points={{-60,-50},{-78,-50},{-78,-79.6667},{-80,-79.6667}},
       color={0,127,255},
@@ -263,8 +268,8 @@ equation
       pattern=LinePattern.Dot));
   connect(forFlo3.port_b, sin.ports[1]) annotation (Line(points={{122,-20},{134,
           -20},{134,-81.3333},{140,-81.3333}}, color={0,127,255}));
-  connect(forFlo2.port_b, sin.ports[2]) annotation (Line(points={{122,80},{134,
-          80},{134,-80},{140,-80}}, color={0,127,255}));
+  connect(forFlo2.port_b, sin.ports[2]) annotation (Line(points={{122,80},{134,80},
+          {134,-80},{140,-80}}, color={0,127,255}));
   connect(forFlo1.port_b, sin.ports[3]) annotation (Line(points={{122,180},{134,
           180},{134,-78.6667},{140,-78.6667}}, color={0,127,255}));
   annotation (
