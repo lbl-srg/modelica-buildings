@@ -103,17 +103,20 @@ model StaticReset
   Buildings.Controls.Continuous.LimPID conPID1(
     Td=1,
     k=0.5,
-    Ti=15) "PI controller"
+    Ti=15,
+    yMax=2) "PI controller"
     annotation (Placement(transformation(extent={{-60,202},{-40,222}})));
   Buildings.Controls.Continuous.LimPID conPID2(
     Td=1,
     k=0.5,
-    Ti=15) "PI controller"
+    Ti=15,
+    yMax=2) "PI controller"
     annotation (Placement(transformation(extent={{-60,100},{-40,120}})));
   Buildings.Controls.Continuous.LimPID conPID3(
     Td=1,
     k=0.5,
-    Ti=15) "PI controller"
+    Ti=15,
+    yMax=2) "PI controller"
     annotation (Placement(transformation(extent={{-60,0},{-40,20}})));
 
   Buildings.Fluid.Sensors.RelativePressure pDucSta1(redeclare package Medium = Medium)
