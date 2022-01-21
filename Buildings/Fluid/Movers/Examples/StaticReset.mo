@@ -9,23 +9,27 @@ model StaticReset
     "Nominal mass flow rate";
   parameter Modelica.Units.SI.PressureDifference dp_nominal=500
     "Nominal pressure difference";
-  parameter Modelica.Units.SI.PressureDifference dp_stpt = dp_nominal/4
-    "Static pressure setpoint at duct downstream";
 
   Buildings.Fluid.Sources.Boundary_pT sou(
     redeclare package Medium = Medium,
     use_p_in=false,
     p=101325,
     T=293.15,
-    nPorts=3)
-    "Boundary"
-    annotation (Placement(transformation(extent={{-90,-90},{-70,-70}})));
+    nPorts=2) "Boundary"
+    annotation (Placement(transformation(extent={{-100,-90},{-80,-70}})));
+  Sources.Boundary_pT sin(
+    redeclare package Medium = Medium,
+    use_p_in=false,
+    p=101325,
+    T=293.15,
+    nPorts=1) "Boundary"
+    annotation (Placement(transformation(extent={{160,-90},{140,-70}})));
   FixedResistances.PressureDrop dp2(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
-    dp_nominal=dp_nominal/3)
+    dp_nominal=dp_nominal/2)
     "Duct pressure drop after the static pressure measurement point"
-    annotation (Placement(transformation(extent={{110,-30},{130,-10}})));
+    annotation (Placement(transformation(extent={{60,-30},{80,-10}})));
 
   Buildings.Fluid.Movers.SpeedControlled_y fan(
     redeclare package Medium = Medium,
@@ -42,11 +46,8 @@ model StaticReset
     "PI controller"
     annotation (Placement(transformation(extent={{-50,10},{-30,30}})));
 
-  Sensors.RelativePressure dpDuc(
-    redeclare package Medium = Medium)
-    "Duct static pressure"
-    annotation (Placement(
-        transformation(
+  Sensors.RelativePressure pDucSta(redeclare package Medium = Medium)
+    "Duct static pressure" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=180,
         origin={-40,-50})));
@@ -54,48 +55,57 @@ model StaticReset
     "Duct static pressure setpoint"
     annotation (Placement(transformation(extent={{-90,10},{-70,30}})));
   Modelica.Blocks.Sources.Ramp yRam(
-    height=-1,
+    height=m_flow_nominal,
     duration=3600,
-    offset=1) "Ramp input for all supply dampers"
+    offset=0) "Ramp input for forced flow rate"
     annotation (Placement(transformation(extent={{-90,62},{-70,82}})));
-  Actuators.Dampers.Exponential damSup(
-    redeclare package Medium = Medium,
-    m_flow_nominal=m_flow_nominal,
-    dpDamper_nominal=5)
-    "Supply air damper"
-    annotation (Placement(transformation(extent={{30,-30},{50,-10}})));
   Controls.OBC.CDL.Continuous.Gain gai(k=1/dp_nominal)
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=90,
         origin={-40,-20})));
+
+  FixedResistances.PressureDrop dp1(
+    redeclare package Medium = Medium,
+    m_flow_nominal=m_flow_nominal,
+    dp_nominal=dp_nominal/2)
+    "Duct pressure drop after the static pressure measurement point"
+    annotation (Placement(transformation(extent={{20,-30},{40,-10}})));
+  FlowControlled_m_flow forFlo(
+    redeclare package Medium = Medium,
+    m_flow_nominal=3,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)
+    "Mover for forced flow rate"
+    annotation (Placement(transformation(extent={{102,-30},{122,-10}})));
 equation
-  connect(dp2.port_b, sou.ports[1]) annotation (Line(points={{130,-20},{140,-20},
-          {140,-80},{36,-80},{36,-81.3333},{-70,-81.3333}},
-                                       color={0,127,255}));
-  connect(sou.ports[2], fan.port_a) annotation (Line(points={{-70,-80},{-24,-80},
+  connect(sou.ports[1], fan.port_a) annotation (Line(points={{-80,-81},{-24,-81},
           {-24,-20},{-12,-20}},
                         color={0,127,255}));
-  connect(dpDuc.port_b, sou.ports[3]) annotation (Line(points={{-50,-50},{-70,
-          -50},{-70,-78.6667}},                                      color={0,127,
-          255},pattern=LinePattern.Dot));
+  connect(pDucSta.port_b, sou.ports[2]) annotation (Line(
+      points={{-50,-50},{-80,-50},{-80,-79}},
+      color={0,127,255},
+      pattern=LinePattern.Dot));
   connect(y.y, conPID.u_s)
     annotation (Line(points={{-69,20},{-52,20}}, color={0,0,127}));
-  connect(damSup.port_a, fan.port_b)
-    annotation (Line(points={{30,-20},{8,-20}}, color={0,127,255}));
-  connect(yRam.y, damSup.y)
-    annotation (Line(points={{-69,72},{40,72},{40,-8}}, color={0,0,127}));
-  connect(dpDuc.p_rel, gai.u)
+  connect(pDucSta.p_rel, gai.u)
     annotation (Line(points={{-40,-41},{-40,-32}}, color={0,0,127}));
   connect(gai.y, conPID.u_m)
     annotation (Line(points={{-40,-8},{-40,8}}, color={0,0,127}));
   connect(conPID.y, fan.y)
     annotation (Line(points={{-29,20},{-2,20},{-2,-8}}, color={0,0,127}));
-  connect(damSup.port_b, dp2.port_a)
-    annotation (Line(points={{50,-20},{110,-20}}, color={0,127,255}));
-  connect(dpDuc.port_a, fan.port_b) annotation (Line(
-      points={{-30,-50},{8,-50},{8,-20}},
+  connect(fan.port_b, dp1.port_a)
+    annotation (Line(points={{8,-20},{20,-20}}, color={0,127,255}));
+  connect(dp1.port_b, dp2.port_a)
+    annotation (Line(points={{40,-20},{60,-20}}, color={0,127,255}));
+  connect(pDucSta.port_a, dp2.port_a) annotation (Line(
+      points={{-30,-50},{60,-50},{60,-20}},
       color={0,127,255},
       pattern=LinePattern.Dot));
+  connect(dp2.port_b, forFlo.port_a)
+    annotation (Line(points={{80,-20},{102,-20}}, color={0,127,255}));
+  connect(forFlo.port_b, sin.ports[1]) annotation (Line(points={{122,-20},{134,-20},
+          {134,-80},{140,-80}}, color={0,127,255}));
+  connect(yRam.y, forFlo.m_flow_in)
+    annotation (Line(points={{-69,72},{112,72},{112,-8}}, color={0,0,127}));
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{160,
             160}})),
