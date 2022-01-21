@@ -4,11 +4,30 @@ model StaticReset
   extends Modelica.Icons.Example;
 
   package Medium = Buildings.Media.Air;
+  Buildings.Fluid.Movers.Data.Fans.EnglanderNorford1992.Supply per1(
+    final powMet=
+      Buildings.Fluid.Movers.BaseClasses.Types.PowerMethod.PowerCharacteristic)
+    "Performance record for PowerCharacteristic";
+  Buildings.Fluid.Movers.Data.Generic per2(
+    final powMet=
+      Buildings.Fluid.Movers.BaseClasses.Types.PowerMethod.EulerNumber,
+    peak=Buildings.Fluid.Movers.BaseClasses.Euler.findPeak(
+      pressure=per1.pressure,
+      power=per1.power))
+    "Performance record for EulerNumber";
+  Buildings.Fluid.Movers.Data.Generic per3(
+    final powMet=
+      Buildings.Fluid.Movers.BaseClasses.Types.PowerMethod.MotorEfficiency,
+    hydraulicEfficiency(eta = {1}),
+    motorEfficiency(eta = {per2.peak.eta}))
+    "Performance record for MotorEfficiency";
 
-  parameter Modelica.Units.SI.MassFlowRate m_flow_nominal=0.1
-    "Nominal mass flow rate";
-  parameter Modelica.Units.SI.PressureDifference dp_nominal=500
-    "Nominal pressure difference";
+  parameter Modelica.Units.SI.MassFlowRate m_flow_nominal=
+    per1.pressure.V_flow[end]*1.2/2
+    "Nominal mass flow rate, roughly half the maximum";
+  parameter Modelica.Units.SI.PressureDifference dp_nominal=
+    per1.pressure.dp[1]/2
+    "Nominal pressure difference, roughly half the maximum";
 
   Buildings.Fluid.Sources.Boundary_pT sou(
     redeclare package Medium = Medium,
@@ -27,8 +46,7 @@ model StaticReset
 
   Buildings.Fluid.Movers.SpeedControlled_y fan2(
     redeclare package Medium = Medium,
-    per(pressure(V_flow={0,m_flow_nominal,2*m_flow_nominal}/1.2, dp={2*
-            dp_nominal,dp_nominal,0})),
+    per = per2,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     "Fan using MotorEfficiency, assuming constant efficiency"
     annotation (Placement(transformation(extent={{-10,70},{10,90}})));
