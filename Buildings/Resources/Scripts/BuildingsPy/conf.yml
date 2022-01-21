@@ -1,0 +1,514 @@
+- model_name: Buildings.Air.Systems.SingleZone.VAV.Examples.ChillerDXHeatingEconomizer
+  openmodelica:
+    comment: 'CalledProcessError: omc returned non-zero exit status 1.'
+    simulate: false
+- model_name: Buildings.Air.Systems.SingleZone.VAV.Examples.Guideline36
+  openmodelica:
+    comment: 'CalledProcessError: omc returned non-zero exit status 1.'
+    simulate: false
+- model_name: Buildings.Air.Systems.SingleZone.VAV.Examples.OptimalStart.ConventionalSpring
+  openmodelica:
+    comment: '''omc'' caused ''simulation terminated by an assertion at initialization''.'
+    simulate: false
+- model_name: Buildings.Air.Systems.SingleZone.VAV.Examples.OptimalStart.ConventionalSummer
+  openmodelica:
+    comment: '''omc'' caused ''simulation terminated by an assertion at initialization''.'
+    simulate: false
+- model_name: Buildings.Air.Systems.SingleZone.VAV.Examples.OptimalStart.ConventionalWinter
+  openmodelica:
+    comment: '''omc'' caused ''simulation terminated by an assertion at initialization''.'
+    simulate: false
+- model_name: Buildings.Air.Systems.SingleZone.VAV.Examples.OptimalStart.Guideline36Spring
+  openmodelica:
+    comment: '''omc'' caused ''simulation terminated by an assertion at initialization''.'
+    simulate: false
+- model_name: Buildings.Air.Systems.SingleZone.VAV.Examples.OptimalStart.Guideline36Summer
+  openmodelica:
+    comment: simulation terminated by an assertion at initialization
+    simulate: false
+- model_name: Buildings.Air.Systems.SingleZone.VAV.Examples.OptimalStart.Guideline36Winter
+  openmodelica:
+    comment: simulation terminated by an assertion at initialization
+    simulate: false
+- model_name: Buildings.Airflow.Multizone.Examples.OneOpenDoor
+  openmodelica:
+    comment: '''omc'' caused ''Simulation terminated at time 4119.66''.'
+    simulate: false
+- model_name: Buildings.Airflow.Multizone.Validation.ThreeRoomsContam
+  openmodelica:
+    comment: '''omc'' caused ''Simulation terminated at time 3.59409''.'
+    simulate: false
+- model_name: Buildings.Controls.DemandResponse.Examples.ClientLBNL90
+  openmodelica:
+    comment: 'TimeoutExpired: omc timed out after 300 seconds'
+    translate: false
+- model_name: Buildings.Electrical.AC.ThreePhasesBalanced.Loads.Examples.ParallelLoads
+  openmodelica:
+    comment: 'Simulation terminated by an assert at time: 0.901'
+    simulate: false
+- model_name: Buildings.Electrical.AC.ThreePhasesUnbalanced.Validation.IEEETests.Test4NodesFeeder.BalancedStepDown.DD
+  openmodelica:
+    comment: 'CalledProcessError: omc returned non-zero exit status 10.'
+    translate: false
+- model_name: Buildings.Electrical.AC.ThreePhasesUnbalanced.Validation.IEEETests.Test4NodesFeeder.BalancedStepDown.YD
+  openmodelica:
+    comment: 'CalledProcessError: omc returned non-zero exit status 10.'
+    translate: false
+- model_name: Buildings.Electrical.AC.ThreePhasesUnbalanced.Validation.IEEETests.Test4NodesFeeder.BalancedStepUp.DD
+  openmodelica:
+    comment: 'CalledProcessError: omc returned non-zero exit status 10.'
+    translate: false
+- model_name: Buildings.Electrical.AC.ThreePhasesUnbalanced.Validation.IEEETests.Test4NodesFeeder.BalancedStepUp.YD
+  openmodelica:
+    comment: 'CalledProcessError: omc returned non-zero exit status 10.'
+    translate: false
+- model_name: Buildings.Electrical.AC.ThreePhasesUnbalanced.Validation.IEEETests.Test4NodesFeeder.UnbalancedStepDown.DD
+  openmodelica:
+    comment: 'CalledProcessError: omc returned non-zero exit status 10.'
+    translate: false
+- model_name: Buildings.Electrical.AC.ThreePhasesUnbalanced.Validation.IEEETests.Test4NodesFeeder.UnbalancedStepDown.YD
+  openmodelica:
+    comment: 'CalledProcessError: omc returned non-zero exit status 10.'
+    translate: false
+- model_name: Buildings.Electrical.AC.ThreePhasesUnbalanced.Validation.IEEETests.Test4NodesFeeder.UnbalancedStepUp.DD
+  openmodelica:
+    comment: 'CalledProcessError: omc returned non-zero exit status 10.'
+    translate: false
+- model_name: Buildings.Electrical.AC.ThreePhasesUnbalanced.Validation.IEEETests.Test4NodesFeeder.UnbalancedStepUp.YD
+  openmodelica:
+    comment: 'CalledProcessError: omc returned non-zero exit status 10.'
+    translate: false
+- model_name: Buildings.Electrical.DC.Loads.Examples.LinearizedLoad
+  openmodelica:
+    comment: '''omc'' caused ''simulation terminated by an assertion at initialization''.'
+    simulate: false
+- model_name: Buildings.Examples.DualFanDualDuct.ClosedLoop
+  openmodelica:
+    comment: '''omc'' caused ''Simulation terminated at time 19866.4''.'
+    simulate: false
+  optimica:
+    rtol: 1.0e-08
+    solver: CVode
+- model_name: Buildings.Examples.ScalableBenchmarks.BuildingVAV.Examples.OneFloor_OneZone
+  openmodelica:
+    comment: omc returned non-zero exit status 255.
+    simulate: false
+- model_name: Buildings.Examples.ScalableBenchmarks.BuildingVAV.Examples.TwoFloor_TwoZone
+  openmodelica:
+    comment: '''omc'' caused ''Simulation terminated at time 176396''.'
+    simulate: false
+- model_name: Buildings.Examples.VAVCO2.VAVSystemCTControl
+  openmodelica:
+    comment: '''omc'' caused ''Simulation terminated at time 46963.9''.'
+    simulate: false
+  optimica:
+    comment: Fails with 'The rootfinding function failed in an unrecoverable manner.' Since oct-r26446
+    simulate: false
+- model_name: Buildings.Examples.VAVReheat.Guideline36
+  openmodelica:
+    comment: '''omc'' caused ''Simulation terminated at time 12280''.'
+    simulate: false
+- model_name: Buildings.Examples.VAVReheat.Validation.Guideline36SteadyState
+  openmodelica:
+    comment: simulation terminated by an assertion at initialization
+    simulate: false
+- model_name: Buildings.Examples.VAVReheat.Validation.TraceSubstance
+  openmodelica:
+    comment: '''omc'' caused ''Simulation terminated at time 4.49281e+06''.'
+    simulate: false
+- model_name: Buildings.Experimental.DHC.EnergyTransferStations.Combined.Examples.ChillerBorefield
+  openmodelica:
+    comment: 'CalledProcessError: omc returned non-zero exit status 1.'
+    simulate: false
+  optimica:
+    comment: Failed due to structural parameter, see https://github.com/lbl-srg/modelica-buildings/issues/2816
+    translate: false
+- model_name: Buildings.Experimental.DHC.EnergyTransferStations.Combined.Examples.ChillerOnly
+  openmodelica:
+    comment: omc returned non-zero exit status 1.
+    simulate: false
+  optimica:
+    comment: Failed due to structural parameter, see https://github.com/lbl-srg/modelica-buildings/issues/2816
+    translate: false
+- model_name: Buildings.Experimental.DHC.EnergyTransferStations.Combined.Validation.ChillerBorefield
+  openmodelica:
+    comment: 'CalledProcessError: omc returned non-zero exit status 1.'
+    simulate: false
+- model_name: Buildings.Experimental.DHC.EnergyTransferStations.Combined.Validation.ChillerOnly
+  openmodelica:
+    comment: 'CalledProcessError: omc returned non-zero exit status 1.'
+    simulate: false
+- model_name: Buildings.Experimental.DHC.EnergyTransferStations.Combined.Validation.ChillerWSE
+  openmodelica:
+    comment: 'CalledProcessError: omc returned non-zero exit status 1.'
+    simulate: false
+- model_name: Buildings.Experimental.DHC.Examples.Combined.ParallelConstantFlow
+  openmodelica:
+    comment: 'CalledProcessError: omc returned non-zero exit status 10.'
+    translate: false
+  optimica:
+    comment: Failed due to structural parameter, see https://github.com/lbl-srg/modelica-buildings/issues/2816
+    translate: false
+- model_name: Buildings.Experimental.DHC.Examples.Combined.SeriesConstantFlow
+  openmodelica:
+    comment: 'CalledProcessError: omc returned non-zero exit status 10.'
+    translate: false
+  optimica:
+    comment: Failed due to structural parameter, see https://github.com/lbl-srg/modelica-buildings/issues/2816
+    translate: false
+- model_name: Buildings.Experimental.DHC.Examples.Combined.SeriesVariableFlow
+  openmodelica:
+    comment: 'CalledProcessError: omc returned non-zero exit status 10.'
+    translate: false
+  optimica:
+    comment: Failed due to structural parameter, see https://github.com/lbl-srg/modelica-buildings/issues/2816
+    translate: false
+- model_name: Buildings.Experimental.DHC.Loads.BaseClasses.Examples.CouplingRCZ6
+  openmodelica:
+    comment: 'CalledProcessError: omc returned non-zero exit status 10.'
+    translate: false
+- model_name: Buildings.Experimental.DHC.Loads.BaseClasses.Examples.CouplingSpawnZ6
+  openmodelica:
+    comment: 'CalledProcessError: omc returned non-zero exit status 10.'
+    translate: false
+- model_name: Buildings.Experimental.DHC.Loads.BaseClasses.Examples.CouplingTimeSeries
+  optimica:
+    comment: Failed due to structural parameter, see https://github.com/lbl-srg/modelica-buildings/issues/2816
+    translate: false
+- model_name: Buildings.Experimental.DHC.Loads.BaseClasses.Examples.CouplingTimeSeriesSingleLoop
+  optimica:
+    comment: Failed due to structural parameter, see https://github.com/lbl-srg/modelica-buildings/issues/2816
+    translate: false
+- model_name: Buildings.Experimental.DHC.Loads.BaseClasses.Validation.BenchmarkFlowDistribution1
+  optimica:
+    comment: Failed due to structural parameter, see https://github.com/lbl-srg/modelica-buildings/issues/2816
+    translate: false
+- model_name: Buildings.Experimental.DHC.Loads.BaseClasses.Validation.BenchmarkFlowDistribution2
+  openmodelica:
+    comment: 'CalledProcessError: omc returned non-zero exit status 10.'
+    translate: false
+  optimica:
+    comment: Failed due to structural parameter, see https://github.com/lbl-srg/modelica-buildings/issues/2816
+    translate: false
+- model_name: Buildings.Experimental.DHC.Loads.BaseClasses.Validation.FlowDistributionPumpControl
+  optimica:
+    comment: Failed due to structural parameter, see https://github.com/lbl-srg/modelica-buildings/issues/2816
+    translate: false
+- model_name: Buildings.Experimental.DHC.Plants.Cooling.Examples.ElectricChillerParallel
+  openmodelica:
+    comment: 'CalledProcessError: omc returned non-zero exit status 1'
+    simulate: false
+- model_name: Buildings.Fluid.Examples.FlowSystem.Basic
+  openmodelica:
+    comment: '''omc'' caused ''simulation terminated by an assertion at initialization''.'
+    simulate: false
+  optimica:
+    simulate: false
+- model_name: Buildings.Fluid.Examples.FlowSystem.Simplified1
+  openmodelica:
+    comment: 'CalledProcessError: omc returned non-zero exit status 10.'
+    translate: false
+  optimica:
+    simulate: false
+- model_name: Buildings.Fluid.Examples.FlowSystem.Simplified2
+  openmodelica:
+    comment: '''omc'' caused ''Simulation terminated at time 5.57571''.'
+    simulate: false
+  optimica:
+    simulate: false
+- model_name: Buildings.Fluid.Examples.FlowSystem.Simplified3
+  openmodelica:
+    comment: '''omc'' caused ''simulation terminated by an assertion at initialization''.'
+    simulate: false
+- model_name: Buildings.Fluid.FixedResistances.Validation.PlugFlowPipes.PlugFlowAIT
+  openmodelica:
+    comment: '''omc'' caused ''Simulation terminated at time 274.64''.'
+    simulate: false
+- model_name: Buildings.Fluid.FixedResistances.Validation.PlugFlowPipes.TransportWaterAir
+  openmodelica:
+    comment: '''omc'' caused ''Simulation terminated by an assert at time: 1.45959e-14''.'
+    simulate: false
+- model_name: Buildings.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.LoadAggregation.Validation.TemperatureResponseMatrix
+  openmodelica:
+    comment: simulation terminated by an assertion at initialization
+    simulate: false
+- model_name: Buildings.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.ThermalResponseFactors.Validation.GFunction_1borehole_5meters
+  openmodelica:
+    comment: '''omc'' caused ''simulation terminated by an assertion at initialization''.'
+    simulate: false
+- model_name: Buildings.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.ThermalResponseFactors.Validation.GFunction_SmallScaleValidation
+  openmodelica:
+    comment: '''omc'' caused ''simulation terminated by an assertion at initialization''.'
+    simulate: false
+- model_name: Buildings.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.Validation.Analytic_20Years
+  openmodelica:
+    comment: '''omc'' caused ''simulation terminated by an assertion at initialization''.'
+    simulate: false
+- model_name: Buildings.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.Validation.FiniteDifference_1Week
+  openmodelica:
+    comment: '''omc'' caused ''simulation terminated by an assertion at initialization''.'
+    simulate: false
+- model_name: Buildings.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.Validation.Measured_SmallScale
+  openmodelica:
+    comment: '''omc'' caused ''simulation terminated by an assertion at initialization''.'
+    simulate: false
+- model_name: Buildings.Fluid.Geothermal.Borefields.Validation.Sandbox
+  openmodelica:
+    comment: '''omc'' caused ''simulation terminated by an assertion at initialization''.'
+    simulate: false
+- model_name: Buildings.Fluid.Geothermal.BuriedPipes.Examples.DiscretizedBuriedPipe
+  openmodelica:
+    comment: Simulation terminated at time 9010.07
+    simulate: false
+- model_name: Buildings.Fluid.Geothermal.BuriedPipes.Examples.SingleBuriedPipe
+  openmodelica:
+    comment: '''omc'' caused ''Simulation terminated at time 4.88841e+06''.'
+    simulate: false
+- model_name: Buildings.Fluid.Geothermal.BuriedPipes.Examples.TwoBuriedPipes
+  openmodelica:
+    comment: '''omc'' caused ''Simulation terminated at time 3.27703e+06''.'
+    simulate: false
+- model_name: Buildings.Fluid.Geothermal.BuriedPipes.Examples.TwoPipesConduit
+  openmodelica:
+    comment: '''omc'' caused ''Simulation terminated at time 3.26558e+06''.'
+    simulate: false
+- model_name: Buildings.Fluid.Geothermal.BuriedPipes.Validation.GroundCouplingAIT
+  openmodelica:
+    comment: 'CalledProcessError: omc returned non-zero exit status 10.'
+    translate: false
+- model_name: Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Examples.ApparatusDewPoint
+  openmodelica:
+    comment: '''omc'' caused ''simulation terminated by an assertion at initialization''.'
+    simulate: false
+- model_name: Buildings.Fluid.HeatExchangers.Examples.WetCoilDiscretizedMassFlow
+  openmodelica:
+    comment: '''omc'' caused ''Simulation terminated at time 2521.42''.'
+    simulate: false
+- model_name: Buildings.Fluid.HeatExchangers.Validation.WetCoilEffectivenessNTUHeating
+  openmodelica:
+    comment: '''omc'' caused ''simulation terminated by an assertion at initialization''.'
+    simulate: false
+- model_name: Buildings.Fluid.SolarCollectors.Examples.FlatPlate
+  openmodelica:
+    comment: 'CalledProcessError: omc returned non-zero exit status 255.'
+    simulate: false
+- model_name: Buildings.Obsolete.DistrictHeatingCooling.Examples.HeatingCoolingHotWater3Clusters
+  openmodelica:
+    comment: '''omc'' caused ''Simulation terminated at time 1.83739e+07''.'
+    simulate: false
+  optimica:
+    comment: Failed due to structural parameter, see https://github.com/lbl-srg/modelica-buildings/issues/2816
+    translate: false
+- model_name: Buildings.Obsolete.DistrictHeatingCooling.Examples.HeatingCoolingHotWater3ClustersBaseCase
+  openmodelica:
+    comment: 'CalledProcessError: omc returned non-zero exit status 255.'
+    simulate: false
+  optimica:
+    comment: Failed due to structural parameter, see https://github.com/lbl-srg/modelica-buildings/issues/2816
+    translate: false
+- model_name: Buildings.Obsolete.DistrictHeatingCooling.SubStations.VaporCompression.Validation.HeatingCoolingHotwaterTimeSeries_dT
+  openmodelica:
+    comment: 'CalledProcessError: omc returned non-zero exit status 255.'
+    simulate: false
+  optimica:
+    comment: Failed due to structural parameter, see https://github.com/lbl-srg/modelica-buildings/issues/2816
+    translate: false
+- model_name: Buildings.Obsolete.DistrictHeatingCooling.Validation.HeatingCoolingHotWaterSmall
+  openmodelica:
+    comment: 'CalledProcessError: omc returned non-zero exit status 255.'
+    simulate: false
+  optimica:
+    comment: Failed due to structural parameter, see https://github.com/lbl-srg/modelica-buildings/issues/2816
+    translate: false
+- model_name: Buildings.ThermalZones.Detailed.Examples.FFD.ForcedConvection
+  optimica:
+    comment: See https://github.com/lbl-srg/modelica-buildings/issues/2231
+    simulate: false
+- model_name: Buildings.ThermalZones.Detailed.Examples.FFD.NaturalConvectionWithControl
+  openmodelica:
+    comment: 'TimeoutExpired: omc timed out after 300 seconds'
+    simulate: false
+- model_name: Buildings.ThermalZones.Detailed.Examples.FFD.RoomOnlyConstructionBoundary
+  openmodelica:
+    comment: 'TimeoutExpired: omc timed out after 300 seconds'
+    simulate: false
+- model_name: Buildings.ThermalZones.Detailed.Examples.FFD.RoomOnlyExteriorWallNoWindow
+  openmodelica:
+    comment: 'TimeoutExpired: omc timed out after 300 seconds'
+    simulate: false
+- model_name: Buildings.ThermalZones.Detailed.Examples.FFD.RoomOnlySurfaceBoundary
+  openmodelica:
+    comment: 'TimeoutExpired: omc timed out after 300 seconds'
+    simulate: false
+- model_name: Buildings.ThermalZones.Detailed.Examples.FFD.Tutorial.MixedConvection
+  openmodelica:
+    comment: 'TimeoutExpired: omc timed out after 300 seconds'
+    simulate: false
+  optimica:
+    comment: See https://github.com/lbl-srg/modelica-buildings/issues/2231
+    simulate: false
+- model_name: Buildings.ThermalZones.Detailed.Examples.FFD.Tutorial.NaturalConvection
+  openmodelica:
+    comment: 'TimeoutExpired: omc timed out after 300 seconds'
+    simulate: false
+- model_name: Buildings.ThermalZones.Detailed.Examples.FFD.WindowWithShade
+  openmodelica:
+    comment: 'TimeoutExpired: omc timed out after 300 seconds'
+    simulate: false
+- model_name: Buildings.ThermalZones.Detailed.Examples.FFD.WindowWithoutShade
+  openmodelica:
+    comment: 'TimeoutExpired: omc timed out after 300 seconds'
+    simulate: false
+- model_name: Buildings.ThermalZones.Detailed.Examples.MixedAirCO2
+  openmodelica:
+    comment: Simulation terminated at time 69984
+    simulate: false
+- model_name: Buildings.ThermalZones.Detailed.Validation.BESTEST.Cases6xx.Case600
+  openmodelica:
+    comment: '''omc'' caused ''Simulation terminated at time 7.49172e+06''.'
+    simulate: false
+- model_name: Buildings.ThermalZones.Detailed.Validation.BESTEST.Cases6xx.Case600FF
+  openmodelica:
+    comment: Simulation terminated at time 1.68272e+07
+    simulate: false
+- model_name: Buildings.ThermalZones.Detailed.Validation.BESTEST.Cases6xx.Case610
+  openmodelica:
+    comment: '''omc'' caused ''Simulation terminated at time 249386''.'
+    simulate: false
+- model_name: Buildings.ThermalZones.Detailed.Validation.BESTEST.Cases6xx.Case620
+  openmodelica:
+    comment: '''omc'' caused ''Simulation terminated at time 7.50093e+06''.'
+    simulate: false
+- model_name: Buildings.ThermalZones.Detailed.Validation.BESTEST.Cases6xx.Case630
+  openmodelica:
+    comment: '''omc'' caused ''Simulation terminated at time 7.49786e+06''.'
+    simulate: false
+- model_name: Buildings.ThermalZones.Detailed.Validation.BESTEST.Cases6xx.Case640
+  openmodelica:
+    comment: '''omc'' caused ''Simulation terminated at time 244006''.'
+    simulate: false
+- model_name: Buildings.ThermalZones.Detailed.Validation.BESTEST.Cases6xx.Case650
+  openmodelica:
+    comment: '''omc'' caused ''Simulation terminated at time 2.59801e+07''.'
+    simulate: false
+- model_name: Buildings.ThermalZones.Detailed.Validation.BESTEST.Cases6xx.Case650FF
+  openmodelica:
+    comment: '''omc'' caused ''Simulation terminated at time 2.59788e+07''.'
+    simulate: false
+- model_name: Buildings.ThermalZones.Detailed.Validation.BESTEST.Cases9xx.Case900
+  openmodelica:
+    comment: '''omc'' caused ''Simulation terminated at time 7.50506e+06''.'
+    simulate: false
+- model_name: Buildings.ThermalZones.Detailed.Validation.BESTEST.Cases9xx.Case900FF
+  openmodelica:
+    comment: '''omc'' caused ''Simulation terminated at time 7.50506e+06''.'
+    simulate: false
+- model_name: Buildings.ThermalZones.Detailed.Validation.BESTEST.Cases9xx.Case920
+  openmodelica:
+    comment: '''omc'' caused ''Simulation terminated at time 1.14751e+07''.'
+    simulate: false
+- model_name: Buildings.ThermalZones.Detailed.Validation.BESTEST.Cases9xx.Case940
+  openmodelica:
+    comment: '''omc'' caused ''Simulation terminated at time 3.24899e+06''.'
+    simulate: false
+- model_name: Buildings.ThermalZones.Detailed.Validation.BESTEST.Cases9xx.Case960
+  openmodelica:
+    comment: '''omc'' caused ''Simulation terminated at time 7.50503e+06''.'
+    simulate: false
+- model_name: Buildings.ThermalZones.Detailed.Validation.SingleZoneFloorWithHeating
+  optimica:
+    comment: Tolerance of 1E-7 would lead to very slow progress with commit fabaa64231692a2a2b6c044aff34f5ae6b3be868
+    rtol: 1.0e-08
+- model_name: Buildings.ThermalZones.EnergyPlus.Examples.SmallOffice.ASHRAE2006Spring
+  optimica:
+    rtol: 1.0e-07
+- model_name: Buildings.ThermalZones.EnergyPlus.Examples.SmallOffice.ASHRAE2006Summer
+  optimica:
+    comment: This causes a timeout on travis, but works locally. See https://travis-ci.com/github/lbl-srg/modelica-buildings/jobs/501193509#L635
+    simulate: false
+- model_name: Buildings.ThermalZones.EnergyPlus.Examples.SmallOffice.ASHRAE2006Winter
+  optimica:
+    comment: This causes a timeout on travis, but works locally. See https://travis-ci.com/github/lbl-srg/modelica-buildings/jobs/501193509#L635
+    simulate: false
+- model_name: Buildings.ThermalZones.EnergyPlus.Examples.SmallOffice.Guideline36Spring
+  openmodelica:
+    simulate: false
+    comment: Simulation terminated at time 7.75812e+06
+  optimica:
+    rtol: 1.0e-07
+- model_name: Buildings.ThermalZones.EnergyPlus.Examples.SmallOffice.Guideline36Summer
+  openmodelica:
+    comment: '''omc'' caused ''Simulation terminated at time 1.69393e+07''.'
+    simulate: false
+  optimica:
+    rtol: 1.0e-07
+- model_name: Buildings.ThermalZones.EnergyPlus.Examples.SmallOffice.Guideline36Winter
+  optimica:
+    rtol: 1.0e-07
+- model_name: Buildings.ThermalZones.EnergyPlus.Examples.SmallOffice.IdealHeatingCoolingSpring
+  openmodelica:
+    comment: 'CalledProcessError: omc returned non-zero exit status 255.'
+    simulate: false
+  optimica:
+    rtol: 1.0e-08
+- model_name: Buildings.ThermalZones.EnergyPlus.Examples.SmallOffice.IdealHeatingCoolingSummer
+  openmodelica:
+    comment: 'CalledProcessError: omc returned non-zero exit status 255.'
+    simulate: false
+  optimica:
+    rtol: 1.0e-08
+- model_name: Buildings.ThermalZones.EnergyPlus.Examples.SmallOffice.IdealHeatingCoolingWinter
+  openmodelica:
+    comment: Simulation terminated at time 432326
+    simulate: false
+  optimica:
+    rtol: 1.0e-08
+- model_name: Buildings.ThermalZones.EnergyPlus.Examples.SmallOffice.Unconditioned
+  optimica:
+    comment: 'Failed with RuntimeError: Process timeout after 300 seconds. Since oct-r26446.'
+    simulate: false
+- model_name: Buildings.ThermalZones.EnergyPlus.Validation.MultipleBuildings.TwoIdenticalTwoZoneBuildings
+  openmodelica:
+    comment: 'CalledProcessError: omc returned non-zero exit status 139.'
+    simulate: false
+- model_name: Buildings.ThermalZones.ReducedOrder.Validation.VDI6007.TestCase11
+  openmodelica:
+    comment: 'CalledProcessError: omc returned non-zero exit status 139.'
+    simulate: false
+- dymola:
+    comment: Python 3.6 is not supported on Ubuntu 20.04, will be upgraded to more recent version
+    translate: false
+  model_name: Buildings.Utilities.IO.Python36.Examples.KalmanFilter
+  openmodelica:
+    comment: Python 3.6 is not supported on Ubuntu 20.04, will be upgraded to more recent version
+    translate: false
+  optimica:
+    comment: See https://github.com/lbl-srg/modelica-buildings/issues/2235
+    simulate: false
+- dymola:
+    comment: Python 3.6 is not supported on Ubuntu 20.04, will be upgraded to more recent version
+    translate: false
+  model_name: Buildings.Utilities.IO.Python36.Examples.SimpleRoom
+  openmodelica:
+    comment: Python 3.6 is not supported on Ubuntu 20.04, will be upgraded to more recent version
+    translate: false
+- dymola:
+    comment: Python 3.6 is not supported on Ubuntu 20.04, will be upgraded to more recent version
+    translate: false
+  model_name: Buildings.Utilities.IO.Python36.Functions.Examples.Exchange
+  openmodelica:
+    comment: Python 3.6 is not supported on Ubuntu 20.04, will be upgraded to more recent version
+    translate: false
+  optimica:
+    simulate: false
+- dymola:
+    comment: Python 3.6 is not supported on Ubuntu 20.04, will be upgraded to more recent version
+    translate: false
+  model_name: Buildings.Utilities.IO.Python36.Functions.Examples.ExchangeWithPassPythonObject
+  openmodelica:
+    comment: Python 3.6 is not supported on Ubuntu 20.04, will be upgraded to more recent version
+    translate: false
+- model_name: Buildings.Utilities.Plotters.Examples.SingleZoneVAV
+  openmodelica:
+    comment: 'Division by zero at time 15552000, (a=0) / (b=0), where divisor b expression is: hvac.cooCoi.m1_flow + hvac.ideVal.preMasFlo.m_flow'
+    simulate: false
