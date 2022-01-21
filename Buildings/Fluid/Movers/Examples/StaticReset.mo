@@ -5,11 +5,12 @@ model StaticReset
 
   package Medium = Buildings.Media.Air;
 
-
   parameter Modelica.Units.SI.MassFlowRate m_flow_nominal=0.1
     "Nominal mass flow rate";
   parameter Modelica.Units.SI.PressureDifference dp_nominal=500
     "Nominal pressure difference";
+  parameter Modelica.Units.SI.PressureDifference dp_stpt = dp_nominal/4
+    "Static pressure setpoint at duct downstream";
 
   Buildings.Fluid.Sources.Boundary_pT sou(
     redeclare package Medium = Medium,
@@ -19,16 +20,10 @@ model StaticReset
     nPorts=3)
     "Boundary"
     annotation (Placement(transformation(extent={{-90,-90},{-70,-70}})));
-  Buildings.Fluid.FixedResistances.PressureDrop dp1(
-    redeclare package Medium = Medium,
-    m_flow_nominal=m_flow_nominal,
-    dp_nominal=dp_nominal/2)
-    "Duct pressure drop before the static pressure measurement point"
-    annotation (Placement(transformation(extent={{70,-30},{90,-10}})));
   FixedResistances.PressureDrop dp2(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
-    dp_nominal=dp_nominal/2)
+    dp_nominal=dp_nominal/3)
     "Duct pressure drop after the static pressure measurement point"
     annotation (Placement(transformation(extent={{110,-30},{130,-10}})));
 
@@ -55,8 +50,7 @@ model StaticReset
         extent={{-10,-10},{10,10}},
         rotation=180,
         origin={-40,-50})));
-  Modelica.Blocks.Sources.Constant y(
-    k=dp_nominal/2)
+  Modelica.Blocks.Sources.Constant y(k=1)
     "Duct static pressure setpoint"
     annotation (Placement(transformation(extent={{-90,10},{-70,30}})));
   Modelica.Blocks.Sources.Ramp yRam(
@@ -70,18 +64,14 @@ model StaticReset
     dpDamper_nominal=5)
     "Supply air damper"
     annotation (Placement(transformation(extent={{30,-30},{50,-10}})));
-  Controls.OBC.CDL.Continuous.Gain gai(k=1)
-    annotation (Placement(transformation(extent={{-14,30},{6,50}})));
+  Controls.OBC.CDL.Continuous.Gain gai(k=1/dp_nominal)
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}},
+        rotation=90,
+        origin={-40,-20})));
 equation
   connect(dp2.port_b, sou.ports[1]) annotation (Line(points={{130,-20},{140,-20},
           {140,-80},{36,-80},{36,-81.3333},{-70,-81.3333}},
                                        color={0,127,255}));
-  connect(dp1.port_b, dp2.port_a)
-    annotation (Line(points={{90,-20},{110,-20}},
-                                                color={0,127,255}));
-  connect(dpDuc.port_a, dp2.port_a)
-    annotation (Line(points={{-30,-50},{98,-50},{98,-20},{110,-20}},
-                                                        color={0,127,255},pattern=LinePattern.Dot));
   connect(sou.ports[2], fan.port_a) annotation (Line(points={{-70,-80},{-24,-80},
           {-24,-20},{-12,-20}},
                         color={0,127,255}));
@@ -90,18 +80,22 @@ equation
           255},pattern=LinePattern.Dot));
   connect(y.y, conPID.u_s)
     annotation (Line(points={{-69,20},{-52,20}}, color={0,0,127}));
-  connect(dpDuc.p_rel, conPID.u_m)
-    annotation (Line(points={{-40,-41},{-40,8}}, color={0,0,127}));
-  connect(damSup.port_b, dp1.port_a)
-    annotation (Line(points={{50,-20},{70,-20}}, color={0,127,255}));
   connect(damSup.port_a, fan.port_b)
     annotation (Line(points={{30,-20},{8,-20}}, color={0,127,255}));
   connect(yRam.y, damSup.y)
     annotation (Line(points={{-69,72},{40,72},{40,-8}}, color={0,0,127}));
-  connect(conPID.y, gai.u) annotation (Line(points={{-29,20},{-22,20},{-22,40},
-          {-16,40}}, color={0,0,127}));
-  connect(gai.y, fan.y) annotation (Line(points={{8,40},{14,40},{14,-2},{-2,-2},
-          {-2,-8}}, color={0,0,127}));
+  connect(dpDuc.p_rel, gai.u)
+    annotation (Line(points={{-40,-41},{-40,-32}}, color={0,0,127}));
+  connect(gai.y, conPID.u_m)
+    annotation (Line(points={{-40,-8},{-40,8}}, color={0,0,127}));
+  connect(conPID.y, fan.y)
+    annotation (Line(points={{-29,20},{-2,20},{-2,-8}}, color={0,0,127}));
+  connect(damSup.port_b, dp2.port_a)
+    annotation (Line(points={{50,-20},{110,-20}}, color={0,127,255}));
+  connect(dpDuc.port_a, fan.port_b) annotation (Line(
+      points={{-30,-50},{8,-50},{8,-20}},
+      color={0,127,255},
+      pattern=LinePattern.Dot));
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{160,
             160}})),
