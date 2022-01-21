@@ -298,6 +298,5 @@ First implementation.
         "Simulate and plot"),
     experiment(
       StopTime=3600,
-      Tolerance=1e-06),
-    Icon(coordinateSystem(extent={{-100,-100},{160,240}})));
+      Tolerance=1e-06));
 end StaticReset;
