@@ -4,19 +4,19 @@ model StaticReset
   extends Modelica.Icons.Example;
 
   package Medium = Buildings.Media.Air;
-  Buildings.Fluid.Movers.Data.Fans.EnglanderNorford1992.Supply per1(
-    final powMet=
-      Buildings.Fluid.Movers.BaseClasses.Types.PowerMethod.PowerCharacteristic)
+  Buildings.Fluid.Movers.Data.Fans.EnglanderNorford1992.Supply per1
     "Performance record for PowerCharacteristic";
-  Buildings.Fluid.Movers.Data.Fans.EnglanderNorford1992.Supply per2(
-    final powMet=
+  Buildings.Fluid.Movers.Data.Generic per2(
+    pressure=per1.pressure,
+    powMet=
       Buildings.Fluid.Movers.BaseClasses.Types.PowerMethod.EulerNumber,
     peak=Buildings.Fluid.Movers.BaseClasses.Euler.findPeak(
       pressure=per1.pressure,
       power=per1.power))
     "Performance record for EulerNumber";
-  Buildings.Fluid.Movers.Data.Fans.EnglanderNorford1992.Supply per3(
-    final powMet=
+  Buildings.Fluid.Movers.Data.Generic per3(
+    pressure=per1.pressure,
+    powMet=
       Buildings.Fluid.Movers.BaseClasses.Types.PowerMethod.MotorEfficiency,
     hydraulicEfficiency(eta = {1}),
     motorEfficiency(eta = {per2.peak.eta}))
