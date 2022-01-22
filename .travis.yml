@@ -30,7 +30,7 @@ services:
 
 env:
   global:
-    - BUILDINGSPY_VERSION=BuildingsPy@ceaf0c94dc7b4f2852158d8baa00013ccd8ad999
+    - BUILDINGSPY_VERSION=BuildingsPy@f0351c9b6c4ec7bdbe93db484fbb1e727235fbdf
     - OMC_VERSION=ubuntu-2004-omc:1.19.0_dev-539-gb76366f-1
     - OPTIMICA_VERSION=travis-ubuntu-1804-optimica:r26446
     - DYMOLA_VERSION=travis_ubuntu-2004_dymola:2022x-x86_64

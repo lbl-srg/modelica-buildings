@@ -60,7 +60,7 @@ jobs:
           PyYAML==5.4
 
       - name: "Install BuildingsPy"
-        run: pip3 install git+https://github.com/lbl-srg/BuildingsPy@ceaf0c94dc7b4f2852158d8baa00013ccd8ad999
+        run: pip3 install git+https://github.com/lbl-srg/BuildingsPy@f0351c9b6c4ec7bdbe93db484fbb1e727235fbdf
 
       - name: "Test html syntax"
         run : ../bin/runUnitTests.py --validate-html-only
