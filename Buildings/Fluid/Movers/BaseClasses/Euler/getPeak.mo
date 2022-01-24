@@ -38,7 +38,7 @@ algorithm
       end if;
     end for;
   else
-    m:=Buildings.Utilities.Math.Functions.splineSingleExtremum(
+    m:=Buildings.Utilities.Math.Functions.getSingleExtremum(
       x=pressure.V_flow,y=eta);
   end if;
   peak.V_flow:=m[1];

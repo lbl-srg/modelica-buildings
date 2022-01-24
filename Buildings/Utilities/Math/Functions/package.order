@@ -11,6 +11,7 @@ cubicHermiteLinearExtrapolation
 exponentialIntegralE1
 factorial
 fallingFactorial
+getSingleExtremum
 integerReplicator
 inverseXRegularized
 isMonotonic
@@ -29,7 +30,6 @@ smoothMax
 smoothMin
 spliceFunction
 splineDerivatives
-splineSingleExtremum
 trapezoidalIntegration
 Examples
 BaseClasses

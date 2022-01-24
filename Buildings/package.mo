@@ -306,7 +306,7 @@ to <b style=\"color:blue\">existing</b> libraries:
 <tr><td colspan=\"2\"><b>Buildings.Utilities.Math</b>
     </td>
 </tr>
-<tr><td valign=\"top\">Buildings.Utilities.Math.Functions.splineSingleExtremum<br/>
+<tr><td valign=\"top\">Buildings.Utilities.Math.Functions.getSingleExtremum<br/>
     </td>
     <td valign=\"top\">Function that finds the mode of a unimodal spline.<br/>
                      This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2668\">issue 2668</a>.

@@ -1,5 +1,5 @@
 within Buildings.Utilities.Math.Functions;
-function splineSingleExtremum
+function getSingleExtremum
   "Find the single extrema of a cubic Hermite spline"
   extends Modelica.Icons.Function;
   input Real x[:] "Support point, strict monotone increasing";
@@ -61,12 +61,12 @@ algorithm
   annotation(smoothOrder=1,
               Documentation(info="<html>
 <p>
-This function finds the single extremum of a cubic Hermite spline.
-The spline provided must have exactly one extremum.
-The function solves for the roots of the derivative on the target interval
+This function finds the single extremum of a curve as a cubic Hermite spline.
+The curve provided must have exactly one extremum.
+The function solves for the roots of the spline derivative on the target interval
 which is between two adjacent knots where the extremum occurs.
-Even though the derivative is quadratic, there should be exactly one root
-that falls within the target interval.
+Even though the equation to be solved is quadratic,
+there should be exactly one of them that falls within the target interval.
 </p>
 </html>",
 revisions="<html>
@@ -77,4 +77,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end splineSingleExtremum;
+end getSingleExtremum;
