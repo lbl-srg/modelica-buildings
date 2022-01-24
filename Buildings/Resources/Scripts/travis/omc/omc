@@ -9,7 +9,7 @@
 # required directories.
 #################################################
 set -e
-IMG_NAME=ubuntu-2004-omc:1.19.0_dev-470-g5085945-1
+IMG_NAME=${OMC_VERSION}
 DOCKER_USERNAME=michaelwetter
 
 # Function declarations

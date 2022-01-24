@@ -570,6 +570,22 @@ have been <b style=\"color:blue\">improved</b> in a
 <tr><td colspan=\"2\"><b>Buildings.Controls.OBC.CDL</b>
     </td>
 </tr>
+  <tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Interfaces.DayTypeInput<br/>
+                         Buildings.Controls.OBC.CDL.Interfaces.DayTypeOutput<br/>
+                         Buildings.Controls.OBC.CDL.Discrete.DayType<br/>
+                         Buildings.Controls.OBC.CDL.Conversions.IsHoliday<br/>
+                         Buildings.Controls.OBC.CDL.Conversions.IsWorkingDay<br/>
+                         Buildings.Controls.OBC.CDL.Conversions.IsNonWorkingDay<br/>
+                         Buildings.Controls.OBC.CDL.Discrete.Examples.DayType<br/>
+                         Buildings.Controls.OBC.CDL.Conversions.Validation.DayTypeCheck<br/>
+                         Buildings.Controls.OBC.CDL.Types.Day<br/>
+  
+    </td>
+    <td valign=\"top\">Moved classes to <code>Obsolete</code> package.
+                This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2839\"># 2839</a>.<br/>
+                For Dymola, a conversion script makes this change.
+    </td>
+  </tr>
 <tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Logical.MultiAnd<br/>
                        Buildings.Controls.OBC.CDL.Logical.MultiOr
     </td>
