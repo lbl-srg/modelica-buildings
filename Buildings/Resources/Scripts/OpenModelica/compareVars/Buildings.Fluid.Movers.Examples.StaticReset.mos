@@ -1,0 +1,6 @@
+compareVars :=
+  {
+    "fan1.P",
+    "fan2.P",
+    "fan3.P"
+  };
