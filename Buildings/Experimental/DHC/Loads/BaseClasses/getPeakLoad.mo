@@ -29,13 +29,13 @@ protected
     "Found delimiter";
 
   pure function pureReadLine "Read a line of text from a file and return it in a string"
-  extends Modelica.Icons.Function;
-  input String fileName "Name of the file that shall be read";
-  input Integer lineNumber(min=1) "Number of line to read";
-  output String string "Line of text";
-  output Boolean endOfFile
-    "If true, end-of-file was reached when trying to read line";
-  external"C" string = ModelicaInternal_readLine(
+    extends Modelica.Icons.Function;
+    input String fileName "Name of the file that shall be read";
+    input Integer lineNumber(min=1) "Number of line to read";
+    output String string "Line of text";
+    output Boolean endOfFile
+      "If true, end-of-file was reached when trying to read line";
+    external"C" string = ModelicaInternal_readLine(
         fileName,
         lineNumber,
         endOfFile) annotation (
