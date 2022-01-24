@@ -285,7 +285,7 @@ to <b style=\"color:blue\">existing</b> libraries:
 <tr><td valign=\"top\">Buildings.Fluid.Movers.Validation.PowerEuler<br/>
                        Buildings.Fluid.Movers.BaseClasses.Euler.computeTables<br/>
                        Buildings.Fluid.Movers.BaseClasses.Euler.correlation<br/>
-                       Buildings.Fluid.Movers.BaseClasses.Euler.findPeak<br/>
+                       Buildings.Fluid.Movers.BaseClasses.Euler.getPeak<br/>
                        Buildings.Fluid.Movers.BaseClasses.Euler.initialTable<br/>
                        Buildings.Fluid.Movers.BaseClasses.Euler.lookupTables<br/>
                        Buildings.Fluid.Movers.BaseClasses.Euler.peak<br/>

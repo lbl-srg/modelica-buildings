@@ -1,5 +1,5 @@
 within Buildings.Fluid.Movers.BaseClasses.Euler;
-function findPeak
+function getPeak
   "Find peak condition from power characteristics"
   extends Modelica.Icons.Function;
   input Buildings.Fluid.Movers.BaseClasses.Characteristics.flowParameters
@@ -73,4 +73,4 @@ First implementation. This is for
 </li>
 </ul>
 </html>"));
-end findPeak;
+end getPeak;

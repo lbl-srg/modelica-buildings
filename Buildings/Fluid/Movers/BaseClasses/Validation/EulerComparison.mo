@@ -22,7 +22,7 @@ model EulerComparison
     final powMet=Buildings.Fluid.Movers.BaseClasses.Types.PowerMethod.EulerNumber,
     pressure=per1.pressure,
     power=per1.power,
-    peak=Buildings.Fluid.Movers.BaseClasses.Euler.findPeak(
+    peak=Buildings.Fluid.Movers.BaseClasses.Euler.getPeak(
       pressure=per2.pressure,
       power=per2.power))
     "Peak condition";

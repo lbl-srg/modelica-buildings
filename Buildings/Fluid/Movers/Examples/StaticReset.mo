@@ -10,7 +10,7 @@ model StaticReset
     pressure=per1.pressure,
     powMet=
       Buildings.Fluid.Movers.BaseClasses.Types.PowerMethod.EulerNumber,
-    peak=Buildings.Fluid.Movers.BaseClasses.Euler.findPeak(
+    peak=Buildings.Fluid.Movers.BaseClasses.Euler.getPeak(
       pressure=per1.pressure,
       power=per1.power))
     "Performance record for EulerNumber";

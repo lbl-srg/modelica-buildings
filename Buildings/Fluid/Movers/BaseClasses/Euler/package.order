@@ -1,6 +1,6 @@
 computeTables
 correlation
-findPeak
+getPeak
 initialTable
 lookupTables
 peak

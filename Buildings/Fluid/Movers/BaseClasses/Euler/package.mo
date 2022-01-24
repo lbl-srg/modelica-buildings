@@ -20,8 +20,8 @@ Buildings.Fluid.Movers.BaseClasses.Euler.correlation</a>.
 <li>
 When curves of power and pressure against flow rate is available,
 the function 
-<a href=\"Buildings.Fluid.Movers.BaseClasses.Euler.findPeak\">
-Buildings.Fluid.Movers.BaseClasses.Euler.findPeak</a>
+<a href=\"Buildings.Fluid.Movers.BaseClasses.Euler.getPeak\">
+Buildings.Fluid.Movers.BaseClasses.Euler.getPeak</a>
 can identify the peak operating condition from them.
 This is useful comparing power computation results
 against other methods.
