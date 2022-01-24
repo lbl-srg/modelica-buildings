@@ -109,16 +109,10 @@
   openmodelica:
     comment: 'returned non-zero exit status 139.'
     simulate: false
-  optimica:
-    comment: Failed due to structural parameter, see https://github.com/lbl-srg/modelica-buildings/issues/2816
-    translate: false
 - model_name: Buildings.Experimental.DHC.EnergyTransferStations.Combined.Examples.ChillerOnly
   openmodelica:
     comment: omc returned non-zero exit status 1.
     simulate: false
-  optimica:
-    comment: Failed due to structural parameter, see https://github.com/lbl-srg/modelica-buildings/issues/2816
-    translate: false
 - model_name: Buildings.Experimental.DHC.EnergyTransferStations.Combined.Validation.ChillerBorefield
   openmodelica:
     comment: 'returned non-zero exit status 139.'
@@ -135,22 +129,13 @@
   openmodelica:
     comment: 'returned non-zero exit status 10.'
     translate: false
-  optimica:
-    comment: Failed due to structural parameter, see https://github.com/lbl-srg/modelica-buildings/issues/2816
-    translate: false
 - model_name: Buildings.Experimental.DHC.Examples.Combined.SeriesConstantFlow
   openmodelica:
     comment: 'returned non-zero exit status 10.'
     translate: false
-  optimica:
-    comment: Failed due to structural parameter, see https://github.com/lbl-srg/modelica-buildings/issues/2816
-    translate: false
 - model_name: Buildings.Experimental.DHC.Examples.Combined.SeriesVariableFlow
   openmodelica:
     comment: 'returned non-zero exit status 10.'
-    translate: false
-  optimica:
-    comment: Failed due to structural parameter, see https://github.com/lbl-srg/modelica-buildings/issues/2816
     translate: false
 - model_name: Buildings.Experimental.DHC.Loads.BaseClasses.Examples.CouplingRCZ6
   openmodelica:
@@ -160,29 +145,14 @@
   openmodelica:
     comment: 'returned non-zero exit status 10.'
     translate: false
-- model_name: Buildings.Experimental.DHC.Loads.BaseClasses.Examples.CouplingTimeSeries
-  optimica:
-    comment: Failed due to structural parameter, see https://github.com/lbl-srg/modelica-buildings/issues/2816
-    translate: false
-- model_name: Buildings.Experimental.DHC.Loads.BaseClasses.Examples.CouplingTimeSeriesSingleLoop
-  optimica:
-    comment: Failed due to structural parameter, see https://github.com/lbl-srg/modelica-buildings/issues/2816
-    translate: false
-- model_name: Buildings.Experimental.DHC.Loads.BaseClasses.Validation.BenchmarkFlowDistribution1
-  optimica:
-    comment: Failed due to structural parameter, see https://github.com/lbl-srg/modelica-buildings/issues/2816
-    translate: false
 - model_name: Buildings.Experimental.DHC.Loads.BaseClasses.Validation.BenchmarkFlowDistribution2
   openmodelica:
     comment: 'returned non-zero exit status 10.'
     translate: false
-  optimica:
-    comment: Failed due to structural parameter, see https://github.com/lbl-srg/modelica-buildings/issues/2816
-    translate: false
 - model_name: Buildings.Experimental.DHC.Loads.BaseClasses.Validation.FlowDistributionPumpControl
   optimica:
-    comment: Failed due to structural parameter, see https://github.com/lbl-srg/modelica-buildings/issues/2816
-    translate: false
+    comment: The rootfinding function failed in an unrecoverable manner. At time 5959.741337. (Radau5ODE fails at 3540.029280)
+    simulate: false
 - model_name: Buildings.Experimental.DHC.Plants.Cooling.Examples.ElectricChillerParallel
   openmodelica:
     comment: 'returned non-zero exit status 1'
