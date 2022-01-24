@@ -117,33 +117,42 @@ model StaticReset
     yMax=2) "PI controller"
     annotation (Placement(transformation(extent={{-60,0},{-40,20}})));
 
-  Buildings.Fluid.Sensors.RelativePressure pDucSta1(redeclare package Medium = Medium)
-    "Duct static pressure" annotation (Placement(transformation(
+  Buildings.Fluid.Sensors.RelativePressure pDucSta1(
+    redeclare package Medium = Medium)
+    "Duct static pressure"
+    annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=180,
         origin={-50,152})));
-  Buildings.Fluid.Sensors.RelativePressure pDucSta2(redeclare package Medium = Medium)
-    "Duct static pressure" annotation (Placement(transformation(
+  Buildings.Fluid.Sensors.RelativePressure pDucSta2(
+    redeclare package Medium = Medium)
+    "Duct static pressure"
+    annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=180,
         origin={-50,50})));
-  Buildings.Fluid.Sensors.RelativePressure pDucSta3(redeclare package Medium = Medium)
-    "Duct static pressure" annotation (Placement(transformation(
+  Buildings.Fluid.Sensors.RelativePressure pDucSta3(
+    redeclare package Medium = Medium)
+    "Duct static pressure"
+    annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=180,
         origin={-50,-50})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Gain gai1(k=1/dp_nominal) annotation (Placement(
+  Buildings.Controls.OBC.CDL.Continuous.Gain gai1(k=1/dp_nominal) "Gain"
+    annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={-50,180})));
-  Buildings.Controls.OBC.CDL.Continuous.Gain gai2(k=1/dp_nominal) annotation (Placement(
+  Buildings.Controls.OBC.CDL.Continuous.Gain gai2(k=1/dp_nominal) "Gain"
+    annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={-50,78})));
-  Buildings.Controls.OBC.CDL.Continuous.Gain gai3(k=1/dp_nominal) "Gain" annotation (
+  Buildings.Controls.OBC.CDL.Continuous.Gain gai3(k=1/dp_nominal) "Gain"
+    annotation (
       Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
@@ -154,23 +163,22 @@ model StaticReset
     m_flow_nominal=m_flow_nominal,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     nominalValuesDefineDefaultPressureCurve=true)
-    "Mover for forced flow rate"
+    "Mover to force a flow rate"
     annotation (Placement(transformation(extent={{102,170},{122,190}})));
   Buildings.Fluid.Movers.FlowControlled_m_flow forFlo2(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     nominalValuesDefineDefaultPressureCurve=true)
-    "Mover for forced flow rate"
+    "Mover to force a flow rate"
     annotation (Placement(transformation(extent={{102,70},{122,90}})));
   Buildings.Fluid.Movers.FlowControlled_m_flow forFlo3(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     nominalValuesDefineDefaultPressureCurve=true)
-    "Mover for forced flow rate"
+    "Mover to force a flow rate"
     annotation (Placement(transformation(extent={{102,-30},{122,-10}})));
-
 
   Modelica.Blocks.Sources.Constant y(k=1)
     "Duct static pressure setpoint"
@@ -180,7 +188,8 @@ model StaticReset
   Modelica.Blocks.Sources.Ramp yRam(
     height=25*1.2,
     duration=3600,
-    offset=0) "Ramp input for forced flow rate"
+    offset=0)
+    "Ramp input for forced flow rate"
     annotation (Placement(transformation(extent={{60,210},{80,230}})));
 
 equation
@@ -278,19 +287,12 @@ equation
             240}})),
     Documentation(info="<html>
 <p>
-This example demonstrates the use of a fan with closed loop control.
-The fan is controlled to track a required mass flow rate.
+Draft test. Documentation pending.
 </p>
 </html>", revisions="<html>
 <ul>
 <li>
-January 22, 2016, by Michael Wetter:<br/>
-Corrected type declaration of pressure difference.
-This is
-for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/404\">#404</a>.
-</li>
-<li>
-February 14, 2012, by Michael Wetter:<br/>
+January 24, 2022, by Hongxiang Fu:<br/>
 First implementation.
 </li>
 </ul>
