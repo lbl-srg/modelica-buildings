@@ -19,6 +19,6 @@ Performance data for the return fan used in Englander and Norford (1992)
 Buildings.Fluid.Movers.Data.Fans.EnglanderNorford1992</a>.
 </p>
 <p align=\"center\">
-<img alt=\"Fan curve\" src=\"modelica://Buildings/Resources/Images/Fluid/Movers/Data/E&N Return.png\"/></p>
+<img alt=\"Fan curve\" src=\"modelica://Buildings/Resources/Images/Fluid/Movers/Data/Return.png\"/></p>
 </html>"));
 end Return;
