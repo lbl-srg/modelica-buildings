@@ -4,29 +4,14 @@ model StaticReset
   extends Modelica.Icons.Example;
 
   package Medium = Buildings.Media.Air;
-  Buildings.Fluid.Movers.Data.Fans.EnglanderNorford1992.Supply per1
-    "Performance record for PowerCharacteristic";
-  Buildings.Fluid.Movers.Data.Generic per2(
-    pressure=per1.pressure,
-    powMet=
-      Buildings.Fluid.Movers.BaseClasses.Types.PowerMethod.EulerNumber,
-    peak=Buildings.Fluid.Movers.BaseClasses.Euler.getPeak(
-      pressure=per1.pressure,
-      power=per1.power))
-    "Performance record for EulerNumber";
-  Buildings.Fluid.Movers.Data.Generic per3(
-    pressure=per1.pressure,
-    powMet=
-      Buildings.Fluid.Movers.BaseClasses.Types.PowerMethod.MotorEfficiency,
-    hydraulicEfficiency(eta = {1}),
-    motorEfficiency(eta = {0.5}))
-    "Performance record for MotorEfficiency";
 
+  // Define the system curve
   parameter Modelica.Units.SI.MassFlowRate m_flow_nominal=21.8/1.2
-    "Nominal mass flow rate, see documentation";
+    "Nominal mass flow rate";
   parameter Modelica.Units.SI.PressureDifference dp_nominal=1244.2
-    "Nominal pressure rise, see documentation";
+    "Nominal pressure rise";
 
+  // Boundary
   Buildings.Fluid.Sources.Boundary_pT sou(
     redeclare package Medium = Medium,
     use_p_in=false,
@@ -42,18 +27,36 @@ model StaticReset
     nPorts=3) "Boundary"
     annotation (Placement(transformation(extent={{160,-90},{140,-70}})));
 
+  // Fans and their performance
+  Buildings.Fluid.Movers.Data.Fans.EnglanderNorford1992.Supply per1
+    "Performance record for PowerCharacteristic";
   Buildings.Fluid.Movers.SpeedControlled_y fan1(
     redeclare package Medium = Medium,
     per = per1,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     "Fan using PowerCharacteristic"
     annotation (Placement(transformation(extent={{-10,170},{10,190}})));
+  Buildings.Fluid.Movers.Data.Generic per2(
+    pressure=per1.pressure,
+    powMet=
+      Buildings.Fluid.Movers.BaseClasses.Types.PowerMethod.EulerNumber,
+    peak=Buildings.Fluid.Movers.BaseClasses.Euler.getPeak(
+      pressure=per1.pressure,
+      power=per1.power))
+    "Performance record for EulerNumber";
   Buildings.Fluid.Movers.SpeedControlled_y fan2(
     redeclare package Medium = Medium,
     per = per2,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     "Fan using EulerNumber"
     annotation (Placement(transformation(extent={{-10,70},{10,90}})));
+  Buildings.Fluid.Movers.Data.Generic per3(
+    pressure=per1.pressure,
+    powMet=
+      Buildings.Fluid.Movers.BaseClasses.Types.PowerMethod.MotorEfficiency,
+    hydraulicEfficiency(eta = {1}),
+    motorEfficiency(eta = {0.5}))
+    "Performance record for MotorEfficiency";
   Buildings.Fluid.Movers.SpeedControlled_y fan3(
     redeclare package Medium = Medium,
     per = per3,
@@ -61,16 +64,17 @@ model StaticReset
     "Fan using MotorEfficiency"
     annotation (Placement(transformation(extent={{-10,-30},{10,-10}})));
 
+  // Duct pressure drops
   Buildings.Fluid.FixedResistances.PressureDrop dp11(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
-    dp_nominal=dp_nominal/2)
+    dp_nominal=dp_nominal/3)
     "Duct pressure drop before the static pressure measurement point"
     annotation (Placement(transformation(extent={{20,170},{40,190}})));
   Buildings.Fluid.FixedResistances.PressureDrop dp12(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
-    dp_nominal=dp_nominal/2)
+    dp_nominal=dp_nominal/3)
     "Duct pressure drop after the static pressure measurement point"
     annotation (Placement(transformation(extent={{60,170},{80,190}})));
   Buildings.Fluid.FixedResistances.PressureDrop dp21(
@@ -98,22 +102,7 @@ model StaticReset
     "Duct pressure drop after the static pressure measurement point"
     annotation (Placement(transformation(extent={{60,-30},{80,-10}})));
 
-  Buildings.Controls.Continuous.LimPID conPID1(
-    Td=1,
-    k=0.5,
-    Ti=15) "PI controller"
-    annotation (Placement(transformation(extent={{-60,202},{-40,222}})));
-  Buildings.Controls.Continuous.LimPID conPID2(
-    Td=1,
-    k=0.5,
-    Ti=15) "PI controller"
-    annotation (Placement(transformation(extent={{-60,100},{-40,120}})));
-  Buildings.Controls.Continuous.LimPID conPID3(
-    Td=1,
-    k=0.5,
-    Ti=15) "PI controller"
-    annotation (Placement(transformation(extent={{-60,0},{-40,20}})));
-
+  // PI controllers and components
   Buildings.Fluid.Sensors.RelativePressure pDucSta1(
     redeclare package Medium = Medium)
     "Duct static pressure"
@@ -135,7 +124,21 @@ model StaticReset
         extent={{-10,-10},{10,10}},
         rotation=180,
         origin={-50,-50})));
-
+  Buildings.Controls.Continuous.LimPID conPID1(
+    Td=1,
+    k=0.5,
+    Ti=15) "PI controller"
+    annotation (Placement(transformation(extent={{-60,202},{-40,222}})));
+  Buildings.Controls.Continuous.LimPID conPID2(
+    Td=1,
+    k=0.5,
+    Ti=15) "PI controller"
+    annotation (Placement(transformation(extent={{-60,100},{-40,120}})));
+  Buildings.Controls.Continuous.LimPID conPID3(
+    Td=1,
+    k=0.5,
+    Ti=15) "PI controller"
+    annotation (Placement(transformation(extent={{-60,0},{-40,20}})));
   Buildings.Controls.OBC.CDL.Continuous.Gain gai1(k=2/dp_nominal) "Gain"
     annotation (Placement(
         transformation(
@@ -154,24 +157,19 @@ model StaticReset
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={-50,-22})));
-
   Modelica.Blocks.Sources.Constant y(k=1)
-    "Duct static pressure setpoint"
+    "Duct static pressure setpoint (normalised)"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-90,220})));
 
+  // VAV boxes
   Actuators.Dampers.Exponential damExp1(
     redeclare final package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
     dpDamper_nominal=dp_nominal/3,
-    y_start=0) "Damper representing a terminal box"
+    y_start=0) "Damper representing a VAV box"
     annotation (Placement(transformation(extent={{100,170},{120,190}})));
-  Modelica.Blocks.Sources.Ramp yDam(
-    height=1,
-    duration=3600,
-    offset=0) "Ramp input for damper position"
-    annotation (Placement(transformation(extent={{60,202},{80,222}})));
   Actuators.Dampers.Exponential damExp2(
     redeclare final package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
@@ -184,6 +182,12 @@ model StaticReset
     dpDamper_nominal=dp_nominal/3,
     y_start=0) "Damper representing a terminal box"
     annotation (Placement(transformation(extent={{100,-30},{120,-10}})));
+  Modelica.Blocks.Sources.Ramp yDam(
+    height=1,
+    duration=3600,
+    offset=0) "Ramp input for damper position"
+    annotation (Placement(transformation(extent={{60,202},{80,222}})));
+
 equation
   connect(y.y, conPID3.u_s) annotation (Line(points={{-79,220},{-68,220},{-68,10},
           {-62,10}}, color={0,0,127}));
