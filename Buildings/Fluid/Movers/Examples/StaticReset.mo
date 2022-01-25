@@ -64,13 +64,13 @@ model StaticReset
   Buildings.Fluid.FixedResistances.PressureDrop dp11(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
-    dp_nominal=dp_nominal/3)
+    dp_nominal=dp_nominal/2)
     "Duct pressure drop before the static pressure measurement point"
     annotation (Placement(transformation(extent={{20,170},{40,190}})));
   Buildings.Fluid.FixedResistances.PressureDrop dp12(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
-    dp_nominal=dp_nominal/3)
+    dp_nominal=dp_nominal/2)
     "Duct pressure drop after the static pressure measurement point"
     annotation (Placement(transformation(extent={{60,170},{80,190}})));
   Buildings.Fluid.FixedResistances.PressureDrop dp21(
@@ -155,56 +155,35 @@ model StaticReset
         rotation=90,
         origin={-50,-22})));
 
-  BaseClasses.IdealSource ideSou1(
-    redeclare final package Medium = Medium,
-    final dp_start=0,
-    final m_flow_start=m_flow_nominal,
-    final show_T=false,
-    final show_V_flow=false,
-    final control_m_flow=true,
-    final control_dp=false,
-    final allowFlowReversal=false,
-    final m_flow_small=m_flow_nominal*1E-5)
-    "Ideal source to force a flow rate"
-    annotation (Placement(transformation(extent={{100,170},{120,190}})));
-  BaseClasses.IdealSource ideSou2(
-    redeclare final package Medium = Medium,
-    final dp_start=0,
-    final m_flow_start=m_flow_nominal,
-    final show_T=false,
-    final show_V_flow=false,
-    final control_m_flow=true,
-    final control_dp=false,
-    final allowFlowReversal=false,
-    final m_flow_small=m_flow_nominal*1E-5)
-    "Ideal source to force a flow rate"
-    annotation (Placement(transformation(extent={{100,70},{120,90}})));
-  BaseClasses.IdealSource ideSou3(
-    redeclare final package Medium = Medium,
-    final dp_start=0,
-    final m_flow_start=m_flow_nominal,
-    final show_T=false,
-    final show_V_flow=false,
-    final control_m_flow=true,
-    final control_dp=false,
-    final allowFlowReversal=false,
-    final m_flow_small=m_flow_nominal*1E-5)
-    "Ideal source to force a flow rate"
-    annotation (Placement(transformation(extent={{100,-30},{120,-10}})));
-
   Modelica.Blocks.Sources.Constant y(k=1)
     "Duct static pressure setpoint"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-90,220})));
-  Modelica.Blocks.Sources.Ramp yRam(
-    height=m_flow_nominal*1.2,
+
+  Actuators.Dampers.Exponential damExp1(
+    redeclare final package Medium = Medium,
+    m_flow_nominal=m_flow_nominal,
+    dpDamper_nominal=dp_nominal/3,
+    y_start=0) "Damper representing a terminal box"
+    annotation (Placement(transformation(extent={{100,170},{120,190}})));
+  Modelica.Blocks.Sources.Ramp yDam(
+    height=1,
     duration=3600,
-    offset=0)
-    "Ramp input for forced flow rate"
-    annotation (Placement(transformation(extent={{60,210},{80,230}})));
-
-
+    offset=0) "Ramp input for damper position"
+    annotation (Placement(transformation(extent={{60,202},{80,222}})));
+  Actuators.Dampers.Exponential damExp2(
+    redeclare final package Medium = Medium,
+    m_flow_nominal=m_flow_nominal,
+    dpDamper_nominal=dp_nominal/3,
+    y_start=0) "Damper representing a terminal box"
+    annotation (Placement(transformation(extent={{100,70},{120,90}})));
+  Actuators.Dampers.Exponential damExp3(
+    redeclare final package Medium = Medium,
+    m_flow_nominal=m_flow_nominal,
+    dpDamper_nominal=dp_nominal/3,
+    y_start=0) "Damper representing a terminal box"
+    annotation (Placement(transformation(extent={{100,-30},{120,-10}})));
 equation
   connect(y.y, conPID3.u_s) annotation (Line(points={{-79,220},{-68,220},{-68,10},
           {-62,10}}, color={0,0,127}));
@@ -276,24 +255,24 @@ equation
       points={{-60,152},{-78,152},{-78,-78},{-80,-78},{-80,-78.3333}},
       color={0,127,255},
       pattern=LinePattern.Dot));
-  connect(dp12.port_b, ideSou1.port_a)
+  connect(dp12.port_b, damExp1.port_a)
     annotation (Line(points={{80,180},{100,180}}, color={0,127,255}));
-  connect(ideSou1.port_b, sin.ports[1]) annotation (Line(points={{120,180},{134,
+  connect(damExp1.port_b, sin.ports[1]) annotation (Line(points={{120,180},{134,
           180},{134,-81.3333},{140,-81.3333}}, color={0,127,255}));
-  connect(yRam.y, ideSou1.m_flow_in) annotation (Line(points={{81,220},{88,220},
-          {88,198},{104,198},{104,188}}, color={0,0,127}));
-  connect(dp22.port_b, ideSou2.port_a)
+  connect(yDam.y, damExp1.y)
+    annotation (Line(points={{81,212},{110,212},{110,192}}, color={0,0,127}));
+  connect(dp22.port_b,damExp2. port_a)
     annotation (Line(points={{80,80},{100,80}}, color={0,127,255}));
-  connect(ideSou2.port_b, sin.ports[2]) annotation (Line(points={{120,80},{134,80},
+  connect(damExp2.port_b, sin.ports[2]) annotation (Line(points={{120,80},{134,80},
           {134,-80},{140,-80}}, color={0,127,255}));
-  connect(yRam.y, ideSou2.m_flow_in) annotation (Line(points={{81,220},{88,220},
-          {88,96},{104,96},{104,88}}, color={0,0,127}));
-  connect(dp32.port_b, ideSou3.port_a)
+  connect(dp32.port_b,damExp3. port_a)
     annotation (Line(points={{80,-20},{100,-20}}, color={0,127,255}));
-  connect(ideSou3.port_b, sin.ports[3]) annotation (Line(points={{120,-20},{134,
+  connect(damExp3.port_b, sin.ports[3]) annotation (Line(points={{120,-20},{134,
           -20},{134,-78.6667},{140,-78.6667}}, color={0,127,255}));
-  connect(yRam.y, ideSou3.m_flow_in) annotation (Line(points={{81,220},{88,220},
-          {88,-4},{104,-4},{104,-12}}, color={0,0,127}));
+  connect(yDam.y, damExp2.y) annotation (Line(points={{81,212},{110,212},{110,198},
+          {122,198},{122,100},{110,100},{110,92}}, color={0,0,127}));
+  connect(yDam.y, damExp3.y) annotation (Line(points={{81,212},{110,212},{110,198},
+          {122,198},{122,0},{110,0},{110,-8}}, color={0,0,127}));
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{160,
             240}})),
