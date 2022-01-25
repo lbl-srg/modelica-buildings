@@ -264,7 +264,8 @@ equation
   connect(damExp1.port_b, sin.ports[1]) annotation (Line(points={{120,180},{134,
           180},{134,-81.3333},{140,-81.3333}}, color={0,127,255}));
   connect(yDam.y, damExp1.y)
-    annotation (Line(points={{81,212},{110,212},{110,192}}, color={0,0,127}));
+    annotation (Line(points={{81,212},{92,212},{92,202},{110,202},{110,192}},
+                                                            color={0,0,127}));
   connect(dp22.port_b,damExp2. port_a)
     annotation (Line(points={{80,80},{100,80}}, color={0,127,255}));
   connect(damExp2.port_b, sin.ports[2]) annotation (Line(points={{120,80},{134,80},
@@ -273,10 +274,10 @@ equation
     annotation (Line(points={{80,-20},{100,-20}}, color={0,127,255}));
   connect(damExp3.port_b, sin.ports[3]) annotation (Line(points={{120,-20},{134,
           -20},{134,-78.6667},{140,-78.6667}}, color={0,127,255}));
-  connect(yDam.y, damExp2.y) annotation (Line(points={{81,212},{110,212},{110,198},
-          {122,198},{122,100},{110,100},{110,92}}, color={0,0,127}));
-  connect(yDam.y, damExp3.y) annotation (Line(points={{81,212},{110,212},{110,198},
-          {122,198},{122,0},{110,0},{110,-8}}, color={0,0,127}));
+  connect(yDam.y, damExp2.y) annotation (Line(points={{81,212},{92,212},{92,100},
+          {110,100},{110,92}},                     color={0,0,127}));
+  connect(yDam.y, damExp3.y) annotation (Line(points={{81,212},{92,212},{92,0},
+          {110,0},{110,-8}},                   color={0,0,127}));
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{160,
             240}})),
