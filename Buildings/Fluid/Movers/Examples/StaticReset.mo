@@ -22,7 +22,7 @@ model StaticReset
     motorEfficiency(eta = {per2.peak.eta}))
     "Performance record for MotorEfficiency";
 
-  parameter Modelica.Units.SI.MassFlowRate m_flow_nominal=21.8*1.2
+  parameter Modelica.Units.SI.MassFlowRate m_flow_nominal=25/1.2
     "Nominal mass flow rate, see documentation";
   parameter Modelica.Units.SI.PressureDifference dp_nominal=1244.2
     "Nominal pressure rise, see documentation";
@@ -201,11 +201,12 @@ model StaticReset
         rotation=0,
         origin={-90,220})));
   Modelica.Blocks.Sources.Ramp yRam(
-    height=25*1.2,
+    height=m_flow_nominal*1.2,
     duration=3600,
     offset=0)
     "Ramp input for forced flow rate"
     annotation (Placement(transformation(extent={{60,210},{80,230}})));
+
 
 equation
   connect(y.y, conPID3.u_s) annotation (Line(points={{-79,220},{-68,220},{-68,10},
@@ -220,19 +221,10 @@ equation
     annotation (Line(points={{10,-20},{20,-20}}, color={0,127,255}));
   connect(dp31.port_b, dp32.port_a)
     annotation (Line(points={{40,-20},{60,-20}}, color={0,127,255}));
-  connect(dp32.port_b, forFlo3.port_a)
-    annotation (Line(points={{80,-20},{102,-20}}, color={0,127,255}));
-  connect(yRam.y, forFlo3.m_flow_in) annotation (Line(points={{81,220},{88,220},
-          {88,20},{112,20},{112,-8}}, color={0,0,127}));
   connect(fan2.port_b, dp21.port_a)
     annotation (Line(points={{10,80},{20,80}}, color={0,127,255}));
   connect(dp21.port_b, dp22.port_a)
     annotation (Line(points={{40,80},{60,80}}, color={0,127,255}));
-  connect(dp22.port_b, forFlo2.port_a)
-    annotation (Line(points={{80,80},{102,80}}, color={0,127,255}));
-  connect(yRam.y, forFlo2.m_flow_in) annotation (Line(points={{81,220},{88,220},
-          {88,120},{112,120},{112,92}},
-                                      color={0,0,127}));
   connect(pDucSta2.p_rel, gai2.u)
     annotation (Line(points={{-50,59},{-50,66}}, color={0,0,127}));
   connect(gai2.y, conPID2.u_m)
@@ -249,10 +241,6 @@ equation
     annotation (Line(points={{10,180},{20,180}}, color={0,127,255}));
   connect(dp11.port_b, dp12.port_a)
     annotation (Line(points={{40,180},{60,180}}, color={0,127,255}));
-  connect(dp12.port_b, forFlo1.port_a)
-    annotation (Line(points={{80,180},{102,180}}, color={0,127,255}));
-  connect(yRam.y,forFlo1. m_flow_in) annotation (Line(points={{81,220},{112,220},
-          {112,192}},                 color={0,0,127}));
   connect(pDucSta1.p_rel,gai1. u)
     annotation (Line(points={{-50,161},{-50,168}},
                                                  color={0,0,127}));
@@ -291,12 +279,24 @@ equation
       points={{-60,152},{-78,152},{-78,-78},{-80,-78},{-80,-78.3333}},
       color={0,127,255},
       pattern=LinePattern.Dot));
-  connect(forFlo3.port_b, sin.ports[1]) annotation (Line(points={{122,-20},{134,
-          -20},{134,-81.3333},{140,-81.3333}}, color={0,127,255}));
-  connect(forFlo2.port_b, sin.ports[2]) annotation (Line(points={{122,80},{134,80},
+  connect(dp12.port_b, ideSou1.port_a)
+    annotation (Line(points={{80,180},{100,180}}, color={0,127,255}));
+  connect(ideSou1.port_b, sin.ports[1]) annotation (Line(points={{120,180},{134,
+          180},{134,-81.3333},{140,-81.3333}}, color={0,127,255}));
+  connect(yRam.y, ideSou1.m_flow_in) annotation (Line(points={{81,220},{88,220},
+          {88,198},{104,198},{104,188}}, color={0,0,127}));
+  connect(dp22.port_b, ideSou2.port_a)
+    annotation (Line(points={{80,80},{100,80}}, color={0,127,255}));
+  connect(ideSou2.port_b, sin.ports[2]) annotation (Line(points={{120,80},{134,80},
           {134,-80},{140,-80}}, color={0,127,255}));
-  connect(forFlo1.port_b, sin.ports[3]) annotation (Line(points={{122,180},{134,
-          180},{134,-78.6667},{140,-78.6667}}, color={0,127,255}));
+  connect(yRam.y, ideSou2.m_flow_in) annotation (Line(points={{81,220},{88,220},
+          {88,96},{104,96},{104,88}}, color={0,0,127}));
+  connect(dp32.port_b, ideSou3.port_a)
+    annotation (Line(points={{80,-20},{100,-20}}, color={0,127,255}));
+  connect(ideSou3.port_b, sin.ports[3]) annotation (Line(points={{120,-20},{134,
+          -20},{134,-78.6667},{140,-78.6667}}, color={0,127,255}));
+  connect(yRam.y, ideSou3.m_flow_in) annotation (Line(points={{81,220},{88,220},
+          {88,-4},{104,-4},{104,-12}}, color={0,0,127}));
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{160,
             240}})),
