@@ -158,27 +158,42 @@ model StaticReset
         rotation=90,
         origin={-50,-22})));
 
-  Buildings.Fluid.Movers.FlowControlled_m_flow forFlo1(
-    redeclare package Medium = Medium,
-    m_flow_nominal=m_flow_nominal,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
-    nominalValuesDefineDefaultPressureCurve=true)
-    "Mover to force a flow rate"
-    annotation (Placement(transformation(extent={{102,170},{122,190}})));
-  Buildings.Fluid.Movers.FlowControlled_m_flow forFlo2(
-    redeclare package Medium = Medium,
-    m_flow_nominal=m_flow_nominal,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
-    nominalValuesDefineDefaultPressureCurve=true)
-    "Mover to force a flow rate"
-    annotation (Placement(transformation(extent={{102,70},{122,90}})));
-  Buildings.Fluid.Movers.FlowControlled_m_flow forFlo3(
-    redeclare package Medium = Medium,
-    m_flow_nominal=m_flow_nominal,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
-    nominalValuesDefineDefaultPressureCurve=true)
-    "Mover to force a flow rate"
-    annotation (Placement(transformation(extent={{102,-30},{122,-10}})));
+  BaseClasses.IdealSource ideSou1(
+    redeclare final package Medium = Medium,
+    final dp_start=0,
+    final m_flow_start=m_flow_nominal,
+    final show_T=false,
+    final show_V_flow=false,
+    final control_m_flow=true,
+    final control_dp=false,
+    final allowFlowReversal=false,
+    final m_flow_small=m_flow_nominal*1E-5)
+    "Ideal source to force a flow rate"
+    annotation (Placement(transformation(extent={{100,170},{120,190}})));
+  BaseClasses.IdealSource ideSou2(
+    redeclare final package Medium = Medium,
+    final dp_start=0,
+    final m_flow_start=m_flow_nominal,
+    final show_T=false,
+    final show_V_flow=false,
+    final control_m_flow=true,
+    final control_dp=false,
+    final allowFlowReversal=false,
+    final m_flow_small=m_flow_nominal*1E-5)
+    "Ideal source to force a flow rate"
+    annotation (Placement(transformation(extent={{100,70},{120,90}})));
+  BaseClasses.IdealSource ideSou3(
+    redeclare final package Medium = Medium,
+    final dp_start=0,
+    final m_flow_start=m_flow_nominal,
+    final show_T=false,
+    final show_V_flow=false,
+    final control_m_flow=true,
+    final control_dp=false,
+    final allowFlowReversal=false,
+    final m_flow_small=m_flow_nominal*1E-5)
+    "Ideal source to force a flow rate"
+    annotation (Placement(transformation(extent={{100,-30},{120,-10}})));
 
   Modelica.Blocks.Sources.Constant y(k=1)
     "Duct static pressure setpoint"
