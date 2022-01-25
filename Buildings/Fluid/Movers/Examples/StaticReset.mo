@@ -19,10 +19,10 @@ model StaticReset
     powMet=
       Buildings.Fluid.Movers.BaseClasses.Types.PowerMethod.MotorEfficiency,
     hydraulicEfficiency(eta = {1}),
-    motorEfficiency(eta = {per2.peak.eta}))
+    motorEfficiency(eta = {0.5}))
     "Performance record for MotorEfficiency";
 
-  parameter Modelica.Units.SI.MassFlowRate m_flow_nominal=25/1.2
+  parameter Modelica.Units.SI.MassFlowRate m_flow_nominal=21.8/1.2
     "Nominal mass flow rate, see documentation";
   parameter Modelica.Units.SI.PressureDifference dp_nominal=1244.2
     "Nominal pressure rise, see documentation";
@@ -64,57 +64,54 @@ model StaticReset
   Buildings.Fluid.FixedResistances.PressureDrop dp11(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
-    dp_nominal=dp_nominal/2)
+    dp_nominal=dp_nominal/3)
     "Duct pressure drop before the static pressure measurement point"
     annotation (Placement(transformation(extent={{20,170},{40,190}})));
   Buildings.Fluid.FixedResistances.PressureDrop dp12(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
-    dp_nominal=dp_nominal/2)
+    dp_nominal=dp_nominal/3)
     "Duct pressure drop after the static pressure measurement point"
     annotation (Placement(transformation(extent={{60,170},{80,190}})));
   Buildings.Fluid.FixedResistances.PressureDrop dp21(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
-    dp_nominal=dp_nominal/2)
+    dp_nominal=dp_nominal/3)
     "Duct pressure drop before the static pressure measurement point"
     annotation (Placement(transformation(extent={{20,70},{40,90}})));
   Buildings.Fluid.FixedResistances.PressureDrop dp22(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
-    dp_nominal=dp_nominal/2)
+    dp_nominal=dp_nominal/3)
     "Duct pressure drop after the static pressure measurement point"
     annotation (Placement(transformation(extent={{60,70},{80,90}})));
   Buildings.Fluid.FixedResistances.PressureDrop dp31(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
-    dp_nominal=dp_nominal/2)
+    dp_nominal=dp_nominal/3)
     "Duct pressure drop before the static pressure measurement point"
     annotation (Placement(transformation(extent={{20,-30},{40,-10}})));
   Buildings.Fluid.FixedResistances.PressureDrop dp32(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
-    dp_nominal=dp_nominal/2)
+    dp_nominal=dp_nominal/3)
     "Duct pressure drop after the static pressure measurement point"
     annotation (Placement(transformation(extent={{60,-30},{80,-10}})));
 
   Buildings.Controls.Continuous.LimPID conPID1(
     Td=1,
     k=0.5,
-    Ti=15,
-    yMax=2) "PI controller"
+    Ti=15) "PI controller"
     annotation (Placement(transformation(extent={{-60,202},{-40,222}})));
   Buildings.Controls.Continuous.LimPID conPID2(
     Td=1,
     k=0.5,
-    Ti=15,
-    yMax=2) "PI controller"
+    Ti=15) "PI controller"
     annotation (Placement(transformation(extent={{-60,100},{-40,120}})));
   Buildings.Controls.Continuous.LimPID conPID3(
     Td=1,
     k=0.5,
-    Ti=15,
-    yMax=2) "PI controller"
+    Ti=15) "PI controller"
     annotation (Placement(transformation(extent={{-60,0},{-40,20}})));
 
   Buildings.Fluid.Sensors.RelativePressure pDucSta1(
@@ -139,19 +136,19 @@ model StaticReset
         rotation=180,
         origin={-50,-50})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Gain gai1(k=1/dp_nominal) "Gain"
+  Buildings.Controls.OBC.CDL.Continuous.Gain gai1(k=2/dp_nominal) "Gain"
     annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={-50,180})));
-  Buildings.Controls.OBC.CDL.Continuous.Gain gai2(k=1/dp_nominal) "Gain"
+  Buildings.Controls.OBC.CDL.Continuous.Gain gai2(k=2/dp_nominal) "Gain"
     annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={-50,78})));
-  Buildings.Controls.OBC.CDL.Continuous.Gain gai3(k=1/dp_nominal) "Gain"
+  Buildings.Controls.OBC.CDL.Continuous.Gain gai3(k=2/dp_nominal) "Gain"
     annotation (
       Placement(transformation(
         extent={{-10,-10},{10,10}},
