@@ -33,29 +33,40 @@ algorithm
   This may cause the computed values to be highly inaccurate.",
           level = AssertionLevel.warning);
 
-  // Constructs the matrix equation A b = y, where
-  //   A is a 5-by-n design matrix,
-  //   b is a parameter vector with length 5 (corresponds to a quartic regression),
-  //   and y = eta is the response vector with length n.
-  for i in 1:5 loop
-    A[:,i]:=pressure.V_flow[:].^(i-1);
-  end for;
-  b:=Modelica.Math.Matrices.leastSquares(A,eta);
+  if etaLes or etaMon then
+    peak.eta:=max(eta);
+    for i in 1:n loop
+      if eta[i]-peak.eta<1E-6 then
+        peak.V_flow:=pressure.V_flow[i];
+        peak.dp:=pressure.dp[i];
+      end if;
+    end for;
+  else
 
-  // Solve the derivative for the max eta and corresponding V_flow.
-  // This assumes that there will only be one real solution
-  //   and it falls within the range of V_flow[:].
-  r:=Modelica.Math.Polynomials.roots({b[5]*4,b[4]*3,b[3]*2,b[2]});
-  for i in 1:3 loop
-    if r[i,2]<=1E-6 and
-      r[i,1]>pressure.V_flow[1] and r[i,1]<pressure.V_flow[end] then
-      peak.V_flow:=r[i,1];
-    end if;
-  end for;
-  peak.eta:=Buildings.Utilities.Math.Functions.smoothInterpolation(
-    x=peak.V_flow,xSup=pressure.V_flow,ySup=eta,ensureMonotonicity=false);
-  peak.dp:=Buildings.Utilities.Math.Functions.smoothInterpolation(
-    x=peak.V_flow,xSup=pressure.V_flow,ySup=pressure.dp,ensureMonotonicity=false);
+    // Constructs the matrix equation A b = y, where
+    //   A is a 5-by-n design matrix,
+    //   b is a parameter vector with length 5 (corresponds to a quartic regression),
+    //   and y = eta is the response vector with length n.
+    for i in 1:5 loop
+      A[:,i]:=pressure.V_flow[:].^(i-1);
+    end for;
+    b:=Modelica.Math.Matrices.leastSquares(A,eta);
+
+    // Solve the derivative for the max eta and corresponding V_flow.
+    // This assumes that there will only be one real solution
+    //   and it falls within the range of V_flow[:].
+    r:=Modelica.Math.Polynomials.roots({b[5]*4,b[4]*3,b[3]*2,b[2]});
+    for i in 1:3 loop
+      if r[i,2]<=1E-6 and
+        r[i,1]>pressure.V_flow[1] and r[i,1]<pressure.V_flow[end] then
+        peak.V_flow:=r[i,1];
+      end if;
+    end for;
+    peak.eta:=Buildings.Utilities.Math.Functions.smoothInterpolation(
+      x=peak.V_flow,xSup=pressure.V_flow,ySup=eta,ensureMonotonicity=false);
+    peak.dp:=Buildings.Utilities.Math.Functions.smoothInterpolation(
+      x=peak.V_flow,xSup=pressure.V_flow,ySup=pressure.dp,ensureMonotonicity=false);
+  end if;
 
   annotation(smoothOrder=1,
               Documentation(info="<html>
@@ -67,12 +78,17 @@ Buildings.Fluid.Movers.BaseClasses.Characteristics.power</a> and
 Buildings.Fluid.Movers.BaseClasses.Characteristics.pressure</a>,
 this function finds the peak point with the highest efficiency <i>&eta;</i>
 and the corresponding flow rate <i>V&#775;</i> and pressure rise <i>&Delta;p</i>.
-The results are output as record to
+The results are output as an instance of
 <a href=\"modelica://Buildings.Fluid.Movers.BaseClasses.Euler.peak\">
 Buildings.Fluid.Movers.BaseClasses.Euler.peak</a>.
-If the input series has only two data points or is monotonic,
+If the input series has less than three data points or is monotonic,
 the point with the highest efficiency is directly used and the function
 issues a warning stating that the computation may be highly inaccurate.
+</p>
+<p>
+To find the peak efficiency, the function first runs a quartic regression on
+<i>&eta;</i> vs. <i>V&#775;</i>. Then it solves its derivative to find an extremem.
+It assumes there is only one extremum within the given range of <i>V&#775;</i>.
 </p>
 </html>",
 revisions="<html>
