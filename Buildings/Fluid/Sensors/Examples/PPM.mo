@@ -4,7 +4,8 @@ model PPM "Test model for the extra property sensor outputting PPM"
   package Medium = Buildings.Media.Air(extraPropertiesNames={"CO2"})
     "Medium model";
 
-  parameter Modelica.SIunits.MassFlowRate m_flow_nominal = volDyn.V*senPPMTwoPort.tau*3*rho_default
+  parameter Modelica.Units.SI.MassFlowRate m_flow_nominal=volDyn.V*
+      senPPMTwoPort.tau*3*rho_default
     "Mass flow rate into and out of the volume";
 
   Buildings.Fluid.MixingVolumes.MixingVolume volDyn(
@@ -94,8 +95,8 @@ protected
       p=Medium.p_default,
       X=Medium.X_default[1:Medium.nXi]) "Medium state at default values";
   // Density at medium default values, used to compute the size of control volumes
-  final parameter Modelica.SIunits.Density rho_default=Medium.density(
-    state=state_default) "Density, used to compute fluid mass";
+  final parameter Modelica.Units.SI.Density rho_default=Medium.density(state=
+      state_default) "Density, used to compute fluid mass";
 
 equation
   connect(mSou.ports[1], volDyn.ports[1]) annotation (Line(points={{-20,42},{

@@ -5,12 +5,12 @@ partial block HumidityRatioVaporPressure
   parameter Boolean use_p_in = true "Get the pressure from the input connector"
     annotation(Evaluate=true, HideResult=true);
 
-  parameter Modelica.SIunits.Pressure p = 101325 "Fixed value of pressure"
-    annotation (Dialog(enable = not use_p_in));
+  parameter Modelica.Units.SI.Pressure p=101325 "Fixed value of pressure"
+    annotation (Dialog(enable=not use_p_in));
   Modelica.Blocks.Interfaces.RealInput p_in(final quantity="Pressure",
                                          final unit="Pa",
                                          displayUnit="Pa",
-                                         min = 0) if  use_p_in
+                                         min = 0)  if use_p_in
     "Atmospheric Pressure"
     annotation (Placement(transformation(extent={{-140,40},{-100,80}})));
 
@@ -61,6 +61,6 @@ First implementation.
         Text(
           visible=use_p_in,
           extent={{-90,108},{-34,16}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="p_in")}));
 end HumidityRatioVaporPressure;

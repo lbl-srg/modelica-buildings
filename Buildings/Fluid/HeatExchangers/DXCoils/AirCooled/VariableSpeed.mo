@@ -67,6 +67,6 @@ First implementation.
 </html>"),
     Icon(graphics={Text(
           extent={{-96,96},{-38,78}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="speRat")}));
 end VariableSpeed;

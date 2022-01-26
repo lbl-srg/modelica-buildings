@@ -35,9 +35,10 @@ partial model PartialChillerWSE
     annotation(Dialog(tab="Dynamics", group="Filtered opening",enable=use_inputFilter));
 
   //WSE
-  parameter Modelica.SIunits.Efficiency eta(min=0,max=1)=0.8
-    "Heat exchange effectiveness"
-    annotation(Dialog(group="Waterside economizer"));
+  parameter Modelica.Units.SI.Efficiency eta(
+    min=0,
+    max=1) = 0.8 "Heat exchange effectiveness"
+    annotation (Dialog(group="Waterside economizer"));
 
   parameter Real[2] lValWSE(each min=1e-10, each max=1) = {0.0001,0.0001}
     "Valve leakage, l=Kv(y=0)/Kv(y=1)"
@@ -56,19 +57,22 @@ partial model PartialChillerWSE
   parameter Modelica.Fluid.Types.Dynamics massDynamics=energyDynamics
     "Type of mass balance: dynamic (3 initialization options) or steady state"
     annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Equations"));
-  parameter Modelica.SIunits.Time tauChi1 = 30
-    "Time constant at nominal flow in chillers"
-     annotation (Dialog(tab = "Dynamics", group="Chiller",
-                 enable=not energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState));
-  parameter Modelica.SIunits.Time tauChi2 = 30
-    "Time constant at nominal flow in chillers"
-     annotation (Dialog(tab = "Dynamics", group="Chiller",
-                 enable=not energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState));
-  parameter Modelica.SIunits.Time tauWSE = 10
+  parameter Modelica.Units.SI.Time tauChi1=30
+    "Time constant at nominal flow in chillers" annotation (Dialog(
+      tab="Dynamics",
+      group="Chiller",
+      enable=not energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState));
+  parameter Modelica.Units.SI.Time tauChi2=30
+    "Time constant at nominal flow in chillers" annotation (Dialog(
+      tab="Dynamics",
+      group="Chiller",
+      enable=not energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState));
+  parameter Modelica.Units.SI.Time tauWSE=10
     "Time constant at nominal flow for dynamic energy and momentum balance of the three-way valve"
-    annotation(Dialog(tab="Dynamics", group="Waterside economizer",
-               enable= use_controller and not energyDynamics ==
-               Modelica.Fluid.Types.Dynamics.SteadyState));
+    annotation (Dialog(
+      tab="Dynamics",
+      group="Waterside economizer",
+      enable=use_controller and not energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState));
 
   // Initialization
   parameter Medium1.AbsolutePressure p1_start = Medium1.p_default
@@ -113,11 +117,11 @@ partial model PartialChillerWSE
                enable=Medium2.nC > 0));
 
   // Temperature sensor
-  parameter Modelica.SIunits.Time tauSenT=1
-    "Time constant at nominal flow rate (use tau=0 for steady-state sensor,
-    but see user guide for potential problems)"
-   annotation(Dialog(tab="Dynamics", group="Temperature Sensor",
-     enable=not energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState));
+  parameter Modelica.Units.SI.Time tauSenT=1 "Time constant at nominal flow rate (use tau=0 for steady-state sensor,
+    but see user guide for potential problems)" annotation (Dialog(
+      tab="Dynamics",
+      group="Temperature Sensor",
+      enable=not energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState));
   parameter Modelica.Blocks.Types.Init initTSenor = Modelica.Blocks.Types.Init.InitialState
     "Type of initialization of the temperature sensor (InitialState and InitialOutput are identical)"
   annotation(Evaluate=true, Dialog(tab="Dynamics", group="Temperature Sensor"));
@@ -456,7 +460,7 @@ equation
           fillPattern=FillPattern.Solid),
         Text(
           extent={{6,16},{16,8}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid,
           textStyle={TextStyle.Bold},

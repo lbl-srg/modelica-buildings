@@ -5,7 +5,7 @@ function glassProperty
     Buildings.HeatTransfer.Windows.Functions.BaseClasses.partialGlassRadiation;
   input Real glass[3, N, NSta] "Propertry of each glass pane";
   input Real xGla[N] "Thickness of each glass pane";
-  input Modelica.SIunits.Angle psi[HEM - 1] "Incident angles";
+  input Modelica.Units.SI.Angle psi[HEM - 1] "Incident angles";
 
   output Real layer[3, N, HEM, NSta]
     "Transmittance, front and back reflectance";

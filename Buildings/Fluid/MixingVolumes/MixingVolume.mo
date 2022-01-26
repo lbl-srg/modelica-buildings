@@ -250,5 +250,5 @@ Buildings.Fluid.MixingVolumes.BaseClasses.ClosedVolume</a>.
       Text(
           extent={{-152,100},{148,140}},
           textString="%name",
-          lineColor={0,0,255})}));
+          textColor={0,0,255})}));
 end MixingVolume;

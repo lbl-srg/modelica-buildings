@@ -2,11 +2,18 @@ within Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.VAV.SetPoints;
 block SupplyTemperature
   "Supply air temperature setpoint for multi zone system"
 
+  parameter Real TSupSetDes(
+    final unit="K",
+    final displayUnit="degC",
+    final quantity="ThermodynamicTemperature") = 285.15
+    "Design coil leaving air temperature"
+    annotation (Dialog(group="Temperatures"));
   parameter Real TSupSetMin(
     final unit="K",
     final displayUnit="degC",
     final quantity="ThermodynamicTemperature") = 285.15
-    "Lowest cooling supply air temperature setpoint"
+    "Lowest cooling supply air temperature setpoint when the outdoor air temperature is at the
+    higher value of the reset range and above. This should not be lower than the design coil leaving air temperature"
     annotation (Dialog(group="Temperatures"));
   parameter Real TSupSetMax(
     final unit="K",
@@ -14,12 +21,6 @@ block SupplyTemperature
     final quantity="ThermodynamicTemperature") = 291.15
     "Highest cooling supply air temperature setpoint. It is typically 18 degC (65 degF) 
     in mild and dry climates, 16 degC (60 degF) or lower in humid climates"
-    annotation (Dialog(group="Temperatures"));
-  parameter Real TSupSetDes(
-    final unit="K",
-    final displayUnit="degC",
-    final quantity="ThermodynamicTemperature") = 286.15
-    "Nominal supply air temperature setpoint"
     annotation (Dialog(group="Temperatures"));
   parameter Real TOutMin(
     final unit="K",
@@ -39,24 +40,6 @@ block SupplyTemperature
     final quantity="ThermodynamicTemperature")=308.15
     "Supply temperature in warm up and set back mode"
     annotation (Dialog(group="Temperatures"));
-  parameter Real iniSet(
-    final unit="K",
-    final displayUnit="degC",
-    final quantity="ThermodynamicTemperature") = maxSet
-    "Initial setpoint"
-    annotation (Dialog(group="Trim and respond logic"));
-  parameter Real maxSet(
-    final unit="K",
-    final displayUnit="degC",
-    final quantity="ThermodynamicTemperature") = TSupSetMax
-    "Maximum setpoint"
-    annotation (Dialog(group="Trim and respond logic"));
-  parameter Real minSet(
-    final unit="K",
-    final displayUnit="degC",
-    final quantity="ThermodynamicTemperature") = TSupSetDes
-    "Minimum setpoint"
-    annotation (Dialog(group="Trim and respond logic"));
   parameter Real delTim(
     final unit="s",
     final quantity="Time") = 600
@@ -137,6 +120,25 @@ block SupplyTemperature
     annotation (Placement(transformation(extent={{-100,20},{-80,40}})));
 
 protected
+  parameter Real iniSet(
+    final unit="K",
+    final displayUnit="degC",
+    final quantity="ThermodynamicTemperature") = maxSet
+    "Initial setpoint"
+    annotation (Dialog(group="Trim and respond logic"));
+  parameter Real maxSet(
+    final unit="K",
+    final displayUnit="degC",
+    final quantity="ThermodynamicTemperature") = TSupSetMax
+    "Maximum setpoint"
+    annotation (Dialog(group="Trim and respond logic"));
+  parameter Real minSet(
+    final unit="K",
+    final displayUnit="degC",
+    final quantity="ThermodynamicTemperature") = TSupSetDes
+    "Minimum setpoint"
+    annotation (Dialog(group="Trim and respond logic"));
+
   Buildings.Controls.OBC.CDL.Continuous.Line lin
     "Supply temperature distributes linearly between minimum and maximum supply 
     air temperature, according to outdoor temperature"
@@ -167,8 +169,12 @@ protected
     "If operation mode is setup or cool-down, setpoint shall be TSupSetMin"
     annotation (Placement(transformation(extent={{20,-60},{40,-40}})));
   Buildings.Controls.OBC.CDL.Continuous.Limiter TDea(
-    uMax=297.15,
-    uMin=294.15)
+    uMax(
+      final unit="K",
+      displayUnit="degC") = 297.15,
+    uMin(
+      final unit="K",
+      displayUnit="degC") = 294.15)
     "Limiter that outputs the dead band value for the supply air temperature"
     annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
   Buildings.Controls.OBC.CDL.Continuous.Switch swi3
@@ -274,37 +280,37 @@ annotation (
         fillPattern=FillPattern.Solid),
         Text(
           extent={{-94,92},{-42,66}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="TZonSetAve"),
         Text(
           extent={{-96,46},{-68,34}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="TOut"),
         Text(
           extent={{-94,-22},{-14,-58}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="uZonTemResReq"),
         Text(
           extent={{-94,12},{-48,-12}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="uSupFan"),
         Text(
           extent={{-94,-70},{-50,-90}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="uOpeMod"),
         Text(
           extent={{68,8},{96,-8}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="TSupSet"),
         Text(
           extent={{-124,146},{96,108}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%name")}),
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-140,-140},{140,120}})),
   Documentation(info="<html>
@@ -391,6 +397,12 @@ coil (if applicable) or chilled water valves.
 </html>",
 revisions="<html>
 <ul>
+<li>
+December 21, 2021, by Jianjun Hu:<br/>
+Improved comments of the setpoint limits and made the limit parameters
+of trim and respond logic to be protected.
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2828\">#2828</a>.
+</li>
 <li>
 March 12, 2020, by Jianjun Hu:<br/>
 Propagated supply temperature setpoint of warmup and setback mode.<br/>

@@ -25,6 +25,12 @@ but configured for simulation of a few days in spring.
       revisions="<html>
 <ul>
 <li>
+December 20, 2021, by Michael Wetter:<br/>
+Changed parameter declarations and added optimal start up.
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2829\">issue #2829</a>.
+</li>
+<li>
 October 4, 2021, by Michael Wetter:<br/>
 Refactored <a href=\"modelica://Buildings.Examples.VAVReheat\">Buildings.Examples.VAVReheat</a>
 and its base classes to separate building from HVAC model.<br/>

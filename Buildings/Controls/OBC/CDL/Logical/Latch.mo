@@ -19,22 +19,26 @@ initial equation
 equation
   when initial() then
     //scenario = 1;
-    y=
-      if clr then
+    y=if clr then
         false
       else
         u;
-  elsewhen(not clr) and change(u) and(pre(u) == false) then
+  elsewhen
+          (not clr) and change(u) and
+                                     (pre(u) == false) then
     //scenario = 2;
     y=not clr;
-  elsewhen(not clr) and change(u) and(pre(u) == true) then
+  elsewhen
+          (not clr) and change(u) and
+                                     (pre(u) == true) then
     //scenario = 3;
-    y=
-      if clr then
+    y=if clr then
         false
       else
         pre(y);
-  elsewhen change(clr) and(pre(clr) == true) and(not u) then
+  elsewhen change(clr) and
+                          (pre(clr) == true) and
+                                                (not u) then
     //scenario = 4;
     y=false;
   elsewhen clr then
@@ -101,19 +105,19 @@ equation
           color={255,0,255}),
         Text(
           extent={{-14,-8},{14,-18}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           fillColor={210,210,210},
           fillPattern=FillPattern.Solid,
           textString="Clear"),
         Text(
           extent={{-16,72},{24,58}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           fillColor={210,210,210},
           fillPattern=FillPattern.Solid,
           textString="Latch input"),
         Text(
           extent={{-150,150},{150,110}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%name")}),
     Documentation(
       info="<html>

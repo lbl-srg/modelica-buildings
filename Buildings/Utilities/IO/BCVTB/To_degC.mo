@@ -13,7 +13,7 @@ block To_degC "Converts Kelvin to Celsius"
     annotation (Placement(transformation(extent={{100,-10},{120,10}}),
         iconTransformation(extent={{100,-10},{120,10}})));
 equation
-  Kelvin = Modelica.SIunits.Conversions.from_degC(Celsius);
+  Kelvin =Modelica.Units.Conversions.from_degC(Celsius);
 annotation (
 defaultComponentName="toDegC",
 Documentation(info="<html>
@@ -34,7 +34,7 @@ First implementation.
 </ul>
 </html>"), Icon(graphics={               Text(
           extent={{-26,96},{-106,16}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="K"),
         Polygon(
           points={{84,-4},{24,16},{24,-24},{84,-4}},
@@ -43,7 +43,7 @@ First implementation.
           fillPattern=FillPattern.Solid),
                            Text(
           extent={{94,-24},{14,-104}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="degC"),
         Line(points={{-96,-4},{24,-4}},
                                       color={191,0,0})}));

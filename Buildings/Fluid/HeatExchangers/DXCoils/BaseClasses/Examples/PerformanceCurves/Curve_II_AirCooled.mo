@@ -36,26 +36,26 @@ First implementation.
     Icon(graphics={
         Text(
           extent={{-95,53},{-12,-2}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="capFunT"),
         Text(
           extent={{7,55},{90,0}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%capFunT"),
         Text(
           extent={{-105,-9},{-48,-48}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="capFunFF"),
         Text(
           extent={{2,-16},{94,-38}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%capFunFF"),
         Text(
           extent={{-95,-49},{-12,-104}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="EIRFunT"),
         Text(
           extent={{7,-53},{84,-94}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%EIRFunT")}));
 end Curve_II_AirCooled;

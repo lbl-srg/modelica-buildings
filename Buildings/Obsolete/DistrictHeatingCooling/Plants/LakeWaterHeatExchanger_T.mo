@@ -14,25 +14,22 @@ model LakeWaterHeatExchanger_T "Heat exchanger with lake, ocean or river water"
   parameter Boolean disableHeatExchanger = false
     "Set to true to disable the heat exchanger";
 
-  parameter Modelica.SIunits.TemperatureDifference TApp(
-     min=0,
-    displayUnit="K") = 0.5
-    "Approach temperature difference";
+  parameter Modelica.Units.SI.TemperatureDifference TApp(
+    min=0,
+    displayUnit="K") = 0.5 "Approach temperature difference";
 
-  parameter Modelica.SIunits.MassFlowRate m_flow_nominal
-    "Nominal mass flow rate"
-    annotation(Dialog(group = "Nominal condition"));
+  parameter Modelica.Units.SI.MassFlowRate m_flow_nominal
+    "Nominal mass flow rate" annotation (Dialog(group="Nominal condition"));
 
-  parameter Modelica.SIunits.PressureDifference dpValve_nominal(
-     displayUnit="Pa",
-     min=0) = 1000 "Nominal pressure drop of fully open valve"
-    annotation(Dialog(group="Nominal condition"));
-
-  parameter Modelica.SIunits.PressureDifference dpHex_nominal(
+  parameter Modelica.Units.SI.PressureDifference dpValve_nominal(
     displayUnit="Pa",
-    min=0)
+    min=0) = 1000 "Nominal pressure drop of fully open valve"
+    annotation (Dialog(group="Nominal condition"));
+
+  parameter Modelica.Units.SI.PressureDifference dpHex_nominal(displayUnit="Pa",
+      min=0)
     "Pressure drop of heat exchanger pipe and other resistances in the heat exchanger flow leg that are in series with the valve"
-     annotation(Dialog(group = "Nominal condition"));
+    annotation (Dialog(group="Nominal condition"));
 
   parameter Boolean from_dp = false
     "= true, use m_flow = f(dp) else dp = f(m_flow)"
@@ -222,15 +219,12 @@ equation
           {50,76},{50,72}}, color={0,0,127}));
 protected
   model Controller "Controller for bay water heat exchanger"
-    parameter Modelica.SIunits.MassFlowRate m_flow_nominal
-      "Nominal mass flow rate"
-      annotation(Dialog(group = "Nominal condition"));
+    parameter Modelica.Units.SI.MassFlowRate m_flow_nominal
+      "Nominal mass flow rate" annotation (Dialog(group="Nominal condition"));
     Modelica.Blocks.Nonlinear.Limiter limTem(
       uMax=1,
       uMin=0,
-      limitsAtInit=false,
-      strict=true)
-      "Signal limiter for switching valve"
+      strict=true) "Signal limiter for switching valve"
       annotation (Placement(transformation(extent={{20,60},{40,80}})));
     Modelica.Blocks.Math.Gain gaiTem(k=4) "Control gain for dT"
       annotation (Placement(transformation(extent={{-30,60},{-10,80}})));
@@ -254,9 +248,7 @@ protected
     Modelica.Blocks.Nonlinear.Limiter limFlo(
       uMax=1,
       uMin=0,
-      limitsAtInit=false,
-      strict=true)
-      "Signal limiter for switching valve"
+      strict=true) "Signal limiter for switching valve"
       annotation (Placement(transformation(extent={{20,120},{40,140}})));
     Modelica.Blocks.Math.Gain gaiFlo(k=100) "Control gain for flow rate"
       annotation (Placement(transformation(extent={{-30,120},{-10,140}})));
@@ -367,15 +359,15 @@ equation
           fillPattern=FillPattern.Solid),
         Text(
           extent={{-94,176},{-40,138}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="TSetHea"),
         Text(
           extent={{-96,138},{-42,100}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="TSetCoo"),
         Text(
           extent={{-139,-100},{161,-140}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%name"),
         Rectangle(
           extent={{-18,137},{-10,84}},
@@ -398,15 +390,15 @@ equation
           pattern=LinePattern.None),
         Text(
           extent={{-90,296},{-36,258}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="TSouWat"),
         Text(
           extent={{-94,218},{-40,180}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="TSouCoo"),
         Text(
           extent={{-94,256},{-40,218}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="TSouHea")}),
     Documentation(info="<html>
 <p>

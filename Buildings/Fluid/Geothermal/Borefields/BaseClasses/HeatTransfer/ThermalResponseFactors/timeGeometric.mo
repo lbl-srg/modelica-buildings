@@ -2,8 +2,8 @@ within Buildings.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.ThermalRes
 function timeGeometric "Geometric expansion of time steps"
   extends Modelica.Icons.Function;
 
-  input Modelica.SIunits.Duration dt "Minimum time step";
-  input Modelica.SIunits.Time t_max "Maximum value of time";
+  input Modelica.Units.SI.Duration dt "Minimum time step";
+  input Modelica.Units.SI.Time t_max "Maximum value of time";
   input Integer nTim "Number of time values";
 
   output Real t[nTim] "Time vector";

@@ -18,8 +18,7 @@ initial equation
 
 equation
   when {trigger,reset} then
-    y=
-      if reset then
+    y=if reset then
         y_start
       else
         pre(y)+1;
@@ -41,12 +40,12 @@ equation
           borderPattern=BorderPattern.Raised),
         Text(
           extent={{-64,-62},{58,-86}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="reset"),
         Text(
           extent={{-150,150},{150,110}},
           textString="%name",
-          lineColor={0,0,255})}),
+          textColor={0,0,255})}),
     Documentation(
       info="<html>
 <p>

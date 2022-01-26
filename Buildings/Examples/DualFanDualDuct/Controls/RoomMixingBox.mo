@@ -2,7 +2,7 @@ within Buildings.Examples.DualFanDualDuct.Controls;
 block RoomMixingBox "Controller for room mixing box"
   extends Modelica.Blocks.Icons.Block;
 
-  parameter Modelica.SIunits.MassFlowRate m_flow_min "Minimum mass flow rate";
+  parameter Modelica.Units.SI.MassFlowRate m_flow_min "Minimum mass flow rate";
   Buildings.Controls.OBC.CDL.Continuous.PID conHea(
     controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
     Td=60,
@@ -168,31 +168,31 @@ equation
   annotation ( Icon(graphics={
         Text(
           extent={{-86,92},{-38,68}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="TRoo"),
         Text(
           extent={{-88,-28},{-40,-52}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="m_flow"),
         Text(
           extent={{42,52},{90,28}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="yHea"),
         Text(
           extent={{46,-36},{94,-60}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="yCoo"),
         Text(
           extent={{-84,52},{-36,28}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="TSetH"),
         Text(
           extent={{-84,10},{-36,-14}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="TSetC"),
         Text(
           extent={{-86,-64},{-38,-88}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="yFan")}),
     Documentation(info="<html>
 This controller outputs the control signal for the air damper for the hot deck and the cold deck.

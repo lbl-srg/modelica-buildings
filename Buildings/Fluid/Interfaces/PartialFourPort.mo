@@ -150,7 +150,7 @@ are often iteration variables in nonlinear equation systems.
           grid={1,1}), graphics={
       Text(
           extent={{-151,147},{149,107}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           fillPattern=FillPattern.HorizontalCylinder,
           fillColor={0,127,255},
           textString="%name"),

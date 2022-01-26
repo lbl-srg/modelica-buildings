@@ -3,16 +3,21 @@ model ThermalZoneAdapter
   "Block that interacts with this EnergyPlus zone"
   extends Modelica.Blocks.Icons.Block;
   extends Buildings.ThermalZones.EnergyPlus.BaseClasses.Synchronize.ObjectSynchronizer;
+
   constant String modelicaNameBuilding
     "Name of the building to which this thermal zone belongs to"
     annotation (HideResult=true);
   constant String modelicaInstanceName=getInstanceName()
     "Name of this instance"
     annotation (HideResult=true);
+  constant String spawnExe
+      "Name of the spawn executable, without extension, such as spawn-0.2.0-d7f1e095f3"
+    annotation (HideResult=true);
+
   parameter String idfName
     "Name of the IDF file that contains this zone";
-  parameter String weaName
-    "Name of the Energyplus weather file";
+  parameter String epwName
+    "Name of the Energyplus weather file including the epw extension";
   parameter Real relativeSurfaceTolerance
     "Relative tolerance of surface temperature calculations";
   parameter String zoneName
@@ -28,12 +33,8 @@ model ThermalZoneAdapter
     annotation (Dialog(tab="Debug"));
   parameter Integer nFluPor
     "Number of fluid ports (Set to 2 for one inlet and one outlet)";
-  final parameter Modelica.SIunits.Area AFlo(
-    fixed=false)
-    "Floor area";
-  final parameter Modelica.SIunits.Volume V(
-    fixed=false)
-    "Zone volume";
+  final parameter Modelica.Units.SI.Area AFlo(fixed=false) "Floor area";
+  final parameter Modelica.Units.SI.Volume V(fixed=false) "Zone volume";
   final parameter Real mSenFac(
     fixed=false)
     "Factor for scaling the sensible thermal mass of the zone air volume";
@@ -92,16 +93,16 @@ protected
     fixed=false,
     start=0)
     "Total number of Spawn objects in building";
-  parameter Modelica.SIunits.MassFlowRate m_flow_small(
-    fixed=false)
+  parameter Modelica.Units.SI.MassFlowRate m_flow_small(fixed=false)
     "Small mass flow rate used to avoid TAveInlet = 0";
   Buildings.ThermalZones.EnergyPlus.BaseClasses.SpawnExternalObject adapter=Buildings.ThermalZones.EnergyPlus.BaseClasses.SpawnExternalObject(
     objectType=1,
     startTime=startTime,
     modelicaNameBuilding=modelicaNameBuilding,
     modelicaInstanceName=modelicaInstanceName,
+    spawnExe=spawnExe,
     idfName=idfName,
-    weaName=weaName,
+    epwName=epwName,
     relativeSurfaceTolerance=relativeSurfaceTolerance,
     epName=zoneName,
     usePrecompiledFMU=usePrecompiledFMU,
@@ -132,36 +133,29 @@ protected
   // This has been removed due to numerical noise,
   // see https://github.com/lbl-srg/modelica-buildings/issues/2358#issuecomment-819578850
   //////////
-  parameter Modelica.SIunits.Time startTime(
-    fixed=false)
+  parameter Modelica.Units.SI.Time startTime(fixed=false)
     "Simulation start time";
   Real yEP[nY]
     "Output of exchange function";
-  Modelica.SIunits.Time tNext(
-    start=startTime,
-    fixed=true)
+  Modelica.Units.SI.Time tNext(start=startTime, fixed=true)
     "Next sampling time";
-  //Modelica.SIunits.Time tNextEP(start=startTime-1, fixed=true) "Next sampling time requested from EnergyPlus";
+  //Modelica.Units.SI.Time tNextEP(start=startTime-1, fixed=true) "Next sampling time requested from EnergyPlus";
   // constant Real dT_dtMax(unit="K/s") = 0.000001 "Bound on temperature derivative to reduce or increase time step";
-  //  Modelica.SIunits.Time dtMax(displayUnit="min", start=600, fixed=true) "Maximum time step before next sampling";
-  discrete Modelica.SIunits.Time tLast(
-    fixed=true,
-    start=startTime)
+  //  Modelica.Units.SI.Time dtMax(displayUnit="min", start=600, fixed=true) "Maximum time step before next sampling";
+  discrete Modelica.Units.SI.Time tLast(fixed=true, start=startTime)
     "Last time of data exchange";
-  discrete Modelica.SIunits.Time dtLast
+  discrete Modelica.Units.SI.Time dtLast
     "Time step since the last synchronization";
-  discrete Modelica.SIunits.MassFlowRate mInlet_flow
+  discrete Modelica.Units.SI.MassFlowRate mInlet_flow
     "Time averaged inlet mass flow rate";
-  discrete Modelica.SIunits.Temperature TAveInlet
+  discrete Modelica.Units.SI.Temperature TAveInlet
     "Time averaged inlet temperature";
-  discrete Modelica.SIunits.Temperature TRooLast
+  discrete Modelica.Units.SI.Temperature TRooLast
     "Room air temperature at last sampling";
 //  discrete Real dQCon_flow_dT(
 //    final unit="W/K")
 //    "Derivative dQCon_flow / dT";
-  discrete Modelica.SIunits.HeatFlowRate QConLast_flow(
-    fixed=false,
-    start=0)
+  discrete Modelica.Units.SI.HeatFlowRate QConLast_flow(fixed=false, start=0)
     "Convective sensible heat to be added to zone air if T = TRooLast";
   function round
     input Real u;

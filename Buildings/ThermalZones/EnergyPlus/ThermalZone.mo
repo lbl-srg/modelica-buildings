@@ -42,10 +42,8 @@ model ThermalZone
     Medium.nC)
     "Nominal value of zone air trace substances. (Set to typical order of magnitude.)"
     annotation (Dialog(tab="Initialization",enable=Medium.nC > 0));
-  final parameter Modelica.SIunits.Volume V=fmuZon.V
-    "Zone volume";
-  final parameter Modelica.SIunits.Area AFlo=fmuZon.AFlo
-    "Floor area";
+  final parameter Modelica.Units.SI.Volume V=fmuZon.V "Zone volume";
+  final parameter Modelica.Units.SI.Area AFlo=fmuZon.AFlo "Floor area";
   final parameter Real mSenFac(
     min=1)=fmuZon.mSenFac
     "Factor for scaling the sensible thermal mass of the zone air volume"
@@ -80,16 +78,16 @@ model ThermalZone
     annotation (Placement(transformation(extent={{200,-130},{220,-110}}),iconTransformation(extent={{200,90},{220,110}})));
 
 protected
-  constant Modelica.SIunits.SpecificEnergy h_fg=Medium.enthalpyOfCondensingGas(
-    273.15+37)
-    "Latent heat of water vapor";
-  final parameter Modelica.SIunits.MassFlowRate m_flow_nominal=V*3/3600
+  constant Modelica.Units.SI.SpecificEnergy h_fg=Medium.enthalpyOfCondensingGas(
+      273.15 + 37) "Latent heat of water vapor";
+  final parameter Modelica.Units.SI.MassFlowRate m_flow_nominal=V*3/3600
     "Nominal mass flow rate (used for regularization)";
   Buildings.ThermalZones.EnergyPlus.BaseClasses.ThermalZoneAdapter fmuZon(
     final modelicaNameBuilding=modelicaNameBuilding,
     final modelicaInstanceName=modelicaInstanceName,
+    final spawnExe=spawnExe,
     final idfName=idfName,
-    final weaName=weaName,
+    final epwName=epwName,
     final relativeSurfaceTolerance=relativeSurfaceTolerance,
     final zoneName=zoneName,
     final nFluPor=nPorts,
@@ -143,7 +141,7 @@ protected
     annotation (Placement(transformation(extent={{-40,30},{-20,50}})));
   final parameter String substanceName="CO2"
     "Name of trace substance";
-  final parameter Modelica.SIunits.MolarMass MM=Modelica.Media.IdealGases.Common.SingleGasesData.CO2.MM
+  final parameter Modelica.Units.SI.MolarMass MM=Modelica.Media.IdealGases.Common.SingleGasesData.CO2.MM
     "Molar mass of the trace substance";
   Modelica.Blocks.Routing.Replicator QPeaRep(
     nout=Medium.nC) if use_C_flow
@@ -334,7 +332,7 @@ equation
           textString="q"),
         Text(
           visible=false,
-          lineColor={0,0,127},
+          textColor={0,0,127},
           extent={{-188,-94},{-112,-126}},
           textString="C_flow"),
         Text(
@@ -344,11 +342,11 @@ equation
           textString="TAir",
           horizontalAlignment=TextAlignment.Right),
         Text(
-          lineColor={0,0,255},
+          textColor={0,0,255},
           extent={{-58,244},{56,204}},
           textString="%name"),
         Text(
-          lineColor={255,255,255},
+          textColor={255,255,255},
           extent={{174,-126},{54,-176}},
           textString=""),
         Bitmap(
@@ -375,7 +373,7 @@ connects to the thermal zone with name <code>zoneName</code>.
 The <code>idfName</code> needs to be specified in an instance of
 <a href=\"Buildings.ThermalZones.EnergyPlus.Building\">
 Buildings.ThermalZones.EnergyPlus.Building</a>
-that is named <code>building</code>, and that is placed at this 
+that is named <code>building</code>, and that is placed at this
 or at a higher hierarchy-level of the model.
 If the FMU is already instantiated by another instance of this model,
 it will use the already instantiated FMU. Hence, for each thermal zone

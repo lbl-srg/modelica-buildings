@@ -11,23 +11,27 @@ block RoomVAV "Controller for room VAV box"
     annotation (Dialog(group="Cooling controller"));
   parameter Real kCoo=0.1 "Gain of controller"
     annotation (Dialog(group="Cooling controller"));
-  parameter Modelica.SIunits.Time TiCoo=120 "Time constant of integrator block"
-    annotation (Dialog(group="Cooling controller", enable=cooController==Buildings.Controls.OBC.CDL.Types.SimpleController.PI or
-                                                          cooController==Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
-  parameter Modelica.SIunits.Time TdCoo=60 "Time constant of derivative block"
-    annotation (Dialog(group="Cooling controller", enable=cooController==Buildings.Controls.OBC.CDL.Types.SimpleController.PD or
-                                                          cooController==Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
+  parameter Modelica.Units.SI.Time TiCoo=120
+    "Time constant of integrator block" annotation (Dialog(group=
+          "Cooling controller", enable=cooController == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
+           or cooController == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
+  parameter Modelica.Units.SI.Time TdCoo=60 "Time constant of derivative block"
+    annotation (Dialog(group="Cooling controller", enable=cooController ==
+          Buildings.Controls.OBC.CDL.Types.SimpleController.PD or cooController
+           == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController heaController=
       Buildings.Controls.OBC.CDL.Types.SimpleController.PI "Type of controller"
     annotation (Dialog(group="Heating controller"));
   parameter Real kHea=0.1 "Gain of controller"
     annotation (Dialog(group="Heating controller"));
-  parameter Modelica.SIunits.Time TiHea=120 "Time constant of integrator block"
-    annotation (Dialog(group="Heating controller", enable=heaController==Buildings.Controls.OBC.CDL.Types.SimpleController.PI or
-                                                          heaController==Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
-  parameter Modelica.SIunits.Time TdHea=60 "Time constant of derivative block"
-    annotation (Dialog(group="Heating controller", enable=heaController==Buildings.Controls.OBC.CDL.Types.SimpleController.PD or
-                                                          heaController==Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
+  parameter Modelica.Units.SI.Time TiHea=120
+    "Time constant of integrator block" annotation (Dialog(group=
+          "Heating controller", enable=heaController == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
+           or heaController == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
+  parameter Modelica.Units.SI.Time TdHea=60 "Time constant of derivative block"
+    annotation (Dialog(group="Heating controller", enable=heaController ==
+          Buildings.Controls.OBC.CDL.Types.SimpleController.PD or heaController
+           == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TRooHeaSet(
     final quantity="ThermodynamicTemperature",
@@ -35,7 +39,7 @@ block RoomVAV "Controller for room VAV box"
     displayUnit = "degC")
     "Setpoint temperature for room for heating"
     annotation (Placement(transformation(extent={{-140,40},{-100,80}}),
-        iconTransformation(extent={{-140,50},{-100,90}})));
+        iconTransformation(extent={{-140,40},{-100,80}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TRooCooSet(
     final quantity="ThermodynamicTemperature",
     final unit = "K",
@@ -49,7 +53,7 @@ block RoomVAV "Controller for room VAV box"
     displayUnit = "degC")
     "Measured room temperature"
     annotation (Placement(transformation(extent={{-140,-90},{-100,-50}}),
-        iconTransformation(extent={{-120,-80},{-100,-60}})));
+        iconTransformation(extent={{-120,-70},{-100,-50}})));
   Modelica.Blocks.Interfaces.RealOutput yDam "Signal for VAV damper"
     annotation (Placement(transformation(extent={{100,-10},{120,10}}),
         iconTransformation(extent={{100,38},{120,58}})));
@@ -117,7 +121,7 @@ block RoomVAV "Controller for room VAV box"
 protected
   parameter Real yMax=1 "Upper limit of PID control output";
   parameter Real yMin=0 "Lower limit of PID control output";
-  parameter Modelica.SIunits.TemperatureDifference dTHys(final min=0) = 0.5
+  parameter Modelica.Units.SI.TemperatureDifference dTHys(final min=0) = 0.5
     "Hysteresis width for switching minimum air flow rate";
 equation
   connect(TRooCooSet, conCoo.u_s)
@@ -171,23 +175,23 @@ annotation (
                     graphics={
         Text(
           extent={{-100,-62},{-66,-76}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="TRoo"),
         Text(
           extent={{64,-38},{92,-58}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="yVal"),
         Text(
           extent={{56,62},{90,40}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="yDam"),
         Text(
           extent={{-96,82},{-36,60}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="TRooHeaSet"),
         Text(
           extent={{-96,10},{-36,-10}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="TRooCooSet")}),
  Documentation(info="<html>
 <p>

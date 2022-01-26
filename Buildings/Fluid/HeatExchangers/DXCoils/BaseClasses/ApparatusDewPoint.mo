@@ -19,11 +19,11 @@ block ApparatusDewPoint "Calculates air properties at apparatus dew point"
     max=373.15) "Dry bulb temperature of air at apparatus dew point"
     annotation (Placement(transformation(extent={{100,-60},{120,-40}})));
 protected
-  parameter Modelica.SIunits.Temperature TSatMin = 273.15+3
+  parameter Modelica.Units.SI.Temperature TSatMin=273.15 + 3
     "Minimum apparatus saturation temperature";
-  parameter Modelica.SIunits.MassFraction XSatMin = 0.004667
+  parameter Modelica.Units.SI.MassFraction XSatMin=0.004667
     "Mass fraction at saturation of coil inlet conditions";
-  parameter Modelica.SIunits.SpecificEnthalpy hMin(fixed=false)
+  parameter Modelica.Units.SI.SpecificEnthalpy hMin(fixed=false)
     "Minimum enthalpy of apparatus dew point";
 
 initial equation
@@ -73,7 +73,7 @@ equation
           fillPattern=FillPattern.Solid),
         Text(
           extent={{-86,12},{-2,-50}},
-          lineColor={255,0,0},
+          textColor={255,0,0},
           lineThickness=0.5,
           fillColor={0,0,255},
           fillPattern=FillPattern.Solid,

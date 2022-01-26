@@ -11,11 +11,11 @@ model InteriorConvection
     "Convective heat transfer model"
   annotation(Evaluate=true);
 
-  parameter Modelica.SIunits.CoefficientOfHeatTransfer hFixed=3
-    "Constant convection coefficient"
-   annotation (Dialog(enable=(conMod == Buildings.HeatTransfer.Types.InteriorConvection.Fixed)));
+  parameter Modelica.Units.SI.CoefficientOfHeatTransfer hFixed=3
+    "Constant convection coefficient" annotation (Dialog(enable=(conMod ==
+          Buildings.HeatTransfer.Types.InteriorConvection.Fixed)));
 
-  parameter Modelica.SIunits.Angle til(displayUnit="deg") "Surface tilt"
+  parameter Modelica.Units.SI.Angle til(displayUnit="deg") "Surface tilt"
     annotation (Dialog(enable=(conMod <> Buildings.HeatTransfer.Types.InteriorConvection.Fixed)));
 
   Modelica.Blocks.Interfaces.RealInput u
@@ -24,7 +24,7 @@ model InteriorConvection
         iconTransformation(extent={{-120,70},{-100,90}})));
 
 protected
-  constant Modelica.SIunits.Temperature dT0 = 2
+  constant Modelica.Units.SI.Temperature dT0=2
     "Initial temperature used in homotopy method";
 
   final parameter Real cosTil=Modelica.Math.cos(til) "Cosine of window tilt";
@@ -86,7 +86,7 @@ equation
         Line(points={{100,0},{100,0}}, color={0,127,255}),
         Text(
           extent={{-35,42},{-5,20}},
-          lineColor={255,0,0},
+          textColor={255,0,0},
           textString="Q_flow"),
         Line(points={{-60,20},{76,20}}, color={191,0,0}),
         Line(points={{-60,-20},{76,-20}}, color={191,0,0}),

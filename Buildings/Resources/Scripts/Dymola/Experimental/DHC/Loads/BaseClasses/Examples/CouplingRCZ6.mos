@@ -1,0 +1,63 @@
+simulateModel("Buildings.Experimental.DHC.Loads.BaseClasses.Examples.CouplingRCZ6",
+    method="cvode",
+    tolerance=1e-6,
+    numberOfIntervals=500,
+    stopTime=604800.0,
+    resultFile="CouplingRCZ6");
+createPlot(
+    id=1,
+    position={1, 20, 492, 682},
+    y={"bui.maxTSet[1].y", "bui.minTSet[1].y", "bui.office.TAir", "bui.floor.TAir", "bui.storage.TAir", "bui.meeting.TAir", "bui.restroom.TAir", "bui.iCT.TAir"},
+    autoscale=true,
+    grid=true
+);
+createPlot(
+    id=1,
+    y={"bui.terUni[1].QActHea_flow", "bui.terUni[2].QActHea_flow", "bui.terUni[3].QActHea_flow", "bui.terUni[4].QActHea_flow", "bui.terUni[5].QActHea_flow", "bui.terUni[6].QActHea_flow"},
+    grid=true,
+    subPlot=2
+);
+createPlot(
+    id=1,
+    y={"bui.terUni[1].QActCoo_flow", "bui.terUni[2].QActCoo_flow", "bui.terUni[3].QActCoo_flow", "bui.terUni[4].QActCoo_flow", "bui.terUni[5].QActCoo_flow", "bui.terUni[6].QActCoo_flow"},
+    grid=true,
+    subPlot=3
+);
+createPlot(
+    id=2,
+    position={499, 20, 510, 682},
+    y={"supHeaWat.T_in", "bui.terUni[1].T_aHeaWat_nominal", "bui.terUni[2].T_aHeaWat_nominal", "bui.terUni[3].T_aHeaWat_nominal", "bui.terUni[4].T_aHeaWat_nominal", "bui.terUni[5].T_aHeaWat_nominal","bui.terUni[6].T_aHeaWat_nominal"},
+    autoscale=true,
+    grid=true
+);
+createPlot(
+    id=2,
+    y={"bui.disFloHea.mAct_flow[1].y", "bui.disFloHea.mAct_flow[2].y", "bui.disFloHea.mAct_flow[3].y", "bui.disFloHea.mAct_flow[4].y", "bui.disFloHea.mAct_flow[5].y", "bui.disFloHea.mAct_flow[6].y"},
+    grid=true,
+    subPlot=2
+);
+createPlot(
+    id=2,
+    y={"bui.terUni[1].QActHea_flow", "bui.terUni[2].QActHea_flow", "bui.terUni[3].QActHea_flow", "bui.terUni[4].QActHea_flow", "bui.terUni[5].QActHea_flow", "bui.terUni[6].QActHea_flow"},
+    grid=true,
+    subPlot=3
+);
+createPlot(
+    id=3,
+    position={1016, 21, 485, 681},
+    y={"supChiWat.T_in", "bui.terUni[1].T_aChiWat_nominal", "bui.terUni[2].T_aChiWat_nominal", "bui.terUni[3].T_aChiWat_nominal", "bui.terUni[4].T_aChiWat_nominal", "bui.terUni[5].T_aChiWat_nominal","bui.terUni[6].T_aChiWat_nominal"},
+    autoscale=true,
+    grid=true
+);
+createPlot(
+    id=3,
+    y={"bui.disFloCoo.mAct_flow[1].y", "bui.disFloCoo.mAct_flow[2].y", "bui.disFloCoo.mAct_flow[3].y", "bui.disFloCoo.mAct_flow[4].y", "bui.disFloCoo.mAct_flow[5].y", "bui.disFloCoo.mAct_flow[6].y"},
+    grid=true,
+    subPlot=2
+);
+createPlot(
+    id=3,
+    y={"bui.terUni[1].QActCoo_flow", "bui.terUni[2].QActCoo_flow", "bui.terUni[3].QActCoo_flow", "bui.terUni[4].QActCoo_flow", "bui.terUni[5].QActCoo_flow", "bui.terUni[6].QActCoo_flow"},
+    grid=true,
+    subPlot=3
+);

@@ -55,17 +55,17 @@ First implementation.
         Text(
           extent={{-150,110},{150,150}},
           textString="%name",
-          lineColor={0,0,255}),
+          textColor={0,0,255}),
         Text(
           extent={{-46,54},{-98,66}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="relAirMas"),
         Text(
           extent={{-46,-6},{-98,6}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="HDifHor"),
         Text(
           extent={{-46,-66},{-98,-54}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="solTim")}));
 end SkyBrightness;

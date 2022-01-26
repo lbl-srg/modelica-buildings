@@ -2,10 +2,8 @@ within Buildings.Fluid.CHPs.BaseClasses;
 model AssertPower "Assert if electric power is outside boundaries"
   extends Modelica.Blocks.Icons.Block;
 
-  parameter Modelica.SIunits.Power PEleMax
-    "Maximum power output";
-  parameter Modelica.SIunits.Power PEleMin
-    "Minimum power output";
+  parameter Modelica.Units.SI.Power PEleMax "Maximum power output";
+  parameter Modelica.Units.SI.Power PEleMin "Minimum power output";
   parameter Boolean use_powerRateLimit
     "If true, the rate at which net power output can change is limited";
   parameter Real dPEleMax(final unit="W/s")

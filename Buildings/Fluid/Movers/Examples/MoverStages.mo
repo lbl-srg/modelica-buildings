@@ -8,13 +8,14 @@ model MoverStages
     pump_dp(inputType=Buildings.Fluid.Types.InputType.Stages));
   package Medium = Buildings.Media.Water;
 
-  parameter Modelica.SIunits.MassFlowRate m_flow_nominal=2
+  parameter Modelica.Units.SI.MassFlowRate m_flow_nominal=2
     "Nominal mass flow rate";
 
   Modelica.Blocks.Sources.IntegerTable integerTable(table=[0,1; 0.3,2; 0.6,3])
     "Integer step input, 1 is off, 2 is on"
     annotation (Placement(transformation(extent={{-60,70},{-40,90}})));
-  parameter Modelica.SIunits.PressureDifference dp_nominal=10000 "Nominal pressure raise";
+  parameter Modelica.Units.SI.PressureDifference dp_nominal=10000
+    "Nominal pressure raise";
 equation
   connect(integerTable.y, pump_Nrpm.stage)
     annotation (Line(points={{-39,80},{0,80},{0,52}}, color={255,127,0}));

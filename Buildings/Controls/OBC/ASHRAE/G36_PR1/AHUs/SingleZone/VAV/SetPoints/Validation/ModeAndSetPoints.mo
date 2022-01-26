@@ -176,26 +176,26 @@ First implementation.
         graphics={
         Text(
           extent={{50,84},{126,74}},
-          lineColor={85,0,255},
+          textColor={85,0,255},
           horizontalAlignment=TextAlignment.Left,
           textString="No window status sensor
 No occupancy sensor
 Zone 1"),
         Text(
           extent={{48,42},{102,34}},
-          lineColor={85,0,255},
+          textColor={85,0,255},
           horizontalAlignment=TextAlignment.Left,
           textString="No local setpoint adjustment
           Zone 1"),
         Text(
           extent={{46,-48},{100,-56}},
-          lineColor={85,0,255},
+          textColor={85,0,255},
           horizontalAlignment=TextAlignment.Left,
           textString="No local setpoint adjustment
           Zone 2"),
         Text(
           extent={{48,-6},{124,-16}},
-          lineColor={85,0,255},
+          textColor={85,0,255},
           horizontalAlignment=TextAlignment.Left,
           textString="No window status sensor
 No occupancy sensor

@@ -13,8 +13,7 @@ block BooleanToInteger
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
 equation
-  y=
-    if u then
+  y=if u then
       integerTrue
     else
       integerFalse;
@@ -57,7 +56,7 @@ Modelica Standard Library.
           borderPattern=BorderPattern.Raised),
         Text(
           extent={{-86,78},{-34,26}},
-          lineColor={255,0,255},
+          textColor={255,0,255},
           textString="B"),
         Polygon(
           points={{28,48},{8,68},{8,58},{-24,58},{-24,38},{8,38},{8,28},{28,48}},
@@ -66,7 +65,7 @@ Modelica Standard Library.
           fillPattern=FillPattern.Solid),
         Text(
           extent={{34,82},{86,24}},
-          lineColor={255,170,85},
+          textColor={255,170,85},
           textString="I"),
         Ellipse(
           extent={{-71,7},{-85,-7}},
@@ -84,13 +83,13 @@ Modelica Standard Library.
         Text(
           extent={{-150,150},{150,110}},
           textString="%name",
-          lineColor={0,0,255}),
+          textColor={0,0,255}),
         Text(
           extent={{-74,-28},{64,20}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="%integerTrue"),
         Text(
           extent={{-74,-90},{64,-42}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="%integerFalse")}));
 end BooleanToInteger;
