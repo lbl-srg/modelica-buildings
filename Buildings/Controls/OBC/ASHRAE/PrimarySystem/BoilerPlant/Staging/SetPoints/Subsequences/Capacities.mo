@@ -277,13 +277,6 @@ are set to a value significantly larger than the design capacity of the highest
 stage. This ensures numerical stability and satisfies the staging down conditionals.
 </li>
 </ul>
-<p align=\"center\">
-<img alt=\"Validation plot for Capacities\"
-src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/PrimarySystem/BoilerPlant/Staging/SetPoints/Subsequences/Capacities.png\"/>
-<br/>
-Validation plot generated from model <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.SetPoints.Subsequences.Validation.Capacities\">
-Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.SetPoints.Subsequences.Validation.Capacities</a>.
-</p>
 </html>",
 revisions="<html>
 <ul>

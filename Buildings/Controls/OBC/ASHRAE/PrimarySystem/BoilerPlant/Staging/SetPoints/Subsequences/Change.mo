@@ -431,13 +431,6 @@ equation
     Per 1711 March 2020 Draft 5.3.3.10.1, each stage shall have a minimum
     runtime of <span style=\"font-family: monospace;\">delStaCha</span>. 
     </p>
-    <p align=\"center\">
-    <img alt=\"Validation plot for Change\"
-    src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/PrimarySystem/BoilerPlant/Staging/SetPoints/Subsequences/Change.png\"/>
-    <br/>
-    Validation plot generated from model <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.SetPoints.Subsequences.Validation.Change\">
-    Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.SetPoints.Subsequences.Validation.Change</a>.
-    </p>
     </html>",
     revisions="<html>
     <ul>

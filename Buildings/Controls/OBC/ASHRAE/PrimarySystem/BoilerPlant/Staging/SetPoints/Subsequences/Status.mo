@@ -374,13 +374,6 @@ equation
     <p>
     The sequences are implemented according to 1711 March 2020 Draft, section 5.3.3.9.
     </p>
-    <p align=\"center\">
-    <img alt=\"Validation plot for Status\"
-    src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/PrimarySystem/BoilerPlant/Staging/SetPoints/Subsequences/Status.png\"/>
-    <br/>
-    Validation plot generated from model <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.SetPoints.Subsequences.Validation.Status\">
-    Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.SetPoints.Subsequences.Validation.Status</a>.
-    </p>
     </html>",
     revisions="<html>
     <ul>

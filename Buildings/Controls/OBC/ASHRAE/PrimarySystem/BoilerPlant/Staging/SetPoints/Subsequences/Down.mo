@@ -662,27 +662,6 @@ lower stage for a time period <code>delDesCapConBoi</code>.
 The implementation is according to ASHRAE RP1711 March 2020 draft, section 5.3.3.10.
 Timer reset has been implemented according to 5.3.3.10.2.
 </p>
-<p align=\"center\">
-<img alt=\"Validation plot for EfficiencyCondition1\"
-src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/PrimarySystem/BoilerPlant/Staging/SetPoints/Subsequences/Down1.png\"/>
-<br/>
-Validation plot generated from model <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.SetPoints.Subsequences.Validation.Down\">
-Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.SetPoints.Subsequences.Validation.Down</a> for a stage with all condensing boilers.
-</p>
-<p align=\"center\">
-<img alt=\"Validation plot for EfficiencyCondition1\"
-src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/PrimarySystem/BoilerPlant/Staging/SetPoints/Subsequences/Down2.png\"/>
-<br/>
-Validation plot generated from model <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.SetPoints.Subsequences.Validation.Down\">
-Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.SetPoints.Subsequences.Validation.Down</a> for a stage with a non-condensing boiler.
-</p>
-<p align=\"center\">
-<img alt=\"Validation plot for EfficiencyCondition1\"
-src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/PrimarySystem/BoilerPlant/Staging/SetPoints/Subsequences/Down3.png\"/>
-<br/>
-Validation plot generated from model <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.SetPoints.Subsequences.Validation.Down\">
-Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.SetPoints.Subsequences.Validation.Down</a> for a primary-only, condensing-type boiler plant.
-</p>
 </html>",
 revisions="<html>
 <ul>

@@ -123,13 +123,6 @@ annotation (defaultComponentName = "faiSafCon",
     <br/>
     State-machine chart for the sequence defined in RP-1711
     </p>
-    <p align=\"center\">
-    <img alt=\"Validation plot for FailsafeCondition\"
-    src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/PrimarySystem/BoilerPlant/Staging/SetPoints/Subsequences/FailsafeCondition.png\"/>
-    <br/>
-    Validation plot generated from model <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.SetPoints.Subsequences.Validation.FailsafeCondition\">
-    Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.SetPoints.Subsequences.Validation.FailsafeCondition</a>.
-    </p>
     </html>",
     revisions="<html>
     <ul>

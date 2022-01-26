@@ -111,13 +111,6 @@ with the output <code>yProReg</code> varying linearly from 0% at
 <code>TRetSet</code> to 100% at <code>TRetMinAll</code>.    
 </li>
 </ul>
-<p align=\"center\">
-<img alt=\"Validation plot for ValvePosition\"
-src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/PrimarySystem/BoilerPlant/SetPoints/Subsequences/ProportionalRegulator.png\"/>
-<br/>
-Validation plot generated from model <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.SetPoints.Subsequences.Validation.ProportionalRegulator\">
-Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.SetPoints.Subsequences.Validation.ProportionalRegulator</a>.
-</p>
 </html>",
 revisions="<html>
 <ul>

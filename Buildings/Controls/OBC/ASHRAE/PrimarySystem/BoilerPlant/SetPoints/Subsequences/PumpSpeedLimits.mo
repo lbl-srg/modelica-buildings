@@ -244,13 +244,6 @@ If <code>have_varPriPum=true</code>, the minimum allowed primary pump speed
 of <code>uRegSig</code> to 100% pump speed at 100% of <code>uRegSig</code>.
 </li>
 </ul>
-<p align=\"center\">
-<img alt=\"Validation plot for ValvePosition\"
-src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/PrimarySystem/BoilerPlant/SetPoints/Subsequences/PumpSpeedLimits.png\"/>
-<br/>
-Validation plot generated from model <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.SetPoints.Subsequences.Validation.PumpSpeedLimits\">
-Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.SetPoints.Subsequences.Validation.PumpSpeedLimits</a>.
-</p>
 </html>",
 revisions="<html>
 <ul>
