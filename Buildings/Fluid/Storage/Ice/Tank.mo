@@ -244,8 +244,8 @@ equation
     annotation (Line(points={{70,11},{70,40},{110,40}}, color={0,0,127}));
   connect(nonDisChaMod.y, swi.u2)
     annotation (Line(points={{-58,-70},{36,-70}}, color={255,0,255}));
-  connect(swi.y, iceMas.q)
-    annotation (Line(points={{59,-70},{66,-70}},   color={0,0,127}));
+  connect(swi.y, iceMas.Q_flow)
+    annotation (Line(points={{59,-70},{66,-70}}, color={0,0,127}));
   connect(swi.y, hea.u) annotation (Line(points={{59,-70},{62,-70},{62,-16},{-10,
           -16},{-10,6},{-2,6}},     color={0,0,127}));
   connect(min.y, swi.u1) annotation (Line(points={{55,-38},{60,-38},{60,-54},{26,

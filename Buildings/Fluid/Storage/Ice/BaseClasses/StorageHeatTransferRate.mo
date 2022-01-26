@@ -1,22 +1,22 @@
 within Buildings.Fluid.Storage.Ice.BaseClasses;
 model StorageHeatTransferRate
   "Charging or discharging rate based on the curves"
-  parameter Real coeCha[6]={5.54E-05,-0.000145679,9.28E-05,0.001126122,-0.0011012,0.000300544}
+  parameter Real coeCha[6]
     "Coefficients for charging curve";
-  parameter Real dtCha=15 "Time step of curve fitting data";
+  parameter Real dtCha "Time step of curve fitting data";
 
-  parameter Real coeDisCha[6]={5.54E-05,-0.000145679,9.28E-05,0.001126122,-0.0011012,0.000300544}
+  parameter Real coeDisCha[6]
     "Coefficients for discharging curve";
-  parameter Real dtDisCha=15 "Time step of curve fitting data";
+  parameter Real dtDisCha "Time step of curve fitting data";
 
   Buildings.Fluid.Storage.Ice.BaseClasses.QStarCharging qStaCha(
-    coeff=coeCha,
-    dt=dtCha)
+    final coeff=coeCha,
+    final dt=dtCha)
     "q* for charing mode"
     annotation (Placement(transformation(extent={{-40,-34},{-20,-14}})));
   Buildings.Fluid.Storage.Ice.BaseClasses.QStarDischarging qStaDisCha(
-    coeff=coeDisCha,
-    dt=dtDisCha) "q* for discharging mode"
+    final coeff=coeDisCha,
+    final dt=dtDisCha) "q* for discharging mode"
     annotation (Placement(transformation(extent={{-40,-90},{-20,-70}})));
   Modelica.Blocks.Logical.Switch swi1 "Switch"
     annotation (Placement(transformation(extent={{70,-10},{90,10}})));
@@ -37,7 +37,7 @@ model StorageHeatTransferRate
   Buildings.Controls.OBC.CDL.Integers.Equal isDor "Is dormant mode"
     annotation (Placement(transformation(extent={{-40,70},{-20,90}})));
 
-  Modelica.Blocks.Math.Gain gai(k=-1) "Gain"
+  Modelica.Blocks.Math.Gain gai(final k=-1) "Gain"
     annotation (Placement(transformation(extent={{0,-90},{20,-70}})));
 
   Buildings.Controls.OBC.CDL.Integers.Equal isCha "Is charging mode"
@@ -92,25 +92,25 @@ equation
         fillPattern=FillPattern.Solid), Text(
         extent={{-148,150},{152,110}},
         textString="%name",
-        lineColor={0,0,255})}),                                  Diagram(
+        lineColor={0,0,255})}),
+     Diagram(
         coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>
 <p>
 This blocks calculate the normalized heat transfer rate for the ice tank under all operation modes: dormant, charging or discharging.
 </p>
-
 <p>The module use the following logic:</p>
-
 <ul>
 <li>Dormant Mode: the heat transfer rate is 0</li>
 <li>Discharging Mode: the heat transfer rate is the discharging rate calculated
-        using <a href=\"modelica://IceStorage.BaseClasses.QStarDischarging\">IceStorage.BaseClasses.QStarDischarging</a> with calibrated coefficients for discharing mode
+using <a href=\"modelica://Buildings.Fluid.Storage.Ice.BaseClasses.QStarDischarging\">Buildings.Fluid.Storage.Ice.BaseClasses.QStarDischarging</a>
+with coefficients for discharing mode.
 </li>
 <li>Charging Mode: the heat transfer rate is the charging rate calculated
-        using <a href=\"modelica://IceStorage.BaseClasses.QStarCharging\">IceStorage.BaseClasses.QStarCharging</a> with calibrated coefficients for charing mode
+using <a href=\"modelica://Buildings.Fluid.Storage.Ice.BaseClasses.QStarCharging\">Buildings.Fluid.Storage.Ice.BaseClasses.QStarCharging</a>
+with coefficients for charging mode.
 </li>
 </ul>
-
 </html>", revisions="<html>
 <ul>
 <li>

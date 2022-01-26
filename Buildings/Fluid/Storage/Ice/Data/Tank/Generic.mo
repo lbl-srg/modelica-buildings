@@ -1,8 +1,8 @@
 within Buildings.Fluid.Storage.Ice.Data.Tank;
 record Generic
   extends Modelica.Icons.Record;
-  final parameter Integer nCha = 6 "Number of coefficients for charging characteristic curve";
-  final parameter Integer nDisCha = 6 "Number of coefficients for discharging characteristic curve";
+  constant Integer nCha = 6 "Number of coefficients for charging characteristic curve";
+  constant Integer nDisCha = 6 "Number of coefficients for discharging characteristic curve";
 
   parameter Real coeCha[nCha] "Coefficients for charging curve";
   parameter Real coeDisCha[nDisCha] "Coeffcients for discharging curve";
@@ -19,6 +19,8 @@ First implementation.
 </li>
 </ul>
 </html>", info="<html>
+<p>
 Performance data for ice tank charging and discharging curves.
+</p>
 </html>"));
 end Generic;

@@ -38,28 +38,22 @@ equation
         Diagram(
         coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>
-<p>This block calculates the <span style=\"font-family: Courier New;\">q*</span>,
-which is the normalized instantaneous heat transfer rate between the chilled water
-and the ice in the thermal storage tank as follows.
+<p>
+This block calculates the normalized instantaneous heat transfer rate <i>q*</i> between the chilled water
+and the ice in the thermal storage tank using
 </p>
-
 <p align=\"center\">
 <i>
 q<sup>*</sup> &Delta;t = C<sub>1</sub> + C<sub>2</sub>x + C<sub>3</sub> x<sup>2</sup> + [C<sub>4</sub> + C<sub>5</sub>x + C<sub>6</sub> x<sup>2</sup>]&Delta;T<sub>lmtd<sup>*</sup>
 </i>
 </p>
-
-<p>where <span style=\"font-family: Courier New;\">&Delta;t</span> is the time step of the data samples used for the curve fitting,
-<span style=\"font-family: Courier New;\">C<sub>1-6</span></sub> are the curve fit coefficients,
-<span style=\"font-family: Courier New;\">x</span> is the fraction of charging, also known as the state-of-charge,
-and <span style=\"font-family: Courier New;\">T<sub>lmtd<sup>*</span></sup> is the normalized LMTD
-calculated from <a href=\"mdoelica://IceStorage.BaseClasses.LMTDStar\">IceStorage.BaseClasses.LMTDStar</a>.
+<p>where <i>&Delta;t</i> is the time step of the data samples used for the curve fitting,
+<i>C<sub>1-6</sub></i> are the curve fit coefficients,
+<i>x</i> is the fraction of charging, also known as the state-of-charge,
+and <i>T<sub>lmtd<sup>*</sup></i> is the normalized LMTD
+calculated using <a href=\"mdoelica://Buildings.Fluid.Storage.Ice.BaseClasses.calculateLMTDStar\">
+Buildings.Fluid.Storage.Ice.BaseClasses.calculateLMTDStar</a>.
 </p>
-
-<p>
-Note that different sets of <code>C</code> should be calibrated for charging and discharging.
-</p>
-
 </html>", revisions="<html>
 <ul>
 <li>

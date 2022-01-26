@@ -5,10 +5,9 @@ model IceMass "Mass of ice remaining in the tank"
   parameter Modelica.Units.SI.Mass mIce_start;
   parameter Modelica.Units.SI.SpecificEnergy Hf=333550 "Fusion of heat of ice";
 
-  Modelica.Blocks.Interfaces.RealInput q
-    "Heat transfer rate: postive for charging, negative for discharging"
-    annotation (Placement(transformation(extent={{-140,-20},{-100,20}}),
-        iconTransformation(extent={{-140,-20},{-100,20}})));
+  Modelica.Blocks.Interfaces.RealInput Q_flow(final unit="W")
+    "Heat transfer rate: positive for charging, negative for discharging"
+    annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
   Modelica.Blocks.Interfaces.RealOutput mIce "Mass of remaining ice"
     annotation (Placement(transformation(extent={{100,-10},
             {120,10}}),iconTransformation(extent={{100,-10},{120,10}})));
@@ -16,30 +15,19 @@ model IceMass "Mass of ice remaining in the tank"
     annotation (Placement(transformation(extent={{100,30},{120,50}}),
       iconTransformation(extent={{100,30},{120,50}})));
 
-protected
-  Boolean underCharged "Flag, true if battery is undercharged";
-  Boolean overCharged "Flag, true if battery is overcharged";
-
 initial equation
-  pre(underCharged) = fraCha < 0;
-  pre(overCharged)  = fraCha > 1;
   mIce = mIce_start;
 
 equation
 
-  der(fraCha)=q/(Hf*mIce_max);
+  der(fraCha)=Q_flow/(Hf*mIce_max);
 
   mIce = fraCha*mIce_max;
 
-  // Equations to warn if state of charge exceeds 0 and 1
-  underCharged = fraCha < 0;
-  overCharged = fraCha > 1;
-  when change(underCharged) or change(overCharged) then
-    assert(fraCha >= 0, "Warning: Battery is below minimum charge.",
+  assert(fraCha >= 0, "Warning: Tank is below minimum charge.",
     level=AssertionLevel.warning);
-    assert(fraCha <= 1, "Warning: Battery is above maximum charge.",
+  assert(fraCha <= 1, "Warning: Tank is above maximum charge.",
     level=AssertionLevel.warning);
-  end when;
 
   annotation (defaultComponentName="iceMas",
   Icon(coordinateSystem(preserveAspectRatio=false), graphics={
@@ -54,22 +42,20 @@ equation
         coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>
 <p>
-This block calculates the remaining mass of the ice in the storage <code>m<sub>ice</sub></code> following the below equations:
+This block calculates the mass of ice in the storage <i>m<sub>ice</sub></i> using
 </p>
-
 <p align=\"center\" style=\"font-style:italic;\">
     dx/dt = q/(H<sub>f</sub>*m<sub>ice,max</sub>)
 </p>
-
 <p align=\"center\" style=\"font-style:italic;\">
  m<sub>ice</sub> = x*m<sub>ice,max
 </p>
-
-where <code>x</code> is the fraction of charge, or the state of charge,
-<code>q</code> is the heat transfer rate of the ice tank, positive for charging and negative for discharging,
-<code>Hf</code> is the fusion of heat of ice,
-<code>m<sub>ice,max</sub></code> is the nominal mass of ice in the storage tank.
-
+<p>
+where <i>x</i> is the fraction of charge, or the state of charge,
+<i>q</i> is the heat transfer rate of the ice tank, positive for charging and negative for discharging,
+<i>Hf</i> is the fusion of heat of ice and
+<i>m<sub>ice,max</sub></i> is the nominal mass of ice in the storage tank.
+</p>
 </html>", revisions="<html>
 <ul>
 <li>

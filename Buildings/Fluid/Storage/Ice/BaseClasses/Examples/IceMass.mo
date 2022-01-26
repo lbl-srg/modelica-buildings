@@ -16,7 +16,7 @@ model IceMass "Example that tests the ice mass calculation"
 equation
   connect(q.y, hf.u)
     annotation (Line(points={{-59,0},{-42,0}}, color={0,0,127}));
-  connect(hf.y, iceMas.q)
+  connect(hf.y, iceMas.Q_flow)
     annotation (Line(points={{-19,0},{-2,0}}, color={0,0,127}));
   annotation (
     __Dymola_Commands(file=

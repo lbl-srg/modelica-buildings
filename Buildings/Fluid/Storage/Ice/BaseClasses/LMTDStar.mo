@@ -41,8 +41,8 @@ equation
         coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>
 <p>
-This subroutine calculates the log mean temperature difference for the detailed ice storage unit.
-The detailed method is implemented in
+This subroutine calculates the log mean temperature difference for the detailed ice storage unit
+using the function
 <a href=\"modelica://IceTank.Functions.calculateLMTDStar\">IceTank.Functions.calculateLMTDStar</a>.
 </p>
 </html>", revisions="<html>

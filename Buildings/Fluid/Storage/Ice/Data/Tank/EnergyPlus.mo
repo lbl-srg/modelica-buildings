@@ -9,7 +9,7 @@ record EnergyPlus =
     Documentation(info="<html>
 <p>
 The performance curves are obtained from the EnergyPlus example idf file: 
-<a href = \"https://github.com/NREL/EnergyPlus/blob/develop/testfiles/5ZoneDetailedIceStorage.idf\"> 5ZoneDetailedIceStorage.idf</a>.
+<a href = \"https://github.com/NREL/EnergyPlus/blob/0474bcff0f09143605459c4168e69a17d49e7dd1/testfiles/5ZoneDetailedIceStorage.idf#L3137\">5ZoneDetailedIceStorage.idf</a>.
 </p>
 
 </html>"));

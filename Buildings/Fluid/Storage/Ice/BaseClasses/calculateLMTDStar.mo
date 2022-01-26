@@ -51,23 +51,20 @@ This subroutine calculates the log mean temperature difference for the detailed 
 The temperature difference is non-dimensionalized using a nominal temperature difference of 10 Kelvin.
 This value must be used when obtaining the curve fit coefficients.
 </p>
-
 <p>
-The following equations are employed in a robust way for numerically calculating the log mean temperature difference:
+The log mean temperature difference is calculated using
 </p>
-
 <p align=\"center\" style=\"font-style:italic;\">
     T<sub>lmtd</sub><sup>*</sup> = T<sub>lmtd</sub>/T<sub>nom</sub>
 </p>
-
 <p align=\"center\" style=\"font-style:italic;\">
  T<sub>lmtd</sub> = (T<sub>in</sub> - T<sub>out</sub>)/ln((T<sub>in</sub> - T<sub>fre</sub>)/(T<sub>out</sub> - T<sub>fre</sub>))
 </p>
-
-where <code>T<sub>in</sub></code> is the inlet temperature, <code>T<sub>out</sub></code> is the outlet temperature,
-<code>T<sub>fre</sub></code> is the freezing temperature
-and <code>T<sub>nom</sub></code> is a nominal temperature difference of 10 Kelvin.
-
+<p>
+where <i>T<sub>in</sub></i> is the inlet temperature, <i>T<sub>out</sub></i> is the outlet temperature,
+<i>T<sub>fre</sub></i> is the freezing temperature
+and <i>T<sub>nom</sub></i> is a nominal temperature difference of 10 Kelvin.
+</p>
 </html>", revisions="<html>
 <ul>
 <li>
