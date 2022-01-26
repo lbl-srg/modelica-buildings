@@ -11,18 +11,20 @@ function getPeak
 
 protected
   Integer n = size(pressure.V_flow, 1) "Number of data points";
-  Real m[2] "Mode as (x,y)";
   Real eta[size(pressure.V_flow,1)] "Efficiency series";
-  Boolean etaLes "Efficiency series has less than three points";
+  Boolean etaLes "Efficiency series has less than four points";
   Boolean etaMon "Efficiency series is monotonic";
 
+  Real A[n,5] "Design matrix";
+  Real b[5] "Parameter vector";
+  Real r[3,2] "Roots";
 algorithm
 
   eta:=pressure.V_flow.*pressure.dp./power.P;
-  etaLes:=n<3;
+  etaLes:=n<4;
   etaMon:=Buildings.Utilities.Math.Functions.isMonotonic(
     x=eta,strict=false);
-  assert(not etaLes,"Less than 3 data points were supplied. 
+  assert(not etaLes,"Less than 4 data points were supplied. 
   The point with maximum efficiency will be directly used.
   This may cause the computed values to be highly inaccurate.",
           level = AssertionLevel.warning);
@@ -30,21 +32,30 @@ algorithm
   The point with maximum efficiency will be directly used.
   This may cause the computed values to be highly inaccurate.",
           level = AssertionLevel.warning);
-  if etaLes or etaMon then
-    m[2]:=max(eta);
-    for i in 1:n loop
-      if eta[i]-m[2]<1E-6 then
-        m[1]:=pressure.V_flow[i];
-      end if;
-    end for;
-  else
-    m:=Buildings.Utilities.Math.Functions.getSingleExtremum(
-      x=pressure.V_flow,y=eta);
-  end if;
-  peak.V_flow:=m[1];
-  peak.eta:=m[2];
+
+  // Constructs the matrix equation A b = y, where
+  //   A is a 5-by-n design matrix,
+  //   b is a parameter vector with length 5 (corresponds to a quartic regression),
+  //   and y = eta is the response vector with length n.
+  for i in 1:5 loop
+    A[:,i]:=pressure.V_flow[:].^(i-1);
+  end for;
+  b:=Modelica.Math.Matrices.leastSquares(A,eta);
+
+  // Solve the derivative for the max eta and corresponding V_flow.
+  // This assumes that there will only be one real solution
+  //   and it falls within the range of V_flow[:].
+  r:=Modelica.Math.Polynomials.roots({b[5]*4,b[4]*3,b[3]*2,b[2]});
+  for i in 1:3 loop
+    if r[i,2]<=1E-6 and
+      r[i,1]>pressure.V_flow[1] and r[i,1]<pressure.V_flow[end] then
+      peak.V_flow:=r[i,1];
+    end if;
+  end for;
+  peak.eta:=Buildings.Utilities.Math.Functions.smoothInterpolation(
+    x=peak.V_flow,xSup=pressure.V_flow,ySup=eta,ensureMonotonicity=false);
   peak.dp:=Buildings.Utilities.Math.Functions.smoothInterpolation(
-    x=m[1],xSup=pressure.V_flow,ySup=pressure.dp,ensureMonotonicity=false);
+    x=peak.V_flow,xSup=pressure.V_flow,ySup=pressure.dp,ensureMonotonicity=false);
 
   annotation(smoothOrder=1,
               Documentation(info="<html>
@@ -67,7 +78,7 @@ issues a warning stating that the computation may be highly inaccurate.
 revisions="<html>
 <ul>
 <li>
-October 20, 2021, by Hongxiang Fu:<br/>
+January 26, 2022, by Hongxiang Fu:<br/>
 First implementation. This is for
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2668\">#2668</a>.
 </li>
