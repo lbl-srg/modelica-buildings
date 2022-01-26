@@ -34,14 +34,6 @@ model Tank "A detailed ice tank model"
     "Time constant at nominal flow (if energyDynamics <> SteadyState)"
      annotation (Dialog(tab = "Dynamics", group="Nominal condition"));
 
-  // Dynamics
-  parameter Modelica.Fluid.Types.Dynamics energyDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial
-    "Type of energy balance: dynamic (3 initialization options) or steady state"
-    annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Equations"));
-  parameter Modelica.Fluid.Types.Dynamics massDynamics=energyDynamics
-    "Type of mass balance: dynamic (3 initialization options) or steady state"
-    annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Equations"));
-
   // Initialization
   parameter Medium.AbsolutePressure p_start = Medium.p_default
     "Start value of pressure"
@@ -125,8 +117,8 @@ model Tank "A detailed ice tank model"
     final linearizeFlowResistance=linearizeFlowResistance,
     final deltaM=deltaM,
     final tau=tau,
-    final energyDynamics=energyDynamics,
-    final massDynamics=massDynamics,
+    final energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    final massDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     final p_start=p_start,
     final T_start=T_start,
     final X_start=X_start,
