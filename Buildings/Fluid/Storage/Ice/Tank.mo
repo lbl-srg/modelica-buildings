@@ -377,10 +377,87 @@ equation
           fillColor={0,0,127},
           fillPattern=FillPattern.Solid)}),
     Documentation(info="<html>
-<p>This model implements an ice tank model based on the EnergyPlus ice tank model
+<p>This model implements an ice tank model based on the detailed EnergyPlus ice tank model
 <a href=\"https://bigladdersoftware.com/epx/docs/9-0/input-output-reference/group-plant-equipment.html#thermalstorageicedetailed\">ThermalStorage:Ice:Detailed</a>.
+The governing equations are as follows:
 </p>
-
+<p>
+The mass of ice in the storage <i>m<sub>ice</sub></i> is calculated as
+</p>
+<p align=\"center\" style=\"font-style:italic;\">
+dx/dt = Q&#775;/(H<sub>f</sub> &nbsp; m<sub>ice,max</sub>)
+</p>
+<p align=\"center\" style=\"font-style:italic;\">
+m<sub>ice</sub> = x &nbsp; m<sub>ice,max
+</p>
+<p>
+where <i>x</i> is the fraction of charge, or the state of charge,
+<i>Q&#775;</i> is the heat transfer rate of the ice tank, positive for charging and negative for discharging,
+<i>Hf</i> is the fusion of heat of ice and
+<i>m<sub>ice,max</sub></i> is the nominal mass of ice in the storage tank.
+</p>
+<p>
+The heat transfer rate of the ice tank <i>Q&#775;</i> is computed using
+</p>
+<p align=\"center\" style=\"font-style:italic;\">
+Q&#775; = Q<sub>sto,nom</sub> &nbsp; q<sup>*</sup>,
+</p>
+<p>
+where
+<i>Q<sub>sto,nom</sub></i> is the storage capacity and
+<i>q<sup>*</sup></i> is a normalized heat flow rate.
+The storage capacity is
+<p align=\"center\" style=\"font-style:italic;\">
+Q<sub>sto,nom</sub> = Hf &nbsp; m<sub>ice,max</sub>,
+</p>
+<p>
+where <i>Hf</i> is the latent heat of fusion of ice and
+<i>m<sub>ice,max</sub></i> is the maximum ice storage capacity.
+</p>
+<p>
+The normalized heat flow rate is computed using performance curves
+for charging (freezing) or discharging (melting).
+For charging, the heat transfer rate <i>q*</i> between the chilled water
+and the ice in the thermal storage tank is calculated using
+</p>
+<p align=\"center\">
+<i>
+q<sup>*</sup> &Delta;t = C<sub>1</sub> + C<sub>2</sub>x + C<sub>3</sub> x<sup>2</sup> + [C<sub>4</sub> + C<sub>5</sub>x + C<sub>6</sub> x<sup>2</sup>]&Delta;T<sub>lmtd<sup>*</sup>
+</i>
+</p>
+<p>where <i>&Delta;t</i> is the time step of the data samples used for the curve fitting,
+<i>C<sub>1-6</sub></i> are the curve fit coefficients,
+<i>x</i> is the fraction of charging, also known as the state-of-charge,
+and <i>T<sub>lmtd<sup>*</sup></i> is the normalized LMTD
+calculated using <a href=\"mdoelica://Buildings.Fluid.Storage.Ice.BaseClasses.calculateLMTDStar\">
+Buildings.Fluid.Storage.Ice.BaseClasses.calculateLMTDStar</a>.
+Similarly, for discharging, the heat transfer rate <i>q*</i>
+between the chilled water and the ice in the thermal storage tank is
+</p>
+<p align=\"center\" style=\"font-style:italic;\">
+ q<sup>*</sup> &Delta;t = D<sub>1</sub> + D<sub>2</sub>(1-x) + D<sub>3</sub> (1-x)<sup>2</sup> + [D<sub>4</sub> + D<sub>5</sub>(1-x) + D<sub>6</sub> (1-x)<sup>2</sup>]&Delta;T<sub>lmtd</sub><sup>*</sup>
+</p>
+<p>
+where <i>&Delta;t</i> is the time step of the data samples used for the curve fitting,
+<i>D<sub>1-6</sub></i> are the curve fit coefficients.
+<p>
+The normalized LMTD <i>&Delta;T<sub>lmtd<sup>*</sup></i> uses a nominal temperature difference of 10 Kelvin.
+This value must be used when obtaining the curve fit coefficients.
+</p>
+<p>
+The log mean temperature difference is calculated using
+</p>
+<p align=\"center\" style=\"font-style:italic;\">
+    &Delta;T<sub>lmtd</sub><sup>*</sup> = &Delta;T<sub>lmtd</sub>/T<sub>nom</sub>
+</p>
+<p align=\"center\" style=\"font-style:italic;\">
+ &Delta;T<sub>lmtd</sub> = (T<sub>in</sub> - T<sub>out</sub>)/ln((T<sub>in</sub> - T<sub>fre</sub>)/(T<sub>out</sub> - T<sub>fre</sub>))
+</p>
+<p>
+where <i>T<sub>in</sub></i> is the inlet temperature, <i>T<sub>out</sub></i> is the outlet temperature,
+<i>T<sub>fre</sub></i> is the freezing temperature
+and <i>T<sub>nom</sub></i> is a nominal temperature difference of 10 Kelvin.
+</p>
 <h4>
 Reference
 </h4>

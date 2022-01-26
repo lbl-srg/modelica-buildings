@@ -5,6 +5,9 @@ package Tank "Performance data for ice tank model"
 annotation (Documentation(info="<html>
 <p>
 This package contains data records that characterize the performance of ice storage tanks.
+See
+<a href=\"Buildings.Fluid.Storage.Ice.Tank\">Buildings.Fluid.Storage.Ice.Tank</a>
+for the definition of the charging and discharging coefficients.
 </p>
 </html>"));
 end Tank;

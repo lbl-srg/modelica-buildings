@@ -45,14 +45,14 @@ equation
 This block calculates the mass of ice in the storage <i>m<sub>ice</sub></i> using
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
-    dx/dt = q/(H<sub>f</sub>*m<sub>ice,max</sub>)
+dx/dt = Q&#775;/(H<sub>f</sub> &nbsp; m<sub>ice,max</sub>)
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
- m<sub>ice</sub> = x*m<sub>ice,max
+m<sub>ice</sub> = x &nbsp; m<sub>ice,max
 </p>
 <p>
 where <i>x</i> is the fraction of charge, or the state of charge,
-<i>q</i> is the heat transfer rate of the ice tank, positive for charging and negative for discharging,
+<i>Q&#775;</i> is the heat transfer rate of the ice tank, positive for charging and negative for discharging,
 <i>Hf</i> is the fusion of heat of ice and
 <i>m<sub>ice,max</sub></i> is the nominal mass of ice in the storage tank.
 </p>

@@ -39,7 +39,7 @@ equation
         coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>
 <p>
-This block calculates the normalized instantaneous heat transfer rate <i>q*</i> between the chilled water
+This block calculates the normalized heat transfer rate <i>q*</i> between the chilled water
 and the ice in the thermal storage tank using
 </p>
 <p align=\"center\">
