@@ -39,7 +39,7 @@ REM   activate {name of Python 64-bit environment}
 REM   set PYTHONHOME=%HOME%\Miniconda2\envs\{name of Python 64-bit environment}
 REM   set CLPATH="C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Auxiliary\Build\vcvars64.bat"
 
-SET PYTHONHOME="C:\Miniconda3-4-3-31"
+REM SET PYTHONHOME="C:\Python38"
 SET CLPATH="C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\amd64\vcvars64.bat"
 
 IF NOT -%1-==-- (
@@ -57,12 +57,14 @@ IF NOT DEFINED ARCH (
   ECHO Unknown system architecture: specify either x86 or x64.
   EXIT /B 1
 )
-IF DEFINED PYTHONHOME (
-  ECHO PYTHONHOME is: %PYTHONHOME%
-) ELSE (
-  ECHO PYTHONHOME is not set: compilation aborted.
-  EXIT /B 1
-)
+
+REM IF DEFINED PYTHONHOME (
+REM   ECHO PYTHONHOME is: %PYTHONHOME%
+REM ) ELSE (
+REM   ECHO PYTHONHOME is not set: compilation aborted.
+REM   EXIT /B 1
+REM )
+
 IF DEFINED CLPATH (
   ECHO CLPATH ^(compiler path^) is: %CLPATH%
 ) ELSE (
@@ -82,11 +84,13 @@ IF %ARCH%==x64 (
 )
 ECHO DLL will be saved in: %BINDIR%.
 
-SET PYTHONInc=%PYTHONHOME%\include
-SET PYTHONLibs=%PYTHONHOME%\libs\python36.lib
+REM SET PYTHONInc=%PYTHONHOME%\include
+REM SET PYTHONLibs=%PYTHONHOME%\libs\python38.lib
+SET PYTHONInc=C:\Python38\include
+SET PYTHONLibs=C:\Python38\libs\python38.lib
 
 CALL %CLPATH%
-IF %ERRORLEVEL% neq 0 (
+IF %ERRORLEVEL% neq 0 ( 
   ECHO Problem configuring the Visual Studio tools for command-line use.
   SET /A errno=%ERRORLEVEL%
   GOTO done
@@ -101,7 +105,7 @@ IF %ERRORLEVEL% neq 0 (
 )
 
 :: Compiling the Python interpreter libraries
-CL /LD /MT /I%PYTHONInc% %SRCS% %PYTHONLibs% /link /out:%MOD_DLL%
+CL -Dinline=__inline /LD /MT /I%PYTHONInc% %SRCS% %PYTHONLibs% /link /out:%MOD_DLL%
 IF %ERRORLEVEL% neq 0 (
   ECHO Error when compiling the Python interpreter libraries.
   SET /A errno=%ERRORLEVEL%
@@ -112,7 +116,7 @@ IF %ERRORLEVEL% neq 0 (
 :: lib /def:%MOD_DEF%
 
 :: Compiling the test Program
-CL /I%PYTHONInc% testProgram.c %SRCS%  %PYTHONLibs%
+CL -Dinline=__inline /I%PYTHONInc% testProgram.c %SRCS%  %PYTHONLibs%
 IF %ERRORLEVEL% neq 0 (
   ECHO Error when compiling the test Program.
   SET /A errno=%ERRORLEVEL%
