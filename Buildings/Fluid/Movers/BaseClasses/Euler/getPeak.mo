@@ -36,7 +36,7 @@ algorithm
   if etaLes or etaMon then
     peak.eta:=max(eta);
     for i in 1:n loop
-      if eta[i]-peak.eta<1E-6 then
+      if abs(eta[i]-peak.eta)<1E-6 then
         peak.V_flow:=pressure.V_flow[i];
         peak.dp:=pressure.dp[i];
       end if;
@@ -57,7 +57,7 @@ algorithm
     //   and it falls within the range of V_flow[:].
     r:=Modelica.Math.Polynomials.roots({b[5]*4,b[4]*3,b[3]*2,b[2]});
     for i in 1:3 loop
-      if r[i,2]<=1E-6 and
+      if abs(r[i,2])<=1E-6 and
         r[i,1]>pressure.V_flow[1] and r[i,1]<pressure.V_flow[end] then
         peak.V_flow:=r[i,1];
       end if;
