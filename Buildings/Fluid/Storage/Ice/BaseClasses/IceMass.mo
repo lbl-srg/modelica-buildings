@@ -1,9 +1,9 @@
 within Buildings.Fluid.Storage.Ice.BaseClasses;
 model IceMass "Mass of ice remaining in the tank"
 
-  parameter Modelica.SIunits.Mass mIce_max;
-  parameter Modelica.SIunits.Mass mIce_start;
-  parameter Modelica.SIunits.SpecificEnergy Hf=333550 "Fusion of heat of ice";
+  parameter Modelica.Units.SI.Mass mIce_max;
+  parameter Modelica.Units.SI.Mass mIce_start;
+  parameter Modelica.Units.SI.SpecificEnergy Hf=333550 "Fusion of heat of ice";
 
   Modelica.Blocks.Interfaces.RealInput q
     "Heat transfer rate: postive for charging, negative for discharging"
@@ -65,7 +65,7 @@ This block calculates the remaining mass of the ice in the storage <code>m<sub>i
  m<sub>ice</sub> = x*m<sub>ice,max
 </p>
 
-where <code>x</code> is the fraction of charge, or the state of charge, 
+where <code>x</code> is the fraction of charge, or the state of charge,
 <code>q</code> is the heat transfer rate of the ice tank, positive for charging and negative for discharging,
 <code>Hf</code> is the fusion of heat of ice,
 <code>m<sub>ice,max</sub></code> is the nominal mass of ice in the storage tank.

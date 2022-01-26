@@ -8,7 +8,7 @@ model StorageHeatTransferRate "Example to calculate qStar"
   Modelica.Blocks.Sources.Cosine fra(
     amplitude=0.5,
     offset=0.5,
-    freqHz=1/7200) "Fraction of charge"
+    f=1/7200) "Fraction of charge"
     annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
   Buildings.Fluid.Storage.Ice.BaseClasses.StorageHeatTransferRate norQSta(
     coeCha=coeCha,

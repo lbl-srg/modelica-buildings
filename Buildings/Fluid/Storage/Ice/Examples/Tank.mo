@@ -4,15 +4,15 @@ model Tank "Example that test the Tank model"
 
   package Medium = Buildings.Media.Antifreeze.PropyleneGlycolWater (
     property_T=293.15,
-    X_a=0.30);
+    X_a=0.30) "Fluid medium";
 
-  parameter Modelica.SIunits.Mass mIce_max=2846.35
+  parameter Modelica.Units.SI.Mass mIce_max=2846.35
     "Nominal mass of ice in the tank";
-  parameter Modelica.SIunits.Mass mIce_start=2846.35/10
+  parameter Modelica.Units.SI.Mass mIce_start=2846.35/10
     "Start value of ice mass in the tank";
-  parameter Modelica.SIunits.MassFlowRate m_flow_nominal=1
+  parameter Modelica.Units.SI.MassFlowRate m_flow_nominal=1
     "Nominal mass flow rate";
-  parameter Modelica.SIunits.PressureDifference dp_nominal=100000
+  parameter Modelica.Units.SI.PressureDifference dp_nominal=100000
     "Pressure difference";
   parameter Buildings.Fluid.Storage.Ice.Data.Tank.Experiment per
     annotation (Placement(transformation(extent={{60,60},{80,80}})));
@@ -40,10 +40,10 @@ model Tank "Example that test the Tank model"
     dp_nominal=500)
     annotation (Placement(transformation(extent={{34,-10},{54,10}})));
   Modelica.Blocks.Sources.IntegerTable mod(table=[
-    0,       Integer(Buildings.Fluid.Storage.Ice.Types.IceThermalStorageMode.Charging);
-    3600*10, Integer(Buildings.Fluid.Storage.Ice.Types.IceThermalStorageMode.Dormant);
-    3600*11, Integer(Buildings.Fluid.Storage.Ice.Types.IceThermalStorageMode.Discharging);
-    3600*18, Integer(Buildings.Fluid.Storage.Ice.Types.IceThermalStorageMode.Charging)])
+    0,       Integer(Buildings.Fluid.Storage.Ice.Types.OperationModes.Charging);
+    3600*10, Integer(Buildings.Fluid.Storage.Ice.Types.OperationModes.Dormant);
+    3600*11, Integer(Buildings.Fluid.Storage.Ice.Types.OperationModes.Discharging);
+    3600*18, Integer(Buildings.Fluid.Storage.Ice.Types.OperationModes.Charging)])
      "Table with operating modes"
     annotation (Placement(transformation(extent={{-80,30},{-60,50}})));
   Modelica.Blocks.Sources.Constant TSet(k=273.15 + 6) "Setpoint temperature"

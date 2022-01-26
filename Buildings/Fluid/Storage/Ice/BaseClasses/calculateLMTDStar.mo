@@ -2,23 +2,23 @@ within Buildings.Fluid.Storage.Ice.BaseClasses;
 function calculateLMTDStar
   "This function calculates the log mean temperature difference for the ice storage unit"
   extends Modelica.Icons.Function;
-  input Modelica.SIunits.Temperature TIn "Inlet temperature";
-  input Modelica.SIunits.Temperature TOut "Outlet temperature";
+  input Modelica.Units.SI.Temperature TIn "Inlet temperature";
+  input Modelica.Units.SI.Temperature TOut "Outlet temperature";
 
-  input Modelica.SIunits.Temperature TFre = 273.15
+  input Modelica.Units.SI.Temperature TFre = 273.15
     "Freezing temperature of water or the latent energy storage material";
-  input Modelica.SIunits.TemperatureDifference dT_nominal = 10
+  input Modelica.Units.SI.TemperatureDifference dT_nominal = 10
      "Nominal temperature difference";
 
   output Real lmtd
     "Normalized LMTD";
 
 protected
-  constant Modelica.SIunits.TemperatureDifference dTif_min=0.02
+  constant Modelica.Units.SI.TemperatureDifference dTif_min=0.02
     "Small temperature difference, used for regularization";
-  constant Modelica.SIunits.TemperatureDifference dTof_min=0.01
+  constant Modelica.Units.SI.TemperatureDifference dTof_min=0.01
     "Small temperature difference, used for regularization";
-  //Modelica.SIunits.Temperature TOutEps
+  //Modelica.Units.SI.Temperature TOutEps
   //  "Outlet temperature, bounded away from TIn";
   Real dTio "Inlet to outlet temperature difference";
   Real dTif "Inlet to freezing temperature difference";

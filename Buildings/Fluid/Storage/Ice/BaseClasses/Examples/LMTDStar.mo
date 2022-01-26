@@ -6,12 +6,12 @@ model LMTDStar "Example that tests the LMTDStar model"
     annotation (Placement(transformation(extent={{32,-10},{52,10}})));
   Modelica.Blocks.Sources.Cosine TIn(
     amplitude=4,
-    freqHz=1/3600,
+    f=1/3600,
     offset=273.15 + 2) "Inlet temperature"
     annotation (Placement(transformation(extent={{-40,10},{-20,30}})));
   Modelica.Blocks.Sources.Cosine TOut(
     amplitude=4,
-    freqHz=1/3600,
+    f=1/3600,
     offset=273.15 + 2,
     phase=3.1415926535898) "Outlet temperature"
     annotation (Placement(transformation(extent={{-40,-30},{-20,-10}})));

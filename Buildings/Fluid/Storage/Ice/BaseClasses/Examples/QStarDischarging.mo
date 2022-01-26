@@ -6,7 +6,7 @@ model QStarDischarging "Example to calculate QStarDischarging"
 
   Modelica.Blocks.Sources.Cosine fra(
     amplitude=0.5,
-    freqHz=1/86400,
+    f=1/86400,
     offset=0.5) "Fraction of charge"
     annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
   Modelica.Blocks.Sources.Constant lmtd(k=1) "Log mean temperature difference"

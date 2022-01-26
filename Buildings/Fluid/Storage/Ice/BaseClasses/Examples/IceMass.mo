@@ -6,7 +6,7 @@ model IceMass "Example that tests the ice mass calculation"
     "Ice mass calculator"
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
   Modelica.Blocks.Sources.Cosine q(
-    freqHz=1/3600,
+    f=1/3600,
     amplitude=1,
     offset=0)
     "Heat transfer rate: postive for charging, negative for discharging"

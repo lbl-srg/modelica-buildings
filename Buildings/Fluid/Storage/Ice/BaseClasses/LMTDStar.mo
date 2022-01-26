@@ -2,8 +2,8 @@ within Buildings.Fluid.Storage.Ice.BaseClasses;
 model LMTDStar
   "Normalized log mean temperature difference across the ice storage unit"
 
-  parameter Modelica.SIunits.Temperature TFre = 273.15 "Freezing temperature of water or the latent energy storage material";
-  parameter Modelica.SIunits.TemperatureDifference dT_nominal = 10
+  parameter Modelica.Units.SI.Temperature TFre = 273.15 "Freezing temperature of water or the latent energy storage material";
+  parameter Modelica.Units.SI.TemperatureDifference dT_nominal = 10
    "Nominal temperature difference";
 
   Modelica.Blocks.Interfaces.RealInput TIn(unit="K", displayUnit="degC")
@@ -41,8 +41,8 @@ equation
         coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>
 <p>
-This subroutine calculates the log mean temperature difference for the detailed ice storage unit. 
-The detailed method is implemented in 
+This subroutine calculates the log mean temperature difference for the detailed ice storage unit.
+The detailed method is implemented in
 <a href=\"modelica://IceTank.Functions.calculateLMTDStar\">IceTank.Functions.calculateLMTDStar</a>.
 </p>
 </html>", revisions="<html>

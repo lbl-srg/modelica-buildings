@@ -5,10 +5,10 @@ model Tank "A detailed ice tank model"
     final computeFlowResistance=true);
 
   // ice tank
-  parameter Modelica.SIunits.Mass mIce_max "Nominal mass of ice in the tank"
+  parameter Modelica.Units.SI.Mass mIce_max "Nominal mass of ice in the tank"
     annotation(Dialog(group="Nominal condition"));
 
-  parameter Modelica.SIunits.Mass mIce_start "Start value of ice mass in the tank"
+  parameter Modelica.Units.SI.Mass mIce_start "Start value of ice mass in the tank"
     annotation(Dialog(tab = "Initialization"));
 
   replaceable parameter Buildings.Fluid.Storage.Ice.Data.Tank.Generic per
@@ -27,16 +27,10 @@ model Tank "A detailed ice tank model"
   // Outlet temperature controller
   parameter Real k=1 "Gain of controller"
     annotation(Dialog(group="Temperature Controller"));
-  parameter Modelica.SIunits.Time Ti=120 "Time constant of Integrator block"
-    annotation(Dialog(group="Temperature Controller"));
-  parameter Real yMax=1 "Upper limit of output"
-    annotation(Dialog(group="Temperature Controller"));
-  parameter Real yMin=0 "Lower limit of output"
+  parameter Modelica.Units.SI.Time Ti=120 "Time constant of Integrator block"
     annotation(Dialog(group="Temperature Controller"));
 
-  constant Boolean homotopyInitialization = true "= true, use homotopy method"
-    annotation(HideResult=true);
-  parameter Modelica.SIunits.Time tau = 30
+  parameter Modelica.Units.SI.Time tau = 30
     "Time constant at nominal flow (if energyDynamics <> SteadyState)"
      annotation (Dialog(tab = "Dynamics", group="Nominal condition"));
 
@@ -68,7 +62,7 @@ model Tank "A detailed ice tank model"
   parameter Boolean use_inputFilter=true
     "= true, if opening is filtered with a 2nd order CriticalDamping filter"
     annotation (Dialog(tab = "Dynamics", group="Valve"));
-  parameter Modelica.SIunits.Time riseTime=120
+  parameter Modelica.Units.SI.Time riseTime=120
     "Rise time of the filter (time to reach 99.6 % of an opening step)"
     annotation (Dialog(tab = "Dynamics", group="Valve"));
   parameter Modelica.Blocks.Types.Init init=Modelica.Blocks.Types.Init.InitialOutput
@@ -78,16 +72,16 @@ model Tank "A detailed ice tank model"
     annotation (Dialog(tab = "Dynamics", group="Valve"));
 
   // Some final parameters
-  final parameter Modelica.SIunits.SpecificEnergy Hf = 333550 "Fusion of heat of ice";
-  final parameter Modelica.SIunits.Temperature TFre = 273.15
+  final parameter Modelica.Units.SI.SpecificEnergy Hf = 333550 "Fusion of heat of ice";
+  final parameter Modelica.Units.SI.Temperature TFre = 273.15
     "Freezing temperature of water or the latent energy storage material";
-  final parameter Modelica.SIunits.TemperatureDifference dT_nominal = 10
+  final parameter Modelica.Units.SI.TemperatureDifference dT_nominal = 10
      "Nominal temperature difference";
-  final parameter Modelica.SIunits.Energy QSto_nominal=Hf*mIce_max "Normal stored energy";
-  final parameter Modelica.SIunits.PressureDifference dpValve_nominal=6000
+  final parameter Modelica.Units.SI.Energy QSto_nominal=Hf*mIce_max "Normal stored energy";
+  final parameter Modelica.Units.SI.PressureDifference dpValve_nominal=6000
     "Nominal pressure drop of fully open valve, used if CvData=Buildings.Fluid.Types.CvTypes.OpPoint"
     annotation(Dialog(group="Nominal condition"));
-  final parameter Modelica.SIunits.SpecificHeatCapacity cp = Medium.specificHeatCapacityCp(
+  final parameter Modelica.Units.SI.SpecificHeatCapacity cp = Medium.specificHeatCapacityCp(
     Medium.setState_pTX(
         p=Medium.p_default,
         T=273.15,
@@ -115,7 +109,10 @@ model Tank "A detailed ice tank model"
     annotation (Placement(transformation(extent={{100,-60},{120,-40}}),
         iconTransformation(extent={{100,-60},{120,-40}})));
 
-  Medium.ThermodynamicState state_phX "Medium state at inlet";
+//  Medium.ThermodynamicState state_phX = Medium.setState_phX(
+//        p=port_a.p,
+//        h=inStream(port_a.h_outflow),
+//        X=inStream(port_a.Xi_outflow)) "Medium state at inlet";
 
   Buildings.Fluid.HeatExchangers.HeaterCooler_u hea(
     redeclare final package Medium = Medium,
@@ -165,22 +162,19 @@ model Tank "A detailed ice tank model"
     annotation (Placement(transformation(extent={{68,-80},{88,-60}})));
 
   Buildings.Fluid.Storage.Ice.BaseClasses.OutletTemperatureControl TOutCon(
-    final controllerType=Modelica.Blocks.Types.SimpleController.PI,
+    final controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
     final k=k,
-    final Ti=Ti,
-    final yMax=yMax,
-    final yMin=yMin,
-    final reverseActing=true)
+    final Ti=Ti)
     "PI controller to enable outlet ice tank temperature control"
     annotation (Placement(transformation(extent={{-10,70},{10,90}})));
 
   Buildings.Controls.OBC.CDL.Integers.LessThreshold nonDisChaMod(t=Integer(
-        Buildings.Fluid.Storage.Ice.Types.IceThermalStorageMode.Discharging))
+        Buildings.Fluid.Storage.Ice.Types.OperationModes.Discharging))
     "Charging or dormant mode"
     annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
-  Modelica.Blocks.Math.Max max "Smooth maximum"
+  Modelica.Blocks.Math.Max max "Maximum"
     annotation (Placement(transformation(extent={{6,-100},{26,-80}})));
-  Modelica.Blocks.Math.Min min
+  Modelica.Blocks.Math.Min min "Minimum"
     annotation (Placement(transformation(extent={{34,-48},{54,-28}})));
   Modelica.Blocks.Logical.Switch swi "Switch"
     annotation (Placement(transformation(extent={{38,-80},{58,-60}})));
@@ -242,18 +236,11 @@ model Tank "A detailed ice tank model"
     "Temperature sensor for the fluid at the outlet of the tank"
     annotation (Placement(transformation(extent={{24,-10},{44,10}})));
 protected
-  Modelica.Blocks.Sources.RealExpression limQ(final y=hea.port_a.m_flow*cp*(
-        TFre - senTIn.T)) "Upper/Lower limit for charging/discharging rate"
+  Modelica.Blocks.Sources.RealExpression limQ(
+    final y=hea.port_a.m_flow*cp*(TFre - senTIn.T)) "Upper/Lower limit for charging/discharging rate"
     annotation (Placement(transformation(extent={{-40,-100},{-20,-80}})));
 
 equation
-
-  state_phX = Medium.setState_phX(
-        p=port_a.p,
-        h=inStream(port_a.h_outflow),
-        X=inStream(port_a.Xi_outflow));
-//  cp = Medium.specificHeatCapacityCp(state_phX);
-
   connect(senTOutMix.port_b, port_b)
     annotation (Line(points={{80,0},{100,0}}, color={0,127,255}));
   connect(norQSta.qNor, gai.u)
@@ -398,15 +385,15 @@ equation
           fillColor={0,0,127},
           fillPattern=FillPattern.Solid)}),
     Documentation(info="<html>
-<p>This model implements an ice tank model based on the EnergyPlus ice tank model 
-<a href=\"https://bigladdersoftware.com/epx/docs/9-0/input-output-reference/group-plant-equipment.html#thermalstorageicedetailed\">ThermalStorage:Ice:Detailed</a>. 
+<p>This model implements an ice tank model based on the EnergyPlus ice tank model
+<a href=\"https://bigladdersoftware.com/epx/docs/9-0/input-output-reference/group-plant-equipment.html#thermalstorageicedetailed\">ThermalStorage:Ice:Detailed</a>.
 </p>
 
 <h4>
 Reference
 </h4>
 <p>
-Strand, R.K. 1992. “Indirect Ice Storage System Simulation,” M.S. Thesis, 
+Strand, R.K. 1992. “Indirect Ice Storage System Simulation,” M.S. Thesis,
 Department of Mechanical and Industrial Engineering, University of Illinois at Urbana-Champaign.
 
 </p>
