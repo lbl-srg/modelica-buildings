@@ -47,7 +47,8 @@ algorithm
     //   A is a 5-by-n design matrix,
     //   b is a parameter vector with length 5 (corresponds to a quartic regression),
     //   and y = eta is the response vector with length n.
-    for i in 1:5 loop
+    A[:,1]:=ones(n); // Avoids 0^0
+    for i in 2:5 loop
       A[:,i]:=pressure.V_flow[:].^(i-1);
     end for;
     b:=Modelica.Math.Matrices.leastSquares(A,eta);
