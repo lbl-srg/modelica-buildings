@@ -5,6 +5,7 @@ clear
 
 convertClear();
 
+<<<<<<< HEAD
 // Conversion for https://github.com/lbl-srg/modelica-buildings/issues/2599
 convertClass("Buildings.Utilities.IO.Python36.Functions.BaseClasses.PythonObject",
              "Buildings.Utilities.IO.Python38.Functions.BaseClasses.PythonObject");
@@ -15,6 +16,27 @@ convertClass("Buildings.Utilities.IO.Python36.Functions.exchange",
 convertClass("Buildings.Utilities.IO.Python36.Real_Real",
              "Buildings.Utilities.IO.Python38.Real_Real");
 
+=======
+// Conversion for https://github.com/lbl-srg/modelica-buildings/issues/2839
+convertClass("Buildings.Controls.OBC.CDL.Interfaces.DayTypeInput",
+             "Buildings.Obsolete.Controls.OBC.CDL.Interfaces.DayTypeInput");
+convertClass("Buildings.Controls.OBC.CDL.Interfaces.DayTypeOutput",
+             "Buildings.Obsolete.Controls.OBC.CDL.Interfaces.DayTypeOutput");
+convertClass("Buildings.Controls.OBC.CDL.Discrete.DayType",
+             "Buildings.Obsolete.Controls.OBC.CDL.Discrete.DayType");
+convertClass("Buildings.Controls.OBC.CDL.Conversions.IsHoliday",
+             "Buildings.Obsolete.Controls.OBC.CDL.Conversions.IsHoliday");
+convertClass("Buildings.Controls.OBC.CDL.Conversions.IsWorkingDay",
+             "Buildings.Obsolete.Controls.OBC.CDL.Conversions.IsWorkingDay");
+convertClass("Buildings.Controls.OBC.CDL.Conversions.IsNonWorkingDay",
+             "Buildings.Obsolete.Controls.OBC.CDL.Conversions.IsNonWorkingDay");
+convertClass("Buildings.Controls.OBC.CDL.Discrete.Examples.DayType",
+             "Buildings.Obsolete.Controls.OBC.CDL.Discrete.Examples.DayType");
+convertClass("Buildings.Controls.OBC.CDL.Conversions.Validation.DayTypeCheck",
+             "Buildings.Obsolete.Controls.OBC.CDL.Conversions.Validation.DayTypeCheck");
+convertClass("Buildings.Controls.OBC.CDL.Types.Day",
+             "Buildings.Obsolete.Controls.OBC.CDL.Types.Day");
+>>>>>>> master
 
 // Conversion for https://github.com/lbl-srg/modelica-buildings/issues/2759
 convertModifiers("Buildings.ThermalZones.EnergyPlus.Building", {"showWeatherData"}, fill("",0), true);
