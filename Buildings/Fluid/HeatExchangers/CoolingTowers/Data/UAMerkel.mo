@@ -22,14 +22,14 @@ record UAMerkel "UA correction factors for Merkel cooling towers"
     annotation (Dialog(group="Performance curves"));
 
   // Range for the curves
-  parameter Modelica.SIunits.TemperatureDifference TDiffWBMin(
+  parameter Modelica.Units.SI.TemperatureDifference TDiffWBMin(
     max=0,
-    displayUnit="K")= -10
+    displayUnit="K") = -10
     "Minimum value for leaving evaporator temperature difference"
     annotation (Dialog(group="Performance curves"));
-  parameter Modelica.SIunits.TemperatureDifference TDiffWBMax(
+  parameter Modelica.Units.SI.TemperatureDifference TDiffWBMax(
     min=0,
-    displayUnit="K")= 25
+    displayUnit="K") = 25
     "Maximum value for leaving evaporator temperature difference"
     annotation (Dialog(group="Performance curves"));
 

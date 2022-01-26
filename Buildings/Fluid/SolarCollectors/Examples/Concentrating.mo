@@ -46,7 +46,7 @@ model Concentrating "Example showing the use of Concentrating"
         rotation=180,
         origin={-54,-10})));
   Modelica.Blocks.Sources.Sine sine(
-    freqHz=3/86400,
+    f=3/86400,
     offset=101325,
     amplitude=-2*solCol.dp_nominal)
     annotation (Placement(transformation(extent={{-100,-20},{-80,0}})));

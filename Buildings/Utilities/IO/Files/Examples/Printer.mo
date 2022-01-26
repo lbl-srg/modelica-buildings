@@ -6,8 +6,8 @@ model Printer "Test model for printer"
     nin=2,
     samplePeriod=0.1)            annotation (Placement(transformation(extent={{-20,40},
             {0,60}})));
-  Modelica.Blocks.Sources.Clock clo annotation (Placement(transformation(extent=
-           {{-80,40},{-60,60}})));
+  Modelica.Blocks.Sources.ContinuousClock clo
+    annotation (Placement(transformation(extent={{-80,40},{-60,60}})));
   Modelica.Blocks.Sources.Ramp ram(duration=2)
                                    annotation (Placement(transformation(extent=
             {{-80,0},{-60,20}})));

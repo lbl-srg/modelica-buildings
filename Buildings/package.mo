@@ -305,6 +305,13 @@ have been <b style=\"color:blue\">improved</b> in a
                        This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2544\"># 2544</a>.
     </td>
 </tr>
+<tr><td valign=\"top\">Buildings.Controls.OBC.Utilities.SunRiseSet
+    </td>
+    <td valign=\"top\">Changed implementation to avoid NaN in OpenModelica.<br/>
+                       This is for
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2835\">issue 2835</a>.
+    </td>
+</tr>
 <tr><td colspan=\"2\"><b>Buildings.Fluid.Boilers</b>
     </td>
 </tr>
@@ -355,7 +362,7 @@ have been <b style=\"color:blue\">improved</b> in a
 <tr><td colspan=\"2\"><b>Buildings.Experimental.DHC</b>
     </td>
 </tr>
-<tr><td valign=\"top\">Buildings.Experimental.DHC.CentralPlants.Cooling
+<tr><td valign=\"top\">Buildings.Experimental.DHC.Plants.Cooling
     </td>
     <td valign=\"top\">Revised the model for extensibility. <br/>
     This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2749\">#2749</a>.
@@ -416,7 +423,17 @@ have been <b style=\"color:blue\">improved</b> in a
                      This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2713\">Buidings, #2713</a>.
   </td>
   </tr>
-<tr><td colspan=\"2\"><b>Buildings.Utilities.Math</b>
+<tr><td colspan=\"2\"><b>Buildings.Utilities.IO</b>
+    </td>
+  </tr>
+  <tr><td valign=\"top\">Buildings.Utilities.IO.Files.Examples.CSVReader
+    </td>
+    <td valign=\"top\">Updated example so it works with future versions of the Modelica Standard Library which
+                       supports reading csv files.<br/>
+                       This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/pull/1572\">IBPSA #1572</a>.
+    </td>
+  </tr>
+  <tr><td colspan=\"2\"><b>Buildings.Utilities.Math</b>
     </td>
 </tr>
 <tr><td valign=\"top\">Buildings.Utilities.Math.Functions.BaseClasses.der_spliceFunction
@@ -488,6 +505,22 @@ have been <b style=\"color:blue\">improved</b> in a
 <tr><td colspan=\"2\"><b>Buildings.Controls.OBC.CDL</b>
     </td>
 </tr>
+  <tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Interfaces.DayTypeInput<br/>
+                         Buildings.Controls.OBC.CDL.Interfaces.DayTypeOutput<br/>
+                         Buildings.Controls.OBC.CDL.Discrete.DayType<br/>
+                         Buildings.Controls.OBC.CDL.Conversions.IsHoliday<br/>
+                         Buildings.Controls.OBC.CDL.Conversions.IsWorkingDay<br/>
+                         Buildings.Controls.OBC.CDL.Conversions.IsNonWorkingDay<br/>
+                         Buildings.Controls.OBC.CDL.Discrete.Examples.DayType<br/>
+                         Buildings.Controls.OBC.CDL.Conversions.Validation.DayTypeCheck<br/>
+                         Buildings.Controls.OBC.CDL.Types.Day<br/>
+  
+    </td>
+    <td valign=\"top\">Moved classes to <code>Obsolete</code> package.
+                This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2839\"># 2839</a>.<br/>
+                For Dymola, a conversion script makes this change.
+    </td>
+  </tr>
 <tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Logical.MultiAnd<br/>
                        Buildings.Controls.OBC.CDL.Logical.MultiOr
     </td>
@@ -548,6 +581,9 @@ have been <b style=\"color:blue\">improved</b> in a
                        This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2594\">#2594</a>.<br/>
                        Changed model structure to separate building and HVAC system.<br/>
                        This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2652\">#2652</a>.<br/>
+                       Changed parameter declarations and added to Guideline 36 models the optimal start up calculation.
+                       This is for
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2829\">issue #2829</a>.
     </td>
 </tr>
  <tr><td colspan=\"2\"><b>Buildings.Examples.ScalableBenchmarks</b>
@@ -693,6 +729,9 @@ have been <b style=\"color:blue\">improved</b> in a
                        This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2594\">#2594</a>.<br/>
                        Changed model structure to separate building and HVAC system.<br/>
                        This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2652\">#2652</a>.<br/>
+                       Changed parameter declarations and added to Guideline 36 models the optimal start up calculation.
+                       This is for
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2829\">issue #2829</a>.
     </td>
 </tr>
 <tr><td colspan=\"2\"><b>Buildings.Utilities.Math</b>
@@ -755,7 +794,7 @@ units are wrong or errors in documentation):
                        This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1496\">Buildings, #1496</a>.
     </td>
   </tr>
-  <tr><td colspan=\"2\"><b>Buildings.Applications.DataCenters</b>
+<tr><td colspan=\"2\"><b>Buildings.Applications.DataCenters</b>
     </td>
 </tr>
 <tr><td valign=\"top\">Buildings.Applications.DataCenters.ChillerCooled.Examples.IntegratedPrimaryLoadSideEconomizer<br/>
@@ -766,6 +805,19 @@ units are wrong or errors in documentation):
                        and did not parse in OpenModelica.<br/>
                        This is for
                        <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2706\">Buildings, issue 2706</a>.
+    </td>
+</tr>
+<tr><td colspan=\"2\"><b>Buildings.Experimental</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Experimental.DHC.Plants.Cooling.Controls.ChillerStage
+    </td>
+    <td valign=\"top\">Corrected parameter value for <code>twoOn.nOut</code>.
+                       This correction is required to simulate the model in Dymola 2022
+                       if the model has been updated to MSL 4.0.0. With MSL 3.2.3, the simulation
+                       works without this correction.<br/>
+                       This is for
+                       <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1563\">Buildings, #1563</a>.
     </td>
 </tr>
 <tr><td colspan=\"2\"><b>Buildings.ThermalZones.Detailed</b>
@@ -785,6 +837,17 @@ units are wrong or errors in documentation):
         <td valign=\"top\">Added missing parameter declaration.<br/>
                            This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2556\">Buildings, #2556</a>.
         </td>
+   </tr>
+   <tr><td colspan=\"2\"><b>Buildings.Utilities.IO.Python36</b>
+   </td>
+   </tr>
+   <tr><td valign=\"top\">Buildings.Utilities.IO.Python36.Functions.Examples.Exchange
+   </td>
+   <td valign=\"top\">Removed call to impure function <code>removeFile</code>.
+                      This removal is required for MSL 4.0.0.<br/>
+                      This is for
+                      <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1563\">Buildings, #1563</a>.
+   </td>
 </tr>
 </table>
 <p>
@@ -852,7 +915,7 @@ xxx
     </tr>
     <tr><td colspan=\"2\"><b>Buildings.Experimental.DHC</b>
         </td>
-    <tr><td valign=\"top\">Buildings.Experimental.DHC.CentralPlants.Cooling
+    <tr><td valign=\"top\">Buildings.Experimental.DHC.Plants.Cooling
         </td>
         <td valign=\"top\">Package with models for a chilled water plant adapted to
         district cooling applications.<br/>
@@ -1355,7 +1418,7 @@ have been <b style=\"color:blue\">improved</b> in a
                        Buildings.Controls.OBC.CDL.Utilities.SunRiseSet
 
     </td>
-    <td valign=\"top\">Reformulated to remove dependency to <code>Modelica.SIunits</code>.<br/>
+    <td valign=\"top\">Reformulated to remove dependency to <code>Modelica.Units.SI</code>.<br/>
                        This is for
                        <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2243\">issue 2243</a>.
     </td>
@@ -2204,7 +2267,7 @@ as reported in <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1432\">I
     </table>
     <!-- Obsolete components -->
      </html>"));
-    end Version_7_0_1;
+  end Version_7_0_1;
 
     class Version_7_0_0 "Version 7.0.0"
       extends Modelica.Icons.ReleaseNotes;
@@ -6450,8 +6513,8 @@ units are wrong or errors in documentation):
 <tr><td valign=\"top\">Buildings.HeatTransfer.Windows.BaseClasses.GlassLayer
     </td>
     <td valign=\"top\">Changed type of <code>tauIR</code> from
-                       <code>Modelica.SIunits.Emissivity</code> to
-                       <code>Modelica.SIunits.TransmissionCoefficient</code>.
+                       <code>Modelica.Units.SI.Emissivity</code> to
+                       <code>Modelica.Units.SI.TransmissionCoefficient</code>.
                        This avoids a type error in OpenModelica.
     </td>
 </tr>
@@ -7281,7 +7344,7 @@ units are wrong or errors in documentation):
 <tr><td valign=\"top\">Buildings.Fluid.Data.Fuels.Generic
     </td>
     <td valign=\"top\">Corrected wrong type for <code>mCO2</code>.
-                       It was declared as <code>Modelica.SIunits.MassFraction</code>,
+                       It was declared as <code>Modelica.Units.SI.MassFraction</code>,
                        which is incorrect.
     </td>
 </tr>
@@ -7289,7 +7352,7 @@ units are wrong or errors in documentation):
     </td>
     <td valign=\"top\">Corrected wrong type for <code>FRWat_min</code>, <code>FRWat_max</code>
                        and <code>liqGasRat_max</code>.
-                       They were declared as <code>Modelica.SIunits.MassFraction</code>,
+                       They were declared as <code>Modelica.Units.SI.MassFraction</code>,
                        which is incorrect as, for example, <code>FRWat_max</code> can be larger than one.
     </td>
 </tr>
@@ -10030,16 +10093,26 @@ The development of the Buildings library is organized by<br/>
     Documentation(info="<html>
 <h4><font color=\"#008000\" size=\"5\">Acknowledgements</font></h4>
 <p>
- The development of this library was supported
+ The development of this library was supported by:
 </p>
  <ul>
- <li>by the Assistant Secretary for
-  Energy Efficiency and Renewable Energy, Office of Building
-  Technologies of the U.S. Department of Energy, under
-  contracts No. DE-AC02-05CH11231 and DE-EE0007688, and
+ <li>The U.S. Department of Energy, Assistant Secretary for
+  Energy Efficiency and Renewable Energy,
+  <ul>
+  <li>
+  Office of Building
+  Technologies, under Contracts Number DE-AC02-05CH11231 and DE-EE0007688,
+  </li>
+  <li>
+  Advanced Manufacturing Office, under Award Number DE-EE0009139, and
  </li>
+  <li>
+  Geothermal Technologies Office, under Award Number DE-AC02-05CH11231.
+  </li>
+  </ul>
+  </li>
  <li>
-  by the California Energy Commission, Public Interest Energy Research Program, Buildings End Use Energy Efficiency Program, award number 500-10-052.
+  The California Energy Commission, Public Interest Energy Research Program, Buildings End Use Energy Efficiency Program, Award Number 500-10-052.
  </li>
  </ul>
 <p>
@@ -10136,6 +10209,8 @@ The following people have directly contributed to the implementation of the Buil
 </li>
 <li>Vladimir Vukovic, Austrian Institute of Technology, Austria
 </li>
+<li>Jing Wang, University of Colorado Boulder, Colorado, USA
+</li>
 <li>Michael Wetter, Lawrence Berkeley National Laboratory, USA
 </li>
 <li>Tea Zakula, University of Zagreb, Croatia
@@ -10158,7 +10233,7 @@ The following people have directly contributed to the implementation of the Buil
     Documentation(info="<html>
 <h4>License</h4>
 <p>
-Modelica Buildings Library. Copyright (c) 1998-2020
+Modelica Buildings Library. Copyright (c) 1998-2022
 Modelica Association,
 International Building Performance Simulation Association (IBPSA),
 The Regents of the University of California, through Lawrence Berkeley National Laboratory
@@ -10417,7 +10492,7 @@ preferredView="info",
 version="9.0.0",
 versionDate="2021-06-08",
 dateModified="2021-06-08",
-uses(Modelica(version="3.2.3")),
+uses(Modelica(version="4.0.0")),
 conversion(
   from(version={"8.0.0", "8.1.0"},
       script="modelica://Buildings/Resources/Scripts/Dymola/ConvertBuildings_from_8_to_9.0.0.mos")),

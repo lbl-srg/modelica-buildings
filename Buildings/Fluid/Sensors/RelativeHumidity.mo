@@ -1,14 +1,14 @@
 within Buildings.Fluid.Sensors;
 model RelativeHumidity "Ideal one port relative humidity sensor"
   extends Buildings.Fluid.Sensors.BaseClasses.PartialAbsoluteSensor;
-  extends Modelica.Icons.RotationalSensor;
+  extends Modelica.Icons.RoundSensor;
 
   Modelica.Blocks.Interfaces.RealOutput phi(final unit="1", min=0)
     "Relative humidity in port medium"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 
 protected
-  Modelica.SIunits.Temperature T "Temperature of the medium";
+  Modelica.Units.SI.Temperature T "Temperature of the medium";
   Medium.MassFraction Xi[Medium.nXi](
     quantity=Medium.substanceNames[1:Medium.nXi]) "Mass fraction of the medium";
 equation

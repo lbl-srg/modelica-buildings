@@ -7,11 +7,9 @@ model OneZoneControlledFloorTemperature
     "Floor surface of living room"
     annotation (Placement(transformation(extent={{70,40},{90,60}})));
   Controls.OBC.CDL.Continuous.Sources.Constant TSetRooHea(
-    k(
-      final unit="K",
+    k(final unit="K",
       displayUnit="degC")=293.15,
-    y(
-      final unit="K",
+    y(final unit="K",
       displayUnit="degC"))
     "Room temperture set point for heating"
     annotation (Placement(transformation(extent={{-80,40},{-60,60}})));
@@ -23,11 +21,9 @@ model OneZoneControlledFloorTemperature
     "Controller for heating"
     annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
   Controls.OBC.CDL.Continuous.Sources.Constant TSetRooCoo(
-    k(
-      final unit="K",
+    k(final unit="K",
       displayUnit="degC")=297.15,
-    y(
-      final unit="K",
+    y(final unit="K",
       displayUnit="degC"))
     "Room temperture set point for cooling"
     annotation (Placement(transformation(extent={{-80,70},{-60,90}})));
@@ -45,8 +41,7 @@ model OneZoneControlledFloorTemperature
     "Change in floor temperature compared to room air temperature"
     annotation (Placement(transformation(extent={{0,60},{20,80}})));
   Controls.OBC.CDL.Continuous.Add TFlo(
-    y(
-      final unit="K",
+    y(final unit="K",
       displayUnit="degC"))
     "Floor temperature"
     annotation (Placement(transformation(extent={{30,40},{50,60}})));

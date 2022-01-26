@@ -2,24 +2,24 @@ within Buildings.Examples.VAVReheat.BaseClasses.Controls;
 block RoomTemperatureSetpoint "Set point scheduler for room temperature"
   extends Modelica.Blocks.Icons.Block;
   import Buildings.Examples.VAVReheat.BaseClasses.Controls.OperationModes;
-  parameter Modelica.SIunits.Temperature THeaOn=293.15
+  parameter Modelica.Units.SI.Temperature THeaOn=293.15
     "Heating setpoint during on";
-  parameter Modelica.SIunits.Temperature THeaOff=285.15
+  parameter Modelica.Units.SI.Temperature THeaOff=285.15
     "Heating setpoint during off";
-  parameter Modelica.SIunits.Temperature TCooOn=297.15
+  parameter Modelica.Units.SI.Temperature TCooOn=297.15
     "Cooling setpoint during on";
-  parameter Modelica.SIunits.Temperature TCooOff=303.15
+  parameter Modelica.Units.SI.Temperature TCooOff=303.15
     "Cooling setpoint during off";
   BaseClasses.Controls.ControlBus controlBus
     annotation (Placement(transformation(extent={{10,50},{30,70}})));
   Modelica.Blocks.Routing.IntegerPassThrough mode
     annotation (Placement(transformation(extent={{60,50},{80,70}})));
   Modelica.Blocks.Sources.RealExpression setPoiHea(
-     y(final unit="K")=if (mode.y == Integer(OperationModes.occupied) or mode.y == Integer(OperationModes.unoccupiedWarmUp)
+     y(final unit="K", displayUnit="degC")=if (mode.y == Integer(OperationModes.occupied) or mode.y == Integer(OperationModes.unoccupiedWarmUp)
          or mode.y == Integer(OperationModes.safety)) then THeaOn else THeaOff)
     annotation (Placement(transformation(extent={{-80,70},{-60,90}})));
   Modelica.Blocks.Sources.RealExpression setPoiCoo(
-    y(final unit="K")=if (mode.y == Integer(OperationModes.occupied) or
+    y(final unit="K", displayUnit="degC")=if (mode.y == Integer(OperationModes.occupied) or
           mode.y == Integer(OperationModes.unoccupiedPreCool) or
           mode.y == Integer(OperationModes.safety)) then TCooOn else TCooOff)
     "Cooling setpoint"

@@ -15,8 +15,7 @@ block Switch
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
 equation
-  y=
-    if u2 then
+  y=if u2 then
       u1
     else
       u3;

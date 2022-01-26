@@ -16,6 +16,7 @@ model ThreeZonesTwoBuildings
             textColor={0,0,0},
             textString="1 zone")}));
   end OneZoneBuilding;
+
   model TwoZoneBuilding
     "Model with a building with two zones"
     extends Buildings.ThermalZones.EnergyPlus.Validation.ThermalZone.TwoIdenticalZones;

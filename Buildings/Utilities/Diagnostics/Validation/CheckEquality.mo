@@ -7,8 +7,7 @@ model CheckEquality "Validation model for the check equality model"
     annotation (Placement(transformation(extent={{20,10},{40,30}})));
   Modelica.Blocks.Sources.Constant con(k=0.1) "Input"
     annotation (Placement(transformation(extent={{-60,30},{-40,50}})));
-  Modelica.Blocks.Sources.Sine sin1(freqHz=1, amplitude=0.03)
-    "Input"
+  Modelica.Blocks.Sources.Sine sin1(f=1, amplitude=0.03) "Input"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
   Modelica.Blocks.Math.Add add "Adder to offset the sin input signal"
     annotation (Placement(transformation(extent={{-20,0},{0,20}})));

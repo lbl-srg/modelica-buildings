@@ -12,9 +12,9 @@ model ThermalElectricalFollowing
 
   parameter Boolean switchThermalElectricalFollowing = true
     "Set to true for switching between thermal and electrical following, to false for electrical following only";
-  parameter Modelica.SIunits.Temperature TEngIni = Medium.T_default
+  parameter Modelica.Units.SI.Temperature TEngIni=Medium.T_default
     "Initial engine temperature";
-  parameter Modelica.SIunits.Time waitTime=60
+  parameter Modelica.Units.SI.Time waitTime=60
     "Wait time before transition from pump-on mode fires"
     annotation (Dialog(tab="Dynamics"));
   parameter Controls.OBC.CDL.Types.SimpleController watOutCon=
@@ -25,16 +25,14 @@ model ThermalElectricalFollowing
   parameter Real k=1 "Gain of controller"
     annotation (Dialog(group="Cooling water outlet temperature controller",
       enable=switchThermalElectricalFollowing));
-  parameter Modelica.SIunits.Time Ti=0.5 "Time constant of integrator block"
+  parameter Modelica.Units.SI.Time Ti=0.5 "Time constant of integrator block"
     annotation (Dialog(group="Cooling water outlet temperature controller",
-      enable=switchThermalElectricalFollowing and
-      (watOutCon==Buildings.Controls.OBC.CDL.Types.SimpleController.PI or
-       watOutCon==Buildings.Controls.OBC.CDL.Types.SimpleController.PID)));
-  parameter Modelica.SIunits.Time Td=0.1 "Time constant of derivative block"
+        enable=switchThermalElectricalFollowing and (watOutCon == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
+           or watOutCon == Buildings.Controls.OBC.CDL.Types.SimpleController.PID)));
+  parameter Modelica.Units.SI.Time Td=0.1 "Time constant of derivative block"
     annotation (Dialog(group="Cooling water outlet temperature controller",
-      enable=switchThermalElectricalFollowing and
-      (watOutCon==Buildings.Controls.OBC.CDL.Types.SimpleController.PD or
-       watOutCon==Buildings.Controls.OBC.CDL.Types.SimpleController.PID)));
+        enable=switchThermalElectricalFollowing and (watOutCon == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
+           or watOutCon == Buildings.Controls.OBC.CDL.Types.SimpleController.PID)));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TWatOutSet(
     final unit="K",
     displayUnit="degC") if switchThermalElectricalFollowing
@@ -114,8 +112,8 @@ model ThermalElectricalFollowing
     final dPEleMax=per.dPEleMax)
     "Power after applied constraints"
     annotation (Placement(transformation(extent={{-140,80},{-120,100}})));
-  Buildings.Fluid.CHPs.BaseClasses.WaterFlowControl conWat(final per=per) if
-    per.compute_coolingWaterFlowRate
+  Buildings.Fluid.CHPs.BaseClasses.WaterFlowControl conWat(final per=per)
+ if per.compute_coolingWaterFlowRate
     "Internal controller for water mass flow rate"
     annotation (Placement(transformation(extent={{120,130},{140,150}})));
   Modelica.Blocks.Sources.RealExpression mWat_flow(
@@ -176,8 +174,9 @@ model ThermalElectricalFollowing
     "Room temperature"
     annotation (Placement(transformation(extent={{-140,-130},{-120,-110}})));
 protected
-  constant Modelica.SIunits.Density rhoWat=1000 "Water density";
-  constant Modelica.SIunits.SpecificHeatCapacity cWat=4180 "Water specific heat";
+  constant Modelica.Units.SI.Density rhoWat=1000 "Water density";
+  constant Modelica.Units.SI.SpecificHeatCapacity cWat=4180
+    "Water specific heat";
 equation
   connect(fil.PEle, hys.u) annotation (Line(points={{-118,90},{-80,90},{-80,110},
           {-62,110}}, color={0,0,127}));

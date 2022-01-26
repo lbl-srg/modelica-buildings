@@ -7,13 +7,13 @@ model PartialPVOriented "Base model of a PV system with orientation"
     Buildings.Electrical.PhaseSystems.PartialPhaseSystem "Phase system"
     annotation (choicesAllMatching=true);
 
-  parameter Modelica.SIunits.Angle til "Surface tilt"
-    annotation(Evaluate=true,Dialog(group="Orientation"));
-  parameter Modelica.SIunits.Angle azi "Surface azimuth"
-    annotation(Evaluate=true,Dialog(group="Orientation"));
-  parameter Modelica.SIunits.Voltage V_nominal(min=0, start=110)
+  parameter Modelica.Units.SI.Angle til "Surface tilt"
+    annotation (Evaluate=true, Dialog(group="Orientation"));
+  parameter Modelica.Units.SI.Angle azi "Surface azimuth"
+    annotation (Evaluate=true, Dialog(group="Orientation"));
+  parameter Modelica.Units.SI.Voltage V_nominal(min=0, start=110)
     "Nominal voltage (V_nominal >= 0)"
-    annotation(Evaluate=true, Dialog(group="Nominal conditions"));
+    annotation (Evaluate=true, Dialog(group="Nominal conditions"));
 
   replaceable Buildings.Electrical.Interfaces.Terminal terminal(
     redeclare final package PhaseSystem = PhaseSystem) "Generalized terminal"

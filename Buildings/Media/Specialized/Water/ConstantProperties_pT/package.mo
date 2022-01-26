@@ -12,41 +12,39 @@ package ConstantProperties_pT "Package with model for liquid water with constant
     a_const=a_nominal,
     T_max=T_max_nominal);
 
-  constant Modelica.SIunits.Temperature T_max_nominal=
-  Modelica.Media.Water.IF97_Utilities.BaseIF97.Basic.tsat(p_nominal)
-    "Maximum temperature valid for medium model";
+constant Modelica.Units.SI.Temperature T_max_nominal=
+    Modelica.Media.Water.IF97_Utilities.BaseIF97.Basic.tsat(p_nominal)
+  "Maximum temperature valid for medium model";
 
-  constant Modelica.SIunits.Temperature T_nominal = 273.15 + 20
-    "Nominal temperature for calculation of water properties";
+constant Modelica.Units.SI.Temperature T_nominal=273.15 + 20
+  "Nominal temperature for calculation of water properties";
 
-  constant Modelica.SIunits.VelocityOfSound a_nominal=
+constant Modelica.Units.SI.VelocityOfSound a_nominal=
     Modelica.Media.Water.IF97_Utilities.velocityOfSound_pT(p_nominal, T_nominal)
-    "Constant velocity of sound";
+  "Constant velocity of sound";
 
-  constant Modelica.SIunits.SpecificHeatCapacity cp_nominal=
+constant Modelica.Units.SI.SpecificHeatCapacity cp_nominal=
     Modelica.Media.Water.IF97_Utilities.cp_pT(p_nominal, T_nominal)
-    "Specific heat capacity at nominal water conditions";
+  "Specific heat capacity at nominal water conditions";
 
-  constant Modelica.SIunits.Density d_nominal=
+constant Modelica.Units.SI.Density d_nominal=
     Modelica.Media.Water.IF97_Utilities.rho_pT(p_nominal, T_nominal)
-    "Density at nominal water conditions";
+  "Density at nominal water conditions";
 
-  constant Modelica.SIunits.DynamicViscosity eta_nominal=
-   Modelica.Media.Water.IF97_Utilities.dynamicViscosity(
-     d_nominal,
-     T_nominal,
-     p_nominal)
-   "Constant dynamic viscosity";
+constant Modelica.Units.SI.DynamicViscosity eta_nominal=
+    Modelica.Media.Water.IF97_Utilities.dynamicViscosity(
+    d_nominal,
+    T_nominal,
+    p_nominal) "Constant dynamic viscosity";
 
-  constant Modelica.SIunits.ThermalConductivity lambda_nominal=
+constant Modelica.Units.SI.ThermalConductivity lambda_nominal=
     Modelica.Media.Water.IF97_Utilities.thermalConductivity(
-     d_nominal,
-     T_nominal,
-     p_nominal)
-    "Constant thermal conductivity";
+    d_nominal,
+    T_nominal,
+    p_nominal) "Constant thermal conductivity";
 
-  constant Modelica.SIunits.AbsolutePressure p_nominal = 101325
-    "Nominal pressure for calculation of water properties";
+constant Modelica.Units.SI.AbsolutePressure p_nominal=101325
+  "Nominal pressure for calculation of water properties";
 
 annotation (Documentation(info="<html>
 <p>

@@ -26,8 +26,8 @@ protected
   Real tmp "cos(solAzi) before data validity check";
   Real solAziTem "Temporary variable for solar azimuth";
 
-  constant Modelica.SIunits.Time day=86400 "Number of seconds in a day";
-  constant Modelica.SIunits.Angle polarCircle = 1.1617
+  constant Modelica.Units.SI.Time day=86400 "Number of seconds in a day";
+  constant Modelica.Units.SI.Angle polarCircle=1.1617
     "Latitude of polar circle (66 degree 33 min 44 sec)";
   Boolean outsidePolarCircle = lat < polarCircle and lat > -polarCircle
     "Flag, true if latitude is outside polar region";

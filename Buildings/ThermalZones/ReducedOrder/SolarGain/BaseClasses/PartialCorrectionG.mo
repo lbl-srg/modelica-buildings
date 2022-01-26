@@ -3,7 +3,7 @@ partial model PartialCorrectionG
   "Partial model for correction of the solar gain factor"
 
   parameter Integer n(min = 1) "Vector size for input and output";
-  parameter Modelica.SIunits.CoefficientOfHeatTransfer UWin
+  parameter Modelica.Units.SI.CoefficientOfHeatTransfer UWin
     "Thermal transmission coefficient of whole window";
 
   Modelica.Blocks.Interfaces.RealInput HSkyDifTil[n](

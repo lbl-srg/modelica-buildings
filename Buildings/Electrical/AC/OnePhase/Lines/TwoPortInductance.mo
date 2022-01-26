@@ -14,9 +14,9 @@ model TwoPortInductance
     "Type of model (e.g., steady state, dynamic, prescribed power consumption, etc.)"
     annotation (Evaluate=true, Dialog(group="Modeling assumption"));
 protected
-  Modelica.SIunits.AngularVelocity omega
+  Modelica.Units.SI.AngularVelocity omega
     "Frequency of the quasi-stationary sine waves";
-  Modelica.SIunits.Angle theRef "Absolute angle of rotating reference system";
+  Modelica.Units.SI.Angle theRef "Absolute angle of rotating reference system";
 
 equation
   theRef = PhaseSystem_p.thetaRef(terminal_p.theta);

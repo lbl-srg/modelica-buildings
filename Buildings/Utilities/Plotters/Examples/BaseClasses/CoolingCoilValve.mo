@@ -13,13 +13,13 @@ block CoolingCoilValve "Cooling coil valve position control sequence"
     "Unit converter for controller gains from the ALC control logic"
     annotation(Evaluate=true, Dialog(tab="Advanced", group="Parameters"));
 
-  parameter Modelica.SIunits.Temperature TOutCooCut = 50 * (5/9) - 32 * (5/9) + 273.15
-    "Recorded outdoor air temperature cooling threshold"
-    annotation(Evaluate=true, Dialog(group="Enable"));
+  parameter Modelica.Units.SI.Temperature TOutCooCut=50*(5/9) - 32*(5/9) +
+      273.15 "Recorded outdoor air temperature cooling threshold"
+    annotation (Evaluate=true, Dialog(group="Enable"));
 
-  parameter Modelica.SIunits.Temperature TOutDelta = 2 * (5/9) - 32 * (5/9) + 273.15
+  parameter Modelica.Units.SI.Temperature TOutDelta=2*(5/9) - 32*(5/9) + 273.15
     "Recorded outdoor air temperature cooling threshold hysteresis delta"
-    annotation(Evaluate=true, Dialog(group="Enable"));
+    annotation (Evaluate=true, Dialog(group="Enable"));
 
   parameter Real FanFeeCut = 15/100
     "Recorded fan feedback threshold"
@@ -29,17 +29,19 @@ block CoolingCoilValve "Cooling coil valve position control sequence"
     "Recorded fan feedback threshold hysteresis delta"
     annotation(Evaluate=true, Dialog(group="Enable"));
 
-  parameter Modelica.SIunits.Temperature TSupHighLim = 50 * (5/9) - 32 * (5/9) + 273.15
+  parameter Modelica.Units.SI.Temperature TSupHighLim=50*(5/9) - 32*(5/9) +
+      273.15
     "Recorded minimum supply air temperature for defining the upper limit of the valve position"
-    annotation(Evaluate=true, Dialog(group="Controller"));
+    annotation (Evaluate=true, Dialog(group="Controller"));
 
-  parameter Modelica.SIunits.Temperature TSupHigLim = 42 * (5/9) - 32 * (5/9) + 273.15
+  parameter Modelica.Units.SI.Temperature TSupHigLim=42*(5/9) - 32*(5/9) +
+      273.15
     "Recorded maximum supply air temperature for defining the upper limit of the valve position"
-    annotation(Evaluate=true, Dialog(group="Controller"));
+    annotation (Evaluate=true, Dialog(group="Controller"));
 
-  parameter Modelica.SIunits.Time interval(min = 1) = 15
+  parameter Modelica.Units.SI.Time interval(min=1) = 15
     "Recorded interval at which integration part of the output gets updated"
-    annotation(Evaluate=true, Dialog(group="Controller"));
+    annotation (Evaluate=true, Dialog(group="Controller"));
 
   parameter Boolean reverseActing=false "Controller reverse action"
     annotation(Evaluate=true, Dialog(tab="Advanced", group="Controller"));

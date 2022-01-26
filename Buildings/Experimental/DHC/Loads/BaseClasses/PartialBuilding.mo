@@ -191,11 +191,11 @@ partial model PartialBuilding
     final k=facMul) if have_pum "Scaling"
     annotation (Placement(transformation(extent={{270,70},{290,90}})));
 protected
-  final parameter Modelica.SIunits.SpecificHeatCapacity cp_default=
-    Medium.specificHeatCapacityCp(Medium.setState_pTX(
-      p = Medium.p_default,
-      T = Medium.T_default,
-      X = Medium.X_default))
+  final parameter Modelica.Units.SI.SpecificHeatCapacity cp_default=
+      Medium.specificHeatCapacityCp(Medium.setState_pTX(
+      p=Medium.p_default,
+      T=Medium.T_default,
+      X=Medium.X_default))
     "Specific heat capacity of medium at default medium state";
 initial equation
   assert(
@@ -236,8 +236,8 @@ equation
 Partial model to be used for modeling the thermal loads on an energy
 transfer station or a dedicated plant.
 Models extending this class are typically used in conjunction with
-<a href=\"modelica://Buildings.Experimental.DHC.Loads.FlowDistribution\">
-Buildings.Experimental.DHC.Loads.FlowDistribution</a>
+<a href=\"modelica://Buildings.Experimental.DHC.Loads.BaseClasses.FlowDistribution\">
+Buildings.Experimental.DHC.Loads.BaseClasses.FlowDistribution</a>
 and models extending
 <a href=\"modelica://Buildings.Experimental.DHC.Loads.BaseClasses.PartialTerminalUnit\">
 Buildings.Experimental.DHC.Loads.BaseClasses.PartialTerminalUnit</a>
@@ -260,8 +260,8 @@ multiple identical buildings served by the same energy transfer station.
 <h4>Examples</h4>
 <p>
 See various use cases in
-<a href=\"modelica://Buildings.Experimental.DHC.Loads.Examples\">
-Buildings.Experimental.DHC.Loads.Examples</a>.
+<a href=\"modelica://Buildings.Experimental.DHC.Loads.BaseClasses.Examples\">
+Buildings.Experimental.DHC.Loads.BaseClasses.Examples</a>.
 </p>
 <p>
 <br/>

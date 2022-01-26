@@ -3,9 +3,9 @@ model FlowControlled_dpSystem
   "Demonstration of the use of prescribedPressure"
   extends Modelica.Icons.Example;
   package Medium = Buildings.Media.Air;
-  parameter Modelica.SIunits.MassFlowRate m_flow_nominal= 0.1
+  parameter Modelica.Units.SI.MassFlowRate m_flow_nominal=0.1
     "Nominal mass flow rate";
-  parameter Modelica.SIunits.PressureDifference dp_nominal = 100
+  parameter Modelica.Units.SI.PressureDifference dp_nominal=100
     "Nominal pressure difference";
   Modelica.Blocks.Sources.Ramp y(
     duration=0.5,

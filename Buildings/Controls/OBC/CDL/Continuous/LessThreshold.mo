@@ -59,6 +59,7 @@ protected
             textString="%name",
             textColor={0,0,255})}));
   end LessNoHysteresis;
+
   block LessWithHysteresis
     "Less block without hysteresis"
     parameter Real t=0

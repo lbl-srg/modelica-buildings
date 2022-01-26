@@ -21,6 +21,7 @@ model Guideline36Winter
     "Design air change per hour north";
   parameter Real ACHWes(final unit="1/h")=6
     "Design air change per hour west";
+
   annotation (
     __Dymola_Commands(
       file="modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/EnergyPlus/Examples/SmallOffice/Guideline36Winter.mos" "Simulate and plot"),
@@ -79,6 +80,12 @@ its input.
 </html>",
       revisions="<html>
 <ul>
+<li>
+December 20, 2021, by Michael Wetter:<br/>
+Changed parameter declarations and added optimal start up.
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2829\">issue #2829</a>.
+</li>
 <li>
 October 4, 2021, by Michael Wetter:<br/>
 Refactored <a href=\"modelica://Buildings.Examples.VAVReheat\">Buildings.Examples.VAVReheat</a>

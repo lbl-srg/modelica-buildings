@@ -398,8 +398,8 @@ block Controller
     "Measured mixed air temperature, used for freeze protection if use_TMix is true"
     annotation (Placement(transformation(extent={{-240,-70},{-200,-30}}),
         iconTransformation(extent={{-240,-60},{-200,-20}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput nOcc(final unit="1") if
-       have_occSen "Number of occupants"
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput nOcc(final unit="1")
+    if have_occSen "Number of occupants"
     annotation (Placement(transformation(extent={{-240,-100},{-200,-60}}),
         iconTransformation(extent={{-240,-90},{-200,-50}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uWin if have_winSen
@@ -420,13 +420,13 @@ block Controller
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TRet(
     final unit="K",
     displayUnit="degC",
-    final quantity="ThermodynamicTemperature") if
-       use_fixed_plus_differential_drybulb
+    final quantity="ThermodynamicTemperature")
+    if use_fixed_plus_differential_drybulb
     "Used only for fixed plus differential dry bulb temperature high limit cutoff"
     annotation (Placement(transformation(extent={{-240,-230},{-200,-190}}),
         iconTransformation(extent={{-240,-230},{-200,-190}})));
-  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uFreProSta if
-       use_G36FrePro
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uFreProSta
+    if use_G36FrePro
     "Freeze protection status, used if use_G36FrePro=true"
     annotation (Placement(transformation(extent={{-240,-260},{-200,-220}}),
         iconTransformation(extent={{-240,-270},{-200,-230}})));

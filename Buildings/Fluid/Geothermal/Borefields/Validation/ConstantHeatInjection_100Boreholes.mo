@@ -4,7 +4,7 @@ model ConstantHeatInjection_100Boreholes
   extends Modelica.Icons.Example;
   package Medium = Buildings.Media.Water;
 
-  parameter Modelica.SIunits.Temperature T_start = 273.15
+  parameter Modelica.Units.SI.Temperature T_start=273.15
     "Initial temperature of the soil";
 
   Buildings.Fluid.Geothermal.Borefields.OneUTube borHol(

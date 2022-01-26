@@ -89,8 +89,8 @@ protected
   Buildings.Controls.OBC.CDL.Continuous.Switch switch5
     "Switch between warm-up and normal value"
     annotation (Placement(transformation(extent={{80,-110},{100,-90}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant PEleTimeDel(final k=0) if
-                  per.warmUpByTimeDelay
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant PEleTimeDel(final k=0)
+               if per.warmUpByTimeDelay
     "Zero power output in case of warm-up by time delay"
     annotation (Placement(transformation(extent={{-20,90},{0,110}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant delWarUp(

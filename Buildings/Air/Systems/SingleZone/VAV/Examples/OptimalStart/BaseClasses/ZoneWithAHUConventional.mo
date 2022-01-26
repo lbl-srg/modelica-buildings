@@ -6,15 +6,14 @@ block ZoneWithAHUConventional
     "Buildings library air media package";
   package MediumW = Buildings.Media.Water
     "Buildings library water media package";
-  parameter Modelica.SIunits.Temperature TSupChi_nominal=279.15
+  parameter Modelica.Units.SI.Temperature TSupChi_nominal=279.15
     "Design value for chiller leaving water temperature";
-  parameter Modelica.SIunits.Volume VRoo = 4555.7
-    "Space volume of the floor";
-  parameter Modelica.SIunits.MassFlowRate mAir_flow_nominal = VRoo*4*1.2/3600
+  parameter Modelica.Units.SI.Volume VRoo=4555.7 "Space volume of the floor";
+  parameter Modelica.Units.SI.MassFlowRate mAir_flow_nominal=VRoo*4*1.2/3600
     "Design air flow rate";
-  parameter Modelica.SIunits.HeatFlowRate QHea_flow_nominal = 90000
+  parameter Modelica.Units.SI.HeatFlowRate QHea_flow_nominal=90000
     "Design heating flow rate";
-  parameter Modelica.SIunits.HeatFlowRate QCoo_flow_nominal = -100000
+  parameter Modelica.Units.SI.HeatFlowRate QCoo_flow_nominal=-100000
     "Design cooling flow rate";
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TSetRooHea(

@@ -9,12 +9,12 @@ model GroundCoupling "Thermal coupling between buried pipes and ground"
     Buildings.BoundaryConditions.GroundTemperature.ClimaticConstants.Generic
     cliCon "Surface temperature climatic conditions";
 
-  parameter Modelica.SIunits.Length len[nSeg] "Pipes length";
+  parameter Modelica.Units.SI.Length len[nSeg] "Pipes length";
 
-  parameter Modelica.SIunits.Length dep[nPip] "Pipes buried depth";
-  parameter Modelica.SIunits.Length pos[nPip]
+  parameter Modelica.Units.SI.Length dep[nPip] "Pipes buried depth";
+  parameter Modelica.Units.SI.Length pos[nPip]
     "Pipes horizontal coordinate (to an arbitrary reference point)";
-  parameter Modelica.SIunits.Length rad[nPip] "Pipes external radius";
+  parameter Modelica.Units.SI.Length rad[nPip] "Pipes external radius";
 
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a ports[nPip, nSeg]
     "Buried pipes heatports"
@@ -24,7 +24,7 @@ model GroundCoupling "Thermal coupling between buried pipes and ground"
     soi(cliCon=cliCon, soiDat=soiDat, dep=depMea) "Soil temperature";
 
 protected
-  parameter Modelica.SIunits.Length depMea = sum(dep) / nPip "Average depth";
+  parameter Modelica.Units.SI.Length depMea=sum(dep)/nPip "Average depth";
   parameter Real P[nPip,nPip]=BaseClasses.groundCouplingFactors(
       nPip,
       dep,

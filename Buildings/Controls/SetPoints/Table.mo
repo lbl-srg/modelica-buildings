@@ -16,14 +16,13 @@ protected
                         size(table,1) "Number of rows";
   final parameter Real[nRow,2] offsetVector = [zeros(nRow), offset*ones(nRow)]
     "Vector to take offset of output signal into account";
-  Modelica.Blocks.Tables.CombiTable1D tab(
-    tableOnFile=false,
-    final table= (if constantExtrapolation then
-                    cat(1, [table[1,1]-1, table[1,2]],
-                           table,
-                           [table[end,1]+1, table[end,2]]) else
-                    table)
-                  +offsetVector) "Table used for interpolation"
+  Modelica.Blocks.Tables.CombiTable1Dv tab(tableOnFile=false, final table=(if
+        constantExtrapolation then cat(
+        1,
+        [table[1, 1] - 1,table[1, 2]],
+        table,
+        [table[end, 1] + 1,table[end, 2]]) else table) + offsetVector)
+    "Table used for interpolation"
     annotation (Placement(transformation(extent={{-20,-10},{2,10}})));
 equation
   connect(u, tab.u[1]) annotation (Line(

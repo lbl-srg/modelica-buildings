@@ -1,21 +1,21 @@
 within Buildings.Fluid.HeatExchangers.CoolingTowers.Correlations;
 function yorkCalc "Cooling tower performance correlation for YorkCalc model"
 
-  input Modelica.SIunits.TemperatureDifference TRan
+  input Modelica.Units.SI.TemperatureDifference TRan
     "Range temperature (water in - water out)"
-      annotation (Dialog(group="Nominal condition"));
-  input Modelica.SIunits.Temperature TWetBul "Air wet-bulb inlet temperature";
-  input Modelica.SIunits.MassFraction FRWat
+    annotation (Dialog(group="Nominal condition"));
+  input Modelica.Units.SI.Temperature TWetBul "Air wet-bulb inlet temperature";
+  input Modelica.Units.SI.MassFraction FRWat
     "Ratio actual over design water mass flow ratio";
-  input Modelica.SIunits.MassFraction FRAir
+  input Modelica.Units.SI.MassFraction FRAir
     "Ratio actual over design air mass flow ratio";
 
-  output Modelica.SIunits.TemperatureDifference TApp "Approach temperature";
+  output Modelica.Units.SI.TemperatureDifference TApp "Approach temperature";
 
 protected
-  Modelica.SIunits.Conversions.NonSIunits.Temperature_degC TWetBul_degC
+  Modelica.Units.NonSI.Temperature_degC TWetBul_degC
     "Air wet-bulb inlet temperature";
-  Modelica.SIunits.MassFraction liqGasRat "Liquid to gas mass flow ratio";
+  Modelica.Units.SI.MassFraction liqGasRat "Liquid to gas mass flow ratio";
   constant Real c[:] = {-0.359741205, -0.055053608,  0.0023850432,
                       0.173926877, -0.0248473764,  0.00048430224,
                       -0.005589849456,  0.0005770079712, -0.00001342427256,
@@ -28,7 +28,7 @@ protected
     "Polynomial coefficients";
 
 algorithm
-  TWetBul_degC :=Modelica.SIunits.Conversions.to_degC(TWetBul);
+  TWetBul_degC :=Modelica.Units.Conversions.to_degC(TWetBul);
   // smoothMax is added to the numerator and denominator so that
   // liqGasRat -> 1, as both FRWat -> 0 and FRAir -> 0
   liqGasRat := Buildings.Utilities.Math.Functions.smoothMax(x1=1E-4, x2=FRWat, deltaX=1E-5)/

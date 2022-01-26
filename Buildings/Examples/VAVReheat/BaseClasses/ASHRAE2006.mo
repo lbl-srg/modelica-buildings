@@ -3,13 +3,13 @@ model ASHRAE2006
   "Variable air volume flow system with terminal reheat and ASHRAE 2006 control sequence serving five thermal zones"
   extends Buildings.Examples.VAVReheat.BaseClasses.PartialHVAC(amb(nPorts=3));
 
-  parameter Real ratVMinVAV_flow[numZon](each final unit="1")=
-    {max(1.5*VZonOA_flow_nominal[i]/mVAV_flow_nominal[i]/1.2, 0.15)
-      for i in 1:numZon}
+  parameter Real ratVMinVAV_flow[numZon](each final unit="1") = {max(1.5*
+    VZonOA_flow_nominal[i]/mCooVAV_flow_nominal[i]/1.2, 0.15) for i in 1:numZon}
     "Minimum discharge air flow rate ratio";
 
-  Controls.FanVFD conFanSup(xSet_nominal(displayUnit="Pa") = 410, r_N_min=
-        yFanMin)
+  Controls.FanVFD conFanSup(
+    xSet_nominal(displayUnit="Pa") = 410,
+    r_N_min=yFanMin)
     "Controller for fan"
     annotation (Placement(transformation(extent={{240,-10},{260,10}})));
   Controls.ModeSelector modeSelector
@@ -36,7 +36,8 @@ model ASHRAE2006
     annotation (Placement(transformation(extent={{160,-16},{180,4}})));
   Controls.RoomVAV conVAV[numZon](
     ratVFloMin=ratVMinVAV_flow,
-    each ratVFloHea=ratVFloHea) "Controller for terminal unit"
+    ratVFloHea=mHeaVAV_flow_nominal ./ mCooVAV_flow_nominal)
+    "Controller for terminal unit"
     annotation (Placement(transformation(extent={{580,40},{600,60}})));
 
   Buildings.Controls.OBC.CDL.Logical.Or or2
@@ -52,8 +53,8 @@ model ASHRAE2006
     riseTime=15,
     dpFixed_nominal=5,
     redeclare package Medium = MediumA,
-    m_flow_nominal=m_flow_nominal,
-    dpDamper_nominal=5)  "Exhaust air damper"
+    m_flow_nominal=mAir_flow_nominal,
+    dpDamper_nominal=5) "Exhaust air damper"
     annotation (Placement(transformation(extent={{-30,-20},{-50,0}})));
   Controls.SystemHysteresis sysHysHea
     "Hysteresis and delay to switch heating on and off"
@@ -355,6 +356,11 @@ ASHRAE, Atlanta, GA, 2006.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+December 20, 2021, by Michael Wetter:<br/>
+Changed parameter declarations for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2829\">issue #2829</a>.
+</li>
 <li>
 November 9, 2021, by Baptiste:<br/>
 Vectorized the terminal boxes to be expanded to any number of zones.<br/>

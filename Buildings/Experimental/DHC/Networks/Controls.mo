@@ -7,23 +7,22 @@ package Controls "Package of control blocks for distribution systems"
     parameter Integer nSou(min=1) "Number of heat sources (and heat sinks)";
     parameter Real yPumMin(min=0.01, max=1, final unit="1") = 0.05
       "Minimum pump speed";
-    parameter Modelica.SIunits.Temperature TMin(
-      displayUnit="degC") = 281.15
+    parameter Modelica.Units.SI.Temperature TMin(displayUnit="degC") = 281.15
       "Minimum loop temperature";
-    parameter Modelica.SIunits.Temperature TMax(
-      displayUnit="degC") = 291.15 "Maximum loop temperature";
-    parameter Modelica.SIunits.TemperatureDifference dTSlo(min=1) = 2
+    parameter Modelica.Units.SI.Temperature TMax(displayUnit="degC") = 291.15
+      "Maximum loop temperature";
+    parameter Modelica.Units.SI.TemperatureDifference dTSlo(min=1) = 2
       "Temperature difference for slope";
     parameter Boolean use_temperatureShift = true
       "Set to false to disable temperature shift of slopes";
-    final parameter Modelica.SIunits.TemperatureDifference delta=
-      if use_temperatureShift then TMax-TMin-3*dTSlo else 0
+    final parameter Modelica.Units.SI.TemperatureDifference delta=if
+        use_temperatureShift then TMax - TMin - 3*dTSlo else 0
       "Maximum shift of slopes";
-    parameter Modelica.SIunits.TemperatureDifference dTSou_nominal[nSou](
-      each min=0) = fill(4, nSou) "Nominal temperature difference over source";
+    parameter Modelica.Units.SI.TemperatureDifference dTSou_nominal[nSou](each
+        min=0) = fill(4, nSou) "Nominal temperature difference over source";
     parameter Real k=0.01
       "Gain of controller that shifts upper and lower temperature setpoints";
-    parameter Modelica.SIunits.Time Ti(displayUnit="min") = 300
+    parameter Modelica.Units.SI.Time Ti(displayUnit="min") = 300
       "Time constant of integrator block that shifts upper and lower temperature setpoints";
     Buildings.Controls.OBC.CDL.Interfaces.RealInput TMix[nMix](
       each final unit="K",
@@ -284,8 +283,8 @@ feedback from the district heating and cooling loop.
 </p>
 <p>
 For a typical usage of this controller, see
-<a href=\"modelica://Buildings.Experimental.DHC.Examples.Combined.Generation5.Examples.SeriesVariableFlow\">
-Buildings.Experimental.DHC.Examples.Combined.Generation5.Examples.SeriesVariableFlow</a>.
+<a href=\"modelica://Buildings.Experimental.DHC.Examples.Combined.SeriesVariableFlow\">
+Buildings.Experimental.DHC.Examples.Combined.SeriesVariableFlow</a>.
 </p>
 </html>"));
   end MainPump;

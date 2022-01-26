@@ -6,63 +6,62 @@ model YorkCalc
     TWatOut_nominal(fixed=false),
     fanRelPowDer(each fixed=false));
 
-  parameter Modelica.SIunits.TemperatureDifference TApp_nominal(displayUnit="K") = 3.89
-    "Design approach temperature"
-      annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.SIunits.TemperatureDifference TRan_nominal(displayUnit="K") = 5.56
-    "Design range temperature (water in - water out)"
-      annotation (Dialog(group="Nominal condition"));
+  parameter Modelica.Units.SI.TemperatureDifference TApp_nominal(displayUnit=
+        "K") = 3.89 "Design approach temperature"
+    annotation (Dialog(group="Nominal condition"));
+  parameter Modelica.Units.SI.TemperatureDifference TRan_nominal(displayUnit=
+        "K") = 5.56 "Design range temperature (water in - water out)"
+    annotation (Dialog(group="Nominal condition"));
 
   Buildings.Fluid.HeatExchangers.CoolingTowers.Correlations.BoundsYorkCalc bou
     "Bounds for correlation";
 
-  Modelica.SIunits.TemperatureDifference TRan(displayUnit="K")=
-    T_a - T_b
+  Modelica.Units.SI.TemperatureDifference TRan(displayUnit="K") = T_a - T_b
     "Range temperature";
-  Modelica.SIunits.TemperatureDifference TAppAct(displayUnit="K")=
+  Modelica.Units.SI.TemperatureDifference TAppAct(displayUnit="K") =
     Buildings.Utilities.Math.Functions.spliceFunction(
-      pos=TAppCor,
-      neg=TAppFreCon,
-      x=y-yMin+yMin/20,
-      deltax=yMin/20)
-    "Approach temperature difference";
-  Modelica.SIunits.MassFraction FRWat = m_flow/mWat_flow_nominal
+    pos=TAppCor,
+    neg=TAppFreCon,
+    x=y - yMin + yMin/20,
+    deltax=yMin/20) "Approach temperature difference";
+  Modelica.Units.SI.MassFraction FRWat=m_flow/mWat_flow_nominal
     "Ratio actual over design water mass flow ratio";
-  Modelica.SIunits.MassFraction FRAir = y
+  Modelica.Units.SI.MassFraction FRAir=y
     "Ratio actual over design air mass flow ratio";
 
 protected
   package Water =  Buildings.Media.Water "Medium package for water";
   parameter Real FRWat0(min=0, start=1, fixed=false)
     "Ratio actual over design water mass flow ratio at nominal condition";
-  parameter Modelica.SIunits.MassFlowRate mWat_flow_nominal(
+  parameter Modelica.Units.SI.MassFlowRate mWat_flow_nominal(
     min=0,
     start=m_flow_nominal,
     fixed=false) "Nominal water mass flow rate";
 
-  Modelica.SIunits.TemperatureDifference dTMax(displayUnit="K") = T_a - TAir
+  Modelica.Units.SI.TemperatureDifference dTMax(displayUnit="K") = T_a - TAir
     "Maximum possible temperature difference";
-  Modelica.SIunits.TemperatureDifference TAppCor(min=0, displayUnit="K")=
+  Modelica.Units.SI.TemperatureDifference TAppCor(
+    min=0,
+    displayUnit="K") =
     Buildings.Fluid.HeatExchangers.CoolingTowers.Correlations.yorkCalc(
-      TRan=TRan,
-      TWetBul=TAir,
-      FRWat=FRWat,
-      FRAir=Buildings.Utilities.Math.Functions.smoothMax(
-        x1=FRWat/bou.liqGasRat_max,
-        x2=FRAir,
-        deltaX=0.01))
-    "Approach temperature for forced convection";
-  Modelica.SIunits.TemperatureDifference TAppFreCon(min=0, displayUnit="K")=
-    (1-fraFreCon) * dTMax  + fraFreCon *
-      Buildings.Fluid.HeatExchangers.CoolingTowers.Correlations.yorkCalc(
-        TRan=TRan,
-        TWetBul=TAir,
-        FRWat=FRWat,
-        FRAir=1)
-    "Approach temperature for free convection";
+    TRan=TRan,
+    TWetBul=TAir,
+    FRWat=FRWat,
+    FRAir=Buildings.Utilities.Math.Functions.smoothMax(
+      x1=FRWat/bou.liqGasRat_max,
+      x2=FRAir,
+      deltaX=0.01)) "Approach temperature for forced convection";
+  Modelica.Units.SI.TemperatureDifference TAppFreCon(
+    min=0,
+    displayUnit="K") = (1 - fraFreCon)*dTMax + fraFreCon*
+    Buildings.Fluid.HeatExchangers.CoolingTowers.Correlations.yorkCalc(
+    TRan=TRan,
+    TWetBul=TAir,
+    FRWat=FRWat,
+    FRAir=1) "Approach temperature for free convection";
 
-  Modelica.SIunits.Temperature T_a "Temperature in port_a";
-  Modelica.SIunits.Temperature T_b "Temperature in port_b";
+  Modelica.Units.SI.Temperature T_a "Temperature in port_a";
+  Modelica.Units.SI.Temperature T_b "Temperature in port_b";
 
   Modelica.Blocks.Sources.RealExpression QWat_flow(
     y = m_flow*(

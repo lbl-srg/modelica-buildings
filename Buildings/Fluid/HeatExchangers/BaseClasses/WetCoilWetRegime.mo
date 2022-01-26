@@ -4,70 +4,63 @@ model WetCoilWetRegime
   constant Real cpEff0=2050 "Used for scaling";
   constant Real cpWat0=4200 "Used for scaling";
   parameter Real delta = 1E-3 "Small value used for smoothing";
-  constant Modelica.SIunits.SpecificHeatCapacity cpDum=1
+  constant Modelica.Units.SI.SpecificHeatCapacity cpDum=1
     "Dummy cp to eliminate the warning message of the unit mismatch when using the eps-NTU model for the wet coil";
-  constant Modelica.SIunits.TemperatureDifference dTWat=0.1
+  constant Modelica.Units.SI.TemperatureDifference dTWat=0.1
     "Temperature differential used to compute the finite difference of the saturated specific enthalpy";
   parameter Real tau=6*60
     "Time constant for state estimation: introduced to avoid the algebraic loop of the wet coil equations";
 
   // - water
-  input Modelica.SIunits.ThermalConductance UAWat
-    "UA for water side";
-  input Modelica.SIunits.MassFlowRate mWat_flow
-    "Mass flow rate of water";
-  input Modelica.SIunits.MassFlowRate mWatNonZer_flow
+  input Modelica.Units.SI.ThermalConductance UAWat "UA for water side";
+  input Modelica.Units.SI.MassFlowRate mWat_flow "Mass flow rate of water";
+  input Modelica.Units.SI.MassFlowRate mWatNonZer_flow
     "Non-zero mass flow rate of water";
-  input Modelica.SIunits.SpecificHeatCapacity cpWat
+  input Modelica.Units.SI.SpecificHeatCapacity cpWat
     "Specific heat capacity of water";
-  input Modelica.SIunits.Temperature TWatIn
-    "Water temperature at inlet";
-  input Modelica.SIunits.MassFlowRate mWat_flow_nominal
+  input Modelica.Units.SI.Temperature TWatIn "Water temperature at inlet";
+  input Modelica.Units.SI.MassFlowRate mWat_flow_nominal
     "Mass flow rate of water at nominal conditions";
   // -- air
-  input Modelica.SIunits.Pressure pAir
-    "Pressure on air-side of coil";
-  input Modelica.SIunits.ThermalConductance UAAir
-    "UA for air side";
-  input Modelica.SIunits.MassFlowRate mAir_flow
-    "Mass flow rate of air";
-  input Modelica.SIunits.MassFlowRate mAirNonZer_flow
+  input Modelica.Units.SI.Pressure pAir "Pressure on air-side of coil";
+  input Modelica.Units.SI.ThermalConductance UAAir "UA for air side";
+  input Modelica.Units.SI.MassFlowRate mAir_flow "Mass flow rate of air";
+  input Modelica.Units.SI.MassFlowRate mAirNonZer_flow
     "Non-zero mass flow rate of water";
-  input Modelica.SIunits.SpecificHeatCapacity cpAir
+  input Modelica.Units.SI.SpecificHeatCapacity cpAir
     "Specific heat capacity of moist air at constant pressure";
-  input Modelica.SIunits.Temperature TAirIn
-    "Temperature of air at inlet";
-  input Modelica.SIunits.MassFraction X_wAirIn
+  input Modelica.Units.SI.Temperature TAirIn "Temperature of air at inlet";
+  input Modelica.Units.SI.MassFraction X_wAirIn
     "Mass fraction of water in moist air at inlet";
   input Buildings.Fluid.Types.HeatExchangerFlowRegime cfg
     "Configuration of the heat exchanger";
-  input Modelica.SIunits.MassFlowRate mAir_flow_nominal
+  input Modelica.Units.SI.MassFlowRate mAir_flow_nominal
     "Mass flow rate of air at nominal conditions";
 
-  Modelica.SIunits.SpecificEnthalpy hAirIn
+  Modelica.Units.SI.SpecificEnthalpy hAirIn
     "Specific enthalpy of air at inlet conditions";
   Buildings.Utilities.Psychrometrics.hSat_pTSat hSatWatInM(p=pAir,TSat=TWatIn)
     "Model to calculate saturated specific enthalpy of air at water inlet temperature";
-  Modelica.SIunits.SpecificEnthalpy hSatWatIn
+  Modelica.Units.SI.SpecificEnthalpy hSatWatIn
     "Saturated specific enthalpy of air at water inlet temperature";
   Buildings.Utilities.Psychrometrics.hSat_pTSat hSatWatIn_dT_M(p=pAir,TSat=TWatIn+dTWat)
     "Model to calculate derivative of saturated specific enthalpy of air at water inlet temperature";
-  Modelica.SIunits.SpecificHeatCapacity dhSatdTWatIn
+  Modelica.Units.SI.SpecificHeatCapacity dhSatdTWatIn
     "Finite difference of saturated moist air enthalpy at water inlet temperature";
   Real NonZerDelWatTem
     "Regularization water temperature difference between inlet and outlet";
 
-  Modelica.SIunits.SpecificEnthalpy hAirOut
+  Modelica.Units.SI.SpecificEnthalpy hAirOut
     "Specific enthalpy of moist air at the air outlet";
   Buildings.Utilities.Psychrometrics.hSat_pTSat hSatWatOutM(p=pAir,TSat=TWatOutEst)
     "Model to calculate saturated specific enthalpy of air at water outlet temperature";
-  Modelica.SIunits.SpecificEnthalpy hSatWatOut
+  Modelica.Units.SI.SpecificEnthalpy hSatWatOut
     "Saturated specific enthalpy of air at water outlet temperature";
 
-  Modelica.SIunits.Temperature TSurEff
+  Modelica.Units.SI.Temperature TSurEff
     "Effective surface temperature of the coil to split sensible and latent heat from total heat transfer rate";
 
-  Modelica.SIunits.SpecificEnthalpy hSatSurEff
+  Modelica.Units.SI.SpecificEnthalpy hSatSurEff
     "Enthalpy of saturated moist air at the effective surface temperature";
 
   Buildings.Utilities.Psychrometrics.hSat_pTSat hSatSurEffM(p=pAir,TSat=TSurEff)
@@ -76,11 +69,10 @@ model WetCoilWetRegime
     "An object to calculate a lower bound of the saturated enthalpy of moist
     air at the coil surface temperature";
 
-  Modelica.SIunits.SpecificHeatCapacity cpEff
-    "Effective specific heat: change in enthalpy with respect to temperature
+  Modelica.Units.SI.SpecificHeatCapacity cpEff "Effective specific heat: change in enthalpy with respect to temperature
      along the saturation line at the local water temperature";
 
-  Modelica.SIunits.MassFlowRate UASta
+  Modelica.Units.SI.MassFlowRate UASta
     "Overall mass transfer coefficient for dry coil";
 
   Real NTUAirSta(unit="1")
@@ -89,31 +81,30 @@ model WetCoilWetRegime
   Real epsSta(start=0.66, unit="1")
     "Effectiveness for heat exchanger (e*)";
 
-  Modelica.SIunits.MassFlowRate CStaMin
+  Modelica.Units.SI.MassFlowRate CStaMin
     "Min of product of mass flow rates and specific heats; analogous to Cmin";
 
-  Modelica.SIunits.MassFlowRate CStaMin_flow_nominal= min(
-    mAir_flow_nominal,mWat_flow_nominal*cpEff0/cpWat0)
+  Modelica.Units.SI.MassFlowRate CStaMin_flow_nominal=min(mAir_flow_nominal,
+      mWat_flow_nominal*cpEff0/cpWat0)
     "Analogus to CMin_flow_nominal, only for a regularization";
-  Modelica.SIunits.MassFlowRate CStaMax_flow_nominal= max(
-    mAir_flow_nominal,mWat_flow_nominal*cpEff0/cpWat0)
+  Modelica.Units.SI.MassFlowRate CStaMax_flow_nominal=max(mAir_flow_nominal,
+      mWat_flow_nominal*cpEff0/cpWat0)
     "Analogus to CMax_flow_nominal, only for a regularization";
-  Modelica.SIunits.MassFlowRate deltaCStaMin=delta*min(
-    mAir_flow_nominal,mWat_flow_nominal*cpEff0/cpWat0)
+  Modelica.Units.SI.MassFlowRate deltaCStaMin=delta*min(mAir_flow_nominal,
+      mWat_flow_nominal*cpEff0/cpWat0)
     "Min of product of mass flow rates and specific heats, analogous to Cmin";
-  Modelica.SIunits.Temperature TWatOutEst
+  Modelica.Units.SI.Temperature TWatOutEst
     "State estimation of temperature of water at outlet";
 
-  output Modelica.SIunits.HeatFlowRate QTot_flow
+  output Modelica.Units.SI.HeatFlowRate QTot_flow
     "Total heat flow from water to air stream";
-  output Modelica.SIunits.HeatFlowRate QSen_flow
+  output Modelica.Units.SI.HeatFlowRate QSen_flow
     "Sensible heat flow from water to air stream";
-  output Modelica.SIunits.Temperature TWatOut
+  output Modelica.Units.SI.Temperature TWatOut
     "Temperature at the water outlet";
-  output Modelica.SIunits.Temperature TSurAirIn
+  output Modelica.Units.SI.Temperature TSurAirIn
     "Coil surface temperature at the air inlet";
-  output Modelica.SIunits.Temperature TAirOut
-    "Temperature at the air outlet";
+  output Modelica.Units.SI.Temperature TAirOut "Temperature at the air outlet";
 initial equation
   TWatOutEst=0.5*(TWatIn+ TAirIn);
 

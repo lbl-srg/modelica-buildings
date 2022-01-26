@@ -7,20 +7,20 @@ block PartialHeatLoss
   replaceable package Medium = Modelica.Media.Interfaces.PartialMedium
     "Medium in the component";
 
-  parameter Modelica.SIunits.Irradiance G_nominal
+  parameter Modelica.Units.SI.Irradiance G_nominal
     "Irradiance at nominal conditions"
-    annotation(Dialog(group="Nominal condition"));
-  parameter Modelica.SIunits.TemperatureDifference dT_nominal
+    annotation (Dialog(group="Nominal condition"));
+  parameter Modelica.Units.SI.TemperatureDifference dT_nominal
     "Ambient temperature minus fluid temperature at nominal conditions"
-     annotation(Dialog(group="Nominal condition"));
-  parameter Modelica.SIunits.MassFlowRate m_flow_nominal
+    annotation (Dialog(group="Nominal condition"));
+  parameter Modelica.Units.SI.MassFlowRate m_flow_nominal
     "Fluid flow rate at nominal conditions"
-    annotation(Dialog(group="Nominal condition"));
+    annotation (Dialog(group="Nominal condition"));
 
-  parameter Modelica.SIunits.SpecificHeatCapacity cp_default
+  parameter Modelica.Units.SI.SpecificHeatCapacity cp_default
     "Specific heat capacity of the fluid at the default temperature";
 
-  parameter Modelica.SIunits.HeatFlowRate QLos_nominal
+  parameter Modelica.Units.SI.HeatFlowRate QLos_nominal
     "Heat loss at nominal conditions, negative if heat flows from collector to environment";
 
   Modelica.Blocks.Interfaces.RealInput TEnv(
@@ -46,20 +46,20 @@ block PartialHeatLoss
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 
 protected
-  constant Modelica.SIunits.Temperature dTMin = 1
+  constant Modelica.Units.SI.Temperature dTMin=1
     "Safety temperature difference to prevent TFlu < Medium.T_min";
-  final parameter Modelica.SIunits.Temperature TMedMin = Medium.T_min + dTMin
+  final parameter Modelica.Units.SI.Temperature TMedMin=Medium.T_min + dTMin
     "Fluid temperature below which there will be no heat loss computed to prevent TFlu < Medium.T_min";
-  final parameter Modelica.SIunits.Temperature TMedMin2 = TMedMin + dTMin
+  final parameter Modelica.Units.SI.Temperature TMedMin2=TMedMin + dTMin
     "Fluid temperature below which there will be no heat loss computed to prevent TFlu < Medium.T_min";
-//  final parameter Modelica.SIunits.HeatFlowRate QUse_nominal(min=0) = G_nominal * A_c * y_intercept + QLos_nominal
+//  final parameter Modelica.Units.SI.HeatFlowRate QUse_nominal(min=0) = G_nominal * A_c * y_intercept + QLos_nominal
 //    "Useful heat gain at nominal conditions";
 
-  input Modelica.SIunits.HeatFlowRate QLos_internal[nSeg]
+  input Modelica.Units.SI.HeatFlowRate QLos_internal[nSeg]
     "Heat loss rate at current conditions for each segment";
 
-  Modelica.SIunits.TemperatureDifference dT[nSeg] = {TEnv-TFlu[i] for i in 1:nSeg}
-     "Environment minus collector fluid temperature";
+  Modelica.Units.SI.TemperatureDifference dT[nSeg]={TEnv - TFlu[i] for i in 1:
+      nSeg} "Environment minus collector fluid temperature";
 
   annotation (
 defaultComponentName="heaLos",

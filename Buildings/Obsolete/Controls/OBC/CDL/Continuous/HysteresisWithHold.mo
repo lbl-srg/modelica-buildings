@@ -6,10 +6,9 @@ block HysteresisWithHold
   parameter Real uLow "if y=true and u<uLow, switch to y=false";
   parameter Real uHigh "if y=false and u>uHigh, switch to y=true";
 
-  parameter Modelica.SIunits.Time trueHoldDuration
-    "true hold duration";
+  parameter Modelica.Units.SI.Time trueHoldDuration "true hold duration";
 
-  parameter Modelica.SIunits.Time falseHoldDuration = trueHoldDuration
+  parameter Modelica.Units.SI.Time falseHoldDuration=trueHoldDuration
     "false hold duration";
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput u "Real input signal"

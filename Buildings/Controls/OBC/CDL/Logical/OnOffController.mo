@@ -20,7 +20,9 @@ initial equation
   pre(y)=pre_y_start;
 
 equation
-  y=pre(y) and(u < reference+bandwidth/2) or(u < reference-bandwidth/2);
+  y=pre(y) and
+              (u < reference+bandwidth/2) or
+                                            (u < reference-bandwidth/2);
   annotation (
     defaultComponentName="onOffCon",
     Icon(

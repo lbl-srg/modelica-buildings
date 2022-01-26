@@ -5,9 +5,9 @@ function computeCoordinates
 
   input Integer nBorHol
     "Number of boreholes";
-  input Modelica.SIunits.Distance dxy=6
+  input Modelica.Units.SI.Distance dxy=6
     "Distance in x-axis (and y-axis) between borehole axes";
-  output Modelica.SIunits.Distance cooBor[nBorHol,2]
+  output Modelica.Units.SI.Distance cooBor[nBorHol,2]
     "Coordinates of boreholes";
 protected
   Integer k=1
