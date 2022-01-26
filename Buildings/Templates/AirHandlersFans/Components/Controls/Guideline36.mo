@@ -5,6 +5,34 @@ block Guideline36 "Guideline 36 VAV single duct controller"
       final typ=Types.Controller.Guideline36,
       final use_TMix=true);
 
+  final parameter Buildings.Controls.OBC.ASHRAE.G36.Types.MultizoneAHUMinOADesigns minOADes=
+    if secOutRel.typSecOut==Buildings.Templates.AirHandlersFans.Types.OutdoorSection.SingleDamper
+      then Buildings.Controls.OBC.ASHRAE.G36.Types.MultizoneAHUMinOADesigns.CommonDamper
+    elseif secOutRel.typSecOut==Buildings.Templates.AirHandlersFans.Types.OutdoorSection.DedicatedDampersAirflow
+      then Buildings.Controls.OBC.ASHRAE.G36.Types.MultizoneAHUMinOADesigns.SeparateDamper_AFMS
+    elseif secOutRel.typSecOut==Buildings.Templates.AirHandlersFans.Types.OutdoorSection.DedicatedDampersPressure
+      then Buildings.Controls.OBC.ASHRAE.G36.Types.MultizoneAHUMinOADesigns.SeparateDamper_DP
+    else Buildings.Controls.OBC.ASHRAE.G36.Types.MultizoneAHUMinOADesigns.CommonDamper
+    "Design of minimum outdoor air and economizer function"
+    annotation (Dialog(group="Economizer design"));
+
+  final parameter Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes buiPreCon=
+    if secOutRel.typSecRel==Buildings.Templates.AirHandlersFans.Types.ReliefReturnSection.ReliefDamper
+      then Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefDamper
+    elseif secOutRel.typSecRel==Buildings.Templates.AirHandlersFans.Types.ReliefReturnSection.ReliefFan
+      then Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefFan
+    elseif secOutRel.typSecRel==Buildings.Templates.AirHandlersFans.Types.ReliefReturnSection.ReturnFan
+      then (if typCtrFanRet==Buildings.Templates.AirHandlersFans.Types.ControlFanReturn.AirflowMeasured
+        then Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanAir
+        elseif typCtrFanRet==Buildings.Templates.AirHandlersFans.Types.ControlFanReturn.Pressure
+          then Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanDp
+        else Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefDamper)
+    else Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefDamper
+    "Type of building pressure control system"
+    annotation (Dialog(group="Economizer design"));
+
+
+
   // See FIXME below for those parameters.
   parameter String namGroZon[nZon] = fill(namGro[1], nZon)
     "Name of group which each zone belongs to"
@@ -54,120 +82,128 @@ block Guideline36 "Guideline 36 VAV single duct controller"
     "Check if the AHU serves dual duct boxes"
     annotation (Dialog(group="System and building parameters"));
 
+  // FIXME #1913: not used, not clear.
+  /*
   final parameter Boolean have_airFloMeaSta=
-    typCtrFanSup==Buildings.Templates.AirHandlersFans.Types.ControlFanSupply.Airflow
+    typCtrFanRet==Buildings.Templates.AirHandlersFans.Types.ControlFanReturn.AirflowMeasured
     "Check if the AHU has supply airflow measuring station"
     annotation (Dialog(group="System and building parameters"));
-
-  // ----------- Parameters for economizer control -----------
-
-  parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerTypeFre=
-    Buildings.Controls.OBC.CDL.Types.SimpleController.PI
-    "Type of controller"
-    annotation(Dialog(group="Economizer freeze protection", enable=use_TMix));
-
-  parameter Real kFre(final unit="1/K") = 0.1
-    "Gain for mixed air temperature tracking for freeze protection, used if use_TMix=true"
-     annotation(Dialog(group="Economizer freeze protection", enable=use_TMix));
-
+  */
 
   // ----------- parameters for fan speed control  -----------
 
-  parameter Real pMaxSet(
-    final unit="Pa",
-    final displayUnit="Pa",
-    final quantity="PressureDifference")=
-    dat.getReal(varName=id + ".control.airflow.pMaxSet.value")
-    "Maximum pressure setpoint for fan speed control"
+  parameter Modelica.Units.SI.PressureDifference pAirSupSet_rel_max=
+    dat.getReal(varName=id + ".control.airflow.pAirSupSet_rel_max.value")
+    "Maximum supply duct static pressure setpoint"
     annotation (Dialog(tab="Fan speed", group="Trim and respond for reseting duct static pressure setpoint"));
 
-  parameter Real yFanSupMax=
-    dat.getReal(varName=id + ".control.airflow.yFanSupMax.value")
-    "Maximum allowed fan speed"
-    annotation (Dialog(group="Fan speed PID controller"));
+  parameter Modelica.Units.SI.PressureDifference pAirRetSet_rel_min(
+    final min=2.4, start=10)=
+    dat.getReal(varName=id + ".control.airflow.pAirRetSet_rel_min.value")
+    "Return fan minimum discharge static pressure setpoint"
+    annotation (Dialog(tab="Pressure control", group="Return fan",
+      enable=buiPreCon==Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanDp));
 
-  parameter Real yFanSupMin=
-    dat.getReal(varName=id + ".control.airflow.yFanSupMin.value")
+  parameter Modelica.Units.SI.PressureDifference pAirRetSet_rel_max(
+    final min=pAirRetSet_rel_min+1, start=100)=
+    dat.getReal(varName=id + ".control.airflow.pAirRetSet_rel_max.value")
+    "Return fan maximum discharge static pressure setpoint"
+    annotation (Dialog(tab="Pressure control", group="Return fan",
+      enable=buiPreCon==Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanDp));
+
+  parameter Real ySpeFanSup_min(final unit="1", final min=0, final max=1, start=0.1)=
+    dat.getReal(varName=id + ".control.airflow.ySpeFanSup_min.value")
     "Lowest allowed fan speed if fan is on"
     annotation (Dialog(group="Fan speed PID controller"));
 
-  // ----------- parameters for minimum outdoor airflow setting  -----------
-
-  parameter Real VPriSysMax_flow(
-    final unit="m3/s",
-    final quantity="VolumeFlowRate")=
-    dat.getReal(varName=id + ".control.ventilation.VPriSysMax_flow.value")
+  // FIXME: the definition of that parameter is unclear.
+  final parameter Modelica.Units.SI.VolumeFlowRate VPriSysMax_flow=
+    mAirSup_flow_nominal / 1.2
     "Maximum expected system primary airflow at design stage"
     annotation (Dialog(tab="Minimum outdoor airflow rate", group="Nominal conditions"));
 
-  parameter Real peaSysPop=
-    dat.getReal(varName=id + ".control.ventilation.peaSysPop.value")
+  parameter Real nPeaSys_nominal=
+    dat.getReal(varName=id + ".control.ventilation.nPeaSys_nominal.value")
     "Peak system population"
     annotation (Dialog(tab="Minimum outdoor airflow rate", group="Nominal conditions"));
 
-  // ----------- parameters for supply air temperature control  -----------
-
-  parameter Real TSupSetMin(
-    final unit="K",
-    final displayUnit="degC",
-    final quantity="ThermodynamicTemperature")=
-    dat.getReal(varName=id + ".control.TSup.TSupSetMin.value")
-    "Lowest cooling supply air temperature setpoint"
+  parameter Modelica.Units.SI.Temperature TAirSupSet_min(
+    displayUnit="degC")=
+    dat.getReal(varName=id + ".control.temperature.TAirSupSet_min.value")
+    "Lowest supply air temperature setpoint"
     annotation (Dialog(tab="Supply air temperature", group="Temperature limits"));
 
-  parameter Real TSupSetMax(
-    final unit="K",
-    final displayUnit="degC",
-    final quantity="ThermodynamicTemperature")=
-    dat.getReal(varName=id + ".control.TSup.TSupSetMax.value")
-    "Highest cooling supply air temperature setpoint. It is typically 18 degC (65 degF) in mild and dry climates, 16 degC (60 degF) or lower in humid climates"
+  parameter Modelica.Units.SI.Temperature TAirSupSet_max(
+    displayUnit="degC")=
+    dat.getReal(varName=id + ".control.temperature.TAirSupSet_max.value")
+    "Highest supply air temperature setpoint"
     annotation (Dialog(tab="Supply air temperature", group="Temperature limits"));
 
-  // FIXME: what is that?
-  parameter Real TSupSetDes(
-    final unit="K",
-    final displayUnit="degC",
-    final quantity="ThermodynamicTemperature")=286.15
-    "Nominal supply air temperature setpoint"
+  parameter Modelica.Units.SI.Temperature TAirOutRes_min(
+    displayUnit="degC")=
+    dat.getReal(varName=id + ".control.temperature.TAirOutRes_min.value")
+    "Lowest outdoor air temperature reset range"
     annotation (Dialog(tab="Supply air temperature", group="Temperature limits"));
 
-  parameter Real TOutMin(
-    final unit="K",
-    final displayUnit="degC",
-    final quantity="ThermodynamicTemperature")=
-    dat.getReal(varName=id + ".control.TSup.TOutMin.value")
-    "Lower value of the outdoor air temperature reset range. Typically value is 16 degC (60 degF)"
+  parameter Modelica.Units.SI.Temperature TAirOutRes_max(
+    displayUnit="degC")=
+    dat.getReal(varName=id + ".control.temperature.TAirOutRes_max.value")
+    "Highest outdoor air temperature reset range"
     annotation (Dialog(tab="Supply air temperature", group="Temperature limits"));
 
-  parameter Real TOutMax(
-    final unit="K",
-    final displayUnit="degC",
-    final quantity="ThermodynamicTemperature")=
-    dat.getReal(varName=id + ".control.TSup.TOutMax.value")
-    "Higher value of the outdoor air temperature reset range. Typically value is 21 degC (70 degF)"
-    annotation (Dialog(tab="Supply air temperature", group="Temperature limits"));
+  parameter Modelica.Units.SI.PressureDifference pBuiSet_rel(start=12)=
+    dat.getReal(varName=id + ".control.airflow.pBuiSet_rel.value")
+    "Building static pressure set point"
+    annotation (Dialog(tab="Pressure control",
+      enable=buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefDamper
+             or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefFan
+             or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanDp));
 
-  /*
-  * Parameters for Buildings.Controls.OBC.ASHRAE.G36.Generic.SetPoints.OperationMode
-  */
+  parameter Real ySpeFanRet_min(final unit="1", final min=0, final max=1, start=0.1)=
+    dat.getReal(varName=id + ".control.airflow.ySpeFanRet_min.value")
+    "Minimum relief/return fan speed"
+    annotation (Dialog(tab="Pressure control", group="Relief fans",
+      enable=secOutRel.typSecRel<>Buildings.Templates.AirHandlersFans.Types.ReliefReturnSection.NoRelief));
 
-  // Those are assumed identical for all zone groups.
+  parameter Modelica.Units.SI.PressureDifference dpDamOutMin_nominal=
+     dat.getReal(varName=id + ".control.airflow.dpDamOutMin_nominal.value")
+     "Design minimum outdoor air damper differential pressure"
+    annotation (Dialog(tab="Economizer", group="Limits, separated with DP",
+      enable=minOADes==Buildings.Controls.OBC.ASHRAE.G36.Types.MultizoneAHUMinOADesigns.SeparateDamper_DP));
 
+  parameter Modelica.Units.SI.VolumeFlowRate dVFanRet_flow=
+    dat.getReal(varName=id + ".control.airflow.dVFanRet_flow.value")
+    "Airflow differential between supply and return fans to maintain building pressure at setpoint"
+    annotation (Dialog(tab="Pressure control", group="Return fan",
+      enable=buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanAir));
+
+  // FIXME #1913: incorrect parameter propagation in controller.
   Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.Controller ctr(
+    retFanDpCon(final disMinSpe=ySpeFanRet_min, disMaxSpe=1),
+    final minOADes=minOADes,
+    final buiPreCon=buiPreCon,
+    final nZonGro=nGro,
+    final have_heaCoi=coiHeaPre.typ==Buildings.Templates.Components.Types.Coil.WaterBasedHeating or
+      coiHeaReh.typ==Buildings.Templates.Components.Types.Coil.WaterBasedHeating,
     final have_perZonRehBox=have_perZonRehBox,
     final have_duaDucBox=have_duaDucBox,
-    final have_airFloMeaSta=have_airFloMeaSta,
+    final have_freSta=have_freSta,
     final use_enthalpy=use_enthalpy,
-    final pMaxSet=pMaxSet,
-    final yFanMax=yFanSupMax,
-    final yFanMin=yFanSupMin,
+    final pMaxSet=pAirSupSet_rel_max,
+    final yFanMin=ySpeFanSup_min,
+    final minSpe=ySpeFanSup_min,
+    final minSpeRelFan=ySpeFanRet_min,
     final VPriSysMax_flow=VPriSysMax_flow,
-    final peaSysPop=peaSysPop,
-    final TSupSetMin=TSupSetMin,
-    final TSupSetMax=TSupSetMax,
-    final TSupSetDes=TSupSetDes,
-    final TOutMin=TOutMin,
-    final TOutMax=TOutMax)
+    final peaSysPop=nPeaSys_nominal,
+    final TSupCooMin=TAirSupSet_min,
+    final TSupCooMax=TAirSupSet_max,
+    final TOutMin=TAirOutRes_min,
+    final TOutMax=TAirOutRes_max,
+    final dpDesOutDam_min=dpDamOutMin_nominal,
+    final dpBuiSet=pBuiSet_rel,
+    final difFloSet=dVFanRet_flow,
+    final dpDisMin=pAirRetSet_rel_min,
+    final dpDisMax=pAirRetSet_rel_max)
     "AHU controller"
     annotation (Placement(transformation(extent={{-40,-72},{40,72}})));
 
@@ -206,10 +242,12 @@ block Guideline36 "Guideline 36 VAV single duct controller"
     "Pass signal to terminal unit bus"
     annotation (Placement(transformation(extent={{80,20},{100,40}})));
   Buildings.Controls.OBC.CDL.Integers.MultiSum reqZonTemRes(
+    final nin=nZon,
     final k=fill(1, nZon))
     "Sum up signals"
     annotation (Placement(transformation(extent={{-140,10},{-120,30}})));
   Buildings.Controls.OBC.CDL.Integers.MultiSum reqZonPreRes(
+    final nin=nZon,
     final k=fill(1, nZon))
     "Sum up signals"
     annotation (Placement(transformation(extent={{-140,50},{-120,70}})));
@@ -240,19 +278,30 @@ block Guideline36 "Guideline 36 VAV single duct controller"
     "Output should be reintroduced as it is needed by the terminal unit control sequence"
     annotation (Placement(transformation(extent={{-280,-130},{-260,-110}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant FIXME_yMinOutDamPos(k=false)
+    if secOutRel.typSecOut==Buildings.Templates.AirHandlersFans.Types.OutdoorSection.DedicatedDampersPressure
     "If `minOADes==...SeparateDamper_DP` a Boolean output is required"
     annotation (Placement(transformation(extent={{80,-10},{100,10}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant FIXME_yMinOutDamPos1(k=false)
-    "If `minOADes==...SeparateDamper_DP` a Boolean output is required"
-    annotation (Placement(transformation(extent={{120,-70},{140,-50}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant FIXME_yRelDamPos(k=false)
+    if secOutRel.typSecRel==Buildings.Templates.AirHandlersFans.Types.ReliefReturnSection.ReliefFan
     "If `buiPreCon==...ReliefFan` a Boolean output is required"
-    annotation (Placement(transformation(extent={{120,-100},{140,-80}})));
+    annotation (Placement(transformation(extent={{80,-100},{100,-80}})));
   Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold FIXME_yFanRet(t=1e-2,
       h=0.5e-2) "On/off command for return fan is required"
     annotation (Placement(transformation(extent={{80,-40},{100,-20}})));
-equation
 
+initial equation
+  if minOADes==Buildings.Controls.OBC.ASHRAE.G36.Types.MultizoneAHUMinOADesigns.CommonDamper then
+    assert(secOutRel.typSecOut==Buildings.Templates.AirHandlersFans.Types.OutdoorSection.SingleDamper,
+      "In "+ getInstanceName() + ": "+
+      "The system configuration is incompatible with the options for minimum outdoor air control.");
+  end if;
+  if buiPreCon==Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefDamper then
+    assert(secOutRel.typSecRel==Buildings.Templates.AirHandlersFans.Types.ReliefReturnSection.ReliefDamper,
+     "In "+ getInstanceName() + ": "+
+     "The system configuration is incompatible with the options for building pressure control.");
+  end if;
+
+equation
   /* Control point connection - start */
 
   // Inputs from AHU bus
@@ -450,11 +499,7 @@ equation
   connect(ctr.yRelFanSpe, FIXME_yFanRet.u) annotation (Line(points={{44,-13.0909},
           {52,-13.0909},{52,-30},{78,-30}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
-        coordinateSystem(preserveAspectRatio=false), graphics={Text(
-          extent={{-258,-16},{-52,-70}},
-          lineColor={238,46,47},
-          textString=
-              "TODO: subset indices for different Boolean values (such as have_occSen)")}),
+        coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>
 <p>
 The measured outdoor air flow rate (VOut_flow) used for minimum outdoor air flow control

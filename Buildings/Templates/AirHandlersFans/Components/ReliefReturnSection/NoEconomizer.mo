@@ -22,7 +22,7 @@ model NoEconomizer "No air economizer"
       final m_flow_nominal=m_flow_nominal,
       final dp_nominal=dpFan_nominal,
       final have_senFlo=
-        typCtrFanRet==Buildings.Templates.AirHandlersFans.Types.ControlFanReturn.Airflow,
+        typCtrFanRet==Buildings.Templates.AirHandlersFans.Types.ControlFanReturn.AirflowMeasured,
       final text_flip=true)
     "Return fan"
     annotation (choices(choice(redeclare replaceable
