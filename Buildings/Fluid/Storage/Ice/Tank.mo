@@ -1,6 +1,7 @@
 ﻿within Buildings.Fluid.Storage.Ice;
-model Tank "A detailed ice tank model"
+model Tank "Ice tank with performance based on performance curves"
   extends Buildings.Fluid.Interfaces.TwoPortHeatMassExchanger(
+    final allowFlowReversal = false,
     final energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     final massDynamics=energyDynamics);
 
@@ -10,7 +11,7 @@ model Tank "A detailed ice tank model"
 
   replaceable parameter Buildings.Fluid.Storage.Ice.Data.Tank.Generic per
     "Performance data" annotation (choicesAllMatching=true, Placement(
-        transformation(extent={{62,60},{82,80}})));
+        transformation(extent={{20,62},{40,82}})));
 
   parameter Modelica.Units.SI.Time tau = 30
     "Time constant at nominal flow"
@@ -42,23 +43,29 @@ model Tank "A detailed ice tank model"
   Modelica.Blocks.Interfaces.RealOutput SOC(
     final unit = "1")
     "state of charge"
-    annotation (Placement(transformation(extent={{100,-30},{120,-10}}),
-        iconTransformation(extent={{100,-30},{120,-10}})));
+    annotation (Placement(transformation(extent={{100,70},{120,90}}),
+        iconTransformation(extent={{100,70},{120,90}})));
   Modelica.Blocks.Interfaces.RealOutput mIce(
     quantity="Mass",
     unit="kg") "Mass of remaining ice"
-    annotation (Placement(transformation(extent={{100,-60},{120,-40}}),
-        iconTransformation(extent={{100,-60},{120,-40}})));
+    annotation (Placement(transformation(extent={{100,-90},{120,-70}}),
+        iconTransformation(extent={{100,-90},{120,-70}})));
+
+  Modelica.Blocks.Interfaces.RealOutput Q_flow(final unit="W")
+    "Heat flow rate, positive during charging, negative when melting the ice"
+    annotation (Placement(transformation(extent={{100,-50},{120,-30}})));
 
   BaseClasses.TankHeatTransfer tanHeaTra(
     final SOC_start=SOC_start,
     final per=per,
     final cp=cp)
     "Model for tank heat transfer between working fluid and ice"
-    annotation (Placement(transformation(extent={{-40,-60},{-20,-40}})));
-  HeatTransfer.Sources.PrescribedHeatFlow           preHeaFlo
+    annotation (Placement(transformation(extent={{-40,-80},{-20,-60}})));
+  HeatTransfer.Sources.PrescribedHeatFlow preHeaFlo
     "Prescribed heat flow"
-    annotation (Placement(transformation(extent={{-7,-56},{13,-36}})));
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}},
+        rotation=180,
+        origin={-11,-40})));
 protected
   Modelica.Blocks.Sources.RealExpression TIn(
     final y=Medium.temperature(state=
@@ -66,7 +73,7 @@ protected
         p=port_a.p,
         h=inStream(port_a.h_outflow),
         X=inStream(port_a.Xi_outflow)))) "Inlet temperature into tank"
-    annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
+    annotation (Placement(transformation(extent={{-90,-54},{-70,-34}})));
 
   Modelica.Blocks.Sources.RealExpression TOut(
     final y=Medium.temperature(state=
@@ -74,101 +81,93 @@ protected
         p=port_b.p,
         h=port_b.h_outflow,
         X=port_b.Xi_outflow))) "Outlet temperature of the tank"
-    annotation (Placement(transformation(extent={{-80,-60},{-60,-40}})));
+    annotation (Placement(transformation(extent={{-90,-70},{-70,-50}})));
 
-  Modelica.Blocks.Sources.RealExpression limQ_flow(y=m_flow*cp*(per.TFre - TIn))
+  Modelica.Blocks.Sources.RealExpression limQ_flow(y=m_flow*cp*(per.TFre - TIn.y))
    "Upper/Lower limit for charging/discharging rate"
-    annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
+    annotation (Placement(transformation(extent={{-90,-86},{-70,-66}})));
 equation
-  connect(tanHeaTra.TIn, TIn.y) annotation (Line(points={{-42,-44},{-52,-44},{-52,
-          -30},{-59,-30}}, color={0,0,127}));
-  connect(tanHeaTra.TOut, TOut.y) annotation (Line(points={{-42,-50},{-59,-50}},
-                               color={0,0,127}));
-  connect(tanHeaTra.Q_flow, preHeaFlo.Q_flow)
-    annotation (Line(points={{-19,-46},{-7,-46}}, color={0,0,127}));
-  connect(preHeaFlo.port, vol.heatPort) annotation (Line(points={{13,-46},{20,-46},
-          {20,-30},{-20,-30},{-20,-10},{-9,-10}},  color={191,0,0}));
-  connect(tanHeaTra.SOC, SOC) annotation (Line(points={{-19,-50},{80,-50},{80,-20},
-          {110,-20}}, color={0,0,127}));
-  connect(tanHeaTra.mIce, mIce) annotation (Line(points={{-19,-54},{90,-54},{90,
-          -50},{110,-50}}, color={0,0,127}));
-  connect(limQ_flow.y, tanHeaTra.QLim_flow) annotation (Line(points={{-59,-70},{
-          -48,-70},{-48,-56},{-42,-56}}, color={0,0,127}));
+  connect(tanHeaTra.TIn, TIn.y) annotation (Line(points={{-42,-64},{-58,-64},{
+          -58,-44},{-69,-44}},
+                           color={0,0,127}));
+  connect(tanHeaTra.TOut, TOut.y) annotation (Line(points={{-42,-70},{-64,-70},
+          {-64,-60},{-69,-60}},color={0,0,127}));
+  connect(preHeaFlo.port, vol.heatPort) annotation (Line(points={{-21,-40},{-28,
+          -40},{-28,-10},{-9,-10}},                color={191,0,0}));
+  connect(tanHeaTra.SOC, SOC) annotation (Line(points={{-19,-70},{80,-70},{80,
+          80},{110,80}},
+                      color={0,0,127}));
+  connect(tanHeaTra.mIce, mIce) annotation (Line(points={{-19,-74},{94,-74},{94,
+          -80},{110,-80}}, color={0,0,127}));
+  connect(limQ_flow.y, tanHeaTra.QLim_flow) annotation (Line(points={{-69,-76},
+          {-42,-76}},                    color={0,0,127}));
+  connect(tanHeaTra.Q_flow, Q_flow) annotation (Line(points={{-19,-66},{96,-66},
+          {96,-40},{110,-40}},                    color={0,0,127}));
+  connect(tanHeaTra.Q_flow, preHeaFlo.Q_flow) annotation (Line(points={{-19,-66},
+          {10,-66},{10,-40},{-1,-40}},color={0,0,127}));
   annotation (defaultComponentModel="iceTan", Icon(graphics={
         Rectangle(
-          extent={{-76,46},{76,70}},
-          lineColor={0,0,0},
-          fillColor={255,255,255},
-          fillPattern=FillPattern.Solid),
-        Rectangle(
-          extent={{-76,46},{76,-92}},
+          extent={{-70,60},{70,-60}},
           lineColor={0,0,255},
           pattern=LinePattern.None,
           fillColor={127,0,0},
           fillPattern=FillPattern.Solid),
         Rectangle(
-          extent={{-62,28},{-46,-92}},
+          extent={{-52,52},{-36,-54}},
           fillColor={28,108,200},
           fillPattern=FillPattern.Solid,
           pattern=LinePattern.None,
           lineColor={0,0,0}),
         Rectangle(
-          extent={{-34,28},{-18,-92}},
+          extent={{-24,52},{-8,-54}},
           fillColor={28,108,200},
           fillPattern=FillPattern.Solid,
           pattern=LinePattern.None,
           lineColor={0,0,0}),
         Rectangle(
-          extent={{-6,28},{10,-92}},
+          extent={{4,52},{20,-54}},
           fillColor={28,108,200},
           fillPattern=FillPattern.Solid,
           pattern=LinePattern.None,
           lineColor={0,0,0}),
         Rectangle(
-          extent={{22,28},{38,-92}},
+          extent={{32,52},{48,-54}},
           fillColor={28,108,200},
           fillPattern=FillPattern.Solid,
           pattern=LinePattern.None,
           lineColor={0,0,0}),
         Rectangle(
-          extent={{50,28},{66,-92}},
+          extent={{-92,6},{92,-4}},
           fillColor={28,108,200},
           fillPattern=FillPattern.Solid,
           pattern=LinePattern.None,
           lineColor={0,0,0}),
+        Text(
+          extent={{102,-8},{130,-32}},
+          textColor={0,0,88},
+          textString="Q_flow"),
+        Text(
+          extent={{102,-50},{130,-74}},
+          textColor={0,0,88},
+          textString="mIce"),
         Rectangle(
-          extent={{-90,4},{90,-2}},
-          fillColor={28,108,200},
+          extent=DynamicSelect({{70,-60},{84,60}},{{85,-60},{70,-60+(SOC)*120}}),
+          fillColor={175,175,175},
           fillPattern=FillPattern.Solid,
           pattern=LinePattern.None,
           lineColor={0,0,0}),
-        Rectangle(
-          extent={{58,22},{62,80}},
-          lineColor={0,0,255},
-          pattern=LinePattern.None,
-          fillColor={0,0,127},
-          fillPattern=FillPattern.Solid),
-        Rectangle(
-          extent={{58,78},{100,82}},
-          lineColor={0,0,255},
-          pattern=LinePattern.None,
-          fillColor={0,0,127},
-          fillPattern=FillPattern.Solid),
-        Rectangle(
-          extent={{60,48},{102,52}},
-          lineColor={0,0,255},
-          pattern=LinePattern.None,
-          fillColor={0,0,127},
-          fillPattern=FillPattern.Solid),
-        Rectangle(
-          extent={{60,18},{102,22}},
-          lineColor={0,0,255},
-          pattern=LinePattern.None,
-          fillColor={0,0,127},
-          fillPattern=FillPattern.Solid)}),
+        Text(
+          extent={{102,110},{130,86}},
+          textColor={0,0,88},
+          textString="SOC")}),
     Documentation(info="<html>
-<p>This model implements an ice tank model based on the detailed EnergyPlus ice tank model
+<p>
+This model implements an ice tank model whose performance is computed based on
+performance curves.
+The model is similar to the detailed EnergyPlus ice tank model
 <a href=\"https://bigladdersoftware.com/epx/docs/9-0/input-output-reference/group-plant-equipment.html#thermalstorageicedetailed\">ThermalStorage:Ice:Detailed</a>.
+</p>
+<p>
 The governing equations are as follows:
 </p>
 <p>

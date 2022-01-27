@@ -258,6 +258,16 @@ to <b style=\"color:blue\">existing</b> libraries:
                        which can be used to vary boundary conditions over the length of a pipe.
     </td>
 </tr>
+<tr><td colspan=\"2\"><b>Buildings.Fluid.Storage.Ice</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Fluid.Storage.Ice.ControlledTank<br/>
+                     Buildings.Fluid.Storage.Ice.Tank
+    </td>
+    <td valign=\"top\">Models for ice storage tank whose performance is characterized by performance curves.<br/>
+                     This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2820\">#2820</a>.
+    </td>
+</tr>
 </table>
 <!-- Backward compatible changes -->
 <p>
@@ -514,7 +524,7 @@ have been <b style=\"color:blue\">improved</b> in a
                          Buildings.Controls.OBC.CDL.Discrete.Examples.DayType<br/>
                          Buildings.Controls.OBC.CDL.Conversions.Validation.DayTypeCheck<br/>
                          Buildings.Controls.OBC.CDL.Types.Day<br/>
-  
+
     </td>
     <td valign=\"top\">Moved classes to <code>Obsolete</code> package.
                 This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2839\"># 2839</a>.<br/>

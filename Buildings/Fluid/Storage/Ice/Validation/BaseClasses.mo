@@ -93,8 +93,8 @@ package BaseClasses "Base classes for validation package"
     connect(offSet.y, TSet.u2) annotation (Line(points={{-59,-50},{-42,-50},{
             -42,-56},{-32,-56}},
                         color={0,0,127}));
-    connect(TSet.y, iceTan.TOutSet) annotation (Line(points={{-9,-50},{-2,-50},{-2,
-            6},{8,6}},       color={0,0,127}));
+    connect(TSet.y, iceTan.TSet) annotation (Line(points={{-9,-50},{-2,-50},{-2,
+            6},{8,6}}, color={0,0,127}));
     connect(iceTan.port_b, TOut.port_a)
       annotation (Line(points={{30,0},{40,0}}, color={0,127,255}));
     connect(TOut.port_b, res.port_a)
