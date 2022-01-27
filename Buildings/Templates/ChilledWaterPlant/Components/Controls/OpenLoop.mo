@@ -47,7 +47,7 @@ block OpenLoop "Open loop controller (output signals only)"
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={-170,70})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant yValWSE(k=1)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant yValCWWSE(k=1)
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
@@ -79,9 +79,9 @@ protected
     annotation (Placement(transformation(extent={{-138,-80},{-98,-40}})));
 equation
   /* Control point connection - start */
-  connect(busCHW.pumPri.valByp.y, yValByp.y);
-  connect(busCHW.pumPri.valChiByp.y, yValChiByp.y);
-  connect(busCW.pum.yValWSE, yValWSE.y);
+  connect(busCHW.valByp.y, yValByp.y);
+  connect(busCHW.valChiByp.y, yValChiByp.y);
+  connect(busCW.valCWWSE.y, yValCWWSE.y);
   connect(busChi.TSet, chiTSet.y);
   connect(busChi.on, chiOn.y);
   connect(busValCHWChi[:].y, yValCHWChi[:].y);
@@ -98,7 +98,7 @@ equation
     connect(busCW.cooTow.yVal[i], yCooTowVal[i].y);
   end for;
   for i in 1:nPumCon loop
-    connect(busCW.ySpe[i], ySpePumCon[i].y);
+    connect(busCW.pum.ySpe[i], ySpePumCon[i].y);
   end for;
   /* Control point connection - end */
   connect(busChi, busCHW.chi) annotation (Line(

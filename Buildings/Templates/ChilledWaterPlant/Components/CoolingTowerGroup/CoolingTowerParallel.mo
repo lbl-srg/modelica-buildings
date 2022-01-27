@@ -127,7 +127,7 @@ equation
           0},{40,-20},{12,-20},{12,-40}}, color={0,127,255}));
   connect(colDis.port_aDisRet, port_b) annotation (Line(points={{20,-56},{34,
           -56},{34,-40},{80,-40},{80,0},{100,0}}, color={0,127,255}));
-  connect(busCon.yFan, cooTow.y) annotation (Line(
+  connect(busCon.cooTow.yFan, cooTow.y) annotation (Line(
       points={{0,100},{0,8},{6,8}},
       color={255,204,51},
       thickness=0.5), Text(
@@ -135,7 +135,7 @@ equation
       index=-1,
       extent={{-6,3},{-6,3}},
       horizontalAlignment=TextAlignment.Right));
-  connect(busCon.yVal, yVal.u) annotation (Line(
+  connect(busCon.cooTow.yVal, yVal.u) annotation (Line(
       points={{0,100},{0,68},{-50,68},{-50,62}},
       color={255,204,51},
       thickness=0.5), Text(
@@ -143,13 +143,13 @@ equation
       index=-1,
       extent={{6,3},{6,3}},
       horizontalAlignment=TextAlignment.Left));
-  connect(cooTow.PFan, busCon.PFan) annotation (Line(points={{29,8},{50,8},{50,68},
+  connect(cooTow.PFan, busCon.cooTow.PFan) annotation (Line(points={{29,8},{50,8},{50,68},
           {0,68},{0,100}}, color={0,0,127}), Text(
       string="%second",
       index=1,
       extent={{-6,3},{-6,3}},
       horizontalAlignment=TextAlignment.Right));
-  connect(cooTow.TLvg, busCon.TLvg) annotation (Line(points={{29,-6},{50,-6},{50,
+  connect(cooTow.TLvg, busCon.cooTow.TLvg) annotation (Line(points={{29,-6},{50,-6},{50,
           68},{0,68},{0,100}}, color={0,0,127}), Text(
       string="%second",
       index=1,

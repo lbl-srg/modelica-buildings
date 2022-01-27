@@ -26,14 +26,15 @@ model Centralized "Centralized secondary pumping"
 equation
   connect(port_a, pum.port_a)
     annotation (Line(points={{-100,0},{-10,0}}, color={0,127,255}));
-  connect(pum.y_actual, busCon.uStaPumSec) annotation (Line(points={{11,8},{20,8},
-          {20,80},{0,80},{0,100}}, color={255,0,255}), Text(
+  connect(pum.y_actual, busCon.pumSec.uStaPumSec) annotation (Line(points={{11,8},{
+          20,8},{20,80},{0.1,80},{0.1,100.1}},
+                                   color={255,0,255}), Text(
       string="%second",
       index=1,
       extent={{-6,3},{-6,3}},
       horizontalAlignment=TextAlignment.Right));
-  connect(busCon.ySpe, pum.y) annotation (Line(
-      points={{0,100},{0,12}},
+  connect(busCon.pumSec.ySpe, pum.y) annotation (Line(
+      points={{0.1,100.1},{0.1,56},{0,56},{0,12}},
       color={255,204,51},
       thickness=0.5), Text(
       string="%first",

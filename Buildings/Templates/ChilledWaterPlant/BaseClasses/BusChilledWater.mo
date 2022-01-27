@@ -11,12 +11,12 @@ expandable connector BusChilledWater
     annotation (HideResult=false);
   Buildings.Templates.Components.Interfaces.Bus valCHWChi[nChi]
     annotation (HideResult=false);
-  Buildings.Templates.ChilledWaterPlant.Components.ReturnSection.Interfaces.Bus
-    wse annotation (HideResult=false);
-  Buildings.Templates.ChilledWaterPlant.Components.PrimaryPumpGroup.Interfaces.Bus
-    pumPri(final nPum=nPumPri) annotation (HideResult=false);
-  Buildings.Templates.ChilledWaterPlant.Components.SecondaryPumpGroup.Interfaces.Bus
-    pumSec(final nPum=nPumSec) annotation (HideResult=false);
+  Buildings.Templates.Components.Interfaces.Bus wse
+    annotation (HideResult=false);
+  Buildings.Templates.Components.Interfaces.Bus pumPri
+    annotation (HideResult=false);
+  Buildings.Templates.Components.Interfaces.Bus pumSec
+    annotation (HideResult=false);
 
   annotation (
   defaultComponentName="busCon",

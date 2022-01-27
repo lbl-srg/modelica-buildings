@@ -23,7 +23,7 @@ model WaterCooled
 
   replaceable package MediumCW=Buildings.Media.Water "Condenser water medium";
 
-  final parameter Integer nPumCon = pumCon.nPum "Number of condenser pumps";
+  final inner parameter Integer nPumCon = pumCon.nPum "Number of condenser pumps";
   final inner parameter Integer nCooTow = cooTow.nCooTow "Number of cooling towers";
 
   final parameter Modelica.Units.SI.MassFlowRate mCon_flow_nominal=
@@ -99,7 +99,7 @@ equation
 
   // Bus connection
   connect(weaBus, cooTow.weaBus);
-  connect(cooTow.busCon, cwCon.cooTow);
+  connect(cooTow.busCon, cwCon);
   connect(pumCon.busCon, cwCon);
 
   // Controller

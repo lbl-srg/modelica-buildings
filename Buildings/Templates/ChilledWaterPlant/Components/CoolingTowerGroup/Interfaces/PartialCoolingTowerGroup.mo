@@ -11,9 +11,15 @@ partial model PartialCoolingTowerGroup
   outer parameter ExternData.JSONFile dat
     "External parameter file";
 
+  outer parameter Integer nChi "Number of chillers";
+  outer parameter Integer nPumCon "Number of primary pumps";
   parameter Integer nCooTow(final min=1) "Number of cooling towers";
 
-  Bus busCon(final nCooTow=nCooTow) "Control bus" annotation (Placement(transformation(
+  Buildings.Templates.ChilledWaterPlant.BaseClasses.BusCondenserWater busCon(
+    final nChi=nChi,
+    final nPum=nPumCon,
+    final nCooTow=nCooTow) "Control bus" 
+    annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
         rotation=0,
         origin={0,100}), iconTransformation(

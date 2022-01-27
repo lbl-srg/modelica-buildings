@@ -13,7 +13,9 @@ partial model PartialSecondaryPumpGroup
   outer parameter ExternData.JSONFile dat
     "External parameter file";
 
-  parameter Integer nPum = 2 "Number of primary pumps";
+  outer parameter Integer nChi "Number of chillers in group";
+  outer parameter Integer nPumPri "Number of primary pumps";
+  parameter Integer nPum = 2 "Number of secondary pumps";
 
   parameter Modelica.Units.SI.MassFlowRate mTot_flow_nominal = m_flow_nominal*nPum "Total mass flow rate for pump group";
 
@@ -27,8 +29,10 @@ partial model PartialSecondaryPumpGroup
   final parameter Boolean is_none=
     typ == Buildings.Templates.ChilledWaterPlant.Components.Types.SecondaryPumpGroup.None;
 
-  Bus busCon(final nPum=nPum)
-             if not is_none
+  Buildings.Templates.ChilledWaterPlant.BaseClasses.BusChilledWater busCon(
+    final nChi=nChi,
+    final nPumPri=nPumPri,
+    final nPumSec=nPum) if not is_none
              "Control bus" annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
         rotation=0,

@@ -7,9 +7,10 @@ expandable connector BusCondenserWater
   parameter Integer nPum "Number of condenser pumps";
   parameter Integer nCooTow "Number of cooling tower";
 
-  Buildings.Templates.ChilledWaterPlant.Components.CoolingTowerGroup.Interfaces.Bus
-    cooTow(final nCooTow=nCooTow) annotation (HideResult=false);
-
+  Buildings.Templates.Components.Interfaces.Bus cooTow
+    annotation (HideResult=false);
+  Buildings.Templates.Components.Interfaces.Bus pum
+    annotation (HideResult=false);
   Buildings.Templates.Components.Interfaces.Bus valCWChi[nChi]
     annotation (HideResult=false);
 

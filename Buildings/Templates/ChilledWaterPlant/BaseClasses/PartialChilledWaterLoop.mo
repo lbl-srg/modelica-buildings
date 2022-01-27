@@ -70,7 +70,6 @@ model PartialChilledWaterLoop
       redeclare final package Medium = MediumCHW,
       final mTot_flow_nominal=mPri_flow_nominal,
       final dp_nominal=dpPri_nominal,
-      final nChi=nChi,
       final have_ParChi=chiGro.typ == Buildings.Templates.ChilledWaterPlant.Components.Types.ChillerGroup.ChillerParallel,
       final have_byp=have_byp,
       final have_ChiByp=have_ChiByp,
@@ -201,10 +200,10 @@ equation
   connect(VSecRet_flow.y, chwCon.VSecRet_flow);
 
   // Bus connection
-  connect(pumPri.busCon, chwCon.pumPri);
+  connect(pumPri.busCon, chwCon);
   connect(chiGro.busCon, chwCon);
-  connect(retSec.busCon, chwCon.wse);
-  connect(pumSec.busCon, chwCon.pumSec);
+  connect(retSec.busCon, chwCon);
+  connect(pumSec.busCon, chwCon);
 
   // Controller
   connect(con.busCHW, chwCon) annotation (Line(

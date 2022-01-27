@@ -17,6 +17,10 @@ partial model PartialReturnSection
     typ "Type of waterside economizer"
     annotation (Evaluate=true, Dialog(group="Configuration"));
 
+  outer parameter Integer nChi "Number of chillers";
+  outer parameter Integer nPumCon "Number of primary pumps";
+  outer parameter Integer nCooTow "Number of cooling towers";
+
   parameter Boolean isAirCoo "Is chiller plant air cooled";
 
   final parameter Boolean is_none=
@@ -27,7 +31,11 @@ partial model PartialReturnSection
   outer parameter ExternData.JSONFile dat
     "External parameter file";
 
-  Bus busCon "Control bus" annotation (Placement(transformation(
+  Buildings.Templates.ChilledWaterPlant.BaseClasses.BusCondenserWater busCon(
+    final nChi=nChi,
+    final nPum=nPumCon,
+    final nCooTow=nCooTow)
+             "Control bus" annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
         rotation=0,
         origin={0,100}), iconTransformation(

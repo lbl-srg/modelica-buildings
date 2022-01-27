@@ -50,7 +50,7 @@ model DedicatedPrimaryPumps
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
-        origin={50,70})));
+        origin={50,50})));
   Fluid.FixedResistances.CheckValve cheVal[nPum](
     redeclare each final replaceable package Medium = Medium,
     each final dpFixed_nominal=0,
@@ -86,9 +86,9 @@ model DedicatedPrimaryPumps
 equation
   connect(pum.port_b, cheVal.port_a)
     annotation (Line(points={{10,0},{40,0}}, color={0,127,255}));
-  connect(pum.y_actual,evaSta.u) annotation (Line(points={{11,7},{20,7},{20,70},
-          {38,70}},         color={0,0,127}));
-  connect(evaSta.y, y_actual) annotation (Line(points={{62,70},{80,70},{80,70},
+  connect(pum.y_actual,evaSta.u) annotation (Line(points={{11,7},{30,7},{30,50},
+          {38,50}},         color={0,0,127}));
+  connect(evaSta.y, y_actual) annotation (Line(points={{62,50},{80,50},{80,70},
           {120,70}},color={255,0,255}));
   connect(y, pum.y) annotation (Line(points={{0,100},{0,12}},
                          color={0,0,127}));
