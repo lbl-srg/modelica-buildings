@@ -287,13 +287,37 @@ equation
             240}})),
     Documentation(info="<html>
 <p>
-Draft test. Documentation pending.
+This example model compares the three power computation paths in a scenario
+where the fan performance (<i>P</i> vs. <i>V&#775;</i>) is examined to
+verify savings of a static pressure reset.
+</p>
+<ul>
+<li>
+The <code>PowerCharacteristic</code> path uses the full fan curve.
+</li>
+<li>
+The <code>EulerNumber</code> path uses the Euler number and its correlation
+to estimate fan efficiency based on the peak operation condition where its
+efficiency is at its maximum.
+</li>
+<li>
+The <code>MotorEfficiency</code> path assumes a constant fan efficiency.
+</li>
+</ul>
+<p>
+Granted the <code>PowerCharacteristic</code> path is the most accurate
+representation of the \"real\" performance, the results indicate that
+the <code>EulerNumber</code> path is much better than the
+<code>MotorEfficiency</code> at capturing the trend.
+The <code>EulerNumber</code> path also prevents the computed power from
+going to zero when <i>V&#775;</i> approaches zero.
 </p>
 </html>", revisions="<html>
 <ul>
 <li>
-January 24, 2022, by Hongxiang Fu:<br/>
-First implementation.
+January 24, 2022, by Hongxiang Fu and David Blum:<br/>
+First implementation. This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2668\">#2668</a>.
 </li>
 </ul>
 </html>"),
