@@ -288,8 +288,10 @@ equation
     Documentation(info="<html>
 <p>
 This example model compares the three power computation paths in a scenario
-where the fan performance (<i>P</i> vs. <i>V&#775;</i>) is examined to
-verify savings of a static pressure reset.
+where the fan performance (<i>P</i> vs. <i>V&#775;</i>) is examined
+to verify savings of a static pressure reset. The fan speed is controlled
+to track the duct static pressure at a point downstream while the damper
+(representing a VAV box) moves from fully closed to fully open.
 </p>
 <ul>
 <li>
@@ -311,6 +313,15 @@ the <code>EulerNumber</code> path is much better than the
 <code>MotorEfficiency</code> at capturing the trend.
 The <code>EulerNumber</code> path also prevents the computed power from
 going to zero when <i>V&#775;</i> approaches zero.
+</p>
+<p>
+Also note that the model
+<a href=\"Buildings.Fluid.Movers.SpeedControlled_y\">
+Buildings.Fluid.Movers.SpeedControlled_y</a>
+requires that a <i>&Delta;p</i> vs. <i>V&#775;</i> curve be provided regardless
+of the chosen path of computation. To be convincing that the latter two paths
+do not require a full curve, an arbitrary curve loosely computed from the nominal
+values were used for them.
 </p>
 </html>", revisions="<html>
 <ul>
