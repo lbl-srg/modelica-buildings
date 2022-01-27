@@ -1,6 +1,6 @@
 compareVars :=
   {
     "iceMas.Q_flow",
-    "iceMas.fraCha",
+    "iceMas.SOC",
     "iceMas.mIce"
   };

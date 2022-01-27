@@ -65,6 +65,10 @@ Buildings.Fluid.Storage.Ice.BaseClasses.calculateLMTDStar</a>.
 </html>", revisions="<html>
 <ul>
 <li>
+January 26, 2022, by Michael Wetter:<br/>
+Refactored model to new architecture.
+</li>
+<li>
 December 8, 2021, by Yangyang Fu:<br/>
 First implementation.
 </li>

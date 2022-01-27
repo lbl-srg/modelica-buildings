@@ -3,7 +3,7 @@ compareVars :=
     "dat.y[1]",
     "TIn.Celsius",
     "dat.y[2]",
-    "iceTan.TOut",
+    "TOut.T",
     "dat.y[3]",
     "iceTan.m_flow",
     "dat.y[4]",

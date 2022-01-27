@@ -1,6 +1,7 @@
 within Buildings.Fluid.Storage.Ice.Data.Tank;
 record Experiment =
   Buildings.Fluid.Storage.Ice.Data.Tank.Generic (
+    mIce_max = 2846.35,
     coeCha={1.76953858E-04,0,0,0,0,0},
     dtCha=10,
     coeDisCha={5.54E-05,-1.45679E-04,9.28E-05,1.126122E-03,-1.1012E-03,

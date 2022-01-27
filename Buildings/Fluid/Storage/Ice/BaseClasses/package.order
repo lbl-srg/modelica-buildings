@@ -1,8 +1,8 @@
 IceMass
 LMTDStar
-OutletTemperatureControl
 QStarCharging
 QStarDischarging
 StorageHeatTransferRate
 calculateLMTDStar
 Examples
+TankHeatTransfer

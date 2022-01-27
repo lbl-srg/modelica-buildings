@@ -1,8 +1,16 @@
 within Buildings.Fluid.Storage.Ice.Data.Tank;
 record Generic
   extends Modelica.Icons.Record;
+  constant Modelica.Units.SI.TemperatureDifference dT_nominal = 10
+     "Nominal temperature difference used for performance data";
   constant Integer nCha = 6 "Number of coefficients for charging characteristic curve";
   constant Integer nDisCha = 6 "Number of coefficients for discharging characteristic curve";
+
+  parameter Modelica.Units.SI.SpecificEnergy Hf = 333550 "Fusion of heat of ice";
+  parameter Modelica.Units.SI.Temperature TFre = 273.15
+    "Freezing temperature of water or the latent energy storage material";
+
+  parameter Modelica.Units.SI.Mass mIce_max "Maximum mass of ice in the tank";
 
   parameter Real coeCha[nCha] "Coefficients for charging curve";
   parameter Real coeDisCha[nDisCha] "Coeffcients for discharging curve";
