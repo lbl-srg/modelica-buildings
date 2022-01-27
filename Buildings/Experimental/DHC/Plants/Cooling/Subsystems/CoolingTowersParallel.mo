@@ -55,7 +55,6 @@ model CoolingTowersParallel
     "Leaving water temperature"
     annotation (Placement(transformation(extent={{100,20},{120,40}})));
   replaceable Buildings.Fluid.HeatExchangers.CoolingTowers.Merkel cooTow[num](
-    each final allowFlowReversal=allowFlowReversal,
     each final m_flow_small=m_flow_small,
     each final ratWatAir_nominal=ratWatAir_nominal,
     each final TAirInWB_nominal=TAirInWB_nominal,
