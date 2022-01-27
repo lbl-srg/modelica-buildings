@@ -6,12 +6,14 @@ model StaticReset
   package Medium = Buildings.Media.Air;
 
   // Define the system curve
-  parameter Modelica.Units.SI.MassFlowRate m_flow_nominal=21.8/1.2
-    "Nominal mass flow rate";
+  parameter Modelica.Units.SI.VolumeFlowRate V_flow_nominal=21.8
+    "Nominal volumetric flow rate of the system";
+  parameter Modelica.Units.SI.MassFlowRate m_flow_nominal=V_flow_nominal/1.2
+    "Nominal mass flow rate of the system";
   parameter Modelica.Units.SI.PressureDifference dp_nominal=1244.2
-    "Nominal pressure rise";
+    "Nominal pressure rise of the system";
 
-  // Boundary
+  // Boundaries
   Buildings.Fluid.Sources.Boundary_pT sou(
     redeclare package Medium = Medium,
     use_p_in=false,
@@ -27,7 +29,7 @@ model StaticReset
     nPorts=3) "Boundary"
     annotation (Placement(transformation(extent={{160,-90},{140,-70}})));
 
-  // Fans and their performance
+  // Fans and their performance records
   Buildings.Fluid.Movers.Data.Fans.EnglanderNorford1992.Supply per1
     "Performance record for PowerCharacteristic";
   Buildings.Fluid.Movers.SpeedControlled_y fan1(
@@ -37,7 +39,8 @@ model StaticReset
     "Fan using PowerCharacteristic"
     annotation (Placement(transformation(extent={{-10,170},{10,190}})));
   Buildings.Fluid.Movers.Data.Generic per2(
-    pressure=per1.pressure,
+    pressure(V_flow={0,per2.peak.V_flow,per2.peak.V_flow*1.6},
+             dp={per2.peak.dp*1.6,per2.peak.dp,0}),
     powMet=
       Buildings.Fluid.Movers.BaseClasses.Types.PowerMethod.EulerNumber,
     peak=Buildings.Fluid.Movers.BaseClasses.Euler.getPeak(
@@ -51,7 +54,8 @@ model StaticReset
     "Fan using EulerNumber"
     annotation (Placement(transformation(extent={{-10,70},{10,90}})));
   Buildings.Fluid.Movers.Data.Generic per3(
-    pressure=per1.pressure,
+    pressure(V_flow={0,V_flow_nominal,V_flow_nominal*1.6},
+             dp={dp_nominal*1.6,dp_nominal,0}),
     powMet=
       Buildings.Fluid.Movers.BaseClasses.Types.PowerMethod.MotorEfficiency,
     hydraulicEfficiency(eta = {1}),
@@ -174,13 +178,13 @@ model StaticReset
     redeclare final package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
     dpDamper_nominal=dp_nominal/3,
-    y_start=0) "Damper representing a terminal box"
+    y_start=0) "Damper representing a VAV box"
     annotation (Placement(transformation(extent={{100,70},{120,90}})));
   Actuators.Dampers.Exponential damExp3(
     redeclare final package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
     dpDamper_nominal=dp_nominal/3,
-    y_start=0) "Damper representing a terminal box"
+    y_start=0) "Damper representing a VAV box"
     annotation (Placement(transformation(extent={{100,-30},{120,-10}})));
   Modelica.Blocks.Sources.Ramp yDam(
     height=1,
