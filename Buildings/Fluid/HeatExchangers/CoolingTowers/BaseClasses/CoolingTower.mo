@@ -1,7 +1,8 @@
 within Buildings.Fluid.HeatExchangers.CoolingTowers.BaseClasses;
 partial model CoolingTower "Base class for cooling towers"
   extends Buildings.Fluid.Interfaces.TwoPortHeatMassExchanger(
-    redeclare final Buildings.Fluid.MixingVolumes.MixingVolume vol);
+    redeclare final Buildings.Fluid.MixingVolumes.MixingVolume vol,
+    final allowFlowReversal=false);
 
   Modelica.Blocks.Interfaces.RealOutput TLvg(
     final unit="K",
@@ -28,7 +29,7 @@ equation
       color={191,0,0},
       smooth=Smooth.None));
   connect(TVol.T, TLvg) annotation (Line(
-      points={{40,-60},{110,-60}},
+      points={{41,-60},{110,-60}},
       color={0,0,127},
       smooth=Smooth.None));
 
