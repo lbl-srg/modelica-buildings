@@ -4,6 +4,10 @@ model QStarDischarging "Calculator for q* under discharging"
   parameter Real coeff[6] "Coefficients for qstar curve";
   parameter Real dt "Time step of curve fitting data";
 
+  Modelica.Blocks.Interfaces.BooleanInput active
+    "Set to true if this tank mode can be active"
+    annotation (Placement(transformation(extent={{-140,60},{-100,100}})));
+
   Modelica.Blocks.Interfaces.RealInput fraCha(unit="1")
     "Fraction of charge in ice tank"
     annotation (Placement(transformation(
@@ -19,11 +23,15 @@ model QStarDischarging "Calculator for q* under discharging"
            {{100,-10},{120,10}}), iconTransformation(extent={{100,-10},{120,10}})));
 
 equation
-  qNor*dt = Buildings.Utilities.Math.Functions.smoothMax(
-    x1 = 0,
-    x2 = Buildings.Utilities.Math.Functions.polynomial(1-fraCha, coeff[1:3]) +
-         Buildings.Utilities.Math.Functions.polynomial(1-fraCha,coeff[4:6])*lmtdSta,
-         deltaX = 1E-7);
+  if active then
+    qNor = -Buildings.Utilities.Math.Functions.smoothMax(
+      x1 = 0,
+      x2 = Buildings.Utilities.Math.Functions.polynomial(1-fraCha, coeff[1:3]) +
+           Buildings.Utilities.Math.Functions.polynomial(1-fraCha,coeff[4:6])*lmtdSta,
+           deltaX = 1E-7)/dt;
+  else
+    qNor = 0;
+  end if;
 
   annotation (defaultComponentName = "qSta",
   Icon(coordinateSystem(preserveAspectRatio=false), graphics={

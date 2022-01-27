@@ -17,7 +17,7 @@ model Tank "Example that test the Tank model"
   parameter Buildings.Fluid.Storage.Ice.Data.Tank.Experiment per
     annotation (Placement(transformation(extent={{60,60},{80,80}})));
 
-  Buildings.Fluid.Storage.Ice.Tank iceTan(
+  Buildings.Fluid.Storage.Ice.ControlledTank iceTan(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
     dp_nominal=dp_nominal,

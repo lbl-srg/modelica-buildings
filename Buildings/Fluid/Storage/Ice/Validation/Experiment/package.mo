@@ -1,4 +1,4 @@
-within Buildings.Fluid.Storage.Ice.Validation;
+﻿within Buildings.Fluid.Storage.Ice.Validation;
 package Experiment "Validation from experimental data"
   extends Modelica.Icons.ExamplesPackage;
 

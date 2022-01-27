@@ -15,12 +15,7 @@ model StorageHeatTransferRate "Example to calculate qStar"
     dtCha=dt,
     coeDisCha=coeDisCha,
     dtDisCha=dt) "Storage heat transfer rate"
-    annotation (Placement(transformation(extent={{40,-10},{60,10}})));
-  Modelica.Blocks.Sources.IntegerStep mod(
-    startTime=3600,
-    height=-1,
-    offset=3) "Mode"
-    annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
+    annotation (Placement(transformation(extent={{60,-10},{80,10}})));
 
   Modelica.Blocks.Sources.Step lmtd(
     startTime=3600,
@@ -28,13 +23,25 @@ model StorageHeatTransferRate "Example to calculate qStar"
     height=-0.5)
                "lmtd start"
     annotation (Placement(transformation(extent={{-40,-60},{-20,-40}})));
+  Controls.OBC.CDL.Continuous.GreaterThreshold greThr(t=0.75)
+    "Switch the change between charging and discharging mode"
+    annotation (Placement(transformation(extent={{-10,30},{10,50}})));
+  Controls.OBC.CDL.Logical.Not not1
+    annotation (Placement(transformation(extent={{20,2},{40,22}})));
 equation
-  connect(fra.y, norQSta.fraCha) annotation (Line(points={{-19,0},{38,0}},
+  connect(fra.y, norQSta.fraCha) annotation (Line(points={{-19,0},{58,0}},
                       color={0,0,127}));
-  connect(mod.y, norQSta.u) annotation (Line(points={{-19,50},{20,50},{20,6},{38,
-          6}}, color={255,127,0}));
-  connect(lmtd.y, norQSta.lmtdSta) annotation (Line(points={{-19,-50},{20,-50},{
-          20,-6},{38,-6}}, color={0,0,127}));
+  connect(lmtd.y, norQSta.lmtdSta) annotation (Line(points={{-19,-50},{-14,-50},
+          {-14,-6},{58,-6}},
+                           color={0,0,127}));
+  connect(lmtd.y, greThr.u) annotation (Line(points={{-19,-50},{-14,-50},{-14,
+          40},{-12,40}}, color={0,0,127}));
+  connect(norQSta.canMelt, greThr.y) annotation (Line(points={{58,8},{50,8},{50,
+          40},{12,40}}, color={255,0,255}));
+  connect(greThr.y, not1.u) annotation (Line(points={{12,40},{16,40},{16,12},{
+          18,12}}, color={255,0,255}));
+  connect(not1.y, norQSta.canFreeze) annotation (Line(points={{42,12},{46,12},{
+          46,4},{58,4}}, color={255,0,255}));
   annotation (
     experiment(
       StartTime=0,

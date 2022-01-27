@@ -16,10 +16,10 @@ package BaseClasses "Base classes for validation package"
       "Nominal mass flow rate";
     parameter Modelica.Units.SI.PressureDifference dp_nominal=100000
       "Pressure difference";
-    parameter Data.Tank.Experiment per "Ice tank performance curves"
+    parameter Buildings.Fluid.Storage.Ice.Data.Tank.Experiment per "Ice tank performance curves"
       annotation (Placement(transformation(extent={{60,60},{80,80}})));
 
-    Buildings.Fluid.Storage.Ice.Tank iceTan(
+    Buildings.Fluid.Storage.Ice.ControlledTank iceTan(
       redeclare package Medium = Medium,
       m_flow_nominal=m_flow_nominal,
       dp_nominal=dp_nominal,

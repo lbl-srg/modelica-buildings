@@ -9,16 +9,21 @@ model QStarCharging "Example to calculate QStarCharging"
     amplitude=0.5,
     f=1/86400,
     offset=0.5) "Fraction of charge"
-    annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
+    annotation (Placement(transformation(extent={{-60,-6},{-40,14}})));
   Modelica.Blocks.Sources.Constant lmtd(k=1) "Log mean temperature difference"
     annotation (Placement(transformation(extent={{-60,-40},{-40,-20}})));
   Buildings.Fluid.Storage.Ice.BaseClasses.QStarCharging qSta(coeff=coeCha, dt=dt)
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
+  Controls.OBC.CDL.Logical.Sources.Constant active(k=true)
+    "Outputs true to activate the component"
+    annotation (Placement(transformation(extent={{-60,30},{-40,50}})));
 equation
-  connect(fra.y, qSta.fraCha) annotation (Line(points={{-39,30},{-26,30},{-26,4},
-          {-12,4}}, color={0,0,127}));
+  connect(fra.y, qSta.fraCha) annotation (Line(points={{-39,4},{-12,4}},
+                    color={0,0,127}));
   connect(lmtd.y, qSta.lmtdSta) annotation (Line(points={{-39,-30},{-26,-30},{-26,
           -4},{-12,-4}}, color={0,0,127}));
+  connect(active.y, qSta.active) annotation (Line(points={{-38,40},{-20,40},{
+          -20,8},{-12,8}}, color={255,0,255}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
     experiment(StartTime=0,
