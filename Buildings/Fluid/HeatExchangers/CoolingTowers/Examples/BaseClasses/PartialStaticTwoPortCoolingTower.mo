@@ -78,9 +78,10 @@ partial model PartialStaticTwoPortCoolingTower
     "Water temperature"
     annotation (Placement(transformation(extent={{-70,-160},{-50,-140}})));
 
-  Sensors.Temperature TEnt(redeclare package Medium = Medium_W)
+  Buildings.Fluid.Sensors.Temperature TEnt(redeclare package Medium = Medium_W)
     "Entering water temperature"
     annotation (Placement(transformation(extent={{-90,-72},{-70,-52}})));
+
 equation
   connect(weaDat.weaBus, weaBus)
    annotation (Line(points={{-80,50},{-60,50}},color={255,204,51}));
