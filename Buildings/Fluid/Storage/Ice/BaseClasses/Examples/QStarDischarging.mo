@@ -33,7 +33,10 @@ equation
           "modelica://Buildings/Resources/Scripts/Dymola/Fluid/Storage/Ice/BaseClasses/Examples/QStarDischarging.mos"
         "Simulate and Plot"),
     Documentation(info="<html>
-    <p>This example is to validate the <a href=modelica://IceStorage.BaseClasses.QStar>QStar</a>.</p>
+<p>
+This example is to validate the <a href=\"Buildings.Fluid.Storage.Ice.BaseClasses.QStarDischarging\">
+Buildings.Fluid.Storage.Ice.BaseClasses.QStarDischarging</a>.
+</p>
 </html>", revisions="<html>
   <ul>
   <li>

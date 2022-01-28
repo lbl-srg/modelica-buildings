@@ -46,8 +46,7 @@ equation
     experiment(
       StartTime=0,
       StopTime=7200,
-      Tolerance=1e-06,
-      __Dymola_Algorithm="Cvode"),
+      Tolerance=1e-06),
     __Dymola_Commands(file=
           "modelica://Buildings/Resources/Scripts/Dymola/Fluid/Storage/Ice/BaseClasses/Examples/StorageHeatTransferRate.mos"
         "Simulate and Plot"),
@@ -58,7 +57,12 @@ equation
   First implementation.
   </li>
   </ul>
-</html>", info="<html>
-<p>This example is to validate the <a href=IceStorage.BaseClasses.StorageHeatTransferRate>IceStorage.BaseClasses.StorageHeatTransferRate</a>.</p>
+  </html>",
+info="<html>
+<p>
+This example is to validate the
+<a href=\"Buildings.Fluid.Storage.Ice.BaseClasses.StorageHeatTransferRate\">
+Buildings.Fluid.Storage.Ice.BaseClasses.StorageHeatTransferRate</a>.
+</p>
 </html>"));
 end StorageHeatTransferRate;

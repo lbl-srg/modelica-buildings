@@ -132,7 +132,7 @@ and that computes the state of charge of the tank.
 </p>
 <p>
 See
-<a href=\\\"Buildings.Fluid.Storage.Ice.Tank\\\">
+<a href=\"Buildings.Fluid.Storage.Ice.Tank\">
 Buildings.Fluid.Storage.Ice.Tank</a>
 for the implemented equations.
 </p>

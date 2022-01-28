@@ -43,7 +43,8 @@ equation
 <p>
 This subroutine calculates the log mean temperature difference for the detailed ice storage unit
 using the function
-<a href=\"modelica://IceTank.Functions.calculateLMTDStar\">IceTank.Functions.calculateLMTDStar</a>.
+<a href=\"modelica://Buildings.Fluid.Storage.Ice.BaseClasses.calculateLMTDStar\">
+Buildings.Fluid.Storage.Ice.BaseClasses.calculateLMTDStar</a>.
 </p>
 </html>", revisions="<html>
 <ul>
