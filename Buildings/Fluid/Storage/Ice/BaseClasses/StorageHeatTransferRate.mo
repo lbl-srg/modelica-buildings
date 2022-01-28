@@ -13,7 +13,7 @@ model StorageHeatTransferRate
     "Normalized heat transfer rate: charging when postive, discharge when negative"
                                     annotation (Placement(transformation(extent={{100,-10},
             {120,10}}),           iconTransformation(extent={{100,-10},{120,10}})));
-  Modelica.Blocks.Interfaces.RealInput fraCha "Fraction of charge in ice tank"
+  Modelica.Blocks.Interfaces.RealInput SOC "State of charge"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
   Modelica.Blocks.Interfaces.RealInput lmtdSta "LMTD star"
     annotation (Placement(transformation(extent={{-140,-80},{-100,-40}})));
@@ -24,38 +24,48 @@ model StorageHeatTransferRate
   Modelica.Blocks.Interfaces.BooleanInput canMelt
     "Set to true if tank can be melted"
     annotation (Placement(transformation(extent={{-140,60},{-100,100}})));
+
 protected
-  Buildings.Fluid.Storage.Ice.BaseClasses.QStarCharging qStaCha(
+  Modelica.Blocks.Math.Add SOCCom(final k2=-1) "1 - SOC"
+    annotation (Placement(transformation(extent={{-40,20},{-20,40}})));
+  Modelica.Blocks.Sources.Constant const(k=1) "Constant output of 1"
+    annotation (Placement(transformation(extent={{-80,50},{-60,70}})));
+
+  Buildings.Fluid.Storage.Ice.BaseClasses.QStar qStaCha(
     final coeff=coeCha,
     final dt=dtCha)
     "q* for charing mode"
-    annotation (Placement(transformation(extent={{-40,20},{-20,40}})));
-  Buildings.Fluid.Storage.Ice.BaseClasses.QStarDischarging qStaDisCha(
+    annotation (Placement(transformation(extent={{20,-16},{40,4}})));
+  Buildings.Fluid.Storage.Ice.BaseClasses.QStar qStaDisCha(
     final coeff=coeDisCha,
     final dt=dtDisCha) "q* for discharging mode"
-    annotation (Placement(transformation(extent={{-40,60},{-20,80}})));
+    annotation (Placement(transformation(extent={{20,60},{40,80}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Add qSta "Effective normalized heat flow rate"
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
 equation
-  connect(qStaCha.lmtdSta, lmtdSta) annotation (Line(points={{-42,26},{-60,26},{
-          -60,-60},{-120,-60}}, color={0,0,127}));
-  connect(lmtdSta, qStaDisCha.lmtdSta) annotation (Line(points={{-120,-60},{-60,
-          -60},{-60,66},{-42,66}},   color={0,0,127}));
-  connect(fraCha, qStaDisCha.fraCha) annotation (Line(points={{-120,0},{-52,0},{
-          -52,74},{-42,74}},    color={0,0,127}));
-  connect(fraCha, qStaCha.fraCha) annotation (Line(points={{-120,0},{-52,0},{-52,
-          34},{-42,34}},   color={0,0,127}));
-  connect(qStaCha.active, canFreeze) annotation (Line(points={{-42,38},{-82,38},
-          {-82,40},{-120,40}}, color={255,0,255}));
-  connect(qStaDisCha.active, canMelt) annotation (Line(points={{-42,78},{-82,78},
-          {-82,80},{-120,80}}, color={255,0,255}));
+  connect(qStaCha.lmtdSta, lmtdSta) annotation (Line(points={{18,-12},{0,-12},{
+          0,-60},{-120,-60}},   color={0,0,127}));
+  connect(lmtdSta, qStaDisCha.lmtdSta) annotation (Line(points={{-120,-60},{0,
+          -60},{0,64},{18,64}},      color={0,0,127}));
+  connect(SOC, qStaCha.x) annotation (Line(points={{-120,0},{-60,0},{-60,-6},{
+          18,-6}}, color={0,0,127}));
+  connect(qStaCha.active, canFreeze) annotation (Line(points={{18,0},{-94,0},{
+          -94,40},{-120,40}},  color={255,0,255}));
+  connect(qStaDisCha.active, canMelt) annotation (Line(points={{18,76},{-96,76},
+          {-96,80},{-120,80}}, color={255,0,255}));
   connect(qNor, qSta.y)
     annotation (Line(points={{110,0},{82,0}}, color={0,0,127}));
-  connect(qStaCha.qNor, qSta.u2) annotation (Line(points={{-19,30},{34,30},{34,-6},
-          {58,-6}}, color={0,0,127}));
-  connect(qStaDisCha.qNor, qSta.u1) annotation (Line(points={{-19,70},{40,70},{40,
+  connect(qStaCha.qNor, qSta.u2) annotation (Line(points={{41,-6},{58,-6}},
+                    color={0,0,127}));
+  connect(qStaDisCha.qNor, qSta.u1) annotation (Line(points={{41,70},{52,70},{52,
           6},{58,6}}, color={0,0,127}));
+  connect(SOCCom.u2, SOC) annotation (Line(points={{-42,24},{-60,24},{-60,0},{-120,
+          0}}, color={0,0,127}));
+  connect(const.y, SOCCom.u1) annotation (Line(points={{-59,60},{-50,60},{-50,36},
+          {-42,36}}, color={0,0,127}));
+  connect(qStaDisCha.x, SOCCom.y) annotation (Line(points={{18,70},{-10,70},{
+          -10,30},{-19,30}}, color={0,0,127}));
   annotation (defaultComponentName = "norQSta",
   Icon(coordinateSystem(preserveAspectRatio=false), graphics={
                                 Rectangle(
@@ -80,7 +90,7 @@ using <a href=\"modelica://Buildings.Fluid.Storage.Ice.BaseClasses.QStarDischarg
 with coefficients for discharing mode.
 </li>
 <li>If <code>canFreeze = true</code>: the heat transfer rate is the charging rate calculated
-using <a href=\"modelica://Buildings.Fluid.Storage.Ice.BaseClasses.QStarCharging\">Buildings.Fluid.Storage.Ice.BaseClasses.QStarCharging</a>
+using <a href=\"modelica://Buildings.Fluid.Storage.Ice.BaseClasses.QStar\">Buildings.Fluid.Storage.Ice.BaseClasses.QStar</a>
 with coefficients for charging mode.
 </li>
 </ul>

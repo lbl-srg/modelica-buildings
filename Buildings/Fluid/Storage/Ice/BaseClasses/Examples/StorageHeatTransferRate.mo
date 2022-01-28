@@ -29,8 +29,8 @@ model StorageHeatTransferRate "Example to calculate qStar"
   Controls.OBC.CDL.Logical.Not not1
     annotation (Placement(transformation(extent={{20,2},{40,22}})));
 equation
-  connect(fra.y, norQSta.fraCha) annotation (Line(points={{-19,0},{58,0}},
-                      color={0,0,127}));
+  connect(fra.y, norQSta.SOC)
+    annotation (Line(points={{-19,0},{58,0}}, color={0,0,127}));
   connect(lmtd.y, norQSta.lmtdSta) annotation (Line(points={{-19,-50},{-14,-50},
           {-14,-6},{58,-6}},
                            color={0,0,127}));

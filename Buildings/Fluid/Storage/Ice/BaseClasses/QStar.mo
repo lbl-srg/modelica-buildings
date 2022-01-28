@@ -1,22 +1,20 @@
 within Buildings.Fluid.Storage.Ice.BaseClasses;
-model QStarCharging "Calculator for q* under charging mode"
+model QStar "Calculator for q* under charging mode"
 
   parameter Real coeff[6] "Coefficients for qstar curve";
   parameter Real dt "Time step of curve fitting data";
 
   Modelica.Blocks.Interfaces.BooleanInput active
     "Set to true if this tank mode can be active"
-    annotation (Placement(transformation(extent={{-140,60},{-100,100}})));
+    annotation (Placement(transformation(extent={{-140,40},{-100,80}})));
 
-  Modelica.Blocks.Interfaces.RealInput fraCha(unit="1")
-    "Fraction of charge in ice tank"
-    annotation (Placement(transformation(
-          extent={{-140,20},{-100,60}}), iconTransformation(extent={{-140,20},{-100,
-            60}})));
+  Modelica.Blocks.Interfaces.RealInput x(unit="1")
+    "SOC for charging, or 1-SOC for discharging"
+    annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
 
   Modelica.Blocks.Interfaces.RealInput lmtdSta(unit="1") "Normalized LMTD"
-   annotation (Placement(transformation(extent={{-140,-60},{-100,-20}}),
-     iconTransformation(extent={{-140,-60},{ -100,-20}})));
+   annotation (Placement(transformation(extent={{-140,-80},{-100,-40}}),
+     iconTransformation(extent={{-140,-80},{-100,-40}})));
 
   Modelica.Blocks.Interfaces.RealOutput qNor(final quantity="1")
     "Normalized heat transfer rate" annotation (Placement(transformation(extent=
@@ -24,11 +22,11 @@ model QStarCharging "Calculator for q* under charging mode"
 
 equation
   if active then
-    qNor = Buildings.Utilities.Math.Functions.smoothMax(
-      x1 = 0,
-      x2 = Buildings.Utilities.Math.Functions.polynomial(fraCha, coeff[1:3]) +
-           Buildings.Utilities.Math.Functions.polynomial(fraCha, coeff[4:6])*lmtdSta,
-           deltaX = 1E-7)/dt;
+    qNor =Buildings.Utilities.Math.Functions.smoothMax(
+      x1=0,
+      x2=Buildings.Utilities.Math.Functions.polynomial(x, coeff[1:3]) +
+        Buildings.Utilities.Math.Functions.polynomial(x, coeff[4:6])*lmtdSta,
+      deltaX=1E-7)/dt;
   else
     qNor = 0;
   end if;
@@ -42,7 +40,11 @@ equation
         fillPattern=FillPattern.Solid), Text(
         extent={{-148,150},{152,110}},
         textString="%name",
-        lineColor={0,0,255})}),
+        lineColor={0,0,255}),
+        Text(
+          extent={{-34,62},{56,-34}},
+          textColor={0,0,88},
+          textString="q*")}),
         Diagram(
         coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>
@@ -74,4 +76,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end QStarCharging;
+end QStar;

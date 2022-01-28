@@ -14,26 +14,24 @@ model IceMass "Mass of ice remaining in the tank"
     "Actual heat flow rate, taking into account 0 &le; SOC &le; 1"
     annotation (Placement(transformation(extent={{100,50},{120,70}}),
                        iconTransformation(extent={{100,50},{120,70}})));
-  Modelica.Blocks.Interfaces.RealOutput mIce "Mass of remaining ice"
-    annotation (Placement(transformation(extent={{100,-70},{120,-50}}),
-                       iconTransformation(extent={{100,-70},{120,-50}})));
-  Modelica.Blocks.Interfaces.RealOutput SOC "State of charge"
+  Modelica.Blocks.Interfaces.RealOutput SOC(
+    final min=0,
+    final max=1,
+    final unit="1")
+    "State of charge"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
   Boolean charged "True if tank is fully charged";
   Boolean discharged "True if tank is fully discharged";
   Boolean suspend "True if either fully charged or fully discharged";
 
 initial equation
-  mIce = mIce_max*SOC_start;
   charged = SOC_start >= 1;
   discharged = SOC_start <= 0;
 
 equation
-
   der(SOC) = if suspend then 0 else Q_flow/(Hf*mIce_max);
   suspend = charged or discharged;
   QEff_flow = if suspend then 0 else Q_flow;
-  mIce =SOC*mIce_max;
 
   when SOC < 0 then
     discharged = true;
@@ -58,20 +56,21 @@ equation
         fillPattern=FillPattern.Solid), Text(
         extent={{-148,150},{152,110}},
         textString="%name",
-        lineColor={0,0,255})}),                                  Diagram(
+        lineColor={0,0,255}),
+        Text(
+          extent={{-42,48},{48,-48}},
+          textColor={0,0,88},
+          textString="SOC")}),                                   Diagram(
         coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>
 <p>
-This block calculates the mass of ice in the storage <i>m<sub>ice</sub></i> using
+This block calculates the state of charge using
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
-dx/dt = Q&#775;<sub>eff</sub>/(H<sub>f</sub> &nbsp; m<sub>ice,max</sub>)
-</p>
-<p align=\"center\" style=\"font-style:italic;\">
-m<sub>ice</sub> = x &nbsp; m<sub>ice,max
+d SOC/dt = Q&#775;<sub>eff</sub>/(H<sub>f</sub> &nbsp; m<sub>ice,max</sub>)
 </p>
 <p>
-where <i>x</i> is the fraction of charge, or the state of charge,
+where <i>SOC</i> is the state of charge,
 <i>Q&#775;</i> is the heat transfer rate of the ice tank, positive for charging and negative for discharging,
 <i>Hf</i> is the fusion of heat of ice and
 <i>m<sub>ice,max</sub></i> is the nominal mass of ice in the storage tank.

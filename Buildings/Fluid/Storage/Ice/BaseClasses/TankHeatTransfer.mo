@@ -102,8 +102,8 @@ equation
           {-8,-78},{-2,-78}}, color={0,0,127}));
   connect(lmtdSta.lmtdSta, norQSta.lmtdSta) annotation (Line(points={{-27,70},{6,
           70}},                          color={0,0,127}));
-  connect(iceMas.SOC, norQSta.fraCha) annotation (Line(points={{53,-70},{80,-70},
-          {80,0},{0,0},{0,76},{6,76}}, color={0,0,127}));
+  connect(iceMas.SOC, norQSta.SOC) annotation (Line(points={{53,-70},{80,-70},{
+          80,0},{0,0},{0,76},{6,76}}, color={0,0,127}));
   connect(norQSta.canMelt, canMelt.y) annotation (Line(points={{6,84},{-20,84},{
           -20,40},{-28,40}},
                            color={255,0,255}));
