@@ -1,4 +1,4 @@
-within Buildings.Fluid.Storage.Ice;
+﻿within Buildings.Fluid.Storage.Ice;
 model Tank "Ice tank with performance based on performance curves"
   extends Buildings.Fluid.Interfaces.TwoPortHeatMassExchanger(
     final allowFlowReversal = false,
@@ -174,13 +174,13 @@ The governing equations are as follows:
 The mass of ice in the storage <i>m<sub>ice</sub></i> is calculated as
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
-dx/dt = Q&#775;/(H<sub>f</sub> &nbsp; m<sub>ice,max</sub>)
+d SOC/dt = Q&#775;/(H<sub>f</sub> &nbsp; m<sub>ice,max</sub>)
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
-m<sub>ice</sub> = x &nbsp; m<sub>ice,max</sub>
+m<sub>ice</sub> = SOC &nbsp; m<sub>ice,max</sub>
 </p>
 <p>
-where <i>x</i> is the fraction of charge, or the state of charge,
+where <i>SOC</i> is state of charge,
 <i>Q&#775;</i> is the heat transfer rate of the ice tank, positive for charging and negative for discharging,
 <i>Hf</i> is the fusion of heat of ice and
 <i>m<sub>ice,max</sub></i> is the nominal mass of ice in the storage tank.
@@ -224,7 +224,7 @@ Similarly, for discharging, the heat transfer rate <i>q*</i>
 between the chilled water and the ice in the thermal storage tank is
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
- q<sup>*</sup> &Delta;t = D<sub>1</sub> + D<sub>2</sub>(1-x) + D<sub>3</sub> (1-x)<sup>2</sup> + [D<sub>4</sub> + D<sub>5</sub>(1-x) + D<sub>6</sub> (1-x)<sup>2</sup>]&Delta;T<sub>lmtd</sub><sup>*</sup>
+- q<sup>*</sup> &Delta;t = D<sub>1</sub> + D<sub>2</sub>(1-x) + D<sub>3</sub> (1-x)<sup>2</sup> + [D<sub>4</sub> + D<sub>5</sub>(1-x) + D<sub>6</sub> (1-x)<sup>2</sup>]&Delta;T<sub>lmtd</sub><sup>*</sup>
 </p>
 <p>
 where <i>&Delta;t</i> is the time step of the data samples used for the curve fitting,
