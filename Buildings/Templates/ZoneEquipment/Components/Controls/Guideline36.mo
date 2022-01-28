@@ -134,24 +134,24 @@ block Guideline36
   parameter Real VDisSetMin_flow(
     final unit="m3/s",
     final quantity="VolumeFlowRate")=
-    dat.getReal(varName=id + ".control.Minimum airflow setpoint.value")
+    dat.getReal(varName=id + ".control.VDisSetMin_flow.value")
     "Minimum airflow setpoint"
     annotation (Dialog(tab="Airflow setpoint", group="Nominal conditions"));
   parameter Real VDisHeaSetMax_flow(
     final unit="m3/s",
     final quantity="VolumeFlowRate")=
-    dat.getReal(varName=id + ".control.Maximum heating airflow setpoint.value")
+    dat.getReal(varName=id + ".control.VDisHeaSetMax_flow.value")
     "Maximum heating airflow setpoint"
     annotation (Dialog(tab="Airflow setpoint", group="Nominal conditions"));
   parameter Real VDisConMin_flow(
     final unit="m3/s",
     final quantity="VolumeFlowRate")=
-    dat.getReal(varName=id + ".control.Minimum controllable airflow.value")
+    dat.getReal(varName=id + ".control.VDisConMin_flow.value")
     "Minimum controllable airflow"
     annotation (Dialog(tab="Airflow setpoint", group="Nominal conditions"));
 
   parameter Real CO2Set=
-    dat.getReal(varName=id + ".control.CO2 setpoint.value")
+    dat.getReal(varName=id + ".control.CO2Set.value")
     "CO2 setpoint in ppm"
     annotation (Dialog(tab="Airflow setpoint", group="Nominal conditions"));
 
@@ -159,7 +159,7 @@ block Guideline36
     final unit="K",
     displayUnit="K",
     final quantity="TemperatureDifference")=
-    dat.getReal(varName=id + ".control.Maximum discharge air temperature above heating setpoint.value")
+    dat.getReal(varName=id + ".control.dTDisZonSetMax.value")
     "Zone maximum discharge air temperature above heating setpoint"
     annotation (Dialog(tab="Damper and valve", group="Parameters"));
 
@@ -167,7 +167,7 @@ block Guideline36
     final quantity="ThermodynamicTemperature",
     final unit = "K",
     displayUnit = "degC")=
-    dat.getReal(varName=id + ".control.Minimum discharge air temperature.value")
+    dat.getReal(varName=id + ".control.TDisMin.value")
     "Lowest discharge air temperature"
     annotation (Dialog(tab="Damper and valve", group="Parameters"));
 
@@ -242,42 +242,42 @@ block Guideline36
     final unit="K",
     displayUnit="degC",
     final quantity="ThermodynamicTemperature")=
-    dat.getReal(varName=id + ".control.Maximum cooling setpoint during on.value")
+    dat.getReal(varName=id + ".control.TZonCooOnMax.value")
     "Maximum cooling setpoint during on"
     annotation(Dialog(group="Setpoints limits setting"));
   parameter Real TZonCooOnMin(
     final unit="K",
     displayUnit="degC",
     final quantity="ThermodynamicTemperature")=
-    dat.getReal(varName=id + ".control.Minimum cooling setpoint during on.value")
+    dat.getReal(varName=id + ".control.TZonCooOnMin.value")
     "Minimum cooling setpoint during on"
     annotation(Dialog(group="Setpoints limits setting"));
   parameter Real TZonHeaOnMax(
     final unit="K",
     displayUnit="degC",
     final quantity="ThermodynamicTemperature")=
-    dat.getReal(varName=id + ".control.Maximum heating setpoint during on.value")
+    dat.getReal(varName=id + ".control.TZonHeaOnMax.value")
     "Maximum heating setpoint during on"
     annotation(Dialog(group="Setpoints limits setting"));
   parameter Real TZonHeaOnMin(
     final unit="K",
     displayUnit="degC",
     final quantity="ThermodynamicTemperature")=
-    dat.getReal(varName=id + ".control.Minimum heating setpoint during on.value")
+    dat.getReal(varName=id + ".control.TZonHeaOnMin.value")
     "Minimum heating setpoint during on"
     annotation(Dialog(group="Setpoints limits setting"));
   parameter Real TZonCooSetWinOpe(
     final unit="K",
     displayUnit="degC",
     final quantity="ThermodynamicTemperature")=
-    dat.getReal(varName=id + ".control.Cooling setpoint when window is open.value")
+    dat.getReal(varName=id + ".control.TZonCooSetWinOpe.value")
     "Cooling setpoint when window is open"
     annotation(Dialog(group="Setpoints limits setting", enable=have_winSen));
   parameter Real TZonHeaSetWinOpe(
     final unit="K",
     displayUnit="degC",
     final quantity="ThermodynamicTemperature")=
-    dat.getReal(varName=id + ".control.Heating setpoint when window is open.value")
+    dat.getReal(varName=id + ".control.TZonHeaSetWinOpe.value")
     "Heating setpoint when window is open"
     annotation(Dialog(group="Setpoints limits setting", enable=have_winSen));
 
@@ -306,31 +306,31 @@ block Guideline36
 
   parameter Real VOutPerAre_flow(final unit = "m3/(s.m2)")=
       dat.getReal(varName=
-        id + ".control.Zone outdoor air volume flow rate per unit area.value")
+        id + ".control.VOutPerAre_flow.value")
     "Outdoor air rate per unit area"
     annotation(Dialog(group="Nominal condition"));
 
   parameter Real VOutPerPer_flow(final unit="m3/s")=
      dat.getReal(varName=
-      id + ".control.Zone outdoor air volume flow rate per person.value")
+      id + ".control.VOutPerPer_flow.value")
     "Outdoor air rate per person"
     annotation(Dialog(group="Nominal condition"));
 
   parameter Real AFlo(final unit="m2")=
-     dat.getReal(varName=id + ".control.Zone floor area.value")
+     dat.getReal(varName=id + ".control.AFlo.value")
     "Floor area of each zone"
     annotation(Dialog(group="Nominal condition"));
 
   parameter Real occDen(final unit = "1/m2")=
-     dat.getReal(varName=id + ".control.Zone default number of person per unit area.value")
+     dat.getReal(varName=id + ".control.occDen.value")
     "Default number of person per unit area";
 
   parameter Real zonDisEffHea(final unit = "1")=
-     dat.getReal(varName=id + ".control.Zone air distribution effectiveness during heating.value")
+     dat.getReal(varName=id + ".control.zonDisEffHea.value")
     "Zone air distribution effectiveness during heating";
 
   parameter Real zonDisEffCoo(final unit = "1")=
-     dat.getReal(varName=id + ".control.Zone air distribution effectiveness during cooling.value")
+     dat.getReal(varName=id + ".control.zonDisEffCoo.value")
     "Zone air distribution effectiveness during cooling";
 
   parameter Real desZonDisEff(final unit = "1") = zonDisEffCoo
@@ -338,7 +338,7 @@ block Guideline36
     annotation(Dialog(group="Nominal condition"));
 
   parameter Real minZonPriFlo(final unit="m3/s")=
-     dat.getReal(varName=id + ".control.Zone minimum expected primary air volume flow rate.value")
+     dat.getReal(varName=id + ".control.minZonPriFlo.value")
     "Minimum expected zone primary flow rate"
     annotation(Dialog(group="Nominal condition"));
 
@@ -349,25 +349,25 @@ block Guideline36
   parameter Real THeaSetOcc(
     final unit="K",
     displayUnit="degC")=
-      dat.getReal(varName=id + ".control.Occupied heating setpoint.value")
+      dat.getReal(varName=id + ".control.THeaSetOcc.value")
     "Occupied heating setpoint";
 
   parameter Real THeaSetUno(
     final unit="K",
     displayUnit="degC")=
-      dat.getReal(varName=id + ".control.Unoccupied heating setpoint.value")
+      dat.getReal(varName=id + ".control.THeaSetUno.value")
     "Unoccupied heating setpoint";
 
   parameter Real TCooSetOcc(
     final unit="K",
     displayUnit="degC")=
-      dat.getReal(varName=id + ".control.Occupied cooling setpoint.value")
+      dat.getReal(varName=id + ".control.TCooSetOcc.value")
     "Occupied cooling setpoint";
 
   parameter Real TCooSetUno(
     final unit="K",
     displayUnit="degC")=
-      dat.getReal(varName=id + ".control.Unoccupied cooling setpoint.value")
+      dat.getReal(varName=id + ".control.TCooSetUno.value")
     "Unoccupied cooling setpoint";
 
   /*
@@ -486,14 +486,14 @@ equation
   connect(ctr.yVal, bus.coiHea.y);
 
   connect(bus.VAirDis_flow, zonOutAirSet.VDis_flow);
-  connect(bus.TAirDis,ctr. TDis);
-  connect(bus.VAirDis_flow,ctr. VDis_flow);
-  connect(bus.damVAV.y_actual,ctr. yDam_actual);
+  connect(bus.TAirDis, ctr.TDis);
+  connect(bus.VAirDis_flow, ctr.VDis_flow);
+  connect(bus.damVAV.y_actual, ctr.yDam_actual);
 
-  connect(bus.ppmCO2,ctr. ppmCO2);
-  connect(bus.uWin,ctr. uWin);
-  connect(bus.TAirZon,ctr. TZon);
-  connect(FIXME.y,ctr. nOcc);
+  connect(bus.ppmCO2, ctr.ppmCO2);
+  connect(bus.uWin, ctr.uWin);
+  connect(bus.TAirZon, ctr.TZon);
+  connect(FIXME.y, ctr.nOcc);
 
   connect(bus.uOcc, TZonSet.uOccSen);
   connect(bus.uWin, TZonSet.uWinSta);
@@ -508,10 +508,10 @@ equation
   connect(FIXME3.y, zonSta.cooDowTim);
   connect(FIXME3.y, zonSta.warUpTim);
 
-  connect(bus.TAirSupSet,ctr. TSupAHU);
-  connect(bus.yOpeMod,ctr. uOpeMod);
-  connect(TZonSet.TZonCooSet,ctr. TZonCooSet);
-  connect(TZonSet.TZonHeaSet,ctr. TZonHeaSet);
+  connect(bus.TAirSupSet, ctr.TSupAHU);
+  connect(bus.yOpeMod, ctr.uOpeMod);
+  connect(TZonSet.TZonCooSet, ctr.TZonCooSet);
+  connect(TZonSet.TZonHeaSet, ctr.TZonHeaSet);
   connect(bus.yOpeMod, TZonSet.uOpeMod);
   connect(bus.TZonCooOccSet, TZonSet.TZonCooSetOcc);
   connect(bus.TZonCooUnoSet, TZonSet.TZonCooSetUno);

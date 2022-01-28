@@ -53,10 +53,10 @@ block DummyControlPointsVAVBox
   Controls.OBC.ASHRAE.G36_PR1.Generic.SetPoints.ZoneStatus sta
     "Evaluate zone temperature status"
     annotation (Placement(transformation(extent={{80,-60},{100,-32}})));
-  Controls.OBC.CDL.Continuous.Sources.Constant           cooDowTim(final k=1800)
+  Controls.OBC.CDL.Continuous.Sources.Constant cooDowTim(final k=1800)
                   "Cooling down time"
     annotation (Placement(transformation(extent={{42,-50},{62,-30}})));
-  Controls.OBC.CDL.Continuous.Sources.Constant           warUpTim(final k=1800)
+  Controls.OBC.CDL.Continuous.Sources.Constant warUpTim(final k=1800)
                   "Warm-up time"
     annotation (Placement(transformation(extent={{42,-90},{62,-70}})));
 equation

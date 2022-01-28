@@ -1,10 +1,10 @@
 os: Linux
-dist: bionic
+dist: focal
 
 language: python
 
 python:
-  - "3.6"
+  - "3.8"
 
 branches:
   only:
@@ -30,56 +30,71 @@ services:
 
 env:
   global:
-    - BUILDINGSPY_VERSION=BuildingsPy@dec3decca31fcd84aecbe3a83f8c060ada7f6156
-    - OMC_VERSION=ubuntu-2004-omc:1.19.0_dev-470-g5085945-1
+    - BUILDINGSPY_VERSION=BuildingsPy@f0351c9b6c4ec7bdbe93db484fbb1e727235fbdf
+    - OMC_VERSION=ubuntu-2004-omc:1.19.0_dev-539-gb76366f-1
     - OPTIMICA_VERSION=travis-ubuntu-1804-optimica:r26446
     - DYMOLA_VERSION=travis_ubuntu-2004_dymola:2022x-x86_64
-    - ENERGYPLUS_VERSION=EnergyPlus-9.5.0-de239b2e5f-Linux-Ubuntu18.04-x86_64
+    - ENERGYPLUS_VERSION=EnergyPlus-9.6.0-f420c06a69-Linux-Ubuntu20.04-x86_64
     - MODELICA_JSON_VERSION=6d950c3592fa021aa914ba4ff34a67cbb69962c6
     - MODELICA_JSON_HOME=${TRAVIS_BUILD_DIR}/modelica-json
 
   jobs:
     - TEST_ARG="make test-cdl-conformance"
-    - TEST_ARG="make test-energyplus-validations test-dymola-spawn-spaces test-omc-spawn-spaces" #target test-optimica-spawn-fmu removed as it requires a local installation of OCT
+    - TEST_ARG="make test-energyplus-validations test-dymola-spawn-spaces test-openmodelica-spawn-spaces" #target test-optimica-spawn-fmu removed as it requires a local installation of OCT
     - TEST_ARG="make test-bestest"
     - TEST_ARG="make test-dymola    PACKAGE=\"Buildings.{Air,Examples}\""
+    - TEST_ARG="make test-openmodelica PACKAGE=\"Buildings.{Air,Examples}\""
     - TEST_ARG="make test-optimica  PACKAGE=\"Buildings.{Air,Examples}\""
     - TEST_ARG="make test-dymola    PACKAGE=\"Buildings.ThermalZones.EnergyPlus\""
+    - TEST_ARG="make test-openmodelica PACKAGE=\"Buildings.ThermalZones.EnergyPlus\""
     - TEST_ARG="make test-optimica  PACKAGE=\"Buildings.ThermalZones.EnergyPlus\""
     - TEST_ARG="make test-dymola    PACKAGE=\"Buildings.ThermalZones.Detailed.{BaseClasses,Constructions,Examples}\""
+    - TEST_ARG="make test-openmodelica PACKAGE=\"Buildings.ThermalZones.Detailed.{BaseClasses,Constructions,Examples}\""
     - TEST_ARG="make test-optimica  PACKAGE=\"Buildings.ThermalZones.Detailed.{BaseClasses,Constructions,Examples}\""
     - TEST_ARG="make test-dymola    PACKAGE=\"Buildings.ThermalZones.Detailed.Validation.BESTEST\""
+    - TEST_ARG="make test-openmodelica PACKAGE=\"Buildings.ThermalZones.Detailed.Validation.BESTEST\""
     - TEST_ARG="make test-optimica  PACKAGE=\"Buildings.ThermalZones.Detailed.Validation.BESTEST\""
     - TEST_ARG="make test-dymola    PACKAGE=\"Buildings.ThermalZones.Detailed.Validation.{Initialization,LBNL_71T,TestConditionalConstructions}\""
+    - TEST_ARG="make test-openmodelica PACKAGE=\"Buildings.ThermalZones.Detailed.Validation.{Initialization,LBNL_71T,TestConditionalConstructions}\""
     - TEST_ARG="make test-optimica  PACKAGE=\"Buildings.ThermalZones.Detailed.Validation.{Initialization,LBNL_71T,TestConditionalConstructions}\""
     - TEST_ARG="make test-dymola    PACKAGE=\"Buildings.ThermalZones.Detailed.FLEXLAB\""
+    - TEST_ARG="make test-openmodelica PACKAGE=\"Buildings.ThermalZones.Detailed.FLEXLAB\""
     - TEST_ARG="make test-optimica  PACKAGE=\"Buildings.ThermalZones.Detailed.FLEXLAB\""
     - TEST_ARG="make test-dymola    PACKAGE=\"Buildings.ThermalZones.ReducedOrder\""
+    - TEST_ARG="make test-openmodelica PACKAGE=\"Buildings.ThermalZones.ReducedOrder\""
     - TEST_ARG="make test-optimica  PACKAGE=\"Buildings.ThermalZones.ReducedOrder\""
     - TEST_ARG="make test-dymola    PACKAGE=\"Buildings.{Applications,Experimental}\""
+    - TEST_ARG="make test-openmodelica PACKAGE=\"Buildings.{Applications,Experimental}\""
     - TEST_ARG="make test-optimica  PACKAGE=\"Buildings.{Applications,Experimental}\""
     - TEST_ARG="make test-dymola    PACKAGE=\"Buildings.Fluid.{Actuators,BaseClasses,Boilers,Chillers,CHPs,Delays}\""
+    - TEST_ARG="make test-openmodelica PACKAGE=\"Buildings.Fluid.{Actuators,BaseClasses,Boilers,Chillers,CHPs,Delays}\""
     - TEST_ARG="make test-optimica  PACKAGE=\"Buildings.Fluid.{Actuators,BaseClasses,Boilers,Chillers,CHPs,Delays}\""
     - TEST_ARG="make test-dymola    PACKAGE=\"Buildings.Fluid.{Examples,FMI,FixedResistances,Geothermal}\""
+    - TEST_ARG="make test-openmodelica PACKAGE=\"Buildings.Fluid.{Examples,FMI,FixedResistances,Geothermal}\""
     - TEST_ARG="make test-optimica  PACKAGE=\"Buildings.Fluid.{Examples,FMI,FixedResistances,Geothermal}\""
     - TEST_ARG="make test-dymola    PACKAGE=\"Buildings.Fluid.{HeatExchangers,HeatPumps,Interfaces}\""
+    - TEST_ARG="make test-openmodelica PACKAGE=\"Buildings.Fluid.{HeatExchangers,HeatPumps,Interfaces}\""
     - TEST_ARG="make test-optimica  PACKAGE=\"Buildings.Fluid.{HeatExchangers,HeatPumps,Interfaces}\""
     - TEST_ARG="make test-dymola    PACKAGE=\"Buildings.Fluid.{MassExchangers,MixingVolumes,Movers,Sensors,SolarCollectors,Sources,Storage,Utilities}\""
+    - TEST_ARG="make test-openmodelica PACKAGE=\"Buildings.Fluid.{MassExchangers,MixingVolumes,Movers,Sensors,SolarCollectors,Sources,Storage,Utilities}\""
     - TEST_ARG="make test-optimica  PACKAGE=\"Buildings.Fluid.{MassExchangers,MixingVolumes,Movers,Sensors,SolarCollectors,Sources,Storage,Utilities}\""
     - TEST_ARG="make test-dymola    PACKAGE=\"Buildings.Electrical\""
+    - TEST_ARG="make test-openmodelica PACKAGE=\"Buildings.Electrical\""
     - TEST_ARG="make test-optimica  PACKAGE=\"Buildings.Electrical\""
     - TEST_ARG="make test-dymola    PACKAGE=\"Buildings.{Airflow,BoundaryConditions,Controls}\""
+    - TEST_ARG="make test-openmodelica PACKAGE=\"Buildings.{Airflow,BoundaryConditions,Controls}\""
     - TEST_ARG="make test-optimica  PACKAGE=\"Buildings.{Airflow,BoundaryConditions,Controls}\""
     - TEST_ARG="make test-dymola    PACKAGE=\"Buildings.HeatTransfer\""
+    - TEST_ARG="make test-openmodelica PACKAGE=\"Buildings.HeatTransfer\""
     - TEST_ARG="make test-optimica  PACKAGE=\"Buildings.HeatTransfer\""
     - TEST_ARG="make test-dymola    PACKAGE=\"Buildings.{Obsolete.Controls,Occupants,Media}\""
+    - TEST_ARG="make test-openmodelica PACKAGE=\"Buildings.{Obsolete.Controls,Occupants,Media}\""
     - TEST_ARG="make test-optimica  PACKAGE=\"Buildings.{Obsolete.Controls,Occupants,Media}\""
     - TEST_ARG="make test-dymola    PACKAGE=\"Buildings.Utilities\""
+    - TEST_ARG="make test-openmodelica PACKAGE=\"Buildings.Utilities\""
     - TEST_ARG="make test-optimica  PACKAGE=\"Buildings.Utilities\""
-    - TEST_ARG="make test-omc"
 
 before_install:
-  - sudo apt-get -y install python3.6-minimal  # Provides /usr/bin/python3.6m
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
   - if [[ "$TEST_ARG" == *test-dymola* || "$TEST_ARG" == *test-bestest* || "$TEST_ARG" == *spawn-portability* ]]; then
        docker pull "$DOCKER_USERNAME"/${DYMOLA_VERSION};
@@ -90,7 +105,7 @@ before_install:
        cp Buildings/Resources/Scripts/travis/optimica/jm_ipython.sh $HOME/bin/jm_ipython.sh;
     fi;
   - if [[ "$TEST_ARG" == *test-energyplus* ]]; then
-      wget --no-verbose https://github.com/NREL/EnergyPlus/releases/download/v9.5.0/${ENERGYPLUS_VERSION}.tar.gz;
+      wget --no-verbose https://github.com/NREL/EnergyPlus/releases/download/v9.6.0/${ENERGYPLUS_VERSION}.tar.gz;
       tar xzf ${ENERGYPLUS_VERSION}.tar.gz;
       rm ${ENERGYPLUS_VERSION}.tar.gz;
       echo "Installed EnergyPlus in ${PWD}/${ENERGYPLUS_VERSION}";
@@ -106,7 +121,7 @@ before_install:
       cd -;
       echo "Installed modelica-json in ${MODELICA_JSON_HOME}";
     fi;
-  - if [[ "$TEST_ARG" == *test-omc* ]]; then
+  - if [[ "$TEST_ARG" == *test-openmodelica* ]]; then
        docker pull "$DOCKER_USERNAME"/${OMC_VERSION};
        cp Buildings/Resources/Scripts/travis/omc/omc $HOME/bin/omc;
     fi;
@@ -118,11 +133,11 @@ before_install:
 install:
   - git lfs pull
   - pip3 install --upgrade pip wheel
-  - pip3 install --only-binary=numpy,scipy,matplotlib numpy==1.13.3 scipy==0.19.1 matplotlib==2.1.0
+  - pip3 install --only-binary=numpy,scipy,matplotlib numpy==1.21.4 scipy==1.7.3 matplotlib==3.5.1
   - pip3 install git+https://github.com/lbl-srg/${BUILDINGSPY_VERSION}
   - if [[ "$TEST_ARG" == *test-energyplus* ]]; then
       export PATH=${PATH}:${TRAVIS_BUILD_DIR}/${ENERGYPLUS_VERSION};
-      pip3 install pandas==1.0.1;
+      pip3 install pandas==1.3.5;
     fi;
 
 # Execute tests

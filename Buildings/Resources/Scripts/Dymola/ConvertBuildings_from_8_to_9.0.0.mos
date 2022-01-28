@@ -5,6 +5,26 @@ clear
 
 convertClear();
 
+// Conversion for https://github.com/lbl-srg/modelica-buildings/issues/2839
+convertClass("Buildings.Controls.OBC.CDL.Interfaces.DayTypeInput",
+             "Buildings.Obsolete.Controls.OBC.CDL.Interfaces.DayTypeInput");
+convertClass("Buildings.Controls.OBC.CDL.Interfaces.DayTypeOutput",
+             "Buildings.Obsolete.Controls.OBC.CDL.Interfaces.DayTypeOutput");
+convertClass("Buildings.Controls.OBC.CDL.Discrete.DayType",
+             "Buildings.Obsolete.Controls.OBC.CDL.Discrete.DayType");
+convertClass("Buildings.Controls.OBC.CDL.Conversions.IsHoliday",
+             "Buildings.Obsolete.Controls.OBC.CDL.Conversions.IsHoliday");
+convertClass("Buildings.Controls.OBC.CDL.Conversions.IsWorkingDay",
+             "Buildings.Obsolete.Controls.OBC.CDL.Conversions.IsWorkingDay");
+convertClass("Buildings.Controls.OBC.CDL.Conversions.IsNonWorkingDay",
+             "Buildings.Obsolete.Controls.OBC.CDL.Conversions.IsNonWorkingDay");
+convertClass("Buildings.Controls.OBC.CDL.Discrete.Examples.DayType",
+             "Buildings.Obsolete.Controls.OBC.CDL.Discrete.Examples.DayType");
+convertClass("Buildings.Controls.OBC.CDL.Conversions.Validation.DayTypeCheck",
+             "Buildings.Obsolete.Controls.OBC.CDL.Conversions.Validation.DayTypeCheck");
+convertClass("Buildings.Controls.OBC.CDL.Types.Day",
+             "Buildings.Obsolete.Controls.OBC.CDL.Types.Day");
+
 // Conversion for https://github.com/lbl-srg/modelica-buildings/issues/2759
 convertModifiers("Buildings.ThermalZones.EnergyPlus.Building", {"showWeatherData"}, fill("",0), true);
 convertModifiers("Buildings.ThermalZones.EnergyPlus.Building", {"generatePortableFMU"}, fill("",0), true);

@@ -37,102 +37,93 @@
         },
         "control": {
             "description": "Control parameters",
-            "TSup": {
+            "temperature": {
                 "description": "Supply air temperature",
-                "TSupSetMin": {
-                    "description": "Lowest cooling set point",
+                "TAirSupSet_min": {
+                    "description": "Lowest supply air temperature setpoint",
                     "value": 285.15,
                     "unit": "K"
                 },
-                "TSupSetMax": {
-                    "description": "Highest cooling set point",
+                "TAirSupSet_max": {
+                    "description": "Highest supply air temperature setpoint",
                     "value": 291.15,
                     "unit": "K"
                 },
-                "TOutMin": {
-                    "description": "Lower value of OAT reset range",
+                "TAirOutRes_min": {
+                    "description": "Lowest OA temperature reset range",
                     "value": 289.15,
                     "unit": "K"
                 },
-                "TOutMax": {
-                    "description": "Higher value of OAT reset range",
+                "TAirOutRes_max": {
+                    "description": "Highest OA temperature reset range",
                     "value": 294.15,
                     "unit": "K"
                 }
             },
             "ventilation": {
                 "description": "Ventilation",
-                "VOutDes_flow": {
+                "VAirOutDes_flow": {
                     "description": "Design OA volume flow rate - FIXME #1913",
                     "value": 10,
                     "unit": "m3/s"
                 },
-                "VOutUnc_flow": {
+                "VAirOutUnc_flow": {
                     "description": "Uncorrected design OA volume flow rate - FIXME #1913",
                     "value": 10,
                     "unit": "m3/s"
                 },
-                "VPriSysMax_flow": {
-                    "description": "Maximum expected system primary airflow at design stage",
-                    "value": 10,
-                    "unit": "m3/s"
-                },
-                "peaSysPop": {
+                "nPeaSys_nominal": {
                     "description": "Peak system population",
                     "value": 1,
-                    "unit": "p"
+                    "unit": "1"
                 }
             },
             "airflow": {
-                "pMaxSet": {
-                    "description": "Duct Design Maximum Static Pressure",
+                "description": "Airflow and pressure control parameters",
+                "pAirSupSet_rel_max": {
+                    "description": "Maximum supply duct static pressure setpoint",
                     "value": 800,
                     "unit": "Pa"
                 },
-                "yFanSupMin": {
+                "ySpeFanSup_min": {
                     "description": "Minimum Fan Speed - Supply fan",
                     "value": 0.1,
                     "unit": "1"
                 },
-                "yFanRetMin": {
-                    "description": "Minimum Fan Speed - Return fan - FIXME #1913",
+                "ySpeFanRet_min": {
+                    "description": "Minimum Fan Speed - Relief/return fan - FIXME #1913",
                     "value": 0.1,
                     "unit": "1"
                 },
-                "yFanSupMax": {
-                    "description": "Maximum Fan Speed - Supply fan",
-                    "value": 1,
-                    "unit": "1"
-                },
-                "yFanRetMax": {
-                    "description": "Maximum Fan Speed - Return fan - FIXME #1913",
-                    "value": 1,
-                    "unit": "1"
-                },
-                "dpDamOutDesMin": {
-                    "description": "Design minimum outdoor air damper DP - FIXME #1913",
+                "dpDamOutMin_nominal": {
+                    "description": "Design minimum outdoor air damper differential pressure",
                     "value": 20,
                     "unit": "Pa"
                 },
-                "dpDamOutAbsMin": {
-                    "description": "Absolute minimum outdoor air damper DP - FIXME #1913",
+                "dpDamOutMinAbs": {
+                    "description": "Absolute minimum outdoor air damper differential pressure - FIXME #1913",
                     "value": 10,
                     "unit": "Pa"
                 },
-                "pAirRetMinSet_rel": {
-                    "description": "Return Fan DSP set point min - FIXME #1913",
+                "pAirRetSet_rel_min": {
+                    "description": "Return fan minimum discharge static pressure setpoint",
                     "value": 10,
                     "unit": "Pa"
                 },
-                "pAirRetMaxSet_rel": {
-                    "description": "Return Fan DSP set point max - FIXME #1913",
+                "pAirRetSet_rel_max": {
+                    "description": "Return fan maximum discharge static pressure setpoint",
                     "value": 100,
                     "unit": "Pa"
                 },
                 "dVFanRet_flow": {
-                    "description": "Return Fan Airflow Differential - FIXME #1913",
+                    "description": "Return Fan Airflow Differential",
                     "value": 50,
                     "unit": "m3/s"
+                },
+                "pBuiSet_rel": {
+                    "description": "Building static pressure set point",
+                    "value": 12,
+                    "unit": "Pa"
                 }
             },
             "economizer": {
@@ -357,98 +348,122 @@
             }
         },
         "control": {
-            "Minimum airflow setpoint": {
+            "VDisSetMin_flow": {
+                "description": "Minimum airflow setpoint",
                 "value": 0.15,
                 "unit": "m3/s"
             },
-            "Maximum heating airflow setpoint": {
+            "VDisHeaSetMax_flow": {
+                "description": "Maximum heating airflow setpoint",
                 "value": 0.3,
                 "unit": "m3/s"
             },
-            "Minimum controllable airflow": {
+            "VDisConMin_flow": {
+                "description": "Minimum controllable airflow",
                 "value": 0.1,
                 "unit": "m3/s"
             },
-            "Occupied heating setpoint": {
+            "THeaSetOcc": {
+                "description": "Occupied heating setpoint",
                 "value": 293.15,
                 "unit": "K"
             },
-            "Unoccupied heating setpoint": {
+            "THeaSetUno": {
+                "description": "Unoccupied heating setpoint",
                 "value": 285.15,
                 "unit": "K"
             },
-            "Occupied cooling setpoint": {
+            "TCooSetOcc": {
+                "description": "Occupied cooling setpoint",
                 "value": 297.15,
                 "unit": "K"
             },
-            "Unoccupied cooling setpoint": {
+            "TCooSetUno": {
+                "description": "Unoccupied cooling setpoint",
                 "value": 303.15,
                 "unit": "K"
             },
-            "Maximum cooling setpoint during on": {
+            "TZonCooOnMax": {
+                "description": "Maximum cooling setpoint during on",
                 "value": 300.15,
                 "unit": "K"
             },
-            "Minimum cooling setpoint during on": {
+            "TZonCooOnMin": {
+                "description": "Minimum cooling setpoint during on",
                 "value": 295.15,
                 "unit": "K"
             },
-            "Maximum heating setpoint during on": {
+            "TZonHeaOnMax": {
+                "description": "Maximum heating setpoint during on",
                 "value": 295.15,
                 "unit": "K"
             },
-            "Minimum heating setpoint during on": {
+            "TZonHeaOnMin": {
+                "description": "Minimum heating setpoint during on",
                 "value": 291.15,
                 "unit": "K"
             },
-            "Cooling setpoint when window is open": {
+            "TZonCooSetWinOpe": {
+                "description": "Cooling setpoint when window is open",
                 "value": 322.15,
                 "unit": "K"
             },
-            "Heating setpoint when window is open": {
+            "TZonHeaSetWinOpe": {
+                "description": "Heating setpoint when window is open",
                 "value": 277.15,
                 "unit": "K"
             },
-            "Maximum discharge air temperature above heating setpoint": {
+            "dTDisZonSetMax": {
+                "description": "Maximum discharge air temperature above heating setpoint",
                 "value": 11,
                 "unit": "K"
             },
-            "Minimum discharge air temperature": {
+            "TDisMin": {
+                "description": "Minimum discharge air temperature",
                 "value": 283.15,
                 "unit": "K"
             },
-            "CO2 setpoint": {
+            "CO2Set": {
+                "description": "CO2 setpoint",
                 "value": 0.1,
                 "unit": "ppm"
             },
-            "Perimeter zone with reheat": {
+            "isPerZonWitReh": {
+                "description": "Perimeter zone with reheat",
                 "value": true
             },
-            "Zone floor area": {
+            "AFlo": {
+                "description": "Zone floor area",
                 "value": 20,
                 "unit": "m2"
             },
-            "Zone outdoor air volume flow rate per unit area": {
+            "VOutPerAre_flow": {
+                "description": "Zone outdoor air volume flow rate per unit area",
                 "value": 3E-4,
                 "unit": "m3/(s.m2)"
             },
-            "Zone outdoor air volume flow rate per person": {
+            "VOutPerPer_flow": {
+                "description": "Zone outdoor air volume flow rate per person",
                 "value": 2.5E-3,
                 "unit": "m3/s"
             },
-            "Zone default number of person per unit area": {
+            "occDen": {
+                "description": "Zone default number of person per unit area",
                 "value": 5E-2,
                 "unit": "1/m2"
             },
-            "Zone air distribution effectiveness during heating": {
+            "zonDisEffHea": {
+                "description": "Zone air distribution effectiveness during heating",
                 "value": 0.8,
                 "unit": "1"
             },
-            "Zone air distribution effectiveness during cooling": {
+            "zonDisEffCoo": {
+                "description": "Zone air distribution effectiveness during cooling",
                 "value": 1.0,
                 "unit": "1"
             },
-            "Zone minimum expected primary air volume flow rate": {
+            "minZonPriFlo": {
+                "description": "Zone minimum expected primary air volume flow rate",
                 "value": 1.0,
                 "unit": "m3/s"
             }

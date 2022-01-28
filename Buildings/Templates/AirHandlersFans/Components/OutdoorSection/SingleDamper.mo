@@ -39,7 +39,7 @@ equation
   connect(damOut.bus, bus.damOut);
   connect(TAirOut.y, bus.TAirOut);
   connect(hAirOut.y, bus.hAirOut);
-  connect(VAirOut_flow.y, bus.VOut_flow);
+  connect(VAirOut_flow.y, bus.VAirOut_flow);
   /* Control point connection - end */
   connect(TAirOut.port_b, VAirOut_flow.port_a)
     annotation (Line(points={{70,0},{80,0}}, color={0,127,255}));
