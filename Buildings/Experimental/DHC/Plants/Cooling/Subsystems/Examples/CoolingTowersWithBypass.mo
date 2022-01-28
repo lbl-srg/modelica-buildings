@@ -11,7 +11,8 @@ model CoolingTowersWithBypass
       dT_nominal=5.56,
       PFan_nominal=4800,
       TMin=TMin,
-      controllerType=Modelica.Blocks.Types.SimpleController.PI),
+      controllerType=Modelica.Blocks.Types.SimpleController.PI,
+      final allowFlowReversal=false),
     weaDat(final computeWetBulbTemperature=true));
   parameter Modelica.Units.SI.Temperature TMin=273.15 + 10
     "Minimum allowed water temperature entering chiller";
@@ -22,11 +23,13 @@ equation
      Text(string="%first",index=-1,extent={{-6,3},{-6,3}},
       horizontalAlignment=TextAlignment.Right));
   connect(onOffCon.y, tow.on[1])
-   annotation (Line(points={{1,-190},{10,-190},{10,-236},{-96,-236},{-96,-34},
-    {10,-34},{10,-46},{20,-46}}, color={255,0,255}));
+   annotation (Line(points={{2,-190},{10,-190},{10,-236},{-96,-236},{-96,-34},{10,
+          -34},{10,-46},{20,-46}},
+                                 color={255,0,255}));
   connect(onOffCon.y, tow.on[2])
-   annotation (Line(points={{1,-190},{10,-190},{10,-236},{-96,-236},{-96,-34},
-    {10,-34},{10,-46},{20,-46}}, color={255,0,255}));
+   annotation (Line(points={{2,-190},{10,-190},{10,-236},{-96,-236},{-96,-34},{10,
+          -34},{10,-46},{20,-46}},
+                                 color={255,0,255}));
   annotation (
     Icon(
       coordinateSystem(

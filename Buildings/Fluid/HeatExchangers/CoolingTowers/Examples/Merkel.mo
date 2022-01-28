@@ -7,7 +7,8 @@ model Merkel "Test model for cooling tower using the Merkel theory"
       TAirInWB_nominal=273.15 + 25.55,
       TWatIn_nominal=273.15 + 35,
       TWatOut_nominal=273.15 + 35 - 5.56,
-      PFan_nominal=4800),
+      PFan_nominal=4800,
+      final allowFlowReversal=false),
     weaDat(final computeWetBulbTemperature=true));
 
   parameter Real ratWatAir_nominal = 0.625
