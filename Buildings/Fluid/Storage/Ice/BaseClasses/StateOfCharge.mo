@@ -1,11 +1,10 @@
 within Buildings.Fluid.Storage.Ice.BaseClasses;
-model IceMass "Mass of ice remaining in the tank"
+model StateOfCharge "Mass of ice remaining in the tank"
 
-  parameter Modelica.Units.SI.Mass mIce_max;
   parameter Real SOC_start(min=0, max=1, final unit="1")
    "Start value for state of charge";
 
-  parameter Modelica.Units.SI.SpecificEnergy Hf=333550 "Fusion of heat of ice";
+  parameter Modelica.Units.SI.Energy E_nominal "Storage capacity";
 
   Modelica.Blocks.Interfaces.RealInput Q_flow(final unit="W")
     "Heat transfer rate: positive for charging, negative for discharging"
@@ -25,11 +24,12 @@ model IceMass "Mass of ice remaining in the tank"
   Boolean suspend "True if either fully charged or fully discharged";
 
 initial equation
+  SOC = SOC_start;
   charged = SOC_start >= 1;
   discharged = SOC_start <= 0;
 
 equation
-  der(SOC) = if suspend then 0 else Q_flow/(Hf*mIce_max);
+  der(SOC) = if suspend then 0 else Q_flow/E_nominal;
   suspend = charged or discharged;
   QEff_flow = if suspend then 0 else Q_flow;
 
@@ -47,7 +47,7 @@ equation
     discharged = pre(discharged);
   end when;
 
-  annotation (defaultComponentName="iceMas",
+  annotation (defaultComponentName="soc",
   Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Rectangle(
         extent={{-100,-100},{100,100}},
@@ -92,4 +92,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end IceMass;
+end StateOfCharge;

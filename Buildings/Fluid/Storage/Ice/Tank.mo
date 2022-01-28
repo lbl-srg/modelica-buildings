@@ -1,4 +1,4 @@
-﻿within Buildings.Fluid.Storage.Ice;
+within Buildings.Fluid.Storage.Ice;
 model Tank "Ice tank with performance based on performance curves"
   extends Buildings.Fluid.Interfaces.TwoPortHeatMassExchanger(
     final allowFlowReversal = false,
@@ -55,7 +55,7 @@ model Tank "Ice tank with performance based on performance curves"
     "Heat flow rate, positive during charging, negative when melting the ice"
     annotation (Placement(transformation(extent={{100,-50},{120,-30}})));
 
-  BaseClasses.TankHeatTransfer tanHeaTra(
+  BaseClasses.Tank tanHeaTra(
     final SOC_start=SOC_start,
     final per=per,
     final cp=cp)

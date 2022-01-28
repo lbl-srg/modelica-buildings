@@ -2,5 +2,5 @@ compareVars :=
   {
     "norQSta.qNor",
     "norQSta.canMelt",
-    "norQSta.fraCha"
+    "norQSta.SOC"
   };

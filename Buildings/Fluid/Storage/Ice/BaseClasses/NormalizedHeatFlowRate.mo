@@ -1,5 +1,5 @@
 within Buildings.Fluid.Storage.Ice.BaseClasses;
-model StorageHeatTransferRate
+model NormalizedHeatFlowRate
   "Charging or discharging rate based on the curves"
   parameter Real coeCha[6]
     "Coefficients for charging curve";
@@ -41,7 +41,9 @@ protected
     final dt=dtDisCha) "q* for discharging mode"
     annotation (Placement(transformation(extent={{20,60},{40,80}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Add qSta "Effective normalized heat flow rate"
+  Buildings.Controls.OBC.CDL.Continuous.Add qSta(
+    final k1=-1)
+    "Effective normalized heat flow rate"
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
 equation
   connect(qStaCha.lmtdSta, lmtdSta) annotation (Line(points={{18,-12},{0,-12},{
@@ -50,8 +52,8 @@ equation
           -60},{0,64},{18,64}},      color={0,0,127}));
   connect(SOC, qStaCha.x) annotation (Line(points={{-120,0},{-60,0},{-60,-6},{
           18,-6}}, color={0,0,127}));
-  connect(qStaCha.active, canFreeze) annotation (Line(points={{18,0},{-94,0},{
-          -94,40},{-120,40}},  color={255,0,255}));
+  connect(qStaCha.active, canFreeze) annotation (Line(points={{18,0},{-56,0},{
+          -56,40},{-120,40}},  color={255,0,255}));
   connect(qStaDisCha.active, canMelt) annotation (Line(points={{18,76},{-96,76},
           {-96,80},{-120,80}}, color={255,0,255}));
   connect(qNor, qSta.y)
@@ -75,7 +77,11 @@ equation
         fillPattern=FillPattern.Solid), Text(
         extent={{-148,150},{152,110}},
         textString="%name",
-        lineColor={0,0,255})}),
+        lineColor={0,0,255}),
+        Text(
+          extent={{-32,62},{58,-34}},
+          textColor={0,0,88},
+          textString="q*")}),
      Diagram(
         coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>
@@ -106,4 +112,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end StorageHeatTransferRate;
+end NormalizedHeatFlowRate;

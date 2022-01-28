@@ -1,7 +1,7 @@
-IceMass
 LMTDStar
+NormalizedHeatFlowRate
 QStar
-StorageHeatTransferRate
-TankHeatTransfer
+StateOfCharge
+Tank
 calculateLMTDStar
 Examples

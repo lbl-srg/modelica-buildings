@@ -1,5 +1,5 @@
 within Buildings.Fluid.Storage.Ice.BaseClasses.Examples;
-model StorageHeatTransferRate "Example to calculate qStar"
+model NormalizedHeatFlowRate "Example to calculate qStar"
   extends Modelica.Icons.Example;
   parameter Real coeCha[6] = {0, 0.09, -0.15, 0.612, -0.324, -0.216} "Coefficient for charging curve";
   parameter Real coeDisCha[6] = {0, 0.09, -0.15, 0.612, -0.324, -0.216} "Coefficient for discharging curve";
@@ -10,7 +10,7 @@ model StorageHeatTransferRate "Example to calculate qStar"
     offset=0.5,
     f=1/7200) "Fraction of charge"
     annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
-  Buildings.Fluid.Storage.Ice.BaseClasses.StorageHeatTransferRate norQSta(
+  Buildings.Fluid.Storage.Ice.BaseClasses.NormalizedHeatFlowRate norQSta(
     coeCha=coeCha,
     dtCha=dt,
     coeDisCha=coeDisCha,
@@ -48,7 +48,7 @@ equation
       StopTime=7200,
       Tolerance=1e-06),
     __Dymola_Commands(file=
-          "modelica://Buildings/Resources/Scripts/Dymola/Fluid/Storage/Ice/BaseClasses/Examples/StorageHeatTransferRate.mos"
+          "modelica://Buildings/Resources/Scripts/Dymola/Fluid/Storage/Ice/BaseClasses/Examples/NormalizedHeatFlowRate.mos"
         "Simulate and Plot"),
     Documentation(revisions="<html>
   <ul>
@@ -61,8 +61,8 @@ equation
 info="<html>
 <p>
 This example is to validate the
-<a href=\"Buildings.Fluid.Storage.Ice.BaseClasses.StorageHeatTransferRate\">
-Buildings.Fluid.Storage.Ice.BaseClasses.StorageHeatTransferRate</a>.
+<a href=\"Buildings.Fluid.Storage.Ice.BaseClasses.NormalizedHeatFlowRate\">
+Buildings.Fluid.Storage.Ice.BaseClasses.NormalizedHeatFlowRate</a>.
 </p>
 </html>"));
-end StorageHeatTransferRate;
+end NormalizedHeatFlowRate;

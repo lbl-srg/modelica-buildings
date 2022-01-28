@@ -1,6 +1,0 @@
-compareVars :=
-  {
-    "iceMas.Q_flow",
-    "iceMas.SOC",
-    "iceMas.mIce"
-  };

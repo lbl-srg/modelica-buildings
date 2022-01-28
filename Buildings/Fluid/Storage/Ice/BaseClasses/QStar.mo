@@ -40,11 +40,7 @@ equation
         fillPattern=FillPattern.Solid), Text(
         extent={{-148,150},{152,110}},
         textString="%name",
-        lineColor={0,0,255}),
-        Text(
-          extent={{-34,62},{56,-34}},
-          textColor={0,0,88},
-          textString="q*")}),
+        lineColor={0,0,255})}),
         Diagram(
         coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>
