@@ -121,7 +121,7 @@
                     "unit": "m3/s"
                 },
                 "pAirBuiSet_rel": {
-                    "description": "Building static pressure set point",
+                    "description": "Building static pressure setpoint",
                     "value": 12,
                     "unit": "Pa"
                 }

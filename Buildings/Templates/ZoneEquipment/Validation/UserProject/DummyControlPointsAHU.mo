@@ -29,7 +29,7 @@ block DummyControlPointsAHU
     annotation (Placement(transformation(extent={{-140,-30},{-120,-10}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TAirSupSet(final k=15 +
-        273.15) "AHU supply temperature set point"
+        273.15) "AHU supply temperature setpoint"
     annotation (Placement(transformation(extent={{-140,-70},{-120,-50}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant yOpeMod(final k=1)
     "Group operating mode"

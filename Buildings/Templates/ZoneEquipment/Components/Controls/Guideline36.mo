@@ -445,7 +445,7 @@ block Guideline36
       final decTSetDem_1=decTSetDem_1,
       final decTSetDem_2=decTSetDem_2,
       final decTSetDem_3=decTSetDem_3)
-    "Compute zone temperature set points"
+    "Compute zone temperature setpoints"
     annotation (Placement(transformation(extent={{-60,-14},{-40,14}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant FIXME(k=1)
@@ -464,7 +464,7 @@ block Guideline36
     final desZonDisEff=desZonDisEff,
     final desZonPop=desZonPop,
     final minZonPriFlo=minZonPriFlo)
-    "Zone level calculation of the minimum outdoor airflow set point"
+    "Zone level calculation of the minimum outdoor airflow setpoint"
     annotation (Placement(transformation(extent={{120,20},{140,40}})));
   Buildings.Controls.OBC.ASHRAE.G36_PR1.Generic.SetPoints.ZoneStatus zonSta(
     final THeaSetOcc=THeaSetOcc,

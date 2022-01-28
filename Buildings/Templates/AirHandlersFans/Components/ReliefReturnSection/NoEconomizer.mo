@@ -52,20 +52,20 @@ equation
 5.16.10.1 Return fan operates whenever the associated
 supply fan is proven ON and shall be off otherwise.
 5.16.10.2 Return fans shall be controlled to maintain returnfan
-discharge static pressure at set point (Section 5.16.10.5).
+discharge static pressure at setpoint (Section 5.16.10.5).
 5.16.10.3 Exhaust dampers shall only be enabled when
 the associated supply and return fans are proven ON and the
 minimum outdoor air damper is open. The exhaust dampers
 shall be closed when disabled.
 5.16.10.5 When exhaust dampers are enabled, a control
 loop shall modulate exhaust dampers in sequence with the
-return-fan static pressure set point, as shown in Figure
-5.16.10.5, to maintain the building pressure at a set point of
+return-fan static pressure setpoint, as shown in Figure
+5.16.10.5, to maintain the building pressure at a setpoint of
 12 Pa (0.05 in. of water).
 a. From 0% to 50%, the building pressure control loop shall
 modulate the exhaust dampers from 0% to 100% open.
 b. From 51% to 100%, the building pressure control loop
-shall reset the return-fan discharge static pressure set point
+shall reset the return-fan discharge static pressure setpoint
 from RFDSPmin at 50% loop output to RFDSPmax at
 100% of loop output. See Section 3.2.1.4 for RFDSPmin
 and RFDSPmax.

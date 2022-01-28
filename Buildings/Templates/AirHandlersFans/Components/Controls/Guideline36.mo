@@ -153,7 +153,7 @@ block Guideline36 "Guideline 36 VAV single duct controller"
 
   parameter Modelica.Units.SI.PressureDifference pBuiSet_rel(start=12)=
     dat.getReal(varName=id + ".control.airflow.pBuiSet_rel.value")
-    "Building static pressure set point"
+    "Building static pressure setpoint"
     annotation (Dialog(tab="Pressure control",
       enable=buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefDamper
              or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefFan
