@@ -61,6 +61,11 @@ The cooling tower outlet temperature is controlled to track a fixed temperature.
 </html>", revisions="<html>
 <ul>
 <li>
+January 28, 2022, by Hongxiang Fu:<br/>
+Disallowed flow reversal. This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2866\">#2866</a>.
+</li>
+<li>
 July 12, 2011, by Michael Wetter:<br/>
 First implementation.
 </li>

@@ -50,6 +50,11 @@ equation
       revisions="<html>
 <ul>
 <li>
+January 28, 2022, by Hongxiang Fu:<br/>
+Disallowed flow reversal. This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2866\">#2866</a>.
+</li>
+<li>
 August 6, 2020 by Jing Wang:<br/>
 First implementation.
 </li>
