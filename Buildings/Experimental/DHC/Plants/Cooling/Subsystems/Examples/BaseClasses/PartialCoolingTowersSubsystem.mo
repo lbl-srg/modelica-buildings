@@ -74,6 +74,9 @@ partial model PartialCoolingTowersSubsystem
     "Water temperature"
     annotation (Placement(transformation(extent={{-70,-160},{-50,-140}})));
 
+  Fluid.Sensors.Temperature TEnt(redeclare package Medium = Medium_W)
+    "Entering water temperature"
+    annotation (Placement(transformation(extent={{-90,-70},{-70,-50}})));
 equation
   connect(weaDat.weaBus, weaBus)
    annotation (Line(points={{-80,50},{-60,50}},color={255,204,51}));
@@ -108,11 +111,12 @@ equation
    annotation (Line(points={{42,-190},{70,-190},{70,-240},{-100,-240},{-100,-30},
           {-30,-30},{-30,-38}},      color={0,0,127}));
   connect(exp.ports[1], vol.ports[3])
-   annotation (Line(points={{80,-120},{32.6667,-120}},color={0,127,255}));
+   annotation (Line(points={{80,-120},{31.3333,-120}},color={0,127,255}));
 
+  connect(TEnt.port, pum.port_a) annotation (Line(points={{-80,-70},{-80,-76},{-60,
+          -76},{-60,-50},{-40,-50}}, color={0,127,255}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-140,
-            -260},{140,100}}),
-                      graphics), Documentation(info="<html>
+            -260},{140,100}})),  Documentation(info="<html>
 <p>
 Partial model to test cooling tower models that are connected to a weather data reader
 and a simple fluid loop to which a constant amount of heat is added.
@@ -126,8 +130,8 @@ revisions="<html>
 May 28, 2021, by Chengnan Shi:<br/>
 Duplicate <a href=\"modelica://Buildings.Fluid.HeatExchangers.CoolingTowers.Examples.BaseClasses.PartialStaticTwoPortCoolingTower\">
 Buildings.Fluid.HeatExchangers.CoolingTowers.Examples.BaseClasses.PartialStaticTwoPortCoolingTower</a><br/>
-Changed replaceable cooling tower model to <code>PartialTwoPortInterface</code> 
-for reusability in 
+Changed replaceable cooling tower model to <code>PartialTwoPortInterface</code>
+for reusability in
 <a href=\"modelica://Buildings.Experimental.DHC.Plants.Cooling.Subsystems.Examples\">
 Buildings.Experimental.DHC.Plants.Cooling.Subsystems.Examples</a>.
 </li>
