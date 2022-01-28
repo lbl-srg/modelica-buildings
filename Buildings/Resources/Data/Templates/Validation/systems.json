@@ -120,7 +120,7 @@
                     "value": 50,
                     "unit": "m3/s"
                 },
-                "pBuiSet_rel": {
+                "pAirBuiSet_rel": {
                     "description": "Building static pressure set point",
                     "value": 12,
                     "unit": "Pa"
