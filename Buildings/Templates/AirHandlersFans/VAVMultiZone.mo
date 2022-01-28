@@ -46,7 +46,7 @@ model VAVMultiZone "Multiple-Zone VAV"
     secOutRel.typSecRel==Buildings.Templates.AirHandlersFans.Types.ReliefReturnSection.ReliefDamper or
     secOutRel.typSecRel==Buildings.Templates.AirHandlersFans.Types.ReliefReturnSection.ReliefFan or
     secOutRel.typSecRel==Buildings.Templates.AirHandlersFans.Types.ReliefReturnSection.ReturnFan and
-      secOutRel.typCtrFanRet==Buildings.Templates.AirHandlersFans.Types.ControlFanReturn.Pressure
+    secOutRel.typCtrFanRet==Buildings.Templates.AirHandlersFans.Types.ControlFanReturn.Pressure
     "Set to true if building static pressure sensor is used"
     annotation (Evaluate=true, Dialog(group="Configuration"));
 
@@ -133,8 +133,8 @@ model VAVMultiZone "Multiple-Zone VAV"
       redeclare final package Medium =  MediumAir,
       final m_flow_nominal=mAirSup_flow_nominal,
       final dp_nominal=dpFanSup_nominal,
-      final have_senFlo=ctr.typCtrFanSup==
-        Buildings.Templates.AirHandlersFans.Types.ControlFanSupply.Airflow)
+      final have_senFlo=ctr.typCtrFanRet==
+        Buildings.Templates.AirHandlersFans.Types.ControlFanReturn.AirflowMeasured)
     "Supply fan - Blow through"
     annotation (
       choices(
@@ -173,8 +173,8 @@ model VAVMultiZone "Multiple-Zone VAV"
       redeclare final package Medium = MediumAir,
       final m_flow_nominal=mAirSup_flow_nominal,
       final dp_nominal=dpFanSup_nominal,
-      final have_senFlo=ctr.typCtrFanSup==
-        Buildings.Templates.AirHandlersFans.Types.ControlFanSupply.Airflow)
+      final have_senFlo=ctr.typCtrFanRet==
+        Buildings.Templates.AirHandlersFans.Types.ControlFanReturn.AirflowMeasured)
     "Supply fan - Draw through"
     annotation (
       choices(

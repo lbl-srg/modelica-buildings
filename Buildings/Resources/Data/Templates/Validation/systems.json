@@ -37,102 +37,93 @@
         },
         "control": {
             "description": "Control parameters",
-            "TSup": {
+            "temperature": {
                 "description": "Supply air temperature",
-                "TSupSetMin": {
-                    "description": "Lowest cooling set point",
+                "TAirSupSet_min": {
+                    "description": "Lowest supply air temperature setpoint",
                     "value": 285.15,
                     "unit": "K"
                 },
-                "TSupSetMax": {
-                    "description": "Highest cooling set point",
+                "TAirSupSet_max": {
+                    "description": "Highest supply air temperature setpoint",
                     "value": 291.15,
                     "unit": "K"
                 },
-                "TOutMin": {
-                    "description": "Lower value of OAT reset range",
+                "TAirOutRes_min": {
+                    "description": "Lowest OA temperature reset range",
                     "value": 289.15,
                     "unit": "K"
                 },
-                "TOutMax": {
-                    "description": "Higher value of OAT reset range",
+                "TAirOutRes_max": {
+                    "description": "Highest OA temperature reset range",
                     "value": 294.15,
                     "unit": "K"
                 }
             },
             "ventilation": {
                 "description": "Ventilation",
-                "VOutDes_flow": {
+                "VAirOutDes_flow": {
                     "description": "Design OA volume flow rate - FIXME #1913",
                     "value": 10,
                     "unit": "m3/s"
                 },
-                "VOutUnc_flow": {
+                "VAirOutUnc_flow": {
                     "description": "Uncorrected design OA volume flow rate - FIXME #1913",
                     "value": 10,
                     "unit": "m3/s"
                 },
-                "VPriSysMax_flow": {
-                    "description": "Maximum expected system primary airflow at design stage",
-                    "value": 10,
-                    "unit": "m3/s"
-                },
-                "peaSysPop": {
+                "nPeaSys_nominal": {
                     "description": "Peak system population",
                     "value": 1,
                     "unit": "1"
                 }
             },
             "airflow": {
-                "pMaxSet": {
-                    "description": "Duct Design Maximum Static Pressure",
+                "description": "Airflow and pressure control parameters",
+                "pAirSupSet_rel_max": {
+                    "description": "Maximum supply duct static pressure setpoint",
                     "value": 800,
                     "unit": "Pa"
                 },
-                "yFanSupMin": {
+                "ySpeFanSup_min": {
                     "description": "Minimum Fan Speed - Supply fan",
                     "value": 0.1,
                     "unit": "1"
                 },
-                "yFanRetMin": {
-                    "description": "Minimum Fan Speed - Return fan - FIXME #1913",
+                "ySpeFanRet_min": {
+                    "description": "Minimum Fan Speed - Relief/return fan - FIXME #1913",
                     "value": 0.1,
                     "unit": "1"
                 },
-                "yFanSupMax": {
-                    "description": "Maximum Fan Speed - Supply fan",
-                    "value": 1,
-                    "unit": "1"
-                },
-                "yFanRetMax": {
-                    "description": "Maximum Fan Speed - Return fan - FIXME #1913",
-                    "value": 1,
-                    "unit": "1"
-                },
-                "dpDamOutDesMin": {
-                    "description": "Design minimum outdoor air damper DP - FIXME #1913",
+                "dpDamOutMin_nominal": {
+                    "description": "Design minimum outdoor air damper differential pressure",
                     "value": 20,
                     "unit": "Pa"
                 },
-                "dpDamOutAbsMin": {
-                    "description": "Absolute minimum outdoor air damper DP - FIXME #1913",
+                "dpDamOutMinAbs": {
+                    "description": "Absolute minimum outdoor air damper differential pressure - FIXME #1913",
                     "value": 10,
                     "unit": "Pa"
                 },
-                "pAirRetMinSet_rel": {
-                    "description": "Return Fan DSP set point min - FIXME #1913",
+                "pAirRetSet_rel_min": {
+                    "description": "Return fan minimum discharge static pressure setpoint",
                     "value": 10,
                     "unit": "Pa"
                 },
-                "pAirRetMaxSet_rel": {
-                    "description": "Return Fan DSP set point max - FIXME #1913",
+                "pAirRetSet_rel_max": {
+                    "description": "Return fan maximum discharge static pressure setpoint",
                     "value": 100,
                     "unit": "Pa"
                 },
                 "dVFanRet_flow": {
-                    "description": "Return Fan Airflow Differential - FIXME #1913",
+                    "description": "Return Fan Airflow Differential",
                     "value": 50,
                     "unit": "m3/s"
+                },
+                "pAirBuiSet_rel": {
+                    "description": "Building static pressure set point",
+                    "value": 12,
+                    "unit": "Pa"
                 }
             },
             "economizer": {
