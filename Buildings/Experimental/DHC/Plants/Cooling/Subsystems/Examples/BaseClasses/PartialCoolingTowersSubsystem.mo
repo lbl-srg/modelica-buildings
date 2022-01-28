@@ -89,7 +89,7 @@ equation
    annotation (Line(points={{2,-158},{8,-158},{8,-182},{18,-182}},
      color={0,0,127}));
   connect(vol.ports[1], pum.port_a)
-   annotation (Line(points={{27.3333,-120},{-60,-120},{-60,-50},{-40,-50}},
+   annotation (Line(points={{28.6667,-120},{-60,-120},{-60,-50},{-40,-50}},
       color={0,127,255}));
   connect(fixHeaFlo.port, vol.heatPort)
    annotation (Line(points={{-20,-90},{10,-90},{10,-110},{20,-110}},
@@ -105,7 +105,7 @@ equation
   connect(onOffCon.u, TSwi.y)
    annotation (Line(points={{-22,-196},{-58,-196}},color={0,0,127}));
   connect(TVol.T, onOffCon.reference)
-   annotation (Line(points={{-50,-150},{-40,-150},{-40,-184},{-22,-184}},
+   annotation (Line(points={{-49,-150},{-40,-150},{-40,-184},{-22,-184}},
       color={0,0,127}));
   connect(swi.y, pum.m_flow_in)
    annotation (Line(points={{42,-190},{70,-190},{70,-240},{-100,-240},{-100,-30},
@@ -126,6 +126,14 @@ on the temperature of the control volume to which the heat is added.
 </html>",
 revisions="<html>
 <ul>
+<li>
+January 28, 2022, by Hongxiang Fu:<br/>
+Added a temperature sensor for better measurement of the entering water
+temperature. It ignores any potential temperature gain across the pump.
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2866\">
+#2866</a>
+</li>
 <li>
 May 28, 2021, by Chengnan Shi:<br/>
 Duplicate <a href=\"modelica://Buildings.Fluid.HeatExchangers.CoolingTowers.Examples.BaseClasses.PartialStaticTwoPortCoolingTower\">
