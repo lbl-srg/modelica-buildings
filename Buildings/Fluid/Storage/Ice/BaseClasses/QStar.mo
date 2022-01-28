@@ -50,13 +50,13 @@ and the ice in the thermal storage tank using
 </p>
 <p align=\"center\">
 <i>
-q<sup>*</sup> &Delta;t = C<sub>1</sub> + C<sub>2</sub>x + C<sub>3</sub> x<sup>2</sup> + [C<sub>4</sub> + C<sub>5</sub>x + C<sub>6</sub> x<sup>2</sup>]&Delta;T<sub>lmtd<sup>*</sup>
+q<sup>*</sup> &Delta;t = C<sub>1</sub> + C<sub>2</sub>x + C<sub>3</sub> x<sup>2</sup> + [C<sub>4</sub> + C<sub>5</sub>x + C<sub>6</sub> x<sup>2</sup>]&Delta;T<sub>lmtd</sub><sup>*</sup>
 </i>
 </p>
 <p>where <i>&Delta;t</i> is the time step of the data samples used for the curve fitting,
 <i>C<sub>1-6</sub></i> are the curve fit coefficients,
 <i>x</i> is the fraction of charging, also known as the state-of-charge,
-and <i>T<sub>lmtd<sup>*</sup></i> is the normalized LMTD
+and <i>T<sub>lmtd</sub><sup>*</sup></i> is the normalized LMTD
 calculated using <a href=\"mdoelica://Buildings.Fluid.Storage.Ice.BaseClasses.calculateLMTDStar\">
 Buildings.Fluid.Storage.Ice.BaseClasses.calculateLMTDStar</a>.
 </p>

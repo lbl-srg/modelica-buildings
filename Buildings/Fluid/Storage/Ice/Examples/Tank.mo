@@ -110,7 +110,7 @@ equation
         "Simulate and Plot"),
     Documentation(info="<html>
 <p>
-This example is to verify the ice tank model <a href=\"\"><>.
+This example is to verify the ice tank model <a href=\"Buildings.Fluid.Storage.Ice\">Buildings.Fluid.Storage.Ice</a>.
 </p>
 </html>", revisions="<html>
 <ul>

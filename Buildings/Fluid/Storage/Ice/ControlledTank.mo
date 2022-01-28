@@ -20,7 +20,7 @@ that leaves the tank.
 </p>
 <p>
 The model is identical to
-<a href=\\\"modelica://Buildings.Fluid.Storage.Ice.Tank\\\">Buildings.Fluid.Storage.Ice.Tank</a>,
+<a href=\"modelica://Buildings.Fluid.Storage.Ice.Tank\">Buildings.Fluid.Storage.Ice.Tank</a>,
 except that it takes as an input the set point for the temperature of the
 leaving working fluid.
 This temperature is maintained if the flow rate and temperatures allow

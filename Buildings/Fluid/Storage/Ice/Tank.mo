@@ -177,7 +177,7 @@ The mass of ice in the storage <i>m<sub>ice</sub></i> is calculated as
 dx/dt = Q&#775;/(H<sub>f</sub> &nbsp; m<sub>ice,max</sub>)
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
-m<sub>ice</sub> = x &nbsp; m<sub>ice,max
+m<sub>ice</sub> = x &nbsp; m<sub>ice,max</sub>
 </p>
 <p>
 where <i>x</i> is the fraction of charge, or the state of charge,
@@ -211,13 +211,13 @@ and the ice in the thermal storage tank is calculated using
 </p>
 <p align=\"center\">
 <i>
-q<sup>*</sup> &Delta;t = C<sub>1</sub> + C<sub>2</sub>x + C<sub>3</sub> x<sup>2</sup> + [C<sub>4</sub> + C<sub>5</sub>x + C<sub>6</sub> x<sup>2</sup>]&Delta;T<sub>lmtd<sup>*</sup>
+q<sup>*</sup> &Delta;t = C<sub>1</sub> + C<sub>2</sub>x + C<sub>3</sub> x<sup>2</sup> + [C<sub>4</sub> + C<sub>5</sub>x + C<sub>6</sub> x<sup>2</sup>]&Delta;T<sub>lmtd</sub><sup>*</sup>
 </i>
 </p>
 <p>where <i>&Delta;t</i> is the time step of the data samples used for the curve fitting,
 <i>C<sub>1-6</sub></i> are the curve fit coefficients,
 <i>x</i> is the fraction of charging, also known as the state-of-charge,
-and <i>T<sub>lmtd<sup>*</sup></i> is the normalized LMTD
+and <i>T<sub>lmtd</sub><sup>*</sup></i> is the normalized LMTD
 calculated using <a href=\"mdoelica://Buildings.Fluid.Storage.Ice.BaseClasses.calculateLMTDStar\">
 Buildings.Fluid.Storage.Ice.BaseClasses.calculateLMTDStar</a>.
 Similarly, for discharging, the heat transfer rate <i>q*</i>
@@ -230,7 +230,7 @@ between the chilled water and the ice in the thermal storage tank is
 where <i>&Delta;t</i> is the time step of the data samples used for the curve fitting,
 <i>D<sub>1-6</sub></i> are the curve fit coefficients.
 <p>
-The normalized LMTD <i>&Delta;T<sub>lmtd<sup>*</sup></i> uses a nominal temperature difference of 10 Kelvin.
+The normalized LMTD <i>&Delta;T<sub>lmtd</sub><sup>*</sup></i> uses a nominal temperature difference of 10 Kelvin.
 This value must be used when obtaining the curve fit coefficients.
 </p>
 <p>
