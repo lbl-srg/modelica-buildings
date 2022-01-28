@@ -132,7 +132,7 @@ Added a temperature sensor for better measurement of the entering water
 temperature. It ignores any potential temperature gain across the pump.
 This is for
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2866\">
-#2866</a>
+#2866</a>.
 </li>
 <li>
 May 28, 2021, by Chengnan Shi:<br/>
