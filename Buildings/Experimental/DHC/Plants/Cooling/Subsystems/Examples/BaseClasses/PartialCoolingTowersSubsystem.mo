@@ -74,10 +74,9 @@ partial model PartialCoolingTowersSubsystem
     "Water temperature"
     annotation (Placement(transformation(extent={{-70,-160},{-50,-140}})));
 
-  Buildings.Fluid.Sensors.Temperature TEnt(redeclare package Medium = Medium_W)
-    "Entering water temperature"
-    annotation (Placement(transformation(extent={{-90,-70},{-70,-50}})));
-
+  Buildings.Fluid.Sensors.TemperatureTwoPort TEnt(redeclare package Medium = Medium_W,
+      m_flow_nominal=m_flow_nominal) "Water entering temperature"
+    annotation (Placement(transformation(extent={{-10,-60},{10,-40}})));
 equation
   connect(weaDat.weaBus, weaBus)
    annotation (Line(points={{-80,50},{-60,50}},color={255,204,51}));
@@ -101,8 +100,6 @@ equation
   connect(tow.port_b, vol.ports[2])
    annotation (Line(points={{42,-50},{60,-50},{60,-120},{30,-120}},
       color={0,127,255}));
-  connect(pum.port_b, tow.port_a)
-   annotation (Line(points={{-20,-50},{22,-50}},color={0,127,255}));
   connect(onOffCon.u, TSwi.y)
    annotation (Line(points={{-22,-196},{-58,-196}},color={0,0,127}));
   connect(TVol.T, onOffCon.reference)
@@ -114,8 +111,10 @@ equation
   connect(exp.ports[1], vol.ports[3])
    annotation (Line(points={{80,-120},{31.3333,-120}},color={0,127,255}));
 
-  connect(TEnt.port, pum.port_a) annotation (Line(points={{-80,-70},{-80,-76},{-60,
-          -76},{-60,-50},{-40,-50}}, color={0,127,255}));
+  connect(pum.port_b, TEnt.port_a)
+    annotation (Line(points={{-20,-50},{-10,-50}}, color={0,127,255}));
+  connect(TEnt.port_b, tow.port_a)
+    annotation (Line(points={{10,-50},{22,-50}}, color={0,127,255}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-140,
             -260},{140,100}})),  Documentation(info="<html>
 <p>
