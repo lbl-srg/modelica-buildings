@@ -39,8 +39,7 @@ model StaticReset
     "Fan using PowerCharacteristic"
     annotation (Placement(transformation(extent={{-10,170},{10,190}})));
   Buildings.Fluid.Movers.Data.Generic per2(
-    pressure(V_flow={0,per2.peak.V_flow,per2.peak.V_flow*1.6},
-             dp={per2.peak.dp*1.6,per2.peak.dp,0}),
+    pressure=per1.pressure,
     powMet=
       Buildings.Fluid.Movers.BaseClasses.Types.PowerMethod.EulerNumber,
     peak=Buildings.Fluid.Movers.BaseClasses.Euler.getPeak(
@@ -54,8 +53,7 @@ model StaticReset
     "Fan using EulerNumber"
     annotation (Placement(transformation(extent={{-10,70},{10,90}})));
   Buildings.Fluid.Movers.Data.Generic per3(
-    pressure(V_flow={0,V_flow_nominal,V_flow_nominal*1.6},
-             dp={dp_nominal*1.6,dp_nominal,0}),
+    pressure=per1.pressure,
     powMet=
       Buildings.Fluid.Movers.BaseClasses.Types.PowerMethod.MotorEfficiency,
     hydraulicEfficiency(eta = {1}),
@@ -319,9 +317,11 @@ Also note that the model
 <a href=\"Buildings.Fluid.Movers.SpeedControlled_y\">
 Buildings.Fluid.Movers.SpeedControlled_y</a>
 requires that a <i>&Delta;p</i> vs. <i>V&#775;</i> curve be provided regardless
-of the chosen path of computation. To be convincing that the latter two paths
-do not require a full curve, an arbitrary curve loosely computed from the nominal
-values were used for them.
+of the chosen path of computation. If an arbitrary curve is provided in
+<code>per2</code> and <code>per3</code>, the speed responses
+<code>fan1.y_actual</code>, <code>fan2.y_actual</code> and
+<code>fan3.y_actual</code> would be different
+but the computed power consumptions would remain unchanged.
 </p>
 </html>", revisions="<html>
 <ul>
