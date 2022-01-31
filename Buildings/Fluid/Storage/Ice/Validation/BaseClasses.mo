@@ -1,5 +1,6 @@
 within Buildings.Fluid.Storage.Ice.Validation;
 package BaseClasses "Base classes for validation package"
+  extends Modelica.Icons.BasesPackage;
 
   partial model PartialExample "Base example"
     extends Modelica.Icons.Example;
