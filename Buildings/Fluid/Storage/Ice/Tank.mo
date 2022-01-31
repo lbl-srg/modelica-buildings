@@ -167,7 +167,11 @@ equation
 <p>
 This model implements an ice tank model whose performance is computed based on
 performance curves.
-The model is similar to the detailed EnergyPlus ice tank model
+</p>
+<p>
+The model is based on the implementation of
+<a href=\"https://doi.org/10.3384/ecp21181177\">Guowen et al., 2020</a> and
+similar to the detailed EnergyPlus ice tank model
 <a href=\"https://bigladdersoftware.com/epx/docs/9-0/input-output-reference/group-plant-equipment.html#thermalstorageicedetailed\">ThermalStorage:Ice:Detailed</a>.
 </p>
 <p>
@@ -256,7 +260,11 @@ Reference
 <p>
 Strand, R.K. 1992. “Indirect Ice Storage System Simulation,” M.S. Thesis,
 Department of Mechanical and Industrial Engineering, University of Illinois at Urbana-Champaign.
-
+</p>
+<p>
+<p>
+Li, Guowen, et al. <i>An Ice Storage Tank Modelica Model: Implementation and Validation.</i> Modelica Conferences. 2021.
+<a href=\"https://doi.org/10.3384/ecp21181177\">doi:10.3384/ecp21181177</a>.
 </p>
 </html>", revisions="<html>
 <ul>

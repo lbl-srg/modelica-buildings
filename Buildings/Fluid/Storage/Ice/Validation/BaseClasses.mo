@@ -15,7 +15,14 @@ package BaseClasses "Base classes for validation package"
       "Nominal mass flow rate";
     parameter Modelica.Units.SI.PressureDifference dp_nominal=100000
       "Pressure difference";
-    parameter Buildings.Fluid.Storage.Ice.Data.Tank.Experiment per "Ice tank performance curves"
+    parameter Buildings.Fluid.Storage.Ice.Data.Tank.Generic per(
+      mIce_max = 2846.35,
+      coeCha={1.76953858E-04,0,0,0,0,0},
+      dtCha=10,
+      coeDisCha={5.54E-05,-1.45679E-04,9.28E-05,1.126122E-03,-1.1012E-03,
+          3.00544E-04},
+      dtDisCha=10)
+      "Performance curve obtained from onsite experiment"
       annotation (Placement(transformation(extent={{60,60},{80,80}})));
 
     Buildings.Fluid.Storage.Ice.ControlledTank iceTan(
@@ -102,6 +109,21 @@ package BaseClasses "Base classes for validation package"
       annotation (Line(points={{60,0},{80,0},{80,-10}}, color={0,127,255}));
     annotation (
       Documentation(info="<html>
+<p>
+Basic model that is used to validate the tank model.
+The performance data record <code>per</code> contains the data
+obtained from experiments of Ojas et al., 2020, and used by Guowen et al., 2021.
+</p>
+<h4>Reference</h4>
+<p>
+Pradhan, Ojas, et.al. <i>Development and Validation of a Simulation Testbed for the Intelligent Building Agents Laboratory (IBAL) using TRNSYS.</i>
+ASHRAE Transactions 126 (2020): 458-466.
+</p>
+<p>
+Li, Guowen, et al. <i>An Ice Storage Tank Modelica Model: Implementation and Validation.</i> Modelica Conferences. 2021.
+<a href=\"https://doi.org/10.3384/ecp21181177\">doi:10.3384/ecp21181177</a>.
+</p>
+</p>
 </html>",   revisions="<html>
 <ul>
 <li>
