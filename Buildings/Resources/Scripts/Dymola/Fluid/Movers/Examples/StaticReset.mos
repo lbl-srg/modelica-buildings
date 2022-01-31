@@ -20,3 +20,13 @@ createPlot(id=1,
  thicknesses={0.5, 0.5, 0.5},
  timeUnit="m3/s",
  displayUnits={"W", "W", "W"});
+createPlot(id=2,
+ position={680, 17, 592, 372},
+ y={"fan1.y_actual", "fan2.y_actual", "fan3.y_actual"},
+ range={0.0, 4000.0, -0.2, 1.0000000000000002},
+ grid=true,
+ colors={{28,108,200}, {238,46,47}, {0,140,72}},
+ patterns={LinePattern.Solid, LinePattern.Dash, LinePattern.DashDot},
+ timeUnit="s",
+ displayUnits={"1", "1", "1"});
+
