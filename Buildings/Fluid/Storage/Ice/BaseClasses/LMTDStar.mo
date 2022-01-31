@@ -1,6 +1,7 @@
 within Buildings.Fluid.Storage.Ice.BaseClasses;
 model LMTDStar
   "Normalized log mean temperature difference across the ice storage unit"
+  extends Modelica.Blocks.Icons.Block;
 
   parameter Modelica.Units.SI.Temperature TFre = 273.15 "Freezing temperature of water or the latent energy storage material";
   parameter Modelica.Units.SI.TemperatureDifference dT_nominal = 10
@@ -29,15 +30,7 @@ equation
       deltaX=1E-6);
 
   annotation (defaultComponentName = "lmtdSta",
-  Icon(coordinateSystem(preserveAspectRatio=false), graphics={
-                                Rectangle(
-        extent={{-100,-100},{100,100}},
-        lineColor={0,0,127},
-        fillColor={255,255,255},
-        fillPattern=FillPattern.Solid), Text(
-        extent={{-148,150},{152,110}},
-        textString="%name",
-        lineColor={0,0,255})}),                                  Diagram(
+  Icon(coordinateSystem(preserveAspectRatio = false)),                                  Diagram(
         coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>
 <p>

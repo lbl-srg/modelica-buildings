@@ -1,5 +1,6 @@
 within Buildings.Fluid.Storage.Ice.BaseClasses;
 model QStar "Calculator for q* under charging mode"
+  extends Modelica.Blocks.Icons.Block;
 
   parameter Real coeff[6] "Coefficients for qstar curve";
   parameter Real dt "Time step of curve fitting data";
@@ -32,15 +33,7 @@ equation
   end if;
 
   annotation (defaultComponentName = "qSta",
-  Icon(coordinateSystem(preserveAspectRatio=false), graphics={
-                                Rectangle(
-        extent={{-100,-100},{100,100}},
-        lineColor={0,0,127},
-        fillColor={255,255,255},
-        fillPattern=FillPattern.Solid), Text(
-        extent={{-148,150},{152,110}},
-        textString="%name",
-        lineColor={0,0,255})}),
+  Icon(coordinateSystem(preserveAspectRatio = false)),
         Diagram(
         coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>

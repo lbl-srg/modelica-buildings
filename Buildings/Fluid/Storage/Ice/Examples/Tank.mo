@@ -1,5 +1,5 @@
 within Buildings.Fluid.Storage.Ice.Examples;
-model Tank "Example that test the Tank model"
+model Tank "Example that test the tank model"
   extends Modelica.Icons.Example;
 
   package Medium = Buildings.Media.Antifreeze.PropyleneGlycolWater (

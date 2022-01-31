@@ -1,6 +1,8 @@
 within Buildings.Fluid.Storage.Ice.BaseClasses;
 model NormalizedHeatFlowRate
   "Charging or discharging rate based on the curves"
+  extends Modelica.Blocks.Icons.Block;
+
   parameter Real coeCha[6]
     "Coefficients for charging curve";
   parameter Real dtCha "Time step of curve fitting data";
@@ -69,19 +71,8 @@ equation
   connect(qStaDisCha.x, SOCCom.y) annotation (Line(points={{18,70},{-10,70},{
           -10,30},{-19,30}}, color={0,0,127}));
   annotation (defaultComponentName = "norQSta",
-  Icon(coordinateSystem(preserveAspectRatio=false), graphics={
-                                Rectangle(
-        extent={{-100,-100},{100,100}},
-        lineColor={0,0,127},
-        fillColor={255,255,255},
-        fillPattern=FillPattern.Solid), Text(
-        extent={{-148,150},{152,110}},
-        textString="%name",
-        lineColor={0,0,255}),
-        Text(
-          extent={{-32,62},{58,-34}},
-          textColor={0,0,88},
-          textString="q*")}),
+  Icon(coordinateSystem(preserveAspectRatio=false),
+    graphics={Text(textColor = {0, 0, 88}, extent = {{-32, 62}, {58, -34}}, textString = "q*")}),
      Diagram(
         coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>

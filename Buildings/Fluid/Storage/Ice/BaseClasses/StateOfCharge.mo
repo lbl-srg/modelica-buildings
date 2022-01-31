@@ -1,5 +1,6 @@
 within Buildings.Fluid.Storage.Ice.BaseClasses;
 model StateOfCharge "Mass of ice remaining in the tank"
+  extends Modelica.Blocks.Icons.Block;
 
   parameter Real SOC_start(min=0, max=1, final unit="1")
    "Start value for state of charge";
@@ -48,20 +49,9 @@ equation
   end when;
 
   annotation (defaultComponentName="soc",
-  Icon(coordinateSystem(preserveAspectRatio=false), graphics={
-        Rectangle(
-        extent={{-100,-100},{100,100}},
-        lineColor={0,0,127},
-        fillColor={255,255,255},
-        fillPattern=FillPattern.Solid), Text(
-        extent={{-148,150},{152,110}},
-        textString="%name",
-        lineColor={0,0,255}),
-        Text(
-          extent={{-42,48},{48,-48}},
-          textColor={0,0,88},
-          textString="SOC")}),                                   Diagram(
-        coordinateSystem(preserveAspectRatio=false)),
+  Icon(coordinateSystem(preserveAspectRatio=false), graphics={Text(textColor = {0, 0, 88}, extent = {{-42, 48}, {48, -48}}, textString = "SOC")}),
+    Diagram(
+      coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>
 <p>
 This block calculates the state of charge using

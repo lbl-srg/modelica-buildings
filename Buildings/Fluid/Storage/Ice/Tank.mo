@@ -11,8 +11,10 @@ model Tank "Ice tank with performance based on performance curves"
     annotation(Dialog(tab = "Initialization"));
 
   replaceable parameter Buildings.Fluid.Storage.Ice.Data.Tank.Generic per
-    "Performance data" annotation (choicesAllMatching=true, Placement(
-        transformation(extent={{20,62},{40,82}})));
+    "Performance data"
+    annotation (
+      choicesAllMatching = true,
+      Placement(transformation(extent = {{40, 60}, {60, 80}}, rotation = 0)));
 
   parameter Modelica.Units.SI.Time tau = 30
     "Time constant at nominal flow"
