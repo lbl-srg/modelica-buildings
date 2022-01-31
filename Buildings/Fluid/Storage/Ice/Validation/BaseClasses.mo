@@ -123,7 +123,6 @@ ASHRAE Transactions 126 (2020): 458-466.
 Li, Guowen, et al. <i>An Ice Storage Tank Modelica Model: Implementation and Validation.</i> Modelica Conferences. 2021.
 <a href=\"https://doi.org/10.3384/ecp21181177\">doi:10.3384/ecp21181177</a>.
 </p>
-</p>
 </html>",   revisions="<html>
 <ul>
 <li>
@@ -131,7 +130,6 @@ December 14, 2021, by Yangyang Fu:<br/>
 First implementation.
 </li>
 </ul>
-
 </html>"));
   end PartialExample;
 end BaseClasses;

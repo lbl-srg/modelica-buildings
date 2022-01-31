@@ -262,7 +262,6 @@ Strand, R.K. 1992. “Indirect Ice Storage System Simulation,” M.S. Thesis,
 Department of Mechanical and Industrial Engineering, University of Illinois at Urbana-Champaign.
 </p>
 <p>
-<p>
 Li, Guowen, et al. <i>An Ice Storage Tank Modelica Model: Implementation and Validation.</i> Modelica Conferences. 2021.
 <a href=\"https://doi.org/10.3384/ecp21181177\">doi:10.3384/ecp21181177</a>.
 </p>
