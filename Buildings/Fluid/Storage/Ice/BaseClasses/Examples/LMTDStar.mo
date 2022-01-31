@@ -23,8 +23,7 @@ equation
   annotation (
     experiment(StartTime=0,
               StopTime=3600,
-              Tolerance=1e-06,
-              __Dymola_Algorithm="Cvode"),
+              Tolerance=1e-06),
     __Dymola_Commands(file=
           "modelica://Buildings/Resources/Scripts/Dymola/Fluid/Storage/Ice/BaseClasses/Examples/LMTDStar.mos"
         "Simulate and Plot"),

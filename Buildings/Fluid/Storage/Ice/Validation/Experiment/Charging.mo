@@ -8,8 +8,7 @@ model Charging "Validation against charging experiment"
     experiment(
       StartTime=15000,
       StopTime=60370,
-      Tolerance=1e-06,
-      __Dymola_Algorithm="Cvode"),
+      Tolerance=1e-06),
     __Dymola_Commands(file=
           "modelica://Buildings/Resources/Scripts/Dymola/Fluid/Storage/Ice/Validation/Experiment/Charging.mos"
         "Simulate and Plot"),

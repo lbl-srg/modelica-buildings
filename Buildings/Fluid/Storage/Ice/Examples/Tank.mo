@@ -104,8 +104,7 @@ equation
     experiment(
       StartTime=0,
       StopTime=86400,
-      Tolerance=1e-06,
-      __Dymola_Algorithm="Cvode"),
+      Tolerance=1e-06),
     __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Storage/Ice/Examples/Tank.mos"
         "Simulate and Plot"),
     Documentation(info="<html>

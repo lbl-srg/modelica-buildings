@@ -35,6 +35,5 @@ First implementation.
     experiment(
       StartTime=0,
       StopTime=3600,
-      Tolerance=1e-06,
-      __Dymola_Algorithm="Cvode"));
+      Tolerance=1e-06));
 end StateOfCharge;
