@@ -404,6 +404,18 @@
   openmodelica:
     comment: returned non-zero exit status 139
     simulate: false
+- model_name: Buildings.Utilities.IO.Python_3_8.Examples.KalmanFilter
+  optimica:
+    comment: Optimica uses Python 3.9, while the examples use Python 3.8
+- model_name: Buildings.Utilities.IO.Python_3_8.Examples.SimpleRoom
+  optimica:
+    comment: Optimica uses Python 3.9, while the examples use Python 3.8
+- model_name: Buildings.Utilities.IO.Python_3_8.Functions.Examples.Exchange
+  optimica:
+    comment: Optimica uses Python 3.9, while the examples use Python 3.8
+- model_name: Buildings.Utilities.IO.Python_3_8.Functions.Examples.ExchangeWithPassPythonObject
+  optimica:
+    comment: Optimica uses Python 3.9, while the examples use Python 3.8
 - model_name: Buildings.Utilities.Plotters.Examples.SingleZoneVAV
   openmodelica:
     comment: 'Division by zero at time 15552000, (a=0) / (b=0), where divisor b expression is: hvac.cooCoi.m1_flow + hvac.ideVal.preMasFlo.m_flow'
