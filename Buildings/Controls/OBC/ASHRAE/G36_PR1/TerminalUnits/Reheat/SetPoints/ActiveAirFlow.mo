@@ -100,12 +100,11 @@ block ActiveAirFlow
     annotation (Placement(transformation(extent={{280,10},{320,50}}),
         iconTransformation(extent={{100,-60},{140,-20}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Gain gai(
-    final k=VOutPerPer_flow) if have_occSen
-    "Outdoor air per person"
+  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai(final k=
+        VOutPerPer_flow) if have_occSen "Outdoor air per person"
     annotation (Placement(transformation(extent={{-140,-330},{-120,-310}})));
   Buildings.Controls.OBC.CDL.Continuous.Add breZon if have_occSen
-  "Breathing zone airflow"
+    "Breathing zone airflow"
     annotation (Placement(transformation(extent={{-80,-350},{-60,-330}})));
   Buildings.Controls.OBC.CDL.Continuous.Line co2ConLoo if have_CO2Sen
     "Maintain CO2 concentration at setpoint, reset 0% at (setpoint-200) and 100% at setpoint"
@@ -137,7 +136,9 @@ block ActiveAirFlow
     annotation (Placement(transformation(extent={{80,-410},{100,-390}})));
   Buildings.Controls.OBC.CDL.Logical.Not not2 if have_winSen "Logical not"
     annotation (Placement(transformation(extent={{-240,-510},{-220,-490}})));
-  CDL.Continuous.GreaterThreshold greThr(t=0.75, h=0.5) if have_occSen
+  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr(
+    final t=0.75,
+    final h=0.5) if have_occSen
     "Check if the zone becomes unpopulated"
     annotation (Placement(transformation(extent={{-140,-290},{-120,-270}})));
 

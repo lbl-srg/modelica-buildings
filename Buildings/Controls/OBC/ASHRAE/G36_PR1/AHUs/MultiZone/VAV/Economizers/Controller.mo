@@ -237,7 +237,7 @@ block Controller "Multi zone VAV AHU economizer control sequence"
     annotation (Placement(transformation(extent={{80,-20},{100,0}})));
 
 protected
-  Buildings.Controls.OBC.CDL.Continuous.MovingMean movAve(final delta=delta)
+  Buildings.Controls.OBC.CDL.Continuous.MovingAverage movAve(final delta=delta)
     "Moving average of outdoor air flow measurement, normalized by design minimum outdoor airflow rate"
     annotation (Placement(transformation(extent={{-140,10},{-120,30}})));
   Buildings.Controls.OBC.CDL.Continuous.Min outDamMaxFre

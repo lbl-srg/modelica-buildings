@@ -164,9 +164,8 @@ protected
   Buildings.Controls.OBC.CDL.Continuous.Add breZon "Breathing zone airflow"
     annotation (Placement(transformation(extent={{20,40},{40,60}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Gain gai(
-    final k = VOutPerPer_flow) if have_occSen
-    "Outdoor air per person"
+  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai(final k=
+        VOutPerPer_flow) if have_occSen "Outdoor air per person"
     annotation (Placement(transformation(extent={{-100,30},{-80,50}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Switch swi
@@ -177,27 +176,26 @@ protected
     "Switch between cooling or heating distribution effectiveness"
     annotation (Placement(transformation(extent={{-20,-160},{0,-140}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Division zonOutAirRate
+  Buildings.Controls.OBC.CDL.Continuous.Divide zonOutAirRate
     "Required zone outdoor airflow rate"
     annotation (Placement(transformation(extent={{80,10},{100,30}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Division priOutAirFra
+  Buildings.Controls.OBC.CDL.Continuous.Divide priOutAirFra
     "Primary outdoor air fraction"
     annotation (Placement(transformation(extent={{120,-170},{140,-150}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Add desBreZon "Breathing zone design airflow"
     annotation (Placement(transformation(extent={{20,190},{40,210}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Division desZonOutAirRate
+  Buildings.Controls.OBC.CDL.Continuous.Divide desZonOutAirRate
     "Required design zone outdoor airflow rate"
     annotation (Placement(transformation(extent={{80,170},{100,190}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Division desZonPriOutAirRate
+  Buildings.Controls.OBC.CDL.Continuous.Divide desZonPriOutAirRate
     "Design zone primary outdoor air fraction"
     annotation (Placement(transformation(extent={{140,60},{160,80}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Add add2(
-    final k2=-1)
+  Buildings.Controls.OBC.CDL.Continuous.Subtract sub2
     "Zone space temperature minus supply air temperature"
     annotation (Placement(transformation(extent={{-120,-160},{-100,-140}})));
 
@@ -260,11 +258,11 @@ protected
     "If supply fan is off, giving a small primary airflow rate to avoid division by zero"
     annotation (Placement(transformation(extent={{-20,-230},{0,-210}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Product breZonAre
+  Buildings.Controls.OBC.CDL.Continuous.Multiply breZonAre
     "Area component of the breathing zone outdoor airflow"
     annotation (Placement(transformation(extent={{-80,130},{-60,150}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Product pro
+  Buildings.Controls.OBC.CDL.Continuous.Multiply pro
     "Product of flow rate per person and floor area"
     annotation (Placement(transformation(extent={{-80,170},{-60,190}})));
 
@@ -281,13 +279,13 @@ protected
     final k=VOutPerPer_flow) "Flow rate per person"
     annotation (Placement(transformation(extent={{-140,190},{-120,210}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Gain breZonPop(
-    final k=occDen)
+  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter breZonPop(final k=
+        occDen)
     "Default population component of the breathing zone outdoor airflow"
     annotation (Placement(transformation(extent={{-100,-40},{-80,-20}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Gain gaiDivZer(
-    final k=1E-3)
+  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gaiDivZer(final k=
+        1E-3)
     "Gain, used to avoid division by zero if the flow rate is smaller than 0.1%"
     annotation (Placement(transformation(extent={{-80,-250},{-60,-230}})));
 
@@ -296,7 +294,7 @@ protected
     "Design zone population during peak occupancy"
     annotation (Placement(transformation(extent={{-140,230},{-120,250}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Product desBreZonPer
+  Buildings.Controls.OBC.CDL.Continuous.Multiply desBreZonPer
     "Population component of the breathing zone design outdoor airflow"
     annotation (Placement(transformation(extent={{-80,210},{-60,230}})));
 
@@ -334,13 +332,13 @@ equation
   connect(swi.u2, occSen.y)
     annotation (Line(points={{-42,0},{-118,0}},
       color={255,0,255}));
-  connect(TDis, add2.u2)
+  connect(TDis, sub2.u2)
     annotation (Line(points={{-180,-170},{-140,-170},{-140,-156},{-122,-156}},
       color={0,0,127}));
-  connect(TZon, add2.u1)
+  connect(TZon, sub2.u1)
     annotation (Line(points={{-180,-130},{-140,-130},{-140,-144},{-122,-144}},
       color={0,0,127}));
-  connect(add2.y, hys.u)
+  connect(sub2.y, hys.u)
     annotation (Line(points={{-98,-150},{-82,-150}},
       color={0,0,127}));
   connect(hys.y, swi1.u2)

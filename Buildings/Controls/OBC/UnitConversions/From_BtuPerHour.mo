@@ -15,8 +15,8 @@ block From_BtuPerHour "Block that converts power from British thermal units per 
 protected
   constant Real k = 0.2930711 "Multiplier";
 
-  Buildings.Controls.OBC.CDL.Continuous.Gain conv(
-    final k = k) "Unit converter"
+  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter conv(final k=k)
+    "Unit converter"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 
 equation

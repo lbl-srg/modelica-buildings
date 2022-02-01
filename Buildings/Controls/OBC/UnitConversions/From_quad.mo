@@ -15,8 +15,8 @@ block From_quad "Block that converts energy from quads to joule"
 protected
   constant Real k = 1055.56e15 "Multiplier";
 
-  Buildings.Controls.OBC.CDL.Continuous.Gain conv(
-    final k = k) "Unit converter"
+  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter conv(final k=k)
+    "Unit converter"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 
 equation

@@ -109,76 +109,51 @@ protected
     "Outputs 1"
     annotation (Placement(transformation(extent={{-80,-140},{-60,-120}})));
   CDL.Continuous.Add TOutOffSet(
-    final k1=1,
-    final k2=1,
     y(final quantity="ThermodynamicTemperature",
       final unit="K",
       displayUnit="degC"))
     "Effective outside temperature for heat transfer (takes into account zone heat gains)"
     annotation (Placement(transformation(extent={{-80,-58},{-60,-38}})));
-  CDL.Continuous.Add qRelDen(
-    final k1=1,
-    final k2=-1,
+  CDL.Continuous.Subtract qRelDen(
     y(final quantity="ThermodynamicTemperature",
       final unit="K",
       displayUnit="degC"))
     "Denominator for relative heating load calculation"
     annotation (Placement(transformation(extent={{-40,74},{-20,94}})));
-  CDL.Continuous.Add qRelNum(
-    final k1=-1,
-    final k2=1,
+  CDL.Continuous.Subtract qRelNum(
     y(final quantity="ThermodynamicTemperature",
       final unit="K",
       displayUnit="degC"))
     "Numerator for relative heating load calculation"
-    annotation (Placement(transformation(extent={{-40,-64},{-20,-44}})));
-  CDL.Continuous.Division qRel
-    "Relative heating load = Q_flow/Q_flow_nominal"
+    annotation (Placement(transformation(extent={{-40,-52},{-20,-32}})));
+  CDL.Continuous.Divide qRel "Relative heating load = Q_flow/Q_flow_nominal"
     annotation (Placement(transformation(extent={{0,24},{20,44}})));
-  CDL.Continuous.Add dTFlu2_nom(
-    final k1=0.5,
-    final k2=-0.5,
-    y(final quantity="TemperatureDifference",
-      final unit="K"))
+  CDL.Continuous.Subtract dTFlu2_nom
     "Heating supply minus return water temperature at nominal condition"
     annotation (Placement(transformation(extent={{-40,150},{-20,170}})));
-  CDL.Continuous.Add TFluAve_nominal(
-    final k1=0.5,
-    final k2=0.5,
-    y(final quantity="ThermodynamicTemperature",
-      final unit="K",
-      displayUnit="degC"))
+  CDL.Continuous.Add TFluAve_nominal
     "Average heating water temperature at nominal condition"
     annotation (Placement(transformation(extent={{-40,120},{-20,140}})));
-  CDL.Continuous.Add dTFluAve_nominal(
-    final k1=1,
-    final k2=-1,
+  CDL.Continuous.Subtract dTFluAve_nominal(
     y(final quantity="TemperatureDifference",
       final unit="K"))
     "Average heating water temperature minus room temperature at nominal condition"
-    annotation (Placement(transformation(extent={{0,110},{20,130}})));
-  CDL.Continuous.Division mInv
-    "Inverse of heat transfer exponent, y = 1/m"
+    annotation (Placement(transformation(extent={{36,110},{56,130}})));
+  CDL.Continuous.Divide mInv "Inverse of heat transfer exponent, y = 1/m"
     annotation (Placement(transformation(extent={{-40,-160},{-20,-140}})));
   CDL.Continuous.Add TAve(
-    final k1=1,
-    final k2=1,
     y(final quantity="ThermodynamicTemperature",
       final unit="K",
       displayUnit="degC"))
     "Average of supply and return temperature"
     annotation (Placement(transformation(extent={{-40,276},{-20,296}})));
   CDL.Continuous.Add TSupCur(
-    final k1=1,
-    final k2=1,
     y(final quantity="ThermodynamicTemperature",
       final unit="K",
       displayUnit="degC"))
     "Current supply water temperature"
     annotation (Placement(transformation(extent={{42,270},{62,290}})));
-  CDL.Continuous.Add TRetCur(
-    final k1=1,
-    final k2=-1,
+  CDL.Continuous.Subtract TRetCur(
     y(final quantity="ThermodynamicTemperature",
       final unit="K",
       displayUnit="degC"))
@@ -187,8 +162,7 @@ protected
   CDL.Continuous.Max qRel0
     "Relative heating load, but always non-zero value"
     annotation (Placement(transformation(extent={{32,30},{52,50}})));
-  CDL.Continuous.Product pro
-    "Product used to compute q^(1/m)"
+  CDL.Continuous.Multiply pro "Product used to compute q^(1/m)"
     annotation (Placement(transformation(extent={{-40,-110},{-20,-90}})));
   CDL.Continuous.Exp qRaiInvM
     "Outputs qRel^(1/m)"
@@ -196,24 +170,31 @@ protected
   CDL.Continuous.Log log1
     "Logarithm used for evaluation of qRel^(1/m)"
     annotation (Placement(transformation(extent={{-80,-110},{-60,-90}})));
-  CDL.Continuous.Product dTQ(
-    y(final quantity="TemperatureDifference",
-      final unit="K"))
-    "Temperature contribution due to qRel^(1/m)"
+  CDL.Continuous.Multiply dTQ(y(
+    final quantity="TemperatureDifference",
+    final unit="K")) "Temperature contribution due to qRel^(1/m)"
     annotation (Placement(transformation(extent={{-80,220},{-60,240}})));
-  CDL.Continuous.Product dTFlu(
-    y(final quantity="TemperatureDifference",
-      final unit="K"))
-    "Supply minus return water temperature"
+  CDL.Continuous.Multiply dTFlu(y(
+    final quantity="TemperatureDifference",
+    final unit="K")) "Supply minus return water temperature"
     annotation (Placement(transformation(extent={{0,220},{20,240}})));
   CDL.Continuous.Add TOutOffSet_nominal(
-    final k1=1,
-    final k2=1,
     y(final quantity="ThermodynamicTemperature",
       final unit="K",
       displayUnit="degC"))
     "Effective outside temperature for heat transfer at nominal condition (takes into account zone heat gains)"
     annotation (Placement(transformation(extent={{-44,32},{-24,52}})));
+  CDL.Continuous.MultiplyByParameter gai(
+    final k=0.5,
+    y(final quantity="TemperatureDifference",
+      final unit="K")) "Gain factor"
+    annotation (Placement(transformation(extent={{0,150},{20,170}})));
+  CDL.Continuous.MultiplyByParameter gai1(
+    final k=0.5,
+    y(final quantity="ThermodynamicTemperature",
+      final unit="K",
+      displayUnit="degC")) "Gain factor"
+    annotation (Placement(transformation(extent={{0,120},{20,140}})));
 
 equation
   connect(dTOutHeaBal_nominal.y,TOutOffSet.u1)
@@ -222,10 +203,6 @@ equation
     annotation (Line(points={{-120,60},{-90,60},{-90,-54},{-82,-54}},color={0,0,127}));
   connect(TZon_nom.y,qRelDen.u1)
     annotation (Line(points={{-58,90},{-42,90}},color={0,0,127}));
-  connect(TOutOffSet.y,qRelNum.u1)
-    annotation (Line(points={{-58,-48},{-42,-48}},color={0,0,127}));
-  connect(TSetZon,qRelNum.u2)
-    annotation (Line(points={{-120,-60},{-42,-60}},color={0,0,127}));
   connect(qRel.y,qRel0.u2)
     annotation (Line(points={{22,34},{30,34}},color={0,0,127}));
   connect(zer.y,qRel0.u1)
@@ -237,11 +214,9 @@ equation
   connect(TFluAve_nominal.u1,TSup_nom.y)
     annotation (Line(points={{-42,136},{-48,136},{-48,170},{-58,170}},color={0,0,127}));
   connect(TRet_nom.y,TFluAve_nominal.u2)
-    annotation (Line(points={{-58,130},{-50,130},{-50,124},{-42,124}},color={0,0,127}));
-  connect(dTFluAve_nominal.u1,TFluAve_nominal.y)
-    annotation (Line(points={{-2,126},{-10,126},{-10,130},{-18,130}},color={0,0,127}));
+    annotation (Line(points={{-58,130},{-52,130},{-52,124},{-42,124}},color={0,0,127}));
   connect(dTFluAve_nominal.u2,TZon_nom.y)
-    annotation (Line(points={{-2,114},{-50,114},{-50,90},{-58,90}},color={0,0,127}));
+    annotation (Line(points={{34,114},{-50,114},{-50,90},{-58,90}},color={0,0,127}));
   connect(qRel0.y,log1.u)
     annotation (Line(points={{54,40},{64,40},{64,-80},{-90,-80},{-90,-100},{-82,-100}},color={0,0,127}));
   connect(one.y,mInv.u1)
@@ -255,15 +230,14 @@ equation
   connect(qRaiInvM.u,pro.y)
     annotation (Line(points={{-2,-100},{-18,-100}},color={0,0,127}));
   connect(dTQ.u1,dTFluAve_nominal.y)
-    annotation (Line(points={{-82,236},{-92,236},{-92,204},{32,204},{32,120},{22,120}},color={0,0,127}));
+    annotation (Line(points={{-82,236},{-92,236},{-92,204},{60,204},{60,120},{58,
+          120}},                                                                       color={0,0,127}));
   connect(qRaiInvM.y,dTQ.u2)
     annotation (Line(points={{22,-100},{46,-100},{46,-98},{70,-98},{70,206},{-90,206},{-90,224},{-82,224}},color={0,0,127}));
   connect(TSetZon,TAve.u1)
     annotation (Line(points={{-120,-60},{-94,-60},{-94,292},{-42,292}},color={0,0,127}));
   connect(TAve.u2,dTQ.y)
     annotation (Line(points={{-42,280},{-52,280},{-52,230},{-58,230}},color={0,0,127}));
-  connect(dTFlu2_nom.y,dTFlu.u1)
-    annotation (Line(points={{-18,160},{-10,160},{-10,236},{-2,236}},color={0,0,127}));
   connect(qRel0.y,dTFlu.u2)
     annotation (Line(points={{54,40},{64,40},{64,216},{-6,216},{-6,224},{-2,224}},color={0,0,127}));
   connect(TSupCur.u1,TAve.y)
@@ -279,7 +253,7 @@ equation
   connect(TRetCur.y,TRet)
     annotation (Line(points={{62,248},{80,248},{80,-60},{120,-60}},color={0,0,127}));
   connect(qRel.u1,qRelNum.y)
-    annotation (Line(points={{-2,40},{-12,40},{-12,-54},{-18,-54}},color={0,0,127}));
+    annotation (Line(points={{-2,40},{-12,40},{-12,-42},{-18,-42}},color={0,0,127}));
   connect(qRel.u2,qRelDen.y)
     annotation (Line(points={{-2,28},{-6,28},{-6,84},{-18,84}},color={0,0,127}));
   connect(TOutOffSet_nominal.u1,TOut_nom.y)
@@ -288,6 +262,18 @@ equation
     annotation (Line(points={{-58,0},{-52,0},{-52,36},{-46,36}},color={0,0,127}));
   connect(TOutOffSet_nominal.y,qRelDen.u2)
     annotation (Line(points={{-22,42},{-20,42},{-20,66},{-50,66},{-50,78},{-42,78}},color={0,0,127}));
+  connect(TSetZon, qRelNum.u1) annotation (Line(points={{-120,-60},{-48,-60},{-48,
+          -36},{-42,-36}}, color={0,0,127}));
+  connect(TOutOffSet.y, qRelNum.u2)
+    annotation (Line(points={{-58,-48},{-42,-48}}, color={0,0,127}));
+  connect(dTFlu2_nom.y, gai.u)
+    annotation (Line(points={{-18,160},{-2,160}}, color={0,0,127}));
+  connect(gai.y, dTFlu.u1) annotation (Line(points={{22,160},{28,160},{28,180},{
+          -10,180},{-10,236},{-2,236}}, color={0,0,127}));
+  connect(TFluAve_nominal.y, gai1.u)
+    annotation (Line(points={{-18,130},{-2,130}}, color={0,0,127}));
+  connect(gai1.y, dTFluAve_nominal.u1) annotation (Line(points={{22,130},{30,130},
+          {30,126},{34,126}}, color={0,0,127}));
   annotation (
     defaultComponentName="watRes",
     Documentation(

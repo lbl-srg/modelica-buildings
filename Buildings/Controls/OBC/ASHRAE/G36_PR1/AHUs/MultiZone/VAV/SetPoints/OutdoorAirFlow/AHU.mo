@@ -112,7 +112,7 @@ block AHU "Output outdoor airflow related calculations at the AHU level"
         iconTransformation(extent={{100,-100},{140,-60}})));
 
 protected
-  Buildings.Controls.OBC.CDL.Continuous.Division outAirFra
+  Buildings.Controls.OBC.CDL.Continuous.Divide outAirFra
     "System outdoor air fraction"
     annotation (Placement(transformation(extent={{-120,-20},{-100,0}})));
 
@@ -122,16 +122,15 @@ protected
     "System outdoor air flow fraction plus 1"
     annotation (Placement(transformation(extent={{-80,-20},{-60,0}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Add sysVenEff(
-    final k2=-1)
+  Buildings.Controls.OBC.CDL.Continuous.Subtract sysVenEff
     "Current system ventilation efficiency"
     annotation (Placement(transformation(extent={{-40,-40},{-20,-20}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Division effMinOutAirInt
+  Buildings.Controls.OBC.CDL.Continuous.Divide effMinOutAirInt
     "Effective minimum outdoor air setpoint"
     annotation (Placement(transformation(extent={{100,10},{120,30}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Division occDivFra
+  Buildings.Controls.OBC.CDL.Continuous.Divide occDivFra
     "Occupant diversity fraction"
     annotation (Placement(transformation(extent={{-120,180},{-100,200}})));
 
@@ -139,13 +138,11 @@ protected
     "Uncorrected outdoor air intake"
     annotation (Placement(transformation(extent={{0,140},{20,160}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Product pro
-    "Product of inputs"
+  Buildings.Controls.OBC.CDL.Continuous.Multiply pro "Product of inputs"
     annotation (Placement(transformation(extent={{-60,160},{-40,180}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Gain aveOutAirFra(
-    final k=1/VPriSysMax_flow)
-    "Average outdoor air fraction"
+  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter aveOutAirFra(final
+      k=1/VPriSysMax_flow) "Average outdoor air fraction"
     annotation (Placement(transformation(extent={{60,120},{80,140}})));
 
   Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar1(
@@ -154,7 +151,7 @@ protected
     "Average outdoor air flow fraction plus 1"
     annotation (Placement(transformation(extent={{120,120},{140,140}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Division desOutAirInt
+  Buildings.Controls.OBC.CDL.Continuous.Divide desOutAirInt
     "Design system outdoor air intake"
     annotation (Placement(transformation(extent={{60,70},{80,90}})));
 
@@ -192,7 +189,7 @@ protected
     "Set system ventilation efficiency to 1"
     annotation (Placement(transformation(extent={{20,-80},{40,-60}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Division norVOutMin
+  Buildings.Controls.OBC.CDL.Continuous.Divide norVOutMin
     "Normalization for minimum outdoor air flow rate"
     annotation (Placement(transformation(extent={{180,-60},{200,-40}})));
 

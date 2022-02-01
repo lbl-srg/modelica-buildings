@@ -15,8 +15,8 @@ block To_Btu "Block that converts energy from joule to British thermal units"
 protected
   constant Real k = 1./1055.056 "Multiplier";
 
-  Buildings.Controls.OBC.CDL.Continuous.Gain conv(
-    final k = k) "Unit converter"
+  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter conv(final k=k)
+    "Unit converter"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 
 equation

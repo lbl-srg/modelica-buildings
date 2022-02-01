@@ -28,21 +28,19 @@ block ExhaustDamper
     annotation (Placement(transformation(extent={{80,-20},{120,20}}),
         iconTransformation(extent={{100,-20},{140,20}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.MovingMean movMea(
-    delta=300)
+  Buildings.Controls.OBC.CDL.Continuous.MovingAverage movMea(delta=300)
     "Average building static pressure measurement"
     annotation (Placement(transformation(extent={{-60,50},{-40,70}})));
-  Buildings.Controls.OBC.CDL.Continuous.Feedback conErr(
+  Buildings.Controls.OBC.CDL.Continuous.Subtract conErr(
     u1(final unit="Pa", displayUnit="Pa"),
     u2(final unit="Pa", displayUnit="Pa"),
-    y(final unit="Pa", displayUnit="Pa"))
-    "Control error"
-    annotation (Placement(transformation(extent={{-30,50},{-10,70}})));
+    y(final unit="Pa", displayUnit="Pa")) "Control error"
+    annotation (Placement(transformation(extent={{-24,50},{-4,70}})));
   Buildings.Controls.OBC.CDL.Continuous.PID conP(
     final controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.P,
     final k=k,
     final r=dpBuiSet)
-               "Building static pressure controller"
+    "Building static pressure controller"
     annotation (Placement(transformation(extent={{20,50},{40,70}})));
   Buildings.Controls.OBC.CDL.Continuous.Switch swi
     "Check if exhaust damper should be activated"
@@ -74,17 +72,17 @@ equation
   connect(dpBui, movMea.u)
     annotation (Line(points={{-100,60},{-62,60}}, color={0,0,127}));
   connect(movMea.y, conErr.u1)
-    annotation (Line(points={{-38,60},{-32,60}}, color={0,0,127}));
-  connect(dpBuiSetPoi1.y, conErr.u2)
-    annotation (Line(points={{-38,20},{-20,20},{-20,48}}, color={0,0,127}));
+    annotation (Line(points={{-38,60},{-32,60},{-32,66},{-26,66}}, color={0,0,127}));
   connect(zer1.y, conP.u_m)
     annotation (Line(points={{22,20},{30,20},{30,48}}, color={0,0,127}));
   connect(conP.y, swi.u1)
     annotation (Line(points={{42,60},{66,60},{66,0},{20,0},{20,-22},{38,-22}},
       color={0,0,127}));
-
   connect(conErr.y, conP.u_s)
-    annotation (Line(points={{-8,60},{18,60}}, color={0,0,127}));
+    annotation (Line(points={{-2,60},{18,60}}, color={0,0,127}));
+  connect(dpBuiSetPoi1.y, conErr.u2)
+    annotation (Line(points={{-38,20},{-32,20},{-32,54},{-26,54}}, color={0,0,127}));
+
 annotation (
   defaultComponentName = "exhDam",
   Icon(graphics={

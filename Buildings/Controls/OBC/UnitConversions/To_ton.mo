@@ -15,8 +15,8 @@ block To_ton "Block that converts power from watt to ton of refrigeration"
 protected
   constant Real k = 1./3517. "Multiplier";
 
-  Buildings.Controls.OBC.CDL.Continuous.Gain conv(
-    final k = k) "Unit converter"
+  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter conv(final k=k)
+    "Unit converter"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 
 equation
