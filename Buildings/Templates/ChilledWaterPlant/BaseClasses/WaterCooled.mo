@@ -10,16 +10,11 @@ model WaterCooled
        redeclare final package MediumCW = MediumCW,
        final m1_flow_nominal=mCon_flow_nominal),
     redeclare replaceable
-      Buildings.Templates.ChilledWaterPlant.Components.Controls.OpenLoop con
-      constrainedby
-      Buildings.Templates.ChilledWaterPlant.Components.Controls.Interfaces.PartialController(
-       final nPumCon=nPumCon, final nCooTow=nCooTow),
-    redeclare replaceable
       Buildings.Templates.ChilledWaterPlant.Components.ReturnSection.NoEconomizer
       retSec constrainedby
       Buildings.Templates.ChilledWaterPlant.Components.ReturnSection.Interfaces.PartialReturnSection(
-       redeclare final package MediumCW = MediumCW, final m1_flow_nominal=
-          mCon_flow_nominal));
+       redeclare final package MediumCW = MediumCW,
+       final m1_flow_nominal=mCon_flow_nominal));
 
   replaceable package MediumCW=Buildings.Media.Water "Condenser water medium";
 
@@ -74,9 +69,9 @@ model WaterCooled
         origin={-90,-70})));
 
   Buildings.Templates.ChilledWaterPlant.BaseClasses.BusCondenserWater cwCon(
-    final nChi=nChi,                                                        nPum=
-        nPumCon, nCooTow=nCooTow)
-    if not isAirCoo
+    final nChi=nChi,
+    nPum=nPumCon,
+    nCooTow=nCooTow) if not isAirCoo
     "Condenser loop control bus"
     annotation (Placement(transformation(
         extent={{-20,20},{20,-20}},

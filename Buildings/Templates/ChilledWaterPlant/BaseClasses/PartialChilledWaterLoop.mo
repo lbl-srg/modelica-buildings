@@ -88,11 +88,7 @@ model PartialChilledWaterLoop
 
   inner replaceable Components.Controls.OpenLoop con
     constrainedby
-    Buildings.Templates.ChilledWaterPlant.Components.Controls.Interfaces.PartialController(
-      final nChi=nChi,
-      final nPumPri=nPumPri,
-      final nPumSec=nPumSec,
-      final isAirCoo=isAirCoo)
+    Buildings.Templates.ChilledWaterPlant.Components.Controls.Interfaces.PartialController
     annotation (Placement(
       transformation(
       extent={{10,10},{-10,-10}},

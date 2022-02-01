@@ -2,7 +2,8 @@ within Buildings.Templates.ChilledWaterPlant.Components.PrimaryPumpGroup;
 model Dedicated
   extends
     Buildings.Templates.ChilledWaterPlant.Components.PrimaryPumpGroup.Interfaces.PartialPrimaryPumpGroup(
-    final typ=Buildings.Templates.ChilledWaterPlant.Components.Types.PrimaryPumpGroup.Dedicated);
+    final typ=Buildings.Templates.ChilledWaterPlant.Components.Types.PrimaryPumpGroup.Dedicated,
+    final nPum=nChi);
   Fluid.FixedResistances.Junction splByp(redeclare package Medium = Medium,
       energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     final m_flow_nominal=fill(mTot_flow_nominal, 3),
@@ -20,13 +21,16 @@ model Dedicated
         extent={{-10,10},{10,-10}},
         rotation=270,
         origin={0,-50})));
-  BaseClasses.DedicatedPrimaryPumps pum(
-    redeclare final package Medium = Medium,
-    final nPum=nChi,
-    final per=per,
-    final m_flow_nominal=m_flow_nominal,
-    final dp_nominal=dp_nominal,
-    final dpValve_nominal=dpValve_nominal)
+  inner replaceable Buildings.Templates.Components.Pumps.MultipleVariable pum(
+    final nPum=nPum,
+    final per=per)
+    constrainedby Buildings.Templates.Components.Pumps.Interfaces.PartialPump(
+      redeclare final package Medium = Medium,
+      final has_singlePort_a=false,
+      final has_singlePort_b=true,
+      final m_flow_nominal=m_flow_nominal,
+      final dp_nominal=dp_nominal,
+      final dpValve_nominal=dpValve_nominal)
                      "Pumps"
     annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
   Buildings.Templates.Components.Sensors.VolumeFlowRate VPCHW_flow(
@@ -67,13 +71,6 @@ equation
                                                 color={0,127,255}));
   connect(valByp.port_b, port_byp)
     annotation (Line(points={{-1.77636e-15,-60},{0,-100}}, color={0,127,255}));
-  connect(pum.y_actual, busCon.pumPri.uStaPumPri) annotation (Line(points={{-19,8},
-          {-10,8},{-10,80},{0.1,80},{0.1,100.1}},
-                                   color={255,0,255}), Text(
-      string="%second",
-      index=1,
-      extent={{-6,3},{-6,3}},
-      horizontalAlignment=TextAlignment.Right));
   connect(ports_parallel, pum.ports_a)
     annotation (Line(points={{-100,0},{-40,0}}, color={0,127,255}));
   connect(VPCHW_flow.port_b, splByp.port_1)
@@ -86,14 +83,6 @@ equation
       horizontalAlignment=TextAlignment.Right));
   connect(splByp.port_3, pas.port_a)
     annotation (Line(points={{80,-10},{80,-50}}, color={0,127,255}));
-  connect(busCon.pumPri.ySpe, pum.y) annotation (Line(
-      points={{0.1,100.1},{0.1,80},{-30,80},{-30,12}},
-      color={255,204,51},
-      thickness=0.5), Text(
-      string="%first",
-      index=-1,
-      extent={{-3,6},{-3,6}},
-      horizontalAlignment=TextAlignment.Right));
   connect(port_byp, VComLeg_flow.port_a)
     annotation (Line(points={{0,-100},{0,-80},{20,-80}}, color={0,127,255}));
   connect(VComLeg_flow.port_b, pas.port_b)
@@ -116,6 +105,14 @@ equation
       horizontalAlignment=TextAlignment.Right));
   connect(valByp.bus, busCon.valByp) annotation (Line(
       points={{-10,-50},{-60,-50},{-60,80},{0,80},{0,100}},
+      color={255,204,51},
+      thickness=0.5), Text(
+      string="%second",
+      index=1,
+      extent={{6,3},{6,3}},
+      horizontalAlignment=TextAlignment.Left));
+  connect(pum.bus, busCon.pumPri) annotation (Line(
+      points={{-30,10},{-30,80},{0.1,80},{0.1,100.1}},
       color={255,204,51},
       thickness=0.5), Text(
       string="%second",

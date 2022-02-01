@@ -8,13 +8,17 @@ block PartialController
   outer parameter ExternData.JSONFile dat
     "External parameter file";
 
-  parameter Integer nChi=1 "Number of chillers";
-  parameter Integer nPumPri=1 "Number of primary pumps";
-  parameter Integer nPumSec=1 "Number of secondary pumps";
-  parameter Integer nPumCon=1 "Number of condenser pumps";
-  parameter Integer nCooTow=1 "Number of cooling towers";
+  outer parameter Integer nChi "Number of chillers";
+  outer parameter Integer nPumPri "Number of primary pumps";
+  outer parameter Integer nPumSec "Number of secondary pumps";
+  outer parameter Integer nPumCon "Number of condenser pumps";
+  outer parameter Integer nCooTow "Number of cooling towers";
 
-  parameter Boolean isAirCoo;
+  outer parameter Boolean isAirCoo
+    "= true, chillers in group are air cooled, 
+    = false, chillers in group are water cooled";
+  outer parameter Boolean have_secondary
+    "= true if plant has secondary pumping";
 
   Buildings.Templates.ChilledWaterPlant.BaseClasses.BusChilledWater busCHW(
     final nChi=nChi,

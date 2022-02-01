@@ -28,7 +28,7 @@ partial model PartialChilledWaterPlant
         origin={0,100})));
 
 protected
-  parameter Boolean isAirCoo=
+  inner parameter Boolean isAirCoo=
     typ == Buildings.Templates.Types.ChilledWaterPlant.AirCooledParallel or
     typ == Buildings.Templates.Types.ChilledWaterPlant.AirCooledSeries
     "= true, chillers in group are air cooled, 

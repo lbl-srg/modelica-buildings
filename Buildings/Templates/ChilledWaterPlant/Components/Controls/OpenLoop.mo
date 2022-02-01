@@ -4,14 +4,11 @@ block OpenLoop "Open loop controller (output signals only)"
     Buildings.Templates.ChilledWaterPlant.Components.Controls.Interfaces.PartialController(
       final typ=Buildings.Templates.ChilledWaterPlant.Components.Types.Controller.OpenLoop);
 
-  //  Buildings.Controls.OBC.CDL.Integers.Sources.Constant
-
-
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant chiOn[nChi](each k=true)
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
-        origin={130,110})));
+        origin={170,70})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant chiTSet[nChi](each k=1)
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
@@ -61,72 +58,51 @@ block OpenLoop "Open loop controller (output signals only)"
       each k=1) annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
-        origin={70,70})));
+        origin={130,110})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant yValCWChi[nChi](each k=true)
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={-90,70})));
 
-protected
-  Buildings.Templates.Components.Interfaces.Bus busChi[nChi] "Chiller bus"
-    annotation (Placement(transformation(extent={{120,-40},{160,0}})));
-  Buildings.Templates.Components.Interfaces.Bus busValCHWChi[nChi]
-    "Bus for chiller chilled water-side isolation valves"
-    annotation (Placement(transformation(extent={{122,-82},{162,-42}})));
-  Buildings.Templates.Components.Interfaces.Bus busValCWChi[nChi]
-    "Bus for chiller condenser water-side isolation valves"
-    annotation (Placement(transformation(extent={{-138,-80},{-98,-40}})));
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant yPumSec[nPumSec](each k=true)
+    annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=-90,
+        origin={130,70})));
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant yPumPri[nPumPri](each k=true)
+    annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=-90,
+        origin={90,70})));
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant yPumCon[nPumCon](each k=true)
+    annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=-90,
+        origin={50,70})));
 equation
-  /* Control point connection - start */
   connect(busCHW.valByp.y, yValByp.y);
   connect(busCHW.valChiByp.y, yValChiByp.y);
-  connect(busCW.valCWWSE.y, yValCWWSE.y);
-  connect(busChi.TSet, chiTSet.y);
-  connect(busChi.on, chiOn.y);
-  connect(busValCHWChi[:].y, yValCHWChi[:].y);
-  connect(busValCWChi[:].y, yValCWChi[:].y);
+  connect(busCHW.chi.TSet, chiTSet.y);
+  connect(busCHW.chi.on, chiOn.y);
+  connect(busCHW.valCHWChi.y, yValCHWChi.y);
+  connect(busCHW.pumPri.y, yPumPri.y);
+  connect(busCHW.pumPri.ySpe, ySpePumPri.y);
 
-  for i in 1:nPumPri loop
-    connect(busCHW.pumPri.ySpe[i], ySpePumPri[i].y);
-  end for;
-  for i in 1:nPumSec loop
-    connect(busCHW.pumSec.ySpe[i], ySpePumSec[i].y);
-  end for;
-  for i in 1:nCooTow loop
-    connect(busCW.cooTow.yFan[i], yCooTowFan[i].y);
-    connect(busCW.cooTow.yVal[i], yCooTowVal[i].y);
-  end for;
-  for i in 1:nPumCon loop
-    connect(busCW.pum.ySpe[i], ySpePumCon[i].y);
-  end for;
-  /* Control point connection - end */
-  connect(busChi, busCHW.chi) annotation (Line(
-      points={{140,-20},{194,-20},{194,0.1},{220.1,0.1}},
-      color={255,204,51},
-      thickness=0.5), Text(
-      string="%second",
-      index=-1,
-      extent={{-6,3},{-6,3}},
-      horizontalAlignment=TextAlignment.Right));
-  connect(busValCHWChi, busCHW.valCHWChi) annotation (Line(
-      points={{142,-62},{142,-60},{196,-60},{196,-58},{194,-58},{194,0.1},{220.1,
-          0.1}},
-      color={255,204,51},
-      thickness=0.5), Text(
-      string="%second",
-      index=-1,
-      extent={{-6,3},{-6,3}},
-      horizontalAlignment=TextAlignment.Right));
+  if have_secondary then
+    connect(busCHW.pumSec.y, yPumSec.y);
+    connect(busCHW.pumSec.ySpe, ySpePumSec.y);
+  end if;
 
-  connect(busValCWChi, busCW.valCWChi) annotation (Line(
-      points={{-118,-60},{-118,0.1},{-197.9,0.1}},
-      color={255,204,51},
-      thickness=0.5), Text(
-      string="%second",
-      index=-1,
-      extent={{6,3},{6,3}},
-      horizontalAlignment=TextAlignment.Left));
+  if not isAirCoo then
+    connect(busCW.pum.y, yPumCon.y);
+    connect(busCW.pum.ySpe, ySpePumCon.y);
+    connect(busCW.cooTow.yFan, yCooTowFan.y);
+    connect(busCW.cooTow.yVal, yCooTowVal.y);
+    connect(busCW.valCWChi.y, yValCWChi.y);
+    connect(busCW.valCWWSE.y, yValCWWSE.y);
+  end if;
+
   annotation (
   defaultComponentName="conAHU",
   Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(

@@ -18,7 +18,7 @@ partial model PartialCoolingTowerGroup
   Buildings.Templates.ChilledWaterPlant.BaseClasses.BusCondenserWater busCon(
     final nChi=nChi,
     final nPum=nPumCon,
-    final nCooTow=nCooTow) "Control bus" 
+    final nCooTow=nCooTow) "Control bus"
     annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
         rotation=0,

@@ -8,13 +8,17 @@ model Centralized "Centralized secondary pumping"
     dat.getReal(varName=id + ".SecondaryPump.dpValve_nominal.value")
     "Check valve pressure drop";
 
-  BaseClasses.ParallelPumps pum(
-    redeclare final package Medium=Medium,
-    final m_flow_nominal=m_flow_nominal,
-    final per=per,
+  inner replaceable Buildings.Templates.Components.Pumps.MultipleVariable pum(
     final nPum=nPum,
-    final dp_nominal=dp_nominal,
-    final dpValve_nominal=dpValve_nominal) "Secondary pumps"
+    final per=per)
+    constrainedby Buildings.Templates.Components.Pumps.Interfaces.PartialPump(
+      redeclare final package Medium = Medium,
+      final has_singlePort_a=true,
+      final has_singlePort_b=true,
+      final m_flow_nominal=m_flow_nominal,
+      final dp_nominal=dp_nominal,
+      final dpValve_nominal=dpValve_nominal)
+      "Secondary pumps"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   replaceable parameter Fluid.Movers.Data.Generic per(pressure(V_flow=
           m_flow_nominal/1000 .* {0,1,2}, dp=dp_nominal .* {1.5,1,0.5}))
@@ -26,23 +30,16 @@ model Centralized "Centralized secondary pumping"
 equation
   connect(port_a, pum.port_a)
     annotation (Line(points={{-100,0},{-10,0}}, color={0,127,255}));
-  connect(pum.y_actual, busCon.pumSec.uStaPumSec) annotation (Line(points={{11,8},{
-          20,8},{20,80},{0.1,80},{0.1,100.1}},
-                                   color={255,0,255}), Text(
-      string="%second",
-      index=1,
-      extent={{-6,3},{-6,3}},
-      horizontalAlignment=TextAlignment.Right));
-  connect(busCon.pumSec.ySpe, pum.y) annotation (Line(
-      points={{0.1,100.1},{0.1,56},{0,56},{0,12}},
+  connect(pum.port_b, port_b)
+    annotation (Line(points={{10,0},{100,0}}, color={0,127,255}));
+  connect(busCon.pumSec, pum.bus) annotation (Line(
+      points={{0.1,100.1},{0.1,56},{0,56},{0,10}},
       color={255,204,51},
       thickness=0.5), Text(
       string="%first",
       index=-1,
       extent={{-3,6},{-3,6}},
       horizontalAlignment=TextAlignment.Right));
-  connect(pum.port_b, port_b)
-    annotation (Line(points={{10,0},{100,0}}, color={0,127,255}));
   annotation (
     Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Line(
