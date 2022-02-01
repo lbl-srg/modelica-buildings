@@ -1,7 +1,8 @@
 within Buildings.Templates.ZoneEquipment;
 model VAVBoxCoolingOnly "VAV terminal unit cooling only"
   extends Buildings.Templates.ZoneEquipment.Interfaces.PartialAirTerminal(
-    final typ=Buildings.Templates.ZoneEquipment.Types.Configuration.SingleDuct);
+    final typ=Buildings.Templates.ZoneEquipment.Types.Configuration.SingleDuct,
+    final have_souCoiHea=false);
 
   parameter Modelica.Units.SI.PressureDifference dpDamVAV_nominal=
     dat.getReal(varName=id + ".mechanical.dpDamVAV_nominal.value")

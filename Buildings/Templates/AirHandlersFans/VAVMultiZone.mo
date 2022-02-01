@@ -3,16 +3,10 @@ model VAVMultiZone "Multiple-zone VAV air-handling unit"
   extends Buildings.Templates.AirHandlersFans.Interfaces.AirHandler(
     nZon(min=2),
     final typ=Buildings.Templates.AirHandlersFans.Types.Configuration.SingleDuct,
-    final have_porRel=secOutRel.typ <> Types.OutdoorReliefReturnSection.EconomizerNoRelief);
-
-  inner replaceable package MediumCoo=Buildings.Media.Water
-    constrainedby Modelica.Media.Interfaces.PartialMedium
-    "Cooling medium (such as CHW)"
-    annotation(Dialog(enable=have_souCoiCoo));
-  inner replaceable package MediumHea=Buildings.Media.Water
-    constrainedby Modelica.Media.Interfaces.PartialMedium
-    "Heating medium (such as HHW)"
-    annotation(Dialog(enable=have_souCoiHeaPre or have_souCoiHeaReh));
+    final have_porRel=secOutRel.typ <> Types.OutdoorReliefReturnSection.EconomizerNoRelief,
+    final have_souCoiCoo = coiCoo.have_sou,
+    final have_souCoiHeaPre=coiHeaPre.have_sou,
+    final have_souCoiHeaReh=coiHeaReh.have_sou);
 
   parameter Modelica.Units.SI.PressureDifference dpFanSup_nominal=
     if typFanSup<>Buildings.Templates.Components.Types.Fan.None then
@@ -33,15 +27,6 @@ model VAVMultiZone "Multiple-zone VAV air-handling unit"
         enable=typFanRel <> Buildings.Templates.Components.Types.Fan.None or
           typFanRet <> Buildings.Templates.Components.Types.Fan.None));
 
-  final parameter Boolean have_souCoiCoo = coiCoo.have_sou
-    "Set to true if cooling coil requires fluid ports on the source side"
-    annotation (Evaluate=true, Dialog(group="Cooling coil"));
-  final parameter Boolean have_souCoiHeaPre=coiHeaPre.have_sou
-    "Set to true if heating coil requires fluid ports on the source side"
-    annotation (Evaluate=true, Dialog(group="Heating coil"));
-  final parameter Boolean have_souCoiHeaReh=coiHeaReh.have_sou
-    "Set to true if reheat coil requires fluid ports on the source side"
-    annotation (Evaluate=true, Dialog(group="Heating coil"));
   final parameter Boolean have_senPreBui=
     secOutRel.typSecRel==Buildings.Templates.AirHandlersFans.Types.ReliefReturnSection.ReliefDamper or
     secOutRel.typSecRel==Buildings.Templates.AirHandlersFans.Types.ReliefReturnSection.ReliefFan or
@@ -63,43 +48,6 @@ model VAVMultiZone "Multiple-zone VAV air-handling unit"
     secOutRel.typFanRel
     "Type of relief fan"
     annotation (Evaluate=true);
-
-  Modelica.Fluid.Interfaces.FluidPort_b port_coiCooRet(
-    redeclare final package Medium = MediumCoo) if have_souCoiCoo
-    "Cooling coil return port"
-    annotation (Placement(
-      transformation(extent={{50,-290},{70,-270}}),
-      iconTransformation(extent={{-40,-210},{-20,-190}})));
-  Modelica.Fluid.Interfaces.FluidPort_a port_coiCooSup(
-    redeclare final package Medium = MediumCoo) if have_souCoiCoo
-    "Cooling coil supply port"
-    annotation (Placement(
-        transformation(extent={{90,-290},{110,-270}}),iconTransformation(
-          extent={{20,-208},{40,-188}})));
-  Modelica.Fluid.Interfaces.FluidPort_b port_coiHeaPreRet(redeclare final
-      package Medium = MediumHea) if have_souCoiHeaPre
-    "Heating coil (preheat position) return port" annotation (Placement(
-        transformation(extent={{-30,-290},{-10,-270}}), iconTransformation(
-          extent={{-160,-210},{-140,-190}})));
-  Modelica.Fluid.Interfaces.FluidPort_a port_coiHeaPreSup(redeclare final
-      package Medium = MediumHea) if have_souCoiHeaPre
-    "Heating coil (preheat position) supply port" annotation (Placement(
-        transformation(extent={{10,-290},{30,-270}}), iconTransformation(extent={{-100,
-            -210},{-80,-190}})));
-  Modelica.Fluid.Interfaces.FluidPort_b port_coiHeaRehRet(redeclare final
-      package Medium = MediumHea) if have_souCoiHeaReh
-    "Heating coil (reheat position) return port" annotation (Placement(
-        transformation(extent={{130,-290},{150,-270}}), iconTransformation(
-          extent={{80,-210},{100,-190}})));
-  Modelica.Fluid.Interfaces.FluidPort_a port_coiHeaRehSup(redeclare final
-      package Medium = MediumHea) if have_souCoiHeaReh
-    "Heating coil (reheat position) supply port" annotation (Placement(
-        transformation(extent={{170,-290},{190,-270}}), iconTransformation(
-          extent={{140,-210},{160,-190}})));
-  BoundaryConditions.WeatherData.Bus busWea
-    "Weather bus"
-    annotation (Placement(transformation(extent={{-20,260},{20,300}}),
-      iconTransformation(extent={{-20,182},{20,218}})));
 
   /*
   Currently only the configuration with economizer is supported:

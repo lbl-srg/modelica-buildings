@@ -1,32 +1,13 @@
 within Buildings.Templates.ZoneEquipment;
 model VAVBoxReheat "VAV terminal unit with reheat"
   extends Buildings.Templates.ZoneEquipment.Interfaces.PartialAirTerminal(
-    final typ=Buildings.Templates.ZoneEquipment.Types.Configuration.SingleDuct);
-
-  inner replaceable package MediumHea=Buildings.Media.Water
-    constrainedby Modelica.Media.Interfaces.PartialMedium
-    "Heating medium (such as HHW)"
-    annotation(Dialog(enable=have_souCoiHea));
+    final typ=Buildings.Templates.ZoneEquipment.Types.Configuration.SingleDuct,
+    final have_souCoiHea=coiHea.have_sou);
 
   parameter Modelica.Units.SI.PressureDifference dpDamVAV_nominal=
     dat.getReal(varName=id + ".mechanical.dpDamVAV_nominal.value")
     "Damper pressure drop"
     annotation (Dialog(group="Nominal condition"));
-
-  final parameter Boolean have_souCoiHea=coiHea.have_sou
-    "Set to true for fluid ports on the source side"
-    annotation (Evaluate=true, Dialog(group="Reheat coil"));
-
-  Modelica.Fluid.Interfaces.FluidPort_a port_coiHeaSup(
-    redeclare final package Medium =MediumHea) if have_souCoiHea
-    "Heating coil supply port"
-    annotation (Placement(transformation(extent={{10,-290},{30,-270}}),
-      iconTransformation(extent={{-30,-208},{-10,-188}})));
-  Modelica.Fluid.Interfaces.FluidPort_b port_coiHeaRet(
-    redeclare final package Medium =MediumHea) if have_souCoiHea
-    "Heating coil return port"
-    annotation (Placement(transformation(extent={{-30,-290},{-10,-270}}),
-      iconTransformation(extent={{10,-208},{30,-188}})));
 
   inner replaceable Buildings.Templates.Components.Coils.WaterBasedHeating coiHea(
     final mAir_flow_nominal=mAir_flow_nominal)
