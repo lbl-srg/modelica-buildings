@@ -164,8 +164,8 @@ protected
   Buildings.Controls.OBC.CDL.Continuous.Add breZon "Breathing zone airflow"
     annotation (Placement(transformation(extent={{20,40},{40,60}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai(final k=
-        VOutPerPer_flow) if have_occSen "Outdoor air per person"
+  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai(
+    final k=VOutPerPer_flow) if have_occSen "Outdoor air per person"
     annotation (Placement(transformation(extent={{-100,30},{-80,50}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Switch swi
@@ -279,13 +279,13 @@ protected
     final k=VOutPerPer_flow) "Flow rate per person"
     annotation (Placement(transformation(extent={{-140,190},{-120,210}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter breZonPop(final k=
-        occDen)
+  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter breZonPop(
+    final k=occDen)
     "Default population component of the breathing zone outdoor airflow"
     annotation (Placement(transformation(extent={{-100,-40},{-80,-20}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gaiDivZer(final k=
-        1E-3)
+  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gaiDivZer(
+    final k=1E-3)
     "Gain, used to avoid division by zero if the flow rate is smaller than 0.1%"
     annotation (Placement(transformation(extent={{-80,-250},{-60,-230}})));
 
