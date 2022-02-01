@@ -65,7 +65,7 @@ model WatersideEconomizer
     annotation (Placement(transformation(extent={{50,30},{70,50}})));
   Modelica.StateGraph.TransitionWithSignal dis "Transition to disabled state"
     annotation (Placement(transformation(extent={{90,30},{110,50}})));
-  Buildings.Controls.OBC.CDL.Continuous.Add delT1(k2=-1) "Add delta-T"
+  Buildings.Controls.OBC.CDL.Continuous.Subtract delT1 "Add delta-T"
     annotation (Placement(transformation(extent={{-140,-110},{-120,-90}})));
   Buildings.Controls.OBC.CDL.Continuous.LessThreshold delTemDis(t=dTDis)
     "Compare to threshold for disabling WSE"
@@ -135,8 +135,8 @@ model WatersideEconomizer
     annotation (Placement(transformation(extent={{-50,-150},{-30,-130}})));
   Buildings.Controls.OBC.CDL.Logical.And and1 "Cooling disabled or temperature criterion verified"
     annotation (Placement(transformation(extent={{-90,150},{-70,170}})));
-  Buildings.Controls.OBC.CDL.Continuous.Gain nor2(k=1/m2_flow_nominal)
-    "Normalize"
+  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter nor2(k=1/
+        m2_flow_nominal) "Normalize"
     annotation (Placement(transformation(extent={{-140,90},{-120,110}})));
   Buildings.Controls.OBC.CDL.Continuous.Switch swiOff2
     "Switch between enabled and disabled mode"

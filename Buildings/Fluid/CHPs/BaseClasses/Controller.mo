@@ -66,8 +66,7 @@ protected
   Buildings.Controls.OBC.CDL.Continuous.Max max
     "Maximum between minimum flow rate and 0.001"
     annotation (Placement(transformation(extent={{-160,170},{-140,190}})));
-  Buildings.Controls.OBC.CDL.Continuous.Add add2(
-    final k1=-1)
+  Buildings.Controls.OBC.CDL.Continuous.Subtract sub1
     "Mass flow rate difference between actual and minimum value"
     annotation (Placement(transformation(extent={{-100,170},{-80,190}})));
   Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys(
@@ -126,7 +125,7 @@ protected
   Modelica.StateGraph.TransitionWithSignal transition6 "Run in normal mode"
     annotation (Placement(transformation(extent={{150,-10},{170,10}})));
   Modelica.StateGraph.InitialStep plaOff(final nIn=3, nOut=1)
-                                                      "Plant is off"
+    "Plant is off"
     annotation (Placement(transformation(extent={{-120,-10},{-100,10}})));
   Modelica.StateGraph.TransitionWithSignal transition4(
     final enableTimer=true,
@@ -168,18 +167,16 @@ equation
   connect(assWatMas.mWat_flow, mWat_flow) annotation (Line(points={{38,36},{-120,
           36},{-120,40},{-280,40}},color={0,0,127}));
   connect(minWatFlo.y, max.u1) annotation (Line(points={{-198,200},{-180,200},{-180,
-          186},{-162,186}},
-                      color={0,0,127}));
+          186},{-162,186}}, color={0,0,127}));
   connect(con.y, max.u2) annotation (Line(points={{-198,160},{-180,160},{-180,174},
-          {-162,174}},
-                 color={0,0,127}));
-  connect(max.y, add2.u1) annotation (Line(points={{-138,180},{-120,180},{-120,186},
+          {-162,174}}, color={0,0,127}));
+  connect(max.y, sub1.u1) annotation (Line(points={{-138,180},{-120,180},{-120,186},
           {-102,186}},  color={0,0,127}));
-  connect(add2.y, hys.u) annotation (Line(points={{-78,180},{-62,180}},
+  connect(sub1.y, hys.u) annotation (Line(points={{-78,180},{-62,180}},
           color={0,0,127}));
   connect(hys.y, goSig.u1) annotation (Line(points={{-38,180},{-22,180}},
           color={255,0,255}));
-  connect(mWat_flow, add2.u2) annotation (Line(points={{-280,40},{-120,40},{-120,
+  connect(mWat_flow, sub1.u2) annotation (Line(points={{-280,40},{-120,40},{-120,
           174},{-102,174}}, color={0,0,127}));
   connect(runSig, goSig.u2) annotation (Line(points={{-280,120},{-30,120},{-30,172},
           {-22,172}}, color={255,0,255}));
@@ -188,8 +185,7 @@ equation
   connect(runSig, assWatMas.runSig) annotation (Line(points={{-280,120},{-240,120},
           {-240,44},{38,44}},      color={255,0,255}));
   connect(avaSig, transition1.condition) annotation (Line(points={{-280,180},{
-          -250,180},{-250,-20},{-80,-20},{-80,-12}},
-                                                color={255,0,255}));
+          -250,180},{-250,-20},{-80,-20},{-80,-12}}, color={255,0,255}));
   connect(runSig, transition2.condition) annotation (Line(points={{-280,120},{-240,
           120},{-240,-24},{-20,-24},{-20,-12}}, color={255,0,255}));
   connect(avaSig, notAvaSig.u) annotation (Line(points={{-280,180},{-250,180},{-250,

@@ -151,8 +151,8 @@ model ThermalElectricalFollowing
     final yMin=0) if switchThermalElectricalFollowing
     "Cooling water outplet controller"
     annotation (Placement(transformation(extent={{-60,340},{-40,360}})));
-  Buildings.Controls.OBC.CDL.Continuous.Gain elePowDem(
-    final k=per.PEleMax) if switchThermalElectricalFollowing
+  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter elePowDem(final k=
+        per.PEleMax) if switchThermalElectricalFollowing
     "Electric power demand if thermal following"
     annotation (Placement(transformation(extent={{0,340},{20,360}})));
   Buildings.Controls.OBC.CDL.Continuous.Switch swi
@@ -165,7 +165,7 @@ model ThermalElectricalFollowing
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zer1(
     final k=0) if not switchThermalElectricalFollowing "Constant zero"
     annotation (Placement(transformation(extent={{40,270},{60,290}})));
-  Buildings.Controls.OBC.CDL.Continuous.Gain gai(final k=-1)
+  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai(final k=-1)
     "Heat transfer to the water control volume"
     annotation (Placement(transformation(extent={{120,-110},{140,-90}})));
   inner Modelica.StateGraph.StateGraphRoot stateGraphRoot
