@@ -17,6 +17,11 @@ model VAVBoxCoolingOnly "VAV terminal unit cooling only"
       final dpDamper_nominal=dpDamVAV_nominal)
     "VAV damper"
     annotation (Dialog(group="VAV damper"),
+      choices(
+      choice(redeclare replaceable Buildings.Templates.Components.Dampers.Modulating damVAV
+        "Modulating damper"),
+      choice(redeclare replaceable Buildings.Templates.Components.Dampers.PressureIndependent damVAV
+        "Pressure independent damper")),
       Placement(
         transformation(
         extent={{-10,-10},{10,10}},

@@ -231,7 +231,7 @@ block G36VAVMultiZone
 
   Buildings.Controls.OBC.CDL.Routing.RealScalarReplicator TAirSupSet(final nout=
        nZon) "Pass signal to terminal unit bus"
-    annotation (Placement(transformation(extent={{-10,-130},{10,-110}})));
+    annotation (Placement(transformation(extent={{-8,-130},{12,-110}})));
   Buildings.Controls.OBC.CDL.Routing.RealScalarReplicator VDesUncOutAir_flow(
     final nout=nZon)
     "Pass signal to terminal unit bus"
@@ -288,6 +288,12 @@ block G36VAVMultiZone
       h=0.5e-2) "On/off command for return fan is required"
     annotation (Placement(transformation(extent={{80,-40},{100,-20}})));
 
+  Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator yFanSup_actual(final
+      nout=nZon) "Pass signal to terminal unit bus"
+    annotation (Placement(transformation(extent={{-10,-190},{10,-170}})));
+  Buildings.Controls.OBC.CDL.Routing.RealScalarReplicator TAirSup(final nout=
+        nZon) "Pass signal to terminal unit bus"
+    annotation (Placement(transformation(extent={{-10,-160},{10,-140}})));
 initial equation
   if minOADes==Buildings.Controls.OBC.ASHRAE.G36.Types.MultizoneAHUMinOADesigns.CommonDamper then
     assert(secOutRel.typSecOut==Buildings.Templates.AirHandlersFans.Types.OutdoorSection.SingleDamper,
@@ -318,6 +324,9 @@ equation
   connect(bus.fanRet.V_flow, ctr.VRet_flow);
   connect(bus.coiCoo.y_actual, ctr.uCooCoi);
   connect(bus.coiHea.y_actual, ctr.uHeaCoi);
+
+  connect(bus.fanSup.y_actual, yFanSup_actual.u);
+  connect(bus.TAirSup, TAirSup.u);
 
   // Inputs from terminal bus
   connect(busTer.yReqZonPreRes, reqZonPreRes.u);
@@ -371,6 +380,8 @@ equation
   connect(VDesUncOutAir_flow.y, busTer.VDesUncOutAir_flow);
   connect(yReqOutAir.y, busTer.yReqOutAir);
   connect(TAirSupSet.y, busTer.TAirSupSet);
+  connect(TAirSup.y, busTer.TAirSup);
+  connect(yFanSup_actual.y, busTer.yFanSup_actual);
 
   // FIXME
   connect(FIXME_TOutCut.y, ctr.TOutCut);
@@ -492,7 +503,7 @@ equation
   connect(staGro.ySetBac, opeModSel.uSetBac) annotation (Line(points={{-118,120},
           {-108,120},{-108,118},{-102,118}}, color={255,0,255}));
   connect(FIXME_TAirSupSet.y, TAirSupSet.u)
-    annotation (Line(points={{-258,-120},{-12,-120}},color={0,0,127}));
+    annotation (Line(points={{-258,-120},{-10,-120}},color={0,0,127}));
   connect(ctr.yRetFanSpe, FIXME_yFanRet.u) annotation (Line(points={{44,-8.18182},
           {70,-8.18182},{70,-30},{78,-30}}, color={0,0,127}));
   connect(ctr.yRelFanSpe, FIXME_yFanRet.u) annotation (Line(points={{44,-13.0909},
