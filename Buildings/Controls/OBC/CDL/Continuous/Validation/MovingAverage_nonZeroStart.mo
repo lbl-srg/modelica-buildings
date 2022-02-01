@@ -3,58 +3,58 @@ model MovingAverage_nonZeroStart
   "Validation model for the MovingAverage block"
   Modelica.Blocks.Sources.Sine sinInpNoDel(f=1/80) "Start from zero second"
     annotation (Placement(transformation(extent={{-90,50},{-70,70}})));
-  Buildings.Controls.OBC.CDL.Continuous.MovingAverage movingMean_1(delta=100)
+  Buildings.Controls.OBC.CDL.Continuous.MovingAverage movAve1(delta=100)
     "Moving average with 100 s sliding window"
     annotation (Placement(transformation(extent={{-40,50},{-20,70}})));
-  Buildings.Controls.OBC.CDL.Continuous.MovingAverage movingMean_2(delta=200)
+  Buildings.Controls.OBC.CDL.Continuous.MovingAverage movAve2(delta=200)
     "Moving average with 200 s sliding window"
     annotation (Placement(transformation(extent={{-40,20},{-20,40}})));
-  Buildings.Controls.OBC.CDL.Continuous.MovingAverage movingMean_3(delta=300)
+  Buildings.Controls.OBC.CDL.Continuous.MovingAverage movAve3(delta=300)
     "Moving average with 300 s sliding window"
     annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.MovingAverage movingMean_4(delta=400)
+  Buildings.Controls.OBC.CDL.Continuous.MovingAverage movAve4(delta=400)
     "Moving average with 400 s sliding window"
     annotation (Placement(transformation(extent={{-40,-40},{-20,-20}})));
-  Buildings.Controls.OBC.CDL.Continuous.MovingAverage movingMean_5(delta=500)
+  Buildings.Controls.OBC.CDL.Continuous.MovingAverage movAve5(delta=500)
     "Moving average with 500 s sliding window"
     annotation (Placement(transformation(extent={{-40,-70},{-20,-50}})));
   Modelica.Blocks.Sources.Sine sinInp50sDel(f=1/80, startTime=50)
     "Start from 50 seconds"
     annotation (Placement(transformation(extent={{0,50},{20,70}})));
-  Buildings.Controls.OBC.CDL.Continuous.MovingAverage movingMean_6(delta=100)
+  Buildings.Controls.OBC.CDL.Continuous.MovingAverage movAve6(delta=100)
     "Moving average with 100 s sliding window"
     annotation (Placement(transformation(extent={{60,50},{80,70}})));
-  Buildings.Controls.OBC.CDL.Continuous.MovingAverage movingMean_7(delta=200)
+  Buildings.Controls.OBC.CDL.Continuous.MovingAverage movAve7(delta=200)
     "Moving average with 200 s sliding window"
     annotation (Placement(transformation(extent={{60,20},{80,40}})));
   Modelica.Blocks.Sources.Sine sinInp100sDel(f=1/80, startTime=100)
     "Start from 100 seconds"
     annotation (Placement(transformation(extent={{0,-30},{20,-10}})));
-  Buildings.Controls.OBC.CDL.Continuous.MovingAverage movingMean_8(delta=100)
+  Buildings.Controls.OBC.CDL.Continuous.MovingAverage movAve8(delta=100)
     "Moving average with 100 s sliding window"
     annotation (Placement(transformation(extent={{60,-30},{80,-10}})));
-  Buildings.Controls.OBC.CDL.Continuous.MovingAverage movingMean_9(delta=200)
+  Buildings.Controls.OBC.CDL.Continuous.MovingAverage movAve9(delta=200)
     "Moving average with 200 s sliding window"
     annotation (Placement(transformation(extent={{60,-60},{80,-40}})));
 
 equation
-  connect(sinInpNoDel.y,movingMean_3.u)
+  connect(sinInpNoDel.y,movAve3.u)
     annotation (Line(points={{-69,60},{-60,60},{-60,0},{-42,0}},color={0,0,127}));
-  connect(sinInpNoDel.y,movingMean_1.u)
+  connect(sinInpNoDel.y,movAve1.u)
     annotation (Line(points={{-69,60},{-42,60}},color={0,0,127}));
-  connect(sinInpNoDel.y,movingMean_2.u)
+  connect(sinInpNoDel.y,movAve2.u)
     annotation (Line(points={{-69,60},{-60,60},{-60,30},{-42,30}},color={0,0,127}));
-  connect(sinInpNoDel.y,movingMean_5.u)
+  connect(sinInpNoDel.y,movAve5.u)
     annotation (Line(points={{-69,60},{-60,60},{-60,-60},{-42,-60}},color={0,0,127}));
-  connect(sinInpNoDel.y,movingMean_4.u)
+  connect(sinInpNoDel.y,movAve4.u)
     annotation (Line(points={{-69,60},{-60,60},{-60,-30},{-42,-30}},color={0,0,127}));
-  connect(sinInp50sDel.y,movingMean_6.u)
+  connect(sinInp50sDel.y,movAve6.u)
     annotation (Line(points={{21,60},{21,60},{58,60}},color={0,0,127}));
-  connect(sinInp50sDel.y,movingMean_7.u)
+  connect(sinInp50sDel.y,movAve7.u)
     annotation (Line(points={{21,60},{21,60},{40,60},{40,30},{58,30}},color={0,0,127}));
-  connect(sinInp100sDel.y,movingMean_9.u)
+  connect(sinInp100sDel.y,movAve9.u)
     annotation (Line(points={{21,-20},{21,-20},{40,-20},{40,-50},{58,-50}},color={0,0,127}));
-  connect(sinInp100sDel.y,movingMean_8.u)
+  connect(sinInp100sDel.y,movAve8.u)
     annotation (Line(points={{21,-20},{58,-20}},color={0,0,127}));
   annotation (
     experiment(
