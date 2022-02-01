@@ -24,7 +24,7 @@ partial model PartialStaticTwoPortCoolingTower
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     nominalValuesDefineDefaultPressureCurve=true)
     "Pump for condenser water loop"
-    annotation (Placement(transformation(extent={{-40,-60},{-20,-40}})));
+    annotation (Placement(transformation(extent={{-70,-60},{-50,-40}})));
 
   Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=
     Modelica.Utilities.Files.loadResource(
@@ -80,8 +80,9 @@ partial model PartialStaticTwoPortCoolingTower
 
   Buildings.Fluid.Sensors.TemperatureTwoPort TEnt(
     redeclare package Medium = Medium_W,
-    m_flow_nominal=m_flow_nominal)                                 "Water entering temperature"
-    annotation (Placement(transformation(extent={{-10,-60},{10,-40}})));
+    m_flow_nominal=m_flow_nominal)
+    "Water entering temperature"
+    annotation (Placement(transformation(extent={{-40,-60},{-20,-40}})));
 equation
   connect(weaDat.weaBus, weaBus)
    annotation (Line(points={{-80,50},{-60,50}},color={255,204,51}));
@@ -94,7 +95,7 @@ equation
    annotation (Line(points={{1,-158},{8,-158},{8,-182},{18,-182}},
      color={0,0,127}));
   connect(vol.ports[1], pum.port_a)
-   annotation (Line(points={{28.6667,-120},{-60,-120},{-60,-50},{-40,-50}},
+   annotation (Line(points={{28.6667,-120},{-70,-120},{-70,-50}},
       color={0,127,255}));
   connect(fixHeaFlo.port, vol.heatPort)
    annotation (Line(points={{-20,-90},{10,-90},{10,-110},{20,-110}},
@@ -111,15 +112,15 @@ equation
    annotation (Line(points={{-49,-150},{-40,-150},{-40,-184},{-22,-184}},
       color={0,0,127}));
   connect(swi.y, pum.m_flow_in)
-   annotation (Line(points={{41,-190},{70,-190},{70,-240},{-100,-240},
-     {-100,-30},{-30,-30},{-30,-38}},color={0,0,127}));
+   annotation (Line(points={{41,-190},{46,-190},{46,-240},{-100,-240},{-100,-30},
+          {-60,-30},{-60,-38}},color={0,0,127}));
   connect(exp.ports[1], vol.ports[3])
    annotation (Line(points={{80,-120},{31.3333,-120}},color={0,127,255}));
 
   connect(pum.port_b, TEnt.port_a)
-    annotation (Line(points={{-20,-50},{-10,-50}}, color={0,127,255}));
+    annotation (Line(points={{-50,-50},{-40,-50}}, color={0,127,255}));
   connect(TEnt.port_b, tow.port_a)
-    annotation (Line(points={{10,-50},{22,-50}}, color={0,127,255}));
+    annotation (Line(points={{-20,-50},{22,-50}},color={0,127,255}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-140,
             -260},{140,100}})),  Documentation(info="<html>
 <p>
