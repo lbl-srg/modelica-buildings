@@ -1,6 +1,6 @@
 within Buildings.Fluid.Storage.Ice.Validation.Experiment;
 model Discharging1 "Validation against discharging experiment 1"
-  extends Buildings.Fluid.Storage.Ice.Validation.BaseClasses.PartialExample(
+  extends Buildings.Fluid.Storage.Ice.Validation.BaseClasses.PartialChargingDischarging(
     fileName=Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/Data/Fluid/Storage/Ice/Validation/Experiment/discharging1.txt"),
     SOC_start=0.90996030,
     offSet(k=-2));
