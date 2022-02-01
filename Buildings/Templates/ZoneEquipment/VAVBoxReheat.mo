@@ -1,7 +1,7 @@
 within Buildings.Templates.ZoneEquipment;
-model VAVBox "VAV terminal unit"
+model VAVBoxReheat "VAV terminal unit with reheat"
   extends Buildings.Templates.ZoneEquipment.Interfaces.PartialAirTerminal(
-    final typ=Types.Configuration.SingleDuct);
+    final typ=Buildings.Templates.ZoneEquipment.Types.Configuration.SingleDuct);
 
   inner replaceable package MediumHea=Buildings.Media.Water
     constrainedby Modelica.Media.Interfaces.PartialMedium
@@ -28,15 +28,12 @@ model VAVBox "VAV terminal unit"
     annotation (Placement(transformation(extent={{-30,-290},{-10,-270}}),
       iconTransformation(extent={{10,-208},{30,-188}})));
 
-  inner replaceable Buildings.Templates.Components.Coils.None coiHea(
+  inner replaceable Buildings.Templates.Components.Coils.WaterBasedHeating coiHea(
     final mAir_flow_nominal=mAir_flow_nominal)
     constrainedby Buildings.Templates.Components.Coils.Interfaces.PartialCoil
     "Heating coil"
     annotation (
     choices(
-      choice(redeclare replaceable Buildings.Templates.Components.Coils.None coiHea(
-        final mAir_flow_nominal=mAirSup_flow_nominal)
-        "No coil"),
       choice(redeclare replaceable Buildings.Templates.Components.Coils.WaterBasedHeating coiHea
         "Hot water coil"),
       choice(redeclare replaceable Buildings.Templates.Components.Coils.ElectricHeating coiHea
@@ -63,20 +60,24 @@ model VAVBox "VAV terminal unit"
     Buildings.Templates.ZoneEquipment.Components.Controls.Interfaces.PartialController
     "Terminal unit controller"
     annotation (
-    choicesAllMatching=true,
+    choices(
+      choice(redeclare replaceable Buildings.Templates.ZoneEquipment.Components.Controls.G36VAVBoxReheat ctr
+        "Guideline 36 controller for VAV terminal unit with reheat"),
+      choice(redeclare replaceable Buildings.Templates.ZoneEquipment.Components.Controls.OpenLoop ctr
+        "Open loop control")),
     Dialog(group="Controller"),
     Placement(transformation(extent={{-10,-10},{10,10}})));
 
   Buildings.Templates.Components.Sensors.Temperature TAirDis(
     redeclare final package Medium = MediumAir,
-    final have_sen=ctr.typ==Buildings.Templates.ZoneEquipment.Types.Controller.Guideline36,
+    final have_sen=ctr.typ==Buildings.Templates.ZoneEquipment.Types.Controller.G36VAVBoxReheat,
     final m_flow_nominal=mAir_flow_nominal,
     final typ=Buildings.Templates.Components.Types.SensorTemperature.Standard)
     "Discharge air temperature sensor"
     annotation (Placement(transformation(extent={{90,-210},{110,-190}})));
   Buildings.Templates.Components.Sensors.VolumeFlowRate VAirDis_flow(
     redeclare final package Medium = MediumAir,
-    final have_sen=ctr.typ==Buildings.Templates.ZoneEquipment.Types.Controller.Guideline36,
+    final have_sen=ctr.typ==Buildings.Templates.ZoneEquipment.Types.Controller.G36VAVBoxReheat,
     final m_flow_nominal=mAir_flow_nominal,
     final typ=Buildings.Templates.Components.Types.SensorVolumeFlowRate.FlowCross)
     annotation (Placement(transformation(extent={{-200,-210},{-180,-190}})));
@@ -112,4 +113,4 @@ equation
                                             color={0,0,0}),
         Line(points={{300,-210},{-300,-210}},
                                             color={0,0,0})}));
-end VAVBox;
+end VAVBoxReheat;

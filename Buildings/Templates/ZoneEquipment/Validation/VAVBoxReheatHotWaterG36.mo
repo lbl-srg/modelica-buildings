@@ -1,7 +1,7 @@
 within Buildings.Templates.ZoneEquipment.Validation;
-model ControlsGuideline36
-  extends BaseNoEquipment(redeclare
-      UserProject.TerminalUnits.ControlsGuideline36 ter);
+model VAVBoxReheatHotWaterG36
+  extends VAVBoxCoolingOnly(redeclare
+      UserProject.TerminalUnits.VAVBoxReheatHotWaterG36 ter);
   Fluid.Sources.Boundary_pT bou2(redeclare final package Medium = MediumHea,
       nPorts=1)
     annotation (Placement(transformation(extent={{-80,-50},{-60,-30}})));
@@ -21,4 +21,4 @@ equation
       thickness=0.5));
   annotation (
   experiment(Tolerance=1e-6, StopTime=1));
-end ControlsGuideline36;
+end VAVBoxReheatHotWaterG36;

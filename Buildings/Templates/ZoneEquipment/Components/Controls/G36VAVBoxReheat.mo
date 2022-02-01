@@ -1,8 +1,12 @@
 within Buildings.Templates.ZoneEquipment.Components.Controls;
-block Guideline36
+block G36VAVBoxReheat
+  "Guideline 36 controller for VAV terminal unit with reheat"
   extends
     Buildings.Templates.ZoneEquipment.Components.Controls.Interfaces.PartialSingleDuct(
-      final typ=Buildings.Templates.ZoneEquipment.Types.Controller.Guideline36);
+      final typ=Buildings.Templates.ZoneEquipment.Types.Controller.G36VAVBoxReheat);
+
+  outer replaceable Buildings.Templates.Components.Coils.None coiHea
+    "Heating coil";
 
   parameter Boolean have_occSen=false
     "Set to true if zones have occupancy sensor"
@@ -557,4 +561,4 @@ equation
           lineColor={238,46,47},
           textString=
               "Todo: subset indices for different Boolean values (such as have_occSen)")}));
-end Guideline36;
+end G36VAVBoxReheat;

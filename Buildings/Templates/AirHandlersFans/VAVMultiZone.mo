@@ -1,5 +1,5 @@
 within Buildings.Templates.AirHandlersFans;
-model VAVMultiZone "Multiple-Zone VAV"
+model VAVMultiZone "Multiple-zone VAV air-handling unit"
   extends Buildings.Templates.AirHandlersFans.Interfaces.AirHandler(
     nZon(min=2),
     final typ=Buildings.Templates.AirHandlersFans.Types.Configuration.SingleDuct,
@@ -193,8 +193,9 @@ model VAVMultiZone "Multiple-Zone VAV"
     "AHU controller"
     annotation (
       choices(
-        choice(redeclare replaceable Buildings.Templates.AirHandlersFans.Components.Controls.Guideline36 con
-          "Guideline 36 control sequence"),
+        choice(redeclare replaceable
+          Buildings.Templates.AirHandlersFans.Components.Controls.G36VAVMultiZone
+          con "Guideline 36 control sequence"),
         choice(redeclare replaceable Buildings.Templates.AirHandlersFans.Components.Controls.OpenLoop con
           "Open loop control")),
     Dialog(group="Controls"),

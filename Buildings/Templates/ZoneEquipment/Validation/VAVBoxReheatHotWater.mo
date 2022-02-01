@@ -1,7 +1,7 @@
 within Buildings.Templates.ZoneEquipment.Validation;
-model VAVReheatCoilWater
-  extends BaseNoEquipment(
-    redeclare UserProject.TerminalUnits.VAVReheatCoilWater ter);
+model VAVBoxReheatHotWater
+  extends VAVBoxCoolingOnly(redeclare
+      UserProject.TerminalUnits.VAVBoxReheatHotWater ter);
   Fluid.Sources.Boundary_pT bou2(redeclare final package Medium = MediumHea,
       nPorts=1)
     annotation (Placement(transformation(extent={{-80,-50},{-60,-30}})));
@@ -15,4 +15,4 @@ equation
           {2,-80},{-60,-80},{-60,-80}}, color={0,127,255}));
   annotation (
   experiment(Tolerance=1e-6, StopTime=1));
-end VAVReheatCoilWater;
+end VAVBoxReheatHotWater;

@@ -12,8 +12,10 @@ package Types "Terminal unit types"
       "Induction system")
     "Enumeration to configure the terminal unit";
   type Controller = enumeration(
-      Guideline36
-      "Guideline 36 control sequence",
+      G36VAVBoxCoolingOnly
+      "Guideline 36 controller for VAV terminal unit cooling only",
+      G36VAVBoxReheat
+      "Guideline 36 controller for VAV terminal unit with reheat",
       OpenLoop
       "Open loop")
       "Enumeration to configure the terminal unit controller";

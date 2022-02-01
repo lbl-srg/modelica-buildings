@@ -2,7 +2,7 @@ within Buildings.Templates.AirHandlersFans.Components.Controls;
 block OpenLoop "Open loop controller (output signals only)"
   extends
     Buildings.Templates.AirHandlersFans.Components.Controls.Interfaces.PartialSingleDuct(
-      final typ=Types.Controller.OpenLoop);
+      final typ=Buildings.Templates.AirHandlersFans.Types.Controller.OpenLoop);
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant yDamOut(k=1)
  if secOutRel.typDamOut == Buildings.Templates.Components.Types.Damper.Modulating

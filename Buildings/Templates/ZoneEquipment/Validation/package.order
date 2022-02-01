@@ -1,4 +1,4 @@
-BaseNoEquipment
-ControlsGuideline36
-VAVReheatCoilWater
+VAVBoxCoolingOnly
+VAVBoxReheatHotWaterG36
+VAVBoxReheatHotWater
 UserProject

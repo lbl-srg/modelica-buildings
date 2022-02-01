@@ -1,8 +1,9 @@
 within Buildings.Templates.AirHandlersFans.Components.Controls;
-block Guideline36 "Guideline 36 VAV single duct controller"
+block G36VAVMultiZone
+  "Guideline 36 controller for multiple-zone VAV air-handling unit"
   extends
     Buildings.Templates.AirHandlersFans.Components.Controls.Interfaces.PartialSingleDuct(
-      final typ=Types.Controller.Guideline36,
+      final typ=Buildings.Templates.AirHandlersFans.Types.Controller.G36VAVMultiZone,
       final use_TMix=true);
 
   final parameter Buildings.Controls.OBC.ASHRAE.G36.Types.MultizoneAHUMinOADesigns minOADes=
@@ -30,8 +31,6 @@ block Guideline36 "Guideline 36 VAV single duct controller"
     else Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefDamper
     "Type of building pressure control system"
     annotation (Dialog(group="Economizer design"));
-
-
 
   // See FIXME below for those parameters.
   parameter String namGroZon[nZon] = fill(namGro[1], nZon)
@@ -508,4 +507,4 @@ In case of a dedicated damper, the total OA flow rate is not measured, hence no 
 signal is available.
 </p>
 </html>"));
-end Guideline36;
+end G36VAVMultiZone;
