@@ -131,7 +131,10 @@ protected
   CDL.Continuous.Subtract dTFlu2_nom
     "Heating supply minus return water temperature at nominal condition"
     annotation (Placement(transformation(extent={{-40,150},{-20,170}})));
-  CDL.Continuous.Add TFluAve_nominal
+  CDL.Continuous.Average TFluAve_nominal(
+    y(final quantity="ThermodynamicTemperature",
+      final unit="K",
+      displayUnit="degC"))
     "Average heating water temperature at nominal condition"
     annotation (Placement(transformation(extent={{-40,120},{-20,140}})));
   CDL.Continuous.Subtract dTFluAve_nominal(
@@ -189,12 +192,6 @@ protected
     y(final quantity="TemperatureDifference",
       final unit="K")) "Gain factor"
     annotation (Placement(transformation(extent={{0,150},{20,170}})));
-  CDL.Continuous.MultiplyByParameter gai1(
-    final k=0.5,
-    y(final quantity="ThermodynamicTemperature",
-      final unit="K",
-      displayUnit="degC")) "Gain factor"
-    annotation (Placement(transformation(extent={{0,120},{20,140}})));
 
 equation
   connect(dTOutHeaBal_nominal.y,TOutOffSet.u1)
@@ -270,10 +267,8 @@ equation
     annotation (Line(points={{-18,160},{-2,160}}, color={0,0,127}));
   connect(gai.y, dTFlu.u1) annotation (Line(points={{22,160},{28,160},{28,180},{
           -10,180},{-10,236},{-2,236}}, color={0,0,127}));
-  connect(TFluAve_nominal.y, gai1.u)
-    annotation (Line(points={{-18,130},{-2,130}}, color={0,0,127}));
-  connect(gai1.y, dTFluAve_nominal.u1) annotation (Line(points={{22,130},{30,130},
-          {30,126},{34,126}}, color={0,0,127}));
+  connect(TFluAve_nominal.y, dTFluAve_nominal.u1) annotation (Line(points={{-18,
+          130},{10,130},{10,126},{34,126}}, color={0,0,127}));
   annotation (
     defaultComponentName="watRes",
     Documentation(
