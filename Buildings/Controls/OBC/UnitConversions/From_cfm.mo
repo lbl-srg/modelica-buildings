@@ -15,8 +15,8 @@ block From_cfm "Block that converts volume flow from cubic feet per minute to cu
 protected
   constant Real k = 0.000471947 "Multiplier";
 
-  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter conv(final k=k)
-    "Unit converter"
+  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter conv(
+    final k = k) "Unit converter"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 
 equation

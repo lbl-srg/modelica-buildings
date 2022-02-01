@@ -15,8 +15,8 @@ block From_psi "Block that converts pressure from pound-force per square inch to
 protected
   constant Real k = 6895. "Multiplier";
 
-  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter conv(final k=k)
-    "Unit converter"
+  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter conv(
+    final k = k) "Unit converter"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 
 equation
