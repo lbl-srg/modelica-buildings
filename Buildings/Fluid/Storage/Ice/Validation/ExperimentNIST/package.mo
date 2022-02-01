@@ -1,5 +1,5 @@
-﻿within Buildings.Fluid.Storage.Ice.Validation;
-package Experiment "Validation from experimental data"
+within Buildings.Fluid.Storage.Ice.Validation;
+package ExperimentNIST "Validation from experimental data"
   extends Modelica.Icons.ExamplesPackage;
 
 annotation (Documentation(info="<html>
@@ -54,4 +54,4 @@ Li, Guowen, et al. \"An Ice Storage Tank Modelica Model: Implementation and Vali
 </p>
 
 </html>"));
-end Experiment;
+end ExperimentNIST;

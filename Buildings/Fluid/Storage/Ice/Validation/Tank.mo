@@ -1,4 +1,4 @@
-within Buildings.Fluid.Storage.Ice.Examples;
+within Buildings.Fluid.Storage.Ice.Validation;
 model Tank "Example that test the tank model"
   extends Modelica.Icons.Example;
 
@@ -112,7 +112,7 @@ equation
       StartTime=0,
       StopTime=86400,
       Tolerance=1e-06),
-    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Storage/Ice/Examples/Tank.mos"
+    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Storage/Ice/Validation/Tank.mos"
         "Simulate and Plot"),
     Documentation(info="<html>
 <p>

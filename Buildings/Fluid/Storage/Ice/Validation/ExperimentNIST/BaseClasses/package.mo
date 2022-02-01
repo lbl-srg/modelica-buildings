@@ -1,4 +1,4 @@
-within Buildings.Fluid.Storage.Ice.Validation;
+within Buildings.Fluid.Storage.Ice.Validation.ExperimentNIST;
 package BaseClasses "Base classes for validation package"
   extends Modelica.Icons.BasesPackage;
 

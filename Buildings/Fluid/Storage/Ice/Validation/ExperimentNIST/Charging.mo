@@ -1,6 +1,6 @@
-within Buildings.Fluid.Storage.Ice.Validation.Experiment;
+within Buildings.Fluid.Storage.Ice.Validation.ExperimentNIST;
 model Charging "Validation against charging experiment"
-  extends Buildings.Fluid.Storage.Ice.Validation.BaseClasses.PartialChargingDischarging(
+  extends Buildings.Fluid.Storage.Ice.Validation.ExperimentNIST.BaseClasses.PartialChargingDischarging(
     fileName=Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/Data/Fluid/Storage/Ice/Validation/Experiment/charging.txt"),
     SOC_start=0.158);
 
@@ -10,7 +10,7 @@ model Charging "Validation against charging experiment"
       StopTime=60370,
       Tolerance=1e-06),
     __Dymola_Commands(file=
-          "modelica://Buildings/Resources/Scripts/Dymola/Fluid/Storage/Ice/Validation/Experiment/Charging.mos"
+          "modelica://Buildings/Resources/Scripts/Dymola/Fluid/Storage/Ice/Validation/ExperimentNIST/Charging.mos"
         "Simulate and Plot"),
     Documentation(info="<html>
 <p>

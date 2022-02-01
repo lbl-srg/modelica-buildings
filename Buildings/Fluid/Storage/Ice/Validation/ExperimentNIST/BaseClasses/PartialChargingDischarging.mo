@@ -1,4 +1,4 @@
-within Buildings.Fluid.Storage.Ice.Validation.BaseClasses;
+within Buildings.Fluid.Storage.Ice.Validation.ExperimentNIST.BaseClasses;
 partial model PartialChargingDischarging "Base example"
   extends Modelica.Icons.Example;
   package Medium = Buildings.Media.Antifreeze.PropyleneGlycolWater (
