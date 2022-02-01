@@ -266,7 +266,7 @@ to <b style=\"color:blue\">existing</b> libraries:
                        Buildings.Controls.OBC.CDL.Continuous.Subtract<br/>
                        Buildings.Controls.OBC.CDL.Integers.Subtact
     </td>
-    <td valign=\"top\">Created new blocks based on the discussion from project ASHRAE 231P.
+    <td valign=\"top\">Created new blocks based on the discussion from ASHRAE Standard 231P Committee.
                        This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2865\">#2865</a>.<br/>
     </td>
 </tr>
