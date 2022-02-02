@@ -2,8 +2,10 @@ within Buildings.ThermalZones.EnergyPlus.Validation.ThermalZone;
 model OneZoneOneYear
   "Validation model for one zone"
   extends Buildings.ThermalZones.EnergyPlus.Examples.SingleFamilyHouse.Unconditioned;
-  Controls.OBC.CDL.Continuous.MovingAverage TAirMea(delta(displayUnit="d") =
-      86400, y(final unit="K", displayUnit="degC"))
+  Controls.OBC.CDL.Continuous.MovingAverage TAirMea(
+    delta(displayUnit="d")= 86400,
+    y(final unit="K",
+      displayUnit="degC"))
     "Moving mean of air temperature"
     annotation (Placement(transformation(extent={{60,8},{80,28}})));
 

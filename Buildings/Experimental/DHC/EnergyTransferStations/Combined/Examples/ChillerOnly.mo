@@ -31,14 +31,15 @@ model ChillerOnly
       filNam=Modelica.Utilities.Files.loadResource(filNam)));
   parameter String filNam="modelica://Buildings/Resources/Data/Experimental/DHC/Loads/Examples/MediumOffice-90.1-2010-5A.mos"
     "File name with thermal loads as time series";
-  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter loaNorHea(final k=1
-        /ets.QHeaWat_flow_nominal) "Normalize by nominal" annotation (Placement(
+  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter loaNorHea(
+    final k=1/ets.QHeaWat_flow_nominal)
+    "Normalize by nominal" annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-278,60})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter loaNorCoo(final k=1
-        /ets.QChiWat_flow_nominal) "Normalize by nominal" annotation (Placement(
+  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter loaNorCoo(
+    final k=1/ets.QChiWat_flow_nominal) "Normalize by nominal" annotation (Placement(
         transformation(
         extent={{10,-10},{-10,10}},
         rotation=0,

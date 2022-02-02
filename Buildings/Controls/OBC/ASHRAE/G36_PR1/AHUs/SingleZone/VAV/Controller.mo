@@ -535,7 +535,7 @@ block Controller
     final Ti=TiCoo,
     final Td=TdCoo)
     "Zone cooling control signal"
-    annotation (Placement(transformation(extent={{-50,150},{-30,170}})));
+    annotation (Placement(transformation(extent={{-40,150},{-20,170}})));
   Buildings.Controls.OBC.CDL.Continuous.PIDWithReset heaPI(
     final controllerType=controllerTypeHea,
     final k=kHea,
@@ -653,7 +653,8 @@ equation
   connect(intEqu.y, switch.u) annotation (Line(points={{-78,-230},{-72,-230}}, color={255,0,255}));
   connect(outAirSetPoi.uWin, uWin) annotation (Line(points={{38,34},{8,34},{8,-110},
           {-220,-110}},color={255,0,255}));
-  connect(TZon, cooPI.u_m) annotation (Line(points={{-220,130},{-40,130},{-40,148}},
+  connect(TZon, cooPI.u_m) annotation (Line(points={{-220,130},{-30,130},{-30,
+          148}},
           color={0,0,127}));
   connect(nOcc, outAirSetPoi.nOcc) annotation (Line(points={{-220,-80},{-60,-80},
           {-60,38},{38,38}}, color={0,0,127}));
@@ -687,14 +688,15 @@ equation
                                   color={0,0,127}));
   connect(heaPI.y, zonSta.uHea) annotation (Line(points={{-58,220},{0,220},{0,144},
           {38,144}}, color={0,0,127}));
-  connect(cooPI.y, setPoiVAV.uCoo) annotation (Line(points={{-28,160},{20,160},{
-          20,195},{38,195}}, color={0,0,127}));
-  connect(cooPI.y, zonSta.uCoo) annotation (Line(points={{-28,160},{20,160},{20,
+  connect(cooPI.y, setPoiVAV.uCoo) annotation (Line(points={{-18,160},{20,160},
+          {20,195},{38,195}},color={0,0,127}));
+  connect(cooPI.y, zonSta.uCoo) annotation (Line(points={{-18,160},{20,160},{20,
           136},{38,136}}, color={0,0,127}));
   connect(switch.y, heaPI.trigger) annotation (Line(points={{-48,-230},{-36,-230},
           {-36,84},{-76,84},{-76,208}}, color={255,0,255}));
-  connect(switch.y, cooPI.trigger) annotation (Line(points={{-48,-230},{-46,-230},
-          {-46,148}}, color={255,0,255}));
+  connect(switch.y, cooPI.trigger) annotation (Line(points={{-48,-230},{-36,
+          -230},{-36,148}},
+                      color={255,0,255}));
   connect(TZon, heaPI.u_m) annotation (Line(points={{-220,130},{-70,130},{-70,208}},
           color={0,0,127}));
   connect(setPoiVAV.TSupCoo, cooCoi.TSupCoo) annotation (Line(points={{62,190},{
@@ -711,8 +713,8 @@ equation
           {-100,152},{-100,110},{220,110}}, color={0,0,127}));
   connect(modSetPoi.TZonCooSet, ave.u1) annotation (Line(points={{-118,160},{-50,
           160},{-50,206},{-42,206}}, color={0,0,127}));
-  connect(modSetPoi.TZonCooSet, cooPI.u_s) annotation (Line(points={{-118,160},{
-          -52,160}}, color={0,0,127}));
+  connect(modSetPoi.TZonCooSet, cooPI.u_s) annotation (Line(points={{-118,160},
+          {-42,160}},color={0,0,127}));
   connect(modSetPoi.TZonCooSet, TZonCooSet) annotation (Line(points={{-118,160},
           {-50,160},{-50,60},{220,60}}, color={0,0,127}));
   connect(TZon, modSetPoi.TZon) annotation (Line(points={{-220,130},{-168,130},{
