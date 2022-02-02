@@ -27,7 +27,7 @@ block Controller "Controller for room VAV box with reheat"
     annotation (Dialog(group="Design conditions"));
   parameter Real CO2Set=894
     "CO2 concentration setpoint, ppm"
-    annotation (Dialog(group="Design conditions"));
+    annotation (Dialog(group="Design conditions", enable=have_CO2Sen));
   parameter Real VZonMin_flow(
     final quantity="VolumeFlowRate",
     final unit="m3/s")
@@ -803,7 +803,7 @@ and <code>yHotWatPlaReq</code>. It also outputs the alarms about the low airflow
 leaking damper <code>yLeaDamAla</code> and valve <code>yLeaValAla</code>, and
 airflow sensor calibration alarm <code>yFloSenAla</code>.
 </p>
-<p>The sequence consists of four subsequences. </p>
+<p>The sequence consists of following six subsequences.</p>
 <h4>a. Heating and cooling control loop</h4>
 <p>
 The subsequence is implementd according to Section 5.3.4. The measured zone

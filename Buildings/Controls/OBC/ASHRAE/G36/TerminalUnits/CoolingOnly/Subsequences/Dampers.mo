@@ -1,5 +1,5 @@
 within Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.CoolingOnly.Subsequences;
-block Damper
+block Dampers
   "Output signals for controlling VAV cooling only box damper position"
 
   parameter Boolean have_pressureIndependentDamper=true
@@ -330,4 +330,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end Damper;
+end Dampers;
