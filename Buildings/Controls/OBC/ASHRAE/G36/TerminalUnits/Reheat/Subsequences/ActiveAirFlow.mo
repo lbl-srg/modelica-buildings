@@ -254,7 +254,7 @@ equation
     annotation (Line(points={{182,-120},{220,-120}}, color={0,0,127}));
 
 annotation (
-  defaultComponentName="actAirSet_RehBox",
+  defaultComponentName="actAirSet",
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-200,-220},{200,220}})),
   Icon(coordinateSystem(extent={{-100,-100},{100,100}}),
         graphics={Rectangle(

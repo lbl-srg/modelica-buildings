@@ -545,7 +545,7 @@ equation
   connect(booToInt6.y, yLeaValAla)
     annotation (Line(points={{162,-110},{260,-110}}, color={255,127,0}));
 
-annotation (defaultComponentName="rehBoxAla",
+annotation (defaultComponentName="ala",
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
        graphics={
         Rectangle(

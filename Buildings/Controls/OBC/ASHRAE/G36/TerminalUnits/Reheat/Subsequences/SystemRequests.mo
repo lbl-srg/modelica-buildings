@@ -269,12 +269,12 @@ protected
     final k=2) if have_hotWatCoi
     "Constant 2"
     annotation (Placement(transformation(extent={{40,-120},{60,-100}})));
-  Buildings.Controls.OBC.CDL.Integers.Switch intSwi2 if
-       have_hotWatCoi
+  Buildings.Controls.OBC.CDL.Integers.Switch intSwi2
+    if have_hotWatCoi
     "Output 3 or other request "
     annotation (Placement(transformation(extent={{140,-150},{160,-130}})));
-  Buildings.Controls.OBC.CDL.Integers.Switch intSwi3 if
-       have_hotWatCoi
+  Buildings.Controls.OBC.CDL.Integers.Switch intSwi3
+    if have_hotWatCoi
     "Output 2 or other request "
     annotation (Placement(transformation(extent={{100,-190},{120,-170}})));
   Buildings.Controls.OBC.CDL.Logical.TrueDelay tim4(
@@ -290,8 +290,8 @@ protected
     final h=valPosHys) if have_hotWatCoi
     "Check if valve position is greater than 0.95"
     annotation (Placement(transformation(extent={{-140,-230},{-120,-210}})));
-  Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger booToInt2 if
-       have_hotWatCoi
+  Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger booToInt2
+    if have_hotWatCoi
     "Convert boolean to integer"
     annotation (Placement(transformation(extent={{0,-230},{20,-210}})));
   Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr6(
@@ -299,8 +299,8 @@ protected
     final h=0.85) if have_hotWatCoi
     "Check if valve position is greater than 0.95"
     annotation (Placement(transformation(extent={{-140,-280},{-120,-260}})));
-  Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger booToInt3 if
-       have_hotWatCoi
+  Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger booToInt3
+    if have_hotWatCoi
     "Convert boolean to integer"
     annotation (Placement(transformation(extent={{0,-280},{20,-260}})));
 
@@ -444,7 +444,7 @@ equation
     annotation (Line(points={{22,-270},{200,-270}}, color={255,127,0}));
 
 annotation (
-  defaultComponentName="sysReqRehBox",
+  defaultComponentName="sysReq",
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-180,-300},{180,320}}),
       graphics={
         Rectangle(

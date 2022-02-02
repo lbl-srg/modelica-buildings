@@ -295,7 +295,7 @@ equation
           color={255,127,0}));
 
 annotation (
-  defaultComponentName="sysReqCooBox",
+  defaultComponentName="sysReq",
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-180,-200},{180,200}}),
       graphics={
         Rectangle(

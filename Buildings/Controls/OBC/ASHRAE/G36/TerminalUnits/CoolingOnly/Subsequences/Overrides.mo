@@ -186,7 +186,7 @@ equation
   connect(swi1.y, yDamSet)
     annotation (Line(points={{102,-100},{160,-100}}, color={0,0,127}));
 
-annotation (defaultComponentName="cooBoxOve",
+annotation (defaultComponentName="ove",
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
         graphics={
         Rectangle(

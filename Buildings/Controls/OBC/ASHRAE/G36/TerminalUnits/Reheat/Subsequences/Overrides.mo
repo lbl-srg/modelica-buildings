@@ -252,7 +252,7 @@ equation
   connect(pro.y,yValSet)
     annotation (Line(points={{102,-180},{160,-180}}, color={0,0,127}));
 
-annotation (defaultComponentName="rehBoxOve",
+annotation (defaultComponentName="ove",
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
         graphics={
         Rectangle(

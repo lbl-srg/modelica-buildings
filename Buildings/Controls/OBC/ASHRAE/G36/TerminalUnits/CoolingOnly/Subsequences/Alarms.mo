@@ -301,7 +301,7 @@ equation
   connect(booToInt3.y, yLeaDamAla)
     annotation (Line(points={{162,-170},{260,-170}}, color={255,127,0}));
 
-annotation (defaultComponentName="cooBoxAla",
+annotation (defaultComponentName="ala",
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
        graphics={
         Rectangle(

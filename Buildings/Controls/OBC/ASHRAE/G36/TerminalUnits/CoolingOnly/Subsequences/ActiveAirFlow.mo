@@ -106,7 +106,7 @@ equation
   connect(actMin.y, VActMin_flow) annotation (Line(points={{82,-80},{100,-80},{100,
           -30},{140,-30}}, color={0,0,127}));
 
-annotation (defaultComponentName="actAirSet_cooBox",
+annotation (defaultComponentName="actAirSet",
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
         graphics={
         Text(
