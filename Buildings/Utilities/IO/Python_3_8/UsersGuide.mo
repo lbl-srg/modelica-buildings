@@ -74,7 +74,7 @@ sudo apt-get install libpython3.8-dev
 On Windows with Ananconda, prior to starting Dymola, you may need to set the PYTHONPATH using
 </p>
 <pre>
-set PYTHONPATH=E:\modelica-buildings\Buildings\Resources\Python-Sources;C:\ProgramData\Anaconda3\lib
+set PYTHONPATH=E:&#92;modelica-buildings&#92;Buildings&#92;Resources&#92;Python-Sources;C:&#92;ProgramData&#92;Anaconda3&#92;lib
 </pre>
 <p>
 For Dymola, if the Python examples hang during simulation, you may want to run <code>dymosim.exe</code>,

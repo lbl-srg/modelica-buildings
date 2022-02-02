@@ -268,6 +268,14 @@ to <b style=\"color:blue\">existing</b> libraries:
     </td>
     <td valign=\"top\">Created new blocks based on the discussion from ASHRAE Standard 231P Committee.
                        This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2865\">#2865</a>.<br/>
+<tr><td colspan=\"2\"><b>Buildings.Fluid.Storage.Ice</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Fluid.Storage.Ice.ControlledTank<br/>
+                     Buildings.Fluid.Storage.Ice.Tank
+    </td>
+    <td valign=\"top\">Models for ice storage tank whose performance is characterized by performance curves.<br/>
+                     This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2820\">#2820</a>.
     </td>
 </tr>
 </table>
