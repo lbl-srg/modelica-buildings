@@ -5,6 +5,16 @@ clear
 
 convertClear();
 
+// Conversion for https://github.com/lbl-srg/modelica-buildings/issues/2599
+convertClass("Buildings.Utilities.IO.Python36.Functions.BaseClasses.PythonObject",
+             "Buildings.Utilities.IO.Python38.Functions.BaseClasses.PythonObject");
+convertClass("Buildings.Utilities.IO.Python36.Functions.BaseClasses.exchange",
+             "Buildings.Utilities.IO.Python38.Functions.BaseClasses.exchange");
+convertClass("Buildings.Utilities.IO.Python36.Functions.exchange",
+             "Buildings.Utilities.IO.Python38.Functions.exchange");
+convertClass("Buildings.Utilities.IO.Python36.Real_Real",
+             "Buildings.Utilities.IO.Python38.Real_Real");
+
 // Conversion for https://github.com/lbl-srg/modelica-buildings/issues/2839
 convertClass("Buildings.Controls.OBC.CDL.Interfaces.DayTypeInput",
              "Buildings.Obsolete.Controls.OBC.CDL.Interfaces.DayTypeInput");
