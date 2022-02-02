@@ -73,7 +73,7 @@ block Controller
     Buildings.Controls.OBC.CDL.Types.SimpleController.PI
     "Type of controller"
     annotation(Dialog(group="Cooling coil control"));
-  parameter Real kCooCoi=0.1
+  parameter Real kCooCoi(final unit="1/K")=0.1
     "Gain for cooling coil control signal"
     annotation(Dialog(group="Cooling coil control"));
   parameter Real TiCooCoil(

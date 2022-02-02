@@ -1,8 +1,7 @@
 within Buildings.Controls.OBC.CDL.Continuous;
 block IntegratorWithReset
   "Output the integral of the input signal"
-  parameter Real k(
-    unit="1")=1
+  parameter Real k=1
     "Integrator gain";
   parameter Real y_start=0
     "Initial or guess value of output (= state)"
@@ -105,6 +104,12 @@ has been copied into this model rather than extended.
 </html>",
       revisions="<html>
 <ul>
+<li>
+February 2, 2022, by Michael Wetter:<br/>
+Removed <code>unit=\"1\"</code> declaration for gain <code>k</code>.
+This is to avoid the warning observed in
+<a href=\"https://github.com/lbl-srg/modelica-buildings/pull/2872\">#2872</a>.
+</li>
 <li>
 October 21, 2021, by Michael Wetter:<br/>
 Removed errorneous <code>visible</code> attribute in icon.
