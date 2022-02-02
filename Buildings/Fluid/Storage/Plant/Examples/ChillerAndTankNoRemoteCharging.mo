@@ -34,12 +34,19 @@ model ChillerAndTankNoRemoteCharging "(Draft)"
         extent={{-10,10},{10,-10}},
         rotation=180,
         origin={60,0})));
+  Modelica.Blocks.Sources.TimeTable setFloPum2(table=[0*3600,1; 0.25*3600,1;
+        0.25*3600,-1; 0.5*3600,-1; 0.5*3600,0; 0.75*3600,0; 0.75*3600,1; 1*3600,
+        1])
+    "Placeholder"
+    annotation (Placement(transformation(extent={{-70,20},{-50,40}})));
 equation
   connect(sou.ports[1], cat.port_a)
     annotation (Line(points={{-50,0},{-16,0}}, color={0,127,255}));
   connect(cat.port_b, sin.ports[1]) annotation (Line(points={{16,0},{33,0},{33,4.44089e-16},
           {50,4.44089e-16}}, color={0,127,255}));
 
+  connect(setFloPum2.y, cat.usMasFloPum2) annotation (Line(points={{-49,30},{
+          -22,30},{-22,6},{-17,6}}, color={0,0,127}));
   annotation (
   experiment(Tolerance=1e-06, StopTime=3600),
     Diagram(coordinateSystem(extent={{-100,-100},{100,100}})),
