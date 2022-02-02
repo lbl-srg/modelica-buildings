@@ -15,15 +15,15 @@ block G36VAVBoxReheat
 
   parameter Boolean have_occSen=false
     "Set to true if the zone has occupancy sensor"
-    annotation (Dialog(tab="Airflow setpoint", group="Zone sensors"));
+    annotation (Dialog(tab="Airflow set point", group="Zone sensors"));
 
   parameter Boolean have_winSen=false
     "Set to true if the zone has window status sensor"
-    annotation (Dialog(tab="Airflow setpoint", group="Zone sensors"));
+    annotation (Dialog(tab="Airflow set point", group="Zone sensors"));
 
   parameter Boolean have_CO2Sen=false
     "Set to true if the zone has CO2 sensor"
-    annotation (Dialog(tab="Airflow setpoint", group="Zone sensors"));
+    annotation (Dialog(tab="Airflow set point", group="Zone sensors"));
 
   parameter Boolean permit_occStandby=true
     "Set to true if occupied-standby mode is permitted";
@@ -33,7 +33,7 @@ block G36VAVBoxReheat
     "Set to true if the system has hot water coil";
 
   parameter Boolean have_locAdj=true
-    "Set to true if the zone has local setpoint adjustment knob"
+    "Set to true if the zone has local set point adjustment knob"
     annotation (Dialog(group="Set point adjustable setting"));
 
   parameter Boolean sepAdj=true
@@ -44,31 +44,31 @@ block G36VAVBoxReheat
     "Set to true to exempt the zone from demand limit set point adjustment"
     annotation(Dialog(group="Set point adjustable setting"));
 
-  parameter Modelica.Units.SI.VolumeFlowRate V_flow_nominal=
+  parameter Modelica.Units.SI.VolumeFlowRate VAir_flow_nominal=
     dat.getReal(varName=id + ".mechanical.mAir_flow_nominal.value") / 1.2
-    "Volume flow rate"
+    "Zone design volume flow rate"
     annotation (Dialog(group="Nominal condition"));
 
-  parameter Modelica.Units.SI.VolumeFlowRate VAirCooSet_flow_max=V_flow_nominal
+  final parameter Modelica.Units.SI.VolumeFlowRate VAirCooSet_flow_max = VAir_flow_nominal
     "Zone maximum cooling airflow set point"
-    annotation (Dialog(tab="Airflow setpoint", group="Nominal conditions"));
+    annotation (Dialog(tab="Airflow set point", group="Nominal conditions"));
   parameter Modelica.Units.SI.VolumeFlowRate VAirSet_flow_min=
     dat.getReal(varName=id + ".control.VAirSet_flow_min.value")
     "Zone minimum airflow set point"
-    annotation (Dialog(tab="Airflow setpoint", group="Nominal conditions"));
+    annotation (Dialog(tab="Airflow set point", group="Nominal conditions"));
   parameter Modelica.Units.SI.VolumeFlowRate VAirHeaSet_flow_max=
     dat.getReal(varName=id + ".control.VAirHeaSet_flow_max.value")
     "Zone maximum heating airflow set point"
-    annotation (Dialog(tab="Airflow setpoint", group="Nominal conditions"));
+    annotation (Dialog(tab="Airflow set point", group="Nominal conditions"));
   parameter Modelica.Units.SI.VolumeFlowRate VAirHeaSet_flow_min=
     dat.getReal(varName=id + ".control.VAirHeaSet_flow_min.value")
     "Zone minimum heating airflow set point"
-    annotation (Dialog(tab="Airflow setpoint", group="Nominal conditions"));
+    annotation (Dialog(tab="Airflow set point", group="Nominal conditions"));
 
   parameter Real CO2Set=
     dat.getReal(varName=id + ".control.CO2Set.value")
-    "CO2 setpoint in ppm"
-    annotation (Dialog(tab="Airflow setpoint", group="Nominal conditions"));
+    "CO2 set point in ppm"
+    annotation (Dialog(tab="Airflow set point", group="Nominal conditions"));
 
   parameter Modelica.Units.SI.TemperatureDifference dTAirDisHea_max(
     displayUnit="K")=
@@ -99,64 +99,62 @@ block G36VAVBoxReheat
     "Zone floor area"
     annotation(Dialog(group="Nominal condition"));
 
-  parameter Real occDen(final unit = "1/m2", final min=0, start=0.05)=
-    dat.getReal(varName=id + ".control.occDen.value")
-    "Default number of person per unit area";
-
-  parameter Real zonDisEffHea(final unit = "1", final min=0, final max=1, start=0.8)=
-     dat.getReal(varName=id + ".control.zonDisEffHea.value")
+  parameter Real effAirDisHea(final unit = "1", final min=0, final max=1, start=0.8)=
+     dat.getReal(varName=id + ".control.effAirDisHea.value")
     "Zone air distribution effectiveness during heating";
 
-  parameter Real zonDisEffCoo(final unit = "1", final min=0, final max=1, start=1.0)=
-     dat.getReal(varName=id + ".control.zonDisEffCoo.value")
+  parameter Real effAirDisCoo(final unit = "1", final min=0, final max=1, start=1.0)=
+     dat.getReal(varName=id + ".control.effAirDisCoo.value")
     "Zone air distribution effectiveness during cooling";
 
-  parameter Real desZonDisEff(final unit = "1", final min=0, final max=1)=
-    zonDisEffCoo
-    "Design zone air distribution effectiveness"
+  parameter Real effAirDis_nominal(final unit = "1", final min=0, final max=1)=
+    effAirDisCoo
+    "Zone air distribution effectiveness at design conditions"
     annotation(Dialog(group="Nominal condition"));
 
-  parameter Modelica.Units.SI.VolumeFlowRate VAirPriZon_flow_min=
-    dat.getReal(varName=id + ".control.VAirPriZon_flow_min.value")
-    "Minimum expected zone primary flow rate"
+  parameter Modelica.Units.SI.VolumeFlowRate VAirPri_flow_min=
+    dat.getReal(varName=id + ".control.VAirPri_flow_min.value")
+    "Zone minimum expected primary air volume flow rate"
     annotation(Dialog(group="Nominal condition"));
 
-  parameter Modelica.Units.SI.Temperature THeaSetOcc(
+  // FIXME: should be inputs such as in Buildings.Controls.OBC.ASHRAE.G36.ThermalZones.Setpoints
+  parameter Modelica.Units.SI.Temperature TAirZonHeaOccSet(
     displayUnit="degC")=
-    dat.getReal(varName=id + ".control.THeaSetOcc.value")
-    "Occupied heating setpoint";
+    dat.getReal(varName=id + ".control.TAirZonHeaOccSet.value")
+    "Zone occupied heating set point";
 
-  parameter Modelica.Units.SI.Temperature THeaSetUno(
+  parameter Modelica.Units.SI.Temperature TAirZonHeaUnoSet(
     displayUnit="degC")=
-    dat.getReal(varName=id + ".control.THeaSetUno.value")
-    "Unoccupied heating setpoint";
+    dat.getReal(varName=id + ".control.TAirZonHeaUnoSet.value")
+    "Zone unoccupied heating set point";
 
-  parameter Modelica.Units.SI.Temperature TCooSetOcc(
+  parameter Modelica.Units.SI.Temperature TAirZonCooOccSet(
     displayUnit="degC")=
-    dat.getReal(varName=id + ".control.TCooSetOcc.value")
-    "Occupied cooling setpoint";
+    dat.getReal(varName=id + ".control.TAirZonCooOccSet.value")
+    "Zone occupied cooling set point";
 
-  parameter Modelica.Units.SI.Temperature TCooSetUno(
+  parameter Modelica.Units.SI.Temperature TAirZonCooUnoSet(
     displayUnit="degC")=
-    dat.getReal(varName=id + ".control.TCooSetUno.value")
-    "Unoccupied cooling setpoint";
+    dat.getReal(varName=id + ".control.TAirZonCooUnoSet.value")
+    "Zone unoccupied cooling set point";
 
-  final parameter Real desZonPop(final min=0, final unit = "1") = occDen * AFlo
-    "Design zone population during peak occupancy";
+  parameter Real nPeo_nominal(final unit="1", final min=0, start=0.05*AFlo)=
+    dat.getReal(varName=id + ".control.nPeo_nominal.value")
+    "Design zone population";
 
-  // FIXME: missing default parameter assignment
+  // FIXME: missing default parameter assignment, see non final binding below.
   Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.Reheat.Controller ctr(
     controllerTypeVal=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
     staPreMul=1,
     hotWatRes=1,
-    floHys=1e-2*V_flow_nominal,
+    floHys=1e-2,
     damPosHys=1e-2,
     valPosHys=1e-2,
-    final desZonPop=desZonPop,
+    final desZonPop=nPeo_nominal,
     final AFlo=AFlo,
     final outAirRat_area=VAirOutPerAre_flow,
     final outAirRat_occupant=VAirOutPerPer_flow,
-    final V_flow_nominal=V_flow_nominal,
+    final V_flow_nominal=VAir_flow_nominal,
     final have_occSen=have_occSen,
     final have_winSen=have_winSen,
     final have_CO2Sen=have_CO2Sen,
@@ -179,29 +177,30 @@ block G36VAVBoxReheat
     final have_locAdj=have_locAdj,
     final sepAdj=sepAdj,
     final ignDemLim=ignDemLim)
-    "Compute zone temperature setpoints"
+    "Compute zone temperature set points"
     annotation (Placement(transformation(extent={{-60,-20},{-40,20}})));
 
+  // FIXME: occDen should not be exposed.
   Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.SetPoints.OutdoorAirFlow.Zone zonOutAirSet(
     final VOutPerAre_flow=VAirOutPerAre_flow,
     final VOutPerPer_flow=VAirOutPerPer_flow,
     final AFlo=AFlo,
     final have_occSen=have_occSen,
     final have_winSen=have_winSen,
-    final occDen=occDen,
-    final zonDisEffHea=zonDisEffHea,
-    final zonDisEffCoo=zonDisEffCoo,
-    final desZonDisEff=desZonDisEff,
-    final desZonPop=desZonPop,
-    final minZonPriFlo=VAirPriZon_flow_min)
-    "Zone level calculation of the minimum outdoor airflow setpoint"
+    final occDen=nPeo_nominal / AFlo,
+    final desZonPop=nPeo_nominal,
+    final zonDisEffHea=effAirDisHea,
+    final zonDisEffCoo=effAirDisCoo,
+    final desZonDisEff=effAirDis_nominal,
+    final minZonPriFlo=VAirPri_flow_min)
+    "Zone level calculation of the minimum outdoor airflow set point"
     annotation (Placement(transformation(extent={{120,40},{140,60}})));
 
   Buildings.Controls.OBC.ASHRAE.G36.ZoneGroups.ZoneStatus zonSta(
-    final THeaSetOcc=THeaSetOcc,
-    final THeaSetUno=THeaSetUno,
-    final TCooSetOcc=TCooSetOcc,
-    final TCooSetUno=TCooSetUno,
+    final THeaSetOcc=TAirZonHeaOccSet,
+    final THeaSetUno=TAirZonHeaUnoSet,
+    final TCooSetOcc=TAirZonCooOccSet,
+    final TCooSetUno=TAirZonCooUnoSet,
     final have_winSen=have_winSen)
     "Evaluate zone temperature status"
     annotation (Placement(transformation(extent={{120,-68},{140,-40}})));

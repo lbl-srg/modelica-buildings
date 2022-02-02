@@ -93,20 +93,20 @@ block G36VAVMultiZone
 
   parameter Modelica.Units.SI.PressureDifference pAirSupSet_rel_max=
     dat.getReal(varName=id + ".control.airflow.pAirSupSet_rel_max.value")
-    "Maximum supply duct static pressure setpoint"
-    annotation (Dialog(tab="Fan speed", group="Trim and respond for reseting duct static pressure setpoint"));
+    "Maximum supply duct static pressure set point"
+    annotation (Dialog(tab="Fan speed", group="Trim and respond for reseting duct static pressure set point"));
 
   parameter Modelica.Units.SI.PressureDifference pAirRetSet_rel_min(
     final min=2.4, start=10)=
     dat.getReal(varName=id + ".control.airflow.pAirRetSet_rel_min.value")
-    "Return fan minimum discharge static pressure setpoint"
+    "Return fan minimum discharge static pressure set point"
     annotation (Dialog(tab="Pressure control", group="Return fan",
       enable=buiPreCon==Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanDp));
 
   parameter Modelica.Units.SI.PressureDifference pAirRetSet_rel_max(
     final min=pAirRetSet_rel_min+1, start=100)=
     dat.getReal(varName=id + ".control.airflow.pAirRetSet_rel_max.value")
-    "Return fan maximum discharge static pressure setpoint"
+    "Return fan maximum discharge static pressure set point"
     annotation (Dialog(tab="Pressure control", group="Return fan",
       enable=buiPreCon==Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanDp));
 
@@ -129,13 +129,13 @@ block G36VAVMultiZone
   parameter Modelica.Units.SI.Temperature TAirSupSet_min(
     displayUnit="degC")=
     dat.getReal(varName=id + ".control.temperature.TAirSupSet_min.value")
-    "Lowest supply air temperature setpoint"
+    "Lowest supply air temperature set point"
     annotation (Dialog(tab="Supply air temperature", group="Temperature limits"));
 
   parameter Modelica.Units.SI.Temperature TAirSupSet_max(
     displayUnit="degC")=
     dat.getReal(varName=id + ".control.temperature.TAirSupSet_max.value")
-    "Highest supply air temperature setpoint"
+    "Highest supply air temperature set point"
     annotation (Dialog(tab="Supply air temperature", group="Temperature limits"));
 
   parameter Modelica.Units.SI.Temperature TAirOutRes_min(
@@ -150,9 +150,9 @@ block G36VAVMultiZone
     "Highest outdoor air temperature reset range"
     annotation (Dialog(tab="Supply air temperature", group="Temperature limits"));
 
-  parameter Modelica.Units.SI.PressureDifference pBuiSet_rel(start=12)=
-    dat.getReal(varName=id + ".control.airflow.pBuiSet_rel.value")
-    "Building static pressure setpoint"
+  parameter Modelica.Units.SI.PressureDifference pAirBuiSet_rel(start=12)=
+    dat.getReal(varName=id + ".control.airflow.pAirBuiSet_rel.value")
+    "Building static pressure set point"
     annotation (Dialog(tab="Pressure control",
       enable=buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefDamper
              or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefFan
@@ -172,7 +172,7 @@ block G36VAVMultiZone
 
   parameter Modelica.Units.SI.VolumeFlowRate dVFanRet_flow=
     dat.getReal(varName=id + ".control.airflow.dVFanRet_flow.value")
-    "Airflow differential between supply and return fans to maintain building pressure at setpoint"
+    "Airflow differential between supply and return fans to maintain building pressure at set point"
     annotation (Dialog(tab="Pressure control", group="Return fan",
       enable=buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanAir));
 
@@ -231,7 +231,7 @@ block G36VAVMultiZone
 
   Buildings.Controls.OBC.CDL.Routing.RealScalarReplicator TAirSupSet(final nout=
        nZon) "Pass signal to terminal unit bus"
-    annotation (Placement(transformation(extent={{-8,-130},{12,-110}})));
+    annotation (Placement(transformation(extent={{-10,-130},{10,-110}})));
   Buildings.Controls.OBC.CDL.Routing.RealScalarReplicator VDesUncOutAir_flow(
     final nout=nZon)
     "Pass signal to terminal unit bus"
@@ -503,7 +503,7 @@ equation
   connect(staGro.ySetBac, opeModSel.uSetBac) annotation (Line(points={{-118,120},
           {-108,120},{-108,118},{-102,118}}, color={255,0,255}));
   connect(FIXME_TAirSupSet.y, TAirSupSet.u)
-    annotation (Line(points={{-258,-120},{-10,-120}},color={0,0,127}));
+    annotation (Line(points={{-258,-120},{-12,-120}},color={0,0,127}));
   connect(ctr.yRetFanSpe, FIXME_yFanRet.u) annotation (Line(points={{44,-8.18182},
           {70,-8.18182},{70,-30},{78,-30}}, color={0,0,127}));
   connect(ctr.yRelFanSpe, FIXME_yFanRet.u) annotation (Line(points={{44,-13.0909},

@@ -7,15 +7,15 @@ block G36VAVBoxCoolingOnly
 
   parameter Boolean have_occSen=false
     "Set to true if zones have occupancy sensor"
-    annotation (Dialog(tab="Airflow setpoint", group="Zone sensors"));
+    annotation (Dialog(tab="Airflow set point", group="Zone sensors"));
 
   parameter Boolean have_winSen=false
     "Set to true if zones have window status sensor"
-    annotation (Dialog(tab="Airflow setpoint", group="Zone sensors"));
+    annotation (Dialog(tab="Airflow set point", group="Zone sensors"));
 
   parameter Boolean have_CO2Sen=false
     "Set to true if the zone has CO2 sensor"
-    annotation (Dialog(tab="Airflow setpoint", group="Zone sensors"));
+    annotation (Dialog(tab="Airflow set point", group="Zone sensors"));
 
   parameter Modelica.Units.SI.VolumeFlowRate V_flow_nominal=
     dat.getReal(varName=id + ".mechanical.mAir_flow_nominal.value") / 1.2
@@ -25,38 +25,38 @@ block G36VAVBoxCoolingOnly
   parameter Real VDisCooSetMax_flow(
     final unit="m3/s",
     final quantity="VolumeFlowRate")=V_flow_nominal
-    "Maximum cooling airflow setpoint"
-    annotation (Dialog(tab="Airflow setpoint", group="Nominal conditions"));
+    "Maximum cooling airflow set point"
+    annotation (Dialog(tab="Airflow set point", group="Nominal conditions"));
   parameter Real VDisSetMin_flow(
     final unit="m3/s",
     final quantity="VolumeFlowRate")=
     dat.getReal(varName=id + ".control.VDisSetMin_flow.value")
-    "Minimum airflow setpoint"
-    annotation (Dialog(tab="Airflow setpoint", group="Nominal conditions"));
+    "Minimum airflow set point"
+    annotation (Dialog(tab="Airflow set point", group="Nominal conditions"));
   parameter Real VDisHeaSetMax_flow(
     final unit="m3/s",
     final quantity="VolumeFlowRate")=
     dat.getReal(varName=id + ".control.VDisHeaSetMax_flow.value")
-    "Maximum heating airflow setpoint"
-    annotation (Dialog(tab="Airflow setpoint", group="Nominal conditions"));
+    "Maximum heating airflow set point"
+    annotation (Dialog(tab="Airflow set point", group="Nominal conditions"));
   parameter Real VDisConMin_flow(
     final unit="m3/s",
     final quantity="VolumeFlowRate")=
     dat.getReal(varName=id + ".control.VDisConMin_flow.value")
     "Minimum controllable airflow"
-    annotation (Dialog(tab="Airflow setpoint", group="Nominal conditions"));
+    annotation (Dialog(tab="Airflow set point", group="Nominal conditions"));
 
   parameter Real CO2Set=
     dat.getReal(varName=id + ".control.CO2Set.value")
-    "CO2 setpoint in ppm"
-    annotation (Dialog(tab="Airflow setpoint", group="Nominal conditions"));
+    "CO2 set point in ppm"
+    annotation (Dialog(tab="Airflow set point", group="Nominal conditions"));
 
   parameter Real dTDisZonSetMax(
     final unit="K",
     displayUnit="K",
     final quantity="TemperatureDifference")=
     dat.getReal(varName=id + ".control.dTDisZonSetMax.value")
-    "Zone maximum discharge air temperature above heating setpoint"
+    "Zone maximum discharge air temperature above heating set point"
     annotation (Dialog(tab="Damper and valve", group="Parameters"));
 
   parameter Real TDisMin(
@@ -78,60 +78,60 @@ block G36VAVBoxCoolingOnly
 
   // FIXME: See issue documented in linkage_g36_sequence.md
   parameter Boolean cooAdj=false
-    "Flag, set to true if both cooling and heating setpoint are adjustable separately"
-    annotation(Dialog(group="Setpoint adjustable setting"));
+    "Flag, set to true if both cooling and heating set point are adjustable separately"
+    annotation(Dialog(group="Set point adjustable setting"));
   parameter Boolean heaAdj=false
-    "Flag, set to true if heating setpoint is adjustable"
-    annotation(Dialog(group="Setpoint adjustable setting"));
+    "Flag, set to true if heating set point is adjustable"
+    annotation(Dialog(group="Set point adjustable setting"));
   parameter Boolean sinAdj = false
-    "Flag, set to true if both cooling and heating setpoint are adjustable through a single common knob"
-    annotation(Dialog(group="Setpoint adjustable setting",enable=not (cooAdj or heaAdj)));
+    "Flag, set to true if both cooling and heating set point are adjustable through a single common knob"
+    annotation(Dialog(group="Set point adjustable setting",enable=not (cooAdj or heaAdj)));
   parameter Boolean ignDemLim = true
-    "Flag, set to true to exempt individual zone from demand limit setpoint adjustment"
-    annotation(Dialog(group="Setpoint adjustable setting"));
+    "Flag, set to true to exempt individual zone from demand limit set point adjustment"
+    annotation(Dialog(group="Set point adjustable setting"));
 
   parameter Real TZonCooOnMax(
     final unit="K",
     displayUnit="degC",
     final quantity="ThermodynamicTemperature")=
     dat.getReal(varName=id + ".control.TZonCooOnMax.value")
-    "Maximum cooling setpoint during on"
-    annotation(Dialog(group="Setpoints limits setting"));
+    "Maximum cooling set point during on"
+    annotation(Dialog(group="Set points limits setting"));
   parameter Real TZonCooOnMin(
     final unit="K",
     displayUnit="degC",
     final quantity="ThermodynamicTemperature")=
     dat.getReal(varName=id + ".control.TZonCooOnMin.value")
-    "Minimum cooling setpoint during on"
-    annotation(Dialog(group="Setpoints limits setting"));
+    "Minimum cooling set point during on"
+    annotation(Dialog(group="Set points limits setting"));
   parameter Real TZonHeaOnMax(
     final unit="K",
     displayUnit="degC",
     final quantity="ThermodynamicTemperature")=
     dat.getReal(varName=id + ".control.TZonHeaOnMax.value")
-    "Maximum heating setpoint during on"
-    annotation(Dialog(group="Setpoints limits setting"));
+    "Maximum heating set point during on"
+    annotation(Dialog(group="Set points limits setting"));
   parameter Real TZonHeaOnMin(
     final unit="K",
     displayUnit="degC",
     final quantity="ThermodynamicTemperature")=
     dat.getReal(varName=id + ".control.TZonHeaOnMin.value")
-    "Minimum heating setpoint during on"
-    annotation(Dialog(group="Setpoints limits setting"));
+    "Minimum heating set point during on"
+    annotation(Dialog(group="Set points limits setting"));
   parameter Real TZonCooSetWinOpe(
     final unit="K",
     displayUnit="degC",
     final quantity="ThermodynamicTemperature")=
     dat.getReal(varName=id + ".control.TZonCooSetWinOpe.value")
-    "Cooling setpoint when window is open"
-    annotation(Dialog(group="Setpoints limits setting", enable=have_winSen));
+    "Cooling set point when window is open"
+    annotation(Dialog(group="Set points limits setting", enable=have_winSen));
   parameter Real TZonHeaSetWinOpe(
     final unit="K",
     displayUnit="degC",
     final quantity="ThermodynamicTemperature")=
     dat.getReal(varName=id + ".control.TZonHeaSetWinOpe.value")
-    "Heating setpoint when window is open"
-    annotation(Dialog(group="Setpoints limits setting", enable=have_winSen));
+    "Heating set point when window is open"
+    annotation(Dialog(group="Set points limits setting", enable=have_winSen));
 
   parameter Real VOutPerAre_flow(final unit = "m3/(s.m2)")=
       dat.getReal(varName=
@@ -179,25 +179,25 @@ block G36VAVBoxCoolingOnly
     final unit="K",
     displayUnit="degC")=
       dat.getReal(varName=id + ".control.THeaSetOcc.value")
-    "Occupied heating setpoint";
+    "Occupied heating set point";
 
   parameter Real THeaSetUno(
     final unit="K",
     displayUnit="degC")=
       dat.getReal(varName=id + ".control.THeaSetUno.value")
-    "Unoccupied heating setpoint";
+    "Unoccupied heating set point";
 
   parameter Real TCooSetOcc(
     final unit="K",
     displayUnit="degC")=
       dat.getReal(varName=id + ".control.TCooSetOcc.value")
-    "Occupied cooling setpoint";
+    "Occupied cooling set point";
 
   parameter Real TCooSetUno(
     final unit="K",
     displayUnit="degC")=
       dat.getReal(varName=id + ".control.TCooSetUno.value")
-    "Unoccupied cooling setpoint";
+    "Unoccupied cooling set point";
 
   /*
   *  Final parameters
@@ -245,7 +245,7 @@ block G36VAVBoxCoolingOnly
       final TZonHeaOnMin=TZonHeaOnMin,
       final TZonCooSetWinOpe=TZonCooSetWinOpe,
       final TZonHeaSetWinOpe=TZonHeaSetWinOpe)
-    "Compute zone temperature setpoints"
+    "Compute zone temperature set points"
     annotation (Placement(transformation(extent={{-60,-14},{-40,14}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant FIXME(k=1)
@@ -264,7 +264,7 @@ block G36VAVBoxCoolingOnly
     final desZonDisEff=desZonDisEff,
     final desZonPop=desZonPop,
     final minZonPriFlo=minZonPriFlo)
-    "Zone level calculation of the minimum outdoor airflow setpoint"
+    "Zone level calculation of the minimum outdoor airflow set point"
     annotation (Placement(transformation(extent={{120,20},{140,40}})));
   Buildings.Controls.OBC.ASHRAE.G36_PR1.Generic.SetPoints.ZoneStatus zonSta(
     final THeaSetOcc=THeaSetOcc,

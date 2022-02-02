@@ -20,12 +20,6 @@ block DummyControlPointsAHU "Control points from AHU"
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant yOpeMod[nZon](each k=1)
     "Group operating mode"
     annotation (Placement(transformation(extent={{0,10},{20,30}})));
-  Buildings.Controls.OBC.CDL.Integers.Sources.Constant uHeaDemLimLev[nZon](each k=1)
-    "Demand limiter level"
-    annotation (Placement(transformation(extent={{0,-30},{20,-10}})));
-  Buildings.Controls.OBC.CDL.Integers.Sources.Constant uCooDemLimLev[nZon](each k=1)
-    "Demand limiter level"
-    annotation (Placement(transformation(extent={{0,-70},{20,-50}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant VDesUncOutAir_flow[nZon](each k=1)
     "VDesUncOutAir_flow from AHU controller"
     annotation (Placement(transformation(extent={{0,130},{20,150}})));
@@ -43,8 +37,6 @@ equation
   connect(TAirSupSet.y, busTer.TAirSupSet);
   connect(TAirSup.y, busTer.TAirSup);
   connect(yOpeMod.y, busTer.yOpeMod);
-  connect(uHeaDemLimLev.y, busTer.uHeaDemLimLev);
-  connect(uCooDemLimLev.y, busTer.uCooDemLimLev);
 
   connect(yReqOutAir.y, busTer.yReqOutAir);
   connect(VDesUncOutAir_flow.y, busTer.VDesUncOutAir_flow);
