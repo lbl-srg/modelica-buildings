@@ -5,7 +5,7 @@ model CoolingCoil "Controller for cooling coil valve"
     Buildings.Controls.OBC.CDL.Types.SimpleController.PI
     "Type of controller"
     annotation(Dialog(group="Cooling coil loop signal"));
-  parameter Real kCooCoi=0.1
+  parameter Real kCooCoi(final unit="1/K")=0.1
     "Gain for cooling coil control loop signal"
     annotation(Dialog(group="Cooling coil loop signal"));
   parameter Real TiCooCoi(final unit="s")=900

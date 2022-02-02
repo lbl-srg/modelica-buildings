@@ -141,8 +141,8 @@ protected
   Buildings.Controls.OBC.CDL.Continuous.Multiply pro "Product of inputs"
     annotation (Placement(transformation(extent={{-60,160},{-40,180}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter aveOutAirFra(final
-      k=1/VPriSysMax_flow) "Average outdoor air fraction"
+  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter aveOutAirFra(
+    final k=1/VPriSysMax_flow) "Average outdoor air fraction"
     annotation (Placement(transformation(extent={{60,120},{80,140}})));
 
   Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar1(

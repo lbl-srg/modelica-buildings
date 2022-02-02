@@ -100,8 +100,8 @@ block ActiveAirFlow
     annotation (Placement(transformation(extent={{280,10},{320,50}}),
         iconTransformation(extent={{100,-60},{140,-20}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai(final k=
-        VOutPerPer_flow) if have_occSen "Outdoor air per person"
+  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai(
+    final k=VOutPerPer_flow) if have_occSen "Outdoor air per person"
     annotation (Placement(transformation(extent={{-140,-330},{-120,-310}})));
   Buildings.Controls.OBC.CDL.Continuous.Add breZon if have_occSen
     "Breathing zone airflow"

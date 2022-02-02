@@ -69,13 +69,17 @@ block PID
     final y_start=yd_start) if with_D
     "Derivative term"
     annotation (Placement(transformation(extent={{-50,60},{-30,80}})));
-  Buildings.Controls.OBC.CDL.Continuous.Subtract errP "P error"
+  Buildings.Controls.OBC.CDL.Continuous.Subtract errP
+    "P error"
     annotation (Placement(transformation(extent={{-140,130},{-120,150}})));
-  Buildings.Controls.OBC.CDL.Continuous.Subtract errD if with_D "D error"
+  Buildings.Controls.OBC.CDL.Continuous.Subtract errD if with_D
+    "D error"
     annotation (Placement(transformation(extent={{-140,60},{-120,80}})));
-  Buildings.Controls.OBC.CDL.Continuous.Subtract errI1 if with_I "I error (before anti-windup compensation)"
+  Buildings.Controls.OBC.CDL.Continuous.Subtract errI1 if with_I
+    "I error (before anti-windup compensation)"
     annotation (Placement(transformation(extent={{-140,-10},{-120,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Subtract errI2 if with_I "I error (after anti-windup compensation)"
+  Buildings.Controls.OBC.CDL.Continuous.Subtract errI2 if with_I
+    "I error (after anti-windup compensation)"
     annotation (Placement(transformation(extent={{-90,-10},{-70,10}})));
   Buildings.Controls.OBC.CDL.Continuous.Limiter lim(
     final uMax=yMax,
@@ -99,13 +103,12 @@ protected
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant Dzero(
     final k=0) if not with_D
     "Zero input signal"
-    annotation (Evaluate=true,HideResult=true,Placement(transformation(extent={{-20,110},
-            {0,130}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter uS_revAct(final k=
-        revAct/r) "Set point multiplied by reverse action sign"
+    annotation (Evaluate=true,HideResult=true,Placement(transformation(extent={{-20,110},{0,130}})));
+  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter uS_revAct(
+    final k=revAct/r) "Set point multiplied by reverse action sign"
     annotation (Placement(transformation(extent={{-200,30},{-180,50}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter uMea_revAct(final k=
-       revAct/r) "Set point multiplied by reverse action sign"
+  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter uMea_revAct(
+    final k=revAct/r) "Set point multiplied by reverse action sign"
     annotation (Placement(transformation(extent={{-180,-50},{-160,-30}})));
   Buildings.Controls.OBC.CDL.Continuous.Add addPD
     "Outputs P and D gains added"
@@ -113,7 +116,8 @@ protected
   Buildings.Controls.OBC.CDL.Continuous.Add addPID
     "Outputs P, I and D gains added"
     annotation (Placement(transformation(extent={{80,80},{100,100}})));
-  Buildings.Controls.OBC.CDL.Continuous.Subtract antWinErr if with_I "Error for anti-windup compensation"
+  Buildings.Controls.OBC.CDL.Continuous.Subtract antWinErr if with_I
+    "Error for anti-windup compensation"
     annotation (Placement(transformation(extent={{160,50},{180,70}})));
   Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter antWinGai(k=1/(k*Ni))
     if with_I "Gain for anti-windup compensation"
