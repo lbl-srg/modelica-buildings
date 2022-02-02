@@ -307,6 +307,16 @@ to <b style=\"color:blue\">existing</b> libraries:
     records.<br/>
     This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2668\">issue 2668</a>.
     </td>
+<tr><td colspan=\"2\"><b>Buildings.Fluid.Storage.Ice</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Fluid.Storage.Ice.ControlledTank<br/>
+                     Buildings.Fluid.Storage.Ice.Tank
+    </td>
+    <td valign=\"top\">Models for ice storage tank whose performance is characterized by performance curves.<br/>
+                     This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2820\">#2820</a>.
+    </td>
+</tr>
 </table>
 <!-- Backward compatible changes -->
 <p>
@@ -452,6 +462,15 @@ have been <b style=\"color:blue\">improved</b> in a
                        This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2624\">#2624</a>.
     </td>
 </tr>
+<tr><td colspan=\"2\"><b>Buildings.Fluid.HeatExchangers</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Fluid.HeatExchangers.CoolingTowers.Examples.BaseClasses.PartialStaticTwoPortCoolingTower
+    </td>
+    <td valign=\"top\">Added a temperature sensor for better measurement of the entering water temperature.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2866\">#2866</a>.
+    </td>
+</tr>
 <tr><td colspan=\"2\"><b>Buildings.Media</b>
     </td>
 </tr>
@@ -489,6 +508,15 @@ have been <b style=\"color:blue\">improved</b> in a
     </td>
     <td valign=\"top\">Reimplemented function to avoid a potential overflow caused by the <code>cosh</code> function.<br/>
                        This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/pull/1531\">IBPSA #1531</a>.
+    </td>
+</tr>
+<tr><td colspan=\"2\"><b>Buildings.Experimental.DHC</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Experimental.DHC.Plants.Cooling.Subsystems.Examples.BaseClasses.PartialCoolingTowersSubsystem
+    </td>
+    <td valign=\"top\">Added a temperature sensor for better measurement of the entering water temperature.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2866\">#2866</a>.
     </td>
 </tr>
 </table>
@@ -574,7 +602,7 @@ have been <b style=\"color:blue\">improved</b> in a
                          Buildings.Controls.OBC.CDL.Discrete.Examples.DayType<br/>
                          Buildings.Controls.OBC.CDL.Conversions.Validation.DayTypeCheck<br/>
                          Buildings.Controls.OBC.CDL.Types.Day<br/>
-  
+
     </td>
     <td valign=\"top\">Moved classes to <code>Obsolete</code> package.
                 This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2839\"># 2839</a>.<br/>
@@ -856,11 +884,23 @@ have been <b style=\"color:blue\">improved</b> in a
                        <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2829\">issue #2829</a>.
     </td>
 </tr>
+  <tr><td colspan=\"2\"><b>Buildings.Utilities.IO</b>
+    </td>
+  </tr>
+  <tr><td valign=\"top\">Buildings.Utilities.IO.Python36
+    </td>
+    <td valign=\"top\">Replaced package with <code>Buildings.Utilities.IO.Python_3_8</code>
+                       and moved the old package to <code>Buildings.Obsolete.Utilities.IO.Python36</code>.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2599\">#2599</a>.<br/>
+                       For Dymola, a conversion script will rename models that use <code>Python36</code>
+                       to use <code>Python_3_8</code>.
+    </td>
+  </tr>
 <tr><td colspan=\"2\"><b>Buildings.Utilities.Math</b>
     </td>
 </tr>
-<tr><td valign=\"top\">IBPSA.Utilities.Math.Polynominal<br/>
-                       IBPSA.Utilities.Math.Examples.Polynominal
+<tr><td valign=\"top\">Buildings.Utilities.Math.Polynominal<br/>
+                         Buildings.Utilities.Math.Examples.Polynominal
     </td>
     <td valign=\"top\">Corrected name to <code>Polynomial</code>.<br/>
                        This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1524\">IBPSA, #1524</a>.<br/>
@@ -960,10 +1000,10 @@ units are wrong or errors in documentation):
                            This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2556\">Buildings, #2556</a>.
         </td>
    </tr>
-   <tr><td colspan=\"2\"><b>Buildings.Utilities.IO.Python36</b>
+   <tr><td colspan=\"2\"><b>Buildings.Utilities.IO.Python_3_8</b>
    </td>
    </tr>
-   <tr><td valign=\"top\">Buildings.Utilities.IO.Python36.Functions.Examples.Exchange
+   <tr><td valign=\"top\">Buildings.Utilities.IO.Python_3_8.Functions.Examples.Exchange
    </td>
    <td valign=\"top\">Removed call to impure function <code>removeFile</code>.
                       This removal is required for MSL 4.0.0.<br/>
@@ -10586,7 +10626,7 @@ particular package.<br/>
                     one or several building envelope models.</td>
 </tr>
 
-<tr><td valign=\"top\"><a href=\"modelica://Buildings.Utilities.IO.Python36.UsersGuide\">Utilities.IO.Python36</a>
+<tr><td valign=\"top\"><a href=\"modelica://Buildings.Utilities.IO.Python_3_8.UsersGuide\">Utilities.IO.Python_3_8</a>
    </td>
    <td valign=\"top\">Package to call Python functions from Modelica.</td>
 </tr>

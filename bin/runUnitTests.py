@@ -135,7 +135,7 @@ if __name__ == '__main__':
     unit_test_group.add_argument('-t', "--tool",
                                  metavar="dymola",
                                  default="dymola",
-                                 help="Tool for the regression tests. Set to dymola or optimica")
+                                 help="Tool for the regression tests. Set to dymola, openmodelica or optimica")
     unit_test_group.add_argument('-s', "--single-package",
                                  metavar="Modelica.Package",
                                  help="Test only the Modelica package Modelica.Package")
