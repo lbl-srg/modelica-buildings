@@ -199,7 +199,7 @@ block G36VAVMultiZone
     final TOutMin=TAirOutRes_min,
     final TOutMax=TAirOutRes_max,
     final dpDesOutDam_min=dpDamOutMin_nominal,
-    final dpBuiSet=pBuiSet_rel,
+    final dpBuiSet=pAirBuiSet_rel,
     final difFloSet=dVFanRet_flow,
     final dpDisMin=pAirRetSet_rel_min,
     final dpDisMax=pAirRetSet_rel_max)

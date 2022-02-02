@@ -34,8 +34,6 @@ model VAVBoxCoolingOnly "VAV terminal unit cooling only"
     "Terminal unit controller"
     annotation (
     choices(
-      choice(redeclare replaceable Buildings.Templates.ZoneEquipment.Components.Controls.G36VAVCoolingOnly ctr
-        "Guideline 36 controller for VAV terminal unit cooling only"),
       choice(redeclare replaceable Buildings.Templates.ZoneEquipment.Components.Controls.OpenLoop ctr
         "Open loop control")),
     Dialog(group="Controller"),

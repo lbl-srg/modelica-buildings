@@ -1,7 +1,7 @@
 within Buildings.Templates.AirHandlersFans.Validation;
-model CompleteAHU
-  extends NoEconomizer(
-    redeclare UserProject.AHUs.CompleteAHU ahu);
+model VAVMultiZoneG36Airflow
+  extends NoEconomizer(   redeclare
+      UserProject.AHUs.ControlsGuideline36 ahu);
 
   Fluid.Sources.Boundary_pT bou2(
     redeclare final package Medium = MediumHea, nPorts=1)
@@ -16,6 +16,9 @@ model CompleteAHU
   Fluid.Sources.Boundary_pT bou5(redeclare final package Medium = MediumCoo,
       nPorts=1)
     annotation (Placement(transformation(extent={{60,-90},{40,-70}})));
+  UserProject.DummyControlPointsVAVBox sigVAVBox[ahu.nZon]
+    "Control signals from VAV box"
+    annotation (Placement(transformation(extent={{-60,60},{-40,80}})));
 equation
   connect(bou2.ports[1], ahu.port_coiHeaPreSup) annotation (Line(points={{-40,-50},
           {-7,-50},{-7,-19.8}}, color={0,127,255}));
@@ -25,8 +28,12 @@ equation
     annotation (Line(points={{40,-50},{6,-50},{6,-19.8}}, color={0,127,255}));
   connect(ahu.port_coiCooSup, bou5.ports[1])
     annotation (Line(points={{2,-19.8},{2,-80},{40,-80}}, color={0,127,255}));
+  connect(sigVAVBox.bus, ahu.busTer) annotation (Line(
+      points={{-40,70},{19.8,70},{19.8,16}},
+      color={255,204,51},
+      thickness=0.5));
   annotation (
     experiment(Tolerance=1e-6, StopTime=1),
     Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)));
-end CompleteAHU;
+end VAVMultiZoneG36Airflow;
