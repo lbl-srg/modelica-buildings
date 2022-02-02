@@ -18,8 +18,9 @@ package Controls "Package of control blocks for distribution systems"
     final parameter Modelica.Units.SI.TemperatureDifference delta=if
         use_temperatureShift then TMax - TMin - 3*dTSlo else 0
       "Maximum shift of slopes";
-    parameter Modelica.Units.SI.TemperatureDifference dTSou_nominal[nSou](each
-        min=0) = fill(4, nSou) "Nominal temperature difference over source";
+    parameter Modelica.Units.SI.TemperatureDifference dTSou_nominal[nSou](
+      each min=0) = fill(4, nSou)
+      "Nominal temperature difference over source";
     parameter Real k=0.01
       "Gain of controller that shifts upper and lower temperature setpoints";
     parameter Modelica.Units.SI.Time Ti(displayUnit="min") = 300
@@ -57,7 +58,7 @@ package Controls "Package of control blocks for distribution systems"
       nin=nSou,
       k=fill(1, nSou))
       annotation (Placement(transformation(extent={{-50,-130},{-30,-110}})));
-    Buildings.Controls.OBC.CDL.Continuous.Add dTSou[nSou](each final k1=-1)
+    Buildings.Controls.OBC.CDL.Continuous.Subtract dTSou[nSou]
       "Temperature differences over source"
       annotation (Placement(transformation(extent={{-80,-130},{-60,-110}})));
     Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter dTSou_nor(k=1/(

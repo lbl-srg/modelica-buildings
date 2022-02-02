@@ -36,7 +36,7 @@ model TDewPoi_TDryBulPhi
     annotation (Placement(transformation(extent={{-12,4},{8,24}})));
   // ===================================================================
 
-  Buildings.Controls.OBC.CDL.Continuous.Subtract sub(k2=-1)
+  Buildings.Controls.OBC.CDL.Continuous.Subtract sub
     "Dew point temperature difference"
     annotation (Placement(transformation(extent={{52,40},{72,60}})));
   Buildings.Obsolete.Controls.OBC.CDL.Psychrometrics.TDewPoi_TDryBulPhi dewBulPhi1
@@ -50,7 +50,7 @@ model TDewPoi_TDryBulPhi
     annotation (Placement(transformation(extent={{-10,-98},{10,-78}})));
   Buildings.Utilities.Psychrometrics.X_pTphi X_pTphi1 "Steam mass fraction"
     annotation (Placement(transformation(extent={{-44,-98},{-24,-78}})));
-  Buildings.Controls.OBC.CDL.Continuous.Subtract sub1(k2=-1)
+  Buildings.Controls.OBC.CDL.Continuous.Subtract sub1
     "Dew point temperature difference"
     annotation (Placement(transformation(extent={{52,-60},{72,-40}})));
 

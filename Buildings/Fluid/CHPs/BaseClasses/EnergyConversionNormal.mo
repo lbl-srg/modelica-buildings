@@ -54,8 +54,8 @@ protected
   Buildings.Utilities.Math.Polynomial masFloAir(final a=per.coeMasAir)
     "Air mass flow rate computation"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter masFloFue(final k=1
-        /per.LHVFue) "Fuel mass flow rate computation"
+  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter masFloFue(
+    final k=1/per.LHVFue) "Fuel mass flow rate computation"
     annotation (Placement(transformation(extent={{40,30},{60,50}})));
 equation
   connect(groHea.u1, PEle) annotation (Line(points={{-22,26},{-110,26},{-110,40},

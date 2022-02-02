@@ -170,14 +170,10 @@ equation
           186},{-162,186}}, color={0,0,127}));
   connect(con.y, max.u2) annotation (Line(points={{-198,160},{-180,160},{-180,174},
           {-162,174}}, color={0,0,127}));
-  connect(max.y, sub1.u1) annotation (Line(points={{-138,180},{-120,180},{-120,186},
-          {-102,186}},  color={0,0,127}));
   connect(sub1.y, hys.u) annotation (Line(points={{-78,180},{-62,180}},
           color={0,0,127}));
   connect(hys.y, goSig.u1) annotation (Line(points={{-38,180},{-22,180}},
           color={255,0,255}));
-  connect(mWat_flow, sub1.u2) annotation (Line(points={{-280,40},{-120,40},{-120,
-          174},{-102,174}}, color={0,0,127}));
   connect(runSig, goSig.u2) annotation (Line(points={{-280,120},{-30,120},{-30,172},
           {-22,172}}, color={255,0,255}));
   connect(runSig, notRunSig.u) annotation (Line(points={{-280,120},{-240,120},{-240,
@@ -263,9 +259,13 @@ equation
           60},{-144,-208},{206,-208}}, color={255,0,255}));
   connect(noGo.y, transition9.condition) annotation (Line(points={{62,100},{80,100},
           {80,60},{-144,60},{-144,-140},{90,-140},{90,-92}}, color={255,0,255}));
-
   connect(timer.passed, and4.u1) annotation (Line(points={{174,-188},{200,-188},
           {200,-200},{206,-200}}, color={255,0,255}));
+  connect(max.y, sub1.u2) annotation (Line(points={{-138,180},{-128,180},{-128,174},
+          {-102,174}}, color={0,0,127}));
+  connect(mWat_flow, sub1.u1) annotation (Line(points={{-280,40},{-120,40},{-120,
+          186},{-102,186}}, color={0,0,127}));
+
 annotation (
     defaultComponentName="conMai",
     Diagram(coordinateSystem(extent={{-260,-220},{260,220}})),
