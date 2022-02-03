@@ -268,6 +268,14 @@ to <b style=\"color:blue\">existing</b> libraries:
     </td>
     <td valign=\"top\">Created new blocks based on the discussion from ASHRAE Standard 231P Committee.
                        This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2865\">#2865</a>.<br/>
+    </td>               
+</tr>
+<tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Integers.AddParameter
+    </td>
+    <td valign=\"top\">New block based on the discussion from ASHRAE Standard 231P Committee.
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2876\">#2876</a>.<br/>
+    </td>               
+</tr>
 <tr><td colspan=\"2\"><b>Buildings.Fluid.Storage.Ice</b>
     </td>
 </tr>
@@ -526,10 +534,12 @@ have been <b style=\"color:blue\">improved</b> in a
     </td>
 </tr>
 <tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Continuous.Add<br/>
-                       Buildings.Controls.OBC.CDL.Integers.Add
+                       Buildings.Controls.OBC.CDL.Integers.Add<br/>
+                       Buildings.Controls.OBC.CDL.Continuous.AddParameter
     </td>
     <td valign=\"top\">Moved classes to <code>Obsolete</code> package and created new blocks to avoid using input gain factor.
-                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2865\">#2865</a>.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2865\">#2865</a> and
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2876\">#2876</a>.<br/>
                        For Dymola, a conversion script makes this change.
     </td>
 </tr>
