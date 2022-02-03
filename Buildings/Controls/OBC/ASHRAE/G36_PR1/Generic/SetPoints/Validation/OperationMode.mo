@@ -145,6 +145,10 @@ equation
     annotation (Line(points={{-88,50},{-82,50}}, color={0,0,127}));
   connect(gai.y, zonTem.u)
     annotation (Line(points={{-58,50},{-52,50}}, color={0,0,127}));
+  connect(zonTem.y, sub1.u2) annotation (Line(points={{-38,50},{-20,50},{-20,-146},
+          {-2,-146}}, color={0,0,127}));
+  connect(TZonCooSetUno.y, sub1.u1) annotation (Line(points={{-78,-100},{-40,-100},
+          {-40,-134},{-2,-134}}, color={0,0,127}));
 
 annotation (
   experiment(StopTime=172800, Tolerance=1e-06),

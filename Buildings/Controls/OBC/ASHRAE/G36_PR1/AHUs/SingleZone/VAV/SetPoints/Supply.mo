@@ -253,8 +253,7 @@ equation
       color={0,0,127}));
   connect(uHea, TSetHeaHig.u)
     annotation (Line(points={{-120,110},{-88,110},{-88,102},{-36,102},{-36,220},
-          {0,220}},
-                color={0,0,127}));
+          {0,220}}, color={0,0,127}));
   connect(TSetHeaHig.y, addTHe.u1)
     annotation (Line(points={{24,220},{40,220},{40,206},{58,206}},
       color={0,0,127}));
@@ -325,8 +324,7 @@ equation
   connect(offCoo.u2, lin075.y) annotation (Line(points={{38,-198},{34,-198},{34,
           -256},{60,-256},{60,-284},{56,-284}}, color={0,0,127}));
   connect(offCoo.y, addHeaCoo.u2) annotation (Line(points={{62,-192},{100,-192},
-          {100,-80},{30,-80},{30,-66},{38,-66}},
-                                               color={0,0,127}));
+          {100,-80},{30,-80},{30,-66},{38,-66}}, color={0,0,127}));
   connect(lin050.x2, con1.y) annotation (Line(points={{-22,-196},{-46,-196},{-46,
           -222},{-58,-222}}, color={0,0,127}));
   connect(con025.y, lin050.x1) annotation (Line(points={{-58,-166},{-52,-166},{-52,
@@ -342,8 +340,7 @@ equation
   connect(TSetHeaHig.x1, con0.y) annotation (Line(points={{0,228},{-56,228},{-56,
           220},{-58,220}}, color={0,0,127}));
   connect(con7.y, yHea.x1) annotation (Line(points={{-18,-30},{-6,-30},{-6,-42},
-          {2,-42}},
-                 color={0,0,127}));
+          {2,-42}}, color={0,0,127}));
   connect(minSpe.y, yHea.f1) annotation (Line(points={{-58,-30},{-56,-30},{-56,-46},
           {2,-46}},  color={0,0,127}));
   connect(uHea, yHea.u) annotation (Line(points={{-120,110},{-94,110},{-94,-50},
@@ -351,17 +348,13 @@ equation
   connect(conOne.y, yHea.x2) annotation (Line(points={{-58,-70},{-56,-70},{-56,-54},
           {2,-54}},  color={0,0,127}));
   connect(maxHeaSpe.y, yHea.f2) annotation (Line(points={{-18,-70},{-6,-70},{-6,
-          -58},{2,-58}},
-                     color={0,0,127}));
+          -58},{2,-58}}, color={0,0,127}));
   connect(yHea.y, addHeaCoo.u1) annotation (Line(points={{26,-50},{32,-50},{32,-54},
           {38,-54}}, color={0,0,127}));
-
   connect(uFan, switch.u2) annotation (Line(points={{-120,-140},{106,-140},{106,
-          -60},{118,-60}},
-                     color={255,0,255}));
+          -60},{118,-60}}, color={255,0,255}));
   connect(fanOff.y, switch.u3)
-    annotation (Line(points={{102,20},{112,20},{112,-68},{118,-68}},
-                                                          color={0,0,127}));
+    annotation (Line(points={{102,20},{112,20},{112,-68},{118,-68}}, color={0,0,127}));
   connect(switch.y, y) annotation (Line(points={{142,-60},{180,-60}},
                  color={0,0,127}));
   connect(one.y, yFanHeaCoo.u1) annotation (Line(points={{62,-20},{70,-20},{70,-24},
@@ -378,6 +371,7 @@ equation
     annotation (Line(points={{-48,-120},{-42,-120}}, color={0,0,127}));
   connect(gai1.y, yMed.u)
     annotation (Line(points={{-18,-120},{-10,-120}}, color={0,0,127}));
+
 annotation (
   defaultComponentName = "setPoiVAV",
  Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-120},{100,120}}),

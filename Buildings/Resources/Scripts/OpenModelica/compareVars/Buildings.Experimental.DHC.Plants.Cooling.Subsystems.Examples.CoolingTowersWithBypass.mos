@@ -1,8 +1,8 @@
 compareVars :=
   {
     "tow.TWetBul",
-    "tow.sta_a.T",
-    "tow.sta_b.T",
+    "TEnt.T",
+    "tow.TLvg",
     "tow.cooTowSpeCon.u_s",
     "tow.cooTowSpeCon.u_m",
     "onOffCon.reference",

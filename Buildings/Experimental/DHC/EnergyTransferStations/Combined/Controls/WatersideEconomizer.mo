@@ -153,11 +153,9 @@ equation
     annotation (Line(points={{-200,-40},{-160,-40},{-160,-45},{-142,-45}},
                                                                      color={0,0,127}));
   connect(calTemLvg.T2WatLvg, addDelTem.u) annotation (Line(points={{-118,-40},{-92,-40}}, color={0,0,127}));
-  connect(addDelTem.y, delTemDis1.u1) annotation (Line(points={{-68,-40},{-52,-40}},
-                                                                                  color={0,0,127}));
+  connect(addDelTem.y, delTemDis1.u1) annotation (Line(points={{-68,-40},{-52,-40}}, color={0,0,127}));
   connect(T2WatEnt, delTemDis1.u2)
-    annotation (Line(points={{-200,-80},{-60,-80},{-60,-48},{-52,-48}},
-                                                                      color={0,0,127}));
+    annotation (Line(points={{-200,-80},{-60,-80},{-60,-48},{-52,-48}}, color={0,0,127}));
   connect(iniSta.outPort[1], ena.inPort) annotation (Line(points={{-9.5,40},{16,40}},   color={0,0,0}));
   connect(ena.outPort, actSta.inPort[1]) annotation (Line(points={{21.5,40},{49,40}}, color={0,0,0}));
   connect(actSta.outPort[1], dis.inPort) annotation (Line(points={{70.5,40},{96,40}}, color={0,0,0}));
@@ -171,7 +169,7 @@ equation
   connect(uCoo, not2.u) annotation (Line(points={{-200,160},{-170,160},{-170,-70},{-52,-70}},   color={255,0,255}));
   connect(actSta.active, booToRea.u) annotation (Line(points={{60,29},{60,-40},{138,-40}}, color={255,0,255}));
   connect(delTemDis1.y, mulAnd.u[1])
-    annotation (Line(points={{-28,-40},{-2,-40},{-2,-34.75}},                    color={255,0,255}));
+    annotation (Line(points={{-28,-40},{-2,-40},{-2,-42.625}},                   color={255,0,255}));
   connect(iniSta.active, tim1.u) annotation (Line(points={{-20,29},{-20,20},{
           2.22045e-15,20},{2.22045e-15,12}},                                  color={255,0,255}));
   connect(tim1.passed, mulAnd.u[2])
@@ -190,16 +188,16 @@ equation
     annotation (Line(points={{-200,-160},{-142,-160}},color={0,0,127}));
   connect(isValIsoEvaClo.y, mulAnd.u[4])
     annotation (Line(points={{-118,-160},{-100,-160},{-100,-20},{-24,-20},{-24,-42},
-          {-2,-42},{-2,-45.25}},                                                color={255,0,255}));
+          {-2,-42},{-2,-45.25}}, color={255,0,255}));
   connect(isValIsoEvaClo.y, not1.u)
     annotation (Line(points={{-118,-160},{-60,-160},{-60,-140},{-52,-140}}, color={255,0,255}));
   connect(delTemDis.y, or1.u[1])
-    annotation (Line(points={{-28,-100},{-2,-100},{-2,-95.3333}},                 color={255,0,255}));
+    annotation (Line(points={{-28,-100},{-2,-100},{-2,-102.333}},                 color={255,0,255}));
   connect(not2.y, or1.u[2]) annotation (Line(points={{-28,-70},{-20,-70},{-20,
-          -96},{-2,-96},{-2,-100}},                                                             color={255,0,255}));
+          -96},{-2,-96},{-2,-100}}, color={255,0,255}));
   connect(not1.y, or1.u[3])
     annotation (Line(points={{-28,-140},{-20,-140},{-20,-104},{-2,-104},{-2,
-          -104.667}},                                                             color={255,0,255}));
+          -97.6667}},                                                             color={255,0,255}));
   connect(uCoo, and1.u1) annotation (Line(points={{-200,160},{-92,160}}, color={255,0,255}));
   connect(and1.y, swiOff1.u2) annotation (Line(points={{-68,160},{98,160}},                   color={255,0,255}));
   connect(isValIsoEvaClo.y, and1.u2)

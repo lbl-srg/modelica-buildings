@@ -268,13 +268,13 @@ to <b style=\"color:blue\">existing</b> libraries:
     </td>
     <td valign=\"top\">Created new blocks based on the discussion from ASHRAE Standard 231P Committee.
                        This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2865\">#2865</a>.<br/>
-    </td>               
+    </td>
 </tr>
 <tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Integers.AddParameter
     </td>
     <td valign=\"top\">New block based on the discussion from ASHRAE Standard 231P Committee.
                        This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2876\">#2876</a>.<br/>
-    </td>               
+    </td>
 </tr>
 <tr><td colspan=\"2\"><b>Buildings.Fluid.Storage.Ice</b>
     </td>
@@ -431,6 +431,15 @@ have been <b style=\"color:blue\">improved</b> in a
                        This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2624\">#2624</a>.
     </td>
 </tr>
+<tr><td colspan=\"2\"><b>Buildings.Fluid.HeatExchangers</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Fluid.HeatExchangers.CoolingTowers.Examples.BaseClasses.PartialStaticTwoPortCoolingTower
+    </td>
+    <td valign=\"top\">Added a temperature sensor for better measurement of the entering water temperature.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2866\">#2866</a>.
+    </td>
+</tr>
 <tr><td colspan=\"2\"><b>Buildings.Media</b>
     </td>
 </tr>
@@ -468,6 +477,15 @@ have been <b style=\"color:blue\">improved</b> in a
     </td>
     <td valign=\"top\">Reimplemented function to avoid a potential overflow caused by the <code>cosh</code> function.<br/>
                        This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/pull/1531\">IBPSA #1531</a>.
+    </td>
+</tr>
+<tr><td colspan=\"2\"><b>Buildings.Experimental.DHC</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Experimental.DHC.Plants.Cooling.Subsystems.Examples.BaseClasses.PartialCoolingTowersSubsystem
+    </td>
+    <td valign=\"top\">Added a temperature sensor for better measurement of the entering water temperature.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2866\">#2866</a>.
     </td>
 </tr>
 </table>
@@ -534,12 +552,19 @@ have been <b style=\"color:blue\">improved</b> in a
     </td>
 </tr>
 <tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Continuous.Add<br/>
+<<<<<<< HEAD
                        Buildings.Controls.OBC.CDL.Integers.Add<br/>
                        Buildings.Controls.OBC.CDL.Continuous.AddParameter
     </td>
     <td valign=\"top\">Moved classes to <code>Obsolete</code> package and created new blocks to avoid using input gain factor.
                        This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2865\">#2865</a> and
                        <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2876\">#2876</a>.<br/>
+=======
+                       Buildings.Controls.OBC.CDL.Integers.Add
+    </td>
+    <td valign=\"top\">Moved classes to <code>Obsolete</code> package and created new blocks to avoid using input gain factor.
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2865\">#2865</a>.<br/>
+>>>>>>> master
                        For Dymola, a conversion script makes this change.
     </td>
 </tr>
