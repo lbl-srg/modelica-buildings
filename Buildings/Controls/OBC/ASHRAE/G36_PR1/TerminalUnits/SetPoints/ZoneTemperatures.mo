@@ -189,16 +189,16 @@ block ZoneTemperatures
     final k=1)
     "Increase setpoint by 0.56 degC"
     annotation (Placement(transformation(extent={{40,100},{60,120}})));
-  Buildings.Controls.OBC.CDL.Continuous.Product pro6
+  Buildings.Controls.OBC.CDL.Continuous.Multiply pro6
     "Output product of the two inputs"
     annotation (Placement(transformation(extent={{80,140},{100,160}})));
-  Buildings.Controls.OBC.CDL.Continuous.Product pro
+  Buildings.Controls.OBC.CDL.Continuous.Multiply pro
     "Output product of the two inputs"
     annotation (Placement(transformation(extent={{80,100},{100,120}})));
-  Buildings.Controls.OBC.CDL.Continuous.Product pro1
+  Buildings.Controls.OBC.CDL.Continuous.Multiply pro1
     "Output product of the two inputs"
     annotation (Placement(transformation(extent={{80,60},{100,80}})));
-  Buildings.Controls.OBC.CDL.Continuous.Product pro2
+  Buildings.Controls.OBC.CDL.Continuous.Multiply pro2
     "Output product of the two inputs"
     annotation (Placement(transformation(extent={{80,20},{100,40}})));
   Buildings.Controls.OBC.CDL.Discrete.TriggeredSampler heaSetFre
@@ -208,7 +208,7 @@ block ZoneTemperatures
     annotation (Placement(transformation(extent={{-40,-80},{-20,-60}})));
   Buildings.Controls.OBC.CDL.Logical.Not not2 "Logical not"
     annotation (Placement(transformation(extent={{0,-80},{20,-60}})));
-  Buildings.Controls.OBC.CDL.Continuous.Product pro7
+  Buildings.Controls.OBC.CDL.Continuous.Multiply pro7
     "Output product of the two inputs"
     annotation (Placement(transformation(extent={{80,-80},{100,-60}})));
   Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar6(
@@ -226,13 +226,13 @@ block ZoneTemperatures
     final p=-decTSetDem_3)
     "Decrease setpoint by 2.2 degC"
     annotation (Placement(transformation(extent={{40,-200},{60,-180}})));
-  Buildings.Controls.OBC.CDL.Continuous.Product pro5
+  Buildings.Controls.OBC.CDL.Continuous.Multiply pro5
     "Output product of the two inputs"
     annotation (Placement(transformation(extent={{80,-200},{100,-180}})));
-  Buildings.Controls.OBC.CDL.Continuous.Product pro4
+  Buildings.Controls.OBC.CDL.Continuous.Multiply pro4
     "Output product of the two inputs"
     annotation (Placement(transformation(extent={{80,-160},{100,-140}})));
-  Buildings.Controls.OBC.CDL.Continuous.Product pro3
+  Buildings.Controls.OBC.CDL.Continuous.Multiply pro3
     "Output product of the two inputs"
     annotation (Placement(transformation(extent={{80,-120},{100,-100}})));
   Buildings.Controls.OBC.CDL.Logical.Timer tim(final t=300)

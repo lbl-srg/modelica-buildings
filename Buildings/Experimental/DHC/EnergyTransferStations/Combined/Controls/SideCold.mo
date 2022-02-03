@@ -14,8 +14,8 @@ model SideCold
   parameter Real k(
     min=0)=0.1
     "Gain of controller";
-  parameter Modelica.Units.SI.Time Ti(min=Buildings.Controls.OBC.CDL.Constants.small)
-     = 120 "Time constant of integrator block" annotation (Dialog(enable=
+  parameter Modelica.Units.SI.Time Ti(min=Buildings.Controls.OBC.CDL.Constants.small)=
+       120 "Time constant of integrator block" annotation (Dialog(enable=
           controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
            or controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uCol
@@ -88,9 +88,8 @@ model SideCold
   Buildings.Controls.OBC.CDL.Continuous.Min min1
     "Ambient source control signal"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.SlewRateLimiter ramLimHea(
-    raisingSlewRate=0.1)
-    "Limit the rate of change"
+  Buildings.Controls.OBC.CDL.Continuous.LimitSlewRate ramLimHea(raisingSlewRate
+      =0.1) "Limit the rate of change"
     annotation (Placement(transformation(extent={{140,70},{160,90}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uHeaCoo
     "Enable signal for heating or cooling"

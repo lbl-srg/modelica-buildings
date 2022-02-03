@@ -18,8 +18,9 @@ package Controls "Package of control blocks for distribution systems"
     final parameter Modelica.Units.SI.TemperatureDifference delta=if
         use_temperatureShift then TMax - TMin - 3*dTSlo else 0
       "Maximum shift of slopes";
-    parameter Modelica.Units.SI.TemperatureDifference dTSou_nominal[nSou](each
-        min=0) = fill(4, nSou) "Nominal temperature difference over source";
+    parameter Modelica.Units.SI.TemperatureDifference dTSou_nominal[nSou](
+      each min=0) = fill(4, nSou)
+      "Nominal temperature difference over source";
     parameter Real k=0.01
       "Gain of controller that shifts upper and lower temperature setpoints";
     parameter Modelica.Units.SI.Time Ti(displayUnit="min") = 300
@@ -57,10 +58,11 @@ package Controls "Package of control blocks for distribution systems"
       nin=nSou,
       k=fill(1, nSou))
       annotation (Placement(transformation(extent={{-50,-130},{-30,-110}})));
-    Buildings.Controls.OBC.CDL.Continuous.Add dTSou[nSou](each final k1=-1)
+    Buildings.Controls.OBC.CDL.Continuous.Subtract dTSou[nSou]
       "Temperature differences over source"
       annotation (Placement(transformation(extent={{-80,-130},{-60,-110}})));
-    Buildings.Controls.OBC.CDL.Continuous.Gain dTSou_nor(k=1/(sum(dTSou_nominal)))
+    Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter dTSou_nor(k=1/(
+          sum(dTSou_nominal)))
       "Normalization of temperature difference over source"
       annotation (Placement(transformation(extent={{-20,-130},{0,-110}})));
     Buildings.Controls.OBC.CDL.Continuous.PID conShi(
@@ -84,7 +86,7 @@ package Controls "Package of control blocks for distribution systems"
     Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TMax_nominal(k=TMax)
       "Maximum temperature"
       annotation (Placement(transformation(extent={{-70,150},{-50,170}})));
-    Buildings.Controls.OBC.CDL.Continuous.Add TMax_upper(k2=-delta,
+    Buildings.Controls.OBC.CDL.Continuous.Add TMax_upper(
       y(final unit="K", displayUnit="degC"))
       "Upper value of upper slope after shifting it"
       annotation (Placement(transformation(extent={{-30,150},{-10,170}})));
@@ -104,7 +106,6 @@ package Controls "Package of control blocks for distribution systems"
       "Minimum temperature"
       annotation (Placement(transformation(extent={{-70,110},{-50,130}})));
     Buildings.Controls.OBC.CDL.Continuous.Add TMin_lower(
-      final k2=-delta,
       y(unit="K", displayUnit="degC"))
       "Lower value of lower slope after shifting it"
       annotation (Placement(transformation(extent={{-30,110},{-10,130}})));
@@ -116,17 +117,20 @@ package Controls "Package of control blocks for distribution systems"
       annotation (Placement(transformation(extent={{10,110},{30,130}})));
     Buildings.Controls.OBC.CDL.Continuous.Max ySetPum "Change in pump signal"
       annotation (Placement(transformation(extent={{60,-10},{80,10}})));
+    Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai(
+      final k=-delta)
+      "Gain factor"
+      annotation (Placement(transformation(extent={{60,70},{80,90}})));
+    Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai1(
+      final k=-delta)
+      "Gain factor"
+      annotation (Placement(transformation(extent={{60,-110},{80,-90}})));
+
   equation
     connect(TMix, TMixMin.u) annotation (Line(points={{-120,60},{-80,60},{-80,-20},
-            {-72,-20}},
-                  color={0,0,127}));
+            {-72,-20}}, color={0,0,127}));
     connect(TMix, TMixMax.u) annotation (Line(points={{-120,60},{-80,60},{-80,20},
-            {-72,20}},
-                  color={0,0,127}));
-    connect(dTSou.u1, TSouIn) annotation (Line(points={{-82,-114},{-90,-114},{-90,
-            0},{-120,0}}, color={0,0,127}));
-    connect(dTSou.u2, TSouOut) annotation (Line(points={{-82,-126},{-94,-126},{-94,
-            -60},{-120,-60}}, color={0,0,127}));
+            {-72,20}}, color={0,0,127}));
     connect(mulSum.u, dTSou.y)
       annotation (Line(points={{-52,-120},{-58,-120}}, color={0,0,127}));
     connect(mulSum.y, dTSou_nor.u)
@@ -186,12 +190,18 @@ package Controls "Package of control blocks for distribution systems"
             {58,-6}}, color={0,0,127}));
     connect(ySetPum.y, y)
       annotation (Line(points={{82,0},{120,0}}, color={0,0,127}));
-    connect(sPos.y, TMax_upper.u2) annotation (Line(points={{82,-60},{88,-60},{
-            88,140},{-40,140},{-40,154},{-32,154}},
-                                                 color={0,0,127}));
-    connect(sNeg.y, TMin_lower.u2) annotation (Line(points={{82,-140},{94,-140},
-            {94,100},{-40,100},{-40,114},{-32,114}},
-                                                  color={0,0,127}));
+    connect(TSouOut, dTSou.u1) annotation (Line(points={{-120,-60},{-94,-60},{-94,
+            -114},{-82,-114}}, color={0,0,127}));
+    connect(TSouIn, dTSou.u2) annotation (Line(points={{-120,0},{-88,0},{-88,-126},
+            {-82,-126}}, color={0,0,127}));
+    connect(sNeg.y, gai1.u) annotation (Line(points={{82,-140},{94,-140},{94,-120},
+            {54,-120},{54,-100},{58,-100}}, color={0,0,127}));
+    connect(gai1.y, TMin_lower.u2) annotation (Line(points={{82,-100},{94,-100},{94,
+            100},{-40,100},{-40,114},{-32,114}}, color={0,0,127}));
+    connect(sPos.y, gai.u) annotation (Line(points={{82,-60},{88,-60},{88,60},{54,
+            60},{54,80},{58,80}}, color={0,0,127}));
+    connect(gai.y, TMax_upper.u2) annotation (Line(points={{82,80},{88,80},{88,140},
+            {-40,140},{-40,154},{-32,154}}, color={0,0,127}));
     annotation (
       defaultComponentName="conPum",
       Diagram(coordinateSystem(extent={{-100,-180},{100,180}})), Icon(

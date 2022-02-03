@@ -66,17 +66,17 @@ block Supply "Supply air set point for single zone VAV system"
   annotation (Placement(transformation(extent={{160,-80},{200,-40}}),
         iconTransformation(extent={{100,-80},{140,-40}})));
 
-  CDL.Interfaces.BooleanInput uFan "Supply fan status"
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uFan "Supply fan status"
     annotation (Placement(transformation(extent={{-140,-160},{-100,-120}}),
       iconTransformation(extent={{-140,-120},{-100,-80}})));
-  CDL.Continuous.Switch switch "Switch to assign control signal"
+  Buildings.Controls.OBC.CDL.Continuous.Switch switch "Switch to assign control signal"
     annotation (Placement(transformation(extent={{120,-70},{140,-50}})));
-  CDL.Continuous.Sources.Constant fanOff(k=0) "Fan off status"
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant fanOff(k=0) "Fan off status"
     annotation (Placement(transformation(extent={{40,10},{60,30}})));
-  CDL.Continuous.Min yFanHeaCoo "Fan speed due to heating or cooling"
+  Buildings.Controls.OBC.CDL.Continuous.Min yFanHeaCoo "Fan speed due to heating or cooling"
     annotation (Placement(transformation(extent={{90,-40},{110,-20}})));
 protected
-  CDL.Continuous.Sources.Constant one(final k=1) "Maximum fan speed"
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant one(final k=1) "Maximum fan speed"
     annotation (Placement(transformation(extent={{40,-30},{60,-10}})));
   Buildings.Controls.OBC.CDL.Continuous.Line TSetCooHig
     "Table to compute the setpoint for cooling for uCoo = 0...1"
@@ -84,14 +84,17 @@ protected
   Buildings.Controls.OBC.CDL.Continuous.Line offSetTSetHea
     "Table to compute the setpoint offset for heating for uCoo = 0...1"
     annotation (Placement(transformation(extent={{0,170},{20,190}})));
-  Buildings.Controls.OBC.CDL.Continuous.Add addTHe "Adder for heating setpoint calculation"
+  Buildings.Controls.OBC.CDL.Continuous.Add addTHe
+    "Adder for heating setpoint calculation"
     annotation (Placement(transformation(extent={{60,190},{80,210}})));
   Buildings.Controls.OBC.CDL.Continuous.Line offSetTSetCoo
     "Table to compute the setpoint offset for cooling for uHea = 0...1"
     annotation (Placement(transformation(extent={{0,90},{20,110}})));
-  Buildings.Controls.OBC.CDL.Continuous.Add addTSupCoo "Adder for cooling setpoint calculation"
+  Buildings.Controls.OBC.CDL.Continuous.Add addTSupCoo
+    "Adder for cooling setpoint calculation"
     annotation (Placement(transformation(extent={{60,110},{80,130}})));
-  Buildings.Controls.OBC.CDL.Continuous.Add dT(final k2=-1) "Difference zone minus outdoor temperature"
+  Buildings.Controls.OBC.CDL.Continuous.Subtract dT
+    "Difference zone minus outdoor temperature"
     annotation (Placement(transformation(extent={{-70,-128},{-50,-108}})));
   Buildings.Controls.OBC.CDL.Continuous.AddParameter yMed(
     final p=yCooMax - (yMin - yCooMax)/(0.56 - 5.6)*5.6,
@@ -127,16 +130,16 @@ protected
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant conTSupSetMin(
     final k=TSupSetMin) "Constant that outputs TSupSetMin"
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Add TDeaTSupSetMin(
-    final k2=-1) "Outputs TDea-TSupSetMin"
+  Buildings.Controls.OBC.CDL.Continuous.Subtract TDeaTSupSetMin
+    "Outputs TDea-TSupSetMin"
     annotation (Placement(transformation(extent={{-20,0},{0,20}})));
   Buildings.Controls.OBC.CDL.Continuous.AddParameter addTDea(
     final p=-1.1,
     final k=-1)
     "Adds constant offset"
     annotation (Placement(transformation(extent={{10,0},{30,20}})));
-  Buildings.Controls.OBC.CDL.Continuous.Add TSupSetMaxTDea(
-    final k2=-1) "Outputs TSupSetMax-TDea"
+  Buildings.Controls.OBC.CDL.Continuous.Subtract TSupSetMaxTDea
+    "Outputs TSupSetMax-TDea"
     annotation (Placement(transformation(extent={{-20,40},{0,60}})));
   Buildings.Controls.OBC.CDL.Continuous.Line yHea "Fan speed for heating"
     annotation (Placement(transformation(extent={{4,-60},{24,-40}})));
@@ -160,9 +163,7 @@ protected
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con4(
     final k=yCooMax - yMin) "Constant signal"
     annotation (Placement(transformation(extent={{-76,-288},{-56,-268}})));
-  Buildings.Controls.OBC.CDL.Continuous.Add dY075(
-    final k2=-1,
-    final k1=1)
+  Buildings.Controls.OBC.CDL.Continuous.Subtract dY075
     "Change in control signal above yMedLim for y > 0.75"
     annotation (Placement(transformation(extent={{-36,-294},{-16,-274}})));
   Buildings.Controls.OBC.CDL.Continuous.Line lin075(
@@ -180,14 +181,10 @@ protected
     final p=-yMin, k=1)
     "Subtract yMin so that all control signals can be added"
     annotation (Placement(transformation(extent={{36,-128},{56,-108}})));
-  Buildings.Controls.OBC.CDL.Continuous.Add addHeaCoo(
-    final k1=1,
-    final k2=1)
+  Buildings.Controls.OBC.CDL.Continuous.Add addHeaCoo
     "Add heating control signal and offset due to cooling"
     annotation (Placement(transformation(extent={{40,-70},{60,-50}})));
-  Buildings.Controls.OBC.CDL.Continuous.Add offCoo(
-    final k1=1,
-    final k2=1)
+  Buildings.Controls.OBC.CDL.Continuous.Add offCoo
     "Offset of control signal (relative to heating signal) for cooling"
     annotation (Placement(transformation(extent={{40,-202},{60,-182}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con7(final k=0.5)
