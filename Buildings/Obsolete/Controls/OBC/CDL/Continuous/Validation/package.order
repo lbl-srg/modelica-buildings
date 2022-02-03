@@ -12,3 +12,4 @@ LimPIDInitialDerivativeOutput
 LimPIDInitialState
 LimPIDWithReset
 NumberOfRequests
+AddParameter
