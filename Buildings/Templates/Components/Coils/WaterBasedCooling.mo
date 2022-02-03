@@ -7,8 +7,7 @@ model WaterBasedCooling "Chilled water coil"
     final have_sou=true,
     final have_weaBus=false,
     port_aSou(redeclare final package Medium = MediumCoo),
-    port_bSou(redeclare final package Medium = MediumCoo),
-    mAir_flow_nominal=dat.getReal(varName=id + ".mechanical.coil" + funStr + ".mAir_flow_nominal.value"));
+    port_bSou(redeclare final package Medium = MediumCoo));
 
   outer replaceable package MediumCoo=Buildings.Media.Water
     "Source side medium";

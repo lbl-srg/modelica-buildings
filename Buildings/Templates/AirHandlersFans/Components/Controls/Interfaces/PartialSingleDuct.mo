@@ -3,9 +3,6 @@ partial block PartialSingleDuct "Partial control block for single duct AHU"
   extends
     Buildings.Templates.AirHandlersFans.Components.Controls.Interfaces.PartialController;
 
-  outer parameter Modelica.Units.SI.MassFlowRate mAirSup_flow_nominal
-    "Supply air mass flow rate"
-    annotation (Dialog(group="Nominal condition"));
   outer replaceable Buildings.Templates.AirHandlersFans.Components.OutdoorReliefReturnSection.Interfaces.PartialOutdoorReliefReturnSection
     secOutRel "Outdoor/relief/return air section";
   outer replaceable Buildings.Templates.Components.Coils.None coiCoo

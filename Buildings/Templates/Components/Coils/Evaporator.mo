@@ -5,8 +5,7 @@ model Evaporator "Evaporator coil (direct expansion)"
     final typHex=hex.typ,
     final typVal=Buildings.Templates.Components.Types.Valve.None,
     final have_sou=false,
-    final have_weaBus=true,
-    mAir_flow_nominal=dat.getReal(varName=id + ".mechanical.coil" + funStr + ".mAir_flow_nominal.value"));
+    final have_weaBus=true);
 
   inner parameter Boolean have_dryCon = true
     "Set to true for purely sensible cooling of the condenser";

@@ -59,50 +59,32 @@ partial model PartialOutdoorReliefReturnSection
   parameter Modelica.Units.SI.MassFlowRate mAirRet_flow_nominal
     "Return air mass flow rate"
     annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.Units.SI.MassFlowRate mAirOutMin_flow_nominal=
-    if typDamOutMin <> Buildings.Templates.Components.Types.Damper.None then
-      dat.getReal(varName=id + ".mechanical.dampers.mAirOutMin_flow_nominal.value")
-    else 0
+  parameter Modelica.Units.SI.MassFlowRate mAirOutMin_flow_nominal
     "Minimum outdoor air mass flow rate"
     annotation (
       Dialog(group="Nominal condition",
         enable=typDamOutMin <> Buildings.Templates.Components.Types.Damper.None));
-
-  parameter Modelica.Units.SI.PressureDifference dpFan_nominal=
-    if typFanRel <> Buildings.Templates.Components.Types.Fan.None or
-      typFanRet <> Buildings.Templates.Components.Types.Fan.None then
-      dat.getReal(varName=id + ".mechanical.Relief/return fan.Total pressure rise.value")
-    else 0
+  parameter Modelica.Units.SI.PressureDifference dpFan_nominal
     "Relief/return fan total pressure rise"
     annotation (
       Dialog(group="Nominal condition",
         enable=typFanRel <> Buildings.Templates.Components.Types.Fan.None or
           typFanRet <> Buildings.Templates.Components.Types.Fan.None));
-  parameter Modelica.Units.SI.PressureDifference dpDamOut_nominal=
-    dat.getReal(varName=id + ".mechanical.dampers.dpDamOut_nominal.value")
+  parameter Modelica.Units.SI.PressureDifference dpDamOut_nominal
     "Outdoor air damper pressure drop"
     annotation (
       Dialog(group="Nominal condition"));
-  parameter Modelica.Units.SI.PressureDifference dpDamOutMin_nominal=
-    if typDamOutMin <> Buildings.Templates.Components.Types.Damper.None then
-      dat.getReal(varName=id + ".mechanical.dampers.dpDamOutMin_nominal.value")
-    else 0
+  parameter Modelica.Units.SI.PressureDifference dpDamOutMin_nominal
     "Minimum outdoor air damper pressure drop"
     annotation (
       Dialog(group="Nominal condition",
         enable=typDamOutMin <> Buildings.Templates.Components.Types.Damper.None));
-  parameter Modelica.Units.SI.PressureDifference dpDamRet_nominal=
-    if typDamRet <> Buildings.Templates.Components.Types.Damper.None then
-      dat.getReal(varName=id + ".mechanical.dampers.dpDamRet_nominal.value")
-    else 0
+  parameter Modelica.Units.SI.PressureDifference dpDamRet_nominal
     "Return air damper pressure drop"
     annotation (
       Dialog(group="Nominal condition",
         enable=typDamRet <> Buildings.Templates.Components.Types.Damper.None));
-  parameter Modelica.Units.SI.PressureDifference dpDamRel_nominal=
-    if typDamRel<>Buildings.Templates.Components.Types.Damper.None then
-      dat.getReal(varName=id + ".mechanical.dampers.dpDamRel_nominal.value")
-    else 0
+  parameter Modelica.Units.SI.PressureDifference dpDamRel_nominal
     "Relief air damper pressure drop"
     annotation (
       Dialog(group="Nominal condition",

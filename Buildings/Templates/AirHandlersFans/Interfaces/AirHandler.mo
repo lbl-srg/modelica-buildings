@@ -12,39 +12,30 @@ partial model AirHandler "Base interface class for air handler"
     "Heating medium (such as HHW)"
     annotation(Dialog(enable=have_souCoiHeaPre or have_souCoiHeaReh));
 
-  parameter Boolean isModCtrSpe = true
+  parameter Boolean is_modCtrSpe = true
     "Set to true to activate the control specification mode"
     annotation(Evaluate=true);
 
   parameter Buildings.Templates.AirHandlersFans.Types.Configuration typ
     "Type of system"
     annotation (Evaluate=true, Dialog(group="Configuration"));
-  parameter Boolean have_porRel = typ==Types.Configuration.ExhaustOnly
+  parameter Boolean have_porRel=
+    typ==Buildings.Templates.AirHandlersFans.Types.Configuration.ExhaustOnly
     "Set to true for relief (exhaust) fluid port"
     annotation (
       Evaluate=true,
       Dialog(
         group="Configuration",
         enable=false));
-
-  parameter Boolean have_souCoiCoo = coiCoo.have_sou
+  parameter Boolean have_souCoiCoo
     "Set to true if cooling coil requires fluid ports on the source side"
     annotation (Evaluate=true, Dialog(group="Cooling coil"));
-  parameter Boolean have_souCoiHeaPre=coiHeaPre.have_sou
+  parameter Boolean have_souCoiHeaPre
     "Set to true if heating coil requires fluid ports on the source side"
     annotation (Evaluate=true, Dialog(group="Heating coil"));
-  parameter Boolean have_souCoiHeaReh=coiHeaReh.have_sou
+  parameter Boolean have_souCoiHeaReh
     "Set to true if reheat coil requires fluid ports on the source side"
     annotation (Evaluate=true, Dialog(group="Heating coil"));
-
-  inner parameter Modelica.Units.SI.MassFlowRate mAirSup_flow_nominal=
-    dat.getReal(varName=id + ".mechanical.mAirSup_flow_nominal.value")
-    "Supply air mass flow rate"
-    annotation (Dialog(group="Nominal condition"));
-  inner parameter Modelica.Units.SI.MassFlowRate mAirRet_flow_nominal=
-    dat.getReal(varName=id + ".mechanical.mAirRet_flow_nominal.value")
-    "Return air mass flow rate"
-    annotation (Dialog(group="Nominal condition"));
 
   inner parameter String id
     "System tag"
@@ -66,26 +57,15 @@ partial model AirHandler "Base interface class for air handler"
       Evaluate=true,
       Dialog(group="Configuration"));
 
-  /* FIXME: Evaluate function call at compile time
-  inner parameter Integer nZon=
-    ExternData.Functions.JSON.readArraySize1D(
-      fileName=Modelica.Utilities.Files.loadResource(
-      "modelica://Buildings/Resources/Data/Templates/Validation/systems.json"),
-      varName=id + ".identification.idTerArr.value")
-    "Number of served zones"
-    annotation (
-      Evaluate=true,
-      Dialog(group="Configuration"));
-  inner parameter Integer nGro=
-    ExternData.Functions.JSON.readArraySize1D(
-      fileName=Modelica.Utilities.Files.loadResource(
-      "modelica://Buildings/Resources/Data/Templates/Validation/systems.json"),
-      varName=id + ".identification.namGro.value")
-    "Number of zone groups"
-    annotation (
-      Evaluate=true,
-      Dialog(group="Configuration"));
-  */
+  parameter Modelica.Units.SI.MassFlowRate mAirSup_flow_nominal=0
+    "Supply air mass flow rate"
+    annotation (Dialog(group="Nominal condition",
+      enable=typ<>Buildings.Templates.AirHandlersFans.Types.Configuration.ExhaustOnly));
+
+  parameter Modelica.Units.SI.MassFlowRate mAirRet_flow_nominal=0
+    "Return air mass flow rate"
+    annotation (Dialog(group="Nominal condition",
+      enable=typ<>Buildings.Templates.AirHandlersFans.Types.Configuration.SupplyOnly));
 
   parameter Boolean allowFlowReversal = true
     "= false to simplify equations, assuming, but not enforcing, no flow reversal"
@@ -95,7 +75,7 @@ partial model AirHandler "Base interface class for air handler"
     redeclare final package Medium = MediumAir,
     m_flow(min=if allowFlowReversal then -Modelica.Constants.inf else 0),
     h_outflow(start=MediumAir.h_default, nominal=MediumAir.h_default))
-    if typ <> AirHandlersFans.Types.Configuration.ExhaustOnly
+    if typ <> Buildings.Templates.AirHandlersFans.Types.Configuration.ExhaustOnly
     "Outdoor air intake"
     annotation (Placement(transformation(
           extent={{-310,-210},{-290,-190}}), iconTransformation(extent={{-210,
@@ -104,8 +84,8 @@ partial model AirHandler "Base interface class for air handler"
     redeclare final package Medium =MediumAir,
     m_flow(max=if allowFlowReversal then +Modelica.Constants.inf else 0),
     h_outflow(start=MediumAir.h_default, nominal=MediumAir.h_default)) if typ
-     == AirHandlersFans.Types.Configuration.SupplyOnly or typ ==
-    AirHandlersFans.Types.Configuration.SingleDuct
+     == Buildings.Templates.AirHandlersFans.Types.Configuration.SupplyOnly or typ ==
+    Buildings.Templates.AirHandlersFans.Types.Configuration.SingleDuct
     "Supply air" annotation (
       Placement(transformation(extent={{290,-210},{310,-190}}),
         iconTransformation(extent={{190,-110},{210,-90}})));
@@ -113,7 +93,7 @@ partial model AirHandler "Base interface class for air handler"
     redeclare final package Medium =MediumAir,
     m_flow(max=if allowFlowReversal then +Modelica.Constants.inf else 0),
     h_outflow(start=MediumAir.h_default, nominal=MediumAir.h_default))
-    if typ == AirHandlersFans.Types.Configuration.DualDuct
+    if typ == Buildings.Templates.AirHandlersFans.Types.Configuration.DualDuct
     "Dual duct cold deck air supply"
     annotation (Placement(transformation(
           extent={{290,-250},{310,-230}}), iconTransformation(extent={{190,
@@ -122,7 +102,7 @@ partial model AirHandler "Base interface class for air handler"
     redeclare final package Medium =MediumAir,
     m_flow(max=if allowFlowReversal then +Modelica.Constants.inf else 0),
     h_outflow(start=MediumAir.h_default, nominal=MediumAir.h_default))
-    if typ == AirHandlersFans.Types.Configuration.DualDuct
+    if typ == Buildings.Templates.AirHandlersFans.Types.Configuration.DualDuct
     "Dual duct hot deck air supply"
     annotation (Placement(
         transformation(extent={{290,-170},{310,-150}}), iconTransformation(
@@ -131,7 +111,7 @@ partial model AirHandler "Base interface class for air handler"
     redeclare final package Medium =MediumAir,
     m_flow(min=if allowFlowReversal then -Modelica.Constants.inf else 0),
     h_outflow(start=MediumAir.h_default, nominal=MediumAir.h_default))
-    if typ <> AirHandlersFans.Types.Configuration.SupplyOnly
+    if typ <> Buildings.Templates.AirHandlersFans.Types.Configuration.SupplyOnly
     "Return air"
     annotation (Placement(transformation(extent={{290,-90},{310,-70}}),
         iconTransformation(extent={{190,90},{210,110}})));
@@ -139,7 +119,7 @@ partial model AirHandler "Base interface class for air handler"
     redeclare final package Medium = MediumAir,
     m_flow(max=if allowFlowReversal then +Modelica.Constants.inf else 0),
     h_outflow(start=MediumAir.h_default, nominal=MediumAir.h_default))
-    if typ <> AirHandlersFans.Types.Configuration.SupplyOnly and have_porRel
+    if typ <> Buildings.Templates.AirHandlersFans.Types.Configuration.SupplyOnly and have_porRel
     "Relief (exhaust) air"
     annotation (Placement(transformation(
           extent={{-310,-90},{-290,-70}}), iconTransformation(extent={{-210,90},
@@ -198,6 +178,7 @@ partial model AirHandler "Base interface class for air handler"
         extent={{-20,-20},{20,20}},
         rotation=-90,
         origin={198,160})));
+
 annotation (
     Icon(coordinateSystem(preserveAspectRatio=false,
     extent={{-200,-200},{200,200}}), graphics={

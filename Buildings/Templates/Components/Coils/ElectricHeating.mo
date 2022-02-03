@@ -5,8 +5,7 @@ model ElectricHeating "Electric heating coil"
     final typHex=Buildings.Templates.Components.Types.HeatExchanger.None,
     final typVal=Buildings.Templates.Components.Types.Valve.None,
     final have_sou=false,
-    final have_weaBus=false,
-    mAir_flow_nominal=dat.getReal(varName=id + ".mechanical.coil" + funStr + ".mAir_flow_nominal.value"));
+    final have_weaBus=false);
 
   parameter Modelica.Units.SI.HeatFlowRate Q_flow_nominal(min=0)=
     dat.getReal(varName=id + ".mechanical.coil" + funStr + ".Q_flow_nominal.value")

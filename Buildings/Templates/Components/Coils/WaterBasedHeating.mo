@@ -7,8 +7,7 @@ model WaterBasedHeating "Hot water coil"
     final have_sou=true,
     final have_weaBus=false,
     port_aSou(redeclare final package Medium = MediumHea),
-    port_bSou(redeclare final package Medium = MediumHea),
-    mAir_flow_nominal=dat.getReal(varName=id + ".mechanical.coil" + funStr + ".mAir_flow_nominal.value"));
+    port_bSou(redeclare final package Medium = MediumHea));
 
   outer replaceable package MediumHea=Buildings.Media.Water
     "Source side medium";

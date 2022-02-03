@@ -6,7 +6,8 @@ partial model PartialCoil
 
   outer replaceable package MediumAir=Buildings.Media.Air
     "Source-side medium";
-  /* The following definition is needed only for Dymola that does not allow
+  /* 
+  The following definition is needed only for Dymola that does not allow
   port_aSou and port_bSou to be instantiated without redeclaring their medium
   to a non-partial class (which is done only in the derived class).
   */
@@ -30,12 +31,10 @@ partial model PartialCoil
     "Set to true to use a waether bus"
     annotation (Evaluate=true, Dialog(group="Configuration"));
 
-  parameter Modelica.Units.SI.MassFlowRate mAir_flow_nominal(min=0)
+  parameter Modelica.Units.SI.MassFlowRate mAir_flow_nominal(final min=0)
     "Air mass flow rate";
-  parameter Modelica.Units.SI.PressureDifference dpAir_nominal(
-    displayUnit="Pa")=
-    if typ==Buildings.Templates.Components.Types.Coil.None then 0 else
-    dat.getReal(varName=id + ".mechanical.coil" + funStr + ".dpAir_nominal.value")
+  parameter Modelica.Units.SI.PressureDifference dpAir_nominal(final min=0,
+    displayUnit="Pa")
     "Air pressure drop"
     annotation (
       Dialog(group="Nominal condition"),

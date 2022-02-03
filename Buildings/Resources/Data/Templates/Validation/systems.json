@@ -188,8 +188,8 @@
                     "unit": "Pa"
                 }
             },
-            "coilHeating": {
-                "description": "Heating coil",
+            "coilHeatingPreheat": {
+                "description": "Heating coil in preheat position",
                 "Q_flow_nominal": {
                     "description": "Capacity",
                     "value": 1E4,
@@ -286,6 +286,54 @@
                 "dpValve_nominal": {
                     "description": "Valve pressure drop",
                     "value": 3E4,
+                    "unit": "Pa"
+                }
+            },
+            "coilHeatingReheat": {
+                "description": "Heating coil in reheat position",
+                "Q_flow_nominal": {
+                    "description": "Capacity",
+                    "value": 1E4,
+                    "unit": "W"
+                },
+                "mWat_flow_nominal": {
+                    "description": "Liquid mass flow rate",
+                    "value": 1,
+                    "unit": "kg/s"
+                },
+                "T_a1_nominal": {
+                    "description": "Entering liquid temperature",
+                    "value": 323.15,
+                    "unit": "K"
+                },
+                "dpWat_nominal": {
+                    "description": "Liquid pressure drop",
+                    "value": 5E3,
+                    "unit": "Pa"
+                },
+                "mAir_flow_nominal": {
+                    "description": "Air mass flow rate",
+                    "value": 1,
+                    "unit": "kg/s"
+                },
+                "T_a2_nominal": {
+                    "description": "Entering air temperature",
+                    "value": 273.15,
+                    "unit": "K"
+                },
+                "dpAir_nominal": {
+                    "description": "Air pressure drop",
+                    "value": 150,
+                    "unit": "Pa"
+                },
+                "UA_nominal": {
+                    "description": "UA (dry coil conditions)",
+                    "value": 500,
+                    "unit": "W/K"
+                },
+                "dpValve_nominal": {
+                    "description": "Valve pressure drop",
+                    "value": 5E3,
                     "unit": "Pa"
                 }
             },

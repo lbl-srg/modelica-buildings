@@ -117,7 +117,7 @@ block G36VAVMultiZone
 
   // FIXME: the definition of that parameter is unclear.
   final parameter Modelica.Units.SI.VolumeFlowRate VPriSysMax_flow=
-    mAirSup_flow_nominal / 1.2
+    secOutRel.mAirSup_flow_nominal / 1.2
     "Maximum expected system primary airflow at design stage"
     annotation (Dialog(tab="Minimum outdoor airflow rate", group="Nominal conditions"));
 
