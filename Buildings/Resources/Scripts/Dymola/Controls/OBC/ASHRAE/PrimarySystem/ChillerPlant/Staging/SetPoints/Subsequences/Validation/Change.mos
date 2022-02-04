@@ -1,0 +1,22 @@
+simulateModel("Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.SetPoints.Subsequences.Validation.Change", method="Cvode", stopTime=14000, tolerance=1e-06, resultFile="Change1");
+
+createPlot(id=1, position={20, 10, 1200, 650}, subPlot=1, y={"cha.ySta"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{238,46,47}});
+createPlot(id=1, position={20, 10, 1200, 650}, subPlot=2, y={"cha.uAvaUp", "cha.uAvaDow"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{28,108,200}, {238,46,47}});
+createPlot(id=1, position={20, 10, 1200, 650}, subPlot=3, y={"cha.uUp", "cha.uDow"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{28,108,200}, {238,46,47}});
+createPlot(id=1, position={20, 10, 1200, 650}, subPlot=4, y={"cha.uIni"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{238,46,47}});
+createPlot(id=1, position={20, 10, 1200, 650}, subPlot=5, y={"truFalHol.y"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{238,46,47}});
+createPlot(id=1, position={20, 10, 1200, 650}, subPlot=6, y={"cha.uPla"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{238,46,47}});
+
+createPlot(id=2, position={20, 10, 1200, 650}, subPlot=1, y={"cha1.ySta"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{238,46,47}});
+createPlot(id=2, position={20, 10, 1200, 650}, subPlot=2, y={"cha1.uAvaUp", "cha1.uAvaDow"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{28,108,200}, {238,46,47}});
+createPlot(id=2, position={20, 10, 1200, 650}, subPlot=3, y={"cha1.uUp", "cha1.uDow"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{28,108,200}, {238,46,47}});
+createPlot(id=2, position={20, 10, 1200, 650}, subPlot=4, y={"cha1.uIni"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{238,46,47}});
+createPlot(id=2, position={20, 10, 1200, 650}, subPlot=5, y={"truFalHol1.y"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{238,46,47}});
+createPlot(id=2, position={20, 10, 1200, 650}, subPlot=6, y={"cha1.uPla"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{238,46,47}});
+
+createPlot(id=3, position={20, 10, 1200, 650}, subPlot=1, y={"cha2.ySta"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{238,46,47}});
+createPlot(id=3, position={20, 10, 1200, 650}, subPlot=2, y={"cha2.uAvaUp", "cha2.uAvaDow"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{28,108,200}, {238,46,47}});
+createPlot(id=3, position={20, 10, 1200, 650}, subPlot=3, y={"cha2.uUp", "cha2.uDow"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{28,108,200}, {238,46,47}});
+createPlot(id=3, position={20, 10, 1200, 650}, subPlot=4, y={"cha2.uIni"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{238,46,47}});
+createPlot(id=3, position={20, 10, 1200, 650}, subPlot=5, y={"truFalHol2.y"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{238,46,47}});
+createPlot(id=3, position={20, 10, 1200, 650}, subPlot=6, y={"cha2.uPla"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{238,46,47}});

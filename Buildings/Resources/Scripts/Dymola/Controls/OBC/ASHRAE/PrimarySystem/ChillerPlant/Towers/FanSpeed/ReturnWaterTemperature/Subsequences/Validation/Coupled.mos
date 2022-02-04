@@ -1,0 +1,6 @@
+simulateModel("Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Towers.FanSpeed.ReturnWaterTemperature.Subsequences.Validation.Coupled", method="Cvode", stopTime=3600, tolerance=1e-06, resultFile="towSpeCouPla");
+createPlot(id=1, position={10, 10, 1000, 900}, y={"couTowSpe.TConWatRetSet", "couTowSpe.TConWatRet"}, range={0.0, 3600, 0, 0.5}, grid=true, subPlot=1, colors={{28,108,200},{0,140,72}});
+createPlot(id=1, position={10, 10, 1000, 900}, y={"couTowSpe.uConWatPumSpe[1]", "couTowSpe.uConWatPumSpe[2]"}, range={0.0, 3600, 0, 0.5}, grid=true, subPlot=2, colors={{28,108,200},{0,140,72}});
+createPlot(id=1, position={10, 10, 1000, 900}, y={"couTowSpe.uMaxTowSpeSet[1]", "couTowSpe.uMaxTowSpeSet[2]", "couTowSpe.plrTowMaxSpe"}, range={0.0, 3600, 0, 0.5}, grid=true, subPlot=3, colors={{28,108,200},{0,140,72},{238,46,47}});
+createPlot(id=1, position={10, 10, 1000, 900}, y={"couTowSpe.ySpeSet"}, range={0.0, 3600, 0, 0.5}, grid=true, subPlot=4, colors={{28,108,200}});
+

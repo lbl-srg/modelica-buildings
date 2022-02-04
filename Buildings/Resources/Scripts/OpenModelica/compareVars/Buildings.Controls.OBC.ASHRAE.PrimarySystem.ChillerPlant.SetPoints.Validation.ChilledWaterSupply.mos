@@ -1,0 +1,6 @@
+compareVars :=
+  {
+    "chiWatSupSet.dpChiWatPumSet[1]",
+    "chiWatSupSet.uChiWatPlaRes",
+    "chiWatSupSet.TChiWatSupSet"
+  };

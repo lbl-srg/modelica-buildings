@@ -1,0 +1,10 @@
+simulateModel("Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Processes.Subsequences.Validation.UpEndWithOff", method="Cvode", stopTime=1200, tolerance=1e-06, resultFile="staUpEndWtOff");
+
+createPlot(id=1, position={20, 10, 1200, 1400}, subPlot=1, y={"endUp1.uStaUp","endUp1.uEnaChiWatIsoVal","endUp1.uChiHeaCon[1]","endUp1.uChiHeaCon[2]"}, range={0.0, 120, 0, 0.02}, grid=true, colors={{28,108,200},{28,108,200},{28,108,200},{28,108,200}});
+createPlot(id=1, position={20, 10, 1200, 1400}, subPlot=2, y={"endUp1.uChi[1]","endUp1.uChi[2]"}, range={0.0, 120, 0, 0.02}, grid=true, colors={{28,108,200},{28,108,200}});
+createPlot(id=1, position={20, 10, 1200, 1400}, subPlot=3, y={"endUp1.uChiWatReq[1]","endUp1.uChiWatReq[2]","endUp1.uConWatReq[1]","endUp1.uConWatReq[2]"}, range={0.0, 120, 0, 0.02}, grid=true, colors={{28,108,200},{28,108,200},{28,108,200},{28,108,200}});
+createPlot(id=1, position={20, 10, 1200, 1400}, subPlot=4, y={"endUp1.yChiWatIsoVal[1]","endUp1.yChiWatIsoVal[2]"}, range={0.0, 120, 0, 0.02}, grid=true, colors={{28,108,200},{238,46,47}});
+createPlot(id=1, position={20, 10, 1200, 1400}, subPlot=5, y={"endUp1.yChiHeaCon[1]","endUp1.yChiHeaCon[2]"}, range={0.0, 120, 0, 0.02}, grid=true, colors={{28,108,200},{28,108,200}});
+createPlot(id=1, position={20, 10, 1200, 1400}, subPlot=6, y={"endUp1.yChiWatMinSet"}, range={0.0, 120, 0, 0.02}, grid=true, colors={{28,108,200}});
+createPlot(id=1, position={20, 10, 1200, 1400}, subPlot=7, y={"endUp1.yEndSta"}, range={0.0, 120, 0, 0.02}, grid=true, colors={{28,108,200}});
+
