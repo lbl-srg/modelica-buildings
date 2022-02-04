@@ -1,10 +1,10 @@
 within Buildings.Templates.Components.Pumps;
 model None "No pump"
   extends Buildings.Templates.Components.Pumps.Interfaces.PartialPump(
-    final typ=Buildings.Templates.Types.Pump.None,
+    final typ=Buildings.Templates.Components.Types.Pump.None,
     final nPum=1,
-    final has_singlePort_a = true,
-    final has_singlePort_b = true,
+    final have_singlePort_a = true,
+    final have_singlePort_b = true,
     dp_nominal=0);
 equation
   connect(port_a, port_b)

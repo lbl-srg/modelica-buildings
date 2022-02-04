@@ -47,7 +47,7 @@ model MultipleVariable "Multiple pumps (identical) - Variable speed"
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     final m_flow_nominal=m_flow_nominal,
     tau=1,
-    final nPorts=nPum+1) if has_singlePort_a
+    final nPorts=nPum+1) if have_singlePort_a
     "Fluid volume at inlet"
     annotation (Placement(transformation(extent={{-90,40},{-70,60}})));
   Fluid.Delays.DelayFirstOrder volOut(
@@ -55,7 +55,7 @@ model MultipleVariable "Multiple pumps (identical) - Variable speed"
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     final m_flow_nominal=m_flow_nominal,
     tau=1,
-    final nPorts=nPum+1) if has_singlePort_b
+    final nPorts=nPum+1) if have_singlePort_b
     "Fluid volume at outet"
     annotation (Placement(transformation(extent={{70,40},{90,60}})));
 equation
