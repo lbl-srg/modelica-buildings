@@ -1,8 +1,9 @@
 within Buildings.Templates.AirHandlersFans.Components.Controls;
-block Guideline36 "Guideline 36 VAV single duct controller"
+block G36VAVMultiZone
+  "Guideline 36 controller for multiple-zone VAV air-handling unit"
   extends
     Buildings.Templates.AirHandlersFans.Components.Controls.Interfaces.PartialSingleDuct(
-      final typ=Types.Controller.Guideline36,
+      final typ=Buildings.Templates.AirHandlersFans.Types.Controller.G36VAVMultiZone,
       final use_TMix=true);
 
   final parameter Buildings.Controls.OBC.ASHRAE.G36.Types.MultizoneAHUMinOADesigns minOADes=
@@ -30,8 +31,6 @@ block Guideline36 "Guideline 36 VAV single duct controller"
     else Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefDamper
     "Type of building pressure control system"
     annotation (Dialog(group="Economizer design"));
-
-
 
   // See FIXME below for those parameters.
   parameter String namGroZon[nZon] = fill(namGro[1], nZon)
@@ -94,20 +93,20 @@ block Guideline36 "Guideline 36 VAV single duct controller"
 
   parameter Modelica.Units.SI.PressureDifference pAirSupSet_rel_max=
     dat.getReal(varName=id + ".control.airflow.pAirSupSet_rel_max.value")
-    "Maximum supply duct static pressure setpoint"
-    annotation (Dialog(tab="Fan speed", group="Trim and respond for reseting duct static pressure setpoint"));
+    "Maximum supply duct static pressure set point"
+    annotation (Dialog(tab="Fan speed", group="Trim and respond for reseting duct static pressure set point"));
 
   parameter Modelica.Units.SI.PressureDifference pAirRetSet_rel_min(
     final min=2.4, start=10)=
     dat.getReal(varName=id + ".control.airflow.pAirRetSet_rel_min.value")
-    "Return fan minimum discharge static pressure setpoint"
+    "Return fan minimum discharge static pressure set point"
     annotation (Dialog(tab="Pressure control", group="Return fan",
       enable=buiPreCon==Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanDp));
 
   parameter Modelica.Units.SI.PressureDifference pAirRetSet_rel_max(
     final min=pAirRetSet_rel_min+1, start=100)=
     dat.getReal(varName=id + ".control.airflow.pAirRetSet_rel_max.value")
-    "Return fan maximum discharge static pressure setpoint"
+    "Return fan maximum discharge static pressure set point"
     annotation (Dialog(tab="Pressure control", group="Return fan",
       enable=buiPreCon==Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanDp));
 
@@ -130,13 +129,13 @@ block Guideline36 "Guideline 36 VAV single duct controller"
   parameter Modelica.Units.SI.Temperature TAirSupSet_min(
     displayUnit="degC")=
     dat.getReal(varName=id + ".control.temperature.TAirSupSet_min.value")
-    "Lowest supply air temperature setpoint"
+    "Lowest supply air temperature set point"
     annotation (Dialog(tab="Supply air temperature", group="Temperature limits"));
 
   parameter Modelica.Units.SI.Temperature TAirSupSet_max(
     displayUnit="degC")=
     dat.getReal(varName=id + ".control.temperature.TAirSupSet_max.value")
-    "Highest supply air temperature setpoint"
+    "Highest supply air temperature set point"
     annotation (Dialog(tab="Supply air temperature", group="Temperature limits"));
 
   parameter Modelica.Units.SI.Temperature TAirOutRes_min(
@@ -151,8 +150,8 @@ block Guideline36 "Guideline 36 VAV single duct controller"
     "Highest outdoor air temperature reset range"
     annotation (Dialog(tab="Supply air temperature", group="Temperature limits"));
 
-  parameter Modelica.Units.SI.PressureDifference pBuiSet_rel(start=12)=
-    dat.getReal(varName=id + ".control.airflow.pBuiSet_rel.value")
+  parameter Modelica.Units.SI.PressureDifference pAirBuiSet_rel(start=12)=
+    dat.getReal(varName=id + ".control.airflow.pAirBuiSet_rel.value")
     "Building static pressure set point"
     annotation (Dialog(tab="Pressure control",
       enable=buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefDamper
@@ -173,7 +172,7 @@ block Guideline36 "Guideline 36 VAV single duct controller"
 
   parameter Modelica.Units.SI.VolumeFlowRate dVFanRet_flow=
     dat.getReal(varName=id + ".control.airflow.dVFanRet_flow.value")
-    "Airflow differential between supply and return fans to maintain building pressure at setpoint"
+    "Airflow differential between supply and return fans to maintain building pressure at set point"
     annotation (Dialog(tab="Pressure control", group="Return fan",
       enable=buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanAir));
 
@@ -200,7 +199,7 @@ block Guideline36 "Guideline 36 VAV single duct controller"
     final TOutMin=TAirOutRes_min,
     final TOutMax=TAirOutRes_max,
     final dpDesOutDam_min=dpDamOutMin_nominal,
-    final dpBuiSet=pBuiSet_rel,
+    final dpBuiSet=pAirBuiSet_rel,
     final difFloSet=dVFanRet_flow,
     final dpDisMin=pAirRetSet_rel_min,
     final dpDisMax=pAirRetSet_rel_max)
@@ -289,6 +288,12 @@ block Guideline36 "Guideline 36 VAV single duct controller"
       h=0.5e-2) "On/off command for return fan is required"
     annotation (Placement(transformation(extent={{80,-40},{100,-20}})));
 
+  Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator yFanSup_actual(final
+      nout=nZon) "Pass signal to terminal unit bus"
+    annotation (Placement(transformation(extent={{-10,-190},{10,-170}})));
+  Buildings.Controls.OBC.CDL.Routing.RealScalarReplicator TAirSup(final nout=
+        nZon) "Pass signal to terminal unit bus"
+    annotation (Placement(transformation(extent={{-10,-160},{10,-140}})));
 initial equation
   if minOADes==Buildings.Controls.OBC.ASHRAE.G36.Types.MultizoneAHUMinOADesigns.CommonDamper then
     assert(secOutRel.typSecOut==Buildings.Templates.AirHandlersFans.Types.OutdoorSection.SingleDamper,
@@ -319,6 +324,9 @@ equation
   connect(bus.fanRet.V_flow, ctr.VRet_flow);
   connect(bus.coiCoo.y_actual, ctr.uCooCoi);
   connect(bus.coiHea.y_actual, ctr.uHeaCoi);
+
+  connect(bus.fanSup.y_actual, yFanSup_actual.u);
+  connect(bus.TAirSup, TAirSup.u);
 
   // Inputs from terminal bus
   connect(busTer.yReqZonPreRes, reqZonPreRes.u);
@@ -372,6 +380,8 @@ equation
   connect(VDesUncOutAir_flow.y, busTer.VDesUncOutAir_flow);
   connect(yReqOutAir.y, busTer.yReqOutAir);
   connect(TAirSupSet.y, busTer.TAirSupSet);
+  connect(TAirSup.y, busTer.TAirSup);
+  connect(yFanSup_actual.y, busTer.yFanSup_actual);
 
   // FIXME
   connect(FIXME_TOutCut.y, ctr.TOutCut);
@@ -508,4 +518,4 @@ In case of a dedicated damper, the total OA flow rate is not measured, hence no 
 signal is available.
 </p>
 </html>"));
-end Guideline36;
+end G36VAVMultiZone;

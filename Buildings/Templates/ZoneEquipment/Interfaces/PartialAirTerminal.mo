@@ -1,9 +1,14 @@
 within Buildings.Templates.ZoneEquipment.Interfaces;
 partial model PartialAirTerminal
   "Interface class for terminal unit in air system"
+
   inner replaceable package MediumAir=Buildings.Media.Air
     constrainedby Modelica.Media.Interfaces.PartialMedium
     "Air medium";
+  inner replaceable package MediumHea=Buildings.Media.Water
+    constrainedby Modelica.Media.Interfaces.PartialMedium
+    "Heating medium (such as HHW)"
+    annotation(Dialog(enable=have_souCoiHea));
 
   parameter Buildings.Templates.ZoneEquipment.Types.Configuration typ
     "Type of system"
@@ -14,8 +19,13 @@ partial model PartialAirTerminal
     annotation (
       Evaluate=true,
       Dialog(group="Configuration"));
+
   outer parameter ExternData.JSONFile dat
     "External parameter file";
+
+  parameter Boolean have_souCoiHea
+    "Set to true if heating coil requires fluid ports on the source side"
+    annotation (Evaluate=true, Dialog(group="Configuration"));
 
   parameter Modelica.Units.SI.MassFlowRate mAir_flow_nominal=
     dat.getReal(varName=id + ".mechanical.mAir_flow_nominal.value")
@@ -56,6 +66,18 @@ partial model PartialAirTerminal
     annotation (Placement(
         transformation(extent={{290,-90},{310,-70}}), iconTransformation(
           extent={{190,90},{210,110}})));
+
+  Modelica.Fluid.Interfaces.FluidPort_a port_coiHeaSup(
+    redeclare final package Medium=MediumHea) if have_souCoiHea
+    "Heating coil supply port"
+    annotation (Placement(transformation(extent={{10,-290},{30,-270}}),
+      iconTransformation(extent={{-30,-208},{-10,-188}})));
+  Modelica.Fluid.Interfaces.FluidPort_b port_coiHeaRet(
+    redeclare final package Medium=MediumHea) if have_souCoiHea
+    "Heating coil return port"
+    annotation (Placement(transformation(extent={{-30,-290},{-10,-270}}),
+      iconTransformation(extent={{10,-208},{30,-188}})));
+
   Interfaces.Bus bus
     "Terminal unit control bus"
     annotation (Placement(

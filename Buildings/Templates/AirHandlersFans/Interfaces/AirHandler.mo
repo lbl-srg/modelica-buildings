@@ -3,6 +3,14 @@ partial model AirHandler "Base interface class for air handler"
   inner replaceable package MediumAir=Buildings.Media.Air
     constrainedby Modelica.Media.Interfaces.PartialMedium
     "Air medium";
+  inner replaceable package MediumCoo=Buildings.Media.Water
+    constrainedby Modelica.Media.Interfaces.PartialMedium
+    "Cooling medium (such as CHW)"
+    annotation(Dialog(enable=have_souCoiCoo));
+  inner replaceable package MediumHea=Buildings.Media.Water
+    constrainedby Modelica.Media.Interfaces.PartialMedium
+    "Heating medium (such as HHW)"
+    annotation(Dialog(enable=have_souCoiHeaPre or have_souCoiHeaReh));
 
   parameter Boolean isModCtrSpe = true
     "Set to true to activate the control specification mode"
@@ -18,6 +26,16 @@ partial model AirHandler "Base interface class for air handler"
       Dialog(
         group="Configuration",
         enable=false));
+
+  parameter Boolean have_souCoiCoo = coiCoo.have_sou
+    "Set to true if cooling coil requires fluid ports on the source side"
+    annotation (Evaluate=true, Dialog(group="Cooling coil"));
+  parameter Boolean have_souCoiHeaPre=coiHeaPre.have_sou
+    "Set to true if heating coil requires fluid ports on the source side"
+    annotation (Evaluate=true, Dialog(group="Heating coil"));
+  parameter Boolean have_souCoiHeaReh=coiHeaReh.have_sou
+    "Set to true if reheat coil requires fluid ports on the source side"
+    annotation (Evaluate=true, Dialog(group="Heating coil"));
 
   inner parameter Modelica.Units.SI.MassFlowRate mAirSup_flow_nominal=
     dat.getReal(varName=id + ".mechanical.mAirSup_flow_nominal.value")
@@ -126,7 +144,38 @@ partial model AirHandler "Base interface class for air handler"
     annotation (Placement(transformation(
           extent={{-310,-90},{-290,-70}}), iconTransformation(extent={{-210,90},
             {-190,110}})));
-
+  Modelica.Fluid.Interfaces.FluidPort_b port_coiCooRet(
+    redeclare final package Medium = MediumCoo) if have_souCoiCoo
+    "Cooling coil return port"
+    annotation (Placement(
+      transformation(extent={{50,-290},{70,-270}}),
+      iconTransformation(extent={{-40,-210},{-20,-190}})));
+  Modelica.Fluid.Interfaces.FluidPort_a port_coiCooSup(
+    redeclare final package Medium = MediumCoo) if have_souCoiCoo
+    "Cooling coil supply port"
+    annotation (Placement(
+        transformation(extent={{90,-290},{110,-270}}),iconTransformation(
+          extent={{20,-208},{40,-188}})));
+  Modelica.Fluid.Interfaces.FluidPort_b port_coiHeaPreRet(redeclare final
+      package Medium = MediumHea) if have_souCoiHeaPre
+    "Heating coil (preheat position) return port" annotation (Placement(
+        transformation(extent={{-30,-290},{-10,-270}}), iconTransformation(
+          extent={{-160,-210},{-140,-190}})));
+  Modelica.Fluid.Interfaces.FluidPort_a port_coiHeaPreSup(redeclare final
+      package Medium = MediumHea) if have_souCoiHeaPre
+    "Heating coil (preheat position) supply port" annotation (Placement(
+        transformation(extent={{10,-290},{30,-270}}), iconTransformation(extent={{-100,
+            -210},{-80,-190}})));
+  Modelica.Fluid.Interfaces.FluidPort_b port_coiHeaRehRet(redeclare final
+      package Medium = MediumHea) if have_souCoiHeaReh
+    "Heating coil (reheat position) return port" annotation (Placement(
+        transformation(extent={{130,-290},{150,-270}}), iconTransformation(
+          extent={{80,-210},{100,-190}})));
+  Modelica.Fluid.Interfaces.FluidPort_a port_coiHeaRehSup(redeclare final
+      package Medium = MediumHea) if have_souCoiHeaReh
+    "Heating coil (reheat position) supply port" annotation (Placement(
+        transformation(extent={{170,-290},{190,-270}}), iconTransformation(
+          extent={{140,-210},{160,-190}})));
   Bus bus
     "AHU control bus"
     annotation (Placement(transformation(
@@ -136,6 +185,10 @@ partial model AirHandler "Base interface class for air handler"
         extent={{-20,-19},{20,19}},
         rotation=90,
         origin={-199,160})));
+  BoundaryConditions.WeatherData.Bus busWea
+    "Weather bus"
+    annotation (Placement(transformation(extent={{-20,260},{20,300}}),
+      iconTransformation(extent={{-20,182},{20,218}})));
 
   ZoneEquipment.Interfaces.Bus busTer[nZon]
     "Terminal unit control bus" annotation (Placement(transformation(

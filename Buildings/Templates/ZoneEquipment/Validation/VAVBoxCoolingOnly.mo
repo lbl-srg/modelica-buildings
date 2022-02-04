@@ -1,10 +1,11 @@
 within Buildings.Templates.ZoneEquipment.Validation;
-model BaseNoEquipment
+model VAVBoxCoolingOnly
   extends Modelica.Icons.Example;
 
   replaceable package MediumAir=Buildings.Media.Air
     constrainedby Modelica.Media.Interfaces.PartialMedium
     "Air medium";
+
   replaceable package MediumHea=Buildings.Media.Water
     constrainedby Modelica.Media.Interfaces.PartialMedium
     "Heating medium (such as HHW)";
@@ -25,10 +26,9 @@ model BaseNoEquipment
   Fluid.Sources.Boundary_pT bou1(redeclare final package Medium = MediumAir,
       nPorts=1)
     annotation (Placement(transformation(extent={{80,-10},{60,10}})));
-  replaceable UserProject.TerminalUnits.BaseNoEquipment ter
-    constrainedby Buildings.Templates.ZoneEquipment.VAVBox(
-      redeclare final package MediumAir = MediumAir,
-      redeclare final package MediumHea = MediumHea)
+  replaceable UserProject.TerminalUnits.VAVBoxCoolingOnly ter constrainedby
+    Buildings.Templates.ZoneEquipment.Interfaces.PartialAirTerminal(
+      redeclare final package MediumAir = MediumAir)
     "Terminal unit"
     annotation (Placement(transformation(extent={{-20,-20},{20,20}})));
   inner parameter ExternData.JSONFile dat(fileName=
@@ -47,4 +47,4 @@ equation
     annotation (Line(points={{20,0},{30,0}}, color={0,127,255}));
     annotation (
   experiment(Tolerance=1e-6, StopTime=1));
-end BaseNoEquipment;
+end VAVBoxCoolingOnly;
