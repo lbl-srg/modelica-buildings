@@ -13,8 +13,8 @@ model Centralized "Centralized secondary pumping"
     final per=per)
     constrainedby Buildings.Templates.Components.Pumps.Interfaces.PartialPump(
       redeclare final package Medium = Medium,
-      final has_singlePort_a=true,
-      final has_singlePort_b=true,
+      final have_singlePort_a=true,
+      final have_singlePort_b=true,
       final m_flow_nominal=m_flow_nominal,
       final dp_nominal=dp_nominal,
       final dpValve_nominal=dpValve_nominal)

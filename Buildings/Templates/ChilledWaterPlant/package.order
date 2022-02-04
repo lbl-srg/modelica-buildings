@@ -1,7 +1,5 @@
-AirCooledParallel
-AirCooledSeries
-WaterCooledParallel
-WaterCooledSeries
+AirCooled
+WaterCooled
 Components
 Validation
 BaseClasses

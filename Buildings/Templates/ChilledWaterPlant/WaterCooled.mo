@@ -1,12 +1,12 @@
-within Buildings.Templates.ChilledWaterPlant.BaseClasses;
+within Buildings.Templates.ChilledWaterPlant;
 model WaterCooled
   extends
     Buildings.Templates.ChilledWaterPlant.BaseClasses.PartialChilledWaterLoop(
-    final isAirCoo=false,
+    final typ=Buildings.Templates.ChilledWaterPlant.Components.Types.Configuration.WaterCooled,
     redeclare replaceable
       Buildings.Templates.ChilledWaterPlant.Components.ChillerGroup.ChillerParallel
-      chiGro(final have_dedPum=pumPri.is_dedicated) constrainedby
-      Buildings.Templates.ChilledWaterPlant.Components.ChillerGroup.Interfaces.ChillerGroup(
+      chiGro(final have_CWDedPum=pumCon.is_dedicated) constrainedby
+      Buildings.Templates.ChilledWaterPlant.Components.ChillerGroup.Interfaces.PartialChillerGroup(
        redeclare final package MediumCW = MediumCW,
        final m1_flow_nominal=mCon_flow_nominal),
     redeclare replaceable
@@ -14,12 +14,12 @@ model WaterCooled
       retSec constrainedby
       Buildings.Templates.ChilledWaterPlant.Components.ReturnSection.Interfaces.PartialReturnSection(
        redeclare final package MediumCW = MediumCW,
-       final m1_flow_nominal=mCon_flow_nominal));
+       final m1_flow_nominal=mCon_flow_nominal),
+    final nPumCon=pumCon.nPum,
+    final nCooTow=cooTow.nCooTow,
+    busCon(final nCooTow=nCooTow));
 
   replaceable package MediumCW=Buildings.Media.Water "Condenser water medium";
-
-  final inner parameter Integer nPumCon = pumCon.nPum "Number of condenser pumps";
-  final inner parameter Integer nCooTow = cooTow.nCooTow "Number of cooling towers";
 
   final parameter Modelica.Units.SI.MassFlowRate mCon_flow_nominal=
     dat.getReal(varName=id + ".CondenserWater.m_flow_nominal.value")
@@ -30,6 +30,7 @@ model WaterCooled
     cooTow constrainedby
     Buildings.Templates.ChilledWaterPlant.Components.CoolingTowerGroup.Interfaces.PartialCoolingTowerGroup(
       redeclare final package Medium = MediumCW,
+      nCooTow=nChi,
       final m_flow_nominal=mCon_flow_nominal)
     "Cooling tower group"
     annotation (Placement(transformation(extent={{-180,-20},{-160,0}})));
@@ -39,8 +40,7 @@ model WaterCooled
     Buildings.Templates.ChilledWaterPlant.Components.CondenserWaterPumpGroup.Interfaces.PartialCondenserWaterPumpGroup(
     redeclare final package Medium = MediumCW,
     final mTot_flow_nominal=mCon_flow_nominal,
-    final dp_nominal=dpCon_nominal,
-    final nChi=nChi) "Condenser water pump group"
+    final dp_nominal=dpCon_nominal) "Condenser water pump group"
     annotation (Placement(transformation(extent={{-100,-20},{-80,0}})));
 
   Buildings.Templates.Components.Sensors.Temperature TCWSup(
@@ -68,16 +68,6 @@ model WaterCooled
         rotation=0,
         origin={-90,-70})));
 
-  Buildings.Templates.ChilledWaterPlant.BaseClasses.BusCondenserWater cwCon(
-    final nChi=nChi,
-    nPum=nPumCon,
-    nCooTow=nCooTow) if not isAirCoo
-    "Condenser loop control bus"
-    annotation (Placement(transformation(
-        extent={{-20,20},{20,-20}},
-        rotation=90,
-        origin={-200,60})));
-
   Fluid.Sources.Boundary_pT bouCW(redeclare final package Medium = MediumCW,
       nPorts=1) annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
@@ -85,27 +75,17 @@ model WaterCooled
         origin={-110,30})));
 protected
   parameter Modelica.Units.SI.PressureDifference dpCon_nominal=
-    chiGro.dp1_nominal + cooTow.dp_nominal
+    chiGro.dp1_nominal + cooTow.cooTow[1].dp_nominal
     "Nominal pressure drop for condenser loop";
 equation
   // Sensors
-  connect(TCWSup.y, cwCon.TCWSup);
-  connect(TCWRet.y, cwCon.TCWRet);
+  connect(TCWSup.y, busCon.TCWSup);
+  connect(TCWRet.y, busCon.TCWRet);
 
   // Bus connection
-  connect(weaBus, cooTow.weaBus);
-  connect(cooTow.busCon, cwCon);
-  connect(pumCon.busCon, cwCon);
-
-  // Controller
-  connect(con.busCW, cwCon) annotation (Line(
-      points={{60,60},{-200,60}},
-      color={255,204,51},
-      thickness=0.5), Text(
-      string="%second",
-      index=1,
-      extent={{-6,3},{-6,3}},
-      horizontalAlignment=TextAlignment.Right));
+  connect(cooTow.weaBus, weaBus);
+  connect(cooTow.busCon, busCon);
+  connect(pumCon.busCon, busCon);
 
   // Mechanical
   connect(TCWRet.port_a, cooTow.port_a)

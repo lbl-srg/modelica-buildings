@@ -3,7 +3,10 @@ model PartialChilledWaterLoop
   extends
     Buildings.Templates.ChilledWaterPlant.Interfaces.PartialChilledWaterPlant(
     redeclare final package Medium=MediumCHW,
-    final nChi=chiGro.nChi);
+    final nChi=chiGro.nChi,
+    final nPumPri=pumPri.nPum,
+    final nPumSec=if not have_secondary then 0 else pumSec.nPum,
+    busCon(final nChi=nChi));
 
   replaceable package MediumCHW=Buildings.Media.Water "Chilled water medium";
 
@@ -27,9 +30,6 @@ model PartialChilledWaterLoop
     " = true if secondary return chilled water flow is measured"
     annotation(Dialog(enable=have_secondary));
 
-  final inner parameter Integer nPumPri = pumPri.nPum "Number of primary pumps";
-  final inner parameter Integer nPumSec = if not have_secondary then 0 else pumSec.nPum "Number of secondary pumps";
-
   parameter Modelica.Units.SI.MassFlowRate mPri_flow_nominal=
     dat.getReal(varName=id + ".ChilledWater.mPri_flow_nominal.value")
     "Primary mass flow rate";
@@ -43,12 +43,10 @@ model PartialChilledWaterLoop
 
   inner replaceable
     Buildings.Templates.ChilledWaterPlant.Components.ChillerGroup.ChillerParallel
-    chiGro(final have_dedPum=pumPri.is_dedicated)
-           constrainedby
+    chiGro(final have_CHWDedPum=pumPri.is_dedicated) constrainedby
     Buildings.Templates.ChilledWaterPlant.Components.ChillerGroup.Interfaces.PartialChillerGroup(
      redeclare final package MediumCHW = MediumCHW,
-     final m2_flow_nominal=mPri_flow_nominal,
-     final isAirCoo=isAirCoo)
+     final m2_flow_nominal=mPri_flow_nominal)
     "Chiller group"
     annotation (Placement(transformation(
       extent={{10,-10},{-10,10}},rotation=90,origin={-40,10})));
@@ -57,7 +55,6 @@ model PartialChilledWaterLoop
     retSec constrainedby
     Buildings.Templates.ChilledWaterPlant.Components.ReturnSection.Interfaces.PartialReturnSection(
     redeclare final package MediumCHW = MediumCHW,
-    final isAirCoo=isAirCoo,
     final m2_flow_nominal=mPri_flow_nominal) "Chilled water return section"
     annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
@@ -142,16 +139,6 @@ model PartialChilledWaterLoop
     annotation (Placement(transformation(
       extent={{10,10},{-10,-10}},rotation=0,origin={-20,-20})));
 
-  Buildings.Templates.ChilledWaterPlant.BaseClasses.BusChilledWater chwCon(
-    final nChi=nChi,
-    final nPumPri=nPumPri,
-    final nPumSec=nPumSec)
-    "Chilled water loop control bus"
-    annotation (Placement(transformation(
-        extent={{-20,20},{20,-20}},
-        rotation=90,
-        origin={200,60})));
-
   Fluid.Sources.Boundary_pT bouCHW(redeclare final package Medium = MediumCHW,
       nPorts=1) annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
@@ -188,21 +175,21 @@ protected
 
 equation
   // Sensors
-  connect(TPlaCHWRet.y, chwCon.TPlaCHWRet);
-  connect(TSCHWSup.y, chwCon.TSCHWSup);
-  connect(TCHWRet.y, chwCon.TCHWRet);
-  connect(dpCHW.y, chwCon.dpCHW);
-  connect(VSecSup_flow.y, chwCon.VSecSup_flow);
-  connect(VSecRet_flow.y, chwCon.VSecRet_flow);
+  connect(TPlaCHWRet.y, busCon.TPlaCHWRet);
+  connect(TSCHWSup.y, busCon.TSCHWSup);
+  connect(TCHWRet.y, busCon.TCHWRet);
+  connect(dpCHW.y, busCon.dpCHW);
+  connect(VSecSup_flow.y, busCon.VSecSup_flow);
+  connect(VSecRet_flow.y, busCon.VSecRet_flow);
 
   // Bus connection
-  connect(pumPri.busCon, chwCon);
-  connect(chiGro.busCon, chwCon);
-  connect(retSec.busCon, chwCon);
-  connect(pumSec.busCon, chwCon);
+  connect(pumPri.busCon, busCon);
+  connect(chiGro.busCon, busCon);
+  connect(retSec.busCon, busCon);
+  connect(pumSec.busCon, busCon);
 
   // Controller
-  connect(con.busCHW, chwCon) annotation (Line(
+  connect(con.busCon, busCon) annotation (Line(
       points={{80,60},{200,60}},
       color={255,204,51},
       thickness=0.5), Text(

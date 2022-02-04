@@ -20,18 +20,10 @@ block PartialController
   outer parameter Boolean have_secondary
     "= true if plant has secondary pumping";
 
-  Buildings.Templates.ChilledWaterPlant.BaseClasses.BusChilledWater busCHW(
-    final nChi=nChi,
-    final nPumPri=nPumPri,
-    final nPumSec=nPumSec)
-    annotation (Placement(transformation(extent={{200,-20},{240,20}}),
+  Buildings.Templates.ChilledWaterPlant.BaseClasses.BusChilledWater busCon(
+    final nChi = nChi, final nCooTow = nCooTow)
+    "Control bus" annotation (Placement(transformation(extent={{200,-20},{240,20}}),
         iconTransformation(extent={{80,-20},{120,20}})));
-  Buildings.Templates.ChilledWaterPlant.BaseClasses.BusCondenserWater busCW(
-    final nChi=nChi,
-    final nPum=nPumCon,
-    final nCooTow=nCooTow) if not isAirCoo annotation (
-      Placement(transformation(extent={{-218,-20},{-178,20}}),
-        iconTransformation(extent={{-120,-20},{-80,20}})));
   annotation (
     __Dymola_translate=true,
     Icon(coordinateSystem(preserveAspectRatio=false), graphics={

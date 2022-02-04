@@ -3,8 +3,7 @@ model ElectricChiller
   extends
     Buildings.Templates.ChilledWaterPlant.Components.Chiller.Interfaces.PartialChiller(
     final typ=Buildings.Templates.ChilledWaterPlant.Components.Types.Chiller.ElectricChiller,
-    redeclare replaceable Buildings.Fluid.Chillers.Data.ElectricEIR.Generic per,
-    final isAirCoo=false);
+    redeclare replaceable Buildings.Fluid.Chillers.Data.ElectricEIR.Generic per);
 
     Fluid.Chillers.ElectricEIR chi(
       final per=per,
@@ -53,7 +52,7 @@ model ElectricChiller
     "Chiller condenser water return temperature"
     annotation (Placement(transformation(extent={{58,50},{78,70}})));
 equation
-  connect(busCon.on, chi.on) annotation (Line(
+  connect(bus.on, chi.on) annotation (Line(
       points={{0,100},{0,80},{-28,80},{-28,6},{-12,6},{-12,5}},
       color={255,204,51},
       thickness=0.5), Text(
@@ -61,7 +60,7 @@ equation
       index=-1,
       extent={{6,3},{6,3}},
       horizontalAlignment=TextAlignment.Left));
-  connect(busCon.TSet, chi.TSet) annotation (Line(
+  connect(bus.TSet, chi.TSet) annotation (Line(
       points={{0,100},{0,80},{-28,80},{-28,-1},{-12,-1}},
       color={255,204,51},
       thickness=0.5), Text(
@@ -71,8 +70,8 @@ equation
       horizontalAlignment=TextAlignment.Left));
   connect(chi.P, evaSta.u)
     annotation (Line(points={{11,11},{10,11},{10,38}}, color={0,0,127}));
-  connect(evaSta.y, busCon.sta) annotation (Line(points={{10,62},{10,80},{0,80},
-          {0,100}}, color={255,0,255}), Text(
+  connect(evaSta.y, bus.sta) annotation (Line(points={{10,62},{10,80},{0,80},{0,
+          100}}, color={255,0,255}), Text(
       string="%second",
       index=1,
       extent={{-6,3},{-6,3}},
@@ -93,26 +92,26 @@ equation
           60},{58,60}}, color={0,127,255}));
   connect(TCWRet.port_b, port_b1)
     annotation (Line(points={{78,60},{100,60}}, color={0,127,255}));
-  connect(TCWSup.y, busCon.TCWSup) annotation (Line(points={{-70,72},{-70,80},{
-          0,80},{0,100}}, color={0,0,127}), Text(
+  connect(TCWSup.y, bus.TCWSup) annotation (Line(points={{-70,72},{-70,80},{0,
+          80},{0,100}}, color={0,0,127}), Text(
       string="%second",
       index=1,
       extent={{6,3},{6,3}},
       horizontalAlignment=TextAlignment.Left));
-  connect(TCWRet.y, busCon.TCWRet) annotation (Line(points={{68,72},{68,80},{0,
-          80},{0,100}}, color={0,0,127}), Text(
+  connect(TCWRet.y, bus.TCWRet) annotation (Line(points={{68,72},{68,80},{0,80},
+          {0,100}}, color={0,0,127}), Text(
       string="%second",
       index=1,
       extent={{-6,3},{-6,3}},
       horizontalAlignment=TextAlignment.Right));
-  connect(TCHWSup.y, busCon.TCHWSup) annotation (Line(points={{-70,-48},{-28,
-          -48},{-28,80},{0,80},{0,100}}, color={0,0,127}), Text(
+  connect(TCHWSup.y, bus.TCHWSup) annotation (Line(points={{-70,-48},{-28,-48},
+          {-28,80},{0,80},{0,100}}, color={0,0,127}), Text(
       string="%second",
       index=1,
       extent={{6,3},{6,3}},
       horizontalAlignment=TextAlignment.Left));
-  connect(TCHWRet.y, busCon.TCHWRet) annotation (Line(points={{70,-48},{70,-42},
-          {30,-42},{30,80},{0,80},{0,100}}, color={0,0,127}), Text(
+  connect(TCHWRet.y, bus.TCHWRet) annotation (Line(points={{70,-48},{70,-42},{
+          30,-42},{30,80},{0,80},{0,100}}, color={0,0,127}), Text(
       string="%second",
       index=1,
       extent={{-6,3},{-6,3}},

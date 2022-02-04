@@ -55,17 +55,17 @@ partial model PartialOptionalFourPortInterface
     annotation (Placement(transformation(extent={{110,50},{90,70}})));
 
   Modelica.Fluid.Interfaces.FluidPort_a port_a2(
-                     redeclare final package Medium = Medium2,
-                     m_flow(min=if allowFlowReversal2 then -Modelica.Constants.inf else 0),
-                     h_outflow(start = Medium2.h_default, nominal = Medium2.h_default))
-                   if haveMedium2
+    redeclare final package Medium = Medium2,
+    m_flow(min=if allowFlowReversal2 then -Modelica.Constants.inf else 0),
+    h_outflow(start = Medium2.h_default, nominal = Medium2.h_default))
+    if haveMedium2
     "Fluid connector a2 (positive design flow direction is from port_a2 to port_b2)"
     annotation (Placement(transformation(extent={{90,-70},{110,-50}})));
   Modelica.Fluid.Interfaces.FluidPort_b port_b2(
-                     redeclare final package Medium = Medium2,
-                     m_flow(max=if allowFlowReversal2 then +Modelica.Constants.inf else 0),
-                     h_outflow(start = Medium2.h_default, nominal = Medium2.h_default))
-                    if haveMedium2
+    redeclare final package Medium = Medium2,
+    m_flow(max=if allowFlowReversal2 then +Modelica.Constants.inf else 0),
+    h_outflow(start = Medium2.h_default, nominal = Medium2.h_default))
+    if haveMedium2
     "Fluid connector b2 (positive design flow direction is from port_a2 to port_b2)"
     annotation (Placement(transformation(extent={{-90,-70},{-110,-50}})));
 

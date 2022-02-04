@@ -565,9 +565,14 @@
                 "description": "Nominal pressure drop of chiller group on condenser side",
                 "unit": "Pa"
             },
-            "dpValve_nominal": {
+            "dpCHWValve_nominal": {
                 "value": 6000,
-                "description": "Nominal pressure drop of chiller valve",
+                "description": "Nominal pressure drop of chiller valve on chilled water side",
+                "unit": "Pa"
+            },
+            "dpCWValve_nominal": {
+                "value": 6000,
+                "description": "Nominal pressure drop of chiller valve on condenser water side",
                 "unit": "Pa"
             },
             "Q_nominal": {
@@ -592,9 +597,14 @@
                 "description": "Nominal pressure drop of cooling tower",
                 "unit": "Pa"
             },
-            "dpValve_nominal": {
+            "dpValInl_nominal": {
                 "value": 6000,
-                "description": "Nominal pressure drop of cooling tower valve",
+                "description": "Nominal pressure drop of cooling tower inlet valve",
+                "unit": "Pa"
+            },
+            "dpValOut_nominal": {
+                "value": 0,
+                "description": "Nominal pressure drop of cooling tower outlet valve",
                 "unit": "Pa"
             },
             "TAirInWB_nominal": {
@@ -660,11 +670,6 @@
                 ],
                 "description": "Condenser pumps curve",
                 "unit": "1"
-            },
-            "dpValve_nominal": {
-                "value": 6000,
-                "description": "Nominal pressure drop of condenser pump check valve",
-                "unit": "Pa"
             }
         },
         "SecondaryPump": {

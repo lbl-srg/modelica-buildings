@@ -3,7 +3,7 @@ model ChillerSeries
   extends
     Buildings.Templates.ChilledWaterPlant.Components.ChillerGroup.Interfaces.PartialChillerGroup(
       final typ=Buildings.Templates.ChilledWaterPlant.Components.Types.ChillerGroup.ChillerSeries,
-      final have_dedPum=false);
+      final have_CHWDedPum=false);
 
   inner replaceable
     Buildings.Templates.ChilledWaterPlant.Components.Chiller.ElectricChiller
@@ -35,13 +35,14 @@ model ChillerSeries
         extent={{10,-10},{-10,10}},
         rotation=180,
         origin={-60,-60})));
-  Buildings.Templates.Components.Valves.TwoWayModulating
-                                      twoWayModulating[nChi](
+  inner replaceable Buildings.Templates.Components.Valves.TwoWayModulating valCHWChi[nChi]
+    constrainedby Buildings.Templates.Components.Valves.Interfaces.PartialValve(
     redeclare each final package Medium = MediumCHW,
-    each final m_flow_nominal=m2_flow_nominal,
-    each final dpValve_nominal=dpValve_nominal)
+    each final m_flow_nominal=m2_flow_nominal/nChi,
+    each final dpValve_nominal=dpCHWValve_nominal)
     "Chiller chilled water-side isolation valves"
-    annotation (Placement(transformation(
+    annotation (Placement(
+        transformation(
         extent={{10,-10},{-10,10}},
         rotation=0,
         origin={0,-60})));
@@ -53,9 +54,29 @@ model ChillerSeries
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={60,80})));
+  inner replaceable Buildings.Templates.Components.Valves.TwoWayTwoPosition valCWChi[nChi]
+    if not have_CWDedPum and not isAirCoo
+    constrainedby Buildings.Templates.Components.Valves.TwoWayTwoPosition(
+    redeclare each final package Medium = Medium,
+    each final m_flow_nominal=mTot_flow_nominal/nChi,
+    each final dpValve_nominal=dpCWValve_nominal)
+    "Chiller condenser water-side isolation valves" annotation (Placement(
+        transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=0,
+        origin={-70,60})),
+      choices(
+        choice(redeclare replaceable Buildings.Templates.Components.Valves.TwoWayModulating valCWChi
+          "Modulating"),
+        choice(redeclare replaceable Buildings.Templates.Components.Valves.TwoWayTwoPosition valCWChi
+          "Two-positions")));
+  Buildings.Templates.BaseClasses.PassThroughFluid pasCW[nChi](redeclare each
+      final package Medium = MediumCW) if have_CWDedPum and not isAirCoo
+    "Condenser water passthrough"
+    annotation (Placement(transformation(extent={{-80,30},{-60,50}})));
 equation
 
-  connect(busCon.chi, chi.busCon) annotation (Line(
+  connect(busCon.chi, chi.bus) annotation (Line(
       points={{0.1,100.1},{0.1,80},{0,80},{0,20}},
       color={255,204,51},
       thickness=0.5), Text(
@@ -67,9 +88,9 @@ equation
     annotation (Line(points={{20,-12},{60,-12},{60,-50}}, color={0,127,255}));
   connect(chi.port_b2, mixChi.port_3) annotation (Line(points={{-20,-12},{-60,-12},
           {-60,-50}}, color={0,127,255}));
-  connect(twoWayModulating.port_b, mixChi.port_2)
+  connect(valCHWChi.port_b, mixChi.port_2)
     annotation (Line(points={{-10,-60},{-50,-60}}, color={0,127,255}));
-  connect(twoWayModulating.port_a, splChi.port_2)
+  connect(valCHWChi.port_a, splChi.port_2)
     annotation (Line(points={{10,-60},{50,-60}}, color={0,127,255}));
   connect(port_a2,splChi[1].port_1)
     annotation (Line(points={{100,-60},{70,-60}}, color={0,127,255}));
@@ -80,14 +101,12 @@ equation
             -60},{-80,-60},{-80,-80},{80,-80},{80,-60},{70,-60}}, color={0,127,
             255}));
   end for;
-  connect(ports_a1, chi.port_a1) annotation (Line(points={{-100,60},{-40,60},{
-          -40,12},{-20,12}}, color={0,127,255}));
   connect(port_b1, del.ports[nChi+1]) annotation (Line(points={{100,60},{60,60},
           {60,70}},
         color={0,127,255}));
   connect(chi.port_b1, del.ports[1:nChi]) annotation (Line(points={{20,12},{60,
           12},{60,70}},               color={0,127,255}));
-  connect(twoWayModulating.bus, busCon.valCHWChi) annotation (Line(
+  connect(valCHWChi.bus, busCon.valCHWChi) annotation (Line(
       points={{0,-50},{0,-40},{40,-40},{40,60},{0.1,60},{0.1,100.1}},
       color={255,204,51},
       thickness=0.5), Text(
@@ -95,6 +114,14 @@ equation
       index=1,
       extent={{-3,6},{-3,6}},
       horizontalAlignment=TextAlignment.Right));
+  connect(ports_a1, valCWChi.port_a)
+    annotation (Line(points={{-100,60},{-80,60}}, color={0,127,255}));
+  connect(valCWChi.port_b, chi.port_a1) annotation (Line(points={{-60,60},{-30,60},
+          {-30,12},{-20,12}}, color={0,127,255}));
+  connect(ports_a1, pasCW.port_a) annotation (Line(points={{-100,60},{-90,60},{-90,
+          40},{-80,40}}, color={0,127,255}));
+  connect(pasCW.port_b, chi.port_a1) annotation (Line(points={{-60,40},{-50,40},
+          {-50,60},{-30,60},{-30,12},{-20,12}}, color={0,127,255}));
   annotation (Icon(graphics={
         Rectangle(
           extent={{-70,80},{70,-80}},

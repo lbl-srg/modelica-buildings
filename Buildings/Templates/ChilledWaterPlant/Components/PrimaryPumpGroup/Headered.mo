@@ -35,8 +35,8 @@ model Headered
     final per=per)
     constrainedby Buildings.Templates.Components.Pumps.Interfaces.PartialPump(
       redeclare final package Medium = Medium,
-      final has_singlePort_a=true,
-      final has_singlePort_b=true,
+      final have_singlePort_a=true,
+      final have_singlePort_b=true,
       final m_flow_nominal=m_flow_nominal,
       final dp_nominal=dp_nominal,
       final dpValve_nominal=dpValve_nominal)
@@ -153,7 +153,7 @@ equation
       extent={{6,3},{6,3}},
       horizontalAlignment=TextAlignment.Left));
   connect(pum.bus, busCon.pumPri) annotation (Line(
-      points={{-30,10},{-30,74},{0.1,74},{0.1,100.1}},
+      points={{-30,10},{-30,80},{0.1,80},{0.1,100.1}},
       color={255,204,51},
       thickness=0.5), Text(
       string="%second",

@@ -1,22 +1,17 @@
-within Buildings.Templates.ChilledWaterPlant.Components.CoolingTowerGroup.Interfaces;
-partial model PartialCoolingTowerGroup
+within Buildings.Templates.Components.CoolingTower.Interfaces;
+partial model PartialCoolingTower
   extends Buildings.Fluid.Interfaces.PartialTwoPortInterface(
     redeclare package Medium=Buildings.Media.Water);
 
-  parameter Buildings.Templates.ChilledWaterPlant.Components.Types.CoolingTowerGroup typ "Type of cooling tower group"
+  parameter Buildings.Templates.Components.Types.CoolingTower typ
+    "Equipment type"
     annotation (Evaluate=true, Dialog(group="Configuration"));
-
   outer parameter String id
     "System identifier";
   outer parameter ExternData.JSONFile dat
     "External parameter file";
 
-  outer parameter Integer nChi "Number of chillers";
-  parameter Integer nCooTow(final min=1) "Number of cooling towers";
-
-  Buildings.Templates.ChilledWaterPlant.BaseClasses.BusChilledWater busCon(
-    final nChi=nChi, final nCooTow=nCooTow)
-    "Control bus"
+  outer Buildings.Templates.Components.Interfaces.Bus bus "Control bus"
     annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
         rotation=0,
@@ -24,8 +19,7 @@ partial model PartialCoolingTowerGroup
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={0,100})));
-
-  Buildings.BoundaryConditions.WeatherData.Bus weaBus
+  BoundaryConditions.WeatherData.Bus weaBus
     "Weather bus"
     annotation (Placement(transformation(extent={{30,80},{70,120}}),
       iconTransformation(extent={{40,90},{60,110}})));
@@ -36,4 +30,4 @@ partial model PartialCoolingTowerGroup
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid)}), Diagram(
         coordinateSystem(preserveAspectRatio=false)));
-end PartialCoolingTowerGroup;
+end PartialCoolingTower;

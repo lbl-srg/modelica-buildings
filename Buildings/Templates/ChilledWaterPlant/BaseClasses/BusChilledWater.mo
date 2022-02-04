@@ -4,8 +4,7 @@ expandable connector BusChilledWater
   extends Modelica.Icons.SignalBus;
 
   parameter Integer nChi "Number of chillers";
-  parameter Integer nPumPri "Number of primary pumps";
-  parameter Integer nPumSec "Number of secondary pumps";
+  parameter Integer nCooTow "Number of cooling tower";
 
   Buildings.Templates.Components.Interfaces.Bus chi[nChi]
     annotation (HideResult=false);
@@ -16,6 +15,17 @@ expandable connector BusChilledWater
   Buildings.Templates.Components.Interfaces.Bus pumPri
     annotation (HideResult=false);
   Buildings.Templates.Components.Interfaces.Bus pumSec
+    annotation (HideResult=false);
+
+  Buildings.Templates.Components.Interfaces.Bus cooTow[nCooTow]
+    annotation (HideResult=false);
+  Buildings.Templates.Components.Interfaces.Bus valCooTowInl[nCooTow]
+    annotation (HideResult=false);
+  Buildings.Templates.Components.Interfaces.Bus valCooTowOut[nCooTow]
+    annotation (HideResult=false);
+  Buildings.Templates.Components.Interfaces.Bus pumCon
+    annotation (HideResult=false);
+  Buildings.Templates.Components.Interfaces.Bus valCWChi[nChi]
     annotation (HideResult=false);
 
   annotation (

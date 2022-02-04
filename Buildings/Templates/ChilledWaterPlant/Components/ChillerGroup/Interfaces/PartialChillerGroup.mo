@@ -1,21 +1,18 @@
 within Buildings.Templates.ChilledWaterPlant.Components.ChillerGroup.Interfaces;
 partial model PartialChillerGroup
-//   extends Buildings.Fluid.Interfaces.PartialOptionalFourPortInterface(
-//     redeclare package MediumCW=Buildings.Media.Water,
-//     redeclare package Medium2=Buildings.Media.Water,
-//     final haveMediumCW=not isAirCoo,
-//     final haveMedium2=true);
-
-  parameter Boolean isAirCoo
+  outer parameter Boolean isAirCoo
     "= true, chillers in group are air cooled,
     = false, chillers in group are water cooled";
-  parameter Boolean have_dedPum "Parallel chillers are connected to dedicated pumps";
+  parameter Boolean have_CHWDedPum = false
+    "Parallel chillers are connected to dedicated pumps on chilled water side";
+  parameter Boolean have_CWDedPum = false
+    "Parallel chillers are connected to dedicated pumps on condenser water side";
 
   parameter Integer nChi "Number of chillers in group";
-  outer parameter Integer nPumPri "Number of primary pumps";
-  outer parameter Integer nPumSec "Number of secondary pumps";
+  outer parameter Integer nCooTow "Number of cooling towers";
 
-  parameter Buildings.Templates.ChilledWaterPlant.Components.Types.ChillerGroup typ "Type of chiller group"
+  parameter Buildings.Templates.ChilledWaterPlant.Components.Types.ChillerGroup typ
+    "Type of chiller group"
     annotation (Evaluate=true, Dialog(group="Configuration"));
 
   outer parameter String id
@@ -60,14 +57,16 @@ partial model PartialChillerGroup
   Modelica.Fluid.Interfaces.FluidPort_b port_b2(
     redeclare final package Medium = MediumCHW,
     m_flow(max=if allowFlowReversal2 then +Modelica.Constants.inf else 0),
-    h_outflow(start = MediumCHW.h_default, nominal = MediumCHW.h_default)) if typ == Buildings.Templates.ChilledWaterPlant.Components.Types.ChillerGroup.ChillerSeries
+    h_outflow(start = MediumCHW.h_default, nominal = MediumCHW.h_default))
+    if typ == Buildings.Templates.ChilledWaterPlant.Components.Types.ChillerGroup.ChillerSeries
     "Fluid connector b2 (positive design flow direction is from port_a2 to port_b2)"
     annotation (Placement(transformation(extent={{-90,-70},{-110,-50}})));
 
   Modelica.Fluid.Interfaces.FluidPorts_b ports_b2[nChi](
     redeclare each final package Medium = MediumCHW,
     each m_flow(max=if allowFlowReversal2 then +Modelica.Constants.inf else 0),
-    each h_outflow(start=MediumCHW.h_default, nominal=MediumCHW.h_default)) if typ == Buildings.Templates.ChilledWaterPlant.Components.Types.ChillerGroup.ChillerParallel
+    each h_outflow(start=MediumCHW.h_default, nominal=MediumCHW.h_default))
+    if typ == Buildings.Templates.ChilledWaterPlant.Components.Types.ChillerGroup.ChillerParallel
     "Fluid connector b2 for multiple outlets (positive design flow direction is from port_a2 to port_b2)"
     annotation (Placement(transformation(extent={{-92,-32},{-108,32}}),
         iconTransformation(extent={{8,-32},{-8,32}},
@@ -91,14 +90,19 @@ partial model PartialChillerGroup
     "Pressure difference"
     annotation(Dialog(group = "Nominal condition"));
 
-  parameter Modelica.Units.SI.PressureDifference dpValve_nominal=
-    if have_dedPum then 0
-    else dat.getReal(varName=id + ".ChillerGroup.dpValve_nominal.value")
-    "Nominal pressure drop of chiller valves"
+  parameter Modelica.Units.SI.PressureDifference dpCHWValve_nominal=
+    if have_CHWDedPum then 0
+    else dat.getReal(varName=id + ".ChillerGroup.dpCHWValve_nominal.value")
+    "Nominal pressure drop of chiller valves on chilled water side"
+    annotation(Dialog(group = "Nominal condition"));
+  parameter Modelica.Units.SI.PressureDifference dpCWValve_nominal=
+    if have_CWDedPum then 0
+    else dat.getReal(varName=id + ".ChillerGroup.dpCWValve_nominal.value")
+    "Nominal pressure drop of chiller valves on condenser water side"
     annotation(Dialog(group = "Nominal condition"));
 
   final parameter Modelica.Units.SI.PressureDifference dpCHW_nominal=
-    dp2_nominal + dpValve_nominal
+    dp2_nominal + dpCHWValve_nominal
     "Total nominal pressure drop on chilled water side";
 
   parameter MediumCW.MassFlowRate m1_flow_small(min=0) = 1E-4*abs(m1_flow_nominal)
@@ -109,9 +113,8 @@ partial model PartialChillerGroup
     annotation(Dialog(tab = "Advanced"));
 
   Buildings.Templates.ChilledWaterPlant.BaseClasses.BusChilledWater busCon(
-    nChi=nChi,
-    nPumPri=nPumPri,
-    nPumSec=nPumSec)                                                                             "Control bus" annotation (Placement(transformation(
+    final nChi=nChi, final nCooTow=nCooTow)
+    "Control bus" annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
         rotation=0,
         origin={0,100}), iconTransformation(
@@ -132,6 +135,15 @@ partial model PartialChillerGroup
       mEva_flow_nominal=m2_flow_nominal,
       mCon_flow_nominal=m1_flow_nominal) "Chiller performance data"
     annotation (Placement(transformation(extent={{70,-8},{90,12}})));
+  BoundaryConditions.WeatherData.Bus weaBus if isAirCoo
+    "Weather control bus"
+    annotation (Placement(transformation(
+        extent={{-20,20},{20,-20}},
+        rotation=180,
+        origin={-40,100}), iconTransformation(
+        extent={{-12.5,11.7677},{7.5,-8.23748}},
+        rotation=180,
+        origin={-42.5,101.768})));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false),
     graphics={Rectangle(
           extent={{-100,100},{100,-100}},

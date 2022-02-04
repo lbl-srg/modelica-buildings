@@ -1,7 +1,9 @@
 within Buildings.Templates.ChilledWaterPlant.Validation.UserProject;
 model RP1711_6_6
-  extends Buildings.Templates.ChilledWaterPlant.WaterCooledParallel(
-    chiGro(final nChi=2,
+  "Parallel Chillers, Primary-Secondary CHW, Constant CW, Dedicated Primary CHW Pumps, Headered CW Pumps"
+  extends Buildings.Templates.ChilledWaterPlant.WaterCooled(
+    redeclare Buildings.Templates.ChilledWaterPlant.Components.ChillerGroup.ChillerParallel chiGro(
+      final nChi=2,
       redeclare Buildings.Fluid.Chillers.Data.ElectricEIR.ElectricEIRChiller_York_YT_1055kW_5_96COP_Vanes per),
     redeclare Buildings.Templates.ChilledWaterPlant.Components.PrimaryPumpGroup.Dedicated
       pumPri(final have_floSen=true),
