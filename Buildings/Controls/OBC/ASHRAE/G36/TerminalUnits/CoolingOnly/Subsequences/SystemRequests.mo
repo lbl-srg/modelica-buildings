@@ -122,11 +122,11 @@ protected
   Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger booToInt1
     "Convert boolean to integer"
     annotation (Placement(transformation(extent={{40,-180},{60,-160}})));
-  Buildings.Controls.OBC.CDL.Continuous.Gain gai1(
+  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai1(
     final k=0.5)
     "50% of setpoint"
     annotation (Placement(transformation(extent={{-140,-80},{-120,-60}})));
-  Buildings.Controls.OBC.CDL.Continuous.Gain gai2(
+  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai2(
     final k=0.7)
     "70% of setpoint"
     annotation (Placement(transformation(extent={{-140,-120},{-120,-100}})));

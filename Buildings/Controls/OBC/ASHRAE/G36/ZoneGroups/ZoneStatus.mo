@@ -123,11 +123,11 @@ block ZoneStatus "Block that outputs zone temperature status"
         iconTransformation(extent={{100,-150},{140,-110}})));
 
 protected
-  Buildings.Controls.OBC.CDL.Continuous.Product pro
+  Buildings.Controls.OBC.CDL.Continuous.Multiply pro
     "Decide if the cool down time of one zone should be ignored: if window is open, 
     then output zero, otherwise, output cool-down time from optimal cool-down block"
     annotation (Placement(transformation(extent={{120,210},{140,230}})));
-  Buildings.Controls.OBC.CDL.Continuous.Product pro1
+  Buildings.Controls.OBC.CDL.Continuous.Multiply pro1
     "Decide if the warm-up time of one zone should be ignored: if window is open, 
     then output zero, otherwise, output warm-up time from optimal warm-up block"
     annotation (Placement(transformation(extent={{120,170},{140,190}})));

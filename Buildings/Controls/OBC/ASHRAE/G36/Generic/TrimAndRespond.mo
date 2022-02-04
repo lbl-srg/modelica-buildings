@@ -44,12 +44,12 @@ block TrimAndRespond "Block to inplement trim and respond logic"
     final k=resAmo)
     "Respond amount constant"
     annotation (Placement(transformation(extent={{-200,-140},{-180,-120}})));
-  Buildings.Controls.OBC.CDL.Continuous.Product pro
+  Buildings.Controls.OBC.CDL.Continuous.Multiply pro
     "Products of net requests and respond amount value"
     annotation (Placement(transformation(extent={{-20,-110},{0,-90}})));
-  Buildings.Controls.OBC.CDL.Continuous.Product pro1 "Product of trim and respond amount"
+  Buildings.Controls.OBC.CDL.Continuous.Multiply pro1 "Product of trim and respond amount"
     annotation (Placement(transformation(extent={{-160,-110},{-140,-90}})));
-  Buildings.Controls.OBC.CDL.Continuous.Product pro2 "Product of respond and maximum amount"
+  Buildings.Controls.OBC.CDL.Continuous.Multiply pro2 "Product of respond and maximum amount"
     annotation (Placement(transformation(extent={{-160,-180},{-140,-160}})));
   Buildings.Controls.OBC.CDL.Discrete.UnitDelay uniDel(
     final samplePeriod=samplePeriod,
@@ -80,7 +80,7 @@ block TrimAndRespond "Block to inplement trim and respond logic"
   Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr1
     "Check if response amount have positive sign"
     annotation (Placement(transformation(extent={{20,-160},{40,-140}})));
-  Buildings.Controls.OBC.CDL.Continuous.Gain gai(
+  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai(
     final k=-1) "Convert results back to negative"
     annotation (Placement(transformation(extent={{80,-190},{100,-170}})));
 

@@ -89,7 +89,7 @@ protected
     final realFalse=1)
     "Output zero control signal when the cooling loop should be disabled"
     annotation (Placement(transformation(extent={{80,50},{100,70}})));
-  Buildings.Controls.OBC.CDL.Continuous.Product cooConSig
+  Buildings.Controls.OBC.CDL.Continuous.Multiply cooConSig
     "Cooling control loop signal"
     annotation (Placement(transformation(extent={{120,60},{140,80}})));
   Buildings.Controls.OBC.CDL.Continuous.PIDWithReset heaCon(
@@ -109,7 +109,7 @@ protected
     final realFalse=1)
     "Output zero control signal when the heating loop should be disabled"
     annotation (Placement(transformation(extent={{80,-90},{100,-70}})));
-  Buildings.Controls.OBC.CDL.Continuous.Product heaConSig
+  Buildings.Controls.OBC.CDL.Continuous.Multiply heaConSig
     "Heating control loop signal"
     annotation (Placement(transformation(extent={{120,-80},{140,-60}})));
   Buildings.Controls.OBC.CDL.Continuous.LessThreshold zerCon(

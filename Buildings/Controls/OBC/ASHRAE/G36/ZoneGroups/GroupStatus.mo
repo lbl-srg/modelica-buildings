@@ -205,7 +205,7 @@ protected
   Buildings.Controls.OBC.CDL.Continuous.Feedback difUnoHea
     "Difference between unoccupied heating setpoint and zone temperature"
     annotation (Placement(transformation(extent={{-50,-30},{-30,-10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Division div1 "Average difference"
+  Buildings.Controls.OBC.CDL.Continuous.Divide div1 "Average difference"
     annotation (Placement(transformation(extent={{20,-30},{40,-10}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant totZon(
     final k=numZon) "Total number of zones"
@@ -222,7 +222,7 @@ protected
   Buildings.Controls.OBC.CDL.Continuous.Feedback difUnoCoo
     "Difference between unoccupied cooling setpoint and zone temperature"
     annotation (Placement(transformation(extent={{-30,-130},{-10,-110}})));
-  Buildings.Controls.OBC.CDL.Continuous.Division div2 "Average difference"
+  Buildings.Controls.OBC.CDL.Continuous.Divide div2 "Average difference"
     annotation (Placement(transformation(extent={{20,-140},{40,-120}})));
   Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys(
     final uLow=uLow,
@@ -261,7 +261,7 @@ protected
     final realFalse=1)
     "When any zone becomes occpuied, output zero"
     annotation (Placement(transformation(extent={{0,230},{20,250}})));
-  Buildings.Controls.OBC.CDL.Continuous.Product pro
+  Buildings.Controls.OBC.CDL.Continuous.Multiply pro
     "When it is occupied, output zero"
     annotation (Placement(transformation(extent={{60,210},{80,230}})));
 

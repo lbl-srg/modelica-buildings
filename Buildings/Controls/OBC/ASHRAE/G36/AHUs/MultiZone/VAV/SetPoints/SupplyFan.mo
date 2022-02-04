@@ -187,10 +187,10 @@ protected
     final k=maxSet)
     "Gain for normalization of controller input"
     annotation (Placement(transformation(extent={{-130,-100},{-110,-80}})));
-  Buildings.Controls.OBC.CDL.Continuous.Division norPSet
+  Buildings.Controls.OBC.CDL.Continuous.Divide norPSet
     "Normalization for pressure set point"
     annotation (Placement(transformation(extent={{-70,-80},{-50,-60}})));
-  Buildings.Controls.OBC.CDL.Continuous.Division norPMea
+  Buildings.Controls.OBC.CDL.Continuous.Divide norPMea
     "Normalization of pressure measurement"
     annotation (Placement(transformation(extent={{-70,-120},{-50,-100}})));
   Buildings.Controls.OBC.CDL.Discrete.FirstOrderHold firOrdHol(

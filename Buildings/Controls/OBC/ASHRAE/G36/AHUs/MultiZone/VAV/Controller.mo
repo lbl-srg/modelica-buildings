@@ -747,7 +747,7 @@ block Controller "Multizone VAV air handling unit controller"
   Buildings.Controls.OBC.CDL.Integers.Switch intSwi if have_heaCoi
     "Hot water plant request"
     annotation (Placement(transformation(extent={{300,-580},{320,-560}})));
-  Buildings.Controls.OBC.CDL.Continuous.Division VOut_flow_normalized(
+  Buildings.Controls.OBC.CDL.Continuous.Divide VOut_flow_normalized(
     u1(final unit="m3/s"),
     u2(final unit="m3/s"),
     y(final unit="1"))

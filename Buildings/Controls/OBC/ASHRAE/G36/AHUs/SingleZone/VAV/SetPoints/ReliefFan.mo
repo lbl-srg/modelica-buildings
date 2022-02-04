@@ -66,15 +66,15 @@ block ReliefFan
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea[nSupFan]
     "Convert boolean to real"
     annotation (Placement(transformation(extent={{-460,320},{-440,340}})));
-  Buildings.Controls.OBC.CDL.Continuous.Gain gai[nRelFan](
+  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai[nRelFan](
     final k=staVec)
     "Vector of enabling fan, along with its staging order"
     annotation (Placement(transformation(extent={{-380,320},{-360,340}})));
-  Buildings.Controls.OBC.CDL.Continuous.MovingMean movMea(
+  Buildings.Controls.OBC.CDL.Continuous.MovingAverage movMea(
     final delta=300)
     "Average building static pressure measurement"
     annotation (Placement(transformation(extent={{-420,220},{-400,240}})));
-  Buildings.Controls.OBC.CDL.Continuous.Division div1
+  Buildings.Controls.OBC.CDL.Continuous.Divide div1
     "Normalized the control error"
     annotation (Placement(transformation(extent={{-360,200},{-340,220}})));
   Buildings.Controls.OBC.CDL.Continuous.PID conP(
@@ -89,7 +89,7 @@ block ReliefFan
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea1
     "Convert boolean to real"
     annotation (Placement(transformation(extent={{-420,280},{-400,300}})));
-  Buildings.Controls.OBC.CDL.Continuous.Product pro
+  Buildings.Controls.OBC.CDL.Continuous.Multiply pro
     "Set controller output to zero when the relief system is disabled"
     annotation (Placement(transformation(extent={{120,274},{140,294}})));
   Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr(
@@ -144,7 +144,7 @@ block ReliefFan
     final k2=fill(-1, nRelFan))
     "Identify relief fans that have been enabled but not yet operating"
     annotation (Placement(transformation(extent={{-360,-30},{-340,-10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Product pro1[nRelFan]
+  Buildings.Controls.OBC.CDL.Continuous.Multiply pro1[nRelFan]
     "List of standby fans, along with their staging order"
     annotation (Placement(transformation(extent={{-280,-10},{-260,10}})));
   Buildings.Controls.OBC.CDL.Continuous.MultiMin mulMin(
@@ -197,7 +197,7 @@ block ReliefFan
     annotation (Placement(transformation(extent={{-20,-330},{0,-310}})));
   Buildings.Controls.OBC.CDL.Logical.Edge edg1
     annotation (Placement(transformation(extent={{-120,-280},{-100,-260}})));
-  Buildings.Controls.OBC.CDL.Continuous.Product pro2[nRelFan]
+  Buildings.Controls.OBC.CDL.Continuous.Multiply pro2[nRelFan]
     "List of operating fans, along with their staging order"
     annotation (Placement(transformation(extent={{-280,-210},{-260,-190}})));
   Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar1[nRelFan](
@@ -285,7 +285,7 @@ block ReliefFan
     final nout=nRelFan)
     "Replicate real input"
     annotation (Placement(transformation(extent={{380,206},{400,226}})));
-  Buildings.Controls.OBC.CDL.Continuous.Product pro3[nRelFan]
+  Buildings.Controls.OBC.CDL.Continuous.Multiply pro3[nRelFan]
     "Relief fan speed"
     annotation (Placement(transformation(extent={{440,200},{460,220}})));
   Buildings.Controls.OBC.CDL.Logical.Or or1

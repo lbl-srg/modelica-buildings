@@ -199,7 +199,7 @@ protected
     final h=0.01)
     "Check if the minimum outdoor air damper position is fully open"
     annotation (Placement(transformation(extent={{-40,70},{-20,90}})));
-  Buildings.Controls.OBC.CDL.Continuous.Gain gai(
+  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai(
     final k=1.1)
     "Projected position with a gain factor"
     annotation (Placement(transformation(extent={{-40,-80},{-20,-60}})));

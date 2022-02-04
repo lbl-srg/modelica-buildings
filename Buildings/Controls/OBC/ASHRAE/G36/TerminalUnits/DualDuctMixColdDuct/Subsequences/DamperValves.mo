@@ -285,7 +285,7 @@ block DamperValves
     annotation (Placement(transformation(extent={{280,-10},{300,10}})));
   Buildings.Controls.OBC.CDL.Continuous.Switch damPosUno "Output damper position"
     annotation (Placement(transformation(extent={{280,70},{300,90}})));
-  Buildings.Controls.OBC.CDL.Continuous.Division VDis_flowNor if
+  Buildings.Controls.OBC.CDL.Continuous.Divide VDis_flowNor if
        not have_pressureIndependentDamper
     "Normalized discharge volume flow rate"
     annotation (Placement(transformation(extent={{240,170},{260,190}})));
@@ -293,10 +293,10 @@ block DamperValves
     final k=V_flow_nominal)
     "Nominal volume flow rate"
     annotation (Placement(transformation(extent={{200,220},{220,240}})));
-  Buildings.Controls.OBC.CDL.Continuous.Division VDisSet_flowNor
+  Buildings.Controls.OBC.CDL.Continuous.Divide VDisSet_flowNor
     "Normalized setpoint for discharge volume flow rate"
     annotation (Placement(transformation(extent={{240,240},{260,260}})));
-  Buildings.Controls.OBC.CDL.Continuous.Gain gai(
+  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai(
     final k=1) if have_pressureIndependentDamper
     "Block that can be disabled so remove the connection"
     annotation (Placement(transformation(extent={{220,140},{240,160}})));

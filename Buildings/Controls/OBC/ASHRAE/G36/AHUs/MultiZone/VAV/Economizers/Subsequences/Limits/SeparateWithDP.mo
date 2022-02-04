@@ -131,9 +131,9 @@ protected
     final k=dpDesOutDam_min)
     "Design minimum outdoor air damper pressure difference"
     annotation (Placement(transformation(extent={{-160,190},{-140,210}})));
-  Buildings.Controls.OBC.CDL.Continuous.Product pro "Square of the normalized minimum airflow"
+  Buildings.Controls.OBC.CDL.Continuous.Multiply pro "Square of the normalized minimum airflow"
     annotation (Placement(transformation(extent={{-160,230},{-140,250}})));
-  Buildings.Controls.OBC.CDL.Continuous.Product minDp "Minimum pressure difference setpoint"
+  Buildings.Controls.OBC.CDL.Continuous.Multiply minDp "Minimum pressure difference setpoint"
     annotation (Placement(transformation(extent={{-120,210},{-100,230}})));
   Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr(
     final h=1)
@@ -143,7 +143,7 @@ protected
     final h=0.05)
     "Check if economizer outdoor air damper is less than projected position"
     annotation (Placement(transformation(extent={{-40,10},{-20,30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Gain gai(
+  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai(
     final k=1.1)
     "Projected position with a gain factor"
     annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));

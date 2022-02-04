@@ -77,7 +77,7 @@ protected
   Buildings.Controls.OBC.CDL.Continuous.Sources.ModelTime modTim
     "Time of the model"
     annotation (Placement(transformation(extent={{-140,100},{-120,120}})));
-  Buildings.Controls.OBC.CDL.Continuous.Gain gai(
+  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai(
     final k=chaRat)
     "Setpoint change rate"
     annotation (Placement(transformation(extent={{20,20},{40,40}})));

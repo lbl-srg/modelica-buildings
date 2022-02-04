@@ -179,7 +179,7 @@ protected
     annotation (Placement(transformation(extent={{40,350},{60,370}})));
   Buildings.Controls.OBC.CDL.Continuous.Switch fanSpe "Supply fan speed"
     annotation (Placement(transformation(extent={{100,330},{120,350}})));
-  Buildings.Controls.OBC.CDL.Continuous.SlewRateLimiter ramLim(
+  Buildings.Controls.OBC.CDL.Continuous.LimitSlewRate ramLim(
     final raisingSlewRate=1/600,
     final Td=60)
     "Prevent changes in fan speed of more than 10% per minute"
