@@ -277,8 +277,7 @@ block DamperValves
     final h=0.5*dTHys)
     "Check if supply air temperature is greater than room temperature"
     annotation (Placement(transformation(extent={{-120,210},{-100,230}})));
-  Buildings.Controls.OBC.CDL.Continuous.Add add2(
-    final k2=-1)
+  Buildings.Controls.OBC.CDL.Continuous.Subtract sub2
     "Calculate temperature difference between AHU supply air and room "
     annotation (Placement(transformation(extent={{-160,210},{-140,230}})));
   Buildings.Controls.OBC.CDL.Continuous.Switch watValPosUno "Output hot water valve position"
@@ -323,7 +322,6 @@ block DamperValves
     "Constant real value"
     annotation (Placement(transformation(extent={{-200,-310},{-180,-290}})));
   Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar1(
-    final k=1,
     final p=3)
     "Zone temperature plus threshold difference"
     annotation (Placement(transformation(extent={{-240,-210},{-220,-190}})));
@@ -336,8 +334,7 @@ block DamperValves
     "Constant zero"
     annotation (Placement(transformation(extent={{-260,-40},{-240,-20}})));
   Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar(
-    final p=dTDisZonSetMax,
-    final k=1)
+    final p=dTDisZonSetMax)
     "Maximum heating discharge temperature"
     annotation (Placement(transformation(extent={{-260,-100},{-240,-80}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant lowDisAirTem(
@@ -388,13 +385,13 @@ equation
   connect(swi5.y, swi.u1)
     annotation (Line(points={{82,320},{140,320},{140,298},{158,298}},
       color={0,0,127}));
-  connect(TSup, add2.u1)
+  connect(TSup, sub2.u1)
     annotation (Line(points={{-340,220},{-180,220},{-180,226},{-162,226}},
         color={0,0,127}));
-  connect(TZon, add2.u2)
+  connect(TZon, sub2.u2)
     annotation (Line(points={{-340,-200},{-300,-200},{-300,200},{-180,200},{-180,
           214},{-162,214}},   color={0,0,127}));
-  connect(add2.y, greThr.u)
+  connect(sub2.y, greThr.u)
     annotation (Line(points={{-138,220},{-122,220}}, color={0,0,127}));
   connect(greThr.y, and4.u2) annotation (Line(points={{-98,220},{-80,220},{-80,242},
           {-62,242}},      color={255,0,255}));

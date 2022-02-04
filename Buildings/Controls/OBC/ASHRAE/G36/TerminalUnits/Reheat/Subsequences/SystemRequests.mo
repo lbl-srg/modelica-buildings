@@ -57,28 +57,28 @@ block SystemRequests "Output system requests for VAV terminal unit with reheat"
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uAftSup
     "After suppression period due to the setpoint change"
-    annotation (Placement(transformation(extent={{-220,238},{-180,278}}),
+    annotation (Placement(transformation(extent={{-220,240},{-180,280}}),
         iconTransformation(extent={{-140,70},{-100,110}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TZonCooSet(
     final unit="K",
     final displayUnit="degC",
     final quantity="ThermodynamicTemperature")
     "Zone cooling setpoint temperature"
-    annotation (Placement(transformation(extent={{-220,198},{-180,238}}),
+    annotation (Placement(transformation(extent={{-220,200},{-180,240}}),
         iconTransformation(extent={{-140,50},{-100,90}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TZon(
     final unit="K",
     final displayUnit="degC",
     final quantity="ThermodynamicTemperature")
     "Zone temperature"
-    annotation (Placement(transformation(extent={{-220,138},{-180,178}}),
+    annotation (Placement(transformation(extent={{-220,140},{-180,180}}),
         iconTransformation(extent={{-140,30},{-100,70}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uCoo(
     final min=0,
     final max=1,
     final unit="1")
     "Cooling loop signal"
-    annotation (Placement(transformation(extent={{-220,108},{-180,148}}),
+    annotation (Placement(transformation(extent={{-220,110},{-180,150}}),
         iconTransformation(extent={{-140,10},{-100,50}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput VSet_flow(
     final min=0,
@@ -123,7 +123,7 @@ block SystemRequests "Output system requests for VAV terminal unit with reheat"
         iconTransformation(extent={{-140,-110},{-100,-70}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yZonTemResReq
     "Zone cooling supply air temperature reset request"
-    annotation (Placement(transformation(extent={{180,218},{220,258}}),
+    annotation (Placement(transformation(extent={{180,220},{220,260}}),
         iconTransformation(extent={{100,60},{140,100}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yZonPreResReq
     "Zone static pressure reset requests"
@@ -151,12 +151,12 @@ protected
     final t=thrTemDif,
     final h=dTHys)
     "Check if zone temperature is greater than cooling setpoint by threshold"
-    annotation (Placement(transformation(extent={{-60,208},{-40,228}})));
+    annotation (Placement(transformation(extent={{-60,210},{-40,230}})));
   Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr2(
     final t=twoTemDif,
     final h=dTHys)
     "Check if zone temperature is greater than cooling setpoint by threshold"
-    annotation (Placement(transformation(extent={{-60,168},{-40,188}})));
+    annotation (Placement(transformation(extent={{-60,170},{-40,190}})));
   Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr3(
     final t=0.95,
     final h=damPosHys)
@@ -166,7 +166,7 @@ protected
     final t=0.95,
     final h=0.1)
     "Check if cooling loop signal is greater than 0.95"
-    annotation (Placement(transformation(extent={{-60,118},{-40,138}})));
+    annotation (Placement(transformation(extent={{-60,120},{-40,140}})));
   Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr4(
     final t=floHys,
     final h=0.5*floHys)
@@ -174,7 +174,7 @@ protected
     annotation (Placement(transformation(extent={{-140,70},{-120,90}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger booToInt
     "Convert boolean to integer"
-    annotation (Placement(transformation(extent={{40,118},{60,138}})));
+    annotation (Placement(transformation(extent={{40,120},{60,140}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger booToInt1
     "Convert boolean to integer"
     annotation (Placement(transformation(extent={{40,-60},{60,-40}})));
@@ -186,20 +186,18 @@ protected
     final k=0.7)
     "70% of setpoint"
     annotation (Placement(transformation(extent={{-140,0},{-120,20}})));
-  Buildings.Controls.OBC.CDL.Continuous.Add add2(
-    final k1=-1)
+  Buildings.Controls.OBC.CDL.Continuous.Subtract sub2
     "Calculate difference between zone temperature and cooling setpoint"
-    annotation (Placement(transformation(extent={{-100,208},{-80,228}})));
-  Buildings.Controls.OBC.CDL.Continuous.Add add3(
-    final k1=-1)
+    annotation (Placement(transformation(extent={{-100,210},{-80,230}})));
+  Buildings.Controls.OBC.CDL.Continuous.Subtract sub3
     "Calculate difference between zone temperature and cooling setpoint"
-    annotation (Placement(transformation(extent={{-100,168},{-80,188}})));
+    annotation (Placement(transformation(extent={{-100,170},{-80,190}})));
   Buildings.Controls.OBC.CDL.Logical.And and1
     "Logical and"
-    annotation (Placement(transformation(extent={{40,168},{60,188}})));
+    annotation (Placement(transformation(extent={{40,170},{60,190}})));
   Buildings.Controls.OBC.CDL.Logical.And and2
     "Logical and"
-    annotation (Placement(transformation(extent={{40,228},{60,248}})));
+    annotation (Placement(transformation(extent={{40,230},{60,250}})));
   Buildings.Controls.OBC.CDL.Logical.And and3
     "Logical and"
     annotation (Placement(transformation(extent={{40,50},{60,70}})));
@@ -209,10 +207,10 @@ protected
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant thrCooResReq(
     final k=3)
     "Constant 3"
-    annotation (Placement(transformation(extent={{100,268},{120,288}})));
+    annotation (Placement(transformation(extent={{100,270},{120,290}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant twoCooResReq(
     final k=2) "Constant 2"
-    annotation (Placement(transformation(extent={{40,268},{60,288}})));
+    annotation (Placement(transformation(extent={{40,270},{60,290}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant thrPreResReq(
     final k=3)
     "Constant 3"
@@ -223,10 +221,10 @@ protected
     annotation (Placement(transformation(extent={{40,10},{60,30}})));
   Buildings.Controls.OBC.CDL.Integers.Switch intSwi
     "Output 3 or other request "
-    annotation (Placement(transformation(extent={{140,228},{160,248}})));
+    annotation (Placement(transformation(extent={{140,230},{160,250}})));
   Buildings.Controls.OBC.CDL.Integers.Switch intSwi1
     "Output 2 or other request "
-    annotation (Placement(transformation(extent={{100,168},{120,188}})));
+    annotation (Placement(transformation(extent={{100,170},{120,190}})));
   Buildings.Controls.OBC.CDL.Integers.Switch swi4
     "Output 3 or other request "
     annotation (Placement(transformation(extent={{140,50},{160,70}})));
@@ -235,10 +233,10 @@ protected
     annotation (Placement(transformation(extent={{100,-20},{120,0}})));
   Buildings.Controls.OBC.CDL.Logical.TrueDelay tim1(
     final delayTime=durTimTem) "Check if it is more than threshold time"
-    annotation (Placement(transformation(extent={{-20,208},{0,228}})));
+    annotation (Placement(transformation(extent={{-20,210},{0,230}})));
   Buildings.Controls.OBC.CDL.Logical.TrueDelay tim2(
     final delayTime=durTimTem) "Check if it is more than threshold time"
-    annotation (Placement(transformation(extent={{-20,168},{0,188}})));
+    annotation (Placement(transformation(extent={{-20,170},{0,190}})));
   Buildings.Controls.OBC.CDL.Logical.TrueDelay tim3(
     final delayTime=durTimFlo) "Check if it is more than threshold time"
     annotation (Placement(transformation(extent={{-60,-40},{-40,-20}})));
@@ -252,12 +250,10 @@ protected
     "Logical and"
     annotation (Placement(transformation(extent={{-20,70},{0,90}})));
   Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar(
-    final k=1,
     final p=thrTDis_1) if have_hotWatCoi
     "Discharge temperature plus threshold"
     annotation (Placement(transformation(extent={{-140,-150},{-120,-130}})));
   Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar1(
-    final k=1,
     final p=thrTDis_2) if have_hotWatCoi
     "Discharge temperature plus threshold"
     annotation (Placement(transformation(extent={{-140,-190},{-120,-170}})));
@@ -305,36 +301,30 @@ protected
     annotation (Placement(transformation(extent={{0,-280},{20,-260}})));
 
 equation
-  connect(add2.y, greThr1.u)
-    annotation (Line(points={{-78,218},{-62,218}}, color={0,0,127}));
+  connect(sub2.y, greThr1.u)
+    annotation (Line(points={{-78,220},{-62,220}}, color={0,0,127}));
   connect(and2.y, intSwi.u2)
-    annotation (Line(points={{62,238},{138,238}},color={255,0,255}));
-  connect(add3.y, greThr2.u)
-    annotation (Line(points={{-78,178},{-62,178}}, color={0,0,127}));
+    annotation (Line(points={{62,240},{138,240}},color={255,0,255}));
+  connect(sub3.y, greThr2.u)
+    annotation (Line(points={{-78,180},{-62,180}}, color={0,0,127}));
   connect(and1.y, intSwi1.u2)
-    annotation (Line(points={{62,178},{98,178}}, color={255,0,255}));
+    annotation (Line(points={{62,180},{98,180}}, color={255,0,255}));
   connect(and3.y, swi4.u2)
     annotation (Line(points={{62,60},{138,60}},  color={255,0,255}));
   connect(and4.y, swi5.u2)
     annotation (Line(points={{62,-10},{98,-10}},   color={255,0,255}));
   connect(greThr2.y, tim2.u)
-    annotation (Line(points={{-38,178},{-22,178}}, color={255,0,255}));
+    annotation (Line(points={{-38,180},{-22,180}}, color={255,0,255}));
   connect(tim2.y, and1.u2)
-    annotation (Line(points={{2,178},{10,178},{10,170},{38,170}},
+    annotation (Line(points={{2,180},{10,180},{10,172},{38,172}},
       color={255,0,255}));
   connect(greThr1.y, tim1.u)
-    annotation (Line(points={{-38,218},{-22,218}}, color={255,0,255}));
+    annotation (Line(points={{-38,220},{-22,220}}, color={255,0,255}));
   connect(tim1.y, and2.u2)
-    annotation (Line(points={{2,218},{10,218},{10,230},{38,230}},
+    annotation (Line(points={{2,220},{10,220},{10,232},{38,232}},
       color={255,0,255}));
   connect(greThr4.u, VSet_flow)
     annotation (Line(points={{-142,80},{-200,80}},   color={0,0,127}));
-  connect(add2.u2, TZon)
-    annotation (Line(points={{-102,212},{-150,212},{-150,158},{-200,158}},
-      color={0,0,127}));
-  connect(add3.u2, TZon)
-    annotation (Line(points={{-102,172},{-150,172},{-150,158},{-200,158}},
-      color={0,0,127}));
   connect(greEqu.u1, gai1.y)
     annotation (Line(points={{-62,50},{-118,50}},  color={0,0,127}));
   connect(greEqu.y, and3.u2)
@@ -346,28 +336,24 @@ equation
   connect(greEqu1.y, and4.u2)
     annotation (Line(points={{-38,10},{0,10},{0,-18},{38,-18}},
       color={255,0,255}));
-  connect(TZonCooSet, add2.u1) annotation (Line(points={{-200,218},{-160,218},{
-          -160,224},{-102,224}}, color={0,0,127}));
-  connect(TZonCooSet, add3.u1) annotation (Line(points={{-200,218},{-160,218},{
-          -160,184},{-102,184}}, color={0,0,127}));
   connect(uCoo, greThr.u)
-    annotation (Line(points={{-200,128},{-62,128}}, color={0,0,127}));
-  connect(uAftSup, and2.u1) annotation (Line(points={{-200,258},{20,258},{20,
-          238},{38,238}}, color={255,0,255}));
-  connect(uAftSup, and1.u1) annotation (Line(points={{-200,258},{20,258},{20,
-          178},{38,178}}, color={255,0,255}));
-  connect(thrCooResReq.y, intSwi.u1) annotation (Line(points={{122,278},{130,
-          278},{130,246},{138,246}}, color={255,127,0}));
-  connect(twoCooResReq.y, intSwi1.u1) annotation (Line(points={{62,278},{80,278},
-          {80,186},{98,186}}, color={255,127,0}));
-  connect(intSwi1.y, intSwi.u3) annotation (Line(points={{122,178},{130,178},{
-          130,230},{138,230}}, color={255,127,0}));
+    annotation (Line(points={{-200,130},{-62,130}}, color={0,0,127}));
+  connect(uAftSup, and2.u1) annotation (Line(points={{-200,260},{20,260},{20,240},
+          {38,240}},      color={255,0,255}));
+  connect(uAftSup, and1.u1) annotation (Line(points={{-200,260},{20,260},{20,180},
+          {38,180}},      color={255,0,255}));
+  connect(thrCooResReq.y, intSwi.u1) annotation (Line(points={{122,280},{130,280},
+          {130,248},{138,248}},      color={255,127,0}));
+  connect(twoCooResReq.y, intSwi1.u1) annotation (Line(points={{62,280},{80,280},
+          {80,188},{98,188}}, color={255,127,0}));
+  connect(intSwi1.y, intSwi.u3) annotation (Line(points={{122,180},{130,180},{130,
+          232},{138,232}},     color={255,127,0}));
   connect(intSwi.y, yZonTemResReq)
-    annotation (Line(points={{162,238},{200,238}}, color={255,127,0}));
+    annotation (Line(points={{162,240},{200,240}}, color={255,127,0}));
   connect(greThr.y, booToInt.u)
-    annotation (Line(points={{-38,128},{38,128}}, color={255,0,255}));
-  connect(booToInt.y, intSwi1.u3) annotation (Line(points={{62,128},{80,128},{
-          80,170},{98,170}}, color={255,127,0}));
+    annotation (Line(points={{-38,130},{38,130}}, color={255,0,255}));
+  connect(booToInt.y, intSwi1.u3) annotation (Line(points={{62,130},{80,130},{80,
+          172},{98,172}},    color={255,127,0}));
   connect(uDam, greThr3.u)
     annotation (Line(points={{-200,-50},{-162,-50}},   color={0,0,127}));
   connect(VSet_flow, gai1.u) annotation (Line(points={{-200,80},{-160,80},{-160,
@@ -442,6 +428,14 @@ equation
     annotation (Line(points={{-118,-270},{-2,-270}}, color={255,0,255}));
   connect(booToInt3.y, yHotWatPlaReq)
     annotation (Line(points={{22,-270},{200,-270}}, color={255,127,0}));
+  connect(TZonCooSet, sub2.u2) annotation (Line(points={{-200,220},{-162,220},{-162,
+          214},{-102,214}}, color={0,0,127}));
+  connect(TZonCooSet, sub3.u2) annotation (Line(points={{-200,220},{-162,220},{-162,
+          174},{-102,174}}, color={0,0,127}));
+  connect(TZon, sub2.u1) annotation (Line(points={{-200,160},{-140,160},{-140,226},
+          {-102,226}}, color={0,0,127}));
+  connect(TZon, sub3.u1) annotation (Line(points={{-200,160},{-140,160},{-140,186},
+          {-102,186}}, color={0,0,127}));
 
 annotation (
   defaultComponentName="sysReq",
@@ -460,7 +454,7 @@ annotation (
           fillPattern=FillPattern.Solid,
           pattern=LinePattern.None),
         Text(
-          extent={{-146,292},{-24,268}},
+          extent={{-146,294},{-24,270}},
           lineColor={0,0,255},
           horizontalAlignment=TextAlignment.Left,
           textString="Cooling SAT reset requests"),

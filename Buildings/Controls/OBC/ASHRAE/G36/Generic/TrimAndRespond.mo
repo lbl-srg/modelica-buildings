@@ -19,7 +19,7 @@ block TrimAndRespond "Block to inplement trim and respond logic"
 
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput numOfReq
     "Number of requests from zones/systems"
-    annotation (Placement(transformation(extent={{-260,-70},{-220,-30}}),
+    annotation (Placement(transformation(extent={{-260,-30},{-220,10}}),
         iconTransformation(extent={{-140,-100},{-100,-60}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uDevSta
     "On/Off status of the associated device"
@@ -70,7 +70,7 @@ block TrimAndRespond "Block to inplement trim and respond logic"
   Buildings.Controls.OBC.CDL.Discrete.Sampler sampler(
     final samplePeriod=samplePeriod)
     "Sample number of requests"
-    annotation (Placement(transformation(extent={{-160,-60},{-140,-40}})));
+    annotation (Placement(transformation(extent={{-160,-20},{-140,0}})));
   Buildings.Controls.OBC.CDL.Continuous.LessThreshold lesThr1
     "Check if trim and response amount have same sign"
     annotation (Placement(transformation(extent={{-120,-110},{-100,-90}})));
@@ -90,7 +90,7 @@ protected
     annotation (Placement(transformation(extent={{-100,180},{-80,200}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant numIgnReqCon(k=numIgnReq)
     "Number of ignored requests"
-    annotation (Placement(transformation(extent={{-160,-20},{-140,0}})));
+    annotation (Placement(transformation(extent={{-160,-60},{-140,-40}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant triAmoCon(k=triAmo)
     "Trim amount constant"
     annotation (Placement(transformation(extent={{-200,-90},{-180,-70}})));
@@ -105,8 +105,8 @@ protected
     annotation (Placement(transformation(extent={{60,-20},{80,0}})));
   Buildings.Controls.OBC.CDL.Conversions.IntegerToReal intToRea
     "Convert integer input to real output"
-    annotation (Placement(transformation(extent={{-200,-60},{-180,-40}})));
-  Buildings.Controls.OBC.CDL.Continuous.Add difReqIgnReq(k1=-1)
+    annotation (Placement(transformation(extent={{-200,-20},{-180,0}})));
+  Buildings.Controls.OBC.CDL.Continuous.Subtract difReqIgnReq
     "Difference between ignored request number and the real request number"
     annotation (Placement(transformation(extent={{-100,-40},{-80,-20}})));
   Buildings.Controls.OBC.CDL.Continuous.Add add1
@@ -145,9 +145,6 @@ protected
     annotation (Placement(transformation(extent={{-120,-210},{-100,-190}})));
 
 equation
-  connect(numIgnReqCon.y, difReqIgnReq.u1)
-    annotation (Line(points={{-138,-10},{-120,-10},{-120,-24},{-102,-24}},
-      color={0,0,127}));
   connect(difReqIgnReq.y, greThr.u)
     annotation (Line(points={{-78,-30},{-40,-30},{-40,-50},{18,-50}},
       color={0,0,127}));
@@ -174,9 +171,6 @@ equation
       color={0,0,127}));
   connect(uniDel.y, add1.u1)
     annotation (Line(points={{-78,106},{-42,106}},
-      color={0,0,127}));
-  connect(sampler.y, difReqIgnReq.u2)
-    annotation (Line(points={{-138,-50},{-120,-50},{-120,-36},{-102,-36}},
       color={0,0,127}));
   connect(triAmoCon.y, swi1.u1)
     annotation (Line(points={{-178,-80},{0,-80},{0,18},{118,18}},
@@ -212,9 +206,9 @@ equation
     annotation (Line(points={{22,70},{30,70},{30,94},{38,94}},
       color={0,0,127}));
   connect(numOfReq, intToRea.u)
-    annotation (Line(points={{-240,-50},{-202,-50}}, color={255,127,0}));
+    annotation (Line(points={{-240,-10},{-202,-10}}, color={255,127,0}));
   connect(intToRea.y, sampler.u)
-    annotation (Line(points={{-178,-50},{-162,-50}}, color={0,0,127}));
+    annotation (Line(points={{-178,-10},{-162,-10}}, color={0,0,127}));
   connect(difReqIgnReq.y, pro.u1)
     annotation (Line(points={{-78,-30},{-40,-30},{-40,-94},{-22,-94}},
       color={0,0,127}));
@@ -263,8 +257,9 @@ equation
   connect(minInp.y, swi3.u1)
     annotation (Line(points={{42,-120},{60,-120},{60,-142},{118,-142}},
       color={0,0,127}));
-  connect(resAmoCon.y, greThr1.u) annotation (Line(points={{-178,-130},{-170,-130},
-          {-170,-150},{18,-150}}, color={0,0,127}));
+  connect(resAmoCon.y, greThr1.u)
+    annotation (Line(points={{-178,-130},{-170,-130},{-170,-150},{18,-150}},
+      color={0,0,127}));
   connect(greThr1.y, swi3.u2)
     annotation (Line(points={{42,-150},{118,-150}}, color={255,0,255}));
   connect(netRes.y, add1.u2)
@@ -280,6 +275,12 @@ equation
   connect(swi3.y, add2.u2)
     annotation (Line(points={{142,-150},{160,-150},{160,-120},{100,-120},
       {100,-92},{118,-92}}, color={0,0,127}));
+  connect(sampler.y, difReqIgnReq.u1)
+    annotation (Line(points={{-138,-10},{-120,-10},{-120,-24},{-102,-24}},
+      color={0,0,127}));
+  connect(numIgnReqCon.y, difReqIgnReq.u2)
+    annotation (Line(points={{-138,-50},{-120,-50},{-120,-36},{-102,-36}},
+      color={0,0,127}));
 
 annotation (
   defaultComponentName = "triRes",
@@ -320,7 +321,7 @@ annotation (
           horizontalAlignment=TextAlignment.Left,
           textString="Check device status,
 Count time"), Text(
-          extent={{-216,22},{-110,-6}},
+          extent={{-216,32},{-110,4}},
           lineColor={0,0,255},
           horizontalAlignment=TextAlignment.Left,
           textString="Reset setpoint based

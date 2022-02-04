@@ -74,17 +74,17 @@ block Setpoints "Specify zone minimum outdoor air and minimum airflow set points
     "Detected CO2 concentration"
     annotation (Placement(transformation(extent={{-340,-90},{-300,-50}}),
         iconTransformation(extent={{-140,-10},{-100,30}})));
-  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uZonSta if
-       have_CO2Sen and have_parFanPowUniWitCO2
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uZonSta
+    if have_CO2Sen and have_parFanPowUniWitCO2
     "Zone state"
     annotation (Placement(transformation(extent={{-340,-220},{-300,-180}}),
         iconTransformation(extent={{-140,-30},{-100,10}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput VParFan_flow(
     final quantity="VolumeFlowRate",
-    final unit="m3/s") if
-       have_CO2Sen and have_parFanPowUniWitCO2
+    final unit="m3/s")
+    if have_CO2Sen and have_parFanPowUniWitCO2
     "Parallel fan airflow rate"
-    annotation (Placement(transformation(extent={{-340,-270},{-300,-230}}),
+    annotation (Placement(transformation(extent={{-340,-280},{-300,-240}}),
         iconTransformation(extent={{-140,-60},{-100,-20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TZon(
     final quantity="ThermodynamicTemperature",
@@ -133,8 +133,7 @@ protected
     "CO2 setpoint"
     annotation (Placement(transformation(extent={{-280,-60},{-260,-40}})));
   Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar(
-    final p=-200,
-    final k=1) if have_CO2Sen
+    final p=-200) if have_CO2Sen
     "Lower threshold of CO2 setpoint"
     annotation (Placement(transformation(extent={{-220,-60},{-200,-40}})));
   Buildings.Controls.OBC.CDL.Integers.Equal inOccMod
@@ -166,9 +165,9 @@ protected
   Buildings.Controls.OBC.CDL.Continuous.Switch maxFloCO2 if have_CO2Sen and have_parFanPowUniWitCO2
     "Maximum airflow set point for CO2"
     annotation (Placement(transformation(extent={{-160,-210},{-140,-190}})));
-  Buildings.Controls.OBC.CDL.Continuous.Feedback difCooMax if have_CO2Sen and have_parFanPowUniWitCO2
+  Buildings.Controls.OBC.CDL.Continuous.Subtract difCooMax if have_CO2Sen and have_parFanPowUniWitCO2
     "Maximum cooling airflw set point minus parallel fan airflow"
-    annotation (Placement(transformation(extent={{-220,-240},{-200,-220}})));
+    annotation (Placement(transformation(extent={{-220,-250},{-200,-230}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zonAre(
     final k=AFlo) "Zone area"
     annotation (Placement(transformation(extent={{-280,310},{-260,330}})));
@@ -250,7 +249,8 @@ protected
     final k=1) if not have_CO2Sen
     "Dummy gain for conditional input"
     annotation (Placement(transformation(extent={{80,70},{100,90}})));
-  Buildings.Controls.OBC.CDL.Continuous.Add reqBreAir "Required breathing zone outdoor airflow"
+  Buildings.Controls.OBC.CDL.Continuous.Add reqBreAir
+    "Required breathing zone outdoor airflow"
     annotation (Placement(transformation(extent={{220,250},{240,270}})));
   Buildings.Controls.OBC.CDL.Continuous.Divide minOA "Minimum outdoor airflow setpoint"
     annotation (Placement(transformation(extent={{260,-10},{280,10}})));
@@ -259,8 +259,8 @@ protected
     "Occupied mode"
     annotation (Placement(transformation(extent={{-280,-20},{-260,0}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant cooSta(
-    final k=Buildings.Controls.OBC.ASHRAE.G36.Types.ZoneStates.cooling) if
-    have_CO2Sen and have_parFanPowUniWitCO2
+    final k=Buildings.Controls.OBC.ASHRAE.G36.Types.ZoneStates.cooling)
+    if have_CO2Sen and have_parFanPowUniWitCO2
     "Cooling state"
     annotation (Placement(transformation(extent={{-280,-230},{-260,-210}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zer2(
@@ -322,11 +322,9 @@ equation
   connect(zonCooMaxFlo.y, maxFloCO2.u1) annotation (Line(points={{-258,-150},{-190,
           -150},{-190,-192},{-162,-192}}, color={0,0,127}));
   connect(zonCooMaxFlo.y, difCooMax.u1) annotation (Line(points={{-258,-150},{-240,
-          -150},{-240,-230},{-222,-230}}, color={0,0,127}));
-  connect(VParFan_flow, difCooMax.u2) annotation (Line(points={{-320,-250},{-210,
-          -250},{-210,-242}},      color={0,0,127}));
-  connect(difCooMax.y, maxFloCO2.u3) annotation (Line(points={{-198,-230},{-190,
-          -230},{-190,-208},{-162,-208}},color={0,0,127}));
+          -150},{-240,-234},{-222,-234}}, color={0,0,127}));
+  connect(difCooMax.y, maxFloCO2.u3) annotation (Line(points={{-198,-240},{-190,
+          -240},{-190,-208},{-162,-208}},color={0,0,127}));
   connect(maxFloCO2.y, occMinAirSet.f2) annotation (Line(points={{-138,-200},{-120,
           -200},{-120,-138},{-22,-138}}, color={0,0,127}));
   connect(areAirRat.y, desAreAir.u2) annotation (Line(points={{-218,300},{-200,300},
@@ -435,6 +433,8 @@ equation
           -298},{-222,-298}}, color={0,0,127}));
   connect(cooSup.y, airDisEff.u)
     annotation (Line(points={{-198,-290},{-182,-290}}, color={255,0,255}));
+  connect(VParFan_flow, difCooMax.u2) annotation (Line(points={{-320,-260},{-240,
+          -260},{-240,-246},{-222,-246}}, color={0,0,127}));
 
 annotation (
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),

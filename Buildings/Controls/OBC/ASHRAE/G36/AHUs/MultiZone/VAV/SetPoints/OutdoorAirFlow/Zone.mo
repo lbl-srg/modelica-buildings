@@ -185,7 +185,8 @@ protected
     "Primary outdoor air fraction"
     annotation (Placement(transformation(extent={{120,-170},{140,-150}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Add desBreZon "Breathing zone design airflow"
+  Buildings.Controls.OBC.CDL.Continuous.Add desBreZon
+    "Breathing zone design airflow"
     annotation (Placement(transformation(extent={{20,190},{40,210}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Divide desZonOutAirRate
@@ -196,8 +197,7 @@ protected
     "Design zone primary outdoor air fraction"
     annotation (Placement(transformation(extent={{140,60},{160,80}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Add add2(
-    final k2=-1)
+  Buildings.Controls.OBC.CDL.Continuous.Subtract sub2
     "Zone space temperature minus supply air temperature"
     annotation (Placement(transformation(extent={{-120,-160},{-100,-140}})));
 
@@ -334,13 +334,13 @@ equation
   connect(swi.u2, occSen.y)
     annotation (Line(points={{-42,0},{-118,0}},
       color={255,0,255}));
-  connect(TDis, add2.u2)
+  connect(TDis, sub2.u2)
     annotation (Line(points={{-180,-170},{-140,-170},{-140,-156},{-122,-156}},
       color={0,0,127}));
-  connect(TZon, add2.u1)
+  connect(TZon, sub2.u1)
     annotation (Line(points={{-180,-130},{-140,-130},{-140,-144},{-122,-144}},
       color={0,0,127}));
-  connect(add2.y, hys.u)
+  connect(sub2.y, hys.u)
     annotation (Line(points={{-98,-150},{-82,-150}},
       color={0,0,127}));
   connect(hys.y, swi1.u2)

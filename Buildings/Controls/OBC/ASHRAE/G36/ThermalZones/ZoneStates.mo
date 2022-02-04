@@ -48,8 +48,8 @@ protected
     final uHigh=uHigh)
     "Check if it is in cooling state"
     annotation (Placement(transformation(extent={{-100,-50},{-80,-30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Add uHeaMinUCoo(
-    final k2=-1) "Difference between uHea and uCoo"
+  Buildings.Controls.OBC.CDL.Continuous.Subtract uHeaMinUCoo
+    "Difference between uHea and uCoo"
     annotation (Placement(transformation(extent={{-130,0},{-110,20}})));
   Buildings.Controls.OBC.CDL.Logical.And isCoo "In cooling state if both inputs are true"
     annotation (Placement(transformation(extent={{-10,-30},{10,-10}})));

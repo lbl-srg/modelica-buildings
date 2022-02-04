@@ -139,8 +139,7 @@ block ReliefFan "Sequence for relief fan control for AHUs using actuated relief 
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea2[nRelFan]
     "Convert boolean to real"
     annotation (Placement(transformation(extent={{-420,-36},{-400,-16}})));
-  Buildings.Controls.OBC.CDL.Continuous.Add add2[nRelFan](
-    final k2=fill(-1, nRelFan))
+  Buildings.Controls.OBC.CDL.Continuous.Subtract sub2[nRelFan]
     "Identify relief fans that have been enabled but not yet operating"
     annotation (Placement(transformation(extent={{-360,-30},{-340,-10}})));
   Buildings.Controls.OBC.CDL.Continuous.Multiply pro1[nRelFan]
@@ -154,8 +153,7 @@ block ReliefFan "Sequence for relief fan control for AHUs using actuated relief 
     final nout=nRelFan)
     "Replicate real number"
     annotation (Placement(transformation(extent={{-100,-40},{-80,-20}})));
-  Buildings.Controls.OBC.CDL.Continuous.Add add1[nRelFan](
-    final k2=fill(-1, nRelFan))
+  Buildings.Controls.OBC.CDL.Continuous.Subtract sub1[nRelFan]
     "Identify next operating fan"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
   Buildings.Controls.OBC.CDL.Continuous.LessThreshold lesThr1[nRelFan](
@@ -200,8 +198,7 @@ block ReliefFan "Sequence for relief fan control for AHUs using actuated relief 
     "List of operating fans, along with their staging order"
     annotation (Placement(transformation(extent={{-280,-210},{-260,-190}})));
   Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar1[nRelFan](
-    final p=fill(nRelFan + 1, nRelFan),
-    final k=fill(1, nRelFan))
+    final p=fill(nRelFan + 1, nRelFan))
     "Add value to the input"
     annotation (Placement(transformation(extent={{-220,-210},{-200,-190}})));
   Buildings.Controls.OBC.CDL.Continuous.LessThreshold lesThr4[nRelFan](
@@ -214,8 +211,7 @@ block ReliefFan "Sequence for relief fan control for AHUs using actuated relief 
   Buildings.Controls.OBC.CDL.Continuous.MultiMin mulMin1(
     final nin=nRelFan)
     annotation (Placement(transformation(extent={{-140,-240},{-120,-220}})));
-  Buildings.Controls.OBC.CDL.Continuous.Add add3[nRelFan](
-    final k2=fill(-1, nRelFan))
+  Buildings.Controls.OBC.CDL.Continuous.Subtract sub3[nRelFan]
     "Identify next operating fan"
     annotation (Placement(transformation(extent={{-60,-210},{-40,-190}})));
   Buildings.Controls.OBC.CDL.Continuous.Abs abs2[nRelFan]
@@ -378,13 +374,13 @@ equation
           152},{-102,152}},color={255,0,255}));
   connect(uRelFan, booToRea2.u) annotation (Line(points={{-500,-160},{-440,-160},
           {-440,-26},{-422,-26}}, color={255,0,255}));
-  connect(enaRel.y, add2.u1) annotation (Line(points={{-398,330},{-390,330},{-390,
+  connect(enaRel.y, sub2.u1) annotation (Line(points={{-398,330},{-390,330},{-390,
           -14},{-362,-14}}, color={0,0,127}));
-  connect(booToRea2.y, add2.u2)
+  connect(booToRea2.y, sub2.u2)
     annotation (Line(points={{-398,-26},{-362,-26}}, color={0,0,127}));
   connect(gai.y, pro1.u1) annotation (Line(points={{-358,330},{-310,330},{-310,6},
           {-282,6}},  color={0,0,127}));
-  connect(add2.y, pro1.u2) annotation (Line(points={{-338,-20},{-320,-20},{-320,
+  connect(sub2.y, pro1.u2) annotation (Line(points={{-338,-20},{-320,-20},{-320,
           -6},{-282,-6}}, color={0,0,127}));
   connect(mulMin.y, reaRep.u)
     annotation (Line(points={{-118,-30},{-102,-30}}, color={0,0,127}));
@@ -400,11 +396,11 @@ equation
           {-182,-22}}, color={0,0,127}));
   connect(swi.y, mulMin.u)
     annotation (Line(points={{-158,-30},{-142,-30}}, color={0,0,127}));
-  connect(gai.y, add1.u1) annotation (Line(points={{-358,330},{-150,330},{-150,6},
+  connect(gai.y, sub1.u1) annotation (Line(points={{-358,330},{-150,330},{-150,6},
           {-62,6}},   color={0,0,127}));
-  connect(reaRep.y, add1.u2) annotation (Line(points={{-78,-30},{-70,-30},{-70,-6},
+  connect(reaRep.y, sub1.u2) annotation (Line(points={{-78,-30},{-70,-30},{-70,-6},
           {-62,-6}},  color={0,0,127}));
-  connect(add1.y, abs1.u)
+  connect(sub1.y, abs1.u)
     annotation (Line(points={{-38,0},{-22,0}}, color={0,0,127}));
   connect(abs1.y, lesThr2.u)
     annotation (Line(points={{2,0},{18,0}},  color={0,0,127}));
@@ -430,11 +426,11 @@ equation
     annotation (Line(points={{-158,-230},{-142,-230}}, color={0,0,127}));
   connect(mulMin1.y, reaRep1.u)
     annotation (Line(points={{-118,-230},{-102,-230}}, color={0,0,127}));
-  connect(reaRep1.y, add3.u2) annotation (Line(points={{-78,-230},{-70,-230},{-70,
+  connect(reaRep1.y, sub3.u2) annotation (Line(points={{-78,-230},{-70,-230},{-70,
           -206},{-62,-206}}, color={0,0,127}));
-  connect(gai.y, add3.u1) annotation (Line(points={{-358,330},{-150,330},{-150,-194},
+  connect(gai.y, sub3.u1) annotation (Line(points={{-358,330},{-150,330},{-150,-194},
           {-62,-194}}, color={0,0,127}));
-  connect(add3.y, abs2.u)
+  connect(sub3.y, abs2.u)
     annotation (Line(points={{-38,-200},{-22,-200}}, color={0,0,127}));
   connect(abs2.y, lesThr5.u)
     annotation (Line(points={{2,-200},{18,-200}}, color={0,0,127}));

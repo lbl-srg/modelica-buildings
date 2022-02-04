@@ -121,8 +121,7 @@ protected
     "System outdoor air flow fraction plus 1"
     annotation (Placement(transformation(extent={{-80,-20},{-60,0}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Add sysVenEff(
-    final k2=-1)
+  Buildings.Controls.OBC.CDL.Continuous.Subtract sysVenEff
     "Current system ventilation efficiency"
     annotation (Placement(transformation(extent={{-40,-40},{-20,-20}})));
 

@@ -143,10 +143,10 @@ protected
     final k=false) if not use_enthalpy
     "Deactivates outdoor air enthalpy condition if there is no enthalpy sensor"
     annotation (Placement(transformation(extent={{-80,172},{-60,192}})));
-  Buildings.Controls.OBC.CDL.Continuous.Add add2(
+  Buildings.Controls.OBC.CDL.Continuous.Subtract sub2(
     final k2=-1) if use_enthalpy "Add block determines difference between hOut and hOutCut"
     annotation (Placement(transformation(extent={{-120,142},{-100,162}})));
-  Buildings.Controls.OBC.CDL.Continuous.Add add1(
+  Buildings.Controls.OBC.CDL.Continuous.Subtract sub1(
     final k2=-1) "Add block determines difference between TOut and TOutCut"
     annotation (Placement(transformation(extent={{-120,222},{-100,242}})));
   Buildings.Controls.OBC.CDL.Continuous.Hysteresis hysOutTem(
@@ -201,17 +201,17 @@ protected
     annotation (Placement(transformation(extent={{-118,12},{-98,32}})));
 
 equation
-  connect(TOut, add1.u1)
+  connect(TOut, sub1.u1)
     annotation (Line(points={{-280,252},{-250,252},{-250,238},{-122,238}},color={0,0,127}));
-  connect(TOutCut, add1.u2)
+  connect(TOutCut, sub1.u2)
     annotation (Line(points={{-280,212},{-232,212},{-232,226},{-122,226}},color={0,0,127}));
-  connect(add1.y, hysOutTem.u)
+  connect(sub1.y, hysOutTem.u)
     annotation (Line(points={{-98,232},{-82,232}},   color={0,0,127}));
-  connect(hOut, add2.u1)
+  connect(hOut, sub2.u1)
     annotation (Line(points={{-280,172},{-232,172},{-232,158},{-122,158}},color={0,0,127}));
-  connect(hOutCut, add2.u2)
+  connect(hOutCut, sub2.u2)
     annotation (Line(points={{-280,132},{-232,132},{-232,146},{-122,146}}, color={0,0,127}));
-  connect(add2.y, hysOutEnt.u)
+  connect(sub2.y, hysOutEnt.u)
     annotation (Line(points={{-98,152},{-82,152}},   color={0,0,127}));
   connect(hysOutTem.y, nor1.u1)
     annotation (Line(points={{-58,232},{-40,232},{-40,192},{-22,192}},color={255,0,255}));

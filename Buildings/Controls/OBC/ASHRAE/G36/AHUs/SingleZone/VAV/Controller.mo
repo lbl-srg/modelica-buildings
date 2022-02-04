@@ -877,8 +877,8 @@ equation
           394},{-22,394}},   color={0,0,127}));
   connect(conEco.TOut, setPoiVAV.TOut) annotation (Line(points={{58,179},{-50,179},
           {-50,394},{-22,394}},    color={0,0,127}));
-  connect(zonSta.yZonSta, conEco.uZonSta) annotation (Line(points={{1,340},{14,340},
-          {14,143},{58,143}},       color={255,127,0}));
+  connect(zonSta.yZonSta, conEco.uZonSta) annotation (Line(points={{2,340},{14,
+          340},{14,143},{58,143}},  color={255,127,0}));
   connect(conInt.y, intEqu.u2) annotation (Line(points={{-198,-90},{-180,-90},{-180,
           -98},{-152,-98}},        color={255,127,0}));
   connect(intEqu.y, switch.u) annotation (Line(points={{-128,-90},{-122,-90}},
@@ -906,8 +906,8 @@ equation
                                         color={0,0,127}));
   connect(switch.y, cooCoi.uSupFan) annotation (Line(points={{-98,-90},{0,-90},{
           0,42},{58,42}},              color={255,0,255}));
-  connect(zonSta.yZonSta, cooCoi.uZonSta) annotation (Line(points={{1,340},{14,340},
-          {14,46},{58,46}},           color={255,127,0}));
+  connect(zonSta.yZonSta, cooCoi.uZonSta) annotation (Line(points={{2,340},{14,
+          340},{14,46},{58,46}},      color={255,127,0}));
   connect(cooCoi.TSup, TSup) annotation (Line(points={{58,54},{-60,54},{-60,100},
           {-280,100}},      color={0,0,127}));
   connect(switch.y, conEco.uSupFan) annotation (Line(points={{-98,-90},{0,-90},{

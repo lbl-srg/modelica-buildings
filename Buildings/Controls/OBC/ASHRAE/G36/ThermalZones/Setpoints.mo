@@ -168,16 +168,16 @@ block Setpoints
   Buildings.Controls.OBC.CDL.Logical.Not not1 "Logic not"
     annotation (Placement(transformation(extent={{0,140},{20,160}})));
   Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar3(
-    final p=incTSetDem_3,
-    final k=1) "Increase cooling setpoint when at demand limit level 3"
+    final p=incTSetDem_3)
+    "Increase cooling setpoint when at demand limit level 3"
     annotation (Placement(transformation(extent={{40,20},{60,40}})));
   Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar1(
-    final p=incTSetDem_2,
-    final k=1) "Increase cooling setpoint when at demand limit level 2"
+    final p=incTSetDem_2)
+    "Increase cooling setpoint when at demand limit level 2"
     annotation (Placement(transformation(extent={{40,60},{60,80}})));
   Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar2(
-    final p=incTSetDem_1,
-    final k=1) "Increase cooling setpoint when at demand limit level 1"
+    final p=incTSetDem_1)
+    "Increase cooling setpoint when at demand limit level 1"
     annotation (Placement(transformation(extent={{40,100},{60,120}})));
   Buildings.Controls.OBC.CDL.Continuous.Multiply pro6
     "Output product of the two inputs"
@@ -202,17 +202,14 @@ block Setpoints
     "Output product of the two inputs"
     annotation (Placement(transformation(extent={{80,-80},{100,-60}})));
   Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar6(
-    final k=1,
     final p=-decTSetDem_1)
     "Decrease heating setpoint when at demand limit level 1"
     annotation (Placement(transformation(extent={{40,-120},{60,-100}})));
   Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar5(
-    final k=1,
     final p=-decTSetDem_2)
     "Decrease heating setpoint when at demand limit level 2"
     annotation (Placement(transformation(extent={{40,-160},{60,-140}})));
   Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar4(
-    final k=1,
     final p=-decTSetDem_3)
     "Decrease heating setpoint when at demand limit level 3"
     annotation (Placement(transformation(extent={{40,-200},{60,-180}})));
@@ -237,13 +234,11 @@ block Setpoints
     "Instant when the zone becomes more than 5 minutes"
     annotation (Placement(transformation(extent={{-40,-280},{-20,-260}})));
   Buildings.Controls.OBC.CDL.Continuous.AddParameter heaSetDec(
-    final p=-0.5,
-    final k=1)
+    final p=-0.5)
     "Heating setpoint decrease due to continuously unpopulated under occupied mode"
     annotation (Placement(transformation(extent={{100,-320},{120,-300}})));
   Buildings.Controls.OBC.CDL.Continuous.AddParameter cooSetInc(
-    final p=0.5,
-    final k=1)
+    final p=0.5)
     "Cooling setpoint increase due to continuously unpopulated under occupied mode"
     annotation (Placement(transformation(extent={{100,-280},{120,-260}})));
   Buildings.Controls.OBC.CDL.Discrete.TriggeredSampler cooSetSam
@@ -267,8 +262,7 @@ block Setpoints
     "Limit occupied zone heating setpoint"
     annotation (Placement(transformation(extent={{-240,-590},{-220,-570}})));
   Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar(
-    final p=-0.5,
-    final k=1)
+    final p=-0.5)
     "Cooling setpoint minus the minimum difference between cooling and heating setpoints"
     annotation (Placement(transformation(extent={{160,-590},{180,-570}})));
 

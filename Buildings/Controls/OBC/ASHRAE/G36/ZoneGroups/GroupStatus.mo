@@ -202,9 +202,9 @@ protected
     final nin=numZon)
     "Sum of all zones unoccupied heating setpoint"
     annotation (Placement(transformation(extent={{-80,-30},{-60,-10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Feedback difUnoHea
+  Buildings.Controls.OBC.CDL.Continuous.Subtract difUnoHea
     "Difference between unoccupied heating setpoint and zone temperature"
-    annotation (Placement(transformation(extent={{-50,-30},{-30,-10}})));
+    annotation (Placement(transformation(extent={{-40,-30},{-20,-10}})));
   Buildings.Controls.OBC.CDL.Continuous.Divide div1 "Average difference"
     annotation (Placement(transformation(extent={{20,-30},{40,-10}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant totZon(
@@ -219,7 +219,7 @@ protected
   Buildings.Controls.OBC.CDL.Continuous.MultiSum sumTem(
     final nin=numZon) "Sum of all zones temperature"
     annotation (Placement(transformation(extent={{-80,-210},{-60,-190}})));
-  Buildings.Controls.OBC.CDL.Continuous.Feedback difUnoCoo
+  Buildings.Controls.OBC.CDL.Continuous.Subtract difUnoCoo
     "Difference between unoccupied cooling setpoint and zone temperature"
     annotation (Placement(transformation(extent={{-30,-130},{-10,-110}})));
   Buildings.Controls.OBC.CDL.Continuous.Divide div2 "Average difference"
@@ -313,19 +313,15 @@ equation
     annotation (Line(points={{-58,-90},{38,-90}}, color={255,0,255}));
   connect(totZon.y, intToRea.u)
     annotation (Line(points={{-58,120},{-42,120}}, color={255,127,0}));
-  connect(sumTem.y, difUnoHea.u2)
-    annotation (Line(points={{-58,-200},{-40,-200},{-40,-32}}, color={0,0,127}));
-  connect(sumTem.y, difUnoCoo.u1) annotation (Line(points={{-58,-200},{-40,-200},
-          {-40,-120},{-32,-120}}, color={0,0,127}));
-  connect(sumUnoCoo.y, difUnoCoo.u2) annotation (Line(points={{-58,-150},{-20,-150},
-          {-20,-132}},color={0,0,127}));
+  connect(sumTem.y, difUnoCoo.u1) annotation (Line(points={{-58,-200},{-50,-200},
+          {-50,-114},{-32,-114}}, color={0,0,127}));
   connect(sumUnoHea.y, difUnoHea.u1)
-    annotation (Line(points={{-58,-20},{-52,-20}}, color={0,0,127}));
+    annotation (Line(points={{-58,-20},{-50,-20},{-50,-14},{-42,-14}}, color={0,0,127}));
   connect(intToRea.y, div1.u2) annotation (Line(points={{-18,120},{0,120},{0,-26},
           {18,-26}},color={0,0,127}));
   connect(intToRea.y, div2.u2) annotation (Line(points={{-18,120},{0,120},{0,-136},
           {18,-136}},color={0,0,127}));
-  connect(difUnoHea.y, div1.u1) annotation (Line(points={{-28,-20},{-10,-20},{-10,
+  connect(difUnoHea.y, div1.u1) annotation (Line(points={{-18,-20},{-10,-20},{-10,
           -14},{18,-14}}, color={0,0,127}));
   connect(difUnoCoo.y, div2.u1) annotation (Line(points={{-8,-120},{8,-120},{8,-124},
           {18,-124}},color={0,0,127}));
@@ -371,6 +367,10 @@ equation
           {58,226}}, color={0,0,127}));
   connect(pro.y, nexOcc) annotation (Line(points={{82,220},{94,220},{94,220},{120,
           220}}, color={0,0,127}));
+  connect(sumTem.y, difUnoHea.u2) annotation (Line(points={{-58,-200},{-50,-200},
+          {-50,-26},{-42,-26}}, color={0,0,127}));
+  connect(sumUnoCoo.y, difUnoCoo.u2) annotation (Line(points={{-58,-150},{-40,-150},
+          {-40,-126},{-32,-126}}, color={0,0,127}));
 
 annotation (
   defaultComponentName = "groSta",

@@ -189,18 +189,15 @@ protected
     "Maximum supply air dew-point temperature"
     annotation (Placement(transformation(extent={{-160,270},{-140,290}})));
   Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar(
-    final p=-1,
-    final k=1)
+    final p=-1)
     "Maximum supply dewpoint temperature minus threshold"
     annotation (Placement(transformation(extent={{-100,270},{-80,290}})));
   Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar1(
-    final p=-6,
-    final k=1)
+    final p=-6)
     "Zone temperature minus threshold"
     annotation (Placement(transformation(extent={{-100,230},{-80,250}})));
   Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar2(
-    final p=0.5,
-    final k=1)
+    final p=0.5)
     "Zone temperature plus threshold"
     annotation (Placement(transformation(extent={{-100,190},{-80,210}})));
   Buildings.Controls.OBC.CDL.Continuous.Min endPoiTwo
@@ -291,8 +288,7 @@ protected
     "Cooling supply air temperature"
     annotation (Placement(transformation(extent={{-120,-310},{-100,-290}})));
   Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar3(
-    final p=-1,
-    final k=1)
+    final p=-1)
     "Minimum cooling supply temperature minus threshold"
     annotation (Placement(transformation(extent={{-40,-280},{-20,-260}})));
   Buildings.Controls.OBC.CDL.Continuous.Line cooSupTem1
