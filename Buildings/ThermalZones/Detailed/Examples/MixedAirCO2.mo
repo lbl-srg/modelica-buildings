@@ -43,7 +43,7 @@ model MixedAirCO2
     p = 1)
     "Gain that increases the mass flow rate above its typical value"
     annotation (Placement(transformation(extent={{-70,-130},{-50,-110}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai(
+  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gaiFac(
     k=-mOut_flow)
     "Gain that increases the mass flow rate above its typical value"
     annotation (Placement(transformation(extent={{-40,-130},{-20,-110}})));
@@ -66,9 +66,9 @@ equation
           {-90,-132}}, color={0,0,127}));
   connect(conPI.y,addFlo. u)
     annotation (Line(points={{-79,-120},{-72,-120}}, color={0,0,127}));
-  connect(addFlo.y, gai.u)
+  connect(addFlo.y, gaiFac.u)
     annotation (Line(points={{-48,-120},{-42,-120}}, color={0,0,127}));
-  connect(gai.y, bou.m_flow_in) annotation (Line(points={{-18,-120},{-16,-120},{
+  connect(gaiFac.y, bou.m_flow_in) annotation (Line(points={{-18,-120},{-16,-120},{
           -16,-112},{-12,-112}}, color={0,0,127}));
 
   annotation (
