@@ -2,9 +2,8 @@ within Buildings.Fluid.Storage.Plant.BaseClasses;
 partial model ChillerAndTank
   "(Draft) A plant with a chiller and a stratified CHW tank"
 
-  package Medium = Buildings.Media.Water "Medium model";
-//  replaceable package Medium =
-//    Modelica.Media.Interfaces.PartialMedium "Medium in the component";
+  replaceable package Medium =
+    Modelica.Media.Interfaces.PartialMedium "Medium in the component";
 
   parameter Modelica.Units.SI.MassFlowRate m_flow_nominal1=1
     "Nominal mass flow rate for the chiller branch";
@@ -23,13 +22,11 @@ partial model ChillerAndTank
     "Nominal temperature of CHW return";
   parameter Boolean allowFlowReversal1=false
     "Flow reversal setting on chiller branch";
-  parameter Boolean allowFlowReversal2=true
-    "Flow reversal setting on tank branch";
 
   Buildings.Fluid.MixingVolumes.MixingVolume vol1(
     nPorts=2,
     final prescribedHeatFlowRate=true,
-    redeclare final package Medium = Medium,
+    redeclare package Medium = Medium,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     m_flow_nominal=m_flow_nominal1,
     allowFlowReversal=allowFlowReversal1,
@@ -48,13 +45,13 @@ partial model ChillerAndTank
     final m_flow_nominal=m_flow_nominal1) "Flow resistance on chiller branch"
     annotation (Placement(transformation(extent={{40,30},{60,50}})));
   Modelica.Blocks.Sources.Constant setFloPum1(k=m_flow_nominal1) "Placeholder"
-    annotation (Placement(transformation(extent={{-100,60},{-80,80}})));
+    annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort TChiEnt(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal1,
     T_start=T_CHWR_nominal,
     tauHeaTra=1) "Chiller entering"
-    annotation (Placement(transformation(extent={{-40,30},{-20,50}})));
+    annotation (Placement(transformation(extent={{-30,30},{-10,50}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort TChiLea(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal1,
@@ -62,7 +59,7 @@ partial model ChillerAndTank
     tauHeaTra=1) "Chiller leaving"
     annotation (Placement(transformation(extent={{12,30},{32,50}})));
   Buildings.Fluid.Movers.BaseClasses.IdealSource pum1(
-    redeclare final package Medium = Medium,
+    redeclare package Medium = Medium,
     final dp_start=dp_nominal,
     final m_flow_start=m_flow_nominal1,
     final show_T=false,
@@ -72,14 +69,14 @@ partial model ChillerAndTank
     final allowFlowReversal=allowFlowReversal1,
     final m_flow_small=m_flow_nominal1*1E-5)
     "Primary CHW pump"
-    annotation (Placement(transformation(extent={{-70,30},{-50,50}})));
+    annotation (Placement(transformation(extent={{-60,30},{-40,50}})));
   Buildings.Fluid.MixingVolumes.MixingVolume vol2(
+    redeclare package Medium = Medium,
     nPorts=2,
     final prescribedHeatFlowRate=true,
-    redeclare final package Medium = Medium,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     m_flow_nominal=m_flow_nominal2,
-    allowFlowReversal=allowFlowReversal2,
+    final allowFlowReversal=true,
     V=1E-3,
     p_start=p_CHWS_nominal,
     T_start=T_CHWS_nominal)
@@ -98,7 +95,7 @@ partial model ChillerAndTank
     "Junction near the return line" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
-        origin={-90,0})));
+        origin={-80,0})));
   Buildings.Fluid.FixedResistances.Junction jun2(
     redeclare package Medium = Medium,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
@@ -115,7 +112,7 @@ partial model ChillerAndTank
     m_flow_nominal=m_flow_nominal2,
     T_start=T_CHWR_nominal,
     tauHeaTra=1) "Tank hot side"
-    annotation (Placement(transformation(extent={{-40,-70},{-20,-50}})));
+    annotation (Placement(transformation(extent={{-30,-70},{-10,-50}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort TTanCol(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal2,
@@ -124,15 +121,15 @@ partial model ChillerAndTank
     annotation (Placement(transformation(extent={{10,-70},{30,-50}})));
   Buildings.Fluid.FixedResistances.PressureDrop preDro2(
     redeclare package Medium = Medium,
-    final allowFlowReversal=allowFlowReversal2,
+    final allowFlowReversal=true,
     final dp_nominal=dp_nominal,
     final m_flow_nominal=m_flow_nominal2) "Flow resistance on tank branch"
     annotation (Placement(transformation(extent={{40,-70},{60,-50}})));
   Buildings.Fluid.Sensors.MassFlowRate floSenTan(
     redeclare package Medium=Medium,
-    allowFlowReversal=allowFlowReversal2)
+    final allowFlowReversal=true)
     "Flow rate sensor on the tank branch"
-    annotation (Placement(transformation(extent={{-70,-70},{-50,-50}})));
+    annotation (Placement(transformation(extent={{-60,-70},{-40,-50}})));
   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow heaChi
     "Prescribed heat flow for chiller"
     annotation (Placement(transformation(extent={{40,70},{20,90}})));
@@ -164,37 +161,36 @@ partial model ChillerAndTank
     annotation (Placement(transformation(extent={{100,70},{120,90}})));
   Modelica.Fluid.Interfaces.FluidPort_a port_a(
     p(start=p_CHWR_nominal),
-    redeclare final package Medium = Medium,
-    m_flow(min=if allowFlowReversal2 then -Modelica.Constants.inf else 0),
+    redeclare package Medium = Medium,
     h_outflow(start=Medium.h_default, nominal=Medium.h_default))
     "Fluid connector a (positive design flow direction is from port_a to port_b)"
     annotation (Placement(transformation(extent={{-190,-10},{-170,10}}),
-        iconTransformation(extent={{-190,-10},{-170,10}})));
+        iconTransformation(extent={{-110,-10},{-90,10}})));
   Modelica.Fluid.Interfaces.FluidPort_b port_b(
     p(start=p_CHWS_nominal),
     redeclare final package Medium = Medium,
-    m_flow(max=if allowFlowReversal2 then +Modelica.Constants.inf else 0),
     h_outflow(start=Medium.h_default, nominal=Medium.h_default))
     "Fluid connector b (positive design flow direction is from port_a to port_b)"
     annotation (Placement(transformation(extent={{150,-10},{130,10}}),
-        iconTransformation(extent={{150,-10},{130,10}})));
+        iconTransformation(extent={{110,-10},{90,10}})));
 equation
 
   connect(TChiEnt.port_b, vol1.ports[1])
-    annotation (Line(points={{-20,40},{1,40},{1,50}}, color={0,127,255}));
+    annotation (Line(points={{-10,40},{0,40},{0,50},{1,50}},
+                                                      color={0,127,255}));
   connect(preDro1.port_a,TChiLea. port_b)
     annotation (Line(points={{40,40},{32,40}}, color={0,127,255}));
   connect(TChiLea.port_a, vol1.ports[2])
     annotation (Line(points={{12,40},{-1,40},{-1,50}}, color={0,127,255}));
   connect(pum1.port_b,TChiEnt. port_a)
-    annotation (Line(points={{-50,40},{-40,40}}, color={0,127,255}));
+    annotation (Line(points={{-40,40},{-30,40}}, color={0,127,255}));
   connect(setFloPum1.y, pum1.m_flow_in)
-    annotation (Line(points={{-79,70},{-66,70},{-66,48}}, color={0,0,127}));
-  connect(pum1.port_a, jun1.port_2) annotation (Line(points={{-70,40},{-74,40},{
-          -74,0},{-80,0}},
+    annotation (Line(points={{-59,70},{-56,70},{-56,48}}, color={0,0,127}));
+  connect(pum1.port_a, jun1.port_2) annotation (Line(points={{-60,40},{-66,40},{
+          -66,0},{-70,0}},
                        color={0,127,255}));
   connect(TTanHot.port_b, vol2.ports[1])
-    annotation (Line(points={{-20,-60},{1,-60},{1,-50}}, color={0,127,255}));
+    annotation (Line(points={{-10,-60},{1,-60},{1,-50}}, color={0,127,255}));
   connect(vol2.ports[2], TTanCol.port_a)
     annotation (Line(points={{-1,-50},{-1,-60},{10,-60}}, color={0,127,255}));
   connect(TTanCol.port_b, preDro2.port_a)
@@ -203,10 +199,10 @@ equation
     annotation (Line(points={{60,-60},{100,-60},{100,-10}},
                                                  color={0,127,255}));
   connect(jun1.port_3, floSenTan.port_a)
-    annotation (Line(points={{-90,-10},{-90,-60},{-70,-60}},
+    annotation (Line(points={{-80,-10},{-80,-60},{-60,-60}},
                                                    color={0,127,255}));
   connect(floSenTan.port_b, TTanHot.port_a)
-    annotation (Line(points={{-50,-60},{-40,-60}}, color={0,127,255}));
+    annotation (Line(points={{-40,-60},{-30,-60}}, color={0,127,255}));
   connect(preDro1.port_b, jun2.port_1)
     annotation (Line(points={{60,40},{84,40},{84,0},{90,0}},
                                                         color={0,127,255}));
@@ -232,5 +228,5 @@ equation
   annotation (
   experiment(Tolerance=1e-06, StopTime=3600),
     Diagram(coordinateSystem(extent={{-180,-100},{140,100}})),
-    Icon(coordinateSystem(extent={{-180,-100},{140,100}})));
+    Icon(coordinateSystem(extent={{-100,-100},{100,100}})));
 end ChillerAndTank;
