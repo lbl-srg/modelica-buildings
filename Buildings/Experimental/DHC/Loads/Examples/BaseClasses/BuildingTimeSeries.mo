@@ -5,7 +5,7 @@ model BuildingTimeSeries
     redeclare package Medium=Buildings.Media.Water,
     have_heaWat=true,
     have_chiWat=true,
-    final have_fan=false,
+    have_fan=false,
     final have_pum=true,
     final have_eleHea=false,
     final have_eleCoo=false,
