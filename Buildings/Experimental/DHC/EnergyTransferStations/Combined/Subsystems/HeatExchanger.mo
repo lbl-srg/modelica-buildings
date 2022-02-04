@@ -132,10 +132,12 @@ model HeatExchanger
         extent={{10,-10},{-10,10}},
         rotation=90,
         origin={-20,-20})));
-  Buildings.Controls.OBC.CDL.Continuous.Gain gai2(
-    final k=m2_flow_nominal)
-    "Scale to nominal mass flow rate"
-    annotation (Placement(transformation(extent={{-10,-10},{10,10}},rotation=-90,origin={40,118})));
+  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai2(final k=
+        m2_flow_nominal) "Scale to nominal mass flow rate" annotation (
+      Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=-90,
+        origin={40,118})));
   Fluid.Actuators.Valves.TwoWayPressureIndependent val1(
     redeclare final package Medium = Medium1,
     final m_flow_nominal=m1_flow_nominal,
@@ -145,9 +147,8 @@ model HeatExchanger
     final dpFixed_nominal=dp1Hex_nominal) if have_val1
     "Heat exchanger primary control valve"
     annotation (Placement(transformation(extent={{70,70},{90,90}})));
-  Buildings.Controls.OBC.CDL.Continuous.Gain gai1(
-    final k=m1_flow_nominal) if not have_val1
-    "Scale to nominal mass flow rate"
+  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai1(final k=
+        m1_flow_nominal) if not have_val1 "Scale to nominal mass flow rate"
     annotation (Placement(transformation(extent={{-12,110},{-32,130}})));
   Buildings.Controls.OBC.CDL.Continuous.MultiSum totPPum(
     final nin=
