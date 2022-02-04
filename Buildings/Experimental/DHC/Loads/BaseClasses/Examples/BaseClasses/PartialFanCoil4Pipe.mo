@@ -57,8 +57,8 @@ partial model PartialFanCoil4Pipe
     final allowFlowReversal1=allowFlowReversal,
     final allowFlowReversal2=allowFlowReversalLoa)
     annotation (Placement(transformation(extent={{-80,4},{-60,-16}})));
-  Buildings.Controls.OBC.CDL.Continuous.Gain gaiHeaFloNom(
-    k=mHeaWat_flow_nominal)
+  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gaiHeaFloNom(k=
+        mHeaWat_flow_nominal)
     annotation (Placement(transformation(extent={{40,210},{60,230}})));
   Modelica.Blocks.Sources.RealExpression Q_flowHea(
     y=hexHea.Q2_flow)
@@ -81,9 +81,8 @@ partial model PartialFanCoil4Pipe
     annotation (Placement(transformation(extent={{0,4},{20,-16}})));
   Modelica.Blocks.Sources.RealExpression Q_flowCoo(y=hexWetNtu.Q2_flow)
     annotation (Placement(transformation(extent={{-80,30},{-60,50}})));
-  Buildings.Controls.OBC.CDL.Continuous.Gain gaiFloNom2(
-    k=max(
-      {mLoaHea_flow_nominal,mLoaCoo_flow_nominal}))
+  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gaiFloNom2(k=max({
+        mLoaHea_flow_nominal,mLoaCoo_flow_nominal}))
     annotation (Placement(transformation(extent={{40,130},{60,150}})));
   Buildings.Controls.OBC.CDL.Continuous.PID conCoo(
     Ti=10,
@@ -93,9 +92,8 @@ partial model PartialFanCoil4Pipe
     yMin=0)
     "PI controller for cooling"
     annotation (Placement(transformation(extent={{-10,170},{10,190}})));
-  Buildings.Controls.OBC.CDL.Continuous.Gain gaiCooFloNom(
-    k=mChiWat_flow_nominal)
-    "Scaling"
+  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gaiCooFloNom(k=
+        mChiWat_flow_nominal) "Scaling"
     annotation (Placement(transformation(extent={{40,170},{60,190}})));
   Utilities.Math.SmoothMax smoothMax(
     deltaX=1E-2)

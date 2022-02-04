@@ -30,6 +30,10 @@ block RoomMixingBox "Controller for room mixing box"
     "Measured air mass flow rate into the room"
     annotation (Placement(transformation(extent={{-140,-60},{-100,-20}}),
         iconTransformation(extent={{-140,-60},{-100,-20}})));
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput yFan
+    "Fan operation, true if fan is running"
+    annotation (Placement(transformation(extent={{-140,-100},{-100,-60}}),
+        iconTransformation(extent={{-140,-100},{-100,-60}})));
   Buildings.Controls.OBC.CDL.Continuous.PID conFloRat(
     controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
     Td=60,
@@ -59,26 +63,22 @@ block RoomMixingBox "Controller for room mixing box"
   Buildings.Controls.OBC.CDL.Continuous.Max maxCoo
     "Adds control signal for minimum flow rate of zone"
     annotation (Placement(transformation(extent={{40,-26},{60,-6}})));
-  Buildings.Controls.OBC.CDL.Continuous.Add dTSet(k2=-1)
+  Buildings.Controls.OBC.CDL.Continuous.Subtract dTSet
     "Difference in set point"
     annotation (Placement(transformation(extent={{-60,-90},{-40,-70}})));
-  Buildings.Controls.OBC.CDL.Continuous.Add dTRooHea(k2=-1)
+  Buildings.Controls.OBC.CDL.Continuous.Subtract dTRooHea
     "Difference in room air temperature compared to heating setpoint"
     annotation (Placement(transformation(extent={{-60,-60},{-40,-40}})));
   Buildings.Controls.OBC.CDL.Continuous.Limiter gaiCoo(uMax=1, uMin=0)
     "Gain of cooling"
     annotation (Placement(transformation(extent={{0,-80},{20,-60}})));
-  Buildings.Controls.OBC.CDL.Continuous.Division gaiCooUnl
+  Buildings.Controls.OBC.CDL.Continuous.Divide gaiCooUnl
     "Gain of cooling, unlimited"
     annotation (Placement(transformation(extent={{-28,-80},{-8,-60}})));
   Buildings.Controls.OBC.CDL.Continuous.Switch swiHot "Switch for heating"
     annotation (Placement(transformation(extent={{74,30},{94,50}})));
   Buildings.Controls.OBC.CDL.Continuous.Switch swiCoo "Switch for cooling"
     annotation (Placement(transformation(extent={{72,-60},{92,-40}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput yFan
-    "Fan operation, true if fan is running" annotation (Placement(
-        transformation(extent={{-140,-100},{-100,-60}}), iconTransformation(
-          extent={{-140,-100},{-100,-60}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zer(k=0) "Zero signal"
     annotation (Placement(transformation(extent={{34,-68},{54,-48}})));
 equation

@@ -57,8 +57,7 @@ model OperationMode "Validate block for selecting operation mode"
     annotation (Placement(transformation(extent={{40,-110},{60,-90}})));
   Buildings.Controls.SetPoints.OccupancySchedule occSch "Occupancy schedule"
     annotation (Placement(transformation(extent={{-100,140},{-80,160}})));
-  Buildings.Controls.OBC.CDL.Continuous.Add add3(
-    final k2=-1)
+  Buildings.Controls.OBC.CDL.Continuous.Subtract sub3
     "Calculate zone temperature difference to unoccupied heating setpoint"
     annotation (Placement(transformation(extent={{0,-70},{20,-50}})));
   Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys3(
@@ -66,8 +65,7 @@ model OperationMode "Validate block for selecting operation mode"
     final uHigh=0.5)
     "Hysteresis that outputs if the zone temperature is higher than its unoccupied heating setpoint by a given limit"
     annotation (Placement(transformation(extent={{40,-70},{60,-50}})));
-  Buildings.Controls.OBC.CDL.Continuous.Add add1(
-    final k1=-1)
+  Buildings.Controls.OBC.CDL.Continuous.Subtract sub1
     "Calculate zone temperature difference to unoccupied cooling setpoint"
     annotation (Placement(transformation(extent={{0,-150},{20,-130}})));
   Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys1(
@@ -127,23 +125,23 @@ equation
           {30,-10},{70,-10},{70,98},{118,98}}, color={255,0,255}));
   connect(greEqu3.y, opeModSel.uSetUp) annotation (Line(points={{22,-100},{30,-100},
           {30,-80},{94,-80},{94,88},{118,88}}, color={255,0,255}));
-  connect(zonTem.y, add3.u1) annotation (Line(points={{-38,50},{-20,50},{-20,-54},
+  connect(zonTem.y, sub3.u1) annotation (Line(points={{-38,50},{-20,50},{-20,-54},
           {-2,-54}}, color={0,0,127}));
-  connect(TZonHeaSetUno.y, add3.u2) annotation (Line(points={{-78,-30},{-40,-30},
+  connect(TZonHeaSetUno.y, sub3.u2) annotation (Line(points={{-78,-30},{-40,-30},
           {-40,-66},{-2,-66}}, color={0,0,127}));
-  connect(add3.y, hys3.u)
+  connect(sub3.y, hys3.u)
     annotation (Line(points={{22,-60},{38,-60}}, color={0,0,127}));
   connect(hys3.y, opeModSel.uEndSetBac) annotation (Line(points={{62,-60},{82,-60},
           {82,96},{118,96}}, color={255,0,255}));
-  connect(zonTem.y, add1.u1) annotation (Line(points={{-38,50},{-20,50},{-20,-134},
-          {-2,-134}}, color={0,0,127}));
-  connect(TZonCooSetUno.y, add1.u2) annotation (Line(points={{-78,-100},{-40,-100},
-          {-40,-146},{-2,-146}}, color={0,0,127}));
-  connect(add1.y, hys1.u)
+  connect(sub1.y, hys1.u)
     annotation (Line(points={{22,-140},{38,-140}}, color={0,0,127}));
   connect(hys1.y, opeModSel.uEndSetUp) annotation (Line(points={{62,-140},{100,-140},
           {100,86},{118,86}}, color={255,0,255}));
 
+  connect(zonTem.y, sub1.u2) annotation (Line(points={{-38,50},{-20,50},{-20,-146},
+          {-2,-146}}, color={0,0,127}));
+  connect(TZonCooSetUno.y, sub1.u1) annotation (Line(points={{-78,-100},{-40,-100},
+          {-40,-134},{-2,-134}}, color={0,0,127}));
 annotation (
   experiment(StopTime=172800, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36_PR1/Generic/SetPoints/Validation/OperationMode.mos"

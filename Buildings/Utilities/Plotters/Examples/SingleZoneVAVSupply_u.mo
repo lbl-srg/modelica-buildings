@@ -6,7 +6,7 @@ model SingleZoneVAVSupply_u
   inner Configuration plotConfiguration(samplePeriod=0.005) "Plot configuration"
     annotation (Placement(transformation(extent={{100,60},{120,80}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Add heaCooConSig(k1=-1)
+  Buildings.Controls.OBC.CDL.Continuous.Subtract heaCooConSig
     "Add control signal for heating (with negative sign) and cooling"
     annotation (Placement(transformation(extent={{-32,40},{-12,60}})));
   Buildings.Utilities.Plotters.Scatter scaTem(
@@ -67,7 +67,7 @@ the cooling loop signal (from 0 to +1).")
     "Average zone set point"
     annotation (Placement(transformation(extent={{-80,-20},{-60,0}})));
 
-  Controls.OBC.CDL.Logical.Sources.Constant fanSta(k=true) "Fan is on"
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant fanSta(k=true) "Fan is on"
       annotation (Placement(transformation(extent={{-40,-60},{-20,-40}})));
 
 equation
@@ -77,13 +77,9 @@ equation
   connect(uHea.y, setPoiVAV.uHea) annotation (Line(points={{-58,56},{-44,56},{-44,
           -1.66667},{-2,-1.66667}},
                         color={0,0,127}));
-  connect(uCoo.y, setPoiVAV.uCoo) annotation (Line(points={{-58,20},{-50,20},{-50,
+  connect(uCoo.y, setPoiVAV.uCoo) annotation (Line(points={{-58,20},{-40,20},{-40,
           -5},{-2,-5}}, color={0,0,127}));
 
-  connect(uHea.y, heaCooConSig.u1) annotation (Line(points={{-58,56},{-34,56}},
-                          color={0,0,127}));
-  connect(uCoo.y, heaCooConSig.u2) annotation (Line(points={{-58,20},{-50,20},{-50,
-          44},{-34,44}},  color={0,0,127}));
   connect(scaTem.x, heaCooConSig.y) annotation (Line(points={{98,-8},{90,-8},{90,
           50},{-10,50}},      color={0,0,127}));
   connect(THea_degC.y, scaTem.y[1]) annotation (Line(points={{62,20},{70,20},{70,
@@ -108,6 +104,10 @@ equation
   connect(fanSta.y, setPoiVAV.uFan)
     annotation (Line(points={{-18,-50},{-10,-50},{-10,-18.3333},{-2,-18.3333}},
                                                                       color={255,0,255}));
+  connect(uHea.y, heaCooConSig.u2) annotation (Line(points={{-58,56},{-44,56},{-44,
+          44},{-34,44}}, color={0,0,127}));
+  connect(uCoo.y, heaCooConSig.u1) annotation (Line(points={{-58,20},{-40,20},{-40,
+          56},{-34,56}}, color={0,0,127}));
   annotation (Diagram(coordinateSystem(extent={{-100,-100},{140,100}})), Icon(
         coordinateSystem(extent={{-100,-100},{100,100}})),
     experiment(Tolerance=1e-6, StopTime=1.0),

@@ -56,13 +56,13 @@ model BuildingTimeSeries
       mLoaHea_flow_nominal
     "Load side mass flow rate at nominal conditions in cooling mode (single unit)"
     annotation (Dialog(group="Nominal condition", enable=have_chiWat));
-  parameter Modelica.Units.SI.HeatFlowRate QCoo_flow_nominal(max=-Modelica.Constants.eps)
-     = Buildings.Experimental.DHC.Loads.BaseClasses.getPeakLoad(string=
+  parameter Modelica.Units.SI.HeatFlowRate QCoo_flow_nominal(max=-Modelica.Constants.eps)=
+       Buildings.Experimental.DHC.Loads.BaseClasses.getPeakLoad(string=
     "#Peak space cooling load", filNam=Modelica.Utilities.Files.loadResource(
     filNam)) "Design cooling heat flow rate (<=0)"
     annotation (Dialog(group="Nominal condition", enable=have_chiWat));
-  parameter Modelica.Units.SI.HeatFlowRate QHea_flow_nominal(min=Modelica.Constants.eps)
-     = Buildings.Experimental.DHC.Loads.BaseClasses.getPeakLoad(string=
+  parameter Modelica.Units.SI.HeatFlowRate QHea_flow_nominal(min=Modelica.Constants.eps)=
+       Buildings.Experimental.DHC.Loads.BaseClasses.getPeakLoad(string=
     "#Peak space heating load", filNam=Modelica.Utilities.Files.loadResource(
     filNam)) "Design heating heat flow rate (>=0)"
     annotation (Dialog(group="Nominal condition"));
@@ -197,13 +197,11 @@ model BuildingTimeSeries
   Buildings.Controls.OBC.CDL.Continuous.Add addPFan
     "Sum fan power"
     annotation (Placement(transformation(extent={{240,110},{260,130}})));
-  Buildings.Controls.OBC.CDL.Continuous.Gain mulQReqHea_flow(
-    u(final unit="W"),
-    final k=facMul) if have_heaLoa "Scaling"
+  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter mulQReqHea_flow(u(
+        final unit="W"), final k=facMul) if have_heaLoa "Scaling"
     annotation (Placement(transformation(extent={{272,30},{292,50}})));
-  Buildings.Controls.OBC.CDL.Continuous.Gain mulQReqCoo_flow(
-    u(final unit="W"),
-    final k=facMul) if have_cooLoa "Scaling"
+  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter mulQReqCoo_flow(u(
+        final unit="W"), final k=facMul) if have_cooLoa "Scaling"
     annotation (Placement(transformation(extent={{272,-10},{292,10}})));
 equation
   connect(terUniHea.port_bHeaWat,disFloHea.ports_a1[1])

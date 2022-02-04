@@ -1,0 +1,6 @@
+compareVars :=
+  {
+    "qSta.qNor",
+    "fra.y",
+    "lmtd.y"
+  };
