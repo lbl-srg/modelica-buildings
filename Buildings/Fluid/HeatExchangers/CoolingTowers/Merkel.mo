@@ -1,6 +1,7 @@
 within Buildings.Fluid.HeatExchangers.CoolingTowers;
 model Merkel "Cooling tower model based on Merkel's theory"
-  extends Buildings.Fluid.HeatExchangers.CoolingTowers.BaseClasses.CoolingTowerVariableSpeed(
+  extends
+    Buildings.Fluid.HeatExchangers.CoolingTowers.BaseClasses.CoolingTowerVariableSpeed(
   final fanRelPowDer=
     Buildings.Utilities.Math.Functions.splineDerivatives(
       x=fanRelPow.r_V,
@@ -125,23 +126,7 @@ equation
         Text(
           extent={{64,114},{98,76}},
           textColor={0,0,127},
-          textString="PFan"),
-        Rectangle(
-          extent={{78,-60},{82,-4}},
-          lineColor={0,0,255},
-          pattern=LinePattern.None,
-          fillColor={0,0,127},
-          fillPattern=FillPattern.Solid),
-        Text(
-          extent={{70,-58},{104,-96}},
-          textColor={0,0,127},
-          textString="TLvg"),
-        Rectangle(
-          extent={{78,-58},{102,-62}},
-          lineColor={0,0,255},
-          pattern=LinePattern.None,
-          fillColor={0,0,127},
-          fillPattern=FillPattern.Solid)}),
+          textString="PFan")}),
     Diagram(coordinateSystem(preserveAspectRatio=false)),
     Documentation(
 info="<html>

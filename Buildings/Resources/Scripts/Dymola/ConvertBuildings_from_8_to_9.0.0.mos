@@ -5,6 +5,36 @@ clear
 
 convertClear();
 
+// Conversion for https://github.com/lbl-srg/modelica-buildings/issues/2865
+convertClass("Buildings.Controls.OBC.CDL.Continuous.Add",
+             "Buildings.Obsolete.Controls.OBC.CDL.Continuous.Add");
+convertClass("Buildings.Controls.OBC.CDL.Integers.Add",
+             "Buildings.Obsolete.Controls.OBC.CDL.Integers.Add");
+convertClass("Buildings.Controls.OBC.CDL.Continuous.Feedback",
+             "Buildings.Obsolete.Controls.OBC.CDL.Continuous.Feedback");
+convertClass("Buildings.Controls.OBC.CDL.Continuous.Division",
+             "Buildings.Controls.OBC.CDL.Continuous.Divide");
+convertClass("Buildings.Controls.OBC.CDL.Continuous.Gain",
+             "Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter");
+convertClass("Buildings.Controls.OBC.CDL.Continuous.MovingMean",
+             "Buildings.Controls.OBC.CDL.Continuous.MovingAverage");
+convertClass("Buildings.Controls.OBC.CDL.Continuous.Product",
+             "Buildings.Controls.OBC.CDL.Continuous.Multiply");
+convertClass("Buildings.Controls.OBC.CDL.Integers.Product",
+             "Buildings.Controls.OBC.CDL.Integers.Multiply");
+convertClass("Buildings.Controls.OBC.CDL.Continuous.SlewRateLimiter",
+             "Buildings.Controls.OBC.CDL.Continuous.LimitSlewRate");
+
+// Conversion for https://github.com/lbl-srg/modelica-buildings/issues/2599
+convertClass("Buildings.Utilities.IO.Python36.Functions.BaseClasses.PythonObject",
+             "Buildings.Utilities.IO.Python38.Functions.BaseClasses.PythonObject");
+convertClass("Buildings.Utilities.IO.Python36.Functions.BaseClasses.exchange",
+             "Buildings.Utilities.IO.Python38.Functions.BaseClasses.exchange");
+convertClass("Buildings.Utilities.IO.Python36.Functions.exchange",
+             "Buildings.Utilities.IO.Python38.Functions.exchange");
+convertClass("Buildings.Utilities.IO.Python36.Real_Real",
+             "Buildings.Utilities.IO.Python38.Real_Real");
+
 // Conversion for https://github.com/lbl-srg/modelica-buildings/issues/2839
 convertClass("Buildings.Controls.OBC.CDL.Interfaces.DayTypeInput",
              "Buildings.Obsolete.Controls.OBC.CDL.Interfaces.DayTypeInput");

@@ -27,9 +27,8 @@ model Reset
   Buildings.Controls.OBC.CDL.Continuous.Switch swiHea
     "Switch"
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.SlewRateLimiter ramLimHea(
-    raisingSlewRate=0.1)
-    "Limit the rate of change"
+  Buildings.Controls.OBC.CDL.Continuous.LimitSlewRate ramLimHea(raisingSlewRate
+      =0.1) "Limit the rate of change"
     annotation (Placement(transformation(extent={{50,-10},{70,10}})));
 equation
   connect(THeaWatSupPreSet,swiHea.u1)

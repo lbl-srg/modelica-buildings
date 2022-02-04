@@ -491,7 +491,7 @@ class UnitConversionsModeler(object):
                 file.write(\
             "  constant Real k = " + x['multiplier'] + " \"Multiplier\";\n"\
             "\n"\
-            "  Buildings.Controls.OBC.CDL.Continuous.Gain conv(\n"\
+            "  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter conv(\n"\
             "    final k = k) \"Unit converter\"\n"\
             "    annotation (Placement(transformation(extent={{-10,-10},{10,10}})));\n"\
             "\n")
@@ -651,10 +651,10 @@ end """+self.package_name+""";
             "model "+model_name+" \"Validation model for unit conversion from "+from_unit+" to "+to_unit+"\"\n"\
             "  extends Modelica.Icons.Example;\n"\
             "\n"\
-            "  Buildings.Controls.OBC.CDL.Continuous.Add add(k2=-1)\n"\
+            "  Buildings.Controls.OBC.CDL.Continuous.Subtract sub\n"\
             "    \"Difference between the calculated and expected conversion output\"\n"\
             "    annotation (Placement(transformation(extent={{20,40},{40,60}})));\n"\
-            "  Buildings.Controls.OBC.CDL.Continuous.Add add1(k2=-1)\n"\
+            "  Buildings.Controls.OBC.CDL.Continuous.Subtract sub1\n"\
             "    \"Difference between the calculated and expected conversion output\"\n"\
             "    annotation (Placement(transformation(extent={{20,-40},{40,-20}})));\n"\
             "\n"\
@@ -689,15 +689,15 @@ end """+self.package_name+""";
             "    annotation (Placement(transformation(extent={{-20,-70},{0,-50}})));\n"\
             "\n"\
             "equation\n"\
-            "  connect(result.y, add.u2)\n"\
+            "  connect(result.y, sub.u2)\n"\
             "    annotation (Line(points={{2,20},{10,20},{10,44},{18,44}}, color={0,0,127}));\n"\
-            "  connect(result1.y, add1.u2)\n"\
+            "  connect(result1.y, sub1.u2)\n"\
             "    annotation (Line(points={{2,-60},{10,-60},{10,-36},{18,-36}}, color={0,0,127}));\n"\
             "  connect(value1.y,"+to_lower(model_name)+"1.u)\n"\
             "    annotation (Line(points={{-38,-30},{-22,-30}}, color={0,0,127}));\n"\
-            "  connect("+to_lower(model_name)+"1.y, add1.u1)\n"\
+            "  connect("+to_lower(model_name)+"1.y, sub1.u1)\n"\
             "    annotation (Line(points={{2,-30},{8,-30},{8,-24},{18,-24}}, color={0,0,127}));\n"\
-            "  connect("+to_lower(model_name)+".y, add.u1)\n"\
+            "  connect("+to_lower(model_name)+".y, sub.u1)\n"\
             "    annotation (Line(points={{2,50},{10,50},{10,56},{18,56}}, color={0,0,127}));\n"\
             "  connect(value.y,"+to_lower(model_name)+".u)\n"\
             "    annotation (Line(points={{-38,50}, {-22,50}}, color={0,0,127}));\n"\
@@ -815,8 +815,8 @@ end """+self.package_name+""";
             file.write(\
             "simulateModel(\"Buildings.Controls.OBC."+self.package_name+".Validation."+model_name+"\", method=\"dassl\", stopTime=10, tolerance=1e-06, resultFile=\""+model_name+"\");\n"
             "\n"
-            "createPlot(id=1, position={20, 10, 900, 650}, subPlot=1, y={\"add.y\"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{0,0,0}});\n"
-            "createPlot(id=1, position={20, 10, 900, 650}, subPlot=2, y={\"add1.y\"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{0,0,0}});\n"
+            "createPlot(id=1, position={20, 10, 900, 650}, subPlot=1, y={\"sub.y\"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{0,0,0}});\n"
+            "createPlot(id=1, position={20, 10, 900, 650}, subPlot=2, y={\"sub1.y\"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{0,0,0}});\n"
             )
 
         msg = 'Wrote all mos scripts to {}.'
