@@ -2005,6 +2005,7 @@ Buildings/Resources/Scripts/Dymola/Utilities/Time/Validation/CalendarTimeMonthsM
 Buildings/Resources/Scripts/Dymola/Utilities/Time/Validation/CalendarTimeMonthsPlus.mos
 Buildings/Resources/Scripts/JModelica/buildingspy_to_csv.py
 Buildings/Resources/Scripts/travis/dymola/dymola
+Buildings/Resources/Scripts/travis/omc/omc
 Buildings/Resources/bin/ConvertWeatherData.jar
 Buildings/Resources/src/convertEPW/Makefile
 Buildings/Resources/src/convertEPW/doc/ConvertWeatherData.html
