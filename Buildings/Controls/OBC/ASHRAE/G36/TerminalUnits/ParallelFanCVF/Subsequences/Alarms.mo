@@ -66,11 +66,11 @@ block Alarms "Generate alarms of parallerl fan-powered terminal unit with consta
     annotation (Placement(transformation(extent={{-280,310},{-240,350}}),
         iconTransformation(extent={{-140,50},{-100,90}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uFan
-    "Supply fan status"
+    "Terminal fan status"
     annotation (Placement(transformation(extent={{-280,120},{-240,160}}),
         iconTransformation(extent={{-140,30},{-100,70}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uFanCom
-    "Supply fan command on"
+    "Terminal fan command on"
     annotation (Placement(transformation(extent={{-280,40},{-240,80}}),
         iconTransformation(extent={{-140,10},{-100,50}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uDam(
@@ -119,7 +119,7 @@ block Alarms "Generate alarms of parallerl fan-powered terminal unit with consta
         iconTransformation(extent={{100,40},{140,80}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yFanStaAla
     "Fan status alarm"
-    annotation (Placement(transformation(extent={{100,0},{140,40}}),
+    annotation (Placement(transformation(extent={{240,70},{280,110}}),
         iconTransformation(extent={{100,0},{140,40}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yLeaDamAla
     "Leaking damper alarm"
@@ -188,7 +188,7 @@ block Alarms "Generate alarms of parallerl fan-powered terminal unit with consta
   Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger booToInt1
     "Suppress the alarm when multiplier is zero"
     annotation (Placement(transformation(extent={{140,230},{160,250}})));
-  Buildings.Controls.OBC.CDL.Integers.Product proInt
+  Buildings.Controls.OBC.CDL.Integers.Multiply proInt
     "Low flow alarms"
     annotation (Placement(transformation(extent={{200,340},{220,360}})));
   Buildings.Controls.OBC.CDL.Logical.And and3
@@ -270,8 +270,7 @@ block Alarms "Generate alarms of parallerl fan-powered terminal unit with consta
     "Discharge temperature lower than setpoint by a threshold"
     annotation (Placement(transformation(extent={{-120,-320},{-100,-300}})));
   Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar(
-    final p=-17,
-    final k=1)
+    final p=-17)
     "Setpoint temperature minus a threshold"
     annotation (Placement(transformation(extent={{-180,-360},{-160,-340}})));
   Buildings.Controls.OBC.CDL.Continuous.Less les2(
@@ -279,8 +278,7 @@ block Alarms "Generate alarms of parallerl fan-powered terminal unit with consta
     "Discharge temperature lower than setpoint by a threshold"
     annotation (Placement(transformation(extent={{-120,-390},{-100,-370}})));
   Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar1(
-    final p=-8,
-    final k=1)
+    final p=-8)
     "Setpoint temperature minus a threshold"
     annotation (Placement(transformation(extent={{-180,-430},{-160,-410}})));
   Buildings.Controls.OBC.CDL.Logical.TrueDelay truDel4(
@@ -338,7 +336,7 @@ block Alarms "Generate alarms of parallerl fan-powered terminal unit with consta
   Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger booToInt5
     "Suppress the alarm when multiplier is zero"
     annotation (Placement(transformation(extent={{140,-460},{160,-440}})));
-  Buildings.Controls.OBC.CDL.Integers.Product proInt1
+  Buildings.Controls.OBC.CDL.Integers.Multiply proInt1
     "Low discharge air temperature alarms"
     annotation (Placement(transformation(extent={{200,-380},{220,-360}})));
   Buildings.Controls.OBC.CDL.Logical.TrueDelay truDel6(
@@ -351,8 +349,7 @@ block Alarms "Generate alarms of parallerl fan-powered terminal unit with consta
     "Check if valve position is near zero"
     annotation (Placement(transformation(extent={{-200,-170},{-180,-150}})));
   Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar2(
-    final p=3,
-    final k=1)
+    final p=3)
     "AHU supply temperature plus 3 degree"
     annotation (Placement(transformation(extent={{-200,-240},{-180,-220}})));
   Buildings.Controls.OBC.CDL.Continuous.Greater gre2(
@@ -624,8 +621,7 @@ equation
   connect(booToInt7.y, fanStaAla.u3) annotation (Line(points={{102,20},{120,20},
           {120,82},{138,82}}, color={255,127,0}));
   connect(fanStaAla.y, yFanStaAla)
-    annotation (Line(points={{162,90},{170,90},{170,20},{120,20}},
-                                                 color={255,127,0}));
+    annotation (Line(points={{162,90},{260,90}}, color={255,127,0}));
   connect(and11.y, not10.u) annotation (Line(points={{2,90},{20,90},{20,60},{38,
           60}}, color={255,0,255}));
   connect(not10.y, assMes7.u)

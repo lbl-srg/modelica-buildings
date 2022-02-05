@@ -1,5 +1,5 @@
 within Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.ParallelFanCVF;
-block Controller "Controller for room VAV box with reheat"
+block Controller_new "Controller for constant-volume fan-powered terminal unit"
 
   parameter Boolean have_winSen=true
     "True: the zone has window sensor";
@@ -38,16 +38,6 @@ block Controller "Controller for room VAV box with reheat"
     final unit="m3/s")
     "Design zone cooling maximum airflow rate"
     annotation (Dialog(group="Design conditions"));
-  parameter Real VHeaZonMin_flow(
-    final quantity="VolumeFlowRate",
-    final unit="m3/s")
-    "Design zone heating minimum airflow rate"
-    annotation (Dialog(group="Design conditions"));
-  parameter Real VHeaZonMax_flow(
-    final quantity="VolumeFlowRate",
-    final unit="m3/s")
-    "Design zone heating maximum airflow rate"
-    annotation (Dialog(group="Design conditions"));
   // ---------------- Control loop parameters ----------------
   parameter Real kCooCon=1
     "Gain of controller for cooling control loop"
@@ -68,8 +58,6 @@ block Controller "Controller for room VAV box with reheat"
   // ---------------- Damper and valve control parameters ----------------
   parameter Real dTDisZonSetMax=11
     "Zone maximum discharge air temperature above heating setpoint"
-    annotation (Dialog(tab="Damper and valve control"));
-  parameter Real TDisMin=283.15 "Lowest discharge air temperature"
     annotation (Dialog(tab="Damper and valve control"));
   parameter CDL.Types.SimpleController controllerTypeVal
     "Type of controller"
@@ -93,6 +81,12 @@ block Controller "Controller for room VAV box with reheat"
           or controllerTypeVal == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
   parameter Boolean have_pressureIndependentDamper=false
     "True: the VAV damper is pressure independent (with built-in flow controller)"
+    annotation (Dialog(tab="Damper and valve control", group="Damper"));
+  parameter Real V_flow_nominal(
+    final unit="m3/s",
+    final quantity="VolumeFlowRate",
+    final min=1E-10)
+    "Nominal volume flow rate, used to normalize control error"
     annotation (Dialog(tab="Damper and valve control", group="Damper"));
   parameter CDL.Types.SimpleController controllerTypeDam=
     Buildings.Controls.OBC.CDL.Types.SimpleController.PI
@@ -119,12 +113,6 @@ block Controller "Controller for room VAV box with reheat"
       enable=not have_pressureIndependentDamper
              and (controllerTypeDam == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
                   or controllerTypeDam == Buildings.Controls.OBC.CDL.Types.SimpleController.PID)));
-  parameter Real V_flow_nominal(
-    final unit="m3/s",
-    final quantity="VolumeFlowRate",
-    final min=1E-10)
-    "Nominal volume flow rate, used to normalize control error"
-    annotation (Dialog(tab="Damper and valve control", group="Damper"));
   // ---------------- System request parameters ----------------
   parameter Real thrTemDif(
     final unit="K",
@@ -177,6 +165,11 @@ block Controller "Controller for room VAV box with reheat"
     final unit="s",
     final quantity="Time")=600
     "Threshold time to check low discharge temperature"
+    annotation (Dialog(tab="Alarms"));
+  parameter Real comChaTim(
+    final unit="s",
+    final quantity="Time")=15
+    "Threshold time after fan command change"
     annotation (Dialog(tab="Alarms"));
   parameter Real fanOffTim(
     final unit="s",
@@ -246,6 +239,7 @@ block Controller "Controller for room VAV box with reheat"
     final unit="1")=0.8
     "Zone heating air distribution effectiveness"
     annotation (Dialog(tab="Advanced", group="Distribution effectiveness"));
+
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TZon(
     final quantity="ThermodynamicTemperature",
@@ -403,25 +397,24 @@ block Controller "Controller for room VAV box with reheat"
         iconTransformation(extent={{100,-200},{140,-160}})));
 
   Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.ParallelFanCVF.Subsequences.ActiveAirFlow
-    actAirSet(
-    final VCooZonMax_flow=VCooZonMax_flow,
-    final VHeaZonMin_flow=VHeaZonMin_flow,
-    final VHeaZonMax_flow=VHeaZonMax_flow) "Active airflow setpoint"
+    actAirSet(final VCooZonMax_flow=VCooZonMax_flow)
+    "Active airflow setpoint"
     annotation (Placement(transformation(extent={{-60,60},{-40,80}})));
   Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.ParallelFanCVF.Subsequences.SystemRequests
     sysReq(
-    final have_hotWatCoi=have_hotWatCoi,
-    final thrTemDif=thrTemDif,
-    final twoTemDif=twoTemDif,
-    final thrTDis_1=thrTDis_1,
-    final thrTDis_2=thrTDis_2,
-    final durTimTem=durTimTem,
-    final durTimFlo=durTimFlo,
-    final durTimDisAir=durTimDisAir,
-    final dTHys=dTHys,
-    final floHys=floHys,
-    final damPosHys=damPosHys,
-    final valPosHys=valPosHys) "Specify system requests "
+    have_hotWatCoi=have_hotWatCoi,
+    thrTemDif=thrTemDif,
+    twoTemDif=twoTemDif,
+    thrTDis_1=thrTDis_1,
+    thrTDis_2=thrTDis_2,
+    durTimTem=durTimTem,
+    durTimFlo=durTimFlo,
+    durTimDisAir=durTimDisAir,
+    dTHys=dTHys,
+    floHys=floHys,
+    damPosHys=damPosHys,
+    valPosHys=valPosHys)
+    "Specify system requests "
     annotation (Placement(transformation(extent={{120,-140},{140,-120}})));
   Buildings.Controls.OBC.ASHRAE.G36.ThermalZones.ControlLoops conLoo(
     final kCooCon=kCooCon,
@@ -435,39 +428,38 @@ block Controller "Controller for room VAV box with reheat"
     annotation (Placement(transformation(extent={{-140,190},{-120,210}})));
   Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.ParallelFanCVF.Subsequences.Alarms
     ala(
-    final staPreMul=staPreMul,
-    final hotWatRes=hotWatRes,
-    final VCooZonMax_flow=VCooZonMax_flow,
-    final lowFloTim=lowFloTim,
-    final lowTemTim=lowTemTim,
-    final fanOffTim=fanOffTim,
-    final leaFloTim=leaFloTim,
-    final valCloTim=valCloTim,
-    final floHys=floHys,
-    final dTHys=dTHys,
-    final damPosHys=damPosHys,
-    final valPosHys=valPosHys) "Generate alarms"
+    staPreMul=staPreMul,
+    hotWatRes=hotWatRes,
+    VCooZonMax_flow=VCooZonMax_flow,
+    lowFloTim=lowFloTim,
+    lowTemTim=lowTemTim,
+    comChaTim=comChaTim,
+    fanOffTim=fanOffTim,
+    leaFloTim=leaFloTim,
+    valCloTim=valCloTim,
+    floHys=floHys,
+    dTHys=dTHys,
+    damPosHys=damPosHys,
+    valPosHys=valPosHys)
+    "Generate alarms"
     annotation (Placement(transformation(extent={{120,-200},{140,-180}})));
   Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.ParallelFanCVF.Subsequences.Overrides
-    setOve(
-    final VZonMin_flow=VZonMin_flow,
-    final VCooZonMax_flow=VCooZonMax_flow,
-    final VHeaZonMax_flow=VHeaZonMax_flow) "Override setpoints"
+    setOve(VZonMin_flow=VZonMin_flow, VCooZonMax_flow=VCooZonMax_flow)
+    "Override setpoints"
     annotation (Placement(transformation(extent={{60,-100},{80,-80}})));
   Buildings.Controls.OBC.ASHRAE.G36.Generic.TimeSuppression timSup(
-    final samplePeriod=samplePeriod,
-    final chaRat=chaRat,
-    final maxTim=maxSupTim,
-    final dTHys=dTHys)
+    samplePeriod=samplePeriod,
+    chaRat=chaRat,
+    maxTim=maxSupTim,
+    dTHys=dTHys)
     "Specify suppresion time due to the setpoint change and check if it has passed the suppresion period"
     annotation (Placement(transformation(extent={{-140,230},{-120,250}})));
   Buildings.Controls.OBC.ASHRAE.G36.VentilationZones.ASHRAE62_1.Setpoints setPoi(
     final have_winSen=have_winSen,
     final have_occSen=have_occSen,
     final have_CO2Sen=have_CO2Sen,
-    final have_typTerUniWitCO2=false,
+    have_typTerUniWitCO2=false,
     final have_parFanPowUniWitCO2=true,
-    final have_SZVAVWitCO2=false,
     final permit_occStandby=permit_occStandby,
     final AFlo=AFlo,
     final desZonPop=desZonPop,
@@ -481,20 +473,22 @@ block Controller "Controller for room VAV box with reheat"
     final dTHys=dTHys)
     "Minimum outdoor air and minimum airflow setpoint"
     annotation (Placement(transformation(extent={{-100,120},{-80,140}})));
-  Subsequences.DamperValves damVal(
+  Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.ParallelFanCVF.Subsequences.DamperValves damVal(
     final dTDisZonSetMax=dTDisZonSetMax,
     final controllerTypeVal=controllerTypeVal,
     final kVal=kVal,
     final TiVal=TiVal,
     final TdVal=TdVal,
     final have_pressureIndependentDamper=have_pressureIndependentDamper,
+    final V_flow_nominal=V_flow_nominal,
     final controllerTypeDam=controllerTypeDam,
     final kDam=kDam,
     final TiDam=TiDam,
     final TdDam=TdDam,
-    final V_flow_nominal=V_flow_nominal,
     final dTHys=dTHys,
-    final looHys=looHys) "Damper and valve control"
+    final looHys=looHys,
+    final floHys=floHys)
+    "Damper and valve control"
     annotation (Placement(transformation(extent={{0,-40},{20,0}})));
 
 equation
@@ -874,4 +868,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end Controller;
+end Controller_new;
