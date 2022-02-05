@@ -27,7 +27,7 @@ model ChillerAndTankWithRemoteCharging
     redeclare package Medium = Medium,
     per(pressure(
           dp=dp_nominal*{2,1.2,0},
-          V_flow=(m_flow_nominal1+m_flow_nominal2)/1.2*{0,1.2,2})),
+          V_flow=(m1_flow_nominal+m2_flow_nominal)/1.2*{0,1.2,2})),
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     allowFlowReversal=true,
     addPowerToMedium=false,
@@ -44,7 +44,7 @@ model ChillerAndTankWithRemoteCharging
     delta0=0.1,
     use_inputFilter=false,
     dpValve_nominal=6000,
-    m_flow_nominal=m_flow_nominal1+m_flow_nominal2) "Valve in series to the pump (normal direction)"
+    m_flow_nominal=m1_flow_nominal+m2_flow_nominal) "Valve in series to the pump (normal direction)"
     annotation (Placement(transformation(extent={{-120,10},{-100,30}})));
   Actuators.Valves.TwoWayEqualPercentage val2(
     redeclare package Medium = Medium,
@@ -53,15 +53,15 @@ model ChillerAndTankWithRemoteCharging
     delta0=0.1,
     use_inputFilter=false,
     dpValve_nominal=6000,
-    m_flow_nominal=m_flow_nominal2) "Valve in parallel to the pump (reverse direction)"
+    m_flow_nominal=m2_flow_nominal) "Valve in parallel to the pump (reverse direction)"
     annotation (Placement(transformation(extent={{-120,-30},{-140,-10}})));
 equation
   connect(booFloDir, pum2Con.booFloDir) annotation (Line(points={{-200,90},{-160,
           90},{-160,65.7},{-142,65.7}},      color={255,0,255}));
   connect(pum2Con.onOffLin, onOffLin) annotation (Line(points={{-142,61.3},{-142,
           50},{-200,50}},      color={255,0,255}));
-  connect(pum2Con.us_mTan_flow, us_mTan_flow) annotation (Line(points={{-141,
-          72.3},{-146,72.3},{-146,136},{-130,136},{-130,160}}, color={0,0,127}));
+  connect(pum2Con.us_mTan_flow,us_mChi_flow)  annotation (Line(points={{-141,72.3},
+          {-146,72.3},{-146,136},{-50,136},{-50,120}},         color={0,0,127}));
   connect(pum2Con.um_mTan_flow, floSenTan.m_flow) annotation (Line(points={{-141,
           76.7},{-170,76.7},{-170,-40},{-50,-40},{-50,-49}},
         color={0,0,127}));
@@ -82,7 +82,14 @@ equation
   connect(pum2Con.yVal1, val1.y) annotation (Line(points={{-123,56.9},{-110,56.9},
           {-110,32}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}})),                                  Diagram(
+            -100},{100,100}}), graphics={Line(
+          points={{-80,-20},{-20,-20}},
+          color={28,108,200},
+          pattern=LinePattern.Dash), Polygon(
+          points={{-80,-20},{-60,-14},{-60,-26},{-80,-20}},
+          fillColor={28,108,200},
+          fillPattern=FillPattern.Solid,
+          pattern=LinePattern.None)}),                           Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-180,-100},{140,
             140}})));
 end ChillerAndTankWithRemoteCharging;

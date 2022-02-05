@@ -7,7 +7,7 @@ model ChillerAndTankNoRemoteCharging
     redeclare package Medium = Medium,
     per(pressure(
           dp=dp_nominal*{2,1.2,0},
-          V_flow=(m_flow_nominal1+m_flow_nominal2)/1.2*{0,1.2,2})),
+          V_flow=(m1_flow_nominal+m2_flow_nominal)/1.2*{0,1.2,2})),
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     allowFlowReversal=true,
     addPowerToMedium=false,
@@ -23,7 +23,7 @@ model ChillerAndTankNoRemoteCharging
     annotation (Placement(transformation(extent={{10,10},{-10,-10}},
         rotation=180,
         origin={-150,70})));
-  Modelica.Blocks.Math.Gain gain2(k=1/m_flow_nominal2) "Gain"
+  Modelica.Blocks.Math.Gain gain2(k=1/m2_flow_nominal) "Gain"
     annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
