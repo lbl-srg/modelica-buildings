@@ -96,7 +96,7 @@ partial model PartialEightPortInterface
                           noEvent(actualStream(port_a3.h_outflow)),
                           noEvent(actualStream(port_a3.Xi_outflow)))
     else
-      Medium3.setState_phX(port_a.p,
+      Medium3.setState_phX(port_a3.p,
                           inStream(port_a3.h_outflow),
                           inStream(port_a3.Xi_outflow))
       if show_T "Medium properties in port_a3";
