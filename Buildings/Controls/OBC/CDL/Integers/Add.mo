@@ -21,7 +21,7 @@ Block that outputs <code>y</code> as the sum of the
 two Integer input signals <code>u1</code> and <code>u2</code>,
 </p>
 <pre>
-    y = u1 + u2
+    y = u1 + u2.
 </pre>
 </html>",
 revisions="<html>
