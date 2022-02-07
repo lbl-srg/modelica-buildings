@@ -42,7 +42,6 @@ model WaterCooled
     final mTot_flow_nominal=mCon_flow_nominal,
     final dp_nominal=dpCon_nominal) "Condenser water pump group"
     annotation (Placement(transformation(extent={{-100,-20},{-80,0}})));
-
   Buildings.Templates.Components.Sensors.Temperature TCWSup(
     redeclare final package Medium = MediumCW,
     final have_sen=true,
@@ -67,7 +66,6 @@ model WaterCooled
         extent={{10,10},{-10,-10}},
         rotation=0,
         origin={-90,-70})));
-
   Fluid.Sources.Boundary_pT bouCW(redeclare final package Medium = MediumCW,
       nPorts=1) annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},

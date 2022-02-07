@@ -28,7 +28,8 @@ model MultipleVariable "Multiple pumps (identical) - Variable speed"
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={-20,70})));
-  Controls.OBC.CDL.Continuous.Product sigCon[nPum]
+  Controls.OBC.CDL.Continuous.Multiply sigCon
+                                            [nPum]
     "Resulting control signal"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},

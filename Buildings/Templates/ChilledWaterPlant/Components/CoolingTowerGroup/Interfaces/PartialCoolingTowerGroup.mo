@@ -3,7 +3,8 @@ partial model PartialCoolingTowerGroup
   extends Buildings.Fluid.Interfaces.PartialTwoPortInterface(
     redeclare package Medium=Buildings.Media.Water);
 
-  parameter Buildings.Templates.ChilledWaterPlant.Components.Types.CoolingTowerGroup typ "Type of cooling tower group"
+  parameter Buildings.Templates.ChilledWaterPlant.Components.Types.CoolingTowerGroup typ
+    "Type of cooling tower group"
     annotation (Evaluate=true, Dialog(group="Configuration"));
 
   outer parameter String id
@@ -12,7 +13,8 @@ partial model PartialCoolingTowerGroup
     "External parameter file";
 
   outer parameter Integer nChi "Number of chillers";
-  parameter Integer nCooTow(final min=1) "Number of cooling towers";
+  parameter Integer nCooTow(final min=1) 
+  "Number of cooling towers (count one tower for each cell)";
 
   Buildings.Templates.ChilledWaterPlant.BaseClasses.BusChilledWater busCon(
     final nChi=nChi, final nCooTow=nCooTow)

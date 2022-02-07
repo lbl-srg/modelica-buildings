@@ -1,12 +1,25 @@
 within Buildings.Templates.ChilledWaterPlant.Components.ChillerGroup.Interfaces;
 partial model PartialChillerGroup
+
+  replaceable package MediumCW = Buildings.Media.Water
+    constrainedby Modelica.Media.Interfaces.PartialMedium
+    "Medium 1 in the component"
+      annotation (Dialog(enable=not isAirCoo));
+  replaceable package MediumCHW = Buildings.Media.Water
+    constrainedby Modelica.Media.Interfaces.PartialMedium
+    "Medium 2 in the component";
+
   outer parameter Boolean isAirCoo
     "= true, chillers in group are air cooled,
     = false, chillers in group are water cooled";
+    annotation (Evaluate=true, Dialog(group="Configuration"));
+  // FIXME: should be declared in Buildings.Templates.ChilledWaterPlant.Interfaces.PartialChilledWaterPlant
   parameter Boolean have_CHWDedPum = false
     "Parallel chillers are connected to dedicated pumps on chilled water side";
+    annotation (Evaluate=true, Dialog(group="Configuration"));
   parameter Boolean have_CWDedPum = false
     "Parallel chillers are connected to dedicated pumps on condenser water side";
+    annotation (Evaluate=true, Dialog(group="Configuration"));
 
   parameter Integer nChi "Number of chillers in group";
   outer parameter Integer nCooTow "Number of cooling towers";
@@ -20,18 +33,66 @@ partial model PartialChillerGroup
   outer parameter ExternData.JSONFile dat
     "External parameter file";
 
-  replaceable package MediumCW = Buildings.Media.Water
-    constrainedby Modelica.Media.Interfaces.PartialMedium "Medium 1 in the component"
-      annotation (Dialog(enable=not isAirCoo));
-  replaceable package MediumCHW = Buildings.Media.Water
-    constrainedby Modelica.Media.Interfaces.PartialMedium "Medium 2 in the component";
-
   parameter Boolean allowFlowReversal1 = true
     "= false to simplify equations, assuming, but not enforcing, no flow reversal for medium 1"
     annotation(Dialog(tab="Assumptions", enable=not isAirCoo), Evaluate=true);
   parameter Boolean allowFlowReversal2 = true
     "= false to simplify equations, assuming, but not enforcing, no flow reversal for medium 2"
     annotation(Dialog(tab="Assumptions"), Evaluate=true);
+
+   parameter Modelica.Units.SI.MassFlowRate m1_flow_nominal(min=0)
+    "Nominal mass flow rate"
+    annotation(Dialog(group = "Nominal condition", enable=not isAirCoo));
+  parameter Modelica.Units.SI.MassFlowRate m2_flow_nominal(min=0)
+    "Nominal mass flow rate"
+    annotation(Dialog(group = "Nominal condition"));
+
+  parameter Modelica.Units.SI.PressureDifference dp1_nominal=
+    if isAirCoo then 0
+    else dat.getReal(varName=id + ".ChillerGroup.dpCW_nominal.value")
+    "Pressure difference"
+    annotation(Dialog(group = "Nominal condition", enable=not isAirCoo));
+  parameter Modelica.Units.SI.PressureDifference dp2_nominal=
+    dat.getReal(varName=id + ".ChillerGroup.dpCHW_nominal.value")
+    "Pressure difference"
+    annotation(Dialog(group = "Nominal condition"));
+
+  parameter Modelica.Units.SI.PressureDifference dpCHWValve_nominal=
+    if have_CHWDedPum then 0
+    else dat.getReal(varName=id + ".ChillerGroup.dpCHWValve_nominal.value")
+    "Nominal pressure drop of chiller valves on chilled water side"
+    annotation(Dialog(group = "Nominal condition"));
+  parameter Modelica.Units.SI.PressureDifference dpCWValve_nominal=
+    if have_CWDedPum then 0
+    else dat.getReal(varName=id + ".ChillerGroup.dpCWValve_nominal.value")
+    "Nominal pressure drop of chiller valves on condenser water side"
+    annotation(Dialog(group = "Nominal condition"));
+
+  final parameter Modelica.Units.SI.PressureDifference dpCHW_nominal=
+    dp2_nominal + dpCHWValve_nominal
+    "Total nominal pressure drop on chilled water side";
+
+  parameter MediumCW.MassFlowRate m1_flow_small(min=0) = 1E-4*abs(m1_flow_nominal)
+    "Small mass flow rate for regularization of zero flow"
+    annotation(Dialog(tab = "Advanced", enable=not isAirCoo));
+  parameter MediumCHW.MassFlowRate m2_flow_small(min=0) = 1E-4*abs(m2_flow_nominal)
+    "Small mass flow rate for regularization of zero flow"
+    annotation(Dialog(tab = "Advanced"));
+
+  parameter Modelica.Units.SI.Power Q_flow_nominal=
+    "Total cooling heat flow rate (<0 by convention)";
+
+  parameter Modelica.Units.SI.Temperature TCHWSup_nominal
+    "Design (minimum) CHW supply temperature";
+
+  replaceable parameter Buildings.Fluid.Chillers.Data.BaseClasses.Chiller
+    per constrainedby Buildings.Fluid.Chillers.Data.BaseClasses.Chiller(
+      QEva_flow_nominal=Q_flow_nominal,
+      TEvaLvg_nominal=TCHWSup_nominal,
+      mEva_flow_nominal=m2_flow_nominal,
+      mCon_flow_nominal=m1_flow_nominal)
+    "Chiller performance data"
+    annotation (Placement(transformation(extent={{70,-8},{90,12}})));
 
   Modelica.Fluid.Interfaces.FluidPorts_a ports_a1[nChi](
     redeclare each final package Medium = MediumCW,
@@ -73,45 +134,6 @@ partial model PartialChillerGroup
         rotation=270,
         origin={-60,-100})));
 
-  parameter Modelica.Units.SI.MassFlowRate m1_flow_nominal(min=0)
-    "Nominal mass flow rate"
-    annotation(Dialog(group = "Nominal condition", enable=not isAirCoo));
-  parameter Modelica.Units.SI.MassFlowRate m2_flow_nominal(min=0)
-    "Nominal mass flow rate"
-    annotation(Dialog(group = "Nominal condition"));
-
-  parameter Modelica.Units.SI.PressureDifference dp1_nominal=
-    if isAirCoo then 0
-    else dat.getReal(varName=id + ".ChillerGroup.dpCW_nominal.value")
-    "Pressure difference"
-    annotation(Dialog(group = "Nominal condition", enable=not isAirCoo));
-  parameter Modelica.Units.SI.PressureDifference dp2_nominal=
-    dat.getReal(varName=id + ".ChillerGroup.dpCHW_nominal.value")
-    "Pressure difference"
-    annotation(Dialog(group = "Nominal condition"));
-
-  parameter Modelica.Units.SI.PressureDifference dpCHWValve_nominal=
-    if have_CHWDedPum then 0
-    else dat.getReal(varName=id + ".ChillerGroup.dpCHWValve_nominal.value")
-    "Nominal pressure drop of chiller valves on chilled water side"
-    annotation(Dialog(group = "Nominal condition"));
-  parameter Modelica.Units.SI.PressureDifference dpCWValve_nominal=
-    if have_CWDedPum then 0
-    else dat.getReal(varName=id + ".ChillerGroup.dpCWValve_nominal.value")
-    "Nominal pressure drop of chiller valves on condenser water side"
-    annotation(Dialog(group = "Nominal condition"));
-
-  final parameter Modelica.Units.SI.PressureDifference dpCHW_nominal=
-    dp2_nominal + dpCHWValve_nominal
-    "Total nominal pressure drop on chilled water side";
-
-  parameter MediumCW.MassFlowRate m1_flow_small(min=0) = 1E-4*abs(m1_flow_nominal)
-    "Small mass flow rate for regularization of zero flow"
-    annotation(Dialog(tab = "Advanced", enable=not isAirCoo));
-  parameter MediumCHW.MassFlowRate m2_flow_small(min=0) = 1E-4*abs(m2_flow_nominal)
-    "Small mass flow rate for regularization of zero flow"
-    annotation(Dialog(tab = "Advanced"));
-
   Buildings.Templates.ChilledWaterPlant.BaseClasses.BusChilledWater busCon(
     final nChi=nChi, final nCooTow=nCooTow)
     "Control bus" annotation (Placement(transformation(
@@ -122,8 +144,6 @@ partial model PartialChillerGroup
         rotation=0,
         origin={0,100})));
 
-  parameter Modelica.Units.SI.Power Q_nominal=
-    dat.getReal(varName=id + ".ChillerGroup.Q_nominal.value");
 
   parameter Modelica.Units.SI.Temperature TCHWSet=
     dat.getReal(varName=id + ".ChillerGroup.TCHWSet.value");

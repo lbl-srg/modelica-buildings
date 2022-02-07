@@ -501,12 +501,7 @@
     },
     "CHW_1": {
         "ChilledWater": {
-            "mPri_flow_nominal": {
-                "value": 18.3,
-                "description": "Primary nominal mass flow rate",
-                "unit": "kg/s"
-            },
-            "mSec_flow_nominal": {
+            "mCHWSec_flow_nominal": {
                 "value": 18.3,
                 "description": "Secondary nominal mass flow rate",
                 "unit": "kg/s"
@@ -545,19 +540,19 @@
                 "description": "Nominal pressure drop of chiller valve on condenser water side",
                 "unit": "Pa"
             },
-            "Q_nominal": {
-                "value": 1000000,
-                "description": "Nominal cooling capacity",
+            "capacity": {
+                "value": [5e5, 5e5],
+                "description": "Nominal cooling capacity of each chiller",
                 "unit": "W"
             },
-            "mMin_flow": {
-                "value": 0.03,
-                "description": "Minimum mass flow rate of a single chiller",
+            "mCHWChi_flow_nominal": {
+                "value": [1, 1],
+                "description":  "Design (maximum) chiller CHW mass flow rate (for each chiller)",
                 "unit": "kg/s"
             },
-            "TCHWSet": {
-                "value": 281.15,
-                "description": "Chilled water temperature setpoint",
+            "TCHWSup_nominal": {
+                "value": 280.15,
+                "description": "Design (minimum) CHW supply temperature (identical for all chillers)",
                 "unit": "K"
             }
         },
@@ -669,6 +664,64 @@
                 "value": 6000,
                 "description": "Waterside economizer control valve on condenser water side",
                 "unit": "Pa"
+            }
+        },
+        "control": {
+            "description": "Control parameters",
+            "TCWRet_nominal": {
+                "description": "CW return temperature at design conditions (identical for all chillers)",
+                "value": 308.15,
+                "unit": "K"
+            },
+            "TCWSup_nominal": {
+                "description": "CW supply temperature at design conditions (identical for all chillers)",
+                "value": 303.15,
+                "unit": "K"
+            },
+            "TAirOutLoc": {
+                "description": "Outdoor air lockout temperature below which the plant is prevented from operating",
+                "value": 289.15,
+                "unit": "K"
+            },
+            "mCHWChi_flow_min": {
+                "description": "Minimum chiller CHW mass flow rate (identical for all chillers)",
+                "value": [0.3, 0.3],
+                "unit": "kg/s"
+            },
+            "mCWChi_flow_nominal": {
+                "description": "Design chiller CW flow rate (identical for all chillers)",
+                "value": [1, 1],
+                "unit": "kg/s"
+            },
+            "dTLif_min": {
+                "description": "Minimum allowable lift at minimum load (identical for all chillers)",
+                "value": 10,
+                "unit": "K"
+            },
+            "dpCHWLoc_max": {
+                "description": "Maximum CHW differential pressure setpoint - Local sensor",
+                "value": 20e4,
+                "unit": "Pa"
+            },
+            "dpCHWRem_max": {
+                "description": "Maximum CHW differential pressure setpoint - Remote sensors",
+                "value": [1e4],
+                "unit": "Pa"
+            },
+            "yPumCW_min": {
+                "description": "Minimum CW pump speed ratio",
+                "value": 0.1,
+                "unit": "1"
+            },
+            "yValIsoCon_min": {
+                "description": "Minimum head pressure control valve opening ratio",
+                "value": 0.0,
+                "unit": "1"
+            },
+            "yFanTow_min": {
+                "description": "Minimum cooling tower fan speed ratio",
+                "value": 0.0,
+                "unit": "1"
             }
         }
     }

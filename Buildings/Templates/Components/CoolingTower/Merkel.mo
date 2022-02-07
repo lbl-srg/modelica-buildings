@@ -19,10 +19,15 @@ model Merkel
     dat.getReal(varName=id + ".CoolingTower.TCW_nominal.value")
     "Nominal water inlet temperature"
     annotation (Dialog(group="Heat transfer"));
-  parameter Modelica.Units.SI.TemperatureDifference dT_nominal=
+  parameter Modelica.Units.SI.TemperatureDifference dT_nominal(
+    displayUnit="K", final min=0)=
     dat.getReal(varName=id + ".CoolingTower.dT_nominal.value")
     "Temperature difference between inlet and outlet of the tower"
     annotation (Dialog(group="Heat transfer"));
+  final parameter Modelica.Units.SI.Temperature TWatOut_nominal(displayUnit="degC")=
+    TWatIn_nominal - dT_nominal
+    "Nominal water outlet temperature"
+    annotation (Dialog(group="Nominal condition"));
   parameter Modelica.Units.SI.Power PFan_nominal=
     dat.getReal(varName=id + ".CoolingTower.PFan_nominal.value")
     "Fan power"
@@ -31,6 +36,11 @@ model Merkel
     dat.getReal(varName=id + ".CoolingTower.dp_nominal.value")
     "Nominal pressure difference of the tower"
     annotation (Dialog(group="Nominal condition"));
+  final parameter Modelica.Units.SI.TemperatureDifference dTApp_nominal(
+    displayUnit="K", final min=0)=
+    TWatOut_nominal - TAirInWB_nominal
+    "Nominal approach temperature"
+    annotation (Dialog(group="Nominal condition"));
 
   Buildings.Fluid.HeatExchangers.CoolingTowers.Merkel cooTow(
     each final allowFlowReversal=allowFlowReversal,
@@ -38,7 +48,7 @@ model Merkel
     each final ratWatAir_nominal=ratWatAir_nominal,
     each final TAirInWB_nominal=TAirInWB_nominal,
     each final TWatIn_nominal=TWatIn_nominal,
-    each final TWatOut_nominal=TWatIn_nominal - dT_nominal,
+    each final TWatOut_nominal=TWatOut_nominal,
     each final PFan_nominal=PFan_nominal,
     each final dp_nominal=dp_nominal,
     redeclare each final package Medium = Medium,

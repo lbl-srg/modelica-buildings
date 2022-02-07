@@ -22,7 +22,7 @@ model ChillerParallel
   Fluid.Delays.DelayFirstOrder volCHW(
     redeclare final package Medium = MediumCHW,
     final m_flow_nominal=m2_flow_nominal,
-    final nPorts=1+nChi)
+    final nPorts=nChi+1)
     "Chilled water side mixing volume"
     annotation (Placement(transformation(
       extent={{-10,-10},{10,10}},rotation=90,origin={8,-60})));
@@ -46,6 +46,28 @@ model ChillerParallel
     redeclare each final package Medium = MediumCHW) if have_CHWDedPum
     "Chilled water passthrough"
     annotation (Placement(transformation(extent={{-60,-30},{-80,-10}})));
+
+  // FIXME: Bind have_sen to configuration parameter.
+  Buildings.Templates.Components.Sensors.Temperature TCHWRetChi[nChi](
+    redeclare each final package Medium = MediumCHW,
+    each final have_sen=true,
+    each final typ=Buildings.Templates.Components.Types.SensorTemperature.InWell,
+    each final m_flow_nominal=m2_flow_nominal/nChi) "Chiller CHW return temperature"
+    annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=90,
+        origin={40,-40})));
+  // FIXME: Bind have_sen to configuration parameter.
+  Buildings.Templates.Components.Sensors.Temperature TCHWSupChi[nChi](
+    redeclare each final package Medium = MediumCHW,
+    each final have_sen=true,
+    each final typ=Buildings.Templates.Components.Types.SensorTemperature.InWell,
+    each final m_flow_nominal=m2_flow_nominal/nChi)
+    "Chiller CHW supply temperature"
+    annotation (Placement(transformation(
+        extent={{-10,10},{10,-10}},
+        rotation=180,
+        origin={-40,-12})));
   inner replaceable Buildings.Templates.Components.Valves.TwoWayTwoPosition valCWChi[nChi]
     if not have_CWDedPum and not isAirCoo
     constrainedby Buildings.Templates.Components.Valves.TwoWayTwoPosition(
@@ -68,6 +90,8 @@ model ChillerParallel
     "Condenser water passthrough"
     annotation (Placement(transformation(extent={{-80,30},{-60,50}})));
 equation
+  connect(TCHWRetChi.y, busCon.TCHWRetChi);
+  connect(TCHWSupChi.y, busCon.TCHWSupChi);
 
   connect(busCon.chi, chi.bus) annotation (Line(
       points={{0.1,100.1},{0.1,100},{0,100},{0,20}},
@@ -77,11 +101,9 @@ equation
       index=-1,
       extent={{-6,3},{-6,3}},
       horizontalAlignment=TextAlignment.Right));
+
   connect(port_a2, volCHW.ports[1])
     annotation (Line(points={{100,-60},{18,-60}},
-    color={0,127,255}));
-  connect(volCHW.ports[2:(nChi+1)], chi.port_a2)
-    annotation (Line(points={{18,-60},{18,-58},{40,-58},{40,-12},{20,-12}},
     color={0,127,255}));
   connect(volCW.ports[1], port_b1)
     annotation (Line(points={{60,70},{60,60},{100,60}},
@@ -89,13 +111,8 @@ equation
   connect(chi.port_b1, volCW.ports[2:3])
     annotation (Line(points={{20,12},{60,12},{60,70}},
     color={0,127,255}));
-  connect(chi.port_b2, valCHWChi.port_a)
-    annotation (Line(points={{-20,-12},{-30,-12},{-30,0},{-60,0}},
-    color={0,127,255}));
   connect(valCHWChi.port_b, ports_b2)
     annotation (Line(points={{-80,0},{-100,0}}, color={0,127,255}));
-  connect(chi.port_b2, pasCHW.port_a) annotation (Line(points={{-20,-12},{-30,-12},
-          {-30,0},{-48,0},{-48,-20},{-60,-20}}, color={0,127,255}));
   connect(pasCHW.port_b, ports_b2) annotation (Line(points={{-80,-20},{-90,-20},
           {-90,0},{-100,0}}, color={0,127,255}));
   connect(valCHWChi.bus, busCon.valCHWChi) annotation (Line(
@@ -106,6 +123,16 @@ equation
       index=1,
       extent={{6,3},{6,3}},
       horizontalAlignment=TextAlignment.Left));
+  connect(TCHWRetChi.port_b, chi.port_a2)
+    annotation (Line(points={{40,-30},{40,-12},{20,-12}}, color={0,127,255}));
+  connect(TCHWRetChi.port_a, volCHW.ports[2:nChi+1])
+    annotation (Line(points={{40,-50},{40,-60},{18,-60}}, color={0,127,255}));
+  connect(chi.port_b2, TCHWSupChi.port_a)
+    annotation (Line(points={{-20,-12},{-30,-12}}, color={0,127,255}));
+  connect(TCHWSupChi.port_b, pasCHW.port_a) annotation (Line(points={{-50,-12},{-50,
+          -20},{-60,-20}}, color={0,127,255}));
+  connect(TCHWSupChi.port_b, valCHWChi.port_a)
+    annotation (Line(points={{-50,-12},{-50,0},{-60,0}}, color={0,127,255}));
   connect(ports_a1, valCWChi.port_a)
     annotation (Line(points={{-100,60},{-80,60}},
     color={0,127,255}));

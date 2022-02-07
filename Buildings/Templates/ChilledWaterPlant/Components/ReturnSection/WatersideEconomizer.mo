@@ -57,25 +57,24 @@ model WatersideEconomizer
       Placement(transformation(
         extent={{-10,10},{10,-10}},
         rotation=90,
-        origin={40,-20})));
+        origin={40,0})));
 
-  // If supply pump
   Buildings.Templates.Components.Sensors.Temperature TWSESup(
     redeclare final package Medium = MediumCHW,
     final m_flow_nominal=m2_flow_nominal,
     final typ=Buildings.Templates.Components.Types.SensorTemperature.InWell,
-    final have_sen=true) if not have_val
+    final have_sen=true)
     "Waterside economizer entering temperature"
     annotation (Placement(transformation(
-        extent={{10,10},{-10,-10}},
-        rotation=270,
-        origin={70,-40})));
+        extent={{-10,10},{10,-10}},
+        rotation=180,
+        origin={80,-60})));
   Buildings.Templates.Components.Pumps.ParallelVariable pum(
     redeclare final package Medium = MediumCHW) if not have_val
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
-        origin={70,0})));
+        origin={60,0})));
   Buildings.Templates.BaseClasses.PassThroughFluid pasByp(
     redeclare each final package Medium = MediumCHW)
     if not have_val "Bypass passthrough" annotation (
@@ -102,6 +101,11 @@ model WatersideEconomizer
     annotation (Placement(transformation(extent={{60,50},{80,70}})));
 
 equation
+  /* Control point connection - start */
+  // FIXME: Rename sensors based on names of control points.
+  connect(TWSERet.y, bus.TCHWRetLvgWSE);
+  connect(TWSESup.y, bus.TCHWRetEntWSE);
+  /* Control point connection - stop */
   connect(hex.port_b2, TWSERet.port_a) annotation (Line(points={{-10,24},{-40,24},
           {-40,-60},{-60,-60}}, color={0,127,255}));
   connect(port_a1, hex.port_a1) annotation (Line(points={{-100,60},{-16,60},{-16,
@@ -116,26 +120,27 @@ equation
   connect(TWSERet.port_b, port_b2)
     annotation (Line(points={{-80,-60},{-100,-60}}, color={0,127,255}));
   connect(pum.port_b, hex.port_a2)
-    annotation (Line(points={{70,10},{70,24},{10,24}},  color={0,127,255}));
+    annotation (Line(points={{60,10},{60,24},{10,24}},  color={0,127,255}));
   connect(dpCHW.port_a, hex.port_a2) annotation (Line(points={{10,-20},{20,-20},
           {20,24},{10,24}}, color={0,127,255}));
   connect(dpCHW.port_b, hex.port_b2) annotation (Line(points={{-10,-20},{-20,
           -20},{-20,24},{-10,24}},
                               color={0,127,255}));
   connect(pasSup.port_b, hex.port_a2)
-    annotation (Line(points={{40,-10},{40,24},{10,24}}, color={0,127,255}));
+    annotation (Line(points={{40,10},{40,24},{10,24}},  color={0,127,255}));
   connect(valByp.port_b, TWSERet.port_a)
     annotation (Line(points={{-10,-60},{-60,-60}}, color={0,127,255}));
-  connect(pasByp.port_b, TWSERet.port_a) annotation (Line(points={{-10,-80},{-40,
-          -80},{-40,-60},{-60,-60}}, color={0,127,255}));
+  connect(pasByp.port_b, TWSERet.port_a) annotation (Line(points={{-10,-80},{
+          -20,-80},{-20,-60},{-60,-60}},
+                                     color={0,127,255}));
   connect(port_a2, TWSESup.port_a)
-    annotation (Line(points={{100,-60},{70,-60},{70,-50}}, color={0,127,255}));
+    annotation (Line(points={{100,-60},{90,-60}}, color={0,127,255}));
+  connect(TWSESup.port_b, valByp.port_a)
+    annotation (Line(points={{70,-60},{10,-60}}, color={0,127,255}));
   connect(TWSESup.port_b, pum.port_a)
-    annotation (Line(points={{70,-30},{70,-10}}, color={0,127,255}));
-  connect(port_a2, pasSup.port_a)
-    annotation (Line(points={{100,-60},{40,-60},{40,-30}}, color={0,127,255}));
-  connect(port_a2, valByp.port_a)
-    annotation (Line(points={{100,-60},{10,-60}}, color={0,127,255}));
-  connect(port_a2, pasByp.port_a) annotation (Line(points={{100,-60},{40,-60},{40,
-          -80},{10,-80}}, color={0,127,255}));
+    annotation (Line(points={{70,-60},{60,-60},{60,-10}}, color={0,127,255}));
+  connect(TWSESup.port_b, pasSup.port_a) annotation (Line(points={{70,-60},{60,
+          -60},{60,-20},{40,-20},{40,-10}}, color={0,127,255}));
+  connect(TWSESup.port_b, pasByp.port_a) annotation (Line(points={{70,-60},{20,
+          -60},{20,-80},{10,-80}}, color={0,127,255}));
 end WatersideEconomizer;
