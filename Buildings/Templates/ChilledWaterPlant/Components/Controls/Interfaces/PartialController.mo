@@ -16,22 +16,6 @@ block PartialController "Partial controller for CHW plant"
   outer replaceable Buildings.Templates.ChilledWaterPlant.Components.CondenserWaterPumpGroup.Interfaces.PartialCondenserWaterPumpGroup
     pumCon "Condenser water pump group";
 
-  parameter Integer nChi
-    "Number of chillers";
-  parameter Integer nPumPri
-    "Number of primary pumps";
-  parameter Integer nPumSec
-    "Number of secondary pumps";
-  // FIXME: only for water-cooled plants.
-  final parameter Integer nPumCon=pumCon.nPum
-    "Number of condenser pumps"
-    annotation(Dialog(enable=not isAirCoo));
-  // FIXME: only for water-cooled plants.
-  final parameter Integer nCooTow=cooTow.nCooTow
-    "Number of cooling towers (count one tower for each cell)"
-    annotation(Dialog(enable=not isAirCoo));
-  parameter Boolean isAirCoo
-    "Set to true if chillers are air cooled, false if chillers are water cooled";
   parameter Boolean have_WSE
     "Set to true if the plant has a WSE";
   parameter Boolean have_parChi
@@ -46,8 +30,12 @@ block PartialController "Partial controller for CHW plant"
   parameter Modelica.Units.SI.Temperature TCHWSup_nominal(displayUnit="degC")
     "Design (minimum) CHW supply temperature (identical for all chillers)"
     annotation (Dialog(tab="General", group="Chillers configuration"));
-  parameter Boolean have_dedPum
-    "Set to true if parallel chillers are connected to dedicated pumps"
+  parameter Boolean have_CHWDedPum
+    "Set to true if parallel chillers are connected to dedicated pumps on chilled water side"
+    annotation (Evaluate=true, Dialog(group="Configuration"));
+  // FIXME: only for water-cooled plants.
+  parameter Boolean have_CWDedPum
+    "Set to true if parallel chillers are connected to dedicated pumps on condenser water side"
     annotation (Evaluate=true, Dialog(group="Configuration"));
   // FIXME: only for water-cooled plants.
   parameter Boolean have_fixSpeConWatPum = false
@@ -81,22 +69,22 @@ block PartialController "Partial controller for CHW plant"
     "Minimum chiller CHW mass flow rate (for each chiller)"
     annotation(Dialog(tab="Minimum flow bypass", group="Flow limits"));
 
-  Buildings.Templates.ChilledWaterPlant.BaseClasses.BusChilledWater busCHW(
-    final nChi=nChi,
-    final nPumPri=nPumPri,
-    final nPumSec=nPumSec)
-    "Control bus"
-    annotation (Placement(transformation(extent={{200,-20},{240,20}}),
-        iconTransformation(extent={{80,-20},{120,20}})));
-  Buildings.Templates.ChilledWaterPlant.BaseClasses.BusCondenserWater busCW(
-    final nChi=nChi,
-    final nPum=nPumCon,
-    final nCooTow=nCooTow) if not isAirCoo
-    "Control bus"
-    annotation (
-      Placement(transformation(extent={{-218,-20},{-178,20}}),
-        iconTransformation(extent={{-120,-20},{-80,20}})));
+  outer parameter Integer nChi "Number of chillers";
+  outer parameter Integer nPumPri "Number of primary pumps";
+  outer parameter Integer nPumSec "Number of secondary pumps";
+  outer parameter Integer nPumCon "Number of condenser pumps";
+  outer parameter Integer nCooTow "Number of cooling towers";
 
+  outer parameter Boolean isAirCoo
+    "= true, chillers in group are air cooled, 
+    = false, chillers in group are water cooled";
+  outer parameter Boolean have_secondary
+    "= true if plant has secondary pumping";
+
+  Buildings.Templates.ChilledWaterPlant.BaseClasses.BusChilledWater busCon(
+    final nChi = nChi, final nCooTow = nCooTow)
+    "Control bus" annotation (Placement(transformation(extent={{200,-20},{240,20}}),
+        iconTransformation(extent={{80,-20},{120,20}})));
   annotation (
     __Dymola_translate=true,
     Icon(coordinateSystem(preserveAspectRatio=false), graphics={

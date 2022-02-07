@@ -30,15 +30,15 @@ partial model PartialChiller
     "= true if chiller condenser water return temperature is measured"
     annotation (Dialog(enable=not is_heaPreCon or have_heaPreSig));
 
-  parameter Boolean isAirCoo = false
+  outer parameter Boolean isAirCoo
     "= true, chillers in group are air cooled,
     = false, chillers in group are water cooled";
   replaceable parameter Buildings.Fluid.Chillers.Data.BaseClasses.Chiller
     per "Chiller performance data"
     annotation (Placement(transformation(extent={{-82,-90},{-62,-70}})));
 
-  Buildings.Templates.Components.Interfaces.Bus
-      busCon "Control bus" annotation (Placement(transformation(
+  Buildings.Templates.Components.Interfaces.Bus bus "Control bus" annotation (
+      Placement(transformation(
         extent={{-20,-20},{20,20}},
         rotation=0,
         origin={0,100}), iconTransformation(

@@ -13,6 +13,10 @@ package Types "Generic types for template components"
       WaterBasedHeating
       "Hot water coil")
     "Enumeration to configure the coil";
+  type CoolingTower = enumeration(
+      Merkel
+      "Merkel model of a cooling tower")
+    "Enumeration to configure the cooling tower";
   type Damper = enumeration(
       NoPath
       "No fluid path",

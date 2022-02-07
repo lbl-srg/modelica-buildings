@@ -12,12 +12,15 @@ partial model PartialReturnSection
   replaceable package MediumCHW = Buildings.Media.Water
     constrainedby Modelica.Media.Interfaces.PartialMedium "Medium 2 in the component";
 
+  outer parameter Integer nChi "Number of chillers";
+  outer parameter Integer nCooTow "Number of cooling towers";
+
   parameter
     Buildings.Templates.ChilledWaterPlant.Components.Types.ReturnSection
     typ "Type of waterside economizer"
     annotation (Evaluate=true, Dialog(group="Configuration"));
 
-  parameter Boolean isAirCoo "Is chiller plant air cooled";
+  outer parameter Boolean isAirCoo "Is chiller plant air cooled";
 
   final parameter Boolean is_none=
     typ == Buildings.Templates.ChilledWaterPlant.Components.Types.ReturnSection.NoEconomizer;
@@ -27,7 +30,9 @@ partial model PartialReturnSection
   outer parameter ExternData.JSONFile dat
     "External parameter file";
 
-  Bus busCon "Control bus" annotation (Placement(transformation(
+  Buildings.Templates.ChilledWaterPlant.BaseClasses.BusChilledWater busCon(
+    final nChi=nChi, final nCooTow=nCooTow) if not is_none
+    "Control bus" annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
         rotation=0,
         origin={0,100}), iconTransformation(

@@ -40,12 +40,12 @@
             "temperature": {
                 "description": "Supply air temperature",
                 "TAirSupSet_min": {
-                    "description": "Lowest supply air temperature setpoint",
+                    "description": "Lowest supply air temperature set point",
                     "value": 285.15,
                     "unit": "K"
                 },
                 "TAirSupSet_max": {
-                    "description": "Highest supply air temperature setpoint",
+                    "description": "Highest supply air temperature set point",
                     "value": 291.15,
                     "unit": "K"
                 },
@@ -81,7 +81,7 @@
             "airflow": {
                 "description": "Airflow and pressure control parameters",
                 "pAirSupSet_rel_max": {
-                    "description": "Maximum supply duct static pressure setpoint",
+                    "description": "Maximum supply duct static pressure set point",
                     "value": 800,
                     "unit": "Pa"
                 },
@@ -106,12 +106,12 @@
                     "unit": "Pa"
                 },
                 "pAirRetSet_rel_min": {
-                    "description": "Return fan minimum discharge static pressure setpoint",
+                    "description": "Return fan minimum discharge static pressure set point",
                     "value": 10,
                     "unit": "Pa"
                 },
                 "pAirRetSet_rel_max": {
-                    "description": "Return fan maximum discharge static pressure setpoint",
+                    "description": "Return fan maximum discharge static pressure set point",
                     "value": 100,
                     "unit": "Pa"
                 },
@@ -127,7 +127,7 @@
                 }
             },
             "economizer": {
-                "description": "Economizer high limit shutoff setpoint",
+                "description": "Economizer high limit shutoff set point",
                 "TAirOutEcoMax": {
                     "description": "Fixed temperature",
                     "value": 297.15,
@@ -324,7 +324,7 @@
             "description": "System identification and relationships",
             "configuration": {
                 "description": "System configuration",
-                "value": "VAVBox_1"
+                "value": "VAVBoxReheat_1"
             },
             "type": {
                 "description": "System type",
@@ -332,7 +332,7 @@
             },
             "subtype": {
                 "description": "System subtype",
-                "value": "VAV terminal unit"
+                "value": "VAV terminal unit with reheat"
             },
             "sourceHHW": {
                 "description": "HHW supply source",
@@ -348,83 +348,53 @@
             }
         },
         "control": {
-            "VDisSetMin_flow": {
-                "description": "Minimum airflow setpoint",
+            "VAirSet_flow_min": {
+                "description": "Zone minimum airflow set point",
                 "value": 0.15,
                 "unit": "m3/s"
             },
-            "VDisHeaSetMax_flow": {
-                "description": "Maximum heating airflow setpoint",
+            "VAirHeaSet_flow_max": {
+                "description": "Zone maximum heating airflow set point",
                 "value": 0.3,
                 "unit": "m3/s"
             },
-            "VDisConMin_flow": {
-                "description": "Minimum controllable airflow",
+            "VAirHeaSet_flow_min": {
+                "description": "Zone minimum heating airflow set point",
                 "value": 0.1,
                 "unit": "m3/s"
             },
-            "THeaSetOcc": {
-                "description": "Occupied heating setpoint",
+            "TAirZonHeaOccSet": {
+                "description": "Zone occupied heating set point",
                 "value": 293.15,
                 "unit": "K"
             },
-            "THeaSetUno": {
-                "description": "Unoccupied heating setpoint",
+            "TAirZonHeaUnoSet": {
+                "description": "Zone unoccupied heating set point",
                 "value": 285.15,
                 "unit": "K"
             },
-            "TCooSetOcc": {
-                "description": "Occupied cooling setpoint",
+            "TAirZonCooOccSet": {
+                "description": "Zone occupied cooling set point",
                 "value": 297.15,
                 "unit": "K"
             },
-            "TCooSetUno": {
-                "description": "Unoccupied cooling setpoint",
+            "TAirZonCooUnoSet": {
+                "description": "Zone unoccupied cooling set point",
                 "value": 303.15,
                 "unit": "K"
             },
-            "TZonCooOnMax": {
-                "description": "Maximum cooling setpoint during on",
-                "value": 300.15,
-                "unit": "K"
-            },
-            "TZonCooOnMin": {
-                "description": "Minimum cooling setpoint during on",
-                "value": 295.15,
-                "unit": "K"
-            },
-            "TZonHeaOnMax": {
-                "description": "Maximum heating setpoint during on",
-                "value": 295.15,
-                "unit": "K"
-            },
-            "TZonHeaOnMin": {
-                "description": "Minimum heating setpoint during on",
-                "value": 291.15,
-                "unit": "K"
-            },
-            "TZonCooSetWinOpe": {
-                "description": "Cooling setpoint when window is open",
-                "value": 322.15,
-                "unit": "K"
-            },
-            "TZonHeaSetWinOpe": {
-                "description": "Heating setpoint when window is open",
-                "value": 277.15,
-                "unit": "K"
-            },
-            "dTDisZonSetMax": {
-                "description": "Maximum discharge air temperature above heating setpoint",
+            "dTAirDisHea_max": {
+                "description": "Zone maximum discharge air temperature above heating set point",
                 "value": 11,
                 "unit": "K"
             },
-            "TDisMin": {
+            "TAirDis_min": {
                 "description": "Minimum discharge air temperature",
                 "value": 283.15,
                 "unit": "K"
             },
             "CO2Set": {
-                "description": "CO2 setpoint",
+                "description": "CO2 set point",
                 "value": 0.1,
                 "unit": "ppm"
             },
@@ -437,32 +407,32 @@
                 "value": 20,
                 "unit": "m2"
             },
-            "VOutPerAre_flow": {
+            "VAirOutPerAre_flow": {
                 "description": "Zone outdoor air volume flow rate per unit area",
                 "value": 3E-4,
                 "unit": "m3/(s.m2)"
             },
-            "VOutPerPer_flow": {
+            "VAirOutPerPer_flow": {
                 "description": "Zone outdoor air volume flow rate per person",
                 "value": 2.5E-3,
                 "unit": "m3/s"
             },
-            "occDen": {
-                "description": "Zone default number of person per unit area",
-                "value": 5E-2,
-                "unit": "1/m2"
+            "nPeo_nominal": {
+                "description": "Design zone population",
+                "value": 1,
+                "unit": "1"
             },
-            "zonDisEffHea": {
+            "effAirDisHea": {
                 "description": "Zone air distribution effectiveness during heating",
                 "value": 0.8,
                 "unit": "1"
             },
-            "zonDisEffCoo": {
+            "effAirDisCoo": {
                 "description": "Zone air distribution effectiveness during cooling",
                 "value": 1.0,
                 "unit": "1"
             },
-            "minZonPriFlo": {
+            "VAirPri_flow_min": {
                 "description": "Zone minimum expected primary air volume flow rate",
                 "value": 1.0,
                 "unit": "m3/s"
@@ -560,9 +530,14 @@
                 "description": "Nominal pressure drop of chiller group on condenser side",
                 "unit": "Pa"
             },
-            "dpValve_nominal": {
+            "dpCHWValve_nominal": {
                 "value": 6000,
-                "description": "Nominal pressure drop of chiller valve",
+                "description": "Nominal pressure drop of chiller valve on chilled water side",
+                "unit": "Pa"
+            },
+            "dpCWValve_nominal": {
+                "value": 6000,
+                "description": "Nominal pressure drop of chiller valve on condenser water side",
                 "unit": "Pa"
             },
             "capacity": {
@@ -587,9 +562,14 @@
                 "description": "Nominal pressure drop of cooling tower",
                 "unit": "Pa"
             },
-            "dpValve_nominal": {
+            "dpValInl_nominal": {
                 "value": 6000,
-                "description": "Nominal pressure drop of cooling tower valve",
+                "description": "Nominal pressure drop of cooling tower inlet valve",
+                "unit": "Pa"
+            },
+            "dpValOut_nominal": {
+                "value": 0,
+                "description": "Nominal pressure drop of cooling tower outlet valve",
                 "unit": "Pa"
             },
             "TAirInWB_nominal": {
@@ -655,11 +635,6 @@
                 ],
                 "description": "Condenser pumps curve",
                 "unit": "1"
-            },
-            "dpValve_nominal": {
-                "value": 6000,
-                "description": "Nominal pressure drop of condenser pump check valve",
-                "unit": "Pa"
             }
         },
         "SecondaryPump": {

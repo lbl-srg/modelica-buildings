@@ -46,14 +46,6 @@ block Guideline36WaterCooled
     "Set to true if the plant has at least one variable speed centrifugal chiller"
     annotation (Dialog(tab="General", group="Chillers configuration"));
 
-  // ---- General: Condenser water pump ----
-
-  /* FIXME: Currently same configuration (have_dedPum) for CW and CHW pumps.
-  parameter Boolean have_heaConWatPum=true
-    "True: headered condenser water pumps"
-    annotation (Dialog(tab="General", group="Condenser water pump"));
-    */
-
   // ---- General: Chiller staging settings ----
 
   parameter Integer nSta = 2
@@ -220,12 +212,12 @@ block Guideline36WaterCooled
     final have_WSE=have_WSE,
     final heaExcAppDes=dTAppWSE_nominal,
     final nChiWatPum=nPumPri,
-    final have_heaChiWatPum=not have_dedPum,
+    final have_heaChiWatPum=not have_CHWDedPum,
     final have_locSenChiWatPum=have_senDpCHWLoc,
     final nSenChiWatPum=nSenDpCHWRem,
     final nConWatPum=nPumCon,
     final have_fixSpeConWatPum=have_fixSpeConWatPum,
-    final have_heaConWatPum=not have_dedPum,
+    final have_heaConWatPum=not have_CWDedPum,
     final nSta=nSta,
     final totSta=totSta,
     final staMat=staMat,

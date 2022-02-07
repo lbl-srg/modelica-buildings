@@ -12,8 +12,8 @@ package Types "AHU types"
       "Single duct system with supply and return")
     "Enumeration to configure the AHU";
   type Controller = enumeration(
-      Guideline36
-      "Guideline 36 control sequence",
+      G36VAVMultiZone
+      "Guideline 36 controller for multiple-zone VAV air-handling unit",
       OpenLoop
       "Open loop control")
     "Enumeration to configure the AHU controller";

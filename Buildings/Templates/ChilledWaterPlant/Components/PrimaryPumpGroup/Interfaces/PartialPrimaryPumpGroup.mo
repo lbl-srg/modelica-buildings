@@ -30,7 +30,8 @@ partial model PartialPrimaryPumpGroup
 
   final parameter Boolean is_dedicated = typ == Buildings.Templates.ChilledWaterPlant.Components.Types.PrimaryPumpGroup.Dedicated;
 
-  parameter Integer nChi "Number of chillers";
+  outer parameter Integer nChi "Number of chillers in group";
+  outer parameter Integer nCooTow "Number of cooling towers";
   parameter Integer nPum = nChi "Number of pumps"
   annotation(Dialog(enable=not is_dedicated));
 
@@ -52,7 +53,8 @@ partial model PartialPrimaryPumpGroup
     else 0
     "Bypass valve pressure drop";
 
-  Bus busCon(final nPum=nPum)
+  Buildings.Templates.ChilledWaterPlant.BaseClasses.BusChilledWater busCon(
+    final nChi=nChi, final nCooTow=nCooTow)
     "Control bus" annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
         rotation=0,
