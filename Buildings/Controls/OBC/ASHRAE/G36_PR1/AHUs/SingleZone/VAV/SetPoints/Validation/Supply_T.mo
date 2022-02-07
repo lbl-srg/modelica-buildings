@@ -29,12 +29,13 @@ model Supply_T
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TZon(
     k=273.15 + 22) "Zone temperature"
     annotation (Placement(transformation(extent={{-80,-20},{-60,0}})));
-  Buildings.Controls.OBC.CDL.Continuous.Add dT(k2=-1) "Difference zone minus outdoor temperature"
+  Buildings.Controls.OBC.CDL.Continuous.Subtract dT
+    "Difference zone minus outdoor temperature"
     annotation (Placement(transformation(extent={{0,-50},{20,-30}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TZonSet(
     k=273.15 + 22) "Average zone set point"
     annotation (Placement(transformation(extent={{-80,10},{-60,30}})));
-  CDL.Logical.Sources.Constant fanSta(k=true) "Fan is on"
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant fanSta(k=true) "Fan is on"
     annotation (Placement(transformation(extent={{-80,-100},{-60,-80}})));
 equation
   connect(uCoo.y, setPoiVAV.uCoo) annotation (Line(points={{-58,50},{-31.5,50},

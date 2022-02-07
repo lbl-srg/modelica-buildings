@@ -24,9 +24,6 @@
 # If no errors occurred during the unit tests, then
 # this script returns 0. Otherwise, it returns a
 # non-zero exit value.
-#
-# MWetter@lbl.gov                            2011-02-23
-# TSNouidui@lbl.gov                          2017-04-11
 #######################################################
 from __future__ import absolute_import
 from __future__ import division
@@ -74,10 +71,10 @@ def _setEnvironmentVariables(var, value):
         os.environ[var] = value
 
 
-def _runUnitTests(batch, tool, package, path, n_pro, show_gui, skip_verification, debug):
+def _runUnitTests(batch, tool, package, path, n_pro, show_gui, skip_verification, debug, color):
     import buildingspy.development.regressiontest as u
 
-    ut = u.Tester(tool=tool, skip_verification=skip_verification)
+    ut = u.Tester(tool=tool, skip_verification=skip_verification, color=color)
     ut.batchMode(batch)
     ut.setLibraryRoot(path)
     if package is not None:
@@ -109,14 +106,6 @@ def _runUnitTests(batch, tool, package, path, n_pro, show_gui, skip_verification
     return retVal
 
 
-def _runOpenModelicaUnitTests():
-    import buildingspy.development.regressiontest as u
-    ut = u.Tester()
-    ut.batchMode(batch)
-    ut.test_OpenModelica(cmpl=True, simulate=True,
-                         packages=['Examples'], number=-1)
-
-
 if __name__ == '__main__':
     import multiprocessing
     import platform
@@ -135,7 +124,7 @@ if __name__ == '__main__':
     unit_test_group.add_argument('-t', "--tool",
                                  metavar="dymola",
                                  default="dymola",
-                                 help="Tool for the regression tests. Set to dymola or optimica")
+                                 help="Tool for the regression tests. Set to dymola, openmodelica or optimica")
     unit_test_group.add_argument('-s', "--single-package",
                                  metavar="Modelica.Package",
                                  help="Test only the Modelica package Modelica.Package")
@@ -212,8 +201,7 @@ if __name__ == '__main__':
                            n_pro=args.number_of_processors,
                            show_gui=args.show_gui,
                            skip_verification=args.skip_verification,
-                           debug=args.debug
+                           debug=args.debug,
+                           color=True
                            )
     exit(retVal)
-
-#   _runOpenModelicaUnitTests()

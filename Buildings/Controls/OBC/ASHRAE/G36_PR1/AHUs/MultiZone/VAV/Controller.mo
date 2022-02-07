@@ -246,11 +246,19 @@ block Controller
     annotation (Dialog(tab="Minimum outdoor airflow rate", group="Nominal conditions"));
 
   // ----------- parameters for supply air temperature control  -----------
+  parameter Real TSupSetDes(
+    final unit="K",
+    final displayUnit="degC",
+    final quantity="ThermodynamicTemperature")=285.15
+    "Design coil leaving air temperature"
+    annotation (Dialog(tab="Supply air temperature", group="Temperature limits"));
+
   parameter Real TSupSetMin(
     final unit="K",
     final displayUnit="degC",
     final quantity="ThermodynamicTemperature")=285.15
-    "Lowest cooling supply air temperature setpoint"
+    "Lowest cooling supply air temperature setpoint when the outdoor air temperature is at the
+    higher value of the reset range and above. This should not be lower than the design coil leaving air temperature"
     annotation (Dialog(tab="Supply air temperature", group="Temperature limits"));
 
   parameter Real TSupSetMax(
@@ -258,13 +266,6 @@ block Controller
     final displayUnit="degC",
     final quantity="ThermodynamicTemperature")=291.15
     "Highest cooling supply air temperature setpoint. It is typically 18 degC (65 degF) in mild and dry climates, 16 degC (60 degF) or lower in humid climates"
-    annotation (Dialog(tab="Supply air temperature", group="Temperature limits"));
-
-  parameter Real TSupSetDes(
-    final unit="K",
-    final displayUnit="degC",
-    final quantity="ThermodynamicTemperature")=286.15
-    "Nominal supply air temperature setpoint"
     annotation (Dialog(tab="Supply air temperature", group="Temperature limits"));
 
   parameter Real TOutMin(
@@ -281,26 +282,12 @@ block Controller
     "Higher value of the outdoor air temperature reset range. Typically value is 21 degC (70 degF)"
     annotation (Dialog(tab="Supply air temperature", group="Temperature limits"));
 
-  parameter Real iniSetSupTem(
+  parameter Real TSupWarUpSetBac(
     final unit="K",
     final displayUnit="degC",
-    final quantity="ThermodynamicTemperature")=TSupSetMax
-    "Initial setpoint for supply temperature control"
-    annotation (Dialog(tab="Supply air temperature", group="Trim and respond for reseting TSup setpoint"));
-
-  parameter Real maxSetSupTem(
-    final unit="K",
-    final displayUnit="degC",
-    final quantity="ThermodynamicTemperature")=TSupSetMax
-    "Maximum setpoint for supply temperature control"
-    annotation (Dialog(tab="Supply air temperature", group="Trim and respond for reseting TSup setpoint"));
-
-  parameter Real minSetSupTem(
-    final unit="K",
-    final displayUnit="degC",
-    final quantity="ThermodynamicTemperature")=TSupSetDes
-    "Minimum setpoint for supply temperature control"
-    annotation (Dialog(tab="Supply air temperature", group="Trim and respond for reseting TSup setpoint"));
+    final quantity="ThermodynamicTemperature")=308.15
+    "Supply temperature in warm up and set back mode"
+    annotation (Dialog(tab="Supply air temperature", group="Temperature limits"));
 
   parameter Real delTimSupTem(
     final unit="s",
@@ -621,15 +608,13 @@ block Controller
 
   Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.VAV.SetPoints.SupplyTemperature
     supTemSetPoi(
+    final TSupWarUpSetBac=TSupWarUpSetBac,
     final samplePeriod=samplePeriod,
     final TSupSetMin=TSupSetMin,
     final TSupSetMax=TSupSetMax,
     final TSupSetDes=TSupSetDes,
     final TOutMin=TOutMin,
     final TOutMax=TOutMax,
-    final iniSet=iniSetSupTem,
-    final maxSet=maxSetSupTem,
-    final minSet=minSetSupTem,
     final delTim=delTimSupTem,
     final numIgnReq=numIgnReqSupTem,
     final triAmo=triAmoSupTem,
@@ -680,7 +665,7 @@ block Controller
     annotation (Placement(transformation(extent={{80,-70},{100,-50}})));
 
 protected
-  Buildings.Controls.OBC.CDL.Continuous.Division VOut_flow_normalized(
+  Buildings.Controls.OBC.CDL.Continuous.Divide VOut_flow_normalized(
     u1(final unit="m3/s"),
     u2(final unit="m3/s"),
     y(final unit="1"))

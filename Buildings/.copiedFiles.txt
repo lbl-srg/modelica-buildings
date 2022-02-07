@@ -1331,7 +1331,7 @@ Buildings/Resources/Data/Fluid/FixedResistances/Validation/PlugFlowPipes/PipeDat
 Buildings/Resources/Data/Fluid/Geothermal/Borefields/HeatTransfer/Validation/Analytic_20Years.txt
 Buildings/Resources/Data/Fluid/Geothermal/Borefields/HeatTransfer/Validation/Beier_Smith_Spitler_2011_SandBox.txt
 Buildings/Resources/Data/Fluid/Geothermal/Borefields/HeatTransfer/Validation/Cimmino_Bernier_2015_SmallScale.txt
-Buildings/Resources/Data/Utilities/IO/Files/Examples/CSVReader/Data.csv
+Buildings/Resources/Data/Utilities/IO/Files/Examples/CSVReader/Data.txt
 Buildings/Resources/Documentation/userGuide/source/_static/lbl-logo.png
 Buildings/Resources/Images/Airflow/Multizone/BaseClasses/windPressureLowRise.odp
 Buildings/Resources/Images/Airflow/Multizone/BaseClasses/windPressureLowRise.png
@@ -2005,6 +2005,7 @@ Buildings/Resources/Scripts/Dymola/Utilities/Time/Validation/CalendarTimeMonthsM
 Buildings/Resources/Scripts/Dymola/Utilities/Time/Validation/CalendarTimeMonthsPlus.mos
 Buildings/Resources/Scripts/JModelica/buildingspy_to_csv.py
 Buildings/Resources/Scripts/travis/dymola/dymola
+Buildings/Resources/Scripts/travis/omc/omc
 Buildings/Resources/bin/ConvertWeatherData.jar
 Buildings/Resources/src/convertEPW/Makefile
 Buildings/Resources/src/convertEPW/doc/ConvertWeatherData.html

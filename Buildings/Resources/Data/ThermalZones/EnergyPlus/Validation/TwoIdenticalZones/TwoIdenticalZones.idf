@@ -4,7 +4,7 @@
 !-      Use '!' comments if they need to be retained when using the IDFEditor.
 !-   ===========  ALL OBJECTS IN CLASS: VERSION ===========
 
-  Version,9.5;
+  Version,9.6;
 
 !-   ===========  ALL OBJECTS IN CLASS: SIMULATIONCONTROL ===========
 
@@ -717,6 +717,7 @@
     Floor,                   !- Surface Type
     ExtSlabCarpet 4in ClimateZone 1-8,  !- Construction Name
     Thermal Zone 1,          !- Zone Name
+    ,                        !- Space Name
     Ground,                  !- Outside Boundary Condition
     ,                        !- Outside Boundary Condition Object
     NoSun,                   !- Sun Exposure
@@ -733,6 +734,7 @@
     Roof,                    !- Surface Type
     ASHRAE 189.1-2009 ExtRoof IEAD ClimateZone 2-5,  !- Construction Name
     Thermal Zone 1,          !- Zone Name
+    ,                        !- Space Name
     Outdoors,                !- Outside Boundary Condition
     ,                        !- Outside Boundary Condition Object
     SunExposed,              !- Sun Exposure
@@ -749,6 +751,7 @@
     Wall,                    !- Surface Type
     ASHRAE 189.1-2009 ExtWall Mass ClimateZone 5,  !- Construction Name
     Thermal Zone 1,          !- Zone Name
+    ,                        !- Space Name
     Outdoors,                !- Outside Boundary Condition
     ,                        !- Outside Boundary Condition Object
     SunExposed,              !- Sun Exposure
@@ -765,6 +768,7 @@
     Wall,                    !- Surface Type
     ASHRAE 189.1-2009 ExtWall Mass ClimateZone 5,  !- Construction Name
     Thermal Zone 1,          !- Zone Name
+    ,                        !- Space Name
     Outdoors,                !- Outside Boundary Condition
     ,                        !- Outside Boundary Condition Object
     SunExposed,              !- Sun Exposure
@@ -781,6 +785,7 @@
     Wall,                    !- Surface Type
     ASHRAE 189.1-2009 ExtWall Mass ClimateZone 5,  !- Construction Name
     Thermal Zone 1,          !- Zone Name
+    ,                        !- Space Name
     Outdoors,                !- Outside Boundary Condition
     ,                        !- Outside Boundary Condition Object
     SunExposed,              !- Sun Exposure
@@ -797,6 +802,7 @@
     Wall,                    !- Surface Type
     ASHRAE 189.1-2009 ExtWall Mass ClimateZone 5,  !- Construction Name
     Thermal Zone 1,          !- Zone Name
+    ,                        !- Space Name
     Outdoors,                !- Outside Boundary Condition
     ,                        !- Outside Boundary Condition Object
     SunExposed,              !- Sun Exposure
@@ -813,6 +819,7 @@
     Wall,                    !- Surface Type
     ASHRAE 189.1-2009 ExtWall Mass ClimateZone 5,  !- Construction Name
     Thermal Zone 2,          !- Zone Name
+    ,                        !- Space Name
     Outdoors,                !- Outside Boundary Condition
     ,                        !- Outside Boundary Condition Object
     SunExposed,              !- Sun Exposure
@@ -829,6 +836,7 @@
     Wall,                    !- Surface Type
     ASHRAE 189.1-2009 ExtWall Mass ClimateZone 5,  !- Construction Name
     Thermal Zone 2,          !- Zone Name
+    ,                        !- Space Name
     Outdoors,                !- Outside Boundary Condition
     ,                        !- Outside Boundary Condition Object
     SunExposed,              !- Sun Exposure
@@ -845,6 +853,7 @@
     Floor,                   !- Surface Type
     ExtSlabCarpet 4in ClimateZone 1-8,  !- Construction Name
     Thermal Zone 2,          !- Zone Name
+    ,                        !- Space Name
     Ground,                  !- Outside Boundary Condition
     ,                        !- Outside Boundary Condition Object
     NoSun,                   !- Sun Exposure
@@ -861,6 +870,7 @@
     Roof,                    !- Surface Type
     ASHRAE 189.1-2009 ExtRoof IEAD ClimateZone 2-5,  !- Construction Name
     Thermal Zone 2,          !- Zone Name
+    ,                        !- Space Name
     Outdoors,                !- Outside Boundary Condition
     ,                        !- Outside Boundary Condition Object
     SunExposed,              !- Sun Exposure
@@ -877,6 +887,7 @@
     Wall,                    !- Surface Type
     ASHRAE 189.1-2009 ExtWall Mass ClimateZone 5,  !- Construction Name
     Thermal Zone 2,          !- Zone Name
+    ,                        !- Space Name
     Outdoors,                !- Outside Boundary Condition
     ,                        !- Outside Boundary Condition Object
     SunExposed,              !- Sun Exposure
@@ -893,6 +904,7 @@
     Wall,                    !- Surface Type
     ASHRAE 189.1-2009 ExtWall Mass ClimateZone 5,  !- Construction Name
     Thermal Zone 2,          !- Zone Name
+    ,                        !- Space Name
     Outdoors,                !- Outside Boundary Condition
     ,                        !- Outside Boundary Condition Object
     SunExposed,              !- Sun Exposure
@@ -1000,24 +1012,24 @@
 
   People,
     People 1,                !- Name
-    Space Type 1,            !- Zone or ZoneList Name
+    Space Type 1,            !- Zone or ZoneList or Space or SpaceList Name
     Medium Office Bldg Occ,  !- Number of People Schedule Name
     People/Area,             !- Number of People Calculation Method
     ,                        !- Number of People
-    0.0538195520835486,      !- People per Zone Floor Area {person/m2}
-    ,                        !- Zone Floor Area per Person {m2/person}
+    0.0538195520835486,      !- People per Floor Area {person/m2}
+    ,                        !- Floor Area per Person {m2/person}
     0.3,                     !- Fraction Radiant
     Autocalculate,           !- Sensible Heat Fraction
     Medium Office Activity;  !- Activity Level Schedule Name
 
   People,
     People 2,                !- Name
-    Space Type 2,            !- Zone or ZoneList Name
+    Space Type 2,            !- Zone or ZoneList or Space or SpaceList Name
     Medium Office Bldg Occ,  !- Number of People Schedule Name
     People/Area,             !- Number of People Calculation Method
     ,                        !- Number of People
-    0.0538195520835486,      !- People per Zone Floor Area {person/m2}
-    ,                        !- Zone Floor Area per Person {m2/person}
+    0.0538195520835486,      !- People per Floor Area {person/m2}
+    ,                        !- Floor Area per Person {m2/person}
     0.3,                     !- Fraction Radiant
     Autocalculate,           !- Sensible Heat Fraction
     Medium Office Activity;  !- Activity Level Schedule Name
@@ -1026,7 +1038,7 @@
 
   Lights,
     Lights 1,                !- Name
-    Space Type 1,            !- Zone or ZoneList Name
+    Space Type 1,            !- Zone or ZoneList or Space or SpaceList Name
     Office Bldg Light,       !- Schedule Name
     Watts/Area,              !- Design Level Calculation Method
     ,                        !- Lighting Level {W}
@@ -1040,7 +1052,7 @@
 
   Lights,
     Lights 2,                !- Name
-    Space Type 2,            !- Zone or ZoneList Name
+    Space Type 2,            !- Zone or ZoneList or Space or SpaceList Name
     Office Bldg Light,       !- Schedule Name
     Watts/Area,              !- Design Level Calculation Method
     ,                        !- Lighting Level {W}
@@ -1056,7 +1068,7 @@
 
   ElectricEquipment,
     Electric Equipment 1,    !- Name
-    Space Type 1,            !- Zone or ZoneList Name
+    Space Type 1,            !- Zone or ZoneList or Space or SpaceList Name
     Medium Office Bldg Equip,!- Schedule Name
     Watts/Area,              !- Design Level Calculation Method
     ,                        !- Design Level {W}
@@ -1069,7 +1081,7 @@
 
   ElectricEquipment,
     Electric Equipment 2,    !- Name
-    Space Type 2,            !- Zone or ZoneList Name
+    Space Type 2,            !- Zone or ZoneList or Space or SpaceList Name
     Medium Office Bldg Equip,!- Schedule Name
     Watts/Area,              !- Design Level Calculation Method
     ,                        !- Design Level {W}
