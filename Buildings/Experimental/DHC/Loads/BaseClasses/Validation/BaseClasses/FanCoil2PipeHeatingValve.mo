@@ -25,8 +25,8 @@ model FanCoil2PipeHeatingValve
     "Heating heat exchanger configuration";
   parameter Boolean have_speVar=true
     "Set to true for a variable speed fan (otherwise fan is always on)";
-  parameter Modelica.Units.SI.PressureDifference dpLoa_nominal(displayUnit="Pa")
-     = 250 "Load side pressure drop"
+  parameter Modelica.Units.SI.PressureDifference dpLoa_nominal(displayUnit="Pa")=
+       250 "Load side pressure drop"
     annotation (Dialog(group="Nominal condition"));
   parameter Modelica.Units.SI.PressureDifference dpSou_nominal=30000
     "Nominal pressure drop on source side";
@@ -68,8 +68,8 @@ model FanCoil2PipeHeatingValve
   Modelica.Blocks.Sources.RealExpression Q_flowHea(
     y=hex.Q2_flow)
     annotation (Placement(transformation(extent={{120,210},{140,230}})));
-  Buildings.Controls.OBC.CDL.Continuous.Gain gaiFloNom2(
-    k=mLoaHea_flow_nominal)
+  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gaiFloNom2(k=
+        mLoaHea_flow_nominal)
     annotation (Placement(transformation(extent={{56,170},{76,190}})));
   Fluid.Sources.Boundary_pT sinAir(
     redeclare package Medium=Medium2,
@@ -100,12 +100,14 @@ model FanCoil2PipeHeatingValve
     redeclare final package Medium=Medium1,
     final allowFlowReversal=allowFlowReversal)
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},rotation=-90,origin={-40,-120})));
-  Buildings.Controls.OBC.CDL.Continuous.Gain gaiHeaFlo(
-    k=1/QHea_flow_nominal)
+  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gaiHeaFlo(k=1/
+        QHea_flow_nominal)
     annotation (Placement(transformation(extent={{-40,210},{-20,230}})));
-  Buildings.Controls.OBC.CDL.Continuous.Gain gaiHeaFlo1(
-    k=1/QHea_flow_nominal)
-    annotation (Placement(transformation(extent={{-10,-10},{10,10}},rotation=90,origin={0,190})));
+  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gaiHeaFlo1(k=1/
+        QHea_flow_nominal) annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=90,
+        origin={0,190})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant one(
     k=1)
     "One constant"

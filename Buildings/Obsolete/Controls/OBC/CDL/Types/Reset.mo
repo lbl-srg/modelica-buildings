@@ -1,9 +1,11 @@
 within Buildings.Obsolete.Controls.OBC.CDL.Types;
-
 type Reset = enumeration(
-  Disabled "Disabled",
-  Parameter "Use parameter value",
-  Input "Use input signal") "Options for integrator reset" annotation (
+    Disabled
+           "Disabled",
+    Parameter
+            "Use parameter value",
+    Input
+        "Use input signal") "Options for integrator reset" annotation (
 Documentation(info="<html>
 <p>
 Enumeration to define the choice of integrator reset.
@@ -34,4 +36,3 @@ First implementation.
 </li>
 </ul>
 </html>"));
-

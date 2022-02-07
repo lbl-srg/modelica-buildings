@@ -1,10 +1,6 @@
 within Buildings.Controls.OBC.CDL.Continuous;
 block Add
   "Output the sum of the two inputs"
-  parameter Real k1=+1
-    "Gain for input u1";
-  parameter Real k2=+1
-    "Gain for input u2";
   Interfaces.RealInput u1
     "Connector of Real input signal 1"
     annotation (Placement(transformation(extent={{-140,40},{-100,80}})));
@@ -16,24 +12,26 @@ block Add
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
 equation
-  y=k1*u1+k2*u2;
+  y=u1+u2;
   annotation (
     defaultComponentName="add2",
     Documentation(
       info="<html>
 <p>
-Block that outputs <code>y</code> as the weighted <i>sum</i> of the
+Block that outputs <code>y</code> as the sum of the
 two input signals <code>u1</code> and <code>u2</code>,
 </p>
 <pre>
-    y = k1*u1 + k2*u2;
+    y = u1 + u2
 </pre>
-<p>
-where <code>k1</code> and <code>k2</code> are parameters.
-</p>
 </html>",
-      revisions="<html>
+revisions="<html>
 <ul>
+<li>
+January 27, 2022, by Jianjun Hu:<br/>
+Removed gain factors.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2865\">issue 2865</a>.
+</li>
 <li>
 March 2, 2020, by Michael Wetter:<br/>
 Changed icon to display dynamically the output value.
@@ -74,14 +72,8 @@ Modelica Standard Library.
           points={{50,0},{100,0}},
           color={0,0,127}),
         Text(
-          extent={{-40,-22},{36,46}},
+          extent={{-36,-26},{40,42}},
           textString="+"),
-        Text(
-          extent={{-100,52},{5,92}},
-          textString="%k1"),
-        Text(
-          extent={{-100,-92},{5,-52}},
-          textString="%k2"),
         Text(
           extent={{226,60},{106,10}},
           textColor={0,0,0},
