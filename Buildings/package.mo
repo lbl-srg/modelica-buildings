@@ -552,19 +552,12 @@ have been <b style=\"color:blue\">improved</b> in a
     </td>
 </tr>
 <tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Continuous.Add<br/>
-<<<<<<< HEAD
                        Buildings.Controls.OBC.CDL.Integers.Add<br/>
                        Buildings.Controls.OBC.CDL.Continuous.AddParameter
     </td>
     <td valign=\"top\">Moved classes to <code>Obsolete</code> package and created new blocks to avoid using input gain factor.
                        This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2865\">#2865</a> and
                        <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2876\">#2876</a>.<br/>
-=======
-                       Buildings.Controls.OBC.CDL.Integers.Add
-    </td>
-    <td valign=\"top\">Moved classes to <code>Obsolete</code> package and created new blocks to avoid using input gain factor.
-                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2865\">#2865</a>.<br/>
->>>>>>> master
                        For Dymola, a conversion script makes this change.
     </td>
 </tr>
