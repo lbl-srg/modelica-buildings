@@ -43,7 +43,9 @@ INVALID_IN_ALL=["fixme", "import \"",
                 "modelica://AixLib",
                 "modelica://BuildingSystems",
 	        "modelica://IDEAS",
-                "modelica://https://"]
+                "modelica://https://",
+                ">>>>>>",
+                "<<<<<<"]
 
 if LIBNAME != "IBPSA":
     INVALID_IN_ALL.append("modelica://IBPSA")
