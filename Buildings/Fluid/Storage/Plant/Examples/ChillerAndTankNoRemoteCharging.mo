@@ -13,7 +13,7 @@ model ChillerAndTankNoRemoteCharging "(Draft)"
     final T_CHWS_nominal=sin.T,
     final T_CHWR_nominal=sou.T)
     "Plant with chiller and tank"
-    annotation (Placement(transformation(extent={{-16,-10},{16,10}})));
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Buildings.Fluid.Sources.Boundary_pT sou(
     redeclare final package Medium = Medium,
     p=300000,
@@ -43,15 +43,15 @@ model ChillerAndTankNoRemoteCharging "(Draft)"
     annotation (Placement(transformation(extent={{-70,60},{-50,80}})));
 equation
   connect(sou.ports[1], cat.port_a)
-    annotation (Line(points={{-50,0},{-16,0}}, color={0,127,255}));
-  connect(cat.port_b, sin.ports[1]) annotation (Line(points={{16,0},{33,0},{33,4.44089e-16},
-          {50,4.44089e-16}}, color={0,127,255}));
+    annotation (Line(points={{-50,0},{-10,0}}, color={0,127,255}));
+  connect(cat.port_b, sin.ports[1]) annotation (Line(points={{10,0},{30,0},{30,
+          4.44089e-16},{50,4.44089e-16}},
+                             color={0,127,255}));
 
   connect(setFloPum2.y, cat.usMasFloPum2) annotation (Line(points={{-49,30},{
-          -22,30},{-22,6},{-17.6,6}},
-                                    color={0,0,127}));
+          -16,30},{-16,6},{-11,6}}, color={0,0,127}));
   connect(set_mChi_flow.y, cat.us_mChi_flow) annotation (Line(points={{-49,70},
-          {-4.8,70},{-4.8,11}},  color={0,0,127}));
+          {-3,70},{-3,11}},      color={0,0,127}));
   annotation (
   experiment(Tolerance=1e-06, StopTime=3600),
     Diagram(coordinateSystem(extent={{-100,-100},{100,100}})),
