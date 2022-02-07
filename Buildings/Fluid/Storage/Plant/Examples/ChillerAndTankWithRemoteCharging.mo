@@ -45,8 +45,9 @@ model ChillerAndTankWithRemoteCharging
         extent={{-10,10},{10,-10}},
         rotation=180,
         origin={60,0})));
-  Modelica.Blocks.Sources.TimeTable set_mTan_flow(table=[0,0; 3600/7,0; 3600/7,-1;
-        3600/7*3,-1; 3600/7*4,0; 3600/7*4,1; 3600/7*6,1; 3600/7*6,-1])
+  Modelica.Blocks.Sources.TimeTable set_mTan_flow(table=[0,0; 3600/7,0; 3600/7,
+        -1; 3600/7*3,-1; 3600/7*3,0; 3600/7*4,0; 3600/7*4,1; 3600/7*6,1; 3600/7
+        *6,-1])
             "Tank flow rate setpoint"
     annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
   Modelica.Blocks.Sources.BooleanTable booFloDir(table={0,3600/7*6})
@@ -55,7 +56,7 @@ model ChillerAndTankWithRemoteCharging
   Modelica.Blocks.Sources.BooleanTable booOnOffLin(table={0,3600/7*2})
     "Plant online/offline"
     annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
-  Modelica.Blocks.Sources.TimeTable set_mChi_flow1(table=[0,0; 3600/7,0; 3600/7,
+  Modelica.Blocks.Sources.TimeTable set_mChi_flow(table=[0,0; 3600/7,0; 3600/7,
         1; 3600/7*5,1; 3600/7*5,0]) "Chiller flow rate setpoint"
     annotation (Placement(transformation(extent={{-40,80},{-20,100}})));
 equation
@@ -71,7 +72,7 @@ equation
           {-19.2,7}}, color={255,0,255}));
   connect(set_mTan_flow.y, cat.us_mTan_flow) annotation (Line(points={{-59,70},{
           -11.2,70},{-11.2,11}}, color={0,0,127}));
-  connect(set_mChi_flow1.y, cat.us_mChi_flow)
+  connect(set_mChi_flow.y, cat.us_mChi_flow)
     annotation (Line(points={{-19,90},{-4.8,90},{-4.8,11}}, color={0,0,127}));
   annotation (
   experiment(Tolerance=1e-06, StopTime=3600),

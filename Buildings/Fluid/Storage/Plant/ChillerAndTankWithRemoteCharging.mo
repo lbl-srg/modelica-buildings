@@ -39,20 +39,16 @@ model ChillerAndTankWithRemoteCharging
         rotation=0)));
   Actuators.Valves.TwoWayEqualPercentage val1(
     redeclare package Medium = Medium,
-    l=0.05,
-    R=10,
-    delta0=0.1,
     use_inputFilter=false,
-    dpValve_nominal=6000,
+    l=1E-10,
+    dpValve_nominal=1,
     m_flow_nominal=m1_flow_nominal+m2_flow_nominal) "Valve in series to the pump (normal direction)"
     annotation (Placement(transformation(extent={{-120,10},{-100,30}})));
   Actuators.Valves.TwoWayEqualPercentage val2(
     redeclare package Medium = Medium,
-    l=0.05,
-    R=10,
-    delta0=0.1,
     use_inputFilter=false,
-    dpValve_nominal=6000,
+    l=1E-10,
+    dpValve_nominal=1,
     m_flow_nominal=m2_flow_nominal) "Valve in parallel to the pump (reverse direction)"
     annotation (Placement(transformation(extent={{-120,-30},{-140,-10}})));
 equation
