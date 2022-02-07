@@ -120,7 +120,7 @@ block Alarms "Generate alarms of cooling only terminal unit"
   Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger booToInt1
     "Suppress the alarm when multiplier is zero"
     annotation (Placement(transformation(extent={{140,-10},{160,10}})));
-  Buildings.Controls.OBC.CDL.Integers.Product proInt
+  Buildings.Controls.OBC.CDL.Integers.Multiply proInt
     "Low flow alarms"
     annotation (Placement(transformation(extent={{200,140},{220,160}})));
   Buildings.Controls.OBC.CDL.Logical.And and3

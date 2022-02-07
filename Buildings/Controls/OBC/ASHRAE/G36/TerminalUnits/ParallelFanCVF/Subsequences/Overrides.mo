@@ -44,8 +44,7 @@ block Overrides "Software switches to override setpoints"
     "Index of overriding fan status, 1: turn fan off; 2: turn fan on"
     annotation (Placement(transformation(extent={{-180,-170},{-140,-130}}),
         iconTransformation(extent={{-140,-90},{-100,-50}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uFan
-    "Terminal fan status"
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uFan "Terminal fan status"
     annotation (Placement(transformation(extent={{-180,-260},{-140,-220}}),
         iconTransformation(extent={{-140,-110},{-100,-70}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput VSet_flow(

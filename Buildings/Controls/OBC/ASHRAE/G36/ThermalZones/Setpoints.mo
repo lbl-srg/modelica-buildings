@@ -1188,13 +1188,13 @@ annotation (
           fillPattern=FillPattern.Solid,
           textString="Setpoints recognition"),
         Text(
-          extent={{132,382},{324,332}},
+          extent={{-380,232},{-188,182}},
           lineColor={0,0,255},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid,
           textString="Local setpoints adjustment"),
         Text(
-          extent={{-232,-290},{20,-384}},
+          extent={{-288,-328},{-28,-358}},
           lineColor={0,0,255},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid,
@@ -1244,7 +1244,7 @@ unoccupied"),
           textString="Confine cooling setpoint
 by heating one"),
         Text(
-          extent={{74,192},{326,98}},
+          extent={{-390,-102},{-188,-190}},
           lineColor={0,0,255},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid,

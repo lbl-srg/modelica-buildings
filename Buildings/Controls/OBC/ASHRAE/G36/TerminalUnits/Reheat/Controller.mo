@@ -9,8 +9,6 @@ block Controller "Controller for room VAV box with reheat"
     "True: the zone has CO2 sensor";
   parameter Boolean permit_occStandby=true
     "True: occupied-standby mode is permitted";
-  parameter Boolean have_hotWatCoi=true
-    "True: the system has hot water coil";
   // ---------------- Design parameters ----------------
   parameter Real AFlo(
     final quantity="Area",
@@ -140,12 +138,12 @@ block Controller "Controller for room VAV box with reheat"
     final unit="K",
     final quantity="TemperatureDifference")=17
     "Threshold difference between discharge air temperature and its setpoint for generating 3 hot water reset requests"
-    annotation (Dialog(tab="System requests", enable=have_hotWatCoi));
+    annotation (Dialog(tab="System requests"));
   parameter Real thrTDis_2(
     final unit="K",
     final quantity="TemperatureDifference")=8
     "Threshold difference between discharge air temperature and its setpoint for generating 2 hot water reset requests"
-    annotation (Dialog(tab="System requests", enable=have_hotWatCoi));
+    annotation (Dialog(tab="System requests"));
   parameter Real durTimTem(
     final unit="s",
     final quantity="Time")=120
@@ -160,7 +158,7 @@ block Controller "Controller for room VAV box with reheat"
     final unit="s",
     final quantity="Time")=300
     "Duration time of discharge air temperature less than setpoint"
-    annotation (Dialog(tab="System requests", group="Duration time", enable=have_hotWatCoi));
+    annotation (Dialog(tab="System requests", group="Duration time"));
   // ---------------- Parameters for alarms ----------------
   parameter Real staPreMul
     "Importance multiplier for the zone static pressure reset control loop"
@@ -373,11 +371,11 @@ block Controller "Controller for room VAV box with reheat"
     "Zone static pressure reset requests"
     annotation (Placement(transformation(extent={{200,50},{240,90}}),
         iconTransformation(extent={{100,30},{140,70}})));
-  Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yHeaValResReq if have_hotWatCoi
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yHeaValResReq
     "Hot water reset requests"
     annotation (Placement(transformation(extent={{200,10},{240,50}}),
         iconTransformation(extent={{100,0},{140,40}})));
-  Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yHotWatPlaReq if have_hotWatCoi
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yHotWatPlaReq
     "Request to heating hot-water plant"
     annotation (Placement(transformation(extent={{200,-30},{240,10}}),
         iconTransformation(extent={{100,-30},{140,10}})));
@@ -408,7 +406,7 @@ block Controller "Controller for room VAV box with reheat"
     final VHeaZonMax_flow=VHeaZonMax_flow) "Active airflow setpoint"
     annotation (Placement(transformation(extent={{-60,60},{-40,80}})));
   Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.Reheat.Subsequences.SystemRequests sysReq(
-    final have_hotWatCoi=have_hotWatCoi,
+    final have_hotWatCoi=true,
     final thrTemDif=thrTemDif,
     final twoTemDif=twoTemDif,
     final thrTDis_1=thrTDis_1,
