@@ -1,5 +1,5 @@
 within Buildings.Fluid.Geothermal.Borefields.BaseClasses.Boreholes.BaseClasses.Functions;
-impure function internalResistancesTwoUTube
+pure function internalResistancesTwoUTube
   "Thermal resistances for double U-tube, according to Bauer et al (2011)"
   extends
     Buildings.Fluid.Geothermal.Borefields.BaseClasses.Boreholes.BaseClasses.Functions.partialInternalResistances;
@@ -108,7 +108,7 @@ algorithm
             Rgg2  = " + String(Rgg2) + " K/W");
 
   if printDebug then
-    Modelica.Utilities.Streams.print("
+    pure(Modelica.Utilities.Streams.print("
       Rb = " + String(Rb_internal) + " m K / W
       RCondPipe = "+ String(RCondPipe) + " m K / W
       RConv = " +String(RConv) +"m K / W
@@ -116,9 +116,10 @@ algorithm
       Rg = "+String(Rg) + " K / W
       Ra = " + String(Ra)  + " m K / W
       x = " + String(x) + "
-      i = "  + String(i));
+      i = "  + String(i)));
   end if;
-  annotation (Diagram(graphics), Documentation(info="<html>
+annotation (
+  Documentation(info="<html>
 <p>
 This model computes the different thermal resistances present in a double U-tube
 borehole using the method of Bauer et al. (2011).
@@ -138,6 +139,12 @@ HVAC&amp;R Research,
 International Journal of Energy Research, 35:312&ndash;320, 2011.</p>
 </html>", revisions="<html>
 <ul>
+<li>
+February 7, 2022, by Michael Wetter:<br/>
+Changed function to be <code>pure</code>.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1582\">IBPSA, #1582</a>.
+</li>
 <li>
 December 11, 2021, by Michael Wetter:<br/>
 Added <code>impure</code> declaration for MSL 4.0.0.

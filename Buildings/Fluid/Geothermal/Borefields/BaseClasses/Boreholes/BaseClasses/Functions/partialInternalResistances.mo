@@ -65,7 +65,8 @@ protected
 
   Integer i=1 "Loop counter";
 
-  annotation (Diagram(graphics), Documentation(info="<html>
+annotation (
+  Documentation(info="<html>
 <p>
 This partial function defines the common inputs to functions that calculate
 the borehole internal resistances.
