@@ -19,7 +19,7 @@ model ChillerAndTankNoRemoteCharging "(Draft)"
     p=300000,
     T=285.15,
     nPorts=1)
-    "Source, CHW return line"
+    "Source representing CHW return line"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
@@ -29,7 +29,7 @@ model ChillerAndTankNoRemoteCharging "(Draft)"
     p=800000,
     T=280.15,
     nPorts=1)
-    "Sink, CHW supply line"
+    "Sink representing CHW supply line"
     annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
         rotation=180,

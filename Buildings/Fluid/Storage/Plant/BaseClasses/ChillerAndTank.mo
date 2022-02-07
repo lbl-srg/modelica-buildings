@@ -129,33 +129,28 @@ partial model ChillerAndTank
     annotation (Placement(transformation(extent={{-60,-70},{-40,-50}})));
   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow heaChi
     "Prescribed heat flow for chiller"
-    annotation (Placement(transformation(extent={{40,70},{20,90}})));
-
+    annotation (Placement(transformation(extent={{2,78},{22,98}})));
+  Modelica.Blocks.Sources.RealExpression QChi(
+    y=pum1.m_flow*(
+      Medium.specificEnthalpy(state=Medium.setState_pTX(
+        p=p_CHWS_nominal, T=T_CHWS_nominal, X={1.}))
+      - TChiEnt.port_b.h_outflow)) "Heat flow of the chiller"
+    annotation (Placement(transformation(extent={{-30,78},{-10,98}})));
   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow heaTan
     "Prescribed heat flow for tank"
-    annotation (Placement(transformation(extent={{-6,-20},{14,0}})));
+    annotation (Placement(transformation(extent={{0,-20},{20,0}})));
   Modelica.Blocks.Sources.RealExpression QTan(
     y=if floSenTan.m_flow>0 then
-        floSenTan.m_flow*(port_b.h_outflow - TTanHot.port_b.h_outflow)
+        floSenTan.m_flow*(
+        Medium.specificEnthalpy(state=Medium.setState_pTX(
+          p=p_CHWS_nominal, T=T_CHWS_nominal, X={1.}))
+        - TTanHot.port_b.h_outflow)
       else
-        floSenTan.m_flow*(TTanCol.port_a.h_outflow - port_a.h_outflow))
+        floSenTan.m_flow*(TTanCol.port_a.h_outflow
+        - Medium.specificEnthalpy(state=Medium.setState_pTX(
+          p=p_CHWR_nominal, T=T_CHWR_nominal, X={1.}))))
     "Heat flow of the tank"
-    annotation (Placement(transformation(extent={{-48,-20},{-28,0}})));
-  Modelica.Blocks.Math.Gain gain1(k=2*4200*5*m1_flow_nominal)
-    annotation (Placement(transformation(extent={{10,-10},{-10,10}},
-        rotation=0,
-        origin={70,80})));
-  Buildings.Controls.Continuous.LimPID conPID1(
-    Td=1,
-    k=5,
-    Ti=50,
-    yMin=-1)
-    annotation (Placement(transformation(extent={{-10,10},{10,-10}},
-        rotation=180,
-        origin={110,40})));
-  Modelica.Blocks.Sources.Constant setTChiLea(k=T_CHWS_nominal)
-    "Chiller water leaving temperature setpoint"
-    annotation (Placement(transformation(extent={{100,70},{120,90}})));
+    annotation (Placement(transformation(extent={{-30,-20},{-10,0}})));
   Modelica.Fluid.Interfaces.FluidPort_a port_a(
     p(start=p_CHWR_nominal),
     redeclare package Medium = Medium,
@@ -179,6 +174,7 @@ partial model ChillerAndTank
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={-30,110})));
+
 equation
 
   connect(TChiEnt.port_b, chi.ports[1]) annotation (Line(points={{-10,40},{0,40},
@@ -210,26 +206,18 @@ equation
     annotation (Line(points={{60,40},{84,40},{84,0},{90,0}},
                                                         color={0,127,255}));
   connect(heaChi.port, chi.heatPort)
-    annotation (Line(points={{20,80},{10,80},{10,60}}, color={191,0,0}));
+    annotation (Line(points={{22,88},{28,88},{28,60},{10,60}},
+                                                       color={191,0,0}));
   connect(QTan.y, heaTan.Q_flow)
-    annotation (Line(points={{-27,-10},{-6,-10}},
-                                                color={0,0,127}));
-  connect(heaTan.port, tan.heatPort) annotation (Line(points={{14,-10},{20,-10},
-          {20,-40},{10,-40}}, color={191,0,0}));
-  connect(gain1.y, heaChi.Q_flow)
-    annotation (Line(points={{59,80},{40,80}},   color={0,0,127}));
-  connect(conPID1.y,gain1. u)
-    annotation (Line(points={{99,40},{88,40},{88,80},{82,80}},
-                                                 color={0,0,127}));
-  connect(TChiLea.T, conPID1.u_m) annotation (Line(points={{22,51},{22,56},{80,56},
-          {80,20},{110,20},{110,28}},
-                         color={0,0,127}));
-  connect(setTChiLea.y, conPID1.u_s) annotation (Line(points={{121,80},{130,80},
-          {130,40},{122,40}},   color={0,0,127}));
+    annotation (Line(points={{-9,-10},{0,-10}}, color={0,0,127}));
+  connect(heaTan.port, tan.heatPort) annotation (Line(points={{20,-10},{28,-10},
+          {28,-40},{10,-40}}, color={191,0,0}));
   connect(jun2.port_2, port_b)
     annotation (Line(points={{110,0},{140,0}}, color={0,127,255}));
   connect(pum1.m_flow_in, us_mChi_flow) annotation (Line(points={{-56,48},{-56,60},
           {-50,60},{-50,120}}, color={0,0,127}));
+  connect(QChi.y, heaChi.Q_flow)
+    annotation (Line(points={{-9,88},{2,88}}, color={0,0,127}));
   annotation (
   experiment(Tolerance=1e-06, StopTime=3600),
     Diagram(coordinateSystem(extent={{-180,-100},{140,100}})),
