@@ -116,8 +116,7 @@ protected
     annotation (Placement(transformation(extent={{-120,-20},{-100,0}})));
 
   Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar(
-    final p=1,
-    final k=1)
+    final p=1)
     "System outdoor air flow fraction plus 1"
     annotation (Placement(transformation(extent={{-80,-20},{-60,0}})));
 
@@ -147,8 +146,7 @@ protected
     annotation (Placement(transformation(extent={{60,120},{80,140}})));
 
   Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar1(
-    final p=1,
-    final k=1)
+    final p=1)
     "Average outdoor air flow fraction plus 1"
     annotation (Placement(transformation(extent={{120,120},{140,140}})));
 

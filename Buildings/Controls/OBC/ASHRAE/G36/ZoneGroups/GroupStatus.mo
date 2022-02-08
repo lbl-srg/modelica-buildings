@@ -165,11 +165,11 @@ protected
     "Longest warm up time"
     annotation (Placement(transformation(extent={{40,130},{60,150}})));
   Buildings.Controls.OBC.CDL.Logical.MultiOr mulOr(
-    final nu=numZon)
+    final nin=numZon)
     "Check if there is any zone that the zone temperature is lower than its occupied heating setpoint"
     annotation (Placement(transformation(extent={{40,90},{60,110}})));
   Buildings.Controls.OBC.CDL.Logical.MultiOr mulOr1(
-    final nu=numZon)
+    final nin=numZon)
     "Check if there is any zone that the zone temperature is higher than its occupied cooling setpoint"
     annotation (Placement(transformation(extent={{40,50},{60,70}})));
   Buildings.Controls.OBC.CDL.Continuous.MultiMax maxTem(
@@ -185,7 +185,7 @@ protected
     final nin=numZon) "Total number of cold zone"
     annotation (Placement(transformation(extent={{40,10},{60,30}})));
   Buildings.Controls.OBC.CDL.Logical.MultiAnd endSetBac(
-   final nu=numZon)
+   final nin=numZon)
     "Check if all zones have ended the setback mode"
     annotation (Placement(transformation(extent={{40,-70},{60,-50}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger booToInt1[numZon]
@@ -195,7 +195,7 @@ protected
     final nin=numZon) "Total number of hot zones"
     annotation (Placement(transformation(extent={{40,-100},{60,-80}})));
   Buildings.Controls.OBC.CDL.Logical.MultiAnd endSetUp(
-    final nu=numZon)
+    final nin=numZon)
     "Check if all zones have ended the setup mode"
     annotation (Placement(transformation(extent={{-2,-190},{18,-170}})));
   Buildings.Controls.OBC.CDL.Continuous.MultiSum sumUnoHea(
@@ -239,11 +239,11 @@ protected
     "Minimum time to next occupied period"
     annotation (Placement(transformation(extent={{-60,210},{-40,230}})));
   Buildings.Controls.OBC.CDL.Logical.MultiOr schOcc(
-    final nu=numZon)
+    final nin=numZon)
     "Check if the group should be in occupied mode according to the schedule"
     annotation (Placement(transformation(extent={{-60,250},{-40,270}})));
   Buildings.Controls.OBC.CDL.Logical.MultiOr oveRidOcc(
-    final nu=numZon)
+    final nin=numZon)
     "Check if the group should be in occupied mode according to the zone override"
     annotation (Placement(transformation(extent={{-60,290},{-40,310}})));
   Buildings.Controls.OBC.CDL.Logical.Or groOcc

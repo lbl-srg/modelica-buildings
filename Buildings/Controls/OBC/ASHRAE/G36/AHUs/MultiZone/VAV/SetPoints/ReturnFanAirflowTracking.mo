@@ -56,9 +56,9 @@ protected
     "Check if relief damper should be enabled"
     annotation (Placement(transformation(extent={{60,-40},{80,-20}})));
   Buildings.Controls.OBC.CDL.Continuous.Subtract conErr(
-    u1(final unit="Pa", displayUnit="Pa"),
-    u2(final unit="Pa", displayUnit="Pa"),
-    y(final unit="Pa", displayUnit="Pa"))
+    u1(final unit="m3/s", displayUnit="m3/s"),
+    u2(final unit="m3/s", displayUnit="m3/s"),
+    y(final unit="m3/s", displayUnit="m3/s"))
     "Control error"
     annotation (Placement(transformation(extent={{-40,70},{-20,90}})));
   Buildings.Controls.OBC.CDL.Continuous.PID conP(

@@ -161,8 +161,8 @@ block ReliefFan "Sequence for relief fan control for AHUs using actuated relief 
     "Check if the input is less than threshold"
     annotation (Placement(transformation(extent={{-220,-40},{-200,-20}})));
   Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar[nRelFan](
-    final p=fill(nRelFan + 1, nRelFan),
-    final k=fill(1, nRelFan)) "Add value to the input"
+    final p=fill(nRelFan + 1, nRelFan))
+    "Add value to the input"
     annotation (Placement(transformation(extent={{-220,-10},{-200,10}})));
   Buildings.Controls.OBC.CDL.Continuous.Switch swi[nRelFan]
     "Switch input values"

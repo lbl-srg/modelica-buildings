@@ -8,7 +8,11 @@ block FreezeProtectionMixedAir "Freeze protection based on mixed air temperature
 
   parameter Real Ti(
     final unit="s",
-    final quantity="Time")= 120 "Time constant of integrator block";
+    final quantity="Time")= 120
+    "Time constant of integrator block"
+    annotation (Dialog(
+      enable=controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
+          or controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
 
   parameter Real Td(
     final unit="s",
@@ -50,32 +54,36 @@ block FreezeProtectionMixedAir "Freeze protection based on mixed air temperature
     final yMax=1,
     final yMin=0)
     "Controller for mixed air to track freeze protection set point"
-    annotation (Placement(transformation(extent={{-20,20},{0,40}})));
+    annotation (Placement(transformation(extent={{-40,20},{-20,40}})));
 
 protected
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant setPoi(
     final k=TFreSet)
     "Set point for freeze protection"
-    annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
-  Buildings.Controls.OBC.CDL.Continuous.AddParameter yOut(final p=1, final k=-1)
+    annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
+  Buildings.Controls.OBC.CDL.Continuous.AddParameter yOut(
+    final p=1)
     "Freeze protection control signal inverter"
     annotation (Placement(transformation(extent={{60,20},{80,40}})));
+  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai(
+    final k=-1) "Gain factor"
+    annotation (Placement(transformation(extent={{20,20},{40,40}})));
 
 equation
   connect(con.u_s, setPoi.y)
-    annotation (Line(points={{-22,30},{-38,30}}, color={0,0,127}));
+    annotation (Line(points={{-42,30},{-58,30}}, color={0,0,127}));
   connect(yOut.y, yFreProInv)
     annotation (Line(points={{82,30},{120,30}}, color={0,0,127}));
   connect(TMix, con.u_m)
-    annotation (Line(points={{-120,0},{-10,0},{-10,18}}, color={0,0,127}));
-  connect(con.y, yFrePro) annotation (Line(points={{2,30},{30,30},{30,-30},{120,
-          -30}}, color={0,0,127}));
-  connect(con.y, yOut.u) annotation (Line(points={{2,30},{30,30},{30,30},{58,30}},
-        color={0,0,127}));
-  annotation (Dialog(
-    enable=controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
-        or controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PID),
-    defaultComponentName = "freProTMix",
+    annotation (Line(points={{-120,0},{-30,0},{-30,18}}, color={0,0,127}));
+  connect(con.y, yFrePro)
+    annotation (Line(points={{-18,30},{0,30},{0,-30},{120,-30}}, color={0,0,127}));
+  connect(con.y, gai.u)
+    annotation (Line(points={{-18,30},{18,30}}, color={0,0,127}));
+  connect(gai.y, yOut.u)
+    annotation (Line(points={{42,30},{58,30}}, color={0,0,127}));
+
+annotation (defaultComponentName = "freProTMix",
     Icon(graphics={
         Rectangle(
           extent={{-100,-100},{100,100}},
