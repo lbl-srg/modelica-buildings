@@ -76,7 +76,7 @@ block DamperValves
   Buildings.Controls.OBC.CDL.Interfaces.RealInput VDis_flow(
     final min=0,
     final unit="m3/s",
-    final quantity="VolumeFlowRate") if not have_pressureIndependentDamper
+    final quantity="VolumeFlowRate")
     "Measured primary discharge airflow rate"
     annotation (Placement(transformation(extent={{-360,300},{-320,340}}),
       iconTransformation(extent={{-140,170},{-100,210}})));
@@ -430,8 +430,6 @@ equation
           264,218}}, color={255,0,255}));
   connect(VOAMin_flow, les.u2)
     annotation (Line(points={{-340,-228},{-262,-228}}, color={0,0,127}));
-  connect(VDis_flow, les.u1) annotation (Line(points={{-340,320},{-300,320},{-300,
-          -220},{-262,-220}}, color={0,0,127}));
   connect(les.y, truDel7.u)
     annotation (Line(points={{-238,-220},{-202,-220}}, color={255,0,255}));
   connect(truDel7.y, lat.u)
@@ -460,6 +458,8 @@ equation
           -152},{278,-152}}, color={255,0,255}));
   connect(logSwi1.y, yFan)
     annotation (Line(points={{302,-160},{340,-160}}, color={255,0,255}));
+  connect(VDis_flow, les.u1) annotation (Line(points={{-340,320},{-300,320},{-300,
+          -220},{-262,-220}}, color={0,0,127}));
 
 annotation (
   defaultComponentName="damVal",

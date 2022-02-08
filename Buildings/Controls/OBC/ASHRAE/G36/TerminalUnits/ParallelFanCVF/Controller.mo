@@ -638,8 +638,8 @@ equation
           230},{-110,169},{-102,169}}, color={255,127,0}));
   connect(setPoi.VParFan_flow, VParFan_flow) annotation (Line(points={{-102,166},
           {-190,166},{-190,100},{-260,100}}, color={0,0,127}));
-  connect(setPoi.VMinOA_flow, damVal.VOAMin_flow) annotation (Line(points={{-78,
-          166},{-62,166},{-62,3},{18,3}}, color={0,0,127}));
+  connect(setPoi.VMinOA_flow, damVal.VOAMin_flow) annotation (Line(points={{-78,166},
+          {-62,166},{-62,3},{18,3}},      color={0,0,127}));
   connect(damVal.THeaDisSet, sysReq.TDisSet) annotation (Line(points={{42,11},{58,
           11},{58,-155},{138,-155}}, color={0,0,127}));
   connect(setOve.oveFan, oveFan) annotation (Line(points={{78,-77},{-88,-77},{-88,
@@ -650,6 +650,10 @@ equation
           {192,-230},{260,-230}}, color={255,127,0}));
   connect(damVal.yFan, setOve.uFan) annotation (Line(points={{42,1},{54,1},{54,-79},
           {78,-79}}, color={255,0,255}));
+  connect(damVal.yFan, ala.uFanCom) annotation (Line(points={{42,1},{54,1},{54,-247},
+          {138,-247}}, color={255,0,255}));
+  connect(damVal.THeaDisSet, ala.TDisSet) annotation (Line(points={{42,11},{58,11},
+          {58,-259},{138,-259}}, color={0,0,127}));
 
 annotation (defaultComponentName="parFanCon",
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-200},
