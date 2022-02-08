@@ -78,7 +78,7 @@ block DamperValves
     final min=0,
     final unit="m3/s",
     final quantity="VolumeFlowRate") if not have_pressureIndependentDamper
-    "Measured discharge airflow rate airflow rate"
+    "Measured primary discharge airflow rate"
     annotation (Placement(transformation(extent={{-360,340},{-320,380}}),
       iconTransformation(extent={{-140,170},{-100,210}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput VActCooMin_flow(

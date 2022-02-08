@@ -292,8 +292,7 @@ block Controller "Controller for room VAV box with reheat"
   Buildings.Controls.OBC.CDL.Interfaces.RealInput VDis_flow(
     final min=0,
     final unit="m3/s",
-    final quantity="VolumeFlowRate")
-    "Measured discharge airflow rate airflow rate"
+    final quantity="VolumeFlowRate") "Measured primary discharge airflow rate"
     annotation (Placement(transformation(extent={{-220,-10},{-180,30}}),
       iconTransformation(extent={{-140,-10},{-100,30}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TSup(

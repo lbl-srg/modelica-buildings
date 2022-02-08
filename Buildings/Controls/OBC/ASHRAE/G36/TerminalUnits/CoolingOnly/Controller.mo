@@ -228,8 +228,7 @@ block Controller "Controller for cooling only VAV box"
   Buildings.Controls.OBC.CDL.Interfaces.RealInput VDis_flow(
     final min=0,
     final unit="m3/s",
-    final quantity="VolumeFlowRate")
-    "Measured discharge airflow rate airflow rate"
+    final quantity="VolumeFlowRate") "Measured primary discharge airflow rate"
     annotation (Placement(transformation(extent={{-220,-100},{-180,-60}}),
       iconTransformation(extent={{-140,-50},{-100,-10}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput oveFloSet

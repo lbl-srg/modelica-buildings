@@ -2,27 +2,11 @@ within Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.ParallelFanVVF.Subsequenc
 model ActiveAirFlow
   "Validate the model for calculating active airflow setpoint for VAV terminal unit with reheat"
   Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.ParallelFanVVF.Subsequences.ActiveAirFlow
-    actAirSet_RehBox(
-    VDisCooSetMax_flow=0.075,
-    VDisSetMin_flow=0.017,
-    VDisHeaSetMax_flow=0.05,
-    VDisConMin_flow=0.01,
-    AFlo=40,
-    have_occSen=true,
-    have_winSen=true,
-    have_CO2Sen=true)
+    actAirSet_RehBox
     "Output the active airflow setpoint for VAV reheat terminal unit"
     annotation (Placement(transformation(extent={{60,60},{80,80}})));
   Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.ParallelFanVVF.Subsequences.ActiveAirFlow
-    actAirSet_RehBox1(
-    VDisCooSetMax_flow=0.075,
-    VDisSetMin_flow=0.017,
-    VDisHeaSetMax_flow=0.05,
-    VDisConMin_flow=0.01,
-    AFlo=40,
-    have_occSen=true,
-    have_winSen=true,
-    have_CO2Sen=true)
+    actAirSet_RehBox1
     "Output the active airflow setpoint for VAV reheat terminal unit"
     annotation (Placement(transformation(extent={{60,0},{80,20}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp coCon(
@@ -50,30 +34,14 @@ model ActiveAirFlow
     annotation (Placement(transformation(extent={{-40,20},{-20,40}})));
 
 equation
-  connect(coCon.y,actAirSet_RehBox. ppmCO2)
-    annotation (Line(points={{-18,70},{-8,70},{-8,74},{58,74}},
-      color={0,0,127}));
-  connect(winSta.y,actAirSet_RehBox. uWin)
-    annotation (Line(points={{-18,-80},{4,-80},{4,62},{58,62}},
-      color={255,0,255}));
   connect(conInt.y, actAirSet_RehBox.uOpeMod)
-    annotation (Line(points={{-18,-10},{0,-10},{0,78},{58,78}},
+    annotation (Line(points={{-18,-10},{0,-10},{0,76},{58,76}},
       color={255,127,0}));
-  connect(coCon.y, actAirSet_RehBox1.ppmCO2)
-    annotation (Line(points={{-18,70},{-8,70},{-8,14},{58,14}},
-      color={0,0,127}));
   connect(conInt1.y, actAirSet_RehBox1.uOpeMod)
-    annotation (Line(points={{-18,-40},{8,-40},{8,18},{58,18}},
+    annotation (Line(points={{-18,-40},{8,-40},{8,16},{58,16}},
       color={255,127,0}));
-  connect(winSta.y, actAirSet_RehBox1.uWin)
-    annotation (Line(points={{-18,-80},{4,-80},{4,2},{58,2}},
-      color={255,0,255}));
   connect(sine.y, round1.u)
     annotation (Line(points={{-58,30},{-42,30}}, color={0,0,127}));
-  connect(round1.y, actAirSet_RehBox.nOcc) annotation (Line(points={{-18,30},{-4,
-          30},{-4,66},{58,66}}, color={0,0,127}));
-  connect(round1.y, actAirSet_RehBox1.nOcc) annotation (Line(points={{-18,30},{-4,
-          30},{-4,6},{58,6}}, color={0,0,127}));
 
 annotation (
   experiment(StopTime=86400, Tolerance=1e-6),

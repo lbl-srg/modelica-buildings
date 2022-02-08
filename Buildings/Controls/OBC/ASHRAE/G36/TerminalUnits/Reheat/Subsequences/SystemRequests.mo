@@ -580,7 +580,7 @@ send 3 requests (<code>yZonTemResReq=3</code>).
 Else if the zone temperature <code>TZon</code> exceeds the zone cooling setpoint
 <code>TZonCooSet</code> by 2 &deg;C (3 &deg;F) for 2 minutes and after suppression
 period (<code>uAftSup=true</code>) due to setpoint change per G36 Part 5.1.20,
-send 2 requests (<code>yZonTemResReq=3</code>).
+send 2 requests (<code>yZonTemResReq=2</code>).
 </li>
 <li>
 Else if the cooling loop <code>uCoo</code> is greater than 95%, send 1 request
