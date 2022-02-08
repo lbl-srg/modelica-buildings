@@ -42,20 +42,6 @@ partial model ChillerAndTank
     final m_flow_small=m1_flow_nominal*1E-5)
     "Primary CHW pump"
     annotation (Placement(transformation(extent={{-60,30},{-40,50}})));
-  Buildings.Fluid.MixingVolumes.MixingVolume tan(
-    redeclare package Medium = Medium,
-    nPorts=2,
-    final prescribedHeatFlowRate=true,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    m_flow_nominal=m2_flow_nominal,
-    final allowFlowReversal=true,
-    V=1E-3,
-    p_start=p_CHWS_nominal,
-    T_start=T_CHWS_nominal) "Volume representing a tank" annotation (Placement(
-        transformation(
-        origin={0,-40},
-        extent={{-10,10},{10,-10}},
-        rotation=180)));
   Buildings.Fluid.FixedResistances.Junction jun1(
     redeclare package Medium = Medium,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
@@ -78,44 +64,12 @@ partial model ChillerAndTank
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={100,0})));
-  Buildings.Fluid.Sensors.TemperatureTwoPort TTanHot(
-    redeclare package Medium = Medium,
-    m_flow_nominal=m2_flow_nominal,
-    T_start=T_CHWR_nominal,
-    tauHeaTra=1) "Tank hot side"
-    annotation (Placement(transformation(extent={{-30,-70},{-10,-50}})));
-  Buildings.Fluid.Sensors.TemperatureTwoPort TTanCol(
-    redeclare package Medium = Medium,
-    m_flow_nominal=m2_flow_nominal,
-    T_start=T_CHWS_nominal,
-    tauHeaTra=1) "Tank cold side"
-    annotation (Placement(transformation(extent={{10,-70},{30,-50}})));
   Buildings.Fluid.FixedResistances.PressureDrop preDro2(
     redeclare package Medium = Medium,
     final allowFlowReversal=true,
     final dp_nominal=dp_nominal,
     final m_flow_nominal=m2_flow_nominal) "Flow resistance on tank branch"
     annotation (Placement(transformation(extent={{40,-70},{60,-50}})));
-  Buildings.Fluid.Sensors.MassFlowRate mTan_flow(
-    redeclare package Medium=Medium,
-    final allowFlowReversal=true)
-    "Flow rate sensor on the tank branch"
-    annotation (Placement(transformation(extent={{-60,-70},{-40,-50}})));
-  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow heaTan
-    "Prescribed heat flow for tank"
-    annotation (Placement(transformation(extent={{0,-20},{20,0}})));
-  Modelica.Blocks.Sources.RealExpression QTan(
-    y=if mTan_flow.m_flow>0 then mTan_flow.m_flow
-                        *(
-        Medium.specificEnthalpy(state=Medium.setState_pTX(
-          p=p_CHWS_nominal, T=T_CHWS_nominal, X={1.}))
-        - TTanHot.port_b.h_outflow)
-      else mTan_flow.m_flow
-                        *(TTanCol.port_a.h_outflow
-        - Medium.specificEnthalpy(state=Medium.setState_pTX(
-          p=p_CHWR_nominal, T=T_CHWR_nominal, X={1.}))))
-    "Heat flow of the tank"
-    annotation (Placement(transformation(extent={{-30,-20},{-10,0}})));
   Modelica.Fluid.Interfaces.FluidPort_a port_a(
     p(start=p_CHWR_nominal),
     redeclare package Medium = Medium,
@@ -148,32 +102,25 @@ partial model ChillerAndTank
     T_a_nominal=T_CHWR_nominal,
     T_b_nominal=T_CHWS_nominal) "Ideal chiller"
     annotation (Placement(transformation(extent={{-10,30},{10,50}})));
+  VolumeSetState ideTan(
+    redeclare package Medium = Medium,
+    final allowFlowReversal=true,
+    m_flow_nominal=m2_flow_nominal,
+    p_nominal=p_CHWS_nominal,
+    T_a_nominal=T_CHWR_nominal,
+    T_b_nominal=T_CHWS_nominal) "Ideal tank"
+    annotation (Placement(transformation(extent={{-10,-70},{10,-50}})));
 equation
 
   connect(pum1.port_a, jun1.port_2) annotation (Line(points={{-60,40},{-66,40},{
           -66,0},{-70,0}},
                        color={0,127,255}));
-  connect(TTanHot.port_b, tan.ports[1])
-    annotation (Line(points={{-10,-60},{1,-60},{1,-50}}, color={0,127,255}));
-  connect(tan.ports[2], TTanCol.port_a)
-    annotation (Line(points={{-1,-50},{-1,-60},{10,-60}}, color={0,127,255}));
-  connect(TTanCol.port_b, preDro2.port_a)
-    annotation (Line(points={{30,-60},{40,-60}}, color={0,127,255}));
   connect(preDro2.port_b, jun2.port_3)
     annotation (Line(points={{60,-60},{100,-60},{100,-10}},
                                                  color={0,127,255}));
-  connect(jun1.port_3,mTan_flow. port_a)
-    annotation (Line(points={{-80,-10},{-80,-60},{-60,-60}},
-                                                   color={0,127,255}));
-  connect(mTan_flow.port_b, TTanHot.port_a)
-    annotation (Line(points={{-40,-60},{-30,-60}}, color={0,127,255}));
   connect(preDro1.port_b, jun2.port_1)
     annotation (Line(points={{60,40},{84,40},{84,0},{90,0}},
                                                         color={0,127,255}));
-  connect(QTan.y, heaTan.Q_flow)
-    annotation (Line(points={{-9,-10},{0,-10}}, color={0,0,127}));
-  connect(heaTan.port, tan.heatPort) annotation (Line(points={{20,-10},{28,-10},
-          {28,-40},{10,-40}}, color={191,0,0}));
   connect(jun2.port_2, port_b)
     annotation (Line(points={{110,0},{140,0}}, color={0,127,255}));
   connect(pum1.m_flow_in, us_mChi_flow) annotation (Line(points={{-56,48},{-56,60},
@@ -182,6 +129,10 @@ equation
           {-28,40},{-10.2,40}}, color={0,127,255}));
   connect(ideChi.port_b, preDro1.port_a) annotation (Line(points={{10,40},{10,40},
           {10,40},{40,40}}, color={0,127,255}));
+  connect(ideTan.port_b, preDro2.port_a)
+    annotation (Line(points={{10,-60},{40,-60}}, color={0,127,255}));
+  connect(jun1.port_3, ideTan.port_a) annotation (Line(points={{-80,-10},{-80,
+          -60},{-10.2,-60}}, color={0,127,255}));
   annotation (
   experiment(Tolerance=1e-06, StopTime=3600),
     Diagram(coordinateSystem(extent={{-180,-100},{140,100}})),

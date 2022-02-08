@@ -37,19 +37,24 @@ model VolumeSetState
     m_flow_nominal=m_flow_nominal,
     T_start=T_a_nominal,
     tauHeaTra=1) "Temperature sensor to port_a"
-    annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
+    annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
   Sensors.TemperatureTwoPort T_b(
     redeclare package Medium = Medium,
     allowFlowReversal=allowFlowReversal,
     m_flow_nominal=m_flow_nominal,
     T_start=T_b_nominal,
     tauHeaTra=1) "Temperature sensor to port_b"
-    annotation (Placement(transformation(extent={{40,-10},{60,10}})));
+    annotation (Placement(transformation(extent={{20,-10},{40,10}})));
   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow heaChi
     "Prescribed heat flow"
     annotation (Placement(transformation(extent={{2,38},{22,58}})));
-  Modelica.Blocks.Sources.RealExpression QVol(y=port_a.m_flow*(
+  Modelica.Blocks.Sources.RealExpression QVol(y=if allowFlowReversal and
+        mVol_flow.m_flow < 0 then mVol_flow.m_flow*(T_b.port_a.h_outflow -
         Medium.specificEnthalpy(state=Medium.setState_pTX(
+        p=p_nominal,
+        T=T_a_nominal,
+        X={1.}))) else mVol_flow.m_flow*(Medium.specificEnthalpy(state=
+        Medium.setState_pTX(
         p=p_nominal,
         T=T_b_nominal,
         X={1.})) - T_a.port_b.h_outflow))
@@ -69,20 +74,38 @@ model VolumeSetState
     "Fluid connector b (positive design flow direction is from port_a to port_b)"
     annotation (Placement(transformation(extent={{110,-10},{90,10}}),
         iconTransformation(extent={{110,-10},{90,10}})));
+  Sensors.MassFlowRate mVol_flow(
+    redeclare package Medium = Medium,
+    final allowFlowReversal=true) "Flow rate sensor"
+    annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
+  Modelica.Blocks.Interfaces.RealOutput m_flow "Mass flow rate" annotation (
+     Dialog(group="Time varying output signal"), Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=90,
+        origin={-70,110}), iconTransformation(
+        extent={{-10,-10},{10,10}},
+        rotation=90,
+        origin={-70,110})));
 equation
   connect(T_a.port_b, vol.ports[1])
-    annotation (Line(points={{-40,0},{1,0},{1,10}}, color={0,127,255}));
+    annotation (Line(points={{-20,0},{1,0},{1,10}}, color={0,127,255}));
   connect(T_b.port_a, vol.ports[2])
-    annotation (Line(points={{40,0},{-1,0},{-1,10}}, color={0,127,255}));
+    annotation (Line(points={{20,0},{-1,0},{-1,10}}, color={0,127,255}));
   connect(heaChi.port,vol. heatPort)
     annotation (Line(points={{22,48},{28,48},{28,20},{10,20}},
                                                        color={191,0,0}));
   connect(QVol.y,heaChi. Q_flow)
     annotation (Line(points={{-9,48},{2,48}}, color={0,0,127}));
   connect(T_b.port_b, port_b)
-    annotation (Line(points={{60,0},{100,0}}, color={0,127,255}));
-  connect(T_a.port_a, port_a)
-    annotation (Line(points={{-60,0},{-100,0}}, color={0,127,255}));
+    annotation (Line(points={{40,0},{100,0}}, color={0,127,255}));
+  connect(T_a.port_a, mVol_flow.port_b)
+    annotation (Line(points={{-40,0},{-60,0}}, color={0,127,255}));
+  connect(mVol_flow.port_a, port_a)
+    annotation (Line(points={{-80,0},{-100,0}}, color={0,127,255}));
+  connect(m_flow, m_flow)
+    annotation (Line(points={{-70,110},{-70,110}}, color={0,0,127}));
+  connect(mVol_flow.m_flow, m_flow)
+    annotation (Line(points={{-70,11},{-70,110}}, color={0,0,127}));
 annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={Ellipse(
           extent={{-100,100},{100,-100}},
           lineColor={28,108,200},
@@ -103,7 +126,7 @@ annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={Ellipse(
           color={0,128,255},
           visible=not allowFlowReversal),
         Text(
-          extent={{-74,144},{80,102}},
+          extent={{-74,-124},{80,-166}},
           textColor={0,0,255},
           textString="%name")}),                                           Diagram(
         coordinateSystem(preserveAspectRatio=false)));

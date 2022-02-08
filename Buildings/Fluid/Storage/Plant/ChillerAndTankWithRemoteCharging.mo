@@ -59,9 +59,6 @@ equation
           50},{-200,50}},      color={255,0,255}));
   connect(pum2Con.us_mTan_flow,us_mChi_flow)  annotation (Line(points={{-141,72.3},
           {-146,72.3},{-146,136},{-50,136},{-50,120}},         color={0,0,127}));
-  connect(pum2Con.um_mTan_flow,mTan_flow.m_flow)  annotation (Line(points={{-141,
-          76.7},{-170,76.7},{-170,-40},{-50,-40},{-50,-49}},
-        color={0,0,127}));
   connect(jun1.port_1, val2.port_a) annotation (Line(points={{-90,0},{-94,0},{-94,
           -20},{-120,-20}}, color={0,127,255}));
   connect(val2.port_b, port_a) annotation (Line(points={{-140,-20},{-164,-20},{-164,
@@ -78,6 +75,9 @@ equation
           {-130,-2},{-130,-8}}, color={0,0,127}));
   connect(pum2Con.yVal1, val1.y) annotation (Line(points={{-123,56.9},{-110,56.9},
           {-110,32}}, color={0,0,127}));
+  connect(pum2Con.um_mTan_flow, ideTan.m_flow) annotation (Line(points={{-141,
+          76.7},{-142,76.7},{-142,78},{-170,78},{-170,-42},{-7,-42},{-7,-49}},
+        color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}), graphics={Line(
           points={{-80,-20},{-20,-20}},

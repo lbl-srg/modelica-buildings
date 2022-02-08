@@ -38,17 +38,15 @@ equation
     annotation (Line(points={{-180,0},{-140,0}}, color={0,127,255}));
   connect(pum2.port_b, jun1.port_1)
     annotation (Line(points={{-120,0},{-90,0}},  color={0,127,255}));
-  connect(mTan_flow.m_flow, gain2.u)
-    annotation (Line(points={{-50,-49},{-50,-46},{-150,-46},{-150,18}},
-                                                             color={0,0,127}));
   connect(gain2.y, conPIDPum2.u_m)
     annotation (Line(points={{-150,41},{-150,58}},   color={0,0,127}));
   connect(conPIDPum2.y, pum2.y) annotation (Line(points={{-139,70},{-130,70},{
           -130,12}},      color={0,0,127}));
   connect(usMasFloPum2, conPIDPum2.u_s)
     annotation (Line(points={{-192,70},{-162,70}}, color={0,0,127}));
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}})),                                  Diagram(
-        coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
-            100}})));
+  connect(ideTan.m_flow, gain2.u) annotation (Line(points={{-7,-49},{-8,-49},{-8,
+          -40},{-150,-40},{-150,18}}, color={0,0,127}));
+  annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
+            {100,100}})),                                        Diagram(
+        coordinateSystem(preserveAspectRatio=false, extent={{-180,-100},{100,100}})));
 end ChillerAndTankNoRemoteCharging;
