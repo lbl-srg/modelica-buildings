@@ -38,7 +38,7 @@ equation
     annotation (Line(points={{-180,0},{-140,0}}, color={0,127,255}));
   connect(pum2.port_b, jun1.port_1)
     annotation (Line(points={{-120,0},{-90,0}},  color={0,127,255}));
-  connect(floSenTan.m_flow, gain2.u)
+  connect(mTan_flow.m_flow, gain2.u)
     annotation (Line(points={{-50,-49},{-50,-46},{-150,-46},{-150,18}},
                                                              color={0,0,127}));
   connect(gain2.y, conPIDPum2.u_m)

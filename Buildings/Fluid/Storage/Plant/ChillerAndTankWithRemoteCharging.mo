@@ -42,7 +42,8 @@ model ChillerAndTankWithRemoteCharging
     use_inputFilter=false,
     l=1E-10,
     dpValve_nominal=1,
-    m_flow_nominal=m1_flow_nominal+m2_flow_nominal) "Valve in series to the pump (normal direction)"
+    m_flow_nominal=m1_flow_nominal+m2_flow_nominal)
+    "Valve in series to the pump (normal direction)"
     annotation (Placement(transformation(extent={{-120,10},{-100,30}})));
   Actuators.Valves.TwoWayEqualPercentage val2(
     redeclare package Medium = Medium,
@@ -58,7 +59,7 @@ equation
           50},{-200,50}},      color={255,0,255}));
   connect(pum2Con.us_mTan_flow,us_mChi_flow)  annotation (Line(points={{-141,72.3},
           {-146,72.3},{-146,136},{-50,136},{-50,120}},         color={0,0,127}));
-  connect(pum2Con.um_mTan_flow, floSenTan.m_flow) annotation (Line(points={{-141,
+  connect(pum2Con.um_mTan_flow,mTan_flow.m_flow)  annotation (Line(points={{-141,
           76.7},{-170,76.7},{-170,-40},{-50,-40},{-50,-49}},
         color={0,0,127}));
   connect(jun1.port_1, val2.port_a) annotation (Line(points={{-90,0},{-94,0},{-94,
