@@ -47,9 +47,9 @@ block Economizer "Controller for economizer"
           extent={{200,-20},{240,20}}),
           iconTransformation(extent={{200,-20},{240, 20}})));
   Modelica.Blocks.Interfaces.RealOutput yOA
-    "Control signal for outside air damper" annotation (Placement(
-        transformation(extent={{200,60},{240,100}}),iconTransformation(extent={{200,60},
-            {240,100}})));
+    "Control signal for outside air damper"
+    annotation (Placement(transformation(extent={{200,-80},{240,-40}}),
+        iconTransformation(extent={{200,60},{240,100}})));
   Modelica.Blocks.Math.Gain gain(k=1/VOut_flow_min) "Normalize mass flow rate"
     annotation (Placement(transformation(extent={{-60,-70},{-40,-50}})));
   Buildings.Controls.OBC.CDL.Continuous.PID conV_flow(
@@ -81,7 +81,7 @@ block Economizer "Controller for economizer"
   Modelica.Blocks.Sources.Constant TFre(k=TFreSet)
     "Setpoint for freeze protection"
     annotation (Placement(transformation(extent={{-60,70},{-40,90}})));
-  Buildings.Controls.OBC.CDL.Continuous.AddParameter invSig(p=1, k=-1)
+  Buildings.Controls.OBC.CDL.Continuous.Subtract invSig
     "Invert control signal for interlocked damper"
     annotation (Placement(transformation(extent={{170,-10},{190,10}})));
   Modelica.Blocks.Logical.Hysteresis hysLoc(final uLow=0, final uHigh=dTLock)
@@ -101,6 +101,10 @@ block Economizer "Controller for economizer"
   Buildings.Controls.OBC.CDL.Continuous.Max maxOutDam
     "Select larger of the outdoor damper signals"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant conOne(
+    final k=1)
+    "Constant 1"
+    annotation (Placement(transformation(extent={{100,70},{120,90}})));
 equation
   connect(VOut_flow, gain.u) annotation (Line(
       points={{-120,-60},{-62,-60}},
@@ -115,7 +119,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(yOATFre.y, minFrePro.u1)
-    annotation (Line(points={{-9,80},{0,80},{0,20},{78,20}}, color={0,0,127}));
+    annotation (Line(points={{-8,80},{0,80},{0,20},{78,20}}, color={0,0,127}));
   connect(yRet, invSig.y)
     annotation (Line(points={{220,0},{192,0}}, color={0,0,127}));
   connect(feedback.y, hysLoc.u)
@@ -136,30 +140,30 @@ equation
     annotation (Line(points={{-9,120},{88,120}}, color={255,0,255}));
   connect(uOATSup, swiOA.u1) annotation (Line(points={{-120,160},{60,160},{60,128},
           {88,128}}, color={0,0,127}));
-
   connect(one.y, minFrePro.u1)
     annotation (Line(points={{-39,20},{78,20}}, color={0,0,127}));
   connect(yOATFre.u_s, TFre.y)
     annotation (Line(points={{-32,80},{-39,80}}, color={0,0,127}));
   connect(TMix, yOATFre.u_m)
     annotation (Line(points={{-120,40},{-20,40},{-20,68}}, color={0,0,127}));
-  connect(swiModClo.y, invSig.u)
-    annotation (Line(points={{152,0},{168,0}}, color={0,0,127}));
-  connect(swiModClo.y, yOA) annotation (Line(points={{152,0},{160,0},{160,80},{220,
-          80}}, color={0,0,127}));
+  connect(swiModClo.y, yOA) annotation (Line(points={{152,0},{160,0},{160,-60},{
+          220,-60}}, color={0,0,127}));
   connect(uEna, swiModClo.u2) annotation (Line(points={{-120,190},{140,190},{
-          140,20},{124,20},{124,0},{128,0}},
-                                         color={255,0,255}));
+          140,20},{124,20},{124,0},{128,0}}, color={255,0,255}));
   connect(closed.y, swiModClo.u3) annotation (Line(points={{51,40},{120,40},{120,
           -8},{128,-8}}, color={0,0,127}));
   connect(maxOutDam.u1, swiOA.y) annotation (Line(points={{38,6},{20,6},{20,100},
           {120,100},{120,120},{112,120}}, color={0,0,127}));
-  connect(conV_flow.y, maxOutDam.u2) annotation (Line(points={{11,-20},{20,-20},
+  connect(conV_flow.y, maxOutDam.u2) annotation (Line(points={{12,-20},{20,-20},
           {20,-6},{38,-6}}, color={0,0,127}));
-  connect(minFrePro.y, swiModClo.u1) annotation (Line(points={{101,14},{114,14},
+  connect(minFrePro.y, swiModClo.u1) annotation (Line(points={{102,14},{114,14},
           {114,8},{128,8}}, color={0,0,127}));
   connect(maxOutDam.y, minFrePro.u2)
-    annotation (Line(points={{62,0},{72,0},{72,8},{80,8}}, color={0,0,127}));
+    annotation (Line(points={{62,0},{72,0},{72,8},{78,8}}, color={0,0,127}));
+  connect(swiModClo.y, invSig.u2) annotation (Line(points={{152,0},{160,0},{160,
+          -6},{168,-6}}, color={0,0,127}));
+  connect(conOne.y, invSig.u1) annotation (Line(points={{122,80},{160,80},{160,6},
+          {168,6}}, color={0,0,127}));
   annotation (defaultComponentName="conEco",
     Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{200,
             200}})),

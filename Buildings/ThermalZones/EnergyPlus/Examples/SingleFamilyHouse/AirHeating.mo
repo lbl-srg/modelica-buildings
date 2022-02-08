@@ -113,8 +113,7 @@ model AirHeating
     "Set point temperature for air leaving the heater"
     annotation (Placement(transformation(extent={{40,-90},{60,-70}})));
   Controls.OBC.CDL.Continuous.AddParameter TSupMin(
-    p=2,
-    k=1)
+    p=2)
     "Minimum supply air temperature"
     annotation (Placement(transformation(extent={{8,-110},{28,-90}})));
 

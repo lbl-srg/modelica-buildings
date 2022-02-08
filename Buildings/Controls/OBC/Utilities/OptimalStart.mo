@@ -103,8 +103,7 @@ protected
     "Get the maximum optimal start time "
     annotation (Placement(transformation(extent={{100,30},{120,50}})));
   Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar(
-    p=-tOptMax,
-    k=1)
+    p=-tOptMax)
     "Maximum optimal start time"
     annotation (Placement(transformation(extent={{-100,-10},{-80,10}})));
   Buildings.Controls.OBC.CDL.Logical.Or or2

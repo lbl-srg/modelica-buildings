@@ -96,7 +96,6 @@ package Controls "Package of control blocks for distribution systems"
       annotation (Placement(transformation(extent={{60,-150},{80,-130}})));
     Buildings.Controls.OBC.CDL.Continuous.AddParameter TMax_lower(
       final p=-dTSlo,
-      final k=1,
       y(final unit="K", displayUnit="degC"))
       "Minimum temperatuer value of upper slope after shifting it"
       annotation (Placement(transformation(extent={{10,149},{30,171}})));
@@ -110,8 +109,7 @@ package Controls "Package of control blocks for distribution systems"
       "Lower value of lower slope after shifting it"
       annotation (Placement(transformation(extent={{-30,110},{-10,130}})));
     Buildings.Controls.OBC.CDL.Continuous.AddParameter TMin_upper(
-      final p=+dTSlo,
-      final k=1,
+      final p=dTSlo,
       y(final unit="K", displayUnit="degC"))
       "Maximum temperatuer value of lower slope after shifting it"
       annotation (Placement(transformation(extent={{10,110},{30,130}})));
