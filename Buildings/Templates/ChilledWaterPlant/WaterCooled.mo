@@ -16,7 +16,7 @@ model WaterCooled
        redeclare final package MediumCW = MediumCW,
        final m1_flow_nominal=mCon_flow_nominal),
     final nPumCon=pumCon.nPum,
-    final nCooTow=cooTow.nCooTow,
+    final nCooTow=cooTowGro.nCooTow,
     busCon(final nCooTow=nCooTow));
 
   replaceable package MediumCW=Buildings.Media.Water "Condenser water medium";
@@ -27,7 +27,7 @@ model WaterCooled
 
   inner replaceable
     Buildings.Templates.ChilledWaterPlant.Components.CoolingTowerGroup.CoolingTowerParallel
-    cooTow constrainedby
+    cooTowGro constrainedby
     Buildings.Templates.ChilledWaterPlant.Components.CoolingTowerGroup.Interfaces.PartialCoolingTowerGroup(
       redeclare final package Medium = MediumCW,
       nCooTow=nChi,
@@ -73,7 +73,7 @@ model WaterCooled
         origin={-110,30})));
 protected
   parameter Modelica.Units.SI.PressureDifference dpCon_nominal=
-    chiGro.dp1_nominal + cooTow.cooTow[1].dp_nominal
+    chiGro.dp1_nominal + cooTowGro.cooTow[1].dp_nominal
     "Nominal pressure drop for condenser loop";
 equation
   // Sensors
@@ -81,15 +81,15 @@ equation
   connect(TCWRet.y, busCon.TCWRet);
 
   // Bus connection
-  connect(cooTow.weaBus, weaBus);
-  connect(cooTow.busCon, busCon);
+  connect(cooTowGro.weaBus, weaBus);
+  connect(cooTowGro.busCon, busCon);
   connect(pumCon.busCon, busCon);
 
   // Mechanical
-  connect(TCWRet.port_a, cooTow.port_a)
+  connect(TCWRet.port_a, cooTowGro.port_a) 
     annotation (Line(points={{-140,-70},{-192,-70},{-192,-10},{-180,-10}},
       color={0,127,255}));
-  connect(cooTow.port_b, TCWSup.port_a)
+  connect(cooTowGro.port_b, TCWSup.port_a)
     annotation (Line(points={{-160,-10},{-140,-10}}, color={0,127,255}));
   connect(TCWSup.port_b,pumCon. port_a)
     annotation (Line(points={{-120,-10},{-100,-10}}, color={0,127,255}));

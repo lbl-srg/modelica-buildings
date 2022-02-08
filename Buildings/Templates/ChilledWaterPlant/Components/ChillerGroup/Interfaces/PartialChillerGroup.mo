@@ -148,13 +148,6 @@ partial model PartialChillerGroup
   parameter Modelica.Units.SI.Temperature TCHWSet=
     dat.getReal(varName=id + ".ChillerGroup.TCHWSet.value");
 
-  replaceable parameter Buildings.Fluid.Chillers.Data.BaseClasses.Chiller
-    per constrainedby Buildings.Fluid.Chillers.Data.BaseClasses.Chiller(
-      QEva_flow_nominal=-Q_nominal,
-      TEvaLvg_nominal=TCHWSet,
-      mEva_flow_nominal=m2_flow_nominal,
-      mCon_flow_nominal=m1_flow_nominal) "Chiller performance data"
-    annotation (Placement(transformation(extent={{70,-8},{90,12}})));
   BoundaryConditions.WeatherData.Bus weaBus if isAirCoo
     "Weather control bus"
     annotation (Placement(transformation(

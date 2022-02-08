@@ -12,7 +12,7 @@ block PartialController "Partial controller for CHW plant"
     retSec "CHW return section";
   // FIXME: only for water-cooled plants.
   outer replaceable Buildings.Templates.ChilledWaterPlant.Components.CoolingTowerGroup.Interfaces.PartialCoolingTowerGroup
-    cooTow "Cooling towers";
+    cooTowGro "Cooling towers";
   outer replaceable Buildings.Templates.ChilledWaterPlant.Components.CondenserWaterPumpGroup.Interfaces.PartialCondenserWaterPumpGroup
     pumCon "Condenser water pump group";
 

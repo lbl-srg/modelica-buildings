@@ -88,7 +88,7 @@ block Guideline36WaterCooled
   // ---- General: Cooling tower ----
 
   final parameter Modelica.Units.SI.Temperature dTAppTow_nominal(displayUnit="K", final min=0)=
-    cooTow.dTApp_nominal
+    cooTowGro.dTApp_nominal
     "Design cooling tower approach"
     annotation(Evaluate=true, Dialog(tab="General", group="Cooling tower"));
 
@@ -230,7 +230,7 @@ block Guideline36WaterCooled
     final cooTowAppDes=dTAppTow_nominal,
     final schTab=schTab,
     final TChiLocOut=TAirOutLoc,
-    final TOutWetDes=cooTow.TAirInWB_nominal,
+    final TOutWetDes=cooTowGro.TAirInWB_nominal,
     final VHeaExcDes_flow=VHeaExcDes_flow,
     final minConWatPumSpe=yPumCW_min,
     final minHeaPreValPos=yValIsoCon_min,
@@ -328,28 +328,28 @@ block Guideline36WaterCooled
 equation
   /* Control point connection - start */
 
-  connect(busCHW.pumPri.uStaPumPri, ctrPla.uChiWatPum);
-  connect(busCHW.dpCHWLoc, ctrPla.dpChiWat_local);
-  connect(busCHW.dpCHWRem, ctrPla.dpChiWat_remote);
-  connect(busCHW.pumPri.V_flow, ctrPla.VChiWat_flow);
-  connect(busCHW.chi.sta, ctrPla.uChi);
+  connect(busCon.pumPri.uStaPumPri, ctrPla.uChiWatPum);
+  connect(busCon.dpCHWLoc, ctrPla.dpChiWat_local);
+  connect(busCon.dpCHWRem, ctrPla.dpChiWat_remote);
+  connect(busCon.pumPri.V_flow, ctrPla.VChiWat_flow);
+  connect(busCon.chi.sta, ctrPla.uChi);
   // FIXME: should be computed by controller.
-  connect(busCHW.TWetAirOut, ctrPla.TOutWet);
-  connect(busCHW.wse.TCHWRetLvgWSE, ctrPla.TChiWatRetDow);
+  connect(busCon.TWetAirOut, ctrPla.TOutWet);
+  connect(busCon.wse.TCHWRetLvgWSE, ctrPla.TChiWatRetDow);
   // FIXME: ctrPla.TChiWatRet should be conditional to have_WSE.
   // Another input is required for Plant CHW return temperature.
   if have_WSE then
-    connect(busCHW.wse.TCHWRetEntWSE, ctrPla.TChiWatRet);
+    connect(busCon.wse.TCHWRetEntWSE, ctrPla.TChiWatRet);
   else
-    connect(busCHW.TCHWRetPla, ctrPla.TChiWatRet);
+    connect(busCon.TCHWRetPla, ctrPla.TChiWatRet);
   end if;
-  connect(busCW.TCWRet, ctrPla.TConWatRet);
-  // FIXME: busCHW.pumPri.TPCHWSup should be renamed.
-  connect(busCHW.pumPri.TPCHWSup, ctrPla.TChiWatSup);
+  connect(busCon.TCWRet, ctrPla.TConWatRet);
+  // FIXME: busCon.pumPri.TPCHWSup should be renamed.
+  connect(busCon.pumPri.TPCHWSup, ctrPla.TChiWatSup);
   // FIXME: Rename uStaPumPri as "Pri" does not apply to CW pumps.
-  connect(busCW.uStaPumPri, ctrPla.uConWatPum);
-  connect(busCHW.TAirOut, ctrPla.TOut);
-  connect(busCW.TCWSup, ctrPla.TConWatSup);
+  connect(busCon.uStaPumPri, ctrPla.uConWatPum);
+  connect(busCon.TAirOut, ctrPla.TOut);
+  connect(busCon.TCWSup, ctrPla.TConWatSup);
 
   connect(FIXME_uChiWatReq.y, ctrPla.uChiWatReq);
   connect(FIXME_uHeaPreCon.y, ctrPla.uHeaPreCon);
@@ -367,57 +367,57 @@ equation
   connect(FIXME_uTowSta.y, ctrPla.uTowSta);
 
   // Controller outputs
-  connect(FIXME_TChiWatSupSet.y, busCHW.chi.TSet);
+  connect(FIXME_TChiWatSupSet.y, busCon.chi.TSet);
 
   // FIXME: System model should be refactored to use the same set point for all units.
   // Same holds for the control block.
-  connect(ctrPla.yChiPumSpe, busCHW.pumPri.ySpe);
+  connect(ctrPla.yChiPumSpe, busCon.pumPri.ySpe);
 
   // FIXME: System model does not have a variable for the CHW pump on/off command.
-  // connect(ctrPla.yChiWatPum, busCHW.pumPri.y);
+  // connect(ctrPla.yChiWatPum, busCon.pumPri.y);
 
   // FIXME: Incorrect quantity, should have unit="1".
-  // connect(ctrPla.yChiDem, busCHW.yChiDem);
+  // connect(ctrPla.yChiDem, busCon.yChiDem);
 
-  connect(ctrPla.yChi, busCHW.chi.on);
+  connect(ctrPla.yChi, busCon.chi.on);
 
   // FIXME: Should not be an output of ctrPla
-  // connect(ctrPla.yHeaPreConValSta, busCHW.yHeaPreConValSta);
+  // connect(ctrPla.yHeaPreConValSta, busCon.yHeaPreConValSta);
 
   // FIXME: Missing configurations in controller and system model.
-  connect(FIXME_yHeaPreConVal.y, busCW.valCWChi.y);
+  connect(FIXME_yHeaPreConVal.y, busCon.valCWChi.y);
 
   // FIXME: Missing configurations in controller and system model.
   // For instance "a single common speed point is appropriate".
-  connect(ctrPla.yConWatPumSpe, busCW.ySpe);
+  connect(ctrPla.yConWatPumSpe, busCon.ySpe);
 
   // FIXME: This is not an output per §4. LIST OF POINTS. Should be deleted.
-  // connect(ctrPla.yChiWatMinFloSet, busCHW.yChiWatMinFloSet);
+  // connect(ctrPla.yChiWatMinFloSet, busCon.yChiWatMinFloSet);
 
   // FIXME: No on/off command for CW pumps in systme model.
-  // connect(ctrPla.yConWatPum, busCW.y);
+  // connect(ctrPla.yConWatPum, busCon.y);
 
   // FIXME: Only modulating valve supported by controller.
-  connect(ctrPla.yChiWatIsoVal, busCHW.valCHWChi.y);
+  connect(ctrPla.yChiWatIsoVal, busCon.valCHWChi.y);
 
   // FIXME: Controller output does not exist in real life.
-  // connect(ctrPla.yReaChiDemLim, busCHW.yReaChiDemLim);
+  // connect(ctrPla.yReaChiDemLim, busCon.yReaChiDemLim);
 
   // FIXME: Missing configurations in controller.
-  connect(ctrPla.yMinValPosSet, busCHW.pumPri.valByp.y);
+  connect(ctrPla.yMinValPosSet, busCon.pumPri.valByp.y);
 
   // FIXME: This is not an output per §4. LIST OF POINTS. Should be deleted.
-  // connect(ctrPla.yNumCel, busCW.yNumCel);
+  // connect(ctrPla.yNumCel, busCon.yNumCel);
 
-  connect(FIXME_yTowCelIsoVal.y, busCW.cooTow.yVal);
+  connect(FIXME_yTowCelIsoVal.y, busCon.cooTow.yVal);
 
-  connect(ctrPla.yTowFanSpe, busCW.cooTow.yFan);
+  connect(ctrPla.yTowFanSpe, busCon.cooTow.yFan);
 
   // FIXME: CT start signal not implemented in system model.
-  // connect(ctrPla.yTowCel, busCW.cooTow.yFan);
+  // connect(ctrPla.yTowCel, busCon.cooTow.yFan);
 
   // FIXME: Left unconnected for now. Shall we compute water use?
-  // connect(ctrPla.yMakUp, busCW.cooTow.yMakUp);
+  // connect(ctrPla.yMakUp, busCon.cooTow.yMakUp);
 
   /* Control point connection - stop */
 

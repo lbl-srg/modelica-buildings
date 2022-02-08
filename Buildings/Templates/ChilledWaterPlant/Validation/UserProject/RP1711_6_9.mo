@@ -6,7 +6,7 @@ model RP1711_6_9
     redeclare Buildings.Templates.ChilledWaterPlant.Components.ChillerGroup.ChillerParallel chiGro(
       final nChi=2,
       redeclare Buildings.Fluid.Chillers.Data.ElectricEIR.ElectricEIRChiller_York_YT_1055kW_5_96COP_Vanes per),
-    cooTow(final nCooTow=2),
+    cooTowGro(final nCooTow=2),
     pumCon(final nPum=2),
     pumPri(final nPum=2),
     final have_byp=false,

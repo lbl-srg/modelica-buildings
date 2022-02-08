@@ -89,16 +89,6 @@ block OpenLoop "Open loop controller (output signals only)"
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={68,70})));
-protected
-  Buildings.Templates.Components.Interfaces.Bus busCooTow[nCooTow]
-    "Cooling towers control buses"
-    annotation (Placement(transformation(extent={{40,-40},{80,0}})));
-  Buildings.Templates.Components.Interfaces.Bus busValCooTowInl[nCooTow]
-    "Cooling tower inlet valve control buses"
-    annotation (Placement(transformation(extent={{40,-80},{80,-40}})));
-  Buildings.Templates.Components.Interfaces.Bus busValCooTowOut[nCooTow]
-    "Cooling tower outlet valve control buses"
-    annotation (Placement(transformation(extent={{40,-120},{80,-80}})));
 equation
   connect(busCon.valByp.y, yValByp.y);
   connect(busCon.valChiByp.y, yValChiByp.y);
@@ -111,12 +101,9 @@ equation
   connect(busCon.pumSec.y, yPumSec.y);
   connect(busCon.pumSec.ySpe, ySpePumSec.y);
 
-  connect(yCooTowFan.y, busCooTow.y);
-  connect(busValCooTowInl.y, yValCooTowInl.y);
-  connect(busValCooTowOut.y, yValCooTowOut.y);
-  connect(busCon.cooTow, busCooTow);
-  connect(busCon.valCooTowInl, busValCooTowInl);
-  connect(busCon.valCooTowOut, busValCooTowOut);
+  connect(busCon.cooTow.y, yCooTowFan.y);
+  connect(busCon.valCooTowInl.y, yValCooTowInl.y);
+  connect(busCon.valCooTowOut.y, yValCooTowOut.y);
 
   connect(busCon.valCWChi.y, yValCWChi.y);
   connect(busCon.pumCon.y, yPumCon.y);

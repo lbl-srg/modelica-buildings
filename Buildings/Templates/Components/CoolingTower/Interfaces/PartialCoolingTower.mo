@@ -11,7 +11,7 @@ partial model PartialCoolingTower
   outer parameter ExternData.JSONFile dat
     "External parameter file";
 
-  outer Buildings.Templates.Components.Interfaces.Bus bus "Control bus"
+  Buildings.Templates.Components.Interfaces.Bus bus "Control bus"
     annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
         rotation=0,
