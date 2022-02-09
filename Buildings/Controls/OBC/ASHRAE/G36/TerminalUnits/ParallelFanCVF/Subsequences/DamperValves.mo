@@ -462,7 +462,7 @@ equation
           -220},{-262,-220}}, color={0,0,127}));
 
 annotation (
-  defaultComponentName="damVal",
+  defaultComponentName="damValFan",
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-320,-340},{320,340}}),
         graphics={
         Rectangle(
@@ -585,7 +585,8 @@ annotation (
         Line(
           points={{10,-2},{10,-48}},
           color={28,108,200},
-          pattern=LinePattern.Dash),
+          pattern=LinePattern.Dash,
+          thickness=0.5),
         Line(
           points={{-38,60},{10,-48}},
           color={95,95,95},
@@ -642,12 +643,14 @@ annotation (
         Line(
           points={{10,-2},{-38,-2}},
           color={28,108,200},
-          pattern=LinePattern.Dash),
-        Line(points={{10,-2},{44,-2},{44,-48}}, color={28,108,200})}),
+          pattern=LinePattern.Dash,
+          thickness=0.5),
+        Line(points={{10,-2},{44,-2},{44,-48}}, color={28,108,200},
+          thickness=0.5)}),
   Documentation(info="<html>
 <p>
-This sequence sets the fan status, damper and valve position for constant-volume fan-powered
-terminal unit.
+This sequence sets the fan status, damper and valve position for constant-volume
+parallel fan-powered terminal unit.
 The implementation is according to Section 5.7.5 of ASHRAE Guideline 36, May 2020. The
 calculation is done following the steps below.
 </p>
@@ -707,10 +710,10 @@ by 10% for 3 minutes.
 </ul>
 </li>
 </ol>
-<p>The sequences of controlling damper and valve position for VAV reheat terminal
-unit are described in the following figure below.</p>
+<p>The sequences of controlling fan, damper and valve position for constant-volume
+parallel fan-powered terminal unit are described in the following figure below.</p>
 <p align=\"center\">
-<img alt=\"Image of damper and valve control for VAV reheat terminal unit\"
+<img alt=\"Image of damper and valve control for constant-volume parallel fan-powered terminal unit\"
 src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/G36_PR1/TerminalUnits/Reheat/DamperValves.png\"/>
 </p>
 </html>", revisions="<html>

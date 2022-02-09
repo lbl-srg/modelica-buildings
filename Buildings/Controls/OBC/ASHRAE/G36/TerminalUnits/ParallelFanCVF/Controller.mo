@@ -1,5 +1,5 @@
 within Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.ParallelFanCVF;
-block Controller "Controller for constant-volume fan-powered terminal unit"
+block Controller "Controller for constant-volume parallel fan-powered terminal unit"
 
   parameter Boolean have_winSen=true
     "True: the zone has window sensor";
@@ -844,7 +844,7 @@ annotation (defaultComponentName="parFanCon",
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-240,-340},{240,340}})),
   Documentation(info="<html>
 <p>
-Controller for constant-volume fan-powered terminal unit according to Section 5.7 of ASHRAE
+Controller for constant-volume parallel fan-powered terminal unit according to Section 5.7 of ASHRAE
 Guideline 36, May 2020. It outputs discharge airflow setpoint <code>VSet_flow_Set</code>,
 damper position setpoint <code>yDamSet</code>, hot water valve position setpoint
 <code>yValSet</code>, terminal fan command on status <code>yFanComOn</code>,
