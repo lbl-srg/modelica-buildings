@@ -152,10 +152,10 @@ block DamperValves
     final quantity="VolumeFlowRate") "Minimum outdoor airflow setpoint"
     annotation (Placement(transformation(extent={{-360,-248},{-320,-208}}),
         iconTransformation(extent={{-140,-190},{-100,-150}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput VDisSet_flow(
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput VDis_flow_Set(
     final min=0,
     final unit="m3/s",
-    final quantity="VolumeFlowRate") "Discharge airflow setpoint"
+    final quantity="VolumeFlowRate") "Discharge primary airflow setpoint"
     annotation (Placement(transformation(extent={{320,280},{360,320}}),
         iconTransformation(extent={{100,120},{140,160}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yDamSet(
@@ -352,8 +352,8 @@ equation
           250},{158,250}}, color={255,0,255}));
   connect(VActMin_flow, swi5.u1) annotation (Line(points={{-340,110},{0,110},{0,
           288},{58,288}}, color={0,0,127}));
-  connect(swi.y, VDisSet_flow) annotation (Line(points={{182,250},{200,250},{200,
-          300},{340,300}},     color={0,0,127}));
+  connect(swi.y, VDis_flow_Set) annotation (Line(points={{182,250},{200,250},{
+          200,300},{340,300}}, color={0,0,127}));
   connect(VActMin_flow, lin.f1) annotation (Line(points={{-340,110},{-240,110},{
           -240,264},{-162,264}}, color={0,0,127}));
   connect(uHea, greThr2.u)
@@ -608,7 +608,7 @@ annotation (
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
           horizontalAlignment=TextAlignment.Right,
-          textString="VDisSet_flow"),
+          textString="VDis_flow_Set"),
         Text(
           extent={{60,-84},{98,-96}},
           lineColor={0,0,127},

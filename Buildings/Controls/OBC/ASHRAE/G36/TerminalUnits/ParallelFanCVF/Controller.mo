@@ -562,8 +562,8 @@ equation
           {-208,6},{18,6}},     color={255,127,0}));
   connect(oveFloSet, setOve.oveFloSet) annotation (Line(points={{-260,-70},{-100,
           -70},{-100,-61},{78,-61}}, color={255,127,0}));
-  connect(damVal.VDisSet_flow, setOve.VActSet_flow) annotation (Line(points={{42,34},
-          {70,34},{70,-63},{78,-63}},     color={0,0,127}));
+  connect(damVal.VDis_flow_Set, setOve.VActSet_flow) annotation (Line(points={{42,
+          34},{70,34},{70,-63},{78,-63}}, color={0,0,127}));
   connect(oveDamPos, setOve.oveDamPos) annotation (Line(points={{-260,-100},{-94,
           -100},{-94,-66},{78,-66}},color={255,127,0}));
   connect(damVal.yDamSet, setOve.uDamSet) annotation (Line(points={{42,29},{66,29},
@@ -837,7 +837,7 @@ annotation (defaultComponentName="parFanCon",
           pattern=LinePattern.Dash,
           textString="yFanComOn"),
         Text(
-          extent={{44,-114},{96,-128}},
+          extent={{40,-112},{96,-128}},
           lineColor={255,127,0},
           pattern=LinePattern.Dash,
           textString="yFanStaAla")}),
@@ -883,7 +883,7 @@ The implementation is according to Section 5.7.5. According to heating and cooli
 control loop signal, it calculates the discharge air temperature setpoint
 <code>TDisSet</code>. Along with the active cooling maximum and minimum airflow setpoint, measured
 zone temperature, the sequence outputs <code>yDamSet</code>, <code>yValSet</code>,
-<code>TDisSet</code> and discharge airflow rate setpoint <code>VDisSet_flow</code>.
+<code>TDisSet</code> and discharge airflow rate setpoint <code>VDis_flow_Set</code>.
 See <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.ParallelFanCVF.Subsequences.DamperValves\">
 Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.ParallelFanCVF.Subsequences.DamperValves</a>.
 </p>

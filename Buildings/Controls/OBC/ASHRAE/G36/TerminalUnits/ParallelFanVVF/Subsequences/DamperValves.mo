@@ -185,13 +185,17 @@ block DamperValves
     final max=1,
     final unit="1") "Hot water valve position setpoint"
     annotation (Placement(transformation(extent={{360,60},{400,100}}),
-        iconTransformation(extent={{100,-160},{140,-120}})));
+        iconTransformation(extent={{100,-140},{140,-100}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput VFan_flow_Set(
     final min=0,
     final unit="m3/s",
     final quantity="VolumeFlowRate")
     "Paralle fan flow rate setpoint"
     annotation (Placement(transformation(extent={{360,-200},{400,-160}}),
+        iconTransformation(extent={{100,-182},{140,-142}})));
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yFan
+    "Terminal fan command on status"
+    annotation (Placement(transformation(extent={{360,-260},{400,-220}}),
         iconTransformation(extent={{100,-210},{140,-170}})));
 
   Buildings.Controls.OBC.CDL.Logical.And and4 "Logical and"
@@ -380,6 +384,11 @@ block DamperValves
   Buildings.Controls.OBC.CDL.Logical.Not not2
     "Not in unoccupied mode"
     annotation (Placement(transformation(extent={{200,210},{220,230}})));
+  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr3(
+    final t=floHys,
+    final h=floHys/2)
+    "Terminal fan command on status"
+    annotation (Placement(transformation(extent={{320,-250},{340,-230}})));
 
 equation
   connect(uCoo, lin.u)
@@ -589,6 +598,10 @@ equation
           244,328}}, color={255,0,255}));
   connect(greThr2.y, conVal.trigger)
     annotation (Line(points={{-258,60},{-56,60},{-56,88}}, color={255,0,255}));
+  connect(swi7.y, greThr3.u) annotation (Line(points={{342,-180},{350,-180},{350,
+          -220},{300,-220},{300,-240},{318,-240}}, color={0,0,127}));
+  connect(greThr3.y, yFan)
+    annotation (Line(points={{342,-240},{380,-240}}, color={255,0,255}));
 
 annotation (
   defaultComponentName="damValFan",
@@ -732,7 +745,7 @@ and the damper position setpoint"),
           horizontalAlignment=TextAlignment.Right,
           textString="yDamSet"),
         Text(
-          extent={{68,-132},{98,-144}},
+          extent={{68,-112},{98,-124}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
           horizontalAlignment=TextAlignment.Right,
@@ -782,7 +795,7 @@ and the damper position setpoint"),
           pattern=LinePattern.Dash,
           textString="TSupSet"),
         Text(
-          extent={{42,-180},{98,-196}},
+          extent={{42,-152},{98,-168}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
           horizontalAlignment=TextAlignment.Right,
@@ -809,7 +822,13 @@ and the damper position setpoint"),
           points={{26,-6},{36,-28},{40,-28},{40,-48}},
           color={28,108,200},
           thickness=0.5,
-          pattern=LinePattern.Dash)}),
+          pattern=LinePattern.Dash),
+        Text(
+          extent={{64,-180},{96,-194}},
+          lineColor={255,0,255},
+          pattern=LinePattern.Dash,
+          horizontalAlignment=TextAlignment.Right,
+          textString="yFan")}),
   Documentation(info="<html>
 <p>
 This sequence sets the parallel fan flow rate setpoint, damper and valve position for
