@@ -20,7 +20,8 @@ block ReversiblePumpValveControl
     Td=1,
     k=5,
     Ti=50,
-    yMin=-1) "PI controller for pum2" annotation (Placement(transformation(
+    reverseActing=false)
+             "PI controller for pum2" annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
         rotation=270,
         origin={-70,60})));
@@ -34,7 +35,8 @@ block ReversiblePumpValveControl
     Td=1,
     k=5,
     Ti=50,
-    yMin=-1) "PI controller for val2" annotation (Placement(transformation(
+    reverseActing=false)
+             "PI controller for val2" annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
         rotation=270,
         origin={-20,60})));

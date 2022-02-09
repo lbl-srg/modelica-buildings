@@ -20,7 +20,7 @@ model DummyConsumer "Dummy consumer model"
   parameter Boolean allowFlowReversal=false
     "Flow reversal setting on chiller branch";
 
-  Actuators.Valves.TwoWayEqualPercentage valCon(
+  Buildings.Fluid.Actuators.Valves.TwoWayEqualPercentage valCon(
     redeclare package Medium = Medium,
     use_inputFilter=false,
     l=1E-10,
@@ -30,7 +30,7 @@ model DummyConsumer "Dummy consumer model"
   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow heaCon
     "Prescribed heat flow"
     annotation (Placement(transformation(extent={{22,80},{42,100}})));
-  MixingVolumes.MixingVolume vol(
+  Buildings.Fluid.MixingVolumes.MixingVolume vol(
     nPorts=2,
     final prescribedHeatFlowRate=true,
     redeclare package Medium = Medium,
@@ -48,23 +48,24 @@ model DummyConsumer "Dummy consumer model"
   Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor TCon
     "Temperature of the consumer"
     annotation (Placement(transformation(extent={{40,-60},{20,-40}})));
-  FixedResistances.PressureDrop preDro(
+  Buildings.Fluid.FixedResistances.PressureDrop preDro(
     redeclare package Medium = Medium,
     final allowFlowReversal=true,
     final dp_nominal=dp_nominal,
     final m_flow_nominal=m_flow_nominal) "Flow resistance of the consumer"
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
-  Controls.Continuous.LimPID conPI_valCon(
+  Buildings.Controls.Continuous.LimPID conPI_valCon(
     controllerType=Modelica.Blocks.Types.SimpleController.PI,
     Td=1,
     k=5,
     Ti=50,
-    yMin=-1) "PI controller for consumer control valve" annotation (Placement(
+    reverseActing=false)
+           "PI controller for consumer control valve" annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-50,50})));
-  Modelica.Blocks.Math.Gain gain(k=-1)   "Gain" annotation (Placement(
+  Modelica.Blocks.Math.Gain gain(k=1)    "Gain" annotation (Placement(
         transformation(
         extent={{10,-10},{-10,10}},
         rotation=180,
