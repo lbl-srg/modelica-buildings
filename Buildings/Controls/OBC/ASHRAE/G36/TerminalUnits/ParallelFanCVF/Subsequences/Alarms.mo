@@ -1,5 +1,5 @@
 within Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.ParallelFanCVF.Subsequences;
-block Alarms "Generate alarms of parallerl fan-powered terminal unit with constant-volume fan"
+block Alarms "Generate alarms of parallel fan-powered terminal unit with constant-volume fan"
 
   parameter Real staPreMul
     "Importance multiplier for the zone static pressure reset control loop";

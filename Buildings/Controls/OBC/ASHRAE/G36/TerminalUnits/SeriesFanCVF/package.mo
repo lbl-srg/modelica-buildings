@@ -2,9 +2,9 @@ within Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits;
 package SeriesFanCVF "Sequences for series fan-powered terminal unit with constant-volume fan"
 annotation (preferredView="info", Documentation(info="<html>
 <p>
-This package contains sequences for series fan-powered terminal unit with constant
+This package contains sequences for parallel fan-powered terminal unit with constant
 volume fan. They are created
-according to Section 5.9 of ASHRAE Guideline 36, May 2020.
+according to Section 5.7 of ASHRAE Guideline 36, May 2020.
 </p>
 </html>"),
   Icon(graphics={

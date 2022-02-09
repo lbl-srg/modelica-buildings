@@ -292,7 +292,7 @@ block DamperValves
     final delayTime=60)
     "Check if the discharge flow rate has been less than minimum outdoor airflow setpoint for a threshold time"
     annotation (Placement(transformation(extent={{-200,-230},{-180,-210}})));
-  Buildings.Controls.OBC.CDL.Logical.Latch lat
+  Buildings.Controls.OBC.CDL.Logical.Latch lat "Hold fan On status"
     annotation (Placement(transformation(extent={{-100,-230},{-80,-210}})));
   Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai1(
     final k=1.1) "Gain factor"

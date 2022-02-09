@@ -54,7 +54,8 @@ block Controller "Controller for constant-volume parallel fan-powered terminal u
     "Time constant of integrator block for heating control loop"
     annotation (Dialog(tab="Control loops", group="Heating"));
   // ---------------- Damper and valve control parameters ----------------
-  parameter Real dTDisZonSetMax=11
+  parameter Real dTDisZonSetMax(
+    final unit="K")=11
     "Zone maximum discharge air temperature above heating setpoint"
     annotation (Dialog(tab="Damper and valve control"));
   parameter CDL.Types.SimpleController controllerTypeVal
@@ -412,8 +413,7 @@ block Controller "Controller for constant-volume parallel fan-powered terminal u
 
   Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.ParallelFanCVF.Subsequences.ActiveAirFlow
     actAirSet(
-    final VCooZonMax_flow=VCooZonMax_flow)
-    "Active airflow setpoint"
+    final VCooZonMax_flow=VCooZonMax_flow) "Active airflow setpoint"
     annotation (Placement(transformation(extent={{-40,100},{-20,120}})));
   Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.ParallelFanCVF.Subsequences.SystemRequests
     sysReq(
@@ -428,8 +428,7 @@ block Controller "Controller for constant-volume parallel fan-powered terminal u
     final dTHys=dTHys,
     final floHys=floHys,
     final damPosHys=damPosHys,
-    final valPosHys=valPosHys)
-    "Specify system requests "
+    final valPosHys=valPosHys) "Specify system requests "
     annotation (Placement(transformation(extent={{140,-160},{160,-140}})));
   Buildings.Controls.OBC.ASHRAE.G36.ThermalZones.ControlLoops conLoo(
     final kCooCon=kCooCon,
@@ -455,14 +454,12 @@ block Controller "Controller for constant-volume parallel fan-powered terminal u
     final floHys=floHys,
     final dTHys=dTHys,
     final damPosHys=damPosHys,
-    final valPosHys=valPosHys)
-    "Generate alarms"
+    final valPosHys=valPosHys) "Generate alarms"
     annotation (Placement(transformation(extent={{140,-260},{160,-240}})));
   Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.ParallelFanCVF.Subsequences.Overrides
     setOve(
     final VZonMin_flow=VZonMin_flow,
-    final VCooZonMax_flow=VCooZonMax_flow)
-    "Override setpoints"
+    final VCooZonMax_flow=VCooZonMax_flow) "Override setpoints"
     annotation (Placement(transformation(extent={{80,-80},{100,-60}})));
   Buildings.Controls.OBC.ASHRAE.G36.Generic.TimeSuppression timSup(
     final samplePeriod=samplePeriod,
@@ -504,8 +501,7 @@ block Controller "Controller for constant-volume parallel fan-powered terminal u
     final TdDam=TdDam,
     final dTHys=dTHys,
     final looHys=looHys,
-    final floHys=floHys)
-    "Damper and valve control"
+    final floHys=floHys) "Damper and valve control"
     annotation (Placement(transformation(extent={{20,0},{40,40}})));
   Buildings.Controls.OBC.ASHRAE.G36.ThermalZones.ZoneStates zonSta if have_CO2Sen
     "Find if the zone is in heating, cooling, or deadband states"
