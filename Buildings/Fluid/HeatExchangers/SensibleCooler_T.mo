@@ -14,13 +14,11 @@ model SensibleCooler_T
       final T_start=T_start,
       final X_start=Medium.X_default));
 
-  parameter Modelica.SIunits.HeatFlowRate QMin_flow(max=0) = -Modelica.Constants.inf
-    "Maximum heat flow rate for cooling (negative)"
-    annotation (Evaluate=true);
+  parameter Modelica.Units.SI.HeatFlowRate QMin_flow(max=0) = -Modelica.Constants.inf
+    "Maximum heat flow rate for cooling (negative)" annotation (Evaluate=true);
 
-  parameter Modelica.SIunits.Temperature T_start=Medium.T_default
-    "Start value of temperature"
-    annotation(Dialog(tab = "Initialization"));
+  parameter Modelica.Units.SI.Temperature T_start=Medium.T_default
+    "Start value of temperature" annotation (Dialog(tab="Initialization"));
 
   // Dynamics
   parameter Modelica.Fluid.Types.Dynamics energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState
@@ -146,7 +144,7 @@ Buildings, #763</a>.
           fillPattern=FillPattern.Solid),
                    Text(
           extent={{20,-10},{64,-56}},
-          lineColor={255,255,255},
+          textColor={255,255,255},
           textString="-"),
         Rectangle(
           extent={{-64,34},{-34,54}},
@@ -156,7 +154,7 @@ Buildings, #763</a>.
         Line(points={{-64,34},{-52,44},{-64,54}}, color={0,0,0}),
         Text(
           extent={{26,108},{94,84}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="Q_flow"),
         Rectangle(
           extent={{70,82},{100,78}},
@@ -184,6 +182,6 @@ Buildings, #763</a>.
           fillPattern=FillPattern.Solid),
         Text(
           extent={{-110,102},{-74,84}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="T")}));
 end SensibleCooler_T;

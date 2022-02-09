@@ -9,7 +9,7 @@
 # required directories.
 #################################################
 set -e
-IMG_NAME=ubuntu-2004-omc:1.18.0
+IMG_NAME=${OMC_VERSION}
 DOCKER_USERNAME=michaelwetter
 
 # Function declarations
@@ -48,7 +48,7 @@ if [ -z ${MODELICAPATH+x} ]; then
 else
     # Add the current directory to the front of the Modelica path.
     # This will export the directory to the docker, and also set
-    # it in the MODELICAPATH so that JModelica finds it.
+    # it in the MODELICAPATH so that OPTIMICA finds it.
     MODELICAPATH=`pwd`:${MODELICAPATH}
 fi
 

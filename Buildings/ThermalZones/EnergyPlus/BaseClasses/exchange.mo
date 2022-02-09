@@ -1,5 +1,5 @@
 within Buildings.ThermalZones.EnergyPlus.BaseClasses;
-function exchange
+pure function exchange
   "Exchange the values with the EnergyPlus thermal zone"
   extends Modelica.Icons.Function;
   input Buildings.ThermalZones.EnergyPlus.BaseClasses.SpawnExternalObject adapter
@@ -29,6 +29,10 @@ External function that exchanges data with EnergyPlus.
 </html>",
       revisions="<html>
 <ul>
+<li>
+December 11, 2021, by Michael Wetter:<br/>
+Declared function as <code>pure</code> for MSL 4.0.0.
+</li>
 <li>
 February 18, 2021, by Michael Wetter:<br/>
 Refactor synchronization of constructors.<br/>

@@ -2,10 +2,10 @@ within Buildings.Utilities.Psychrometrics.Functions;
 function X_pTphi
   "Absolute humidity for given pressure, dry bulb temperature and relative humidity"
   extends Modelica.Icons.Function;
-  input Modelica.SIunits.Pressure p "Absolute pressure of the medium";
-  input Modelica.SIunits.Temperature T "Dry bulb temperature";
+  input Modelica.Units.SI.Pressure p "Absolute pressure of the medium";
+  input Modelica.Units.SI.Temperature T "Dry bulb temperature";
   input Real phi(unit="1") "Relative humidity";
-  output Modelica.SIunits.MassFraction X_w
+  output Modelica.Units.SI.MassFraction X_w
     "Water vapor mass fraction per unit mass total air";
 
 algorithm

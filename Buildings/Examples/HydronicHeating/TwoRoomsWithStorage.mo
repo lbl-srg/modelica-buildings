@@ -6,35 +6,36 @@ model TwoRoomsWithStorage
     "Medium model for air";
  replaceable package MediumW = Buildings.Media.Water "Medium model";
  parameter Integer nRoo = 2 "Number of rooms";
- parameter Modelica.SIunits.Volume VRoo = 4*6*3 "Volume of one room";
- parameter Modelica.SIunits.Power Q_flow_nominal = 2200
+  parameter Modelica.Units.SI.Volume VRoo=4*6*3 "Volume of one room";
+  parameter Modelica.Units.SI.Power Q_flow_nominal=2200
     "Nominal power of heating plant";
  // Due to the night setback, in which the radiator do not provide heat input into the room,
  // we scale the design power of the radiator loop
  parameter Real scaFacRad = 1.5
     "Scaling factor to scale the power (and mass flow rate) of the radiator loop";
- parameter Modelica.SIunits.Temperature TSup_nominal=273.15 + 50 + 5
+  parameter Modelica.Units.SI.Temperature TSup_nominal=273.15 + 50 + 5
     "Nominal supply temperature for radiators";
- parameter Modelica.SIunits.Temperature TRet_nominal=273.15 + 40 + 5
+  parameter Modelica.Units.SI.Temperature TRet_nominal=273.15 + 40 + 5
     "Nominal return temperature for radiators";
- parameter Modelica.SIunits.Temperature dTRad_nominal = TSup_nominal-TRet_nominal
-    "Nominal temperature difference for radiator loop";
- parameter Modelica.SIunits.Temperature dTBoi_nominal = 20
+  parameter Modelica.Units.SI.Temperature dTRad_nominal=TSup_nominal -
+      TRet_nominal "Nominal temperature difference for radiator loop";
+  parameter Modelica.Units.SI.Temperature dTBoi_nominal=20
     "Nominal temperature difference for boiler loop";
- parameter Modelica.SIunits.MassFlowRate mRad_flow_nominal = scaFacRad*Q_flow_nominal/dTRad_nominal/4200
+  parameter Modelica.Units.SI.MassFlowRate mRad_flow_nominal=scaFacRad*
+      Q_flow_nominal/dTRad_nominal/4200
     "Nominal mass flow rate of radiator loop";
- parameter Modelica.SIunits.MassFlowRate mBoi_flow_nominal = scaFacRad*Q_flow_nominal/dTBoi_nominal/4200
-    "Nominal mass flow rate of boiler loop";
- parameter Modelica.SIunits.PressureDifference dpPip_nominal = 10000
+  parameter Modelica.Units.SI.MassFlowRate mBoi_flow_nominal=scaFacRad*
+      Q_flow_nominal/dTBoi_nominal/4200 "Nominal mass flow rate of boiler loop";
+  parameter Modelica.Units.SI.PressureDifference dpPip_nominal=10000
     "Pressure difference of pipe (without valve)";
- parameter Modelica.SIunits.PressureDifference dpVal_nominal = 6000
+  parameter Modelica.Units.SI.PressureDifference dpVal_nominal=6000
     "Pressure difference of valve";
- parameter Modelica.SIunits.PressureDifference dpRoo_nominal = 6000
+  parameter Modelica.Units.SI.PressureDifference dpRoo_nominal=6000
     "Pressure difference of flow leg that serves a room";
- parameter Modelica.SIunits.PressureDifference dpThrWayVal_nominal = 6000
+  parameter Modelica.Units.SI.PressureDifference dpThrWayVal_nominal=6000
     "Pressure difference of three-way valve";
- parameter Modelica.SIunits.PressureDifference dp_nominal=
-    dpPip_nominal + dpVal_nominal + dpRoo_nominal + dpThrWayVal_nominal
+  parameter Modelica.Units.SI.PressureDifference dp_nominal=dpPip_nominal +
+      dpVal_nominal + dpRoo_nominal + dpThrWayVal_nominal
     "Pressure difference of loop";
   // Room model
 
@@ -388,7 +389,7 @@ model TwoRoomsWithStorage
     annotation (Placement(transformation(extent={{380,270},{400,290}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant dTThr(k=1) "Threshold to switch boiler off"
     annotation (Placement(transformation(extent={{310,-210},{330,-190}})));
-  Buildings.Controls.OBC.CDL.Continuous.Add add1(k2=-1)
+  Buildings.Controls.OBC.CDL.Continuous.Subtract sub1
     annotation (Placement(transformation(extent={{350,-186},{370,-166}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TRooOff(k=273.15 - 5)
     "Low room temperature set point to switch heating off"
@@ -403,7 +404,7 @@ model TwoRoomsWithStorage
   Buildings.Fluid.Sources.Boundary_pT bou(nPorts=1, redeclare package Medium = MediumW)
     "Fixed boundary condition, needed to provide a pressure in the system"
     annotation (Placement(transformation(extent={{-82,-180},{-62,-160}})));
-  Controls.OBC.CDL.Continuous.Gain gain(k=1/dp_nominal)
+  Controls.OBC.CDL.Continuous.MultiplyByParameter gain(k=1/dp_nominal)
     "Gain used to normalize pressure measurement signal"
     annotation (Placement(transformation(extent={{160,0},{140,20}})));
   Buildings.Fluid.FixedResistances.Junction splVal(
@@ -461,13 +462,13 @@ model TwoRoomsWithStorage
     "Controller for the free cooling and the mechanical cooling"
      extends Modelica.Blocks.Icons.Block;
 
-     parameter Modelica.SIunits.Temperature TRooCoo = 25+273.15
+    parameter Modelica.Units.SI.Temperature TRooCoo=25 + 273.15
       "Set point for mechanical cooling";
-     parameter Modelica.SIunits.Temperature TRooFre = 22+273.15
+    parameter Modelica.Units.SI.Temperature TRooFre=22 + 273.15
       "Maximum temperature above which free cooling is enabled";
-     parameter Modelica.SIunits.Temperature TOutFre = 16+273.15
+    parameter Modelica.Units.SI.Temperature TOutFre=16 + 273.15
       "Outside temperature above which free cooling is allowed";
-     parameter Modelica.SIunits.TemperatureDifference dT = 1
+    parameter Modelica.Units.SI.TemperatureDifference dT=1
       "Dead-band for free cooling";
      parameter Real Kp(min=0) = 1 "Proportional band for mechanical cooling";
 
@@ -510,27 +511,27 @@ model TwoRoomsWithStorage
                {100,100}}), graphics={
            Text(
              extent={{-94,38},{-64,80}},
-             lineColor={0,0,255},
+             textColor={0,0,255},
              textString="TRoo"),
            Text(
              extent={{-94,-82},{-64,-40}},
-             lineColor={0,0,255},
+             textColor={0,0,255},
              textString="TOut"),
            Text(
              extent={{66,42},{86,74}},
-             lineColor={0,0,255},
+             textColor={0,0,255},
              textString="yC"),
            Text(
              extent={{-32,100},{24,124}},
-             lineColor={0,0,255},
+             textColor={0,0,255},
              textString="%name"),
            Text(
              extent={{66,-16},{86,16}},
-             lineColor={0,0,255},
+             textColor={0,0,255},
              textString="yF"),
            Text(
              extent={{68,-74},{88,-42}},
-             lineColor={0,0,255},
+             textColor={0,0,255},
             textString="yHex")}),Documentation(info="<html>
 <p>
 This block computes a control signal for free cooling and for mechanical cooling.
@@ -558,21 +559,25 @@ Changed controller to output setpoint for supply air temperature for cooling coi
     dpDamper_nominal=0.27)
     "Return air damper that bypasses the heat recovery"
     annotation (Placement(transformation(extent={{180,450},{160,470}})));
-  Modelica.StateGraph.InitialStep off "Pump and furnace off"
+  Modelica.StateGraph.InitialStep off(nIn=1, nOut=1)
+                                      "Pump and furnace off"
     annotation (Placement(transformation(extent={{440,-20},{460,0}})));
   Modelica.StateGraph.TransitionWithSignal T1 "Transition to pump on"
     annotation (Placement(transformation(extent={{470,-20},{490,0}})));
-  Modelica.StateGraph.StepWithSignal pumOn "Pump on"
+  Modelica.StateGraph.StepWithSignal pumOn(nIn=1, nOut=1)
+                                           "Pump on"
     annotation (Placement(transformation(extent={{500,-20},{520,0}})));
   Modelica.StateGraph.Transition T3(enableTimer=true, waitTime=10)
     "Transition to boiler on"
     annotation (Placement(transformation(extent={{530,-20},{550,0}})));
-  Modelica.StateGraph.StepWithSignal boiOn "Boiler on"
+  Modelica.StateGraph.StepWithSignal boiOn(nIn=1, nOut=1)
+                                           "Boiler on"
     annotation (Placement(transformation(extent={{560,-20},{580,0}})));
   Modelica.StateGraph.TransitionWithSignal T2
     "Transition that switches boiler off"
     annotation (Placement(transformation(extent={{590,-20},{610,0}})));
-  Modelica.StateGraph.StepWithSignal pumOn2 "Pump on"
+  Modelica.StateGraph.StepWithSignal pumOn2(nIn=1, nOut=1)
+                                            "Pump on"
     annotation (Placement(transformation(extent={{620,-20},{640,0}})));
   Modelica.StateGraph.Transition T4(enableTimer=true, waitTime=10)
     "Transition to boiler on"
@@ -589,7 +594,7 @@ Changed controller to output setpoint for supply air temperature for cooling coi
   Controls.OBC.CDL.Continuous.Sources.Constant           occ2(k=1/6/4)
     "Heat gain if occupied in room 2"
     annotation (Placement(transformation(extent={{300,310},{320,330}})));
-  Controls.OBC.CDL.Continuous.MovingMean aveTOut(delta=24*3600)
+  Controls.OBC.CDL.Continuous.MovingAverage aveTOut(delta=24*3600)
     "Time averaged outdoor air temperature"
     annotation (Placement(transformation(extent={{540,300},{560,320}})));
 equation
@@ -854,20 +859,20 @@ equation
       points={{-20,-140},{190,-140},{190,-184.8},{232,-184.8}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(add1.y, lesThr.u2) annotation (Line(
+  connect(sub1.y, lesThr.u2) annotation (Line(
       points={{372,-176},{398,-176}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(tanTemTop.T, add1.u1) annotation (Line(
-      points={{304,-170},{348,-170}},
+  connect(tanTemTop.T, sub1.u1) annotation (Line(
+      points={{305,-170},{348,-170}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(dTThr.y, add1.u2) annotation (Line(
+  connect(dTThr.y, sub1.u2) annotation (Line(
       points={{332,-200},{340,-200},{340,-182},{348,-182}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(tanTemBot.T, greThr.u) annotation (Line(
-      points={{300,-230},{398,-230}},
+      points={{301,-230},{398,-230}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(TRooSet.y, swi1.u1) annotation (Line(
@@ -908,11 +913,11 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(TRoo1.T, conRoo1.u_m) annotation (Line(
-      points={{500,484},{550,484},{550,498}},
+      points={{501,484},{550,484},{550,498}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(TRoo2.T, conRoo2.u_m) annotation (Line(
-      points={{500,226},{550,226},{550,238}},
+      points={{501,226},{550,226},{550,238}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(bou.ports[1], boi.port_a) annotation (Line(
@@ -980,8 +985,8 @@ equation
       index=-1,
       extent={{-6,3},{-6,3}}));
   connect(TRoo1.T, cooCon.TRoo) annotation (Line(
-      points={{500,484},{508,484},{508,530},{250,530},{250,580},{90,580},{90,
-          546},{98,546}},
+      points={{501,484},{508,484},{508,530},{250,530},{250,580},{90,580},{90,546},
+          {98,546}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(fanSup.port_b, damSupByp.port_a)
@@ -1024,7 +1029,7 @@ equation
       color={255,0,255},
       smooth=Smooth.None));
   connect(TRoo1.T, lesThrTRoo.u) annotation (Line(
-      points={{500,484},{690,484},{690,40},{340,40},{340,-50},{398,-50}},
+      points={{501,484},{690,484},{690,40},{340,40},{340,-50},{398,-50}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(damHex.port_b, hex.port_a1) annotation (Line(

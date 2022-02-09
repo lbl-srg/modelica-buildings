@@ -43,15 +43,15 @@ model LargeOfficeFloor "Model of a single floor of a large office building"
     annotation (Placement(transformation(extent={{106,36},{126,56}}),
         iconTransformation(extent={{130,38},{150,58}})));
 
-  Modelica.SIunits.Temperature TAirCor = cor.TAir
+  Modelica.Units.SI.Temperature TAirCor = cor.TAir
     "Air temperature core";
-  Modelica.SIunits.Temperature TAirSou = sou.TAir
+  Modelica.Units.SI.Temperature TAirSou = sou.TAir
     "Air temperature south zone";
-  Modelica.SIunits.Temperature TAirNor = nor.TAir
+  Modelica.Units.SI.Temperature TAirNor = nor.TAir
     "Air temperature north zone";
-  Modelica.SIunits.Temperature TAirEas = eas.TAir
+  Modelica.Units.SI.Temperature TAirEas = eas.TAir
     "Air temperature east zone";
-  Modelica.SIunits.Temperature TAirWes = wes.TAir
+  Modelica.Units.SI.Temperature TAirWes = wes.TAir
     "Air temperature west zone";
 
   Buildings.ThermalZones.EnergyPlus.ThermalZone sou(

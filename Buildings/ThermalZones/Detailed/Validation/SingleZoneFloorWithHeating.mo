@@ -4,24 +4,24 @@ model SingleZoneFloorWithHeating
   extends Modelica.Icons.Example;
   package Medium = Buildings.Media.Air "Buildings library air media package";
 
-  parameter Modelica.SIunits.Area AFloCor=flo.cor.AFlo "Floor area core";
-  parameter Modelica.SIunits.Area AFloSou=flo.sou.AFlo "Floor area south";
-  parameter Modelica.SIunits.Area AFloNor=flo.nor.AFlo "Floor area north";
-  parameter Modelica.SIunits.Area AFloEas=flo.eas.AFlo "Floor area east";
-  parameter Modelica.SIunits.Area AFloWes=flo.wes.AFlo "Floor area west";
+  parameter Modelica.Units.SI.Area AFloCor=flo.cor.AFlo "Floor area core";
+  parameter Modelica.Units.SI.Area AFloSou=flo.sou.AFlo "Floor area south";
+  parameter Modelica.Units.SI.Area AFloNor=flo.nor.AFlo "Floor area north";
+  parameter Modelica.Units.SI.Area AFloEas=flo.eas.AFlo "Floor area east";
+  parameter Modelica.Units.SI.Area AFloWes=flo.wes.AFlo "Floor area west";
 
-  parameter Modelica.SIunits.Volume VRooCor=AFloCor*flo.hRoo
+  parameter Modelica.Units.SI.Volume VRooCor=AFloCor*flo.hRoo
     "Room volume core";
-  parameter Modelica.SIunits.Volume VRooSou=AFloSou*flo.hRoo
+  parameter Modelica.Units.SI.Volume VRooSou=AFloSou*flo.hRoo
     "Room volume south";
-  parameter Modelica.SIunits.Volume VRooNor=AFloNor*flo.hRoo
+  parameter Modelica.Units.SI.Volume VRooNor=AFloNor*flo.hRoo
     "Room volume north";
-  parameter Modelica.SIunits.Volume VRooEas=AFloEas*flo.hRoo
+  parameter Modelica.Units.SI.Volume VRooEas=AFloEas*flo.hRoo
     "Room volume east";
-  parameter Modelica.SIunits.Volume VRooWes=AFloWes*flo.hRoo
+  parameter Modelica.Units.SI.Volume VRooWes=AFloWes*flo.hRoo
     "Room volume west";
-  parameter Modelica.SIunits.Volume VRoo=VRooSou+VRooEas+VRooNor+VRooWes+VRooCor
-    "Total floor volume";
+  parameter Modelica.Units.SI.Volume VRoo=VRooSou + VRooEas + VRooNor + VRooWes
+       + VRooCor "Total floor volume";
 
   Buildings.Examples.VAVReheat.BaseClasses.Floor flo(
     redeclare package Medium = Medium,

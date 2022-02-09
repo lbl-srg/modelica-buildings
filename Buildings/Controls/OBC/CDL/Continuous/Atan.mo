@@ -23,12 +23,12 @@ equation
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid),
         Text(
-          lineColor={0,0,255},
+          textColor={0,0,255},
           extent={{-150,110},{150,150}},
           textString="%name"),
         Text(
           extent={{-86,68},{-14,20}},
-          lineColor={192,192,192},
+          textColor={192,192,192},
           textString="atan"),
         Polygon(
           points={{0,90},{-8,68},{8,68},{0,90}},
@@ -51,25 +51,21 @@ equation
           fillPattern=FillPattern.Solid),
         Text(
           extent={{226,60},{106,10}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString=DynamicSelect("",String(y,
             leftJustified=false,
             significantDigits=3)))}),
     Documentation(
       info="<html>
 <p>
-Block that outputs <code>y = atan(u)</code>,
-where
-<code>u</code> is an input.
+Block that outputs <code>y = atan(u)</code>, where <code>u</code> is an input.
 </p>
-
 <p align=\"center\">
 <img src=\"modelica://Buildings/Resources/Images/Controls/OBC/CDL/Continuous/Atan.png\"
      alt=\"atan.png\" />
 </p>
-
 </html>",
-      revisions="<html>
+revisions="<html>
 <ul>
 <li>
 March 2, 2020, by Michael Wetter:<br/>

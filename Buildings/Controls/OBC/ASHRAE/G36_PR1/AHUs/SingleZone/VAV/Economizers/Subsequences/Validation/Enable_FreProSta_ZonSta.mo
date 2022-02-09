@@ -126,12 +126,12 @@ equation
         coordinateSystem(preserveAspectRatio=false, extent={{-180,-180},{180,180}}), graphics={
         Text(
           extent={{80,42},{164,14}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           horizontalAlignment=TextAlignment.Left,
           textString="Tests zone state disable condition"),
         Text(
           extent={{80,-40},{178,-58}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           horizontalAlignment=TextAlignment.Left,
           textString="Tests freeze protection disable condition")}),
     Documentation(info="<html>

@@ -11,22 +11,22 @@ partial model HVACMultiFloorBuilding
 
   parameter Integer numFlo = 2 "Number of floors";
 
-  final parameter Modelica.SIunits.Volume VRooCor[numFlo] = flo.VRooCor
+  final parameter Modelica.Units.SI.Volume VRooCor[numFlo] = flo.VRooCor
     "Room volume core";
-  final parameter Modelica.SIunits.Volume VRooSou[numFlo] = flo.VRooSou
+  final parameter Modelica.Units.SI.Volume VRooSou[numFlo] = flo.VRooSou
     "Room volume south";
-  final parameter Modelica.SIunits.Volume VRooNor[numFlo] = flo.VRooNor
+  final parameter Modelica.Units.SI.Volume VRooNor[numFlo] = flo.VRooNor
     "Room volume north";
-  final parameter Modelica.SIunits.Volume VRooEas[numFlo] = flo.VRooEas
+  final parameter Modelica.Units.SI.Volume VRooEas[numFlo] = flo.VRooEas
     "Room volume east";
-  final parameter Modelica.SIunits.Volume VRooWes[numFlo] = flo.VRooWes
+  final parameter Modelica.Units.SI.Volume VRooWes[numFlo] = flo.VRooWes
     "Room volume west";
 
-  final parameter Modelica.SIunits.Area AFloCor[numFlo] = flo.AFloCor "Floor area core";
-  final parameter Modelica.SIunits.Area AFloSou[numFlo] = flo.AFloSou "Floor area south";
-  final parameter Modelica.SIunits.Area AFloNor[numFlo] = flo.AFloNor "Floor area north";
-  final parameter Modelica.SIunits.Area AFloEas[numFlo] = flo.AFloEas "Floor area east";
-  final parameter Modelica.SIunits.Area AFloWes[numFlo] = flo.AFloWes "Floor area west";
+  final parameter Modelica.Units.SI.Area AFloCor[numFlo] = flo.AFloCor "Floor area core";
+  final parameter Modelica.Units.SI.Area AFloSou[numFlo] = flo.AFloSou "Floor area south";
+  final parameter Modelica.Units.SI.Area AFloNor[numFlo] = flo.AFloNor "Floor area north";
+  final parameter Modelica.Units.SI.Area AFloEas[numFlo] = flo.AFloEas "Floor area east";
+  final parameter Modelica.Units.SI.Area AFloWes[numFlo] = flo.AFloWes "Floor area west";
 
   constant Real conv=1.2/3600 "Conversion factor for nominal mass flow rate";
 
@@ -41,23 +41,23 @@ partial model HVACMultiFloorBuilding
   parameter Real ACHWes(final unit="1/h")=7
     "Design air change per hour west";
 
-  final parameter Modelica.SIunits.MassFlowRate mCor_flow_nominal[numFlo] = ACHCor*VRooCor.*ACHCor_per*conv
+  final parameter Modelica.Units.SI.MassFlowRate mCor_flow_nominal[numFlo] = ACHCor*VRooCor.*ACHCor_per*conv
     "Design mass flow rate core for each floor";
-  final parameter Modelica.SIunits.MassFlowRate mSou_flow_nominal[numFlo] = ACHSou*VRooSou*conv
+  final parameter Modelica.Units.SI.MassFlowRate mSou_flow_nominal[numFlo] = ACHSou*VRooSou*conv
     "Design mass flow rate south for each floor";
-  final parameter Modelica.SIunits.MassFlowRate mEas_flow_nominal[numFlo] = ACHEas*VRooEas*conv
+  final parameter Modelica.Units.SI.MassFlowRate mEas_flow_nominal[numFlo] = ACHEas*VRooEas*conv
     "Design mass flow rate east for each floor";
-  final parameter Modelica.SIunits.MassFlowRate mNor_flow_nominal[numFlo] = ACHNor*VRooNor*conv
+  final parameter Modelica.Units.SI.MassFlowRate mNor_flow_nominal[numFlo] = ACHNor*VRooNor*conv
     "Design mass flow rate north for each floor";
-  final parameter Modelica.SIunits.MassFlowRate mWes_flow_nominal[numFlo] = ACHWes*VRooWes*conv
+  final parameter Modelica.Units.SI.MassFlowRate mWes_flow_nominal[numFlo] = ACHWes*VRooWes*conv
     "Design mass flow rate west for each floor";
 
-  final parameter Modelica.SIunits.MassFlowRate mVAV_flow_nominal[numFlo, 5]=
+  final parameter Modelica.Units.SI.MassFlowRate mVAV_flow_nominal[numFlo, 5]=
     transpose({mSou_flow_nominal, mEas_flow_nominal, mNor_flow_nominal,
     mWes_flow_nominal, mCor_flow_nominal})
     "Design mass flow rate of each zone";
 
-  parameter Modelica.SIunits.Temperature THotWatInl_nominal(
+  parameter Modelica.Units.SI.Temperature THotWatInl_nominal(
     displayUnit="degC")=45 + 273.15
     "Reheat coil nominal inlet water temperature";
 

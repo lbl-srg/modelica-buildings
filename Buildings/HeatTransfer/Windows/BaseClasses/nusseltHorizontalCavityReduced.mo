@@ -7,11 +7,11 @@ function nusseltHorizontalCavityReduced
     "Thermophysical properties of gas fill"
    annotation(choicesAllMatching=true);
   input Real Ra(min=0) "Rayleigh number";
-  input Modelica.SIunits.Temperature T_m
+  input Modelica.Units.SI.Temperature T_m
     "Temperature used for thermophysical properties";
-  input Modelica.SIunits.TemperatureDifference dT
+  input Modelica.Units.SI.TemperatureDifference dT
     "Temperature difference used to compute q_flow = h*dT";
-  input Modelica.SIunits.Area h(min=0) = 1.5 "Height of window";
+  input Modelica.Units.SI.Area h(min=0) = 1.5 "Height of window";
   input Real sinTil "Sine of window tilt";
   input Real deltaNu(min=0.01) = 0.1
     "Small value for Nusselt number, used for smoothing";

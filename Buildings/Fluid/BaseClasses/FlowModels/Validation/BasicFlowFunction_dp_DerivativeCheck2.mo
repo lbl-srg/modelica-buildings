@@ -4,16 +4,16 @@ model BasicFlowFunction_dp_DerivativeCheck2
   extends Modelica.Icons.Example;
 
   parameter Real k = 0.35 "Flow coefficient";
-  parameter Modelica.SIunits.MassFlowRate m_flow_turbulent = 0.36
+  parameter Modelica.Units.SI.MassFlowRate m_flow_turbulent=0.36
     "Mass flow rate where transition to turbulent flow occurs";
-  Modelica.SIunits.MassFlowRate m_flow "Mass flow rate";
-  Modelica.SIunits.MassFlowRate m_flow_comp "Comparison value for m_flow";
+  Modelica.Units.SI.MassFlowRate m_flow "Mass flow rate";
+  Modelica.Units.SI.MassFlowRate m_flow_comp "Comparison value for m_flow";
   Real der_m_flow(unit="kg/s2") "1st order derivative of mass flow rate";
   Real der_m_flow_comp(unit="kg/s2")
     "2nd order derivative of comparison value for m_flow";
 
-  Modelica.SIunits.PressureDifference dp "Pressure drop";
-  Modelica.SIunits.MassFlowRate err_m_flow "Integration error for m_flow";
+  Modelica.Units.SI.PressureDifference dp "Pressure drop";
+  Modelica.Units.SI.MassFlowRate err_m_flow "Integration error for m_flow";
   Real err_der_m_flow(unit="kg/s2") "Integration error for der_m_flow";
 initial equation
   m_flow = m_flow_comp;
@@ -26,7 +26,7 @@ equation
 
   m_flow = Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp(
     dp=dp,
-    k=  k,
+    k = k,
     m_flow_turbulent=m_flow_turbulent);
 
   // Equate first and second order derivatives

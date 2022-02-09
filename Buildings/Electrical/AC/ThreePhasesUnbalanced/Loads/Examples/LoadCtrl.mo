@@ -4,7 +4,7 @@ model LoadCtrl
   Sources.FixedVoltage_N sou(f=60, V=480) "Voltage source"
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
   Modelica.Blocks.Sources.Sine pow_1(
-    freqHz=0.1,
+    f=0.1,
     amplitude=4500,
     offset=6000) "Power on phase 1"
     annotation (Placement(transformation(extent={{60,10},{40,30}})));

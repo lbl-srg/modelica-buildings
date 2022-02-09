@@ -45,9 +45,9 @@ test-optimica-spawn-fmu:
 	  python3 Buildings/Resources/Scripts/travis/pyfmi/runSpawnFromOtherDirectory.py )
 	@echo "    Success."
 
-test-omc-spawn-spaces: test-omc-spawn-spaces-success test-omc-spawn-spaces-failure
+test-openmodelica-spawn-spaces: test-openmodelica-spawn-spaces-success test-openmodelica-spawn-spaces-failure
 
-test-omc-spawn-spaces-success:
+test-openmodelica-spawn-spaces-success:
 	@echo "*** Check if for OpenModelica, Spawn works with OpenModelica if the root folder is not Buildings."
 	@$(eval TMP := $(shell mktemp --suffix=-LBL-Buildings -d))
 	@mkdir -p $(TMP)
@@ -64,7 +64,7 @@ test-omc-spawn-spaces-success:
 	"setCommandLineOptions(\"-d=execstat\");\n" \
 	"setMatchingAlgorithm(\"PFPlusExt\");\n" \
 	"setIndexReductionMethod(\"dynamicStateSelection\");\n" \
-	"loadModel(Modelica, {\"3.2.3\"});\n" \
+	"loadModel(Modelica, {\"4.0.0\"});\n" \
 	"loadFile(\"Buildings 8.0.0/package.mo\");\n" \
 	"loadFile(\"SpawnTest.mo\");\n" \
 	"simulate(SpawnTest);\n" \
@@ -74,7 +74,7 @@ test-omc-spawn-spaces-success:
 	@rm -rf $(TMP)
 	@echo "    Success."
 
-test-omc-spawn-spaces-failure:
+test-openmodelica-spawn-spaces-failure:
 	@echo "*** Check if for OpenModelica, Spawn properly fails if the root folder contains a space."
 	$(eval TMP := $(shell mktemp --suffix=-LBL-Buildings -d))
 	$(eval TMP := $(TMP)/dir\ with\ spaces)
@@ -92,7 +92,7 @@ test-omc-spawn-spaces-failure:
 	"setCommandLineOptions(\"-d=execstat\");\n" \
 	"setMatchingAlgorithm(\"PFPlusExt\");\n" \
 	"setIndexReductionMethod(\"dynamicStateSelection\");\n" \
-	"loadModel(Modelica, {\"3.2.3\"});\n" \
+	"loadModel(Modelica, {\"4.0.0\"});\n" \
 	"loadFile(\"Buildings 8.0.0/package.mo\");\n" \
 	"loadFile(\"SpawnTest.mo\");\n" \
 	"simulate(SpawnTest);\n" \
@@ -118,21 +118,35 @@ test-dymola-spawn-spaces:
 	@rm -rf $(TMP)
 	@echo "    Success."
 
-test-omc:
-	(cd $(ROOT) && \
-	  $(TRAVIS_BUILD_DIR)/Buildings/Resources/Scripts/travis/omc/testOpenModelica.sh)
+# Skip verification of translation statistics of certain models, see
+# https://github.com/lbl-srg/BuildingsPy/issues/441
+define buiPyMod
+Buildings.Examples.VAVReheat.ASHRAE2006, \
+Buildings.Examples.VAVReheat.Validation.Guideline36SteadyState, \
+Buildings.Examples.VAVReheat.Validation.TraceSubstance, \
+Buildings.Examples.VAVReheat.Guideline36, \
+Buildings.ThermalZones.EnergyPlus.Examples.SmallOffice.ASHRAE2006Spring, \
+Buildings.ThermalZones.EnergyPlus.Examples.SmallOffice.Guideline36Winter, \
+Buildings.ThermalZones.EnergyPlus.Examples.SmallOffice.ASHRAE2006Winter, \
+Buildings.ThermalZones.EnergyPlus.Examples.SmallOffice.Guideline36Spring, \
+Buildings.ThermalZones.EnergyPlus.Examples.SmallOffice.Guideline36Summer, \
+Buildings.ThermalZones.EnergyPlus.Examples.SmallOffice.ASHRAE2006Summer
+
+endef
 
 test-dymola:
+	$(eval BUILDINGSPY_SKIP_STATISTICS_VERIFICATION := $(buiPyMod))
 	(cd $(ROOT)/Buildings && \
 	  export PYTHONPATH=$(TRAVIS_BUILD_DIR)/Buildings/Resources/Python-Sources && \
+	  export BUILDINGSPY_SKIP_STATISTICS_VERIFICATION='$(BUILDINGSPY_SKIP_STATISTICS_VERIFICATION)' && \
 	  python3 ../bin/runUnitTests.py --batch --single-package $(PACKAGE) --tool dymola)
+
+test-openmodelica:
+	(cd $(ROOT)/Buildings && \
+	  export PYTHONPATH=$(TRAVIS_BUILD_DIR)/Buildings/Resources/Python-Sources && \
+	  python3 ../bin/runUnitTests.py --batch --single-package $(PACKAGE) --tool openmodelica --skip-verification)
 
 test-optimica:
 	(cd $(ROOT)/Buildings && \
 	  export PYTHONPATH=$(TRAVIS_BUILD_DIR)/Buildings/Resources/Python-Sources && \
 	  python3 ../bin/runUnitTests.py --batch --single-package $(PACKAGE) --tool optimica --skip-verification)
-
-test-jmodelica:
-	(cd $(ROOT)/Buildings && \
-	  export PYTHONPATH=$(TRAVIS_BUILD_DIR)/Buildings/Resources/Python-Sources && \
-	  python3 ../bin/runUnitTests.py --batch --single-package $(PACKAGE) --tool jmodelica --skip-verification)

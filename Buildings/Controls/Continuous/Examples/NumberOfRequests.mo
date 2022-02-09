@@ -6,7 +6,7 @@ model NumberOfRequests
     nin=2,
     threShold=0,
     kind=0) annotation (Placement(transformation(extent={{0,20},{20,40}})));
-  Modelica.Blocks.Sources.Sine sine(freqHz=2)
+  Modelica.Blocks.Sources.Sine sine(f=2)
     annotation (Placement(transformation(extent={{-60,-20},{-40,0}})));
   Modelica.Blocks.Sources.Pulse pulse(period=0.35)
     annotation (Placement(transformation(extent={{-60,20},{-40,40}})));

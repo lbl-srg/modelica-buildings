@@ -1,16 +1,16 @@
 within Buildings.ThermalZones.Detailed.Constructions.Examples;
 model ExteriorWallWithWindow "Test model for an exterior wall with a window"
   extends Modelica.Icons.Example;
-  parameter Modelica.SIunits.Area A=3*10
+  parameter Modelica.Units.SI.Area A=3*10
     "Heat transfer area of wall and window";
-  parameter Modelica.SIunits.Length hWin = 2 "Window height";
-  parameter Modelica.SIunits.Length wWin = 3 "Window width";
-  parameter Modelica.SIunits.Area AWin=hWin*wWin
+  parameter Modelica.Units.SI.Length hWin=2 "Window height";
+  parameter Modelica.Units.SI.Length wWin=3 "Window width";
+  parameter Modelica.Units.SI.Area AWin=hWin*wWin
     "Heat transfer area of frame and window";
   parameter Real fFra=0.1
     "Fraction of window frame divided by total window area";
-  final parameter Modelica.SIunits.Area AFra = fFra * AWin "Frame area";
-  final parameter Modelica.SIunits.Area AGla = AWin-AFra "Glass area";
+  final parameter Modelica.Units.SI.Area AFra=fFra*AWin "Frame area";
+  final parameter Modelica.Units.SI.Area AGla=AWin - AFra "Glass area";
   parameter Boolean linearizeRadiation = false
     "Set to true to linearize emissive power";
   parameter HeatTransfer.Data.GlazingSystems.DoubleClearAir13Clear glaSys(

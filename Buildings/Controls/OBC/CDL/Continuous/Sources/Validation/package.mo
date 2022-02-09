@@ -1,6 +1,5 @@
 within Buildings.Controls.OBC.CDL.Continuous.Sources;
-package Validation
-  "Collection of models that validate the continuous sources blocks of the CDL"
+package Validation "Collection of models that validate the continuous sources blocks of the CDL"
   annotation (
     preferredView="info",
     Documentation(

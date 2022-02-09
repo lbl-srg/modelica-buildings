@@ -32,7 +32,7 @@ block FanVFD "Controller for fan revolution"
     annotation (Dialog(group="Setpoint tracking"));
   parameter Real k=0.5 "Gain of controller"
     annotation (Dialog(group="Setpoint tracking"));
-  parameter Modelica.SIunits.Time Ti=15 "Time constant of integrator block"
+  parameter Modelica.Units.SI.Time Ti=15 "Time constant of integrator block"
     annotation (Dialog(group="Setpoint tracking"));
 
   Buildings.Controls.OBC.CDL.Continuous.Switch swi
@@ -57,7 +57,7 @@ equation
     annotation (Line(points={{0,-120},{0,18}}, color={0,0,127}));
   annotation ( Icon(graphics={Text(
           extent={{-90,-50},{96,-96}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="r_N_min=%r_N_min")}), Documentation(revisions="<html>
 <ul>
 <li>

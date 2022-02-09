@@ -7,12 +7,12 @@ model Outside_CpLowRise
     "Wind pressure coefficient for wind normal to wall";
   parameter Real s(final min=0, final unit="1")
     "Side ratio, s=length of this wall/length of adjacent wall";
-  parameter Modelica.SIunits.Angle azi "Surface azimuth (South:0, West:pi/2)"
+  parameter Modelica.Units.SI.Angle azi "Surface azimuth (South:0, West:pi/2)"
     annotation (choicesAllMatching=true);
 
-  Modelica.SIunits.Angle alpha "Wind incidence angle (0: normal to wall)";
+  Modelica.Units.SI.Angle alpha "Wind incidence angle (0: normal to wall)";
   Real CpAct(min=0, final unit="1") "Actual wind pressure coefficient";
-  Modelica.SIunits.Pressure pWin(displayUnit="Pa")
+  Modelica.Units.SI.Pressure pWin(displayUnit="Pa")
     "Change in pressure due to wind force";
 protected
   Modelica.Blocks.Interfaces.RealInput pWea(min=0, nominal=1E5, final unit="Pa")
@@ -27,7 +27,7 @@ protected
   Modelica.Blocks.Interfaces.RealInput winDir(final unit="rad",
                                               displayUnit="deg")
     "Wind direction from weather bus";
-  Modelica.SIunits.Angle surOut = azi-Modelica.Constants.pi
+  Modelica.Units.SI.Angle surOut=azi - Modelica.Constants.pi
     "Angle of surface that is used to compute angle of attack of wind";
   Modelica.Blocks.Interfaces.RealInput d = Medium.density(
     Medium.setState_pTX(p_in_internal, T_in_internal, X_in_internal));
@@ -150,15 +150,15 @@ First implementation.
     Icon(graphics={Text(
           visible=use_Cp_in,
           extent={{-140,92},{-92,62}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="C_p"),
           Text(
           visible=use_C_in,
           extent={{-154,-28},{-102,-62}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="C"),
         Text(
           extent={{-28,22},{28,-22}},
-          lineColor={255,255,255},
+          textColor={255,255,255},
           textString="Cp")}));
 end Outside_CpLowRise;

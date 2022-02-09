@@ -52,7 +52,7 @@ equation
           fillPattern=FillPattern.Solid),
         Text(
           extent={{-164,144},{164,106}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="%name"),
         Polygon(
           points={{-80,90},{-88,68},{-72,68},{-80,90}},
@@ -88,11 +88,11 @@ equation
           points={{-49,51},{-49,-29}}),
         Text(
           extent={{-92,-49},{-9,-92}},
-          lineColor={192,192,192},
+          textColor={192,192,192},
           textString="%TLow"),
         Text(
           extent={{2,-49},{91,-92}},
-          lineColor={192,192,192},
+          textColor={192,192,192},
           textString="%THigh"),
         Rectangle(
           extent={{-91,-49},{-8,-92}},

@@ -1,6 +1,8 @@
 within Buildings.Experimental.DHC.Loads.BaseClasses;
-function getPeakLoad
+pure function getPeakLoad
   "Function that reads the peak load from the load profile"
+  extends Modelica.Icons.Function;
+
   input String string
     "String that is written before the '=' sign";
   input String filNam
@@ -25,13 +27,56 @@ protected
     "Flag, true if EOF has been reached";
   String del
     "Found delimiter";
+
+  pure function pureReadLine "Read a line of text from a file and return it in a string"
+    extends Modelica.Icons.Function;
+    input String fileName "Name of the file that shall be read";
+    input Integer lineNumber(min=1) "Number of line to read";
+    output String string "Line of text";
+    output Boolean endOfFile
+      "If true, end-of-file was reached when trying to read line";
+    external"C" string = ModelicaInternal_readLine(
+        fileName,
+        lineNumber,
+        endOfFile) annotation (
+      IncludeDirectory="modelica://Modelica/Resources/C-Sources",
+      Include="#include \"ModelicaInternal.h\"",
+      Library="ModelicaExternalC");
+  annotation (Documentation(info="<html>
+<p>
+This function implements
+<a href=\"modelica://Modelica.Utilities.Streams.readLine\">Modelica.Utilities.Streams.readLine</a>
+but declares it as a <code>pure</code> function, which is fine assuming a user is
+not deliberately changing the file after the model is translated.
+</p>
+<h4>Syntax</h4>
+<pre>
+(string, endOfFile) = Streams.<strong>readLine</strong>(fileName, lineNumber)
+</pre>
+<h4>Description</h4>
+<p>
+Function <strong>readLine</strong>(..) opens the given file, reads enough of the
+content to get the requested line, and returns the line as a string.
+Lines are separated by LF or CR-LF; the returned string does not
+contain the line separator. The file might remain open after
+the call.
+</p>
+<p>
+If lineNumber > countLines(fileName), an empty string is returned
+and endOfFile=true. Otherwise endOfFile=false.
+</p>
+</html>"));
+
+  end pureReadLine;
 algorithm
   // Get line that contains 'string'
   iLin := 0;
   EOF := false;
-  while(not EOF) and(index == 0) loop
+  while
+       (not EOF) and
+                    (index == 0) loop
     iLin := iLin+1;
-    (lin,EOF) := Modelica.Utilities.Streams.readLine(
+    (lin,EOF) := pureReadLine(
       fileName=filNam,
       lineNumber=iLin);
     index := Modelica.Utilities.Strings.find(
@@ -90,6 +135,16 @@ for how to invoke this function.
 </html>",
       revisions="<html>
 <ul>
+<li>
+January 24, 2022, by Michael Wetter:<br/>
+Reformulated function as a <code>pure</code> function.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2816\">issue 2816</a>.
+</li>
+<li>
+December 11, 2021, by Michael Wetter:<br/>
+Declared function as <code>impure</code> for MSL 4.0.0.
+</li>
 <li>
 December 1, 2015, by Michael Wetter:<br/>
 First implementation.

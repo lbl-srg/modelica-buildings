@@ -11,23 +11,27 @@ block RoomVAV "Controller for room VAV box"
     annotation (Dialog(group="Cooling controller"));
   parameter Real kCoo=0.1 "Gain of controller"
     annotation (Dialog(group="Cooling controller"));
-  parameter Modelica.SIunits.Time TiCoo=120 "Time constant of integrator block"
-    annotation (Dialog(group="Cooling controller", enable=cooController==Buildings.Controls.OBC.CDL.Types.SimpleController.PI or
-                                                          cooController==Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
-  parameter Modelica.SIunits.Time TdCoo=60 "Time constant of derivative block"
-    annotation (Dialog(group="Cooling controller", enable=cooController==Buildings.Controls.OBC.CDL.Types.SimpleController.PD or
-                                                          cooController==Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
+  parameter Modelica.Units.SI.Time TiCoo=120
+    "Time constant of integrator block" annotation (Dialog(group=
+          "Cooling controller", enable=cooController == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
+           or cooController == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
+  parameter Modelica.Units.SI.Time TdCoo=60 "Time constant of derivative block"
+    annotation (Dialog(group="Cooling controller", enable=cooController ==
+          Buildings.Controls.OBC.CDL.Types.SimpleController.PD or cooController
+           == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController heaController=
       Buildings.Controls.OBC.CDL.Types.SimpleController.PI "Type of controller"
     annotation (Dialog(group="Heating controller"));
   parameter Real kHea=0.1 "Gain of controller"
     annotation (Dialog(group="Heating controller"));
-  parameter Modelica.SIunits.Time TiHea=120 "Time constant of integrator block"
-    annotation (Dialog(group="Heating controller", enable=heaController==Buildings.Controls.OBC.CDL.Types.SimpleController.PI or
-                                                          heaController==Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
-  parameter Modelica.SIunits.Time TdHea=60 "Time constant of derivative block"
-    annotation (Dialog(group="Heating controller", enable=heaController==Buildings.Controls.OBC.CDL.Types.SimpleController.PD or
-                                                          heaController==Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
+  parameter Modelica.Units.SI.Time TiHea=120
+    "Time constant of integrator block" annotation (Dialog(group=
+          "Heating controller", enable=heaController == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
+           or heaController == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
+  parameter Modelica.Units.SI.Time TdHea=60 "Time constant of derivative block"
+    annotation (Dialog(group="Heating controller", enable=heaController ==
+          Buildings.Controls.OBC.CDL.Types.SimpleController.PD or heaController
+           == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TRooHeaSet(
     final quantity="ThermodynamicTemperature",
@@ -35,7 +39,7 @@ block RoomVAV "Controller for room VAV box"
     displayUnit = "degC")
     "Setpoint temperature for room for heating"
     annotation (Placement(transformation(extent={{-140,40},{-100,80}}),
-        iconTransformation(extent={{-140,50},{-100,90}})));
+        iconTransformation(extent={{-140,40},{-100,80}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TRooCooSet(
     final quantity="ThermodynamicTemperature",
     final unit = "K",
@@ -49,7 +53,7 @@ block RoomVAV "Controller for room VAV box"
     displayUnit = "degC")
     "Measured room temperature"
     annotation (Placement(transformation(extent={{-140,-90},{-100,-50}}),
-        iconTransformation(extent={{-120,-80},{-100,-60}})));
+        iconTransformation(extent={{-120,-70},{-100,-50}})));
   Modelica.Blocks.Interfaces.RealOutput yDam "Signal for VAV damper"
     annotation (Placement(transformation(extent={{100,-10},{120,10}}),
         iconTransformation(extent={{100,38},{120,58}})));
@@ -95,7 +99,7 @@ block RoomVAV "Controller for room VAV box"
     final uHigh=0)
     "Output true if room temperature below heating set point"
     annotation (Placement(transformation(extent={{-10,130},{10,150}})));
-  Buildings.Controls.OBC.CDL.Continuous.Feedback dTHea
+  Buildings.Controls.OBC.CDL.Continuous.Subtract dTHea
     "Heating loop control error"
     annotation (Placement(transformation(extent={{-50,130},{-30,150}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minFloHea(
@@ -108,7 +112,7 @@ block RoomVAV "Controller for room VAV box"
     "The difference between cooling and heating set points must be greater than dTHys")
     "Assert message"
     annotation (Placement(transformation(extent={{30,-130},{50,-110}})));
-  Buildings.Controls.OBC.CDL.Continuous.Feedback dTSet
+  Buildings.Controls.OBC.CDL.Continuous.Subtract dTSet
     "Difference between cooling and heating set points"
     annotation (Placement(transformation(extent={{-50,-130},{-30,-110}})));
   Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr(t=dTHys)
@@ -117,7 +121,7 @@ block RoomVAV "Controller for room VAV box"
 protected
   parameter Real yMax=1 "Upper limit of PID control output";
   parameter Real yMin=0 "Lower limit of PID control output";
-  parameter Modelica.SIunits.TemperatureDifference dTHys(final min=0) = 0.5
+  parameter Modelica.Units.SI.TemperatureDifference dTHys(final min=0) = 0.5
     "Hysteresis width for switching minimum air flow rate";
 equation
   connect(TRooCooSet, conCoo.u_s)
@@ -142,12 +146,13 @@ equation
   connect(reqFlo.y, yDam)
     annotation (Line(points={{92,0},{110,0}},               color={0,0,127}));
 
-  connect(TRooHeaSet, dTHea.u1) annotation (Line(points={{-120,60},{-70,60},{-70,
-          140},{-52,140}}, color={0,0,127}));
+  connect(TRooHeaSet, dTHea.u1) annotation (Line(points={{-120,60},{-70,60},{
+          -70,146},{-52,146}},
+                           color={0,0,127}));
   connect(dTHea.y, hysWitHol.u)
     annotation (Line(points={{-28,140},{-12,140}}, color={0,0,127}));
-  connect(TRoo, dTHea.u2) annotation (Line(points={{-120,-70},{-80,-70},{-80,120},
-          {-40,120},{-40,128}}, color={0,0,127}));
+  connect(TRoo, dTHea.u2) annotation (Line(points={{-120,-70},{-80,-70},{-80,
+          134},{-52,134}},      color={0,0,127}));
   connect(minFloCoo.y, swi.u3) annotation (Line(points={{-38,40},{-20,40},{-20,52},
           {-12,52}}, color={0,0,127}));
   connect(minFloHea.y, swi.u1) annotation (Line(points={{-38,100},{-20,100},{-20,
@@ -157,10 +162,11 @@ equation
           {-16,80},{-16,60},{-12,60}}, color={255,0,255}));
   connect(swi.y, reqFlo.f1)
     annotation (Line(points={{12,60},{20,60},{20,4},{68,4}}, color={0,0,127}));
-  connect(TRooCooSet, dTSet.u1) annotation (Line(points={{-120,0},{-90,0},{-90,-120},
-          {-52,-120}}, color={0,0,127}));
-  connect(TRooHeaSet, dTSet.u2) annotation (Line(points={{-120,60},{-70,60},{-70,
-          -140},{-40,-140},{-40,-132}}, color={0,0,127}));
+  connect(TRooCooSet, dTSet.u1) annotation (Line(points={{-120,0},{-90,0},{-90,
+          -114},{-52,-114}},
+                       color={0,0,127}));
+  connect(TRooHeaSet, dTSet.u2) annotation (Line(points={{-120,60},{-70,60},{
+          -70,-126},{-52,-126}},        color={0,0,127}));
   connect(dTSet.y, greThr.u)
     annotation (Line(points={{-28,-120},{-12,-120}}, color={0,0,127}));
   connect(greThr.y, assMes.u)
@@ -171,23 +177,23 @@ annotation (
                     graphics={
         Text(
           extent={{-100,-62},{-66,-76}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="TRoo"),
         Text(
           extent={{64,-38},{92,-58}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="yVal"),
         Text(
           extent={{56,62},{90,40}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="yDam"),
         Text(
           extent={{-96,82},{-36,60}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="TRooHeaSet"),
         Text(
           extent={{-96,10},{-36,-10}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="TRooCooSet")}),
  Documentation(info="<html>
 <p>

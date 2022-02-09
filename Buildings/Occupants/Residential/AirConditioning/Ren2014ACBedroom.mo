@@ -8,7 +8,7 @@ model Ren2014ACBedroom
   parameter Real L2 = 42.86 "Normalization factor for turning on the AC of the Weibull Distribution";
   parameter Real k1 = 1.73 "Shape factor for turning off the AC of the Weibull Distribution";
   parameter Real k2 = 1.80 "Shape factor for turning on the AC of the Weibull Distribution";
-  parameter Modelica.SIunits.Time samplePeriod = 120 "Sample period";
+  parameter Modelica.Units.SI.Time samplePeriod=120 "Sample period";
   parameter Integer seed = 10 "Seed for random number generator";
 
   Modelica.Blocks.Interfaces.RealInput TIn(
@@ -33,7 +33,8 @@ model Ren2014ACBedroom
     final max=1) "Probability of turning off the AC";
 
 protected
-  parameter Modelica.SIunits.Time t0(final fixed = false) "First sample time instant";
+  parameter Modelica.Units.SI.Time t0(final fixed=false)
+    "First sample time instant";
   output Boolean sampleTrigger "True, if sample time instant";
   Real curSeed "Current value for seed as a real-valued variable";
 
@@ -76,7 +77,7 @@ equation
   annotation (Icon(graphics={
             Rectangle(extent={{-60,40},{60,-40}}, lineColor={28,108,200}), Text(
             extent={{-40,20},{40,-20}},
-            lineColor={28,108,200},
+            textColor={28,108,200},
             fillColor={0,0,255},
             fillPattern=FillPattern.Solid,
             textStyle={TextStyle.Bold},

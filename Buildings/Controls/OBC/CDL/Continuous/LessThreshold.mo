@@ -57,8 +57,9 @@ protected
           Text(
             extent={{-150,150},{150,110}},
             textString="%name",
-            lineColor={0,0,255})}));
+            textColor={0,0,255})}));
   end LessNoHysteresis;
+
   block LessWithHysteresis
     "Less block without hysteresis"
     parameter Real t=0
@@ -98,10 +99,10 @@ protected
           Text(
             extent={{-150,150},{150,110}},
             textString="%name",
-            lineColor={0,0,255}),
+            textColor={0,0,255}),
           Text(
             extent={{-64,62},{62,92}},
-            lineColor={0,0,0},
+            textColor={0,0,0},
             textString="h=%h")}));
   end LessWithHysteresis;
 
@@ -147,25 +148,25 @@ equation
         Text(
           extent={{-150,150},{150,110}},
           textString="%name",
-          lineColor={0,0,255}),
+          textColor={0,0,255}),
         Text(
           extent={{-64,62},{62,92}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="h=%h"),
         Text(
           extent={{-88,-18},{-21,24}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString=DynamicSelect("",String(u,
             leftJustified=false,
             significantDigits=3))),
         Text(
           extent={{4,-18},{71,24}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="%t",
           visible=h < 1E-10),
         Text(
           extent={{22,20},{89,62}},
-          lineColor=DynamicSelect({0,0,0},
+          textColor=DynamicSelect({0,0,0},
             if y then
               {135,135,135}
             else
@@ -176,7 +177,7 @@ equation
           visible=h >= 1E-10),
         Text(
           extent={{20,-56},{87,-14}},
-          lineColor=DynamicSelect({0,0,0},
+          textColor=DynamicSelect({0,0,0},
             if not y then
               {135,135,135}
             else

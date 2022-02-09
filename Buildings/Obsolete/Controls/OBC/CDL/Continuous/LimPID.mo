@@ -7,17 +7,14 @@ block LimPID
          Buildings.Controls.OBC.CDL.Types.SimpleController.PI "Type of controller";
   parameter Real k(
     min=0) = 1 "Gain of controller";
-  parameter Modelica.SIunits.Time Ti(min=Buildings.Controls.OBC.CDL.Constants.small) = 0.5
-    "Time constant of integrator block"
-    annotation (Dialog(enable=
-          controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PI or
-          controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
-  parameter Modelica.SIunits.Time Td(
-    min=0) = 0.1
-    "Time constant of derivative block"
-    annotation (Dialog(enable=
-          controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PD or
-          controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
+  parameter Modelica.Units.SI.Time Ti(min=Buildings.Controls.OBC.CDL.Constants.small)=
+       0.5 "Time constant of integrator block" annotation (Dialog(enable=
+          controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
+           or controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
+  parameter Modelica.Units.SI.Time Td(min=0) = 0.1
+    "Time constant of derivative block" annotation (Dialog(enable=
+          controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
+           or controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
   parameter Real yMax = 1 "Upper limit of output";
   parameter Real yMin = 0 "Lower limit of output";
   parameter Real wp(min=0) = 1 "Set-point weight for Proportional block (0..1)";
@@ -76,21 +73,22 @@ block LimPID
     annotation (Placement(transformation(extent={{220,-20},{260,20}}),
         iconTransformation(extent={{100,-20},{140,20}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput y_reset_in if
-       reset == Buildings.Obsolete.Controls.OBC.CDL.Types.Reset.Input
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput y_reset_in
+    if reset == Buildings.Obsolete.Controls.OBC.CDL.Types.Reset.Input
     "Input signal for state to which integrator is reset, enabled if reset = CDL.Types.Reset.Input"
     annotation (Placement(transformation(extent={{-260,-120},{-220,-80}}),
     visible=reset == Buildings.Obsolete.Controls.OBC.CDL.Types.Reset.Input,
       iconTransformation(extent={{-140,-100},{-100,-60}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput trigger if
-       reset <> Buildings.Obsolete.Controls.OBC.CDL.Types.Reset.Disabled
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput trigger
+    if reset <> Buildings.Obsolete.Controls.OBC.CDL.Types.Reset.Disabled
     "Resets the controller output when trigger becomes true"
     annotation (Placement(transformation(extent={{-20,-20},{20,20}},
         rotation=90, origin={-160,-200}),
      visible=reset <> Buildings.Obsolete.Controls.OBC.CDL.Types.Reset.Disabled,
       iconTransformation(extent={{-20,-20},{20,20}}, rotation=90, origin={-60,-120})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Feedback controlError "Control error (set point - measurement)"
+  Buildings.Obsolete.Controls.OBC.CDL.Continuous.Feedback controlError
+    "Control error (set point - measurement)"
     annotation (Placement(transformation(extent={{-200,-10},{-180,10}})));
 
   Buildings.Controls.OBC.CDL.Continuous.IntegratorWithReset I(
@@ -101,19 +99,19 @@ block LimPID
   Buildings.Obsolete.Controls.OBC.CDL.Continuous.Derivative D(
     final k=Td,
     final T=Td/Nd,
-    final y_start=yd_start) if
-      with_D "Derivative term"
+    final y_start=yd_start)
+   if with_D "Derivative term"
     annotation (Placement(transformation(extent={{-40,60},{-20,80}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Feedback errP "P error"
+  Buildings.Obsolete.Controls.OBC.CDL.Continuous.Feedback errP "P error"
     annotation (Placement(transformation(extent={{-100,110},{-80,130}})));
-  Buildings.Controls.OBC.CDL.Continuous.Feedback errD if with_D "D error"
+  Buildings.Obsolete.Controls.OBC.CDL.Continuous.Feedback errD if with_D "D error"
     annotation (Placement(transformation(extent={{-100,60},{-80,80}})));
-  Buildings.Controls.OBC.CDL.Continuous.Feedback errI1 if with_I
+  Buildings.Obsolete.Controls.OBC.CDL.Continuous.Feedback errI1 if with_I
     "I error (before anti-windup compensation)"
     annotation (Placement(transformation(extent={{-120,-10},{-100,10}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Feedback errI2 if with_I
+  Buildings.Obsolete.Controls.OBC.CDL.Continuous.Feedback errI2 if with_I
     "I error (after anti-windup compensation)"
     annotation (Placement(transformation(extent={{-82,-10},{-62,10}})));
 
@@ -145,54 +143,48 @@ protected
     annotation(Evaluate=true, HideResult=true,
                Placement(transformation(extent={{-40,20},{-20,41}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Gain uS_revAct(
-    final k=revAct) "Set point multiplied by reverse action sign"
+  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter uS_revAct(final k=
+        revAct) "Set point multiplied by reverse action sign"
     annotation (Placement(transformation(extent={{-200,30},{-180,50}})));
-  Buildings.Controls.OBC.CDL.Continuous.Gain uSetWp(
-    final k=wp) "Set point multiplied by weight for proportional gain"
+  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter uSetWp(final k=wp)
+    "Set point multiplied by weight for proportional gain"
     annotation (Placement(transformation(extent={{-160,110},{-140,130}})));
-  Buildings.Controls.OBC.CDL.Continuous.Gain uMea_revAct(
-    final k=revAct) "Set point multiplied by reverse action sign"
+  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter uMea_revAct(final k=
+       revAct) "Set point multiplied by reverse action sign"
     annotation (Placement(transformation(extent={{-180,-50},{-160,-30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Gain uSetWd(
-    final k=wd) if
-       with_D
-    "Set point multiplied by weight for derivative gain"
+  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter uSetWd(final k=wd)
+    if with_D "Set point multiplied by weight for derivative gain"
     annotation (Placement(transformation(extent={{-160,60},{-140,80}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Add addPD(
-    final k1=1,
-    final k2=1) "Outputs P and D gains added"
+  Buildings.Controls.OBC.CDL.Continuous.Add addPD
+    "Outputs P and D gains added"
     annotation (Placement(transformation(extent={{0,104},{20,124}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Gain gainPID(
-    final k=k) "Multiplier for control gain"
+  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gainPID(final k=k)
+    "Multiplier for control gain"
     annotation (Placement(transformation(extent={{80,80},{100,100}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Add addPID(
-    final k1=1,
-    final k2=1)
+  Buildings.Controls.OBC.CDL.Continuous.Add addPID
     "Outputs P, I and D gains added"
     annotation (Placement(transformation(extent={{40,80},{60,100}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Feedback antWinErr if
-       with_I "Error for anti-windup compensation"
+  Buildings.Obsolete.Controls.OBC.CDL.Continuous.Feedback antWinErr
+    if with_I "Error for anti-windup compensation"
     annotation (Placement(transformation(extent={{162,50},{182,70}})));
-  Buildings.Controls.OBC.CDL.Continuous.Gain antWinGai(k=1/(k*Ni)) if with_I
-    "Gain for anti-windup compensation"
-    annotation (
-      Placement(transformation(extent={{180,-30},{160,-10}})));
+  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter antWinGai(k=1/(k*Ni))
+    if with_I "Gain for anti-windup compensation"
+    annotation (Placement(transformation(extent={{180,-30},{160,-10}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant yResSig(final k=y_reset) if
-      reset == Buildings.Obsolete.Controls.OBC.CDL.Types.Reset.Parameter
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant yResSig(final k=y_reset)
+   if reset == Buildings.Obsolete.Controls.OBC.CDL.Types.Reset.Parameter
     "Signal for y_reset"
     annotation (Placement(transformation(extent={{-180,-80},{-160,-60}})));
-  Buildings.Controls.OBC.CDL.Continuous.Gain divK(final k=1/k) if
-       reset <> Buildings.Obsolete.Controls.OBC.CDL.Types.Reset.Disabled
+  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter divK(final k=1/k)
+    if reset <> Buildings.Obsolete.Controls.OBC.CDL.Types.Reset.Disabled
     "Division by k for integrator reset"
     annotation (Placement(transformation(extent={{-120,-80},{-100,-60}})));
-  Buildings.Controls.OBC.CDL.Continuous.Feedback addRes if
-      reset <> Buildings.Obsolete.Controls.OBC.CDL.Types.Reset.Disabled
+  Buildings.Obsolete.Controls.OBC.CDL.Continuous.Feedback addRes
+   if reset <> Buildings.Obsolete.Controls.OBC.CDL.Types.Reset.Disabled
    "Adder for integrator reset"
     annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
 
@@ -204,12 +196,12 @@ protected
     message="LimPID: Limits must be yMin < yMax")
     "Assertion on yMin and yMax"
     annotation (Placement(transformation(extent={{160,-160},{180,-140}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant noTri(final k=false) if
-       reset == Buildings.Obsolete.Controls.OBC.CDL.Types.Reset.Disabled
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant noTri(final k=false)
+    if reset == Buildings.Obsolete.Controls.OBC.CDL.Types.Reset.Disabled
     "No trigger when reset is disabled"
     annotation (Placement(transformation(extent={{-120,-130},{-100,-110}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zer(final k=0) if
-    reset == Buildings.Obsolete.Controls.OBC.CDL.Types.Reset.Disabled
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zer(final k=0)
+ if reset == Buildings.Obsolete.Controls.OBC.CDL.Types.Reset.Disabled
     "Reset input to integrator when the reset is disabled"
     annotation (Placement(transformation(extent={{-100,-50},{-80,-30}})));
 
@@ -353,7 +345,7 @@ equation
         Text(
           extent={{-150,150},{150,110}},
           textString="%name",
-          lineColor={0,0,255}),
+          textColor={0,0,255}),
         Line(
           points={{-80,-80},{-80,-22}},
           color={0,0,0}),

@@ -246,11 +246,9 @@ def _simulate(spec):
     # Set MODELICAPATH
     #os.environ['MODELICAPATH'] = LIBPATH
     # Set Model to simulate, the output dir and the package directory
-    s = Simulator(spec["model"])
+    s = Simulator(spec["model"], packagePath=os.path.join(wor_dir, library_name))
     # Add all necessary parameters from Case Dict
     s.addPreProcessingStatement("OutputCPUtime:= true;")
-    s.addPreProcessingStatement("// For Dymola 2022 (or higher) unload MSL so that MSL from uses statement is loaded")
-    s.addPreProcessingStatement("if DymolaVersionNumber() <> 2021.0 then eraseClasses({\"Modelica\"}); end if;")
     s.setSolver(spec["solver"])
     if 'parameters' in spec:
         s.addParameters(spec['parameters'])

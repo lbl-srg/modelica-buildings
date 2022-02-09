@@ -3,8 +3,10 @@ model Wang2005Occupancy
   "A model to predict Occupancy of a single person office"
   extends Modelica.Blocks.Icons.DiscreteBlock;
 
-  parameter Modelica.SIunits.Time one_mu(displayUnit="min") = 4368 "Mean occupancy duration";
-  parameter Modelica.SIunits.Time zero_mu(displayUnit="min") = 2556 "Mean vacancy duration";
+  parameter Modelica.Units.SI.Time one_mu(displayUnit="min") = 4368
+    "Mean occupancy duration";
+  parameter Modelica.Units.SI.Time zero_mu(displayUnit="min") = 2556
+    "Mean vacancy duration";
   parameter Integer seed = 10 "Seed for the random number generator";
 
   Modelica.Blocks.Interfaces.BooleanOutput occ(start=true, fixed=true)
@@ -39,7 +41,7 @@ algorithm
   annotation (Icon(graphics={
             Rectangle(extent={{-60,40},{60,-40}}, lineColor={28,108,200}), Text(
             extent={{-40,20},{40,-20}},
-            lineColor={28,108,200},
+            textColor={28,108,200},
             fillColor={0,0,255},
             fillPattern=FillPattern.Solid,
             textStyle={TextStyle.Bold},

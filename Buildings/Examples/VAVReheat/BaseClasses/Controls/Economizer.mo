@@ -6,17 +6,17 @@ block Economizer "Controller for economizer"
     annotation(Evaluate=true);
   parameter Boolean have_frePro = false
     "Set to true to enable freeze protection (mixed air low temperature control)";
-  parameter Modelica.SIunits.Temperature TFreSet=277.15
+  parameter Modelica.Units.SI.Temperature TFreSet=277.15
     "Lower limit of mixed air temperature for freeze protection"
-    annotation(Dialog(enable=have_frePro), Evaluate=true);
-  parameter Modelica.SIunits.TemperatureDifference dTLock(final min=0.1) = 1
+    annotation (Dialog(enable=have_frePro), Evaluate=true);
+  parameter Modelica.Units.SI.TemperatureDifference dTLock(final min=0.1) = 1
     "Temperature difference between return and outdoor air for economizer lockout";
-  parameter Modelica.SIunits.VolumeFlowRate VOut_flow_min(min=0)
+  parameter Modelica.Units.SI.VolumeFlowRate VOut_flow_min(min=0)
     "Minimum outside air volume flow rate";
   parameter Modelica.Blocks.Types.SimpleController controllerType=Modelica.Blocks.Types.SimpleController.PI
     "Type of controller";
   parameter Real k = 0.05 "Gain of controller";
-  parameter Modelica.SIunits.Time Ti = 120 "Time constant of integrator block";
+  parameter Modelica.Units.SI.Time Ti=120 "Time constant of integrator block";
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uEna
     "Enable signal for economizer"
     annotation (Placement(transformation(extent={{-140,170},{-100,210}}),
@@ -47,9 +47,9 @@ block Economizer "Controller for economizer"
           extent={{200,-20},{240,20}}),
           iconTransformation(extent={{200,-20},{240, 20}})));
   Modelica.Blocks.Interfaces.RealOutput yOA
-    "Control signal for outside air damper" annotation (Placement(
-        transformation(extent={{200,60},{240,100}}),iconTransformation(extent={{200,60},
-            {240,100}})));
+    "Control signal for outside air damper"
+    annotation (Placement(transformation(extent={{200,-80},{240,-40}}),
+        iconTransformation(extent={{200,60},{240,100}})));
   Modelica.Blocks.Math.Gain gain(k=1/VOut_flow_min) "Normalize mass flow rate"
     annotation (Placement(transformation(extent={{-60,-70},{-40,-50}})));
   Buildings.Controls.OBC.CDL.Continuous.PID conV_flow(
@@ -81,7 +81,7 @@ block Economizer "Controller for economizer"
   Modelica.Blocks.Sources.Constant TFre(k=TFreSet)
     "Setpoint for freeze protection"
     annotation (Placement(transformation(extent={{-60,70},{-40,90}})));
-  Buildings.Controls.OBC.CDL.Continuous.AddParameter invSig(p=1, k=-1)
+  Buildings.Controls.OBC.CDL.Continuous.Subtract invSig
     "Invert control signal for interlocked damper"
     annotation (Placement(transformation(extent={{170,-10},{190,10}})));
   Modelica.Blocks.Logical.Hysteresis hysLoc(final uLow=0, final uHigh=dTLock)
@@ -101,6 +101,10 @@ block Economizer "Controller for economizer"
   Buildings.Controls.OBC.CDL.Continuous.Max maxOutDam
     "Select larger of the outdoor damper signals"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant conOne(
+    final k=1)
+    "Constant 1"
+    annotation (Placement(transformation(extent={{100,70},{120,90}})));
 equation
   connect(VOut_flow, gain.u) annotation (Line(
       points={{-120,-60},{-62,-60}},
@@ -115,7 +119,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(yOATFre.y, minFrePro.u1)
-    annotation (Line(points={{-9,80},{0,80},{0,20},{78,20}}, color={0,0,127}));
+    annotation (Line(points={{-8,80},{0,80},{0,20},{78,20}}, color={0,0,127}));
   connect(yRet, invSig.y)
     annotation (Line(points={{220,0},{192,0}}, color={0,0,127}));
   connect(feedback.y, hysLoc.u)
@@ -136,30 +140,30 @@ equation
     annotation (Line(points={{-9,120},{88,120}}, color={255,0,255}));
   connect(uOATSup, swiOA.u1) annotation (Line(points={{-120,160},{60,160},{60,128},
           {88,128}}, color={0,0,127}));
-
   connect(one.y, minFrePro.u1)
     annotation (Line(points={{-39,20},{78,20}}, color={0,0,127}));
   connect(yOATFre.u_s, TFre.y)
     annotation (Line(points={{-32,80},{-39,80}}, color={0,0,127}));
   connect(TMix, yOATFre.u_m)
     annotation (Line(points={{-120,40},{-20,40},{-20,68}}, color={0,0,127}));
-  connect(swiModClo.y, invSig.u)
-    annotation (Line(points={{152,0},{168,0}}, color={0,0,127}));
-  connect(swiModClo.y, yOA) annotation (Line(points={{152,0},{160,0},{160,80},{220,
-          80}}, color={0,0,127}));
+  connect(swiModClo.y, yOA) annotation (Line(points={{152,0},{160,0},{160,-60},{
+          220,-60}}, color={0,0,127}));
   connect(uEna, swiModClo.u2) annotation (Line(points={{-120,190},{140,190},{
-          140,20},{124,20},{124,0},{128,0}},
-                                         color={255,0,255}));
+          140,20},{124,20},{124,0},{128,0}}, color={255,0,255}));
   connect(closed.y, swiModClo.u3) annotation (Line(points={{51,40},{120,40},{120,
           -8},{128,-8}}, color={0,0,127}));
   connect(maxOutDam.u1, swiOA.y) annotation (Line(points={{38,6},{20,6},{20,100},
           {120,100},{120,120},{112,120}}, color={0,0,127}));
-  connect(conV_flow.y, maxOutDam.u2) annotation (Line(points={{11,-20},{20,-20},
+  connect(conV_flow.y, maxOutDam.u2) annotation (Line(points={{12,-20},{20,-20},
           {20,-6},{38,-6}}, color={0,0,127}));
-  connect(minFrePro.y, swiModClo.u1) annotation (Line(points={{101,14},{114,14},
+  connect(minFrePro.y, swiModClo.u1) annotation (Line(points={{102,14},{114,14},
           {114,8},{128,8}}, color={0,0,127}));
   connect(maxOutDam.y, minFrePro.u2)
-    annotation (Line(points={{62,0},{72,0},{72,8},{80,8}}, color={0,0,127}));
+    annotation (Line(points={{62,0},{72,0},{72,8},{78,8}}, color={0,0,127}));
+  connect(swiModClo.y, invSig.u2) annotation (Line(points={{152,0},{160,0},{160,
+          -6},{168,-6}}, color={0,0,127}));
+  connect(conOne.y, invSig.u1) annotation (Line(points={{122,80},{160,80},{160,6},
+          {168,6}}, color={0,0,127}));
   annotation (defaultComponentName="conEco",
     Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{200,
             200}})),
@@ -172,31 +176,31 @@ equation
           fillPattern=FillPattern.Solid),
         Text(
           extent={{-92,110},{-52,90}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="TRet"),
         Text(
           extent={{-92,32},{-52,12}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="TMix"),
         Text(
           extent={{-92,-36},{-24,-84}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="VOut_flow"),
         Text(
           extent={{138,96},{184,62}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="yOA"),
         Text(
           extent={{140,20},{186,-14}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="yRet"),
         Text(
           extent={{-92,194},{-24,170}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="uOATSup"),        Text(
         extent={{-140,288},{240,214}},
         textString="%name",
-        lineColor={0,0,255})}),
+        textColor={0,0,255})}),
     Documentation(info="<html>
 <p>
 This is a controller for an economizer, that adjusts the mixed air dampers

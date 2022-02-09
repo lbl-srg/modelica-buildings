@@ -18,10 +18,10 @@ model ExteriorBoundaryConditions
   Buildings.HeatTransfer.Types.ExteriorConvection.TemperatureWind
     "Convective heat transfer model for opaque part of the constructions"
     annotation (Dialog(group="Convective heat transfer"));
-  parameter Modelica.SIunits.CoefficientOfHeatTransfer hFixed=10.0
+  parameter Modelica.Units.SI.CoefficientOfHeatTransfer hFixed=10.0
     "Constant convection coefficient for opaque part of the constructions"
-    annotation (Dialog(group="Convective heat transfer",
-                       enable=(conMod == Buildings.HeatTransfer.Types.ExteriorConvection.Fixed)));
+    annotation (Dialog(group="Convective heat transfer", enable=(conMod ==
+          Buildings.HeatTransfer.Types.ExteriorConvection.Fixed)));
 
   // The convection coefficients are not final to allow a user to individually
   // assign them.
@@ -64,7 +64,7 @@ model ExteriorBoundaryConditions
     annotation (Placement(transformation(extent={{0,100},{-20,120}})));
 
 protected
-  parameter Modelica.SIunits.Area AOpa[nCon]=conPar[:].A
+  parameter Modelica.Units.SI.Area AOpa[nCon]=conPar[:].A
     "Area of opaque construction";
 
   Buildings.HeatTransfer.Sources.PrescribedTemperature TAirConExt[
@@ -200,7 +200,7 @@ equation
           fillPattern=FillPattern.Solid),
         Text(
           extent={{-168,346},{212,280}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%name")}),
         Documentation(info="<html>
 <p>

@@ -108,7 +108,7 @@ equation
         coordinateSystem(preserveAspectRatio=false, extent={{-180,-180},{180,180}}), graphics={
         Text(
           extent={{58,-38},{176,-64}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           horizontalAlignment=TextAlignment.Left,
           textString="Tests freeze protection disable condition")}),
 Documentation(info="<html>

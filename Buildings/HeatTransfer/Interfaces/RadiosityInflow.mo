@@ -9,7 +9,7 @@ connector RadiosityInflow = input Real(min=0, final unit="W", nominal=419)
         fillPattern=FillPattern.Solid)}),
   Diagram(graphics={                    Text(
         extent={{-38,120},{38,100}},
-        lineColor={0,127,0},
+        textColor={0,127,0},
         fillColor={0,127,0},
         fillPattern=FillPattern.Solid,
         textString="%name"),                              Polygon(

@@ -5,16 +5,14 @@ partial model PartialPlant
   package MediumCHW = Buildings.Media.Water "Medium model";
   package MediumCW = Buildings.Media.Water "Medium model";
 
-  parameter Modelica.SIunits.MassFlowRate mCHW_flow_nominal=2567.1*1000/(
-    4200*10)
-    "Nominal mass flow rate at chilled water";
+  parameter Modelica.Units.SI.MassFlowRate mCHW_flow_nominal=2567.1*1000/(4200*
+      10) "Nominal mass flow rate at chilled water";
 
-  parameter Modelica.SIunits.MassFlowRate mCW_flow_nominal=2567.1*1000/ (
-    4200*8.5)
-    "Nominal mass flow rate at condenser water";
-  parameter Modelica.SIunits.PressureDifference dpCHW_nominal = 40000
+  parameter Modelica.Units.SI.MassFlowRate mCW_flow_nominal=2567.1*1000/(4200*
+      8.5) "Nominal mass flow rate at condenser water";
+  parameter Modelica.Units.SI.PressureDifference dpCHW_nominal=40000
     "Nominal pressure";
-  parameter Modelica.SIunits.PressureDifference dpCW_nominal = 40000
+  parameter Modelica.Units.SI.PressureDifference dpCW_nominal=40000
     "Nominal pressure";
   parameter Integer numChi=1 "Number of chillers";
 

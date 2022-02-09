@@ -150,7 +150,7 @@ annotation (
             220,120}}), graphics={
         Text(
           extent={{-200,110},{-174,100}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           lineThickness=0.5,
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid,
@@ -158,7 +158,7 @@ annotation (
           textString="Fan is off"),
         Text(
           extent={{-60,114},{34,100}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           lineThickness=0.5,
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid,
@@ -166,7 +166,7 @@ annotation (
           textString="Operation mode is other than occupied"),
         Text(
           extent={{80,114},{172,100}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           lineThickness=0.5,
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid,

@@ -26,8 +26,7 @@ model Carnot_TEva
     final energyDynamics=energyDynamics,
     final homotopyInitialization=homotopyInitialization));
 
-  parameter Modelica.SIunits.HeatFlowRate QEva_flow_min(
-    max=0) = -Modelica.Constants.inf
+  parameter Modelica.Units.SI.HeatFlowRate QEva_flow_min(max=0) = -Modelica.Constants.inf
     "Maximum heat flow rate for cooling (negative)";
 
   Modelica.Blocks.Interfaces.RealInput TSet(unit="K")
@@ -63,7 +62,7 @@ equation
             {100,100}}),       graphics={
         Text(
           extent={{-148,156},{-92,114}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid,
           textString="TEva"),

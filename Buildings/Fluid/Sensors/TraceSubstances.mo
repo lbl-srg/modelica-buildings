@@ -1,7 +1,7 @@
 within Buildings.Fluid.Sensors;
 model TraceSubstances "Ideal one port trace substances sensor"
   extends Buildings.Fluid.Sensors.BaseClasses.PartialAbsoluteSensor;
-  extends Modelica.Icons.RotationalSensor;
+  extends Modelica.Icons.RoundSensor;
 
   parameter String substanceName = "CO2" "Name of trace substance";
 
@@ -34,15 +34,15 @@ annotation (defaultComponentName="senTraSub",
         Text(
           extent={{-150,80},{150,120}},
           textString="%name",
-          lineColor={0,0,255}),
+          textColor={0,0,255}),
         Text(
           extent={{160,-30},{60,-60}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="C"),
         Line(points={{70,0},{100,0}}, color={0,0,127}),
         Text(
           extent={{180,90},{60,40}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString=DynamicSelect("", String(C, leftJustified=false, significantDigits=3)))}),
   Documentation(info="<html>
 <p>

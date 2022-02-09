@@ -1,7 +1,7 @@
 within Buildings.Electrical.Transmission.Functions;
 function selectVoltageLevel
   "This function computes the voltage level (low, medium or high) given the nominal voltage"
-  input Modelica.SIunits.Voltage V "Nominal voltage";
+  input Modelica.Units.SI.Voltage V "Nominal voltage";
   output Buildings.Electrical.Types.VoltageLevel level "Type of voltage level";
 algorithm
   if V <= 0 then

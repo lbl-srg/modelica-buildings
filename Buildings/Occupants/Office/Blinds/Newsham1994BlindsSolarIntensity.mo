@@ -3,7 +3,7 @@ model Newsham1994BlindsSolarIntensity
     "A model to predict occupants' blinds behavior with solar intensity"
     extends Modelica.Blocks.Icons.DiscreteBlock;
     parameter Real HSet = 233 "Threshold for moving blinds up or down";
-    parameter Modelica.SIunits.Time samplePeriod = 120 "Sample period";
+  parameter Modelica.Units.SI.Time samplePeriod=120 "Sample period";
 
     Modelica.Blocks.Interfaces.RealInput H(unit="W/m2") "Solar intensity at the room-side of the window"
       annotation (Placement(transformation(extent={{-140,-80},{-100,-40}}),
@@ -19,7 +19,8 @@ model Newsham1994BlindsSolarIntensity
       annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 
 protected
-    parameter Modelica.SIunits.Time t0(final fixed = false) "First sample time instant";
+  parameter Modelica.Units.SI.Time t0(final fixed=false)
+    "First sample time instant";
     output Boolean sampleTrigger "True, if sample time instant";
 
 initial equation
@@ -43,7 +44,7 @@ equation
     annotation (Icon(graphics={
               Rectangle(extent={{-60,40},{60,-40}}, lineColor={28,108,200}), Text(
               extent={{-40,20},{40,-20}},
-              lineColor={28,108,200},
+              textColor={28,108,200},
               fillColor={0,0,255},
               fillPattern=FillPattern.Solid,
               textStyle={TextStyle.Bold},

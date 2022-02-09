@@ -35,8 +35,7 @@ model TwoIdenticalZones
   Controls.OBC.UnitConversions.From_degC TAirEnePlu
     "Room air temperature computed by EnergyPlus"
     annotation (Placement(transformation(extent={{0,60},{20,80}})));
-  Controls.OBC.CDL.Continuous.Gain relHumEnePlu(
-    k=0.01)
+  Controls.OBC.CDL.Continuous.MultiplyByParameter relHumEnePlu(k=0.01)
     "Relative humidity in the room computed by EnergyPlus"
     annotation (Placement(transformation(extent={{0,20},{20,40}})));
 
@@ -52,7 +51,7 @@ model TwoIdenticalZones
       "Medium model";
     parameter String zoneName=""
       "Name of the thermal zone";
-    parameter Modelica.SIunits.MassFlowRate mOut_flow=0.3/3600*zon.V*Buildings.Media.Air.dStp
+    parameter Modelica.Units.SI.MassFlowRate mOut_flow=0.3/3600*zon.V*Buildings.Media.Air.dStp
       "Outside air mass flow rate with 0.3 ACH";
     Modelica.Blocks.Sources.Constant qConGai_flow(
       k=0)
@@ -197,11 +196,11 @@ First implementation.
           pattern=LinePattern.None),
         Text(
           extent={{-70,96},{-40,86}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="EnergyPlus results"),
         Text(
           extent={{-70,-6},{-40,-16}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="Spawn results")}),
     Icon(
       coordinateSystem(

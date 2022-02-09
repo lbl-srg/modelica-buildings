@@ -61,13 +61,13 @@ First implementation.
                               Text(
           extent={{-150,110},{150,150}},
           textString="%name",
-          lineColor={0,0,255}),
+          textColor={0,0,255}),
         Text(
           extent={{-98,62},{-46,46}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="decAng"),
         Text(
           extent={{-98,-40},{-22,-58}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="solHouAng")}));
 end ZenithAngle;
