@@ -1,4 +1,4 @@
-within Buildings.Fluid.Storage.Plant.Examples;
+within Buildings.Fluid.Storage.Plant.Validation;
 model ChillerAndTankWithRemoteCharging
   "(Draft)"
   //Operation modes implemented in time tables:
@@ -17,6 +17,7 @@ model ChillerAndTankWithRemoteCharging
 
   Buildings.Fluid.Storage.Plant.ChillerAndTankWithRemoteCharging cat(
     redeclare final package Medium=Medium,
+    pum1(m_flow_start=0),
     final m1_flow_nominal=1,
     final m2_flow_nominal=1,
     final p_CHWS_nominal=sin.p,
@@ -51,10 +52,10 @@ model ChillerAndTankWithRemoteCharging
             "Tank flow rate setpoint"
     annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
   Modelica.Blocks.Sources.BooleanTable booFloDir(table={0,3600/7*6})
-    "Flow direction"
+    "Flow direction (true = normal, false = reverse)"
     annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
-  Modelica.Blocks.Sources.BooleanTable booOnOffLin(table={0,3600/7*2})
-    "Plant online/offline"
+  Modelica.Blocks.Sources.BooleanTable booOnOffLin(table={3600/7*2})
+    "Plant online/offline (true = online, false = offline)"
     annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
   Modelica.Blocks.Sources.TimeTable set_mChi_flow(table=[0,0; 3600/7,0; 3600/7,
         1; 3600/7*5,1; 3600/7*5,0]) "Chiller flow rate setpoint"
@@ -62,12 +63,11 @@ model ChillerAndTankWithRemoteCharging
 equation
   connect(sou.ports[1], cat.port_a)
     annotation (Line(points={{-50,0},{-8,0}},  color={0,127,255}));
-  connect(cat.port_b, sin.ports[1]) annotation (Line(points={{12,0},{35,0},{35,
-          4.44089e-16},{50,4.44089e-16}},
-                             color={0,127,255}));
+  connect(cat.port_b, sin.ports[1]) annotation (Line(points={{12,0},{35,0},{35,4.44089e-16},
+          {50,4.44089e-16}}, color={0,127,255}));
 
-  connect(booOnOffLin.y, cat.onOffLin) annotation (Line(points={{-59,-30},{-20,
-          -30},{-20,-7},{-10,-7}},
+  connect(booOnOffLin.y, cat.onOffLin) annotation (Line(points={{-59,-30},{-20,-30},
+          {-20,-7},{-10,-7}},
                             color={255,0,255}));
   connect(booFloDir.y,cat.booFloDir)  annotation (Line(points={{-59,30},{-20,30},
           {-20,6},{-10,6},{-10,7}},

@@ -1,4 +1,4 @@
-within Buildings.Fluid.Storage.Plant.Examples;
+within Buildings.Fluid.Storage.Plant.Validation;
 model DummyConsumer "Test model for the dummy consumer"
   extends Modelica.Icons.Example;
 
@@ -54,8 +54,8 @@ model DummyConsumer "Test model for the dummy consumer"
         extent={{10,10},{-10,-10}},
         rotation=180,
         origin={-70,0})));
-  Modelica.Blocks.Sources.TimeTable preQCooLoa_flow(table=[0*3600,0; 0.5*3600,0;
-        0.5*3600,5*4200*1.01; 0.75*3600,5*4200*1.01; 0.75*3600,0; 1*3600,0])
+  Modelica.Blocks.Sources.TimeTable preQCooLoa_flow(table=[0*3600,0; 0.5*3600,
+        0; 0.5*3600,5*4200*1.01; 0.75*3600,5*4200*1.01; 0.75*3600,0; 1*3600,0])
     "Placeholder, prescribed cooling load"
     annotation (Placement(transformation(extent={{-60,80},{-40,100}})));
 equation

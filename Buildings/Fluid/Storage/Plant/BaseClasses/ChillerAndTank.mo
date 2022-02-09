@@ -30,17 +30,6 @@ partial model ChillerAndTank
     final dp_nominal=dp_nominal,
     final m_flow_nominal=m1_flow_nominal) "Flow resistance on chiller branch"
     annotation (Placement(transformation(extent={{40,30},{60,50}})));
-  Buildings.Fluid.Movers.BaseClasses.IdealSource pum1(
-    redeclare package Medium = Medium,
-    final dp_start=dp_nominal,
-    final m_flow_start=m1_flow_nominal,
-    final show_T=false,
-    final show_V_flow=false,
-    final control_m_flow=true,
-    final control_dp=false,
-    final allowFlowReversal=allowFlowReversal1,
-    final m_flow_small=m1_flow_nominal*1E-5) "Primary CHW pump"
-    annotation (Placement(transformation(extent={{-60,30},{-40,50}})));
   Buildings.Fluid.FixedResistances.Junction jun1(
     redeclare package Medium = Medium,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
@@ -100,7 +89,7 @@ partial model ChillerAndTank
     T_a_nominal=T_CHWR_nominal,
     T_b_nominal=T_CHWS_nominal) "Ideal chiller"
     annotation (Placement(transformation(extent={{-10,30},{10,50}})));
-  DummyChillSource ideTan(
+  Buildings.Fluid.Storage.Plant.DummyChillSource ideTan(
     redeclare package Medium = Medium,
     final allowFlowReversal=true,
     m_flow_nominal=m2_flow_nominal,
@@ -108,11 +97,19 @@ partial model ChillerAndTank
     T_a_nominal=T_CHWR_nominal,
     T_b_nominal=T_CHWS_nominal) "Ideal tank"
     annotation (Placement(transformation(extent={{-10,-70},{10,-50}})));
+  Buildings.Fluid.Movers.FlowControlled_m_flow pum1(
+    redeclare package Medium = Medium,
+    per(pressure(dp=dp_nominal*{2,1.2,0}, V_flow=m1_flow_nominal/1.2*{0,1.2,2})),
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    allowFlowReversal=true,
+    addPowerToMedium=false,
+    m_flow_nominal=m1_flow_nominal,
+    m_flow_start=m1_flow_nominal,
+    T_start=T_CHWR_nominal) "Primary CHW pump"
+    annotation (Placement(transformation(extent={{-60,30},{-40,50}})));
+
 equation
 
-  connect(pum1.port_a, jun1.port_2) annotation (Line(points={{-60,40},{-66,40},{
-          -66,0},{-70,0}},
-                       color={0,127,255}));
   connect(preDro2.port_b, jun2.port_3)
     annotation (Line(points={{60,-60},{100,-60},{100,-10}},
                                                  color={0,127,255}));
@@ -121,16 +118,18 @@ equation
                                                         color={0,127,255}));
   connect(jun2.port_2, port_b)
     annotation (Line(points={{110,0},{140,0}}, color={0,127,255}));
-  connect(pum1.m_flow_in, set_mPum1_flow) annotation (Line(points={{-56,48},{-56,
-          60},{-50,60},{-50,120}}, color={0,0,127}));
-  connect(pum1.port_b, ideChi.port_a) annotation (Line(points={{-40,40},{-28,40},
-          {-28,40},{-10.2,40}}, color={0,127,255}));
   connect(ideChi.port_b, preDro1.port_a) annotation (Line(points={{10,40},{10,40},
           {10,40},{40,40}}, color={0,127,255}));
   connect(ideTan.port_b, preDro2.port_a)
     annotation (Line(points={{10,-60},{40,-60}}, color={0,127,255}));
   connect(jun1.port_3, ideTan.port_a) annotation (Line(points={{-80,-10},{-80,
           -60},{-10.2,-60}}, color={0,127,255}));
+  connect(pum1.port_b, ideChi.port_a)
+    annotation (Line(points={{-40,40},{-10.2,40}}, color={0,127,255}));
+  connect(jun1.port_2, pum1.port_a) annotation (Line(points={{-70,0},{-64,0},{-64,
+          40},{-60,40}}, color={0,127,255}));
+  connect(pum1.m_flow_in, set_mPum1_flow)
+    annotation (Line(points={{-50,52},{-50,120},{-50,120}}, color={0,0,127}));
   annotation (
   experiment(Tolerance=1e-06, StopTime=3600),
     Diagram(coordinateSystem(extent={{-180,-100},{140,100}})),

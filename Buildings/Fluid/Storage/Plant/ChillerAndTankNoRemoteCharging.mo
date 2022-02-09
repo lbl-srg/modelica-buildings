@@ -31,8 +31,8 @@ model ChillerAndTankNoRemoteCharging
         origin={-150,30})));
   Modelica.Blocks.Interfaces.RealInput set_mPum2_flow
     "Secondary pump mass flow rate setpoint" annotation (Placement(
-        transformation(extent={{-204,58},{-180,82}}), iconTransformation(extent
-          ={{-120,50},{-100,70}})));
+        transformation(extent={{-204,58},{-180,82}}), iconTransformation(extent=
+           {{-120,50},{-100,70}})));
 equation
   connect(port_a, pum2.port_a)
     annotation (Line(points={{-180,0},{-140,0}}, color={0,127,255}));

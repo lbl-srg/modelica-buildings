@@ -78,8 +78,8 @@ equation
         color={0,0,127}));
   connect(pum2Con.us_mTan_flow, set_mTan_flow) annotation (Line(points={{-141,
           72.3},{-150,72.3},{-150,120}}, color={0,0,127}));
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-180,
-            -100},{140,100}}), graphics={Line(
+  annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
+            {100,100}}),       graphics={Line(
           points={{-80,-20},{-20,-20}},
           color={28,108,200},
           pattern=LinePattern.Dash), Polygon(
@@ -87,6 +87,5 @@ equation
           fillColor={28,108,200},
           fillPattern=FillPattern.Solid,
           pattern=LinePattern.None)}),                           Diagram(
-        coordinateSystem(preserveAspectRatio=false, extent={{-180,-100},{140,
-            100}})));
+        coordinateSystem(preserveAspectRatio=false, extent={{-180,-100},{140,100}})));
 end ChillerAndTankWithRemoteCharging;

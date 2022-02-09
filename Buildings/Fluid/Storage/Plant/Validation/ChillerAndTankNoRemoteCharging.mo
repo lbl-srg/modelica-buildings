@@ -1,4 +1,4 @@
-within Buildings.Fluid.Storage.Plant.Examples;
+within Buildings.Fluid.Storage.Plant.Validation;
 model ChillerAndTankNoRemoteCharging "(Draft)"
   extends Modelica.Icons.Example;
 
