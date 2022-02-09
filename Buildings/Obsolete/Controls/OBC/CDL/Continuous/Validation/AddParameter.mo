@@ -1,8 +1,8 @@
-within Buildings.Controls.OBC.CDL.Continuous.Validation;
-model AddParameter
-  "Validation model for the AddParameter block"
-  Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar(
-    p=0.5)
+within Buildings.Obsolete.Controls.OBC.CDL.Continuous.Validation;
+model AddParameter "Validation model for the AddParameter block"
+  Buildings.Obsolete.Controls.OBC.CDL.Continuous.AddParameter addPar(
+    p=0.5,
+    k=1.0)
     "Block that outputs the sum of an input plus a parameter"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp ramp1(
@@ -20,13 +20,13 @@ equation
       StopTime=1.0,
       Tolerance=1e-06),
     __Dymola_Commands(
-      file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/CDL/Continuous/Validation/AddParameter.mos" "Simulate and plot"),
+      file="modelica://Buildings/Resources/Scripts/Dymola/Obsolete/Controls/OBC/CDL/Continuous/Validation/AddParameter.mos" "Simulate and plot"),
     Documentation(
       info="<html>
 <p>
 Validation test for the block
-<a href=\"modelica://Buildings.Controls.OBC.CDL.Continuous.AddParameter\">
-Buildings.Controls.OBC.CDL.Continuous.AddParameter</a>.
+<a href=\"modelica://Buildings.Obsolete.Controls.OBC.CDL.Continuous.AddParameter\">
+Buildings.Obsolete.Controls.OBC.CDL.Continuous.AddParameter</a>.
 </p>
 <p>
 The input <code>u</code> varies from <i>-2</i> to <i>+2</i>.
