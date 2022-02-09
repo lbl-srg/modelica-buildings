@@ -12,22 +12,15 @@ model WaterBasedCooling "Chilled water coil"
   outer replaceable package MediumCoo=Buildings.Media.Water
     "Source side medium";
 
-  parameter Modelica.Units.SI.MassFlowRate mWat_flow_nominal(min=0)=
-    dat.getReal(varName=id + ".mechanical.coil" + funStr + ".mWat_flow_nominal.value")
-    "Liquid mass flow rate"
-    annotation(Dialog(group = "Nominal condition"), Evaluate=true);
-  parameter Modelica.Units.SI.PressureDifference dpWat_nominal(
-    displayUnit="Pa")=
-    dat.getReal(varName=id + ".mechanical.coil" + funStr + ".dpWat_nominal.value")
-    "Liquid pressure drop"
-    annotation(Dialog(group = "Nominal condition"), Evaluate=true);
-  parameter Modelica.Units.SI.PressureDifference dpValve_nominal(
-    displayUnit="Pa",
-    min=0)=if typVal==Buildings.Templates.Components.Types.Valve.None then 0 else
-    dat.getReal(varName=id + ".mechanical.coil" + funStr + ".dpValve_nominal.value")
-    "Nominal pressure drop of fully open valve"
-    annotation(Dialog(group="Nominal condition",
-      enable=typVal<>Buildings.Templates.Components.Types.Valve.None));
+  final parameter Modelica.Units.SI.MassFlowRate mWat_flow_nominal=
+    datRec.mWat_flow_nominal
+    "Liquid mass flow rate";
+  final parameter Modelica.Units.SI.PressureDifference dpWat_nominal=
+    datRec.dpWat_nominal
+    "Liquid pressure drop";
+  final parameter Modelica.Units.SI.PressureDifference dpValve_nominal=
+    datRec.dpValve_nominal
+    "Nominal pressure drop of fully open valve";
 
   replaceable Buildings.Templates.Components.Valves.None val constrainedby
     Buildings.Templates.Components.Valves.Interfaces.PartialValve(redeclare
@@ -46,13 +39,13 @@ model WaterBasedCooling "Chilled water coil"
   replaceable Buildings.Templates.Components.HeatExchangers.WetCoilCounterFlow
     hex constrainedby
     Buildings.Templates.Components.HeatExchangers.Interfaces.PartialCoilWater(
-    redeclare final package Medium1 = MediumCoo,
-    redeclare final package Medium2 = MediumAir,
-    final m1_flow_nominal=mWat_flow_nominal,
-    final m2_flow_nominal=mAir_flow_nominal,
-    final dp1_nominal=if typVal == Buildings.Templates.Components.Types.Valve.None then
-      dpWat_nominal else 0,
-    final dp2_nominal=dpAir_nominal)
+      redeclare final package Medium1 = MediumCoo,
+      redeclare final package Medium2 = MediumAir,
+      final m1_flow_nominal=mWat_flow_nominal,
+      final m2_flow_nominal=mAir_flow_nominal,
+      final dp1_nominal=if typVal == Buildings.Templates.Components.Types.Valve.None then
+        dpWat_nominal else 0,
+      final dp2_nominal=dpAir_nominal)
     "Heat exchanger"
     annotation (choices(
       choice(redeclare replaceable

@@ -12,6 +12,26 @@ partial model AirHandler "Base interface class for air handler"
     "Heating medium (such as HHW)"
     annotation(Dialog(enable=have_souCoiHeaPre or have_souCoiHeaReh));
 
+  inner parameter String id
+    "System tag"
+    annotation (
+      Evaluate=true,
+      Dialog(group="Configuration"));
+  outer parameter ExternData.JSONFile dat
+    "External parameter file";
+
+  replaceable parameter Buildings.Templates.AirHandlersFans.Interfaces.Data datRec(
+    final id=id,
+    final dat=dat,
+    final typ=typ,
+    final typFanSup=typFanSup,
+    final typFanRet=typFanRet,
+    final typFanRel=typFanRel,
+    final have_souCoiCoo=have_souCoiCoo,
+    final have_souCoiHeaPre=have_souCoiHeaPre,
+    final have_souCoiHeaReh=have_souCoiHeaReh)
+    "Design and operating parameters";
+
   parameter Boolean is_modCtrSpe = true
     "Set to true to activate the control specification mode"
     annotation(Evaluate=true);
@@ -37,16 +57,17 @@ partial model AirHandler "Base interface class for air handler"
     "Set to true if reheat coil requires fluid ports on the source side"
     annotation (Evaluate=true, Dialog(group="Heating coil"));
 
-  inner parameter String id
-    "System tag"
-    annotation (
-      Evaluate=true,
-      Dialog(group="Configuration"));
-  outer parameter ExternData.JSONFile dat
-    "External parameter file";
+  inner parameter Buildings.Templates.Components.Types.Fan typFanSup
+    "Type of supply fan"
+    annotation (Evaluate=true, Dialog(group="Configuration"));
+  inner parameter Buildings.Templates.Components.Types.Fan typFanRet
+    "Type of return fan"
+    annotation (Evaluate=true, Dialog(group="Configuration"));
+  inner parameter Buildings.Templates.Components.Types.Fan typFanRel
+    "Type of relief fan"
+    annotation (Evaluate=true, Dialog(group="Configuration"));
 
-  // See FIXME below for those parameters.
-  inner parameter Integer nZon
+  inner parameter Integer nZon(min=1)
     "Number of served zones"
     annotation (
       Evaluate=true,

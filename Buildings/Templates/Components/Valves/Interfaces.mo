@@ -17,20 +17,20 @@ package Interfaces "Classes defining the component interfaces"
       annotation(Dialog(tab="Graphics", enable=false));
 
     parameter Modelica.Units.SI.PressureDifference dpValve_nominal(
-       displayUnit="Pa",
-       min=0)=0
+      displayUnit="Pa",
+      final min=0)=0
       "Nominal pressure drop of fully open valve"
       annotation(Dialog(group="Nominal condition",
         enable=typ<>Buildings.Templates.Components.Types.Valve.None));
     parameter Modelica.Units.SI.PressureDifference dpFixed_nominal(
       displayUnit="Pa",
-      min=0)=0
+      final min=0)=0
       "Nominal pressure drop of pipes and other equipment in flow leg"
       annotation(Dialog(group="Nominal condition",
         enable=typ<>Buildings.Templates.Components.Types.Valve.None));
     parameter Modelica.Units.SI.PressureDifference dpFixedByp_nominal(
       displayUnit="Pa",
-      min=0)=dpFixed_nominal
+      final min=0)=dpFixed_nominal
       "Nominal pressure drop in the bypass line"
       annotation(Dialog(group="Nominal condition",
         enable=typ==Buildings.Templates.Components.Types.Valve.ThreeWayTwoPosition or

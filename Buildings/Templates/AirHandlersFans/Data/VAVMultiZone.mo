@@ -1,72 +1,46 @@
 within Buildings.Templates.AirHandlersFans.Data;
 record VAVMultiZone
-  extends Modelica.Icons.Record;
+  extends Buildings.Templates.AirHandlersFans.Interfaces.Data;
 
-  parameter String id
-    "System tag"
-    annotation (
-      Evaluate=true,
-      Dialog(group="Configuration"));
-
-  /*
-  FIXME: Not strictly compliant with Modelica specification, see
-  https://github.com/lbl-srg/linkage.js/wiki/20211220_HVACTemplates#use-of-an-external-parameter-file-1
-  */
-  parameter ExternData.JSONFile dat
-    "External parameter file"
-    annotation (
-      Evaluate=true,
-      Dialog(group="Configuration"));
-
-  parameter Buildings.Templates.Components.Types.Fan typFanSup
-    "Type of supply fan"
-    annotation(Dialog(group="Configuration"));
-  parameter Buildings.Templates.Components.Types.Fan typFanRet
-    "Type of return fan"
-    annotation(Dialog(group="Configuration"));
-  parameter Buildings.Templates.Components.Types.Fan typFanRel
-    "Type of relief fan"
-    annotation(Dialog(group="Configuration"));
   parameter Buildings.Templates.Components.Types.Coil typCoiHeaPre
     "Type of heating coil in preheat position"
-    annotation (Evaluate=true, Dialog(group="Configuration"));
+    annotation (Evaluate=true, Dialog(group="Configuration", enable=false));
   parameter Buildings.Templates.Components.Types.Coil typCoiCoo
     "Type of cooling coil"
-    annotation (Evaluate=true, Dialog(group="Configuration"));
+    annotation (Evaluate=true, Dialog(group="Configuration", enable=false));
   parameter Buildings.Templates.Components.Types.Coil typCoiHeaReh
     "Type of heating coil in reheat position"
-    annotation (Evaluate=true, Dialog(group="Configuration"));
+    annotation (Evaluate=true, Dialog(group="Configuration", enable=false));
   parameter Buildings.Templates.Components.Types.Valve typValCoiHeaPre
     "Type of valve for heating coil in preheat position"
-    annotation (Dialog(group="Configuration"));
+    annotation (Evaluate=true, Dialog(group="Configuration", enable=false));
   parameter Buildings.Templates.Components.Types.Valve typValCoiCoo
     "Type of valve for cooling coil"
-    annotation (Dialog(group="Configuration"));
+    annotation (Evaluate=true, Dialog(group="Configuration", enable=false));
   parameter Buildings.Templates.Components.Types.Valve typValCoiHeaReh
     "Type of valve for heating coil in reheat position"
-    annotation (Dialog(group="Configuration"));
+    annotation (Evaluate=true, Dialog(group="Configuration", enable=false));
+  parameter Buildings.Templates.Components.Types.HeatExchanger typHexCoiHeaPre
+    "Type of heat exchanger for heating coil in preheat position"
+    annotation (Evaluate=true, Dialog(group="Configuration", enable=false));
+  parameter Buildings.Templates.Components.Types.HeatExchanger typHexCoiCoo
+    "Type of heat exchanger for cooling coil"
+    annotation (Evaluate=true, Dialog(group="Configuration", enable=false));
+  parameter Buildings.Templates.Components.Types.HeatExchanger typHexCoiHeaReh
+    "Type of heat exchanger for heating coil in reheat position"
+    annotation (Evaluate=true, Dialog(group="Configuration", enable=false));
   parameter Buildings.Templates.Components.Types.Damper typDamOut
     "Outdoor air damper type"
-    annotation (Evaluate=true, Dialog(group="Configuration"));
+    annotation (Evaluate=true, Dialog(group="Configuration", enable=false));
   parameter Buildings.Templates.Components.Types.Damper typDamOutMin
     "Minimum outdoor air damper type"
-    annotation (Evaluate=true, Dialog(group="Configuration"));
-  parameter Buildings.Templates.Components.Types.Damper typDamRel
-    "Relief damper type"
-    annotation (Evaluate=true, Dialog(group="Configuration"));
+    annotation (Evaluate=true, Dialog(group="Configuration", enable=false));
   parameter Buildings.Templates.Components.Types.Damper typDamRet
     "Return damper type"
-    annotation (Evaluate=true, Dialog(group="Configuration"));
-
-  parameter Modelica.Units.SI.MassFlowRate mAirSup_flow_nominal=
-    dat.getReal(varName=id + ".mechanical.mAirSup_flow_nominal.value")
-    "Supply air mass flow rate"
-    annotation (Dialog(group="Nominal condition"));
-
-  parameter Modelica.Units.SI.MassFlowRate mAirRet_flow_nominal=
-    dat.getReal(varName=id + ".mechanical.mAirRet_flow_nominal.value")
-    "Return air mass flow rate"
-    annotation (Dialog(group="Nominal condition"));
+    annotation (Evaluate=true, Dialog(group="Configuration", enable=false));
+  parameter Buildings.Templates.Components.Types.Damper typDamRel
+    "Relief damper type"
+    annotation (Evaluate=true, Dialog(group="Configuration", enable=false));
 
   parameter Modelica.Units.SI.MassFlowRate mAirOutMin_flow_nominal=
     if typDamOutMin <> Buildings.Templates.Components.Types.Damper.None then
@@ -77,26 +51,68 @@ record VAVMultiZone
       Dialog(group="Nominal condition",
         enable=typDamOutMin <> Buildings.Templates.Components.Types.Damper.None));
 
-  parameter Modelica.Units.SI.MassFlowRate mAirCoiHeaPre_flow_nominal=
-    if typCoiHeaPre <> Buildings.Templates.Components.Types.Coil.None then
-    dat.getReal(varName=id + ".mechanical.coilHeatingPreheat.mAir_flow_nominal.value") else
-    mAirSup_flow_nominal
-    "Air mass flow rate"
-    annotation (Dialog(group="Heating coil in preheat position",
+  parameter Buildings.Templates.Components.Coils.Interfaces.Data coiHeaPre(
+    final typ=typCoiHeaPre,
+    final typVal=typValCoiHeaPre,
+    final typHex=typHexCoiHeaPre,
+    final have_sou=have_souCoiHeaPre,
+    mAir_flow_nominal=if typCoiHeaPre==Buildings.Templates.Components.Types.Coil.None then
+      mAirSup_flow_nominal else
+      dat.getReal(varName=id + ".mechanical.coilHeatingPreheat.mAir_flow_nominal.value"),
+    dpAir_nominal=if typCoiHeaPre==Buildings.Templates.Components.Types.Coil.None then 0 else
+      dat.getReal(varName=id + ".mechanical.coilHeatingPreheat.dpAir_nominal.value"),
+    mWat_flow_nominal=if have_souCoiHeaPre then
+      dat.getReal(varName=id + ".mechanical.coilHeatingPreheat.mWat_flow_nominal.value") else 0,
+    dpWat_nominal=if have_souCoiHeaPre then
+      dat.getReal(varName=id + ".mechanical.coilHeatingPreheat.dpWat_flow_nominal.value") else 0,
+    dpValve_nominal=if have_souCoiHeaPre then
+      dat.getReal(varName=id + ".mechanical.coilHeatingPreheat.dpValve_nominal.value") else 0,
+    Q_flow_nominal(final min=0)=if typCoiHeaPre==Buildings.Templates.Components.Types.Coil.None then 0 else
+      dat.getReal(varName=id + ".mechanical.coilHeatingPreheat.Capacity.value"))
+    "Heating coil in preheat position"
+    annotation(Dialog(group="Schedule.Mechanical",
       enable=typCoiHeaPre <> Buildings.Templates.Components.Types.Coil.None));
 
-  parameter Modelica.Units.SI.MassFlowRate mAirCoiCoo_flow_nominal=
-    mAirSup_flow_nominal
-    "Air mass flow rate"
-    annotation (Dialog(group="Cooling coil",
+  parameter Buildings.Templates.Components.Coils.Interfaces.Data coiCoo(
+    final typ=typCoiCoo,
+    final typVal=typValCoiCoo,
+    final typHex=typHexCoiCoo,
+    final have_sou=have_souCoiCoo,
+    mAir_flow_nominal=mAirSup_flow_nominal,
+    dpAir_nominal=if typCoiCoo==Buildings.Templates.Components.Types.Coil.None then 0 else
+      dat.getReal(varName=id + ".mechanical.coilCooling.dpAir_nominal.value"),
+    mWat_flow_nominal=if have_souCoiCoo then
+      dat.getReal(varName=id + ".mechanical.coilCooling.mWat_flow_nominal.value") else 0,
+    dpWat_nominal=if have_souCoiCoo then
+      dat.getReal(varName=id + ".mechanical.coilCooling.dpWat_flow_nominal.value") else 0,
+    dpValve_nominal=if have_souCoiCoo then
+      dat.getReal(varName=id + ".mechanical.coilCooling.dpValve_nominal.value") else 0,
+    Q_flow_nominal(final max=0)=if typCoiCoo==Buildings.Templates.Components.Types.Coil.None then 0 else
+      -1 * dat.getReal(varName=id + ".mechanical.coilCooling.Capacity.value"))
+    "Cooling coil"
+    annotation (Dialog(group="Schedule.Mechanical",
       enable=typCoiCoo <> Buildings.Templates.Components.Types.Coil.None));
 
-  parameter Modelica.Units.SI.MassFlowRate mAirCoiHeaReh_flow_nominal=
-    if typCoiHeaReh <> Buildings.Templates.Components.Types.Coil.None then
-    dat.getReal(varName=id + ".mechanical.coilHeatingReheat.mAir_flow_nominal.value") else
-    mAirSup_flow_nominal
-    "Air mass flow rate"
-    annotation (Dialog(group="Heating coil in reheat position",
+  parameter Buildings.Templates.Components.Coils.Interfaces.Data coiHeaReh(
+    final typ=typCoiHeaReh,
+    final typVal=typValCoiHeaReh,
+    final typHex=typHexCoiHeaReh,
+    final have_sou=have_souCoiHeaReh,
+    mAir_flow_nominal=if typCoiHeaReh==Buildings.Templates.Components.Types.Coil.None then
+      mAirSup_flow_nominal else
+      dat.getReal(varName=id + ".mechanical.coilHeatingReheat.mAir_flow_nominal.value"),
+    dpAir_nominal=if typCoiHeaReh==Buildings.Templates.Components.Types.Coil.None then 0 else
+      dat.getReal(varName=id + ".mechanical.coilHeatingReheat.dpAir_nominal.value"),
+    mWat_flow_nominal=if have_souCoiHeaReh then
+      dat.getReal(varName=id + ".mechanical.coilHeatingReheat.mWat_flow_nominal.value") else 0,
+    dpWat_nominal=if have_souCoiHeaReh then
+      dat.getReal(varName=id + ".mechanical.coilHeatingReheat.dpWat_flow_nominal.value") else 0,
+    dpValve_nominal=if have_souCoiHeaReh then
+      dat.getReal(varName=id + ".mechanical.coilHeatingReheat.dpValve_nominal.value") else 0,
+    Q_flow_nominal(final min=0)=if typCoiCoo==Buildings.Templates.Components.Types.Coil.None then 0 else
+      dat.getReal(varName=id + ".mechanical.coilHeatingReheat.Capacity.value"))
+    "Heating coil in reheat position"
+    annotation (Dialog(group="Schedule.Mechanical",
       enable=typCoiHeaReh <> Buildings.Templates.Components.Types.Coil.None));
 
   parameter Modelica.Units.SI.PressureDifference dpFanSup_nominal=
@@ -105,7 +121,7 @@ record VAVMultiZone
     else 0
     "Total pressure rise"
     annotation (
-      Dialog(group="Supply fan",
+      Dialog(group="Schedule.Mechanical",
         enable=typFanSup <> Buildings.Templates.Components.Types.Fan.None));
   parameter Modelica.Units.SI.PressureDifference dpFanRet_nominal=
     if typFanRel <> Buildings.Templates.Components.Types.Fan.None or
@@ -114,7 +130,7 @@ record VAVMultiZone
     else 0
     "Total pressure rise"
     annotation (
-      Dialog(group="Relief/return fan",
+      Dialog(group="Schedule.Mechanical",
         enable=typFanRel <> Buildings.Templates.Components.Types.Fan.None or
           typFanRet <> Buildings.Templates.Components.Types.Fan.None));
   parameter Modelica.Units.SI.PressureDifference dpDamOut_nominal=
@@ -128,7 +144,7 @@ record VAVMultiZone
     else 0
     "Minimum outdoor air damper pressure drop"
     annotation (
-      Dialog(group="Economizer and dampers",
+      Dialog(group="Schedule.Mechanical",
         enable=typDamOutMin <> Buildings.Templates.Components.Types.Damper.None));
   parameter Modelica.Units.SI.PressureDifference dpDamRet_nominal=
     if typDamRet <> Buildings.Templates.Components.Types.Damper.None then
@@ -136,7 +152,7 @@ record VAVMultiZone
     else 0
     "Return air damper pressure drop"
     annotation (
-      Dialog(group="Economizer and dampers",
+      Dialog(group="Schedule.Mechanical",
         enable=typDamRet <> Buildings.Templates.Components.Types.Damper.None));
   parameter Modelica.Units.SI.PressureDifference dpDamRel_nominal=
     if typDamRel<>Buildings.Templates.Components.Types.Damper.None then
@@ -144,56 +160,8 @@ record VAVMultiZone
     else 0
     "Relief air damper pressure drop"
     annotation (
-      Dialog(group="Economizer and dampers",
+      Dialog(group="Schedule.Mechanical",
         enable=typDamRel<>Buildings.Templates.Components.Types.Damper.None));
-
-  parameter Modelica.Units.SI.PressureDifference dpAirCoiHeaPre_nominal(
-    displayUnit="Pa")=
-    if typCoiHeaPre==Buildings.Templates.Components.Types.Coil.None then 0 else
-    dat.getReal(varName=id + ".mechanical.coilHeatingPreheat.dpAir_nominal.value")
-    "Air pressure drop"
-    annotation (
-      Dialog(group="Heating coil in preheat position"),
-      enable=typCoiHeaPre<>Buildings.Templates.Components.Types.Coil.None);
-
-  parameter Modelica.Units.SI.PressureDifference dpAirCoiCoo_nominal(
-    displayUnit="Pa")=
-    if typCoiCoo==Buildings.Templates.Components.Types.Coil.None then 0 else
-    dat.getReal(varName=id + ".mechanical.coilCooling.dpAir_nominal.value")
-    "Air pressure drop"
-    annotation (
-      Dialog(group="Cooling coil"),
-      enable=typCoiCoo<>Buildings.Templates.Components.Types.Coil.None);
-
-  parameter Modelica.Units.SI.PressureDifference dpAirCoiHeaReh_nominal(
-    displayUnit="Pa")=
-    if typCoiHeaReh==Buildings.Templates.Components.Types.Coil.None then 0 else
-    dat.getReal(varName=id + ".mechanical.coilHeatingReheat.dpAir_nominal.value")
-    "Air pressure drop"
-    annotation (
-      Dialog(group="Heating coil in reheat position"),
-      enable=typCoiHeaReh<>Buildings.Templates.Components.Types.Coil.None);
-
-  parameter Modelica.Units.SI.MassFlowRate mWatCoiHeaPre_flow_nominal(final min=0)=
-    if typCoiHeaPre==Buildings.Templates.Components.Types.Coil.WaterBased then
-    dat.getReal(varName=id + ".mechanical.coilHeatingPreheat.mWat_flow_nominal.value") else
-    0
-    "Liquid mass flow rate"
-    annotation(Dialog(group="Heating coil in preheat position"));
-  parameter Modelica.Units.SI.PressureDifference dpWatCoiHeaPre_nominal(final min=0,
-    displayUnit="Pa")=if typCoiHeaPre==Buildings.Templates.Components.Types.Coil.WaterBased then
-    dat.getReal(varName=id + ".mechanical.coilHeatingPreheat.dpWat_nominal.value") else
-    0
-    "Liquid pressure drop"
-    annotation(Dialog(group="Heating coil in preheat position"));
-  parameter Modelica.Units.SI.PressureDifference dpValveCoiHeaPre_nominal(final min=0,
-    displayUnit="Pa")=if typValCoiHeaPre==Buildings.Templates.Components.Types.Valve.None then 0 else
-    dat.getReal(varName=id + ".mechanical.coilHeatingPreheat.dpValve_nominal.value")
-    "Nominal pressure drop of fully open valve"
-    annotation(Dialog(group="Heating coil in preheat position",
-      enable=typValCoiHeaPre<>Buildings.Templates.Components.Types.Valve.None));
-
-
 annotation (
   defaultComponentPrefixes = "parameter",
   defaultComponentName = "datRec");

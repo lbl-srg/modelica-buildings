@@ -5,8 +5,7 @@ model VAVBoxReheatHotWater
       Buildings.Templates.Components.Coils.WaterBasedHeating coiHea(
       redeclare replaceable Buildings.Templates.Components.HeatExchangers.DryCoilEffectivenessNTU
       hex "Epsilon-NTU heat exchanger model", redeclare replaceable
-        Buildings.Templates.Components.Valves.TwoWayModulating val),
-                      id="Box_1");
+        Buildings.Templates.Components.Valves.TwoWayModulating val));
   annotation (
     defaultComponentName="ter",
     Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(

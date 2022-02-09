@@ -1,6 +1,7 @@
 within Buildings.Templates.ZoneEquipment.Validation;
 model VAVBoxReheatHotWaterG36
-  extends VAVBoxCoolingOnly(redeclare
+  extends BaseVAVBoxCoolingOnly(
+                            redeclare
       UserProject.TerminalUnits.VAVBoxReheatHotWaterG36 ter);
   Fluid.Sources.Boundary_pT bou2(redeclare final package Medium = MediumHea,
       nPorts=1)

@@ -1,33 +1,40 @@
 within Buildings.Templates.AirHandlersFans;
 model VAVMultiZone "Multiple-zone VAV air-handling unit"
+  /*
+  Bindings for the parameter record cannot be made final if propagation
+  from a top-level record (whole building) is needed.
+  Instead those parameter declarations are annoted with enable=false
+  in the record class.
+  */
   extends Buildings.Templates.AirHandlersFans.Interfaces.AirHandler(
     nZon(final min=2),
+    redeclare Buildings.Templates.AirHandlersFans.Data.VAVMultiZone datRec(
+      typCoiHeaPre=coiHeaPre.typ,
+      typCoiCoo=coiCoo.typ,
+      typCoiHeaReh=coiHeaReh.typ,
+      typValCoiHeaPre=coiHeaPre.typVal,
+      typValCoiCoo=coiCoo.typVal,
+      typValCoiHeaReh=coiHeaReh.typVal,
+      typHexCoiHeaPre=coiHeaPre.typHex,
+      typHexCoiCoo=coiCoo.typHex,
+      typHexCoiHeaReh=coiHeaReh.typHex,
+      typDamOut=secOutRel.typDamOut,
+      typDamOutMin=secOutRel.typDamOutMin,
+      typDamRet=secOutRel.typDamRet,
+      typDamRel=secOutRel.typDamRel),
     final mAirSup_flow_nominal=datRec.mAirSup_flow_nominal,
     final mAirRet_flow_nominal=datRec.mAirRet_flow_nominal,
     final typ=Buildings.Templates.AirHandlersFans.Types.Configuration.SingleDuct,
     final have_porRel=secOutRel.typ <> Types.OutdoorReliefReturnSection.EconomizerNoRelief,
-    final have_souCoiCoo = coiCoo.have_sou,
+    final have_souCoiCoo=coiCoo.have_sou,
     final have_souCoiHeaPre=coiHeaPre.have_sou,
-    final have_souCoiHeaReh=coiHeaReh.have_sou);
-
-  inner parameter Buildings.Templates.AirHandlersFans.Data.VAVMultiZone datRec(
-    final id=id,
-    final dat=dat,
-    final typFanSup=typFanSup,
-    final typFanRet=typFanRet,
-    final typFanRel=typFanRel,
-    final typCoiHeaPre=coiHeaPre.typ,
-    final typCoiCoo=coiCoo.typ,
-    final typCoiHeaReh=coiHeaReh.typ,
-    final typValCoiHeaPre=coiHeaPre.typVal,
-    final typValCoiCoo=coiCoo.typVal,
-    final typValCoiHeaReh=coiHeaReh.typVal,
-    final typDamOut=secOutRel.typDamOut,
-    final typDamOutMin=secOutRel.typDamOutMin,
-    final typDamRet=secOutRel.typDamRet,
-    final typDamRel=secOutRel.typDamRel)
-    "Design and operational parameters"
-    annotation (Placement(transformation(extent={{260,240},{280,260}})));
+    final have_souCoiHeaReh=coiHeaReh.have_sou,
+    final typFanSup=if
+      fanSupDra.typ <> Buildings.Templates.Components.Types.Fan.None then
+      fanSupDra.typ elseif fanSupBlo.typ <> Buildings.Templates.Components.Types.Fan.None
+      then fanSupBlo.typ else Buildings.Templates.Components.Types.Fan.None,
+    final typFanRet=secOutRel.typFanRet,
+    final typFanRel=secOutRel.typFanRel);
 
   final parameter Boolean have_senPreBui=
     secOutRel.typSecRel==Buildings.Templates.AirHandlersFans.Types.ReliefReturnSection.ReliefDamper or
@@ -36,20 +43,6 @@ model VAVMultiZone "Multiple-zone VAV air-handling unit"
     secOutRel.typCtrFanRet==Buildings.Templates.AirHandlersFans.Types.ControlFanReturn.Pressure
     "Set to true if building static pressure sensor is used"
     annotation (Evaluate=true, Dialog(group="Configuration"));
-
-  final inner parameter Buildings.Templates.Components.Types.Fan typFanSup=if
-    fanSupDra.typ <> Buildings.Templates.Components.Types.Fan.None then
-    fanSupDra.typ elseif fanSupBlo.typ <> Buildings.Templates.Components.Types.Fan.None
-    then fanSupBlo.typ else Buildings.Templates.Components.Types.Fan.None
-    "Type of supply fan" annotation (Evaluate=true);
-  final inner parameter Buildings.Templates.Components.Types.Fan typFanRet=
-    secOutRel.typFanRet
-    "Type of return fan"
-    annotation (Evaluate=true);
-  final inner parameter Buildings.Templates.Components.Types.Fan typFanRel=
-    secOutRel.typFanRel
-    "Type of relief fan"
-    annotation (Evaluate=true);
 
   /*
   Currently only the configuration with economizer is supported:
@@ -233,8 +226,7 @@ model VAVMultiZone "Multiple-zone VAV air-handling unit"
 
   inner replaceable Buildings.Templates.Components.Coils.None coiHeaPre
     constrainedby Buildings.Templates.Components.Coils.Interfaces.PartialCoil(
-      final mAir_flow_nominal=datRec.mAirCoiHeaPre_flow_nominal,
-      final dpAir_nominal=datRec.dpAirCoiHeaPre_nominal)
+      final datRec=datRec.coiHeaPre)
     "Heating coil in preheat position"
     annotation (
     choices(
@@ -253,8 +245,7 @@ model VAVMultiZone "Multiple-zone VAV air-handling unit"
 
   inner replaceable Buildings.Templates.Components.Coils.None coiCoo
     constrainedby Buildings.Templates.Components.Coils.Interfaces.PartialCoil(
-      final mAir_flow_nominal=datRec.mAirCoiCoo_flow_nominal,
-      final dpAir_nominal=datRec.dpAirCoiCoo_nominal)
+      final datRec=datRec.coiCoo)
     "Cooling coil"
     annotation (
     choices(
@@ -266,8 +257,7 @@ model VAVMultiZone "Multiple-zone VAV air-handling unit"
     Placement(transformation(extent={{70,-210},{90,-190}})));
   inner replaceable Buildings.Templates.Components.Coils.None coiHeaReh
     constrainedby Buildings.Templates.Components.Coils.Interfaces.PartialCoil(
-      final mAir_flow_nominal=datRec.mAirCoiHeaReh_flow_nominal,
-      final dpAir_nominal=datRec.dpAirCoiHeaReh_nominal)
+      final datRec=datRec.coiHeaReh)
     "Heating coil in reheat position"
     annotation (
     choices(

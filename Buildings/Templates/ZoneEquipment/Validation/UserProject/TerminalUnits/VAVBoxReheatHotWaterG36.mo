@@ -5,8 +5,7 @@ model VAVBoxReheatHotWaterG36
       Buildings.Templates.Components.Coils.WaterBasedHeating coiHea(redeclare replaceable
                     Buildings.Templates.Components.Valves.TwoWayModulating val),
     redeclare replaceable
-      Buildings.Templates.ZoneEquipment.Components.Controls.G36VAVBoxReheat ctr,
-    id="Box_1");
+      Buildings.Templates.ZoneEquipment.Components.Controls.G36VAVBoxReheat ctr);
 
   annotation (
     defaultComponentName="ter",

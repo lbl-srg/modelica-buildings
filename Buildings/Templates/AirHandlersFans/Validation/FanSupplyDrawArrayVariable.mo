@@ -1,7 +1,7 @@
 within Buildings.Templates.AirHandlersFans.Validation;
 model FanSupplyDrawArrayVariable
-  extends NoEconomizer(
-    redeclare UserProject.AHUs.FanSupplyDrawArrayVariable ahu);
+  extends BaseNoEconomizer(redeclare
+      UserProject.AHUs.FanSupplyDrawArrayVariable VAV_1);
   annotation (
   experiment(Tolerance=1e-6, StopTime=1));
 end FanSupplyDrawArrayVariable;

@@ -5,7 +5,6 @@ model NoEconomizer
     redeclare replaceable
       Buildings.Templates.AirHandlersFans.Components.OutdoorReliefReturnSection.NoEconomizer
       secOutRel "No air economizer",
-    id="VAV_1",
     nZon=2,
     nGro=1);
 

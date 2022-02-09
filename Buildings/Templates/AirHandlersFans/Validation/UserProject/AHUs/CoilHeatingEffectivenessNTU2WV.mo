@@ -7,7 +7,6 @@ model CoilHeatingEffectivenessNTU2WV
         Buildings.Templates.Components.HeatExchangers.DryCoilEffectivenessNTU
         hex "Epsilon-NTU heat exchanger model", redeclare replaceable
         Buildings.Templates.Components.Valves.TwoWayModulating val),
-    id="VAV_1",
     nZon=2,
     nGro=1);
   annotation (

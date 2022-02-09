@@ -6,7 +6,7 @@ partial model PartialCoil
 
   outer replaceable package MediumAir=Buildings.Media.Air
     "Source-side medium";
-  /* 
+  /*
   The following definition is needed only for Dymola that does not allow
   port_aSou and port_bSou to be instantiated without redeclaring their medium
   to a non-partial class (which is done only in the derived class).
@@ -31,33 +31,20 @@ partial model PartialCoil
     "Set to true to use a waether bus"
     annotation (Evaluate=true, Dialog(group="Configuration"));
 
-  parameter Modelica.Units.SI.MassFlowRate mAir_flow_nominal(final min=0)
-    "Air mass flow rate";
-  parameter Modelica.Units.SI.PressureDifference dpAir_nominal(final min=0,
-    displayUnit="Pa")
-    "Air pressure drop"
-    annotation (
-      Dialog(group="Nominal condition"),
-      Evaluate=true);
+  parameter Buildings.Templates.Components.Coils.Interfaces.Data datRec(
+    final have_sou=have_sou,
+    final typ=typ,
+    final typVal=typVal,
+    final typHex=typHex)
+    "Design and operating parameters";
 
-  outer parameter String id
-    "System identifier";
-  outer parameter ExternData.JSONFile dat
-    "External parameter file";
-  final inner parameter String funStr=
-    if typ==Buildings.Templates.Components.Types.Coil.ElectricHeating
-      then "Heating"
-    elseif typ==Buildings.Templates.Components.Types.Coil.Evaporator
-      then "Cooling"
-    elseif typ==Buildings.Templates.Components.Types.Coil.WaterBasedCooling
-      then "Cooling"
-    elseif typ==Buildings.Templates.Components.Types.Coil.WaterBasedHeating
-      then "Heating"
-    else "Undefined"
-    "Coil function cast as string"
-    annotation (
-      Dialog(group="Configuration"),
-      Evaluate=true);
+  final parameter Modelica.Units.SI.MassFlowRate mAir_flow_nominal(
+    final min=0) = datRec.mAir_flow_nominal
+    "Air mass flow rate";
+  final parameter Modelica.Units.SI.PressureDifference dpAir_nominal(
+    final min=0,
+    displayUnit="Pa") = datRec.dpAir_nominal
+    "Air pressure drop";
 
   Modelica.Fluid.Interfaces.FluidPort_a port_aSou(
     redeclare package Medium = MediumSou) if have_sou

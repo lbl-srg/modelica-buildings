@@ -5,7 +5,6 @@ model CoilCoolingCounterFlow
       redeclare replaceable
         Buildings.Templates.Components.HeatExchangers.WetCoilCounterFlow hex
         "Discretized heat exchanger model") "Chilled water coil",
-    id="VAV_1",
     nZon=2,
     nGro=1);
 

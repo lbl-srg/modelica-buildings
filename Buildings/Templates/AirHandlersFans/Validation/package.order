@@ -1,3 +1,4 @@
+BaseNoEconomizer
 CoilCoolingCounterFlow
 CoilCoolingEffectivenessNTU
 CoilCoolingDXMultiStage
@@ -12,7 +13,6 @@ FanRelief
 FanSupplyBlowSingleConstant
 FanSupplyDrawArrayVariable
 FanSupplyDrawSingleVariable
-NoEconomizer
 NoRelief
 VAVMultiZoneG36Airflow
 VAVMultiZoneG36Pressure

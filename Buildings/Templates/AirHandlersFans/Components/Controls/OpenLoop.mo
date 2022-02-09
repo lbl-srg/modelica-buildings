@@ -68,8 +68,7 @@ block OpenLoop "Open loop controller (output signals only)"
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={72,70})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant yCoiHea(k=1) if coiHeaPre.funStr
-     == "Heating" or coiHeaReh.funStr== "Heating"
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant yCoiHea(k=1)
     annotation (
       Placement(transformation(
         extent={{-10,-10},{10,10}},

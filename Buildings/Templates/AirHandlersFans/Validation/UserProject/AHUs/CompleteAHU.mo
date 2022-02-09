@@ -27,8 +27,7 @@ model CompleteAHU
     redeclare replaceable Buildings.Templates.Components.Fans.SingleVariable
       fanSupDra,
     nZon=2,
-    nGro=1,
-    id="VAV_1");
+    nGro=1);
 
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)));
