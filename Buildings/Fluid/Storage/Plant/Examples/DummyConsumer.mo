@@ -36,7 +36,7 @@ model DummyConsumer "Test model for the dummy consumer"
   Modelica.Blocks.Sources.Constant set_TRet(k=12 + 273.15)
     "CHW return setpoint"
     annotation (Placement(transformation(extent={{-80,40},{-60,60}})));
-  Sources.Boundary_pT sin(
+  Buildings.Fluid.Sources.Boundary_pT sin(
     redeclare final package Medium = Medium,
     p=p_CHWR_nominal,
     T=T_CHWR_nominal,
@@ -45,7 +45,7 @@ model DummyConsumer "Test model for the dummy consumer"
         extent={{10,-10},{-10,10}},
         rotation=0,
         origin={70,0})));
-  Sources.Boundary_pT sou(
+  Buildings.Fluid.Sources.Boundary_pT sou(
     redeclare final package Medium = Medium,
     p=p_CHWS_nominal,
     T=T_CHWS_nominal,
@@ -54,8 +54,8 @@ model DummyConsumer "Test model for the dummy consumer"
         extent={{10,10},{-10,-10}},
         rotation=180,
         origin={-70,0})));
-  Modelica.Blocks.Sources.TimeTable preQCooLoa_flow(table=[0*3600,0; 0.25*3600,
-        0; 0.25*3600,5*4200*2; 0.5*3600,5*4200*2; 0.5*3600,0; 1*3600,0])
+  Modelica.Blocks.Sources.TimeTable preQCooLoa_flow(table=[0*3600,0; 0.5*3600,0;
+        0.5*3600,5*4200*1.01; 0.75*3600,5*4200*1.01; 0.75*3600,0; 1*3600,0])
     "Placeholder, prescribed cooling load"
     annotation (Placement(transformation(extent={{-60,80},{-40,100}})));
 equation

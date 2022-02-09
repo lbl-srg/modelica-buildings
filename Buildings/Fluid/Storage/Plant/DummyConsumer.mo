@@ -57,8 +57,8 @@ model DummyConsumer "Dummy consumer model"
   Buildings.Controls.Continuous.LimPID conPI_valCon(
     controllerType=Modelica.Blocks.Types.SimpleController.PI,
     Td=1,
-    k=5,
-    Ti=50,
+    k=10,
+    Ti=1000,
     reverseActing=false)
            "PI controller for consumer control valve" annotation (Placement(
         transformation(
