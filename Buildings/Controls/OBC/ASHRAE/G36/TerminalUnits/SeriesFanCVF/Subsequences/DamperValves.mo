@@ -72,7 +72,7 @@ block DamperValves
     final unit="m3/s") = 0.01
     "Hysteresis for checking airflow rate"
     annotation (Dialog(tab="Advanced"));
-  parameter Real posHys(
+  parameter Real damPosHys(
     final unit="m3/s") = 0.05
     "Hysteresis for checking damper position"
     annotation (Dialog(tab="Advanced"));
@@ -297,8 +297,8 @@ block DamperValves
     annotation (Placement(transformation(extent={{100,-220},{120,-200}})));
 
   Buildings.Controls.OBC.CDL.Continuous.LessThreshold cloDam(
-    final t=posHys,
-    final h=posHys/2)
+    final t=damPosHys,
+    final h=damPosHys/2)
     "Check if the damper is fully closed before turning on fan"
     annotation (Placement(transformation(extent={{-260,-290},{-240,-270}})));
   Buildings.Controls.OBC.CDL.Logical.Or3 or3

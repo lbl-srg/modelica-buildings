@@ -1,9 +1,9 @@
 within Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.ParallelFanCVF;
-package Subsequences "Package of subsequences for terminal unit with reheat"
+package Subsequences "Package of subsequences for constant-volume parallel fan-powered terminal unit"
 
 annotation (preferredView="info", Documentation(info="<html>
 <p>
-This package contains subsequences for parallel fan-powered terminal unit with
+This package contains subsequences for controlling parallel fan-powered terminal unit with
 constant-volume fan.
 They are created according to Section 5.7 of ASHRAE Guideline 36, May 2020.
 </p>

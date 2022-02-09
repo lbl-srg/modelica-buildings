@@ -1,5 +1,5 @@
 within Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.SeriesFanCVF;
-block Controller "Controller for constant-volume parallel fan-powered terminal unit"
+block Controller "Controller for constant-volume series fan-powered terminal unit"
 
   parameter Boolean have_winSen=true
     "True: the zone has window sensor";
@@ -10,9 +10,7 @@ block Controller "Controller for constant-volume parallel fan-powered terminal u
   parameter Boolean permit_occStandby=true
     "True: occupied-standby mode is permitted";
   // ---------------- Design parameters ----------------
-  parameter Real AFlo(
-    final quantity="Area",
-    final unit="m2")
+  parameter Real AFlo(unit="m2")
     "Zone floor area"
     annotation (Dialog(group="Design conditions"));
   parameter Real desZonPop "Design zone population"
@@ -26,36 +24,27 @@ block Controller "Controller for constant-volume parallel fan-powered terminal u
   parameter Real CO2Set=894
     "CO2 concentration setpoint, ppm"
     annotation (Dialog(group="Design conditions"));
-  parameter Real VZonMin_flow(
-    final quantity="VolumeFlowRate",
-    final unit="m3/s")
+  parameter Real VZonMin_flow(unit="m3/s")
     "Design zone minimum airflow setpoint"
     annotation (Dialog(group="Design conditions"));
-  parameter Real VCooZonMax_flow(
-    final quantity="VolumeFlowRate",
-    final unit="m3/s")
+  parameter Real VCooZonMax_flow(unit="m3/s")
     "Design zone cooling maximum airflow rate"
     annotation (Dialog(group="Design conditions"));
   // ---------------- Control loop parameters ----------------
   parameter Real kCooCon=1
     "Gain of controller for cooling control loop"
     annotation (Dialog(tab="Control loops", group="Cooling"));
-  parameter Real TiCooCon(
-    final unit="s",
-    final quantity="Time")=0.5
+  parameter Real TiCooCon(unit="s")=0.5
     "Time constant of integrator block for cooling control loop"
     annotation (Dialog(tab="Control loops", group="Cooling"));
   parameter Real kHeaCon=1
     "Gain of controller for heating control loop"
     annotation (Dialog(tab="Control loops", group="Heating"));
-  parameter Real TiHeaCon(
-    final unit="s",
-    final quantity="Time")=0.5
+  parameter Real TiHeaCon(unit="s")=0.5
     "Time constant of integrator block for heating control loop"
     annotation (Dialog(tab="Control loops", group="Heating"));
   // ---------------- Damper and valve control parameters ----------------
-  parameter Real dTDisZonSetMax(
-    final unit="K")=11
+  parameter Real dTDisZonSetMax(unit="K")=11
     "Zone maximum discharge air temperature above heating setpoint"
     annotation (Dialog(tab="Damper and valve control"));
   parameter CDL.Types.SimpleController controllerTypeVal
@@ -64,16 +53,12 @@ block Controller "Controller for constant-volume parallel fan-powered terminal u
   parameter Real kVal=0.5
     "Gain of controller for valve control"
     annotation (Dialog(tab="Damper and valve control", group="Valve"));
-  parameter Real TiVal(
-    final unit="s",
-    final quantity="Time")=300
+  parameter Real TiVal(unit="s")=300
     "Time constant of integrator block for valve control"
     annotation (Dialog(tab="Damper and valve control", group="Valve",
       enable=controllerTypeVal == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
           or controllerTypeVal == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
-  parameter Real TdVal(
-    final unit="s",
-    final quantity="Time")=0.1
+  parameter Real TdVal(unit="s")=0.1
     "Time constant of derivative block for valve control"
     annotation (Dialog(tab="Damper and valve control", group="Valve",
       enable=controllerTypeVal == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
@@ -81,10 +66,7 @@ block Controller "Controller for constant-volume parallel fan-powered terminal u
   parameter Boolean have_pressureIndependentDamper=false
     "True: the VAV damper is pressure independent (with built-in flow controller)"
     annotation (Dialog(tab="Damper and valve control", group="Damper"));
-  parameter Real V_flow_nominal(
-    final unit="m3/s",
-    final quantity="VolumeFlowRate",
-    final min=1E-10)
+  parameter Real V_flow_nominal(unit="m3/s")
     "Nominal volume flow rate, used to normalize control error"
     annotation (Dialog(tab="Damper and valve control", group="Damper"));
   parameter CDL.Types.SimpleController controllerTypeDam=
@@ -96,56 +78,38 @@ block Controller "Controller for constant-volume parallel fan-powered terminal u
     "Gain of controller for damper control"
     annotation (Dialog(tab="Damper and valve control", group="Damper",
       enable=not have_pressureIndependentDamper));
-  parameter Real TiDam(
-    final unit="s",
-    final quantity="Time")=300
+  parameter Real TiDam(unit="s")=300
     "Time constant of integrator block for damper control"
     annotation (Dialog(tab="Damper and valve control", group="Damper",
       enable=not have_pressureIndependentDamper
              and (controllerTypeDam == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
                   or controllerTypeDam == Buildings.Controls.OBC.CDL.Types.SimpleController.PID)));
-  parameter Real TdDam(
-    final unit="s",
-    final quantity="Time")=0.1
+  parameter Real TdDam(unit="s")=0.1
     "Time constant of derivative block for damper control"
     annotation (Dialog(tab="Damper and valve control", group="Damper",
       enable=not have_pressureIndependentDamper
              and (controllerTypeDam == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
                   or controllerTypeDam == Buildings.Controls.OBC.CDL.Types.SimpleController.PID)));
   // ---------------- System request parameters ----------------
-  parameter Real thrTemDif(
-    final unit="K",
-    final quantity="TemperatureDifference")=3
+  parameter Real thrTemDif(unit="K")=3
     "Threshold difference between zone temperature and cooling setpoint for generating 3 cooling SAT reset requests"
     annotation (Dialog(tab="System requests"));
-  parameter Real twoTemDif(
-    final unit="K",
-    final quantity="TemperatureDifference")=2
+  parameter Real twoTemDif(unit="K")=2
     "Threshold difference between zone temperature and cooling setpoint for generating 2 cooling SAT reset requests"
     annotation (Dialog(tab="System requests"));
-  parameter Real thrTDis_1(
-    final unit="K",
-    final quantity="TemperatureDifference")=17
+  parameter Real thrTDis_1(unit="K")=17
     "Threshold difference between discharge air temperature and its setpoint for generating 3 hot water reset requests"
     annotation (Dialog(tab="System requests"));
-  parameter Real thrTDis_2(
-    final unit="K",
-    final quantity="TemperatureDifference")=8
+  parameter Real thrTDis_2(unit="K")=8.3
     "Threshold difference between discharge air temperature and its setpoint for generating 2 hot water reset requests"
     annotation (Dialog(tab="System requests"));
-  parameter Real durTimTem(
-    final unit="s",
-    final quantity="Time")=120
+  parameter Real durTimTem(unit="s")=120
     "Duration time of zone temperature exceeds setpoint"
     annotation (Dialog(tab="System requests", group="Duration time"));
-  parameter Real durTimFlo(
-    final unit="s",
-    final quantity="Time")=60
+  parameter Real durTimFlo(unit="s")=60
     "Duration time of airflow rate less than setpoint"
     annotation (Dialog(tab="System requests", group="Duration time"));
-  parameter Real durTimDisAir(
-    final unit="s",
-    final quantity="Time")=300
+  parameter Real durTimDisAir(unit="s")=300
     "Duration time of discharge air temperature less than setpoint"
     annotation (Dialog(tab="System requests", group="Duration time"));
   // ---------------- Parameters for alarms ----------------
@@ -155,87 +119,60 @@ block Controller "Controller for constant-volume parallel fan-powered terminal u
   parameter Real hotWatRes
     "Importance multiplier for the hot water reset control loop"
     annotation (Dialog(tab="Alarms"));
-  parameter Real lowFloTim(
-    final unit="s",
-    final quantity="Time")=300
+  parameter Real lowFloTim(unit="s")=300
     "Threshold time to check low flow rate"
     annotation (Dialog(tab="Alarms"));
-  parameter Real lowTemTim(
-    final unit="s",
-    final quantity="Time")=600
+  parameter Real lowTemTim(unit="s")=600
     "Threshold time to check low discharge temperature"
     annotation (Dialog(tab="Alarms"));
-  parameter Real comChaTim(
-    final unit="s",
-    final quantity="Time")=15
+  parameter Real comChaTim(unit="s")=15
     "Threshold time after fan command change"
     annotation (Dialog(tab="Alarms"));
-  parameter Real fanOffTim(
-    final unit="s",
-    final quantity="Time")=600
+  parameter Real fanOffTim(unit="s")=600
     "Threshold time to check fan off"
     annotation (Dialog(tab="Alarms"));
-  parameter Real leaFloTim(
-    final unit="s",
-    final quantity="Time")=600
+  parameter Real leaFloTim(unit="s")=600
     "Threshold time to check damper leaking airflow"
     annotation (Dialog(tab="Alarms"));
-  parameter Real valCloTim(
-    final unit="s",
-    final quantity="Time")=900
+  parameter Real valCloTim(unit="s")=900
     "Threshold time to check valve leaking water flow"
     annotation (Dialog(tab="Alarms"));
   // ---------------- Parameters for time-based suppression ----------------
-  parameter Real samplePeriod(
-    final unit="s",
-    final quantity="Time")=120
+  parameter Real samplePeriod(unit="s")=120
     "Sample period of component, set to the same value as the trim and respond that process static pressure reset"
     annotation (Dialog(tab="Time-based suppresion"));
   parameter Real chaRat=540
     "Gain factor to calculate suppression time based on the change of the setpoint, second per degC"
     annotation (Dialog(tab="Time-based suppresion"));
-  parameter Real maxSupTim(
-    final unit="s",
-    final quantity="Time")=1800 "Maximum suppression time"
+  parameter Real maxSupTim(unit="s")=1800
+                                "Maximum suppression time"
     annotation (Dialog(tab="Time-based suppresion"));
   // ---------------- Advanced parameters ----------------
-  parameter Real dTHys(
-    final unit="K",
-    final quantity="TemperatureDifference")=0.25
+  parameter Real dTHys(unit="K")=0.25
     "Near zero temperature difference, below which the difference will be seen as zero"
     annotation (Dialog(tab="Advanced"));
-  parameter Real looHys(
-    final unit="1")=0.05
+  parameter Real looHys(unit="1")=0.05
     "Loop output hysteresis below which the output will be seen as zero"
     annotation (Dialog(tab="Advanced"));
-  parameter Real floHys(
-    final unit="m3/s",
-    final quantity="VolumeFlowRate")
+  parameter Real floHys(unit="m3/s")
     "Near zero flow rate, below which the flow rate or difference will be seen as zero"
     annotation (Dialog(tab="Advanced"));
-  parameter Real damPosHys(
-    final unit="1")
+  parameter Real damPosHys(unit="1")
     "Near zero damper position, below which the damper will be seen as closed"
     annotation (Dialog(tab="Advanced"));
-  parameter Real valPosHys(
-    final unit="1")
+  parameter Real valPosHys(unit="1")
     "Near zero valve position, below which the valve will be seen as closed"
     annotation (Dialog(tab="Advanced"));
-  parameter Real timChe(
-    final unit="s",
-    final quantity="Time")=30
+  parameter Real timChe(unit="s")=30
     "Threshold time to check the zone temperature status"
     annotation (Dialog(tab="Advanced", group="Control loops"));
-  parameter Real conThr(
-    final unit="1")=0.1
+  parameter Real conThr(unit="1")=0.1
     "Threshold value to check if the controller output is near zero"
     annotation (Dialog(tab="Advanced", group="Control loops"));
-  parameter Real zonDisEff_cool(
-    final unit="1")=1.0
+  parameter Real zonDisEff_cool(unit="1")=1.0
     "Zone cooling air distribution effectiveness"
     annotation (Dialog(tab="Advanced", group="Distribution effectiveness"));
-  parameter Real zonDisEff_heat(
-    final unit="1")=0.8
+  parameter Real zonDisEff_heat(unit="1")=0.8
     "Zone heating air distribution effectiveness"
     annotation (Dialog(tab="Advanced", group="Distribution effectiveness"));
 
@@ -276,13 +213,6 @@ block Controller "Controller for constant-volume parallel fan-powered terminal u
     "Detected CO2 concentration"
     annotation (Placement(transformation(extent={{-280,110},{-240,150}}),
         iconTransformation(extent={{-140,50},{-100,90}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput VParFan_flow(
-    final unit="m3/s",
-    final min=0,
-    final quantity="VolumeFlowRate") if have_CO2Sen
-    "Parallel fan airflow rate"
-    annotation (Placement(transformation(extent={{-280,80},{-240,120}}),
-        iconTransformation(extent={{-140,30},{-100,70}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TDis(
     final quantity="ThermodynamicTemperature",
     final unit="K",
@@ -470,8 +400,8 @@ block Controller "Controller for constant-volume parallel fan-powered terminal u
     final have_winSen=have_winSen,
     final have_occSen=have_occSen,
     final have_CO2Sen=have_CO2Sen,
-    final have_typTerUniWitCO2=false,
-    final have_parFanPowUniWitCO2=true,
+    final have_typTerUniWitCO2=true,
+    final have_parFanPowUniWitCO2=false,
     final permit_occStandby=permit_occStandby,
     final AFlo=AFlo,
     final desZonPop=desZonPop,
@@ -500,11 +430,10 @@ block Controller "Controller for constant-volume parallel fan-powered terminal u
     final TdDam=TdDam,
     final dTHys=dTHys,
     final looHys=looHys,
-    final floHys=floHys) "Damper and valve control"
+    final floHys=floHys,
+    final damPosHys=damPosHys)
+    "Damper and valve control"
     annotation (Placement(transformation(extent={{20,0},{40,40}})));
-  Buildings.Controls.OBC.ASHRAE.G36.ThermalZones.ZoneStates zonSta if have_CO2Sen
-    "Find if the zone is in heating, cooling, or deadband states"
-    annotation (Placement(transformation(extent={{-140,220},{-120,240}})));
 
 equation
   connect(TZon, timSup.TZon) annotation (Line(points={{-260,320},{-222,320},{-222,
@@ -544,17 +473,17 @@ equation
   connect(actAirSet.VActMin_flow, damVal.VActMin_flow) annotation (Line(points={{-18,104},
           {-6,104},{-6,24},{18,24}},             color={0,0,127}));
   connect(TDis, damVal.TDis) annotation (Line(points={{-260,70},{-196,70},{-196,
-          9},{18,9}},     color={0,0,127}));
+          11},{18,11}},   color={0,0,127}));
   connect(TSupSet, damVal.TSupSet) annotation (Line(points={{-260,-40},{-24,-40},
-          {-24,18},{18,18}},   color={0,0,127}));
+          {-24,20},{18,20}},   color={0,0,127}));
   connect(TZonHeaSet, damVal.TZonHeaSet) annotation (Line(points={{-260,250},{-216,
-          250},{-216,15},{18,15}},   color={0,0,127}));
+          250},{-216,17},{18,17}},   color={0,0,127}));
   connect(conLoo.yHea, damVal.uHea) annotation (Line(points={{-178,254},{-160,254},
-          {-160,12},{18,12}},   color={0,0,127}));
+          {-160,14},{18,14}},   color={0,0,127}));
   connect(TZon, damVal.TZon) annotation (Line(points={{-260,320},{-222,320},{-222,
           27},{18,27}},   color={0,0,127}));
   connect(uOpeMod, damVal.uOpeMod) annotation (Line(points={{-260,160},{-208,160},
-          {-208,6},{18,6}},     color={255,127,0}));
+          {-208,8},{18,8}},     color={255,127,0}));
   connect(oveFloSet, setOve.oveFloSet) annotation (Line(points={{-260,-70},{-100,
           -70},{-100,-61},{78,-61}}, color={255,127,0}));
   connect(damVal.VDis_flow_Set, setOve.VActSet_flow) annotation (Line(points={{42,
@@ -579,8 +508,8 @@ equation
           {120,-63},{120,-149},{138,-149}}, color={0,0,127}));
   connect(VDis_flow, sysReq.VDis_flow) annotation (Line(points={{-260,20},{-36,20},
           {-36,-151},{138,-151}}, color={0,0,127}));
-  connect(uDam, sysReq.uDam) annotation (Line(points={{-260,-200},{18,-200},{18,
-          -153},{138,-153}}, color={0,0,127}));
+  connect(uDam, sysReq.uDam) annotation (Line(points={{-260,-200},{6,-200},{6,-153},
+          {138,-153}},       color={0,0,127}));
   connect(TDis, sysReq.TDis) annotation (Line(points={{-260,70},{-196,70},{-196,
           -157},{138,-157}}, color={0,0,127}));
   connect(uVal, sysReq.uVal) annotation (Line(points={{-260,-230},{24,-230},{24,
@@ -591,7 +520,7 @@ equation
           {120,-63},{120,-243},{138,-243}},  color={0,0,127}));
   connect(uFan, ala.uFan) annotation (Line(points={{-260,-280},{30,-280},{30,-245},
           {138,-245}}, color={255,0,255}));
-  connect(uDam, ala.uDam) annotation (Line(points={{-260,-200},{18,-200},{18,-249},
+  connect(uDam, ala.uDam) annotation (Line(points={{-260,-200},{6,-200},{6,-249},
           {138,-249}}, color={0,0,127}));
   connect(uVal, ala.uVal) annotation (Line(points={{-260,-230},{24,-230},{24,-251},
           {138,-251}}, color={0,0,127}));
@@ -625,16 +554,6 @@ equation
           {186,-290},{260,-290}}, color={255,127,0}));
   connect(ala.yLowTemAla, yLowTemAla) annotation (Line(points={{162,-259},{180,-259},
           {180,-320},{260,-320}}, color={255,127,0}));
-  connect(conLoo.yCoo, zonSta.uCoo) annotation (Line(points={{-178,266},{-154,266},
-          {-154,226},{-142,226}}, color={0,0,127}));
-  connect(conLoo.yHea, zonSta.uHea) annotation (Line(points={{-178,254},{-160,254},
-          {-160,234},{-142,234}}, color={0,0,127}));
-  connect(zonSta.yZonSta, setPoi.uZonSta) annotation (Line(points={{-118,230},{-110,
-          230},{-110,169},{-102,169}}, color={255,127,0}));
-  connect(setPoi.VParFan_flow, VParFan_flow) annotation (Line(points={{-102,166},
-          {-190,166},{-190,100},{-260,100}}, color={0,0,127}));
-  connect(setPoi.VMinOA_flow, damVal.uDamPos) annotation (Line(points={{-78,166},
-          {-62,166},{-62,3},{18,3}}, color={0,0,127}));
   connect(damVal.THeaDisSet, sysReq.TDisSet) annotation (Line(points={{42,11},{58,
           11},{58,-155},{138,-155}}, color={0,0,127}));
   connect(setOve.oveFan, oveFan) annotation (Line(points={{78,-77},{-88,-77},{-88,
@@ -649,8 +568,12 @@ equation
           {138,-247}}, color={255,0,255}));
   connect(damVal.THeaDisSet, ala.TDisSet) annotation (Line(points={{42,11},{58,11},
           {58,-259},{138,-259}}, color={0,0,127}));
+  connect(uFan, damVal.uFan) annotation (Line(points={{-260,-280},{0,-280},{0,5},
+          {18,5}}, color={255,0,255}));
+  connect(uDam, damVal.uDamPos) annotation (Line(points={{-260,-200},{6,-200},{6,
+          1},{18,1}}, color={0,0,127}));
 
-annotation (defaultComponentName="parFanCon",
+annotation (defaultComponentName="serFanCon",
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-200},
             {100,200}}), graphics={
         Rectangle(
@@ -839,7 +762,7 @@ annotation (defaultComponentName="parFanCon",
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-240,-340},{240,340}})),
   Documentation(info="<html>
 <p>
-Controller for constant-volume parallel fan-powered terminal unit according to Section 5.7 of ASHRAE
+Controller for constant-volume series fan-powered terminal unit according to Section 5.9 of ASHRAE
 Guideline 36, May 2020. It outputs discharge airflow setpoint <code>VSet_flow_Set</code>,
 damper position setpoint <code>yDamSet</code>, hot water valve position setpoint
 <code>yValSet</code>, terminal fan command on status <code>yFanComOn</code>,
@@ -865,47 +788,47 @@ heating and cooling control loop signal.
 <h4>b. Active airflow setpoint calculation</h4>
 <p>
 This sequence sets the active cooling maximum and minimum airflow according to
-Section 5.7.4. Depending on operation modes <code>uOpeMod</code>, it sets the
+Section 5.9.4. Depending on operation modes <code>uOpeMod</code>, it sets the
 airflow rate limits. 
-See <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.ParallelFanCVF.Subsequences.ActiveAirFlow\">
-Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.ParallelFanCVF.Subsequences.ActiveAirFlow</a>.
+See <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.SeriesFanCVF.Subsequences.ActiveAirFlow\">
+Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.SeriesFanCVF.Subsequences.ActiveAirFlow</a>.
 </p>
 <h4>c. Damper and valve control</h4>
 <p>
 This sequence sets the damper and valve position setpoints for the terminal unit.
 It also sets the command on status of the terminal fan.
-The implementation is according to Section 5.7.5. According to heating and cooling
+The implementation is according to Section 5.9.5. According to heating and cooling
 control loop signal, it calculates the discharge air temperature setpoint
 <code>TDisSet</code>. Along with the active cooling maximum and minimum airflow setpoint, measured
 zone temperature, the sequence outputs <code>yDamSet</code>, <code>yValSet</code>,
 <code>TDisSet</code> and discharge airflow rate setpoint <code>VDis_flow_Set</code>.
-See <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.ParallelFanCVF.Subsequences.DamperValves\">
-Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.ParallelFanCVF.Subsequences.DamperValves</a>.
+See <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.SeriesFanCVF.Subsequences.DamperValves\">
+Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.SeriesFanCVF.Subsequences.DamperValves</a>.
 </p>
 <h4>d. System reset requests generation</h4>
 <p>
-According to Section 5.7.8, this sequence outputs the system reset requests, i.e.
+According to Section 5.9.8, this sequence outputs the system reset requests, i.e.
 cooling supply air temperature reset requests <code>yZonTemResReq</code>,
 static pressure reset requests <code>yZonPreResReq</code>, hot water reset
 requests <code>yHeaValResReq</code>, and the hot water plant reset requests
 <code>yHotWatPlaReq</code>. 
-See <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.ParallelFanCVF.Subsequences.SystemRequests\">
-Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.ParallelFanCVF.Subsequences.SystemRequests</a>.
+See <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.SeriesFanCVF.Subsequences.SystemRequests\">
+Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.SeriesFanCVF.Subsequences.SystemRequests</a>.
 </p>
 <h4>e. Alarms</h4>
 <p>
-According to Section 5.7.6, this sequence outputs the alarms of low discharge flow,
+According to Section 5.9.6, this sequence outputs the alarms of low discharge flow,
 low discharge temperature, fan status alarm, leaking damper, leaking valve, and airflow sensor calibration
 alarm.
-See <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.ParallelFanCVF.Subsequences.Alarms\">
-Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.ParallelFanCVF.Subsequences.Alarms</a>.
+See <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.SeriesFanCVF.Subsequences.Alarms\">
+Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.SeriesFanCVF.Subsequences.Alarms</a>.
 </p>
 <h4>f. Testing and commissioning overrides</h4>
 <p>
-According to Section 5.7.7, this sequence allows the override the aiflow setpoints,
+According to Section 5.9.7, this sequence allows the override the aiflow setpoints,
 damper and valve position setpoints, terminal fan command.
-See <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.ParallelFanCVF.Subsequences.Overrides\">
-Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.ParallelFanCVF.Subsequences.Overrides</a>.
+See <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.SeriesFanCVF.Subsequences.Overrides\">
+Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.SeriesFanCVF.Subsequences.Overrides</a>.
 </p>
 </html>", revisions="<html>
 <ul>
