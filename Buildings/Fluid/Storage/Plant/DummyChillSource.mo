@@ -1,6 +1,6 @@
 within Buildings.Fluid.Storage.Plant;
-model VolumeSetState
-  "The fluid passes through the volume turns into the prescribed state"
+model DummyChillSource
+  "An ideal chill (or heat) source that always turns the fluid passing through to the prescribed state"
 
   replaceable package Medium =
     Modelica.Media.Interfaces.PartialMedium "Medium in the component";
@@ -126,8 +126,8 @@ annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={Ellipse(
           color={0,128,255},
           visible=not allowFlowReversal),
         Text(
-          extent={{-74,-124},{80,-166}},
+          extent={{-74,-130},{80,-172}},
           textColor={0,0,255},
           textString="%name")}),                                           Diagram(
         coordinateSystem(preserveAspectRatio=false)));
-end VolumeSetState;
+end DummyChillSource;

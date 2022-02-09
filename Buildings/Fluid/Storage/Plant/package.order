@@ -1,5 +1,6 @@
 ChillerAndTankNoRemoteCharging
 ChillerAndTankWithRemoteCharging
-VolumeSetState
+DummyChillSource
+DummyConsumer
 Examples
 BaseClasses

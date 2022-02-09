@@ -28,18 +28,17 @@ model ChillerAndTankNoRemoteCharging "(Draft)"
     redeclare final package Medium = Medium,
     p=800000,
     T=280.15,
-    nPorts=1)
-    "Sink representing CHW supply line"
+    nPorts=1) "Sink representing CHW supply line"
     annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
         rotation=180,
         origin={60,0})));
-  Modelica.Blocks.Sources.TimeTable setFloPum2(table=[0*3600,1; 0.25*3600,1;
+  Modelica.Blocks.Sources.TimeTable set_mPum2_flow(table=[0*3600,1; 0.25*3600,1;
         0.25*3600,-1; 0.5*3600,-1; 0.5*3600,0; 0.75*3600,0; 0.75*3600,1; 1*3600,
-        1]) "Placeholder"
+        1]) "Secondary mass flow rate setpoint"
     annotation (Placement(transformation(extent={{-70,20},{-50,40}})));
-  Modelica.Blocks.Sources.Constant set_mChi_flow(k=cat.m1_flow_nominal)
-    "Prescribed chiller branch flow rate"
+  Modelica.Blocks.Sources.Constant set_mPum1_flow(k=cat.m1_flow_nominal)
+    "Primary pump mass flow rate setpoint"
     annotation (Placement(transformation(extent={{-70,60},{-50,80}})));
 equation
   connect(sou.ports[1], cat.port_a)
@@ -48,10 +47,10 @@ equation
           4.44089e-16},{50,4.44089e-16}},
                              color={0,127,255}));
 
-  connect(setFloPum2.y, cat.usMasFloPum2) annotation (Line(points={{-49,30},{
-          -16,30},{-16,6},{-11,6}}, color={0,0,127}));
-  connect(set_mChi_flow.y, cat.us_mChi_flow) annotation (Line(points={{-49,70},
-          {-3,70},{-3,11}},      color={0,0,127}));
+  connect(set_mPum2_flow.y, cat.set_mPum2_flow) annotation (Line(points={{-49,
+          30},{-16,30},{-16,6},{-11,6}}, color={0,0,127}));
+  connect(set_mPum1_flow.y, cat.set_mPum1_flow)
+    annotation (Line(points={{-49,70},{-3,70},{-3,11}}, color={0,0,127}));
   annotation (
   experiment(Tolerance=1e-06, StopTime=3600),
     Diagram(coordinateSystem(extent={{-100,-100},{100,100}})),

@@ -39,8 +39,7 @@ partial model ChillerAndTank
     final control_m_flow=true,
     final control_dp=false,
     final allowFlowReversal=allowFlowReversal1,
-    final m_flow_small=m1_flow_nominal*1E-5)
-    "Primary CHW pump"
+    final m_flow_small=m1_flow_nominal*1E-5) "Primary CHW pump"
     annotation (Placement(transformation(extent={{-60,30},{-40,50}})));
   Buildings.Fluid.FixedResistances.Junction jun1(
     redeclare package Medium = Medium,
@@ -84,17 +83,16 @@ partial model ChillerAndTank
     "Fluid connector b (positive design flow direction is from port_a to port_b)"
     annotation (Placement(transformation(extent={{150,-10},{130,10}}),
         iconTransformation(extent={{110,-10},{90,10}})));
-  Modelica.Blocks.Interfaces.RealInput us_mChi_flow
-    "Chiller mass flow rate setpoint"
-                                   annotation (Placement(transformation(
+  Modelica.Blocks.Interfaces.RealInput set_mPum1_flow
+    "Primary pump mass flow rate setpoint" annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
         rotation=-90,
-        origin={-50,120}),  iconTransformation(
+        origin={-50,120}), iconTransformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={-30,110})));
 
-  Buildings.Fluid.Storage.Plant.VolumeSetState ideChi(
+  Buildings.Fluid.Storage.Plant.DummyChillSource ideChi(
     redeclare package Medium = Medium,
     allowFlowReversal=allowFlowReversal1,
     m_flow_nominal=m1_flow_nominal,
@@ -102,7 +100,7 @@ partial model ChillerAndTank
     T_a_nominal=T_CHWR_nominal,
     T_b_nominal=T_CHWS_nominal) "Ideal chiller"
     annotation (Placement(transformation(extent={{-10,30},{10,50}})));
-  VolumeSetState ideTan(
+  DummyChillSource ideTan(
     redeclare package Medium = Medium,
     final allowFlowReversal=true,
     m_flow_nominal=m2_flow_nominal,
@@ -123,8 +121,8 @@ equation
                                                         color={0,127,255}));
   connect(jun2.port_2, port_b)
     annotation (Line(points={{110,0},{140,0}}, color={0,127,255}));
-  connect(pum1.m_flow_in, us_mChi_flow) annotation (Line(points={{-56,48},{-56,60},
-          {-50,60},{-50,120}}, color={0,0,127}));
+  connect(pum1.m_flow_in, set_mPum1_flow) annotation (Line(points={{-56,48},{-56,
+          60},{-50,60},{-50,120}}, color={0,0,127}));
   connect(pum1.port_b, ideChi.port_a) annotation (Line(points={{-40,40},{-28,40},
           {-28,40},{-10.2,40}}, color={0,127,255}));
   connect(ideChi.port_b, preDro1.port_a) annotation (Line(points={{10,40},{10,40},
