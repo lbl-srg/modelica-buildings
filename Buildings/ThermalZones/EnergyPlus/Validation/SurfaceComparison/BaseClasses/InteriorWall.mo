@@ -57,7 +57,7 @@ equation
   connect(walCon.port_a, TSur_a.port)
     annotation (Line(points={{0,10},{-40,10},{-40,20}}, color={191,0,0}));
   connect(TSur_a.T, sur_a.T)
-    annotation (Line(points={{-40,40},{-40,50},{-12,50}}, color={0,0,127}));
+    annotation (Line(points={{-40,41},{-40,50},{-12,50}}, color={0,0,127}));
   connect(sur_a.Q_flow, heaSur_a.Q_flow)
     annotation (Line(points={{12,56},{40,56},{40,40}}, color={0,0,127}));
   connect(heaSur_a.port, walCon.port_a)
@@ -69,7 +69,7 @@ equation
   connect(TSur_b.port, walCon.port_b)
     annotation (Line(points={{-40,-20},{-40,-10},{0,-10}}, color={191,0,0}));
   connect(TSur_b.T, sur_b.T)
-    annotation (Line(points={{-40,-40},{-40,-50},{-12,-50}}, color={0,0,127}));
+    annotation (Line(points={{-40,-41},{-40,-50},{-12,-50}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
                                 Rectangle(
         extent={{-100,-100},{100,100}},

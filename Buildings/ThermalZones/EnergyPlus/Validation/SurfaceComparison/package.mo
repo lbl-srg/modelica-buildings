@@ -2,7 +2,9 @@ within Buildings.ThermalZones.EnergyPlus.Validation;
 package SurfaceComparison "Collection of models used to validate zone surface coupling against EnergyPlus"
   annotation (Documentation(info="<html>
 <p>
-Package containing models used to compare ZoneSurface results against equivalent EnergyPlus surfaces
+Package containing models used to compare 
+<a href=\\\"modelica://Buildings.ThermalZones.EnergyPlus.ZoneSurface\\\">
+Buildings.ThermalZones.EnergyPlus.ZoneSurface</a> results against equivalent EnergyPlus surfaces
 </p>
 </html>", revisions="<html>
 <ul>

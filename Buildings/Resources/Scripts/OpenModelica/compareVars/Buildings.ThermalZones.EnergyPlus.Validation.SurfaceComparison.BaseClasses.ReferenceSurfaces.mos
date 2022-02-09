@@ -1,7 +1,0 @@
-compareVars :=
-  {
-    "TGarAir.y",
-    "TEasWalGarSur.y",
-    "TWesWalGarSur.y",
-    "TIntWalGarSur.y"
-  };

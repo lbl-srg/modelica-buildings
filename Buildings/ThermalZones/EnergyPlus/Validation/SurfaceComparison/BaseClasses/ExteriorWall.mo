@@ -59,7 +59,7 @@ equation
   connect(TSurInt.port, walCon.port_b)
     annotation (Line(points={{-40,-20},{-40,-10},{0,-10}}, color={191,0,0}));
   connect(TSurInt.T, sur.T)
-    annotation (Line(points={{-40,-40},{-40,-50},{-12,-50}}, color={0,0,127}));
+    annotation (Line(points={{-40,-41},{-40,-50},{-12,-50}}, color={0,0,127}));
   connect(extSurHea.y, inv.u)
     annotation (Line(points={{-19,50},{-2,50}}, color={0,0,127}));
   connect(inv.y, heaSurExt.Q_flow)

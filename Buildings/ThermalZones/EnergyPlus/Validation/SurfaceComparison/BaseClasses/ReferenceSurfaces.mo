@@ -1,7 +1,7 @@
 within Buildings.ThermalZones.EnergyPlus.Validation.SurfaceComparison.BaseClasses;
 model ReferenceSurfaces
   "Model that contains Eplus OutputVariable used to validate ZoneSurface"
-  extends Modelica.Icons.Example;
+  extends Modelica.Blocks.Icons.Block;
 
   inner Buildings.ThermalZones.EnergyPlus.Building building(
     idfName=Modelica.Utilities.Files.loadResource(
@@ -47,10 +47,10 @@ model ReferenceSurfaces
 <p>
 This model simulates the envelope of a single family house with EnergyPlus and is used
 as a baseline to the 
-<a href=\"modelica://Buildings.ThermalZones.EnergyPlus.Validation.SurfaceComparison.ZoneSurfaces\">
-Buildings.ThermalZones.EnergyPlus.Validation.SurfaceComparison.ZoneSurfaces</a>
-validation model which replaces some of the interior and exterior walls
-with Spawn connectors.
+<a href=\"modelica://Buildings.ThermalZones.EnergyPlus.Validation.SurfaceComparison.SurfaceComparison\">
+Buildings.ThermalZones.EnergyPlus.Validation.SurfaceComparison.SurfaceComparison</a>
+validation model which compare that baseline to the same building, but using Spawn connectors
+for some interior and exterior walls.
 </p>
 </html>",
       revisions="<html>

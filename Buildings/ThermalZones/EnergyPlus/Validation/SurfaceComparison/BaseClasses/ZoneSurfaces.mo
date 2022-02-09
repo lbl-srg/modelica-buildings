@@ -1,4 +1,4 @@
-within Buildings.ThermalZones.EnergyPlus.Validation.SurfaceComparison;
+within Buildings.ThermalZones.EnergyPlus.Validation.SurfaceComparison.BaseClasses;
 model ZoneSurfaces
   "Example model with two EnergyPlus unconditioned zones with their separating surfaces modeled in Modelica"
   extends BaseClasses.ReferenceSurfaces;
@@ -80,12 +80,6 @@ This model simulates the envelope of a single family house with EnergyPlus but u
 Buildings.ThermalZones.EnergyPlus.ZoneSurface</a> to model the heat 
 transfer through the garage exterior (east and west facing) and interior walls.
 </p>
-<p>
-The temperature results of this model are to be compared to the results of
-<a href=\"modelica://Buildings.ThermalZones.EnergyPlus.Validation.SurfaceComparison.BaseClasses.ReferenceSurfaces\">
-Buildings.ThermalZones.EnergyPlus.Validation.SurfaceComparison.BaseClasses.ReferenceSurfaces</a>
-which runs the same model without the Spawn objects.
-</p>
 </html>",
       revisions="<html>
 <ul>
@@ -97,7 +91,7 @@ First implementation.
 </html>"),
     __Dymola_Commands(
       file="modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/EnergyPlus/Validation/SurfaceComparison/ZoneSurfaces.mos"
-        "Simulate and Plot"),
+        "Simulate and Plot", file="../test.mos" "test"),
     experiment(
       StopTime=2592000,
       Tolerance=1e-06),
