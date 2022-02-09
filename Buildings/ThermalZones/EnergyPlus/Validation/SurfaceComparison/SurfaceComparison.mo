@@ -19,13 +19,13 @@ transfer to the equivalent EnergyPlus surface object.
 </p>
 <p>
 It does so by comparing the temperature of the building in
-<a href=\\\"modelica://Buildings.ThermalZones.EnergyPlus.Validation.SurfaceComparison.BaseClasses.ReferenceSurfaces\\\">
+<a href=\"modelica://Buildings.ThermalZones.EnergyPlus.Validation.SurfaceComparison.BaseClasses.ReferenceSurfaces\">
 Buildings.ThermalZones.EnergyPlus.Validation.SurfaceComparison.BaseClasses.ReferenceSurfaces</a>
 that only uses EnergyPlus surfaces, and the building in
-<a href=\\\"modelica://Buildings.ThermalZones.EnergyPlus.Validation.SurfaceComparison.BaseClasses.ZoneSurfaces\\\">
+<a href=\"modelica://Buildings.ThermalZones.EnergyPlus.Validation.SurfaceComparison.BaseClasses.ZoneSurfaces\">
 Buildings.ThermalZones.EnergyPlus.Validation.SurfaceComparison.BaseClasses.ZoneSurfaces</a>
 that uses the same envelope but replaces select surfaces with 
-<a href=\\\"modelica://Buildings.ThermalZones.EnergyPlus.ZoneSurface\\\">
+<a href=\"modelica://Buildings.ThermalZones.EnergyPlus.ZoneSurface\">
 Buildings.ThermalZones.EnergyPlus.ZoneSurface</a> objects.
 </p>
 </html>",
