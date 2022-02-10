@@ -7,7 +7,7 @@ model TwoPosition "Two-position damper"
   Buildings.Fluid.Actuators.Dampers.Exponential dam(
     redeclare final package Medium = Medium,
     final m_flow_nominal=m_flow_nominal,
-    final dpDamper_nominal=dpDamper_nominal)
+    final dpDamper_nominal=dp_nominal)
     "Exponential damper"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea(
@@ -27,7 +27,7 @@ model TwoPosition "Two-position damper"
         origin={20,-50})));
   Controls.OBC.CDL.Continuous.LessThreshold evaClo(t=0.01, h=0.5E-2)
     "Return true if closed (closed end switch contact)"
-                            annotation (Placement(transformation(
+    annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={-20,-50})));

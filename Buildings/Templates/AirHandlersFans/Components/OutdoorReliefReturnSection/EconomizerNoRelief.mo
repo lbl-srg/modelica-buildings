@@ -49,9 +49,10 @@ model EconomizerNoRelief "Air economizer - No relief branch"
 
   Buildings.Templates.Components.Dampers.Modulating damRet(
     redeclare final package Medium = MediumAir,
-    final m_flow_nominal=mAirRet_flow_nominal,
-    final dpDamper_nominal=dpDamRet_nominal,
-    final text_rotation=90) "Return air damper" annotation (Placement(
+    final datRec=datRec.damRet,
+    final text_rotation=90)
+    "Return air damper"
+    annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,

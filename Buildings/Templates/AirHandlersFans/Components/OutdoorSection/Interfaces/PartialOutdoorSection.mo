@@ -18,23 +18,17 @@ partial model PartialOutdoorSection "Outdoor air section"
   outer parameter Buildings.Templates.AirHandlersFans.Types.ControlEconomizer typCtrEco
     "Economizer control type";
 
-  parameter Modelica.Units.SI.MassFlowRate m_flow_nominal
-    "Air mass flow rate"
-    annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.Units.SI.MassFlowRate mOutMin_flow_nominal
-    "Minimum outdoor air mass flow rate"
-    annotation (
-      Dialog(group="Nominal condition",
-        enable=typDamOutMin <> Buildings.Templates.Components.Types.Damper.None));
-  parameter Modelica.Units.SI.PressureDifference dpDamOut_nominal
-    "Outdoor air damper pressure drop"
-    annotation (
-      Dialog(group="Nominal condition"));
-  parameter Modelica.Units.SI.PressureDifference dpDamOutMin_nominal
-    "Minimum outdoor air damper pressure drop"
-    annotation (
-      Dialog(group="Nominal condition",
-        enable=typDamOutMin <> Buildings.Templates.Components.Types.Damper.None));
+  parameter Data datRec(
+    final typDamOut=typDamOut,
+    final typDamOutMin=typDamOutMin)
+    "Design and operating parameters";
+
+  final parameter Modelica.Units.SI.MassFlowRate m_flow_nominal=
+    datRec.damOut.m_flow_nominal
+    "Air mass flow rate";
+  final parameter Modelica.Units.SI.MassFlowRate mOutMin_flow_nominal=
+    datRec.damOutMin.m_flow_nominal
+    "Minimum outdoor air mass flow rate";
 
   outer parameter String id
     "System identifier";

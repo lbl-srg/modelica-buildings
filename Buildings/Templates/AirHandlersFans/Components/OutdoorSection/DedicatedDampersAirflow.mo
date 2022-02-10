@@ -10,16 +10,16 @@ measurement by AFMS"
 
   Buildings.Templates.Components.Dampers.Modulating damOut(
     redeclare final package Medium = MediumAir,
-    final m_flow_nominal=m_flow_nominal,
-    final dpDamper_nominal=dpDamOut_nominal) "Economizer outdoor air damper"
+    final datRec=datRec.damOut)
+    "Economizer outdoor air damper"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={0,0})));
   Buildings.Templates.Components.Dampers.Modulating damOutMin(
     redeclare final package Medium = MediumAir,
-    final m_flow_nominal=m_flow_nominal,
-    final dpDamper_nominal=dpDamOutMin_nominal) "Minimum outdoor air damper"
+    final datRec=datRec.damOutMin)
+    "Minimum outdoor air damper"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
@@ -28,13 +28,13 @@ measurement by AFMS"
   Buildings.Templates.Components.Sensors.Temperature TAirOut(
     redeclare final package Medium =  MediumAir,
     final have_sen=true,
-    final m_flow_nominal=m_flow_nominal)
+    final m_flow_nominal=mOutMin_flow_nominal)
     "Outdoor air temperature sensor"
     annotation (Placement(transformation(extent={{70,50},{90,70}})));
   Buildings.Templates.Components.Sensors.VolumeFlowRate VAirOutMin_flow(
     redeclare final package Medium = MediumAir,
     final have_sen=true,
-    final m_flow_nominal=m_flow_nominal,
+    final m_flow_nominal=mOutMin_flow_nominal,
     final typ=Buildings.Templates.Components.Types.SensorVolumeFlowRate.AFMS)
     "Minimum outdoor air volume flow rate sensor"
     annotation (Placement(transformation(extent={{110,50},{130,70}})));
@@ -43,7 +43,7 @@ measurement by AFMS"
     final have_sen=
       typCtrEco==Buildings.Templates.AirHandlersFans.Types.ControlEconomizer.FixedEnthalpyWithFixedDryBulb or
       typCtrEco==Buildings.Templates.AirHandlersFans.Types.ControlEconomizer.DifferentialEnthalpyWithFixedDryBulb,
-    final m_flow_nominal=m_flow_nominal)
+    final m_flow_nominal=mOutMin_flow_nominal)
     "Outdoor air enthalpy sensor"
     annotation (Placement(transformation(extent={{30,50},{50,70}})));
 equation

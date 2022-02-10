@@ -9,9 +9,10 @@ model ReturnFan "Return fan with modulating relief damper"
 
   Buildings.Templates.Components.Dampers.Modulating damRel(
     redeclare final package Medium = MediumAir,
-    final m_flow_nominal=m_flow_nominal,
-    final dpDamper_nominal=dpDamRel_nominal,
-    final text_flip=true) "Relief damper" annotation (Placement(transformation(
+    final datRec=datRec.damRel,
+    final text_flip=true)
+    "Relief damper"
+    annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=0,
         origin={-150,0})));

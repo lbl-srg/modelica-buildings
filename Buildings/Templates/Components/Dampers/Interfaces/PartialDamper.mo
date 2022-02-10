@@ -1,6 +1,7 @@
 within Buildings.Templates.Components.Dampers.Interfaces;
 partial model PartialDamper
-  extends Buildings.Fluid.Interfaces.PartialTwoPortInterface;
+  extends Buildings.Fluid.Interfaces.PartialTwoPortInterface(
+    final m_flow_nominal=datRec.m_flow_nominal);
 
   parameter Buildings.Templates.Components.Types.Damper typ
     "Equipment type"
@@ -18,10 +19,13 @@ partial model PartialDamper
     "True to flip text horizontally in icon layer"
     annotation(Dialog(tab="Graphics", enable=false));
 
-  parameter Modelica.Units.SI.PressureDifference dpDamper_nominal
-    "Damper pressure drop"
-    annotation (
-      Dialog(group="Nominal condition"));
+  parameter Buildings.Templates.Components.Dampers.Interfaces.Data datRec(
+    final typ=typ)
+    "Design and operating parameters";
+
+  final parameter Modelica.Units.SI.PressureDifference dp_nominal=
+    datRec.dp_nominal
+    "Damper pressure drop";
 
   Buildings.Templates.Components.Interfaces.Bus bus
     if typ <> Buildings.Templates.Components.Types.Damper.None

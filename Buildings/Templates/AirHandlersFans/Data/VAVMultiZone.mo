@@ -35,21 +35,23 @@ record VAVMultiZone
   parameter Buildings.Templates.Components.Types.Damper typDamOutMin
     "Minimum outdoor air damper type"
     annotation (Evaluate=true, Dialog(group="Configuration", enable=false));
-  parameter Buildings.Templates.Components.Types.Damper typDamRet
-    "Return damper type"
-    annotation (Evaluate=true, Dialog(group="Configuration", enable=false));
   parameter Buildings.Templates.Components.Types.Damper typDamRel
     "Relief damper type"
     annotation (Evaluate=true, Dialog(group="Configuration", enable=false));
+  parameter Buildings.Templates.Components.Types.Damper typDamRet
+    "Return damper type"
+    annotation (Evaluate=true, Dialog(group="Configuration", enable=false));
 
-  parameter Modelica.Units.SI.MassFlowRate mAirOutMin_flow_nominal=
-    if typDamOutMin <> Buildings.Templates.Components.Types.Damper.None then
-      dat.getReal(varName=id + ".mechanical.dampers.mAirOutMin_flow_nominal.value")
-    else 0
-    "Minimum outdoor air mass flow rate"
+  extends Buildings.Templates.AirHandlersFans.Components.OutdoorReliefReturnSection.Interfaces.Data(
+    final typDamOut=typDamOut,
+    final typDamOutMin=typDamOutMin,
+    final typDamRel=typDamRel,
+    final typDamRet=typDamRet,
+    damOut(final m_flow_nominal=mAirSup_flow_nominal),
+    damRel(final m_flow_nominal=mAirRet_flow_nominal),
+    damRet(final m_flow_nominal=mAirRet_flow_nominal))
     annotation (
-      Dialog(group="Nominal condition",
-        enable=typDamOutMin <> Buildings.Templates.Components.Types.Damper.None));
+      Dialog(group="Schedule.Mechanical"));
 
   parameter Buildings.Templates.Components.Coils.Interfaces.Data coiHeaPre(
     final typ=typCoiHeaPre,

@@ -9,8 +9,7 @@ model ReliefDamper "Modulating relief damper without fan"
 
   Buildings.Templates.Components.Dampers.Modulating damRel(
     redeclare final package Medium = MediumAir,
-    final m_flow_nominal=m_flow_nominal,
-    final dpDamper_nominal=dpDamRel_nominal,
+    final datRec=datRec.damRel,
     final text_flip=true,
     typBla=Buildings.Templates.Components.Types.DamperBlades.Opposed)
     "Relief damper" annotation (Placement(transformation(

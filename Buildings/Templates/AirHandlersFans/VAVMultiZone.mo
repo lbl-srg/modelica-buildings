@@ -53,16 +53,14 @@ model VAVMultiZone "Multiple-zone VAV air-handling unit"
     constrainedby
     Components.OutdoorReliefReturnSection.Interfaces.PartialOutdoorReliefReturnSection(
       redeclare final package MediumAir = MediumAir,
-      final mAirSup_flow_nominal=mAirSup_flow_nominal,
-      final mAirRet_flow_nominal=mAirRet_flow_nominal,
-      final mAirOutMin_flow_nominal=datRec.mAirOutMin_flow_nominal,
-      final dpFan_nominal=datRec.dpFanRet_nominal,
       final typCtrFanRet=ctr.typCtrFanRet,
       final typCtrEco=ctr.typCtrEco,
-      final dpDamOut_nominal=datRec.dpDamOut_nominal,
-      final dpDamOutMin_nominal=datRec.dpDamOutMin_nominal,
-      final dpDamRet_nominal=datRec.dpDamRet_nominal,
-      final dpDamRel_nominal=datRec.dpDamRel_nominal)
+      final datRec=Buildings.Templates.AirHandlersFans.Components.OutdoorReliefReturnSection.Interfaces.Data(
+        damOut=datRec.damOut,
+        damOutMin=datRec.damOutMin,
+        damRel=datRec.damRel,
+        damRet=datRec.damRet),
+      final dpFan_nominal=datRec.dpFanRet_nominal)
     "Outdoor/relief/return air section"
     annotation (
       Dialog(group="Outdoor/relief/return air section"),

@@ -23,7 +23,13 @@ partial model PartialReliefReturnSection "Relief/return air section"
   outer parameter Boolean have_recHea
     "Set to true in case of heat recovery";
 
-  parameter Modelica.Units.SI.MassFlowRate m_flow_nominal
+  parameter Data datRec(
+    final typDamRel=typDamRel,
+    final typDamRet=typDamRet)
+    "Design and operating parameters";
+
+  final parameter Modelica.Units.SI.MassFlowRate m_flow_nominal=
+    datRec.damRet.m_flow_nominal
     "Air mass flow rate"
     annotation (Dialog(group="Nominal condition"));
   parameter Modelica.Units.SI.PressureDifference dpFan_nominal
@@ -32,11 +38,6 @@ partial model PartialReliefReturnSection "Relief/return air section"
       Dialog(group="Nominal condition",
         enable=typFanRel <> Buildings.Templates.Components.Types.Fan.None or
           typFanRet <> Buildings.Templates.Components.Types.Fan.None));
-  parameter Modelica.Units.SI.PressureDifference dpDamRel_nominal
-    "Relief air damper pressure drop"
-    annotation (
-      Dialog(group="Nominal condition",
-        enable=typDamRel<>Buildings.Templates.Components.Types.Damper.None));
 
   outer parameter String id
     "System identifier";
