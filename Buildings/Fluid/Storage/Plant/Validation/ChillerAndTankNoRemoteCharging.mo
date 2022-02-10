@@ -57,8 +57,7 @@ model ChillerAndTankNoRemoteCharging "(Draft)"
         extent={{10,10},{-10,-10}},
         rotation=270,
         origin={-40,-30})));
-  Modelica.Blocks.Math.Gain gain2(k=1/cat.m2_flow_nominal)
-                                                       "Gain"
+  Modelica.Blocks.Math.Gain gain2(k=1/cat.m2_flow_nominal) "Gain"
     annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
@@ -75,7 +74,7 @@ equation
     annotation (Line(points={{-49,70},{-11,70},{-11,9}},color={0,0,127}));
   connect(gain2.y, conPID_Pum2.u_m)
     annotation (Line(points={{-21,-30},{-28,-30}}, color={0,0,127}));
-  connect(cat.m_flow, gain2.u) annotation (Line(points={{9,-11},{8,-11},{8,-30},
+  connect(cat.mTan_flow, gain2.u) annotation (Line(points={{9,-11},{8,-11},{8,-30},
           {2,-30}}, color={0,0,127}));
   connect(set_mPum2_flow.y, conPID_Pum2.u_s)
     annotation (Line(points={{-49,-70},{-40,-70},{-40,-42}}, color={0,0,127}));
