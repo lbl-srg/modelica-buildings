@@ -13,9 +13,13 @@ model DummyConsumer "Test model for the dummy consumer"
     "Nominal pressure at CHW supply line";
   parameter Modelica.Units.SI.AbsolutePressure p_CHWR_nominal=300000
     "Nominal pressure at CHW return line";
-  parameter Modelica.Units.SI.Temperature T_CHWR_nominal=12+273.15
+  parameter Modelica.Units.SI.Temperature T_CHWR_nominal(
+    final displayUnit="degC")=
+     12+273.15
     "Nominal temperature of CHW return";
-  parameter Modelica.Units.SI.Temperature T_CHWS_nominal=7+273.15
+  parameter Modelica.Units.SI.Temperature T_CHWS_nominal(
+    final displayUnit="degC")=
+     7+273.15
     "Nominal temperature of CHW supply";
   parameter Boolean allowFlowReversal=false
     "Flow reversal setting";

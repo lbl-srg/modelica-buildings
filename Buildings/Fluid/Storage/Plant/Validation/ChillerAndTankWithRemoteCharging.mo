@@ -15,21 +15,30 @@ model ChillerAndTankWithRemoteCharging
 
   package Medium = Buildings.Media.Water "Medium model";
 
+  parameter Modelica.Units.SI.AbsolutePressure p_CHWS_nominal=800000
+    "Nominal pressure of the CHW supply line";
+  parameter Modelica.Units.SI.AbsolutePressure p_CHWR_nominal=300000
+    "Nominal pressure of the CHW return line";
+  parameter Modelica.Units.SI.Temperature T_CHWS_nominal=7+273.15
+    "Nominal temperature of CHW supply";
+  parameter Modelica.Units.SI.Temperature T_CHWR_nominal=12+273.15
+    "Nominal temperature of CHW return";
+
   Buildings.Fluid.Storage.Plant.ChillerAndTankWithRemoteCharging cat(
     redeclare final package Medium=Medium,
     pum1(m_flow_start=0),
     final m1_flow_nominal=1,
     final m2_flow_nominal=1,
-    final p_CHWS_nominal=sin.p,
-    final p_CHWR_nominal=sou.p,
-    final T_CHWS_nominal=sin.T,
-    final T_CHWR_nominal=sou.T)
+    final p_CHWS_nominal=p_CHWS_nominal,
+    final p_CHWR_nominal=p_CHWR_nominal,
+    final T_CHWS_nominal=T_CHWS_nominal,
+    final T_CHWR_nominal=T_CHWR_nominal)
     "Plant with chiller and tank"
     annotation (Placement(transformation(extent={{-8,-10},{12,10}})));
   Buildings.Fluid.Sources.Boundary_pT sou(
     redeclare final package Medium = Medium,
-    p=300000,
-    T=285.15,
+    p=p_CHWR_nominal,
+    T=T_CHWR_nominal,
     nPorts=1)
     "Source, CHW return line"
     annotation (Placement(transformation(
@@ -38,8 +47,8 @@ model ChillerAndTankWithRemoteCharging
         origin={-60,0})));
   Buildings.Fluid.Sources.Boundary_pT sin(
     redeclare final package Medium = Medium,
-    p=800000,
-    T=280.15,
+    p=p_CHWS_nominal,
+    T=T_CHWS_nominal,
     nPorts=1)
     "Sink, CHW supply line"
     annotation (Placement(transformation(

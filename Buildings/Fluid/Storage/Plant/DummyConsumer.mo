@@ -47,7 +47,7 @@ model DummyConsumer "Dummy consumer model"
         rotation=0)));
   Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor TCon
     "Temperature of the consumer"
-    annotation (Placement(transformation(extent={{40,-60},{20,-40}})));
+    annotation (Placement(transformation(extent={{40,-40},{20,-20}})));
   Buildings.Fluid.FixedResistances.PressureDrop preDro(
     redeclare package Medium = Medium,
     final allowFlowReversal=true,
@@ -109,6 +109,18 @@ model DummyConsumer "Dummy consumer model"
         extent={{10,-10},{-10,10}},
         rotation=-90,
         origin={-70,110})));
+  Buildings.Fluid.Sensors.RelativePressure dpSen(redeclare package Medium = Medium)
+    "Differential pressure sensor"
+    annotation (Placement(transformation(extent={{-10,-60},{10,-40}})));
+  Modelica.Blocks.Interfaces.RealOutput dp
+    "Differential pressure of the consumer" annotation (Placement(
+        transformation(
+        extent={{-20,-20},{20,20}},
+        rotation=0,
+        origin={120,-70}), iconTransformation(
+        extent={{10,-10},{-10,10}},
+        rotation=-90,
+        origin={-30,110})));
 equation
   connect(valCon.port_b, vol.ports[1]) annotation (Line(points={{-60,0},{1,0}},
                           color={0,127,255}));
@@ -116,7 +128,7 @@ equation
     annotation (Line(points={{42,90},{54,90},{54,-10},{10,-10}},
                                                        color={191,0,0}));
   connect(vol.heatPort, TCon.port)
-    annotation (Line(points={{10,-10},{54,-10},{54,-50},{40,-50}},
+    annotation (Line(points={{10,-10},{54,-10},{54,-30},{40,-30}},
                                                        color={191,0,0}));
   connect(preDro.port_a, vol.ports[2]) annotation (Line(points={{60,0},{-1,0}},
                             color={0,127,255}));
@@ -125,7 +137,7 @@ equation
   connect(gain.y, valCon.y)
     annotation (Line(points={{1,50},{6,50},{6,18},{-70,18},{-70,12}},
                                                       color={0,0,127}));
-  connect(TCon.T, conPI_valCon.u_m) annotation (Line(points={{19,-50},{-50,-50},
+  connect(TCon.T, conPI_valCon.u_m) annotation (Line(points={{19,-30},{-50,-30},
           {-50,38}},          color={0,0,127}));
   connect(valCon.port_a, port_a)
     annotation (Line(points={{-80,0},{-100,0}}, color={0,127,255}));
@@ -137,6 +149,16 @@ equation
     annotation (Line(points={{-62,50},{-120,50}}, color={0,0,127}));
   connect(valCon.y_actual, yVal_actual) annotation (Line(points={{-65,7},{80,7},
           {80,50},{120,50}}, color={0,0,127}));
+  connect(port_a, dpSen.port_a) annotation (Line(
+      points={{-100,0},{-100,-50},{-10,-50}},
+      color={0,127,255},
+      pattern=LinePattern.Dash));
+  connect(dpSen.port_b, port_b) annotation (Line(
+      points={{10,-50},{100,-50},{100,0}},
+      color={0,127,255},
+      pattern=LinePattern.Dash));
+  connect(dpSen.p_rel, dp)
+    annotation (Line(points={{0,-59},{0,-70},{120,-70}}, color={0,0,127}));
   annotation (Icon(graphics={Ellipse(
           extent={{-100,100},{100,-100}},
           lineColor={28,108,200},
