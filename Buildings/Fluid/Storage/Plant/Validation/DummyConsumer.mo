@@ -28,7 +28,6 @@ model DummyConsumer "Test model for the dummy consumer"
     redeclare package Medium = Medium,
     vol(T_start=15+273.15),
     m_flow_nominal=m_flow_nominal,
-    dp_nominal=p_CHWS_nominal - p_CHWR_nominal,
     p_a_nominal=p_CHWS_nominal,
     p_b_nominal=p_CHWR_nominal,
     T_a_nominal=T_CHWS_nominal,

@@ -9,9 +9,6 @@ the consumer control valve simply tracks the return CHW temperature.
 
   parameter Modelica.Units.SI.MassFlowRate m_flow_nominal=1
     "Nominal mass flow rate";
-  parameter Modelica.Units.SI.PressureDifference dp_nominal=
-    p_a_nominal-p_b_nominal
-    "Nominal pressure difference";
   parameter Modelica.Units.SI.AbsolutePressure p_a_nominal=800000
     "Nominal pressure of the CHW supply line";
   parameter Modelica.Units.SI.AbsolutePressure p_b_nominal=300000
@@ -22,13 +19,17 @@ the consumer control valve simply tracks the return CHW temperature.
     "Nominal temperature of CHW return";
   parameter Boolean allowFlowReversal=false
     "Flow reversal setting on chiller branch";
+  final parameter Modelica.Units.SI.PressureDifference dp_nominal=
+    p_a_nominal-p_b_nominal
+    "Nominal pressure difference";
 
   Buildings.Fluid.Actuators.Valves.TwoWayEqualPercentage valCon(
     redeclare package Medium = Medium,
     use_inputFilter=false,
     l=1E-10,
     dpValve_nominal=1,
-    m_flow_nominal=m_flow_nominal) "Consumer control valve"
+    m_flow_nominal=m_flow_nominal,
+    y_start=0) "Consumer control valve"
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow heaCon
     "Prescribed heat flow"
@@ -166,5 +167,8 @@ equation
           extent={{-100,100},{100,-100}},
           lineColor={28,108,200},
           fillColor={244,125,35},
-          fillPattern=FillPattern.Sphere)}));
+          fillPattern=FillPattern.Sphere), Text(
+          extent={{-58,-104},{62,-132}},
+          textColor={0,0,127},
+          textString="%name")}));
 end DummyConsumer;

@@ -36,8 +36,8 @@ partial model ChillerAndTank
     m_flow_nominal={m1_flow_nominal+m2_flow_nominal,
                    -m1_flow_nominal,-m2_flow_nominal},
     dp_nominal={0,0,0},
-    T_start=T_CHWR_nominal)
-    "Junction near the return line" annotation (Placement(transformation(
+    T_start=T_CHWR_nominal) "Junction near the return line"
+                                    annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-80,0})));
@@ -108,6 +108,15 @@ partial model ChillerAndTank
     T_start=T_CHWR_nominal) "Primary CHW pump"
     annotation (Placement(transformation(extent={{-60,30},{-40,50}})));
 
+  Modelica.Blocks.Interfaces.RealOutput mTan_flow
+    "Mass flow rate through the tank" annotation (Dialog(group=
+          "Time varying output signal"), Placement(transformation(
+        extent={{10,-10},{-10,10}},
+        rotation=90,
+        origin={-40,-110}), iconTransformation(
+        extent={{10,-10},{-10,10}},
+        rotation=90,
+        origin={90,-110})));
 equation
 
   connect(preDro2.port_b, jun2.port_3)
@@ -130,6 +139,8 @@ equation
           40},{-60,40}}, color={0,127,255}));
   connect(pum1.m_flow_in, set_mPum1_flow)
     annotation (Line(points={{-50,52},{-50,110}},           color={0,0,127}));
+  connect(ideTan.m_flow,mTan_flow)  annotation (Line(points={{-7,-49},{-7,-46},
+          {-40,-46},{-40,-110}}, color={0,0,127}));
   annotation (
   experiment(Tolerance=1e-06, StopTime=3600),
     Diagram(coordinateSystem(extent={{-180,-100},{140,100}})),

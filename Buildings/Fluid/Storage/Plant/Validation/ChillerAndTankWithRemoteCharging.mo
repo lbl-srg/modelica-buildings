@@ -28,7 +28,6 @@ model ChillerAndTankWithRemoteCharging
 
   Buildings.Fluid.Storage.Plant.ChillerAndTankWithRemoteCharging cat(
     redeclare final package Medium=Medium,
-    pum1(m_flow_start=0),
     final m1_flow_nominal=1,
     final m2_flow_nominal=1,
     final p_CHWS_nominal=p_CHWS_nominal,

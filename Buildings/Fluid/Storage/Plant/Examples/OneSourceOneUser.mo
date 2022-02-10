@@ -1,13 +1,17 @@
 within Buildings.Fluid.Storage.Plant.Examples;
 model OneSourceOneUser "(Draft) District system with one source and one user"
-/*  
-- Controls - 
+/*
+- Controls -
   Primary pump:
     Tracks consumer control valve position con.yVal,
     closes at y.Val < 0.05,
     reopens at y.Val > 0.5.
   Secondary pump:
     Maintains constant consumer pressure head con.dp.
+- Pressure -
+  Assuming the plant takes 10% of total pressure head,
+    supply and return pipes 30% each,
+    consumer 30%.
 */
   extends Modelica.Icons.Example;
 
@@ -42,7 +46,6 @@ model OneSourceOneUser "(Draft) District system with one source and one user"
   Buildings.Fluid.Storage.Plant.DummyConsumer con(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
-    dp_nominal=dp_nominal*0.3,
     p_a_nominal=p_CHWS_nominal-dp_nominal*0.35,
     p_b_nominal=p_CHWR_nominal+dp_nominal*0.35,
     T_a_nominal=T_CHWS_nominal,
@@ -56,7 +59,7 @@ model OneSourceOneUser "(Draft) District system with one source and one user"
         0.5*3600,5*4200*1.01; 0.75*3600,5*4200*1.01; 0.75*3600,0; 1*3600,0])
     "Placeholder, prescribed cooling load"
     annotation (Placement(transformation(extent={{0,50},{20,70}})));
-  Controls.Continuous.LimPID conPI_pum2(
+  Buildings.Controls.Continuous.LimPID conPI_pum2(
     controllerType=Modelica.Blocks.Types.SimpleController.PI,
     Td=1,
     k=1,
@@ -66,13 +69,13 @@ model OneSourceOneUser "(Draft) District system with one source and one user"
         extent={{10,10},{-10,-10}},
         rotation=270,
         origin={-70,-60})));
-  FixedResistances.PressureDrop preDro1(
+  Buildings.Fluid.FixedResistances.PressureDrop preDro1(
     redeclare package Medium = Medium,
     final allowFlowReversal=true,
     final dp_nominal=dp_nominal*0.3,
     final m_flow_nominal=m_flow_nominal) "Flow resistance of the consumer"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
-  FixedResistances.PressureDrop preDro2(
+  Buildings.Fluid.FixedResistances.PressureDrop preDro2(
     redeclare package Medium = Medium,
     final allowFlowReversal=true,
     final dp_nominal=dp_nominal*0.3,
@@ -96,13 +99,13 @@ model OneSourceOneUser "(Draft) District system with one source and one user"
         extent={{-10,-10},{10,10}},
         rotation=180,
         origin={-40,-60})));
-  Controls.OBC.CDL.Continuous.Hysteresis hysPum1(uLow=0.05, uHigh=0.5)
+  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hysPum1(uLow=0.05, uHigh=0.5)
     "Primary pump shuts off at con.yVal = 0.05 and restarts at 0.5" annotation (
      Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=90,
         origin={-70,62})));
-  Controls.OBC.CDL.Conversions.BooleanToReal booToReaPum1(realTrue=
+  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToReaPum1(realTrue=
         m_flow_nominal/2) "Primary pump signal" annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
