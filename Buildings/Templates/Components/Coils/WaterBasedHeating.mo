@@ -25,10 +25,7 @@ model WaterBasedHeating "Hot water coil"
   replaceable Buildings.Templates.Components.Valves.None val constrainedby
     Buildings.Templates.Components.Valves.Interfaces.PartialValve(
       redeclare final package Medium = MediumHea,
-      final m_flow_nominal=mWat_flow_nominal,
-      final dpValve_nominal=dpValve_nominal,
-      final dpFixed_nominal=if typVal<>Buildings.Templates.Components.Types.Valve.None then
-        dpWat_nominal else 0)
+      final datRec=datRecVal)
     "Valve"
     annotation (
       choicesAllMatching=true,
@@ -44,8 +41,7 @@ model WaterBasedHeating "Hot water coil"
       redeclare final package Medium2 = MediumAir,
       final m1_flow_nominal=mWat_flow_nominal,
       final m2_flow_nominal=mAir_flow_nominal,
-      final dp1_nominal=if typVal==Buildings.Templates.Components.Types.Valve.None then
-        dpWat_nominal else 0,
+      final dp1_nominal=dpHex1_nominal,
       final dp2_nominal=dpAir_nominal)
     "Heat exchanger"
     annotation (choices(

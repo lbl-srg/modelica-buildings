@@ -24,12 +24,11 @@ partial model PartialReliefReturnSection "Relief/return air section"
     "Set to true in case of heat recovery";
 
   parameter Data datRec(
-    final typDamRel=typDamRel,
-    final typDamRet=typDamRet)
+    final typDamRel=typDamRel)
     "Design and operating parameters";
 
   final parameter Modelica.Units.SI.MassFlowRate m_flow_nominal=
-    datRec.damRet.m_flow_nominal
+    datRec.damRel.m_flow_nominal
     "Air mass flow rate"
     annotation (Dialog(group="Nominal condition"));
   parameter Modelica.Units.SI.PressureDifference dpFan_nominal

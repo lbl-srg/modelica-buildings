@@ -48,7 +48,7 @@ record Data
     final min=0,
     start=0,
     displayUnit="Pa")
-    "Nominal pressure drop of fully open valve"
+    "Liquid pressure drop of fully open valve"
     annotation(Dialog(group="Nominal condition",
       enable=have_sou and typVal<>Buildings.Templates.Components.Types.Valve.None));
   parameter Modelica.Units.SI.HeatFlowRate Q_flow_nominal=

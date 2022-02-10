@@ -18,10 +18,9 @@ model Economizer "Air economizer"
     secOut constrainedby
     Buildings.Templates.AirHandlersFans.Components.OutdoorSection.Interfaces.PartialOutdoorSection(
       redeclare final package MediumAir = MediumAir,
-      final m_flow_nominal=mAirSup_flow_nominal,
-      final mOutMin_flow_nominal=mAirOutMin_flow_nominal,
-      final dpDamOut_nominal=dpDamOut_nominal,
-      final dpDamOutMin_nominal=dpDamOutMin_nominal)
+      datRec(
+        final damOut=datRec.damOut,
+        final damOutMin=datRec.damOutMin))
     "Single common OA damper (modulating) with AFMS"
     annotation (
     choices(
@@ -39,8 +38,8 @@ model Economizer "Air economizer"
     secRel constrainedby
     Buildings.Templates.AirHandlersFans.Components.ReliefReturnSection.Interfaces.PartialReliefReturnSection(
       redeclare final package MediumAir = MediumAir,
-      final m_flow_nominal=mAirRet_flow_nominal,
-      final dpDamRel_nominal=dpDamRel_nominal,
+      datRec(
+        final damRel=datRec.damRel),
       final dpFan_nominal=dpFan_nominal)
     "Return fan with modulating relief damper"
     annotation (

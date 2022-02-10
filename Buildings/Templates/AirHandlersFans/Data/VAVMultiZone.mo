@@ -29,27 +29,25 @@ record VAVMultiZone
   parameter Buildings.Templates.Components.Types.HeatExchanger typHexCoiHeaReh
     "Type of heat exchanger for heating coil in reheat position"
     annotation (Evaluate=true, Dialog(group="Configuration", enable=false));
-  parameter Buildings.Templates.Components.Types.Damper typDamOut
-    "Outdoor air damper type"
-    annotation (Evaluate=true, Dialog(group="Configuration", enable=false));
-  parameter Buildings.Templates.Components.Types.Damper typDamOutMin
-    "Minimum outdoor air damper type"
-    annotation (Evaluate=true, Dialog(group="Configuration", enable=false));
-  parameter Buildings.Templates.Components.Types.Damper typDamRel
-    "Relief damper type"
-    annotation (Evaluate=true, Dialog(group="Configuration", enable=false));
-  parameter Buildings.Templates.Components.Types.Damper typDamRet
-    "Return damper type"
-    annotation (Evaluate=true, Dialog(group="Configuration", enable=false));
 
   extends Buildings.Templates.AirHandlersFans.Components.OutdoorReliefReturnSection.Interfaces.Data(
-    final typDamOut=typDamOut,
-    final typDamOutMin=typDamOutMin,
-    final typDamRel=typDamRel,
-    final typDamRet=typDamRet,
-    damOut(final m_flow_nominal=mAirSup_flow_nominal),
-    damRel(final m_flow_nominal=mAirRet_flow_nominal),
-    damRet(final m_flow_nominal=mAirRet_flow_nominal))
+    damOut(
+      final m_flow_nominal=mAirSup_flow_nominal,
+      dp_nominal=if typDamOut==Buildings.Templates.Components.Types.Damper.None then 0
+        else dat.getReal(varName=id + ".mechanical.dampers.dpDamOut_nominal.value")),
+    damOutMin(
+      m_flow_nominal=if typDamOutMin==Buildings.Templates.Components.Types.Damper.None then 0
+        else dat.getReal(varName=id + ".mechanical.dampers.mAirOutMin_flow_nominal.value"),
+      dp_nominal=if typDamOutMin==Buildings.Templates.Components.Types.Damper.None then 0
+        else dat.getReal(varName=id + ".mechanical.dampers.dpDamOutMin_nominal.value")),
+    damRel(
+      final m_flow_nominal=mAirRet_flow_nominal,
+      dp_nominal=if typDamRel==Buildings.Templates.Components.Types.Damper.None then 0
+        else dat.getReal(varName=id + ".mechanical.dampers.dpDamRel_nominal.value")),
+    damRet(
+      final m_flow_nominal=mAirRet_flow_nominal,
+      dp_nominal=if typDamRet==Buildings.Templates.Components.Types.Damper.None then 0
+        else dat.getReal(varName=id + ".mechanical.dampers.dpDamRet_nominal.value")))
     annotation (
       Dialog(group="Schedule.Mechanical"));
 
@@ -70,7 +68,7 @@ record VAVMultiZone
     dpValve_nominal=if have_souCoiHeaPre then
       dat.getReal(varName=id + ".mechanical.coilHeatingPreheat.dpValve_nominal.value") else 0,
     Q_flow_nominal(final min=0)=if typCoiHeaPre==Buildings.Templates.Components.Types.Coil.None then 0 else
-      dat.getReal(varName=id + ".mechanical.coilHeatingPreheat.Capacity.value"))
+      dat.getReal(varName=id + ".mechanical.coilHeatingPreheat.Q_flow_nominal.value"))
     "Heating coil in preheat position"
     annotation(Dialog(group="Schedule.Mechanical",
       enable=typCoiHeaPre <> Buildings.Templates.Components.Types.Coil.None));
@@ -90,7 +88,7 @@ record VAVMultiZone
     dpValve_nominal=if have_souCoiCoo then
       dat.getReal(varName=id + ".mechanical.coilCooling.dpValve_nominal.value") else 0,
     Q_flow_nominal(final max=0)=if typCoiCoo==Buildings.Templates.Components.Types.Coil.None then 0 else
-      -1 * dat.getReal(varName=id + ".mechanical.coilCooling.Capacity.value"))
+      -1 * dat.getReal(varName=id + ".mechanical.coilCooling.Q_flow_nominal.value"))
     "Cooling coil"
     annotation (Dialog(group="Schedule.Mechanical",
       enable=typCoiCoo <> Buildings.Templates.Components.Types.Coil.None));
@@ -112,7 +110,7 @@ record VAVMultiZone
     dpValve_nominal=if have_souCoiHeaReh then
       dat.getReal(varName=id + ".mechanical.coilHeatingReheat.dpValve_nominal.value") else 0,
     Q_flow_nominal(final min=0)=if typCoiCoo==Buildings.Templates.Components.Types.Coil.None then 0 else
-      dat.getReal(varName=id + ".mechanical.coilHeatingReheat.Capacity.value"))
+      dat.getReal(varName=id + ".mechanical.coilHeatingReheat.Q_flow_nominal.value"))
     "Heating coil in reheat position"
     annotation (Dialog(group="Schedule.Mechanical",
       enable=typCoiHeaReh <> Buildings.Templates.Components.Types.Coil.None));
@@ -140,14 +138,8 @@ record VAVMultiZone
     "Outdoor air damper pressure drop"
     annotation (
       Dialog(group="Economizer and dampers"));
-  parameter Modelica.Units.SI.PressureDifference dpDamOutMin_nominal=
-    if typDamOutMin <> Buildings.Templates.Components.Types.Damper.None then
-      dat.getReal(varName=id + ".mechanical.dampers.dpDamOutMin_nominal.value")
-    else 0
-    "Minimum outdoor air damper pressure drop"
-    annotation (
-      Dialog(group="Schedule.Mechanical",
-        enable=typDamOutMin <> Buildings.Templates.Components.Types.Damper.None));
+
+
   parameter Modelica.Units.SI.PressureDifference dpDamRet_nominal=
     if typDamRet <> Buildings.Templates.Components.Types.Damper.None then
       dat.getReal(varName=id + ".mechanical.dampers.dpDamRet_nominal.value")

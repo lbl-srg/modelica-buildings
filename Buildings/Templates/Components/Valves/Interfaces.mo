@@ -2,20 +2,18 @@ within Buildings.Templates.Components.Valves;
 package Interfaces "Classes defining the component interfaces"
   extends Modelica.Icons.InterfacesPackage;
 
-  partial model PartialValve
-    extends Buildings.Fluid.Interfaces.PartialTwoPortInterface;
+  record Data
+    extends Modelica.Icons.Record;
 
     parameter Buildings.Templates.Components.Types.Valve typ
       "Equipment type"
       annotation (Evaluate=true, Dialog(group="Configuration"));
 
-    parameter Integer text_rotation = 0
-      "Text rotation angle in icon layer"
-      annotation(Dialog(tab="Graphics", enable=false));
-    parameter Boolean text_flip = false
-      "True to flip text horizontally in icon layer"
-      annotation(Dialog(tab="Graphics", enable=false));
-
+    parameter Modelica.Units.SI.MassFlowRate m_flow_nominal(
+      final min=0)=0
+      "Nominal mass flow rate of fully open valve"
+      annotation(Dialog(group="Nominal condition",
+        enable=typ<>Buildings.Templates.Components.Types.Valve.None));
     parameter Modelica.Units.SI.PressureDifference dpValve_nominal(
       displayUnit="Pa",
       final min=0)=0
@@ -35,6 +33,37 @@ package Interfaces "Classes defining the component interfaces"
       annotation(Dialog(group="Nominal condition",
         enable=typ==Buildings.Templates.Components.Types.Valve.ThreeWayTwoPosition or
           typ==Buildings.Templates.Components.Types.Valve.ThreeWayModulating));
+
+  end Data;
+
+  partial model PartialValve
+    extends Buildings.Fluid.Interfaces.PartialTwoPortInterface(
+      final m_flow_nominal=datRec.m_flow_nominal);
+
+    parameter Buildings.Templates.Components.Types.Valve typ
+      "Equipment type"
+      annotation (Evaluate=true, Dialog(group="Configuration"));
+
+    parameter Integer text_rotation = 0
+      "Text rotation angle in icon layer"
+      annotation(Dialog(tab="Graphics", enable=false));
+    parameter Boolean text_flip = false
+      "True to flip text horizontally in icon layer"
+      annotation(Dialog(tab="Graphics", enable=false));
+
+    parameter Buildings.Templates.Components.Valves.Interfaces.Data datRec(
+      final typ=typ)
+      "Design and operating parameters";
+
+    final parameter Modelica.Units.SI.PressureDifference dpValve_nominal=
+      datRec.dpValve_nominal
+      "Nominal pressure drop of fully open valve";
+    final parameter Modelica.Units.SI.PressureDifference dpFixed_nominal=
+      datRec.dpFixed_nominal
+      "Nominal pressure drop of pipes and other equipment in flow leg";
+    final parameter Modelica.Units.SI.PressureDifference dpFixedByp_nominal=
+      datRec.dpFixedByp_nominal
+      "Nominal pressure drop in the bypass line";
 
     Modelica.Fluid.Interfaces.FluidPort_a portByp_a(
       redeclare final package Medium = Medium,

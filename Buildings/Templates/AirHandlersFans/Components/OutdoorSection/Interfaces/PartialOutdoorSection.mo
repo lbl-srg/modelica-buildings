@@ -26,7 +26,7 @@ partial model PartialOutdoorSection "Outdoor air section"
   final parameter Modelica.Units.SI.MassFlowRate m_flow_nominal=
     datRec.damOut.m_flow_nominal
     "Air mass flow rate";
-  final parameter Modelica.Units.SI.MassFlowRate mOutMin_flow_nominal=
+  final parameter Modelica.Units.SI.MassFlowRate mAirOutMin_flow_nominal=
     datRec.damOutMin.m_flow_nominal
     "Minimum outdoor air mass flow rate";
 

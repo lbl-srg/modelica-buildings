@@ -72,6 +72,18 @@ partial model PartialCoil
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={0,100})));
+protected
+  parameter Buildings.Templates.Components.Valves.Interfaces.Data datRecVal(
+    final typ=typVal,
+    final m_flow_nominal=datRec.mWat_flow_nominal,
+    final dpValve_nominal=datRec.dpValve_nominal,
+    final dpFixed_nominal=if typVal<>Buildings.Templates.Components.Types.Valve.None then
+          datRec.dpWat_nominal else 0)
+    "Design and operating parameters of the control valve";
+  parameter Modelica.Units.SI.PressureDifference dpHex1_nominal=
+    if typVal==Buildings.Templates.Components.Types.Valve.None then
+      datRec.dpWat_nominal else 0
+    "Liquid pressure drop for heat exchanger parameterization";
 
   annotation (
   Icon(

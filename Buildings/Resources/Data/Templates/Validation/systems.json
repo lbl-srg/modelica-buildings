@@ -162,7 +162,7 @@
             },
             "dampers": {
                 "description": "Economizer and dampers",
-                "mOutMin_flow_nominal": {
+                "mAirOutMin_flow_nominal": {
                     "description": "Minimum outdoor air mass flow rate",
                     "value": 1,
                     "unit": "kg/s"

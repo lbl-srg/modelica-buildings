@@ -55,11 +55,11 @@ model VAVMultiZone "Multiple-zone VAV air-handling unit"
       redeclare final package MediumAir = MediumAir,
       final typCtrFanRet=ctr.typCtrFanRet,
       final typCtrEco=ctr.typCtrEco,
-      final datRec=Buildings.Templates.AirHandlersFans.Components.OutdoorReliefReturnSection.Interfaces.Data(
-        damOut=datRec.damOut,
-        damOutMin=datRec.damOutMin,
-        damRel=datRec.damRel,
-        damRet=datRec.damRet),
+      datRec(
+        final damOut=datRec.damOut,
+        final damOutMin=datRec.damOutMin,
+        final damRel=datRec.damRel,
+        final damRet=datRec.damRet),
       final dpFan_nominal=datRec.dpFanRet_nominal)
     "Outdoor/relief/return air section"
     annotation (
@@ -76,7 +76,7 @@ model VAVMultiZone "Multiple-zone VAV air-handling unit"
 
   inner replaceable Buildings.Templates.Components.Fans.None fanSupBlo
     constrainedby Buildings.Templates.Components.Fans.Interfaces.PartialFan(
-      redeclare final package Medium =  MediumAir,
+      redeclare final package Medium = MediumAir,
       final m_flow_nominal=mAirSup_flow_nominal,
       final dp_nominal=datRec.dpFanSup_nominal,
       final have_senFlo=ctr.typCtrFanRet==

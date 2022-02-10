@@ -4,7 +4,7 @@ record Data
 
   parameter Buildings.Templates.Components.Types.Damper typDamRel
     "Relief damper type"
-    annotation (Evaluate=true, Dialog(group="Configuration"));
+    annotation (Evaluate=true, Dialog(group="Configuration", enable=false));
 
   parameter Buildings.Templates.Components.Dampers.Interfaces.Data damRel(
     final typ=typDamRel)

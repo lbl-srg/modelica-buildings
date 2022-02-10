@@ -8,7 +8,7 @@ record Data
 
   parameter Buildings.Templates.Components.Types.Damper typDamRet
     "Return damper type"
-    annotation (Evaluate=true, Dialog(group="Configuration"));
+    annotation (Evaluate=true, Dialog(group="Configuration", enable=false));
 
   parameter Buildings.Templates.Components.Dampers.Interfaces.Data damRet(
     final typ=typDamRet)

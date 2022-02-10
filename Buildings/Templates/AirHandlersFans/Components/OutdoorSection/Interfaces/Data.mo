@@ -4,10 +4,10 @@ record Data
 
   parameter Buildings.Templates.Components.Types.Damper typDamOut
     "Outdoor air damper type"
-    annotation (Evaluate=true, Dialog(group="Configuration"));
+    annotation (Evaluate=true, Dialog(group="Configuration", enable=false));
   parameter Buildings.Templates.Components.Types.Damper typDamOutMin
     "Minimum outdoor air damper type"
-    annotation (Evaluate=true, Dialog(group="Configuration"));
+    annotation (Evaluate=true, Dialog(group="Configuration", enable=false));
 
   parameter Buildings.Templates.Components.Dampers.Interfaces.Data damOut(
     final typ=typDamOut)
