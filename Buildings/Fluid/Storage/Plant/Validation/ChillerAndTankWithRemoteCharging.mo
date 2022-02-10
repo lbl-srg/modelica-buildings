@@ -75,16 +75,17 @@ equation
   connect(cat.port_b, sin.ports[1]) annotation (Line(points={{12,0},{35,0},{35,4.44089e-16},
           {50,4.44089e-16}}, color={0,127,255}));
 
-  connect(booOnOffLin.y, cat.onOffLin) annotation (Line(points={{-59,-30},{-20,-30},
-          {-20,-7},{-10,-7}},
+  connect(booOnOffLin.y, cat.onOffLin) annotation (Line(points={{-59,-30},{-20,
+          -30},{-20,-9},{-10,-9}},
                             color={255,0,255}));
-  connect(booFloDir.y,cat.booFloDir)  annotation (Line(points={{-59,30},{-20,30},
-          {-20,6},{-10,6},{-10,7}},
+  connect(booFloDir.y,cat.booFloDir)  annotation (Line(points={{-59,30},{-40,30},
+          {-40,-4},{-10,-4},{-10,-5}},
                       color={255,0,255}));
   connect(set_mTan_flow.y, cat.set_mTan_flow)
-    annotation (Line(points={{-59,70},{-5,70},{-5,11}}, color={0,0,127}));
+    annotation (Line(points={{-59,70},{-32,70},{-32,4},{-10,4},{-10,5},{-9,5}},
+                                                        color={0,0,127}));
   connect(set_mChi_flow.y, cat.set_mPum1_flow)
-    annotation (Line(points={{-19,90},{-1,90},{-1,11}}, color={0,0,127}));
+    annotation (Line(points={{-19,90},{-9,90},{-9,9}},  color={0,0,127}));
   annotation (
   experiment(Tolerance=1e-06, StopTime=3600),
     Diagram(coordinateSystem(extent={{-100,-100},{100,100}})),

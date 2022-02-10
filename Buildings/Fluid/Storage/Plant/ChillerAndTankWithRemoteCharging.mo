@@ -8,20 +8,20 @@ model ChillerAndTankWithRemoteCharging
     annotation (Placement(transformation(extent={{-140,58},{-120,80}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput onOffLin
     "Plant online/offline signal, true = online, false = offline" annotation (
-      Placement(transformation(extent={{-220,30},{-180,70}}),
-        iconTransformation(extent={{-140,-90},{-100,-50}})));
+      Placement(transformation(extent={{-202,28},{-180,50}}),
+        iconTransformation(extent={{-140,-110},{-100,-70}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput booFloDir
     "Flow direction, true = normal, false = reverse" annotation (Placement(
-        transformation(extent={{-220,70},{-180,110}}), iconTransformation(
-          extent={{-140,50},{-100,90}})));
+        transformation(extent={{-202,68},{-180,90}}),  iconTransformation(
+          extent={{-140,-70},{-100,-30}})));
   Modelica.Blocks.Interfaces.RealInput set_mTan_flow
     "Tank mass flow rate setpoint" annotation (Placement(transformation(
-        extent={{-20,-20},{20,20}},
-        rotation=-90,
-        origin={-150,120}), iconTransformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
-        origin={-70,110})));
+        origin={-160,110}), iconTransformation(
+        extent={{-10,-10},{10,10}},
+        rotation=0,
+        origin={-110,50})));
 
   Buildings.Fluid.Movers.SpeedControlled_y pum2(
     redeclare package Medium = Medium,
@@ -53,10 +53,11 @@ model ChillerAndTankWithRemoteCharging
     m_flow_nominal=m2_flow_nominal) "Valve in parallel to the pump (reverse direction)"
     annotation (Placement(transformation(extent={{-120,-30},{-140,-10}})));
 equation
-  connect(booFloDir, pum2Con.booFloDir) annotation (Line(points={{-200,90},{-160,
-          90},{-160,65.7},{-142,65.7}},      color={255,0,255}));
-  connect(pum2Con.onOffLin, onOffLin) annotation (Line(points={{-142,61.3},{-142,
-          50},{-200,50}},      color={255,0,255}));
+  connect(booFloDir, pum2Con.booFloDir) annotation (Line(points={{-191,79},{
+          -172,79},{-172,65.7},{-142,65.7}}, color={255,0,255}));
+  connect(pum2Con.onOffLin, onOffLin) annotation (Line(points={{-142,61.3},{
+          -142,62},{-160,62},{-160,39},{-191,39}},
+                               color={255,0,255}));
   connect(jun1.port_1, val2.port_a) annotation (Line(points={{-90,0},{-94,0},{-94,
           -20},{-120,-20}}, color={0,127,255}));
   connect(val2.port_b, port_a) annotation (Line(points={{-140,-20},{-164,-20},{-164,
@@ -77,7 +78,7 @@ equation
           76.7},{-142,76.7},{-142,78},{-170,78},{-170,-42},{-7,-42},{-7,-49}},
         color={0,0,127}));
   connect(pum2Con.us_mTan_flow, set_mTan_flow) annotation (Line(points={{-141,
-          72.3},{-150,72.3},{-150,120}}, color={0,0,127}));
+          72.3},{-160,72.3},{-160,110}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
             {100,100}}),       graphics={Line(
           points={{-80,-20},{-20,-20}},

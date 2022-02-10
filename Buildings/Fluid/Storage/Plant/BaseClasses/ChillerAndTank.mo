@@ -27,7 +27,7 @@ partial model ChillerAndTank
   Buildings.Fluid.FixedResistances.PressureDrop preDro1(
     redeclare package Medium = Medium,
     final allowFlowReversal=allowFlowReversal1,
-    final dp_nominal=dp_nominal,
+    final dp_nominal=dp_nominal/10,
     final m_flow_nominal=m1_flow_nominal) "Flow resistance on chiller branch"
     annotation (Placement(transformation(extent={{40,30},{60,50}})));
   Buildings.Fluid.FixedResistances.Junction jun1(
@@ -55,7 +55,7 @@ partial model ChillerAndTank
   Buildings.Fluid.FixedResistances.PressureDrop preDro2(
     redeclare package Medium = Medium,
     final allowFlowReversal=true,
-    final dp_nominal=dp_nominal,
+    final dp_nominal=dp_nominal/10,
     final m_flow_nominal=m2_flow_nominal) "Flow resistance on tank branch"
     annotation (Placement(transformation(extent={{40,-70},{60,-50}})));
   Modelica.Fluid.Interfaces.FluidPort_a port_a(
@@ -74,12 +74,12 @@ partial model ChillerAndTank
         iconTransformation(extent={{110,-10},{90,10}})));
   Modelica.Blocks.Interfaces.RealInput set_mPum1_flow
     "Primary pump mass flow rate setpoint" annotation (Placement(transformation(
-        extent={{-20,-20},{20,20}},
-        rotation=-90,
-        origin={-50,120}), iconTransformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
-        origin={-30,110})));
+        origin={-50,110}), iconTransformation(
+        extent={{-10,-10},{10,10}},
+        rotation=0,
+        origin={-110,90})));
 
   Buildings.Fluid.Storage.Plant.DummyChillSource ideChi(
     redeclare package Medium = Medium,
@@ -129,7 +129,7 @@ equation
   connect(jun1.port_2, pum1.port_a) annotation (Line(points={{-70,0},{-64,0},{-64,
           40},{-60,40}}, color={0,127,255}));
   connect(pum1.m_flow_in, set_mPum1_flow)
-    annotation (Line(points={{-50,52},{-50,120},{-50,120}}, color={0,0,127}));
+    annotation (Line(points={{-50,52},{-50,110}},           color={0,0,127}));
   annotation (
   experiment(Tolerance=1e-06, StopTime=3600),
     Diagram(coordinateSystem(extent={{-180,-100},{140,100}})),

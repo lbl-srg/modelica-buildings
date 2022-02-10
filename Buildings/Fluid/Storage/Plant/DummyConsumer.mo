@@ -29,7 +29,7 @@ model DummyConsumer "Dummy consumer model"
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow heaCon
     "Prescribed heat flow"
-    annotation (Placement(transformation(extent={{22,80},{42,100}})));
+    annotation (Placement(transformation(extent={{22,70},{42,90}})));
   Buildings.Fluid.MixingVolumes.MixingVolume vol(
     nPorts=2,
     final prescribedHeatFlowRate=true,
@@ -64,12 +64,12 @@ model DummyConsumer "Dummy consumer model"
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
-        origin={-50,50})));
+        origin={-50,60})));
   Modelica.Blocks.Math.Gain gain(k=1)    "Gain" annotation (Placement(
         transformation(
         extent={{10,-10},{-10,10}},
         rotation=180,
-        origin={-10,50})));
+        origin={-10,60})));
   Modelica.Fluid.Interfaces.FluidPort_a port_a(
     p(start=p_a_nominal),
     redeclare package Medium = Medium,
@@ -86,26 +86,26 @@ model DummyConsumer "Dummy consumer model"
         iconTransformation(extent={{110,-10},{90,10}})));
   Modelica.Blocks.Interfaces.RealInput QCooLoa_flow
     "Cooling load of the consumer" annotation (Placement(transformation(
-        extent={{-20,-20},{20,20}},
+        extent={{-10,-10},{10,10}},
         rotation=0,
-        origin={-120,90}), iconTransformation(
+        origin={-110,80}), iconTransformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-110,90})));
   Modelica.Blocks.Interfaces.RealInput TSet "CHW return setpoint" annotation (
       Placement(transformation(
-        extent={{-20,-20},{20,20}},
+        extent={{-10,-10},{10,10}},
         rotation=0,
-        origin={-120,50}), iconTransformation(
+        origin={-110,60}), iconTransformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-110,50})));
   Modelica.Blocks.Interfaces.RealOutput yVal_actual
     "Consumer control valve actuator position" annotation (Placement(
         transformation(
-        extent={{-20,-20},{20,20}},
+        extent={{-10,-10},{10,10}},
         rotation=0,
-        origin={120,50}), iconTransformation(
+        origin={110,40}), iconTransformation(
         extent={{10,-10},{-10,10}},
         rotation=-90,
         origin={-70,110})));
@@ -115,9 +115,9 @@ model DummyConsumer "Dummy consumer model"
   Modelica.Blocks.Interfaces.RealOutput dp
     "Differential pressure of the consumer" annotation (Placement(
         transformation(
-        extent={{-20,-20},{20,20}},
+        extent={{-10,-10},{10,10}},
         rotation=0,
-        origin={120,-70}), iconTransformation(
+        origin={110,-80}), iconTransformation(
         extent={{10,-10},{-10,10}},
         rotation=-90,
         origin={-30,110})));
@@ -125,7 +125,7 @@ equation
   connect(valCon.port_b, vol.ports[1]) annotation (Line(points={{-60,0},{1,0}},
                           color={0,127,255}));
   connect(heaCon.port, vol.heatPort)
-    annotation (Line(points={{42,90},{54,90},{54,-10},{10,-10}},
+    annotation (Line(points={{42,80},{54,80},{54,-10},{10,-10}},
                                                        color={191,0,0}));
   connect(vol.heatPort, TCon.port)
     annotation (Line(points={{10,-10},{54,-10},{54,-30},{40,-30}},
@@ -133,22 +133,20 @@ equation
   connect(preDro.port_a, vol.ports[2]) annotation (Line(points={{60,0},{-1,0}},
                             color={0,127,255}));
   connect(conPI_valCon.y, gain.u)
-    annotation (Line(points={{-39,50},{-22,50}}, color={0,0,127}));
+    annotation (Line(points={{-39,60},{-22,60}}, color={0,0,127}));
   connect(gain.y, valCon.y)
-    annotation (Line(points={{1,50},{6,50},{6,18},{-70,18},{-70,12}},
+    annotation (Line(points={{1,60},{6,60},{6,18},{-70,18},{-70,12}},
                                                       color={0,0,127}));
   connect(TCon.T, conPI_valCon.u_m) annotation (Line(points={{19,-30},{-50,-30},
-          {-50,38}},          color={0,0,127}));
+          {-50,48}},          color={0,0,127}));
   connect(valCon.port_a, port_a)
     annotation (Line(points={{-80,0},{-100,0}}, color={0,127,255}));
   connect(preDro.port_b, port_b)
     annotation (Line(points={{80,0},{100,0}}, color={0,127,255}));
   connect(heaCon.Q_flow, QCooLoa_flow)
-    annotation (Line(points={{22,90},{-120,90}}, color={0,0,127}));
+    annotation (Line(points={{22,80},{-110,80}}, color={0,0,127}));
   connect(conPI_valCon.u_s, TSet)
-    annotation (Line(points={{-62,50},{-120,50}}, color={0,0,127}));
-  connect(valCon.y_actual, yVal_actual) annotation (Line(points={{-65,7},{80,7},
-          {80,50},{120,50}}, color={0,0,127}));
+    annotation (Line(points={{-62,60},{-110,60}}, color={0,0,127}));
   connect(port_a, dpSen.port_a) annotation (Line(
       points={{-100,0},{-100,-50},{-10,-50}},
       color={0,127,255},
@@ -158,7 +156,9 @@ equation
       color={0,127,255},
       pattern=LinePattern.Dash));
   connect(dpSen.p_rel, dp)
-    annotation (Line(points={{0,-59},{0,-70},{120,-70}}, color={0,0,127}));
+    annotation (Line(points={{0,-59},{0,-80},{110,-80}}, color={0,0,127}));
+  connect(valCon.y_actual, yVal_actual)
+    annotation (Line(points={{-65,7},{-65,40},{110,40}}, color={0,0,127}));
   annotation (Icon(graphics={Ellipse(
           extent={{-100,100},{100,-100}},
           lineColor={28,108,200},

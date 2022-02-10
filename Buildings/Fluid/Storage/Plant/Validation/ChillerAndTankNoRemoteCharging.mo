@@ -45,10 +45,25 @@ model ChillerAndTankNoRemoteCharging "(Draft)"
   Modelica.Blocks.Sources.TimeTable set_mPum2_flow(table=[0*3600,1; 0.25*3600,1;
         0.25*3600,-1; 0.5*3600,-1; 0.5*3600,0; 0.75*3600,0; 0.75*3600,1; 1*3600,
         1]) "Secondary mass flow rate setpoint"
-    annotation (Placement(transformation(extent={{-70,20},{-50,40}})));
+    annotation (Placement(transformation(extent={{-70,-80},{-50,-60}})));
   Modelica.Blocks.Sources.Constant set_mPum1_flow(k=cat.m1_flow_nominal)
     "Primary pump mass flow rate setpoint"
     annotation (Placement(transformation(extent={{-70,60},{-50,80}})));
+  Buildings.Controls.Continuous.LimPID conPID_Pum2(
+    Td=1,
+    k=1,
+    Ti=15) "PI controller for the secondary pump" annotation (Placement(
+        transformation(
+        extent={{10,10},{-10,-10}},
+        rotation=270,
+        origin={-40,-30})));
+  Modelica.Blocks.Math.Gain gain2(k=1/cat.m2_flow_nominal)
+                                                       "Gain"
+    annotation (Placement(
+        transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=180,
+        origin={-10,-30})));
 equation
   connect(sou.ports[1], cat.port_a)
     annotation (Line(points={{-50,0},{-10,0}}, color={0,127,255}));
@@ -56,10 +71,16 @@ equation
           4.44089e-16},{50,4.44089e-16}},
                              color={0,127,255}));
 
-  connect(set_mPum2_flow.y, cat.set_mPum2_flow) annotation (Line(points={{-49,
-          30},{-16,30},{-16,6},{-11,6}}, color={0,0,127}));
   connect(set_mPum1_flow.y, cat.set_mPum1_flow)
-    annotation (Line(points={{-49,70},{-3,70},{-3,11}}, color={0,0,127}));
+    annotation (Line(points={{-49,70},{-11,70},{-11,9}},color={0,0,127}));
+  connect(gain2.y, conPID_Pum2.u_m)
+    annotation (Line(points={{-21,-30},{-28,-30}}, color={0,0,127}));
+  connect(cat.m_flow, gain2.u) annotation (Line(points={{9,-11},{8,-11},{8,-30},
+          {2,-30}}, color={0,0,127}));
+  connect(set_mPum2_flow.y, conPID_Pum2.u_s)
+    annotation (Line(points={{-49,-70},{-40,-70},{-40,-42}}, color={0,0,127}));
+  connect(conPID_Pum2.y, cat.yPum2)
+    annotation (Line(points={{-40,-19},{-40,5},{-11,5}}, color={0,0,127}));
   annotation (
   experiment(Tolerance=1e-06, StopTime=3600),
     Diagram(coordinateSystem(extent={{-100,-100},{100,100}})),
