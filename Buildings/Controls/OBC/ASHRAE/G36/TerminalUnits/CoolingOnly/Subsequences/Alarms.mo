@@ -43,7 +43,7 @@ block Alarms "Generate alarms of cooling only terminal unit"
     annotation (Placement(transformation(extent={{-280,70},{-240,110}}),
         iconTransformation(extent={{-140,20},{-100,60}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uFan
-    "Supply fan status"
+    "AHU supply fan status"
     annotation (Placement(transformation(extent={{-280,-120},{-240,-80}}),
         iconTransformation(extent={{-140,-60},{-100,-20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uDam(

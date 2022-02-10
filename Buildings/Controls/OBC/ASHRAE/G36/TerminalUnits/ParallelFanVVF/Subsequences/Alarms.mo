@@ -59,57 +59,61 @@ block Alarms
     final quantity="VolumeFlowRate")
     "Measured discharge airflow rate airflow rate"
     annotation (Placement(transformation(extent={{-280,390},{-240,430}}),
-        iconTransformation(extent={{-140,70},{-100,110}})));
+        iconTransformation(extent={{-140,80},{-100,120}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput VActSet_flow(
     final min=0,
     final unit="m3/s",
     final quantity="VolumeFlowRate") "Active airflow setpoint"
     annotation (Placement(transformation(extent={{-280,310},{-240,350}}),
-        iconTransformation(extent={{-140,50},{-100,90}})));
+        iconTransformation(extent={{-140,60},{-100,100}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uFan
-    "Terminal fan status"
+    "AHU supply fan status"
     annotation (Placement(transformation(extent={{-280,120},{-240,160}}),
-        iconTransformation(extent={{-140,30},{-100,70}})));
+        iconTransformation(extent={{-140,40},{-100,80}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uFanCom
     "Terminal fan command on"
     annotation (Placement(transformation(extent={{-280,40},{-240,80}}),
-        iconTransformation(extent={{-140,10},{-100,50}})));
+        iconTransformation(extent={{-140,20},{-100,60}})));
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uTerFan
+    "Terminal fan status"
+    annotation (Placement(transformation(extent={{-280,0},{-240,40}}),
+        iconTransformation(extent={{-140,0},{-100,40}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uDam(
     final min=0,
     final unit="1") "Actual damper position"
     annotation (Placement(transformation(extent={{-280,-130},{-240,-90}}),
-        iconTransformation(extent={{-140,-10},{-100,30}})));
+        iconTransformation(extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uVal(
     final min=0,
     final unit="1")
     "Actual valve position"
     annotation (Placement(transformation(extent={{-280,-180},{-240,-140}}),
-        iconTransformation(extent={{-140,-30},{-100,10}})));
+        iconTransformation(extent={{-140,-40},{-100,0}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TSup(
     final unit="K",
     final displayUnit="degC",
     final quantity="ThermodynamicTemperature")
     "Air handler supply air temperature"
     annotation (Placement(transformation(extent={{-280,-250},{-240,-210}}),
-        iconTransformation(extent={{-140,-50},{-100,-10}})));
+        iconTransformation(extent={{-140,-60},{-100,-20}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uHotPla
     "Hot water plant status"
     annotation (Placement(transformation(extent={{-280,-290},{-240,-250}}),
-        iconTransformation(extent={{-140,-70},{-100,-30}})));
+        iconTransformation(extent={{-140,-80},{-100,-40}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TDis(
     final unit="K",
     final displayUnit="degC",
     final quantity="ThermodynamicTemperature")
     "Measured discharge air temperature"
     annotation (Placement(transformation(extent={{-280,-330},{-240,-290}}),
-        iconTransformation(extent={{-140,-90},{-100,-50}})));
+        iconTransformation(extent={{-140,-100},{-100,-60}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TDisSet(
     final unit="K",
     final displayUnit="degC",
     final quantity="ThermodynamicTemperature")
     "Discharge air temperature setpoint"
     annotation (Placement(transformation(extent={{-280,-370},{-240,-330}}),
-        iconTransformation(extent={{-140,-110},{-100,-70}})));
+        iconTransformation(extent={{-140,-120},{-100,-80}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yLowFloAla
     "Low airflow alarms"
     annotation (Placement(transformation(extent={{240,330},{280,370}}),
@@ -410,6 +414,9 @@ block Alarms
     final message="Warning: fan has been commanded OFF but still ON.")
     "Level 4 fan status alarm"
     annotation (Placement(transformation(extent={{80,-20},{100,0}})));
+  Buildings.Controls.OBC.CDL.Logical.Not not12
+    "Logical not"
+    annotation (Placement(transformation(extent={{-160,100},{-140,120}})));
 
 equation
   connect(VActSet_flow, gai.u) annotation (Line(points={{-260,330},{-200,330},{-200,
@@ -596,8 +603,6 @@ equation
     annotation (Line(points={{162,-180},{260,-180}}, color={255,127,0}));
   connect(uFanCom, truDel7.u)
     annotation (Line(points={{-260,60},{-162,60}}, color={255,0,255}));
-  connect(not3.y, and11.u1) annotation (Line(points={{-178,140},{-160,140},{-160,
-          98},{-22,98}}, color={255,0,255}));
   connect(uFanCom, not9.u) annotation (Line(points={{-260,60},{-200,60},{-200,-10},
           {-182,-10}}, color={255,0,255}));
   connect(not9.y, truDel8.u)
@@ -608,8 +613,6 @@ equation
           82},{-22,82}}, color={255,0,255}));
   connect(and11.y, fanStaAla.u2)
     annotation (Line(points={{2,90},{138,90}}, color={255,0,255}));
-  connect(uFan, and10.u1) annotation (Line(points={{-260,140},{-220,140},{-220,28},
-          {-22,28}}, color={255,0,255}));
   connect(not9.y, and10.u2) annotation (Line(points={{-158,-10},{-140,-10},{-140,
           20},{-22,20}}, color={255,0,255}));
   connect(truDel8.y, and10.u3) annotation (Line(points={{-98,-10},{-80,-10},{-80,
@@ -630,6 +633,12 @@ equation
     annotation (Line(points={{62,-10},{78,-10}}, color={255,0,255}));
   connect(and10.y, not11.u) annotation (Line(points={{2,20},{20,20},{20,-10},{38,
           -10}}, color={255,0,255}));
+  connect(uTerFan, not12.u) annotation (Line(points={{-260,20},{-180,20},{-180,110},
+          {-162,110}}, color={255,0,255}));
+  connect(uTerFan, and10.u1) annotation (Line(points={{-260,20},{-180,20},{-180,
+          28},{-22,28}}, color={255,0,255}));
+  connect(not12.y, and11.u1) annotation (Line(points={{-138,110},{-80,110},{-80,
+          98},{-22,98}}, color={255,0,255}));
 
 annotation (defaultComponentName="ala",
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
@@ -644,22 +653,22 @@ annotation (defaultComponentName="ala",
         textString="%name",
         lineColor={0,0,255}),
         Text(
-          extent={{-98,76},{-48,62}},
+          extent={{-98,86},{-48,72}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="VActSet_flow"),
         Text(
-          extent={{-98,94},{-58,84}},
+          extent={{-100,100},{-60,90}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="VDis_flow"),
         Text(
-          extent={{-100,16},{-72,6}},
+          extent={{-100,6},{-72,-4}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="uDam"),
         Text(
-          extent={{-98,56},{-80,46}},
+          extent={{-98,66},{-80,56}},
           lineColor={255,0,255},
           pattern=LinePattern.Dash,
           textString="uFan"),
@@ -679,27 +688,27 @@ annotation (defaultComponentName="ala",
           pattern=LinePattern.Dash,
           textString="yLeaDamAla"),
         Text(
-          extent={{-100,-4},{-78,-14}},
+          extent={{-100,-14},{-78,-24}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="uVal"),
         Text(
-          extent={{-100,-24},{-74,-34}},
+          extent={{-100,-34},{-74,-44}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="TSup"),
         Text(
-          extent={{-98,-44},{-66,-56}},
+          extent={{-98,-54},{-66,-66}},
           lineColor={255,0,255},
           pattern=LinePattern.Dash,
           textString="uHotPla"),
         Text(
-          extent={{-100,-64},{-76,-74}},
+          extent={{-100,-74},{-76,-84}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="TDis"),
         Text(
-          extent={{-100,-84},{-62,-94}},
+          extent={{-102,-92},{-64,-102}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="TDisSet"),
@@ -714,7 +723,7 @@ annotation (defaultComponentName="ala",
           pattern=LinePattern.Dash,
           textString="yLowTemAla"),
         Text(
-          extent={{-96,36},{-66,24}},
+          extent={{-96,46},{-66,34}},
           lineColor={255,0,255},
           pattern=LinePattern.Dash,
           textString="uFanCom"),
@@ -722,7 +731,12 @@ annotation (defaultComponentName="ala",
           extent={{48,30},{98,16}},
           lineColor={255,127,0},
           pattern=LinePattern.Dash,
-          textString="yFanStaAla")}),
+          textString="yFanStaAla"),
+        Text(
+          extent={{-96,26},{-66,14}},
+          lineColor={255,0,255},
+          pattern=LinePattern.Dash,
+          textString="uTerFan")}),
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-240,-480},{240,480}})),
 Documentation(info="<html>
 <p>
@@ -774,11 +788,11 @@ after a period of 15 seconds after a change in output status.
 </p>
 <ol>
 <li>
-Command on (<code>uFanCom=true</code>), status off (<code>uFan=false</code>),
+Command on (<code>uFanCom=true</code>), status off (<code>uTerFan=false</code>),
 generate Level 2 alarm.
 </li>
 <li>
-Command off (<code>uFanCom=false</code>), status on (<code>uFan=true</code>),
+Command off (<code>uFanCom=false</code>), status on (<code>uTerFan=true</code>),
 generate Level 4 alarm.
 </li>
 </ol>

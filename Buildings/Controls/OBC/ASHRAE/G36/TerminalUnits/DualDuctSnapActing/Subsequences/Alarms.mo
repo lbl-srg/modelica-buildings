@@ -70,37 +70,6 @@ block Alarms "Generate alarms of terminal unit with reheat"
     final unit="1") "Actual damper position"
     annotation (Placement(transformation(extent={{-280,-60},{-240,-20}}),
         iconTransformation(extent={{-140,0},{-100,40}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput uVal(
-    final min=0,
-    final unit="1")
-    "Actual valve position"
-    annotation (Placement(transformation(extent={{-280,-110},{-240,-70}}),
-        iconTransformation(extent={{-140,-20},{-100,20}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput TSup(
-    final unit="K",
-    final displayUnit="degC",
-    final quantity="ThermodynamicTemperature")
-    "Air handler supply air temperature"
-    annotation (Placement(transformation(extent={{-280,-180},{-240,-140}}),
-        iconTransformation(extent={{-140,-40},{-100,0}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uHotPla
-    "Hot water plant status"
-    annotation (Placement(transformation(extent={{-280,-220},{-240,-180}}),
-        iconTransformation(extent={{-140,-60},{-100,-20}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput TDis(
-    final unit="K",
-    final displayUnit="degC",
-    final quantity="ThermodynamicTemperature")
-    "Measured discharge air temperature"
-    annotation (Placement(transformation(extent={{-280,-260},{-240,-220}}),
-        iconTransformation(extent={{-140,-80},{-100,-40}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput TDisSet(
-    final unit="K",
-    final displayUnit="degC",
-    final quantity="ThermodynamicTemperature")
-    "Discharge air temperature setpoint"
-    annotation (Placement(transformation(extent={{-280,-300},{-240,-260}}),
-        iconTransformation(extent={{-140,-100},{-100,-60}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yLowFloAla
     "Low airflow alarms"
     annotation (Placement(transformation(extent={{240,260},{280,300}}),
@@ -113,14 +82,6 @@ block Alarms "Generate alarms of terminal unit with reheat"
     "Leaking damper alarm"
     annotation (Placement(transformation(extent={{240,-20},{280,20}}),
         iconTransformation(extent={{100,-20},{140,20}})));
-  Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yLeaValAla
-    "Leaking valve alarm"
-    annotation (Placement(transformation(extent={{240,-130},{280,-90}}),
-        iconTransformation(extent={{100,-60},{140,-20}})));
-  Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yLowTemAla
-    "Low discharge air temperature alarms"
-    annotation (Placement(transformation(extent={{240,-320},{280,-280}}),
-        iconTransformation(extent={{100,-100},{140,-60}})));
 
   Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai(
     final k=0.5)
@@ -177,7 +138,7 @@ block Alarms "Generate alarms of terminal unit with reheat"
   Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger booToInt1
     "Suppress the alarm when multiplier is zero"
     annotation (Placement(transformation(extent={{140,160},{160,180}})));
-  Buildings.Controls.OBC.CDL.Integers.Product proInt
+  Buildings.Controls.OBC.CDL.Integers.Multiply proInt
     "Low flow alarms"
     annotation (Placement(transformation(extent={{200,270},{220,290}})));
   Buildings.Controls.OBC.CDL.Logical.And and3
@@ -254,112 +215,6 @@ block Alarms "Generate alarms of terminal unit with reheat"
     final integerTrue=4)
     "Convert boolean true to level 4 alarm"
     annotation (Placement(transformation(extent={{140,-10},{160,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Less les1(
-    final h=dTHys)
-    "Discharge temperature lower than setpoint by a threshold"
-    annotation (Placement(transformation(extent={{-120,-250},{-100,-230}})));
-  Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar(
-    final p=-17,
-    final k=1)
-    "Setpoint temperature minus a threshold"
-    annotation (Placement(transformation(extent={{-180,-290},{-160,-270}})));
-  Buildings.Controls.OBC.CDL.Continuous.Less les2(
-    final h=dTHys)
-    "Discharge temperature lower than setpoint by a threshold"
-    annotation (Placement(transformation(extent={{-120,-320},{-100,-300}})));
-  Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar1(
-    final p=-8,
-    final k=1)
-    "Setpoint temperature minus a threshold"
-    annotation (Placement(transformation(extent={{-180,-360},{-160,-340}})));
-  Buildings.Controls.OBC.CDL.Logical.TrueDelay truDel4(
-    final delayTime=lowTemTim)
-    "Check if the discharge temperature has been less than threshold value for threshold time"
-    annotation (Placement(transformation(extent={{-80,-250},{-60,-230}})));
-  Buildings.Controls.OBC.CDL.Logical.TrueDelay truDel5(
-    final delayTime=lowTemTim)
-    "Check if the discharge temperature has been less than threshold value for threshold time"
-    annotation (Placement(transformation(extent={{-80,-320},{-60,-300}})));
-  Buildings.Controls.OBC.CDL.Logical.And and6
-    "Discharge temperature has been less than threshold value for sufficient time"
-    annotation (Placement(transformation(extent={{-40,-250},{-20,-230}})));
-  Buildings.Controls.OBC.CDL.Logical.And and7
-    "Logical and"
-    annotation (Placement(transformation(extent={{0,-290},{20,-270}})));
-  Buildings.Controls.OBC.CDL.Logical.Not not6
-    "Logical not"
-    annotation (Placement(transformation(extent={{40,-290},{60,-270}})));
-  Buildings.Controls.OBC.CDL.Utilities.Assert assMes4(
-    final message="Warning: discharge air temperature is 17 degC less than the setpoint.")
-    "Level 2 low discharge air temperature alarm"
-    annotation (Placement(transformation(extent={{80,-290},{100,-270}})));
-  Buildings.Controls.OBC.CDL.Integers.Switch lowTemAla
-    "Low discharge temperature alarm"
-    annotation (Placement(transformation(extent={{140,-250},{160,-230}})));
-  Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt2(
-    final k=2)
-    "Level 2 alarm"
-    annotation (Placement(transformation(extent={{80,-210},{100,-190}})));
-  Buildings.Controls.OBC.CDL.Logical.And and8
-    "Discharge temperature has been less than threshold value for sufficient time"
-    annotation (Placement(transformation(extent={{-40,-320},{-20,-300}})));
-  Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger booToInt4(
-    final integerTrue=3)
-    "Convert boolean true to level 3 alarm"
-    annotation (Placement(transformation(extent={{80,-320},{100,-300}})));
-  Buildings.Controls.OBC.CDL.Logical.And and9
-    "Logical and"
-    annotation (Placement(transformation(extent={{20,-360},{40,-340}})));
-  Buildings.Controls.OBC.CDL.Logical.Not not7
-    "Logical not"
-    annotation (Placement(transformation(extent={{60,-360},{80,-340}})));
-  Buildings.Controls.OBC.CDL.Utilities.Assert assMes5(
-    final message="Warning: discharge air temperature is 8 degC less than the setpoint.")
-    "Level 3 low airflow alarm"
-    annotation (Placement(transformation(extent={{100,-360},{120,-340}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant conInt3(
-    final k=hotWatRes)
-    "Importance multiplier for hot water reset control"
-    annotation (Placement(transformation(extent={{-120,-390},{-100,-370}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr2
-    "Check if the multiplier is greater than zero"
-    annotation (Placement(transformation(extent={{-80,-390},{-60,-370}})));
-  Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger booToInt5
-    "Suppress the alarm when multiplier is zero"
-    annotation (Placement(transformation(extent={{140,-390},{160,-370}})));
-  Buildings.Controls.OBC.CDL.Integers.Product proInt1
-    "Low discharge air temperature alarms"
-    annotation (Placement(transformation(extent={{200,-310},{220,-290}})));
-  Buildings.Controls.OBC.CDL.Logical.TrueDelay truDel6(
-    final delayTime=valCloTim)
-    "Check if valve position is closed for more than threshold time"
-    annotation (Placement(transformation(extent={{-140,-100},{-120,-80}})));
-  Buildings.Controls.OBC.CDL.Continuous.LessThreshold cloVal(
-    final t=valPosHys,
-    final h=0.5*valPosHys)
-    "Check if valve position is near zero"
-    annotation (Placement(transformation(extent={{-200,-100},{-180,-80}})));
-  Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar2(
-    final p=3,
-    final k=1)
-    "AHU supply temperature plus 3 degree"
-    annotation (Placement(transformation(extent={{-200,-170},{-180,-150}})));
-  Buildings.Controls.OBC.CDL.Continuous.Greater gre2(
-    final h=dTHys)
-    "Discharge temperature greate than AHU supply temperature by a threshold"
-    annotation (Placement(transformation(extent={{-140,-140},{-120,-120}})));
-  Buildings.Controls.OBC.CDL.Logical.And3 leaValAla "Check if generating leak valve alarms"
-    annotation (Placement(transformation(extent={{40,-120},{60,-100}})));
-  Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger booToInt6(
-    final integerTrue=4)
-    "Convert boolean true to level 4 alarm"
-    annotation (Placement(transformation(extent={{140,-120},{160,-100}})));
-  Buildings.Controls.OBC.CDL.Logical.Not not8 "Logical not"
-    annotation (Placement(transformation(extent={{100,-160},{120,-140}})));
-  Buildings.Controls.OBC.CDL.Utilities.Assert assMes6(
-    final message="Warning: the valve is leaking.")
-    "Level 4 leaking valve alarm"
-    annotation (Placement(transformation(extent={{140,-160},{160,-140}})));
 
 equation
   connect(VActSet_flow, gai.u) annotation (Line(points={{-260,260},{-200,260},{-200,
@@ -462,88 +317,6 @@ equation
     annotation (Line(points={{162,0},{260,0}}, color={255,127,0}));
   connect(VDis_flow, gre1.u1) annotation (Line(points={{-260,340},{-220,340},{-220,
           130},{-102,130}}, color={0,0,127}));
-  connect(TDis, les1.u1)
-    annotation (Line(points={{-260,-240},{-122,-240}}, color={0,0,127}));
-  connect(TDisSet, addPar.u)
-    annotation (Line(points={{-260,-280},{-182,-280}}, color={0,0,127}));
-  connect(addPar.y, les1.u2) annotation (Line(points={{-158,-280},{-140,-280},{-140,
-          -248},{-122,-248}}, color={0,0,127}));
-  connect(TDis, les2.u1) annotation (Line(points={{-260,-240},{-220,-240},{-220,
-          -310},{-122,-310}}, color={0,0,127}));
-  connect(TDisSet, addPar1.u) annotation (Line(points={{-260,-280},{-200,-280},{
-          -200,-350},{-182,-350}}, color={0,0,127}));
-  connect(addPar1.y, les2.u2) annotation (Line(points={{-158,-350},{-140,-350},{
-          -140,-318},{-122,-318}}, color={0,0,127}));
-  connect(les1.y, truDel4.u)
-    annotation (Line(points={{-98,-240},{-82,-240}}, color={255,0,255}));
-  connect(les2.y, truDel5.u)
-    annotation (Line(points={{-98,-310},{-82,-310}}, color={255,0,255}));
-  connect(truDel4.y, and6.u1)
-    annotation (Line(points={{-58,-240},{-42,-240}}, color={255,0,255}));
-  connect(uHotPla, and6.u2) annotation (Line(points={{-260,-200},{-50,-200},{-50,
-          -248},{-42,-248}}, color={255,0,255}));
-  connect(and6.y, lowTemAla.u2)
-    annotation (Line(points={{-18,-240},{138,-240}}, color={255,0,255}));
-  connect(conInt2.y, lowTemAla.u1) annotation (Line(points={{102,-200},{120,-200},
-          {120,-232},{138,-232}}, color={255,127,0}));
-  connect(and6.y, and7.u1) annotation (Line(points={{-18,-240},{-10,-240},{-10,-280},
-          {-2,-280}}, color={255,0,255}));
-  connect(and7.y, not6.u)
-    annotation (Line(points={{22,-280},{38,-280}}, color={255,0,255}));
-  connect(not6.y, assMes4.u)
-    annotation (Line(points={{62,-280},{78,-280}}, color={255,0,255}));
-  connect(truDel5.y, and8.u1)
-    annotation (Line(points={{-58,-310},{-42,-310}}, color={255,0,255}));
-  connect(and8.y, booToInt4.u)
-    annotation (Line(points={{-18,-310},{78,-310}}, color={255,0,255}));
-  connect(uHotPla, and8.u2) annotation (Line(points={{-260,-200},{-50,-200},{-50,
-          -318},{-42,-318}}, color={255,0,255}));
-  connect(and8.y, and9.u1) annotation (Line(points={{-18,-310},{0,-310},{0,-350},
-          {18,-350}}, color={255,0,255}));
-  connect(booToInt4.y, lowTemAla.u3) annotation (Line(points={{102,-310},{120,-310},
-          {120,-248},{138,-248}}, color={255,127,0}));
-  connect(and9.y, not7.u)
-    annotation (Line(points={{42,-350},{58,-350}}, color={255,0,255}));
-  connect(not7.y, assMes5.u)
-    annotation (Line(points={{82,-350},{98,-350}}, color={255,0,255}));
-  connect(conInt3.y, greThr2.u)
-    annotation (Line(points={{-98,-380},{-82,-380}}, color={0,0,127}));
-  connect(greThr2.y, booToInt5.u)
-    annotation (Line(points={{-58,-380},{138,-380}}, color={255,0,255}));
-  connect(lowTemAla.y, proInt1.u1) annotation (Line(points={{162,-240},{180,-240},
-          {180,-294},{198,-294}}, color={255,127,0}));
-  connect(booToInt5.y, proInt1.u2) annotation (Line(points={{162,-380},{180,-380},
-          {180,-306},{198,-306}}, color={255,127,0}));
-  connect(greThr2.y, and7.u2) annotation (Line(points={{-58,-380},{-10,-380},{-10,
-          -288},{-2,-288}}, color={255,0,255}));
-  connect(greThr2.y, and9.u2) annotation (Line(points={{-58,-380},{-10,-380},{-10,
-          -358},{18,-358}}, color={255,0,255}));
-  connect(proInt1.y, yLowTemAla)
-    annotation (Line(points={{222,-300},{260,-300}}, color={255,127,0}));
-  connect(uVal, cloVal.u)
-    annotation (Line(points={{-260,-90},{-202,-90}}, color={0,0,127}));
-  connect(cloVal.y, truDel6.u)
-    annotation (Line(points={{-178,-90},{-142,-90}}, color={255,0,255}));
-  connect(TSup, addPar2.u)
-    annotation (Line(points={{-260,-160},{-202,-160}}, color={0,0,127}));
-  connect(TDis, gre2.u1) annotation (Line(points={{-260,-240},{-220,-240},{-220,
-          -130},{-142,-130}}, color={0,0,127}));
-  connect(addPar2.y, gre2.u2) annotation (Line(points={{-178,-160},{-160,-160},{
-          -160,-138},{-142,-138}}, color={0,0,127}));
-  connect(truDel6.y, leaValAla.u1) annotation (Line(points={{-118,-90},{20,-90},
-          {20,-102},{38,-102}}, color={255,0,255}));
-  connect(uFan, leaValAla.u2) annotation (Line(points={{-260,70},{-220,70},{-220,
-          -110},{38,-110}}, color={255,0,255}));
-  connect(gre2.y, leaValAla.u3) annotation (Line(points={{-118,-130},{20,-130},{
-          20,-118},{38,-118}}, color={255,0,255}));
-  connect(leaValAla.y, booToInt6.u)
-    annotation (Line(points={{62,-110},{138,-110}}, color={255,0,255}));
-  connect(leaValAla.y, not8.u) annotation (Line(points={{62,-110},{80,-110},{80,
-          -150},{98,-150}}, color={255,0,255}));
-  connect(not8.y, assMes6.u)
-    annotation (Line(points={{122,-150},{138,-150}}, color={255,0,255}));
-  connect(booToInt6.y, yLeaValAla)
-    annotation (Line(points={{162,-110},{260,-110}}, color={255,127,0}));
 
 annotation (defaultComponentName="rehBoxAla",
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),

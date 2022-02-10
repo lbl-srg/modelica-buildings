@@ -247,7 +247,7 @@ block Controller "Controller for cooling only VAV box"
     annotation (Placement(transformation(extent={{-220,-200},{-180,-160}}),
         iconTransformation(extent={{-140,-160},{-100,-120}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uFan
-    "Supply fan status"
+    "AHU supply fan status"
     annotation (Placement(transformation(extent={{-220,-260},{-180,-220}}),
         iconTransformation(extent={{-140,-200},{-100,-160}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput VSet_flow(

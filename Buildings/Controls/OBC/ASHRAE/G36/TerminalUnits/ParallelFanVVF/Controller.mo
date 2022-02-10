@@ -189,109 +189,114 @@ block Controller
     final displayUnit="degC")
     "Measured room temperature"
     annotation (Placement(transformation(extent={{-280,300},{-240,340}}),
-        iconTransformation(extent={{-140,170},{-100,210}})));
+        iconTransformation(extent={{-140,180},{-100,220}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TZonCooSet(
     final quantity="ThermodynamicTemperature",
     final unit="K",
     final displayUnit="degC")
     "Setpoint temperature for room for cooling"
     annotation (Placement(transformation(extent={{-280,270},{-240,310}}),
-        iconTransformation(extent={{-140,150},{-100,190}})));
+        iconTransformation(extent={{-140,160},{-100,200}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TZonHeaSet(
     final quantity="ThermodynamicTemperature",
     final unit="K",
     final displayUnit="degC")
     "Setpoint temperature for room for heating"
     annotation (Placement(transformation(extent={{-280,230},{-240,270}}),
-        iconTransformation(extent={{-140,130},{-100,170}})));
+        iconTransformation(extent={{-140,140},{-100,180}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uWin if have_winSen
     "Window status, true if open, false if closed"
     annotation (Placement(transformation(extent={{-280,200},{-240,240}}),
-        iconTransformation(extent={{-140,110},{-100,150}})));
+        iconTransformation(extent={{-140,120},{-100,160}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uOcc if have_occSen
     "Occupancy status, true if it is occupied, false if it is not occupied"
     annotation (Placement(transformation(extent={{-280,170},{-240,210}}),
-        iconTransformation(extent={{-140,90},{-100,130}})));
+        iconTransformation(extent={{-140,100},{-100,140}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uOpeMod
     "Zone operation mode"
     annotation (Placement(transformation(extent={{-280,140},{-240,180}}),
-        iconTransformation(extent={{-140,70},{-100,110}})));
+        iconTransformation(extent={{-140,80},{-100,120}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput ppmCO2 if have_CO2Sen
     "Detected CO2 concentration"
     annotation (Placement(transformation(extent={{-280,110},{-240,150}}),
-        iconTransformation(extent={{-140,50},{-100,90}})));
+        iconTransformation(extent={{-140,60},{-100,100}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput VParFan_flow(
     final unit="m3/s",
     final min=0,
     final quantity="VolumeFlowRate") if have_CO2Sen
     "Parallel fan airflow rate"
     annotation (Placement(transformation(extent={{-280,80},{-240,120}}),
-        iconTransformation(extent={{-140,30},{-100,70}})));
+        iconTransformation(extent={{-140,40},{-100,80}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TDis(
     final quantity="ThermodynamicTemperature",
     final unit="K",
     final displayUnit="degC")
     "Measured supply air temperature after heating coil"
     annotation (Placement(transformation(extent={{-280,50},{-240,90}}),
-        iconTransformation(extent={{-140,10},{-100,50}})));
+        iconTransformation(extent={{-140,20},{-100,60}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput VDis_flow(
     final min=0,
     final unit="m3/s",
     final quantity="VolumeFlowRate")
     "Measured discharge airflow rate airflow rate"
     annotation (Placement(transformation(extent={{-280,0},{-240,40}}),
-      iconTransformation(extent={{-140,-10},{-100,30}})));
+      iconTransformation(extent={{-140,0},{-100,40}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TSup(
     final unit="K",
     final displayUnit="degC",
     final quantity="ThermodynamicTemperature")
     "Supply air temperature from central air handler"
     annotation (Placement(transformation(extent={{-280,-30},{-240,10}}),
-        iconTransformation(extent={{-140,-30},{-100,10}})));
+        iconTransformation(extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TSupSet(
     final unit="K",
     final displayUnit="degC",
     final quantity="ThermodynamicTemperature")
     "Supply air temperature setpoint from central air handler"
     annotation (Placement(transformation(extent={{-280,-60},{-240,-20}}),
-        iconTransformation(extent={{-140,-50},{-100,-10}})));
+        iconTransformation(extent={{-140,-40},{-100,0}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput oveFloSet
     "Index of overriding flow setpoint, 1: set to zero; 2: set to cooling maximum; 3: set to minimum flow; 4: set to heating maximum"
     annotation (Placement(transformation(extent={{-280,-90},{-240,-50}}),
-        iconTransformation(extent={{-140,-70},{-100,-30}})));
+        iconTransformation(extent={{-140,-60},{-100,-20}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput oveDamPos
     "Index of overriding damper position, 1: set to close; 2: set to open"
     annotation (Placement(transformation(extent={{-280,-120},{-240,-80}}),
-        iconTransformation(extent={{-140,-90},{-100,-50}})));
+        iconTransformation(extent={{-140,-80},{-100,-40}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput oveFan
     "Index of overriding terminal fan status, 1: turn fan off; 2: turn fan on"
     annotation (Placement(transformation(extent={{-280,-150},{-240,-110}}),
-        iconTransformation(extent={{-140,-110},{-100,-70}})));
+        iconTransformation(extent={{-140,-100},{-100,-60}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uHeaOff
     "Override heating valve position, true: close heating valve"
     annotation (Placement(transformation(extent={{-280,-190},{-240,-150}}),
-        iconTransformation(extent={{-140,-130},{-100,-90}})));
+        iconTransformation(extent={{-140,-120},{-100,-80}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uDam(
     final min=0,
     final max=1,
     final unit="1")
     "Actual damper position"
     annotation (Placement(transformation(extent={{-280,-220},{-240,-180}}),
-        iconTransformation(extent={{-140,-150},{-100,-110}})));
+        iconTransformation(extent={{-140,-140},{-100,-100}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uVal(
     final min=0,
     final max=1,
     final unit="1")
     "Actual hot water valve position"
     annotation (Placement(transformation(extent={{-280,-250},{-240,-210}}),
-        iconTransformation(extent={{-140,-170},{-100,-130}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uFan "Terminal fan status"
-    annotation (Placement(transformation(extent={{-280,-300},{-240,-260}}),
-        iconTransformation(extent={{-140,-190},{-100,-150}})));
+        iconTransformation(extent={{-140,-160},{-100,-120}})));
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uFan
+    "AHU supply fan status"
+    annotation (Placement(transformation(extent={{-280,-290},{-240,-250}}),
+        iconTransformation(extent={{-140,-180},{-100,-140}})));
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uTerFan
+    "Terminal fan status"
+    annotation (Placement(transformation(extent={{-280,-320},{-240,-280}}),
+        iconTransformation(extent={{-140,-200},{-100,-160}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uHotPla
     "Hot water plant status"
-    annotation (Placement(transformation(extent={{-280,-340},{-240,-300}}),
-        iconTransformation(extent={{-140,-210},{-100,-170}})));
+    annotation (Placement(transformation(extent={{-280,-350},{-240,-310}}),
+        iconTransformation(extent={{-140,-220},{-100,-180}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput VSet_flow_Set(
     final min=0,
     final unit="m3/s",
@@ -543,21 +548,21 @@ equation
   connect(uVal, sysReq.uVal) annotation (Line(points={{-260,-230},{24,-230},{24,
           -159},{138,-159}}, color={0,0,127}));
   connect(VDis_flow, ala.VDis_flow) annotation (Line(points={{-260,20},{-36,20},
-          {-36,-241},{138,-241}}, color={0,0,127}));
+          {-36,-240},{138,-240}}, color={0,0,127}));
   connect(setOve.VSet_flow, ala.VActSet_flow) annotation (Line(points={{102,-63},
-          {120,-63},{120,-243},{138,-243}},  color={0,0,127}));
-  connect(uFan, ala.uFan) annotation (Line(points={{-260,-280},{30,-280},{30,-245},
-          {138,-245}}, color={255,0,255}));
-  connect(uDam, ala.uDam) annotation (Line(points={{-260,-200},{18,-200},{18,-249},
-          {138,-249}}, color={0,0,127}));
-  connect(uVal, ala.uVal) annotation (Line(points={{-260,-230},{24,-230},{24,-251},
-          {138,-251}}, color={0,0,127}));
-  connect(TSup, ala.TSup) annotation (Line(points={{-260,-10},{-30,-10},{-30,-253},
-          {138,-253}}, color={0,0,127}));
-  connect(uHotPla, ala.uHotPla) annotation (Line(points={{-260,-320},{36,-320},{
-          36,-255},{138,-255}}, color={255,0,255}));
-  connect(TDis, ala.TDis) annotation (Line(points={{-260,70},{-196,70},{-196,-257},
-          {138,-257}}, color={0,0,127}));
+          {120,-63},{120,-242},{138,-242}},  color={0,0,127}));
+  connect(uFan, ala.uFan) annotation (Line(points={{-260,-270},{30,-270},{30,-244},
+          {138,-244}}, color={255,0,255}));
+  connect(uDam, ala.uDam) annotation (Line(points={{-260,-200},{18,-200},{18,-250},
+          {138,-250}}, color={0,0,127}));
+  connect(uVal, ala.uVal) annotation (Line(points={{-260,-230},{24,-230},{24,-252},
+          {138,-252}}, color={0,0,127}));
+  connect(TSup, ala.TSup) annotation (Line(points={{-260,-10},{-30,-10},{-30,-254},
+          {138,-254}}, color={0,0,127}));
+  connect(uHotPla, ala.uHotPla) annotation (Line(points={{-260,-330},{40,-330},{
+          40,-256},{138,-256}}, color={255,0,255}));
+  connect(TDis, ala.TDis) annotation (Line(points={{-260,70},{-196,70},{-196,-258},
+          {138,-258}}, color={0,0,127}));
   connect(setOve.VSet_flow, VSet_flow_Set) annotation (Line(points={{102,-63},{120,
           -63},{120,220},{260,220}}, color={0,0,127}));
   connect(setOve.yDamSet, yDamSet) annotation (Line(points={{102,-67},{126,-67},
@@ -602,10 +607,10 @@ equation
           {192,-230},{260,-230}}, color={255,127,0}));
   connect(damVal.yFan, setOve.uFan) annotation (Line(points={{42,1},{54,1},{54,-79},
           {78,-79}}, color={255,0,255}));
-  connect(damVal.yFan, ala.uFanCom) annotation (Line(points={{42,1},{54,1},{54,-247},
-          {138,-247}}, color={255,0,255}));
+  connect(damVal.yFan, ala.uFanCom) annotation (Line(points={{42,1},{54,1},{54,-246},
+          {138,-246}}, color={255,0,255}));
   connect(damVal.THeaDisSet, ala.TDisSet) annotation (Line(points={{42,11},{58,11},
-          {58,-259},{138,-259}}, color={0,0,127}));
+          {58,-260},{138,-260}}, color={0,0,127}));
   connect(damVal.VDis_flow_Set, setOve.VActSet_flow) annotation (Line(points={{42,
           34},{70,34},{70,-63},{78,-63}}, color={0,0,127}));
   connect(damVal.VFan_flow_Set, mul1.u1) annotation (Line(points={{42,3.8},{74,3.8},
@@ -616,6 +621,8 @@ equation
           94},{198,94}}, color={0,0,127}));
   connect(mul1.y, VFan_flow_Set)
     annotation (Line(points={{222,100},{260,100}}, color={0,0,127}));
+  connect(uTerFan, ala.uTerFan) annotation (Line(points={{-260,-300},{36,-300},{
+          36,-248},{138,-248}}, color={255,0,255}));
 
 annotation (defaultComponentName="parFanCon",
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-200},
@@ -630,95 +637,95 @@ annotation (defaultComponentName="parFanCon",
           lineColor={0,0,255},
           textString="%name"),
         Text(
-          extent={{-98,16},{-56,4}},
+          extent={{-98,26},{-56,14}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="VDis_flow"),
         Text(
-          extent={{-100,36},{-74,24}},
+          extent={{-100,46},{-74,34}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="TDis"),
         Text(
           visible=have_CO2Sen,
-          extent={{-96,78},{-60,64}},
+          extent={{-96,88},{-60,74}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="ppmCO2"),
         Text(
-          extent={{-98,-2},{-74,-16}},
+          extent={{-98,8},{-74,-6}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="TSup"),
         Text(
-          extent={{-98,-22},{-60,-36}},
+          extent={{-98,-12},{-60,-26}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="TSupSet"),
         Text(
-          extent={{-98,-122},{-72,-136}},
+          extent={{-98,-112},{-72,-126}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="uDam"),
         Text(
-          extent={{-100,-142},{-76,-156}},
+          extent={{-100,-132},{-76,-146}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="uVal"),
         Text(
-          extent={{-98,198},{-72,186}},
+          extent={{-98,202},{-72,190}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="TZon"),
         Text(
-          extent={{-98,178},{-40,164}},
+          extent={{-98,188},{-40,174}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="TZonCooSet"),
         Text(
-          extent={{-98,158},{-40,144}},
+          extent={{-98,168},{-40,154}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="TZonHeaSet"),
         Text(
           visible=have_winSen,
-          extent={{-100,138},{-74,126}},
+          extent={{-100,148},{-74,136}},
           lineColor={255,0,255},
           pattern=LinePattern.Dash,
           textString="uWin"),
         Text(
           visible=have_occSen,
-          extent={{-100,118},{-74,106}},
+          extent={{-100,128},{-74,116}},
           lineColor={255,0,255},
           pattern=LinePattern.Dash,
           textString="uOcc"),
         Text(
-          extent={{-96,-182},{-60,-198}},
+          extent={{-96,-186},{-60,-202}},
           lineColor={255,0,255},
           pattern=LinePattern.Dash,
           textString="uHotPla"),
         Text(
-          extent={{-100,-162},{-74,-176}},
+          extent={{-100,-152},{-74,-166}},
           lineColor={255,0,255},
           pattern=LinePattern.Dash,
           textString="uFan"),
         Text(
-          extent={{-98,-102},{-62,-118}},
+          extent={{-98,-92},{-62,-108}},
           lineColor={255,0,255},
           pattern=LinePattern.Dash,
           textString="uHeaOff"),
         Text(
-          extent={{-96,98},{-50,82}},
+          extent={{-96,108},{-50,92}},
           lineColor={255,127,0},
           pattern=LinePattern.Dash,
           textString="uOpeMod"),
         Text(
-          extent={{-98,-40},{-52,-56}},
+          extent={{-98,-30},{-52,-46}},
           lineColor={255,127,0},
           pattern=LinePattern.Dash,
           textString="oveFloSet"),
         Text(
-          extent={{-98,-60},{-40,-76}},
+          extent={{-98,-50},{-40,-66}},
           lineColor={255,127,0},
           pattern=LinePattern.Dash,
           textString="oveDamPos"),
@@ -783,12 +790,12 @@ annotation (defaultComponentName="parFanCon",
           pattern=LinePattern.Dash,
           textString="yLowTemAla"),
         Text(
-          extent={{-96,-80},{-64,-98}},
+          extent={{-96,-70},{-64,-88}},
           lineColor={255,127,0},
           pattern=LinePattern.Dash,
           textString="oveFan"),
         Text(
-          extent={{-96,58},{-38,44}},
+          extent={{-96,68},{-38,54}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="VParFan_flow",
@@ -807,7 +814,12 @@ annotation (defaultComponentName="parFanCon",
           extent={{40,138},{96,124}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
-          textString="VFan_flow_Set")}),
+          textString="VFan_flow_Set"),
+        Text(
+          extent={{-96,-170},{-60,-186}},
+          lineColor={255,0,255},
+          pattern=LinePattern.Dash,
+          textString="uTerFan")}),
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-240,-340},{240,340}})),
   Documentation(info="<html>
 <p>
