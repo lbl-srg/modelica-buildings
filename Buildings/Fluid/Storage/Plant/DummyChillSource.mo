@@ -1,6 +1,6 @@
 within Buildings.Fluid.Storage.Plant;
 model DummyChillSource
-  "An ideal chill (or heat) source that always turns the fluid passing through to the prescribed state"
+  "An ideal chill (or heat if flow direction reversed) source that always sets the fluid passing through to the prescribed enthalpy"
 
   replaceable package Medium =
     Modelica.Media.Interfaces.PartialMedium "Medium in the component";

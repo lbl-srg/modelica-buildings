@@ -1,15 +1,17 @@
 within Buildings.Fluid.Storage.Plant.Validation;
 model ChillerAndTankWithRemoteCharging
   "(Draft)"
-  //Operation modes implemented in time tables:
-  //      plant   | chiller | tank       | flow direction | tank flow rate
-  //   1. offline   off       off          N/A              0
-  //   2. offline   on        charging     N/A              -1
-  //   3. online    on        charging     normal           -1
-  //   4. online    on        off          normal           0
-  //   5. online    on        discharging  normal           1
-  //   6. online    off       discharging  normal           1
-  //   7. online    off       charging     reverse          -1
+/* 
+    Operation modes implemented in time tables:
+        plant   | chiller | tank       | flow direction | tank flow rate
+     1. offline   off       off          N/A              0
+     2. offline   on        charging     N/A              -1
+     3. online    on        charging     normal           -1
+     4. online    on        off          normal           0
+     5. online    on        discharging  normal           1
+     6. online    off       discharging  normal           1
+     7. online    off       charging     reverse          -1
+*/
 
   extends Modelica.Icons.Example;
 

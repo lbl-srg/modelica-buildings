@@ -1,6 +1,9 @@
 within Buildings.Fluid.Storage.Plant;
 model DummyConsumer "Dummy consumer model"
-
+/*
+For simplification, instead of setting up a heat exchanger to a room model,
+the consumer control valve simply tracks the return CHW temperature.  
+*/
   replaceable package Medium =
     Modelica.Media.Interfaces.PartialMedium "Medium in the component";
 

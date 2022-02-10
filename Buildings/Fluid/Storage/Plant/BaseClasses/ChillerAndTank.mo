@@ -104,7 +104,7 @@ partial model ChillerAndTank
     allowFlowReversal=true,
     addPowerToMedium=false,
     m_flow_nominal=m1_flow_nominal,
-    m_flow_start=m1_flow_nominal,
+    m_flow_start=0,
     T_start=T_CHWR_nominal) "Primary CHW pump"
     annotation (Placement(transformation(extent={{-60,30},{-40,50}})));
 

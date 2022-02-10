@@ -1,5 +1,14 @@
 within Buildings.Fluid.Storage.Plant.Examples;
-model OneSourceOneUser "District system with one source and one user"
+model OneSourceOneUser "(Draft) District system with one source and one user"
+/*  
+- Controls - 
+  Primary pump:
+    Tracks consumer control valve position con.yVal,
+    closes at y.Val < 0.05,
+    reopens at y.Val > 0.5.
+  Secondary pump:
+    Maintains constant consumer pressure head con.dp.
+*/
   extends Modelica.Icons.Example;
 
   package Medium = Buildings.Media.Water "Medium model";
@@ -42,14 +51,11 @@ model OneSourceOneUser "District system with one source and one user"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
   Modelica.Blocks.Sources.Constant set_TRet(k=12 + 273.15)
     "CHW return setpoint"
-    annotation (Placement(transformation(extent={{-20,40},{0,60}})));
+    annotation (Placement(transformation(extent={{0,20},{20,40}})));
   Modelica.Blocks.Sources.TimeTable preQCooLoa_flow(table=[0*3600,0; 0.5*3600,0;
         0.5*3600,5*4200*1.01; 0.75*3600,5*4200*1.01; 0.75*3600,0; 1*3600,0])
     "Placeholder, prescribed cooling load"
-    annotation (Placement(transformation(extent={{0,80},{20,100}})));
-  Modelica.Blocks.Sources.Constant set_mPum1_flow(k=m_flow_nominal/2)
-    "Primary pump mass flow rate setpoint"
-    annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
+    annotation (Placement(transformation(extent={{0,50},{20,70}})));
   Controls.Continuous.LimPID conPI_pum2(
     controllerType=Modelica.Blocks.Types.SimpleController.PI,
     Td=1,
@@ -59,7 +65,7 @@ model OneSourceOneUser "District system with one source and one user"
              "PI controller for pum2" annotation (Placement(transformation(
         extent={{10,10},{-10,-10}},
         rotation=270,
-        origin={-90,-60})));
+        origin={-70,-60})));
   FixedResistances.PressureDrop preDro1(
     redeclare package Medium = Medium,
     final allowFlowReversal=true,
@@ -74,7 +80,9 @@ model OneSourceOneUser "District system with one source and one user"
     annotation (Placement(transformation(extent={{10,-50},{-10,-30}})));
   Modelica.Blocks.Sources.Constant set_dpCon(k=1)
     "Normalised consumer differential pressure setpoint"
-    annotation (Placement(transformation(extent={{-60,-100},{-80,-80}})));
+    annotation (Placement(transformation(extent={{10,-10},{-10,10}},
+        rotation=-90,
+        origin={-70,-90})));
   Buildings.Fluid.Sources.Boundary_pT sou_p(
     redeclare final package Medium = Medium,
     final p=p_CHWR_nominal,
@@ -82,19 +90,29 @@ model OneSourceOneUser "District system with one source and one user"
     nPorts=1) "Pressurisation point" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
-        origin={-90,30})));
+        origin={-90,0})));
   Modelica.Blocks.Math.Gain gaiPum2(k=1/con.dp_nominal) "Gain" annotation (
       Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=180,
-        origin={-50,-60})));
+        origin={-40,-60})));
+  Controls.OBC.CDL.Continuous.Hysteresis hysPum1(uLow=0.05, uHigh=0.5)
+    "Primary pump shuts off at con.yVal = 0.05 and restarts at 0.5" annotation (
+     Placement(transformation(
+        extent={{10,-10},{-10,10}},
+        rotation=90,
+        origin={-70,62})));
+  Controls.OBC.CDL.Conversions.BooleanToReal booToReaPum1(realTrue=
+        m_flow_nominal/2) "Primary pump signal" annotation (Placement(
+        transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=-90,
+        origin={-70,30})));
 equation
   connect(set_TRet.y, con.TSet)
-    annotation (Line(points={{1,50},{32,50},{32,5},{39,5}}, color={0,0,127}));
+    annotation (Line(points={{21,30},{32,30},{32,5},{39,5}},color={0,0,127}));
   connect(preQCooLoa_flow.y, con.QCooLoa_flow)
-    annotation (Line(points={{21,90},{34,90},{34,9},{39,9}}, color={0,0,127}));
-  connect(set_mPum1_flow.y, cat.set_mPum1_flow)
-    annotation (Line(points={{-79,90},{-61,90},{-61,9}},  color={0,0,127}));
+    annotation (Line(points={{21,60},{34,60},{34,9},{39,9}}, color={0,0,127}));
   connect(cat.port_b, preDro1.port_a)
     annotation (Line(points={{-40,0},{-10,0}}, color={0,127,255}));
   connect(preDro1.port_b, con.port_a)
@@ -104,14 +122,20 @@ equation
   connect(preDro2.port_b, cat.port_a)
     annotation (Line(points={{-10,-40},{-60,-40},{-60,0}}, color={0,127,255}));
   connect(set_dpCon.y, conPI_pum2.u_s)
-    annotation (Line(points={{-81,-90},{-90,-90},{-90,-72}}, color={0,0,127}));
-  connect(sou_p.ports[1], cat.port_a) annotation (Line(points={{-80,30},{-74,30},
-          {-74,0},{-60,0}}, color={0,127,255}));
-  connect(con.dp, gaiPum2.u) annotation (Line(points={{47,11},{46,11},{46,16},{64,
-          16},{64,-60},{-38,-60}}, color={0,0,127}));
+    annotation (Line(points={{-70,-79},{-70,-72}},           color={0,0,127}));
+  connect(sou_p.ports[1], cat.port_a) annotation (Line(points={{-80,0},{-60,0}},
+                            color={0,127,255}));
+  connect(con.dp, gaiPum2.u) annotation (Line(points={{47,11},{46,11},{46,20},{70,
+          20},{70,-60},{-28,-60}}, color={0,0,127}));
   connect(gaiPum2.y, conPI_pum2.u_m)
-    annotation (Line(points={{-61,-60},{-78,-60}}, color={0,0,127}));
+    annotation (Line(points={{-51,-60},{-58,-60}}, color={0,0,127}));
   connect(conPI_pum2.y, cat.yPum2)
-    annotation (Line(points={{-90,-49},{-90,5},{-61,5}}, color={0,0,127}));
+    annotation (Line(points={{-70,-49},{-70,5},{-61,5}}, color={0,0,127}));
+  connect(hysPum1.y, booToReaPum1.u)
+    annotation (Line(points={{-70,50},{-70,42}}, color={255,0,255}));
+  connect(booToReaPum1.y, cat.set_mPum1_flow)
+    annotation (Line(points={{-70,18},{-70,9},{-61,9}}, color={0,0,127}));
+  connect(hysPum1.u, con.yVal_actual) annotation (Line(points={{-70,74},{-70,80},
+          {43,80},{43,11}}, color={0,0,127}));
   annotation(experiment(Tolerance=1e-06, StopTime=3600));
 end OneSourceOneUser;
