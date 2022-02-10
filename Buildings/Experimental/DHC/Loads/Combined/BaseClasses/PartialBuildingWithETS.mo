@@ -81,9 +81,8 @@ model PartialBuildingWithETS
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant one(k=1)
     "One"
     annotation (Placement(transformation(extent={{-180,-70},{-160,-50}})));
-  Buildings.Controls.OBC.CDL.Continuous.Gain mulPPumETS(
-    u(final unit="W"), final k=facMul) if have_pum
-    "Scaling"
+  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter mulPPumETS(u(final
+        unit="W"), final k=facMul) if have_pum "Scaling"
     annotation (Placement(transformation(extent={{270,-10},{290,10}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput PPumETS(
     final unit="W") if have_pum

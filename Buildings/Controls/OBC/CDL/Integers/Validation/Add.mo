@@ -33,17 +33,17 @@ model Add
 
 equation
   connect(ramp1.y,round1.u)
-    annotation (Line(points={{-59,20},{-42,20}},color={0,0,127}));
+    annotation (Line(points={{-58,20},{-42,20}},color={0,0,127}));
   connect(ramp2.y,round2.u)
-    annotation (Line(points={{-59,-20},{-42,-20}},color={0,0,127}));
+    annotation (Line(points={{-58,-20},{-42,-20}},color={0,0,127}));
   connect(round2.y,reaToInt1.u)
-    annotation (Line(points={{-19,-20},{-2,-20}},color={0,0,127}));
+    annotation (Line(points={{-18,-20},{-2,-20}},color={0,0,127}));
   connect(round1.y,reaToInt.u)
-    annotation (Line(points={{-19,20},{-2,20}},color={0,0,127}));
+    annotation (Line(points={{-18,20},{-2,20}},color={0,0,127}));
   connect(reaToInt.y,add1.u1)
-    annotation (Line(points={{21,20},{40,20},{40,6},{58,6}},color={255,127,0}));
+    annotation (Line(points={{22,20},{40,20},{40,6},{58,6}},color={255,127,0}));
   connect(reaToInt1.y,add1.u2)
-    annotation (Line(points={{21,-20},{40,-20},{40,-6},{58,-6}},color={255,127,0}));
+    annotation (Line(points={{22,-20},{40,-20},{40,-6},{58,-6}},color={255,127,0}));
   annotation (
     experiment(
       StopTime=1.0,

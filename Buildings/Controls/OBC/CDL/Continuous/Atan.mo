@@ -58,18 +58,14 @@ equation
     Documentation(
       info="<html>
 <p>
-Block that outputs <code>y = atan(u)</code>,
-where
-<code>u</code> is an input.
+Block that outputs <code>y = atan(u)</code>, where <code>u</code> is an input.
 </p>
-
 <p align=\"center\">
 <img src=\"modelica://Buildings/Resources/Images/Controls/OBC/CDL/Continuous/Atan.png\"
      alt=\"atan.png\" />
 </p>
-
 </html>",
-      revisions="<html>
+revisions="<html>
 <ul>
 <li>
 March 2, 2020, by Michael Wetter:<br/>

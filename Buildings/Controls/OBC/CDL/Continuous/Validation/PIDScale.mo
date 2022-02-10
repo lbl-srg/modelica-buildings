@@ -35,12 +35,10 @@ model PIDScale
     yMin=-1)
     "PID controller without scaling of control input"
     annotation (Placement(transformation(extent={{0,-60},{20,-40}})));
-  Buildings.Controls.OBC.CDL.Continuous.Gain gai(
-    k=1/1000)
+  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai(k=1/1000)
     "Gain to scale setpoint"
     annotation (Placement(transformation(extent={{-40,-60},{-20,-40}})));
-  Buildings.Controls.OBC.CDL.Continuous.Gain gai1(
-    k=1/1000)
+  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai1(k=1/1000)
     "Gain to scale measured value"
     annotation (Placement(transformation(extent={{52,-90},{32,-70}})));
   Buildings.Controls.OBC.CDL.Continuous.IntegratorWithReset pla2(
