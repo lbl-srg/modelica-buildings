@@ -1,6 +1,6 @@
 within Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.ParallelFanVVF.Subsequences;
 block ActiveAirFlow
-  "Output the active airflow setpoint for variable-volume fan-powered terminal unit"
+  "Output the active airflow setpoint for variable-volume parallel fan-powered terminal unit"
 
   parameter Real VCooZonMax_flow(
     final quantity="VolumeFlowRate",

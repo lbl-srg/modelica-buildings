@@ -285,8 +285,7 @@ block Controller
     "Actual hot water valve position"
     annotation (Placement(transformation(extent={{-280,-250},{-240,-210}}),
         iconTransformation(extent={{-140,-170},{-100,-130}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uFan
-    "Supply fan status"
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uFan "Terminal fan status"
     annotation (Placement(transformation(extent={{-280,-300},{-240,-260}}),
         iconTransformation(extent={{-140,-190},{-100,-150}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uHotPla
@@ -364,8 +363,7 @@ block Controller
 
   Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.ParallelFanVVF.Subsequences.ActiveAirFlow
     actAirSet(
-    final VCooZonMax_flow=VCooZonMax_flow)
-    "Active airflow setpoint"
+    final VCooZonMax_flow=VCooZonMax_flow) "Active airflow setpoint"
     annotation (Placement(transformation(extent={{-40,100},{-20,120}})));
   Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.ParallelFanVVF.Subsequences.SystemRequests
     sysReq(
@@ -380,8 +378,7 @@ block Controller
     final dTHys=dTHys,
     final floHys=floHys,
     final damPosHys=damPosHys,
-    final valPosHys=valPosHys)
-    "Specify system requests "
+    final valPosHys=valPosHys) "Specify system requests "
     annotation (Placement(transformation(extent={{140,-160},{160,-140}})));
   Buildings.Controls.OBC.ASHRAE.G36.ThermalZones.ControlLoops conLoo(
     final kCooCon=kCooCon,
@@ -407,14 +404,12 @@ block Controller
     final floHys=floHys,
     final dTHys=dTHys,
     final damPosHys=damPosHys,
-    final valPosHys=valPosHys)
-    "Generate alarms"
+    final valPosHys=valPosHys) "Generate alarms"
     annotation (Placement(transformation(extent={{140,-260},{160,-240}})));
   Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.ParallelFanVVF.Subsequences.Overrides
     setOve(
     final VZonMin_flow=VZonMin_flow,
-    final VCooZonMax_flow=VCooZonMax_flow)
-    "Override setpoints"
+    final VCooZonMax_flow=VCooZonMax_flow) "Override setpoints"
     annotation (Placement(transformation(extent={{80,-80},{100,-60}})));
   Buildings.Controls.OBC.ASHRAE.G36.Generic.TimeSuppression timSup(
     final samplePeriod=samplePeriod,
@@ -458,8 +453,7 @@ block Controller
     final TdDam=TdDam,
     final dTHys=dTHys,
     final looHys=looHys,
-    final floHys=floHys)
-    "Damper and valve control"
+    final floHys=floHys) "Damper and valve control"
     annotation (Placement(transformation(extent={{20,0},{40,40}})));
   Buildings.Controls.OBC.ASHRAE.G36.ThermalZones.ZoneStates zonSta if have_CO2Sen
     "Find if the zone is in heating, cooling, or deadband states"

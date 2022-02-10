@@ -429,7 +429,6 @@ equation
     annotation (Line(points={{-118,-270},{-2,-270}}, color={255,0,255}));
   connect(booToInt3.y, yHotWatPlaReq)
     annotation (Line(points={{22,-270},{200,-270}}, color={255,127,0}));
-
   connect(TZonCooSet, sub3.u2) annotation (Line(points={{-200,220},{-162,220},{-162,
           174},{-102,174}}, color={0,0,127}));
   connect(TZonCooSet, sub2.u2) annotation (Line(points={{-200,220},{-162,220},{-162,
@@ -438,6 +437,7 @@ equation
           {-102,226}}, color={0,0,127}));
   connect(TZon, sub3.u1) annotation (Line(points={{-200,160},{-142,160},{-142,186},
           {-102,186}}, color={0,0,127}));
+
 annotation (
   defaultComponentName="sysReq",
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-180,-300},{180,320}}),

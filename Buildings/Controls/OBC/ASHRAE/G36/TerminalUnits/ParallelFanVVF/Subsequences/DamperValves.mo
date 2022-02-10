@@ -347,6 +347,7 @@ block DamperValves
     "Convert boolean to real"
     annotation (Placement(transformation(extent={{40,-210},{60,-190}})));
   Buildings.Controls.OBC.CDL.Continuous.Multiply mul1
+    "Fan rate when zone is in deadband state"
     annotation (Placement(transformation(extent={{160,-220},{180,-200}})));
   Buildings.Controls.OBC.CDL.Continuous.Line heaFanRat
     "Parallel fan airflow setpoint when zone is in heating state"
@@ -470,10 +471,6 @@ equation
     annotation (Line(points={{-360,60},{-282,60}}, color={0,0,127}));
   connect(greThr2.y, swi1.u2)
     annotation (Line(points={{-258,60},{78,60}}, color={255,0,255}));
-  connect(conZer3.y, swi1.u1) annotation (Line(points={{-258,170},{20,170},{20,68},
-          {78,68}}, color={0,0,127}));
-  connect(conVal.y, swi1.u3) annotation (Line(points={{-38,100},{0,100},{0,52},{
-          78,52}}, color={0,0,127}));
   connect(swi1.y, swi2.u3) annotation (Line(points={{102,60},{240,60},{240,72},{
           298,72}}, color={0,0,127}));
   connect(conZer3.y, swi2.u1) annotation (Line(points={{-258,170},{20,170},{20,88},
@@ -602,6 +599,10 @@ equation
           -220},{300,-220},{300,-240},{318,-240}}, color={0,0,127}));
   connect(greThr3.y, yFan)
     annotation (Line(points={{342,-240},{380,-240}}, color={255,0,255}));
+  connect(conVal.y, swi1.u1) annotation (Line(points={{-38,100},{0,100},{0,68},{
+          78,68}}, color={0,0,127}));
+  connect(conZer3.y, swi1.u3) annotation (Line(points={{-258,170},{20,170},{20,52},
+          {78,52}}, color={0,0,127}));
 
 annotation (
   defaultComponentName="damValFan",

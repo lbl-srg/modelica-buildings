@@ -62,15 +62,15 @@ equation
   connect(sine.y, TZonCooSet.u)
     annotation (Line(points={{-38,90},{-22,90}}, color={0,0,127}));
   connect(TZonCooSet.y, sysReq_RehBox.TZonCooSet) annotation (Line(points={{2,90},{
-          46,90},{46,76},{58,76}},  color={0,0,127}));
+          46,90},{46,77},{58,77}},  color={0,0,127}));
   connect(TZon.y, sysReq_RehBox.TZon)
-    annotation (Line(points={{-38,60},{16,60},{16,74},{58,74}},
+    annotation (Line(points={{-38,60},{16,60},{16,75},{58,75}},
       color={0,0,127}));
   connect(uCoo.y, sysReq_RehBox.uCoo)
-    annotation (Line(points={{2,40},{18,40},{18,72},{58,72}},
+    annotation (Line(points={{2,40},{18,40},{18,73},{58,73}},
       color={0,0,127}));
   connect(disAirRate.y, sysReq_RehBox.VDis_flow)
-    annotation (Line(points={{2,0},{22,0},{22,64},{58,64}}, color={0,0,127}));
+    annotation (Line(points={{2,0},{22,0},{22,69},{58,69}}, color={0,0,127}));
   connect(sine1.y, TDisHeaSet.u)
     annotation (Line(points={{-68,-40},{-22,-40}}, color={0,0,127}));
 

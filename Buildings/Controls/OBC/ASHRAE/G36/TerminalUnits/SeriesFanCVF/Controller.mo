@@ -271,8 +271,7 @@ block Controller "Controller for constant-volume series fan-powered terminal uni
     "Actual hot water valve position"
     annotation (Placement(transformation(extent={{-280,-250},{-240,-210}}),
         iconTransformation(extent={{-140,-170},{-100,-130}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uFan
-    "Supply fan status"
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uFan "Terminal fan status"
     annotation (Placement(transformation(extent={{-280,-300},{-240,-260}}),
         iconTransformation(extent={{-140,-190},{-100,-150}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uHotPla
