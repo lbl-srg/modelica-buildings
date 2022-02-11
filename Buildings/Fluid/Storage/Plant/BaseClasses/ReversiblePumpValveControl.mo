@@ -47,21 +47,21 @@ block ReversiblePumpValveControl
         origin={-20,30})));
   Controls.OBC.CDL.Interfaces.BooleanInput booFloDir
     "Flow direction, true = normal, false = reverse" annotation (Placement(
-        transformation(extent={{-140,-10},{-100,30}}), iconTransformation(
+        transformation(extent={{-120,0},{-100,20}}),   iconTransformation(
           extent={{-140,-50},{-100,-10}})));
   Modelica.Blocks.Interfaces.RealInput us_mTan_flow
       "Tank mass flow rate setpoint" annotation (Placement(transformation(
-          extent={{-20,-20},{20,20}},
+          extent={{-10,-10},{10,10}},
           rotation=-90,
-          origin={-70,120}), iconTransformation(
+          origin={-70,110}), iconTransformation(
           extent={{-10,-10},{10,10}},
           rotation=0,
           origin={-110,30})));
   Modelica.Blocks.Interfaces.RealInput um_mTan_flow
       "Measured tank mass flow rate" annotation (Placement(transformation(
-          extent={{-20,-20},{20,20}},
+          extent={{-10,-10},{10,10}},
           rotation=-90,
-          origin={-10,120}), iconTransformation(
+          origin={0,110}),   iconTransformation(
           extent={{-10,-10},{10,10}},
           rotation=0,
           origin={-110,70})));
@@ -82,29 +82,29 @@ block ReversiblePumpValveControl
         origin={70,-80})));
   Controls.OBC.CDL.Interfaces.BooleanInput onOffLin
     "Plant online/offline signal, true = online, false = offline" annotation (
-      Placement(transformation(extent={{-140,-100},{-100,-60}}),
+      Placement(transformation(extent={{-120,-90},{-100,-70}}),
         iconTransformation(extent={{-140,-90},{-100,-50}})));
   Modelica.Blocks.Interfaces.RealOutput yPum2 "Normalised speed" annotation (
       Placement(transformation(
-        extent={{-20,-20},{20,20}},
+        extent={{-10,-10},{10,10}},
         rotation=-90,
-        origin={-10,-120}), iconTransformation(
+        origin={-10,-110}), iconTransformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={-10,-110})));
   Modelica.Blocks.Interfaces.RealOutput yVal2 "Valve position" annotation (
       Placement(transformation(
-        extent={{-20,-20},{20,20}},
+        extent={{-10,-10},{10,10}},
         rotation=-90,
-        origin={30,-120}), iconTransformation(
+        origin={30,-110}), iconTransformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={30,-110})));
   Modelica.Blocks.Interfaces.RealOutput yVal1 "Valve position" annotation (
       Placement(transformation(
-        extent={{-20,-20},{20,20}},
+        extent={{-10,-10},{10,10}},
         rotation=-90,
-        origin={70,-120}), iconTransformation(
+        origin={70,-110}), iconTransformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={70,-110})));
@@ -137,15 +137,9 @@ equation
   connect(conZero.y,swiFloDirVal2. u1) annotation (Line(points={{-79,-50},{-10,-50},
           {-10,-22},{-2,-22}},
                              color={0,0,127}));
-  connect(booFloDir,swiFloDirPum2. u2) annotation (Line(points={{-120,10},{-56,10},
-          {-56,-30},{-52,-30}},
+  connect(booFloDir,swiFloDirPum2. u2) annotation (Line(points={{-110,10},{-62,
+          10},{-62,-30},{-52,-30}},
                               color={255,0,255}));
-  connect(booFloDir,swiFloDirVal2. u2) annotation (Line(points={{-120,10},{-6,10},
-          {-6,-30},{-2,-30}},
-                            color={255,0,255}));
-  connect(booFloDir,swiFloDirVal1. u2) annotation (Line(points={{-120,10},{46,10},
-          {46,-30},{48,-30}},
-                            color={255,0,255}));
   connect(conPI_pum2.y,gaiPum2. u)
     annotation (Line(points={{-70,49},{-70,42}},   color={0,0,127}));
   connect(gaiPum2.y,swiFloDirPum2. u1)
@@ -157,27 +151,34 @@ equation
     annotation (Line(points={{-20,19},{-20,-38},{-2,-38}},
                                                          color={0,0,127}));
     connect(conPI_pum2.u_s, us_mTan_flow)
-      annotation (Line(points={{-70,72},{-70,120}}, color={0,0,127}));
-    connect(conPI_val2.u_s, us_mTan_flow) annotation (Line(points={{-20,72},{-20,
-            94},{-70,94},{-70,120}}, color={0,0,127}));
-    connect(conPI_val2.u_m, um_mTan_flow) annotation (Line(points={{-8,60},{-2,
-            60},{-2,96},{-10,96},{-10,120}}, color={0,0,127}));
-    connect(conPI_pum2.u_m, um_mTan_flow) annotation (Line(points={{-58,60},{-52,
-            60},{-52,96},{-10,96},{-10,120}}, color={0,0,127}));
+      annotation (Line(points={{-70,72},{-70,110}}, color={0,0,127}));
+    connect(conPI_val2.u_s, us_mTan_flow) annotation (Line(points={{-20,72},{
+          -20,80},{-70,80},{-70,110}},
+                                     color={0,0,127}));
+    connect(conPI_val2.u_m, um_mTan_flow) annotation (Line(points={{-8,60},{0,
+          60},{0,110}},                      color={0,0,127}));
+    connect(conPI_pum2.u_m, um_mTan_flow) annotation (Line(points={{-58,60},{
+          -50,60},{-50,90},{0,90},{0,110}},   color={0,0,127}));
   connect(swiOnOff.u2, onOffLin)
-    annotation (Line(points={{-62,-80},{-120,-80}}, color={255,0,255}));
+    annotation (Line(points={{-62,-80},{-110,-80}}, color={255,0,255}));
   connect(swiOnOff.y, minPum2.u2) annotation (Line(points={{-38,-80},{-34,-80},{
           -34,-56},{-16,-56},{-16,-68}}, color={0,0,127}));
   connect(swiOnOff.y, minVal2.u2) annotation (Line(points={{-38,-80},{-34,-80},{
           -34,-56},{24,-56},{24,-68}}, color={0,0,127}));
   connect(swiOnOff.y, minVal1.u2) annotation (Line(points={{-38,-80},{-34,-80},{
           -34,-56},{64,-56},{64,-68}}, color={0,0,127}));
-  connect(minPum2.y, yPum2) annotation (Line(points={{-10,-92},{-10,-106},{-10,-106},
-          {-10,-120}}, color={0,0,127}));
+  connect(minPum2.y, yPum2) annotation (Line(points={{-10,-92},{-10,-110}},
+                       color={0,0,127}));
   connect(minVal2.y, yVal2)
-    annotation (Line(points={{30,-92},{30,-120}}, color={0,0,127}));
+    annotation (Line(points={{30,-92},{30,-110}}, color={0,0,127}));
   connect(minVal1.y, yVal1)
-    annotation (Line(points={{70,-92},{70,-120}}, color={0,0,127}));
+    annotation (Line(points={{70,-92},{70,-110}}, color={0,0,127}));
+  connect(swiFloDirVal2.u2, booFloDir) annotation (Line(points={{-2,-30},{-6,
+          -30},{-6,10},{-110,10}}, color={255,0,255}));
+  connect(swiFloDirVal1.u2, booFloDir) annotation (Line(points={{48,-30},{44,
+          -30},{44,10},{-110,10}}, color={255,0,255}));
+  connect(yVal1, yVal1)
+    annotation (Line(points={{70,-110},{70,-110}}, color={0,0,127}));
   annotation (Diagram(coordinateSystem(extent={{-100,-100},{100,100}})), Icon(
         coordinateSystem(extent={{-100,-100},{100,100}})));
 end ReversiblePumpValveControl;

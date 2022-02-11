@@ -119,7 +119,7 @@ equation
   connect(cat.port_b, preDro1.port_a)
     annotation (Line(points={{-40,0},{-10,0}}, color={0,127,255}));
   connect(preDro1.port_b, con.port_a)
-    annotation (Line(points={{10,0},{39.8,0}}, color={0,127,255}));
+    annotation (Line(points={{10,0},{40,0}},   color={0,127,255}));
   connect(con.port_b, preDro2.port_a)
     annotation (Line(points={{60,0},{60,-40},{10,-40}}, color={0,127,255}));
   connect(preDro2.port_b, cat.port_a)

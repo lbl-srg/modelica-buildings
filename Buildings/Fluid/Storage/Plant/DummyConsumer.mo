@@ -80,7 +80,7 @@ the consumer control valve simply tracks the return CHW temperature.
     h_outflow(start=Medium.h_default, nominal=Medium.h_default))
     "Fluid connector a (positive design flow direction is from port_a to port_b)"
     annotation (Placement(transformation(extent={{-110,-10},{-90,10}}),
-        iconTransformation(extent={{-112,-10},{-92,10}})));
+        iconTransformation(extent={{-110,-10},{-90,10}})));
   Modelica.Fluid.Interfaces.FluidPort_b port_b(
     p(start=p_b_nominal),
     redeclare package Medium = Medium,
