@@ -282,7 +282,7 @@ annotation (defaultComponentName="ove",
           pattern=LinePattern.Dash,
           textString="uDamSet"),
         Text(
-          extent={{-98,28},{-48,14}},
+          extent={{-96,28},{-46,14}},
           lineColor={255,127,0},
           pattern=LinePattern.Dash,
           textString="oveDamPos"),

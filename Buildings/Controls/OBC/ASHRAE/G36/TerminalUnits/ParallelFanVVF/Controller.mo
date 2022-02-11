@@ -382,6 +382,7 @@ block Controller
     final durTimDisAir=durTimDisAir,
     final dTHys=dTHys,
     final floHys=floHys,
+    final looHys=looHys,
     final damPosHys=damPosHys,
     final valPosHys=valPosHys) "Specify system requests "
     annotation (Placement(transformation(extent={{140,-160},{160,-140}})));
@@ -460,7 +461,8 @@ block Controller
     final looHys=looHys,
     final floHys=floHys) "Damper and valve control"
     annotation (Placement(transformation(extent={{20,0},{40,40}})));
-  Buildings.Controls.OBC.ASHRAE.G36.ThermalZones.ZoneStates zonSta if have_CO2Sen
+  Buildings.Controls.OBC.ASHRAE.G36.ThermalZones.ZoneStates zonSta(uLow=looHys,
+      uHigh=2*looHys)                                              if have_CO2Sen
     "Find if the zone is in heating, cooling, or deadband states"
     annotation (Placement(transformation(extent={{-140,220},{-120,240}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea1

@@ -152,6 +152,9 @@ block Controller "Controller for cooling only VAV box"
     final quantity="VolumeFlowRate")
     "Near zero flow rate, below which the flow rate or difference will be seen as zero"
     annotation (Dialog(tab="Advanced"));
+  parameter Real looHys(unit="1")
+    "Loop output hysteresis below which the output will be seen as zero"
+    annotation (Dialog(tab="Advanced"));
   parameter Real damPosHys(
     final unit="1")
     "Near zero damper position, below which the damper will be seen as closed"
@@ -295,6 +298,7 @@ block Controller "Controller for cooling only VAV box"
     final durTimFlo=durTimFlo,
     final dTHys=dTHys,
     final floHys=floHys,
+    final looHys=looHys,
     final damPosHys=damPosHys)
     "Specify system requests "
     annotation (Placement(transformation(extent={{120,-160},{140,-140}})));

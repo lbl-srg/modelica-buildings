@@ -757,7 +757,7 @@ calculation is done following the steps below.
 </p>
 <ol>
 <li>
-When the zone state is cooling (<code>uCoo>0</code>), then the cooling loop output
+When the zone state is cooling (<code>uCoo &gt; 0</code>), then the cooling loop output
 <code>uCoo</code> shall be mapped to the airflow
 setpoint from the cooling minimum <code>VActCooMin_flow</code> to the cooling maximum
 <code>VActCooMax_flow</code> airflow setpoints. The heating coil is disabled (<code>yHeaVal=0</code>)
@@ -778,7 +778,7 @@ The heating coil is disabled unless the discharge air temperature is below the m
 setpoint (10 &deg;C).
 </li>
 <li>
-When the zone state is Heating (<code>uHea>0</code>), then the heating loop shall
+When the zone state is Heating (<code>uHea &gt; 0</code>), then the heating loop shall
 maintain space temperature at the heating setpoint as follows:
 <ul>
 <li>

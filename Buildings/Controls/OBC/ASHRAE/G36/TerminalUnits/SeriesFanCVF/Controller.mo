@@ -360,6 +360,7 @@ block Controller "Controller for constant-volume series fan-powered terminal uni
     final durTimDisAir=durTimDisAir,
     final dTHys=dTHys,
     final floHys=floHys,
+    final looHys=looHys,
     final damPosHys=damPosHys,
     final valPosHys=valPosHys) "Specify system requests "
     annotation (Placement(transformation(extent={{140,-160},{160,-140}})));

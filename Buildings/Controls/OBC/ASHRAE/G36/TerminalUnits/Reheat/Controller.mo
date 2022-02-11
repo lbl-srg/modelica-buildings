@@ -415,6 +415,7 @@ block Controller "Controller for room VAV box with reheat"
     final durTimDisAir=durTimDisAir,
     final dTHys=dTHys,
     final floHys=floHys,
+    final looHys=looHys,
     final damPosHys=damPosHys,
     final valPosHys=valPosHys) "Specify system requests "
     annotation (Placement(transformation(extent={{120,-140},{140,-120}})));

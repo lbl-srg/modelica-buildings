@@ -2,7 +2,7 @@ within Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.DualDuctSnapActing.Subseq
 model DamperValves
   "Validate model for controlling damper and valve position of VAV reheat terminal unit"
 
-  Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.DualDuctSnapActing.Subsequences.DamperValves
+  DampersDualSensors
     damValReh(kDam=1, V_flow_nominal=2)
     "Output signal for controlling VAV reheat box damper and valve position"
     annotation (Placement(transformation(extent={{80,20},{100,60}})));
@@ -58,32 +58,18 @@ model DamperValves
     annotation (Placement(transformation(extent={{20,10},{40,30}})));
 
 equation
-  connect(VDis_flow.y, damValReh.VDis_flow)
-    annotation (Line(points={{42,-60},{78,-60},{78,59}}, color={0,0,127}));
-  connect(TDis.y, damValReh.TDis)
-    annotation (Line(points={{42,-20},{78,-20},{78,41}}, color={0,0,127}));
-  connect(VActCooMax_flow.y, damValReh.VActCooMax_flow) annotation (Line(points=
-         {{42,80},{50,80},{50,50},{78,50}}, color={0,0,127}));
-  connect(VActCooMin_flow.y, damValReh.VActCooMin_flow) annotation (Line(points=
-         {{-58,80},{-2,80},{-2,56},{78,56}}, color={0,0,127}));
-  connect(VActHeaMax_flow.y, damValReh.VActHeaMax_flow) annotation (Line(points=
-         {{-18,60},{-4,60},{-4,24},{78,24}}, color={0,0,127}));
-  connect(VActHeaMin_flow.y, damValReh.VActHeaMin_flow) annotation (Line(points=
-         {{-58,40},{-4,40},{-4,26},{78,26}}, color={0,0,127}));
-  connect(VActMin_flow.y, damValReh.VActMin_flow) annotation (Line(points={{-18,
-          20},{-2,20},{-2,44},{78,44}}, color={0,0,127}));
+  connect(VActCooMax_flow.y, damValReh.VActCooMax_flow) annotation (Line(points={{42,80},
+          {50,80},{50,56},{78,56}},         color={0,0,127}));
+  connect(VActHeaMax_flow.y, damValReh.VActHeaMax_flow) annotation (Line(points={{-18,60},
+          {-4,60},{-4,27},{78,27}},          color={0,0,127}));
+  connect(VActMin_flow.y, damValReh.VActMin_flow) annotation (Line(points={{-18,20},
+          {-2,20},{-2,42},{78,42}},     color={0,0,127}));
   connect(uCoo.y, damValReh.uCoo)
-    annotation (Line(points={{-58,0},{0,0},{0,53},{78,53}}, color={0,0,127}));
+    annotation (Line(points={{-58,0},{0,0},{0,59},{78,59}}, color={0,0,127}));
   connect(uHea.y, damValReh.uHea) annotation (Line(points={{-18,-20},{2,-20},{2,
-          32},{78,32}}, color={0,0,127}));
-  connect(THeaSet.y, damValReh.TZonHeaSet) annotation (Line(points={{-58,-40},{
-          4,-40},{4,35},{78,35}}, color={0,0,127}));
-  connect(TSup.y, damValReh.TSup) annotation (Line(points={{-18,-60},{6,-60},{6,
-          47},{78,47}}, color={0,0,127}));
+          30},{78,30}}, color={0,0,127}));
   connect(TZon.y, damValReh.TZon) annotation (Line(points={{-58,-80},{8,-80},{8,
-          29},{78,29}}, color={0,0,127}));
-  connect(occSig.y, damValReh.uOpeMod) annotation (Line(points={{42,20},{50,20},
-          {50,21},{78,21}}, color={255,127,0}));
+          38},{78,38}}, color={0,0,127}));
 
 annotation (
   experiment(StopTime=86400, Tolerance=1e-6),

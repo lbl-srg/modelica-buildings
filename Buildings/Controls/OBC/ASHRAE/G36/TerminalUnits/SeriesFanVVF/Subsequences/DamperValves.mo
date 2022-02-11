@@ -853,7 +853,7 @@ calculation is done following the steps below.
 </p>
 <ol>
 <li>
-When the zone state is cooling (<code>uCoo>0</code>), then the cooling loop output
+When the zone state is cooling (<code>uCoo &gt; 0</code>), then the cooling loop output
 <code>uCoo</code> shall be mapped to the primary airflow
 setpoint from the minimum <code>VActMin_flow</code> to the cooling maximum
 <code>VActCooMax_flow</code> airflow setpoints.
@@ -872,7 +872,7 @@ the primary airflow setpoint shall be the minimum airflow setpoint <code>VActMin
 The heating coil is disabled (<code>yValSet=0</code>).
 </li>
 <li>
-When the zone state is Heating (<code>uHea>0</code>),
+When the zone state is Heating (<code>uHea &gt; 0</code>),
 <ul>
 <li>
 As the heating-loop output <code>uHea</code> increases from 0% to 50%, it shall reset
@@ -903,7 +903,7 @@ proven on (<code>uFan=true</code>) for a fixed time delay (15 seconds), the damp
 override is released.
 </li>
 <li>
-When the zone stats is cooling (<code>uCoo>0</code>), the series fan airflow setpoint
+When the zone stats is cooling (<code>uCoo &gt; 0</code>), the series fan airflow setpoint
 shall be the larger of <code>VOAMin_flow</code> and the <code>VDis_flow_Set</code>.
 If supply air temperature <code>TSup</code> from the AHU is greater than
 room temperature <code>TZon</code>, the series fan airflow setpoint shall be no higher
@@ -914,7 +914,7 @@ When the zone state is Deadband (<code>uCoo=0</code> and <code>uHea=0</code>),
 the series fan airflow setpoint shall be equal to <code>VOAMin_flow</code>.
 </li>
 <li>
-When the zone state is Heating (<code>uHea>0</code>), as the
+When the zone state is Heating (<code>uHea &gt; 0</code>), as the
 heating-loop output <code>uHea</code> increases from 50% to 100%, it shall reset
 the series fan airflow setpoint from <code>VOAMin_flow</code> to the maximum heating-fan
 airflow setpoint <code>maxRat</code>.

@@ -28,6 +28,9 @@ block SystemRequests "Output system requests for parallel fan-powered terminal u
   parameter Real floHys(unit="m3/s")
     "Near zero flow rate, below which the flow rate or difference will be seen as zero"
     annotation (Dialog(tab="Advanced"));
+  parameter Real looHys(unit="1")
+    "Loop output hysteresis below which the output will be seen as zero"
+    annotation (Dialog(tab="Advanced"));
   parameter Real damPosHys(unit="1")
     "Near zero damper position, below which the damper will be seen as closed"
     annotation (Dialog(tab="Advanced"));
@@ -143,8 +146,7 @@ protected
     "Check if damper position is greater than 0.95"
     annotation (Placement(transformation(extent={{-160,-60},{-140,-40}})));
   Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr(
-    final t=0.95,
-    final h=0.1)
+    final t=0.95, final h=looHys)
     "Check if cooling loop signal is greater than 0.95"
     annotation (Placement(transformation(extent={{-60,120},{-40,140}})));
   Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr4(

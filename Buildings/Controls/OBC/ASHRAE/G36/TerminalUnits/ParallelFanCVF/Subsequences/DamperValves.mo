@@ -656,7 +656,7 @@ calculation is done following the steps below.
 </p>
 <ol>
 <li>
-When the zone state is cooling (<code>uCoo>0</code>), then the cooling loop output
+When the zone state is cooling (<code>uCoo &gt; 0</code>), then the cooling loop output
 <code>uCoo</code> shall be mapped to the airflow
 setpoint from the minimum <code>VActMin_flow</code> to the cooling maximum
 <code>VActCooMax_flow</code> airflow setpoints.
@@ -675,7 +675,7 @@ the active airflow setpoint shall be the minimum airflow setpoint <code>VActMin_
 The heating coil is disabled (<code>yValSet=0</code>).
 </li>
 <li>
-When the zone state is Heating (<code>uHea>0</code>),
+When the zone state is Heating (<code>uHea &gt; 0</code>),
 <ul>
 <li>
 As the heating-loop output <code>uHea</code> increases from 0% to 100%, it shall reset

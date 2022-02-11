@@ -839,7 +839,7 @@ calculation is done following the steps below.
 </p>
 <ol>
 <li>
-When the zone state is cooling (<code>uCoo>0</code>), then the cooling loop output
+When the zone state is cooling (<code>uCoo &gt; 0</code>), then the cooling loop output
 <code>uCoo</code> shall be mapped to the primary airflow
 setpoint from the minimum <code>VActMin_flow</code> to the cooling maximum
 <code>VActCooMax_flow</code> airflow setpoints.
@@ -858,7 +858,7 @@ the primary airflow setpoint shall be the minimum airflow setpoint <code>VActMin
 The heating coil is disabled (<code>yValSet=0</code>).
 </li>
 <li>
-When the zone state is Heating (<code>uHea>0</code>),
+When the zone state is Heating (<code>uHea &gt; 0</code>),
 <ul>
 <li>
 As the heating-loop output <code>uHea</code> increases from 0% to 50%, it shall reset
@@ -882,7 +882,7 @@ airflow at the setpoint.
 Fan control
 <ul>
 <li>
-When the zone stats is cooling (<code>uCoo>0</code>), in occupied mode only, the
+When the zone stats is cooling (<code>uCoo &gt; 0</code>), in occupied mode only, the
 parallel fan starts when primary airflow (<code>VDis_flow</code>) drops below the
 minimum airflow outdoor airflow <code>VOAMin_flow</code> minus half of the minium fan
 rate <code>minRat</code> and shuts off when primary airflow rises above the
@@ -896,7 +896,7 @@ is equal to <code>VOAMin_flow</code> minus the current primary airflow setpoint
 <code>VDis_flow_Set</code>.
 </li>
 <li>
-When the zone state is Heating (<code>uHea>0</code>), fan shall run. As the
+When the zone state is Heating (<code>uHea &gt; 0</code>), fan shall run. As the
 heating-loop output <code>uHea</code> increases from 50% to 100%, it shall reset
 the fan airflow setpoint from the setpoint required in deadband proportionally
 up to the maximum heating-fan airflow setpoint <code>maxRat</code>.
