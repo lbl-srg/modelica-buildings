@@ -81,7 +81,7 @@ partial model ChillerAndTank
         rotation=0,
         origin={-110,90})));
 
-  Buildings.Fluid.Storage.Plant.DummyChillSource ideChi(
+  Buildings.Fluid.Storage.Plant.TemperatureSource ideChi(
     redeclare package Medium = Medium,
     allowFlowReversal=allowFlowReversal1,
     m_flow_nominal=m1_flow_nominal,
@@ -89,7 +89,7 @@ partial model ChillerAndTank
     T_a_nominal=T_CHWR_nominal,
     T_b_nominal=T_CHWS_nominal) "Ideal chiller"
     annotation (Placement(transformation(extent={{-10,30},{10,50}})));
-  Buildings.Fluid.Storage.Plant.DummyChillSource ideTan(
+  Buildings.Fluid.Storage.Plant.TemperatureSource ideTan(
     redeclare package Medium = Medium,
     final allowFlowReversal=true,
     m_flow_nominal=m2_flow_nominal,
@@ -132,9 +132,9 @@ equation
   connect(ideTan.port_b, preDro2.port_a)
     annotation (Line(points={{10,-60},{40,-60}}, color={0,127,255}));
   connect(jun1.port_3, ideTan.port_a) annotation (Line(points={{-80,-10},{-80,
-          -60},{-10.2,-60}}, color={0,127,255}));
+          -60},{-10,-60}},   color={0,127,255}));
   connect(pum1.port_b, ideChi.port_a)
-    annotation (Line(points={{-40,40},{-10.2,40}}, color={0,127,255}));
+    annotation (Line(points={{-40,40},{-10,40}},   color={0,127,255}));
   connect(jun1.port_2, pum1.port_a) annotation (Line(points={{-70,0},{-64,0},{-64,
           40},{-60,40}}, color={0,127,255}));
   connect(pum1.m_flow_in, set_mPum1_flow)

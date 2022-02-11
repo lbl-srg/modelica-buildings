@@ -1,6 +1,6 @@
 within Buildings.Fluid.Storage.Plant;
-model DummyChillSource
-  "An ideal chill (or heat if flow direction reversed) source that always sets the fluid passing through to the prescribed enthalpy"
+model TemperatureSource
+  "An ideal source that sets fluid temperature to the prescribed value"
 
   replaceable package Medium =
     Modelica.Media.Interfaces.PartialMedium "Medium in the component";
@@ -16,50 +16,20 @@ model DummyChillSource
   parameter Boolean allowFlowReversal=false
     "Flow reversal setting";
 
-  MixingVolumes.MixingVolume vol(
-    nPorts=2,
-    final prescribedHeatFlowRate=true,
-    redeclare package Medium = Medium,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    m_flow_nominal=m_flow_nominal,
-    allowFlowReversal=allowFlowReversal,
-    V=1E-3,
-    p_start=p_nominal,
-    T_start=T_b_nominal) "Volume"
-    annotation (
-      Placement(transformation(
-        origin={0,20},
-        extent={{-10,10},{10,-10}},
-        rotation=180)));
-  Sensors.TemperatureTwoPort T_a(
+  Buildings.Fluid.Sensors.TemperatureTwoPort T_a(
     redeclare package Medium = Medium,
     allowFlowReversal=allowFlowReversal,
     m_flow_nominal=m_flow_nominal,
     T_start=T_a_nominal,
     tauHeaTra=1) "Temperature sensor to port_a"
     annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
-  Sensors.TemperatureTwoPort T_b(
+  Buildings.Fluid.Sensors.TemperatureTwoPort T_b(
     redeclare package Medium = Medium,
     allowFlowReversal=allowFlowReversal,
     m_flow_nominal=m_flow_nominal,
     T_start=T_b_nominal,
     tauHeaTra=1) "Temperature sensor to port_b"
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
-  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow heaChi
-    "Prescribed heat flow"
-    annotation (Placement(transformation(extent={{2,38},{22,58}})));
-  Modelica.Blocks.Sources.RealExpression QVol(y=if allowFlowReversal and
-        mVol_flow.m_flow < 0 then mVol_flow.m_flow*(T_b.port_a.h_outflow -
-        Medium.specificEnthalpy(state=Medium.setState_pTX(
-        p=p_nominal,
-        T=T_a_nominal,
-        X={1.}))) else mVol_flow.m_flow*(Medium.specificEnthalpy(state=
-        Medium.setState_pTX(
-        p=p_nominal,
-        T=T_b_nominal,
-        X={1.})) - T_a.port_b.h_outflow))
-    "Heat flow that sets the flow to the desired state"
-    annotation (Placement(transformation(extent={{-30,38},{-10,58}})));
   Modelica.Fluid.Interfaces.FluidPort_a port_a(
     p(start=p_nominal),
     redeclare package Medium = Medium,
@@ -74,7 +44,7 @@ model DummyChillSource
     "Fluid connector b (positive design flow direction is from port_a to port_b)"
     annotation (Placement(transformation(extent={{110,-10},{90,10}}),
         iconTransformation(extent={{110,-10},{90,10}})));
-  Sensors.MassFlowRate mVol_flow(
+  Buildings.Fluid.Sensors.MassFlowRate mVol_flow(
     redeclare package Medium = Medium,
     final allowFlowReversal=true) "Flow rate sensor"
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
@@ -86,26 +56,32 @@ model DummyChillSource
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={-70,110})));
+  Buildings.Fluid.Sources.PropertySource_T proSouT(
+    redeclare package Medium = Medium,
+    use_T_in=true)
+    "Property source that prescribes the temperature"
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
+  Modelica.Blocks.Sources.RealExpression setT(y(unit="K", displayUnit="degC")=
+    if m_flow<0 and allowFlowReversal then
+      12+273.15
+    else
+      7+273.15) "Set temperature"
+    annotation (Placement(transformation(extent={{-40,30},{-20,50}})));
 equation
-  connect(T_a.port_b, vol.ports[1])
-    annotation (Line(points={{-20,0},{1,0},{1,10}}, color={0,127,255}));
-  connect(T_b.port_a, vol.ports[2])
-    annotation (Line(points={{20,0},{-1,0},{-1,10}}, color={0,127,255}));
-  connect(heaChi.port,vol. heatPort)
-    annotation (Line(points={{22,48},{28,48},{28,20},{10,20}},
-                                                       color={191,0,0}));
-  connect(QVol.y,heaChi. Q_flow)
-    annotation (Line(points={{-9,48},{2,48}}, color={0,0,127}));
   connect(T_b.port_b, port_b)
     annotation (Line(points={{40,0},{100,0}}, color={0,127,255}));
   connect(T_a.port_a, mVol_flow.port_b)
     annotation (Line(points={{-40,0},{-60,0}}, color={0,127,255}));
   connect(mVol_flow.port_a, port_a)
     annotation (Line(points={{-80,0},{-100,0}}, color={0,127,255}));
-  connect(m_flow, m_flow)
-    annotation (Line(points={{-70,110},{-70,110}}, color={0,0,127}));
   connect(mVol_flow.m_flow, m_flow)
     annotation (Line(points={{-70,11},{-70,110}}, color={0,0,127}));
+  connect(T_a.port_b, proSouT.port_a)
+    annotation (Line(points={{-20,0},{-10,0}}, color={0,127,255}));
+  connect(proSouT.port_b, T_b.port_a)
+    annotation (Line(points={{10,0},{20,0}}, color={0,127,255}));
+  connect(setT.y, proSouT.T_in)
+    annotation (Line(points={{-19,40},{-4,40},{-4,12}}, color={0,0,127}));
 annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={Ellipse(
           extent={{-100,100},{100,-100}},
           lineColor={28,108,200},
@@ -130,4 +106,4 @@ annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={Ellipse(
           textColor={0,0,255},
           textString="%name")}),                                           Diagram(
         coordinateSystem(preserveAspectRatio=false)));
-end DummyChillSource;
+end TemperatureSource;

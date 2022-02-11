@@ -22,7 +22,7 @@ model TwoSourcesThreeUsers
     "Flow reversal setting";
 
 
-  Buildings.Fluid.Storage.Plant.DummyChillSource chi1(
+  Buildings.Fluid.Storage.Plant.TemperatureSource chi1(
     redeclare final package Medium = Medium,
     allowFlowReversal=true,
     m_flow_nominal=m_flow_nominal,

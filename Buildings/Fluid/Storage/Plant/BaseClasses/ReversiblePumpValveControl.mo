@@ -19,9 +19,7 @@ block ReversiblePumpValveControl
     controllerType=Modelica.Blocks.Types.SimpleController.PI,
     Td=1,
     k=5,
-    Ti=50,
-    reverseActing=false)
-             "PI controller for pum2" annotation (Placement(transformation(
+    Ti=50)   "PI controller for pum2" annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
         rotation=270,
         origin={-70,60})));
