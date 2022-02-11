@@ -1,18 +1,20 @@
-within Buildings.Examples.ScalableBenchmarks.ZoneScaling.MixedAir;
-model Large2Floors
-  "Model of a large building with 2 floors and 10 conditioned zones"
+within Buildings.Examples.ScalableBenchmarks.ZoneScaling;
+model Detailed "Model of a large building with detailed zone models"
   extends Modelica.Icons.Example;
   extends
     Buildings.Examples.ScalableBenchmarks.ZoneScaling.BaseClasses.HVACMultiFloorBuilding(
-    numFlo=2,
-    redeclare final Buildings.Examples.ScalableBenchmarks.ZoneScaling.MixedAir.BaseClasses.LargeOfficeFloor flo(
-      each sampleModel=true),
+    bldgSize=Buildings.Examples.ScalableBenchmarks.ZoneScaling.BaseClasses.Types.BuildingSize.TwoFloors,
+    redeclare final
+      Buildings.Examples.ScalableBenchmarks.ZoneScaling.BaseClasses.DetailedLargeOfficeFloor
+      flo(each sampleModel=true),
     redeclare final Buildings.Examples.VAVReheat.BaseClasses.Guideline36 hvac);
 
     annotation (
 experiment(
-      StopTime=432000,
+      StopTime=172800,
       Tolerance=1e-05),
+  __Dymola_Commands(file="Resources/Scripts/Dymola/Examples/ScalableBenchmarks/ZoneScaling/Detailed.mos"
+    "Simulate and Plot"),
 Documentation(info="<html>
 <p>
 Example model of a large office building with 10 thermal zones
@@ -29,4 +31,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end Large2Floors;
+end Detailed;

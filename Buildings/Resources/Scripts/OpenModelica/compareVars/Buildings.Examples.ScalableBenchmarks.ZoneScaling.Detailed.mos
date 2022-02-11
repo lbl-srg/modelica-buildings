@@ -1,0 +1,13 @@
+compareVars :=
+  {
+    "flo[1].TRooAir[1]",
+    "flo[1].TRooAir[2]",
+    "flo[1].TRooAir[3]",
+    "flo[1].TRooAir[4]",
+    "flo[1].TRooAir[5]",
+    "flo[2].TRooAir[1]",
+    "flo[2].TRooAir[2]",
+    "flo[2].TRooAir[3]",
+    "flo[2].TRooAir[4]",
+    "flo[2].TRooAir[5]"
+  };

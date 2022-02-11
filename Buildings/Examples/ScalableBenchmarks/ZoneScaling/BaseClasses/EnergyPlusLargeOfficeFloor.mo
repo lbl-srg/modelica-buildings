@@ -1,5 +1,6 @@
-within Buildings.Examples.ScalableBenchmarks.ZoneScaling.EnergyPlus.BaseClasses;
-model LargeOfficeFloor "Model of a single floor of a large office building"
+within Buildings.Examples.ScalableBenchmarks.ZoneScaling.BaseClasses;
+model EnergyPlusLargeOfficeFloor
+  "Model of a single floor of a large office building using EnergyPlus envelope models"
   parameter Integer floId "Floor id";
 
   extends Buildings.Examples.VAVReheat.BaseClasses.PartialFloor(
@@ -413,4 +414,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end LargeOfficeFloor;
+end EnergyPlusLargeOfficeFloor;

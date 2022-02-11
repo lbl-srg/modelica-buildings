@@ -522,7 +522,7 @@ active facade control, or to control lights and equipment schedules that contrib
 to heat gains in the room and its surfaces.
 </p>
 <p>
-This implmentation uses EnergyPlus 9.6.0.
+This implementation uses EnergyPlus 9.6.0.
 Windows 64 bit and Linux 64 bit are supported.
 See
 <a href=\"modelica://Buildings.ThermalZones.EnergyPlus.UsersGuide.InvokingEnergyPlus\">

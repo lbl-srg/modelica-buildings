@@ -6,20 +6,7 @@ import numpy as np
 from dataclasses import dataclass
 
 """
-The main usage of the functions in this file are to read, scale and write energyplus models that
-have been manually templated to be scaled to N number of floors.
-The templated raw idf contains anchors {mid} and {top} to identify objects that are specific to 
-middle and top floors, and the function scale_building_template is used to find these anchors,
-multiply middle floors and their components (zones, lights, loads, envelope) and inform the 
-coordinates of new middle floors and top floor.
-
-See Buildings/Resources/Data/Examples/ZoneScaling/raw/RefBldgLargeOfficeNew2004_Chicago_template.idf
-for an example of a template.
-
-The typical process for creating a new scaled model is:
-    template = read_idf(template_path)
-    scaled = scale_building_template(template, floor_count)
-    write_idf(scaled, output_path)
+See README.md for instructions
 """
 
 IDF_CHAR_LIMIT = 100

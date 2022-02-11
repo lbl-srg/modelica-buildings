@@ -1,4 +1,4 @@
-within Buildings.Examples.ScalableBenchmarks;
+﻿within Buildings.Examples.ScalableBenchmarks;
 package ZoneScaling "Collection of scalable models for validating thermal zones"
 annotation (Documentation(revisions="<html>
 <ul>
