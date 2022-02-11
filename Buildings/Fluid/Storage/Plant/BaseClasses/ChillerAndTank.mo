@@ -117,8 +117,19 @@ partial model ChillerAndTank
         extent={{10,-10},{-10,10}},
         rotation=90,
         origin={90,-110})));
+  Buildings.Fluid.Movers.SpeedControlled_y pum2(
+    redeclare package Medium = Medium,
+    per(pressure(dp=dp_nominal*{2,1.2,0}, V_flow=(m1_flow_nominal +
+            m2_flow_nominal)/1.2*{0,1.2,2})),
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    allowFlowReversal=true,
+    addPowerToMedium=false,
+    y_start=0,
+    T_start=T_CHWR_nominal) "Secondary pump" annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=0,
+        origin={-150,20})));
 equation
-
   connect(preDro2.port_b, jun2.port_3)
     annotation (Line(points={{60,-60},{100,-60},{100,-10}},
                                                  color={0,127,255}));

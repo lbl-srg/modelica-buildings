@@ -58,14 +58,16 @@ model TemperatureSource
         origin={-70,110})));
   Buildings.Fluid.Sources.PropertySource_T proSouT(
     redeclare package Medium = Medium,
-    use_T_in=true)
+    final use_T_in=true,
+    final allowFlowReversal=allowFlowReversal)
     "Property source that prescribes the temperature"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
-  Modelica.Blocks.Sources.RealExpression setT(y(unit="K", displayUnit="degC")=
-    if m_flow<0 and allowFlowReversal then
-      12+273.15
-    else
-      7+273.15) "Set temperature"
+  Modelica.Blocks.Sources.RealExpression setT(
+    y(final unit="K", final displayUnit="degC")=
+      if m_flow<0 and allowFlowReversal then
+        12+273.15
+      else
+        7+273.15) "Set temperature"
     annotation (Placement(transformation(extent={{-40,30},{-20,50}})));
 equation
   connect(T_b.port_b, port_b)

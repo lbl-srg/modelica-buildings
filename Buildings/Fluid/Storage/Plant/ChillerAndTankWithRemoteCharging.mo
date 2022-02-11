@@ -23,21 +23,7 @@ model ChillerAndTankWithRemoteCharging
         rotation=0,
         origin={-110,50})));
 
-  Buildings.Fluid.Movers.SpeedControlled_y pum2(
-    redeclare package Medium = Medium,
-    per(pressure(
-          dp=dp_nominal*{2,1.2,0},
-          V_flow=(m1_flow_nominal+m2_flow_nominal)/1.2*{0,1.2,2})),
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    allowFlowReversal=true,
-    addPowerToMedium=false,
-    y_start=0,
-    T_start=T_CHWR_nominal)
-    "Secondary pump"
-    annotation (Placement(transformation(
-        extent={{-160,10},{-140,30}},
-        rotation=0)));
-  Actuators.Valves.TwoWayEqualPercentage val1(
+  Buildings.Fluid.Actuators.Valves.TwoWayEqualPercentage val1(
     redeclare package Medium = Medium,
     use_inputFilter=false,
     l=1E-10,
@@ -45,7 +31,7 @@ model ChillerAndTankWithRemoteCharging
     m_flow_nominal=m1_flow_nominal+m2_flow_nominal)
     "Valve in series to the pump (normal direction)"
     annotation (Placement(transformation(extent={{-120,10},{-100,30}})));
-  Actuators.Valves.TwoWayEqualPercentage val2(
+  Buildings.Fluid.Actuators.Valves.TwoWayEqualPercentage val2(
     redeclare package Medium = Medium,
     use_inputFilter=false,
     l=1E-10,
@@ -64,12 +50,6 @@ equation
           0},{-180,0}}, color={0,127,255}));
   connect(val1.port_b, jun1.port_1) annotation (Line(points={{-100,20},{-94,20},
           {-94,0},{-90,0}}, color={0,127,255}));
-  connect(val1.port_a, pum2.port_b)
-    annotation (Line(points={{-120,20},{-140,20}}, color={0,127,255}));
-  connect(pum2.port_a, port_a) annotation (Line(points={{-160,20},{-164,20},{-164,
-          0},{-180,0}}, color={0,127,255}));
-  connect(pum2Con.yPum2, pum2.y) annotation (Line(points={{-131,56.9},{-131,38},
-          {-150,38},{-150,32}}, color={0,0,127}));
   connect(pum2Con.yVal2, val2.y) annotation (Line(points={{-127,56.9},{-127,-2},
           {-130,-2},{-130,-8}}, color={0,0,127}));
   connect(pum2Con.yVal1, val1.y) annotation (Line(points={{-123,56.9},{-110,56.9},
@@ -79,6 +59,12 @@ equation
         color={0,0,127}));
   connect(pum2Con.us_mTan_flow, set_mTan_flow) annotation (Line(points={{-141,
           72.3},{-160,72.3},{-160,110}}, color={0,0,127}));
+  connect(pum2.port_a, port_a) annotation (Line(points={{-160,20},{-164,20},{
+          -164,0},{-180,0}}, color={0,127,255}));
+  connect(pum2.port_b, val1.port_a)
+    annotation (Line(points={{-140,20},{-120,20}}, color={0,127,255}));
+  connect(pum2.y, pum2Con.yPum2) annotation (Line(points={{-150,32},{-150,50},{
+          -131,50},{-131,56.9}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
             {100,100}}),       graphics={Line(
           points={{-80,-20},{-20,-20}},
