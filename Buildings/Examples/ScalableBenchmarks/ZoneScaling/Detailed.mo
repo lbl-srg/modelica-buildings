@@ -12,8 +12,8 @@ model Detailed "Model of a large building with detailed zone models"
     annotation (
 experiment(
       StopTime=172800,
-      Tolerance=1e-06),
-  __Dymola_Commands(file="Resources/Scripts/Dymola/Examples/ScalableBenchmarks/ZoneScaling/Detailed.mos"
+      Tolerance=1e-05),
+  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Examples/ScalableBenchmarks/ZoneScaling/Detailed.mos"
     "Simulate and Plot"),
 Documentation(info="<html>
 <p>

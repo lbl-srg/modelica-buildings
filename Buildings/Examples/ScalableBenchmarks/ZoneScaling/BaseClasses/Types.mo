@@ -3,9 +3,9 @@ package Types "Package with type definitions"
   extends Modelica.Icons.TypesPackage;
 
   type BuildingSize = enumeration(
-      TwoFloors "Large building with 2 floors, 10 zones",
-      FourFloors "Large building with 4 floors, 10 zones",
-      TenFloors "Large building with 10 floors, 10 zones")
+      TwoFloors "Building with 2 floors and 2 HVAC systems, serving a total of 10 zones",
+      FourFloors "Building with 4 floors and 4 HVAC systems, serving a total of 40 zones",
+      TenFloors "Building with 10 floors and 10 HVAC systems, serving a total of 100 zones")
       "Building size" annotation (
       Documentation(info="<html>
 <p>
@@ -13,13 +13,13 @@ Enumeration for the size of building in scalable models.
 </p>
 <ol>
 <li>
-TwoFloors
+TwoFloors: Building with 2 floors and 2 HVAC systems, serving a total of 10 zones.
 </li>
 <li>
-FourFloors
+FourFloors: Building with 4 floors and 4 HVAC systems, serving a total of 40 zones.
 </li>
 <li>
-TenFloors
+TenFloors: Building with 10 floors and 10 HVAC systems, serving a total of 100 zones.
 </li>
 </ol>
 </html>", revisions="<html>

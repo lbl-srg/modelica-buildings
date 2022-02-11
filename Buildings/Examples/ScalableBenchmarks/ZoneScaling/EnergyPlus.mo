@@ -33,7 +33,7 @@ experiment(
       StopTime=172800,
       Tolerance=1e-06,
       __Dymola_Algorithm="Cvode"),
-  __Dymola_Commands(file="Resources/Scripts/Dymola/Examples/ScalableBenchmarks/ZoneScaling/EnergyPlus.mos"
+  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Examples/ScalableBenchmarks/ZoneScaling/EnergyPlus.mos"
         "Simulate and Plot"),
 Documentation(revisions="<html>
 <ul>
