@@ -40,7 +40,7 @@
     simulate: false
 - model_name: Buildings.Electrical.AC.ThreePhasesUnbalanced.Validation.IEEETests.Test4NodesFeeder.BalancedStepDown.DD
   openmodelica:
-    comment: returned non-zero exit status 10.
+    comment: Internal error IndexReduction.pantelidesIndexReduction failed
     translate: false
 - model_name: Buildings.Electrical.AC.ThreePhasesUnbalanced.Validation.IEEETests.Test4NodesFeeder.BalancedStepDown.YD
   openmodelica:
@@ -81,10 +81,6 @@
   optimica:
     rtol: 1.0e-08
     solver: CVode
-- model_name: Buildings.Examples.ScalableBenchmarks.BuildingVAV.Examples.OneFloor_OneZone
-  openmodelica:
-    comment: omc returned non-zero exit status 255.
-    simulate: false
 - model_name: Buildings.Examples.VAVCO2.VAVSystemCTControl
   optimica:
     comment: Fails with 'The rootfinding function failed in an unrecoverable manner.' Since oct-r26446
@@ -107,7 +103,7 @@
     simulate: false
 - model_name: Buildings.Experimental.DHC.EnergyTransferStations.Combined.Examples.ChillerBorefield
   openmodelica:
-    comment: returned non-zero exit status 139.
+    comment: Process crashed.
     simulate: false
 - model_name: Buildings.Experimental.DHC.EnergyTransferStations.Combined.Examples.ChillerOnly
   openmodelica:
@@ -127,27 +123,15 @@
     simulate: false
 - model_name: Buildings.Experimental.DHC.Examples.Combined.ParallelConstantFlow
   openmodelica:
-    comment: returned non-zero exit status 10.
+    comment: Dimension 1 of cooBor, 'borFie.nBor', could not be evaluated due to a cyclic dependency
     translate: false
 - model_name: Buildings.Experimental.DHC.Examples.Combined.SeriesConstantFlow
   openmodelica:
-    comment: returned non-zero exit status 10.
+    comment: Dimension 1 of cooBor, 'borFie.nBor', could not be evaluated due to a cyclic dependency
     translate: false
 - model_name: Buildings.Experimental.DHC.Examples.Combined.SeriesVariableFlow
   openmodelica:
-    comment: returned non-zero exit status 10.
-    translate: false
-- model_name: Buildings.Experimental.DHC.Loads.BaseClasses.Examples.CouplingRCZ6
-  openmodelica:
-    comment: returned non-zero exit status 10.
-    translate: false
-- model_name: Buildings.Experimental.DHC.Loads.BaseClasses.Examples.CouplingSpawnZ6
-  openmodelica:
-    comment: returned non-zero exit status 10.
-    translate: false
-- model_name: Buildings.Experimental.DHC.Loads.BaseClasses.Validation.BenchmarkFlowDistribution2
-  openmodelica:
-    comment: returned non-zero exit status 10.
+    comment: Dimension 1 of cooBor, 'borFie.nBor', could not be evaluated due to a cyclic dependency
     translate: false
 - model_name: Buildings.Experimental.DHC.Loads.BaseClasses.Validation.FlowDistributionPumpControl
   optimica:
@@ -155,7 +139,7 @@
     simulate: false
 - model_name: Buildings.Experimental.DHC.Plants.Cooling.Examples.ElectricChillerParallel
   openmodelica:
-    comment: returned non-zero exit status 1
+    comment: 'division by zero at time 0, (a=0) / (b=0), where divisor b expression is: 0.0'
     simulate: false
 - model_name: Buildings.Fluid.Examples.FlowSystem.Basic
   openmodelica:
@@ -165,7 +149,7 @@
     simulate: false
 - model_name: Buildings.Fluid.Examples.FlowSystem.Simplified1
   openmodelica:
-    comment: returned non-zero exit status 10.
+    comment: Unable to find component bui.THotWatSupSet
     translate: false
   optimica:
     simulate: false
@@ -223,10 +207,6 @@
   openmodelica:
     comment: returned non-zero exit status 255.
     simulate: false
-- model_name: Buildings.Fluid.Geothermal.BuriedPipes.Validation.GroundCouplingAIT
-  openmodelica:
-    comment: returned non-zero exit status 10.
-    translate: false
 - model_name: Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Examples.ApparatusDewPoint
   openmodelica:
     comment: '''omc'' caused ''simulation terminated by an assertion at initialization''.'
