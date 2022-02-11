@@ -36,3 +36,7 @@ This model is a manual transformation of the reference building model. The follo
 - All surfaces coordinates are offset to be relative to the origin point of their respective zone. This is done using the `offset_surface_coordinates` utility function in makeEplusBuilding.py.
 - If an object name contains the string "mid" or "top", these strings are replaced with anchors _{mid}_ and _{top}_ respectively. After scaling, these anchors will take the value "fl{i}" with i being the floor that object belongs to.
 - Zone object elevation for middle and top floors are replaced with anchors _{midZ}_ or _{topZ}_ respectively. After scaling, these anchors will take the value of that floor elevation.
+
+## Updating EnergyPlus version
+
+The original and template models can be ran through IDF version updater that is released with new versions of EnergyPlus. The existing scaled models can either be updated with the IDF version updater or by running the `scale_building_template` utility function from the updated template model.
