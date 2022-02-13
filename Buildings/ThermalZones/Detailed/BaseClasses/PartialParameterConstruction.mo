@@ -13,9 +13,9 @@ record PartialParameterConstruction "Partial record for constructions"
 
   parameter Modelica.Units.SI.Angle til "Surface tilt";
   parameter Modelica.Units.SI.Angle azi "Surface azimuth";
-  final parameter Boolean isFloor=til > 2.74889125 and til < 3.53428875
+  final parameter Boolean is_floor=til > 2.74889125 and til < 3.53428875
     "Flag, true if construction is a floor" annotation (Evaluate=true);
-  final parameter Boolean isCeiling=til > -0.392699 and til < 0.392699
+  final parameter Boolean is_ceiling=til > -0.392699 and til < 0.392699
     "Flag, true if construction is a floor" annotation (Evaluate=true);
 //  final parameter Integer nLay(min=1, fixed=true) = size(layers.material, 1)
 //    "Number of layers";
@@ -59,6 +59,12 @@ Buildings.Types.Tilt</a>
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+February 11, 2022, by Michael Wetter:<br/>
+Change parameter <code>isFloor</code> to <code>is_floor</code>,
+and <code>isCeiling</code> to <code>is_ceiling</code>,
+for consistency with naming convention.
+</li>
 <li>
 December 8, 2016, by Michael Wetter:<br/>
 Added parameters <code>stateAtSurface_a</code> and
