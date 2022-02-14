@@ -1,5 +1,5 @@
 within Buildings.Fluid.Storage.Plant.Validation;
-model DummyConsumer "Test model for the dummy consumer"
+model DummyUser "Test model for the dummy user"
   extends Modelica.Icons.Example;
 
   package Medium = Buildings.Media.Water "Medium model";
@@ -24,18 +24,15 @@ model DummyConsumer "Test model for the dummy consumer"
   parameter Boolean allowFlowReversal=false
     "Flow reversal setting";
 
-  Buildings.Fluid.Storage.Plant.DummyConsumer ideCon(
+  Buildings.Fluid.Storage.Plant.DummyUser ideUsr(
     redeclare package Medium = Medium,
-    vol(T_start=15+273.15),
+    vol(T_start=15 + 273.15),
     m_flow_nominal=m_flow_nominal,
     p_a_nominal=p_CHWS_nominal,
     p_b_nominal=p_CHWR_nominal,
     T_a_nominal=T_CHWS_nominal,
-    T_b_nominal=T_CHWR_nominal)
-    "Ideal consumer"
-    annotation (Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=0)));
+    T_b_nominal=T_CHWR_nominal) "Ideal user" annotation (Placement(
+        transformation(extent={{-10,-10},{10,10}}, rotation=0)));
   Modelica.Blocks.Sources.Constant set_TRet(k=12 + 273.15)
     "CHW return setpoint"
     annotation (Placement(transformation(extent={{-80,40},{-60,60}})));
@@ -62,14 +59,15 @@ model DummyConsumer "Test model for the dummy consumer"
     "Placeholder, prescribed cooling load"
     annotation (Placement(transformation(extent={{-60,80},{-40,100}})));
 equation
-  connect(set_TRet.y, ideCon.TSet)
+  connect(set_TRet.y,ideUsr. TSet)
     annotation (Line(points={{-59,50},{-30,50},{-30,5},{-11,5}},
                                                        color={0,0,127}));
-  connect(sou.ports[1], ideCon.port_a) annotation (Line(points={{-60,-6.66134e-16},
-          {-35.1,-6.66134e-16},{-35.1,0},{-10.2,0}}, color={0,127,255}));
-  connect(ideCon.port_b, sin.ports[1])
+  connect(sou.ports[1],ideUsr. port_a) annotation (Line(points={{-60,
+          -6.66134e-16},{-35.1,-6.66134e-16},{-35.1,0},{-10,0}},
+                                                     color={0,127,255}));
+  connect(ideUsr.port_b, sin.ports[1])
     annotation (Line(points={{10,0},{60,0}}, color={0,127,255}));
-  connect(preQCooLoa_flow.y, ideCon.QCooLoa_flow) annotation (Line(points={{-39,
+  connect(preQCooLoa_flow.y,ideUsr. QCooLoa_flow) annotation (Line(points={{-39,
           90},{-18,90},{-18,9},{-11,9}}, color={0,0,127}));
 annotation(experiment(Tolerance=1e-06, StopTime=3600));
-end DummyConsumer;
+end DummyUser;

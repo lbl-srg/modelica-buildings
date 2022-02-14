@@ -1,5 +1,5 @@
 within Buildings.Fluid.Storage.Plant;
-model DummyConsumer "Dummy consumer model"
+model DummyUser "Dummy user model"
 /*
 For simplification, instead of setting up a heat exchanger to a room model,
 the consumer control valve simply tracks the return CHW temperature.  
@@ -21,13 +21,13 @@ the consumer control valve simply tracks the return CHW temperature.
     p_a_nominal-p_b_nominal
     "Nominal pressure difference";
 
-  Buildings.Fluid.Actuators.Valves.TwoWayEqualPercentage valCon(
+  Buildings.Fluid.Actuators.Valves.TwoWayEqualPercentage val(
     redeclare package Medium = Medium,
     use_inputFilter=false,
     l=1E-10,
     dpValve_nominal=1,
     m_flow_nominal=m_flow_nominal,
-    y_start=0) "Consumer control valve"
+    y_start=0) "User control valve"
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow heaCon
     "Prescribed heat flow"
@@ -47,8 +47,8 @@ the consumer control valve simply tracks the return CHW temperature.
         origin={0,-10},
         extent={{10,10},{-10,-10}},
         rotation=0)));
-  Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor TCon
-    "Temperature of the consumer"
+  Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor TUsr
+    "Temperature of the user"
     annotation (Placement(transformation(extent={{40,-40},{20,-20}})));
   Buildings.Fluid.FixedResistances.PressureDrop preDro(
     redeclare package Medium = Medium,
@@ -56,14 +56,12 @@ the consumer control valve simply tracks the return CHW temperature.
     final dp_nominal=dp_nominal,
     final m_flow_nominal=m_flow_nominal) "Flow resistance of the consumer"
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
-  Buildings.Controls.Continuous.LimPID conPI_valCon(
+  Buildings.Controls.Continuous.LimPID conPI(
     controllerType=Modelica.Blocks.Types.SimpleController.PI,
     Td=1,
     k=10,
     Ti=1000,
-    reverseActing=false)
-           "PI controller for consumer control valve" annotation (Placement(
-        transformation(
+    reverseActing=false) "PI controller" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-50,60})));
@@ -124,30 +122,29 @@ the consumer control valve simply tracks the return CHW temperature.
         rotation=-90,
         origin={-30,110})));
 equation
-  connect(valCon.port_b, vol.ports[1]) annotation (Line(points={{-60,0},{1,0}},
-                          color={0,127,255}));
+  connect(val.port_b, vol.ports[1])
+    annotation (Line(points={{-60,0},{1,0}}, color={0,127,255}));
   connect(heaCon.port, vol.heatPort)
     annotation (Line(points={{42,80},{54,80},{54,-10},{10,-10}},
                                                        color={191,0,0}));
-  connect(vol.heatPort, TCon.port)
+  connect(vol.heatPort,TUsr. port)
     annotation (Line(points={{10,-10},{54,-10},{54,-30},{40,-30}},
                                                        color={191,0,0}));
   connect(preDro.port_a, vol.ports[2]) annotation (Line(points={{60,0},{-1,0}},
                             color={0,127,255}));
-  connect(conPI_valCon.y, gain.u)
+  connect(conPI.y, gain.u)
     annotation (Line(points={{-39,60},{-22,60}}, color={0,0,127}));
-  connect(gain.y, valCon.y)
-    annotation (Line(points={{1,60},{6,60},{6,18},{-70,18},{-70,12}},
-                                                      color={0,0,127}));
-  connect(TCon.T, conPI_valCon.u_m) annotation (Line(points={{19,-30},{-50,-30},
-          {-50,48}},          color={0,0,127}));
-  connect(valCon.port_a, port_a)
+  connect(gain.y, val.y) annotation (Line(points={{1,60},{6,60},{6,18},{-70,18},
+          {-70,12}}, color={0,0,127}));
+  connect(TUsr.T, conPI.u_m)
+    annotation (Line(points={{19,-30},{-50,-30},{-50,48}}, color={0,0,127}));
+  connect(val.port_a, port_a)
     annotation (Line(points={{-80,0},{-100,0}}, color={0,127,255}));
   connect(preDro.port_b, port_b)
     annotation (Line(points={{80,0},{100,0}}, color={0,127,255}));
   connect(heaCon.Q_flow, QCooLoa_flow)
     annotation (Line(points={{22,80},{-110,80}}, color={0,0,127}));
-  connect(conPI_valCon.u_s, TSet)
+  connect(conPI.u_s, TSet)
     annotation (Line(points={{-62,60},{-110,60}}, color={0,0,127}));
   connect(port_a, dpSen.port_a) annotation (Line(
       points={{-100,0},{-100,-50},{-10,-50}},
@@ -159,7 +156,7 @@ equation
       pattern=LinePattern.Dash));
   connect(dpSen.p_rel, dp)
     annotation (Line(points={{0,-59},{0,-80},{110,-80}}, color={0,0,127}));
-  connect(valCon.y_actual, yVal_actual)
+  connect(val.y_actual, yVal_actual)
     annotation (Line(points={{-65,7},{-65,40},{110,40}}, color={0,0,127}));
   annotation (Icon(graphics={Ellipse(
           extent={{-100,100},{100,-100}},
@@ -169,4 +166,4 @@ equation
           extent={{-58,-104},{62,-132}},
           textColor={0,0,127},
           textString="%name")}));
-end DummyConsumer;
+end DummyUser;

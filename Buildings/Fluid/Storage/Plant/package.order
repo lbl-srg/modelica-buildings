@@ -1,7 +1,7 @@
 ChillerAndTankNoRemoteCharging
 ChillerAndTankWithRemoteCharging
 TemperatureSource
-DummyConsumer
+DummyUser
 Examples
 Validation
 BaseClasses

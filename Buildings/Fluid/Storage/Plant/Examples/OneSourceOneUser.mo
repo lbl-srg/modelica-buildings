@@ -45,14 +45,13 @@ model OneSourceOneUser "(Draft) District system with one source and one user"
     final T_CHWR_nominal=T_CHWR_nominal)
     "Chiller and tank"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
-  Buildings.Fluid.Storage.Plant.DummyConsumer con(
+  Buildings.Fluid.Storage.Plant.DummyUser usr(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
-    p_a_nominal=p_CHWS_nominal-dp_nominal*0.35,
-    p_b_nominal=p_CHWR_nominal+dp_nominal*0.35,
+    p_a_nominal=p_CHWS_nominal - dp_nominal*0.35,
+    p_b_nominal=p_CHWR_nominal + dp_nominal*0.35,
     T_a_nominal=T_CHWS_nominal,
-    T_b_nominal=T_CHWR_nominal)
-    "Consumer"
+    T_b_nominal=T_CHWR_nominal) "User"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
   Modelica.Blocks.Sources.Constant set_TRet(k=12 + 273.15)
     "CHW return setpoint"
@@ -96,7 +95,7 @@ model OneSourceOneUser "(Draft) District system with one source and one user"
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-90,0})));
-  Modelica.Blocks.Math.Gain gaiPum2(k=1/con.dp_nominal) "Gain" annotation (
+  Modelica.Blocks.Math.Gain gaiPum2(k=1/usr.dp_nominal) "Gain" annotation (
       Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=180,
@@ -114,15 +113,15 @@ model OneSourceOneUser "(Draft) District system with one source and one user"
         rotation=-90,
         origin={-70,30})));
 equation
-  connect(set_TRet.y, con.TSet)
+  connect(set_TRet.y,usr. TSet)
     annotation (Line(points={{21,30},{32,30},{32,5},{39,5}},color={0,0,127}));
-  connect(preQCooLoa_flow.y, con.QCooLoa_flow)
+  connect(preQCooLoa_flow.y,usr. QCooLoa_flow)
     annotation (Line(points={{21,60},{34,60},{34,9},{39,9}}, color={0,0,127}));
   connect(cat.port_b, preDro1.port_a)
     annotation (Line(points={{-40,0},{-10,0}}, color={0,127,255}));
-  connect(preDro1.port_b, con.port_a)
+  connect(preDro1.port_b,usr. port_a)
     annotation (Line(points={{10,0},{40,0}},   color={0,127,255}));
-  connect(con.port_b, preDro2.port_a)
+  connect(usr.port_b, preDro2.port_a)
     annotation (Line(points={{60,0},{60,-40},{10,-40}}, color={0,127,255}));
   connect(preDro2.port_b, cat.port_a)
     annotation (Line(points={{-10,-40},{-60,-40},{-60,0}}, color={0,127,255}));
@@ -130,8 +129,9 @@ equation
     annotation (Line(points={{-70,-79},{-70,-72}},           color={0,0,127}));
   connect(sou_p.ports[1], cat.port_a) annotation (Line(points={{-80,0},{-60,0}},
                             color={0,127,255}));
-  connect(con.dp, gaiPum2.u) annotation (Line(points={{47,11},{46,11},{46,20},{70,
-          20},{70,-60},{-28,-60}}, color={0,0,127}));
+  connect(usr.dp, gaiPum2.u) annotation (Line(points={{47,11},{46,11},{46,20},{
+          70,20},{70,-60},{-28,-60}},
+                                   color={0,0,127}));
   connect(gaiPum2.y, conPI_pum2.u_m)
     annotation (Line(points={{-51,-60},{-58,-60}}, color={0,0,127}));
   connect(conPI_pum2.y, cat.yPum2)
@@ -140,7 +140,7 @@ equation
     annotation (Line(points={{-70,50},{-70,42}}, color={255,0,255}));
   connect(booToReaPum1.y, cat.set_mPum1_flow)
     annotation (Line(points={{-70,18},{-70,9},{-61,9}}, color={0,0,127}));
-  connect(hysPum1.u, con.yVal_actual) annotation (Line(points={{-70,74},{-70,80},
+  connect(hysPum1.u,usr. yVal_actual) annotation (Line(points={{-70,74},{-70,80},
           {43,80},{43,11}}, color={0,0,127}));
   annotation(experiment(Tolerance=1e-06, StopTime=3600));
 end OneSourceOneUser;

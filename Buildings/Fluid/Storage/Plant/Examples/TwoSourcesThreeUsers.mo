@@ -46,37 +46,37 @@ model TwoSourcesThreeUsers
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=90,
         origin={-60,-60})));
-  Buildings.Fluid.Storage.Plant.DummyConsumer con1(
+  Buildings.Fluid.Storage.Plant.DummyUser usr1(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
-    p_a_nominal=p_CHWS_nominal-dp_nominal*0.35,
-    p_b_nominal=p_CHWR_nominal+dp_nominal*0.35,
+    p_a_nominal=p_CHWS_nominal - dp_nominal*0.35,
+    p_b_nominal=p_CHWR_nominal + dp_nominal*0.35,
     T_a_nominal=T_CHWS_nominal,
-    T_b_nominal=T_CHWR_nominal)
-    "Dummy consumer 1"
-    annotation (Placement(transformation(extent={{-10,-10},{10,10}},
+    T_b_nominal=T_CHWR_nominal) "Dummy user 1" annotation (Placement(
+        transformation(
+        extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={60,60})));
-  Buildings.Fluid.Storage.Plant.DummyConsumer con2(
+  Buildings.Fluid.Storage.Plant.DummyUser usr2(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
     p_a_nominal=p_CHWS_nominal - dp_nominal*0.35,
     p_b_nominal=p_CHWR_nominal + dp_nominal*0.35,
     T_a_nominal=T_CHWS_nominal,
-    T_b_nominal=T_CHWR_nominal)
-    "Dummy consumer 1"
-    annotation (Placement(transformation(extent={{-10,-10},{10,10}},
+    T_b_nominal=T_CHWR_nominal) "Dummy usr 2" annotation (Placement(
+        transformation(
+        extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={60,0})));
-  Buildings.Fluid.Storage.Plant.DummyConsumer con3(
+  Buildings.Fluid.Storage.Plant.DummyUser usr3(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
     p_a_nominal=p_CHWS_nominal - dp_nominal*0.35,
     p_b_nominal=p_CHWR_nominal + dp_nominal*0.35,
     T_a_nominal=T_CHWS_nominal,
-    T_b_nominal=T_CHWR_nominal)
-    "Dummy consumer 1"
-    annotation (Placement(transformation(extent={{-10,-10},{10,10}},
+    T_b_nominal=T_CHWR_nominal) "Dummy user 3" annotation (Placement(
+        transformation(
+        extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={60,-60})));
   Buildings.Fluid.Movers.SpeedControlled_y pumChi1(
@@ -88,19 +88,19 @@ model TwoSourcesThreeUsers
     final y_start=1,
     T_start=T_CHWR_nominal) "Supply pump for chiller 1" annotation (Placement(
         transformation(extent={{-70,70},{-50,90}}, rotation=0)));
-  Buildings.Controls.OBC.CDL.Continuous.MultiMin mulMin_dpCon(nin=3)
-    "Min of pressure head measured from all consumers"
+  Buildings.Controls.OBC.CDL.Continuous.MultiMin mulMin_dpUsr(nin=3)
+    "Min of pressure head measured from all users"
     annotation (Placement(transformation(extent={{10,-10},{-10,10}},
         rotation=90,
         origin={-90,150})));
-  Modelica.Blocks.Sources.Constant set_dpCon(k=1)
+  Modelica.Blocks.Sources.Constant set_dpUsr(k=1)
     "Normalised consumer differential pressure setpoint"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={-60,150})));
   Modelica.Blocks.Sources.Constant set_TRet(k=12 + 273.15)
     "CHW return setpoint"
-    annotation (Placement(transformation(extent={{10,110},{30,130}})));
+    annotation (Placement(transformation(extent={{20,100},{40,120}})));
   Buildings.Controls.OBC.CDL.Continuous.Hysteresis hysCat(uLow=0.05, uHigh=0.5)
     "Shut off at con.yVal = 0.05 and restarts at 0.5" annotation (Placement(
         transformation(
@@ -146,61 +146,53 @@ model TwoSourcesThreeUsers
         extent={{10,10},{-10,-10}},
         rotation=90,
         origin={-60,120})));
-  Buildings.Fluid.FixedResistances.PressureDrop preDroS2C3(
+  Buildings.Fluid.FixedResistances.PressureDrop preDroS2U3(
     redeclare package Medium = Medium,
     final allowFlowReversal=true,
     final dp_nominal=0.3*dp_nominal,
-    final m_flow_nominal=m_flow_nominal)
-    "Flow resistance source 2 to consumer 3"
+    final m_flow_nominal=m_flow_nominal) "Flow resistance source 2 to user 3"
     annotation (Placement(transformation(extent={{-30,-50},{-10,-30}})));
-  Buildings.Fluid.FixedResistances.PressureDrop preDroC3S2(
+  Buildings.Fluid.FixedResistances.PressureDrop preDroU3S2(
     redeclare package Medium = Medium,
     final allowFlowReversal=true,
     final dp_nominal=0.3*dp_nominal,
-    final m_flow_nominal=m_flow_nominal)
-    "Flow resistance consumer 3 to source 2"
+    final m_flow_nominal=m_flow_nominal) "Flow resistance user 3 to source 2"
     annotation (Placement(transformation(extent={{30,-90},{10,-70}})));
-  Buildings.Fluid.FixedResistances.PressureDrop preDroS2C2(
+  Buildings.Fluid.FixedResistances.PressureDrop preDroS2U2(
     redeclare package Medium = Medium,
     final allowFlowReversal=true,
     final dp_nominal=0.3*dp_nominal,
-    final m_flow_nominal=m_flow_nominal)
-    "Flow resistance source 2 to consumer 2"
+    final m_flow_nominal=m_flow_nominal) "Flow resistance source 2 to user 2"
     annotation (Placement(transformation(extent={{-30,-10},{-10,10}})));
-  Buildings.Fluid.FixedResistances.PressureDrop preDroC2S2(
+  Buildings.Fluid.FixedResistances.PressureDrop preDroU2S2(
     redeclare package Medium = Medium,
     final allowFlowReversal=true,
     final dp_nominal=0.3*dp_nominal,
-    final m_flow_nominal=m_flow_nominal)
-    "Flow resistance consumer 2 to source 2"
+    final m_flow_nominal=m_flow_nominal) "Flow resistance user 2 to source 2"
     annotation (Placement(transformation(extent={{30,-30},{10,-10}})));
-  Buildings.Fluid.FixedResistances.PressureDrop preDroS1C2(
+  Buildings.Fluid.FixedResistances.PressureDrop preDroS1U2(
     redeclare package Medium = Medium,
     final allowFlowReversal=true,
     final dp_nominal=0.3*dp_nominal,
-    final m_flow_nominal=m_flow_nominal)
-    "Flow resistance source 1 to consumer 2"
+    final m_flow_nominal=m_flow_nominal) "Flow resistance source 1 to user 2"
     annotation (Placement(transformation(extent={{-30,10},{-10,30}})));
-  Buildings.Fluid.FixedResistances.PressureDrop preDroC2S1(
+  Buildings.Fluid.FixedResistances.PressureDrop preDroU2S1(
     redeclare package Medium = Medium,
     final allowFlowReversal=true,
     final dp_nominal=0.3*dp_nominal,
-    final m_flow_nominal=m_flow_nominal)
-    "Flow resistance consumer 2 to source 1"
+    final m_flow_nominal=m_flow_nominal) "Flow resistance user 2 to source 1"
     annotation (Placement(transformation(extent={{30,-10},{10,10}})));
-  Buildings.Fluid.FixedResistances.PressureDrop preDroS1C1(
+  Buildings.Fluid.FixedResistances.PressureDrop preDroS1U1(
     redeclare package Medium = Medium,
     final allowFlowReversal=true,
     final dp_nominal=0.3*dp_nominal,
-    final m_flow_nominal=m_flow_nominal)
-    "Flow resistance source 1 to consumer 3"
+    final m_flow_nominal=m_flow_nominal) "Flow resistance source 1 to user 3"
     annotation (Placement(transformation(extent={{-30,70},{-10,90}})));
-  Buildings.Fluid.FixedResistances.PressureDrop preDroC1S1(
+  Buildings.Fluid.FixedResistances.PressureDrop preDroU1S1(
     redeclare package Medium = Medium,
     final allowFlowReversal=true,
     final dp_nominal=0.3*dp_nominal,
-    final m_flow_nominal=m_flow_nominal)
-    "Flow resistance consumer 1 to source 1"
+    final m_flow_nominal=m_flow_nominal) "Flow resistance user 1 to source 1"
     annotation (Placement(transformation(extent={{30,30},{10,50}})));
   Modelica.Blocks.Sources.TimeTable set_QCooLoa1_flow(table=[0,0; 600,0; 600,
         QCooLoa_flow_nominal; 2400,QCooLoa_flow_nominal; 2400,0; 3600,0])
@@ -213,32 +205,32 @@ model TwoSourcesThreeUsers
   Modelica.Blocks.Sources.TimeTable set_QCooLoa3_flow(table=[0,0; 1800,0; 1800,
         QCooLoa_flow_nominal; 3600,QCooLoa_flow_nominal]) "Cooling load"
     annotation (Placement(transformation(extent={{120,-40},{100,-20}})));
-  Modelica.Blocks.Math.Gain gaiCon1(k=1/con1.dp_nominal)
+  Modelica.Blocks.Math.Gain gaiUsr1(k=1/usr1.dp_nominal)
     "Gain to normalise dp measurement" annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=180,
         origin={110,60})));
-  Modelica.Blocks.Math.Gain gaiCon2(k=1/con2.dp_nominal)
+  Modelica.Blocks.Math.Gain gaiUsr2(k=1/usr2.dp_nominal)
     "Gain to normalise dp measurement" annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=180,
         origin={110,0})));
-  Modelica.Blocks.Math.Gain gaiCon3(k=1/con3.dp_nominal)
+  Modelica.Blocks.Math.Gain gaiUsr3(k=1/usr3.dp_nominal)
     "Gain to normalise dp measurement" annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=180,
         origin={110,-60})));
 equation
-  connect(set_TRet.y, con1.TSet) annotation (Line(points={{31,120},{36,120},{36,
-          76},{65,76},{65,71}}, color={0,0,127}));
-  connect(set_TRet.y, con2.TSet) annotation (Line(points={{31,120},{36,120},{36,
-          16},{65,16},{65,11}}, color={0,0,127}));
-  connect(set_TRet.y, con3.TSet) annotation (Line(points={{31,120},{36,120},{36,
-          -44},{65,-44},{65,-49}}, color={0,0,127}));
-  connect(con3.yVal_actual, mulMax_yVal.u[1]) annotation (Line(points={{71,-53},
+  connect(set_TRet.y,usr1. TSet) annotation (Line(points={{41,110},{44,110},{44,
+          82},{65,82},{65,71}}, color={0,0,127}));
+  connect(set_TRet.y,usr2. TSet) annotation (Line(points={{41,110},{44,110},{44,
+          22},{65,22},{65,11}}, color={0,0,127}));
+  connect(set_TRet.y,usr3. TSet) annotation (Line(points={{41,110},{44,110},{44,
+          -38},{65,-38},{65,-49}}, color={0,0,127}));
+  connect(usr3.yVal_actual, mulMax_yVal.u[1]) annotation (Line(points={{71,-53},
           {86,-53},{86,-110},{74,-110},{74,-110.667},{62,-110.667}}, color={0,0,
           127}));
-  connect(con2.yVal_actual, mulMax_yVal.u[2]) annotation (Line(points={{71,7},{86,
+  connect(usr2.yVal_actual, mulMax_yVal.u[2]) annotation (Line(points={{71,7},{86,
           7},{86,-110},{62,-110}}, color={0,0,127}));
   connect(mulMax_yVal.y, hysCat.u)
     annotation (Line(points={{38,-110},{22,-110}}, color={0,0,127}));
@@ -256,64 +248,66 @@ equation
     annotation (Line(points={{-80,70},{-80,80},{-70,80}}, color={0,127,255}));
   connect(sou_p.ports[1], preDroChi1.port_b)
     annotation (Line(points={{-80,0},{-80,40},{-70,40}}, color={0,127,255}));
-  connect(set_dpCon.y, conPI_PumChi1.u_s)
+  connect(set_dpUsr.y, conPI_PumChi1.u_s)
     annotation (Line(points={{-60,139},{-60,132}}, color={0,0,127}));
   connect(conPI_PumChi1.y, pumChi1.y)
     annotation (Line(points={{-60,109},{-60,92}}, color={0,0,127}));
-  connect(con1.yVal_actual, mulMax_yVal.u[3]) annotation (Line(points={{71,67},
+  connect(usr1.yVal_actual, mulMax_yVal.u[3]) annotation (Line(points={{71,67},
           {86,67},{86,-110},{62,-110},{62,-109.333}},color={0,0,127}));
-  connect(cat.port_b, preDroS2C3.port_a) annotation (Line(points={{-60,-50},{-60,
+  connect(cat.port_b,preDroS2U3. port_a) annotation (Line(points={{-60,-50},{-60,
           -40},{-30,-40}}, color={0,127,255}));
-  connect(preDroS2C3.port_b, con3.port_a)
+  connect(preDroS2U3.port_b,usr3. port_a)
     annotation (Line(points={{-10,-40},{60,-40},{60,-50}}, color={0,127,255}));
-  connect(con3.port_b, preDroC3S2.port_a)
+  connect(usr3.port_b,preDroU3S2. port_a)
     annotation (Line(points={{60,-70},{60,-80},{30,-80}}, color={0,127,255}));
-  connect(preDroC3S2.port_b, cat.port_a) annotation (Line(points={{10,-80},{-60,
+  connect(preDroU3S2.port_b, cat.port_a) annotation (Line(points={{10,-80},{-60,
           -80},{-60,-70}}, color={0,127,255}));
-  connect(cat.port_b, preDroS2C2.port_a) annotation (Line(points={{-60,-50},{-60,
+  connect(cat.port_b,preDroS2U2. port_a) annotation (Line(points={{-60,-50},{-60,
           -40},{-36,-40},{-36,0},{-30,0}}, color={0,127,255}));
-  connect(preDroS2C2.port_b, con2.port_a) annotation (Line(points={{-10,0},{-4,0},
-          {-4,10},{60,10}}, color={0,127,255}));
-  connect(con2.port_b, preDroC2S2.port_a)
+  connect(preDroS2U2.port_b,usr2. port_a) annotation (Line(points={{-10,0},{-4,
+          0},{-4,20},{60,20},{60,10}},
+                            color={0,127,255}));
+  connect(usr2.port_b,preDroU2S2. port_a)
     annotation (Line(points={{60,-10},{60,-20},{30,-20}}, color={0,127,255}));
-  connect(preDroC2S2.port_b, cat.port_a) annotation (Line(points={{10,-20},{4,-20},
+  connect(preDroU2S2.port_b, cat.port_a) annotation (Line(points={{10,-20},{4,-20},
           {4,-80},{-60,-80},{-60,-70}}, color={0,127,255}));
-  connect(pumChi1.port_b, preDroS1C2.port_a) annotation (Line(points={{-50,80},{
+  connect(pumChi1.port_b,preDroS1U2. port_a) annotation (Line(points={{-50,80},{
           -36,80},{-36,20},{-30,20}}, color={0,127,255}));
-  connect(preDroS1C2.port_b, con2.port_a) annotation (Line(points={{-10,20},{-4,
-          20},{-4,10},{60,10}}, color={0,127,255}));
-  connect(con2.port_b, preDroC2S1.port_a) annotation (Line(points={{60,-10},{60,
+  connect(preDroS1U2.port_b,usr2. port_a) annotation (Line(points={{-10,20},{60,
+          20},{60,10}},         color={0,127,255}));
+  connect(usr2.port_b,preDroU2S1. port_a) annotation (Line(points={{60,-10},{60,
           -20},{34,-20},{34,0},{30,0}}, color={0,127,255}));
-  connect(preDroC2S1.port_b, preDroChi1.port_a) annotation (Line(points={{10,0},
+  connect(preDroU2S1.port_b, preDroChi1.port_a) annotation (Line(points={{10,0},
           {4,0},{4,40},{-50,40}}, color={0,127,255}));
-  connect(pumChi1.port_b, preDroS1C1.port_a)
+  connect(pumChi1.port_b,preDroS1U1. port_a)
     annotation (Line(points={{-50,80},{-30,80}}, color={0,127,255}));
-  connect(preDroS1C1.port_b, con1.port_a)
+  connect(preDroS1U1.port_b,usr1. port_a)
     annotation (Line(points={{-10,80},{60,80},{60,70}}, color={0,127,255}));
-  connect(con1.port_b, preDroC1S1.port_a)
+  connect(usr1.port_b,preDroU1S1. port_a)
     annotation (Line(points={{60,50},{60,40},{30,40}}, color={0,127,255}));
-  connect(preDroC1S1.port_b, preDroChi1.port_a)
+  connect(preDroU1S1.port_b, preDroChi1.port_a)
     annotation (Line(points={{10,40},{-50,40}}, color={0,127,255}));
-  connect(set_QCooLoa1_flow.y, con1.QCooLoa_flow)
+  connect(set_QCooLoa1_flow.y,usr1. QCooLoa_flow)
     annotation (Line(points={{99,90},{69,90},{69,71}}, color={0,0,127}));
-  connect(set_QCooLoa2_flow.y, con2.QCooLoa_flow)
+  connect(set_QCooLoa2_flow.y,usr2. QCooLoa_flow)
     annotation (Line(points={{99,30},{69,30},{69,11}}, color={0,0,127}));
-  connect(set_QCooLoa3_flow.y, con3.QCooLoa_flow)
+  connect(set_QCooLoa3_flow.y,usr3. QCooLoa_flow)
     annotation (Line(points={{99,-30},{69,-30},{69,-49}}, color={0,0,127}));
-  connect(con1.dp, gaiCon1.u)
+  connect(usr1.dp,gaiUsr1. u)
     annotation (Line(points={{71,63},{71,60},{98,60}}, color={0,0,127}));
-  connect(con2.dp, gaiCon2.u) annotation (Line(points={{71,3},{71,1.55431e-15},{
+  connect(usr2.dp,gaiUsr2. u) annotation (Line(points={{71,3},{71,1.55431e-15},{
           98,1.55431e-15}}, color={0,0,127}));
-  connect(con3.dp, gaiCon3.u) annotation (Line(points={{71,-57},{92,-57},{92,-60},
-          {98,-60}}, color={0,0,127}));
-  connect(gaiCon1.y, mulMin_dpCon.u[1]) annotation (Line(points={{121,60},{126,
+  connect(usr3.dp,gaiUsr3. u) annotation (Line(points={{71,-57},{72,-57},{72,
+          -60},{98,-60}},
+                     color={0,0,127}));
+  connect(gaiUsr1.y,mulMin_dpUsr. u[1]) annotation (Line(points={{121,60},{126,
           60},{126,162},{-89.3333,162}},
                                      color={0,0,127}));
-  connect(gaiCon2.y, mulMin_dpCon.u[2]) annotation (Line(points={{121,-1.38778e-15},
+  connect(gaiUsr2.y,mulMin_dpUsr. u[2]) annotation (Line(points={{121,-1.38778e-15},
           {126,-1.38778e-15},{126,162},{-90,162}}, color={0,0,127}));
-  connect(gaiCon3.y, mulMin_dpCon.u[3]) annotation (Line(points={{121,-60},{126,
+  connect(gaiUsr3.y,mulMin_dpUsr. u[3]) annotation (Line(points={{121,-60},{126,
           -60},{126,162},{-90.6667,162}}, color={0,0,127}));
-  connect(mulMin_dpCon.y, conPI_PumChi1.u_m)
+  connect(mulMin_dpUsr.y, conPI_PumChi1.u_m)
     annotation (Line(points={{-90,138},{-90,120},{-72,120}}, color={0,0,127}));
   annotation (experiment(Tolerance=1e-06, StopTime=3600,__Dymola_Algorithm="Cvode"),
         Diagram(coordinateSystem(extent={{-100,-140},{140,180}})), Icon(
