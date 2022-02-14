@@ -34,9 +34,9 @@ protected
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant PMin(
     final k=PEleMin) "Minimum power"
     annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
-  Buildings.Controls.OBC.CDL.Continuous.SlewRateLimiter dPLim(
-    final raisingSlewRate(unit="W/s")=dPEleMax,
-    final fallingSlewRate(unit="W/s")=-dPEleMax,
+  Buildings.Controls.OBC.CDL.Continuous.LimitSlewRate dPLim(
+    final raisingSlewRate(unit="W/s") = dPEleMax,
+    final fallingSlewRate(unit="W/s") = -dPEleMax,
     final Td=1) "Power rate limiter"
     annotation (Placement(transformation(extent={{0,20},{20,40}})));
   Buildings.Controls.OBC.CDL.Continuous.Switch switch

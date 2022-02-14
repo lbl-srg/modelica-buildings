@@ -665,7 +665,7 @@ block Controller
     annotation (Placement(transformation(extent={{80,-70},{100,-50}})));
 
 protected
-  Buildings.Controls.OBC.CDL.Continuous.Division VOut_flow_normalized(
+  Buildings.Controls.OBC.CDL.Continuous.Divide VOut_flow_normalized(
     u1(final unit="m3/s"),
     u2(final unit="m3/s"),
     y(final unit="1"))

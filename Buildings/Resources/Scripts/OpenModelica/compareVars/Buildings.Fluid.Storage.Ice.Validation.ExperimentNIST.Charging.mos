@@ -1,0 +1,11 @@
+compareVars :=
+  {
+    "dat.y[1]",
+    "TIn.Celsius",
+    "dat.y[2]",
+    "TOut.T",
+    "dat.y[3]",
+    "iceTan.m_flow",
+    "dat.y[4]",
+    "iceTan.SOC"
+  };

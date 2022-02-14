@@ -65,8 +65,7 @@ block MixingValveControl
   Buildings.Controls.OBC.CDL.Continuous.Max posPar
     "Positive part of control signal"
     annotation (Placement(transformation(extent={{-10,-90},{10,-70}})));
-  Buildings.Controls.OBC.CDL.Continuous.Gain opp(
-    k=-1)
+  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter opp(k=-1)
     "Opposite value"
     annotation (Placement(transformation(extent={{20,-50},{40,-30}})));
   Buildings.Controls.OBC.CDL.Continuous.Switch swi

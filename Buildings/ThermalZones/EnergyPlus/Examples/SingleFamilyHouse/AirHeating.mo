@@ -109,19 +109,19 @@ model AirHeating
   Controls.OBC.CDL.Continuous.Add m_fan_set
     "Mass flow rate for fan"
     annotation (Placement(transformation(extent={{8,-66},{28,-46}})));
-  Controls.OBC.CDL.Continuous.Add TAirLvgSet(
-    k1=8)
+  Controls.OBC.CDL.Continuous.Add TAirLvgSet
     "Set point temperature for air leaving the heater"
     annotation (Placement(transformation(extent={{40,-90},{60,-70}})));
   Controls.OBC.CDL.Continuous.AddParameter TSupMin(
-    p=2,
-    k=1)
+    p=2)
     "Minimum supply air temperature"
     annotation (Placement(transformation(extent={{8,-110},{28,-90}})));
 
   Modelica.Blocks.Sources.Constant qIntGai[3](each k=0)
     "Internal heat gains, set to zero because these are modeled in EnergyPlus"
     annotation (Placement(transformation(extent={{-40,100},{-20,120}})));
+  Controls.OBC.CDL.Continuous.MultiplyByParameter gai(final k=8) "Gain factor"
+    annotation (Placement(transformation(extent={{-6,-90},{14,-70}})));
 initial equation
   // Stop simulation if the hard-coded values differ from the ones computed by EnergyPlus.
   assert(
@@ -166,8 +166,6 @@ equation
     annotation (Line(points={{-28,-80},{-20,-80},{-20,-62},{6,-62}},color={0,0,127}));
   connect(m_fan_set.y,fan.m_flow_in)
     annotation (Line(points={{30,-56},{34,-56},{34,0},{50,0},{50,-8}},color={0,0,127}));
-  connect(TAirLvgSet.u1,conPID.y)
-    annotation (Line(points={{38,-74},{-12,-74},{-12,-100},{-98,-100}},color={0,0,127}));
   connect(TAirLvgSet.y,hea.TSet)
     annotation (Line(points={{62,-80},{70,-80},{70,-12},{78,-12}},color={0,0,127}));
   connect(zon.TAir,TSupMin.u)
@@ -176,6 +174,10 @@ equation
     annotation (Line(points={{30,-100},{34,-100},{34,-86},{38,-86}},color={0,0,127}));
   connect(zon.qGai_flow, qIntGai.y)
     annotation (Line(points={{18,110},{-19,110}}, color={0,0,127}));
+  connect(conPID.y, gai.u)
+    annotation (Line(points={{-98,-100},{-12,-100},{-12,-80},{-8,-80}}, color={0,0,127}));
+  connect(gai.y, TAirLvgSet.u1)
+    annotation (Line(points={{16,-80},{20,-80},{20,-74},{38,-74}}, color={0,0,127}));
   annotation (
     Documentation(
       info="<html>

@@ -8,11 +8,11 @@ partial model PartialChillerBorefield
     "Nominal heating water mass flow rate";
   parameter Modelica.Units.SI.MassFlowRate mChiWat_flow_nominal=0.9*datChi.mEva_flow_nominal
     "Nominal chilled water mass flow rate";
-  parameter Modelica.Units.SI.HeatFlowRate QCoo_flow_nominal(max=-Modelica.Constants.eps)
-     = -1e6 "Design cooling heat flow rate (<=0)"
+  parameter Modelica.Units.SI.HeatFlowRate QCoo_flow_nominal(max=-Modelica.Constants.eps)=
+       -1e6 "Design cooling heat flow rate (<=0)"
     annotation (Dialog(group="Design parameter"));
-  parameter Modelica.Units.SI.HeatFlowRate QHea_flow_nominal(min=Modelica.Constants.eps)
-     = abs(QCoo_flow_nominal)*(1 + 1/datChi.COP_nominal)
+  parameter Modelica.Units.SI.HeatFlowRate QHea_flow_nominal(min=Modelica.Constants.eps)=
+       abs(QCoo_flow_nominal)*(1 + 1/datChi.COP_nominal)
     "Design heating heat flow rate (>=0)"
     annotation (Dialog(group="Design parameter"));
   parameter Buildings.Fluid.Chillers.Data.ElectricEIR.Generic datChi(
@@ -105,13 +105,11 @@ partial model PartialChillerBorefield
     final m_flow_nominal=mChiWat_flow_nominal,
     dp_nominal=100E3) "Chilled water distribution pump"
     annotation (Placement(transformation(extent={{110,30},{130,50}})));
-  Buildings.Controls.OBC.CDL.Continuous.Gain gai2(
-    final k=mChiWat_flow_nominal)
-    "Scale to nominal mass flow rate"
+  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai2(final k=
+        mChiWat_flow_nominal) "Scale to nominal mass flow rate"
     annotation (Placement(transformation(extent={{90,90},{110,110}})));
-  Buildings.Controls.OBC.CDL.Continuous.Gain gai1(
-    final k=mHeaWat_flow_nominal)
-    "Scale to nominal mass flow rate"
+  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai1(final k=
+        mHeaWat_flow_nominal) "Scale to nominal mass flow rate"
     annotation (Placement(transformation(extent={{40,90},{20,110}})));
   DHC.EnergyTransferStations.BaseClasses.Pump_m_flow pumHeaWat(
     redeclare package Medium = Medium,
@@ -131,8 +129,7 @@ partial model PartialChillerBorefield
         extent={{-10,10},{10,-10}},
         rotation=-90,
         origin={-111,0})));
-  Buildings.Controls.OBC.CDL.Continuous.Gain gai3(
-    final k=-ets.QHeaWat_flow_nominal)
+  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai3(final k=-ets.QHeaWat_flow_nominal)
     "Scale to nominal heat flow rate"
     annotation (Placement(transformation(extent={{-180,50},{-160,70}})));
   Buildings.HeatTransfer.Sources.PrescribedHeatFlow loaHea
@@ -151,8 +148,7 @@ partial model PartialChillerBorefield
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={149,0})));
-  Buildings.Controls.OBC.CDL.Continuous.Gain gai4(
-    final k=-ets.QChiWat_flow_nominal)
+  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai4(final k=-ets.QChiWat_flow_nominal)
     "Scale to nominal heat flow rate"
     annotation (Placement(transformation(extent={{220,50},{200,70}})));
   Buildings.HeatTransfer.Sources.PrescribedHeatFlow loaCoo

@@ -143,11 +143,11 @@ protected
     final k=false) if not use_enthalpy
     "Deactivates outdoor air enthalpy condition if there is no enthalpy sensor"
     annotation (Placement(transformation(extent={{-100,190},{-80,210}})));
-  Buildings.Controls.OBC.CDL.Continuous.Add add2(
-    final k2=-1) if use_enthalpy "Add block determines difference between hOut and hOutCut"
+  Buildings.Controls.OBC.CDL.Continuous.Subtract sub2
+    if use_enthalpy "Add block determines difference between hOut and hOutCut"
     annotation (Placement(transformation(extent={{-140,160},{-120,180}})));
-  Buildings.Controls.OBC.CDL.Continuous.Add add1(
-    final k2=-1) "Add block determines difference between TOut and TOutCut"
+  Buildings.Controls.OBC.CDL.Continuous.Subtract sub1
+    "Add block determines difference between TOut and TOutCut"
     annotation (Placement(transformation(extent={{-140,240},{-120,260}})));
   Buildings.Controls.OBC.CDL.Continuous.Hysteresis hysOutTem(
     final uLow=TOutHigLimCutLow,
@@ -200,17 +200,17 @@ protected
     annotation (Placement(transformation(extent={{-138,30},{-118,50}})));
 
 equation
-  connect(TOut, add1.u1)
+  connect(TOut, sub1.u1)
     annotation (Line(points={{-300,270},{-270,270},{-270,256},{-142,256}},color={0,0,127}));
-  connect(TOutCut, add1.u2)
+  connect(TOutCut, sub1.u2)
     annotation (Line(points={{-300,230},{-252,230},{-252,244},{-142,244}},color={0,0,127}));
-  connect(add1.y, hysOutTem.u)
+  connect(sub1.y, hysOutTem.u)
     annotation (Line(points={{-118,250},{-102,250}}, color={0,0,127}));
-  connect(hOut, add2.u1)
+  connect(hOut, sub2.u1)
     annotation (Line(points={{-300,190},{-252,190},{-252,176},{-142,176}},color={0,0,127}));
-  connect(hOutCut, add2.u2)
+  connect(hOutCut, sub2.u2)
     annotation (Line(points={{-300,150},{-252,150},{-252,164},{-142,164}}, color={0,0,127}));
-  connect(add2.y, hysOutEnt.u)
+  connect(sub2.y, hysOutEnt.u)
     annotation (Line(points={{-118,170},{-102,170}}, color={0,0,127}));
   connect(hysOutTem.y, nor1.u1)
     annotation (Line(points={{-78,250},{-60,250},{-60,210},{-42,210}},color={255,0,255}));
