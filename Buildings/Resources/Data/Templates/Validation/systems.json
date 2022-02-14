@@ -501,6 +501,11 @@
     },
     "CHW_1": {
         "ChilledWater": {
+            "mCHWPri_flow_nominal": {
+                "value": 18.3,
+                "description": "Primary nominal mass flow rate",
+                "unit": "kg/s"
+            },
             "mCHWSec_flow_nominal": {
                 "value": 18.3,
                 "description": "Secondary nominal mass flow rate",
@@ -635,6 +640,11 @@
                 ],
                 "description": "Condenser pumps curve",
                 "unit": "1"
+            },
+            "dpValve_nominal": {
+                "value": 6000,
+                "description": "Nominal pressure drop of condenser pump check valve",
+                "unit": "Pa"
             }
         },
         "SecondaryPump": {

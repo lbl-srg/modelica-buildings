@@ -11,14 +11,14 @@ partial model PartialChillerGroup
 
   outer parameter Boolean isAirCoo
     "= true, chillers in group are air cooled,
-    = false, chillers in group are water cooled";
+    = false, chillers in group are water cooled"
     annotation (Evaluate=true, Dialog(group="Configuration"));
   // FIXME: should be declared in Buildings.Templates.ChilledWaterPlant.Interfaces.PartialChilledWaterPlant
   parameter Boolean have_CHWDedPum = false
-    "Parallel chillers are connected to dedicated pumps on chilled water side";
+    "Parallel chillers are connected to dedicated pumps on chilled water side"
     annotation (Evaluate=true, Dialog(group="Configuration"));
   parameter Boolean have_CWDedPum = false
-    "Parallel chillers are connected to dedicated pumps on condenser water side";
+    "Parallel chillers are connected to dedicated pumps on condenser water side"
     annotation (Evaluate=true, Dialog(group="Configuration"));
 
   parameter Integer nChi "Number of chillers in group";
@@ -143,10 +143,6 @@ partial model PartialChillerGroup
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={0,100})));
-
-
-  parameter Modelica.Units.SI.Temperature TCHWSet=
-    dat.getReal(varName=id + ".ChillerGroup.TCHWSet.value");
 
   BoundaryConditions.WeatherData.Bus weaBus if isAirCoo
     "Weather control bus"

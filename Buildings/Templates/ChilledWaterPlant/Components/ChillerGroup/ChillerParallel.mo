@@ -143,7 +143,8 @@ equation
     annotation (Line(points={{-100,60},{-90,60},{-90,40},{-80,40}},
     color={0,127,255}));
   connect(pasCW.port_b, chi.port_a1)
-    annotation (Line(points={{-60,40},{-48,40},{-48,60},{-30,60},{-30,12},{-20,12}},
+    annotation (Line(points={{-60,40},{-50,40},{-50,60},{-30,60},{-30,12},{-20,
+          12}},
     color={0,127,255}));
   connect(busCon.valCWChi, valCWChi.bus)
     annotation (Line(

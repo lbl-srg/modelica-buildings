@@ -2,7 +2,10 @@ within Buildings.Templates.ChilledWaterPlant.Validation.UserProject;
 model RP1711_6_6
   "Parallel Chillers, Primary-Secondary CHW, Constant CW, Dedicated Primary CHW Pumps, Headered CW Pumps"
   extends Buildings.Templates.ChilledWaterPlant.WaterCooled(
-    cooTowGro(final nCooTow=2),
+    final nCooTow=2,
+    redeclare
+      Buildings.Templates.ChilledWaterPlant.Components.CoolingTowerGroup.CoolingTowerParallel
+      cooTowGro,
     redeclare
       Buildings.Templates.ChilledWaterPlant.Components.ChillerGroup.ChillerParallel
       chiGro(final nChi=2, redeclare

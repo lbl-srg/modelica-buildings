@@ -36,16 +36,19 @@ partial model PartialChilledWaterPlant
     if not have_secondary then mCHWPri_flow_nominal else
     dat.getReal(varName=id + ".ChilledWater.mCHWSec_flow_nominal.value")
     "CHW secondary mass flow rate";
+  parameter Modelica.Units.SI.PressureDifference dpDem_nominal=
+    dat.getReal(varName=id + ".ChilledWater.dpSetPoi.value")
+    "Differential pressure setpoint on the demand side";
 
-  inner parameter Integer nChi "Number of chillers";
+  inner parameter Integer nChi "Number of chillers"
     annotation (Evaluate=true, Dialog(group="Configuration"));
-  inner parameter Integer nPumPri "Number of primary pumps";
+  inner parameter Integer nPumPri "Number of primary pumps"
     annotation (Evaluate=true, Dialog(group="Configuration"));
-  inner parameter Integer nPumSec "Number of secondary pumps";
+  inner parameter Integer nPumSec "Number of secondary pumps"
     annotation (Evaluate=true, Dialog(group="Configuration"));
-  inner parameter Integer nPumCon "Number of condenser pumps";
+  inner parameter Integer nPumCon "Number of condenser pumps"
     annotation (Evaluate=true, Dialog(group="Configuration"));
-  inner parameter Integer nCooTow "Number of cooling towers";
+  inner parameter Integer nCooTow = nChi "Number of cooling towers"
     annotation (Evaluate=true, Dialog(group="Configuration"));
 
   parameter Boolean have_CHWDedPum

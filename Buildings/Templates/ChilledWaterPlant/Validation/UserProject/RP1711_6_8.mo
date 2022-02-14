@@ -3,7 +3,10 @@ model RP1711_6_8
   "Parallel Chillers with WSE, Primary-Secondary CHW, Variable CW, Headered Pumps"
   //ToDo
   extends Buildings.Templates.ChilledWaterPlant.WaterCooled(
-    cooTowGro(final nCooTow=2),
+    final nCooTow=2,
+    redeclare
+      Buildings.Templates.ChilledWaterPlant.Components.CoolingTowerGroup.CoolingTowerParallel
+      cooTowGro,
     redeclare
       Buildings.Templates.ChilledWaterPlant.Components.ChillerGroup.ChillerParallel
       chiGro(final nChi=2, redeclare

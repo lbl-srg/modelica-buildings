@@ -1,4 +1,4 @@
-within Buildings.Templates.ChilledWaterPlant.Components.Controls;
+﻿within Buildings.Templates.ChilledWaterPlant.Components.Controls;
 block Guideline36WaterCooled
   "Guideline 36 controller for CHW plant with water-cooled chillers"
   extends Interfaces.PartialController(
@@ -23,7 +23,7 @@ block Guideline36WaterCooled
     "Chiller type. Recommended staging order: positive displacement, variable speed centrifugal, constant speed centrifugal"
     annotation (Dialog(tab="General", group="Chillers configuration"));
 
-  parameter Real capChi_min[nChi](each final unit="W", each final min=0) =
+  parameter Real capChi_min[nChi](each final unit="W", each final min=0)=
     0.3 .* capChi_nominal
     "Chiller minimum cycling load"
     annotation (Dialog(tab="General", group="Chillers configuration"));

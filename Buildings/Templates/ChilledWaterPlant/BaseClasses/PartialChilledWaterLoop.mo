@@ -30,18 +30,6 @@ model PartialChilledWaterLoop
     "= true if secondary return chilled water flow is measured"
     annotation(Dialog(enable=have_secondary));
 
-  // FIXME: Dedup parameters with interface class
-  parameter Modelica.Units.SI.MassFlowRate mPri_flow_nominal=
-    dat.getReal(varName=id + ".ChilledWater.mPri_flow_nominal.value")
-    "Primary mass flow rate";
-  parameter Modelica.Units.SI.MassFlowRate mSec_flow_nominal=
-    if not have_secondary then mPri_flow_nominal else
-    dat.getReal(varName=id + ".ChilledWater.mSec_flow_nominal.value")
-    "Secondary mass flow rate";
-  parameter Modelica.Units.SI.PressureDifference dpDem_nominal=
-    dat.getReal(varName=id + ".ChilledWater.dpSetPoi.value")
-    "Differential pressure setpoint on the demand side";
-
   final inner parameter Boolean have_parChi=
     chiGro.typ==Buildings.Templates.ChilledWaterPlant.Components.Types.ChillerGroup.ChillerParallel
     "Set to true if the plant has parallel chillers"
@@ -54,7 +42,7 @@ model PartialChilledWaterLoop
      redeclare final package MediumCHW = MediumCHW,
      final Q_flow_nominal=Q_flow_nominal,
      final TCHWSup_nominal=TCHWSup_nominal,
-     final m2_flow_nominal=mPri_flow_nominal)
+     final m2_flow_nominal=mCHWPri_flow_nominal)
     "Chiller group"
     annotation (Placement(transformation(
       extent={{10,-10},{-10,10}},rotation=90,origin={-40,10})));
@@ -63,7 +51,7 @@ model PartialChilledWaterLoop
     retSec constrainedby
     Buildings.Templates.ChilledWaterPlant.Components.ReturnSection.Interfaces.PartialReturnSection(
     redeclare final package MediumCHW = MediumCHW,
-    final m2_flow_nominal=mPri_flow_nominal) "Chilled water return section"
+    final m2_flow_nominal=mCHWPri_flow_nominal) "Chilled water return section"
     annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=90,

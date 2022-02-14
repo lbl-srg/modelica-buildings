@@ -16,7 +16,6 @@ model WaterCooled
        redeclare final package MediumCW = MediumCW,
        final m1_flow_nominal=mCon_flow_nominal),
     final nPumCon=pumCon.nPum,
-    final nCooTow=cooTowGro.nCooTow,
     busCon(final nCooTow=nCooTow));
 
   replaceable package MediumCW=Buildings.Media.Water "Condenser water medium";
@@ -25,12 +24,17 @@ model WaterCooled
     dat.getReal(varName=id + ".CondenserWater.m_flow_nominal.value")
     "Condenser mass flow rate";
 
+  // Note: Ideally, the number of cooling tower nCooTow would be assigned in
+  // cooTowGro and propagated up to the system-wide nCooTow. But surprisingly,
+  // this propagation is not working in Dymola, even if a similar propagation
+  // is working for nChi.
+
   inner replaceable
     Buildings.Templates.ChilledWaterPlant.Components.CoolingTowerGroup.CoolingTowerParallel
     cooTowGro constrainedby
     Buildings.Templates.ChilledWaterPlant.Components.CoolingTowerGroup.Interfaces.PartialCoolingTowerGroup(
       redeclare final package Medium = MediumCW,
-      nCooTow=nChi,
+      final nCooTow=nCooTow,
       final m_flow_nominal=mCon_flow_nominal)
     "Cooling tower group"
     annotation (Placement(transformation(extent={{-180,-20},{-160,0}})));
@@ -86,7 +90,7 @@ equation
   connect(pumCon.busCon, busCon);
 
   // Mechanical
-  connect(TCWRet.port_a, cooTowGro.port_a) 
+  connect(TCWRet.port_a, cooTowGro.port_a)
     annotation (Line(points={{-140,-70},{-192,-70},{-192,-10},{-180,-10}},
       color={0,127,255}));
   connect(cooTowGro.port_b, TCWSup.port_a)

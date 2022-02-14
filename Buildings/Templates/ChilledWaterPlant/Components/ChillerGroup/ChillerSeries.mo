@@ -57,8 +57,8 @@ model ChillerSeries
   inner replaceable Buildings.Templates.Components.Valves.TwoWayTwoPosition valCWChi[nChi]
     if not have_CWDedPum and not isAirCoo
     constrainedby Buildings.Templates.Components.Valves.TwoWayTwoPosition(
-    redeclare each final package Medium = Medium,
-    each final m_flow_nominal=mTot_flow_nominal/nChi,
+    redeclare each final package Medium = MediumCW,
+    each final m_flow_nominal=m1_flow_nominal/nChi,
     each final dpValve_nominal=dpCWValve_nominal)
     "Chiller condenser water-side isolation valves" annotation (Placement(
         transformation(
@@ -122,6 +122,14 @@ equation
           40},{-80,40}}, color={0,127,255}));
   connect(pasCW.port_b, chi.port_a1) annotation (Line(points={{-60,40},{-50,40},
           {-50,60},{-30,60},{-30,12},{-20,12}}, color={0,127,255}));
+  connect(busCon.valCWChi, valCWChi.bus) annotation (Line(
+      points={{0.1,100.1},{0,100.1},{0,80},{-70,80},{-70,70}},
+      color={255,204,51},
+      thickness=0.5), Text(
+      string="%first",
+      index=-1,
+      extent={{6,3},{6,3}},
+      horizontalAlignment=TextAlignment.Left));
   annotation (Icon(graphics={
         Rectangle(
           extent={{-70,80},{70,-80}},

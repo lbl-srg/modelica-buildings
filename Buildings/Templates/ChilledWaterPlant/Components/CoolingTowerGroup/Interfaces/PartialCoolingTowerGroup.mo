@@ -12,9 +12,11 @@ partial model PartialCoolingTowerGroup
   outer parameter ExternData.JSONFile dat
     "External parameter file";
 
-  outer parameter Integer nChi "Number of chillers";
-  parameter Integer nCooTow(final min=1) 
-  "Number of cooling towers (count one tower for each cell)";
+  outer parameter Integer nChi "Number of chillers"
+  annotation (Evaluate=true, Dialog(group="Configuration"));
+  parameter Integer nCooTow(final min=1)
+  "Number of cooling towers (count one tower for each cell)"
+  annotation (Evaluate=true, Dialog(group="Configuration"));
 
   Buildings.Templates.ChilledWaterPlant.BaseClasses.BusChilledWater busCon(
     final nChi=nChi, final nCooTow=nCooTow)
