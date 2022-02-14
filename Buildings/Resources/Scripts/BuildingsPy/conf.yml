@@ -167,10 +167,6 @@
   openmodelica:
     comment: timed out after 300 seconds
     simulate: false
-- model_name: Buildings.Fluid.Geothermal.BuriedPipes.Validation.GroundCouplingAIT
-  openmodelica:
-    comment: Timed out after 300 seconds, https://app.travis-ci.com/github/lbl-srg/modelica-buildings/jobs/559381269#L479
-    simulate: false
 - model_name: Buildings.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.LoadAggregation.Validation.TemperatureResponseMatrix
   openmodelica:
     comment: simulation terminated by an assertion at initialization
@@ -210,6 +206,10 @@
 - model_name: Buildings.Fluid.Geothermal.BuriedPipes.Examples.TwoBuriedPipes
   openmodelica:
     comment: returned non-zero exit status 255.
+    simulate: false
+- model_name: Buildings.Fluid.Geothermal.BuriedPipes.Validation.GroundCouplingAIT
+  openmodelica:
+    comment: Timed out after 300 seconds, https://app.travis-ci.com/github/lbl-srg/modelica-buildings/jobs/559381269#L479
     simulate: false
 - model_name: Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Examples.ApparatusDewPoint
   openmodelica:
